@@ -18,6 +18,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import tinker.tconstruct.AbilityHelper;
 import tinker.tconstruct.TConstruct;
+import tinker.tconstruct.TConstructContent;
+import tinker.tconstruct.crafting.ToolBuilder;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -307,31 +309,30 @@ public abstract class ToolCore extends Item
 			return "";
 		}
 	}
+	
+	static String[] toolMaterialNames = {
+		"Wooden ", "Stone ", "Iron ", "Flint ", "Cactus ", "Bone ", "Obsidian ", "Nethrrack ", "Slime ", "Paper ", "Cobalt ", "Ardite ", "Manyullyn " 
+	};
 
 	/* Creative mode tools */
 	public void getSubItems (int id, CreativeTabs tab, List list)
 	{
-		/*for (int i = 0; i < 13; i++)
-			list.add(getDefaultItem(id, i));*/
+		for (int i = 0; i < 13; i++)
+		{
+			Item accessory = getAccessoryItem();
+			ItemStack accessoryStack = accessory != null ? new ItemStack(getAccessoryItem(), 1, i) : null;
+			ItemStack tool = ToolBuilder.instance.buildTool(new ItemStack(getHeadItem(), 1, i), new ItemStack(getHandleItem(), 1, i), accessoryStack, toolMaterialNames[i]+getToolName());
+			tool.getTagCompound().getCompoundTag("InfiTool").setBoolean("Built", true);
+			list.add( tool );
+		}
 	}
 
-	ItemStack getDefaultItem (int id, int type)
+	protected abstract Item getHeadItem();
+	protected abstract Item getAccessoryItem();
+	
+	protected Item getHandleItem()
 	{
-		ItemStack tool = new ItemStack(id, 1, 0);
-
-		NBTTagCompound compound = new NBTTagCompound();
-		compound.setCompoundTag("InfiTool", new NBTTagCompound());
-		compound.getCompoundTag("InfiTool").setInteger("Head", type);
-		compound.getCompoundTag("InfiTool").setInteger("Handle", 0);
-		compound.getCompoundTag("InfiTool").setInteger("Accessory", type);
-
-		compound.getCompoundTag("InfiTool").setInteger("Damage", 0);
-		compound.getCompoundTag("InfiTool").setInteger("MaxDamage", 20);
-		compound.getCompoundTag("InfiTool").setBoolean("Broken", false);
-
-		//compound.getCompoundTag("display").setString("Name", "Sword of Testing");
-		tool.setTagCompound(compound);
-		return tool;
+		return TConstructContent.toolRod;
 	}
 
 	/* Tool uses */

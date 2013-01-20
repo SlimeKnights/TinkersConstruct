@@ -60,7 +60,6 @@ public class AbilityHelper
 		{
 			int damage = tags.getCompoundTag("InfiTool").getInteger("Damage");
 			int maxDamage = tags.getCompoundTag("InfiTool").getInteger("TotalDurability");
-
 			if ((damage + dam) > maxDamage)
 			{
 				breakTool(stack, tags, entity);
@@ -238,7 +237,8 @@ public class AbilityHelper
 			else
 				mob.attackEntityFrom(DamageSource.causeMobDamage(player), attack);
 		}
-		if (mob.hurtResistantTime <= 0)
+		System.out.println("Hit entity");
+		//if (mob.hurtResistantTime <= 0)
 			damageTool(stack, 1, tags, player);
 	}
 

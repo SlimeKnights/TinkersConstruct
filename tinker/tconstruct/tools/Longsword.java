@@ -1,11 +1,13 @@
 package tinker.tconstruct.tools;
 
 import tinker.tconstruct.AbilityHelper;
+import tinker.tconstruct.TConstructContent;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
@@ -37,6 +39,18 @@ public class Longsword extends Weapon
 			AbilityHelper.thrust(stack, world, player);
 		player.swingItem();
     }
+
+	@Override
+	protected Item getHeadItem ()
+	{
+		return TConstructContent.swordBlade;
+	}
+
+	@Override
+	protected Item getAccessoryItem ()
+	{
+		return TConstructContent.medGuard;
+	}
 	
 	/*@Override
 	public boolean hitEntity(ItemStack stack, EntityLiving mob, EntityLiving player)

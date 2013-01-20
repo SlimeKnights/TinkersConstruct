@@ -14,9 +14,9 @@ public class PHConstruct {
          * Second: Create the actual config file
          * Note: Configs are a pain, but absolutely necessary for every mod.
          */
-        File file = new File(TConstruct.proxy.getLocation() + "/config/TinkersWorkshop");
+        File file = new File(TConstruct.proxy.getLocation() + "/config");
         file.mkdir();
-        File newFile = new File(TConstruct.proxy.getLocation() + "/config/TinkersWorkshop/TConstruct.txt");
+        File newFile = new File(TConstruct.proxy.getLocation() + "/config/TinkersWorkshop.txt");
 
         /* Some basic debugging will go a long way */
         try
@@ -69,7 +69,7 @@ public class PHConstruct {
         frypanHead = config.getItem("Tool Parts", "Frypan Head", 14035).getInt(14035);
         signHead = config.getItem("Tool Parts", "Sign Head", 14036).getInt(14036);
         
-        lumberHead = config.getItem("Tool Parts", "Lumber Axe Head", 14036).getInt(14036);
+        lumberHead = config.getItem("Tool Parts", "Lumber Axe Head", 14037).getInt(14037);
         
         pickaxe = config.getItem("Tools", "Pickaxe", 14051).getInt(14051);
         shovel = config.getItem("Tools", "Shovel", 14052).getInt(14052);

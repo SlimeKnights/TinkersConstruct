@@ -27,6 +27,7 @@ public class SmelteryBlock extends InventoryBlock
 		setStepSound(soundMetalFootstep);
 		rand = new Random();
 		this.setCreativeTab(TConstruct.blockTab);
+		this.setBlockName("tconstruct.Smeltery");
 	}
 
 	public String getTextureFile ()
@@ -166,6 +167,12 @@ public class SmelteryBlock extends InventoryBlock
 	public void onBlockPlacedElsewhere(World world, int x, int y, int z, EntityLiving entityliving)
 	{
 		SmelteryLogic logic = (SmelteryLogic) world.getBlockTileEntity(x, y, z);
-		logic.scanWorld();
+		logic.checkValidPlacement();
+	}
+	
+	@Override
+	public void breakBlock (World world, int x, int y, int z, int par5, int par6) //Don't drop inventory
+	{
+		world.removeBlockTileEntity(x, y, z);
 	}
 }

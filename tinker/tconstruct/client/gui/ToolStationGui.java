@@ -40,7 +40,7 @@ public class ToolStationGui extends GuiContainer
 		this.text.setVisible(true);
 		this.text.setCanLoseFocus(false);
 		this.text.setFocused(true);
-		this.text.setTextColor(16777215);
+		this.text.setTextColor(0xffffff);
 
 		resetGui();
 	}
@@ -145,7 +145,7 @@ public class ToolStationGui extends GuiContainer
 		ItemStack stack = logic.getStackInSlot(0);
 		ToolCore tool = (ToolCore) stack.getItem();
 		NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
-		this.drawCenteredString(fontRenderer, "\u00A7n"+tool.getToolName(), xSize + 63, 8, 16777215);
+		this.drawCenteredString(fontRenderer, "\u00A7n"+tool.getToolName(), xSize + 63, 8, 0xffffff);
 		if (tool instanceof Weapon)
 			drawWeaponStats(stack, tool, tags);
 		else if (tool.getHeadType() == 3)
@@ -159,13 +159,13 @@ public class ToolStationGui extends GuiContainer
 		int dur = tags.getInteger("Damage");
 		int maxDur = tags.getInteger("TotalDurability");
 		dur = maxDur - dur;
-		fontRenderer.drawString("Durability: " + dur + "/" + maxDur, xSize + 8, 24, 16777215);
+		fontRenderer.drawString("Durability: " + dur + "/" + maxDur, xSize + 8, 24, 0xffffff);
 		int damage = tags.getInteger("Attack");
-		fontRenderer.drawString("Damage: " + damage, xSize + 8, 35, 16777215);
+		fontRenderer.drawString("Damage: " + damage, xSize + 8, 35, 0xffffff);
 
-		fontRenderer.drawString("Modifiers remaining: " + tags.getInteger("Modifiers"), xSize + 8, 57, 16777215);
+		fontRenderer.drawString("Modifiers remaining: " + tags.getInteger("Modifiers"), xSize + 8, 57, 0xffffff);
 		if (tags.hasKey("Tooltip1"));
-			fontRenderer.drawString("Modifiers:", xSize + 8, 68, 16777215);
+			fontRenderer.drawString("Modifiers:", xSize + 8, 68, 0xffffff);
 		
 		boolean displayToolTips = true;
 		int tipNum = 0;
@@ -176,7 +176,7 @@ public class ToolStationGui extends GuiContainer
 			if (tags.hasKey(tooltip))
 			{
 				String tipName = tags.getString(tooltip);
-				fontRenderer.drawString("- "+tipName, xSize + 8, 68 + tipNum*11, 16777215);
+				fontRenderer.drawString("- "+tipName, xSize + 8, 68 + tipNum*11, 0xffffff);
 			}
 			else
 				displayToolTips = false;
@@ -188,16 +188,16 @@ public class ToolStationGui extends GuiContainer
 		int dur = tags.getInteger("Damage");
 		int maxDur = tags.getInteger("TotalDurability");
 		dur = maxDur - dur;
-		fontRenderer.drawString("Durability: " + dur + "/" + maxDur, xSize + 8, 24, 16777215);
+		fontRenderer.drawString("Durability: " + dur + "/" + maxDur, xSize + 8, 24, 0xffffff);
 		int damage = tags.getInteger("Attack");
-		fontRenderer.drawString("Damage: " + damage, xSize + 8, 35, 16777215);
+		fontRenderer.drawString("Damage: " + damage, xSize + 8, 35, 0xffffff);
 		float mineSpeed = tags.getInteger("MiningSpeed") / 100f;
-		fontRenderer.drawString("Mining Speed: " + mineSpeed, xSize + 8, 46, 16777215);
-		fontRenderer.drawString("Mining Level: " + getHarvestLevelName(tags.getInteger("HarvestLevel")), xSize + 8, 57, 16777215);
+		fontRenderer.drawString("Mining Speed: " + mineSpeed, xSize + 8, 46, 0xffffff);
+		fontRenderer.drawString("Mining Level: " + getHarvestLevelName(tags.getInteger("HarvestLevel")), xSize + 8, 57, 0xffffff);
 
-		fontRenderer.drawString("Modifiers remaining: " + tags.getInteger("Modifiers"), xSize + 8, 79, 16777215);
+		fontRenderer.drawString("Modifiers remaining: " + tags.getInteger("Modifiers"), xSize + 8, 79, 0xffffff);
 		if (tags.hasKey("Tooltip1"));
-			fontRenderer.drawString("Modifiers:", xSize + 8, 90, 16777215);
+			fontRenderer.drawString("Modifiers:", xSize + 8, 90, 0xffffff);
 	
 		boolean displayToolTips = true;
 		int tipNum = 0;
@@ -208,7 +208,7 @@ public class ToolStationGui extends GuiContainer
 			if (tags.hasKey(tooltip))
 			{
 				String tipName = tags.getString(tooltip);
-				fontRenderer.drawString("- "+tipName, xSize + 8, 90 + tipNum*11, 16777215);
+				fontRenderer.drawString("- "+tipName, xSize + 8, 90 + tipNum*11, 0xffffff);
 			}
 			else
 				displayToolTips = false;
@@ -220,18 +220,18 @@ public class ToolStationGui extends GuiContainer
 		int dur = tags.getInteger("Damage");
 		int maxDur = tags.getInteger("TotalDurability");
 		dur = maxDur - dur;
-		fontRenderer.drawString("Durability: " + dur + "/" + maxDur, xSize + 8, 24, 16777215);
+		fontRenderer.drawString("Durability: " + dur + "/" + maxDur, xSize + 8, 24, 0xffffff);
 		float mineSpeed = tags.getInteger("MiningSpeed") / 100f;
 		float mineSpeed2 = tags.getInteger("MiningSpeed2") / 100f;
-		fontRenderer.drawString("Mining Speeds: ", xSize + 8, 35, 16777215);
-		fontRenderer.drawString("- "+mineSpeed+", "+mineSpeed2, xSize + 8, 46, 16777215);
-		fontRenderer.drawString("Harvest Levels:", xSize + 8, 57, 16777215);
-		fontRenderer.drawString("- " + getHarvestLevelName(tags.getInteger("HarvestLevel")), xSize + 8, 68, 16777215);
-		fontRenderer.drawString("- " + getHarvestLevelName(tags.getInteger("HarvestLevel2")), xSize + 8, 79, 16777215);
+		fontRenderer.drawString("Mining Speeds: ", xSize + 8, 35, 0xffffff);
+		fontRenderer.drawString("- "+mineSpeed+", "+mineSpeed2, xSize + 8, 46, 0xffffff);
+		fontRenderer.drawString("Harvest Levels:", xSize + 8, 57, 0xffffff);
+		fontRenderer.drawString("- " + getHarvestLevelName(tags.getInteger("HarvestLevel")), xSize + 8, 68, 0xffffff);
+		fontRenderer.drawString("- " + getHarvestLevelName(tags.getInteger("HarvestLevel2")), xSize + 8, 79, 0xffffff);
 
-		fontRenderer.drawString("Modifiers remaining: " + tags.getInteger("Modifiers"), xSize + 8, 90, 16777215);
+		fontRenderer.drawString("Modifiers remaining: " + tags.getInteger("Modifiers"), xSize + 8, 90, 0xffffff);
 		if (tags.hasKey("Tooltip1"));
-			fontRenderer.drawString("Modifiers:", xSize + 8, 101, 16777215);
+			fontRenderer.drawString("Modifiers:", xSize + 8, 101, 0xffffff);
 	
 		boolean displayToolTips = true;
 		int tipNum = 0;
@@ -242,7 +242,7 @@ public class ToolStationGui extends GuiContainer
 			if (tags.hasKey(tooltip))
 			{
 				String tipName = tags.getString(tooltip);
-				fontRenderer.drawString("- "+tipName, xSize + 8, 101 + tipNum*11, 16777215);
+				fontRenderer.drawString("- "+tipName, xSize + 8, 101 + tipNum*11, 0xffffff);
 			}
 			else
 				displayToolTips = false;
@@ -251,8 +251,8 @@ public class ToolStationGui extends GuiContainer
 
 	void drawToolInformation ()
 	{
-		this.drawCenteredString(fontRenderer, title, xSize + 63, 8, 16777215);
-		fontRenderer.drawSplitString(body, xSize + 8, 24, 115, 16777215);
+		this.drawCenteredString(fontRenderer, title, xSize + 63, 8, 0xffffff);
+		fontRenderer.drawSplitString(body, xSize + 8, 24, 115, 0xffffff);
 	}
 
 	String getHarvestLevelName (int num)

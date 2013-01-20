@@ -1,5 +1,6 @@
 package tinker.tconstruct.blocks;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
@@ -18,6 +19,7 @@ public class LavaTankBlock extends BlockContainer
 		super(id, 49, Material.iron);
 		setCreativeTab(TConstruct.blockTab);
 		setBlockName("TConstruct.LavaTank");
+		setStepSound(Block.soundGlassFootstep);
 	}
 	
 	@Override
@@ -51,7 +53,7 @@ public class LavaTankBlock extends BlockContainer
 		if (liquid != null)
 		{
 			LavaTankLogic logic = (LavaTankLogic) world.getBlockTileEntity(x, y, z);
-			int amount = logic.fill(0, liquid, true);
+			int amount = logic.fill(liquid, true);
 			if (amount > 0)
 				return true;
 			else

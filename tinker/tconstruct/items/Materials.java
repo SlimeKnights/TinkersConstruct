@@ -39,5 +39,5 @@ public class Materials extends Item
     }
 	
 	public static final String[] materialNames = new String[] { 
-		"PaperStack", "SlimeCrystal", "HardenedBrick", "CobaltIngot", "ArditeIngot", "ManyullynIngot" };
+		"PaperStack", "SlimeCrystal", "SearedBrick", "CobaltIngot", "ArditeIngot", "ManyullynIngot" };
 }

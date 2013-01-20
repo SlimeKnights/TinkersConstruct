@@ -18,12 +18,12 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkRegistry;
 
-/** TConstruct, the successor to InfiTools
- * Now with many much more combinations and many much less IDs!
+/** TConstruct, the tool mod.
+ * Craft your tools with style, then modify until the original is gone!
  * @author: mDiyo
  */
 
-@Mod(modid = "TConstruct", name = "TConstruct", version = "A16")
+@Mod(modid = "TConstruct", name = "TConstruct", version = "A17")
 @NetworkMod(serverSideRequired = false, clientSideRequired = true)
 public class TConstruct 
 {
@@ -41,12 +41,12 @@ public class TConstruct
 	{
 		MinecraftForge.EVENT_BUS.register(this);
 		PHConstruct.initProps();
-		materialTab = new TabTools("TConMaterials");
-		toolTab = new TabTools("TConstruct");
+		materialTab = new TabTools("TConstructMaterials");
+		toolTab = new TabTools("TConstructTools");
 		blockTab = new TabTools("TConstructBlocks");
 		content = new TConstructContent();
 		
-		NetworkRegistry.instance().registerGuiHandler(instance, new GuiHandler());
+		NetworkRegistry.instance().registerGuiHandler(instance, new TConstructGuiHandler());
 		addToolButtons();
 	}
 	

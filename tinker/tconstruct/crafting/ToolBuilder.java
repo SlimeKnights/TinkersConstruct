@@ -1,6 +1,6 @@
 package tinker.tconstruct.crafting;
 
-
+/** Once upon a time, too many tools to count. Let's put them together automatically */
 import java.util.*;
 
 import tinker.tconstruct.EnumMaterial;

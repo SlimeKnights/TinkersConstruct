@@ -63,6 +63,8 @@ public class ModRepair extends ToolMod
 			damage = 0;
 		tags.setInteger("Damage", damage);
 		
+		tool.setItemDamage(damage * 100 / dur);
+		
 		int repair = tags.getInteger("RepairCount");
 		repair += 1;
 		tags.setInteger("RepairCount", repair);

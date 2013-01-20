@@ -1,6 +1,8 @@
 package tinker.tconstruct.tools;
 
+import tinker.tconstruct.TConstructContent;
 import net.minecraft.block.material.Material;
+import net.minecraft.item.Item;
 
 public class Shovel extends HarvestTool
 {
@@ -29,4 +31,16 @@ public class Shovel extends HarvestTool
 	}
 	
 	static Material[] materials = { Material.grass, Material.ground, Material.sand, Material.snow, Material.craftedSnow, Material.clay };
+
+	@Override
+	protected Item getHeadItem ()
+	{
+		return  TConstructContent.shovelHead;
+	}
+
+	@Override
+	protected Item getAccessoryItem ()
+	{
+		return null;
+	}
 }

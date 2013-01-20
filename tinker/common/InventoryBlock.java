@@ -1,12 +1,5 @@
 package tinker.common;
 
-import inficraft.api.machines.BlockLogicBase;
-import inficraft.infiblocks.tech.FurnaceLogic;
-
-import java.util.Random;
-
-import tinker.tconstruct.TConstruct;
-
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLiving;
@@ -18,6 +11,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import tinker.tconstruct.TConstruct;
 
 public abstract class InventoryBlock extends BlockContainer
 {

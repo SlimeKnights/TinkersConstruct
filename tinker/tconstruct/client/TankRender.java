@@ -30,12 +30,12 @@ public class TankRender implements ISimpleBlockRenderingHandler
 		{
 			renderer.renderStandardBlock(block, x, y, z);
 			LavaTankLogic logic = (LavaTankLogic) world.getBlockTileEntity(x, y, z);
-			if (logic.amount > 0)
+			if (logic.getLiquidAmount() > 0)
 			{
 				Block liquidBlock = Block.blocksList[logic.liquid.itemID];
 				if (liquidBlock != null)
 				{
-					renderer.setRenderBounds(0.03, 0.03, 0.03, 0.97, logic.amount/1020f, 0.97);
+					renderer.setRenderBounds(0.03, 0.03, 0.03, 0.97, logic.getLiquidAmount()/1020f, 0.97);
 					renderer.renderStandardBlock(liquidBlock, x, y, z);
 				}
 			}

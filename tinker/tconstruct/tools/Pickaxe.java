@@ -3,6 +3,7 @@ package tinker.tconstruct.tools;
 import tinker.tconstruct.TConstructContent;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.item.Item;
 
 public class Pickaxe extends HarvestTool
 {
@@ -31,4 +32,16 @@ public class Pickaxe extends HarvestTool
 	}
 
 	static Material[] materials = new Material[] { Material.rock, Material.iron, Material.ice, Material.glass, Material.piston, Material.anvil };
+
+	@Override
+	protected Item getHeadItem ()
+	{
+		return  TConstructContent.pickaxeHead;
+	}
+
+	@Override
+	protected Item getAccessoryItem ()
+	{
+		return  TConstructContent.binding;
+	}
 }

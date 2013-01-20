@@ -7,10 +7,12 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import tinker.tconstruct.AbilityHelper;
+import tinker.tconstruct.TConstructContent;
 
 public class LumberAxe extends HarvestTool
 {
@@ -156,5 +158,17 @@ public class LumberAxe extends HarvestTool
 				}
 			}
 		}
+	}
+
+	@Override
+	protected Item getHeadItem ()
+	{
+		return TConstructContent.lumberHead;
+	}
+
+	@Override
+	protected Item getAccessoryItem ()
+	{
+		return null;
 	}
 }

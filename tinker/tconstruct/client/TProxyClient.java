@@ -42,17 +42,23 @@ public class TProxyClient extends TProxyCommon
 	public void addNames() 
 	{
 		LanguageRegistry.addName(TConstructContent.lavaTank, "Lava Tank");
-		LanguageRegistry.instance().addStringLocalization("itemGroup.TConstruct", "TConstruct Tools");
-		LanguageRegistry.instance().addStringLocalization("itemGroup.TConMaterials", "TConstruct Materials");
+		LanguageRegistry.instance().addStringLocalization("itemGroup.TConstructTools", "TConstruct Tools");
+		LanguageRegistry.instance().addStringLocalization("itemGroup.TConstructMaterials", "TConstruct Materials");
+		LanguageRegistry.instance().addStringLocalization("itemGroup.TConstructBlocks", "TConstruct Blocks");
 		
 		LanguageRegistry.instance().addStringLocalization("crafters.ToolStation", "Tool Station");
 		LanguageRegistry.instance().addStringLocalization("crafters.PartBuilder", "Part Builder");
 		LanguageRegistry.instance().addStringLocalization("inventory.PatternChest", "Pattern Chest");
+		LanguageRegistry.instance().addStringLocalization("crafters.Smeltery", "Smeltery");
 		LanguageRegistry.instance().addStringLocalization("crafters.Frypan", "Frying Pan");
 		
 		LanguageRegistry.instance().addStringLocalization("ToolStation.Crafter.name", "Tool Station");
 		LanguageRegistry.instance().addStringLocalization("ToolStation.Parts.name", "Part Crafting");
 		LanguageRegistry.instance().addStringLocalization("ToolStation.PatternChest.name", "Pattern Chest");
+		
+		LanguageRegistry.instance().addStringLocalization("CraftedSoil.Slime.name", "Slimy Mud");
+		LanguageRegistry.instance().addStringLocalization("CraftedSoil.Grout.name", "Grout");
+		LanguageRegistry.instance().addStringLocalization("SearedBrick.Brick.name", "Seared Bricks");
 		
 		for (int mat = 0; mat < materialTypes.length; mat++)
 		{
@@ -64,12 +70,21 @@ public class TProxyClient extends TProxyCommon
 			}			
 		}
 		
+		for (int i = 0; i < materialItemNames.length; i++)
+		{
+			String internalName = "item.tconstruct.Materials."+materialItemInternalNames[i]+".name";
+			String visibleName = materialItemNames[i];
+			LanguageRegistry.instance().addStringLocalization(internalName, "en_US", visibleName);
+		}
+		
 		for (int i = 0; i < patterns.length; i++)
 		{
 			String internalName = "item.tconstruct.Pattern."+patterns[i]+".name";
 			String visibleName = patternNames[i]+" Pattern";
 			LanguageRegistry.instance().addStringLocalization(internalName, "en_US", visibleName);
 		}
+		
+		LanguageRegistry.addName(TConstructContent.smeltery, "Smeltery");
 		
 		LanguageRegistry.addName(TConstructContent.pickaxe, "Pickaxe");
 		LanguageRegistry.addName(TConstructContent.shovel, "Shovel");
@@ -89,6 +104,11 @@ public class TProxyClient extends TProxyCommon
 		return Minecraft.getMinecraftDir();
 	}
 	
+	public static final String[] materialItemInternalNames = new String[] { 
+		"PaperStack", "SlimeCrystal", "SearedBrick", "CobaltIngot", "ArditeIngot", "ManyullynIngot" };
+	
+	public static final String[] materialItemNames = new String[] { 
+		"Paper Stack", "Slime Crystal", "Seared Brick", "Cobalt Ingot", "Ardite Ingot", "Manyullyn Ingot" };
 	
 	public static final String[] toolMaterialNames = new String[] { 
 		"Wood", "Stone", "Iron", "Flint", "Cactus", "Bone", "Obsidian", "Netherrack", "Slime", "Paper", "Cobalt", "Ardite", "Manyullyn" };

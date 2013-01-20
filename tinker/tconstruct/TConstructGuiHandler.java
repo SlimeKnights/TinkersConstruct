@@ -4,23 +4,17 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import tinker.common.InventoryLogic;
-import tinker.tconstruct.client.gui.FrypanGui;
-import tinker.tconstruct.client.gui.PartCrafterGui;
-import tinker.tconstruct.client.gui.PatternChestGui;
-import tinker.tconstruct.client.gui.ToolStationGui;
-import tinker.tconstruct.logic.FrypanLogic;
-import tinker.tconstruct.logic.PartCrafterLogic;
-import tinker.tconstruct.logic.PatternChestLogic;
-import tinker.tconstruct.logic.ToolStationLogic;
+import tinker.tconstruct.client.gui.*;
+import tinker.tconstruct.logic.*;
 import cpw.mods.fml.common.network.IGuiHandler;
 
-public class GuiHandler implements IGuiHandler
+public class TConstructGuiHandler implements IGuiHandler
 {
-	int stationID = 0;
-	int partID = 1;
-	int pchestID = 2;
-	int smeltery = 3;
-	int frypanID = 4;
+	public static int stationID = 0;
+	public static int partID = 1;
+	public static int pchestID = 2;
+	public static int smeltery = 3;
+	public static int frypanID = 4;
 
 	@Override
 	public Object getServerGuiElement (int ID, EntityPlayer player, World world, int x, int y, int z)
@@ -40,6 +34,8 @@ public class GuiHandler implements IGuiHandler
 			return new PartCrafterGui(player.inventory, (PartCrafterLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
 		if (ID == pchestID)
 			return new PatternChestGui(player.inventory, (PatternChestLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
+		if (ID == smeltery)
+			return new SmelteryGui(player.inventory, (SmelteryLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
 		if (ID == frypanID)
 			return new FrypanGui(player.inventory, (FrypanLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
 		return null;

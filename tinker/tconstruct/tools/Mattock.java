@@ -1,9 +1,11 @@
 package tinker.tconstruct.tools;
 
 import tinker.tconstruct.AbilityHelper;
+import tinker.tconstruct.TConstructContent;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
@@ -52,4 +54,16 @@ public class Mattock extends DualHarvestTool
     {
         return AbilityHelper.hoeGround(stack, player, world, x, y, z, side, random);
     }
+
+	@Override
+	protected Item getHeadItem ()
+	{
+		return TConstructContent.axeHead;
+	}
+
+	@Override
+	protected Item getAccessoryItem ()
+	{
+		return TConstructContent.shovelHead;
+	}
 }

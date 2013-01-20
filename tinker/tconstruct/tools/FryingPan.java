@@ -2,6 +2,7 @@ package tinker.tconstruct.tools;
 
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -90,4 +91,16 @@ public class FryingPan extends Weapon
             }
         }
     }
+
+	@Override
+	protected Item getHeadItem ()
+	{
+		return TConstructContent.frypanHead;
+	}
+
+	@Override
+	protected Item getAccessoryItem ()
+	{
+		return null;
+	}
 }

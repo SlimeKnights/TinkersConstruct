@@ -1,16 +1,23 @@
 package tinker.tconstruct.blocks;
 
-import tinker.tconstruct.TConstructContent;
+import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.ItemStack;
+import tinker.tconstruct.TConstruct;
+import tinker.tconstruct.TConstructContent;
 
 public class TConstructBlock extends Block
 {
-
-	public TConstructBlock(int id, int tex, Material material, float hardness)
+	int subblocks;
+	public TConstructBlock(int id, int tex, Material material, float hardness, int sub)
 	{
 		super(id, tex, material);
 		setHardness(hardness);
+		this.setCreativeTab(TConstruct.blockTab);
+		subblocks = sub;
 	}
 
 	@Override
@@ -31,4 +38,12 @@ public class TConstructBlock extends Block
 		return TConstructContent.blockTexture;
 	}
 
+	@Override
+	public void getSubBlocks (int id, CreativeTabs tab, List list)
+	{
+		for (int iter = 0; iter < subblocks; iter++)
+		{
+			list.add(new ItemStack(id, 1, iter));
+		}
+	}
 }

@@ -1,11 +1,13 @@
 package tinker.tconstruct.tools;
 
 import tinker.tconstruct.AbilityHelper;
+import tinker.tconstruct.TConstructContent;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
@@ -15,7 +17,7 @@ public class Rapier extends Weapon
 	public Rapier(int itemID, String tex)
 	{
 		super(itemID, 2, tex);
-		this.setItemName("InfiTool.FencingSword");
+		this.setItemName("InfiTool.Rapier");
 	}
 	
 	public EnumAction getItemUseAction(ItemStack par1ItemStack)
@@ -42,5 +44,17 @@ public class Rapier extends Weapon
 	public float getDurabilityModifier ()
 	{
 		return 0.7f;
+	}
+
+	@Override
+	protected Item getHeadItem ()
+	{
+		return TConstructContent.swordBlade;
+	}
+
+	@Override
+	protected Item getAccessoryItem ()
+	{
+		return TConstructContent.crossbar;
 	}
 }

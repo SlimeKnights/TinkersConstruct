@@ -10,7 +10,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 
-public class Weapon extends ToolCore
+public abstract class Weapon extends ToolCore
 {
 
 	public Weapon(int itemID, int baseDamage, String texture)

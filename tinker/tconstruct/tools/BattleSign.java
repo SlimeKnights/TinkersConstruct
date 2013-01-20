@@ -1,6 +1,7 @@
 package tinker.tconstruct.tools;
 
 import tinker.tconstruct.AbilityHelper;
+import tinker.tconstruct.TConstructContent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -8,6 +9,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntitySign;
 import net.minecraft.util.MathHelper;
@@ -27,6 +29,11 @@ public class BattleSign extends Weapon
 			player.setItemInUse(stack, this.getMaxItemUseDuration(stack));
         return stack;
     }
+	
+	public String getToolName ()
+	{
+		return "Battle Sign";
+	}
 	
 	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer player, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10)
     {
@@ -97,4 +104,16 @@ public class BattleSign extends Weapon
             }
         }
     }
+
+	@Override
+	protected Item getHeadItem ()
+	{
+		return  TConstructContent.signHead;
+	}
+
+	@Override
+	protected Item getAccessoryItem ()
+	{
+		return null;
+	}
 }

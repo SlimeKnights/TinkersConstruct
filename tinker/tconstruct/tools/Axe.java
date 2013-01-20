@@ -1,9 +1,11 @@
 package tinker.tconstruct.tools;
 
 import tinker.tconstruct.AbilityHelper;
+import tinker.tconstruct.TConstructContent;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
@@ -44,4 +46,16 @@ public class Axe extends HarvestTool
 	}
 
 	static Material[] materials = { Material.wood, Material.circuits, Material.cactus, Material.pumpkin };
+
+	@Override
+	protected Item getHeadItem ()
+	{
+		return TConstructContent.axeHead;
+	}
+
+	@Override
+	protected Item getAccessoryItem ()
+	{
+		return null;
+	}
 }

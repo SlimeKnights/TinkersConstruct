@@ -4,6 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.ShapedOreRecipe;
@@ -122,15 +123,15 @@ public class TConstructContent
 		GameRegistry.registerBlock(smeltery, "Smeltery");
 		GameRegistry.registerTileEntity(tinker.tconstruct.logic.SmelteryLogic.class, "TConstruct.Smeltery");
 		
-		craftedSoil = new TConstructBlock(PHConstruct.craftedSoil, 96, Material.sand, 3.0F);
+		craftedSoil = new TConstructBlock(PHConstruct.craftedSoil, 96, Material.sand, 3.0F, 2);
 		craftedSoil.stepSound = Block.soundGravelFootstep;
 		GameRegistry.registerBlock(craftedSoil, tinker.tconstruct.blocks.CraftedSoilItemBlock.class, "CraftedSoil");
 		
-		searedBrick = new TConstructBlock(PHConstruct.searedBrick, 80, Material.iron, 10.0F);
+		searedBrick = new TConstructBlock(PHConstruct.searedBrick, 80, Material.iron, 10.0F, 1);
 		GameRegistry.registerBlock(searedBrick, tinker.tconstruct.blocks.SearedBrickItemBlock.class, "SearedBrick");
 		MinecraftForge.setBlockHarvestLevel(searedBrick, 0, "pickaxe", 2);
 
-		materials = new Materials(PHConstruct.materials, 64, craftingTexture).setItemName("tconstruct.Materials");
+		materials = new Materials(PHConstruct.materials, 128, craftingTexture).setItemName("tconstruct.Materials");
 		toolRod = new ToolPart(PHConstruct.toolRod, 0, craftingTexture).setItemName("tconstruct.ToolRod");
 		toolShard = new ToolPart(PHConstruct.toolShard, 64, craftingTexture).setItemName("tconstruct.ToolShard");
 		woodPattern = new Pattern(PHConstruct.woodPattern, 0, patternTexture).setItemName("tconstruct.Pattern");
@@ -176,8 +177,8 @@ public class TConstructContent
 		pb.registerFullMaterial(Item.bone, 2, "bone", new ItemStack(toolShard, 1, 5), new ItemStack(Item.bone), 5);
 		pb.registerFullMaterial(Block.obsidian, 2, "obsidian", 6);
 		pb.registerFullMaterial(Block.netherrack, 2, "netherrack", 7);
-		pb.registerFullMaterial(Item.slimeBall, 2, "slime", 8); //TODO: Register a better material
-		pb.registerFullMaterial(Item.paper, 2, "paper", new ItemStack(Item.paper), new ItemStack(toolRod, 1, 9), 9); //TODO: Register a better material
+		pb.registerFullMaterial(new ItemStack(materials, 1, 1), 2, "slime", new ItemStack(toolShard, 1, 8), new ItemStack(toolRod, 1, 8), 8);
+		pb.registerFullMaterial(new ItemStack(materials, 1, 0), 2, "paper", new ItemStack(Item.paper), new ItemStack(toolRod, 1, 9), 9);
 		
 		Item[] items = { toolRod, pickaxeHead, shovelHead, axeHead, swordBlade, largeGuard, medGuard, crossbar, binding, frypanHead, signHead, lumberHead };
 		for (int iter = 0; iter < items.length; iter++)
@@ -240,6 +241,14 @@ public class TConstructContent
 		/*GameRegistry.addRecipe(new ItemStack(stonePattern, 1, 0), "ps", "sp", 'p', Block.cobblestone, 's', new ItemStack(toolRod, 1, 1));
 		GameRegistry.addRecipe(new ItemStack(stonePattern, 1, 0), "ps", "sp", 'p', Block.stone, 's', new ItemStack(toolRod, 1, 1));
 		GameRegistry.addRecipe(new ItemStack(netherPattern, 1, 0), "ps", "sp", 'p', Block.netherrack, 's', new ItemStack(toolRod, 1, 7));*/
+		
+		GameRegistry.addRecipe(new ItemStack(materials, 1, 0), "pp", "pp", 'p', Item.paper);
+		GameRegistry.addShapelessRecipe(new ItemStack(craftedSoil, 1, 0), Item.slimeBall, Item.slimeBall, Item.slimeBall, Item.slimeBall, Block.sand, Block.dirt);
+		GameRegistry.addShapelessRecipe(new ItemStack(craftedSoil, 1, 1), Item.clay, Block.sand, Block.dirt); //Add stone dust?
+		
+		FurnaceRecipes.smelting().addSmelting(craftedSoil.blockID, 0, new ItemStack(materials, 1, 1), 2f); //Slime
+		FurnaceRecipes.smelting().addSmelting(craftedSoil.blockID, 1, new ItemStack(materials, 1, 2), 2f); //Seared brick item
+		GameRegistry.addRecipe(new ItemStack(searedBrick, 1, 0), "pp", "pp", 'p', new ItemStack(materials, 1, 2)); //Seared brick block
 		
 		for (int i = 0; i < 12; i++)
 		{
