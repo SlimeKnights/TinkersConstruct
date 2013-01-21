@@ -41,26 +41,33 @@ public class AbilityHelper
 
 		if (random.nextInt(10) < 10 - durability)
 		{
-			damageTool(stack, 1, tags, player);
+			damageTool(stack, 1, tags, player, false);
 		}
 
 		return true;
 	}
 
 	/* Tool specific */
-	public static void damageTool (ItemStack stack, int dam, EntityLiving entity)
+	public static void damageTool (ItemStack stack, int dam, EntityLiving entity, boolean ignoreCharge)
 	{
 		NBTTagCompound tags = stack.getTagCompound();
-		damageTool(stack, dam, tags, entity);
+		damageTool(stack, dam, tags, entity, ignoreCharge);
 	}
 
-	public static void damageTool (ItemStack stack, int dam, NBTTagCompound tags, EntityLiving entity)
+	public static void damageTool (ItemStack stack, int dam, NBTTagCompound tags, EntityLiving entity, boolean ignoreCharge)
 	{
-		if (!damageElectricTool(stack, tags, entity))
+		if (ignoreCharge || !damageElectricTool(stack, tags, entity))
 		{
 			int damage = tags.getCompoundTag("InfiTool").getInteger("Damage");
+			int damageTrue = damage + dam;
+			System.out.println("Damaging tool, damageTrue "+damageTrue+", ignoring charge: "+ignoreCharge);
 			int maxDamage = tags.getCompoundTag("InfiTool").getInteger("TotalDurability");
-			if ((damage + dam) > maxDamage)
+			if (damage + dam <= 0)
+			{
+				return;
+			}
+			
+			else if ((damage + dam) > maxDamage)
 			{
 				breakTool(stack, tags, entity);
 				stack.setItemDamage(0);
@@ -72,9 +79,9 @@ public class AbilityHelper
 				int toolDamage = damage * 100 / maxDamage + 1;
 				//System.out.println("Damage: " + damer);
 				int stackDamage = stack.getItemDamage();
-				if (toolDamage >= stackDamage && toolDamage < 100)
-					stack.damageItem(toolDamage - stackDamage, entity);
-				//stack.setItemDamage(damage * 100 / maxDamage + 1);
+				//if (toolDamage >= stackDamage && toolDamage < 100)
+					//stack.damageItem(toolDamage - stackDamage, entity);
+				stack.setItemDamage(damage * 100 / maxDamage + 1);
 			}
 
 			//stack.setItemDamage(1 + (maxDamage - damage) * (stack.getMaxDamage() - 1) / maxDamage);
@@ -239,7 +246,7 @@ public class AbilityHelper
 		}
 		System.out.println("Hit entity");
 		//if (mob.hurtResistantTime <= 0)
-			damageTool(stack, 1, tags, player);
+			damageTool(stack, 1, tags, player, false);
 	}
 
 	public static DamageSource causePiercingDamage (EntityLiving mob)

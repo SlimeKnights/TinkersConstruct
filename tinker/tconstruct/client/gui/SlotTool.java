@@ -17,7 +17,7 @@ public class SlotTool extends Slot
 {
     /** The player that is using the GUI where this slot resides. */
     private EntityPlayer player;
-
+    
     public SlotTool(EntityPlayer entityplayer, IInventory builder, int par3, int par4, int par5)
     {
         super(builder, par3, par4, par5);
@@ -35,6 +35,7 @@ public class SlotTool extends Slot
     public void onPickupFromSlot(EntityPlayer par1EntityPlayer, ItemStack stack)
     {
         this.onCrafting(stack);
+        //stack.setItemName("\u00A7f" + toolName);
         super.onPickupFromSlot(par1EntityPlayer, stack);
     }
 

@@ -1,20 +1,26 @@
 package tinker.tconstruct.client.gui;
 
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
+
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
 import tinker.tconstruct.TConstruct;
 import tinker.tconstruct.logic.ToolStationLogic;
 import tinker.tconstruct.tools.ToolCore;
 import tinker.tconstruct.tools.Weapon;
+import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -41,20 +47,20 @@ public class ToolStationGui extends GuiContainer
 		this.text.setCanLoseFocus(false);
 		this.text.setFocused(true);
 		this.text.setTextColor(0xffffff);
-
+		toolName = "";
 		resetGui();
+		Keyboard.enableRepeatEvents(true);
 	}
 
 	void resetGui ()
 	{
 		this.text.setText("");
-		toolSlots.setToolName("");
 		guiType = 0;
 		setSlotType(0);
 		iconX = new int[] { 0, 1, 2 };
 		iconY = new int[] { 13, 13, 13 };
 		title = "\u00A7nRepair and Modification";
-		body = "The main way to repair or change your tools. Place a tool in the large slot to get started.\n\nThis window not done yet, stay tuned.";
+		body = "The main way to repair or change your tools. Place a tool and a material on the left to get started.";
 	}
 
 	public void initGui ()
@@ -68,11 +74,11 @@ public class ToolStationGui extends GuiContainer
 		GuiButtonTool repairButton = new GuiButtonTool(0, cornerX - 110, cornerY, repair.buttonIconX, repair.buttonIconY, repair.texture); // Repair
 		repairButton.enabled = false;
 		this.controlList.add(repairButton);
-		
+
 		for (int iter = 1; iter < TConstruct.toolButtons.size(); iter++)
 		{
 			ToolGuiElement element = TConstruct.toolButtons.get(iter);
-			GuiButtonTool button = new GuiButtonTool(iter, cornerX - 110 + 22*(iter%5), cornerY+22*(iter/5), element.buttonIconX, element.buttonIconY, element.texture); // Repair
+			GuiButtonTool button = new GuiButtonTool(iter, cornerX - 110 + 22 * (iter % 5), cornerY + 22 * (iter / 5), element.buttonIconX, element.buttonIconY, element.texture); // Repair
 			this.controlList.add(button);
 		}
 	}
@@ -87,7 +93,7 @@ public class ToolStationGui extends GuiContainer
 		setSlotType(element.slotType);
 		iconX = element.iconsX;
 		iconY = element.iconsY;
-		title = "\u00A7n"+element.title;
+		title = "\u00A7n" + element.title;
 		body = element.body;
 	}
 
@@ -132,7 +138,7 @@ public class ToolStationGui extends GuiContainer
 	{
 		this.fontRenderer.drawString(StatCollector.translateToLocal("crafters.ToolStation"), 6, 6, 4210752);
 		this.fontRenderer.drawString(StatCollector.translateToLocal("container.inventory"), 8, this.ySize - 96 + 2, 4210752);
-		this.fontRenderer.drawString(toolName, this.xSize / 2 - 5, 8, 0);
+		this.fontRenderer.drawString(toolName + "_", this.xSize / 2 - 5, 8, 0);
 
 		if (logic.isStackInSlot(0))
 			drawToolStats();
@@ -145,7 +151,7 @@ public class ToolStationGui extends GuiContainer
 		ItemStack stack = logic.getStackInSlot(0);
 		ToolCore tool = (ToolCore) stack.getItem();
 		NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
-		this.drawCenteredString(fontRenderer, "\u00A7n"+tool.getToolName(), xSize + 63, 8, 0xffffff);
+		this.drawCenteredString(fontRenderer, "\u00A7n" + tool.getToolName(), xSize + 63, 8, 0xffffff);
 		if (tool instanceof Weapon)
 			drawWeaponStats(stack, tool, tags);
 		else if (tool.getHeadType() == 3)
@@ -153,8 +159,8 @@ public class ToolStationGui extends GuiContainer
 		else
 			drawHarvestStats(stack, tool, tags);
 	}
-	
-	void drawWeaponStats(ItemStack stack, ToolCore tool, NBTTagCompound tags) 
+
+	void drawWeaponStats (ItemStack stack, ToolCore tool, NBTTagCompound tags)
 	{
 		int dur = tags.getInteger("Damage");
 		int maxDur = tags.getInteger("TotalDurability");
@@ -164,26 +170,27 @@ public class ToolStationGui extends GuiContainer
 		fontRenderer.drawString("Damage: " + damage, xSize + 8, 35, 0xffffff);
 
 		fontRenderer.drawString("Modifiers remaining: " + tags.getInteger("Modifiers"), xSize + 8, 57, 0xffffff);
-		if (tags.hasKey("Tooltip1"));
-			fontRenderer.drawString("Modifiers:", xSize + 8, 68, 0xffffff);
-		
+		if (tags.hasKey("Tooltip1"))
+			;
+		fontRenderer.drawString("Modifiers:", xSize + 8, 68, 0xffffff);
+
 		boolean displayToolTips = true;
 		int tipNum = 0;
 		while (displayToolTips)
 		{
 			tipNum++;
-			String tooltip = "ModifierTip"+tipNum;
+			String tooltip = "ModifierTip" + tipNum;
 			if (tags.hasKey(tooltip))
 			{
 				String tipName = tags.getString(tooltip);
-				fontRenderer.drawString("- "+tipName, xSize + 8, 68 + tipNum*11, 0xffffff);
+				fontRenderer.drawString("- " + tipName, xSize + 8, 68 + tipNum * 11, 0xffffff);
 			}
 			else
 				displayToolTips = false;
 		}
 	}
-	
-	void drawHarvestStats(ItemStack stack, ToolCore tool, NBTTagCompound tags) 
+
+	void drawHarvestStats (ItemStack stack, ToolCore tool, NBTTagCompound tags)
 	{
 		int dur = tags.getInteger("Damage");
 		int maxDur = tags.getInteger("TotalDurability");
@@ -196,26 +203,27 @@ public class ToolStationGui extends GuiContainer
 		fontRenderer.drawString("Mining Level: " + getHarvestLevelName(tags.getInteger("HarvestLevel")), xSize + 8, 57, 0xffffff);
 
 		fontRenderer.drawString("Modifiers remaining: " + tags.getInteger("Modifiers"), xSize + 8, 79, 0xffffff);
-		if (tags.hasKey("Tooltip1"));
-			fontRenderer.drawString("Modifiers:", xSize + 8, 90, 0xffffff);
-	
+		if (tags.hasKey("Tooltip1"))
+			;
+		fontRenderer.drawString("Modifiers:", xSize + 8, 90, 0xffffff);
+
 		boolean displayToolTips = true;
 		int tipNum = 0;
 		while (displayToolTips)
 		{
 			tipNum++;
-			String tooltip = "ModifierTip"+tipNum;
+			String tooltip = "ModifierTip" + tipNum;
 			if (tags.hasKey(tooltip))
 			{
 				String tipName = tags.getString(tooltip);
-				fontRenderer.drawString("- "+tipName, xSize + 8, 90 + tipNum*11, 0xffffff);
+				fontRenderer.drawString("- " + tipName, xSize + 8, 90 + tipNum * 11, 0xffffff);
 			}
 			else
 				displayToolTips = false;
 		}
 	}
-	
-	void drawDualStats(ItemStack stack, ToolCore tool, NBTTagCompound tags) 
+
+	void drawDualStats (ItemStack stack, ToolCore tool, NBTTagCompound tags)
 	{
 		int dur = tags.getInteger("Damage");
 		int maxDur = tags.getInteger("TotalDurability");
@@ -224,25 +232,26 @@ public class ToolStationGui extends GuiContainer
 		float mineSpeed = tags.getInteger("MiningSpeed") / 100f;
 		float mineSpeed2 = tags.getInteger("MiningSpeed2") / 100f;
 		fontRenderer.drawString("Mining Speeds: ", xSize + 8, 35, 0xffffff);
-		fontRenderer.drawString("- "+mineSpeed+", "+mineSpeed2, xSize + 8, 46, 0xffffff);
+		fontRenderer.drawString("- " + mineSpeed + ", " + mineSpeed2, xSize + 8, 46, 0xffffff);
 		fontRenderer.drawString("Harvest Levels:", xSize + 8, 57, 0xffffff);
 		fontRenderer.drawString("- " + getHarvestLevelName(tags.getInteger("HarvestLevel")), xSize + 8, 68, 0xffffff);
 		fontRenderer.drawString("- " + getHarvestLevelName(tags.getInteger("HarvestLevel2")), xSize + 8, 79, 0xffffff);
 
 		fontRenderer.drawString("Modifiers remaining: " + tags.getInteger("Modifiers"), xSize + 8, 90, 0xffffff);
-		if (tags.hasKey("Tooltip1"));
-			fontRenderer.drawString("Modifiers:", xSize + 8, 101, 0xffffff);
-	
+		if (tags.hasKey("Tooltip1"))
+			;
+		fontRenderer.drawString("Modifiers:", xSize + 8, 101, 0xffffff);
+
 		boolean displayToolTips = true;
 		int tipNum = 0;
 		while (displayToolTips)
 		{
 			tipNum++;
-			String tooltip = "ModifierTip"+tipNum;
+			String tooltip = "ModifierTip" + tipNum;
 			if (tags.hasKey(tooltip))
 			{
 				String tipName = tags.getString(tooltip);
-				fontRenderer.drawString("- "+tipName, xSize + 8, 101 + tipNum*11, 0xffffff);
+				fontRenderer.drawString("- " + tipName, xSize + 8, 101 + tipNum * 11, 0xffffff);
 			}
 			else
 				displayToolTips = false;
@@ -316,12 +325,39 @@ public class ToolStationGui extends GuiContainer
 	{
 		text.textboxKeyTyped(par1, keyCode);
 		toolName = text.getText().trim();
-		toolSlots.setToolName(toolName);
+		logic.setToolname(toolName);
+		updateServer();
 
 		if (keyCode == 1)
 		{
+			Keyboard.enableRepeatEvents(false);
 			this.mc.thePlayer.closeScreen();
 		}
+	}
+
+	void updateServer ()
+	{
+		ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
+		DataOutputStream outputStream = new DataOutputStream(bos);
+		try
+		{
+			outputStream.writeInt(logic.worldObj.getWorldInfo().getDimension());
+			outputStream.writeInt(logic.xCoord);
+			outputStream.writeInt(logic.yCoord);
+			outputStream.writeInt(logic.zCoord);
+			outputStream.writeUTF(toolName);
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
+
+		Packet250CustomPayload packet = new Packet250CustomPayload();
+		packet.channel = "TConstruct";
+		packet.data = bos.toByteArray();
+		packet.length = bos.size();
+		
+		PacketDispatcher.sendPacketToServer(packet);
 	}
 
 	/*protected void mouseClicked(int par1, int par2, int par3)

@@ -41,7 +41,7 @@ public class TProxyClient extends TProxyCommon
 	/* Ties an internal name to a visible one. */
 	public void addNames() 
 	{
-		LanguageRegistry.addName(TConstructContent.lavaTank, "Lava Tank");
+		//LanguageRegistry.addName(TConstructContent.lavaTank, "Lava Tank");
 		LanguageRegistry.instance().addStringLocalization("itemGroup.TConstructTools", "TConstruct Tools");
 		LanguageRegistry.instance().addStringLocalization("itemGroup.TConstructMaterials", "TConstruct Materials");
 		LanguageRegistry.instance().addStringLocalization("itemGroup.TConstructBlocks", "TConstruct Blocks");
@@ -84,7 +84,7 @@ public class TProxyClient extends TProxyCommon
 			LanguageRegistry.instance().addStringLocalization(internalName, "en_US", visibleName);
 		}
 		
-		LanguageRegistry.addName(TConstructContent.smeltery, "Smeltery");
+		//LanguageRegistry.addName(TConstructContent.smeltery, "Smeltery");
 		
 		LanguageRegistry.addName(TConstructContent.pickaxe, "Pickaxe");
 		LanguageRegistry.addName(TConstructContent.shovel, "Shovel");
@@ -105,10 +105,10 @@ public class TProxyClient extends TProxyCommon
 	}
 	
 	public static final String[] materialItemInternalNames = new String[] { 
-		"PaperStack", "SlimeCrystal", "SearedBrick", "CobaltIngot", "ArditeIngot", "ManyullynIngot" };
+		"PaperStack", "SlimeCrystal", "SearedBrick", "CobaltIngot", "ArditeIngot", "ManyullynIngot", "Mossball" };
 	
 	public static final String[] materialItemNames = new String[] { 
-		"Paper Stack", "Slime Crystal", "Seared Brick", "Cobalt Ingot", "Ardite Ingot", "Manyullyn Ingot" };
+		"Paper Stack", "Slime Crystal", "Seared Brick", "Cobalt Ingot", "Ardite Ingot", "Manyullyn Ingot", "Ball of moss" };
 	
 	public static final String[] toolMaterialNames = new String[] { 
 		"Wood", "Stone", "Iron", "Flint", "Cactus", "Bone", "Obsidian", "Netherrack", "Slime", "Paper", "Cobalt", "Ardite", "Manyullyn" };

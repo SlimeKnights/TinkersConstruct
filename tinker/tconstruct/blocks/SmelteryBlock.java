@@ -56,24 +56,34 @@ public class SmelteryBlock extends InventoryBlock
 		InventoryLogic logic = (InventoryLogic) world.getBlockTileEntity(x, y, z);
 		short direction = (logic instanceof IFacingLogic) ? ((IFacingLogic) logic).getDirection() : 0;
 		int meta = world.getBlockMetadata(x, y, z);
-		if (side == 1 || side == 0)
+		if (meta == 0) //Smeltery
 		{
-			return blockIndexInTexture + 3 + meta * 4;
-		}
-		if (side == direction)
-		{
-			if (isActive(world, x, y, z))
+			if (side == 1)
 			{
-				return blockIndexInTexture + 1 + meta * 4;
+				return blockIndexInTexture + 3 + meta * 4;
+			}
+			if (side == direction)
+			{
+				if (isActive(world, x, y, z))
+				{
+					return blockIndexInTexture + 2 + meta * 4;
+				}
+				else
+				{
+					return blockIndexInTexture + 1 + meta * 4;
+				}
 			}
 			else
 			{
 				return blockIndexInTexture + meta * 4;
 			}
 		}
-		else
+		else //Output
 		{
-			return blockIndexInTexture + 2 + meta * 4;
+			if (side == direction)
+				return blockIndexInTexture + 3 + meta*2;
+			else
+				return blockIndexInTexture + 2 + meta*2;
 		}
 	}
 

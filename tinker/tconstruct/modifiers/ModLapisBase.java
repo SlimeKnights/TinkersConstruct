@@ -8,8 +8,6 @@ import net.minecraft.nbt.NBTTagCompound;
 
 public class ModLapisBase extends ToolMod
 {
-	String key;
-
 	public ModLapisBase(ItemStack[] items, int effect)
 	{
 		super(items, effect, "Lapis");

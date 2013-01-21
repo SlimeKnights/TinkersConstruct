@@ -7,21 +7,26 @@ import net.minecraft.nbt.NBTTagCompound;
 
 public class ModInteger extends ToolMod
 {
-	String key;
+	String color;
+	String tooltipName;
 	int initialIncrease;
 	int secondaryIncrease;
 	
-	public ModInteger(ItemStack[] items, int effect, String dataKey, int increase)
+	public ModInteger(ItemStack[] items, int effect, String dataKey, int increase, String c, String tip)
 	{
 		super(items, effect, dataKey);
 		initialIncrease = secondaryIncrease = increase;
+		color = c;
+		tooltipName = tip;
 	}
 	
-	public ModInteger(ItemStack[] items, int effect, String dataKey, int increase1, int increase2)
+	public ModInteger(ItemStack[] items, int effect, String dataKey, int increase1, int increase2, String c, String tip)
 	{
 		super(items, effect, dataKey);
 		initialIncrease = increase1;
 		secondaryIncrease = increase2;
+		color = c;
+		tooltipName = tip;
 	}
 
 	@Override
@@ -32,6 +37,7 @@ public class ModInteger extends ToolMod
 		{
 			int increase = tags.getInteger(key);
 			increase += secondaryIncrease;
+			tags.setInteger(key, increase);
 		}
 		else
 		{
@@ -40,7 +46,10 @@ public class ModInteger extends ToolMod
 		
 		int modifiers = tags.getInteger("Modifiers");
 		modifiers -= 1;
-		tags.setInteger("Modifiers", modifiers);
+		tags.setInteger("Modifiers", modifiers);		
+
+		System.out.println("tooltip: "+color+key);
+		addToolTip(tool, color+tooltipName, color+key);
 	}
 
 }

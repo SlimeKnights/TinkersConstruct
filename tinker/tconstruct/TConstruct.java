@@ -23,8 +23,8 @@ import cpw.mods.fml.common.network.NetworkRegistry;
  * @author: mDiyo
  */
 
-@Mod(modid = "TConstruct", name = "TConstruct", version = "A17")
-@NetworkMod(serverSideRequired = false, clientSideRequired = true)
+@Mod(modid = "TConstruct", name = "TConstruct", version = "A18")
+@NetworkMod(serverSideRequired = false, clientSideRequired = true, channels={"TConstruct"}, packetHandler = tinker.tconstruct.TConstructPacketHandler.class)
 public class TConstruct 
 {
 	/* Instance of this mod, used for grabbing prototype fields */
@@ -73,7 +73,7 @@ public class TConstruct
 		new int[] {1, 4, 0}, //Pickaxe
 		new int[] {2, 5, 0}, //Shovel
 		new int[] {2, 6, 0}, //Axe
-		new int[] {2, 9, 0}, //Lumber Axe
+		//new int[] {2, 9, 0}, //Lumber Axe
 		new int[] {1, 7, 0}, //Ice Axe
 		new int[] {3, 8, 0}, //Mattock
 		new int[] {1, 0, 1}, //Broadsword
@@ -88,7 +88,7 @@ public class TConstruct
 		new int[] { 0, 0, 1 }, new int[] { 2, 3, 3 }, //Pickaxe
 		new int[] { 3, 0, 13 }, new int[] { 2, 3, 13 }, //Shovel
 		new int[] { 2, 0, 13 }, new int[] { 2, 3, 13 }, //Axe
-		new int[] { 6, 0, 13 }, new int[] { 2, 3, 13 }, //Lumber Axe
+		//new int[] { 6, 0, 13 }, new int[] { 2, 3, 13 }, //Lumber Axe
 		new int[] { 0, 0, 5 }, new int[] { 2, 3, 3 }, //Ice Axe
 		new int[] { 2, 0, 3 }, new int[] { 2, 3, 2 }, //Mattock
 		new int[] { 1, 0, 2 }, new int[] { 2, 3, 3 }, //Broadsword
@@ -103,7 +103,7 @@ public class TConstruct
 		"Pickaxe",
 		"Shovel",
 		"Axe",
-		"Lumber Axe",
+		//"Lumber Axe",
 		"Ice Axe",
 		"Mattock",
 		"Broadsword",
@@ -118,7 +118,7 @@ public class TConstruct
 		"The Pickaxe is a basic mining tool. It is effective on stone and ores.\n\nRequired parts:\n- Pickaxe Head\n- Tool Binding\n- Handle",
 		"The Shovel is a basic digging tool. It is effective on dirt and sand.\n\nRequired parts:\n- Shovel Head\n- Handle",
 		"The Axe is a basic chopping tool. It is effective on wood and leaves.\n\nRequired parts:\n- Axe Head\n- Handle",
-		"The Lumber Axe is a broad chopping tool. It harvests wood in a wide range and can fell entire trees.\n\nRequired parts:\n- Broad Axe Head\n- Handle",
+		//"The Lumber Axe is a broad chopping tool. It harvests wood in a wide range and can fell entire trees.\n\nRequired parts:\n- Broad Axe Head\n- Handle",
 		"The Ice Axe is a tool for harvesting ice, mining, and attacking foes.\n\nSpecial Ability:\n- Wall Climb\nNatural Ability:\n- Ice Harvest\nDamage: Moderate\n\nRequired parts:\n- Pickaxe Head\n- Spike\n- Handle",
 		"The Cutter Mattock is a multi-use tool. It is effective on wood, leaves, dirt, and sand.\n\nSpecial Ability: Hoe\n\nRequired parts:\n- Axe Head\n- Shovel Head\n- Handle",
 		"The Broadsword is a defensive weapon. Blocking cuts damage in half.\n\nSpecial Ability: Block\nDamage: Moderate\nDurability: High\n\nRequired parts:\n- Sword Blade\n- Large Guard\n- Handle",

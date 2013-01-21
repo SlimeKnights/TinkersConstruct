@@ -11,7 +11,6 @@ public class ToolStationContainer extends Container
 {
 	InventoryPlayer invPlayer;
 	ToolStationLogic logic;
-	String toolName;
 	Slot[] slots;
 	SlotTool toolSlot;
 	
@@ -40,9 +39,6 @@ public class ToolStationContainer extends Container
         {
         	this.addSlotToContainer(new Slot(inventoryplayer, column, 8 + column * 18, 142));
         }
-        
-        toolName = "";
-		
 	}
 	
 	//posX and posY must be the same length
@@ -87,11 +83,4 @@ public class ToolStationContainer extends Container
     {
 		return null;
     }
-
-	public void setToolName(String name)
-	{
-		toolName = name;
-		logic.buildTool(name);
-		detectAndSendChanges();
-	}
 }

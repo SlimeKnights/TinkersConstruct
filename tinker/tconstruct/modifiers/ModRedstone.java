@@ -88,7 +88,7 @@ public class ModRedstone extends ToolMod
 	{
 		NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
 		String tip = "ModifierTip"+keys[2];
-		String modName = "\u00a7cRedstone ("+keys[0]+"/"+keys[1]+")";
+		String modName = "\u00a74Redstone ("+keys[0]+"/"+keys[1]+")";
 		tags.setString(tip, modName);
 	}
 }

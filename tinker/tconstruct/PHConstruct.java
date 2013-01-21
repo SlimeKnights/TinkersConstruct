@@ -84,6 +84,7 @@ public class PHConstruct {
         battlesign = config.getItem("Tools", "Battlesign", 14059).getInt(14059);
         mattock = config.getItem("Tools", "Mattock", 14060).getInt(14060);
         lumberaxe = config.getItem("Tools", "Lumber Axe", 14061).getInt(14061);
+        longbow = config.getItem("Tools", "Longbow", 14062).getInt(14062);
 
         /* Save the configuration file */
         config.save();
@@ -120,6 +121,7 @@ public class PHConstruct {
     
     public static int frypan;
     public static int battlesign;
+    public static int longbow;
     
     public static int mattock;
     public static int lumberaxe;

@@ -11,7 +11,6 @@ import net.minecraft.nbt.NBTTagList;
 
 public class ModLapisIncrease extends ToolMod
 {
-	String key;
 	int increase;
 
 	public ModLapisIncrease(ItemStack[] items, int effect, int inc)

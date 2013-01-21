@@ -58,7 +58,7 @@ public class ToolBuilder
 		if (item == null)
 			return null;
 		
-		System.out.println("Tool name: "+item.getToolName());
+		//System.out.println("Tool name: "+item.getToolName());
 		int head = headStack.getItemDamage();
 		int handle = handleStack.getItemDamage();
 		int accessory = -1;
@@ -77,7 +77,7 @@ public class ToolBuilder
 		}
 
 		ItemStack tool = new ItemStack(item);
-		System.out.println("Stack name: "+tool);
+		//System.out.println("Stack name: "+tool);
 		NBTTagCompound compound = new NBTTagCompound();
 		compound.setCompoundTag("InfiTool", new NBTTagCompound());
 		compound.getCompoundTag("InfiTool").setInteger("Head", head);

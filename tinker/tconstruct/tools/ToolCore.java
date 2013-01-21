@@ -334,6 +334,22 @@ public abstract class ToolCore extends Item
 	{
 		return TConstructContent.toolRod;
 	}
+	
+	public void onUpdate(ItemStack stack, World world, Entity entity, int par4, boolean par5) 
+	{
+		if (entity instanceof EntityLiving)
+		{
+			NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
+			if (tags.hasKey("Moss"))
+			{
+				int chance = tags.getInteger("Moss");
+				if (random.nextInt(200) < chance)
+				{
+					AbilityHelper.damageTool(stack, -1, (EntityLiving)entity, true);
+				}
+			}
+		}
+	}
 
 	/* Tool uses */
 	@Override

@@ -5,6 +5,7 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -48,6 +49,12 @@ public class LumberAxe extends HarvestTool
 	public String getToolName ()
 	{
 		return "Lumber Axe";
+	}
+	
+	/* Creative mode tools */
+	public void getSubItems (int id, CreativeTabs tab, List list)
+	{
+		
 	}
 
 	@Override
