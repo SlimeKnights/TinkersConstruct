@@ -6,13 +6,19 @@ import net.minecraft.nbt.NBTTagCompound;
 /* Adds a boolean NBTTag */
 
 public class ModBoolean extends ToolMod
-{	
-	public ModBoolean(ItemStack[] items, int effect, String tag)
+{
+	String color;
+	String tooltipName;
+	
+	public ModBoolean(ItemStack[] items, int effect, String tag, String c, String tip)
 	{
 		super(items, effect, tag);
+		color = c;
+		tooltipName = tip;
 	}
 	
-	protected boolean canModify (ItemStack tool)
+	@Override
+	protected boolean canModify (ItemStack tool, ItemStack[] input)
 	{
 		NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
 		return tags.getInteger("Modifiers") > 0 && !tags.getBoolean(key); //Will fail if the modifier is false or the tag doesn't exist
@@ -23,13 +29,13 @@ public class ModBoolean extends ToolMod
 	{
 		NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
 		
-		if (!tags.hasKey(key))
-		{
-			tags.setBoolean(key, true);
+		tags.setBoolean(key, true);
+		System.out.println("Key: "+key+" "+tags.getBoolean(key));
 			
-			int modifiers = tags.getInteger("Modifiers");
-			modifiers -= 1;
-			tags.setInteger("Modifiers", modifiers);
-		}
+		int modifiers = tags.getInteger("Modifiers");
+		modifiers -= 1;
+		tags.setInteger("Modifiers", modifiers);
+		
+		addToolTip(tool, color+tooltipName, color+key);
 	}
 }

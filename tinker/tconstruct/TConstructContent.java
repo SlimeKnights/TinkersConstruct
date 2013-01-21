@@ -35,7 +35,7 @@ public class TConstructContent
 	
 	public static ToolCore frypan;
 	public static ToolCore battlesign;
-	public static ToolCore longbow;
+	//public static ToolCore longbow;
 	
 	public static ToolCore mattock;
 	public static ToolCore lumberaxe;
@@ -126,7 +126,7 @@ public class TConstructContent
 		
 		frypan = new FryingPan(PHConstruct.frypan, frypanTexture);
 		battlesign = new BattleSign(PHConstruct.battlesign, signTexture);
-		longbow = new RangedWeapon(PHConstruct.longbow, bowTexture);
+		//longbow = new RangedWeapon(PHConstruct.longbow, bowTexture);
 		mattock = new Mattock(PHConstruct.mattock, mattockTexture);
 		lumberaxe = new LumberAxe(PHConstruct.lumberaxe, lumberaxeTexture);
 				
@@ -181,7 +181,7 @@ public class TConstructContent
 		tb.addToolRecipe(frypan, frypanHead);
 		tb.addToolRecipe(battlesign, signHead);
 		tb.addToolRecipe(mattock, axeHead, shovelHead);
-		tb.addToolRecipe(longbow, toolRod, toolRod);
+		//tb.addToolRecipe(longbow, toolRod, toolRod);
 		//tb.addToolRecipe(lumberaxe, lumberHead);
 		
 		tb.registerToolMod(new ModRepair());
@@ -193,8 +193,15 @@ public class TConstructContent
 		tb.registerToolMod(new ModRedstone(new ItemStack[] { new ItemStack(Item.redstone), new ItemStack(Item.redstone) }, 2, 2));
 		tb.registerToolMod(new ModLapisBase(new ItemStack[] {new ItemStack(Block.blockLapis), new ItemStack(Block.blockLapis)}, 10));
 		tb.registerToolMod(new ModLapisIncrease(new ItemStack[] {new ItemStack(Item.dyePowder, 1, 4)}, 10, 1));
+		tb.registerToolMod(new ModLapisIncrease(new ItemStack[] {new ItemStack(Item.dyePowder, 1, 4), new ItemStack(Item.dyePowder, 1, 4)}, 10, 2));
 		tb.registerToolMod(new ModLapisIncrease(new ItemStack[] {new ItemStack(Block.blockLapis)}, 10, 9));
+		tb.registerToolMod(new ModLapisIncrease(new ItemStack[] {new ItemStack(Item.dyePowder, 1, 4), new ItemStack(Block.blockLapis)}, 10, 10));
+		tb.registerToolMod(new ModLapisIncrease(new ItemStack[] {new ItemStack(Block.blockLapis), new ItemStack(Block.blockLapis)}, 10, 18));
 		tb.registerToolMod(new ModInteger(new ItemStack[] {new ItemStack(materials, 1, 6)}, 4, "Moss", 3, "\u00a72", "Auto-Repair"));
+		tb.registerToolMod(new ModBlaze(new ItemStack[] {new ItemStack(Item.blazePowder)}, 7, 1));
+		tb.registerToolMod(new ModBlaze(new ItemStack[] {new ItemStack(Item.blazePowder), new ItemStack(Item.blazePowder)}, 7, 2));
+		tb.registerToolMod(new ModBoolean(new ItemStack[] {new ItemStack(materials, 1, 7)}, 6, "Lava", "\u00a74", "Auto-Smelt"));
+		tb.registerToolMod(new ModInteger(new ItemStack[] {new ItemStack(materials, 1, 8)}, 8, "Necrotic", 1, "\u00a78", "Life Steal"));
 		
 		ItemStack reBattery = ic2.api.Items.getItem("reBattery");
 		if (reBattery != null)
@@ -217,6 +224,7 @@ public class TConstructContent
 		GameRegistry.addRecipe(new ItemStack(woodCrafter, 1, 3), "p", "w", 'p', new ItemStack(woodPattern, 1, 0), 'w', new ItemStack(Block.wood, 1, 2));
 		GameRegistry.addRecipe(new ItemStack(woodCrafter, 1, 4), "p", "w", 'p', new ItemStack(woodPattern, 1, 0), 'w', new ItemStack(Block.wood, 1, 3));
 		GameRegistry.addRecipe(new ItemStack(woodCrafter, 1, 5), "p", "w", 'p', new ItemStack(woodPattern, 1, 0), 'w', Block.chest);
+		GameRegistry.addRecipe(new ItemStack(woodCrafter, 1, 10), "p", "w", 'p', new ItemStack(woodPattern, 1, 0), 'w', Block.planks);
 		GameRegistry.addRecipe( new ShapedOreRecipe(new ItemStack(woodCrafter, 1, 1), "p", "w", 'p', new ItemStack(woodPattern, 1, 0), 'w', "logWood"));
 		
 		GameRegistry.addRecipe( new ShapedOreRecipe(new ItemStack(woodPattern, 1, 0), "ps", "sp", 'p', "plankWood", 's', Item.stick));
@@ -224,10 +232,12 @@ public class TConstructContent
 		GameRegistry.addRecipe(new ItemStack(stonePattern, 1, 0), "ps", "sp", 'p', Block.stone, 's', new ItemStack(toolRod, 1, 1));
 		GameRegistry.addRecipe(new ItemStack(netherPattern, 1, 0), "ps", "sp", 'p', Block.netherrack, 's', new ItemStack(toolRod, 1, 7));*/
 		
-		GameRegistry.addRecipe(new ItemStack(materials, 1, 0), "pp", "pp", 'p', Item.paper);
-		GameRegistry.addRecipe(new ItemStack(materials, 1, 6), "ppp", "ppp", "ppp", 'p', Block.cobblestoneMossy);
-		GameRegistry.addShapelessRecipe(new ItemStack(craftedSoil, 1, 0), Item.slimeBall, Item.slimeBall, Item.slimeBall, Item.slimeBall, Block.sand, Block.dirt);
-		GameRegistry.addShapelessRecipe(new ItemStack(craftedSoil, 1, 1), Item.clay, Block.sand, Block.gravel); //Add stone dust?
+		GameRegistry.addRecipe(new ItemStack(materials, 1, 0), "pp", "pp", 'p', Item.paper); //Paper stack
+		GameRegistry.addRecipe(new ItemStack(materials, 1, 6), "ppp", "ppp", "ppp", 'p', Block.cobblestoneMossy); //Moss ball
+		GameRegistry.addRecipe(new ItemStack(materials, 1, 7), " c ", "cbc", " c ", 'b', Item.bucketLava, 'c', Item.coal); //Auto-smelt
+		GameRegistry.addShapelessRecipe(new ItemStack(materials, 1, 8), Item.bone, Item.rottenFlesh, Item.chickenRaw, Item.beefRaw, Item.porkRaw); //Necrotic bone
+		GameRegistry.addShapelessRecipe(new ItemStack(craftedSoil, 1, 0), Item.slimeBall, Item.slimeBall, Item.slimeBall, Item.slimeBall, Block.sand, Block.dirt); //Slimy sand
+		GameRegistry.addShapelessRecipe(new ItemStack(craftedSoil, 1, 1), Item.clay, Block.sand, Block.gravel); //Grout, Add stone dust?
 		
 		FurnaceRecipes.smelting().addSmelting(craftedSoil.blockID, 0, new ItemStack(materials, 1, 1), 2f); //Slime
 		FurnaceRecipes.smelting().addSmelting(craftedSoil.blockID, 1, new ItemStack(materials, 1, 2), 2f); //Seared brick item

@@ -3,7 +3,6 @@ package tinker.tconstruct;
 import ic2.api.ElectricItem;
 import ic2.api.ICustomElectricItem;
 import ic2.api.IElectricItem;
-import ic2.core.util.StackUtil;
 
 import java.util.Random;
 
@@ -60,7 +59,7 @@ public class AbilityHelper
 		{
 			int damage = tags.getCompoundTag("InfiTool").getInteger("Damage");
 			int damageTrue = damage + dam;
-			System.out.println("Damaging tool, damageTrue "+damageTrue+", ignoring charge: "+ignoreCharge);
+			//System.out.println("Damaging tool, damageTrue "+damageTrue+", ignoring charge: "+ignoreCharge);
 			int maxDamage = tags.getCompoundTag("InfiTool").getInteger("TotalDurability");
 			if (damage + dam <= 0)
 			{
@@ -165,7 +164,7 @@ public class AbilityHelper
 				amount = ielectricitem.getTransferLimit();
 			}
 
-			NBTTagCompound tags = StackUtil.getOrCreateNbtData(itemStack);
+			NBTTagCompound tags = itemStack.getTagCompound();//StackUtil.getOrCreateNbtData(itemStack);
 			int charge = tags.getInteger("charge");
 
 			if (amount > charge)
@@ -244,9 +243,14 @@ public class AbilityHelper
 			else
 				mob.attackEntityFrom(DamageSource.causeMobDamage(player), attack);
 		}
-		System.out.println("Hit entity");
 		//if (mob.hurtResistantTime <= 0)
-			damageTool(stack, 1, tags, player, false);
+		damageTool(stack, 1, tags, player, false);
+		if (tags.getCompoundTag("InfiTool").hasKey("Fiery"))
+		{
+			System.out.println("Fiery: "+tags.getInteger("Fiery"));
+			mob.setFire(tags.getCompoundTag("InfiTool").getInteger("Fiery")/5+1);
+		}
+			
 	}
 
 	public static DamageSource causePiercingDamage (EntityLiving mob)

@@ -48,7 +48,6 @@ public class ModInteger extends ToolMod
 		modifiers -= 1;
 		tags.setInteger("Modifiers", modifiers);		
 
-		System.out.println("tooltip: "+color+key);
 		addToolTip(tool, color+tooltipName, color+key);
 	}
 

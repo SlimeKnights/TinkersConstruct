@@ -3,16 +3,16 @@ package tinker.tconstruct.modifiers;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
-public class ModRedstone extends ToolMod
+public class ModBlaze extends ToolMod
 {
 	String tooltipName;
 	int increase;
 	int max;
 
-	public ModRedstone(ItemStack[] items, int effect, int inc)
+	public ModBlaze(ItemStack[] items, int effect, int inc)
 	{
-		super(items, effect, "Redstone");
-		tooltipName = "\u00a74Haste";
+		super(items, effect, "Blaze");
+		tooltipName = "\u00a76Fiery";
 		increase = inc;
 		max = 25;
 	}
@@ -40,6 +40,7 @@ public class ModRedstone extends ToolMod
 	@Override
 	public void modify (ItemStack[] input, ItemStack tool)
 	{
+		System.out.println("Moood");
 		NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
 		if (tags.hasKey(key))
 		{
@@ -66,29 +67,23 @@ public class ModRedstone extends ToolMod
 			int modifiers = tags.getInteger("Modifiers");
 			modifiers -= 1;
 			tags.setInteger("Modifiers", modifiers);
-			String modName = "\u00a74Redstone ("+increase+"/"+max+")";
+			String modName = "\u00a76Blaze ("+increase+"/"+max+")";
 			int tooltipIndex = addToolTip(tool, tooltipName, modName);
 			int[] keyPair = new int[] { increase, max, tooltipIndex };
 			tags.setIntArray(key, keyPair);
 		}
 		
-		int miningSpeed = tags.getInteger("MiningSpeed");
-		miningSpeed += (increase*8);
-		tags.setInteger("MiningSpeed", miningSpeed);
+		int fiery = tags.getInteger("Fiery");
+		fiery += (increase);
+		tags.setInteger("Fiery", fiery);
 		
-		if (tags.hasKey("MiningSpeed2"))
-		{
-			int miningSpeed2 = tags.getInteger("MiningSpeed2");
-			miningSpeed2 += (increase*8);
-			tags.setInteger("MiningSpeed", miningSpeed2);
-		}
 	}
 	
 	void updateModTag(ItemStack tool, int[] keys)
 	{
 		NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
 		String tip = "ModifierTip"+keys[2];
-		String modName = "\u00a74Redstone ("+keys[0]+"/"+keys[1]+")";
+		String modName = "\u00a76Blaze ("+keys[0]+"/"+keys[1]+")";
 		tags.setString(tip, modName);
 	}
 }

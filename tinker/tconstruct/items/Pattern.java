@@ -39,6 +39,8 @@ public class Pattern extends CraftingItem
 
 	public ItemStack getContainerItemStack (ItemStack stack)
 	{
+		if (stack.getItemDamage() == 0)
+			stack.stackSize--;
 		return stack;
 	}
 
@@ -60,10 +62,10 @@ public class Pattern extends CraftingItem
 			else
 				list.add("Material Cost: "+cost);
 		}
-		else
+		/*else
 		{
 			list.add("Temporary: Craft any pattern to get another");
-		}
+		}*/
 	}
 
 	//2 for full material, 1 for half.
@@ -82,7 +84,7 @@ public class Pattern extends CraftingItem
 		case 9: return 1;
 		case 10: return 2;
 		case 11: return 2;
-		case 12: return 4;
+		case 12: return 10;
 		default: return 0;
 		}
 	}

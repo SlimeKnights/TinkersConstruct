@@ -48,6 +48,7 @@ public class TProxyClient extends TProxyCommon
 		
 		LanguageRegistry.instance().addStringLocalization("crafters.ToolStation", "Tool Station");
 		LanguageRegistry.instance().addStringLocalization("crafters.PartBuilder", "Part Builder");
+		LanguageRegistry.instance().addStringLocalization("crafters.PatternShaper", "Pattern Shaper");
 		LanguageRegistry.instance().addStringLocalization("inventory.PatternChest", "Pattern Chest");
 		LanguageRegistry.instance().addStringLocalization("crafters.Smeltery", "Smeltery");
 		LanguageRegistry.instance().addStringLocalization("crafters.Frypan", "Frying Pan");
@@ -55,6 +56,7 @@ public class TProxyClient extends TProxyCommon
 		LanguageRegistry.instance().addStringLocalization("ToolStation.Crafter.name", "Tool Station");
 		LanguageRegistry.instance().addStringLocalization("ToolStation.Parts.name", "Part Crafting");
 		LanguageRegistry.instance().addStringLocalization("ToolStation.PatternChest.name", "Pattern Chest");
+		LanguageRegistry.instance().addStringLocalization("ToolStation.PatternShaper.name", "Pattern Shaper");
 		
 		LanguageRegistry.instance().addStringLocalization("CraftedSoil.Slime.name", "Slimy Mud");
 		LanguageRegistry.instance().addStringLocalization("CraftedSoil.Grout.name", "Grout");
@@ -105,10 +107,10 @@ public class TProxyClient extends TProxyCommon
 	}
 	
 	public static final String[] materialItemInternalNames = new String[] { 
-		"PaperStack", "SlimeCrystal", "SearedBrick", "CobaltIngot", "ArditeIngot", "ManyullynIngot", "Mossball" };
+		"PaperStack", "SlimeCrystal", "SearedBrick", "CobaltIngot", "ArditeIngot", "ManyullynIngot", "Mossball", "LavaCrystal", "NecroticBone" };
 	
 	public static final String[] materialItemNames = new String[] { 
-		"Paper Stack", "Slime Crystal", "Seared Brick", "Cobalt Ingot", "Ardite Ingot", "Manyullyn Ingot", "Ball of moss" };
+		"Paper Stack", "Slime Crystal", "Seared Brick", "Cobalt Ingot", "Ardite Ingot", "Manyullyn Ingot", "Ball of Moss", "Lava Crystal", "Necrotic Bone" };
 	
 	public static final String[] toolMaterialNames = new String[] { 
 		"Wood", "Stone", "Iron", "Flint", "Cactus", "Bone", "Obsidian", "Netherrack", "Slime", "Paper", "Cobalt", "Ardite", "Manyullyn" };
@@ -117,11 +119,11 @@ public class TProxyClient extends TProxyCommon
 		"ToolRod", "PickaxeHead", "ToolShard", "ShovelHead", "AxeHead", "SwordBlade", "LargeGuard", "MediumGuard", "Crossbar", "Binding", "FrypanHead", "SignHead", "LumberHead" };
 	
 	public static final String[] materialNames = new String[] {
-		" Rod", " Pickaxe Head", " Shard", " Shovel Head", " Axe Head", " Sword Blade", " Wide Guard", " Cover", " Crossbar", " Binding", " Pan", " Board", " Broad Axe Head" };
+		" Rod", " Pickaxe Head", " Shard", " Shovel Head", " Axe Head", " Sword Blade", " Wide Guard", " Hand Guard", " Crossbar", " Binding", " Pan", " Board", " Broad Axe Head" };
 	
 	public static final String[] patterns = new String[] {
 		"blank", "rod", "pickaxe", "shovel", "axe", "blade", "largeguard", "medguard", "crossbar", "binding", "frypan", "sign", "lumber" };
 	
 	public static final String[] patternNames = new String[] {
-		"Blank", "Tool Rod", "Pickaxe Head", "Shovel Head", "Axe Head", "Sword Blade", "Large Guard", "Medium Guard", "Crossbar", "Tool Binding", "Pan", "Board", "Broad Axe Head" };
+		"Blank", "Tool Rod", "Pickaxe Head", "Shovel Head", "Axe Head", "Sword Blade", "Wide Guard", "Hand Guard", "Crossbar", "Tool Binding", "Pan", "Board", "Broad Axe Head" };
 }

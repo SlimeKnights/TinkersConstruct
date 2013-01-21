@@ -3,8 +3,10 @@ package tinker.tconstruct.tools;
 import tinker.tconstruct.EnumMaterial;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
@@ -36,7 +38,31 @@ public abstract class DualHarvestTool extends HarvestTool
 		int shlvl = MinecraftForge.getBlockHarvestLevel(block, meta, getSecondHarvestType());
 		
 		if (hlvl <= tags.getInteger("HarvestLevel") && shlvl <= tags.getInteger("HarvestLevel2"))
+		{
+			if (tags.getBoolean("Lava") && block.quantityDropped(meta, 0, random) != 0)
+			{
+				ItemStack result = FurnaceRecipes.smelting().getSmeltingResult(new ItemStack(bID, 1, meta));
+				if (result == null)
+					result = FurnaceRecipes.smelting().getSmeltingResult(new ItemStack(block.idDropped(bID, random, 0), 1, block.damageDropped(meta)));
+				if (result != null)
+				{
+					System.out.println("Woo~");
+					world.setBlockWithNotify(x, y, z, 0);
+					if (!player.capabilities.isCreativeMode)
+						onBlockDestroyed(stack, world, bID, x, y, z, player);
+					if (!world.isRemote)
+					{
+						EntityItem entityitem = new EntityItem(world, x+0.5, y+0.5, z+0.5, result.copy());
+						
+						entityitem.delayBeforeCanPickup = 10;
+						world.spawnEntityInWorld(entityitem);
+						world.playAuxSFX(2001, x, y, z, bID + (meta << 12));
+					}
+					return true;
+				}
+			}
 			return false;
+		}
 		else
 		{
 			if (!player.capabilities.isCreativeMode)

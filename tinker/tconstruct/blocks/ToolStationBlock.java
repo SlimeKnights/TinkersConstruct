@@ -46,9 +46,17 @@ public class ToolStationBlock extends InventoryBlock
 			else
 				return 2;
 		}
-		else
+		else if (meta <= 4)
 		{
 			return 1 + meta * 3 + getBlockTextureFromSide(side);
+		}
+		else if (meta <= 9)
+		{
+			return 16 + getBlockTextureFromSide(side);
+		}
+		else
+		{
+			return -14 + meta * 3 + getBlockTextureFromSide(side);
 		}
 	}
 

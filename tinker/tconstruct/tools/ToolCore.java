@@ -10,12 +10,15 @@ import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumToolMaterial;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 import tinker.tconstruct.AbilityHelper;
 import tinker.tconstruct.TConstruct;
 import tinker.tconstruct.TConstructContent;
@@ -207,19 +210,23 @@ public abstract class ToolCore extends Item
 			{
 				int head = tags.getCompoundTag("InfiTool").getInteger("Head") + 1;
 				int handle = tags.getCompoundTag("InfiTool").getInteger("Handle") + 1;
-				int binding = tags.getCompoundTag("InfiTool").getInteger("Binding") + 1;
+				int binding = tags.getCompoundTag("InfiTool").getInteger("Accessory") + 1;
 
 				String headName = getAbilityNameForType(head);
-				if (headName != "")
+				if (!headName.equals(""))
 					list.add(getColorCodeForType(head) + headName);
 
 				String handleName = getAbilityNameForType(handle);
-				if (handleName != "" && handleName != headName)
+				if (!handleName.equals("") && handle != head)
 					list.add(getColorCodeForType(handle) + handleName);
 
 				String bindingName = getAbilityNameForType(binding);
-				if (bindingName != "" && bindingName != headName && bindingName != handleName)
+				if (!bindingName.equals("") && binding != head && binding != handle)
 					list.add(getColorCodeForType(binding) + bindingName);
+				
+				String reinforced = getReinforcedName(head, handle, binding);
+				if (!reinforced.equals(""))
+					list.add(reinforced);
 				
 				boolean displayToolTips = true;
 				int tipNum = 0;
@@ -275,7 +282,7 @@ public abstract class ToolCore extends Item
 		return colorCode;
 	}
 
-	public static String getAbilityNameForType (int type)
+	public String getAbilityNameForType (int type)
 	{
 		switch (type)
 		{
@@ -284,7 +291,7 @@ public abstract class ToolCore extends Item
 		case 2:
 			return "Shoddy"; //Stone
 		case 3:
-			return "Reinforced I"; //Iron
+			return ""; //Iron
 		case 4:
 			return "Shoddy"; //Flint
 		case 5:
@@ -292,7 +299,7 @@ public abstract class ToolCore extends Item
 		case 6:
 			return ""; //Bone
 		case 7:
-			return "Reinforced III"; //Obsidian
+			return ""; //Obsidian
 		case 8:
 			return "Shoddy"; //Netherrack
 		case 9:
@@ -300,7 +307,7 @@ public abstract class ToolCore extends Item
 		case 10:
 			return "Writable"; //Paper
 		case 11:
-			return "Reinforced II"; //Cobalt
+			return ""; //Cobalt
 		case 12:
 			return ""; //Ardite
 		case 13:
@@ -308,6 +315,18 @@ public abstract class ToolCore extends Item
 		default:
 			return "";
 		}
+	}
+	
+	//This method is temporary
+	public static String getReinforcedName(int head, int handle, int accessory)
+	{
+		if (head == 7 || handle == 7 || accessory == 7)
+			return "\u00A7dReinforced III";
+		else if  (head == 11 || handle == 11 || accessory == 11)
+			return "\u00A73Reinforced II";
+		else if  (head == 3 || handle == 3 || accessory == 3)
+			return "\u00A7fReinforced I";
+		return "";
 	}
 	
 	static String[] toolMaterialNames = {
@@ -352,6 +371,41 @@ public abstract class ToolCore extends Item
 	}
 
 	/* Tool uses */
+	@Override
+	public boolean onBlockStartBreak(ItemStack stack, int x, int y, int z, EntityPlayer player)
+	{
+		NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
+		World world = player.worldObj;
+		int bID = player.worldObj.getBlockId(x, y, z);
+		int meta = world.getBlockMetadata(x, y, z);
+		Block block = Block.blocksList[bID];
+		
+		if (tags.getBoolean("Lava") && block.quantityDropped(meta, 0, random) != 0)
+		{
+			ItemStack result = FurnaceRecipes.smelting().getSmeltingResult(new ItemStack(bID, 1, meta));
+			if (result == null)
+				result = FurnaceRecipes.smelting().getSmeltingResult(new ItemStack(block.idDropped(bID, random, 0), 1, block.damageDropped(meta)));
+			if (result != null)
+			{
+				System.out.println("Woo~");
+				world.setBlockWithNotify(x, y, z, 0);
+				if (!player.capabilities.isCreativeMode)
+					onBlockDestroyed(stack, world, bID, x, y, z, player);
+				if (!world.isRemote)
+				{
+					EntityItem entityitem = new EntityItem(world, x+0.5, y+0.5, z+0.5, result.copy());
+					
+					entityitem.delayBeforeCanPickup = 10;
+					world.spawnEntityInWorld(entityitem);
+					world.playAuxSFX(2001, x, y, z, bID + (meta << 12));
+				}
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
 	@Override
 	public boolean onBlockDestroyed (ItemStack itemstack, World world, int bID, int x, int y, int z, EntityLiving player)
 	{
