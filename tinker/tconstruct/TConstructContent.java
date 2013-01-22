@@ -18,6 +18,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 public class TConstructContent
 {
 	//Patterns and other materials
+	public static Item blankPattern;
 	public static Item materials;
 	public static Item toolRod;
 	public static Item toolShard;
@@ -110,6 +111,7 @@ public class TConstructContent
 		GameRegistry.registerBlock(searedBrick, tinker.tconstruct.blocks.SearedBrickItemBlock.class, "SearedBrick");
 		MinecraftForge.setBlockHarvestLevel(searedBrick, 0, "pickaxe", 2);
 
+		blankPattern = new CraftingItem(PHConstruct.blankPattern, 96, craftingTexture).setItemName("tconstruct.BlankPattern");
 		materials = new Materials(PHConstruct.materials, 128, craftingTexture).setItemName("tconstruct.Materials");
 		toolRod = new ToolPart(PHConstruct.toolRod, 0, craftingTexture).setItemName("tconstruct.ToolRod");
 		toolShard = new ToolPart(PHConstruct.toolShard, 64, craftingTexture).setItemName("tconstruct.ToolShard");
@@ -145,6 +147,8 @@ public class TConstructContent
 		//lumberHead = new ToolPart(PHConstruct.lumberHead, 0, broadheads).setItemName("tconstruct.LumberHead");
 	}
 	
+	public static Item[] patternOutputs = { toolRod, pickaxeHead, shovelHead, axeHead, swordBlade, largeGuard, medGuard, crossbar, binding, frypanHead, signHead };
+	
 	void registerMaterials ()
 	{
 		PatternBuilder pb = PatternBuilder.instance;
@@ -160,10 +164,10 @@ public class TConstructContent
 		pb.registerFullMaterial(new ItemStack(materials, 1, 1), 2, "slime", new ItemStack(toolShard, 1, 8), new ItemStack(toolRod, 1, 8), 8);
 		pb.registerFullMaterial(new ItemStack(materials, 1, 0), 2, "paper", new ItemStack(Item.paper), new ItemStack(toolRod, 1, 9), 9);
 		
-		Item[] items = { toolRod, pickaxeHead, shovelHead, axeHead, swordBlade, largeGuard, medGuard, crossbar, binding, frypanHead, signHead };
-		for (int iter = 0; iter < items.length; iter++)
+		
+		for (int iter = 0; iter < patternOutputs.length; iter++)
 		{
-			pb.addToolPattern(new ItemStack(woodPattern, 1, iter+1), items[iter]);
+			pb.addToolPattern(new ItemStack(woodPattern, 1, iter+1), patternOutputs[iter]);
 			//pb.addToolPattern(new ItemStack(stonePattern, 1, iter+1), items[iter]);
 			//pb.addToolPattern(new ItemStack(netherPattern, 1, iter+1), items[iter]);
 		}
@@ -191,12 +195,12 @@ public class TConstructContent
 		tb.registerToolMod(modE);
 		tb.registerToolMod(new ModRedstone(new ItemStack[] {new ItemStack(Item.redstone)}, 2, 1));
 		tb.registerToolMod(new ModRedstone(new ItemStack[] { new ItemStack(Item.redstone), new ItemStack(Item.redstone) }, 2, 2));
-		tb.registerToolMod(new ModLapisBase(new ItemStack[] {new ItemStack(Block.blockLapis), new ItemStack(Block.blockLapis)}, 10));
 		tb.registerToolMod(new ModLapisIncrease(new ItemStack[] {new ItemStack(Item.dyePowder, 1, 4)}, 10, 1));
 		tb.registerToolMod(new ModLapisIncrease(new ItemStack[] {new ItemStack(Item.dyePowder, 1, 4), new ItemStack(Item.dyePowder, 1, 4)}, 10, 2));
 		tb.registerToolMod(new ModLapisIncrease(new ItemStack[] {new ItemStack(Block.blockLapis)}, 10, 9));
 		tb.registerToolMod(new ModLapisIncrease(new ItemStack[] {new ItemStack(Item.dyePowder, 1, 4), new ItemStack(Block.blockLapis)}, 10, 10));
 		tb.registerToolMod(new ModLapisIncrease(new ItemStack[] {new ItemStack(Block.blockLapis), new ItemStack(Block.blockLapis)}, 10, 18));
+		tb.registerToolMod(new ModLapisBase(new ItemStack[] {new ItemStack(Block.blockLapis), new ItemStack(Block.blockLapis)}, 10));
 		tb.registerToolMod(new ModInteger(new ItemStack[] {new ItemStack(materials, 1, 6)}, 4, "Moss", 3, "\u00a72", "Auto-Repair"));
 		tb.registerToolMod(new ModBlaze(new ItemStack[] {new ItemStack(Item.blazePowder)}, 7, 1));
 		tb.registerToolMod(new ModBlaze(new ItemStack[] {new ItemStack(Item.blazePowder), new ItemStack(Item.blazePowder)}, 7, 2));
@@ -218,16 +222,16 @@ public class TConstructContent
 	{
 		/*GameRegistry.addRecipe(new ItemStack(woodCrafter, 1, 0), "c", 'c', Block.workbench);
 		GameRegistry.addRecipe(new ItemStack(woodCrafter, 1, 1), "cc", 'c', Block.workbench);*/
-		GameRegistry.addRecipe(new ItemStack(woodCrafter, 1, 0), "p", "w", 'p', new ItemStack(woodPattern, 1, 0), 'w', Block.workbench);
-		GameRegistry.addRecipe(new ItemStack(woodCrafter, 1, 1), "p", "w", 'p', new ItemStack(woodPattern, 1, 0), 'w', new ItemStack(Block.wood, 1, 0));
-		GameRegistry.addRecipe(new ItemStack(woodCrafter, 1, 2), "p", "w", 'p', new ItemStack(woodPattern, 1, 0), 'w', new ItemStack(Block.wood, 1, 1));
-		GameRegistry.addRecipe(new ItemStack(woodCrafter, 1, 3), "p", "w", 'p', new ItemStack(woodPattern, 1, 0), 'w', new ItemStack(Block.wood, 1, 2));
-		GameRegistry.addRecipe(new ItemStack(woodCrafter, 1, 4), "p", "w", 'p', new ItemStack(woodPattern, 1, 0), 'w', new ItemStack(Block.wood, 1, 3));
-		GameRegistry.addRecipe(new ItemStack(woodCrafter, 1, 5), "p", "w", 'p', new ItemStack(woodPattern, 1, 0), 'w', Block.chest);
-		GameRegistry.addRecipe(new ItemStack(woodCrafter, 1, 10), "p", "w", 'p', new ItemStack(woodPattern, 1, 0), 'w', Block.planks);
-		GameRegistry.addRecipe( new ShapedOreRecipe(new ItemStack(woodCrafter, 1, 1), "p", "w", 'p', new ItemStack(woodPattern, 1, 0), 'w', "logWood"));
+		GameRegistry.addRecipe(new ItemStack(woodCrafter, 1, 0), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', Block.workbench);
+		GameRegistry.addRecipe(new ItemStack(woodCrafter, 1, 1), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(Block.wood, 1, 0));
+		GameRegistry.addRecipe(new ItemStack(woodCrafter, 1, 2), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(Block.wood, 1, 1));
+		GameRegistry.addRecipe(new ItemStack(woodCrafter, 1, 3), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(Block.wood, 1, 2));
+		GameRegistry.addRecipe(new ItemStack(woodCrafter, 1, 4), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(Block.wood, 1, 3));
+		GameRegistry.addRecipe(new ItemStack(woodCrafter, 1, 5), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', Block.chest);
+		GameRegistry.addRecipe(new ItemStack(woodCrafter, 1, 10), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', Block.planks);
+		GameRegistry.addRecipe( new ShapedOreRecipe(new ItemStack(woodCrafter, 1, 1), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', "logWood"));
 		
-		GameRegistry.addRecipe( new ShapedOreRecipe(new ItemStack(woodPattern, 1, 0), "ps", "sp", 'p', "plankWood", 's', Item.stick));
+		GameRegistry.addRecipe( new ShapedOreRecipe(new ItemStack(blankPattern, 1, 0), "ps", "sp", 'p', "plankWood", 's', Item.stick));
 		/*GameRegistry.addRecipe(new ItemStack(stonePattern, 1, 0), "ps", "sp", 'p', Block.cobblestone, 's', new ItemStack(toolRod, 1, 1));
 		GameRegistry.addRecipe(new ItemStack(stonePattern, 1, 0), "ps", "sp", 'p', Block.stone, 's', new ItemStack(toolRod, 1, 1));
 		GameRegistry.addRecipe(new ItemStack(netherPattern, 1, 0), "ps", "sp", 'p', Block.netherrack, 's', new ItemStack(toolRod, 1, 7));*/
@@ -235,7 +239,7 @@ public class TConstructContent
 		GameRegistry.addRecipe(new ItemStack(materials, 1, 0), "pp", "pp", 'p', Item.paper); //Paper stack
 		GameRegistry.addRecipe(new ItemStack(materials, 1, 6), "ppp", "ppp", "ppp", 'p', Block.cobblestoneMossy); //Moss ball
 		GameRegistry.addRecipe(new ItemStack(materials, 1, 7), " c ", "cbc", " c ", 'b', Item.bucketLava, 'c', Item.coal); //Auto-smelt
-		GameRegistry.addShapelessRecipe(new ItemStack(materials, 1, 8), Item.bone, Item.rottenFlesh, Item.chickenRaw, Item.beefRaw, Item.porkRaw); //Necrotic bone
+		GameRegistry.addShapelessRecipe(new ItemStack(materials, 1, 8), Item.bone, Item.rottenFlesh, Item.chickenRaw, Item.beefRaw, Item.porkRaw, Item.fishRaw); //Necrotic bone
 		GameRegistry.addShapelessRecipe(new ItemStack(craftedSoil, 1, 0), Item.slimeBall, Item.slimeBall, Item.slimeBall, Item.slimeBall, Block.sand, Block.dirt); //Slimy sand
 		GameRegistry.addShapelessRecipe(new ItemStack(craftedSoil, 1, 1), Item.clay, Block.sand, Block.gravel); //Grout, Add stone dust?
 		
@@ -266,10 +270,6 @@ public class TConstructContent
 
 		TConstruct.toolTab.init(tool);
 	}
-	
-	ItemStack[] materialArray = { new ItemStack(Block.planks), new ItemStack(Block.cobblestone), new ItemStack(Item.ingotIron), new ItemStack(Item.flint), 
-			new ItemStack(Block.cactus), new ItemStack(Item.bone), new ItemStack(Block.obsidian), new ItemStack(Block.netherrack), new ItemStack(Item.slimeBall), 
-			new ItemStack(Item.paper) };
 	
 	public static String blockTexture = "/tinkertextures/ConstructBlocks.png";
 	

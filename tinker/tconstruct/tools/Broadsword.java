@@ -28,4 +28,9 @@ public class Broadsword extends Weapon
 	{
 		return TConstructContent.largeGuard;
 	}
+	
+	public float getDurabilityModifier ()
+	{
+		return 1.3f;
+	}
 }

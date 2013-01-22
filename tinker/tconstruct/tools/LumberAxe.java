@@ -43,7 +43,7 @@ public class LumberAxe extends HarvestTool
 
 	public float getDurabilityModifier ()
 	{
-		return 2.0f;
+		return 2.5f;
 	}
 
 	public String getToolName ()

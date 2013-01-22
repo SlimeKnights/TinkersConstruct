@@ -48,6 +48,7 @@ public class PHConstruct {
         craftedSoil = config.getBlock("Special Soil", 1476).getInt(1476);
         searedBrick = config.getBlock("Seared Brick", 1477).getInt(1477);
         
+        blankPattern = config.getItem("Patterns and Misc", "Blank Patterns", 14019).getInt(14019);
         materials = config.getItem("Patterns and Misc", "Materials", 14020).getInt(14020);
         toolRod = config.getItem("Patterns and Misc", "Tool Rod", 14021).getInt(14021);
         toolShard = config.getItem("Patterns and Misc", "Tool Shard", 14022).getInt(14022);
@@ -91,6 +92,7 @@ public class PHConstruct {
     }
     
     //Blocks
+    public static int blankPattern;
     public static int woodCrafter;
     public static int stoneCrafter;
     public static int netherCrafter;

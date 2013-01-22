@@ -16,6 +16,7 @@ import tinker.tconstruct.TConstructContent;
 import tinker.tconstruct.client.TableRender;
 import tinker.tconstruct.logic.PartCrafterLogic;
 import tinker.tconstruct.logic.PatternChestLogic;
+import tinker.tconstruct.logic.PatternShaperLogic;
 import tinker.tconstruct.logic.ToolStationLogic;
 
 public class ToolStationBlock extends InventoryBlock
@@ -56,7 +57,7 @@ public class ToolStationBlock extends InventoryBlock
 		}
 		else
 		{
-			return -14 + meta * 3 + getBlockTextureFromSide(side);
+			return -10 + meta * 3 + getBlockTextureFromSide(side);
 		}
 	}
 
@@ -113,7 +114,7 @@ public class ToolStationBlock extends InventoryBlock
 		case 7: return new PatternChestLogic();
 		case 8: return new PatternChestLogic();
 		case 9: return new PatternChestLogic();
-		case 10: return new PatternChestLogic();
+		case 10: return new PatternShaperLogic();
 		default: return null;
 		}        
     }
@@ -128,8 +129,10 @@ public class ToolStationBlock extends InventoryBlock
 			return 1;
 		else if (md < 10)
 			return 2;
+		else
+			return 3;
 
-		return -1;
+		//return -1;
 	}
 
 	@Override

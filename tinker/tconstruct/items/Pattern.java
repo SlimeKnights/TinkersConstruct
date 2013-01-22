@@ -33,14 +33,12 @@ public class Pattern extends CraftingItem
 
 	public void getSubItems (int id, CreativeTabs tab, List list)
 	{
-		for (int i = 0; i < patternName.length; i++)
+		for (int i = 1; i < patternName.length; i++)
 			list.add(new ItemStack(id, 1, i));
 	}
 
 	public ItemStack getContainerItemStack (ItemStack stack)
 	{
-		if (stack.getItemDamage() == 0)
-			stack.stackSize--;
 		return stack;
 	}
 

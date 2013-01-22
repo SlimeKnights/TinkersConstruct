@@ -17,6 +17,7 @@ public class TProxyClient extends TProxyCommon
 	{
 		RenderingRegistry.registerBlockHandler(new TableRender());
 		RenderingRegistry.registerBlockHandler(new TankRender());
+		RenderingRegistry.registerBlockHandler(new FrypanRender());
 		
 		MinecraftForgeClient.preloadTexture(TConstructContent.craftingTexture);
 		MinecraftForgeClient.preloadTexture(TConstructContent.baseHeads);
@@ -87,7 +88,7 @@ public class TProxyClient extends TProxyCommon
 		}
 		
 		//LanguageRegistry.addName(TConstructContent.smeltery, "Smeltery");
-		
+		LanguageRegistry.addName(TConstructContent.blankPattern, "Blank Pattern");
 		LanguageRegistry.addName(TConstructContent.pickaxe, "Pickaxe");
 		LanguageRegistry.addName(TConstructContent.shovel, "Shovel");
 		LanguageRegistry.addName(TConstructContent.axe, "Axe");

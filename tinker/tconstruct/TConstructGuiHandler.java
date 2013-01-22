@@ -4,8 +4,18 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import tinker.common.InventoryLogic;
-import tinker.tconstruct.client.gui.*;
-import tinker.tconstruct.logic.*;
+import tinker.tconstruct.client.gui.FrypanGui;
+import tinker.tconstruct.client.gui.PartCrafterGui;
+import tinker.tconstruct.client.gui.PatternChestGui;
+import tinker.tconstruct.client.gui.PatternShaperGui;
+import tinker.tconstruct.client.gui.SmelteryGui;
+import tinker.tconstruct.client.gui.ToolStationGui;
+import tinker.tconstruct.logic.FrypanLogic;
+import tinker.tconstruct.logic.PartCrafterLogic;
+import tinker.tconstruct.logic.PatternChestLogic;
+import tinker.tconstruct.logic.PatternShaperLogic;
+import tinker.tconstruct.logic.SmelteryLogic;
+import tinker.tconstruct.logic.ToolStationLogic;
 import cpw.mods.fml.common.network.IGuiHandler;
 
 public class TConstructGuiHandler implements IGuiHandler
@@ -21,6 +31,7 @@ public class TConstructGuiHandler implements IGuiHandler
 	@Override
 	public Object getServerGuiElement (int ID, EntityPlayer player, World world, int x, int y, int z)
 	{
+		
 		TileEntity tile = world.getBlockTileEntity(x, y, z);
 		if (tile != null && tile instanceof InventoryLogic)
 			return ((InventoryLogic) tile).getGuiContainer(player.inventory, world, x, y, z);
@@ -40,6 +51,8 @@ public class TConstructGuiHandler implements IGuiHandler
 			return new FrypanGui(player.inventory, (FrypanLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
 		if (ID == smeltery)
 			return new SmelteryGui(player.inventory, (SmelteryLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
+		if (ID == pshaperID)
+			return new PatternShaperGui(player.inventory, (PatternShaperLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
 		return null;
 	}
 

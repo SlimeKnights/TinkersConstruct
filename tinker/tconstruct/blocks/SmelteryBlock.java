@@ -143,7 +143,7 @@ public class SmelteryBlock extends InventoryBlock
 
 	public int getLightValue (IBlockAccess world, int x, int y, int z)
 	{
-		return !isActive(world, x, y, z) ? 0 : 7;
+		return !isActive(world, x, y, z) ? 0 : 9;
 	}
 
 	//@Override

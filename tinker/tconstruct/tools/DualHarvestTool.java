@@ -41,9 +41,7 @@ public abstract class DualHarvestTool extends HarvestTool
 		{
 			if (tags.getBoolean("Lava") && block.quantityDropped(meta, 0, random) != 0)
 			{
-				ItemStack result = FurnaceRecipes.smelting().getSmeltingResult(new ItemStack(bID, 1, meta));
-				if (result == null)
-					result = FurnaceRecipes.smelting().getSmeltingResult(new ItemStack(block.idDropped(bID, random, 0), 1, block.damageDropped(meta)));
+				ItemStack result = FurnaceRecipes.smelting().getSmeltingResult(new ItemStack(block.idDropped(bID, random, 0), 1, block.damageDropped(meta)));
 				if (result != null)
 				{
 					System.out.println("Woo~");

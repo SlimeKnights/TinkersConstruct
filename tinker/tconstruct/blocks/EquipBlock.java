@@ -5,10 +5,12 @@ import java.util.Random;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import tinker.common.InventoryBlock;
-import tinker.tconstruct.TConstructGuiHandler;
 import tinker.tconstruct.TConstruct;
+import tinker.tconstruct.TConstructGuiHandler;
+import tinker.tconstruct.client.FrypanRender;
 import tinker.tconstruct.logic.FrypanLogic;
 
 public class EquipBlock extends InventoryBlock
@@ -17,7 +19,7 @@ public class EquipBlock extends InventoryBlock
 	public EquipBlock(int id, Material material)
 	{
 		super(id, material);
-		this.setHardness(2f);
+		this.setHardness(0.3f);
 		this.setBlockBounds(0, 0, 0, 1, 0.25f, 1);
 		//this.setCreativeTab(ToolConstruct.materialTab);
 	}
@@ -32,6 +34,24 @@ public class EquipBlock extends InventoryBlock
 		//return 22 + meta*6 + side;
 		return 22;
 	}
+	
+	@Override
+	public boolean renderAsNormalBlock ()
+	{
+		return false;
+	}
+
+	@Override
+	public boolean isOpaqueCube ()
+	{
+		return false;
+	}
+	
+	@Override
+	public int getRenderType ()
+	{
+		return FrypanRender.frypanModelID;
+	}
 
 	@Override
 	public int idDropped (int par1, Random par2Random, int par3)
@@ -43,55 +63,28 @@ public class EquipBlock extends InventoryBlock
 	{
 		return new FrypanLogic();
 	}
-
-	/*@Override
-	public void breakBlock (World par1World, int x, int y, int z, int par5, int par6)
+	
+	public void randomDisplayTick (World world, int x, int y, int z, Random random)
 	{
-		EquipLogic logic = (EquipLogic) par1World.getBlockTileEntity(x, y, z);
-
-		if (logic != null)
+		if (isActive(world, x, y, z))
 		{
-			ItemStack equip = logic.getEquipmentItem();
-
-			if (equip != null)
-			{
-				float jumpX = ToolConstruct.tRand.nextFloat() * 0.8F + 0.1F;
-				float jumpY = ToolConstruct.tRand.nextFloat() * 0.8F + 0.1F;
-				float jumpZ = ToolConstruct.tRand.nextFloat() * 0.8F + 0.1F;
-
-				while (equip.stackSize > 0)
-				{
-					int itemSize = ToolConstruct.tRand.nextInt(21) + 10;
-
-					if (itemSize > equip.stackSize)
-					{
-						itemSize = equip.stackSize;
-					}
-
-					equip.stackSize -= itemSize;
-					EntityItem entityitem = new EntityItem(par1World, (double) ((float) x + jumpX), (double) ((float) y + jumpY), (double) ((float) z + jumpZ), new ItemStack(equip.itemID, itemSize, equip.getItemDamage()));
-
-					if (equip.hasTagCompound())
-					{
-						entityitem.func_92014_d().setTagCompound((NBTTagCompound) equip.getTagCompound().copy());
-					}
-
-					float offset = 0.05F;
-					entityitem.motionX = (double) ((float) ToolConstruct.tRand.nextGaussian() * offset);
-					entityitem.motionY = (double) ((float) ToolConstruct.tRand.nextGaussian() * offset + 0.2F);
-					entityitem.motionZ = (double) ((float) ToolConstruct.tRand.nextGaussian() * offset);
-					par1World.spawnEntityInWorld(entityitem);
-				}
-			}
-
+			float f = (float) x + 0.5F;
+			float f1 = (float) y + 0.25F + (random.nextFloat() * 6F) / 16F;
+			float f2 = (float) z + 0.5F;
+			float f4 = random.nextFloat() * 0.6F - 0.3F;
+			world.spawnParticle("smoke", f, f1, f2 + f4, 0.0D, 0.0D, 0.0D);
+			world.spawnParticle("flame", f, f1, f2 + f4, 0.0D, 0.0D, 0.0D);
 		}
-		super.breakBlock(par1World, x, y, z, par5, par6);
-	}*/
+	}
+
+	public int getLightValue (IBlockAccess world, int x, int y, int z)
+	{
+		return !isActive(world, x, y, z) ? 0 : 9;
+	}
 
 	@Override
 	public Integer getGui (World world, int x, int y, int z, EntityPlayer entityplayer)
 	{
-		//int md = world.getBlockMetadata(x, y, z);
 		return TConstructGuiHandler.frypanID;
 	}
 

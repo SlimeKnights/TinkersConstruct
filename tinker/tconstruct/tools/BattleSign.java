@@ -23,19 +23,19 @@ public class BattleSign extends Weapon
 		this.setItemName("InfiTool.Battlesign");
 	}
 	
-	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
+	/*public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
     {
 		if (!player.isSneaking())
 			player.setItemInUse(stack, this.getMaxItemUseDuration(stack));
         return stack;
-    }
+    }*/
 	
 	public String getToolName ()
 	{
 		return "Battle Sign";
 	}
 	
-	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer player, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10)
+	/*public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer player, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10)
     {
         if (par7 == 0 || !player.isSneaking())
         {
@@ -103,7 +103,7 @@ public class BattleSign extends Weapon
                 return true;
             }
         }
-    }
+    }*/
 
 	@Override
 	protected Item getHeadItem ()

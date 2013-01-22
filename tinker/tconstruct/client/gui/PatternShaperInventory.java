@@ -43,14 +43,19 @@ public class PatternShaperInventory implements IInventory
         {
             ItemStack stack = this.inventory[slot];
             this.inventory[slot] = null;
-            if (slot == 1)
-            	decrStackSize(0, 1);
+            //if (slot == 1)
+            	//decrStackSize(0, 1);
             return stack;
         }
         else
         {
             return null;
         }
+    }
+    
+    public boolean isStackInSlot(int slot)
+    {
+    	return inventory[slot] != null;
     }
 
     /**
@@ -59,10 +64,10 @@ public class PatternShaperInventory implements IInventory
      */
     public ItemStack getStackInSlotOnClosing(int slot)
     {
-        if (this.inventory[slot] != null)
+        if (this.inventory[0] != null)
         {
-            ItemStack stack = this.inventory[slot];
-            this.inventory[slot] = null;
+            ItemStack stack = this.inventory[0];
+            this.inventory[0] = null;
             return stack;
         }
         else

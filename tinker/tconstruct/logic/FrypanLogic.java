@@ -55,6 +55,7 @@ public class FrypanLogic extends EquipLogic
 	public void setActive (boolean flag)
 	{
 		active = flag;
+		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 	}
 
 	/* Fuel gauge */
@@ -83,7 +84,7 @@ public class FrypanLogic extends EquipLogic
 		boolean updateInventory = false;
 		if (fuel <= 0 && canCook())
 		{
-			fuel = fuelGague = getItemBurnTime(inventory[1]) * 10;
+			fuel = fuelGague = (int) (getItemBurnTime(inventory[1]) * 2.5);
 			if (fuel > 0)
 			{
 				if (inventory[1].getItem().hasContainerItem()) //Fuel slot
@@ -233,14 +234,19 @@ public class FrypanLogic extends EquipLogic
 
 			if (stack.getItem() instanceof ItemBlock && Block.blocksList[itemID] != null)
 			{
-				Block var3 = Block.blocksList[itemID];
+				Block block = Block.blocksList[itemID];
 
-				if (var3 == Block.woodSingleSlab)
+				if (block == Block.woodSingleSlab)
 				{
 					return 150;
 				}
+				
+				if (block == Block.wood)
+				{
+					return 2400;
+				}
 
-				if (var3.blockMaterial == Material.wood)
+				if (block.blockMaterial == Material.wood)
 				{
 					return 300;
 				}
@@ -254,7 +260,7 @@ public class FrypanLogic extends EquipLogic
 			if (itemID == Item.stick.itemID)
 				return 100;
 			if (itemID == Item.coal.itemID)
-				return 1600;
+				return 800;
 			if (itemID == Item.bucketLava.itemID)
 				return 20000;
 			if (itemID == Block.sapling.blockID)

@@ -23,7 +23,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
  * @author: mDiyo
  */
 
-@Mod(modid = "TConstruct", name = "TConstruct", version = "A18")
+@Mod(modid = "TConstruct", name = "TConstruct", version = "Beta 1")
 @NetworkMod(serverSideRequired = false, clientSideRequired = true, channels={"TConstruct"}, packetHandler = tinker.tconstruct.TConstructPacketHandler.class)
 public class TConstruct 
 {
@@ -34,7 +34,7 @@ public class TConstruct
 	@SidedProxy(clientSide = "tinker.tconstruct.client.TProxyClient", serverSide = "tinker.tconstruct.TProxyCommon")
 	public static TProxyCommon proxy;
 	
-	public static ArrayList<ToolGuiElement> toolButtons = new ArrayList<ToolGuiElement>(30);
+	public static ArrayList<ToolGuiElement> toolButtons = new ArrayList<ToolGuiElement>(20);
 	
 	@PreInit
 	public void preInit(FMLPreInitializationEvent evt)
@@ -74,7 +74,7 @@ public class TConstruct
 		new int[] {2, 5, 0}, //Shovel
 		new int[] {2, 6, 0}, //Axe
 		//new int[] {2, 9, 0}, //Lumber Axe
-		new int[] {1, 7, 0}, //Ice Axe
+		//new int[] {1, 7, 0}, //Ice Axe
 		new int[] {3, 8, 0}, //Mattock
 		new int[] {1, 0, 1}, //Broadsword
 		new int[] {1, 1, 1}, //Longsword
@@ -89,7 +89,7 @@ public class TConstruct
 		new int[] { 3, 0, 13 }, new int[] { 2, 3, 13 }, //Shovel
 		new int[] { 2, 0, 13 }, new int[] { 2, 3, 13 }, //Axe
 		//new int[] { 6, 0, 13 }, new int[] { 2, 3, 13 }, //Lumber Axe
-		new int[] { 0, 0, 5 }, new int[] { 2, 3, 3 }, //Ice Axe
+		//new int[] { 0, 0, 5 }, new int[] { 2, 3, 3 }, //Ice Axe
 		new int[] { 2, 0, 3 }, new int[] { 2, 3, 2 }, //Mattock
 		new int[] { 1, 0, 2 }, new int[] { 2, 3, 3 }, //Broadsword
 		new int[] { 1, 0, 3 }, new int[] { 2, 3, 3 }, //Longsword
@@ -104,7 +104,7 @@ public class TConstruct
 		"Shovel",
 		"Axe",
 		//"Lumber Axe",
-		"Ice Axe",
+		//"Ice Axe",
 		"Mattock",
 		"Broadsword",
 		"Longsword",
@@ -119,13 +119,14 @@ public class TConstruct
 		"The Shovel is a basic digging tool. It is effective on dirt and sand.\n\nRequired parts:\n- Shovel Head\n- Handle",
 		"The Axe is a basic chopping tool. It is effective on wood and leaves.\n\nRequired parts:\n- Axe Head\n- Handle",
 		//"The Lumber Axe is a broad chopping tool. It harvests wood in a wide range and can fell entire trees.\n\nRequired parts:\n- Broad Axe Head\n- Handle",
-		"The Ice Axe is a tool for harvesting ice, mining, and attacking foes.\n\nSpecial Ability:\n- Wall Climb\nNatural Ability:\n- Ice Harvest\nDamage: Moderate\n\nRequired parts:\n- Pickaxe Head\n- Spike\n- Handle",
+		//"The Ice Axe is a tool for harvesting ice, mining, and attacking foes.\n\nSpecial Ability:\n- Wall Climb\nNatural Ability:\n- Ice Harvest\nDamage: Moderate\n\nRequired parts:\n- Pickaxe Head\n- Spike\n- Handle",
 		"The Cutter Mattock is a multi-use tool. It is effective on wood, leaves, dirt, and sand.\n\nSpecial Ability: Hoe\n\nRequired parts:\n- Axe Head\n- Shovel Head\n- Handle",
 		"The Broadsword is a defensive weapon. Blocking cuts damage in half.\n\nSpecial Ability: Block\nDamage: Moderate\nDurability: High\n\nRequired parts:\n- Sword Blade\n- Wide Guard\n- Handle",
 		"The Longsword is a balanced weapon. It is useful for knocking enemies away or getting in and out of battle quickly.\n\nSpecial Ability: Lunge\nDamage: Moderate\nDurability: Moderate\n\nRequired parts:\n- Sword Blade\n- Hand Guard\n- Handle",
 		"The Rapier is an offensive weapon that relies on quick strikes to defeat foes.\n\nNatural Abilities:\n- Armor Pierce\n- Quick Strike\nDamage: High\nDurability: Low\n\nRequired parts:\n- Sword Blade\n- Crossbar\n- Handle",
 		"The Frying is a heavy weapon that uses sheer weight to stun foes.\n\nSpecial Ability: Block\nNatural Ability: Bash\nShift+rClick: Place Frying Pan\nDamage: High\nDurability: High\n\nRequired parts:\n- Pan\n- Handle",
-		"The Battlesign is an advance in weapon technology worthy of Zombie Pigmen everywhere.\n\nSpecial Ability: Block\nShift-rClick: Place sign\nDamage: Low\nDurability: Average\n\nRequired parts:\n- Board\n- Handle"
+		//"The Battlesign is an advance in weapon technology worthy of Zombie Pigmen everywhere.\n\nSpecial Ability: Block\nShift-rClick: Place sign\nDamage: Low\nDurability: Average\n\nRequired parts:\n- Board\n- Handle"
+		"The Battlesign is an advance in weapon technology worthy of Zombie Pigmen everywhere.\n\nSpecial Ability: Block\nDamage: Low\nDurability: Average\n\nRequired parts:\n- Sign Board\n- Handle"
 	};
 	
 	void addToolButtons()

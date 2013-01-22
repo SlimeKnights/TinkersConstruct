@@ -18,6 +18,8 @@ public class Materials extends Item
 		this.setCreativeTab(TConstruct.materialTab);
 		this.iconIndex = icon;
 		this.setTextureFile(tex);
+		this.setHasSubtypes(true);
+		this.setMaxDamage(0);
 	}
 
 	@SideOnly(Side.CLIENT)

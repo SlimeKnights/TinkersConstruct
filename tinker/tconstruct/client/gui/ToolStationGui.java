@@ -136,9 +136,9 @@ public class ToolStationGui extends GuiContainer
 	 */
 	protected void drawGuiContainerForegroundLayer (int par1, int par2)
 	{
-		this.fontRenderer.drawString(StatCollector.translateToLocal("crafters.ToolStation"), 6, 6, 0x000000);
+		this.fontRenderer.drawString(StatCollector.translateToLocal("crafters.ToolStation"), 6, 8, 0x000000);
 		this.fontRenderer.drawString(StatCollector.translateToLocal("container.inventory"), 8, this.ySize - 96 + 2, 0x000000);
-		this.fontRenderer.drawString(toolName + "_", this.xSize / 2 - 5, 8, 0);
+		this.fontRenderer.drawString(toolName + "_", this.xSize / 2 - 18, 8, 0xffffff);
 
 		if (logic.isStackInSlot(0))
 			drawToolStats();
@@ -341,6 +341,7 @@ public class ToolStationGui extends GuiContainer
 		DataOutputStream outputStream = new DataOutputStream(bos);
 		try
 		{
+			outputStream.writeByte(1);
 			outputStream.writeInt(logic.worldObj.getWorldInfo().getDimension());
 			outputStream.writeInt(logic.xCoord);
 			outputStream.writeInt(logic.yCoord);
