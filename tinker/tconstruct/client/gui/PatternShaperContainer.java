@@ -45,7 +45,7 @@ public class PatternShaperContainer extends Container
         craftResult.setInventorySlotContents(0, CraftingManager.getInstance().findMatchingRecipe(craftMatrix, worldObj));
     }*/
 
-    @Override
+    /*@Override
     public void onCraftGuiClosed(EntityPlayer entityplayer)
     {
         super.onCraftGuiClosed(entityplayer);
@@ -58,7 +58,7 @@ public class PatternShaperContainer extends Container
         {
             entityplayer.dropPlayerItem(itemstack);
         }
-    }
+    }*/
 
     @Override
     public boolean canInteractWith(EntityPlayer entityplayer)

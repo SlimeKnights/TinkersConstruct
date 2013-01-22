@@ -147,7 +147,7 @@ public class TConstructContent
 		//lumberHead = new ToolPart(PHConstruct.lumberHead, 0, broadheads).setItemName("tconstruct.LumberHead");
 	}
 	
-	public static Item[] patternOutputs = { toolRod, pickaxeHead, shovelHead, axeHead, swordBlade, largeGuard, medGuard, crossbar, binding, frypanHead, signHead };
+	public static Item[] patternOutputs;
 	
 	void registerMaterials ()
 	{
@@ -164,7 +164,7 @@ public class TConstructContent
 		pb.registerFullMaterial(new ItemStack(materials, 1, 1), 2, "slime", new ItemStack(toolShard, 1, 8), new ItemStack(toolRod, 1, 8), 8);
 		pb.registerFullMaterial(new ItemStack(materials, 1, 0), 2, "paper", new ItemStack(Item.paper), new ItemStack(toolRod, 1, 9), 9);
 		
-		
+		patternOutputs = new Item[] { toolRod, pickaxeHead, shovelHead, axeHead, swordBlade, largeGuard, medGuard, crossbar, binding, frypanHead, signHead };
 		for (int iter = 0; iter < patternOutputs.length; iter++)
 		{
 			pb.addToolPattern(new ItemStack(woodPattern, 1, iter+1), patternOutputs[iter]);
@@ -247,12 +247,10 @@ public class TConstructContent
 		FurnaceRecipes.smelting().addSmelting(craftedSoil.blockID, 1, new ItemStack(materials, 1, 2), 2f); //Seared brick item
 		GameRegistry.addRecipe(new ItemStack(searedBrick, 1, 0), "pp", "pp", 'p', new ItemStack(materials, 1, 2)); //Seared brick block
 		
-		for (int i = 0; i < 12; i++)
+		/*for (int i = 0; i < 12; i++)
 		{
 			GameRegistry.addRecipe(new ItemStack(TConstructContent.woodPattern, 1, i + 1), "s", 's', new ItemStack(TConstructContent.woodPattern, 1, i));
-			/*GameRegistry.addRecipe(new ItemStack(TConstructContent.stonePattern, 1, i + 1), "s", 's', new ItemStack(TConstructContent.stonePattern, 1, i));
-			GameRegistry.addRecipe(new ItemStack(TConstructContent.netherPattern, 1, i + 1), "s", 's', new ItemStack(TConstructContent.netherPattern, 1, i));*/
-		}
+		}*/
 	}
 	
 	void setupToolTabs ()
