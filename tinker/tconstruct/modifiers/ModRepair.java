@@ -49,7 +49,7 @@ public class ModRepair extends ToolMod
 		NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
 		tags.setBoolean("Broken", false);
 		int damage = tags.getInteger("Damage");
-		int dur = tags.getInteger("TotalDurability");
+		int dur = tags.getInteger("BaseDurability");
 		
 		int materialValue = 0;
 		if (input [0] != null)

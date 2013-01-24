@@ -30,7 +30,7 @@ public class ModLapisBase extends ToolMod
 		tags.setBoolean(key, true);
 		
 		String modName = "\u00a79Lapis (0/100)";
-		int tooltipIndex = addToolTip(tool, "\u00a79Fortune", modName);
+		int tooltipIndex = addToolTip(tool, "\u00a79Luck", modName);
 		int[] keyPair = new int[] { 0, tooltipIndex };
 		tags.setIntArray(key, keyPair);
 		

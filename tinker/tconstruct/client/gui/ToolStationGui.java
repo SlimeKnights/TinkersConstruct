@@ -171,8 +171,7 @@ public class ToolStationGui extends GuiContainer
 
 		fontRenderer.drawString("Modifiers remaining: " + tags.getInteger("Modifiers"), xSize + 8, 57, 0xffffff);
 		if (tags.hasKey("Tooltip1"))
-			;
-		fontRenderer.drawString("Modifiers:", xSize + 8, 68, 0xffffff);
+			fontRenderer.drawString("Modifiers:", xSize + 8, 68, 0xffffff);
 
 		boolean displayToolTips = true;
 		int tipNum = 0;
@@ -204,8 +203,7 @@ public class ToolStationGui extends GuiContainer
 
 		fontRenderer.drawString("Modifiers remaining: " + tags.getInteger("Modifiers"), xSize + 8, 79, 0xffffff);
 		if (tags.hasKey("Tooltip1"))
-			;
-		fontRenderer.drawString("Modifiers:", xSize + 8, 90, 0xffffff);
+			fontRenderer.drawString("Modifiers:", xSize + 8, 90, 0xffffff);
 
 		boolean displayToolTips = true;
 		int tipNum = 0;
@@ -239,8 +237,7 @@ public class ToolStationGui extends GuiContainer
 
 		fontRenderer.drawString("Modifiers remaining: " + tags.getInteger("Modifiers"), xSize + 8, 90, 0xffffff);
 		if (tags.hasKey("Tooltip1"))
-			;
-		fontRenderer.drawString("Modifiers:", xSize + 8, 101, 0xffffff);
+			fontRenderer.drawString("Modifiers:", xSize + 8, 101, 0xffffff);
 
 		boolean displayToolTips = true;
 		int tipNum = 0;
@@ -318,24 +315,27 @@ public class ToolStationGui extends GuiContainer
 		this.mc.renderEngine.bindTexture(texID);
 		cornerX = (this.width + this.xSize) / 2;
 		cornerY = (this.height - this.ySize) / 2;
-		this.drawTexturedModalRect(cornerX, cornerY, 0, 0, this.xSize, this.ySize);
+		this.drawTexturedModalRect(cornerX, cornerY, 0, 0, 126, this.ySize);
 	}
 
 	protected void keyTyped (char par1, int keyCode)
 	{
-		text.textboxKeyTyped(par1, keyCode);
-		toolName = text.getText().trim();
-		logic.setToolname(toolName);
-		updateServer();
-
 		if (keyCode == 1)
 		{
+			updateServer("");
 			Keyboard.enableRepeatEvents(false);
 			this.mc.thePlayer.closeScreen();
 		}
+		else
+		{
+			text.textboxKeyTyped(par1, keyCode);
+			toolName = text.getText().trim();
+			logic.setToolname(toolName);
+			updateServer(toolName);
+		}
 	}
 
-	void updateServer ()
+	void updateServer (String name)
 	{
 		ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
 		DataOutputStream outputStream = new DataOutputStream(bos);
@@ -346,7 +346,7 @@ public class ToolStationGui extends GuiContainer
 			outputStream.writeInt(logic.xCoord);
 			outputStream.writeInt(logic.yCoord);
 			outputStream.writeInt(logic.zCoord);
-			outputStream.writeUTF(toolName);
+			outputStream.writeUTF(name);
 		}
 		catch (Exception ex)
 		{

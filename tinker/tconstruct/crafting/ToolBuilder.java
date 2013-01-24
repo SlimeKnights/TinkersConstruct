@@ -60,6 +60,7 @@ public class ToolBuilder
 		
 		//System.out.println("Tool name: "+item.getToolName());
 		int head = headStack.getItemDamage();
+		System.out.println("Head:"+head);
 		int handle = handleStack.getItemDamage();
 		int accessory = -1;
 		if (accessoryStack != null)

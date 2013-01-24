@@ -239,18 +239,21 @@ public class AbilityHelper
 			int attack = (int) ((tags.getCompoundTag("InfiTool").getInteger("Attack") + damageModifier) * bonusDamage);
 
 			if (player instanceof EntityPlayer)
-				mob.attackEntityFrom(DamageSource.causePlayerDamage((EntityPlayer) player), attack);
+				if (mob.attackEntityFrom(DamageSource.causePlayerDamage((EntityPlayer) player), attack))
+				{
+					damageTool(stack, 1, tags, player, false);
+					if (tags.getCompoundTag("InfiTool").getBoolean("Necrotic"))
+						player.heal(1);
+				}
 			else
 				mob.attackEntityFrom(DamageSource.causeMobDamage(player), attack);
-		}
-		//if (mob.hurtResistantTime <= 0)
-		damageTool(stack, 1, tags, player, false);
-		if (tags.getCompoundTag("InfiTool").hasKey("Fiery"))
-		{
-			System.out.println("Fiery: "+tags.getInteger("Fiery"));
-			mob.setFire(tags.getCompoundTag("InfiTool").getInteger("Fiery")/5+1);
-		}
 			
+			if (tags.getCompoundTag("InfiTool").hasKey("Fiery"))
+			{
+				System.out.println("Fiery: "+tags.getInteger("Fiery"));
+				mob.setFire(tags.getCompoundTag("InfiTool").getInteger("Fiery")/5+1);
+			}
+		}
 	}
 
 	public static DamageSource causePiercingDamage (EntityLiving mob)

@@ -8,14 +8,40 @@ import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.ShapedOreRecipe;
-import tinker.tconstruct.blocks.*;
-import tinker.tconstruct.crafting.*;
-import tinker.tconstruct.items.*;
-import tinker.tconstruct.modifiers.*;
-import tinker.tconstruct.tools.*;
+import tinker.tconstruct.blocks.EquipBlock;
+import tinker.tconstruct.blocks.TConstructBlock;
+import tinker.tconstruct.blocks.ToolStationBlock;
+import tinker.tconstruct.crafting.PatternBuilder;
+import tinker.tconstruct.crafting.ToolBuilder;
+import tinker.tconstruct.items.CraftingItem;
+import tinker.tconstruct.items.Materials;
+import tinker.tconstruct.items.Pattern;
+import tinker.tconstruct.items.ToolPart;
+import tinker.tconstruct.modifiers.ModBlaze;
+import tinker.tconstruct.modifiers.ModBoolean;
+import tinker.tconstruct.modifiers.ModDurability;
+import tinker.tconstruct.modifiers.ModElectric;
+import tinker.tconstruct.modifiers.ModInteger;
+import tinker.tconstruct.modifiers.ModLapisBase;
+import tinker.tconstruct.modifiers.ModLapisIncrease;
+import tinker.tconstruct.modifiers.ModRedstone;
+import tinker.tconstruct.modifiers.ModRepair;
+import tinker.tconstruct.tools.Axe;
+import tinker.tconstruct.tools.BattleSign;
+import tinker.tconstruct.tools.Broadsword;
+import tinker.tconstruct.tools.FryingPan;
+import tinker.tconstruct.tools.Longsword;
+import tinker.tconstruct.tools.LumberAxe;
+import tinker.tconstruct.tools.Mattock;
+import tinker.tconstruct.tools.Pickaxe;
+import tinker.tconstruct.tools.Rapier;
+import tinker.tconstruct.tools.Shovel;
+import tinker.tconstruct.tools.ToolCore;
+import cpw.mods.fml.common.IFuelHandler;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class TConstructContent
+	implements IFuelHandler
 {
 	//Patterns and other materials
 	public static Item blankPattern;
@@ -78,6 +104,7 @@ public class TConstructContent
 		addToolRecipes();
 		addCraftingRecipes();
 		setupToolTabs();
+		GameRegistry.registerFuelHandler(this);
 	}
 	
 	void createItems ()
@@ -87,6 +114,7 @@ public class TConstructContent
 		GameRegistry.registerTileEntity(tinker.tconstruct.logic.ToolStationLogic.class, "ToolStation");
 		GameRegistry.registerTileEntity(tinker.tconstruct.logic.PartCrafterLogic.class, "PartCrafter");
 		GameRegistry.registerTileEntity(tinker.tconstruct.logic.PatternChestLogic.class, "PatternHolder");
+		GameRegistry.registerTileEntity(tinker.tconstruct.logic.PatternShaperLogic.class, "PatternShaper");
 		
 		heldItemBlock = new EquipBlock(PHConstruct.heldItemBlock, Material.wood);
 		GameRegistry.registerBlock(heldItemBlock, "HeldItemBlock");
@@ -158,11 +186,13 @@ public class TConstructContent
 		pb.registerFullMaterial(Item.ingotIron, 2, "iron", 2);
 		pb.registerFullMaterial(Item.flint, 2, "flint", 3);
 		pb.registerFullMaterial(Block.cactus, 2, "cactus", 4);
-		pb.registerFullMaterial(Item.bone, 2, "bone", new ItemStack(toolShard, 1, 5), new ItemStack(Item.bone), 5);
+		pb.registerFullMaterial(Item.bone, 2, "bone", new ItemStack(Item.dyePowder, 1, 0), new ItemStack(Item.bone), 5);
 		pb.registerFullMaterial(Block.obsidian, 2, "obsidian", 6);
 		pb.registerFullMaterial(Block.netherrack, 2, "netherrack", 7);
 		pb.registerFullMaterial(new ItemStack(materials, 1, 1), 2, "slime", new ItemStack(toolShard, 1, 8), new ItemStack(toolRod, 1, 8), 8);
 		pb.registerFullMaterial(new ItemStack(materials, 1, 0), 2, "paper", new ItemStack(Item.paper), new ItemStack(toolRod, 1, 9), 9);
+		pb.registerMaterialSet("copper", new ItemStack(toolShard, 1, 13), new ItemStack(toolRod, 1, 13), 13);
+		pb.registerMaterialSet("bronze", new ItemStack(toolShard, 1, 14), new ItemStack(toolRod, 1, 14), 14);
 		
 		patternOutputs = new Item[] { toolRod, pickaxeHead, shovelHead, axeHead, swordBlade, largeGuard, medGuard, crossbar, binding, frypanHead, signHead };
 		for (int iter = 0; iter < patternOutputs.length; iter++)
@@ -209,10 +239,7 @@ public class TConstructContent
 		
 		ItemStack reBattery = ic2.api.Items.getItem("reBattery");
 		if (reBattery != null)
-			modE.batteries.add(reBattery);
-		ItemStack chargedReBattery = ic2.api.Items.getItem("chargedReBattery");
-		if (chargedReBattery != null)
-			modE.batteries.add(chargedReBattery);
+			modE.batteries.add(new ItemStack(reBattery.getItem(), 1, -1));
 		ItemStack electronicCircuit = ic2.api.Items.getItem("electronicCircuit");
 		if (electronicCircuit != null)
 			modE.circuits.add(electronicCircuit);
@@ -228,8 +255,12 @@ public class TConstructContent
 		GameRegistry.addRecipe(new ItemStack(woodCrafter, 1, 3), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(Block.wood, 1, 2));
 		GameRegistry.addRecipe(new ItemStack(woodCrafter, 1, 4), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(Block.wood, 1, 3));
 		GameRegistry.addRecipe(new ItemStack(woodCrafter, 1, 5), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', Block.chest);
-		GameRegistry.addRecipe(new ItemStack(woodCrafter, 1, 10), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', Block.planks);
+		GameRegistry.addRecipe(new ItemStack(woodCrafter, 1, 10), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(Block.planks, 1, 0));
+		GameRegistry.addRecipe(new ItemStack(woodCrafter, 1, 11), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(Block.planks, 1, 1));
+		GameRegistry.addRecipe(new ItemStack(woodCrafter, 1, 12), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(Block.planks, 1, 2));
+		GameRegistry.addRecipe(new ItemStack(woodCrafter, 1, 13), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(Block.planks, 1, 3));
 		GameRegistry.addRecipe( new ShapedOreRecipe(new ItemStack(woodCrafter, 1, 1), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', "logWood"));
+		GameRegistry.addRecipe( new ShapedOreRecipe(new ItemStack(woodCrafter, 1, 10), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', "plankWood"));
 		
 		GameRegistry.addRecipe( new ShapedOreRecipe(new ItemStack(blankPattern, 1, 0), "ps", "sp", 'p', "plankWood", 's', Item.stick));
 		/*GameRegistry.addRecipe(new ItemStack(stonePattern, 1, 0), "ps", "sp", 'p', Block.cobblestone, 's', new ItemStack(toolRod, 1, 1));
@@ -238,7 +269,7 @@ public class TConstructContent
 		
 		GameRegistry.addRecipe(new ItemStack(materials, 1, 0), "pp", "pp", 'p', Item.paper); //Paper stack
 		GameRegistry.addRecipe(new ItemStack(materials, 1, 6), "ppp", "ppp", "ppp", 'p', Block.cobblestoneMossy); //Moss ball
-		GameRegistry.addRecipe(new ItemStack(materials, 1, 7), " c ", "cbc", " c ", 'b', Item.bucketLava, 'c', Item.coal); //Auto-smelt
+		GameRegistry.addRecipe(new ItemStack(materials, 1, 7), "xcx", "cbc", "xcx", 'b', Item.bucketLava, 'c', Item.coal, 'x', Block.netherrack); //Auto-smelt
 		GameRegistry.addShapelessRecipe(new ItemStack(materials, 1, 8), Item.bone, Item.rottenFlesh, Item.chickenRaw, Item.beefRaw, Item.porkRaw, Item.fishRaw); //Necrotic bone
 		GameRegistry.addShapelessRecipe(new ItemStack(craftedSoil, 1, 0), Item.slimeBall, Item.slimeBall, Item.slimeBall, Item.slimeBall, Block.sand, Block.dirt); //Slimy sand
 		GameRegistry.addShapelessRecipe(new ItemStack(craftedSoil, 1, 1), Item.clay, Block.sand, Block.gravel); //Grout, Add stone dust?
@@ -290,4 +321,12 @@ public class TConstructContent
 	public static String bowTexture = "/tinkertextures/tools/bows.png";
 	public static String mattockTexture = "/tinkertextures/tools/mattock.png";
 	public static String lumberaxeTexture = "/tinkertextures/tools/lumberaxe.png";
+
+	@Override
+	public int getBurnTime (ItemStack fuel)
+	{
+		if (fuel.itemID == materials.itemID && fuel.getItemDamage() == 7)
+			return 26400;
+		return 0;
+	}
 }

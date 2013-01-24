@@ -44,8 +44,8 @@ public class Mattock extends DualHarvestTool
 		return "shovel";
 	}
 	
-	static Material[] axeMaterials = { Material.wood, Material.circuits, Material.cactus, Material.pumpkin, Material.leaves };
-	static Material[] shovelMaterials = { Material.grass, Material.ground, Material.sand, Material.snow, Material.craftedSnow, Material.clay };
+	static Material[] axeMaterials = { Material.wood, Material.circuits, Material.cactus, Material.pumpkin, Material.plants };
+	static Material[] shovelMaterials = { Material.grass, Material.ground, Material.clay };
 	
 	public float getDurabilityModifier ()
 	{

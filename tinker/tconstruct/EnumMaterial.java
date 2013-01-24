@@ -9,18 +9,20 @@ public enum EnumMaterial
     Iron       (2,  250,  600, 2,  1.3F, 1, 0),
     Flint      (1,  171,  525, 2,  0.7F, 0, 1f),
     Cactus     (1,  150,  500, 2,  1.0F, 0, -1f),
-    Obsidian   (3,   89,  800, 2,  0.8F, 5, 0),
     Bone       (1,  200,  500, 2,  1.0F, 0, 0),
+    Obsidian   (3,   89,  700, 2,  0.8F, 3, 0),
     Netherrack (2,  131,  400, 1,  1.2F, 0, 1f),
     Slime      (3, 1500,  150, 0,  5.0F, 0, 0),
     Paper      (0,  131,  200, 0,  0.1F, 0, 0),
     Cobalt     (4,  800,  800, 3,  1.8F, 2, 0),
     Ardite     (4,  800,  800, 3,  1.8F, 0, 0),
     Manyullyn  (5, 1200, 1000, 4,  2.5F, 0, 0),
+    Copper     (1,  180,  500, 2,  1.8F, 0, 0),
+    Bronze     (2,  250,  600, 2,  2.5F, 1, 0),
     Demonite   (5, 1790,  900, 5, 1.66F, 0, 0),
     Holyshell  (5, 1000,  700, 1,  1.5F, 0, 0);
     
-    //mining level, durability, mining speed, baseDamage, handle modifier, Durability level, shoddy/spiny level
+    //mining level, durability, mining speed, baseDamage, handle modifier, Reinforced level, shoddy/spiny level
     
     private final int harvestLevel;
     private final int durability;
@@ -128,7 +130,7 @@ public enum EnumMaterial
     	return getEnumByType(type).shoddy();
     }
     
-    static EnumMaterial getEnumByType(int type)
+    public static EnumMaterial getEnumByType(int type)
     {
     	switch (type)
     	{
@@ -137,16 +139,16 @@ public enum EnumMaterial
     	case 2: return Iron;
     	case 3: return Flint;
     	case 4: return Cactus;
-    	case 5: return Obsidian;
-    	case 6: return Bone;
+    	case 5: return Bone;
+    	case 6: return Obsidian;
     	case 7: return Netherrack;
     	case 8: return Slime;
     	case 9: return Paper;
     	case 10: return Cobalt;
     	case 11: return Ardite;
     	case 12: return Manyullyn;
-    	case 13: return Demonite;
-    	case 14: return Holyshell;
+    	case 13: return Copper;
+    	case 14: return Bronze;
     	}
     	return null;
     }

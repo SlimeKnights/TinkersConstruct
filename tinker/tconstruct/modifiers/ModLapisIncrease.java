@@ -8,6 +8,7 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import tinker.tconstruct.tools.Weapon;
 
 public class ModLapisIncrease extends ToolMod
 {
@@ -26,7 +27,6 @@ public class ModLapisIncrease extends ToolMod
 		if (!tags.hasKey(key))
 			return false;
 
-		System.out.println("Checking modify");
 		int keyPair[] = tags.getIntArray(key);
 		
 		if (keyPair[0] + increase <= 100)
@@ -43,12 +43,24 @@ public class ModLapisIncrease extends ToolMod
 		int keyPair[] = tags.getIntArray(key);
 		keyPair[0] += increase;
 		tags.setIntArray(key, keyPair);
-		if (keyPair[0] >= 100)
-			addEnchantment(tool, Enchantment.fortune, 3);
-		else if (keyPair[0] >= 40)
-			addEnchantment(tool, Enchantment.fortune, 2);
-		else if (keyPair[0] >= 10)
-			addEnchantment(tool, Enchantment.fortune, 1);
+		if (tool.getItem() instanceof Weapon)
+		{
+			if (keyPair[0] >= 100)
+				addEnchantment(tool, Enchantment.looting, 3);
+			else if (keyPair[0] >= 40)
+				addEnchantment(tool, Enchantment.looting, 2);
+			else if (keyPair[0] >= 10)
+				addEnchantment(tool, Enchantment.looting, 1);
+		}
+		else
+		{
+			if (keyPair[0] >= 100)
+				addEnchantment(tool, Enchantment.fortune, 3);
+			else if (keyPair[0] >= 40)
+				addEnchantment(tool, Enchantment.fortune, 2);
+			else if (keyPair[0] >= 10)
+				addEnchantment(tool, Enchantment.fortune, 1);
+		}
 		
 		updateModTag(tool, keyPair);
 	}

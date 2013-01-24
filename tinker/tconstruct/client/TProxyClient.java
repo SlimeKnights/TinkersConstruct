@@ -55,9 +55,9 @@ public class TProxyClient extends TProxyCommon
 		LanguageRegistry.instance().addStringLocalization("crafters.Frypan", "Frying Pan");
 		
 		LanguageRegistry.instance().addStringLocalization("ToolStation.Crafter.name", "Tool Station");
-		LanguageRegistry.instance().addStringLocalization("ToolStation.Parts.name", "Part Crafting");
+		LanguageRegistry.instance().addStringLocalization("ToolStation.Parts.name", "Part Builder");
 		LanguageRegistry.instance().addStringLocalization("ToolStation.PatternChest.name", "Pattern Chest");
-		LanguageRegistry.instance().addStringLocalization("ToolStation.PatternShaper.name", "Pattern Shaper");
+		LanguageRegistry.instance().addStringLocalization("ToolStation.PatternShaper.name", "Stencil Table");
 		
 		LanguageRegistry.instance().addStringLocalization("CraftedSoil.Slime.name", "Slimy Mud");
 		LanguageRegistry.instance().addStringLocalization("CraftedSoil.Grout.name", "Grout");
@@ -114,7 +114,7 @@ public class TProxyClient extends TProxyCommon
 		"Paper Stack", "Slime Crystal", "Seared Brick", "Cobalt Ingot", "Ardite Ingot", "Manyullyn Ingot", "Ball of Moss", "Lava Crystal", "Necrotic Bone" };
 	
 	public static final String[] toolMaterialNames = new String[] { 
-		"Wood", "Stone", "Iron", "Flint", "Cactus", "Bone", "Obsidian", "Netherrack", "Slime", "Paper", "Cobalt", "Ardite", "Manyullyn" };
+		"Wood", "Stone", "Iron", "Flint", "Cactus", "Bone", "Obsidian", "Netherrack", "Slime", "Paper", "Cobalt", "Ardite", "Manyullyn", "Copper", "Bronze" };
 	
 	public static final String[] materialTypes = new String[] {
 		"ToolRod", "PickaxeHead", "ToolShard", "ShovelHead", "AxeHead", "SwordBlade", "LargeGuard", "MediumGuard", "Crossbar", "Binding", "FrypanHead", "SignHead", "LumberHead" };

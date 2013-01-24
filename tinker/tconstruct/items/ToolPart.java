@@ -23,16 +23,16 @@ public class ToolPart extends CraftingItem
 
 	public String getItemNameIS(ItemStack stack)
 	{
-		int arr = MathHelper.clamp_int(stack.getItemDamage(), 0, 12);
+		int arr = MathHelper.clamp_int(stack.getItemDamage(), 0, 15);
 		return getItemName() + "." +toolMaterialNames[arr];
 	}
 	
 	public void getSubItems(int id, CreativeTabs tab, List list)
     {
-		for (int i = 0; i < 13; i++)
+		for (int i = 0; i < 15; i++)
 			list.add(new ItemStack(id, 1, i));
     }
 	
 	public static final String[] toolMaterialNames = new String[] { 
-		"Wood", "Stone", "Iron", "Flint", "Cactus", "Bone", "Obsidian", "Netherrack", "Slime", "Paper", "Cobalt", "Ardite", "Manyullyn" };
+		"Wood", "Stone", "Iron", "Flint", "Cactus", "Bone", "Obsidian", "Netherrack", "Slime", "Paper", "Cobalt", "Ardite", "Manyullyn", "Copper", "Bronze" };
 }

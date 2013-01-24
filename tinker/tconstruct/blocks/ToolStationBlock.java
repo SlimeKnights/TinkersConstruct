@@ -115,6 +115,9 @@ public class ToolStationBlock extends InventoryBlock
 		case 8: return new PatternChestLogic();
 		case 9: return new PatternChestLogic();
 		case 10: return new PatternShaperLogic();
+		case 11: return new PatternShaperLogic();
+		case 12: return new PatternShaperLogic();
+		case 13: return new PatternShaperLogic();
 		default: return null;
 		}        
     }
@@ -145,6 +148,11 @@ public class ToolStationBlock extends InventoryBlock
 	public void getSubBlocks (int id, CreativeTabs tab, List list)
 	{
 		for (int iter = 0; iter < 6; iter++)
+		{
+			list.add(new ItemStack(id, 1, iter));
+		}
+		
+		for (int iter = 10; iter < 14; iter++)
 		{
 			list.add(new ItemStack(id, 1, iter));
 		}
