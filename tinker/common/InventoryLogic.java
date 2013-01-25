@@ -50,6 +50,11 @@ public abstract class InventoryLogic extends TileEntity
 		return 64;
 	}
 	
+	public boolean canDropInventorySlot(int slot)
+	{
+		return true;
+	}
+	
 	@Override
 	public void setInventorySlotContents(int slot, ItemStack itemstack)
     {

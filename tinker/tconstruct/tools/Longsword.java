@@ -20,10 +20,10 @@ public class Longsword extends Weapon
 		this.setItemName("InfiTool.Longsword");
 	}
 	
-	public EnumAction getItemUseAction(ItemStack par1ItemStack)
+	/*public EnumAction getItemUseAction(ItemStack par1ItemStack)
     {
         return EnumAction.bow;
-    }
+    }*/
 	
 	/*public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
     {
@@ -33,12 +33,17 @@ public class Longsword extends Weapon
         return stack;
     }*/
 	
-	public void onPlayerStoppedUsing(ItemStack stack, World world, EntityPlayer player, int time)
+	public float chargeAttack()
+	{
+		return 1.2f;
+	}
+	
+	/*public void onPlayerStoppedUsing(ItemStack stack, World world, EntityPlayer player, int time)
     {
 		if (time > 5)
 			AbilityHelper.thrust(stack, world, player);
 		player.swingItem();
-    }
+    }*/
 
 	@Override
 	protected Item getHeadItem ()

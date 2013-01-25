@@ -293,4 +293,13 @@ public class FrypanLogic extends EquipLogic
 	{
 		return new FrypanContainer(inventoryplayer, this);
 	}
+	
+	/*@Override
+	public boolean canDropInventorySlot(int slot)
+	{
+		if (slot == 0)
+			return false;
+		else
+			return true;
+	}*/
 }

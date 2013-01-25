@@ -1,20 +1,23 @@
 package tinker.tconstruct;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.ForgeSubscribe;
+import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.OreDictionary.OreRegisterEvent;
 import tinker.tconstruct.client.gui.ToolGuiElement;
 import tinker.tconstruct.crafting.PatternBuilder;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
 import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.Mod.PostInit;
 import cpw.mods.fml.common.Mod.PreInit;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkRegistry;
@@ -24,7 +27,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
  * @author: mDiyo
  */
 
-@Mod(modid = "TConstruct", name = "TConstruct", version = "Beta 3")
+@Mod(modid = "TConstruct", name = "TConstruct", version = "mc1.4.7_1.0.3")
 @NetworkMod(serverSideRequired = false, clientSideRequired = true, channels={"TConstruct"}, packetHandler = tinker.tconstruct.TConstructPacketHandler.class)
 public class TConstruct 
 {
@@ -59,10 +62,21 @@ public class TConstruct
 		//GameRegistry.registerWorldGenerator(new TBaseWorldGenerator());
 	}
 	
+	@PostInit
+	public void postInit(FMLPostInitializationEvent evt) 
+	{
+		ArrayList<ItemStack> copperIngots = OreDictionary.getOres("ingotCopper");
+		for (ItemStack copper : copperIngots)
+			PatternBuilder.instance.registerMaterial(copper, 2, "copper");
+		
+		ArrayList<ItemStack> bronzeIngots = OreDictionary.getOres("ingotBronze");
+		for (ItemStack bronze : bronzeIngots)
+			PatternBuilder.instance.registerMaterial(bronze, 2, "bronze");
+	}
+	
 	@ForgeSubscribe
     public void registerOre(OreRegisterEvent evt)
 	{
-		System.out.println("Ore event: "+evt.Name);
 		if (evt.Name == "battery")
 			content.modE.batteries.add(evt.Ore);
 		
@@ -130,8 +144,8 @@ public class TConstruct
 		//"The Ice Axe is a tool for harvesting ice, mining, and attacking foes.\n\nSpecial Ability:\n- Wall Climb\nNatural Ability:\n- Ice Harvest\nDamage: Moderate\n\nRequired parts:\n- Pickaxe Head\n- Spike\n- Handle",
 		"The Cutter Mattock is a versatile farming tool. It is effective on wood, dirt, and plants.\n\nSpecial Ability: Hoe\n\nRequired parts:\n- Axe Head\n- Shovel Head\n- Handle",
 		"The Broadsword is a defensive weapon. Blocking cuts damage in half.\n\nSpecial Ability: Block\nDamage: Moderate\nDurability: High\n\nRequired parts:\n- Sword Blade\n- Wide Guard\n- Handle",
-		"The Longsword is a balanced weapon. It is useful for knocking enemies away or getting in and out of battle quickly.\n\nSpecial Ability: Lunge\nDamage: Moderate\nDurability: Moderate\n\nRequired parts:\n- Sword Blade\n- Hand Guard\n- Handle",
-		"The Rapier is an offensive weapon that relies on quick strikes to defeat foes.\n\nNatural Abilities:\n- Armor Pierce\n- Quick Strike\nDamage: High\nDurability: Low\n\nRequired parts:\n- Sword Blade\n- Crossbar\n- Handle",
+		"The Longsword is a balanced weapon. It is useful for knocking enemies away or getting in and out of battle quickly.\n\nNatural Ability:\n- Charge Boost\nDamage: Moderate\nDurability: Moderate\n\nRequired parts:\n- Sword Blade\n- Hand Guard\n- Handle",
+		"The Rapier is an offensive weapon that relies on quick strikes to defeat foes.\n\nNatural Abilities:\n- Armor Pierce\n- Quick Strike\n- Charge Boost\nDamage: High\nDurability: Low\n\nRequired parts:\n- Sword Blade\n- Crossbar\n- Handle",
 		"The Frying is a heavy weapon that uses sheer weight to stun foes.\n\nSpecial Ability: Block\nNatural Ability: Bash\nShift+rClick: Place Frying Pan\nDamage: High\nDurability: High\n\nRequired parts:\n- Pan\n- Handle",
 		//"The Battlesign is an advance in weapon technology worthy of Zombie Pigmen everywhere.\n\nSpecial Ability: Block\nShift-rClick: Place sign\nDamage: Low\nDurability: Average\n\nRequired parts:\n- Board\n- Handle"
 		"The Battlesign is an advance in weapon technology worthy of Zombie Pigmen everywhere.\n\nSpecial Ability: Block\nDamage: Low\nDurability: Average\n\nRequired parts:\n- Sign Board\n- Handle"

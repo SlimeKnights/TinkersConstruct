@@ -4,17 +4,29 @@ import ic2.api.ElectricItem;
 import ic2.api.ICustomElectricItem;
 import ic2.api.IElectricItem;
 
+import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.enchantment.EnchantmentThorns;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.monster.EntityCreeper;
+import net.minecraft.entity.monster.EntityGhast;
+import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.potion.Potion;
+import net.minecraft.stats.AchievementList;
+import net.minecraft.stats.StatList;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumMovingObjectType;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.Event.Result;
@@ -25,8 +37,9 @@ import cpw.mods.fml.client.FMLClientHandler;
 public class AbilityHelper
 {
 	static Minecraft mc;
+	static Random random = new Random();
 
-	/* Blocks */
+	/* Normal interactions */
 	public static boolean onBlockChanged (ItemStack stack, World world, int bID, int x, int y, int z, EntityLiving player, Random random)
 	{
 		if (!stack.hasTagCompound())
@@ -45,6 +58,216 @@ public class AbilityHelper
 
 		return true;
 	}
+
+	/*public static void hitEntity (ItemStack stack, EntityLiving mob, EntityLiving player)
+	{
+		hitEntity(stack, mob, player, 1f);
+	}
+
+	public static void hitEntity (ItemStack stack, EntityLiving mob, EntityLiving player, float bonusDamage)
+	{
+		NBTTagCompound tags = stack.getTagCompound();
+		if (!tags.getCompoundTag("InfiTool").getBoolean("Broken"))
+		{
+			int durability = tags.getCompoundTag("InfiTool").getInteger("Damage");
+
+			float shoddy = tags.getCompoundTag("InfiTool").getFloat("Shoddy");
+			float damageModifier = -shoddy * durability / 100f;
+
+			int attack = (int) ((tags.getCompoundTag("InfiTool").getInteger("Attack") + damageModifier) * bonusDamage);
+
+			if (player instanceof EntityPlayer)
+				if (mob.attackEntityFrom(DamageSource.causePlayerDamage((EntityPlayer) player), attack))
+				{
+					damageTool(stack, 1, tags, player, false);
+					if (tags.getCompoundTag("InfiTool").getBoolean("Necrotic"))
+						player.heal(1);
+				}
+			else
+				mob.attackEntityFrom(DamageSource.causeMobDamage(player), attack);
+			
+			if (tags.getCompoundTag("InfiTool").hasKey("Fiery"))
+			{
+				mob.setFire(tags.getCompoundTag("InfiTool").getInteger("Fiery")/5+1);
+			}
+		}
+	}*/
+	
+	public static void onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity entity, ToolCore tool)
+	{
+		if (entity.canAttackWithItem())
+        {
+            if (!entity.func_85031_j(player)) // can't attack this entity
+            {
+            	NBTTagCompound tags = stack.getTagCompound();
+            	NBTTagCompound toolTags = stack.getTagCompound().getCompoundTag("InfiTool");
+                int damage = toolTags.getInteger("Attack");
+                boolean broken = toolTags.getBoolean("Broken");
+                
+                int durability = tags.getCompoundTag("InfiTool").getInteger("Damage");
+                float shoddy = tags.getCompoundTag("InfiTool").getFloat("Shoddy");
+    			float damageModifier = -shoddy * durability / 100f;
+
+                if (player.isPotionActive(Potion.damageBoost))
+                {
+                    damage += 3 << player.getActivePotionEffect(Potion.damageBoost).getAmplifier();
+                }
+
+                if (player.isPotionActive(Potion.weakness))
+                {
+                    damage -= 2 << player.getActivePotionEffect(Potion.weakness).getAmplifier();
+                }
+
+                float knockback = 0;
+                int enchantDamage = 0;
+
+                if (entity instanceof EntityLiving)
+                {
+                    enchantDamage = EnchantmentHelper.getEnchantmentModifierLiving(player, (EntityLiving)entity);
+                    knockback += EnchantmentHelper.getKnockbackModifier(player, (EntityLiving)entity);
+                }
+
+                damage += damageModifier;
+                
+                if (player.isSprinting())
+                {
+                    knockback++;
+                    float lunge = tool.chargeAttack();
+                    if (lunge > 1f)
+                    {
+                    	knockback += lunge - 1.0f;
+                    	damage *= lunge;
+                    }
+                }
+
+                if (damage > 0 || enchantDamage > 0)
+                {
+                    boolean criticalHit = player.fallDistance > 0.0F && !player.onGround && !player.isOnLadder() && !player.isInWater() && !player.isPotionActive(Potion.blindness) && player.ridingEntity == null && entity instanceof EntityLiving;
+
+                    if (criticalHit)
+                    {
+                        damage += random.nextInt(damage / 2 + 2);
+                    }
+
+                    damage += enchantDamage;
+                    boolean var6 = false;
+                    int fireAspect = EnchantmentHelper.getFireAspectModifier(player);
+
+                    if (entity instanceof EntityLiving && fireAspect > 0 && !entity.isBurning())
+                    {
+                        var6 = true;
+                        entity.setFire(1);
+                    }
+                    
+                    if (broken)
+                    	damage = 1;
+                    boolean causedDamage = false;
+                    if (tool.pierceArmor())
+                    	causedDamage = entity.attackEntityFrom(causePlayerPiercingDamage(player), damage);
+                    else
+                    	causedDamage = entity.attackEntityFrom(DamageSource.causePlayerDamage(player), damage);
+
+                    if (causedDamage)
+                    {
+                    	damageTool(stack, 1, player, false);
+                    	int drain = toolTags.getInteger("Necrotic");
+                    	if (drain > 0)
+    						player.heal(drain);
+    					
+                        if (knockback > 0)
+                        {
+                            entity.addVelocity((double)(-MathHelper.sin(player.rotationYaw * (float)Math.PI / 180.0F) * (float)knockback * 0.5F), 0.1D, (double)(MathHelper.cos(player.rotationYaw * (float)Math.PI / 180.0F) * (float)knockback * 0.5F));
+                            player.motionX *= 0.6D;
+                            player.motionZ *= 0.6D;
+                            player.setSprinting(false);
+                        }
+
+                        if (criticalHit)
+                        {
+                            player.onCriticalHit(entity);
+                        }
+
+                        if (enchantDamage > 0)
+                        {
+                            player.onEnchantmentCritical(entity);
+                        }
+
+                        if (damage >= 18)
+                        {
+                            player.triggerAchievement(AchievementList.overkill);
+                        }
+
+                        player.setLastAttackingEntity(entity);
+
+                        if (entity instanceof EntityLiving)
+                        {
+                            EnchantmentThorns.func_92044_a(player, (EntityLiving)entity, random);
+                        }
+                    }
+
+                    if (entity instanceof EntityLiving)
+                    {
+                    	stack.hitEntity((EntityLiving)entity, player);
+                        if (entity.isEntityAlive())
+                        {
+                            alertPlayerWolves(player, (EntityLiving)entity, true);
+                        }
+
+                        player.addStat(StatList.damageDealtStat, damage);
+
+                        if (fireAspect > 0 && causedDamage)
+                        {
+                        	fireAspect *= 4;
+                        	if (toolTags.hasKey("Fiery"))
+                            {
+                            	fireAspect += toolTags.getInteger("Fiery")/5+1;
+                            }
+                            entity.setFire(fireAspect);
+                        }
+                        else if (var6)
+                        {
+                            entity.extinguish();
+                        }
+                    }
+
+                    player.addExhaustion(0.3F);
+                }
+            }
+        }
+	}
+	
+	static void alertPlayerWolves(EntityPlayer player, EntityLiving living, boolean par2)
+    {
+        if (!(living instanceof EntityCreeper) && !(living instanceof EntityGhast))
+        {
+            if (living instanceof EntityWolf)
+            {
+                EntityWolf var3 = (EntityWolf)living;
+
+                if (var3.isTamed() && player.username.equals(var3.getOwnerName()))
+                {
+                    return;
+                }
+            }
+
+            if (!(living instanceof EntityPlayer))// || player.isPVPEnabled()) //TODO: Find an alterntive for this
+            {
+                List var6 = player.worldObj.getEntitiesWithinAABB(EntityWolf.class, AxisAlignedBB.getAABBPool().addOrModifyAABBInPool(player.posX, player.posY, player.posZ, player.posX + 1.0D, player.posY + 1.0D, player.posZ + 1.0D).expand(16.0D, 4.0D, 16.0D));
+                Iterator var4 = var6.iterator();
+
+                while (var4.hasNext())
+                {
+                    EntityWolf var5 = (EntityWolf)var4.next();
+
+                    if (var5.isTamed() && var5.getEntityToAttack() == null && player.username.equals(var5.getOwnerName()) && (!par2 || !var5.isSitting()))
+                    {
+                        var5.setSitting(false);
+                        var5.setTarget(living);
+                    }
+                }
+            }
+        }
+    }
 
 	/* Tool specific */
 	public static void damageTool (ItemStack stack, int dam, EntityLiving entity, boolean ignoreCharge)
@@ -220,41 +443,8 @@ public class AbilityHelper
 	}
 
 	/* Entities */
-
-	public static void hitEntity (ItemStack stack, EntityLiving mob, EntityLiving player)
-	{
-		hitEntity(stack, mob, player, 1f);
-	}
-
-	public static void hitEntity (ItemStack stack, EntityLiving mob, EntityLiving player, float bonusDamage)
-	{
-		NBTTagCompound tags = stack.getTagCompound();
-		if (!tags.getCompoundTag("InfiTool").getBoolean("Broken"))
-		{
-			int durability = tags.getCompoundTag("InfiTool").getInteger("Damage");
-
-			float shoddy = tags.getCompoundTag("InfiTool").getFloat("Shoddy");
-			float damageModifier = -shoddy * durability / 100f;
-
-			int attack = (int) ((tags.getCompoundTag("InfiTool").getInteger("Attack") + damageModifier) * bonusDamage);
-
-			if (player instanceof EntityPlayer)
-				if (mob.attackEntityFrom(DamageSource.causePlayerDamage((EntityPlayer) player), attack))
-				{
-					damageTool(stack, 1, tags, player, false);
-					if (tags.getCompoundTag("InfiTool").getBoolean("Necrotic"))
-						player.heal(1);
-				}
-			else
-				mob.attackEntityFrom(DamageSource.causeMobDamage(player), attack);
-			
-			if (tags.getCompoundTag("InfiTool").hasKey("Fiery"))
-			{
-				System.out.println("Fiery: "+tags.getInteger("Fiery"));
-				mob.setFire(tags.getCompoundTag("InfiTool").getInteger("Fiery")/5+1);
-			}
-		}
-	}
+	
+	
 
 	public static DamageSource causePiercingDamage (EntityLiving mob)
 	{

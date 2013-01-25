@@ -78,9 +78,94 @@ public class ToolStationContainer extends Container
 		return true;
 	}
 	
-	@Override
-    public ItemStack transferStackInSlot(EntityPlayer entityplayer, int i)
+	public ItemStack transferStackInSlot(EntityPlayer player, int slotID)
     {
-		return null;
+        ItemStack stack = null;
+        Slot slot = (Slot)this.inventorySlots.get(slotID);
+
+        if (slot != null && slot.getHasStack())
+        {
+            ItemStack slotStack = slot.getStack();
+            stack = slotStack.copy();
+
+            if (slotID < logic.getSizeInventory())
+            {
+            	System.out.println("Merging itemstack, true");
+                if (!this.mergeItemStack(slotStack, logic.getSizeInventory(), this.inventorySlots.size(), true))
+                {
+                    return null;
+                }
+            }
+            else if (!this.mergeItemStack(slotStack, 1, logic.getSizeInventory() - 1, false))
+            {
+                return null;
+            }
+
+            if (slotStack.stackSize == 0)
+            {
+                slot.putStack((ItemStack)null);
+            }
+            else
+            {
+                slot.onSlotChanged();
+            }
+        }
+
+        return stack;
     }
+	
+	/*@Override
+    public ItemStack transferStackInSlot(EntityPlayer player, int slotID)
+    {
+		//this.mergeItemStack(slotStack, logic.getSizeInventory(), this.inventorySlots.size(), true)
+        ItemStack itemstack = null;
+        Slot slot = (Slot)inventorySlots.get(slotID);
+        if (slot != null && slot.getHasStack())
+        {
+            ItemStack slotStack = slot.getStack();
+            itemstack = slotStack.copy();
+            if (slotID == 0)
+            {
+                if (!mergeItemStack(slotStack, 4, 40, true)) //10 = size of crafting grid, 46 = total, 0 == output slot
+                {
+                    return null;
+                }
+            }
+            else if (slotID >= 4 && slotID < 37)
+            {
+                if (!mergeItemStack(slotStack, 37, 40, false))
+                {
+                    return null;
+                }
+            }
+            else if (slotID >= 37 && slotID < 40)
+            {
+                if (!mergeItemStack(slotStack, 4, 37, false))
+                {
+                    return null;
+                }
+            }
+            else if (!mergeItemStack(slotStack, 4, 40, false))
+            {
+                return null;
+            }
+            if (slotStack.stackSize == 0)
+            {
+                slot.putStack(null);
+            }
+            else
+            {
+                slot.onSlotChanged();
+            }
+            if (slotStack.stackSize != itemstack.stackSize)
+            {
+                slot.onPickupFromSlot(player, slotStack);
+            }
+            else
+            {
+                return null;
+            }
+        }
+        return itemstack;
+    }*/
 }

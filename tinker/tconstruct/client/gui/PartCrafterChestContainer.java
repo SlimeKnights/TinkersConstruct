@@ -1,12 +1,12 @@
 package tinker.tconstruct.client.gui;
 
-import tinker.tconstruct.logic.PartCrafterLogic;
-import tinker.tconstruct.logic.PatternChestLogic;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import tinker.common.IPattern;
+import tinker.tconstruct.logic.PartCrafterLogic;
+import tinker.tconstruct.logic.PatternChestLogic;
 
 public class PartCrafterChestContainer extends PartCrafterContainer
 {
@@ -18,7 +18,7 @@ public class PartCrafterChestContainer extends PartCrafterContainer
 		patternLogic = pLogic;
 		largeInventory = true;
 		
-		inventory = new Slot[] { new SlotPattern(partLogic, 0, 40, 27), new Slot(partLogic, 1, 58, 27), new SlotPattern(partLogic, 2, 40, 45), new Slot(partLogic, 3, 58, 45),
+		inventory = new Slot[] { new SlotPattern(partLogic, 0, 40, 27), new SlotPattern(partLogic, 1, 40, 45), new Slot(partLogic, 2, 58, 27), new Slot(partLogic, 3, 58, 45),
 				new SlotOnlyTake(partLogic, 4, 102, 27), new SlotOnlyTake(partLogic, 5, 120, 27), new SlotOnlyTake(partLogic, 6, 102, 45), new SlotOnlyTake(partLogic, 7, 120, 45) };		
 		for (int iter = 0; iter < inventory.length; iter ++)
 			this.addSlotToContainer(inventory[iter]);
@@ -49,14 +49,38 @@ public class PartCrafterChestContainer extends PartCrafterContainer
 	}
 	
 	@Override
-	public boolean canInteractWith(EntityPlayer var1)
-	{
-		return true;
-	}
-	
-	@Override
-    public ItemStack transferStackInSlot(EntityPlayer entityplayer, int i)
+    public ItemStack transferStackInSlot(EntityPlayer player, int slotID)
     {
-		return null;
+		ItemStack stack = null;
+        Slot slot = (Slot)this.inventorySlots.get(slotID);
+
+        if (slot != null && slot.getHasStack())
+        {
+            ItemStack slotStack = slot.getStack();
+            stack = slotStack.copy();
+
+            if (slotID < logic.getSizeInventory())
+            {
+                if (!this.mergeItemStack(slotStack, logic.getSizeInventory()+patternLogic.getSizeInventory(), this.inventorySlots.size(), true))
+                {
+                    return null;
+                }
+            }
+            else if (!this.mergeItemStack(slotStack, 2, 4, false))
+            {
+                return null;
+            }
+
+            if (slotStack.stackSize == 0)
+            {
+                slot.putStack((ItemStack)null);
+            }
+            else
+            {
+                slot.onSlotChanged();
+            }
+        }
+
+        return stack;
     }
 }

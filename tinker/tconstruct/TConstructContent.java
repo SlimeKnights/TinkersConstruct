@@ -186,7 +186,7 @@ public class TConstructContent
 		pb.registerFullMaterial(Item.ingotIron, 2, "iron", 2);
 		pb.registerFullMaterial(Item.flint, 2, "flint", 3);
 		pb.registerFullMaterial(Block.cactus, 2, "cactus", 4);
-		pb.registerFullMaterial(Item.bone, 2, "bone", new ItemStack(Item.dyePowder, 1, 0), new ItemStack(Item.bone), 5);
+		pb.registerFullMaterial(Item.bone, 2, "bone", new ItemStack(Item.dyePowder, 1, 15), new ItemStack(Item.bone), 5);
 		pb.registerFullMaterial(Block.obsidian, 2, "obsidian", 6);
 		pb.registerFullMaterial(Block.netherrack, 2, "netherrack", 7);
 		pb.registerFullMaterial(new ItemStack(materials, 1, 1), 2, "slime", new ItemStack(toolShard, 1, 8), new ItemStack(toolRod, 1, 8), 8);
@@ -239,7 +239,10 @@ public class TConstructContent
 		
 		ItemStack reBattery = ic2.api.Items.getItem("reBattery");
 		if (reBattery != null)
-			modE.batteries.add(new ItemStack(reBattery.getItem(), 1, -1));
+			modE.batteries.add(reBattery);
+		ItemStack chargedReBattery = ic2.api.Items.getItem("chargedReBattery");
+		if (chargedReBattery != null)
+			modE.batteries.add(new ItemStack(chargedReBattery.getItem(), 1, -1));
 		ItemStack electronicCircuit = ic2.api.Items.getItem("electronicCircuit");
 		if (electronicCircuit != null)
 			modE.circuits.add(electronicCircuit);

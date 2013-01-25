@@ -49,7 +49,7 @@ public class PartCrafterGui extends GuiContainer
 	
 	void drawMaterialInformation ()
 	{
-		ItemStack top = logic.getStackInSlot(1);
+		ItemStack top = logic.getStackInSlot(2);
 		ItemStack bottom = logic.getStackInSlot(3);
 		if (topMaterial != top)
 		{
@@ -144,11 +144,11 @@ public class PartCrafterGui extends GuiContainer
 		{
 			this.drawTexturedModalRect(cornerX + 39, cornerY + 26, 176, 0, 18, 18);
 		}
-		if (!logic.isStackInSlot(1))
+		if (!logic.isStackInSlot(2))
 		{
 			this.drawTexturedModalRect(cornerX + 57, cornerY + 26, 176, 18, 18, 18);
 		}
-		if (!logic.isStackInSlot(2))
+		if (!logic.isStackInSlot(1))
 		{
 			this.drawTexturedModalRect(cornerX + 39, cornerY + 44, 176, 0, 18, 18);
 		}

@@ -57,7 +57,7 @@ public class PartCrafterLogic extends InventoryLogic
 		{
 			if (!craftedTop)
 			{
-				int value = PatternBuilder.instance.getPartValue(inventory[1]);
+				int value = PatternBuilder.instance.getPartValue(inventory[2]);
 				int cost = ((Pattern)inventory[0].getItem()).getPatternCost(inventory[0].getItemDamage());
 				if (value > 0)
 				{
@@ -82,7 +82,7 @@ public class PartCrafterLogic extends InventoryLogic
 			if (!craftedBottom)
 			{
 				int value = PatternBuilder.instance.getPartValue(inventory[3]);
-				int cost = ((Pattern)inventory[2].getItem()).getPatternCost(inventory[2].getItemDamage());
+				int cost = ((Pattern)inventory[1].getItem()).getPatternCost(inventory[1].getItemDamage());
 				if (value > 0)
 				{
 					int decrease = cost / value;
@@ -108,15 +108,15 @@ public class PartCrafterLogic extends InventoryLogic
 	public void setInventorySlotContents (int slot, ItemStack itemstack)
 	{
 		super.setInventorySlotContents(slot, itemstack);
-		if ((slot == 0 || slot == 1) && !craftedTop)
+		if ((slot == 0 || slot == 2) && !craftedTop)
 			buildTopPart();
-		if ((slot == 2 || slot == 3) && !craftedBottom)
+		if ((slot == 1 || slot == 3) && !craftedBottom)
 			buildBottomPart();
 	}
 
 	void buildTopPart ()
 	{
-		ItemStack[] parts = PatternBuilder.instance.getToolPart(inventory[1], inventory[0], inventory[2]);
+		ItemStack[] parts = PatternBuilder.instance.getToolPart(inventory[2], inventory[0], inventory[2]);
 		if (parts != null)
 		{
 			inventory[4] = parts[0];
@@ -130,7 +130,7 @@ public class PartCrafterLogic extends InventoryLogic
 
 	void buildBottomPart ()
 	{
-		ItemStack[] parts = PatternBuilder.instance.getToolPart(inventory[3], inventory[2], inventory[0]);
+		ItemStack[] parts = PatternBuilder.instance.getToolPart(inventory[3], inventory[1], inventory[0]);
 		if (parts != null)
 		{
 			inventory[6] = parts[0];

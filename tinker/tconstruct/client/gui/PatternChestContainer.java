@@ -1,5 +1,6 @@
 package tinker.tconstruct.client.gui;
 
+import tinker.common.IPattern;
 import tinker.tconstruct.logic.PatternChestLogic;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -51,9 +52,10 @@ public class PatternChestContainer extends Container
         return logic.isUseableByPlayer(entityplayer);
     }
     
+    @Override
     public ItemStack transferStackInSlot(EntityPlayer player, int slotID)
     {
-        ItemStack stack = null;
+		ItemStack stack = null;
         Slot slot = (Slot)this.inventorySlots.get(slotID);
 
         if (slot != null && slot.getHasStack())
@@ -84,5 +86,14 @@ public class PatternChestContainer extends Container
         }
 
         return stack;
+    }
+	
+    @Override
+    protected boolean mergeItemStack(ItemStack stack, int inventorySize, int slotSize, boolean par4)
+    {
+    	if (!(stack.getItem() instanceof IPattern))
+    		return false;
+    	
+    	return super.mergeItemStack(stack, inventorySize, slotSize, par4);
     }
 }

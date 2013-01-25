@@ -121,7 +121,7 @@ public class ToolBuilder
 			modifiers += (head == 9 ? 1 : 0) + (handle == 9 ? 1 : 0) + (accessory == 9 ? 1 : 0);
 		compound.getCompoundTag("InfiTool").setInteger("Modifiers", modifiers);
 
-		if (name != "" && name != null)
+		if (name != null && !name.equals(""))
 		{
 			compound.setCompoundTag("display", new NBTTagCompound());
 			compound.getCompoundTag("display").setString("Name", "\u00A7f" + name);

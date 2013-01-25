@@ -57,7 +57,7 @@ public abstract class InventoryBlock extends BlockContainer
 			{
 				ItemStack stack = logic.getStackInSlot(iter);
 
-				if (stack != null)
+				if (stack != null && logic.canDropInventorySlot(iter))
 				{
 					float jumpX = TConstruct.tRand.nextFloat() * 0.8F + 0.1F;
 					float jumpY = TConstruct.tRand.nextFloat() * 0.8F + 0.1F;

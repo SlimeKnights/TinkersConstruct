@@ -8,6 +8,8 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.enchantment.EnchantmentThorns;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.item.EntityItem;
@@ -17,6 +19,11 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.potion.Potion;
+import net.minecraft.stats.AchievementList;
+import net.minecraft.stats.StatList;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import tinker.tconstruct.AbilityHelper;
@@ -413,7 +420,8 @@ public abstract class ToolCore extends Item
 	@Override
 	public boolean hitEntity (ItemStack stack, EntityLiving mob, EntityLiving player)
 	{
-		AbilityHelper.hitEntity(stack, mob, player);
+		//AbilityHelper.hitEntity(stack, mob, player);
+		//AbilityHelper.damageTool(stack, 1, player, false);
 		return true;
 	}
 
@@ -438,13 +446,25 @@ public abstract class ToolCore extends Item
 		return false;
     }
 
-	//Complete override of attacking
-	/*public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity entity)
+	/* Attacking */
+	@Override
+	public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity entity)
 	{
+		AbilityHelper.onLeftClickEntity(stack, player, entity, this);
 	    return true;
-	}*/
+	}
 	
-	public int getDamageVsEntity(Entity par1Entity)
+	public boolean pierceArmor()
+	{
+		return false;
+	}
+	
+	public float chargeAttack()
+	{
+		return 1f;
+	}
+	
+	public int getDamageVsEntity(Entity par1Entity) //Redundant
     {
         return this.damageVsEntity;
     }

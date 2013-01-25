@@ -315,13 +315,14 @@ public class ToolStationGui extends GuiContainer
 		this.mc.renderEngine.bindTexture(texID);
 		cornerX = (this.width + this.xSize) / 2;
 		cornerY = (this.height - this.ySize) / 2;
-		this.drawTexturedModalRect(cornerX, cornerY, 0, 0, 126, this.ySize);
+		this.drawTexturedModalRect(cornerX, cornerY, 0, 0, 126, this.ySize + 30);
 	}
 
 	protected void keyTyped (char par1, int keyCode)
 	{
 		if (keyCode == 1)
 		{
+			logic.setToolname("");
 			updateServer("");
 			Keyboard.enableRepeatEvents(false);
 			this.mc.thePlayer.closeScreen();
