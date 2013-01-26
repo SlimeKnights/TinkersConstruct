@@ -37,7 +37,7 @@ public abstract class HarvestTool extends ToolCore
 				ItemStack result = FurnaceRecipes.smelting().getSmeltingResult(new ItemStack(block.idDropped(bID, random, 0), 1, block.damageDropped(meta)));
 				if (result != null)
 				{
-					System.out.println("Woo~");
+					//System.out.println("Woo~");
 					world.setBlockWithNotify(x, y, z, 0);
 					if (!player.capabilities.isCreativeMode)
 						onBlockDestroyed(stack, world, bID, x, y, z, player);

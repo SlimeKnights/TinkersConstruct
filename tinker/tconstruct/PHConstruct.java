@@ -47,6 +47,7 @@ public class PHConstruct {
         ores = config.getBlock("Ore Block", 1475).getInt(1475);
         craftedSoil = config.getBlock("Special Soil", 1476).getInt(1476);
         searedBrick = config.getBlock("Seared Brick", 1477).getInt(1477);
+        axle = config.getBlock("Axle", 1478).getInt(1478);
         
         blankPattern = config.getItem("Patterns and Misc", "Blank Patterns", 14019).getInt(14019);
         materials = config.getItem("Patterns and Misc", "Materials", 14020).getInt(14020);
@@ -92,18 +93,17 @@ public class PHConstruct {
     }
     
     //Blocks
-    public static int blankPattern;
     public static int woodCrafter;
-    public static int stoneCrafter;
-    public static int netherCrafter;
     public static int heldItemBlock;
     public static int ores;
     public static int lavaTank;
     public static int smeltery;
     public static int craftedSoil;
     public static int searedBrick;
+    public static int axle;
     
     //Patterns and misc
+    public static int blankPattern;
     public static int materials;
     public static int toolRod;
     public static int toolShard;

@@ -133,11 +133,11 @@ public class FrypanLogic extends EquipLogic
 
 	public void cookItems ()
 	{
-		System.out.println("Trying to cook");
+		//System.out.println("Trying to cook");
 		if (!canCook())
 			return;
 
-		System.out.println("Can cook");
+		//System.out.println("Can cook");
 		for (int id = 2; id < 10; id++) //Check every slot
 		{
 			if (canCook())

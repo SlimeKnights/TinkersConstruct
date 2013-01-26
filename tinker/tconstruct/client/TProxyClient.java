@@ -4,6 +4,7 @@ package tinker.tconstruct.client;
 import java.io.File;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.ModelBoat;
 import net.minecraftforge.client.MinecraftForgeClient;
 import tinker.tconstruct.TConstructContent;
 import tinker.tconstruct.TProxyCommon;
@@ -16,8 +17,9 @@ public class TProxyClient extends TProxyCommon
 	public void registerRenderer() 
 	{
 		RenderingRegistry.registerBlockHandler(new TableRender());
-		RenderingRegistry.registerBlockHandler(new TankRender());
+		//RenderingRegistry.registerBlockHandler(new TankRender());
 		RenderingRegistry.registerBlockHandler(new FrypanRender());
+		//RenderingRegistry.registerBlockHandler(new AxleRender());
 		
 		MinecraftForgeClient.preloadTexture(TConstructContent.craftingTexture);
 		MinecraftForgeClient.preloadTexture(TConstructContent.baseHeads);
@@ -36,6 +38,8 @@ public class TProxyClient extends TProxyCommon
 		MinecraftForgeClient.preloadTexture(TConstructContent.frypanTexture);
 		MinecraftForgeClient.preloadTexture(TConstructContent.signTexture);
 		MinecraftForgeClient.preloadTexture(TConstructContent.blockTexture);
+		
+		RenderingRegistry.registerEntityRenderingHandler(tinker.tconstruct.entity.EntityWagon.class, new RenderWagon());
 	}
 	
 	

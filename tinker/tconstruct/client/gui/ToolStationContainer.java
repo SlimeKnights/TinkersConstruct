@@ -5,7 +5,9 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import tinker.tconstruct.logic.ToolStationLogic;
+import tinker.tconstruct.tools.ToolCore;
 
 public class ToolStationContainer extends Container
 {
@@ -87,20 +89,25 @@ public class ToolStationContainer extends Container
         {
             ItemStack slotStack = slot.getStack();
             stack = slotStack.copy();
-
             if (slotID < logic.getSizeInventory())
             {
-            	System.out.println("Merging itemstack, true");
-                if (!this.mergeItemStack(slotStack, logic.getSizeInventory(), this.inventorySlots.size(), true))
+            	if (slotID == 0)
+            	{
+            		if (!this.mergeCraftedStack(slotStack, logic.getSizeInventory(), this.inventorySlots.size(), true, player))
+                    {
+                        return null;
+                    }
+            	}
+            	else if (!this.mergeItemStack(slotStack, logic.getSizeInventory(), this.inventorySlots.size(), true))
                 {
                     return null;
                 }
             }
-            else if (!this.mergeItemStack(slotStack, 1, logic.getSizeInventory() - 1, false))
+            else if (!this.mergeItemStack(slotStack, 1, logic.getSizeInventory(), false))
             {
                 return null;
             }
-
+            
             if (slotStack.stackSize == 0)
             {
                 slot.putStack((ItemStack)null);
@@ -114,58 +121,110 @@ public class ToolStationContainer extends Container
         return stack;
     }
 	
-	/*@Override
-    public ItemStack transferStackInSlot(EntityPlayer player, int slotID)
+	protected void craftTool(ItemStack stack)
     {
-		//this.mergeItemStack(slotStack, logic.getSizeInventory(), this.inventorySlots.size(), true)
-        ItemStack itemstack = null;
-        Slot slot = (Slot)inventorySlots.get(slotID);
-        if (slot != null && slot.getHasStack())
+    	NBTTagCompound tags = stack.getTagCompound();
+		if (!tags.getCompoundTag("InfiTool").hasKey("Built"))
+		{
+			tags.getCompoundTag("InfiTool").setBoolean("Built", true);
+			for (int i = 1; i <= 3; i++)
+				logic.decrStackSize(i, 1);
+			/*if (!player.worldObj.isRemote)
+				player.worldObj.playAuxSFX(1021, (int)player.posX, (int)player.posY, (int)player.posZ, 0);*/
+		}
+    }
+	
+	protected boolean mergeCraftedStack(ItemStack stack, int slotsStart, int slotsTotal, boolean playerInventory, EntityPlayer player)
+    {
+        boolean failedToMerge = false;
+        int slotIndex = slotsStart;
+
+        if (playerInventory)
         {
-            ItemStack slotStack = slot.getStack();
-            itemstack = slotStack.copy();
-            if (slotID == 0)
+            slotIndex = slotsTotal - 1;
+        }
+
+        Slot otherInventorySlot;
+        ItemStack copyStack = null;
+
+        /*if (stack.isStackable())
+        {
+            while (stack.stackSize > 0 && (!playerInventory && slotIndex < slotsTotal || playerInventory && slotIndex >= slotsStart))
             {
-                if (!mergeItemStack(slotStack, 4, 40, true)) //10 = size of crafting grid, 46 = total, 0 == output slot
+                otherInventorySlot = (Slot)this.inventorySlots.get(slotIndex);
+                copyStack = otherInventorySlot.getStack();
+
+                if (copyStack != null && copyStack.itemID == stack.itemID && (!stack.getHasSubtypes() || stack.getItemDamage() == copyStack.getItemDamage()) && ItemStack.areItemStackTagsEqual(stack, copyStack))
                 {
-                    return null;
+                    int totalSize = copyStack.stackSize + stack.stackSize;
+
+                    if (totalSize <= stack.getMaxStackSize())
+                    {
+                        stack.stackSize = 0;
+                        copyStack.stackSize = totalSize;
+                        otherInventorySlot.onSlotChanged();
+                        failedToMerge = true;
+                    }
+                    else if (copyStack.stackSize < stack.getMaxStackSize())
+                    {
+                        stack.stackSize -= stack.getMaxStackSize() - copyStack.stackSize;
+                        copyStack.stackSize = stack.getMaxStackSize();
+                        otherInventorySlot.onSlotChanged();
+                        failedToMerge = true;
+                    }
+                }
+
+                if (playerInventory)
+                {
+                    --slotIndex;
+                }
+                else
+                {
+                    ++slotIndex;
                 }
             }
-            else if (slotID >= 4 && slotID < 37)
+        }*/
+
+        if (stack.stackSize > 0)
+        {
+            if (playerInventory)
             {
-                if (!mergeItemStack(slotStack, 37, 40, false))
-                {
-                    return null;
-                }
-            }
-            else if (slotID >= 37 && slotID < 40)
-            {
-                if (!mergeItemStack(slotStack, 4, 37, false))
-                {
-                    return null;
-                }
-            }
-            else if (!mergeItemStack(slotStack, 4, 40, false))
-            {
-                return null;
-            }
-            if (slotStack.stackSize == 0)
-            {
-                slot.putStack(null);
+                slotIndex = slotsTotal - 1;
             }
             else
             {
-                slot.onSlotChanged();
+                slotIndex = slotsStart;
             }
-            if (slotStack.stackSize != itemstack.stackSize)
+
+            while (!playerInventory && slotIndex < slotsTotal || playerInventory && slotIndex >= slotsStart)
             {
-                slot.onPickupFromSlot(player, slotStack);
-            }
-            else
-            {
-                return null;
+                otherInventorySlot = (Slot)this.inventorySlots.get(slotIndex);
+                copyStack = otherInventorySlot.getStack();
+
+                if (copyStack == null)
+                {
+                	craftTool(stack);
+                    otherInventorySlot.putStack(stack.copy());
+                    otherInventorySlot.onSlotChanged();
+                    stack.stackSize = 0;
+                    failedToMerge = true;
+                    break;
+                }
+
+                if (playerInventory)
+                {
+                    --slotIndex;
+                }
+                else
+                {
+                    ++slotIndex;
+                }
             }
         }
-        return itemstack;
-    }*/
+        
+        if (!failedToMerge)
+			player.worldObj.playAuxSFX(1021, (int)player.posX, (int)player.posY, (int)player.posZ, 0);
+
+        return failedToMerge;
+    }
 }

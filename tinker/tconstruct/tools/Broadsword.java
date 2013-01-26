@@ -31,6 +31,6 @@ public class Broadsword extends Weapon
 	
 	public float getDurabilityModifier ()
 	{
-		return 1.3f;
+		return 1.2f;
 	}
 }

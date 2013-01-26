@@ -67,57 +67,40 @@ public class PatternShaperContainer extends Container
     }
 
     @Override
-    public ItemStack transferStackInSlot(EntityPlayer entityplayer, int slot)
+    public ItemStack transferStackInSlot(EntityPlayer player, int slotID)
     {
     	return null;
-        /*ItemStack itemstack = null;
-        Slot slot = (Slot)inventorySlots.get(i);
+        /*ItemStack stack = null;
+        Slot slot = (Slot)this.inventorySlots.get(slotID);
+
         if (slot != null && slot.getHasStack())
         {
-            ItemStack itemstack1 = slot.getStack();
-            itemstack = itemstack1.copy();
-            if (i == 0)
+            ItemStack slotStack = slot.getStack();
+            stack = slotStack.copy();
+
+            if (slotID < logic.getSizeInventory())
             {
-                if (!mergeItemStack(itemstack1, 10, 46, true))
+                if (!this.mergeItemStack(slotStack, logic.getSizeInventory(), this.inventorySlots.size(), true))
                 {
                     return null;
                 }
             }
-            else if (i >= 10 && i < 37)
-            {
-                if (!mergeItemStack(itemstack1, 37, 46, false))
-                {
-                    return null;
-                }
-            }
-            else if (i >= 37 && i < 46)
-            {
-                if (!mergeItemStack(itemstack1, 10, 37, false))
-                {
-                    return null;
-                }
-            }
-            else if (!mergeItemStack(itemstack1, 10, 46, false))
+            else if (!this.mergeItemStack(slotStack, 0, logic.getSizeInventory()-1, false))
             {
                 return null;
             }
-            if (itemstack1.stackSize == 0)
+
+            if (slotStack.stackSize == 0)
             {
-                slot.putStack(null);
+                slot.putStack((ItemStack)null);
             }
             else
             {
                 slot.onSlotChanged();
             }
-            if (itemstack1.stackSize != itemstack.stackSize)
-            {
-                slot.onPickupFromSlot(entityplayer, itemstack1);
-            }
-            else
-            {
-                return null;
-            }
         }
-        return itemstack;*/
+
+        return stack;*/
     }
+      
 }

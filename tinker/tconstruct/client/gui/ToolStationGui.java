@@ -343,7 +343,7 @@ public class ToolStationGui extends GuiContainer
 		try
 		{
 			outputStream.writeByte(1);
-			outputStream.writeInt(logic.worldObj.getWorldInfo().getDimension());
+			outputStream.writeInt(logic.worldObj.provider.dimensionId);
 			outputStream.writeInt(logic.xCoord);
 			outputStream.writeInt(logic.yCoord);
 			outputStream.writeInt(logic.zCoord);

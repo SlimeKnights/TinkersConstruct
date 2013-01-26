@@ -40,7 +40,7 @@ public class ModBlaze extends ToolMod
 	@Override
 	public void modify (ItemStack[] input, ItemStack tool)
 	{
-		System.out.println("Moood");
+		//System.out.println("Moood");
 		NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
 		if (tags.hasKey(key))
 		{

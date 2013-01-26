@@ -38,6 +38,7 @@ import tinker.tconstruct.tools.Rapier;
 import tinker.tconstruct.tools.Shovel;
 import tinker.tconstruct.tools.ToolCore;
 import cpw.mods.fml.common.IFuelHandler;
+import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class TConstructContent
@@ -85,26 +86,31 @@ public class TConstructContent
 	//Crafting blocks
 	public static Block woodCrafter;
 	public static Block smeltery;
-	//public static Block stoneCrafter;
-	//public static Block netherCrafter;
 	
 	public static Block heldItemBlock;
 	public static Block ores;
 	public static Block lavaTank;
 	public static Block craftedSoil;
 	public static Block searedBrick;
+	//public static Block axle;
 	
 	//Tool modifiers
 	public static ModElectric modE;
 	
 	public TConstructContent()
 	{
+		createEntities();
 		createItems();
 		registerMaterials();
 		addToolRecipes();
 		addCraftingRecipes();
 		setupToolTabs();
 		GameRegistry.registerFuelHandler(this);
+	}
+	
+	void createEntities()
+	{
+		EntityRegistry.registerModEntity(tinker.tconstruct.entity.EntityWagon.class, "Small Wagon", 0, TConstruct.instance, 32, 5, true);
 	}
 	
 	void createItems ()

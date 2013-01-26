@@ -84,7 +84,7 @@ public class PatternShaperGui extends GuiContainer
     	if (button.id == 0)
     	{
     		patternIndex++;
-    		if (patternIndex > TConstructContent.patternOutputs.length)
+    		if (patternIndex > TConstructContent.patternOutputs.length - 1)
     			patternIndex = 0;
     	}
     	else if (button.id == 1)
@@ -109,13 +109,12 @@ public class PatternShaperGui extends GuiContainer
 		try
 		{
 			outputStream.writeByte(2);
-			outputStream.writeInt(logic.worldObj.getWorldInfo().getDimension());
+			outputStream.writeInt(logic.worldObj.provider.dimensionId);
 			outputStream.writeInt(logic.xCoord);
 			outputStream.writeInt(logic.yCoord);
 			outputStream.writeInt(logic.zCoord);
 			outputStream.writeShort(stack.itemID);
 			outputStream.writeShort(stack.getItemDamage());
-			//outputStream.writeUTF(toolName);
 		}
 		catch (Exception ex)
 		{

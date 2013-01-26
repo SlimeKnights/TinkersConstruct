@@ -44,7 +44,7 @@ public class PartCrafterLogic extends InventoryLogic
 					//return ((PatternHolderLogic) tile).getGuiContainer(player.inventory, world, x, y, z);
 			}
 		}
-		System.out.println("Regular container");
+		//System.out.println("Regular container");
 		return new PartCrafterContainer(inventoryplayer, this);
 	}
 
@@ -64,7 +64,7 @@ public class PartCrafterLogic extends InventoryLogic
 					int decrease = cost / value;
 					if (cost % value != 0)
 						decrease++;
-					super.decrStackSize(1, decrease); //Call super to avoid crafting again
+					super.decrStackSize(2, decrease); //Call super to avoid crafting again
 				}
 			}
 			

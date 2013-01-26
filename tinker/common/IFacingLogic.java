@@ -1,8 +1,5 @@
 package tinker.common;
 
-import net.minecraftforge.common.ForgeDirection;
-import net.minecraftforge.common.ISidedInventory;
-
 public interface IFacingLogic
 {
 	public boolean canFaceVertical();

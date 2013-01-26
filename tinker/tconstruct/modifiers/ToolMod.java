@@ -98,17 +98,17 @@ public abstract class ToolMod
 
 		else if (tags.hasKey("Effect2"))
 		{
-			System.out.println("Adding Effect 3");
+			//System.out.println("Adding Effect 3");
 			tags.setInteger("Effect3", effectIndex);
 		}
 		else if (tags.hasKey("Effect1"))
 		{
-			System.out.println("Adding Effect 2");
+			//System.out.println("Adding Effect 2");
 			tags.setInteger("Effect2", effectIndex);
 		}
 		else
 		{
-			System.out.println("Adding Effect 1");
+			//System.out.println("Adding Effect 1");
 			tags.setInteger("Effect1", effectIndex);
 		}
 	}

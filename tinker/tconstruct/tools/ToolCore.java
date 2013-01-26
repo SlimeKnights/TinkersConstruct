@@ -285,6 +285,10 @@ public abstract class ToolCore extends Item
 			return colorCode + "4"; //Ardite
 		case 13:
 			return colorCode + "5"; //Manyullyn
+		case 14:
+			return colorCode + "c"; //Copper
+		case 15:
+			return colorCode + "6"; //Bronze
 		}
 		return colorCode;
 	}
@@ -319,6 +323,10 @@ public abstract class ToolCore extends Item
 			return ""; //Ardite
 		case 13:
 			return "Awareness"; //Manyullyn
+		case 14:
+			return ""; //Copper
+		case 15:
+			return ""; //Bronze
 		default:
 			return "";
 		}
@@ -333,17 +341,19 @@ public abstract class ToolCore extends Item
 			return "\u00A73Reinforced II";
 		else if  (head == 3 || handle == 3 || accessory == 3)
 			return "\u00A7fReinforced I";
+		else if  (head == 15 || handle == 15 || accessory == 15)
+			return "\u00A76Reinforced I";
 		return "";
 	}
 	
 	static String[] toolMaterialNames = {
-		"Wooden ", "Stone ", "Iron ", "Flint ", "Cactus ", "Bone ", "Obsidian ", "Nethrrack ", "Slime ", "Paper ", "Cobalt ", "Ardite ", "Manyullyn " 
+		"Wooden ", "Stone ", "Iron ", "Flint ", "Cactus ", "Bone ", "Obsidian ", "Nethrrack ", "Slime ", "Paper ", "Cobalt ", "Ardite ", "Manyullyn " , "Copper ", "Bronze "
 	};
 
 	/* Creative mode tools */
 	public void getSubItems (int id, CreativeTabs tab, List list)
 	{
-		for (int i = 0; i < 13; i++)
+		for (int i = 0; i < 15; i++)
 		{
 			Item accessory = getAccessoryItem();
 			ItemStack accessoryStack = accessory != null ? new ItemStack(getAccessoryItem(), 1, i) : null;
@@ -369,7 +379,7 @@ public abstract class ToolCore extends Item
 			if (tags.hasKey("Moss"))
 			{
 				int chance = tags.getInteger("Moss");
-				if (random.nextInt(200) < chance)
+				if (random.nextInt(800) < chance)
 				{
 					AbilityHelper.damageTool(stack, -1, (EntityLiving)entity, true);
 				}
@@ -392,7 +402,7 @@ public abstract class ToolCore extends Item
 			ItemStack result = FurnaceRecipes.smelting().getSmeltingResult(new ItemStack(block.idDropped(bID, random, 0), 1, block.damageDropped(meta)));
 			if (result != null)
 			{
-				System.out.println("Woo~");
+				//System.out.println("Woo~");
 				world.setBlockWithNotify(x, y, z, 0);
 				if (!player.capabilities.isCreativeMode)
 					onBlockDestroyed(stack, world, bID, x, y, z, player);
