@@ -15,8 +15,9 @@ public class ArmoryProxyClient extends ArmoryProxyCommon
 	@Override
 	public void registerRenderer()
 	{
-		RenderingRegistry.registerBlockHandler(new RenderToolrack());
-		ClientRegistry.bindTileEntitySpecialRenderer(ToolrackLogic.class, new ToolrackSpecialRender());
+		RenderingRegistry.registerBlockHandler(new RenderShelf());
+		RenderingRegistry.registerBlockHandler(new RenderDisplay());
+		ClientRegistry.bindTileEntitySpecialRenderer(ToolrackLogic.class, new ShelfSpecialRender());
 		RenderingRegistry.registerEntityRenderingHandler(tinker.armory.content.ArmorStandEntity.class, new RenderArmorStandEntity(new ArmorStandModelStatue(), 0));
 	}
 	

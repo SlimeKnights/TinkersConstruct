@@ -74,13 +74,11 @@ public class PartCrafterChestContainer extends PartCrafterContainer
             if (slotStack.stackSize == 0)
             {
                 slot.putStack((ItemStack)null);
+            	logic.tryBuildPart(slotID);
             }
-            else
-            {
-                slot.onSlotChanged();
-            }
+            slot.onSlotChanged();
         }
-
+        System.out.println("Returning stack");
         return stack;
     }
 }

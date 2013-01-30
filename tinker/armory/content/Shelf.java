@@ -2,7 +2,7 @@ package tinker.armory.content;
 
 import java.util.List;
 
-import tinker.armory.client.RenderToolrack;
+import tinker.armory.client.RenderShelf;
 
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -15,9 +15,9 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class Toolrack extends BlockContainer
+public class Shelf extends BlockContainer
 {
-	public Toolrack(int id, Material material) 
+	public Shelf(int id, Material material) 
 	{
 		super(id, material);
 	}
@@ -36,7 +36,7 @@ public class Toolrack extends BlockContainer
 
     public int getRenderType()
     {
-        return RenderToolrack.rackModel;
+        return RenderShelf.shelfModelID;
     }
     
     @Override
@@ -174,9 +174,9 @@ public class Toolrack extends BlockContainer
 
         if (facing == 0)
         {
-            this.setBlockBounds(0.0F, 0.2F, 0.0F, 1.0F, 0.9F, 0.25F);
+            this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.875F, 0.125F);
         }
-        else if (facing == 1)
+        /*else if (facing == 1)
         {
             this.setBlockBounds(0.0F, 0.2F, 0.0F, 0.25F, 0.9F, 1.0F);
         }
@@ -187,6 +187,6 @@ public class Toolrack extends BlockContainer
         else if (facing == 3)
         {
             this.setBlockBounds(0.75F, 0.2F, 0.0F, 1.0F, 0.9F, 1.0F);
-        }
+        }*/
     }
 }

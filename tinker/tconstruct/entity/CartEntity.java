@@ -3,6 +3,9 @@ package tinker.tconstruct.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.common.io.ByteArrayDataInput;
+import com.google.common.io.ByteArrayDataOutput;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRail;
 import net.minecraft.entity.Entity;
@@ -23,14 +26,12 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.IMinecartCollisionHandler;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.minecart.MinecartCollisionEvent;
-import net.minecraftforge.event.entity.minecart.MinecartInteractEvent;
-import net.minecraftforge.event.entity.minecart.MinecartUpdateEvent;
+import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class EntityWagon extends Entity implements IInventory
+public class CartEntity extends Entity 
+	implements IInventory, IEntityAdditionalSpawnData
 {
     /** Array of item stacks stored in minecart (for storage minecarts). */
     protected ItemStack[] cargoItems;
@@ -38,7 +39,7 @@ public class EntityWagon extends Entity implements IInventory
     protected boolean field_70499_f;
 
     /** The type of minecart, 2 for powered, 1 for storage. */
-    public int minecartType;
+    private int pullcartType;
     public double pushX;
     public double pushZ;
     protected boolean field_82345_h;
@@ -70,7 +71,6 @@ public class EntityWagon extends Entity implements IInventory
     public static double defaultDragAir = 0.94999998807907104D;
     protected boolean canUseRail = true;
     protected boolean canBePushed = true;
-    private static IMinecartCollisionHandler collisionHandler = null;
 
     /* Instance versions of the above physics properties */
     protected float maxSpeedRail;
@@ -78,8 +78,10 @@ public class EntityWagon extends Entity implements IInventory
     protected float maxSpeedAirLateral;
     protected float maxSpeedAirVertical;
     protected double dragAir;
+    
+    Entity entityFollowing;
 
-    public EntityWagon(World par1World)
+    public CartEntity(World par1World)
     {
         super(par1World);
         this.cargoItems = new ItemStack[36];
@@ -89,6 +91,7 @@ public class EntityWagon extends Entity implements IInventory
         this.preventEntitySpawning = true;
         this.setSize(0.98F, 0.7F);
         this.yOffset = this.height / 2.0F;
+        this.stepHeight = 1.0f;
 
         maxSpeedRail = defaultMaxSpeedRail;
         maxSpeedGround = defaultMaxSpeedGround;
@@ -97,10 +100,24 @@ public class EntityWagon extends Entity implements IInventory
         dragAir = defaultDragAir;
     }
 
-    public EntityWagon(World world, int type)
+    public CartEntity(World world, int type)
     {
         this(world);
-        minecartType = type;
+        pullcartType = type;
+    }
+    
+    public CartEntity(World world, double x, double y, double z, int type)
+    {
+        this(world);
+        this.setPosition(x, y + (double)this.yOffset, z);
+        this.motionX = 0.0D;
+        this.motionY = 0.0D;
+        this.motionZ = 0.0D;
+        this.prevPosX = x;
+        this.prevPosY = y;
+        this.prevPosZ = z;
+        this.pullcartType = type;
+        this.stepHeight = 1.0f;
     }
 
     /**
@@ -143,19 +160,6 @@ public class EntityWagon extends Entity implements IInventory
     public boolean canBePushed()
     {
         return canBePushed;
-    }
-
-    public EntityWagon(World par1World, double par2, double par4, double par6, int par8)
-    {
-        this(par1World);
-        this.setPosition(par2, par4 + (double)this.yOffset, par6);
-        this.motionX = 0.0D;
-        this.motionY = 0.0D;
-        this.motionZ = 0.0D;
-        this.prevPosX = par2;
-        this.prevPosY = par4;
-        this.prevPosZ = par6;
-        this.minecartType = par8;
     }
 
     /**
@@ -290,7 +294,6 @@ public class EntityWagon extends Entity implements IInventory
      */
     public void onUpdate()
     {
-
         if (this.func_70496_j() > 0)
         {
             this.func_70497_h(this.func_70496_j() - 1);
@@ -306,7 +309,7 @@ public class EntityWagon extends Entity implements IInventory
             this.kill();
         }
 
-        if (this.isMinecartPowered() && this.rand.nextInt(4) == 0 && minecartType == 2 && getClass() == EntityWagon.class)
+        if (this.isMinecartPowered() && this.rand.nextInt(4) == 0 && pullcartType == 2 && getClass() == CartEntity.class)
         {
             this.worldObj.spawnParticle("largesmoke", this.posX, this.posY + 0.8D, this.posZ, 0.0D, 0.0D, 0.0D);
         }
@@ -404,196 +407,9 @@ public class EntityWagon extends Entity implements IInventory
             double var6 = 0.0078125D;
             int var8 = this.worldObj.getBlockId(var45, var2, var47);
 
-            /*if (canUseRail() && BlockRail.isRailBlock(var8))
-            {
-                this.fallDistance = 0.0F;
-                Vec3 var9 = this.func_70489_a(this.posX, this.posY, this.posZ);
-                int var10 = ((BlockRail)Block.blocksList[var8]).getBasicRailMetadata(worldObj, this, var45, var2, var47);
-                this.posY = (double)var2;
-                boolean var11 = false;
-                boolean var12 = false;
-
-                if (var8 == Block.railPowered.blockID)
-                {
-                    var11 = (worldObj.getBlockMetadata(var45, var2, var47) & 8) != 0;
-                    var12 = !var11;
-                }
-
-                if (((BlockRail)Block.blocksList[var8]).isPowered())
-                {
-                    var10 &= 7;
-                }
-
-                if (var10 >= 2 && var10 <= 5)
-                {
-                    this.posY = (double)(var2 + 1);
-                }
-
-                adjustSlopeVelocities(var10);
-
-                int[][] var13 = matrix[var10];
-                double var14 = (double)(var13[1][0] - var13[0][0]);
-                double var16 = (double)(var13[1][2] - var13[0][2]);
-                double var18 = Math.sqrt(var14 * var14 + var16 * var16);
-                double var20 = this.motionX * var14 + this.motionZ * var16;
-
-                if (var20 < 0.0D)
-                {
-                    var14 = -var14;
-                    var16 = -var16;
-                }
-
-                double var22 = Math.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
-                this.motionX = var22 * var14 / var18;
-                this.motionZ = var22 * var16 / var18;
-                double var24;
-                double var26;
-
-                if (this.riddenByEntity != null)
-                {
-                    var24 = this.riddenByEntity.motionX * this.riddenByEntity.motionX + this.riddenByEntity.motionZ * this.riddenByEntity.motionZ;
-                    var26 = this.motionX * this.motionX + this.motionZ * this.motionZ;
-
-                    if (var24 > 1.0E-4D && var26 < 0.01D)
-                    {
-                        this.motionX += this.riddenByEntity.motionX * 0.1D;
-                        this.motionZ += this.riddenByEntity.motionZ * 0.1D;
-                        var12 = false;
-                    }
-                }
-
-                if (var12 && shouldDoRailFunctions())
-                {
-                    var24 = Math.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
-
-                    if (var24 < 0.03D)
-                    {
-                        this.motionX *= 0.0D;
-                        this.motionY *= 0.0D;
-                        this.motionZ *= 0.0D;
-                    }
-                    else
-                    {
-                        this.motionX *= 0.5D;
-                        this.motionY *= 0.0D;
-                        this.motionZ *= 0.5D;
-                    }
-                }
-
-                var24 = 0.0D;
-                var26 = (double)var45 + 0.5D + (double)var13[0][0] * 0.5D;
-                double var28 = (double)var47 + 0.5D + (double)var13[0][2] * 0.5D;
-                double var30 = (double)var45 + 0.5D + (double)var13[1][0] * 0.5D;
-                double var32 = (double)var47 + 0.5D + (double)var13[1][2] * 0.5D;
-                var14 = var30 - var26;
-                var16 = var32 - var28;
-                double var34;
-                double var36;
-
-                if (var14 == 0.0D)
-                {
-                    this.posX = (double)var45 + 0.5D;
-                    var24 = this.posZ - (double)var47;
-                }
-                else if (var16 == 0.0D)
-                {
-                    this.posZ = (double)var47 + 0.5D;
-                    var24 = this.posX - (double)var45;
-                }
-                else
-                {
-                    var34 = this.posX - var26;
-                    var36 = this.posZ - var28;
-                    var24 = (var34 * var14 + var36 * var16) * 2.0D;
-                }
-
-                this.posX = var26 + var14 * var24;
-                this.posZ = var28 + var16 * var24;
-                this.setPosition(this.posX, this.posY + (double)this.yOffset, this.posZ);
-
-                moveMinecartOnRail(var45, var2, var47);
-
-                if (var13[0][1] != 0 && MathHelper.floor_double(this.posX) - var45 == var13[0][0] && MathHelper.floor_double(this.posZ) - var47 == var13[0][2])
-                {
-                    this.setPosition(this.posX, this.posY + (double)var13[0][1], this.posZ);
-                }
-                else if (var13[1][1] != 0 && MathHelper.floor_double(this.posX) - var45 == var13[1][0] && MathHelper.floor_double(this.posZ) - var47 == var13[1][2])
-                {
-                    this.setPosition(this.posX, this.posY + (double)var13[1][1], this.posZ);
-                }
-
-                applyDragAndPushForces();
-
-                Vec3 var54 = this.func_70489_a(this.posX, this.posY, this.posZ);
-
-                if (var54 != null && var9 != null)
-                {
-                    double var39 = (var9.yCoord - var54.yCoord) * 0.05D;
-                    var22 = Math.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
-
-                    if (var22 > 0.0D)
-                    {
-                        this.motionX = this.motionX / var22 * (var22 + var39);
-                        this.motionZ = this.motionZ / var22 * (var22 + var39);
-                    }
-
-                    this.setPosition(this.posX, var54.yCoord, this.posZ);
-                }
-
-                int var53 = MathHelper.floor_double(this.posX);
-                int var55 = MathHelper.floor_double(this.posZ);
-
-                if (var53 != var45 || var55 != var47)
-                {
-                    var22 = Math.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
-                    this.motionX = var22 * (double)(var53 - var45);
-                    this.motionZ = var22 * (double)(var55 - var47);
-                }
-
-                double var41;
-
-                updatePushForces();
-
-                if(shouldDoRailFunctions())
-                {
-                    ((BlockRail)Block.blocksList[var8]).onMinecartPass(worldObj, this, var45, var2, var47);
-                }
-
-                if (var11 && shouldDoRailFunctions())
-                {
-                    var41 = Math.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
-
-                    if (var41 > 0.01D)
-                    {
-                        double var43 = 0.06D;
-                        this.motionX += this.motionX / var41 * var43;
-                        this.motionZ += this.motionZ / var41 * var43;
-                    }
-                    else if (var10 == 1)
-                    {
-                        if (this.worldObj.isBlockNormalCube(var45 - 1, var2, var47))
-                        {
-                            this.motionX = 0.02D;
-                        }
-                        else if (this.worldObj.isBlockNormalCube(var45 + 1, var2, var47))
-                        {
-                            this.motionX = -0.02D;
-                        }
-                    }
-                    else if (var10 == 0)
-                    {
-                        if (this.worldObj.isBlockNormalCube(var45, var2, var47 - 1))
-                        {
-                            this.motionZ = 0.02D;
-                        }
-                        else if (this.worldObj.isBlockNormalCube(var45, var2, var47 + 1))
-                        {
-                            this.motionZ = -0.02D;
-                        }
-                    }
-                }
-            }*/
             moveMinecartOffRail(var45, var2, var47);
+            if (entityFollowing != null)
+            	moveTowardsEntity(entityFollowing);
 
             this.doBlockCollisions();
             this.rotationPitch = 0.0F;
@@ -630,7 +446,7 @@ public class EntityWagon extends Entity implements IInventory
                 {
                     Entity var17 = (Entity)var15.get(var52);
 
-                    if (var17 != this.riddenByEntity && var17.canBePushed() && var17 instanceof EntityWagon)
+                    if (var17 != this.riddenByEntity && var17.canBePushed() && var17 instanceof CartEntity)
                     {
                         var17.applyEntityCollision(this);
                     }
@@ -649,6 +465,95 @@ public class EntityWagon extends Entity implements IInventory
 
             updateFuel();
         }
+    }
+    
+    void moveTowardsEntity(Entity entity)
+    {
+    	//System.out.println("Moving towards entity");
+    	/*double distX = this.posX - entity.posX;
+    	double distZ = this.posZ - entity.posZ;
+    	//posY = posY + 0.1;
+
+    	if (entity.posY > this.posY)
+    		motionY += 0.1;
+    	if (distX > 0.5 && distZ > 0.5)
+    	{
+    		motionX = -distX;
+    		motionZ = -distZ;
+    	}*/
+    	
+    	double var15 = entity.posX;
+        double var19 = entity.posZ;
+    	
+    	if (this.calculateDistance(this.prevPosX, var15) > 1.5D || this.calculateDistance(this.prevPosZ, var19) > 1.5D)
+        {
+            double var28 = this.prevPosX;
+            double var30 = this.prevPosZ;
+            double var36 = this.calculateDistance(var28, var15);
+            double var38 = this.calculateDistance(var30, var19);
+            double var40 = 1.0D;
+            double var42 = 1.0D;
+            double var46;
+            double var44;
+
+            if (var36 > var38)
+            {
+                var46 = 1.0D;
+                var44 = var38 / var36;
+                var42 = var44 / 3.0D;
+                var40 = var46 / 3.0D;
+            }
+            else if (var38 > var36)
+            {
+                var44 = 1.0D;
+                var46 = var36 / var38;
+                var40 = var46 / 3.0D;
+                var42 = var44 / 3.0D;
+            }
+
+            if (var15 > var28)
+            {
+                this.motionX = var40;// * var26;
+            }
+            else
+            {
+                this.motionX = -var40;// * var26;
+            }
+
+            if (var19 > var30)
+            {
+                this.motionZ = var42;// * var26;
+            }
+            else
+            {
+                this.motionZ = -var42;// * var26;
+            }
+        }
+    	
+    	/*if (entity.posY > this.posY)
+    		motionY += 0.1;*/
+    }
+    
+    public double calculateDistance(double pos1, double pos2)
+    {
+        double distance = Math.abs(pos1 - pos2); //0.0D;
+        /*double absPos1 = Math.abs(pos1);
+        double absPos2 = Math.abs(pos2);
+
+        if ((pos1 <= 0.0D || pos2 <= 0.0D) && (pos1 >= 0.0D || pos2 >= 0.0D))
+        {
+            distance = absPos1 + absPos2;
+        }
+        else if (absPos1 > absPos2)
+        {
+            distance = absPos1 - absPos2;
+        }
+        else if (absPos2 > absPos1)
+        {
+            distance = absPos2 - absPos1;
+        }*/
+
+        return distance;
     }
 
     @SideOnly(Side.CLIENT)
@@ -745,9 +650,10 @@ public class EntityWagon extends Entity implements IInventory
     /**
      * (abstract) Protected helper method to write subclass entity data to NBT.
      */
+    @Override
     protected void writeEntityToNBT(NBTTagCompound par1NBTTagCompound)
     {
-        par1NBTTagCompound.setInteger("Type", this.minecartType);
+        par1NBTTagCompound.setInteger("Type", pullcartType);
 
         if (isPoweredCart())
         {
@@ -778,10 +684,11 @@ public class EntityWagon extends Entity implements IInventory
     /**
      * (abstract) Protected helper method to read subclass entity data from NBT.
      */
+    @Override
     protected void readEntityFromNBT(NBTTagCompound par1NBTTagCompound)
     {
-        this.minecartType = par1NBTTagCompound.getInteger("Type");
-
+        pullcartType = par1NBTTagCompound.getInteger("Type");
+        
         if (isPoweredCart())
         {
             this.pushX = par1NBTTagCompound.getDouble("PushX");
@@ -817,7 +724,7 @@ public class EntityWagon extends Entity implements IInventory
     @SideOnly(Side.CLIENT)
     public float getShadowSize()
     {
-        return 0.0F;
+        return 0.5F;
     }
 
     /**
@@ -859,7 +766,7 @@ public class EntityWagon extends Entity implements IInventory
                     var2 *= 0.5D;
                     var4 *= 0.5D;
 
-                    if (par1Entity instanceof EntityWagon)
+                    if (par1Entity instanceof CartEntity)
                     {
                         double var10 = par1Entity.posX - this.posX;
                         double var12 = par1Entity.posZ - this.posZ;
@@ -867,7 +774,7 @@ public class EntityWagon extends Entity implements IInventory
                         Vec3 var15 = this.worldObj.getWorldVec3Pool().getVecFromPool((double)MathHelper.cos(this.rotationYaw * (float)Math.PI / 180.0F), 0.0D, (double)MathHelper.sin(this.rotationYaw * (float)Math.PI / 180.0F)).normalize();
                         double var16 = Math.abs(var14.dotProduct(var15));
 
-                        if (var16 < 0.800000011920929D)
+                        if (var16 < 0.8D)
                         {
                             return;
                         }
@@ -875,7 +782,7 @@ public class EntityWagon extends Entity implements IInventory
                         double var18 = par1Entity.motionX + this.motionX;
                         double var20 = par1Entity.motionZ + this.motionZ;
 
-                        if (((EntityWagon)par1Entity).isPoweredCart() && !isPoweredCart())
+                        if (((CartEntity)par1Entity).isPoweredCart() && !isPoweredCart())
                         {
                             this.motionX *= 0.20000000298023224D;
                             this.motionZ *= 0.20000000298023224D;
@@ -883,7 +790,7 @@ public class EntityWagon extends Entity implements IInventory
                             par1Entity.motionX *= 0.949999988079071D;
                             par1Entity.motionZ *= 0.949999988079071D;
                         }
-                        else if (!((EntityWagon)par1Entity).isPoweredCart() && isPoweredCart())
+                        else if (!((CartEntity)par1Entity).isPoweredCart() && isPoweredCart())
                         {
                             par1Entity.motionX *= 0.20000000298023224D;
                             par1Entity.motionZ *= 0.20000000298023224D;
@@ -918,7 +825,7 @@ public class EntityWagon extends Entity implements IInventory
      */
     public int getSizeInventory()
     {
-        return (minecartType == 1 && getClass() == EntityWagon.class ? 27 : 0);
+        return (pullcartType == 1 && getClass() == CartEntity.class ? 27 : 0);
     }
 
     /**
@@ -1019,44 +926,59 @@ public class EntityWagon extends Entity implements IInventory
     /**
      * Called when a player interacts with a mob. e.g. gets milk from a cow, gets into the saddle on a pig.
      */
-    public boolean interact(EntityPlayer par1EntityPlayer)
+    public boolean interact(EntityPlayer player)
     {
-
+    	if (player.isSneaking())
+    	{
+    		if (entityFollowing == null)
+    		{
+    			entityFollowing = player;
+    			//if (!worldObj.isRemote)
+    				//player.addChatMessage("The cart is following you");
+    		}
+    		else
+    		{
+    			entityFollowing = null;
+    			//if (!worldObj.isRemote)
+    				//player.addChatMessage("The cart has stopped following you");
+    		}
+    		return true;
+    	}
         if (canBeRidden())
         {
-            if (this.riddenByEntity != null && this.riddenByEntity instanceof EntityPlayer && this.riddenByEntity != par1EntityPlayer)
+            if (this.riddenByEntity != null && this.riddenByEntity instanceof EntityPlayer && this.riddenByEntity != player)
             {
                 return true;
             }
 
             if (!this.worldObj.isRemote)
             {
-                par1EntityPlayer.mountEntity(this);
+                player.mountEntity(this);
             }
         }
         else if (getSizeInventory() > 0)
         {
             if (!this.worldObj.isRemote)
             {
-                par1EntityPlayer.displayGUIChest(this);
+                player.displayGUIChest(this);
             }
         }
-        else if (this.minecartType == 2 && getClass() == EntityWagon.class)
+        else if (this.pullcartType == 2 && getClass() == CartEntity.class)
         {
-            ItemStack var2 = par1EntityPlayer.inventory.getCurrentItem();
+            ItemStack var2 = player.inventory.getCurrentItem();
 
             if (var2 != null && var2.itemID == Item.coal.itemID)
             {
                 if (--var2.stackSize == 0)
                 {
-                    par1EntityPlayer.inventory.setInventorySlotContents(par1EntityPlayer.inventory.currentItem, (ItemStack)null);
+                    player.inventory.setInventorySlotContents(player.inventory.currentItem, (ItemStack)null);
                 }
 
                 this.fuel += 3600;
             }
 
-            this.pushX = this.posX - par1EntityPlayer.posX;
-            this.pushZ = this.posZ - par1EntityPlayer.posZ;
+            this.pushX = this.posX - player.posX;
+            this.pushZ = this.posZ - player.posZ;
         }
 
         return true;
@@ -1185,10 +1107,10 @@ public class EntityWagon extends Entity implements IInventory
      */
     public List<ItemStack> getItemsDropped()
     {
-        List<ItemStack> items = new ArrayList<ItemStack>();
+        /*List<ItemStack> items = new ArrayList<ItemStack>();
         items.add(new ItemStack(Item.minecartEmpty));
 
-        switch(minecartType)
+        switch(cartType)
         {
             case 1:
                 items.add(new ItemStack(Block.chest));
@@ -1197,7 +1119,8 @@ public class EntityWagon extends Entity implements IInventory
                 items.add(new ItemStack(Block.stoneOvenIdle));
                 break;
         }
-        return items;
+        return items;*/
+    	return new ArrayList<ItemStack>();
     }
 
     /**
@@ -1219,7 +1142,7 @@ public class EntityWagon extends Entity implements IInventory
      */
     public boolean isPoweredCart()
     {
-        return minecartType == 2 && getClass() == EntityWagon.class;
+        return pullcartType == 2 && getClass() == CartEntity.class;
     }
 
     /**
@@ -1230,7 +1153,7 @@ public class EntityWagon extends Entity implements IInventory
      */
     public boolean isStorageCart()
     {
-        return minecartType == 1 && getClass() == EntityWagon.class;
+        return pullcartType == 1 && getClass() == CartEntity.class;
     }
 
     /**
@@ -1239,7 +1162,7 @@ public class EntityWagon extends Entity implements IInventory
      */
     public boolean canBeRidden()
     {
-        if(minecartType == 0 && getClass() == EntityWagon.class)
+        if(pullcartType == 0 && getClass() == CartEntity.class)
         {
             return true;
         }
@@ -1253,7 +1176,7 @@ public class EntityWagon extends Entity implements IInventory
      */
     public boolean canUseRail()
     {
-        return canUseRail;
+        return false;
     }
 
     /**
@@ -1279,9 +1202,9 @@ public class EntityWagon extends Entity implements IInventory
      * Simply returns the minecartType variable.
      * @return minecartType
      */
-    public int getMinecartType()
+    public int getCartType()
     {
-        return minecartType;
+    	return pullcartType;
     }
 
     /**
@@ -1489,4 +1412,18 @@ public class EntityWagon extends Entity implements IInventory
     {
         dragAir = value;
     }
+
+	@Override
+	public void writeSpawnData (ByteArrayDataOutput data)
+	{
+		data.writeInt(pullcartType);
+		
+	}
+
+	@Override
+	public void readSpawnData (ByteArrayDataInput data)
+	{
+		pullcartType = data.readInt();
+		
+	}
 }

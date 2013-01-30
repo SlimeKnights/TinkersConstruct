@@ -14,8 +14,10 @@ import tinker.armory.content.ToolrackLogic;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
+/* Special renderer, only used for drawing tools */
+
 @SideOnly(Side.CLIENT)
-public class ToolrackSpecialRender extends TileEntitySpecialRenderer
+public class ShelfSpecialRender extends TileEntitySpecialRenderer
 {
 	@Override
     public void renderTileEntityAt(TileEntity logic, double var2, double var4, double var6, float var8)
@@ -25,9 +27,8 @@ public class ToolrackSpecialRender extends TileEntitySpecialRenderer
 
     public void render(ToolrackLogic logic, double posX, double posY, double posZ, float var8)
     {
-    	//System.out.println("Rendering "+logic.getInvName());
         GL11.glPushMatrix();
-        GL11.glTranslatef((float)posX + 0.3F, (float)posY + 0.5F, (float)posZ + 0.28F); //Center on the block
+        GL11.glTranslatef((float)posX + 0.25F, (float)posY + 0.5F, (float)posZ + 0.094F); //Center on the block
         int facing = logic.getBlockMetadata() / 4;
         GL11.glRotatef(90.0F * (float)facing, 0.0F, 1.0F, 0.0F); //Rotation angle
         //GL11.glTranslatef(-0.25F, 0.25F, -0.3F);
@@ -45,30 +46,32 @@ public class ToolrackSpecialRender extends TileEntitySpecialRenderer
                 //GL11.glRotatef(logic.getAngle(var10), 0.0F, 0.0F, 1.0F);
                 GL11.glRotatef(45f, 0.0F, 0.0F, 1.0F);
                 int iconIndex;
-                int col;
+                int color;
 
-                if (stack.getItem().requiresMultipleRenderPasses())
+                Item item = stack.getItem();
+                int damage = stack.getItemDamage();
+                if (item.requiresMultipleRenderPasses())
                 {
-                    for (iconIndex = 0; iconIndex <= 1; ++iconIndex)
+                    for (int renderPass = 0; renderPass <= item.getRenderPasses(damage); ++renderPass)
                     {
-                        col = stack.getItem().getIconFromDamageForRenderPass(stack.getItemDamage(), iconIndex);
-                        int color = stack.getItem().getColorFromItemStack(stack, iconIndex);
+                    	iconIndex = item.getIconIndex(stack, renderPass);
+                        color = stack.getItem().getColorFromItemStack(stack, iconIndex);
                         setColor(color);
-                        this.drawItem(col);
+                        this.drawItem(iconIndex);
                     }
                 }
                 else
                 {
                     iconIndex = stack.getIconIndex();
-                    col = Item.itemsList[stack.itemID].getColorFromItemStack(stack, 0);
-                    setColor(col);
+                    color = Item.itemsList[stack.itemID].getColorFromItemStack(stack, 0);
+                    setColor(color);
                     this.drawItem(iconIndex);
                 }
 
                 GL11.glPopMatrix();
             }
 
-            GL11.glTranslatef(0.4F, 0.0F, 0.001F);
+            GL11.glTranslatef(0.475F, 0.0F, 0.001F);
         }
 
         GL11.glDisable(GL12.GL_RESCALE_NORMAL);

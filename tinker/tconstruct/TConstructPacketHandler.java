@@ -3,14 +3,18 @@ package tinker.tconstruct;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.IOException;
+import java.util.List;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.WorldServer;
+import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
+import tinker.armory.content.EntityEquipment;
 import tinker.common.InventoryLogic;
+import tinker.tconstruct.entity.CartEntity;
 import tinker.tconstruct.logic.ToolStationLogic;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.IPacketHandler;
@@ -24,61 +28,91 @@ public class TConstructPacketHandler implements IPacketHandler
 	public void onPacketData (INetworkManager manager, Packet250CustomPayload packet, Player player)
 	{
 		Side side = FMLCommonHandler.instance().getEffectiveSide();
-		
+
 		if (packet.channel.equals("TConstruct"))
+		{
+			//System.out.println("Recieved a packet for TConstruct");
 			if (side == Side.SERVER)
 				handleServerPacket(packet);
+			else
+				handleClientPacket(packet);
+		}
 	}
 
-	void handleServerPacket (Packet250CustomPayload packet)
+	void handleClientPacket (Packet250CustomPayload packet)
 	{
+		//System.out.println("Handling client packet");
 		DataInputStream inputStream = new DataInputStream(new ByteArrayInputStream(packet.data));
-		
-		byte packetID;
+
+		byte packetType;
 		int dimension;
-		int x;
-		int y;
-		int z;
-		
+		byte packetID;
 
 		try
 		{
 			packetID = inputStream.readByte();
 			dimension = inputStream.readInt();
-			x = inputStream.readInt();
-			y = inputStream.readInt();
-			z = inputStream.readInt();
-			
-			WorldServer world = DimensionManager.getWorld(dimension);
-			TileEntity te = world.getBlockTileEntity(x, y, z);
-			
-			if (packetID == 1)
+
+			World world = DimensionManager.getWorld(dimension);
+		}
+		catch (IOException e)
+		{
+			System.out.println("Failed at reading client packet for TConstruct.");
+			e.printStackTrace();
+			return;
+		}
+	}
+
+	void handleServerPacket (Packet250CustomPayload packet)
+	{
+		//System.out.println("Handling server packet");
+		DataInputStream inputStream = new DataInputStream(new ByteArrayInputStream(packet.data));
+
+		byte packetType;
+		int dimension;
+		byte packetID;
+
+		try
+		{
+			packetID = inputStream.readByte();
+			dimension = inputStream.readInt();
+
+			World world = DimensionManager.getWorld(dimension);
+
+			if (packetID == 1) //Tool Station
 			{
+				int x = inputStream.readInt();
+				int y = inputStream.readInt();
+				int z = inputStream.readInt();
+				TileEntity te = world.getBlockTileEntity(x, y, z);
+				
 				String toolName = inputStream.readUTF();
 				if (te instanceof ToolStationLogic)
 				{
-					((ToolStationLogic)te).setToolname(toolName);
+					((ToolStationLogic) te).setToolname(toolName);
 				}
 			}
-			else if (packetID == 2)
+			else if (packetID == 2) //Stencil Table
 			{
+				int x = inputStream.readInt();
+				int y = inputStream.readInt();
+				int z = inputStream.readInt();
+				TileEntity te = world.getBlockTileEntity(x, y, z);
+				
 				Short itemID = inputStream.readShort();
 				Short itemDamage = inputStream.readShort();
 				if (te instanceof InventoryLogic)
 				{
-					((InventoryLogic)te).setInventorySlotContents(1, new ItemStack(itemID, 1, itemDamage));
+					((InventoryLogic) te).setInventorySlotContents(1, new ItemStack(itemID, 1, itemDamage));
 				}
 			}
+
 		}
 		catch (IOException e)
 		{
-			System.out.println("Failed at reading packet for TConstruct. Blarrrrrrrrrgh");
+			System.out.println("Failed at reading server packet for TConstruct.");
 			e.printStackTrace();
 			return;
 		}
-		
-		
-		
 	}
-
 }

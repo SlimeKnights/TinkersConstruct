@@ -1,11 +1,12 @@
 package tinker.armory;
 
-import tinker.armory.content.ArmorStandItem;
-import tinker.armory.content.Toolrack;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import tinker.armory.content.ArmorStandItem;
+import tinker.armory.content.DisplayBlock;
+import tinker.armory.content.Shelf;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
 import cpw.mods.fml.common.Mod.Instance;
@@ -42,9 +43,12 @@ public class Armory
 	public void preInit(FMLPreInitializationEvent evt)
 	{
 		PHArmory.initProps();
-		stoneRack = new Toolrack(PHArmory.rackBlock, Material.rock);
-		GameRegistry.registerBlock(stoneRack, tinker.armory.content.ToolrackItem.class, "ToolRack");
-		GameRegistry.registerTileEntity(tinker.armory.content.ToolrackLogic.class, "InfiToolrack");
+		toolrack = new DisplayBlock(PHArmory.toolrack, Material.rock);
+		GameRegistry.registerBlock(toolrack, tinker.armory.content.ToolrackItem.class, "ToolRack");
+		GameRegistry.registerTileEntity(tinker.armory.content.ShieldrackLogic.class, "Display");
+		shelf = new Shelf(PHArmory.shieldrack, Material.rock);
+		GameRegistry.registerBlock(shelf, tinker.armory.content.ToolrackItem.class, "Shelf");
+		GameRegistry.registerTileEntity(tinker.armory.content.ToolrackLogic.class, "aShelf");
 		/*armorStand = new ArmorStand(1501, Material.rock);
 		GameRegistry.registerBlock(armorStand, mDiyo.inficraft.armory.ArmorStandItem.class);
 		GameRegistry.registerTileEntity(mDiyo.inficraft.armory.ArmorStandLogic.class, "InfiArmorStand");*/
@@ -67,8 +71,8 @@ public class Armory
 	}
 	
 	/* Prototype fields, used elsewhere */
-	public static Block stoneRack;
-	public static Block woodRack;
+	public static Block shelf;
+	public static Block toolrack;
 	public static Block armorStand;
 	public static Block pedestal;
 	

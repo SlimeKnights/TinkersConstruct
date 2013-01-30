@@ -49,11 +49,16 @@ public class PartCrafterLogic extends InventoryLogic
 	}
 
 	//Called when emptying a slot, not when another item is placed in it
-	public ItemStack decrStackSize (int slot, int quantity)
+	public ItemStack decrStackSize (int slotID, int quantity)
 	{
-		ItemStack returnStack = super.decrStackSize(slot, quantity);
-
-		if (slot == 4 || slot == 5)
+		ItemStack returnStack = super.decrStackSize(slotID, quantity);
+		tryBuildPart(slotID);
+		return returnStack;
+	}
+	
+	public void tryBuildPart(int slotID)
+	{
+		if (slotID == 4 || slotID == 5)
 		{
 			if (!craftedTop)
 			{
@@ -77,7 +82,7 @@ public class PartCrafterLogic extends InventoryLogic
 		if (!craftedTop)
 			buildTopPart();
 		
-		if (slot == 6 || slot == 7)
+		if (slotID == 6 || slotID == 7)
 		{
 			if (!craftedBottom)
 			{
@@ -100,8 +105,6 @@ public class PartCrafterLogic extends InventoryLogic
 
 		if (!craftedBottom)
 			buildBottomPart();
-
-		return returnStack;
 	}
 
 	//Called when a slot has something placed into it.

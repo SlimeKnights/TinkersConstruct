@@ -42,8 +42,9 @@ public class PHArmory
          * Avoid values below 4096 for items and in the 250-450 and 2216-2226 range for blocks
          */
         
-        armorBlock = config.getBlock("Armor Stand", 3257).getInt(3257);
-        rackBlock = config.getBlock("Tool Rack", 3257).getInt(3257);
+        //armorBlock = config.getBlock("Armor Stand", 3257).getInt(3257);
+        toolrack = config.getBlock("Toolrack", 3201).getInt(3201);
+        shieldrack = config.getBlock("Shield Rack", 3202).getInt(3202);
         armorItem = config.getItem("Armor Stand Item", 4570).getInt(4570);
         /*berryBlockID = config.getBlock("Berry_Bush", 3257).getInt(3257);
         berryItemID = config.getItem("Berry_Food", 12402).getInt(12402);
@@ -68,7 +69,8 @@ public class PHArmory
 	/* Prototype fields, used elsewhere */
 	public static int armorBlock;
 	public static int armorItem;
-	public static int rackBlock;
+	public static int toolrack;
+	public static int shieldrack;
 	/*public static int raspSpawnDensity;
 	public static int raspSpawnHeight;
 	public static int raspSpawnRange;

@@ -21,25 +21,10 @@ public class TProxyClient extends TProxyCommon
 		RenderingRegistry.registerBlockHandler(new FrypanRender());
 		//RenderingRegistry.registerBlockHandler(new AxleRender());
 		
-		MinecraftForgeClient.preloadTexture(TConstructContent.craftingTexture);
-		MinecraftForgeClient.preloadTexture(TConstructContent.baseHeads);
-		MinecraftForgeClient.preloadTexture(TConstructContent.baseAccessories);
-		MinecraftForgeClient.preloadTexture(TConstructContent.patternTexture);
-		MinecraftForgeClient.preloadTexture(TConstructContent.swordparts);
-		MinecraftForgeClient.preloadTexture(TConstructContent.jokeparts);
-		
-		MinecraftForgeClient.preloadTexture(TConstructContent.pickaxeTexture);
-		MinecraftForgeClient.preloadTexture(TConstructContent.broadswordTexture);
-		MinecraftForgeClient.preloadTexture(TConstructContent.shovelTexture);
-		MinecraftForgeClient.preloadTexture(TConstructContent.axeTexture);
-		MinecraftForgeClient.preloadTexture(TConstructContent.longswordTexture);
-		MinecraftForgeClient.preloadTexture(TConstructContent.rapierTexture);
-		
-		MinecraftForgeClient.preloadTexture(TConstructContent.frypanTexture);
-		MinecraftForgeClient.preloadTexture(TConstructContent.signTexture);
 		MinecraftForgeClient.preloadTexture(TConstructContent.blockTexture);
+		MinecraftForgeClient.registerItemRenderer(TConstructContent.pickaxe.itemID, new SuperCustomToolRenderer());
 		
-		RenderingRegistry.registerEntityRenderingHandler(tinker.tconstruct.entity.EntityWagon.class, new RenderWagon());
+		RenderingRegistry.registerEntityRenderingHandler(tinker.tconstruct.entity.CartEntity.class, new CartRender());
 	}
 	
 	

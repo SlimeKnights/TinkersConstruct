@@ -110,7 +110,7 @@ public class TConstructContent
 	
 	void createEntities()
 	{
-		EntityRegistry.registerModEntity(tinker.tconstruct.entity.EntityWagon.class, "Small Wagon", 0, TConstruct.instance, 32, 5, true);
+		EntityRegistry.registerModEntity(tinker.tconstruct.entity.CartEntity.class, "Small Wagon", 0, TConstruct.instance, 32, 5, true);
 	}
 	
 	void createItems ()
