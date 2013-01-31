@@ -1,5 +1,7 @@
 package tinker.tconstruct.tools;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import tinker.tconstruct.TConstructContent;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
@@ -42,5 +44,33 @@ public class Shovel extends HarvestTool
 	protected Item getAccessoryItem ()
 	{
 		return null;
+	}
+	
+	@SideOnly(Side.CLIENT)
+	@Override
+	public int getRenderPasses (int metadata)
+	{
+		return 2;
+	}
+	
+	protected String getRenderString (int renderPass, boolean broken)
+	{
+		switch (renderPass)
+		{
+		case 0:
+			return "_shovel_handle.png";
+		case 1:
+			if (broken)
+				return "_shovel_head_broken.png";
+			else
+				return "_shovel_head.png";
+		default:
+			return "";
+		}
+	}
+
+	protected String getEffectString (int renderPass)
+	{
+		return "_shovel_effect.png";
 	}
 }

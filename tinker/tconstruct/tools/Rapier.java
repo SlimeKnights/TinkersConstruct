@@ -67,4 +67,27 @@ public class Rapier extends Weapon
 	{
 		return TConstructContent.crossbar;
 	}
+	
+	protected String getRenderString (int renderPass, boolean broken)
+	{
+		switch (renderPass)
+		{
+		case 0:
+			return "_rapier_handle.png";
+		case 1:
+			if (broken)
+				return "_rapier_blade_broken.png";
+			else
+				return "_rapier_blade.png";
+		case 2:
+			return "_rapier_accessory.png";
+		default:
+			return "";
+		}
+	}
+
+	protected String getEffectString (int renderPass)
+	{
+		return "_rapier_effect.png";
+	}
 }

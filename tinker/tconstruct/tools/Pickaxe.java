@@ -44,4 +44,27 @@ public class Pickaxe extends HarvestTool
 	{
 		return  TConstructContent.binding;
 	}
+	
+	protected String getRenderString (int renderPass, boolean broken)
+	{
+		switch (renderPass)
+		{
+		case 0:
+			return "_pickaxe_handle.png";
+		case 1:
+			if (broken)
+				return "_pickaxe_head_broken.png";
+			else
+				return "_pickaxe_head.png";
+		case 2:
+			return "_pickaxe_accessory.png";
+		default:
+			return "";
+		}
+	}
+
+	protected String getEffectString (int renderPass)
+	{
+		return "_pickaxe_effect.png";
+	}
 }

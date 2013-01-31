@@ -95,4 +95,27 @@ public class Hammer extends HarvestTool
 	{
 		return null;
 	}
+	
+	protected String getRenderString (int renderPass, boolean broken)
+	{
+		switch (renderPass)
+		{
+		case 0:
+			return "_hammer_handle.png";
+		case 1:
+			if (broken)
+				return "_hammer_head_broken.png";
+			else
+				return "_hammer_head.png";
+		case 2:
+			return "_hammer_accessory.png";
+		default:
+			return "";
+		}
+	}
+
+	protected String getEffectString (int renderPass)
+	{
+		return "_hammer_effect.png";
+	}
 }

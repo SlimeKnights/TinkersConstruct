@@ -3,77 +3,74 @@ package tinker.tconstruct.tools;
 import ic2.api.IBoxable;
 import ic2.api.ICustomElectricItem;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.EnchantmentThorns;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumToolMaterial;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.potion.Potion;
-import net.minecraft.stats.AchievementList;
-import net.minecraft.stats.StatList;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
 import tinker.tconstruct.AbilityHelper;
 import tinker.tconstruct.TConstruct;
 import tinker.tconstruct.TConstructContent;
+import tinker.tconstruct.TConstructRegistry;
 import tinker.tconstruct.crafting.ToolBuilder;
+import tinker.tconstruct.modifiers.ToolMod;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-/* NBTTags
+/** NBTTags
  * Main tag - InfiTool
+ * @see ToolBuilder
  * 
  * Required:
- * Head: Render tag, above the handle
- * Handle: Render tag, bottom layer
+ * Head: Base and render tag, above the handle
+ * Handle: Base and render tag, bottom layer
  * 
  * Damage: Replacement for metadata
  * MaxDamage: ItemStacks only read setMaxDamage()
  * Broken: Represents whether the tool is broken (boolean)
  * Attack: How much damage a mob will take
+ * MiningSpeed: The speed at which a tool mines
  * 
  * Others: 
- * Accessory: Render tag, above head. Sword guards, binding, etc
+ * Accessory: Base and tag, above head. Sword guards, binding, etc
  * Effects: Render tag, top layer. Fancy effects like moss or diamond edge.
  * Render order: Handle > Head > Accessory > Effect1 > Effect2 > Effect3
+ * Unbreaking: Reinforced in-game, 10% chance to not use durability per level
+ * Shoddy/Spiny: Mines faster or slower and does less or more attack.
  * 
- * Durability: 10% chance to not use damage per level
- * Shoddy: Mines slower, does more damage
- * Spiny: Mines faster, does less damage
- * Awareness: Glows in the presence of mobs
+ * Modifiers have their own tags.
+ * @see ToolMod
  */
 
 public abstract class ToolCore extends Item 
-	implements ICustomElectricItem, IBoxable//, IItemElectric
+	implements ICustomElectricItem, IBoxable
 {
 	Random random = new Random();
 	String toolTexture;
 	public int damageVsEntity;
 
-	public ToolCore(int itemID, int baseDamage, String texture)
+	public ToolCore(int id, int baseDamage, String texture)
 	{
-		super(itemID);
+		super(id);
 		this.maxStackSize = 1;
 		this.setMaxDamage(100);
 		this.setItemName("InfiTool");
 		this.setCreativeTab(TConstruct.toolTab);
 		toolTexture = texture;
 		damageVsEntity = baseDamage;
+		TConstructRegistry.addToolMapping(this);//tools.add(this);
 	}
-	
+
 	/** Determines what type of heads the tool has.
 	 * 0: no heads
 	 * 1: one head
@@ -81,14 +78,7 @@ public abstract class ToolCore extends Item
 	 * 3: Two heads, different uses
 	 * @return The head type
 	 */
-	public abstract int getHeadType();
-
-	/* Texture */
-	@Override
-	public String getTextureFile ()
-	{
-		return toolTexture;
-	}
+	public abstract int getHeadType ();
 
 	public String getToolName ()
 	{
@@ -96,23 +86,123 @@ public abstract class ToolCore extends Item
 	}
 
 	/* Rendering */
+
+	public HashMap<Integer, String> partTextures = new HashMap<Integer, String>();
+	public HashMap<Integer, String> effectTextures = new HashMap<Integer, String>();
+
 	@SideOnly(Side.CLIENT)
 	@Override
-	public boolean requiresMultipleRenderPasses ()
+	public boolean requiresMultipleRenderPasses () //Redundant
 	{
 		return true;
+	}
+
+	@Override
+	public String getTextureFile () //Repurposed for default texture locations
+	{
+		return toolTexture;
 	}
 
 	@SideOnly(Side.CLIENT)
 	@Override
 	public int getRenderPasses (int metadata)
 	{
-		return 6;
+		return 3;
 	}
 
 	@SideOnly(Side.CLIENT)
+	public String getIconLocation (ItemStack stack, int renderPass)
+	{
+		NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
+
+		if (renderPass == 0) // Handle
+		{
+			return (partTextures.get((Integer) tags.getInteger("RenderHandle")) + getRenderString(renderPass, false));
+		}
+
+		if (renderPass == 1) // Head
+		{
+			if (tags.getBoolean("Broken"))
+				return (partTextures.get((Integer) tags.getInteger("RenderHead")) + getRenderString(renderPass, true));
+			else
+				return (partTextures.get((Integer) tags.getInteger("RenderHead")) + getRenderString(renderPass, false));
+		}
+
+		if (renderPass == 2) // Accessory
+		{
+			if (tags.hasKey("RenderAccessory"))
+			{
+				return (partTextures.get((Integer) tags.getInteger("RenderAccessory")) + getRenderString(renderPass, false));
+			}
+		}
+
+		return TConstructContent.blankSprite;
+	}
+
+	@SideOnly(Side.CLIENT)
+	public String getEffectLocation (ItemStack stack, int renderPass)
+	{
+		NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
+
+		if (renderPass == 0)
+		{
+			if (tags.hasKey("Effect1"))
+				return (effectTextures.get((Integer) tags.getInteger("Effect1")) + getEffectString(renderPass));
+		}
+
+		if (renderPass == 1)
+		{
+			if (tags.hasKey("Effect2"))
+				return (effectTextures.get((Integer) tags.getInteger("Effect2")) + getEffectString(renderPass));
+		}
+
+		if (renderPass == 2)
+		{
+			if (tags.hasKey("Effect3"))
+				return (effectTextures.get((Integer) tags.getInteger("Effect3")) + getEffectString(renderPass));
+		}
+
+		return TConstructContent.blankSprite;
+	}
+	
+	protected abstract String getRenderString(int renderPass, boolean broken);
+	protected abstract String getEffectString(int renderPass);
+
+	/*String getRenderString (int renderPass, boolean broken)
+	{
+		switch (renderPass)
+		{
+		case 0:
+			return "_pickaxe_handle.png";
+		case 1:
+			if (broken)
+				return "_pickaxe_head_broken.png";
+			else
+				return "_pickaxe_head.png";
+		case 2:
+			return "_pickaxe_accessory.png";
+		default:
+			return "";
+		}
+	}
+
+	String getEffectString ()
+	{
+		return "_pickaxe_effect.png";
+	}*/
+
+	/*String types[] = {
+			
+			"_pickaxe_effect.png",
+			"_pickaxe_effect.png",
+			"_pickaxe_effect.png"
+		};*/
+
+	
+
+	/*@SideOnly(Side.CLIENT)
 	@Override
-	public int getIconIndex (ItemStack stack, int pass)
+	public int getIconIndex (ItemStack stack, int renderPass)
 	{
 		if (!stack.hasTagCompound())
 			return 255;
@@ -120,12 +210,12 @@ public abstract class ToolCore extends Item
 		NBTTagCompound tags = stack.getTagCompound();
 		if (tags.hasKey("InfiTool"))
 		{
-			if (pass == 0) // Handle
+			if (renderPass == 0) // Handle
 			{
 				return tags.getCompoundTag("InfiTool").getInteger("RenderHandle");
 			}
 
-			if (pass == 1) // Head
+			if (renderPass == 1) // Head
 			{
 				if (tags.getCompoundTag("InfiTool").getBoolean("Broken"))
 					return tags.getCompoundTag("InfiTool").getInteger("RenderHead") + 192;
@@ -133,7 +223,7 @@ public abstract class ToolCore extends Item
 				return tags.getCompoundTag("InfiTool").getInteger("RenderHead") + 64;
 			}
 
-			if (pass == 2) // Accessory
+			if (renderPass == 2) // Accessory
 			{
 				if (tags.getCompoundTag("InfiTool").hasKey("RenderAccessory"))
 				{
@@ -144,7 +234,7 @@ public abstract class ToolCore extends Item
 				}
 			}
 
-			if (pass == 3)
+			if (renderPass == 3)
 			{
 				if (tags.getCompoundTag("InfiTool").hasKey("Effect1"))
 					return tags.getCompoundTag("InfiTool").getInteger("Effect1") + 224;
@@ -152,7 +242,7 @@ public abstract class ToolCore extends Item
 					return 255;
 			}
 
-			if (pass == 4)
+			if (renderPass == 4)
 			{
 				if (tags.getCompoundTag("InfiTool").hasKey("Effect2"))
 					return tags.getCompoundTag("InfiTool").getInteger("Effect2") + 224;
@@ -160,7 +250,7 @@ public abstract class ToolCore extends Item
 					return 255;
 			}
 
-			if (pass == 5)
+			if (renderPass == 5)
 			{
 				if (tags.getCompoundTag("InfiTool").hasKey("Effect3"))
 					return tags.getCompoundTag("InfiTool").getInteger("Effect3") + 224;
@@ -178,7 +268,7 @@ public abstract class ToolCore extends Item
 		if (damage == 0 || broken)
 			return 255;
 		return 240 + (damage * 13 / maxDamage);
-	}
+	}*/
 
 	/* Tags and information about the tool */
 	@Override
@@ -198,13 +288,13 @@ public abstract class ToolCore extends Item
 			if (power != 0)
 			{
 				if (power <= this.getMaxCharge() / 3)
-					color = "\u00a74";			
+					color = "\u00a74";
 				else if (power > this.getMaxCharge() * 2 / 3)
-					color = "\u00a72";			
+					color = "\u00a72";
 				else
 					color = "\u00a76";
 			}
-			
+
 			String charge = new StringBuilder().append(color).append(tags.getInteger("charge")).append("/").append(getMaxCharge()).append(" En").toString();
 			list.add(charge);
 		}
@@ -230,17 +320,17 @@ public abstract class ToolCore extends Item
 				String bindingName = getAbilityNameForType(binding);
 				if (!bindingName.equals("") && binding != head && binding != handle)
 					list.add(getColorCodeForType(binding) + bindingName);
-				
+
 				String reinforced = getReinforcedName(head, handle, binding);
 				if (!reinforced.equals(""))
 					list.add(reinforced);
-				
+
 				boolean displayToolTips = true;
 				int tipNum = 0;
 				while (displayToolTips)
 				{
 					tipNum++;
-					String tooltip = "Tooltip"+tipNum;
+					String tooltip = "Tooltip" + tipNum;
 					if (tags.getCompoundTag("InfiTool").hasKey(tooltip))
 					{
 						String tipName = tags.getCompoundTag("InfiTool").getString(tooltip);
@@ -331,24 +421,22 @@ public abstract class ToolCore extends Item
 			return "";
 		}
 	}
-	
+
 	//This method is temporary
-	public static String getReinforcedName(int head, int handle, int accessory)
+	public static String getReinforcedName (int head, int handle, int accessory)
 	{
 		if (head == 7 || handle == 7 || accessory == 7)
 			return "\u00A7dReinforced III";
-		else if  (head == 11 || handle == 11 || accessory == 11)
+		else if (head == 11 || handle == 11 || accessory == 11)
 			return "\u00A73Reinforced II";
-		else if  (head == 3 || handle == 3 || accessory == 3)
+		else if (head == 3 || handle == 3 || accessory == 3)
 			return "\u00A7fReinforced I";
-		else if  (head == 15 || handle == 15 || accessory == 15)
+		else if (head == 15 || handle == 15 || accessory == 15)
 			return "\u00A76Reinforced I";
 		return "";
 	}
-	
-	static String[] toolMaterialNames = {
-		"Wooden ", "Stone ", "Iron ", "Flint ", "Cactus ", "Bone ", "Obsidian ", "Nethrrack ", "Slime ", "Paper ", "Cobalt ", "Ardite ", "Manyullyn " , "Copper ", "Bronze "
-	};
+
+	static String[] toolMaterialNames = { "Wooden ", "Stone ", "Iron ", "Flint ", "Cactus ", "Bone ", "Obsidian ", "Nethrrack ", "Slime ", "Paper ", "Cobalt ", "Ardite ", "Manyullyn ", "Copper ", "Bronze " };
 
 	/* Creative mode tools */
 	public void getSubItems (int id, CreativeTabs tab, List list)
@@ -357,21 +445,22 @@ public abstract class ToolCore extends Item
 		{
 			Item accessory = getAccessoryItem();
 			ItemStack accessoryStack = accessory != null ? new ItemStack(getAccessoryItem(), 1, i) : null;
-			ItemStack tool = ToolBuilder.instance.buildTool(new ItemStack(getHeadItem(), 1, i), new ItemStack(getHandleItem(), 1, i), accessoryStack, toolMaterialNames[i]+getToolName());
+			ItemStack tool = ToolBuilder.instance.buildTool(new ItemStack(getHeadItem(), 1, i), new ItemStack(getHandleItem(), 1, i), accessoryStack, toolMaterialNames[i] + getToolName());
 			tool.getTagCompound().getCompoundTag("InfiTool").setBoolean("Built", true);
-			list.add( tool );
+			list.add(tool);
 		}
 	}
 
-	protected abstract Item getHeadItem();
-	protected abstract Item getAccessoryItem();
-	
-	protected Item getHandleItem()
+	protected abstract Item getHeadItem ();
+
+	protected abstract Item getAccessoryItem ();
+
+	protected Item getHandleItem ()
 	{
 		return TConstructContent.toolRod;
 	}
-	
-	public void onUpdate(ItemStack stack, World world, Entity entity, int par4, boolean par5) 
+
+	public void onUpdate (ItemStack stack, World world, Entity entity, int par4, boolean par5)
 	{
 		if (entity instanceof EntityLiving)
 		{
@@ -381,7 +470,7 @@ public abstract class ToolCore extends Item
 				int chance = tags.getInteger("Moss");
 				if (random.nextInt(800) < chance)
 				{
-					AbilityHelper.damageTool(stack, -1, (EntityLiving)entity, true);
+					AbilityHelper.damageTool(stack, -1, (EntityLiving) entity, true);
 				}
 			}
 		}
@@ -389,14 +478,14 @@ public abstract class ToolCore extends Item
 
 	/* Tool uses */
 	@Override
-	public boolean onBlockStartBreak(ItemStack stack, int x, int y, int z, EntityPlayer player)
+	public boolean onBlockStartBreak (ItemStack stack, int x, int y, int z, EntityPlayer player)
 	{
 		NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
 		World world = player.worldObj;
 		int bID = player.worldObj.getBlockId(x, y, z);
 		int meta = world.getBlockMetadata(x, y, z);
 		Block block = Block.blocksList[bID];
-		
+
 		if (tags.getBoolean("Lava") && block.quantityDropped(meta, 0, random) != 0)
 		{
 			ItemStack result = FurnaceRecipes.smelting().getSmeltingResult(new ItemStack(block.idDropped(bID, random, 0), 1, block.damageDropped(meta)));
@@ -408,8 +497,8 @@ public abstract class ToolCore extends Item
 					onBlockDestroyed(stack, world, bID, x, y, z, player);
 				if (!world.isRemote)
 				{
-					EntityItem entityitem = new EntityItem(world, x+0.5, y+0.5, z+0.5, result.copy());
-					
+					EntityItem entityitem = new EntityItem(world, x + 0.5, y + 0.5, z + 0.5, result.copy());
+
 					entityitem.delayBeforeCanPickup = 10;
 					world.spawnEntityInWorld(entityitem);
 					world.playAuxSFX(2001, x, y, z, bID + (meta << 12));
@@ -417,10 +506,10 @@ public abstract class ToolCore extends Item
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
-	
+
 	@Override
 	public boolean onBlockDestroyed (ItemStack itemstack, World world, int bID, int x, int y, int z, EntityLiving player)
 	{
@@ -449,35 +538,35 @@ public abstract class ToolCore extends Item
 	{
 		return false;
 	}
-	
+
 	@Override
-	public boolean getIsRepairable(ItemStack par1ItemStack, ItemStack par2ItemStack)
-    {
+	public boolean getIsRepairable (ItemStack par1ItemStack, ItemStack par2ItemStack)
+	{
 		return false;
-    }
+	}
 
 	/* Attacking */
 	@Override
-	public boolean onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity entity)
+	public boolean onLeftClickEntity (ItemStack stack, EntityPlayer player, Entity entity)
 	{
 		AbilityHelper.onLeftClickEntity(stack, player, entity, this);
-	    return true;
+		return true;
 	}
-	
-	public boolean pierceArmor()
+
+	public boolean pierceArmor ()
 	{
 		return false;
 	}
-	
-	public float chargeAttack()
+
+	public float chargeAttack ()
 	{
 		return 1f;
 	}
-	
-	public int getDamageVsEntity(Entity par1Entity) //Redundant
-    {
-        return this.damageVsEntity;
-    }
+
+	public int getDamageVsEntity (Entity par1Entity) //Redundant
+	{
+		return this.damageVsEntity;
+	}
 
 	/* Enchanting */
 	public int getItemEnchantability ()
@@ -490,11 +579,11 @@ public abstract class ToolCore extends Item
 	{
 		return 1f;
 	}
-	
-	public boolean isFull3D()
-    {
-        return true;
-    }
+
+	public boolean isFull3D ()
+	{
+		return true;
+	}
 
 	/*
 	 * IC2 Support
@@ -548,7 +637,7 @@ public abstract class ToolCore extends Item
 		NBTTagCompound tags = stack.getTagCompound();
 		if (!tags.hasKey("charge")) //|| !tags.getCompoundTag("InfiTool").getBoolean("Electric"))
 			return 0;
-		
+
 		if (amount > 0)
 		{
 			if (amount > getTransferLimit() && !ignoreTransferLimit)
@@ -573,7 +662,7 @@ public abstract class ToolCore extends Item
 
 			return amount;
 		}
-		
+
 		else
 			return 0;
 	}
@@ -584,7 +673,7 @@ public abstract class ToolCore extends Item
 		NBTTagCompound tags = stack.getTagCompound();
 		if (!tags.hasKey("charge"))// || !tags.getCompoundTag("InfiTool").getBoolean("Electric"))
 			return 0;
-		
+
 		if (amount > 0)
 		{
 			if (amount > getTransferLimit() && !ignoreTransferLimit)
@@ -609,7 +698,7 @@ public abstract class ToolCore extends Item
 
 			return amount;
 		}
-		
+
 		else
 			return 0;
 	}
@@ -617,20 +706,19 @@ public abstract class ToolCore extends Item
 	@Override
 	public boolean canUse (ItemStack itemStack, int amount)
 	{
-		//TODO: Investigate this
 		return false;
 	}
-	
+
 	@Override
 	public boolean canShowChargeToolTip (ItemStack itemStack)
 	{
 		return false;
 	}
-	
+
 	/* Universal Electricity Support 
-	 * Temporarily disabled due to bugginess
+	 * Disabled due to Calclavia changing UE's api too often
 	 */
-	
+
 	/*@Override
 	public double getJoules (Object... data)
 	{

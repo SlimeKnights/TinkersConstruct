@@ -16,7 +16,7 @@ import net.minecraft.world.World;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
-import tinker.tconstruct.TConstruct;
+import tinker.tconstruct.TConstructRegistry;
 import tinker.tconstruct.logic.ToolStationLogic;
 import tinker.tconstruct.tools.ToolCore;
 import tinker.tconstruct.tools.Weapon;
@@ -70,14 +70,14 @@ public class ToolStationGui extends GuiContainer
 		int cornerY = (this.height - this.ySize) / 2;
 
 		this.controlList.clear();
-		ToolGuiElement repair = TConstruct.toolButtons.get(0);
+		ToolGuiElement repair = TConstructRegistry.toolButtons.get(0);
 		GuiButtonTool repairButton = new GuiButtonTool(0, cornerX - 110, cornerY, repair.buttonIconX, repair.buttonIconY, repair.texture); // Repair
 		repairButton.enabled = false;
 		this.controlList.add(repairButton);
 
-		for (int iter = 1; iter < TConstruct.toolButtons.size(); iter++)
+		for (int iter = 1; iter < TConstructRegistry.toolButtons.size(); iter++)
 		{
-			ToolGuiElement element = TConstruct.toolButtons.get(iter);
+			ToolGuiElement element = TConstructRegistry.toolButtons.get(iter);
 			GuiButtonTool button = new GuiButtonTool(iter, cornerX - 110 + 22 * (iter % 5), cornerY + 22 * (iter / 5), element.buttonIconX, element.buttonIconY, element.texture); // Repair
 			this.controlList.add(button);
 		}
@@ -89,7 +89,7 @@ public class ToolStationGui extends GuiContainer
 		guiType = button.id;
 		button.enabled = false;
 
-		ToolGuiElement element = TConstruct.toolButtons.get(guiType);
+		ToolGuiElement element = TConstructRegistry.toolButtons.get(guiType);
 		setSlotType(element.slotType);
 		iconX = element.iconsX;
 		iconY = element.iconsY;

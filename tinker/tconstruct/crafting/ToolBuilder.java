@@ -1,16 +1,18 @@
 package tinker.tconstruct.crafting;
 
 /** Once upon a time, too many tools to count. Let's put them together automatically */
-import java.util.*;
-
-import tinker.tconstruct.EnumMaterial;
-import tinker.tconstruct.items.ToolPart;
-import tinker.tconstruct.modifiers.ToolMod;
-import tinker.tconstruct.tools.ToolCore;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import tinker.common.IToolPart;
+import tinker.tconstruct.TConstructRegistry;
+import tinker.tconstruct.ToolMaterial;
+import tinker.tconstruct.modifiers.ToolMod;
+import tinker.tconstruct.tools.ToolCore;
 
 public class ToolBuilder
 {
@@ -51,26 +53,59 @@ public class ToolBuilder
 			return null;
 		
 		ToolCore item;
-		if (accessoryStack == null)
-			item = getMatchingRecipe(headStack.getItem(), handleStack.getItem(), null);
+		boolean validMaterials = true;
+		int head = -1, handle = -1, accessory = -1;
+		if (headStack.getItem() instanceof IToolPart)
+		{
+			head = ((IToolPart) headStack.getItem()).getMaterialID(headStack);
+			handle = ((IToolPart) handleStack.getItem()).getMaterialID(handleStack);
+		}
 		else
+			validMaterials = false;
+		
+		Item handleItem = handleStack.getItem();
+		
+		if (handleItem == Item.stick)
+			handle = 0;		
+		else if (handleItem == Item.bone)
+			handle = 5;
+		else if (handleItem instanceof IToolPart)
+			handle = ((IToolPart)handleItem).getMaterialID(handleStack);
+		else
+			validMaterials = false;
+		
+		if (!validMaterials)
+			return null;
+		
+		if (accessoryStack == null)
+		{
+			item = getMatchingRecipe(headStack.getItem(), handleStack.getItem(), null);
+		}
+		else
+		{
+			if (accessoryStack.getItem() instanceof IToolPart)
+				accessory = ((IToolPart) accessoryStack.getItem()).getMaterialID(accessoryStack);
+			else
+				return null;
+			
 			item = getMatchingRecipe(headStack.getItem(), handleStack.getItem(), accessoryStack.getItem());
+		}
+		
 		if (item == null)
 			return null;
 		
-		//System.out.println("Tool name: "+item.getToolName());
-		int head = headStack.getItemDamage();
-		//System.out.println("Head:"+head);
-		int handle = handleStack.getItemDamage();
-		int accessory = -1;
-		if (accessoryStack != null)
-			accessory = accessoryStack.getItemDamage();
-		if (handleStack.getItem() == Item.bone) //Don't worry about stick, it should be metadata 0.
-			handle = 5;
+		
+		
+		ToolMaterial headMat = null, handleMat = null, accessoryMat = null;
+		headMat = TConstructRegistry.getMaterial(head);
+		handleMat = TConstructRegistry.getMaterial(handle);
+		if (accessory != -1)
+			accessoryMat = TConstructRegistry.getMaterial(accessory);		
 
-		int durability = (int) (EnumMaterial.durability(head) * EnumMaterial.handleDurability(handle) * item.getDurabilityModifier());
+		System.out.println("Head: "+headMat+" Handle: "+handleMat);
+		int durability = (int) (headMat.durability() * handleMat.handleDurability() * item.getDurabilityModifier());
 		if (accessoryStack != null && (item.getHeadType() == 2 || item.getHeadType() == 3) )
-			durability = (int) ((EnumMaterial.durability(head) + EnumMaterial.durability(accessory))/2 * EnumMaterial.handleDurability(handle) * item.getDurabilityModifier());
+			durability = (int) ((headMat.durability() + accessoryMat.durability())/2 * handleMat.handleDurability() * item.getDurabilityModifier());
 		{
 			/*Item accessoryItem = accessoryStack.getItem();
 			if (accessoryItem instanceof ToolPart && ((ToolPart)accessoryItem).isHead) //Two heads
@@ -94,25 +129,25 @@ public class ToolBuilder
 		compound.getCompoundTag("InfiTool").setInteger("BonusDurability", 0); //Modifier
 		compound.getCompoundTag("InfiTool").setFloat("ModDurability", 0f); //Modifier
 		compound.getCompoundTag("InfiTool").setBoolean("Broken", false);
-		compound.getCompoundTag("InfiTool").setInteger("Attack", EnumMaterial.attack(head) + item.getDamageVsEntity(null));
+		compound.getCompoundTag("InfiTool").setInteger("Attack", headMat.attack() + item.getDamageVsEntity(null));
 		
-		compound.getCompoundTag("InfiTool").setInteger("MiningSpeed", EnumMaterial.toolSpeed(head));
+		compound.getCompoundTag("InfiTool").setInteger("MiningSpeed", headMat.toolSpeed());
 		if (item.getHeadType() == 2)
 		{
-			int hLvl = EnumMaterial.harvestLevel(head);
-			int shLvl = EnumMaterial.harvestLevel(accessory);
+			int hLvl = headMat.harvestLevel();
+			int shLvl = accessoryMat.harvestLevel();
 		}
 		else
-			compound.getCompoundTag("InfiTool").setInteger("HarvestLevel", EnumMaterial.harvestLevel(head));
+			compound.getCompoundTag("InfiTool").setInteger("HarvestLevel", headMat.harvestLevel());
 		
 		if (item.getHeadType() == 3)
 		{
-			compound.getCompoundTag("InfiTool").setInteger("MiningSpeed2", EnumMaterial.toolSpeed(accessory));
-			compound.getCompoundTag("InfiTool").setInteger("HarvestLevel2", EnumMaterial.harvestLevel(accessory));
+			compound.getCompoundTag("InfiTool").setInteger("MiningSpeed2", accessoryMat.toolSpeed());
+			compound.getCompoundTag("InfiTool").setInteger("HarvestLevel2", accessoryMat.harvestLevel());
 		}
 
-		compound.getCompoundTag("InfiTool").setInteger("Unbreaking", buildUnbreaking(head, handle, accessory));
-		compound.getCompoundTag("InfiTool").setFloat("Shoddy", buildShoddy(head, handle, accessory));
+		compound.getCompoundTag("InfiTool").setInteger("Unbreaking", buildReinforced(headMat, handleMat, accessoryMat));
+		compound.getCompoundTag("InfiTool").setFloat("Shoddy", buildShoddy(headMat, handleMat, accessoryMat));
 
 		int modifiers = 3;
 		if (accessory == -1)
@@ -175,15 +210,15 @@ public class ToolBuilder
 			return null;
 	}
 
-	int buildUnbreaking (int head, int handle, int accessory)
+	int buildReinforced (ToolMaterial headMat, ToolMaterial handleMat, ToolMaterial accessoryMat)
 	{
 		int durability = 0;
 
-		int dHead = EnumMaterial.unbreaking(head);
-		int dHandle = EnumMaterial.unbreaking(handle);
+		int dHead = headMat.reinforced();
+		int dHandle = handleMat.reinforced();
 		int dAccessory = 0;
-		if (accessory != -1)
-			dAccessory = EnumMaterial.unbreaking(accessory);
+		if (accessoryMat != null)
+			dAccessory = accessoryMat.reinforced();
 
 		if (dHead > durability)
 			durability = dHead;
@@ -195,13 +230,13 @@ public class ToolBuilder
 		return durability;
 	}
 
-	float buildShoddy (int head, int handle, int accessory)
+	float buildShoddy (ToolMaterial headMat, ToolMaterial handleMat, ToolMaterial accessoryMat)
 	{
-		float sHead = EnumMaterial.shoddy(head);
-		float sHandle = EnumMaterial.shoddy(handle);
-		if (accessory != -1)
+		float sHead = headMat.shoddy();
+		float sHandle = handleMat.shoddy();
+		if (accessoryMat != null)
 		{
-			float sAccessory = EnumMaterial.shoddy(accessory);
+			float sAccessory = accessoryMat.shoddy();
 			return (sHead + sHandle + sAccessory) / 3f;
 		}
 		return (sHead + sHandle) / 2f;

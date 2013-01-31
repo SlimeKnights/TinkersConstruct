@@ -5,12 +5,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import tinker.tconstruct.TConstructContent;
-import tinker.tconstruct.items.Pattern;
-
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import tinker.common.IPattern;
+import tinker.tconstruct.TConstructContent;
+import tinker.tconstruct.items.Pattern;
 
 public class PatternBuilder
 {
@@ -20,7 +20,7 @@ public class PatternBuilder
 	HashMap materialSets = new HashMap<String, MaterialSet>();
 	
 	//We could use IRecipe if it wasn't tied to InventoryCrafting
-	List<PatternKey> toolPatterns = new ArrayList<PatternKey>();
+	List<IPattern> toolPatterns = new ArrayList<IPattern>();
 
 	/* Register methods */
 	public void registerMaterial (ItemStack material, int value, String key)
@@ -42,9 +42,9 @@ public class PatternBuilder
 		materialSets.put(key, new MaterialSet(shard, rod, materialID));
 	}
 
-	public void addToolPattern (ItemStack pattern, Item toolPart)
+	public void addToolPattern (IPattern item)
 	{
-		toolPatterns.add(new PatternKey(pattern.getItem(), pattern.getItemDamage(), toolPart));
+		toolPatterns.add(item);
 	}
 
 	/* Build tool parts from patterns */
@@ -53,11 +53,12 @@ public class PatternBuilder
 		if (material != null && pattern != null)
 		{
 			ItemKey key = getItemKey(material);
-			Item toolPart = getMatchingPattern(pattern);
+			MaterialSet mat = (MaterialSet) materialSets.get(key.key);
+			ItemStack toolPart = getMatchingPattern(pattern, mat);
 			
+			System.out.println("toolPart "+toolPart);
 			if (key != null && toolPart != null)
 			{
-				MaterialSet mat = (MaterialSet) materialSets.get(key.key);
 				int patternValue = ((Pattern)pattern.getItem()).getPatternCost(pattern.getItemDamage());
 				int totalMaterial = key.value * material.stackSize;
 				
@@ -65,16 +66,16 @@ public class PatternBuilder
 					return null;
 				
 				else if ( patternValue == key.value ) //Material only
-					return new ItemStack[] { new ItemStack(toolPart, 1, mat.materialID), null }; 
+					return new ItemStack[] { toolPart, null }; 
 				
 				else
 				{
 					if (patternValue % 2 == 1)
 					{
-						return new ItemStack[] { new ItemStack(toolPart, 1, mat.materialID), mat.shard.copy() }; //Material + shard
+						return new ItemStack[] { toolPart, mat.shard.copy() }; //Material + shard
 					}
 					else
-						return new ItemStack[] { new ItemStack(toolPart, 1, mat.materialID), null };
+						return new ItemStack[] { toolPart, null };
 				}
 				/*if ( patternValue < totalMaterial )
 				{
@@ -137,14 +138,13 @@ public class PatternBuilder
 		return null;
 	}
 	
-	public Item getMatchingPattern (ItemStack pattern)
+	public ItemStack getMatchingPattern (ItemStack stack, MaterialSet set)
 	{
-		Item pat = pattern.getItem();
-		int damage = pattern.getItemDamage();
-		for (PatternKey pk : toolPatterns)
+		Item item = stack.getItem();
+		for (IPattern pattern : toolPatterns)
 		{
-			if (pat == pk.item && (pk.damage == -1 || damage == pk.damage))
-				return pk.output;
+			if (pattern == item)
+				return pattern.getPatternOutput(stack, set);
 		}
 		return null;
 	}
@@ -165,18 +165,19 @@ public class PatternBuilder
 		}
 	}
 	
-	public class PatternKey
+	/*public class PatternKey
 	{
-		public final Item item;
-		public final int damage;
-		public final Item output;
-		public PatternKey(Item i, int d, Item o)
+		public final IToolPart item;
+		public PatternKey(IToolPart i)
 		{
 			item = i;
-			damage = d;
-			output = o;
 		}
-	}
+		
+		public ItemStack getOutput(ItemStack stack)
+		{
+			return item.getPatternOutput();
+		}
+	}*/
 	
 	public class MaterialSet
 	{

@@ -73,4 +73,27 @@ public class Longsword extends Weapon
 		
 		return true;
 	}*/
+	
+	protected String getRenderString (int renderPass, boolean broken)
+	{
+		switch (renderPass)
+		{
+		case 0:
+			return "_longsword_handle.png";
+		case 1:
+			if (broken)
+				return "_longsword_blade_broken.png";
+			else
+				return "_longsword_blade.png";
+		case 2:
+			return "_longsword_accessory.png";
+		default:
+			return "";
+		}
+	}
+
+	protected String getEffectString (int renderPass)
+	{
+		return "_longsword_effect.png";
+	}
 }

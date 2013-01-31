@@ -4,9 +4,12 @@ import java.util.List;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import tinker.common.IPattern;
+import tinker.tconstruct.TConstructContent;
+import tinker.tconstruct.crafting.PatternBuilder.MaterialSet;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -20,6 +23,7 @@ public class Pattern extends CraftingItem
 		this.setMaxDamage(0);
 		this.setContainerItem(this);
 		this.setMaxStackSize(1);
+		
 	}
 
 	public String getItemNameIS (ItemStack stack)
@@ -85,5 +89,18 @@ public class Pattern extends CraftingItem
 		case 12: return 10;
 		default: return 0;
 		}
+	}
+	
+	
+
+	@Override
+	public ItemStack getPatternOutput (ItemStack stack, MaterialSet set)
+	{
+		int type = stack.getItemDamage();
+		if (type != 0 && type < TConstructContent.patternOutputs.length - 1)
+		{
+			return new ItemStack(TConstructContent.patternOutputs[type - 1], 1, set.materialID);
+		}
+		return null;
 	}
 }

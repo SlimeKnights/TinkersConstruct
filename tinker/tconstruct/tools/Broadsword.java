@@ -33,4 +33,27 @@ public class Broadsword extends Weapon
 	{
 		return 1.2f;
 	}
+	
+	protected String getRenderString (int renderPass, boolean broken)
+	{
+		switch (renderPass)
+		{
+		case 0:
+			return "_sword_handle.png";
+		case 1:
+			if (broken)
+				return "_sword_blade_broken.png";
+			else
+				return "_sword_blade.png";
+		case 2:
+			return "_sword_accessory.png";
+		default:
+			return "";
+		}
+	}
+
+	protected String getEffectString (int renderPass)
+	{
+		return "_sword_effect.png";
+	}
 }

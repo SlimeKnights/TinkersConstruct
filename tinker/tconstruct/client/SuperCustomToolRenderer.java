@@ -1,39 +1,24 @@
 package tinker.tconstruct.client;
 
-import static net.minecraftforge.client.IItemRenderer.ItemRenderType.EQUIPPED;
-import static net.minecraftforge.client.IItemRenderer.ItemRenderType.FIRST_PERSON_MAP;
-
 import java.util.Random;
 
-import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityClientPlayerMP;
-import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.renderer.ItemRenderer;
-import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.RenderEngine;
-import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemMap;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
-import net.minecraft.world.storage.MapData;
-import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.client.IItemRenderer;
-import net.minecraftforge.client.MinecraftForgeClient;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
+import tinker.tconstruct.tools.ToolCore;
 import cpw.mods.fml.client.TextureFXManager;
 
 public class SuperCustomToolRenderer implements IItemRenderer
@@ -41,14 +26,15 @@ public class SuperCustomToolRenderer implements IItemRenderer
 	RenderEngine renderEngine;
 	RenderManager renderManager;
 	Random random;
-	float par9 = 0;
 
 	public SuperCustomToolRenderer()
 	{
-		renderEngine = Minecraft.getMinecraft().renderEngine;//RenderManager.instance.renderEngine;
+		renderEngine = Minecraft.getMinecraft().renderEngine;
 		renderManager = renderManager.instance;
 		random = new Random();
 	}
+	
+	
 
 	@Override
 	public boolean handleRenderType (ItemStack item, ItemRenderType type)
@@ -79,31 +65,31 @@ public class SuperCustomToolRenderer implements IItemRenderer
 	/* Inventory */
 	void renderInventoryItem (ItemStack stack, RenderBlocks renderer)
 	{
-		int var6 = stack.itemID;
-		int var7 = stack.getItemDamage();
-		int var8 = stack.getIconIndex();
+		ToolCore tool = (ToolCore) stack.getItem();
+		//int itemID = stack.itemID;
+		int itemDamage = stack.getItemDamage();
 		float var16;
 
-		int par4 = 0; //What are these?
-		int par5 = 0;
-
 		GL11.glDisable(GL11.GL_LIGHTING);
-		renderEngine.bindTexture(renderEngine.getTexture(Item.itemsList[var6].getTextureFile()));
 
-		for (int renderPass = 0; renderPass < Item.itemsList[var6].getRenderPasses(var7); ++renderPass)
+		for (int renderPass = 0; renderPass < Item.itemsList[tool.itemID].getRenderPasses(itemDamage); renderPass++)
 		{
-			int var10 = Item.itemsList[var6].getIconIndex(stack, renderPass);
-			int var11 = Item.itemsList[var6].getColorFromItemStack(stack, renderPass);
-			float var12 = (float) (var11 >> 16 & 255) / 255.0F;
-			float var13 = (float) (var11 >> 8 & 255) / 255.0F;
-			float var14 = (float) (var11 & 255) / 255.0F;
+			String texturePath = tool.getIconLocation(stack, renderPass);
+			renderEngine.bindTexture(renderEngine.getTexture(texturePath));
 
-			/*if (this.field_77024_a)
-			{
-				GL11.glColor4f(var12, var13, var14, 1.0F);
-			}*/
+			GL11.glScalef(0.0625F, 0.0625F, 1F);
+			this.renderTexturedQuad();
+			GL11.glScalef(16F, 16F, 1F);
+		}
+		
+		for (int renderPass = 0; renderPass < 3; renderPass++)
+		{
+			String texturePath = tool.getEffectLocation(stack, renderPass);
+			renderEngine.bindTexture(renderEngine.getTexture(texturePath));
 
-			this.renderTexturedQuad(par4, par5, var10 % 16 * 16, var10 / 16 * 16, 16, 16);
+			GL11.glScalef(0.0625F, 0.0625F, 1F);
+			this.renderTexturedQuad();
+			GL11.glScalef(16F, 16F, 1F);
 		}
 
 		GL11.glEnable(GL11.GL_LIGHTING);
@@ -116,18 +102,19 @@ public class SuperCustomToolRenderer implements IItemRenderer
 	 * Adds a textured quad to the tesselator at the specified position with the specified texture coords, width and
 	 * height.  Args: x, y, u, v, width, height
 	 */
-	public void renderTexturedQuad (int x, int y, int u, int v, int width, int height)
-	{
-		float var7 = 0.00390625F;
-		float var8 = 0.00390625F;
-		Tessellator var9 = Tessellator.instance;
-		var9.startDrawingQuads();
-		var9.addVertexWithUV((double) (x + 0), (double) (y + height), (double) this.zLevel, (double) ((float) (u + 0) * var7), (double) ((float) (v + height) * var8));
-		var9.addVertexWithUV((double) (x + width), (double) (y + height), (double) this.zLevel, (double) ((float) (u + width) * var7), (double) ((float) (v + height) * var8));
-		var9.addVertexWithUV((double) (x + width), (double) (y + 0), (double) this.zLevel, (double) ((float) (u + width) * var7), (double) ((float) (v + 0) * var8));
-		var9.addVertexWithUV((double) (x + 0), (double) (y + 0), (double) this.zLevel, (double) ((float) (u + 0) * var7), (double) ((float) (v + 0) * var8));
-		var9.draw();
-	}
+	public void renderTexturedQuad()
+    {
+		int x = 0, y = 0, u = 0, v = 0, height = 256, width = 256;
+        float var7 = 0.00390625F;
+        float var8 = 0.00390625F;
+        Tessellator var9 = Tessellator.instance;
+        var9.startDrawingQuads();
+        var9.addVertexWithUV((double)(x + 0), (double)(y + height), (double)this.zLevel, (double)((float)(u + 0) * var7), (double)((float)(v + height) * var8));
+        var9.addVertexWithUV((double)(x + width), (double)(y + height), (double)this.zLevel, (double)((float)(u + width) * var7), (double)((float)(v + height) * var8));
+        var9.addVertexWithUV((double)(x + width), (double)(y + 0), (double)this.zLevel, (double)((float)(u + width) * var7), (double)((float)(v + 0) * var8));
+        var9.addVertexWithUV((double)(x + 0), (double)(y + 0), (double)this.zLevel, (double)((float)(u + 0) * var7), (double)((float)(v + 0) * var8));
+        var9.draw();
+    }
 
 	boolean shouldSpreadItems ()
 	{
@@ -139,21 +126,30 @@ public class SuperCustomToolRenderer implements IItemRenderer
 	{
         for (int x = 0; x < stack.getItem().getRenderPasses(stack.getItemDamage()); x++)
         {
-            this.doRenderEquippedItem(stack, living, x);
+            this.doRenderEquippedItem(stack, living, x, true);
+        }
+        
+        for (int x = 0; x < 3; x++)
+        {
+            this.doRenderEquippedItem(stack, living, x, false);
         }
 	}
 	
-	void doRenderEquippedItem (ItemStack stack, EntityLiving living, int pass)
+	void doRenderEquippedItem (ItemStack stack, EntityLiving living, int renderPass, boolean baseSprite)
 	{
 		GL11.glPushMatrix();
-		GL11.glBindTexture(GL11.GL_TEXTURE_2D, renderEngine.getTexture(stack.getItem().getTextureFile()));
 
 		Tessellator var5 = Tessellator.instance;
-		int var6 = living.getItemIcon(stack, pass);
-		float var7 = ((float) (var6 % 16 * 16) + 0.0F) / 256.0F;
-		float var8 = ((float) (var6 % 16 * 16) + 15.99F) / 256.0F;
-		float var9 = ((float) (var6 / 16 * 16) + 0.0F) / 256.0F;
-		float var10 = ((float) (var6 / 16 * 16) + 15.99F) / 256.0F;
+		String texturePath = null;
+		if (baseSprite)
+			texturePath = ((ToolCore)stack.getItem()).getIconLocation(stack, renderPass);
+		else
+			texturePath = ((ToolCore)stack.getItem()).getEffectLocation(stack, renderPass);
+		renderEngine.bindTexture(renderEngine.getTexture(texturePath));
+		float var7 = 0;
+		float var8 = 1;
+		float var9 = 0;
+		float var10 = 1;
 		float var11 = 0.0F;
 		float var12 = 0.3F;
 		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
@@ -201,67 +197,10 @@ public class SuperCustomToolRenderer implements IItemRenderer
 		GL11.glPopMatrix();
 	}
 
-	public void doRenderItem (EntityLiving par1EntityLiving, ItemStack par2ItemStack, int par3)
-	{
-
-		GL11.glBindTexture(GL11.GL_TEXTURE_2D, renderEngine.getTexture(par2ItemStack.getItem().getTextureFile()));
-
-		Tessellator var5 = Tessellator.instance;
-		int var6 = par1EntityLiving.getItemIcon(par2ItemStack, par3);
-		float var7 = ((float) (var6 % 16 * 16) + 0.0F) / 256.0F;
-		float var8 = ((float) (var6 % 16 * 16) + 15.99F) / 256.0F;
-		float var9 = ((float) (var6 / 16 * 16) + 0.0F) / 256.0F;
-		float var10 = ((float) (var6 / 16 * 16) + 15.99F) / 256.0F;
-		float var11 = 0.0F;
-		float var12 = 0.3F;
-		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-		GL11.glTranslatef(-var11, -var12, 0.0F);
-		float var13 = 1.5F;
-		/*GL11.glScalef(var13, var13, var13);
-		GL11.glRotatef(50.0F, 0.0F, 1.0F, 0.0F);
-		GL11.glRotatef(335.0F, 0.0F, 0.0F, 1.0F);
-		GL11.glTranslatef(-0.9375F, -0.0625F, 0.0F);*/
-		renderItemIn2D(var5, var8, var9, var7, var10, 0.0625F);
-
-		/*if (par2ItemStack != null && par2ItemStack.hasEffect() && par3 == 0)
-		{
-			GL11.glDepthFunc(GL11.GL_EQUAL);
-			GL11.glDisable(GL11.GL_LIGHTING);
-			renderEngine.bindTexture(renderEngine.getTexture("%blur%/misc/glint.png"));
-			GL11.glEnable(GL11.GL_BLEND);
-			GL11.glBlendFunc(GL11.GL_SRC_COLOR, GL11.GL_ONE);
-			float var14 = 0.76F;
-			GL11.glColor4f(0.5F * var14, 0.25F * var14, 0.8F * var14, 1.0F);
-			GL11.glMatrixMode(GL11.GL_TEXTURE);
-			GL11.glPushMatrix();
-			float var15 = 0.125F;
-			GL11.glScalef(var15, var15, var15);
-			float var16 = (float) (Minecraft.getSystemTime() % 3000L) / 3000.0F * 8.0F;
-			GL11.glTranslatef(var16, 0.0F, 0.0F);
-			GL11.glRotatef(-50.0F, 0.0F, 0.0F, 1.0F);
-			renderItemIn2D(var5, 0.0F, 0.0F, 1.0F, 1.0F, 0.0625F);
-			GL11.glPopMatrix();
-			GL11.glPushMatrix();
-			GL11.glScalef(var15, var15, var15);
-			var16 = (float) (Minecraft.getSystemTime() % 4873L) / 4873.0F * 8.0F;
-			GL11.glTranslatef(-var16, 0.0F, 0.0F);
-			GL11.glRotatef(10.0F, 0.0F, 0.0F, 1.0F);
-			renderItemIn2D(var5, 0.0F, 0.0F, 1.0F, 1.0F, 0.0625F);
-			GL11.glPopMatrix();
-			GL11.glMatrixMode(GL11.GL_MODELVIEW);
-			GL11.glDisable(GL11.GL_BLEND);
-			GL11.glEnable(GL11.GL_LIGHTING);
-			GL11.glDepthFunc(GL11.GL_LEQUAL);
-		}*/
-
-		GL11.glDisable(GL12.GL_RESCALE_NORMAL);
-
-		GL11.glPopMatrix();
-	}
-
 	public static void renderItemIn2D (Tessellator par0Tessellator, float par1, float par2, float par3, float par4, float par5)
 	{
 		float var6 = 1.0F;
+		//GL11.glScalef(0.0625F, 0.0625F, 1F);
 		par0Tessellator.startDrawingQuads();
 		par0Tessellator.setNormal(0.0F, 0.0F, 1.0F);
 		par0Tessellator.addVertexWithUV(0.0D, 0.0D, 0.0D, (double) par1, (double) par4);
@@ -283,7 +222,7 @@ public class SuperCustomToolRenderer implements IItemRenderer
 		float var9;
 		float var10;
 
-		int tileSize = TextureFXManager.instance().getTextureDimensions(GL11.glGetInteger(GL11.GL_TEXTURE_BINDING_2D)).width / 16;
+		int tileSize = TextureFXManager.instance().getTextureDimensions(GL11.glGetInteger(GL11.GL_TEXTURE_BINDING_2D)).width;
 
 		float tx = 1.0f / (32 * tileSize);
 		float tz = 1.0f / tileSize;
@@ -345,6 +284,7 @@ public class SuperCustomToolRenderer implements IItemRenderer
 		}
 
 		par0Tessellator.draw();
+		//GL11.glScalef(16F, 16F, 1F);
 	}
 
 	/* Entity */
@@ -352,37 +292,55 @@ public class SuperCustomToolRenderer implements IItemRenderer
 	{
 		this.random.setSeed(187L);
 		ItemStack var10 = entity.func_92014_d();
+		ToolCore tool = (ToolCore) var10.getItem();
 
 		if (var10.getItem() != null)
 		{
 			GL11.glPushMatrix();
-			float var11 = shouldBob() ? MathHelper.sin(((float) entity.age + par9) / 10.0F + entity.hoverStart) * 0.1F + 0.1F : 0F;
-			float var12 = (((float) entity.age + par9) / 20.0F + entity.hoverStart) * (180F / (float) Math.PI);
+			float var11 = shouldBob() ? MathHelper.sin(((float) entity.age) / 10.0F + entity.hoverStart) * 0.1F + 0.1F : 0F;
+			float var12 = (((float) entity.age) / 20.0F + entity.hoverStart) * (180F / (float) Math.PI);
 			byte var13 = getMiniBlockCountForItemStack(var10);
 
 			//GL11.glTranslatef((float) par2, (float) par4 + var11, (float) par6);
 			GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-			int var16;
+			int renderIndex;
 			float var19;
 			float var20;
 			float var24;
 
-			int var15;
+			int renderPass;
 			float var17;
 
-			for (var15 = 0; var15 <= var10.getItem().getRenderPasses(var10.getItemDamage()); ++var15)
+			for (renderPass = 0; renderPass < tool.getRenderPasses(var10.getItemDamage()); ++renderPass)
 			{
-				renderEngine.bindTexture(renderEngine.getTexture(Item.itemsList[var10.itemID].getTextureFile()));
 				this.random.setSeed(187L);
-				var16 = var10.getItem().getIconIndex(var10, var15);
 				var17 = 1.0F;
+				
+				String texturePath = tool.getIconLocation(var10, renderPass);
+				renderEngine.bindTexture(renderEngine.getTexture(texturePath));
 
-				int var18 = Item.itemsList[var10.itemID].getColorFromItemStack(var10, var15);
+				int var18 = Item.itemsList[tool.itemID].getColorFromItemStack(var10, renderPass);
 				var19 = (float) (var18 >> 16 & 255) / 255.0F;
 				var20 = (float) (var18 >> 8 & 255) / 255.0F;
 				float var21 = (float) (var18 & 255) / 255.0F;
 				GL11.glColor4f(var19 * var17, var20 * var17, var21 * var17, 1.0F);
-				this.func_77020_a(entity, var16, var13, par9, var19 * var17, var20 * var17, var21 * var17);
+				this.func_77020_a(entity, 0, var13, 0, var19 * var17, var20 * var17, var21 * var17, renderPass, true);
+			}
+			
+			for (renderPass = 0; renderPass < tool.getRenderPasses(var10.getItemDamage()); ++renderPass)
+			{
+				this.random.setSeed(187L);
+				var17 = 1.0F;
+				
+				String texturePath = tool.getEffectLocation(var10, renderPass);
+				renderEngine.bindTexture(renderEngine.getTexture(texturePath));
+
+				int var18 = Item.itemsList[tool.itemID].getColorFromItemStack(var10, renderPass);
+				var19 = (float) (var18 >> 16 & 255) / 255.0F;
+				var20 = (float) (var18 >> 8 & 255) / 255.0F;
+				float var21 = (float) (var18 & 255) / 255.0F;
+				GL11.glColor4f(var19 * var17, var20 * var17, var21 * var17, 1.0F);
+				this.func_77020_a(entity, 0, var13, 0, var19 * var17, var20 * var17, var21 * var17, renderPass, false);
 			}
 
 			GL11.glDisable(GL12.GL_RESCALE_NORMAL);
@@ -420,13 +378,13 @@ public class SuperCustomToolRenderer implements IItemRenderer
 		return var13;
 	}
 
-	private void func_77020_a (EntityItem par1EntityItem, int par2, int par3, float par4, float par5, float par6, float par7)
+	private void func_77020_a (EntityItem par1EntityItem, int par2, int par3, float par4, float par5, float par6, float par7, int renderPass, boolean baseSprite)
 	{
 		Tessellator var8 = Tessellator.instance;
-		float var9 = (float) (par2 % 16 * 16 + 0) / 256.0F;
-		float var10 = (float) (par2 % 16 * 16 + 16) / 256.0F;
-		float var11 = (float) (par2 / 16 * 16 + 0) / 256.0F;
-		float var12 = (float) (par2 / 16 * 16 + 16) / 256.0F;
+		float var9 = 0;
+		float var10 = 1f;
+		float var11 = 0;
+		float var12 = 1f;
 		float var13 = 1.0F;
 		float var14 = 0.5F;
 		float var15 = 0.25F;
@@ -440,9 +398,10 @@ public class SuperCustomToolRenderer implements IItemRenderer
 
 			float var16 = 0.0625F;
 			var17 = 0.021875F;
-			ItemStack var18 = par1EntityItem.func_92014_d();
-			int var19 = var18.stackSize;
-			byte var24 = getMiniBlockCountForItemStack(var18);
+			ItemStack stack = par1EntityItem.func_92014_d();
+			ToolCore tool = (ToolCore) stack.getItem();
+			int var19 = stack.stackSize;
+			byte var24 = getMiniBlockCountForItemStack(stack);
 
 			GL11.glTranslatef(-var14, -var15, -((var16 + var17) * (float) var24 / 2.0F));
 
@@ -460,13 +419,20 @@ public class SuperCustomToolRenderer implements IItemRenderer
 				{
 					GL11.glTranslatef(0f, 0f, var16 + var17);
 				}
+				
+				//String texturePath = tool.getIconLocation(stack, renderPass);
 
-				renderEngine.bindTexture(renderEngine.getTexture(Item.itemsList[var18.itemID].getTextureFile()));
+				String texturePath = null;
+				if (baseSprite)
+					texturePath = ((ToolCore)stack.getItem()).getIconLocation(stack, renderPass);
+				else
+					texturePath = ((ToolCore)stack.getItem()).getEffectLocation(stack, renderPass);
+				renderEngine.bindTexture(renderEngine.getTexture(texturePath));
 
 				GL11.glColor4f(par5, par6, par7, 1.0F);
 				ItemRenderer.renderItemIn2D(var8, var10, var11, var9, var12, var16);
 
-				if (var18 != null && var18.hasEffect())
+				if (stack != null && stack.hasEffect())
 				{
 					GL11.glDepthFunc(GL11.GL_EQUAL);
 					GL11.glDisable(GL11.GL_LIGHTING);

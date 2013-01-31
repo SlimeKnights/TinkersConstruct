@@ -71,4 +71,27 @@ public class Mattock extends DualHarvestTool
 	{
 		return TConstructContent.shovelHead;
 	}
+	
+	protected String getRenderString (int renderPass, boolean broken)
+	{
+		switch (renderPass)
+		{
+		case 0:
+			return "_mattock_handle.png";
+		case 1:
+			if (broken)
+				return "_mattock_head_broken.png";
+			else
+				return "_mattock_head.png";
+		case 2:
+			return "_mattock_back.png";
+		default:
+			return "";
+		}
+	}
+
+	protected String getEffectString (int renderPass)
+	{
+		return "_mattock_effect.png";
+	}
 }

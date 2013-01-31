@@ -1,5 +1,7 @@
 package tinker.tconstruct.tools;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -102,5 +104,33 @@ public class FryingPan extends Weapon
 	protected Item getAccessoryItem ()
 	{
 		return null;
+	}
+	
+	@SideOnly(Side.CLIENT)
+	@Override
+	public int getRenderPasses (int metadata)
+	{
+		return 2;
+	}
+	
+	protected String getRenderString (int renderPass, boolean broken)
+	{
+		switch (renderPass)
+		{
+		case 0:
+			return "_frypan_handle.png";
+		case 1:
+			if (broken)
+				return "_frypan_head_broken.png";
+			else
+				return "_frypan_head.png";
+		default:
+			return "";
+		}
+	}
+
+	protected String getEffectString (int renderPass)
+	{
+		return "_frypan_effect.png";
 	}
 }

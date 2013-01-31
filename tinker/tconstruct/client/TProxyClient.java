@@ -4,10 +4,12 @@ package tinker.tconstruct.client;
 import java.io.File;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.model.ModelBoat;
+import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.client.MinecraftForgeClient;
 import tinker.tconstruct.TConstructContent;
+import tinker.tconstruct.TConstructRegistry;
 import tinker.tconstruct.TProxyCommon;
+import tinker.tconstruct.tools.ToolCore;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
@@ -22,7 +24,11 @@ public class TProxyClient extends TProxyCommon
 		//RenderingRegistry.registerBlockHandler(new AxleRender());
 		
 		MinecraftForgeClient.preloadTexture(TConstructContent.blockTexture);
-		MinecraftForgeClient.registerItemRenderer(TConstructContent.pickaxe.itemID, new SuperCustomToolRenderer());
+		IItemRenderer render = new SuperCustomToolRenderer();
+		for (ToolCore tool : TConstructRegistry.tools)
+		{
+			MinecraftForgeClient.registerItemRenderer(tool.itemID, render);
+		}
 		
 		RenderingRegistry.registerEntityRenderingHandler(tinker.tconstruct.entity.CartEntity.class, new CartRender());
 	}

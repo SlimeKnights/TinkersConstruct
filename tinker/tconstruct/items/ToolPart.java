@@ -3,16 +3,13 @@ package tinker.tconstruct.items;
 
 import java.util.List;
 
-import tinker.tconstruct.TConstruct;
-import tinker.tconstruct.client.TProxyClient;
-
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import tinker.common.IToolPart;
 
 public class ToolPart extends CraftingItem
+	implements IToolPart
 {
 	public ToolPart(int id, int icon, String tex)
 	{
@@ -35,4 +32,10 @@ public class ToolPart extends CraftingItem
 	
 	public static final String[] toolMaterialNames = new String[] { 
 		"Wood", "Stone", "Iron", "Flint", "Cactus", "Bone", "Obsidian", "Netherrack", "Slime", "Paper", "Cobalt", "Ardite", "Manyullyn", "Copper", "Bronze" };
+
+	@Override
+	public int getMaterialID (ItemStack stack)
+	{
+		return stack.getItemDamage();
+	}
 }

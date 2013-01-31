@@ -16,7 +16,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.ArrowLooseEvent;
 import net.minecraftforge.event.entity.player.ArrowNockEvent;
 
-public class RangedWeapon extends ToolCore
+public abstract class RangedWeapon extends ToolCore
 {
 
 	public RangedWeapon(int itemID, String texture)

@@ -1,6 +1,6 @@
 package tinker.tconstruct.tools;
 
-import tinker.tconstruct.EnumMaterial;
+import tinker.tconstruct.ToolMaterial;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.item.EntityItem;

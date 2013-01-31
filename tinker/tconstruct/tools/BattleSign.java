@@ -116,4 +116,32 @@ public class BattleSign extends Weapon
 	{
 		return null;
 	}
+	
+	@SideOnly(Side.CLIENT)
+	@Override
+	public int getRenderPasses (int metadata)
+	{
+		return 2;
+	}
+	
+	protected String getRenderString (int renderPass, boolean broken)
+	{
+		switch (renderPass)
+		{
+		case 0:
+			return "_battlesign_handle.png";
+		case 1:
+			if (broken)
+				return "_battlesign_head_broken.png";
+			else
+				return "_battlesign_head.png";
+		default:
+			return "";
+		}
+	}
+
+	protected String getEffectString (int renderPass)
+	{
+		return "_battlesign_effect.png";
+	}
 }

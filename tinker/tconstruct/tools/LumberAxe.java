@@ -178,4 +178,27 @@ public class LumberAxe extends HarvestTool
 	{
 		return null;
 	}
+	
+	protected String getRenderString (int renderPass, boolean broken)
+	{
+		switch (renderPass)
+		{
+		case 0:
+			return "_lumberaxe_handle.png";
+		case 1:
+			if (broken)
+				return "_lumberaxe_head_broken.png";
+			else
+				return "_lumberaxe_head.png";
+		case 2:
+			return "_lumberaxe_accessory.png";
+		default:
+			return "";
+		}
+	}
+
+	protected String getEffectString (int renderPass)
+	{
+		return "_lumber_effect.png";
+	}
 }

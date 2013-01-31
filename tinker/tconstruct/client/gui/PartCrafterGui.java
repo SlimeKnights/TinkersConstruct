@@ -8,7 +8,8 @@ import net.minecraft.world.World;
 
 import org.lwjgl.opengl.GL11;
 
-import tinker.tconstruct.EnumMaterial;
+import tinker.tconstruct.TConstructRegistry;
+import tinker.tconstruct.ToolMaterial;
 import tinker.tconstruct.crafting.PatternBuilder;
 import tinker.tconstruct.logic.PartCrafterLogic;
 
@@ -19,7 +20,7 @@ public class PartCrafterGui extends GuiContainer
 	boolean drawChestPart;
 	boolean hasTop, hasBottom;
 	ItemStack topMaterial, bottomMaterial;
-	EnumMaterial topEnum, bottomEnum;
+	ToolMaterial topEnum, bottomEnum;
 	
 	public PartCrafterGui(InventoryPlayer inventoryplayer, PartCrafterLogic partlogic, World world, int x, int y, int z)
 	{
@@ -58,7 +59,7 @@ public class PartCrafterGui extends GuiContainer
 			
 			if (topID != -1)
 			{
-				topEnum = EnumMaterial.getEnumByType(topID);
+				topEnum = TConstructRegistry.getMaterial(topID);
 				hasTop = true;
 				title = "\u00A7n"+topEnum.name();
 			}
@@ -73,7 +74,7 @@ public class PartCrafterGui extends GuiContainer
 			
 			if (bottomID != -1)
 			{
-				bottomEnum = EnumMaterial.getEnumByType(bottomID);
+				bottomEnum = TConstructRegistry.getMaterial(bottomID);
 				hasBottom = true;
 				otherTitle = "\u00A7n"+bottomEnum.name();
 			}
