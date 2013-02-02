@@ -1,5 +1,10 @@
 package tinker.tconstruct;
 
+import java.io.File;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
@@ -8,6 +13,12 @@ import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.ShapedOreRecipe;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
 import tinker.common.IPattern;
 import tinker.tconstruct.blocks.EquipBlock;
 import tinker.tconstruct.blocks.TConstructBlock;
@@ -18,6 +29,7 @@ import tinker.tconstruct.crafting.ToolBuilder;
 import tinker.tconstruct.items.CraftingItem;
 import tinker.tconstruct.items.Materials;
 import tinker.tconstruct.items.Pattern;
+import tinker.tconstruct.items.PatternManual;
 import tinker.tconstruct.items.ToolPart;
 import tinker.tconstruct.modifiers.ModBlaze;
 import tinker.tconstruct.modifiers.ModBoolean;
@@ -51,6 +63,8 @@ public class TConstructContent implements IFuelHandler
 	public static Item toolRod;
 	public static Item toolShard;
 	public static Item woodPattern;
+
+	public static Item manualBook;
 	//public static Item stonePattern;
 	//public static Item netherPattern;
 
@@ -109,7 +123,7 @@ public class TConstructContent implements IFuelHandler
 		setupToolTabs();
 		addToolButtons();
 		GameRegistry.registerFuelHandler(this);
-	}
+	}	
 
 	void createEntities ()
 	{
@@ -155,6 +169,8 @@ public class TConstructContent implements IFuelHandler
 		woodPattern = new Pattern(PHConstruct.woodPattern, 0, patternTexture).setItemName("tconstruct.Pattern");
 		//stonePattern = new Pattern(PHTools.stonePattern, 64, patternTexture).setItemName("tconstruct.Pattern");
 		//netherPattern = new Pattern(PHTools.netherPattern, 128, patternTexture).setItemName("tconstruct.Pattern");
+
+		manualBook = new PatternManual(PHConstruct.manual);
 
 		pickaxe = new Pickaxe(PHConstruct.pickaxe, pickaxeTexture);
 		shovel = new Shovel(PHConstruct.shovel, shovelTexture);
@@ -202,7 +218,7 @@ public class TConstructContent implements IFuelHandler
 	{
 		for (ToolCore tool : TConstructRegistry.getToolMapping())
 		{
-			tool.partTextures.put(materialID, tool.getTextureFile() + partialLocation);
+			tool.partTextures.put(materialID, tool.getToolTextureFile() + partialLocation);
 		}
 	}
 
@@ -210,28 +226,28 @@ public class TConstructContent implements IFuelHandler
 	{
 		for (ToolCore tool : TConstructRegistry.getToolMapping())
 		{
-			tool.effectTextures.put(materialID, tool.getTextureFile() + partialLocation);
+			tool.effectTextures.put(materialID, tool.getToolTextureFile() + partialLocation);
 		}
 	}
 
 	void registerMaterials ()
 	{
-		TConstructRegistry.addToolMaterial(0, "Wood",       1, 0,   59,  200, 0,  1.0F, 0,  0f);
-		TConstructRegistry.addToolMaterial(1, "Stone",      1, 1,  131,  400, 1,  0.5F, 0,  1f);
-		TConstructRegistry.addToolMaterial(2, "Iron",       1, 2,  250,  600, 2,  1.3F, 1,  0f);
-		TConstructRegistry.addToolMaterial(3, "Flint",      1, 1,  171,  525, 2,  0.7F, 0,  1f);
-		TConstructRegistry.addToolMaterial(4, "Cactus",     1, 1,  150,  500, 2,  1.0F, 0, -1f);
-		TConstructRegistry.addToolMaterial(5, "Bone",       1, 1,  200,  500, 2,  1.0F, 0,  0f);
-		TConstructRegistry.addToolMaterial(6, "Obsidian",   1, 3,   89,  700, 2,  0.8F, 3,  0f);
-		TConstructRegistry.addToolMaterial(7, "Netherrack", 1, 2,  131,  400, 1,  1.2F, 0,  1f);
-		TConstructRegistry.addToolMaterial(8, "Slime",      1, 3, 1500,  150, 0,  5.0F, 0,  0f);
-		TConstructRegistry.addToolMaterial(9, "Paper",      1, 0,  131,  200, 0,  0.1F, 0,  0f);
-		TConstructRegistry.addToolMaterial(10, "Cobalt",    2, 4,  800,  800, 3,  1.8F, 2,  0f);
-		TConstructRegistry.addToolMaterial(11, "Ardite",    2, 4,  800,  800, 3,  1.8F, 0,  0f);
-		TConstructRegistry.addToolMaterial(12, "Manyullyn", 2, 5, 1200, 1000, 4,  2.5F, 0,  0f);
-		TConstructRegistry.addToolMaterial(13, "Copper",    1, 1,  180,  500, 2, 1.15F, 0,  0f);
-		TConstructRegistry.addToolMaterial(14, "Bronze",    1, 2,  250,  600, 2,  1.3F, 1,  0f);
-		
+		TConstructRegistry.addToolMaterial(0, "Wood", 1, 0, 59, 200, 0, 1.0F, 0, 0f);
+		TConstructRegistry.addToolMaterial(1, "Stone", 1, 1, 131, 400, 1, 0.5F, 0, 1f);
+		TConstructRegistry.addToolMaterial(2, "Iron", 1, 2, 250, 600, 2, 1.3F, 1, 0f);
+		TConstructRegistry.addToolMaterial(3, "Flint", 1, 1, 171, 525, 2, 0.7F, 0, 1f);
+		TConstructRegistry.addToolMaterial(4, "Cactus", 1, 1, 150, 500, 2, 1.0F, 0, -1f);
+		TConstructRegistry.addToolMaterial(5, "Bone", 1, 1, 200, 500, 2, 1.0F, 0, 0f);
+		TConstructRegistry.addToolMaterial(6, "Obsidian", 1, 3, 89, 700, 2, 0.8F, 3, 0f);
+		TConstructRegistry.addToolMaterial(7, "Netherrack", 1, 2, 131, 400, 1, 1.2F, 0, 1f);
+		TConstructRegistry.addToolMaterial(8, "Slime", 1, 3, 1500, 150, 0, 5.0F, 0, 0f);
+		TConstructRegistry.addToolMaterial(9, "Paper", 1, 0, 131, 200, 0, 0.1F, 0, 0f);
+		TConstructRegistry.addToolMaterial(10, "Cobalt", 2, 4, 800, 800, 3, 1.8F, 2, 0f);
+		TConstructRegistry.addToolMaterial(11, "Ardite", 2, 4, 800, 800, 3, 1.8F, 0, 0f);
+		TConstructRegistry.addToolMaterial(12, "Manyullyn", 2, 5, 1200, 1000, 4, 2.5F, 0, 0f);
+		TConstructRegistry.addToolMaterial(13, "Copper", 1, 1, 180, 500, 2, 1.15F, 0, 0f);
+		TConstructRegistry.addToolMaterial(14, "Bronze", 1, 2, 250, 600, 2, 1.3F, 1, 0f);
+
 		PatternBuilder pb = PatternBuilder.instance;
 		pb.registerFullMaterial(Block.planks, 2, "Wood", new ItemStack(Item.stick), new ItemStack(Item.stick), 0);
 		pb.registerFullMaterial(Block.stone, 2, "Stone", 1);
@@ -308,6 +324,7 @@ public class TConstructContent implements IFuelHandler
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(woodCrafter, 1, 10), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', "plankWood"));
 
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(blankPattern, 1, 0), "ps", "sp", 'p', "plankWood", 's', Item.stick));
+		GameRegistry.addRecipe(new ItemStack(manualBook), "wp", 'w', new ItemStack(blankPattern, 1, 0), 'p', Item.paper);
 		/*GameRegistry.addRecipe(new ItemStack(stonePattern, 1, 0), "ps", "sp", 'p', Block.cobblestone, 's', new ItemStack(toolRod, 1, 1));
 		GameRegistry.addRecipe(new ItemStack(stonePattern, 1, 0), "ps", "sp", 'p', Block.stone, 's', new ItemStack(toolRod, 1, 1));
 		GameRegistry.addRecipe(new ItemStack(netherPattern, 1, 0), "ps", "sp", 'p', Block.netherrack, 's', new ItemStack(toolRod, 1, 7));*/
@@ -412,7 +429,7 @@ public class TConstructContent implements IFuelHandler
 			modE.circuits.add(electronicCircuit);
 
 		/* Thaumcraft */
-		Object obj = getItem("itemResource", "thaumcraft.common.Config");
+		//Object obj = getItem("itemResource", "thaumcraft.common.Config");
 	}
 
 	public static Object getItem (String name, String classPackage)

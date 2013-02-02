@@ -1,13 +1,15 @@
-package tinker.tconstruct.client.gui;
+package tinker.tconstruct.container;
 
+import tinker.tconstruct.items.Pattern;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import tinker.common.IPattern;
 
-public class SlotPattern extends Slot
+public class SlotOnlyTake extends Slot
 {
-    public SlotPattern(IInventory builder, int par3, int par4, int par5)
+
+    public SlotOnlyTake(IInventory builder, int par3, int par4, int par5)
     {
         super(builder, par3, par4, par5);
     }
@@ -17,6 +19,6 @@ public class SlotPattern extends Slot
      */
     public boolean isItemValid(ItemStack stack)
     {
-        return stack.getItem() instanceof IPattern;
+        return false;
     }
 }

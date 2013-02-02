@@ -14,6 +14,8 @@ public class TProxyCommon
 	/* Ties an internal name to a visible one. Does nothing server-side */
 	public void addNames() {}
 	
+	public void readManuals() {}
+	
 	public File getLocation()
 	{
 		return new File(".");

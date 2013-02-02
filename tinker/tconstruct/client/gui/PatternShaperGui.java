@@ -16,6 +16,7 @@ import org.lwjgl.opengl.GL11;
 import cpw.mods.fml.common.network.PacketDispatcher;
 
 import tinker.tconstruct.TConstructContent;
+import tinker.tconstruct.container.PatternShaperContainer;
 import tinker.tconstruct.logic.PatternShaperLogic;
 
 public class PatternShaperGui extends GuiContainer

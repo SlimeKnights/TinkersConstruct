@@ -1,4 +1,4 @@
-package tinker.tconstruct.client.gui;
+package tinker.tconstruct.container;
 
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;

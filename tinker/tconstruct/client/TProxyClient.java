@@ -2,10 +2,19 @@ package tinker.tconstruct.client;
 
 
 import java.io.File;
+import java.io.InputStream;
+import java.net.URL;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.client.MinecraftForgeClient;
+
+import org.w3c.dom.Document;
+
+import tinker.tconstruct.TConstruct;
 import tinker.tconstruct.TConstructContent;
 import tinker.tconstruct.TConstructRegistry;
 import tinker.tconstruct.TProxyCommon;
@@ -15,9 +24,12 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 
 public class TProxyClient extends TProxyCommon
 {
+	public static SmallFontRenderer smallFontRenderer;
 	/* Registers any rendering code. */
 	public void registerRenderer() 
 	{
+		Minecraft mc = Minecraft.getMinecraft();
+		smallFontRenderer = new SmallFontRenderer(mc.gameSettings, "/font/default.png", mc.renderEngine, false);
 		RenderingRegistry.registerBlockHandler(new TableRender());
 		//RenderingRegistry.registerBlockHandler(new TankRender());
 		RenderingRegistry.registerBlockHandler(new FrypanRender());
@@ -83,6 +95,7 @@ public class TProxyClient extends TProxyCommon
 		}
 		
 		//LanguageRegistry.addName(TConstructContent.smeltery, "Smeltery");
+		LanguageRegistry.addName(TConstructContent.manualBook, "Tinker's Log");
 		LanguageRegistry.addName(TConstructContent.blankPattern, "Blank Pattern");
 		LanguageRegistry.addName(TConstructContent.pickaxe, "Pickaxe");
 		LanguageRegistry.addName(TConstructContent.shovel, "Shovel");
@@ -100,6 +113,26 @@ public class TProxyClient extends TProxyCommon
 	public File getLocation()
 	{
 		return Minecraft.getMinecraftDir();
+	}
+	
+	public static Document volume1;
+	
+	public void readManuals ()
+	{
+		try
+		{
+			InputStream stream = TConstruct.class.getResourceAsStream("/manuals/diary.xml");
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			Document doc = dBuilder.parse(stream);
+			doc.getDocumentElement().normalize();
+			
+			volume1 = doc;
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
 	
 	public static final String[] materialItemInternalNames = new String[] { 

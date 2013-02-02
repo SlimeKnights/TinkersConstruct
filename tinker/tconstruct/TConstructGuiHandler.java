@@ -5,6 +5,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import tinker.common.InventoryLogic;
 import tinker.tconstruct.client.gui.FrypanGui;
+import tinker.tconstruct.client.gui.GuiManual;
 import tinker.tconstruct.client.gui.PartCrafterGui;
 import tinker.tconstruct.client.gui.PatternChestGui;
 import tinker.tconstruct.client.gui.PatternShaperGui;
@@ -27,10 +28,13 @@ public class TConstructGuiHandler implements IGuiHandler
 	public static int frypanID = 4;
 
 	public static int smeltery = 7;
+	public static int manualGui = -1;
 
 	@Override
 	public Object getServerGuiElement (int ID, EntityPlayer player, World world, int x, int y, int z)
 	{
+		if (ID < 0)
+			return null;
 		
 		TileEntity tile = world.getBlockTileEntity(x, y, z);
 		if (tile != null && tile instanceof InventoryLogic)
@@ -53,6 +57,8 @@ public class TConstructGuiHandler implements IGuiHandler
 			return new SmelteryGui(player.inventory, (SmelteryLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
 		if (ID == pshaperID)
 			return new PatternShaperGui(player.inventory, (PatternShaperLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
+		if (ID == manualGui)
+			return new GuiManual(player.getCurrentEquippedItem());
 		return null;
 	}
 

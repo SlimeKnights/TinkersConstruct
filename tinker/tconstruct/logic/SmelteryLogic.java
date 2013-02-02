@@ -17,7 +17,7 @@ import tinker.common.IActiveLogic;
 import tinker.common.IFacingLogic;
 import tinker.common.InventoryLogic;
 import tinker.tconstruct.TConstructContent;
-import tinker.tconstruct.client.gui.SmelteryContainer;
+import tinker.tconstruct.container.SmelteryContainer;
 import tinker.tconstruct.crafting.Smeltery;
 
 /* Simple class for storing items in the block

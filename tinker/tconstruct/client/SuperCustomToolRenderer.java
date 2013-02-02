@@ -72,7 +72,7 @@ public class SuperCustomToolRenderer implements IItemRenderer
 
 		GL11.glDisable(GL11.GL_LIGHTING);
 
-		for (int renderPass = 0; renderPass < Item.itemsList[tool.itemID].getRenderPasses(itemDamage); renderPass++)
+		for (int renderPass = 0; renderPass < tool.getRenderPasses(itemDamage); renderPass++)
 		{
 			String texturePath = tool.getIconLocation(stack, renderPass);
 			renderEngine.bindTexture(renderEngine.getTexture(texturePath));
@@ -327,7 +327,7 @@ public class SuperCustomToolRenderer implements IItemRenderer
 				this.func_77020_a(entity, 0, var13, 0, var19 * var17, var20 * var17, var21 * var17, renderPass, true);
 			}
 			
-			for (renderPass = 0; renderPass < tool.getRenderPasses(var10.getItemDamage()); ++renderPass)
+			for (renderPass = 0; renderPass < 3; ++renderPass)
 			{
 				this.random.setSeed(187L);
 				var17 = 1.0F;

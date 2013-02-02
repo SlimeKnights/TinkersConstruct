@@ -10,6 +10,7 @@ import org.lwjgl.opengl.GL11;
 
 import tinker.tconstruct.TConstructRegistry;
 import tinker.tconstruct.ToolMaterial;
+import tinker.tconstruct.container.PartCrafterChestContainer;
 import tinker.tconstruct.crafting.PatternBuilder;
 import tinker.tconstruct.logic.PartCrafterLogic;
 
@@ -26,7 +27,7 @@ public class PartCrafterGui extends GuiContainer
 	{
 		super(partlogic.getGuiContainer(inventoryplayer, world, x, y, z));
 		logic = partlogic;
-		drawChestPart = ((PartCrafterContainer)inventorySlots).largeInventory;
+		drawChestPart = inventorySlots instanceof PartCrafterChestContainer;
 		
 		title = "\u00A7nTool Part Crafting";
 	}

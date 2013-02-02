@@ -4,7 +4,7 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.world.World;
 import tinker.common.InventoryLogic;
-import tinker.tconstruct.client.gui.PatternChestContainer;
+import tinker.tconstruct.container.PatternChestContainer;
 
 public class PatternChestLogic extends InventoryLogic
 {

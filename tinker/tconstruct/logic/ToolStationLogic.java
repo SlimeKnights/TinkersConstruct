@@ -11,7 +11,7 @@ import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.world.World;
 import tinker.common.InventoryLogic;
-import tinker.tconstruct.client.gui.ToolStationContainer;
+import tinker.tconstruct.container.ToolStationContainer;
 import tinker.tconstruct.crafting.ToolBuilder;
 
 /* Simple class for storing items in the block

@@ -215,7 +215,7 @@ public class AbilityHelper
 
                         player.addStat(StatList.damageDealtStat, damage);
 
-                        if (fireAspect > 0 && causedDamage)
+                        if ((fireAspect > 0 || toolTags.hasKey("Fiery")) && causedDamage)
                         {
                         	fireAspect *= 4;
                         	if (toolTags.hasKey("Fiery"))

@@ -17,6 +17,7 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
 import tinker.tconstruct.TConstructRegistry;
+import tinker.tconstruct.container.ToolStationContainer;
 import tinker.tconstruct.logic.ToolStationLogic;
 import tinker.tconstruct.tools.ToolCore;
 import tinker.tconstruct.tools.Weapon;

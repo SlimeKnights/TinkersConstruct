@@ -6,7 +6,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import tinker.common.InventoryLogic;
 import tinker.tconstruct.TConstructContent;
-import tinker.tconstruct.client.gui.PatternShaperContainer;
+import tinker.tconstruct.container.PatternShaperContainer;
 
 public class PatternShaperLogic extends InventoryLogic
 {

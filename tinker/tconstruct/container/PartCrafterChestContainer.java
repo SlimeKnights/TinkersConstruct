@@ -1,20 +1,25 @@
-package tinker.tconstruct.client.gui;
+package tinker.tconstruct.container;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import tinker.common.IPattern;
 import tinker.tconstruct.logic.PartCrafterLogic;
 import tinker.tconstruct.logic.PatternChestLogic;
 
-public class PartCrafterChestContainer extends PartCrafterContainer
+public class PartCrafterChestContainer extends Container
 {
 	protected PatternChestLogic patternLogic;
+	protected InventoryPlayer invPlayer;
+	protected PartCrafterLogic logic;
+	protected Slot[] input;
+	protected Slot[] inventory;
+	public boolean largeInventory;
 	
 	public PartCrafterChestContainer(InventoryPlayer inventoryplayer, PartCrafterLogic partLogic, PatternChestLogic pLogic)
 	{
-		super (inventoryplayer, partLogic);
+		logic = partLogic;
 		patternLogic = pLogic;
 		largeInventory = true;
 		
@@ -49,6 +54,12 @@ public class PartCrafterChestContainer extends PartCrafterContainer
 	}
 	
 	@Override
+	public boolean canInteractWith(EntityPlayer var1)
+	{
+		return true;
+	}
+	
+	@Override
     public ItemStack transferStackInSlot(EntityPlayer player, int slotID)
     {
 		ItemStack stack = null;
@@ -78,7 +89,7 @@ public class PartCrafterChestContainer extends PartCrafterContainer
             }
             slot.onSlotChanged();
         }
-        System.out.println("Returning stack");
+        
         return stack;
     }
 }

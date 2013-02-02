@@ -8,8 +8,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import tinker.common.InventoryLogic;
 import tinker.tconstruct.TConstructContent;
-import tinker.tconstruct.client.gui.PartCrafterChestContainer;
-import tinker.tconstruct.client.gui.PartCrafterContainer;
+import tinker.tconstruct.container.PartCrafterChestContainer;
+import tinker.tconstruct.container.PartCrafterContainer;
 import tinker.tconstruct.crafting.PatternBuilder;
 import tinker.tconstruct.items.Pattern;
 

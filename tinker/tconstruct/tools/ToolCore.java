@@ -100,6 +100,11 @@ public abstract class ToolCore extends Item
 	@Override
 	public String getTextureFile () //Repurposed for default texture locations
 	{
+		return TConstructContent.craftingTexture;
+	}
+	
+	public String getToolTextureFile ()
+	{
 		return toolTexture;
 	}
 
@@ -468,7 +473,7 @@ public abstract class ToolCore extends Item
 			if (tags.hasKey("Moss"))
 			{
 				int chance = tags.getInteger("Moss");
-				if (random.nextInt(800) < chance)
+				if (random.nextInt(2000) < chance)
 				{
 					AbilityHelper.damageTool(stack, -1, (EntityLiving) entity, true);
 				}

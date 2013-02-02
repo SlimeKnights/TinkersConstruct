@@ -16,7 +16,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import tinker.common.IActiveLogic;
 import tinker.common.InventoryLogic;
-import tinker.tconstruct.client.gui.FrypanContainer;
+import tinker.tconstruct.container.FrypanContainer;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 /* Slots

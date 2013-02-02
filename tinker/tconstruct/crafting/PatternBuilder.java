@@ -56,7 +56,6 @@ public class PatternBuilder
 			MaterialSet mat = (MaterialSet) materialSets.get(key.key);
 			ItemStack toolPart = getMatchingPattern(pattern, mat);
 			
-			System.out.println("toolPart "+toolPart);
 			if (key != null && toolPart != null)
 			{
 				int patternValue = ((Pattern)pattern.getItem()).getPatternCost(pattern.getItemDamage());

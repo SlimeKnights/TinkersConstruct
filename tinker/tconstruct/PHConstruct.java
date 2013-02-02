@@ -49,13 +49,12 @@ public class PHConstruct {
         searedBrick = config.getBlock("Seared Brick", 1477).getInt(1477);
         axle = config.getBlock("Axle", 1478).getInt(1478);
         
+        manual = config.getItem("Patterns and Misc", "Tinker's Manual", 14018).getInt(14018);
         blankPattern = config.getItem("Patterns and Misc", "Blank Patterns", 14019).getInt(14019);
         materials = config.getItem("Patterns and Misc", "Materials", 14020).getInt(14020);
         toolRod = config.getItem("Patterns and Misc", "Tool Rod", 14021).getInt(14021);
         toolShard = config.getItem("Patterns and Misc", "Tool Shard", 14022).getInt(14022);
         woodPattern = config.getItem("Patterns and Misc", "Wood Pattern", 14023).getInt(14023);
-        //stonePattern = config.getItem("Patterns and Misc", "Stone Pattern", 14024).getInt(14024);
-        //netherPattern = config.getItem("Patterns and Misc", "Nether Pattern", 14025).getInt(14025);
         
         pickaxeHead = config.getItem("Tool Parts", "Pickaxe Head", 14026).getInt(14026);
         shovelHead = config.getItem("Tool Parts", "Shovel Head", 14027).getInt(14027);
@@ -108,8 +107,8 @@ public class PHConstruct {
     public static int toolRod;
     public static int toolShard;
     public static int woodPattern;
-    //public static int stonePattern;
-    //public static int netherPattern;
+    
+    public static int manual;
     
     //Tools
     public static int pickaxe;

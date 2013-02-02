@@ -1,4 +1,4 @@
-package tinker.tconstruct.client.gui;
+package tinker.tconstruct.container;
 
 import tinker.tconstruct.tools.ToolCore;
 import net.minecraft.entity.item.EntityXPOrb;

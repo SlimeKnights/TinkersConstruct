@@ -102,7 +102,7 @@ public class ToolBuilder
 		if (accessory != -1)
 			accessoryMat = TConstructRegistry.getMaterial(accessory);		
 
-		System.out.println("Head: "+headMat+" Handle: "+handleMat);
+		//System.out.println("Head: "+headMat+" Handle: "+handleMat);
 		int durability = (int) (headMat.durability() * handleMat.handleDurability() * item.getDurabilityModifier());
 		if (accessoryStack != null && (item.getHeadType() == 2 || item.getHeadType() == 3) )
 			durability = (int) ((headMat.durability() + accessoryMat.durability())/2 * handleMat.handleDurability() * item.getDurabilityModifier());

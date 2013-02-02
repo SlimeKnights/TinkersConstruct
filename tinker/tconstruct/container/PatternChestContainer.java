@@ -1,6 +1,7 @@
-package tinker.tconstruct.client.gui;
+package tinker.tconstruct.container;
 
-import tinker.tconstruct.logic.SmelteryLogic;
+import tinker.common.IPattern;
+import tinker.tconstruct.logic.PatternChestLogic;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -11,74 +12,39 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.tileentity.TileEntityFurnace;
 
-public class SmelteryContainer extends Container
+public class PatternChestContainer extends Container
 {
-    public SmelteryLogic logic;
+    public PatternChestLogic logic;
+    public int progress = 0;
     public int fuel = 0;
+    public int fuelGague = 0;
 
-    public SmelteryContainer(InventoryPlayer inventoryplayer, SmelteryLogic frypan)
+    public PatternChestContainer(InventoryPlayer inventoryplayer, PatternChestLogic chest)
     {
-        logic = frypan;
-    	for (int y = 0; y < 3; y++)
-    		for (int x = 0; x < 3; x++)
-        		this.addSlotToContainer(new Slot(frypan, x + y*3, 62 + x*18, 15 + y*18));
+        logic = chest;
+        for (int column = 0; column < 3; column++)
+        {
+            for (int row = 0; row < 10; row++)
+            {
+            	this.addSlotToContainer(new Slot(chest, row + column * 10, 8 + row * 18, 18 + column * 18));
+            }
+        }
         
         /* Player inventory */
 		for (int column = 0; column < 3; column++)
         {
             for (int row = 0; row < 9; row++)
             {
-            	this.addSlotToContainer(new Slot(inventoryplayer, row + column * 9 + 9, 8 + row * 18, 84 + column * 18));
+            	this.addSlotToContainer(new Slot(inventoryplayer, row + column * 9 + 9, 17 + row * 18, 86 + column * 18));
             }
         }
 
         for (int column = 0; column < 9; column++)
         {
-        	this.addSlotToContainer(new Slot(inventoryplayer, column, 8 + column * 18, 142));
+        	this.addSlotToContainer(new Slot(inventoryplayer, column, 17 + column * 18, 144));
         }
     }
 
-    @Override
-    public void detectAndSendChanges()
-    {
-        super.detectAndSendChanges();
-        /*for (int i = 0; i < crafters.size(); i++)
-        {
-            ICrafting icrafting = (ICrafting)crafters.get(i);
-            if (progress != logic.progress)
-            {
-                icrafting.sendProgressBarUpdate(this, 0, logic.progress);
-            }
-            if (fuel != logic.fuel)
-            {
-                icrafting.sendProgressBarUpdate(this, 1, logic.fuel);
-            }
-            if (fuelGague != logic.fuelGague)
-            {
-                icrafting.sendProgressBarUpdate(this, 2, logic.fuelGague);
-            }
-        }
-
-        progress = logic.progress;
-        fuel = logic.fuel;
-        fuelGague = logic.fuelGague;*/
-    }
-
-    public void updateProgressBar(int id, int value)
-    {
-        if (id == 0)
-        {
-            logic.fuelGague = value;
-        }
-       /* if (id == 1)
-        {
-            logic.fuel = value;
-        }*/
-        /*if (id == 2)
-        {
-            logic.fuelGague = value;
-        }*/
-    }
 
     @Override
     public boolean canInteractWith(EntityPlayer entityplayer)
@@ -86,9 +52,10 @@ public class SmelteryContainer extends Container
         return logic.isUseableByPlayer(entityplayer);
     }
     
+    @Override
     public ItemStack transferStackInSlot(EntityPlayer player, int slotID)
     {
-        ItemStack stack = null;
+		ItemStack stack = null;
         Slot slot = (Slot)this.inventorySlots.get(slotID);
 
         if (slot != null && slot.getHasStack())
@@ -119,5 +86,14 @@ public class SmelteryContainer extends Container
         }
 
         return stack;
+    }
+	
+    @Override
+    protected boolean mergeItemStack(ItemStack stack, int inventorySize, int slotSize, boolean par4)
+    {
+    	if (!(stack.getItem() instanceof IPattern))
+    		return false;
+    	
+    	return super.mergeItemStack(stack, inventorySize, slotSize, par4);
     }
 }

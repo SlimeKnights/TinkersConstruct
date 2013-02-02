@@ -28,7 +28,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
  * @author: mDiyo
  */
 
-@Mod(modid = "TConstruct", name = "TConstruct", version = "mc1.4.7_1.0.7")
+@Mod(modid = "TConstruct", name = "TConstruct", version = "1.4.7_1.1.0")
 @NetworkMod(serverSideRequired = false, clientSideRequired = true, channels={"TConstruct"}, packetHandler = tinker.tconstruct.TConstructPacketHandler.class)
 public class TConstruct 
 {
@@ -63,6 +63,7 @@ public class TConstruct
 	{
 		proxy.addNames();
 		proxy.registerRenderer();
+		proxy.readManuals();
 		content.modIntegration();
 		
 		ArrayList<ItemStack> copperIngots = OreDictionary.getOres("ingotCopper");

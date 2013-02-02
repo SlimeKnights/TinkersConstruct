@@ -1,4 +1,4 @@
-package tinker.tconstruct.client.gui;
+package tinker.tconstruct.container;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -79,7 +79,7 @@ public class PartCrafterContainer extends Container
             }
             slot.onSlotChanged();
         }
-
+        System.out.println("Returning stack");
         return stack;
     }
 }

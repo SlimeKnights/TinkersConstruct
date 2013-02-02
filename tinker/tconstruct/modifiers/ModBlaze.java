@@ -75,6 +75,7 @@ public class ModBlaze extends ToolMod
 		
 		int fiery = tags.getInteger("Fiery");
 		fiery += (increase);
+		System.out.println("Fiery "+fiery);
 		tags.setInteger("Fiery", fiery);
 		
 	}
