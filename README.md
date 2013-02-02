@@ -1,3 +1,3 @@
-Tinker's Workshop
+Tinker's Construct - 1.4.7
 
-Home of TConstruct
+Modify all the things, then do it again!
