@@ -21,7 +21,7 @@ import cpw.mods.fml.common.network.IPacketHandler;
 import cpw.mods.fml.common.network.Player;
 import cpw.mods.fml.relauncher.Side;
 
-public class TConstructPacketHandler implements IPacketHandler
+public class TPacketHandler implements IPacketHandler
 {
 
 	@Override

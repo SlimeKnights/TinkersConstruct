@@ -9,13 +9,14 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.client.MinecraftForgeClient;
 
 import org.w3c.dom.Document;
 
 import tinker.tconstruct.TConstruct;
-import tinker.tconstruct.TConstructContent;
+import tinker.tconstruct.TContent;
 import tinker.tconstruct.TConstructRegistry;
 import tinker.tconstruct.TProxyCommon;
 import tinker.tconstruct.tools.ToolCore;
@@ -35,7 +36,7 @@ public class TProxyClient extends TProxyCommon
 		RenderingRegistry.registerBlockHandler(new FrypanRender());
 		//RenderingRegistry.registerBlockHandler(new AxleRender());
 		
-		MinecraftForgeClient.preloadTexture(TConstructContent.blockTexture);
+		MinecraftForgeClient.preloadTexture(TContent.blockTexture);
 		IItemRenderer render = new SuperCustomToolRenderer();
 		for (ToolCore tool : TConstructRegistry.tools)
 		{
@@ -80,6 +81,13 @@ public class TProxyClient extends TProxyCommon
 			}			
 		}
 		
+		for (int i = 0; i < shardNames.length; i++)
+		{
+			String internalName = "item.tconstruct.ToolShard."+toolMaterialNames[i]+".name";
+			String visibleName = shardNames[i];
+			LanguageRegistry.instance().addStringLocalization(internalName, "en_US", visibleName);
+		}
+		
 		for (int i = 0; i < materialItemNames.length; i++)
 		{
 			String internalName = "item.tconstruct.Materials."+materialItemInternalNames[i]+".name";
@@ -95,45 +103,24 @@ public class TProxyClient extends TProxyCommon
 		}
 		
 		//LanguageRegistry.addName(TConstructContent.smeltery, "Smeltery");
-		LanguageRegistry.addName(TConstructContent.manualBook, "Tinker's Log");
-		LanguageRegistry.addName(TConstructContent.blankPattern, "Blank Pattern");
-		LanguageRegistry.addName(TConstructContent.pickaxe, "Pickaxe");
-		LanguageRegistry.addName(TConstructContent.shovel, "Shovel");
-		LanguageRegistry.addName(TConstructContent.axe, "Axe");
-		LanguageRegistry.addName(TConstructContent.broadsword, "Broadsword");
-		LanguageRegistry.addName(TConstructContent.longsword, "Longsword");
-		LanguageRegistry.addName(TConstructContent.rapier, "Rapier");
-		LanguageRegistry.addName(TConstructContent.frypan, "Frying Pan");
-		LanguageRegistry.addName(TConstructContent.battlesign, "Battlesign");
-		LanguageRegistry.addName(TConstructContent.mattock, "Mattock");
-		LanguageRegistry.addName(TConstructContent.lumberaxe, "Lumber Axe");
+		LanguageRegistry.addName(TContent.manualBook, "Tinker's Log");
+		LanguageRegistry.addName(TContent.blankPattern, "Blank Pattern");
+		LanguageRegistry.addName(TContent.pickaxe, "Pickaxe");
+		LanguageRegistry.addName(TContent.shovel, "Shovel");
+		LanguageRegistry.addName(TContent.axe, "Axe");
+		LanguageRegistry.addName(TContent.broadsword, "Broadsword");
+		LanguageRegistry.addName(TContent.longsword, "Longsword");
+		LanguageRegistry.addName(TContent.rapier, "Rapier");
+		LanguageRegistry.addName(TContent.frypan, "Frying Pan");
+		LanguageRegistry.addName(TContent.battlesign, "Battlesign");
+		LanguageRegistry.addName(TContent.mattock, "Mattock");
+		LanguageRegistry.addName(TContent.lumberaxe, "Lumber Axe");
 	}
 	
-	@Override
-	public File getLocation()
-	{
-		return Minecraft.getMinecraftDir();
-	}
-	
-	public static Document volume1;
-	
-	public void readManuals ()
-	{
-		try
-		{
-			InputStream stream = TConstruct.class.getResourceAsStream("/manuals/diary.xml");
-			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-			Document doc = dBuilder.parse(stream);
-			doc.getDocumentElement().normalize();
-			
-			volume1 = doc;
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-	}
+
+	public static final String[] shardNames = new String[] { 
+		"Wood", "Stone Shard", "Iron Chunk", "Flint Shard", "Cactus Shard", "Bone", "Obsidian Shard", "Netherrack Shard", "Slime Crystal Fragment", "Paper", 
+		"Cobalt Chunk", "Ardite Chunk", "Manyullyn Chunk", "Copper Chunk", "Bronze Chunk" };
 	
 	public static final String[] materialItemInternalNames = new String[] { 
 		"PaperStack", "SlimeCrystal", "SearedBrick", "CobaltIngot", "ArditeIngot", "ManyullynIngot", "Mossball", "LavaCrystal", "NecroticBone" };
@@ -145,14 +132,58 @@ public class TProxyClient extends TProxyCommon
 		"Wood", "Stone", "Iron", "Flint", "Cactus", "Bone", "Obsidian", "Netherrack", "Slime", "Paper", "Cobalt", "Ardite", "Manyullyn", "Copper", "Bronze" };
 	
 	public static final String[] materialTypes = new String[] {
-		"ToolRod", "PickaxeHead", "ToolShard", "ShovelHead", "AxeHead", "SwordBlade", "LargeGuard", "MediumGuard", "Crossbar", "Binding", "FrypanHead", "SignHead", "LumberHead" };
+		"ToolRod", "PickaxeHead", "ShovelHead", "AxeHead", "SwordBlade", "LargeGuard", "MediumGuard", "Crossbar", "Binding", "FrypanHead", "SignHead", "LumberHead" };
 	
 	public static final String[] materialNames = new String[] {
-		" Rod", " Pickaxe Head", " Shard", " Shovel Head", " Axe Head", " Sword Blade", " Wide Guard", " Hand Guard", " Crossbar", " Binding", " Pan", " Board", " Broad Axe Head" };
+		" Rod", " Pickaxe Head", " Shovel Head", " Axe Head", " Sword Blade", " Wide Guard", " Hand Guard", " Crossbar", " Binding", " Pan", " Board", " Broad Axe Head" };
 	
 	public static final String[] patterns = new String[] {
 		"blank", "rod", "pickaxe", "shovel", "axe", "blade", "largeguard", "medguard", "crossbar", "binding", "frypan", "sign", "lumber" };
 	
 	public static final String[] patternNames = new String[] {
 		"Blank", "Tool Rod", "Pickaxe Head", "Shovel Head", "Axe Head", "Sword Blade", "Wide Guard", "Hand Guard", "Crossbar", "Tool Binding", "Pan", "Board", "Broad Axe Head" };
+
+	public static Document diary;
+	public static Document volume1;
+	
+	public void readManuals ()
+	{
+		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+		diary = readManual("/manuals/diary.xml", dbFactory);
+		volume1 = readManual("/manuals/materials.xml", dbFactory);
+	}
+	
+	Document readManual(String location, DocumentBuilderFactory dbFactory)
+	{
+		try
+		{
+			InputStream stream = TConstruct.class.getResourceAsStream(location);
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			Document doc = dBuilder.parse(stream);
+			doc.getDocumentElement().normalize();
+			return doc;
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	public static Document getManualFromStack(ItemStack stack)
+	{
+		switch (stack.getItemDamage())
+		{
+		case 0: return diary;
+		case 1: return volume1;
+		}
+		
+		return null;
+	}
+	
+	@Override
+	public File getLocation()
+	{
+		return Minecraft.getMinecraftDir();
+	}
 }

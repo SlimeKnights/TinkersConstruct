@@ -7,7 +7,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import tinker.common.InventoryLogic;
-import tinker.tconstruct.TConstructContent;
+import tinker.tconstruct.TContent;
 import tinker.tconstruct.container.PartCrafterChestContainer;
 import tinker.tconstruct.container.PartCrafterContainer;
 import tinker.tconstruct.crafting.PatternBuilder;

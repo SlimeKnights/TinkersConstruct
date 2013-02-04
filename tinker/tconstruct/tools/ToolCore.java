@@ -20,7 +20,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import tinker.tconstruct.AbilityHelper;
 import tinker.tconstruct.TConstruct;
-import tinker.tconstruct.TConstructContent;
+import tinker.tconstruct.TContent;
 import tinker.tconstruct.TConstructRegistry;
 import tinker.tconstruct.crafting.ToolBuilder;
 import tinker.tconstruct.modifiers.ToolMod;
@@ -100,7 +100,7 @@ public abstract class ToolCore extends Item
 	@Override
 	public String getTextureFile () //Repurposed for default texture locations
 	{
-		return TConstructContent.craftingTexture;
+		return TContent.craftingTexture;
 	}
 	
 	public String getToolTextureFile ()
@@ -141,7 +141,7 @@ public abstract class ToolCore extends Item
 			}
 		}
 
-		return TConstructContent.blankSprite;
+		return TContent.blankSprite;
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -167,7 +167,7 @@ public abstract class ToolCore extends Item
 				return (effectTextures.get((Integer) tags.getInteger("Effect3")) + getEffectString(renderPass));
 		}
 
-		return TConstructContent.blankSprite;
+		return TContent.blankSprite;
 	}
 	
 	protected abstract String getRenderString(int renderPass, boolean broken);
@@ -462,7 +462,7 @@ public abstract class ToolCore extends Item
 
 	protected Item getHandleItem ()
 	{
-		return TConstructContent.toolRod;
+		return TContent.toolRod;
 	}
 
 	public void onUpdate (ItemStack stack, World world, Entity entity, int par4, boolean par5)

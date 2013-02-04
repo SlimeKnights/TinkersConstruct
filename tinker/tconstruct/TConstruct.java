@@ -28,8 +28,8 @@ import cpw.mods.fml.common.network.NetworkRegistry;
  * @author: mDiyo
  */
 
-@Mod(modid = "TConstruct", name = "TConstruct", version = "1.4.7_1.1.0")
-@NetworkMod(serverSideRequired = false, clientSideRequired = true, channels={"TConstruct"}, packetHandler = tinker.tconstruct.TConstructPacketHandler.class)
+@Mod(modid = "TConstruct", name = "TConstruct", version = "1.4.7_1.1.2")
+@NetworkMod(serverSideRequired = false, clientSideRequired = true, channels={"TConstruct"}, packetHandler = tinker.tconstruct.TPacketHandler.class)
 public class TConstruct 
 {
 	/* Instance of this mod, used for grabbing prototype fields */
@@ -47,9 +47,9 @@ public class TConstruct
 		materialTab = new TabTools("TConstructMaterials");
 		toolTab = new TabTools("TConstructTools");
 		blockTab = new TabTools("TConstructBlocks");
-		content = new TConstructContent();
+		content = new TContent();
 		
-		NetworkRegistry.instance().registerGuiHandler(instance, new TConstructGuiHandler());
+		NetworkRegistry.instance().registerGuiHandler(instance, new TGuiHandler());
 	}
 	
 	@Init
@@ -91,7 +91,7 @@ public class TConstruct
 			PatternBuilder.instance.registerMaterial(evt.Ore, 2, "Bronze");
 	}	
 	
-	public static TConstructContent content;
+	public static TContent content;
 	
 	public static Random tRand = new Random();
 	public static TabTools toolTab;

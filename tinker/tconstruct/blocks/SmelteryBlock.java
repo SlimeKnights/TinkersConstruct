@@ -12,7 +12,7 @@ import tinker.common.IFacingLogic;
 import tinker.common.InventoryBlock;
 import tinker.common.InventoryLogic;
 import tinker.tconstruct.TConstruct;
-import tinker.tconstruct.TConstructContent;
+import tinker.tconstruct.TContent;
 import tinker.tconstruct.logic.SmelteryLogic;
 
 public class SmelteryBlock extends InventoryBlock
@@ -32,7 +32,7 @@ public class SmelteryBlock extends InventoryBlock
 
 	public String getTextureFile ()
 	{
-		return TConstructContent.blockTexture;
+		return TContent.blockTexture;
 	}
 
 	public int getBlockTextureFromSideAndMetadata (int side, int meta)

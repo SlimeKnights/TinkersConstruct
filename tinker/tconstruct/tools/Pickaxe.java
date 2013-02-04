@@ -1,6 +1,6 @@
 package tinker.tconstruct.tools;
 
-import tinker.tconstruct.TConstructContent;
+import tinker.tconstruct.TContent;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
@@ -36,13 +36,13 @@ public class Pickaxe extends HarvestTool
 	@Override
 	protected Item getHeadItem ()
 	{
-		return  TConstructContent.pickaxeHead;
+		return  TContent.pickaxeHead;
 	}
 
 	@Override
 	protected Item getAccessoryItem ()
 	{
-		return  TConstructContent.binding;
+		return  TContent.binding;
 	}
 	
 	protected String getRenderString (int renderPass, boolean broken)

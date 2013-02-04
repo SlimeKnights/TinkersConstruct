@@ -1,10 +1,5 @@
 package tinker.tconstruct;
 
-import java.io.File;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
@@ -13,12 +8,6 @@ import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.ShapedOreRecipe;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-
 import tinker.common.IPattern;
 import tinker.tconstruct.blocks.EquipBlock;
 import tinker.tconstruct.blocks.TConstructBlock;
@@ -31,6 +20,7 @@ import tinker.tconstruct.items.Materials;
 import tinker.tconstruct.items.Pattern;
 import tinker.tconstruct.items.PatternManual;
 import tinker.tconstruct.items.ToolPart;
+import tinker.tconstruct.items.ToolShard;
 import tinker.tconstruct.modifiers.ModBlaze;
 import tinker.tconstruct.modifiers.ModBoolean;
 import tinker.tconstruct.modifiers.ModDurability;
@@ -55,7 +45,7 @@ import cpw.mods.fml.common.IFuelHandler;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
-public class TConstructContent implements IFuelHandler
+public class TContent implements IFuelHandler
 {
 	//Patterns and other materials
 	public static Item blankPattern;
@@ -112,7 +102,7 @@ public class TConstructContent implements IFuelHandler
 	//Tool modifiers
 	public static ModElectric modE;
 
-	public TConstructContent()
+	public TContent()
 	{
 		createEntities();
 		createItems();
@@ -165,7 +155,7 @@ public class TConstructContent implements IFuelHandler
 		blankPattern = new CraftingItem(PHConstruct.blankPattern, 96, craftingTexture).setItemName("tconstruct.BlankPattern");
 		materials = new Materials(PHConstruct.materials, 128, craftingTexture).setItemName("tconstruct.Materials");
 		toolRod = new ToolPart(PHConstruct.toolRod, 0, craftingTexture).setItemName("tconstruct.ToolRod");
-		toolShard = new ToolPart(PHConstruct.toolShard, 64, craftingTexture).setItemName("tconstruct.ToolShard");
+		toolShard = new ToolShard(PHConstruct.toolShard, 64, craftingTexture).setItemName("tconstruct.ToolShard");
 		woodPattern = new Pattern(PHConstruct.woodPattern, 0, patternTexture).setItemName("tconstruct.Pattern");
 		//stonePattern = new Pattern(PHTools.stonePattern, 64, patternTexture).setItemName("tconstruct.Pattern");
 		//netherPattern = new Pattern(PHTools.netherPattern, 128, patternTexture).setItemName("tconstruct.Pattern");
@@ -348,7 +338,7 @@ public class TConstructContent implements IFuelHandler
 
 	void setupToolTabs ()
 	{
-		TConstruct.materialTab.init(new ItemStack(TConstructContent.woodPattern, 1, 255));
+		TConstruct.materialTab.init(new ItemStack(TContent.woodPattern, 1, 255));
 		TConstruct.blockTab.init(new ItemStack(woodCrafter));
 		ItemStack tool = new ItemStack(longsword, 1, 0);
 

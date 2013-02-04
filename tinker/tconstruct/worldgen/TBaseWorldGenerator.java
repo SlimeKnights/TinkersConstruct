@@ -2,7 +2,7 @@ package tinker.tconstruct.worldgen;
 
 import java.util.Random;
 
-import tinker.tconstruct.TConstructContent;
+import tinker.tconstruct.TContent;
 
 import net.minecraft.block.Block;
 import net.minecraft.world.World;
@@ -15,8 +15,8 @@ public class TBaseWorldGenerator
 {
 	public TBaseWorldGenerator()
 	{
-		cobalt = new ManhattanOreGenerator(TConstructContent.ores.blockID, 0, 2, 4, 100, Block.netherrack.blockID);
-		ardite = new ManhattanOreGenerator(TConstructContent.ores.blockID, 1, 2, 4, 100, Block.netherrack.blockID);
+		cobalt = new ManhattanOreGenerator(TContent.ores.blockID, 0, 2, 4, 100, Block.netherrack.blockID);
+		ardite = new ManhattanOreGenerator(TContent.ores.blockID, 1, 2, 4, 100, Block.netherrack.blockID);
 	}
 	
 	@Override

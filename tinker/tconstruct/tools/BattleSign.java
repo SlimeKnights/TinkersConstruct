@@ -1,7 +1,7 @@
 package tinker.tconstruct.tools;
 
 import tinker.tconstruct.AbilityHelper;
-import tinker.tconstruct.TConstructContent;
+import tinker.tconstruct.TContent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -108,7 +108,7 @@ public class BattleSign extends Weapon
 	@Override
 	protected Item getHeadItem ()
 	{
-		return  TConstructContent.signHead;
+		return  TContent.signHead;
 	}
 
 	@Override

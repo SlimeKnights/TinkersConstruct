@@ -8,7 +8,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import tinker.common.IPattern;
-import tinker.tconstruct.TConstructContent;
+import tinker.tconstruct.TContent;
 import tinker.tconstruct.crafting.PatternBuilder.MaterialSet;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -97,9 +97,9 @@ public class Pattern extends CraftingItem
 	public ItemStack getPatternOutput (ItemStack stack, MaterialSet set)
 	{
 		int type = stack.getItemDamage();
-		if (type != 0 && type < TConstructContent.patternOutputs.length - 1)
+		if (type != 0 && type < TContent.patternOutputs.length - 1)
 		{
-			return new ItemStack(TConstructContent.patternOutputs[type - 1], 1, set.materialID);
+			return new ItemStack(TContent.patternOutputs[type - 1], 1, set.materialID);
 		}
 		return null;
 	}

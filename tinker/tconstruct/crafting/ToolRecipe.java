@@ -1,6 +1,6 @@
 package tinker.tconstruct.crafting;
 
-import tinker.tconstruct.TConstructContent;
+import tinker.tconstruct.TContent;
 import tinker.tconstruct.tools.ToolCore;
 import net.minecraft.item.Item;
 
@@ -31,14 +31,14 @@ public class ToolRecipe
 	
 	public boolean validHandle(Item handle)
 	{
-		return (handle == TConstructContent.toolRod || handle == Item.stick || handle == Item.bone);
+		return (handle == TContent.toolRod || handle == Item.stick || handle == Item.bone);
 	}
 	
 	public boolean validAccessory(Item acc)
 	{
 		if (accessory == null && acc == null)
 			return true;
-		else if (accessory == TConstructContent.toolRod)
+		else if (accessory == TContent.toolRod)
 			return validHandle(acc);
 		else if (accessory == acc)
 			return true;

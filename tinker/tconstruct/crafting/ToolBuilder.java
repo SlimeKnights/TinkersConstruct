@@ -58,7 +58,7 @@ public class ToolBuilder
 		if (headStack.getItem() instanceof IToolPart)
 		{
 			head = ((IToolPart) headStack.getItem()).getMaterialID(headStack);
-			handle = ((IToolPart) handleStack.getItem()).getMaterialID(handleStack);
+			//handle = ((IToolPart) handleStack.getItem()).getMaterialID(handleStack);
 		}
 		else
 			validMaterials = false;

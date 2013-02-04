@@ -7,7 +7,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import tinker.tconstruct.TConstruct;
-import tinker.tconstruct.TConstructContent;
+import tinker.tconstruct.TContent;
 
 public class TConstructBlock extends Block
 {
@@ -35,7 +35,7 @@ public class TConstructBlock extends Block
 	@Override
 	public String getTextureFile ()
 	{
-		return TConstructContent.blockTexture;
+		return TContent.blockTexture;
 	}
 
 	@Override

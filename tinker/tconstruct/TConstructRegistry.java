@@ -18,13 +18,12 @@ public class TConstructRegistry
 	public static ArrayList<ToolGuiElement> toolButtons = new ArrayList<ToolGuiElement>(20);
 	public static HashMap<Integer, ToolMaterial> toolMaterials = new HashMap<Integer, ToolMaterial>(60);
 	
-	/* Mappings */
+	//Tools
 	public static void addToolMapping(ToolCore tool)
 	{
 		tools.add(tool);
 	}
 	
-	//Tools
 	public static ArrayList<ToolCore> getToolMapping()
 	{
 		return tools;

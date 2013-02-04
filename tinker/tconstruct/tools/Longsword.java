@@ -1,7 +1,7 @@
 package tinker.tconstruct.tools;
 
 import tinker.tconstruct.AbilityHelper;
-import tinker.tconstruct.TConstructContent;
+import tinker.tconstruct.TContent;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLiving;
@@ -48,13 +48,13 @@ public class Longsword extends Weapon
 	@Override
 	protected Item getHeadItem ()
 	{
-		return TConstructContent.swordBlade;
+		return TContent.swordBlade;
 	}
 
 	@Override
 	protected Item getAccessoryItem ()
 	{
-		return TConstructContent.medGuard;
+		return TContent.medGuard;
 	}
 	
 	/*@Override

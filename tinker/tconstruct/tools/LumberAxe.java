@@ -13,7 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import tinker.tconstruct.AbilityHelper;
-import tinker.tconstruct.TConstructContent;
+import tinker.tconstruct.TContent;
 
 public class LumberAxe extends HarvestTool
 {
@@ -170,7 +170,7 @@ public class LumberAxe extends HarvestTool
 	@Override
 	protected Item getHeadItem ()
 	{
-		return TConstructContent.lumberHead;
+		return TContent.lumberHead;
 	}
 
 	@Override

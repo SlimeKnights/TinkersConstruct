@@ -5,7 +5,7 @@ import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import tinker.common.InventoryLogic;
-import tinker.tconstruct.TConstructContent;
+import tinker.tconstruct.TContent;
 import tinker.tconstruct.container.PatternShaperContainer;
 
 public class PatternShaperLogic extends InventoryLogic
@@ -40,7 +40,7 @@ public class PatternShaperLogic extends InventoryLogic
     {
 		super.setInventorySlotContents(slot, itemstack);
 		if (slot == 0)
-			setInventorySlotContents(1, new ItemStack(TConstructContent.woodPattern, 1, 1));
+			setInventorySlotContents(1, new ItemStack(TContent.woodPattern, 1, 1));
     }
 	
 	@Override

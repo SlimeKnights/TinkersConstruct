@@ -2,7 +2,7 @@ package tinker.tconstruct.tools;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import tinker.tconstruct.TConstructContent;
+import tinker.tconstruct.TContent;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
@@ -33,13 +33,13 @@ public abstract class RangedWeapon extends ToolCore
 	@Override
 	protected Item getHeadItem ()
 	{
-		return TConstructContent.toolRod;
+		return TContent.toolRod;
 	}
 
 	@Override
 	protected Item getAccessoryItem ()
 	{
-		return TConstructContent.toolRod;
+		return TContent.toolRod;
 	}
 	
 	@SideOnly(Side.CLIENT)

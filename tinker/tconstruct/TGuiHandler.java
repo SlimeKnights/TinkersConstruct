@@ -1,9 +1,13 @@
 package tinker.tconstruct;
 
+import org.w3c.dom.Document;
+
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import tinker.common.InventoryLogic;
+import tinker.tconstruct.client.TProxyClient;
 import tinker.tconstruct.client.gui.FrypanGui;
 import tinker.tconstruct.client.gui.GuiManual;
 import tinker.tconstruct.client.gui.PartCrafterGui;
@@ -19,7 +23,7 @@ import tinker.tconstruct.logic.SmelteryLogic;
 import tinker.tconstruct.logic.ToolStationLogic;
 import cpw.mods.fml.common.network.IGuiHandler;
 
-public class TConstructGuiHandler implements IGuiHandler
+public class TGuiHandler implements IGuiHandler
 {
 	public static int stationID = 0;
 	public static int partID = 1;
@@ -58,7 +62,10 @@ public class TConstructGuiHandler implements IGuiHandler
 		if (ID == pshaperID)
 			return new PatternShaperGui(player.inventory, (PatternShaperLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
 		if (ID == manualGui)
-			return new GuiManual(player.getCurrentEquippedItem());
+		{
+			ItemStack stack = player.getCurrentEquippedItem();
+			return new GuiManual(stack, TProxyClient.getManualFromStack(stack));
+		}
 		return null;
 	}
 

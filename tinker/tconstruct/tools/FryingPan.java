@@ -10,7 +10,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 import tinker.tconstruct.AbilityHelper;
-import tinker.tconstruct.TConstructContent;
+import tinker.tconstruct.TContent;
 import tinker.tconstruct.logic.EquipLogic;
 
 public class FryingPan extends Weapon
@@ -77,13 +77,13 @@ public class FryingPan extends Weapon
             {
                 return false;
             }
-            else if (!TConstructContent.heldItemBlock.canPlaceBlockAt(world, x, y, z))
+            else if (!TContent.heldItemBlock.canPlaceBlockAt(world, x, y, z))
             {
                 return false;
             }
             else
             {
-                world.setBlockAndMetadataWithNotify(x, y, z, TConstructContent.heldItemBlock.blockID, 0);
+                world.setBlockAndMetadataWithNotify(x, y, z, TContent.heldItemBlock.blockID, 0);
 
                 EquipLogic logic = (EquipLogic) world.getBlockTileEntity(x, y, z);
     			logic.setEquipmentItem(stack);
@@ -97,7 +97,7 @@ public class FryingPan extends Weapon
 	@Override
 	protected Item getHeadItem ()
 	{
-		return TConstructContent.frypanHead;
+		return TContent.frypanHead;
 	}
 
 	@Override

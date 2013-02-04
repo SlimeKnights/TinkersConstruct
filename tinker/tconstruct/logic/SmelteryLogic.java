@@ -16,7 +16,7 @@ import net.minecraftforge.liquids.LiquidStack;
 import tinker.common.IActiveLogic;
 import tinker.common.IFacingLogic;
 import tinker.common.InventoryLogic;
-import tinker.tconstruct.TConstructContent;
+import tinker.tconstruct.TContent;
 import tinker.tconstruct.container.SmelteryContainer;
 import tinker.tconstruct.crafting.Smeltery;
 
@@ -299,17 +299,17 @@ public class SmelteryLogic extends InventoryLogic
 		{
 			int southID = worldObj.getBlockId(xPos, y, z-2);
 			int northID = worldObj.getBlockId(xPos, y, z+2);
-			if (southID == TConstructContent.searedBrick.blockID)
+			if (southID == TContent.searedBrick.blockID)
 				numBricks++;
-			else if (southID == TConstructContent.lavaTank.blockID)
+			else if (southID == TContent.lavaTank.blockID)
 			{
 				tankCoords = new int[] {xPos, y, z-2};
 				lavaTank = true;
 			}
 			
-			if (northID == TConstructContent.searedBrick.blockID)
+			if (northID == TContent.searedBrick.blockID)
 				numBricks++;
-			else if (northID == TConstructContent.lavaTank.blockID)
+			else if (northID == TContent.lavaTank.blockID)
 			{
 				tankCoords = new int[] {xPos, y, z+2};
 				lavaTank = true;
@@ -319,17 +319,17 @@ public class SmelteryLogic extends InventoryLogic
 		{
 			int westID = worldObj.getBlockId(x-2, y, zPos);
 			int eastID = worldObj.getBlockId(x+2, y, zPos);
-			if (westID == TConstructContent.searedBrick.blockID)
+			if (westID == TContent.searedBrick.blockID)
 				numBricks++;
-			else if (westID == TConstructContent.lavaTank.blockID)
+			else if (westID == TContent.lavaTank.blockID)
 			{
 				tankCoords = new int[] {x-2, y, zPos};
 				lavaTank = true;
 			}
 			
-			if (eastID == TConstructContent.searedBrick.blockID)
+			if (eastID == TContent.searedBrick.blockID)
 				numBricks++;
-			else if (eastID == TConstructContent.lavaTank.blockID)
+			else if (eastID == TContent.lavaTank.blockID)
 			{
 				tankCoords = new int[] {x+2, y, zPos};
 				lavaTank = true;
@@ -341,7 +341,7 @@ public class SmelteryLogic extends InventoryLogic
 		{
 			for (int zPos = z-1; zPos <= z+1; zPos++)
 			{
-				if (worldObj.getBlockId(xPos, y-1, zPos) == TConstructContent.searedBrick.blockID)
+				if (worldObj.getBlockId(xPos, y-1, zPos) == TContent.searedBrick.blockID)
 					numBricks++;
 			}
 		}

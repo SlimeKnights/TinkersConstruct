@@ -1,7 +1,7 @@
 package tinker.tconstruct.tools;
 
 import tinker.tconstruct.AbilityHelper;
-import tinker.tconstruct.TConstructContent;
+import tinker.tconstruct.TContent;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLiving;
@@ -59,13 +59,13 @@ public class Rapier extends Weapon
 	@Override
 	protected Item getHeadItem ()
 	{
-		return TConstructContent.swordBlade;
+		return TContent.swordBlade;
 	}
 
 	@Override
 	protected Item getAccessoryItem ()
 	{
-		return TConstructContent.crossbar;
+		return TContent.crossbar;
 	}
 	
 	protected String getRenderString (int renderPass, boolean broken)

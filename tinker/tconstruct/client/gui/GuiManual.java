@@ -21,6 +21,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class GuiManual extends GuiScreen
 {
     ItemStack itemstackBook;
+    Document manual;
     int bookImageWidth = 166;
     int bookImageHeight = 200;
     int bookTotalPages = 1;
@@ -29,13 +30,19 @@ public class GuiManual extends GuiScreen
 
     private TurnPageButton buttonNextPage;
     private TurnPageButton buttonPreviousPage;
+    String pageLeftType;
+    String pageRightType;
     String textLeft;
     String textRight;
     
-    public GuiManual(ItemStack stack)
+    private final int textHash = "text".hashCode();
+    private final int titleHash = "title".hashCode();
+    
+    public GuiManual(ItemStack stack, Document doc)
     {
         this.itemstackBook = stack;
         currentPage = 0; //Stack page
+        manual = doc;
     }
     
     @Override
@@ -62,7 +69,7 @@ public class GuiManual extends GuiScreen
     
     public void initGui()
     {
-    	maxPages = TProxyClient.volume1.getElementsByTagName("page").getLength();
+    	maxPages = manual.getElementsByTagName("page").getLength();
     	updateText();
     	int xPos = (this.width) / 2;
         this.controlList.add(this.buttonNextPage = new TurnPageButton(1, xPos+bookImageWidth-50, 180, true));
@@ -84,31 +91,36 @@ public class GuiManual extends GuiScreen
     
     void updateText()
     {
-        if (currentPage < 0)
-        	currentPage = 0;
         if (currentPage >= maxPages)
         	currentPage = maxPages-2;
         if (currentPage % 2 == 1)
         	currentPage--;
+        if (currentPage < 0)
+        	currentPage = 0;
         
-    	//Document doc = TProxyClient.volume1;
-    	NodeList nList = TProxyClient.volume1.getElementsByTagName("page");
+    	NodeList nList = manual.getElementsByTagName("page");
     	
-    	Node nNode = nList.item(currentPage);
-		if (nNode.getNodeType() == Node.ELEMENT_NODE)
+    	Node node = nList.item(currentPage);
+		if (node.getNodeType() == Node.ELEMENT_NODE)
 		{
-			Element eElement = (Element) nNode;
-			textLeft = eElement.getElementsByTagName("text").item(0).getTextContent();
+			Element element = (Element) node;
+			//System.out.println("TypeL: "+eElement.getAttribute("type"));
+			pageLeftType = element.getAttribute("type");
+			textLeft = element.getElementsByTagName("text").item(0).getTextContent();
 		}
 		
-		nNode = nList.item(currentPage+1);
-		if (nNode != null && nNode.getNodeType() == Node.ELEMENT_NODE)
+		node = nList.item(currentPage+1);
+		if (node != null && node.getNodeType() == Node.ELEMENT_NODE)
 		{
-			Element eElement = (Element) nNode;
-			textRight = eElement.getElementsByTagName("text").item(0).getTextContent();
+			Element element = (Element) node;
+			pageRightType = element.getAttribute("type");
+			textRight = element.getElementsByTagName("text").item(0).getTextContent();
 		}
 		else
+		{
+			pageRightType = "blank";
 			textRight = null;
+		}
     }
 
     public void drawScreen(int par1, int par2, float par3)
@@ -117,20 +129,35 @@ public class GuiManual extends GuiScreen
         int texID = this.mc.renderEngine.getTexture("/tinkertextures/gui/bookright.png");
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.renderEngine.bindTexture(texID);
-        int var5 = (this.width) / 2;
-        byte var6 = 8;
-        this.drawTexturedModalRect(var5, var6, 0, 0, this.bookImageWidth, this.bookImageHeight);
+        int localWidth = (this.width) / 2;
+        byte localHeight = 8;
+        this.drawTexturedModalRect(localWidth, localHeight, 0, 0, this.bookImageWidth, this.bookImageHeight);
         
         texID = this.mc.renderEngine.getTexture("/tinkertextures/gui/bookleft.png");
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.mc.renderEngine.bindTexture(texID);
-        var5 = var5 - this.bookImageWidth;
-        this.drawTexturedModalRect(var5, var6, 256 - this.bookImageWidth, 0, this.bookImageWidth, this.bookImageHeight);
+        localWidth = localWidth - this.bookImageWidth;
+        this.drawTexturedModalRect(localWidth, localHeight, 256 - this.bookImageWidth, 0, this.bookImageWidth, this.bookImageHeight);
 
         if (textLeft != null)
-        	this.fontRenderer.drawSplitString(textLeft, (var5 + 80), var6 + 16 + 16, 200, 0);
+        {
+        	if (pageLeftType.equals("text"))
+        		drawTextPage(textLeft, localWidth + 80, localHeight + 32);
+        	else if (pageLeftType.equals("title"))
+        		drawTitlePage(textLeft, localWidth + 80, localHeight + 32); 
+        }
         if (textRight != null)
-        	this.fontRenderer.drawSplitString(textRight, (var5 + 320), var6 + 16 + 16, 200, 0);
+        	drawTextPage(textRight, localWidth + 320, localHeight + 32);
         super.drawScreen(par1, par2, par3);
+    }
+    
+    public void drawTextPage(String text, int localWidth, int localHeight)
+    {
+    	this.fontRenderer.drawSplitString(text, localWidth, localHeight, 200, 0);
+    }
+    
+    public void drawTitlePage(String text, int localWidth, int localHeight)
+    {
+    	this.fontRenderer.drawSplitString(text, localWidth, localHeight, 200, 0);
     }
 }

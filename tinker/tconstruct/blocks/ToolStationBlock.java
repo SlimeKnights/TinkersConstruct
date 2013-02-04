@@ -12,7 +12,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import tinker.common.InventoryBlock;
 import tinker.tconstruct.TConstruct;
-import tinker.tconstruct.TConstructContent;
+import tinker.tconstruct.TContent;
 import tinker.tconstruct.client.TableRender;
 import tinker.tconstruct.logic.PartCrafterLogic;
 import tinker.tconstruct.logic.PatternChestLogic;
@@ -31,7 +31,7 @@ public class ToolStationBlock extends InventoryBlock
 
 	public String getTextureFile ()
 	{
-		return TConstructContent.blockTexture;
+		return TContent.blockTexture;
 	}
 
 	public int getBlockTextureFromSideAndMetadata (int side, int meta)

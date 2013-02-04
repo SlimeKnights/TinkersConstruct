@@ -2,7 +2,7 @@ package tinker.tconstruct.tools;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import tinker.tconstruct.TConstructContent;
+import tinker.tconstruct.TContent;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
 
@@ -37,7 +37,7 @@ public class Shovel extends HarvestTool
 	@Override
 	protected Item getHeadItem ()
 	{
-		return  TConstructContent.shovelHead;
+		return  TContent.shovelHead;
 	}
 
 	@Override

@@ -1,7 +1,7 @@
 package tinker.tconstruct.tools;
 
 import tinker.tconstruct.AbilityHelper;
-import tinker.tconstruct.TConstructContent;
+import tinker.tconstruct.TContent;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
@@ -63,13 +63,13 @@ public class Mattock extends DualHarvestTool
 	@Override
 	protected Item getHeadItem ()
 	{
-		return TConstructContent.axeHead;
+		return TContent.axeHead;
 	}
 
 	@Override
 	protected Item getAccessoryItem ()
 	{
-		return TConstructContent.shovelHead;
+		return TContent.shovelHead;
 	}
 	
 	protected String getRenderString (int renderPass, boolean broken)

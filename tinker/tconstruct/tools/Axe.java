@@ -3,7 +3,7 @@ package tinker.tconstruct.tools;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import tinker.tconstruct.AbilityHelper;
-import tinker.tconstruct.TConstructContent;
+import tinker.tconstruct.TContent;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLiving;
@@ -52,7 +52,7 @@ public class Axe extends HarvestTool
 	@Override
 	protected Item getHeadItem ()
 	{
-		return TConstructContent.axeHead;
+		return TContent.axeHead;
 	}
 
 	@Override

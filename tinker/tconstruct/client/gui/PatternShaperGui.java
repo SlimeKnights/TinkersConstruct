@@ -15,7 +15,7 @@ import org.lwjgl.opengl.GL11;
 
 import cpw.mods.fml.common.network.PacketDispatcher;
 
-import tinker.tconstruct.TConstructContent;
+import tinker.tconstruct.TContent;
 import tinker.tconstruct.container.PatternShaperContainer;
 import tinker.tconstruct.logic.PatternShaperLogic;
 
@@ -85,19 +85,19 @@ public class PatternShaperGui extends GuiContainer
     	if (button.id == 0)
     	{
     		patternIndex++;
-    		if (patternIndex > TConstructContent.patternOutputs.length - 1)
+    		if (patternIndex > TContent.patternOutputs.length - 1)
     			patternIndex = 0;
     	}
     	else if (button.id == 1)
     	{
     		patternIndex--;
     		if (patternIndex < 0)
-    			patternIndex = TConstructContent.patternOutputs.length - 1;
+    			patternIndex = TContent.patternOutputs.length - 1;
     	}
     	ItemStack pattern = logic.getStackInSlot(0);
-    	if (pattern != null && pattern.getItem() == TConstructContent.blankPattern)
+    	if (pattern != null && pattern.getItem() == TContent.blankPattern)
     	{
-    		ItemStack stack = new ItemStack(TConstructContent.woodPattern, 1, patternIndex + 1);
+    		ItemStack stack = new ItemStack(TContent.woodPattern, 1, patternIndex + 1);
     		logic.setInventorySlotContents(1, stack);
     		updateServer(stack);
     	}

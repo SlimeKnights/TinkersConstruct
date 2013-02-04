@@ -3,7 +3,7 @@ import java.util.List;
 import java.util.Random;
 
 import tinker.tconstruct.TConstruct;
-import tinker.tconstruct.TConstructContent;
+import tinker.tconstruct.TContent;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -38,7 +38,7 @@ public class TBaseOre extends Block
     
     public String getTextureFile()
     {
-        return TConstructContent.blockTexture;
+        return TContent.blockTexture;
     }
     
     @Override

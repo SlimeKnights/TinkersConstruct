@@ -9,7 +9,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import tinker.common.InventoryBlock;
 import tinker.tconstruct.TConstruct;
-import tinker.tconstruct.TConstructGuiHandler;
+import tinker.tconstruct.TGuiHandler;
 import tinker.tconstruct.client.FrypanRender;
 import tinker.tconstruct.logic.FrypanLogic;
 
@@ -85,7 +85,7 @@ public class EquipBlock extends InventoryBlock
 	@Override
 	public Integer getGui (World world, int x, int y, int z, EntityPlayer entityplayer)
 	{
-		return TConstructGuiHandler.frypanID;
+		return TGuiHandler.frypanID;
 	}
 
 	@Override
