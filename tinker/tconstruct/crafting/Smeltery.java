@@ -31,9 +31,14 @@ public class Smeltery
     public static Integer getSmeltingTemperature(ItemStack item) 
     {
         if (item == null)
-            return null;
+            return 0;
         
-        return instance.temperatureList.get(Arrays.asList(item.itemID, item.getItemDamage()));
+        Integer temp = instance.temperatureList.get(Arrays.asList(item.itemID, item.getItemDamage()));
+        if (temp == null)
+        	return 0;
+        else
+        	return temp;
+        //return instance.temperatureList.get(Arrays.asList(item.itemID, item.getItemDamage()));
     }
     
     public static Integer getSmeltingTemperature(int blockID)
@@ -61,7 +66,10 @@ public class Smeltery
         if (item == null)
             return null;
         
-        return (ItemStack) instance.smeltingList.get(Arrays.asList(item.itemID, item.getItemDamage())).copy();
+        ItemStack stack = (ItemStack) instance.smeltingList.get(Arrays.asList(item.itemID, item.getItemDamage()));
+        if (stack == null)
+        	return null;
+        return stack.copy();
     }
     
     public static ItemStack getSmeltingResult(int blockID)
@@ -76,6 +84,9 @@ public class Smeltery
      */
     public static ItemStack getSmeltingResult(int blockID, int metadata) 
     {
-        return (ItemStack) instance.smeltingList.get(Arrays.asList(blockID, metadata)).copy();
+    	 ItemStack stack = (ItemStack) instance.smeltingList.get(Arrays.asList(blockID, metadata));
+         if (stack == null)
+         	return null;
+         return stack.copy();
     }
 }

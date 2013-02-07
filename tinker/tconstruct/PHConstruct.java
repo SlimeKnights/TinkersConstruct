@@ -44,10 +44,33 @@ public class PHConstruct {
         heldItemBlock = config.getBlock("Held Item Block", 1472).getInt(1472);
         lavaTank = config.getBlock("Lava Tank", 1473).getInt(1473);
         smeltery = config.getBlock("Smeltery", 1474).getInt(1474);
-        ores = config.getBlock("Ore Block", 1475).getInt(1475);
-        craftedSoil = config.getBlock("Special Soil", 1476).getInt(1476);
         searedBrick = config.getBlock("Seared Brick", 1477).getInt(1477);
-        axle = config.getBlock("Axle", 1478).getInt(1478);
+        craftedSoil = config.getBlock("Special Soil", 1476).getInt(1476);
+        
+        ironFlowing = config.getBlock("Liquid Iron Flowing", 1478).getInt(1478);
+        ironStill = config.getBlock("Liquid Iron Still", 1479).getInt(1479);
+        goldFlowing = config.getBlock("Liquid Gold Flowing", 1480).getInt(1480);
+        goldStill = config.getBlock("Liquid Gold Still", 1481).getInt(1481);
+        copperFlowing = config.getBlock("Liquid Copper Flowing", 1482).getInt(1482);
+        copperStill = config.getBlock("Liquid Copper Still", 1483).getInt(1483);
+        tinFlowing = config.getBlock("Liquid Tin Flowing", 1484).getInt(1484);
+        tinStill = config.getBlock("Liquid Tin Still", 1485).getInt(1485);
+        aluminumFlowing = config.getBlock("Liquid Aluminum Flowing", 1486).getInt(1486);
+        aluminumStill = config.getBlock("Liquid Aluminum Still", 1487).getInt(1487);
+        cobaltFlowing = config.getBlock("Liquid Cobalt Flowing", 1488).getInt(1488);
+        cobaltStill = config.getBlock("Liquid Cobalt Still", 1489).getInt(1489);
+        arditeFlowing = config.getBlock("Liquid Ardite Flowing", 1490).getInt(1490);
+        arditeStill = config.getBlock("Liquid Ardite Still", 1491).getInt(1491);
+        bronzeFlowing = config.getBlock("Liquid Bronze Flowing", 1492).getInt(1492);
+        bronzeStill = config.getBlock("Liquid Bronze Still", 1493).getInt(1493);
+        brassFlowing = config.getBlock("Liquid Brass Flowing", 1494).getInt(1494);
+        brassStill = config.getBlock("Liquid Brass Still", 1495).getInt(1495);
+        manyullynFlowing = config.getBlock("Liquid Manyullyn Flowing", 1496).getInt(1496);
+        manyullynStill = config.getBlock("Liquid Manyullyn Still", 1497).getInt(1497);
+        alumiteFlowing = config.getBlock("Liquid Alumite Flowing", 1498).getInt(1498);
+        alumiteStill = config.getBlock("Liquid Alumite Still", 1499).getInt(1499);
+        obsidianFlowing = config.getBlock("Liquid Obsidian Flowing", 1500).getInt(1500);
+        obsidianStill = config.getBlock("Liquid Obsidian Still", 1501).getInt(1501);
         
         manual = config.getItem("Patterns and Misc", "Tinker's Manual", 14018).getInt(14018);
         blankPattern = config.getItem("Patterns and Misc", "Blank Patterns", 14019).getInt(14019);
@@ -100,6 +123,33 @@ public class PHConstruct {
     public static int craftedSoil;
     public static int searedBrick;
     public static int axle;
+
+    public static int ironFlowing;
+    public static int ironStill;
+    public static int goldFlowing;
+    public static int goldStill;
+    public static int copperFlowing;
+    public static int copperStill;
+    public static int tinFlowing;
+    public static int tinStill;
+    public static int aluminumFlowing;
+    public static int aluminumStill;
+    public static int cobaltFlowing;
+    public static int cobaltStill;
+    public static int arditeFlowing;
+    public static int arditeStill;
+
+    public static int bronzeFlowing;
+    public static int bronzeStill;
+    public static int brassFlowing;
+    public static int brassStill;
+    public static int manyullynFlowing;
+    public static int manyullynStill;
+    public static int alumiteFlowing;
+    public static int alumiteStill;
+
+    public static int obsidianFlowing;
+    public static int obsidianStill;
     
     //Patterns and misc
     public static int blankPattern;

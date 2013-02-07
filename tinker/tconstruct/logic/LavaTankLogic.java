@@ -22,7 +22,7 @@ public class LavaTankLogic extends TileEntity
 	public LavaTankLogic()
 	{
 		tank = new LiquidTank(LiquidContainerRegistry.BUCKET_VOLUME);
-		max = LiquidContainerRegistry.BUCKET_VOLUME;
+		max = LiquidContainerRegistry.BUCKET_VOLUME*4;
 	}
 	
 	@Override

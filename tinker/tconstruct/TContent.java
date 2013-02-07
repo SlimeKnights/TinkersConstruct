@@ -8,39 +8,16 @@ import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.ShapedOreRecipe;
+
 import tinker.common.IPattern;
-import tinker.tconstruct.blocks.EquipBlock;
-import tinker.tconstruct.blocks.TConstructBlock;
-import tinker.tconstruct.blocks.ToolStationBlock;
-import tinker.tconstruct.client.gui.ToolGuiElement;
-import tinker.tconstruct.crafting.PatternBuilder;
-import tinker.tconstruct.crafting.ToolBuilder;
-import tinker.tconstruct.items.CraftingItem;
-import tinker.tconstruct.items.Materials;
-import tinker.tconstruct.items.Pattern;
-import tinker.tconstruct.items.PatternManual;
-import tinker.tconstruct.items.ToolPart;
-import tinker.tconstruct.items.ToolShard;
-import tinker.tconstruct.modifiers.ModBlaze;
-import tinker.tconstruct.modifiers.ModBoolean;
-import tinker.tconstruct.modifiers.ModDurability;
-import tinker.tconstruct.modifiers.ModElectric;
-import tinker.tconstruct.modifiers.ModInteger;
-import tinker.tconstruct.modifiers.ModLapisBase;
-import tinker.tconstruct.modifiers.ModLapisIncrease;
-import tinker.tconstruct.modifiers.ModRedstone;
-import tinker.tconstruct.modifiers.ModRepair;
-import tinker.tconstruct.tools.Axe;
-import tinker.tconstruct.tools.BattleSign;
-import tinker.tconstruct.tools.Broadsword;
-import tinker.tconstruct.tools.FryingPan;
-import tinker.tconstruct.tools.Longsword;
-import tinker.tconstruct.tools.LumberAxe;
-import tinker.tconstruct.tools.Mattock;
-import tinker.tconstruct.tools.Pickaxe;
-import tinker.tconstruct.tools.Rapier;
-import tinker.tconstruct.tools.Shovel;
-import tinker.tconstruct.tools.ToolCore;
+import tinker.tconstruct.blocks.*;
+import tinker.tconstruct.blocks.liquids.*;
+import tinker.tconstruct.client.gui.*;
+import tinker.tconstruct.crafting.*;
+import tinker.tconstruct.items.*;
+import tinker.tconstruct.modifiers.*;
+import tinker.tconstruct.tools.*;
+
 import cpw.mods.fml.common.IFuelHandler;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -97,6 +74,33 @@ public class TContent implements IFuelHandler
 	public static Block lavaTank;
 	public static Block craftedSoil;
 	public static Block searedBrick;
+
+	public static Block ironFlowing;
+	public static Block ironStill;
+	public static Block goldFlowing;
+    public static Block goldStill;
+    public static Block copperFlowing;
+    public static Block copperStill;
+    public static Block tinFlowing;
+    public static Block tinStill;
+    public static Block aluminumFlowing;
+    public static Block aluminumStill;
+    public static Block cobaltFlowing;
+    public static Block cobaltStill;
+    public static Block arditeFlowing;
+    public static Block arditeStill;
+
+    public static Block bronzeFlowing;
+    public static Block bronzeStill;
+    public static Block brassFlowing;
+    public static Block brassStill;
+    public static Block manyullynFlowing;
+    public static Block manyullynStill;
+    public static Block alumiteFlowing;
+    public static Block alumiteStill;
+
+    public static Block obsidianFlowing;
+    public static Block obsidianStill;
 	//public static Block axle;
 
 	//Tool modifiers
@@ -105,10 +109,12 @@ public class TContent implements IFuelHandler
 	public TContent()
 	{
 		createEntities();
+		registerBlocks();
 		createItems();
 		addRenderMappings();
 		registerMaterials();
 		addToolRecipes();
+		addSmelteryRecipes();
 		addCraftingRecipes();
 		setupToolTabs();
 		addToolButtons();
@@ -118,9 +124,10 @@ public class TContent implements IFuelHandler
 	void createEntities ()
 	{
 		EntityRegistry.registerModEntity(tinker.tconstruct.entity.CartEntity.class, "Small Wagon", 0, TConstruct.instance, 32, 5, true);
+		EntityRegistry.registerModEntity(tinker.tconstruct.entity.Skyla.class, "Skyla", 1, TConstruct.instance, 32, 5, true);
 	}
-
-	void createItems ()
+	
+	void registerBlocks()
 	{
 		woodCrafter = new ToolStationBlock(PHConstruct.woodCrafter, Material.wood);
 		GameRegistry.registerBlock(woodCrafter, tinker.tconstruct.blocks.ToolStationItemBlock.class, "ToolStationBlock");
@@ -136,13 +143,13 @@ public class TContent implements IFuelHandler
 		//ores = new TBaseOre(PHTools.ores, 48);
 		//GameRegistry.registerBlock(ores, tinker.toolconstruct.blocks.TBaseOreItem.class, "TConstruct.ores");
 
-		//lavaTank = new LavaTankBlock(PHConstruct.lavaTank);
-		//GameRegistry.registerBlock(lavaTank, "LavaTank");
-		//GameRegistry.registerTileEntity(tinker.tconstruct.logic.LavaTankLogic.class, "TConstruct.LavaTank");
+		lavaTank = new LavaTankBlock(PHConstruct.lavaTank);
+		GameRegistry.registerBlock(lavaTank, "LavaTank");
+		GameRegistry.registerTileEntity(tinker.tconstruct.logic.LavaTankLogic.class, "TConstruct.LavaTank");
 
-		//smeltery = new SmelteryBlock(PHConstruct.smeltery);
-		//GameRegistry.registerBlock(smeltery, "Smeltery");
-		//GameRegistry.registerTileEntity(tinker.tconstruct.logic.SmelteryLogic.class, "TConstruct.Smeltery");
+		smeltery = new SmelteryBlock(PHConstruct.smeltery);
+		GameRegistry.registerBlock(smeltery, "Smeltery");
+		GameRegistry.registerTileEntity(tinker.tconstruct.logic.SmelteryLogic.class, "TConstruct.Smeltery");
 
 		craftedSoil = new TConstructBlock(PHConstruct.craftedSoil, 96, Material.sand, 3.0F, 2);
 		craftedSoil.stepSound = Block.soundGravelFootstep;
@@ -152,6 +159,58 @@ public class TContent implements IFuelHandler
 		GameRegistry.registerBlock(searedBrick, tinker.tconstruct.blocks.SearedBrickItemBlock.class, "SearedBrick");
 		MinecraftForge.setBlockHarvestLevel(searedBrick, 0, "pickaxe", 2);
 
+		ironFlowing = new IronFlowing(PHConstruct.ironFlowing).setBlockName("liquid.ironFlow");
+		GameRegistry.registerBlock(ironFlowing, "Liquid Iron Flowing");
+		ironStill = new IronStill(PHConstruct.ironStill).setBlockName("liquid.ironStill");
+		GameRegistry.registerBlock(ironStill, "Liquid Iron Still");
+		goldFlowing = new GoldStill(PHConstruct.goldFlowing).setBlockName("liquid.goldFlow");
+		GameRegistry.registerBlock(goldFlowing, "Liquid Gold Flowing");
+		goldStill = new GoldFlowing(PHConstruct.goldStill).setBlockName("liquid.goldStill");
+		GameRegistry.registerBlock(goldStill, "Liquid Gold Still");
+		copperFlowing = new CopperStill(PHConstruct.copperFlowing).setBlockName("liquid.copperFlow");
+		GameRegistry.registerBlock(copperFlowing, "Liquid copper Flowing");
+		copperStill = new CopperFlowing(PHConstruct.copperStill).setBlockName("liquid.copperStill");
+		GameRegistry.registerBlock(copperStill, "Liquid copper Still");
+		tinFlowing = new TinStill(PHConstruct.tinFlowing).setBlockName("liquid.tinFlow");
+		GameRegistry.registerBlock(tinFlowing, "Liquid tin Flowing");
+		tinStill = new TinFlowing(PHConstruct.tinStill).setBlockName("liquid.tinStill");
+		GameRegistry.registerBlock(tinStill, "Liquid tin Still");
+		aluminumFlowing = new AluminumStill(PHConstruct.aluminumFlowing).setBlockName("liquid.aluminumFlow");
+		GameRegistry.registerBlock(aluminumFlowing, "Liquid aluminum Flowing");
+		aluminumStill = new AluminumFlowing(PHConstruct.aluminumStill).setBlockName("liquid.aluminumStill");
+		GameRegistry.registerBlock(aluminumStill, "Liquid aluminum Still");
+		cobaltFlowing = new CobaltStill(PHConstruct.cobaltFlowing).setBlockName("liquid.cobaltFlow");
+		GameRegistry.registerBlock(cobaltFlowing, "Liquid cobalt Flowing");
+		cobaltStill = new CobaltFlowing(PHConstruct.cobaltStill).setBlockName("liquid.cobaltStill");
+		GameRegistry.registerBlock(cobaltStill, "Liquid cobalt Still");
+		arditeFlowing = new ArditeStill(PHConstruct.arditeFlowing).setBlockName("liquid.arditeFlow");
+		GameRegistry.registerBlock(arditeFlowing, "Liquid ardite Flowing");
+		arditeStill = new ArditeFlowing(PHConstruct.arditeStill).setBlockName("liquid.arditeStill");
+		GameRegistry.registerBlock(arditeStill, "Liquid ardite Still");
+		bronzeFlowing = new BronzeStill(PHConstruct.bronzeFlowing).setBlockName("liquid.bronzeFlow");
+		GameRegistry.registerBlock(bronzeFlowing, "Liquid bronze Flowing");
+		bronzeStill = new BronzeFlowing(PHConstruct.bronzeStill).setBlockName("liquid.bronzeStill");
+		GameRegistry.registerBlock(bronzeStill, "Liquid bronze Still");
+		brassFlowing = new BrassStill(PHConstruct.brassFlowing).setBlockName("liquid.brassFlow");
+		GameRegistry.registerBlock(brassFlowing, "Liquid brass Flowing");
+		brassStill = new BrassFlowing(PHConstruct.brassStill).setBlockName("liquid.brassStill");
+		GameRegistry.registerBlock(brassStill, "Liquid brass Still");
+		manyullynFlowing = new ManyullynStill(PHConstruct.manyullynFlowing).setBlockName("liquid.manyullynFlow");
+		GameRegistry.registerBlock(manyullynFlowing, "Liquid manyullyn Flowing");
+		manyullynStill = new ManyullynFlowing(PHConstruct.manyullynStill).setBlockName("liquid.manyullynStill");
+		GameRegistry.registerBlock(manyullynStill, "Liquid manyullun Still");
+		alumiteFlowing = new AlumiteStill(PHConstruct.alumiteFlowing).setBlockName("liquid.alumiteFlow");
+		GameRegistry.registerBlock(alumiteFlowing, "Liquid alumite Flowing");
+		alumiteStill = new AlumiteFlowing(PHConstruct.alumiteStill).setBlockName("liquid.alumiteStill");
+		GameRegistry.registerBlock(alumiteStill, "Liquid alumite Still");
+		obsidianFlowing = new ObsidianStill(PHConstruct.obsidianFlowing).setBlockName("liquid.obsidianFlow");
+		GameRegistry.registerBlock(obsidianFlowing, "Liquid obsidian Flowing");
+		obsidianStill = new ObsidianFlowing(PHConstruct.obsidianStill).setBlockName("liquid.obsidianStill");
+		GameRegistry.registerBlock(obsidianStill, "Liquid obsidian Still");
+	}
+
+	void createItems ()
+	{
 		blankPattern = new CraftingItem(PHConstruct.blankPattern, 96, craftingTexture).setItemName("tconstruct.BlankPattern");
 		materials = new Materials(PHConstruct.materials, 128, craftingTexture).setItemName("tconstruct.Materials");
 		toolRod = new ToolPart(PHConstruct.toolRod, 0, craftingTexture).setItemName("tconstruct.ToolRod");
@@ -237,6 +296,31 @@ public class TContent implements IFuelHandler
 		TConstructRegistry.addToolMaterial(12, "Manyullyn", 2, 5, 1200, 1000, 4, 2.5F, 0, 0f);
 		TConstructRegistry.addToolMaterial(13, "Copper", 1, 1, 180, 500, 2, 1.15F, 0, 0f);
 		TConstructRegistry.addToolMaterial(14, "Bronze", 1, 2, 250, 600, 2, 1.3F, 1, 0f);
+		
+		//Thaumcraft
+		TConstructRegistry.addToolMaterial(21, "Thaumium", 2, 2, 250, 600, 2, 1.3F, 1, 0f);
+		//Metallurgy
+		TConstructRegistry.addToolMaterial(22, "Heptazion", 2, 2, 300, 800, 1, 1.0F, 0, 0f);
+		TConstructRegistry.addToolMaterial(23, "Damascus Steel", 2, 3, 500, 600, 2, 1.35F, 1, 0f);
+		TConstructRegistry.addToolMaterial(24, "Angmallen", 2, 2, 300, 800, 2, 0.8F, 0, 0f);
+		TConstructRegistry.addToolMaterial(25, "Steel", 2, 3, 750, 800, 3, 1.3F, 2, 0f);
+		
+		TConstructRegistry.addToolMaterial(26, "Promethium", 1, 1, 200, 400, 1, 1.0F, 0, 0.5f);
+		TConstructRegistry.addToolMaterial(27, "Deep Iron", 1, 2, 250, 600, 2, 1.3F, 1, 0f);
+		TConstructRegistry.addToolMaterial(28, "Oureclase", 2, 3, 750, 800, 2, 1.2F, 0, 0f);
+		TConstructRegistry.addToolMaterial(29, "Aredrite", 2, 3, 1000, 400, 2, 1.5F, 0, 1.0f);
+		TConstructRegistry.addToolMaterial(30, "Astral Silver", 1, 4, 35, 1200, 1, 0.5F, 0, 0f);
+		TConstructRegistry.addToolMaterial(31, "Carmot", 1, 4, 50, 1200, 1, 0.5F, 0, 0f);
+		TConstructRegistry.addToolMaterial(32, "Mithril", 2, 4, 1000, 900, 3, 1.25F, 3, 0f);
+		TConstructRegistry.addToolMaterial(33, "Orichalcum", 2, 5, 1350, 900, 3, 1.25F, 0, 0f);
+		TConstructRegistry.addToolMaterial(34, "Adamantine", 3, 6, 1550, 1000, 4, 1.5F, 1, 0f);
+		TConstructRegistry.addToolMaterial(35, "Atlarus", 3, 6, 1750, 1000, 4, 1.6F, 2, 0f);
+		
+		TConstructRegistry.addToolMaterial(36, "Black Steel", 2, 2, 500, 800, 2, 1.3F, 2, 0f);
+		TConstructRegistry.addToolMaterial(37, "Quicksilver", 2, 4, 1100, 1400, 3, 1.0F, 1, 0f);
+		TConstructRegistry.addToolMaterial(38, "Haderoth", 2, 4, 1250, 1200, 3, 1.0F, 2, 0f);
+		TConstructRegistry.addToolMaterial(39, "Celenegil", 3, 5, 1600, 1400, 3, 1.0F, 2, 0f);
+		TConstructRegistry.addToolMaterial(40, "Tartarite", 3, 7, 3000, 1400, 5, 1.6667F, 4, 0f);
 
 		PatternBuilder pb = PatternBuilder.instance;
 		pb.registerFullMaterial(Block.planks, 2, "Wood", new ItemStack(Item.stick), new ItemStack(Item.stick), 0);
@@ -294,6 +378,11 @@ public class TContent implements IFuelHandler
 		tb.registerToolMod(new ModBlaze(new ItemStack[] { new ItemStack(Item.blazePowder), new ItemStack(Item.blazePowder) }, 7, 2));
 		tb.registerToolMod(new ModBoolean(new ItemStack[] { new ItemStack(materials, 1, 7) }, 6, "Lava", "\u00a74", "Auto-Smelt"));
 		tb.registerToolMod(new ModInteger(new ItemStack[] { new ItemStack(materials, 1, 8) }, 8, "Necrotic", 1, "\u00a78", "Life Steal"));
+	}
+	
+	void addSmelteryRecipes()
+	{
+		Smeltery.instance.addSmelting(Block.oreIron.blockID, 0, 35, new ItemStack(Item.ingotIron, 1, 0));
 	}
 
 	void addCraftingRecipes ()
@@ -441,6 +530,7 @@ public class TContent implements IFuelHandler
 
 	public static String blockTexture = "/tinkertextures/ConstructBlocks.png";
 	public static String blankSprite = "/tinkertextures/blanksprite.png";
+	public static String liquidTexture = "/tinkertextures/LiquidWhite.png";
 
 	public static String craftingTexture = "/tinkertextures/materials.png";
 	public static String patternTexture = "/tinkertextures/tools/patterns.png";

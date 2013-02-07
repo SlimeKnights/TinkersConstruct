@@ -28,7 +28,7 @@ import cpw.mods.fml.common.network.NetworkRegistry;
  * @author: mDiyo
  */
 
-@Mod(modid = "TConstruct", name = "TConstruct", version = "1.4.7_1.1.2")
+@Mod(modid = "TConstruct", name = "TConstruct", version = "1.4.7_1.1.4")
 @NetworkMod(serverSideRequired = false, clientSideRequired = true, channels={"TConstruct"}, packetHandler = tinker.tconstruct.TPacketHandler.class)
 public class TConstruct 
 {

@@ -1,4 +1,4 @@
-package tinker.tconstruct.client;
+package tinker.tconstruct.client.entityrender;
 
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;

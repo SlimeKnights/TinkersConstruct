@@ -161,7 +161,7 @@ public class SuperCustomToolRenderer implements IItemRenderer
 		GL11.glTranslatef(-1.1875f, 0.25F, 0.45F); //Edited to position properly
 		renderItemIn2D(var5, var8, var9, var7, var10, 0.0625F);
 
-		if (stack != null && stack.hasEffect())
+		if (stack != null && stack.hasEffect() && !baseSprite && renderPass == 2)
 		{
 			GL11.glDepthFunc(GL11.GL_EQUAL);
 			GL11.glDisable(GL11.GL_LIGHTING);

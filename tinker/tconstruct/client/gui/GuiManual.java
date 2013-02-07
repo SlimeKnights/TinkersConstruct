@@ -35,9 +35,6 @@ public class GuiManual extends GuiScreen
     String textLeft;
     String textRight;
     
-    private final int textHash = "text".hashCode();
-    private final int titleHash = "title".hashCode();
-    
     public GuiManual(ItemStack stack, Document doc)
     {
         this.itemstackBook = stack;
@@ -106,7 +103,10 @@ public class GuiManual extends GuiScreen
 			Element element = (Element) node;
 			//System.out.println("TypeL: "+eElement.getAttribute("type"));
 			pageLeftType = element.getAttribute("type");
-			textLeft = element.getElementsByTagName("text").item(0).getTextContent();
+			NodeList nodes = element.getElementsByTagName("text");
+			if (nodes != null)
+				textLeft = nodes.item(0).getTextContent();
+			//textLeft = element.getElementsByTagName("text").item(0).getTextContent();
 		}
 		
 		node = nList.item(currentPage+1);
@@ -114,7 +114,9 @@ public class GuiManual extends GuiScreen
 		{
 			Element element = (Element) node;
 			pageRightType = element.getAttribute("type");
-			textRight = element.getElementsByTagName("text").item(0).getTextContent();
+			NodeList nodes = element.getElementsByTagName("text");
+			if (nodes != null)
+				textRight = nodes.item(0).getTextContent();
 		}
 		else
 		{
@@ -143,7 +145,7 @@ public class GuiManual extends GuiScreen
         {
         	if (pageLeftType.equals("text"))
         		drawTextPage(textLeft, localWidth + 80, localHeight + 32);
-        	else if (pageLeftType.equals("title"))
+        	else if (pageLeftType.equals("intro"))
         		drawTitlePage(textLeft, localWidth + 80, localHeight + 32); 
         }
         if (textRight != null)

@@ -31,6 +31,8 @@ public class SmelteryGui extends GuiContainer
 		fontRenderer.drawString("Temp: " + logic.getInternalTemperature(), xSize + 6, 6, 0xffffff);
 		for (int iter = 0; iter < 9; iter++)
 			fontRenderer.drawString("Slot "+iter+" temp: " + logic.getTempForSlot(iter), xSize + 6, 15+iter*9, 0xffffff);
+		for (int iter = 0; iter < 9; iter++)
+			fontRenderer.drawString("Slot "+iter+" mTemp: " + logic.meltingTemps[iter], xSize + 6, 100+iter*9, 0xffffff);
 	}
 
 	protected void drawGuiContainerBackgroundLayer (float f, int i, int j)

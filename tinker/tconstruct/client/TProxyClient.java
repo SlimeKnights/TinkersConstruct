@@ -1,25 +1,24 @@
 package tinker.tconstruct.client;
 
-
 import java.io.File;
 import java.io.InputStream;
-import java.net.URL;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.RenderEngine;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.client.MinecraftForgeClient;
 
 import org.w3c.dom.Document;
 
-import tinker.tconstruct.TConstruct;
-import tinker.tconstruct.TContent;
-import tinker.tconstruct.TConstructRegistry;
-import tinker.tconstruct.TProxyCommon;
+import tinker.tconstruct.*;
+import tinker.tconstruct.client.entityrender.*;
+import tinker.tconstruct.client.liquidrender.*;
 import tinker.tconstruct.tools.ToolCore;
+import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
@@ -32,10 +31,38 @@ public class TProxyClient extends TProxyCommon
 		Minecraft mc = Minecraft.getMinecraft();
 		smallFontRenderer = new SmallFontRenderer(mc.gameSettings, "/font/default.png", mc.renderEngine, false);
 		RenderingRegistry.registerBlockHandler(new TableRender());
-		//RenderingRegistry.registerBlockHandler(new TankRender());
+		RenderingRegistry.registerBlockHandler(new TankRender());
 		RenderingRegistry.registerBlockHandler(new FrypanRender());
+		RenderingRegistry.registerBlockHandler(new RenderLiquidMetal());
 		//RenderingRegistry.registerBlockHandler(new AxleRender());
 		
+		RenderEngine renderEngine = FMLClientHandler.instance().getClient().renderEngine;
+		renderEngine.registerTextureFX(new LiquidIronFX());
+		renderEngine.registerTextureFX(new LiquidIronFlowFX());
+		renderEngine.registerTextureFX(new LiquidGoldFX());
+		renderEngine.registerTextureFX(new LiquidGoldFlowFX());
+		renderEngine.registerTextureFX(new LiquidCopperFX());
+		renderEngine.registerTextureFX(new LiquidCopperFlowFX());
+		renderEngine.registerTextureFX(new LiquidTinFX());
+		renderEngine.registerTextureFX(new LiquidTinFlowFX());
+		renderEngine.registerTextureFX(new LiquidAluminumFX());
+		renderEngine.registerTextureFX(new LiquidAluminumFlowFX());
+		renderEngine.registerTextureFX(new LiquidCobaltFX());
+		renderEngine.registerTextureFX(new LiquidCobaltFlowFX());
+		renderEngine.registerTextureFX(new LiquidArditeFX());
+		renderEngine.registerTextureFX(new LiquidArditeFlowFX());
+		renderEngine.registerTextureFX(new LiquidBronzeFX());
+		renderEngine.registerTextureFX(new LiquidBronzeFlowFX());
+		renderEngine.registerTextureFX(new LiquidBrassFX());
+		renderEngine.registerTextureFX(new LiquidBrassFlowFX());
+		renderEngine.registerTextureFX(new LiquidManyullynFX());
+		renderEngine.registerTextureFX(new LiquidManyullynFlowFX());
+		renderEngine.registerTextureFX(new LiquidAlumiteFX());
+		renderEngine.registerTextureFX(new LiquidAlumiteFlowFX());
+		renderEngine.registerTextureFX(new LiquidObsidianFX());
+		renderEngine.registerTextureFX(new LiquidObsidianFlowFX());
+		
+		//Tools
 		MinecraftForgeClient.preloadTexture(TContent.blockTexture);
 		IItemRenderer render = new SuperCustomToolRenderer();
 		for (ToolCore tool : TConstructRegistry.tools)
@@ -43,14 +70,16 @@ public class TProxyClient extends TProxyCommon
 			MinecraftForgeClient.registerItemRenderer(tool.itemID, render);
 		}
 		
+		//Entities
 		RenderingRegistry.registerEntityRenderingHandler(tinker.tconstruct.entity.CartEntity.class, new CartRender());
+		RenderingRegistry.registerEntityRenderingHandler(tinker.tconstruct.entity.Skyla.class, new SkylaRender());
 	}
 	
 	
 	/* Ties an internal name to a visible one. */
 	public void addNames() 
 	{
-		//LanguageRegistry.addName(TConstructContent.lavaTank, "Lava Tank");
+		LanguageRegistry.addName(TContent.lavaTank, "Lava Tank");
 		LanguageRegistry.instance().addStringLocalization("itemGroup.TConstructTools", "TConstruct Tools");
 		LanguageRegistry.instance().addStringLocalization("itemGroup.TConstructMaterials", "TConstruct Materials");
 		LanguageRegistry.instance().addStringLocalization("itemGroup.TConstructBlocks", "TConstruct Blocks");
@@ -102,7 +131,7 @@ public class TProxyClient extends TProxyCommon
 			LanguageRegistry.instance().addStringLocalization(internalName, "en_US", visibleName);
 		}
 		
-		//LanguageRegistry.addName(TConstructContent.smeltery, "Smeltery");
+		LanguageRegistry.addName(TContent.smeltery, "Smeltery");
 		LanguageRegistry.addName(TContent.manualBook, "Tinker's Log");
 		LanguageRegistry.addName(TContent.blankPattern, "Blank Pattern");
 		LanguageRegistry.addName(TContent.pickaxe, "Pickaxe");
@@ -115,6 +144,32 @@ public class TProxyClient extends TProxyCommon
 		LanguageRegistry.addName(TContent.battlesign, "Battlesign");
 		LanguageRegistry.addName(TContent.mattock, "Mattock");
 		LanguageRegistry.addName(TContent.lumberaxe, "Lumber Axe");
+		
+		LanguageRegistry.addName(TContent.ironFlowing, "Liquid Iron");
+		LanguageRegistry.addName(TContent.ironStill, "Liquid Iron");
+		LanguageRegistry.addName(TContent.goldFlowing, "Liquid Gold");
+		LanguageRegistry.addName(TContent.goldStill, "Liquid Gold");
+		LanguageRegistry.addName(TContent.copperFlowing, "Liquid Copper");
+		LanguageRegistry.addName(TContent.copperStill, "Liquid Copper");
+		LanguageRegistry.addName(TContent.tinFlowing, "Liquid Tin");
+		LanguageRegistry.addName(TContent.tinStill, "Liquid Tin");
+		LanguageRegistry.addName(TContent.aluminumFlowing, "Liquid Aluminum");
+		LanguageRegistry.addName(TContent.aluminumStill, "Liquid Aluminum");
+		LanguageRegistry.addName(TContent.cobaltFlowing, "Liquid Cobalt");
+		LanguageRegistry.addName(TContent.cobaltStill, "Liquid Cobalt");
+		LanguageRegistry.addName(TContent.arditeFlowing, "Liquid Ardite");
+		LanguageRegistry.addName(TContent.arditeStill, "Liquid Ardite");
+
+		LanguageRegistry.addName(TContent.bronzeFlowing, "Liquid Bronze");
+		LanguageRegistry.addName(TContent.bronzeStill, "Liquid Bronze");
+		LanguageRegistry.addName(TContent.brassFlowing, "Liquid Brass");
+		LanguageRegistry.addName(TContent.brassStill, "Liquid Brass");
+		LanguageRegistry.addName(TContent.alumiteFlowing, "Liquid Alumite");
+		LanguageRegistry.addName(TContent.alumiteStill, "Liquid Alumite");
+		LanguageRegistry.addName(TContent.manyullynFlowing, "Liquid Manyullyn");
+		LanguageRegistry.addName(TContent.manyullynStill, "Liquid Manyullyn");
+		LanguageRegistry.addName(TContent.obsidianFlowing, "Liquid Obsidian");
+		LanguageRegistry.addName(TContent.obsidianStill, "Liquid Obsidian");
 	}
 	
 
@@ -174,8 +229,8 @@ public class TProxyClient extends TProxyCommon
 	{
 		switch (stack.getItemDamage())
 		{
-		case 0: return diary;
-		case 1: return volume1;
+		case 1: return diary;
+		case 0: return volume1;
 		}
 		
 		return null;

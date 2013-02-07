@@ -35,7 +35,7 @@ public class TankRender implements ISimpleBlockRenderingHandler
 				Block liquidBlock = Block.blocksList[logic.liquid.itemID];
 				if (liquidBlock != null)
 				{
-					renderer.setRenderBounds(0.03, 0.03, 0.03, 0.97, logic.getLiquidAmount()/1020f, 0.97);
+					renderer.setRenderBounds(0.03, 0.03, 0.03, 0.97, logic.getLiquidAmount()/4020f, 0.97);
 					renderer.renderStandardBlock(liquidBlock, x, y, z);
 				}
 			}

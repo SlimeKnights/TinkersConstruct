@@ -97,10 +97,12 @@ public class Pattern extends CraftingItem
 	public ItemStack getPatternOutput (ItemStack stack, MaterialSet set)
 	{
 		int type = stack.getItemDamage();
-		if (type != 0 && type < TContent.patternOutputs.length - 1)
+		if (type != 0 && type < TContent.patternOutputs.length + 1)
 		{
+			System.out.println("Returning type");
 			return new ItemStack(TContent.patternOutputs[type - 1], 1, set.materialID);
 		}
+		System.out.println("Returning null");
 		return null;
 	}
 }

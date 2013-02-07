@@ -13,6 +13,7 @@ import tinker.common.InventoryBlock;
 import tinker.common.InventoryLogic;
 import tinker.tconstruct.TConstruct;
 import tinker.tconstruct.TContent;
+import tinker.tconstruct.TGuiHandler;
 import tinker.tconstruct.logic.SmelteryLogic;
 
 public class SmelteryBlock extends InventoryBlock
@@ -100,7 +101,7 @@ public class SmelteryBlock extends InventoryBlock
 	@Override
 	public Integer getGui (World world, int x, int y, int z, EntityPlayer entityplayer)
 	{
-		return 3;
+		return TGuiHandler.smeltery;
 	}
 
 	public void randomDisplayTick (World world, int x, int y, int z, Random random)
