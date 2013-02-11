@@ -7,7 +7,7 @@ public class SearedBrickItemBlock extends ItemBlock
 {
     public static final String blockType[] =
     {
-        "Brick"
+        "Brick", "Cobalt", "Ardite", "Copper", "Tin", "Aluminum", "Slag"
     };
 
     public SearedBrickItemBlock(int id)

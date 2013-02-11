@@ -109,6 +109,38 @@ public class PHConstruct {
         mattock = config.getItem("Tools", "Mattock", 14060).getInt(14060);
         lumberaxe = config.getItem("Tools", "Lumber Axe", 14061).getInt(14061);
         longbow = config.getItem("Tools", "Longbow", 14062).getInt(14062);
+        
+        boolean ic2 = true;
+        boolean xycraft = true;
+        try
+        {
+        	Class c = Class.forName("ic2.core.IC2");
+        	ic2 = false;
+        }
+        catch (Exception e) {}
+        try
+        {
+        	Class c = Class.forName("soaryn.xycraft.XyCraft");
+        	xycraft = false;
+        }
+        catch (Exception e) {}
+        
+        generateCopper = config.get("Worldgen", "Generate Copper", ic2).getBoolean(ic2);
+        generateTin = config.get("Worldgen", "Generate Tin", ic2).getBoolean(ic2);
+        generateAluminum = config.get("Worldgen", "Generate Aluminum", xycraft).getBoolean(xycraft);
+        generateCobalt = config.get("Worldgen", "Generate Cobalt", true).getBoolean(true);
+        generateArdite = config.get("Worldgen", "Generate Ardite", true).getBoolean(true);
+        
+        copperDensity = config.get("Worldgen", "Copper Density", 8).getInt(8);
+        copperHeight = config.get("Worldgen", "Copper Height", 20).getInt(20);
+        copperRange = config.get("Worldgen", "Copper Range", 40).getInt(40);
+        tinDensity = config.get("Worldgen", "Tin Density", 8).getInt(8);
+        tinHeight = config.get("Worldgen", "Tin Height", 0).getInt(0);
+        tinRange = config.get("Worldgen", "Tin Range", 40).getInt(40);
+        aluminumDensity = config.get("Worldgen", "Aluminum Density", 9).getInt(9);
+        aluminumHeight = config.get("Worldgen", "Aluminum Height", 0).getInt(0);
+        aluminumRange = config.get("Worldgen", "Aluminum Range", 64).getInt(64);
+        netherDensity = config.get("Worldgen", "Nether Ores Density", 8).getInt(8);
 
         /* Save the configuration file */
         config.save();
@@ -194,4 +226,22 @@ public class PHConstruct {
     public static int lumberHead;
     
     public static int binding;
+    
+    //Ore values
+    public static boolean generateCopper;
+    public static boolean generateTin;
+    public static boolean generateAluminum;
+    public static boolean generateCobalt;
+    public static boolean generateArdite;
+        
+    public static int copperDensity;
+    public static int copperHeight;
+    public static int copperRange;
+    public static int tinDensity;
+    public static int tinHeight;
+    public static int tinRange;
+    public static int aluminumDensity;
+    public static int aluminumHeight;
+    public static int aluminumRange;
+    public static int netherDensity;
 }

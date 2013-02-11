@@ -6,6 +6,6 @@ public class LiquidCopperFlowFX extends TextureLiquidFlowingFX
 {
 	public LiquidCopperFlowFX()
 	{
-		super(180, 255, 100, 255, 10, 40, TContent.copperFlowing.blockIndexInTexture+1, TContent.copperFlowing.getTextureFile());
+		super(220, 255, 130, 220, 0, 120, TContent.copperFlowing.blockIndexInTexture+1, TContent.copperFlowing.getTextureFile());
 	}
 }

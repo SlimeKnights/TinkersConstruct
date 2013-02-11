@@ -7,6 +7,7 @@ import java.util.Random;
 
 import tinker.tconstruct.util.SortedList;
 
+import net.minecraft.block.Block;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
@@ -16,22 +17,25 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class ManhattanOreGenerator extends WorldGenerator
 {
-
 	private List<Integer> replaceableBlocks;
 	private int numberOfBlocks;
 	private int sizeVariance;
 	private int metadata;
 	private int minableBlockId;
 	private int density;
+	private boolean generateLines;
+	private boolean checkGenMinable;
 	
-	public ManhattanOreGenerator(int id, int meta, int minSize, int maxSize, int density, Object... replacableIDs)
+	public ManhattanOreGenerator(int id, int meta, int minSize, int maxSize, int dense, boolean lines, boolean replaceGenMinable, Object... replacableIDs)
 	{
 		minableBlockId = id;
 		metadata = meta;
 		numberOfBlocks = minSize;
 		sizeVariance = maxSize - minSize + 1;
-		this.density = density;
+		density = dense;
 		replaceableBlocks = new ArrayList<Integer>();
+		generateLines = lines;
+		checkGenMinable = replaceGenMinable;
 		for(Object i : replacableIDs)
 		{
 			replaceableBlocks.add((Integer) i);
@@ -46,7 +50,16 @@ public class ManhattanOreGenerator extends WorldGenerator
 	public boolean spawnOre(World world, int x, int y, int z)
 	{
 		int currentID = world.getBlockId(x, y, z);
-        if(replaceableBlocks.contains(currentID))
+		if (checkGenMinable)
+		{
+			Block block = Block.blocksList[currentID];
+			if (block != null && block.isGenMineableReplaceable(world, x, y, z))
+			{
+				world.setBlock(x, y, z, this.minableBlockId);
+	        	world.setBlockMetadata(x, y, z, this.metadata);
+			}
+		}
+		else if(replaceableBlocks.contains(currentID))
         {
         	world.setBlock(x, y, z, this.minableBlockId);
         	world.setBlockMetadata(x, y, z, this.metadata);
@@ -103,7 +116,8 @@ public class ManhattanOreGenerator extends WorldGenerator
 				cpm.add(i);
 			
 			int pickedOre = (int) (((random.nextFloat()*random.nextFloat())) * sortedList.size());
-			pickedOre = sortedList.size()-1; //Comment this line to create groups instead of lines
+			if (!generateLines)
+				pickedOre = sortedList.size()-1; //Comment this line to create groups instead of lines
 			Integer[] coords = sortedList.get(pickedOre);
 			
 			Integer[] finalCoords = {coords[0], coords[1], coords[2]};

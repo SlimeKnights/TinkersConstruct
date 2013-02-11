@@ -2,6 +2,7 @@ package tinker.tconstruct.client.liquidrender;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderEngine;
+import net.minecraft.util.MathHelper;
 
 import org.lwjgl.opengl.GL11;
 
@@ -11,6 +12,12 @@ public class TextureLiquidFlowingFX extends FMLTextureFX
 {
 	private final int redMin, redMax, greenMin, greenMax, blueMin, blueMax;
 	private final String texture;
+	
+	protected float red[];
+	protected float blue[];
+	protected float green[];
+	protected float alpha[];
+	private int animFrame;
 
 	public TextureLiquidFlowingFX(int redMin, int redMax, int greenMin, int greenMax, int blueMin, int blueMax, int spriteIndex, String texture)
 	{
@@ -46,7 +53,91 @@ public class TextureLiquidFlowingFX extends FMLTextureFX
 	@Override
 	public void onTick ()
 	{
-		animFrame++;
+		++this.animFrame;
+        int var2;
+        float var3;
+        int r;
+        int g;
+        int b;
+        int var8;
+        int var9;
+
+        for (int var1 = 0; var1 < tileSizeBase; ++var1)
+        {
+            for (var2 = 0; var2 < tileSizeBase; ++var2)
+            {
+                var3 = 0.0F;
+                int var4 = (int)(MathHelper.sin((float)var2 * (float)Math.PI * 2.0F / 16.0F) * 1.2F);
+                r = (int)(MathHelper.sin((float)var1 * (float)Math.PI * 2.0F / 16.0F) * 1.2F);
+
+                for (g = var1 - 1; g <= var1 + 1; ++g)
+                {
+                    for (b = var2 - 1; b <= var2 + 1; ++b)
+                    {
+                        var8 = g + var4 & tileSizeMask;
+                        var9 = b + r & tileSizeMask;
+                        var3 += this.red[var8 + var9 * tileSizeBase];
+                    }
+                }
+
+                this.blue[var1 + var2 * tileSizeBase] = var3 / 10.0F + (this.green[(var1 + 0 & tileSizeMask) + (var2 + 0 & tileSizeMask) * tileSizeBase] + this.green[(var1 + 1 & tileSizeMask) + (var2 + 0 & tileSizeMask) * tileSizeBase] + this.green[(var1 + 1 & tileSizeMask) + (var2 + 1 & tileSizeMask) * tileSizeBase] + this.green[(var1 + 0 & tileSizeMask) + (var2 + 1 & tileSizeMask) * tileSizeBase]) / 4.0F * 0.8F;
+                this.green[var1 + var2 * tileSizeBase] += this.alpha[var1 + var2 * tileSizeBase] * 0.01F;
+
+                if (this.green[var1 + var2 * tileSizeBase] < 0.0F)
+                {
+                    this.green[var1 + var2 * tileSizeBase] = 0.0F;
+                }
+
+                this.alpha[var1 + var2 * tileSizeBase] -= 0.06F;
+
+                if (Math.random() < 0.005D)
+                {
+                    this.alpha[var1 + var2 * tileSizeBase] = 1.5F;
+                }
+            }
+        }
+
+        float[] var11 = this.blue;
+        this.blue = this.red;
+        this.red = var11;
+
+        for (var2 = 0; var2 < tileSizeSquare; ++var2)
+        {
+            var3 = this.red[(var2 - this.animFrame / 3 * tileSizeBase) & tileSizeSquareMask] * 2.0F;
+
+            if (var3 > 1.0F)
+            {
+                var3 = 1.0F;
+            }
+
+            if (var3 < 0.0F)
+            {
+                var3 = 0.0F;
+            }
+
+            //r = (int)(var3 * 100.0F + 155.0F);
+            //g = (int)(var3 * var3 * 255.0F);
+            //b = (int)(var3 * var3 * var3 * var3 * 128.0F);
+            r = (int) (redMin + var3 * (redMax - redMin));
+			g = (int) (greenMin + var3 * (greenMax - greenMin));
+			b = (int) (blueMin + var3 * (blueMax - blueMin));
+
+            if (this.anaglyphEnabled)
+            {
+                var8 = (r * 30 + g * 59 + b * 11) / 100;
+                var9 = (r * 30 + g * 70) / 100;
+                int var10 = (r * 30 + b * 70) / 100;
+                r = var8;
+                g = var9;
+                b = var10;
+            }
+
+            this.imageData[var2 * 4 + 0] = (byte)r;
+            this.imageData[var2 * 4 + 1] = (byte)g;
+            this.imageData[var2 * 4 + 2] = (byte)b;
+            this.imageData[var2 * 4 + 3] = -1;
+        }
+		/*animFrame++;
 		for (int i = 0; i < tileSizeBase; i++)
 		{
 			for (int k = 0; k < tileSizeBase; k++)
@@ -95,9 +186,9 @@ public class TextureLiquidFlowingFX extends FMLTextureFX
 				f1 = 0.0F;
 			}
 			float f2 = f1 * f1;
-			/*int r = (int) (10F + f2 * 22F);
-			int g = (int) (50F + f2 * 64F);
-			int b = 255;*/
+			//int r = (int) (10F + f2 * 22F);
+			//int g = (int) (50F + f2 * 64F);
+			//int b = 255;
 
 			int r = (int) (redMin + f2 * (redMax - redMin));
 			int g = (int) (greenMin + f2 * (greenMax - greenMin));
@@ -114,19 +205,13 @@ public class TextureLiquidFlowingFX extends FMLTextureFX
 			imageData[i1 * 4 + 0] = (byte) r;
 			imageData[i1 * 4 + 1] = (byte) g;
 			imageData[i1 * 4 + 2] = (byte) b;
-			imageData[i1 * 4 + 3] = /*(byte)l2*/(byte) 255;
+			imageData[i1 * 4 + 3] = (byte)l2(byte) 255;
 
 			//imageData[i1 * 4 + 0] = (byte) l1;
 			//imageData[i1 * 4 + 1] = (byte) l1;
 			//imageData[i1 * 4 + 2] = (byte) l1;
-			//imageData[i1 * 4 + 3] = /* (byte)l2 */(byte) 255;
-		}
+			//imageData[i1 * 4 + 3] =  (byte)l2 (byte) 255;
+		}*/
 
 	}
-
-	protected float red[];
-	protected float blue[];
-	protected float green[];
-	protected float alpha[];
-	private int animFrame;
 }

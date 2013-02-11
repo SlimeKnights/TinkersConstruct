@@ -7,17 +7,41 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
-
 import tinker.common.IPattern;
-import tinker.tconstruct.blocks.*;
-import tinker.tconstruct.blocks.liquids.*;
-import tinker.tconstruct.client.gui.*;
-import tinker.tconstruct.crafting.*;
-import tinker.tconstruct.items.*;
-import tinker.tconstruct.modifiers.*;
-import tinker.tconstruct.tools.*;
-
+import tinker.tconstruct.blocks.EquipBlock;
+import tinker.tconstruct.blocks.SearedBrick;
+import tinker.tconstruct.blocks.TConstructBlock;
+import tinker.tconstruct.blocks.ToolStationBlock;
+import tinker.tconstruct.client.gui.ToolGuiElement;
+import tinker.tconstruct.crafting.PatternBuilder;
+import tinker.tconstruct.crafting.ToolBuilder;
+import tinker.tconstruct.items.CraftingItem;
+import tinker.tconstruct.items.Materials;
+import tinker.tconstruct.items.Pattern;
+import tinker.tconstruct.items.PatternManual;
+import tinker.tconstruct.items.ToolPart;
+import tinker.tconstruct.items.ToolShard;
+import tinker.tconstruct.modifiers.ModBlaze;
+import tinker.tconstruct.modifiers.ModBoolean;
+import tinker.tconstruct.modifiers.ModDurability;
+import tinker.tconstruct.modifiers.ModElectric;
+import tinker.tconstruct.modifiers.ModInteger;
+import tinker.tconstruct.modifiers.ModLapisBase;
+import tinker.tconstruct.modifiers.ModLapisIncrease;
+import tinker.tconstruct.modifiers.ModRedstone;
+import tinker.tconstruct.modifiers.ModRepair;
+import tinker.tconstruct.tools.Axe;
+import tinker.tconstruct.tools.BattleSign;
+import tinker.tconstruct.tools.Broadsword;
+import tinker.tconstruct.tools.FryingPan;
+import tinker.tconstruct.tools.Longsword;
+import tinker.tconstruct.tools.Mattock;
+import tinker.tconstruct.tools.Pickaxe;
+import tinker.tconstruct.tools.Rapier;
+import tinker.tconstruct.tools.Shovel;
+import tinker.tconstruct.tools.ToolCore;
 import cpw.mods.fml.common.IFuelHandler;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -70,7 +94,6 @@ public class TContent implements IFuelHandler
 	public static Block smeltery;
 
 	public static Block heldItemBlock;
-	public static Block ores;
 	public static Block lavaTank;
 	public static Block craftedSoil;
 	public static Block searedBrick;
@@ -143,70 +166,75 @@ public class TContent implements IFuelHandler
 		//ores = new TBaseOre(PHTools.ores, 48);
 		//GameRegistry.registerBlock(ores, tinker.toolconstruct.blocks.TBaseOreItem.class, "TConstruct.ores");
 
-		lavaTank = new LavaTankBlock(PHConstruct.lavaTank);
+		/*lavaTank = new LavaTankBlock(PHConstruct.lavaTank);
 		GameRegistry.registerBlock(lavaTank, "LavaTank");
 		GameRegistry.registerTileEntity(tinker.tconstruct.logic.LavaTankLogic.class, "TConstruct.LavaTank");
 
 		smeltery = new SmelteryBlock(PHConstruct.smeltery);
 		GameRegistry.registerBlock(smeltery, "Smeltery");
-		GameRegistry.registerTileEntity(tinker.tconstruct.logic.SmelteryLogic.class, "TConstruct.Smeltery");
+		GameRegistry.registerTileEntity(tinker.tconstruct.logic.SmelteryLogic.class, "TConstruct.Smeltery");*/
 
 		craftedSoil = new TConstructBlock(PHConstruct.craftedSoil, 96, Material.sand, 3.0F, 2);
 		craftedSoil.stepSound = Block.soundGravelFootstep;
 		GameRegistry.registerBlock(craftedSoil, tinker.tconstruct.blocks.CraftedSoilItemBlock.class, "CraftedSoil");
 
-		searedBrick = new TConstructBlock(PHConstruct.searedBrick, 80, Material.iron, 10.0F, 1);
+		searedBrick = new SearedBrick(PHConstruct.searedBrick, 80, Material.iron, 10.0F, 6);
 		GameRegistry.registerBlock(searedBrick, tinker.tconstruct.blocks.SearedBrickItemBlock.class, "SearedBrick");
 		MinecraftForge.setBlockHarvestLevel(searedBrick, 0, "pickaxe", 2);
+		MinecraftForge.setBlockHarvestLevel(searedBrick, 1, "pickaxe", 4);
+		MinecraftForge.setBlockHarvestLevel(searedBrick, 2, "pickaxe", 4);
+		MinecraftForge.setBlockHarvestLevel(searedBrick, 3, "pickaxe", 1);
+		MinecraftForge.setBlockHarvestLevel(searedBrick, 4, "pickaxe", 1);
+		MinecraftForge.setBlockHarvestLevel(searedBrick, 5, "pickaxe", 1);
 
-		ironFlowing = new IronFlowing(PHConstruct.ironFlowing).setBlockName("liquid.ironFlow");
+		/*ironFlowing = new IronFlowing(PHConstruct.ironFlowing).setBlockName("liquid.ironFlow");
 		GameRegistry.registerBlock(ironFlowing, "Liquid Iron Flowing");
 		ironStill = new IronStill(PHConstruct.ironStill).setBlockName("liquid.ironStill");
 		GameRegistry.registerBlock(ironStill, "Liquid Iron Still");
-		goldFlowing = new GoldStill(PHConstruct.goldFlowing).setBlockName("liquid.goldFlow");
+		goldFlowing = new GoldFlowing(PHConstruct.goldFlowing).setBlockName("liquid.goldFlow");
 		GameRegistry.registerBlock(goldFlowing, "Liquid Gold Flowing");
-		goldStill = new GoldFlowing(PHConstruct.goldStill).setBlockName("liquid.goldStill");
+		goldStill = new GoldStill(PHConstruct.goldStill).setBlockName("liquid.goldStill");
 		GameRegistry.registerBlock(goldStill, "Liquid Gold Still");
-		copperFlowing = new CopperStill(PHConstruct.copperFlowing).setBlockName("liquid.copperFlow");
+		copperFlowing = new CopperFlowing(PHConstruct.copperFlowing).setBlockName("liquid.copperFlow");
 		GameRegistry.registerBlock(copperFlowing, "Liquid copper Flowing");
-		copperStill = new CopperFlowing(PHConstruct.copperStill).setBlockName("liquid.copperStill");
+		copperStill = new CopperStill(PHConstruct.copperStill).setBlockName("liquid.copperStill");
 		GameRegistry.registerBlock(copperStill, "Liquid copper Still");
-		tinFlowing = new TinStill(PHConstruct.tinFlowing).setBlockName("liquid.tinFlow");
+		tinFlowing = new TinFlowing(PHConstruct.tinFlowing).setBlockName("liquid.tinFlow");
 		GameRegistry.registerBlock(tinFlowing, "Liquid tin Flowing");
-		tinStill = new TinFlowing(PHConstruct.tinStill).setBlockName("liquid.tinStill");
+		tinStill = new TinStill(PHConstruct.tinStill).setBlockName("liquid.tinStill");
 		GameRegistry.registerBlock(tinStill, "Liquid tin Still");
-		aluminumFlowing = new AluminumStill(PHConstruct.aluminumFlowing).setBlockName("liquid.aluminumFlow");
+		aluminumFlowing = new AluminumFlowing(PHConstruct.aluminumFlowing).setBlockName("liquid.aluminumFlow");
 		GameRegistry.registerBlock(aluminumFlowing, "Liquid aluminum Flowing");
-		aluminumStill = new AluminumFlowing(PHConstruct.aluminumStill).setBlockName("liquid.aluminumStill");
+		aluminumStill = new AluminumStill(PHConstruct.aluminumStill).setBlockName("liquid.aluminumStill");
 		GameRegistry.registerBlock(aluminumStill, "Liquid aluminum Still");
-		cobaltFlowing = new CobaltStill(PHConstruct.cobaltFlowing).setBlockName("liquid.cobaltFlow");
+		cobaltFlowing = new CobaltFlowing(PHConstruct.cobaltFlowing).setBlockName("liquid.cobaltFlow");
 		GameRegistry.registerBlock(cobaltFlowing, "Liquid cobalt Flowing");
-		cobaltStill = new CobaltFlowing(PHConstruct.cobaltStill).setBlockName("liquid.cobaltStill");
+		cobaltStill = new CobaltStill(PHConstruct.cobaltStill).setBlockName("liquid.cobaltStill");
 		GameRegistry.registerBlock(cobaltStill, "Liquid cobalt Still");
-		arditeFlowing = new ArditeStill(PHConstruct.arditeFlowing).setBlockName("liquid.arditeFlow");
+		arditeFlowing = new ArditeFlowing(PHConstruct.arditeFlowing).setBlockName("liquid.arditeFlow");
 		GameRegistry.registerBlock(arditeFlowing, "Liquid ardite Flowing");
-		arditeStill = new ArditeFlowing(PHConstruct.arditeStill).setBlockName("liquid.arditeStill");
+		arditeStill = new ArditeStill(PHConstruct.arditeStill).setBlockName("liquid.arditeStill");
 		GameRegistry.registerBlock(arditeStill, "Liquid ardite Still");
-		bronzeFlowing = new BronzeStill(PHConstruct.bronzeFlowing).setBlockName("liquid.bronzeFlow");
+		bronzeFlowing = new BronzeFlowing(PHConstruct.bronzeFlowing).setBlockName("liquid.bronzeFlow");
 		GameRegistry.registerBlock(bronzeFlowing, "Liquid bronze Flowing");
-		bronzeStill = new BronzeFlowing(PHConstruct.bronzeStill).setBlockName("liquid.bronzeStill");
+		bronzeStill = new BronzeStill(PHConstruct.bronzeStill).setBlockName("liquid.bronzeStill");
 		GameRegistry.registerBlock(bronzeStill, "Liquid bronze Still");
-		brassFlowing = new BrassStill(PHConstruct.brassFlowing).setBlockName("liquid.brassFlow");
+		brassFlowing = new BrassFlowing(PHConstruct.brassFlowing).setBlockName("liquid.brassFlow");
 		GameRegistry.registerBlock(brassFlowing, "Liquid brass Flowing");
-		brassStill = new BrassFlowing(PHConstruct.brassStill).setBlockName("liquid.brassStill");
+		brassStill = new BrassStill(PHConstruct.brassStill).setBlockName("liquid.brassStill");
 		GameRegistry.registerBlock(brassStill, "Liquid brass Still");
-		manyullynFlowing = new ManyullynStill(PHConstruct.manyullynFlowing).setBlockName("liquid.manyullynFlow");
+		manyullynFlowing = new ManyullynFlowing(PHConstruct.manyullynFlowing).setBlockName("liquid.manyullynFlow");
 		GameRegistry.registerBlock(manyullynFlowing, "Liquid manyullyn Flowing");
-		manyullynStill = new ManyullynFlowing(PHConstruct.manyullynStill).setBlockName("liquid.manyullynStill");
+		manyullynStill = new ManyullynStill(PHConstruct.manyullynStill).setBlockName("liquid.manyullynStill");
 		GameRegistry.registerBlock(manyullynStill, "Liquid manyullun Still");
-		alumiteFlowing = new AlumiteStill(PHConstruct.alumiteFlowing).setBlockName("liquid.alumiteFlow");
+		alumiteFlowing = new AlumiteFlowing(PHConstruct.alumiteFlowing).setBlockName("liquid.alumiteFlow");
 		GameRegistry.registerBlock(alumiteFlowing, "Liquid alumite Flowing");
-		alumiteStill = new AlumiteFlowing(PHConstruct.alumiteStill).setBlockName("liquid.alumiteStill");
+		alumiteStill = new AlumiteStill(PHConstruct.alumiteStill).setBlockName("liquid.alumiteStill");
 		GameRegistry.registerBlock(alumiteStill, "Liquid alumite Still");
-		obsidianFlowing = new ObsidianStill(PHConstruct.obsidianFlowing).setBlockName("liquid.obsidianFlow");
+		obsidianFlowing = new ObsidianFlowing(PHConstruct.obsidianFlowing).setBlockName("liquid.obsidianFlow");
 		GameRegistry.registerBlock(obsidianFlowing, "Liquid obsidian Flowing");
-		obsidianStill = new ObsidianFlowing(PHConstruct.obsidianStill).setBlockName("liquid.obsidianStill");
-		GameRegistry.registerBlock(obsidianStill, "Liquid obsidian Still");
+		obsidianStill = new ObsidianStill(PHConstruct.obsidianStill).setBlockName("liquid.obsidianStill");
+		GameRegistry.registerBlock(obsidianStill, "Liquid obsidian Still");*/
 	}
 
 	void createItems ()
@@ -232,7 +260,7 @@ public class TContent implements IFuelHandler
 		battlesign = new BattleSign(PHConstruct.battlesign, signTexture);
 		//longbow = new RangedWeapon(PHConstruct.longbow, bowTexture);
 		mattock = new Mattock(PHConstruct.mattock, mattockTexture);
-		lumberaxe = new LumberAxe(PHConstruct.lumberaxe, lumberaxeTexture);
+		//lumberaxe = new LumberAxe(PHConstruct.lumberaxe, lumberaxeTexture);
 
 		pickaxeHead = new ToolPart(PHConstruct.pickaxeHead, 0, baseHeads).setItemName("tconstruct.PickaxeHead");
 		shovelHead = new ToolPart(PHConstruct.shovelHead, 64, baseHeads).setItemName("tconstruct.ShovelHead");
@@ -382,7 +410,7 @@ public class TContent implements IFuelHandler
 	
 	void addSmelteryRecipes()
 	{
-		Smeltery.instance.addSmelting(Block.oreIron.blockID, 0, 35, new ItemStack(Item.ingotIron, 1, 0));
+		//Smeltery.instance.addSmelting(Block.oreIron.blockID, 0, 450, new ItemStack(ironStill, 1, 0));
 	}
 
 	void addCraftingRecipes ()
@@ -418,6 +446,12 @@ public class TContent implements IFuelHandler
 		FurnaceRecipes.smelting().addSmelting(craftedSoil.blockID, 0, new ItemStack(materials, 1, 1), 2f); //Slime
 		FurnaceRecipes.smelting().addSmelting(craftedSoil.blockID, 1, new ItemStack(materials, 1, 2), 2f); //Seared brick item
 		GameRegistry.addRecipe(new ItemStack(searedBrick, 1, 0), "pp", "pp", 'p', new ItemStack(materials, 1, 2)); //Seared brick block
+		
+		FurnaceRecipes.smelting().addSmelting(searedBrick.blockID, 1, new ItemStack(materials, 1, 3), 3f);
+		FurnaceRecipes.smelting().addSmelting(searedBrick.blockID, 2, new ItemStack(materials, 1, 4), 3f);
+		FurnaceRecipes.smelting().addSmelting(searedBrick.blockID, 3, new ItemStack(materials, 1, 9), 0.5f);
+		FurnaceRecipes.smelting().addSmelting(searedBrick.blockID, 4, new ItemStack(materials, 1, 10), 0.5f);
+		FurnaceRecipes.smelting().addSmelting(searedBrick.blockID, 5, new ItemStack(materials, 1, 12), 0.5f);
 
 		/*for (int i = 0; i < 12; i++)
 		{
@@ -492,6 +526,23 @@ public class TContent implements IFuelHandler
 	void addToolButton (int slotType, int xButton, int yButton, int[] xIcons, int[] yIcons, String title, String body)
 	{
 		TConstructRegistry.toolButtons.add(new ToolGuiElement(slotType, xButton, yButton, xIcons, yIcons, title, body));
+	}
+	
+	public void oreRegistry ()
+	{
+		OreDictionary.registerOre("oreCobalt", new ItemStack(searedBrick, 1, 1));
+		OreDictionary.registerOre("oreArdite", new ItemStack(searedBrick, 1, 2));
+		OreDictionary.registerOre("oreCopper", new ItemStack(searedBrick, 1, 3));
+		OreDictionary.registerOre("oreTin", new ItemStack(searedBrick, 1, 4));
+		OreDictionary.registerOre("oreAluminum", new ItemStack(searedBrick, 1, 5));
+		
+		OreDictionary.registerOre("ingotCobalt", new ItemStack(materials, 1, 3));
+		OreDictionary.registerOre("ingotArdite", new ItemStack(materials, 1, 4));
+		OreDictionary.registerOre("ingotManyullyn", new ItemStack(materials, 1, 5));
+		OreDictionary.registerOre("ingotCopper", new ItemStack(materials, 1, 9));
+		OreDictionary.registerOre("ingotTin", new ItemStack(materials, 1, 10));
+		OreDictionary.registerOre("ingotAluminum", new ItemStack(materials, 1, 11));
+		OreDictionary.registerOre("rawAluminum", new ItemStack(materials, 1, 12));
 	}
 
 	public void modIntegration ()

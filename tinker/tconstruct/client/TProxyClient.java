@@ -31,12 +31,13 @@ public class TProxyClient extends TProxyCommon
 		Minecraft mc = Minecraft.getMinecraft();
 		smallFontRenderer = new SmallFontRenderer(mc.gameSettings, "/font/default.png", mc.renderEngine, false);
 		RenderingRegistry.registerBlockHandler(new TableRender());
+		RenderingRegistry.registerBlockHandler(new SmelteryRender());
 		RenderingRegistry.registerBlockHandler(new TankRender());
 		RenderingRegistry.registerBlockHandler(new FrypanRender());
 		RenderingRegistry.registerBlockHandler(new RenderLiquidMetal());
 		//RenderingRegistry.registerBlockHandler(new AxleRender());
 		
-		RenderEngine renderEngine = FMLClientHandler.instance().getClient().renderEngine;
+		/*RenderEngine renderEngine = FMLClientHandler.instance().getClient().renderEngine;
 		renderEngine.registerTextureFX(new LiquidIronFX());
 		renderEngine.registerTextureFX(new LiquidIronFlowFX());
 		renderEngine.registerTextureFX(new LiquidGoldFX());
@@ -60,7 +61,7 @@ public class TProxyClient extends TProxyCommon
 		renderEngine.registerTextureFX(new LiquidAlumiteFX());
 		renderEngine.registerTextureFX(new LiquidAlumiteFlowFX());
 		renderEngine.registerTextureFX(new LiquidObsidianFX());
-		renderEngine.registerTextureFX(new LiquidObsidianFlowFX());
+		renderEngine.registerTextureFX(new LiquidObsidianFlowFX());*/
 		
 		//Tools
 		MinecraftForgeClient.preloadTexture(TContent.blockTexture);
@@ -79,7 +80,7 @@ public class TProxyClient extends TProxyCommon
 	/* Ties an internal name to a visible one. */
 	public void addNames() 
 	{
-		LanguageRegistry.addName(TContent.lavaTank, "Lava Tank");
+		//LanguageRegistry.addName(TContent.lavaTank, "Lava Tank");
 		LanguageRegistry.instance().addStringLocalization("itemGroup.TConstructTools", "TConstruct Tools");
 		LanguageRegistry.instance().addStringLocalization("itemGroup.TConstructMaterials", "TConstruct Materials");
 		LanguageRegistry.instance().addStringLocalization("itemGroup.TConstructBlocks", "TConstruct Blocks");
@@ -99,6 +100,12 @@ public class TProxyClient extends TProxyCommon
 		LanguageRegistry.instance().addStringLocalization("CraftedSoil.Slime.name", "Slimy Mud");
 		LanguageRegistry.instance().addStringLocalization("CraftedSoil.Grout.name", "Grout");
 		LanguageRegistry.instance().addStringLocalization("SearedBrick.Brick.name", "Seared Bricks");
+		LanguageRegistry.instance().addStringLocalization("SearedBrick.Cobalt.name", "Cobalt Ore");
+		LanguageRegistry.instance().addStringLocalization("SearedBrick.Ardite.name", "Ardite Ore");
+		LanguageRegistry.instance().addStringLocalization("SearedBrick.Copper.name", "Copper Ore");
+		LanguageRegistry.instance().addStringLocalization("SearedBrick.Tin.name", "Tin Ore");
+		LanguageRegistry.instance().addStringLocalization("SearedBrick.Aluminum.name", "Aluminum Ore");
+		LanguageRegistry.instance().addStringLocalization("SearedBrick.Slag.name", "Slag");
 		
 		for (int mat = 0; mat < materialTypes.length; mat++)
 		{
@@ -131,7 +138,7 @@ public class TProxyClient extends TProxyCommon
 			LanguageRegistry.instance().addStringLocalization(internalName, "en_US", visibleName);
 		}
 		
-		LanguageRegistry.addName(TContent.smeltery, "Smeltery");
+		//LanguageRegistry.addName(TContent.smeltery, "Smeltery");
 		LanguageRegistry.addName(TContent.manualBook, "Tinker's Log");
 		LanguageRegistry.addName(TContent.blankPattern, "Blank Pattern");
 		LanguageRegistry.addName(TContent.pickaxe, "Pickaxe");
@@ -143,9 +150,9 @@ public class TProxyClient extends TProxyCommon
 		LanguageRegistry.addName(TContent.frypan, "Frying Pan");
 		LanguageRegistry.addName(TContent.battlesign, "Battlesign");
 		LanguageRegistry.addName(TContent.mattock, "Mattock");
-		LanguageRegistry.addName(TContent.lumberaxe, "Lumber Axe");
+		//LanguageRegistry.addName(TContent.lumberaxe, "Lumber Axe");
 		
-		LanguageRegistry.addName(TContent.ironFlowing, "Liquid Iron");
+		/*LanguageRegistry.addName(TContent.ironFlowing, "Liquid Iron");
 		LanguageRegistry.addName(TContent.ironStill, "Liquid Iron");
 		LanguageRegistry.addName(TContent.goldFlowing, "Liquid Gold");
 		LanguageRegistry.addName(TContent.goldStill, "Liquid Gold");
@@ -169,7 +176,7 @@ public class TProxyClient extends TProxyCommon
 		LanguageRegistry.addName(TContent.manyullynFlowing, "Liquid Manyullyn");
 		LanguageRegistry.addName(TContent.manyullynStill, "Liquid Manyullyn");
 		LanguageRegistry.addName(TContent.obsidianFlowing, "Liquid Obsidian");
-		LanguageRegistry.addName(TContent.obsidianStill, "Liquid Obsidian");
+		LanguageRegistry.addName(TContent.obsidianStill, "Liquid Obsidian");*/
 	}
 	
 
@@ -178,10 +185,12 @@ public class TProxyClient extends TProxyCommon
 		"Cobalt Chunk", "Ardite Chunk", "Manyullyn Chunk", "Copper Chunk", "Bronze Chunk" };
 	
 	public static final String[] materialItemInternalNames = new String[] { 
-		"PaperStack", "SlimeCrystal", "SearedBrick", "CobaltIngot", "ArditeIngot", "ManyullynIngot", "Mossball", "LavaCrystal", "NecroticBone" };
+		"PaperStack", "SlimeCrystal", "SearedBrick", "CobaltIngot", "ArditeIngot", "ManyullynIngot", "Mossball", "LavaCrystal", "NecroticBone",
+		"CopperIngot", "TinIngot", "AluminumIngot", "RawAluminum" };
 	
 	public static final String[] materialItemNames = new String[] { 
-		"Paper Stack", "Slime Crystal", "Seared Brick", "Cobalt Ingot", "Ardite Ingot", "Manyullyn Ingot", "Ball of Moss", "Lava Crystal", "Necrotic Bone" };
+		"Paper Stack", "Slime Crystal", "Seared Brick", "Cobalt Ingot", "Ardite Ingot", "Manyullyn Ingot", "Ball of Moss", "Lava Crystal", "Necrotic Bone",
+		"Copper Ingot", "Tin Ingot", "Aluminum Ingot", "Raw Aluminum"};
 	
 	public static final String[] toolMaterialNames = new String[] { 
 		"Wood", "Stone", "Iron", "Flint", "Cactus", "Bone", "Obsidian", "Netherrack", "Slime", "Paper", "Cobalt", "Ardite", "Manyullyn", "Copper", "Bronze" };
@@ -229,8 +238,8 @@ public class TProxyClient extends TProxyCommon
 	{
 		switch (stack.getItemDamage())
 		{
-		case 1: return diary;
-		case 0: return volume1;
+		case 0: return diary;
+		case 1: return volume1;
 		}
 		
 		return null;

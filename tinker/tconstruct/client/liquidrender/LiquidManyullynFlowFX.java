@@ -6,6 +6,6 @@ public class LiquidManyullynFlowFX extends TextureLiquidFlowingFX
 {
 	public LiquidManyullynFlowFX()
 	{
-		super(150, 250, 50, 120, 150, 250, TContent.manyullynFlowing.blockIndexInTexture+1, TContent.manyullynFlowing.getTextureFile());
+		super(50, 200, 0, 40, 50, 200, TContent.manyullynFlowing.blockIndexInTexture+1, TContent.manyullynFlowing.getTextureFile());
 	}
 }

@@ -6,6 +6,6 @@ public class LiquidBronzeFlowFX extends TextureLiquidFlowingFX
 {
 	public LiquidBronzeFlowFX()
 	{
-		super(140, 220, 70, 220, 10, 40, TContent.bronzeFlowing.blockIndexInTexture+1, TContent.arditeFlowing.getTextureFile());
+		super(0, 180, 0, 140, 0, 50, TContent.bronzeFlowing.blockIndexInTexture+1, TContent.arditeFlowing.getTextureFile());
 	}
 }

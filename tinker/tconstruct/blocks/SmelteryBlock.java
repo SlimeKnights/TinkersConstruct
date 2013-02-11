@@ -14,6 +14,7 @@ import tinker.common.InventoryLogic;
 import tinker.tconstruct.TConstruct;
 import tinker.tconstruct.TContent;
 import tinker.tconstruct.TGuiHandler;
+import tinker.tconstruct.client.SmelteryRender;
 import tinker.tconstruct.logic.SmelteryLogic;
 
 public class SmelteryBlock extends InventoryBlock
@@ -29,6 +30,12 @@ public class SmelteryBlock extends InventoryBlock
 		rand = new Random();
 		this.setCreativeTab(TConstruct.blockTab);
 		this.setBlockName("tconstruct.Smeltery");
+	}
+	
+	@Override
+	public int getRenderType ()
+	{
+		return SmelteryRender.smelteryModel;
 	}
 
 	public String getTextureFile ()

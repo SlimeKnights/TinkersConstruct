@@ -2,6 +2,7 @@ package tinker.tconstruct.worldgen;
 
 import java.util.Random;
 
+import tinker.tconstruct.PHConstruct;
 import tinker.tconstruct.TContent;
 
 import net.minecraft.block.Block;
@@ -15,8 +16,12 @@ public class TBaseWorldGenerator
 {
 	public TBaseWorldGenerator()
 	{
-		cobalt = new ManhattanOreGenerator(TContent.ores.blockID, 0, 2, 4, 100, Block.netherrack.blockID);
-		ardite = new ManhattanOreGenerator(TContent.ores.blockID, 1, 2, 4, 100, Block.netherrack.blockID);
+		copper = new ManhattanOreGenerator(TContent.searedBrick.blockID, 3, 5, 10, 100, true, true);
+		tin = new ManhattanOreGenerator(TContent.searedBrick.blockID, 4, 5, 10, 100, true, true);
+		aluminum = new ManhattanOreGenerator(TContent.searedBrick.blockID, 5, 8, 20, 100, false, true);
+		
+		cobalt = new ManhattanOreGenerator(TContent.searedBrick.blockID, 1, 2, 4, 100, true, false, Block.netherrack.blockID);
+		ardite = new ManhattanOreGenerator(TContent.searedBrick.blockID, 2, 2, 4, 100, true, false, Block.netherrack.blockID);
 	}
 	
 	@Override
@@ -24,26 +29,74 @@ public class TBaseWorldGenerator
 	{
 		if (world.provider.dimensionId == -1)
 			generateNether(random, chunkX*16, chunkZ*16, world);
+		else
+			generateSurface(random, chunkX*16, chunkZ*16, world);
+	}
+	
+	void generateSurface(Random random, int xChunk, int zChunk, World world)
+	{
+		int heightBand;
+		int xPos, yPos, zPos;
+		if (PHConstruct.generateCopper)
+		{
+			for (int q = 0; q < PHConstruct.copperDensity; q++)
+			{
+				xPos = xChunk + random.nextInt(16); yPos = PHConstruct.copperHeight + random.nextInt(PHConstruct.copperRange); zPos = zChunk + random.nextInt(16);
+				copper.generate(world, random, xPos, yPos, zPos);
+			}
+		}
+		if (PHConstruct.generateTin)
+		{
+			for (int q = 0; q < PHConstruct.tinDensity; q++)
+			{
+				xPos = xChunk + random.nextInt(16); yPos = PHConstruct.tinHeight + random.nextInt(PHConstruct.tinRange); zPos = zChunk + random.nextInt(16);
+				tin.generate(world, random, xPos, yPos, zPos);
+			}
+		}
+		if (PHConstruct.generateAluminum)
+		{
+			for (int q = 0; q < PHConstruct.aluminumDensity; q++)
+			{
+				xPos = xChunk + random.nextInt(16); yPos = PHConstruct.aluminumHeight + random.nextInt(PHConstruct.aluminumRange); zPos = zChunk + random.nextInt(16);
+				aluminum.generate(world, random, xPos, yPos, zPos);
+			}
+		}
 	}
 	
 	void generateNether(Random random, int xChunk, int zChunk, World world)
 	{
-		for (int i = 0; i < 6; i++)
+		int xPos, yPos, zPos;
+		for (int i = 0; i < PHConstruct.netherDensity; i++)
 		{
-			int xPos = xChunk + random.nextInt(16), yPos = random.nextInt(64), zPos = zChunk + random.nextInt(16);
-			cobalt.generate(world, random, xPos, yPos, zPos);
-			xPos = xChunk + random.nextInt(16); yPos = random.nextInt(64)+32; zPos = zChunk + random.nextInt(16);
-			ardite.generate(world, random, xPos, yPos, zPos);
+			if (PHConstruct.generateCobalt)
+			{
+				xPos = xChunk + random.nextInt(16); yPos = random.nextInt(64); zPos = zChunk + random.nextInt(16);
+				cobalt.generate(world, random, xPos, yPos, zPos);
+			}
+			if (PHConstruct.generateArdite)
+			{
+				xPos = xChunk + random.nextInt(16); yPos = random.nextInt(64)+32; zPos = zChunk + random.nextInt(16);
+				ardite.generate(world, random, xPos, yPos, zPos);
+			}
 		}
-		for (int i = 0; i < 6; i++)
+		for (int i = 0; i < PHConstruct.netherDensity; i++)
 		{
-			int xPos = xChunk + random.nextInt(16), yPos = random.nextInt(128), zPos = zChunk + random.nextInt(16);
-			cobalt.generate(world, random, xPos, yPos, zPos);
-			xPos = xChunk + random.nextInt(16); yPos = random.nextInt(128); zPos = zChunk + random.nextInt(16);
-			ardite.generate(world, random, xPos, yPos, zPos);
+			if (PHConstruct.generateCobalt)
+			{
+				xPos = xChunk + random.nextInt(16); yPos = random.nextInt(128); zPos = zChunk + random.nextInt(16);
+				cobalt.generate(world, random, xPos, yPos, zPos);
+			}
+			if (PHConstruct.generateArdite)
+			{
+				xPos = xChunk + random.nextInt(16); yPos = random.nextInt(128); zPos = zChunk + random.nextInt(16);
+				ardite.generate(world, random, xPos, yPos, zPos);
+			}
 		}
 	}
-
+	
+	ManhattanOreGenerator copper;
+	ManhattanOreGenerator tin;
+	ManhattanOreGenerator aluminum;
 	ManhattanOreGenerator cobalt;
 	ManhattanOreGenerator ardite;
 }

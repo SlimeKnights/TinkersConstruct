@@ -3,6 +3,7 @@ package tinker.tconstruct.client.entityrender;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
+import tinker.tconstruct.client.tmt.ModelRendererTurbo;
 
 public class SkylaModel extends ModelBase
 {
@@ -39,6 +40,7 @@ public class SkylaModel extends ModelBase
 
 		Head = new ModelRenderer(this, 0, 0);
 		Head.addBox(-4F, -8F, -4F, 8, 8, 8);
+		//Head.addCylinder(0, 0, 0, 8, 16, 24, 0, ModelRendererTurbo.MR_BOTTOM);
 		Head.setRotationPoint(0F, -3F, 0F);
 		setRotation(Head, 0F, 0F, 0F);
 		
@@ -194,24 +196,10 @@ public class SkylaModel extends ModelBase
 		Breast.render(f5);
 		RightArm.render(f5);
 		LeftArm.render(f5);
-		//RightHand.render(f5);
-		//LeftHand.render(f5);
 		RightLeg.render(f5);
 		LeftLeg.render(f5);
-		//RightFoot.render(f5);
-		//LeftFoot.render(f5);
 		WingBaseRight.render(f5);
-		//WingEdgeRight.render(f5);
-		//WingInsetRight.render(f5);
-		//WingCenterRight.render(f5);
-		//WingFlangeRight.render(f5);
-		//WingAuxRight.render(f5);
 		WingBaseLeft.render(f5);
-		//WingEdgeLeft.render(f5);
-		//WingInsetLeft.render(f5);
-		//WingCenterLeft.render(f5);
-		//WingFlangeLeft.render(f5);
-		//WingAuxLeft.render(f5);
 	}
 
 	private void setRotation (ModelRenderer model, float x, float y, float z)

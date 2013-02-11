@@ -8,9 +8,8 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.OreDictionary.OreRegisterEvent;
-import tinker.tconstruct.client.gui.ToolGuiElement;
 import tinker.tconstruct.crafting.PatternBuilder;
-import tinker.tconstruct.tools.ToolCore;
+import tinker.tconstruct.worldgen.TBaseWorldGenerator;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
 import cpw.mods.fml.common.Mod.Instance;
@@ -22,13 +21,14 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 /** TConstruct, the tool mod.
  * Craft your tools with style, then modify until the original is gone!
  * @author: mDiyo
  */
 
-@Mod(modid = "TConstruct", name = "TConstruct", version = "1.4.7_1.1.4")
+@Mod(modid = "TConstruct", name = "TConstruct", version = "1.4.7_1.1.5")
 @NetworkMod(serverSideRequired = false, clientSideRequired = true, channels={"TConstruct"}, packetHandler = tinker.tconstruct.TPacketHandler.class)
 public class TConstruct 
 {
@@ -55,7 +55,8 @@ public class TConstruct
 	@Init
 	public void load(FMLInitializationEvent evt) 
 	{
-		//GameRegistry.registerWorldGenerator(new TBaseWorldGenerator());
+		GameRegistry.registerWorldGenerator(new TBaseWorldGenerator());
+		content.oreRegistry();
 	}
 	
 	@PostInit

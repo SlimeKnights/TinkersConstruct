@@ -13,15 +13,12 @@ import net.minecraftforge.liquids.ILiquid;
 
 public abstract class LiquidMetalFlowing extends BlockFluid implements ILiquid
 {
-
-	int numAdjacentSources = 0;
 	boolean isOptimalFlowDirection[] = new boolean[4];
 	int flowCost[] = new int[4];
 
 	public LiquidMetalFlowing(int id)
 	{
 		super(id, Material.lava);
-		setHardness(100F);
 	}
 
 	@Override
@@ -38,34 +35,35 @@ public abstract class LiquidMetalFlowing extends BlockFluid implements ILiquid
 
 	private void updateFlow (World world, int x, int y, int z)
 	{
-		int l = world.getBlockMetadata(x, y, z);
-		world.setBlockAndMetadata(x, y, z, stillLiquidId(), l);
+		//System.out.println("x: "+x+", y: "+y+", z: "+z);
+		int meta = world.getBlockMetadata(x, y, z);
+		world.setBlockAndMetadata(x, y, z, stillLiquidId(), meta);
 		world.markBlockRangeForRenderUpdate(x, y, z, x, y, z);
 		world.markBlockForUpdate(x, y, z);
 	}
 
 	@Override
-	public void updateTick (World world, int i, int j, int k, Random random)
+	public void updateTick (World world, int x, int y, int z, Random random)
 	{
-		int l = getFlowDecay(world, i, j, k);
+		//System.out.println("x: "+x+", y: "+y+", z: "+z);
+		int l = getFlowDecay(world, x, y, z);
 		byte byte0 = 1;
 		boolean flag = true;
 		if (l > 0)
 		{
 			int i1 = -100;
-			numAdjacentSources = 0;
-			i1 = getSmallestFlowDecay(world, i - 1, j, k, i1);
-			i1 = getSmallestFlowDecay(world, i + 1, j, k, i1);
-			i1 = getSmallestFlowDecay(world, i, j, k - 1, i1);
-			i1 = getSmallestFlowDecay(world, i, j, k + 1, i1);
+			i1 = getSmallestFlowDecay(world, x - 1, y, z, i1);
+			i1 = getSmallestFlowDecay(world, x + 1, y, z, i1);
+			i1 = getSmallestFlowDecay(world, x, y, z - 1, i1);
+			i1 = getSmallestFlowDecay(world, x, y, z + 1, i1);
 			int j1 = i1 + byte0;
 			if (j1 >= 8 || i1 < 0)
 			{
 				j1 = -1;
 			}
-			if (getFlowDecay(world, i, j + 1, k) >= 0)
+			if (getFlowDecay(world, x, y + 1, z) >= 0)
 			{
-				int l1 = getFlowDecay(world, i, j + 1, k);
+				int l1 = getFlowDecay(world, x, y + 1, z);
 				if (l1 >= 8)
 				{
 					j1 = l1;
@@ -80,38 +78,38 @@ public abstract class LiquidMetalFlowing extends BlockFluid implements ILiquid
 				l = j1;
 				if (l < 0)
 				{
-					world.setBlockWithNotify(i, j, k, 0);
+					world.setBlockWithNotify(x, y, z, 0);
 				}
 				else
 				{
-					world.setBlockMetadataWithNotify(i, j, k, l);
-					world.scheduleBlockUpdate(i, j, k, blockID, tickRate());
-					world.notifyBlocksOfNeighborChange(i, j, k, blockID);
+					world.setBlockMetadataWithNotify(x, y, z, l);
+					world.scheduleBlockUpdate(x, y, z, blockID, tickRate());
+					world.notifyBlocksOfNeighborChange(x, y, z, blockID);
 				}
 			}
 			else if (flag)
 			{
-				updateFlow(world, i, j, k);
+				updateFlow(world, x, y, z);
 			}
 		}
 		else
 		{
-			updateFlow(world, i, j, k);
+			updateFlow(world, x, y, z);
 		}
-		if (liquidCanDisplaceBlock(world, i, j - 1, k))
+		if (liquidCanDisplaceBlock(world, x, y - 1, z))
 		{
 			if (l >= 8)
 			{
-				world.setBlockAndMetadataWithNotify(i, j - 1, k, blockID, l);
+				world.setBlockAndMetadataWithNotify(x, y - 1, z, blockID, l);
 			}
 			else
 			{
-				world.setBlockAndMetadataWithNotify(i, j - 1, k, blockID, l + 8);
+				world.setBlockAndMetadataWithNotify(x, y - 1, z, blockID, l + 8);
 			}
 		}
-		else if (l >= 0 && (l == 0 || blockBlocksFlow(world, i, j - 1, k)))
+		else if (l >= 0 && (l == 0 || blockBlocksFlow(world, x, y - 1, z)))
 		{
-			boolean aflag[] = getOptimalFlowDirections(world, i, j, k);
+			boolean aflag[] = getOptimalFlowDirections(world, x, y, z);
 			int k1 = l + byte0;
 			if (l >= 8)
 			{
@@ -121,37 +119,37 @@ public abstract class LiquidMetalFlowing extends BlockFluid implements ILiquid
 				return;
 			if (aflag[0])
 			{
-				flowIntoBlock(world, i - 1, j, k, k1);
+				flowIntoBlock(world, x - 1, y, z, k1);
 			}
 			if (aflag[1])
 			{
-				flowIntoBlock(world, i + 1, j, k, k1);
+				flowIntoBlock(world, x + 1, y, z, k1);
 			}
 			if (aflag[2])
 			{
-				flowIntoBlock(world, i, j, k - 1, k1);
+				flowIntoBlock(world, x, y, z - 1, k1);
 			}
 			if (aflag[3])
 			{
-				flowIntoBlock(world, i, j, k + 1, k1);
+				flowIntoBlock(world, x, y, z + 1, k1);
 			}
 		}
 	}
 
-	private void flowIntoBlock (World world, int i, int j, int k, int l)
+	private void flowIntoBlock (World world, int x, int y, int z, int meta)
 	{
-		if (liquidCanDisplaceBlock(world, i, j, k))
+		if (liquidCanDisplaceBlock(world, x, y, z))
 		{
-			int i1 = world.getBlockId(i, j, k);
-			if (i1 > 0)
+			int bID = world.getBlockId(x, y, z);
+			if (bID > 0)
 			{
-				Block.blocksList[i1].dropBlockAsItem(world, i, j, k, world.getBlockMetadata(i, j, k), 0);
+				Block.blocksList[bID].dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z), 0);
 			}
-			world.setBlockAndMetadataWithNotify(i, j, k, blockID, l);
+			world.setBlockAndMetadataWithNotify(x, y, z, blockID, meta);
 		}
 	}
 
-	private int calculateFlowCost (World world, int i, int j, int k, int l, int i1)
+	private int calculateFlowCost (World world, int x, int y, int z, int l, int i1)
 	{
 		int j1 = 1000;
 		for (int k1 = 0; k1 < 4; k1++)
@@ -160,36 +158,36 @@ public abstract class LiquidMetalFlowing extends BlockFluid implements ILiquid
 			{
 				continue;
 			}
-			int l1 = i;
-			int i2 = j;
-			int j2 = k;
+			int posX = x;
+			int posY = y;
+			int posZ = z;
 			if (k1 == 0)
 			{
-				l1--;
+				posX--;
 			}
 			if (k1 == 1)
 			{
-				l1++;
+				posX++;
 			}
 			if (k1 == 2)
 			{
-				j2--;
+				posZ--;
 			}
 			if (k1 == 3)
 			{
-				j2++;
+				posZ++;
 			}
-			if (blockBlocksFlow(world, l1, i2, j2) || world.getBlockMaterial(l1, i2, j2) == blockMaterial && world.getBlockMetadata(l1, i2, j2) == 0)
+			if (blockBlocksFlow(world, posX, posY, posZ) || world.getBlockMaterial(posX, posY, posZ) == blockMaterial && world.getBlockMetadata(posX, posY, posZ) == 0)
 			{
 				continue;
 			}
-			if (!blockBlocksFlow(world, l1, i2 - 1, j2))
+			if (!blockBlocksFlow(world, posX, posY - 1, posZ))
 				return l;
 			if (l >= 4)
 			{
 				continue;
 			}
-			int k2 = calculateFlowCost(world, l1, i2, j2, l + 1, k1);
+			int k2 = calculateFlowCost(world, posX, posY, posZ, l + 1, k1);
 			if (k2 < j1)
 			{
 				j1 = k2;
@@ -201,54 +199,54 @@ public abstract class LiquidMetalFlowing extends BlockFluid implements ILiquid
 
 	private boolean[] getOptimalFlowDirections (World world, int x, int y, int z)
 	{
-		for (int l = 0; l < 4; l++)
+		for (int iter = 0; iter < 4; iter++)
 		{
-			flowCost[l] = 1000;
-			int j1 = x;
-			int i2 = y;
-			int j2 = z;
-			if (l == 0)
+			flowCost[iter] = 1000;
+			int posX = x;
+			int posY = y;
+			int posZ = z;
+			if (iter == 0)
 			{
-				j1--;
+				posX--;
 			}
-			if (l == 1)
+			if (iter == 1)
 			{
-				j1++;
+				posX++;
 			}
-			if (l == 2)
+			if (iter == 2)
 			{
-				j2--;
+				posZ--;
 			}
-			if (l == 3)
+			if (iter == 3)
 			{
-				j2++;
+				posZ++;
 			}
-			if (blockBlocksFlow(world, j1, i2, j2) || world.getBlockMaterial(j1, i2, j2) == blockMaterial && world.getBlockMetadata(j1, i2, j2) == 0)
+			if (blockBlocksFlow(world, posX, posY, posZ) || world.getBlockMaterial(posX, posY, posZ) == blockMaterial && world.getBlockMetadata(posX, posY, posZ) == 0)
 			{
 				continue;
 			}
-			if (!blockBlocksFlow(world, j1, i2 - 1, j2))
+			if (!blockBlocksFlow(world, posX, posY - 1, posZ))
 			{
-				flowCost[l] = 0;
+				flowCost[iter] = 0;
 			}
 			else
 			{
-				flowCost[l] = calculateFlowCost(world, j1, i2, j2, 1, l);
+				flowCost[iter] = calculateFlowCost(world, posX, posY, posZ, 1, iter);
 			}
 		}
 
-		int i1 = flowCost[0];
+		int cost = flowCost[0];
 		for (int k1 = 1; k1 < 4; k1++)
 		{
-			if (flowCost[k1] < i1)
+			if (flowCost[k1] < cost)
 			{
-				i1 = flowCost[k1];
+				cost = flowCost[k1];
 			}
 		}
 
 		for (int l1 = 0; l1 < 4; l1++)
 		{
-			isOptimalFlowDirection[l1] = flowCost[l1] == i1;
+			isOptimalFlowDirection[l1] = flowCost[l1] == cost;
 		}
 
 		return isOptimalFlowDirection;
@@ -265,9 +263,9 @@ public abstract class LiquidMetalFlowing extends BlockFluid implements ILiquid
 		return material.isSolid();
 	}
 
-	protected int getSmallestFlowDecay (World world, int i, int j, int k, int l)
+	protected int getSmallestFlowDecay (World world, int x, int y, int z, int l)
 	{
-		int i1 = getFlowDecay(world, i, j, k);
+		int i1 = getFlowDecay(world, x, y, z);
 		if (i1 < 0)
 			return l;
 		if (i1 >= 8)
@@ -277,22 +275,23 @@ public abstract class LiquidMetalFlowing extends BlockFluid implements ILiquid
 		return l >= 0 && i1 >= l ? l : i1;
 	}
 
-	private boolean liquidCanDisplaceBlock (World world, int i, int j, int k)
+	private boolean liquidCanDisplaceBlock (World world, int x, int y, int z)
 	{
-		Material material = world.getBlockMaterial(i, j, k);
+		Material material = world.getBlockMaterial(x, y, z);
 		if (material == blockMaterial)
 			return false;
 		else
-			return !blockBlocksFlow(world, i, j, k);
+			return !blockBlocksFlow(world, x, y, z);
 	}
 
 	@Override
-	public void onBlockAdded (World world, int i, int j, int k)
+	public void onBlockAdded (World world, int x, int y, int z)
 	{
-		super.onBlockAdded(world, i, j, k);
-		if (world.getBlockId(i, j, k) == blockID)
+		//System.out.println("x: "+x+", y: "+y+", z: "+z);
+		super.onBlockAdded(world, x, y, z);
+		if (world.getBlockId(x, y, z) == blockID)
 		{
-			world.scheduleBlockUpdate(i, j, k, blockID, tickRate());
+			world.scheduleBlockUpdate(x, y, z, blockID, tickRate());
 		}
 	}
 
@@ -307,11 +306,4 @@ public abstract class LiquidMetalFlowing extends BlockFluid implements ILiquid
 	{
 		return false;
 	}
-
-	@Override
-	public boolean isBlockReplaceable (World world, int i, int j, int k)
-	{
-		return true;
-	}
-
 }

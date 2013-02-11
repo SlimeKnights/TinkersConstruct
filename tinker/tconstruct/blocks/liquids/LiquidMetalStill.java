@@ -131,15 +131,14 @@ public abstract class LiquidMetalStill extends BlockStationary implements ILiqui
         }
     }
 	
-	private void unsetStationary(World par1World, int par2, int par3, int par4)
+	private void unsetStationary(World world, int x, int y, int z)
     {
-		System.out.println("unsetStationary");
-        int var5 = par1World.getBlockMetadata(par2, par3, par4);
-        par1World.editingBlocks = true;
-        par1World.setBlockAndMetadata(par2, par3, par4, flowingLiquidID(), var5);
-        par1World.markBlockRangeForRenderUpdate(par2, par3, par4, par2, par3, par4);
-        par1World.scheduleBlockUpdate(par2, par3, par4, flowingLiquidID(), this.tickRate());
-        par1World.editingBlocks = false;
+        int meta = world.getBlockMetadata(x, y, z);
+        world.editingBlocks = true;
+        world.setBlockAndMetadata(x, y, z, flowingLiquidID(), meta);
+        world.markBlockRangeForRenderUpdate(x, y, z, x, y, z);
+        world.scheduleBlockUpdate(x, y, z, flowingLiquidID(), this.tickRate());
+        world.editingBlocks = false;
     }
 	
 	/*@Override

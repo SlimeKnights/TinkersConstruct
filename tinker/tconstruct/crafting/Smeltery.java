@@ -31,11 +31,11 @@ public class Smeltery
     public static Integer getSmeltingTemperature(ItemStack item) 
     {
         if (item == null)
-            return 0;
+            return 20;
         
         Integer temp = instance.temperatureList.get(Arrays.asList(item.itemID, item.getItemDamage()));
         if (temp == null)
-        	return 0;
+        	return 20;
         else
         	return temp;
         //return instance.temperatureList.get(Arrays.asList(item.itemID, item.getItemDamage()));
