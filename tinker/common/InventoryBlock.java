@@ -103,34 +103,11 @@ public abstract class InventoryBlock extends BlockContainer
 			IFacingLogic direction = (IFacingLogic) logic;
 			if (entityliving == null)
 	        {
-				direction.setDirection((byte)1);
+				direction.setDirection(0F, 0F);
 	        }
 	        else
 	        {
-	            int facing = MathHelper.floor_double((double)((entityliving.rotationYaw * 4F) / 360F) + 0.5D) & 3;
-	            switch (facing)
-	            {
-	                case 0:
-	                	direction.setDirection((byte)2);
-	                    break;
-
-	                case 1:
-	                	direction.setDirection((byte)5);
-	                    break;
-
-	                case 2:
-	                	direction.setDirection((byte)3);
-	                    break;
-
-	                case 3:
-	                	direction.setDirection((byte)4);
-	                    break;
-	            }
-
-	        	if (direction.canFaceVertical())
-	        	{
-	        		//TODO: Vertical facing
-	        	}
+	        	direction.setDirection(entityliving.rotationYaw * 4F, entityliving.rotationPitch);
 	        }
 		}
     }

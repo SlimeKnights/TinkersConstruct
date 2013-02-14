@@ -5,6 +5,7 @@ import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.client.ForgeHooksClient;
+import net.minecraftforge.liquids.LiquidStack;
 
 import org.lwjgl.opengl.GL11;
 
@@ -34,6 +35,7 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
 			if (logic.validStructure)
 			{
 				int posX = logic.centerPos.x - 1, posY = logic.centerPos.y, posZ = logic.centerPos.z - 1;
+				//Melting
 				for (int i = 0; i < 9; i++)
 				{
 					if (logic.isStackInSlot(i))
@@ -42,6 +44,14 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
 						ForgeHooksClient.bindTexture(invBlock.getTextureFile(), 0);
 						renderer.renderStandardBlock(invBlock, posX + i % 3, posY, posZ + i / 3);
 					}
+				}
+				
+				//Liquids
+				for (LiquidStack liquid : logic.moltenMetal)
+				{
+					Block invBlock = Block.blocksList[liquid.itemID];
+					ForgeHooksClient.bindTexture(invBlock.getTextureFile(), 0);
+					renderer.renderStandardBlock(invBlock, posX, posY, posZ);
 				}
 			}
 		}

@@ -1,14 +1,18 @@
 package tinker.tconstruct.crafting;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.liquids.LiquidStack;
 
 /** Melting and hacking, churn and burn */
 public class Smeltery
 {
     public static Smeltery instance = new Smeltery();
 
-    private HashMap<List<Integer>, ItemStack> smeltingList = new HashMap<List<Integer>, ItemStack>();
+    private HashMap<List<Integer>, LiquidStack> smeltingList = new HashMap<List<Integer>, LiquidStack>();
     private HashMap<List<Integer>, Integer> temperatureList = new HashMap<List<Integer>, Integer>();
 
 	/** Adds a mapping between an input and an itemstack
@@ -17,7 +21,7 @@ public class Smeltery
 	 * @param metadata Damage or use
 	 * @param itemstack
 	 */
-    public static void addSmelting(int itemID, int metadata, int temperature, ItemStack itemstack)
+    public static void addLiquidMelting(int itemID, int metadata, int temperature, LiquidStack itemstack)
     {
         instance.smeltingList.put(Arrays.asList(itemID, metadata), itemstack);
         instance.temperatureList.put(Arrays.asList(itemID, metadata), temperature);
@@ -61,18 +65,18 @@ public class Smeltery
      * @param item The Source ItemStack
      * @return The result ItemStack
      */
-    public static ItemStack getSmeltingResult(ItemStack item) 
+    public static LiquidStack getSmeltingResult(ItemStack item) 
     {
         if (item == null)
             return null;
         
-        ItemStack stack = (ItemStack) instance.smeltingList.get(Arrays.asList(item.itemID, item.getItemDamage()));
+        LiquidStack stack = (LiquidStack) instance.smeltingList.get(Arrays.asList(item.itemID, item.getItemDamage()));
         if (stack == null)
         	return null;
         return stack.copy();
     }
     
-    public static ItemStack getSmeltingResult(int blockID)
+    public static LiquidStack getSmeltingResult(int blockID)
     {
     	return getSmeltingResult(blockID, 0);
     }
@@ -82,9 +86,9 @@ public class Smeltery
      * @param item The Source ItemStack
      * @return The result ItemStack
      */
-    public static ItemStack getSmeltingResult(int blockID, int metadata) 
+    public static LiquidStack getSmeltingResult(int blockID, int metadata) 
     {
-    	 ItemStack stack = (ItemStack) instance.smeltingList.get(Arrays.asList(blockID, metadata));
+    	LiquidStack stack = (LiquidStack) instance.smeltingList.get(Arrays.asList(blockID, metadata));
          if (stack == null)
          	return null;
          return stack.copy();

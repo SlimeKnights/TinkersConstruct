@@ -26,6 +26,8 @@ public class ManhattanOreGenerator extends WorldGenerator
 	private boolean generateLines;
 	private boolean checkGenMinable;
 	
+	List<Integer[]> possibleMoves = new ArrayList<Integer[]>();
+	
 	public ManhattanOreGenerator(int id, int meta, int minSize, int maxSize, int dense, boolean lines, boolean replaceGenMinable, Object... replacableIDs)
 	{
 		minableBlockId = id;
@@ -40,6 +42,29 @@ public class ManhattanOreGenerator extends WorldGenerator
 		{
 			replaceableBlocks.add((Integer) i);
 		}
+		initPossibleMoves();		
+	}
+	
+	void initPossibleMoves()
+	{
+		possibleMoves.add(new Integer[] {1, 0, 0});
+		possibleMoves.add(new Integer[] {0, 1, 0});
+		possibleMoves.add(new Integer[] {0, 0, 1});
+		possibleMoves.add(new Integer[] {-1, 0, 0});
+		possibleMoves.add(new Integer[] {0, -1, 0});
+		possibleMoves.add(new Integer[] {0, 0, -1});
+		possibleMoves.add(new Integer[] {1, 1, 0});
+		possibleMoves.add(new Integer[] {-1, 1, 0});
+		possibleMoves.add(new Integer[] {1, -1, 0});
+		possibleMoves.add(new Integer[] {-1, -1, 0});
+		possibleMoves.add(new Integer[] {1, 0, 1});
+		possibleMoves.add(new Integer[] {-1, 0, 1});
+		possibleMoves.add(new Integer[] {1, 0, -1});
+		possibleMoves.add(new Integer[] {-1, 0, -1});
+		possibleMoves.add(new Integer[] {0, 1, 1});
+		possibleMoves.add(new Integer[] {0, -1, 1});
+		possibleMoves.add(new Integer[] {0, 1, -1});
+		possibleMoves.add(new Integer[] {0, -1, -1});
 	}
 	
 	public boolean spawnOre(World world, Integer[] coords)
@@ -74,38 +99,16 @@ public class ManhattanOreGenerator extends WorldGenerator
 		@Override
 		public int compare(Integer[] arg0, Integer[] arg1) {
 			return (arg0[0] - arg1[0]) + (arg0[1] - arg1[1]) + (arg0[2] - arg1[2]);
-		}
-		
+		}		
 	}
 
 	@Override
 	public boolean generate(World world, Random random, int x, int y, int z)
     {
-		//List<Integer[]> spawnedCoords = new ArrayList<Integer[]>();
 		SortedList<Integer[]> sortedList = new SortedList<Integer[]>(new CompareCoordinates());
 		
 		spawnOre(world, x, y, z);
-		sortedList.add(new Integer[] {x, y, z});
-		
-		List<Integer[]> possibleMoves = new ArrayList<Integer[]>();
-		possibleMoves.add(new Integer[] {1, 0, 0});
-		possibleMoves.add(new Integer[] {0, 1, 0});
-		possibleMoves.add(new Integer[] {0, 0, 1});
-		possibleMoves.add(new Integer[] {-1, 0, 0});
-		possibleMoves.add(new Integer[] {0, -1, 0});
-		possibleMoves.add(new Integer[] {0, 0, -1});
-		possibleMoves.add(new Integer[] {1, 1, 0});
-		possibleMoves.add(new Integer[] {-1, 1, 0});
-		possibleMoves.add(new Integer[] {1, -1, 0});
-		possibleMoves.add(new Integer[] {-1, -1, 0});
-		possibleMoves.add(new Integer[] {1, 0, 1});
-		possibleMoves.add(new Integer[] {-1, 0, 1});
-		possibleMoves.add(new Integer[] {1, 0, -1});
-		possibleMoves.add(new Integer[] {-1, 0, -1});
-		possibleMoves.add(new Integer[] {0, 1, 1});
-		possibleMoves.add(new Integer[] {0, -1, 1});
-		possibleMoves.add(new Integer[] {0, 1, -1});
-		possibleMoves.add(new Integer[] {0, -1, -1});
+		sortedList.add(new Integer[] {x, y, z});		
 		
 		int trueSize = 1;
 		int randomSize = this.numberOfBlocks + random.nextInt(this.sizeVariance);
@@ -117,7 +120,7 @@ public class ManhattanOreGenerator extends WorldGenerator
 			
 			int pickedOre = (int) (((random.nextFloat()*random.nextFloat())) * sortedList.size());
 			if (!generateLines)
-				pickedOre = sortedList.size()-1; //Comment this line to create groups instead of lines
+				pickedOre = sortedList.size()-1;
 			Integer[] coords = sortedList.get(pickedOre);
 			
 			Integer[] finalCoords = {coords[0], coords[1], coords[2]};
@@ -135,11 +138,11 @@ public class ManhattanOreGenerator extends WorldGenerator
 				cpm.remove(pick);
 			} while(sortedList.contains(finalCoords));
 			
-			if(random.nextInt(100) < density)
-			{
+			//if(random.nextInt(100) < density)
+			//{
 				spawnOre(world, finalCoords);
 				trueSize++;
-			}
+			//}
 			sortedList.add(finalCoords);
 		}
 		

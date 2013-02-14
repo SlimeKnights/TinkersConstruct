@@ -1,9 +1,11 @@
 package tinker.tconstruct.client.gui;
 
+import net.minecraft.block.Block;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import net.minecraftforge.client.ForgeHooksClient;
 
 import org.lwjgl.opengl.GL11;
 
@@ -45,8 +47,19 @@ public class SmelteryGui extends GuiContainer
 		drawTexturedModalRect(cornerX, cornerY, 0, 0, xSize, ySize);
 		if (logic.fuelGague > 0)
 		{
+			ForgeHooksClient.bindTexture(Block.lavaStill.getTextureFile(), 0);
+			int index = Block.lavaStill.getBlockTextureFromSideAndMetadata(0, 0);
+			int texX = index % 16 * 16;
+			int texY = index / 16 * 16;
 			int fuel = logic.getScaledFuelGague(52);
-			drawTexturedModalRect(cornerX + 146, (cornerY + 67) - fuel, 176, 52 - fuel, 14, fuel + 2);
+			int count = 0;
+			while (fuel > 0)
+			{
+				int size = fuel >= 16 ? 16 : fuel;
+				fuel -= size;
+				drawTexturedModalRect(cornerX + 146, (cornerY + 67) - size - 16*count, texX, texY+16-size, 9, size);
+				count++;
+			}
 		}
 
 		// Draw description

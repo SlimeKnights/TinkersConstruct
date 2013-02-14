@@ -1,15 +1,16 @@
 package tinker.tconstruct.logic;
 
-import net.minecraft.block.Block;
+import java.util.ArrayList;
+
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.liquids.ILiquidTank;
 import net.minecraftforge.liquids.LiquidStack;
@@ -41,6 +42,10 @@ public class SmelteryLogic extends InventoryLogic
 	public int[] activeTemps;
 	public int[] meltingTemps;
 	int tick;
+	
+	public ArrayList<LiquidStack> moltenMetal = new ArrayList<LiquidStack>();
+	int maxLiquid = 10000;
+	int slag;
 
 	public SmelteryLogic()
 	{
@@ -74,9 +79,29 @@ public class SmelteryLogic extends InventoryLogic
 	}
 
 	@Override
-	public void setDirection (byte dir)
+	public void setDirection (float yaw, float pitch)
 	{
-		direction = dir;
+		int facing = MathHelper.floor_double((double)(yaw / 360) + 0.5D) & 3;
+        switch (facing)
+        {
+            case 0:
+            	direction = 2;
+                break;
+
+            case 1:
+            	direction = 5;
+                break;
+
+            case 2:
+            	direction = 3;
+                break;
+
+            case 3:
+            	direction = 4;
+                break;
+        }
+
+		//direction = dir;
 	}
 
 	@Override
@@ -89,12 +114,6 @@ public class SmelteryLogic extends InventoryLogic
 	public void setActive (boolean flag)
 	{
 		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-	}
-
-	@Override
-	public boolean canFaceVertical ()
-	{
-		return false;
 	}
 
 	public int getScaledFuelGague (int scale)
@@ -157,10 +176,12 @@ public class SmelteryLogic extends InventoryLogic
 					activeTemps[i] += 1;
 				else if (meltingTemps[i] >= activeTemps[i])
 				{
-					ItemStack result = getResultFor(inventory[i]);
+					LiquidStack result = getResultFor(inventory[i]);
 					if (result != null)
 					{
-						inventory[i] = result;
+						inventory[i] = null;
+						addMoltenMetal(result);
+						onInventoryChanged();
 						//setWorldToInventory();
 					}
 				}
@@ -169,6 +190,26 @@ public class SmelteryLogic extends InventoryLogic
 
 			else
 				activeTemps[i] = 20;
+		}
+	}
+	
+	void addMoltenMetal(LiquidStack liquid)
+	{
+		if (moltenMetal.size() == 0)
+			moltenMetal.add(liquid);
+		else
+		{
+			boolean added = false;
+			for (LiquidStack l : moltenMetal)
+			{
+				if (l.itemID == liquid.itemID && l.itemMeta == liquid.itemMeta)
+				{
+					l.amount += liquid.amount;
+					added = true;
+				}
+			}
+			if (!added)
+				moltenMetal.add(liquid);
 		}
 	}
 	
@@ -201,7 +242,7 @@ public class SmelteryLogic extends InventoryLogic
 		}
 	}
 
-	public ItemStack getResultFor (ItemStack stack)
+	public LiquidStack getResultFor (ItemStack stack)
 	{
 		return Smeltery.instance.getSmeltingResult(stack);
 	}
@@ -218,102 +259,6 @@ public class SmelteryLogic extends InventoryLogic
 		super.onInventoryChanged();
 		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 	}
-
-	/*@Override
-	public void setInventorySlotContents (int slot, ItemStack itemstack)
-	{
-		super.setInventorySlotContents(slot, itemstack);
-		setWorldToInventory();
-	}
-
-	@Override
-	public ItemStack decrStackSize (int slot, int quantity)
-	{
-		ItemStack stack = super.decrStackSize(slot, quantity);
-		setWorldToInventory();
-		return stack;
-	}*/
-
-	/* World-inventory matching */
-	/*void matchInventoryToWorld ()
-	{
-		switch (getDirection())
-		{
-		case 2: // +z
-			grabWorldBlocks(xCoord, yCoord, zCoord + 2);
-			break;
-		case 3: // -z
-			grabWorldBlocks(xCoord, yCoord, zCoord - 2);
-			break;
-		case 4: // +x
-			grabWorldBlocks(xCoord + 2, yCoord, zCoord);
-			break;
-		case 5: // -x
-			grabWorldBlocks(xCoord - 2, yCoord, zCoord);
-			break;
-		}
-	}*/
-
-	/*void setWorldToInventory ()
-	{
-		switch (getDirection())
-		{
-		case 2: // +z
-			setWorldToInventory(xCoord, yCoord, zCoord + 2);
-			break;
-		case 3: // -z
-			setWorldToInventory(xCoord, yCoord, zCoord - 2);
-			break;
-		case 4: // +x
-			setWorldToInventory(xCoord + 2, yCoord, zCoord);
-			break;
-		case 5: // -x
-			setWorldToInventory(xCoord - 2, yCoord, zCoord);
-			break;
-		}
-	}*/
-
-	/*public void grabWorldBlocks (int x, int y, int z)
-	{
-		for (int xPos = 0; xPos <= 2; xPos++)
-		{
-			for (int zPos = 0; zPos <= 2; zPos++)
-			{
-				int bID = worldObj.getBlockId(xPos + x - 1, y, zPos + z - 1);
-				int md = worldObj.getBlockMetadata(xPos + x - 1, y, zPos + z - 1);
-
-				ItemStack stack = inventory[xPos + zPos * 3];
-				if (stack == null)
-				{
-					if (bID == 0)
-						inventory[xPos + zPos * 3] = null;
-					else if (stack == null || (stack.itemID != bID && stack.getItemDamage() != md))
-						inventory[xPos + zPos * 3] = new ItemStack(bID, 1, md);
-				}
-			}
-		}
-	}*/
-
-	/*public void setWorldToInventory (int x, int y, int z)
-	{
-		for (int xPos = 0; xPos <= 2; xPos++)
-		{
-			for (int zPos = 0; zPos <= 2; zPos++)
-			{
-				ItemStack stack = inventory[xPos + zPos * 3];
-				if (stack == null)
-					worldObj.setBlockWithNotify(xPos + x - 1, y, zPos + z - 1, 0);
-
-				else if (stack.getItem() instanceof ItemBlock && Block.blocksList[stack.itemID] != null)
-				{
-					worldObj.setBlockAndMetadataWithNotify(xPos + x - 1, y, zPos + z - 1, stack.itemID, stack.getItemDamage());
-					meltingTemps[xPos + zPos * 3] = Smeltery.instance.getSmeltingTemperature(stack);
-					if (meltingTemps[xPos + zPos * 3] < bottomTemps[xPos + zPos * 3])
-						bottomTemps[xPos + zPos * 3] = meltingTemps[xPos + zPos * 3];
-				}
-			}
-		}
-	}*/
 
 	public void checkValidPlacement ()
 	{

@@ -1,4 +1,4 @@
-package tinker.tconstruct.blocks;
+package tinker.tconstruct.items;
 
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;

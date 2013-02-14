@@ -1,47 +1,26 @@
 package tinker.tconstruct;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.EnumMobType;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.liquids.LiquidStack;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
-import tinker.common.IPattern;
-import tinker.tconstruct.blocks.EquipBlock;
-import tinker.tconstruct.blocks.SearedBrick;
-import tinker.tconstruct.blocks.TConstructBlock;
-import tinker.tconstruct.blocks.ToolStationBlock;
-import tinker.tconstruct.client.gui.ToolGuiElement;
-import tinker.tconstruct.crafting.PatternBuilder;
-import tinker.tconstruct.crafting.ToolBuilder;
-import tinker.tconstruct.items.CraftingItem;
-import tinker.tconstruct.items.Materials;
-import tinker.tconstruct.items.Pattern;
-import tinker.tconstruct.items.PatternManual;
-import tinker.tconstruct.items.ToolPart;
-import tinker.tconstruct.items.ToolShard;
-import tinker.tconstruct.modifiers.ModBlaze;
-import tinker.tconstruct.modifiers.ModBoolean;
-import tinker.tconstruct.modifiers.ModDurability;
-import tinker.tconstruct.modifiers.ModElectric;
-import tinker.tconstruct.modifiers.ModInteger;
-import tinker.tconstruct.modifiers.ModLapisBase;
-import tinker.tconstruct.modifiers.ModLapisIncrease;
-import tinker.tconstruct.modifiers.ModRedstone;
-import tinker.tconstruct.modifiers.ModRepair;
-import tinker.tconstruct.tools.Axe;
-import tinker.tconstruct.tools.BattleSign;
-import tinker.tconstruct.tools.Broadsword;
-import tinker.tconstruct.tools.FryingPan;
-import tinker.tconstruct.tools.Longsword;
-import tinker.tconstruct.tools.Mattock;
-import tinker.tconstruct.tools.Pickaxe;
-import tinker.tconstruct.tools.Rapier;
-import tinker.tconstruct.tools.Shovel;
-import tinker.tconstruct.tools.ToolCore;
+
+import tinker.common.*;
+import tinker.tconstruct.blocks.*;
+import tinker.tconstruct.blocks.liquids.*;
+import tinker.tconstruct.client.gui.*;
+import tinker.tconstruct.crafting.*;
+import tinker.tconstruct.items.*;
+import tinker.tconstruct.modifiers.*;
+import tinker.tconstruct.tools.*;
+
 import cpw.mods.fml.common.IFuelHandler;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -97,7 +76,11 @@ public class TContent implements IFuelHandler
 	public static Block lavaTank;
 	public static Block craftedSoil;
 	public static Block searedBrick;
+	
+	//Traps
+	public static Block landmine;
 
+	//Liquids
 	public static Block ironFlowing;
 	public static Block ironStill;
 	public static Block goldFlowing;
@@ -124,6 +107,7 @@ public class TContent implements IFuelHandler
 
     public static Block obsidianFlowing;
     public static Block obsidianStill;
+    
 	//public static Block axle;
 
 	//Tool modifiers
@@ -152,8 +136,9 @@ public class TContent implements IFuelHandler
 	
 	void registerBlocks()
 	{
+		//Tool Station
 		woodCrafter = new ToolStationBlock(PHConstruct.woodCrafter, Material.wood);
-		GameRegistry.registerBlock(woodCrafter, tinker.tconstruct.blocks.ToolStationItemBlock.class, "ToolStationBlock");
+		GameRegistry.registerBlock(woodCrafter, tinker.tconstruct.items.ToolStationItemBlock.class, "ToolStationBlock");
 		GameRegistry.registerTileEntity(tinker.tconstruct.logic.ToolStationLogic.class, "ToolStation");
 		GameRegistry.registerTileEntity(tinker.tconstruct.logic.PartCrafterLogic.class, "PartCrafter");
 		GameRegistry.registerTileEntity(tinker.tconstruct.logic.PatternChestLogic.class, "PatternHolder");
@@ -162,24 +147,22 @@ public class TContent implements IFuelHandler
 		heldItemBlock = new EquipBlock(PHConstruct.heldItemBlock, Material.wood);
 		GameRegistry.registerBlock(heldItemBlock, "HeldItemBlock");
 		GameRegistry.registerTileEntity(tinker.tconstruct.logic.FrypanLogic.class, "FrypanLogic");
+		
+		craftedSoil = new TConstructBlock(PHConstruct.craftedSoil, 96, Material.sand, 3.0F, 2);
+		craftedSoil.stepSound = Block.soundGravelFootstep;
+		GameRegistry.registerBlock(craftedSoil, tinker.tconstruct.items.CraftedSoilItemBlock.class, "CraftedSoil");
 
-		//ores = new TBaseOre(PHTools.ores, 48);
-		//GameRegistry.registerBlock(ores, tinker.toolconstruct.blocks.TBaseOreItem.class, "TConstruct.ores");
-
-		/*lavaTank = new LavaTankBlock(PHConstruct.lavaTank);
+		//Smeltery
+		lavaTank = new LavaTankBlock(PHConstruct.lavaTank);
 		GameRegistry.registerBlock(lavaTank, "LavaTank");
 		GameRegistry.registerTileEntity(tinker.tconstruct.logic.LavaTankLogic.class, "TConstruct.LavaTank");
 
 		smeltery = new SmelteryBlock(PHConstruct.smeltery);
 		GameRegistry.registerBlock(smeltery, "Smeltery");
-		GameRegistry.registerTileEntity(tinker.tconstruct.logic.SmelteryLogic.class, "TConstruct.Smeltery");*/
-
-		craftedSoil = new TConstructBlock(PHConstruct.craftedSoil, 96, Material.sand, 3.0F, 2);
-		craftedSoil.stepSound = Block.soundGravelFootstep;
-		GameRegistry.registerBlock(craftedSoil, tinker.tconstruct.blocks.CraftedSoilItemBlock.class, "CraftedSoil");
+		GameRegistry.registerTileEntity(tinker.tconstruct.logic.SmelteryLogic.class, "TConstruct.Smeltery");
 
 		searedBrick = new SearedBrick(PHConstruct.searedBrick, 80, Material.iron, 10.0F, 6);
-		GameRegistry.registerBlock(searedBrick, tinker.tconstruct.blocks.SearedBrickItemBlock.class, "SearedBrick");
+		GameRegistry.registerBlock(searedBrick, tinker.tconstruct.items.SearedBrickItemBlock.class, "SearedBrick");
 		MinecraftForge.setBlockHarvestLevel(searedBrick, 0, "pickaxe", 2);
 		MinecraftForge.setBlockHarvestLevel(searedBrick, 1, "pickaxe", 4);
 		MinecraftForge.setBlockHarvestLevel(searedBrick, 2, "pickaxe", 4);
@@ -187,7 +170,8 @@ public class TContent implements IFuelHandler
 		MinecraftForge.setBlockHarvestLevel(searedBrick, 4, "pickaxe", 1);
 		MinecraftForge.setBlockHarvestLevel(searedBrick, 5, "pickaxe", 1);
 
-		/*ironFlowing = new IronFlowing(PHConstruct.ironFlowing).setBlockName("liquid.ironFlow");
+		//Liquids
+		ironFlowing = new IronFlowing(PHConstruct.ironFlowing).setBlockName("liquid.ironFlow");
 		GameRegistry.registerBlock(ironFlowing, "Liquid Iron Flowing");
 		ironStill = new IronStill(PHConstruct.ironStill).setBlockName("liquid.ironStill");
 		GameRegistry.registerBlock(ironStill, "Liquid Iron Still");
@@ -234,7 +218,11 @@ public class TContent implements IFuelHandler
 		obsidianFlowing = new ObsidianFlowing(PHConstruct.obsidianFlowing).setBlockName("liquid.obsidianFlow");
 		GameRegistry.registerBlock(obsidianFlowing, "Liquid obsidian Flowing");
 		obsidianStill = new ObsidianStill(PHConstruct.obsidianStill).setBlockName("liquid.obsidianStill");
-		GameRegistry.registerBlock(obsidianStill, "Liquid obsidian Still");*/
+		GameRegistry.registerBlock(obsidianStill, "Liquid obsidian Still");
+		
+		//Traps
+		landmine = new Landmine(PHConstruct.landmine, 0, EnumMobType.mobs, Material.cactus).setBlockName("landmine");
+		GameRegistry.registerBlock(landmine, "landmine");
 	}
 
 	void createItems ()
@@ -410,7 +398,7 @@ public class TContent implements IFuelHandler
 	
 	void addSmelteryRecipes()
 	{
-		//Smeltery.instance.addSmelting(Block.oreIron.blockID, 0, 450, new ItemStack(ironStill, 1, 0));
+		Smeltery.instance.addLiquidMelting(Block.oreIron.blockID, 0, 450, new LiquidStack(ironStill.blockID, 250, 0));
 	}
 
 	void addCraftingRecipes ()

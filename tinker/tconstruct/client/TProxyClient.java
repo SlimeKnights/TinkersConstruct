@@ -37,7 +37,7 @@ public class TProxyClient extends TProxyCommon
 		RenderingRegistry.registerBlockHandler(new RenderLiquidMetal());
 		//RenderingRegistry.registerBlockHandler(new AxleRender());
 		
-		/*RenderEngine renderEngine = FMLClientHandler.instance().getClient().renderEngine;
+		RenderEngine renderEngine = FMLClientHandler.instance().getClient().renderEngine;
 		renderEngine.registerTextureFX(new LiquidIronFX());
 		renderEngine.registerTextureFX(new LiquidIronFlowFX());
 		renderEngine.registerTextureFX(new LiquidGoldFX());
@@ -61,7 +61,7 @@ public class TProxyClient extends TProxyCommon
 		renderEngine.registerTextureFX(new LiquidAlumiteFX());
 		renderEngine.registerTextureFX(new LiquidAlumiteFlowFX());
 		renderEngine.registerTextureFX(new LiquidObsidianFX());
-		renderEngine.registerTextureFX(new LiquidObsidianFlowFX());*/
+		renderEngine.registerTextureFX(new LiquidObsidianFlowFX());
 		
 		//Tools
 		MinecraftForgeClient.preloadTexture(TContent.blockTexture);
@@ -80,7 +80,7 @@ public class TProxyClient extends TProxyCommon
 	/* Ties an internal name to a visible one. */
 	public void addNames() 
 	{
-		//LanguageRegistry.addName(TContent.lavaTank, "Lava Tank");
+		LanguageRegistry.addName(TContent.lavaTank, "Lava Tank");
 		LanguageRegistry.instance().addStringLocalization("itemGroup.TConstructTools", "TConstruct Tools");
 		LanguageRegistry.instance().addStringLocalization("itemGroup.TConstructMaterials", "TConstruct Materials");
 		LanguageRegistry.instance().addStringLocalization("itemGroup.TConstructBlocks", "TConstruct Blocks");
@@ -138,7 +138,7 @@ public class TProxyClient extends TProxyCommon
 			LanguageRegistry.instance().addStringLocalization(internalName, "en_US", visibleName);
 		}
 		
-		//LanguageRegistry.addName(TContent.smeltery, "Smeltery");
+		LanguageRegistry.addName(TContent.smeltery, "Smeltery");
 		LanguageRegistry.addName(TContent.manualBook, "Tinker's Log");
 		LanguageRegistry.addName(TContent.blankPattern, "Blank Pattern");
 		LanguageRegistry.addName(TContent.pickaxe, "Pickaxe");
@@ -152,7 +152,7 @@ public class TProxyClient extends TProxyCommon
 		LanguageRegistry.addName(TContent.mattock, "Mattock");
 		//LanguageRegistry.addName(TContent.lumberaxe, "Lumber Axe");
 		
-		/*LanguageRegistry.addName(TContent.ironFlowing, "Liquid Iron");
+		LanguageRegistry.addName(TContent.ironFlowing, "Liquid Iron");
 		LanguageRegistry.addName(TContent.ironStill, "Liquid Iron");
 		LanguageRegistry.addName(TContent.goldFlowing, "Liquid Gold");
 		LanguageRegistry.addName(TContent.goldStill, "Liquid Gold");
@@ -176,7 +176,7 @@ public class TProxyClient extends TProxyCommon
 		LanguageRegistry.addName(TContent.manyullynFlowing, "Liquid Manyullyn");
 		LanguageRegistry.addName(TContent.manyullynStill, "Liquid Manyullyn");
 		LanguageRegistry.addName(TContent.obsidianFlowing, "Liquid Obsidian");
-		LanguageRegistry.addName(TContent.obsidianStill, "Liquid Obsidian");*/
+		LanguageRegistry.addName(TContent.obsidianStill, "Liquid Obsidian");
 	}
 	
 

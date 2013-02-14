@@ -1,16 +1,16 @@
-package tinker.tconstruct.blocks;
+package tinker.tconstruct.items;
 
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 
-public class SearedBrickItemBlock extends ItemBlock
+public class CraftedSoilItemBlock extends ItemBlock
 {
     public static final String blockType[] =
     {
-        "Brick", "Cobalt", "Ardite", "Copper", "Tin", "Aluminum", "Slag"
+        "Slime", "Grout"
     };
 
-    public SearedBrickItemBlock(int id)
+    public CraftedSoilItemBlock(int id)
     {
         super(id);
         setMaxDamage(0);
@@ -24,6 +24,6 @@ public class SearedBrickItemBlock extends ItemBlock
 
     public String getItemNameIS(ItemStack itemstack)
     {
-        return (new StringBuilder()).append("SearedBrick.").append(blockType[itemstack.getItemDamage()]).toString();
+        return (new StringBuilder()).append("CraftedSoil.").append(blockType[itemstack.getItemDamage()]).toString();
     }
 }

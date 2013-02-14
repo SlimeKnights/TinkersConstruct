@@ -46,6 +46,7 @@ public class PHConstruct {
         smeltery = config.getBlock("Smeltery", 1474).getInt(1474);
         searedBrick = config.getBlock("Seared Brick", 1477).getInt(1477);
         craftedSoil = config.getBlock("Special Soil", 1476).getInt(1476);
+        landmine = config.getBlock("Landmine", 1475).getInt(1475);
         
         ironFlowing = config.getBlock("Liquid Iron Flowing", 1478).getInt(1478);
         ironStill = config.getBlock("Liquid Iron Still", 1479).getInt(1479);
@@ -156,6 +157,10 @@ public class PHConstruct {
     public static int searedBrick;
     public static int axle;
 
+    //Traps
+    public static int landmine;
+    
+    //Liquids
     public static int ironFlowing;
     public static int ironStill;
     public static int goldFlowing;
