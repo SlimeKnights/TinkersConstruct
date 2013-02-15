@@ -3,12 +3,17 @@ package tinker.tconstruct.client;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.liquids.LiquidStack;
 
 import org.lwjgl.opengl.GL11;
 
+import tinker.common.BlockSkinRenderHelper;
+import tinker.tconstruct.crafting.Smeltery;
 import tinker.tconstruct.logic.SmelteryLogic;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import cpw.mods.fml.client.registry.RenderingRegistry;
@@ -38,20 +43,51 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
 				//Melting
 				for (int i = 0; i < 9; i++)
 				{
-					if (logic.isStackInSlot(i))
+					ItemStack input = logic.getStackInSlot(i);
+					if (input != null)
 					{
-						Block invBlock = Block.blocksList[logic.getStackInSlot(i).itemID];
-						ForgeHooksClient.bindTexture(invBlock.getTextureFile(), 0);
-						renderer.renderStandardBlock(invBlock, posX + i % 3, posY, posZ + i / 3);
+						ItemStack blockToRender = Smeltery.getRenderIndex(input);
+						float blockHeight = input.stackSize / (float) blockToRender.stackSize;
+						renderer.setRenderBounds(0.0F, 0.0F, 0.0F, 1.0F, MathHelper.clamp_float(blockHeight, 0.01F, 1.0F), 1.0F);
+						
+						if (blockToRender.itemID < 4096) //Block
+						{
+							Block liquidBlock = Block.blocksList[blockToRender.itemID];
+							ForgeHooksClient.bindTexture(liquidBlock.getTextureFile(), 0);
+							BlockSkinRenderHelper.renderMetadataBlock(liquidBlock, blockToRender.getItemDamage(), posX + i % 3, posY, posZ + i / 3, renderer, world);
+						}
+						else //Item
+						{
+							Item liquidItem = Item.itemsList[blockToRender.itemID];
+							ForgeHooksClient.bindTexture(liquidItem.getTextureFile(), 0);
+							int metadata = blockToRender.getItemDamage();
+							BlockSkinRenderHelper.renderFakeBlock(liquidItem.getIconFromDamage(metadata), metadata, posX, posY, posZ, renderer, world);
+						}
 					}
 				}
 				
 				//Liquids
+				float base = 0F;
 				for (LiquidStack liquid : logic.moltenMetal)
 				{
-					Block invBlock = Block.blocksList[liquid.itemID];
-					ForgeHooksClient.bindTexture(invBlock.getTextureFile(), 0);
-					renderer.renderStandardBlock(invBlock, posX, posY, posZ);
+					float height = liquid.amount / 10000F;
+					renderer.setRenderBounds(0.0F, base, 0.0F, 1.0F, height + base, 1.0F);
+					base += height;
+					
+					if (liquid.itemID < 4096) //Block
+					{
+						Block liquidBlock = Block.blocksList[liquid.itemID];
+						ForgeHooksClient.bindTexture(liquidBlock.getTextureFile(), 0);
+						for (int i = 0; i < 9; i++)
+							BlockSkinRenderHelper.renderMetadataBlock(liquidBlock, liquid.itemMeta, posX + i % 3, posY, posZ + i / 3, renderer, world);
+					}
+					else //Item
+					{
+						Item liquidItem = Item.itemsList[liquid.itemID];
+						ForgeHooksClient.bindTexture(liquidItem.getTextureFile(), 0);
+						for (int i = 0; i < 9; i++)
+							BlockSkinRenderHelper.renderFakeBlock(liquidItem.getIconFromDamage(liquid.itemMeta), liquid.itemMeta, posX, posY, posZ, renderer, world);
+					}
 				}
 			}
 		}

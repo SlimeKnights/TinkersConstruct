@@ -10,6 +10,7 @@ import net.minecraft.world.IBlockAccess;
 import org.lwjgl.opengl.GL11;
 
 import tinker.armory.content.DisplayLogic;
+import tinker.common.BlockSkinRenderHelper;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 
@@ -62,13 +63,13 @@ public class RenderDisplay implements ISimpleBlockRenderingHandler
 			int bottomMeta = bottomStack.getItemDamage();
 			
 			renderer.setRenderBounds(0.125, 0.125F, 0.0F, 0.375, 0.875F, 0.0625);
-			BlockSkinRenderHelper.renderStandardMetadataBlock(bottomSkin, bottomMeta, x, y, z, renderer, world);
+			BlockSkinRenderHelper.renderMetadataBlock(bottomSkin, bottomMeta, x, y, z, renderer, world);
 			renderer.setRenderBounds(0.6125, 0.125F, 0.0F, 0.875, 0.875F, 0.0625);
-			BlockSkinRenderHelper.renderStandardMetadataBlock(bottomSkin, bottomMeta, x, y, z, renderer, world);
+			BlockSkinRenderHelper.renderMetadataBlock(bottomSkin, bottomMeta, x, y, z, renderer, world);
 			renderer.setRenderBounds(0.0F, 0.5F, 0.0F, 1.0F, 0.625F, 0.09375);
-			BlockSkinRenderHelper.renderStandardMetadataBlock(topSkin, topMeta, x, y, z, renderer, world);
+			BlockSkinRenderHelper.renderMetadataBlock(topSkin, topMeta, x, y, z, renderer, world);
 			renderer.setRenderBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.125F, 0.125);
-			BlockSkinRenderHelper.renderStandardMetadataBlock(topSkin, topMeta, x, y, z, renderer, world);
+			BlockSkinRenderHelper.renderMetadataBlock(topSkin, topMeta, x, y, z, renderer, world);
 		}
 		return false;
 	}

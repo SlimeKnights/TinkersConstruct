@@ -398,7 +398,16 @@ public class TContent implements IFuelHandler
 	
 	void addSmelteryRecipes()
 	{
-		Smeltery.instance.addLiquidMelting(Block.oreIron.blockID, 0, 450, new LiquidStack(ironStill.blockID, 250, 0));
+		Smeltery.addMelting(Block.oreIron, 0, 450, new LiquidStack(ironStill.blockID, 250, 0));
+		Smeltery.addMelting(Block.oreGold, 0, 300, new LiquidStack(goldStill.blockID, 250, 0));
+		Smeltery.addMelting(new ItemStack(Item.ingotIron, 8), Block.blockSteel.blockID, 0, 450, new LiquidStack(ironStill.blockID, 250, 0));
+		Smeltery.addMelting(new ItemStack(Item.ingotGold, 8), Block.blockGold.blockID, 0, 300, new LiquidStack(goldStill.blockID, 250, 0));
+		Smeltery.addMelting(Block.blockSteel, 0, 450, new LiquidStack(ironStill.blockID, 2250, 0));
+		Smeltery.addMelting(Block.blockGold, 0, 300, new LiquidStack(goldStill.blockID, 2250, 0));
+		Smeltery.addMelting(searedBrick, 3, 300, new LiquidStack(copperStill.blockID, 250, 0));
+		Smeltery.addMelting(searedBrick, 4, 300, new LiquidStack(tinStill.blockID, 250, 0));
+		
+		Smeltery.addAlloyMixing(new LiquidStack(bronzeStill.blockID, 4, 0), new LiquidStack(copperStill.blockID, 3, 0), new LiquidStack(tinStill.blockID, 1, 0));
 	}
 
 	void addCraftingRecipes ()

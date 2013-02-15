@@ -6,6 +6,7 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.Packet132TileEntityData;
@@ -181,6 +182,12 @@ public class SmelteryLogic extends InventoryLogic
 					{
 						inventory[i] = null;
 						addMoltenMetal(result);
+						ArrayList alloys = Smeltery.mixMetals(moltenMetal);
+						for (int al = 0; al < alloys.size(); al++)
+						{
+							LiquidStack liquid = (LiquidStack) alloys.get(al);
+							addMoltenMetal(liquid);
+						}
 						onInventoryChanged();
 						//setWorldToInventory();
 					}
@@ -207,6 +214,10 @@ public class SmelteryLogic extends InventoryLogic
 					l.amount += liquid.amount;
 					added = true;
 				}
+				/*if (l.amount <= 0)
+				{
+					moltenMetal.remove(l);
+				}*/
 			}
 			if (!added)
 				moltenMetal.add(liquid);
@@ -217,7 +228,7 @@ public class SmelteryLogic extends InventoryLogic
 	{
 		for (int i = 0; i < 9; i++)
 		{
-			meltingTemps[i] = Smeltery.instance.getSmeltingTemperature(inventory[i]);
+			meltingTemps[i] = Smeltery.instance.getLiquifyTemperature(inventory[i]);
 		}
 	}
 
@@ -244,7 +255,7 @@ public class SmelteryLogic extends InventoryLogic
 
 	public LiquidStack getResultFor (ItemStack stack)
 	{
-		return Smeltery.instance.getSmeltingResult(stack);
+		return Smeltery.instance.getSmelteryResult(stack);
 	}
 
 	/* Inventory */
@@ -343,7 +354,7 @@ public class SmelteryLogic extends InventoryLogic
 				centerPos = new CoordTuple(x, y, z);
 				validStructure = true;
 			}
-			internalTemp = 550;
+			internalTemp = 800;
 		}
 		else
 		{
@@ -361,6 +372,18 @@ public class SmelteryLogic extends InventoryLogic
 		useTime = tags.getInteger("UseTime");
 		meltingTemps = tags.getIntArray("MeltingTemps");
 		activeTemps = tags.getIntArray("ActiveTemps");
+		
+		NBTTagList liquidTag = tags.getTagList("Liquids");
+		moltenMetal.clear();
+		
+		for (int iter = 0; iter < liquidTag.tagCount(); iter++)
+        {
+            NBTTagCompound tagList = (NBTTagCompound)liquidTag.tagAt(iter);
+            int id = tagList.getInteger("id");
+            int amount = tagList.getInteger("amount");
+            int meta = tagList.getInteger("meta");
+            moltenMetal.add(new LiquidStack(id, amount, meta));
+        }
 	}
 
 	@Override
@@ -371,6 +394,18 @@ public class SmelteryLogic extends InventoryLogic
 		tags.setInteger("UseTime", useTime);
 		tags.setIntArray("MeltingTemps", meltingTemps);
 		tags.setIntArray("ActiveTemps", activeTemps);
+		
+		NBTTagList taglist = new NBTTagList();
+		for (LiquidStack liquid : moltenMetal)
+		{
+			NBTTagCompound liquidTag = new NBTTagCompound();
+			liquidTag.setInteger("id", liquid.itemID);
+			liquidTag.setInteger("amount", liquid.amount);
+			liquidTag.setInteger("meta", liquid.itemMeta);
+			taglist.appendTag(liquidTag);
+		}
+		
+		tags.setTag("Liquids", taglist);
 	}
 
 	/* Packets */
