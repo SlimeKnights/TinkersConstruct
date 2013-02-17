@@ -45,17 +45,17 @@ public class SmelteryBlock extends InventoryBlock
 
 	public int getBlockTextureFromSideAndMetadata (int side, int meta)
 	{
-		if (side == 0 || side == 1)
+		/*if (side == 0 || side == 1)
 		{
 			return blockIndexInTexture + 3 + meta * 4;
-		}
+		}*/
 		if (side == 3)
 		{
-			return blockIndexInTexture + meta * 4;
+			return blockIndexInTexture + 1 + meta * 3;
 		}
 		else
 		{
-			return blockIndexInTexture + 2 + meta * 4;
+			return blockIndexInTexture + meta * 3;
 		}
 	}
 
@@ -66,32 +66,38 @@ public class SmelteryBlock extends InventoryBlock
 		int meta = world.getBlockMetadata(x, y, z);
 		if (meta == 0) //Smeltery
 		{
-			if (side == 1)
+			/*if (side == 1)
 			{
 				return blockIndexInTexture + 3 + meta * 4;
-			}
+			}*/
 			if (side == direction)
 			{
 				if (isActive(world, x, y, z))
 				{
-					return blockIndexInTexture + 2 + meta * 4;
+					return blockIndexInTexture + 2;
 				}
 				else
 				{
-					return blockIndexInTexture + 1 + meta * 4;
+					return blockIndexInTexture + 1;
 				}
 			}
 			else
 			{
-				return blockIndexInTexture + meta * 4;
+				return blockIndexInTexture + meta;
 			}
 		}
-		else //Output
+		if (meta == 1)
 		{
 			if (side == direction)
-				return blockIndexInTexture + 3 + meta*2;
+				return blockIndexInTexture + 1 + 3;
+			else if (side / 2 == direction / 2)
+				return blockIndexInTexture + 2 + 3;
 			else
-				return blockIndexInTexture + 2 + meta*2;
+				return blockIndexInTexture + 3;
+		}
+		else
+		{
+			return blockIndexInTexture + meta +4;
 		}
 	}
 

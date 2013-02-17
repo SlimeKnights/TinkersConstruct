@@ -2,10 +2,10 @@ package tinker.tconstruct.blocks.liquids;
 
 import tinker.tconstruct.TContent;
 
-public class BrassStill extends LiquidMetalStill
+public class AlBrassStill extends LiquidMetalStill
 {
 
-	public BrassStill(int id)
+	public AlBrassStill(int id)
 	{
 		super(id);
 		blockIndexInTexture = 41;
@@ -14,7 +14,7 @@ public class BrassStill extends LiquidMetalStill
 	@Override
 	public int flowingLiquidID ()
 	{
-		return TContent.brassFlowing.blockID;
+		return TContent.alBrassFlowing.blockID;
 	}
 
 }

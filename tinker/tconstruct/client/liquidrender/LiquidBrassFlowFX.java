@@ -6,6 +6,6 @@ public class LiquidBrassFlowFX extends TextureLiquidFlowingFX
 {
 	public LiquidBrassFlowFX()
 	{
-		super(200, 255, 200, 255, 40, 80, TContent.brassFlowing.blockIndexInTexture+1, TContent.brassFlowing.getTextureFile());
+		super(200, 255, 200, 255, 40, 80, TContent.alBrassFlowing.blockIndexInTexture+1, TContent.alBrassFlowing.getTextureFile());
 	}
 }

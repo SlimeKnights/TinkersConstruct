@@ -271,6 +271,7 @@ public class SmelteryLogic extends InventoryLogic
 		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 	}
 
+	/* Multiblock */
 	public void checkValidPlacement ()
 	{
 		switch (getDirection())
@@ -360,6 +361,39 @@ public class SmelteryLogic extends InventoryLogic
 		{
 			validStructure = false;
 			internalTemp = 20;
+		}
+	}
+	
+	public int getCapacity()
+	{
+		return maxLiquid;
+	}
+	
+	public LiquidStack drain (int maxDrain, boolean doDrain)
+	{
+		if (moltenMetal.size() == 0)
+			return null;
+		
+		LiquidStack liquid = moltenMetal.get(0);
+		if (liquid.amount - maxDrain < 0)
+		{
+			LiquidStack liq = liquid.copy();
+			if (doDrain)
+			{
+				//liquid = null;
+				moltenMetal.remove(liquid);
+				worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+			}
+			return liq;
+		}
+		else
+		{
+			if (doDrain)
+			{
+				liquid.amount -= maxDrain;
+				worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+			}
+			return new LiquidStack(liquid.itemID, maxDrain, liquid.itemMeta);
 		}
 	}
 

@@ -96,6 +96,7 @@ public class TProxyClient extends TProxyCommon
 		LanguageRegistry.instance().addStringLocalization("ToolStation.Parts.name", "Part Builder");
 		LanguageRegistry.instance().addStringLocalization("ToolStation.PatternChest.name", "Pattern Chest");
 		LanguageRegistry.instance().addStringLocalization("ToolStation.PatternShaper.name", "Stencil Table");
+		LanguageRegistry.instance().addStringLocalization("ToolStation.PatternShaper.name", "Casting Table");
 		
 		LanguageRegistry.instance().addStringLocalization("CraftedSoil.Slime.name", "Slimy Mud");
 		LanguageRegistry.instance().addStringLocalization("CraftedSoil.Grout.name", "Grout");
@@ -169,8 +170,8 @@ public class TProxyClient extends TProxyCommon
 
 		LanguageRegistry.addName(TContent.bronzeFlowing, "Liquid Bronze");
 		LanguageRegistry.addName(TContent.bronzeStill, "Liquid Bronze");
-		LanguageRegistry.addName(TContent.brassFlowing, "Liquid Brass");
-		LanguageRegistry.addName(TContent.brassStill, "Liquid Brass");
+		LanguageRegistry.addName(TContent.alBrassFlowing, "Liquid Brass");
+		LanguageRegistry.addName(TContent.alBrassStill, "Liquid Brass");
 		LanguageRegistry.addName(TContent.alumiteFlowing, "Liquid Alumite");
 		LanguageRegistry.addName(TContent.alumiteStill, "Liquid Alumite");
 		LanguageRegistry.addName(TContent.manyullynFlowing, "Liquid Manyullyn");

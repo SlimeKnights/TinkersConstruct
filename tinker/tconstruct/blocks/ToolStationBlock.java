@@ -14,6 +14,7 @@ import tinker.common.InventoryBlock;
 import tinker.tconstruct.TConstruct;
 import tinker.tconstruct.TContent;
 import tinker.tconstruct.client.TableRender;
+import tinker.tconstruct.logic.CastingTableLogic;
 import tinker.tconstruct.logic.PartCrafterLogic;
 import tinker.tconstruct.logic.PatternChestLogic;
 import tinker.tconstruct.logic.PatternShaperLogic;
@@ -118,6 +119,7 @@ public class ToolStationBlock extends InventoryBlock
 		case 11: return new PatternShaperLogic();
 		case 12: return new PatternShaperLogic();
 		case 13: return new PatternShaperLogic();
+		case 14: return new CastingTableLogic();
 		default: return null;
 		}        
     }
@@ -152,7 +154,7 @@ public class ToolStationBlock extends InventoryBlock
 			list.add(new ItemStack(id, 1, iter));
 		}
 		
-		for (int iter = 10; iter < 14; iter++)
+		for (int iter = 10; iter < 15; iter++)
 		{
 			list.add(new ItemStack(id, 1, iter));
 		}

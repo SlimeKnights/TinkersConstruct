@@ -98,8 +98,8 @@ public class TContent implements IFuelHandler
 
     public static Block bronzeFlowing;
     public static Block bronzeStill;
-    public static Block brassFlowing;
-    public static Block brassStill;
+    public static Block alBrassFlowing;
+    public static Block alBrassStill;
     public static Block manyullynFlowing;
     public static Block manyullynStill;
     public static Block alumiteFlowing;
@@ -143,6 +143,7 @@ public class TContent implements IFuelHandler
 		GameRegistry.registerTileEntity(tinker.tconstruct.logic.PartCrafterLogic.class, "PartCrafter");
 		GameRegistry.registerTileEntity(tinker.tconstruct.logic.PatternChestLogic.class, "PatternHolder");
 		GameRegistry.registerTileEntity(tinker.tconstruct.logic.PatternShaperLogic.class, "PatternShaper");
+		GameRegistry.registerTileEntity(tinker.tconstruct.logic.CastingTableLogic.class, "CastingTable");
 
 		heldItemBlock = new EquipBlock(PHConstruct.heldItemBlock, Material.wood);
 		GameRegistry.registerBlock(heldItemBlock, "HeldItemBlock");
@@ -153,13 +154,14 @@ public class TContent implements IFuelHandler
 		GameRegistry.registerBlock(craftedSoil, tinker.tconstruct.items.CraftedSoilItemBlock.class, "CraftedSoil");
 
 		//Smeltery
-		lavaTank = new LavaTankBlock(PHConstruct.lavaTank);
-		GameRegistry.registerBlock(lavaTank, "LavaTank");
-		GameRegistry.registerTileEntity(tinker.tconstruct.logic.LavaTankLogic.class, "TConstruct.LavaTank");
-
 		smeltery = new SmelteryBlock(PHConstruct.smeltery);
 		GameRegistry.registerBlock(smeltery, "Smeltery");
 		GameRegistry.registerTileEntity(tinker.tconstruct.logic.SmelteryLogic.class, "TConstruct.Smeltery");
+		//GameRegistry.registerTileEntity(tinker.tconstruct.logic.SmelteryLogic.class, "TConstruct.Smeltery");
+		
+		lavaTank = new LavaTankBlock(PHConstruct.lavaTank);
+		GameRegistry.registerBlock(lavaTank, "LavaTank");
+		GameRegistry.registerTileEntity(tinker.tconstruct.logic.LavaTankLogic.class, "TConstruct.LavaTank");
 
 		searedBrick = new SearedBrick(PHConstruct.searedBrick, 80, Material.iron, 10.0F, 6);
 		GameRegistry.registerBlock(searedBrick, tinker.tconstruct.items.SearedBrickItemBlock.class, "SearedBrick");
@@ -203,10 +205,10 @@ public class TContent implements IFuelHandler
 		GameRegistry.registerBlock(bronzeFlowing, "Liquid bronze Flowing");
 		bronzeStill = new BronzeStill(PHConstruct.bronzeStill).setBlockName("liquid.bronzeStill");
 		GameRegistry.registerBlock(bronzeStill, "Liquid bronze Still");
-		brassFlowing = new BrassFlowing(PHConstruct.brassFlowing).setBlockName("liquid.brassFlow");
-		GameRegistry.registerBlock(brassFlowing, "Liquid brass Flowing");
-		brassStill = new BrassStill(PHConstruct.brassStill).setBlockName("liquid.brassStill");
-		GameRegistry.registerBlock(brassStill, "Liquid brass Still");
+		alBrassFlowing = new AlBrassFlowing(PHConstruct.brassFlowing).setBlockName("liquid.brassFlow");
+		GameRegistry.registerBlock(alBrassFlowing, "Liquid albrass Flowing");
+		alBrassStill = new AlBrassStill(PHConstruct.brassStill).setBlockName("liquid.brassStill");
+		GameRegistry.registerBlock(alBrassStill, "Liquid albrass Still");
 		manyullynFlowing = new ManyullynFlowing(PHConstruct.manyullynFlowing).setBlockName("liquid.manyullynFlow");
 		GameRegistry.registerBlock(manyullynFlowing, "Liquid manyullyn Flowing");
 		manyullynStill = new ManyullynStill(PHConstruct.manyullynStill).setBlockName("liquid.manyullynStill");
@@ -398,16 +400,18 @@ public class TContent implements IFuelHandler
 	
 	void addSmelteryRecipes()
 	{
-		Smeltery.addMelting(Block.oreIron, 0, 450, new LiquidStack(ironStill.blockID, 250, 0));
-		Smeltery.addMelting(Block.oreGold, 0, 300, new LiquidStack(goldStill.blockID, 250, 0));
-		Smeltery.addMelting(new ItemStack(Item.ingotIron, 8), Block.blockSteel.blockID, 0, 450, new LiquidStack(ironStill.blockID, 250, 0));
-		Smeltery.addMelting(new ItemStack(Item.ingotGold, 8), Block.blockGold.blockID, 0, 300, new LiquidStack(goldStill.blockID, 250, 0));
-		Smeltery.addMelting(Block.blockSteel, 0, 450, new LiquidStack(ironStill.blockID, 2250, 0));
-		Smeltery.addMelting(Block.blockGold, 0, 300, new LiquidStack(goldStill.blockID, 2250, 0));
-		Smeltery.addMelting(searedBrick, 3, 300, new LiquidStack(copperStill.blockID, 250, 0));
-		Smeltery.addMelting(searedBrick, 4, 300, new LiquidStack(tinStill.blockID, 250, 0));
+		Smeltery.addMelting(Block.oreIron, 0, 600, new LiquidStack(ironStill.blockID, 250, 0));
+		Smeltery.addMelting(Block.oreGold, 0, 550, new LiquidStack(goldStill.blockID, 250, 0));
+		Smeltery.addMelting(new ItemStack(Item.ingotIron, 8), Block.blockSteel.blockID, 0, 500, new LiquidStack(ironStill.blockID, 250, 0));
+		Smeltery.addMelting(new ItemStack(Item.ingotGold, 8), Block.blockGold.blockID, 0, 450, new LiquidStack(goldStill.blockID, 250, 0));
+		Smeltery.addMelting(Block.blockSteel, 0, 500, new LiquidStack(ironStill.blockID, 2250, 0));
+		Smeltery.addMelting(Block.blockGold, 0, 450, new LiquidStack(goldStill.blockID, 2250, 0));
+		Smeltery.addMelting(searedBrick, 3, 550, new LiquidStack(copperStill.blockID, 250, 0));
+		Smeltery.addMelting(searedBrick, 4, 175, new LiquidStack(tinStill.blockID, 250, 0));
+		Smeltery.addMelting(searedBrick, 5, 350, new LiquidStack(aluminumStill.blockID, 250, 0));
 		
 		Smeltery.addAlloyMixing(new LiquidStack(bronzeStill.blockID, 4, 0), new LiquidStack(copperStill.blockID, 3, 0), new LiquidStack(tinStill.blockID, 1, 0));
+		Smeltery.addAlloyMixing(new LiquidStack(alBrassStill.blockID, 4, 0), new LiquidStack(aluminumStill.blockID, 3, 0), new LiquidStack(copperStill.blockID, 1, 0));
 	}
 
 	void addCraftingRecipes ()
