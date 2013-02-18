@@ -17,8 +17,10 @@ import org.w3c.dom.Document;
 import tinker.tconstruct.*;
 import tinker.tconstruct.client.entityrender.*;
 import tinker.tconstruct.client.liquidrender.*;
-import tinker.tconstruct.tools.ToolCore;
+import tinker.tconstruct.logic.*;
+import tinker.tconstruct.tools.*;
 import cpw.mods.fml.client.FMLClientHandler;
+import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
@@ -71,9 +73,13 @@ public class TProxyClient extends TProxyCommon
 			MinecraftForgeClient.registerItemRenderer(tool.itemID, render);
 		}
 		
+		//Special Renderers
+		ClientRegistry.bindTileEntitySpecialRenderer(CastingTableLogic.class, new CastingTableSpecialRenderer());
+		
 		//Entities
 		RenderingRegistry.registerEntityRenderingHandler(tinker.tconstruct.entity.CartEntity.class, new CartRender());
 		RenderingRegistry.registerEntityRenderingHandler(tinker.tconstruct.entity.Skyla.class, new SkylaRender());
+		//RenderingRegistry.registerEntityRenderingHandler(net.minecraft.entity.player.EntityPlayer.class, new PlayerArmorRender()); // <-- Works, woo!
 	}
 	
 	
@@ -96,17 +102,24 @@ public class TProxyClient extends TProxyCommon
 		LanguageRegistry.instance().addStringLocalization("ToolStation.Parts.name", "Part Builder");
 		LanguageRegistry.instance().addStringLocalization("ToolStation.PatternChest.name", "Pattern Chest");
 		LanguageRegistry.instance().addStringLocalization("ToolStation.PatternShaper.name", "Stencil Table");
-		LanguageRegistry.instance().addStringLocalization("ToolStation.PatternShaper.name", "Casting Table");
+		LanguageRegistry.instance().addStringLocalization("ToolStation.CastingTable.name", "Casting Table");
 		
 		LanguageRegistry.instance().addStringLocalization("CraftedSoil.Slime.name", "Slimy Mud");
 		LanguageRegistry.instance().addStringLocalization("CraftedSoil.Grout.name", "Grout");
-		LanguageRegistry.instance().addStringLocalization("SearedBrick.Brick.name", "Seared Bricks");
-		LanguageRegistry.instance().addStringLocalization("SearedBrick.Cobalt.name", "Cobalt Ore");
-		LanguageRegistry.instance().addStringLocalization("SearedBrick.Ardite.name", "Ardite Ore");
-		LanguageRegistry.instance().addStringLocalization("SearedBrick.Copper.name", "Copper Ore");
-		LanguageRegistry.instance().addStringLocalization("SearedBrick.Tin.name", "Tin Ore");
-		LanguageRegistry.instance().addStringLocalization("SearedBrick.Aluminum.name", "Aluminum Ore");
-		LanguageRegistry.instance().addStringLocalization("SearedBrick.Slag.name", "Slag");
+		
+		LanguageRegistry.instance().addStringLocalization("MetalOre.NetherSlag.name", "Netherack Slag");
+		LanguageRegistry.instance().addStringLocalization("MetalOre.Cobalt.name", "Cobalt Ore");
+		LanguageRegistry.instance().addStringLocalization("MetalOre.Ardite.name", "Ardite Ore");
+		LanguageRegistry.instance().addStringLocalization("MetalOre.Copper.name", "Copper Ore");
+		LanguageRegistry.instance().addStringLocalization("MetalOre.Tin.name", "Tin Ore");
+		LanguageRegistry.instance().addStringLocalization("MetalOre.Aluminum.name", "Aluminum Ore");
+		LanguageRegistry.instance().addStringLocalization("MetalOre.Slag.name", "Stone Slag");
+		
+		LanguageRegistry.instance().addStringLocalization("Smeltery.Controller.name", "Smeltery");
+		LanguageRegistry.instance().addStringLocalization("Smeltery.Drain.name", "Smeltery Drain");
+		LanguageRegistry.instance().addStringLocalization("Smeltery.Brick.name", "Seared Bricks");
+		LanguageRegistry.instance().addStringLocalization("Smeltery.Gague.name", "Seared Glass");
+		LanguageRegistry.instance().addStringLocalization("Smeltery.Window.name", "Seared Window");
 		
 		for (int mat = 0; mat < materialTypes.length; mat++)
 		{
@@ -139,7 +152,6 @@ public class TProxyClient extends TProxyCommon
 			LanguageRegistry.instance().addStringLocalization(internalName, "en_US", visibleName);
 		}
 		
-		LanguageRegistry.addName(TContent.smeltery, "Smeltery");
 		LanguageRegistry.addName(TContent.manualBook, "Tinker's Log");
 		LanguageRegistry.addName(TContent.blankPattern, "Blank Pattern");
 		LanguageRegistry.addName(TContent.pickaxe, "Pickaxe");

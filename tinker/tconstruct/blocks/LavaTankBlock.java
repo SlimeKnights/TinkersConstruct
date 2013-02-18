@@ -5,10 +5,12 @@ import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.liquids.LiquidContainerRegistry;
 import net.minecraftforge.liquids.LiquidStack;
 import tinker.tconstruct.TConstruct;
+import tinker.tconstruct.TContent;
 import tinker.tconstruct.client.TankRender;
 import tinker.tconstruct.logic.LavaTankLogic;
 
@@ -16,7 +18,7 @@ public class LavaTankBlock extends BlockContainer
 {
 	public LavaTankBlock(int id)
 	{
-		super(id, 49, Material.iron);
+		super(id, 38, Material.iron);
 		setCreativeTab(TConstruct.blockTab);
 		setBlockName("TConstruct.LavaTank");
 		setStepSound(Block.soundGlassFootstep);
@@ -35,9 +37,39 @@ public class LavaTankBlock extends BlockContainer
 	}
 	
 	@Override
+	public boolean shouldSideBeRendered(IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
+	{
+		if (par5 == 0)
+			return super.shouldSideBeRendered(par1IBlockAccess, par2, par3, par4, par5);
+		return true;
+	}
+	
+	@Override
+	public String getTextureFile ()
+	{
+		return TContent.blockTexture;
+	}
+	
+	@Override
 	public int getRenderType ()
 	{
 		return TankRender.tankModelID;
+	}
+	
+	public int getBlockTextureFromSideAndMetadata (int side, int meta)
+	{
+		if (side == 0 || side == 1)
+		{
+			return blockIndexInTexture + 1 + meta * 3;
+		}
+		/*else if (side == 1)
+		{
+			return blockIndexInTexture + 1 + meta * 3;
+		}*/
+		else
+		{
+			return blockIndexInTexture + meta * 3;
+		}
 	}
 
 	@Override
@@ -71,46 +103,4 @@ public class LavaTankBlock extends BlockContainer
 	{
 		return createNewTileEntity(world, 0);
 	}
-
-	/*public void addCollidingBlockToList (World world, int x, int y, int z, AxisAlignedBB box, List list, Entity entity)
-	{
-		int meta = world.getBlockMetadata(x, y, z);
-
-		if (meta < 5)
-		{
-			setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.0625F, 1.0F);
-			super.addCollidingBlockToList(world, x, y, z, box, list, entity);
-		}
-
-		if (meta != 2 && meta != 4 && meta != 7 && meta != 9)
-		{
-			setBlockBounds(0.0F, 0.0F, 0.0F, 0.125F, 1.0F, 1.0F);
-			super.addCollidingBlockToList(world, x, y, z, box, list, entity);
-		}
-
-		if (meta != 3 && meta != 4 && meta != 8 && meta != 9)
-		{
-			setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 0.125F);
-			super.addCollidingBlockToList(world, x, y, z, box, list, entity);
-		}
-
-		if (meta != 3 && meta != 1 && meta != 8 && meta != 6)
-		{
-			setBlockBounds(0.875F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
-			super.addCollidingBlockToList(world, x, y, z, box, list, entity);
-		}
-
-		if (meta != 1 && meta != 2 && meta != 6 && meta != 7)
-		{
-			setBlockBounds(0.0F, 0.0F, 0.875F, 1.0F, 1.0F, 1.0F);
-			super.addCollidingBlockToList(world, x, y, z, box, list, entity);
-		}
-
-		setBlockBoundsForItemRender();
-	}
-
-	public void setBlockBoundsForItemRender ()
-	{
-		setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
-	}*/
 }

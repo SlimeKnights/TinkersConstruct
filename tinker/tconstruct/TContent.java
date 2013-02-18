@@ -154,17 +154,18 @@ public class TContent implements IFuelHandler
 		GameRegistry.registerBlock(craftedSoil, tinker.tconstruct.items.CraftedSoilItemBlock.class, "CraftedSoil");
 
 		//Smeltery
-		smeltery = new SmelteryBlock(PHConstruct.smeltery);
-		GameRegistry.registerBlock(smeltery, "Smeltery");
+		smeltery = new SmelteryBlock(PHConstruct.smeltery).setBlockName("Smeltery");
+		GameRegistry.registerBlock(smeltery, SmelteryItemBlock.class, "Smeltery");
 		GameRegistry.registerTileEntity(tinker.tconstruct.logic.SmelteryLogic.class, "TConstruct.Smeltery");
-		//GameRegistry.registerTileEntity(tinker.tconstruct.logic.SmelteryLogic.class, "TConstruct.Smeltery");
+		GameRegistry.registerTileEntity(tinker.tconstruct.logic.SmelteryDrainLogic.class, "TConstruct.SmelteryDrain");
+		GameRegistry.registerTileEntity(tinker.tconstruct.logic.MultiServantLogic.class, "TConstruct.Servants");
 		
 		lavaTank = new LavaTankBlock(PHConstruct.lavaTank);
 		GameRegistry.registerBlock(lavaTank, "LavaTank");
 		GameRegistry.registerTileEntity(tinker.tconstruct.logic.LavaTankLogic.class, "TConstruct.LavaTank");
 
-		searedBrick = new SearedBrick(PHConstruct.searedBrick, 80, Material.iron, 10.0F, 6);
-		GameRegistry.registerBlock(searedBrick, tinker.tconstruct.items.SearedBrickItemBlock.class, "SearedBrick");
+		searedBrick = new MetalOre(PHConstruct.searedBrick, 80, Material.iron, 10.0F, 6);
+		GameRegistry.registerBlock(searedBrick, tinker.tconstruct.items.MetalOreItemBlock.class, "SearedBrick");
 		MinecraftForge.setBlockHarvestLevel(searedBrick, 0, "pickaxe", 2);
 		MinecraftForge.setBlockHarvestLevel(searedBrick, 1, "pickaxe", 4);
 		MinecraftForge.setBlockHarvestLevel(searedBrick, 2, "pickaxe", 4);

@@ -3,9 +3,9 @@ package tinker.tconstruct.blocks;
 import net.minecraft.block.material.Material;
 import net.minecraft.world.World;
 
-public class SearedBrick extends TConstructBlock
+public class MetalOre extends TConstructBlock
 {
-	public SearedBrick(int id, int tex, Material material, float hardness, int sub)
+	public MetalOre(int id, int tex, Material material, float hardness, int sub)
 	{
 		super(id, tex, material, hardness, sub);
 	}

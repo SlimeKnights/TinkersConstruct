@@ -1,10 +1,13 @@
 package tinker.tconstruct.blocks;
 
+import java.util.List;
 import java.util.Random;
 
 import net.minecraft.block.material.Material;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -15,6 +18,8 @@ import tinker.tconstruct.TConstruct;
 import tinker.tconstruct.TContent;
 import tinker.tconstruct.TGuiHandler;
 import tinker.tconstruct.client.SmelteryRender;
+import tinker.tconstruct.logic.MultiServantLogic;
+import tinker.tconstruct.logic.SmelteryDrainLogic;
 import tinker.tconstruct.logic.SmelteryLogic;
 
 public class SmelteryBlock extends InventoryBlock
@@ -31,13 +36,14 @@ public class SmelteryBlock extends InventoryBlock
 		this.setCreativeTab(TConstruct.blockTab);
 		this.setBlockName("tconstruct.Smeltery");
 	}
-	
+
 	@Override
 	public int getRenderType ()
 	{
 		return SmelteryRender.smelteryModel;
 	}
 
+	@Override
 	public String getTextureFile ()
 	{
 		return TContent.blockTexture;
@@ -45,23 +51,35 @@ public class SmelteryBlock extends InventoryBlock
 
 	public int getBlockTextureFromSideAndMetadata (int side, int meta)
 	{
-		/*if (side == 0 || side == 1)
+		if (meta < 2)
 		{
-			return blockIndexInTexture + 3 + meta * 4;
-		}*/
-		if (side == 3)
+			if (side == 3)
+			{
+				return blockIndexInTexture + 1 + meta * 3;
+			}
+			else
+			{
+				return blockIndexInTexture + meta * 3;
+			}
+		}
+		else if (meta < 4)
 		{
-			return blockIndexInTexture + 1 + meta * 3;
+			return blockIndexInTexture + meta + 4;
 		}
 		else
 		{
-			return blockIndexInTexture + meta * 3;
+			if (side == 0)
+				return blockIndexInTexture + meta*3 - 2;
+			else if (side == 1)
+				return blockIndexInTexture + meta*3 - 1;
+			else
+				return blockIndexInTexture + meta*3 - 3;
 		}
 	}
 
 	public int getBlockTexture (IBlockAccess world, int x, int y, int z, int side)
 	{
-		InventoryLogic logic = (InventoryLogic) world.getBlockTileEntity(x, y, z);
+		TileEntity logic = world.getBlockTileEntity(x, y, z);
 		short direction = (logic instanceof IFacingLogic) ? ((IFacingLogic) logic).getDirection() : 0;
 		int meta = world.getBlockMetadata(x, y, z);
 		if (meta == 0) //Smeltery
@@ -89,15 +107,24 @@ public class SmelteryBlock extends InventoryBlock
 		if (meta == 1)
 		{
 			if (side == direction)
-				return blockIndexInTexture + 1 + 3;
-			else if (side / 2 == direction / 2)
 				return blockIndexInTexture + 2 + 3;
+			else if (side / 2 == direction / 2)
+				return blockIndexInTexture + 1 + 3;
 			else
 				return blockIndexInTexture + 3;
 		}
+		else if (meta < 4)
+		{
+			return blockIndexInTexture + meta + 4;
+		}
 		else
 		{
-			return blockIndexInTexture + meta +4;
+			if (side == 0)
+				return blockIndexInTexture + meta*3 - 2;
+			else if (side == 1)
+				return blockIndexInTexture + meta*3 - 1;
+			else
+				return blockIndexInTexture + meta*3 - 3;
 		}
 	}
 
@@ -121,12 +148,12 @@ public class SmelteryBlock extends InventoryBlock
 	{
 		if (isActive(world, x, y, z))
 		{
-			InventoryLogic logic = (InventoryLogic) world.getBlockTileEntity(x, y, z);
+			TileEntity logic = world.getBlockTileEntity(x, y, z);
 			byte face = 0;
 			if (logic instanceof IFacingLogic)
-				face = ((IFacingLogic)logic).getDirection();
+				face = ((IFacingLogic) logic).getDirection();
 			float f = (float) x + 0.5F;
-			float f1 = (float) y + 0.0F + (random.nextFloat() * 6F) / 16F;
+			float f1 = (float) y + 0.5F + (random.nextFloat() * 6F) / 16F;
 			float f2 = (float) z + 0.5F;
 			float f3 = 0.52F;
 			float f4 = random.nextFloat() * 0.6F - 0.3F;
@@ -174,29 +201,63 @@ public class SmelteryBlock extends InventoryBlock
 	{
 		return TConstruct.instance;
 	}
+	
+	@Override
+	public boolean onBlockActivated (World world, int x, int y, int z, EntityPlayer player, int side, float clickX, float clickY, float clickZ)
+	{		
+		if (player.isSneaking() || world.getBlockMetadata(x, y, z) != 0)
+			return false;
+		
+		Integer integer = getGui(world, x, y, z, player);
+		if (integer == null || integer == -1)
+		{
+			return false;
+		}
+		else
+		{
+			player.openGui(getModInstance(), integer, world, x, y, z);
+			return true;
+		}
+	}
 
 	@Override
-	public TileEntity createNewTileEntity(World world, int metadata) 
+	public TileEntity createNewTileEntity (World world, int metadata)
 	{
-		return new SmelteryLogic();
+		switch (metadata)
+		{
+		case 0:	return new SmelteryLogic();
+		case 1: return new SmelteryDrainLogic();
+		case 2: return new MultiServantLogic();
+		default: return null;
+		}
 	}
-	
+
 	@Override
-    public void onBlockPlacedBy(World world, int x, int y, int z, EntityLiving entityliving)
+	public void onBlockPlacedBy (World world, int x, int y, int z, EntityLiving entityliving)
 	{
 		super.onBlockPlacedBy(world, x, y, z, entityliving);
-		onBlockPlacedElsewhere(world, x, y, z, entityliving);
+		if (world.getBlockMetadata(x, y, z) == 0)
+			onBlockPlacedElsewhere(world, x, y, z, entityliving);
 	}
-	
-	public void onBlockPlacedElsewhere(World world, int x, int y, int z, EntityLiving entityliving)
+
+	public void onBlockPlacedElsewhere (World world, int x, int y, int z, EntityLiving entityliving)
 	{
 		SmelteryLogic logic = (SmelteryLogic) world.getBlockTileEntity(x, y, z);
 		logic.checkValidPlacement();
 	}
-	
+
 	@Override
 	public void breakBlock (World world, int x, int y, int z, int par5, int par6) //Don't drop inventory
 	{
 		world.removeBlockTileEntity(x, y, z);
+	}
+	
+	@Override
+	public void getSubBlocks (int id, CreativeTabs tab, List list)
+	{
+		for (int iter = 0; iter < 3; iter++)
+		{
+			list.add(new ItemStack(id, 1, iter));
+		}
 	}
 }

@@ -4,7 +4,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import tinker.common.CoordTuple;
 
-public class MultiblockLogic extends TileEntity
+public class MultiServantLogic extends TileEntity
 {
 	boolean hasMaster;
 	CoordTuple master;

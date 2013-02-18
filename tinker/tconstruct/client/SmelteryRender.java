@@ -26,7 +26,7 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
 	{
 		if (modelID == smelteryModel)
 		{
-			renderDo(renderer, block, metadata);
+			renderStandardInvBlock(renderer, block, metadata);
 		}
 	}
 
@@ -35,11 +35,10 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
 	{
 		if (modelID == smelteryModel)
 		{
-			switch (world.getBlockMetadata(x, y, z))
-			{
-			case 0: return renderSmeltery(world, x, y, z, block, modelID, renderer);
-			case 1:
-			}
+			if (world.getBlockMetadata(x, y, z) == 0)
+				return renderSmeltery(world, x, y, z, block, modelID, renderer);
+			else
+				renderer.renderStandardBlock(block, x, y, z);
 		}
 		return false;
 	}
@@ -116,7 +115,7 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
 		return smelteryModel;
 	}
 
-	private void renderDo(RenderBlocks renderblocks, Block block, int meta)
+	private void renderStandardInvBlock(RenderBlocks renderblocks, Block block, int meta)
 	{
 		Tessellator tessellator = Tessellator.instance;
 		GL11.glTranslatef(-0.5F, -0.5F, -0.5F);

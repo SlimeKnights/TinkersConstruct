@@ -3,14 +3,14 @@ package tinker.tconstruct.items;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 
-public class SearedBrickItemBlock extends ItemBlock
+public class SmelteryItemBlock extends ItemBlock
 {
     public static final String blockType[] =
     {
-        "Brick", "Cobalt", "Ardite", "Copper", "Tin", "Aluminum", "Slag"
+        "Controller", "Drain", "Brick", "Gague", "Window"
     };
 
-    public SearedBrickItemBlock(int id)
+    public SmelteryItemBlock(int id)
     {
         super(id);
         setMaxDamage(0);
@@ -24,6 +24,6 @@ public class SearedBrickItemBlock extends ItemBlock
 
     public String getItemNameIS(ItemStack itemstack)
     {
-        return (new StringBuilder()).append("SearedBrick.").append(blockType[itemstack.getItemDamage()]).toString();
+        return (new StringBuilder()).append("Smeltery.").append(blockType[itemstack.getItemDamage()]).toString();
     }
 }

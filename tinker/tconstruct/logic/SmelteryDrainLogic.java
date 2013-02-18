@@ -3,14 +3,14 @@ package tinker.tconstruct.logic;
 import net.minecraftforge.liquids.ILiquidTank;
 import net.minecraftforge.liquids.LiquidStack;
 
-public class SmelteryDrainLogic extends MultiblockLogic 
+public class SmelteryDrainLogic extends MultiServantLogic 
 	implements ILiquidTank
 {
 	boolean isDrain;
 	
-	public SmelteryDrainLogic(boolean drain)
+	public SmelteryDrainLogic()
 	{
-		isDrain = drain;
+		isDrain = true;
 	}
 	
 	@Override

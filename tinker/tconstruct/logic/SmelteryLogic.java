@@ -329,7 +329,7 @@ public class SmelteryLogic extends InventoryLogic
 				hasLavaTank = true;
 			}
 
-			if (eastID == TContent.searedBrick.blockID)
+			if (eastID == TContent.smeltery.blockID)
 				numBricks++;
 			else if (eastID == TContent.lavaTank.blockID)
 			{

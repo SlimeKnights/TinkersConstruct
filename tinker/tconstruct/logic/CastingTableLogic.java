@@ -2,6 +2,10 @@ package tinker.tconstruct.logic;
 
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.INetworkManager;
+import net.minecraft.network.packet.Packet;
+import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.world.World;
 import tinker.common.InventoryLogic;
 
@@ -25,4 +29,19 @@ public class CastingTableLogic extends InventoryLogic
 		return null;
 	}
 
+	/* Packets */
+	@Override
+	public Packet getDescriptionPacket ()
+	{
+		NBTTagCompound tag = new NBTTagCompound();
+		writeToNBT(tag);
+		return new Packet132TileEntityData(xCoord, yCoord, zCoord, 1, tag);
+	}
+
+	@Override
+	public void onDataPacket (INetworkManager net, Packet132TileEntityData packet)
+	{
+		readFromNBT(packet.customParam1);
+		worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+	}
 }
