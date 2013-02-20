@@ -301,7 +301,7 @@ public class SmelteryLogic extends InventoryLogic
 		{
 			int southID = worldObj.getBlockId(xPos, y, z - 2);
 			int northID = worldObj.getBlockId(xPos, y, z + 2);
-			if (southID == TContent.searedBrick.blockID)
+			if (southID == TContent.smeltery.blockID)
 				numBricks++;
 			else if (southID == TContent.lavaTank.blockID)
 			{
@@ -309,7 +309,7 @@ public class SmelteryLogic extends InventoryLogic
 				hasLavaTank = true;
 			}
 
-			if (northID == TContent.searedBrick.blockID)
+			if (northID == TContent.smeltery.blockID)
 				numBricks++;
 			else if (northID == TContent.lavaTank.blockID)
 			{
@@ -321,7 +321,7 @@ public class SmelteryLogic extends InventoryLogic
 		{
 			int westID = worldObj.getBlockId(x - 2, y, zPos);
 			int eastID = worldObj.getBlockId(x + 2, y, zPos);
-			if (westID == TContent.searedBrick.blockID)
+			if (westID == TContent.smeltery.blockID)
 				numBricks++;
 			else if (westID == TContent.lavaTank.blockID)
 			{
@@ -343,12 +343,14 @@ public class SmelteryLogic extends InventoryLogic
 		{
 			for (int zPos = z - 1; zPos <= z + 1; zPos++)
 			{
-				if (worldObj.getBlockId(xPos, y - 1, zPos) == TContent.searedBrick.blockID)
+				if (worldObj.getBlockId(xPos, y - 1, zPos) == TContent.smeltery.blockID)
 					numBricks++;
 			}
 		}
+		
+		System.out.println(numBricks);
 
-		if (numBricks == 19 && hasLavaTank)
+		if (numBricks == 20 && hasLavaTank)
 		{
 			if (!validStructure)
 			{

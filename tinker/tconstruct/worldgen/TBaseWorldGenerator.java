@@ -16,12 +16,12 @@ public class TBaseWorldGenerator
 {
 	public TBaseWorldGenerator()
 	{
-		copper = new ManhattanOreGenerator(TContent.searedBrick.blockID, 3, 5, 10, 100, true, true);
-		tin = new ManhattanOreGenerator(TContent.searedBrick.blockID, 4, 5, 10, 100, true, true);
-		aluminum = new ManhattanOreGenerator(TContent.searedBrick.blockID, 5, 8, 20, 100, false, true);
+		copper = new ManhattanOreGenerator(TContent.oreSlag.blockID, 3, 5, 10, 100, true, true);
+		tin = new ManhattanOreGenerator(TContent.oreSlag.blockID, 4, 5, 10, 100, true, true);
+		aluminum = new ManhattanOreGenerator(TContent.oreSlag.blockID, 5, 8, 20, 100, false, true);
 		
-		cobalt = new ManhattanOreGenerator(TContent.searedBrick.blockID, 1, 2, 4, 100, true, false, Block.netherrack.blockID);
-		ardite = new ManhattanOreGenerator(TContent.searedBrick.blockID, 2, 2, 4, 100, true, false, Block.netherrack.blockID);
+		cobalt = new ManhattanOreGenerator(TContent.oreSlag.blockID, 1, 2, 4, 100, true, false, Block.netherrack.blockID);
+		ardite = new ManhattanOreGenerator(TContent.oreSlag.blockID, 2, 2, 4, 100, true, false, Block.netherrack.blockID);
 	}
 	
 	@Override

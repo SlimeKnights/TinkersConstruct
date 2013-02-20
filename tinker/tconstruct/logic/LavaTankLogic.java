@@ -26,6 +26,11 @@ public class LavaTankLogic extends TileEntity
 		pressure = 0;
 	}
 	
+	public boolean canUpdate()
+    {
+        return false;
+    }
+	
 	@Override
 	public LiquidStack getLiquid ()
 	{

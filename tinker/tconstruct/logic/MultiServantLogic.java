@@ -8,6 +8,11 @@ public class MultiServantLogic extends TileEntity
 {
 	boolean hasMaster;
 	CoordTuple master;
+	
+	public boolean canUpdate()
+    {
+        return false;
+    }
 
 	public boolean hasValidMaster ()
 	{

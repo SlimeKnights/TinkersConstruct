@@ -6,6 +6,6 @@ public class LiquidAluminumFX extends TextureLiquidStillFX
 {
 	public LiquidAluminumFX()
 	{
-		super(140, 255, 30, 190, 30, 190, TContent.aluminumStill.blockIndexInTexture, TContent.aluminumStill.getTextureFile());
+		super(50, 255, 0, 150, 0, 120, TContent.aluminumStill.blockIndexInTexture, TContent.aluminumStill.getTextureFile());
 	}
 }

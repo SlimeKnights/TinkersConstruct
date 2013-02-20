@@ -13,10 +13,12 @@ import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
 import tinker.common.*;
+import tinker.common.fancyitem.FancyEntityItem;
 import tinker.tconstruct.blocks.*;
 import tinker.tconstruct.blocks.liquids.*;
 import tinker.tconstruct.client.gui.*;
 import tinker.tconstruct.crafting.*;
+import tinker.tconstruct.entity.*;
 import tinker.tconstruct.items.*;
 import tinker.tconstruct.modifiers.*;
 import tinker.tconstruct.tools.*;
@@ -75,7 +77,7 @@ public class TContent implements IFuelHandler
 	public static Block heldItemBlock;
 	public static Block lavaTank;
 	public static Block craftedSoil;
-	public static Block searedBrick;
+	public static Block oreSlag;
 	
 	//Traps
 	public static Block landmine;
@@ -107,6 +109,8 @@ public class TContent implements IFuelHandler
 
     public static Block obsidianFlowing;
     public static Block obsidianStill;
+    public static Block steelFlowing;
+    public static Block steelStill;
     
 	//public static Block axle;
 
@@ -130,8 +134,9 @@ public class TContent implements IFuelHandler
 
 	void createEntities ()
 	{
-		EntityRegistry.registerModEntity(tinker.tconstruct.entity.CartEntity.class, "Small Wagon", 0, TConstruct.instance, 32, 5, true);
-		EntityRegistry.registerModEntity(tinker.tconstruct.entity.Skyla.class, "Skyla", 1, TConstruct.instance, 32, 5, true);
+		EntityRegistry.registerModEntity(CartEntity.class, "Small Wagon", 0, TConstruct.instance, 32, 5, true);
+		EntityRegistry.registerModEntity(Skyla.class, "Skyla", 1, TConstruct.instance, 32, 5, true);
+		EntityRegistry.registerModEntity(FancyEntityItem.class, "Fancy Item", 1, TConstruct.instance, 32, 5, true);
 	}
 	
 	void registerBlocks()
@@ -161,17 +166,22 @@ public class TContent implements IFuelHandler
 		GameRegistry.registerTileEntity(tinker.tconstruct.logic.MultiServantLogic.class, "TConstruct.Servants");
 		
 		lavaTank = new LavaTankBlock(PHConstruct.lavaTank);
+		lavaTank.setStepSound(Block.soundGlassFootstep);
 		GameRegistry.registerBlock(lavaTank, "LavaTank");
 		GameRegistry.registerTileEntity(tinker.tconstruct.logic.LavaTankLogic.class, "TConstruct.LavaTank");
 
-		searedBrick = new MetalOre(PHConstruct.searedBrick, 80, Material.iron, 10.0F, 6);
-		GameRegistry.registerBlock(searedBrick, tinker.tconstruct.items.MetalOreItemBlock.class, "SearedBrick");
-		MinecraftForge.setBlockHarvestLevel(searedBrick, 0, "pickaxe", 2);
-		MinecraftForge.setBlockHarvestLevel(searedBrick, 1, "pickaxe", 4);
-		MinecraftForge.setBlockHarvestLevel(searedBrick, 2, "pickaxe", 4);
-		MinecraftForge.setBlockHarvestLevel(searedBrick, 3, "pickaxe", 1);
-		MinecraftForge.setBlockHarvestLevel(searedBrick, 4, "pickaxe", 1);
-		MinecraftForge.setBlockHarvestLevel(searedBrick, 5, "pickaxe", 1);
+		oreSlag = new MetalOre(PHConstruct.oreSlag, 80, Material.iron, 10.0F, 6);
+		GameRegistry.registerBlock(oreSlag, tinker.tconstruct.items.MetalOreItemBlock.class, "SearedBrick");
+		MinecraftForge.setBlockHarvestLevel(oreSlag, 0, "pickaxe", 2);
+		MinecraftForge.setBlockHarvestLevel(oreSlag, 1, "pickaxe", 4);
+		MinecraftForge.setBlockHarvestLevel(oreSlag, 2, "pickaxe", 4);
+		MinecraftForge.setBlockHarvestLevel(oreSlag, 3, "pickaxe", 1);
+		MinecraftForge.setBlockHarvestLevel(oreSlag, 4, "pickaxe", 1);
+		MinecraftForge.setBlockHarvestLevel(oreSlag, 5, "pickaxe", 1);
+		
+		//Traps
+		landmine = new Landmine(PHConstruct.landmine, 0, EnumMobType.mobs, Material.cactus).setBlockName("landmine");
+		GameRegistry.registerBlock(landmine, "landmine");
 
 		//Liquids
 		ironFlowing = new IronFlowing(PHConstruct.ironFlowing).setBlockName("liquid.ironFlow");
@@ -222,10 +232,10 @@ public class TContent implements IFuelHandler
 		GameRegistry.registerBlock(obsidianFlowing, "Liquid obsidian Flowing");
 		obsidianStill = new ObsidianStill(PHConstruct.obsidianStill).setBlockName("liquid.obsidianStill");
 		GameRegistry.registerBlock(obsidianStill, "Liquid obsidian Still");
-		
-		//Traps
-		landmine = new Landmine(PHConstruct.landmine, 0, EnumMobType.mobs, Material.cactus).setBlockName("landmine");
-		GameRegistry.registerBlock(landmine, "landmine");
+		steelFlowing = new SteelFlowing(PHConstruct.steelFlowing).setBlockName("liquid.steelFlow");
+		GameRegistry.registerBlock(steelFlowing, "Liquid steel Flowing");
+		steelStill = new SteelStill(PHConstruct.steelStill).setBlockName("liquid.steelStill");
+		GameRegistry.registerBlock(steelStill, "Liquid steel Still");
 	}
 
 	void createItems ()
@@ -407,9 +417,9 @@ public class TContent implements IFuelHandler
 		Smeltery.addMelting(new ItemStack(Item.ingotGold, 8), Block.blockGold.blockID, 0, 450, new LiquidStack(goldStill.blockID, 250, 0));
 		Smeltery.addMelting(Block.blockSteel, 0, 500, new LiquidStack(ironStill.blockID, 2250, 0));
 		Smeltery.addMelting(Block.blockGold, 0, 450, new LiquidStack(goldStill.blockID, 2250, 0));
-		Smeltery.addMelting(searedBrick, 3, 550, new LiquidStack(copperStill.blockID, 250, 0));
-		Smeltery.addMelting(searedBrick, 4, 175, new LiquidStack(tinStill.blockID, 250, 0));
-		Smeltery.addMelting(searedBrick, 5, 350, new LiquidStack(aluminumStill.blockID, 250, 0));
+		Smeltery.addMelting(oreSlag, 3, 550, new LiquidStack(copperStill.blockID, 250, 0));
+		Smeltery.addMelting(oreSlag, 4, 175, new LiquidStack(tinStill.blockID, 250, 0));
+		Smeltery.addMelting(oreSlag, 5, 350, new LiquidStack(aluminumStill.blockID, 250, 0));
 		
 		Smeltery.addAlloyMixing(new LiquidStack(bronzeStill.blockID, 4, 0), new LiquidStack(copperStill.blockID, 3, 0), new LiquidStack(tinStill.blockID, 1, 0));
 		Smeltery.addAlloyMixing(new LiquidStack(alBrassStill.blockID, 4, 0), new LiquidStack(aluminumStill.blockID, 3, 0), new LiquidStack(copperStill.blockID, 1, 0));
@@ -447,13 +457,13 @@ public class TContent implements IFuelHandler
 
 		FurnaceRecipes.smelting().addSmelting(craftedSoil.blockID, 0, new ItemStack(materials, 1, 1), 2f); //Slime
 		FurnaceRecipes.smelting().addSmelting(craftedSoil.blockID, 1, new ItemStack(materials, 1, 2), 2f); //Seared brick item
-		GameRegistry.addRecipe(new ItemStack(searedBrick, 1, 0), "pp", "pp", 'p', new ItemStack(materials, 1, 2)); //Seared brick block
+		GameRegistry.addRecipe(new ItemStack(oreSlag, 1, 0), "pp", "pp", 'p', new ItemStack(materials, 1, 2)); //Seared brick block
 		
-		FurnaceRecipes.smelting().addSmelting(searedBrick.blockID, 1, new ItemStack(materials, 1, 3), 3f);
-		FurnaceRecipes.smelting().addSmelting(searedBrick.blockID, 2, new ItemStack(materials, 1, 4), 3f);
-		FurnaceRecipes.smelting().addSmelting(searedBrick.blockID, 3, new ItemStack(materials, 1, 9), 0.5f);
-		FurnaceRecipes.smelting().addSmelting(searedBrick.blockID, 4, new ItemStack(materials, 1, 10), 0.5f);
-		FurnaceRecipes.smelting().addSmelting(searedBrick.blockID, 5, new ItemStack(materials, 1, 12), 0.5f);
+		FurnaceRecipes.smelting().addSmelting(oreSlag.blockID, 1, new ItemStack(materials, 1, 3), 3f);
+		FurnaceRecipes.smelting().addSmelting(oreSlag.blockID, 2, new ItemStack(materials, 1, 4), 3f);
+		FurnaceRecipes.smelting().addSmelting(oreSlag.blockID, 3, new ItemStack(materials, 1, 9), 0.5f);
+		FurnaceRecipes.smelting().addSmelting(oreSlag.blockID, 4, new ItemStack(materials, 1, 10), 0.5f);
+		FurnaceRecipes.smelting().addSmelting(oreSlag.blockID, 5, new ItemStack(materials, 1, 12), 0.5f);
 
 		/*for (int i = 0; i < 12; i++)
 		{
@@ -532,11 +542,11 @@ public class TContent implements IFuelHandler
 	
 	public void oreRegistry ()
 	{
-		OreDictionary.registerOre("oreCobalt", new ItemStack(searedBrick, 1, 1));
-		OreDictionary.registerOre("oreArdite", new ItemStack(searedBrick, 1, 2));
-		OreDictionary.registerOre("oreCopper", new ItemStack(searedBrick, 1, 3));
-		OreDictionary.registerOre("oreTin", new ItemStack(searedBrick, 1, 4));
-		OreDictionary.registerOre("oreAluminum", new ItemStack(searedBrick, 1, 5));
+		OreDictionary.registerOre("oreCobalt", new ItemStack(oreSlag, 1, 1));
+		OreDictionary.registerOre("oreArdite", new ItemStack(oreSlag, 1, 2));
+		OreDictionary.registerOre("oreCopper", new ItemStack(oreSlag, 1, 3));
+		OreDictionary.registerOre("oreTin", new ItemStack(oreSlag, 1, 4));
+		OreDictionary.registerOre("oreAluminum", new ItemStack(oreSlag, 1, 5));
 		
 		OreDictionary.registerOre("ingotCobalt", new ItemStack(materials, 1, 3));
 		OreDictionary.registerOre("ingotArdite", new ItemStack(materials, 1, 4));

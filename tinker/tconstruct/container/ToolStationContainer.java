@@ -70,8 +70,6 @@ public class ToolStationContainer extends Container
         {
         	this.addSlotToContainer(new Slot(invPlayer, column, 8 + column * 18, 142));
         }
-        
-        logic.dumpExtraItems(posX.length, invPlayer.player);
 	}
 	
 	@Override

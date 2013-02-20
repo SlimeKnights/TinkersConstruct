@@ -18,6 +18,7 @@ import net.minecraft.world.storage.MapData;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
+import tinker.common.fancyitem.FancyEntityItem;
 import tinker.tconstruct.logic.CastingTableLogic;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -51,13 +52,13 @@ public class CastingTableSpecialRenderer extends TileEntitySpecialRenderer
     	
         if (stack != null)
         {
-            EntityItem entityitem = new EntityItem(logic.worldObj, 0.0D, 0.0D, 0.0D, stack);
+            FancyEntityItem entityitem = new FancyEntityItem(logic.worldObj, 0.0D, 0.0D, 0.0D, stack);
             entityitem.func_92014_d().stackSize = 1;
             entityitem.hoverStart = 0.0F;
             GL11.glPushMatrix();
-            GL11.glTranslatef(1F, 1.4375F, 0.61F);
+            GL11.glTranslatef(1F, 1.478F, 0.55F);
             GL11.glRotatef(90F, 1, 0F, 0F);
-            GL11.glScalef(1.94F, 1.94F, 1.94F);
+            GL11.glScalef(2F, 2F, 2F);
             /*GL11.glTranslatef(-0.453125F * (float)Direction.offsetX[logic.hangingDirection], -0.18F, -0.453125F * (float)Direction.offsetZ[logic.hangingDirection]);
             GL11.glRotatef(180.0F + logic.rotationYaw, 0.0F, 1.0F, 0.0F);
             GL11.glRotatef((float)(-90 * logic.getRotation()), 0.0F, 0.0F, 1.0F);

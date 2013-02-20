@@ -88,20 +88,9 @@ public class ToolStationLogic extends InventoryLogic
 		/*if (container != null)
 			container.detectAndSendChanges();*/
 	}
-
-	public void dumpExtraItems (int usedSlots, EntityPlayer player)
-	{
-		if (!worldObj.isRemote)
-		{
-			for (int iter = 0; iter < inventory.length; iter++)
-			{
-				if (iter > usedSlots && inventory[iter] != null)
-				{
-					EntityItem entityitem = new EntityItem(worldObj, player.posX, player.posY - 1.0D, player.posZ, inventory[iter]);
-					worldObj.spawnEntityInWorld(entityitem);
-					entityitem.onCollideWithPlayer(player);
-				}
-			}
-		}
-	}
+	
+	public boolean canUpdate()
+    {
+        return false;
+    }
 }

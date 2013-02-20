@@ -12,6 +12,11 @@ public class PatternChestLogic extends InventoryLogic
 	{
 		super(30);
 	}
+	
+	public boolean canUpdate()
+    {
+        return false;
+    }
 
 	@Override
 	public String getInvName ()

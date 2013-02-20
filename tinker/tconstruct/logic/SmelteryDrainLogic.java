@@ -13,6 +13,11 @@ public class SmelteryDrainLogic extends MultiServantLogic
 		isDrain = true;
 	}
 	
+	public boolean canUpdate()
+    {
+        return false;
+    }
+	
 	@Override
 	public LiquidStack getLiquid ()
 	{

@@ -14,6 +14,11 @@ public class PatternShaperLogic extends InventoryLogic
 	{
 		super(2);
 	}
+	
+	public boolean canUpdate()
+    {
+        return false;
+    }
 
 	@Override
 	public String getInvName ()

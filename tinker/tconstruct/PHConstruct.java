@@ -44,9 +44,9 @@ public class PHConstruct {
         heldItemBlock = config.getBlock("Held Item Block", 1472).getInt(1472);
         lavaTank = config.getBlock("Lava Tank", 1473).getInt(1473);
         smeltery = config.getBlock("Smeltery", 1474).getInt(1474);
-        searedBrick = config.getBlock("Seared Brick", 1477).getInt(1477);
+        oreSlag = config.getBlock("Ores Slag", 1475).getInt(1475);
         craftedSoil = config.getBlock("Special Soil", 1476).getInt(1476);
-        landmine = config.getBlock("Landmine", 1475).getInt(1475);
+        landmine = config.getBlock("Landmine", 1477).getInt(1477);
         
         ironFlowing = config.getBlock("Liquid Iron Flowing", 1478).getInt(1478);
         ironStill = config.getBlock("Liquid Iron Still", 1479).getInt(1479);
@@ -72,6 +72,8 @@ public class PHConstruct {
         alumiteStill = config.getBlock("Liquid Alumite Still", 1499).getInt(1499);
         obsidianFlowing = config.getBlock("Liquid Obsidian Flowing", 1500).getInt(1500);
         obsidianStill = config.getBlock("Liquid Obsidian Still", 1501).getInt(1501);
+        steelFlowing = config.getBlock("Liquid Steel Flowing", 1502).getInt(1502);
+        steelStill = config.getBlock("Liquid Steel Still", 1503).getInt(1503);
         
         manual = config.getItem("Patterns and Misc", "Tinker's Manual", 14018).getInt(14018);
         blankPattern = config.getItem("Patterns and Misc", "Blank Patterns", 14019).getInt(14019);
@@ -154,7 +156,7 @@ public class PHConstruct {
     public static int lavaTank;
     public static int smeltery;
     public static int craftedSoil;
-    public static int searedBrick;
+    public static int oreSlag;
     public static int axle;
 
     //Traps
@@ -187,6 +189,8 @@ public class PHConstruct {
 
     public static int obsidianFlowing;
     public static int obsidianStill;
+    public static int steelFlowing;
+    public static int steelStill;
     
     //Patterns and misc
     public static int blankPattern;
