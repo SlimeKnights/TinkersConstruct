@@ -28,9 +28,9 @@ public class SmelteryBlock extends InventoryBlock
 
 	public SmelteryBlock(int id)
 	{
-		super(id, Material.iron);
+		super(id, Material.rock);
 		blockIndexInTexture = 64;
-		setHardness(1.5F);
+		setHardness(30F);
 		setStepSound(soundMetalFootstep);
 		rand = new Random();
 		this.setCreativeTab(TConstruct.blockTab);
@@ -80,7 +80,7 @@ public class SmelteryBlock extends InventoryBlock
 	public int getBlockTexture (IBlockAccess world, int x, int y, int z, int side)
 	{
 		TileEntity logic = world.getBlockTileEntity(x, y, z);
-		short direction = (logic instanceof IFacingLogic) ? ((IFacingLogic) logic).getDirection() : 0;
+		short direction = (logic instanceof IFacingLogic) ? ((IFacingLogic) logic).getRenderDirection() : 0;
 		int meta = world.getBlockMetadata(x, y, z);
 		if (meta == 0) //Smeltery
 		{
@@ -151,7 +151,7 @@ public class SmelteryBlock extends InventoryBlock
 			TileEntity logic = world.getBlockTileEntity(x, y, z);
 			byte face = 0;
 			if (logic instanceof IFacingLogic)
-				face = ((IFacingLogic) logic).getDirection();
+				face = ((IFacingLogic) logic).getRenderDirection();
 			float f = (float) x + 0.5F;
 			float f1 = (float) y + 0.5F + (random.nextFloat() * 6F) / 16F;
 			float f2 = (float) z + 0.5F;

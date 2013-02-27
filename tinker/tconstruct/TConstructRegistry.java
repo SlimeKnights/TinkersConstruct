@@ -3,8 +3,9 @@ package tinker.tconstruct;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import tinker.tconstruct.client.gui.ToolGuiElement;
-import tinker.tconstruct.tools.ToolCore;
+import tinker.tconstruct.client.gui.*;
+import tinker.tconstruct.crafting.*;
+import tinker.tconstruct.tools.*;
 
 /** A registry to store any relevant API work
  * 
@@ -13,7 +14,7 @@ import tinker.tconstruct.tools.ToolCore;
 
 public class TConstructRegistry
 {
-	public static TConstructRegistry instance = new TConstructRegistry();
+	public static TConstructRegistry instance = new TConstructRegistry();	
 	public static ArrayList<ToolCore> tools = new ArrayList<ToolCore>(20);
 	public static ArrayList<ToolGuiElement> toolButtons = new ArrayList<ToolGuiElement>(20);
 	public static HashMap<Integer, ToolMaterial> toolMaterials = new HashMap<Integer, ToolMaterial>(60);

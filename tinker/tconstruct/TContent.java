@@ -1,28 +1,31 @@
 package tinker.tconstruct;
 
+import java.util.ArrayList;
+
 import net.minecraft.block.Block;
-import net.minecraft.block.EnumMobType;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.liquids.LiquidContainerData;
+import net.minecraftforge.liquids.LiquidContainerRegistry;
+import net.minecraftforge.liquids.LiquidDictionary;
 import net.minecraftforge.liquids.LiquidStack;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
-
-import tinker.common.*;
+import tinker.common.IPattern;
 import tinker.common.fancyitem.FancyEntityItem;
 import tinker.tconstruct.blocks.*;
 import tinker.tconstruct.blocks.liquids.*;
-import tinker.tconstruct.client.gui.*;
+import tinker.tconstruct.client.gui.ToolGuiElement;
 import tinker.tconstruct.crafting.*;
 import tinker.tconstruct.entity.*;
 import tinker.tconstruct.items.*;
+import tinker.tconstruct.logic.*;
 import tinker.tconstruct.modifiers.*;
 import tinker.tconstruct.tools.*;
-
 import cpw.mods.fml.common.IFuelHandler;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -37,6 +40,7 @@ public class TContent implements IFuelHandler
 	public static Item woodPattern;
 
 	public static Item manualBook;
+	public static Item buckets;
 	//public static Item stonePattern;
 	//public static Item netherPattern;
 
@@ -71,12 +75,13 @@ public class TContent implements IFuelHandler
 	public static Item lumberHead;
 
 	//Crafting blocks
-	public static Block woodCrafter;
-	public static Block smeltery;
-
+	public static Block woodCrafter;	
 	public static Block heldItemBlock;
-	public static Block lavaTank;
 	public static Block craftedSoil;
+	
+	public static Block smeltery;
+	public static Block lavaTank;
+	public static Block searedBlock;
 	public static Block oreSlag;
 	
 	//Traps
@@ -143,12 +148,11 @@ public class TContent implements IFuelHandler
 	{
 		//Tool Station
 		woodCrafter = new ToolStationBlock(PHConstruct.woodCrafter, Material.wood);
-		GameRegistry.registerBlock(woodCrafter, tinker.tconstruct.items.ToolStationItemBlock.class, "ToolStationBlock");
-		GameRegistry.registerTileEntity(tinker.tconstruct.logic.ToolStationLogic.class, "ToolStation");
-		GameRegistry.registerTileEntity(tinker.tconstruct.logic.PartCrafterLogic.class, "PartCrafter");
-		GameRegistry.registerTileEntity(tinker.tconstruct.logic.PatternChestLogic.class, "PatternHolder");
-		GameRegistry.registerTileEntity(tinker.tconstruct.logic.PatternShaperLogic.class, "PatternShaper");
-		GameRegistry.registerTileEntity(tinker.tconstruct.logic.CastingTableLogic.class, "CastingTable");
+		GameRegistry.registerBlock(woodCrafter, ToolStationItemBlock.class, "ToolStationBlock");
+		GameRegistry.registerTileEntity(ToolStationLogic.class, "ToolStation");
+		GameRegistry.registerTileEntity(PartCrafterLogic.class, "PartCrafter");
+		GameRegistry.registerTileEntity(PatternChestLogic.class, "PatternHolder");
+		GameRegistry.registerTileEntity(PatternShaperLogic.class, "PatternShaper");
 
 		heldItemBlock = new EquipBlock(PHConstruct.heldItemBlock, Material.wood);
 		GameRegistry.registerBlock(heldItemBlock, "HeldItemBlock");
@@ -161,14 +165,19 @@ public class TContent implements IFuelHandler
 		//Smeltery
 		smeltery = new SmelteryBlock(PHConstruct.smeltery).setBlockName("Smeltery");
 		GameRegistry.registerBlock(smeltery, SmelteryItemBlock.class, "Smeltery");
-		GameRegistry.registerTileEntity(tinker.tconstruct.logic.SmelteryLogic.class, "TConstruct.Smeltery");
-		GameRegistry.registerTileEntity(tinker.tconstruct.logic.SmelteryDrainLogic.class, "TConstruct.SmelteryDrain");
-		GameRegistry.registerTileEntity(tinker.tconstruct.logic.MultiServantLogic.class, "TConstruct.Servants");
+		GameRegistry.registerTileEntity(SmelteryLogic.class, "TConstruct.Smeltery");
+		GameRegistry.registerTileEntity(SmelteryDrainLogic.class, "TConstruct.SmelteryDrain");
+		GameRegistry.registerTileEntity(MultiServantLogic.class, "TConstruct.Servants");
 		
-		lavaTank = new LavaTankBlock(PHConstruct.lavaTank);
+		lavaTank = new LavaTankBlock(PHConstruct.lavaTank).setBlockName("LavaTank");
 		lavaTank.setStepSound(Block.soundGlassFootstep);
-		GameRegistry.registerBlock(lavaTank, "LavaTank");
+		GameRegistry.registerBlock(lavaTank, LavaTankItemBlock.class, "LavaTank");
 		GameRegistry.registerTileEntity(tinker.tconstruct.logic.LavaTankLogic.class, "TConstruct.LavaTank");
+		
+		searedBlock = new SearedBlock(PHConstruct.searedTable).setBlockName("SearedTable");
+		GameRegistry.registerBlock(searedBlock, SearedTableItemBlock.class, "SearedTable");
+		GameRegistry.registerTileEntity(CastingTableLogic.class, "CastingTable");
+		GameRegistry.registerTileEntity(FaucetLogic.class, "Faucet");
 
 		oreSlag = new MetalOre(PHConstruct.oreSlag, 80, Material.iron, 10.0F, 6);
 		GameRegistry.registerBlock(oreSlag, tinker.tconstruct.items.MetalOreItemBlock.class, "SearedBrick");
@@ -180,8 +189,8 @@ public class TContent implements IFuelHandler
 		MinecraftForge.setBlockHarvestLevel(oreSlag, 5, "pickaxe", 1);
 		
 		//Traps
-		landmine = new Landmine(PHConstruct.landmine, 0, EnumMobType.mobs, Material.cactus).setBlockName("landmine");
-		GameRegistry.registerBlock(landmine, "landmine");
+		/*landmine = new Landmine(PHConstruct.landmine, 0, EnumMobType.mobs, Material.cactus).setBlockName("landmine");
+		GameRegistry.registerBlock(landmine, "landmine");*/
 
 		//Liquids
 		ironFlowing = new IronFlowing(PHConstruct.ironFlowing).setBlockName("liquid.ironFlow");
@@ -249,6 +258,7 @@ public class TContent implements IFuelHandler
 		//netherPattern = new Pattern(PHTools.netherPattern, 128, patternTexture).setItemName("tconstruct.Pattern");
 
 		manualBook = new PatternManual(PHConstruct.manual);
+		buckets = new FilledBucket(PHConstruct.buckets);
 
 		pickaxe = new Pickaxe(PHConstruct.pickaxe, pickaxeTexture);
 		shovel = new Shovel(PHConstruct.shovel, shovelTexture);
@@ -411,15 +421,15 @@ public class TContent implements IFuelHandler
 	
 	void addSmelteryRecipes()
 	{
-		Smeltery.addMelting(Block.oreIron, 0, 600, new LiquidStack(ironStill.blockID, 250, 0));
-		Smeltery.addMelting(Block.oreGold, 0, 550, new LiquidStack(goldStill.blockID, 250, 0));
-		Smeltery.addMelting(new ItemStack(Item.ingotIron, 8), Block.blockSteel.blockID, 0, 500, new LiquidStack(ironStill.blockID, 250, 0));
-		Smeltery.addMelting(new ItemStack(Item.ingotGold, 8), Block.blockGold.blockID, 0, 450, new LiquidStack(goldStill.blockID, 250, 0));
-		Smeltery.addMelting(Block.blockSteel, 0, 500, new LiquidStack(ironStill.blockID, 2250, 0));
-		Smeltery.addMelting(Block.blockGold, 0, 450, new LiquidStack(goldStill.blockID, 2250, 0));
-		Smeltery.addMelting(oreSlag, 3, 550, new LiquidStack(copperStill.blockID, 250, 0));
-		Smeltery.addMelting(oreSlag, 4, 175, new LiquidStack(tinStill.blockID, 250, 0));
-		Smeltery.addMelting(oreSlag, 5, 350, new LiquidStack(aluminumStill.blockID, 250, 0));
+		Smeltery.addMelting(Block.oreIron, 0, 600, new LiquidStack(ironStill.blockID, 2125, 0));
+		Smeltery.addMelting(Block.oreGold, 0, 550, new LiquidStack(goldStill.blockID, 2125, 0));
+		Smeltery.addMelting(new ItemStack(Item.ingotIron, 8), Block.blockSteel.blockID, 0, 500, new LiquidStack(ironStill.blockID, 125, 0));
+		Smeltery.addMelting(new ItemStack(Item.ingotGold, 8), Block.blockGold.blockID, 0, 450, new LiquidStack(goldStill.blockID, 125, 0));
+		Smeltery.addMelting(Block.blockSteel, 0, 500, new LiquidStack(ironStill.blockID, 1125, 0));
+		Smeltery.addMelting(Block.blockGold, 0, 450, new LiquidStack(goldStill.blockID, 1125, 0));
+		Smeltery.addMelting(oreSlag, 3, 550, new LiquidStack(copperStill.blockID, 2125, 0));
+		Smeltery.addMelting(oreSlag, 4, 275, new LiquidStack(tinStill.blockID, 2125, 0));
+		Smeltery.addMelting(oreSlag, 5, 350, new LiquidStack(aluminumStill.blockID, 125, 0));
 		
 		Smeltery.addAlloyMixing(new LiquidStack(bronzeStill.blockID, 4, 0), new LiquidStack(copperStill.blockID, 3, 0), new LiquidStack(tinStill.blockID, 1, 0));
 		Smeltery.addAlloyMixing(new LiquidStack(alBrassStill.blockID, 4, 0), new LiquidStack(aluminumStill.blockID, 3, 0), new LiquidStack(copperStill.blockID, 1, 0));
@@ -554,11 +564,37 @@ public class TContent implements IFuelHandler
 		OreDictionary.registerOre("ingotCopper", new ItemStack(materials, 1, 9));
 		OreDictionary.registerOre("ingotTin", new ItemStack(materials, 1, 10));
 		OreDictionary.registerOre("ingotAluminum", new ItemStack(materials, 1, 11));
-		OreDictionary.registerOre("rawAluminum", new ItemStack(materials, 1, 12));
+		OreDictionary.registerOre("naturalAluminum", new ItemStack(materials, 1, 12));
+		OreDictionary.registerOre("ingotAluminium", new ItemStack(materials, 1, 11));
+		OreDictionary.registerOre("naturalAluminium", new ItemStack(materials, 1, 12));
 	}
 
 	public void modIntegration ()
-	{
+	{		
+		/* Liquids */
+		Block[] liquids = new Block[] { ironStill, goldStill, copperStill, tinStill, aluminumStill, cobaltStill, 
+				arditeStill, bronzeStill, alBrassStill, manyullynStill, alumiteStill, obsidianStill, steelStill };
+		String[] liquidNames = new String[] { "Iron", "Gold", "Copper", "Tin", "Aluminum", "Cobalt", "Ardite", "Bronze", "Brass", "Manyullyn", "Alumite", "Obsidian", "Steel" };
+		for (int i = 0; i < liquids.length; i++)
+		{
+			LiquidStack liquidstack = new LiquidStack(liquids[i].blockID, LiquidContainerRegistry.BUCKET_VOLUME, i);
+			LiquidDictionary.getOrCreateLiquid("Liquid"+liquidNames[i], liquidstack);
+			LiquidContainerRegistry.registerLiquid(new LiquidContainerData(liquidstack, new ItemStack(buckets, 1, i), new ItemStack(Item.bucketEmpty)));
+		}
+		
+		/* Ore Dictionary */
+		ArrayList<ItemStack> copperIngots = OreDictionary.getOres("ingotCopper");
+		for (ItemStack copper : copperIngots)
+		{
+			PatternBuilder.instance.registerMaterial(copper, 2, "Copper");
+		}
+
+		ArrayList<ItemStack> bronzeIngots = OreDictionary.getOres("ingotBronze");
+		for (ItemStack bronze : bronzeIngots)
+		{
+			PatternBuilder.instance.registerMaterial(bronze, 2, "Bronze");
+		}
+		
 		/* IC2 */
 		ItemStack reBattery = ic2.api.Items.getItem("reBattery");
 		if (reBattery != null)

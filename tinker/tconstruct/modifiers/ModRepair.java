@@ -1,5 +1,6 @@
 package tinker.tconstruct.modifiers;
 
+import tinker.common.ToolMod;
 import tinker.tconstruct.crafting.PatternBuilder;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.ItemStack;

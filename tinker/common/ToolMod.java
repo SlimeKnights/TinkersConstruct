@@ -1,4 +1,4 @@
-package tinker.tconstruct.modifiers;
+package tinker.common;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -9,8 +9,6 @@ import net.minecraft.nbt.NBTTagCompound;
 
 public abstract class ToolMod
 {
-	// The ItemStacks used to compare against
-	//ItemStack[] stacks;
 	public final String key;
 	public final List stacks;
 	public final int effectIndex; //255 is always blank

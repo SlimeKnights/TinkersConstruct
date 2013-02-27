@@ -18,12 +18,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
+import tinker.common.ToolMod;
 import tinker.tconstruct.AbilityHelper;
 import tinker.tconstruct.TConstruct;
 import tinker.tconstruct.TContent;
 import tinker.tconstruct.TConstructRegistry;
 import tinker.tconstruct.crafting.ToolBuilder;
-import tinker.tconstruct.modifiers.ToolMod;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 

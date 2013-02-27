@@ -21,6 +21,7 @@ import cpw.mods.fml.client.registry.RenderingRegistry;
 public class SmelteryRender implements ISimpleBlockRenderingHandler
 {
 	public static int smelteryModel = RenderingRegistry.getNextAvailableRenderId();
+
 	@Override
 	public void renderInventoryBlock (Block block, int metadata, int modelID, RenderBlocks renderer)
 	{
@@ -42,8 +43,8 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
 		}
 		return false;
 	}
-	
-	public boolean renderSmeltery(IBlockAccess world, int x, int y, int z, Block block, int modelID, RenderBlocks renderer)
+
+	public boolean renderSmeltery (IBlockAccess world, int x, int y, int z, Block block, int modelID, RenderBlocks renderer)
 	{
 		renderer.renderStandardBlock(block, x, y, z);
 		SmelteryLogic logic = (SmelteryLogic) world.getBlockTileEntity(x, y, z);
@@ -59,14 +60,15 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
 					ItemStack blockToRender = Smeltery.getRenderIndex(input);
 					float blockHeight = input.stackSize / (float) blockToRender.stackSize;
 					renderer.setRenderBounds(0.0F, 0.0F, 0.0F, 1.0F, MathHelper.clamp_float(blockHeight, 0.01F, 1.0F), 1.0F);
-					
+
 					if (blockToRender.itemID < 4096) //Block
 					{
 						Block liquidBlock = Block.blocksList[blockToRender.itemID];
 						ForgeHooksClient.bindTexture(liquidBlock.getTextureFile(), 0);
 						BlockSkinRenderHelper.renderMetadataBlock(liquidBlock, blockToRender.getItemDamage(), posX + i % 3, posY, posZ + i / 3, renderer, world);
 					}
-					else //Item
+					else
+					//Item
 					{
 						Item liquidItem = Item.itemsList[blockToRender.itemID];
 						ForgeHooksClient.bindTexture(liquidItem.getTextureFile(), 0);
@@ -75,28 +77,48 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
 					}
 				}
 			}
-			
+
 			//Liquids
 			float base = 0F;
+			int yBase = 0;
+			int liquidBase = 0;
 			for (LiquidStack liquid : logic.moltenMetal)
 			{
-				float height = liquid.amount / 10000F;
-				renderer.setRenderBounds(0.0F, base, 0.0F, 1.0F, height + base, 1.0F);
-				base += height;
-				
-				if (liquid.itemID < 4096) //Block
+				int liquidSize = liquid.amount;
+				while (liquidSize > 0)
 				{
-					Block liquidBlock = Block.blocksList[liquid.itemID];
-					ForgeHooksClient.bindTexture(liquidBlock.getTextureFile(), 0);
-					for (int i = 0; i < 9; i++)
-						BlockSkinRenderHelper.renderMetadataBlock(liquidBlock, liquid.itemMeta, posX + i % 3, posY, posZ + i / 3, renderer, world);
-				}
-				else //Item
-				{
-					Item liquidItem = Item.itemsList[liquid.itemID];
-					ForgeHooksClient.bindTexture(liquidItem.getTextureFile(), 0);
-					for (int i = 0; i < 9; i++)
-						BlockSkinRenderHelper.renderFakeBlock(liquidItem.getIconFromDamage(liquid.itemMeta), liquid.itemMeta, posX, posY, posZ, renderer, world);
+					int room = 20000 - liquidBase;
+					int countSize = liquidSize > room ? room : liquidSize;
+					liquidSize -= countSize;
+					
+					float height = countSize > 20000 ? 1.0F : countSize / 20000F;
+					renderer.setRenderBounds(0.0F, base, 0.0F, 1.0F, height + base, 1.0F);
+					base += height;
+					liquidBase += countSize;
+
+
+					if (liquid.itemID < 4096) //Block
+					{
+						Block liquidBlock = Block.blocksList[liquid.itemID];
+						ForgeHooksClient.bindTexture(liquidBlock.getTextureFile(), 0);
+						for (int i = 0; i < 9; i++)
+							BlockSkinRenderHelper.renderMetadataBlock(liquidBlock, liquid.itemMeta, posX + i % 3, posY+yBase, posZ + i / 3, renderer, world);
+					}
+					else
+					//Item
+					{
+						Item liquidItem = Item.itemsList[liquid.itemID];
+						ForgeHooksClient.bindTexture(liquidItem.getTextureFile(), 0);
+						for (int i = 0; i < 9; i++)
+							BlockSkinRenderHelper.renderFakeBlock(liquidItem.getIconFromDamage(liquid.itemMeta), liquid.itemMeta, posX, posY+yBase, posZ, renderer, world);
+					}
+					
+					if (countSize == room)
+					{
+						base = 0F;
+						yBase++;
+						liquidBase = 0;
+					}
 				}
 			}
 		}
@@ -115,7 +137,7 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
 		return smelteryModel;
 	}
 
-	private void renderStandardInvBlock(RenderBlocks renderblocks, Block block, int meta)
+	private void renderStandardInvBlock (RenderBlocks renderblocks, Block block, int meta)
 	{
 		Tessellator tessellator = Tessellator.instance;
 		GL11.glTranslatef(-0.5F, -0.5F, -0.5F);

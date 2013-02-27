@@ -46,7 +46,8 @@ public class PHConstruct {
         smeltery = config.getBlock("Smeltery", 1474).getInt(1474);
         oreSlag = config.getBlock("Ores Slag", 1475).getInt(1475);
         craftedSoil = config.getBlock("Special Soil", 1476).getInt(1476);
-        landmine = config.getBlock("Landmine", 1477).getInt(1477);
+        searedTable = config.getBlock("Seared Table", 1477).getInt(1477);
+        //landmine = config.getBlock("Landmine", 1477).getInt(1477);
         
         ironFlowing = config.getBlock("Liquid Iron Flowing", 1478).getInt(1478);
         ironStill = config.getBlock("Liquid Iron Still", 1479).getInt(1479);
@@ -113,6 +114,8 @@ public class PHConstruct {
         lumberaxe = config.getItem("Tools", "Lumber Axe", 14061).getInt(14061);
         longbow = config.getItem("Tools", "Longbow", 14062).getInt(14062);
         
+        buckets = config.getItem("Patterns and Misc", "Buckets", 14101).getInt(14101);
+        
         boolean ic2 = true;
         boolean xycraft = true;
         try
@@ -155,12 +158,13 @@ public class PHConstruct {
     public static int ores;
     public static int lavaTank;
     public static int smeltery;
+    public static int searedTable;
     public static int craftedSoil;
     public static int oreSlag;
-    public static int axle;
+    //public static int axle;
 
     //Traps
-    public static int landmine;
+    //public static int landmine;
     
     //Liquids
     public static int ironFlowing;
@@ -200,6 +204,7 @@ public class PHConstruct {
     public static int woodPattern;
     
     public static int manual;
+    public static int buckets;
     
     //Tools
     public static int pickaxe;

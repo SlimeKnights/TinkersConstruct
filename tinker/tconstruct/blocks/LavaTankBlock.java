@@ -1,9 +1,13 @@
 package tinker.tconstruct.blocks;
 
+import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -18,12 +22,13 @@ public class LavaTankBlock extends BlockContainer
 {
 	public LavaTankBlock(int id)
 	{
-		super(id, 38, Material.iron);
+		super(id, 38, Material.rock);
+		setHardness(30F);
 		setCreativeTab(TConstruct.blockTab);
 		setBlockName("TConstruct.LavaTank");
 		setStepSound(Block.soundGlassFootstep);
 	}
-	
+
 	@Override
 	public boolean isOpaqueCube ()
 	{
@@ -35,49 +40,65 @@ public class LavaTankBlock extends BlockContainer
 	{
 		return false;
 	}
-	
+
 	@Override
-	public boolean shouldSideBeRendered(IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
+	public boolean shouldSideBeRendered (IBlockAccess world, int x, int y, int z, int side)
 	{
-		if (par5 == 0)
-			return super.shouldSideBeRendered(par1IBlockAccess, par2, par3, par4, par5);
-		return true;
+		//if (side == 0 && world.getBlockMetadata(x, y, z) == 0)
+			//return super.shouldSideBeRendered(world, x, y, z, side);
+        int bID = world.getBlockId(x, y, z);
+        return bID == this.blockID ? false : super.shouldSideBeRendered(world, x, y, z, side);
+		//return true;
 	}
-	
+
 	@Override
 	public String getTextureFile ()
 	{
 		return TContent.blockTexture;
 	}
-	
+
 	@Override
 	public int getRenderType ()
 	{
 		return TankRender.tankModelID;
 	}
-	
+
 	public int getBlockTextureFromSideAndMetadata (int side, int meta)
 	{
-		if (side == 0 || side == 1)
+		if (meta == 0)
 		{
-			return blockIndexInTexture + 1 + meta * 3;
+			if (side == 0 || side == 1)
+			{
+				return blockIndexInTexture + 1;
+			}
+			else
+			{
+				return blockIndexInTexture;
+			}
 		}
-		/*else if (side == 1)
-		{
-			return blockIndexInTexture + 1 + meta * 3;
-		}*/
 		else
 		{
-			return blockIndexInTexture + meta * 3;
+			if (side == 0)
+			{
+				return blockIndexInTexture + 1 + meta * 3;
+			}
+			else if (side == 1)
+			{
+				return blockIndexInTexture + meta * 3;
+			}
+			else
+			{
+				return blockIndexInTexture - 1 + meta * 3;
+			}
 		}
 	}
 
 	@Override
 	public TileEntity createNewTileEntity (World world, int metadata)
-    {
-		return new LavaTankLogic();     
-    }
-	
+	{
+		return new LavaTankLogic();
+	}
+
 	@Override
 	public boolean onBlockActivated (World world, int x, int y, int z, EntityPlayer player, int side, float clickX, float clickY, float clickZ)
 	{
@@ -93,7 +114,7 @@ public class LavaTankBlock extends BlockContainer
 		}
 		else
 		{
-			
+
 		}
 		return false;
 	}
@@ -102,5 +123,20 @@ public class LavaTankBlock extends BlockContainer
 	public TileEntity createNewTileEntity (World world)
 	{
 		return createNewTileEntity(world, 0);
+	}
+
+	@Override
+	public void getSubBlocks (int id, CreativeTabs tab, List list)
+	{
+		for (int iter = 0; iter < 3; iter++)
+		{
+			list.add(new ItemStack(id, 1, iter));
+		}
+	}
+	
+	/* Data */
+	public int damageDropped (int meta)
+	{
+		return meta;
 	}
 }

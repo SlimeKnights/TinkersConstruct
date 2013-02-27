@@ -9,9 +9,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import tinker.common.IToolPart;
+import tinker.common.ToolMod;
 import tinker.tconstruct.TConstructRegistry;
 import tinker.tconstruct.ToolMaterial;
-import tinker.tconstruct.modifiers.ToolMod;
 import tinker.tconstruct.tools.ToolCore;
 
 public class ToolBuilder

@@ -1,7 +1,11 @@
 package tinker.common;
 
+import net.minecraft.entity.EntityLiving;
+import net.minecraftforge.common.ForgeDirection;
+
 public interface IFacingLogic
 {
-	public byte getDirection();
-	public void setDirection(float yaw, float pitch);
+	public byte getRenderDirection();
+	public ForgeDirection getForgeDirection();
+	public void setDirection(float yaw, float pitch, EntityLiving player);
 }

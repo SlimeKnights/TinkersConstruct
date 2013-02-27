@@ -37,9 +37,10 @@ public class TProxyClient extends TProxyCommon
 		Minecraft mc = Minecraft.getMinecraft();
 		smallFontRenderer = new SmallFontRenderer(mc.gameSettings, "/font/default.png", mc.renderEngine, false);
 		RenderingRegistry.registerBlockHandler(new TableRender());
+		RenderingRegistry.registerBlockHandler(new FrypanRender());
 		RenderingRegistry.registerBlockHandler(new SmelteryRender());
 		RenderingRegistry.registerBlockHandler(new TankRender());
-		RenderingRegistry.registerBlockHandler(new FrypanRender());
+		RenderingRegistry.registerBlockHandler(new SearedRender());
 		RenderingRegistry.registerBlockHandler(new RenderLiquidMetal());
 		//RenderingRegistry.registerBlockHandler(new AxleRender());
 
@@ -97,12 +98,12 @@ public class TProxyClient extends TProxyCommon
 		LanguageRegistry.instance().addStringLocalization("itemGroup.TConstructMaterials", "TConstruct Materials");
 		LanguageRegistry.instance().addStringLocalization("itemGroup.TConstructBlocks", "TConstruct Blocks");*/
 
-		String langDir = "/lang/";
-		String[]	langFiles	=
-			{ "TConstruct_en_US.xml" };
+		String langDir = "/tinkerlang/";
+		String[] langFiles =
+			{ "en_US.xml" };
 
 		for (String langFile : langFiles)
-		//{
+		{
 			try
 			{
 				LanguageRegistry.instance().loadLocalization(langDir + langFile, langFile.substring(langFile.lastIndexOf('/') + 1, langFile.lastIndexOf('.')), true);
@@ -111,9 +112,9 @@ public class TProxyClient extends TProxyCommon
 			{
 				e.printStackTrace();
 			}
-		//}
+		}
 
-		LanguageRegistry.instance().addStringLocalization("crafters.ToolStation", "Tool Station");
+		/*LanguageRegistry.instance().addStringLocalization("crafters.ToolStation", "Tool Station");
 		LanguageRegistry.instance().addStringLocalization("crafters.PartBuilder", "Part Builder");
 		LanguageRegistry.instance().addStringLocalization("crafters.PatternShaper", "Pattern Shaper");
 		LanguageRegistry.instance().addStringLocalization("inventory.PatternChest", "Pattern Chest");
@@ -141,7 +142,7 @@ public class TProxyClient extends TProxyCommon
 		LanguageRegistry.instance().addStringLocalization("Smeltery.Drain.name", "Smeltery Drain");
 		LanguageRegistry.instance().addStringLocalization("Smeltery.Brick.name", "Seared Bricks");
 		LanguageRegistry.instance().addStringLocalization("Smeltery.Gague.name", "Seared Glass");
-		LanguageRegistry.instance().addStringLocalization("Smeltery.Window.name", "Seared Window");
+		LanguageRegistry.instance().addStringLocalization("Smeltery.Window.name", "Seared Window");*/
 
 		for (int mat = 0; mat < materialTypes.length; mat++)
 		{

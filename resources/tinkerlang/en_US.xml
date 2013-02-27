@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties version = "1.0">
+  <entry key="itemGroup.TConstructTools">TConstruct Tools</entry>
+  <entry key="itemGroup.TConstructMaterials">TConstruct Materials</entry>
+  <entry key="itemGroup.TConstructBlocks">TConstruct Blocks</entry>
+  
+  <entry key="crafters.ToolStation">Tool Station</entry>
+  <entry key="crafters.PartBuilder">Part Builder</entry>
+  <entry key="crafters.PatternShaper">Stencil Table</entry>
+  <entry key="inventory.PatternChest">Pattern Chest</entry>
+  <entry key="crafters.Smeltery">Smeltery</entry>
+  <entry key="crafters.Frypan">Frying Pan</entry>
+  
+  <entry key="ToolStation.Crafter.name">Tool Station</entry>
+  <entry key="ToolStation.Parts.name">Part Builder</entry>
+  <entry key="ToolStation.PatternChest.name">Pattern Chest</entry>
+  <entry key="ToolStation.PatternShaper.name">Stencil Table</entry>
+  <entry key="ToolStation.CastingTable.name">Casting Table</entry>
+  
+  <entry key="CraftedSoil.Slime.name">Slimy Mud</entry>
+  <entry key="CraftedSoil.Grout.name">Grout</entry>
+  
+  <entry key="MetalOre.NetherSlag.name">Netherack Slag</entry>
+  <entry key="MetalOre.Cobalt.name">Cobalt Ore</entry>
+  <entry key="MetalOre.Ardite.name">Ardite Ore</entry>
+  <entry key="MetalOre.Copper.name">Copper Ore</entry>
+  <entry key="MetalOre.Tin.name">Tin Ore</entry>
+  <entry key="MetalOre.Aluminum.name">Aluminum Ore</entry>
+  <entry key="MetalOre.Slag.name">Stone Slag</entry>
+  
+  <entry key="Smeltery.Controller.name">Smeltery</entry>
+  <entry key="Smeltery.Drain.name">Smeltery Drain</entry>
+  <entry key="Smeltery.Brick.name">Seared Bricks</entry>
+  <entry key="LavaTank.Tank.name">Lava Tank</entry>
+  <entry key="LavaTank.Gague.name">Hardened Glass</entry>
+  <entry key="LavaTank.Window.name">Hardened Window</entry>
+  
+</properties>

@@ -11,18 +11,16 @@ import net.minecraftforge.liquids.LiquidContainerRegistry;
 import net.minecraftforge.liquids.LiquidStack;
 import net.minecraftforge.liquids.LiquidTank;
 
-public class LavaTankLogic extends TileEntity
+public class LavaTankLogic extends MultiServantLogic
 	implements ILiquidTank
 {
-	public LiquidTank tank;
-	public int max;
+	public int maxLiquid;
 	public int pressure;
 	public LiquidStack liquid;
 	
 	public LavaTankLogic()
 	{
-		tank = new LiquidTank(LiquidContainerRegistry.BUCKET_VOLUME);
-		max = LiquidContainerRegistry.BUCKET_VOLUME*4;
+		maxLiquid = LiquidContainerRegistry.BUCKET_VOLUME*4;
 		pressure = 0;
 	}
 	
@@ -48,14 +46,14 @@ public class LavaTankLogic extends TileEntity
 	@Override
 	public int getCapacity ()
 	{
-		return max;
+		return maxLiquid;
 	}
 
 	@Override
 	public int fill (LiquidStack resource, boolean doFill)
 	{
 		if (resource == null)
-			return 0;		
+			return 0;
 		
 		if (liquid == null)
 		{
@@ -63,14 +61,20 @@ public class LavaTankLogic extends TileEntity
 			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 			return liquid.amount;
 		}
-		else if (resource.amount + liquid.amount > max)
+		else if (resource.itemID != liquid.itemID || resource.itemMeta != liquid.itemMeta)
 		{
-			if (doFill)
+			return 0;
+		}
+		else if (resource.amount + liquid.amount >= getCapacity())
+		{
+			int total = getCapacity();
+			int cap = total - liquid.amount;
+			if (doFill && cap != total)
 			{
 				worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-				liquid.amount = max;
+				liquid.amount = getCapacity();
 			}
-			return max - resource.amount;
+			return cap;
 		}
 		else
 		{
@@ -115,27 +119,23 @@ public class LavaTankLogic extends TileEntity
 		return pressure;
 	}
 	
-	public void readFromNBT(NBTTagCompound par1NBTTagCompound)
+	public void readFromNBT(NBTTagCompound tags)
     {
-		this.liquid = new LiquidStack(par1NBTTagCompound.getInteger("itemID"), par1NBTTagCompound.getInteger("amount"), par1NBTTagCompound.getInteger("itemMeta"));
-		super.readFromNBT(par1NBTTagCompound);
+		if (tags.getBoolean("hasLiquid"))
+			this.liquid = new LiquidStack(tags.getInteger("itemID"), tags.getInteger("amount"), tags.getInteger("itemMeta"));
+		super.readFromNBT(tags);
     }
 	
-	public void writeToNBT(NBTTagCompound par1NBTTagCompound)
+	public void writeToNBT(NBTTagCompound tags)
     {
+		tags.setBoolean("hasLiquid", liquid != null);
 		if (liquid != null)
 		{
-			par1NBTTagCompound.setInteger("itemID", liquid.itemID);
-			par1NBTTagCompound.setInteger("amount", liquid.amount);
-			par1NBTTagCompound.setInteger("itemMeta", liquid.itemMeta);
+			tags.setInteger("itemID", liquid.itemID);
+			tags.setInteger("amount", liquid.amount);
+			tags.setInteger("itemMeta", liquid.itemMeta);
 		}
-		else
-		{
-			par1NBTTagCompound.setInteger("itemID", 0);
-			par1NBTTagCompound.setInteger("amount", 0);
-			par1NBTTagCompound.setInteger("itemMeta", 0);
-		}
-		super.writeToNBT(par1NBTTagCompound);
+		super.writeToNBT(tags);
     }
 	
 	public Packet getDescriptionPacket ()

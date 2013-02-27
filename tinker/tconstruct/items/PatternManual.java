@@ -20,7 +20,7 @@ public class PatternManual extends CraftingItem
 
 	public PatternManual(int id)
 	{
-		super(id, 144, TContent.craftingTexture);
+		super(id, 192, TContent.craftingTexture);
 		setItemName("tconstruct.PatternManual");
 	}
 

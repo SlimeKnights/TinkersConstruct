@@ -34,10 +34,11 @@ public class SmelteryGui extends GuiContainer
 	void drawStats ()
 	{
 		fontRenderer.drawString("Temp: " + logic.getInternalTemperature(), xSize + 6, 6, 0xffffff);
+		fontRenderer.drawString("Liquid: " + logic.getCapacity(), xSize + 6, 16, 0xffffff);
 		for (int iter = 0; iter < 9; iter++)
-			fontRenderer.drawString("Slot "+iter+" temp: " + logic.getTempForSlot(iter), xSize + 6, 15+iter*9, 0xffffff);
-		for (int iter = 0; iter < 9; iter++)
-			fontRenderer.drawString("Slot "+iter+" mTemp: " + logic.meltingTemps[iter], xSize + 6, 100+iter*9, 0xffffff);
+			fontRenderer.drawString("Slot "+iter+" temp: " + logic.getTempForSlot(iter), xSize + 6, 26+iter*10, 0xffffff);
+		/*for (int iter = 0; iter < 9; iter++)
+			fontRenderer.drawString("Slot "+iter+" mTemp: " + logic.meltingTemps[iter], xSize + 6, 100+iter*9, 0xffffff);*/
 	}
 
 	protected void drawGuiContainerBackgroundLayer (float f, int i, int j)
@@ -87,7 +88,7 @@ public class SmelteryGui extends GuiContainer
 
 			int xTex = renderIndex % 16 * 16;
 			int yTex = renderIndex / 16 * 16;
-			int liquidSize = liquid.amount * 52 / 10000;
+			int liquidSize = liquid.amount * 52 / logic.getCapacity();
 			while (liquidSize > 0)
 			{
 				int size = liquidSize >= 16 ? 16 : liquidSize;

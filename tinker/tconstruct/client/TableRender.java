@@ -22,32 +22,6 @@ public class TableRender implements ISimpleBlockRenderingHandler
 				renderer.setRenderBounds(0.0F, 0.0, 0.0F, 1.0F, 0.875F, 1.0F);
 				renderDo(renderer, block, metadata);
 			}
-			else if (metadata == 14)
-			{
-				//Top
-				renderer.setRenderBounds(0.0F, 0.625F, 0.0F, 1.0F, 0.9375F, 1.0F);
-				renderDo(renderer, block, metadata);
-				
-				//Lip
-				renderer.setRenderBounds(0.0F, 0.9375, 0.0F, 0.0625, 1.0, 1.0F);
-				renderDo(renderer, block, metadata);
-				renderer.setRenderBounds(0.0625, 0.9375, 0.9375, 0.9375, 1.0, 1.0F);
-				renderDo(renderer, block, metadata);
-				renderer.setRenderBounds(0.9375, 0.9375, 0.0F, 1.0F, 1.0, 1.0F);
-				renderDo(renderer, block, metadata);
-				renderer.setRenderBounds(0.0625, 0.9375, 0.0F, 0.9375, 1.0, 0.0625);
-				renderDo(renderer, block, metadata);
-				
-				//Legs
-				renderer.setRenderBounds(0.0F, 0.0F, 0.0F, 0.3125F, 0.625F, 0.3125F);
-				renderDo(renderer, block, metadata);
-				renderer.setRenderBounds(0.6875, 0.0F, 0.0F, 1.0F, 0.625F, 0.25F);
-				renderDo(renderer, block, metadata);
-				renderer.setRenderBounds(0.0F, 0.0F, 0.6875, 0.3125F, 0.625F, 1.0F);
-				renderDo(renderer, block, metadata);
-				renderer.setRenderBounds(0.6875, 0.0F, 0.6875, 1.0F, 0.625F, 1.0F);
-				renderDo(renderer, block, metadata);
-			}
 			else
 			{
 				renderer.setRenderBounds(0.0F, 0.75F, 0.0F, 1.0F, 1.0F, 1.0F);
@@ -73,32 +47,6 @@ public class TableRender implements ISimpleBlockRenderingHandler
 			if (metadata == 5)
 			{
 				renderer.setRenderBounds(0.0F, 0.0, 0.0F, 1.0F, 0.875F, 1.0F);
-				renderer.renderStandardBlock(block, x, y, z);
-			}
-			else if (metadata == 14)
-			{
-				//Top
-				renderer.setRenderBounds(0.0F, 0.625F, 0.0F, 1.0F, 0.9375F, 1.0F);
-				renderer.renderStandardBlock(block, x, y, z);
-				
-				//Lip
-				renderer.setRenderBounds(0.0F, 0.9375, 0.0F, 0.0625, 1.0, 1.0F);
-				renderer.renderStandardBlock(block, x, y, z);
-				renderer.setRenderBounds(0.0625, 0.9375, 0.9375, 0.9375, 1.0, 1.0F);
-				renderer.renderStandardBlock(block, x, y, z);
-				renderer.setRenderBounds(0.9375, 0.9375, 0.0F, 1.0F, 1.0, 1.0F);
-				renderer.renderStandardBlock(block, x, y, z);
-				renderer.setRenderBounds(0.0625, 0.9375, 0.0F, 0.9375, 1.0, 0.0625);
-				renderer.renderStandardBlock(block, x, y, z);
-				
-				//Legs
-				renderer.setRenderBounds(0.0F, 0.0F, 0.0F, 0.3125F, 0.625F, 0.3125F);
-				renderer.renderStandardBlock(block, x, y, z);
-				renderer.setRenderBounds(0.6875, 0.0F, 0.0F, 1.0F, 0.625F, 0.25F);
-				renderer.renderStandardBlock(block, x, y, z);
-				renderer.setRenderBounds(0.0F, 0.0F, 0.6875, 0.3125F, 0.625F, 1.0F);
-				renderer.renderStandardBlock(block, x, y, z);
-				renderer.setRenderBounds(0.6875, 0.0F, 0.6875, 1.0F, 0.625F, 1.0F);
 				renderer.renderStandardBlock(block, x, y, z);
 			}
 			else

@@ -24,4 +24,12 @@ public class CoordTuple
 		else
 			return false;
 	}
+	
+	public boolean equals(int posX, int posY, int posZ)
+	{
+		if (this.x == posX && this.y == posY && this.z == posZ)
+			return true;
+		else
+			return false;
+	}
 }

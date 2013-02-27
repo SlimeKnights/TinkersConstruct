@@ -49,10 +49,11 @@ public abstract class InventoryBlock extends BlockContainer
 	@Override
 	public void breakBlock (World par1World, int x, int y, int z, int par5, int par6)
 	{
-		InventoryLogic logic = (InventoryLogic) par1World.getBlockTileEntity(x, y, z);
+		TileEntity te = par1World.getBlockTileEntity(x, y, z);
 
-		if (logic != null)
+		if (te != null && te instanceof InventoryLogic)
 		{
+			InventoryLogic logic = (InventoryLogic) te;
 			for (int iter = 0; iter < logic.getSizeInventory(); ++iter)
 			{
 				ItemStack stack = logic.getStackInSlot(iter);
@@ -103,11 +104,11 @@ public abstract class InventoryBlock extends BlockContainer
 			IFacingLogic direction = (IFacingLogic) logic;
 			if (entityliving == null)
 	        {
-				direction.setDirection(0F, 0F);
+				direction.setDirection(0F, 0F, null);
 	        }
 	        else
 	        {
-	        	direction.setDirection(entityliving.rotationYaw * 4F, entityliving.rotationPitch);
+	        	direction.setDirection(entityliving.rotationYaw * 4F, entityliving.rotationPitch, entityliving);
 	        }
 		}
     }
@@ -121,4 +122,9 @@ public abstract class InventoryBlock extends BlockContainer
 		}
 		return false;
     }
+
+	public int damageDropped (int meta)
+	{
+		return meta;
+	}
 }

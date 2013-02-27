@@ -15,14 +15,18 @@ import cpw.mods.fml.client.registry.RenderingRegistry;
 public class TankRender implements ISimpleBlockRenderingHandler
 {
 	public static int tankModelID = RenderingRegistry.getNextAvailableRenderId();
+
 	@Override
 	public void renderInventoryBlock (Block block, int metadata, int modelID, RenderBlocks renderer)
 	{
 		if (modelID == tankModelID)
 		{
 			renderDo(renderer, block, metadata);
-			renderer.setRenderBounds(0.1875, 0, 0.1875, 0.8125, 0.125, 0.8125);
-			renderDoRe(renderer, block, metadata);
+			if (metadata == 0)
+			{
+				renderer.setRenderBounds(0.1875, 0, 0.1875, 0.8125, 0.125, 0.8125);
+				renderDoRe(renderer, block, metadata);
+			}
 		}
 	}
 
@@ -31,9 +35,13 @@ public class TankRender implements ISimpleBlockRenderingHandler
 	{
 		if (modelID == tankModelID)
 		{
-			renderer.setRenderBounds(0.1875, 0, 0.1875, 0.8125, 0.125, 0.8125);
-			renderer.renderStandardBlock(block, x, y+1, z);
-			renderer.setRenderBounds(0, 0, 0, 1, 1, 1);
+			int meta = world.getBlockMetadata(x, y, z);
+			if (meta == 0 && world.getBlockId(x, y + 1, z) == 0)
+			{
+				renderer.setRenderBounds(0.1875, 0, 0.1875, 0.8125, 0.125, 0.8125);
+				renderer.renderStandardBlock(block, x, y + 1, z);
+				renderer.setRenderBounds(0, 0, 0, 1, 1, 1);
+			}
 			renderer.renderStandardBlock(block, x, y, z);
 			LavaTankLogic logic = (LavaTankLogic) world.getBlockTileEntity(x, y, z);
 			if (logic.getLiquidAmount() > 0)
@@ -42,7 +50,7 @@ public class TankRender implements ISimpleBlockRenderingHandler
 				if (liquidBlock != null)
 				{
 					ForgeHooksClient.bindTexture(liquidBlock.getTextureFile(), 0);
-					renderer.setRenderBounds(0.03, 0.03, 0.03, 0.97, logic.getLiquidAmount()/4020f, 0.97);
+					renderer.setRenderBounds(0.03, 0.03, 0.03, 0.97, logic.getLiquidAmount() / 4020f, 0.97);
 					renderer.renderStandardBlock(liquidBlock, x, y, z);
 				}
 			}
@@ -62,7 +70,7 @@ public class TankRender implements ISimpleBlockRenderingHandler
 		return tankModelID;
 	}
 
-	private void renderDo(RenderBlocks renderblocks, Block block, int meta)
+	private void renderDo (RenderBlocks renderblocks, Block block, int meta)
 	{
 		Tessellator tessellator = Tessellator.instance;
 		GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
@@ -92,8 +100,8 @@ public class TankRender implements ISimpleBlockRenderingHandler
 		tessellator.draw();
 		GL11.glTranslatef(0.5F, 0.5F, 0.5F);
 	}
-	
-	private void renderDoRe(RenderBlocks renderblocks, Block block, int meta)
+
+	private void renderDoRe (RenderBlocks renderblocks, Block block, int meta)
 	{
 		Tessellator tessellator = Tessellator.instance;
 		GL11.glTranslatef(-0.5F, 0.5F, -0.5F);

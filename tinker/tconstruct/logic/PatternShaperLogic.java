@@ -52,22 +52,39 @@ public class PatternShaperLogic extends InventoryLogic
 	public ItemStack decrStackSize(int slot, int quantity)
     {
 		if (slot == 1)
-		{			
-			if (getStackInSlot(0) != null)
-			{
-				ItemStack ret = super.decrStackSize(slot, 0);
-				decrStackSize(0, 1);
-				return ret;
-			}
+		{
+			super.decrStackSize(0, 1);
+			if (inventory[0] == null)
+				return super.decrStackSize(slot, quantity);
+			else
+				return inventory[1].copy();
 		}
-		else if (slot == 0)
+		else
 		{
 			ItemStack ret = super.decrStackSize(slot, quantity);
-			if (getStackInSlot(0) == null)
-				decrStackSize(1, 1);
+			if (inventory[0] == null)
+				super.decrStackSize(1, 1);
 			return ret;
 		}
-		return super.decrStackSize(slot, quantity);
+    }
+	
+	public void altDecrStackSize(int slot, int quantity)
+    {
+        if (inventory[slot] != null)
+        {
+            if (inventory[slot].stackSize <= quantity)
+            {
+                ItemStack stack = inventory[slot];
+                inventory[slot] = null;
+                return;
+            }
+            ItemStack split = inventory[slot].splitStack(quantity);
+            if (inventory[slot].stackSize == 0)
+            {
+                inventory[slot] = null;
+            }
+            return;
+        }
     }
 	
 	@Override
