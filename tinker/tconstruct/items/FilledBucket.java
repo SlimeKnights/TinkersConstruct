@@ -2,14 +2,7 @@ package tinker.tconstruct.items;
 
 import java.util.List;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-
-import tinker.tconstruct.TContent;
-import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBucket;
@@ -17,9 +10,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumMovingObjectType;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.Event;
-import net.minecraftforge.event.entity.player.FillBucketEvent;
+import tinker.tconstruct.TContent;
+import tinker.tconstruct.logic.LiquidTextureLogic;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class FilledBucket extends ItemBucket
 {
@@ -136,7 +130,9 @@ public class FilledBucket extends ItemBucket
         }
         else
         {
-        	world.setBlockAndMetadataWithNotify(clickX, clickY, clickZ, getSourceBlock(meta), 0);
+        	world.setBlockWithNotify(clickX, clickY, clickZ, TContent.liquidMetalStill.blockID);
+        	LiquidTextureLogic logic = (LiquidTextureLogic) world.getBlockTileEntity(clickX, clickY, clickZ);
+        	logic.setTexturePos(meta);
 
             return true;
         }
@@ -146,7 +142,7 @@ public class FilledBucket extends ItemBucket
 	{
 		switch(meta)
 		{
-		case 0: return TContent.ironStill.blockID;
+		/*case 0: return TContent.ironStill.blockID;
 		case 1: return TContent.goldStill.blockID;
 		case 2: return TContent.copperStill.blockID;
 		case 3: return TContent.tinStill.blockID;
@@ -158,7 +154,7 @@ public class FilledBucket extends ItemBucket
 		case 9: return TContent.manyullynStill.blockID;
 		case 10: return TContent.alumiteStill.blockID;
 		case 11: return TContent.obsidianStill.blockID;
-		case 12: return TContent.steelStill.blockID;
+		case 12: return TContent.steelStill.blockID;*/
 		//case 13: return TContent.ironStill.blockID;
 		default: return 0;
 		}

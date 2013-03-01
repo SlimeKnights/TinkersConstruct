@@ -6,6 +6,6 @@ public class LiquidAlBrassFX extends TextureLiquidStillFX
 {
 	public LiquidAlBrassFX()
 	{
-		super(200, 255, 165, 255, 20, 100, TContent.alBrassStill.blockIndexInTexture, TContent.alBrassStill.getTextureFile());
+		super(200, 255, 165, 255, 20, 100, 41, TContent.liquidTexture);
 	}
 }

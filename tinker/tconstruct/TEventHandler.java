@@ -3,11 +3,11 @@ package tinker.tconstruct;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumMovingObjectType;
-import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.Event.Result;
+import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.player.FillBucketEvent;
 import net.minecraftforge.oredict.OreDictionary.OreRegisterEvent;
-import tinker.tconstruct.crafting.PatternBuilder;
+import tinker.tconstruct.logic.LiquidTextureLogic;
 
 public class TEventHandler
 {
@@ -51,8 +51,14 @@ public class TEventHandler
 			int bID = evt.world.getBlockId(hitX, hitY, hitZ);
 			int meta = -1;
 			
+			if (bID == TContent.liquidMetalStill.blockID)
+			{
+				LiquidTextureLogic logic = (LiquidTextureLogic) evt.world.getBlockTileEntity(hitX, hitY, hitZ);
+				meta = logic.getLiquidType();
+			}
+			
 			//Want switch, can't do it!
-			if (bID == TContent.ironStill.blockID)
+			/*if (bID == TContent.ironStill.blockID)
 				meta = 0;
 			
 			else if (bID == TContent.goldStill.blockID)
@@ -89,7 +95,7 @@ public class TEventHandler
 				meta = 11;
 			
 			else if (bID == TContent.steelStill.blockID)
-				meta = 12;
+				meta = 12;*/
 			
 			if (meta != -1)
 			{

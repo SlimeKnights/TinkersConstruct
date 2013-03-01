@@ -3,11 +3,14 @@ package tinker.tconstruct.client;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.item.Item;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.client.ForgeHooksClient;
+import net.minecraftforge.liquids.LiquidStack;
 
 import org.lwjgl.opengl.GL11;
 
+import tinker.common.BlockSkinRenderHelper;
 import tinker.tconstruct.logic.LavaTankLogic;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import cpw.mods.fml.client.registry.RenderingRegistry;
@@ -46,12 +49,27 @@ public class TankRender implements ISimpleBlockRenderingHandler
 			LavaTankLogic logic = (LavaTankLogic) world.getBlockTileEntity(x, y, z);
 			if (logic.getLiquidAmount() > 0)
 			{
-				Block liquidBlock = Block.blocksList[logic.liquid.itemID];
+				LiquidStack liquid = logic.liquid;
+				renderer.setRenderBounds(0.03, 0.03, 0.03, 0.97, logic.getLiquidAmount() / 4020f, 0.97);
+				/*Block liquidBlock = Block.blocksList[logic.liquid.itemID];
 				if (liquidBlock != null)
 				{
 					ForgeHooksClient.bindTexture(liquidBlock.getTextureFile(), 0);
 					renderer.setRenderBounds(0.03, 0.03, 0.03, 0.97, logic.getLiquidAmount() / 4020f, 0.97);
 					renderer.renderStandardBlock(liquidBlock, x, y, z);
+				}*/
+				if (liquid.itemID < 4096) //Block
+				{
+					Block liquidBlock = Block.blocksList[liquid.itemID];
+					ForgeHooksClient.bindTexture(liquidBlock.getTextureFile(), 0);
+					BlockSkinRenderHelper.renderMetadataBlock(liquidBlock, liquid.itemMeta, x, y, z, renderer, world);
+				}
+				else
+				//Item
+				{
+					Item liquidItem = Item.itemsList[liquid.itemID];
+					ForgeHooksClient.bindTexture(liquidItem.getTextureFile(), 0);
+					BlockSkinRenderHelper.renderFakeBlock(liquidItem.getIconFromDamage(liquid.itemMeta), liquid.itemMeta, x, y, z, renderer, world);
 				}
 			}
 		}

@@ -6,6 +6,6 @@ public class LiquidAlumiteFlowFX extends TextureLiquidFlowingFX
 {
 	public LiquidAlumiteFlowFX()
 	{
-		super(0, 255, 0, 200, 0, 255, TContent.alumiteFlowing.blockIndexInTexture+1, TContent.alumiteFlowing.getTextureFile());
+		super(0, 255, 0, 200, 0, 255, 64+1, TContent.liquidTexture);
 	}
 }

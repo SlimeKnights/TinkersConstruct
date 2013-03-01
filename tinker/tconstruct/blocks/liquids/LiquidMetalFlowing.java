@@ -2,50 +2,49 @@ package tinker.tconstruct.blocks.liquids;
 
 import java.util.Random;
 
-import tinker.tconstruct.TContent;
-import tinker.tconstruct.client.liquidrender.RenderLiquidMetal;
-
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockFluid;
 import net.minecraft.block.material.Material;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.liquids.ILiquid;
+import tinker.tconstruct.TContent;
+import tinker.tconstruct.logic.LiquidTextureLogic;
 
-public abstract class LiquidMetalFlowing extends BlockFluid implements ILiquid
+public class LiquidMetalFlowing extends LiquidMetalBase 	
+	implements ILiquid
 {
 	boolean isOptimalFlowDirection[] = new boolean[4];
 	int flowCost[] = new int[4];
 
 	public LiquidMetalFlowing(int id)
 	{
-		super(id, Material.lava);
+		super(id, TContent.liquidMetal);
 	}
-
-	@Override
-	public int getRenderType ()
-	{
-		return RenderLiquidMetal.liquidModel;
-	}
-
-	@Override
-	public String getTextureFile ()
-	{
-		return TContent.liquidTexture;
-	}
+	
+	/*@Override
+	public int getBlockTexture(IBlockAccess world, int x, int y, int z, int side)
+    {
+		LiquidTextureLogic logic = (LiquidTextureLogic) world.getBlockTileEntity(x, y, z);
+		return logic.getTexturePos() + 1;
+    }*/
 
 	private void updateFlow (World world, int x, int y, int z)
 	{
 		//System.out.println("x: "+x+", y: "+y+", z: "+z);
+		int tex = ((LiquidTextureLogic) world.getBlockTileEntity(x, y, z)).getLiquidType();
 		int meta = world.getBlockMetadata(x, y, z);
 		world.setBlockAndMetadata(x, y, z, stillLiquidId(), meta);
 		world.markBlockRangeForRenderUpdate(x, y, z, x, y, z);
 		world.markBlockForUpdate(x, y, z);
+		((LiquidTextureLogic) world.getBlockTileEntity(x, y, z)).setTexturePos(tex);
 	}
 
 	@Override
 	public void updateTick (World world, int x, int y, int z, Random random)
 	{
 		//System.out.println("x: "+x+", y: "+y+", z: "+z);
+		int tex = ((LiquidTextureLogic) world.getBlockTileEntity(x, y, z)).getLiquidType();
 		int l = getFlowDecay(world, x, y, z);
 		byte byte0 = 1;
 		boolean flag = true;
@@ -106,6 +105,7 @@ public abstract class LiquidMetalFlowing extends BlockFluid implements ILiquid
 			{
 				world.setBlockAndMetadataWithNotify(x, y - 1, z, blockID, l + 8);
 			}
+			((LiquidTextureLogic) world.getBlockTileEntity(x, y - 1, z)).setTexturePos(tex);
 		}
 		else if (l >= 0 && (l == 0 || blockBlocksFlow(world, x, y - 1, z)))
 		{
@@ -119,24 +119,24 @@ public abstract class LiquidMetalFlowing extends BlockFluid implements ILiquid
 				return;
 			if (aflag[0])
 			{
-				flowIntoBlock(world, x - 1, y, z, k1);
+				flowIntoBlock(world, x - 1, y, z, k1, tex);
 			}
 			if (aflag[1])
 			{
-				flowIntoBlock(world, x + 1, y, z, k1);
+				flowIntoBlock(world, x + 1, y, z, k1, tex);
 			}
 			if (aflag[2])
 			{
-				flowIntoBlock(world, x, y, z - 1, k1);
+				flowIntoBlock(world, x, y, z - 1, k1, tex);
 			}
 			if (aflag[3])
 			{
-				flowIntoBlock(world, x, y, z + 1, k1);
+				flowIntoBlock(world, x, y, z + 1, k1, tex);
 			}
 		}
 	}
 
-	private void flowIntoBlock (World world, int x, int y, int z, int meta)
+	private void flowIntoBlock (World world, int x, int y, int z, int meta, int tex)
 	{
 		if (liquidCanDisplaceBlock(world, x, y, z))
 		{
@@ -146,6 +146,8 @@ public abstract class LiquidMetalFlowing extends BlockFluid implements ILiquid
 				Block.blocksList[bID].dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z), 0);
 			}
 			world.setBlockAndMetadataWithNotify(x, y, z, blockID, meta);
+
+			((LiquidTextureLogic) world.getBlockTileEntity(x, y, z)).setTexturePos(tex);
 		}
 	}
 
@@ -306,4 +308,22 @@ public abstract class LiquidMetalFlowing extends BlockFluid implements ILiquid
 	{
 		return false;
 	}
+
+	@Override
+	public int stillLiquidId ()
+	{
+		return TContent.liquidMetalStill.blockID;
+	}
+	
+	@Override
+	public boolean hasTileEntity(int metadata)
+    {
+        return true;
+    }
+	
+	@Override
+	public TileEntity createTileEntity(World world, int metadata)
+    {
+		return new LiquidTextureLogic();
+    }
 }

@@ -41,7 +41,7 @@ public class TProxyClient extends TProxyCommon
 		RenderingRegistry.registerBlockHandler(new SmelteryRender());
 		RenderingRegistry.registerBlockHandler(new TankRender());
 		RenderingRegistry.registerBlockHandler(new SearedRender());
-		RenderingRegistry.registerBlockHandler(new RenderLiquidMetal());
+		RenderingRegistry.registerBlockHandler(new FluidRender());
 		//RenderingRegistry.registerBlockHandler(new AxleRender());
 
 		RenderEngine renderEngine = FMLClientHandler.instance().getClient().renderEngine;
@@ -191,7 +191,7 @@ public class TProxyClient extends TProxyCommon
 		LanguageRegistry.addName(TContent.mattock, "Mattock");
 		//LanguageRegistry.addName(TContent.lumberaxe, "Lumber Axe");
 
-		LanguageRegistry.addName(TContent.ironFlowing, "Liquid Iron");
+		/*LanguageRegistry.addName(TContent.ironFlowing, "Liquid Iron");
 		LanguageRegistry.addName(TContent.ironStill, "Liquid Iron");
 		LanguageRegistry.addName(TContent.goldFlowing, "Liquid Gold");
 		LanguageRegistry.addName(TContent.goldStill, "Liquid Gold");
@@ -217,7 +217,7 @@ public class TProxyClient extends TProxyCommon
 		LanguageRegistry.addName(TContent.obsidianFlowing, "Liquid Obsidian");
 		LanguageRegistry.addName(TContent.obsidianStill, "Liquid Obsidian");
 		LanguageRegistry.addName(TContent.steelFlowing, "Liquid Steel");
-		LanguageRegistry.addName(TContent.steelStill, "Liquid Steel");
+		LanguageRegistry.addName(TContent.steelStill, "Liquid Steel");*/
 	}
 
 	public static final String[] shardNames = new String[] { "Wood", "Stone Shard", "Iron Chunk", "Flint Shard", "Cactus Shard", "Bone", "Obsidian Shard", "Netherrack Shard", "Slime Crystal Fragment", "Paper", "Cobalt Chunk", "Ardite Chunk", "Manyullyn Chunk", "Copper Chunk", "Bronze Chunk" };

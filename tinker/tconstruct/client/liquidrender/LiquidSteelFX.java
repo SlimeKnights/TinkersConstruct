@@ -6,6 +6,6 @@ public class LiquidSteelFX extends TextureLiquidStillFX
 {
 	public LiquidSteelFX()
 	{
-		super(30, 150, 30, 150, 30, 150, TContent.steelStill.blockIndexInTexture, TContent.steelStill.getTextureFile());
+		super(30, 150, 30, 150, 30, 150, 70, TContent.liquidTexture);
 	}
 }
