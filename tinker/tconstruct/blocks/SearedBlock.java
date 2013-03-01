@@ -4,6 +4,7 @@ import java.util.List;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -84,7 +85,7 @@ public class SearedBlock extends InventoryBlock
 		{
         	//System.out.println("Castses");
 			CastingTableLogic logic = (CastingTableLogic) world.getBlockTileEntity(x, y, z);
-			if (!logic.isStackInSlot(0))
+			if (!logic.isStackInSlot(0) && !logic.isStackInSlot(1))
 			{
 				ItemStack stack = player.getCurrentEquippedItem();
                 stack = player.inventory.decrStackSize(player.inventory.currentItem, 1);
@@ -92,6 +93,18 @@ public class SearedBlock extends InventoryBlock
 			}
 			else
             {
+				if (logic.isStackInSlot(1))
+				{
+					ItemStack stack = logic.decrStackSize(1, 1);
+					if (stack != null)
+						addItemToInventory(player, world, x, y, z, stack);
+				}
+				else if (logic.isStackInSlot(0))
+				{
+					ItemStack stack = logic.decrStackSize(0, 1);
+					if (stack != null)
+						addItemToInventory(player, world, x, y, z, stack);
+				}
                 /*ItemStack insideStack = logic.takeItemInColumn(0);
 
                 if (insideStack == null)
@@ -109,6 +122,16 @@ public class SearedBlock extends InventoryBlock
 		}
 		return true;
 	}
+	
+	protected void addItemToInventory(EntityPlayer player, World world, int x, int y, int z, ItemStack stack)
+    {
+        if (!world.isRemote)
+        {
+            EntityItem entityitem = new EntityItem(world, (double)x + 0.5D, (double)y + 0.9325D, (double)z + 0.5D, stack);
+            world.spawnEntityInWorld(entityitem);
+			entityitem.onCollideWithPlayer(player);
+        }
+    }
 
 	/* Rendering */
 	@Override

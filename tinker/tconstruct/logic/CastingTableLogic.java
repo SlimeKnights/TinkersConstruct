@@ -11,13 +11,16 @@ import net.minecraftforge.liquids.ILiquidTank;
 import net.minecraftforge.liquids.LiquidStack;
 import tinker.common.IPattern;
 import tinker.common.InventoryLogic;
+import tinker.tconstruct.crafting.CastingRecipe;
+import tinker.tconstruct.crafting.LiquidCasting;
 
-public class CastingTableLogic extends InventoryLogic
-	implements ILiquidTank
+public class CastingTableLogic extends InventoryLogic implements ILiquidTank
 {
 	public LiquidStack liquid;
-	int baseMax = 125;
-	
+	int baseMax = 250;
+	float materialRedux = 0;
+	int castingDelay = 0;
+
 	public CastingTableLogic()
 	{
 		super(2);
@@ -38,17 +41,18 @@ public class CastingTableLogic extends InventoryLogic
 	@Override
 	public LiquidStack getLiquid ()
 	{
-		return null;
+		return liquid;
 	}
 
 	@Override
 	public int getCapacity ()
 	{
+		int ret = baseMax;
 		if (inventory[0] != null && inventory[0].getItem() instanceof IPattern)
-		{
-			return baseMax * ((IPattern) inventory[0].getItem()).getPatternCost(inventory[0].getItemDamage());
-		}
-		return baseMax; //One ingot
+			ret *= ((IPattern) inventory[0].getItem()).getPatternCost(inventory[0].getItemDamage());
+		if (materialRedux > 0)
+			ret *= materialRedux;
+		return ret;
 	}
 
 	@Override
@@ -56,12 +60,19 @@ public class CastingTableLogic extends InventoryLogic
 	{
 		if (resource == null)
 			return 0;
-		
+
 		if (liquid == null)
 		{
-			liquid = resource.copy();
-			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-			return liquid.amount;
+			//System.out.println("Woo");
+			if (LiquidCasting.instance.getCastingRecipe(resource, inventory[0]) != null)
+			{
+				liquid = resource.copy();
+				materialRedux = LiquidCasting.instance.getMaterialReduction(resource);
+				worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+				return liquid.amount;
+			}
+			else
+				return 0;
 		}
 		else if (resource.itemID != liquid.itemID || resource.itemMeta != liquid.itemMeta)
 		{
@@ -75,6 +86,7 @@ public class CastingTableLogic extends InventoryLogic
 			{
 				worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 				liquid.amount = getCapacity();
+				castingDelay = LiquidCasting.instance.getCastingDelay(liquid, inventory[0]);
 			}
 			return cap;
 		}
@@ -100,31 +112,55 @@ public class CastingTableLogic extends InventoryLogic
 	{
 		return 0;
 	}
-	
+
+	@Override
+	public void updateEntity ()
+	{
+		if (castingDelay > 0)
+		{
+			castingDelay--;
+			if (castingDelay == 0)
+				castLiquid();
+		}
+	}
+
+	public void castLiquid ()
+	{
+		CastingRecipe recipe = LiquidCasting.instance.getCastingRecipe(liquid, inventory[0]);
+		if (recipe != null)
+		{
+			materialRedux = 0;
+			inventory[1] = recipe.getResult();
+			if (recipe.consumeCast)
+				inventory[0] = null;
+			liquid = null;
+			//System.out.println("Casting: " + inventory[1].getItemName());
+			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+		}
+	}
+
 	/* NBT */
-	public void readFromNBT(NBTTagCompound par1NBTTagCompound)
-    {
-		this.liquid = new LiquidStack(par1NBTTagCompound.getInteger("itemID"), par1NBTTagCompound.getInteger("amount"), par1NBTTagCompound.getInteger("itemMeta"));
-		super.readFromNBT(par1NBTTagCompound);
-    }
-	
-	public void writeToNBT(NBTTagCompound par1NBTTagCompound)
-    {
+	public void readFromNBT (NBTTagCompound tags)
+	{
+		if (tags.getBoolean("hasLiquid"))
+			this.liquid = new LiquidStack(tags.getInteger("itemID"), tags.getInteger("amount"), tags.getInteger("itemMeta"));
+		else
+			this.liquid = null;
+		super.readFromNBT(tags);
+	}
+
+	public void writeToNBT (NBTTagCompound tags)
+	{
+		tags.setBoolean("hasLiquid", liquid != null);
 		if (liquid != null)
 		{
-			par1NBTTagCompound.setInteger("itemID", liquid.itemID);
-			par1NBTTagCompound.setInteger("amount", liquid.amount);
-			par1NBTTagCompound.setInteger("itemMeta", liquid.itemMeta);
+			tags.setInteger("itemID", liquid.itemID);
+			tags.setInteger("amount", liquid.amount);
+			tags.setInteger("itemMeta", liquid.itemMeta);
 		}
-		else
-		{
-			par1NBTTagCompound.setInteger("itemID", 0);
-			par1NBTTagCompound.setInteger("amount", 0);
-			par1NBTTagCompound.setInteger("itemMeta", 0);
-		}
-		super.writeToNBT(par1NBTTagCompound);
-    }
-	
+		super.writeToNBT(tags);
+	}
+
 	/* Packets */
 	@Override
 	public Packet getDescriptionPacket ()

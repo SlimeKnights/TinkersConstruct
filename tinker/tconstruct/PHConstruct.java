@@ -47,10 +47,11 @@ public class PHConstruct {
         oreSlag = config.getBlock("Ores Slag", 1475).getInt(1475);
         craftedSoil = config.getBlock("Special Soil", 1476).getInt(1476);
         searedTable = config.getBlock("Seared Table", 1477).getInt(1477);
-        //landmine = config.getBlock("Landmine", 1477).getInt(1477);
+        metalBlock = config.getBlock("Metal Storage", 1478).getInt(1478);
+        //landmine = config.getBlock("Landmine", 1481).getInt(1481);
         
-        ironFlowing = config.getBlock("Liquid Iron Flowing", 1478).getInt(1478);
-        ironStill = config.getBlock("Liquid Iron Still", 1479).getInt(1479);
+        ironFlowing = config.getBlock("Liquid Iron Flowing", 1504).getInt(1504);
+        ironStill = config.getBlock("Liquid Iron Still", 1505).getInt(1505);
         goldFlowing = config.getBlock("Liquid Gold Flowing", 1480).getInt(1480);
         goldStill = config.getBlock("Liquid Gold Still", 1481).getInt(1481);
         copperFlowing = config.getBlock("Liquid Copper Flowing", 1482).getInt(1482);
@@ -82,6 +83,7 @@ public class PHConstruct {
         toolRod = config.getItem("Patterns and Misc", "Tool Rod", 14021).getInt(14021);
         toolShard = config.getItem("Patterns and Misc", "Tool Shard", 14022).getInt(14022);
         woodPattern = config.getItem("Patterns and Misc", "Wood Pattern", 14023).getInt(14023);
+        metalPattern = config.getItem("Patterns and Misc", "Metal Pattern", 14024).getInt(14024);
         
         pickaxeHead = config.getItem("Tool Parts", "Pickaxe Head", 14026).getInt(14026);
         shovelHead = config.getItem("Tool Parts", "Shovel Head", 14027).getInt(14027);
@@ -161,12 +163,13 @@ public class PHConstruct {
     public static int searedTable;
     public static int craftedSoil;
     public static int oreSlag;
+    public static int metalBlock;
     //public static int axle;
 
     //Traps
     //public static int landmine;
     
-    //Liquids
+    //Liquids TODO: Redux
     public static int ironFlowing;
     public static int ironStill;
     public static int goldFlowing;
@@ -202,6 +205,7 @@ public class PHConstruct {
     public static int toolRod;
     public static int toolShard;
     public static int woodPattern;
+    public static int metalPattern;
     
     public static int manual;
     public static int buckets;

@@ -14,7 +14,7 @@ public abstract class LiquidMetalStill extends BlockStationary implements ILiqui
 	public LiquidMetalStill(int id)
 	{
 		super(id, Material.lava);
-		this.setCreativeTab(TConstruct.blockTab);
+		//this.setCreativeTab(TConstruct.blockTab);
 	}
 
 	@Override

@@ -36,4 +36,18 @@
   <entry key="LavaTank.Gague.name">Hardened Glass</entry>
   <entry key="LavaTank.Window.name">Hardened Window</entry>
   
+  <entry key="StorageMetals.Cobalt.name">Block of Cobalt</entry>
+  <entry key="StorageMetals.Ardite.name">Block of Ardite</entry>
+  <entry key="StorageMetals.Manyullyn.name">Block of Manyullyn</entry>
+  <entry key="StorageMetals.Copper.name">Block of Copper</entry>
+  <entry key="StorageMetals.Bronze.name">Block of Bronze</entry>
+  <entry key="StorageMetals.Tin.name">Block of Tin</entry>
+  <entry key="StorageMetals.Aluminum.name">Block of Aluminum</entry>
+  <entry key="StorageMetals.AlBrass.name">Block of Aluminum Brass</entry>
+  <entry key="StorageMetals.Alumite.name">Block of Alumite</entry>
+  <entry key="StorageMetals.Steel.name">Block of Steel</entry>
+  
+  <entry key="item.tconstruct.blankpattern.pattern.name">Blank Pattern</entry>
+  <entry key="item.tconstruct.blankpattern.cast.name">Blank Cast</entry>
+  
 </properties>

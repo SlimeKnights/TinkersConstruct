@@ -33,7 +33,7 @@ public class Pattern extends CraftingItem
 	}
 
 	public static final String[] patternName = new String[] { 
-		"blank", "rod", "pickaxe", "shovel", "axe", "blade", "largeguard", "medguard", "crossbar", "binding", "frypan", "sign", "lumber" };
+		"ingot", "rod", "pickaxe", "shovel", "axe", "blade", "largeguard", "medguard", "crossbar", "binding", "frypan", "sign" };
 
 	public void getSubItems (int id, CreativeTabs tab, List list)
 	{
@@ -64,10 +64,6 @@ public class Pattern extends CraftingItem
 			else
 				list.add("Material Cost: "+cost);
 		}
-		/*else
-		{
-			list.add("Temporary: Craft any pattern to get another");
-		}*/
 	}
 
 	//2 for full material, 1 for half.
@@ -75,6 +71,7 @@ public class Pattern extends CraftingItem
 	{
 		switch (meta)
 		{
+		case 0: return 2;
 		case 1: return 1;
 		case 2: return 2;
 		case 3: return 2;
@@ -90,8 +87,6 @@ public class Pattern extends CraftingItem
 		default: return 0;
 		}
 	}
-	
-	
 
 	@Override
 	public ItemStack getPatternOutput (ItemStack stack, MaterialSet set)
@@ -99,10 +94,8 @@ public class Pattern extends CraftingItem
 		int type = stack.getItemDamage();
 		if (type != 0 && type < TContent.patternOutputs.length + 1)
 		{
-			System.out.println("Returning type");
 			return new ItemStack(TContent.patternOutputs[type - 1], 1, set.materialID);
 		}
-		System.out.println("Returning null");
 		return null;
 	}
 }

@@ -19,6 +19,17 @@ public class Smeltery
     private HashMap<List<Integer>, ItemStack> renderIndex = new HashMap<List<Integer>, ItemStack>();
     private ArrayList<AlloyMix> alloys = new ArrayList<AlloyMix>();
 
+    /** Adds mappings between an itemstack and its liquid
+	 * 
+	 * @param stack The itemstack to liquify
+	 * @param temperature How hot the block should be before liquifying
+	 * @param liquid The result of the process
+	 */
+    public static void addMelting(ItemStack stack, int temperature, LiquidStack liquid)
+    {
+    	addMelting(stack, stack.itemID, stack.getItemDamage(), temperature, liquid);
+    }
+    
 	/** Adds mappings between a block and its liquid
 	 * 
 	 * @param blockID The ID of the block to liquify and render

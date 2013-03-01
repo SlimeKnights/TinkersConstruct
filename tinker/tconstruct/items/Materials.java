@@ -30,17 +30,17 @@ public class Materials extends Item
 	
 	public String getItemNameIS(ItemStack stack)
 	{
-		int arr = MathHelper.clamp_int(stack.getItemDamage(), 0, 13);
+		int arr = MathHelper.clamp_int(stack.getItemDamage(), 0, materialNames.length);
 		return getItemName() + "." +materialNames[arr];
 	}
 	
 	public void getSubItems(int id, CreativeTabs tab, List list)
     {
-		for (int i = 0; i < 13; i++)
+		for (int i = 0; i < materialNames.length; i++)
 			list.add(new ItemStack(id, 1, i));
     }
 	
 	public static final String[] materialNames = new String[] { 
 		"PaperStack", "SlimeCrystal", "SearedBrick", "CobaltIngot", "ArditeIngot", "ManyullynIngot", "Mossball", "LavaCrystal", "NecroticBone",
-		"CopperIngot", "TinIngot", "AluminumIngot", "RawAluminum" };
+		"CopperIngot", "TinIngot", "AluminumIngot", "RawAluminum", "BronzeIngot", "AlBrassIngot", "AlumiteIngot", "SteelIngot" };
 }

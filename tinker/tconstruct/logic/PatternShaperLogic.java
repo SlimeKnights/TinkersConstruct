@@ -44,8 +44,13 @@ public class PatternShaperLogic extends InventoryLogic
 	public void setInventorySlotContents(int slot, ItemStack itemstack)
     {
 		super.setInventorySlotContents(slot, itemstack);
-		if (slot == 0)
-			setInventorySlotContents(1, new ItemStack(TContent.woodPattern, 1, 1));
+		if (slot == 0 && itemstack != null)
+		{
+			if (itemstack.getItemDamage() == 0)
+				setInventorySlotContents(1, new ItemStack(TContent.woodPattern, 1, 1));
+			else if (itemstack.getItemDamage() == 1)
+				setInventorySlotContents(1, new ItemStack(TContent.metalPattern, 1, 0));
+		}
     }
 	
 	@Override

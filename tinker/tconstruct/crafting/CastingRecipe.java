@@ -5,11 +5,11 @@ import net.minecraftforge.liquids.LiquidStack;
 
 public class CastingRecipe
 {
-	public final ItemStack output;
-	public final LiquidStack castingMetal;
-	public final ItemStack cast;
-	public final boolean consumeCast;
-	public final int coolTime;
+	public ItemStack output;
+	public LiquidStack castingMetal;
+	public ItemStack cast;
+	public boolean consumeCast;
+	public int coolTime;
 	
 	public CastingRecipe(ItemStack replacement, LiquidStack metal, ItemStack cast, boolean consume, int delay)
 	{
@@ -22,9 +22,14 @@ public class CastingRecipe
 	
 	public boolean matches(LiquidStack metal, ItemStack cast)
 	{
-		if (metal.isLiquidEqual(metal) && metal.amount >= castingMetal.amount && ItemStack.areItemStacksEqual(this.cast, cast))
+		if (castingMetal.isLiquidEqual(metal) && metal.amount >= castingMetal.amount && ItemStack.areItemStacksEqual(this.cast, cast))
 			return true;
 		else
 			return false;
+	}
+	
+	public ItemStack getResult()
+	{
+		return output.copy();
 	}
 }

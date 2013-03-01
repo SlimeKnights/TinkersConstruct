@@ -20,7 +20,7 @@ public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogi
 	public LiquidStack liquid;
 	ILiquidTank drain;
 	ILiquidTank tank;
-	int drainAmount = 2;
+	int drainAmount = 5;
 
 	public void activateFaucet ()
 	{
@@ -47,7 +47,7 @@ public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogi
 			TileEntity tankte = worldObj.getBlockTileEntity(xCoord, yCoord - 1, zCoord);
 			if (drainte != null && drainte instanceof ILiquidTank && tankte != null && tankte instanceof ILiquidTank)
 			{
-				System.out.println("Activating Faucet");
+				//System.out.println("Activating Faucet");
 				liquid = ((ILiquidTank) drainte).drain(drainAmount, true);
 				drain = (ILiquidTank) drainte;
 				tank = (ILiquidTank) tankte;
@@ -62,7 +62,7 @@ public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogi
 
 	public void deactivateFaucet ()
 	{
-		System.out.println("Deactivating Faucet");
+		//System.out.println("Deactivating Faucet");
 		drain.fill(liquid, true);
 		liquid = null;
 		drain = null;

@@ -2,13 +2,12 @@ package tinker.tconstruct.worldgen;
 
 import java.util.Random;
 
-import tinker.tconstruct.PHConstruct;
-import tinker.tconstruct.TContent;
-
 import net.minecraft.block.Block;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldProviderHell;
 import net.minecraft.world.chunk.IChunkProvider;
+import net.minecraft.world.gen.feature.WorldGenMinable;
+import tinker.tconstruct.PHConstruct;
+import tinker.tconstruct.TContent;
 import cpw.mods.fml.common.IWorldGenerator;
 
 public class TBaseWorldGenerator 
@@ -16,12 +15,18 @@ public class TBaseWorldGenerator
 {
 	public TBaseWorldGenerator()
 	{
-		copper = new ManhattanOreGenerator(TContent.oreSlag.blockID, 3, 5, 10, 100, true, true);
-		tin = new ManhattanOreGenerator(TContent.oreSlag.blockID, 4, 5, 10, 100, true, true);
-		aluminum = new ManhattanOreGenerator(TContent.oreSlag.blockID, 5, 8, 20, 100, false, true);
+		//copper = new ManhattanOreGenerator(TContent.oreSlag.blockID, 3, 5, 10, 100, true, true);
+		//tin = new ManhattanOreGenerator(TContent.oreSlag.blockID, 4, 5, 10, 100, true, true);
+		//aluminum = new ManhattanOreGenerator(TContent.oreSlag.blockID, 5, 8, 20, 100, false, true);
 		
-		cobalt = new ManhattanOreGenerator(TContent.oreSlag.blockID, 1, 2, 4, 100, true, false, Block.netherrack.blockID);
-		ardite = new ManhattanOreGenerator(TContent.oreSlag.blockID, 2, 2, 4, 100, true, false, Block.netherrack.blockID);
+		//cobalt = new ManhattanOreGenerator(TContent.oreSlag.blockID, 1, 2, 4, 100, true, false, Block.netherrack.blockID);
+		//ardite = new ManhattanOreGenerator(TContent.oreSlag.blockID, 2, 2, 4, 100, true, false, Block.netherrack.blockID);
+		copper = new WorldGenMinable(TContent.oreSlag.blockID, 3, 9);
+		tin = new WorldGenMinable(TContent.oreSlag.blockID, 4, 9);
+		aluminum = new WorldGenMinable(TContent.oreSlag.blockID, 5, 16);
+		
+		cobalt = new NetherOreGenerator(TContent.oreSlag.blockID, 1, 3);
+		ardite = new NetherOreGenerator(TContent.oreSlag.blockID, 2, 3);
 	}
 	
 	@Override
@@ -94,9 +99,9 @@ public class TBaseWorldGenerator
 		}
 	}
 	
-	ManhattanOreGenerator copper;
-	ManhattanOreGenerator tin;
-	ManhattanOreGenerator aluminum;
-	ManhattanOreGenerator cobalt;
-	ManhattanOreGenerator ardite;
+	WorldGenMinable copper;
+	WorldGenMinable tin;
+	WorldGenMinable aluminum;
+	NetherOreGenerator cobalt;
+	NetherOreGenerator ardite;
 }

@@ -38,6 +38,7 @@ public class TContent implements IFuelHandler
 	public static Item toolRod;
 	public static Item toolShard;
 	public static Item woodPattern;
+	public static Item metalPattern;
 
 	public static Item manualBook;
 	public static Item buckets;
@@ -83,6 +84,7 @@ public class TContent implements IFuelHandler
 	public static Block lavaTank;
 	public static Block searedBlock;
 	public static Block oreSlag;
+	public static Block metalBlock;
 	
 	//Traps
 	public static Block landmine;
@@ -126,7 +128,7 @@ public class TContent implements IFuelHandler
 	{
 		createEntities();
 		registerBlocks();
-		createItems();
+		registerItems();
 		addRenderMappings();
 		registerMaterials();
 		addToolRecipes();
@@ -161,6 +163,10 @@ public class TContent implements IFuelHandler
 		craftedSoil = new TConstructBlock(PHConstruct.craftedSoil, 96, Material.sand, 3.0F, 2);
 		craftedSoil.stepSound = Block.soundGravelFootstep;
 		GameRegistry.registerBlock(craftedSoil, tinker.tconstruct.items.CraftedSoilItemBlock.class, "CraftedSoil");
+		
+		metalBlock = new TConstructBlock(PHConstruct.metalBlock, 128, Material.iron, 10.0F, 10);
+		metalBlock.stepSound = Block.soundMetalFootstep;
+		GameRegistry.registerBlock(metalBlock, tinker.tconstruct.items.MetalItemBlock.class, "MetalBlock");
 
 		//Smeltery
 		smeltery = new SmelteryBlock(PHConstruct.smeltery).setBlockName("Smeltery");
@@ -247,13 +253,14 @@ public class TContent implements IFuelHandler
 		GameRegistry.registerBlock(steelStill, "Liquid steel Still");
 	}
 
-	void createItems ()
+	void registerItems ()
 	{
-		blankPattern = new CraftingItem(PHConstruct.blankPattern, 96, craftingTexture).setItemName("tconstruct.BlankPattern");
+		blankPattern = new BlankPattern(PHConstruct.blankPattern, 96, craftingTexture).setItemName("tconstruct.blankpattern");
 		materials = new Materials(PHConstruct.materials, 128, craftingTexture).setItemName("tconstruct.Materials");
 		toolRod = new ToolPart(PHConstruct.toolRod, 0, craftingTexture).setItemName("tconstruct.ToolRod");
 		toolShard = new ToolShard(PHConstruct.toolShard, 64, craftingTexture).setItemName("tconstruct.ToolShard");
 		woodPattern = new Pattern(PHConstruct.woodPattern, 0, patternTexture).setItemName("tconstruct.Pattern");
+		metalPattern = new MetalPattern(PHConstruct.metalPattern, 64, patternTexture).setItemName("tconstruct.MetalPattern");
 		//stonePattern = new Pattern(PHTools.stonePattern, 64, patternTexture).setItemName("tconstruct.Pattern");
 		//netherPattern = new Pattern(PHTools.netherPattern, 128, patternTexture).setItemName("tconstruct.Pattern");
 
@@ -290,7 +297,7 @@ public class TContent implements IFuelHandler
 
 	void addRenderMappings ()
 	{
-		String[] partTypes = { "wood", "stone", "iron", "flint", "cactus", "bone", "obsidian", "netherrack", "slime", "paper", "cobalt", "ardite", "manyullyn", "copper", "bronze" };
+		String[] partTypes = { "wood", "stone", "iron", "flint", "cactus", "bone", "obsidian", "netherrack", "slime", "paper", "cobalt", "ardite", "manyullyn", "copper", "bronze", "alumite", "steel" };
 		String[] effectTypes = { "diamond", "emerald", "redstone", "glowstone", "moss", "ice", "lava", "blaze", "necrotic", "electric", "lapis" };
 		for (int partIter = 0; partIter < partTypes.length; partIter++)
 		{
@@ -330,11 +337,13 @@ public class TContent implements IFuelHandler
 		TConstructRegistry.addToolMaterial(7, "Netherrack", 1, 2, 131, 400, 1, 1.2F, 0, 1f);
 		TConstructRegistry.addToolMaterial(8, "Slime", 1, 3, 1500, 150, 0, 5.0F, 0, 0f);
 		TConstructRegistry.addToolMaterial(9, "Paper", 1, 0, 131, 200, 0, 0.1F, 0, 0f);
-		TConstructRegistry.addToolMaterial(10, "Cobalt", 2, 4, 800, 800, 3, 1.8F, 2, 0f);
-		TConstructRegistry.addToolMaterial(11, "Ardite", 2, 4, 800, 800, 3, 1.8F, 0, 0f);
+		TConstructRegistry.addToolMaterial(10, "Cobalt", 2, 4, 800, 800, 3, 1.75F, 2, 0f);
+		TConstructRegistry.addToolMaterial(11, "Ardite", 2, 4, 600, 800, 3, 2.0F, 0, 0f);
 		TConstructRegistry.addToolMaterial(12, "Manyullyn", 2, 5, 1200, 1000, 4, 2.5F, 0, 0f);
 		TConstructRegistry.addToolMaterial(13, "Copper", 1, 1, 180, 500, 2, 1.15F, 0, 0f);
 		TConstructRegistry.addToolMaterial(14, "Bronze", 1, 2, 250, 600, 2, 1.3F, 1, 0f);
+		TConstructRegistry.addToolMaterial(15, "Alumite", 2, 4, 550, 800, 3, 1.3F, 2, 0f);
+		TConstructRegistry.addToolMaterial(16, "Steel", 2, 3, 750, 800, 3, 1.3F, 2, 0f);
 		
 		//Thaumcraft
 		TConstructRegistry.addToolMaterial(21, "Thaumium", 2, 2, 250, 600, 2, 1.3F, 1, 0f);
@@ -342,24 +351,23 @@ public class TContent implements IFuelHandler
 		TConstructRegistry.addToolMaterial(22, "Heptazion", 2, 2, 300, 800, 1, 1.0F, 0, 0f);
 		TConstructRegistry.addToolMaterial(23, "Damascus Steel", 2, 3, 500, 600, 2, 1.35F, 1, 0f);
 		TConstructRegistry.addToolMaterial(24, "Angmallen", 2, 2, 300, 800, 2, 0.8F, 0, 0f);
-		TConstructRegistry.addToolMaterial(25, "Steel", 2, 3, 750, 800, 3, 1.3F, 2, 0f);
 		
-		TConstructRegistry.addToolMaterial(26, "Promethium", 1, 1, 200, 400, 1, 1.0F, 0, 0.5f);
-		TConstructRegistry.addToolMaterial(27, "Deep Iron", 1, 2, 250, 600, 2, 1.3F, 1, 0f);
-		TConstructRegistry.addToolMaterial(28, "Oureclase", 2, 3, 750, 800, 2, 1.2F, 0, 0f);
-		TConstructRegistry.addToolMaterial(29, "Aredrite", 2, 3, 1000, 400, 2, 1.5F, 0, 1.0f);
-		TConstructRegistry.addToolMaterial(30, "Astral Silver", 1, 4, 35, 1200, 1, 0.5F, 0, 0f);
-		TConstructRegistry.addToolMaterial(31, "Carmot", 1, 4, 50, 1200, 1, 0.5F, 0, 0f);
-		TConstructRegistry.addToolMaterial(32, "Mithril", 2, 4, 1000, 900, 3, 1.25F, 3, 0f);
-		TConstructRegistry.addToolMaterial(33, "Orichalcum", 2, 5, 1350, 900, 3, 1.25F, 0, 0f);
-		TConstructRegistry.addToolMaterial(34, "Adamantine", 3, 6, 1550, 1000, 4, 1.5F, 1, 0f);
-		TConstructRegistry.addToolMaterial(35, "Atlarus", 3, 6, 1750, 1000, 4, 1.6F, 2, 0f);
+		TConstructRegistry.addToolMaterial(25, "Promethium", 1, 1, 200, 400, 1, 1.0F, 0, 0.5f);
+		TConstructRegistry.addToolMaterial(26, "Deep Iron", 1, 2, 250, 600, 2, 1.3F, 1, 0f);
+		TConstructRegistry.addToolMaterial(27, "Oureclase", 2, 3, 750, 800, 2, 1.2F, 0, 0f);
+		TConstructRegistry.addToolMaterial(28, "Aredrite", 2, 3, 1000, 400, 2, 1.5F, 0, 1.0f);
+		TConstructRegistry.addToolMaterial(29, "Astral Silver", 1, 4, 35, 1200, 1, 0.5F, 0, 0f);
+		TConstructRegistry.addToolMaterial(30, "Carmot", 1, 4, 50, 1200, 1, 0.5F, 0, 0f);
+		TConstructRegistry.addToolMaterial(31, "Mithril", 2, 4, 1000, 900, 3, 1.25F, 3, 0f);
+		TConstructRegistry.addToolMaterial(32, "Orichalcum", 2, 5, 1350, 900, 3, 1.25F, 0, 0f);
+		TConstructRegistry.addToolMaterial(33, "Adamantine", 3, 6, 1550, 1000, 4, 1.5F, 1, 0f);
+		TConstructRegistry.addToolMaterial(34, "Atlarus", 3, 6, 1750, 1000, 4, 1.6F, 2, 0f);
 		
-		TConstructRegistry.addToolMaterial(36, "Black Steel", 2, 2, 500, 800, 2, 1.3F, 2, 0f);
-		TConstructRegistry.addToolMaterial(37, "Quicksilver", 2, 4, 1100, 1400, 3, 1.0F, 1, 0f);
-		TConstructRegistry.addToolMaterial(38, "Haderoth", 2, 4, 1250, 1200, 3, 1.0F, 2, 0f);
-		TConstructRegistry.addToolMaterial(39, "Celenegil", 3, 5, 1600, 1400, 3, 1.0F, 2, 0f);
-		TConstructRegistry.addToolMaterial(40, "Tartarite", 3, 7, 3000, 1400, 5, 1.6667F, 4, 0f);
+		TConstructRegistry.addToolMaterial(35, "Black Steel", 2, 2, 500, 800, 2, 1.3F, 2, 0f);
+		TConstructRegistry.addToolMaterial(36, "Quicksilver", 2, 4, 1100, 1400, 3, 1.0F, 1, 0f);
+		TConstructRegistry.addToolMaterial(37, "Haderoth", 2, 4, 1250, 1200, 3, 1.0F, 2, 0f);
+		TConstructRegistry.addToolMaterial(38, "Celenegil", 3, 5, 1600, 1400, 3, 1.0F, 2, 0f);
+		TConstructRegistry.addToolMaterial(39, "Tartarite", 3, 7, 3000, 1400, 5, 1.6667F, 4, 0f);
 
 		PatternBuilder pb = PatternBuilder.instance;
 		pb.registerFullMaterial(Block.planks, 2, "Wood", new ItemStack(Item.stick), new ItemStack(Item.stick), 0);
@@ -380,10 +388,10 @@ public class TContent implements IFuelHandler
 	}
 
 	public static Item[] patternOutputs;
+	public static LiquidStack[] liquids;
 
 	void addToolRecipes ()
 	{
-
 		patternOutputs = new Item[] { toolRod, pickaxeHead, shovelHead, axeHead, swordBlade, largeGuard, medGuard, crossbar, binding, frypanHead, signHead };
 
 		ToolBuilder tb = ToolBuilder.instance;
@@ -417,20 +425,67 @@ public class TContent implements IFuelHandler
 		tb.registerToolMod(new ModBlaze(new ItemStack[] { new ItemStack(Item.blazePowder), new ItemStack(Item.blazePowder) }, 7, 2));
 		tb.registerToolMod(new ModBoolean(new ItemStack[] { new ItemStack(materials, 1, 7) }, 6, "Lava", "\u00a74", "Auto-Smelt"));
 		tb.registerToolMod(new ModInteger(new ItemStack[] { new ItemStack(materials, 1, 8) }, 8, "Necrotic", 1, "\u00a78", "Life Steal"));
+		
+		ItemStack ingotcast = new ItemStack(metalPattern, 1, 0);
+		
+		LiquidCasting lc = LiquidCasting.instance;
+		//Blank
+		lc.addCastingRecipe(new ItemStack(blankPattern, 1, 1), new LiquidStack(alBrassStill.blockID, 1, 0), 50);
+		
+		//Ingots
+		lc.addCastingRecipe(new ItemStack(Item.ingotIron), new LiquidStack(ironStill.blockID, 1, 0), ingotcast, 50);
+		lc.addCastingRecipe(new ItemStack(Item.ingotGold), new LiquidStack(goldStill.blockID, 1, 0), ingotcast, 50);
+		lc.addCastingRecipe(new ItemStack(materials, 1, 9), new LiquidStack(copperStill.blockID, 1, 0), ingotcast, 50);
+		lc.addCastingRecipe(new ItemStack(materials, 1, 10), new LiquidStack(tinStill.blockID, 1, 0), ingotcast, 50);
+		lc.addCastingRecipe(new ItemStack(materials, 1, 11), new LiquidStack(aluminumStill.blockID, 1, 0), ingotcast, 50);
+		lc.addCastingRecipe(new ItemStack(materials, 1, 3), new LiquidStack(cobaltStill.blockID, 1, 0), ingotcast, 50);
+		lc.addCastingRecipe(new ItemStack(materials, 1, 4), new LiquidStack(arditeStill.blockID, 1, 0), ingotcast, 50);
+		lc.addCastingRecipe(new ItemStack(materials, 1, 5), new LiquidStack(manyullynStill.blockID, 1, 0), ingotcast, 50);
+		lc.addCastingRecipe(new ItemStack(materials, 1, 13), new LiquidStack(bronzeStill.blockID, 1, 0), ingotcast, 50);
+		lc.addCastingRecipe(new ItemStack(materials, 1, 14), new LiquidStack(alBrassStill.blockID, 1, 0), ingotcast, 50);
+		lc.addCastingRecipe(new ItemStack(materials, 1, 15), new LiquidStack(alumiteStill.blockID, 1, 0), ingotcast, 50);
+		lc.addCastingRecipe(new ItemStack(materials, 1, 16), new LiquidStack(steelStill.blockID, 1, 0), ingotcast, 50);
+
+		liquids = new LiquidStack[] {
+				new LiquidStack(ironStill, 1),
+				new LiquidStack(copperStill, 1),
+				new LiquidStack(cobaltStill, 1),
+				new LiquidStack(arditeStill, 1),
+				new LiquidStack(manyullynStill, 1),
+				new LiquidStack(bronzeStill, 1),
+				new LiquidStack(alumiteStill, 1),
+				new LiquidStack(steelStill, 1)
+		};
+		int[] liquidDamage = new int[] {
+			2, 13, 10, 11, 12, 14, 15, 16
+		};
+		
+		for (int iter = 0; iter < patternOutputs.length; iter++)
+		{
+			ItemStack cast = new ItemStack(metalPattern, 1, iter+1);
+			for (int iterTwo = 0; iterTwo < liquids.length; iterTwo++)
+			{
+				lc.addCastingRecipe(new ItemStack(patternOutputs[iter], 1, liquidDamage[iterTwo]), liquids[iterTwo], cast, 50);
+			}
+		}
 	}
 	
 	void addSmelteryRecipes()
 	{
-		Smeltery.addMelting(Block.oreIron, 0, 600, new LiquidStack(ironStill.blockID, 2125, 0));
-		Smeltery.addMelting(Block.oreGold, 0, 550, new LiquidStack(goldStill.blockID, 2125, 0));
-		Smeltery.addMelting(new ItemStack(Item.ingotIron, 8), Block.blockSteel.blockID, 0, 500, new LiquidStack(ironStill.blockID, 125, 0));
-		Smeltery.addMelting(new ItemStack(Item.ingotGold, 8), Block.blockGold.blockID, 0, 450, new LiquidStack(goldStill.blockID, 125, 0));
-		Smeltery.addMelting(Block.blockSteel, 0, 500, new LiquidStack(ironStill.blockID, 1125, 0));
-		Smeltery.addMelting(Block.blockGold, 0, 450, new LiquidStack(goldStill.blockID, 1125, 0));
-		Smeltery.addMelting(oreSlag, 3, 550, new LiquidStack(copperStill.blockID, 2125, 0));
-		Smeltery.addMelting(oreSlag, 4, 275, new LiquidStack(tinStill.blockID, 2125, 0));
-		Smeltery.addMelting(oreSlag, 5, 350, new LiquidStack(aluminumStill.blockID, 125, 0));
+		//Ore
+		Smeltery.addMelting(Block.oreIron, 0, 600, new LiquidStack(ironStill.blockID, 250, 0));
+		Smeltery.addMelting(Block.oreGold, 0, 550, new LiquidStack(goldStill.blockID, 250, 0));
 		
+		//Ingots
+		Smeltery.addMelting(new ItemStack(Item.ingotIron, 8), Block.blockSteel.blockID, 0, 500, new LiquidStack(ironStill.blockID, 250, 0));
+		Smeltery.addMelting(new ItemStack(Item.ingotGold, 8), Block.blockGold.blockID, 0, 450, new LiquidStack(goldStill.blockID, 250, 0));
+		
+		//Blocks
+		Smeltery.addMelting(Block.blockSteel, 0, 600, new LiquidStack(ironStill.blockID, 2250, 0));
+		Smeltery.addMelting(Block.blockGold, 0, 550, new LiquidStack(goldStill.blockID, 2250, 0));
+		Smeltery.addMelting(Block.obsidian, 0, 800, new LiquidStack(obsidianStill.blockID, 250, 0));
+		
+		//Alloys
 		Smeltery.addAlloyMixing(new LiquidStack(bronzeStill.blockID, 4, 0), new LiquidStack(copperStill.blockID, 3, 0), new LiquidStack(tinStill.blockID, 1, 0));
 		Smeltery.addAlloyMixing(new LiquidStack(alBrassStill.blockID, 4, 0), new LiquidStack(aluminumStill.blockID, 3, 0), new LiquidStack(copperStill.blockID, 1, 0));
 	}
@@ -454,9 +509,6 @@ public class TContent implements IFuelHandler
 
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(blankPattern, 1, 0), "ps", "sp", 'p', "plankWood", 's', Item.stick));
 		GameRegistry.addRecipe(new ItemStack(manualBook), "wp", 'w', new ItemStack(blankPattern, 1, 0), 'p', Item.paper);
-		/*GameRegistry.addRecipe(new ItemStack(stonePattern, 1, 0), "ps", "sp", 'p', Block.cobblestone, 's', new ItemStack(toolRod, 1, 1));
-		GameRegistry.addRecipe(new ItemStack(stonePattern, 1, 0), "ps", "sp", 'p', Block.stone, 's', new ItemStack(toolRod, 1, 1));
-		GameRegistry.addRecipe(new ItemStack(netherPattern, 1, 0), "ps", "sp", 'p', Block.netherrack, 's', new ItemStack(toolRod, 1, 7));*/
 
 		GameRegistry.addRecipe(new ItemStack(materials, 1, 0), "pp", "pp", 'p', Item.paper); //Paper stack
 		GameRegistry.addRecipe(new ItemStack(materials, 1, 6), "ppp", "ppp", "ppp", 'p', Block.cobblestoneMossy); //Moss ball
@@ -474,11 +526,19 @@ public class TContent implements IFuelHandler
 		FurnaceRecipes.smelting().addSmelting(oreSlag.blockID, 3, new ItemStack(materials, 1, 9), 0.5f);
 		FurnaceRecipes.smelting().addSmelting(oreSlag.blockID, 4, new ItemStack(materials, 1, 10), 0.5f);
 		FurnaceRecipes.smelting().addSmelting(oreSlag.blockID, 5, new ItemStack(materials, 1, 12), 0.5f);
+		
+		//Smeltery
+		ItemStack searedBrick = new ItemStack(materials, 1, 2);
+		GameRegistry.addRecipe(new ItemStack(smeltery, 1, 0), "bbb", "b b", "bbb", 'b', searedBrick);
+		GameRegistry.addRecipe(new ItemStack(smeltery, 1, 1), "b b", "b b", "bbb", 'b', searedBrick);
+		GameRegistry.addRecipe(new ItemStack(smeltery, 1, 2), "bb", "bb", 'b', searedBrick);
 
-		/*for (int i = 0; i < 12; i++)
-		{
-			GameRegistry.addRecipe(new ItemStack(TConstructContent.woodPattern, 1, i + 1), "s", 's', new ItemStack(TConstructContent.woodPattern, 1, i));
-		}*/
+		GameRegistry.addRecipe(new ItemStack(lavaTank, 1, 0), "bbb", "bgb", "bbb", 'b', searedBrick, 'g', Block.glass);
+		GameRegistry.addRecipe(new ItemStack(lavaTank, 1, 1), "bgb", "ggg", "bgb", 'b', searedBrick, 'g', Block.glass);
+		GameRegistry.addRecipe(new ItemStack(lavaTank, 1, 2), "bgb", "bgb", "bgb", 'b', searedBrick, 'g', Block.glass);
+		
+		GameRegistry.addRecipe(new ItemStack(searedBlock, 1, 0), "bbb", "b b", "b b", 'b', searedBrick);
+		GameRegistry.addRecipe(new ItemStack(searedBlock, 1, 1), "b b", " b ", 'b', searedBrick);
 	}
 
 	void setupToolTabs ()
@@ -530,10 +590,17 @@ public class TContent implements IFuelHandler
 			//"Ice Axe",
 			"Mattock", "Broadsword", "Longsword", "Rapier", "Frying Pan", "Battlesign" };
 
-	static String[] toolDescriptions = { "The main way to repair or change your tools. Place a tool and a material on the left to get started.", "The Pickaxe is a basic mining tool. It is effective on stone and ores.\n\nRequired parts:\n- Pickaxe Head\n- Tool Binding\n- Handle", "The Shovel is a basic digging tool. It is effective on dirt, sand, and snow.\n\nRequired parts:\n- Shovel Head\n- Handle", "The Axe is a basic chopping tool. It is effective on wood and leaves.\n\nRequired parts:\n- Axe Head\n- Handle",
+	static String[] toolDescriptions = { "The main way to repair or change your tools. Place a tool and a material on the left to get started.", 
+		"The Pickaxe is a basic mining tool. It is effective on stone and ores.\n\nRequired parts:\n- Pickaxe Head\n- Tool Binding\n- Handle", 
+		"The Shovel is a basic digging tool. It is effective on dirt, sand, and snow.\n\nRequired parts:\n- Shovel Head\n- Handle", 
+		"The Axe is a basic chopping tool. It is effective on wood and leaves.\n\nRequired parts:\n- Axe Head\n- Handle",
 			//"The Lumber Axe is a broad chopping tool. It harvests wood in a wide range and can fell entire trees.\n\nRequired parts:\n- Broad Axe Head\n- Handle",
 			//"The Ice Axe is a tool for harvesting ice, mining, and attacking foes.\n\nSpecial Ability:\n- Wall Climb\nNatural Ability:\n- Ice Harvest\nDamage: Moderate\n\nRequired parts:\n- Pickaxe Head\n- Spike\n- Handle",
-			"The Cutter Mattock is a versatile farming tool. It is effective on wood, dirt, and plants.\n\nSpecial Ability: Hoe\n\nRequired parts:\n- Axe Head\n- Shovel Head\n- Handle", "The Broadsword is a defensive weapon. Blocking cuts damage in half.\n\nSpecial Ability: Block\nDamage: Moderate\nDurability: High\n\nRequired parts:\n- Sword Blade\n- Wide Guard\n- Handle", "The Longsword is a balanced weapon. It is useful for knocking enemies away or getting in and out of battle quickly.\n\nNatural Ability:\n- Charge Boost\nDamage: Moderate\nDurability: Moderate\n\nRequired parts:\n- Sword Blade\n- Hand Guard\n- Handle", "The Rapier is an offensive weapon that relies on quick strikes to defeat foes.\n\nNatural Abilities:\n- Armor Pierce\n- Quick Strike\n- Charge Boost\nDamage: High\nDurability: Low\n\nRequired parts:\n- Sword Blade\n- Crossbar\n- Handle", "The Frying is a heavy weapon that uses sheer weight to stun foes.\n\nSpecial Ability: Block\nNatural Ability: Bash\nShift+rClick: Place Frying Pan\nDamage: High\nDurability: High\n\nRequired parts:\n- Pan\n- Handle",
+			"The Cutter Mattock is a versatile farming tool. It is effective on wood, dirt, and plants.\n\nSpecial Ability: Hoe\n\nRequired parts:\n- Axe Head\n- Shovel Head\n- Handle", 
+			"The Broadsword is a defensive weapon. Blocking cuts damage in half.\n\nSpecial Ability: Block\nDamage: Moderate\nDurability: High\n\nRequired parts:\n- Sword Blade\n- Wide Guard\n- Handle", 
+			"The Longsword is a balanced weapon. It is useful for knocking enemies away or getting in and out of battle quickly.\n\nNatural Ability:\n- Charge Boost\nDamage: Moderate\nDurability: Moderate\n\nRequired parts:\n- Sword Blade\n- Hand Guard\n- Handle", 
+			"The Rapier is an offensive weapon that relies on quick strikes to defeat foes.\n\nNatural Abilities:\n- Armor Pierce\n- Quick Strike\n- Charge Boost\nDamage: High\nDurability: Low\n\nRequired parts:\n- Sword Blade\n- Crossbar\n- Handle", 
+			"The Frying is a heavy weapon that uses sheer weight to stun foes.\n\nSpecial Ability: Block\nNatural Ability: Bash\nShift+rClick: Place Frying Pan\nDamage: Low\nDurability: High\n\nRequired parts:\n- Pan\n- Handle",
 			//"The Battlesign is an advance in weapon technology worthy of Zombie Pigmen everywhere.\n\nSpecial Ability: Block\nShift-rClick: Place sign\nDamage: Low\nDurability: Average\n\nRequired parts:\n- Board\n- Handle"
 			"The Battlesign is an advance in weapon technology worthy of Zombie Pigmen everywhere.\n\nSpecial Ability: Block\nDamage: Low\nDurability: Average\n\nRequired parts:\n- Sign Board\n- Handle" };
 
@@ -565,8 +632,21 @@ public class TContent implements IFuelHandler
 		OreDictionary.registerOre("ingotTin", new ItemStack(materials, 1, 10));
 		OreDictionary.registerOre("ingotAluminum", new ItemStack(materials, 1, 11));
 		OreDictionary.registerOre("naturalAluminum", new ItemStack(materials, 1, 12));
-		OreDictionary.registerOre("ingotAluminium", new ItemStack(materials, 1, 11));
-		OreDictionary.registerOre("naturalAluminium", new ItemStack(materials, 1, 12));
+		OreDictionary.registerOre("ingotBronze", new ItemStack(materials, 1, 13));
+		OreDictionary.registerOre("ingotAluminumBrass", new ItemStack(materials, 1, 14));
+		OreDictionary.registerOre("ingotAlumite", new ItemStack(materials, 1, 15));
+		OreDictionary.registerOre("ingotSteel", new ItemStack(materials, 1, 16));
+
+		OreDictionary.registerOre("blockCobalt", new ItemStack(metalBlock, 1, 0));
+		OreDictionary.registerOre("blockArdite", new ItemStack(metalBlock, 1, 1));
+		OreDictionary.registerOre("blockManyullyn", new ItemStack(metalBlock, 1, 2));
+		OreDictionary.registerOre("blockCopper", new ItemStack(metalBlock, 1, 3));
+		OreDictionary.registerOre("blockBronze", new ItemStack(metalBlock, 1, 4));
+		OreDictionary.registerOre("blockTin", new ItemStack(metalBlock, 1, 5));
+		OreDictionary.registerOre("blockAluminum", new ItemStack(metalBlock, 1, 6));
+		OreDictionary.registerOre("blockAluminumBrass", new ItemStack(metalBlock, 1, 7));
+		OreDictionary.registerOre("blockAlumite", new ItemStack(metalBlock, 1, 8));
+		OreDictionary.registerOre("blockSteel", new ItemStack(metalBlock, 1, 9));
 	}
 
 	public void modIntegration ()
@@ -587,12 +667,135 @@ public class TContent implements IFuelHandler
 		for (ItemStack copper : copperIngots)
 		{
 			PatternBuilder.instance.registerMaterial(copper, 2, "Copper");
+			Smeltery.addMelting(copper, metalBlock.blockID, 3, 450, new LiquidStack(copperStill.blockID, 250, 0));
 		}
-
+		ArrayList<ItemStack> tinIngots = OreDictionary.getOres("ingotTin");
+		for (ItemStack tin : tinIngots)
+		{
+			Smeltery.addMelting(tin, metalBlock.blockID, 5, 175, new LiquidStack(tinStill.blockID, 250, 0));
+		}
 		ArrayList<ItemStack> bronzeIngots = OreDictionary.getOres("ingotBronze");
 		for (ItemStack bronze : bronzeIngots)
 		{
 			PatternBuilder.instance.registerMaterial(bronze, 2, "Bronze");
+			Smeltery.addMelting(bronze, metalBlock.blockID, 4, 500, new LiquidStack(bronzeStill.blockID, 250, 0));
+		}
+		ArrayList<ItemStack> cobaltIngots = OreDictionary.getOres("ingotCobalt");
+		for (ItemStack cobalt : cobaltIngots)
+		{
+			Smeltery.addMelting(cobalt, metalBlock.blockID, 0, 650, new LiquidStack(cobaltStill.blockID, 250, 0));
+		}
+		ArrayList<ItemStack> arditeIngots = OreDictionary.getOres("ingotArdite");
+		for (ItemStack ardite : arditeIngots)
+		{
+			Smeltery.addMelting(ardite, metalBlock.blockID, 1, 650, new LiquidStack(arditeStill.blockID, 250, 0));
+		}
+		ArrayList<ItemStack> aluminumIngots = OreDictionary.getOres("ingotAluminum");
+		for (ItemStack aluminum : aluminumIngots)
+		{
+			Smeltery.addMelting(aluminum, metalBlock.blockID, 6, 250, new LiquidStack(aluminumStill.blockID, 250, 0));
+		}
+		ArrayList<ItemStack> aluminumRaw = OreDictionary.getOres("naturalAluminum");
+		for (ItemStack aluminum : aluminumRaw)
+		{
+			Smeltery.addMelting(aluminum, metalBlock.blockID, 6, 250, new LiquidStack(aluminumStill.blockID, 250, 0));
+		}
+		ArrayList<ItemStack> manyullynIngots = OreDictionary.getOres("ingotManyullyn");
+		for (ItemStack manyullyn : manyullynIngots)
+		{
+			Smeltery.addMelting(manyullyn, metalBlock.blockID, 2, 750, new LiquidStack(manyullynStill.blockID, 250, 0));
+		}
+		ArrayList<ItemStack> alBrassIngots = OreDictionary.getOres("ingotAluminumBrass");
+		for (ItemStack alBrass : alBrassIngots)
+		{
+			Smeltery.addMelting(alBrass, metalBlock.blockID, 7, 350, new LiquidStack(alBrassStill.blockID, 250, 0));
+		}
+		ArrayList<ItemStack> alumiteIngots = OreDictionary.getOres("ingotAlumite");
+		for (ItemStack alumite : alumiteIngots)
+		{
+			Smeltery.addMelting(alumite, metalBlock.blockID, 8, 500, new LiquidStack(alumiteStill.blockID, 250, 0));
+		}
+		ArrayList<ItemStack> steelIngots = OreDictionary.getOres("ingotSteel");
+		for (ItemStack steel : steelIngots)
+		{
+			Smeltery.addMelting(steel, metalBlock.blockID, 9, 500, new LiquidStack(steelStill.blockID, 250, 0));
+		}
+		
+		ArrayList<ItemStack> cobaltOres = OreDictionary.getOres("oreCobalt");
+		for (ItemStack cobalt : cobaltOres)
+		{
+			Smeltery.addMelting(cobalt, 750, new LiquidStack(cobaltStill.blockID, 250, 0));
+		}
+		ArrayList<ItemStack> arditeOres = OreDictionary.getOres("oreArdite");
+		for (ItemStack ardite : arditeOres)
+		{
+			Smeltery.addMelting(ardite, 750, new LiquidStack(arditeStill.blockID, 250, 0));
+		}
+		ArrayList<ItemStack> copperOres = OreDictionary.getOres("oreCopper");
+		for (ItemStack copper : copperOres)
+		{
+			Smeltery.addMelting(copper, 750, new LiquidStack(copperStill.blockID, 250, 0));
+		}
+		ArrayList<ItemStack> tinOres = OreDictionary.getOres("oreTin");
+		for (ItemStack tin : tinOres)
+		{
+			Smeltery.addMelting(tin, 750, new LiquidStack(tinStill.blockID, 250, 0));
+		}
+		ArrayList<ItemStack> aluminumOres = OreDictionary.getOres("oreAluminum");
+		for (ItemStack aluminum : aluminumOres)
+		{
+			Smeltery.addMelting(aluminum, 750, new LiquidStack(aluminumStill.blockID, 250, 0));
+		}
+		
+		ArrayList<ItemStack> copperblocks = OreDictionary.getOres("blockCopper");
+		for (ItemStack copper : copperblocks)
+		{
+			Smeltery.addMelting(copper, 450, new LiquidStack(copperStill.blockID, 2250, 0));
+		}
+		ArrayList<ItemStack> tinblocks = OreDictionary.getOres("blockTin");
+		for (ItemStack tin : tinblocks)
+		{
+			Smeltery.addMelting(tin, 175, new LiquidStack(tinStill.blockID, 2250, 0));
+		}
+		ArrayList<ItemStack> bronzeblocks = OreDictionary.getOres("blockBronze");
+		for (ItemStack bronze : bronzeblocks)
+		{
+			Smeltery.addMelting(bronze, 500, new LiquidStack(bronzeStill.blockID, 2250, 0));
+		}
+		ArrayList<ItemStack> cobaltblocks = OreDictionary.getOres("blockCobalt");
+		for (ItemStack cobalt : cobaltblocks)
+		{
+			Smeltery.addMelting(cobalt, 650, new LiquidStack(cobaltStill.blockID, 2250, 0));
+		}
+		ArrayList<ItemStack> arditeblocks = OreDictionary.getOres("blockArdite");
+		for (ItemStack ardite : arditeblocks)
+		{
+			Smeltery.addMelting(ardite, 650, new LiquidStack(arditeStill.blockID, 2250, 0));
+		}
+		ArrayList<ItemStack> aluminumblocks = OreDictionary.getOres("blockAluminum");
+		for (ItemStack aluminum : aluminumblocks)
+		{
+			Smeltery.addMelting(aluminum, 250, new LiquidStack(aluminumStill.blockID, 2250, 0));
+		}
+		ArrayList<ItemStack> manyullynblocks = OreDictionary.getOres("blockManyullyn");
+		for (ItemStack manyullyn : manyullynblocks)
+		{
+			Smeltery.addMelting(manyullyn, 750, new LiquidStack(manyullynStill.blockID, 2250, 0));
+		}
+		ArrayList<ItemStack> alBrassblocks = OreDictionary.getOres("blockAluminumBrass");
+		for (ItemStack alBrass : alBrassblocks)
+		{
+			Smeltery.addMelting(alBrass, 350, new LiquidStack(alBrassStill.blockID, 2250, 0));
+		}
+		ArrayList<ItemStack> alumiteblocks = OreDictionary.getOres("blockAlumite");
+		for (ItemStack alumite : alumiteblocks)
+		{
+			Smeltery.addMelting(alumite, 500, new LiquidStack(alumiteStill.blockID, 2250, 0));
+		}
+		ArrayList<ItemStack> steelblocks = OreDictionary.getOres("blockSteel");
+		for (ItemStack steel : steelblocks)
+		{
+			Smeltery.addMelting(steel, 500, new LiquidStack(steelStill.blockID, 2250, 0));
 		}
 		
 		/* IC2 */
@@ -632,7 +835,7 @@ public class TContent implements IFuelHandler
 	public static String liquidTexture = "/tinkertextures/LiquidWhite.png";
 
 	public static String craftingTexture = "/tinkertextures/materials.png";
-	public static String patternTexture = "/tinkertextures/tools/patterns.png";
+	public static String patternTexture = "/tinkertextures/patterns.png";
 	public static String baseHeads = "/tinkertextures/tools/baseheads.png";
 	public static String baseAccessories = "/tinkertextures/tools/baseaccessories.png";
 	public static String swordparts = "/tinkertextures/tools/swordparts.png";
