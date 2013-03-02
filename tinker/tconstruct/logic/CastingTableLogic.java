@@ -11,13 +11,13 @@ import net.minecraftforge.liquids.ILiquidTank;
 import net.minecraftforge.liquids.LiquidStack;
 import tinker.common.IPattern;
 import tinker.common.InventoryLogic;
+import tinker.tconstruct.TConstruct;
 import tinker.tconstruct.crafting.CastingRecipe;
 import tinker.tconstruct.crafting.LiquidCasting;
 
 public class CastingTableLogic extends InventoryLogic implements ILiquidTank
 {
 	public LiquidStack liquid;
-	int baseMax = 250;
 	float materialRedux = 0;
 	int castingDelay = 0;
 
@@ -47,7 +47,7 @@ public class CastingTableLogic extends InventoryLogic implements ILiquidTank
 	@Override
 	public int getCapacity ()
 	{
-		int ret = baseMax;
+		int ret = TConstruct.ingotLiquidValue;
 		if (inventory[0] != null && inventory[0].getItem() instanceof IPattern)
 			ret *= ((IPattern) inventory[0].getItem()).getPatternCost(inventory[0].getItemDamage());
 		if (materialRedux > 0)
@@ -63,9 +63,10 @@ public class CastingTableLogic extends InventoryLogic implements ILiquidTank
 
 		if (liquid == null)
 		{
-			//System.out.println("Woo");
+			System.out.println("Woo");
 			if (LiquidCasting.instance.getCastingRecipe(resource, inventory[0]) != null)
 			{
+				System.out.println("Cast exists");
 				liquid = resource.copy();
 				materialRedux = LiquidCasting.instance.getMaterialReduction(resource);
 				worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);

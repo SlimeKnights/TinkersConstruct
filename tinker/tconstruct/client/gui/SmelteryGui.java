@@ -36,7 +36,7 @@ public class SmelteryGui extends GuiContainer
 		fontRenderer.drawString("Temp: " + logic.getInternalTemperature(), xSize + 6, 6, 0xffffff);
 		fontRenderer.drawString("Liquid: " + logic.getCapacity(), xSize + 6, 16, 0xffffff);
 		for (int iter = 0; iter < 9; iter++)
-			fontRenderer.drawString("Slot "+iter+" temp: " + logic.getTempForSlot(iter), xSize + 6, 26+iter*10, 0xffffff);
+			fontRenderer.drawString("Slot " + iter + " temp: " + logic.getTempForSlot(iter), xSize + 6, 26 + iter * 10, 0xffffff);
 		/*for (int iter = 0; iter < 9; iter++)
 			fontRenderer.drawString("Slot "+iter+" mTemp: " + logic.meltingTemps[iter], xSize + 6, 100+iter*9, 0xffffff);*/
 	}
@@ -49,7 +49,7 @@ public class SmelteryGui extends GuiContainer
 		int cornerX = (width - xSize) / 2;
 		int cornerY = (height - ySize) / 2;
 		drawTexturedModalRect(cornerX, cornerY, 0, 0, xSize, ySize);
-		
+
 		//Fuel - Lava
 		if (logic.fuelGague > 0)
 		{
@@ -63,11 +63,11 @@ public class SmelteryGui extends GuiContainer
 			{
 				int size = fuel >= 16 ? 16 : fuel;
 				fuel -= size;
-				drawTexturedModalRect(cornerX + 146, (cornerY + 67) - size - 16*count, xTex, yTex+16-size, 9, size);
+				drawTexturedModalRect(cornerX + 146, (cornerY + 67) - size - 16 * count, xTex, yTex + 16 - size, 9, size);
 				count++;
 			}
 		}
-		
+
 		//Liquids - molten metal
 		int base = 0;
 		for (LiquidStack liquid : logic.moltenMetal)
@@ -79,7 +79,8 @@ public class SmelteryGui extends GuiContainer
 				ForgeHooksClient.bindTexture(liquidBlock.getTextureFile(), 0);
 				renderIndex = liquidBlock.getBlockTextureFromSideAndMetadata(0, liquid.itemMeta);
 			}
-			else //Item
+			else
+			//Item
 			{
 				Item liquidItem = Item.itemsList[liquid.itemID];
 				ForgeHooksClient.bindTexture(liquidItem.getTextureFile(), 0);
@@ -88,15 +89,18 @@ public class SmelteryGui extends GuiContainer
 
 			int xTex = renderIndex % 16 * 16;
 			int yTex = renderIndex / 16 * 16;
-			int liquidSize = liquid.amount * 52 / logic.getCapacity();
-			while (liquidSize > 0)
+			if (logic.getCapacity() > 0)
 			{
-				int size = liquidSize >= 16 ? 16 : liquidSize;
-				drawTexturedModalRect(cornerX + 13, (cornerY + 68) - size - base, xTex, yTex+16-size, 16, size);
-				drawTexturedModalRect(cornerX + 29, (cornerY + 68) - size - base, xTex, yTex+16-size, 16, size);
-				drawTexturedModalRect(cornerX + 45, (cornerY + 68) - size - base, xTex, yTex+16-size, 2, size);
-				liquidSize -= size;
-				base += size;
+				int liquidSize = liquid.amount * 52 / logic.getCapacity();
+				while (liquidSize > 0)
+				{
+					int size = liquidSize >= 16 ? 16 : liquidSize;
+					drawTexturedModalRect(cornerX + 13, (cornerY + 68) - size - base, xTex, yTex + 16 - size, 16, size);
+					drawTexturedModalRect(cornerX + 29, (cornerY + 68) - size - base, xTex, yTex + 16 - size, 16, size);
+					drawTexturedModalRect(cornerX + 45, (cornerY + 68) - size - base, xTex, yTex + 16 - size, 2, size);
+					liquidSize -= size;
+					base += size;
+				}
 			}
 			//base = liquid.amount / 10000 * 52;
 		}

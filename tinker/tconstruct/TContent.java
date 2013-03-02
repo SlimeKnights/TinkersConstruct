@@ -106,13 +106,11 @@ public class TContent implements IFuelHandler
 		createEntities();
 		registerBlocks();
 		registerItems();
-		addRenderMappings();
 		registerMaterials();
 		addToolRecipes();
 		addSmelteryRecipes();
 		addCraftingRecipes();
 		setupToolTabs();
-		addToolButtons();
 		GameRegistry.registerFuelHandler(this);
 	}	
 
@@ -226,35 +224,7 @@ public class TContent implements IFuelHandler
 		//lumberHead = new ToolPart(PHConstruct.lumberHead, 0, broadheads).setItemName("tconstruct.LumberHead");
 	}
 
-	void addRenderMappings ()
-	{
-		String[] partTypes = { "wood", "stone", "iron", "flint", "cactus", "bone", "obsidian", "netherrack", "slime", "paper", "cobalt", "ardite", "manyullyn", "copper", "bronze", "alumite", "steel" };
-		String[] effectTypes = { "diamond", "emerald", "redstone", "glowstone", "moss", "ice", "lava", "blaze", "necrotic", "electric", "lapis" };
-		for (int partIter = 0; partIter < partTypes.length; partIter++)
-		{
-			materialRenderMap(partIter, partTypes[partIter]);
-		}
-		for (int effectIter = 0; effectIter < effectTypes.length; effectIter++)
-		{
-			effectRenderMap(effectIter, effectTypes[effectIter]);
-		}
-	}
-
-	void materialRenderMap (int materialID, String partialLocation)
-	{
-		for (ToolCore tool : TConstructRegistry.getToolMapping())
-		{
-			tool.partTextures.put(materialID, tool.getToolTextureFile() + partialLocation);
-		}
-	}
-
-	void effectRenderMap (int materialID, String partialLocation)
-	{
-		for (ToolCore tool : TConstructRegistry.getToolMapping())
-		{
-			tool.effectTextures.put(materialID, tool.getToolTextureFile() + partialLocation);
-		}
-	}
+	
 
 	void registerMaterials ()
 	{
@@ -361,7 +331,7 @@ public class TContent implements IFuelHandler
 		
 		LiquidCasting lc = LiquidCasting.instance;
 		//Blank
-		lc.addCastingRecipe(new ItemStack(blankPattern, 1, 1), new LiquidStack(liquidMetalStill.blockID, 1, 10), 50);
+		lc.addCastingRecipe(new ItemStack(blankPattern, 1, 1), new LiquidStack(liquidMetalStill.blockID, 1, 8), 50);
 		
 		//Ingots
 		lc.addCastingRecipe(new ItemStack(Item.ingotIron), new LiquidStack(liquidMetalStill.blockID, 1, 0), ingotcast, 50); //Iron
@@ -371,15 +341,13 @@ public class TContent implements IFuelHandler
 		lc.addCastingRecipe(new ItemStack(materials, 1, 11), new LiquidStack(liquidMetalStill.blockID, 1, 4), ingotcast, 50); //aluminum
 		lc.addCastingRecipe(new ItemStack(materials, 1, 3), new LiquidStack(liquidMetalStill.blockID, 1, 5), ingotcast, 50); //cobalt
 		lc.addCastingRecipe(new ItemStack(materials, 1, 4), new LiquidStack(liquidMetalStill.blockID, 1, 6), ingotcast, 50); //ardite
-		lc.addCastingRecipe(new ItemStack(materials, 1, 5), new LiquidStack(liquidMetalStill.blockID, 1, 7), ingotcast, 50); //bronze
-		lc.addCastingRecipe(new ItemStack(materials, 1, 13), new LiquidStack(liquidMetalStill.blockID, 1, 8), ingotcast, 50); //albrass
-		lc.addCastingRecipe(new ItemStack(materials, 1, 14), new LiquidStack(liquidMetalStill.blockID, 1, 9), ingotcast, 50); //manyullyn
+		lc.addCastingRecipe(new ItemStack(materials, 1, 13), new LiquidStack(liquidMetalStill.blockID, 1, 7), ingotcast, 50); //bronze
+		lc.addCastingRecipe(new ItemStack(materials, 1, 14), new LiquidStack(liquidMetalStill.blockID, 1, 8), ingotcast, 50); //albrass
+		lc.addCastingRecipe(new ItemStack(materials, 1, 5), new LiquidStack(liquidMetalStill.blockID, 1, 9), ingotcast, 50); //manyullyn
 		lc.addCastingRecipe(new ItemStack(materials, 1, 15), new LiquidStack(liquidMetalStill.blockID, 1, 10), ingotcast, 50); //alumite
 		// obsidian
 		lc.addCastingRecipe(new ItemStack(materials, 1, 16), new LiquidStack(liquidMetalStill.blockID, 1, 12), ingotcast, 50); //steel
 
-
-		
 		liquids = new LiquidStack[] {
 				new LiquidStack(liquidMetalStill.blockID, 1, 0),
 				new LiquidStack(liquidMetalStill.blockID, 1, 2),
@@ -407,21 +375,25 @@ public class TContent implements IFuelHandler
 	void addSmelteryRecipes()
 	{
 		//Ore
-		Smeltery.addMelting(Block.oreIron, 0, 600, new LiquidStack(liquidMetalStill.blockID, 250, 0));
-		Smeltery.addMelting(Block.oreGold, 0, 550, new LiquidStack(liquidMetalStill.blockID, 250, 1));
+		Smeltery.addMelting(Block.oreIron, 0, 600, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue*2, 0));
+		Smeltery.addMelting(Block.oreGold, 0, 550, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue*2, 1));
 		
-		//Ingots
-		Smeltery.addMelting(new ItemStack(Item.ingotIron, 8), Block.blockSteel.blockID, 0, 500, new LiquidStack(liquidMetalStill.blockID, 250, 0));
-		Smeltery.addMelting(new ItemStack(Item.ingotGold, 8), Block.blockGold.blockID, 0, 450, new LiquidStack(liquidMetalStill.blockID, 250, 1));
+		//Items
+		Smeltery.addMelting(new ItemStack(Item.ingotIron, 8), Block.blockSteel.blockID, 0, 500, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 0));
+		Smeltery.addMelting(new ItemStack(Item.ingotGold, 8), Block.blockGold.blockID, 0, 450, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 1));
+		Smeltery.addMelting(new ItemStack(Item.goldNugget, 8), Block.blockGold.blockID, 0, 450, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue/9, 1));
 		
 		//Blocks
-		Smeltery.addMelting(Block.blockSteel, 0, 600, new LiquidStack(liquidMetalStill.blockID, 2250, 0));
-		Smeltery.addMelting(Block.blockGold, 0, 550, new LiquidStack(liquidMetalStill.blockID, 2250, 1));
-		Smeltery.addMelting(Block.obsidian, 0, 800, new LiquidStack(liquidMetalStill.blockID, 250, 11));
+		Smeltery.addMelting(Block.blockSteel, 0, 600, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue*9, 0));
+		Smeltery.addMelting(Block.blockGold, 0, 550, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue*9, 1));
+		Smeltery.addMelting(Block.obsidian, 0, 800, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue*9, 11));
 		
 		//Alloys
-		Smeltery.addAlloyMixing(new LiquidStack(liquidMetalStill.blockID, 4, 7), new LiquidStack(liquidMetalStill.blockID, 3, 2), new LiquidStack(liquidMetalStill.blockID, 1, 3));
-		Smeltery.addAlloyMixing(new LiquidStack(liquidMetalStill.blockID, 4, 8), new LiquidStack(liquidMetalStill.blockID, 3, 4), new LiquidStack(liquidMetalStill.blockID, 1, 2));
+		Smeltery.addAlloyMixing(new LiquidStack(liquidMetalStill.blockID, 4, 7), new LiquidStack(liquidMetalStill.blockID, 3, 2), new LiquidStack(liquidMetalStill.blockID, 1, 3)); //Bronze
+		Smeltery.addAlloyMixing(new LiquidStack(liquidMetalStill.blockID, 4, 8), new LiquidStack(liquidMetalStill.blockID, 3, 4), new LiquidStack(liquidMetalStill.blockID, 1, 2)); //Aluminum Brass
+		Smeltery.addAlloyMixing(new LiquidStack(liquidMetalStill.blockID, 2, 9), new LiquidStack(liquidMetalStill.blockID, 1, 5), new LiquidStack(liquidMetalStill.blockID, 1, 6)); //Manyullyn
+		Smeltery.addAlloyMixing(new LiquidStack(liquidMetalStill.blockID, 9, 10), new LiquidStack(liquidMetalStill.blockID, 5, 4), 
+				new LiquidStack(liquidMetalStill.blockID, 2, 0), new LiquidStack(liquidMetalStill.blockID, 2, 11)); //Alumite
 	}
 
 	void addCraftingRecipes ()
@@ -491,65 +463,7 @@ public class TContent implements IFuelHandler
 		TConstruct.toolTab.init(tool);
 	}
 
-	static int[][] slotTypes = { new int[] { 0, 3, 0 }, //Repair
-			new int[] { 1, 4, 0 }, //Pickaxe
-			new int[] { 2, 5, 0 }, //Shovel
-			new int[] { 2, 6, 0 }, //Axe
-			//new int[] {2, 9, 0}, //Lumber Axe
-			//new int[] {1, 7, 0}, //Ice Axe
-			new int[] { 3, 8, 0 }, //Mattock
-			new int[] { 1, 0, 1 }, //Broadsword
-			new int[] { 1, 1, 1 }, //Longsword
-			new int[] { 1, 2, 1 }, //Rapier
-			new int[] { 2, 3, 1 }, //Frying pan
-			new int[] { 2, 4, 1 } //Battlesign
-	};
-
-	static int[][] iconCoords = { new int[] { 0, 1, 2 }, new int[] { 13, 13, 13 }, //Repair
-			new int[] { 0, 0, 1 }, new int[] { 2, 3, 3 }, //Pickaxe
-			new int[] { 3, 0, 13 }, new int[] { 2, 3, 13 }, //Shovel
-			new int[] { 2, 0, 13 }, new int[] { 2, 3, 13 }, //Axe
-			//new int[] { 6, 0, 13 }, new int[] { 2, 3, 13 }, //Lumber Axe
-			//new int[] { 0, 0, 5 }, new int[] { 2, 3, 3 }, //Ice Axe
-			new int[] { 2, 0, 3 }, new int[] { 2, 3, 2 }, //Mattock
-			new int[] { 1, 0, 2 }, new int[] { 2, 3, 3 }, //Broadsword
-			new int[] { 1, 0, 3 }, new int[] { 2, 3, 3 }, //Longsword
-			new int[] { 1, 0, 4 }, new int[] { 2, 3, 3 }, //Rapier
-			new int[] { 4, 0, 13 }, new int[] { 2, 3, 13 }, //Frying Pan
-			new int[] { 5, 0, 13 }, new int[] { 2, 3, 13 } //Battlesign
-	};
-
-	static String[] toolNames = { "Repair and Modification", "Pickaxe", "Shovel", "Axe",
-			//"Lumber Axe",
-			//"Ice Axe",
-			"Mattock", "Broadsword", "Longsword", "Rapier", "Frying Pan", "Battlesign" };
-
-	static String[] toolDescriptions = { "The main way to repair or change your tools. Place a tool and a material on the left to get started.", 
-		"The Pickaxe is a basic mining tool. It is effective on stone and ores.\n\nRequired parts:\n- Pickaxe Head\n- Tool Binding\n- Handle", 
-		"The Shovel is a basic digging tool. It is effective on dirt, sand, and snow.\n\nRequired parts:\n- Shovel Head\n- Handle", 
-		"The Axe is a basic chopping tool. It is effective on wood and leaves.\n\nRequired parts:\n- Axe Head\n- Handle",
-			//"The Lumber Axe is a broad chopping tool. It harvests wood in a wide range and can fell entire trees.\n\nRequired parts:\n- Broad Axe Head\n- Handle",
-			//"The Ice Axe is a tool for harvesting ice, mining, and attacking foes.\n\nSpecial Ability:\n- Wall Climb\nNatural Ability:\n- Ice Harvest\nDamage: Moderate\n\nRequired parts:\n- Pickaxe Head\n- Spike\n- Handle",
-			"The Cutter Mattock is a versatile farming tool. It is effective on wood, dirt, and plants.\n\nSpecial Ability: Hoe\n\nRequired parts:\n- Axe Head\n- Shovel Head\n- Handle", 
-			"The Broadsword is a defensive weapon. Blocking cuts damage in half.\n\nSpecial Ability: Block\nDamage: Moderate\nDurability: High\n\nRequired parts:\n- Sword Blade\n- Wide Guard\n- Handle", 
-			"The Longsword is a balanced weapon. It is useful for knocking enemies away or getting in and out of battle quickly.\n\nNatural Ability:\n- Charge Boost\nDamage: Moderate\nDurability: Moderate\n\nRequired parts:\n- Sword Blade\n- Hand Guard\n- Handle", 
-			"The Rapier is an offensive weapon that relies on quick strikes to defeat foes.\n\nNatural Abilities:\n- Armor Pierce\n- Quick Strike\n- Charge Boost\nDamage: High\nDurability: Low\n\nRequired parts:\n- Sword Blade\n- Crossbar\n- Handle", 
-			"The Frying is a heavy weapon that uses sheer weight to stun foes.\n\nSpecial Ability: Block\nNatural Ability: Bash\nShift+rClick: Place Frying Pan\nDamage: Low\nDurability: High\n\nRequired parts:\n- Pan\n- Handle",
-			//"The Battlesign is an advance in weapon technology worthy of Zombie Pigmen everywhere.\n\nSpecial Ability: Block\nShift-rClick: Place sign\nDamage: Low\nDurability: Average\n\nRequired parts:\n- Board\n- Handle"
-			"The Battlesign is an advance in weapon technology worthy of Zombie Pigmen everywhere.\n\nSpecial Ability: Block\nDamage: Low\nDurability: Average\n\nRequired parts:\n- Sign Board\n- Handle" };
-
-	void addToolButtons ()
-	{
-		for (int i = 0; i < toolNames.length; i++)
-		{
-			addToolButton(slotTypes[i][0], slotTypes[i][1], slotTypes[i][2], iconCoords[i * 2], iconCoords[i * 2 + 1], toolNames[i], toolDescriptions[i]);
-		}
-	}
-
-	void addToolButton (int slotType, int xButton, int yButton, int[] xIcons, int[] yIcons, String title, String body)
-	{
-		TConstructRegistry.toolButtons.add(new ToolGuiElement(slotType, xButton, yButton, xIcons, yIcons, title, body));
-	}
+	
 	
 	public void oreRegistry ()
 	{
@@ -581,6 +495,15 @@ public class TContent implements IFuelHandler
 		OreDictionary.registerOre("blockAluminumBrass", new ItemStack(metalBlock, 1, 7));
 		OreDictionary.registerOre("blockAlumite", new ItemStack(metalBlock, 1, 8));
 		OreDictionary.registerOre("blockSteel", new ItemStack(metalBlock, 1, 9));
+		
+
+		String[] liquidNames = new String[] { "Iron", "Gold", "Copper", "Tin", "Aluminum", "Cobalt", "Ardite", "Bronze", "Brass", "Manyullyn", "Alumite", "Obsidian", "Steel" };
+		for (int iter = 0; iter < liquidNames.length; iter++)
+		{
+			LiquidStack liquidstack = new LiquidStack(liquidMetalStill.blockID, LiquidContainerRegistry.BUCKET_VOLUME, iter);
+			LiquidDictionary.getOrCreateLiquid("Molten "+liquidNames[iter], liquidstack);
+			LiquidContainerRegistry.registerLiquid(new LiquidContainerData(liquidstack, new ItemStack(buckets, 1, iter), new ItemStack(Item.bucketEmpty)));
+		}
 	}
 
 	public void modIntegration ()
@@ -588,148 +511,144 @@ public class TContent implements IFuelHandler
 		/* Liquids */
 		//Block[] liquids = new Block[] { ironStill, goldStill, copperStill, tinStill, aluminumStill, cobaltStill, 
 				//arditeStill, bronzeStill, alBrassStill, manyullynStill, alumiteStill, obsidianStill, steelStill };
-		String[] liquidNames = new String[] { "Iron", "Gold", "Copper", "Tin", "Aluminum", "Cobalt", "Ardite", "Bronze", "Brass", "Manyullyn", "Alumite", "Obsidian", "Steel" };
-		for (int iter = 0; iter < liquidNames.length; iter++)
-		{
-			LiquidStack liquidstack = new LiquidStack(liquidMetalStill.blockID, LiquidContainerRegistry.BUCKET_VOLUME, iter);
-			LiquidDictionary.getOrCreateLiquid("Liquid"+liquidNames[iter], liquidstack);
-			LiquidContainerRegistry.registerLiquid(new LiquidContainerData(liquidstack, new ItemStack(buckets, 1, iter), new ItemStack(Item.bucketEmpty)));
-		}
 		
 		/* Ore Dictionary */
+		//Ingots
 		ArrayList<ItemStack> copperIngots = OreDictionary.getOres("ingotCopper");
 		for (ItemStack copper : copperIngots)
 		{
 			PatternBuilder.instance.registerMaterial(copper, 2, "Copper");
-			Smeltery.addMelting(copper, metalBlock.blockID, 3, 450, new LiquidStack(liquidMetalStill.blockID, 250, 2));
+			Smeltery.addMelting(copper, metalBlock.blockID, 3, 450, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 2));
 		}
 		ArrayList<ItemStack> tinIngots = OreDictionary.getOres("ingotTin");
 		for (ItemStack tin : tinIngots)
 		{
-			Smeltery.addMelting(tin, metalBlock.blockID, 5, 175, new LiquidStack(liquidMetalStill.blockID, 250, 3));
+			Smeltery.addMelting(tin, metalBlock.blockID, 5, 175, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 3));
 		}
 		ArrayList<ItemStack> bronzeIngots = OreDictionary.getOres("ingotBronze");
 		for (ItemStack bronze : bronzeIngots)
 		{
 			PatternBuilder.instance.registerMaterial(bronze, 2, "Bronze");
-			Smeltery.addMelting(bronze, metalBlock.blockID, 4, 500, new LiquidStack(liquidMetalStill.blockID, 250, 7));
+			Smeltery.addMelting(bronze, metalBlock.blockID, 4, 500, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 7));
 		}
 		ArrayList<ItemStack> cobaltIngots = OreDictionary.getOres("ingotCobalt");
 		for (ItemStack cobalt : cobaltIngots)
 		{
-			Smeltery.addMelting(cobalt, metalBlock.blockID, 0, 650, new LiquidStack(liquidMetalStill.blockID, 250, 5));
+			Smeltery.addMelting(cobalt, metalBlock.blockID, 0, 650, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 5));
 		}
 		ArrayList<ItemStack> arditeIngots = OreDictionary.getOres("ingotArdite");
 		for (ItemStack ardite : arditeIngots)
 		{
-			Smeltery.addMelting(ardite, metalBlock.blockID, 1, 650, new LiquidStack(liquidMetalStill.blockID, 250, 6));
+			Smeltery.addMelting(ardite, metalBlock.blockID, 1, 650, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 6));
 		}
 		ArrayList<ItemStack> aluminumIngots = OreDictionary.getOres("ingotAluminum");
 		for (ItemStack aluminum : aluminumIngots)
 		{
-			Smeltery.addMelting(aluminum, metalBlock.blockID, 6, 250, new LiquidStack(liquidMetalStill.blockID, 250, 4));
+			Smeltery.addMelting(aluminum, metalBlock.blockID, 6, 250, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 4));
 		}
 		ArrayList<ItemStack> aluminumRaw = OreDictionary.getOres("naturalAluminum");
 		for (ItemStack aluminum : aluminumRaw)
 		{
-			Smeltery.addMelting(aluminum, metalBlock.blockID, 6, 250, new LiquidStack(liquidMetalStill.blockID, 250, 4));
+			Smeltery.addMelting(aluminum, metalBlock.blockID, 6, 250, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 4));
 		}
 		ArrayList<ItemStack> manyullynIngots = OreDictionary.getOres("ingotManyullyn");
 		for (ItemStack manyullyn : manyullynIngots)
 		{
-			Smeltery.addMelting(manyullyn, metalBlock.blockID, 2, 750, new LiquidStack(liquidMetalStill.blockID, 250, 9));
+			Smeltery.addMelting(manyullyn, metalBlock.blockID, 2, 750, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 9));
 		}
 		ArrayList<ItemStack> alBrassIngots = OreDictionary.getOres("ingotAluminumBrass");
 		for (ItemStack alBrass : alBrassIngots)
 		{
-			Smeltery.addMelting(alBrass, metalBlock.blockID, 7, 350, new LiquidStack(liquidMetalStill.blockID, 250, 8));
+			Smeltery.addMelting(alBrass, metalBlock.blockID, 7, 350, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 8));
 		}
 		ArrayList<ItemStack> alumiteIngots = OreDictionary.getOres("ingotAlumite");
 		for (ItemStack alumite : alumiteIngots)
 		{
-			Smeltery.addMelting(alumite, metalBlock.blockID, 8, 500, new LiquidStack(liquidMetalStill.blockID, 250, 10));
+			Smeltery.addMelting(alumite, metalBlock.blockID, 8, 500, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 10));
 		}
 		ArrayList<ItemStack> steelIngots = OreDictionary.getOres("ingotSteel");
 		for (ItemStack steel : steelIngots)
 		{
-			Smeltery.addMelting(steel, metalBlock.blockID, 9, 500, new LiquidStack(liquidMetalStill.blockID, 250, 12));
+			Smeltery.addMelting(steel, metalBlock.blockID, 9, 500, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 12));
 		}
 		
+		//Ores
 		ArrayList<ItemStack> cobaltOres = OreDictionary.getOres("oreCobalt");
 		for (ItemStack cobalt : cobaltOres)
 		{
-			Smeltery.addMelting(cobalt, 750, new LiquidStack(liquidMetalStill.blockID, 500, 5));
+			Smeltery.addMelting(cobalt, 750, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue*2, 5));
 		}
 		ArrayList<ItemStack> arditeOres = OreDictionary.getOres("oreArdite");
 		for (ItemStack ardite : arditeOres)
 		{
-			Smeltery.addMelting(ardite, 750, new LiquidStack(liquidMetalStill.blockID, 500, 6));
+			Smeltery.addMelting(ardite, 750, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue*2, 6));
 		}
 		ArrayList<ItemStack> copperOres = OreDictionary.getOres("oreCopper");
 		for (ItemStack copper : copperOres)
 		{
-			Smeltery.addMelting(copper, 750, new LiquidStack(liquidMetalStill.blockID, 500, 2));
+			Smeltery.addMelting(copper, 750, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue*2, 2));
 		}
 		ArrayList<ItemStack> tinOres = OreDictionary.getOres("oreTin");
 		for (ItemStack tin : tinOres)
 		{
-			Smeltery.addMelting(tin, 750, new LiquidStack(liquidMetalStill.blockID, 500, 3));
+			Smeltery.addMelting(tin, 750, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue*2, 3));
 		}
 		ArrayList<ItemStack> aluminumOres = OreDictionary.getOres("oreAluminum");
 		for (ItemStack aluminum : aluminumOres)
 		{
-			Smeltery.addMelting(aluminum, 750, new LiquidStack(liquidMetalStill.blockID, 500, 4));
+			Smeltery.addMelting(aluminum, 750, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue*2, 4));
 		}
 		
+		//Blocks
 		ArrayList<ItemStack> copperblocks = OreDictionary.getOres("blockCopper");
 		for (ItemStack copper : copperblocks)
 		{
-			Smeltery.addMelting(copper, 450, new LiquidStack(liquidMetalStill.blockID, 2250, 2));
+			Smeltery.addMelting(copper, 450, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue*9, 2));
 		}
 		ArrayList<ItemStack> tinblocks = OreDictionary.getOres("blockTin");
 		for (ItemStack tin : tinblocks)
 		{
-			Smeltery.addMelting(tin, 175, new LiquidStack(liquidMetalStill.blockID, 2250, 3));
+			Smeltery.addMelting(tin, 175, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue*9, 3));
 		}
 		ArrayList<ItemStack> bronzeblocks = OreDictionary.getOres("blockBronze");
 		for (ItemStack bronze : bronzeblocks)
 		{
-			Smeltery.addMelting(bronze, 500, new LiquidStack(liquidMetalStill.blockID, 2250, 7));
+			Smeltery.addMelting(bronze, 500, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue*9, 7));
 		}
 		ArrayList<ItemStack> cobaltblocks = OreDictionary.getOres("blockCobalt");
 		for (ItemStack cobalt : cobaltblocks)
 		{
-			Smeltery.addMelting(cobalt, 650, new LiquidStack(liquidMetalStill.blockID, 2250, 5));
+			Smeltery.addMelting(cobalt, 650, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue*9, 5));
 		}
 		ArrayList<ItemStack> arditeblocks = OreDictionary.getOres("blockArdite");
 		for (ItemStack ardite : arditeblocks)
 		{
-			Smeltery.addMelting(ardite, 650, new LiquidStack(liquidMetalStill.blockID, 2250, 6));
+			Smeltery.addMelting(ardite, 650, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue*9, 6));
 		}
 		ArrayList<ItemStack> aluminumblocks = OreDictionary.getOres("blockAluminum");
 		for (ItemStack aluminum : aluminumblocks)
 		{
-			Smeltery.addMelting(aluminum, 250, new LiquidStack(liquidMetalStill.blockID, 2250, 4));
+			Smeltery.addMelting(aluminum, 250, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue*9, 4));
 		}
 		ArrayList<ItemStack> manyullynblocks = OreDictionary.getOres("blockManyullyn");
 		for (ItemStack manyullyn : manyullynblocks)
 		{
-			Smeltery.addMelting(manyullyn, 750, new LiquidStack(liquidMetalStill.blockID, 2250, 9));
+			Smeltery.addMelting(manyullyn, 750, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue*9, 9));
 		}
 		ArrayList<ItemStack> alBrassblocks = OreDictionary.getOres("blockAluminumBrass");
 		for (ItemStack alBrass : alBrassblocks)
 		{
-			Smeltery.addMelting(alBrass, 350, new LiquidStack(liquidMetalStill.blockID, 2250, 8));
+			Smeltery.addMelting(alBrass, 350, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue*9, 8));
 		}
 		ArrayList<ItemStack> alumiteblocks = OreDictionary.getOres("blockAlumite");
 		for (ItemStack alumite : alumiteblocks)
 		{
-			Smeltery.addMelting(alumite, 500, new LiquidStack(liquidMetalStill.blockID, 2250, 10));
+			Smeltery.addMelting(alumite, 500, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue*9, 10));
 		}
 		ArrayList<ItemStack> steelblocks = OreDictionary.getOres("blockSteel");
 		for (ItemStack steel : steelblocks)
 		{
-			Smeltery.addMelting(steel, 500, new LiquidStack(liquidMetalStill.blockID, 2250, 12));
+			Smeltery.addMelting(steel, 500, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue*9, 12));
 		}
 		
 		/* IC2 */

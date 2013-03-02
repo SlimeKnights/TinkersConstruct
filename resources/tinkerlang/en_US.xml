@@ -50,4 +50,22 @@
   <entry key="item.tconstruct.blankpattern.pattern.name">Blank Pattern</entry>
   <entry key="item.tconstruct.blankpattern.cast.name">Blank Cast</entry>
   
+  <entry key="item.tconstruct.bucket.Iron.name">Liquid Iron Bucket</entry>
+  <entry key="item.tconstruct.bucket.Gold.name">Liquid Gold Bucket</entry>
+  <entry key="item.tconstruct.bucket.Copper.name">Liquid Copper Bucket</entry>
+  <entry key="item.tconstruct.bucket.Tin.name">Liquid Tin Bucket</entry>
+  <entry key="item.tconstruct.bucket.Aluminum.name">Liquid Aluminum Bucket</entry>
+  <entry key="item.tconstruct.bucket.Cobalt.name">Liquid Cobalt Bucket</entry>
+  <entry key="item.tconstruct.bucket.Ardite.name">Liquid Ardite Bucket</entry>
+  <entry key="item.tconstruct.bucket.Bronze.name">Liquid Bronze Bucket</entry>
+  <entry key="item.tconstruct.bucket.AlBrass.name">Liquid Aluminum Brass Bucket</entry>
+  <entry key="item.tconstruct.bucket.Manyullyn.name">Liquid Manyullyn Bucket</entry>
+  <entry key="item.tconstruct.bucket.Alumite.name">Liquid Alumite Bucket</entry>
+  <entry key="item.tconstruct.bucket.Obsidian.name">Liquid Obsidian Bucket</entry>
+  <entry key="item.tconstruct.bucket.Steel.name">Liquid Steel Bucket</entry>
+  <entry key="item.tconstruct.bucket.Manganese.name">Liquid Manganese Bucket</entry>
+  <entry key="item.tconstruct.bucket.Heptazion.name">Liquid Heptazion Bucket</entry>
+  <entry key="item.tconstruct.bucket.DSteel.name">Liquid Damascus Steel Bucket</entry>
+  <entry key="item.tconstruct.bucket.Angmallen.name">Liquid Angmallen Bucket</entry>
+  
 </properties>

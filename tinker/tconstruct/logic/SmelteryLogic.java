@@ -339,6 +339,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 	public void checkValidStructure (int x, int y, int z)
 	{
 		int capacity = 0;
+		validStructure = false;
 		//System.out.println("Yep");
 		if (checkSameLevel(x, y, z))
 		{

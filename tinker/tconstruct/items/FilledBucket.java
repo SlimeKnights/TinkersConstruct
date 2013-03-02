@@ -8,6 +8,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemBucket;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumMovingObjectType;
+import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import tinker.tconstruct.TContent;
@@ -23,6 +24,7 @@ public class FilledBucket extends ItemBucket
 		super(id, 0);
 		setTextureFile(TContent.craftingTexture);
 		setIconIndex(224);
+		setItemName("tconstruct.bucket");
 	}
 
 	public ItemStack onItemRightClick (ItemStack stack, World world, EntityPlayer player)
@@ -163,7 +165,7 @@ public class FilledBucket extends ItemBucket
 	@Override
 	public void getSubItems(int id, CreativeTabs tab, List list)
     {
-		for (int i = 0; i < 13; i++)
+		for (int i = 0; i < 17; i++)
 			list.add(new ItemStack(id, 1, i));
     }
 	
@@ -172,4 +174,14 @@ public class FilledBucket extends ItemBucket
 	{
 		return this.iconIndex + meta;
 	}
+	
+	public String getItemNameIS(ItemStack stack)
+	{
+		int arr = MathHelper.clamp_int(stack.getItemDamage(), 0, materialNames.length);
+		return getItemName() + "." +materialNames[arr];
+	}
+	
+	public static final String[] materialNames = new String[] { 
+		"Iron", "Gold", "Copper", "Tin", "Aluminum", "Cobalt", "Ardite", "Bronze", "AlBrass", "Manyullyn", "Alumite", "Obsidian", "Steel",
+		"Manganese", "Heptazion", "DSteel", "Angmallen"};
 }
