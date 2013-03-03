@@ -64,7 +64,7 @@ public class CastingTableLogic extends InventoryLogic implements ILiquidTank
 		if (liquid == null)
 		{
 			System.out.println("Woo");
-			if (LiquidCasting.instance.getCastingRecipe(resource, inventory[0]) != null)
+			if (inventory[1] == null && LiquidCasting.instance.getCastingRecipe(resource, inventory[0]) != null)
 			{
 				System.out.println("Cast exists");
 				liquid = resource.copy();
@@ -145,8 +145,8 @@ public class CastingTableLogic extends InventoryLogic implements ILiquidTank
 	{
 		if (tags.getBoolean("hasLiquid"))
 			this.liquid = new LiquidStack(tags.getInteger("itemID"), tags.getInteger("amount"), tags.getInteger("itemMeta"));
-		else
-			this.liquid = null;
+		//else
+			//this.liquid = null;
 		super.readFromNBT(tags);
 	}
 

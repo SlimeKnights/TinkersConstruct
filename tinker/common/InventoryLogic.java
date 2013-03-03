@@ -128,6 +128,7 @@ public abstract class InventoryLogic extends TileEntity
         NBTTagList nbttaglist = new NBTTagList();
         for (int iter = 0; iter < inventory.length; iter++)
         {
+    		//System.out.println("Heyo");
             if (inventory[iter] != null)
             {
                 NBTTagCompound tagList = new NBTTagCompound();

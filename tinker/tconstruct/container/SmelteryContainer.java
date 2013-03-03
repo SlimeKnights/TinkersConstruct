@@ -13,201 +13,217 @@ import net.minecraft.tileentity.TileEntityFurnace;
 
 public class SmelteryContainer extends Container
 {
-    public SmelteryLogic logic;
-    public int fuel = 0;
+	public SmelteryLogic logic;
+	public int fuel = 0;
 
-    public SmelteryContainer(InventoryPlayer inventoryplayer, SmelteryLogic smeltery)
-    {
-        logic = smeltery;
-    	for (int y = 0; y < 3; y++)
-    		for (int x = 0; x < 3; x++)
-        		this.addSlotToContainer(new Slot(smeltery, x + y*3, -34 + x*22, 8 + y*18));
-        
-        /* Player inventory */
+	public SmelteryContainer(InventoryPlayer inventoryplayer, SmelteryLogic smeltery)
+	{
+		logic = smeltery;
+		if (smeltery.layers > 0)
+		{
+			for (int y = 0; y < 3; y++)
+				for (int x = 0; x < 3; x++)
+					this.addSlotToContainer(new Slot(smeltery, x + y * 3, -34 + x * 22, 8 + y * 18));
+		}
+		if (smeltery.layers > 1)
+		{
+			for (int y = 0; y < 3; y++)
+				for (int x = 0; x < 3; x++)
+					this.addSlotToContainer(new Slot(smeltery, 9 + x + y * 3, -34 + x * 22, 62 + y * 18));
+		}
+		
+		if (smeltery.layers > 2)
+		{
+			for (int y = 0; y < 2; y++)
+				for (int x = 0; x < 3; x++)
+					this.addSlotToContainer(new Slot(smeltery, 18 + x + y * 3, -34 + x * 22, 116 + y * 18));
+		}
+
+		/* Player inventory */
 		for (int column = 0; column < 3; column++)
-        {
-            for (int row = 0; row < 9; row++)
-            {
-            	this.addSlotToContainer(new Slot(inventoryplayer, row + column * 9 + 9, 54 + row * 18, 84 + column * 18));
-            }
-        }
+		{
+			for (int row = 0; row < 9; row++)
+			{
+				this.addSlotToContainer(new Slot(inventoryplayer, row + column * 9 + 9, 54 + row * 18, 84 + column * 18));
+			}
+		}
 
-        for (int column = 0; column < 9; column++)
-        {
-        	this.addSlotToContainer(new Slot(inventoryplayer, column, 54 + column * 18, 142));
-        }
-    }
+		for (int column = 0; column < 9; column++)
+		{
+			this.addSlotToContainer(new Slot(inventoryplayer, column, 54 + column * 18, 142));
+		}
+	}
 
-    @Override
-    public void detectAndSendChanges()
-    {
-        super.detectAndSendChanges();
-        /*for (int i = 0; i < crafters.size(); i++)
-        {
-            ICrafting icrafting = (ICrafting)crafters.get(i);
-            if (progress != logic.progress)
-            {
-                icrafting.sendProgressBarUpdate(this, 0, logic.progress);
-            }
-            if (fuel != logic.fuel)
-            {
-                icrafting.sendProgressBarUpdate(this, 1, logic.fuel);
-            }
-            if (fuelGague != logic.fuelGague)
-            {
-                icrafting.sendProgressBarUpdate(this, 2, logic.fuelGague);
-            }
-        }
+	@Override
+	public void detectAndSendChanges ()
+	{
+		super.detectAndSendChanges();
+		/*for (int i = 0; i < crafters.size(); i++)
+		{
+		    ICrafting icrafting = (ICrafting)crafters.get(i);
+		    if (progress != logic.progress)
+		    {
+		        icrafting.sendProgressBarUpdate(this, 0, logic.progress);
+		    }
+		    if (fuel != logic.fuel)
+		    {
+		        icrafting.sendProgressBarUpdate(this, 1, logic.fuel);
+		    }
+		    if (fuelGague != logic.fuelGague)
+		    {
+		        icrafting.sendProgressBarUpdate(this, 2, logic.fuelGague);
+		    }
+		}
 
-        progress = logic.progress;
-        fuel = logic.fuel;
-        fuelGague = logic.fuelGague;*/
-    }
+		progress = logic.progress;
+		fuel = logic.fuel;
+		fuelGague = logic.fuelGague;*/
+	}
 
-    public void updateProgressBar(int id, int value)
-    {
-        if (id == 0)
-        {
-            logic.fuelGague = value;
-        }
-       /* if (id == 1)
-        {
-            logic.fuel = value;
-        }*/
-        /*if (id == 2)
-        {
-            logic.fuelGague = value;
-        }*/
-    }
+	public void updateProgressBar (int id, int value)
+	{
+		if (id == 0)
+		{
+			logic.fuelGague = value;
+		}
+		/* if (id == 1)
+		 {
+		     logic.fuel = value;
+		 }*/
+		/*if (id == 2)
+		{
+		    logic.fuelGague = value;
+		}*/
+	}
 
-    @Override
-    public boolean canInteractWith(EntityPlayer entityplayer)
-    {
-        return logic.isUseableByPlayer(entityplayer);
-    }
-    
-    public ItemStack transferStackInSlot(EntityPlayer player, int slotID)
-    {
-        ItemStack stack = null;
-        Slot slot = (Slot)this.inventorySlots.get(slotID);
+	@Override
+	public boolean canInteractWith (EntityPlayer entityplayer)
+	{
+		return logic.isUseableByPlayer(entityplayer);
+	}
 
-        if (slot != null && slot.getHasStack())
-        {
-            ItemStack slotStack = slot.getStack();
-            stack = slotStack.copy();
+	public ItemStack transferStackInSlot (EntityPlayer player, int slotID)
+	{
+		ItemStack stack = null;
+		Slot slot = (Slot) this.inventorySlots.get(slotID);
 
-            if (slotID < logic.getSizeInventory())
-            {
-                if (!this.mergeItemStack(slotStack, logic.getSizeInventory(), this.inventorySlots.size(), true))
-                {
-                    return null;
-                }
-            }
-            else if (!this.mergeItemStack(slotStack, 0, logic.getSizeInventory(), false))
-            {
-                return null;
-            }
+		if (slot != null && slot.getHasStack())
+		{
+			ItemStack slotStack = slot.getStack();
+			stack = slotStack.copy();
 
-            if (slotStack.stackSize == 0)
-            {
-                slot.putStack((ItemStack)null);
-            }
-            else
-            {
-                slot.onSlotChanged();
-            }
-        }
+			if (slotID < logic.getSizeInventory())
+			{
+				if (!this.mergeItemStack(slotStack, logic.getSizeInventory(), this.inventorySlots.size(), true))
+				{
+					return null;
+				}
+			}
+			else if (!this.mergeItemStack(slotStack, 0, logic.getSizeInventory(), false))
+			{
+				return null;
+			}
 
-        return stack;
-    }
-    
-    protected boolean mergeItemStack(ItemStack par1ItemStack, int par2, int par3, boolean par4)
-    {
-        boolean var5 = false;
-        int var6 = par2;
+			if (slotStack.stackSize == 0)
+			{
+				slot.putStack((ItemStack) null);
+			}
+			else
+			{
+				slot.onSlotChanged();
+			}
+		}
 
-        if (par4)
-        {
-            var6 = par3 - 1;
-        }
+		return stack;
+	}
 
-        Slot var7;
-        ItemStack var8;
+	protected boolean mergeItemStack (ItemStack par1ItemStack, int par2, int par3, boolean par4)
+	{
+		boolean var5 = false;
+		int var6 = par2;
 
-        if (par1ItemStack.isStackable())
-        {
-            while (par1ItemStack.stackSize > 0 && (!par4 && var6 < par3 || par4 && var6 >= par2))
-            {
-                var7 = (Slot)this.inventorySlots.get(var6);
-                var8 = var7.getStack();
+		if (par4)
+		{
+			var6 = par3 - 1;
+		}
 
-                if (var8 != null && var8.itemID == par1ItemStack.itemID && (!par1ItemStack.getHasSubtypes() || par1ItemStack.getItemDamage() == var8.getItemDamage()) && ItemStack.areItemStackTagsEqual(par1ItemStack, var8))
-                {
-                    int var9 = var8.stackSize + par1ItemStack.stackSize;
+		Slot var7;
+		ItemStack var8;
 
-                    if (var9 <= par1ItemStack.getMaxStackSize())
-                    {
-                        par1ItemStack.stackSize = 0;
-                        var8.stackSize = var9;
-                        var7.onSlotChanged();
-                        var5 = true;
-                    }
-                    else if (var8.stackSize < par1ItemStack.getMaxStackSize())
-                    {
-                        par1ItemStack.stackSize -= par1ItemStack.getMaxStackSize() - var8.stackSize;
-                        var8.stackSize = par1ItemStack.getMaxStackSize();
-                        var7.onSlotChanged();
-                        var5 = true;
-                    }
-                }
+		if (par1ItemStack.isStackable())
+		{
+			while (par1ItemStack.stackSize > 0 && (!par4 && var6 < par3 || par4 && var6 >= par2))
+			{
+				var7 = (Slot) this.inventorySlots.get(var6);
+				var8 = var7.getStack();
 
-                if (par4)
-                {
-                    --var6;
-                }
-                else
-                {
-                    ++var6;
-                }
-            }
-        }
+				if (var8 != null && var8.itemID == par1ItemStack.itemID && (!par1ItemStack.getHasSubtypes() || par1ItemStack.getItemDamage() == var8.getItemDamage()) && ItemStack.areItemStackTagsEqual(par1ItemStack, var8))
+				{
+					int var9 = var8.stackSize + par1ItemStack.stackSize;
 
-        if (par1ItemStack.stackSize > 0)
-        {
-            if (par4)
-            {
-                var6 = par3 - 1;
-            }
-            else
-            {
-                var6 = par2;
-            }
+					if (var9 <= par1ItemStack.getMaxStackSize())
+					{
+						par1ItemStack.stackSize = 0;
+						var8.stackSize = var9;
+						var7.onSlotChanged();
+						var5 = true;
+					}
+					else if (var8.stackSize < par1ItemStack.getMaxStackSize())
+					{
+						par1ItemStack.stackSize -= par1ItemStack.getMaxStackSize() - var8.stackSize;
+						var8.stackSize = par1ItemStack.getMaxStackSize();
+						var7.onSlotChanged();
+						var5 = true;
+					}
+				}
 
-            while (!par4 && var6 < par3 || par4 && var6 >= par2)
-            {
-                var7 = (Slot)this.inventorySlots.get(var6);
-                var8 = var7.getStack();
+				if (par4)
+				{
+					--var6;
+				}
+				else
+				{
+					++var6;
+				}
+			}
+		}
 
-                if (var8 == null)
-                {
-                    var7.putStack(par1ItemStack.copy());
-                    var7.onSlotChanged();
-                    par1ItemStack.stackSize = 0;
-                    var5 = true;
-                    break;
-                }
+		if (par1ItemStack.stackSize > 0)
+		{
+			if (par4)
+			{
+				var6 = par3 - 1;
+			}
+			else
+			{
+				var6 = par2;
+			}
 
-                if (par4)
-                {
-                    --var6;
-                }
-                else
-                {
-                    ++var6;
-                }
-            }
-        }
+			while (!par4 && var6 < par3 || par4 && var6 >= par2)
+			{
+				var7 = (Slot) this.inventorySlots.get(var6);
+				var8 = var7.getStack();
 
-        return var5;
-    }
+				if (var8 == null)
+				{
+					var7.putStack(par1ItemStack.copy());
+					var7.onSlotChanged();
+					par1ItemStack.stackSize = 0;
+					var5 = true;
+					break;
+				}
+
+				if (par4)
+				{
+					--var6;
+				}
+				else
+				{
+					++var6;
+				}
+			}
+		}
+
+		return var5;
+	}
 }

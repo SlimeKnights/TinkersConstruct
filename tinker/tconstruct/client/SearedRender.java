@@ -11,6 +11,7 @@ import net.minecraftforge.client.ForgeHooksClient;
 import org.lwjgl.opengl.GL11;
 
 import tinker.common.BlockSkinRenderHelper;
+import tinker.tconstruct.TContent;
 import tinker.tconstruct.logic.CastingTableLogic;
 import tinker.tconstruct.logic.FaucetLogic;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
@@ -125,6 +126,7 @@ public class SearedRender implements ISimpleBlockRenderingHandler
 			else if (metadata == 1)
 			{
 				FaucetLogic logic = (FaucetLogic) world.getBlockTileEntity(x, y, z);
+				float xMin = 0.375F, zMin = 0.375F, xMax = 0.625F, zMax = 0.625F;
 				switch (logic.getRenderDirection())
 				{
 				case 2:
@@ -135,6 +137,8 @@ public class SearedRender implements ISimpleBlockRenderingHandler
 					renderer.setRenderBounds(0.625, 0.375, 0.625, 0.75, 0.625, 1);
 					renderer.renderStandardBlock(block, x, y, z);
 					renderer.setRenderBounds(0.375, 0.375, 0.625, 0.625, 0.625, 1);
+					xMax = 0.5F;
+					//zMin = 0.625F;
 					break;
 				case 3:
 					renderer.setRenderBounds(0.25, 0.25, 0, 0.75, 0.375, 0.375);
@@ -144,6 +148,7 @@ public class SearedRender implements ISimpleBlockRenderingHandler
 					renderer.setRenderBounds(0.625, 0.375, 0, 0.75, 0.625, 0.375);
 					renderer.renderStandardBlock(block, x, y, z);
 					renderer.setRenderBounds(0.375, 0.375, 0, 0.625, 0.625, 0.375);
+					zMax = 0.5F;
 					break;
 				case 4:
 					renderer.setRenderBounds(0.625, 0.25, 0.25, 1, 0.375, 0.75);
@@ -153,6 +158,7 @@ public class SearedRender implements ISimpleBlockRenderingHandler
 					renderer.setRenderBounds(0.625, 0.375, 0.625, 1, 0.625, 0.75);
 					renderer.renderStandardBlock(block, x, y, z);
 					renderer.setRenderBounds(0.625, 0.375, 0.375, 1, 0.625, 0.625);
+					xMin = 0.5F;
 					break;
 				case 5:
 					renderer.setRenderBounds(0, 0.25, 0.25, 0.375, 0.375, 0.75);
@@ -162,9 +168,21 @@ public class SearedRender implements ISimpleBlockRenderingHandler
 					renderer.setRenderBounds(0, 0.375, 0.625, 0.375, 0.625, 0.75);
 					renderer.renderStandardBlock(block, x, y, z);
 					renderer.setRenderBounds(0, 0.375, 0.375, 0.325, 0.625, 0.625);
+					zMin = 0.5F;
 					break;
 				}
 
+				float yMin = 0F;
+				int uID = world.getBlockId(x, y-1, z);
+				int uMeta = world.getBlockMetadata(x, y-1, z);
+				if (uID == TContent.searedBlock.blockID && uMeta == 0)
+				{
+					yMin = -0.125F;
+				}
+				else if (uID == TContent.lavaTank.blockID)
+				{
+					yMin = -1F;
+				}
 				if (logic.liquid != null)
 				{
 					ItemStack blockToRender = new ItemStack(logic.liquid.itemID, 1, logic.liquid.itemMeta);
@@ -173,7 +191,7 @@ public class SearedRender implements ISimpleBlockRenderingHandler
 						Block liquidBlock = Block.blocksList[blockToRender.itemID];
 						ForgeHooksClient.bindTexture(liquidBlock.getTextureFile(), 0);
 						BlockSkinRenderHelper.renderMetadataBlock(liquidBlock, blockToRender.getItemDamage(), x, y, z, renderer, world);
-						renderer.setRenderBounds(0.375, 0, 0.375, 0.625, 0.625, 0.625);
+						renderer.setRenderBounds(xMin, yMin, zMin, xMax, 0.625, zMax);
 						BlockSkinRenderHelper.renderMetadataBlock(liquidBlock, blockToRender.getItemDamage(), x, y, z, renderer, world);
 					}
 					else
@@ -183,7 +201,7 @@ public class SearedRender implements ISimpleBlockRenderingHandler
 						ForgeHooksClient.bindTexture(liquidItem.getTextureFile(), 0);
 						int meta = blockToRender.getItemDamage();
 						BlockSkinRenderHelper.renderFakeBlock(liquidItem.getIconFromDamage(meta), meta, x, y, z, renderer, world);
-						renderer.setRenderBounds(0.375, 0, 0.375, 0.625, 0.625, 0.625);
+						renderer.setRenderBounds(xMin, yMin, zMin, xMax, 0.625, zMax);
 						BlockSkinRenderHelper.renderFakeBlock(liquidItem.getIconFromDamage(meta), meta, x, y, z, renderer, world);
 					}
 					//renderer.renderStandardBlock(block, x, y, z);

@@ -61,22 +61,30 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 		meltingTemps = new int[0];
 	}
 
-	void adjustLayers (int lay)
+	void adjustLayers (int lay, boolean forceAdjust)
 	{
-		if (lay != layers)
+		if (lay != layers || forceAdjust)
 		{
+			layers = lay;
 			maxLiquid = 20000 * lay;
 			int[] tempActive = activeTemps;
-			activeTemps = new int[9*lay];
-			System.arraycopy(tempActive, 0, activeTemps, 0, activeTemps.length);
-			
+			activeTemps = new int[9 * lay];
+			int activeLength = tempActive.length > activeTemps.length ? activeTemps.length : tempActive.length;
+			System.arraycopy(tempActive, 0, activeTemps, 0, activeLength);
+
 			int[] tempMelting = meltingTemps;
-			meltingTemps = new int[9*lay];
-			System.arraycopy(tempMelting, 0, meltingTemps, 0, meltingTemps.length);
-			
-			if (activeTemps.length > tempActive.length)
+			meltingTemps = new int[9 * lay];
+			int meltingLength = tempMelting.length > meltingTemps.length ? meltingTemps.length : tempMelting.length;
+			System.arraycopy(tempMelting, 0, meltingTemps, 0, meltingLength);
+
+			ItemStack[] tempInv = inventory;
+			inventory = new ItemStack[9 * lay];
+			int invLength = tempInv.length > inventory.length ? inventory.length : tempInv.length;
+			System.arraycopy(tempInv, 0, inventory, 0, invLength);
+
+			if (activeTemps.length > 0 && activeTemps.length > tempActive.length)
 			{
-				for (int i = tempActive.length - 1; i < activeTemps.length; i++)
+				for (int i = tempActive.length; i < activeTemps.length; i++)
 				{
 					activeTemps[i] = 20;
 					meltingTemps[i] = 20;
@@ -163,6 +171,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 
 	public int getMeltingPointForSlot (int slot)
 	{
+		//System.out.println("Slot "+slot);
 		return meltingTemps[slot];
 	}
 
@@ -171,10 +180,10 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 	{
 		//System.out.println("tick");
 		tick++;
-		if (tick % 4 == 0 && !worldObj.isRemote)
+		if (tick % 4 == 0)
 			heatItems();
 
-		if (tick == 100)
+		if (tick == 20)
 		{
 			tick = 0;
 			checkValidPlacement();
@@ -203,27 +212,30 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 
 	void heatItems ()
 	{
-		for (int i = 0; i < 9*layers; i++)
+		for (int i = 0; i < 9 * layers; i++)
 		{
 			if (meltingTemps[i] > 20 && this.isStackInSlot(i))
 			{
 				if (activeTemps[i] < internalTemp && activeTemps[i] < meltingTemps[i])
-					activeTemps[i] += 1;
+					activeTemps[i] += 5;
 				else if (meltingTemps[i] >= activeTemps[i])
 				{
-					LiquidStack result = getResultFor(inventory[i]);
-					if (result != null)
+					if (!worldObj.isRemote)
 					{
-						inventory[i] = null;
-						addMoltenMetal(result);
-						ArrayList alloys = Smeltery.mixMetals(moltenMetal);
-						for (int al = 0; al < alloys.size(); al++)
+						LiquidStack result = getResultFor(inventory[i]);
+						if (result != null)
 						{
-							LiquidStack liquid = (LiquidStack) alloys.get(al);
-							addMoltenMetal(liquid);
+							inventory[i] = null;
+							addMoltenMetal(result);
+							ArrayList alloys = Smeltery.mixMetals(moltenMetal);
+							for (int al = 0; al < alloys.size(); al++)
+							{
+								LiquidStack liquid = (LiquidStack) alloys.get(al);
+								addMoltenMetal(liquid);
+							}
+							onInventoryChanged();
+							//setWorldToInventory();
 						}
-						onInventoryChanged();
-						//setWorldToInventory();
 					}
 				}
 
@@ -260,7 +272,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 
 	void updateTemperatures ()
 	{
-		for (int i = 0; i < 9; i++)
+		for (int i = 0; i < 9 * layers; i++)
 		{
 			meltingTemps[i] = Smeltery.instance.getLiquifyTemperature(inventory[i]);
 		}
@@ -378,7 +390,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 		{
 			internalTemp = 800;
 			activeLavaTank = lavaTanks.get(0);
-			adjustLayers(capacity);
+			adjustLayers(capacity, false);
 		}
 		else
 		{
@@ -617,7 +629,6 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 	@Override
 	public void readFromNBT (NBTTagCompound tags)
 	{
-		super.readFromNBT(tags);
 		direction = tags.getByte("Direction");
 		useTime = tags.getInteger("UseTime");
 		maxLiquid = tags.getInteger("MaxLiquid");
@@ -636,12 +647,14 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 			int meta = tagList.getInteger("meta");
 			moltenMetal.add(new LiquidStack(id, amount, meta));
 		}
+
+		adjustLayers(layers, true);
+		super.readFromNBT(tags);
 	}
 
 	@Override
 	public void writeToNBT (NBTTagCompound tags)
 	{
-		super.writeToNBT(tags);
 		tags.setByte("Direction", direction);
 		tags.setInteger("UseTime", useTime);
 		tags.setInteger("MaxLiquid", maxLiquid);
@@ -660,6 +673,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 		}
 
 		tags.setTag("Liquids", taglist);
+		super.writeToNBT(tags);
 	}
 
 	/* Packets */

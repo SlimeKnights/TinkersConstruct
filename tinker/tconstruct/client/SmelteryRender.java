@@ -52,9 +52,11 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
 		{
 			int posX = logic.centerPos.x - 1, posY = logic.centerPos.y, posZ = logic.centerPos.z - 1;
 			//Melting
-			for (int i = 0; i < 9*logic.layers; i++)
+			for (int i = 0; i < logic.layers; i++)
 			{
-				ItemStack input = logic.getStackInSlot(i);
+				renderLayer(logic, i*9, posX, posY+i, posZ, renderer, world);
+				//System.out.println("layers:"+logic.layers);
+				/*ItemStack input = logic.getStackInSlot(i);
 				if (input != null && logic.getTempForSlot(i) > 20)
 				{
 					ItemStack blockToRender = Smeltery.getRenderIndex(input);
@@ -65,7 +67,7 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
 					{
 						Block liquidBlock = Block.blocksList[blockToRender.itemID];
 						ForgeHooksClient.bindTexture(liquidBlock.getTextureFile(), 0);
-						BlockSkinRenderHelper.renderMetadataBlock(liquidBlock, blockToRender.getItemDamage(), posX + i % 3, posY, posZ + i / 3, renderer, world);
+						BlockSkinRenderHelper.renderMetadataBlock(liquidBlock, blockToRender.getItemDamage(), posX + i % 3, posY + i / 9, posZ + i / 3, renderer, world);
 					}
 					else
 					//Item
@@ -73,9 +75,9 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
 						Item liquidItem = Item.itemsList[blockToRender.itemID];
 						ForgeHooksClient.bindTexture(liquidItem.getTextureFile(), 0);
 						int metadata = blockToRender.getItemDamage();
-						BlockSkinRenderHelper.renderFakeBlock(liquidItem.getIconFromDamage(metadata), metadata, posX, posY, posZ, renderer, world);
+						BlockSkinRenderHelper.renderFakeBlock(liquidItem.getIconFromDamage(metadata), metadata, posX, posY + i / 9, posZ, renderer, world);
 					}
-				}
+				}*/
 			}
 
 			//Liquids
@@ -123,6 +125,36 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
 			}
 		}
 		return false;
+	}
+	
+	void renderLayer(SmelteryLogic logic, int start, int posX, int posY, int posZ, RenderBlocks renderer, IBlockAccess world)
+	{
+		for (int i = 0; i < 9; i++)
+		{
+			//System.out.println("layers:"+logic.layers);
+			ItemStack input = logic.getStackInSlot(i+start);
+			if (input != null && logic.getTempForSlot(i+start) > 20)
+			{
+				ItemStack blockToRender = Smeltery.getRenderIndex(input);
+				float blockHeight = input.stackSize / (float) blockToRender.stackSize;
+				renderer.setRenderBounds(0.0F, 0.0F, 0.0F, 1.0F, MathHelper.clamp_float(blockHeight, 0.01F, 1.0F), 1.0F);
+
+				if (blockToRender.itemID < 4096) //Block
+				{
+					Block liquidBlock = Block.blocksList[blockToRender.itemID];
+					ForgeHooksClient.bindTexture(liquidBlock.getTextureFile(), 0);
+					BlockSkinRenderHelper.renderMetadataBlock(liquidBlock, blockToRender.getItemDamage(), posX + i % 3, posY, posZ + i / 3, renderer, world);
+				}
+				else
+				//Item
+				{
+					Item liquidItem = Item.itemsList[blockToRender.itemID];
+					ForgeHooksClient.bindTexture(liquidItem.getTextureFile(), 0);
+					int metadata = blockToRender.getItemDamage();
+					BlockSkinRenderHelper.renderFakeBlock(liquidItem.getIconFromDamage(metadata), metadata, posX + i % 3, posY, posZ + i / 3, renderer, world);
+				}
+			}
+		}
 	}
 
 	@Override
