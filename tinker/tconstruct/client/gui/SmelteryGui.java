@@ -26,17 +26,19 @@ public class SmelteryGui extends GuiContainer
 
 	protected void drawGuiContainerForegroundLayer (int par1, int par2)
 	{
-		fontRenderer.drawString(StatCollector.translateToLocal("crafters.Smeltery"), 60, 5, 0x404040);
-		fontRenderer.drawString(StatCollector.translateToLocal("container.inventory"), 8, (ySize - 96) + 2, 0x404040);
-		drawStats();
+		fontRenderer.drawString(StatCollector.translateToLocal("crafters.Smeltery"), 50, 5, 0x404040);
+		fontRenderer.drawString(StatCollector.translateToLocal("container.inventory"), 50, (ySize - 96) + 2, 0x404040);
+		//drawStats();
 	}
 
 	void drawStats ()
 	{
-		fontRenderer.drawString("Temp: " + logic.getInternalTemperature(), xSize + 6, 6, 0xffffff);
-		fontRenderer.drawString("Liquid: " + logic.getCapacity(), xSize + 6, 16, 0xffffff);
+		fontRenderer.drawString("Temp: " + logic.getInternalTemperature(), xSize + 42, 6, 0xffffff);
+		fontRenderer.drawString("Liquid: " + logic.getCapacity(), xSize + 42, 16, 0xffffff);
 		for (int iter = 0; iter < 9; iter++)
-			fontRenderer.drawString("Slot " + iter + " temp: " + logic.getTempForSlot(iter), xSize + 6, 26 + iter * 10, 0xffffff);
+		{
+			fontRenderer.drawString("Slot " + iter + " temp: " + logic.getTempForSlot(iter), xSize + 42, 26 + iter * 10, 0xffffff);
+		}
 		/*for (int iter = 0; iter < 9; iter++)
 			fontRenderer.drawString("Slot "+iter+" mTemp: " + logic.meltingTemps[iter], xSize + 6, 100+iter*9, 0xffffff);*/
 	}
@@ -48,7 +50,7 @@ public class SmelteryGui extends GuiContainer
 		mc.renderEngine.bindTexture(texID);
 		int cornerX = (width - xSize) / 2;
 		int cornerY = (height - ySize) / 2;
-		drawTexturedModalRect(cornerX, cornerY, 0, 0, xSize, ySize);
+		drawTexturedModalRect(cornerX+46, cornerY, 0, 0, xSize, ySize);
 
 		//Fuel - Lava
 		if (logic.fuelGague > 0)
@@ -63,7 +65,7 @@ public class SmelteryGui extends GuiContainer
 			{
 				int size = fuel >= 16 ? 16 : fuel;
 				fuel -= size;
-				drawTexturedModalRect(cornerX + 146, (cornerY + 67) - size - 16 * count, xTex, yTex + 16 - size, 9, size);
+				drawTexturedModalRect(cornerX + 117, (cornerY + 68) - size - 16 * count, xTex, yTex + 16 - size, 12, size);
 				count++;
 			}
 		}
@@ -95,22 +97,59 @@ public class SmelteryGui extends GuiContainer
 				while (liquidSize > 0)
 				{
 					int size = liquidSize >= 16 ? 16 : liquidSize;
-					drawTexturedModalRect(cornerX + 13, (cornerY + 68) - size - base, xTex, yTex + 16 - size, 16, size);
-					drawTexturedModalRect(cornerX + 29, (cornerY + 68) - size - base, xTex, yTex + 16 - size, 16, size);
-					drawTexturedModalRect(cornerX + 45, (cornerY + 68) - size - base, xTex, yTex + 16 - size, 2, size);
+					int basePos = 54;
+					drawTexturedModalRect(cornerX + basePos,    (cornerY + 68) - size - base, xTex, yTex + 16 - size, 16, size);
+					drawTexturedModalRect(cornerX + basePos+16, (cornerY + 68) - size - base, xTex, yTex + 16 - size, 16, size);
+					drawTexturedModalRect(cornerX + basePos+32, (cornerY + 68) - size - base, xTex, yTex + 16 - size, 16, size);
+					drawTexturedModalRect(cornerX + basePos+48, (cornerY + 68) - size - base, xTex, yTex + 16 - size, 4, size);
 					liquidSize -= size;
 					base += size;
 				}
 			}
 			//base = liquid.amount / 10000 * 52;
 		}
-
+		
+		//Liquid gague
+		texID = this.mc.renderEngine.getTexture("/tinkertextures/gui/smeltery.png");
+		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+		this.mc.renderEngine.bindTexture(texID);
+		drawTexturedModalRect(cornerX+54, cornerY+16, xSize, 76, 52, 52);
+		//drawTexturedModalRect(cornerX+111, cornerY+16, xSize, 128, 52, 52);
+		
+		//Side inventory
+		texID = this.mc.renderEngine.getTexture("/tinkertextures/gui/smelteryside.png");
+		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
+		this.mc.renderEngine.bindTexture(texID);
+		drawTexturedModalRect(cornerX-46, cornerY, 0, 0, 98, ySize-8);
+		drawTexturedModalRect(cornerX+32, cornerY+8, 98, 0, 12, 15);
+		
+		//drawStats();
+		
+		for (int iter = 0; iter < 9; iter++)
+		{
+			int slotTemp = logic.getTempForSlot(iter) - 20;
+			int maxTemp = logic.getMeltingPointForSlot(iter) - 20;
+			if (slotTemp > 0 && maxTemp > 0)
+			{				
+				int size = 16 * slotTemp / maxTemp + 1;
+				drawTexturedModalRect(cornerX-38+(iter%3*22), cornerY+8+(iter/3*18) + 16 - size, 98, 15 + 16 - size, 5, size);
+			}
+		}
+		/*for (int iter = 0; iter < 9; iter++)
+		{
+			int slotTemp = logic.getTempForSlot(iter);
+			fontRenderer.drawString("Slot " + iter + " temp: " + slotTemp, xSize + 222, 66 + iter * 10, 0xffffff);
+			fontRenderer.drawString("Slot " + iter + " maxtemp: " + logic.meltingTemps[iter], xSize + 222, 156 + iter * 10, 0xffffff);
+		}
+		fontRenderer.drawString("Temp: " + logic.getInternalTemperature(), xSize + 222, 46, 0xffffff);
+		fontRenderer.drawString("Liquid: " + logic.getCapacity(), xSize + 222, 56, 0xffffff);*/
+		
 		// Draw description - don't use this 
-		texID = this.mc.renderEngine.getTexture("/tinkertextures/gui/description.png");
+		/*texID = this.mc.renderEngine.getTexture("/tinkertextures/gui/description.png");
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		this.mc.renderEngine.bindTexture(texID);
 		cornerX = (this.width + this.xSize) / 2;
 		cornerY = (this.height - this.ySize) / 2;
-		this.drawTexturedModalRect(cornerX, cornerY, 0, 0, this.xSize, this.ySize);
+		this.drawTexturedModalRect(cornerX, cornerY, 0, 0, this.xSize, this.ySize);*/
 	}
 }

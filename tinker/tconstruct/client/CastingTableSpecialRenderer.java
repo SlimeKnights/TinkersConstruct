@@ -1,22 +1,13 @@
 package tinker.tconstruct.client;
 
-import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.renderer.texturefx.TextureCompassFX;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.item.EntityItemFrame;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.MathHelper;
-import net.minecraft.world.storage.MapData;
 
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
 
 import tinker.common.fancyitem.FancyEntityItem;
 import tinker.tconstruct.logic.CastingTableLogic;
@@ -68,6 +59,11 @@ public class CastingTableSpecialRenderer extends TileEntitySpecialRenderer
 		GL11.glTranslatef(1F, 1.478F, 0.55F);
 		GL11.glRotatef(90F, 1, 0F, 0F);
 		GL11.glScalef(2F, 2F, 2F);
+		if (stack.getItem() instanceof ItemBlock)
+		{
+			GL11.glRotatef(90F, -1, 0F, 0F);
+			GL11.glTranslatef(0F, -0.1F, 0.2275F);
+		}
 
 		RenderItem.field_82407_g = true;
 		RenderManager.instance.renderEntityWithPosYaw(entityitem, 0.0D, 0.0D, 0.0D, 0.0F, 0.0F);

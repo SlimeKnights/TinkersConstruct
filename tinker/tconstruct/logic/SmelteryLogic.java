@@ -48,21 +48,40 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 
 	public ArrayList<LiquidStack> moltenMetal = new ArrayList<LiquidStack>();
 	int maxLiquid;
+	public int layers;
 	int slag;
 
 	int numBricks;
 
 	public SmelteryLogic()
 	{
-		super(9);
-		maxLiquid = 0;
-		activeTemps = new int[9];
-		meltingTemps = new int[9];
+		super(0);
 		lavaTanks = new ArrayList<CoordTuple>();
-		for (int i = 0; i < 9; i++)
+		activeTemps = new int[0];
+		meltingTemps = new int[0];
+	}
+
+	void adjustLayers (int lay)
+	{
+		if (lay != layers)
 		{
-			activeTemps[i] = 20;
-			meltingTemps[i] = 0;
+			maxLiquid = 20000 * lay;
+			int[] tempActive = activeTemps;
+			activeTemps = new int[9*lay];
+			System.arraycopy(tempActive, 0, activeTemps, 0, activeTemps.length);
+			
+			int[] tempMelting = meltingTemps;
+			meltingTemps = new int[9*lay];
+			System.arraycopy(tempMelting, 0, meltingTemps, 0, meltingTemps.length);
+			
+			if (activeTemps.length > tempActive.length)
+			{
+				for (int i = tempActive.length - 1; i < activeTemps.length; i++)
+				{
+					activeTemps[i] = 20;
+					meltingTemps[i] = 20;
+				}
+			}
 		}
 	}
 
@@ -142,6 +161,11 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 		return activeTemps[slot];
 	}
 
+	public int getMeltingPointForSlot (int slot)
+	{
+		return meltingTemps[slot];
+	}
+
 	/* Updating */
 	public void updateEntity ()
 	{
@@ -179,12 +203,12 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 
 	void heatItems ()
 	{
-		for (int i = 0; i < 9; i++)
+		for (int i = 0; i < 9*layers; i++)
 		{
 			if (meltingTemps[i] > 20 && this.isStackInSlot(i))
 			{
 				if (activeTemps[i] < internalTemp && activeTemps[i] < meltingTemps[i])
-					activeTemps[i] += 5;
+					activeTemps[i] += 1;
 				else if (meltingTemps[i] >= activeTemps[i])
 				{
 					LiquidStack result = getResultFor(inventory[i]);
@@ -344,16 +368,17 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 		if (checkSameLevel(x, y, z))
 		{
 			capacity++;
-			capacity += recurseStructureUp(x, y+1, z, 0);
-			capacity += recurseStructureDown(x, y-1, z, 0);
+			capacity += recurseStructureUp(x, y + 1, z, 0);
+			capacity += recurseStructureDown(x, y - 1, z, 0);
 		}
 
-		maxLiquid = capacity * 20000;
+		//maxLiquid = capacity * 20000;
 
 		if (validStructure)
 		{
 			internalTemp = 800;
 			activeLavaTank = lavaTanks.get(0);
+			adjustLayers(capacity);
 		}
 		else
 		{
@@ -420,7 +445,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 
 	public int recurseStructureUp (int x, int y, int z, int count)
 	{
-		numBricks =  0;
+		numBricks = 0;
 		//Check inside
 		for (int xPos = x - 1; xPos <= x + 1; xPos++)
 		{
@@ -430,7 +455,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 					return count;
 			}
 		}
-		
+
 		//Check outer layer
 		for (int xPos = x - 1; xPos <= x + 1; xPos++)
 		{
@@ -443,17 +468,17 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 			checkBricks(x - 2, y, zPos);
 			checkBricks(x + 2, y, zPos);
 		}
-		
+
 		if (numBricks != 12)
 			return count;
-		
+
 		count++;
-		return recurseStructureUp(x, y+1, z, count);
+		return recurseStructureUp(x, y + 1, z, count);
 	}
-	
+
 	public int recurseStructureDown (int x, int y, int z, int count)
 	{
-		numBricks =  0;
+		numBricks = 0;
 		//Check inside
 		for (int xPos = x - 1; xPos <= x + 1; xPos++)
 		{
@@ -469,7 +494,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 				}
 			}
 		}
-		
+
 		//Check outer layer
 		for (int xPos = x - 1; xPos <= x + 1; xPos++)
 		{
@@ -482,15 +507,15 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 			checkBricks(x - 2, y, zPos);
 			checkBricks(x + 2, y, zPos);
 		}
-		
+
 		if (numBricks != 12)
 			return count;
-		
+
 		count++;
-		return recurseStructureDown(x, y-1, z, count);
+		return recurseStructureDown(x, y - 1, z, count);
 	}
-	
-	public int validateBottom(int x, int y, int z, int count)
+
+	public int validateBottom (int x, int y, int z, int count)
 	{
 		int bottomBricks = 0;
 		for (int xPos = x - 1; xPos <= x + 1; xPos++)
@@ -501,11 +526,11 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 					bottomBricks++;
 			}
 		}
-		
+
 		if (bottomBricks == 9)
 		{
 			validStructure = true;
-			centerPos = new CoordTuple(x, y+1, z);
+			centerPos = new CoordTuple(x, y + 1, z);
 		}
 		return count;
 	}
@@ -580,7 +605,6 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 			return new LiquidStack(liquid.itemID, maxDrain, liquid.itemMeta);
 		}
 	}
-	
 
 	public int fill (LiquidStack resource)
 	{
@@ -597,6 +621,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 		direction = tags.getByte("Direction");
 		useTime = tags.getInteger("UseTime");
 		maxLiquid = tags.getInteger("MaxLiquid");
+		layers = tags.getInteger("Layers");
 		meltingTemps = tags.getIntArray("MeltingTemps");
 		activeTemps = tags.getIntArray("ActiveTemps");
 
@@ -620,6 +645,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 		tags.setByte("Direction", direction);
 		tags.setInteger("UseTime", useTime);
 		tags.setInteger("MaxLiquid", maxLiquid);
+		tags.setInteger("Layers", layers);
 		tags.setIntArray("MeltingTemps", meltingTemps);
 		tags.setIntArray("ActiveTemps", activeTemps);
 

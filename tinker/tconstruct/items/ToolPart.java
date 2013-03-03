@@ -31,7 +31,7 @@ public class ToolPart extends CraftingItem
     }
 	
 	public static final String[] toolMaterialNames = new String[] { 
-		"Wood", "Stone", "Iron", "Flint", "Cactus", "Bone", "Obsidian", "Netherrack", "Slime", "Paper", "Cobalt", "Ardite", "Manyullyn", "Copper", "Bronze" };
+		"Wood", "Stone", "Iron", "Flint", "Cactus", "Bone", "Obsidian", "Netherrack", "Slime", "Paper", "Cobalt", "Ardite", "Manyullyn", "Copper", "Bronze", "Alumite", "Steel" };
 
 	@Override
 	public int getMaterialID (ItemStack stack)

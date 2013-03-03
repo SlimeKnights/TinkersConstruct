@@ -52,7 +52,7 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
 		{
 			int posX = logic.centerPos.x - 1, posY = logic.centerPos.y, posZ = logic.centerPos.z - 1;
 			//Melting
-			for (int i = 0; i < 9; i++)
+			for (int i = 0; i < 9*logic.layers; i++)
 			{
 				ItemStack input = logic.getStackInSlot(i);
 				if (input != null && logic.getTempForSlot(i) > 20)

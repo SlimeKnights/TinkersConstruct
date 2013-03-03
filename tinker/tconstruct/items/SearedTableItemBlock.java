@@ -24,6 +24,6 @@ public class SearedTableItemBlock extends ItemBlock
 
     public String getItemNameIS(ItemStack itemstack)
     {
-        return (new StringBuilder()).append("SearedTable.").append(blockType[itemstack.getItemDamage()]).toString();
+        return (new StringBuilder()).append("SearedBlock.").append(blockType[itemstack.getItemDamage()]).toString();
     }
 }

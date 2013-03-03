@@ -155,8 +155,8 @@ public class TContent implements IFuelHandler
 		GameRegistry.registerBlock(lavaTank, LavaTankItemBlock.class, "LavaTank");
 		GameRegistry.registerTileEntity(tinker.tconstruct.logic.LavaTankLogic.class, "TConstruct.LavaTank");
 		
-		searedBlock = new SearedBlock(PHConstruct.searedTable).setBlockName("SearedTable");
-		GameRegistry.registerBlock(searedBlock, SearedTableItemBlock.class, "SearedTable");
+		searedBlock = new SearedBlock(PHConstruct.searedTable).setBlockName("SearedBlock");
+		GameRegistry.registerBlock(searedBlock, SearedTableItemBlock.class, "SearedBlock");
 		GameRegistry.registerTileEntity(CastingTableLogic.class, "CastingTable");
 		GameRegistry.registerTileEntity(FaucetLogic.class, "Faucet");
 
@@ -386,7 +386,7 @@ public class TContent implements IFuelHandler
 		//Blocks
 		Smeltery.addMelting(Block.blockSteel, 0, 600, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue*9, 0));
 		Smeltery.addMelting(Block.blockGold, 0, 550, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue*9, 1));
-		Smeltery.addMelting(Block.obsidian, 0, 800, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue*9, 11));
+		Smeltery.addMelting(Block.obsidian, 0, 800, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 11));
 		
 		//Alloys
 		Smeltery.addAlloyMixing(new LiquidStack(liquidMetalStill.blockID, 4, 7), new LiquidStack(liquidMetalStill.blockID, 3, 2), new LiquidStack(liquidMetalStill.blockID, 1, 3)); //Bronze
@@ -425,7 +425,7 @@ public class TContent implements IFuelHandler
 
 		FurnaceRecipes.smelting().addSmelting(craftedSoil.blockID, 0, new ItemStack(materials, 1, 1), 2f); //Slime
 		FurnaceRecipes.smelting().addSmelting(craftedSoil.blockID, 1, new ItemStack(materials, 1, 2), 2f); //Seared brick item
-		GameRegistry.addRecipe(new ItemStack(oreSlag, 1, 0), "pp", "pp", 'p', new ItemStack(materials, 1, 2)); //Seared brick block
+		//GameRegistry.addRecipe(new ItemStack(oreSlag, 1, 0), "pp", "pp", 'p', new ItemStack(materials, 1, 2)); //Seared brick block
 		
 		FurnaceRecipes.smelting().addSmelting(oreSlag.blockID, 1, new ItemStack(materials, 1, 3), 3f);
 		FurnaceRecipes.smelting().addSmelting(oreSlag.blockID, 2, new ItemStack(materials, 1, 4), 3f);
@@ -471,7 +471,7 @@ public class TContent implements IFuelHandler
 		OreDictionary.registerOre("oreArdite", new ItemStack(oreSlag, 1, 2));
 		OreDictionary.registerOre("oreCopper", new ItemStack(oreSlag, 1, 3));
 		OreDictionary.registerOre("oreTin", new ItemStack(oreSlag, 1, 4));
-		OreDictionary.registerOre("oreAluminum", new ItemStack(oreSlag, 1, 5));
+		OreDictionary.registerOre("oreNaturalAluminum", new ItemStack(oreSlag, 1, 5));
 		
 		OreDictionary.registerOre("ingotCobalt", new ItemStack(materials, 1, 3));
 		OreDictionary.registerOre("ingotArdite", new ItemStack(materials, 1, 4));
@@ -593,7 +593,7 @@ public class TContent implements IFuelHandler
 		{
 			Smeltery.addMelting(tin, 750, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue*2, 3));
 		}
-		ArrayList<ItemStack> aluminumOres = OreDictionary.getOres("oreAluminum");
+		ArrayList<ItemStack> aluminumOres = OreDictionary.getOres("oreNaturalAluminum");
 		for (ItemStack aluminum : aluminumOres)
 		{
 			Smeltery.addMelting(aluminum, 750, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue*2, 4));

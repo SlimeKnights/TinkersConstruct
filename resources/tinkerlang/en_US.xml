@@ -68,4 +68,7 @@
   <entry key="item.tconstruct.bucket.DSteel.name">Liquid Damascus Steel Bucket</entry>
   <entry key="item.tconstruct.bucket.Angmallen.name">Liquid Angmallen Bucket</entry>
   
+  <entry key="SearedBlock.Table.name">Casting Table</entry>
+  <entry key="SearedBlock.Faucet.name">Seared Faucet</entry>
+  
 </properties>

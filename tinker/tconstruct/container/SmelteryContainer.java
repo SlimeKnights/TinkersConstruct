@@ -16,25 +16,25 @@ public class SmelteryContainer extends Container
     public SmelteryLogic logic;
     public int fuel = 0;
 
-    public SmelteryContainer(InventoryPlayer inventoryplayer, SmelteryLogic frypan)
+    public SmelteryContainer(InventoryPlayer inventoryplayer, SmelteryLogic smeltery)
     {
-        logic = frypan;
+        logic = smeltery;
     	for (int y = 0; y < 3; y++)
     		for (int x = 0; x < 3; x++)
-        		this.addSlotToContainer(new Slot(frypan, x + y*3, 62 + x*18, 15 + y*18));
+        		this.addSlotToContainer(new Slot(smeltery, x + y*3, -34 + x*22, 8 + y*18));
         
         /* Player inventory */
 		for (int column = 0; column < 3; column++)
         {
             for (int row = 0; row < 9; row++)
             {
-            	this.addSlotToContainer(new Slot(inventoryplayer, row + column * 9 + 9, 8 + row * 18, 84 + column * 18));
+            	this.addSlotToContainer(new Slot(inventoryplayer, row + column * 9 + 9, 54 + row * 18, 84 + column * 18));
             }
         }
 
         for (int column = 0; column < 9; column++)
         {
-        	this.addSlotToContainer(new Slot(inventoryplayer, column, 8 + column * 18, 142));
+        	this.addSlotToContainer(new Slot(inventoryplayer, column, 54 + column * 18, 142));
         }
     }
 
@@ -119,5 +119,95 @@ public class SmelteryContainer extends Container
         }
 
         return stack;
+    }
+    
+    protected boolean mergeItemStack(ItemStack par1ItemStack, int par2, int par3, boolean par4)
+    {
+        boolean var5 = false;
+        int var6 = par2;
+
+        if (par4)
+        {
+            var6 = par3 - 1;
+        }
+
+        Slot var7;
+        ItemStack var8;
+
+        if (par1ItemStack.isStackable())
+        {
+            while (par1ItemStack.stackSize > 0 && (!par4 && var6 < par3 || par4 && var6 >= par2))
+            {
+                var7 = (Slot)this.inventorySlots.get(var6);
+                var8 = var7.getStack();
+
+                if (var8 != null && var8.itemID == par1ItemStack.itemID && (!par1ItemStack.getHasSubtypes() || par1ItemStack.getItemDamage() == var8.getItemDamage()) && ItemStack.areItemStackTagsEqual(par1ItemStack, var8))
+                {
+                    int var9 = var8.stackSize + par1ItemStack.stackSize;
+
+                    if (var9 <= par1ItemStack.getMaxStackSize())
+                    {
+                        par1ItemStack.stackSize = 0;
+                        var8.stackSize = var9;
+                        var7.onSlotChanged();
+                        var5 = true;
+                    }
+                    else if (var8.stackSize < par1ItemStack.getMaxStackSize())
+                    {
+                        par1ItemStack.stackSize -= par1ItemStack.getMaxStackSize() - var8.stackSize;
+                        var8.stackSize = par1ItemStack.getMaxStackSize();
+                        var7.onSlotChanged();
+                        var5 = true;
+                    }
+                }
+
+                if (par4)
+                {
+                    --var6;
+                }
+                else
+                {
+                    ++var6;
+                }
+            }
+        }
+
+        if (par1ItemStack.stackSize > 0)
+        {
+            if (par4)
+            {
+                var6 = par3 - 1;
+            }
+            else
+            {
+                var6 = par2;
+            }
+
+            while (!par4 && var6 < par3 || par4 && var6 >= par2)
+            {
+                var7 = (Slot)this.inventorySlots.get(var6);
+                var8 = var7.getStack();
+
+                if (var8 == null)
+                {
+                    var7.putStack(par1ItemStack.copy());
+                    var7.onSlotChanged();
+                    par1ItemStack.stackSize = 0;
+                    var5 = true;
+                    break;
+                }
+
+                if (par4)
+                {
+                    --var6;
+                }
+                else
+                {
+                    ++var6;
+                }
+            }
+        }
+
+        return var5;
     }
 }

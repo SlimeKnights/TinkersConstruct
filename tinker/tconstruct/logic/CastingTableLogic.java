@@ -49,7 +49,7 @@ public class CastingTableLogic extends InventoryLogic implements ILiquidTank
 	{
 		int ret = TConstruct.ingotLiquidValue;
 		if (inventory[0] != null && inventory[0].getItem() instanceof IPattern)
-			ret *= ((IPattern) inventory[0].getItem()).getPatternCost(inventory[0].getItemDamage());
+			ret *= ((IPattern) inventory[0].getItem()).getPatternCost(inventory[0].getItemDamage()) * 0.5;
 		if (materialRedux > 0)
 			ret *= materialRedux;
 		return ret;

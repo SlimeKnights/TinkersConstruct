@@ -53,16 +53,13 @@ public class SearedRender implements ISimpleBlockRenderingHandler
 			}
 			else
 			{
-				renderer.setRenderBounds(0.0F, 0.75F, 0.0F, 1.0F, 1.0F, 1.0F);
+				renderer.setRenderBounds(0.25, 0.25, 0.625, 0.75, 0.375, 1);
 				renderDo(renderer, block, metadata);
-				renderer.setRenderBounds(0.0F, 0.0F, 0.0F, 0.25F, 0.75F, 0.25F);
+				renderer.setRenderBounds(0.25, 0.25, 0.625, 0.375, 0.625, 1);
 				renderDo(renderer, block, metadata);
-				renderer.setRenderBounds(0.75F, 0.0F, 0.0F, 1.0F, 0.75F, 0.25F);
+				renderer.setRenderBounds(0.625, 0.25, 0.625, 0.75, 0.625, 1);
 				renderDo(renderer, block, metadata);
-				renderer.setRenderBounds(0.0F, 0.0F, 0.75F, 0.25F, 0.75F, 1.0F);
-				renderDo(renderer, block, metadata);
-				renderer.setRenderBounds(0.75F, 0.0F, 0.75F, 1.0F, 0.75F, 1.0F);
-				renderDo(renderer, block, metadata);
+				renderer.setRenderBounds(0.375, 0.375, 0.625, 0.625, 0.625, 1);
 			}
 		}
 	}
@@ -133,36 +130,36 @@ public class SearedRender implements ISimpleBlockRenderingHandler
 				case 2:
 					renderer.setRenderBounds(0.25, 0.25, 0.625, 0.75, 0.375, 1);
 					renderer.renderStandardBlock(block, x, y, z);
-					renderer.setRenderBounds(0.25, 0.25, 0.625, 0.375, 0.625, 1);
+					renderer.setRenderBounds(0.25, 0.375, 0.625, 0.375, 0.625, 1);
 					renderer.renderStandardBlock(block, x, y, z);
-					renderer.setRenderBounds(0.625, 0.25, 0.625, 0.75, 0.625, 1);
+					renderer.setRenderBounds(0.625, 0.375, 0.625, 0.75, 0.625, 1);
 					renderer.renderStandardBlock(block, x, y, z);
 					renderer.setRenderBounds(0.375, 0.375, 0.625, 0.625, 0.625, 1);
 					break;
 				case 3:
 					renderer.setRenderBounds(0.25, 0.25, 0, 0.75, 0.375, 0.375);
 					renderer.renderStandardBlock(block, x, y, z);
-					renderer.setRenderBounds(0.25, 0.25, 0, 0.375, 0.625, 0.375);
+					renderer.setRenderBounds(0.25, 0.375, 0, 0.375, 0.625, 0.375);
 					renderer.renderStandardBlock(block, x, y, z);
-					renderer.setRenderBounds(0.625, 0.25, 0, 0.75, 0.625, 0.375);
+					renderer.setRenderBounds(0.625, 0.375, 0, 0.75, 0.625, 0.375);
 					renderer.renderStandardBlock(block, x, y, z);
 					renderer.setRenderBounds(0.375, 0.375, 0, 0.625, 0.625, 0.375);
 					break;
 				case 4:
 					renderer.setRenderBounds(0.625, 0.25, 0.25, 1, 0.375, 0.75);
 					renderer.renderStandardBlock(block, x, y, z);
-					renderer.setRenderBounds(0.625, 0.25, 0.25, 1, 0.625, 0.375);
+					renderer.setRenderBounds(0.625, 0.375, 0.25, 1, 0.625, 0.375);
 					renderer.renderStandardBlock(block, x, y, z);
-					renderer.setRenderBounds(0.625, 0.25, 0.625, 1, 0.625, 0.75);
+					renderer.setRenderBounds(0.625, 0.375, 0.625, 1, 0.625, 0.75);
 					renderer.renderStandardBlock(block, x, y, z);
 					renderer.setRenderBounds(0.625, 0.375, 0.375, 1, 0.625, 0.625);
 					break;
 				case 5:
 					renderer.setRenderBounds(0, 0.25, 0.25, 0.375, 0.375, 0.75);
 					renderer.renderStandardBlock(block, x, y, z);
-					renderer.setRenderBounds(0, 0.25, 0.25, 0.375, 0.625, 0.375);
+					renderer.setRenderBounds(0, 0.375, 0.25, 0.375, 0.625, 0.375);
 					renderer.renderStandardBlock(block, x, y, z);
-					renderer.setRenderBounds(0, 0.25, 0.625, 0.375, 0.625, 0.75);
+					renderer.setRenderBounds(0, 0.375, 0.625, 0.375, 0.625, 0.75);
 					renderer.renderStandardBlock(block, x, y, z);
 					renderer.setRenderBounds(0, 0.375, 0.375, 0.325, 0.625, 0.625);
 					break;
