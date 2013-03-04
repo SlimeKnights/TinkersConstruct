@@ -6,7 +6,10 @@ import net.minecraft.util.EnumMovingObjectType;
 import net.minecraftforge.event.Event.Result;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.player.FillBucketEvent;
+import net.minecraftforge.liquids.LiquidStack;
 import net.minecraftforge.oredict.OreDictionary.OreRegisterEvent;
+import tinker.tconstruct.crafting.PatternBuilder;
+import tinker.tconstruct.crafting.Smeltery;
 import tinker.tconstruct.logic.LiquidTextureLogic;
 
 public class TEventHandler
@@ -17,25 +20,209 @@ public class TEventHandler
 		if (evt.Name == "battery")
 			TConstruct.content.modE.batteries.add(evt.Ore);
 
-		if (evt.Name == "basicCircuit")
+		else if (evt.Name == "basicCircuit")
 			TConstruct.content.modE.circuits.add(evt.Ore);
 
-		/*if (evt.Name == "ingotCopper")
+		//Ingots
+		else if (evt.Name == "ingotCopper")
 		{
 			PatternBuilder.instance.registerMaterial(evt.Ore, 2, "Copper");
+			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 4, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 3, 450, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 2));
+		}
+		
+		else if (evt.Name == "ingotTin")
+		{
+			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 4, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 5, 175, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 3));
 		}
 
-		if (evt.Name == "ingotBronze")
+		else if (evt.Name == "ingotBronze")
 		{
 			PatternBuilder.instance.registerMaterial(evt.Ore, 2, "Bronze");
-		}*/
+			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 4, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 4, 500, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 7));
+		}
+		
+		else if (evt.Name == "ingotCobalt")
+		{
+			PatternBuilder.instance.registerMaterial(evt.Ore, 2, "Cobalt");
+			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 4, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 0, 650, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 5));
+		}
+		
+		else if (evt.Name == "ingotArdite")
+		{
+			PatternBuilder.instance.registerMaterial(evt.Ore, 2, "Ardite");
+			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 4, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 1, 650, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 6));
+		}
+		
+		else if (evt.Name == "ingotManyullyn")
+		{
+			PatternBuilder.instance.registerMaterial(evt.Ore, 2, "Manyullyn");
+			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 4, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 2, 750, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 9));
+		}
+		
+		else if (evt.Name == "ingotAluminum")
+		{
+			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 4, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 6, 250, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 4));
+		}
+		
+		else if (evt.Name == "naturalAluminum")
+		{
+			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 4, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 6, 250, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 4));
+		}
+		
+		else if (evt.Name == "ingotAluminumBrass")
+		{
+			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 4, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 7, 350, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 8));
+		}
+		
+		else if (evt.Name == "ingotAlumite")
+		{
+			PatternBuilder.instance.registerMaterial(evt.Ore, 2, "Alumite");
+			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 4, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 8, 500, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 10));
+		}
+		
+		else if (evt.Name == "ingotSteel")
+		{
+			PatternBuilder.instance.registerMaterial(evt.Ore, 2, "Steel");
+			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 4, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 9, 500, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 12));
+		}
+		
+		//Ores
+		else if (evt.Name == "oreCopper")
+		{
+			Smeltery.addMelting(evt.Ore, 550, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue*2, 2));
+		}
+		
+		else if (evt.Name == "oreTin")
+		{
+			Smeltery.addMelting(evt.Ore, 275, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue*2, 3));
+		}
+		
+		else if (evt.Name == "oreNaturalAluminum")
+		{
+			Smeltery.addMelting(evt.Ore, 350, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue*2, 4));
+		}
+		
+		else if (evt.Name == "oreCobalt")
+		{
+			Smeltery.addMelting(evt.Ore, 750, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue*2, 5));
+		}
+		
+		else if (evt.Name == "oreArdite")
+		{
+			Smeltery.addMelting(evt.Ore, 750, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue*2, 6));
+		}
+		
+		//Blocks
+		else if (evt.Name == "blockCopper")
+		{
+			Smeltery.addMelting(evt.Ore, 550, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue*9, 2));
+		}
+		
+		else if (evt.Name == "blockTin")
+		{
+			Smeltery.addMelting(evt.Ore, 275, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue*9, 3));
+		}
+
+		else if (evt.Name == "blockBronze")
+		{
+			Smeltery.addMelting(evt.Ore, 500, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue*9, 7));
+		}
+		
+		else if (evt.Name == "blockNaturalAluminum")
+		{
+			Smeltery.addMelting(evt.Ore, 350, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue*9, 4));
+		}
+		
+		else if (evt.Name == "blockCobalt")
+		{
+			Smeltery.addMelting(evt.Ore, 750, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue*9, 5));
+		}
+		
+		else if (evt.Name == "blockArdite")
+		{
+			Smeltery.addMelting(evt.Ore, 750, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue*9, 6));
+		}
+		
+		else if (evt.Name == "blockManyullyn")
+		{
+			Smeltery.addMelting(evt.Ore, 800, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue*9, 9));
+		}
+		
+		else if (evt.Name == "blockAluminumBrass")
+		{
+			Smeltery.addMelting(evt.Ore, 350, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue*9, 8));
+		}
+		
+		else if (evt.Name == "blockAlumite")
+		{
+			Smeltery.addMelting(evt.Ore, 500, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue*9, 10));
+		}
+		
+		else if (evt.Name == "blockSteel")
+		{
+			Smeltery.addMelting(evt.Ore, 500, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue*9, 12));
+		}
+		
+		//Dust
+		else if (evt.Name == "dustCopper")
+		{
+			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 4, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 3, 450, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 2));
+		}
+		
+		else if (evt.Name == "dustTin")
+		{
+			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 4, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 5, 175, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 3));
+		}
+
+		else if (evt.Name == "dustBronze")
+		{
+			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 4, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 4, 500, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 7));
+		}
+		
+		else if (evt.Name == "dustCobalt")
+		{
+			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 4, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 0, 650, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 5));
+		}
+		
+		else if (evt.Name == "dustArdite")
+		{
+			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 4, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 1, 650, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 6));
+		}
+		
+		else if (evt.Name == "dustManyullyn")
+		{
+			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 4, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 2, 750, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 9));
+		}
+		
+		else if (evt.Name == "dustAluminum")
+		{
+			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 4, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 6, 250, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 4));
+		}
+		
+		else if (evt.Name == "naturalAluminum")
+		{
+			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 4, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 6, 250, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 4));
+		}
+		
+		else if (evt.Name == "dustAluminumBrass")
+		{
+			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 4, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 7, 350, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 8));
+		}
+		
+		else if (evt.Name == "dustAlumite")
+		{
+			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 4, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 8, 500, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 10));
+		}
+		
+		else if (evt.Name == "dustSteel")
+		{
+			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 4, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 9, 500, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 12));
+		}
 	}
 
 	@ForgeSubscribe
 	public void bucketFill (FillBucketEvent evt)
 	{
-		System.out.println("Fired");
-
 		if (evt.current.getItem() == Item.bucketEmpty && evt.target.typeOfHit == EnumMovingObjectType.TILE)
 		{
 			int hitX = evt.target.blockX;
@@ -56,46 +243,6 @@ public class TEventHandler
 				LiquidTextureLogic logic = (LiquidTextureLogic) evt.world.getBlockTileEntity(hitX, hitY, hitZ);
 				meta = logic.getLiquidType();
 			}
-			
-			//Want switch, can't do it!
-			/*if (bID == TContent.ironStill.blockID)
-				meta = 0;
-			
-			else if (bID == TContent.goldStill.blockID)
-				meta = 1;
-			
-			else if (bID == TContent.copperStill.blockID)
-				meta = 2;
-			
-			else if (bID == TContent.tinStill.blockID)
-				meta = 3;
-			
-			else if (bID == TContent.aluminumStill.blockID)
-				meta = 4;
-			
-			else if (bID == TContent.cobaltStill.blockID)
-				meta = 5;
-			
-			else if (bID == TContent.arditeStill.blockID)
-				meta = 6;
-			
-			else if (bID == TContent.bronzeStill.blockID)
-				meta = 7;
-			
-			else if (bID == TContent.alBrassStill.blockID)
-				meta = 8;
-			
-			else if (bID == TContent.manyullynStill.blockID)
-				meta = 9;
-			
-			else if (bID == TContent.alumiteStill.blockID)
-				meta = 10;
-			
-			else if (bID == TContent.obsidianStill.blockID)
-				meta = 11;
-			
-			else if (bID == TContent.steelStill.blockID)
-				meta = 12;*/
 			
 			if (meta != -1)
 			{

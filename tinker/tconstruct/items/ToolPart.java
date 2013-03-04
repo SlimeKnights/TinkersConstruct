@@ -26,7 +26,7 @@ public class ToolPart extends CraftingItem
 	
 	public void getSubItems(int id, CreativeTabs tab, List list)
     {
-		for (int i = 0; i < 15; i++)
+		for (int i = 0; i < 17; i++)
 			list.add(new ItemStack(id, 1, i));
     }
 	

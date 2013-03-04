@@ -1,8 +1,9 @@
 package tinker.tconstruct;
 
-import org.w3c.dom.Document;
+import java.util.WeakHashMap;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -15,6 +16,7 @@ import tinker.tconstruct.client.gui.PatternChestGui;
 import tinker.tconstruct.client.gui.PatternShaperGui;
 import tinker.tconstruct.client.gui.SmelteryGui;
 import tinker.tconstruct.client.gui.ToolStationGui;
+import tinker.tconstruct.container.SmelteryContainer;
 import tinker.tconstruct.logic.FrypanLogic;
 import tinker.tconstruct.logic.PartCrafterLogic;
 import tinker.tconstruct.logic.PatternChestLogic;
@@ -33,6 +35,8 @@ public class TGuiHandler implements IGuiHandler
 
 	public static int smeltery = 7;
 	public static int manualGui = -1;
+	
+	public static WeakHashMap<String, Container> openContainers = new WeakHashMap<String, Container>();
 
 	@Override
 	public Object getServerGuiElement (int ID, EntityPlayer player, World world, int x, int y, int z)
@@ -42,7 +46,14 @@ public class TGuiHandler implements IGuiHandler
 		
 		TileEntity tile = world.getBlockTileEntity(x, y, z);
 		if (tile != null && tile instanceof InventoryLogic)
-			return ((InventoryLogic) tile).getGuiContainer(player.inventory, world, x, y, z);
+		{
+			Object o = ((InventoryLogic) tile).getGuiContainer(player.inventory, world, x, y, z);
+			if (o instanceof SmelteryContainer)
+			{
+				openContainers.put(player.username, (Container) o);
+			}
+			return o;
+		}
 		return null;
 	}
 

@@ -9,6 +9,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.liquids.ILiquidTank;
+import net.minecraftforge.liquids.ITankContainer;
 import net.minecraftforge.liquids.LiquidStack;
 import tinker.common.IActiveLogic;
 import tinker.common.IFacingLogic;
@@ -18,8 +19,8 @@ public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogi
 	byte direction;
 	boolean active;
 	public LiquidStack liquid;
-	ILiquidTank drain;
-	ILiquidTank tank;
+	ITankContainer drain;
+	ITankContainer tank;
 	int drainAmount = 5;
 
 	public void activateFaucet ()
@@ -45,12 +46,12 @@ public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogi
 
 			TileEntity drainte = worldObj.getBlockTileEntity(x, yCoord, z);
 			TileEntity tankte = worldObj.getBlockTileEntity(xCoord, yCoord - 1, zCoord);
-			if (drainte != null && drainte instanceof ILiquidTank && tankte != null && tankte instanceof ILiquidTank)
+			if (drainte != null && drainte instanceof ITankContainer && tankte != null && tankte instanceof ITankContainer)
 			{
 				//System.out.println("Activating Faucet");
-				liquid = ((ILiquidTank) drainte).drain(drainAmount, true);
-				drain = (ILiquidTank) drainte;
-				tank = (ILiquidTank) tankte;
+				liquid = ((ITankContainer) drainte).drain(getForgeDirection(), drainAmount, true);
+				drain = (ITankContainer) drainte;
+				tank = (ITankContainer) tankte;
 				active = true;
 				worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 				//System.out.println("Drained");
@@ -63,7 +64,7 @@ public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogi
 	public void deactivateFaucet ()
 	{
 		//System.out.println("Deactivating Faucet");
-		drain.fill(liquid, true);
+		drain.fill(getForgeDirection(), liquid, true);
 		liquid = null;
 		drain = null;
 		tank = null;
@@ -75,7 +76,7 @@ public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogi
 	{
 		if (active && liquid != null)
 		{
-			int drained = tank.fill(liquid, true);
+			int drained = tank.fill(ForgeDirection.UP, liquid, true);
 			//System.out.println("Drained: "+drained);
 			if (drained < drainAmount)
 			{
@@ -84,7 +85,7 @@ public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogi
 			}
 			else
 			{
-				liquid = drain.drain(drainAmount, true);
+				liquid = drain.drain(getForgeDirection(), drainAmount, true);
 			}
 			/*TileEntity te = worldObj.getBlockTileEntity(xCoord, yCoord-1, zCoord);
 			if (te != null && te instanceof ILiquidTank)

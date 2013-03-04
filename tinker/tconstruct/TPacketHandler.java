@@ -3,18 +3,15 @@ package tinker.tconstruct;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.IOException;
-import java.util.List;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
-import tinker.armory.content.EntityEquipment;
 import tinker.common.InventoryLogic;
-import tinker.tconstruct.entity.CartEntity;
+import tinker.tconstruct.container.SmelteryContainer;
 import tinker.tconstruct.logic.ToolStationLogic;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.IPacketHandler;
@@ -68,19 +65,18 @@ public class TPacketHandler implements IPacketHandler
 		//System.out.println("Handling server packet");
 		DataInputStream inputStream = new DataInputStream(new ByteArrayInputStream(packet.data));
 
-		byte packetType;
-		int dimension;
+		//byte packetType;
+		//int dimension;
 		byte packetID;
 
 		try
 		{
 			packetID = inputStream.readByte();
-			dimension = inputStream.readInt();
-
-			World world = DimensionManager.getWorld(dimension);
 
 			if (packetID == 1) //Tool Station
 			{
+				int dimension = inputStream.readInt();
+				World world = DimensionManager.getWorld(dimension);
 				int x = inputStream.readInt();
 				int y = inputStream.readInt();
 				int z = inputStream.readInt();
@@ -94,6 +90,8 @@ public class TPacketHandler implements IPacketHandler
 			}
 			else if (packetID == 2) //Stencil Table
 			{
+				int dimension = inputStream.readInt();
+				World world = DimensionManager.getWorld(dimension);
 				int x = inputStream.readInt();
 				int y = inputStream.readInt();
 				int z = inputStream.readInt();
@@ -106,7 +104,14 @@ public class TPacketHandler implements IPacketHandler
 					((InventoryLogic) te).setInventorySlotContents(1, new ItemStack(itemID, 1, itemDamage));
 				}
 			}
-
+			else if (packetID == 3) //Smeltery
+			{
+				int rowPos = inputStream.readInt();
+				String user = inputStream.readUTF();
+				SmelteryContainer container = (SmelteryContainer) TGuiHandler.openContainers.get(user);
+				System.out.println("Recieved a scroll packet for row "+rowPos);
+				container.updateRows(rowPos);
+			}
 		}
 		catch (IOException e)
 		{

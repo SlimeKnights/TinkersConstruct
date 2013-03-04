@@ -47,17 +47,10 @@ public class TankRender implements ISimpleBlockRenderingHandler
 			}
 			renderer.renderStandardBlock(block, x, y, z);
 			LavaTankLogic logic = (LavaTankLogic) world.getBlockTileEntity(x, y, z);
-			if (logic.getLiquidAmount() > 0)
+			if (logic.containsLiquid())
 			{
-				LiquidStack liquid = logic.liquid;
-				renderer.setRenderBounds(0.03, 0.03, 0.03, 0.97, logic.getLiquidAmount() / 4020f, 0.97);
-				/*Block liquidBlock = Block.blocksList[logic.liquid.itemID];
-				if (liquidBlock != null)
-				{
-					ForgeHooksClient.bindTexture(liquidBlock.getTextureFile(), 0);
-					renderer.setRenderBounds(0.03, 0.03, 0.03, 0.97, logic.getLiquidAmount() / 4020f, 0.97);
-					renderer.renderStandardBlock(liquidBlock, x, y, z);
-				}*/
+				LiquidStack liquid = logic.tank.getLiquid();
+				renderer.setRenderBounds(0.001, 0.001, 0.001, 0.999, logic.getLiquidAmountScaled(), 0.999);
 				if (liquid.itemID < 4096) //Block
 				{
 					Block liquidBlock = Block.blocksList[liquid.itemID];

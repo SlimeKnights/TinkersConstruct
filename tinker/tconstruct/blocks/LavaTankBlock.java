@@ -23,7 +23,7 @@ public class LavaTankBlock extends BlockContainer
 	public LavaTankBlock(int id)
 	{
 		super(id, 38, Material.rock);
-		setHardness(30F);
+		setHardness(12);
 		setCreativeTab(TConstruct.blockTab);
 		setBlockName("TConstruct.LavaTank");
 		setStepSound(Block.soundGlassFootstep);
@@ -106,7 +106,7 @@ public class LavaTankBlock extends BlockContainer
 		if (liquid != null)
 		{
 			LavaTankLogic logic = (LavaTankLogic) world.getBlockTileEntity(x, y, z);
-			int amount = logic.fill(liquid, true);
+			int amount = logic.fill(0, liquid, true);
 			if (amount > 0)
 				return true;
 			else

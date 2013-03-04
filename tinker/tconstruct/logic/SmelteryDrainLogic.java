@@ -8,11 +8,12 @@ import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.util.MathHelper;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.liquids.ILiquidTank;
+import net.minecraftforge.liquids.ITankContainer;
 import net.minecraftforge.liquids.LiquidStack;
 import tinker.common.IFacingLogic;
 
 public class SmelteryDrainLogic extends MultiServantLogic 
-	implements ILiquidTank, IFacingLogic
+	implements ITankContainer, IFacingLogic
 {
 	byte direction;
 
@@ -21,7 +22,7 @@ public class SmelteryDrainLogic extends MultiServantLogic
 		return false;
 	}
 
-	@Override
+	/*@Override
 	public LiquidStack getLiquid ()
 	{
 		return null;
@@ -35,17 +36,37 @@ public class SmelteryDrainLogic extends MultiServantLogic
 
 		SmelteryLogic smeltery = (SmelteryLogic) worldObj.getBlockTileEntity(master.x, master.y, master.z);
 		return smeltery.getCapacity();
+	}*/
+
+	/*@Override
+	public int fill (LiquidStack resource, boolean doFill)
+	{
+		
+	}*/
+
+	/*@Override
+	public LiquidStack drain (int maxDrain, boolean doDrain)
+	{
+		
+	}*/
+
+	@Override
+	public int fill (ForgeDirection from, LiquidStack resource, boolean doFill)
+	{
+		//if (from == ForgeDirection.OPPOSITES[getRenderDirection()])
+			return fill(0, resource, doFill);
+		//return 0;
 	}
 
 	@Override
-	public int fill (LiquidStack resource, boolean doFill)
+	public int fill (int tankIndex, LiquidStack resource, boolean doFill)
 	{
 		if (hasMaster) //Not sure if it should fill or not
 		{
 			if (doFill)
 			{
 			SmelteryLogic smeltery = (SmelteryLogic) worldObj.getBlockTileEntity(master.x, master.y, master.z);
-			return smeltery.fill(resource);
+			return smeltery.fill(resource, doFill);
 			}
 			else
 			{
@@ -59,7 +80,13 @@ public class SmelteryDrainLogic extends MultiServantLogic
 	}
 
 	@Override
-	public LiquidStack drain (int maxDrain, boolean doDrain)
+	public LiquidStack drain (ForgeDirection from, int maxDrain, boolean doDrain)
+	{
+		return drain(0, maxDrain, doDrain);
+	}
+
+	@Override
+	public LiquidStack drain (int tankIndex, int maxDrain, boolean doDrain)
 	{
 		if (hasValidMaster())
 		{
@@ -73,9 +100,24 @@ public class SmelteryDrainLogic extends MultiServantLogic
 	}
 
 	@Override
-	public int getTankPressure ()
+	public ILiquidTank[] getTanks (ForgeDirection direction)
 	{
-		return 0;
+		if (hasValidMaster())
+		{
+			SmelteryLogic smeltery = (SmelteryLogic) worldObj.getBlockTileEntity(master.x, master.y, master.z);
+			return new ILiquidTank[] { smeltery };
+		}
+		return null;
+	}
+
+	@Override
+	public ILiquidTank getTank (ForgeDirection direction, LiquidStack type)
+	{
+		if (hasValidMaster())
+		{
+			return (SmelteryLogic) worldObj.getBlockTileEntity(master.x, master.y, master.z);
+		}
+		return null;
 	}
 
 	@Override

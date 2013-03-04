@@ -94,7 +94,7 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
 					liquidSize -= countSize;
 					
 					float height = countSize > 20000 ? 1.0F : countSize / 20000F;
-					renderer.setRenderBounds(0.0F, base, 0.0F, 1.0F, height + base, 1.0F);
+					renderer.setRenderBounds(0, base, 0, 1, height + base, 1);
 					base += height;
 					liquidBase += countSize;
 
@@ -129,6 +129,7 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
 	
 	void renderLayer(SmelteryLogic logic, int start, int posX, int posY, int posZ, RenderBlocks renderer, IBlockAccess world)
 	{
+		renderer.setRenderBounds(-0.001F, -0.001F, -0.001F, 1.001F, 1.001F, 1.001F);
 		for (int i = 0; i < 9; i++)
 		{
 			//System.out.println("layers:"+logic.layers);

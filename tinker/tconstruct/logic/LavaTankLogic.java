@@ -7,127 +7,83 @@ import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.liquids.ILiquidTank;
+import net.minecraftforge.liquids.ITankContainer;
 import net.minecraftforge.liquids.LiquidContainerRegistry;
 import net.minecraftforge.liquids.LiquidStack;
 import net.minecraftforge.liquids.LiquidTank;
 
 public class LavaTankLogic extends MultiServantLogic
-	implements ILiquidTank
+	implements ITankContainer
 {
-	public int maxLiquid;
-	public int pressure;
-	public LiquidStack liquid;
+	public LiquidTank tank;
 	
 	public LavaTankLogic()
 	{
-		maxLiquid = LiquidContainerRegistry.BUCKET_VOLUME*4;
-		pressure = 0;
-	}
-	
-	public boolean canUpdate()
-    {
-        return false;
-    }
-	
-	@Override
-	public LiquidStack getLiquid ()
-	{
-		return liquid;
-	}
-	
-	public int getLiquidAmount ()
-	{
-		if (liquid == null)
-			return 0;
-		else
-			return liquid.amount;
+		tank = new LiquidTank(LiquidContainerRegistry.BUCKET_VOLUME*4);
 	}
 
 	@Override
-	public int getCapacity ()
+	public int fill (ForgeDirection from, LiquidStack resource, boolean doFill)
 	{
-		return maxLiquid;
+		return fill(0, resource, doFill);
 	}
 
 	@Override
-	public int fill (LiquidStack resource, boolean doFill)
+	public int fill (int tankIndex, LiquidStack resource, boolean doFill)
 	{
-		if (resource == null)
-			return 0;
-		
-		if (liquid == null)
-		{
-			liquid = resource.copy();
+		int amount = tank.fill(resource, doFill);
+		if (amount > 0 && doFill)
 			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-			return liquid.amount;
-		}
-		else if (resource.itemID != liquid.itemID || resource.itemMeta != liquid.itemMeta)
-		{
-			return 0;
-		}
-		else if (resource.amount + liquid.amount >= getCapacity())
-		{
-			int total = getCapacity();
-			int cap = total - liquid.amount;
-			if (doFill && cap != total)
-			{
-				worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-				liquid.amount = getCapacity();
-			}
-			return cap;
-		}
-		else
-		{
-			if (doFill)
-			{
-				worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-				liquid.amount += resource.amount;
-			}
-			return resource.amount;
-		}
+		return amount;
 	}
 
 	@Override
-	public LiquidStack drain (int maxDrain, boolean doDrain)
+	public LiquidStack drain (ForgeDirection from, int maxDrain, boolean doDrain)
 	{
-		if (liquid == null)
-			return null;
-		if (liquid.amount - maxDrain < 0)
-		{
-			LiquidStack liq = liquid.copy();
-			if (doDrain)
-			{
-				liquid = null;
-				worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-			}
-			return liq;
-		}
-		else
-		{
-			if (doDrain)
-			{
-				liquid.amount -= maxDrain;
-				worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-			}
-			return new LiquidStack(liquid.itemID, maxDrain, liquid.itemMeta);
-		}
+		return drain(0, maxDrain, doDrain);
 	}
 
 	@Override
-	public int getTankPressure ()
+	public LiquidStack drain (int tankIndex, int maxDrain, boolean doDrain)
 	{
-		return pressure;
+		LiquidStack amount = tank.drain(maxDrain, doDrain);
+		if (amount != null && doDrain)
+			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+		return amount;
+	}
+
+	@Override
+	public ILiquidTank[] getTanks (ForgeDirection direction)
+	{
+		return new ILiquidTank[] { tank };
+	}
+
+	@Override
+	public ILiquidTank getTank (ForgeDirection direction, LiquidStack type)
+	{
+		return tank;
+	}
+	
+	public float getLiquidAmountScaled()
+	{
+		return (float) (tank.getLiquid().amount) / (float) (tank.getCapacity() * 1.01F);
+	}
+	
+	public boolean containsLiquid()
+	{
+		return tank.getLiquid() != null;
 	}
 	
 	public void readFromNBT(NBTTagCompound tags)
     {
 		if (tags.getBoolean("hasLiquid"))
-			this.liquid = new LiquidStack(tags.getInteger("itemID"), tags.getInteger("amount"), tags.getInteger("itemMeta"));
+			tank.setLiquid(new LiquidStack(tags.getInteger("itemID"), tags.getInteger("amount"), tags.getInteger("itemMeta")));
 		super.readFromNBT(tags);
     }
 	
 	public void writeToNBT(NBTTagCompound tags)
     {
+		LiquidStack liquid = tank.getLiquid();
 		tags.setBoolean("hasLiquid", liquid != null);
 		if (liquid != null)
 		{

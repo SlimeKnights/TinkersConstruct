@@ -25,7 +25,7 @@ public class SearedBlock extends InventoryBlock
 		super(id, Material.rock);
 		this.setCreativeTab(TConstruct.blockTab);
 		blockIndexInTexture = 32;
-		setHardness(30F);
+		setHardness(12);
 		setStepSound(soundMetalFootstep);
 	}
 
@@ -92,6 +92,9 @@ public class SearedBlock extends InventoryBlock
 		{
 			//System.out.println("Castses");
 			CastingTableLogic logic = (CastingTableLogic) world.getBlockTileEntity(x, y, z);
+			if (logic.liquid != null)
+				return true;
+			
 			if (!logic.isStackInSlot(0) && !logic.isStackInSlot(1))
 			{
 				ItemStack stack = player.getCurrentEquippedItem();
@@ -112,17 +115,6 @@ public class SearedBlock extends InventoryBlock
 					if (stack != null)
 						addItemToInventory(player, world, x, y, z, stack);
 				}
-				/*ItemStack insideStack = logic.takeItemInColumn(0);
-
-				if (insideStack == null)
-				{r
-				    insideStack = logic.takeItemInColumn(1 - 0);
-				}
-
-				if (insideStack != null)
-				{
-				    this.spawnItem(world, x, y, z, insideStack);
-				}*/
 			}
 
 			world.markBlockForUpdate(x, y, z);
@@ -250,39 +242,42 @@ public class SearedBlock extends InventoryBlock
 		int meta = world.getBlockMetadata(x, y, z);
 		if (meta == 0)
 		{
-			return AxisAlignedBB.getAABBPool().addOrModifyAABBInPool(x, y, z, x+1, y+1, z+1);
+			return AxisAlignedBB.getAABBPool().addOrModifyAABBInPool(x, y, z, x + 1, y + 1, z + 1);
 		}
 		if (meta == 1)
 		{
 			FaucetLogic logic = (FaucetLogic) world.getBlockTileEntity(x, y, z);
-			float xMin = 0.25F;
-			float xMax = 0.75F;
-			float zMin = 0.25F;
-			float zMax = 0.75F;
-
-			switch (logic.getRenderDirection())
+			if (logic != null)
 			{
-			case 2:
-				zMin = 0.625F;
-				zMax = 1.0F;
-				break;
-			case 3:
-				zMax = 0.375F;
-				zMin = 0F;
-				break;
-			case 4:
-				xMin = 0.625F;
-				xMax = 1.0F;
-				break;
-			case 5:
-				xMax = 0.375F;
-				xMin = 0F;
-				break;
-			}
+				float xMin = 0.25F;
+				float xMax = 0.75F;
+				float zMin = 0.25F;
+				float zMax = 0.75F;
 
-			return AxisAlignedBB.getAABBPool().addOrModifyAABBInPool((double) ((float) x + xMin), (double) y + 0.25, (double) ((float) z + zMin), (double) ((float) x + xMax), (double) y + 0.625, (double) ((float) z + zMax));
+				switch (logic.getRenderDirection())
+				{
+				case 2:
+					zMin = 0.625F;
+					zMax = 1.0F;
+					break;
+				case 3:
+					zMax = 0.375F;
+					zMin = 0F;
+					break;
+				case 4:
+					xMin = 0.625F;
+					xMax = 1.0F;
+					break;
+				case 5:
+					xMax = 0.375F;
+					xMin = 0F;
+					break;
+				}
+
+				return AxisAlignedBB.getAABBPool().addOrModifyAABBInPool((double) ((float) x + xMin), (double) y + 0.25, (double) ((float) z + zMin), (double) ((float) x + xMax), (double) y + 0.625, (double) ((float) z + zMax));
+			}
 		}
-		
+
 		return super.getCollisionBoundingBoxFromPool(world, x, y, z);
 	}
 }

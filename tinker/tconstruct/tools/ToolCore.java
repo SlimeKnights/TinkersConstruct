@@ -173,108 +173,6 @@ public abstract class ToolCore extends Item
 	protected abstract String getRenderString(int renderPass, boolean broken);
 	protected abstract String getEffectString(int renderPass);
 
-	/*String getRenderString (int renderPass, boolean broken)
-	{
-		switch (renderPass)
-		{
-		case 0:
-			return "_pickaxe_handle.png";
-		case 1:
-			if (broken)
-				return "_pickaxe_head_broken.png";
-			else
-				return "_pickaxe_head.png";
-		case 2:
-			return "_pickaxe_accessory.png";
-		default:
-			return "";
-		}
-	}
-
-	String getEffectString ()
-	{
-		return "_pickaxe_effect.png";
-	}*/
-
-	/*String types[] = {
-			
-			"_pickaxe_effect.png",
-			"_pickaxe_effect.png",
-			"_pickaxe_effect.png"
-		};*/
-
-	
-
-	/*@SideOnly(Side.CLIENT)
-	@Override
-	public int getIconIndex (ItemStack stack, int renderPass)
-	{
-		if (!stack.hasTagCompound())
-			return 255;
-
-		NBTTagCompound tags = stack.getTagCompound();
-		if (tags.hasKey("InfiTool"))
-		{
-			if (renderPass == 0) // Handle
-			{
-				return tags.getCompoundTag("InfiTool").getInteger("RenderHandle");
-			}
-
-			if (renderPass == 1) // Head
-			{
-				if (tags.getCompoundTag("InfiTool").getBoolean("Broken"))
-					return tags.getCompoundTag("InfiTool").getInteger("RenderHead") + 192;
-
-				return tags.getCompoundTag("InfiTool").getInteger("RenderHead") + 64;
-			}
-
-			if (renderPass == 2) // Accessory
-			{
-				if (tags.getCompoundTag("InfiTool").hasKey("RenderAccessory"))
-				{
-					int index = tags.getCompoundTag("InfiTool").getInteger("RenderAccessory");
-					if (index == -1)
-						return 32;
-					return index + 32;
-				}
-			}
-
-			if (renderPass == 3)
-			{
-				if (tags.getCompoundTag("InfiTool").hasKey("Effect1"))
-					return tags.getCompoundTag("InfiTool").getInteger("Effect1") + 224;
-				else
-					return 255;
-			}
-
-			if (renderPass == 4)
-			{
-				if (tags.getCompoundTag("InfiTool").hasKey("Effect2"))
-					return tags.getCompoundTag("InfiTool").getInteger("Effect2") + 224;
-				else
-					return 255;
-			}
-
-			if (renderPass == 5)
-			{
-				if (tags.getCompoundTag("InfiTool").hasKey("Effect3"))
-					return tags.getCompoundTag("InfiTool").getInteger("Effect3") + 224;
-				else
-					return 255;
-			}
-		}
-
-		return 255; //Keep 255 blank
-	}
-
-	int renderDamageBar (int damage, int maxDamage, boolean broken)
-	{
-		//setTextureFile(ToolItems.craftingTexture);
-		if (damage == 0 || broken)
-			return 255;
-		return 240 + (damage * 13 / maxDamage);
-	}*/
-
 	/* Tags and information about the tool */
 	@Override
 	@SideOnly(Side.CLIENT)
@@ -349,7 +247,7 @@ public abstract class ToolCore extends Item
 		}
 	}
 
-	public static String getColorCodeForType (int type)
+	public static String getColorCodeForType (int type) //TODO: unhardcode this
 	{
 		String colorCode = "\u00A7";
 		switch (type)
@@ -388,7 +286,7 @@ public abstract class ToolCore extends Item
 		return colorCode;
 	}
 
-	public String getAbilityNameForType (int type)
+	public String getAbilityNameForType (int type)//TODO: unhardcode this
 	{
 		switch (type)
 		{
@@ -428,7 +326,7 @@ public abstract class ToolCore extends Item
 	}
 
 	//This method is temporary
-	public static String getReinforcedName (int head, int handle, int accessory)
+	public static String getReinforcedName (int head, int handle, int accessory) //TODO: unhardcode this
 	{
 		if (head == 7 || handle == 7 || accessory == 7)
 			return "\u00A7dReinforced III";
@@ -441,12 +339,13 @@ public abstract class ToolCore extends Item
 		return "";
 	}
 
-	static String[] toolMaterialNames = { "Wooden ", "Stone ", "Iron ", "Flint ", "Cactus ", "Bone ", "Obsidian ", "Nethrrack ", "Slime ", "Paper ", "Cobalt ", "Ardite ", "Manyullyn ", "Copper ", "Bronze " };
+	static String[] toolMaterialNames = { "Wooden ", "Stone ", "Iron ", "Flint ", "Cactus ", "Bone ", "Obsidian ", "Nethrrack ", "Slime ", "Paper ", 
+		"Cobalt ", "Ardite ", "Manyullyn ", "Copper ", "Bronze ", "Alumite ", "Steel " };
 
 	/* Creative mode tools */
 	public void getSubItems (int id, CreativeTabs tab, List list)
 	{
-		for (int i = 0; i < 15; i++)
+		for (int i = 0; i < 17; i++)
 		{
 			Item accessory = getAccessoryItem();
 			ItemStack accessoryStack = accessory != null ? new ItemStack(getAccessoryItem(), 1, i) : null;

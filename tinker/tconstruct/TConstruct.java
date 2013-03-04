@@ -34,7 +34,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
  * @author: mDiyo
  */
 
-@Mod(modid = "TConstruct", name = "TConstruct", version = "1.4.7_1.1.14")
+@Mod(modid = "TConstruct", name = "TConstruct", version = "1.4.7_1.1.14", dependencies = "before:*")
 @NetworkMod(serverSideRequired = false, clientSideRequired = true, channels = { "TConstruct" }, packetHandler = tinker.tconstruct.TPacketHandler.class)
 public class TConstruct
 {
@@ -46,11 +46,16 @@ public class TConstruct
 	/* Proxies for sides, used for graphics processing */
 	@SidedProxy(clientSide = "tinker.tconstruct.client.TProxyClient", serverSide = "tinker.tconstruct.TProxyCommon")
 	public static TProxyCommon proxy;
+	
+	public TConstruct()
+	{
+		//Take that, any mod that does ore dictionary registration in preinit!
+		MinecraftForge.EVENT_BUS.register(new TEventHandler());
+	}
 
 	@PreInit
 	public void preInit (FMLPreInitializationEvent evt)
 	{
-		MinecraftForge.EVENT_BUS.register(new TEventHandler());
 		PHConstruct.initProps();
 		materialTab = new TabTools("TConstructMaterials");
 		toolTab = new TabTools("TConstructTools");

@@ -1,6 +1,10 @@
 package tinker.tconstruct.container;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import tinker.tconstruct.logic.SmelteryLogic;
+import net.minecraft.client.gui.inventory.GuiContainerCreative;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -14,48 +18,90 @@ import net.minecraft.tileentity.TileEntityFurnace;
 public class SmelteryContainer extends Container
 {
 	public SmelteryLogic logic;
+	public InventoryPlayer playerInv;
 	public int fuel = 0;
+	int slotRow;
 
 	public SmelteryContainer(InventoryPlayer inventoryplayer, SmelteryLogic smeltery)
 	{
 		logic = smeltery;
-		if (smeltery.layers > 0)
-		{
-			for (int y = 0; y < 3; y++)
-				for (int x = 0; x < 3; x++)
-					this.addSlotToContainer(new Slot(smeltery, x + y * 3, -34 + x * 22, 8 + y * 18));
-		}
-		if (smeltery.layers > 1)
-		{
-			for (int y = 0; y < 3; y++)
-				for (int x = 0; x < 3; x++)
-					this.addSlotToContainer(new Slot(smeltery, 9 + x + y * 3, -34 + x * 22, 62 + y * 18));
-		}
-		
+		playerInv = inventoryplayer;
 		if (smeltery.layers > 2)
 		{
-			for (int y = 0; y < 2; y++)
-				for (int x = 0; x < 3; x++)
-					this.addSlotToContainer(new Slot(smeltery, 18 + x + y * 3, -34 + x * 22, 116 + y * 18));
+			slotRow = -1;
+			updateRows(0);
 		}
-
-		/* Player inventory */
-		for (int column = 0; column < 3; column++)
+		else
 		{
-			for (int row = 0; row < 9; row++)
+			if (smeltery.layers > 0)
 			{
-				this.addSlotToContainer(new Slot(inventoryplayer, row + column * 9 + 9, 54 + row * 18, 84 + column * 18));
+				for (int y = 0; y < 3; y++)
+					for (int x = 0; x < 3; x++)
+						this.addSlotToContainer(new Slot(smeltery, x + y * 3, -34 + x * 22, 8 + y * 18));
+			}
+			if (smeltery.layers > 1)
+			{
+				for (int y = 0; y < 3; y++)
+					for (int x = 0; x < 3; x++)
+						this.addSlotToContainer(new Slot(smeltery, 9 + x + y * 3, -34 + x * 22, 62 + y * 18));
+			}
+			
+
+			/* Player inventory */
+			for (int column = 0; column < 3; column++)
+			{
+				for (int row = 0; row < 9; row++)
+				{
+					this.addSlotToContainer(new Slot(inventoryplayer, row + column * 9 + 9, 54 + row * 18, 84 + column * 18));
+				}
+			}
+
+			for (int column = 0; column < 9; column++)
+			{
+				this.addSlotToContainer(new Slot(inventoryplayer, column, 54 + column * 18, 142));
 			}
 		}
-
-		for (int column = 0; column < 9; column++)
+	}
+	
+	public int updateRows(int invRow)
+	{
+		if (invRow != slotRow)
 		{
-			this.addSlotToContainer(new Slot(inventoryplayer, column, 54 + column * 18, 142));
+			slotRow = invRow;
+			this.inventorySlots.clear();
+			this.inventoryItemStacks.clear();
+			
+			for (int y = 0; y < 8; y++)
+				for (int x = 0; x < 3; x++)
+					this.addSlotToContainer(new Slot(logic, x + y*3 + invRow*3, -34 + x * 22, 8 + y * 18));
+			
+			/* Player inventory */
+			for (int column = 0; column < 3; column++)
+			{
+				for (int row = 0; row < 9; row++)
+				{
+					this.addSlotToContainer(new Slot(playerInv, row + column * 9 + 9, 54 + row * 18, 84 + column * 18));
+				}
+			}
+
+			for (int column = 0; column < 9; column++)
+			{
+				this.addSlotToContainer(new Slot(playerInv, column, 54 + column * 18, 142));
+			}
+			return slotRow;
 		}
+		return -1;
+	}
+
+	public int scrollTo(float scrollPos)
+	{
+		float total = (logic.getSizeInventory() - 24) / 3;
+		int rowPos = (int) (total * scrollPos);
+		return updateRows(rowPos);
 	}
 
 	@Override
-	public void detectAndSendChanges ()
+	public void detectAndSendChanges () //TODO: Sync with this
 	{
 		super.detectAndSendChanges();
 		/*for (int i = 0; i < crafters.size(); i++)
@@ -137,93 +183,99 @@ public class SmelteryContainer extends Container
 		return stack;
 	}
 
-	protected boolean mergeItemStack (ItemStack par1ItemStack, int par2, int par3, boolean par4)
+	/*protected boolean mergeItemStack (ItemStack inputStack, int par2, int par3, boolean flag)
 	{
-		boolean var5 = false;
-		int var6 = par2;
+		boolean merged = false;
+        int slotPos = par2;
 
-		if (par4)
-		{
-			var6 = par3 - 1;
-		}
+        if (flag)
+        {
+            slotPos = par3 - 1;
+        }
 
-		Slot var7;
-		ItemStack var8;
+        Slot slot;
+        ItemStack slotStack;
 
-		if (par1ItemStack.isStackable())
-		{
-			while (par1ItemStack.stackSize > 0 && (!par4 && var6 < par3 || par4 && var6 >= par2))
-			{
-				var7 = (Slot) this.inventorySlots.get(var6);
-				var8 = var7.getStack();
+        if (inputStack.isStackable())
+        {
+            while (inputStack.stackSize > 0 && (!flag && slotPos < par3 || flag && slotPos >= par2))
+            {
+                slot = (Slot)this.inventorySlots.get(slotPos);
+                slotStack = slot.getStack();
 
-				if (var8 != null && var8.itemID == par1ItemStack.itemID && (!par1ItemStack.getHasSubtypes() || par1ItemStack.getItemDamage() == var8.getItemDamage()) && ItemStack.areItemStackTagsEqual(par1ItemStack, var8))
-				{
-					int var9 = var8.stackSize + par1ItemStack.stackSize;
+                //System.out.println("Boom");
+                if (slotStack != null && ItemStack.areItemStacksEqual(inputStack, slotStack) && !inputStack.getHasSubtypes())
+                {
+                	//System.out.println("DeyadaBoomDeyada");
+                    int totalSize = slotStack.stackSize + inputStack.stackSize;
 
-					if (var9 <= par1ItemStack.getMaxStackSize())
-					{
-						par1ItemStack.stackSize = 0;
-						var8.stackSize = var9;
-						var7.onSlotChanged();
-						var5 = true;
-					}
-					else if (var8.stackSize < par1ItemStack.getMaxStackSize())
-					{
-						par1ItemStack.stackSize -= par1ItemStack.getMaxStackSize() - var8.stackSize;
-						var8.stackSize = par1ItemStack.getMaxStackSize();
-						var7.onSlotChanged();
-						var5 = true;
-					}
-				}
+                    if (totalSize <= inputStack.getMaxStackSize())
+                    {
+                        inputStack.stackSize = 0;
+                        slotStack.stackSize = totalSize;
+                        slot.onSlotChanged();
+                        merged = true;
+                    }
+                    else if (slotStack.stackSize < inputStack.getMaxStackSize())
+                    {
+                        inputStack.stackSize -= inputStack.getMaxStackSize() - slotStack.stackSize;
+                        slotStack.stackSize = inputStack.getMaxStackSize();
+                        slot.onSlotChanged();
+                        merged = true;
+                    }
+                }
 
-				if (par4)
-				{
-					--var6;
-				}
-				else
-				{
-					++var6;
-				}
-			}
-		}
+                //System.out.println("Heyo~");
+                if (flag)
+                {
+                    --slotPos;
+                }
+                else
+                {
+                    ++slotPos;
+                }
+            }
+        }
 
-		if (par1ItemStack.stackSize > 0)
-		{
-			if (par4)
-			{
-				var6 = par3 - 1;
-			}
-			else
-			{
-				var6 = par2;
-			}
+        if (inputStack.stackSize > 0)
+        {
+        	//System.out.println("Boom");
+            if (flag)
+            {
+                slotPos = par3 - 1;
+            }
+            else
+            {
+                slotPos = par2;
+            }
 
-			while (!par4 && var6 < par3 || par4 && var6 >= par2)
-			{
-				var7 = (Slot) this.inventorySlots.get(var6);
-				var8 = var7.getStack();
+            while (!flag && slotPos < par3 || flag && slotPos >= par2)
+            {
+                slot = (Slot)this.inventorySlots.get(slotPos);
+                slotStack = slot.getStack();
 
-				if (var8 == null)
-				{
-					var7.putStack(par1ItemStack.copy());
-					var7.onSlotChanged();
-					par1ItemStack.stackSize = 0;
-					var5 = true;
-					break;
-				}
+            	System.out.println("Boom");
+                if (slotStack == null)
+                {
+                	System.out.println("Deya");
+                    slot.putStack(inputStack.copy());
+                    slot.onSlotChanged();
+                    inputStack.stackSize = 0;
+                    merged = true;
+                    break;
+                }
 
-				if (par4)
-				{
-					--var6;
-				}
-				else
-				{
-					++var6;
-				}
-			}
-		}
+                if (flag)
+                {
+                    --slotPos;
+                }
+                else
+                {
+                    ++slotPos;
+                }
+            }
+        }
 
-		return var5;
-	}
+        return merged;
+	}*/
 }

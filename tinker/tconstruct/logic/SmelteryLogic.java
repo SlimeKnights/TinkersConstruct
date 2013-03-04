@@ -28,7 +28,8 @@ import tinker.tconstruct.crafting.Smeltery;
 /* Simple class for storing items in the block
  */
 
-public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFacingLogic
+public class SmelteryLogic extends InventoryLogic 
+	implements IActiveLogic, IFacingLogic, ILiquidTank
 {
 	public boolean validStructure;
 	byte direction;
@@ -226,12 +227,12 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 						if (result != null)
 						{
 							inventory[i] = null;
-							addMoltenMetal(result);
+							addMoltenMetal(result, false);
 							ArrayList alloys = Smeltery.mixMetals(moltenMetal);
 							for (int al = 0; al < alloys.size(); al++)
 							{
 								LiquidStack liquid = (LiquidStack) alloys.get(al);
-								addMoltenMetal(liquid);
+								addMoltenMetal(liquid, true);
 							}
 							onInventoryChanged();
 							//setWorldToInventory();
@@ -246,27 +247,35 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 		}
 	}
 
-	void addMoltenMetal (LiquidStack liquid)
+	void addMoltenMetal (LiquidStack liquid, boolean first)
 	{
 		if (moltenMetal.size() == 0)
 			moltenMetal.add(liquid);
 		else
 		{
 			boolean added = false;
-			for (LiquidStack l : moltenMetal)
+			//for (LiquidStack l : moltenMetal)
+			for (int i = 0; i < moltenMetal.size(); i++)
 			{
+				LiquidStack l = moltenMetal.get(i);
 				if (l.itemID == liquid.itemID && l.itemMeta == liquid.itemMeta)
 				{
 					l.amount += liquid.amount;
 					added = true;
 				}
-				/*if (l.amount <= 0)
+				if (l.amount <= 0)
 				{
 					moltenMetal.remove(l);
-				}*/
+					i--;
+				}
 			}
 			if (!added)
-				moltenMetal.add(liquid);
+			{
+				if (first)
+					moltenMetal.add(0, liquid);
+				else
+					moltenMetal.add(liquid);
+			}
 		}
 	}
 
@@ -305,6 +314,15 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 	}
 
 	/* Inventory */
+	public int getMaxStackStackSize(ItemStack stack)
+	{
+		LiquidStack liquid = getResultFor(stack);
+		System.out.println("Liquid: "+liquid);
+		if (liquid == null)
+			return 0;
+		return liquid.amount;
+	}
+	
 	public int getInventoryStackLimit ()
 	{
 		return 1;
@@ -314,7 +332,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 	{
 		updateTemperatures();
 		super.onInventoryChanged();
-		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+		worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
 	}
 
 	/* Multiblock */
@@ -596,7 +614,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 			return null;
 
 		LiquidStack liquid = moltenMetal.get(0);
-		if (liquid.amount - maxDrain < 0)
+		if (liquid.amount - maxDrain <= 0)
 		{
 			LiquidStack liq = liquid.copy();
 			if (doDrain)
@@ -618,11 +636,27 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 		}
 	}
 
-	public int fill (LiquidStack resource)
+	public int fill (LiquidStack resource, boolean doFill)
 	{
 		int amount = resource.amount;
-		addMoltenMetal(resource);
+		addMoltenMetal(resource, false);
 		return amount;
+	}
+	
+
+
+	@Override
+	public LiquidStack getLiquid ()
+	{
+		if (moltenMetal.size() == 0)
+			return null;
+		return moltenMetal.get(0);
+	}
+
+	@Override
+	public int getTankPressure ()
+	{
+		return 0;
 	}
 
 	/* NBT */
