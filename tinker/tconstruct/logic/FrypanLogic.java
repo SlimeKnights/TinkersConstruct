@@ -253,7 +253,7 @@ public class FrypanLogic extends EquipLogic
 			}
 			if (item instanceof ItemTool && ((ItemTool) item).getToolMaterialName().equals("WOOD"))
 				return 200;
-			if (item instanceof ItemSword && ((ItemSword) item).func_77825_f().equals("WOOD"))
+			if (item instanceof ItemSword && ((ItemSword) item).getToolMaterialName().equals("WOOD"))
 				return 200;
 			if (item instanceof ItemHoe && ((ItemHoe) item).func_77842_f().equals("WOOD"))
 				return 200;

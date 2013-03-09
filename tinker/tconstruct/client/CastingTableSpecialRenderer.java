@@ -53,7 +53,7 @@ public class CastingTableSpecialRenderer extends TileEntitySpecialRenderer
 	void renderItem(CastingTableLogic logic, ItemStack stack)
 	{
 		FancyEntityItem entityitem = new FancyEntityItem(logic.worldObj, 0.0D, 0.0D, 0.0D, stack);
-		entityitem.func_92014_d().stackSize = 1;
+		entityitem.getEntityItem().stackSize = 1;
 		entityitem.hoverStart = 0.0F;
 		GL11.glPushMatrix();
 		GL11.glTranslatef(1F, 1.478F, 0.55F);

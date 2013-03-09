@@ -168,7 +168,7 @@ public class AbilityHelper
 
                         if (entity instanceof EntityLiving)
                         {
-                            EnchantmentThorns.func_92044_a(player, (EntityLiving)entity, random);
+                            EnchantmentThorns.func_92096_a(player, (EntityLiving)entity, random);
                         }
                     }
 

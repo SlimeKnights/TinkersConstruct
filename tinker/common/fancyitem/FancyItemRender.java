@@ -49,7 +49,7 @@ public class FancyItemRender extends Render
     public void doRenderItem(EntityItem par1EntityItem, double par2, double par4, double par6, float par8, float par9)
     {
         this.random.setSeed(187L);
-        ItemStack var10 = par1EntityItem.func_92014_d();
+        ItemStack var10 = par1EntityItem.getEntityItem();
 
         if (var10.getItem() != null)
         {
@@ -212,7 +212,7 @@ public class FancyItemRender extends Render
 
             float var16 = 0.0625F;
             var17 = 0.021875F;
-            ItemStack var18 = par1EntityItem.func_92014_d();
+            ItemStack var18 = par1EntityItem.getEntityItem();
             int var19 = var18.stackSize;
             byte var24 = getMiniItemCountForItemStack(var18);
 
