@@ -291,7 +291,7 @@ public class SuperCustomToolRenderer implements IItemRenderer
 	void renderEntityItem (ItemStack stack, RenderBlocks renderer, EntityItem entity)
 	{
 		this.random.setSeed(187L);
-		ItemStack var10 = entity.func_92014_d();
+		ItemStack var10 = entity.getEntityItem();
 		ToolCore tool = (ToolCore) var10.getItem();
 
 		if (var10.getItem() != null)
@@ -398,7 +398,7 @@ public class SuperCustomToolRenderer implements IItemRenderer
 
 			float var16 = 0.0625F;
 			var17 = 0.021875F;
-			ItemStack stack = par1EntityItem.func_92014_d();
+			ItemStack stack = par1EntityItem.getEntityItem();
 			ToolCore tool = (ToolCore) stack.getItem();
 			int var19 = stack.stackSize;
 			byte var24 = getMiniBlockCountForItemStack(stack);

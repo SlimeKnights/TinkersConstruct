@@ -264,7 +264,7 @@ public class CartEntity extends Entity
 
                         if (var2.hasTagCompound())
                         {
-                            var7.func_92014_d().setTagCompound((NBTTagCompound)var2.getTagCompound().copy());
+                            var7.getEntityItem().setTagCompound((NBTTagCompound)var2.getTagCompound().copy());
                         }
 
                         float var8 = 0.05F;
@@ -326,9 +326,9 @@ public class CartEntity extends Entity
             {
                 if (var1.getAllowNether())
                 {
-                    if (this.ridingEntity == null && this.field_82153_h++ >= var2)
+                    if (this.ridingEntity == null && this.timeInPortal++ >= var2)
                     {
-                        this.field_82153_h = var2;
+                        this.timeInPortal = var2;
                         this.timeUntilPortal = this.getPortalCooldown();
                         byte var3;
 
@@ -349,14 +349,14 @@ public class CartEntity extends Entity
             }
             else
             {
-                if (this.field_82153_h > 0)
+                if (this.timeInPortal > 0)
                 {
-                    this.field_82153_h -= 4;
+                    this.timeInPortal -= 4;
                 }
 
-                if (this.field_82153_h < 0)
+                if (this.timeInPortal < 0)
                 {
-                    this.field_82153_h = 0;
+                    this.timeInPortal = 0;
                 }
             }
 

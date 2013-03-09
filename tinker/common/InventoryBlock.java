@@ -79,7 +79,7 @@ public abstract class InventoryBlock extends BlockContainer
 
 						if (stack.hasTagCompound())
 						{
-							entityitem.func_92014_d().setTagCompound((NBTTagCompound) stack.getTagCompound().copy());
+							entityitem.getEntityItem().setTagCompound((NBTTagCompound) stack.getTagCompound().copy());
 						}
 
 						float offset = 0.05F;
