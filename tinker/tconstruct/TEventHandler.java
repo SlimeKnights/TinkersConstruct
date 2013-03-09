@@ -1,19 +1,28 @@
 package tinker.tconstruct;
 
+import java.util.HashMap;
+
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumMovingObjectType;
 import net.minecraftforge.event.Event.Result;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.player.FillBucketEvent;
+import net.minecraftforge.event.entity.player.PlayerDropsEvent;
 import net.minecraftforge.liquids.LiquidStack;
 import net.minecraftforge.oredict.OreDictionary.OreRegisterEvent;
 import tinker.tconstruct.crafting.PatternBuilder;
 import tinker.tconstruct.crafting.Smeltery;
 import tinker.tconstruct.logic.LiquidTextureLogic;
+import tinker.tconstruct.player.TPlayerStats;
+import cpw.mods.fml.common.IPlayerTracker;
 
 public class TEventHandler
 {
+	
+	/* Ore Dictionary */
 	@ForgeSubscribe
 	public void registerOre (OreRegisterEvent evt)
 	{

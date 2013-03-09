@@ -148,6 +148,7 @@ public class SmelteryContainer extends Container
 		return logic.isUseableByPlayer(entityplayer);
 	}
 
+	@Override
 	public ItemStack transferStackInSlot (EntityPlayer player, int slotID)
 	{
 		ItemStack stack = null;
@@ -183,14 +184,15 @@ public class SmelteryContainer extends Container
 		return stack;
 	}
 
-	/*protected boolean mergeItemStack (ItemStack inputStack, int par2, int par3, boolean flag)
+	@Override
+	protected boolean mergeItemStack (ItemStack inputStack, int startSlot, int endSlot, boolean flag)
 	{
 		boolean merged = false;
-        int slotPos = par2;
+        int slotPos = startSlot;
 
         if (flag)
         {
-            slotPos = par3 - 1;
+            slotPos = endSlot - 1;
         }
 
         Slot slot;
@@ -198,7 +200,7 @@ public class SmelteryContainer extends Container
 
         if (inputStack.isStackable())
         {
-            while (inputStack.stackSize > 0 && (!flag && slotPos < par3 || flag && slotPos >= par2))
+            while (inputStack.stackSize > 0 && (!flag && slotPos < endSlot || flag && slotPos >= startSlot))
             {
                 slot = (Slot)this.inventorySlots.get(slotPos);
                 slotStack = slot.getStack();
@@ -242,14 +244,14 @@ public class SmelteryContainer extends Container
         	//System.out.println("Boom");
             if (flag)
             {
-                slotPos = par3 - 1;
+                slotPos = endSlot - 1;
             }
             else
             {
-                slotPos = par2;
+                slotPos = startSlot;
             }
 
-            while (!flag && slotPos < par3 || flag && slotPos >= par2)
+            while (!flag && slotPos < endSlot || flag && slotPos >= startSlot)
             {
                 slot = (Slot)this.inventorySlots.get(slotPos);
                 slotStack = slot.getStack();
@@ -277,5 +279,5 @@ public class SmelteryContainer extends Container
         }
 
         return merged;
-	}*/
+	}
 }

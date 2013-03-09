@@ -39,6 +39,10 @@ public class PHConstruct {
          * Avoid values below 4096 for items and in the 250-450 range for blocks
          */
         
+        removeToolRecipes = config.get("Diffuclty Changes", "Remove vanilla tool recipes", false).getBoolean(false);
+        keepHunger = config.get("Diffuclty Changes", "Keep hunger on death", true).getBoolean(true);
+        keepLevels = config.get("Diffuclty Changes", "Keep levels on death", true).getBoolean(true);
+        
         woodCrafter = config.getBlock("Wood Tool Station", 1471).getInt(1471);
         
         heldItemBlock = config.getBlock("Held Item Block", 1472).getInt(1472);
@@ -211,4 +215,9 @@ public class PHConstruct {
     public static int aluminumHeight;
     public static int aluminumRange;
     public static int netherDensity;
+    
+    //Difficulty modifiers
+    public static boolean removeToolRecipes;
+    public static boolean keepHunger;
+    public static boolean keepLevels;
 }

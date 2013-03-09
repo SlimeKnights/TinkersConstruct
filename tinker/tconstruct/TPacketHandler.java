@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.IOException;
 
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet250CustomPayload;
@@ -109,8 +110,16 @@ public class TPacketHandler implements IPacketHandler
 				int rowPos = inputStream.readInt();
 				String user = inputStream.readUTF();
 				SmelteryContainer container = (SmelteryContainer) TGuiHandler.openContainers.get(user);
-				System.out.println("Recieved a scroll packet for row "+rowPos);
+				//System.out.println("Recieved a scroll packet for row "+rowPos);
 				container.updateRows(rowPos);
+			}
+			
+			else if (packetID == 10) //Double jump
+			{
+				String user = inputStream.readUTF();
+				//EntityPlayer player = FMLCommonHandler.instance().getSidedDelegate().getServer().getConfigurationManager().getPlayerForUsername(user);
+				EntityPlayer player = TConstruct.playerTracker.getEntityPlayer(user);
+				player.fallDistance = 0;
 			}
 		}
 		catch (IOException e)

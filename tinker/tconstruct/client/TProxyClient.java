@@ -16,15 +16,57 @@ import org.w3c.dom.Document;
 
 import tinker.common.fancyitem.FancyEntityItem;
 import tinker.common.fancyitem.FancyItemRender;
-import tinker.tconstruct.*;
-import tinker.tconstruct.client.entityrender.*;
+import tinker.tconstruct.TConstruct;
+import tinker.tconstruct.TConstructRegistry;
+import tinker.tconstruct.TContent;
+import tinker.tconstruct.TControls;
+import tinker.tconstruct.TProxyCommon;
+import tinker.tconstruct.client.entityrender.CartRender;
+import tinker.tconstruct.client.entityrender.CrystalRender;
+import tinker.tconstruct.client.entityrender.SkylaRender;
 import tinker.tconstruct.client.gui.ToolGuiElement;
-import tinker.tconstruct.client.liquidrender.*;
-import tinker.tconstruct.entity.*;
-import tinker.tconstruct.logic.*;
-import tinker.tconstruct.tools.*;
+import tinker.tconstruct.client.liquidrender.LiquidAlBrassFX;
+import tinker.tconstruct.client.liquidrender.LiquidAlBrassFlowFX;
+import tinker.tconstruct.client.liquidrender.LiquidAluminumFX;
+import tinker.tconstruct.client.liquidrender.LiquidAluminumFlowFX;
+import tinker.tconstruct.client.liquidrender.LiquidAlumiteFX;
+import tinker.tconstruct.client.liquidrender.LiquidAlumiteFlowFX;
+import tinker.tconstruct.client.liquidrender.LiquidAngmallenFX;
+import tinker.tconstruct.client.liquidrender.LiquidAngmallenFlowFX;
+import tinker.tconstruct.client.liquidrender.LiquidArditeFX;
+import tinker.tconstruct.client.liquidrender.LiquidArditeFlowFX;
+import tinker.tconstruct.client.liquidrender.LiquidBronzeFX;
+import tinker.tconstruct.client.liquidrender.LiquidBronzeFlowFX;
+import tinker.tconstruct.client.liquidrender.LiquidCobaltFX;
+import tinker.tconstruct.client.liquidrender.LiquidCobaltFlowFX;
+import tinker.tconstruct.client.liquidrender.LiquidCopperFX;
+import tinker.tconstruct.client.liquidrender.LiquidCopperFlowFX;
+import tinker.tconstruct.client.liquidrender.LiquidDamascusSteelFX;
+import tinker.tconstruct.client.liquidrender.LiquidDamascusSteelFlowFX;
+import tinker.tconstruct.client.liquidrender.LiquidGoldFX;
+import tinker.tconstruct.client.liquidrender.LiquidGoldFlowFX;
+import tinker.tconstruct.client.liquidrender.LiquidHeptazionFX;
+import tinker.tconstruct.client.liquidrender.LiquidHeptazionFlowFX;
+import tinker.tconstruct.client.liquidrender.LiquidIronFX;
+import tinker.tconstruct.client.liquidrender.LiquidIronFlowFX;
+import tinker.tconstruct.client.liquidrender.LiquidManganeseFX;
+import tinker.tconstruct.client.liquidrender.LiquidManganeseFlowFX;
+import tinker.tconstruct.client.liquidrender.LiquidManyullynFX;
+import tinker.tconstruct.client.liquidrender.LiquidManyullynFlowFX;
+import tinker.tconstruct.client.liquidrender.LiquidObsidianFX;
+import tinker.tconstruct.client.liquidrender.LiquidObsidianFlowFX;
+import tinker.tconstruct.client.liquidrender.LiquidSteelFX;
+import tinker.tconstruct.client.liquidrender.LiquidSteelFlowFX;
+import tinker.tconstruct.client.liquidrender.LiquidTinFX;
+import tinker.tconstruct.client.liquidrender.LiquidTinFlowFX;
+import tinker.tconstruct.entity.CartEntity;
+import tinker.tconstruct.entity.Crystal;
+import tinker.tconstruct.entity.Skyla;
+import tinker.tconstruct.logic.CastingTableLogic;
+import tinker.tconstruct.tools.ToolCore;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.ClientRegistry;
+import cpw.mods.fml.client.registry.KeyBindingRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
@@ -98,6 +140,7 @@ public class TProxyClient extends TProxyCommon
 		RenderingRegistry.registerEntityRenderingHandler(CartEntity.class, new CartRender());
 		RenderingRegistry.registerEntityRenderingHandler(Skyla.class, new SkylaRender());
 		RenderingRegistry.registerEntityRenderingHandler(FancyEntityItem.class, new FancyItemRender());
+		RenderingRegistry.registerEntityRenderingHandler(Crystal.class, new CrystalRender());
 		//RenderingRegistry.registerEntityRenderingHandler(net.minecraft.entity.player.EntityPlayer.class, new PlayerArmorRender()); // <-- Works, woo!
 
 		addRenderMappings();
@@ -382,5 +425,14 @@ public class TProxyClient extends TProxyCommon
 		{
 			tool.effectTextures.put(materialID, tool.getToolTextureFile() + partialLocation);
 		}
+	}
+	
+	/* Keybindings */
+	public static TControls controlInstance;
+	
+	public void registerKeys()
+	{
+		controlInstance = new TControls();
+		KeyBindingRegistry.registerKeyBinding(controlInstance);
 	}
 }

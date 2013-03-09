@@ -20,7 +20,7 @@ public class ToolPart extends CraftingItem
 
 	public String getItemNameIS(ItemStack stack)
 	{
-		int arr = MathHelper.clamp_int(stack.getItemDamage(), 0, 15);
+		int arr = MathHelper.clamp_int(stack.getItemDamage(), 0, 16);
 		return getItemName() + "." +toolMaterialNames[arr];
 	}
 	

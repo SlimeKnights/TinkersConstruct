@@ -14,6 +14,7 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.EnchantmentThorns;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.monster.EntityGhast;
 import net.minecraft.entity.passive.EntityWolf;
@@ -58,40 +59,6 @@ public class AbilityHelper
 
 		return true;
 	}
-
-	/*public static void hitEntity (ItemStack stack, EntityLiving mob, EntityLiving player)
-	{
-		hitEntity(stack, mob, player, 1f);
-	}
-
-	public static void hitEntity (ItemStack stack, EntityLiving mob, EntityLiving player, float bonusDamage)
-	{
-		NBTTagCompound tags = stack.getTagCompound();
-		if (!tags.getCompoundTag("InfiTool").getBoolean("Broken"))
-		{
-			int durability = tags.getCompoundTag("InfiTool").getInteger("Damage");
-
-			float shoddy = tags.getCompoundTag("InfiTool").getFloat("Shoddy");
-			float damageModifier = -shoddy * durability / 100f;
-
-			int attack = (int) ((tags.getCompoundTag("InfiTool").getInteger("Attack") + damageModifier) * bonusDamage);
-
-			if (player instanceof EntityPlayer)
-				if (mob.attackEntityFrom(DamageSource.causePlayerDamage((EntityPlayer) player), attack))
-				{
-					damageTool(stack, 1, tags, player, false);
-					if (tags.getCompoundTag("InfiTool").getBoolean("Necrotic"))
-						player.heal(1);
-				}
-			else
-				mob.attackEntityFrom(DamageSource.causeMobDamage(player), attack);
-			
-			if (tags.getCompoundTag("InfiTool").hasKey("Fiery"))
-			{
-				mob.setFire(tags.getCompoundTag("InfiTool").getInteger("Fiery")/5+1);
-			}
-		}
-	}*/
 	
 	public static void onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity entity, ToolCore tool)
 	{
@@ -298,12 +265,9 @@ public class AbilityHelper
 			else
 			{
 				tags.getCompoundTag("InfiTool").setInteger("Damage", damage + dam);
-				int toolDamage = damage * 100 / maxDamage + 1;
-				//System.out.println("Damage: " + damer);
+				int toolDamage = damage * 100 / maxDamage;
 				int stackDamage = stack.getItemDamage();
-				//if (toolDamage >= stackDamage && toolDamage < 100)
-					//stack.damageItem(toolDamage - stackDamage, entity);
-				stack.setItemDamage(damage * 100 / maxDamage + 1);
+				stack.setItemDamage(damage * 100 / maxDamage);
 			}
 
 			//stack.setItemDamage(1 + (maxDamage - damage) * (stack.getMaxDamage() - 1) / maxDamage);
@@ -441,11 +405,8 @@ public class AbilityHelper
 		tags.getCompoundTag("InfiTool").setBoolean("Broken", false);
 		tags.getCompoundTag("InfiTool").setInteger("Damage", 0);
 	}
-
-	/* Entities */
 	
 	
-
 	public static DamageSource causePiercingDamage (EntityLiving mob)
 	{
 		return new PiercingEntityDamage("mob", mob);
@@ -519,6 +480,16 @@ public class AbilityHelper
 					return true;
 				}
 			}
+		}
+	}
+	
+	public static void spawnItemAtPlayer(EntityPlayer player, ItemStack stack)
+	{
+		if (!player.worldObj.isRemote)
+		{
+			EntityItem entityitem = new EntityItem(player.worldObj, player.posX + 0.5D, player.posY + 0.5D, player.posZ + 0.5D, stack);
+			entityitem.delayBeforeCanPickup = 10;
+			player.worldObj.spawnEntityInWorld(entityitem);
 		}
 	}
 }

@@ -1,20 +1,9 @@
 package tinker.tconstruct;
 
-import java.util.ArrayList;
 import java.util.Random;
 
-import net.minecraft.block.material.Material;
-import net.minecraft.entity.passive.EntityCow;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumMovingObjectType;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.Event.Result;
-import net.minecraftforge.event.ForgeSubscribe;
-import net.minecraftforge.event.entity.player.FillBucketEvent;
-import net.minecraftforge.oredict.OreDictionary;
-import net.minecraftforge.oredict.OreDictionary.OreRegisterEvent;
-import tinker.tconstruct.crafting.PatternBuilder;
+import tinker.tconstruct.player.TPlayerHandler;
 import tinker.tconstruct.worldgen.TBaseWorldGenerator;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
@@ -50,7 +39,8 @@ public class TConstruct
 	public TConstruct()
 	{
 		//Take that, any mod that does ore dictionary registration in preinit!
-		MinecraftForge.EVENT_BUS.register(new TEventHandler());
+		events = new TEventHandler();
+		MinecraftForge.EVENT_BUS.register(events);
 	}
 
 	@PreInit
@@ -62,25 +52,31 @@ public class TConstruct
 		blockTab = new TabTools("TConstructBlocks");
 		content = new TContent();
 
-		NetworkRegistry.instance().registerGuiHandler(instance, new TGuiHandler());
 	}
 
 	@Init
-	public void load (FMLInitializationEvent evt)
+	public void init (FMLInitializationEvent evt)
 	{
 		GameRegistry.registerWorldGenerator(new TBaseWorldGenerator());
-		content.oreRegistry();
+		playerTracker = new TPlayerHandler();
+		MinecraftForge.EVENT_BUS.register(playerTracker);
+		GameRegistry.registerPlayerTracker(playerTracker);
+		NetworkRegistry.instance().registerGuiHandler(instance, new TGuiHandler());
+		proxy.addNames();
+		proxy.registerRenderer();
+		proxy.readManuals();
+		proxy.registerKeys();
 	}
 
 	@PostInit
 	public void postInit (FMLPostInitializationEvent evt)
 	{
-		proxy.addNames();
-		proxy.registerRenderer();
-		proxy.readManuals();
 		content.modIntegration();
+		content.oreRegistry();
 	}
 
+	public static TEventHandler events;
+	public static TPlayerHandler playerTracker;
 	public static TContent content;
 
 	public static Random tRand = new Random();

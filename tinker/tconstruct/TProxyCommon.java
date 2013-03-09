@@ -16,6 +16,8 @@ public class TProxyCommon
 	
 	public void readManuals() {}
 	
+	public void registerKeys() {}
+	
 	public File getLocation()
 	{
 		return new File(".");

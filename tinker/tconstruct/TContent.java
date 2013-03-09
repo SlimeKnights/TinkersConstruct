@@ -116,9 +116,11 @@ public class TContent implements IFuelHandler
 
 	void createEntities ()
 	{
-		EntityRegistry.registerModEntity(CartEntity.class, "Small Wagon", 0, TConstruct.instance, 32, 5, true);
-		EntityRegistry.registerModEntity(Skyla.class, "Skyla", 1, TConstruct.instance, 32, 5, true);
-		EntityRegistry.registerModEntity(FancyEntityItem.class, "Fancy Item", 1, TConstruct.instance, 32, 5, true);
+		EntityRegistry.registerModEntity(FancyEntityItem.class, "Fancy Item", 0, TConstruct.instance, 32, 5, true);
+		EntityRegistry.registerModEntity(CartEntity.class, "Small Wagon", 1, TConstruct.instance, 32, 5, true);
+		EntityRegistry.registerModEntity(Crystal.class, "Crystal", 2, TConstruct.instance, 32, 5, true);
+
+		EntityRegistry.registerModEntity(Skyla.class, "Skyla", 10, TConstruct.instance, 32, 5, true);
 	}
 	
 	void registerBlocks()
