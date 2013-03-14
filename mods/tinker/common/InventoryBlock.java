@@ -22,10 +22,19 @@ public abstract class InventoryBlock extends BlockContainer
 	}
 
 	/* Logic backend */
-	public TileEntity createNewTileEntity (World var1) { return null; }	
-	public abstract TileEntity createNewTileEntity(World world, int metadata);
+	public TileEntity createNewTileEntity (World var1) 
+	{ return null; }	
+	public abstract TileEntity createTileEntity(World world, int metadata);
 	public abstract Integer getGui(World world, int x, int y, int z, EntityPlayer entityplayer);    
     public abstract Object getModInstance();
+    
+    /*public void onBlockAdded(World par1World, int x, int y, int z)
+    {
+    	System.out.println("Added");
+        //super.onBlockAdded(par1World, x, y, z);
+        par1World.setBlockTileEntity(x, y, z, this.createTileEntity(par1World, par1World.getBlockMetadata(x, y, z)));
+    }*/
+
 
 	@Override
 	public boolean onBlockActivated (World world, int x, int y, int z, EntityPlayer player, int side, float clickX, float clickY, float clickZ)

@@ -265,20 +265,20 @@ public class TContent implements IFuelHandler
 	void registerItems ()
 	{
 		titleIcon = new TitleIcon(PHConstruct.uselessItem).setUnlocalizedName("tconstruct.titleicon");
-		String[] blanks = new String[] {"blankpattern", "blankcast"};
-		blankPattern = new CraftingItem(PHConstruct.blankPattern, blanks, blanks).setUnlocalizedName("tconstruct.blankpattern");
+		String[] blanks = new String[] {"blank_pattern", "blank_cast"};
+		blankPattern = new CraftingItem(PHConstruct.blankPattern, blanks, blanks, "materials/").setUnlocalizedName("tconstruct.Pattern");
 		String[] craftingMaterials = new String[] { 
 			"PaperStack", "SlimeCrystal", "SearedBrick", "CobaltIngot", "ArditeIngot", "ManyullynIngot", "Mossball", "LavaCrystal", "NecroticBone",
 			"CopperIngot", "TinIngot", "AluminumIngot", "RawAluminum", "BronzeIngot", "AlBrassIngot", "AlumiteIngot", "SteelIngot" };
 		String[] craftingTextures = new String[] { 
-				"material_paper_stack", "material_slime_crystal", "material_seared_brick", "material_cobalt_ingot", "material_ardite_ingot", "material_manyullyn_ingot", 
-				"material_mossball", "material_lava_crystal", "material_necrotic_bone", "material_copper_ingot", "material_tin_ingot", "material_aluminum_ingot", 
-				"material_raw_aluminum", "material_bronze_ingot", "material_alubrass_ingot", "material_alumite_ingot", "material_steel_ingot" };
-		materials = new CraftingItem(PHConstruct.materials, craftingMaterials, craftingTextures).setUnlocalizedName("tconstruct.Materials");
+				"material_paperstack", "material_slimecrystal", "material_searedbrick", "material_cobaltingot", "material_arditeingot", "material_manyullyningot", 
+				"material_mossball", "material_lavacrystal", "material_necroticbone", "material_copperingot", "material_tiningot", "material_aluminumingot", 
+				"material_aluminumraw", "material_bronzeingot", "material_alubrassingot", "material_alumiteingot", "material_steelingot" };
+		materials = new CraftingItem(PHConstruct.materials, craftingMaterials, craftingTextures, "materials/").setUnlocalizedName("tconstruct.Materials");
 		toolRod = new ToolPart(PHConstruct.toolRod, "ToolRod", "_rod").setUnlocalizedName("tconstruct.ToolRod");
-		toolShard = new ToolShard(PHConstruct.toolShard, "ToolShard", "_shard").setUnlocalizedName("tconstruct.ToolShard");
-		woodPattern = new Pattern(PHConstruct.woodPattern, "WoodPattern").setUnlocalizedName("tconstruct.Pattern");
-		metalPattern = new MetalPattern(PHConstruct.metalPattern, "MetalPattern").setUnlocalizedName("tconstruct.MetalPattern");
+		toolShard = new ToolShard(PHConstruct.toolShard, "ToolShard", "_chunk").setUnlocalizedName("tconstruct.ToolShard");
+		woodPattern = new Pattern(PHConstruct.woodPattern, "WoodPattern", "pattern_", "materials/").setUnlocalizedName("tconstruct.Pattern");
+		metalPattern = new MetalPattern(PHConstruct.metalPattern, "MetalPattern", "cast_", "materials/").setUnlocalizedName("tconstruct.MetalPattern");
 		//stonePattern = new Pattern(PHTools.stonePattern, 64, patternTexture).setUnlocalizedName("tconstruct.Pattern");
 		//netherPattern = new Pattern(PHTools.netherPattern, 128, patternTexture).setUnlocalizedName("tconstruct.Pattern");
 

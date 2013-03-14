@@ -18,19 +18,10 @@ public class ToolPart extends CraftingItem
 {
 	public ToolPart(int id, String partType, String textureType)
 	{
-		super(id, getNames(partType), buildTextureNames(textureType));
+		super(id, toolMaterialNames, buildTextureNames(textureType), "parts/");
 		this.setHasSubtypes(true);
 		this.setMaxDamage(0);
 	}
-
-	private static String[] getNames (String partType)
-	{
-		String[] names = new String[toolMaterialNames.length];
-		for (int i = 0; i < toolMaterialNames.length; i++)
-			names[i] = partType + toolMaterialNames[i];
-		return names;
-	}
-	
 
 	private static String[] buildTextureNames (String textureType)
 	{
@@ -40,7 +31,7 @@ public class ToolPart extends CraftingItem
 		return names;
 	}
 	
-	@SideOnly(Side.CLIENT)
+	/*@SideOnly(Side.CLIENT)
     public void func_94581_a(IconRegister iconRegister)
     {
 		this.icons = new Icon[textureNames.length];
@@ -49,7 +40,7 @@ public class ToolPart extends CraftingItem
         {
             this.icons[i] = iconRegister.func_94245_a("tinker:parts/"+textureNames[i]);
         }
-    }
+    }*/
 	
 	public static final String[] toolMaterialNames = new String[] { 
 		"Wood", "Stone", "Iron", "Flint", "Cactus", "Bone", "Obsidian", "Netherrack", "Slime", "Paper", "Cobalt", "Ardite", "Manyullyn", "Copper", "Bronze", "Alumite", "Steel" };

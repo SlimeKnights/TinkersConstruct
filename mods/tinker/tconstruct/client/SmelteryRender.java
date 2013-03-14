@@ -47,8 +47,7 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
 	public boolean renderSmeltery (IBlockAccess world, int x, int y, int z, Block block, int modelID, RenderBlocks renderer)
 	{
 		renderer.renderStandardBlock(block, x, y, z);
-		return true;
-		/*SmelteryLogic logic = (SmelteryLogic) world.getBlockTileEntity(x, y, z);
+		SmelteryLogic logic = (SmelteryLogic) world.getBlockTileEntity(x, y, z);
 		if (logic.validStructure)
 		{
 			int posX = logic.centerPos.x - 1, posY = logic.centerPos.y, posZ = logic.centerPos.z - 1;
@@ -67,14 +66,14 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
 					if (blockToRender.itemID < 4096) //Block
 					{
 						Block liquidBlock = Block.blocksList[blockToRender.itemID];
-						ForgeHooksClient.bindTexture(liquidBlock.getTextureFile(), 0);
+						//ForgeHooksClient.bindTexture(liquidBlock.getTextureFile(), 0);
 						BlockSkinRenderHelper.renderMetadataBlock(liquidBlock, blockToRender.getItemDamage(), posX + i % 3, posY + i / 9, posZ + i / 3, renderer, world);
 					}
 					else
 					//Item
 					{
 						Item liquidItem = Item.itemsList[blockToRender.itemID];
-						ForgeHooksClient.bindTexture(liquidItem.getTextureFile(), 0);
+						//ForgeHooksClient.bindTexture(liquidItem.getTextureFile(), 0);
 						int metadata = blockToRender.getItemDamage();
 						BlockSkinRenderHelper.renderFakeBlock(liquidItem.getIconFromDamage(metadata), metadata, posX, posY + i / 9, posZ, renderer, world);
 					}
@@ -103,7 +102,7 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
 					if (liquid.itemID < 4096) //Block
 					{
 						Block liquidBlock = Block.blocksList[liquid.itemID];
-						ForgeHooksClient.bindTexture(liquidBlock.getTextureFile(), 0);
+						//ForgeHooksClient.bindTexture(liquidBlock.getTextureFile(), 0);
 						for (int i = 0; i < 9; i++)
 							BlockSkinRenderHelper.renderMetadataBlock(liquidBlock, liquid.itemMeta, posX + i % 3, posY+yBase, posZ + i / 3, renderer, world);
 					}
@@ -111,7 +110,7 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
 					//Item
 					{
 						Item liquidItem = Item.itemsList[liquid.itemID];
-						ForgeHooksClient.bindTexture(liquidItem.getTextureFile(), 0);
+						//ForgeHooksClient.bindTexture(liquidItem.getTextureFile(), 0);
 						for (int i = 0; i < 9; i++)
 							BlockSkinRenderHelper.renderFakeBlock(liquidItem.getIconFromDamage(liquid.itemMeta), liquid.itemMeta, posX, posY+yBase, posZ, renderer, world);
 					}
@@ -125,10 +124,10 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
 				}
 			}
 		}
-		return false;*/
+		return false;
 	}
 	
-	/*void renderLayer(SmelteryLogic logic, int start, int posX, int posY, int posZ, RenderBlocks renderer, IBlockAccess world)
+	void renderLayer(SmelteryLogic logic, int start, int posX, int posY, int posZ, RenderBlocks renderer, IBlockAccess world)
 	{
 		renderer.setRenderBounds(-0.001F, -0.001F, -0.001F, 1.001F, 1.001F, 1.001F);
 		for (int i = 0; i < 9; i++)
@@ -144,20 +143,20 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
 				if (blockToRender.itemID < 4096) //Block
 				{
 					Block liquidBlock = Block.blocksList[blockToRender.itemID];
-					ForgeHooksClient.bindTexture(liquidBlock.getTextureFile(), 0);
+					//ForgeHooksClient.bindTexture(liquidBlock.getTextureFile(), 0);
 					BlockSkinRenderHelper.renderMetadataBlock(liquidBlock, blockToRender.getItemDamage(), posX + i % 3, posY, posZ + i / 3, renderer, world);
 				}
 				else
 				//Item
 				{
 					Item liquidItem = Item.itemsList[blockToRender.itemID];
-					ForgeHooksClient.bindTexture(liquidItem.getTextureFile(), 0);
+					//ForgeHooksClient.bindTexture(liquidItem.getTextureFile(), 0);
 					int metadata = blockToRender.getItemDamage();
 					BlockSkinRenderHelper.renderFakeBlock(liquidItem.getIconFromDamage(metadata), metadata, posX + i % 3, posY, posZ + i / 3, renderer, world);
 				}
 			}
 		}
-	}*/
+	}
 
 	@Override
 	public boolean shouldRender3DInInventory ()

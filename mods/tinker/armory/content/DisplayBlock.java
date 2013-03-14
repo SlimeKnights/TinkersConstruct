@@ -18,7 +18,7 @@ public class DisplayBlock extends InventoryBlock
 	}
 
 	@Override
-	public TileEntity createNewTileEntity (World world, int metadata)
+	public TileEntity createTileEntity (World world, int metadata)
 	{
 		return new ShieldrackLogic();
 		//return null;

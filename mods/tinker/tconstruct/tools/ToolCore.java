@@ -221,7 +221,7 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
 
 			else if (renderPass == 2) // Accessory
 			{
-				return (handleIcons.get(tags.getInteger("RenderAccessory")));
+				return (accessoryIcons.get(tags.getInteger("RenderAccessory")));
 			}
 		}
 

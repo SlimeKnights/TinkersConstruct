@@ -16,8 +16,9 @@ public class CraftingItem extends Item
 {
 	public String[] textureNames;
 	public String[] unlocalizedNames;
+	public String folder;
 	public Icon[] icons;
-	public CraftingItem(int id, String[] names, String[] tex)
+	public CraftingItem(int id, String[] names, String[] tex, String f)
 	{
 		super(id);
 		this.setCreativeTab(TConstruct.materialTab);
@@ -25,6 +26,7 @@ public class CraftingItem extends Item
 		this.setHasSubtypes(true);
 		textureNames = tex;
 		unlocalizedNames = names;
+		folder = f;
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -40,7 +42,7 @@ public class CraftingItem extends Item
 
         for (int i = 0; i < this.icons.length; ++i)
         {
-            this.icons[i] = iconRegister.func_94245_a("tinker:"+textureNames[i]);
+            this.icons[i] = iconRegister.func_94245_a("tinker:"+folder+textureNames[i]);
         }
     }
 	

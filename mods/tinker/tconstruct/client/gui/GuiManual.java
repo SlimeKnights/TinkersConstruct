@@ -130,15 +130,15 @@ public class GuiManual extends GuiScreen
     	
         //int texID = this.mc.renderEngine.getTexture();
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        this.mc.renderEngine.func_98187_b("/tinkertextures/gui/bookright.png");
+        this.mc.renderEngine.func_98187_b("/mods/tinker/textures/gui/bookright.png");
         int localWidth = (this.width) / 2;
         byte localHeight = 8;
         this.drawTexturedModalRect(localWidth, localHeight, 0, 0, this.bookImageWidth, this.bookImageHeight);
         
-        //texID = this.mc.renderEngine.getTexture("/tinkertextures/gui/bookleft.png");
+        //texID = this.mc.renderEngine.getTexture("/mods/tinker/textures/gui/bookleft.png");
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         //this.mc.renderEngine.bindTexture(texID);
-        this.mc.renderEngine.func_98187_b("/tinkertextures/gui/bookleft.png");
+        this.mc.renderEngine.func_98187_b("/mods/tinker/textures/gui/bookleft.png");
         localWidth = localWidth - this.bookImageWidth;
         this.drawTexturedModalRect(localWidth, localHeight, 256 - this.bookImageWidth, 0, this.bookImageWidth, this.bookImageHeight);
 

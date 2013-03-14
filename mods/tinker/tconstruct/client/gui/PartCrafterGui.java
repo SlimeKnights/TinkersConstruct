@@ -133,7 +133,7 @@ public class PartCrafterGui extends GuiContainer
 	{
 		// Draw the background
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		this.mc.renderEngine.func_98187_b("/tinkertextures/gui/toolparts.png");
+		this.mc.renderEngine.func_98187_b("/mods/tinker/textures/gui/toolparts.png");
 		int cornerX = (this.width - this.xSize) / 2;
 		int cornerY = (this.height - this.ySize) / 2;
 		this.drawTexturedModalRect(cornerX, cornerY, 0, 0, this.xSize, this.ySize);
@@ -160,18 +160,18 @@ public class PartCrafterGui extends GuiContainer
 		// Draw chest
 		if (drawChestPart)
 		{
-			//texID = this.mc.renderEngine.getTexture("/tinkertextures/gui/patternchestmini.png");
+			//texID = this.mc.renderEngine.getTexture("/mods/tinker/textures/gui/patternchestmini.png");
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 			//his.mc.renderEngine.bindTexture(texID);
-			this.mc.renderEngine.func_98187_b("/tinkertextures/gui/patternchestmini.png");
+			this.mc.renderEngine.func_98187_b("/mods/tinker/textures/gui/patternchestmini.png");
 			this.drawTexturedModalRect(cornerX-116, cornerY+11, 0, 0, this.xSize, this.ySize);
 		}
 
 		// Draw description
-		//texID = this.mc.renderEngine.getTexture("/tinkertextures/gui/description.png");
+		//texID = this.mc.renderEngine.getTexture("/mods/tinker/textures/gui/description.png");
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		//this.mc.renderEngine.bindTexture(texID);
-		this.mc.renderEngine.func_98187_b("/tinkertextures/gui/description.png");
+		this.mc.renderEngine.func_98187_b("/mods/tinker/textures/gui/description.png");
 		cornerX = (this.width + this.xSize) / 2;
 		cornerY = (this.height - this.ySize) / 2;
 		this.drawTexturedModalRect(cornerX, cornerY, 126, 0, 126, this.ySize);

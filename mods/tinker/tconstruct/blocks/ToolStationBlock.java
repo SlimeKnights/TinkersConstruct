@@ -126,7 +126,8 @@ public class ToolStationBlock extends InventoryBlock
 		return AxisAlignedBB.getAABBPool().getAABB((double) x + this.minX, (double) y + this.minY, (double) z + this.minZ, (double) x + this.maxX, (double) y + this.maxY, (double) z + this.maxZ);
 	}
 
-	public TileEntity createNewTileEntity (World world, int metadata)
+	@Override
+	public TileEntity createTileEntity (World world, int metadata)
 	{
 		switch (metadata)
 		{

@@ -196,8 +196,12 @@ public class TProxyClient extends TProxyCommon
 			LanguageRegistry.instance().addStringLocalization(internalName, "en_US", visibleName);
 		}
 
-		LanguageRegistry.addName(TContent.manualBook, "Tinker's Log");
-		LanguageRegistry.addName(TContent.blankPattern, "Blank Pattern");
+		//LanguageRegistry.addName(TContent.manualBook, "Tinker's Log");
+
+		LanguageRegistry.instance().addStringLocalization("item.tconstruct.diary.diary.name", "en_US", "Tinker's Log");
+		LanguageRegistry.instance().addStringLocalization("item.tconstruct.Pattern.blank_pattern.name", "en_US", "Blank Pattern");
+		LanguageRegistry.instance().addStringLocalization("item.tconstruct.Pattern.blank_cast.name", "en_US", "Cast");
+		//LanguageRegistry.addName(TContent.blankPattern, "Blank Pattern");
 		LanguageRegistry.addName(TContent.pickaxe, "Pickaxe");
 		LanguageRegistry.addName(TContent.shovel, "Shovel");
 		LanguageRegistry.addName(TContent.axe, "Axe");
@@ -252,7 +256,7 @@ public class TProxyClient extends TProxyCommon
 
 	public static final String[] materialNames = new String[] { " Rod", " Pickaxe Head", " Shovel Head", " Axe Head", " Sword Blade", " Wide Guard", " Hand Guard", " Crossbar", " Binding", " Pan", " Board", " Broad Axe Head" };
 
-	public static final String[] patterns = new String[] { "ingot", "rod", "pickaxe", "shovel", "axe", "blade", "largeguard", "medguard", "crossbar", "binding", "frypan", "sign", "lumber" };
+	public static final String[] patterns = new String[] { "ingot", "rod", "pickaxe", "shovel", "axe", "swordblade", "largeguard", "mediumguard", "crossbar", "binding", "frypan", "sign" };
 
 	public static final String[] patternNames = new String[] { "Ingot", "Tool Rod", "Pickaxe Head", "Shovel Head", "Axe Head", "Sword Blade", "Wide Guard", "Hand Guard", "Crossbar", "Tool Binding", "Pan", "Board", "Broad Axe Head" };
 

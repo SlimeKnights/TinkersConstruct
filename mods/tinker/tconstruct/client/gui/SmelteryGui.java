@@ -8,12 +8,10 @@ import mods.tinker.tconstruct.logic.SmelteryLogic;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.network.packet.Packet250CustomPayload;
+import net.minecraft.util.Icon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
-import net.minecraftforge.client.ForgeHooksClient;
-import net.minecraftforge.liquids.LiquidStack;
 
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
@@ -121,28 +119,29 @@ public class SmelteryGui extends GuiContainer
 	protected void drawGuiContainerBackgroundLayer (float f, int i, int j)
 	{
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		mc.renderEngine.func_98187_b("/tinkertextures/gui/smeltery.png");
+		mc.renderEngine.func_98187_b("/mods/tinker/textures/gui/smeltery.png");
 		int cornerX = (width - xSize) / 2;
 		int cornerY = (height - ySize) / 2;
 		drawTexturedModalRect(cornerX + 46, cornerY, 0, 0, xSize, ySize);
 
 		//Fuel - Lava
-		/*if (logic.fuelGague > 0)
+		if (logic.fuelGague > 0)
 		{
-			ForgeHooksClient.bindTexture(Block.lavaStill.getTextureFile(), 0);
-			int renderIndex = Block.lavaStill.getBlockTextureFromSideAndMetadata(0, 0);
-			int xTex = renderIndex % 16 * 16;
-			int yTex = renderIndex / 16 * 16;
+			//ForgeHooksClient.bindTexture(Block.lavaStill.getTextureFile(), 0);
+			//int renderIndex = Block.lavaStill.getBlockTextureFromSideAndMetadata(0, 0);
+			Icon inon = Block.lavaStill.getBlockTextureFromSideAndMetadata(0, 0);
+			//int xTex = renderIndex % 16 * 16;
+			//int yTex = renderIndex / 16 * 16;
 			int fuel = logic.getScaledFuelGague(52);
 			int count = 0;
 			while (fuel > 0)
 			{
 				int size = fuel >= 16 ? 16 : fuel;
 				fuel -= size;
-				drawTexturedModalRect(cornerX + 117, (cornerY + 68) - size - 16 * count, xTex, yTex + 16 - size, 12, size);
+				drawTexturedModalRect(cornerX + 117, (cornerY + 68) - size - 16 * count, 0, 16 - size, 12, size);
 				count++;
 			}
-		}*/
+		}
 
 		//Liquids - molten metal
 		int base = 0;
@@ -186,13 +185,13 @@ public class SmelteryGui extends GuiContainer
 		//Liquid gague
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
-		mc.renderEngine.func_98187_b("/tinkertextures/gui/smeltery.png");
+		mc.renderEngine.func_98187_b("/mods/tinker/textures/gui/smeltery.png");
 		drawTexturedModalRect(cornerX + 54, cornerY + 16, xSize, 76, 52, 52);
 		//drawTexturedModalRect(cornerX+111, cornerY+16, xSize, 128, 52, 52);
 
 		//Side inventory
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		mc.renderEngine.func_98187_b("/tinkertextures/gui/smelteryside.png");
+		mc.renderEngine.func_98187_b("/mods/tinker/textures/gui/smelteryside.png");
 		if (logic.layers == 1)
 		{
 			drawTexturedModalRect(cornerX - 46, cornerY, 0, 0, 98, 43);

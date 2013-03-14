@@ -16,6 +16,6 @@ public class TitleIcon extends Item
 	public void func_94581_a (IconRegister iconRegister)
 	{
 		TProxyClient.blankSprite = iconRegister.func_94245_a("tinker:blanksprite");
-		iconIndex = iconRegister.func_94245_a("tparts");
+		iconIndex = iconRegister.func_94245_a("tinker:tparts");
 	}
 }

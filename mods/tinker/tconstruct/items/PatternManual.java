@@ -9,11 +9,12 @@ import net.minecraft.world.World;
 
 public class PatternManual extends CraftingItem
 {
-	static String[] name = new String[] {"manualDiary"};
+	static String[] name = new String[] {"diary"};
+	static String[] textureName = new String[] {"tinkerbook_diary"};
 	public PatternManual(int id)
 	{
-		super(id, name, name);
-		setUnlocalizedName("tconstruct.manualDiary");
+		super(id, name, textureName, "materials/");
+		setUnlocalizedName("tconstruct.diary");
 	}
 
 	@Override

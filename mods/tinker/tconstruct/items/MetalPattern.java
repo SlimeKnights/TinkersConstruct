@@ -8,9 +8,9 @@ import net.minecraft.item.ItemStack;
 public class MetalPattern extends Pattern
 {
 
-	public MetalPattern(int id, String partType)
+	public MetalPattern(int id, String partType, String patternType, String folder)
 	{
-		super(id, partType);
+		super(id, partType, patternType, folder);
 	}
 
 	public void getSubItems (int id, CreativeTabs tab, List list)

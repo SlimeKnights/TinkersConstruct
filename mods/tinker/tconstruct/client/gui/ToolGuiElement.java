@@ -20,7 +20,7 @@ public class ToolGuiElement
 		iconsY = yi;
 		title = t;
 		body = b;
-		texture = "/tinkertextures/gui/icons.png";
+		texture = "/mods/tinker/textures/gui/icons.png";
 	}
 	
 	public ToolGuiElement(int st, int bx, int by, int[] xi, int[] yi, String t, String b, String tex)

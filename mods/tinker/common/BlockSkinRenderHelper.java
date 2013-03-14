@@ -1,9 +1,12 @@
 package mods.tinker.common;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockGrass;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.client.renderer.RenderBlocks;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 
 public class BlockSkinRenderHelper
@@ -33,18 +36,18 @@ public class BlockSkinRenderHelper
 	static boolean renderMetadataBlockWithAmbientOcclusion(Block block, int metadata, int xMin, int yMin, int zMin, 
 			float xMax, float yMax, float zMax, RenderBlocks render, IBlockAccess world)
     {
-        /*render.enableAO = true;
-        boolean var8 = false;
-        float var9 = render.lightValueOwn;
-        float var10 = render.lightValueOwn;
-        float var11 = render.lightValueOwn;
-        float var12 = render.lightValueOwn;
-        boolean var13 = true;
-        boolean var14 = true;
-        boolean var15 = true;
-        boolean var16 = true;
-        boolean var17 = true;
-        boolean var18 = true;
+		render.enableAO = true;
+        boolean flag = false;
+        float f3 = render.lightValueOwn;
+        float f4 = render.lightValueOwn;
+        float f5 = render.lightValueOwn;
+        float f6 = render.lightValueOwn;
+        boolean flag1 = true;
+        boolean flag2 = true;
+        boolean flag3 = true;
+        boolean flag4 = true;
+        boolean flag5 = true;
+        boolean flag6 = true;
         render.lightValueOwn = block.getAmbientOcclusionLightValue(render.blockAccess, xMin, yMin, zMin);
         render.aoLightValueXNeg = block.getAmbientOcclusionLightValue(render.blockAccess, xMin - 1, yMin, zMin);
         render.aoLightValueYNeg = block.getAmbientOcclusionLightValue(render.blockAccess, xMin, yMin - 1, zMin);
@@ -52,46 +55,46 @@ public class BlockSkinRenderHelper
         render.aoLightValueXPos = block.getAmbientOcclusionLightValue(render.blockAccess, xMin + 1, yMin, zMin);
         render.aoLightValueYPos = block.getAmbientOcclusionLightValue(render.blockAccess, xMin, yMin + 1, zMin);
         render.aoLightValueZPos = block.getAmbientOcclusionLightValue(render.blockAccess, xMin, yMin, zMin + 1);
-        int var19 = block.getMixedBrightnessForBlock(render.blockAccess, xMin, yMin, zMin);
-        int var20 = var19;
-        int var21 = var19;
-        int var22 = var19;
-        int var23 = var19;
-        int var24 = var19;
-        int var25 = var19;
+        int l = block.getMixedBrightnessForBlock(render.blockAccess, xMin, yMin, zMin);
+        int i1 = l;
+        int j1 = l;
+        int k1 = l;
+        int l1 = l;
+        int i2 = l;
+        int j2 = l;
 
-        if (render.renderMinY <= 0.0D)
+        if (render.renderMinY <= 0.0D || !render.blockAccess.isBlockOpaqueCube(xMin, yMin - 1, zMin))
         {
-            var21 = block.getMixedBrightnessForBlock(render.blockAccess, xMin, yMin - 1, zMin);
+            j1 = block.getMixedBrightnessForBlock(render.blockAccess, xMin, yMin - 1, zMin);
         }
 
-        if (render.renderMaxY >= 1.0D)
+        if (render.renderMaxY >= 1.0D || !render.blockAccess.isBlockOpaqueCube(xMin, yMin + 1, zMin))
         {
-            var24 = block.getMixedBrightnessForBlock(render.blockAccess, xMin, yMin + 1, zMin);
+            i2 = block.getMixedBrightnessForBlock(render.blockAccess, xMin, yMin + 1, zMin);
         }
 
-        if (render.renderMinX <= 0.0D)
+        if (render.renderMinX <= 0.0D || !render.blockAccess.isBlockOpaqueCube(xMin - 1, yMin, zMin))
         {
-            var20 = block.getMixedBrightnessForBlock(render.blockAccess, xMin - 1, yMin, zMin);
+            i1 = block.getMixedBrightnessForBlock(render.blockAccess, xMin - 1, yMin, zMin);
         }
 
-        if (render.renderMaxX >= 1.0D)
+        if (render.renderMaxX >= 1.0D || !render.blockAccess.isBlockOpaqueCube(xMin + 1, yMin, zMin))
         {
-            var23 = block.getMixedBrightnessForBlock(render.blockAccess, xMin + 1, yMin, zMin);
+            l1 = block.getMixedBrightnessForBlock(render.blockAccess, xMin + 1, yMin, zMin);
         }
 
-        if (render.renderMinZ <= 0.0D)
+        if (render.renderMinZ <= 0.0D || !render.blockAccess.isBlockOpaqueCube(xMin, yMin, zMin - 1))
         {
-            var22 = block.getMixedBrightnessForBlock(render.blockAccess, xMin, yMin, zMin - 1);
+            k1 = block.getMixedBrightnessForBlock(render.blockAccess, xMin, yMin, zMin - 1);
         }
 
-        if (render.renderMaxZ >= 1.0D)
+        if (render.renderMaxZ >= 1.0D || !render.blockAccess.isBlockOpaqueCube(xMin, yMin, zMin + 1))
         {
-            var25 = block.getMixedBrightnessForBlock(render.blockAccess, xMin, yMin, zMin + 1);
+            j2 = block.getMixedBrightnessForBlock(render.blockAccess, xMin, yMin, zMin + 1);
         }
 
-        Tessellator var26 = Tessellator.instance;
-        var26.setBrightness(983055);
+        Tessellator tessellator = Tessellator.instance;
+        tessellator.setBrightness(983055);
         render.aoGrassXYZPPC = Block.canBlockGrass[render.blockAccess.getBlockId(xMin + 1, yMin + 1, zMin)];
         render.aoGrassXYZPNC = Block.canBlockGrass[render.blockAccess.getBlockId(xMin + 1, yMin - 1, zMin)];
         render.aoGrassXYZPCP = Block.canBlockGrass[render.blockAccess.getBlockId(xMin + 1, yMin, zMin + 1)];
@@ -105,22 +108,22 @@ public class BlockSkinRenderHelper
         render.aoGrassXYZCNP = Block.canBlockGrass[render.blockAccess.getBlockId(xMin, yMin - 1, zMin + 1)];
         render.aoGrassXYZCNN = Block.canBlockGrass[render.blockAccess.getBlockId(xMin, yMin - 1, zMin - 1)];
 
-        if (block.blockIndexInTexture == 3)
+        if (render.func_94175_b(block).func_94215_i().equals("grass_top"))
         {
-            var18 = false;
-            var17 = false;
-            var16 = false;
-            var15 = false;
-            var13 = false;
+            flag6 = false;
+            flag5 = false;
+            flag4 = false;
+            flag3 = false;
+            flag1 = false;
         }
 
-        if (render.overrideBlockTexture >= 0)
+        if (render.func_94167_b())
         {
-            var18 = false;
-            var17 = false;
-            var16 = false;
-            var15 = false;
-            var13 = false;
+            flag6 = false;
+            flag5 = false;
+            flag4 = false;
+            flag3 = false;
+            flag1 = false;
         }
 
         if (render.renderAllFaces || block.shouldSideBeRendered(render.blockAccess, xMin, yMin - 1, zMin, 0))
@@ -190,41 +193,41 @@ public class BlockSkinRenderHelper
                     ++yMin;
                 }
 
-                var9 = (render.aoLightValueScratchXYZNNP + render.aoLightValueScratchXYNN + render.aoLightValueScratchYZNP + render.aoLightValueYNeg) / 4.0F;
-                var12 = (render.aoLightValueScratchYZNP + render.aoLightValueYNeg + render.aoLightValueScratchXYZPNP + render.aoLightValueScratchXYPN) / 4.0F;
-                var11 = (render.aoLightValueYNeg + render.aoLightValueScratchYZNN + render.aoLightValueScratchXYPN + render.aoLightValueScratchXYZPNN) / 4.0F;
-                var10 = (render.aoLightValueScratchXYNN + render.aoLightValueScratchXYZNNN + render.aoLightValueYNeg + render.aoLightValueScratchYZNN) / 4.0F;
-                render.brightnessTopLeft = render.getAoBrightness(render.aoBrightnessXYZNNP, render.aoBrightnessXYNN, render.aoBrightnessYZNP, var21);
-                render.brightnessTopRight = render.getAoBrightness(render.aoBrightnessYZNP, render.aoBrightnessXYZPNP, render.aoBrightnessXYPN, var21);
-                render.brightnessBottomRight = render.getAoBrightness(render.aoBrightnessYZNN, render.aoBrightnessXYPN, render.aoBrightnessXYZPNN, var21);
-                render.brightnessBottomLeft = render.getAoBrightness(render.aoBrightnessXYNN, render.aoBrightnessXYZNNN, render.aoBrightnessYZNN, var21);
+                f3 = (render.aoLightValueScratchXYZNNP + render.aoLightValueScratchXYNN + render.aoLightValueScratchYZNP + render.aoLightValueYNeg) / 4.0F;
+                f6 = (render.aoLightValueScratchYZNP + render.aoLightValueYNeg + render.aoLightValueScratchXYZPNP + render.aoLightValueScratchXYPN) / 4.0F;
+                f5 = (render.aoLightValueYNeg + render.aoLightValueScratchYZNN + render.aoLightValueScratchXYPN + render.aoLightValueScratchXYZPNN) / 4.0F;
+                f4 = (render.aoLightValueScratchXYNN + render.aoLightValueScratchXYZNNN + render.aoLightValueYNeg + render.aoLightValueScratchYZNN) / 4.0F;
+                render.brightnessTopLeft = render.getAoBrightness(render.aoBrightnessXYZNNP, render.aoBrightnessXYNN, render.aoBrightnessYZNP, j1);
+                render.brightnessTopRight = render.getAoBrightness(render.aoBrightnessYZNP, render.aoBrightnessXYZPNP, render.aoBrightnessXYPN, j1);
+                render.brightnessBottomRight = render.getAoBrightness(render.aoBrightnessYZNN, render.aoBrightnessXYPN, render.aoBrightnessXYZPNN, j1);
+                render.brightnessBottomLeft = render.getAoBrightness(render.aoBrightnessXYNN, render.aoBrightnessXYZNNN, render.aoBrightnessYZNN, j1);
             }
             else
             {
-                var12 = render.aoLightValueYNeg;
-                var11 = render.aoLightValueYNeg;
-                var10 = render.aoLightValueYNeg;
-                var9 = render.aoLightValueYNeg;
+                f6 = render.aoLightValueYNeg;
+                f5 = render.aoLightValueYNeg;
+                f4 = render.aoLightValueYNeg;
+                f3 = render.aoLightValueYNeg;
                 render.brightnessTopLeft = render.brightnessBottomLeft = render.brightnessBottomRight = render.brightnessTopRight = render.aoBrightnessXYNN;
             }
 
-            render.colorRedTopLeft = render.colorRedBottomLeft = render.colorRedBottomRight = render.colorRedTopRight = (var13 ? xMax : 1.0F) * 0.5F;
-            render.colorGreenTopLeft = render.colorGreenBottomLeft = render.colorGreenBottomRight = render.colorGreenTopRight = (var13 ? yMax : 1.0F) * 0.5F;
-            render.colorBlueTopLeft = render.colorBlueBottomLeft = render.colorBlueBottomRight = render.colorBlueTopRight = (var13 ? zMax : 1.0F) * 0.5F;
-            render.colorRedTopLeft *= var9;
-            render.colorGreenTopLeft *= var9;
-            render.colorBlueTopLeft *= var9;
-            render.colorRedBottomLeft *= var10;
-            render.colorGreenBottomLeft *= var10;
-            render.colorBlueBottomLeft *= var10;
-            render.colorRedBottomRight *= var11;
-            render.colorGreenBottomRight *= var11;
-            render.colorBlueBottomRight *= var11;
-            render.colorRedTopRight *= var12;
-            render.colorGreenTopRight *= var12;
-            render.colorBlueTopRight *= var12;
+            render.colorRedTopLeft = render.colorRedBottomLeft = render.colorRedBottomRight = render.colorRedTopRight = (flag1 ? xMax : 1.0F) * 0.5F;
+            render.colorGreenTopLeft = render.colorGreenBottomLeft = render.colorGreenBottomRight = render.colorGreenTopRight = (flag1 ? yMax : 1.0F) * 0.5F;
+            render.colorBlueTopLeft = render.colorBlueBottomLeft = render.colorBlueBottomRight = render.colorBlueTopRight = (flag1 ? zMax : 1.0F) * 0.5F;
+            render.colorRedTopLeft *= f3;
+            render.colorGreenTopLeft *= f3;
+            render.colorBlueTopLeft *= f3;
+            render.colorRedBottomLeft *= f4;
+            render.colorGreenBottomLeft *= f4;
+            render.colorBlueBottomLeft *= f4;
+            render.colorRedBottomRight *= f5;
+            render.colorGreenBottomRight *= f5;
+            render.colorBlueBottomRight *= f5;
+            render.colorRedTopRight *= f6;
+            render.colorGreenTopRight *= f6;
+            render.colorBlueTopRight *= f6;
             render.renderBottomFace(block, (double)xMin, (double)yMin, (double)zMin, block.getBlockTextureFromSideAndMetadata(0, metadata));
-            var8 = true;
+            flag = true;
         }
 
         if (render.renderAllFaces || block.shouldSideBeRendered(render.blockAccess, xMin, yMin + 1, zMin, 1))
@@ -294,44 +297,52 @@ public class BlockSkinRenderHelper
                     --yMin;
                 }
 
-                var12 = (render.aoLightValueScratchXYZNPP + render.aoLightValueScratchXYNP + render.aoLightValueScratchYZPP + render.aoLightValueYPos) / 4.0F;
-                var9 = (render.aoLightValueScratchYZPP + render.aoLightValueYPos + render.aoLightValueScratchXYZPPP + render.aoLightValueScratchXYPP) / 4.0F;
-                var10 = (render.aoLightValueYPos + render.aoLightValueScratchYZPN + render.aoLightValueScratchXYPP + render.aoLightValueScratchXYZPPN) / 4.0F;
-                var11 = (render.aoLightValueScratchXYNP + render.aoLightValueScratchXYZNPN + render.aoLightValueYPos + render.aoLightValueScratchYZPN) / 4.0F;
-                render.brightnessTopRight = render.getAoBrightness(render.aoBrightnessXYZNPP, render.aoBrightnessXYNP, render.aoBrightnessYZPP, var24);
-                render.brightnessTopLeft = render.getAoBrightness(render.aoBrightnessYZPP, render.aoBrightnessXYZPPP, render.aoBrightnessXYPP, var24);
-                render.brightnessBottomLeft = render.getAoBrightness(render.aoBrightnessYZPN, render.aoBrightnessXYPP, render.aoBrightnessXYZPPN, var24);
-                render.brightnessBottomRight = render.getAoBrightness(render.aoBrightnessXYNP, render.aoBrightnessXYZNPN, render.aoBrightnessYZPN, var24);
+                f6 = (render.aoLightValueScratchXYZNPP + render.aoLightValueScratchXYNP + render.aoLightValueScratchYZPP + render.aoLightValueYPos) / 4.0F;
+                f3 = (render.aoLightValueScratchYZPP + render.aoLightValueYPos + render.aoLightValueScratchXYZPPP + render.aoLightValueScratchXYPP) / 4.0F;
+                f4 = (render.aoLightValueYPos + render.aoLightValueScratchYZPN + render.aoLightValueScratchXYPP + render.aoLightValueScratchXYZPPN) / 4.0F;
+                f5 = (render.aoLightValueScratchXYNP + render.aoLightValueScratchXYZNPN + render.aoLightValueYPos + render.aoLightValueScratchYZPN) / 4.0F;
+                render.brightnessTopRight = render.getAoBrightness(render.aoBrightnessXYZNPP, render.aoBrightnessXYNP, render.aoBrightnessYZPP, i2);
+                render.brightnessTopLeft = render.getAoBrightness(render.aoBrightnessYZPP, render.aoBrightnessXYZPPP, render.aoBrightnessXYPP, i2);
+                render.brightnessBottomLeft = render.getAoBrightness(render.aoBrightnessYZPN, render.aoBrightnessXYPP, render.aoBrightnessXYZPPN, i2);
+                render.brightnessBottomRight = render.getAoBrightness(render.aoBrightnessXYNP, render.aoBrightnessXYZNPN, render.aoBrightnessYZPN, i2);
             }
             else
             {
-                var12 = render.aoLightValueYPos;
-                var11 = render.aoLightValueYPos;
-                var10 = render.aoLightValueYPos;
-                var9 = render.aoLightValueYPos;
-                render.brightnessTopLeft = render.brightnessBottomLeft = render.brightnessBottomRight = render.brightnessTopRight = var24;
+                f6 = render.aoLightValueYPos;
+                f5 = render.aoLightValueYPos;
+                f4 = render.aoLightValueYPos;
+                f3 = render.aoLightValueYPos;
+                render.brightnessTopLeft = render.brightnessBottomLeft = render.brightnessBottomRight = render.brightnessTopRight = i2;
             }
 
-            render.colorRedTopLeft = render.colorRedBottomLeft = render.colorRedBottomRight = render.colorRedTopRight = var14 ? xMax : 1.0F;
-            render.colorGreenTopLeft = render.colorGreenBottomLeft = render.colorGreenBottomRight = render.colorGreenTopRight = var14 ? yMax : 1.0F;
-            render.colorBlueTopLeft = render.colorBlueBottomLeft = render.colorBlueBottomRight = render.colorBlueTopRight = var14 ? zMax : 1.0F;
-            render.colorRedTopLeft *= var9;
-            render.colorGreenTopLeft *= var9;
-            render.colorBlueTopLeft *= var9;
-            render.colorRedBottomLeft *= var10;
-            render.colorGreenBottomLeft *= var10;
-            render.colorBlueBottomLeft *= var10;
-            render.colorRedBottomRight *= var11;
-            render.colorGreenBottomRight *= var11;
-            render.colorBlueBottomRight *= var11;
-            render.colorRedTopRight *= var12;
-            render.colorGreenTopRight *= var12;
-            render.colorBlueTopRight *= var12;
+            render.colorRedTopLeft = render.colorRedBottomLeft = render.colorRedBottomRight = render.colorRedTopRight = flag2 ? xMax : 1.0F;
+            render.colorGreenTopLeft = render.colorGreenBottomLeft = render.colorGreenBottomRight = render.colorGreenTopRight = flag2 ? yMax : 1.0F;
+            render.colorBlueTopLeft = render.colorBlueBottomLeft = render.colorBlueBottomRight = render.colorBlueTopRight = flag2 ? zMax : 1.0F;
+            render.colorRedTopLeft *= f3;
+            render.colorGreenTopLeft *= f3;
+            render.colorBlueTopLeft *= f3;
+            render.colorRedBottomLeft *= f4;
+            render.colorGreenBottomLeft *= f4;
+            render.colorBlueBottomLeft *= f4;
+            render.colorRedBottomRight *= f5;
+            render.colorGreenBottomRight *= f5;
+            render.colorBlueBottomRight *= f5;
+            render.colorRedTopRight *= f6;
+            render.colorGreenTopRight *= f6;
+            render.colorBlueTopRight *= f6;
             render.renderTopFace(block, (double)xMin, (double)yMin, (double)zMin, block.getBlockTextureFromSideAndMetadata(1, metadata));
-            var8 = true;
+            flag = true;
         }
 
-        int var27;
+        float f7;
+        float f8;
+        float f9;
+        int k2;
+        float f10;
+        int l2;
+        Icon icon;
+        int i3;
+        int j3;
 
         if (render.renderAllFaces || block.shouldSideBeRendered(render.blockAccess, xMin, yMin, zMin - 1, 2))
         {
@@ -400,60 +411,64 @@ public class BlockSkinRenderHelper
                     ++zMin;
                 }
 
-                var9 = (render.aoLightValueScratchXZNN + render.aoLightValueScratchXYZNPN + render.aoLightValueZNeg + render.aoLightValueScratchYZPN) / 4.0F;
-                var10 = (render.aoLightValueZNeg + render.aoLightValueScratchYZPN + render.aoLightValueScratchXZPN + render.aoLightValueScratchXYZPPN) / 4.0F;
-                var11 = (render.aoLightValueScratchYZNN + render.aoLightValueZNeg + render.aoLightValueScratchXYZPNN + render.aoLightValueScratchXZPN) / 4.0F;
-                var12 = (render.aoLightValueScratchXYZNNN + render.aoLightValueScratchXZNN + render.aoLightValueScratchYZNN + render.aoLightValueZNeg) / 4.0F;
-                render.brightnessTopLeft = render.getAoBrightness(render.aoBrightnessXZNN, render.aoBrightnessXYZNPN, render.aoBrightnessYZPN, var22);
-                render.brightnessBottomLeft = render.getAoBrightness(render.aoBrightnessYZPN, render.aoBrightnessXZPN, render.aoBrightnessXYZPPN, var22);
-                render.brightnessBottomRight = render.getAoBrightness(render.aoBrightnessYZNN, render.aoBrightnessXYZPNN, render.aoBrightnessXZPN, var22);
-                render.brightnessTopRight = render.getAoBrightness(render.aoBrightnessXYZNNN, render.aoBrightnessXZNN, render.aoBrightnessYZNN, var22);
+                if (render.field_98189_n && render.field_94177_n.gameSettings.ambientOcclusion >= 2)
+                {
+                    f7 = (render.aoLightValueScratchXZNN + render.aoLightValueScratchXYZNPN + render.aoLightValueZNeg + render.aoLightValueScratchYZPN) / 4.0F;
+                    f9 = (render.aoLightValueZNeg + render.aoLightValueScratchYZPN + render.aoLightValueScratchXZPN + render.aoLightValueScratchXYZPPN) / 4.0F;
+                    f8 = (render.aoLightValueScratchYZNN + render.aoLightValueZNeg + render.aoLightValueScratchXYZPNN + render.aoLightValueScratchXZPN) / 4.0F;
+                    f10 = (render.aoLightValueScratchXYZNNN + render.aoLightValueScratchXZNN + render.aoLightValueScratchYZNN + render.aoLightValueZNeg) / 4.0F;
+                    f3 = (float)((double)f7 * render.renderMaxY * (1.0D - render.renderMinX) + (double)f9 * render.renderMinY * render.renderMinX + (double)f8 * (1.0D - render.renderMaxY) * render.renderMinX + (double)f10 * (1.0D - render.renderMaxY) * (1.0D - render.renderMinX));
+                    f4 = (float)((double)f7 * render.renderMaxY * (1.0D - render.renderMaxX) + (double)f9 * render.renderMaxY * render.renderMaxX + (double)f8 * (1.0D - render.renderMaxY) * render.renderMaxX + (double)f10 * (1.0D - render.renderMaxY) * (1.0D - render.renderMaxX));
+                    f5 = (float)((double)f7 * render.renderMinY * (1.0D - render.renderMaxX) + (double)f9 * render.renderMinY * render.renderMaxX + (double)f8 * (1.0D - render.renderMinY) * render.renderMaxX + (double)f10 * (1.0D - render.renderMinY) * (1.0D - render.renderMaxX));
+                    f6 = (float)((double)f7 * render.renderMinY * (1.0D - render.renderMinX) + (double)f9 * render.renderMinY * render.renderMinX + (double)f8 * (1.0D - render.renderMinY) * render.renderMinX + (double)f10 * (1.0D - render.renderMinY) * (1.0D - render.renderMinX));
+                    k2 = render.getAoBrightness(render.aoBrightnessXZNN, render.aoBrightnessXYZNPN, render.aoBrightnessYZPN, k1);
+                    i3 = render.getAoBrightness(render.aoBrightnessYZPN, render.aoBrightnessXZPN, render.aoBrightnessXYZPPN, k1);
+                    j3 = render.getAoBrightness(render.aoBrightnessYZNN, render.aoBrightnessXYZPNN, render.aoBrightnessXZPN, k1);
+                    l2 = render.getAoBrightness(render.aoBrightnessXYZNNN, render.aoBrightnessXZNN, render.aoBrightnessYZNN, k1);
+                    render.brightnessTopLeft = render.func_96444_a(k2, i3, j3, l2, render.renderMaxY * (1.0D - render.renderMinX), render.renderMaxY * render.renderMinX, (1.0D - render.renderMaxY) * render.renderMinX, (1.0D - render.renderMaxY) * (1.0D - render.renderMinX));
+                    render.brightnessBottomLeft = render.func_96444_a(k2, i3, j3, l2, render.renderMaxY * (1.0D - render.renderMaxX), render.renderMaxY * render.renderMaxX, (1.0D - render.renderMaxY) * render.renderMaxX, (1.0D - render.renderMaxY) * (1.0D - render.renderMaxX));
+                    render.brightnessBottomRight = render.func_96444_a(k2, i3, j3, l2, render.renderMinY * (1.0D - render.renderMaxX), render.renderMinY * render.renderMaxX, (1.0D - render.renderMinY) * render.renderMaxX, (1.0D - render.renderMinY) * (1.0D - render.renderMaxX));
+                    render.brightnessTopRight = render.func_96444_a(k2, i3, j3, l2, render.renderMinY * (1.0D - render.renderMinX), render.renderMinY * render.renderMinX, (1.0D - render.renderMinY) * render.renderMinX, (1.0D - render.renderMinY) * (1.0D - render.renderMinX));
+                }
+                else
+                {
+                    f3 = (render.aoLightValueScratchXZNN + render.aoLightValueScratchXYZNPN + render.aoLightValueZNeg + render.aoLightValueScratchYZPN) / 4.0F;
+                    f4 = (render.aoLightValueZNeg + render.aoLightValueScratchYZPN + render.aoLightValueScratchXZPN + render.aoLightValueScratchXYZPPN) / 4.0F;
+                    f5 = (render.aoLightValueScratchYZNN + render.aoLightValueZNeg + render.aoLightValueScratchXYZPNN + render.aoLightValueScratchXZPN) / 4.0F;
+                    f6 = (render.aoLightValueScratchXYZNNN + render.aoLightValueScratchXZNN + render.aoLightValueScratchYZNN + render.aoLightValueZNeg) / 4.0F;
+                    render.brightnessTopLeft = render.getAoBrightness(render.aoBrightnessXZNN, render.aoBrightnessXYZNPN, render.aoBrightnessYZPN, k1);
+                    render.brightnessBottomLeft = render.getAoBrightness(render.aoBrightnessYZPN, render.aoBrightnessXZPN, render.aoBrightnessXYZPPN, k1);
+                    render.brightnessBottomRight = render.getAoBrightness(render.aoBrightnessYZNN, render.aoBrightnessXYZPNN, render.aoBrightnessXZPN, k1);
+                    render.brightnessTopRight = render.getAoBrightness(render.aoBrightnessXYZNNN, render.aoBrightnessXZNN, render.aoBrightnessYZNN, k1);
+                }
             }
             else
             {
-                var12 = render.aoLightValueZNeg;
-                var11 = render.aoLightValueZNeg;
-                var10 = render.aoLightValueZNeg;
-                var9 = render.aoLightValueZNeg;
-                render.brightnessTopLeft = render.brightnessBottomLeft = render.brightnessBottomRight = render.brightnessTopRight = var22;
+                f6 = render.aoLightValueZNeg;
+                f5 = render.aoLightValueZNeg;
+                f4 = render.aoLightValueZNeg;
+                f3 = render.aoLightValueZNeg;
+                render.brightnessTopLeft = render.brightnessBottomLeft = render.brightnessBottomRight = render.brightnessTopRight = k1;
             }
 
-            render.colorRedTopLeft = render.colorRedBottomLeft = render.colorRedBottomRight = render.colorRedTopRight = (var15 ? xMax : 1.0F) * 0.8F;
-            render.colorGreenTopLeft = render.colorGreenBottomLeft = render.colorGreenBottomRight = render.colorGreenTopRight = (var15 ? yMax : 1.0F) * 0.8F;
-            render.colorBlueTopLeft = render.colorBlueBottomLeft = render.colorBlueBottomRight = render.colorBlueTopRight = (var15 ? zMax : 1.0F) * 0.8F;
-            render.colorRedTopLeft *= var9;
-            render.colorGreenTopLeft *= var9;
-            render.colorBlueTopLeft *= var9;
-            render.colorRedBottomLeft *= var10;
-            render.colorGreenBottomLeft *= var10;
-            render.colorBlueBottomLeft *= var10;
-            render.colorRedBottomRight *= var11;
-            render.colorGreenBottomRight *= var11;
-            render.colorBlueBottomRight *= var11;
-            render.colorRedTopRight *= var12;
-            render.colorGreenTopRight *= var12;
-            render.colorBlueTopRight *= var12;
-            var27 = block.getBlockTextureFromSideAndMetadata(2, metadata);
-            render.renderEastFace(block, (double)xMin, (double)yMin, (double)zMin, var27);
+            render.colorRedTopLeft = render.colorRedBottomLeft = render.colorRedBottomRight = render.colorRedTopRight = (flag3 ? xMax : 1.0F) * 0.8F;
+            render.colorGreenTopLeft = render.colorGreenBottomLeft = render.colorGreenBottomRight = render.colorGreenTopRight = (flag3 ? yMax : 1.0F) * 0.8F;
+            render.colorBlueTopLeft = render.colorBlueBottomLeft = render.colorBlueBottomRight = render.colorBlueTopRight = (flag3 ? zMax : 1.0F) * 0.8F;
+            render.colorRedTopLeft *= f3;
+            render.colorGreenTopLeft *= f3;
+            render.colorBlueTopLeft *= f3;
+            render.colorRedBottomLeft *= f4;
+            render.colorGreenBottomLeft *= f4;
+            render.colorBlueBottomLeft *= f4;
+            render.colorRedBottomRight *= f5;
+            render.colorGreenBottomRight *= f5;
+            render.colorBlueBottomRight *= f5;
+            render.colorRedTopRight *= f6;
+            render.colorGreenTopRight *= f6;
+            render.colorBlueTopRight *= f6;
+            render.renderEastFace(block, (double)xMin, (double)yMin, (double)zMin, block.getBlockTextureFromSideAndMetadata(2, metadata));
 
-            if (Tessellator.instance.defaultTexture && render.fancyGrass && var27 == 3 && render.overrideBlockTexture < 0)
-            {
-                render.colorRedTopLeft *= xMax;
-                render.colorRedBottomLeft *= xMax;
-                render.colorRedBottomRight *= xMax;
-                render.colorRedTopRight *= xMax;
-                render.colorGreenTopLeft *= yMax;
-                render.colorGreenBottomLeft *= yMax;
-                render.colorGreenBottomRight *= yMax;
-                render.colorGreenTopRight *= yMax;
-                render.colorBlueTopLeft *= zMax;
-                render.colorBlueBottomLeft *= zMax;
-                render.colorBlueBottomRight *= zMax;
-                render.colorBlueTopRight *= zMax;
-                render.renderEastFace(block, (double)xMin, (double)yMin, (double)zMin, 38);
-            }
-
-            var8 = true;
+            flag = true;
         }
 
         if (render.renderAllFaces || block.shouldSideBeRendered(render.blockAccess, xMin, yMin, zMin + 1, 3))
@@ -523,60 +538,64 @@ public class BlockSkinRenderHelper
                     --zMin;
                 }
 
-                var9 = (render.aoLightValueScratchXZNP + render.aoLightValueScratchXYZNPP + render.aoLightValueZPos + render.aoLightValueScratchYZPP) / 4.0F;
-                var12 = (render.aoLightValueZPos + render.aoLightValueScratchYZPP + render.aoLightValueScratchXZPP + render.aoLightValueScratchXYZPPP) / 4.0F;
-                var11 = (render.aoLightValueScratchYZNP + render.aoLightValueZPos + render.aoLightValueScratchXYZPNP + render.aoLightValueScratchXZPP) / 4.0F;
-                var10 = (render.aoLightValueScratchXYZNNP + render.aoLightValueScratchXZNP + render.aoLightValueScratchYZNP + render.aoLightValueZPos) / 4.0F;
-                render.brightnessTopLeft = render.getAoBrightness(render.aoBrightnessXZNP, render.aoBrightnessXYZNPP, render.aoBrightnessYZPP, var25);
-                render.brightnessTopRight = render.getAoBrightness(render.aoBrightnessYZPP, render.aoBrightnessXZPP, render.aoBrightnessXYZPPP, var25);
-                render.brightnessBottomRight = render.getAoBrightness(render.aoBrightnessYZNP, render.aoBrightnessXYZPNP, render.aoBrightnessXZPP, var25);
-                render.brightnessBottomLeft = render.getAoBrightness(render.aoBrightnessXYZNNP, render.aoBrightnessXZNP, render.aoBrightnessYZNP, var25);
+                if (render.field_98189_n && render.field_94177_n.gameSettings.ambientOcclusion >= 2)
+                {
+                    f7 = (render.aoLightValueScratchXZNP + render.aoLightValueScratchXYZNPP + render.aoLightValueZPos + render.aoLightValueScratchYZPP) / 4.0F;
+                    f9 = (render.aoLightValueZPos + render.aoLightValueScratchYZPP + render.aoLightValueScratchXZPP + render.aoLightValueScratchXYZPPP) / 4.0F;
+                    f8 = (render.aoLightValueScratchYZNP + render.aoLightValueZPos + render.aoLightValueScratchXYZPNP + render.aoLightValueScratchXZPP) / 4.0F;
+                    f10 = (render.aoLightValueScratchXYZNNP + render.aoLightValueScratchXZNP + render.aoLightValueScratchYZNP + render.aoLightValueZPos) / 4.0F;
+                    f3 = (float)((double)f7 * render.renderMaxY * (1.0D - render.renderMinX) + (double)f9 * render.renderMaxY * render.renderMinX + (double)f8 * (1.0D - render.renderMaxY) * render.renderMinX + (double)f10 * (1.0D - render.renderMaxY) * (1.0D - render.renderMinX));
+                    f4 = (float)((double)f7 * render.renderMinY * (1.0D - render.renderMinX) + (double)f9 * render.renderMinY * render.renderMinX + (double)f8 * (1.0D - render.renderMinY) * render.renderMinX + (double)f10 * (1.0D - render.renderMinY) * (1.0D - render.renderMinX));
+                    f5 = (float)((double)f7 * render.renderMinY * (1.0D - render.renderMaxX) + (double)f9 * render.renderMinY * render.renderMaxX + (double)f8 * (1.0D - render.renderMinY) * render.renderMaxX + (double)f10 * (1.0D - render.renderMinY) * (1.0D - render.renderMaxX));
+                    f6 = (float)((double)f7 * render.renderMaxY * (1.0D - render.renderMaxX) + (double)f9 * render.renderMaxY * render.renderMaxX + (double)f8 * (1.0D - render.renderMaxY) * render.renderMaxX + (double)f10 * (1.0D - render.renderMaxY) * (1.0D - render.renderMaxX));
+                    k2 = render.getAoBrightness(render.aoBrightnessXZNP, render.aoBrightnessXYZNPP, render.aoBrightnessYZPP, j2);
+                    i3 = render.getAoBrightness(render.aoBrightnessYZPP, render.aoBrightnessXZPP, render.aoBrightnessXYZPPP, j2);
+                    j3 = render.getAoBrightness(render.aoBrightnessYZNP, render.aoBrightnessXYZPNP, render.aoBrightnessXZPP, j2);
+                    l2 = render.getAoBrightness(render.aoBrightnessXYZNNP, render.aoBrightnessXZNP, render.aoBrightnessYZNP, j2);
+                    render.brightnessTopLeft = render.func_96444_a(k2, l2, j3, i3, render.renderMaxY * (1.0D - render.renderMinX), (1.0D - render.renderMaxY) * (1.0D - render.renderMinX), (1.0D - render.renderMaxY) * render.renderMinX, render.renderMaxY * render.renderMinX);
+                    render.brightnessBottomLeft = render.func_96444_a(k2, l2, j3, i3, render.renderMinY * (1.0D - render.renderMinX), (1.0D - render.renderMinY) * (1.0D - render.renderMinX), (1.0D - render.renderMinY) * render.renderMinX, render.renderMinY * render.renderMinX);
+                    render.brightnessBottomRight = render.func_96444_a(k2, l2, j3, i3, render.renderMinY * (1.0D - render.renderMaxX), (1.0D - render.renderMinY) * (1.0D - render.renderMaxX), (1.0D - render.renderMinY) * render.renderMaxX, render.renderMinY * render.renderMaxX);
+                    render.brightnessTopRight = render.func_96444_a(k2, l2, j3, i3, render.renderMaxY * (1.0D - render.renderMaxX), (1.0D - render.renderMaxY) * (1.0D - render.renderMaxX), (1.0D - render.renderMaxY) * render.renderMaxX, render.renderMaxY * render.renderMaxX);
+                }
+                else
+                {
+                    f3 = (render.aoLightValueScratchXZNP + render.aoLightValueScratchXYZNPP + render.aoLightValueZPos + render.aoLightValueScratchYZPP) / 4.0F;
+                    f6 = (render.aoLightValueZPos + render.aoLightValueScratchYZPP + render.aoLightValueScratchXZPP + render.aoLightValueScratchXYZPPP) / 4.0F;
+                    f5 = (render.aoLightValueScratchYZNP + render.aoLightValueZPos + render.aoLightValueScratchXYZPNP + render.aoLightValueScratchXZPP) / 4.0F;
+                    f4 = (render.aoLightValueScratchXYZNNP + render.aoLightValueScratchXZNP + render.aoLightValueScratchYZNP + render.aoLightValueZPos) / 4.0F;
+                    render.brightnessTopLeft = render.getAoBrightness(render.aoBrightnessXZNP, render.aoBrightnessXYZNPP, render.aoBrightnessYZPP, j2);
+                    render.brightnessTopRight = render.getAoBrightness(render.aoBrightnessYZPP, render.aoBrightnessXZPP, render.aoBrightnessXYZPPP, j2);
+                    render.brightnessBottomRight = render.getAoBrightness(render.aoBrightnessYZNP, render.aoBrightnessXYZPNP, render.aoBrightnessXZPP, j2);
+                    render.brightnessBottomLeft = render.getAoBrightness(render.aoBrightnessXYZNNP, render.aoBrightnessXZNP, render.aoBrightnessYZNP, j2);
+                }
             }
             else
             {
-                var12 = render.aoLightValueZPos;
-                var11 = render.aoLightValueZPos;
-                var10 = render.aoLightValueZPos;
-                var9 = render.aoLightValueZPos;
-                render.brightnessTopLeft = render.brightnessBottomLeft = render.brightnessBottomRight = render.brightnessTopRight = var25;
+                f6 = render.aoLightValueZPos;
+                f5 = render.aoLightValueZPos;
+                f4 = render.aoLightValueZPos;
+                f3 = render.aoLightValueZPos;
+                render.brightnessTopLeft = render.brightnessBottomLeft = render.brightnessBottomRight = render.brightnessTopRight = j2;
             }
 
-            render.colorRedTopLeft = render.colorRedBottomLeft = render.colorRedBottomRight = render.colorRedTopRight = (var16 ? xMax : 1.0F) * 0.8F;
-            render.colorGreenTopLeft = render.colorGreenBottomLeft = render.colorGreenBottomRight = render.colorGreenTopRight = (var16 ? yMax : 1.0F) * 0.8F;
-            render.colorBlueTopLeft = render.colorBlueBottomLeft = render.colorBlueBottomRight = render.colorBlueTopRight = (var16 ? zMax : 1.0F) * 0.8F;
-            render.colorRedTopLeft *= var9;
-            render.colorGreenTopLeft *= var9;
-            render.colorBlueTopLeft *= var9;
-            render.colorRedBottomLeft *= var10;
-            render.colorGreenBottomLeft *= var10;
-            render.colorBlueBottomLeft *= var10;
-            render.colorRedBottomRight *= var11;
-            render.colorGreenBottomRight *= var11;
-            render.colorBlueBottomRight *= var11;
-            render.colorRedTopRight *= var12;
-            render.colorGreenTopRight *= var12;
-            render.colorBlueTopRight *= var12;
-            var27 = block.getBlockTextureFromSideAndMetadata(3, metadata);
-            render.renderWestFace(block, (double)xMin, (double)yMin, (double)zMin, block.getBlockTexture(render.blockAccess, xMin, yMin, zMin, 3));
+            render.colorRedTopLeft = render.colorRedBottomLeft = render.colorRedBottomRight = render.colorRedTopRight = (flag4 ? xMax : 1.0F) * 0.8F;
+            render.colorGreenTopLeft = render.colorGreenBottomLeft = render.colorGreenBottomRight = render.colorGreenTopRight = (flag4 ? yMax : 1.0F) * 0.8F;
+            render.colorBlueTopLeft = render.colorBlueBottomLeft = render.colorBlueBottomRight = render.colorBlueTopRight = (flag4 ? zMax : 1.0F) * 0.8F;
+            render.colorRedTopLeft *= f3;
+            render.colorGreenTopLeft *= f3;
+            render.colorBlueTopLeft *= f3;
+            render.colorRedBottomLeft *= f4;
+            render.colorGreenBottomLeft *= f4;
+            render.colorBlueBottomLeft *= f4;
+            render.colorRedBottomRight *= f5;
+            render.colorGreenBottomRight *= f5;
+            render.colorBlueBottomRight *= f5;
+            render.colorRedTopRight *= f6;
+            render.colorGreenTopRight *= f6;
+            render.colorBlueTopRight *= f6;
+            render.renderWestFace(block, (double)xMin, (double)yMin, (double)zMin, block.getBlockTextureFromSideAndMetadata(0, metadata));
 
-            if (Tessellator.instance.defaultTexture && render.fancyGrass && var27 == 3 && render.overrideBlockTexture < 0)
-            {
-                render.colorRedTopLeft *= xMax;
-                render.colorRedBottomLeft *= xMax;
-                render.colorRedBottomRight *= xMax;
-                render.colorRedTopRight *= xMax;
-                render.colorGreenTopLeft *= yMax;
-                render.colorGreenBottomLeft *= yMax;
-                render.colorGreenBottomRight *= yMax;
-                render.colorGreenTopRight *= yMax;
-                render.colorBlueTopLeft *= zMax;
-                render.colorBlueBottomLeft *= zMax;
-                render.colorBlueBottomRight *= zMax;
-                render.colorBlueTopRight *= zMax;
-                render.renderWestFace(block, (double)xMin, (double)yMin, (double)zMin, 38);
-            }
-
-            var8 = true;
+            flag = true;
         }
 
         if (render.renderAllFaces || block.shouldSideBeRendered(render.blockAccess, xMin - 1, yMin, zMin, 4))
@@ -646,60 +665,64 @@ public class BlockSkinRenderHelper
                     ++xMin;
                 }
 
-                var12 = (render.aoLightValueScratchXYNN + render.aoLightValueScratchXYZNNP + render.aoLightValueXNeg + render.aoLightValueScratchXZNP) / 4.0F;
-                var9 = (render.aoLightValueXNeg + render.aoLightValueScratchXZNP + render.aoLightValueScratchXYNP + render.aoLightValueScratchXYZNPP) / 4.0F;
-                var10 = (render.aoLightValueScratchXZNN + render.aoLightValueXNeg + render.aoLightValueScratchXYZNPN + render.aoLightValueScratchXYNP) / 4.0F;
-                var11 = (render.aoLightValueScratchXYZNNN + render.aoLightValueScratchXYNN + render.aoLightValueScratchXZNN + render.aoLightValueXNeg) / 4.0F;
-                render.brightnessTopRight = render.getAoBrightness(render.aoBrightnessXYNN, render.aoBrightnessXYZNNP, render.aoBrightnessXZNP, var20);
-                render.brightnessTopLeft = render.getAoBrightness(render.aoBrightnessXZNP, render.aoBrightnessXYNP, render.aoBrightnessXYZNPP, var20);
-                render.brightnessBottomLeft = render.getAoBrightness(render.aoBrightnessXZNN, render.aoBrightnessXYZNPN, render.aoBrightnessXYNP, var20);
-                render.brightnessBottomRight = render.getAoBrightness(render.aoBrightnessXYZNNN, render.aoBrightnessXYNN, render.aoBrightnessXZNN, var20);
+                if (render.field_98189_n && render.field_94177_n.gameSettings.ambientOcclusion >= 2)
+                {
+                    f7 = (render.aoLightValueScratchXYNN + render.aoLightValueScratchXYZNNP + render.aoLightValueXNeg + render.aoLightValueScratchXZNP) / 4.0F;
+                    f9 = (render.aoLightValueXNeg + render.aoLightValueScratchXZNP + render.aoLightValueScratchXYNP + render.aoLightValueScratchXYZNPP) / 4.0F;
+                    f8 = (render.aoLightValueScratchXZNN + render.aoLightValueXNeg + render.aoLightValueScratchXYZNPN + render.aoLightValueScratchXYNP) / 4.0F;
+                    f10 = (render.aoLightValueScratchXYZNNN + render.aoLightValueScratchXYNN + render.aoLightValueScratchXZNN + render.aoLightValueXNeg) / 4.0F;
+                    f3 = (float)((double)f9 * render.renderMaxY * render.renderMaxZ + (double)f8 * render.renderMaxY * (1.0D - render.renderMaxZ) + (double)f10 * (1.0D - render.renderMaxY) * (1.0D - render.renderMaxZ) + (double)f7 * (1.0D - render.renderMaxY) * render.renderMaxZ);
+                    f4 = (float)((double)f9 * render.renderMaxY * render.renderMinZ + (double)f8 * render.renderMaxY * (1.0D - render.renderMinZ) + (double)f10 * (1.0D - render.renderMaxY) * (1.0D - render.renderMinZ) + (double)f7 * (1.0D - render.renderMaxY) * render.renderMinZ);
+                    f5 = (float)((double)f9 * render.renderMinY * render.renderMinZ + (double)f8 * render.renderMinY * (1.0D - render.renderMinZ) + (double)f10 * (1.0D - render.renderMinY) * (1.0D - render.renderMinZ) + (double)f7 * (1.0D - render.renderMinY) * render.renderMinZ);
+                    f6 = (float)((double)f9 * render.renderMinY * render.renderMaxZ + (double)f8 * render.renderMinY * (1.0D - render.renderMaxZ) + (double)f10 * (1.0D - render.renderMinY) * (1.0D - render.renderMaxZ) + (double)f7 * (1.0D - render.renderMinY) * render.renderMaxZ);
+                    k2 = render.getAoBrightness(render.aoBrightnessXYNN, render.aoBrightnessXYZNNP, render.aoBrightnessXZNP, i1);
+                    i3 = render.getAoBrightness(render.aoBrightnessXZNP, render.aoBrightnessXYNP, render.aoBrightnessXYZNPP, i1);
+                    j3 = render.getAoBrightness(render.aoBrightnessXZNN, render.aoBrightnessXYZNPN, render.aoBrightnessXYNP, i1);
+                    l2 = render.getAoBrightness(render.aoBrightnessXYZNNN, render.aoBrightnessXYNN, render.aoBrightnessXZNN, i1);
+                    render.brightnessTopLeft = render.func_96444_a(i3, j3, l2, k2, render.renderMaxY * render.renderMaxZ, render.renderMaxY * (1.0D - render.renderMaxZ), (1.0D - render.renderMaxY) * (1.0D - render.renderMaxZ), (1.0D - render.renderMaxY) * render.renderMaxZ);
+                    render.brightnessBottomLeft = render.func_96444_a(i3, j3, l2, k2, render.renderMaxY * render.renderMinZ, render.renderMaxY * (1.0D - render.renderMinZ), (1.0D - render.renderMaxY) * (1.0D - render.renderMinZ), (1.0D - render.renderMaxY) * render.renderMinZ);
+                    render.brightnessBottomRight = render.func_96444_a(i3, j3, l2, k2, render.renderMinY * render.renderMinZ, render.renderMinY * (1.0D - render.renderMinZ), (1.0D - render.renderMinY) * (1.0D - render.renderMinZ), (1.0D - render.renderMinY) * render.renderMinZ);
+                    render.brightnessTopRight = render.func_96444_a(i3, j3, l2, k2, render.renderMinY * render.renderMaxZ, render.renderMinY * (1.0D - render.renderMaxZ), (1.0D - render.renderMinY) * (1.0D - render.renderMaxZ), (1.0D - render.renderMinY) * render.renderMaxZ);
+                }
+                else
+                {
+                    f6 = (render.aoLightValueScratchXYNN + render.aoLightValueScratchXYZNNP + render.aoLightValueXNeg + render.aoLightValueScratchXZNP) / 4.0F;
+                    f3 = (render.aoLightValueXNeg + render.aoLightValueScratchXZNP + render.aoLightValueScratchXYNP + render.aoLightValueScratchXYZNPP) / 4.0F;
+                    f4 = (render.aoLightValueScratchXZNN + render.aoLightValueXNeg + render.aoLightValueScratchXYZNPN + render.aoLightValueScratchXYNP) / 4.0F;
+                    f5 = (render.aoLightValueScratchXYZNNN + render.aoLightValueScratchXYNN + render.aoLightValueScratchXZNN + render.aoLightValueXNeg) / 4.0F;
+                    render.brightnessTopRight = render.getAoBrightness(render.aoBrightnessXYNN, render.aoBrightnessXYZNNP, render.aoBrightnessXZNP, i1);
+                    render.brightnessTopLeft = render.getAoBrightness(render.aoBrightnessXZNP, render.aoBrightnessXYNP, render.aoBrightnessXYZNPP, i1);
+                    render.brightnessBottomLeft = render.getAoBrightness(render.aoBrightnessXZNN, render.aoBrightnessXYZNPN, render.aoBrightnessXYNP, i1);
+                    render.brightnessBottomRight = render.getAoBrightness(render.aoBrightnessXYZNNN, render.aoBrightnessXYNN, render.aoBrightnessXZNN, i1);
+                }
             }
             else
             {
-                var12 = render.aoLightValueXNeg;
-                var11 = render.aoLightValueXNeg;
-                var10 = render.aoLightValueXNeg;
-                var9 = render.aoLightValueXNeg;
-                render.brightnessTopLeft = render.brightnessBottomLeft = render.brightnessBottomRight = render.brightnessTopRight = var20;
+                f6 = render.aoLightValueXNeg;
+                f5 = render.aoLightValueXNeg;
+                f4 = render.aoLightValueXNeg;
+                f3 = render.aoLightValueXNeg;
+                render.brightnessTopLeft = render.brightnessBottomLeft = render.brightnessBottomRight = render.brightnessTopRight = i1;
             }
 
-            render.colorRedTopLeft = render.colorRedBottomLeft = render.colorRedBottomRight = render.colorRedTopRight = (var17 ? xMax : 1.0F) * 0.6F;
-            render.colorGreenTopLeft = render.colorGreenBottomLeft = render.colorGreenBottomRight = render.colorGreenTopRight = (var17 ? yMax : 1.0F) * 0.6F;
-            render.colorBlueTopLeft = render.colorBlueBottomLeft = render.colorBlueBottomRight = render.colorBlueTopRight = (var17 ? zMax : 1.0F) * 0.6F;
-            render.colorRedTopLeft *= var9;
-            render.colorGreenTopLeft *= var9;
-            render.colorBlueTopLeft *= var9;
-            render.colorRedBottomLeft *= var10;
-            render.colorGreenBottomLeft *= var10;
-            render.colorBlueBottomLeft *= var10;
-            render.colorRedBottomRight *= var11;
-            render.colorGreenBottomRight *= var11;
-            render.colorBlueBottomRight *= var11;
-            render.colorRedTopRight *= var12;
-            render.colorGreenTopRight *= var12;
-            render.colorBlueTopRight *= var12;
-            var27 = block.getBlockTextureFromSideAndMetadata(4, metadata);
-            render.renderNorthFace(block, (double)xMin, (double)yMin, (double)zMin, var27);
+            render.colorRedTopLeft = render.colorRedBottomLeft = render.colorRedBottomRight = render.colorRedTopRight = (flag5 ? xMax : 1.0F) * 0.6F;
+            render.colorGreenTopLeft = render.colorGreenBottomLeft = render.colorGreenBottomRight = render.colorGreenTopRight = (flag5 ? yMax : 1.0F) * 0.6F;
+            render.colorBlueTopLeft = render.colorBlueBottomLeft = render.colorBlueBottomRight = render.colorBlueTopRight = (flag5 ? zMax : 1.0F) * 0.6F;
+            render.colorRedTopLeft *= f3;
+            render.colorGreenTopLeft *= f3;
+            render.colorBlueTopLeft *= f3;
+            render.colorRedBottomLeft *= f4;
+            render.colorGreenBottomLeft *= f4;
+            render.colorBlueBottomLeft *= f4;
+            render.colorRedBottomRight *= f5;
+            render.colorGreenBottomRight *= f5;
+            render.colorBlueBottomRight *= f5;
+            render.colorRedTopRight *= f6;
+            render.colorGreenTopRight *= f6;
+            render.colorBlueTopRight *= f6;
+            render.renderNorthFace(block, (double)xMin, (double)yMin, (double)zMin, block.getBlockTextureFromSideAndMetadata(4, metadata));
 
-            if (Tessellator.instance.defaultTexture && render.fancyGrass && var27 == 3 && render.overrideBlockTexture < 0)
-            {
-                render.colorRedTopLeft *= xMax;
-                render.colorRedBottomLeft *= xMax;
-                render.colorRedBottomRight *= xMax;
-                render.colorRedTopRight *= xMax;
-                render.colorGreenTopLeft *= yMax;
-                render.colorGreenBottomLeft *= yMax;
-                render.colorGreenBottomRight *= yMax;
-                render.colorGreenTopRight *= yMax;
-                render.colorBlueTopLeft *= zMax;
-                render.colorBlueBottomLeft *= zMax;
-                render.colorBlueBottomRight *= zMax;
-                render.colorBlueTopRight *= zMax;
-                render.renderNorthFace(block, (double)xMin, (double)yMin, (double)zMin, 38);
-            }
-
-            var8 = true;
+            flag = true;
         }
 
         if (render.renderAllFaces || block.shouldSideBeRendered(render.blockAccess, xMin + 1, yMin, zMin, 5))
@@ -769,191 +792,165 @@ public class BlockSkinRenderHelper
                     --xMin;
                 }
 
-                var9 = (render.aoLightValueScratchXYPN + render.aoLightValueScratchXYZPNP + render.aoLightValueXPos + render.aoLightValueScratchXZPP) / 4.0F;
-                var12 = (render.aoLightValueXPos + render.aoLightValueScratchXZPP + render.aoLightValueScratchXYPP + render.aoLightValueScratchXYZPPP) / 4.0F;
-                var11 = (render.aoLightValueScratchXZPN + render.aoLightValueXPos + render.aoLightValueScratchXYZPPN + render.aoLightValueScratchXYPP) / 4.0F;
-                var10 = (render.aoLightValueScratchXYZPNN + render.aoLightValueScratchXYPN + render.aoLightValueScratchXZPN + render.aoLightValueXPos) / 4.0F;
-                render.brightnessTopLeft = render.getAoBrightness(render.aoBrightnessXYPN, render.aoBrightnessXYZPNP, render.aoBrightnessXZPP, var23);
-                render.brightnessTopRight = render.getAoBrightness(render.aoBrightnessXZPP, render.aoBrightnessXYPP, render.aoBrightnessXYZPPP, var23);
-                render.brightnessBottomRight = render.getAoBrightness(render.aoBrightnessXZPN, render.aoBrightnessXYZPPN, render.aoBrightnessXYPP, var23);
-                render.brightnessBottomLeft = render.getAoBrightness(render.aoBrightnessXYZPNN, render.aoBrightnessXYPN, render.aoBrightnessXZPN, var23);
+                if (render.field_98189_n && render.field_94177_n.gameSettings.ambientOcclusion >= 2)
+                {
+                    f7 = (render.aoLightValueScratchXYPN + render.aoLightValueScratchXYZPNP + render.aoLightValueXPos + render.aoLightValueScratchXZPP) / 4.0F;
+                    f9 = (render.aoLightValueScratchXYZPNN + render.aoLightValueScratchXYPN + render.aoLightValueScratchXZPN + render.aoLightValueXPos) / 4.0F;
+                    f8 = (render.aoLightValueScratchXZPN + render.aoLightValueXPos + render.aoLightValueScratchXYZPPN + render.aoLightValueScratchXYPP) / 4.0F;
+                    f10 = (render.aoLightValueXPos + render.aoLightValueScratchXZPP + render.aoLightValueScratchXYPP + render.aoLightValueScratchXYZPPP) / 4.0F;
+                    f3 = (float)((double)f7 * (1.0D - render.renderMinY) * render.renderMaxZ + (double)f9 * (1.0D - render.renderMinY) * (1.0D - render.renderMaxZ) + (double)f8 * render.renderMinY * (1.0D - render.renderMaxZ) + (double)f10 * render.renderMinY * render.renderMaxZ);
+                    f4 = (float)((double)f7 * (1.0D - render.renderMinY) * render.renderMinZ + (double)f9 * (1.0D - render.renderMinY) * (1.0D - render.renderMinZ) + (double)f8 * render.renderMinY * (1.0D - render.renderMinZ) + (double)f10 * render.renderMinY * render.renderMinZ);
+                    f5 = (float)((double)f7 * (1.0D - render.renderMaxY) * render.renderMinZ + (double)f9 * (1.0D - render.renderMaxY) * (1.0D - render.renderMinZ) + (double)f8 * render.renderMaxY * (1.0D - render.renderMinZ) + (double)f10 * render.renderMaxY * render.renderMinZ);
+                    f6 = (float)((double)f7 * (1.0D - render.renderMaxY) * render.renderMaxZ + (double)f9 * (1.0D - render.renderMaxY) * (1.0D - render.renderMaxZ) + (double)f8 * render.renderMaxY * (1.0D - render.renderMaxZ) + (double)f10 * render.renderMaxY * render.renderMaxZ);
+                    k2 = render.getAoBrightness(render.aoBrightnessXYPN, render.aoBrightnessXYZPNP, render.aoBrightnessXZPP, l1);
+                    i3 = render.getAoBrightness(render.aoBrightnessXZPP, render.aoBrightnessXYPP, render.aoBrightnessXYZPPP, l1);
+                    j3 = render.getAoBrightness(render.aoBrightnessXZPN, render.aoBrightnessXYZPPN, render.aoBrightnessXYPP, l1);
+                    l2 = render.getAoBrightness(render.aoBrightnessXYZPNN, render.aoBrightnessXYPN, render.aoBrightnessXZPN, l1);
+                    render.brightnessTopLeft = render.func_96444_a(k2, l2, j3, i3, (1.0D - render.renderMinY) * render.renderMaxZ, (1.0D - render.renderMinY) * (1.0D - render.renderMaxZ), render.renderMinY * (1.0D - render.renderMaxZ), render.renderMinY * render.renderMaxZ);
+                    render.brightnessBottomLeft = render.func_96444_a(k2, l2, j3, i3, (1.0D - render.renderMinY) * render.renderMinZ, (1.0D - render.renderMinY) * (1.0D - render.renderMinZ), render.renderMinY * (1.0D - render.renderMinZ), render.renderMinY * render.renderMinZ);
+                    render.brightnessBottomRight = render.func_96444_a(k2, l2, j3, i3, (1.0D - render.renderMaxY) * render.renderMinZ, (1.0D - render.renderMaxY) * (1.0D - render.renderMinZ), render.renderMaxY * (1.0D - render.renderMinZ), render.renderMaxY * render.renderMinZ);
+                    render.brightnessTopRight = render.func_96444_a(k2, l2, j3, i3, (1.0D - render.renderMaxY) * render.renderMaxZ, (1.0D - render.renderMaxY) * (1.0D - render.renderMaxZ), render.renderMaxY * (1.0D - render.renderMaxZ), render.renderMaxY * render.renderMaxZ);
+                }
+                else
+                {
+                    f3 = (render.aoLightValueScratchXYPN + render.aoLightValueScratchXYZPNP + render.aoLightValueXPos + render.aoLightValueScratchXZPP) / 4.0F;
+                    f4 = (render.aoLightValueScratchXYZPNN + render.aoLightValueScratchXYPN + render.aoLightValueScratchXZPN + render.aoLightValueXPos) / 4.0F;
+                    f5 = (render.aoLightValueScratchXZPN + render.aoLightValueXPos + render.aoLightValueScratchXYZPPN + render.aoLightValueScratchXYPP) / 4.0F;
+                    f6 = (render.aoLightValueXPos + render.aoLightValueScratchXZPP + render.aoLightValueScratchXYPP + render.aoLightValueScratchXYZPPP) / 4.0F;
+                    render.brightnessTopLeft = render.getAoBrightness(render.aoBrightnessXYPN, render.aoBrightnessXYZPNP, render.aoBrightnessXZPP, l1);
+                    render.brightnessTopRight = render.getAoBrightness(render.aoBrightnessXZPP, render.aoBrightnessXYPP, render.aoBrightnessXYZPPP, l1);
+                    render.brightnessBottomRight = render.getAoBrightness(render.aoBrightnessXZPN, render.aoBrightnessXYZPPN, render.aoBrightnessXYPP, l1);
+                    render.brightnessBottomLeft = render.getAoBrightness(render.aoBrightnessXYZPNN, render.aoBrightnessXYPN, render.aoBrightnessXZPN, l1);
+                }
             }
             else
             {
-                var12 = render.aoLightValueXPos;
-                var11 = render.aoLightValueXPos;
-                var10 = render.aoLightValueXPos;
-                var9 = render.aoLightValueXPos;
-                render.brightnessTopLeft = render.brightnessBottomLeft = render.brightnessBottomRight = render.brightnessTopRight = var23;
+                f6 = render.aoLightValueXPos;
+                f5 = render.aoLightValueXPos;
+                f4 = render.aoLightValueXPos;
+                f3 = render.aoLightValueXPos;
+                render.brightnessTopLeft = render.brightnessBottomLeft = render.brightnessBottomRight = render.brightnessTopRight = l1;
             }
 
-            render.colorRedTopLeft = render.colorRedBottomLeft = render.colorRedBottomRight = render.colorRedTopRight = (var18 ? xMax : 1.0F) * 0.6F;
-            render.colorGreenTopLeft = render.colorGreenBottomLeft = render.colorGreenBottomRight = render.colorGreenTopRight = (var18 ? yMax : 1.0F) * 0.6F;
-            render.colorBlueTopLeft = render.colorBlueBottomLeft = render.colorBlueBottomRight = render.colorBlueTopRight = (var18 ? zMax : 1.0F) * 0.6F;
-            render.colorRedTopLeft *= var9;
-            render.colorGreenTopLeft *= var9;
-            render.colorBlueTopLeft *= var9;
-            render.colorRedBottomLeft *= var10;
-            render.colorGreenBottomLeft *= var10;
-            render.colorBlueBottomLeft *= var10;
-            render.colorRedBottomRight *= var11;
-            render.colorGreenBottomRight *= var11;
-            render.colorBlueBottomRight *= var11;
-            render.colorRedTopRight *= var12;
-            render.colorGreenTopRight *= var12;
-            render.colorBlueTopRight *= var12;
-            var27 = block.getBlockTextureFromSideAndMetadata(5, metadata);
-            render.renderSouthFace(block, (double)xMin, (double)yMin, (double)zMin, var27);
+            render.colorRedTopLeft = render.colorRedBottomLeft = render.colorRedBottomRight = render.colorRedTopRight = (flag6 ? xMax : 1.0F) * 0.6F;
+            render.colorGreenTopLeft = render.colorGreenBottomLeft = render.colorGreenBottomRight = render.colorGreenTopRight = (flag6 ? yMax : 1.0F) * 0.6F;
+            render.colorBlueTopLeft = render.colorBlueBottomLeft = render.colorBlueBottomRight = render.colorBlueTopRight = (flag6 ? zMax : 1.0F) * 0.6F;
+            render.colorRedTopLeft *= f3;
+            render.colorGreenTopLeft *= f3;
+            render.colorBlueTopLeft *= f3;
+            render.colorRedBottomLeft *= f4;
+            render.colorGreenBottomLeft *= f4;
+            render.colorBlueBottomLeft *= f4;
+            render.colorRedBottomRight *= f5;
+            render.colorGreenBottomRight *= f5;
+            render.colorBlueBottomRight *= f5;
+            render.colorRedTopRight *= f6;
+            render.colorGreenTopRight *= f6;
+            render.colorBlueTopRight *= f6;
+            render.renderSouthFace(block, (double)xMin, (double)yMin, (double)zMin, block.getBlockTextureFromSideAndMetadata(5, metadata));
 
-            if (Tessellator.instance.defaultTexture && render.fancyGrass && var27 == 3 && render.overrideBlockTexture < 0)
-            {
-                render.colorRedTopLeft *= xMax;
-                render.colorRedBottomLeft *= xMax;
-                render.colorRedBottomRight *= xMax;
-                render.colorRedTopRight *= xMax;
-                render.colorGreenTopLeft *= yMax;
-                render.colorGreenBottomLeft *= yMax;
-                render.colorGreenBottomRight *= yMax;
-                render.colorGreenTopRight *= yMax;
-                render.colorBlueTopLeft *= zMax;
-                render.colorBlueBottomLeft *= zMax;
-                render.colorBlueBottomRight *= zMax;
-                render.colorBlueTopRight *= zMax;
-                render.renderSouthFace(block, (double)xMin, (double)yMin, (double)zMin, 38);
-            }
-
-            var8 = true;
+            flag = true;
         }
 
         render.enableAO = false;
-        return var8;*/
-		return false;
+        return flag;
     }
 	
-	static boolean renderMetadataBlockWithColorMultiplier(Block block, int metadata, int minX, int minY, int minZ, float maxX, float maxY, float maxZ, RenderBlocks render, IBlockAccess world)
+	static boolean renderMetadataBlockWithColorMultiplier(Block block, int metadata, int xMin, int yMin, int zMin, float xMax, float yMax, float zMax, RenderBlocks render, IBlockAccess world)
     {
-        /*render.enableAO = false;
-        Tessellator var8 = Tessellator.instance;
-        boolean var9 = false;
-        float var10 = 0.5F;
-        float var11 = 1.0F;
-        float var12 = 0.8F;
-        float var13 = 0.6F;
-        float var14 = var11 * maxX;
-        float var15 = var11 * maxY;
-        float var16 = var11 * maxZ;
-        float var17 = var10;
-        float var18 = var12;
-        float var19 = var13;
-        float var20 = var10;
-        float var21 = var12;
-        float var22 = var13;
-        float var23 = var10;
-        float var24 = var12;
-        float var25 = var13;
+		render.enableAO = false;
+        Tessellator tessellator = Tessellator.instance;
+        boolean flag = false;
+        float f3 = 0.5F;
+        float f4 = 1.0F;
+        float f5 = 0.8F;
+        float f6 = 0.6F;
+        float f7 = f4 * xMax;
+        float f8 = f4 * yMax;
+        float f9 = f4 * zMax;
+        float f10 = f3;
+        float f11 = f5;
+        float f12 = f6;
+        float f13 = f3;
+        float f14 = f5;
+        float f15 = f6;
+        float f16 = f3;
+        float f17 = f5;
+        float f18 = f6;
 
         if (block != Block.grass)
         {
-            var17 = var10 * maxX;
-            var18 = var12 * maxX;
-            var19 = var13 * maxX;
-            var20 = var10 * maxY;
-            var21 = var12 * maxY;
-            var22 = var13 * maxY;
-            var23 = var10 * maxZ;
-            var24 = var12 * maxZ;
-            var25 = var13 * maxZ;
+            f10 = f3 * xMax;
+            f11 = f5 * xMax;
+            f12 = f6 * xMax;
+            f13 = f3 * yMax;
+            f14 = f5 * yMax;
+            f15 = f6 * yMax;
+            f16 = f3 * zMax;
+            f17 = f5 * zMax;
+            f18 = f6 * zMax;
         }
 
-        int var26 = block.getMixedBrightnessForBlock(render.blockAccess, minX, minY, minZ);
+        int l = block.getMixedBrightnessForBlock(render.blockAccess, xMin, yMin, zMin);
 
-        if (render.renderAllFaces || block.shouldSideBeRendered(render.blockAccess, minX, minY - 1, minZ, 0))
+        if (render.renderAllFaces || block.shouldSideBeRendered(render.blockAccess, xMin, yMin - 1, zMin, 0))
         {
-            var8.setBrightness(render.renderMinY > 0.0D ? var26 : block.getMixedBrightnessForBlock(render.blockAccess, minX, minY - 1, minZ));
-            var8.setColorOpaque_F(var17, var20, var23);
-            render.renderBottomFace(block, (double)minX, (double)minY, (double)minZ, block.getBlockTextureFromSideAndMetadata(0, metadata));
-            var9 = true;
+            tessellator.setBrightness(render.renderMinY > 0.0D ? l : block.getMixedBrightnessForBlock(render.blockAccess, xMin, yMin - 1, zMin));
+            tessellator.setColorOpaque_F(f10, f13, f16);
+            render.renderBottomFace(block, (double)xMin, (double)yMin, (double)zMin, block.getBlockTextureFromSideAndMetadata(0, metadata));
+            flag = true;
         }
 
-        if (render.renderAllFaces || block.shouldSideBeRendered(render.blockAccess, minX, minY + 1, minZ, 1))
+        if (render.renderAllFaces || block.shouldSideBeRendered(render.blockAccess, xMin, yMin + 1, zMin, 1))
         {
-            var8.setBrightness(render.renderMaxY < 1.0D ? var26 : block.getMixedBrightnessForBlock(render.blockAccess, minX, minY + 1, minZ));
-            var8.setColorOpaque_F(var14, var15, var16);
-            render.renderTopFace(block, (double)minX, (double)minY, (double)minZ, block.getBlockTextureFromSideAndMetadata(1, metadata));
-            var9 = true;
+            tessellator.setBrightness(render.renderMaxY < 1.0D ? l : block.getMixedBrightnessForBlock(render.blockAccess, xMin, yMin + 1, zMin));
+            tessellator.setColorOpaque_F(f7, f8, f9);
+            render.renderTopFace(block, (double)xMin, (double)yMin, (double)zMin, block.getBlockTextureFromSideAndMetadata(1, metadata));
+            flag = true;
         }
 
-        int var28;
+        Icon icon;
 
-        if (render.renderAllFaces || block.shouldSideBeRendered(render.blockAccess, minX, minY, minZ - 1, 2))
+        if (render.renderAllFaces || block.shouldSideBeRendered(render.blockAccess, xMin, yMin, zMin - 1, 2))
         {
-            var8.setBrightness(render.renderMinZ > 0.0D ? var26 : block.getMixedBrightnessForBlock(render.blockAccess, minX, minY, minZ - 1));
-            var8.setColorOpaque_F(var18, var21, var24);
-            var28 = block.getBlockTextureFromSideAndMetadata(2, metadata);
-            render.renderEastFace(block, (double)minX, (double)minY, (double)minZ, var28);
+            tessellator.setBrightness(render.renderMinZ > 0.0D ? l : block.getMixedBrightnessForBlock(render.blockAccess, xMin, yMin, zMin - 1));
+            tessellator.setColorOpaque_F(f11, f14, f17);
+            render.renderEastFace(block, (double)xMin, (double)yMin, (double)zMin, block.getBlockTextureFromSideAndMetadata(2, metadata));
 
-            if (Tessellator.instance.defaultTexture && render.fancyGrass && var28 == 3 && render.overrideBlockTexture < 0)
-            {
-                var8.setColorOpaque_F(var18 * maxX, var21 * maxY, var24 * maxZ);
-                render.renderEastFace(block, (double)minX, (double)minY, (double)minZ, 38);
-            }
-
-            var9 = true;
+            flag = true;
         }
 
-        if (render.renderAllFaces || block.shouldSideBeRendered(render.blockAccess, minX, minY, minZ + 1, 3))
+        if (render.renderAllFaces || block.shouldSideBeRendered(render.blockAccess, xMin, yMin, zMin + 1, 3))
         {
-            var8.setBrightness(render.renderMaxZ < 1.0D ? var26 : block.getMixedBrightnessForBlock(render.blockAccess, minX, minY, minZ + 1));
-            var8.setColorOpaque_F(var18, var21, var24);
-            var28 = block.getBlockTextureFromSideAndMetadata(3, metadata);
-            render.renderWestFace(block, (double)minX, (double)minY, (double)minZ, var28);
+            tessellator.setBrightness(render.renderMaxZ < 1.0D ? l : block.getMixedBrightnessForBlock(render.blockAccess, xMin, yMin, zMin + 1));
+            tessellator.setColorOpaque_F(f11, f14, f17);
+            render.renderWestFace(block, (double)xMin, (double)yMin, (double)zMin, block.getBlockTextureFromSideAndMetadata(3, metadata));
 
-            if (Tessellator.instance.defaultTexture && render.fancyGrass && var28 == 3 && render.overrideBlockTexture < 0)
-            {
-                var8.setColorOpaque_F(var18 * maxX, var21 * maxY, var24 * maxZ);
-                render.renderWestFace(block, (double)minX, (double)minY, (double)minZ, 38);
-            }
-
-            var9 = true;
+            flag = true;
         }
 
-        if (render.renderAllFaces || block.shouldSideBeRendered(render.blockAccess, minX - 1, minY, minZ, 4))
+        if (render.renderAllFaces || block.shouldSideBeRendered(render.blockAccess, xMin - 1, yMin, zMin, 4))
         {
-            var8.setBrightness(render.renderMinX > 0.0D ? var26 : block.getMixedBrightnessForBlock(render.blockAccess, minX - 1, minY, minZ));
-            var8.setColorOpaque_F(var19, var22, var25);
-            var28 = block.getBlockTextureFromSideAndMetadata(4, metadata);
-            render.renderNorthFace(block, (double)minX, (double)minY, (double)minZ, var28);
+            tessellator.setBrightness(render.renderMinX > 0.0D ? l : block.getMixedBrightnessForBlock(render.blockAccess, xMin - 1, yMin, zMin));
+            tessellator.setColorOpaque_F(f12, f15, f18);
+            render.renderNorthFace(block, (double)xMin, (double)yMin, (double)zMin, block.getBlockTextureFromSideAndMetadata(4, metadata));
 
-            if (Tessellator.instance.defaultTexture && render.fancyGrass && var28 == 3 && render.overrideBlockTexture < 0)
-            {
-                var8.setColorOpaque_F(var19 * maxX, var22 * maxY, var25 * maxZ);
-                render.renderNorthFace(block, (double)minX, (double)minY, (double)minZ, 38);
-            }
-
-            var9 = true;
+            flag = true;
         }
 
-        if (render.renderAllFaces || block.shouldSideBeRendered(render.blockAccess, minX + 1, minY, minZ, 5))
+        if (render.renderAllFaces || block.shouldSideBeRendered(render.blockAccess, xMin + 1, yMin, zMin, 5))
         {
-            var8.setBrightness(render.renderMaxX < 1.0D ? var26 : block.getMixedBrightnessForBlock(render.blockAccess, minX + 1, minY, minZ));
-            var8.setColorOpaque_F(var19, var22, var25);
-            var28 = block.getBlockTextureFromSideAndMetadata(5, metadata);
-            render.renderSouthFace(block, (double)minX, (double)minY, (double)minZ, var28);
+            tessellator.setBrightness(render.renderMaxX < 1.0D ? l : block.getMixedBrightnessForBlock(render.blockAccess, xMin + 1, yMin, zMin));
+            tessellator.setColorOpaque_F(f12, f15, f18);
+            render.renderSouthFace(block, (double)xMin, (double)yMin, (double)zMin, block.getBlockTextureFromSideAndMetadata(5, metadata));
 
-            if (Tessellator.instance.defaultTexture && render.fancyGrass && var28 == 3 && render.overrideBlockTexture < 0)
-            {
-                var8.setColorOpaque_F(var19 * maxX, var22 * maxY, var25 * maxZ);
-                render.renderSouthFace(block, (double)minX, (double)minY, (double)minZ, 38);
-            }
-
-            var9 = true;
+            flag = true;
         }
 
-        return var9;*/
-		return false;
+        return flag;
     }
 	
-	public static boolean renderFakeBlock (int texturePos, int metadata, int x, int y, int z, RenderBlocks renderer, IBlockAccess world)
+	public static boolean renderFakeBlock (Icon texture, int metadata, int x, int y, int z, RenderBlocks renderer, IBlockAccess world)
 	{
 		Block block = Block.stone;
 		int var5 = block.colorMultiplier(world, x, y, z);
@@ -972,26 +969,26 @@ public class BlockSkinRenderHelper
 		}
 
 		return Minecraft.isAmbientOcclusionEnabled() ? 
-				renderFakeBlockWithAmbientOcclusion(texturePos, metadata, x, y, z, var6, var7, var8, renderer, world)
-				: renderFakeBlockWithColorMultiplier(texturePos, metadata, x, y, z, var6, var7, var8, renderer, world);
+				renderFakeBlockWithAmbientOcclusion(texture, metadata, x, y, z, var6, var7, var8, renderer, world)
+				: renderFakeBlockWithColorMultiplier(texture, metadata, x, y, z, var6, var7, var8, renderer, world);
 	}
 	
-	static boolean renderFakeBlockWithAmbientOcclusion(int texturePos, int metadata, int xMin, int yMin, int zMin, 
+	static boolean renderFakeBlockWithAmbientOcclusion(Icon texture, int metadata, int xMin, int yMin, int zMin, 
 			float xMax, float yMax, float zMax, RenderBlocks render, IBlockAccess world)
     {
-		/*Block block = Block.stone;
-        render.enableAO = true;
-        boolean var8 = false;
-        float var9 = render.lightValueOwn;
-        float var10 = render.lightValueOwn;
-        float var11 = render.lightValueOwn;
-        float var12 = render.lightValueOwn;
-        boolean var13 = true;
-        boolean var14 = true;
-        boolean var15 = true;
-        boolean var16 = true;
-        boolean var17 = true;
-        boolean var18 = true;
+		Block block = Block.stone;
+		render.enableAO = true;
+        boolean flag = false;
+        float f3 = render.lightValueOwn;
+        float f4 = render.lightValueOwn;
+        float f5 = render.lightValueOwn;
+        float f6 = render.lightValueOwn;
+        boolean flag1 = true;
+        boolean flag2 = true;
+        boolean flag3 = true;
+        boolean flag4 = true;
+        boolean flag5 = true;
+        boolean flag6 = true;
         render.lightValueOwn = block.getAmbientOcclusionLightValue(render.blockAccess, xMin, yMin, zMin);
         render.aoLightValueXNeg = block.getAmbientOcclusionLightValue(render.blockAccess, xMin - 1, yMin, zMin);
         render.aoLightValueYNeg = block.getAmbientOcclusionLightValue(render.blockAccess, xMin, yMin - 1, zMin);
@@ -999,46 +996,46 @@ public class BlockSkinRenderHelper
         render.aoLightValueXPos = block.getAmbientOcclusionLightValue(render.blockAccess, xMin + 1, yMin, zMin);
         render.aoLightValueYPos = block.getAmbientOcclusionLightValue(render.blockAccess, xMin, yMin + 1, zMin);
         render.aoLightValueZPos = block.getAmbientOcclusionLightValue(render.blockAccess, xMin, yMin, zMin + 1);
-        int var19 = block.getMixedBrightnessForBlock(render.blockAccess, xMin, yMin, zMin);
-        int var20 = var19;
-        int var21 = var19;
-        int var22 = var19;
-        int var23 = var19;
-        int var24 = var19;
-        int var25 = var19;
+        int l = block.getMixedBrightnessForBlock(render.blockAccess, xMin, yMin, zMin);
+        int i1 = l;
+        int j1 = l;
+        int k1 = l;
+        int l1 = l;
+        int i2 = l;
+        int j2 = l;
 
-        if (render.renderMinY <= 0.0D)
+        if (render.renderMinY <= 0.0D || !render.blockAccess.isBlockOpaqueCube(xMin, yMin - 1, zMin))
         {
-            var21 = block.getMixedBrightnessForBlock(render.blockAccess, xMin, yMin - 1, zMin);
+            j1 = block.getMixedBrightnessForBlock(render.blockAccess, xMin, yMin - 1, zMin);
         }
 
-        if (render.renderMaxY >= 1.0D)
+        if (render.renderMaxY >= 1.0D || !render.blockAccess.isBlockOpaqueCube(xMin, yMin + 1, zMin))
         {
-            var24 = block.getMixedBrightnessForBlock(render.blockAccess, xMin, yMin + 1, zMin);
+            i2 = block.getMixedBrightnessForBlock(render.blockAccess, xMin, yMin + 1, zMin);
         }
 
-        if (render.renderMinX <= 0.0D)
+        if (render.renderMinX <= 0.0D || !render.blockAccess.isBlockOpaqueCube(xMin - 1, yMin, zMin))
         {
-            var20 = block.getMixedBrightnessForBlock(render.blockAccess, xMin - 1, yMin, zMin);
+            i1 = block.getMixedBrightnessForBlock(render.blockAccess, xMin - 1, yMin, zMin);
         }
 
-        if (render.renderMaxX >= 1.0D)
+        if (render.renderMaxX >= 1.0D || !render.blockAccess.isBlockOpaqueCube(xMin + 1, yMin, zMin))
         {
-            var23 = block.getMixedBrightnessForBlock(render.blockAccess, xMin + 1, yMin, zMin);
+            l1 = block.getMixedBrightnessForBlock(render.blockAccess, xMin + 1, yMin, zMin);
         }
 
-        if (render.renderMinZ <= 0.0D)
+        if (render.renderMinZ <= 0.0D || !render.blockAccess.isBlockOpaqueCube(xMin, yMin, zMin - 1))
         {
-            var22 = block.getMixedBrightnessForBlock(render.blockAccess, xMin, yMin, zMin - 1);
+            k1 = block.getMixedBrightnessForBlock(render.blockAccess, xMin, yMin, zMin - 1);
         }
 
-        if (render.renderMaxZ >= 1.0D)
+        if (render.renderMaxZ >= 1.0D || !render.blockAccess.isBlockOpaqueCube(xMin, yMin, zMin + 1))
         {
-            var25 = block.getMixedBrightnessForBlock(render.blockAccess, xMin, yMin, zMin + 1);
+            j2 = block.getMixedBrightnessForBlock(render.blockAccess, xMin, yMin, zMin + 1);
         }
 
-        Tessellator var26 = Tessellator.instance;
-        var26.setBrightness(983055);
+        Tessellator tessellator = Tessellator.instance;
+        tessellator.setBrightness(983055);
         render.aoGrassXYZPPC = Block.canBlockGrass[render.blockAccess.getBlockId(xMin + 1, yMin + 1, zMin)];
         render.aoGrassXYZPNC = Block.canBlockGrass[render.blockAccess.getBlockId(xMin + 1, yMin - 1, zMin)];
         render.aoGrassXYZPCP = Block.canBlockGrass[render.blockAccess.getBlockId(xMin + 1, yMin, zMin + 1)];
@@ -1052,22 +1049,22 @@ public class BlockSkinRenderHelper
         render.aoGrassXYZCNP = Block.canBlockGrass[render.blockAccess.getBlockId(xMin, yMin - 1, zMin + 1)];
         render.aoGrassXYZCNN = Block.canBlockGrass[render.blockAccess.getBlockId(xMin, yMin - 1, zMin - 1)];
 
-        if (block.blockIndexInTexture == 3)
+        if (render.func_94175_b(block).func_94215_i().equals("grass_top"))
         {
-            var18 = false;
-            var17 = false;
-            var16 = false;
-            var15 = false;
-            var13 = false;
+            flag6 = false;
+            flag5 = false;
+            flag4 = false;
+            flag3 = false;
+            flag1 = false;
         }
 
-        if (render.overrideBlockTexture >= 0)
+        if (render.func_94167_b())
         {
-            var18 = false;
-            var17 = false;
-            var16 = false;
-            var15 = false;
-            var13 = false;
+            flag6 = false;
+            flag5 = false;
+            flag4 = false;
+            flag3 = false;
+            flag1 = false;
         }
 
         if (render.renderAllFaces || block.shouldSideBeRendered(render.blockAccess, xMin, yMin - 1, zMin, 0))
@@ -1137,41 +1134,41 @@ public class BlockSkinRenderHelper
                     ++yMin;
                 }
 
-                var9 = (render.aoLightValueScratchXYZNNP + render.aoLightValueScratchXYNN + render.aoLightValueScratchYZNP + render.aoLightValueYNeg) / 4.0F;
-                var12 = (render.aoLightValueScratchYZNP + render.aoLightValueYNeg + render.aoLightValueScratchXYZPNP + render.aoLightValueScratchXYPN) / 4.0F;
-                var11 = (render.aoLightValueYNeg + render.aoLightValueScratchYZNN + render.aoLightValueScratchXYPN + render.aoLightValueScratchXYZPNN) / 4.0F;
-                var10 = (render.aoLightValueScratchXYNN + render.aoLightValueScratchXYZNNN + render.aoLightValueYNeg + render.aoLightValueScratchYZNN) / 4.0F;
-                render.brightnessTopLeft = render.getAoBrightness(render.aoBrightnessXYZNNP, render.aoBrightnessXYNN, render.aoBrightnessYZNP, var21);
-                render.brightnessTopRight = render.getAoBrightness(render.aoBrightnessYZNP, render.aoBrightnessXYZPNP, render.aoBrightnessXYPN, var21);
-                render.brightnessBottomRight = render.getAoBrightness(render.aoBrightnessYZNN, render.aoBrightnessXYPN, render.aoBrightnessXYZPNN, var21);
-                render.brightnessBottomLeft = render.getAoBrightness(render.aoBrightnessXYNN, render.aoBrightnessXYZNNN, render.aoBrightnessYZNN, var21);
+                f3 = (render.aoLightValueScratchXYZNNP + render.aoLightValueScratchXYNN + render.aoLightValueScratchYZNP + render.aoLightValueYNeg) / 4.0F;
+                f6 = (render.aoLightValueScratchYZNP + render.aoLightValueYNeg + render.aoLightValueScratchXYZPNP + render.aoLightValueScratchXYPN) / 4.0F;
+                f5 = (render.aoLightValueYNeg + render.aoLightValueScratchYZNN + render.aoLightValueScratchXYPN + render.aoLightValueScratchXYZPNN) / 4.0F;
+                f4 = (render.aoLightValueScratchXYNN + render.aoLightValueScratchXYZNNN + render.aoLightValueYNeg + render.aoLightValueScratchYZNN) / 4.0F;
+                render.brightnessTopLeft = render.getAoBrightness(render.aoBrightnessXYZNNP, render.aoBrightnessXYNN, render.aoBrightnessYZNP, j1);
+                render.brightnessTopRight = render.getAoBrightness(render.aoBrightnessYZNP, render.aoBrightnessXYZPNP, render.aoBrightnessXYPN, j1);
+                render.brightnessBottomRight = render.getAoBrightness(render.aoBrightnessYZNN, render.aoBrightnessXYPN, render.aoBrightnessXYZPNN, j1);
+                render.brightnessBottomLeft = render.getAoBrightness(render.aoBrightnessXYNN, render.aoBrightnessXYZNNN, render.aoBrightnessYZNN, j1);
             }
             else
             {
-                var12 = render.aoLightValueYNeg;
-                var11 = render.aoLightValueYNeg;
-                var10 = render.aoLightValueYNeg;
-                var9 = render.aoLightValueYNeg;
+                f6 = render.aoLightValueYNeg;
+                f5 = render.aoLightValueYNeg;
+                f4 = render.aoLightValueYNeg;
+                f3 = render.aoLightValueYNeg;
                 render.brightnessTopLeft = render.brightnessBottomLeft = render.brightnessBottomRight = render.brightnessTopRight = render.aoBrightnessXYNN;
             }
 
-            render.colorRedTopLeft = render.colorRedBottomLeft = render.colorRedBottomRight = render.colorRedTopRight = (var13 ? xMax : 1.0F) * 0.5F;
-            render.colorGreenTopLeft = render.colorGreenBottomLeft = render.colorGreenBottomRight = render.colorGreenTopRight = (var13 ? yMax : 1.0F) * 0.5F;
-            render.colorBlueTopLeft = render.colorBlueBottomLeft = render.colorBlueBottomRight = render.colorBlueTopRight = (var13 ? zMax : 1.0F) * 0.5F;
-            render.colorRedTopLeft *= var9;
-            render.colorGreenTopLeft *= var9;
-            render.colorBlueTopLeft *= var9;
-            render.colorRedBottomLeft *= var10;
-            render.colorGreenBottomLeft *= var10;
-            render.colorBlueBottomLeft *= var10;
-            render.colorRedBottomRight *= var11;
-            render.colorGreenBottomRight *= var11;
-            render.colorBlueBottomRight *= var11;
-            render.colorRedTopRight *= var12;
-            render.colorGreenTopRight *= var12;
-            render.colorBlueTopRight *= var12;
-            render.renderBottomFace(block, (double)xMin, (double)yMin, (double)zMin, texturePos);
-            var8 = true;
+            render.colorRedTopLeft = render.colorRedBottomLeft = render.colorRedBottomRight = render.colorRedTopRight = (flag1 ? xMax : 1.0F) * 0.5F;
+            render.colorGreenTopLeft = render.colorGreenBottomLeft = render.colorGreenBottomRight = render.colorGreenTopRight = (flag1 ? yMax : 1.0F) * 0.5F;
+            render.colorBlueTopLeft = render.colorBlueBottomLeft = render.colorBlueBottomRight = render.colorBlueTopRight = (flag1 ? zMax : 1.0F) * 0.5F;
+            render.colorRedTopLeft *= f3;
+            render.colorGreenTopLeft *= f3;
+            render.colorBlueTopLeft *= f3;
+            render.colorRedBottomLeft *= f4;
+            render.colorGreenBottomLeft *= f4;
+            render.colorBlueBottomLeft *= f4;
+            render.colorRedBottomRight *= f5;
+            render.colorGreenBottomRight *= f5;
+            render.colorBlueBottomRight *= f5;
+            render.colorRedTopRight *= f6;
+            render.colorGreenTopRight *= f6;
+            render.colorBlueTopRight *= f6;
+            render.renderBottomFace(block, (double)xMin, (double)yMin, (double)zMin, texture);
+            flag = true;
         }
 
         if (render.renderAllFaces || block.shouldSideBeRendered(render.blockAccess, xMin, yMin + 1, zMin, 1))
@@ -1241,44 +1238,52 @@ public class BlockSkinRenderHelper
                     --yMin;
                 }
 
-                var12 = (render.aoLightValueScratchXYZNPP + render.aoLightValueScratchXYNP + render.aoLightValueScratchYZPP + render.aoLightValueYPos) / 4.0F;
-                var9 = (render.aoLightValueScratchYZPP + render.aoLightValueYPos + render.aoLightValueScratchXYZPPP + render.aoLightValueScratchXYPP) / 4.0F;
-                var10 = (render.aoLightValueYPos + render.aoLightValueScratchYZPN + render.aoLightValueScratchXYPP + render.aoLightValueScratchXYZPPN) / 4.0F;
-                var11 = (render.aoLightValueScratchXYNP + render.aoLightValueScratchXYZNPN + render.aoLightValueYPos + render.aoLightValueScratchYZPN) / 4.0F;
-                render.brightnessTopRight = render.getAoBrightness(render.aoBrightnessXYZNPP, render.aoBrightnessXYNP, render.aoBrightnessYZPP, var24);
-                render.brightnessTopLeft = render.getAoBrightness(render.aoBrightnessYZPP, render.aoBrightnessXYZPPP, render.aoBrightnessXYPP, var24);
-                render.brightnessBottomLeft = render.getAoBrightness(render.aoBrightnessYZPN, render.aoBrightnessXYPP, render.aoBrightnessXYZPPN, var24);
-                render.brightnessBottomRight = render.getAoBrightness(render.aoBrightnessXYNP, render.aoBrightnessXYZNPN, render.aoBrightnessYZPN, var24);
+                f6 = (render.aoLightValueScratchXYZNPP + render.aoLightValueScratchXYNP + render.aoLightValueScratchYZPP + render.aoLightValueYPos) / 4.0F;
+                f3 = (render.aoLightValueScratchYZPP + render.aoLightValueYPos + render.aoLightValueScratchXYZPPP + render.aoLightValueScratchXYPP) / 4.0F;
+                f4 = (render.aoLightValueYPos + render.aoLightValueScratchYZPN + render.aoLightValueScratchXYPP + render.aoLightValueScratchXYZPPN) / 4.0F;
+                f5 = (render.aoLightValueScratchXYNP + render.aoLightValueScratchXYZNPN + render.aoLightValueYPos + render.aoLightValueScratchYZPN) / 4.0F;
+                render.brightnessTopRight = render.getAoBrightness(render.aoBrightnessXYZNPP, render.aoBrightnessXYNP, render.aoBrightnessYZPP, i2);
+                render.brightnessTopLeft = render.getAoBrightness(render.aoBrightnessYZPP, render.aoBrightnessXYZPPP, render.aoBrightnessXYPP, i2);
+                render.brightnessBottomLeft = render.getAoBrightness(render.aoBrightnessYZPN, render.aoBrightnessXYPP, render.aoBrightnessXYZPPN, i2);
+                render.brightnessBottomRight = render.getAoBrightness(render.aoBrightnessXYNP, render.aoBrightnessXYZNPN, render.aoBrightnessYZPN, i2);
             }
             else
             {
-                var12 = render.aoLightValueYPos;
-                var11 = render.aoLightValueYPos;
-                var10 = render.aoLightValueYPos;
-                var9 = render.aoLightValueYPos;
-                render.brightnessTopLeft = render.brightnessBottomLeft = render.brightnessBottomRight = render.brightnessTopRight = var24;
+                f6 = render.aoLightValueYPos;
+                f5 = render.aoLightValueYPos;
+                f4 = render.aoLightValueYPos;
+                f3 = render.aoLightValueYPos;
+                render.brightnessTopLeft = render.brightnessBottomLeft = render.brightnessBottomRight = render.brightnessTopRight = i2;
             }
 
-            render.colorRedTopLeft = render.colorRedBottomLeft = render.colorRedBottomRight = render.colorRedTopRight = var14 ? xMax : 1.0F;
-            render.colorGreenTopLeft = render.colorGreenBottomLeft = render.colorGreenBottomRight = render.colorGreenTopRight = var14 ? yMax : 1.0F;
-            render.colorBlueTopLeft = render.colorBlueBottomLeft = render.colorBlueBottomRight = render.colorBlueTopRight = var14 ? zMax : 1.0F;
-            render.colorRedTopLeft *= var9;
-            render.colorGreenTopLeft *= var9;
-            render.colorBlueTopLeft *= var9;
-            render.colorRedBottomLeft *= var10;
-            render.colorGreenBottomLeft *= var10;
-            render.colorBlueBottomLeft *= var10;
-            render.colorRedBottomRight *= var11;
-            render.colorGreenBottomRight *= var11;
-            render.colorBlueBottomRight *= var11;
-            render.colorRedTopRight *= var12;
-            render.colorGreenTopRight *= var12;
-            render.colorBlueTopRight *= var12;
-            render.renderTopFace(block, (double)xMin, (double)yMin, (double)zMin, texturePos);
-            var8 = true;
+            render.colorRedTopLeft = render.colorRedBottomLeft = render.colorRedBottomRight = render.colorRedTopRight = flag2 ? xMax : 1.0F;
+            render.colorGreenTopLeft = render.colorGreenBottomLeft = render.colorGreenBottomRight = render.colorGreenTopRight = flag2 ? yMax : 1.0F;
+            render.colorBlueTopLeft = render.colorBlueBottomLeft = render.colorBlueBottomRight = render.colorBlueTopRight = flag2 ? zMax : 1.0F;
+            render.colorRedTopLeft *= f3;
+            render.colorGreenTopLeft *= f3;
+            render.colorBlueTopLeft *= f3;
+            render.colorRedBottomLeft *= f4;
+            render.colorGreenBottomLeft *= f4;
+            render.colorBlueBottomLeft *= f4;
+            render.colorRedBottomRight *= f5;
+            render.colorGreenBottomRight *= f5;
+            render.colorBlueBottomRight *= f5;
+            render.colorRedTopRight *= f6;
+            render.colorGreenTopRight *= f6;
+            render.colorBlueTopRight *= f6;
+            render.renderTopFace(block, (double)xMin, (double)yMin, (double)zMin, texture);
+            flag = true;
         }
 
-        int var27;
+        float f7;
+        float f8;
+        float f9;
+        int k2;
+        float f10;
+        int l2;
+        Icon icon;
+        int i3;
+        int j3;
 
         if (render.renderAllFaces || block.shouldSideBeRendered(render.blockAccess, xMin, yMin, zMin - 1, 2))
         {
@@ -1347,41 +1352,64 @@ public class BlockSkinRenderHelper
                     ++zMin;
                 }
 
-                var9 = (render.aoLightValueScratchXZNN + render.aoLightValueScratchXYZNPN + render.aoLightValueZNeg + render.aoLightValueScratchYZPN) / 4.0F;
-                var10 = (render.aoLightValueZNeg + render.aoLightValueScratchYZPN + render.aoLightValueScratchXZPN + render.aoLightValueScratchXYZPPN) / 4.0F;
-                var11 = (render.aoLightValueScratchYZNN + render.aoLightValueZNeg + render.aoLightValueScratchXYZPNN + render.aoLightValueScratchXZPN) / 4.0F;
-                var12 = (render.aoLightValueScratchXYZNNN + render.aoLightValueScratchXZNN + render.aoLightValueScratchYZNN + render.aoLightValueZNeg) / 4.0F;
-                render.brightnessTopLeft = render.getAoBrightness(render.aoBrightnessXZNN, render.aoBrightnessXYZNPN, render.aoBrightnessYZPN, var22);
-                render.brightnessBottomLeft = render.getAoBrightness(render.aoBrightnessYZPN, render.aoBrightnessXZPN, render.aoBrightnessXYZPPN, var22);
-                render.brightnessBottomRight = render.getAoBrightness(render.aoBrightnessYZNN, render.aoBrightnessXYZPNN, render.aoBrightnessXZPN, var22);
-                render.brightnessTopRight = render.getAoBrightness(render.aoBrightnessXYZNNN, render.aoBrightnessXZNN, render.aoBrightnessYZNN, var22);
+                if (render.field_98189_n && render.field_94177_n.gameSettings.ambientOcclusion >= 2)
+                {
+                    f7 = (render.aoLightValueScratchXZNN + render.aoLightValueScratchXYZNPN + render.aoLightValueZNeg + render.aoLightValueScratchYZPN) / 4.0F;
+                    f9 = (render.aoLightValueZNeg + render.aoLightValueScratchYZPN + render.aoLightValueScratchXZPN + render.aoLightValueScratchXYZPPN) / 4.0F;
+                    f8 = (render.aoLightValueScratchYZNN + render.aoLightValueZNeg + render.aoLightValueScratchXYZPNN + render.aoLightValueScratchXZPN) / 4.0F;
+                    f10 = (render.aoLightValueScratchXYZNNN + render.aoLightValueScratchXZNN + render.aoLightValueScratchYZNN + render.aoLightValueZNeg) / 4.0F;
+                    f3 = (float)((double)f7 * render.renderMaxY * (1.0D - render.renderMinX) + (double)f9 * render.renderMinY * render.renderMinX + (double)f8 * (1.0D - render.renderMaxY) * render.renderMinX + (double)f10 * (1.0D - render.renderMaxY) * (1.0D - render.renderMinX));
+                    f4 = (float)((double)f7 * render.renderMaxY * (1.0D - render.renderMaxX) + (double)f9 * render.renderMaxY * render.renderMaxX + (double)f8 * (1.0D - render.renderMaxY) * render.renderMaxX + (double)f10 * (1.0D - render.renderMaxY) * (1.0D - render.renderMaxX));
+                    f5 = (float)((double)f7 * render.renderMinY * (1.0D - render.renderMaxX) + (double)f9 * render.renderMinY * render.renderMaxX + (double)f8 * (1.0D - render.renderMinY) * render.renderMaxX + (double)f10 * (1.0D - render.renderMinY) * (1.0D - render.renderMaxX));
+                    f6 = (float)((double)f7 * render.renderMinY * (1.0D - render.renderMinX) + (double)f9 * render.renderMinY * render.renderMinX + (double)f8 * (1.0D - render.renderMinY) * render.renderMinX + (double)f10 * (1.0D - render.renderMinY) * (1.0D - render.renderMinX));
+                    k2 = render.getAoBrightness(render.aoBrightnessXZNN, render.aoBrightnessXYZNPN, render.aoBrightnessYZPN, k1);
+                    i3 = render.getAoBrightness(render.aoBrightnessYZPN, render.aoBrightnessXZPN, render.aoBrightnessXYZPPN, k1);
+                    j3 = render.getAoBrightness(render.aoBrightnessYZNN, render.aoBrightnessXYZPNN, render.aoBrightnessXZPN, k1);
+                    l2 = render.getAoBrightness(render.aoBrightnessXYZNNN, render.aoBrightnessXZNN, render.aoBrightnessYZNN, k1);
+                    render.brightnessTopLeft = render.func_96444_a(k2, i3, j3, l2, render.renderMaxY * (1.0D - render.renderMinX), render.renderMaxY * render.renderMinX, (1.0D - render.renderMaxY) * render.renderMinX, (1.0D - render.renderMaxY) * (1.0D - render.renderMinX));
+                    render.brightnessBottomLeft = render.func_96444_a(k2, i3, j3, l2, render.renderMaxY * (1.0D - render.renderMaxX), render.renderMaxY * render.renderMaxX, (1.0D - render.renderMaxY) * render.renderMaxX, (1.0D - render.renderMaxY) * (1.0D - render.renderMaxX));
+                    render.brightnessBottomRight = render.func_96444_a(k2, i3, j3, l2, render.renderMinY * (1.0D - render.renderMaxX), render.renderMinY * render.renderMaxX, (1.0D - render.renderMinY) * render.renderMaxX, (1.0D - render.renderMinY) * (1.0D - render.renderMaxX));
+                    render.brightnessTopRight = render.func_96444_a(k2, i3, j3, l2, render.renderMinY * (1.0D - render.renderMinX), render.renderMinY * render.renderMinX, (1.0D - render.renderMinY) * render.renderMinX, (1.0D - render.renderMinY) * (1.0D - render.renderMinX));
+                }
+                else
+                {
+                    f3 = (render.aoLightValueScratchXZNN + render.aoLightValueScratchXYZNPN + render.aoLightValueZNeg + render.aoLightValueScratchYZPN) / 4.0F;
+                    f4 = (render.aoLightValueZNeg + render.aoLightValueScratchYZPN + render.aoLightValueScratchXZPN + render.aoLightValueScratchXYZPPN) / 4.0F;
+                    f5 = (render.aoLightValueScratchYZNN + render.aoLightValueZNeg + render.aoLightValueScratchXYZPNN + render.aoLightValueScratchXZPN) / 4.0F;
+                    f6 = (render.aoLightValueScratchXYZNNN + render.aoLightValueScratchXZNN + render.aoLightValueScratchYZNN + render.aoLightValueZNeg) / 4.0F;
+                    render.brightnessTopLeft = render.getAoBrightness(render.aoBrightnessXZNN, render.aoBrightnessXYZNPN, render.aoBrightnessYZPN, k1);
+                    render.brightnessBottomLeft = render.getAoBrightness(render.aoBrightnessYZPN, render.aoBrightnessXZPN, render.aoBrightnessXYZPPN, k1);
+                    render.brightnessBottomRight = render.getAoBrightness(render.aoBrightnessYZNN, render.aoBrightnessXYZPNN, render.aoBrightnessXZPN, k1);
+                    render.brightnessTopRight = render.getAoBrightness(render.aoBrightnessXYZNNN, render.aoBrightnessXZNN, render.aoBrightnessYZNN, k1);
+                }
             }
             else
             {
-                var12 = render.aoLightValueZNeg;
-                var11 = render.aoLightValueZNeg;
-                var10 = render.aoLightValueZNeg;
-                var9 = render.aoLightValueZNeg;
-                render.brightnessTopLeft = render.brightnessBottomLeft = render.brightnessBottomRight = render.brightnessTopRight = var22;
+                f6 = render.aoLightValueZNeg;
+                f5 = render.aoLightValueZNeg;
+                f4 = render.aoLightValueZNeg;
+                f3 = render.aoLightValueZNeg;
+                render.brightnessTopLeft = render.brightnessBottomLeft = render.brightnessBottomRight = render.brightnessTopRight = k1;
             }
 
-            render.colorRedTopLeft = render.colorRedBottomLeft = render.colorRedBottomRight = render.colorRedTopRight = (var15 ? xMax : 1.0F) * 0.8F;
-            render.colorGreenTopLeft = render.colorGreenBottomLeft = render.colorGreenBottomRight = render.colorGreenTopRight = (var15 ? yMax : 1.0F) * 0.8F;
-            render.colorBlueTopLeft = render.colorBlueBottomLeft = render.colorBlueBottomRight = render.colorBlueTopRight = (var15 ? zMax : 1.0F) * 0.8F;
-            render.colorRedTopLeft *= var9;
-            render.colorGreenTopLeft *= var9;
-            render.colorBlueTopLeft *= var9;
-            render.colorRedBottomLeft *= var10;
-            render.colorGreenBottomLeft *= var10;
-            render.colorBlueBottomLeft *= var10;
-            render.colorRedBottomRight *= var11;
-            render.colorGreenBottomRight *= var11;
-            render.colorBlueBottomRight *= var11;
-            render.colorRedTopRight *= var12;
-            render.colorGreenTopRight *= var12;
-            render.colorBlueTopRight *= var12;
-            render.renderEastFace(block, (double)xMin, (double)yMin, (double)zMin, texturePos);
-            var8 = true;
+            render.colorRedTopLeft = render.colorRedBottomLeft = render.colorRedBottomRight = render.colorRedTopRight = (flag3 ? xMax : 1.0F) * 0.8F;
+            render.colorGreenTopLeft = render.colorGreenBottomLeft = render.colorGreenBottomRight = render.colorGreenTopRight = (flag3 ? yMax : 1.0F) * 0.8F;
+            render.colorBlueTopLeft = render.colorBlueBottomLeft = render.colorBlueBottomRight = render.colorBlueTopRight = (flag3 ? zMax : 1.0F) * 0.8F;
+            render.colorRedTopLeft *= f3;
+            render.colorGreenTopLeft *= f3;
+            render.colorBlueTopLeft *= f3;
+            render.colorRedBottomLeft *= f4;
+            render.colorGreenBottomLeft *= f4;
+            render.colorBlueBottomLeft *= f4;
+            render.colorRedBottomRight *= f5;
+            render.colorGreenBottomRight *= f5;
+            render.colorBlueBottomRight *= f5;
+            render.colorRedTopRight *= f6;
+            render.colorGreenTopRight *= f6;
+            render.colorBlueTopRight *= f6;
+            render.renderEastFace(block, (double)xMin, (double)yMin, (double)zMin, texture);
+
+            flag = true;
         }
 
         if (render.renderAllFaces || block.shouldSideBeRendered(render.blockAccess, xMin, yMin, zMin + 1, 3))
@@ -1451,42 +1479,64 @@ public class BlockSkinRenderHelper
                     --zMin;
                 }
 
-                var9 = (render.aoLightValueScratchXZNP + render.aoLightValueScratchXYZNPP + render.aoLightValueZPos + render.aoLightValueScratchYZPP) / 4.0F;
-                var12 = (render.aoLightValueZPos + render.aoLightValueScratchYZPP + render.aoLightValueScratchXZPP + render.aoLightValueScratchXYZPPP) / 4.0F;
-                var11 = (render.aoLightValueScratchYZNP + render.aoLightValueZPos + render.aoLightValueScratchXYZPNP + render.aoLightValueScratchXZPP) / 4.0F;
-                var10 = (render.aoLightValueScratchXYZNNP + render.aoLightValueScratchXZNP + render.aoLightValueScratchYZNP + render.aoLightValueZPos) / 4.0F;
-                render.brightnessTopLeft = render.getAoBrightness(render.aoBrightnessXZNP, render.aoBrightnessXYZNPP, render.aoBrightnessYZPP, var25);
-                render.brightnessTopRight = render.getAoBrightness(render.aoBrightnessYZPP, render.aoBrightnessXZPP, render.aoBrightnessXYZPPP, var25);
-                render.brightnessBottomRight = render.getAoBrightness(render.aoBrightnessYZNP, render.aoBrightnessXYZPNP, render.aoBrightnessXZPP, var25);
-                render.brightnessBottomLeft = render.getAoBrightness(render.aoBrightnessXYZNNP, render.aoBrightnessXZNP, render.aoBrightnessYZNP, var25);
+                if (render.field_98189_n && render.field_94177_n.gameSettings.ambientOcclusion >= 2)
+                {
+                    f7 = (render.aoLightValueScratchXZNP + render.aoLightValueScratchXYZNPP + render.aoLightValueZPos + render.aoLightValueScratchYZPP) / 4.0F;
+                    f9 = (render.aoLightValueZPos + render.aoLightValueScratchYZPP + render.aoLightValueScratchXZPP + render.aoLightValueScratchXYZPPP) / 4.0F;
+                    f8 = (render.aoLightValueScratchYZNP + render.aoLightValueZPos + render.aoLightValueScratchXYZPNP + render.aoLightValueScratchXZPP) / 4.0F;
+                    f10 = (render.aoLightValueScratchXYZNNP + render.aoLightValueScratchXZNP + render.aoLightValueScratchYZNP + render.aoLightValueZPos) / 4.0F;
+                    f3 = (float)((double)f7 * render.renderMaxY * (1.0D - render.renderMinX) + (double)f9 * render.renderMaxY * render.renderMinX + (double)f8 * (1.0D - render.renderMaxY) * render.renderMinX + (double)f10 * (1.0D - render.renderMaxY) * (1.0D - render.renderMinX));
+                    f4 = (float)((double)f7 * render.renderMinY * (1.0D - render.renderMinX) + (double)f9 * render.renderMinY * render.renderMinX + (double)f8 * (1.0D - render.renderMinY) * render.renderMinX + (double)f10 * (1.0D - render.renderMinY) * (1.0D - render.renderMinX));
+                    f5 = (float)((double)f7 * render.renderMinY * (1.0D - render.renderMaxX) + (double)f9 * render.renderMinY * render.renderMaxX + (double)f8 * (1.0D - render.renderMinY) * render.renderMaxX + (double)f10 * (1.0D - render.renderMinY) * (1.0D - render.renderMaxX));
+                    f6 = (float)((double)f7 * render.renderMaxY * (1.0D - render.renderMaxX) + (double)f9 * render.renderMaxY * render.renderMaxX + (double)f8 * (1.0D - render.renderMaxY) * render.renderMaxX + (double)f10 * (1.0D - render.renderMaxY) * (1.0D - render.renderMaxX));
+                    k2 = render.getAoBrightness(render.aoBrightnessXZNP, render.aoBrightnessXYZNPP, render.aoBrightnessYZPP, j2);
+                    i3 = render.getAoBrightness(render.aoBrightnessYZPP, render.aoBrightnessXZPP, render.aoBrightnessXYZPPP, j2);
+                    j3 = render.getAoBrightness(render.aoBrightnessYZNP, render.aoBrightnessXYZPNP, render.aoBrightnessXZPP, j2);
+                    l2 = render.getAoBrightness(render.aoBrightnessXYZNNP, render.aoBrightnessXZNP, render.aoBrightnessYZNP, j2);
+                    render.brightnessTopLeft = render.func_96444_a(k2, l2, j3, i3, render.renderMaxY * (1.0D - render.renderMinX), (1.0D - render.renderMaxY) * (1.0D - render.renderMinX), (1.0D - render.renderMaxY) * render.renderMinX, render.renderMaxY * render.renderMinX);
+                    render.brightnessBottomLeft = render.func_96444_a(k2, l2, j3, i3, render.renderMinY * (1.0D - render.renderMinX), (1.0D - render.renderMinY) * (1.0D - render.renderMinX), (1.0D - render.renderMinY) * render.renderMinX, render.renderMinY * render.renderMinX);
+                    render.brightnessBottomRight = render.func_96444_a(k2, l2, j3, i3, render.renderMinY * (1.0D - render.renderMaxX), (1.0D - render.renderMinY) * (1.0D - render.renderMaxX), (1.0D - render.renderMinY) * render.renderMaxX, render.renderMinY * render.renderMaxX);
+                    render.brightnessTopRight = render.func_96444_a(k2, l2, j3, i3, render.renderMaxY * (1.0D - render.renderMaxX), (1.0D - render.renderMaxY) * (1.0D - render.renderMaxX), (1.0D - render.renderMaxY) * render.renderMaxX, render.renderMaxY * render.renderMaxX);
+                }
+                else
+                {
+                    f3 = (render.aoLightValueScratchXZNP + render.aoLightValueScratchXYZNPP + render.aoLightValueZPos + render.aoLightValueScratchYZPP) / 4.0F;
+                    f6 = (render.aoLightValueZPos + render.aoLightValueScratchYZPP + render.aoLightValueScratchXZPP + render.aoLightValueScratchXYZPPP) / 4.0F;
+                    f5 = (render.aoLightValueScratchYZNP + render.aoLightValueZPos + render.aoLightValueScratchXYZPNP + render.aoLightValueScratchXZPP) / 4.0F;
+                    f4 = (render.aoLightValueScratchXYZNNP + render.aoLightValueScratchXZNP + render.aoLightValueScratchYZNP + render.aoLightValueZPos) / 4.0F;
+                    render.brightnessTopLeft = render.getAoBrightness(render.aoBrightnessXZNP, render.aoBrightnessXYZNPP, render.aoBrightnessYZPP, j2);
+                    render.brightnessTopRight = render.getAoBrightness(render.aoBrightnessYZPP, render.aoBrightnessXZPP, render.aoBrightnessXYZPPP, j2);
+                    render.brightnessBottomRight = render.getAoBrightness(render.aoBrightnessYZNP, render.aoBrightnessXYZPNP, render.aoBrightnessXZPP, j2);
+                    render.brightnessBottomLeft = render.getAoBrightness(render.aoBrightnessXYZNNP, render.aoBrightnessXZNP, render.aoBrightnessYZNP, j2);
+                }
             }
             else
             {
-                var12 = render.aoLightValueZPos;
-                var11 = render.aoLightValueZPos;
-                var10 = render.aoLightValueZPos;
-                var9 = render.aoLightValueZPos;
-                render.brightnessTopLeft = render.brightnessBottomLeft = render.brightnessBottomRight = render.brightnessTopRight = var25;
+                f6 = render.aoLightValueZPos;
+                f5 = render.aoLightValueZPos;
+                f4 = render.aoLightValueZPos;
+                f3 = render.aoLightValueZPos;
+                render.brightnessTopLeft = render.brightnessBottomLeft = render.brightnessBottomRight = render.brightnessTopRight = j2;
             }
 
-            render.colorRedTopLeft = render.colorRedBottomLeft = render.colorRedBottomRight = render.colorRedTopRight = (var16 ? xMax : 1.0F) * 0.8F;
-            render.colorGreenTopLeft = render.colorGreenBottomLeft = render.colorGreenBottomRight = render.colorGreenTopRight = (var16 ? yMax : 1.0F) * 0.8F;
-            render.colorBlueTopLeft = render.colorBlueBottomLeft = render.colorBlueBottomRight = render.colorBlueTopRight = (var16 ? zMax : 1.0F) * 0.8F;
-            render.colorRedTopLeft *= var9;
-            render.colorGreenTopLeft *= var9;
-            render.colorBlueTopLeft *= var9;
-            render.colorRedBottomLeft *= var10;
-            render.colorGreenBottomLeft *= var10;
-            render.colorBlueBottomLeft *= var10;
-            render.colorRedBottomRight *= var11;
-            render.colorGreenBottomRight *= var11;
-            render.colorBlueBottomRight *= var11;
-            render.colorRedTopRight *= var12;
-            render.colorGreenTopRight *= var12;
-            render.colorBlueTopRight *= var12;
-            render.renderWestFace(block, (double)xMin, (double)yMin, (double)zMin, texturePos);
+            render.colorRedTopLeft = render.colorRedBottomLeft = render.colorRedBottomRight = render.colorRedTopRight = (flag4 ? xMax : 1.0F) * 0.8F;
+            render.colorGreenTopLeft = render.colorGreenBottomLeft = render.colorGreenBottomRight = render.colorGreenTopRight = (flag4 ? yMax : 1.0F) * 0.8F;
+            render.colorBlueTopLeft = render.colorBlueBottomLeft = render.colorBlueBottomRight = render.colorBlueTopRight = (flag4 ? zMax : 1.0F) * 0.8F;
+            render.colorRedTopLeft *= f3;
+            render.colorGreenTopLeft *= f3;
+            render.colorBlueTopLeft *= f3;
+            render.colorRedBottomLeft *= f4;
+            render.colorGreenBottomLeft *= f4;
+            render.colorBlueBottomLeft *= f4;
+            render.colorRedBottomRight *= f5;
+            render.colorGreenBottomRight *= f5;
+            render.colorBlueBottomRight *= f5;
+            render.colorRedTopRight *= f6;
+            render.colorGreenTopRight *= f6;
+            render.colorBlueTopRight *= f6;
+            render.renderWestFace(block, (double)xMin, (double)yMin, (double)zMin, texture);
 
-            var8 = true;
+            flag = true;
         }
 
         if (render.renderAllFaces || block.shouldSideBeRendered(render.blockAccess, xMin - 1, yMin, zMin, 4))
@@ -1556,42 +1606,64 @@ public class BlockSkinRenderHelper
                     ++xMin;
                 }
 
-                var12 = (render.aoLightValueScratchXYNN + render.aoLightValueScratchXYZNNP + render.aoLightValueXNeg + render.aoLightValueScratchXZNP) / 4.0F;
-                var9 = (render.aoLightValueXNeg + render.aoLightValueScratchXZNP + render.aoLightValueScratchXYNP + render.aoLightValueScratchXYZNPP) / 4.0F;
-                var10 = (render.aoLightValueScratchXZNN + render.aoLightValueXNeg + render.aoLightValueScratchXYZNPN + render.aoLightValueScratchXYNP) / 4.0F;
-                var11 = (render.aoLightValueScratchXYZNNN + render.aoLightValueScratchXYNN + render.aoLightValueScratchXZNN + render.aoLightValueXNeg) / 4.0F;
-                render.brightnessTopRight = render.getAoBrightness(render.aoBrightnessXYNN, render.aoBrightnessXYZNNP, render.aoBrightnessXZNP, var20);
-                render.brightnessTopLeft = render.getAoBrightness(render.aoBrightnessXZNP, render.aoBrightnessXYNP, render.aoBrightnessXYZNPP, var20);
-                render.brightnessBottomLeft = render.getAoBrightness(render.aoBrightnessXZNN, render.aoBrightnessXYZNPN, render.aoBrightnessXYNP, var20);
-                render.brightnessBottomRight = render.getAoBrightness(render.aoBrightnessXYZNNN, render.aoBrightnessXYNN, render.aoBrightnessXZNN, var20);
+                if (render.field_98189_n && render.field_94177_n.gameSettings.ambientOcclusion >= 2)
+                {
+                    f7 = (render.aoLightValueScratchXYNN + render.aoLightValueScratchXYZNNP + render.aoLightValueXNeg + render.aoLightValueScratchXZNP) / 4.0F;
+                    f9 = (render.aoLightValueXNeg + render.aoLightValueScratchXZNP + render.aoLightValueScratchXYNP + render.aoLightValueScratchXYZNPP) / 4.0F;
+                    f8 = (render.aoLightValueScratchXZNN + render.aoLightValueXNeg + render.aoLightValueScratchXYZNPN + render.aoLightValueScratchXYNP) / 4.0F;
+                    f10 = (render.aoLightValueScratchXYZNNN + render.aoLightValueScratchXYNN + render.aoLightValueScratchXZNN + render.aoLightValueXNeg) / 4.0F;
+                    f3 = (float)((double)f9 * render.renderMaxY * render.renderMaxZ + (double)f8 * render.renderMaxY * (1.0D - render.renderMaxZ) + (double)f10 * (1.0D - render.renderMaxY) * (1.0D - render.renderMaxZ) + (double)f7 * (1.0D - render.renderMaxY) * render.renderMaxZ);
+                    f4 = (float)((double)f9 * render.renderMaxY * render.renderMinZ + (double)f8 * render.renderMaxY * (1.0D - render.renderMinZ) + (double)f10 * (1.0D - render.renderMaxY) * (1.0D - render.renderMinZ) + (double)f7 * (1.0D - render.renderMaxY) * render.renderMinZ);
+                    f5 = (float)((double)f9 * render.renderMinY * render.renderMinZ + (double)f8 * render.renderMinY * (1.0D - render.renderMinZ) + (double)f10 * (1.0D - render.renderMinY) * (1.0D - render.renderMinZ) + (double)f7 * (1.0D - render.renderMinY) * render.renderMinZ);
+                    f6 = (float)((double)f9 * render.renderMinY * render.renderMaxZ + (double)f8 * render.renderMinY * (1.0D - render.renderMaxZ) + (double)f10 * (1.0D - render.renderMinY) * (1.0D - render.renderMaxZ) + (double)f7 * (1.0D - render.renderMinY) * render.renderMaxZ);
+                    k2 = render.getAoBrightness(render.aoBrightnessXYNN, render.aoBrightnessXYZNNP, render.aoBrightnessXZNP, i1);
+                    i3 = render.getAoBrightness(render.aoBrightnessXZNP, render.aoBrightnessXYNP, render.aoBrightnessXYZNPP, i1);
+                    j3 = render.getAoBrightness(render.aoBrightnessXZNN, render.aoBrightnessXYZNPN, render.aoBrightnessXYNP, i1);
+                    l2 = render.getAoBrightness(render.aoBrightnessXYZNNN, render.aoBrightnessXYNN, render.aoBrightnessXZNN, i1);
+                    render.brightnessTopLeft = render.func_96444_a(i3, j3, l2, k2, render.renderMaxY * render.renderMaxZ, render.renderMaxY * (1.0D - render.renderMaxZ), (1.0D - render.renderMaxY) * (1.0D - render.renderMaxZ), (1.0D - render.renderMaxY) * render.renderMaxZ);
+                    render.brightnessBottomLeft = render.func_96444_a(i3, j3, l2, k2, render.renderMaxY * render.renderMinZ, render.renderMaxY * (1.0D - render.renderMinZ), (1.0D - render.renderMaxY) * (1.0D - render.renderMinZ), (1.0D - render.renderMaxY) * render.renderMinZ);
+                    render.brightnessBottomRight = render.func_96444_a(i3, j3, l2, k2, render.renderMinY * render.renderMinZ, render.renderMinY * (1.0D - render.renderMinZ), (1.0D - render.renderMinY) * (1.0D - render.renderMinZ), (1.0D - render.renderMinY) * render.renderMinZ);
+                    render.brightnessTopRight = render.func_96444_a(i3, j3, l2, k2, render.renderMinY * render.renderMaxZ, render.renderMinY * (1.0D - render.renderMaxZ), (1.0D - render.renderMinY) * (1.0D - render.renderMaxZ), (1.0D - render.renderMinY) * render.renderMaxZ);
+                }
+                else
+                {
+                    f6 = (render.aoLightValueScratchXYNN + render.aoLightValueScratchXYZNNP + render.aoLightValueXNeg + render.aoLightValueScratchXZNP) / 4.0F;
+                    f3 = (render.aoLightValueXNeg + render.aoLightValueScratchXZNP + render.aoLightValueScratchXYNP + render.aoLightValueScratchXYZNPP) / 4.0F;
+                    f4 = (render.aoLightValueScratchXZNN + render.aoLightValueXNeg + render.aoLightValueScratchXYZNPN + render.aoLightValueScratchXYNP) / 4.0F;
+                    f5 = (render.aoLightValueScratchXYZNNN + render.aoLightValueScratchXYNN + render.aoLightValueScratchXZNN + render.aoLightValueXNeg) / 4.0F;
+                    render.brightnessTopRight = render.getAoBrightness(render.aoBrightnessXYNN, render.aoBrightnessXYZNNP, render.aoBrightnessXZNP, i1);
+                    render.brightnessTopLeft = render.getAoBrightness(render.aoBrightnessXZNP, render.aoBrightnessXYNP, render.aoBrightnessXYZNPP, i1);
+                    render.brightnessBottomLeft = render.getAoBrightness(render.aoBrightnessXZNN, render.aoBrightnessXYZNPN, render.aoBrightnessXYNP, i1);
+                    render.brightnessBottomRight = render.getAoBrightness(render.aoBrightnessXYZNNN, render.aoBrightnessXYNN, render.aoBrightnessXZNN, i1);
+                }
             }
             else
             {
-                var12 = render.aoLightValueXNeg;
-                var11 = render.aoLightValueXNeg;
-                var10 = render.aoLightValueXNeg;
-                var9 = render.aoLightValueXNeg;
-                render.brightnessTopLeft = render.brightnessBottomLeft = render.brightnessBottomRight = render.brightnessTopRight = var20;
+                f6 = render.aoLightValueXNeg;
+                f5 = render.aoLightValueXNeg;
+                f4 = render.aoLightValueXNeg;
+                f3 = render.aoLightValueXNeg;
+                render.brightnessTopLeft = render.brightnessBottomLeft = render.brightnessBottomRight = render.brightnessTopRight = i1;
             }
 
-            render.colorRedTopLeft = render.colorRedBottomLeft = render.colorRedBottomRight = render.colorRedTopRight = (var17 ? xMax : 1.0F) * 0.6F;
-            render.colorGreenTopLeft = render.colorGreenBottomLeft = render.colorGreenBottomRight = render.colorGreenTopRight = (var17 ? yMax : 1.0F) * 0.6F;
-            render.colorBlueTopLeft = render.colorBlueBottomLeft = render.colorBlueBottomRight = render.colorBlueTopRight = (var17 ? zMax : 1.0F) * 0.6F;
-            render.colorRedTopLeft *= var9;
-            render.colorGreenTopLeft *= var9;
-            render.colorBlueTopLeft *= var9;
-            render.colorRedBottomLeft *= var10;
-            render.colorGreenBottomLeft *= var10;
-            render.colorBlueBottomLeft *= var10;
-            render.colorRedBottomRight *= var11;
-            render.colorGreenBottomRight *= var11;
-            render.colorBlueBottomRight *= var11;
-            render.colorRedTopRight *= var12;
-            render.colorGreenTopRight *= var12;
-            render.colorBlueTopRight *= var12;
-            render.renderNorthFace(block, (double)xMin, (double)yMin, (double)zMin, texturePos);
+            render.colorRedTopLeft = render.colorRedBottomLeft = render.colorRedBottomRight = render.colorRedTopRight = (flag5 ? xMax : 1.0F) * 0.6F;
+            render.colorGreenTopLeft = render.colorGreenBottomLeft = render.colorGreenBottomRight = render.colorGreenTopRight = (flag5 ? yMax : 1.0F) * 0.6F;
+            render.colorBlueTopLeft = render.colorBlueBottomLeft = render.colorBlueBottomRight = render.colorBlueTopRight = (flag5 ? zMax : 1.0F) * 0.6F;
+            render.colorRedTopLeft *= f3;
+            render.colorGreenTopLeft *= f3;
+            render.colorBlueTopLeft *= f3;
+            render.colorRedBottomLeft *= f4;
+            render.colorGreenBottomLeft *= f4;
+            render.colorBlueBottomLeft *= f4;
+            render.colorRedBottomRight *= f5;
+            render.colorGreenBottomRight *= f5;
+            render.colorBlueBottomRight *= f5;
+            render.colorRedTopRight *= f6;
+            render.colorGreenTopRight *= f6;
+            render.colorBlueTopRight *= f6;
+            render.renderNorthFace(block, (double)xMin, (double)yMin, (double)zMin, texture);
 
-            var8 = true;
+            flag = true;
         }
 
         if (render.renderAllFaces || block.shouldSideBeRendered(render.blockAccess, xMin + 1, yMin, zMin, 5))
@@ -1661,140 +1733,162 @@ public class BlockSkinRenderHelper
                     --xMin;
                 }
 
-                var9 = (render.aoLightValueScratchXYPN + render.aoLightValueScratchXYZPNP + render.aoLightValueXPos + render.aoLightValueScratchXZPP) / 4.0F;
-                var12 = (render.aoLightValueXPos + render.aoLightValueScratchXZPP + render.aoLightValueScratchXYPP + render.aoLightValueScratchXYZPPP) / 4.0F;
-                var11 = (render.aoLightValueScratchXZPN + render.aoLightValueXPos + render.aoLightValueScratchXYZPPN + render.aoLightValueScratchXYPP) / 4.0F;
-                var10 = (render.aoLightValueScratchXYZPNN + render.aoLightValueScratchXYPN + render.aoLightValueScratchXZPN + render.aoLightValueXPos) / 4.0F;
-                render.brightnessTopLeft = render.getAoBrightness(render.aoBrightnessXYPN, render.aoBrightnessXYZPNP, render.aoBrightnessXZPP, var23);
-                render.brightnessTopRight = render.getAoBrightness(render.aoBrightnessXZPP, render.aoBrightnessXYPP, render.aoBrightnessXYZPPP, var23);
-                render.brightnessBottomRight = render.getAoBrightness(render.aoBrightnessXZPN, render.aoBrightnessXYZPPN, render.aoBrightnessXYPP, var23);
-                render.brightnessBottomLeft = render.getAoBrightness(render.aoBrightnessXYZPNN, render.aoBrightnessXYPN, render.aoBrightnessXZPN, var23);
+                if (render.field_98189_n && render.field_94177_n.gameSettings.ambientOcclusion >= 2)
+                {
+                    f7 = (render.aoLightValueScratchXYPN + render.aoLightValueScratchXYZPNP + render.aoLightValueXPos + render.aoLightValueScratchXZPP) / 4.0F;
+                    f9 = (render.aoLightValueScratchXYZPNN + render.aoLightValueScratchXYPN + render.aoLightValueScratchXZPN + render.aoLightValueXPos) / 4.0F;
+                    f8 = (render.aoLightValueScratchXZPN + render.aoLightValueXPos + render.aoLightValueScratchXYZPPN + render.aoLightValueScratchXYPP) / 4.0F;
+                    f10 = (render.aoLightValueXPos + render.aoLightValueScratchXZPP + render.aoLightValueScratchXYPP + render.aoLightValueScratchXYZPPP) / 4.0F;
+                    f3 = (float)((double)f7 * (1.0D - render.renderMinY) * render.renderMaxZ + (double)f9 * (1.0D - render.renderMinY) * (1.0D - render.renderMaxZ) + (double)f8 * render.renderMinY * (1.0D - render.renderMaxZ) + (double)f10 * render.renderMinY * render.renderMaxZ);
+                    f4 = (float)((double)f7 * (1.0D - render.renderMinY) * render.renderMinZ + (double)f9 * (1.0D - render.renderMinY) * (1.0D - render.renderMinZ) + (double)f8 * render.renderMinY * (1.0D - render.renderMinZ) + (double)f10 * render.renderMinY * render.renderMinZ);
+                    f5 = (float)((double)f7 * (1.0D - render.renderMaxY) * render.renderMinZ + (double)f9 * (1.0D - render.renderMaxY) * (1.0D - render.renderMinZ) + (double)f8 * render.renderMaxY * (1.0D - render.renderMinZ) + (double)f10 * render.renderMaxY * render.renderMinZ);
+                    f6 = (float)((double)f7 * (1.0D - render.renderMaxY) * render.renderMaxZ + (double)f9 * (1.0D - render.renderMaxY) * (1.0D - render.renderMaxZ) + (double)f8 * render.renderMaxY * (1.0D - render.renderMaxZ) + (double)f10 * render.renderMaxY * render.renderMaxZ);
+                    k2 = render.getAoBrightness(render.aoBrightnessXYPN, render.aoBrightnessXYZPNP, render.aoBrightnessXZPP, l1);
+                    i3 = render.getAoBrightness(render.aoBrightnessXZPP, render.aoBrightnessXYPP, render.aoBrightnessXYZPPP, l1);
+                    j3 = render.getAoBrightness(render.aoBrightnessXZPN, render.aoBrightnessXYZPPN, render.aoBrightnessXYPP, l1);
+                    l2 = render.getAoBrightness(render.aoBrightnessXYZPNN, render.aoBrightnessXYPN, render.aoBrightnessXZPN, l1);
+                    render.brightnessTopLeft = render.func_96444_a(k2, l2, j3, i3, (1.0D - render.renderMinY) * render.renderMaxZ, (1.0D - render.renderMinY) * (1.0D - render.renderMaxZ), render.renderMinY * (1.0D - render.renderMaxZ), render.renderMinY * render.renderMaxZ);
+                    render.brightnessBottomLeft = render.func_96444_a(k2, l2, j3, i3, (1.0D - render.renderMinY) * render.renderMinZ, (1.0D - render.renderMinY) * (1.0D - render.renderMinZ), render.renderMinY * (1.0D - render.renderMinZ), render.renderMinY * render.renderMinZ);
+                    render.brightnessBottomRight = render.func_96444_a(k2, l2, j3, i3, (1.0D - render.renderMaxY) * render.renderMinZ, (1.0D - render.renderMaxY) * (1.0D - render.renderMinZ), render.renderMaxY * (1.0D - render.renderMinZ), render.renderMaxY * render.renderMinZ);
+                    render.brightnessTopRight = render.func_96444_a(k2, l2, j3, i3, (1.0D - render.renderMaxY) * render.renderMaxZ, (1.0D - render.renderMaxY) * (1.0D - render.renderMaxZ), render.renderMaxY * (1.0D - render.renderMaxZ), render.renderMaxY * render.renderMaxZ);
+                }
+                else
+                {
+                    f3 = (render.aoLightValueScratchXYPN + render.aoLightValueScratchXYZPNP + render.aoLightValueXPos + render.aoLightValueScratchXZPP) / 4.0F;
+                    f4 = (render.aoLightValueScratchXYZPNN + render.aoLightValueScratchXYPN + render.aoLightValueScratchXZPN + render.aoLightValueXPos) / 4.0F;
+                    f5 = (render.aoLightValueScratchXZPN + render.aoLightValueXPos + render.aoLightValueScratchXYZPPN + render.aoLightValueScratchXYPP) / 4.0F;
+                    f6 = (render.aoLightValueXPos + render.aoLightValueScratchXZPP + render.aoLightValueScratchXYPP + render.aoLightValueScratchXYZPPP) / 4.0F;
+                    render.brightnessTopLeft = render.getAoBrightness(render.aoBrightnessXYPN, render.aoBrightnessXYZPNP, render.aoBrightnessXZPP, l1);
+                    render.brightnessTopRight = render.getAoBrightness(render.aoBrightnessXZPP, render.aoBrightnessXYPP, render.aoBrightnessXYZPPP, l1);
+                    render.brightnessBottomRight = render.getAoBrightness(render.aoBrightnessXZPN, render.aoBrightnessXYZPPN, render.aoBrightnessXYPP, l1);
+                    render.brightnessBottomLeft = render.getAoBrightness(render.aoBrightnessXYZPNN, render.aoBrightnessXYPN, render.aoBrightnessXZPN, l1);
+                }
             }
             else
             {
-                var12 = render.aoLightValueXPos;
-                var11 = render.aoLightValueXPos;
-                var10 = render.aoLightValueXPos;
-                var9 = render.aoLightValueXPos;
-                render.brightnessTopLeft = render.brightnessBottomLeft = render.brightnessBottomRight = render.brightnessTopRight = var23;
+                f6 = render.aoLightValueXPos;
+                f5 = render.aoLightValueXPos;
+                f4 = render.aoLightValueXPos;
+                f3 = render.aoLightValueXPos;
+                render.brightnessTopLeft = render.brightnessBottomLeft = render.brightnessBottomRight = render.brightnessTopRight = l1;
             }
 
-            render.colorRedTopLeft = render.colorRedBottomLeft = render.colorRedBottomRight = render.colorRedTopRight = (var18 ? xMax : 1.0F) * 0.6F;
-            render.colorGreenTopLeft = render.colorGreenBottomLeft = render.colorGreenBottomRight = render.colorGreenTopRight = (var18 ? yMax : 1.0F) * 0.6F;
-            render.colorBlueTopLeft = render.colorBlueBottomLeft = render.colorBlueBottomRight = render.colorBlueTopRight = (var18 ? zMax : 1.0F) * 0.6F;
-            render.colorRedTopLeft *= var9;
-            render.colorGreenTopLeft *= var9;
-            render.colorBlueTopLeft *= var9;
-            render.colorRedBottomLeft *= var10;
-            render.colorGreenBottomLeft *= var10;
-            render.colorBlueBottomLeft *= var10;
-            render.colorRedBottomRight *= var11;
-            render.colorGreenBottomRight *= var11;
-            render.colorBlueBottomRight *= var11;
-            render.colorRedTopRight *= var12;
-            render.colorGreenTopRight *= var12;
-            render.colorBlueTopRight *= var12;
-            render.renderSouthFace(block, (double)xMin, (double)yMin, (double)zMin, texturePos);
+            render.colorRedTopLeft = render.colorRedBottomLeft = render.colorRedBottomRight = render.colorRedTopRight = (flag6 ? xMax : 1.0F) * 0.6F;
+            render.colorGreenTopLeft = render.colorGreenBottomLeft = render.colorGreenBottomRight = render.colorGreenTopRight = (flag6 ? yMax : 1.0F) * 0.6F;
+            render.colorBlueTopLeft = render.colorBlueBottomLeft = render.colorBlueBottomRight = render.colorBlueTopRight = (flag6 ? zMax : 1.0F) * 0.6F;
+            render.colorRedTopLeft *= f3;
+            render.colorGreenTopLeft *= f3;
+            render.colorBlueTopLeft *= f3;
+            render.colorRedBottomLeft *= f4;
+            render.colorGreenBottomLeft *= f4;
+            render.colorBlueBottomLeft *= f4;
+            render.colorRedBottomRight *= f5;
+            render.colorGreenBottomRight *= f5;
+            render.colorBlueBottomRight *= f5;
+            render.colorRedTopRight *= f6;
+            render.colorGreenTopRight *= f6;
+            render.colorBlueTopRight *= f6;
+            render.renderSouthFace(block, (double)xMin, (double)yMin, (double)zMin, texture);
 
-            var8 = true;
+            flag = true;
         }
 
         render.enableAO = false;
-        return var8;*/
-		return false;
+        return flag;
     }
 	
-	static boolean renderFakeBlockWithColorMultiplier(int texturePos, int metadata, int minX, int minY, int minZ, float maxX, float maxY, float maxZ, RenderBlocks render, IBlockAccess world)
+	static boolean renderFakeBlockWithColorMultiplier(Icon texture, int metadata, int xMin, int yMin, int zMin, float xMax, float yMax, float zMax, RenderBlocks render, IBlockAccess world)
     {
-		/*Block block = Block.stone;
-        render.enableAO = false;
-        Tessellator var8 = Tessellator.instance;
-        boolean var9 = false;
-        float var10 = 0.5F;
-        float var11 = 1.0F;
-        float var12 = 0.8F;
-        float var13 = 0.6F;
-        float var14 = var11 * maxX;
-        float var15 = var11 * maxY;
-        float var16 = var11 * maxZ;
-        float var17 = var10;
-        float var18 = var12;
-        float var19 = var13;
-        float var20 = var10;
-        float var21 = var12;
-        float var22 = var13;
-        float var23 = var10;
-        float var24 = var12;
-        float var25 = var13;
+		Block block = Block.stone;
+		render.enableAO = false;
+        Tessellator tessellator = Tessellator.instance;
+        boolean flag = false;
+        float f3 = 0.5F;
+        float f4 = 1.0F;
+        float f5 = 0.8F;
+        float f6 = 0.6F;
+        float f7 = f4 * xMax;
+        float f8 = f4 * yMax;
+        float f9 = f4 * zMax;
+        float f10 = f3;
+        float f11 = f5;
+        float f12 = f6;
+        float f13 = f3;
+        float f14 = f5;
+        float f15 = f6;
+        float f16 = f3;
+        float f17 = f5;
+        float f18 = f6;
 
         if (block != Block.grass)
         {
-            var17 = var10 * maxX;
-            var18 = var12 * maxX;
-            var19 = var13 * maxX;
-            var20 = var10 * maxY;
-            var21 = var12 * maxY;
-            var22 = var13 * maxY;
-            var23 = var10 * maxZ;
-            var24 = var12 * maxZ;
-            var25 = var13 * maxZ;
+            f10 = f3 * xMax;
+            f11 = f5 * xMax;
+            f12 = f6 * xMax;
+            f13 = f3 * yMax;
+            f14 = f5 * yMax;
+            f15 = f6 * yMax;
+            f16 = f3 * zMax;
+            f17 = f5 * zMax;
+            f18 = f6 * zMax;
         }
 
-        int var26 = block.getMixedBrightnessForBlock(render.blockAccess, minX, minY, minZ);
+        int l = block.getMixedBrightnessForBlock(render.blockAccess, xMin, yMin, zMin);
 
-        if (render.renderAllFaces || block.shouldSideBeRendered(render.blockAccess, minX, minY - 1, minZ, 0))
+        if (render.renderAllFaces || block.shouldSideBeRendered(render.blockAccess, xMin, yMin - 1, zMin, 0))
         {
-            var8.setBrightness(render.renderMinY > 0.0D ? var26 : block.getMixedBrightnessForBlock(render.blockAccess, minX, minY - 1, minZ));
-            var8.setColorOpaque_F(var17, var20, var23);
-            render.renderBottomFace(block, (double)minX, (double)minY, (double)minZ, texturePos);
-            var9 = true;
+            tessellator.setBrightness(render.renderMinY > 0.0D ? l : block.getMixedBrightnessForBlock(render.blockAccess, xMin, yMin - 1, zMin));
+            tessellator.setColorOpaque_F(f10, f13, f16);
+            render.renderBottomFace(block, (double)xMin, (double)yMin, (double)zMin, texture);
+            flag = true;
         }
 
-        if (render.renderAllFaces || block.shouldSideBeRendered(render.blockAccess, minX, minY + 1, minZ, 1))
+        if (render.renderAllFaces || block.shouldSideBeRendered(render.blockAccess, xMin, yMin + 1, zMin, 1))
         {
-            var8.setBrightness(render.renderMaxY < 1.0D ? var26 : block.getMixedBrightnessForBlock(render.blockAccess, minX, minY + 1, minZ));
-            var8.setColorOpaque_F(var14, var15, var16);
-            render.renderTopFace(block, (double)minX, (double)minY, (double)minZ, texturePos);
-            var9 = true;
+            tessellator.setBrightness(render.renderMaxY < 1.0D ? l : block.getMixedBrightnessForBlock(render.blockAccess, xMin, yMin + 1, zMin));
+            tessellator.setColorOpaque_F(f7, f8, f9);
+            render.renderTopFace(block, (double)xMin, (double)yMin, (double)zMin, texture);
+            flag = true;
         }
 
-        if (render.renderAllFaces || block.shouldSideBeRendered(render.blockAccess, minX, minY, minZ - 1, 2))
+        Icon icon;
+
+        if (render.renderAllFaces || block.shouldSideBeRendered(render.blockAccess, xMin, yMin, zMin - 1, 2))
         {
-            var8.setBrightness(render.renderMinZ > 0.0D ? var26 : block.getMixedBrightnessForBlock(render.blockAccess, minX, minY, minZ - 1));
-            var8.setColorOpaque_F(var18, var21, var24);
-            render.renderEastFace(block, (double)minX, (double)minY, (double)minZ, texturePos);
+            tessellator.setBrightness(render.renderMinZ > 0.0D ? l : block.getMixedBrightnessForBlock(render.blockAccess, xMin, yMin, zMin - 1));
+            tessellator.setColorOpaque_F(f11, f14, f17);
+            render.renderEastFace(block, (double)xMin, (double)yMin, (double)zMin, texture);
 
-            var9 = true;
+            flag = true;
         }
 
-        if (render.renderAllFaces || block.shouldSideBeRendered(render.blockAccess, minX, minY, minZ + 1, 3))
+        if (render.renderAllFaces || block.shouldSideBeRendered(render.blockAccess, xMin, yMin, zMin + 1, 3))
         {
-            var8.setBrightness(render.renderMaxZ < 1.0D ? var26 : block.getMixedBrightnessForBlock(render.blockAccess, minX, minY, minZ + 1));
-            var8.setColorOpaque_F(var18, var21, var24);
-            render.renderWestFace(block, (double)minX, (double)minY, (double)minZ, texturePos);
+            tessellator.setBrightness(render.renderMaxZ < 1.0D ? l : block.getMixedBrightnessForBlock(render.blockAccess, xMin, yMin, zMin + 1));
+            tessellator.setColorOpaque_F(f11, f14, f17);
+            render.renderWestFace(block, (double)xMin, (double)yMin, (double)zMin, texture);
 
-            var9 = true;
+            flag = true;
         }
 
-        if (render.renderAllFaces || block.shouldSideBeRendered(render.blockAccess, minX - 1, minY, minZ, 4))
+        if (render.renderAllFaces || block.shouldSideBeRendered(render.blockAccess, xMin - 1, yMin, zMin, 4))
         {
-            var8.setBrightness(render.renderMinX > 0.0D ? var26 : block.getMixedBrightnessForBlock(render.blockAccess, minX - 1, minY, minZ));
-            var8.setColorOpaque_F(var19, var22, var25);
-            render.renderNorthFace(block, (double)minX, (double)minY, (double)minZ, texturePos);
+            tessellator.setBrightness(render.renderMinX > 0.0D ? l : block.getMixedBrightnessForBlock(render.blockAccess, xMin - 1, yMin, zMin));
+            tessellator.setColorOpaque_F(f12, f15, f18);
+            render.renderNorthFace(block, (double)xMin, (double)yMin, (double)zMin, texture);
 
-            var9 = true;
+            flag = true;
         }
 
-        if (render.renderAllFaces || block.shouldSideBeRendered(render.blockAccess, minX + 1, minY, minZ, 5))
+        if (render.renderAllFaces || block.shouldSideBeRendered(render.blockAccess, xMin + 1, yMin, zMin, 5))
         {
-            var8.setBrightness(render.renderMaxX < 1.0D ? var26 : block.getMixedBrightnessForBlock(render.blockAccess, minX + 1, minY, minZ));
-            var8.setColorOpaque_F(var19, var22, var25);
-            render.renderSouthFace(block, (double)minX, (double)minY, (double)minZ, texturePos);
+            tessellator.setBrightness(render.renderMaxX < 1.0D ? l : block.getMixedBrightnessForBlock(render.blockAccess, xMin + 1, yMin, zMin));
+            tessellator.setColorOpaque_F(f12, f15, f18);
+            render.renderSouthFace(block, (double)xMin, (double)yMin, (double)zMin, texture);
 
-            var9 = true;
+            flag = true;
         }
 
-        return var9;*/
-		return false;
+        return flag;
     }
 }

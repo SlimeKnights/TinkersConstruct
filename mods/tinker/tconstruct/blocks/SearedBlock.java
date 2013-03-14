@@ -31,7 +31,7 @@ public class SearedBlock extends InventoryBlock
 	}
 
 	@Override
-	public TileEntity createNewTileEntity (World world, int metadata)
+	public TileEntity createTileEntity (World world, int metadata)
 	{
 		switch (metadata)
 		{

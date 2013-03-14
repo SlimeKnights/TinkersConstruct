@@ -198,7 +198,7 @@ public class FilledBucket extends ItemBucket
 
         for (int i = 0; i < this.icons.length; ++i)
         {
-            this.icons[i] = iconRegister.func_94245_a("tinker"+materialNames[i]);
+            this.icons[i] = iconRegister.func_94245_a("tinker:materials/bucket_"+textureNames[i]);
         }
     }
 	
@@ -211,4 +211,8 @@ public class FilledBucket extends ItemBucket
 	public static final String[] materialNames = new String[] { 
 		"Iron", "Gold", "Copper", "Tin", "Aluminum", "Cobalt", "Ardite", "Bronze", "AlBrass", "Manyullyn", "Alumite", "Obsidian", "Steel",
 		"Manganese", "Heptazion", "DSteel", "Angmallen"};
+	
+	public static final String[] textureNames = new String[] { 
+		"iron", "gold", "copper", "tin", "aluminum", "cobalt", "ardite", "bronze", "alubrass", "manyullyn", "alumite", "obsidian", "steel",
+		"manganese", "heptazion", "dsteel", "angmallen"};
 }

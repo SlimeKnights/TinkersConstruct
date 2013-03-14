@@ -12,6 +12,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
@@ -33,12 +34,17 @@ public class EquipBlock extends InventoryBlock
 	{
 		return new String[] { "toolstation_top" };
 	}
+	
+	public Icon getBlockTextureFromSideAndMetadata (int side, int meta)
+	{
+		return Block.blockSteel.getBlockTextureFromSideAndMetadata(side, meta);
+	}
 
-	@SideOnly(Side.CLIENT)
+	/*@SideOnly(Side.CLIENT)
 	public void func_94332_a (IconRegister par1IconRegister)
 	{
 		this.field_94336_cN = par1IconRegister.func_94245_a(Block.blockSteel.getUnlocalizedName());
-	}
+	}*/
 
 	@Override
 	public boolean renderAsNormalBlock ()
@@ -64,7 +70,8 @@ public class EquipBlock extends InventoryBlock
 		return 0;
 	}
 
-	public TileEntity createNewTileEntity (World world, int metadata)
+	@Override
+	public TileEntity createTileEntity (World world, int metadata)
 	{
 		return new FrypanLogic();
 	}

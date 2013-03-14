@@ -289,17 +289,17 @@ public class ToolStationGui extends GuiContainer
 	protected void drawGuiContainerBackgroundLayer (float par1, int par2, int par3)
 	{
 		// Draw the background
-		//int texID = this.mc.renderEngine.getTexture("/tinkertextures/gui/toolstation.png");
+		//int texID = this.mc.renderEngine.getTexture("/mods/tinker/textures/gui/toolstation.png");
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		this.mc.renderEngine.func_98187_b("/tinkertextures/gui/toolstation.png");
+		this.mc.renderEngine.func_98187_b("/mods/tinker/textures/gui/toolstation.png");
 		int cornerX = (this.width - this.xSize) / 2;
 		int cornerY = (this.height - this.ySize) / 2;
 		this.drawTexturedModalRect(cornerX, cornerY, 0, 0, this.xSize, this.ySize);
 
-		//texID = this.mc.renderEngine.getTexture("/tinkertextures/gui/icons.png");
+		//texID = this.mc.renderEngine.getTexture("/mods/tinker/textures/gui/icons.png");
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		//this.mc.renderEngine.bindTexture(texID);
-		this.mc.renderEngine.func_98187_b("/tinkertextures/gui/icons.png");
+		this.mc.renderEngine.func_98187_b("/mods/tinker/textures/gui/icons.png");
 		// Draw the slots
 
 		for (int i = 0; i < slotX.length; i++)
@@ -312,10 +312,10 @@ public class ToolStationGui extends GuiContainer
 		}
 
 		// Draw description
-		//texID = this.mc.renderEngine.getTexture("/tinkertextures/gui/description.png");
+		//texID = this.mc.renderEngine.getTexture("/mods/tinker/textures/gui/description.png");
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		//this.mc.renderEngine.bindTexture(texID);
-		this.mc.renderEngine.func_98187_b("/tinkertextures/gui/description.png");
+		this.mc.renderEngine.func_98187_b("/mods/tinker/textures/gui/description.png");
 		cornerX = (this.width + this.xSize) / 2;
 		cornerY = (this.height - this.ySize) / 2;
 		this.drawTexturedModalRect(cornerX, cornerY, 0, 0, 126, this.ySize + 30);
