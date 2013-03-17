@@ -1,4 +1,4 @@
-package mods.tinker.tconstruct.blocks.liquids;
+package mods.tinker.tconstruct.blocks;
 
 import java.util.Random;
 
@@ -172,9 +172,12 @@ public class LiquidMetalStill extends LiquidMetalBase implements ILiquid
 
 	private void unsetStationary (World world, int x, int y, int z)
 	{
+		
 		int meta = world.getBlockMetadata(x, y, z);
+		int tex = ((LiquidTextureLogic) world.getBlockTileEntity(x, y, z)).getLiquidType();
         world.setBlockAndMetadataWithNotify(x, y, z, this.blockID - 1, meta, 2);
         world.scheduleBlockUpdate(x, y, z, this.blockID - 1, this.tickRate(world));
+		((LiquidTextureLogic) world.getBlockTileEntity(x, y, z)).setLiquidType(tex);
 		/*int meta = world.getBlockMetadata(x, y, z);
 		int tex = ((LiquidTextureLogic) world.getBlockTileEntity(x, y, z)).getLiquidType();
 		world.editingBlocks = true;

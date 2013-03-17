@@ -1,4 +1,4 @@
-package mods.tinker.tconstruct.blocks.liquids;
+package mods.tinker.tconstruct.blocks;
 
 import java.util.Random;
 
@@ -33,10 +33,10 @@ public class LiquidMetalFlowing extends LiquidMetalBase
 		//System.out.println("x: "+x+", y: "+y+", z: "+z);
 		int tex = ((LiquidTextureLogic) world.getBlockTileEntity(x, y, z)).getLiquidType();
 		int meta = world.getBlockMetadata(x, y, z);
-		world.setBlockAndMetadataWithNotify(x, y, z, stillLiquidId(), meta, 2);
+		world.setBlockAndMetadataWithNotify(x, y, z, stillLiquidId(), meta, 3);
 		world.markBlockRangeForRenderUpdate(x, y, z, x, y, z);
 		world.markBlockForUpdate(x, y, z);
-		((LiquidTextureLogic) world.getBlockTileEntity(x, y, z)).setTexturePos(tex);
+		((LiquidTextureLogic) world.getBlockTileEntity(x, y, z)).setLiquidType(tex);
 	}
 
 	@Override
@@ -44,10 +44,10 @@ public class LiquidMetalFlowing extends LiquidMetalBase
 	{
 		//System.out.println("x: "+x+", y: "+y+", z: "+z);
 		int tex = ((LiquidTextureLogic) world.getBlockTileEntity(x, y, z)).getLiquidType();
-		int l = getFlowDecay(world, x, y, z);
+		int flow = getFlowDecay(world, x, y, z);
 		byte byte0 = 1;
 		boolean flag = true;
-		if (l > 0)
+		if (flow > 0)
 		{
 			int i1 = -100;
 			i1 = getSmallestFlowDecay(world, x - 1, y, z, i1);
@@ -71,16 +71,16 @@ public class LiquidMetalFlowing extends LiquidMetalBase
 					j1 = l1 + 8;
 				}
 			}
-			if (j1 != l)
+			if (j1 != flow)
 			{
-				l = j1;
-				if (l < 0)
+				flow = j1;
+				if (flow < 0)
 				{
 					world.func_94571_i(x, y, z);
 				}
 				else
 				{
-					world.setBlockMetadataWithNotify(x, y, z, l, 2);
+					world.setBlockMetadataWithNotify(x, y, z, flow, 2);
 					world.scheduleBlockUpdate(x, y, z, blockID, tickRate());
 					world.notifyBlocksOfNeighborChange(x, y, z, blockID);
 				}
@@ -96,21 +96,21 @@ public class LiquidMetalFlowing extends LiquidMetalBase
 		}
 		if (liquidCanDisplaceBlock(world, x, y - 1, z))
 		{
-			if (l >= 8)
+			if (flow >= 8)
 			{
-				world.setBlockAndMetadataWithNotify(x, y - 1, z, blockID, l, 3);
+				world.setBlockAndMetadataWithNotify(x, y - 1, z, blockID, flow, 3);
 			}
 			else
 			{
-				world.setBlockAndMetadataWithNotify(x, y - 1, z, blockID, l + 8, 3);
+				world.setBlockAndMetadataWithNotify(x, y - 1, z, blockID, flow + 8, 3);
 			}
-			((LiquidTextureLogic) world.getBlockTileEntity(x, y - 1, z)).setTexturePos(tex);
+			((LiquidTextureLogic) world.getBlockTileEntity(x, y - 1, z)).setLiquidType(tex);
 		}
-		else if (l >= 0 && (l == 0 || blockBlocksFlow(world, x, y - 1, z)))
+		else if (flow >= 0 && (flow == 0 || blockBlocksFlow(world, x, y - 1, z)))
 		{
 			boolean aflag[] = getOptimalFlowDirections(world, x, y, z);
-			int k1 = l + byte0;
-			if (l >= 8)
+			int k1 = flow + byte0;
+			if (flow >= 8)
 			{
 				k1 = 1;
 			}
@@ -146,7 +146,7 @@ public class LiquidMetalFlowing extends LiquidMetalBase
 			}
 			world.setBlockAndMetadataWithNotify(x, y, z, blockID, meta, 3);
 
-			((LiquidTextureLogic) world.getBlockTileEntity(x, y, z)).setTexturePos(tex);
+			((LiquidTextureLogic) world.getBlockTileEntity(x, y, z)).setLiquidType(tex);
 		}
 	}
 

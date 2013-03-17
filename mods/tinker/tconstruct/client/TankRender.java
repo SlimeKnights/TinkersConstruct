@@ -46,7 +46,7 @@ public class TankRender implements ISimpleBlockRenderingHandler
 				renderer.setRenderBounds(0, 0, 0, 1, 1, 1);
 			}
 			renderer.renderStandardBlock(block, x, y, z);
-			/*LavaTankLogic logic = (LavaTankLogic) world.getBlockTileEntity(x, y, z);
+			LavaTankLogic logic = (LavaTankLogic) world.getBlockTileEntity(x, y, z);
 			if (logic.containsLiquid())
 			{
 				LiquidStack liquid = logic.tank.getLiquid();
@@ -54,17 +54,15 @@ public class TankRender implements ISimpleBlockRenderingHandler
 				if (liquid.itemID < 4096) //Block
 				{
 					Block liquidBlock = Block.blocksList[liquid.itemID];
-					ForgeHooksClient.bindTexture(liquidBlock.getTextureFile(), 0);
 					BlockSkinRenderHelper.renderMetadataBlock(liquidBlock, liquid.itemMeta, x, y, z, renderer, world);
 				}
 				else
 				//Item
 				{
 					Item liquidItem = Item.itemsList[liquid.itemID];
-					ForgeHooksClient.bindTexture(liquidItem.getTextureFile(), 0);
 					BlockSkinRenderHelper.renderFakeBlock(liquidItem.getIconFromDamage(liquid.itemMeta), liquid.itemMeta, x, y, z, renderer, world);
 				}
-			}*/
+			}
 		}
 		return false;
 	}

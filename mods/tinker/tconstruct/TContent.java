@@ -1,16 +1,20 @@
 package mods.tinker.tconstruct;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import mods.tinker.common.IPattern;
+import mods.tinker.common.RecipeRemover;
 import mods.tinker.common.fancyitem.FancyEntityItem;
 import mods.tinker.tconstruct.blocks.EquipBlock;
 import mods.tinker.tconstruct.blocks.LavaTankBlock;
+import mods.tinker.tconstruct.blocks.LiquidMetalFlowing;
+import mods.tinker.tconstruct.blocks.LiquidMetalStill;
 import mods.tinker.tconstruct.blocks.MetalOre;
 import mods.tinker.tconstruct.blocks.SearedBlock;
 import mods.tinker.tconstruct.blocks.SmelteryBlock;
 import mods.tinker.tconstruct.blocks.TConstructBlock;
 import mods.tinker.tconstruct.blocks.ToolStationBlock;
-import mods.tinker.tconstruct.blocks.liquids.LiquidMetalFlowing;
-import mods.tinker.tconstruct.blocks.liquids.LiquidMetalStill;
 import mods.tinker.tconstruct.crafting.LiquidCasting;
 import mods.tinker.tconstruct.crafting.PatternBuilder;
 import mods.tinker.tconstruct.crafting.Smeltery;
@@ -324,7 +328,7 @@ public class TContent implements IFuelHandler
 		TConstructRegistry.addToolMaterial(6, "Obsidian", 1, 3, 89, 700, 2, 0.8F, 3, 0f);
 		TConstructRegistry.addToolMaterial(7, "Netherrack", 1, 2, 131, 400, 1, 1.2F, 0, 1f);
 		TConstructRegistry.addToolMaterial(8, "Slime", 1, 3, 1500, 150, 0, 5.0F, 0, 0f);
-		TConstructRegistry.addToolMaterial(9, "Paper", 1, 0, 131, 200, 0, 0.1F, 0, 0f);
+		TConstructRegistry.addToolMaterial(9, "Paper", 1, 0, 30, 200, 0, 0.3F, 0, 0f);
 		TConstructRegistry.addToolMaterial(10, "Cobalt", 2, 4, 800, 800, 3, 1.75F, 2, 0f);
 		TConstructRegistry.addToolMaterial(11, "Ardite", 2, 4, 600, 800, 3, 2.0F, 0, 0f);
 		TConstructRegistry.addToolMaterial(12, "Manyullyn", 2, 5, 1200, 1000, 4, 2.5F, 0, 0f);
@@ -358,13 +362,27 @@ public class TContent implements IFuelHandler
 		TConstructRegistry.addToolMaterial(39, "Tartarite", 3, 7, 3000, 1400, 5, 1.6667F, 4, 0f);
 
 		PatternBuilder pb = PatternBuilder.instance;
-		pb.registerFullMaterial(Block.planks, 2, "Wood", new ItemStack(Item.stick, 2), new ItemStack(Item.stick), 0);
-		pb.registerFullMaterial(Block.stone, 2, "Stone", 1);
-		pb.registerMaterial(Block.cobblestone, 2, "Stone");
+		if (PHConstruct.enableTWood)
+			pb.registerFullMaterial(Block.planks, 2, "Wood", new ItemStack(Item.stick, 2), new ItemStack(Item.stick), 0);
+		else
+			pb.registerMaterialSet("Wood", new ItemStack(Item.stick, 2), new ItemStack(Item.stick), 0);
+		if (PHConstruct.enableTStone)
+		{
+			pb.registerFullMaterial(Block.stone, 2, "Stone", 1);
+			pb.registerMaterial(Block.cobblestone, 2, "Stone");
+		}
+		//else
+			//pb.registerMaterialSet("Stone", new ItemStack(TContent.toolShard, 1, 1), new ItemStack(TContent.toolRod, 1, 1), 1);
 		pb.registerFullMaterial(Item.ingotIron, 2, "Iron", 2);
 		pb.registerFullMaterial(Item.flint, 2, "Flint", 3);
-		pb.registerFullMaterial(Block.cactus, 2, "Cactus", 4);
-		pb.registerFullMaterial(Item.bone, 2, "Bone", new ItemStack(Item.dyePowder, 1, 15), new ItemStack(Item.bone), 5);
+		if (PHConstruct.enableTCactus)
+			pb.registerFullMaterial(Block.cactus, 2, "Cactus", 4);
+		else
+			pb.registerMaterialSet("Cactus", new ItemStack(TContent.toolShard, 1, 4), new ItemStack(TContent.toolRod, 1, 4), 4);
+		if (PHConstruct.enableTBone)
+			pb.registerFullMaterial(Item.bone, 2, "Bone", new ItemStack(Item.dyePowder, 1, 15), new ItemStack(Item.bone), 5);
+		else
+			pb.registerMaterialSet("Bone", new ItemStack(Item.dyePowder, 1, 15), new ItemStack(Item.bone), 5);
 		pb.registerFullMaterial(Block.obsidian, 2, "Obsidian", 6);
 		pb.registerFullMaterial(Block.netherrack, 2, "Netherrack", 7);
 		pb.registerFullMaterial(new ItemStack(materials, 1, 1), 2, "Slime", new ItemStack(toolShard, 1, 8), new ItemStack(toolRod, 1, 8), 8);
@@ -385,6 +403,50 @@ public class TContent implements IFuelHandler
 
 	void addToolRecipes ()
 	{
+		List<ItemStack> removeTools = new ArrayList<ItemStack>();
+		if (PHConstruct.disableWoodTools)
+		{
+			removeTools.add(new ItemStack(Item.pickaxeWood));
+			removeTools.add(new ItemStack(Item.axeWood));
+			removeTools.add(new ItemStack(Item.shovelWood));
+			removeTools.add(new ItemStack(Item.swordWood));
+			removeTools.add(new ItemStack(Item.hoeWood));
+		}
+		if (PHConstruct.disableStoneTools)
+		{
+			removeTools.add(new ItemStack(Item.pickaxeStone));
+			removeTools.add(new ItemStack(Item.axeStone));
+			removeTools.add(new ItemStack(Item.shovelStone));
+			removeTools.add(new ItemStack(Item.swordStone));
+			removeTools.add(new ItemStack(Item.hoeStone));
+		}
+		if (PHConstruct.disableIronTools)
+		{
+			removeTools.add(new ItemStack(Item.pickaxeSteel));
+			removeTools.add(new ItemStack(Item.axeSteel));
+			removeTools.add(new ItemStack(Item.shovelSteel));
+			removeTools.add(new ItemStack(Item.swordSteel));
+			removeTools.add(new ItemStack(Item.hoeSteel));
+		}
+		if (PHConstruct.disableDiamondTools)
+		{
+			removeTools.add(new ItemStack(Item.pickaxeDiamond));
+			removeTools.add(new ItemStack(Item.axeDiamond));
+			removeTools.add(new ItemStack(Item.shovelDiamond));
+			removeTools.add(new ItemStack(Item.swordDiamond));
+			removeTools.add(new ItemStack(Item.hoeDiamond));
+		}
+		if (PHConstruct.disableGoldTools)
+		{
+			removeTools.add(new ItemStack(Item.pickaxeGold));
+			removeTools.add(new ItemStack(Item.axeGold));
+			removeTools.add(new ItemStack(Item.shovelGold));
+			removeTools.add(new ItemStack(Item.swordGold));
+			removeTools.add(new ItemStack(Item.hoeGold));
+		}
+
+		RecipeRemover.removeShapedRecipes(removeTools);
+		
 		patternOutputs = new Item[] { toolRod, pickaxeHead, shovelHead, axeHead, swordBlade, largeGuard, medGuard, crossbar, binding, frypanHead, signHead };
 
 		ToolBuilder tb = ToolBuilder.instance;

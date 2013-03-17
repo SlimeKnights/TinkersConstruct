@@ -79,6 +79,21 @@ public class LavaTankBlock extends BlockContainer
         return bID == this.blockID ? false : super.shouldSideBeRendered(world, x, y, z, side);
 		//return true;
 	}
+	
+	@Override
+	public int getLightValue(IBlockAccess world, int x, int y, int z)
+    {
+		LavaTankLogic logic = (LavaTankLogic) world.getBlockTileEntity(x, y, z);
+		if (logic != null)
+			return logic.getBrightness();
+		return 0;
+    }
+	
+	/*@Override
+	public int getRenderBlockPass()
+    {
+		return 1;
+    }*/
 
 	@Override
 	public String getTextureFile ()

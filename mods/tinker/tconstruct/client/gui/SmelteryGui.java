@@ -129,7 +129,7 @@ public class SmelteryGui extends GuiContainer
 		{
 			//ForgeHooksClient.bindTexture(Block.lavaStill.getTextureFile(), 0);
 			//int renderIndex = Block.lavaStill.getBlockTextureFromSideAndMetadata(0, 0);
-			Icon inon = Block.lavaStill.getBlockTextureFromSideAndMetadata(0, 0);
+			Icon lavaInon = Block.lavaStill.getBlockTextureFromSideAndMetadata(0, 0);
 			//int xTex = renderIndex % 16 * 16;
 			//int yTex = renderIndex / 16 * 16;
 			int fuel = logic.getScaledFuelGague(52);
@@ -138,7 +138,8 @@ public class SmelteryGui extends GuiContainer
 			{
 				int size = fuel >= 16 ? 16 : fuel;
 				fuel -= size;
-				drawTexturedModalRect(cornerX + 117, (cornerY + 68) - size - 16 * count, 0, 16 - size, 12, size);
+				func_94065_a(cornerX + 117, (cornerY + 68) - size - 16 * count, lavaInon, 12, size);
+				//drawTexturedModalRect(cornerX + 117, (cornerY + 68) - size - 16 * count, 0, 16 - size, 12, size);
 				count++;
 			}
 		}

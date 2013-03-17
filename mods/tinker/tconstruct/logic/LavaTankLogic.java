@@ -1,5 +1,6 @@
 package mods.tinker.tconstruct.logic;
 
+import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet;
@@ -71,6 +72,19 @@ public class LavaTankLogic extends MultiServantLogic
 	public boolean containsLiquid()
 	{
 		return tank.getLiquid() != null;
+	}
+	
+	public int getBrightness()
+	{
+		if (containsLiquid())
+		{
+			int id = tank.getLiquid().itemID;
+			if (id < 4096)
+			{
+				return Block.lightValue[id];
+			}
+		}
+		return 0;
 	}
 	
 	public void readFromNBT(NBTTagCompound tags)

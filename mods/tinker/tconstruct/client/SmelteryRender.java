@@ -86,6 +86,7 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
 			int liquidBase = 0;
 			for (LiquidStack liquid : logic.moltenMetal)
 			{
+				System.out.println("Liquid!");
 				int liquidSize = liquid.amount;
 				while (liquidSize > 0)
 				{
@@ -97,7 +98,6 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
 					renderer.setRenderBounds(0, base, 0, 1, height + base, 1);
 					base += height;
 					liquidBase += countSize;
-
 
 					if (liquid.itemID < 4096) //Block
 					{

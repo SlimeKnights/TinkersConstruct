@@ -15,17 +15,10 @@ public class LiquidTextureLogic extends TileEntity
         return false;
     }
 	
-	public void setTexturePos (int tex)
+	public void setLiquidType (int tex)
 	{
 		texturePos = tex;
 		worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
-	}
-
-	public int getTexturePos ()
-	{
-		int tex = (texturePos % 5) * 3;
-		tex += (texturePos / 5) * 32;
-		return tex;
 	}
 
 	public int getLiquidType ()
@@ -36,38 +29,37 @@ public class LiquidTextureLogic extends TileEntity
 	public void readFromNBT (NBTTagCompound tags)
 	{
 		super.readFromNBT(tags);
+		readCustomNBT(tags);
+	}
+	
+	public void readCustomNBT(NBTTagCompound tags)
+	{
 		texturePos = tags.getInteger("Texture");
 	}
 
 	public void writeToNBT (NBTTagCompound tags)
 	{
 		super.writeToNBT(tags);
+		writeCustomNBT(tags);
+	}
+	
+	public void writeCustomNBT (NBTTagCompound tags)
+	{
 		tags.setInteger("Texture", texturePos);
 	}
-
-	/*public boolean shouldRefresh (int oldID, int newID, int oldMeta, int newMeta, World world, int x, int y, int z)
-	{
-		if (newID == TContent.metalFlowing.blockID || newID == TContent.metalStill.blockID)
-		{
-			System.out.println("Not refreshing");
-			return false;
-		}
-		else
-			return true;
-	}*/
 
 	@Override
 	public Packet getDescriptionPacket ()
 	{
 		NBTTagCompound tag = new NBTTagCompound();
-		writeToNBT(tag);
+		writeCustomNBT(tag);
 		return new Packet132TileEntityData(xCoord, yCoord, zCoord, 1, tag);
 	}
 
 	@Override
 	public void onDataPacket (INetworkManager net, Packet132TileEntityData packet)
 	{
-		readFromNBT(packet.customParam1);
+		readCustomNBT(packet.customParam1);
 		worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
 	}
 }

@@ -39,12 +39,22 @@ public class PHConstruct {
          * Avoid values below 4096 for items and in the 250-450 range for blocks
          */
         
-        removeToolRecipes = config.get("Diffuclty Changes", "Remove vanilla tool recipes", false).getBoolean(false);
-        keepHunger = config.get("Diffuclty Changes", "Keep hunger on death", true).getBoolean(true);
-        keepLevels = config.get("Diffuclty Changes", "Keep levels on death", true).getBoolean(true);
+        //removeToolRecipes = config.get("Diffuclty Changes", "Remove vanilla tool recipes", false).getBoolean(false);
+        keepHunger = config.get("Difficulty Changes", "Keep hunger on death", true).getBoolean(true);
+        keepLevels = config.get("Difficulty Changes", "Keep levels on death", true).getBoolean(true);
+        
+        disableWoodTools = config.get("Difficulty Changes", "Disable vanilla wooden tools", false).getBoolean(false);
+        disableStoneTools = config.get("Difficulty Changes", "Disable vanilla stone tools", true).getBoolean(true);
+        disableIronTools = config.get("Difficulty Changes", "Disable vanilla iron tools", true).getBoolean(true);
+        disableDiamondTools = config.get("Difficulty Changes", "Disable vanilla diamond tools", true).getBoolean(true);
+        disableGoldTools = config.get("Difficulty Changes", "Disable vanilla gold tools", true).getBoolean(true);
+        
+        enableTWood = config.get("Difficulty Changes", "Enable mod wooden tools", true).getBoolean(true);
+        enableTStone = config.get("Difficulty Changes", "Enable mod stone tools", true).getBoolean(true);
+        enableTCactus = config.get("Difficulty Changes", "Enable mod cactus tools", true).getBoolean(true);
+        enableTBone = config.get("Difficulty Changes", "Enable mod bone tools", true).getBoolean(true);
         
         woodCrafter = config.getBlock("Wood Tool Station", 1471).getInt(1471);
-        
         heldItemBlock = config.getBlock("Held Item Block", 1472).getInt(1472);
         lavaTank = config.getBlock("Lava Tank", 1473).getInt(1473);
         smeltery = config.getBlock("Smeltery", 1474).getInt(1474);
@@ -219,7 +229,17 @@ public class PHConstruct {
     public static int netherDensity;
     
     //Difficulty modifiers
-    public static boolean removeToolRecipes;
     public static boolean keepHunger;
     public static boolean keepLevels;
+    
+    public static boolean disableWoodTools;
+    public static boolean disableStoneTools;
+    public static boolean disableIronTools;
+    public static boolean disableDiamondTools;
+    public static boolean disableGoldTools;
+    
+    public static boolean enableTWood;
+    public static boolean enableTStone;
+    public static boolean enableTCactus;
+    public static boolean enableTBone;
 }

@@ -136,33 +136,11 @@ public class FilledBucket extends ItemBucket
         {
         	world.func_94575_c(clickX, clickY, clickZ, TContent.liquidMetalStill.blockID);
         	LiquidTextureLogic logic = (LiquidTextureLogic) world.getBlockTileEntity(clickX, clickY, clickZ);
-        	logic.setTexturePos(meta);
+        	logic.setLiquidType(meta);
 
             return true;
         }
     }
-	
-	public int getSourceBlock(int meta)
-	{
-		switch(meta)
-		{
-		/*case 0: return TContent.ironStill.blockID;
-		case 1: return TContent.goldStill.blockID;
-		case 2: return TContent.copperStill.blockID;
-		case 3: return TContent.tinStill.blockID;
-		case 4: return TContent.aluminumStill.blockID;
-		case 5: return TContent.cobaltStill.blockID;
-		case 6: return TContent.arditeStill.blockID;
-		case 7: return TContent.bronzeStill.blockID;
-		case 8: return TContent.alBrassStill.blockID;
-		case 9: return TContent.manyullynStill.blockID;
-		case 10: return TContent.alumiteStill.blockID;
-		case 11: return TContent.obsidianStill.blockID;
-		case 12: return TContent.steelStill.blockID;*/
-		//case 13: return TContent.ironStill.blockID;
-		default: return 0;
-		}
-	}
 	
 	@Override
 	public void getSubItems(int id, CreativeTabs tab, List list)
@@ -170,18 +148,6 @@ public class FilledBucket extends ItemBucket
 		for (int i = 0; i < 17; i++)
 			list.add(new ItemStack(id, 1, i));
     }
-	
-	/*@SideOnly(Side.CLIENT)
-	public int getIconFromDamage(int meta)
-	{
-		return this.iconIndex + meta;
-	}
-	
-	public String getUnlocalizedName(ItemStack stack)
-	{
-		int arr = MathHelper.clamp_int(stack.getItemDamage(), 0, materialNames.length);
-		return getItemName() + "." +materialNames[arr];
-	}*/
 	
 	public Icon[] icons;
 	

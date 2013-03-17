@@ -1,4 +1,4 @@
-package mods.tinker.tconstruct.blocks.liquids;
+package mods.tinker.tconstruct.blocks;
 
 import java.util.Random;
 
@@ -7,9 +7,11 @@ import mods.tinker.tconstruct.client.FluidRender;
 import mods.tinker.tconstruct.logic.LiquidTextureLogic;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.Icon;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -18,24 +20,54 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public abstract class LiquidMetalBase extends Block
 {
-
+	public String[] textureNames;
+	public Icon[] stillInoms;
+	public Icon[] flowInoms;
 	protected LiquidMetalBase(int par1, Material par2Material)
 	{
 		super(par1, par2Material);
+		textureNames = new String[] {
+				"iron", "gold", "copper", "tin", "aluminum", "cobalt", "ardite", "bronze", "alubrass", "manyullyn", "alumite", "steel"
+		};
+		setLightValue(0.625F);
 	}
 	
-	/*@Override
-	public int getBlockTexture(IBlockAccess world, int x, int y, int z, int side)
+	public void func_94332_a(IconRegister iconRegister)
+    {
+		this.stillInoms = new Icon[textureNames.length];
+		this.flowInoms = new Icon[textureNames.length];
+
+        for (int i = 0; i < this.stillInoms.length; ++i)
+        {
+            this.stillInoms[i] = iconRegister.func_94245_a("tinker:liquid_"+textureNames[i]);
+            this.flowInoms[i] = iconRegister.func_94245_a("tinker:liquid_"+textureNames[i]+"_flow");
+        }
+    }
+	
+	@Override
+	public Icon getBlockTexture(IBlockAccess world, int x, int y, int z, int side)
     {
 		TileEntity logic = world.getBlockTileEntity(x, y, z);
 		if (logic != null && logic instanceof LiquidTextureLogic)
-			return ((LiquidTextureLogic) logic).getTexturePos();
+		{
+			if (side == 1 || side == 0)
+				return stillInoms[((LiquidTextureLogic) logic).getLiquidType()];
+			else
+				return flowInoms[((LiquidTextureLogic) logic).getLiquidType()];
+		}
 		
 		int meta = world.getBlockMetadata(x, y, z);
 		return getBlockTextureFromSideAndMetadata(side, meta);
     }
 	
-	public int getBlockTextureFromSideAndMetadata(int side, int meta)
+	public Icon getBlockTextureFromSideAndMetadata(int side, int meta)
+	{
+		if (side == 0 || side == 1)
+			return (stillInoms[meta]);
+		return flowInoms[meta];
+	}
+	
+	/*public int getBlockTextureFromSideAndMetadata(int side, int meta)
     {
 		int tex = (meta % 5) * 3;
 		tex += (meta / 5) * 32;
@@ -394,9 +426,10 @@ public abstract class LiquidMetalBase extends Block
      */
     public float getBlockBrightness(IBlockAccess par1IBlockAccess, int par2, int par3, int par4)
     {
-        float var5 = par1IBlockAccess.getLightBrightness(par2, par3, par4);
+    	return 1f;
+        /*float var5 = par1IBlockAccess.getLightBrightness(par2, par3, par4);
         float var6 = par1IBlockAccess.getLightBrightness(par2, par3 + 1, par4);
-        return var5 > var6 ? var5 : var6;
+        return var5 > var6 ? var5 : var6;*/
     }
 
     @SideOnly(Side.CLIENT)
@@ -548,14 +581,7 @@ public abstract class LiquidMetalBase extends Block
             var22 = (double)par3 - 1.05D;
             var23 = (double)((float)par4 + par5Random.nextFloat());
 
-            if (this.blockMaterial == Material.water)
-            {
-                par1World.spawnParticle("dripWater", var21, var22, var23, 0.0D, 0.0D, 0.0D);
-            }
-            else
-            {
-                par1World.spawnParticle("dripLava", var21, var22, var23, 0.0D, 0.0D, 0.0D);
-            }
+            par1World.spawnParticle("dripLava", var21, var22, var23, 0.0D, 0.0D, 0.0D);
         }
     }
 
@@ -563,24 +589,24 @@ public abstract class LiquidMetalBase extends Block
     /**
      * Called whenever the block is added into the world. Args: world, x, y, z
      */
-    public void onBlockAdded(World par1World, int par2, int par3, int par4)
+    /*public void onBlockAdded(World par1World, int par2, int par3, int par4)
     {
         this.checkForHarden(par1World, par2, par3, par4);
-    }
+    }*/
 
     /**
      * Lets the block know when one of its neighbor changes. Doesn't know which neighbor changed (coordinates passed are
      * their own) Args: x, y, z, neighbor blockID
      */
-    public void onNeighborBlockChange(World par1World, int par2, int par3, int par4, int par5)
+    /*public void onNeighborBlockChange(World par1World, int par2, int par3, int par4, int par5)
     {
         this.checkForHarden(par1World, par2, par3, par4);
-    }
+    }*/
 
     /**
      * Forces lava to check to see if it is colliding with water, and then decide what it should harden to.
      */
-    private void checkForHarden(World par1World, int par2, int par3, int par4)
+    /*private void checkForHarden(World par1World, int par2, int par3, int par4)
     {
         if (par1World.getBlockId(par2, par3, par4) == this.blockID)
         {
@@ -630,12 +656,12 @@ public abstract class LiquidMetalBase extends Block
                 }
             }
         }
-    }
+    }*/
 
     /**
      * Creates fizzing sound and smoke. Used when lava flows over block or mixes with water.
      */
-    protected void triggerLavaMixEffects(World par1World, int par2, int par3, int par4)
+    /*protected void triggerLavaMixEffects(World par1World, int par2, int par3, int par4)
     {
         par1World.playSoundEffect((double)((float)par2 + 0.5F), (double)((float)par3 + 0.5F), (double)((float)par4 + 0.5F), "random.fizz", 0.5F, 2.6F + (par1World.rand.nextFloat() - par1World.rand.nextFloat()) * 0.8F);
 
@@ -643,5 +669,5 @@ public abstract class LiquidMetalBase extends Block
         {
             par1World.spawnParticle("largesmoke", (double)par2 + Math.random(), (double)par3 + 1.2D, (double)par4 + Math.random(), 0.0D, 0.0D, 0.0D);
         }
-    }
+    }*/
 }
