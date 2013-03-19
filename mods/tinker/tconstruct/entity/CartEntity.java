@@ -263,11 +263,7 @@ public class CartEntity extends Entity
 
                         if (var2.hasTagCompound())
                         {
-<<<<<<< HEAD:mods/tinker/tconstruct/entity/CartEntity.java
                             entityitem.getEntityItem().setTagCompound((NBTTagCompound)var2.getTagCompound().copy());
-=======
-                            var7.getEntityItem().setTagCompound((NBTTagCompound)var2.getTagCompound().copy());
->>>>>>> f42aceb54c0d3287961fb95779dfd0765892da4e:tinker/tconstruct/entity/CartEntity.java
                         }
 
                         float var8 = 0.05F;
@@ -329,11 +325,8 @@ public class CartEntity extends Entity
             {
                 if (var1.getAllowNether())
                 {
-<<<<<<< HEAD:mods/tinker/tconstruct/entity/CartEntity.java
-                    /*if (this.ridingEntity == null && this.field_82153_h++ >= var2)
-=======
+                    /*
                     if (this.ridingEntity == null && this.timeInPortal++ >= var2)
->>>>>>> f42aceb54c0d3287961fb95779dfd0765892da4e:tinker/tconstruct/entity/CartEntity.java
                     {
                         this.timeInPortal = var2;
                         this.timeUntilPortal = this.getPortalCooldown();
@@ -356,24 +349,15 @@ public class CartEntity extends Entity
             }
             else
             {
-<<<<<<< HEAD:mods/tinker/tconstruct/entity/CartEntity.java
-                /*if (this.field_82153_h > 0)
-=======
-                if (this.timeInPortal > 0)
->>>>>>> f42aceb54c0d3287961fb95779dfd0765892da4e:tinker/tconstruct/entity/CartEntity.java
+                /*if (this.timeInPortal > 0)
                 {
                     this.timeInPortal -= 4;
                 }
 
                 if (this.timeInPortal < 0)
                 {
-<<<<<<< HEAD:mods/tinker/tconstruct/entity/CartEntity.java
-                    this.field_82153_h = 0;
-                }*/
-=======
                     this.timeInPortal = 0;
-                }
->>>>>>> f42aceb54c0d3287961fb95779dfd0765892da4e:tinker/tconstruct/entity/CartEntity.java
+                }*/
             }
 
             if (this.timeUntilPortal > 0)
