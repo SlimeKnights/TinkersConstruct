@@ -83,12 +83,6 @@ public abstract class LiquidMetalBase extends Block
 	{
 		return FluidRender.fluidModel;
 	}
-
-	@Override
-	public String getTextureFile ()
-	{
-		return TContent.liquidTexture;
-	}
 	
 	@SideOnly(Side.CLIENT)
     public static double getFlowDirection(IBlockAccess par0IBlockAccess, int par1, int par2, int par3, Material par4Material)

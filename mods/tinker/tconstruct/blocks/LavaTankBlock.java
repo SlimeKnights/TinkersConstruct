@@ -96,11 +96,6 @@ public class LavaTankBlock extends BlockContainer
 		return 1;
     }*/
 
-	@Override
-	public String getTextureFile ()
-	{
-		return TContent.blockTexture;
-	}
 
 	@Override
 	public int getRenderType ()

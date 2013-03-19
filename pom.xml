@@ -1,0 +1,73 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>tinker</groupId>
+  <artifactId>TinkersConstruct</artifactId>
+  <version>1.4.7</version>
+  <name>TinkersConstruct</name>
+  <url>https://github.com/mDiyo/TinkersConstruct</url>
+
+  <parent>
+    <groupId>net.md-5</groupId>
+    <artifactId>ForgeMod</artifactId>
+    <version>1.4.7-6.6.2.534-R2</version>
+  </parent>
+ 
+  <properties>
+    <ic2.build>222</ic2.build>
+    <ic2.version>1.115.${ic2.build}-lf</ic2.version>
+    <ic2.mcp.mappings>https://raw.github.com/MinecraftForge/FML/1bd6847bc80f51b06544068011f7df3218f13999/conf/</ic2.mcp.mappings> <!-- 1.4.7 until IC2 updates -->
+  </properties>
+
+  <profiles>
+   <profile>
+    <activation>
+        <activeByDefault>true</activeByDefault>
+    </activation>
+    <id>built</id>
+    <dependencies>
+      <!-- after the remapped artifact is built, add it a dependency -->
+        <dependency>
+          <groupId>net.industrial-craft</groupId>
+          <artifactId>ic2</artifactId>
+          <version>${ic2.version}</version>
+          <type>jar</type>
+          <scope>compile</scope>
+        </dependency>
+    </dependencies>
+   </profile>
+  </profiles>
+
+  <build>
+    <sourceDirectory>${basedir}/tinker</sourceDirectory>
+    <resources>
+      <resource>
+        <directory>${basedir}/resources</directory>
+      </resource>
+    </resources>
+    <plugins>
+      <plugin>
+            <groupId>net.md-5</groupId>
+            <artifactId>specialsource-maven-plugin</artifactId>
+            <version>1.0</version>
+            <executions>
+                <execution>
+                    <id>install-remapped-ic2</id>
+                    <phase>initialize</phase>
+                    <goals>
+                        <goal>install-remapped-file</goal>
+                    </goals>
+                    <configuration>
+                        <groupId>net.industrial-craft</groupId>
+                        <artifactId>ic2</artifactId>
+                        <version>${ic2.version}</version>
+                        <inJars>
+                            <param>http://ic2api.player.to:8080/job/IC2_lf/${ic2.build}/artifact/packages/industrialcraft-2_${ic2.version}.jar</param>
+                        </inJars>
+                        <srgIn>${ic2.mcp.mappings}</srgIn>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+    </plugins>
+  </build>
+</project>
