@@ -5,10 +5,12 @@ import java.util.ArrayList;
 import mods.tinker.common.CoordTuple;
 import mods.tinker.common.IActiveLogic;
 import mods.tinker.common.IFacingLogic;
+import mods.tinker.common.IMasterLogic;
 import mods.tinker.common.InventoryLogic;
 import mods.tinker.tconstruct.TContent;
 import mods.tinker.tconstruct.container.SmelteryContainer;
 import mods.tinker.tconstruct.crafting.Smeltery;
+import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -23,19 +25,20 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.liquids.ILiquidTank;
+import net.minecraftforge.liquids.ITankContainer;
 import net.minecraftforge.liquids.LiquidStack;
 
 /* Simple class for storing items in the block
  */
 
 public class SmelteryLogic extends InventoryLogic 
-	implements IActiveLogic, IFacingLogic, ILiquidTank
+	implements IActiveLogic, IFacingLogic, ILiquidTank, IMasterLogic
 {
 	public boolean validStructure;
 	byte direction;
 	int internalTemp;
 	int maxTemp;
-	int useTime;
+	public int useTime;
 	public int fuelGague;
 
 	ArrayList<CoordTuple> lavaTanks;
@@ -172,14 +175,12 @@ public class SmelteryLogic extends InventoryLogic
 
 	public int getMeltingPointForSlot (int slot)
 	{
-		//System.out.println("Slot "+slot);
 		return meltingTemps[slot];
 	}
 
 	/* Updating */
 	public void updateEntity ()
 	{
-		//System.out.println("tick");
 		tick++;
 		if (tick % 4 == 0)
 			heatItems();
@@ -187,63 +188,55 @@ public class SmelteryLogic extends InventoryLogic
 		if (tick == 20)
 		{
 			tick = 0;
-			checkValidPlacement();
-			updateFuelGague();
+			if (!validStructure)
+				checkValidPlacement();
 
 			if (useTime > 0)
 				useTime--;
-			/*if (!worldObj.isRemote)
-				matchInventoryToWorld();*/
 
 			if (validStructure && useTime == 0)
 			{
-				TileEntity tank = worldObj.getBlockTileEntity(activeLavaTank.x, activeLavaTank.y, activeLavaTank.z);
-				if (tank instanceof ILiquidTank)
-				{
-					LiquidStack liquid = ((ILiquidTank) tank).drain(10, true);
-					if (liquid != null)
-					{
-						//System.out.println("Drained " + liquid.amount);
-						useTime += liquid.amount;
-					}
-				}
+				updateFuelGague();
 			}
 		}
 	}
 
 	void heatItems ()
 	{
-		for (int i = 0; i < 9 * layers; i++)
+		if (useTime > 0)
 		{
-			if (meltingTemps[i] > 20 && this.isStackInSlot(i))
+			for (int i = 0; i < 9 * layers; i++)
 			{
-				if (activeTemps[i] < internalTemp && activeTemps[i] < meltingTemps[i])
-					activeTemps[i] += 5;
-				else if (meltingTemps[i] >= activeTemps[i])
+				if (meltingTemps[i] > 20 && this.isStackInSlot(i))
 				{
-					if (!worldObj.isRemote)
+					if (activeTemps[i] < internalTemp && activeTemps[i] < meltingTemps[i])
+						activeTemps[i] += 5;
+					else if (meltingTemps[i] >= activeTemps[i])
 					{
-						LiquidStack result = getResultFor(inventory[i]);
-						if (result != null)
+						if (!worldObj.isRemote)
 						{
-							inventory[i] = null;
-							addMoltenMetal(result, false);
-							ArrayList alloys = Smeltery.mixMetals(moltenMetal);
-							for (int al = 0; al < alloys.size(); al++)
+							LiquidStack result = getResultFor(inventory[i]);
+							if (result != null)
 							{
-								LiquidStack liquid = (LiquidStack) alloys.get(al);
-								addMoltenMetal(liquid, true);
+								inventory[i] = null;
+								addMoltenMetal(result, false);
+								ArrayList alloys = Smeltery.mixMetals(moltenMetal);
+								for (int al = 0; al < alloys.size(); al++)
+								{
+									LiquidStack liquid = (LiquidStack) alloys.get(al);
+									addMoltenMetal(liquid, true);
+								}
+								onInventoryChanged();
+								//setWorldToInventory();
 							}
-							onInventoryChanged();
-							//setWorldToInventory();
 						}
 					}
+
 				}
 
+				else
+					activeTemps[i] = 20;
 			}
-
-			else
-				activeTemps[i] = 20;
 		}
 	}
 
@@ -292,19 +285,23 @@ public class SmelteryLogic extends InventoryLogic
 		if (activeLavaTank == null)
 			return;
 
-		TileEntity tank = worldObj.getBlockTileEntity(activeLavaTank.x, activeLavaTank.y, activeLavaTank.z);
-		if (tank == null)
+		TileEntity tankContainer = worldObj.getBlockTileEntity(activeLavaTank.x, activeLavaTank.y, activeLavaTank.z);
+		if (tankContainer == null)
 		{
 			fuelGague = 0;
 		}
-		if (tank instanceof ILiquidTank)
+		if (tankContainer instanceof ITankContainer)
 		{
-			LiquidStack liquid = ((ILiquidTank) tank).getLiquid();
-			int capacity = ((ILiquidTank) tank).getCapacity();
-			if (liquid != null)
+			LiquidStack liquid = ((ITankContainer) tankContainer).drain(ForgeDirection.DOWN, 50, false);
+			if (liquid != null && liquid.itemID == Block.lavaStill.blockID)
+			{
+				liquid = ((ITankContainer) tankContainer).drain(ForgeDirection.DOWN, 50, true);
+				useTime += liquid.amount;
+				ILiquidTank tank = ((ITankContainer) tankContainer).getTank(ForgeDirection.DOWN, liquid);
+				liquid = tank.getLiquid();
+				int capacity = tank.getCapacity();
 				fuelGague = liquid.amount * 52 / capacity;
-			else
-				fuelGague = 0;
+			}
 		}
 	}
 
@@ -314,15 +311,14 @@ public class SmelteryLogic extends InventoryLogic
 	}
 
 	/* Inventory */
-	public int getMaxStackStackSize(ItemStack stack)
+	public int getMaxStackStackSize (ItemStack stack)
 	{
 		LiquidStack liquid = getResultFor(stack);
-		System.out.println("Liquid: "+liquid);
 		if (liquid == null)
 			return 0;
 		return liquid.amount;
 	}
-	
+
 	public int getInventoryStackLimit ()
 	{
 		return 1;
@@ -332,7 +328,7 @@ public class SmelteryLogic extends InventoryLogic
 	{
 		updateTemperatures();
 		super.onInventoryChanged();
-		worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 	}
 
 	/* Multiblock */
@@ -394,7 +390,6 @@ public class SmelteryLogic extends InventoryLogic
 	{
 		int capacity = 0;
 		validStructure = false;
-		//System.out.println("Yep");
 		if (checkSameLevel(x, y, z))
 		{
 			capacity++;
@@ -449,28 +444,10 @@ public class SmelteryLogic extends InventoryLogic
 				hasLavaTank = true;
 		}
 
-		//System.out.println("numBricks: "+numBricks);
 		if (numBricks == 12 && hasLavaTank)
 			return true;
 		else
 			return false;
-
-		/*System.out.println("numBricks: "+numBricks);
-		
-		if (numBricks == 21 && hasLavaTank)
-		{
-			centerPos = new CoordTuple(x, y, z);
-			activeLavaTank = lavaTanks.get(0);
-			validStructure = true;
-			internalTemp = 800;
-			return true;
-		}
-		else
-		{
-			validStructure = false;
-			internalTemp = 20;
-			return false;
-		}*/
 	}
 
 	public int recurseStructureUp (int x, int y, int z, int count)
@@ -567,8 +544,6 @@ public class SmelteryLogic extends InventoryLogic
 
 	boolean checkBricks (int x, int y, int z)
 	{
-		//System.out.println("x: "+x+", z: "+z);
-		//System.out.println("Bricks: "+numBricks);
 		int blockID = worldObj.getBlockId(x, y, z);
 		if (blockID == TContent.smeltery.blockID || blockID == TContent.lavaTank.blockID)
 		{
@@ -593,7 +568,6 @@ public class SmelteryLogic extends InventoryLogic
 
 				if (te instanceof LavaTankLogic)
 				{
-					//System.out.println("Lava tank ho!");
 					lavaTanks.add(new CoordTuple(x, y, z));
 					return true;
 				}
@@ -642,8 +616,6 @@ public class SmelteryLogic extends InventoryLogic
 		addMoltenMetal(resource, false);
 		return amount;
 	}
-	
-
 
 	@Override
 	public LiquidStack getLiquid ()
@@ -724,5 +696,11 @@ public class SmelteryLogic extends InventoryLogic
 	{
 		readFromNBT(packet.customParam1);
 		worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+	}
+
+	@Override
+	public void notifyChange (int x, int y, int z)
+	{
+		checkValidPlacement();
 	}
 }

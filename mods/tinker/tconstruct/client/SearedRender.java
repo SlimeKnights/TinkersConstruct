@@ -97,17 +97,17 @@ public class SearedRender implements ISimpleBlockRenderingHandler
 				renderer.setRenderBounds(0.6875, 0.0F, 0.6875, 1.0F, 0.625F, 1.0F);
 				renderer.renderStandardBlock(block, x, y, z);
 
-				/*CastingTableLogic logic = (CastingTableLogic) world.getBlockTileEntity(x, y, z);
+				CastingTableLogic logic = (CastingTableLogic) world.getBlockTileEntity(x, y, z);
 				if (logic.liquid != null)
 				{
-					float height = logic.liquid.amount / (logic.getCapacity() * 1.03F) / 16F;
+					float height = logic.getLiquidAmount() / (logic.getCapacity() * 1.03F) / 16F;
 					renderer.setRenderBounds(0.0625F, 0.9375F, 0.0625F, 0.9375F, 0.9375F + height, 0.9375F);
 					if (logic.liquid.itemID < 4096) //Block
 					{
 						Block liquidBlock = Block.blocksList[logic.liquid.itemID];
 						if (liquidBlock != null)
 						{
-							ForgeHooksClient.bindTexture(liquidBlock.getTextureFile(), 0);
+							//ForgeHooksClient.bindTexture(liquidBlock.getTextureFile(), 0);
 							BlockSkinRenderHelper.renderMetadataBlock(liquidBlock, logic.liquid.itemMeta, x, y, z, renderer, world);
 						}
 					}
@@ -117,11 +117,11 @@ public class SearedRender implements ISimpleBlockRenderingHandler
 						Item liquidItem = Item.itemsList[logic.liquid.itemID];
 						if (liquidItem != null)
 						{
-							ForgeHooksClient.bindTexture(liquidItem.getTextureFile(), 0);
+							//ForgeHooksClient.bindTexture(liquidItem.getTextureFile(), 0);
 							BlockSkinRenderHelper.renderFakeBlock(liquidItem.getIconFromDamage(logic.liquid.itemMeta), logic.liquid.itemMeta, x, y, z, renderer, world);
 						}
 					}
-				}*/
+				}
 			}
 			else if (metadata == 1)
 			{
@@ -137,7 +137,7 @@ public class SearedRender implements ISimpleBlockRenderingHandler
 					renderer.setRenderBounds(0.625, 0.375, 0.625, 0.75, 0.625, 1);
 					renderer.renderStandardBlock(block, x, y, z);
 					renderer.setRenderBounds(0.375, 0.375, 0.625, 0.625, 0.625, 1);
-					xMax = 0.5F;
+					zMin = 0.5F;
 					//zMin = 0.625F;
 					break;
 				case 3:
@@ -167,8 +167,8 @@ public class SearedRender implements ISimpleBlockRenderingHandler
 					renderer.renderStandardBlock(block, x, y, z);
 					renderer.setRenderBounds(0, 0.375, 0.625, 0.375, 0.625, 0.75);
 					renderer.renderStandardBlock(block, x, y, z);
-					renderer.setRenderBounds(0, 0.375, 0.375, 0.325, 0.625, 0.625);
-					zMin = 0.5F;
+					renderer.setRenderBounds(0, 0.375, 0.375, 0.375, 0.625, 0.625);
+					xMax = 0.5F;
 					break;
 				}
 
@@ -183,13 +183,13 @@ public class SearedRender implements ISimpleBlockRenderingHandler
 				{
 					yMin = -1F;
 				}
-				/*if (logic.liquid != null)
+				if (logic.liquid != null)
 				{
 					ItemStack blockToRender = new ItemStack(logic.liquid.itemID, 1, logic.liquid.itemMeta);
 					if (blockToRender.itemID < 4096) //Block
 					{
 						Block liquidBlock = Block.blocksList[blockToRender.itemID];
-						ForgeHooksClient.bindTexture(liquidBlock.getTextureFile(), 0);
+						//ForgeHooksClient.bindTexture(liquidBlock.getTextureFile(), 0);
 						BlockSkinRenderHelper.renderMetadataBlock(liquidBlock, blockToRender.getItemDamage(), x, y, z, renderer, world);
 						renderer.setRenderBounds(xMin, yMin, zMin, xMax, 0.625, zMax);
 						BlockSkinRenderHelper.renderMetadataBlock(liquidBlock, blockToRender.getItemDamage(), x, y, z, renderer, world);
@@ -198,14 +198,14 @@ public class SearedRender implements ISimpleBlockRenderingHandler
 					//Item
 					{
 						Item liquidItem = Item.itemsList[blockToRender.itemID];
-						ForgeHooksClient.bindTexture(liquidItem.getTextureFile(), 0);
+						//ForgeHooksClient.bindTexture(liquidItem.getTextureFile(), 0);
 						int meta = blockToRender.getItemDamage();
 						BlockSkinRenderHelper.renderFakeBlock(liquidItem.getIconFromDamage(meta), meta, x, y, z, renderer, world);
 						renderer.setRenderBounds(xMin, yMin, zMin, xMax, 0.625, zMax);
 						BlockSkinRenderHelper.renderFakeBlock(liquidItem.getIconFromDamage(meta), meta, x, y, z, renderer, world);
 					}
 					//renderer.renderStandardBlock(block, x, y, z);
-				}*/
+				}
 
 			}
 			else

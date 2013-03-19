@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Random;
 
 import mods.tinker.common.IFacingLogic;
+import mods.tinker.common.IMasterLogic;
+import mods.tinker.common.IServantLogic;
 import mods.tinker.common.InventoryBlock;
 import mods.tinker.tconstruct.TConstruct;
 import mods.tinker.tconstruct.TGuiHandler;
@@ -241,6 +243,20 @@ public class SmelteryBlock extends InventoryBlock
 		for (int iter = 0; iter < 3; iter++)
 		{
 			list.add(new ItemStack(id, 1, iter));
+		}
+	}
+	
+	/* Updating */
+	public void onNeighborBlockChange(World world, int x, int y, int z, int nBlockID) 
+	{
+		TileEntity logic = world.getBlockTileEntity(x, y, z);
+		if (logic instanceof IServantLogic)
+		{
+			((IServantLogic) logic).notifyMasterOfChange();
+		}
+		else if (logic instanceof IMasterLogic)
+		{
+			((IMasterLogic) logic).notifyChange(x, y, z);
 		}
 	}
 }

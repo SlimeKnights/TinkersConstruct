@@ -2,6 +2,7 @@ package mods.tinker.tconstruct.client;
 
 import java.io.File;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -11,7 +12,6 @@ import mods.tinker.common.fancyitem.FancyItemRender;
 import mods.tinker.tconstruct.TConstruct;
 import mods.tinker.tconstruct.TConstructRegistry;
 import mods.tinker.tconstruct.TContent;
-import mods.tinker.tconstruct.TControls;
 import mods.tinker.tconstruct.TProxyCommon;
 import mods.tinker.tconstruct.client.entityrender.CartRender;
 import mods.tinker.tconstruct.client.entityrender.CrystalRender;
@@ -22,15 +22,22 @@ import mods.tinker.tconstruct.entity.Crystal;
 import mods.tinker.tconstruct.entity.Skyla;
 import mods.tinker.tconstruct.logic.CastingTableLogic;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.settings.GameSettings;
+import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
 
 import org.w3c.dom.Document;
 
+import com.google.common.collect.Lists;
+
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.KeyBindingRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
+import cpw.mods.fml.client.registry.KeyBindingRegistry.KeyHandler;
 import cpw.mods.fml.common.registry.LanguageRegistry;
+import cpw.mods.fml.common.registry.TickRegistry;
+import cpw.mods.fml.relauncher.Side;
 
 public class TProxyClient extends TProxyCommon
 {
@@ -48,45 +55,6 @@ public class TProxyClient extends TProxyCommon
 		RenderingRegistry.registerBlockHandler(new TankRender());
 		RenderingRegistry.registerBlockHandler(new SearedRender());
 		RenderingRegistry.registerBlockHandler(new FluidRender());
-		//RenderingRegistry.registerBlockHandler(new AxleRender());
-
-		/*RenderEngine renderEngine = FMLClientHandler.instance().getClient().renderEngine;
-		renderEngine.registerTextureFX(new LiquidIronFX());
-		renderEngine.registerTextureFX(new LiquidIronFlowFX());
-		renderEngine.registerTextureFX(new LiquidGoldFX());
-		renderEngine.registerTextureFX(new LiquidGoldFlowFX());
-		renderEngine.registerTextureFX(new LiquidCopperFX());
-		renderEngine.registerTextureFX(new LiquidCopperFlowFX());
-		renderEngine.registerTextureFX(new LiquidTinFX());
-		renderEngine.registerTextureFX(new LiquidTinFlowFX());
-		renderEngine.registerTextureFX(new LiquidAluminumFX());
-		renderEngine.registerTextureFX(new LiquidAluminumFlowFX());
-		renderEngine.registerTextureFX(new LiquidCobaltFX());
-		renderEngine.registerTextureFX(new LiquidCobaltFlowFX());
-		renderEngine.registerTextureFX(new LiquidArditeFX());
-		renderEngine.registerTextureFX(new LiquidArditeFlowFX());
-		renderEngine.registerTextureFX(new LiquidBronzeFX());
-		renderEngine.registerTextureFX(new LiquidBronzeFlowFX());
-		renderEngine.registerTextureFX(new LiquidAlBrassFX());
-		renderEngine.registerTextureFX(new LiquidAlBrassFlowFX());
-		renderEngine.registerTextureFX(new LiquidManyullynFX());
-		renderEngine.registerTextureFX(new LiquidManyullynFlowFX());
-		renderEngine.registerTextureFX(new LiquidAlumiteFX());
-		renderEngine.registerTextureFX(new LiquidAlumiteFlowFX());
-		renderEngine.registerTextureFX(new LiquidObsidianFX());
-		renderEngine.registerTextureFX(new LiquidObsidianFlowFX());
-		renderEngine.registerTextureFX(new LiquidSteelFX());
-		renderEngine.registerTextureFX(new LiquidSteelFlowFX());
-
-		//Metallurgy
-		renderEngine.registerTextureFX(new LiquidManganeseFX());
-		renderEngine.registerTextureFX(new LiquidManganeseFlowFX());
-		renderEngine.registerTextureFX(new LiquidHeptazionFX());
-		renderEngine.registerTextureFX(new LiquidHeptazionFlowFX());
-		renderEngine.registerTextureFX(new LiquidDamascusSteelFX());
-		renderEngine.registerTextureFX(new LiquidDamascusSteelFlowFX());
-		renderEngine.registerTextureFX(new LiquidAngmallenFX());
-		renderEngine.registerTextureFX(new LiquidAngmallenFlowFX());*/
 
 		//Tools
 		//MinecraftForgeClient.preloadTexture(TContent.blockTexture);
@@ -395,13 +363,30 @@ public class TProxyClient extends TProxyCommon
 			tool.effectTextures.put(materialID, tool.getToolTextureFile() + partialLocation);
 		}
 	}*/
-	
+
 	/* Keybindings */
 	public static TControls controlInstance;
-	
-	public void registerKeys()
+
+	public void registerKeys ()
 	{
 		controlInstance = new TControls();
-		KeyBindingRegistry.registerKeyBinding(controlInstance);
+		TickRegistry.registerTickHandler(controlInstance, Side.CLIENT);
+		uploadKeyBindingsToGame(Minecraft.getMinecraft().gameSettings, controlInstance);
+	}
+
+	public void uploadKeyBindingsToGame (GameSettings settings, TKeyHandler keyhandler)
+	{
+		ArrayList<KeyBinding> harvestedBindings = Lists.newArrayList();
+		for (KeyBinding kb : keyhandler.keyBindings)
+		{
+			harvestedBindings.add(kb);
+		}
+
+		KeyBinding[] modKeyBindings = harvestedBindings.toArray(new KeyBinding[harvestedBindings.size()]);
+		KeyBinding[] allKeys = new KeyBinding[settings.keyBindings.length + modKeyBindings.length];
+		System.arraycopy(settings.keyBindings, 0, allKeys, 0, settings.keyBindings.length);
+		System.arraycopy(modKeyBindings, 0, allKeys, settings.keyBindings.length, modKeyBindings.length);
+		settings.keyBindings = allKeys;
+		settings.loadOptions();
 	}
 }

@@ -43,7 +43,6 @@ public class PartCrafterLogic extends InventoryLogic
 					//return ((PatternHolderLogic) tile).getGuiContainer(player.inventory, world, x, y, z);
 			}
 		}
-		//System.out.println("Regular container");
 		return new PartCrafterContainer(inventoryplayer, this);
 	}
 

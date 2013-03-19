@@ -7,7 +7,7 @@ import net.minecraft.client.renderer.texture.TextureMap;
 
 public class TConstructClientRegistry
 {
-	public static TextureMap itemMap = Minecraft.getMinecraft().renderEngine.field_94155_m;
+	//public static TextureMap itemMap = Minecraft.getMinecraft().renderEngine.field_94155_m;
 	
 	public static void addMaterialRenderMapping (int materialID, String domain, String renderName, boolean useDefaultFolder)
 	{

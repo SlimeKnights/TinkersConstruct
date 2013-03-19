@@ -6,6 +6,8 @@ import mods.tinker.tconstruct.AbilityHelper;
 import mods.tinker.tconstruct.PHConstruct;
 import mods.tinker.tconstruct.TContent;
 import mods.tinker.tconstruct.client.TProxyClient;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EnumEntitySize;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -76,44 +78,7 @@ public class TPlayerHandler implements IPlayerTracker
 		NBTTagCompound tags = entityplayer.getEntityData().getCompoundTag("TConstruct");
 		tags.getCompoundTag("TConstruct").setBoolean("diary", stats.diary);
 	}
-
-	@ForgeSubscribe
-	public void playerDrops (PlayerDropsEvent evt)
-	{
-		TPlayerStats stats = getPlayerStats(evt.entityPlayer.username);
-		stats.level = evt.entityPlayer.experienceLevel / 2;
-		//stats.health = 20;
-		int hunger = evt.entityPlayer.getFoodStats().getFoodLevel();
-		if (hunger < 6)
-			stats.hunger = 6;
-		else
-			stats.hunger = evt.entityPlayer.getFoodStats().getFoodLevel();
-	}
-
-	TPlayerStats getPlayerStats (String username) //Not sure if needed
-	{
-		TPlayerStats stats = playerStats.get(username);
-		if (stats == null)
-		{
-			stats = new TPlayerStats();
-			playerStats.put(username, stats);
-		}
-		return stats;
-	}
-
-	public EntityPlayer getEntityPlayer (String username)
-	{
-		TPlayerStats stats = playerStats.get(username);
-		if (stats == null)
-		{
-			return null;
-		}
-		else
-		{
-			return stats.player;
-		}
-	}
-
+	
 	@ForgeSubscribe
 	public void livingFall (LivingFallEvent evt) //Only for negating fall damage
 	{
@@ -126,8 +91,8 @@ public class TPlayerHandler implements IPlayerTracker
 
 				//System.out.println("Client side: "+evt.entityLiving.motionY);
 			}
-			else
-				System.out.println("Server side");
+			//else
+				//System.out.println("Server side");
 
 			evt.distance -= 1;
 			//evt.distance = 0;
@@ -158,4 +123,91 @@ public class TPlayerHandler implements IPlayerTracker
 			}
 		}
 	}*/
+
+	@ForgeSubscribe
+	public void playerDrops (PlayerDropsEvent evt)
+	{
+		TPlayerStats stats = getPlayerStats(evt.entityPlayer.username);
+		stats.level = evt.entityPlayer.experienceLevel / 2;
+		//stats.health = 20;
+		int hunger = evt.entityPlayer.getFoodStats().getFoodLevel();
+		if (hunger < 6)
+			stats.hunger = 6;
+		else
+			stats.hunger = evt.entityPlayer.getFoodStats().getFoodLevel();
+	}
+
+	/* Find the right player */
+	TPlayerStats getPlayerStats (String username)
+	{
+		TPlayerStats stats = playerStats.get(username);
+		if (stats == null)
+		{
+			stats = new TPlayerStats();
+			playerStats.put(username, stats);
+		}
+		return stats;
+	}
+
+	public EntityPlayer getEntityPlayer (String username)
+	{
+		TPlayerStats stats = playerStats.get(username);
+		if (stats == null)
+		{
+			return null;
+		}
+		else
+		{
+			return stats.player;
+		}
+	}
+	
+	/* Modify Player */
+	public void updateSize(String user, float offset)
+	{
+		/*EntityPlayer player = getEntityPlayer(user);
+		setEntitySize(0.6F, offset, player);
+		player.yOffset = offset - 0.18f;*/
+	}
+	
+	public static void setEntitySize(float width, float height, Entity entity)
+    {
+		System.out.println("Size: "+height);
+        if (width != entity.width || height != entity.height)
+        {
+            entity.width = width;
+            entity.height = height;
+            entity.boundingBox.maxX = entity.boundingBox.minX + (double)entity.width;
+            entity.boundingBox.maxZ = entity.boundingBox.minZ + (double)entity.width;
+            entity.boundingBox.maxY = entity.boundingBox.minY + (double)entity.height;
+        }
+
+        float que = width % 2.0F;
+
+        if ((double)que < 0.375D)
+        {
+            entity.myEntitySize = EnumEntitySize.SIZE_1;
+        }
+        else if ((double)que < 0.75D)
+        {
+            entity.myEntitySize = EnumEntitySize.SIZE_2;
+        }
+        else if ((double)que < 1.0D)
+        {
+            entity.myEntitySize = EnumEntitySize.SIZE_3;
+        }
+        else if ((double)que < 1.375D)
+        {
+            entity.myEntitySize = EnumEntitySize.SIZE_4;
+        }
+        else if ((double)que < 1.75D)
+        {
+            entity.myEntitySize = EnumEntitySize.SIZE_5;
+        }
+        else
+        {
+            entity.myEntitySize = EnumEntitySize.SIZE_6;
+        }
+        //entity.yOffset = height;
+    }
 }

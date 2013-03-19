@@ -121,6 +121,12 @@ public class TPacketHandler implements IPacketHandler
 				EntityPlayer player = TConstruct.playerTracker.getEntityPlayer(user);
 				player.fallDistance = 0;
 			}
+			else if (packetID == 11)
+			{
+				String user = inputStream.readUTF();
+				float size = inputStream.readFloat();
+				TConstruct.playerTracker.updateSize(user, size);
+			}
 		}
 		catch (IOException e)
 		{

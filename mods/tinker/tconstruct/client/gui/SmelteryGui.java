@@ -8,10 +8,13 @@ import mods.tinker.tconstruct.logic.SmelteryLogic;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.util.Icon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import net.minecraftforge.client.ForgeHooksClient;
+import net.minecraftforge.liquids.LiquidStack;
 
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
@@ -129,7 +132,8 @@ public class SmelteryGui extends GuiContainer
 		{
 			//ForgeHooksClient.bindTexture(Block.lavaStill.getTextureFile(), 0);
 			//int renderIndex = Block.lavaStill.getBlockTextureFromSideAndMetadata(0, 0);
-			Icon lavaInon = Block.lavaStill.getBlockTextureFromSideAndMetadata(0, 0);
+			this.mc.renderEngine.func_98187_b("/terrain.png");
+			Icon lavaIcon = Block.lavaStill.getBlockTextureFromSideAndMetadata(0, 0);
 			//int xTex = renderIndex % 16 * 16;
 			//int yTex = renderIndex / 16 * 16;
 			int fuel = logic.getScaledFuelGague(52);
@@ -138,7 +142,7 @@ public class SmelteryGui extends GuiContainer
 			{
 				int size = fuel >= 16 ? 16 : fuel;
 				fuel -= size;
-				func_94065_a(cornerX + 117, (cornerY + 68) - size - 16 * count, lavaInon, 12, size);
+				func_94065_a(cornerX + 117, (cornerY + 68) - size - 16 * count, lavaIcon, 12, size);
 				//drawTexturedModalRect(cornerX + 117, (cornerY + 68) - size - 16 * count, 0, 16 - size, 12, size);
 				count++;
 			}
@@ -146,25 +150,27 @@ public class SmelteryGui extends GuiContainer
 
 		//Liquids - molten metal
 		int base = 0;
-		/*for (LiquidStack liquid : logic.moltenMetal)
+		for (LiquidStack liquid : logic.moltenMetal)
 		{
-			int renderIndex;
+			Icon renderIndex;
 			if (liquid.itemID < 4096) //Block
 			{
 				Block liquidBlock = Block.blocksList[liquid.itemID];
-				ForgeHooksClient.bindTexture(liquidBlock.getTextureFile(), 0);
+				//ForgeHooksClient.bindTexture(liquidBlock.getTextureFile(), 0);
+				this.mc.renderEngine.func_98187_b("/terrain.png");
 				renderIndex = liquidBlock.getBlockTextureFromSideAndMetadata(0, liquid.itemMeta);
 			}
 			else
 			//Item
 			{
 				Item liquidItem = Item.itemsList[liquid.itemID];
-				ForgeHooksClient.bindTexture(liquidItem.getTextureFile(), 0);
+				//ForgeHooksClient.bindTexture(liquidItem.getTextureFile(), 0);
+				this.mc.renderEngine.func_98187_b("/gui/items.png");
 				renderIndex = liquidItem.getIconFromDamage(liquid.itemMeta);
 			}
 
-			int xTex = renderIndex % 16 * 16;
-			int yTex = renderIndex / 16 * 16;
+			//int xTex = renderIndex % 16 * 16;
+			//int yTex = renderIndex / 16 * 16;
 			if (logic.getCapacity() > 0)
 			{
 				int liquidSize = liquid.amount * 52 / logic.getCapacity();
@@ -172,16 +178,16 @@ public class SmelteryGui extends GuiContainer
 				{
 					int size = liquidSize >= 16 ? 16 : liquidSize;
 					int basePos = 54;
-					drawTexturedModalRect(cornerX + basePos, (cornerY + 68) - size - base, xTex, yTex + 16 - size, 16, size);
-					drawTexturedModalRect(cornerX + basePos + 16, (cornerY + 68) - size - base, xTex, yTex + 16 - size, 16, size);
-					drawTexturedModalRect(cornerX + basePos + 32, (cornerY + 68) - size - base, xTex, yTex + 16 - size, 16, size);
-					drawTexturedModalRect(cornerX + basePos + 48, (cornerY + 68) - size - base, xTex, yTex + 16 - size, 4, size);
+					func_94065_a(cornerX + basePos, (cornerY + 68) - size - base, renderIndex, 16, size);
+					func_94065_a(cornerX + basePos + 16, (cornerY + 68) - size - base, renderIndex, 16, size);
+					func_94065_a(cornerX + basePos + 32, (cornerY + 68) - size - base, renderIndex, 16, size);
+					func_94065_a(cornerX + basePos + 48, (cornerY + 68) - size - base, renderIndex, 4, size);
 					liquidSize -= size;
 					base += size;
 				}
 			}
 			//base = liquid.amount / 10000 * 52;
-		}*/
+		}
 
 		//Liquid gague
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
@@ -224,8 +230,8 @@ public class SmelteryGui extends GuiContainer
 			}
 		}
 
-		/*fontRenderer.drawString("Clicking: "+wasClicking, 140, 30, 0xFFFFFF);
-		fontRenderer.drawString("Scrolling: "+isScrolling, 140, 40, 0xFFFFFF);
-		fontRenderer.drawString("Scroll: "+currentScroll, 140, 50, 0xFFFFFF);*/
+		fontRenderer.drawString("Time: "+logic.useTime, 140, 2, 0xFFFFFF);
+		/*fontRenderer.drawString("Scrolling: "+isScrolling, 140, 12, 0xFFFFFF);
+		fontRenderer.drawString("Scroll: "+currentScroll, 140, 22, 0xFFFFFF);*/
 	}
 }

@@ -1,10 +1,13 @@
 package mods.tinker.tconstruct.logic;
 
 import mods.tinker.common.CoordTuple;
+import mods.tinker.common.IMasterLogic;
+import mods.tinker.common.IServantLogic;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 
 public class MultiServantLogic extends TileEntity
+	implements IServantLogic
 {
 	boolean hasMaster;
 	CoordTuple master;
@@ -70,6 +73,15 @@ public class MultiServantLogic extends TileEntity
 		else
 		{
 			return false;
+		}
+	}
+	
+	public void notifyMasterOfChange()
+	{
+		if (hasValidMaster())
+		{
+			IMasterLogic logic = (IMasterLogic) worldObj.getBlockTileEntity(master.x, master.y, master.z);
+			logic.notifyChange(xCoord, yCoord, zCoord);
 		}
 	}
 

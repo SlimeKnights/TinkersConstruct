@@ -13,8 +13,10 @@ import cpw.mods.fml.common.TickType;
 public abstract class TKeyHandler implements ITickHandler
 {
     protected KeyBinding[] keyBindings;
+    protected KeyBinding[] vKeyBindings;
     protected boolean[] keyDown;
     protected boolean[] repeatings;
+    protected boolean[] vRepeatings;
     private boolean isDummy;
 
     /**
@@ -23,12 +25,15 @@ public abstract class TKeyHandler implements ITickHandler
      * @param keyBindings
      * @param repeatings
      */
-    public TKeyHandler(KeyBinding[] keyBindings, boolean[] repeatings)
+    public TKeyHandler(KeyBinding[] keyBindings, boolean[] repeatings, KeyBinding[] vanillaKeys, boolean[] vanillaRepeatings)
     {
         assert keyBindings.length == repeatings.length : "You need to pass two arrays of identical length";
+        assert vanillaKeys.length == vanillaRepeatings.length : "You need to pass two arrays of identical length";
         this.keyBindings = keyBindings;
         this.repeatings = repeatings;
-        this.keyDown = new boolean[keyBindings.length];
+        this.vKeyBindings = vanillaKeys;
+        this.vRepeatings = vanillaRepeatings;
+        this.keyDown = new boolean[keyBindings.length + vanillaKeys.length];
     }
 
 
@@ -49,19 +54,25 @@ public abstract class TKeyHandler implements ITickHandler
         return this.keyBindings;
     }
 
+    /**
+     * Not to be overridden - KeyBindings are tickhandlers under the covers
+     */
     @Override
-    public void tickStart(EnumSet<TickType> type, Object... tickData)
+    public final void tickStart(EnumSet<TickType> type, Object... tickData)
     {
         keyTick(type, false);
     }
 
+    /**
+     * Not to be overridden - KeyBindings are tickhandlers under the covers
+     */
     @Override
-    public void tickEnd(EnumSet<TickType> type, Object... tickData)
+    public final void tickEnd(EnumSet<TickType> type, Object... tickData)
     {
         keyTick(type, true);
     }
 
-    private void keyTick(EnumSet<TickType> type, boolean tickEnd)
+    public void keyTick(EnumSet<TickType> type, boolean tickEnd)
     {
         for (int i = 0; i < keyBindings.length; i++)
         {
@@ -83,7 +94,27 @@ public abstract class TKeyHandler implements ITickHandler
                     keyDown[i] = state;
                 }
             }
-
+        }
+        for (int i = 0; i < vKeyBindings.length; i++)
+        {
+            KeyBinding keyBinding = vKeyBindings[i];
+            int keyCode = keyBinding.keyCode;
+            boolean state = (keyCode < 0 ? Mouse.isButtonDown(keyCode + 100) : Keyboard.isKeyDown(keyCode));
+            if (state != keyDown[i+keyBindings.length] || (state && vRepeatings[i]))
+            {
+                if (state)
+                {
+                    keyDown(type, keyBinding, tickEnd, state!=keyDown[i+keyBindings.length]);
+                }
+                else
+                {
+                    keyUp(type, keyBinding, tickEnd);
+                }
+                if (tickEnd)
+                {
+                    keyDown[i+keyBindings.length] = state;
+                }
+            }
         }
     }
 

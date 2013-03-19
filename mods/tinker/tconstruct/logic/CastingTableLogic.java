@@ -17,12 +17,12 @@ import net.minecraftforge.liquids.ILiquidTank;
 import net.minecraftforge.liquids.ITankContainer;
 import net.minecraftforge.liquids.LiquidStack;
 
-public class CastingTableLogic extends InventoryLogic 
-	implements ILiquidTank, ITankContainer
+public class CastingTableLogic extends InventoryLogic implements ILiquidTank, ITankContainer
 {
 	public LiquidStack liquid;
 	float materialRedux = 0;
 	int castingDelay = 0;
+	int renderOffset = 0;
 
 	public CastingTableLogic()
 	{
@@ -34,7 +34,6 @@ public class CastingTableLogic extends InventoryLogic
 	{
 		return null;
 	}
-	
 
 	@Override
 	protected String getDefaultName () //Still not a gui block
@@ -74,13 +73,12 @@ public class CastingTableLogic extends InventoryLogic
 
 		if (liquid == null)
 		{
-			System.out.println("Woo");
 			if (inventory[1] == null && LiquidCasting.instance.getCastingRecipe(resource, inventory[0]) != null)
 			{
-				System.out.println("Cast exists");
 				liquid = resource.copy();
 				materialRedux = LiquidCasting.instance.getMaterialReduction(resource);
 				worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+				renderOffset = liquid.amount;
 				return liquid.amount;
 			}
 			else
@@ -103,6 +101,7 @@ public class CastingTableLogic extends InventoryLogic
 					castingDelay = LiquidCasting.instance.getCastingDelay(liquid, inventory[0]);
 				}
 			}
+			renderOffset = cap;
 			return cap;
 		}
 		else
@@ -127,9 +126,8 @@ public class CastingTableLogic extends InventoryLogic
 	{
 		return 0;
 	}
-	
+
 	/* Tank Container */
-	
 
 	@Override
 	public int fill (ForgeDirection from, LiquidStack resource, boolean doFill)
@@ -168,6 +166,11 @@ public class CastingTableLogic extends InventoryLogic
 	{
 		return this;
 	}
+	
+	public int getLiquidAmount()
+	{
+		return liquid.amount - renderOffset;
+	}
 
 	/* Updating */
 	@Override
@@ -178,6 +181,11 @@ public class CastingTableLogic extends InventoryLogic
 			castingDelay--;
 			if (castingDelay == 0)
 				castLiquid();
+		}
+		if (renderOffset > 0)
+		{
+			renderOffset -= 6;
+			worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
 		}
 	}
 
@@ -191,22 +199,35 @@ public class CastingTableLogic extends InventoryLogic
 			if (recipe.consumeCast)
 				inventory[0] = null;
 			liquid = null;
-			//System.out.println("Casting: " + inventory[1].getItemName());
 			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 		}
 	}
 
 	/* NBT */
+
+	@Override
 	public void readFromNBT (NBTTagCompound tags)
+	{
+		super.readFromNBT(tags);
+		readCustomNBT(tags);
+	}
+
+	public void readCustomNBT (NBTTagCompound tags)
 	{
 		if (tags.getBoolean("hasLiquid"))
 			this.liquid = new LiquidStack(tags.getInteger("itemID"), tags.getInteger("amount"), tags.getInteger("itemMeta"));
 		else
 			this.liquid = null;
-		super.readFromNBT(tags);
 	}
 
+	@Override
 	public void writeToNBT (NBTTagCompound tags)
+	{
+		super.writeToNBT(tags);
+		writeCustomNBT(tags);
+	}
+
+	public void writeCustomNBT (NBTTagCompound tags)
 	{
 		tags.setBoolean("hasLiquid", liquid != null);
 		if (liquid != null)
@@ -215,7 +236,6 @@ public class CastingTableLogic extends InventoryLogic
 			tags.setInteger("amount", liquid.amount);
 			tags.setInteger("itemMeta", liquid.itemMeta);
 		}
-		super.writeToNBT(tags);
 	}
 
 	/* Packets */

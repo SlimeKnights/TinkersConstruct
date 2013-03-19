@@ -2,6 +2,7 @@ package mods.tinker.tconstruct.blocks;
 
 import java.util.List;
 
+import mods.tinker.common.IServantLogic;
 import mods.tinker.tconstruct.TConstruct;
 import mods.tinker.tconstruct.TContent;
 import mods.tinker.tconstruct.client.TankRender;
@@ -83,9 +84,9 @@ public class LavaTankBlock extends BlockContainer
 	@Override
 	public int getLightValue(IBlockAccess world, int x, int y, int z)
     {
-		LavaTankLogic logic = (LavaTankLogic) world.getBlockTileEntity(x, y, z);
-		if (logic != null)
-			return logic.getBrightness();
+		TileEntity logic = world.getBlockTileEntity(x, y, z);
+		if (logic != null && logic instanceof LavaTankLogic)
+			return ((LavaTankLogic) logic).getBrightness();
 		return 0;
     }
 	
@@ -181,5 +182,15 @@ public class LavaTankBlock extends BlockContainer
 	public int damageDropped (int meta)
 	{
 		return meta;
+	}
+	
+	/* Updates */
+	public void onNeighborBlockChange(World world, int x, int y, int z, int nBlockID) 
+	{
+		TileEntity logic = world.getBlockTileEntity(x, y, z);
+		if (logic instanceof IServantLogic)
+		{
+			((IServantLogic) logic).notifyMasterOfChange();
+		}
 	}
 }

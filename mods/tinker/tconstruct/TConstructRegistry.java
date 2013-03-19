@@ -5,9 +5,6 @@ import java.util.HashMap;
 
 import mods.tinker.tconstruct.client.gui.ToolGuiElement;
 import mods.tinker.tconstruct.tools.ToolCore;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.util.Icon;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 

@@ -12,14 +12,17 @@ import net.minecraftforge.liquids.LiquidContainerRegistry;
 import net.minecraftforge.liquids.LiquidStack;
 import net.minecraftforge.liquids.LiquidTank;
 
-public class LavaTankLogic extends MultiServantLogic
-	implements ITankContainer
+public class LavaTankLogic extends MultiServantLogic implements ITankContainer
 {
 	public LiquidTank tank;
-	
+	public int renderOffset;
+	//public LiquidStack renderLiquid;
+	//public int counter;
+	//public int updateAmount;
+
 	public LavaTankLogic()
 	{
-		tank = new LiquidTank(LiquidContainerRegistry.BUCKET_VOLUME*4);
+		tank = new LiquidTank(LiquidContainerRegistry.BUCKET_VOLUME * 4);
 	}
 
 	@Override
@@ -31,9 +34,29 @@ public class LavaTankLogic extends MultiServantLogic
 	@Override
 	public int fill (int tankIndex, LiquidStack resource, boolean doFill)
 	{
+		/*if (resource != null && resource.amount > 20 && counter == 0)
+		{
+			if (tank.getLiquid() == null)
+			{
+				renderLiquid = new LiquidStack(resource.itemID, 0, resource.itemMeta);
+			}
+			else
+			{
+				renderLiquid = tank.getLiquid();
+			}
+			counter = 24;
+			updateAmount = resource.amount / 24;
+			System.out.println("renderLiquid: "+renderLiquid.amount);			
+		}*/
+		//renderLiquid = tank.getLiquid();
 		int amount = tank.fill(resource, doFill);
 		if (amount > 0 && doFill)
+		{
+			renderOffset = resource.amount;
 			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+		}
+
+		//System.out.println("tankLiquid: "+tank.getLiquid().amount);	
 		return amount;
 	}
 
@@ -46,9 +69,20 @@ public class LavaTankLogic extends MultiServantLogic
 	@Override
 	public LiquidStack drain (int tankIndex, int maxDrain, boolean doDrain)
 	{
+		/*if (maxDrain > 20 && counter == 0)
+		{
+			renderLiquid = tank.getLiquid();
+			counter = 24;
+			updateAmount = -(maxDrain / 24);
+		}*/
+
+		
 		LiquidStack amount = tank.drain(maxDrain, doDrain);
 		if (amount != null && doDrain)
+		{
+			renderOffset = -maxDrain;
 			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+		}
 		return amount;
 	}
 
@@ -63,18 +97,18 @@ public class LavaTankLogic extends MultiServantLogic
 	{
 		return tank;
 	}
-	
-	public float getLiquidAmountScaled()
+
+	public float getLiquidAmountScaled ()
 	{
-		return (float) (tank.getLiquid().amount) / (float) (tank.getCapacity() * 1.01F);
+		return (float) (tank.getLiquid().amount - renderOffset) / (float) (tank.getCapacity() * 1.01F);
 	}
-	
-	public boolean containsLiquid()
+
+	public boolean containsLiquid ()
 	{
 		return tank.getLiquid() != null;
 	}
-	
-	public int getBrightness()
+
+	public int getBrightness ()
 	{
 		if (containsLiquid())
 		{
@@ -86,16 +120,32 @@ public class LavaTankLogic extends MultiServantLogic
 		}
 		return 0;
 	}
-	
-	public void readFromNBT(NBTTagCompound tags)
-    {
+
+	@Override
+	public void readFromNBT (NBTTagCompound tags)
+	{
+		super.readFromNBT(tags);
+		readCustomNBT(tags);
+	}
+
+	@Override
+	public void writeToNBT (NBTTagCompound tags)
+	{
+		super.writeToNBT(tags);
+		writeCustomNBT(tags);
+	}
+
+	public void readCustomNBT (NBTTagCompound tags)
+	{
 		if (tags.getBoolean("hasLiquid"))
 			tank.setLiquid(new LiquidStack(tags.getInteger("itemID"), tags.getInteger("amount"), tags.getInteger("itemMeta")));
-		super.readFromNBT(tags);
-    }
-	
-	public void writeToNBT(NBTTagCompound tags)
-    {
+		else
+			tank.setLiquid(null);
+		//renderLiquid = tank.getLiquid();
+	}
+
+	public void writeCustomNBT (NBTTagCompound tags)
+	{
 		LiquidStack liquid = tank.getLiquid();
 		tags.setBoolean("hasLiquid", liquid != null);
 		if (liquid != null)
@@ -104,19 +154,37 @@ public class LavaTankLogic extends MultiServantLogic
 			tags.setInteger("amount", liquid.amount);
 			tags.setInteger("itemMeta", liquid.itemMeta);
 		}
-		super.writeToNBT(tags);
-    }
-	
+	}
+
+	/* Packets */
+	@Override
 	public Packet getDescriptionPacket ()
 	{
 		NBTTagCompound tag = new NBTTagCompound();
-		writeToNBT(tag);
+		writeCustomNBT(tag);
 		return new Packet132TileEntityData(xCoord, yCoord, zCoord, 1, tag);
 	}
 
+	@Override
 	public void onDataPacket (INetworkManager net, Packet132TileEntityData packet)
 	{
-		worldObj.getBlockTileEntity(xCoord, yCoord, zCoord).readFromNBT(packet.customParam1);
+		readCustomNBT(packet.customParam1);
 		worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+	}
+
+	/* Updating */
+	public boolean canUpdate ()
+	{
+		return true;
+	}
+
+	@Override
+	public void updateEntity ()
+	{
+		if (renderOffset > 0)
+		{
+			renderOffset -= 6;
+			worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+		}
 	}
 }

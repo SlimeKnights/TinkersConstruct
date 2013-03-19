@@ -2,6 +2,7 @@ package mods.tinker.tconstruct.logic;
 
 import mods.tinker.common.IActiveLogic;
 import mods.tinker.common.IFacingLogic;
+import mods.tinker.tconstruct.TConstruct;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.INetworkManager;
@@ -18,13 +19,10 @@ public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogi
 	byte direction;
 	boolean active;
 	public LiquidStack liquid;
-	ITankContainer drain;
-	ITankContainer tank;
-	int drainAmount = 5;
 
-	public void activateFaucet ()
+	public boolean activateFaucet ()
 	{
-		if (liquid == null)
+		if (liquid == null && active)
 		{
 			int x = xCoord, z = zCoord;
 			switch (getRenderDirection())
@@ -45,57 +43,54 @@ public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogi
 
 			TileEntity drainte = worldObj.getBlockTileEntity(x, yCoord, z);
 			TileEntity tankte = worldObj.getBlockTileEntity(xCoord, yCoord - 1, zCoord);
+
 			if (drainte != null && drainte instanceof ITankContainer && tankte != null && tankte instanceof ITankContainer)
 			{
-				//System.out.println("Activating Faucet");
-				liquid = ((ITankContainer) drainte).drain(getForgeDirection(), drainAmount, true);
-				drain = (ITankContainer) drainte;
-				tank = (ITankContainer) tankte;
-				active = true;
-				worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-				//System.out.println("Drained");
-				//return true;
+				liquid = ((ITankContainer) drainte).drain(getForgeDirection(), TConstruct.ingotLiquidValue, true);
+				if (liquid != null)
+				{
+					int drained = ((ITankContainer) tankte).fill(ForgeDirection.UP, liquid, true);
+					if (drained != liquid.amount)
+					{
+						liquid.amount -= drained;
+						((ITankContainer) drainte).fill(getForgeDirection(), liquid, true);
+					}
+					if (drained > 0)
+					{
+						worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+						return true;
+					}
+					else
+					{
+						liquid = null;
+						worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+						return false;
+					}
+				}
+				else
+				{
+					((ITankContainer) drainte).fill(getForgeDirection(), liquid, true);
+				}
 			}
 		}
-		//return true;
+		return false;
 	}
 
-	public void deactivateFaucet ()
-	{
-		//System.out.println("Deactivating Faucet");
-		drain.fill(getForgeDirection(), liquid, true);
-		liquid = null;
-		drain = null;
-		tank = null;
-		active = false;
-		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-	}
-
+	@Override
 	public void updateEntity ()
 	{
-		if (active && liquid != null)
+		if (liquid != null)
 		{
-			int drained = tank.fill(ForgeDirection.UP, liquid, true);
-			//System.out.println("Drained: "+drained);
-			if (drained < drainAmount)
+			liquid.amount -= TConstruct.liquidUpdateAmount;
+			if (liquid.amount <= 0)
 			{
-				liquid.amount -= drained;
-				deactivateFaucet();
-			}
-			else
-			{
-				liquid = drain.drain(getForgeDirection(), drainAmount, true);
-			}
-			/*TileEntity te = worldObj.getBlockTileEntity(xCoord, yCoord-1, zCoord);
-			if (te != null && te instanceof ILiquidTank)
-			{
-				int amount = ((ILiquidTank) te).fill(new LiquidStack(liquid.itemID, 2, liquid.itemMeta), true);
-				liquid.amount -= amount;
-				if (liquid.amount <= 0)
+				liquid = null;
+				if (!activateFaucet())
 				{
-					liquid = null;
+					active = false;
+					worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 				}
-			}*/
+			}
 		}
 	}
 
@@ -135,9 +130,15 @@ public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogi
 		}
 	}
 
+	@Override
 	public void readFromNBT (NBTTagCompound tags)
 	{
 		super.readFromNBT(tags);
+		readCustomNBT(tags);
+	}
+
+	public void readCustomNBT (NBTTagCompound tags)
+	{
 		direction = tags.getByte("Direction");
 		if (tags.getBoolean("hasLiquid"))
 			this.liquid = new LiquidStack(tags.getInteger("itemID"), tags.getInteger("amount"), tags.getInteger("itemMeta"));
@@ -149,6 +150,11 @@ public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogi
 	public void writeToNBT (NBTTagCompound tags)
 	{
 		super.writeToNBT(tags);
+		writeCustomNBT(tags);
+	}
+
+	public void writeCustomNBT (NBTTagCompound tags)
+	{
 		tags.setByte("Direction", direction);
 		tags.setBoolean("hasLiquid", liquid != null);
 		if (liquid != null)
@@ -164,14 +170,14 @@ public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogi
 	public Packet getDescriptionPacket ()
 	{
 		NBTTagCompound tag = new NBTTagCompound();
-		writeToNBT(tag);
+		writeCustomNBT(tag);
 		return new Packet132TileEntityData(xCoord, yCoord, zCoord, 1, tag);
 	}
 
 	@Override
 	public void onDataPacket (INetworkManager net, Packet132TileEntityData packet)
 	{
-		readFromNBT(packet.customParam1);
+		readCustomNBT(packet.customParam1);
 		worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
 	}
 
@@ -184,13 +190,15 @@ public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogi
 	@Override
 	public void setActive (boolean flag)
 	{
-		//if (!worldObj.isRemote)
-		//{
-			if (flag)
-				activateFaucet();
-			else
-				deactivateFaucet();
-		//}
+		if (!active)
+		{
+			active = true;
+			activateFaucet();
+		}
+		else
+		{
+			active = false;
+		}
 	}
 
 }
