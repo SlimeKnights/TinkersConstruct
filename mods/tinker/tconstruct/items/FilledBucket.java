@@ -145,7 +145,7 @@ public class FilledBucket extends ItemBucket
 	@Override
 	public void getSubItems(int id, CreativeTabs tab, List list)
     {
-		for (int i = 0; i < 17; i++)
+		for (int i = 0; i < 13; i++)
 			list.add(new ItemStack(id, 1, i));
     }
 	

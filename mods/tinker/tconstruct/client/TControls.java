@@ -19,7 +19,6 @@ public class TControls extends TKeyHandler
 	//static KeyBinding stiltsKey = new KeyBinding("key.stilts", 46);
 	static KeyBinding jumpKey;
 	static Minecraft mc;
-	EntityClientPlayerMP player;
 	boolean jumping;
 	boolean doubleJump = true;
 	boolean climbing = false;
@@ -55,15 +54,15 @@ public class TControls extends TKeyHandler
 			{
 				if (jumping && !doubleJump)
 				{
-					if (player == null)
-						player = mc.thePlayer;
+					//if (player == null)
+						//player = mc.thePlayer;
 
-					player.motionY = 0.42D;
-					player.fallDistance = 0;
+					mc.thePlayer.motionY = 0.42D;
+					mc.thePlayer.fallDistance = 0;
 
-					if (player.isPotionActive(Potion.jump))
+					if (mc.thePlayer.isPotionActive(Potion.jump))
 					{
-						player.motionY += (double) ((float) (player.getActivePotionEffect(Potion.jump).getAmplifier() + 1) * 0.1F);
+						mc.thePlayer.motionY += (double) ((float) (mc.thePlayer.getActivePotionEffect(Potion.jump).getAmplifier() + 1) * 0.1F);
 					}
 
 					doubleJump = true;
@@ -109,6 +108,15 @@ public class TControls extends TKeyHandler
 	{
 		doubleJump = false;
 		jumping = false;
+	}
+	
+	public void resetControls()
+	{
+		doubleJump = false;
+		jumping = false;
+		climbing = false;
+		onGround = false;
+		onStilts = false;
 	}
 
 	void resetFallDamage (String name)

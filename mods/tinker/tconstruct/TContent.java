@@ -324,7 +324,7 @@ public class TContent implements IFuelHandler
 		TConstructRegistry.addToolMaterial(2, "Iron", 1, 2, 250, 600, 2, 1.3F, 1, 0f);
 		TConstructRegistry.addToolMaterial(3, "Flint", 1, 1, 171, 525, 2, 0.7F, 0, 1f);
 		TConstructRegistry.addToolMaterial(4, "Cactus", 1, 1, 150, 500, 2, 1.0F, 0, -1f);
-		TConstructRegistry.addToolMaterial(5, "Bone", 1, 1, 200, 500, 2, 1.0F, 0, 0f);
+		TConstructRegistry.addToolMaterial(5, "Bone", 1, 1, 200, 400, 1, 1.0F, 0, 0f);
 		TConstructRegistry.addToolMaterial(6, "Obsidian", 1, 3, 89, 700, 2, 0.8F, 3, 0f);
 		TConstructRegistry.addToolMaterial(7, "Netherrack", 1, 2, 131, 400, 1, 1.2F, 0, 1f);
 		TConstructRegistry.addToolMaterial(8, "Slime", 1, 3, 1500, 150, 0, 5.0F, 0, 0f);

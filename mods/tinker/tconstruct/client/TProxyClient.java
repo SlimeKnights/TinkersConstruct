@@ -234,8 +234,8 @@ public class TProxyClient extends TProxyCommon
 	public void readManuals ()
 	{
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-		diary = readManual("/manuals/diary.xml", dbFactory);
-		volume1 = readManual("/manuals/materials.xml", dbFactory);
+		diary = readManual("/mods/tinker/resources/manuals/diary.xml", dbFactory);
+		volume1 = readManual("/mods/tinker/resources/manuals/materials.xml", dbFactory);
 	}
 
 	Document readManual (String location, DocumentBuilderFactory dbFactory)

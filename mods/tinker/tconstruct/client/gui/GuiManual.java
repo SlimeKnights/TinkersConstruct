@@ -141,6 +141,8 @@ public class GuiManual extends GuiScreen
         this.mc.renderEngine.func_98187_b("/mods/tinker/textures/gui/bookleft.png");
         localWidth = localWidth - this.bookImageWidth;
         this.drawTexturedModalRect(localWidth, localHeight, 256 - this.bookImageWidth, 0, this.bookImageWidth, this.bookImageHeight);
+        
+        super.drawScreen(par1, par2, par3);
 
         if (textLeft != null)
         {
@@ -151,7 +153,6 @@ public class GuiManual extends GuiScreen
         }
         if (textRight != null)
         	drawTextPage(textRight, localWidth + 320, localHeight + 32);
-        super.drawScreen(par1, par2, par3);
     }
     
     public void drawTextPage(String text, int localWidth, int localHeight)

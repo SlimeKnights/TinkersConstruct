@@ -76,7 +76,13 @@ public class TPlayerHandler implements IPlayerTracker
 		if (PHConstruct.keepHunger)
 			entityplayer.getFoodStats().setFoodLevel(stats.hunger);
 		NBTTagCompound tags = entityplayer.getEntityData().getCompoundTag("TConstruct");
-		tags.getCompoundTag("TConstruct").setBoolean("diary", stats.diary);
+		tags.setBoolean("diary", stats.diary);
+		
+		Side side = FMLCommonHandler.instance().getEffectiveSide();
+		if (side == Side.CLIENT)
+		{
+			TProxyClient.controlInstance.resetControls();
+		}
 	}
 	
 	@ForgeSubscribe

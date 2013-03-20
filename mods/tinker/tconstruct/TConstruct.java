@@ -23,7 +23,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
  * @author: mDiyo
  */
 
-@Mod(modid = "TConstruct", name = "TConstruct", version = "1.5.0_1.1.22", dependencies = "before:*")
+@Mod(modid = "TConstruct", name = "TConstruct", version = "1.5.0_1.1.23", dependencies = "before:*")
 @NetworkMod(serverSideRequired = false, clientSideRequired = true, channels = { "TConstruct" }, packetHandler = mods.tinker.tconstruct.TPacketHandler.class)
 public class TConstruct
 {
