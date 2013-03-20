@@ -21,7 +21,9 @@ import mods.tinker.tconstruct.crafting.Smeltery;
 import mods.tinker.tconstruct.crafting.ToolBuilder;
 import mods.tinker.tconstruct.entity.CartEntity;
 import mods.tinker.tconstruct.entity.Crystal;
+import mods.tinker.tconstruct.entity.EdibleSlime;
 import mods.tinker.tconstruct.entity.Skyla;
+import mods.tinker.tconstruct.entity.UnstableCreeper;
 import mods.tinker.tconstruct.items.CraftedSoilItemBlock;
 import mods.tinker.tconstruct.items.CraftingItem;
 import mods.tinker.tconstruct.items.FilledBucket;
@@ -73,10 +75,12 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialLiquid;
+import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.liquids.LiquidContainerData;
 import net.minecraftforge.liquids.LiquidContainerRegistry;
@@ -178,6 +182,13 @@ public class TContent implements IFuelHandler
 		EntityRegistry.registerModEntity(Crystal.class, "Crystal", 2, TConstruct.instance, 32, 5, true);
 
 		EntityRegistry.registerModEntity(Skyla.class, "Skyla", 10, TConstruct.instance, 32, 5, true);
+		EntityRegistry.registerModEntity(UnstableCreeper.class, "UnstableCreeper", 11, TConstruct.instance, 64, 5, true);
+		EntityRegistry.registerModEntity(EdibleSlime.class, "EdibleSlime", 12, TConstruct.instance, 64, 5, true);
+
+		BiomeGenBase[] overworldBiomes = new BiomeGenBase[] { BiomeGenBase.ocean, BiomeGenBase.plains, BiomeGenBase.desert, BiomeGenBase.extremeHills, BiomeGenBase.forest, BiomeGenBase.taiga,
+				BiomeGenBase.swampland, BiomeGenBase.river, BiomeGenBase.frozenOcean, BiomeGenBase.frozenRiver, BiomeGenBase.icePlains, BiomeGenBase.iceMountains, BiomeGenBase.beach,
+				BiomeGenBase.desertHills, BiomeGenBase.forestHills, BiomeGenBase.taigaHills, BiomeGenBase.extremeHillsEdge, BiomeGenBase.jungle, BiomeGenBase.jungleHills };
+		EntityRegistry.addSpawn(UnstableCreeper.class, 8, 4, 6, EnumCreatureType.monster, overworldBiomes);
 	}
 
 	void registerBlocks ()
@@ -194,26 +205,13 @@ public class TContent implements IFuelHandler
 		GameRegistry.registerBlock(heldItemBlock, "HeldItemBlock");
 		GameRegistry.registerTileEntity(FrypanLogic.class, "FrypanLogic");
 
-		String[] soilTypes = new String[] {
-				"slimesand",
-				"grout"
-		};
+		String[] soilTypes = new String[] { "slimesand", "grout" };
 		craftedSoil = new TConstructBlock(PHConstruct.craftedSoil, Material.sand, 3.0F, soilTypes);
 		craftedSoil.stepSound = Block.soundGravelFootstep;
 		GameRegistry.registerBlock(craftedSoil, CraftedSoilItemBlock.class, "CraftedSoil");
 
-		String[] metalTypes = new String[] {
-				"compressed_cobalt",
-				"compressed_ardite",
-				"compressed_manyullyn",
-				"compressed_copper",
-				"compressed_bronze",
-				"compressed_tin",
-				"compressed_aluminum",
-				"compressed_alubrass",
-				"compressed_alumite",
-				"compressed_steel"
-		};
+		String[] metalTypes = new String[] { "compressed_cobalt", "compressed_ardite", "compressed_manyullyn", "compressed_copper", "compressed_bronze", "compressed_tin", "compressed_aluminum",
+				"compressed_alubrass", "compressed_alumite", "compressed_steel" };
 		metalBlock = new TConstructBlock(PHConstruct.metalBlock, Material.iron, 10.0F, metalTypes);
 		metalBlock.stepSound = Block.soundMetalFootstep;
 		GameRegistry.registerBlock(metalBlock, MetalItemBlock.class, "MetalBlock");
@@ -235,18 +233,10 @@ public class TContent implements IFuelHandler
 		GameRegistry.registerTileEntity(CastingTableLogic.class, "CastingTable");
 		GameRegistry.registerTileEntity(FaucetLogic.class, "Faucet");
 
-		String[] oreTypes = new String[] {
-				"nether_slag",
-				"nether_cobalt",
-				"nether_ardite",
-				"ore_copper",
-				"ore_tin",
-				"ore_aluminum",
-				"ore_slag"
-		};
+		String[] oreTypes = new String[] { "nether_slag", "nether_cobalt", "nether_ardite", "ore_copper", "ore_tin", "ore_aluminum", "ore_slag" };
 		oreSlag = new MetalOre(PHConstruct.oreSlag, Material.iron, 10.0F, oreTypes);
 		GameRegistry.registerBlock(oreSlag, MetalOreItemBlock.class, "SearedBrick");
-		MinecraftForge.setBlockHarvestLevel(oreSlag, 0, "pickaxe", 2);
+		//MinecraftForge.setBlockHarvestLevel(oreSlag, 0, "pickaxe", 0);
 		MinecraftForge.setBlockHarvestLevel(oreSlag, 1, "pickaxe", 4);
 		MinecraftForge.setBlockHarvestLevel(oreSlag, 2, "pickaxe", 4);
 		MinecraftForge.setBlockHarvestLevel(oreSlag, 3, "pickaxe", 1);
@@ -269,15 +259,13 @@ public class TContent implements IFuelHandler
 	void registerItems ()
 	{
 		titleIcon = new TitleIcon(PHConstruct.uselessItem).setUnlocalizedName("tconstruct.titleicon");
-		String[] blanks = new String[] {"blank_pattern", "blank_cast"};
+		String[] blanks = new String[] { "blank_pattern", "blank_cast" };
 		blankPattern = new CraftingItem(PHConstruct.blankPattern, blanks, blanks, "materials/").setUnlocalizedName("tconstruct.Pattern");
-		String[] craftingMaterials = new String[] { 
-			"PaperStack", "SlimeCrystal", "SearedBrick", "CobaltIngot", "ArditeIngot", "ManyullynIngot", "Mossball", "LavaCrystal", "NecroticBone",
-			"CopperIngot", "TinIngot", "AluminumIngot", "RawAluminum", "BronzeIngot", "AlBrassIngot", "AlumiteIngot", "SteelIngot" };
-		String[] craftingTextures = new String[] { 
-				"material_paperstack", "material_slimecrystal", "material_searedbrick", "material_cobaltingot", "material_arditeingot", "material_manyullyningot", 
-				"material_mossball", "material_lavacrystal", "material_necroticbone", "material_copperingot", "material_tiningot", "material_aluminumingot", 
-				"material_aluminumraw", "material_bronzeingot", "material_alubrassingot", "material_alumiteingot", "material_steelingot" };
+		String[] craftingMaterials = new String[] { "PaperStack", "SlimeCrystal", "SearedBrick", "CobaltIngot", "ArditeIngot", "ManyullynIngot", "Mossball", "LavaCrystal", "NecroticBone",
+				"CopperIngot", "TinIngot", "AluminumIngot", "RawAluminum", "BronzeIngot", "AlBrassIngot", "AlumiteIngot", "SteelIngot" };
+		String[] craftingTextures = new String[] { "material_paperstack", "material_slimecrystal", "material_searedbrick", "material_cobaltingot", "material_arditeingot", "material_manyullyningot",
+				"material_mossball", "material_lavacrystal", "material_necroticbone", "material_copperingot", "material_tiningot", "material_aluminumingot", "material_aluminumraw",
+				"material_bronzeingot", "material_alubrassingot", "material_alumiteingot", "material_steelingot" };
 		materials = new CraftingItem(PHConstruct.materials, craftingMaterials, craftingTextures, "materials/").setUnlocalizedName("tconstruct.Materials");
 		toolRod = new ToolPart(PHConstruct.toolRod, "ToolRod", "_rod").setUnlocalizedName("tconstruct.ToolRod");
 		toolShard = new ToolShard(PHConstruct.toolShard, "ToolShard", "_chunk").setUnlocalizedName("tconstruct.ToolShard");
@@ -372,7 +360,7 @@ public class TContent implements IFuelHandler
 			pb.registerMaterial(Block.cobblestone, 2, "Stone");
 		}
 		//else
-			//pb.registerMaterialSet("Stone", new ItemStack(TContent.toolShard, 1, 1), new ItemStack(TContent.toolRod, 1, 1), 1);
+		//pb.registerMaterialSet("Stone", new ItemStack(TContent.toolShard, 1, 1), new ItemStack(TContent.toolRod, 1, 1), 1);
 		pb.registerFullMaterial(Item.ingotIron, 2, "Iron", 2);
 		pb.registerFullMaterial(Item.flint, 2, "Flint", 3);
 		if (PHConstruct.enableTCactus)
@@ -446,7 +434,7 @@ public class TContent implements IFuelHandler
 		}
 
 		RecipeRemover.removeShapedRecipes(removeTools);
-		
+
 		patternOutputs = new Item[] { toolRod, pickaxeHead, shovelHead, axeHead, swordBlade, largeGuard, medGuard, crossbar, binding, frypanHead, signHead };
 
 		ToolBuilder tb = ToolBuilder.instance;
@@ -502,7 +490,9 @@ public class TContent implements IFuelHandler
 		// obsidian
 		lc.addCastingRecipe(new ItemStack(materials, 1, 16), new LiquidStack(liquidMetalStill.blockID, 1, 12), ingotcast, 50); //steel
 
-		liquids = new LiquidStack[] { new LiquidStack(liquidMetalStill.blockID, 1, 0), new LiquidStack(liquidMetalStill.blockID, 1, 2), new LiquidStack(liquidMetalStill.blockID, 1, 5), new LiquidStack(liquidMetalStill.blockID, 1, 6), new LiquidStack(liquidMetalStill.blockID, 1, 9), new LiquidStack(liquidMetalStill.blockID, 1, 7), new LiquidStack(liquidMetalStill.blockID, 1, 10), new LiquidStack(liquidMetalStill.blockID, 1, 12) };
+		liquids = new LiquidStack[] { new LiquidStack(liquidMetalStill.blockID, 1, 0), new LiquidStack(liquidMetalStill.blockID, 1, 2), new LiquidStack(liquidMetalStill.blockID, 1, 5),
+				new LiquidStack(liquidMetalStill.blockID, 1, 6), new LiquidStack(liquidMetalStill.blockID, 1, 9), new LiquidStack(liquidMetalStill.blockID, 1, 7),
+				new LiquidStack(liquidMetalStill.blockID, 1, 10), new LiquidStack(liquidMetalStill.blockID, 1, 12) };
 		int[] liquidDamage = new int[] { 2, 13, 10, 11, 12, 14, 15, 16 };
 
 		for (int iter = 0; iter < patternOutputs.length; iter++)
@@ -535,7 +525,8 @@ public class TContent implements IFuelHandler
 		Smeltery.addAlloyMixing(new LiquidStack(liquidMetalStill.blockID, 4, 7), new LiquidStack(liquidMetalStill.blockID, 3, 2), new LiquidStack(liquidMetalStill.blockID, 1, 3)); //Bronze
 		Smeltery.addAlloyMixing(new LiquidStack(liquidMetalStill.blockID, 4, 8), new LiquidStack(liquidMetalStill.blockID, 3, 4), new LiquidStack(liquidMetalStill.blockID, 1, 2)); //Aluminum Brass
 		Smeltery.addAlloyMixing(new LiquidStack(liquidMetalStill.blockID, 2, 9), new LiquidStack(liquidMetalStill.blockID, 1, 5), new LiquidStack(liquidMetalStill.blockID, 1, 6)); //Manyullyn
-		Smeltery.addAlloyMixing(new LiquidStack(liquidMetalStill.blockID, 9, 10), new LiquidStack(liquidMetalStill.blockID, 5, 4), new LiquidStack(liquidMetalStill.blockID, 2, 0), new LiquidStack(liquidMetalStill.blockID, 2, 11)); //Alumite
+		Smeltery.addAlloyMixing(new LiquidStack(liquidMetalStill.blockID, 9, 10), new LiquidStack(liquidMetalStill.blockID, 5, 4), new LiquidStack(liquidMetalStill.blockID, 2, 0), new LiquidStack(
+				liquidMetalStill.blockID, 2, 11)); //Alumite
 	}
 
 	void addCraftingRecipes ()
