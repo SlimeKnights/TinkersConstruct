@@ -146,7 +146,7 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
 	}
 
 	@Override
-	public void func_94581_a (IconRegister iconRegister)
+	public void updateIcons (IconRegister iconRegister)
 	{
 		headIcons.clear();
 		brokenHeadIcons.clear();
@@ -157,21 +157,21 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
 		while (iter.hasNext())
 		{
 			Map.Entry pairs = (Map.Entry) iter.next();
-			headIcons.put((Integer) pairs.getKey(), iconRegister.func_94245_a((String) pairs.getValue()));
+			headIcons.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue()));
 		}
 
 		iter = brokenHeadStrings.entrySet().iterator();
 		while (iter.hasNext())
 		{
 			Map.Entry pairs = (Map.Entry) iter.next();
-			brokenHeadIcons.put((Integer) pairs.getKey(), iconRegister.func_94245_a((String) pairs.getValue()));
+			brokenHeadIcons.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue()));
 		}
 
 		iter = handleStrings.entrySet().iterator();
 		while (iter.hasNext())
 		{
 			Map.Entry pairs = (Map.Entry) iter.next();
-			handleIcons.put((Integer) pairs.getKey(), iconRegister.func_94245_a((String) pairs.getValue()));
+			handleIcons.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue()));
 		}
 
 		if (getPartAmount() > 2)
@@ -180,7 +180,7 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
 			while (iter.hasNext())
 			{
 				Map.Entry pairs = (Map.Entry) iter.next();
-				accessoryIcons.put((Integer) pairs.getKey(), iconRegister.func_94245_a((String) pairs.getValue()));
+				accessoryIcons.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue()));
 			}
 		}
 
@@ -188,15 +188,8 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
 		while (iter.hasNext())
 		{
 			Map.Entry pairs = (Map.Entry) iter.next();
-			effectIcons.put((Integer) pairs.getKey(), iconRegister.func_94245_a((String) pairs.getValue()));
+			effectIcons.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue()));
 		}
-
-		/*System.out.println(this.getClass().getSimpleName() + " Test");
-		System.out.println("Head size: " + headStrings.size() + " " + headIcons.size());
-		System.out.println("Broken head size: " + brokenHeadStrings.size() + " " + brokenHeadIcons.size());
-		System.out.println("Handle size: " + handleStrings.size() + " " + handleIcons.size());
-		System.out.println("Accessory size: " + accessoryStrings.size() + " " + accessoryIcons.size());
-		System.out.println("Effect size: " + effectStrings.size() + " " + effectIcons.size());*/
 	}
 
 	@Override
@@ -525,8 +518,7 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
 			ItemStack result = FurnaceRecipes.smelting().getSmeltingResult(new ItemStack(block.idDropped(bID, random, 0), 1, block.damageDropped(meta)));
 			if (result != null)
 			{
-				//System.out.println("Woo~");
-				world.func_94571_i(x, y, z);
+				world.setBlockToAir(x, y, z);
 				if (!player.capabilities.isCreativeMode)
 					onBlockDestroyed(stack, world, bID, x, y, z, player);
 				if (!world.isRemote)

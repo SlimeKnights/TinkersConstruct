@@ -38,7 +38,7 @@ public abstract class HarvestTool extends ToolCore
 				if (result != null)
 				{
 					//System.out.println("Woo~");
-					world.func_94571_i(x, y, z);
+					world.setBlockToAir(x, y, z);
 					if (!player.capabilities.isCreativeMode)
 						onBlockDestroyed(stack, world, bID, x, y, z, player);
 					if (!world.isRemote)
@@ -56,7 +56,7 @@ public abstract class HarvestTool extends ToolCore
 		}
 		else
 		{
-			world.func_94571_i(x, y, z);
+			world.setBlockToAir(x, y, z);
 			if (!player.capabilities.isCreativeMode)
 				onBlockDestroyed(stack, world, bID, x, y, z, player);
 			if (!world.isRemote)

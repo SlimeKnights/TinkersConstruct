@@ -72,7 +72,7 @@ public class NetherOreGenerator extends WorldGenerator
                                 int genID = par1World.getBlockId(var38, var41, var44);
                                 if (var39 * var39 + var42 * var42 + var45 * var45 < 1.0D && genID == Block.netherrack.blockID)
                                 {
-                                    par1World.setBlockAndMetadataWithNotify(var38, var41, var44, this.minableBlockId, minableBlockMeta, 2);
+                                    par1World.setBlock(var38, var41, var44, this.minableBlockId, minableBlockMeta, 2);
                                 }
                             }
                         }

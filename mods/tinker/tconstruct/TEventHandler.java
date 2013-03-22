@@ -248,7 +248,7 @@ public class TEventHandler
 			
 			if (meta != -1)
 			{
-				evt.world.func_94571_i(hitX, hitY, hitZ); //Set air block
+				evt.world.setBlockToAir(hitX, hitY, hitZ); //Set air block
 				evt.result = new ItemStack(TContent.buckets, 1, meta);
 				evt.setResult(Result.ALLOW);
 			}

@@ -35,7 +35,7 @@ public class GuiButtonTool extends GuiButton
         {
             boolean var4 = mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height;
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-            mc.renderEngine.func_98187_b(texture);
+            mc.renderEngine.bindTexture(texture);
 
             this.field_82253_i = mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height;
             int var5 = this.getHoverState(this.field_82253_i);

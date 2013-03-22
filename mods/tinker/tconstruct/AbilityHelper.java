@@ -474,7 +474,7 @@ public class AbilityHelper
 				}
 				else
 				{
-					world.func_94575_c(x, y, z, block.blockID);
+					world.setBlock(x, y, z, block.blockID);
 					onBlockChanged(stack, world, 0, x, y, z, player, random);
 					return true;
 				}

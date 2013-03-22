@@ -56,18 +56,18 @@ public class CastingTableSpecialRenderer extends TileEntitySpecialRenderer
 		entityitem.getEntityItem().stackSize = 1;
 		entityitem.hoverStart = 0.0F;
 		GL11.glPushMatrix();
-		GL11.glTranslatef(1F, 1.478F, 0.55F);
+		GL11.glTranslatef(1F, 1.565F, 0.55F);
 		GL11.glRotatef(90F, 1, 0F, 0F);
 		GL11.glScalef(2F, 2F, 2F);
 		if (stack.getItem() instanceof ItemBlock)
 		{
 			GL11.glRotatef(90F, -1, 0F, 0F);
-			GL11.glTranslatef(0F, -0.1F, 0.2275F);
+			GL11.glTranslatef(0F, -10.1F, 0.2275F);
 		}
 
-		RenderItem.field_82407_g = true;
+		RenderItem.renderInFrame = true;
 		RenderManager.instance.renderEntityWithPosYaw(entityitem, 0.0D, 0.0D, 0.0D, 0.0F, 0.0F);
-		RenderItem.field_82407_g = false;
+		RenderItem.renderInFrame = false;
 
 		GL11.glPopMatrix();
 	}

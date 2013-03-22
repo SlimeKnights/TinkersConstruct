@@ -4,7 +4,6 @@ import java.util.List;
 
 import mods.tinker.common.IServantLogic;
 import mods.tinker.tconstruct.TConstruct;
-import mods.tinker.tconstruct.TContent;
 import mods.tinker.tconstruct.client.TankRender;
 import mods.tinker.tconstruct.logic.LavaTankLogic;
 import net.minecraft.block.Block;
@@ -13,17 +12,21 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.liquids.ILiquidTank;
 import net.minecraftforge.liquids.LiquidContainerRegistry;
 import net.minecraftforge.liquids.LiquidStack;
 
 public class LavaTankBlock extends BlockContainer
 {
 	public Icon[] icons;
+
 	public LavaTankBlock(int id)
 	{
 		super(id, Material.rock);
@@ -32,32 +35,24 @@ public class LavaTankBlock extends BlockContainer
 		setUnlocalizedName("TConstruct.LavaTank");
 		setStepSound(Block.soundGlassFootstep);
 	}
-	
-	public String[] getTextureNames()
+
+	public String[] getTextureNames ()
 	{
-		String[] textureNames = { 
-				"lavatank_side",
-				"lavatank_top",
-				"searedgague_top",
-				"searedgague_side",
-				"searedgague_bottom",
-				"searedwindow_top",
-				"searedwindow_side",
-				"searedwindow_bottom" };
-			
-			return textureNames;
+		String[] textureNames = { "lavatank_side", "lavatank_top", "searedgague_top", "searedgague_side", "searedgague_bottom", "searedwindow_top", "searedwindow_side", "searedwindow_bottom" };
+
+		return textureNames;
 	}
-	
-	public void func_94332_a(IconRegister iconRegister)
-    {
+
+	public void registerIcons (IconRegister iconRegister)
+	{
 		String[] textureNames = getTextureNames();
 		this.icons = new Icon[textureNames.length];
 
-        for (int i = 0; i < this.icons.length; ++i)
-        {
-            this.icons[i] = iconRegister.func_94245_a("tinker:"+textureNames[i]);
-        }
-    }
+		for (int i = 0; i < this.icons.length; ++i)
+		{
+			this.icons[i] = iconRegister.registerIcon("tinker:" + textureNames[i]);
+		}
+	}
 
 	@Override
 	public boolean isOpaqueCube ()
@@ -75,27 +70,26 @@ public class LavaTankBlock extends BlockContainer
 	public boolean shouldSideBeRendered (IBlockAccess world, int x, int y, int z, int side)
 	{
 		//if (side == 0 && world.getBlockMetadata(x, y, z) == 0)
-			//return super.shouldSideBeRendered(world, x, y, z, side);
-        int bID = world.getBlockId(x, y, z);
-        return bID == this.blockID ? false : super.shouldSideBeRendered(world, x, y, z, side);
+		//return super.shouldSideBeRendered(world, x, y, z, side);
+		int bID = world.getBlockId(x, y, z);
+		return bID == this.blockID ? false : super.shouldSideBeRendered(world, x, y, z, side);
 		//return true;
 	}
-	
+
 	@Override
-	public int getLightValue(IBlockAccess world, int x, int y, int z)
-    {
+	public int getLightValue (IBlockAccess world, int x, int y, int z)
+	{
 		TileEntity logic = world.getBlockTileEntity(x, y, z);
 		if (logic != null && logic instanceof LavaTankLogic)
 			return ((LavaTankLogic) logic).getBrightness();
 		return 0;
-    }
-	
+	}
+
 	/*@Override
 	public int getRenderBlockPass()
-    {
+	{
 		return 1;
-    }*/
-
+	}*/
 
 	@Override
 	public int getRenderType ()
@@ -118,10 +112,10 @@ public class LavaTankBlock extends BlockContainer
 		}
 		else
 		{
-			return icons[meta*3+getTextureIndex(side)-1];
+			return icons[meta * 3 + getTextureIndex(side) - 1];
 		}
 	}
-	
+
 	public int getTextureIndex (int side)
 	{
 		if (side == 0)
@@ -141,21 +135,75 @@ public class LavaTankBlock extends BlockContainer
 	@Override
 	public boolean onBlockActivated (World world, int x, int y, int z, EntityPlayer player, int side, float clickX, float clickY, float clickZ)
 	{
-		LiquidStack liquid = LiquidContainerRegistry.getLiquidForFilledItem(player.getCurrentEquippedItem());
-		if (liquid != null)
+		ItemStack heldItem = player.inventory.getCurrentItem();
+		if (heldItem != null)
 		{
+			LiquidStack liquid = LiquidContainerRegistry.getLiquidForFilledItem(player.getCurrentEquippedItem());
 			LavaTankLogic logic = (LavaTankLogic) world.getBlockTileEntity(x, y, z);
-			int amount = logic.fill(0, liquid, true);
-			if (amount > 0)
-				return true;
+			if (liquid != null)
+			{
+				int amount = logic.fill(0, liquid, false);
+				if (amount == liquid.amount)
+				{
+					logic.fill(ForgeDirection.UNKNOWN, liquid, true);
+					if (!player.capabilities.isCreativeMode)
+						player.inventory.setInventorySlotContents(player.inventory.currentItem, consumeItem(heldItem));
+					return true;
+				}
+				else
+					return false;
+			}
+			else if (LiquidContainerRegistry.isBucket(heldItem))
+			{
+				ILiquidTank[] tanks = logic.getTanks(ForgeDirection.UNKNOWN);
+				LiquidStack fillLiquid = tanks[0].getLiquid();
+				ItemStack fillStack = LiquidContainerRegistry.fillLiquidContainer(fillLiquid, heldItem);
+				if (fillStack != null)
+				{
+					logic.drain(ForgeDirection.UNKNOWN, LiquidContainerRegistry.getLiquidForFilledItem(fillStack).amount, true);
+					if (!player.capabilities.isCreativeMode)
+					{
+						if (heldItem.stackSize == 1)
+						{
+							player.inventory.setInventorySlotContents(player.inventory.currentItem, fillStack);
+						}
+						else
+						{
+							player.inventory.setInventorySlotContents(player.inventory.currentItem, consumeItem(heldItem));
+
+							if (!player.inventory.addItemStackToInventory(fillStack))
+							{
+								player.dropPlayerItem(fillStack);
+							}
+						}
+					}
+					return true;
+				}
+				else
+				{
+					return false;
+				}
+			}
+		}
+
+		return false;
+	}
+
+	public static ItemStack consumeItem (ItemStack stack)
+	{
+		if (stack.stackSize == 1)
+		{
+			if (stack.getItem().hasContainerItem())
+				return stack.getItem().getContainerItemStack(stack);
 			else
-				return false;
+				return null;
 		}
 		else
 		{
+			stack.splitStack(1);
 
+			return stack;
 		}
-		return false;
 	}
 
 	@Override
@@ -172,15 +220,15 @@ public class LavaTankBlock extends BlockContainer
 			list.add(new ItemStack(id, 1, iter));
 		}
 	}
-	
+
 	/* Data */
 	public int damageDropped (int meta)
 	{
 		return meta;
 	}
-	
+
 	/* Updates */
-	public void onNeighborBlockChange(World world, int x, int y, int z, int nBlockID) 
+	public void onNeighborBlockChange (World world, int x, int y, int z, int nBlockID)
 	{
 		TileEntity logic = world.getBlockTileEntity(x, y, z);
 		if (logic instanceof IServantLogic)

@@ -4,7 +4,12 @@ import mods.tinker.common.CoordTuple;
 import mods.tinker.common.IMasterLogic;
 import mods.tinker.common.IServantLogic;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.network.INetworkManager;
+import net.minecraft.network.packet.Packet;
+import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.liquids.LiquidStack;
 
 public class MultiServantLogic extends TileEntity
 	implements IServantLogic
@@ -85,9 +90,8 @@ public class MultiServantLogic extends TileEntity
 		}
 	}
 
-	public void readFromNBT (NBTTagCompound tags)
+	public void readCustomNBT (NBTTagCompound tags)
 	{
-		super.readFromNBT(tags);
 		hasMaster = tags.getBoolean("HasMaster");
 		if (hasMaster)
 		{
@@ -100,9 +104,8 @@ public class MultiServantLogic extends TileEntity
 		}
 	}
 
-	public void writeToNBT (NBTTagCompound tags)
+	public void writeCustomNBT (NBTTagCompound tags)
 	{
-		super.writeToNBT(tags);
 		tags.setBoolean("HasMaster", hasMaster);
 		if (hasMaster)
 		{
@@ -112,5 +115,35 @@ public class MultiServantLogic extends TileEntity
 			tags.setShort("MasterID", masterID);
 			tags.setByte("masterMeat", masterMeat);
 		}
+	}
+	
+	@Override
+	public void readFromNBT (NBTTagCompound tags)
+	{
+		super.readFromNBT(tags);
+		readCustomNBT(tags);
+	}
+
+	@Override
+	public void writeToNBT (NBTTagCompound tags)
+	{
+		super.writeToNBT(tags);
+		writeCustomNBT(tags);
+	}
+
+	/* Packets */
+	@Override
+	public Packet getDescriptionPacket ()
+	{
+		NBTTagCompound tag = new NBTTagCompound();
+		writeCustomNBT(tag);
+		return new Packet132TileEntityData(xCoord, yCoord, zCoord, 1, tag);
+	}
+
+	@Override
+	public void onDataPacket (INetworkManager net, Packet132TileEntityData packet)
+	{
+		readCustomNBT(packet.customParam1);
+		worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
 	}
 }

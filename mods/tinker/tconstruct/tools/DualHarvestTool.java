@@ -44,7 +44,7 @@ public abstract class DualHarvestTool extends HarvestTool
 				if (result != null)
 				{
 					//System.out.println("Woo~");
-					world.func_94571_i(x, y, z);
+					world.setBlockToAir(x, y, z);
 					if (!player.capabilities.isCreativeMode)
 						onBlockDestroyed(stack, world, bID, x, y, z, player);
 					if (!world.isRemote)
@@ -64,7 +64,7 @@ public abstract class DualHarvestTool extends HarvestTool
 		{
 			if (!player.capabilities.isCreativeMode)
 				onBlockDestroyed(stack, world, bID, x, y, z, player);
-			world.func_94571_i(x, y, z);
+			world.setBlockToAir(x, y, z);
 			if (!world.isRemote)
 				world.playAuxSFX(2001, x, y, z, bID + (meta << 12));
 			return true;

@@ -75,7 +75,7 @@ public class SuperCustomToolRenderer implements IItemRenderer
 		for (int renderPass = 0; renderPass < tool.getRenderPasses(itemDamage); renderPass++)
 		{
 			String texturePath = tool.getIconLocation(stack, renderPass);
-			renderEngine.func_98187_b(texturePath);
+			renderEngine.bindTexture(texturePath);
 
 			GL11.glScalef(0.0625F, 0.0625F, 1F);
 			this.renderTexturedQuad();
@@ -85,7 +85,7 @@ public class SuperCustomToolRenderer implements IItemRenderer
 		for (int renderPass = 0; renderPass < 3; renderPass++)
 		{
 			String texturePath = tool.getEffectLocation(stack, renderPass);
-			renderEngine.func_98187_b(texturePath);
+			renderEngine.bindTexture(texturePath);
 
 			GL11.glScalef(0.0625F, 0.0625F, 1F);
 			this.renderTexturedQuad();
@@ -145,7 +145,7 @@ public class SuperCustomToolRenderer implements IItemRenderer
 			texturePath = ((ToolCore)stack.getItem()).getIconLocation(stack, renderPass);
 		else
 			texturePath = ((ToolCore)stack.getItem()).getEffectLocation(stack, renderPass);
-		renderEngine.func_98187_b(texturePath);
+		renderEngine.bindTexture(texturePath);
 		float var7 = 0;
 		float var8 = 1;
 		float var9 = 0;
@@ -317,7 +317,7 @@ public class SuperCustomToolRenderer implements IItemRenderer
 				var17 = 1.0F;
 				
 				String texturePath = tool.getIconLocation(var10, renderPass);
-				renderEngine.func_98187_b(texturePath);
+				renderEngine.bindTexture(texturePath);
 
 				int var18 = Item.itemsList[tool.itemID].getColorFromItemStack(var10, renderPass);
 				var19 = (float) (var18 >> 16 & 255) / 255.0F;
@@ -333,7 +333,7 @@ public class SuperCustomToolRenderer implements IItemRenderer
 				var17 = 1.0F;
 				
 				String texturePath = tool.getEffectLocation(var10, renderPass);
-				renderEngine.func_98187_b(texturePath);
+				renderEngine.bindTexture(texturePath);
 
 				int var18 = Item.itemsList[tool.itemID].getColorFromItemStack(var10, renderPass);
 				var19 = (float) (var18 >> 16 & 255) / 255.0F;
@@ -427,7 +427,7 @@ public class SuperCustomToolRenderer implements IItemRenderer
 					texturePath = ((ToolCore)stack.getItem()).getIconLocation(stack, renderPass);
 				else
 					texturePath = ((ToolCore)stack.getItem()).getEffectLocation(stack, renderPass);
-				renderEngine.func_98187_b(texturePath);
+				renderEngine.bindTexture(texturePath);
 
 				GL11.glColor4f(par5, par6, par7, 1.0F);
 				ItemRenderer.renderItemIn2D(var8, var10, var11, var9, var12, var16);

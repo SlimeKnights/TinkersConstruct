@@ -59,7 +59,7 @@ public class LiquidMetalStill extends LiquidMetalBase implements ILiquid
 			{
 				if (this.isFlammable(par1World, par2 - 1, par3, par4) || this.isFlammable(par1World, par2 + 1, par3, par4) || this.isFlammable(par1World, par2, par3, par4 - 1) || this.isFlammable(par1World, par2, par3, par4 + 1) || this.isFlammable(par1World, par2, par3 - 1, par4) || this.isFlammable(par1World, par2, par3 + 1, par4))
 				{
-					par1World.func_94575_c(par2, par3, par4, Block.fire.blockID);
+					par1World.setBlock(par2, par3, par4, Block.fire.blockID);
 					return;
 				}
 			}
@@ -81,7 +81,7 @@ public class LiquidMetalStill extends LiquidMetalBase implements ILiquid
 
 				if (par1World.isAirBlock(par2, par3 + 1, par4) && this.isFlammable(par1World, par2, par3, par4))
 				{
-					par1World.func_94575_c(par2, par3 + 1, par4, Block.fire.blockID);
+					par1World.setBlock(par2, par3 + 1, par4, Block.fire.blockID);
 				}
 			}
 		}
@@ -175,7 +175,7 @@ public class LiquidMetalStill extends LiquidMetalBase implements ILiquid
 		
 		int meta = world.getBlockMetadata(x, y, z);
 		int tex = ((LiquidTextureLogic) world.getBlockTileEntity(x, y, z)).getLiquidType();
-        world.setBlockAndMetadataWithNotify(x, y, z, this.blockID - 1, meta, 2);
+        world.setBlock(x, y, z, this.blockID - 1, meta, 2);
         world.scheduleBlockUpdate(x, y, z, this.blockID - 1, this.tickRate(world));
 		((LiquidTextureLogic) world.getBlockTileEntity(x, y, z)).setLiquidType(tex);
 		/*int meta = world.getBlockMetadata(x, y, z);

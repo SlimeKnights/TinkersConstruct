@@ -61,7 +61,7 @@ public class SmelteryDrainLogic extends MultiServantLogic
 	@Override
 	public int fill (int tankIndex, LiquidStack resource, boolean doFill)
 	{
-		if (hasMaster) //Not sure if it should fill or not
+		if (hasMaster && resource != null)
 		{
 			if (doFill)
 			{

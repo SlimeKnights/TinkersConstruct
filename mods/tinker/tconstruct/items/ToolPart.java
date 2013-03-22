@@ -32,13 +32,13 @@ public class ToolPart extends CraftingItem
 	}
 	
 	/*@SideOnly(Side.CLIENT)
-    public void func_94581_a(IconRegister iconRegister)
+    public void updateIcons(IconRegister iconRegister)
     {
 		this.icons = new Icon[textureNames.length];
 
         for (int i = 0; i < this.icons.length; ++i)
         {
-            this.icons[i] = iconRegister.func_94245_a("tinker:parts/"+textureNames[i]);
+            this.icons[i] = iconRegister.registerIcon("tinker:parts/"+textureNames[i]);
         }
     }*/
 	

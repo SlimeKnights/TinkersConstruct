@@ -144,7 +144,8 @@ public abstract class InventoryBlock extends BlockContainer
 	public Icon[] icons;
 	public abstract String[] getTextureNames();
 	
-	public void func_94332_a(IconRegister iconRegister)
+	@Override
+	public void registerIcons(IconRegister iconRegister)
     {
 		String[] textureNames = getTextureNames();
 		//System.out.println("TextureNames: :"+this.getClass().getSimpleName());
@@ -152,7 +153,7 @@ public abstract class InventoryBlock extends BlockContainer
 
         for (int i = 0; i < this.icons.length; ++i)
         {
-            this.icons[i] = iconRegister.func_94245_a("tinker:"+textureNames[i]);
+            this.icons[i] = iconRegister.registerIcon("tinker:"+textureNames[i]);
         }
     }
 }

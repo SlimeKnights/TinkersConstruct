@@ -17,6 +17,7 @@ public class SmelteryContainer extends Container
 	public SmelteryContainer(InventoryPlayer inventoryplayer, SmelteryLogic smeltery)
 	{
 		logic = smeltery;
+		System.out.println("getSizeInventory: "+logic.getSizeInventory());
 		playerInv = inventoryplayer;
 		if (smeltery.layers > 2)
 		{

@@ -54,8 +54,8 @@ public class Hammer extends HarvestTool
 		coords.add(new int[] {0, 0, -1});
 	}
 	
-	@Override
-	public boolean onBlockDestroyed (ItemStack itemstack, World world, int bID, int x, int y, int z, EntityLiving living)
+	//@Override
+	/*public boolean onBlockDestroyed (ItemStack itemstack, World world, int bID, int x, int y, int z, EntityLiving living)
 	{
 		if (!(itemstack.getTagCompound().getCompoundTag("InfiTool").getBoolean("Broken")) && living instanceof EntityPlayer)
 		{
@@ -68,11 +68,11 @@ public class Hammer extends HarvestTool
 					if (block != null)
 					{
 						if (block.blockID == Block.stone.blockID)
-							world.func_94575_c(xPos, yPos, zPos, Block.cobblestone.blockID);
+							world.setBlock(xPos, yPos, zPos, Block.cobblestone.blockID);
 						else if (block.blockMaterial == Material.rock)
 						{
 							int meta = world.getBlockMetadata(xPos, yPos, zPos);
-							world.func_94571_i(x, y, z);
+							world.setBlockToAir(x, y, z);
 							Block.blocksList[bID].harvestBlock(world, (EntityPlayer)player, xPos, yPos, zPos, meta);
 							if (!player.capabilities.isCreativeMode)
 								onBlockDestroyed(itemstack, world, bID, xPos, yPos, zPos, player);
@@ -82,7 +82,7 @@ public class Hammer extends HarvestTool
 			}
 		}
 		return AbilityHelper.onBlockChanged(itemstack, world, bID, x, y, z, living, random);
-	}
+	}*/
 
 	@Override
 	protected Item getHeadItem ()

@@ -13,7 +13,6 @@ public class LiquidCasting
 {
 	public static LiquidCasting instance = new LiquidCasting();
 	private ArrayList<CastingRecipe> casts = new ArrayList<CastingRecipe>();
-	private HashMap<List<Integer>, Float> materialReduction = new HashMap<List<Integer>, Float>();
 	
 	public static void addCastingRecipe(ItemStack replacement, LiquidStack metal, ItemStack cast, boolean consume, int delay)
 	{
@@ -35,6 +34,14 @@ public class LiquidCasting
 		return -1;
 	}
 	
+	public int getCastingAmount(LiquidStack metal, ItemStack cast)
+	{
+		CastingRecipe recipe = getCastingRecipe(metal, cast);
+		if (recipe != null)
+			return recipe.castingMetal.amount;
+		return 0;
+	}
+	
 	public CastingRecipe getCastingRecipe(LiquidStack metal, ItemStack cast)
 	{
 		for (CastingRecipe recipe : casts)
@@ -43,14 +50,5 @@ public class LiquidCasting
 				return recipe;
 		}
 		return null;
-	}
-	
-	public float getMaterialReduction(LiquidStack metal)
-	{
-		if (materialReduction.containsKey(Arrays.asList(metal.itemID, metal.itemMeta)))
-		{
-			return materialReduction.get(Arrays.asList(metal.itemID, metal.itemMeta));
-		}
-		return 1f;
 	}
 }

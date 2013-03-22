@@ -32,7 +32,7 @@ public class ArmorStandGui extends GuiContainer
 		//int var4 = this.mc.renderEngine.getTexture("/infitextures/gui/armorstand.png");
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         //this.mc.renderEngine.bindTexture(var4);
-        this.mc.renderEngine.func_98187_b("/tinkertextures/gui/armorstand.png");
+        this.mc.renderEngine.bindTexture("/tinkertextures/gui/armorstand.png");
         int var5 = this.guiLeft;
         int var6 = this.guiTop;
         this.drawTexturedModalRect(var5, var6, 0, 0, this.xSize, this.ySize);

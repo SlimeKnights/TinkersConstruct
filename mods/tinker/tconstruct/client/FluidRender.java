@@ -98,11 +98,11 @@ public class FluidRender implements ISimpleBlockRenderingHandler
 
 				if (f8 < -999.0F)
 				{
-					d8 = (double) icon.func_94214_a(0.0D);
-					d12 = (double) icon.func_94207_b(0.0D);
+					d8 = (double) icon.getInterpolatedU(0.0D);
+					d12 = (double) icon.getInterpolatedV(0.0D);
 					d7 = d8;
-					d11 = (double) icon.func_94207_b(16.0D);
-					d10 = (double) icon.func_94214_a(16.0D);
+					d11 = (double) icon.getInterpolatedV(16.0D);
+					d10 = (double) icon.getInterpolatedU(16.0D);
 					d14 = d11;
 					d9 = d10;
 					d13 = d12;
@@ -111,14 +111,14 @@ public class FluidRender implements ISimpleBlockRenderingHandler
 				{
 					f7 = MathHelper.sin(f8) * 0.25F;
 					float f9 = MathHelper.cos(f8) * 0.25F;
-					d8 = (double) icon.func_94214_a((double) (8.0F + (-f9 - f7) * 16.0F));
-					d12 = (double) icon.func_94207_b((double) (8.0F + (-f9 + f7) * 16.0F));
-					d7 = (double) icon.func_94214_a((double) (8.0F + (-f9 + f7) * 16.0F));
-					d11 = (double) icon.func_94207_b((double) (8.0F + (f9 + f7) * 16.0F));
-					d10 = (double) icon.func_94214_a((double) (8.0F + (f9 + f7) * 16.0F));
-					d14 = (double) icon.func_94207_b((double) (8.0F + (f9 - f7) * 16.0F));
-					d9 = (double) icon.func_94214_a((double) (8.0F + (f9 - f7) * 16.0F));
-					d13 = (double) icon.func_94207_b((double) (8.0F + (-f9 - f7) * 16.0F));
+					d8 = (double) icon.getInterpolatedU((double) (8.0F + (-f9 - f7) * 16.0F));
+					d12 = (double) icon.getInterpolatedV((double) (8.0F + (-f9 + f7) * 16.0F));
+					d7 = (double) icon.getInterpolatedU((double) (8.0F + (-f9 + f7) * 16.0F));
+					d11 = (double) icon.getInterpolatedV((double) (8.0F + (f9 + f7) * 16.0F));
+					d10 = (double) icon.getInterpolatedU((double) (8.0F + (f9 + f7) * 16.0F));
+					d14 = (double) icon.getInterpolatedV((double) (8.0F + (f9 - f7) * 16.0F));
+					d9 = (double) icon.getInterpolatedU((double) (8.0F + (f9 - f7) * 16.0F));
+					d13 = (double) icon.getInterpolatedV((double) (8.0F + (-f9 - f7) * 16.0F));
 				}
 
 				tessellator.setBrightness(block.getMixedBrightnessForBlock(world, x, y, z));
@@ -213,12 +213,11 @@ public class FluidRender implements ISimpleBlockRenderingHandler
 					}
 
 					flag2 = true;
-					float f11 = icon1.func_94214_a(0.0D);
-					f7 = icon1.func_94214_a(8.0D);
-					int i2 = icon1.func_94216_b();
-					float f12 = icon1.func_94207_b((1.0D - d15) * 16.0D * 0.5D);
-					float f13 = icon1.func_94207_b((1.0D - d17) * 16.0D * 0.5D);
-					float f14 = icon1.func_94207_b(8.0D);
+					float f11 = icon1.getInterpolatedU(0.0D);
+					f7 = icon1.getInterpolatedU(8.0D);
+					float f12 = icon1.getInterpolatedV((1.0D - d15) * 16.0D * 0.5D);
+					float f13 = icon1.getInterpolatedV((1.0D - d17) * 16.0D * 0.5D);
+					float f14 = icon1.getInterpolatedV(8.0D);
 					tessellator.setBrightness(block.getMixedBrightnessForBlock(world, xPos, y, zPos));
 					float f15 = 1.0F;
 

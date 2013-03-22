@@ -107,6 +107,7 @@ public class PHConstruct {
         
         buckets = config.getItem("Patterns and Misc", "Buckets", 14101).getInt(14101);
         uselessItem = config.getItem("Patterns and Misc", "Title Icon", 14102).getInt(14102);
+        slimefood = config.getItem("Patterns and Misc", "Strange Food", 14103).getInt(14103);
         
         boolean ic2 = true;
         boolean xycraft = true;
@@ -174,6 +175,9 @@ public class PHConstruct {
     public static int manual;
     public static int buckets;
     public static int uselessItem;
+    
+    //Food
+    public static int slimefood;
     
     //Tools
     public static int pickaxe;

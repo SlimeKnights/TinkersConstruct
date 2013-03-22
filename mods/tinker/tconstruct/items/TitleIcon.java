@@ -13,9 +13,10 @@ public class TitleIcon extends Item
 	}
 
 	@Override
-	public void func_94581_a (IconRegister iconRegister)
+	public void updateIcons (IconRegister iconRegister)
 	{
-		TProxyClient.blankSprite = iconRegister.func_94245_a("tinker:blanksprite");
-		iconIndex = iconRegister.func_94245_a("tinker:tparts");
+		TProxyClient.blankSprite = iconRegister.registerIcon("tinker:blanksprite");
+		TProxyClient.metalBall = iconRegister.registerIcon("tinker:metalball");
+		iconIndex = iconRegister.registerIcon("tinker:tparts");
 	}
 }

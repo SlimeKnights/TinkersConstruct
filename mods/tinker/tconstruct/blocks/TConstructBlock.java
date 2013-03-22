@@ -28,13 +28,13 @@ public class TConstructBlock extends Block
 		return meta;
 	}
 	
-	public void func_94332_a(IconRegister iconRegister)
+	public void registerIcons(IconRegister iconRegister)
     {
 		this.icons = new Icon[textureNames.length];
 
         for (int i = 0; i < this.icons.length; ++i)
         {
-            this.icons[i] = iconRegister.func_94245_a("tinker:"+textureNames[i]);
+            this.icons[i] = iconRegister.registerIcon("tinker:"+textureNames[i]);
         }
     }
 	

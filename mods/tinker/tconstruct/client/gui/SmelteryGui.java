@@ -122,7 +122,7 @@ public class SmelteryGui extends GuiContainer
 	protected void drawGuiContainerBackgroundLayer (float f, int i, int j)
 	{
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		mc.renderEngine.func_98187_b("/mods/tinker/textures/gui/smeltery.png");
+		mc.renderEngine.bindTexture("/mods/tinker/textures/gui/smeltery.png");
 		int cornerX = (width - xSize) / 2;
 		int cornerY = (height - ySize) / 2;
 		drawTexturedModalRect(cornerX + 46, cornerY, 0, 0, xSize, ySize);
@@ -132,7 +132,7 @@ public class SmelteryGui extends GuiContainer
 		{
 			//ForgeHooksClient.bindTexture(Block.lavaStill.getTextureFile(), 0);
 			//int renderIndex = Block.lavaStill.getBlockTextureFromSideAndMetadata(0, 0);
-			this.mc.renderEngine.func_98187_b("/terrain.png");
+			this.mc.renderEngine.bindTexture("/terrain.png");
 			Icon lavaIcon = Block.lavaStill.getBlockTextureFromSideAndMetadata(0, 0);
 			//int xTex = renderIndex % 16 * 16;
 			//int yTex = renderIndex / 16 * 16;
@@ -142,7 +142,7 @@ public class SmelteryGui extends GuiContainer
 			{
 				int size = fuel >= 16 ? 16 : fuel;
 				fuel -= size;
-				func_94065_a(cornerX + 117, (cornerY + 68) - size - 16 * count, lavaIcon, 12, size);
+				drawTexturedModelRectFromIcon(cornerX + 117, (cornerY + 68) - size - 16 * count, lavaIcon, 12, size);
 				//drawTexturedModalRect(cornerX + 117, (cornerY + 68) - size - 16 * count, 0, 16 - size, 12, size);
 				count++;
 			}
@@ -157,7 +157,7 @@ public class SmelteryGui extends GuiContainer
 			{
 				Block liquidBlock = Block.blocksList[liquid.itemID];
 				//ForgeHooksClient.bindTexture(liquidBlock.getTextureFile(), 0);
-				this.mc.renderEngine.func_98187_b("/terrain.png");
+				this.mc.renderEngine.bindTexture("/terrain.png");
 				renderIndex = liquidBlock.getBlockTextureFromSideAndMetadata(0, liquid.itemMeta);
 			}
 			else
@@ -165,7 +165,7 @@ public class SmelteryGui extends GuiContainer
 			{
 				Item liquidItem = Item.itemsList[liquid.itemID];
 				//ForgeHooksClient.bindTexture(liquidItem.getTextureFile(), 0);
-				this.mc.renderEngine.func_98187_b("/gui/items.png");
+				this.mc.renderEngine.bindTexture("/gui/items.png");
 				renderIndex = liquidItem.getIconFromDamage(liquid.itemMeta);
 			}
 
@@ -178,10 +178,10 @@ public class SmelteryGui extends GuiContainer
 				{
 					int size = liquidSize >= 16 ? 16 : liquidSize;
 					int basePos = 54;
-					func_94065_a(cornerX + basePos, (cornerY + 68) - size - base, renderIndex, 16, size);
-					func_94065_a(cornerX + basePos + 16, (cornerY + 68) - size - base, renderIndex, 16, size);
-					func_94065_a(cornerX + basePos + 32, (cornerY + 68) - size - base, renderIndex, 16, size);
-					func_94065_a(cornerX + basePos + 48, (cornerY + 68) - size - base, renderIndex, 4, size);
+					drawTexturedModelRectFromIcon(cornerX + basePos, (cornerY + 68) - size - base, renderIndex, 16, size);
+					drawTexturedModelRectFromIcon(cornerX + basePos + 16, (cornerY + 68) - size - base, renderIndex, 16, size);
+					drawTexturedModelRectFromIcon(cornerX + basePos + 32, (cornerY + 68) - size - base, renderIndex, 16, size);
+					drawTexturedModelRectFromIcon(cornerX + basePos + 48, (cornerY + 68) - size - base, renderIndex, 4, size);
 					liquidSize -= size;
 					base += size;
 				}
@@ -192,13 +192,13 @@ public class SmelteryGui extends GuiContainer
 		//Liquid gague
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
-		mc.renderEngine.func_98187_b("/mods/tinker/textures/gui/smeltery.png");
+		mc.renderEngine.bindTexture("/mods/tinker/textures/gui/smeltery.png");
 		drawTexturedModalRect(cornerX + 54, cornerY + 16, xSize, 76, 52, 52);
 		//drawTexturedModalRect(cornerX+111, cornerY+16, xSize, 128, 52, 52);
 
 		//Side inventory
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		mc.renderEngine.func_98187_b("/mods/tinker/textures/gui/smelteryside.png");
+		mc.renderEngine.bindTexture("/mods/tinker/textures/gui/smelteryside.png");
 		if (logic.layers == 1)
 		{
 			drawTexturedModalRect(cornerX - 46, cornerY, 0, 0, 98, 43);
@@ -230,7 +230,7 @@ public class SmelteryGui extends GuiContainer
 			}
 		}
 
-		fontRenderer.drawString("Time: "+logic.useTime, 140, 2, 0xFFFFFF);
+		//fontRenderer.drawString("Time: "+logic.useTime, 140, 2, 0xFFFFFF);
 		/*fontRenderer.drawString("Scrolling: "+isScrolling, 140, 12, 0xFFFFFF);
 		fontRenderer.drawString("Scroll: "+currentScroll, 140, 22, 0xFFFFFF);*/
 	}

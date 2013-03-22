@@ -27,19 +27,19 @@ public abstract class LiquidMetalBase extends Block
 	protected LiquidMetalBase(int par1, Material par2Material)
 	{
 		super(par1, par2Material);
-		textureNames = new String[] { "iron", "gold", "copper", "tin", "aluminum", "cobalt", "ardite", "bronze", "alubrass", "manyullyn", "alumite", "steel" };
+		textureNames = new String[] { "iron", "gold", "copper", "tin", "aluminum", "cobalt", "ardite", "bronze", "alubrass", "manyullyn", "alumite", "obsidian", "steel" };
 		setLightValue(0.625F);
 	}
 
-	public void func_94332_a (IconRegister iconRegister)
+	public void registerIcons (IconRegister iconRegister)
 	{
 		this.stillInoms = new Icon[textureNames.length];
 		this.flowInoms = new Icon[textureNames.length];
 
 		for (int i = 0; i < this.stillInoms.length; ++i)
 		{
-			this.stillInoms[i] = iconRegister.func_94245_a("tinker:liquid_" + textureNames[i]);
-			this.flowInoms[i] = iconRegister.func_94245_a("tinker:liquid_" + textureNames[i] + "_flow");
+			this.stillInoms[i] = iconRegister.registerIcon("tinker:liquid_" + textureNames[i]);
+			this.flowInoms[i] = iconRegister.registerIcon("tinker:liquid_" + textureNames[i] + "_flow");
 		}
 	}
 
@@ -623,11 +623,11 @@ public abstract class LiquidMetalBase extends Block
 
 	                if (var6 == 0)
 	                {
-	                    par1World.func_94575_c(par2, par3, par4, Block.obsidian.blockID);
+	                    par1World.setBlock(par2, par3, par4, Block.obsidian.blockID);
 	                }
 	                else if (var6 <= 4)
 	                {
-	                    par1World.func_94575_c(par2, par3, par4, Block.cobblestone.blockID);
+	                    par1World.setBlock(par2, par3, par4, Block.cobblestone.blockID);
 	                }
 
 	                this.triggerLavaMixEffects(par1World, par2, par3, par4);

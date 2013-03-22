@@ -1,5 +1,6 @@
 package mods.tinker.tconstruct.logic;
 
+import cpw.mods.fml.common.FMLLog;
 import mods.tinker.common.IPattern;
 import mods.tinker.common.InventoryLogic;
 import mods.tinker.tconstruct.TConstruct;
@@ -7,6 +8,7 @@ import mods.tinker.tconstruct.crafting.CastingRecipe;
 import mods.tinker.tconstruct.crafting.LiquidCasting;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet;
@@ -20,7 +22,6 @@ import net.minecraftforge.liquids.LiquidStack;
 public class CastingTableLogic extends InventoryLogic implements ILiquidTank, ITankContainer
 {
 	public LiquidStack liquid;
-	float materialRedux = 0;
 	int castingDelay = 0;
 	int renderOffset = 0;
 
@@ -58,10 +59,15 @@ public class CastingTableLogic extends InventoryLogic implements ILiquidTank, IT
 	public int getCapacity ()
 	{
 		int ret = TConstruct.ingotLiquidValue;
-		if (inventory[0] != null && inventory[0].getItem() instanceof IPattern)
-			ret *= ((IPattern) inventory[0].getItem()).getPatternCost(inventory[0].getItemDamage()) * 0.5;
-		if (materialRedux > 0)
-			ret *= materialRedux;
+		
+		ItemStack inv = inventory[0];
+		
+		if (inv != null && inv.getItem() instanceof IPattern)
+			ret *= ((IPattern) inv.getItem()).getPatternCost(inv.getItemDamage()) * 0.5;
+		
+		else 
+			ret = LiquidCasting.instance.getCastingAmount(liquid, inv);
+		
 		return ret;
 	}
 
@@ -76,9 +82,18 @@ public class CastingTableLogic extends InventoryLogic implements ILiquidTank, IT
 			if (inventory[1] == null && LiquidCasting.instance.getCastingRecipe(resource, inventory[0]) != null)
 			{
 				liquid = resource.copy();
-				materialRedux = LiquidCasting.instance.getMaterialReduction(resource);
-				worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+				int capacity = getCapacity();
+				if (liquid.amount > capacity)
+				{
+					liquid.amount = capacity;
+				}
+				if (liquid.amount == capacity)
+				{
+					castingDelay = LiquidCasting.instance.getCastingDelay(liquid, inventory[0]);
+				}
+				
 				renderOffset = liquid.amount;
+				worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 				return liquid.amount;
 			}
 			else
@@ -194,7 +209,6 @@ public class CastingTableLogic extends InventoryLogic implements ILiquidTank, IT
 		CastingRecipe recipe = LiquidCasting.instance.getCastingRecipe(liquid, inventory[0]);
 		if (recipe != null)
 		{
-			materialRedux = 0;
 			inventory[1] = recipe.getResult();
 			if (recipe.consumeCast)
 				inventory[0] = null;

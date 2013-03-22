@@ -45,7 +45,7 @@ public class PatternShaperGui extends GuiContainer
 	protected void drawGuiContainerBackgroundLayer (float par1, int par2, int par3)
 	{
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-		this.mc.renderEngine.func_98187_b("/mods/tinker/textures/gui/patternshaper.png");
+		this.mc.renderEngine.bindTexture("/mods/tinker/textures/gui/patternshaper.png");
 		int cornerX = (this.width - this.xSize) / 2;
 		int cornerY = (this.height - this.ySize) / 2;
 		this.drawTexturedModalRect(cornerX, cornerY, 0, 0, this.xSize, this.ySize);

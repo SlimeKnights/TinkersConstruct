@@ -39,13 +39,13 @@ public class Pattern extends CraftingItem
 		"ingot", "rod", "pickaxe", "shovel", "axe", "swordblade", "largeguard", "mediumguard", "crossbar", "binding", "frypan", "sign" };
 	
 	/*@SideOnly(Side.CLIENT)
-    public void func_94581_a(IconRegister iconRegister)
+    public void updateIcons(IconRegister iconRegister)
     {
 		this.icons = new Icon[textureNames.length];
 
         for (int i = 0; i < this.icons.length; ++i)
         {
-            this.icons[i] = iconRegister.func_94245_a("tinker:"+textureNames[i]);
+            this.icons[i] = iconRegister.registerIcon("tinker:"+textureNames[i]);
         }
     }*/
 

@@ -16,10 +16,11 @@ import mods.tinker.tconstruct.TProxyCommon;
 import mods.tinker.tconstruct.client.entityrender.CartRender;
 import mods.tinker.tconstruct.client.entityrender.CrystalRender;
 import mods.tinker.tconstruct.client.entityrender.SkylaRender;
+import mods.tinker.tconstruct.client.entityrender.SlimeRender;
 import mods.tinker.tconstruct.client.gui.ToolGuiElement;
 import mods.tinker.tconstruct.entity.CartEntity;
 import mods.tinker.tconstruct.entity.Crystal;
-import mods.tinker.tconstruct.entity.EdibleSlime;
+import mods.tinker.tconstruct.entity.BlueSlime;
 import mods.tinker.tconstruct.entity.Skyla;
 import mods.tinker.tconstruct.entity.UnstableCreeper;
 import mods.tinker.tconstruct.logic.CastingTableLogic;
@@ -53,7 +54,6 @@ import net.minecraft.client.particle.EntitySpellParticleFX;
 import net.minecraft.client.particle.EntitySplashFX;
 import net.minecraft.client.particle.EntitySuspendFX;
 import net.minecraft.client.renderer.entity.RenderCreeper;
-import net.minecraft.client.renderer.entity.RenderSlime;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.item.Item;
@@ -74,6 +74,7 @@ public class TProxyClient extends TProxyCommon
 {
 	public static SmallFontRenderer smallFontRenderer;
 	public static Icon blankSprite;
+	public static Icon metalBall;
 	public static Minecraft mc;
 
 	/* Registers any rendering code. */
@@ -105,7 +106,7 @@ public class TProxyClient extends TProxyCommon
 		RenderingRegistry.registerEntityRenderingHandler(FancyEntityItem.class, new FancyItemRender());
 		RenderingRegistry.registerEntityRenderingHandler(Crystal.class, new CrystalRender());
 		RenderingRegistry.registerEntityRenderingHandler(UnstableCreeper.class, new RenderCreeper());
-		RenderingRegistry.registerEntityRenderingHandler(EdibleSlime.class, new RenderSlime(new ModelSlime(16), new ModelSlime(0), 0.25F));
+		RenderingRegistry.registerEntityRenderingHandler(BlueSlime.class, new SlimeRender(new ModelSlime(16), new ModelSlime(0), 0.25F));
 		//RenderingRegistry.registerEntityRenderingHandler(net.minecraft.entity.player.EntityPlayer.class, new PlayerArmorRender()); // <-- Works, woo!
 
 		addRenderMappings();
@@ -187,21 +188,28 @@ public class TProxyClient extends TProxyCommon
 		addToolButtons();
 	}
 
-	public static final String[] shardNames = new String[] { "Wood", "Stone Shard", "Iron Chunk", "Flint Shard", "Cactus Shard", "Bone", "Obsidian Shard", "Netherrack Shard", "Slime Crystal Fragment", "Paper", "Cobalt Chunk", "Ardite Chunk", "Manyullyn Chunk", "Copper Chunk", "Bronze Chunk", "Alumite Chunk", "Steel Chunk" };
+	public static final String[] shardNames = new String[] { "Wood", "Stone Shard", "Iron Chunk", "Flint Shard", "Cactus Shard", "Bone", "Obsidian Shard", "Netherrack Shard",
+			"Slime Crystal Fragment", "Paper", "Cobalt Chunk", "Ardite Chunk", "Manyullyn Chunk", "Copper Chunk", "Bronze Chunk", "Alumite Chunk", "Steel Chunk" };
 
-	public static final String[] materialItemInternalNames = new String[] { "PaperStack", "SlimeCrystal", "SearedBrick", "CobaltIngot", "ArditeIngot", "ManyullynIngot", "Mossball", "LavaCrystal", "NecroticBone", "CopperIngot", "TinIngot", "AluminumIngot", "RawAluminum", "BronzeIngot", "AlBrassIngot", "AlumiteIngot", "SteelIngot" };
+	public static final String[] materialItemInternalNames = new String[] { "PaperStack", "SlimeCrystal", "SearedBrick", "CobaltIngot", "ArditeIngot", "ManyullynIngot", "Mossball", "LavaCrystal",
+			"NecroticBone", "CopperIngot", "TinIngot", "AluminumIngot", "RawAluminum", "BronzeIngot", "AlBrassIngot", "AlumiteIngot", "SteelIngot" };
 
-	public static final String[] materialItemNames = new String[] { "Paper Stack", "Slime Crystal", "Seared Brick", "Cobalt Ingot", "Ardite Ingot", "Manyullyn Ingot", "Ball of Moss", "Lava Crystal", "Necrotic Bone", "Copper Ingot", "Tin Ingot", "Aluminum Ingot", "Raw Aluminum", "Bronze Ingot", "Aluminum Brass Ingot", "Alumite Ingot", "Steel Ingot" };
+	public static final String[] materialItemNames = new String[] { "Paper Stack", "Slime Crystal", "Seared Brick", "Cobalt Ingot", "Ardite Ingot", "Manyullyn Ingot", "Ball of Moss", "Lava Crystal",
+			"Necrotic Bone", "Copper Ingot", "Tin Ingot", "Aluminum Ingot", "Raw Aluminum", "Bronze Ingot", "Aluminum Brass Ingot", "Alumite Ingot", "Steel Ingot" };
 
-	public static final String[] toolMaterialNames = new String[] { "Wood", "Stone", "Iron", "Flint", "Cactus", "Bone", "Obsidian", "Netherrack", "Slime", "Paper", "Cobalt", "Ardite", "Manyullyn", "Copper", "Bronze", "Alumite", "Steel" };
+	public static final String[] toolMaterialNames = new String[] { "Wood", "Stone", "Iron", "Flint", "Cactus", "Bone", "Obsidian", "Netherrack", "Slime", "Paper", "Cobalt", "Ardite", "Manyullyn",
+			"Copper", "Bronze", "Alumite", "Steel" };
 
-	public static final String[] materialTypes = new String[] { "ToolRod", "PickaxeHead", "ShovelHead", "AxeHead", "SwordBlade", "LargeGuard", "MediumGuard", "Crossbar", "Binding", "FrypanHead", "SignHead", "LumberHead" };
+	public static final String[] materialTypes = new String[] { "ToolRod", "PickaxeHead", "ShovelHead", "AxeHead", "SwordBlade", "LargeGuard", "MediumGuard", "Crossbar", "Binding", "FrypanHead",
+			"SignHead", "LumberHead" };
 
-	public static final String[] materialNames = new String[] { " Rod", " Pickaxe Head", " Shovel Head", " Axe Head", " Sword Blade", " Wide Guard", " Hand Guard", " Crossbar", " Binding", " Pan", " Board", " Broad Axe Head" };
+	public static final String[] materialNames = new String[] { " Rod", " Pickaxe Head", " Shovel Head", " Axe Head", " Sword Blade", " Wide Guard", " Hand Guard", " Crossbar", " Binding", " Pan",
+			" Board", " Broad Axe Head" };
 
 	public static final String[] patterns = new String[] { "ingot", "rod", "pickaxe", "shovel", "axe", "swordblade", "largeguard", "mediumguard", "crossbar", "binding", "frypan", "sign" };
 
-	public static final String[] patternNames = new String[] { "Ingot", "Tool Rod", "Pickaxe Head", "Shovel Head", "Axe Head", "Sword Blade", "Wide Guard", "Hand Guard", "Crossbar", "Tool Binding", "Pan", "Board", "Broad Axe Head" };
+	public static final String[] patternNames = new String[] { "Ingot", "Tool Rod", "Pickaxe Head", "Shovel Head", "Axe Head", "Sword Blade", "Wide Guard", "Hand Guard", "Crossbar", "Tool Binding",
+			"Pan", "Board", "Broad Axe Head" };
 
 	public static Document diary;
 	public static Document volume1;
@@ -282,14 +290,17 @@ public class TProxyClient extends TProxyCommon
 			//"Ice Axe",
 			"Mattock", "Broadsword", "Longsword", "Rapier", "Frying Pan", "Battlesign" };
 
-	static String[] toolDescriptions = { "The main way to repair or change your tools. Place a tool and a material on the left to get started.",
+	static String[] toolDescriptions = {
+			"The main way to repair or change your tools. Place a tool and a material on the left to get started.",
 			"The Pickaxe is a basic mining tool. It is effective on stone and ores.\n\nRequired parts:\n- Pickaxe Head\n- Tool Binding\n- Handle",
 			"The Shovel is a basic digging tool. It is effective on dirt, sand, and snow.\n\nRequired parts:\n- Shovel Head\n- Handle",
 			"The Axe is a basic chopping tool. It is effective on wood and leaves.\n\nRequired parts:\n- Axe Head\n- Handle",
 			//"The Lumber Axe is a broad chopping tool. It harvests wood in a wide range and can fell entire trees.\n\nRequired parts:\n- Broad Axe Head\n- Handle",
 			//"The Ice Axe is a tool for harvesting ice, mining, and attacking foes.\n\nSpecial Ability:\n- Wall Climb\nNatural Ability:\n- Ice Harvest\nDamage: Moderate\n\nRequired parts:\n- Pickaxe Head\n- Spike\n- Handle",
-			"The Cutter Mattock is a versatile farming tool. It is effective on wood, dirt, and plants.\n\nSpecial Ability: Hoe\n\nRequired parts:\n- Axe Head\n- Shovel Head\n- Handle", "The Broadsword is a defensive weapon. Blocking cuts damage in half.\n\nSpecial Ability: Block\nDamage: Moderate\nDurability: High\n\nRequired parts:\n- Sword Blade\n- Wide Guard\n- Handle",
-			"The Longsword is a balanced weapon. It is useful for knocking enemies away or getting in and out of battle quickly.\n\nNatural Ability:\n- Charge Boost\nDamage: Moderate\nDurability: Moderate\n\nRequired parts:\n- Sword Blade\n- Hand Guard\n- Handle", "The Rapier is an offensive weapon that relies on quick strikes to defeat foes.\n\nNatural Abilities:\n- Armor Pierce\n- Quick Strike\n- Charge Boost\nDamage: High\nDurability: Low\n\nRequired parts:\n- Sword Blade\n- Crossbar\n- Handle",
+			"The Cutter Mattock is a versatile farming tool. It is effective on wood, dirt, and plants.\n\nSpecial Ability: Hoe\n\nRequired parts:\n- Axe Head\n- Shovel Head\n- Handle",
+			"The Broadsword is a defensive weapon. Blocking cuts damage in half.\n\nSpecial Ability: Block\nDamage: Moderate\nDurability: High\n\nRequired parts:\n- Sword Blade\n- Wide Guard\n- Handle",
+			"The Longsword is a balanced weapon. It is useful for knocking enemies away or getting in and out of battle quickly.\n\nNatural Ability:\n- Charge Boost\nDamage: Moderate\nDurability: Moderate\n\nRequired parts:\n- Sword Blade\n- Hand Guard\n- Handle",
+			"The Rapier is an offensive weapon that relies on quick strikes to defeat foes.\n\nNatural Abilities:\n- Armor Pierce\n- Quick Strike\n- Charge Boost\nDamage: High\nDurability: Low\n\nRequired parts:\n- Sword Blade\n- Crossbar\n- Handle",
 			"The Frying is a heavy weapon that uses sheer weight to stun foes.\n\nSpecial Ability: Block\nNatural Ability: Bash\nShift+rClick: Place Frying Pan\nDamage: Low\nDurability: High\n\nRequired parts:\n- Pan\n- Handle",
 			//"The Battlesign is an advance in weapon technology worthy of Zombie Pigmen everywhere.\n\nSpecial Ability: Block\nShift-rClick: Place sign\nDamage: Low\nDurability: Average\n\nRequired parts:\n- Board\n- Handle"
 			"The Battlesign is an advance in weapon technology worthy of Zombie Pigmen everywhere.\n\nSpecial Ability: Block\nDamage: Low\nDurability: Average\n\nRequired parts:\n- Sign Board\n- Handle" };
@@ -364,18 +375,18 @@ public class TProxyClient extends TProxyCommon
 		settings.keyBindings = allKeys;
 		settings.loadOptions();
 	}
-	
-	public void spawnParticle (String particle, double xPos, double yPos, double zPos, double velX, double velY, double velZ) 
+
+	public void spawnParticle (String particle, double xPos, double yPos, double zPos, double velX, double velY, double velZ)
 	{
 		this.doSpawnParticle(particle, xPos, yPos, zPos, velX, velY, velZ);
 	}
-	
-	public EntityFX doSpawnParticle(String par1Str, double par2, double par4, double par6, double par8, double par10, double par12)
-    {
+
+	public EntityFX doSpawnParticle (String par1Str, double par2, double par4, double par6, double par8, double par10, double par12)
+	{
 		if (this.mc == null)
 			this.mc = Minecraft.getMinecraft();
-		
-        if ( this.mc.renderViewEntity != null && this.mc.effectRenderer != null)
+
+		if (this.mc.renderViewEntity != null && this.mc.effectRenderer != null)
         {
             int i = this.mc.gameSettings.particleSetting;
 
@@ -439,12 +450,6 @@ public class TProxyClient extends TProxyCommon
                     else if (par1Str.equals("crit"))
                     {
                         entityfx = new EntityCritFX(mc.theWorld, par2, par4, par6, par8, par10, par12);
-                    }
-                    else if (par1Str.equals("magicCrit"))
-                    {
-                        entityfx = new EntityCritFX(mc.theWorld, par2, par4, par6, par8, par10, par12);
-                        ((EntityFX)entityfx).setRBGColorF(((EntityFX)entityfx).getRedColorF() * 0.3F, ((EntityFX)entityfx).getGreenColorF() * 0.8F, ((EntityFX)entityfx).getBlueColorF());
-                        ((EntityFX)entityfx).func_94053_h();
                     }
                     else if (par1Str.equals("smoke"))
                     {
@@ -537,9 +542,9 @@ public class TProxyClient extends TProxyCommon
                     {
                         entityfx = new EntitySnowShovelFX(mc.theWorld, par2, par4, par6, par8, par10, par12);
                     }
-                    else if (par1Str.equals("slime"))
+                    else if (par1Str.equals("blueslime"))
                     {
-                        entityfx = new EntityBreakingFX(mc.theWorld, par2, par4, par6, Item.appleGold, mc.renderEngine);
+                        entityfx = new EntityBreakingFX(mc.theWorld, par2, par4, par6, TContent.strangeFood, mc.renderEngine);
                     }
                     else if (par1Str.equals("heart"))
                     {
@@ -583,5 +588,48 @@ public class TProxyClient extends TProxyCommon
         {
             return null;
         }
-    }
+		/*if (this.mc.renderViewEntity != null && this.mc.effectRenderer != null)
+		{
+			int i = this.mc.gameSettings.particleSetting;
+
+			if (i == 1 && mc.theWorld.rand.nextInt(3) == 0)
+			{
+				i = 2;
+			}
+
+			double d6 = this.mc.renderViewEntity.posX - par2;
+			double d7 = this.mc.renderViewEntity.posY - par4;
+			double d8 = this.mc.renderViewEntity.posZ - par6;
+			EntityFX entityfx = null;
+			double d9 = 16.0D;
+
+			if (d6 * d6 + d7 * d7 + d8 * d8 > d9 * d9)
+			{
+				return null;
+			}
+			else if (i > 1)
+			{
+				return null;
+			}
+			else
+			{
+				if (par1Str.equals("blueslime"))
+				{
+					entityfx = new EntityBreakingFX(mc.theWorld, par2, par4, par6, Item.appleGold, mc.renderEngine);RenderGlobal
+				}
+				
+				else if (par1Str.equals("metalslime"))
+				{
+					entityfx = new BreakingFX(mc.theWorld, par2, par4, par6, metalBall, mc.renderEngine);
+				}
+
+				return (EntityFX) entityfx;
+
+			}
+		}
+		else
+		{
+			return null;
+		}*/
+	}
 }

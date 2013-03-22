@@ -2,6 +2,8 @@ package mods.tinker.tconstruct.logic;
 
 import java.util.ArrayList;
 
+import cpw.mods.fml.common.FMLLog;
+
 import mods.tinker.common.CoordTuple;
 import mods.tinker.common.IActiveLogic;
 import mods.tinker.common.IFacingLogic;
@@ -107,6 +109,7 @@ public class SmelteryLogic extends InventoryLogic
 	@Override
 	public Container getGuiContainer (InventoryPlayer inventoryplayer, World world, int x, int y, int z)
 	{
+		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 		return new SmelteryContainer(inventoryplayer, this);
 	}
 
@@ -210,7 +213,7 @@ public class SmelteryLogic extends InventoryLogic
 				if (meltingTemps[i] > 20 && this.isStackInSlot(i))
 				{
 					if (activeTemps[i] < internalTemp && activeTemps[i] < meltingTemps[i])
-						activeTemps[i] += 5;
+						activeTemps[i] += 10;
 					else if (meltingTemps[i] >= activeTemps[i])
 					{
 						if (!worldObj.isRemote)
@@ -311,13 +314,13 @@ public class SmelteryLogic extends InventoryLogic
 	}
 
 	/* Inventory */
-	public int getMaxStackStackSize (ItemStack stack)
+	/*public int getMaxStackStackSize (ItemStack stack)
 	{
 		LiquidStack liquid = getResultFor(stack);
 		if (liquid == null)
 			return 0;
 		return liquid.amount;
-	}
+	}*/
 
 	public int getInventoryStackLimit ()
 	{
@@ -332,6 +335,12 @@ public class SmelteryLogic extends InventoryLogic
 	}
 
 	/* Multiblock */
+	@Override
+	public void notifyChange (int x, int y, int z)
+	{
+		checkValidPlacement();
+	}
+	
 	public void checkValidPlacement ()
 	{
 		switch (getRenderDirection())
@@ -576,7 +585,6 @@ public class SmelteryLogic extends InventoryLogic
 		return false;
 	}
 
-	/* Not an ILiquidTank, but is still a liquid tank of sorts */
 	public int getCapacity ()
 	{
 		return maxLiquid;
@@ -612,9 +620,14 @@ public class SmelteryLogic extends InventoryLogic
 
 	public int fill (LiquidStack resource, boolean doFill)
 	{
-		int amount = resource.amount;
-		addMoltenMetal(resource, false);
-		return amount;
+		if (resource != null)
+		{
+			int amount = resource.amount;
+			addMoltenMetal(resource, false);
+			return amount;
+		}
+		else
+			return 0;
 	}
 
 	@Override
@@ -632,8 +645,16 @@ public class SmelteryLogic extends InventoryLogic
 	}
 
 	/* NBT */
+	
 	@Override
 	public void readFromNBT (NBTTagCompound tags)
+	{
+		super.readFromNBT(tags);
+		readCustomNBT(tags);
+		//checkValidPlacement();
+	}
+
+	public void readCustomNBT (NBTTagCompound tags)
 	{
 		direction = tags.getByte("Direction");
 		useTime = tags.getInteger("UseTime");
@@ -653,13 +674,17 @@ public class SmelteryLogic extends InventoryLogic
 			int meta = tagList.getInteger("meta");
 			moltenMetal.add(new LiquidStack(id, amount, meta));
 		}
-
 		adjustLayers(layers, true);
-		super.readFromNBT(tags);
 	}
 
 	@Override
 	public void writeToNBT (NBTTagCompound tags)
+	{
+		super.writeToNBT(tags);
+		writeCustomNBT(tags);
+	}
+
+	public void writeCustomNBT (NBTTagCompound tags)
 	{
 		tags.setByte("Direction", direction);
 		tags.setInteger("UseTime", useTime);
@@ -679,7 +704,6 @@ public class SmelteryLogic extends InventoryLogic
 		}
 
 		tags.setTag("Liquids", taglist);
-		super.writeToNBT(tags);
 	}
 
 	/* Packets */
@@ -696,11 +720,5 @@ public class SmelteryLogic extends InventoryLogic
 	{
 		readFromNBT(packet.customParam1);
 		worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
-	}
-
-	@Override
-	public void notifyChange (int x, int y, int z)
-	{
-		checkValidPlacement();
 	}
 }

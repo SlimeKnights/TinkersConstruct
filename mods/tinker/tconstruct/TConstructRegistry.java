@@ -34,7 +34,7 @@ public class TConstructRegistry
 
 	//Rendering
 
-	//itemMap.func_94245_a
+	//itemMap.updateIcons
 	
 
 	/*public static void addMaterialRenderMapping(int materialID, String textureLocation)

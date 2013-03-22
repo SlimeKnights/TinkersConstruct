@@ -29,11 +29,11 @@ public class TextureGroup
 		if(!texture.equals(""))
 		{
 			RenderEngine renderengine = RenderManager.instance.renderEngine;
-	        renderengine.func_98187_b(texture);
+	        renderengine.bindTexture(texture);
 		}
 		/*else if(defaultTexture > -1)
 		{
-			RenderManager.instance.renderEngine.func_98187_b(defaultTexture);
+			RenderManager.instance.renderEngine.bindTexture(defaultTexture);
 		}*/
 	}
 	

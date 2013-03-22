@@ -1,6 +1,6 @@
 package test;
 
-import mods.tinker.tconstruct.entity.EdibleSlime;
+import mods.tinker.tconstruct.entity.BlueSlime;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
@@ -28,7 +28,7 @@ public class XinStick extends Item
 		//spawnItem(player.posX, player.posY, player.posZ, tool, world);
 		//CartEntity cart = new CartEntity(world, 1);
 		//cart.cartType = 1;
-		spawnEntity(player.posX, player.posY+1, player.posZ, new EdibleSlime(world), world, player);
+		spawnEntity(player.posX, player.posY+1, player.posZ, new BlueSlime(world), world, player);
 		return stack;
 	}
 
@@ -71,7 +71,7 @@ public class XinStick extends Item
 			{
 				for (int y = 0; y < 128; y++)
 				{
-					world.setBlockAndMetadataWithNotify((int) (x + dx), y, (int) (z + dz), 0, 0, 3);
+					world.setBlock((int) (x + dx), y, (int) (z + dz), 0, 0, 3);
 				}
 			}
 		}

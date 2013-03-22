@@ -151,16 +151,16 @@ public abstract class InventoryLogic extends TileEntity
 	
 	public String getInvName()
     {
-        return this.func_94042_c() ? this.invName : getDefaultName();
+        return this.isInvNameLocalized() ? this.invName : getDefaultName();
     }
 
-    public boolean func_94042_c()
+    public boolean isInvNameLocalized()
     {
         return this.invName != null && this.invName.length() > 0;
     }
 
 	@Override
-	public boolean func_94041_b (int i, ItemStack itemstack)
+	public boolean isStackValidForSlot (int i, ItemStack itemstack)
 	{
 		// TODO Auto-generated method stub
 		return false;

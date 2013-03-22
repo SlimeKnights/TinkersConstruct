@@ -33,7 +33,7 @@ public class LiquidMetalFlowing extends LiquidMetalBase
 		//System.out.println("x: "+x+", y: "+y+", z: "+z);
 		int tex = ((LiquidTextureLogic) world.getBlockTileEntity(x, y, z)).getLiquidType();
 		int meta = world.getBlockMetadata(x, y, z);
-		world.setBlockAndMetadataWithNotify(x, y, z, stillLiquidId(), meta, 3);
+		world.setBlock(x, y, z, stillLiquidId(), meta, 3);
 		world.markBlockRangeForRenderUpdate(x, y, z, x, y, z);
 		world.markBlockForUpdate(x, y, z);
 		((LiquidTextureLogic) world.getBlockTileEntity(x, y, z)).setLiquidType(tex);
@@ -76,7 +76,7 @@ public class LiquidMetalFlowing extends LiquidMetalBase
 				flow = j1;
 				if (flow < 0)
 				{
-					world.func_94571_i(x, y, z);
+					world.setBlockToAir(x, y, z);
 				}
 				else
 				{
@@ -98,11 +98,11 @@ public class LiquidMetalFlowing extends LiquidMetalBase
 		{
 			if (flow >= 8)
 			{
-				world.setBlockAndMetadataWithNotify(x, y - 1, z, blockID, flow, 3);
+				world.setBlock(x, y - 1, z, blockID, flow, 3);
 			}
 			else
 			{
-				world.setBlockAndMetadataWithNotify(x, y - 1, z, blockID, flow + 8, 3);
+				world.setBlock(x, y - 1, z, blockID, flow + 8, 3);
 			}
 			((LiquidTextureLogic) world.getBlockTileEntity(x, y - 1, z)).setLiquidType(tex);
 		}
@@ -144,7 +144,7 @@ public class LiquidMetalFlowing extends LiquidMetalBase
 			{
 				Block.blocksList[bID].dropBlockAsItem(world, x, y, z, world.getBlockMetadata(x, y, z), 0);
 			}
-			world.setBlockAndMetadataWithNotify(x, y, z, blockID, meta, 3);
+			world.setBlock(x, y, z, blockID, meta, 3);
 
 			((LiquidTextureLogic) world.getBlockTileEntity(x, y, z)).setLiquidType(tex);
 		}

@@ -83,7 +83,7 @@ public class FryingPan extends Weapon
             }
             else
             {
-                world.setBlockAndMetadataWithNotify(x, y, z, TContent.heldItemBlock.blockID, 0, 3);
+                world.setBlock(x, y, z, TContent.heldItemBlock.blockID, 0, 3);
 
                 EquipLogic logic = (EquipLogic) world.getBlockTileEntity(x, y, z);
     			logic.setEquipmentItem(stack);

@@ -129,7 +129,7 @@ public class LumberAxe extends HarvestTool
 					if (!(tags.getBoolean("Broken")))
 					if (world.getBlockId(xPos, yPos, zPos) == bID && world.getBlockMetadata(xPos, yPos, zPos) % 4 == meta % 4)
 					{
-						world.func_94571_i(x, y, z);
+						world.setBlockToAir(x, y, z);
 						Block.blocksList[bID].harvestBlock(world, player, xPos, yPos, zPos, meta);
 						if (!player.capabilities.isCreativeMode)
 							onBlockDestroyed(stack, world, bID, xPos, yPos, zPos, player);
@@ -155,7 +155,7 @@ public class LumberAxe extends HarvestTool
 						if (block != null && block.blockMaterial == Material.wood)
 						{
 							int meta = world.getBlockMetadata(xPos, yPos, zPos);
-							world.func_94571_i(x, y, z);
+							world.setBlockToAir(x, y, z);
 							Block.blocksList[blockID].harvestBlock(world, player, xPos, yPos, zPos, meta);
 							if (!player.capabilities.isCreativeMode)
 								onBlockDestroyed(stack, world, blockID, xPos, yPos, zPos, player);

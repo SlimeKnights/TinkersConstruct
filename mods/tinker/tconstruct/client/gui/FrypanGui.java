@@ -27,7 +27,7 @@ public class FrypanGui extends GuiContainer
     protected void drawGuiContainerBackgroundLayer(float f, int i, int j)
     {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        mc.renderEngine.func_98187_b("/mods/tinker/textures/gui/frypan.png");
+        mc.renderEngine.bindTexture("/mods/tinker/textures/gui/frypan.png");
         int cornerX = (width - xSize) / 2;
         int cornerY = (height - ySize) / 2;
         drawTexturedModalRect(cornerX, cornerY, 0, 0, xSize, ySize);
