@@ -1,12 +1,7 @@
 package mods.tinker.tconstruct.entity;
 
-import com.google.common.io.ByteArrayDataInput;
-import com.google.common.io.ByteArrayDataOutput;
-
-import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
 import mods.tinker.tconstruct.TConstruct;
 import mods.tinker.tconstruct.TContent;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.IMob;
@@ -27,7 +22,7 @@ public class BlueSlime extends EntityLiving implements IMob
 	public float field_70812_c;
 
 	/** the time between each jump of the slime */
-	private int slimeJumpDelay = 0;
+	protected int slimeJumpDelay = 0;
 
 	public BlueSlime(World world)
 	{
@@ -38,16 +33,27 @@ public class BlueSlime extends EntityLiving implements IMob
 		this.slimeJumpDelay = this.rand.nextInt(20) + 10;
 		this.setSlimeSize(i);
 		this.jumpMovementFactor = 0.004F * i + 0.01F;
-		//if (i > 6)
-		//makeSlimeJocky(world);
-		//System.out.println("Woo");
 	}
+	
+	protected void damageEntity(DamageSource damageSource, int damage)
+    {
+    	//Minecraft.getMinecraft().getLogAgent().logInfo("Damage: "+damage);
+		if (damageSource.damageType.equals("arrow"))
+			damage = damage/2;
+		super.damageEntity(damageSource, damage);
+    }
+	
+	/*public boolean attackEntityFrom(DamageSource damageSource, int damage)
+    {
+		if (damageSource.damageType.equals("arrow") && rand.nextInt(5) == 0)
+			return false;
+		return super.attackEntityFrom(damageSource, damage);
+    }*/
 
 	@Override
 	public void initCreature ()
 	{
-		//Minecraft.getMinecraft().getLogAgent().logInfo("Initializing a slime with size "+getSlimeSize());
-		if (getSlimeSize() == 2 && rand.nextInt(15) == 0)
+		if (getSlimeSize() == 2 && rand.nextInt(8) == 0)
 		{
 			EntitySkeleton entityskeleton = new EntitySkeleton(this.worldObj);
 			entityskeleton.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
@@ -58,40 +64,11 @@ public class BlueSlime extends EntityLiving implements IMob
 
 	}
 	
-	/*@Override
-	public void updateRiderPosition()
-    {
-        if (this.riddenByEntity != null)
-        {
-            if (!(this.riddenByEntity instanceof EntityPlayer) || !((EntityPlayer)this.riddenByEntity).func_71066_bF())
-            {
-                this.riddenByEntity.lastTickPosX = this.lastTickPosX;//+Math.sin(this.rotationYaw/360);
-                this.riddenByEntity.lastTickPosY = this.lastTickPosY + this.getMountedYOffset() + this.riddenByEntity.getYOffset();
-                this.riddenByEntity.lastTickPosZ = this.lastTickPosZ;//+Math.cos(this.rotationYaw/360);
-            }
-
-            this.riddenByEntity.setPosition(this.posX, this.posY + this.getMountedYOffset() + this.riddenByEntity.getYOffset(), this.posZ);
-        }
-    }*/
-	
 	@Override
 	public double getMountedYOffset()
     {
 		return this.height * 0.3;
     }
-
-	/*protected void makeSlimeJocky(World world)
-	{
-		//if (!world.isRemote)
-		//{
-			EntitySkeleton skeleton = new EntitySkeleton(world);
-			skeleton.setPosition(posX, posY, posZ);
-			skeleton.setAngles(this.rotationYaw, this.rotationYaw);
-			world.spawnEntityInWorld(skeleton);
-			skeleton.mountEntity(this);
-			spawnedJocky = true;
-		//}
-	}*/
 
 	protected void jump ()
 	{
@@ -264,6 +241,7 @@ public class BlueSlime extends EntityLiving implements IMob
 
 	protected void updateEntityActionState ()
 	{
+		//Minecraft.getMinecraft().getLogAgent().logInfo("Collided with "+entity.getEntityName());
 		this.despawnEntity();
 		EntityPlayer entityplayer = this.worldObj.getClosestVulnerablePlayerToEntity(this, 16.0D);
 
@@ -273,7 +251,6 @@ public class BlueSlime extends EntityLiving implements IMob
 		}
 		else if (this.onGround && this.slimeJumpDelay == 1)
 		{
-			//this.rotationPitch = rand.nextFloat()*360;
 			this.rotationYaw = this.rotationYaw + rand.nextFloat() * 180 - 90;
 			if (rotationYaw > 360)
 				rotationYaw -= 360;

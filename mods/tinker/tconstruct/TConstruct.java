@@ -23,7 +23,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
  * @author: mDiyo
  */
 
-@Mod(modid = "TConstruct", name = "TConstruct", version = "1.5.1_1.2.1", dependencies = "before:*")
+@Mod(modid = "TConstruct", name = "TConstruct", version = "1.5.1_1.2.1")
 @NetworkMod(serverSideRequired = false, clientSideRequired = true, channels = { "TConstruct" }, packetHandler = mods.tinker.tconstruct.TPacketHandler.class)
 public class TConstruct
 {
@@ -74,9 +74,12 @@ public class TConstruct
 	{
 		content.modIntegration();
 		content.oreRegistry();
+		lateEvents = new TAfterEventHandler();
+		MinecraftForge.EVENT_BUS.register(lateEvents);
 	}
 
 	public static TEventHandler events;
+	public static TAfterEventHandler lateEvents;
 	public static TPlayerHandler playerTracker;
 	public static TContent content;
 

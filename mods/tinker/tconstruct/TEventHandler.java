@@ -1,20 +1,26 @@
 package mods.tinker.tconstruct;
 
+import java.util.Random;
+
 import mods.tinker.tconstruct.crafting.PatternBuilder;
 import mods.tinker.tconstruct.crafting.Smeltery;
 import mods.tinker.tconstruct.logic.LiquidTextureLogic;
+import net.minecraft.client.Minecraft;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumMovingObjectType;
 import net.minecraftforge.event.Event.Result;
 import net.minecraftforge.event.ForgeSubscribe;
+import net.minecraftforge.event.entity.player.ArrowLooseEvent;
 import net.minecraftforge.event.entity.player.FillBucketEvent;
 import net.minecraftforge.liquids.LiquidStack;
 import net.minecraftforge.oredict.OreDictionary.OreRegisterEvent;
 
 public class TEventHandler
 {
-	
 	/* Ore Dictionary */
 	@ForgeSubscribe
 	public void registerOre (OreRegisterEvent evt)

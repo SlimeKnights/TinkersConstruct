@@ -19,9 +19,10 @@ import mods.tinker.tconstruct.crafting.LiquidCasting;
 import mods.tinker.tconstruct.crafting.PatternBuilder;
 import mods.tinker.tconstruct.crafting.Smeltery;
 import mods.tinker.tconstruct.crafting.ToolBuilder;
+import mods.tinker.tconstruct.entity.BlueSlime;
 import mods.tinker.tconstruct.entity.CartEntity;
 import mods.tinker.tconstruct.entity.Crystal;
-import mods.tinker.tconstruct.entity.BlueSlime;
+import mods.tinker.tconstruct.entity.MetalSlime;
 import mods.tinker.tconstruct.entity.Skyla;
 import mods.tinker.tconstruct.entity.UnstableCreeper;
 import mods.tinker.tconstruct.items.CraftedSoilItemBlock;
@@ -187,12 +188,14 @@ public class TContent implements IFuelHandler
 		EntityRegistry.registerModEntity(Skyla.class, "Skyla", 10, TConstruct.instance, 32, 5, true);
 		EntityRegistry.registerModEntity(UnstableCreeper.class, "UnstableCreeper", 11, TConstruct.instance, 64, 5, true);
 		EntityRegistry.registerModEntity(BlueSlime.class, "EdibleSlime", 12, TConstruct.instance, 64, 5, true);
+		EntityRegistry.registerModEntity(MetalSlime.class, "MetalSlime", 13, TConstruct.instance, 64, 5, true);
 
 		BiomeGenBase[] overworldBiomes = new BiomeGenBase[] { BiomeGenBase.ocean, BiomeGenBase.plains, BiomeGenBase.desert, BiomeGenBase.extremeHills, BiomeGenBase.forest, BiomeGenBase.taiga,
 				BiomeGenBase.swampland, BiomeGenBase.river, BiomeGenBase.frozenOcean, BiomeGenBase.frozenRiver, BiomeGenBase.icePlains, BiomeGenBase.iceMountains, BiomeGenBase.beach,
 				BiomeGenBase.desertHills, BiomeGenBase.forestHills, BiomeGenBase.taigaHills, BiomeGenBase.extremeHillsEdge, BiomeGenBase.jungle, BiomeGenBase.jungleHills };
 		EntityRegistry.addSpawn(UnstableCreeper.class, 8, 4, 6, EnumCreatureType.monster, overworldBiomes);
 		EntityRegistry.addSpawn(BlueSlime.class, 10, 4, 4, EnumCreatureType.monster, overworldBiomes);
+		EntityRegistry.addSpawn(MetalSlime.class, 1, 4, 4, EnumCreatureType.monster, overworldBiomes);
 	}
 
 	void registerBlocks ()
@@ -314,7 +317,9 @@ public class TContent implements IFuelHandler
 		Item.doorSteel.setMaxStackSize(16);
 		Item.snowball.setMaxStackSize(64);
 		Item.boat.setMaxStackSize(16);
-		Item.potion.setMaxStackSize(16);
+		Item.minecartEmpty.setMaxStackSize(3);
+		Item.minecartCrate.setMaxStackSize(3);
+		Item.minecartPowered.setMaxStackSize(3);
 	}
 
 	void registerMaterials ()
