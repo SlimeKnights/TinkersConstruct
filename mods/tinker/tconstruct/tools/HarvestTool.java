@@ -1,5 +1,6 @@
 package mods.tinker.tconstruct.tools;
 
+import mods.tinker.tconstruct.library.ToolCore;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.item.EntityItem;
@@ -15,9 +16,9 @@ import net.minecraftforge.common.MinecraftForge;
 public abstract class HarvestTool extends ToolCore
 {
 
-	public HarvestTool(int itemID, int baseDamage, String tex)
+	public HarvestTool(int itemID, int baseDamage)
 	{
-		super(itemID, baseDamage, tex);
+		super(itemID, baseDamage);
 	}
 	
 	@Override

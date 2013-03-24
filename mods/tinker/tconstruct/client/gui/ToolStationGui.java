@@ -3,11 +3,11 @@ package mods.tinker.tconstruct.client.gui;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 
-import mods.tinker.tconstruct.TConstructRegistry;
 import mods.tinker.tconstruct.container.ToolStationContainer;
+import mods.tinker.tconstruct.library.TConstructRegistry;
+import mods.tinker.tconstruct.library.ToolCore;
+import mods.tinker.tconstruct.library.Weapon;
 import mods.tinker.tconstruct.logic.ToolStationLogic;
-import mods.tinker.tconstruct.tools.ToolCore;
-import mods.tinker.tconstruct.tools.Weapon;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.gui.inventory.GuiContainer;

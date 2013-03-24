@@ -1,6 +1,6 @@
 package mods.tinker.tconstruct.container;
 
-import mods.tinker.tconstruct.tools.ToolCore;
+import mods.tinker.tconstruct.library.ToolCore;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;

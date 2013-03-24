@@ -1,4 +1,4 @@
-package mods.tinker.tconstruct.tools;
+package mods.tinker.tconstruct.library;
 
 import mods.tinker.tconstruct.TContent;
 import net.minecraft.enchantment.Enchantment;
@@ -19,9 +19,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 public abstract class RangedWeapon extends ToolCore
 {
 
-	public RangedWeapon(int itemID, String texture)
+	public RangedWeapon(int itemID)
 	{
-		super(itemID, 0, texture);
+		super(itemID, 0);
 	}
 
 	@Override

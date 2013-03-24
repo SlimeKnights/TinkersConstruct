@@ -1,10 +1,13 @@
-package mods.tinker.tconstruct;
+package mods.tinker.tconstruct.library;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
+import net.minecraft.item.ItemStack;
+
+import mods.tinker.tconstruct.ToolMaterial;
 import mods.tinker.tconstruct.client.gui.ToolGuiElement;
-import mods.tinker.tconstruct.tools.ToolCore;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -19,7 +22,7 @@ public class TConstructRegistry
 	public static ArrayList<ToolCore> tools = new ArrayList<ToolCore>(20);
 	public static ArrayList<ToolGuiElement> toolButtons = new ArrayList<ToolGuiElement>(20);
 	public static HashMap<Integer, ToolMaterial> toolMaterials = new HashMap<Integer, ToolMaterial>(60);
-	@SideOnly(Side.CLIENT)
+	public static Map<String, ItemStack> manualIcons = new HashMap<String, ItemStack>();
 
 	//Tools
 	public static void addToolMapping (ToolCore tool)

@@ -13,9 +13,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class Axe extends HarvestTool
 {
-	public Axe(int itemID, String tex)
+	public Axe(int itemID)
 	{
-		super(itemID, 3, tex);
+		super(itemID, 3);
 		this.setUnlocalizedName("InfiTool.Axe");
 	}
 

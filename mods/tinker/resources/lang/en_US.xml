@@ -50,6 +50,10 @@
   <entry key="item.tconstruct.blankpattern.pattern.name">Blank Pattern</entry>
   <entry key="item.tconstruct.blankpattern.cast.name">Blank Cast</entry>
   
+  <entry key="item.tconstruct.manual.diary.name">Tinker's Log</entry>
+  <entry key="item.tconstruct.manual.toolstation.name">Materials and You</entry>
+  <entry key="item.tconstruct.manual.smeltery.name">Mighty Smelting</entry>
+  
   <entry key="item.tconstruct.bucket.Iron.name">Liquid Iron Bucket</entry>
   <entry key="item.tconstruct.bucket.Gold.name">Liquid Gold Bucket</entry>
   <entry key="item.tconstruct.bucket.Copper.name">Liquid Copper Bucket</entry>

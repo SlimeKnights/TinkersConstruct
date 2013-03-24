@@ -66,7 +66,7 @@ public class SmallFontRenderer extends FontRenderer
     /**
      * If true, strings should be rendered with Unicode fonts instead of the default.png font
      */
-    private boolean unicodeFlag;
+    private boolean unicodeFlag = true;
 
     /**
      * If true, the Unicode Bidirectional Algorithm should be run before rendering any string.
@@ -112,7 +112,7 @@ public class SmallFontRenderer extends FontRenderer
     {
     	super(gameSettings, textImage, renderEngine, unicode);
         this.renderEngine = renderEngine;
-        this.unicodeFlag = unicode;
+        //this.unicodeFlag = unicode;
         BufferedImage var5;
     	guiScale = 1;
 
@@ -221,6 +221,7 @@ public class SmallFontRenderer extends FontRenderer
      */
     private float renderCharAtPos(int par1, char par2, boolean par3)
     {
+    	//return this.renderUnicodeChar(par2, par3);
         return par2 == 32 ? 4.0F : (par1 > 0 && !this.unicodeFlag ? this.renderDefaultChar(par1 + 32, par3) : this.renderUnicodeChar(par2, par3));
     }
 
@@ -542,15 +543,15 @@ public class SmallFontRenderer extends FontRenderer
 
                 float scaleDown = 0.5F;
                 float scaleUp = 2.0F;
-                if (guiScale % 2 == 1)
-                //if (true)
+                //if (guiScale % 2 == 1)
+                /*if (true)
                 {
                 	scaleDown = 2/3F;
                 	scaleUp = 1.5F;
-                }
-                GL11.glScalef(scaleDown, scaleDown, 1F);
+                }*/
+                //GL11.glScalef(scaleDown, scaleDown, 1F);
                 float var9 = this.renderCharAtPos(var5, var4, this.italicStyle);
-                GL11.glScalef(scaleUp,scaleUp, 1F);
+                //GL11.glScalef(scaleUp,scaleUp, 1F);
 
                 if (this.boldStyle)
                 {
@@ -831,14 +832,14 @@ public class SmallFontRenderer extends FontRenderer
         this.resetStyles();
         this.textColor = par5;
         string = this.trimStringNewline(string);
-        if (this.guiScale % 2 == 0)
-        {
+        //if (this.guiScale % 2 == 0)
+        //{
         	//posX -= 28;
-        	posX *= 1.32;
+        	/*posX *= 1.32;
         	posX -= 35;
         	posY *= 1.2;
-        	length *= 1.32;
-        }
+        	length *= 1.32;*/
+        //}
         this.renderSplitString(string, posX, posY, length, false);
     }
 

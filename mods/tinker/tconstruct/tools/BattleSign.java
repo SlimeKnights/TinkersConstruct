@@ -1,15 +1,16 @@
 package mods.tinker.tconstruct.tools;
 
 import mods.tinker.tconstruct.TContent;
+import mods.tinker.tconstruct.library.Weapon;
 import net.minecraft.item.Item;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class BattleSign extends Weapon
 {
-	public BattleSign(int itemID, String tex)
+	public BattleSign(int itemID)
 	{
-		super(itemID, 1, tex);
+		super(itemID, 1);
 		this.setUnlocalizedName("InfiTool.Battlesign");
 	}
 	

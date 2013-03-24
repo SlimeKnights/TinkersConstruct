@@ -1,13 +1,15 @@
-package mods.tinker.tconstruct.client;
+package mods.tinker.tconstruct.library;
 
-import mods.tinker.tconstruct.TConstructRegistry;
-import mods.tinker.tconstruct.tools.ToolCore;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.texture.TextureMap;
+import java.util.HashMap;
+import java.util.Map;
+
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 
 public class TConstructClientRegistry
 {
-	//public static TextureMap itemMap = Minecraft.getMinecraft().renderEngine.field_94155_m;
+	public static Map<String, ItemStack> manualIcons = new HashMap<String, ItemStack>();
+	public static ItemStack defaultStack = new ItemStack(Item.ingotIron);
 	
 	public static void addMaterialRenderMapping (int materialID, String domain, String renderName, boolean useDefaultFolder)
 	{
@@ -36,5 +38,18 @@ public class TConstructClientRegistry
 			icon += renderName + tool.getEffectSuffix();
 			tool.registerEffectPath(materialID, icon);
 		}
+	}
+	
+	public static void registerManualIcon(String name, ItemStack stack)
+	{
+		manualIcons.put(name, stack);
+	}
+
+	public static ItemStack getManualIcon (String textContent)
+	{
+		ItemStack stack = manualIcons.get(textContent);
+		if (stack != null)
+			return stack;
+		return defaultStack;
 	}
 }

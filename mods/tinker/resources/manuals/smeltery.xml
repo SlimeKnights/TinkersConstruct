@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+
+<book>
+<page type="intro">
+<text>Mighty Smelting
+Make the most of your metals
+
+By Thruul M'gon</text>
+</page>
+
+<page type="contents">
+<link>
+ <text>Introduction</text>
+ <icon>smelterybook</icon>
+ <jump>3</jump>
+</link>
+<link>
+ <text>Smeltery</text>
+ <icon>smeltery</icon>
+ <jump>6</jump>
+</link>
+<link>
+ <text>Recipes</text>
+ <icon>blankcast</icon>
+ <jump>9</jump>
+</link>
+<link>
+ <text>Alloys</text>
+ <icon>liquidiron</icon>
+ <jump>9</jump>
+</link>
+<link>
+ <text>Casting</text>
+ <icon>castingtable</icon>
+ <jump>14</jump>
+</link>
+</page>
+
+<page type="text">
+<text>Welcome, puny Tinker, to the world of metalcraft.
+</text>
+</page>
+<page type="text">
+<text>Alloys are made when two metals are mixed in precise proportions. Currently known alloys are:
+
+Bronze, made from Copper(3) and Tin(1)
+Aluminum Brass, made from Aluminum(3) and Copper(1)
+Manyullyn, made from Cobalt(1) and Ardite(1)
+Alumite, made from Aluminum(5), Iron(2), and Obsidian(2)</text>
+</page>
+
+<page type="text">
+<title>Worktables</title>
+<text>
+
+In general:
+- Tools are made from parts
+- Parts are created from materials using a pattern
+
+We will create three separate areas for the creation of tools. The first will be for shaping patterns, the second for crafting parts out of materials, and the last will be the main station for finished products.</text>
+</page>
+
+<page type="text">
+<text>Blank patterns are where the
+</text>
+</page>
+
+<page type="craftingrecipe">
+<title>Blank Wood Pattern</title>
+<recipe>woodpattern</recipe>
+</page>
+
+<page type="text">
+<text>The Stencil Table is where you shape blank patterns into something useful. This is done by punching a hole in precisely the shape you want the end result to look like. Materials can be place in the hole and combined until they resemble the end product.
+</text>
+</page>
+
+<page type="craftingrecipe">
+<title>Stencil Table</title>
+<recipe>stenciltable</recipe>
+</page>
+<page type="text">
+<text></text>
+</page>
+</book>

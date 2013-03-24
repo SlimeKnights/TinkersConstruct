@@ -1,7 +1,7 @@
 package mods.tinker.tconstruct.crafting;
 
 import mods.tinker.tconstruct.TContent;
-import mods.tinker.tconstruct.tools.ToolCore;
+import mods.tinker.tconstruct.library.ToolCore;
 import net.minecraft.item.Item;
 
 /*

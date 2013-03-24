@@ -1,13 +1,14 @@
 package mods.tinker.tconstruct.tools;
 
 import mods.tinker.tconstruct.TContent;
+import mods.tinker.tconstruct.library.Weapon;
 import net.minecraft.item.Item;
 
 public class Broadsword extends Weapon
 {
-	public Broadsword(int itemID, String tex)
+	public Broadsword(int itemID)
 	{
-		super(itemID, 4, tex);
+		super(itemID, 4);
 		this.setUnlocalizedName("InfiTool.Broadsword");
 	}
 

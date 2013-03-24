@@ -1,4 +1,4 @@
-package mods.tinker.tconstruct.tools;
+package mods.tinker.tconstruct.library;
 
 import ic2.api.IBoxable;
 import ic2.api.ICustomElectricItem;
@@ -12,7 +12,6 @@ import java.util.Random;
 import mods.tinker.common.ToolMod;
 import mods.tinker.tconstruct.AbilityHelper;
 import mods.tinker.tconstruct.TConstruct;
-import mods.tinker.tconstruct.TConstructRegistry;
 import mods.tinker.tconstruct.TContent;
 import mods.tinker.tconstruct.client.TProxyClient;
 import mods.tinker.tconstruct.crafting.ToolBuilder;
@@ -59,18 +58,16 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public abstract class ToolCore extends Item implements ICustomElectricItem, IBoxable
 {
-	Random random = new Random();
-	String toolTexture;
-	public int damageVsEntity;
+	protected Random random = new Random();
+	protected int damageVsEntity;
 
-	public ToolCore(int id, int baseDamage, String texture)
+	public ToolCore(int id, int baseDamage)
 	{
 		super(id);
 		this.maxStackSize = 1;
 		this.setMaxDamage(100);
 		this.setUnlocalizedName("InfiTool");
 		this.setCreativeTab(TConstruct.toolTab);
-		toolTexture = texture;
 		damageVsEntity = baseDamage;
 		TConstructRegistry.addToolMapping(this);
 	}
@@ -241,61 +238,6 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
 
 		return TProxyClient.blankSprite;
 	}
-
-	/*@SideOnly(Side.CLIENT)
-	public String getIconLocation (ItemStack stack, int renderPass)
-	{
-		NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
-
-		if (renderPass == 0) // Handle
-		{
-			return (partTextures.get((Integer) tags.getInteger("RenderHandle")) + getRenderString(renderPass, false));
-		}
-
-		if (renderPass == 1) // Head
-		{
-			if (tags.getBoolean("Broken"))
-				return (partTextures.get((Integer) tags.getInteger("RenderHead")) + getRenderString(renderPass, true));
-			else
-				return (partTextures.get((Integer) tags.getInteger("RenderHead")) + getRenderString(renderPass, false));
-		}
-
-		if (renderPass == 2) // Accessory
-		{
-			if (tags.hasKey("RenderAccessory"))
-			{
-				return (partTextures.get((Integer) tags.getInteger("RenderAccessory")) + getRenderString(renderPass, false));
-			}
-		}
-
-		return TContent.blankSprite;
-	}
-
-	@SideOnly(Side.CLIENT)
-	public String getEffectLocation (ItemStack stack, int renderPass)
-	{
-		NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
-
-		if (renderPass == 0)
-		{
-			if (tags.hasKey("Effect1"))
-				return (effectTextures.get((Integer) tags.getInteger("Effect1")) + getEffectString(renderPass));
-		}
-
-		if (renderPass == 1)
-		{
-			if (tags.hasKey("Effect2"))
-				return (effectTextures.get((Integer) tags.getInteger("Effect2")) + getEffectString(renderPass));
-		}
-
-		if (renderPass == 2)
-		{
-			if (tags.hasKey("Effect3"))
-				return (effectTextures.get((Integer) tags.getInteger("Effect3")) + getEffectString(renderPass));
-		}
-
-		return TContent.blankSprite;
-	}*/
 
 	/* Tags and information about the tool */
 	@Override
@@ -740,89 +682,4 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
 	{
 		return false;
 	}
-
-	/* Universal Electricity Support 
-	 * Disabled due to Calclavia changing UE's api too often
-	 */
-
-	/*@Override
-	public double getJoules (Object... data)
-	{
-		if (data[0] instanceof ItemStack)
-		{
-			ItemStack itemStack = (ItemStack) data[0];
-
-			if (itemStack.stackTagCompound == null) { return 0; }
-			int electricityStored = itemStack.stackTagCompound.getInteger("charge");
-			//itemStack.setItemDamage((int) (getMaxJoules(itemStack) - electricityStored));
-			itemStack.setItemDamage((int) (1 + (getMaxCharge() - electricityStored) * (itemStack.getMaxDamage() - 1) / getMaxCharge()));
-			return electricityStored;
-		}
-
-		return -1;
-	}
-
-	@Override
-	public void setJoules (double joules, Object... data)
-	{
-		if (data[0] instanceof ItemStack)
-		{
-			ItemStack itemStack = (ItemStack) data[0];
-
-			if (itemStack.stackTagCompound == null)
-			{
-				itemStack.setTagCompound(new NBTTagCompound());
-			}
-
-			double electricityStored = ( Math.max(Math.min(joules, this.getMaxJoules(itemStack)), 0) );
-			itemStack.stackTagCompound.setInteger("charge", (int) electricityStored);
-			//itemStack.setItemDamage((int) (getMaxJoules() - electricityStored));
-			itemStack.setItemDamage((int) (1 + (getMaxCharge() - electricityStored) * (itemStack.getMaxDamage() - 1) / getMaxCharge()));
-		}
-	}
-
-	@Override
-	public double getMaxJoules (Object... data)
-	{
-		return 10000;
-	}
-
-	@Override
-	public double getVoltage ()
-	{
-		return 120;
-	}
-
-	@Override
-	public double onReceive (double amps, double voltage, ItemStack itemStack)
-	{
-		double rejectedElectricity = Math.max((this.getJoules(itemStack) + this.getJoules(amps, voltage, 1)) - this.getMaxJoules(itemStack), 0);
-		this.setJoules(this.getJoules(itemStack) + this.getJoules(amps, voltage, 1) - rejectedElectricity, itemStack);
-		return rejectedElectricity;
-	}
-	
-	public static double getJoules(double amps, double voltage, double seconds)
-	{
-		return amps * voltage * seconds;
-	}
-
-	@Override
-	public double onUse (double joulesNeeded, ItemStack itemStack)
-	{
-		double electricityToUse = Math.min(this.getJoules(itemStack), joulesNeeded);
-		this.setJoules(this.getJoules(itemStack) - electricityToUse, itemStack);
-		return electricityToUse;
-	}
-
-	@Override
-	public boolean canReceiveElectricity ()
-	{
-		return true;
-	}
-
-	@Override
-	public boolean canProduceElectricity ()
-	{
-		return true;
-	}*/
 }

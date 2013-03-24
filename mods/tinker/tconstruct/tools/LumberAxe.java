@@ -16,9 +16,9 @@ import net.minecraft.world.World;
 
 public class LumberAxe extends HarvestTool
 {
-	public LumberAxe(int itemID, String tex)
+	public LumberAxe(int itemID)
 	{
-		super(itemID, 3, tex);
+		super(itemID, 3);
 		this.setUnlocalizedName("InfiTool.LumberAxe");
 	}
 

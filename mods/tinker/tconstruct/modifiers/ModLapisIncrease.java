@@ -4,7 +4,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import mods.tinker.common.ToolMod;
-import mods.tinker.tconstruct.tools.Weapon;
+import mods.tinker.tconstruct.library.Weapon;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.item.ItemStack;

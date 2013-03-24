@@ -13,9 +13,9 @@ import net.minecraft.world.World;
 
 public class Hammer extends HarvestTool
 {
-	public Hammer(int itemID, String tex)
+	public Hammer(int itemID)
 	{
-		super(itemID, 1, tex);
+		super(itemID, 4);
 		this.setUnlocalizedName("InfiTool.Hammer");
 		setupCoords();
 	}

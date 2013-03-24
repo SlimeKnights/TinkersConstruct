@@ -42,6 +42,8 @@ import mods.tinker.tconstruct.items.TitleIcon;
 import mods.tinker.tconstruct.items.ToolPart;
 import mods.tinker.tconstruct.items.ToolShard;
 import mods.tinker.tconstruct.items.ToolStationItemBlock;
+import mods.tinker.tconstruct.library.TConstructRegistry;
+import mods.tinker.tconstruct.library.ToolCore;
 import mods.tinker.tconstruct.logic.CastingTableLogic;
 import mods.tinker.tconstruct.logic.FaucetLogic;
 import mods.tinker.tconstruct.logic.FrypanLogic;
@@ -72,7 +74,6 @@ import mods.tinker.tconstruct.tools.Mattock;
 import mods.tinker.tconstruct.tools.Pickaxe;
 import mods.tinker.tconstruct.tools.Rapier;
 import mods.tinker.tconstruct.tools.Shovel;
-import mods.tinker.tconstruct.tools.ToolCore;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
@@ -195,7 +196,7 @@ public class TContent implements IFuelHandler
 				BiomeGenBase.desertHills, BiomeGenBase.forestHills, BiomeGenBase.taigaHills, BiomeGenBase.extremeHillsEdge, BiomeGenBase.jungle, BiomeGenBase.jungleHills };
 		EntityRegistry.addSpawn(UnstableCreeper.class, 8, 4, 6, EnumCreatureType.monster, overworldBiomes);
 		EntityRegistry.addSpawn(BlueSlime.class, 10, 4, 4, EnumCreatureType.monster, overworldBiomes);
-		EntityRegistry.addSpawn(MetalSlime.class, 1, 4, 4, EnumCreatureType.monster, overworldBiomes);
+		//EntityRegistry.addSpawn(MetalSlime.class, 1, 4, 4, EnumCreatureType.monster, overworldBiomes);
 	}
 
 	void registerBlocks ()
@@ -286,17 +287,17 @@ public class TContent implements IFuelHandler
 		manualBook = new PatternManual(PHConstruct.manual);
 		buckets = new FilledBucket(PHConstruct.buckets);
 
-		pickaxe = new Pickaxe(PHConstruct.pickaxe, pickaxeTexture);
-		shovel = new Shovel(PHConstruct.shovel, shovelTexture);
-		axe = new Axe(PHConstruct.axe, axeTexture);
-		broadsword = new Broadsword(PHConstruct.broadsword, broadswordTexture);
-		longsword = new Longsword(PHConstruct.longsword, longswordTexture);
-		rapier = new Rapier(PHConstruct.rapier, rapierTexture);
+		pickaxe = new Pickaxe(PHConstruct.pickaxe);
+		shovel = new Shovel(PHConstruct.shovel);
+		axe = new Axe(PHConstruct.axe);
+		broadsword = new Broadsword(PHConstruct.broadsword);
+		longsword = new Longsword(PHConstruct.longsword);
+		rapier = new Rapier(PHConstruct.rapier);
 
-		frypan = new FryingPan(PHConstruct.frypan, frypanTexture);
-		battlesign = new BattleSign(PHConstruct.battlesign, signTexture);
-		//longbow = new RangedWeapon(PHConstruct.longbow, bowTexture);
-		mattock = new Mattock(PHConstruct.mattock, mattockTexture);
+		frypan = new FryingPan(PHConstruct.frypan);
+		battlesign = new BattleSign(PHConstruct.battlesign);
+		//longbow = new RangedWeapon(PHConstruct.longbow);
+		mattock = new Mattock(PHConstruct.mattock);
 		//lumberaxe = new LumberAxe(PHConstruct.lumberaxe, lumberaxeTexture);
 
 		pickaxeHead = new ToolPart(PHConstruct.pickaxeHead, "PickaxeHead", "_pickaxe_head").setUnlocalizedName("tconstruct.PickaxeHead");
@@ -704,7 +705,7 @@ public class TContent implements IFuelHandler
 		}
 	}
 
-	public static String blockTexture = "/tinkertextures/ConstructBlocks.png";
+	/*public static String blockTexture = "/tinkertextures/ConstructBlocks.png";
 	public static String blankSprite = "/tinkertextures/blanksprite.png";
 	public static String liquidTexture = "/tinkertextures/LiquidWhite.png";
 
@@ -726,7 +727,7 @@ public class TContent implements IFuelHandler
 	public static String signTexture = "/tinkertextures/tools/battlesign/";
 	public static String bowTexture = "/tinkertextures/tools/bow/";
 	public static String mattockTexture = "/tinkertextures/tools/mattock/";
-	public static String lumberaxeTexture = "/tinkertextures/tools/lumberaxe/";
+	public static String lumberaxeTexture = "/tinkertextures/tools/lumberaxe/";*/
 
 	@Override
 	public int getBurnTime (ItemStack fuel)

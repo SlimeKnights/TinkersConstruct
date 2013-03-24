@@ -2,6 +2,7 @@ package mods.tinker.tconstruct.tools;
 
 import mods.tinker.tconstruct.AbilityHelper;
 import mods.tinker.tconstruct.TContent;
+import mods.tinker.tconstruct.library.Weapon;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
@@ -11,9 +12,9 @@ import net.minecraft.world.World;
 
 public class Rapier extends Weapon
 {
-	public Rapier(int itemID, String tex)
+	public Rapier(int itemID)
 	{
-		super(itemID, 2, tex);
+		super(itemID, 2);
 		this.setUnlocalizedName("InfiTool.Rapier");
 	}
 

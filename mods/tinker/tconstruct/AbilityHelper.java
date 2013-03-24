@@ -7,7 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
-import mods.tinker.tconstruct.tools.ToolCore;
+import mods.tinker.tconstruct.library.ToolCore;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.enchantment.EnchantmentHelper;

@@ -1,13 +1,14 @@
 package mods.tinker.tconstruct.tools;
 
 import mods.tinker.tconstruct.TContent;
+import mods.tinker.tconstruct.library.Weapon;
 import net.minecraft.item.Item;
 
 public class Longsword extends Weapon
 {
-	public Longsword(int itemID, String tex)
+	public Longsword(int itemID)
 	{
-		super(itemID, 4, tex);
+		super(itemID, 4);
 		this.setUnlocalizedName("InfiTool.Longsword");
 	}
 	

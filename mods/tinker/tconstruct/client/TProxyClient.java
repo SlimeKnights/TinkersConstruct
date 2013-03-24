@@ -10,7 +10,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import mods.tinker.common.fancyitem.FancyEntityItem;
 import mods.tinker.common.fancyitem.FancyItemRender;
 import mods.tinker.tconstruct.TConstruct;
-import mods.tinker.tconstruct.TConstructRegistry;
 import mods.tinker.tconstruct.TContent;
 import mods.tinker.tconstruct.TProxyCommon;
 import mods.tinker.tconstruct.client.entityrender.CartRender;
@@ -23,6 +22,8 @@ import mods.tinker.tconstruct.entity.Crystal;
 import mods.tinker.tconstruct.entity.BlueSlime;
 import mods.tinker.tconstruct.entity.Skyla;
 import mods.tinker.tconstruct.entity.UnstableCreeper;
+import mods.tinker.tconstruct.library.TConstructClientRegistry;
+import mods.tinker.tconstruct.library.TConstructRegistry;
 import mods.tinker.tconstruct.logic.CastingTableLogic;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -170,7 +171,7 @@ public class TProxyClient extends TProxyCommon
 		LanguageRegistry.instance().addStringLocalization("entity.TConstruct.UnstableCreeper.name", "en_US", "Unstable Creeper");
 		LanguageRegistry.instance().addStringLocalization("entity.TConstruct.EdibleSlime.name", "en_US", "Blue Slime");
 		LanguageRegistry.instance().addStringLocalization("entity.TConstruct.MetalSlime.name", "en_US", "Metal Slime");
-		LanguageRegistry.instance().addStringLocalization("item.tconstruct.diary.diary.name", "en_US", "Tinker's Log");
+		//LanguageRegistry.instance().addStringLocalization("item.tconstruct.diary.diary.name", "en_US", "Tinker's Log");
 		LanguageRegistry.instance().addStringLocalization("item.tconstruct.Pattern.blank_pattern.name", "en_US", "Blank Pattern");
 		LanguageRegistry.instance().addStringLocalization("item.tconstruct.Pattern.blank_cast.name", "en_US", "Cast");
 		//LanguageRegistry.addName(TContent.blankPattern, "Blank Pattern");
@@ -213,12 +214,15 @@ public class TProxyClient extends TProxyCommon
 
 	public static Document diary;
 	public static Document volume1;
+	public static Document smelter;
 
 	public void readManuals ()
 	{
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		diary = readManual("/mods/tinker/resources/manuals/diary.xml", dbFactory);
 		volume1 = readManual("/mods/tinker/resources/manuals/materials.xml", dbFactory);
+		smelter = readManual("/mods/tinker/resources/manuals/smeltery.xml", dbFactory);
+		initManualIcons();
 	}
 
 	Document readManual (String location, DocumentBuilderFactory dbFactory)
@@ -237,6 +241,15 @@ public class TProxyClient extends TProxyCommon
 			return null;
 		}
 	}
+	
+	public void initManualIcons()
+	{
+		TConstructClientRegistry.registerManualIcon("smelterybook", new ItemStack(TContent.manualBook, 1, 2));
+		TConstructClientRegistry.registerManualIcon("smeltery", new ItemStack(TContent.smeltery));
+		TConstructClientRegistry.registerManualIcon("blankcast", new ItemStack(TContent.blankPattern, 1, 1));
+		TConstructClientRegistry.registerManualIcon("castingtable", new ItemStack(TContent.searedBlock));
+		TConstructClientRegistry.registerManualIcon("liquidiron", new ItemStack(TContent.liquidMetalStill));
+	}
 
 	public static Document getManualFromStack (ItemStack stack)
 	{
@@ -246,6 +259,8 @@ public class TProxyClient extends TProxyCommon
 			return diary;
 		case 1:
 			return volume1;
+		case 2:
+			return smelter;
 		}
 
 		return null;

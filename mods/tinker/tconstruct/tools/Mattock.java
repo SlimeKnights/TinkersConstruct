@@ -2,6 +2,7 @@ package mods.tinker.tconstruct.tools;
 
 import mods.tinker.tconstruct.AbilityHelper;
 import mods.tinker.tconstruct.TContent;
+import mods.tinker.tconstruct.library.DualHarvestTool;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -10,9 +11,9 @@ import net.minecraft.world.World;
 
 public class Mattock extends DualHarvestTool
 {
-	public Mattock(int itemID, String tex)
+	public Mattock(int itemID)
 	{
-		super(itemID, 3, tex);
+		super(itemID, 3);
 		this.setUnlocalizedName("InfiTool.Mattock");
 	}
 

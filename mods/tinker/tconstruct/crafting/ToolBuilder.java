@@ -7,9 +7,9 @@ import java.util.List;
 
 import mods.tinker.common.IToolPart;
 import mods.tinker.common.ToolMod;
-import mods.tinker.tconstruct.TConstructRegistry;
 import mods.tinker.tconstruct.ToolMaterial;
-import mods.tinker.tconstruct.tools.ToolCore;
+import mods.tinker.tconstruct.library.TConstructRegistry;
+import mods.tinker.tconstruct.library.ToolCore;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;

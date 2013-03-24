@@ -1,4 +1,4 @@
-package mods.tinker.tconstruct.tools;
+package mods.tinker.tconstruct.library;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -10,9 +10,9 @@ import net.minecraft.world.World;
 public abstract class Weapon extends ToolCore
 {
 
-	public Weapon(int itemID, int baseDamage, String texture)
+	public Weapon(int itemID, int baseDamage)
 	{
-		super(itemID, baseDamage, texture);
+		super(itemID, baseDamage);
 	}
 	
 	protected float baseSpeed()

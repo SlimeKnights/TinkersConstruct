@@ -2,6 +2,7 @@ package mods.tinker.tconstruct.tools;
 
 import mods.tinker.tconstruct.AbilityHelper;
 import mods.tinker.tconstruct.TContent;
+import mods.tinker.tconstruct.library.Weapon;
 import mods.tinker.tconstruct.logic.EquipLogic;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
@@ -15,9 +16,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class FryingPan extends Weapon
 {
-	public FryingPan(int itemID, String tex)
+	public FryingPan(int itemID)
 	{
-		super(itemID, 2, tex);
+		super(itemID, 2);
 		this.setUnlocalizedName("InfiTool.FryingPan");
 	}
 	

@@ -213,7 +213,7 @@ public class SmelteryLogic extends InventoryLogic
 				if (meltingTemps[i] > 20 && this.isStackInSlot(i))
 				{
 					if (activeTemps[i] < internalTemp && activeTemps[i] < meltingTemps[i])
-						activeTemps[i] += 10;
+						activeTemps[i] += 1;
 					else if (meltingTemps[i] >= activeTemps[i])
 					{
 						if (!worldObj.isRemote)
