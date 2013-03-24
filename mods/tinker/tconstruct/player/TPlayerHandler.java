@@ -4,10 +4,10 @@ import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Random;
 
-import mods.tinker.tconstruct.AbilityHelper;
 import mods.tinker.tconstruct.PHConstruct;
 import mods.tinker.tconstruct.TContent;
 import mods.tinker.tconstruct.client.TProxyClient;
+import mods.tinker.tconstruct.library.AbilityHelper;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;

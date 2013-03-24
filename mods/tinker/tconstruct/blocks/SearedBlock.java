@@ -5,6 +5,7 @@ import java.util.List;
 import mods.tinker.common.InventoryBlock;
 import mods.tinker.tconstruct.TConstruct;
 import mods.tinker.tconstruct.client.SearedRender;
+import mods.tinker.tconstruct.library.TConstructRegistry;
 import mods.tinker.tconstruct.logic.CastingTableLogic;
 import mods.tinker.tconstruct.logic.FaucetLogic;
 import net.minecraft.block.material.Material;
@@ -24,8 +25,7 @@ public class SearedBlock extends InventoryBlock
 	public SearedBlock(int id)
 	{
 		super(id, Material.rock);
-		this.setCreativeTab(TConstruct.blockTab);
-		//blockIndexInTexture = 32;
+		this.setCreativeTab(TConstructRegistry.blockTab);
 		setHardness(12);
 		setStepSound(soundMetalFootstep);
 	}

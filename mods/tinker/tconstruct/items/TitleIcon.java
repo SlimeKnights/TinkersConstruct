@@ -1,9 +1,9 @@
 package mods.tinker.tconstruct.items;
 
 import mods.tinker.tconstruct.client.TProxyClient;
+import mods.tinker.tconstruct.library.ToolCore;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.item.Item;
-import net.minecraft.util.Icon;
 
 public class TitleIcon extends Item
 {
@@ -15,7 +15,7 @@ public class TitleIcon extends Item
 	@Override
 	public void updateIcons (IconRegister iconRegister)
 	{
-		TProxyClient.blankSprite = iconRegister.registerIcon("tinker:blanksprite");
+		ToolCore.blankSprite = iconRegister.registerIcon("tinker:blanksprite");
 		TProxyClient.metalBall = iconRegister.registerIcon("tinker:metalball");
 		iconIndex = iconRegister.registerIcon("tinker:tparts");
 	}

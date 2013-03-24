@@ -1,9 +1,9 @@
 package mods.tinker.tconstruct.client.gui;
 
-import mods.tinker.tconstruct.ToolMaterial;
 import mods.tinker.tconstruct.container.PartCrafterChestContainer;
 import mods.tinker.tconstruct.crafting.PatternBuilder;
 import mods.tinker.tconstruct.library.TConstructRegistry;
+import mods.tinker.tconstruct.library.ToolMaterial;
 import mods.tinker.tconstruct.logic.PartCrafterLogic;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;

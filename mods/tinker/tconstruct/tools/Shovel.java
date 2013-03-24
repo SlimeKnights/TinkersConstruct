@@ -1,12 +1,9 @@
 package mods.tinker.tconstruct.tools;
 
 import mods.tinker.tconstruct.TContent;
-import mods.tinker.tconstruct.client.TProxyClient;
+import mods.tinker.tconstruct.library.HarvestTool;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.Icon;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 

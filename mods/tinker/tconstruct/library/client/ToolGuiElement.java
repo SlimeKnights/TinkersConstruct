@@ -1,4 +1,4 @@
-package mods.tinker.tconstruct.client.gui;
+package mods.tinker.tconstruct.library.client;
 
 public class ToolGuiElement
 {

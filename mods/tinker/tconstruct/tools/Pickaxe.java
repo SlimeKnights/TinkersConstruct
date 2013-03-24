@@ -1,6 +1,7 @@
 package mods.tinker.tconstruct.tools;
 
 import mods.tinker.tconstruct.TContent;
+import mods.tinker.tconstruct.library.HarvestTool;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
 

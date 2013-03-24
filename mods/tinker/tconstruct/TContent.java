@@ -278,6 +278,7 @@ public class TContent implements IFuelHandler
 		
 		materials = new CraftingItem(PHConstruct.materials, craftingMaterials, craftingTextures, "materials/").setUnlocalizedName("tconstruct.Materials");
 		toolRod = new ToolPart(PHConstruct.toolRod, "ToolRod", "_rod").setUnlocalizedName("tconstruct.ToolRod");
+		TConstructRegistry.toolRod = toolRod;
 		toolShard = new ToolShard(PHConstruct.toolShard, "ToolShard", "_chunk").setUnlocalizedName("tconstruct.ToolShard");
 		woodPattern = new Pattern(PHConstruct.woodPattern, "WoodPattern", "pattern_", "materials/").setUnlocalizedName("tconstruct.Pattern");
 		metalPattern = new MetalPattern(PHConstruct.metalPattern, "MetalPattern", "cast_", "materials/").setUnlocalizedName("tconstruct.MetalPattern");
@@ -325,22 +326,22 @@ public class TContent implements IFuelHandler
 
 	void registerMaterials ()
 	{
-		TConstructRegistry.addToolMaterial(0, "Wood", 1, 0, 59, 200, 0, 1.0F, 0, 0f);
-		TConstructRegistry.addToolMaterial(1, "Stone", 1, 1, 131, 400, 1, 0.5F, 0, 1f);
-		TConstructRegistry.addToolMaterial(2, "Iron", 1, 2, 250, 600, 2, 1.3F, 1, 0f);
-		TConstructRegistry.addToolMaterial(3, "Flint", 1, 1, 171, 525, 2, 0.7F, 0, 1f);
-		TConstructRegistry.addToolMaterial(4, "Cactus", 1, 1, 150, 500, 2, 1.0F, 0, -1f);
-		TConstructRegistry.addToolMaterial(5, "Bone", 1, 1, 200, 400, 1, 1.0F, 0, 0f);
-		TConstructRegistry.addToolMaterial(6, "Obsidian", 1, 3, 89, 700, 2, 0.8F, 3, 0f);
-		TConstructRegistry.addToolMaterial(7, "Netherrack", 1, 2, 131, 400, 1, 1.2F, 0, 1f);
-		TConstructRegistry.addToolMaterial(8, "Slime", 1, 3, 1500, 150, 0, 5.0F, 0, 0f);
-		TConstructRegistry.addToolMaterial(9, "Paper", 1, 0, 30, 200, 0, 0.3F, 0, 0f);
-		TConstructRegistry.addToolMaterial(10, "Cobalt", 2, 4, 800, 800, 3, 1.75F, 2, 0f);
-		TConstructRegistry.addToolMaterial(11, "Ardite", 2, 4, 600, 800, 3, 2.0F, 0, 0f);
-		TConstructRegistry.addToolMaterial(12, "Manyullyn", 2, 5, 1200, 1000, 4, 2.5F, 0, 0f);
-		TConstructRegistry.addToolMaterial(13, "Copper", 1, 1, 180, 500, 2, 1.15F, 0, 0f);
-		TConstructRegistry.addToolMaterial(14, "Bronze", 1, 2, 250, 600, 2, 1.3F, 1, 0f);
-		TConstructRegistry.addToolMaterial(15, "Alumite", 2, 4, 550, 800, 3, 1.3F, 2, 0f);
+		TConstructRegistry.addToolMaterial(0, "Wood", 1, 0, 59, 200, 0, 1.0F, 0, 0f, "\u00A7e", "");
+		TConstructRegistry.addToolMaterial(1, "Stone", 1, 1, 131, 400, 1, 0.5F, 0, 1f, "", "Shoddy");
+		TConstructRegistry.addToolMaterial(2, "Iron", 1, 2, 250, 600, 2, 1.3F, 1, 0f, "\u00A7f", "");
+		TConstructRegistry.addToolMaterial(3, "Flint", 1, 1, 171, 525, 2, 0.7F, 0, 1f, "\u00A78", "Shoddy");
+		TConstructRegistry.addToolMaterial(4, "Cactus", 1, 1, 150, 500, 2, 1.0F, 0, -1f, "\u00A72", "Spiny");
+		TConstructRegistry.addToolMaterial(5, "Bone", 1, 1, 200, 400, 1, 1.0F, 0, 0f, "\u00A7e", "");
+		TConstructRegistry.addToolMaterial(6, "Obsidian", 1, 3, 89, 700, 2, 0.8F, 3, 0f, "\u00A7d", "");
+		TConstructRegistry.addToolMaterial(7, "Netherrack", 1, 2, 131, 400, 1, 1.2F, 0, 1f, "\u00A74", "Shoddy");
+		TConstructRegistry.addToolMaterial(8, "Slime", 1, 3, 1500, 150, 0, 5.0F, 0, 0f, "\u00A7a", "");
+		TConstructRegistry.addToolMaterial(9, "Paper", 1, 0, 30, 200, 0, 0.3F, 0, 0f, "\u00A7f", "Writable");
+		TConstructRegistry.addToolMaterial(10, "Cobalt", 2, 4, 800, 800, 3, 1.75F, 2, 0f, "\u00A73", "");
+		TConstructRegistry.addToolMaterial(11, "Ardite", 2, 4, 600, 800, 3, 2.0F, 0, 0f, "\u00A74", "");
+		TConstructRegistry.addToolMaterial(12, "Manyullyn", 2, 5, 1200, 1000, 4, 2.5F, 0, 0f, "\u00A75", "Awareness");
+		TConstructRegistry.addToolMaterial(13, "Copper", 1, 1, 180, 500, 2, 1.15F, 0, 0f, "\u00A7c", "");
+		TConstructRegistry.addToolMaterial(14, "Bronze", 1, 2, 250, 600, 2, 1.3F, 1, 0f, "\u00A76", "");
+		TConstructRegistry.addToolMaterial(15, "Alumite", 2, 4, 550, 800, 3, 1.3F, 2, 0f, "\u00A7d", "");
 		TConstructRegistry.addToolMaterial(16, "Steel", 2, 3, 750, 800, 3, 1.3F, 2, 0f);
 
 		//Thaumcraft
@@ -375,23 +376,23 @@ public class TContent implements IFuelHandler
 			pb.registerMaterialSet("Wood", new ItemStack(Item.stick, 2), new ItemStack(Item.stick), 0);
 		if (PHConstruct.enableTStone)
 		{
-			pb.registerFullMaterial(Block.stone, 2, "Stone", 1);
+			pb.registerFullMaterial(Block.stone, 2, "Stone", new ItemStack(TContent.toolShard, 1, 1), new ItemStack(TContent.toolRod, 1, 1), 1);
 			pb.registerMaterial(Block.cobblestone, 2, "Stone");
 		}
 		//else
 		//pb.registerMaterialSet("Stone", new ItemStack(TContent.toolShard, 1, 1), new ItemStack(TContent.toolRod, 1, 1), 1);
-		pb.registerFullMaterial(Item.ingotIron, 2, "Iron", 2);
-		pb.registerFullMaterial(Item.flint, 2, "Flint", 3);
+		pb.registerFullMaterial(Item.ingotIron, 2, "Iron", new ItemStack(TContent.toolShard, 1, 2), new ItemStack(TContent.toolRod, 1, 2), 2);
+		pb.registerFullMaterial(Item.flint, 2, "Flint", new ItemStack(TContent.toolShard, 1, 3), new ItemStack(TContent.toolRod, 1, 3), 3);
 		if (PHConstruct.enableTCactus)
-			pb.registerFullMaterial(Block.cactus, 2, "Cactus", 4);
+			pb.registerFullMaterial(Block.cactus, 2, "Cactus", new ItemStack(TContent.toolShard, 1, 4), new ItemStack(TContent.toolRod, 1, 4), 4);
 		else
 			pb.registerMaterialSet("Cactus", new ItemStack(TContent.toolShard, 1, 4), new ItemStack(TContent.toolRod, 1, 4), 4);
 		if (PHConstruct.enableTBone)
 			pb.registerFullMaterial(Item.bone, 2, "Bone", new ItemStack(Item.dyePowder, 1, 15), new ItemStack(Item.bone), 5);
 		else
 			pb.registerMaterialSet("Bone", new ItemStack(Item.dyePowder, 1, 15), new ItemStack(Item.bone), 5);
-		pb.registerFullMaterial(Block.obsidian, 2, "Obsidian", 6);
-		pb.registerFullMaterial(Block.netherrack, 2, "Netherrack", 7);
+		pb.registerFullMaterial(Block.obsidian, 2, "Obsidian", new ItemStack(TContent.toolShard, 1, 6), new ItemStack(TContent.toolRod, 1, 6), 6);
+		pb.registerFullMaterial(Block.netherrack, 2, "Netherrack", new ItemStack(TContent.toolShard, 1, 7), new ItemStack(TContent.toolRod, 1, 7), 7);
 		pb.registerFullMaterial(new ItemStack(materials, 1, 1), 2, "Slime", new ItemStack(toolShard, 1, 8), new ItemStack(toolRod, 1, 8), 8);
 		pb.registerFullMaterial(new ItemStack(materials, 1, 0), 2, "Paper", new ItemStack(Item.paper, 2), new ItemStack(toolRod, 1, 9), 9);
 		pb.registerMaterialSet("Cobalt", new ItemStack(toolShard, 1, 10), new ItemStack(toolRod, 1, 10), 10);
@@ -618,8 +619,8 @@ public class TContent implements IFuelHandler
 
 	void setupToolTabs ()
 	{
-		TConstruct.materialTab.init(new ItemStack(titleIcon));
-		TConstruct.blockTab.init(new ItemStack(woodCrafter));
+		TConstructRegistry.materialTab.init(new ItemStack(titleIcon));
+		TConstructRegistry.blockTab.init(new ItemStack(woodCrafter));
 		ItemStack tool = new ItemStack(longsword, 1, 0);
 
 		NBTTagCompound compound = new NBTTagCompound();
@@ -629,7 +630,8 @@ public class TContent implements IFuelHandler
 		compound.getCompoundTag("InfiTool").setInteger("RenderAccessory", 10);
 		tool.setTagCompound(compound);
 
-		TConstruct.toolTab.init(tool);
+		//TConstruct.
+		TConstructRegistry.toolTab.init(tool);
 	}
 
 	public void oreRegistry ()

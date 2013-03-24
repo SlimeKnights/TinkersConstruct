@@ -1,6 +1,7 @@
 package mods.tinker.common;
 
-import mods.tinker.tconstruct.TConstruct;
+import java.util.Random;
+
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -16,6 +17,7 @@ import net.minecraft.world.World;
 
 public abstract class InventoryBlock extends BlockContainer
 {
+	protected Random rand = new Random();
 	protected InventoryBlock(int id, Material material)
 	{
 		super(id, material);
@@ -70,13 +72,13 @@ public abstract class InventoryBlock extends BlockContainer
 
 				if (stack != null && logic.canDropInventorySlot(iter))
 				{
-					float jumpX = TConstruct.tRand.nextFloat() * 0.8F + 0.1F;
-					float jumpY = TConstruct.tRand.nextFloat() * 0.8F + 0.1F;
-					float jumpZ = TConstruct.tRand.nextFloat() * 0.8F + 0.1F;
+					float jumpX = rand.nextFloat() * 0.8F + 0.1F;
+					float jumpY = rand.nextFloat() * 0.8F + 0.1F;
+					float jumpZ = rand.nextFloat() * 0.8F + 0.1F;
 
 					while (stack.stackSize > 0)
 					{
-						int itemSize = TConstruct.tRand.nextInt(21) + 10;
+						int itemSize = rand.nextInt(21) + 10;
 
 						if (itemSize > stack.stackSize)
 						{
@@ -93,9 +95,9 @@ public abstract class InventoryBlock extends BlockContainer
 						}
 
 						float offset = 0.05F;
-						entityitem.motionX = (double) ((float) TConstruct.tRand.nextGaussian() * offset);
-						entityitem.motionY = (double) ((float) TConstruct.tRand.nextGaussian() * offset + 0.2F);
-						entityitem.motionZ = (double) ((float) TConstruct.tRand.nextGaussian() * offset);
+						entityitem.motionX = (double) ((float) rand.nextGaussian() * offset);
+						entityitem.motionY = (double) ((float) rand.nextGaussian() * offset + 0.2F);
+						entityitem.motionZ = (double) ((float) rand.nextGaussian() * offset);
 						par1World.spawnEntityInWorld(entityitem);
 					}
 				}

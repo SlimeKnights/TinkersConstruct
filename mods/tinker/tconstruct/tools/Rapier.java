@@ -1,7 +1,7 @@
 package mods.tinker.tconstruct.tools;
 
-import mods.tinker.tconstruct.AbilityHelper;
 import mods.tinker.tconstruct.TContent;
+import mods.tinker.tconstruct.library.AbilityHelper;
 import mods.tinker.tconstruct.library.Weapon;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;

@@ -2,7 +2,7 @@ package mods.tinker.tconstruct.blocks;
 
 import java.util.List;
 
-import mods.tinker.tconstruct.TConstruct;
+import mods.tinker.tconstruct.library.TConstructRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -18,7 +18,7 @@ public class TConstructBlock extends Block
 	{
 		super(id, material);
 		setHardness(hardness);
-		this.setCreativeTab(TConstruct.blockTab);
+		this.setCreativeTab(TConstructRegistry.blockTab);
 		textureNames = tex;
 	}
 

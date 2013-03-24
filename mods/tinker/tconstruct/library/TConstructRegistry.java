@@ -2,14 +2,8 @@ package mods.tinker.tconstruct.library;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
-import net.minecraft.item.ItemStack;
-
-import mods.tinker.tconstruct.ToolMaterial;
-import mods.tinker.tconstruct.client.gui.ToolGuiElement;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.item.Item;
 
 /** A registry to store any relevant API work
  * 
@@ -20,9 +14,12 @@ public class TConstructRegistry
 {
 	public static TConstructRegistry instance = new TConstructRegistry();
 	public static ArrayList<ToolCore> tools = new ArrayList<ToolCore>(20);
-	public static ArrayList<ToolGuiElement> toolButtons = new ArrayList<ToolGuiElement>(20);
 	public static HashMap<Integer, ToolMaterial> toolMaterials = new HashMap<Integer, ToolMaterial>(60);
-	public static Map<String, ItemStack> manualIcons = new HashMap<String, ItemStack>();
+	
+	public static TabTools toolTab;
+	public static TabTools materialTab;
+	public static TabTools blockTab;
+	public static Item toolRod;
 
 	//Tools
 	public static void addToolMapping (ToolCore tool)
@@ -35,34 +32,18 @@ public class TConstructRegistry
 		return tools;
 	}
 
-	//Rendering
-
-	//itemMap.updateIcons
-	
-
-	/*public static void addMaterialRenderMapping(int materialID, String textureLocation)
-	{
-		for (ToolCore tool : TConstructRegistry.getToolMapping())
-		{
-			tool.partTextures.put(materialID, textureLocation);
-		}
-	}
-	
-	public static void addEffectRenderMapping(int materialID, String textureLocation)
-	{
-		for (ToolCore tool : TConstructRegistry.getToolMapping())
-		{
-			tool.effectTextures.put(materialID, textureLocation);
-		}
-	}*/
-
 	//Materials
 	public static void addToolMaterial (int materialID, String materialName, int craftingTier, int harvestLevel, int durability, int miningspeed, int attack, float handleModifier, int reinforced, float shoddy)
+	{
+		addToolMaterial(materialID, materialName, craftingTier, harvestLevel, durability, miningspeed, attack, handleModifier, reinforced, shoddy, "", "");
+	}
+	
+	public static void addToolMaterial (int materialID, String materialName, int craftingTier, int harvestLevel, int durability, int miningspeed, int attack, float handleModifier, int reinforced, float shoddy, String style, String ability)
 	{
 		ToolMaterial mat = toolMaterials.get(materialID);
 		if (mat == null)
 		{
-			toolMaterials.put(materialID, new ToolMaterial(materialName, craftingTier, harvestLevel, durability, miningspeed, attack, handleModifier, reinforced, shoddy));
+			toolMaterials.put(materialID, new ToolMaterial(materialName, craftingTier, harvestLevel, durability, miningspeed, attack, handleModifier, reinforced, shoddy, style, ability));
 		}
 		else
 			throw new RuntimeException("TConstruct material ID " + materialID + " is already occupied by " + mat.materialName);
@@ -71,21 +52,5 @@ public class TConstructRegistry
 	public static ToolMaterial getMaterial (int key)
 	{
 		return (toolMaterials.get(key));
-	}
-
-	//Gui
-	public static void addToolButton (ToolGuiElement element)
-	{
-		toolButtons.add(element);
-	}
-
-	public static void addToolButton (int slotType, int xButton, int yButton, int[] xIcons, int[] yIcons, String title, String body, String texture)
-	{
-		toolButtons.add(new ToolGuiElement(slotType, xButton, yButton, xIcons, yIcons, title, body, texture));
-	}
-
-	public static ArrayList<ToolGuiElement> getToolButtons ()
-	{
-		return toolButtons;
 	}
 }

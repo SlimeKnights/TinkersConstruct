@@ -1,5 +1,6 @@
 package mods.tinker.tconstruct;
 
+import mods.tinker.tconstruct.library.AbilityHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;

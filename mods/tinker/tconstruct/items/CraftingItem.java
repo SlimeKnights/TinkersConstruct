@@ -2,7 +2,7 @@ package mods.tinker.tconstruct.items;
 
 import java.util.List;
 
-import mods.tinker.tconstruct.TConstruct;
+import mods.tinker.tconstruct.library.TConstructRegistry;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -21,7 +21,7 @@ public class CraftingItem extends Item
 	public CraftingItem(int id, String[] names, String[] tex, String f)
 	{
 		super(id);
-		this.setCreativeTab(TConstruct.materialTab);
+		this.setCreativeTab(TConstructRegistry.materialTab);
 		this.setMaxDamage(0);
 		this.setHasSubtypes(true);
 		textureNames = tex;

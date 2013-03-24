@@ -1,6 +1,5 @@
-package mods.tinker.tconstruct.tools;
+package mods.tinker.tconstruct.library;
 
-import mods.tinker.tconstruct.library.ToolCore;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.item.EntityItem;

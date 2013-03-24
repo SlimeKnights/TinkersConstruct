@@ -10,10 +10,6 @@ import java.util.Map;
 import java.util.Random;
 
 import mods.tinker.common.ToolMod;
-import mods.tinker.tconstruct.AbilityHelper;
-import mods.tinker.tconstruct.TConstruct;
-import mods.tinker.tconstruct.TContent;
-import mods.tinker.tconstruct.client.TProxyClient;
 import mods.tinker.tconstruct.crafting.ToolBuilder;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -60,6 +56,7 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
 {
 	protected Random random = new Random();
 	protected int damageVsEntity;
+	public static Icon blankSprite;
 
 	public ToolCore(int id, int baseDamage)
 	{
@@ -67,7 +64,7 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
 		this.maxStackSize = 1;
 		this.setMaxDamage(100);
 		this.setUnlocalizedName("InfiTool");
-		this.setCreativeTab(TConstruct.toolTab);
+		this.setCreativeTab(TConstructRegistry.toolTab);
 		damageVsEntity = baseDamage;
 		TConstructRegistry.addToolMapping(this);
 	}
@@ -236,7 +233,7 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
 			}
 		}
 
-		return TProxyClient.blankSprite;
+		return blankSprite;
 	}
 
 	/* Tags and information about the tool */
@@ -274,21 +271,24 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
 				list.add("\u00A7oBroken");
 			else
 			{
-				int head = tags.getCompoundTag("InfiTool").getInteger("Head") + 1;
-				int handle = tags.getCompoundTag("InfiTool").getInteger("Handle") + 1;
-				int binding = tags.getCompoundTag("InfiTool").getInteger("Accessory") + 1;
+				int head = tags.getCompoundTag("InfiTool").getInteger("Head");
+				int handle = tags.getCompoundTag("InfiTool").getInteger("Handle");
+				int binding = tags.getCompoundTag("InfiTool").getInteger("Accessory");
 
 				String headName = getAbilityNameForType(head);
 				if (!headName.equals(""))
-					list.add(getColorCodeForType(head) + headName);
+					list.add(getStyleForType(head) + headName);
 
 				String handleName = getAbilityNameForType(handle);
 				if (!handleName.equals("") && handle != head)
-					list.add(getColorCodeForType(handle) + handleName);
+					list.add(getStyleForType(handle) + handleName);
 
-				String bindingName = getAbilityNameForType(binding);
-				if (!bindingName.equals("") && binding != head && binding != handle)
-					list.add(getColorCodeForType(binding) + bindingName);
+				if (getPartAmount() >= 3)
+				{
+					String bindingName = getAbilityNameForType(binding);
+					if (!bindingName.equals("") && binding != head && binding != handle)
+						list.add(getStyleForType(binding) + bindingName);
+				}
 
 				String reinforced = getReinforcedName(head, handle, binding);
 				if (!reinforced.equals(""))
@@ -313,99 +313,94 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
 		}
 	}
 
-	public static String getColorCodeForType (int type) //TODO: unhardcode this
+	public static String getStyleForType (int type)
 	{
-		String colorCode = "\u00A7";
-		switch (type)
-		{
-		case 1:
-			return colorCode + "e"; //Wood
-		case 2:
-			return ""; //Stone
-		case 3:
-			return colorCode + "f"; //Iron
-		case 4:
-			return colorCode + "8"; //Flint
-		case 5:
-			return colorCode + "2"; //Cactus
-		case 6:
-			return colorCode + "e"; //Bone
-		case 7:
-			return colorCode + "d"; //Obsidian
-		case 8:
-			return colorCode + "4"; //Netherrack
-		case 9:
-			return colorCode + "a"; //Slime
-		case 10:
-			return colorCode + "f"; //Paper
-		case 11:
-			return colorCode + "3"; //Cobalt
-		case 12:
-			return colorCode + "4"; //Ardite
-		case 13:
-			return colorCode + "5"; //Manyullyn
-		case 14:
-			return colorCode + "c"; //Copper
-		case 15:
-			return colorCode + "6"; //Bronze
-		}
-		return colorCode;
+		return TConstructRegistry.getMaterial(type).style();
 	}
 
-	public String getAbilityNameForType (int type)//TODO: unhardcode this
+	public String getAbilityNameForType (int type)
 	{
-		switch (type)
-		{
-		case 1:
-			return ""; //Wood
-		case 2:
-			return "Shoddy"; //Stone
-		case 3:
-			return ""; //Iron
-		case 4:
-			return "Shoddy"; //Flint
-		case 5:
-			return "Spiny"; //Cactus
-		case 6:
-			return ""; //Bone
-		case 7:
-			return ""; //Obsidian
-		case 8:
-			return "Shoddy"; //Netherrack
-		case 9:
-			return ""; //Slime
-		case 10:
-			return "Writable"; //Paper
-		case 11:
-			return ""; //Cobalt
-		case 12:
-			return ""; //Ardite
-		case 13:
-			return "Awareness"; //Manyullyn
-		case 14:
-			return ""; //Copper
-		case 15:
-			return ""; //Bronze
-		default:
-			return "";
-		}
+		return TConstructRegistry.getMaterial(type).ability();
 	}
 
-	//This method is temporary
-	public static String getReinforcedName (int head, int handle, int accessory) //TODO: unhardcode this
+	public String getReinforcedName (int head, int handle, int accessory)
 	{
-		if (head == 7 || handle == 7 || accessory == 7)
-			return "\u00A7dReinforced III";
-		else if (head == 11 || handle == 11 || accessory == 11)
-			return "\u00A73Reinforced II";
-		else if (head == 3 || handle == 3 || accessory == 3)
-			return "\u00A7fReinforced I";
-		else if (head == 15 || handle == 15 || accessory == 15)
-			return "\u00A76Reinforced I";
+		ToolMaterial headMat = TConstructRegistry.getMaterial(head);
+		ToolMaterial handleMat = TConstructRegistry.getMaterial(handle);
+		ToolMaterial accessoryMat = TConstructRegistry.getMaterial(accessory);
+
+		int reinforced = 0;
+		String style = "";
+		int current = headMat.reinforced();
+		if (current > 0)
+		{
+			style = headMat.style();
+			reinforced = current;
+		}
+		current = handleMat.reinforced();
+		if (current > 0 && current > reinforced)
+		{
+			style = handleMat.style();
+			reinforced = current;
+		}
+		if (getPartAmount() >= 3)
+		{
+			current = accessoryMat.reinforced();
+			if (current > 0 && current > reinforced)
+			{
+				style = accessoryMat.style();
+				reinforced = current;
+			}
+		}
+
+		if (reinforced > 0)
+		{
+			return style + getReinforcedString(reinforced);
+		}
 		return "";
 	}
 
-	static String[] toolMaterialNames = { "Wooden ", "Stone ", "Iron ", "Flint ", "Cactus ", "Bone ", "Obsidian ", "Nethrrack ", "Slime ", "Paper ", "Cobalt ", "Ardite ", "Manyullyn ", "Copper ", "Bronze ", "Alumite ", "Steel " };
+	String getReinforcedString (int reinforced)
+	{
+		String ret = "Reinforced ";
+		switch (reinforced)
+		{
+		case 1:
+			ret += "I";
+			break;
+		case 2:
+			ret += "II";
+			break;
+		case 3:
+			ret += "III";
+			break;
+		case 4:
+			ret += "IV";
+			break;
+		case 5:
+			ret += "V";
+			break;
+		case 6:
+			ret += "VI";
+			break;
+		case 7:
+			ret += "VII";
+			break;
+		case 8:
+			ret += "VIII";
+			break;
+		case 9:
+			ret += "IX";
+			break;
+		default:
+			ret += "X";
+			break;
+		}
+		return ret;
+	}
+
+	static String[] toolMaterialNames = { "Wooden ", "Stone ", "Iron ", "Flint ", "Cactus ", "Bone ", "Obsidian ", "Nethrrack ", "Slime ", "Paper ", "Cobalt ", "Ardite ", "Manyullyn ", "Copper ",
+			"Bronze ", "Alumite ", "Steel " };
 
 	/* Creative mode tools */
 	public void getSubItems (int id, CreativeTabs tab, List list)
@@ -426,7 +421,7 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
 
 	protected Item getHandleItem ()
 	{
-		return TContent.toolRod;
+		return TConstructRegistry.toolRod;
 	}
 
 	public void onUpdate (ItemStack stack, World world, Entity entity, int par4, boolean par5)
@@ -487,8 +482,6 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
 	@Override
 	public boolean hitEntity (ItemStack stack, EntityLiving mob, EntityLiving player)
 	{
-		//AbilityHelper.hitEntity(stack, mob, player);
-		//AbilityHelper.damageTool(stack, 1, player, false);
 		return true;
 	}
 
@@ -531,7 +524,7 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
 		return 1f;
 	}
 
-	public int getDamageVsEntity (Entity par1Entity) //Redundant
+	public int getDamageVsEntity (Entity par1Entity)
 	{
 		return this.damageVsEntity;
 	}
@@ -603,7 +596,7 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
 	public int charge (ItemStack stack, int amount, int tier, boolean ignoreTransferLimit, boolean simulate)
 	{
 		NBTTagCompound tags = stack.getTagCompound();
-		if (!tags.hasKey("charge")) //|| !tags.getCompoundTag("InfiTool").getBoolean("Electric"))
+		if (!tags.hasKey("charge"))
 			return 0;
 
 		if (amount > 0)
@@ -639,7 +632,7 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
 	public int discharge (ItemStack stack, int amount, int tier, boolean ignoreTransferLimit, boolean simulate)
 	{
 		NBTTagCompound tags = stack.getTagCompound();
-		if (!tags.hasKey("charge"))// || !tags.getCompoundTag("InfiTool").getBoolean("Electric"))
+		if (!tags.hasKey("charge"))
 			return 0;
 
 		if (amount > 0)

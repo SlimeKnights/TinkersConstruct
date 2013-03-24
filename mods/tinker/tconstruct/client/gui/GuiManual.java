@@ -1,7 +1,7 @@
 package mods.tinker.tconstruct.client.gui;
 
 import mods.tinker.tconstruct.client.TProxyClient;
-import mods.tinker.tconstruct.library.TConstructClientRegistry;
+import mods.tinker.tconstruct.library.client.TConstructClientRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiParticle;

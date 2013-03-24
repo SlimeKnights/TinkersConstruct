@@ -1,4 +1,4 @@
-package mods.tinker.tconstruct;
+package mods.tinker.tconstruct.library;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;

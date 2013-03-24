@@ -6,8 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import mods.tinker.common.IPattern;
-import mods.tinker.tconstruct.TContent;
-import mods.tinker.tconstruct.items.Pattern;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -60,7 +58,7 @@ public class PatternBuilder
 
 				if (toolPart != null)
 				{
-					int patternValue = ((Pattern) pattern.getItem()).getPatternCost(pattern.getItemDamage());
+					int patternValue = ((IPattern) pattern.getItem()).getPatternCost(pattern.getItemDamage());
 					int totalMaterial = key.value * material.stackSize;
 
 					if (totalMaterial < patternValue) // Not enough material
@@ -217,7 +215,7 @@ public class PatternBuilder
 		registerFullMaterial(new ItemStack(material, 1, -1), value, key, shard, rod, materialID);
 	}
 
-	public void registerFullMaterial (Block material, int value, String key, int materialID)
+	/*public void registerFullMaterial (Block material, int value, String key, int materialID)
 	{
 		registerFullMaterial(new ItemStack(material, 1, -1), value, key, new ItemStack(TContent.toolShard, 1, materialID), new ItemStack(TContent.toolRod, 1, materialID), materialID);
 	}
@@ -225,5 +223,5 @@ public class PatternBuilder
 	public void registerFullMaterial (Item material, int value, String key, int materialID)
 	{
 		registerFullMaterial(new ItemStack(material, 1, -1), value, key, new ItemStack(TContent.toolShard, 1, materialID), new ItemStack(TContent.toolRod, 1, materialID), materialID);
-	}
+	}*/
 }

@@ -1,4 +1,4 @@
-package mods.tinker.tconstruct;
+package mods.tinker.tconstruct.library;
 
 import ic2.api.ICustomElectricItem;
 import ic2.api.IElectricItem;
@@ -7,7 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
-import mods.tinker.tconstruct.library.ToolCore;
+import mods.tinker.common.PiercingEntityDamage;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -248,7 +248,6 @@ public class AbilityHelper
 		{
 			int damage = tags.getCompoundTag("InfiTool").getInteger("Damage");
 			int damageTrue = damage + dam;
-			//System.out.println("Damaging tool, damageTrue "+damageTrue+", ignoring charge: "+ignoreCharge);
 			int maxDamage = tags.getCompoundTag("InfiTool").getInteger("TotalDurability");
 			if (damage + dam <= 0)
 			{

@@ -2,6 +2,8 @@ package mods.tinker.tconstruct;
 
 import java.util.Random;
 
+import mods.tinker.tconstruct.library.TConstructRegistry;
+import mods.tinker.tconstruct.library.TabTools;
 import mods.tinker.tconstruct.player.TPlayerHandler;
 import mods.tinker.tconstruct.worldgen.TBaseWorldGenerator;
 import net.minecraftforge.common.MinecraftForge;
@@ -48,9 +50,9 @@ public class TConstruct
 	public void preInit (FMLPreInitializationEvent evt)
 	{
 		PHConstruct.initProps();
-		materialTab = new TabTools("TConstructMaterials");
-		toolTab = new TabTools("TConstructTools");
-		blockTab = new TabTools("TConstructBlocks");
+		TConstructRegistry.materialTab = new TabTools("TConstructMaterials");
+		TConstructRegistry.toolTab = new TabTools("TConstructTools");
+		TConstructRegistry.blockTab = new TabTools("TConstructBlocks");
 		content = new TContent();
 
 		proxy.registerRenderer();
@@ -84,7 +86,4 @@ public class TConstruct
 	public static TContent content;
 
 	public static Random tRand = new Random();
-	public static TabTools toolTab;
-	public static TabTools materialTab;
-	public static TabTools blockTab;
 }

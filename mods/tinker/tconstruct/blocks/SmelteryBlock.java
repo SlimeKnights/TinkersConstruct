@@ -10,6 +10,7 @@ import mods.tinker.common.InventoryBlock;
 import mods.tinker.tconstruct.TConstruct;
 import mods.tinker.tconstruct.TGuiHandler;
 import mods.tinker.tconstruct.client.SmelteryRender;
+import mods.tinker.tconstruct.library.TConstructRegistry;
 import mods.tinker.tconstruct.logic.MultiServantLogic;
 import mods.tinker.tconstruct.logic.SmelteryDrainLogic;
 import mods.tinker.tconstruct.logic.SmelteryLogic;
@@ -30,11 +31,10 @@ public class SmelteryBlock extends InventoryBlock
 	public SmelteryBlock(int id)
 	{
 		super(id, Material.rock);
-		//blockIndexInTexture = 64;
 		setHardness(12F);
 		setStepSound(soundMetalFootstep);
 		rand = new Random();
-		this.setCreativeTab(TConstruct.blockTab);
+		this.setCreativeTab(TConstructRegistry.blockTab);
 		this.setUnlocalizedName("tconstruct.Smeltery");
 	}
 	

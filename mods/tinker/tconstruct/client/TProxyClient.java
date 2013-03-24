@@ -16,14 +16,13 @@ import mods.tinker.tconstruct.client.entityrender.CartRender;
 import mods.tinker.tconstruct.client.entityrender.CrystalRender;
 import mods.tinker.tconstruct.client.entityrender.SkylaRender;
 import mods.tinker.tconstruct.client.entityrender.SlimeRender;
-import mods.tinker.tconstruct.client.gui.ToolGuiElement;
+import mods.tinker.tconstruct.entity.BlueSlime;
 import mods.tinker.tconstruct.entity.CartEntity;
 import mods.tinker.tconstruct.entity.Crystal;
-import mods.tinker.tconstruct.entity.BlueSlime;
 import mods.tinker.tconstruct.entity.Skyla;
 import mods.tinker.tconstruct.entity.UnstableCreeper;
-import mods.tinker.tconstruct.library.TConstructClientRegistry;
-import mods.tinker.tconstruct.library.TConstructRegistry;
+import mods.tinker.tconstruct.library.client.TConstructClientRegistry;
+import mods.tinker.tconstruct.library.client.ToolGuiElement;
 import mods.tinker.tconstruct.logic.CastingTableLogic;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -74,7 +73,6 @@ import cpw.mods.fml.relauncher.Side;
 public class TProxyClient extends TProxyCommon
 {
 	public static SmallFontRenderer smallFontRenderer;
-	public static Icon blankSprite;
 	public static Icon metalBall;
 	public static Minecraft mc;
 
@@ -338,7 +336,7 @@ public class TProxyClient extends TProxyCommon
 
 	void addToolButton (int slotType, int xButton, int yButton, int[] xIcons, int[] yIcons, String title, String body)
 	{
-		TConstructRegistry.toolButtons.add(new ToolGuiElement(slotType, xButton, yButton, xIcons, yIcons, title, body));
+		TConstructClientRegistry.addToolButton(new ToolGuiElement(slotType, xButton, yButton, xIcons, yIcons, title, body));
 	}
 
 	void addRenderMappings ()
@@ -348,12 +346,10 @@ public class TProxyClient extends TProxyCommon
 		for (int partIter = 0; partIter < partTypes.length; partIter++)
 		{
 			TConstructClientRegistry.addMaterialRenderMapping(partIter, "tinker", partTypes[partIter], true);
-			//materialRenderMap(partIter, partTypes[partIter]);
 		}
 		for (int effectIter = 0; effectIter < effectTypes.length; effectIter++)
 		{
 			TConstructClientRegistry.addEffectRenderMapping(effectIter, "tinker", effectTypes[effectIter], true);
-			//effectRenderMap(effectIter, effectTypes[effectIter]);
 		}
 	}
 

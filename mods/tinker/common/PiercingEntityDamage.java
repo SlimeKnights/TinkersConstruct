@@ -1,4 +1,4 @@
-package mods.tinker.tconstruct;
+package mods.tinker.common;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.util.EntityDamageSource;

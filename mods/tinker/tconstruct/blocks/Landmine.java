@@ -4,7 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
-import mods.tinker.tconstruct.TConstruct;
+import mods.tinker.tconstruct.library.TConstructRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFence;
 import net.minecraft.block.EnumMobType;
@@ -25,7 +25,7 @@ public class Landmine extends Block
     {
         super(par1, par4Material);
         this.triggerMobType = EnumMobType.mobs;
-        this.setCreativeTab(TConstruct.blockTab);
+        this.setCreativeTab(TConstructRegistry.blockTab);
         this.setTickRandomly(true);
         float var5 = 0.0625F;
         this.setBlockBounds(var5, 0.0F, var5, 1.0F - var5, 0.03125F, 1.0F - var5);

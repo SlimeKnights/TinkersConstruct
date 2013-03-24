@@ -3,10 +3,11 @@ package mods.tinker.tconstruct.client.gui;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 
+import mods.tinker.tconstruct.library.client.ToolGuiElement;
 import mods.tinker.tconstruct.container.ToolStationContainer;
-import mods.tinker.tconstruct.library.TConstructRegistry;
 import mods.tinker.tconstruct.library.ToolCore;
 import mods.tinker.tconstruct.library.Weapon;
+import mods.tinker.tconstruct.library.client.TConstructClientRegistry;
 import mods.tinker.tconstruct.logic.ToolStationLogic;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
@@ -71,14 +72,14 @@ public class ToolStationGui extends GuiContainer
 		int cornerY = (this.height - this.ySize) / 2;
 
 		this.buttonList.clear();
-		ToolGuiElement repair = TConstructRegistry.toolButtons.get(0);
+		ToolGuiElement repair = TConstructClientRegistry.toolButtons.get(0);
 		GuiButtonTool repairButton = new GuiButtonTool(0, cornerX - 110, cornerY, repair.buttonIconX, repair.buttonIconY, repair.texture); // Repair
 		repairButton.enabled = false;
 		this.buttonList.add(repairButton);
 
-		for (int iter = 1; iter < TConstructRegistry.toolButtons.size(); iter++)
+		for (int iter = 1; iter < TConstructClientRegistry.toolButtons.size(); iter++)
 		{
-			ToolGuiElement element = TConstructRegistry.toolButtons.get(iter);
+			ToolGuiElement element = TConstructClientRegistry.toolButtons.get(iter);
 			GuiButtonTool button = new GuiButtonTool(iter, cornerX - 110 + 22 * (iter % 5), cornerY + 22 * (iter / 5), element.buttonIconX, element.buttonIconY, element.texture); // Repair
 			this.buttonList.add(button);
 		}
@@ -90,7 +91,7 @@ public class ToolStationGui extends GuiContainer
 		guiType = button.id;
 		button.enabled = false;
 
-		ToolGuiElement element = TConstructRegistry.toolButtons.get(guiType);
+		ToolGuiElement element = TConstructClientRegistry.toolButtons.get(guiType);
 		setSlotType(element.slotType);
 		iconX = element.iconsX;
 		iconY = element.iconsY;

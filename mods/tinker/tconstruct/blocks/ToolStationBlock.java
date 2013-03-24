@@ -5,6 +5,7 @@ import java.util.List;
 import mods.tinker.common.InventoryBlock;
 import mods.tinker.tconstruct.TConstruct;
 import mods.tinker.tconstruct.client.TableRender;
+import mods.tinker.tconstruct.library.TConstructRegistry;
 import mods.tinker.tconstruct.logic.PartCrafterLogic;
 import mods.tinker.tconstruct.logic.PatternChestLogic;
 import mods.tinker.tconstruct.logic.PatternShaperLogic;
@@ -24,7 +25,7 @@ public class ToolStationBlock extends InventoryBlock
 	public ToolStationBlock(int id, Material material)
 	{
 		super(id, material);
-		this.setCreativeTab(TConstruct.blockTab);
+		this.setCreativeTab(TConstructRegistry.blockTab);
 		this.setHardness(2f);
 	}
 

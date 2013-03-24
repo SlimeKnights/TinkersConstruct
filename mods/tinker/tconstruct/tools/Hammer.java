@@ -2,14 +2,9 @@ package mods.tinker.tconstruct.tools;
 
 import java.util.ArrayList;
 
-import mods.tinker.tconstruct.AbilityHelper;
-import net.minecraft.block.Block;
+import mods.tinker.tconstruct.library.HarvestTool;
 import net.minecraft.block.material.Material;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
 
 public class Hammer extends HarvestTool
 {

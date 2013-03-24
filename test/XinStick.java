@@ -1,6 +1,5 @@
 package test;
 
-import mods.tinker.tconstruct.entity.BlueSlime;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
@@ -28,7 +27,7 @@ public class XinStick extends Item
 		//spawnItem(player.posX, player.posY, player.posZ, tool, world);
 		//CartEntity cart = new CartEntity(world, 1);
 		//cart.cartType = 1;
-		spawnEntity(player.posX, player.posY+1, player.posZ, new BlueSlime(world), world, player);
+		//spawnEntity(player.posX, player.posY+1, player.posZ, new BlueSlime(world), world, player);
 		return stack;
 	}
 

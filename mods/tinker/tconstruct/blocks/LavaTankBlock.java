@@ -3,8 +3,8 @@ package mods.tinker.tconstruct.blocks;
 import java.util.List;
 
 import mods.tinker.common.IServantLogic;
-import mods.tinker.tconstruct.TConstruct;
 import mods.tinker.tconstruct.client.TankRender;
+import mods.tinker.tconstruct.library.TConstructRegistry;
 import mods.tinker.tconstruct.logic.LavaTankLogic;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
@@ -12,7 +12,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
@@ -31,7 +30,7 @@ public class LavaTankBlock extends BlockContainer
 	{
 		super(id, Material.rock);
 		setHardness(12);
-		setCreativeTab(TConstruct.blockTab);
+		setCreativeTab(TConstructRegistry.blockTab);
 		setUnlocalizedName("TConstruct.LavaTank");
 		setStepSound(Block.soundGlassFootstep);
 	}

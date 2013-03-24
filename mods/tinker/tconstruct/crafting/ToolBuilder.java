@@ -7,9 +7,9 @@ import java.util.List;
 
 import mods.tinker.common.IToolPart;
 import mods.tinker.common.ToolMod;
-import mods.tinker.tconstruct.ToolMaterial;
 import mods.tinker.tconstruct.library.TConstructRegistry;
 import mods.tinker.tconstruct.library.ToolCore;
+import mods.tinker.tconstruct.library.ToolMaterial;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -102,18 +102,11 @@ public class ToolBuilder
 		if (accessory != -1)
 			accessoryMat = TConstructRegistry.getMaterial(accessory);		
 
-		//System.out.println("Head: "+headMat+" Handle: "+handleMat);
 		int durability = (int) (headMat.durability() * handleMat.handleDurability() * item.getDurabilityModifier());
 		if (accessoryStack != null && (item.getHeadType() == 2 || item.getHeadType() == 3) )
 			durability = (int) ((headMat.durability() + accessoryMat.durability())/2 * handleMat.handleDurability() * item.getDurabilityModifier());
-		{
-			/*Item accessoryItem = accessoryStack.getItem();
-			if (accessoryItem instanceof ToolPart && ((ToolPart)accessoryItem).isHead) //Two heads
-				durability = (int) ((EnumMaterial.durability(head) + EnumMaterial.durability(accessory))/2 * EnumMaterial.handleDurability(handle) * item.getDurabilityModifier());*/
-		}
 
 		ItemStack tool = new ItemStack(item);
-		//System.out.println("Stack name: "+tool);
 		NBTTagCompound compound = new NBTTagCompound();
 		compound.setCompoundTag("InfiTool", new NBTTagCompound());
 		compound.getCompoundTag("InfiTool").setInteger("Head", head);
@@ -166,25 +159,6 @@ public class ToolBuilder
 
 		return tool;
 	}
-
-	/*public ItemStack modifyTool (ItemStack input, ItemStack topSlot, ItemStack bottomSlot)
-	{
-		ItemStack tool = input.copy();
-		NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
-		tags.removeTag("Built");
-		
-		for (ToolMod mod : toolMods)
-		{
-			ItemStack[] slots = new ItemStack[] {topSlot, bottomSlot};
-			if (mod.matches(slots, tool))
-			{
-				mod.modify(slots, tool);
-				mod.addMatchingEffect(tool);
-			}
-		}
-		
-		return tool;
-	}*/
 	
 	public ItemStack modifyTool (ItemStack input, ItemStack topSlot, ItemStack bottomSlot)
 	{
