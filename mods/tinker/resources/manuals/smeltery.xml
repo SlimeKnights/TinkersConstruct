@@ -9,20 +9,21 @@ By Thruul M'gon</text>
 </page>
 
 <page type="contents">
+<text>Table of Contents</text>
 <link>
  <text>Introduction</text>
  <icon>smelterybook</icon>
  <jump>3</jump>
 </link>
 <link>
- <text>Smeltery</text>
- <icon>smeltery</icon>
- <jump>6</jump>
+ <text>Casting</text>
+ <icon>castingtable</icon>
+ <jump>8</jump>
 </link>
 <link>
- <text>Recipes</text>
- <icon>blankcast</icon>
- <jump>9</jump>
+ <text>Construction</text>
+ <icon>smeltery</icon>
+ <jump>5</jump>
 </link>
 <link>
  <text>Alloys</text>
@@ -30,56 +31,103 @@ By Thruul M'gon</text>
  <jump>9</jump>
 </link>
 <link>
- <text>Casting</text>
- <icon>castingtable</icon>
- <jump>14</jump>
+ <text>Recipes</text>
+ <icon>blankcast</icon>
+ <jump>9</jump>
 </link>
 </page>
 
 <page type="text">
-<text>Welcome, puny Tinker, to the world of metalcraft.
-</text>
-</page>
-<page type="text">
-<text>Alloys are made when two metals are mixed in precise proportions. Currently known alloys are:
+<text>Welcome to the world of metalcraft. Within these pages you will learn the secrets of crafting rare and precious metals into usable materials.
 
-Bronze, made from Copper(3) and Tin(1)
-Aluminum Brass, made from Aluminum(3) and Copper(1)
-Manyullyn, made from Cobalt(1) and Ardite(1)
-Alumite, made from Aluminum(5), Iron(2), and Obsidian(2)</text>
+You will learn how to cast everything from the softest Iron to the hardest Manyullyn into whatever shape you desire and create alloy mixes from obscure materials. As always, experimentation is key!
+
+The main structure for melting liquids is called the Smeltery. It is larger than structures you may be familiar with, but the method for construction is relatively simple. It operates much like a furnace with a drain.</text>
 </page>
 
 <page type="text">
-<title>Worktables</title>
-<text>
+<text>When working with the Smeltery, there are a few things to keep in mind:
 
-In general:
-- Tools are made from parts
-- Parts are created from materials using a pattern
+* Ores naturally have more material than processed versions, such as ingots. The Smeltery will preserve the full value of the ores - roughly twice as much as a regular furnace would provide.
 
-We will create three separate areas for the creation of tools. The first will be for shaping patterns, the second for crafting parts out of materials, and the last will be the main station for finished products.</text>
+* Mixing two metals in the Smeltery may result in an alloy. The process happens automatically.
+
+* If you need more space to process metal, add more layers.</text>
+</page>
+
+<page type="sidebar">
+<text>The Smeltery is a multi-block structure. You will need the following materials to get started.</text>
+<item>
+ <text>1 Smeltery Controller</text>
+ <icon>smeltery</icon>
+</item>
+<item>
+ <text>1 Lava Tank</text>
+ <icon>lavatank</icon>
+</item>
+<item>
+ <text>9 Seared Bricks</text>
+ <icon>searedbrick</icon>
+</item>
+<item>
+ <text>Any combination of 10 Seared Bricks, Lava Tanks, or Drains
+ </text>
+ <icon>drain</icon>
+</item>
+<item>
+ <text>1 Faucet</text>
+ <icon>faucet</icon>
+</item>
+<item>
+ <text>1 Casting Table</text>
+ <icon>castingtable</icon>
+</item>
 </page>
 
 <page type="text">
-<text>Blank patterns are where the
-</text>
-</page>
+<text>Begin construction by laying a 3x3 bed of seared bricks. Leave any space above these bricks open; you will be constructing a shell around a 3x3 hollow inside. 
 
-<page type="craftingrecipe">
-<title>Blank Wood Pattern</title>
-<recipe>woodpattern</recipe>
+Place the Controller one layer up and the lava tank anywhere on the same level. Fill in the rest of the space with seared bricks, lava tanks, or drains as you like. 
+
+The small end of drains should be facing the outside. If you're successful, the Controller will light up and start working. Fill the tank with lava, the basin with metal, and watch it go.
+
+The structure must be a 5x5 shell due to the amount of heat lava gives off. There are no vertical restrictions to the size of the basin. </text>
 </page>
 
 <page type="text">
-<text>The Stencil Table is where you shape blank patterns into something useful. This is done by punching a hole in precisely the shape you want the end result to look like. Materials can be place in the hole and combined until they resemble the end product.
-</text>
+<text>Larger basins will hold more metal, of course, and the Controller can be on any level so long as there is a lava tank to match.
+
+When you are ready to pour liquid metal from the Smeltery, put a faucet on a drain and a casting table below it. 
+
+Other liquid removal objects will work, but are frowned upon. An example picture is provided for your convienence.</text>
 </page>
 
-<page type="craftingrecipe">
-<title>Stencil Table</title>
-<recipe>stenciltable</recipe>
+<page type="picture">
+<text>Figure 1a</text>
+<picture>/mods/tinker/resources/manuals/smelterysmall.png</picture>
 </page>
+
+<page type="sidebar">
+<text>Alloys are made when two metals are mixed in precise proportions. Currently known alloys are:</text>
+<item>
+ <text>Bronze, made from Copper(3) and Tin(1)</text>
+ <icon>bronzeingot</icon>
+</item>
+<item>
+ <text>Aluminum Brass, made from Aluminum(3) and Copper(1)</text>
+ <icon>alubrassingot</icon>
+</item>
+<item>
+ <text>Manyullyn, made from Cobalt(1) and Ardite(1)</text>
+ <icon>manyullyningot</icon>
+</item>
+<item>
+ <text>Alumite, made from Aluminum(5), Iron(2), and Obsidian(2)</text>
+ <icon>alumiteingot</icon>
+</item>
+</page>
+
 <page type="text">
-<text></text>
+<text>To be continued...</text>
 </page>
 </book>

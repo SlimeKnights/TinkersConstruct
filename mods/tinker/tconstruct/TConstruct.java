@@ -23,7 +23,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
  * @author: mDiyo
  */
 
-@Mod(modid = "TConstruct", name = "TConstruct", version = "1.5.1_1.2.2")
+@Mod(modid = "TConstruct", name = "TConstruct", version = "1.5.1_1.2.3")
 @NetworkMod(serverSideRequired = false, clientSideRequired = true, channels = { "TConstruct" }, packetHandler = mods.tinker.tconstruct.TPacketHandler.class)
 public class TConstruct
 {
@@ -63,9 +63,8 @@ public class TConstruct
 	public void init (FMLInitializationEvent evt)
 	{
 		GameRegistry.registerWorldGenerator(new TBaseWorldGenerator());
-		playerTracker = new TPlayerHandler();
-		MinecraftForge.EVENT_BUS.register(playerTracker);
-		GameRegistry.registerPlayerTracker(playerTracker);
+		GameRegistry.registerFuelHandler(content);
+		GameRegistry.registerCraftingHandler(new TCraftingHandler());
 		NetworkRegistry.instance().registerGuiHandler(instance, new TGuiHandler());
 	}
 
@@ -74,12 +73,13 @@ public class TConstruct
 	{
 		content.modIntegration();
 		content.oreRegistry();
-		lateEvents = new TAfterEventHandler();
-		MinecraftForge.EVENT_BUS.register(lateEvents);
+		
+		playerTracker = new TPlayerHandler();
+		GameRegistry.registerPlayerTracker(playerTracker);
+		MinecraftForge.EVENT_BUS.register(playerTracker);
 	}
 
 	public static TEventHandler events;
-	public static TAfterEventHandler lateEvents;
 	public static TPlayerHandler playerTracker;
 	public static TContent content;
 

@@ -1,5 +1,6 @@
 package mods.tinker.tconstruct;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -177,7 +178,6 @@ public class TContent implements IFuelHandler
 		addSmelteryRecipes();
 		addCraftingRecipes();
 		setupToolTabs();
-		GameRegistry.registerFuelHandler(this);
 	}
 
 	void createEntities ()
@@ -346,7 +346,7 @@ public class TContent implements IFuelHandler
 		//Thaumcraft
 		TConstructRegistry.addToolMaterial(21, "Thaumium", 2, 2, 250, 600, 2, 1.3F, 1, 0f);
 		
-		//Metallurgy
+		/*//Metallurgy
 		TConstructRegistry.addToolMaterial(22, "Heptazion", 2, 2, 300, 800, 1, 1.0F, 0, 0f);
 		TConstructRegistry.addToolMaterial(23, "Damascus Steel", 2, 3, 500, 600, 2, 1.35F, 1, 0f);
 		TConstructRegistry.addToolMaterial(24, "Angmallen", 2, 2, 300, 800, 2, 0.8F, 0, 0f);
@@ -366,7 +366,7 @@ public class TContent implements IFuelHandler
 		TConstructRegistry.addToolMaterial(36, "Quicksilver", 2, 4, 1100, 1400, 3, 1.0F, 1, 0f);
 		TConstructRegistry.addToolMaterial(37, "Haderoth", 2, 4, 1250, 1200, 3, 1.0F, 2, 0f);
 		TConstructRegistry.addToolMaterial(38, "Celenegil", 3, 5, 1600, 1400, 3, 1.0F, 2, 0f);
-		TConstructRegistry.addToolMaterial(39, "Tartarite", 3, 7, 3000, 1400, 5, 1.6667F, 4, 0f);
+		TConstructRegistry.addToolMaterial(39, "Tartarite", 3, 7, 3000, 1400, 5, 1.6667F, 4, 0f);*/
 
 		PatternBuilder pb = PatternBuilder.instance;
 		if (PHConstruct.enableTWood)
@@ -540,6 +540,7 @@ public class TContent implements IFuelHandler
 		}
 	}
 
+	WeakReference<ToolCore> tool = new WeakReference<ToolCore>(null);
 	void addSmelteryRecipes ()
 	{
 		//Ore

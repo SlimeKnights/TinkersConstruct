@@ -42,6 +42,7 @@ public class SmelteryLogic extends InventoryLogic
 	int maxTemp;
 	public int useTime;
 	public int fuelGague;
+	boolean inUse;
 
 	ArrayList<CoordTuple> lavaTanks;
 	CoordTuple activeLavaTank;
@@ -208,12 +209,16 @@ public class SmelteryLogic extends InventoryLogic
 	{
 		if (useTime > 0)
 		{
+			inUse = false;
 			for (int i = 0; i < 9 * layers; i++)
 			{
 				if (meltingTemps[i] > 20 && this.isStackInSlot(i))
 				{
 					if (activeTemps[i] < internalTemp && activeTemps[i] < meltingTemps[i])
+					{
 						activeTemps[i] += 1;
+						inUse = true;
+					}
 					else if (meltingTemps[i] >= activeTemps[i])
 					{
 						if (!worldObj.isRemote)
@@ -293,7 +298,7 @@ public class SmelteryLogic extends InventoryLogic
 		{
 			fuelGague = 0;
 		}
-		if (tankContainer instanceof ITankContainer)
+		if (tankContainer instanceof ITankContainer && inUse)
 		{
 			LiquidStack liquid = ((ITankContainer) tankContainer).drain(ForgeDirection.DOWN, 50, false);
 			if (liquid != null && liquid.itemID == Block.lavaStill.blockID)

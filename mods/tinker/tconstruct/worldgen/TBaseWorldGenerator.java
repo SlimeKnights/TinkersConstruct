@@ -4,6 +4,7 @@ import java.util.Random;
 
 import mods.tinker.tconstruct.PHConstruct;
 import mods.tinker.tconstruct.TContent;
+import net.minecraft.block.Block;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.feature.WorldGenMinable;
@@ -20,12 +21,12 @@ public class TBaseWorldGenerator
 		
 		//cobalt = new ManhattanOreGenerator(TContent.oreSlag.blockID, 1, 2, 4, 100, true, false, Block.netherrack.blockID);
 		//ardite = new ManhattanOreGenerator(TContent.oreSlag.blockID, 2, 2, 4, 100, true, false, Block.netherrack.blockID);
-		copper = new WorldGenMinable(TContent.oreSlag.blockID, 3, 9);
-		tin = new WorldGenMinable(TContent.oreSlag.blockID, 4, 9);
-		aluminum = new WorldGenMinable(TContent.oreSlag.blockID, 5, 16);
+		copper = new WorldGenMinable(TContent.oreSlag.blockID, 3, 9, Block.stone.blockID);
+		tin = new WorldGenMinable(TContent.oreSlag.blockID, 4, 9, Block.stone.blockID);
+		aluminum = new WorldGenMinable(TContent.oreSlag.blockID, 5, 16, Block.stone.blockID);
 		
-		cobalt = new NetherOreGenerator(TContent.oreSlag.blockID, 1, 3);
-		ardite = new NetherOreGenerator(TContent.oreSlag.blockID, 2, 3);
+		cobalt = new WorldGenMinable(TContent.oreSlag.blockID, 1, 3, Block.netherrack.blockID);
+		ardite = new WorldGenMinable(TContent.oreSlag.blockID, 2, 3, Block.netherrack.blockID);
 	}
 	
 	@Override
@@ -101,6 +102,6 @@ public class TBaseWorldGenerator
 	WorldGenMinable copper;
 	WorldGenMinable tin;
 	WorldGenMinable aluminum;
-	NetherOreGenerator cobalt;
-	NetherOreGenerator ardite;
+	WorldGenMinable cobalt;
+	WorldGenMinable ardite;
 }

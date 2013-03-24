@@ -1,18 +1,25 @@
 package mods.tinker.tconstruct.player;
 
+import java.lang.ref.WeakReference;
 import java.util.HashMap;
+import java.util.Random;
 
 import mods.tinker.tconstruct.AbilityHelper;
 import mods.tinker.tconstruct.PHConstruct;
 import mods.tinker.tconstruct.TContent;
 import mods.tinker.tconstruct.client.TProxyClient;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EnumEntitySize;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.projectile.EntityArrow;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
+import net.minecraftforge.event.entity.player.ArrowLooseEvent;
 import net.minecraftforge.event.entity.player.PlayerDropsEvent;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.IPlayerTracker;
@@ -34,11 +41,13 @@ public class TPlayerHandler implements IPlayerTracker
 			tags.setCompoundTag("TConstruct", new NBTTagCompound());
 		}
 		TPlayerStats stats = new TPlayerStats();
-		stats.player = entityplayer;
+		stats.player = new WeakReference<EntityPlayer>(entityplayer);
 		stats.level = entityplayer.experienceLevel;
 		stats.health = 20; //More hp in the future
 		stats.hunger = entityplayer.getFoodStats().getFoodLevel();
 		stats.diary = tags.getCompoundTag("TConstruct").getBoolean("diary");
+		stats.stationManual = tags.getCompoundTag("TConstruct").getBoolean("stationManual");
+		stats.smelteryManual = tags.getCompoundTag("TConstruct").getBoolean("smelteryManual");
 		if (!stats.diary)
 		{
 			tags.getCompoundTag("TConstruct").setBoolean("diary", true);
@@ -70,21 +79,26 @@ public class TPlayerHandler implements IPlayerTracker
 	{
 		//Boom!
 		TPlayerStats stats = getPlayerStats(entityplayer.username);
-		stats.player = entityplayer;
+		stats.player = new WeakReference<EntityPlayer>(entityplayer);
+		
 		if (PHConstruct.keepLevels)
 			entityplayer.experienceLevel = stats.level;
 		if (PHConstruct.keepHunger)
 			entityplayer.getFoodStats().setFoodLevel(stats.hunger);
-		NBTTagCompound tags = entityplayer.getEntityData().getCompoundTag("TConstruct");
-		tags.setBoolean("diary", stats.diary);
-		
+		NBTTagCompound tags = entityplayer.getEntityData();
+		NBTTagCompound tTag = new NBTTagCompound();
+		tTag.setBoolean("diary", stats.diary);
+		tTag.setBoolean("stationManual", stats.stationManual);
+		tTag.setBoolean("smelteryManual", stats.smelteryManual);
+		tags.setCompoundTag("TConstruct", tTag);
+
 		Side side = FMLCommonHandler.instance().getEffectiveSide();
 		if (side == Side.CLIENT)
 		{
 			TProxyClient.controlInstance.resetControls();
 		}
 	}
-	
+
 	@ForgeSubscribe
 	public void livingFall (LivingFallEvent evt) //Only for negating fall damage
 	{
@@ -98,7 +112,7 @@ public class TPlayerHandler implements IPlayerTracker
 				//System.out.println("Client side: "+evt.entityLiving.motionY);
 			}
 			//else
-				//System.out.println("Server side");
+			//System.out.println("Server side");
 
 			evt.distance -= 1;
 			//evt.distance = 0;
@@ -107,7 +121,7 @@ public class TPlayerHandler implements IPlayerTracker
 			//evt.entityLiving.motionY = 10.2;
 		}
 	}
-	
+
 	/*@ForgeSubscribe
 	public void livingUpdate (LivingUpdateEvent evt)
 	{
@@ -164,56 +178,124 @@ public class TPlayerHandler implements IPlayerTracker
 		}
 		else
 		{
-			return stats.player;
+			return stats.player.get();
 		}
 	}
-	
+
 	/* Modify Player */
-	public void updateSize(String user, float offset)
+	public void updateSize (String user, float offset)
 	{
 		/*EntityPlayer player = getEntityPlayer(user);
 		setEntitySize(0.6F, offset, player);
 		player.yOffset = offset - 0.18f;*/
 	}
-	
-	public static void setEntitySize(float width, float height, Entity entity)
-    {
-		System.out.println("Size: "+height);
-        if (width != entity.width || height != entity.height)
-        {
-            entity.width = width;
-            entity.height = height;
-            entity.boundingBox.maxX = entity.boundingBox.minX + (double)entity.width;
-            entity.boundingBox.maxZ = entity.boundingBox.minZ + (double)entity.width;
-            entity.boundingBox.maxY = entity.boundingBox.minY + (double)entity.height;
-        }
 
-        float que = width % 2.0F;
+	public static void setEntitySize (float width, float height, Entity entity)
+	{
+		System.out.println("Size: " + height);
+		if (width != entity.width || height != entity.height)
+		{
+			entity.width = width;
+			entity.height = height;
+			entity.boundingBox.maxX = entity.boundingBox.minX + (double) entity.width;
+			entity.boundingBox.maxZ = entity.boundingBox.minZ + (double) entity.width;
+			entity.boundingBox.maxY = entity.boundingBox.minY + (double) entity.height;
+		}
 
-        if ((double)que < 0.375D)
-        {
-            entity.myEntitySize = EnumEntitySize.SIZE_1;
-        }
-        else if ((double)que < 0.75D)
-        {
-            entity.myEntitySize = EnumEntitySize.SIZE_2;
-        }
-        else if ((double)que < 1.0D)
-        {
-            entity.myEntitySize = EnumEntitySize.SIZE_3;
-        }
-        else if ((double)que < 1.375D)
-        {
-            entity.myEntitySize = EnumEntitySize.SIZE_4;
-        }
-        else if ((double)que < 1.75D)
-        {
-            entity.myEntitySize = EnumEntitySize.SIZE_5;
-        }
-        else
-        {
-            entity.myEntitySize = EnumEntitySize.SIZE_6;
-        }
-        //entity.yOffset = height;
-    }
+		float que = width % 2.0F;
+
+		if ((double) que < 0.375D)
+		{
+			entity.myEntitySize = EnumEntitySize.SIZE_1;
+		}
+		else if ((double) que < 0.75D)
+		{
+			entity.myEntitySize = EnumEntitySize.SIZE_2;
+		}
+		else if ((double) que < 1.0D)
+		{
+			entity.myEntitySize = EnumEntitySize.SIZE_3;
+		}
+		else if ((double) que < 1.375D)
+		{
+			entity.myEntitySize = EnumEntitySize.SIZE_4;
+		}
+		else if ((double) que < 1.75D)
+		{
+			entity.myEntitySize = EnumEntitySize.SIZE_5;
+		}
+		else
+		{
+			entity.myEntitySize = EnumEntitySize.SIZE_6;
+		}
+		//entity.yOffset = height;
+	}
+
+	Random rand = new Random();
+
+	/* Bows */
+	@ForgeSubscribe
+	public void arrowShoot (ArrowLooseEvent event)
+	{
+		event.setCanceled(true);
+		int j = event.charge;
+
+		boolean flag = event.entityPlayer.capabilities.isCreativeMode || EnchantmentHelper.getEnchantmentLevel(Enchantment.infinity.effectId, event.bow) > 0;
+
+		if (flag || event.entityPlayer.inventory.hasItem(Item.arrow.itemID))
+		{
+			float f = (float) j / 20.0F;
+			f = (f * f + f * 2.0F) / 3.0F;
+
+			if ((double) f < 0.1D)
+			{
+				return;
+			}
+
+			if (f > 1.0F)
+			{
+				f = 1.0F;
+			}
+
+			EntityArrow entityarrow = new EntityArrow(event.entityPlayer.worldObj, event.entityPlayer, f * 2.0F);
+
+			if (f == 1.0F)
+			{
+				entityarrow.setIsCritical(true);
+			}
+
+			int k = EnchantmentHelper.getEnchantmentLevel(Enchantment.power.effectId, event.bow);
+
+			entityarrow.setDamage(1.5D + k * 0.45D);
+
+			int l = EnchantmentHelper.getEnchantmentLevel(Enchantment.punch.effectId, event.bow);
+
+			if (l > 0)
+			{
+				entityarrow.setKnockbackStrength(l);
+			}
+
+			if (EnchantmentHelper.getEnchantmentLevel(Enchantment.flame.effectId, event.bow) > 0)
+			{
+				entityarrow.setFire(100);
+			}
+
+			event.bow.damageItem(1, event.entityPlayer);
+			event.entityPlayer.worldObj.playSoundAtEntity(event.entityPlayer, "random.bow", 1.0F, 1.0F / (rand.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
+
+			if (flag)
+			{
+				entityarrow.canBePickedUp = 2;
+			}
+			else
+			{
+				event.entityPlayer.inventory.consumeInventoryItem(Item.arrow.itemID);
+			}
+
+			if (!event.entityPlayer.worldObj.isRemote)
+			{
+				event.entityPlayer.worldObj.spawnEntityInWorld(entityarrow);
+			}
+		}
+	}
 }
