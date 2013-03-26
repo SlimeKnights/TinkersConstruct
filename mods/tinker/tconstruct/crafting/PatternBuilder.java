@@ -32,7 +32,6 @@ public class PatternBuilder
 		materials.add(new ItemKey(shard.getItem(), shard.getItemDamage(), 1, key));
 	}
 
-	// 1 + 2 = EVERYTHING
 	public void registerFullMaterial (ItemStack material, int value, String key, ItemStack shard, ItemStack rod, int materialID)
 	{
 		materials.add(new ItemKey(material.getItem(), material.getItemDamage(), value, key));

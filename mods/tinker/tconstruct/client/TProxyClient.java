@@ -166,12 +166,12 @@ public class TProxyClient extends TProxyCommon
 
 		//LanguageRegistry.addName(TContent.manualBook, "Tinker's Log");
 
-		LanguageRegistry.instance().addStringLocalization("entity.TConstruct.UnstableCreeper.name", "en_US", "Unstable Creeper");
+		LanguageRegistry.instance().addStringLocalization("entity.TConstruct.UnstableCreeper.name", "en_US", "Nitro Creeper");
 		LanguageRegistry.instance().addStringLocalization("entity.TConstruct.EdibleSlime.name", "en_US", "Blue Slime");
 		LanguageRegistry.instance().addStringLocalization("entity.TConstruct.MetalSlime.name", "en_US", "Metal Slime");
 		//LanguageRegistry.instance().addStringLocalization("item.tconstruct.diary.diary.name", "en_US", "Tinker's Log");
 		LanguageRegistry.instance().addStringLocalization("item.tconstruct.Pattern.blank_pattern.name", "en_US", "Blank Pattern");
-		LanguageRegistry.instance().addStringLocalization("item.tconstruct.Pattern.blank_cast.name", "en_US", "Cast");
+		LanguageRegistry.instance().addStringLocalization("item.tconstruct.Pattern.blank_cast.name", "en_US", "Blank Cast");
 		//LanguageRegistry.addName(TContent.blankPattern, "Blank Pattern");
 		LanguageRegistry.addName(TContent.pickaxe, "Pickaxe");
 		LanguageRegistry.addName(TContent.shovel, "Shovel");

@@ -40,7 +40,6 @@ public class PartCrafterLogic extends InventoryLogic
 				TileEntity tile = world.getBlockTileEntity(xPos, y, zPos);
 				if (tile != null && tile instanceof PatternChestLogic)
 					return new PartCrafterChestContainer(inventoryplayer, this, (PatternChestLogic)tile);
-					//return ((PatternHolderLogic) tile).getGuiContainer(player.inventory, world, x, y, z);
 			}
 		}
 		return new PartCrafterContainer(inventoryplayer, this);
@@ -117,7 +116,7 @@ public class PartCrafterLogic extends InventoryLogic
 
 	void buildTopPart ()
 	{
-		ItemStack[] parts = PatternBuilder.instance.getToolPart(inventory[2], inventory[0], inventory[2]);
+		ItemStack[] parts = PatternBuilder.instance.getToolPart(inventory[2], inventory[0], inventory[1]);
 		if (parts != null)
 		{
 			inventory[4] = parts[0];
@@ -141,16 +140,6 @@ public class PartCrafterLogic extends InventoryLogic
 		{
 			inventory[6] = inventory[7] = null;
 		}
-	}
-
-	public boolean shouldRemoveItemsForCrafting (int slot)
-	{
-		if ((slot == 4 || slot == 5) && craftedTop)
-			return false;
-		if ((slot == 6 || slot == 7) && craftedBottom)
-			return false;
-
-		return true;
 	}
 
 	/* NBT */

@@ -25,7 +25,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
  * @author: mDiyo
  */
 
-@Mod(modid = "TConstruct", name = "TConstruct", version = "1.5.1_1.2.3")
+@Mod(modid = "TConstruct", name = "TConstruct", version = "1.5.1_1.2.7")
 @NetworkMod(serverSideRequired = false, clientSideRequired = true, channels = { "TConstruct" }, packetHandler = mods.tinker.tconstruct.TPacketHandler.class)
 public class TConstruct
 {
@@ -35,15 +35,13 @@ public class TConstruct
 	/* Instance of this mod, used for grabbing prototype fields */
 	@Instance("TConstruct")
 	public static TConstruct instance;
-	/* Proxies for sides, used for graphics processing */
+	/* Proxies for sides, used for graphics processing */  
 	@SidedProxy(clientSide = "mods.tinker.tconstruct.client.TProxyClient", serverSide = "mods.tinker.tconstruct.TProxyCommon")
 	public static TProxyCommon proxy;
 	
 	public TConstruct()
 	{
 		//Take that, any mod that does ore dictionary registration in preinit!
-		events = new TEventHandler();
-		MinecraftForge.EVENT_BUS.register(events);
 	}
 
 	@PreInit
@@ -54,6 +52,10 @@ public class TConstruct
 		TConstructRegistry.toolTab = new TabTools("TConstructTools");
 		TConstructRegistry.blockTab = new TabTools("TConstructBlocks");
 		content = new TContent();
+
+		events = new TEventHandler();
+		MinecraftForge.EVENT_BUS.register(events);
+		events.unfuxOreDictionary();
 
 		proxy.registerRenderer();
 		proxy.addNames();

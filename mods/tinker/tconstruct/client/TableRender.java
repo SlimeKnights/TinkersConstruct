@@ -42,7 +42,6 @@ public class TableRender implements ISimpleBlockRenderingHandler
 	@Override
 	public boolean renderWorldBlock (IBlockAccess world, int x, int y, int z, Block block, int modelID, RenderBlocks renderer)
 	{
-		System.out.println("Rendering Table Block");
 		if (modelID == tabelModelID)
 		{
 			int metadata = world.getBlockMetadata(x, y, z);

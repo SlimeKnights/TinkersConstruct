@@ -35,6 +35,7 @@ public class SmelteryGui extends GuiContainer
 		super(smeltery.getGuiContainer(inventoryplayer, world, x, y, z));
 		logic = smeltery;
 		username = inventoryplayer.player.username;
+		xSize = 248;
 	}
 
 	public void drawScreen (int mouseX, int mouseY, float par3)
@@ -114,17 +115,17 @@ public class SmelteryGui extends GuiContainer
 
 	protected void drawGuiContainerForegroundLayer (int par1, int par2)
 	{
-		fontRenderer.drawString(StatCollector.translateToLocal("crafters.Smeltery"), 50, 5, 0x404040);
-		fontRenderer.drawString(StatCollector.translateToLocal("container.inventory"), 50, (ySize - 96) + 2, 0x404040);
+		fontRenderer.drawString(StatCollector.translateToLocal("crafters.Smeltery"), 86, 5, 0x404040);
+		fontRenderer.drawString(StatCollector.translateToLocal("container.inventory"), 90, (ySize - 96) + 2, 0x404040);
 	}
 
 	protected void drawGuiContainerBackgroundLayer (float f, int i, int j)
 	{
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 		mc.renderEngine.bindTexture("/mods/tinker/textures/gui/smeltery.png");
-		int cornerX = (width - xSize) / 2;
+		int cornerX = (width - xSize) / 2 + 36;
 		int cornerY = (height - ySize) / 2;
-		drawTexturedModalRect(cornerX + 46, cornerY, 0, 0, xSize, ySize);
+		drawTexturedModalRect(cornerX + 46, cornerY, 0, 0, 176, ySize);
 
 		//Fuel - Lava
 		if (logic.fuelGague > 0)
@@ -192,7 +193,7 @@ public class SmelteryGui extends GuiContainer
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
 		mc.renderEngine.bindTexture("/mods/tinker/textures/gui/smeltery.png");
-		drawTexturedModalRect(cornerX + 54, cornerY + 16, xSize, 76, 52, 52);
+		drawTexturedModalRect(cornerX + 54, cornerY + 16, 176, 76, 52, 52);
 		//drawTexturedModalRect(cornerX+111, cornerY+16, xSize, 128, 52, 52);
 
 		//Side inventory

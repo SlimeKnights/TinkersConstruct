@@ -85,7 +85,6 @@ public class ToolMaterial
     
     public String style()
     {
-    	System.out.println("Style: "+this.tipStyle);
     	return this.tipStyle;
     }
     

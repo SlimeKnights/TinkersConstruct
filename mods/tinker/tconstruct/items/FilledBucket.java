@@ -161,7 +161,7 @@ public class FilledBucket extends ItemBucket
 	@SideOnly(Side.CLIENT)
     public void updateIcons(IconRegister iconRegister)
     {
-		this.icons = new Icon[materialNames.length];
+		this.icons = new Icon[textureNames.length];
 
         for (int i = 0; i < this.icons.length; ++i)
         {
@@ -180,6 +180,5 @@ public class FilledBucket extends ItemBucket
 		"Manganese", "Heptazion", "DSteel", "Angmallen"};
 	
 	public static final String[] textureNames = new String[] { 
-		"iron", "gold", "copper", "tin", "aluminum", "cobalt", "ardite", "bronze", "alubrass", "manyullyn", "alumite", "obsidian", "steel",
-		"manganese", "heptazion", "dsteel", "angmallen"};
+		"iron", "gold", "copper", "tin", "aluminum", "cobalt", "ardite", "bronze", "alubrass", "manyullyn", "alumite", "obsidian", "steel" };
 }
