@@ -69,10 +69,10 @@ public class TEventHandler
 			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 4, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 2, 750, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 9));
 		}
 		
-		/*else if (evt.Name == "ingotAluminum")
+		else if (evt.Name == "ingotNaturalAluminum")
 		{
 			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 4, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 6, 250, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 4));
-		}*/
+		}
 		
 		else if (evt.Name == "naturalAluminum")
 		{
@@ -274,6 +274,12 @@ public class TEventHandler
 		}
 		
 		ores = OreDictionary.getOres("naturalAluminum");
+		for (ItemStack ore : ores)
+		{
+			Smeltery.addMelting(new ItemStack(ore.itemID, 4, ore.getItemDamage()), TContent.metalBlock.blockID, 6, 250, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 4));
+		}
+		
+		ores = OreDictionary.getOres("ingotNaturalAluminum");
 		for (ItemStack ore : ores)
 		{
 			Smeltery.addMelting(new ItemStack(ore.itemID, 4, ore.getItemDamage()), TContent.metalBlock.blockID, 6, 250, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 4));

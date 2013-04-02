@@ -54,6 +54,9 @@ public class PHConstruct {
         enableTCactus = config.get("Difficulty Changes", "Enable mod cactus tools", true).getBoolean(true);
         enableTBone = config.get("Difficulty Changes", "Enable mod bone tools", true).getBoolean(true);
         
+        unstableCreeper = config.get("Mob Spawning", "Activate Nitro Creeper Spawns", true).getBoolean(true);
+        blueSlime = config.get("Mob Spawning", "Activate Blue Slime Spawns", true).getBoolean(true);
+        
         woodCrafter = config.getBlock("Wood Tool Station", 1471).getInt(1471);
         heldItemBlock = config.getBlock("Held Item Block", 1472).getInt(1472);
         lavaTank = config.getBlock("Lava Tank", 1473).getInt(1473);
@@ -231,6 +234,10 @@ public class PHConstruct {
     public static int aluminumHeight;
     public static int aluminumRange;
     public static int netherDensity;
+    
+    //Mobs
+    public static boolean unstableCreeper;
+    public static boolean blueSlime;
     
     //Difficulty modifiers
     public static boolean keepHunger;

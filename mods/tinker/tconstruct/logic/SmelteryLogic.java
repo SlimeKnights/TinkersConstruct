@@ -163,7 +163,10 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 
 	public int getScaledFuelGague (int scale)
 	{
-		return (fuelGague * scale) / 52;
+		int ret = (fuelGague * scale) / 52;
+		if (ret < 1)
+			ret = 1;
+		return ret;
 	}
 
 	public int getInternalTemperature ()
@@ -218,7 +221,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 						activeTemps[i] += 1;
 						inUse = true;
 					}
-					else if (meltingTemps[i] >= activeTemps[i])
+					else if (activeTemps[i] >= meltingTemps[i])
 					{
 						if (!worldObj.isRemote)
 						{

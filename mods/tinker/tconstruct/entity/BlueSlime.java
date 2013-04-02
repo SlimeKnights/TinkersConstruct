@@ -30,25 +30,25 @@ public class BlueSlime extends EntityLiving implements IMob
 		this.texture = "/mods/tinker/textures/mob/slimeedible.png";
 		int i = 1 << Math.max(1, this.rand.nextInt(4));
 		this.yOffset = 0.0F;
-		this.slimeJumpDelay = this.rand.nextInt(20) + 10;
+		this.slimeJumpDelay = this.rand.nextInt(120) + 40;
 		this.setSlimeSize(i);
 		this.jumpMovementFactor = 0.004F * i + 0.01F;
 	}
-	
-	protected void damageEntity(DamageSource damageSource, int damage)
-    {
-    	//Minecraft.getMinecraft().getLogAgent().logInfo("Damage: "+damage);
+
+	protected void damageEntity (DamageSource damageSource, int damage)
+	{
+		//Minecraft.getMinecraft().getLogAgent().logInfo("Damage: "+damage);
 		if (damageSource.damageType.equals("arrow"))
-			damage = damage/2;
+			damage = damage / 2;
 		super.damageEntity(damageSource, damage);
-    }
-	
+	}
+
 	/*public boolean attackEntityFrom(DamageSource damageSource, int damage)
-    {
+	{
 		if (damageSource.damageType.equals("arrow") && rand.nextInt(5) == 0)
 			return false;
 		return super.attackEntityFrom(damageSource, damage);
-    }*/
+	}*/
 
 	@Override
 	public void initCreature ()
@@ -63,12 +63,12 @@ public class BlueSlime extends EntityLiving implements IMob
 		}
 
 	}
-	
+
 	@Override
-	public double getMountedYOffset()
-    {
+	public double getMountedYOffset ()
+	{
 		return this.height * 0.3;
-    }
+	}
 
 	protected void jump ()
 	{
@@ -218,10 +218,10 @@ public class BlueSlime extends EntityLiving implements IMob
 				TConstruct.proxy.spawnParticle(this.getSlimeParticle(), this.posX + (double) xPos, this.boundingBox.minY, this.posZ + (double) zPos, 0.0D, 0.0D, 0.0D);
 			}
 
-			//if (this.makesSoundOnLand())
-			//{
-			this.playSound(this.getJumpSound(), this.getSoundVolume(), ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F) / 0.8F);
-			//}
+			if (this.makesSoundOnLand())
+			{
+				this.playSound(this.getJumpSound(), this.getSoundVolume(), ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F) / 0.8F);
+			}
 
 			this.field_70813_a = -0.5F;
 		}
@@ -264,7 +264,7 @@ public class BlueSlime extends EntityLiving implements IMob
 
 			if (entityplayer != null)
 			{
-				this.slimeJumpDelay /= 3;
+				this.slimeJumpDelay /= 12;
 			}
 
 			this.isJumping = true;
@@ -298,7 +298,7 @@ public class BlueSlime extends EntityLiving implements IMob
 	 */
 	protected int getJumpDelay ()
 	{
-		return this.rand.nextInt(20) + 10;
+		return this.rand.nextInt(120) + 40;
 	}
 
 	protected BlueSlime createInstance ()
@@ -330,7 +330,7 @@ public class BlueSlime extends EntityLiving implements IMob
 	{
 		int j = this.getDropItemId();
 
-		if (j > 0)
+		if (j > 0 && rand.nextInt(2) == 0)
 		{
 			int k = rand.nextInt(3) + rand.nextInt(this.getSlimeSize());
 
@@ -408,7 +408,7 @@ public class BlueSlime extends EntityLiving implements IMob
 	 */
 	protected float getSoundVolume ()
 	{
-		return 0.4F * (float) this.getSlimeSize();
+		return Math.min(0.05F * (float) this.getSlimeSize(), 0.3f);
 	}
 
 	/**
@@ -431,8 +431,8 @@ public class BlueSlime extends EntityLiving implements IMob
 	/**
 	 * Returns true if the slime makes a sound when it lands after a jump (based upon the slime's size)
 	 */
-	/*protected boolean makesSoundOnLand ()
+	protected boolean makesSoundOnLand ()
 	{
 		return this.getSlimeSize() > 2;
-	}*/
+	}
 }

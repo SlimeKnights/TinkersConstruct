@@ -128,7 +128,7 @@ public class AbilityHelper
                     if (broken)
                     	damage = 1;
                     boolean causedDamage = false;
-                    if (tool.pierceArmor())
+                    if (tool.pierceArmor() && !broken)
                     	causedDamage = entity.attackEntityFrom(causePlayerPiercingDamage(player), damage);
                     else
                     	causedDamage = entity.attackEntityFrom(DamageSource.causePlayerDamage(player), damage);
@@ -264,8 +264,11 @@ public class AbilityHelper
 			{
 				tags.getCompoundTag("InfiTool").setInteger("Damage", damage + dam);
 				int toolDamage = damage * 100 / maxDamage;
-				int stackDamage = stack.getItemDamage();
-				stack.setItemDamage(damage * 100 / maxDamage);
+				//int stackDamage = stack.getItemDamage();
+				if (damage + dam <= 0)
+					stack.setItemDamage(0);
+				else
+					stack.setItemDamage(damage * 100 / maxDamage + 1);
 			}
 
 			//stack.setItemDamage(1 + (maxDamage - damage) * (stack.getMaxDamage() - 1) / maxDamage);

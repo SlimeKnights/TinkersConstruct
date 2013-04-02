@@ -24,11 +24,11 @@ public class PHArmory
         try
         {
             newFile.createNewFile();
-            System.out.println("Successfully read configuration file for mod_FloraBerries");
+            System.out.println("Successfully read configuration file for mod_NBerries");
         }
         catch (IOException e)
         {
-            System.out.println("Could not read configuration file for mod_FloraBerries. Reason:");
+            System.out.println("Could not read configuration file for mod_NBerries. Reason:");
             System.out.println(e);
         }
 

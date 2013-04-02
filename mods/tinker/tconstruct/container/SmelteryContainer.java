@@ -65,20 +65,20 @@ public class SmelteryContainer extends Container
 			
 			for (int y = 0; y < 8; y++)
 				for (int x = 0; x < 3; x++)
-					this.addSlotToContainer(new Slot(logic, x + y*3 + invRow*3, -34 + x * 22, 8 + y * 18));
+					this.addSlotToContainer(new Slot(logic, x + y*3 + invRow*3, 2 + x * 22, 8 + y * 18));
 			
 			/* Player inventory */
 			for (int column = 0; column < 3; column++)
 			{
 				for (int row = 0; row < 9; row++)
 				{
-					this.addSlotToContainer(new Slot(playerInv, row + column * 9 + 9, 54 + row * 18, 84 + column * 18));
+					this.addSlotToContainer(new Slot(playerInv, row + column * 9 + 9, 90 + row * 18, 84 + column * 18));
 				}
 			}
 
 			for (int column = 0; column < 9; column++)
 			{
-				this.addSlotToContainer(new Slot(playerInv, column, 54 + column * 18, 142));
+				this.addSlotToContainer(new Slot(playerInv, column, 90 + column * 18, 142));
 			}
 			return slotRow;
 		}

@@ -57,7 +57,7 @@ public class PartCrafterGui extends GuiContainer
 			topMaterial = top;
 			int topID = PatternBuilder.instance.getPartID(top);
 			
-			if (topID != -1)
+			if (topID != Short.MAX_VALUE)
 			{
 				topEnum = TConstructRegistry.getMaterial(topID);
 				hasTop = true;
@@ -72,7 +72,7 @@ public class PartCrafterGui extends GuiContainer
 			bottomMaterial = bottom;
 			int bottomID = PatternBuilder.instance.getPartID(bottom);
 			
-			if (bottomID != -1)
+			if (bottomID != Short.MAX_VALUE)
 			{
 				bottomEnum = TConstructRegistry.getMaterial(bottomID);
 				hasBottom = true;

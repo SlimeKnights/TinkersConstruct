@@ -84,7 +84,7 @@ public class TPlayerHandler implements IPlayerTracker
 		if (PHConstruct.keepLevels)
 			entityplayer.experienceLevel = stats.level;
 		if (PHConstruct.keepHunger)
-			entityplayer.getFoodStats().setFoodLevel(stats.hunger);
+			entityplayer.getFoodStats().addStats(-1*(20 - stats.hunger), 0);
 		NBTTagCompound tags = entityplayer.getEntityData();
 		NBTTagCompound tTag = new NBTTagCompound();
 		tTag.setBoolean("diary", stats.diary);
@@ -95,7 +95,9 @@ public class TPlayerHandler implements IPlayerTracker
 		Side side = FMLCommonHandler.instance().getEffectiveSide();
 		if (side == Side.CLIENT)
 		{
-			TProxyClient.controlInstance.resetControls();
+			//TProxyClient.controlInstance.resetControls();
+			if (PHConstruct.keepHunger)
+				entityplayer.getFoodStats().setFoodLevel(stats.hunger);
 		}
 	}
 
@@ -104,13 +106,11 @@ public class TPlayerHandler implements IPlayerTracker
 	{
 		if (evt.entityLiving instanceof EntityPlayer)
 		{
-			Side side = FMLCommonHandler.instance().getEffectiveSide();
+			/*Side side = FMLCommonHandler.instance().getEffectiveSide();
 			if (side == Side.CLIENT)
 			{
 				TProxyClient.controlInstance.landOnGround();
-
-				//System.out.println("Client side: "+evt.entityLiving.motionY);
-			}
+			}*/
 			//else
 			//System.out.println("Server side");
 

@@ -25,7 +25,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
  * @author: mDiyo
  */
 
-@Mod(modid = "TConstruct", name = "TConstruct", version = "1.5.1_1.2.7")
+@Mod(modid = "TConstruct", name = "TConstruct", version = "1.5.1_1.2.12")
 @NetworkMod(serverSideRequired = false, clientSideRequired = true, channels = { "TConstruct" }, packetHandler = mods.tinker.tconstruct.TPacketHandler.class)
 public class TConstruct
 {
@@ -60,7 +60,7 @@ public class TConstruct
 		proxy.registerRenderer();
 		proxy.addNames();
 		proxy.readManuals();
-		proxy.registerKeys();
+		//proxy.registerKeys();
 	}
 
 	@Init
