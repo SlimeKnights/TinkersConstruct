@@ -1,5 +1,7 @@
 package mods.tinker.tconstruct.container;
 
+import java.util.Random;
+
 import mods.tinker.tconstruct.library.ToolCore;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -11,6 +13,7 @@ public class SlotTool extends Slot
 {
     /** The player that is using the GUI where this slot resides. */
     private EntityPlayer player;
+    Random random = new Random();
     
     public SlotTool(EntityPlayer entityplayer, IInventory builder, int par3, int par4, int par5)
     {
@@ -55,6 +58,7 @@ public class SlotTool extends Slot
 			for (int i = 1; i <= 3; i++)
 				inventory.decrStackSize(i, 1);
 			if (!player.worldObj.isRemote)
+	    		//player.worldObj.playSoundEffect(player.posX, player.posY, player.posZ, "crafting.saw", 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
 				player.worldObj.playAuxSFX(1021, (int)player.posX, (int)player.posY, (int)player.posZ, 0);
 		}
     }

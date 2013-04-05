@@ -192,6 +192,7 @@ public class TProxyClient extends TProxyCommon
 		LanguageRegistry.addName(TContent.frypan, "Frying Pan");
 		LanguageRegistry.addName(TContent.battlesign, "Battlesign");
 		LanguageRegistry.addName(TContent.mattock, "Mattock");
+		LanguageRegistry.addName(TContent.potionLauncher, "Potion Launcher");
 		//LanguageRegistry.addName(TContent.lumberaxe, "Lumber Axe");
 
 		addToolButtons();

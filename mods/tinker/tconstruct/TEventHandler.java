@@ -1,21 +1,16 @@
 package mods.tinker.tconstruct;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 import mods.tinker.tconstruct.crafting.PatternBuilder;
 import mods.tinker.tconstruct.crafting.Smeltery;
 import mods.tinker.tconstruct.logic.LiquidTextureLogic;
-import net.minecraft.client.Minecraft;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumMovingObjectType;
+import net.minecraftforge.client.event.sound.SoundLoadEvent;
 import net.minecraftforge.event.Event.Result;
 import net.minecraftforge.event.ForgeSubscribe;
-import net.minecraftforge.event.entity.player.ArrowLooseEvent;
 import net.minecraftforge.event.entity.player.FillBucketEvent;
 import net.minecraftforge.liquids.LiquidStack;
 import net.minecraftforge.oredict.OreDictionary;
@@ -23,6 +18,22 @@ import net.minecraftforge.oredict.OreDictionary.OreRegisterEvent;
 
 public class TEventHandler
 {
+	/* Sounds */
+    @ForgeSubscribe
+    public void onSound(SoundLoadEvent event)
+    {
+    	try
+        {
+            event.manager.soundPoolSounds.addSound("hit.frypan", TConstruct.class.getResource("/mods/tinker/resources/sounds/frypan_hit.ogg"));
+            event.manager.soundPoolSounds.addSound("crafting.saw", TConstruct.class.getResource("/mods/tinker/resources/sounds/little_saw.ogg"));
+            System.out.println("[TConstruct] Successfully loaded sounds.");
+        }
+        catch (Exception e)
+        {
+            System.err.println("[TConstruct] Failed to register one or more sounds");
+        }
+    }
+    
 	/* Ore Dictionary */
 	@ForgeSubscribe
 	public void registerOre (OreRegisterEvent evt)

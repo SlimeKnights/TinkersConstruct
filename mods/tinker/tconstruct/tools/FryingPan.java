@@ -25,10 +25,9 @@ public class FryingPan extends Weapon
 	@Override
 	public boolean hitEntity(ItemStack stack, EntityLiving mob, EntityLiving player)
 	{
-		//AbilityHelper.hitEntity(stack, mob, player, damageVsEntity);
 		AbilityHelper.knockbackEntity(mob, 1.7f);
 		mob.addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 100, 0)); //5 seconds of stun
-		//Play "thunk" sfx
+		player.worldObj.playSoundEffect(mob.posX, mob.posY, mob.posZ, "hit.frypan", 1.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F);
 		return true;
 	}
 	
@@ -39,6 +38,7 @@ public class FryingPan extends Weapon
 	
 	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float clickX, float clickY, float clickZ)
     {
+		player.worldObj.playSoundEffect(player.posX, player.posY, player.posZ, "hit.frypan", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
         if (side == 0 || !player.isSneaking())
         {
             return false;

@@ -332,7 +332,7 @@ public class TContent implements IFuelHandler
 		//longbow = new RangedWeapon(PHConstruct.longbow);
 		mattock = new Mattock(PHConstruct.mattock);
 		//lumberaxe = new LumberAxe(PHConstruct.lumberaxe, lumberaxeTexture);
-		potionLauncher = new PotionLauncher(PHConstruct.potionLauncher);
+		potionLauncher = new PotionLauncher(PHConstruct.potionLauncher).setUnlocalizedName("tconstruct.PotionLauncher");
 
 		pickaxeHead = new ToolPart(PHConstruct.pickaxeHead, "PickaxeHead", "_pickaxe_head").setUnlocalizedName("tconstruct.PickaxeHead");
 		shovelHead = new ToolPart(PHConstruct.shovelHead, "ShovelHead", "_shovel_head").setUnlocalizedName("tconstruct.ShovelHead");
