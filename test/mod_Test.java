@@ -5,6 +5,7 @@ import javax.script.ScriptException;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemFood;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
 import cpw.mods.fml.common.Mod.PostInit;
@@ -24,13 +25,14 @@ public class mod_Test
 {
 	public static Item xinstick;
 	public static Item TArmorChestplate;
+	public static Item negaFood;
 	public KeyBinding grabKey;
 	EntityPlayer player;
 
 	@PreInit
 	public void preInit(FMLPreInitializationEvent evt)
 	{
-		System.out.println("Test!");
+		//System.out.println("Test!");
 	}
 	
 	@Init
@@ -67,6 +69,8 @@ public class mod_Test
 	static
 	{
 		xinstick = new XinStick(10000).setUnlocalizedName("xinstick");
-		LanguageRegistry.addName(xinstick, "XinRecord");
+		negaFood = new NegaFood().setUnlocalizedName("negaFood");
+		LanguageRegistry.addName(xinstick, "XinBroken");
+		LanguageRegistry.addName(negaFood, "Negafood");
 	}
 }

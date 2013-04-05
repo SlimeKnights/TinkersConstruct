@@ -253,15 +253,15 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
 
 			if (power != 0)
 			{
-				if (power <= this.getMaxCharge() / 3)
+				if (power <= this.getMaxCharge(stack) / 3)
 					color = "\u00a74";
-				else if (power > this.getMaxCharge() * 2 / 3)
+				else if (power > this.getMaxCharge(stack) * 2 / 3)
 					color = "\u00a72";
 				else
 					color = "\u00a76";
 			}
 
-			String charge = new StringBuilder().append(color).append(tags.getInteger("charge")).append("/").append(getMaxCharge()).append(" En").toString();
+			String charge = new StringBuilder().append(color).append(tags.getInteger("charge")).append("/").append(getMaxCharge(stack)).append(" En").toString();
 			list.add(charge);
 		}
 		if (tags.hasKey("InfiTool"))
@@ -557,37 +557,37 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
 	}
 
 	@Override
-	public boolean canProvideEnergy ()
+	public boolean canProvideEnergy (ItemStack itemStack)
 	{
 		return true;
 	}
 
 	@Override
-	public int getChargedItemId ()
+	public int getChargedItemId (ItemStack itemStack)
 	{
 		return this.itemID;
 	}
 
 	@Override
-	public int getEmptyItemId ()
+	public int getEmptyItemId (ItemStack itemStack)
 	{
 		return this.itemID;
 	}
 
 	@Override
-	public int getMaxCharge ()
+	public int getMaxCharge (ItemStack itemStack)
 	{
 		return 10000;
 	}
 
 	@Override
-	public int getTier ()
+	public int getTier (ItemStack itemStack)
 	{
 		return 0;
 	}
 
 	@Override
-	public int getTransferLimit ()
+	public int getTransferLimit (ItemStack itemStack)
 	{
 		return 32;
 	}
@@ -601,16 +601,16 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
 
 		if (amount > 0)
 		{
-			if (amount > getTransferLimit() && !ignoreTransferLimit)
+			if (amount > getTransferLimit(stack) && !ignoreTransferLimit)
 			{
-				amount = getTransferLimit();
+				amount = getTransferLimit(stack);
 			}
 
 			int charge = tags.getInteger("charge");
 
-			if (amount > getMaxCharge() - charge)
+			if (amount > getMaxCharge(stack) - charge)
 			{
-				amount = getMaxCharge() - charge;
+				amount = getMaxCharge(stack) - charge;
 			}
 
 			charge += amount;
@@ -618,7 +618,7 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
 			if (!simulate)
 			{
 				tags.setInteger("charge", charge);
-				stack.setItemDamage(1 + (getMaxCharge() - charge) * (stack.getMaxDamage() - 2) / getMaxCharge());
+				stack.setItemDamage(1 + (getMaxCharge(stack) - charge) * (stack.getMaxDamage() - 2) / getMaxCharge(stack));
 			}
 
 			return amount;
@@ -637,9 +637,9 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
 
 		if (amount > 0)
 		{
-			if (amount > getTransferLimit() && !ignoreTransferLimit)
+			if (amount > getTransferLimit(stack) && !ignoreTransferLimit)
 			{
-				amount = getTransferLimit();
+				amount = getTransferLimit(stack);
 			}
 
 			int charge = tags.getInteger("charge");
@@ -654,7 +654,7 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
 			if (!simulate)
 			{
 				tags.setInteger("charge", charge);
-				stack.setItemDamage(1 + (getMaxCharge() - charge) * (stack.getMaxDamage() - 1) / getMaxCharge());
+				stack.setItemDamage(1 + (getMaxCharge(stack) - charge) * (stack.getMaxDamage() - 1) / getMaxCharge(stack));
 			}
 
 			return amount;
@@ -663,15 +663,15 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
 		else
 			return 0;
 	}
-
+	
 	@Override
-	public boolean canUse (ItemStack itemStack, int amount)
+	public boolean canShowChargeToolTip (ItemStack itemStack)
 	{
 		return false;
 	}
-
+	
 	@Override
-	public boolean canShowChargeToolTip (ItemStack itemStack)
+	public boolean canUse (ItemStack itemStack, int amount)
 	{
 		return false;
 	}

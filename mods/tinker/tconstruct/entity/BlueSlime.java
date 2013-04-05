@@ -28,11 +28,14 @@ public class BlueSlime extends EntityLiving implements IMob
 	{
 		super(world);
 		this.texture = "/mods/tinker/textures/mob/slimeedible.png";
-		int i = 1 << Math.max(1, this.rand.nextInt(4));
+		int offset = Math.max(1, this.rand.nextInt(4));
+		if (offset >= 3)
+			offset--;
+		int size = 1 << offset;
 		this.yOffset = 0.0F;
 		this.slimeJumpDelay = this.rand.nextInt(120) + 40;
-		this.setSlimeSize(i);
-		this.jumpMovementFactor = 0.004F * i + 0.01F;
+		this.setSlimeSize(size);
+		this.jumpMovementFactor = 0.004F * size + 0.01F;
 	}
 
 	protected void damageEntity (DamageSource damageSource, int damage)
@@ -128,7 +131,7 @@ public class BlueSlime extends EntityLiving implements IMob
 				this.worldObj.skylightSubtracted = i1;
 			}
 
-			return light <= this.rand.nextInt(10);
+			return light <= this.rand.nextInt(8);
 		}
 	}
 

@@ -10,7 +10,7 @@ public class UnstableCreeper extends EntityCreeper
 	protected int timeSinceIgnited;
 	protected int lastActiveTime;
 
-    protected int explosionRadius = 3;
+    protected float explosionRadius = 1.5f;
 
 	public UnstableCreeper(World world)
 	{
@@ -31,11 +31,11 @@ public class UnstableCreeper extends EntityCreeper
 
 			if (this.getPowered())
 			{
-				this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, (float) (this.explosionRadius * 2), flag);
+				this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, (float) (this.explosionRadius + 0.75f * (worldObj.difficultySetting-1))* 2, false);
 			}
 			else
 			{
-				this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, (float) this.explosionRadius, flag);
+				this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, (float) (this.explosionRadius + 0.75f * (worldObj.difficultySetting-1)), false);
 			}
 
 			this.setDead();
@@ -87,11 +87,11 @@ public class UnstableCreeper extends EntityCreeper
 
 					if (this.getPowered())
 					{
-						this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, (float) (this.explosionRadius * 2), flag);
+						this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, (float) (this.explosionRadius + 0.75f * (worldObj.difficultySetting-1))* 2, flag);
 					}
 					else
 					{
-						this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, (float) this.explosionRadius, flag);
+						this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, (float) (this.explosionRadius + 0.75f * (worldObj.difficultySetting-1)), flag);
 					}
 
 					this.setDead();

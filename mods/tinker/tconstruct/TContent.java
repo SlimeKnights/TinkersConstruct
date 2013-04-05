@@ -7,14 +7,72 @@ import java.util.List;
 import mods.tinker.common.IPattern;
 import mods.tinker.common.RecipeRemover;
 import mods.tinker.common.fancyitem.FancyEntityItem;
-import mods.tinker.tconstruct.blocks.*;
-import mods.tinker.tconstruct.crafting.*;
-import mods.tinker.tconstruct.entity.*;
-import mods.tinker.tconstruct.items.*;
-import mods.tinker.tconstruct.library.*;
-import mods.tinker.tconstruct.logic.*;
-import mods.tinker.tconstruct.modifiers.*;
-import mods.tinker.tconstruct.tools.*;
+import mods.tinker.tconstruct.blocks.EquipBlock;
+import mods.tinker.tconstruct.blocks.LavaTankBlock;
+import mods.tinker.tconstruct.blocks.LiquidMetalFlowing;
+import mods.tinker.tconstruct.blocks.LiquidMetalStill;
+import mods.tinker.tconstruct.blocks.MetalOre;
+import mods.tinker.tconstruct.blocks.SearedBlock;
+import mods.tinker.tconstruct.blocks.SmelteryBlock;
+import mods.tinker.tconstruct.blocks.TConstructBlock;
+import mods.tinker.tconstruct.blocks.ToolStationBlock;
+import mods.tinker.tconstruct.crafting.LiquidCasting;
+import mods.tinker.tconstruct.crafting.PatternBuilder;
+import mods.tinker.tconstruct.crafting.Smeltery;
+import mods.tinker.tconstruct.crafting.ToolBuilder;
+import mods.tinker.tconstruct.entity.BlueSlime;
+import mods.tinker.tconstruct.entity.Crystal;
+import mods.tinker.tconstruct.entity.LaunchedPotion;
+import mods.tinker.tconstruct.entity.UnstableCreeper;
+import mods.tinker.tconstruct.items.CraftedSoilItemBlock;
+import mods.tinker.tconstruct.items.CraftingItem;
+import mods.tinker.tconstruct.items.FilledBucket;
+import mods.tinker.tconstruct.items.LavaTankItemBlock;
+import mods.tinker.tconstruct.items.LiquidItemBlock;
+import mods.tinker.tconstruct.items.MetalItemBlock;
+import mods.tinker.tconstruct.items.MetalOreItemBlock;
+import mods.tinker.tconstruct.items.MetalPattern;
+import mods.tinker.tconstruct.items.Pattern;
+import mods.tinker.tconstruct.items.PatternManual;
+import mods.tinker.tconstruct.items.SearedTableItemBlock;
+import mods.tinker.tconstruct.items.SmelteryItemBlock;
+import mods.tinker.tconstruct.items.StrangeFood;
+import mods.tinker.tconstruct.items.TitleIcon;
+import mods.tinker.tconstruct.items.ToolPart;
+import mods.tinker.tconstruct.items.ToolShard;
+import mods.tinker.tconstruct.items.ToolStationItemBlock;
+import mods.tinker.tconstruct.library.TConstructRegistry;
+import mods.tinker.tconstruct.library.ToolCore;
+import mods.tinker.tconstruct.logic.CastingTableLogic;
+import mods.tinker.tconstruct.logic.FaucetLogic;
+import mods.tinker.tconstruct.logic.FrypanLogic;
+import mods.tinker.tconstruct.logic.LavaTankLogic;
+import mods.tinker.tconstruct.logic.LiquidTextureLogic;
+import mods.tinker.tconstruct.logic.MultiServantLogic;
+import mods.tinker.tconstruct.logic.PartCrafterLogic;
+import mods.tinker.tconstruct.logic.PatternChestLogic;
+import mods.tinker.tconstruct.logic.PatternShaperLogic;
+import mods.tinker.tconstruct.logic.SmelteryDrainLogic;
+import mods.tinker.tconstruct.logic.SmelteryLogic;
+import mods.tinker.tconstruct.logic.ToolStationLogic;
+import mods.tinker.tconstruct.modifiers.ModBlaze;
+import mods.tinker.tconstruct.modifiers.ModBoolean;
+import mods.tinker.tconstruct.modifiers.ModDurability;
+import mods.tinker.tconstruct.modifiers.ModElectric;
+import mods.tinker.tconstruct.modifiers.ModInteger;
+import mods.tinker.tconstruct.modifiers.ModLapisBase;
+import mods.tinker.tconstruct.modifiers.ModLapisIncrease;
+import mods.tinker.tconstruct.modifiers.ModRedstone;
+import mods.tinker.tconstruct.modifiers.ModRepair;
+import mods.tinker.tconstruct.tools.Axe;
+import mods.tinker.tconstruct.tools.BattleSign;
+import mods.tinker.tconstruct.tools.Broadsword;
+import mods.tinker.tconstruct.tools.FryingPan;
+import mods.tinker.tconstruct.tools.Longsword;
+import mods.tinker.tconstruct.tools.Mattock;
+import mods.tinker.tconstruct.tools.Pickaxe;
+import mods.tinker.tconstruct.tools.PotionLauncher;
+import mods.tinker.tconstruct.tools.Rapier;
 import mods.tinker.tconstruct.tools.Shovel;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
@@ -69,6 +127,8 @@ public class TContent implements IFuelHandler
 
 	public static ToolCore mattock;
 	public static ToolCore lumberaxe;
+	
+	public static Item potionLauncher;
 
 	//Tool parts
 	public static Item pickaxeHead;
@@ -108,6 +168,21 @@ public class TContent implements IFuelHandler
 
 	//Tool modifiers
 	public static ModElectric modE;
+	
+	//Golems
+	public static Block glowSapling;
+	public static Block glowLeaves;
+	public static Block glowLog;
+	
+	public static Block golemCore;
+	public static Block golemPedestal;
+	public static Block golemHead;
+	
+	public static Item golemWand;
+	public static Item golemRecharger;
+	public static Item corestone;
+	public static Item notebook;
+	public static Item note;
 
 	public TContent()
 	{
@@ -124,21 +199,23 @@ public class TContent implements IFuelHandler
 	void createEntities ()
 	{
 		EntityRegistry.registerModEntity(FancyEntityItem.class, "Fancy Item", 0, TConstruct.instance, 32, 5, true);
-		EntityRegistry.registerModEntity(CartEntity.class, "Small Wagon", 1, TConstruct.instance, 32, 5, true);
+		EntityRegistry.registerModEntity(LaunchedPotion.class, "Launched Potion", 1, TConstruct.instance, 32, 3, true);
+		//EntityRegistry.registerModEntity(CartEntity.class, "Small Wagon", 1, TConstruct.instance, 32, 5, true);
+		//EntityRegistry.registerModEntity(Crystal.class, "Crystal", 2, TConstruct.instance, 32, 5, true);
 		EntityRegistry.registerModEntity(Crystal.class, "Crystal", 2, TConstruct.instance, 32, 5, true);
 
-		EntityRegistry.registerModEntity(Skyla.class, "Skyla", 10, TConstruct.instance, 32, 5, true);
+		//EntityRegistry.registerModEntity(Skyla.class, "Skyla", 10, TConstruct.instance, 32, 5, true);
 		EntityRegistry.registerModEntity(UnstableCreeper.class, "UnstableCreeper", 11, TConstruct.instance, 64, 5, true);
 		EntityRegistry.registerModEntity(BlueSlime.class, "EdibleSlime", 12, TConstruct.instance, 64, 5, true);
-		EntityRegistry.registerModEntity(MetalSlime.class, "MetalSlime", 13, TConstruct.instance, 64, 5, true);
+		//EntityRegistry.registerModEntity(MetalSlime.class, "MetalSlime", 13, TConstruct.instance, 64, 5, true);
 
 		BiomeGenBase[] overworldBiomes = new BiomeGenBase[] { BiomeGenBase.ocean, BiomeGenBase.plains, BiomeGenBase.desert, BiomeGenBase.extremeHills, BiomeGenBase.forest, BiomeGenBase.taiga,
 				BiomeGenBase.swampland, BiomeGenBase.river, BiomeGenBase.frozenOcean, BiomeGenBase.frozenRiver, BiomeGenBase.icePlains, BiomeGenBase.iceMountains, BiomeGenBase.beach,
 				BiomeGenBase.desertHills, BiomeGenBase.forestHills, BiomeGenBase.taigaHills, BiomeGenBase.extremeHillsEdge, BiomeGenBase.jungle, BiomeGenBase.jungleHills };
-		if (PHConstruct.unstableCreeper)
-			EntityRegistry.addSpawn(UnstableCreeper.class, 7, 4, 6, EnumCreatureType.monster, overworldBiomes);
+		if (PHConstruct.redCreeper)
+			EntityRegistry.addSpawn(UnstableCreeper.class, PHConstruct.redCreeperWeight, 4, 6, EnumCreatureType.monster, overworldBiomes);
 		if (PHConstruct.blueSlime)
-			EntityRegistry.addSpawn(BlueSlime.class, 10, 4, 4, EnumCreatureType.monster, overworldBiomes);
+			EntityRegistry.addSpawn(BlueSlime.class, PHConstruct.blueSlimeWeight, 4, 4, EnumCreatureType.monster, overworldBiomes);
 		//EntityRegistry.addSpawn(MetalSlime.class, 1, 4, 4, EnumCreatureType.monster, overworldBiomes);
 	}
 
@@ -205,6 +282,18 @@ public class TContent implements IFuelHandler
 		GameRegistry.registerBlock(liquidMetalFlowing, LiquidItemBlock.class, "metalFlow");
 		GameRegistry.registerBlock(liquidMetalStill, LiquidItemBlock.class, "metalStill");
 		GameRegistry.registerTileEntity(LiquidTextureLogic.class, "LiquidTexture");
+		
+		//Golems
+		/*golemCore = new GolemCoreBlock(PHConstruct.golemCore).setUnlocalizedName("golemcore");
+		GameRegistry.registerBlock(golemCore, "Golem Core");
+		GameRegistry.registerTileEntity(GolemCoreLogic.class, "TConstruct.GolemCore");
+		
+		golemHead = new GolemHeadBlock(PHConstruct.golemHead).setUnlocalizedName("golemhead");
+		GameRegistry.registerBlock(golemHead, "Golem Head");
+		
+		golemPedestal = new GolemPedestalBlock(PHConstruct.golemPedestal).setUnlocalizedName("golempedestal");
+		GameRegistry.registerBlock(golemPedestal, "Golem Pedestal");
+		GameRegistry.registerTileEntity(GolemPedestalLogic.class, "TConstruct.GolemPedestal");*/
 	}
 
 	void registerItems ()
@@ -243,6 +332,7 @@ public class TContent implements IFuelHandler
 		//longbow = new RangedWeapon(PHConstruct.longbow);
 		mattock = new Mattock(PHConstruct.mattock);
 		//lumberaxe = new LumberAxe(PHConstruct.lumberaxe, lumberaxeTexture);
+		potionLauncher = new PotionLauncher(PHConstruct.potionLauncher);
 
 		pickaxeHead = new ToolPart(PHConstruct.pickaxeHead, "PickaxeHead", "_pickaxe_head").setUnlocalizedName("tconstruct.PickaxeHead");
 		shovelHead = new ToolPart(PHConstruct.shovelHead, "ShovelHead", "_shovel_head").setUnlocalizedName("tconstruct.ShovelHead");

@@ -150,7 +150,6 @@ public abstract class InventoryBlock extends BlockContainer
 	public void registerIcons(IconRegister iconRegister)
     {
 		String[] textureNames = getTextureNames();
-		//System.out.println("TextureNames: :"+this.getClass().getSimpleName());
 		this.icons = new Icon[textureNames.length];
 
         for (int i = 0; i < this.icons.length; ++i)

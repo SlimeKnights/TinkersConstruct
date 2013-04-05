@@ -54,8 +54,10 @@ public class PHConstruct {
         enableTCactus = config.get("Difficulty Changes", "Enable mod cactus tools", true).getBoolean(true);
         enableTBone = config.get("Difficulty Changes", "Enable mod bone tools", true).getBoolean(true);
         
-        unstableCreeper = config.get("Mob Spawning", "Activate Nitro Creeper Spawns", true).getBoolean(true);
+        redCreeper = config.get("Mob Spawning", "Activate Nitro Creeper Spawns", true).getBoolean(true);
         blueSlime = config.get("Mob Spawning", "Activate Blue Slime Spawns", true).getBoolean(true);
+        redCreeperWeight = config.get("Mob Spawning", "Spawn Weight for Nitro Creeper", 7).getInt(7);
+        blueSlimeWeight = config.get("Mob Spawning", "Spawn Weight for Blue Slime", 10).getInt(10);
         
         woodCrafter = config.getBlock("Wood Tool Station", 1471).getInt(1471);
         heldItemBlock = config.getBlock("Held Item Block", 1472).getInt(1472);
@@ -68,6 +70,10 @@ public class PHConstruct {
         metalFlowing = config.getBlock("Liquid Metal Flowing", 1479).getInt(1479);
         metalStill = config.getBlock("Liquid Metal Still", 1480).getInt(1480);
         //landmine = config.getBlock("Landmine", 1481).getInt(1481);
+        
+        golemCore = config.getBlock("Golem Core", 1481).getInt(1481);
+        golemHead = config.getBlock("Golem Head", 1482).getInt(1482);
+        golemPedestal = config.getBlock("Golem Pedestal", 1483).getInt(1483);
         
         manual = config.getItem("Patterns and Misc", "Tinker's Manual", 14018).getInt(14018);
         blankPattern = config.getItem("Patterns and Misc", "Blank Patterns", 14019).getInt(14019);
@@ -107,6 +113,8 @@ public class PHConstruct {
         mattock = config.getItem("Tools", "Mattock", 14060).getInt(14060);
         lumberaxe = config.getItem("Tools", "Lumber Axe", 14061).getInt(14061);
         longbow = config.getItem("Tools", "Longbow", 14062).getInt(14062);
+        shortbow = config.getItem("Tools", "Shortbow", 14063).getInt(14063);
+        potionLauncher = config.getItem("Tools", "Potion Launcher", 14064).getInt(14064);
         
         buckets = config.getItem("Patterns and Misc", "Buckets", 14101).getInt(14101);
         uselessItem = config.getItem("Patterns and Misc", "Title Icon", 14102).getInt(14102);
@@ -159,6 +167,10 @@ public class PHConstruct {
     public static int oreSlag;
     public static int metalBlock;
     //public static int axle;
+    
+    public static int golemCore;
+    public static int golemHead;
+    public static int golemPedestal;
 
     //Traps
     //public static int landmine;
@@ -195,6 +207,8 @@ public class PHConstruct {
     public static int frypan;
     public static int battlesign;
     public static int longbow;
+    public static int shortbow;
+    public static int potionLauncher;
     
     public static int mattock;
     public static int lumberaxe;
@@ -236,8 +250,10 @@ public class PHConstruct {
     public static int netherDensity;
     
     //Mobs
-    public static boolean unstableCreeper;
+    public static boolean redCreeper;
+    public static int redCreeperWeight;
     public static boolean blueSlime;
+    public static int blueSlimeWeight;
     
     //Difficulty modifiers
     public static boolean keepHunger;

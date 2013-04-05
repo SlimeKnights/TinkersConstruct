@@ -9,16 +9,21 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import mods.tinker.common.fancyitem.FancyEntityItem;
 import mods.tinker.common.fancyitem.FancyItemRender;
+import mods.tinker.golems.client.GolemCoreRender;
+import mods.tinker.golems.client.GolemCoreSpecialRender;
+import mods.tinker.golems.logic.GolemCoreLogic;
 import mods.tinker.tconstruct.TConstruct;
 import mods.tinker.tconstruct.TContent;
 import mods.tinker.tconstruct.TProxyCommon;
 import mods.tinker.tconstruct.client.entityrender.CartRender;
 import mods.tinker.tconstruct.client.entityrender.CrystalRender;
+import mods.tinker.tconstruct.client.entityrender.ThrownItemRender;
 import mods.tinker.tconstruct.client.entityrender.SkylaRender;
 import mods.tinker.tconstruct.client.entityrender.SlimeRender;
 import mods.tinker.tconstruct.entity.BlueSlime;
 import mods.tinker.tconstruct.entity.CartEntity;
 import mods.tinker.tconstruct.entity.Crystal;
+import mods.tinker.tconstruct.entity.LaunchedPotion;
 import mods.tinker.tconstruct.entity.Skyla;
 import mods.tinker.tconstruct.entity.UnstableCreeper;
 import mods.tinker.tconstruct.library.client.TConstructClientRegistry;
@@ -87,6 +92,7 @@ public class TProxyClient extends TProxyCommon
 		RenderingRegistry.registerBlockHandler(new TankRender());
 		RenderingRegistry.registerBlockHandler(new SearedRender());
 		RenderingRegistry.registerBlockHandler(new FluidRender());
+		RenderingRegistry.registerBlockHandler(new GolemCoreRender());
 
 		//Tools
 		//MinecraftForgeClient.preloadTexture(TContent.blockTexture);
@@ -98,6 +104,7 @@ public class TProxyClient extends TProxyCommon
 
 		//Special Renderers
 		ClientRegistry.bindTileEntitySpecialRenderer(CastingTableLogic.class, new CastingTableSpecialRenderer());
+		ClientRegistry.bindTileEntitySpecialRenderer(GolemCoreLogic.class, new GolemCoreSpecialRender());
 
 		//Entities
 		RenderingRegistry.registerEntityRenderingHandler(CartEntity.class, new CartRender());
@@ -106,6 +113,7 @@ public class TProxyClient extends TProxyCommon
 		RenderingRegistry.registerEntityRenderingHandler(Crystal.class, new CrystalRender());
 		RenderingRegistry.registerEntityRenderingHandler(UnstableCreeper.class, new RenderCreeper());
 		RenderingRegistry.registerEntityRenderingHandler(BlueSlime.class, new SlimeRender(new ModelSlime(16), new ModelSlime(0), 0.25F));
+		RenderingRegistry.registerEntityRenderingHandler(LaunchedPotion.class, new ThrownItemRender(Item.potion, 16384));
 		//RenderingRegistry.registerEntityRenderingHandler(net.minecraft.entity.player.EntityPlayer.class, new PlayerArmorRender()); // <-- Works, woo!
 
 		addRenderMappings();
@@ -168,6 +176,8 @@ public class TProxyClient extends TProxyCommon
 
 		LanguageRegistry.instance().addStringLocalization("entity.TConstruct.UnstableCreeper.name", "en_US", "Nitro Creeper");
 		LanguageRegistry.instance().addStringLocalization("entity.TConstruct.EdibleSlime.name", "en_US", "Blue Slime");
+		LanguageRegistry.instance().addStringLocalization("entity.tconstruct.UnstableCreeper.name", "en_US", "Nitro Creeper");
+		LanguageRegistry.instance().addStringLocalization("entity.tconstruct.EdibleSlime.name", "en_US", "Blue Slime");
 		LanguageRegistry.instance().addStringLocalization("entity.TConstruct.MetalSlime.name", "en_US", "Metal Slime");
 		//LanguageRegistry.instance().addStringLocalization("item.tconstruct.diary.diary.name", "en_US", "Tinker's Log");
 		LanguageRegistry.instance().addStringLocalization("item.tconstruct.Pattern.blank_pattern.name", "en_US", "Blank Pattern");

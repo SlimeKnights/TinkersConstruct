@@ -297,7 +297,7 @@ public class AbilityHelper
 
 		charge -= mineSpeed;
 		ToolCore tool = (ToolCore) stack.getItem();
-		stack.setItemDamage(1 + (tool.getMaxCharge() - charge) * (stack.getMaxDamage() - 1) / tool.getMaxCharge());
+		stack.setItemDamage(1 + (tool.getMaxCharge(stack) - charge) * (stack.getMaxDamage() - 1) / tool.getMaxCharge(stack));
 		tags.setInteger("charge", charge);
 		if (entity instanceof EntityPlayer)
 			chargeFromArmor(stack, (EntityPlayer) entity);
@@ -317,7 +317,7 @@ public class AbilityHelper
 				IElectricItem electricArmor = (IElectricItem) armor.getItem();
 				ToolCore tool = (ToolCore) stack.getItem();
 
-				if (electricArmor.canProvideEnergy() && electricArmor.getTier() >= ((IElectricItem) stack.getItem()).getTier())
+				if (electricArmor.canProvideEnergy(stack) && electricArmor.getTier(stack) >= ((IElectricItem) stack.getItem()).getTier(stack))
 				{
 					int chargeAmount = tool.charge(stack, Integer.MAX_VALUE, Integer.MAX_VALUE, true, true);
 					chargeAmount = discharge(armor, chargeAmount, Integer.MAX_VALUE, true, false);
@@ -337,22 +337,22 @@ public class AbilityHelper
 		}
 	}
 
-	public static int discharge (ItemStack itemStack, int amount, int tier, boolean ignoreTransferLimit, boolean simulate)
+	public static int discharge (ItemStack stack, int amount, int tier, boolean ignoreTransferLimit, boolean simulate)
 	{
-		IElectricItem ielectricitem = (IElectricItem) itemStack.getItem();
+		IElectricItem ielectricitem = (IElectricItem) stack.getItem();
 
 		if (ielectricitem instanceof ICustomElectricItem)
 		{
-			return ((ICustomElectricItem) ielectricitem).discharge(itemStack, amount, tier, ignoreTransferLimit, simulate);
+			return ((ICustomElectricItem) ielectricitem).discharge(stack, amount, tier, ignoreTransferLimit, simulate);
 		}
-		else if (amount >= 0 && itemStack.stackSize <= 1 && ielectricitem.getTier() <= tier)
+		else if (amount >= 0 && stack.stackSize <= 1 && ielectricitem.getTier(stack) <= tier)
 		{
-			if (amount > ielectricitem.getTransferLimit() && !ignoreTransferLimit)
+			if (amount > ielectricitem.getTransferLimit(stack) && !ignoreTransferLimit)
 			{
-				amount = ielectricitem.getTransferLimit();
+				amount = ielectricitem.getTransferLimit(stack);
 			}
 
-			NBTTagCompound tags = itemStack.getTagCompound();//StackUtil.getOrCreateNbtData(itemStack);
+			NBTTagCompound tags = stack.getTagCompound();
 			int charge = tags.getInteger("charge");
 
 			if (amount > charge)
@@ -365,24 +365,24 @@ public class AbilityHelper
 			if (!simulate)
 			{
 				tags.setInteger("charge", charge);
-				itemStack.itemID = charge > 0 ? ielectricitem.getChargedItemId() : ielectricitem.getEmptyItemId();
+				stack.itemID = charge > 0 ? ielectricitem.getChargedItemId(stack) : ielectricitem.getEmptyItemId(stack);
 
-				if (itemStack.getItem() instanceof IElectricItem)
+				if (stack.getItem() instanceof IElectricItem)
 				{
-					ielectricitem = (IElectricItem) itemStack.getItem();
+					ielectricitem = (IElectricItem) stack.getItem();
 
-					if (itemStack.getMaxDamage() > 2)
+					if (stack.getMaxDamage() > 2)
 					{
-						itemStack.setItemDamage(1 + (ielectricitem.getMaxCharge() - charge) * (itemStack.getMaxDamage() - 2) / ielectricitem.getMaxCharge());
+						stack.setItemDamage(1 + (ielectricitem.getMaxCharge(stack) - charge) * (stack.getMaxDamage() - 2) / ielectricitem.getMaxCharge(stack));
 					}
 					else
 					{
-						itemStack.setItemDamage(0);
+						stack.setItemDamage(0);
 					}
 				}
 				else
 				{
-					itemStack.setItemDamage(0);
+					stack.setItemDamage(0);
 				}
 			}
 

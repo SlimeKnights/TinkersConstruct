@@ -365,7 +365,7 @@ public abstract class LiquidMetalBase extends Block
 	}
 
 	/**
-	 * Can add to the passed in vector for a movement vector to be applied to the entity. Args: x, y, z, entity, vec3d
+	 * Can add to the passed in vector for a movement vector to be applied to the entity. Args: x, y, z, entity, Vec3
 	 */
 	public void velocityToAddToEntity (World par1World, int par2, int par3, int par4, Entity par5Entity, Vec3 par6Vec3)
 	{
