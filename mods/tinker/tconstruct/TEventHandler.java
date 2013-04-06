@@ -1,16 +1,20 @@
 package mods.tinker.tconstruct;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import mods.tinker.tconstruct.crafting.PatternBuilder;
 import mods.tinker.tconstruct.crafting.Smeltery;
 import mods.tinker.tconstruct.logic.LiquidTextureLogic;
+import net.minecraft.entity.monster.EntitySkeleton;
+import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumMovingObjectType;
 import net.minecraftforge.client.event.sound.SoundLoadEvent;
 import net.minecraftforge.event.Event.Result;
 import net.minecraftforge.event.ForgeSubscribe;
+import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.player.FillBucketEvent;
 import net.minecraftforge.liquids.LiquidStack;
 import net.minecraftforge.oredict.OreDictionary;
@@ -18,6 +22,7 @@ import net.minecraftforge.oredict.OreDictionary.OreRegisterEvent;
 
 public class TEventHandler
 {
+    Random random = new Random();
 	/* Sounds */
     @ForgeSubscribe
     public void onSound(SoundLoadEvent event)
@@ -34,6 +39,30 @@ public class TEventHandler
         }
     }
     
+    /* Drops */
+    @ForgeSubscribe
+    public void onLivingDrop(LivingDropsEvent event)
+    {
+        if (event.entityLiving.getClass() == EntityCow.class)
+        {
+            int amount = random.nextInt(3) + random.nextInt(1 + event.lootingLevel) + random.nextInt(3) + random.nextInt(1 + event.lootingLevel) + 1;
+
+            for (int iter = 0; iter < amount; ++iter)
+            {
+                event.entityLiving.dropItem(Item.leather.itemID, 1);
+            }
+        }
+        
+        else if (event.recentlyHit && event.entityLiving.getClass() == EntitySkeleton.class)
+        {
+            EntitySkeleton skeleton = (EntitySkeleton) event.entityLiving;
+            if (skeleton.getSkeletonType() == 1 && random.nextInt(Math.max(1, 5-event.lootingLevel)) == 0)
+            {
+                skeleton.entityDropItem(new ItemStack(TContent.materials, 1, 8), 0f);
+            }
+        }
+    }
+    
 	/* Ore Dictionary */
 	@ForgeSubscribe
 	public void registerOre (OreRegisterEvent evt)
@@ -43,6 +72,11 @@ public class TEventHandler
 
 		else if (evt.Name == "basicCircuit")
 			TConstruct.content.modE.circuits.add(evt.Ore);
+		
+		else if (evt.Name == "plankWood")
+        {
+            PatternBuilder.instance.registerMaterial(evt.Ore, 2, "Wood");
+        }
 
 		//Ingots
 		else if (evt.Name == "ingotCopper")

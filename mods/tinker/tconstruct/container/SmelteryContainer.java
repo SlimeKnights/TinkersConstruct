@@ -197,10 +197,8 @@ public class SmelteryContainer extends Container
                 slot = (Slot)this.inventorySlots.get(slotPos);
                 slotStack = slot.getStack();
 
-                //System.out.println("Boom");
                 if (slotStack != null && ItemStack.areItemStacksEqual(inputStack, slotStack) && !inputStack.getHasSubtypes())
                 {
-                	//System.out.println("DeyadaBoomDeyada");
                     int totalSize = slotStack.stackSize + inputStack.stackSize;
 
                     if (totalSize <= inputStack.getMaxStackSize())
@@ -219,7 +217,6 @@ public class SmelteryContainer extends Container
                     }
                 }
 
-                //System.out.println("Heyo~");
                 if (flag)
                 {
                     --slotPos;
@@ -233,7 +230,6 @@ public class SmelteryContainer extends Container
 
         if (inputStack.stackSize > 0)
         {
-        	//System.out.println("Boom");
             if (flag)
             {
                 slotPos = endSlot - 1;
@@ -248,10 +244,8 @@ public class SmelteryContainer extends Container
                 slot = (Slot)this.inventorySlots.get(slotPos);
                 slotStack = slot.getStack();
 
-            	System.out.println("Boom");
                 if (slotStack == null)
                 {
-                	System.out.println("Deya");
                     slot.putStack(inputStack.copy());
                     slot.onSlotChanged();
                     inputStack.stackSize = 0;

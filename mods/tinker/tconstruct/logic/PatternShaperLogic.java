@@ -44,7 +44,7 @@ public class PatternShaperLogic extends InventoryLogic
 	public void setInventorySlotContents(int slot, ItemStack itemstack)
     {
 		super.setInventorySlotContents(slot, itemstack);
-		if (slot == 0 && itemstack != null)
+		if (slot == 0 && itemstack != null && itemstack.getItem() instanceof mods.tinker.tconstruct.items.Pattern)
 		{
 			if (itemstack.getItemDamage() == 0)
 				setInventorySlotContents(1, new ItemStack(TContent.woodPattern, 1, 1));

@@ -155,7 +155,6 @@ public class PotionLauncher extends Item
 		list.add(stack);
 	}
 
-	@Override
 	public boolean swingItem (EntityPlayer player, ItemStack stack)
 	{
 		NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");

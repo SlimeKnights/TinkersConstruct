@@ -20,6 +20,7 @@
   
   <entry key="CraftedSoil.Slime.name">Slimy Mud</entry>
   <entry key="CraftedSoil.Grout.name">Grout</entry>
+  <entry key="CraftedSoil.BlueSlime.name">Slimy Mud</entry>
   
   <entry key="MetalOre.NetherSlag.name">Netherack Slag</entry>
   <entry key="MetalOre.Cobalt.name">Cobalt Ore</entry>
@@ -76,5 +77,8 @@
   
   <entry key="SearedBlock.Table.name">Casting Table</entry>
   <entry key="SearedBlock.Faucet.name">Seared Faucet</entry>
+  
+  <entry key="entity.TConstruct.EdibleSlime.name">Blue Slime</entry>
+  <entry key="entity.TConstruct.UnstableCreeper.name">Nitro Creeper</entry>
   
 </properties>

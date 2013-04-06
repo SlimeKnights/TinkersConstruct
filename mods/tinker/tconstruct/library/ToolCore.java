@@ -400,12 +400,12 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
 	}
 
 	static String[] toolMaterialNames = { "Wooden ", "Stone ", "Iron ", "Flint ", "Cactus ", "Bone ", "Obsidian ", "Nethrrack ", "Slime ", "Paper ", "Cobalt ", "Ardite ", "Manyullyn ", "Copper ",
-			"Bronze ", "Alumite ", "Steel " };
+			"Bronze ", "Alumite ", "Steel ", "Slime " };
 
 	/* Creative mode tools */
 	public void getSubItems (int id, CreativeTabs tab, List list)
 	{
-		for (int i = 0; i < 17; i++)
+		for (int i = 0; i < 18; i++)
 		{
 			Item accessory = getAccessoryItem();
 			ItemStack accessoryStack = accessory != null ? new ItemStack(getAccessoryItem(), 1, i) : null;

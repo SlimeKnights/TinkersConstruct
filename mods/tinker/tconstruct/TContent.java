@@ -60,8 +60,7 @@ import mods.tinker.tconstruct.modifiers.ModBoolean;
 import mods.tinker.tconstruct.modifiers.ModDurability;
 import mods.tinker.tconstruct.modifiers.ModElectric;
 import mods.tinker.tconstruct.modifiers.ModInteger;
-import mods.tinker.tconstruct.modifiers.ModLapisBase;
-import mods.tinker.tconstruct.modifiers.ModLapisIncrease;
+import mods.tinker.tconstruct.modifiers.ModLapis;
 import mods.tinker.tconstruct.modifiers.ModRedstone;
 import mods.tinker.tconstruct.modifiers.ModRepair;
 import mods.tinker.tconstruct.tools.Axe;
@@ -233,7 +232,7 @@ public class TContent implements IFuelHandler
 		GameRegistry.registerBlock(heldItemBlock, "HeldItemBlock");
 		GameRegistry.registerTileEntity(FrypanLogic.class, "FrypanLogic");
 
-		String[] soilTypes = new String[] { "slimesand", "grout" };
+		String[] soilTypes = new String[] { "slimesand", "grout", "slimesandblue" };
 		craftedSoil = new TConstructBlock(PHConstruct.craftedSoil, Material.sand, 3.0F, soilTypes);
 		craftedSoil.stepSound = Block.soundGravelFootstep;
 		GameRegistry.registerBlock(craftedSoil, CraftedSoilItemBlock.class, "CraftedSoil");
@@ -303,10 +302,10 @@ public class TContent implements IFuelHandler
 		blankPattern = new CraftingItem(PHConstruct.blankPattern, blanks, blanks, "materials/").setUnlocalizedName("tconstruct.Pattern");
 		
 		String[] craftingMaterials = new String[] { "PaperStack", "SlimeCrystal", "SearedBrick", "CobaltIngot", "ArditeIngot", "ManyullynIngot", "Mossball", "LavaCrystal", "NecroticBone",
-				"CopperIngot", "TinIngot", "AluminumIngot", "RawAluminum", "BronzeIngot", "AlBrassIngot", "AlumiteIngot", "SteelIngot" };
+				"CopperIngot", "TinIngot", "AluminumIngot", "RawAluminum", "BronzeIngot", "AlBrassIngot", "AlumiteIngot", "SteelIngot", "BlueSlimeCrystal" };
 		String[] craftingTextures = new String[] { "material_paperstack", "material_slimecrystal", "material_searedbrick", "material_cobaltingot", "material_arditeingot", "material_manyullyningot",
 				"material_mossball", "material_lavacrystal", "material_necroticbone", "material_copperingot", "material_tiningot", "material_aluminumingot", "material_aluminumraw",
-				"material_bronzeingot", "material_alubrassingot", "material_alumiteingot", "material_steelingot" };
+				"material_bronzeingot", "material_alubrassingot", "material_alumiteingot", "material_steelingot", "material_blueslimecrystal" };
 		
 		materials = new CraftingItem(PHConstruct.materials, craftingMaterials, craftingTextures, "materials/").setUnlocalizedName("tconstruct.Materials");
 		toolRod = new ToolPart(PHConstruct.toolRod, "ToolRod", "_rod").setUnlocalizedName("tconstruct.ToolRod");
@@ -314,7 +313,6 @@ public class TContent implements IFuelHandler
 		toolShard = new ToolShard(PHConstruct.toolShard, "ToolShard", "_chunk").setUnlocalizedName("tconstruct.ToolShard");
 		woodPattern = new Pattern(PHConstruct.woodPattern, "WoodPattern", "pattern_", "materials/").setUnlocalizedName("tconstruct.Pattern");
 		metalPattern = new MetalPattern(PHConstruct.metalPattern, "MetalPattern", "cast_", "materials/").setUnlocalizedName("tconstruct.MetalPattern");
-		//stonePattern = new Pattern(PHTools.stonePattern, 64, patternTexture).setUnlocalizedName("tconstruct.Pattern");
 		//netherPattern = new Pattern(PHTools.netherPattern, 128, patternTexture).setUnlocalizedName("tconstruct.Pattern");
 
 		manualBook = new PatternManual(PHConstruct.manual);
@@ -373,9 +371,10 @@ public class TContent implements IFuelHandler
 		TConstructRegistry.addToolMaterial(11, "Ardite", 2, 4, 600, 800, 3, 2.0F, 0, 0f, "\u00A74", "");
 		TConstructRegistry.addToolMaterial(12, "Manyullyn", 2, 5, 1200, 1000, 4, 2.5F, 0, 0f, "\u00A75", "Awareness");
 		TConstructRegistry.addToolMaterial(13, "Copper", 1, 1, 180, 500, 2, 1.15F, 0, 0f, "\u00A7c", "");
-		TConstructRegistry.addToolMaterial(14, "Bronze", 1, 2, 250, 600, 2, 1.3F, 1, 0f, "\u00A76", "");
+		TConstructRegistry.addToolMaterial(14, "Bronze", 1, 2, 350, 700, 2, 1.3F, 1, 0f, "\u00A76", "");
 		TConstructRegistry.addToolMaterial(15, "Alumite", 2, 4, 550, 800, 3, 1.3F, 2, 0f, "\u00A7d", "");
 		TConstructRegistry.addToolMaterial(16, "Steel", 2, 3, 750, 800, 3, 1.3F, 2, 0f);
+        TConstructRegistry.addToolMaterial(17, "BlueSlime", 1, 1, 500, 150, 0, 5.0F, 0, 0f, "\u00A7b", "");
 
 		//Thaumcraft
 		TConstructRegistry.addToolMaterial(21, "Thaumium", 2, 2, 250, 600, 2, 1.3F, 1, 0f);
@@ -435,6 +434,7 @@ public class TContent implements IFuelHandler
 		pb.registerMaterialSet("Bronze", new ItemStack(toolShard, 1, 14), new ItemStack(toolRod, 1, 14), 14);
 		pb.registerMaterialSet("Alumite", new ItemStack(toolShard, 1, 15), new ItemStack(toolRod, 1, 15), 15);
 		pb.registerMaterialSet("Steel", new ItemStack(toolShard, 1, 16), new ItemStack(toolRod, 1, 16), 16);
+        pb.registerFullMaterial(new ItemStack(materials, 1, 17), 2, "BlueSlime", new ItemStack(toolShard, 1, 17), new ItemStack(toolRod, 1, 17), 17);
 
 		pb.addToolPattern((IPattern) woodPattern);
 	}
@@ -510,12 +510,14 @@ public class TContent implements IFuelHandler
 		tb.registerToolMod(modE);
 		tb.registerToolMod(new ModRedstone(new ItemStack[] { new ItemStack(Item.redstone) }, 2, 1));
 		tb.registerToolMod(new ModRedstone(new ItemStack[] { new ItemStack(Item.redstone), new ItemStack(Item.redstone) }, 2, 2));
-		tb.registerToolMod(new ModLapisIncrease(new ItemStack[] { new ItemStack(Item.dyePowder, 1, 4) }, 10, 1));
-		tb.registerToolMod(new ModLapisIncrease(new ItemStack[] { new ItemStack(Item.dyePowder, 1, 4), new ItemStack(Item.dyePowder, 1, 4) }, 10, 2));
-		tb.registerToolMod(new ModLapisIncrease(new ItemStack[] { new ItemStack(Block.blockLapis) }, 10, 9));
-		tb.registerToolMod(new ModLapisIncrease(new ItemStack[] { new ItemStack(Item.dyePowder, 1, 4), new ItemStack(Block.blockLapis) }, 10, 10));
-		tb.registerToolMod(new ModLapisIncrease(new ItemStack[] { new ItemStack(Block.blockLapis), new ItemStack(Block.blockLapis) }, 10, 18));
-		tb.registerToolMod(new ModLapisBase(new ItemStack[] { new ItemStack(Block.blockLapis), new ItemStack(Block.blockLapis) }, 10));
+        tb.registerToolMod(new ModRedstone(new ItemStack[] { new ItemStack(Block.blockRedstone) }, 2, 9));
+        tb.registerToolMod(new ModRedstone(new ItemStack[] { new ItemStack(Block.blockRedstone), new ItemStack(Item.redstone) }, 2, 10));
+        tb.registerToolMod(new ModRedstone(new ItemStack[] { new ItemStack(Block.blockRedstone), new ItemStack(Block.blockRedstone) }, 2, 18));
+		tb.registerToolMod(new ModLapis(new ItemStack[] { new ItemStack(Item.dyePowder, 1, 4) }, 10, 1));
+		tb.registerToolMod(new ModLapis(new ItemStack[] { new ItemStack(Item.dyePowder, 1, 4), new ItemStack(Item.dyePowder, 1, 4) }, 10, 2));
+		tb.registerToolMod(new ModLapis(new ItemStack[] { new ItemStack(Block.blockLapis) }, 10, 9));
+		tb.registerToolMod(new ModLapis(new ItemStack[] { new ItemStack(Item.dyePowder, 1, 4), new ItemStack(Block.blockLapis) }, 10, 10));
+		tb.registerToolMod(new ModLapis(new ItemStack[] { new ItemStack(Block.blockLapis), new ItemStack(Block.blockLapis) }, 10, 18));
 		tb.registerToolMod(new ModInteger(new ItemStack[] { new ItemStack(materials, 1, 6) }, 4, "Moss", 3, "\u00a72", "Auto-Repair"));
 		tb.registerToolMod(new ModBlaze(new ItemStack[] { new ItemStack(Item.blazePowder) }, 7, 1));
 		tb.registerToolMod(new ModBlaze(new ItemStack[] { new ItemStack(Item.blazePowder), new ItemStack(Item.blazePowder) }, 7, 2));
@@ -601,8 +603,6 @@ public class TContent implements IFuelHandler
 
 	void addCraftingRecipes ()
 	{
-		/*GameRegistry.addRecipe(new ItemStack(woodCrafter, 1, 0), "c", 'c', Block.workbench);
-		GameRegistry.addRecipe(new ItemStack(woodCrafter, 1, 1), "cc", 'c', Block.workbench);*/
 		GameRegistry.addRecipe(new ItemStack(woodCrafter, 1, 0), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', Block.workbench);
 		GameRegistry.addRecipe(new ItemStack(woodCrafter, 1, 1), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(Block.wood, 1, 0));
 		GameRegistry.addRecipe(new ItemStack(woodCrafter, 1, 2), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(Block.wood, 1, 1));
@@ -622,12 +622,14 @@ public class TContent implements IFuelHandler
 		GameRegistry.addRecipe(new ItemStack(materials, 1, 0), "pp", "pp", 'p', Item.paper); //Paper stack
 		GameRegistry.addRecipe(new ItemStack(materials, 1, 6), "ppp", "ppp", "ppp", 'p', Block.cobblestoneMossy); //Moss ball
 		GameRegistry.addRecipe(new ItemStack(materials, 1, 7), "xcx", "cbc", "xcx", 'b', Item.bucketLava, 'c', Item.coal, 'x', Block.netherrack); //Auto-smelt
-		GameRegistry.addShapelessRecipe(new ItemStack(materials, 1, 8), Item.bone, Item.rottenFlesh, Item.chickenRaw, Item.beefRaw, Item.porkRaw, Item.fishRaw); //Necrotic bone
+		//GameRegistry.addShapelessRecipe(new ItemStack(materials, 1, 8), Item.bone, Item.rottenFlesh, Item.chickenRaw, Item.beefRaw, Item.porkRaw, Item.fishRaw); //Necrotic bone
 		GameRegistry.addShapelessRecipe(new ItemStack(craftedSoil, 1, 0), Item.slimeBall, Item.slimeBall, Item.slimeBall, Item.slimeBall, Block.sand, Block.dirt); //Slimy sand
+        GameRegistry.addShapelessRecipe(new ItemStack(craftedSoil, 1, 2), strangeFood, strangeFood, strangeFood, strangeFood, Block.sand, Block.dirt); //Slimy sand
 		GameRegistry.addShapelessRecipe(new ItemStack(craftedSoil, 1, 1), Item.clay, Block.sand, Block.gravel); //Grout, Add stone dust?
 
 		FurnaceRecipes.smelting().addSmelting(craftedSoil.blockID, 0, new ItemStack(materials, 1, 1), 2f); //Slime
 		FurnaceRecipes.smelting().addSmelting(craftedSoil.blockID, 1, new ItemStack(materials, 1, 2), 2f); //Seared brick item
+        FurnaceRecipes.smelting().addSmelting(craftedSoil.blockID, 2, new ItemStack(materials, 1, 17), 2f); //Blue Slime
 		//GameRegistry.addRecipe(new ItemStack(oreSlag, 1, 0), "pp", "pp", 'p', new ItemStack(materials, 1, 2)); //Seared brick block
 
 		FurnaceRecipes.smelting().addSmelting(oreSlag.blockID, 1, new ItemStack(materials, 1, 3), 3f);

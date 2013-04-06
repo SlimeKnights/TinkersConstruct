@@ -28,9 +28,13 @@ public class BlueSlime extends EntityLiving implements IMob
 	{
 		super(world);
 		this.texture = "/mods/tinker/textures/mob/slimeedible.png";
-		int offset = Math.max(1, this.rand.nextInt(4));
-		if (offset >= 3)
-			offset--;
+		int offset = this.rand.nextInt(15);
+		if (offset < 7)
+			offset = 1;
+		else if (offset < 14)
+		    offset = 2;
+		else
+		    offset = 3;
 		int size = 1 << offset;
 		this.yOffset = 0.0F;
 		this.slimeJumpDelay = this.rand.nextInt(120) + 40;

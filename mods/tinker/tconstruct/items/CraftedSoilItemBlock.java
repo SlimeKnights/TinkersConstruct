@@ -7,7 +7,7 @@ public class CraftedSoilItemBlock extends ItemBlock
 {
     public static final String blockType[] =
     {
-        "Slime", "Grout"
+        "Slime", "Grout", "BlueSlime"
     };
 
     public CraftedSoilItemBlock(int id)

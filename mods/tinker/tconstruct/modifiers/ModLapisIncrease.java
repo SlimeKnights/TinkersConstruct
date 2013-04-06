@@ -68,12 +68,6 @@ public class ModLapisIncrease extends ToolMod
 	
 	public void addEnchantment(ItemStack tool, Enchantment enchant, int level)
     {
-		/*if (!tool.stackTagCompound.hasKey("ench"))
-        {
-			tool.stackTagCompound.setTag("ench", new NBTTagList("ench"));
-        }*/
-
-        //NBTTagList tags = (NBTTagList)tool.stackTagCompound.getTag("ench");
 		NBTTagList tags = new NBTTagList("ench");
         Map enchantMap = EnchantmentHelper.getEnchantments(tool);
         Iterator iterator = enchantMap.keySet().iterator();
@@ -106,17 +100,7 @@ public class ModLapisIncrease extends ToolMod
         	enchantTag.setShort("lvl", (short)((byte)level));
         	tags.appendTag(enchantTag);
         }
-        //this.stackTagCompound.setTag("ench", new NBTTagList("ench"));
         tool.stackTagCompound.setTag("ench", tags);
-        /*if (enchantMap.containsKey(enchant.effectId))
-        {
-        	map.
-        }*/
-        //NBTTagList enchantTags = (NBTTagList)tool.stackTagCompound.getTag("ench");
-        /*NBTTagCompound var4 = new NBTTagCompound();
-        var4.setShort("id", (short)par1Enchantment.effectId);
-        var4.setShort("lvl", (short)((byte)par2));
-        enchantTags.appendTag(var4);*/
     }
 	
 	void updateModTag (ItemStack tool, int[] keys)
