@@ -56,7 +56,7 @@ public class PHConstruct {
         
         redCreeper = config.get("Mob Spawning", "Activate Nitro Creeper Spawns", true).getBoolean(true);
         blueSlime = config.get("Mob Spawning", "Activate Blue Slime Spawns", true).getBoolean(true);
-        redCreeperWeight = config.get("Mob Spawning", "Spawn Weight for Nitro Creeper", 7).getInt(7);
+        redCreeperWeight = config.get("Mob Spawning", "Spawn Weight for Nitro Creeper", 5).getInt(5);
         blueSlimeWeight = config.get("Mob Spawning", "Spawn Weight for Blue Slime", 8).getInt(8);
         
         woodCrafter = config.getBlock("Wood Tool Station", 1471).getInt(1471);

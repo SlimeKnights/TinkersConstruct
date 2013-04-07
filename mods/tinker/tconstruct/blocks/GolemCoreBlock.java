@@ -1,10 +1,10 @@
-package mods.tinker.golems.blocks;
+package mods.tinker.tconstruct.blocks;
 
 import mods.tinker.common.InventoryBlock;
-import mods.tinker.golems.client.GolemCoreRender;
-import mods.tinker.golems.logic.GolemCoreLogic;
 import mods.tinker.tconstruct.TConstruct;
+import mods.tinker.tconstruct.client.GolemCoreRender;
 import mods.tinker.tconstruct.library.TConstructRegistry;
+import mods.tinker.tconstruct.logic.GolemCoreLogic;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;

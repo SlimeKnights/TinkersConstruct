@@ -1,10 +1,10 @@
 package mods.tinker.tconstruct.logic;
 
+import mods.tinker.common.IPattern;
 import mods.tinker.common.InventoryLogic;
 import mods.tinker.tconstruct.container.PartCrafterChestContainer;
 import mods.tinker.tconstruct.container.PartCrafterContainer;
 import mods.tinker.tconstruct.crafting.PatternBuilder;
-import mods.tinker.tconstruct.items.Pattern;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
@@ -57,10 +57,10 @@ public class PartCrafterLogic extends InventoryLogic
 	{
 		if (slotID == 4 || slotID == 5)
 		{
-			if (!craftedTop)
+			if (!craftedTop && inventory[0] != null)
 			{
 				int value = PatternBuilder.instance.getPartValue(inventory[2]);
-				Pattern item = (Pattern)inventory[0].getItem();
+				IPattern item = (IPattern)inventory[0].getItem();
 				int cost = item != null ? item.getPatternCost(inventory[0].getItemDamage()) : 0;
 				if (value > 0 && cost > 0)
 				{
@@ -82,11 +82,10 @@ public class PartCrafterLogic extends InventoryLogic
 		
 		if (slotID == 6 || slotID == 7)
 		{
-			if (!craftedBottom)
+			if (!craftedBottom && inventory[1] != null)
 			{
 				int value = PatternBuilder.instance.getPartValue(inventory[3]);
-				//int cost = ((Pattern)inventory[1].getItem()).getPatternCost(inventory[1].getItemDamage());
-				Pattern item = (Pattern)inventory[1].getItem();
+				IPattern item = (IPattern)inventory[1].getItem();
 				int cost = item != null ? item.getPatternCost(inventory[1].getItemDamage()) : 0;
 				if (value > 0 && cost > 0)
 				{

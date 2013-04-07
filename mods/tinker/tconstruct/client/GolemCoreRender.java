@@ -1,4 +1,4 @@
-package mods.tinker.golems.client;
+package mods.tinker.tconstruct.client;
 
 import org.lwjgl.opengl.GL11;
 

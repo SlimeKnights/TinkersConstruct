@@ -19,12 +19,15 @@ import net.minecraftforge.event.entity.player.FillBucketEvent;
 import net.minecraftforge.liquids.LiquidStack;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.OreDictionary.OreRegisterEvent;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class TEventHandler
 {
     Random random = new Random();
 	/* Sounds */
     @ForgeSubscribe
+    @SideOnly(Side.CLIENT)
     public void onSound(SoundLoadEvent event)
     {
     	try

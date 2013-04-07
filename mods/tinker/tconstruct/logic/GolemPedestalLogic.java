@@ -1,4 +1,4 @@
-package mods.tinker.golems.logic;
+package mods.tinker.tconstruct.logic;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;

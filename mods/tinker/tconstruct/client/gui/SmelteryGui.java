@@ -3,24 +3,33 @@ package mods.tinker.tconstruct.client.gui;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 
+import mods.tinker.tconstruct.container.ActiveContainer;
 import mods.tinker.tconstruct.container.SmelteryContainer;
 import mods.tinker.tconstruct.logic.SmelteryLogic;
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.inventory.Slot;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.network.packet.Packet250CustomPayload;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.Icon;
+import net.minecraft.util.MathHelper;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.liquids.LiquidStack;
 
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
 
 import cpw.mods.fml.common.network.PacketDispatcher;
 
-public class SmelteryGui extends GuiContainer
+public class SmelteryGui extends NewContainerGui
 {
 	public SmelteryLogic logic;
 	String username;
@@ -29,10 +38,22 @@ public class SmelteryGui extends GuiContainer
 	float currentScroll = 0.0F;
 	int slotPos = 0;
 	int prevSlotPos = 0;
+	
+    /*private Slot theSlot;
+    private Slot clickedSlot = null;
+    private ItemStack draggedStack = null;
+    private boolean isRightMouseClick = false;
+    private int field_94069_F;
+    private long returningStackTime = 0L;
+    private ItemStack returningStack = null;
+    private Slot returningStackDestSlot = null;
+    private int field_85049_r = 0;
+    private int field_85048_s = 0;*/
 
 	public SmelteryGui(InventoryPlayer inventoryplayer, SmelteryLogic smeltery, World world, int x, int y, int z)
 	{
-		super(smeltery.getGuiContainer(inventoryplayer, world, x, y, z));
+		super((ActiveContainer) smeltery.getGuiContainer(inventoryplayer, world, x, y, z));
+		//container = (SmelteryContainer) inventorySlots;
 		logic = smeltery;
 		username = inventoryplayer.player.username;
 		xSize = 248;
@@ -41,79 +62,60 @@ public class SmelteryGui extends GuiContainer
 	public void drawScreen (int mouseX, int mouseY, float par3)
 	{
 		super.drawScreen(mouseX, mouseY, par3);
-		if (logic.layers > 2)
-		{
-			boolean mouseDown = Mouse.isButtonDown(0);
-			int lefto = this.guiLeft;
-			int topo = this.guiTop;
-			int xScroll = lefto + 31;
-			int yScroll = topo + 8;
-			int scrollWidth = xScroll + 14;
-			int scrollHeight = yScroll + 144;
-
-			if (!this.wasClicking && mouseDown && mouseX >= xScroll && mouseY >= yScroll && mouseX < scrollWidth && mouseY < scrollHeight)
-			{
-				this.isScrolling = true;
-			}
-
-			if (!mouseDown)
-			{
-				this.isScrolling = false;
-			}
-			
-			if (wasClicking && !isScrolling && slotPos != prevSlotPos)
-			{
-				updateServer(username, slotPos);
-				prevSlotPos = slotPos;
-			}
-
-			this.wasClicking = mouseDown;
-
-			if (this.isScrolling)
-			{
-				this.currentScroll = ((float) (mouseY - yScroll) - 7.5F) / ((float) (scrollHeight - yScroll) - 15.0F);
-
-				if (this.currentScroll < 0.0F)
-				{
-					this.currentScroll = 0.0F;
-				}
-
-				if (this.currentScroll > 1.0F)
-				{
-					this.currentScroll = 1.0F;
-				}
-
-				int s = ((SmelteryContainer) this.inventorySlots).scrollTo(this.currentScroll);
-				if (s != -1)
-					slotPos = s;
-			}
-		}
-	}
-	
-	void updateServer (String name, int row)
-	{
-		ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
-		DataOutputStream outputStream = new DataOutputStream(bos);
-		try
-		{
-			outputStream.writeByte(3);
-			outputStream.writeInt(row);
-			outputStream.writeUTF(name);
-		}
-		catch (Exception ex)
-		{
-			ex.printStackTrace();
-		}
-
-		Packet250CustomPayload packet = new Packet250CustomPayload();
-		packet.channel = "TConstruct";
-		packet.data = bos.toByteArray();
-		packet.length = bos.size();
-		
-		PacketDispatcher.sendPacketToServer(packet);
+		updateScrollbar(mouseX, mouseY, par3);
 	}
 
-	protected void drawGuiContainerForegroundLayer (int par1, int par2)
+	protected void updateScrollbar (int mouseX, int mouseY, float par3)
+    {
+	    if (logic.layers > 2)
+        {
+            boolean mouseDown = Mouse.isButtonDown(0);
+            int lefto = this.guiLeft;
+            int topo = this.guiTop;
+            int xScroll = lefto + 67;
+            int yScroll = topo + 8;
+            int scrollWidth = xScroll + 14;
+            int scrollHeight = yScroll + 144;
+
+            if (!this.wasClicking && mouseDown && mouseX >= xScroll && mouseY >= yScroll && mouseX < scrollWidth && mouseY < scrollHeight)
+            {
+                this.isScrolling = true;
+            }
+
+            if (!mouseDown)
+            {
+                this.isScrolling = false;
+            }
+            
+            if (wasClicking && !isScrolling && slotPos != prevSlotPos)
+            {
+                prevSlotPos = slotPos;
+            }
+
+            this.wasClicking = mouseDown;
+
+            if (this.isScrolling)
+            {
+                this.currentScroll = ((float) (mouseY - yScroll) - 7.5F) / ((float) (scrollHeight - yScroll) - 15.0F);
+
+                if (this.currentScroll < 0.0F)
+                {
+                    this.currentScroll = 0.0F;
+                }
+
+                if (this.currentScroll > 1.0F)
+                {
+                    this.currentScroll = 1.0F;
+                }
+
+                int s = ((SmelteryContainer) this.container).scrollTo(this.currentScroll);
+                if (s != -1)
+                    slotPos = s;
+            }
+        }
+    }
+
+    protected void drawGuiContainerForegroundLayer (int par1, int par2)
 	{
 		fontRenderer.drawString(StatCollector.translateToLocal("crafters.Smeltery"), 86, 5, 0x404040);
 		fontRenderer.drawString(StatCollector.translateToLocal("container.inventory"), 90, (ySize - 96) + 2, 0x404040);
@@ -130,12 +132,8 @@ public class SmelteryGui extends GuiContainer
 		//Fuel - Lava
 		if (logic.fuelGague > 0)
 		{
-			//ForgeHooksClient.bindTexture(Block.lavaStill.getTextureFile(), 0);
-			//int renderIndex = Block.lavaStill.getBlockTextureFromSideAndMetadata(0, 0);
 			this.mc.renderEngine.bindTexture("/terrain.png");
 			Icon lavaIcon = Block.lavaStill.getBlockTextureFromSideAndMetadata(0, 0);
-			//int xTex = renderIndex % 16 * 16;
-			//int yTex = renderIndex / 16 * 16;
 			int fuel = logic.getScaledFuelGague(52);
 			int count = 0;
 			while (fuel > 0)
@@ -143,7 +141,6 @@ public class SmelteryGui extends GuiContainer
 				int size = fuel >= 16 ? 16 : fuel;
 				fuel -= size;
 				drawTexturedModelRectFromIcon(cornerX + 117, (cornerY + 68) - size - 16 * count, lavaIcon, 12, size);
-				//drawTexturedModalRect(cornerX + 117, (cornerY + 68) - size - 16 * count, 0, 16 - size, 12, size);
 				count++;
 			}
 		}
@@ -156,7 +153,6 @@ public class SmelteryGui extends GuiContainer
 			if (liquid.itemID < 4096) //Block
 			{
 				Block liquidBlock = Block.blocksList[liquid.itemID];
-				//ForgeHooksClient.bindTexture(liquidBlock.getTextureFile(), 0);
 				this.mc.renderEngine.bindTexture("/terrain.png");
 				renderIndex = liquidBlock.getBlockTextureFromSideAndMetadata(0, liquid.itemMeta);
 			}
@@ -164,13 +160,10 @@ public class SmelteryGui extends GuiContainer
 			//Item
 			{
 				Item liquidItem = Item.itemsList[liquid.itemID];
-				//ForgeHooksClient.bindTexture(liquidItem.getTextureFile(), 0);
 				this.mc.renderEngine.bindTexture("/gui/items.png");
 				renderIndex = liquidItem.getIconFromDamage(liquid.itemMeta);
 			}
 
-			//int xTex = renderIndex % 16 * 16;
-			//int yTex = renderIndex / 16 * 16;
 			if (logic.getCapacity() > 0)
 			{
 				int liquidSize = liquid.amount * 52 / logic.getCapacity();
@@ -186,7 +179,6 @@ public class SmelteryGui extends GuiContainer
 					base += size;
 				}
 			}
-			//base = liquid.amount / 10000 * 52;
 		}
 
 		//Liquid gague
@@ -194,7 +186,6 @@ public class SmelteryGui extends GuiContainer
 
 		mc.renderEngine.bindTexture("/mods/tinker/textures/gui/smeltery.png");
 		drawTexturedModalRect(cornerX + 54, cornerY + 16, 176, 76, 52, 52);
-		//drawTexturedModalRect(cornerX+111, cornerY+16, xSize, 128, 52, 52);
 
 		//Side inventory
 		GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);

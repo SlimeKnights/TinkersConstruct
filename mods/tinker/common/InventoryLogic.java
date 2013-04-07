@@ -109,6 +109,7 @@ public abstract class InventoryLogic extends TileEntity
     public void readFromNBT(NBTTagCompound tags)
     {
         super.readFromNBT(tags);
+        this.invName = tags.getString("InvName");
         NBTTagList nbttaglist = tags.getTagList("Items");
         inventory = new ItemStack[getSizeInventory()];
         for (int iter = 0; iter < nbttaglist.tagCount(); iter++)
@@ -126,6 +127,8 @@ public abstract class InventoryLogic extends TileEntity
     public void writeToNBT(NBTTagCompound tags)
     {
         super.writeToNBT(tags);
+        if (invName != null)
+            tags.setString("InvName", invName);
         NBTTagList nbttaglist = new NBTTagList();
         for (int iter = 0; iter < inventory.length; iter++)
         {
@@ -159,9 +162,13 @@ public abstract class InventoryLogic extends TileEntity
     }
 
 	@Override
-	public boolean isStackValidForSlot (int i, ItemStack itemstack)
+	public boolean isStackValidForSlot (int slot, ItemStack itemstack)
 	{
-		// TODO Auto-generated method stub
-		return false;
+	    if (slot < getSizeInventory())
+	    {
+	        if (inventory[slot] == null || itemstack.stackSize + inventory[slot].stackSize <= getInventoryStackLimit())
+	        return true;
+	    }
+	    return false;
 	}
 }

@@ -51,7 +51,7 @@ public abstract class ToolMod
 				{
 					ItemStack removeStack = (ItemStack) iterate.next();
 
-					if (craftingStack.itemID == removeStack.itemID && (removeStack.getItemDamage() == -1 || craftingStack.getItemDamage() == removeStack.getItemDamage()))
+					if (craftingStack.itemID == removeStack.itemID && (removeStack.getItemDamage() == Short.MAX_VALUE || craftingStack.getItemDamage() == removeStack.getItemDamage()))
 					{
 						canCraft = true;
 						list.remove(removeStack);

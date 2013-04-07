@@ -9,9 +9,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import mods.tinker.common.fancyitem.FancyEntityItem;
 import mods.tinker.common.fancyitem.FancyItemRender;
-import mods.tinker.golems.client.GolemCoreRender;
-import mods.tinker.golems.client.GolemCoreSpecialRender;
-import mods.tinker.golems.logic.GolemCoreLogic;
 import mods.tinker.tconstruct.TConstruct;
 import mods.tinker.tconstruct.TContent;
 import mods.tinker.tconstruct.TProxyCommon;
@@ -29,6 +26,7 @@ import mods.tinker.tconstruct.entity.UnstableCreeper;
 import mods.tinker.tconstruct.library.client.TConstructClientRegistry;
 import mods.tinker.tconstruct.library.client.ToolGuiElement;
 import mods.tinker.tconstruct.logic.CastingTableLogic;
+import mods.tinker.tconstruct.logic.GolemCoreLogic;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
