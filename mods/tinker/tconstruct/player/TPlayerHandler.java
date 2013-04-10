@@ -45,12 +45,12 @@ public class TPlayerHandler implements IPlayerTracker
 		stats.level = entityplayer.experienceLevel;
 		stats.health = 20; //More hp in the future
 		stats.hunger = entityplayer.getFoodStats().getFoodLevel();
-		stats.diary = tags.getCompoundTag("TConstruct").getBoolean("diary");
-		stats.stationManual = tags.getCompoundTag("TConstruct").getBoolean("stationManual");
+		stats.beginnerManual = tags.getCompoundTag("TConstruct").getBoolean("beginnerManual");
+		stats.materialManual = tags.getCompoundTag("TConstruct").getBoolean("materialManual");
 		stats.smelteryManual = tags.getCompoundTag("TConstruct").getBoolean("smelteryManual");
-		if (!stats.diary)
+		if (!stats.beginnerManual)
 		{
-			tags.getCompoundTag("TConstruct").setBoolean("diary", true);
+			tags.getCompoundTag("TConstruct").setBoolean("beginnerManual", true);
 			ItemStack diary = new ItemStack(TContent.manualBook);
 			if (!entityplayer.inventory.addItemStackToInventory(diary))
 			{
@@ -87,8 +87,8 @@ public class TPlayerHandler implements IPlayerTracker
 			entityplayer.getFoodStats().addStats(-1*(20 - stats.hunger), 0);
 		NBTTagCompound tags = entityplayer.getEntityData();
 		NBTTagCompound tTag = new NBTTagCompound();
-		tTag.setBoolean("diary", stats.diary);
-		tTag.setBoolean("stationManual", stats.stationManual);
+		tTag.setBoolean("beginnerManual", stats.beginnerManual);
+		tTag.setBoolean("materialManual", stats.materialManual);
 		tTag.setBoolean("smelteryManual", stats.smelteryManual);
 		tags.setCompoundTag("TConstruct", tTag);
 

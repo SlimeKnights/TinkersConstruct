@@ -198,10 +198,10 @@ public class TProxyClient extends TProxyCommon
 			"Slime Crystal Fragment", "Paper", "Cobalt Chunk", "Ardite Chunk", "Manyullyn Chunk", "Copper Chunk", "Bronze Chunk", "Alumite Chunk", "Steel Chunk", "Slime Crystal Fragment" };
 
 	public static final String[] materialItemInternalNames = new String[] { "PaperStack", "SlimeCrystal", "SearedBrick", "CobaltIngot", "ArditeIngot", "ManyullynIngot", "Mossball", "LavaCrystal",
-			"NecroticBone", "CopperIngot", "TinIngot", "AluminumIngot", "RawAluminum", "BronzeIngot", "AlBrassIngot", "AlumiteIngot", "SteelIngot", "BlueSlimeCrystal" };
+			"NecroticBone", "CopperIngot", "TinIngot", "AluminumIngot", "RawAluminum", "BronzeIngot", "AlBrassIngot", "AlumiteIngot", "SteelIngot", "BlueSlimeCrystal", "ObsidianIngot" };
 
 	public static final String[] materialItemNames = new String[] { "Paper Stack", "Slime Crystal", "Seared Brick", "Cobalt Ingot", "Ardite Ingot", "Manyullyn Ingot", "Ball of Moss", "Lava Crystal",
-			"Necrotic Bone", "Copper Ingot", "Tin Ingot", "Aluminum Ingot", "Raw Aluminum", "Bronze Ingot", "Aluminum Brass Ingot", "Alumite Ingot", "Steel Ingot", "Slime Crystal" };
+			"Necrotic Bone", "Copper Ingot", "Tin Ingot", "Aluminum Ingot", "Raw Aluminum", "Bronze Ingot", "Aluminum Brass Ingot", "Alumite Ingot", "Steel Ingot", "Slime Crystal", "Obsidian Ingot" };
 
 	public static final String[] toolMaterialNames = new String[] { "Wood", "Stone", "Iron", "Flint", "Cactus", "Bone", "Obsidian", "Netherrack", "Slime", "Paper", "Cobalt", "Ardite", "Manyullyn",
 			"Copper", "Bronze", "Alumite", "Steel", "Blue Slime" };
@@ -219,15 +219,18 @@ public class TProxyClient extends TProxyCommon
 
 	public static Document diary;
 	public static Document volume1;
+    public static Document volume2;
 	public static Document smelter;
 
 	public void readManuals ()
 	{
 		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 		diary = readManual("/mods/tinker/resources/manuals/diary.xml", dbFactory);
-		volume1 = readManual("/mods/tinker/resources/manuals/materials.xml", dbFactory);
+		volume1 = readManual("/mods/tinker/resources/manuals/firstday.xml", dbFactory);
+        volume2 = readManual("/mods/tinker/resources/manuals/materials.xml", dbFactory);
 		smelter = readManual("/mods/tinker/resources/manuals/smeltery.xml", dbFactory);
 		initManualIcons();
+		initManualRecipes();
 	}
 
 	Document readManual (String location, DocumentBuilderFactory dbFactory)
@@ -262,6 +265,72 @@ public class TProxyClient extends TProxyCommon
 		TConstructClientRegistry.registerManualIcon("alubrassingot", new ItemStack(TContent.materials, 1, 14));
 		TConstructClientRegistry.registerManualIcon("manyullyningot", new ItemStack(TContent.materials, 1, 5));
 		TConstructClientRegistry.registerManualIcon("alumiteingot", new ItemStack(TContent.materials, 1, 15));
+        TConstructClientRegistry.registerManualIcon("blankpattern", new ItemStack(TContent.blankPattern, 1, 0));
+        TConstructClientRegistry.registerManualIcon("toolstation", new ItemStack(TContent.toolStationWood, 1, 0));
+        TConstructClientRegistry.registerManualIcon("partcrafter", new ItemStack(TContent.toolStationWood, 1, 1));
+        TConstructClientRegistry.registerManualIcon("patternchest", new ItemStack(TContent.toolStationWood, 1, 5));
+        TConstructClientRegistry.registerManualIcon("stenciltable", new ItemStack(TContent.toolStationWood, 1, 10));
+        TConstructClientRegistry.registerManualIcon("torch", new ItemStack(Block.torchWood));
+        TConstructClientRegistry.registerManualIcon("sapling", new ItemStack(Block.sapling));
+        TConstructClientRegistry.registerManualIcon("workbench", new ItemStack(Block.workbench));
+        TConstructClientRegistry.registerManualIcon("coal", new ItemStack(Item.coal));
+        
+        TConstructClientRegistry.registerManualIcon("obsidianingot", new ItemStack(TContent.materials, 1, 18));
+        TConstructClientRegistry.registerManualIcon("lavacrystal", new ItemStack(TContent.materials, 1, 7));
+        
+        TConstructClientRegistry.registerManualIcon("woodplanks", new ItemStack(Block.planks));
+        TConstructClientRegistry.registerManualIcon("stoneblock", new ItemStack(Block.stone));
+        TConstructClientRegistry.registerManualIcon("ironingot", new ItemStack(Item.ingotIron));
+        TConstructClientRegistry.registerManualIcon("flint", new ItemStack(Item.flint));
+        TConstructClientRegistry.registerManualIcon("cactus", new ItemStack(Block.cactus));
+        TConstructClientRegistry.registerManualIcon("bone", new ItemStack(Item.bone));
+        TConstructClientRegistry.registerManualIcon("obsidian", new ItemStack(Block.obsidian));
+        TConstructClientRegistry.registerManualIcon("netherrack", new ItemStack(Block.netherrack));
+        TConstructClientRegistry.registerManualIcon("blueslimecrystal", new ItemStack(TContent.materials, 1, 17));
+        TConstructClientRegistry.registerManualIcon("slimecrystal", new ItemStack(TContent.materials, 1, 1));
+        TConstructClientRegistry.registerManualIcon("paperstack", new ItemStack(TContent.materials, 1, 0));
+        TConstructClientRegistry.registerManualIcon("cobaltingot", new ItemStack(TContent.materials, 1, 3));
+        TConstructClientRegistry.registerManualIcon("arditeingot", new ItemStack(TContent.materials, 1, 4));
+        TConstructClientRegistry.registerManualIcon("copperingot", new ItemStack(TContent.materials, 1, 9));
+        TConstructClientRegistry.registerManualIcon("steelingot", new ItemStack(TContent.materials, 1, 16));
+	}
+	
+	public void initManualRecipes()
+	{
+        ItemStack pattern = new ItemStack(TContent.blankPattern, 1, 0);
+        
+	    ItemStack stick = new ItemStack(Item.stick, 1, 0);
+        ItemStack plank = new ItemStack(Block.planks, 1, 0);
+        ItemStack workbench = new ItemStack(Block.workbench, 1, 0);
+        ItemStack chest = new ItemStack(Block.chest, 1, 0);
+        ItemStack log = new ItemStack(Block.wood, 1, 0);
+        
+        ItemStack sand = new ItemStack(Block.sand, 1, 0);
+        ItemStack gravel = new ItemStack(Block.gravel, 1, 0);
+        ItemStack clay = new ItemStack(Item.clay, 1, 0);
+        ItemStack glass = new ItemStack(Block.glass, 1, 0);
+        
+        ItemStack grout = new ItemStack(TContent.craftedSoil, 2, 1);
+        ItemStack searedbrick = new ItemStack(TContent.materials, 1, 2);
+        
+        TConstructClientRegistry.registerManualSmallRecipe("blankpattern", pattern, plank, stick, stick, plank);
+        TConstructClientRegistry.registerManualSmallRecipe("toolstation", new ItemStack(TContent.toolStationWood, 1, 0), null, pattern, null, workbench);
+        TConstructClientRegistry.registerManualSmallRecipe("partcrafter", new ItemStack(TContent.toolStationWood, 1, 1), null, pattern, null, plank);
+        TConstructClientRegistry.registerManualSmallRecipe("patternchest", new ItemStack(TContent.toolStationWood, 1, 5), null, pattern, null, chest);
+        TConstructClientRegistry.registerManualSmallRecipe("stenciltable", new ItemStack(TContent.toolStationWood, 1, 10), null, pattern, null, log);
+
+        TConstructClientRegistry.registerManualSmallRecipe("grout", grout, sand, gravel, null, clay);
+        TConstructClientRegistry.registerManualFurnaceRecipe("searedbrick", searedbrick, grout);
+        TConstructClientRegistry.registerManualSmallRecipe("searedbricks", new ItemStack(TContent.smeltery, 1, 2), searedbrick, searedbrick, searedbrick, searedbrick);
+        TConstructClientRegistry.registerManualLargeRecipe("smelterycontroller", new ItemStack(TContent.smeltery, 1, 0), searedbrick, searedbrick, searedbrick, searedbrick, null, searedbrick, searedbrick, searedbrick, searedbrick);
+        TConstructClientRegistry.registerManualLargeRecipe("smelterydrain", new ItemStack(TContent.smeltery, 1, 1), searedbrick, null, searedbrick, searedbrick, null, searedbrick, searedbrick, searedbrick, searedbrick);
+
+        TConstructClientRegistry.registerManualLargeRecipe("smelterytank1", new ItemStack(TContent.lavaTank, 1, 0), searedbrick, searedbrick, searedbrick, searedbrick, glass, searedbrick, searedbrick, searedbrick, searedbrick);
+        TConstructClientRegistry.registerManualLargeRecipe("smelterytank2", new ItemStack(TContent.lavaTank, 1, 1), searedbrick, glass, searedbrick, glass, glass, glass, searedbrick, glass, searedbrick);
+        TConstructClientRegistry.registerManualLargeRecipe("smelterytank3", new ItemStack(TContent.lavaTank, 1, 2), searedbrick, glass, searedbrick, searedbrick, glass, searedbrick, searedbrick, glass, searedbrick);
+        
+        TConstructClientRegistry.registerManualLargeRecipe("smelterytable", new ItemStack(TContent.searedBlock, 1, 0), searedbrick, searedbrick, searedbrick, searedbrick, null, searedbrick, searedbrick, null, searedbrick);
+        TConstructClientRegistry.registerManualLargeRecipe("smelteryfaucet", new ItemStack(TContent.searedBlock, 1, 1), searedbrick, null, searedbrick, null, searedbrick, null, null, null, null);
 	}
 
 	public static Document getManualFromStack (ItemStack stack)
@@ -269,11 +338,13 @@ public class TProxyClient extends TProxyCommon
 		switch (stack.getItemDamage())
 		{
 		case 0:
-			return diary;
-		case 1:
 			return volume1;
+		case 1:
+			return volume2;
 		case 2:
 			return smelter;
+        case 3:
+            return diary;
 		}
 
 		return null;
@@ -349,7 +420,7 @@ public class TProxyClient extends TProxyCommon
 	void addRenderMappings ()
 	{
 		String[] partTypes = { "wood", "stone", "iron", "flint", "cactus", "bone", "obsidian", "netherrack", "slime", "paper", "cobalt", "ardite", "manyullyn", "copper", "bronze", "alumite", "steel", "blueslime" };
-		String[] effectTypes = { "diamond", "emerald", "redstone", "glowstone", "moss", "ice", "lava", "blaze", "necrotic", "electric", "lapis" };
+		String[] effectTypes = { "diamond", "emerald", "redstone", "glowstone", "moss", "ice", "lava", "blaze", "necrotic", "electric", "lapis", "quartz" };
 		for (int partIter = 0; partIter < partTypes.length; partIter++)
 		{
 			TConstructClientRegistry.addMaterialRenderMapping(partIter, "tinker", partTypes[partIter], true);
@@ -614,48 +685,5 @@ public class TProxyClient extends TProxyCommon
         {
             return null;
         }
-		/*if (this.mc.renderViewEntity != null && this.mc.effectRenderer != null)
-		{
-			int i = this.mc.gameSettings.particleSetting;
-
-			if (i == 1 && mc.theWorld.rand.nextInt(3) == 0)
-			{
-				i = 2;
-			}
-
-			double d6 = this.mc.renderViewEntity.posX - par2;
-			double d7 = this.mc.renderViewEntity.posY - par4;
-			double d8 = this.mc.renderViewEntity.posZ - par6;
-			EntityFX entityfx = null;
-			double d9 = 16.0D;
-
-			if (d6 * d6 + d7 * d7 + d8 * d8 > d9 * d9)
-			{
-				return null;
-			}
-			else if (i > 1)
-			{
-				return null;
-			}
-			else
-			{
-				if (par1Str.equals("blueslime"))
-				{
-					entityfx = new EntityBreakingFX(mc.theWorld, par2, par4, par6, Item.appleGold, mc.renderEngine);RenderGlobal
-				}
-				
-				else if (par1Str.equals("metalslime"))
-				{
-					entityfx = new BreakingFX(mc.theWorld, par2, par4, par6, metalBall, mc.renderEngine);
-				}
-
-				return (EntityFX) entityfx;
-
-			}
-		}
-		else
-		{
-			return null;
-		}*/
 	}
 }

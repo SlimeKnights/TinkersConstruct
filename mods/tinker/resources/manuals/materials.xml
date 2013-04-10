@@ -5,50 +5,208 @@
 <text>Materials and You
 A Guide to Tools and Abilities
 
-Volume 1
+Volume 2
 By Skyla</text>
 </page>
 
-<page type="text">
-<text>Table of Contents
-
-This book is -not- anywhere near finished. Please don't read me yet.</text>
+<page type="contents">
+<text>Table of Contents</text>
+<link>
+ <text>Tools</text>
+ <icon>ironpick</icon>
+ <jump>2</jump>
+</link>
+<link>
+ <text>Materials</text>
+ <icon>woodplanks</icon>
+ <jump>4</jump>
+</link>
+<link>
+ <text>Modifiers</text>
+ <icon>lavacrystal</icon>
+ <jump>4</jump>
+</link>
 </page>
 
 <page type="text">
-<text>Welcome to the first edition of Materials and You: A Guide to Tools and Abilities. Within you will find details on each tool and anything you can make them from. You will also find the key to becoming a great Tool Tinker: changing tools after they're created. Many of the best known tools have changed so much since their inception that they may as well be somethign else.</text>
+<text>Welcome to the second edition of Materials and You: A Guide to Tools and Abilities. Within these pages you will details on every known tool, modifier, and material. A detailed breakdown of each
+
+This book is a magic copy; it updates whenever the original has been modified. Check back occasionally for information on new things.</text>
 </page>
 
-<page type="text">
-<text>Worktables
-
-In general:
-- Tools are made from parts
-- Parts are created from materials using a pattern
-
-We will create three separate areas for the creation of tools. The first will be for shaping patterns, the second for crafting parts out of materials, and the last will be the main station for finished products.</text>
+<page type="materialstats">
+<title>Wood</title>
+<icon>woodaxe</icon>
+<text>It seems to grow everywhere.</text>
+<material>
+ <main>woodplanks</main>
+</material>
 </page>
 
-<page type="text">
-<text>Blank patterns are where the
-</text>
+<page type="materialstats">
+<title>Stone</title>
+<icon>stonepick</icon>
+<text>One of the most common materials in the world.</text>
+<material>
+ <main>stoneblock</main>
+ <shard>stoneshard</shard>
+ <rod>stonerod</rod>
+</material>
 </page>
 
-<page type="craftingrecipe">
-<title>Blank Wood Pattern</title>
-<recipe>woodpattern</recipe>
+<page type="materialstats">
+<title>Iron</title>
+<icon>ironpick</icon>
+<text>A staple for tools, it can be refined and processed.</text>
+<material>
+ <main>ironingot</main>
+</material>
 </page>
 
-<page type="text">
-<text>The Stencil Table is where you shape blank patterns into something useful. This is done by punching a hole in precisely the shape you want the end result to look like. Materials can be place in the hole and combined until they resemble the end product.
-</text>
+<page type="materialstats">
+<title>Flint</title>
+<icon>flintshovel</icon>
+<text>More durable than stone. The material of choice for cavemen.</text>
+<material>
+ <main>flint</main>
+</material>
 </page>
 
-<page type="craftingrecipe">
-<title>Stencil Table</title>
-<recipe>stenciltable</recipe>
+<page type="materialstats">
+<title>Cactus</title>
+<icon>cactussword</icon>
+<text>A form of wood found only in the desert.</text>
+<material>
+ <main>cactus</main>
+</material>
 </page>
-<page type="text">
-<text></text>
+
+<page type="materialstats">
+<title>Bone</title>
+<icon>bonerapier</icon>
+<text>A material with many uses dead or alive.</text>
+<material>
+ <main>bone</main>
+</material>
 </page>
+
+<page type="materialstats">
+<title>Obsidian</title>
+<icon>bonefrypan</icon>
+<text>Tough as nails, but fragile when shaped.</text>
+<material>
+ <main>obsidian</main>
+</material>
+</page>
+
+<page type="materialstats">
+<title>Alumite</title>
+<icon>alumitepick</icon>
+<text>An uncommon alloy. It seems to be quite durable.</text>
+<material>
+ <main>alumiteingot</main>
+</material>
+</page>
+
+<page type="materialstats">
+<title>Netherrack</title>
+<icon>netherrackmattock</icon>
+<text>This is made of what?!</text>
+<material>
+ <main>netherrack</main>
+</material>
+</page>
+
+<page type="materialstats">
+<title>Blue Slime</title>
+<icon>blueslimebattlesign</icon>
+<text>Converting it from food has made it stronger.</text>
+<toolmaterial>BlueSlime</toolmaterial>
+<material>
+ <main>blueslimecrystal</main>
+</material>
+</page>
+
+<page type="materialstats">
+<title>Green Slime</title>
+<icon>slimebattlesign</icon>
+<text>Soft and springy, it seems to last forever.</text>
+<toolmaterial>Slime</toolmaterial>
+<material>
+ <main>slimecrystal</main>
+</material>
+</page>
+
+<page type="materialstats">
+<title>Paper</title>
+<icon>paperpick</icon>
+<text>It's very weak, but can take a lot of modification.</text>
+<material>
+ <main>paperstack</main>
+</material>
+</page>
+
+<page type="materialstats">
+<title>Paper</title>
+<icon>paperpick</icon>
+<text>It's very weak, but can take a lot of modification.</text>
+<material>
+ <main>paperstack</main>
+</material>
+</page>
+
+<page type="materialstats">
+<title>Cobalt</title>
+<icon>cobaltlongsword</icon>
+<text>One of the nether materials. It's bright blue.</text>
+<material>
+ <main>cobaltingot</main>
+</material>
+</page>
+
+<page type="materialstats">
+<title>Ardite</title>
+<icon>arditelongsword</icon>
+<text>One of the nether materials. It's rustic red.</text>
+<material>
+ <main>arditeingot</main>
+</material>
+</page>
+
+<page type="materialstats">
+<title>Manyullyn</title>
+<icon>manyullynlongsword</icon>
+<text>The nether alloy. It's stronger than diamond.</text>
+<material>
+ <main>manyullyningot</main>
+</material>
+</page>
+
+<page type="materialstats">
+<title>Copper</title>
+<icon>copperaxe</icon>
+<text>A common metal found in the ground.</text>
+<material>
+ <main>copperingot</main>
+</material>
+</page>
+
+<page type="materialstats">
+<title>Bronze</title>
+<icon>bronzeaxe</icon>
+<text>A common alloy. It's a bit better than iron.</text>
+<material>
+ <main>bronzeingot</main>
+</material>
+</page>
+
+<page type="materialstats">
+<title>Steel</title>
+<icon>steelsword</icon>
+<text>An Iron alloy. The method for obtaining this is unknown.</text>
+<material>
+ <main>steelingot</main>
+</material>
+</page>
+
 </book>

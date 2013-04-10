@@ -64,7 +64,7 @@ public class TankRender implements ISimpleBlockRenderingHandler
 				}
 			}
 		}
-		return false;
+		return true;
 	}
 
 	@Override

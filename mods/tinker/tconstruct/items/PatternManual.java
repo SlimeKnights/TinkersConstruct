@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 
 public class PatternManual extends CraftingItem
 {
-	static String[] name = new String[] { "diary", "toolstation", "smeltery" };
+	static String[] name = new String[] { "beginner", "toolstation", "smeltery" };
 	static String[] textureName = new String[] { "tinkerbook_diary", "tinkerbook_toolstation", "tinkerbook_smeltery" };
 	public PatternManual(int id)
 	{
@@ -37,7 +37,7 @@ public class PatternManual extends CraftingItem
 		switch (stack.getItemDamage())
 		{
 		case 0:
-			list.add("\u00a7oBy: Unknown");
+			list.add("\u00a7oBy: Skyla");
 			break;
 		case 1:
 			list.add("\u00a7oBy: Skyla");

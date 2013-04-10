@@ -146,6 +146,22 @@ public class PatternBuilder
 		}
 		return null;
 	}
+	
+	public ItemStack getShardFromSet(String materialset)
+	{
+	    MaterialSet set = (MaterialSet) materialSets.get(materialset);
+	    if (set != null)
+	        return set.shard.copy();
+	    return null;
+	}
+	
+	public ItemStack getRodFromSet(String materialset)
+    {
+        MaterialSet set = (MaterialSet) materialSets.get(materialset);
+        if (set != null)
+            return set.rod.copy();
+        return null;
+    }
 
 	//Small data classes. I would prefer the struct from C#, but we do what we can.
 	public class ItemKey

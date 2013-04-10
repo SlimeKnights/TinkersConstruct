@@ -92,6 +92,15 @@ public class BlueSlime extends EntityLiving implements IMob
 			this.motionX -= (double) (MathHelper.sin(f) * 0.2F);
 			this.motionZ += (double) (MathHelper.cos(f) * 0.2F);
 		}
+		
+        if (this.getBrightness(1.0F) > 0.9F && rand.nextInt(5) == 0 && this.worldObj.canBlockSeeTheSky(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY), MathHelper.floor_double(this.posZ)))
+        {
+            int size = this.getSlimeSize() - 1;
+            if (size <= 0)
+                this.kill();
+            else
+                this.setSlimeSize(size);
+        }
 
 		this.isAirBorne = true;
 		ForgeHooks.onLivingJump(this);
@@ -118,6 +127,11 @@ public class BlueSlime extends EntityLiving implements IMob
 		int x = MathHelper.floor_double(this.posX);
 		int y = MathHelper.floor_double(this.boundingBox.minY);
 		int z = MathHelper.floor_double(this.posZ);
+		
+		if (y < 60 && rand.nextInt(5) != 0)
+		{
+		    return false;
+		}
 
 		if (this.worldObj.getSavedLightValue(EnumSkyBlock.Sky, x, y, z) > this.rand.nextInt(32))
 		{

@@ -91,22 +91,31 @@ public abstract class ToolMod
 	public void addMatchingEffect (ItemStack tool)
 	{
 		NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
-		if (tags.hasKey("Effect3") || tags.hasKey(key))
+		if (tags.hasKey("Effect6") || tags.hasKey(key))
 			return;
-
+		
+		else if (tags.hasKey("Effect5"))
+        {
+            tags.setInteger("Effect6", effectIndex);
+        }
+		else if (tags.hasKey("Effect4"))
+        {
+            tags.setInteger("Effect5", effectIndex);
+        }
+        else if (tags.hasKey("Effect3"))
+        {
+            tags.setInteger("Effect4", effectIndex);
+        }
 		else if (tags.hasKey("Effect2"))
 		{
-			//System.out.println("Adding Effect 3");
 			tags.setInteger("Effect3", effectIndex);
 		}
 		else if (tags.hasKey("Effect1"))
 		{
-			//System.out.println("Adding Effect 2");
 			tags.setInteger("Effect2", effectIndex);
 		}
 		else
 		{
-			//System.out.println("Adding Effect 1");
 			tags.setInteger("Effect1", effectIndex);
 		}
 	}

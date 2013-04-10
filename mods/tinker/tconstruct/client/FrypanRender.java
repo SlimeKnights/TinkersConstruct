@@ -30,7 +30,7 @@ public class FrypanRender implements ISimpleBlockRenderingHandler
 		renderer.renderStandardBlock(block, x, y, z);
 		renderer.setRenderBounds(1F, 0.0F, 0.4375F, 2F, 0.125F, 0.5625F);
 		renderer.renderStandardBlock(block, x, y, z);
-		return false;
+		return true;
 	}
 
 	@Override

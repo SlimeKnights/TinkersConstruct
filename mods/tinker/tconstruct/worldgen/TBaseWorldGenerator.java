@@ -75,7 +75,7 @@ public class TBaseWorldGenerator
 		{
 			if (PHConstruct.generateCobalt)
 			{
-				xPos = xChunk + random.nextInt(16); yPos = random.nextInt(64); zPos = zChunk + random.nextInt(16);
+				xPos = xChunk + random.nextInt(16); yPos = random.nextInt(64)+32; zPos = zChunk + random.nextInt(16);
 				cobalt.generate(world, random, xPos, yPos, zPos);
 			}
 			if (PHConstruct.generateArdite)

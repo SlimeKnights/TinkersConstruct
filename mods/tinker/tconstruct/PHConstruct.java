@@ -56,7 +56,7 @@ public class PHConstruct {
         
         redCreeper = config.get("Mob Spawning", "Activate Nitro Creeper Spawns", true).getBoolean(true);
         blueSlime = config.get("Mob Spawning", "Activate Blue Slime Spawns", true).getBoolean(true);
-        redCreeperWeight = config.get("Mob Spawning", "Spawn Weight for Nitro Creeper", 5).getInt(5);
+        redCreeperWeight = config.get("Mob Spawning", "Spawn Weight for Nitro Creeper", 6).getInt(6);
         blueSlimeWeight = config.get("Mob Spawning", "Spawn Weight for Blue Slime", 8).getInt(8);
         
         woodCrafter = config.getBlock("Wood Tool Station", 1471).getInt(1471);
@@ -74,6 +74,8 @@ public class PHConstruct {
         golemCore = config.getBlock("Golem Core", 1481).getInt(1481);
         golemHead = config.getBlock("Golem Head", 1482).getInt(1482);
         golemPedestal = config.getBlock("Golem Pedestal", 1483).getInt(1483);
+        
+        stoneTorch = config.getBlock("Stone Torch", 1484).getInt(1484);
         
         manual = config.getItem("Patterns and Misc", "Tinker's Manual", 14018).getInt(14018);
         blankPattern = config.getItem("Patterns and Misc", "Blank Patterns", 14019).getInt(14019);
@@ -147,7 +149,7 @@ public class PHConstruct {
         tinDensity = config.get("Worldgen", "Tin Density", 8).getInt(8);
         tinHeight = config.get("Worldgen", "Tin Height", 0).getInt(0);
         tinRange = config.get("Worldgen", "Tin Range", 40).getInt(40);
-        aluminumDensity = config.get("Worldgen", "Aluminum Density", 9).getInt(9);
+        aluminumDensity = config.get("Worldgen", "Aluminum Density", 5).getInt(5);
         aluminumHeight = config.get("Worldgen", "Aluminum Height", 0).getInt(0);
         aluminumRange = config.get("Worldgen", "Aluminum Range", 64).getInt(64);
         netherDensity = config.get("Worldgen", "Nether Ores Density", 8).getInt(8);
@@ -178,6 +180,9 @@ public class PHConstruct {
     //Liquids
     public static int metalFlowing;
     public static int metalStill;
+    
+    //Decoration
+    public static int stoneTorch;
     
     //Patterns and misc
     public static int blankPattern;

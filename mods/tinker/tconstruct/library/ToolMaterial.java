@@ -7,7 +7,7 @@ public class ToolMaterial
     //mining level, durability, mining speed, baseDamage, handle modifier, Reinforced level, shoddy/spiny level, color/style on name
     
 	public final String materialName;
-	public final int craftingTier;
+	public final int craftingTier; //Not used
 	public final int harvestLevel;
 	public final int durability;
 	public final int miningspeed; // <-- divided by 100

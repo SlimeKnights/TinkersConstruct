@@ -1,6 +1,5 @@
 package mods.tinker.tconstruct.logic;
 
-import cpw.mods.fml.common.FMLLog;
 import mods.tinker.common.IPattern;
 import mods.tinker.common.InventoryLogic;
 import mods.tinker.tconstruct.TConstruct;
@@ -8,6 +7,7 @@ import mods.tinker.tconstruct.crafting.CastingRecipe;
 import mods.tinker.tconstruct.crafting.LiquidCasting;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
+import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.INetworkManager;
@@ -19,7 +19,8 @@ import net.minecraftforge.liquids.ILiquidTank;
 import net.minecraftforge.liquids.ITankContainer;
 import net.minecraftforge.liquids.LiquidStack;
 
-public class CastingTableLogic extends InventoryLogic implements ILiquidTank, ITankContainer
+public class CastingTableLogic extends InventoryLogic 
+    implements ILiquidTank, ITankContainer, ISidedInventory
 {
 	public LiquidStack liquid;
 	int castingDelay = 0;
@@ -129,6 +130,20 @@ public class CastingTableLogic extends InventoryLogic implements ILiquidTank, IT
 			return resource.amount;
 		}
 	}
+	
+	@Override
+	public void onInventoryChanged()
+	{
+	    super.onInventoryChanged();
+        worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+	}
+	
+	public ItemStack decrStackSize(int slot, int quantity)
+    {
+	    ItemStack stack = super.decrStackSize(slot, quantity);
+        worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+        return stack;
+    }
 
 	@Override
 	public LiquidStack drain (int maxDrain, boolean doDrain) //Doesn't actually drain
@@ -147,9 +162,9 @@ public class CastingTableLogic extends InventoryLogic implements ILiquidTank, IT
 	@Override
 	public int fill (ForgeDirection from, LiquidStack resource, boolean doFill)
 	{
-		if (from == ForgeDirection.UP)
+		//if (from == ForgeDirection.UP)
 			return fill(0, resource, doFill);
-		return 0;
+		//return 0;
 	}
 
 	@Override
@@ -267,5 +282,30 @@ public class CastingTableLogic extends InventoryLogic implements ILiquidTank, IT
 		readFromNBT(packet.customParam1);
 		worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
 	}
+
+    @Override
+    public int[] getSizeInventorySide (int var1)
+    {
+        return new int[] {1, 1, 1, 1, 1, 1, 1};
+    }
+
+    @Override
+    public boolean func_102007_a (int i, ItemStack itemstack, int j)
+    {
+        if (j == 0)
+            return false;
+        else
+            return true;
+    }
+
+    @Override
+    public boolean func_102008_b (int i, ItemStack itemstack, int j)
+    {
+        /*if (j == 0)
+            return false;
+        else
+            return true;*/
+        return true;
+    }
 
 }

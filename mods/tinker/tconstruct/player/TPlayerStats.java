@@ -10,8 +10,8 @@ public class TPlayerStats
 	public int level;
 	public int health;
 	public int hunger;
-	public boolean diary;
-	public boolean stationManual;
+	public boolean beginnerManual;
+	public boolean materialManual;
 	public boolean smelteryManual;
 	
 	//public boolean prevOnGround;

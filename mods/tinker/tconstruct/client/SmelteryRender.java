@@ -122,7 +122,7 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
 				}
 			}
 		}
-		return false;
+		return true;
 	}
 	
 	void renderLayer(SmelteryLogic logic, int start, int posX, int posY, int posZ, RenderBlocks renderer, IBlockAccess world)

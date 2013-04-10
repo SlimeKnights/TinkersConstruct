@@ -8,6 +8,7 @@ import mods.tinker.tconstruct.client.SearedRender;
 import mods.tinker.tconstruct.library.TConstructRegistry;
 import mods.tinker.tconstruct.logic.CastingTableLogic;
 import mods.tinker.tconstruct.logic.FaucetLogic;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.item.EntityItem;
@@ -282,4 +283,19 @@ public class SearedBlock extends InventoryBlock
 
 		return super.getCollisionBoundingBoxFromPool(world, x, y, z);
 	}
+	
+	/* Redstone */
+	public boolean canConnectRedstone(IBlockAccess world, int x, int y, int z, int side)
+    {
+        return world.getBlockMetadata(x, y, z) == 1;
+    }
+	
+	public void onNeighborBlockChange(World world, int x, int y, int z, int neighborBlockID)
+    {
+	    if (world.isBlockIndirectlyGettingPowered(x, y, z) && world.getBlockMetadata(x, y, z) == 1)
+	    {
+	        FaucetLogic logic = (FaucetLogic) world.getBlockTileEntity(x, y, z);
+            logic.setActive(true);
+	    }
+    }
 }

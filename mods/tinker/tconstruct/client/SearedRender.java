@@ -222,7 +222,7 @@ public class SearedRender implements ISimpleBlockRenderingHandler
 				renderer.renderStandardBlock(block, x, y, z);
 			}
 		}
-		return false;
+		return true;
 	}
 
 	@Override

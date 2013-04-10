@@ -489,8 +489,9 @@ public class AbilityHelper
 		if (!player.worldObj.isRemote)
 		{
 			EntityItem entityitem = new EntityItem(player.worldObj, player.posX + 0.5D, player.posY + 0.5D, player.posZ + 0.5D, stack);
-			entityitem.delayBeforeCanPickup = 10;
+			//entityitem.delayBeforeCanPickup = 10;
 			player.worldObj.spawnEntityInWorld(entityitem);
+			entityitem.onCollideWithPlayer(player);
 		}
 	}
 }

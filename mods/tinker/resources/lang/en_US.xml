@@ -51,7 +51,7 @@
   <entry key="item.tconstruct.blankpattern.pattern.name">Blank Pattern</entry>
   <entry key="item.tconstruct.blankpattern.cast.name">Blank Cast</entry>
   
-  <entry key="item.tconstruct.manual.diary.name">Tinker's Log</entry>
+  <entry key="item.tconstruct.manual.beginner.name">Materials and You</entry>
   <entry key="item.tconstruct.manual.toolstation.name">Materials and You</entry>
   <entry key="item.tconstruct.manual.smeltery.name">Mighty Smelting</entry>
   
@@ -80,5 +80,7 @@
   
   <entry key="entity.TConstruct.EdibleSlime.name">Blue Slime</entry>
   <entry key="entity.TConstruct.UnstableCreeper.name">Nitro Creeper</entry>
+  <entry key="entity.TConstruct.EdibleSlime">Blue Slime</entry>
+  <entry key="entity.TConstruct.UnstableCreeper">Nitro Creeper</entry>
   
 </properties>

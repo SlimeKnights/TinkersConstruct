@@ -13,6 +13,7 @@ public class TConstructClientRegistry
 {
 	public static ArrayList<ToolGuiElement> toolButtons = new ArrayList<ToolGuiElement>(20);
 	public static Map<String, ItemStack> manualIcons = new HashMap<String, ItemStack>();
+    public static Map<String, ItemStack[]> recipeIcons = new HashMap<String, ItemStack[]>();
 	public static ItemStack defaultStack = new ItemStack(Item.ingotIron);
 	
 	public static void addMaterialRenderMapping (int materialID, String domain, String renderName, boolean useDefaultFolder)
@@ -49,12 +50,41 @@ public class TConstructClientRegistry
 		manualIcons.put(name, stack);
 	}
 
-	public static ItemStack getManualIcon (String textContent)
+    public static ItemStack getManualIcon (String textContent)
+    {
+        ItemStack stack = manualIcons.get(textContent);
+        if (stack != null)
+            return stack;
+        return defaultStack;
+    }
+	
+	public static void registerManualSmallRecipe(String name, ItemStack output, ItemStack... stacks)
 	{
-		ItemStack stack = manualIcons.get(textContent);
-		if (stack != null)
-			return stack;
-		return defaultStack;
+	    ItemStack[] recipe = new ItemStack[5];
+	    recipe[0] = output;
+        System.arraycopy(stacks, 0, recipe, 1, 4);
+	    recipeIcons.put(name, recipe);
+	}
+	
+	public static void registerManualLargeRecipe(String name, ItemStack output, ItemStack... stacks)
+    {
+        ItemStack[] recipe = new ItemStack[10];
+        recipe[0] = output;
+        System.arraycopy(stacks, 0, recipe, 1, 9);
+        recipeIcons.put(name, recipe);
+    }
+	
+	public static void registerManualFurnaceRecipe(String name, ItemStack output, ItemStack input)
+    {
+        ItemStack[] recipe = new ItemStack[2];
+        recipe[0] = output;
+        recipe[1] = input;
+        recipeIcons.put(name, recipe);
+    }
+	
+	public static ItemStack[] getRecipeIcons(String recipeName)
+	{
+	    return recipeIcons.get(recipeName);
 	}
 
 	//Gui

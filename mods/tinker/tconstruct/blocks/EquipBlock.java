@@ -40,11 +40,11 @@ public class EquipBlock extends InventoryBlock
 		return Block.blockSteel.getBlockTextureFromSideAndMetadata(side, meta);
 	}
 
-	/*@SideOnly(Side.CLIENT)
+	@SideOnly(Side.CLIENT)
 	public void registerIcons (IconRegister par1IconRegister)
 	{
-		this.blockIcon = par1iconRegister.registerIcon(Block.blockSteel.getUnlocalizedName());
-	}*/
+		//this.blockIcon = par1iconRegister.registerIcon(Block.blockSteel.getUnlocalizedName());
+	}
 
 	@Override
 	public boolean renderAsNormalBlock ()

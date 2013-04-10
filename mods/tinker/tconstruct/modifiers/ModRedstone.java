@@ -45,7 +45,7 @@ public class ModRedstone extends ToolMod
 		if (tags.hasKey(key))
 		{
 			int[] keyPair = tags.getIntArray(key);
-			if (keyPair[0] == max)
+			if (keyPair[0] % max == 0)
 			{
 				keyPair[0] += increase;
 				keyPair[1] += max;

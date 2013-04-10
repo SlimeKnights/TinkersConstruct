@@ -64,7 +64,7 @@ public class TableRender implements ISimpleBlockRenderingHandler
 				renderer.renderStandardBlock(block, x, y, z);
 			}
 		}
-		return false;
+		return true;
 	}
 
 	@Override

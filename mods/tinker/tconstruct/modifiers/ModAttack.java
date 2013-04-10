@@ -4,18 +4,19 @@ import mods.tinker.common.ToolMod;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
-public class ModBlaze extends ToolMod
+public class ModAttack extends ToolMod
 {
 	String tooltipName;
 	int increase;
-	int max;
+	int max = 72;
+	String guiType;
 
-	public ModBlaze(ItemStack[] items, int effect, int inc)
+	public ModAttack(String type, ItemStack[] items, int effect, int inc)
 	{
-		super(items, effect, "Blaze");
-		tooltipName = "\u00a76Fiery";
+		super(items, effect, "ModAttack");
+		tooltipName = "\u00a7fSharpness";
+		guiType = type;
 		increase = inc;
-		max = 25;
 	}
 
 	@Override
@@ -45,7 +46,16 @@ public class ModBlaze extends ToolMod
 		if (tags.hasKey(key))
 		{
 			int[] keyPair = tags.getIntArray(key);
-			if (keyPair[0] == max)
+			
+			int leftToBoost = 36 - (keyPair[0] % 36);
+			if (increase >= leftToBoost)
+			{	            
+	            int attack = tags.getInteger("Attack");
+	            attack += 1;
+	            tags.setInteger("Attack", attack);
+			}
+			
+			if (keyPair[0] % max == 0)
 			{
 				keyPair[0] += increase;
 				keyPair[1] += max;
@@ -61,29 +71,30 @@ public class ModBlaze extends ToolMod
 				tags.setIntArray(key, keyPair);
 			}
 			updateModTag(tool, keyPair);
+			
+			
 		}
 		else
 		{
 			int modifiers = tags.getInteger("Modifiers");
 			modifiers -= 1;
 			tags.setInteger("Modifiers", modifiers);
-			String modName = "\u00a76Blaze ("+increase+"/"+max+")";
+			String modName = "\u00a7f"+guiType+" ("+increase+"/"+max+")";
 			int tooltipIndex = addToolTip(tool, tooltipName, modName);
 			int[] keyPair = new int[] { increase, max, tooltipIndex };
 			tags.setIntArray(key, keyPair);
+            
+            int attack = tags.getInteger("Attack");
+            attack += 1;
+            tags.setInteger("Attack", attack);
 		}
-		
-		int fiery = tags.getInteger("Fiery");
-		fiery += (increase);
-		tags.setInteger("Fiery", fiery);
-		
 	}
 	
 	void updateModTag(ItemStack tool, int[] keys)
 	{
 		NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
 		String tip = "ModifierTip"+keys[2];
-		String modName = "\u00a76Blaze ("+keys[0]+"/"+keys[1]+")";
+		String modName = "\u00a7f"+guiType+" ("+keys[0]+"/"+keys[1]+")";
 		tags.setString(tip, modName);
 	}
 }

@@ -168,8 +168,14 @@ public class ToolStationGui extends GuiContainer
 		int maxDur = tags.getInteger("TotalDurability");
 		dur = maxDur - dur;
 		fontRenderer.drawString("Durability: " + dur + "/" + maxDur, xSize + 8, 24, 0xffffff);
-		int damage = tags.getInteger("Attack");
-		fontRenderer.drawString("Damage: " + damage, xSize + 8, 35, 0xffffff);
+		int attack = tags.getInteger("Attack");
+
+        String heart = attack == 2 ? " Heart" : " Hearts";
+        if (attack % 2 == 0)
+            this.fontRenderer.drawString("Attack: " + attack/2 + heart, xSize + 8, 35, 0xffffff);
+        else
+            this.fontRenderer.drawString("Attack: " +attack/2f + heart, xSize + 8, 35, 0xffffff);
+		//fontRenderer.drawString("Attack: " + damage, xSize + 8, 35, 0xffffff);
 
 		fontRenderer.drawString("Modifiers remaining: " + tags.getInteger("Modifiers"), xSize + 8, 57, 0xffffff);
 		if (tags.hasKey("Tooltip1"))

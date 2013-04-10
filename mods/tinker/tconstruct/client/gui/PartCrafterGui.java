@@ -108,7 +108,7 @@ public class PartCrafterGui extends GuiContainer
 			drawDefaultInformation();
 	}
 	
-	String getHarvestLevelName (int num)
+	public static String getHarvestLevelName (int num)
 	{
 		switch (num)
 		{

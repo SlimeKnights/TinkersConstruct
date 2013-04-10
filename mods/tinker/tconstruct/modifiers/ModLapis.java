@@ -43,34 +43,7 @@ public class ModLapis extends ToolMod
     public void modify (ItemStack[] input, ItemStack tool)
     {
         NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
-        if (tags.hasKey(key))
-        {
-
-            int keyPair[] = tags.getIntArray(key);
-            keyPair[0] += increase;
-            tags.setIntArray(key, keyPair);
-            if (tool.getItem() instanceof Weapon)
-            {
-                if (keyPair[0] >= 100)
-                    addEnchantment(tool, Enchantment.looting, 3);
-                else if (keyPair[0] >= 50)
-                    addEnchantment(tool, Enchantment.looting, 2);
-                else if (keyPair[0] >= 20)
-                    addEnchantment(tool, Enchantment.looting, 1);
-            }
-            else
-            {
-                if (keyPair[0] >= 100)
-                    addEnchantment(tool, Enchantment.fortune, 3);
-                else if (keyPair[0] >= 50)
-                    addEnchantment(tool, Enchantment.fortune, 2);
-                else if (keyPair[0] >= 20)
-                    addEnchantment(tool, Enchantment.fortune, 1);
-            }
-            
-            updateModTag(tool, keyPair);
-        }
-        else
+        if (!tags.hasKey(key))
         {
             tags.setBoolean(key, true);
             
@@ -83,6 +56,30 @@ public class ModLapis extends ToolMod
             modifiers -= 1;
             tags.setInteger("Modifiers", modifiers);
         }
+        
+        int keyPair[] = tags.getIntArray(key);
+        keyPair[0] += increase;
+        tags.setIntArray(key, keyPair);
+        if (tool.getItem() instanceof Weapon)
+        {
+            if (keyPair[0] >= 100)
+                addEnchantment(tool, Enchantment.looting, 3);
+            else if (keyPair[0] >= 50)
+                addEnchantment(tool, Enchantment.looting, 2);
+            else if (keyPair[0] >= 20)
+                addEnchantment(tool, Enchantment.looting, 1);
+        }
+        else
+        {
+            if (keyPair[0] >= 100)
+                addEnchantment(tool, Enchantment.fortune, 3);
+            else if (keyPair[0] >= 50)
+                addEnchantment(tool, Enchantment.fortune, 2);
+            else if (keyPair[0] >= 20)
+                addEnchantment(tool, Enchantment.fortune, 1);
+        }
+        
+        updateModTag(tool, keyPair);
     }
     
     public void addEnchantment(ItemStack tool, Enchantment enchant, int level)

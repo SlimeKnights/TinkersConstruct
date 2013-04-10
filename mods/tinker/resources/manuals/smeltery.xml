@@ -127,7 +127,80 @@ Other liquid removal objects will work, but are frowned upon. An example picture
 </item>
 </page>
 
-<page type="text">
-<text>To be continued...</text>
+<page type="crafting">
+<text>Grout</text>
+<recipe>
+ <name>grout</name>
+ <size>two</size>
+</recipe>
+</page>
+
+<page type="smelting">
+<text>Seared Brick</text>
+<recipe>searedbrick</recipe>
+</page>
+
+<page type="crafting">
+<text>Seared Bricks</text>
+<recipe>
+ <name>searedbricks</name>
+ <size>two</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Smeltery Controller</text>
+<recipe>
+ <name>smelterycontroller</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Smeltery Drain</text>
+<recipe>
+ <name>smelterydrain</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Lava Tank</text>
+<recipe>
+ <name>smelterytank1</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Seared Glass</text>
+<recipe>
+ <name>smelterytank2</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Seared Window</text>
+<recipe>
+ <name>smelterytank3</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Casting Table</text>
+<recipe>
+ <name>smelterytable</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Seared Faucet</text>
+<recipe>
+ <name>smelteryfaucet</name>
+ <size>three</size>
+</recipe>
 </page>
 </book>

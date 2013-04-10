@@ -14,7 +14,8 @@ public class TConstructRegistry
 {
 	public static TConstructRegistry instance = new TConstructRegistry();
 	public static ArrayList<ToolCore> tools = new ArrayList<ToolCore>(20);
-	public static HashMap<Integer, ToolMaterial> toolMaterials = new HashMap<Integer, ToolMaterial>(60);
+	public static HashMap<Integer, ToolMaterial> toolMaterials = new HashMap<Integer, ToolMaterial>(40);
+    public static HashMap<String, ToolMaterial> toolMaterialStrings = new HashMap<String, ToolMaterial>(40);
 	
 	public static TabTools toolTab;
 	public static TabTools materialTab;
@@ -43,14 +44,21 @@ public class TConstructRegistry
 		ToolMaterial mat = toolMaterials.get(materialID);
 		if (mat == null)
 		{
-			toolMaterials.put(materialID, new ToolMaterial(materialName, craftingTier, harvestLevel, durability, miningspeed, attack, handleModifier, reinforced, shoddy, style, ability));
+		    mat = new ToolMaterial(materialName, craftingTier, harvestLevel, durability, miningspeed, attack, handleModifier, reinforced, shoddy, style, ability);
+			toolMaterials.put(materialID, mat);
+			toolMaterialStrings.put(materialName, mat);
 		}
 		else
-			throw new RuntimeException("TConstruct material ID " + materialID + " is already occupied by " + mat.materialName);
+			throw new RuntimeException("[TConstruct] Material ID " + materialID + " is already occupied by " + mat.materialName);
 	}
 
 	public static ToolMaterial getMaterial (int key)
 	{
 		return (toolMaterials.get(key));
 	}
+	
+	public static ToolMaterial getMaterial (String key)
+    {
+        return (toolMaterialStrings.get(key));
+    }
 }
