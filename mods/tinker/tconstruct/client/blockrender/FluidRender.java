@@ -1,4 +1,4 @@
-package mods.tinker.tconstruct.client;
+package mods.tinker.tconstruct.client.blockrender;
 
 import mods.tinker.tconstruct.blocks.LiquidMetalBase;
 import net.minecraft.block.Block;

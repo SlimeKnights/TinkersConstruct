@@ -162,9 +162,15 @@ public class ToolBuilder
 	
 	public ItemStack modifyTool (ItemStack input, ItemStack topSlot, ItemStack bottomSlot)
 	{
+	    //if (topSlot == null && bottomSlot == null)
+	        //return input;
+	    
 		ItemStack tool = input.copy();
 		NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
 		tags.removeTag("Built");
+		
+		if (topSlot == null && bottomSlot == null)
+		    return tool;
 		
 		boolean built = false;
 		for (ToolMod mod : toolMods)

@@ -3,7 +3,7 @@ package mods.tinker.tconstruct.blocks;
 import java.util.Random;
 
 import mods.tinker.tconstruct.TContent;
-import mods.tinker.tconstruct.client.FluidRender;
+import mods.tinker.tconstruct.client.blockrender.FluidRender;
 import mods.tinker.tconstruct.logic.LiquidTextureLogic;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;

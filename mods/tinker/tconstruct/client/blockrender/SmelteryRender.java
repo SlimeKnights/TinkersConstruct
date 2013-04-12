@@ -1,4 +1,4 @@
-package mods.tinker.tconstruct.client;
+package mods.tinker.tconstruct.client.blockrender;
 
 import mods.tinker.common.BlockSkinRenderHelper;
 import mods.tinker.tconstruct.crafting.Smeltery;

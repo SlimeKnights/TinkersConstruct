@@ -1,4 +1,4 @@
-package mods.tinker.tconstruct.client;
+package mods.tinker.tconstruct.client.blockrender;
 
 import mods.tinker.common.fancyitem.FancyEntityItem;
 import mods.tinker.tconstruct.logic.CastingTableLogic;

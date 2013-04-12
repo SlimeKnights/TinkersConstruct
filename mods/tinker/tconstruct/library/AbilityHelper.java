@@ -36,7 +36,6 @@ import cpw.mods.fml.client.FMLClientHandler;
 
 public class AbilityHelper
 {
-	static Minecraft mc;
 	static Random random = new Random();
 
 	/* Normal interactions */
@@ -416,19 +415,6 @@ public class AbilityHelper
 	public static DamageSource causePlayerPiercingDamage (EntityPlayer player)
 	{
 		return new PiercingEntityDamage("player", player);
-	}
-
-	public static void thrust (ItemStack stack, World world, EntityPlayer player)
-	{
-		if (mc == null)
-			mc = FMLClientHandler.instance().getClient();
-
-		if (mc.objectMouseOver != null && mc.objectMouseOver.typeOfHit == EnumMovingObjectType.ENTITY)
-		{
-			mc.playerController.attackEntity(player, mc.objectMouseOver.entityHit);
-			mc.playerController.attackEntity(player, mc.objectMouseOver.entityHit);
-			mc.playerController.attackEntity(player, mc.objectMouseOver.entityHit);
-		}
 	}
 
 	public static void knockbackEntity (EntityLiving living, double boost)

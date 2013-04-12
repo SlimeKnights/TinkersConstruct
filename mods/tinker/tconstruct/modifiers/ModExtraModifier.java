@@ -16,9 +16,6 @@ public class ModExtraModifier extends ToolMod
     @Override
     protected boolean canModify (ItemStack tool, ItemStack[] input)
     {
-        if ((input[0] == null && input[1] == null) || (input[0] != null && input[1] != null)) //Only valid for one itemstack
-            return false;
-
         NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
         if (tags.getBoolean(key))
         {
@@ -33,7 +30,9 @@ public class ModExtraModifier extends ToolMod
         NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
         tags.setBoolean(key, true);
         int modifiers = tags.getInteger("Modifiers");
-        tags.setInteger("Modifiers", modifiers + 1);
+        modifiers += 1;
+        tags.setInteger("Modifiers", modifiers);
     }
-
+    
+    public void addMatchingEffect (ItemStack tool) {}
 }

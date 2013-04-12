@@ -278,7 +278,7 @@ public class TEventHandler
 		}
 	}
 
-	public void unfuxOreDictionary ()
+	public void unfuxOreDictionary () //TODO: This isn't the best
 	{
 		ArrayList<ItemStack> ores = OreDictionary.getOres("ingotCopper");
 		for (ItemStack ore : ores)

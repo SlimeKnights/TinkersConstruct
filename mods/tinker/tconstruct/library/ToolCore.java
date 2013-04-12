@@ -111,7 +111,7 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
 	@Override
 	public int getRenderPasses (int metadata)
 	{
-		return 6;
+		return 9;
 	}
 
 	//Override me please!
@@ -231,6 +231,24 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
 				if (tags.hasKey("Effect3"))
 					return (effectIcons.get(tags.getInteger("Effect3")));
 			}
+			
+			else if (renderPass == getPartAmount() + 3)
+            {
+                if (tags.hasKey("Effect4"))
+                    return (effectIcons.get(tags.getInteger("Effect4")));
+            }
+
+            else if (renderPass == getPartAmount() + 4)
+            {
+                if (tags.hasKey("Effect5"))
+                    return (effectIcons.get(tags.getInteger("Effect5")));
+            }
+
+            else if (renderPass == getPartAmount() + 5)
+            {
+                if (tags.hasKey("Effect6"))
+                    return (effectIcons.get(tags.getInteger("Effect6")));
+            }
 		}
 
 		return blankSprite;

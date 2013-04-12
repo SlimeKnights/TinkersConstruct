@@ -219,8 +219,10 @@ public class ToolStationContainer extends Container
             }
         }
         
-        if (!failedToMerge)
-			player.worldObj.playAuxSFX(1021, (int)player.posX, (int)player.posY, (int)player.posZ, 0);
+        /*boolean emptySlots = ( ((Slot) inventorySlots.get(2)).getStack() == null && ((Slot) inventorySlots.get(3)).getStack() == null );
+        System.out.println("Empty slots");
+        if (!failedToMerge && emptySlots)
+			player.worldObj.playAuxSFX(1021, (int)player.posX, (int)player.posY, (int)player.posZ, 0);*/
 
         return failedToMerge;
     }

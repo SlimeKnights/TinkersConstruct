@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import mods.tinker.tconstruct.TConstruct;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.liquids.LiquidStack;
@@ -19,44 +20,55 @@ public class Smeltery
     private HashMap<List<Integer>, ItemStack> renderIndex = new HashMap<List<Integer>, ItemStack>();
     private ArrayList<AlloyMix> alloys = new ArrayList<AlloyMix>();
 
-    /** Adds mappings between an itemstack and its liquid
+    /** Adds mappings between an itemstack and an output liquid
+     * Example: Smeltery.addMelting(Block.oreIron, 0, 600, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 0));
 	 * 
 	 * @param stack The itemstack to liquify
-	 * @param temperature How hot the block should be before liquifying
-	 * @param liquid The result of the process
+	 * @param temperature How hot the block should be before liquifying. Max temp in the Smeltery is 800, other structures may vary
+	 * @param output The result of the process in liquid form
 	 */
-    public static void addMelting(ItemStack stack, int temperature, LiquidStack liquid)
+    public static void addMelting(ItemStack stack, int temperature, LiquidStack output)
     {
-    	addMelting(stack, stack.itemID, stack.getItemDamage(), temperature, liquid);
+    	addMelting(stack, stack.itemID, stack.getItemDamage(), temperature, output);
     }
     
 	/** Adds mappings between a block and its liquid
+	 * Example: Smeltery.addMelting(Block.oreIron, 0, 600, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 0));
 	 * 
 	 * @param blockID The ID of the block to liquify and render
 	 * @param metadata The metadata of the block to liquify and render
-	 * @param temperature How hot the block should be before liquifying
-	 * @param liquid The result of the process
+	 * @param temperature How hot the block should be before liquifying. Max temp in the Smeltery is 800, other structures may vary
+	 * @param output The result of the process in liquid form
 	 */
-    public static void addMelting(Block block, int metadata, int temperature, LiquidStack liquid)
+    public static void addMelting(Block block, int metadata, int temperature, LiquidStack output)
     {
-    	addMelting(new ItemStack(block, 1, metadata), block.blockID, metadata, temperature, liquid);
+    	addMelting(new ItemStack(block, 1, metadata), block.blockID, metadata, temperature, output);
     }
     
-    /** Adds mappings between an input and its liquid
+    /** Adds mappings between an input and its liquid.
+     * Renders with the given input's block ID and metadata
+     * Example: Smeltery.addMelting(Block.oreIron, 0, 600, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 0));
 	 * 
 	 * @param input The item to liquify
-	 * @param itemID The ID of the block to render
+	 * @param blockID The ID of the block to render
 	 * @param metadata The metadata of the block to render
 	 * @param temperature How hot the block should be before liquifying
 	 * @param liquid The result of the process
 	 */
-    public static void addMelting(ItemStack input, int itemID, int metadata, int temperature, LiquidStack liquid)
+    public static void addMelting(ItemStack input, int blockID, int metadata, int temperature, LiquidStack liquid)
     {
         instance.smeltingList.put(Arrays.asList(input.itemID, input.getItemDamage()), liquid);
         instance.temperatureList.put(Arrays.asList(input.itemID, input.getItemDamage()), temperature);
-        instance.renderIndex.put(Arrays.asList(input.itemID, input.getItemDamage()), new ItemStack(itemID, input.stackSize, metadata));
+        instance.renderIndex.put(Arrays.asList(input.itemID, input.getItemDamage()), new ItemStack(blockID, input.stackSize, metadata));
     }
     
+    /** Adds an alloy mixing recipe.
+     * Example: Smeltery.addAlloyMixing(new LiquidStack(bronzeID, 2, 0), new LiquidStack(copperID, 3, 0), new LiquidStack(tinID, 1, 0));
+     * The example mixes 3 copper with 1 tin to make 2 bronze
+     * 
+     * @param result The output of the combination of mixers. The quantity is used for amount of a successful mix
+     * @param mixers the liquids to be mixed. Quantities are used as ratios
+     */
     public static void addAlloyMixing(LiquidStack result, LiquidStack... mixers)
     {
     	ArrayList inputs = new ArrayList();

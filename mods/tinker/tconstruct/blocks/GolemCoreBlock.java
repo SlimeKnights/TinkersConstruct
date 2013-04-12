@@ -2,7 +2,7 @@ package mods.tinker.tconstruct.blocks;
 
 import mods.tinker.common.InventoryBlock;
 import mods.tinker.tconstruct.TConstruct;
-import mods.tinker.tconstruct.client.GolemCoreRender;
+import mods.tinker.tconstruct.client.blockrender.GolemCoreRender;
 import mods.tinker.tconstruct.library.TConstructRegistry;
 import mods.tinker.tconstruct.logic.GolemCoreLogic;
 import net.minecraft.block.material.Material;

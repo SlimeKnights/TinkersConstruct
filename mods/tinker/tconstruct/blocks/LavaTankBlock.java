@@ -3,7 +3,7 @@ package mods.tinker.tconstruct.blocks;
 import java.util.List;
 
 import mods.tinker.common.IServantLogic;
-import mods.tinker.tconstruct.client.TankRender;
+import mods.tinker.tconstruct.client.blockrender.TankRender;
 import mods.tinker.tconstruct.library.TConstructRegistry;
 import mods.tinker.tconstruct.logic.LavaTankLogic;
 import net.minecraft.block.Block;

@@ -222,6 +222,35 @@ public class GuiManual extends GuiScreen
                 iconsLeft[2] = PatternBuilder.instance.getShardFromSet(materialLeft.name());
                 iconsLeft[3] = PatternBuilder.instance.getRodFromSet(materialLeft.name());
             }
+            
+            else if (pageLeftType.equals("toolpage"))
+            {
+                NodeList nodes = element.getElementsByTagName("title");
+                if (nodes != null)
+                    textLeft = nodes.item(0).getTextContent();
+                
+                nodes = element.getElementsByTagName("item");
+                multiTextLeft = new String[nodes.getLength() + 2];
+                iconsLeft = new ItemStack[nodes.getLength() + 1];
+                
+                for (int i = 0; i < nodes.getLength(); i++)
+                {
+                    NodeList children = nodes.item(i).getChildNodes();
+                    multiTextLeft[i+2] = children.item(1).getTextContent();
+                    iconsLeft[i+1] = TConstructClientRegistry.getManualIcon(children.item(3).getTextContent());
+                }
+
+                nodes = element.getElementsByTagName("text");
+                if (nodes != null)
+                {
+                    multiTextLeft[0] = nodes.item(0).getTextContent();
+                    multiTextLeft[1] = nodes.item(1).getTextContent();
+                }
+                
+                nodes = element.getElementsByTagName("icon");
+                if (nodes != null)
+                    iconsLeft[0] = TConstructClientRegistry.getManualIcon(nodes.item(0).getTextContent());
+            }
         }
 
         node = nList.item(currentPage + 1);
@@ -334,8 +363,36 @@ public class GuiManual extends GuiScreen
 
                 iconsRight[1] = TConstructClientRegistry.getManualIcon(nodes.item(1).getTextContent());
                 iconsRight[2] = PatternBuilder.instance.getShardFromSet(materialRight.name());
-                iconsRight[3] = PatternBuilder.instance.getRodFromSet(materialRight.name());
+                iconsRight[3] = PatternBuilder.instance.getRodFromSet(materialRight.name());   
+            }
+            
+            else if (pageRightType.equals("toolpage"))
+            {
+                NodeList nodes = element.getElementsByTagName("title");
+                if (nodes != null)
+                    textRight = nodes.item(0).getTextContent();
                 
+                nodes = element.getElementsByTagName("item");
+                multiTextRight = new String[nodes.getLength() + 2];
+                iconsRight = new ItemStack[nodes.getLength() + 1];
+                
+                for (int i = 0; i < nodes.getLength(); i++)
+                {
+                    NodeList children = nodes.item(i).getChildNodes();
+                    multiTextRight[i+2] = children.item(1).getTextContent();
+                    iconsRight[i+1] = TConstructClientRegistry.getManualIcon(children.item(3).getTextContent());
+                }
+
+                nodes = element.getElementsByTagName("text");
+                if (nodes != null)
+                {
+                    multiTextRight[0] = nodes.item(0).getTextContent();
+                    multiTextRight[1] = nodes.item(1).getTextContent();
+                }
+                
+                nodes = element.getElementsByTagName("icon");
+                if (nodes != null)
+                    iconsRight[0] = TConstructClientRegistry.getManualIcon(nodes.item(0).getTextContent());
             }
         }
         else
@@ -432,7 +489,12 @@ public class GuiManual extends GuiScreen
         {
             drawMaterialPage(textLeft, iconsLeft, multiTextLeft, materialLeft, localWidth + 16, localHeight + 12);
         }
+        else if (pageLeftType.equals("toolpage"))
+        {
+            drawToolPage(textLeft, iconsLeft, multiTextLeft, localWidth + 16, localHeight + 12);
+        }
 
+        //Right
         if (pageRightType.equals("text"))
         {
             if (textRight != null)
@@ -469,6 +531,11 @@ public class GuiManual extends GuiScreen
         else if (pageRightType.equals("materialstats"))
         {
             drawMaterialPage(textRight, iconsRight, multiTextRight, materialRight, localWidth + 220, localHeight + 12);
+        }
+
+        else if (pageRightType.equals("toolpage"))
+        {
+            drawToolPage(textRight, iconsRight, multiTextRight, localWidth + 220, localHeight + 12);
         }
     }
 
@@ -594,11 +661,6 @@ public class GuiManual extends GuiScreen
         renderitem.renderItemAndEffectIntoGUI(fontRenderer, mc.renderEngine, TConstructClientRegistry.getManualIcon("coal"), (localWidth + 38) / 2, (localHeight + 110) / 2);
         renderitem.renderItemAndEffectIntoGUI(fontRenderer, mc.renderEngine, icons[0], (localWidth + 106) / 2, (localHeight + 74) / 2);
         renderitem.renderItemAndEffectIntoGUI(fontRenderer, mc.renderEngine, icons[1], (localWidth + 38) / 2, (localHeight + 38) / 2);
-        /*for (int i = 0; i < icons.length - 1; i++)
-        {
-            if (icons[i + 1] != null)
-                renderitem.renderItemIntoGUI(fontRenderer, mc.renderEngine, icons[i + 1], (localWidth + 14 + 36 * (i % 2)) / 2, (localHeight + 36 * (i / 2) + 52) / 2);
-        }*/
 
         if (icons[0].stackSize > 1)
             renderitem.renderItemStack(fontRenderer, mc.renderEngine, icons[0], (localWidth + 106) / 2, (localHeight + 74) / 2, String.valueOf(icons[0].stackSize));
@@ -671,5 +733,26 @@ public class GuiManual extends GuiScreen
             this.fontRenderer.drawString("Spiny level: " + -material.shoddy(), localWidth, localHeight + 120 + 10*offset, 0);
             offset++;
         } 
+    }
+    
+    public void drawToolPage (String title, ItemStack[] icons, String[] multiText, int localWidth, int localHeight)
+    {
+        this.fontRenderer.drawString("\u00a7n" + title, localWidth + 70, localHeight + 4, 0);
+        this.fontRenderer.drawSplitString(multiText[0], localWidth, localHeight + 16, 178, 0);
+        int size = multiText[0].length()/50;
+        this.fontRenderer.drawSplitString(multiText[1], localWidth, localHeight + 28 + 10*size, 118, 0);
+        
+        this.fontRenderer.drawString("Crafting Parts: ", localWidth + 124, localHeight + 28 + 10*size, 0);
+        
+        GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+        RenderHelper.enableGUIStandardItemLighting();
+        renderitem.renderItemAndEffectIntoGUI(fontRenderer, mc.renderEngine, icons[0], localWidth + 50, localHeight + 0);
+        for (int i = 1; i < icons.length; i++)
+        {
+            renderitem.renderItemAndEffectIntoGUI(fontRenderer, mc.renderEngine, icons[i], localWidth + 120, localHeight + 20 + 10*size + 18*i);
+            this.fontRenderer.drawSplitString(multiText[i+1], localWidth + 140, localHeight + 24 + 10*size + 18*i, 42, 0);
+        }
+        RenderHelper.disableStandardItemLighting();
+        GL11.glDisable(GL12.GL_RESCALE_NORMAL);
     }
 }

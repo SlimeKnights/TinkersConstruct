@@ -1,4 +1,4 @@
-package mods.tinker.tconstruct.client;
+package mods.tinker.tconstruct.client.blockrender;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;

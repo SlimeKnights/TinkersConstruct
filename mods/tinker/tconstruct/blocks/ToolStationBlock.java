@@ -4,7 +4,7 @@ import java.util.List;
 
 import mods.tinker.common.InventoryBlock;
 import mods.tinker.tconstruct.TConstruct;
-import mods.tinker.tconstruct.client.TableRender;
+import mods.tinker.tconstruct.client.blockrender.TableRender;
 import mods.tinker.tconstruct.library.TConstructRegistry;
 import mods.tinker.tconstruct.logic.PartCrafterLogic;
 import mods.tinker.tconstruct.logic.PatternChestLogic;

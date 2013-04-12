@@ -108,11 +108,11 @@ public class FryingPan extends Weapon
 	}
 	
 	@SideOnly(Side.CLIENT)
-	@Override
-	public int getRenderPasses (int metadata)
-	{
-		return 5;
-	}
+    @Override
+    public int getRenderPasses (int metadata)
+    {
+        return 8;
+    }
 	
 	@Override
 	public int getPartAmount()

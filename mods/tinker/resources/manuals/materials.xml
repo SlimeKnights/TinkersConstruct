@@ -29,9 +29,213 @@ By Skyla</text>
 </page>
 
 <page type="text">
-<text>Welcome to the second edition of Materials and You: A Guide to Tools and Abilities. Within these pages you will details on every known tool, modifier, and material. A detailed breakdown of each
+<text>Welcome to the second edition of Materials and You: A Guide to Tools and Abilities. Within these pages you will details on every known tool, modifier, and material. A detailed breakdown of everything known, and a few unknowns, lie here.
 
 This book is a magic copy; it updates whenever the original has been modified. Check back occasionally for information on new things.</text>
+</page>
+
+<page type="toolpage">
+<title>Pickaxe</title>
+<text>The Pickaxe is a basic mining tool. It is the simplest method of chewing through rock and harvesting ores.</text>
+<text>Class: Precision Tool
+Effective on: Stone or rock, ores, and metal.</text>
+<icon>pickicon</icon>
+<item>
+ <text>Pickaxe Head</text>
+ <icon>pickhead</icon>
+</item>
+<item>
+ <text>Tool Rod</text>
+ <icon>toolrod</icon>
+</item>
+<item>
+ <text>Tool Binding</text>
+ <icon>binding</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>Shovel</title>
+<text>The Shovel is a basic digging tool. It is the most common way of moving earth around.</text>
+<text>Class: Precision Tool
+Effective on: Dirt, sand, and snow.</text>
+<icon>shovelicon</icon>
+<item>
+ <text>Shovel Head</text>
+ <icon>shovelhead</icon>
+</item>
+<item>
+ <text>Tool Rod</text>
+ <icon>toolrod</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>Axe</title>
+<text>The Axe is a basic chopping tool. It is the simplest way to shape lumber.</text>
+<text>Class: Precision Tool
+Effective on: Trees.</text>
+<icon>axeicon</icon>
+<item>
+ <text>Axe Head</text>
+ <icon>axehead</icon>
+</item>
+<item>
+ <text>Tool Rod</text>
+ <icon>toolrod</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>Mattock</title>
+<text>The Cutter Mattock is a versatile farming tool. Its primary purpose is to till soil. It also works somewhat like an axe and a shovel, but is not a replacement for either.</text>
+<text>Class: Multitool
+Effective on: Wood, dirt, and plants.</text>
+<icon>mattockicon</icon>
+<item>
+ <text>Axe Head</text>
+ <icon>axehead</icon>
+</item>
+<item>
+ <text>Tool Rod</text>
+ <icon>toolrod</icon>
+</item>
+<item>
+ <text>Shovel Head</text>
+ <icon>shovelhead</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>Broadsword</title>
+<text>The Broadsword is a defensive weapon. It is a favorite of many Tinkers and is useful in a wide variety of situations.</text>
+<text>Right-click: Block
+- Blocking cuts a wide variety of damage types in half.
+
+Class: Melee Weapon
+Effective on webs.</text>
+<icon>swordicon</icon>
+<item>
+ <text>Sword Blade</text>
+ <icon>swordblade</icon>
+</item>
+<item>
+ <text>Tool Rod</text>
+ <icon>toolrod</icon>
+</item>
+<item>
+ <text>Wide Guard</text>
+ <icon>wideguard</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>Longsword</title>
+<text>The Longsword is an offensive weapon. It is used for full-speed charges and plowing through enemy lines</text>
+<text>Right-click: Lunge
+- When released, it sends you careening forward at breakneck speed.
+
+Natural Abilities:
+- Charge Boost, does 1.5x damage and knockback while sprinting
+
+Class: Melee Weapon
+Effective on webs.</text>
+<icon>longswordicon</icon>
+<item>
+ <text>Sword Blade</text>
+ <icon>swordblade</icon>
+</item>
+<item>
+ <text>Tool Rod</text>
+ <icon>toolrod</icon>
+</item>
+<item>
+ <text>Hand Guard</text>
+ <icon>handguard</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>Rapier</title>
+<text>The Rapier is a special weapon. The dancing swordplay lets you get in and out of battle quickly. While the Rapier's damage is low, it makes up for this with its other abilities.</text>
+<text>Right-click: Backpedal
+- Take a small hop backwards
+
+Natural Abilities:
+- Charge Boost, does 2x damage and knockback while sprinting.
+- Armor Pierce, ignores armor and blocking.
+- Quick Strike, the enemy is stunned for less time.
+
+Class: Melee Weapon</text>
+<icon>rapiericon</icon>
+<item>
+ <text>Sword Blade</text>
+ <icon>swordblade</icon>
+</item>
+<item>
+ <text>Tool Rod</text>
+ <icon>toolrod</icon>
+</item>
+<item>
+ <text>Crossbar</text>
+ <icon>crossbar</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>Frying Pan</title>
+<text>The Frying is a heavy weapon that uses sheer weight to stun foes or a place to cook your food. It is common to hunt pigs and cook them with the same pan.</text>
+<text>Right-click: Block
+- Blocking cuts a wide variety of damage types in half.
+
+Shift+Right-click: Place Item
+- The frying pan cooks a large amount of food at a time.
+
+Natural Abilities:
+- Heavy, does extra knockback and stuns the foe.</text>
+<icon>frypanicon</icon>
+<item>
+ <text>Pan</text>
+ <icon>pan</icon>
+</item>
+<item>
+ <text>Tool Rod</text>
+ <icon>toolrod</icon>
+</item>
+<item>
+ <text>Crossbar</text>
+ <icon>crossbar</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>Battlesign</title>
+<text>The Battlesign is an advance in weapon technology worthy of Zombie Pigmen everywhere.</text>
+<text>Right-click: Block
+- Blocking cuts a wide variety of damage types in half.
+
+Class: Lethal Joke Weapon</text>
+<icon>battlesignicon</icon>
+<item>
+ <text>Board</text>
+ <icon>board</icon>
+</item>
+<item>
+ <text>Tool Rod</text>
+ <icon>toolrod</icon>
+</item>
+</page>
+
+<page type="text">
+<text>Material Abilities
+
+Some materials have abilities that augment their natural uses.
+
+Reinforced: 10% chance per level of not using durability
+Shoddy: Mines faster and does less damage as the tool breaks
+Spiny: Opposite of Shoddy
+Writable: One extra modifier per piece
+Awareness: Unknown</text>
 </page>
 
 <page type="materialstats">
@@ -134,15 +338,6 @@ This book is a magic copy; it updates whenever the original has been modified. C
 <toolmaterial>Slime</toolmaterial>
 <material>
  <main>slimecrystal</main>
-</material>
-</page>
-
-<page type="materialstats">
-<title>Paper</title>
-<icon>paperpick</icon>
-<text>It's very weak, but can take a lot of modification.</text>
-<material>
- <main>paperstack</main>
 </material>
 </page>
 

@@ -354,6 +354,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 		updateTemperatures();
 		super.onInventoryChanged();
 		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+        worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
 	}
 
 	/* Multiblock */
@@ -615,6 +616,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 
 	public LiquidStack drain (int maxDrain, boolean doDrain)
 	{
+	    System.out.println("Liquid: "+currentLiquid);
 		if (moltenMetal.size() == 0)
 			return null;
 

@@ -1,4 +1,4 @@
-package mods.tinker.tconstruct.client;
+package mods.tinker.tconstruct.client.blockrender;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.particle.EntityFX;

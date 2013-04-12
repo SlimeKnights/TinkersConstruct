@@ -22,7 +22,7 @@ public class CastingRecipe
 	
 	public boolean matches(LiquidStack metal, ItemStack cast)
 	{
-		if (castingMetal.isLiquidEqual(metal) && metal.amount >= castingMetal.amount && ItemStack.areItemStacksEqual(this.cast, cast))
+		if (castingMetal.isLiquidEqual(metal) && ItemStack.areItemStacksEqual(this.cast, cast))
 			return true;
 		else
 			return false;

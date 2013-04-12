@@ -21,7 +21,7 @@ public class Broadsword extends Weapon
 	@Override
 	protected Item getAccessoryItem ()
 	{
-		return TContent.largeGuard;
+		return TContent.wideGuard;
 	}
 	
 	public float getDurabilityModifier ()

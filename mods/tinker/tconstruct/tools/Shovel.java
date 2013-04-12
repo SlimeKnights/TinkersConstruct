@@ -51,7 +51,7 @@ public class Shovel extends HarvestTool
 	@Override
 	public int getRenderPasses (int metadata)
 	{
-		return 5;
+		return 8;
 	}
 	
 	@Override

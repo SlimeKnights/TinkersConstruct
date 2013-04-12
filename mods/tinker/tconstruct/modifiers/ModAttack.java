@@ -1,6 +1,7 @@
 package mods.tinker.tconstruct.modifiers;
 
 import mods.tinker.common.ToolMod;
+import mods.tinker.tconstruct.library.ToolCore;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -45,9 +46,13 @@ public class ModAttack extends ToolMod
 		NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
 		if (tags.hasKey(key))
 		{
+		    int amount = 24;
+		    if (((ToolCore) tool.getItem()).pierceArmor())
+		        amount = 36;
+		    
 			int[] keyPair = tags.getIntArray(key);
 			
-			int leftToBoost = 36 - (keyPair[0] % 36);
+			int leftToBoost = amount - (keyPair[0] % amount);
 			if (increase >= leftToBoost)
 			{	            
 	            int attack = tags.getInteger("Attack");

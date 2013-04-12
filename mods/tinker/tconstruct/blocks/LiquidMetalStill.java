@@ -175,17 +175,9 @@ public class LiquidMetalStill extends LiquidMetalBase implements ILiquid
 		
 		int meta = world.getBlockMetadata(x, y, z);
 		int tex = ((LiquidTextureLogic) world.getBlockTileEntity(x, y, z)).getLiquidType();
-        world.setBlock(x, y, z, this.blockID - 1, meta, 2);
-        world.scheduleBlockUpdate(x, y, z, this.blockID - 1, this.tickRate(world));
+        world.setBlock(x, y, z, flowingLiquidID(), meta, 2);
+        world.scheduleBlockUpdate(x, y, z, flowingLiquidID(), this.tickRate(world));
 		((LiquidTextureLogic) world.getBlockTileEntity(x, y, z)).setLiquidType(tex);
-		/*int meta = world.getBlockMetadata(x, y, z);
-		int tex = ((LiquidTextureLogic) world.getBlockTileEntity(x, y, z)).getLiquidType();
-		world.editingBlocks = true;
-		world.setBlockAndMetadata(x, y, z, flowingLiquidID(), meta);
-		world.markBlockRangeForRenderUpdate(x, y, z, x, y, z);
-		world.scheduleBlockUpdate(x, y, z, flowingLiquidID(), this.tickRate());
-		((LiquidTextureLogic) world.getBlockTileEntity(x, y, z)).setTexturePos(tex);
-		world.editingBlocks = false;*/
 	}
 
 	public boolean getBlocksMovement (IBlockAccess par1IBlockAccess, int par2, int par3, int par4)

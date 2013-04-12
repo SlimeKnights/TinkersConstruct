@@ -109,17 +109,17 @@ public class BattleSign extends Weapon
 	}
 	
 	@SideOnly(Side.CLIENT)
-	@Override
-	public int getRenderPasses (int metadata)
-	{
-		return 5;
-	}
-	
-	@Override
-	public int getPartAmount()
-	{
-		return 2;
-	}
+    @Override
+    public int getRenderPasses (int metadata)
+    {
+        return 8;
+    }
+    
+    @Override
+    public int getPartAmount()
+    {
+        return 2;
+    }
 	
 	@Override
 	public void registerPartPaths (int index, String[] location)

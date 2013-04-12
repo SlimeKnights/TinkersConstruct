@@ -90,5 +90,6 @@ public abstract class Weapon extends ToolCore
 		return 1;
 	}
 	
-	private static Material[] web = new Material[] { Material.web };
+	public static Material[] web = new Material[] { Material.web };
+    public static Material[] none = new Material[0];
 }

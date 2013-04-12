@@ -65,23 +65,12 @@ public class ToolStationLogic extends InventoryLogic
 				inventory[0] = tool;
 			}
 		}
-		/*if (container != null)
-			container.detectAndSendChanges();*/
 	}
 	
 	public void setToolname (String name)
 	{
 		toolName = name;
 		buildTool (name);
-	}
-
-	void consumeItems ()
-	{
-		for (int i = 1; i <= 3; i++)
-			super.decrStackSize(i, 1);
-
-		/*if (container != null)
-			container.detectAndSendChanges();*/
 	}
 	
 	public boolean canUpdate()

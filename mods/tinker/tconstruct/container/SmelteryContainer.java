@@ -53,7 +53,7 @@ public class SmelteryContainer extends ActiveContainer
         if (invRow != slotRow)
         {
             slotRow = invRow;
-            System.out.println(invRow);
+            //System.out.println(invRow);
             int basePos = invRow * 3;
             for (int iter = 0; iter < activeInventorySlots.size(); iter++)
             {
@@ -169,7 +169,7 @@ public class SmelteryContainer extends ActiveContainer
     @Override
     protected boolean mergeItemStack (ItemStack inputStack, int startSlot, int endSlot, boolean flag)
     {
-        System.out.println("Merge");
+        //System.out.println("Merge");
         boolean merged = false;
         int slotPos = startSlot;
 

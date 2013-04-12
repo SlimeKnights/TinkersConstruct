@@ -3,11 +3,13 @@ package mods.tinker.tconstruct.tools;
 import mods.tinker.tconstruct.TContent;
 import mods.tinker.tconstruct.library.AbilityHelper;
 import mods.tinker.tconstruct.library.Weapon;
+import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
 public class Rapier extends Weapon
@@ -25,6 +27,13 @@ public class Rapier extends Weapon
 
 	public ItemStack onItemRightClick (ItemStack stack, World world, EntityPlayer player)
 	{
+	    if (player.onGround)
+	    {
+	        player.motionY += 0.32;
+            float f = 0.5F;
+            player.motionX = (double) (MathHelper.sin(player.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(player.rotationPitch / 180.0F * (float) Math.PI) * f);
+            player.motionZ = (double) (-MathHelper.cos(player.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(player.rotationPitch / 180.0F * (float) Math.PI) * f);
+	    }
 		return stack;
 	}
 
@@ -95,4 +104,9 @@ public class Rapier extends Weapon
 	{
 		return "rapier";
 	}
+	
+	protected Material[] getEffectiveMaterials()
+    {
+	    return none;
+    }
 }
