@@ -1,20 +1,80 @@
 package mods.tinker.tconstruct;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
-import mods.tinker.common.*;
+import mods.tinker.common.IPattern;
+import mods.tinker.common.RecipeRemover;
 import mods.tinker.common.fancyitem.FancyEntityItem;
-import mods.tinker.tconstruct.blocks.*;
-import mods.tinker.tconstruct.crafting.*;
-import mods.tinker.tconstruct.entity.*;
-import mods.tinker.tconstruct.items.*;
-import mods.tinker.tconstruct.library.*;
-import mods.tinker.tconstruct.logic.*;
-import mods.tinker.tconstruct.modifiers.*;
-import mods.tinker.tconstruct.tools.*;
-
+import mods.tinker.tconstruct.blocks.EquipBlock;
+import mods.tinker.tconstruct.blocks.LavaTankBlock;
+import mods.tinker.tconstruct.blocks.LiquidMetalFlowing;
+import mods.tinker.tconstruct.blocks.LiquidMetalStill;
+import mods.tinker.tconstruct.blocks.MetalOre;
+import mods.tinker.tconstruct.blocks.SearedBlock;
+import mods.tinker.tconstruct.blocks.SmelteryBlock;
+import mods.tinker.tconstruct.blocks.StoneTorch;
+import mods.tinker.tconstruct.blocks.TConstructBlock;
+import mods.tinker.tconstruct.blocks.ToolStationBlock;
+import mods.tinker.tconstruct.crafting.LiquidCasting;
+import mods.tinker.tconstruct.crafting.PatternBuilder;
+import mods.tinker.tconstruct.crafting.Smeltery;
+import mods.tinker.tconstruct.crafting.ToolBuilder;
+import mods.tinker.tconstruct.entity.BlueSlime;
+import mods.tinker.tconstruct.entity.Crystal;
+import mods.tinker.tconstruct.entity.LaunchedPotion;
+import mods.tinker.tconstruct.entity.UnstableCreeper;
+import mods.tinker.tconstruct.items.CraftedSoilItemBlock;
+import mods.tinker.tconstruct.items.CraftingItem;
+import mods.tinker.tconstruct.items.FilledBucket;
+import mods.tinker.tconstruct.items.LavaTankItemBlock;
+import mods.tinker.tconstruct.items.LiquidItemBlock;
+import mods.tinker.tconstruct.items.MetalItemBlock;
+import mods.tinker.tconstruct.items.MetalOreItemBlock;
+import mods.tinker.tconstruct.items.MetalPattern;
+import mods.tinker.tconstruct.items.Pattern;
+import mods.tinker.tconstruct.items.PatternManual;
+import mods.tinker.tconstruct.items.SearedTableItemBlock;
+import mods.tinker.tconstruct.items.SmelteryItemBlock;
+import mods.tinker.tconstruct.items.StrangeFood;
+import mods.tinker.tconstruct.items.TitleIcon;
+import mods.tinker.tconstruct.items.ToolPart;
+import mods.tinker.tconstruct.items.ToolShard;
+import mods.tinker.tconstruct.items.ToolStationItemBlock;
+import mods.tinker.tconstruct.library.TConstructRegistry;
+import mods.tinker.tconstruct.library.ToolCore;
+import mods.tinker.tconstruct.logic.CastingTableLogic;
+import mods.tinker.tconstruct.logic.FaucetLogic;
+import mods.tinker.tconstruct.logic.FrypanLogic;
+import mods.tinker.tconstruct.logic.LavaTankLogic;
+import mods.tinker.tconstruct.logic.LiquidTextureLogic;
+import mods.tinker.tconstruct.logic.MultiServantLogic;
+import mods.tinker.tconstruct.logic.PartCrafterLogic;
+import mods.tinker.tconstruct.logic.PatternChestLogic;
+import mods.tinker.tconstruct.logic.PatternShaperLogic;
+import mods.tinker.tconstruct.logic.SmelteryDrainLogic;
+import mods.tinker.tconstruct.logic.SmelteryLogic;
+import mods.tinker.tconstruct.logic.ToolStationLogic;
+import mods.tinker.tconstruct.modifiers.ModAttack;
+import mods.tinker.tconstruct.modifiers.ModBlaze;
+import mods.tinker.tconstruct.modifiers.ModBoolean;
+import mods.tinker.tconstruct.modifiers.ModDurability;
+import mods.tinker.tconstruct.modifiers.ModElectric;
+import mods.tinker.tconstruct.modifiers.ModExtraModifier;
+import mods.tinker.tconstruct.modifiers.ModInteger;
+import mods.tinker.tconstruct.modifiers.ModLapis;
+import mods.tinker.tconstruct.modifiers.ModRedstone;
+import mods.tinker.tconstruct.modifiers.ModRepair;
+import mods.tinker.tconstruct.tools.Axe;
+import mods.tinker.tconstruct.tools.BattleSign;
+import mods.tinker.tconstruct.tools.Broadsword;
+import mods.tinker.tconstruct.tools.FryingPan;
+import mods.tinker.tconstruct.tools.Longsword;
+import mods.tinker.tconstruct.tools.Mattock;
+import mods.tinker.tconstruct.tools.Pickaxe;
+import mods.tinker.tconstruct.tools.PotionLauncher;
+import mods.tinker.tconstruct.tools.Rapier;
+import mods.tinker.tconstruct.tools.Shovel;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
@@ -32,6 +92,7 @@ import net.minecraftforge.liquids.LiquidDictionary;
 import net.minecraftforge.liquids.LiquidStack;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
 import cpw.mods.fml.common.IFuelHandler;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
@@ -548,7 +609,7 @@ public class TContent implements IFuelHandler
         }
     }
 
-    WeakReference<ToolCore> tool = new WeakReference<ToolCore>(null);
+    //WeakReference<ToolCore> tool = new WeakReference<ToolCore>(null);
 
     void addSmelteryRecipes ()
     {
@@ -569,7 +630,7 @@ public class TContent implements IFuelHandler
         //Alloys
         Smeltery.addAlloyMixing(new LiquidStack(liquidMetalStill.blockID, 2, 7), new LiquidStack(liquidMetalStill.blockID, 3, 2), new LiquidStack(liquidMetalStill.blockID, 1, 3)); //Bronze
         Smeltery.addAlloyMixing(new LiquidStack(liquidMetalStill.blockID, 2, 8), new LiquidStack(liquidMetalStill.blockID, 3, 4), new LiquidStack(liquidMetalStill.blockID, 1, 2)); //Aluminum Brass
-        Smeltery.addAlloyMixing(new LiquidStack(liquidMetalStill.blockID, 2, 9), new LiquidStack(liquidMetalStill.blockID, 1, 5), new LiquidStack(liquidMetalStill.blockID, 1, 6)); //Manyullyn
+        Smeltery.addAlloyMixing(new LiquidStack(liquidMetalStill.blockID, 1, 9), new LiquidStack(liquidMetalStill.blockID, 2, 5), new LiquidStack(liquidMetalStill.blockID, 2, 6)); //Manyullyn
         Smeltery.addAlloyMixing(new LiquidStack(liquidMetalStill.blockID, 3, 10), new LiquidStack(liquidMetalStill.blockID, 5, 4), new LiquidStack(liquidMetalStill.blockID, 2, 0), new LiquidStack(
                 liquidMetalStill.blockID, 2, 11)); //Alumite
     }
@@ -681,6 +742,14 @@ public class TContent implements IFuelHandler
             LiquidDictionary.getOrCreateLiquid("Molten " + liquidNames[iter], liquidstack);
             LiquidContainerRegistry.registerLiquid(new LiquidContainerData(liquidstack, new ItemStack(buckets, 1, iter), new ItemStack(Item.bucketEmpty)));
         }
+        
+        //Vanilla stuff
+        OreDictionary.registerOre("slimeball", new ItemStack(Item.slimeBall));
+        OreDictionary.registerOre("slimeball", new ItemStack(strangeFood, 1, 0));
+        RecipeRemover.removeShapedRecipe(new ItemStack(Block.pistonStickyBase));
+        RecipeRemover.removeShapedRecipe(new ItemStack(Item.magmaCream));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Block.pistonStickyBase), "slimeball", Block.pistonBase));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Item.magmaCream), "slimeball", Item.blazePowder));
     }
 
     public void modIntegration ()

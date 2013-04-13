@@ -616,7 +616,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 
 	public LiquidStack drain (int maxDrain, boolean doDrain)
 	{
-	    System.out.println("Liquid: "+currentLiquid);
+	    //System.out.println("Liquid: "+currentLiquid);
 		if (moltenMetal.size() == 0)
 			return null;
 

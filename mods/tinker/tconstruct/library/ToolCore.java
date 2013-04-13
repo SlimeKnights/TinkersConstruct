@@ -450,7 +450,7 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
 			if (tags.hasKey("Moss"))
 			{
 				int chance = tags.getInteger("Moss");
-				if (random.nextInt(2000) < chance)
+				if (random.nextInt(700) < chance)
 				{
 					AbilityHelper.damageTool(stack, -1, (EntityLiving) entity, true);
 				}

@@ -29,6 +29,7 @@ public class Rapier extends Weapon
 	{
 	    if (player.onGround)
 	    {
+	        player.addExhaustion(0.2f);
 	        player.motionY += 0.32;
             float f = 0.5F;
             player.motionX = (double) (MathHelper.sin(player.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(player.rotationPitch / 180.0F * (float) Math.PI) * f);

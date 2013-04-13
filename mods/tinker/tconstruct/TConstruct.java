@@ -16,13 +16,14 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.common.registry.LanguageRegistry;
 
 /** TConstruct, the tool mod.
  * Craft your tools with style, then modify until the original is gone!
  * @author: mDiyo
  */
 
-@Mod(modid = "TConstruct", name = "TConstruct", version = "1.5.1_1.2.29.1_weapontest")
+@Mod(modid = "TConstruct", name = "TConstruct", version = "1.5.1_1.2.28.7")
 @NetworkMod(serverSideRequired = false, clientSideRequired = true, channels = { "TConstruct" }, packetHandler = mods.tinker.tconstruct.TPacketHandler.class)
 public class TConstruct
 {
@@ -61,8 +62,8 @@ public class TConstruct
         GameRegistry.registerCraftingHandler(new TCraftingHandler());
         NetworkRegistry.instance().registerGuiHandler(instance, new TGuiHandler());
         
-        DimensionManager.unregisterProviderType(0);
-        DimensionManager.registerProviderType(0, OverworldProvider.class, true);
+        //DimensionManager.unregisterProviderType(0);
+        //DimensionManager.registerProviderType(0, OverworldProvider.class, true);
 	}
 
 	@PostInit
