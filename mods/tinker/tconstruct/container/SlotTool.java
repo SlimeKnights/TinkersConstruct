@@ -26,8 +26,8 @@ public class SlotTool extends Slot
      */
     public boolean isItemValid(ItemStack stack)
     {
-        //return false;
-        return stack.getItem() instanceof ToolCore;
+        return false;
+        //return stack.getItem() instanceof ToolCore;
     }
 
     public void onPickupFromSlot(EntityPlayer par1EntityPlayer, ItemStack stack)

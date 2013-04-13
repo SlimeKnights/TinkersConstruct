@@ -3,6 +3,7 @@ package mods.tinker.common;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -11,7 +12,8 @@ public abstract class ToolMod
 {
 	public final String key;
 	public final List stacks;
-	public final int effectIndex; //255 is always blank
+	public final int effectIndex;
+	public static Random random = new Random();
 
 	public ToolMod(ItemStack[] items, int effect, String dataKey)
 	{

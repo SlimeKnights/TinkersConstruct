@@ -173,6 +173,7 @@ public class TContent implements IFuelHandler
 
     //Tool modifiers
     public static ModElectric modE;
+    public static ModLapis modL;
 
     //Golems
     public static Block glowSapling;
@@ -533,7 +534,8 @@ public class TContent implements IFuelHandler
         
         ItemStack lapisItem = new ItemStack(Item.dyePowder, 1, 4);
         ItemStack lapisBlock = new ItemStack(Block.blockLapis);
-        tb.registerToolMod(new ModLapis(new ItemStack[] { lapisItem }, 10, 1));
+        modL = new ModLapis(new ItemStack[] { lapisItem }, 10, 1);
+        tb.registerToolMod(modL);
         tb.registerToolMod(new ModLapis(new ItemStack[] { lapisItem, lapisItem }, 10, 2));
         tb.registerToolMod(new ModLapis(new ItemStack[] { lapisBlock }, 10, 9));
         tb.registerToolMod(new ModLapis(new ItemStack[] { lapisItem, lapisBlock }, 10, 10));

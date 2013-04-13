@@ -569,32 +569,40 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
 	 * Every tool can be an electric tool if you modify it right
 	 */
 	@Override
-	public boolean canBeStoredInToolbox (ItemStack itemstack)
+	public boolean canBeStoredInToolbox (ItemStack stack)
 	{
 		return true;
 	}
 
 	@Override
-	public boolean canProvideEnergy (ItemStack itemStack)
+	public boolean canProvideEnergy (ItemStack stack)
 	{
+	    NBTTagCompound tags = stack.getTagCompound();
+        if (!tags.hasKey("charge"))
+            return false;
+        
 		return true;
 	}
 
 	@Override
-	public int getChargedItemId (ItemStack itemStack)
+	public int getChargedItemId (ItemStack stack)
 	{
 		return this.itemID;
 	}
 
 	@Override
-	public int getEmptyItemId (ItemStack itemStack)
+	public int getEmptyItemId (ItemStack stack)
 	{
 		return this.itemID;
 	}
 
 	@Override
-	public int getMaxCharge (ItemStack itemStack)
+	public int getMaxCharge (ItemStack stack)
 	{
+	    NBTTagCompound tags = stack.getTagCompound();
+        if (!tags.hasKey("charge"))
+            return 0;
+        
 		return 10000;
 	}
 
@@ -605,8 +613,12 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
 	}
 
 	@Override
-	public int getTransferLimit (ItemStack itemStack)
+	public int getTransferLimit (ItemStack stack)
 	{
+	    NBTTagCompound tags = stack.getTagCompound();
+        if (!tags.hasKey("charge"))
+            return 0;
+        
 		return 32;
 	}
 

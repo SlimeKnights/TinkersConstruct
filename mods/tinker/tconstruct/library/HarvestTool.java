@@ -1,5 +1,6 @@
 package mods.tinker.tconstruct.library;
 
+import mods.tinker.tconstruct.TContent;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.item.EntityItem;
@@ -23,6 +24,7 @@ public abstract class HarvestTool extends ToolCore
 	@Override
 	public boolean onBlockStartBreak(ItemStack stack, int x, int y, int z, EntityPlayer player)
 	{
+	    TContent.modL.midStreamModify(stack);
 		NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
 		World world = player.worldObj;
 		int bID = player.worldObj.getBlockId(x, y, z);

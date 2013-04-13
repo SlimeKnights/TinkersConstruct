@@ -1,7 +1,9 @@
 package mods.tinker.tconstruct.library;
 
+import mods.tinker.tconstruct.TContent;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
@@ -89,6 +91,12 @@ public abstract class Weapon extends ToolCore
 	{
 		return 1;
 	}
+    
+    public boolean onLeftClickEntity (ItemStack stack, EntityPlayer player, Entity entity)
+    {
+        TContent.modL.midStreamModify(stack);
+        return super.onLeftClickEntity(stack, player, entity);
+    }
 	
 	public static Material[] web = new Material[] { Material.web };
     public static Material[] none = new Material[0];
