@@ -22,7 +22,7 @@ public class PatternChestContainer extends Container
         {
             for (int row = 0; row < 10; row++)
             {
-            	this.addSlotToContainer(new Slot(chest, row + column * 10, 8 + row * 18, 18 + column * 18));
+            	this.addSlotToContainer(new SlotPattern(chest, row + column * 10, 8 + row * 18, 18 + column * 18));
             }
         }
         

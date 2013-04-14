@@ -226,16 +226,15 @@ Class: Lethal Joke Weapon</text>
 </item>
 </page>
 
-<page type="text">
-<text>Material Abilities
+<page type="sectionpage">
+<title>Material Abilities</title>
+<text>Some materials have abilities that augment their natural uses.
 
-Some materials have abilities that augment their natural uses.
-
-Reinforced: 10% chance per level of not using durability
-Shoddy: Mines faster and does less damage as the tool breaks
-Spiny: Opposite of Shoddy
-Writable: One extra modifier per piece
-Awareness: Unknown</text>
+- Reinforced: 10% chance per level of not using durability
+- Shoddy: Mines faster and does less damage as the tool breaks
+- Spiny: Opposite of Shoddy
+- Writable: One extra modifier per piece
+- Awareness: Unknown</text>
 </page>
 
 <page type="materialstats">
@@ -253,8 +252,6 @@ Awareness: Unknown</text>
 <text>One of the most common materials in the world.</text>
 <material>
  <main>stoneblock</main>
- <shard>stoneshard</shard>
- <rod>stonerod</rod>
 </material>
 </page>
 
@@ -288,7 +285,7 @@ Awareness: Unknown</text>
 <page type="materialstats">
 <title>Bone</title>
 <icon>bonerapier</icon>
-<text>A material with many uses dead or alive.</text>
+<text>A material with many uses, dead or alive.</text>
 <material>
  <main>bone</main>
 </material>
@@ -341,6 +338,19 @@ Awareness: Unknown</text>
 </material>
 </page>
 
+<page type="crafting">
+<text>Slimy Mud</text>
+<recipe>
+ <name>slimymud</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="smelting">
+<text>Slime Crystal</text>
+<recipe>slimecrystal</recipe>
+</page>
+
 <page type="materialstats">
 <title>Paper</title>
 <icon>paperpick</icon>
@@ -348,6 +358,14 @@ Awareness: Unknown</text>
 <material>
  <main>paperstack</main>
 </material>
+</page>
+
+<page type="crafting">
+<text>Paper Stack</text>
+<recipe>
+ <name>paperstack</name>
+ <size>two</size>
+</recipe>
 </page>
 
 <page type="materialstats">
@@ -402,6 +420,228 @@ Awareness: Unknown</text>
 <material>
  <main>steelingot</main>
 </material>
+</page>
+
+<page type="sectionpage">
+<title>Diamond</title>
+<text>Adding a diamond to the edge of a tool seems to make it more resilient.
+
+Effects:
+- 500 extra durability
+- Mining level increased to level 3
+
+Type: Single-use
+Stackable: No</text>
+</page>
+
+<page type="modifier">
+<tooltype>tool</tooltype>
+<recipe>diamondmod</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Emerald</title>
+<text>Affixing an emerald to a tool's weakest point appears to make it more resilient.
+
+Effects:
+- 50% more durability
+- Mining level increased to level 2
+
+Type: Single-use
+Stackable: No</text>
+</page>
+
+<page type="modifier">
+<tooltype>tool</tooltype>
+<recipe>emeraldmod</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Speed</title>
+<text>Adding redstone to a tool seems to increase its mining speed.
+
+Effects:
+- Each redstone dust increases mining speed by 0.08.
+- At 25/25 the boost is 2.0, equivalent to a higher level tool.
+- Not useful on weapons
+
+Type: Multi-use
+Stackable: Yes</text>
+</page>
+
+<page type="modifier">
+<tooltype>tool</tooltype>
+<recipe>redstonemod</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Auto-Repair</title>
+<text>Attaching moss to a tool infuses it with life. The tool appears to be capable of regenerating wear and tear.
+
+Effects:
+- The tool slowly repairs itself
+- Sunlight speeds up the process
+
+Type: Single-use
+Stackable: Yes</text>
+</page>
+
+<page type="modifier">
+<tooltype>tool</tooltype>
+<recipe>mossmod</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Auto-Smelt</title>
+<text>Melting a lava crystal onto the end of a tool gives it the power of a furnace.
+
+Effects:
+- Smelts blocks as they're harvested
+- Sets mobs on fire for 3 seconds
+- Stacks with Luck
+
+Type: Multi-use
+Stackable: No</text>
+</page>
+
+<page type="modifier">
+<tooltype>tool</tooltype>
+<recipe>lavacrystalmod</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Luck</title>
+<text>Encrusting lapis on tools is a gift to the gods of luck. They will bless your tool with great fortune and loot.
+
+Effects:
+- Adds fortune or looting, depends on tool type
+- Increases level at a maximum threshold, but has a chance of increasing before
+- Sometimes adds extra pieces for free
+
+Type: Single-use
+Stackable: No</text>
+</page>
+
+<page type="modifier">
+<tooltype>tool</tooltype>
+<recipe>lapismod</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Sharpness</title>
+<text>Adding quartz to the edge of a tool seems to make it sharper.
+
+Effects:
+- Increases attack damage
+- Has less of an effect on tools with piercing properties
+
+Type: Multi-use
+Stackable: Yes</text>
+</page>
+
+<page type="modifier">
+<tooltype>weapon</tooltype>
+<recipe>quartzmod</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Fiery</title>
+<text>Adding blaze powder to a tool gives it a fiery tinge.
+
+Effects:
+- Sets enemies on fire
+- Every 5 powder adds another second to the flame.
+
+Type: Multi-use
+Stackable: Yes</text>
+</page>
+
+<page type="modifier">
+<tooltype>weapon</tooltype>
+<recipe>blazemod</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Necrotic</title>
+<text>Placing the bone of a Wither Skelton on a tool gives it nefarious life-stealing powers.
+
+Effects:
+- Heals the player every time a monster is attacked
+- Heals one heart per bone
+
+Type: Single-use
+Stackable: Yes</text>
+</page>
+
+<page type="modifier">
+<tooltype>weapon</tooltype>
+<recipe>necroticmod</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Electric</title>
+<text>Adding a battery and a circuit to a tool gives it an electric field. The tool still functions properly when the battery has no charge.
+
+Effects:
+- Allows the tool to be charged with electricity
+- Uses energy instead of durability while charged
+- Available from IndustrialCraft 2
+
+Type: Single-use
+Stackable: No</text>
+</page>
+
+<page type="modifier">
+<tooltype>tool</tooltype>
+<recipe>electricmod</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Additional Modifiers</title>
+<text>Working the tool with a block of gold and a diamond makes the tool more malleable, allowing for more modification.
+
+Effects:
+- Adds an additional modifier slot to the tool
+
+Type: Single-use
+Stackable: No</text>
+</page>
+
+<page type="modifier">
+<tooltype>tool</tooltype>
+<recipe>tier1free</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Additional Modifiers</title>
+<text>Working the tool with a nether star gives it the ability to attach parts they would not otherwise stay.
+
+Effects:
+- Adds an additional modifier slot to the tool
+
+Type: Single-use
+Stackable: No</text>
+</page>
+
+<page type="modifier">
+<tooltype>tool</tooltype>
+<recipe>tier2free</recipe>
+</page>
+
+<page type="crafting">
+<text>Ball of Moss</text>
+<recipe>
+ <name>mossball</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Lava Crystal</text>
+<recipe>
+ <name>lavacrystal</name>
+ <size>three</size>
+</recipe>
 </page>
 
 </book>

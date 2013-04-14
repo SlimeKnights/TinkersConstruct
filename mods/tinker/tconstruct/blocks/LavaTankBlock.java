@@ -150,7 +150,7 @@ public class LavaTankBlock extends BlockContainer
 					return true;
 				}
 				else
-					return false;
+					return true;
 			}
 			else if (LiquidContainerRegistry.isBucket(heldItem))
 			{
@@ -180,12 +180,12 @@ public class LavaTankBlock extends BlockContainer
 				}
 				else
 				{
-					return false;
+					return true;
 				}
 			}
 		}
 
-		return false;
+		return true;
 	}
 
 	public static ItemStack consumeItem (ItemStack stack)

@@ -23,60 +23,60 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
  * @author: mDiyo
  */
 
-@Mod(modid = "TConstruct", name = "TConstruct", version = "1.5.1_1.2.28.9")
+@Mod(modid = "TConstruct", name = "TConstruct", version = "1.5.1_1.2.29.1")
 @NetworkMod(serverSideRequired = false, clientSideRequired = true, channels = { "TConstruct" }, packetHandler = mods.tinker.tconstruct.TPacketHandler.class)
 public class TConstruct
 {
     /** The value of one ingot in millibuckets */
-	public static final int ingotLiquidValue = 144;
-	public static final int liquidUpdateAmount = 6;
-	
-	/* Instance of this mod, used for grabbing prototype fields */
-	@Instance("TConstruct")
-	public static TConstruct instance;
-	/* Proxies for sides, used for graphics processing */  
-	@SidedProxy(clientSide = "mods.tinker.tconstruct.client.TProxyClient", serverSide = "mods.tinker.tconstruct.TProxyCommon")
-	public static TProxyCommon proxy;
+    public static final int ingotLiquidValue = 144;
+    public static final int liquidUpdateAmount = 6;
 
-	@PreInit
-	public void preInit (FMLPreInitializationEvent evt)
-	{
-		PHConstruct.initProps();
-		TConstructRegistry.materialTab = new TabTools("TConstructMaterials");
-		TConstructRegistry.toolTab = new TabTools("TConstructTools");
-		TConstructRegistry.blockTab = new TabTools("TConstructBlocks");
-		content = new TContent();
+    /* Instance of this mod, used for grabbing prototype fields */
+    @Instance("TConstruct")
+    public static TConstruct instance;
+    /* Proxies for sides, used for graphics processing */
+    @SidedProxy(clientSide = "mods.tinker.tconstruct.client.TProxyClient", serverSide = "mods.tinker.tconstruct.TProxyCommon")
+    public static TProxyCommon proxy;
 
-		events = new TEventHandler();
+    @PreInit
+    public void preInit (FMLPreInitializationEvent evt)
+    {
+        PHConstruct.initProps();
+        TConstructRegistry.materialTab = new TabTools("TConstructMaterials");
+        TConstructRegistry.toolTab = new TabTools("TConstructTools");
+        TConstructRegistry.blockTab = new TabTools("TConstructBlocks");
+        content = new TContent();
+
+        events = new TEventHandler();
         events.unfuxOreDictionary();
-		MinecraftForge.EVENT_BUS.register(events);
+        MinecraftForge.EVENT_BUS.register(events);
         content.oreRegistry();
 
-		proxy.registerRenderer();
-		proxy.addNames();
-		proxy.readManuals();
-		//proxy.registerKeys();
+        proxy.registerRenderer();
+        proxy.addNames();
+        proxy.readManuals();
+        //proxy.registerKeys();
 
         GameRegistry.registerWorldGenerator(new TBaseWorldGenerator());
         GameRegistry.registerFuelHandler(content);
         GameRegistry.registerCraftingHandler(new TCraftingHandler());
         NetworkRegistry.instance().registerGuiHandler(instance, new TGuiHandler());
-        
+
         //DimensionManager.unregisterProviderType(0);
         //DimensionManager.registerProviderType(0, OverworldProvider.class, true);
-	}
+    }
 
-	@PostInit
-	public void postInit (FMLPostInitializationEvent evt)
-	{		
-		playerTracker = new TPlayerHandler();
-		GameRegistry.registerPlayerTracker(playerTracker);
-		MinecraftForge.EVENT_BUS.register(playerTracker);
-		
+    @PostInit
+    public void postInit (FMLPostInitializationEvent evt)
+    {
+        playerTracker = new TPlayerHandler();
+        GameRegistry.registerPlayerTracker(playerTracker);
+        MinecraftForge.EVENT_BUS.register(playerTracker);
+
         content.modIntegration();
-	}
+    }
 
-	public static TEventHandler events;
-	public static TPlayerHandler playerTracker;
-	public static TContent content;
+    public static TEventHandler events;
+    public static TPlayerHandler playerTracker;
+    public static TContent content;
 }

@@ -90,7 +90,7 @@ public class ModLapis extends ToolMod
         int keyPair[] = tags.getIntArray(key);
         if (keyPair[0] == max)
             return;
-        
+
         if (random.nextInt(50) == 0)
         {
             keyPair[0] += 1;

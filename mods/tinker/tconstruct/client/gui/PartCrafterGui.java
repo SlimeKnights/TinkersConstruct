@@ -119,11 +119,11 @@ public class PartCrafterGui extends GuiContainer
 		case 2:
 			return "Redstone";
 		case 3:
-			return "Obsidian"; //Mithril
+			return "Obsidian";
 		case 4:
-			return "Vulcanite";
+			return "Cobalt";
 		case 5:
-			return "Adamantine";
+			return "Manyullyn";
 		default:
 			return String.valueOf(num);
 		}

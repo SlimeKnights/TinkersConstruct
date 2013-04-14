@@ -23,7 +23,7 @@ import mods.tinker.tconstruct.crafting.ToolBuilder;
 import mods.tinker.tconstruct.entity.BlueSlime;
 import mods.tinker.tconstruct.entity.Crystal;
 import mods.tinker.tconstruct.entity.LaunchedPotion;
-import mods.tinker.tconstruct.entity.UnstableCreeper;
+import mods.tinker.tconstruct.entity.NitroCreeper;
 import mods.tinker.tconstruct.items.CraftedSoilItemBlock;
 import mods.tinker.tconstruct.items.CraftingItem;
 import mods.tinker.tconstruct.items.FilledBucket;
@@ -43,6 +43,7 @@ import mods.tinker.tconstruct.items.ToolShard;
 import mods.tinker.tconstruct.items.ToolStationItemBlock;
 import mods.tinker.tconstruct.library.TConstructRegistry;
 import mods.tinker.tconstruct.library.ToolCore;
+import mods.tinker.tconstruct.library.client.TConstructClientRegistry;
 import mods.tinker.tconstruct.logic.CastingTableLogic;
 import mods.tinker.tconstruct.logic.FaucetLogic;
 import mods.tinker.tconstruct.logic.FrypanLogic;
@@ -211,7 +212,7 @@ public class TContent implements IFuelHandler
         EntityRegistry.registerModEntity(Crystal.class, "Crystal", 2, TConstruct.instance, 32, 5, true);
 
         //EntityRegistry.registerModEntity(Skyla.class, "Skyla", 10, TConstruct.instance, 32, 5, true);
-        EntityRegistry.registerModEntity(UnstableCreeper.class, "UnstableCreeper", 11, TConstruct.instance, 64, 5, true);
+        EntityRegistry.registerModEntity(NitroCreeper.class, "UnstableCreeper", 11, TConstruct.instance, 64, 5, true);
         EntityRegistry.registerModEntity(BlueSlime.class, "EdibleSlime", 12, TConstruct.instance, 64, 5, true);
         //EntityRegistry.registerModEntity(MetalSlime.class, "MetalSlime", 13, TConstruct.instance, 64, 5, true);
 
@@ -219,7 +220,7 @@ public class TContent implements IFuelHandler
                 BiomeGenBase.swampland, BiomeGenBase.river, BiomeGenBase.frozenOcean, BiomeGenBase.frozenRiver, BiomeGenBase.icePlains, BiomeGenBase.iceMountains, BiomeGenBase.beach,
                 BiomeGenBase.desertHills, BiomeGenBase.forestHills, BiomeGenBase.taigaHills, BiomeGenBase.extremeHillsEdge, BiomeGenBase.jungle, BiomeGenBase.jungleHills };
         if (PHConstruct.redCreeper)
-            EntityRegistry.addSpawn(UnstableCreeper.class, PHConstruct.redCreeperWeight, 4, 6, EnumCreatureType.monster, overworldBiomes);
+            EntityRegistry.addSpawn(NitroCreeper.class, PHConstruct.redCreeperWeight, 4, 6, EnumCreatureType.monster, overworldBiomes);
         if (PHConstruct.blueSlime)
             EntityRegistry.addSpawn(BlueSlime.class, PHConstruct.blueSlimeWeight, 4, 4, EnumCreatureType.monster, overworldBiomes);
         //EntityRegistry.addSpawn(MetalSlime.class, 1, 4, 4, EnumCreatureType.monster, overworldBiomes);
@@ -457,7 +458,7 @@ public class TContent implements IFuelHandler
 
     void addToolRecipes ()
     {
-        List<ItemStack> removeTools = new ArrayList<ItemStack>();
+        /*List<ItemStack> removeTools = new ArrayList<ItemStack>();
         if (PHConstruct.disableWoodTools)
         {
             removeTools.add(new ItemStack(Item.pickaxeWood));
@@ -499,7 +500,7 @@ public class TContent implements IFuelHandler
             removeTools.add(new ItemStack(Item.hoeGold));
         }
 
-        RecipeRemover.removeShapedRecipes(removeTools);
+        RecipeRemover.removeShapedRecipes(removeTools);*/
 
         patternOutputs = new Item[] { toolRod, pickaxeHead, shovelHead, axeHead, swordBlade, wideGuard, handGuard, crossbar, binding, frypanHead, signHead };
 
@@ -520,10 +521,10 @@ public class TContent implements IFuelHandler
         tb.registerToolMod(new ModRepair());
         tb.registerToolMod(new ModDurability(new ItemStack[] { diamond }, 0, 500, 0f, 3, "Diamond", "\u00a7bDurability +500", "\u00a7b"));
         tb.registerToolMod(new ModDurability(new ItemStack[] { new ItemStack(Item.emerald) }, 1, 0, 0.5f, 2, "Emerald", "\u00a72Durability +50%", "\u00a72"));
-        
+
         modE = new ModElectric();
         tb.registerToolMod(modE);
-        
+
         ItemStack redstoneItem = new ItemStack(Item.redstone);
         ItemStack redstoneBlock = new ItemStack(Block.blockRedstone);
         tb.registerToolMod(new ModRedstone(new ItemStack[] { redstoneItem }, 2, 1));
@@ -531,7 +532,7 @@ public class TContent implements IFuelHandler
         tb.registerToolMod(new ModRedstone(new ItemStack[] { redstoneBlock }, 2, 9));
         tb.registerToolMod(new ModRedstone(new ItemStack[] { redstoneItem, redstoneBlock }, 2, 10));
         tb.registerToolMod(new ModRedstone(new ItemStack[] { redstoneBlock, redstoneBlock }, 2, 18));
-        
+
         ItemStack lapisItem = new ItemStack(Item.dyePowder, 1, 4);
         ItemStack lapisBlock = new ItemStack(Block.blockLapis);
         modL = new ModLapis(new ItemStack[] { lapisItem }, 10, 1);
@@ -540,14 +541,14 @@ public class TContent implements IFuelHandler
         tb.registerToolMod(new ModLapis(new ItemStack[] { lapisBlock }, 10, 9));
         tb.registerToolMod(new ModLapis(new ItemStack[] { lapisItem, lapisBlock }, 10, 10));
         tb.registerToolMod(new ModLapis(new ItemStack[] { lapisBlock, lapisBlock }, 10, 18));
-        
+
         tb.registerToolMod(new ModInteger(new ItemStack[] { new ItemStack(materials, 1, 6) }, 4, "Moss", 3, "\u00a72", "Auto-Repair"));
         ItemStack blazePowder = new ItemStack(Item.blazePowder);
         tb.registerToolMod(new ModBlaze(new ItemStack[] { blazePowder }, 7, 1));
         tb.registerToolMod(new ModBlaze(new ItemStack[] { blazePowder, blazePowder }, 7, 2));
         tb.registerToolMod(new ModBoolean(new ItemStack[] { new ItemStack(materials, 1, 7) }, 6, "Lava", "\u00a74", "Auto-Smelt"));
         tb.registerToolMod(new ModInteger(new ItemStack[] { new ItemStack(materials, 1, 8) }, 8, "Necrotic", 1, "\u00a78", "Life Steal"));
-        
+
         ItemStack quartzItem = new ItemStack(Item.field_94583_ca);
         ItemStack quartzBlock = new ItemStack(Block.blockNetherQuartz, 1, Short.MAX_VALUE);
         tb.registerToolMod(new ModAttack("Quartz", new ItemStack[] { quartzItem }, 11, 1));
@@ -555,7 +556,7 @@ public class TContent implements IFuelHandler
         tb.registerToolMod(new ModAttack("Quartz", new ItemStack[] { quartzBlock }, 11, 4));
         tb.registerToolMod(new ModAttack("Quartz", new ItemStack[] { quartzItem, quartzBlock }, 11, 5));
         tb.registerToolMod(new ModAttack("Quartz", new ItemStack[] { quartzBlock, quartzBlock }, 11, 8));
-        
+
         tb.registerToolMod(new ModExtraModifier(new ItemStack[] { diamond, new ItemStack(Block.blockGold) }, "Tier1Free"));
         tb.registerToolMod(new ModExtraModifier(new ItemStack[] { new ItemStack(Item.netherStar) }, "Tier2Free"));
 
@@ -687,6 +688,10 @@ public class TContent implements IFuelHandler
 
         GameRegistry.addRecipe(new ItemStack(searedBlock, 1, 0), "bbb", "b b", "b b", 'b', searedBrick); //Table
         GameRegistry.addRecipe(new ItemStack(searedBlock, 1, 1), "b b", " b ", 'b', searedBrick); //Faucet
+
+        GameRegistry.addRecipe(new ItemStack(stoneTorch, 4), "p", "w", 'p', new ItemStack(Item.coal, 1, Short.MAX_VALUE), 'w', new ItemStack(toolRod, 1, 1));
+        GameRegistry.addRecipe(new ItemStack(toolRod, 4, 1), "c", "c", 'c', new ItemStack(Block.stone));
+        GameRegistry.addRecipe(new ItemStack(toolRod, 2, 1), "c", "c", 'c', new ItemStack(Block.cobblestone));
     }
 
     void setupToolTabs ()
@@ -744,7 +749,7 @@ public class TContent implements IFuelHandler
             LiquidDictionary.getOrCreateLiquid("Molten " + liquidNames[iter], liquidstack);
             LiquidContainerRegistry.registerLiquid(new LiquidContainerData(liquidstack, new ItemStack(buckets, 1, iter), new ItemStack(Item.bucketEmpty)));
         }
-        
+
         //Vanilla stuff
         OreDictionary.registerOre("slimeball", new ItemStack(Item.slimeBall));
         OreDictionary.registerOre("slimeball", new ItemStack(strangeFood, 1, 0));
@@ -756,6 +761,7 @@ public class TContent implements IFuelHandler
 
     public void modIntegration ()
     {
+        ItemStack ironpick = ToolBuilder.instance.buildTool(new ItemStack(TContent.pickaxeHead, 1, 6), new ItemStack(TContent.toolRod, 1, 2), new ItemStack(TContent.binding, 1, 6), "");
         /* IC2 */
         ItemStack reBattery = ic2.api.Items.getItem("reBattery");
         if (reBattery != null)
@@ -769,6 +775,9 @@ public class TContent implements IFuelHandler
         ItemStack electronicCircuit = ic2.api.Items.getItem("electronicCircuit");
         if (electronicCircuit != null)
             modE.circuits.add(electronicCircuit);
+
+        if (chargedReBattery != null && electronicCircuit != null)
+            TConstructClientRegistry.registerManualModifier("electricmod", ironpick.copy(), chargedReBattery, electronicCircuit);
 
         /* Thaumcraft */
         //Object obj = getItem("itemResource", "thaumcraft.common.Config");

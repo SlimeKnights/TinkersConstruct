@@ -36,42 +36,42 @@ import cpw.mods.fml.client.FMLClientHandler;
 
 public class AbilityHelper
 {
-	static Random random = new Random();
+    static Random random = new Random();
 
-	/* Normal interactions */
-	public static boolean onBlockChanged (ItemStack stack, World world, int bID, int x, int y, int z, EntityLiving player, Random random)
-	{
-		if (!stack.hasTagCompound())
-			return false;
+    /* Normal interactions */
+    public static boolean onBlockChanged (ItemStack stack, World world, int bID, int x, int y, int z, EntityLiving player, Random random)
+    {
+        if (!stack.hasTagCompound())
+            return false;
 
-		int durability = 0;
-		NBTTagCompound tags = stack.getTagCompound();
+        int durability = 0;
+        NBTTagCompound tags = stack.getTagCompound();
 
-		if (tags.getCompoundTag("InfiTool").hasKey("Unbreaking"))
-			durability = tags.getCompoundTag("InfiTool").getInteger("Unbreaking");
+        if (tags.getCompoundTag("InfiTool").hasKey("Unbreaking"))
+            durability = tags.getCompoundTag("InfiTool").getInteger("Unbreaking");
 
-		if (random.nextInt(10) < 10 - durability)
-		{
-			damageTool(stack, 1, tags, player, false);
-		}
+        if (random.nextInt(10) < 10 - durability)
+        {
+            damageTool(stack, 1, tags, player, false);
+        }
 
-		return true;
-	}
-	
-	public static void onLeftClickEntity(ItemStack stack, EntityPlayer player, Entity entity, ToolCore tool)
-	{
-		if (entity.canAttackWithItem())
+        return true;
+    }
+
+    public static void onLeftClickEntity (ItemStack stack, EntityPlayer player, Entity entity, ToolCore tool)
+    {
+        if (entity.canAttackWithItem())
         {
             if (!entity.func_85031_j(player)) // can't attack this entity
             {
-            	NBTTagCompound tags = stack.getTagCompound();
-            	NBTTagCompound toolTags = stack.getTagCompound().getCompoundTag("InfiTool");
+                NBTTagCompound tags = stack.getTagCompound();
+                NBTTagCompound toolTags = stack.getTagCompound().getCompoundTag("InfiTool");
                 int damage = toolTags.getInteger("Attack");
                 boolean broken = toolTags.getBoolean("Broken");
-                
+
                 int durability = tags.getCompoundTag("InfiTool").getInteger("Damage");
                 float shoddy = tags.getCompoundTag("InfiTool").getFloat("Shoddy");
-    			float damageModifier = -shoddy * durability / 100f;
+                float damageModifier = -shoddy * durability / 100f;
 
                 if (player.isPotionActive(Potion.damageBoost))
                 {
@@ -88,26 +88,27 @@ public class AbilityHelper
 
                 if (entity instanceof EntityLiving)
                 {
-                    enchantDamage = EnchantmentHelper.getEnchantmentModifierLiving(player, (EntityLiving)entity);
-                    knockback += EnchantmentHelper.getKnockbackModifier(player, (EntityLiving)entity);
+                    enchantDamage = EnchantmentHelper.getEnchantmentModifierLiving(player, (EntityLiving) entity);
+                    knockback += EnchantmentHelper.getKnockbackModifier(player, (EntityLiving) entity);
                 }
 
                 damage += damageModifier;
-                
+
                 if (player.isSprinting())
                 {
                     knockback++;
                     float lunge = tool.chargeAttack();
                     if (lunge > 1f)
                     {
-                    	knockback += lunge - 1.0f;
-                    	damage *= lunge;
+                        knockback += lunge - 1.0f;
+                        damage *= lunge;
                     }
                 }
 
                 if (damage > 0 || enchantDamage > 0)
                 {
-                    boolean criticalHit = player.fallDistance > 0.0F && !player.onGround && !player.isOnLadder() && !player.isInWater() && !player.isPotionActive(Potion.blindness) && player.ridingEntity == null && entity instanceof EntityLiving;
+                    boolean criticalHit = player.fallDistance > 0.0F && !player.onGround && !player.isOnLadder() && !player.isInWater() && !player.isPotionActive(Potion.blindness)
+                            && player.ridingEntity == null && entity instanceof EntityLiving;
 
                     if (criticalHit)
                     {
@@ -123,25 +124,26 @@ public class AbilityHelper
                         var6 = true;
                         entity.setFire(1);
                     }
-                    
+
                     if (broken)
-                    	damage = 1;
+                        damage = 1;
                     boolean causedDamage = false;
                     if (tool.pierceArmor() && !broken)
-                    	causedDamage = entity.attackEntityFrom(causePlayerPiercingDamage(player), damage);
+                        causedDamage = entity.attackEntityFrom(causePlayerPiercingDamage(player), damage);
                     else
-                    	causedDamage = entity.attackEntityFrom(DamageSource.causePlayerDamage(player), damage);
+                        causedDamage = entity.attackEntityFrom(DamageSource.causePlayerDamage(player), damage);
 
                     if (causedDamage)
                     {
-                    	damageTool(stack, 1, player, false);
-                    	int drain = toolTags.getInteger("Necrotic");
-                    	if (drain > 0)
-    						player.heal(drain);
-    					
+                        damageTool(stack, 1, player, false);
+                        int drain = toolTags.getInteger("Necrotic") * 2;
+                        if (drain > 0)
+                            player.heal(drain);
+
                         if (knockback > 0)
                         {
-                            entity.addVelocity((double)(-MathHelper.sin(player.rotationYaw * (float)Math.PI / 180.0F) * (float)knockback * 0.5F), 0.1D, (double)(MathHelper.cos(player.rotationYaw * (float)Math.PI / 180.0F) * (float)knockback * 0.5F));
+                            entity.addVelocity((double) (-MathHelper.sin(player.rotationYaw * (float) Math.PI / 180.0F) * (float) knockback * 0.5F), 0.1D,
+                                    (double) (MathHelper.cos(player.rotationYaw * (float) Math.PI / 180.0F) * (float) knockback * 0.5F));
                             player.motionX *= 0.6D;
                             player.motionZ *= 0.6D;
                             player.setSprinting(false);
@@ -166,26 +168,30 @@ public class AbilityHelper
 
                         if (entity instanceof EntityLiving)
                         {
-                            EnchantmentThorns.func_92096_a(player, (EntityLiving)entity, random);
+                            EnchantmentThorns.func_92096_a(player, (EntityLiving) entity, random);
                         }
                     }
 
                     if (entity instanceof EntityLiving)
                     {
-                    	stack.hitEntity((EntityLiving)entity, player);
+                        stack.hitEntity((EntityLiving) entity, player);
                         if (entity.isEntityAlive())
                         {
-                            alertPlayerWolves(player, (EntityLiving)entity, true);
+                            alertPlayerWolves(player, (EntityLiving) entity, true);
                         }
 
                         player.addStat(StatList.damageDealtStat, damage);
 
-                        if ((fireAspect > 0 || toolTags.hasKey("Fiery")) && causedDamage)
+                        if ((fireAspect > 0 || toolTags.hasKey("Fiery") || toolTags.hasKey("Lava")) && causedDamage)
                         {
-                        	fireAspect *= 4;
-                        	if (toolTags.hasKey("Fiery"))
+                            fireAspect *= 4;
+                            if (toolTags.hasKey("Fiery"))
                             {
-                            	fireAspect += toolTags.getInteger("Fiery")/5+1;
+                                fireAspect += toolTags.getInteger("Fiery") / 5 + 1;
+                            }
+                            if (toolTags.getBoolean("Lava"))
+                            {
+                                fireAspect += 3;
                             }
                             entity.setFire(fireAspect);
                         }
@@ -199,15 +205,15 @@ public class AbilityHelper
                 }
             }
         }
-	}
-	
-	static void alertPlayerWolves(EntityPlayer player, EntityLiving living, boolean par2)
+    }
+
+    static void alertPlayerWolves (EntityPlayer player, EntityLiving living, boolean par2)
     {
         if (!(living instanceof EntityCreeper) && !(living instanceof EntityGhast))
         {
             if (living instanceof EntityWolf)
             {
-                EntityWolf var3 = (EntityWolf)living;
+                EntityWolf var3 = (EntityWolf) living;
 
                 if (var3.isTamed() && player.username.equals(var3.getOwnerName()))
                 {
@@ -215,14 +221,15 @@ public class AbilityHelper
                 }
             }
 
-            if (!(living instanceof EntityPlayer) || player.func_96122_a((EntityPlayer)living))
+            if (!(living instanceof EntityPlayer) || player.func_96122_a((EntityPlayer) living))
             {
-                List var6 = player.worldObj.getEntitiesWithinAABB(EntityWolf.class, AxisAlignedBB.getAABBPool().getAABB(player.posX, player.posY, player.posZ, player.posX + 1.0D, player.posY + 1.0D, player.posZ + 1.0D).expand(16.0D, 4.0D, 16.0D));
+                List var6 = player.worldObj.getEntitiesWithinAABB(EntityWolf.class,
+                        AxisAlignedBB.getAABBPool().getAABB(player.posX, player.posY, player.posZ, player.posX + 1.0D, player.posY + 1.0D, player.posZ + 1.0D).expand(16.0D, 4.0D, 16.0D));
                 Iterator var4 = var6.iterator();
 
                 while (var4.hasNext())
                 {
-                    EntityWolf var5 = (EntityWolf)var4.next();
+                    EntityWolf var5 = (EntityWolf) var4.next();
 
                     if (var5.isTamed() && var5.getEntityToAttack() == null && player.username.equals(var5.getOwnerName()) && (!par2 || !var5.isSitting()))
                     {
@@ -234,250 +241,253 @@ public class AbilityHelper
         }
     }
 
-	/* Tool specific */
-	public static void damageTool (ItemStack stack, int dam, EntityLiving entity, boolean ignoreCharge)
-	{
-		NBTTagCompound tags = stack.getTagCompound();
-		damageTool(stack, dam, tags, entity, ignoreCharge);
-	}
+    /* Tool specific */
+    public static void damageTool (ItemStack stack, int dam, EntityLiving entity, boolean ignoreCharge)
+    {
+        NBTTagCompound tags = stack.getTagCompound();
+        damageTool(stack, dam, tags, entity, ignoreCharge);
+    }
 
-	public static void damageTool (ItemStack stack, int dam, NBTTagCompound tags, EntityLiving entity, boolean ignoreCharge)
-	{
-		if (ignoreCharge || !damageElectricTool(stack, tags, entity))
-		{
-			int damage = tags.getCompoundTag("InfiTool").getInteger("Damage");
-			int damageTrue = damage + dam;
-			int maxDamage = tags.getCompoundTag("InfiTool").getInteger("TotalDurability");
-			if (damage + dam <= 0)
-			{
-				return;
-			}
-			
-			else if ((damage + dam) > maxDamage)
-			{
-				breakTool(stack, tags, entity);
-				stack.setItemDamage(0);
-			}
+    public static void damageTool (ItemStack stack, int dam, NBTTagCompound tags, EntityLiving entity, boolean ignoreCharge)
+    {
+        if (ignoreCharge || !damageElectricTool(stack, tags, entity))
+        {
+            int damage = tags.getCompoundTag("InfiTool").getInteger("Damage");
+            int damageTrue = damage + dam;
+            int maxDamage = tags.getCompoundTag("InfiTool").getInteger("TotalDurability");
+            if (damage + dam <= 0)
+            {
+                return;
+            }
 
-			else
-			{
-				tags.getCompoundTag("InfiTool").setInteger("Damage", damage + dam);
-				int toolDamage = damage * 100 / maxDamage;
-				//int stackDamage = stack.getItemDamage();
-				if (damage + dam <= 0)
-					stack.setItemDamage(0);
-				else
-					stack.setItemDamage(damage * 100 / maxDamage + 1);
-			}
+            else if ((damage + dam) > maxDamage)
+            {
+                breakTool(stack, tags, entity);
+                stack.setItemDamage(0);
+            }
 
-			//stack.setItemDamage(1 + (maxDamage - damage) * (stack.getMaxDamage() - 1) / maxDamage);
-		}
-	}
+            else
+            {
+                tags.getCompoundTag("InfiTool").setInteger("Damage", damage + dam);
+                int toolDamage = damage * 100 / maxDamage;
+                int stackDamage = stack.getItemDamage();
+                if (toolDamage != stackDamage)
+                {
+                    if (damage + dam <= 0)
+                        stack.setItemDamage(0);
+                    else
+                        stack.setItemDamage((damage * 100 / maxDamage) + 1);
+                }
+            }
 
-	public static boolean damageElectricTool (ItemStack stack, NBTTagCompound tags, Entity entity)
-	{
-		if (!tags.hasKey("charge"))
-			return false;
+            //stack.setItemDamage(1 + (maxDamage - damage) * (stack.getMaxDamage() - 1) / maxDamage);
+        }
+    }
 
-		int charge = tags.getInteger("charge");
-		int mineSpeed = tags.getCompoundTag("InfiTool").getInteger("MiningSpeed");
-		if (tags.getCompoundTag("InfiTool").hasKey("MiningSpeed2"))
-			mineSpeed = (mineSpeed + tags.getCompoundTag("InfiTool").getInteger("MiningSpeed2")) / 2;
-		mineSpeed /= 15;
+    public static boolean damageElectricTool (ItemStack stack, NBTTagCompound tags, Entity entity)
+    {
+        if (!tags.hasKey("charge"))
+            return false;
 
-		if (charge < mineSpeed)
-		{
-			if (charge > 0)
-				tags.setInteger("charge", 0);
-			return false;
-		}
-		/*if (entity instanceof EntityPlayer && ElectricItem.use(stack, mineSpeed, (EntityPlayer) entity))
-			return true;*/
+        int charge = tags.getInteger("charge");
+        int mineSpeed = tags.getCompoundTag("InfiTool").getInteger("MiningSpeed");
+        if (tags.getCompoundTag("InfiTool").hasKey("MiningSpeed2"))
+            mineSpeed = (mineSpeed + tags.getCompoundTag("InfiTool").getInteger("MiningSpeed2")) / 2;
+        mineSpeed /= 15;
 
-		charge -= mineSpeed;
-		ToolCore tool = (ToolCore) stack.getItem();
-		stack.setItemDamage(1 + (tool.getMaxCharge(stack) - charge) * (stack.getMaxDamage() - 1) / tool.getMaxCharge(stack));
-		tags.setInteger("charge", charge);
-		if (entity instanceof EntityPlayer)
-			chargeFromArmor(stack, (EntityPlayer) entity);
-		return true;
-	}
+        if (charge < mineSpeed)
+        {
+            if (charge > 0)
+                tags.setInteger("charge", 0);
+            return false;
+        }
+        /*if (entity instanceof EntityPlayer && ElectricItem.use(stack, mineSpeed, (EntityPlayer) entity))
+        	return true;*/
 
-	static void chargeFromArmor (ItemStack stack, EntityPlayer player)
-	{
-		boolean inContainer = false;
+        charge -= mineSpeed;
+        ToolCore tool = (ToolCore) stack.getItem();
+        stack.setItemDamage(1 + (tool.getMaxCharge(stack) - charge) * (stack.getMaxDamage() - 1) / tool.getMaxCharge(stack));
+        tags.setInteger("charge", charge);
+        if (entity instanceof EntityPlayer)
+            chargeFromArmor(stack, (EntityPlayer) entity);
+        return true;
+    }
 
-		for (int armorIter = 0; armorIter < 4; ++armorIter)
-		{
-			ItemStack armor = player.inventory.armorInventory[armorIter];
+    static void chargeFromArmor (ItemStack stack, EntityPlayer player)
+    {
+        boolean inContainer = false;
 
-			if (armor != null && armor.getItem() instanceof IElectricItem)
-			{
-				IElectricItem electricArmor = (IElectricItem) armor.getItem();
-				ToolCore tool = (ToolCore) stack.getItem();
+        for (int armorIter = 0; armorIter < 4; ++armorIter)
+        {
+            ItemStack armor = player.inventory.armorInventory[armorIter];
 
-				if (electricArmor.canProvideEnergy(stack) && electricArmor.getTier(stack) >= ((IElectricItem) stack.getItem()).getTier(stack))
-				{
-					int chargeAmount = tool.charge(stack, Integer.MAX_VALUE, Integer.MAX_VALUE, true, true);
-					chargeAmount = discharge(armor, chargeAmount, Integer.MAX_VALUE, true, false);
+            if (armor != null && armor.getItem() instanceof IElectricItem)
+            {
+                IElectricItem electricArmor = (IElectricItem) armor.getItem();
+                ToolCore tool = (ToolCore) stack.getItem();
 
-					if (chargeAmount > 0)
-					{
-						tool.charge(stack, chargeAmount, Integer.MAX_VALUE, true, false);
-						inContainer = true;
-					}
-				}
-			}
-		}
+                if (electricArmor.canProvideEnergy(stack) && electricArmor.getTier(stack) >= ((IElectricItem) stack.getItem()).getTier(stack))
+                {
+                    int chargeAmount = tool.charge(stack, Integer.MAX_VALUE, Integer.MAX_VALUE, true, true);
+                    chargeAmount = discharge(armor, chargeAmount, Integer.MAX_VALUE, true, false);
 
-		if (inContainer)
-		{
-			player.openContainer.detectAndSendChanges();
-		}
-	}
+                    if (chargeAmount > 0)
+                    {
+                        tool.charge(stack, chargeAmount, Integer.MAX_VALUE, true, false);
+                        inContainer = true;
+                    }
+                }
+            }
+        }
 
-	public static int discharge (ItemStack stack, int amount, int tier, boolean ignoreTransferLimit, boolean simulate)
-	{
-		IElectricItem ielectricitem = (IElectricItem) stack.getItem();
+        if (inContainer)
+        {
+            player.openContainer.detectAndSendChanges();
+        }
+    }
 
-		if (ielectricitem instanceof ICustomElectricItem)
-		{
-			return ((ICustomElectricItem) ielectricitem).discharge(stack, amount, tier, ignoreTransferLimit, simulate);
-		}
-		else if (amount >= 0 && stack.stackSize <= 1 && ielectricitem.getTier(stack) <= tier)
-		{
-			if (amount > ielectricitem.getTransferLimit(stack) && !ignoreTransferLimit)
-			{
-				amount = ielectricitem.getTransferLimit(stack);
-			}
+    public static int discharge (ItemStack stack, int amount, int tier, boolean ignoreTransferLimit, boolean simulate)
+    {
+        IElectricItem ielectricitem = (IElectricItem) stack.getItem();
 
-			NBTTagCompound tags = stack.getTagCompound();
-			int charge = tags.getInteger("charge");
+        if (ielectricitem instanceof ICustomElectricItem)
+        {
+            return ((ICustomElectricItem) ielectricitem).discharge(stack, amount, tier, ignoreTransferLimit, simulate);
+        }
+        else if (amount >= 0 && stack.stackSize <= 1 && ielectricitem.getTier(stack) <= tier)
+        {
+            if (amount > ielectricitem.getTransferLimit(stack) && !ignoreTransferLimit)
+            {
+                amount = ielectricitem.getTransferLimit(stack);
+            }
 
-			if (amount > charge)
-			{
-				amount = charge;
-			}
+            NBTTagCompound tags = stack.getTagCompound();
+            int charge = tags.getInteger("charge");
 
-			charge -= amount;
+            if (amount > charge)
+            {
+                amount = charge;
+            }
 
-			if (!simulate)
-			{
-				tags.setInteger("charge", charge);
-				stack.itemID = charge > 0 ? ielectricitem.getChargedItemId(stack) : ielectricitem.getEmptyItemId(stack);
+            charge -= amount;
 
-				if (stack.getItem() instanceof IElectricItem)
-				{
-					ielectricitem = (IElectricItem) stack.getItem();
+            if (!simulate)
+            {
+                tags.setInteger("charge", charge);
+                stack.itemID = charge > 0 ? ielectricitem.getChargedItemId(stack) : ielectricitem.getEmptyItemId(stack);
 
-					if (stack.getMaxDamage() > 2)
-					{
-						stack.setItemDamage(1 + (ielectricitem.getMaxCharge(stack) - charge) * (stack.getMaxDamage() - 2) / ielectricitem.getMaxCharge(stack));
-					}
-					else
-					{
-						stack.setItemDamage(0);
-					}
-				}
-				else
-				{
-					stack.setItemDamage(0);
-				}
-			}
+                if (stack.getItem() instanceof IElectricItem)
+                {
+                    ielectricitem = (IElectricItem) stack.getItem();
 
-			return amount;
-		}
-		else
-		{
-			return 0;
-		}
+                    if (stack.getMaxDamage() > 2)
+                    {
+                        stack.setItemDamage(1 + (ielectricitem.getMaxCharge(stack) - charge) * (stack.getMaxDamage() - 2) / ielectricitem.getMaxCharge(stack));
+                    }
+                    else
+                    {
+                        stack.setItemDamage(0);
+                    }
+                }
+                else
+                {
+                    stack.setItemDamage(0);
+                }
+            }
 
-	}
+            return amount;
+        }
+        else
+        {
+            return 0;
+        }
 
-	public static void breakTool (ItemStack stack, NBTTagCompound tags, Entity player)
-	{
-		tags.getCompoundTag("InfiTool").setBoolean("Broken", true);
-		player.worldObj.playSound(player.posX, player.posY, player.posZ, "random.break", 1f, 1f, true);
-	}
+    }
 
-	public static void repairTool (ItemStack stack, NBTTagCompound tags)
-	{
-		tags.getCompoundTag("InfiTool").setBoolean("Broken", false);
-		tags.getCompoundTag("InfiTool").setInteger("Damage", 0);
-	}
-	
-	
-	public static DamageSource causePiercingDamage (EntityLiving mob)
-	{
-		return new PiercingEntityDamage("mob", mob);
-	}
+    public static void breakTool (ItemStack stack, NBTTagCompound tags, Entity player)
+    {
+        tags.getCompoundTag("InfiTool").setBoolean("Broken", true);
+        player.worldObj.playSound(player.posX, player.posY, player.posZ, "random.break", 1f, 1f, true);
+    }
 
-	public static DamageSource causePlayerPiercingDamage (EntityPlayer player)
-	{
-		return new PiercingEntityDamage("player", player);
-	}
+    public static void repairTool (ItemStack stack, NBTTagCompound tags)
+    {
+        tags.getCompoundTag("InfiTool").setBoolean("Broken", false);
+        tags.getCompoundTag("InfiTool").setInteger("Damage", 0);
+    }
 
-	public static void knockbackEntity (EntityLiving living, double boost)
-	{
-		living.motionX *= boost;
-		//living.motionY *= boost/2;
-		living.motionZ *= boost;
-	}
+    public static DamageSource causePiercingDamage (EntityLiving mob)
+    {
+        return new PiercingEntityDamage("mob", mob);
+    }
 
-	public static boolean hoeGround (ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, Random random)
-	{
-		if (!player.canPlayerEdit(x, y, z, side, stack))
-		{
-			return false;
-		}
-		else
-		{
-			UseHoeEvent event = new UseHoeEvent(player, stack, world, x, y, z);
-			if (MinecraftForge.EVENT_BUS.post(event))
-			{
-				return false;
-			}
+    public static DamageSource causePlayerPiercingDamage (EntityPlayer player)
+    {
+        return new PiercingEntityDamage("player", player);
+    }
 
-			if (event.getResult() == Result.ALLOW)
-			{
-				onBlockChanged(stack, world, 0, x, y, z, player, random);
-				return true;
-			}
+    public static void knockbackEntity (EntityLiving living, double boost)
+    {
+        living.motionX *= boost;
+        //living.motionY *= boost/2;
+        living.motionZ *= boost;
+    }
 
-			int bID = world.getBlockId(x, y, z);
-			int bIDabove = world.getBlockId(x, y + 1, z);
+    public static boolean hoeGround (ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, Random random)
+    {
+        if (!player.canPlayerEdit(x, y, z, side, stack))
+        {
+            return false;
+        }
+        else
+        {
+            UseHoeEvent event = new UseHoeEvent(player, stack, world, x, y, z);
+            if (MinecraftForge.EVENT_BUS.post(event))
+            {
+                return false;
+            }
 
-			if ((side == 0 || bIDabove != 0 || bID != Block.grass.blockID) && bID != Block.dirt.blockID)
-			{
-				return false;
-			}
-			else
-			{
-				Block block = Block.tilledField;
-				world.playSoundEffect((double) ((float) x + 0.5F), (double) ((float) y + 0.5F), (double) ((float) z + 0.5F), block.stepSound.getStepSound(), (block.stepSound.getVolume() + 1.0F) / 2.0F, block.stepSound.getPitch() * 0.8F);
+            if (event.getResult() == Result.ALLOW)
+            {
+                onBlockChanged(stack, world, 0, x, y, z, player, random);
+                return true;
+            }
 
-				if (world.isRemote)
-				{
-					return true;
-				}
-				else
-				{
-					world.setBlock(x, y, z, block.blockID);
-					onBlockChanged(stack, world, 0, x, y, z, player, random);
-					return true;
-				}
-			}
-		}
-	}
-	
-	public static void spawnItemAtPlayer(EntityPlayer player, ItemStack stack)
-	{
-		if (!player.worldObj.isRemote)
-		{
-			EntityItem entityitem = new EntityItem(player.worldObj, player.posX + 0.5D, player.posY + 0.5D, player.posZ + 0.5D, stack);
-			//entityitem.delayBeforeCanPickup = 10;
-			player.worldObj.spawnEntityInWorld(entityitem);
-			entityitem.onCollideWithPlayer(player);
-		}
-	}
+            int bID = world.getBlockId(x, y, z);
+            int bIDabove = world.getBlockId(x, y + 1, z);
+
+            if ((side == 0 || bIDabove != 0 || bID != Block.grass.blockID) && bID != Block.dirt.blockID)
+            {
+                return false;
+            }
+            else
+            {
+                Block block = Block.tilledField;
+                world.playSoundEffect((double) ((float) x + 0.5F), (double) ((float) y + 0.5F), (double) ((float) z + 0.5F), block.stepSound.getStepSound(),
+                        (block.stepSound.getVolume() + 1.0F) / 2.0F, block.stepSound.getPitch() * 0.8F);
+
+                if (world.isRemote)
+                {
+                    return true;
+                }
+                else
+                {
+                    world.setBlock(x, y, z, block.blockID);
+                    onBlockChanged(stack, world, 0, x, y, z, player, random);
+                    return true;
+                }
+            }
+        }
+    }
+
+    public static void spawnItemAtPlayer (EntityPlayer player, ItemStack stack)
+    {
+        if (!player.worldObj.isRemote)
+        {
+            EntityItem entityitem = new EntityItem(player.worldObj, player.posX + 0.5D, player.posY + 0.5D, player.posZ + 0.5D, stack);
+            //entityitem.delayBeforeCanPickup = 10;
+            player.worldObj.spawnEntityInWorld(entityitem);
+            entityitem.onCollideWithPlayer(player);
+        }
+    }
 }

@@ -1,10 +1,14 @@
 package mods.tinker.tconstruct.entity;
 
+import net.minecraft.entity.ai.EntityAIAttackOnCollide;
 import net.minecraft.entity.monster.EntityCreeper;
+import net.minecraft.entity.monster.EntityIronGolem;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.EntityDamageSource;
 import net.minecraft.world.World;
 
-public class UnstableCreeper extends EntityCreeper
+public class NitroCreeper extends EntityCreeper
 {
     protected int fuseTime = 12;
     protected int timeSinceIgnited;
@@ -12,9 +16,10 @@ public class UnstableCreeper extends EntityCreeper
 
     public float explosionRadius = 1f;
 
-    public UnstableCreeper(World world)
+    public NitroCreeper(World world)
     {
         super(world);
+        this.tasks.addTask(4, new EntityAIAttackOnCollide(this, 1.0F, false));
         this.texture = "/mods/tinker/textures/mob/creeperunstable.png";
     }
 
@@ -82,7 +87,9 @@ public class UnstableCreeper extends EntityCreeper
                 this.timeSinceIgnited = 0;
             }
 
-            if (this.timeSinceIgnited >= this.fuseTime)
+            int difficulty = worldObj.difficultySetting;
+            int lengthBoost = 4 * (3 - difficulty);
+            if (this.timeSinceIgnited >= this.fuseTime + difficulty)
             {
                 this.timeSinceIgnited = this.fuseTime;
 
@@ -92,11 +99,11 @@ public class UnstableCreeper extends EntityCreeper
 
                     if (this.getPowered())
                     {
-                        this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, (float) (this.explosionRadius + 1f * (worldObj.difficultySetting - 1)) * 2, flag);
+                        this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, (float) (this.explosionRadius + 1f * (difficulty - 1)) * 2, flag);
                     }
                     else
                     {
-                        this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, (float) (this.explosionRadius + 1f * (worldObj.difficultySetting - 1)), flag);
+                        this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, (float) (this.explosionRadius + 1f * (difficulty - 1)), flag);
                     }
 
                     this.setDead();
@@ -118,7 +125,7 @@ public class UnstableCreeper extends EntityCreeper
 
         if (j > 0)
         {
-            int k = this.rand.nextInt(3) + 3;
+            int k = this.rand.nextInt(4) + 2;
 
             if (par2 > 0)
             {
@@ -130,5 +137,14 @@ public class UnstableCreeper extends EntityCreeper
                 this.dropItem(j, 1);
             }
         }
+    }
+    
+    public boolean attackEntityFrom(DamageSource source, int damage)
+    {
+        if (source instanceof EntityDamageSource && ((EntityDamageSource)source).getEntity() instanceof EntityIronGolem)
+        {
+            damage = 1000; 
+        }
+        return super.attackEntityFrom(source, damage);
     }
 }

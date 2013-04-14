@@ -33,7 +33,7 @@ import mods.tinker.tconstruct.entity.CartEntity;
 import mods.tinker.tconstruct.entity.Crystal;
 import mods.tinker.tconstruct.entity.LaunchedPotion;
 import mods.tinker.tconstruct.entity.Skyla;
-import mods.tinker.tconstruct.entity.UnstableCreeper;
+import mods.tinker.tconstruct.entity.NitroCreeper;
 import mods.tinker.tconstruct.library.client.TConstructClientRegistry;
 import mods.tinker.tconstruct.library.client.ToolGuiElement;
 import mods.tinker.tconstruct.logic.CastingTableLogic;
@@ -120,7 +120,7 @@ public class TProxyClient extends TProxyCommon
         RenderingRegistry.registerEntityRenderingHandler(Skyla.class, new SkylaRender());
         RenderingRegistry.registerEntityRenderingHandler(FancyEntityItem.class, new FancyItemRender());
         RenderingRegistry.registerEntityRenderingHandler(Crystal.class, new CrystalRender());
-        RenderingRegistry.registerEntityRenderingHandler(UnstableCreeper.class, new RenderCreeper());
+        RenderingRegistry.registerEntityRenderingHandler(NitroCreeper.class, new RenderCreeper());
         RenderingRegistry.registerEntityRenderingHandler(BlueSlime.class, new SlimeRender(new ModelSlime(16), new ModelSlime(0), 0.25F));
         RenderingRegistry.registerEntityRenderingHandler(LaunchedPotion.class, new ThrownItemRender(Item.potion, 16384));
         //RenderingRegistry.registerEntityRenderingHandler(net.minecraft.entity.player.EntityPlayer.class, new PlayerArmorRender()); // <-- Works, woo!
@@ -225,10 +225,8 @@ public class TProxyClient extends TProxyCommon
         //ToolIcons
         TConstructClientRegistry.registerManualIcon("pickicon",
                 ToolBuilder.instance.buildTool(new ItemStack(TContent.pickaxeHead, 1, 10), new ItemStack(TContent.toolRod, 1, 11), new ItemStack(TContent.binding, 1, 12), ""));
-        TConstructClientRegistry.registerManualIcon("shovelicon",
-                ToolBuilder.instance.buildTool(new ItemStack(TContent.shovelHead, 1, 10), new ItemStack(TContent.toolRod, 1, 11), null, ""));
-        TConstructClientRegistry.registerManualIcon("axeicon",
-                ToolBuilder.instance.buildTool(new ItemStack(TContent.axeHead, 1, 10), new ItemStack(TContent.toolRod, 1, 11), null, ""));
+        TConstructClientRegistry.registerManualIcon("shovelicon", ToolBuilder.instance.buildTool(new ItemStack(TContent.shovelHead, 1, 10), new ItemStack(TContent.toolRod, 1, 11), null, ""));
+        TConstructClientRegistry.registerManualIcon("axeicon", ToolBuilder.instance.buildTool(new ItemStack(TContent.axeHead, 1, 10), new ItemStack(TContent.toolRod, 1, 11), null, ""));
         TConstructClientRegistry.registerManualIcon("mattockicon",
                 ToolBuilder.instance.buildTool(new ItemStack(TContent.axeHead, 1, 10), new ItemStack(TContent.toolRod, 1, 11), new ItemStack(TContent.shovelHead, 1, 12), ""));
         TConstructClientRegistry.registerManualIcon("swordicon",
@@ -237,10 +235,8 @@ public class TProxyClient extends TProxyCommon
                 ToolBuilder.instance.buildTool(new ItemStack(TContent.swordBlade, 1, 10), new ItemStack(TContent.toolRod, 1, 11), new ItemStack(TContent.handGuard, 1, 12), ""));
         TConstructClientRegistry.registerManualIcon("rapiericon",
                 ToolBuilder.instance.buildTool(new ItemStack(TContent.swordBlade, 1, 10), new ItemStack(TContent.toolRod, 1, 11), new ItemStack(TContent.crossbar, 1, 12), ""));
-        TConstructClientRegistry.registerManualIcon("frypanicon",
-                ToolBuilder.instance.buildTool(new ItemStack(TContent.frypanHead, 1, 10), new ItemStack(TContent.toolRod, 1, 11), null, ""));
-        TConstructClientRegistry.registerManualIcon("battlesignicon",
-                ToolBuilder.instance.buildTool(new ItemStack(TContent.signHead, 1, 10), new ItemStack(TContent.toolRod, 1, 11), null, ""));
+        TConstructClientRegistry.registerManualIcon("frypanicon", ToolBuilder.instance.buildTool(new ItemStack(TContent.frypanHead, 1, 10), new ItemStack(TContent.toolRod, 1, 11), null, ""));
+        TConstructClientRegistry.registerManualIcon("battlesignicon", ToolBuilder.instance.buildTool(new ItemStack(TContent.signHead, 1, 10), new ItemStack(TContent.toolRod, 1, 11), null, ""));
     }
 
     public void initManualRecipes ()
@@ -252,7 +248,10 @@ public class TProxyClient extends TProxyCommon
         ItemStack workbench = new ItemStack(Block.workbench, 1, 0);
         ItemStack chest = new ItemStack(Block.chest, 1, 0);
         ItemStack log = new ItemStack(Block.wood, 1, 0);
+        ItemStack mossycobble = new ItemStack(Block.cobblestoneMossy);
+        ItemStack netherrack = new ItemStack(Block.netherrack);
 
+        ItemStack dirt = new ItemStack(Block.dirt, 1, 0);
         ItemStack sand = new ItemStack(Block.sand, 1, 0);
         ItemStack gravel = new ItemStack(Block.gravel, 1, 0);
         ItemStack clay = new ItemStack(Item.clay, 1, 0);
@@ -261,12 +260,23 @@ public class TProxyClient extends TProxyCommon
         ItemStack grout = new ItemStack(TContent.craftedSoil, 2, 1);
         ItemStack searedbrick = new ItemStack(TContent.materials, 1, 2);
 
+        ItemStack coal = new ItemStack(Item.coal);
+        ItemStack paper = new ItemStack(Item.paper);
+        ItemStack slimeball = new ItemStack(Item.slimeBall);
+        ItemStack slimyMud = new ItemStack(TContent.craftedSoil);
+
         //TConstruct recipes
         TConstructClientRegistry.registerManualSmallRecipe("blankpattern", pattern, plank, stick, stick, plank);
         TConstructClientRegistry.registerManualSmallRecipe("toolstation", new ItemStack(TContent.toolStationWood, 1, 0), null, pattern, null, workbench);
         TConstructClientRegistry.registerManualSmallRecipe("partcrafter", new ItemStack(TContent.toolStationWood, 1, 1), null, pattern, null, plank);
         TConstructClientRegistry.registerManualSmallRecipe("patternchest", new ItemStack(TContent.toolStationWood, 1, 5), null, pattern, null, chest);
         TConstructClientRegistry.registerManualSmallRecipe("stenciltable", new ItemStack(TContent.toolStationWood, 1, 10), null, pattern, null, log);
+
+        TConstructClientRegistry.registerManualLargeRecipe("slimymud", slimyMud, null, slimeball, slimeball, null, slimeball, slimeball, null, dirt, sand);
+        TConstructClientRegistry.registerManualFurnaceRecipe("slimecrystal", new ItemStack(TContent.materials, 1, 1), slimyMud);
+        TConstructClientRegistry.registerManualSmallRecipe("paperstack", new ItemStack(TContent.materials, 1, 0), paper, paper, paper, paper);
+        TConstructClientRegistry.registerManualLargeRecipe("mossball", new ItemStack(TContent.materials, 1, 6), mossycobble, mossycobble, mossycobble, mossycobble, mossycobble, mossycobble, mossycobble, mossycobble, mossycobble);
+        TConstructClientRegistry.registerManualLargeRecipe("lavacrystal", new ItemStack(TContent.materials, 1, 7), netherrack, coal, netherrack, coal, new ItemStack(Item.bucketLava), coal, netherrack, coal, netherrack);
 
         TConstructClientRegistry.registerManualSmallRecipe("grout", grout, sand, gravel, null, clay);
         TConstructClientRegistry.registerManualFurnaceRecipe("searedbrick", searedbrick, grout);
@@ -286,6 +296,25 @@ public class TProxyClient extends TProxyCommon
         TConstructClientRegistry.registerManualLargeRecipe("smelterytable", new ItemStack(TContent.searedBlock, 1, 0), searedbrick, searedbrick, searedbrick, searedbrick, null, searedbrick,
                 searedbrick, null, searedbrick);
         TConstructClientRegistry.registerManualLargeRecipe("smelteryfaucet", new ItemStack(TContent.searedBlock, 1, 1), searedbrick, null, searedbrick, null, searedbrick, null, null, null, null);
+
+        //Modifier recipes
+        ItemStack ironpick = ToolBuilder.instance.buildTool(new ItemStack(TContent.pickaxeHead, 1, 6), new ItemStack(TContent.toolRod, 1, 2), new ItemStack(TContent.binding, 1, 6), "");
+        TConstructClientRegistry.registerManualIcon("ironpick", ironpick);
+        ItemStack ironlongsword = ToolBuilder.instance.buildTool(new ItemStack(TContent.swordBlade, 1, 6), new ItemStack(TContent.toolRod, 1, 2), new ItemStack(TContent.handGuard, 1, 10), "");
+        TConstructClientRegistry.registerManualIcon("ironlongsword", ironlongsword);
+
+        TConstructClientRegistry.registerManualModifier("diamondmod", ironpick.copy(), new ItemStack(Item.diamond));
+        TConstructClientRegistry.registerManualModifier("emeraldmod", ironpick.copy(), new ItemStack(Item.emerald));
+        TConstructClientRegistry.registerManualModifier("redstonemod", ironpick.copy(), new ItemStack(Item.redstone), new ItemStack(Block.blockRedstone));
+        TConstructClientRegistry.registerManualModifier("lavacrystalmod", ironpick.copy(), new ItemStack(TContent.materials, 1, 7));
+        TConstructClientRegistry.registerManualModifier("lapismod", ironpick.copy(), new ItemStack(Item.dyePowder, 1, 4), new ItemStack(Block.blockLapis));
+        TConstructClientRegistry.registerManualModifier("mossmod", ironpick.copy(), new ItemStack(TContent.materials, 1, 6));
+        TConstructClientRegistry.registerManualModifier("quartzmod", ironlongsword.copy(), new ItemStack(Item.field_94583_ca), new ItemStack(Block.blockNetherQuartz));
+        TConstructClientRegistry.registerManualModifier("blazemod", ironlongsword.copy(), new ItemStack(Item.blazePowder));
+        TConstructClientRegistry.registerManualModifier("necroticmod", ironlongsword.copy(), new ItemStack(TContent.materials, 1, 8));
+        TConstructClientRegistry.registerManualModifier("electricmod", ironpick.copy(), new ItemStack(Block.dirt), new ItemStack(Block.dirt));
+        TConstructClientRegistry.registerManualModifier("tier1free", ironpick.copy(), new ItemStack(Item.diamond), new ItemStack(Block.blockGold));
+        TConstructClientRegistry.registerManualModifier("tier2free", ironpick.copy(), new ItemStack(Item.netherStar));
     }
 
     public static Document getManualFromStack (ItemStack stack)
@@ -386,22 +415,6 @@ public class TProxyClient extends TProxyCommon
             TConstructClientRegistry.addEffectRenderMapping(effectIter, "tinker", effectTypes[effectIter], true);
         }
     }
-
-    /*void materialRenderMap (int materialID, String partialLocation)
-    {
-    	for (ToolCore tool : TConstructRegistry.getToolMapping())
-    	{
-    		tool.partTextures.put(materialID, tool.getToolTextureFile() + partialLocation);
-    	}
-    }
-
-    void effectRenderMap (int materialID, String partialLocation)
-    {
-    	for (ToolCore tool : TConstructRegistry.getToolMapping())
-    	{
-    		tool.effectTextures.put(materialID, tool.getToolTextureFile() + partialLocation);
-    	}
-    }*/
 
     /* Keybindings */
     public static TControls controlInstance;

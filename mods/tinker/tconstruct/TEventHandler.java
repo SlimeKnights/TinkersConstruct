@@ -5,16 +5,19 @@ import java.util.Random;
 
 import mods.tinker.tconstruct.crafting.PatternBuilder;
 import mods.tinker.tconstruct.crafting.Smeltery;
+import mods.tinker.tconstruct.entity.NitroCreeper;
 import mods.tinker.tconstruct.logic.LiquidTextureLogic;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EntityDamageSource;
 import net.minecraft.util.EnumMovingObjectType;
 import net.minecraftforge.client.event.sound.SoundLoadEvent;
 import net.minecraftforge.event.Event.Result;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.FillBucketEvent;
 import net.minecraftforge.liquids.LiquidStack;
 import net.minecraftforge.oredict.OreDictionary;
@@ -39,6 +42,18 @@ public class TEventHandler
         catch (Exception e)
         {
             System.err.println("[TConstruct] Failed to register one or more sounds");
+        }
+    }
+    
+    @ForgeSubscribe
+    public void onHurt(LivingHurtEvent event)
+    {
+        if (event.source instanceof EntityDamageSource && event.source.damageType.equals("explosion.player") && ((EntityDamageSource)event.source).getEntity() instanceof NitroCreeper)
+        {
+            if (event.entityLiving.worldObj.difficultySetting == 3)
+                event.ammount /= 2.3;
+            else
+                event.ammount /= 1.5;
         }
     }
     
