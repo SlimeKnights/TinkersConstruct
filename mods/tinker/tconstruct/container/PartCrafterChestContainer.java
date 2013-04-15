@@ -1,14 +1,14 @@
 package mods.tinker.tconstruct.container;
 
+import mods.tinker.common.IPattern;
 import mods.tinker.tconstruct.logic.PartCrafterLogic;
 import mods.tinker.tconstruct.logic.PatternChestLogic;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-public class PartCrafterChestContainer extends Container
+public class PartCrafterChestContainer extends ActiveContainer
 {
 	protected PatternChestLogic patternLogic;
 	protected InventoryPlayer invPlayer;
@@ -77,9 +77,15 @@ public class PartCrafterChestContainer extends Container
                     return null;
                 }
             }
-            else if (!this.mergeItemStack(slotStack, 2, 4, false))
+            else
             {
-                return null;
+                if (slotStack.getItem() instanceof IPattern)
+                {
+                    if (!this.mergeItemStack(slotStack, 0, 2, false) && ! this.mergeItemStack(slotStack, 8, 38, false))
+                        return null;
+                }
+                else if (!this.mergeItemStack(slotStack, 2, 4, false))
+                    return null;
             }
 
             if (slotStack.stackSize == 0)

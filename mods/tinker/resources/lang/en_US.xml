@@ -48,6 +48,8 @@
   <entry key="StorageMetals.Alumite.name">Block of Alumite</entry>
   <entry key="StorageMetals.Steel.name">Block of Steel</entry>
   
+  <entry key="tile.decoration.stonetorch.name">Torch</entry>
+  
   <entry key="item.tconstruct.blankpattern.pattern.name">Blank Pattern</entry>
   <entry key="item.tconstruct.blankpattern.cast.name">Blank Cast</entry>
   

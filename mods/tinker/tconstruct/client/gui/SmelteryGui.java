@@ -11,6 +11,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.Item;
@@ -39,21 +40,9 @@ public class SmelteryGui extends NewContainerGui
     int slotPos = 0;
     int prevSlotPos = 0;
 
-    /*private Slot theSlot;
-    private Slot clickedSlot = null;
-    private ItemStack draggedStack = null;
-    private boolean isRightMouseClick = false;
-    private int field_94069_F;
-    private long returningStackTime = 0L;
-    private ItemStack returningStack = null;
-    private Slot returningStackDestSlot = null;
-    private int field_85049_r = 0;
-    private int field_85048_s = 0;*/
-
     public SmelteryGui(InventoryPlayer inventoryplayer, SmelteryLogic smeltery, World world, int x, int y, int z)
     {
         super((ActiveContainer) smeltery.getGuiContainer(inventoryplayer, world, x, y, z));
-        //container = (SmelteryContainer) inventorySlots;
         logic = smeltery;
         username = inventoryplayer.player.username;
         xSize = 248;
@@ -224,8 +213,19 @@ public class SmelteryGui extends NewContainerGui
             }
         }
 
-        //fontRenderer.drawString("Time: "+logic.useTime, 140, 2, 0xFFFFFF);
+        //fontRenderer.drawString("slotPos: "+slotPos, 140, 2, 0xFFFFFF);
         /*fontRenderer.drawString("Scrolling: "+isScrolling, 140, 12, 0xFFFFFF);
         fontRenderer.drawString("Scroll: "+currentScroll, 140, 22, 0xFFFFFF);*/
+    }
+    
+    public void drawLiquidRect(int par1, int par2, Icon par3Icon, int par4, int par5)
+    {
+        Tessellator tessellator = Tessellator.instance;
+        tessellator.startDrawingQuads();
+        tessellator.addVertexWithUV((double)(par1 + 0), (double)(par2 + par5), (double)this.zLevel, (double)par3Icon.getMinU(), (double)par3Icon.getMaxV());
+        tessellator.addVertexWithUV((double)(par1 + par4), (double)(par2 + par5), (double)this.zLevel, (double)par3Icon.getMaxU(), (double)par3Icon.getMaxV());
+        tessellator.addVertexWithUV((double)(par1 + par4), (double)(par2 + 0), (double)this.zLevel, (double)par3Icon.getMaxU(), (double)par3Icon.getMinV());
+        tessellator.addVertexWithUV((double)(par1 + 0), (double)(par2 + 0), (double)this.zLevel, (double)par3Icon.getMinU(), (double)par3Icon.getMinV());
+        tessellator.draw();
     }
 }

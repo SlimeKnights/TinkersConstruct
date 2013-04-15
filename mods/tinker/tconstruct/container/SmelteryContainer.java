@@ -71,6 +71,7 @@ public class SmelteryContainer extends ActiveContainer
                 slot.xDisplayPosition = 2 + 22 * xPos;
                 slot.yDisplayPosition = 8 + 18 * yPos;
             }
+            return slotRow;
         }
         return -1;
     }
@@ -181,8 +182,9 @@ public class SmelteryContainer extends ActiveContainer
         Slot slot;
         ItemStack slotStack;
 
-        if (inputStack.isStackable())
+        /*if (inputStack.isStackable() && startSlot >= logic.getSizeInventory())
         {
+            System.out.println("Rawr!");
             while (inputStack.stackSize > 0 && (!flag && slotPos < endSlot || flag && slotPos >= startSlot))
             {
                 slot = (Slot) this.inventorySlots.get(slotPos);
@@ -196,6 +198,44 @@ public class SmelteryContainer extends ActiveContainer
                     {
                         inputStack.stackSize = 0;
                         slotStack.stackSize = totalSize;
+                        slot.onSlotChanged();
+                        merged = true;
+                    }
+                    else if (slotStack.stackSize < inputStack.getMaxStackSize())
+                    {
+                        inputStack.stackSize -= inputStack.getMaxStackSize() - slotStack.stackSize;
+                        slotStack.stackSize = inputStack.getMaxStackSize();
+                        slot.onSlotChanged();
+                        merged = true;
+                    }
+                }
+
+                if (flag)
+                {
+                    --slotPos;
+                }
+                else
+                {
+                    ++slotPos;
+                }
+            }
+        }*/
+        
+        if (inputStack.isStackable() && startSlot >= logic.getSizeInventory())
+        {
+            while (inputStack.stackSize > 0 && (!flag && slotPos < endSlot || flag && slotPos >= startSlot))
+            {
+                slot = (Slot)this.inventorySlots.get(slotPos);
+                slotStack = slot.getStack();
+
+                if (slotStack != null && slotStack.itemID == inputStack.itemID && (!inputStack.getHasSubtypes() || inputStack.getItemDamage() == slotStack.getItemDamage()) && ItemStack.areItemStackTagsEqual(inputStack, slotStack))
+                {
+                    int l = slotStack.stackSize + inputStack.stackSize;
+
+                    if (l <= inputStack.getMaxStackSize())
+                    {
+                        inputStack.stackSize = 0;
+                        slotStack.stackSize = l;
                         slot.onSlotChanged();
                         merged = true;
                     }

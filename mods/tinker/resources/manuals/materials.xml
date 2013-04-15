@@ -231,8 +231,8 @@ Class: Lethal Joke Weapon</text>
 <text>Some materials have abilities that augment their natural uses.
 
 - Reinforced: 10% chance per level of not using durability
-- Shoddy: Mines faster and does less damage as the tool breaks
-- Spiny: Opposite of Shoddy
+- Stonebound: The tool mines faster as it wears out, but does less damage
+- Spiny: The tool mines does more damage as it wears out, but mines slower
 - Writable: One extra modifier per piece
 - Awareness: Unknown</text>
 </page>
@@ -380,7 +380,7 @@ Class: Lethal Joke Weapon</text>
 <page type="materialstats">
 <title>Ardite</title>
 <icon>arditelongsword</icon>
-<text>One of the nether materials. It's rustic red.</text>
+<text>One of the nether materials. It seems to mine faster as it wears out.</text>
 <material>
  <main>arditeingot</main>
 </material>

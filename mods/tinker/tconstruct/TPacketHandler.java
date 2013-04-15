@@ -29,7 +29,6 @@ public class TPacketHandler implements IPacketHandler
 
 		if (packet.channel.equals("TConstruct"))
 		{
-			//System.out.println("Recieved a packet for TConstruct");
 			if (side == Side.SERVER)
 				handleServerPacket(packet);
 			else
@@ -39,7 +38,6 @@ public class TPacketHandler implements IPacketHandler
 
 	void handleClientPacket (Packet250CustomPayload packet)
 	{
-		//System.out.println("Handling client packet");
 		DataInputStream inputStream = new DataInputStream(new ByteArrayInputStream(packet.data));
 
 		byte packetType;
@@ -63,11 +61,8 @@ public class TPacketHandler implements IPacketHandler
 
 	void handleServerPacket (Packet250CustomPayload packet)
 	{
-		//System.out.println("Handling server packet");
 		DataInputStream inputStream = new DataInputStream(new ByteArrayInputStream(packet.data));
 
-		//byte packetType;
-		//int dimension;
 		byte packetID;
 
 		try
@@ -105,19 +100,10 @@ public class TPacketHandler implements IPacketHandler
 					((InventoryLogic) te).setInventorySlotContents(1, new ItemStack(itemID, 1, itemDamage));
 				}
 			}
-			else if (packetID == 3) //Smeltery
-			{
-				int rowPos = inputStream.readInt();
-				String user = inputStream.readUTF();
-				SmelteryContainer container = (SmelteryContainer) TGuiHandler.openContainers.get(user);
-				//System.out.println("Recieved a scroll packet for row "+rowPos);
-				container.updateRows(rowPos);
-			}
 			
 			else if (packetID == 10) //Double jump
 			{
 				String user = inputStream.readUTF();
-				//EntityPlayer player = FMLCommonHandler.instance().getSidedDelegate().getServer().getConfigurationManager().getPlayerForUsername(user);
 				EntityPlayer player = TConstruct.playerTracker.getEntityPlayer(user);
 				player.fallDistance = 0;
 			}

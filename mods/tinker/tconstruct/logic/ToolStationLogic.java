@@ -22,6 +22,13 @@ public class ToolStationLogic extends InventoryLogic
 		super(5);
 		toolName = "";
 	}
+	
+	public boolean canDropInventorySlot(int slot)
+    {
+	    if (slot == 0)
+	        return false;
+        return true;
+    }
 
 	@Override
 	public ItemStack getStackInSlotOnClosing (int var1)

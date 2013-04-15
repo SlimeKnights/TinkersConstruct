@@ -21,9 +21,10 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 /** TConstruct, the tool mod.
  * Craft your tools with style, then modify until the original is gone!
  * @author: mDiyo
+ * @dependencies: IC2 API, EBXL API
  */
 
-@Mod(modid = "TConstruct", name = "TConstruct", version = "1.5.1_1.2.29.1")
+@Mod(modid = "TConstruct", name = "TConstruct", version = "1.5.1_1.2.29.4")
 @NetworkMod(serverSideRequired = false, clientSideRequired = true, channels = { "TConstruct" }, packetHandler = mods.tinker.tconstruct.TPacketHandler.class)
 public class TConstruct
 {

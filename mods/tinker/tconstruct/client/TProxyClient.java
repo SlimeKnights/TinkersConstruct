@@ -93,6 +93,7 @@ public class TProxyClient extends TProxyCommon
     /* Registers any rendering code. */
     public void registerRenderer ()
     {
+        //TickRegistry.registerTickHandler(new TTickHandler(), Side.CLIENT);
         Minecraft mc = Minecraft.getMinecraft();
         smallFontRenderer = new SmallFontRenderer(mc.gameSettings, "/font/default.png", mc.renderEngine, false);
         RenderingRegistry.registerBlockHandler(new TableRender());
@@ -264,19 +265,21 @@ public class TProxyClient extends TProxyCommon
         ItemStack paper = new ItemStack(Item.paper);
         ItemStack slimeball = new ItemStack(Item.slimeBall);
         ItemStack slimyMud = new ItemStack(TContent.craftedSoil);
+        ItemStack blazerod = new ItemStack(Item.blazeRod);
+        ItemStack firecharge = new ItemStack(Item.fireballCharge);
 
         //TConstruct recipes
         TConstructClientRegistry.registerManualSmallRecipe("blankpattern", pattern, plank, stick, stick, plank);
         TConstructClientRegistry.registerManualSmallRecipe("toolstation", new ItemStack(TContent.toolStationWood, 1, 0), null, pattern, null, workbench);
-        TConstructClientRegistry.registerManualSmallRecipe("partcrafter", new ItemStack(TContent.toolStationWood, 1, 1), null, pattern, null, plank);
+        TConstructClientRegistry.registerManualSmallRecipe("partcrafter", new ItemStack(TContent.toolStationWood, 1, 1), null, pattern, null, log);
         TConstructClientRegistry.registerManualSmallRecipe("patternchest", new ItemStack(TContent.toolStationWood, 1, 5), null, pattern, null, chest);
-        TConstructClientRegistry.registerManualSmallRecipe("stenciltable", new ItemStack(TContent.toolStationWood, 1, 10), null, pattern, null, log);
+        TConstructClientRegistry.registerManualSmallRecipe("stenciltable", new ItemStack(TContent.toolStationWood, 1, 10), null, pattern, null, plank);
 
         TConstructClientRegistry.registerManualLargeRecipe("slimymud", slimyMud, null, slimeball, slimeball, null, slimeball, slimeball, null, dirt, sand);
         TConstructClientRegistry.registerManualFurnaceRecipe("slimecrystal", new ItemStack(TContent.materials, 1, 1), slimyMud);
         TConstructClientRegistry.registerManualSmallRecipe("paperstack", new ItemStack(TContent.materials, 1, 0), paper, paper, paper, paper);
         TConstructClientRegistry.registerManualLargeRecipe("mossball", new ItemStack(TContent.materials, 1, 6), mossycobble, mossycobble, mossycobble, mossycobble, mossycobble, mossycobble, mossycobble, mossycobble, mossycobble);
-        TConstructClientRegistry.registerManualLargeRecipe("lavacrystal", new ItemStack(TContent.materials, 1, 7), netherrack, coal, netherrack, coal, new ItemStack(Item.bucketLava), coal, netherrack, coal, netherrack);
+        TConstructClientRegistry.registerManualLargeRecipe("lavacrystal", new ItemStack(TContent.materials, 1, 7), blazerod, firecharge, blazerod, firecharge, new ItemStack(Item.bucketLava), firecharge, blazerod, firecharge, blazerod);
 
         TConstructClientRegistry.registerManualSmallRecipe("grout", grout, sand, gravel, null, clay);
         TConstructClientRegistry.registerManualFurnaceRecipe("searedbrick", searedbrick, grout);

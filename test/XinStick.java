@@ -1,7 +1,6 @@
 package test;
 
 import mods.tinker.tconstruct.entity.BlueSlime;
-import mods.tinker.tconstruct.entity.NitroCreeper;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -9,6 +8,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 
 /*
@@ -23,34 +23,31 @@ public class XinStick extends Item
 		super(id);
 		setCreativeTab(CreativeTabs.tabMisc);
 	}
+	
+	public Icon getIconFromDamage(int par1)
+    {
+	    return Item.arrow.getIconFromDamage(par1);
+    }
 
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
 	{
-		//spawnItem(player.posX, player.posY, player.posZ, tool, world);
-		//CartEntity cart = new CartEntity(world, 1);
-		//cart.cartType = 1;
-		spawnEntity(player.posX, player.posY+1, player.posZ, new NitroCreeper(world), world, player);
+		spawnEntity(player.posX, player.posY+1, player.posZ, new BlueSlime(world), world, player);
+	    System.out.println("Health! "+player.getHealth());
+	    //healPlayer(player);
 		return stack;
 	}
-
-	/*public boolean onItemUse (ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10)
+	
+	public static void healPlayer(EntityPlayer player)
 	{
-		if (!par3World.isRemote)
-		{
-			par3World.spawnEntityInWorld(new CartEntity(par3World, (double) ((float) par4 + 0.5F), (double) ((float) par5 + 1.5F), (double) ((float) par6 + 0.5F), 0));
-		}
-
-		//--par1ItemStack.stackSize;
-		return true;
-	}*/
+	    player.setEntityHealth(200);
+	}
 
 	public static void spawnItem (double x, double y, double z, ItemStack stack, World world)
 	{
 		if (!world.isRemote)
 		{
 			EntityItem entityitem = new EntityItem(world, x + 0.5D, y + 0.5D, z + 0.5D, stack);
-			//entityitem.delayBeforeCanPickup = 10;
 			world.spawnEntityInWorld(entityitem);
 		}
 	}

@@ -189,10 +189,11 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
     @Override
     public Icon getIcon (ItemStack stack, int renderPass)
     {
-        NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
+        NBTTagCompound tags = stack.getTagCompound();
 
         if (tags != null)
         {
+            tags = stack.getTagCompound().getCompoundTag("InfiTool");
             if (renderPass < getPartAmount())
             {
                 if (renderPass == 0) // Handle

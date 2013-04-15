@@ -1,8 +1,5 @@
 package mods.tinker.tconstruct;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import mods.tinker.common.IPattern;
 import mods.tinker.common.RecipeRemover;
 import mods.tinker.common.fancyitem.FancyEntityItem;
@@ -24,6 +21,7 @@ import mods.tinker.tconstruct.entity.BlueSlime;
 import mods.tinker.tconstruct.entity.Crystal;
 import mods.tinker.tconstruct.entity.LaunchedPotion;
 import mods.tinker.tconstruct.entity.NitroCreeper;
+import mods.tinker.tconstruct.entity.Skyla;
 import mods.tinker.tconstruct.items.CraftedSoilItemBlock;
 import mods.tinker.tconstruct.items.CraftingItem;
 import mods.tinker.tconstruct.items.FilledBucket;
@@ -211,7 +209,7 @@ public class TContent implements IFuelHandler
         //EntityRegistry.registerModEntity(Crystal.class, "Crystal", 2, TConstruct.instance, 32, 5, true);
         EntityRegistry.registerModEntity(Crystal.class, "Crystal", 2, TConstruct.instance, 32, 5, true);
 
-        //EntityRegistry.registerModEntity(Skyla.class, "Skyla", 10, TConstruct.instance, 32, 5, true);
+        EntityRegistry.registerModEntity(Skyla.class, "Skyla", 10, TConstruct.instance, 32, 5, true);
         EntityRegistry.registerModEntity(NitroCreeper.class, "UnstableCreeper", 11, TConstruct.instance, 64, 5, true);
         EntityRegistry.registerModEntity(BlueSlime.class, "EdibleSlime", 12, TConstruct.instance, 64, 5, true);
         //EntityRegistry.registerModEntity(MetalSlime.class, "MetalSlime", 13, TConstruct.instance, 64, 5, true);
@@ -371,18 +369,18 @@ public class TContent implements IFuelHandler
     void registerMaterials ()
     {
         TConstructRegistry.addToolMaterial(0, "Wood", 1, 0, 59, 200, 0, 1.0F, 0, 0f, "\u00A7e", "");
-        TConstructRegistry.addToolMaterial(1, "Stone", 1, 1, 131, 400, 1, 0.5F, 0, 1f, "", "Shoddy");
+        TConstructRegistry.addToolMaterial(1, "Stone", 1, 1, 131, 400, 1, 0.5F, 0, 1f, "", "Stonebound");
         TConstructRegistry.addToolMaterial(2, "Iron", 1, 2, 250, 600, 2, 1.3F, 1, 0f, "\u00A7f", "");
-        TConstructRegistry.addToolMaterial(3, "Flint", 1, 1, 171, 525, 2, 0.7F, 0, 1f, "\u00A78", "Shoddy");
+        TConstructRegistry.addToolMaterial(3, "Flint", 1, 1, 171, 525, 2, 0.7F, 0, 1f, "\u00A78", "Stonebound");
         TConstructRegistry.addToolMaterial(4, "Cactus", 1, 1, 150, 500, 2, 1.0F, 0, -1f, "\u00A72", "Spiny");
         TConstructRegistry.addToolMaterial(5, "Bone", 1, 1, 200, 400, 1, 1.0F, 0, 0f, "\u00A7e", "");
         TConstructRegistry.addToolMaterial(6, "Obsidian", 1, 3, 89, 700, 2, 0.8F, 3, 0f, "\u00A7d", "");
-        TConstructRegistry.addToolMaterial(7, "Netherrack", 1, 2, 131, 400, 1, 1.2F, 0, 1f, "\u00A74", "Shoddy");
+        TConstructRegistry.addToolMaterial(7, "Netherrack", 1, 2, 131, 400, 1, 1.2F, 0, 1f, "\u00A74", "Stonebound");
         TConstructRegistry.addToolMaterial(8, "Slime", 1, 3, 1500, 150, 0, 5.0F, 0, 0f, "\u00A7a", "");
         TConstructRegistry.addToolMaterial(9, "Paper", 1, 0, 30, 200, 0, 0.3F, 0, 0f, "\u00A7f", "Writable");
-        TConstructRegistry.addToolMaterial(10, "Cobalt", 2, 4, 800, 800, 3, 1.75F, 2, 0f, "\u00A73", "");
-        TConstructRegistry.addToolMaterial(11, "Ardite", 2, 4, 600, 800, 3, 2.0F, 0, 0f, "\u00A74", "");
-        TConstructRegistry.addToolMaterial(12, "Manyullyn", 2, 5, 1200, 1000, 4, 2.5F, 0, 0f, "\u00A75", "Awareness");
+        TConstructRegistry.addToolMaterial(10, "Cobalt", 2, 4, 800, 1100, 3, 1.75F, 2, 0f, "\u00A73", "");
+        TConstructRegistry.addToolMaterial(11, "Ardite", 2, 4, 600, 800, 3, 2.0F, 0, 3f, "\u00A74", "Stonebound");
+        TConstructRegistry.addToolMaterial(12, "Manyullyn", 2, 5, 1200, 900, 4, 2.5F, 0, 0f, "\u00A75", "");
         TConstructRegistry.addToolMaterial(13, "Copper", 1, 1, 180, 500, 2, 1.15F, 0, 0f, "\u00A7c", "");
         TConstructRegistry.addToolMaterial(14, "Bronze", 1, 2, 350, 700, 2, 1.3F, 1, 0f, "\u00A76", "");
         TConstructRegistry.addToolMaterial(15, "Alumite", 2, 4, 550, 800, 3, 1.3F, 2, 0f, "\u00A7d", "");
@@ -657,8 +655,12 @@ public class TContent implements IFuelHandler
         GameRegistry.addRecipe(new ItemStack(manualBook), "wp", 'w', new ItemStack(blankPattern, 1, 0), 'p', Item.paper);
 
         GameRegistry.addRecipe(new ItemStack(materials, 1, 0), "pp", "pp", 'p', Item.paper); //Paper stack
-        GameRegistry.addRecipe(new ItemStack(materials, 1, 6), "ppp", "ppp", "ppp", 'p', Block.cobblestoneMossy); //Moss ball
-        GameRegistry.addRecipe(new ItemStack(materials, 1, 7), "xcx", "cbc", "xcx", 'b', Item.bucketLava, 'c', Item.coal, 'x', Block.netherrack); //Auto-smelt
+        OreDictionary.registerOre("mossystone", new ItemStack(Block.stoneBrick, 1, 1));
+        OreDictionary.registerOre("mossystone", new ItemStack(Block.cobblestoneMossy));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(materials, 1, 6), "ppp", "ppp", "ppp", 'p', "mossystone")); //Moss ball
+        GameRegistry.addRecipe(new ItemStack(materials, 1, 6), "ppp", "ppp", "ppp", 'p', new ItemStack(Block.stoneBrick, 1, 1)); //Moss ball
+        GameRegistry.addRecipe(new ItemStack(materials, 1, 7), "xcx", "cbc", "xcx", 'b', Item.bucketLava, 'c', Item.fireballCharge, 'x', Item.blazeRod); //Auto-smelt
+        GameRegistry.addRecipe(new ItemStack(materials, 1, 7), "xcx", "cbc", "xcx", 'b', Item.bucketLava, 'x', Item.fireballCharge, 'c', Item.blazeRod); //Auto-smelt
         //GameRegistry.addShapelessRecipe(new ItemStack(materials, 1, 8), Item.bone, Item.rottenFlesh, Item.chickenRaw, Item.beefRaw, Item.porkRaw, Item.fishRaw); //Necrotic bone
         GameRegistry.addShapelessRecipe(new ItemStack(craftedSoil, 1, 0), Item.slimeBall, Item.slimeBall, Item.slimeBall, Item.slimeBall, Block.sand, Block.dirt); //Slimy sand
         GameRegistry.addShapelessRecipe(new ItemStack(craftedSoil, 1, 2), strangeFood, strangeFood, strangeFood, strangeFood, Block.sand, Block.dirt); //Slimy sand

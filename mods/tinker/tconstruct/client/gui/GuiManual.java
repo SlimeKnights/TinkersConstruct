@@ -98,8 +98,17 @@ public class GuiManual extends GuiScreen
 
     void updateText () //TODO: OOP this, see BookPage
     {
-        if (currentPage >= maxPages)
-            currentPage = maxPages - 2;
+        System.out.println("maxPages: "+maxPages);
+        if (maxPages % 2 == 1)
+        {
+            if (currentPage > maxPages)
+                currentPage = maxPages;
+        }
+        else
+        {
+            if (currentPage >= maxPages)
+                currentPage = maxPages - 2;
+        }
         if (currentPage % 2 == 1)
             currentPage--;
         if (currentPage < 0)
@@ -628,6 +637,7 @@ public class GuiManual extends GuiScreen
             this.fontRenderer.drawString("\u00a7n" + info, localWidth + 25 + fontRenderer.getStringWidth(info) / 2, localHeight + 4, 0);
         GL11.glEnable(GL12.GL_RESCALE_NORMAL);
         RenderHelper.enableGUIStandardItemLighting();
+        renderitem.zLevel = 100;
         for (int i = 0; i < icons.length; i++)
         {
             renderitem.renderItemIntoGUI(fontRenderer, mc.renderEngine, icons[i], localWidth + 16, localHeight + 18 * i + 18);
@@ -636,6 +646,7 @@ public class GuiManual extends GuiScreen
                 yOffset = 13;
             this.fontRenderer.drawString(multiText[i], localWidth + 38, localHeight + 18 * i + yOffset, 0);
         }
+        renderitem.zLevel = 0;
         RenderHelper.disableStandardItemLighting();
         GL11.glDisable(GL12.GL_RESCALE_NORMAL);
     }
@@ -645,6 +656,7 @@ public class GuiManual extends GuiScreen
         this.fontRenderer.drawSplitString(info, localWidth, localHeight, 178, 0);
         GL11.glEnable(GL12.GL_RESCALE_NORMAL);
         RenderHelper.enableGUIStandardItemLighting();
+        renderitem.zLevel = 100;
         for (int i = 0; i < icons.length; i++)
         {
             renderitem.renderItemIntoGUI(fontRenderer, mc.renderEngine, icons[i], localWidth + 8, localHeight + 18 * i + 36);
@@ -653,6 +665,7 @@ public class GuiManual extends GuiScreen
                 yOffset = 34;
             this.fontRenderer.drawSplitString(multiText[i], localWidth + 30, localHeight + 18 * i + yOffset, 140, 0);
         }
+        renderitem.zLevel = 0;
         RenderHelper.disableStandardItemLighting();
         GL11.glDisable(GL12.GL_RESCALE_NORMAL);
     }
@@ -685,6 +698,7 @@ public class GuiManual extends GuiScreen
         GL11.glScalef(2f, 2f, 2f);
         GL11.glEnable(GL12.GL_RESCALE_NORMAL);
         RenderHelper.enableGUIStandardItemLighting();
+        renderitem.zLevel = 100;
 
         if (recipeSize == 2)
         {
@@ -710,6 +724,7 @@ public class GuiManual extends GuiScreen
             }
         }
 
+        renderitem.zLevel = 0;
         GL11.glScalef(0.5F, 0.5F, 0.5F);
         RenderHelper.disableStandardItemLighting();
         GL11.glDisable(GL12.GL_RESCALE_NORMAL);
@@ -729,6 +744,7 @@ public class GuiManual extends GuiScreen
         GL11.glScalef(2f, 2f, 2f);
         GL11.glEnable(GL12.GL_RESCALE_NORMAL);
         RenderHelper.enableGUIStandardItemLighting();
+        renderitem.zLevel = 100;
 
         renderitem.renderItemAndEffectIntoGUI(fontRenderer, mc.renderEngine, TConstructClientRegistry.getManualIcon("coal"), (localWidth + 38) / 2, (localHeight + 110) / 2);
         renderitem.renderItemAndEffectIntoGUI(fontRenderer, mc.renderEngine, icons[0], (localWidth + 106) / 2, (localHeight + 74) / 2);
@@ -737,6 +753,7 @@ public class GuiManual extends GuiScreen
         if (icons[0].stackSize > 1)
             renderitem.renderItemStack(fontRenderer, mc.renderEngine, icons[0], (localWidth + 106) / 2, (localHeight + 74) / 2, String.valueOf(icons[0].stackSize));
 
+        renderitem.zLevel = 0;
         GL11.glScalef(0.5F, 0.5F, 0.5F);
         RenderHelper.disableStandardItemLighting();
         GL11.glDisable(GL12.GL_RESCALE_NORMAL);
@@ -759,12 +776,14 @@ public class GuiManual extends GuiScreen
         if (type.equals("weapon"))
             toolstack = TConstructClientRegistry.getManualIcon("ironlongsword");
 
+        renderitem.zLevel = 100;
         renderitem.renderItemAndEffectIntoGUI(fontRenderer, mc.renderEngine, toolstack, (localWidth + 54) / 2, (localHeight + 54) / 2);
         renderitem.renderItemAndEffectIntoGUI(fontRenderer, mc.renderEngine, icons[0], (localWidth + 130) / 2, (localHeight + 54) / 2);
         renderitem.renderItemAndEffectIntoGUI(fontRenderer, mc.renderEngine, icons[1], (localWidth + 18) / 2, (localHeight + 36) / 2);
         if (icons[2] != null)
             renderitem.renderItemAndEffectIntoGUI(fontRenderer, mc.renderEngine, icons[2], (localWidth + 18) / 2, (localHeight + 74) / 2);
-
+        renderitem.zLevel = 0;
+        
         GL11.glScalef(0.5F, 0.5F, 0.5F);
         RenderHelper.disableStandardItemLighting();
         GL11.glDisable(GL12.GL_RESCALE_NORMAL);
@@ -781,10 +800,12 @@ public class GuiManual extends GuiScreen
 
         GL11.glEnable(GL12.GL_RESCALE_NORMAL);
         RenderHelper.enableGUIStandardItemLighting();
+        renderitem.zLevel = 100;
         //renderitem.renderItemAndEffectIntoGUI(fontRenderer, mc.renderEngine, icons[0], localWidth + 50, localHeight + 0);
         renderitem.renderItemAndEffectIntoGUI(fontRenderer, mc.renderEngine, icons[1], localWidth + 108, localHeight + 50);
         renderitem.renderItemAndEffectIntoGUI(fontRenderer, mc.renderEngine, icons[2], localWidth + 108, localHeight + 82);
         renderitem.renderItemAndEffectIntoGUI(fontRenderer, mc.renderEngine, icons[3], localWidth + 108, localHeight + 114);
+        renderitem.zLevel = 0;
         RenderHelper.disableStandardItemLighting();
         GL11.glDisable(GL12.GL_RESCALE_NORMAL);
 
@@ -825,12 +846,12 @@ public class GuiManual extends GuiScreen
 
         if (material.shoddy() > 0)
         {
-            this.fontRenderer.drawString("Shoddy level: " + material.shoddy(), localWidth, localHeight + 120 + 10 * offset, 0);
+            this.fontRenderer.drawString("Mining Aspect level: " + material.shoddy(), localWidth, localHeight + 120 + 10 * offset, 0);
             offset++;
         }
         else if (material.shoddy() < 0)
         {
-            this.fontRenderer.drawString("Spiny level: " + -material.shoddy(), localWidth, localHeight + 120 + 10 * offset, 0);
+            this.fontRenderer.drawString("Splintering level: " + -material.shoddy(), localWidth, localHeight + 120 + 10 * offset, 0);
             offset++;
         }
     }
@@ -846,12 +867,14 @@ public class GuiManual extends GuiScreen
 
         GL11.glEnable(GL12.GL_RESCALE_NORMAL);
         RenderHelper.enableGUIStandardItemLighting();
+        renderitem.zLevel = 100;
         renderitem.renderItemAndEffectIntoGUI(fontRenderer, mc.renderEngine, icons[0], localWidth + 50, localHeight + 0);
         for (int i = 1; i < icons.length; i++)
         {
             renderitem.renderItemAndEffectIntoGUI(fontRenderer, mc.renderEngine, icons[i], localWidth + 120, localHeight + 20 + 10 * size + 18 * i);
             this.fontRenderer.drawSplitString(multiText[i + 1], localWidth + 140, localHeight + 24 + 10 * size + 18 * i, 42, 0);
         }
+        renderitem.zLevel = 0;
         RenderHelper.disableStandardItemLighting();
         GL11.glDisable(GL12.GL_RESCALE_NORMAL);
     }
