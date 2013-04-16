@@ -289,9 +289,9 @@ public class ToolStationGui extends GuiContainer
         case 3:
             return "Obsidian"; //Mithril
         case 4:
-            return "Vulcanite";
+            return "Cobalt";
         case 5:
-            return "Adamantine";
+            return "Manyullyn";
         default:
             return String.valueOf(num);
         }

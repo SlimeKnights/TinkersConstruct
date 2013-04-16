@@ -261,7 +261,6 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 		}
 		else
 		{
-			//System.out.println("Liquid: "+liquid.amount+" Current: "+currentLiquid+" Max: "+maxLiquid);
 			if (liquid.amount + currentLiquid > maxLiquid)
 				return false;
 
@@ -327,6 +326,29 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 				else
 					fuelGague = 0;
 			}
+			/*else
+			{
+			    boolean foundTank = false;
+			    int iter = 0;
+			    while (!foundTank)
+			    {
+			        CoordTuple possibleTank = lavaTanks.get(iter);
+			        TileEntity newTank = worldObj.getBlockTileEntity(possibleTank.x, possibleTank.y, possibleTank.z);
+			        if (possibleTank instanceof ITankContainer)
+			        {
+			            LiquidStack newliquid = ((ITankContainer) tankContainer).drain(ForgeDirection.DOWN, 150, false);
+			            if (liquid != null && liquid.itemID == Block.lavaStill.blockID)
+			            {
+			                foundTank = true;
+			                activeLavaTank = possibleTank;
+			                iter = lavaTanks.size();
+			            }
+			        }
+			        iter++;
+			        if (iter >= lavaTanks.size())
+			            foundTank = true;
+			    }
+			}*/
 		}
 	}
 
@@ -650,7 +672,11 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 		if (resource != null && resource.amount + currentLiquid < maxLiquid)
 		{
 			int amount = resource.amount;
-			addMoltenMetal(resource, false);
+			if (doFill)
+			{
+			    addMoltenMetal(resource, false);
+			    worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+			}
 			return amount;
 		}
 		else

@@ -1,20 +1,20 @@
-package mods.tinker.tconstruct.client;
+package mods.tinker.tconstruct.player;
 
 import java.util.EnumSet;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.entity.player.EntityPlayer;
 import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.TickType;
 
-public class TTickHandler implements ITickHandler
+public class TClientTickHandler implements ITickHandler
 {
     Minecraft mc = Minecraft.getMinecraft();
     EntityPlayer player;
     int zLevel = 0;
-    @Override
-    public void tickStart (EnumSet<TickType> type, Object... tickData) { }
+    int ticks = 0;
 
     @Override
     public void tickEnd (EnumSet<TickType> type, Object... tickData)
@@ -23,6 +23,18 @@ public class TTickHandler implements ITickHandler
         if (player == null || player.capabilities.isCreativeMode)
             return;
         
+        /*ticks++;
+        if (ticks >= 200)
+        {
+            player.setEntityHealth(50);
+            ticks = 0;
+        }*/
+        
+        ScaledResolution scaledresolution = new ScaledResolution(this.mc.gameSettings, this.mc.displayWidth, this.mc.displayHeight);
+        int scaledWidth = scaledresolution.getScaledWidth();
+        int scaledHeight = scaledresolution.getScaledHeight();
+        int xBasePos = scaledWidth / 2 - 91;
+        int yBasePos = scaledHeight - 39;
         this.mc.renderEngine.bindTexture("/mods/tinker/textures/gui/newhearts.png");
         
         int hp = player.getHealth();
@@ -33,45 +45,13 @@ public class TTickHandler implements ITickHandler
                 renderHearts = 10;
             for (int i = 0; i < renderHearts; i++)
             {
-                this.drawTexturedModalRect(122 + 8*i, 201, 0 + 18*iter, 0, 8, 8);
+                this.drawTexturedModalRect(xBasePos + 8*i, yBasePos, 0 + 18*iter, 0, 8, 8);
             }
             if (hp % 2 == 1 && renderHearts < 10)
             {
-                this.drawTexturedModalRect(122 + 8*renderHearts, 201, 9 + 18*iter, 0, 8, 8);
+                this.drawTexturedModalRect(xBasePos + 8*renderHearts, yBasePos, 9 + 18*iter, 0, 8, 8);
             }
         }
-        /*int renderHearts = (hp - 20) / 2;
-        if (renderHearts > 10)
-            renderHearts = 10;
-        for (int i = 0; i < renderHearts; i++)
-        {
-            this.drawTexturedModalRect(122 + 8*i, 201, 0, 0, 8, 8);
-        }
-        
-        renderHearts = (hp - 40) / 2;
-        if (renderHearts > 10)
-            renderHearts = 10;
-        for (int i = 0; i < renderHearts; i++)
-        {
-            this.drawTexturedModalRect(122 + 8*i, 201, 18, 0, 8, 8);
-        }
-        
-        renderHearts = (hp - 60) / 2;
-        if (renderHearts > 10)
-            renderHearts = 10;
-        for (int i = 0; i < renderHearts; i++)
-        {
-            this.drawTexturedModalRect(122 + 8*i, 201, 36, 0, 8, 8);
-        }
-        
-        renderHearts = (hp - 80) / 2;
-        if (renderHearts > 10)
-            renderHearts = 10;
-        for (int i = 0; i < renderHearts; i++)
-        {
-            this.drawTexturedModalRect(122 + 8*i, 201, 54, 0, 8, 8);
-        }*/
-        //this.drawTexturedModalRect(178, 201, 9, 0, 8, 8);
     }
 
     @Override
@@ -79,12 +59,6 @@ public class TTickHandler implements ITickHandler
     {
         return EnumSet.of(TickType.RENDER);
         //return EnumSet.of(TickType.PLAYER);
-    }
-
-    @Override
-    public String getLabel ()
-    {
-        return "Gui Overlay";
     }
 
     public void drawTexturedModalRect(int par1, int par2, int par3, int par4, int par5, int par6)
@@ -98,5 +72,19 @@ public class TTickHandler implements ITickHandler
         tessellator.addVertexWithUV((double)(par1 + par5), (double)(par2 + 0), (double)this.zLevel, (double)((float)(par3 + par5) * f), (double)((float)(par4 + 0) * f1));
         tessellator.addVertexWithUV((double)(par1 + 0), (double)(par2 + 0), (double)this.zLevel, (double)((float)(par3 + 0) * f), (double)((float)(par4 + 0) * f1));
         tessellator.draw();
+    }
+
+    @Override
+    public void tickStart (EnumSet<TickType> type, Object... tickData)
+    {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public String getLabel ()
+    {
+        // TODO Auto-generated method stub
+        return null;
     }
 }

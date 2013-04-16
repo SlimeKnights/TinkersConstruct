@@ -24,20 +24,22 @@ import mods.tinker.tconstruct.client.blockrender.TableRender;
 import mods.tinker.tconstruct.client.blockrender.TankRender;
 import mods.tinker.tconstruct.client.entityrender.CartRender;
 import mods.tinker.tconstruct.client.entityrender.CrystalRender;
-import mods.tinker.tconstruct.client.entityrender.ThrownItemRender;
 import mods.tinker.tconstruct.client.entityrender.SkylaRender;
 import mods.tinker.tconstruct.client.entityrender.SlimeRender;
+import mods.tinker.tconstruct.client.entityrender.ThrownItemRender;
 import mods.tinker.tconstruct.crafting.ToolBuilder;
 import mods.tinker.tconstruct.entity.BlueSlime;
 import mods.tinker.tconstruct.entity.CartEntity;
 import mods.tinker.tconstruct.entity.Crystal;
 import mods.tinker.tconstruct.entity.LaunchedPotion;
-import mods.tinker.tconstruct.entity.Skyla;
 import mods.tinker.tconstruct.entity.NitroCreeper;
+import mods.tinker.tconstruct.entity.Skyla;
 import mods.tinker.tconstruct.library.client.TConstructClientRegistry;
 import mods.tinker.tconstruct.library.client.ToolGuiElement;
 import mods.tinker.tconstruct.logic.CastingTableLogic;
 import mods.tinker.tconstruct.logic.GolemCoreLogic;
+import mods.tinker.tconstruct.player.TClientTickHandler;
+import mods.tinker.tconstruct.player.TCommonTickHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
@@ -80,7 +82,6 @@ import com.google.common.collect.Lists;
 
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
-import cpw.mods.fml.common.registry.LanguageRegistry;
 import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
 
@@ -89,11 +90,16 @@ public class TProxyClient extends TProxyCommon
     public static SmallFontRenderer smallFontRenderer;
     public static Icon metalBall;
     public static Minecraft mc;
+    
+    public void registerTickHandler()
+    {
+        TickRegistry.registerTickHandler(new TClientTickHandler(), Side.CLIENT);
+        //TickRegistry.registerTickHandler(new TCommonTickHandler(), Side.CLIENT);
+    }
 
     /* Registers any rendering code. */
     public void registerRenderer ()
     {
-        //TickRegistry.registerTickHandler(new TTickHandler(), Side.CLIENT);
         Minecraft mc = Minecraft.getMinecraft();
         smallFontRenderer = new SmallFontRenderer(mc.gameSettings, "/font/default.png", mc.renderEngine, false);
         RenderingRegistry.registerBlockHandler(new TableRender());
@@ -105,7 +111,6 @@ public class TProxyClient extends TProxyCommon
         RenderingRegistry.registerBlockHandler(new GolemCoreRender());
 
         //Tools
-        //MinecraftForgeClient.preloadTexture(TContent.blockTexture);
         /*IItemRenderer render = new SuperCustomToolRenderer();
         for (ToolCore tool : TConstructRegistry.tools)
         {

@@ -98,7 +98,6 @@ public class GuiManual extends GuiScreen
 
     void updateText () //TODO: OOP this, see BookPage
     {
-        System.out.println("maxPages: "+maxPages);
         if (maxPages % 2 == 1)
         {
             if (currentPage > maxPages)

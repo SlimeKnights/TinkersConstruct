@@ -32,15 +32,15 @@ public class XinStick extends Item
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
 	{
-		spawnEntity(player.posX, player.posY+1, player.posZ, new BlueSlime(world), world, player);
+		//spawnEntity(player.posX, player.posY+1, player.posZ, new BlueSlime(world), world, player);
 	    System.out.println("Health! "+player.getHealth());
-	    //healPlayer(player);
+	    healPlayer(player);
 		return stack;
 	}
 	
 	public static void healPlayer(EntityPlayer player)
 	{
-	    player.setEntityHealth(200);
+	    player.setEntityHealth(50);
 	}
 
 	public static void spawnItem (double x, double y, double z, ItemStack stack, World world)

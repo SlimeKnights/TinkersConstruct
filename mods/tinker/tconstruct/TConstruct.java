@@ -24,7 +24,7 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
  * @dependencies: IC2 API, EBXL API
  */
 
-@Mod(modid = "TConstruct", name = "TConstruct", version = "1.5.1_1.2.29.4")
+@Mod(modid = "TConstruct", name = "TConstruct", version = "1.5.1_1.2rc")
 @NetworkMod(serverSideRequired = false, clientSideRequired = true, channels = { "TConstruct" }, packetHandler = mods.tinker.tconstruct.TPacketHandler.class)
 public class TConstruct
 {
@@ -36,7 +36,7 @@ public class TConstruct
     @Instance("TConstruct")
     public static TConstruct instance;
     /* Proxies for sides, used for graphics processing */
-    @SidedProxy(clientSide = "mods.tinker.tconstruct.client.TProxyClient", serverSide = "mods.tinker.tconstruct.TProxyCommon")
+    @SidedProxy(clientSide = "mods.tinker.tconstruct.client.TProxyClient", serverSide = "mods.tinker.tconstruct.server.TProxyServer")
     public static TProxyCommon proxy;
 
     @PreInit
@@ -54,6 +54,7 @@ public class TConstruct
         content.oreRegistry();
 
         proxy.registerRenderer();
+        proxy.registerTickHandler();
         proxy.addNames();
         proxy.readManuals();
         //proxy.registerKeys();

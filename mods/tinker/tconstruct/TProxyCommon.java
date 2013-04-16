@@ -10,6 +10,10 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 
 public class TProxyCommon
 {
+    public void registerTickHandler()
+    {
+        
+    }
 	/* Registers any rendering code. Does nothing server-side */
 	public void registerRenderer() {}
     /* Ties an internal name to a visible one. */

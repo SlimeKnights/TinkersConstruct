@@ -41,7 +41,7 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
 			else
 				renderer.renderStandardBlock(block, x, y, z);
 		}
-		return false;
+		return true;
 	}
 
 	public boolean renderSmeltery (IBlockAccess world, int x, int y, int z, Block block, int modelID, RenderBlocks renderer)
