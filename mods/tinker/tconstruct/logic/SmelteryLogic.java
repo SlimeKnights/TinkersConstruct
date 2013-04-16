@@ -1,8 +1,7 @@
 package mods.tinker.tconstruct.logic;
 
 import java.util.ArrayList;
-
-import cpw.mods.fml.common.FMLLog;
+import java.util.Random;
 
 import mods.tinker.common.CoordTuple;
 import mods.tinker.common.IActiveLogic;
@@ -14,6 +13,7 @@ import mods.tinker.tconstruct.container.SmelteryContainer;
 import mods.tinker.tconstruct.crafting.Smeltery;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
@@ -35,745 +35,804 @@ import net.minecraftforge.liquids.LiquidStack;
 
 public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFacingLogic, ILiquidTank, IMasterLogic
 {
-	public boolean validStructure;
-	byte direction;
-	int internalTemp;
-	int maxTemp;
-	public int useTime;
-	public int fuelGague;
-	boolean inUse;
+    public boolean validStructure;
+    byte direction;
+    int internalTemp;
+    int maxTemp;
+    public int useTime;
+    public int fuelGague;
+    boolean inUse;
 
-	ArrayList<CoordTuple> lavaTanks;
-	CoordTuple activeLavaTank;
-	CoordTuple drain;
-	public CoordTuple centerPos;
+    ArrayList<CoordTuple> lavaTanks;
+    CoordTuple activeLavaTank;
+    CoordTuple drain;
+    public CoordTuple centerPos;
 
-	public int[] activeTemps;
-	public int[] meltingTemps;
-	int tick;
+    public int[] activeTemps;
+    public int[] meltingTemps;
+    int tick;
 
-	public ArrayList<LiquidStack> moltenMetal = new ArrayList<LiquidStack>();
-	int maxLiquid;
-	int currentLiquid;
-	public int layers;
-	int slag;
+    public ArrayList<LiquidStack> moltenMetal = new ArrayList<LiquidStack>();
+    int maxLiquid;
+    int currentLiquid;
+    public int layers;
+    int slag;
 
-	int numBricks;
+    int numBricks;
 
-	public SmelteryLogic()
-	{
-		super(0);
-		lavaTanks = new ArrayList<CoordTuple>();
-		activeTemps = new int[0];
-		meltingTemps = new int[0];
-	}
+    Random rand = new Random();
 
-	void adjustLayers (int lay, boolean forceAdjust)
-	{
-		if (lay != layers || forceAdjust)
-		{
-			layers = lay;
-			maxLiquid = 20000 * lay;
-			int[] tempActive = activeTemps;
-			activeTemps = new int[9 * lay];
-			int activeLength = tempActive.length > activeTemps.length ? activeTemps.length : tempActive.length;
-			System.arraycopy(tempActive, 0, activeTemps, 0, activeLength);
+    public SmelteryLogic()
+    {
+        super(0);
+        lavaTanks = new ArrayList<CoordTuple>();
+        activeTemps = new int[0];
+        meltingTemps = new int[0];
+    }
 
-			int[] tempMelting = meltingTemps;
-			meltingTemps = new int[9 * lay];
-			int meltingLength = tempMelting.length > meltingTemps.length ? meltingTemps.length : tempMelting.length;
-			System.arraycopy(tempMelting, 0, meltingTemps, 0, meltingLength);
+    void adjustLayers (int lay, boolean forceAdjust)
+    {
+        if (lay != layers || forceAdjust)
+        {
+            layers = lay;
+            maxLiquid = 20000 * lay;
+            int[] tempActive = activeTemps;
+            activeTemps = new int[9 * lay];
+            int activeLength = tempActive.length > activeTemps.length ? activeTemps.length : tempActive.length;
+            System.arraycopy(tempActive, 0, activeTemps, 0, activeLength);
 
-			ItemStack[] tempInv = inventory;
-			inventory = new ItemStack[9 * lay];
-			int invLength = tempInv.length > inventory.length ? inventory.length : tempInv.length;
-			System.arraycopy(tempInv, 0, inventory, 0, invLength);
+            int[] tempMelting = meltingTemps;
+            meltingTemps = new int[9 * lay];
+            int meltingLength = tempMelting.length > meltingTemps.length ? meltingTemps.length : tempMelting.length;
+            System.arraycopy(tempMelting, 0, meltingTemps, 0, meltingLength);
 
-			if (activeTemps.length > 0 && activeTemps.length > tempActive.length)
-			{
-				for (int i = tempActive.length; i < activeTemps.length; i++)
-				{
-					activeTemps[i] = 20;
-					meltingTemps[i] = 20;
-				}
-			}
-		}
-	}
+            ItemStack[] tempInv = inventory;
+            inventory = new ItemStack[9 * lay];
+            int invLength = tempInv.length > inventory.length ? inventory.length : tempInv.length;
+            System.arraycopy(tempInv, 0, inventory, 0, invLength);
 
-	/* Misc */
-	@Override
-	public String getDefaultName ()
-	{
-		return "crafters.Smeltery";
-	}
+            if (activeTemps.length > 0 && activeTemps.length > tempActive.length)
+            {
+                for (int i = tempActive.length; i < activeTemps.length; i++)
+                {
+                    activeTemps[i] = 20;
+                    meltingTemps[i] = 20;
+                }
+            }
 
-	@Override
-	public Container getGuiContainer (InventoryPlayer inventoryplayer, World world, int x, int y, int z)
-	{
-		return new SmelteryContainer(inventoryplayer, this);
-	}
+            if (tempInv.length > inventory.length)
+            {
+                for (int i = inventory.length; i < tempInv.length; i++)
+                {
+                    ItemStack stack = tempInv[i];
+                    if (stack != null)
+                    {
+                    float jumpX = rand.nextFloat() * 0.8F + 0.1F;
+                    float jumpY = rand.nextFloat() * 0.8F + 0.1F;
+                    float jumpZ = rand.nextFloat() * 0.8F + 0.1F;
+                    
+                    int offsetX = 0;
+                    int offsetZ = 0;
+                    switch (getRenderDirection())
+                    {
+                    case 2: // +z
+                        offsetZ = -1;
+                        break;
+                    case 3: // -z
+                        offsetZ = 1;
+                        break;
+                    case 4: // +x
+                        offsetX = -1;
+                        break;
+                    case 5: // -x
+                        offsetX = 1;
+                        break;
+                    }
 
-	@Override
-	public byte getRenderDirection ()
-	{
-		return direction;
-	}
+                    while (stack.stackSize > 0)
+                    {
+                        int itemSize = rand.nextInt(21) + 10;
 
-	@Override
-	public ForgeDirection getForgeDirection ()
-	{
-		return ForgeDirection.VALID_DIRECTIONS[direction];
-	}
+                        if (itemSize > stack.stackSize)
+                        {
+                            itemSize = stack.stackSize;
+                        }
 
-	@Override
-	public void setDirection (float yaw, float pitch, EntityLiving player)
-	{
-		int facing = MathHelper.floor_double((double) (yaw / 360) + 0.5D) & 3;
-		switch (facing)
-		{
-		case 0:
-			direction = 2;
-			break;
+                        stack.stackSize -= itemSize;
+                        EntityItem entityitem = new EntityItem(worldObj, (double) ((float) xCoord + jumpX + offsetX), (double) ((float) yCoord + jumpY), (double) ((float) zCoord + jumpZ + offsetZ), new ItemStack(
+                                stack.itemID, itemSize, stack.getItemDamage()));
 
-		case 1:
-			direction = 5;
-			break;
+                        if (stack.hasTagCompound())
+                        {
+                            entityitem.getEntityItem().setTagCompound((NBTTagCompound) stack.getTagCompound().copy());
+                        }
 
-		case 2:
-			direction = 3;
-			break;
+                        float offset = 0.05F;
+                        entityitem.motionX = (double) ((float) rand.nextGaussian() * offset);
+                        entityitem.motionY = (double) ((float) rand.nextGaussian() * offset + 0.2F);
+                        entityitem.motionZ = (double) ((float) rand.nextGaussian() * offset);
+                        worldObj.spawnEntityInWorld(entityitem);
+                        }
+                    }
+                }
+            }
+        }
+    }
 
-		case 3:
-			direction = 4;
-			break;
-		}
-	}
+    /* Misc */
+    @Override
+    public String getDefaultName ()
+    {
+        return "crafters.Smeltery";
+    }
 
-	@Override
-	public boolean getActive ()
-	{
-		return validStructure;
-	}
+    @Override
+    public Container getGuiContainer (InventoryPlayer inventoryplayer, World world, int x, int y, int z)
+    {
+        return new SmelteryContainer(inventoryplayer, this);
+    }
 
-	@Override
-	public void setActive (boolean flag)
-	{
-		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-	}
+    @Override
+    public byte getRenderDirection ()
+    {
+        return direction;
+    }
 
-	public int getScaledFuelGague (int scale)
-	{
-		int ret = (fuelGague * scale) / 52;
-		if (ret < 1)
-			ret = 1;
-		return ret;
-	}
+    @Override
+    public ForgeDirection getForgeDirection ()
+    {
+        return ForgeDirection.VALID_DIRECTIONS[direction];
+    }
 
-	public int getInternalTemperature ()
-	{
-		return internalTemp;
-	}
+    @Override
+    public void setDirection (float yaw, float pitch, EntityLiving player)
+    {
+        int facing = MathHelper.floor_double((double) (yaw / 360) + 0.5D) & 3;
+        switch (facing)
+        {
+        case 0:
+            direction = 2;
+            break;
 
-	public int getTempForSlot (int slot)
-	{
-		return activeTemps[slot];
-	}
+        case 1:
+            direction = 5;
+            break;
 
-	public int getMeltingPointForSlot (int slot)
-	{
-		return meltingTemps[slot];
-	}
+        case 2:
+            direction = 3;
+            break;
 
-	/* Updating */
-	public void updateEntity ()
-	{
-		tick++;
-		if (tick % 4 == 0)
-			heatItems();
+        case 3:
+            direction = 4;
+            break;
+        }
+    }
 
-		if (tick == 20)
-		{
-			tick = 0;
-			if (!validStructure)
-				checkValidPlacement();
+    @Override
+    public boolean getActive ()
+    {
+        return validStructure;
+    }
 
-			if (useTime > 0)
-				useTime -= 3;
+    @Override
+    public void setActive (boolean flag)
+    {
+        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+    }
 
-			if (validStructure && useTime <= 0)
-			{
-				updateFuelGague();
-			}
-		}
-	}
+    public int getScaledFuelGague (int scale)
+    {
+        int ret = (fuelGague * scale) / 52;
+        if (ret < 1)
+            ret = 1;
+        return ret;
+    }
 
-	void heatItems ()
-	{
-		if (useTime > 0)
-		{
-			inUse = false;
-			for (int i = 0; i < 9 * layers; i++)
-			{
-				if (meltingTemps[i] > 20 && this.isStackInSlot(i))
-				{
-					if (activeTemps[i] < internalTemp && activeTemps[i] < meltingTemps[i])
-					{
-						activeTemps[i] += 1;
-						inUse = true;
-					}
-					else if (activeTemps[i] >= meltingTemps[i])
-					{
-						if (!worldObj.isRemote)
-						{
-							LiquidStack result = getResultFor(inventory[i]);
-							if (result != null)
-							{
-								if (addMoltenMetal(result, false))
-								{
-									inventory[i] = null;
-									activeTemps[i] = 20;
-									ArrayList alloys = Smeltery.mixMetals(moltenMetal);
-									for (int al = 0; al < alloys.size(); al++)
-									{
-										LiquidStack liquid = (LiquidStack) alloys.get(al);
-										addMoltenMetal(liquid, true);
-									}
-									onInventoryChanged();
-								}
-							}
-						}
-					}
+    public int getInternalTemperature ()
+    {
+        return internalTemp;
+    }
 
-				}
+    public int getTempForSlot (int slot)
+    {
+        return activeTemps[slot];
+    }
 
-				else
-					activeTemps[i] = 20;
-			}
-		}
-	}
+    public int getMeltingPointForSlot (int slot)
+    {
+        return meltingTemps[slot];
+    }
 
-	boolean addMoltenMetal (LiquidStack liquid, boolean first)
-	{
-		if (moltenMetal.size() == 0)
-		{
-			moltenMetal.add(liquid);
-			return true;
-		}
-		else
-		{
-			if (liquid.amount + currentLiquid > maxLiquid)
-				return false;
+    /* Updating */
+    public void updateEntity ()
+    {
+        tick++;
+        if (tick % 4 == 0)
+            heatItems();
 
-			currentLiquid += liquid.amount;
-			boolean added = false;
-			//for (LiquidStack l : moltenMetal)
-			for (int i = 0; i < moltenMetal.size(); i++)
-			{
-				LiquidStack l = moltenMetal.get(i);
-				if (l.itemID == liquid.itemID && l.itemMeta == liquid.itemMeta)
-				{
-					l.amount += liquid.amount;
-					added = true;
-				}
-				if (l.amount <= 0)
-				{
-					moltenMetal.remove(l);
-					i--;
-				}
-			}
-			if (!added)
-			{
-				if (first)
-					moltenMetal.add(0, liquid);
-				else
-					moltenMetal.add(liquid);
-			}
-			return true;
-		}
-	}
+        if (tick == 20)
+        {
+            tick = 0;
+            if (!validStructure)
+                checkValidPlacement();
 
-	void updateTemperatures ()
-	{
-		inUse = true;
-		for (int i = 0; i < 9 * layers; i++)
-		{
-			meltingTemps[i] = Smeltery.instance.getLiquifyTemperature(inventory[i]);
-		}
-	}
+            if (useTime > 0)
+                useTime -= 3;
 
-	void updateFuelGague ()
-	{
-		if (activeLavaTank == null)
-			return;
+            if (validStructure && useTime <= 0)
+            {
+                updateFuelGague();
+            }
+        }
+    }
 
-		TileEntity tankContainer = worldObj.getBlockTileEntity(activeLavaTank.x, activeLavaTank.y, activeLavaTank.z);
-		if (tankContainer == null)
-		{
-			fuelGague = 0;
-		}
-		if (tankContainer instanceof ITankContainer && inUse)
-		{
-			LiquidStack liquid = ((ITankContainer) tankContainer).drain(ForgeDirection.DOWN, 150, false);
-			if (liquid != null && liquid.itemID == Block.lavaStill.blockID)
-			{
-				liquid = ((ITankContainer) tankContainer).drain(ForgeDirection.DOWN, 150, true);
-				useTime += liquid.amount;
-				ILiquidTank tank = ((ITankContainer) tankContainer).getTank(ForgeDirection.DOWN, liquid);
-				liquid = tank.getLiquid();
-				int capacity = tank.getCapacity();
-				if (liquid != null)
-					fuelGague = liquid.amount * 52 / capacity;
-				else
-					fuelGague = 0;
-			}
-			/*else
-			{
-			    boolean foundTank = false;
-			    int iter = 0;
-			    while (!foundTank)
-			    {
-			        CoordTuple possibleTank = lavaTanks.get(iter);
-			        TileEntity newTank = worldObj.getBlockTileEntity(possibleTank.x, possibleTank.y, possibleTank.z);
-			        if (possibleTank instanceof ITankContainer)
-			        {
-			            LiquidStack newliquid = ((ITankContainer) tankContainer).drain(ForgeDirection.DOWN, 150, false);
-			            if (liquid != null && liquid.itemID == Block.lavaStill.blockID)
-			            {
-			                foundTank = true;
-			                activeLavaTank = possibleTank;
-			                iter = lavaTanks.size();
-			            }
-			        }
-			        iter++;
-			        if (iter >= lavaTanks.size())
-			            foundTank = true;
-			    }
-			}*/
-		}
-	}
+    void heatItems ()
+    {
+        if (useTime > 0)
+        {
+            inUse = false;
+            for (int i = 0; i < 9 * layers; i++)
+            {
+                if (meltingTemps[i] > 20 && this.isStackInSlot(i))
+                {
+                    if (activeTemps[i] < internalTemp && activeTemps[i] < meltingTemps[i])
+                    {
+                        activeTemps[i] += 1;
+                        inUse = true;
+                    }
+                    else if (activeTemps[i] >= meltingTemps[i])
+                    {
+                        if (!worldObj.isRemote)
+                        {
+                            LiquidStack result = getResultFor(inventory[i]);
+                            if (result != null)
+                            {
+                                if (addMoltenMetal(result, false))
+                                {
+                                    inventory[i] = null;
+                                    activeTemps[i] = 20;
+                                    ArrayList alloys = Smeltery.mixMetals(moltenMetal);
+                                    for (int al = 0; al < alloys.size(); al++)
+                                    {
+                                        LiquidStack liquid = (LiquidStack) alloys.get(al);
+                                        addMoltenMetal(liquid, true);
+                                    }
+                                    onInventoryChanged();
+                                }
+                            }
+                        }
+                    }
 
-	public LiquidStack getResultFor (ItemStack stack)
-	{
-		return Smeltery.instance.getSmelteryResult(stack);
-	}
+                }
 
-	/* Inventory */
-	/*public int getMaxStackStackSize (ItemStack stack)
-	{
-		LiquidStack liquid = getResultFor(stack);
-		if (liquid == null)
-			return 0;
-		return liquid.amount;
-	}*/
+                else
+                    activeTemps[i] = 20;
+            }
+        }
+    }
 
-	public int getInventoryStackLimit ()
-	{
-		return 1;
-	}
+    boolean addMoltenMetal (LiquidStack liquid, boolean first)
+    {
+        if (moltenMetal.size() == 0)
+        {
+            moltenMetal.add(liquid);
+            return true;
+        }
+        else
+        {
+            if (liquid.amount + currentLiquid > maxLiquid)
+                return false;
 
-	public void onInventoryChanged ()
-	{
-		updateTemperatures();
-		super.onInventoryChanged();
-		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+            currentLiquid += liquid.amount;
+            boolean added = false;
+            //for (LiquidStack l : moltenMetal)
+            for (int i = 0; i < moltenMetal.size(); i++)
+            {
+                LiquidStack l = moltenMetal.get(i);
+                if (l.itemID == liquid.itemID && l.itemMeta == liquid.itemMeta)
+                {
+                    l.amount += liquid.amount;
+                    added = true;
+                }
+                if (l.amount <= 0)
+                {
+                    moltenMetal.remove(l);
+                    i--;
+                }
+            }
+            if (!added)
+            {
+                if (first)
+                    moltenMetal.add(0, liquid);
+                else
+                    moltenMetal.add(liquid);
+            }
+            return true;
+        }
+    }
+
+    void updateTemperatures ()
+    {
+        inUse = true;
+        for (int i = 0; i < 9 * layers; i++)
+        {
+            meltingTemps[i] = Smeltery.instance.getLiquifyTemperature(inventory[i]);
+        }
+    }
+
+    void updateFuelGague ()
+    {
+        if (activeLavaTank == null)
+            return;
+
+        TileEntity tankContainer = worldObj.getBlockTileEntity(activeLavaTank.x, activeLavaTank.y, activeLavaTank.z);
+        if (tankContainer == null)
+        {
+            fuelGague = 0;
+        }
+        if (tankContainer instanceof ITankContainer && inUse)
+        {
+            LiquidStack liquid = ((ITankContainer) tankContainer).drain(ForgeDirection.DOWN, 150, false);
+            if (liquid != null && liquid.itemID == Block.lavaStill.blockID)
+            {
+                liquid = ((ITankContainer) tankContainer).drain(ForgeDirection.DOWN, 150, true);
+                useTime += liquid.amount;
+                ILiquidTank tank = ((ITankContainer) tankContainer).getTank(ForgeDirection.DOWN, liquid);
+                liquid = tank.getLiquid();
+                int capacity = tank.getCapacity();
+                if (liquid != null)
+                    fuelGague = liquid.amount * 52 / capacity;
+                else
+                    fuelGague = 0;
+            }
+            /*else
+            {
+                boolean foundTank = false;
+                int iter = 0;
+                while (!foundTank)
+                {
+                    CoordTuple possibleTank = lavaTanks.get(iter);
+                    TileEntity newTank = worldObj.getBlockTileEntity(possibleTank.x, possibleTank.y, possibleTank.z);
+                    if (possibleTank instanceof ITankContainer)
+                    {
+                        LiquidStack newliquid = ((ITankContainer) tankContainer).drain(ForgeDirection.DOWN, 150, false);
+                        if (liquid != null && liquid.itemID == Block.lavaStill.blockID)
+                        {
+                            foundTank = true;
+                            activeLavaTank = possibleTank;
+                            iter = lavaTanks.size();
+                        }
+                    }
+                    iter++;
+                    if (iter >= lavaTanks.size())
+                        foundTank = true;
+                }
+            }*/
+        }
+    }
+
+    public LiquidStack getResultFor (ItemStack stack)
+    {
+        return Smeltery.instance.getSmelteryResult(stack);
+    }
+
+    /* Inventory */
+    /*public int getMaxStackStackSize (ItemStack stack)
+    {
+    	LiquidStack liquid = getResultFor(stack);
+    	if (liquid == null)
+    		return 0;
+    	return liquid.amount;
+    }*/
+
+    public int getInventoryStackLimit ()
+    {
+        return 1;
+    }
+
+    public void onInventoryChanged ()
+    {
+        updateTemperatures();
+        super.onInventoryChanged();
+        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
         worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
-	}
+    }
 
-	/* Multiblock */
-	@Override
-	public void notifyChange (int x, int y, int z)
-	{
-		checkValidPlacement();
-	}
+    /* Multiblock */
+    @Override
+    public void notifyChange (int x, int y, int z)
+    {
+        checkValidPlacement();
+    }
 
-	public void checkValidPlacement ()
-	{
-		switch (getRenderDirection())
-		{
-		case 2: // +z
-			alignInitialPlacement(xCoord, yCoord, zCoord + 2);
-			break;
-		case 3: // -z
-			alignInitialPlacement(xCoord, yCoord, zCoord - 2);
-			break;
-		case 4: // +x
-			alignInitialPlacement(xCoord + 2, yCoord, zCoord);
-			break;
-		case 5: // -x
-			alignInitialPlacement(xCoord - 2, yCoord, zCoord);
-			break;
-		}
-	}
+    public void checkValidPlacement ()
+    {
+        switch (getRenderDirection())
+        {
+        case 2: // +z
+            alignInitialPlacement(xCoord, yCoord, zCoord + 2);
+            break;
+        case 3: // -z
+            alignInitialPlacement(xCoord, yCoord, zCoord - 2);
+            break;
+        case 4: // +x
+            alignInitialPlacement(xCoord + 2, yCoord, zCoord);
+            break;
+        case 5: // -x
+            alignInitialPlacement(xCoord - 2, yCoord, zCoord);
+            break;
+        }
+    }
 
-	public void alignInitialPlacement (int x, int y, int z)
-	{
-		int northID = worldObj.getBlockId(x, y, z + 1);
-		int southID = worldObj.getBlockId(x, y, z - 1);
-		int eastID = worldObj.getBlockId(x + 1, y, z);
-		int westID = worldObj.getBlockId(x - 1, y, z);
+    public void alignInitialPlacement (int x, int y, int z)
+    {
+        int northID = worldObj.getBlockId(x, y, z + 1);
+        int southID = worldObj.getBlockId(x, y, z - 1);
+        int eastID = worldObj.getBlockId(x + 1, y, z);
+        int westID = worldObj.getBlockId(x - 1, y, z);
 
-		if (northID == 0 && southID == 0 && eastID == 0 && westID == 0) //Center
-		{
-			checkValidStructure(x, y, z);
-		}
+        if (northID == 0 && southID == 0 && eastID == 0 && westID == 0) //Center
+        {
+            checkValidStructure(x, y, z);
+        }
 
-		else if (northID != 0 && southID == 0 && eastID == 0 && westID == 0)
-		{
-			checkValidStructure(x, y, z - 1);
-		}
+        else if (northID != 0 && southID == 0 && eastID == 0 && westID == 0)
+        {
+            checkValidStructure(x, y, z - 1);
+        }
 
-		else if (northID == 0 && southID != 0 && eastID == 0 && westID == 0)
-		{
-			checkValidStructure(x, y, z + 1);
-		}
+        else if (northID == 0 && southID != 0 && eastID == 0 && westID == 0)
+        {
+            checkValidStructure(x, y, z + 1);
+        }
 
-		else if (northID == 0 && southID == 0 && eastID != 0 && westID == 0)
-		{
-			checkValidStructure(x - 1, y, z);
-		}
+        else if (northID == 0 && southID == 0 && eastID != 0 && westID == 0)
+        {
+            checkValidStructure(x - 1, y, z);
+        }
 
-		else if (northID == 0 && southID == 0 && eastID == 0 && westID != 0)
-		{
-			checkValidStructure(x + 1, y, z);
-		}
+        else if (northID == 0 && southID == 0 && eastID == 0 && westID != 0)
+        {
+            checkValidStructure(x + 1, y, z);
+        }
 
-		//Not valid, sorry
-	}
+        //Not valid, sorry
+    }
 
-	public void checkValidStructure (int x, int y, int z)
-	{
-		int capacity = 0;
-		validStructure = false;
-		if (checkSameLevel(x, y, z))
-		{
-			capacity++;
-			capacity += recurseStructureUp(x, y + 1, z, 0);
-			capacity += recurseStructureDown(x, y - 1, z, 0);
-		}
+    public void checkValidStructure (int x, int y, int z)
+    {
+        int capacity = 0;
+        validStructure = false;
+        if (checkSameLevel(x, y, z))
+        {
+            capacity++;
+            capacity += recurseStructureUp(x, y + 1, z, 0);
+            capacity += recurseStructureDown(x, y - 1, z, 0);
+        }
 
-		//maxLiquid = capacity * 20000;
+        //maxLiquid = capacity * 20000;
 
-		if (validStructure)
-		{
-			internalTemp = 800;
-			activeLavaTank = lavaTanks.get(0);
-			adjustLayers(capacity, false);
-			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-		}
-		else
-		{
-			internalTemp = 20;
-		}
-	}
+        if (validStructure)
+        {
+            internalTemp = 800;
+            activeLavaTank = lavaTanks.get(0);
+            adjustLayers(capacity, false);
+            worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+        }
+        else
+        {
+            internalTemp = 20;
+        }
+    }
 
-	public boolean checkSameLevel (int x, int y, int z)
-	{
-		numBricks = 0;
-		lavaTanks.clear();
-		boolean hasLavaTank = false;
+    public boolean checkSameLevel (int x, int y, int z)
+    {
+        numBricks = 0;
+        lavaTanks.clear();
+        boolean hasLavaTank = false;
 
-		//Check inside
-		for (int xPos = x - 1; xPos <= x + 1; xPos++)
-		{
-			for (int zPos = z - 1; zPos <= z + 1; zPos++)
-			{
-				if (worldObj.getBlockId(xPos, y, zPos) != 0)
-					return false;
-			}
-		}
+        //Check inside
+        for (int xPos = x - 1; xPos <= x + 1; xPos++)
+        {
+            for (int zPos = z - 1; zPos <= z + 1; zPos++)
+            {
+                if (worldObj.getBlockId(xPos, y, zPos) != 0)
+                    return false;
+            }
+        }
 
-		//Check outer layer
-		for (int xPos = x - 1; xPos <= x + 1; xPos++)
-		{
-			if (checkBricks(xPos, y, z - 2))
-				hasLavaTank = true;
-			if (checkBricks(xPos, y, z + 2))
-				hasLavaTank = true;
-		}
+        //Check outer layer
+        for (int xPos = x - 1; xPos <= x + 1; xPos++)
+        {
+            if (checkBricks(xPos, y, z - 2))
+                hasLavaTank = true;
+            if (checkBricks(xPos, y, z + 2))
+                hasLavaTank = true;
+        }
 
-		for (int zPos = z - 1; zPos <= z + 1; zPos++)
-		{
-			if (checkBricks(x - 2, y, zPos))
-				hasLavaTank = true;
-			if (checkBricks(x + 2, y, zPos))
-				hasLavaTank = true;
-		}
+        for (int zPos = z - 1; zPos <= z + 1; zPos++)
+        {
+            if (checkBricks(x - 2, y, zPos))
+                hasLavaTank = true;
+            if (checkBricks(x + 2, y, zPos))
+                hasLavaTank = true;
+        }
 
-		if (numBricks == 12 && hasLavaTank)
-			return true;
-		else
-			return false;
-	}
+        if (numBricks == 12 && hasLavaTank)
+            return true;
+        else
+            return false;
+    }
 
-	public int recurseStructureUp (int x, int y, int z, int count)
-	{
-		numBricks = 0;
-		//Check inside
-		for (int xPos = x - 1; xPos <= x + 1; xPos++)
-		{
-			for (int zPos = z - 1; zPos <= z + 1; zPos++)
-			{
-				if (worldObj.getBlockId(xPos, y, zPos) != 0)
-					return count;
-			}
-		}
+    public int recurseStructureUp (int x, int y, int z, int count)
+    {
+        numBricks = 0;
+        //Check inside
+        for (int xPos = x - 1; xPos <= x + 1; xPos++)
+        {
+            for (int zPos = z - 1; zPos <= z + 1; zPos++)
+            {
+                if (worldObj.getBlockId(xPos, y, zPos) != 0)
+                    return count;
+            }
+        }
 
-		//Check outer layer
-		for (int xPos = x - 1; xPos <= x + 1; xPos++)
-		{
-			checkBricks(xPos, y, z - 2);
-			checkBricks(xPos, y, z + 2);
-		}
+        //Check outer layer
+        for (int xPos = x - 1; xPos <= x + 1; xPos++)
+        {
+            checkBricks(xPos, y, z - 2);
+            checkBricks(xPos, y, z + 2);
+        }
 
-		for (int zPos = z - 1; zPos <= z + 1; zPos++)
-		{
-			checkBricks(x - 2, y, zPos);
-			checkBricks(x + 2, y, zPos);
-		}
+        for (int zPos = z - 1; zPos <= z + 1; zPos++)
+        {
+            checkBricks(x - 2, y, zPos);
+            checkBricks(x + 2, y, zPos);
+        }
 
-		if (numBricks != 12)
-			return count;
+        if (numBricks != 12)
+            return count;
 
-		count++;
-		return recurseStructureUp(x, y + 1, z, count);
-	}
+        count++;
+        return recurseStructureUp(x, y + 1, z, count);
+    }
 
-	public int recurseStructureDown (int x, int y, int z, int count)
-	{
-		numBricks = 0;
-		//Check inside
-		for (int xPos = x - 1; xPos <= x + 1; xPos++)
-		{
-			for (int zPos = z - 1; zPos <= z + 1; zPos++)
-			{
-				int blockID = worldObj.getBlockId(xPos, y, zPos);
-				if (blockID != 0)
-				{
-					if (blockID == TContent.smeltery.blockID)
-						return validateBottom(x, y, z, count);
-					else
-						return count;
-				}
-			}
-		}
+    public int recurseStructureDown (int x, int y, int z, int count)
+    {
+        numBricks = 0;
+        //Check inside
+        for (int xPos = x - 1; xPos <= x + 1; xPos++)
+        {
+            for (int zPos = z - 1; zPos <= z + 1; zPos++)
+            {
+                int blockID = worldObj.getBlockId(xPos, y, zPos);
+                if (blockID != 0)
+                {
+                    if (blockID == TContent.smeltery.blockID)
+                        return validateBottom(x, y, z, count);
+                    else
+                        return count;
+                }
+            }
+        }
 
-		//Check outer layer
-		for (int xPos = x - 1; xPos <= x + 1; xPos++)
-		{
-			checkBricks(xPos, y, z - 2);
-			checkBricks(xPos, y, z + 2);
-		}
+        //Check outer layer
+        for (int xPos = x - 1; xPos <= x + 1; xPos++)
+        {
+            checkBricks(xPos, y, z - 2);
+            checkBricks(xPos, y, z + 2);
+        }
 
-		for (int zPos = z - 1; zPos <= z + 1; zPos++)
-		{
-			checkBricks(x - 2, y, zPos);
-			checkBricks(x + 2, y, zPos);
-		}
+        for (int zPos = z - 1; zPos <= z + 1; zPos++)
+        {
+            checkBricks(x - 2, y, zPos);
+            checkBricks(x + 2, y, zPos);
+        }
 
-		if (numBricks != 12)
-			return count;
+        if (numBricks != 12)
+            return count;
 
-		count++;
-		return recurseStructureDown(x, y - 1, z, count);
-	}
+        count++;
+        return recurseStructureDown(x, y - 1, z, count);
+    }
 
-	public int validateBottom (int x, int y, int z, int count)
-	{
-		int bottomBricks = 0;
-		for (int xPos = x - 1; xPos <= x + 1; xPos++)
-		{
-			for (int zPos = z - 1; zPos <= z + 1; zPos++)
-			{
-				if (worldObj.getBlockId(xPos, y, zPos) == TContent.smeltery.blockID && (worldObj.getBlockMetadata(xPos, y, zPos) == 2))
-					bottomBricks++;
-			}
-		}
+    public int validateBottom (int x, int y, int z, int count)
+    {
+        int bottomBricks = 0;
+        for (int xPos = x - 1; xPos <= x + 1; xPos++)
+        {
+            for (int zPos = z - 1; zPos <= z + 1; zPos++)
+            {
+                if (worldObj.getBlockId(xPos, y, zPos) == TContent.smeltery.blockID && (worldObj.getBlockMetadata(xPos, y, zPos) == 2))
+                    bottomBricks++;
+            }
+        }
 
-		if (bottomBricks == 9)
-		{
-			validStructure = true;
-			centerPos = new CoordTuple(x, y + 1, z);
-		}
-		return count;
-	}
+        if (bottomBricks == 9)
+        {
+            validStructure = true;
+            centerPos = new CoordTuple(x, y + 1, z);
+        }
+        return count;
+    }
 
-	boolean checkBricks (int x, int y, int z)
-	{
-		int blockID = worldObj.getBlockId(x, y, z);
-		if (blockID == TContent.smeltery.blockID || blockID == TContent.lavaTank.blockID)
-		{
-			TileEntity te = worldObj.getBlockTileEntity(x, y, z);
-			if (te == this)
-			{
-				numBricks++;
-				return false;
-			}
-			else if (te instanceof MultiServantLogic)
-			{
-				MultiServantLogic servant = (MultiServantLogic) te;
-				if (servant.hasValidMaster())
-				{
-					if (servant.verifyMaster(this.xCoord, this.yCoord, this.zCoord))
-						numBricks++;
-				}
-				else if (servant.setMaster(this.xCoord, this.yCoord, this.zCoord))
-				{
-					numBricks++;
-				}
+    boolean checkBricks (int x, int y, int z)
+    {
+        int blockID = worldObj.getBlockId(x, y, z);
+        if (blockID == TContent.smeltery.blockID || blockID == TContent.lavaTank.blockID)
+        {
+            TileEntity te = worldObj.getBlockTileEntity(x, y, z);
+            if (te == this)
+            {
+                numBricks++;
+                return false;
+            }
+            else if (te instanceof MultiServantLogic)
+            {
+                MultiServantLogic servant = (MultiServantLogic) te;
+                if (servant.hasValidMaster())
+                {
+                    if (servant.verifyMaster(this.xCoord, this.yCoord, this.zCoord))
+                        numBricks++;
+                }
+                else if (servant.setMaster(this.xCoord, this.yCoord, this.zCoord))
+                {
+                    numBricks++;
+                }
 
-				if (te instanceof LavaTankLogic)
-				{
-					lavaTanks.add(new CoordTuple(x, y, z));
-					return true;
-				}
-			}
-		}
-		return false;
-	}
+                if (te instanceof LavaTankLogic)
+                {
+                    lavaTanks.add(new CoordTuple(x, y, z));
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
-	public int getCapacity ()
-	{
-		return maxLiquid;
-	}
+    public int getCapacity ()
+    {
+        return maxLiquid;
+    }
 
-	public LiquidStack drain (int maxDrain, boolean doDrain)
-	{
-	    //System.out.println("Liquid: "+currentLiquid);
-		if (moltenMetal.size() == 0)
-			return null;
+    public LiquidStack drain (int maxDrain, boolean doDrain)
+    {
+        //System.out.println("Liquid: "+currentLiquid);
+        if (moltenMetal.size() == 0)
+            return null;
 
-		LiquidStack liquid = moltenMetal.get(0);
-		if (liquid.amount - maxDrain <= 0)
-		{
-			LiquidStack liq = liquid.copy();
-			if (doDrain)
-			{
-				//liquid = null;
-				moltenMetal.remove(liquid);
-				worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-				currentLiquid -= liq.amount;
-			}
-			return liq;
-		}
-		else
-		{
-			if (doDrain)
-			{
-				liquid.amount -= maxDrain;
-				worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-				currentLiquid = 0;
-			}
-			return new LiquidStack(liquid.itemID, maxDrain, liquid.itemMeta);
-		}
-	}
+        LiquidStack liquid = moltenMetal.get(0);
+        if (liquid.amount - maxDrain <= 0)
+        {
+            LiquidStack liq = liquid.copy();
+            if (doDrain)
+            {
+                //liquid = null;
+                moltenMetal.remove(liquid);
+                worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+                currentLiquid -= liq.amount;
+            }
+            return liq;
+        }
+        else
+        {
+            if (doDrain)
+            {
+                liquid.amount -= maxDrain;
+                worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+                currentLiquid = 0;
+            }
+            return new LiquidStack(liquid.itemID, maxDrain, liquid.itemMeta);
+        }
+    }
 
-	public int fill (LiquidStack resource, boolean doFill)
-	{
-		if (resource != null && resource.amount + currentLiquid < maxLiquid)
-		{
-			int amount = resource.amount;
-			if (doFill)
-			{
-			    addMoltenMetal(resource, false);
-			    worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
-			}
-			return amount;
-		}
-		else
-			return 0;
-	}
+    public int fill (LiquidStack resource, boolean doFill)
+    {
+        if (resource != null && resource.amount + currentLiquid < maxLiquid)
+        {
+            int amount = resource.amount;
+            if (doFill)
+            {
+                addMoltenMetal(resource, false);
+                worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+            }
+            return amount;
+        }
+        else
+            return 0;
+    }
 
-	@Override
-	public LiquidStack getLiquid ()
-	{
-		if (moltenMetal.size() == 0)
-			return null;
-		return moltenMetal.get(0);
-	}
+    @Override
+    public LiquidStack getLiquid ()
+    {
+        if (moltenMetal.size() == 0)
+            return null;
+        return moltenMetal.get(0);
+    }
 
-	@Override
-	public int getTankPressure ()
-	{
-		return 0;
-	}
+    @Override
+    public int getTankPressure ()
+    {
+        return 0;
+    }
 
-	/* NBT */
+    /* NBT */
 
-	@Override
-	public void readFromNBT (NBTTagCompound tags)
-	{
-		super.readFromNBT(tags);
-		readCustomNBT(tags);
-		//checkValidPlacement();
-	}
+    @Override
+    public void readFromNBT (NBTTagCompound tags)
+    {
+        super.readFromNBT(tags);
+        readCustomNBT(tags);
+        //checkValidPlacement();
+    }
 
-	public void readCustomNBT (NBTTagCompound tags)
-	{
-		direction = tags.getByte("Direction");
-		useTime = tags.getInteger("UseTime");
-		currentLiquid = tags.getInteger("CurrentLiquid");
-		maxLiquid = tags.getInteger("MaxLiquid");
-		layers = tags.getInteger("Layers");
-		meltingTemps = tags.getIntArray("MeltingTemps");
-		activeTemps = tags.getIntArray("ActiveTemps");
+    public void readCustomNBT (NBTTagCompound tags)
+    {
+        direction = tags.getByte("Direction");
+        useTime = tags.getInteger("UseTime");
+        currentLiquid = tags.getInteger("CurrentLiquid");
+        maxLiquid = tags.getInteger("MaxLiquid");
+        layers = tags.getInteger("Layers");
+        meltingTemps = tags.getIntArray("MeltingTemps");
+        activeTemps = tags.getIntArray("ActiveTemps");
 
-		NBTTagList liquidTag = tags.getTagList("Liquids");
-		moltenMetal.clear();
+        NBTTagList liquidTag = tags.getTagList("Liquids");
+        moltenMetal.clear();
 
-		for (int iter = 0; iter < liquidTag.tagCount(); iter++)
-		{
-			NBTTagCompound tagList = (NBTTagCompound) liquidTag.tagAt(iter);
-			int id = tagList.getInteger("id");
-			int amount = tagList.getInteger("amount");
-			int meta = tagList.getInteger("meta");
-			moltenMetal.add(new LiquidStack(id, amount, meta));
-		}
-		adjustLayers(layers, true);
-	}
+        for (int iter = 0; iter < liquidTag.tagCount(); iter++)
+        {
+            NBTTagCompound tagList = (NBTTagCompound) liquidTag.tagAt(iter);
+            int id = tagList.getInteger("id");
+            int amount = tagList.getInteger("amount");
+            int meta = tagList.getInteger("meta");
+            moltenMetal.add(new LiquidStack(id, amount, meta));
+        }
+        adjustLayers(layers, true);
+    }
 
-	@Override
-	public void writeToNBT (NBTTagCompound tags)
-	{
-		super.writeToNBT(tags);
-		writeCustomNBT(tags);
-	}
+    @Override
+    public void writeToNBT (NBTTagCompound tags)
+    {
+        super.writeToNBT(tags);
+        writeCustomNBT(tags);
+    }
 
-	public void writeCustomNBT (NBTTagCompound tags)
-	{
-		tags.setByte("Direction", direction);
-		tags.setInteger("UseTime", useTime);
-		tags.setInteger("CurrentLiquid", currentLiquid);
-		tags.setInteger("MaxLiquid", maxLiquid);
-		tags.setInteger("Layers", layers);
-		tags.setIntArray("MeltingTemps", meltingTemps);
-		tags.setIntArray("ActiveTemps", activeTemps);
+    public void writeCustomNBT (NBTTagCompound tags)
+    {
+        tags.setByte("Direction", direction);
+        tags.setInteger("UseTime", useTime);
+        tags.setInteger("CurrentLiquid", currentLiquid);
+        tags.setInteger("MaxLiquid", maxLiquid);
+        tags.setInteger("Layers", layers);
+        tags.setIntArray("MeltingTemps", meltingTemps);
+        tags.setIntArray("ActiveTemps", activeTemps);
 
-		NBTTagList taglist = new NBTTagList();
-		for (LiquidStack liquid : moltenMetal)
-		{
-			NBTTagCompound liquidTag = new NBTTagCompound();
-			liquidTag.setInteger("id", liquid.itemID);
-			liquidTag.setInteger("amount", liquid.amount);
-			liquidTag.setInteger("meta", liquid.itemMeta);
-			taglist.appendTag(liquidTag);
-		}
+        NBTTagList taglist = new NBTTagList();
+        for (LiquidStack liquid : moltenMetal)
+        {
+            NBTTagCompound liquidTag = new NBTTagCompound();
+            liquidTag.setInteger("id", liquid.itemID);
+            liquidTag.setInteger("amount", liquid.amount);
+            liquidTag.setInteger("meta", liquid.itemMeta);
+            taglist.appendTag(liquidTag);
+        }
 
-		tags.setTag("Liquids", taglist);
-	}
+        tags.setTag("Liquids", taglist);
+    }
 
-	/* Packets */
-	@Override
-	public Packet getDescriptionPacket ()
-	{
-		NBTTagCompound tag = new NBTTagCompound();
-		writeToNBT(tag);
-		return new Packet132TileEntityData(xCoord, yCoord, zCoord, 1, tag);
-	}
+    /* Packets */
+    @Override
+    public Packet getDescriptionPacket ()
+    {
+        NBTTagCompound tag = new NBTTagCompound();
+        writeToNBT(tag);
+        return new Packet132TileEntityData(xCoord, yCoord, zCoord, 1, tag);
+    }
 
-	@Override
-	public void onDataPacket (INetworkManager net, Packet132TileEntityData packet)
-	{
-		readFromNBT(packet.customParam1);
-		worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
-	}
+    @Override
+    public void onDataPacket (INetworkManager net, Packet132TileEntityData packet)
+    {
+        readFromNBT(packet.customParam1);
+        worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+    }
 }

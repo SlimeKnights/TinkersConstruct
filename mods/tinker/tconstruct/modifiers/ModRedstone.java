@@ -82,7 +82,6 @@ public class ModRedstone extends ToolMod
 			int miningSpeed2 = tags.getInteger("MiningSpeed2");
 			miningSpeed2 += (increase*8);
 			tags.setInteger("MiningSpeed2", miningSpeed2);
-            System.out.println("MiningSpeed2 "+miningSpeed2);
 		}
 	}
 	

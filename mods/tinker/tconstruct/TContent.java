@@ -563,6 +563,7 @@ public class TContent implements IFuelHandler
         LiquidCasting lc = LiquidCasting.instance;
         //Blank
         lc.addCastingRecipe(new ItemStack(blankPattern, 1, 1), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 8), 80);
+        lc.addCastingRecipe(new ItemStack(blankPattern, 1, 1), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue*2, 1), 80);
 
         //Ingots
         lc.addCastingRecipe(new ItemStack(Item.ingotIron), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 0), ingotcast, 80); //Iron
@@ -622,6 +623,9 @@ public class TContent implements IFuelHandler
         Smeltery.addMelting(new ItemStack(Item.ingotIron, 4), Block.blockSteel.blockID, 0, 500, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 0));
         Smeltery.addMelting(new ItemStack(Item.ingotGold, 4), Block.blockGold.blockID, 0, 450, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 1));
         Smeltery.addMelting(new ItemStack(Item.goldNugget, 4), Block.blockGold.blockID, 0, 150, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue / 9, 1));
+        
+        Smeltery.addMelting(new ItemStack(Item.bucketEmpty), Block.blockSteel.blockID, 0, 600, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 3, 0));
+        Smeltery.addMelting(new ItemStack(Item.minecartEmpty), Block.blockSteel.blockID, 0, 600, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 5, 0));
 
         //Blocks
         Smeltery.addMelting(Block.blockSteel, 0, 600, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 0));

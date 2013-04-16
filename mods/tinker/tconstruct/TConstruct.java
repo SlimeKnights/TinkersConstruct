@@ -24,7 +24,7 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
  * @dependencies: IC2 API, EBXL API
  */
 
-@Mod(modid = "TConstruct", name = "TConstruct", version = "1.5.1_1.2rc")
+@Mod(modid = "TConstruct", name = "TConstruct", version = "1.5.1_1.2rc2")
 @NetworkMod(serverSideRequired = false, clientSideRequired = true, channels = { "TConstruct" }, packetHandler = mods.tinker.tconstruct.TPacketHandler.class)
 public class TConstruct
 {
