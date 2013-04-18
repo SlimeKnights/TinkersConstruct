@@ -140,7 +140,7 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
     }
 
     @Override
-    public void updateIcons (IconRegister iconRegister)
+    public void registerIcons (IconRegister iconRegister)
     {
         headIcons.clear();
         brokenHeadIcons.clear();

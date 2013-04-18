@@ -122,7 +122,7 @@ public class SmelteryGui extends NewContainerGui
         if (logic.fuelGague > 0)
         {
             this.mc.renderEngine.bindTexture("/terrain.png");
-            Icon lavaIcon = Block.lavaStill.getBlockTextureFromSideAndMetadata(0, 0);
+            Icon lavaIcon = Block.lavaStill.getIcon(0, 0);
             int fuel = logic.getScaledFuelGague(52);
             int count = 0;
             while (fuel > 0)
@@ -143,7 +143,7 @@ public class SmelteryGui extends NewContainerGui
             {
                 Block liquidBlock = Block.blocksList[liquid.itemID];
                 this.mc.renderEngine.bindTexture("/terrain.png");
-                renderIndex = liquidBlock.getBlockTextureFromSideAndMetadata(0, liquid.itemMeta);
+                renderIndex = liquidBlock.getIcon(0, liquid.itemMeta);
             }
             else
             //Item

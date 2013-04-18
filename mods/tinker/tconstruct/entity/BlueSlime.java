@@ -118,7 +118,7 @@ public class BlueSlime extends EntityLiving implements IMob
 	@Override
 	public boolean getCanSpawnHere ()
 	{
-		return isValidLightLevel() && this.worldObj.checkIfAABBIsClear(this.boundingBox) && this.worldObj.getCollidingBoundingBoxes(this, this.boundingBox).isEmpty()
+		return isValidLightLevel() && this.worldObj.checkNoEntityCollision(this.boundingBox) && this.worldObj.getCollidingBoundingBoxes(this, this.boundingBox).isEmpty()
 				&& !this.worldObj.isAnyLiquid(this.boundingBox);
 	}
 

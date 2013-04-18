@@ -12,63 +12,19 @@ import mods.tinker.common.fancyitem.FancyItemRender;
 import mods.tinker.tconstruct.TConstruct;
 import mods.tinker.tconstruct.TContent;
 import mods.tinker.tconstruct.TProxyCommon;
-import mods.tinker.tconstruct.client.blockrender.CastingTableSpecialRenderer;
-import mods.tinker.tconstruct.client.blockrender.FluidRender;
-import mods.tinker.tconstruct.client.blockrender.FrypanRender;
-import mods.tinker.tconstruct.client.blockrender.GolemCoreRender;
-import mods.tinker.tconstruct.client.blockrender.GolemCoreSpecialRender;
-import mods.tinker.tconstruct.client.blockrender.SearedRender;
-import mods.tinker.tconstruct.client.blockrender.SmallFontRenderer;
-import mods.tinker.tconstruct.client.blockrender.SmelteryRender;
-import mods.tinker.tconstruct.client.blockrender.TableRender;
-import mods.tinker.tconstruct.client.blockrender.TankRender;
-import mods.tinker.tconstruct.client.entityrender.CartRender;
-import mods.tinker.tconstruct.client.entityrender.CrystalRender;
-import mods.tinker.tconstruct.client.entityrender.SkylaRender;
-import mods.tinker.tconstruct.client.entityrender.SlimeRender;
-import mods.tinker.tconstruct.client.entityrender.ThrownItemRender;
-import mods.tinker.tconstruct.crafting.ToolBuilder;
-import mods.tinker.tconstruct.entity.BlueSlime;
-import mods.tinker.tconstruct.entity.CartEntity;
-import mods.tinker.tconstruct.entity.Crystal;
-import mods.tinker.tconstruct.entity.LaunchedPotion;
-import mods.tinker.tconstruct.entity.NitroCreeper;
-import mods.tinker.tconstruct.entity.Skyla;
-import mods.tinker.tconstruct.library.client.TConstructClientRegistry;
-import mods.tinker.tconstruct.library.client.ToolGuiElement;
+import mods.tinker.tconstruct.client.blockrender.*;
+import mods.tinker.tconstruct.client.entityrender.*;
+import mods.tinker.tconstruct.crafting.*;
+import mods.tinker.tconstruct.entity.*;
+import mods.tinker.tconstruct.library.client.*;
 import mods.tinker.tconstruct.logic.CastingTableLogic;
 import mods.tinker.tconstruct.logic.GolemCoreLogic;
 import mods.tinker.tconstruct.player.TClientTickHandler;
-import mods.tinker.tconstruct.player.TCommonTickHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelSlime;
-import net.minecraft.client.particle.EntityAuraFX;
-import net.minecraft.client.particle.EntityBreakingFX;
-import net.minecraft.client.particle.EntityBubbleFX;
-import net.minecraft.client.particle.EntityCloudFX;
-import net.minecraft.client.particle.EntityCritFX;
-import net.minecraft.client.particle.EntityDiggingFX;
-import net.minecraft.client.particle.EntityDropParticleFX;
-import net.minecraft.client.particle.EntityEnchantmentTableParticleFX;
-import net.minecraft.client.particle.EntityExplodeFX;
-import net.minecraft.client.particle.EntityFX;
-import net.minecraft.client.particle.EntityFireworkSparkFX;
-import net.minecraft.client.particle.EntityFlameFX;
-import net.minecraft.client.particle.EntityFootStepFX;
-import net.minecraft.client.particle.EntityHeartFX;
-import net.minecraft.client.particle.EntityHugeExplodeFX;
-import net.minecraft.client.particle.EntityLargeExplodeFX;
-import net.minecraft.client.particle.EntityLavaFX;
-import net.minecraft.client.particle.EntityNoteFX;
-import net.minecraft.client.particle.EntityPortalFX;
-import net.minecraft.client.particle.EntityReddustFX;
-import net.minecraft.client.particle.EntitySmokeFX;
-import net.minecraft.client.particle.EntitySnowShovelFX;
-import net.minecraft.client.particle.EntitySpellParticleFX;
-import net.minecraft.client.particle.EntitySplashFX;
-import net.minecraft.client.particle.EntitySuspendFX;
+import net.minecraft.client.particle.*;
 import net.minecraft.client.renderer.entity.RenderCreeper;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.client.settings.KeyBinding;
@@ -109,6 +65,7 @@ public class TProxyClient extends TProxyCommon
         RenderingRegistry.registerBlockHandler(new SearedRender());
         RenderingRegistry.registerBlockHandler(new FluidRender());
         RenderingRegistry.registerBlockHandler(new GolemCoreRender());
+        //RenderingRegistry.registerBlockHandler(new BallRepeaterRender());
 
         //Tools
         /*IItemRenderer render = new SuperCustomToolRenderer();
@@ -122,12 +79,14 @@ public class TProxyClient extends TProxyCommon
         ClientRegistry.bindTileEntitySpecialRenderer(GolemCoreLogic.class, new GolemCoreSpecialRender());
 
         //Entities
-        RenderingRegistry.registerEntityRenderingHandler(CartEntity.class, new CartRender());
-        RenderingRegistry.registerEntityRenderingHandler(Skyla.class, new SkylaRender());
         RenderingRegistry.registerEntityRenderingHandler(FancyEntityItem.class, new FancyItemRender());
-        RenderingRegistry.registerEntityRenderingHandler(Crystal.class, new CrystalRender());
         RenderingRegistry.registerEntityRenderingHandler(NitroCreeper.class, new RenderCreeper());
         RenderingRegistry.registerEntityRenderingHandler(BlueSlime.class, new SlimeRender(new ModelSlime(16), new ModelSlime(0), 0.25F));
+        RenderingRegistry.registerEntityRenderingHandler(GolemBase.class, new GolemRender(0));
+        
+        RenderingRegistry.registerEntityRenderingHandler(CartEntity.class, new CartRender());
+        RenderingRegistry.registerEntityRenderingHandler(Skyla.class, new SkylaRender());
+        RenderingRegistry.registerEntityRenderingHandler(Crystal.class, new CrystalRender());
         RenderingRegistry.registerEntityRenderingHandler(LaunchedPotion.class, new ThrownItemRender(Item.potion, 16384));
         //RenderingRegistry.registerEntityRenderingHandler(net.minecraft.entity.player.EntityPlayer.class, new PlayerArmorRender()); // <-- Works, woo!
 
@@ -317,7 +276,7 @@ public class TProxyClient extends TProxyCommon
         TConstructClientRegistry.registerManualModifier("lavacrystalmod", ironpick.copy(), new ItemStack(TContent.materials, 1, 7));
         TConstructClientRegistry.registerManualModifier("lapismod", ironpick.copy(), new ItemStack(Item.dyePowder, 1, 4), new ItemStack(Block.blockLapis));
         TConstructClientRegistry.registerManualModifier("mossmod", ironpick.copy(), new ItemStack(TContent.materials, 1, 6));
-        TConstructClientRegistry.registerManualModifier("quartzmod", ironlongsword.copy(), new ItemStack(Item.field_94583_ca), new ItemStack(Block.blockNetherQuartz));
+        TConstructClientRegistry.registerManualModifier("quartzmod", ironlongsword.copy(), new ItemStack(Item.netherQuartz), new ItemStack(Block.blockNetherQuartz));
         TConstructClientRegistry.registerManualModifier("blazemod", ironlongsword.copy(), new ItemStack(Item.blazePowder));
         TConstructClientRegistry.registerManualModifier("necroticmod", ironlongsword.copy(), new ItemStack(TContent.materials, 1, 8));
         TConstructClientRegistry.registerManualModifier("electricmod", ironpick.copy(), new ItemStack(Block.dirt), new ItemStack(Block.dirt));

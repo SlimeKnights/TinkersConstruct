@@ -15,7 +15,7 @@ public class ModRedstone extends ToolMod
 		super(items, effect, "Redstone");
 		tooltipName = "\u00a74Haste";
 		increase = inc;
-		max = 25;
+		max = 50;
 	}
 
 	@Override

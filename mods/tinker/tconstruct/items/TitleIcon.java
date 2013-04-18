@@ -13,10 +13,10 @@ public class TitleIcon extends Item
 	}
 
 	@Override
-	public void updateIcons (IconRegister iconRegister)
+	public void registerIcons (IconRegister iconRegister)
 	{
 		ToolCore.blankSprite = iconRegister.registerIcon("tinker:blanksprite");
 		TProxyClient.metalBall = iconRegister.registerIcon("tinker:metalball");
-		iconIndex = iconRegister.registerIcon("tinker:tparts");
+		itemIcon = iconRegister.registerIcon("tinker:tparts");
 	}
 }

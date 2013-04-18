@@ -1,6 +1,6 @@
 package test;
 
-import mods.tinker.tconstruct.entity.BlueSlime;
+import mods.tinker.tconstruct.entity.GolemBase;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -32,11 +32,26 @@ public class XinStick extends Item
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
 	{
-		//spawnEntity(player.posX, player.posY+1, player.posZ, new BlueSlime(world), world, player);
-	    System.out.println("Health! "+player.getHealth());
-	    healPlayer(player);
+		spawnEntity(player.posX, player.posY+1, player.posZ, new GolemBase(world), world, player);
+	    //System.out.println("Health! "+player.getHealth());
+	    //healPlayer(player);
 		return stack;
 	}
+	
+	/*public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float clickX, float clickY, float clickZ)
+    {
+	    EntityLightningBolt entity = new EntityLightningBolt(world, x, y, z);
+        world.spawnEntityInWorld(entity);
+        entity = new EntityLightningBolt(world, x-3, y+4, z-3);
+        world.spawnEntityInWorld(entity);
+        entity = new EntityLightningBolt(world, x-3, y+4, z+3);
+        world.spawnEntityInWorld(entity);
+        entity = new EntityLightningBolt(world, x+3, y+4, z-3);
+        world.spawnEntityInWorld(entity);
+        entity = new EntityLightningBolt(world, x+3, y+4, z+3);
+        world.spawnEntityInWorld(entity);
+        return false;
+    }*/
 	
 	public static void healPlayer(EntityPlayer player)
 	{

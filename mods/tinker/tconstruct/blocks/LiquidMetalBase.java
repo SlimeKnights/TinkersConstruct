@@ -31,6 +31,7 @@ public abstract class LiquidMetalBase extends Block
 		setLightValue(0.625F);
 	}
 
+	@Override
 	public void registerIcons (IconRegister iconRegister)
 	{
 		this.stillInoms = new Icon[textureNames.length];
@@ -56,10 +57,11 @@ public abstract class LiquidMetalBase extends Block
 		}
 
 		int meta = world.getBlockMetadata(x, y, z);
-		return getBlockTextureFromSideAndMetadata(side, meta);
+		return getIcon(side, meta);
 	}
 
-	public Icon getBlockTextureFromSideAndMetadata (int side, int meta)
+	@Override
+	public Icon getIcon (int side, int meta)
 	{
 		if (side == 0 || side == 1)
 			return (stillInoms[meta]);

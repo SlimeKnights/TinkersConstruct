@@ -256,7 +256,7 @@ public class LiquidMetalFlowing extends LiquidMetalBase
 	private boolean blockBlocksFlow (World world, int x, int y, int z)
 	{
 		int l = world.getBlockId(x, y, z);
-		if (l == Block.doorWood.blockID || l == Block.doorSteel.blockID || l == Block.signPost.blockID || l == Block.ladder.blockID || l == Block.reed.blockID)
+		if (l == Block.doorWood.blockID || l == Block.doorIron.blockID || l == Block.signPost.blockID || l == Block.ladder.blockID || l == Block.reed.blockID)
 			return true;
 		if (l == 0)
 			return false;

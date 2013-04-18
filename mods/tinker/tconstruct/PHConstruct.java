@@ -74,7 +74,8 @@ public class PHConstruct
 
         golemCore = config.getBlock("Golem Core", 1481).getInt(1481);
         golemHead = config.getBlock("Golem Head", 1482).getInt(1482);
-        golemPedestal = config.getBlock("Golem Pedestal", 1483).getInt(1483);
+        //golemPedestal = config.getBlock("Golem Pedestal", 1483).getInt(1483);
+        //redstoneBallRepeater = config.getBlock("Redstone Ball Repeater", 1483).getInt(1483);
 
         stoneTorch = config.getBlock("Stone Torch", 1484).getInt(1484);
 
@@ -188,6 +189,7 @@ public class PHConstruct
 
     //Decoration
     public static int stoneTorch;
+    public static int redstoneBallRepeater;
 
     //Patterns and misc
     public static int blankPattern;

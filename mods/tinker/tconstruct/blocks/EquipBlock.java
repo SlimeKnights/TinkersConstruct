@@ -35,15 +35,15 @@ public class EquipBlock extends InventoryBlock
 		return new String[] { "toolstation_top" };
 	}
 	
-	public Icon getBlockTextureFromSideAndMetadata (int side, int meta)
+	public Icon getIcon (int side, int meta)
 	{
-		return Block.blockSteel.getBlockTextureFromSideAndMetadata(side, meta);
+		return Block.blockIron.getIcon(side, meta);
 	}
 
 	@SideOnly(Side.CLIENT)
 	public void registerIcons (IconRegister par1IconRegister)
 	{
-		//this.blockIcon = par1iconRegister.registerIcon(Block.blockSteel.getUnlocalizedName());
+		//this.blockIcon = par1iconRegister.registerIcon(Block.blockIron.getUnlocalizedName());
 	}
 
 	@Override

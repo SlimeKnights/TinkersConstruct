@@ -27,7 +27,7 @@ public class GolemPedestalBlock extends InventoryBlock
         texBottom = ModLoader.addOverride("/terrain.png", "/GGE/pedestalbottom.png");*/
     }
 
-    /*public int getBlockTextureFromSideAndMetadata(int i, int j)
+    /*public int getIcon(int i, int j)
     {
         if (i == 1)
         {

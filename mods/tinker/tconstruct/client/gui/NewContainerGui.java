@@ -230,7 +230,7 @@ public abstract class NewContainerGui extends GuiScreen
         this.zLevel = 200.0F;
         itemRenderer.zLevel = 200.0F;
         itemRenderer.renderItemAndEffectIntoGUI(this.fontRenderer, this.mc.renderEngine, par1ItemStack, par2, par3);
-        itemRenderer.renderItemStack(this.fontRenderer, this.mc.renderEngine, par1ItemStack, par2, par3 - (this.draggedStack == null ? 0 : 8), par4Str);
+        itemRenderer.renderItemOverlayIntoGUI(this.fontRenderer, this.mc.renderEngine, par1ItemStack, par2, par3 - (this.draggedStack == null ? 0 : 8), par4Str);
         this.zLevel = 0.0F;
         itemRenderer.zLevel = 0.0F;
     }
@@ -429,7 +429,7 @@ public abstract class NewContainerGui extends GuiScreen
 
             GL11.glEnable(GL11.GL_DEPTH_TEST);
             itemRenderer.renderItemAndEffectIntoGUI(this.fontRenderer, this.mc.renderEngine, itemstack, i, j);
-            itemRenderer.renderItemStack(this.fontRenderer, this.mc.renderEngine, itemstack, i, j, s);
+            itemRenderer.renderItemOverlayIntoGUI(this.fontRenderer, this.mc.renderEngine, itemstack, i, j, s);
         }
 
         itemRenderer.zLevel = 0.0F;
@@ -795,7 +795,7 @@ public abstract class NewContainerGui extends GuiScreen
     {
         if (!(slot instanceof ActiveSlot) || ((ActiveSlot) slot).getActive())
         {
-        return this.isPointInRegion(slot.xDisplayPosition, slot.yDisplayPosition, 16, 16, mouseX, mouseY);
+            return this.isPointInRegion(slot.xDisplayPosition, slot.yDisplayPosition, 16, 16, mouseX, mouseY);
         }
         return false;
     }

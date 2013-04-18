@@ -48,7 +48,8 @@ public class SpecialFood extends ItemFood
 	}
 	
 	@SideOnly(Side.CLIENT)
-    public void updateIcons(IconRegister iconRegister)
+	@Override
+    public void registerIcons(IconRegister iconRegister)
     {
 		this.icons = new Icon[iconNames.length];
 

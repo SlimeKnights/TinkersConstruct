@@ -62,7 +62,7 @@ public class SmelteryBlock extends InventoryBlock
 		return textureNames;
 	}
 
-	public Icon getBlockTextureFromSideAndMetadata (int side, int meta)
+	public Icon getIcon (int side, int meta)
 	{
 		if (meta < 2)
 		{

@@ -36,7 +36,8 @@ public class CraftingItem extends Item
 	}
 	
 	@SideOnly(Side.CLIENT)
-    public void updateIcons(IconRegister iconRegister)
+	@Override
+    public void registerIcons(IconRegister iconRegister)
     {
 		this.icons = new Icon[textureNames.length];
 

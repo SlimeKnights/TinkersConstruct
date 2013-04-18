@@ -47,7 +47,7 @@ public class GolemHeadBlock extends Block
 		}
 	}
 
-	/*public int getBlockTextureFromSideAndMetadata(int i, int j)
+	/*public int getIcon(int i, int j)
 	{
 	    if (i == 1)
 	    {
@@ -414,7 +414,7 @@ public class GolemHeadBlock extends Block
 			mod_Golems.trigger("boom");
 			return true;
 		}
-		if (i1 == 3 && !flag1 && ai[1][2] == Block.blockSteel.blockID && ai[1][1] == Block.blockSteel.blockID)
+		if (i1 == 3 && !flag1 && ai[1][2] == Block.blockIron.blockID && ai[1][1] == Block.blockIron.blockID)
 		{
 			List list = world.getEntitiesWithinAABB(EntityLiving.class, AxisAlignedBB.getAABBPool().getAABB(i, j, k, (double) i + 1.0D, (double) j + 1.0D, (double) k + 1.0D).expand(4D, 16D, 4D));
 			Entity entity;

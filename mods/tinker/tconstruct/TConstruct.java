@@ -4,6 +4,7 @@ import mods.tinker.tconstruct.library.TConstructRegistry;
 import mods.tinker.tconstruct.library.TabTools;
 import mods.tinker.tconstruct.player.TPlayerHandler;
 import mods.tinker.tconstruct.worldgen.TBaseWorldGenerator;
+import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.common.Mod;
@@ -24,7 +25,7 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
  * @dependencies: IC2 API, EBXL API
  */
 
-@Mod(modid = "TConstruct", name = "TConstruct", version = "1.5.1_1.2rc2")
+@Mod(modid = "TConstruct", name = "TConstruct", version = "1.5.1_1.2f2.1", dependencies = "required-after:Forge@[7.7.1.659,)")
 @NetworkMod(serverSideRequired = false, clientSideRequired = true, channels = { "TConstruct" }, packetHandler = mods.tinker.tconstruct.TPacketHandler.class)
 public class TConstruct
 {
@@ -77,7 +78,7 @@ public class TConstruct
 
         content.modIntegration();
     }
-
+    
     public static TEventHandler events;
     public static TPlayerHandler playerTracker;
     public static TContent content;

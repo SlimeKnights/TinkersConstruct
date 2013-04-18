@@ -703,7 +703,7 @@ public class GuiManual extends GuiScreen
         {
             renderitem.renderItemAndEffectIntoGUI(fontRenderer, mc.renderEngine, icons[0], (localWidth + 126) / 2, (localHeight + 68) / 2);
             if (icons[0].stackSize > 1)
-                renderitem.renderItemStack(fontRenderer, mc.renderEngine, icons[0], (localWidth + 126) / 2, (localHeight + 68) / 2, String.valueOf(icons[0].stackSize));
+                renderitem.renderItemOverlayIntoGUI(fontRenderer, mc.renderEngine, icons[0], (localWidth + 126) / 2, (localHeight + 68) / 2, String.valueOf(icons[0].stackSize));
             for (int i = 0; i < icons.length - 1; i++)
             {
                 if (icons[i + 1] != null)
@@ -715,7 +715,7 @@ public class GuiManual extends GuiScreen
         {
             renderitem.renderItemAndEffectIntoGUI(fontRenderer, mc.renderEngine, icons[0], (localWidth + 138) / 2, (localHeight + 70) / 2);
             if (icons[0].stackSize > 1)
-                renderitem.renderItemStack(fontRenderer, mc.renderEngine, icons[0], (localWidth + 126) / 2, (localHeight + 68) / 2, String.valueOf(icons[0].stackSize));
+                renderitem.renderItemOverlayIntoGUI(fontRenderer, mc.renderEngine, icons[0], (localWidth + 126) / 2, (localHeight + 68) / 2, String.valueOf(icons[0].stackSize));
             for (int i = 0; i < icons.length - 1; i++)
             {
                 if (icons[i + 1] != null)
@@ -750,7 +750,7 @@ public class GuiManual extends GuiScreen
         renderitem.renderItemAndEffectIntoGUI(fontRenderer, mc.renderEngine, icons[1], (localWidth + 38) / 2, (localHeight + 38) / 2);
 
         if (icons[0].stackSize > 1)
-            renderitem.renderItemStack(fontRenderer, mc.renderEngine, icons[0], (localWidth + 106) / 2, (localHeight + 74) / 2, String.valueOf(icons[0].stackSize));
+            renderitem.renderItemOverlayIntoGUI(fontRenderer, mc.renderEngine, icons[0], (localWidth + 106) / 2, (localHeight + 74) / 2, String.valueOf(icons[0].stackSize));
 
         renderitem.zLevel = 0;
         GL11.glScalef(0.5F, 0.5F, 0.5F);

@@ -96,7 +96,7 @@ public class LavaTankBlock extends BlockContainer
         return TankRender.tankModelID;
     }
 
-    public Icon getBlockTextureFromSideAndMetadata (int side, int meta)
+    public Icon getIcon (int side, int meta)
     {
         if (meta == 0)
         {
@@ -185,7 +185,7 @@ public class LavaTankBlock extends BlockContainer
             }
         }
 
-        return true;
+        return false;
     }
 
     public static ItemStack consumeItem (ItemStack stack)

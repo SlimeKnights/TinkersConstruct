@@ -36,7 +36,7 @@ public class GolemPedestalLogic extends TileEntity
             cost[Block.pumpkinLantern.blockID] = 8;
             cost[Block.blockDiamond.blockID] = 1;
             cost[Block.blockGold.blockID] = 1;
-            cost[Block.blockSteel.blockID] = 1;
+            cost[Block.blockIron.blockID] = 1;
             cost[Block.blockLapis.blockID] = 1;
             cost[Block.jukebox.blockID] = 1;
             cost[Block.music.blockID] = 1;
@@ -110,7 +110,7 @@ public class GolemPedestalLogic extends TileEntity
             souls[Block.pumpkinLantern.blockID] = 1;
             souls[Block.blockDiamond.blockID] = 27;
             souls[Block.blockGold.blockID] = 2;
-            souls[Block.blockSteel.blockID] = 2;
+            souls[Block.blockIron.blockID] = 2;
             souls[Block.blockLapis.blockID] = 3;
             souls[Block.jukebox.blockID] = 3;
             souls[Block.music.blockID] = 1;

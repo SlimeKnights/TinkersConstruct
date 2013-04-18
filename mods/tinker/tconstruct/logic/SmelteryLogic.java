@@ -61,6 +61,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     int numBricks;
 
     Random rand = new Random();
+    boolean needsUpdate;
 
     public SmelteryLogic()
     {
@@ -74,6 +75,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     {
         if (lay != layers || forceAdjust)
         {
+            needsUpdate = true;
             layers = lay;
             maxLiquid = 20000 * lay;
             int[] tempActive = activeTemps;
@@ -217,7 +219,8 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     @Override
     public void setActive (boolean flag)
     {
-        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+        needsUpdate = true;
+        //worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
     }
 
     public int getScaledFuelGague (int scale)
@@ -262,6 +265,12 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
             if (validStructure && useTime <= 0)
             {
                 updateFuelGague();
+            }
+            
+            if (needsUpdate)
+            {
+                needsUpdate = false;
+                worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
             }
         }
     }
@@ -313,6 +322,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 
     boolean addMoltenMetal (LiquidStack liquid, boolean first)
     {
+        needsUpdate = true;
         if (moltenMetal.size() == 0)
         {
             moltenMetal.add(liquid);
@@ -372,6 +382,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         }
         if (tankContainer instanceof ITankContainer && inUse)
         {
+            needsUpdate = true;
             LiquidStack liquid = ((ITankContainer) tankContainer).drain(ForgeDirection.DOWN, 150, false);
             if (liquid != null && liquid.itemID == Block.lavaStill.blockID)
             {
@@ -434,8 +445,9 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     {
         updateTemperatures();
         super.onInventoryChanged();
-        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-        worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+        needsUpdate = true;
+        //worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+        //worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
     }
 
     /* Multiblock */
@@ -697,7 +709,9 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 
     public LiquidStack drain (int maxDrain, boolean doDrain)
     {
-        //System.out.println("Liquid: "+currentLiquid);
+        if (doDrain)
+            needsUpdate = true;
+        
         if (moltenMetal.size() == 0)
             return null;
 
@@ -728,6 +742,9 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 
     public int fill (LiquidStack resource, boolean doFill)
     {
+        if (doFill)
+            needsUpdate = true;
+        
         if (resource != null && resource.amount + currentLiquid < maxLiquid)
         {
             int amount = resource.amount;

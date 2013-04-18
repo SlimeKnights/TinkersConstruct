@@ -25,6 +25,8 @@ public class CastingTableLogic extends InventoryLogic
 	public LiquidStack liquid;
 	int castingDelay = 0;
 	int renderOffset = 0;
+	boolean needsUpdate;
+	int tick;
 
 	public CastingTableLogic()
 	{
@@ -75,6 +77,9 @@ public class CastingTableLogic extends InventoryLogic
 	@Override
 	public int fill (LiquidStack resource, boolean doFill)
 	{
+	    if (doFill)
+	        needsUpdate = true;
+	    
 		if (resource == null)
 			return 0;
 
@@ -136,6 +141,7 @@ public class CastingTableLogic extends InventoryLogic
 	{
 	    super.onInventoryChanged();
         worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+        needsUpdate = true;
 	}
 	
 	public ItemStack decrStackSize(int slot, int quantity)
@@ -217,6 +223,14 @@ public class CastingTableLogic extends InventoryLogic
 			renderOffset -= 6;
 			worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
 		}
+
+        tick++;
+        if (tick % 20 == 0)
+        {
+            tick = 0;
+            if (needsUpdate)
+                worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+        }
 	}
 
 	public void castLiquid ()

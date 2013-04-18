@@ -60,7 +60,7 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
 				{
 					ItemStack blockToRender = Smeltery.getRenderIndex(input);
 					float blockHeight = input.stackSize / (float) blockToRender.stackSize;
-					renderer.setRenderBounds(0.0F, 0.0F, 0.0F, 1.0F, MathHelper.clamp_float(blockHeight, 0.01F, 1.0F), 1.0F);
+					renderer.setRenderBounds(-0.001F, 0.0F, -0.001F, 1.001F, MathHelper.clamp_float(blockHeight, 0.01F, 1.0F), 1.001F);
 
 					if (blockToRender.itemID < 4096) //Block
 					{
@@ -170,27 +170,27 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
 		GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
 		tessellator.startDrawingQuads();
 		tessellator.setNormal(0.0F, -1F, 0.0F);
-		renderblocks.renderBottomFace(block, 0.0D, 0.0D, 0.0D, block.getBlockTextureFromSideAndMetadata(0, meta));
+		renderblocks.renderBottomFace(block, 0.0D, 0.0D, 0.0D, block.getIcon(0, meta));
 		tessellator.draw();
 		tessellator.startDrawingQuads();
 		tessellator.setNormal(0.0F, 1.0F, 0.0F);
-		renderblocks.renderTopFace(block, 0.0D, 0.0D, 0.0D, block.getBlockTextureFromSideAndMetadata(1, meta));
+		renderblocks.renderTopFace(block, 0.0D, 0.0D, 0.0D, block.getIcon(1, meta));
 		tessellator.draw();
 		tessellator.startDrawingQuads();
 		tessellator.setNormal(0.0F, 0.0F, -1F);
-		renderblocks.renderEastFace(block, 0.0D, 0.0D, 0.0D, block.getBlockTextureFromSideAndMetadata(2, meta));
+		renderblocks.renderEastFace(block, 0.0D, 0.0D, 0.0D, block.getIcon(2, meta));
 		tessellator.draw();
 		tessellator.startDrawingQuads();
 		tessellator.setNormal(0.0F, 0.0F, 1.0F);
-		renderblocks.renderWestFace(block, 0.0D, 0.0D, 0.0D, block.getBlockTextureFromSideAndMetadata(3, meta));
+		renderblocks.renderWestFace(block, 0.0D, 0.0D, 0.0D, block.getIcon(3, meta));
 		tessellator.draw();
 		tessellator.startDrawingQuads();
 		tessellator.setNormal(-1F, 0.0F, 0.0F);
-		renderblocks.renderNorthFace(block, 0.0D, 0.0D, 0.0D, block.getBlockTextureFromSideAndMetadata(4, meta));
+		renderblocks.renderNorthFace(block, 0.0D, 0.0D, 0.0D, block.getIcon(4, meta));
 		tessellator.draw();
 		tessellator.startDrawingQuads();
 		tessellator.setNormal(1.0F, 0.0F, 0.0F);
-		renderblocks.renderSouthFace(block, 0.0D, 0.0D, 0.0D, block.getBlockTextureFromSideAndMetadata(5, meta));
+		renderblocks.renderSouthFace(block, 0.0D, 0.0D, 0.0D, block.getIcon(5, meta));
 		tessellator.draw();
 		GL11.glTranslatef(0.5F, 0.5F, 0.5F);
 	}

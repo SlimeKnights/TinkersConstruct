@@ -13,6 +13,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EntityDamageSource;
 import net.minecraft.util.EnumMovingObjectType;
+import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.client.event.sound.SoundLoadEvent;
 import net.minecraftforge.event.Event.Result;
 import net.minecraftforge.event.ForgeSubscribe;
@@ -42,6 +43,16 @@ public class TEventHandler
         catch (Exception e)
         {
             System.err.println("[TConstruct] Failed to register one or more sounds");
+        }
+    }
+    
+    @ForgeSubscribe
+    @SideOnly(Side.CLIENT)
+    public void postStitch(TextureStitchEvent.Post event)
+    {
+        for (int i = 0; i < TContent.liquidIcons.length; i++)
+        {
+            TContent.liquidIcons[i].setRenderingIcon(TContent.liquidMetalStill.getIcon(0, i));
         }
     }
     

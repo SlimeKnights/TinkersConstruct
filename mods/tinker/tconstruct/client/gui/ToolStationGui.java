@@ -3,15 +3,15 @@ package mods.tinker.tconstruct.client.gui;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 
-import mods.tinker.tconstruct.library.client.ToolGuiElement;
+import mods.tinker.tconstruct.container.ActiveContainer;
 import mods.tinker.tconstruct.container.ToolStationContainer;
 import mods.tinker.tconstruct.library.ToolCore;
 import mods.tinker.tconstruct.library.Weapon;
 import mods.tinker.tconstruct.library.client.TConstructClientRegistry;
+import mods.tinker.tconstruct.library.client.ToolGuiElement;
 import mods.tinker.tconstruct.logic.ToolStationLogic;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
-import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -27,7 +27,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class ToolStationGui extends GuiContainer
+public class ToolStationGui extends NewContainerGui
 {
     ToolStationLogic logic;
     ToolStationContainer toolSlots;
@@ -39,9 +39,9 @@ public class ToolStationGui extends GuiContainer
 
     public ToolStationGui(InventoryPlayer inventoryplayer, ToolStationLogic stationlogic, World world, int x, int y, int z)
     {
-        super(stationlogic.getGuiContainer(inventoryplayer, world, x, y, z));
+        super((ActiveContainer) stationlogic.getGuiContainer(inventoryplayer, world, x, y, z));
         this.logic = stationlogic;
-        toolSlots = (ToolStationContainer) inventorySlots;
+        toolSlots = (ToolStationContainer) container;
         text = new GuiTextField(this.fontRenderer, this.xSize / 2 - 5, 8, 30, 12);
         this.text.setMaxStringLength(40);
         this.text.setEnableBackgroundDrawing(false);

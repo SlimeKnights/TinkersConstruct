@@ -174,7 +174,7 @@ public class BlockSkinRenderHelper
             render.colorRedTopRight *= f6;
             render.colorGreenTopRight *= f6;
             render.colorBlueTopRight *= f6;
-            render.renderBottomFace(block, (double)xMin, (double)yMin, (double)zMin, block.getBlockTextureFromSideAndMetadata(0, metadata));
+            render.renderBottomFace(block, (double)xMin, (double)yMin, (double)zMin, block.getIcon(0, metadata));
             flag = true;
         }
 
@@ -278,7 +278,7 @@ public class BlockSkinRenderHelper
             render.colorRedTopRight *= f6;
             render.colorGreenTopRight *= f6;
             render.colorBlueTopRight *= f6;
-            render.renderTopFace(block, (double)xMin, (double)yMin, (double)zMin, block.getBlockTextureFromSideAndMetadata(1, metadata));
+            render.renderTopFace(block, (double)xMin, (double)yMin, (double)zMin, block.getIcon(1, metadata));
             flag = true;
         }
 
@@ -395,7 +395,7 @@ public class BlockSkinRenderHelper
             render.colorRedTopRight *= f6;
             render.colorGreenTopRight *= f6;
             render.colorBlueTopRight *= f6;
-            icon = block.getBlockTextureFromSideAndMetadata(2, metadata);
+            icon = block.getIcon(2, metadata);
             render.renderEastFace(block, (double)xMin, (double)yMin, (double)zMin, icon);
 
             flag = true;
@@ -512,7 +512,7 @@ public class BlockSkinRenderHelper
             render.colorRedTopRight *= f6;
             render.colorGreenTopRight *= f6;
             render.colorBlueTopRight *= f6;
-            icon = block.getBlockTextureFromSideAndMetadata(3, metadata);
+            icon = block.getIcon(3, metadata);
             render.renderWestFace(block, (double)xMin, (double)yMin, (double)zMin, icon);
 
             flag = true;
@@ -629,7 +629,7 @@ public class BlockSkinRenderHelper
             render.colorRedTopRight *= f6;
             render.colorGreenTopRight *= f6;
             render.colorBlueTopRight *= f6;
-            icon = block.getBlockTextureFromSideAndMetadata(4, metadata);
+            icon = block.getIcon(4, metadata);
             render.renderNorthFace(block, (double)xMin, (double)yMin, (double)zMin, icon);
 
             flag = true;
@@ -746,7 +746,7 @@ public class BlockSkinRenderHelper
             render.colorRedTopRight *= f6;
             render.colorGreenTopRight *= f6;
             render.colorBlueTopRight *= f6;
-            icon = block.getBlockTextureFromSideAndMetadata(5, metadata);
+            icon = block.getIcon(5, metadata);
             render.renderSouthFace(block, (double)xMin, (double)yMin, (double)zMin, icon);
 
             flag = true;
@@ -797,7 +797,7 @@ public class BlockSkinRenderHelper
         {
             tessellator.setBrightness(render.renderMinY > 0.0D ? l : block.getMixedBrightnessForBlock(render.blockAccess, xMin, yMin - 1, zMin));
             tessellator.setColorOpaque_F(f10, f13, f16);
-            render.renderBottomFace(block, (double)xMin, (double)yMin, (double)zMin, block.getBlockTextureFromSideAndMetadata(0, metadata));
+            render.renderBottomFace(block, (double)xMin, (double)yMin, (double)zMin, block.getIcon(0, metadata));
             flag = true;
         }
 
@@ -805,7 +805,7 @@ public class BlockSkinRenderHelper
         {
             tessellator.setBrightness(render.renderMaxY < 1.0D ? l : block.getMixedBrightnessForBlock(render.blockAccess, xMin, yMin + 1, zMin));
             tessellator.setColorOpaque_F(f7, f8, f9);
-            render.renderTopFace(block, (double)xMin, (double)yMin, (double)zMin, block.getBlockTextureFromSideAndMetadata(1, metadata));
+            render.renderTopFace(block, (double)xMin, (double)yMin, (double)zMin, block.getIcon(1, metadata));
             flag = true;
         }
 
@@ -815,7 +815,7 @@ public class BlockSkinRenderHelper
         {
             tessellator.setBrightness(render.renderMinZ > 0.0D ? l : block.getMixedBrightnessForBlock(render.blockAccess, xMin, yMin, zMin - 1));
             tessellator.setColorOpaque_F(f11, f14, f17);
-            render.renderEastFace(block, (double)xMin, (double)yMin, (double)zMin, block.getBlockTextureFromSideAndMetadata(2, metadata));
+            render.renderEastFace(block, (double)xMin, (double)yMin, (double)zMin, block.getIcon(2, metadata));
 
             flag = true;
         }
@@ -824,7 +824,7 @@ public class BlockSkinRenderHelper
         {
             tessellator.setBrightness(render.renderMaxZ < 1.0D ? l : block.getMixedBrightnessForBlock(render.blockAccess, xMin, yMin, zMin + 1));
             tessellator.setColorOpaque_F(f11, f14, f17);
-            render.renderWestFace(block, (double)xMin, (double)yMin, (double)zMin, block.getBlockTextureFromSideAndMetadata(3, metadata));
+            render.renderWestFace(block, (double)xMin, (double)yMin, (double)zMin, block.getIcon(3, metadata));
 
             flag = true;
         }
@@ -833,7 +833,7 @@ public class BlockSkinRenderHelper
         {
             tessellator.setBrightness(render.renderMinX > 0.0D ? l : block.getMixedBrightnessForBlock(render.blockAccess, xMin - 1, yMin, zMin));
             tessellator.setColorOpaque_F(f12, f15, f18);
-            render.renderNorthFace(block, (double)xMin, (double)yMin, (double)zMin, block.getBlockTextureFromSideAndMetadata(4, metadata));
+            render.renderNorthFace(block, (double)xMin, (double)yMin, (double)zMin, block.getIcon(4, metadata));
 
             flag = true;
         }
@@ -842,7 +842,7 @@ public class BlockSkinRenderHelper
         {
             tessellator.setBrightness(render.renderMaxX < 1.0D ? l : block.getMixedBrightnessForBlock(render.blockAccess, xMin + 1, yMin, zMin));
             tessellator.setColorOpaque_F(f12, f15, f18);
-            render.renderSouthFace(block, (double)xMin, (double)yMin, (double)zMin, block.getBlockTextureFromSideAndMetadata(5, metadata));
+            render.renderSouthFace(block, (double)xMin, (double)yMin, (double)zMin, block.getIcon(5, metadata));
 
             flag = true;
         }

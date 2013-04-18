@@ -63,14 +63,14 @@ public class TFoodStats extends FoodStats
             }
         }
 
-        if (this.foodLevel >= 12 + 2*difficulty && player.getHealth() > 0 && player.getHealth() < TConstruct.playerTracker.getPlayerStats(player.username).health)
+        if (this.foodLevel >= 12 + 2*difficulty && player.shouldHeal())
         {
             ++this.foodTimer;
 
             if (this.foodTimer >= 80)
             {
-                //player.heal(1);
-                player.setEntityHealth(player.getHealth() + 1);
+                player.heal(1);
+                //player.setEntityHealth(player.getHealth() + 1);
                 this.foodTimer = 0;
             }
         }

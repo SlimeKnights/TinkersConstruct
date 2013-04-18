@@ -44,7 +44,7 @@ public class Shelf extends BlockContainer
     	return new ToolrackLogic();
     }
     
-    /*public int getBlockTextureFromSideAndMetadata(int side, int meta)
+    /*public int getIcon(int side, int meta)
     {
     	return 6;
     }

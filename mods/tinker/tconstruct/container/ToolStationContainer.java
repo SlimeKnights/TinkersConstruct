@@ -8,7 +8,7 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
-public class ToolStationContainer extends Container
+public class ToolStationContainer extends ActiveContainer
 {
 	InventoryPlayer invPlayer;
 	ToolStationLogic logic;

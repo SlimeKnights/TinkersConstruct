@@ -3,10 +3,10 @@ package mods.tinker.tconstruct.player;
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Random;
+import java.util.concurrent.ConcurrentHashMap;
 
 import mods.tinker.tconstruct.PHConstruct;
 import mods.tinker.tconstruct.TContent;
-import mods.tinker.tconstruct.client.TProxyClient;
 import mods.tinker.tconstruct.library.AbilityHelper;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -29,7 +29,7 @@ public class TPlayerHandler implements IPlayerTracker
 {
 	/* Player */
 	//public int hunger;
-	public HashMap<String, TPlayerStats> playerStats = new HashMap<String, TPlayerStats>();
+	public ConcurrentHashMap<String, TPlayerStats> playerStats = new ConcurrentHashMap<String, TPlayerStats>();
 
 	@Override
 	public void onPlayerLogin (EntityPlayer entityplayer)
@@ -46,7 +46,7 @@ public class TPlayerHandler implements IPlayerTracker
 		TPlayerStats stats = new TPlayerStats();
 		stats.player = new WeakReference<EntityPlayer>(entityplayer);
 		stats.level = entityplayer.experienceLevel;
-		stats.health = 20; //More hp in the future
+		stats.health = entityplayer.maxHealth;
 		stats.hunger = entityplayer.getFoodStats().getFoodLevel();
 		stats.beginnerManual = tags.getCompoundTag("TConstruct").getBoolean("beginnerManual");
 		stats.materialManual = tags.getCompoundTag("TConstruct").getBoolean("materialManual");

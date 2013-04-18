@@ -34,8 +34,8 @@
   <entry key="Smeltery.Drain.name">Smeltery Drain</entry>
   <entry key="Smeltery.Brick.name">Seared Bricks</entry>
   <entry key="LavaTank.Tank.name">Lava Tank</entry>
-  <entry key="LavaTank.Gague.name">Hardened Glass</entry>
-  <entry key="LavaTank.Window.name">Hardened Window</entry>
+  <entry key="LavaTank.Gague.name">Seared Glass</entry>
+  <entry key="LavaTank.Window.name">Seared Window</entry>
   
   <entry key="StorageMetals.Cobalt.name">Block of Cobalt</entry>
   <entry key="StorageMetals.Ardite.name">Block of Ardite</entry>

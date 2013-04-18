@@ -124,7 +124,7 @@ public class PotionLauncher extends Item
 	}
 
 	@SideOnly(Side.CLIENT)
-	public void updateIcons (IconRegister par1IconRegister)
+	public void registerIcons (IconRegister par1IconRegister)
 	{
 		this.icons = new Icon[textureNames.length];
 

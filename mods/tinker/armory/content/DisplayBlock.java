@@ -63,6 +63,6 @@ public class DisplayBlock extends InventoryBlock
 	@Override
 	public void registerIcons (IconRegister par1IconRegister)
 	{
-		this.blockIcon = par1IconRegister.registerIcon(Block.blockSteel.getUnlocalizedName());
+		this.blockIcon = par1IconRegister.registerIcon(Block.blockIron.getUnlocalizedName());
 	}
 }
