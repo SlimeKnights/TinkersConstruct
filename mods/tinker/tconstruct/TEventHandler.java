@@ -5,8 +5,10 @@ import java.util.Random;
 
 import mods.tinker.tconstruct.crafting.PatternBuilder;
 import mods.tinker.tconstruct.crafting.Smeltery;
+import mods.tinker.tconstruct.crafting.ToolBuilder;
 import mods.tinker.tconstruct.entity.NitroCreeper;
 import mods.tinker.tconstruct.logic.LiquidTextureLogic;
+import mods.tinker.tconstruct.modifiers.ModAttack;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.item.Item;
@@ -53,6 +55,7 @@ public class TEventHandler
         for (int i = 0; i < TContent.liquidIcons.length; i++)
         {
             TContent.liquidIcons[i].setRenderingIcon(TContent.liquidMetalStill.getIcon(0, i));
+            TContent.liquidIcons[i].canonical().setRenderingIcon(TContent.liquidMetalStill.getIcon(0, i));
         }
     }
     
@@ -106,68 +109,78 @@ public class TEventHandler
         {
             PatternBuilder.instance.registerMaterial(evt.Ore, 2, "Wood");
         }
+		
+		else if (evt.Name == "crystalQuartz")
+        {
+		    ToolBuilder.instance.registerToolMod(new ModAttack("Quartz", new ItemStack[] { evt.Ore }, 11, 16));
+        }
+		
+		else if (evt.Name == "crystalCerusQuartz")
+        {
+            ToolBuilder.instance.registerToolMod(new ModAttack("Quartz", new ItemStack[] { evt.Ore }, 11, 72));
+        }
 
 		//Ingots
 		else if (evt.Name == "ingotCopper")
 		{
 			PatternBuilder.instance.registerMaterial(evt.Ore, 2, "Copper");
-			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 4, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 3, 450, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 2));
+			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 2, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 3, 450, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 2));
 		}
 		
 		else if (evt.Name == "ingotTin")
 		{
-			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 4, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 5, 175, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 3));
+			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 2, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 5, 175, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 3));
 		}
 
 		else if (evt.Name == "ingotBronze")
 		{
 			PatternBuilder.instance.registerMaterial(evt.Ore, 2, "Bronze");
-			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 4, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 4, 500, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 7));
+			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 2, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 4, 500, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 7));
 		}
 		
 		else if (evt.Name == "ingotCobalt")
 		{
 			PatternBuilder.instance.registerMaterial(evt.Ore, 2, "Cobalt");
-			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 4, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 0, 650, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 5));
+			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 2, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 0, 650, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 5));
 		}
 		
 		else if (evt.Name == "ingotArdite")
 		{
 			PatternBuilder.instance.registerMaterial(evt.Ore, 2, "Ardite");
-			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 4, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 1, 650, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 6));
+			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 2, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 1, 650, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 6));
 		}
 		
 		else if (evt.Name == "ingotManyullyn")
 		{
 			PatternBuilder.instance.registerMaterial(evt.Ore, 2, "Manyullyn");
-			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 4, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 2, 750, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 9));
+			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 2, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 2, 750, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 9));
 		}
 		
 		else if (evt.Name == "ingotNaturalAluminum")
 		{
-			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 4, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 6, 250, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 4));
+			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 2, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 6, 250, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 4));
 		}
 		
 		else if (evt.Name == "naturalAluminum")
 		{
-			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 4, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 6, 250, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 4));
+			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 2, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 6, 250, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 4));
 		}
 		
 		else if (evt.Name == "ingotAluminumBrass")
 		{
-			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 4, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 7, 350, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 8));
+			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 2, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 7, 350, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 8));
 		}
 		
 		else if (evt.Name == "ingotAlumite")
 		{
 			PatternBuilder.instance.registerMaterial(evt.Ore, 2, "Alumite");
-			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 4, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 8, 500, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 10));
+			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 2, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 8, 500, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 10));
 		}
 		
 		else if (evt.Name == "ingotSteel")
 		{
 			PatternBuilder.instance.registerMaterial(evt.Ore, 2, "Steel");
-			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 4, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 9, 500, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 12));
+			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 2, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 9, 500, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 12));
 		}
 		
 		//Ores
@@ -250,57 +263,57 @@ public class TEventHandler
 		//Dust
 		else if (evt.Name == "dustCopper")
 		{
-			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 4, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 3, 450, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 2));
+			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 2, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 3, 450, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 2));
 		}
 		
 		else if (evt.Name == "dustTin")
 		{
-			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 4, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 5, 175, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 3));
+			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 2, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 5, 175, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 3));
 		}
 
 		else if (evt.Name == "dustBronze")
 		{
-			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 4, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 4, 500, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 7));
+			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 2, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 4, 500, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 7));
 		}
 		
 		else if (evt.Name == "dustCobalt")
 		{
-			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 4, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 0, 650, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 5));
+			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 2, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 0, 650, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 5));
 		}
 		
 		else if (evt.Name == "dustArdite")
 		{
-			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 4, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 1, 650, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 6));
+			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 2, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 1, 650, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 6));
 		}
 		
 		else if (evt.Name == "dustManyullyn")
 		{
-			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 4, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 2, 750, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 9));
+			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 2, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 2, 750, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 9));
 		}
 		
 		else if (evt.Name == "dustAluminum")
 		{
-			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 4, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 6, 250, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 4));
+			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 2, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 6, 250, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 4));
 		}
 		
 		else if (evt.Name == "dustNaturalAluminum")
 		{
-			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 4, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 6, 250, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 4));
+			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 2, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 6, 250, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 4));
 		}
 		
 		else if (evt.Name == "dustAluminumBrass")
 		{
-			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 4, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 7, 350, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 8));
+			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 2, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 7, 350, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 8));
 		}
 		
 		else if (evt.Name == "dustAlumite")
 		{
-			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 4, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 8, 500, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 10));
+			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 2, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 8, 500, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 10));
 		}
 		
 		else if (evt.Name == "dustSteel")
 		{
-			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 4, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 9, 500, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 12));
+			Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 2, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 9, 500, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 12));
 		}
 	}
 
@@ -310,73 +323,73 @@ public class TEventHandler
 		for (ItemStack ore : ores)
 		{
 			PatternBuilder.instance.registerMaterial(ore, 2, "Copper");
-			Smeltery.addMelting(new ItemStack(ore.itemID, 4, ore.getItemDamage()), TContent.metalBlock.blockID, 3, 450, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 2));
+			Smeltery.addMelting(new ItemStack(ore.itemID, 2, ore.getItemDamage()), TContent.metalBlock.blockID, 3, 450, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 2));
 		}
 		
 		ores = OreDictionary.getOres("ingotTin");
 		for (ItemStack ore : ores)
 		{
-			Smeltery.addMelting(new ItemStack(ore.itemID, 4, ore.getItemDamage()), TContent.metalBlock.blockID, 5, 175, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 3));
+			Smeltery.addMelting(new ItemStack(ore.itemID, 2, ore.getItemDamage()), TContent.metalBlock.blockID, 5, 175, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 3));
 		}
 		
 		ores = OreDictionary.getOres("ingotBronze");
 		for (ItemStack ore : ores)
 		{
 			PatternBuilder.instance.registerMaterial(ore, 2, "Bronze");
-			Smeltery.addMelting(new ItemStack(ore.itemID, 4, ore.getItemDamage()), TContent.metalBlock.blockID, 4, 500, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 7));
+			Smeltery.addMelting(new ItemStack(ore.itemID, 2, ore.getItemDamage()), TContent.metalBlock.blockID, 4, 500, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 7));
 		}
 		
 		ores = OreDictionary.getOres("ingotCobalt");
 		for (ItemStack ore : ores)
 		{
 			PatternBuilder.instance.registerMaterial(ore, 2, "Cobalt");
-			Smeltery.addMelting(new ItemStack(ore.itemID, 4, ore.getItemDamage()), TContent.metalBlock.blockID, 0, 650, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 5));
+			Smeltery.addMelting(new ItemStack(ore.itemID, 2, ore.getItemDamage()), TContent.metalBlock.blockID, 0, 650, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 5));
 		}
 		
 		ores = OreDictionary.getOres("ingotArdite");
 		for (ItemStack ore : ores)
 		{
 			PatternBuilder.instance.registerMaterial(ore, 2, "Ardite");
-			Smeltery.addMelting(new ItemStack(ore.itemID, 4, ore.getItemDamage()), TContent.metalBlock.blockID, 1, 650, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 6));
+			Smeltery.addMelting(new ItemStack(ore.itemID, 2, ore.getItemDamage()), TContent.metalBlock.blockID, 1, 650, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 6));
 		}
 		
 		ores = OreDictionary.getOres("ingotManyullyn");
 		for (ItemStack ore : ores)
 		{
 			PatternBuilder.instance.registerMaterial(ore, 2, "Manyullyn");
-			Smeltery.addMelting(new ItemStack(ore.itemID, 4, ore.getItemDamage()), TContent.metalBlock.blockID, 2, 750, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 9));
+			Smeltery.addMelting(new ItemStack(ore.itemID, 2, ore.getItemDamage()), TContent.metalBlock.blockID, 2, 750, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 9));
 		}
 		
 		ores = OreDictionary.getOres("naturalAluminum");
 		for (ItemStack ore : ores)
 		{
-			Smeltery.addMelting(new ItemStack(ore.itemID, 4, ore.getItemDamage()), TContent.metalBlock.blockID, 6, 250, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 4));
+			Smeltery.addMelting(new ItemStack(ore.itemID, 2, ore.getItemDamage()), TContent.metalBlock.blockID, 6, 250, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 4));
 		}
 		
 		ores = OreDictionary.getOres("ingotNaturalAluminum");
 		for (ItemStack ore : ores)
 		{
-			Smeltery.addMelting(new ItemStack(ore.itemID, 4, ore.getItemDamage()), TContent.metalBlock.blockID, 6, 250, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 4));
+			Smeltery.addMelting(new ItemStack(ore.itemID, 2, ore.getItemDamage()), TContent.metalBlock.blockID, 6, 250, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 4));
 		}
 		
 		ores = OreDictionary.getOres("ingotAluminumBrass");
 		for (ItemStack ore : ores)
 		{
-			Smeltery.addMelting(new ItemStack(ore.itemID, 4, ore.getItemDamage()), TContent.metalBlock.blockID, 7, 350, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 8));
+			Smeltery.addMelting(new ItemStack(ore.itemID, 2, ore.getItemDamage()), TContent.metalBlock.blockID, 7, 350, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 8));
 		}
 		
 		ores = OreDictionary.getOres("ingotAlumite");
 		for (ItemStack ore : ores)
 		{
 			PatternBuilder.instance.registerMaterial(ore, 2, "Alumite");
-			Smeltery.addMelting(new ItemStack(ore.itemID, 4, ore.getItemDamage()), TContent.metalBlock.blockID, 8, 500, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 10));
+			Smeltery.addMelting(new ItemStack(ore.itemID, 2, ore.getItemDamage()), TContent.metalBlock.blockID, 8, 500, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 10));
 		}
 		
 		ores = OreDictionary.getOres("ingotSteel");
 		for (ItemStack ore : ores)
 		{
 			PatternBuilder.instance.registerMaterial(ore, 2, "Steel");
-			Smeltery.addMelting(new ItemStack(ore.itemID, 4, ore.getItemDamage()), TContent.metalBlock.blockID, 9, 500, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 12));
+			Smeltery.addMelting(new ItemStack(ore.itemID, 2, ore.getItemDamage()), TContent.metalBlock.blockID, 9, 500, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 12));
 		}
 		
 		ores = OreDictionary.getOres("oreCopper");
@@ -472,62 +485,86 @@ public class TEventHandler
 		ores = OreDictionary.getOres("dustCopper");
 		for (ItemStack ore : ores)
 		{
-			Smeltery.addMelting(new ItemStack(ore.itemID, 4, ore.getItemDamage()), TContent.metalBlock.blockID, 3, 450, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 2));
+			Smeltery.addMelting(new ItemStack(ore.itemID, 2, ore.getItemDamage()), TContent.metalBlock.blockID, 3, 450, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 2));
 		}
 		
 		ores = OreDictionary.getOres("dustTin");
 		for (ItemStack ore : ores)
 		{
-			Smeltery.addMelting(new ItemStack(ore.itemID, 4, ore.getItemDamage()), TContent.metalBlock.blockID, 5, 175, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 3));
+			Smeltery.addMelting(new ItemStack(ore.itemID, 2, ore.getItemDamage()), TContent.metalBlock.blockID, 5, 175, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 3));
 		}
 		
 		ores = OreDictionary.getOres("dustBronze");
 		for (ItemStack ore : ores)
 		{
-			Smeltery.addMelting(new ItemStack(ore.itemID, 4, ore.getItemDamage()), TContent.metalBlock.blockID, 4, 500, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 7));
+			Smeltery.addMelting(new ItemStack(ore.itemID, 2, ore.getItemDamage()), TContent.metalBlock.blockID, 4, 500, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 7));
 		}
 		
 		ores = OreDictionary.getOres("dustCobalt");
 		for (ItemStack ore : ores)
 		{
-			Smeltery.addMelting(new ItemStack(ore.itemID, 4, ore.getItemDamage()), TContent.metalBlock.blockID, 0, 650, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 5));
+			Smeltery.addMelting(new ItemStack(ore.itemID, 2, ore.getItemDamage()), TContent.metalBlock.blockID, 0, 650, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 5));
 		}
 		
 		ores = OreDictionary.getOres("dustArdite");
 		for (ItemStack ore : ores)
 		{
-			Smeltery.addMelting(new ItemStack(ore.itemID, 4, ore.getItemDamage()), TContent.metalBlock.blockID, 1, 650, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 6));
+			Smeltery.addMelting(new ItemStack(ore.itemID, 2, ore.getItemDamage()), TContent.metalBlock.blockID, 1, 650, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 6));
 		}
 		
 		ores = OreDictionary.getOres("dustManyullyn");
 		for (ItemStack ore : ores)
 		{
-			Smeltery.addMelting(new ItemStack(ore.itemID, 4, ore.getItemDamage()), TContent.metalBlock.blockID, 2, 750, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 9));
+			Smeltery.addMelting(new ItemStack(ore.itemID, 2, ore.getItemDamage()), TContent.metalBlock.blockID, 2, 750, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 9));
 		}
 		
 		ores = OreDictionary.getOres("dustNaturalAluminum");
 		for (ItemStack ore : ores)
 		{
-			Smeltery.addMelting(new ItemStack(ore.itemID, 4, ore.getItemDamage()), TContent.metalBlock.blockID, 6, 250, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 4));
+			Smeltery.addMelting(new ItemStack(ore.itemID, 2, ore.getItemDamage()), TContent.metalBlock.blockID, 6, 250, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 4));
 		}
 		
 		ores = OreDictionary.getOres("dustAluminumBrass");
 		for (ItemStack ore : ores)
 		{
-			Smeltery.addMelting(new ItemStack(ore.itemID, 4, ore.getItemDamage()), TContent.metalBlock.blockID, 7, 350, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 8));
+			Smeltery.addMelting(new ItemStack(ore.itemID, 2, ore.getItemDamage()), TContent.metalBlock.blockID, 7, 350, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 8));
 		}
 		
 		ores = OreDictionary.getOres("dustAlumite");
 		for (ItemStack ore : ores)
 		{
-			Smeltery.addMelting(new ItemStack(ore.itemID, 4, ore.getItemDamage()), TContent.metalBlock.blockID, 8, 500, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 10));
+			Smeltery.addMelting(new ItemStack(ore.itemID, 2, ore.getItemDamage()), TContent.metalBlock.blockID, 8, 500, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 10));
 		}
 		
 		ores = OreDictionary.getOres("dustSteel");
 		for (ItemStack ore : ores)
 		{
-			Smeltery.addMelting(new ItemStack(ore.itemID, 4, ore.getItemDamage()), TContent.metalBlock.blockID, 9, 500, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 12));
+			Smeltery.addMelting(new ItemStack(ore.itemID, 2, ore.getItemDamage()), TContent.metalBlock.blockID, 9, 500, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 12));
 		}
+		
+		ores = OreDictionary.getOres("nuggetIron");
+        for (ItemStack ore : ores)
+        {
+            Smeltery.addMelting(new ItemStack(ore.itemID, 2, ore.getItemDamage()), TContent.metalBlock.blockID, 3, 450, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue/9, 2));
+        }
+		
+		ores = OreDictionary.getOres("nuggetCopper");
+        for (ItemStack ore : ores)
+        {
+            Smeltery.addMelting(new ItemStack(ore.itemID, 2, ore.getItemDamage()), TContent.metalBlock.blockID, 3, 450, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue/9, 2));
+        }
+        
+        ores = OreDictionary.getOres("nuggetTin");
+        for (ItemStack ore : ores)
+        {
+            Smeltery.addMelting(new ItemStack(ore.itemID, 2, ore.getItemDamage()), TContent.metalBlock.blockID, 5, 175, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue/9, 3));
+        }
+        
+        ores = OreDictionary.getOres("nuggetNaturalAluminum");
+        for (ItemStack ore : ores)
+        {
+            Smeltery.addMelting(new ItemStack(ore.itemID, 2, ore.getItemDamage()), TContent.metalBlock.blockID, 6, 250, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue/9, 4));
+        }
 	}
 
 	@ForgeSubscribe

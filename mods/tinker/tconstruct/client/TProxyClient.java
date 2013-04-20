@@ -65,6 +65,7 @@ public class TProxyClient extends TProxyCommon
         RenderingRegistry.registerBlockHandler(new SearedRender());
         RenderingRegistry.registerBlockHandler(new FluidRender());
         RenderingRegistry.registerBlockHandler(new GolemCoreRender());
+        RenderingRegistry.registerBlockHandler(new OreberryRender());
         //RenderingRegistry.registerBlockHandler(new BallRepeaterRender());
 
         //Tools

@@ -18,15 +18,15 @@ public class CraftingItem extends Item
 	public String[] unlocalizedNames;
 	public String folder;
 	public Icon[] icons;
-	public CraftingItem(int id, String[] names, String[] tex, String f)
+	public CraftingItem(int id, String[] names, String[] tex, String folder)
 	{
 		super(id);
 		this.setCreativeTab(TConstructRegistry.materialTab);
 		this.setMaxDamage(0);
 		this.setHasSubtypes(true);
-		textureNames = tex;
-		unlocalizedNames = names;
-		folder = f;
+		this.textureNames = tex;
+		this.unlocalizedNames = names;
+		this.folder = folder;
 	}
 
 	@SideOnly(Side.CLIENT)

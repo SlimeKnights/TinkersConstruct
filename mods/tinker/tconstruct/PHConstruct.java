@@ -72,12 +72,16 @@ public class PHConstruct
         metalStill = config.getBlock("Liquid Metal Still", 1480).getInt(1480);
         //landmine = config.getBlock("Landmine", 1481).getInt(1481);
 
-        golemCore = config.getBlock("Golem Core", 1481).getInt(1481);
-        golemHead = config.getBlock("Golem Head", 1482).getInt(1482);
+        /*golemCore = config.getBlock("Golem Core", 1481).getInt(1481);
+        golemHead = config.getBlock("Golem Head", 1482).getInt(1482);*/
         //golemPedestal = config.getBlock("Golem Pedestal", 1483).getInt(1483);
         //redstoneBallRepeater = config.getBlock("Redstone Ball Repeater", 1483).getInt(1483);
 
         stoneTorch = config.getBlock("Stone Torch", 1484).getInt(1484);
+        oreBerry = config.getBlock("Ore Berry One", 1485).getInt(1485);
+        oreBerrySecond = config.getBlock("Ore Berry Two", 1486).getInt(1486);
+        //netherOreBerry = config.getBlock("Ore Berry Nether", 1487).getInt(1487);
+        oreGravel = config.getBlock("Ores Gravel", 1488).getInt(1488);
 
         manual = config.getItem("Patterns and Misc", "Tinker's Manual", 14018).getInt(14018);
         blankPattern = config.getItem("Patterns and Misc", "Blank Patterns", 14019).getInt(14019);
@@ -123,6 +127,7 @@ public class PHConstruct
         buckets = config.getItem("Patterns and Misc", "Buckets", 14101).getInt(14101);
         uselessItem = config.getItem("Patterns and Misc", "Title Icon", 14102).getInt(14102);
         slimefood = config.getItem("Patterns and Misc", "Strange Food", 14103).getInt(14103);
+        oreChunks = config.getItem("Patterns and Misc", "Ore Chunks", 14104).getInt(14104);
 
         boolean ic2 = true;
         boolean xycraft = true;
@@ -143,22 +148,51 @@ public class PHConstruct
         {
         }
 
-        generateCopper = config.get("Worldgen", "Generate Copper", ic2).getBoolean(ic2);
-        generateTin = config.get("Worldgen", "Generate Tin", ic2).getBoolean(ic2);
-        generateAluminum = config.get("Worldgen", "Generate Aluminum", xycraft).getBoolean(xycraft);
-        generateCobalt = config.get("Worldgen", "Generate Cobalt", true).getBoolean(true);
-        generateArdite = config.get("Worldgen", "Generate Ardite", true).getBoolean(true);
+        generateCopper = config.get("Worldgen Disabler", "Generate Copper", ic2).getBoolean(ic2);
+        generateTin = config.get("Worldgen Disabler", "Generate Tin", ic2).getBoolean(ic2);
+        generateAluminum = config.get("Worldgen Disabler", "Generate Aluminum", xycraft).getBoolean(xycraft);
+        generateNetherOres = config.get("Worldgen Disabler", "Generate Cobalt and Ardite", true).getBoolean(true);
 
-        copperDensity = config.get("Worldgen", "Copper Density", 8).getInt(8);
-        copperHeight = config.get("Worldgen", "Copper Height", 20).getInt(20);
-        copperRange = config.get("Worldgen", "Copper Range", 40).getInt(40);
-        tinDensity = config.get("Worldgen", "Tin Density", 8).getInt(8);
-        tinHeight = config.get("Worldgen", "Tin Height", 0).getInt(0);
-        tinRange = config.get("Worldgen", "Tin Range", 40).getInt(40);
-        aluminumDensity = config.get("Worldgen", "Aluminum Density", 5).getInt(5);
-        aluminumHeight = config.get("Worldgen", "Aluminum Height", 0).getInt(0);
-        aluminumRange = config.get("Worldgen", "Aluminum Range", 64).getInt(64);
+        generateIronSurface = config.get("Worldgen Disabler", "Generate Surface Iron", true).getBoolean(true);
+        generateGoldSurface = config.get("Worldgen Disabler", "Generate Surface Gold", true).getBoolean(true);
+        generateCopperSurface = config.get("Worldgen Disabler", "Generate Surface Copper", true).getBoolean(true);
+        generateTinSurface = config.get("Worldgen Disabler", "Generate Surface Tin", true).getBoolean(true);
+        generateAluminumSurface = config.get("Worldgen Disabler", "Generate Surface Aluminum", true).getBoolean(true);
+
+        generateIronBush = config.get("Worldgen Disabler", "Generate Iron Bushes", true).getBoolean(true);
+        generateGoldBush = config.get("Worldgen Disabler", "Generate Gold Bushes", true).getBoolean(true);
+        generateCopperBush = config.get("Worldgen Disabler", "Generate Copper Bushes", true).getBoolean(true);
+        generateTinBush = config.get("Worldgen Disabler", "Generate Tin Bushes", true).getBoolean(true);
+        generateAluminumBush = config.get("Worldgen Disabler", "Generate Aluminum Bushes", true).getBoolean(true);
+        generateSilverBush = config.get("Worldgen Disabler", "Generate Silver Bushes", true).getBoolean(true);
+
+        copperuDensity = config.get("Worldgen", "Copper Underground Density", ic2 ? 1 : 0).getInt(ic2 ? 1 : 0);
+        tinuDensity = config.get("Worldgen", "Tin Underground Density", ic2 ? 1 : 0).getInt(ic2 ? 1 : 0);
+        aluminumuDensity = config.get("Worldgen", "Aluminum Underground Density", xycraft ? 1 : 0).getInt(xycraft ? 1 : 0);
         netherDensity = config.get("Worldgen", "Nether Ores Density", 8).getInt(8);
+        
+        copperuHeight = config.get("Worldgen", "Copper Underground Min Y", 20).getInt(20);
+        copperuRange = config.get("Worldgen", "Copper Underground Max Y", 60).getInt(60);
+        tinuHeight = config.get("Worldgen", "Tin Underground Min Y", 0).getInt(0);
+        tinuRange = config.get("Worldgen", "Tin Underground Max Y", 40).getInt(40);
+        aluminumuHeight = config.get("Worldgen", "Aluminum Underground Min Y", 0).getInt(0);
+        aluminumuRange = config.get("Worldgen", "Aluminum Underground Max Y", 64).getInt(64);
+        
+        ironsRarity = config.get("Worldgen", "Iron Surface Rarity", 38).getInt(38);
+        goldsRarity = config.get("Worldgen", "Gold Surface Rarity", 100).getInt(100);
+        coppersRarity = config.get("Worldgen", "Copper Surface Rarity", 26).getInt(26);
+        tinsRarity = config.get("Worldgen", "Tin Surface Rarity", 26).getInt(26);
+        aluminumsRarity = config.get("Worldgen", "Aluminum Surface Rarity", 32).getInt(32);
+        cobaltsRarity = config.get("Worldgen", "Aluminum Surface Rarity", 400).getInt(400);
+        
+        ironbRarity = config.get("Worldgen", "Iron Bush Rarity", 28).getInt(28);
+        goldbRarity = config.get("Worldgen", "Gold Bush Rarity", 125).getInt(125);
+        copperbRarity = config.get("Worldgen", "Copper Bush Rarity", 20).getInt(20);
+        tinbRarity = config.get("Worldgen", "Tin Bush Rarity", 20).getInt(20);
+        aluminumbRarity = config.get("Worldgen", "Aluminum Bush Rarity", 20).getInt(20);
+        silverbRarity = config.get("Worldgen", "Silver Bush Rarity", 100).getInt(100);
+        
+        seaLevel = config.get("general", "Sea level", 64).getInt(64);
 
         /* Save the configuration file */
         config.save();
@@ -173,12 +207,18 @@ public class PHConstruct
     public static int searedTable;
     public static int craftedSoil;
     public static int oreSlag;
+    public static int oreGravel;
     public static int metalBlock;
     //public static int axle;
 
     public static int golemCore;
     public static int golemHead;
     public static int golemPedestal;
+    
+    //Crops
+    public static int oreBerry;
+    public static int oreBerrySecond;
+    public static int netherOreBerry;
 
     //Traps
     //public static int landmine;
@@ -202,6 +242,7 @@ public class PHConstruct
     public static int manual;
     public static int buckets;
     public static int uselessItem;
+    public static int oreChunks;
 
     //Food
     public static int slimefood;
@@ -247,19 +288,51 @@ public class PHConstruct
     public static boolean generateCopper;
     public static boolean generateTin;
     public static boolean generateAluminum;
-    public static boolean generateCobalt;
-    public static boolean generateArdite;
-
-    public static int copperDensity;
-    public static int copperHeight;
-    public static int copperRange;
-    public static int tinDensity;
-    public static int tinHeight;
-    public static int tinRange;
-    public static int aluminumDensity;
-    public static int aluminumHeight;
-    public static int aluminumRange;
+    public static boolean generateNetherOres;
+    
+    public static boolean generateIronSurface;
+    public static boolean generateGoldSurface;
+    public static boolean generateCopperSurface;
+    public static boolean generateTinSurface;
+    public static boolean generateAluminumSurface;
+    public static boolean generateCobaltSurface;
+    
+    public static boolean generateIronBush;
+    public static boolean generateGoldBush;
+    public static boolean generateCopperBush;
+    public static boolean generateTinBush;
+    public static boolean generateAluminumBush;
+    public static boolean generateSilverBush;
+    
+    public static int copperuDensity;
+    public static int tinuDensity;
+    public static int aluminumuDensity;
     public static int netherDensity;
+    
+    public static int ironsRarity;
+    public static int goldsRarity;
+    public static int coppersRarity;
+    public static int tinsRarity;
+    public static int aluminumsRarity;
+    public static int cobaltsRarity;
+    
+    public static int ironbRarity;
+    public static int goldbRarity;
+    public static int copperbRarity;
+    public static int tinbRarity;
+    public static int aluminumbRarity;
+    public static int silverbRarity;
+    
+    public static int copperuHeight;
+    public static int copperuRange;
+    
+    public static int tinuHeight;
+    public static int tinuRange;
+    
+    public static int aluminumuHeight;
+    public static int aluminumuRange;
+    
+    public static int seaLevel;
 
     //Mobs
     public static boolean redCreeper;

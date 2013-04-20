@@ -30,6 +30,27 @@
   <entry key="MetalOre.Aluminum.name">Aluminum Ore</entry>
   <entry key="MetalOre.Slag.name">Stone Slag</entry>
   
+  <entry key="block.oreberry.iron.name">Iron Oreberry Bush</entry>
+  <entry key="block.oreberry.gold.name">Gold Oreberry Bush</entry>
+  <entry key="block.oreberry.copper.name">Copper Oreberry Bush</entry>
+  <entry key="block.oreberry.tin.name">Tin Oreberry Bush</entry>
+  <entry key="block.oreberry.aluminum.name">Aluminum Oreberry Bush</entry>
+  <entry key="block.oreberry.silver.name">Silver Oreberry Bush</entry>
+  
+  <entry key="block.ore.gravel.iron.name">Iron Ore</entry>
+  <entry key="block.ore.gravel.gold.name">Gold Ore</entry>
+  <entry key="block.ore.gravel.copper.name">Copper Ore</entry>
+  <entry key="block.ore.gravel.tin.name">Tin Ore</entry>
+  <entry key="block.ore.gravel.aluminum.name">Aluminum Ore</entry>
+  <entry key="block.ore.gravel.cobalt.name">Cobalt Ore</entry>
+  
+  <entry key="item.oreberry.iron.name">Iron Oreberry</entry>
+  <entry key="item.oreberry.gold.name">Gold Oreberry</entry>
+  <entry key="item.oreberry.copper.name">Copper Oreberry</entry>
+  <entry key="item.oreberry.tin.name">Tin Oreberry</entry>
+  <entry key="item.oreberry.aluminum.name">Aluminum Oreberry</entry>
+  <entry key="item.oreberry.silver.name">Silver Oreberry</entry>
+  
   <entry key="Smeltery.Controller.name">Smeltery Controller</entry>
   <entry key="Smeltery.Drain.name">Smeltery Drain</entry>
   <entry key="Smeltery.Brick.name">Seared Bricks</entry>

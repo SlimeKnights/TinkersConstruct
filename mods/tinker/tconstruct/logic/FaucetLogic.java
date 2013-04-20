@@ -11,10 +11,11 @@ import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.liquids.ILiquidTank;
 import net.minecraftforge.liquids.ITankContainer;
 import net.minecraftforge.liquids.LiquidStack;
 
-public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogic
+public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogic, ITankContainer
 {
 	byte direction;
 	boolean active;
@@ -200,5 +201,41 @@ public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogi
 			active = false;
 		}
 	}
+
+    @Override
+    public int fill (ForgeDirection from, LiquidStack resource, boolean doFill)
+    {
+        return 0;
+    }
+
+    @Override
+    public int fill (int tankIndex, LiquidStack resource, boolean doFill)
+    {
+        return 0;
+    }
+
+    @Override
+    public LiquidStack drain (ForgeDirection from, int maxDrain, boolean doDrain)
+    {
+        return null;
+    }
+
+    @Override
+    public LiquidStack drain (int tankIndex, int maxDrain, boolean doDrain)
+    {
+        return null;
+    }
+
+    @Override
+    public ILiquidTank[] getTanks (ForgeDirection direction)
+    {
+        return null;
+    }
+
+    @Override
+    public ILiquidTank getTank (ForgeDirection direction, LiquidStack type)
+    {
+        return null;
+    }
 
 }

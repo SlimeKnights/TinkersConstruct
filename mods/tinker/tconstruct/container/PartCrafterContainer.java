@@ -85,7 +85,6 @@ public class PartCrafterContainer extends ActiveContainer
             }
             slot.onSlotChanged();
         }
-        System.out.println("Returning stack");
         return stack;
     }
 }

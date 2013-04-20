@@ -2,6 +2,8 @@ package mods.tinker.tconstruct.player;
 
 import java.util.EnumSet;
 
+import mods.tinker.tconstruct.TContent;
+import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.Tessellator;
@@ -19,6 +21,9 @@ public class TClientTickHandler implements ITickHandler
     @Override
     public void tickEnd (EnumSet<TickType> type, Object... tickData)
     {
+        TContent.oreBerry.setGraphicsLevel(Block.leaves.graphicsLevel);
+        TContent.oreBerrySecond.setGraphicsLevel(Block.leaves.graphicsLevel);
+        
         player = mc.thePlayer;
         if (player == null || player.capabilities.isCreativeMode)
             return;

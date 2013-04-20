@@ -220,7 +220,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     public void setActive (boolean flag)
     {
         needsUpdate = true;
-        //worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
     }
 
     public int getScaledFuelGague (int scale)
@@ -446,8 +446,8 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         updateTemperatures();
         super.onInventoryChanged();
         needsUpdate = true;
-        //worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-        //worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+        worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
     }
 
     /* Multiblock */

@@ -109,10 +109,12 @@ public class TProxyCommon
             "Slime Crystal Fragment", "Paper", "Cobalt Chunk", "Ardite Chunk", "Manyullyn Chunk", "Copper Chunk", "Bronze Chunk", "Alumite Chunk", "Steel Chunk", "Slime Crystal Fragment" };
 
     public static final String[] materialItemInternalNames = new String[] { "PaperStack", "SlimeCrystal", "SearedBrick", "CobaltIngot", "ArditeIngot", "ManyullynIngot", "Mossball", "LavaCrystal",
-            "NecroticBone", "CopperIngot", "TinIngot", "AluminumIngot", "RawAluminum", "BronzeIngot", "AlBrassIngot", "AlumiteIngot", "SteelIngot", "BlueSlimeCrystal", "ObsidianIngot" };
+            "NecroticBone", "CopperIngot", "TinIngot", "AluminumIngot", "RawAluminum", "BronzeIngot", "AlBrassIngot", "AlumiteIngot", "SteelIngot", "BlueSlimeCrystal", "ObsidianIngot", "IronNugget",
+            "CopperNugget", "TinNugget", "AluminumNugget", "SilverNugget" };
 
     public static final String[] materialItemNames = new String[] { "Paper Stack", "Slime Crystal", "Seared Brick", "Cobalt Ingot", "Ardite Ingot", "Manyullyn Ingot", "Ball of Moss", "Lava Crystal",
-            "Necrotic Bone", "Copper Ingot", "Tin Ingot", "Aluminum Ingot", "Raw Aluminum", "Bronze Ingot", "Aluminum Brass Ingot", "Alumite Ingot", "Steel Ingot", "Slime Crystal", "Obsidian Ingot" };
+            "Necrotic Bone", "Copper Ingot", "Tin Ingot", "Aluminum Ingot", "Raw Aluminum", "Bronze Ingot", "Aluminum Brass Ingot", "Alumite Ingot", "Steel Ingot", "Slime Crystal", "Obsidian Ingot", "Iron Nugget",
+            "Copper Nugget", "Tin Nugget", "Aluminum Nugget", "Silver Nugget" };
 
     public static final String[] toolMaterialNames = new String[] { "Wood", "Stone", "Iron", "Flint", "Cactus", "Bone", "Obsidian", "Netherrack", "Slime", "Paper", "Cobalt", "Ardite", "Manyullyn",
             "Copper", "Bronze", "Alumite", "Steel", "Blue Slime" };
