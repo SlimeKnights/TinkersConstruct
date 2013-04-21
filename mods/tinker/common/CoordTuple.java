@@ -32,4 +32,9 @@ public class CoordTuple
 		else
 			return false;
 	}
+	
+	public String toString()
+	{
+	    return "X: "+x+", Y: "+y+", Z: "+z;
+	}
 }

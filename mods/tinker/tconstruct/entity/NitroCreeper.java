@@ -1,8 +1,10 @@
 package mods.tinker.tconstruct.entity;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.ai.EntityAIAttackOnCollide;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.monster.EntityIronGolem;
+import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSource;
@@ -22,6 +24,13 @@ public class NitroCreeper extends EntityCreeper
         this.tasks.addTask(4, new EntityAIAttackOnCollide(this, 1.0F, false));
         this.texture = "/mods/tinker/textures/mob/creeperunstable.png";
     }
+    
+    /*@Override
+    public void initCreature ()
+    {
+        //if (this.rand.nextInt(100) == 0)
+            this.dataWatcher.updateObject(17, Byte.valueOf((byte)1));
+    }*/
 
     public int getMaxHealth ()
     {
@@ -38,7 +47,7 @@ public class NitroCreeper extends EntityCreeper
 
                 if (this.getPowered())
                 {
-                    this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, (float) (0.75f * (worldObj.difficultySetting - 1)) * 2, false);
+                    this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, 20f, flag);
                 }
                 else
                 {
@@ -89,7 +98,9 @@ public class NitroCreeper extends EntityCreeper
 
             int difficulty = worldObj.difficultySetting;
             int lengthBoost = 4 * (3 - difficulty);
-            if (this.timeSinceIgnited >= this.fuseTime + difficulty)
+            int powered = this.getPowered() ? 12 : 0;
+            
+            if (this.timeSinceIgnited >= this.fuseTime + difficulty + powered)
             {
                 this.timeSinceIgnited = this.fuseTime;
 
@@ -97,9 +108,9 @@ public class NitroCreeper extends EntityCreeper
                 {
                     boolean flag = this.worldObj.getGameRules().getGameRuleBooleanValue("mobGriefing");
 
-                    if (this.getPowered())
+                    if (powered > 0)
                     {
-                        this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, (float) (this.explosionRadius + 1f * (difficulty - 1)) * 2, flag);
+                        this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, 20f, flag);
                     }
                     else
                     {
@@ -136,6 +147,37 @@ public class NitroCreeper extends EntityCreeper
             {
                 this.dropItem(j, 1);
             }
+        }
+        
+        if (this.getPowered())
+        {
+            if (j > 0)
+            {
+                int k = this.rand.nextInt(40) + 20;
+
+                if (par2 > 0)
+                {
+                    k += this.rand.nextInt(par2*6 + 1);
+                }
+
+                for (int l = 0; l < k; ++l)
+                {
+                    this.dropItem(j, 1);
+                }
+            }
+            
+            /*j = Block.tnt.blockID;
+            int k = this.rand.nextInt(5) + 2;
+
+            if (par2 > 0)
+            {
+                k += this.rand.nextInt(par2*3 + 1);
+            }
+
+            for (int l = 0; l < k; ++l)
+            {
+                this.dropItem(j, 1);
+            }*/
         }
     }
     

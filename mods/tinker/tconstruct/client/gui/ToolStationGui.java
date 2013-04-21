@@ -35,6 +35,7 @@ public class ToolStationGui extends NewContainerGui
     String toolName;
     int guiType;
     int[] slotX, slotY, iconX, iconY;
+    boolean active;
     String title, body = "";
 
     public ToolStationGui(InventoryPlayer inventoryplayer, ToolStationLogic stationlogic, World world, int x, int y, int z)
@@ -52,6 +53,19 @@ public class ToolStationGui extends NewContainerGui
         toolName = "";
         resetGui();
         Keyboard.enableRepeatEvents(true);
+    }
+    
+    protected void mouseClicked (int mouseX, int mouseY, int mouseButton)
+    {
+        super.mouseClicked(mouseX, mouseY, mouseButton);
+        if (mouseButton == 0)
+        {
+            int gLeft = this.guiLeft+68;
+            int gTop = this.guiTop+6;
+            int gWidth = 102;
+            int gHeight = 12;
+            active = mouseX > gLeft && mouseX < gLeft + gWidth && mouseY > gTop && mouseY < gTop + gHeight;
+        }
     }
 
     void resetGui ()
@@ -146,6 +160,8 @@ public class ToolStationGui extends NewContainerGui
             drawToolStats();
         else
             drawToolInformation();
+        
+        this.fontRenderer.drawString("Namebox active: "+active, this.xSize / 2 - 18, -10, 0xffffff);
     }
 
     void drawToolStats ()
@@ -337,14 +353,14 @@ public class ToolStationGui extends NewContainerGui
 
     protected void keyTyped (char par1, int keyCode)
     {
-        if (keyCode == 1)
+        if (keyCode == 1 || (!active && keyCode == this.mc.gameSettings.keyBindInventory.keyCode))
         {
             logic.setToolname("");
             updateServer("");
             Keyboard.enableRepeatEvents(false);
             this.mc.thePlayer.closeScreen();
         }
-        else
+        else if (active)
         {
             text.textboxKeyTyped(par1, keyCode);
             toolName = text.getText().trim();

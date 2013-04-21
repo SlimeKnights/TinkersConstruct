@@ -45,22 +45,8 @@ public class OreberryRender implements ISimpleBlockRenderingHandler
     {
         if (modelID == model)
         {
-            Tessellator tessellator = Tessellator.instance;
-            if (metadata < 4)
-            {
-                renderer.setRenderBounds(0.25F, 0.0F, 0.25F, 0.75F, 0.5F, 0.75F);
-                renderInvBlock(renderer, block, metadata);
-            }
-            else if (metadata < 8)
-            {
-                renderer.setRenderBounds(0.125F, 0.0F, 0.125F, 0.875F, 0.75F, 0.875F);
-                renderInvBlock(renderer, block, metadata);
-            }
-            else
-            {
-                renderer.setRenderBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
-                renderInvBlock(renderer, block, metadata);
-            }
+            renderer.setRenderBounds(0.125F, 0.0F, 0.125F, 0.875F, 0.75F, 0.875F);
+            renderInvBlock(renderer, block, metadata);
         }
     }
 

@@ -189,6 +189,14 @@ Other liquid removal objects will work, but are frowned upon. An example picture
 </page>
 
 <page type="crafting">
+<text>Seared Faucet</text>
+<recipe>
+ <name>smelteryfaucet</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="crafting">
 <text>Casting Table</text>
 <recipe>
  <name>smelterytable</name>
@@ -197,10 +205,11 @@ Other liquid removal objects will work, but are frowned upon. An example picture
 </page>
 
 <page type="crafting">
-<text>Seared Faucet</text>
+<text>Casting Basin</text>
 <recipe>
- <name>smelteryfaucet</name>
+ <name>smelterybasin</name>
  <size>three</size>
 </recipe>
 </page>
+
 </book>

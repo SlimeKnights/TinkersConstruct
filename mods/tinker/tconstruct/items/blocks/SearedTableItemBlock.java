@@ -8,7 +8,7 @@ public class SearedTableItemBlock extends ItemBlock
 {
     public static final String blockType[] =
     {
-        "Table", "Faucet"
+        "Table", "Faucet", "Basin"
     };
 
     public SearedTableItemBlock(int id)

@@ -7,18 +7,14 @@ import java.util.ArrayList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import mods.tinker.common.fancyitem.FancyEntityItem;
-import mods.tinker.common.fancyitem.FancyItemRender;
-import mods.tinker.tconstruct.TConstruct;
-import mods.tinker.tconstruct.TContent;
-import mods.tinker.tconstruct.TProxyCommon;
+import mods.tinker.common.fancyitem.*;
+import mods.tinker.tconstruct.*;
 import mods.tinker.tconstruct.client.blockrender.*;
 import mods.tinker.tconstruct.client.entityrender.*;
 import mods.tinker.tconstruct.crafting.*;
 import mods.tinker.tconstruct.entity.*;
 import mods.tinker.tconstruct.library.client.*;
-import mods.tinker.tconstruct.logic.CastingTableLogic;
-import mods.tinker.tconstruct.logic.GolemCoreLogic;
+import mods.tinker.tconstruct.logic.*;
 import mods.tinker.tconstruct.player.TClientTickHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -78,6 +74,7 @@ public class TProxyClient extends TProxyCommon
         //Special Renderers
         ClientRegistry.bindTileEntitySpecialRenderer(CastingTableLogic.class, new CastingTableSpecialRenderer());
         ClientRegistry.bindTileEntitySpecialRenderer(GolemCoreLogic.class, new GolemCoreSpecialRender());
+        ClientRegistry.bindTileEntitySpecialRenderer(CastingBasinLogic.class, new CastingBasinSpecialRender());
 
         //Entities
         RenderingRegistry.registerEntityRenderingHandler(FancyEntityItem.class, new FancyItemRender());
@@ -252,7 +249,7 @@ public class TProxyClient extends TProxyCommon
         TConstructClientRegistry.registerManualLargeRecipe("smelterycontroller", new ItemStack(TContent.smeltery, 1, 0), searedbrick, searedbrick, searedbrick, searedbrick, null, searedbrick,
                 searedbrick, searedbrick, searedbrick);
         TConstructClientRegistry.registerManualLargeRecipe("smelterydrain", new ItemStack(TContent.smeltery, 1, 1), searedbrick, null, searedbrick, searedbrick, null, searedbrick, searedbrick,
-                searedbrick, searedbrick);
+                null, searedbrick);
 
         TConstructClientRegistry.registerManualLargeRecipe("smelterytank1", new ItemStack(TContent.lavaTank, 1, 0), searedbrick, searedbrick, searedbrick, searedbrick, glass, searedbrick,
                 searedbrick, searedbrick, searedbrick);
@@ -264,6 +261,8 @@ public class TProxyClient extends TProxyCommon
         TConstructClientRegistry.registerManualLargeRecipe("smelterytable", new ItemStack(TContent.searedBlock, 1, 0), searedbrick, searedbrick, searedbrick, searedbrick, null, searedbrick,
                 searedbrick, null, searedbrick);
         TConstructClientRegistry.registerManualLargeRecipe("smelteryfaucet", new ItemStack(TContent.searedBlock, 1, 1), searedbrick, null, searedbrick, null, searedbrick, null, null, null, null);
+        TConstructClientRegistry.registerManualLargeRecipe("smelterybasin", new ItemStack(TContent.searedBlock, 1, 2), searedbrick, null, searedbrick, searedbrick, null, searedbrick,
+                searedbrick, searedbrick, searedbrick);
 
         //Modifier recipes
         ItemStack ironpick = ToolBuilder.instance.buildTool(new ItemStack(TContent.pickaxeHead, 1, 6), new ItemStack(TContent.toolRod, 1, 2), new ItemStack(TContent.binding, 1, 6), "");

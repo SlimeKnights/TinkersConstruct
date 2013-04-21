@@ -274,6 +274,13 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
             }*/
         }
     }
+    
+    public boolean canSustainPlant(World world, int x, int y, int z, ForgeDirection direction, IPlantable plant)
+    {
+        if (plant instanceof OreberryBush)
+            return (world.getBlockMetadata(x, y, z) > 7);
+        return super.canSustainPlant(world, x, y, z, direction, plant);
+    }
 
     /* Resistance to fire */
 
@@ -302,7 +309,7 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
     @Override
     public void getSubBlocks (int par1, CreativeTabs par2CreativeTabs, List par3List)
     {
-        for (int var4 = 12; var4 < 12+subitems; ++var4)
+        for (int var4 = 8; var4 < 8+subitems; ++var4)
         {
             par3List.add(new ItemStack(par1, 1, var4));
         }

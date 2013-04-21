@@ -6,9 +6,9 @@ import mods.tinker.common.InventoryBlock;
 import mods.tinker.tconstruct.TConstruct;
 import mods.tinker.tconstruct.client.blockrender.SearedRender;
 import mods.tinker.tconstruct.library.TConstructRegistry;
+import mods.tinker.tconstruct.logic.CastingBasinLogic;
 import mods.tinker.tconstruct.logic.CastingTableLogic;
 import mods.tinker.tconstruct.logic.FaucetLogic;
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.item.EntityItem;
@@ -40,6 +40,8 @@ public class SearedBlock extends InventoryBlock
 			return new CastingTableLogic();
 		case 1:
 			return new FaucetLogic();
+        case 2:
+            return new CastingBasinLogic();
 		default:
 			return null;
 		}
@@ -48,16 +50,7 @@ public class SearedBlock extends InventoryBlock
 	@Override
 	public Integer getGui (World world, int x, int y, int z, EntityPlayer entityplayer)
 	{
-		int meta = world.getBlockMetadata(x, y, z);
-		switch (meta)
-		{
-		case 0:
-			return null;
-		case 1:
-			return null;
-		default:
-			return null;
-		}
+		return null;
 	}
 
 	@Override
@@ -75,6 +68,10 @@ public class SearedBlock extends InventoryBlock
 		{
 			return activateCastingTable(world, x, y, z, player);
 		}
+		if (md == 2)
+        {
+            return activateCastingBasin(world, x, y, z, player);
+        }
 		else if (md == 1)
 		{
 			if (player.isSneaking())
@@ -123,6 +120,42 @@ public class SearedBlock extends InventoryBlock
 		}
 		return true;
 	}
+	
+	boolean activateCastingBasin (World world, int x, int y, int z, EntityPlayer player)
+    {
+        if (!world.isRemote)
+        {
+            //System.out.println("Castses");
+            CastingBasinLogic logic = (CastingBasinLogic) world.getBlockTileEntity(x, y, z);
+            if (logic.liquid != null)
+                return true;
+            
+            if (!logic.isStackInSlot(0) && !logic.isStackInSlot(1))
+            {
+                ItemStack stack = player.getCurrentEquippedItem();
+                stack = player.inventory.decrStackSize(player.inventory.currentItem, 1);
+                logic.setInventorySlotContents(0, stack);
+            }
+            else
+            {
+                if (logic.isStackInSlot(1))
+                {
+                    ItemStack stack = logic.decrStackSize(1, 1);
+                    if (stack != null)
+                        addItemToInventory(player, world, x, y, z, stack);
+                }
+                else if (logic.isStackInSlot(0))
+                {
+                    ItemStack stack = logic.decrStackSize(0, 1);
+                    if (stack != null)
+                        addItemToInventory(player, world, x, y, z, stack);
+                }
+            }
+
+            world.markBlockForUpdate(x, y, z);
+        }
+        return true;
+    }
 
 	protected void addItemToInventory (EntityPlayer player, World world, int x, int y, int z, ItemStack stack)
 	{
@@ -148,7 +181,10 @@ public class SearedBlock extends InventoryBlock
 			"castingtable_top",
 			"castingtable_side",
 			"castingtable_bottom",
-			"faucet"};
+			"faucet",
+            "blockcast_top",
+            "blockcast_side",
+            "blockcast_bottom"};
 		
 		return textureNames;
 	}
@@ -158,6 +194,8 @@ public class SearedBlock extends InventoryBlock
 	{
 		if (meta == 0)
 			return icons[getTextureIndex(side)];
+		else if (meta == 2)
+		    return icons[getTextureIndex(side)+4];
 		else
 			return icons[3];
 	}
@@ -193,7 +231,7 @@ public class SearedBlock extends InventoryBlock
 	@Override
 	public void getSubBlocks (int id, CreativeTabs tab, List list)
 	{
-		for (int iter = 0; iter < 2; iter++)
+		for (int iter = 0; iter < 3; iter++)
 		{
 			list.add(new ItemStack(id, 1, iter));
 		}
@@ -203,11 +241,11 @@ public class SearedBlock extends InventoryBlock
 	public void setBlockBoundsBasedOnState (IBlockAccess world, int x, int y, int z)
 	{
 		int meta = world.getBlockMetadata(x, y, z);
-		if (meta == 0)
+		if (meta != 1)
 		{
 			this.setBlockBounds(0, 0, 0, 1, 1, 1);
 		}
-		if (meta == 1)
+		else
 		{
 			FaucetLogic logic = (FaucetLogic) world.getBlockTileEntity(x, y, z);
 			float xMin = 0.25F;
@@ -243,11 +281,11 @@ public class SearedBlock extends InventoryBlock
 	public AxisAlignedBB getCollisionBoundingBoxFromPool (World world, int x, int y, int z)
 	{
 		int meta = world.getBlockMetadata(x, y, z);
-		if (meta == 0)
+		if (meta != 1)
 		{
 			return AxisAlignedBB.getAABBPool().getAABB(x, y, z, x + 1, y + 1, z + 1);
 		}
-		if (meta == 1)
+		else
 		{
 			FaucetLogic logic = (FaucetLogic) world.getBlockTileEntity(x, y, z);
 			if (logic != null)

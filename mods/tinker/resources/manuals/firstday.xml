@@ -143,6 +143,14 @@ Together these make the Tool Workshop. It is recommended you keep all of these n
 </page>
 
 <page type="crafting">
+<text>Seared Faucet</text>
+<recipe>
+ <name>smelteryfaucet</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="crafting">
 <text>Casting Table</text>
 <recipe>
  <name>smelterytable</name>
@@ -151,9 +159,9 @@ Together these make the Tool Workshop. It is recommended you keep all of these n
 </page>
 
 <page type="crafting">
-<text>Seared Faucet</text>
+<text>Casting Basin</text>
 <recipe>
- <name>smelteryfaucet</name>
+ <name>smelterybasin</name>
  <size>three</size>
 </recipe>
 </page>

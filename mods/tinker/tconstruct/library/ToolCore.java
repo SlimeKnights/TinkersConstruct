@@ -57,6 +57,7 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
     protected Random random = new Random();
     protected int damageVsEntity;
     public static Icon blankSprite;
+    public static Icon emptyIcon;
 
     public ToolCore(int id, int baseDamage)
     {
@@ -184,6 +185,8 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
             Map.Entry pairs = (Map.Entry) iter.next();
             effectIcons.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue()));
         }
+        
+        emptyIcon =  iconRegister.registerIcon("tinker:blankface.png");
     }
 
     @Override
@@ -253,9 +256,9 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
                         return (effectIcons.get(tags.getInteger("Effect6")));
                 }
             }
+            return blankSprite;
         }
-
-        return blankSprite;
+        return emptyIcon;
     }
 
     /* Tags and information about the tool */

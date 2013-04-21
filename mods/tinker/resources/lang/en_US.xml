@@ -100,6 +100,7 @@
   
   <entry key="SearedBlock.Table.name">Casting Table</entry>
   <entry key="SearedBlock.Faucet.name">Seared Faucet</entry>
+  <entry key="SearedBlock.Basin.name">Casting Basin</entry>
   
   <entry key="entity.TConstruct.EdibleSlime.name">Blue Slime</entry>
   <entry key="entity.TConstruct.UnstableCreeper.name">Nitro Creeper</entry>
