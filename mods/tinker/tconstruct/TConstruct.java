@@ -3,9 +3,10 @@ package mods.tinker.tconstruct;
 import mods.tinker.tconstruct.library.TConstructRegistry;
 import mods.tinker.tconstruct.library.TabTools;
 import mods.tinker.tconstruct.player.TPlayerHandler;
+import mods.tinker.tconstruct.village.TVillageTrades;
+import mods.tinker.tconstruct.village.VillageSmelteryHandler;
+import mods.tinker.tconstruct.village.VillageToolStationHandler;
 import mods.tinker.tconstruct.worldgen.TBaseWorldGenerator;
-import net.minecraftforge.client.event.TextureStitchEvent;
-import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Instance;
@@ -17,7 +18,7 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.LanguageRegistry;
+import cpw.mods.fml.common.registry.VillagerRegistry;
 
 /** TConstruct, the tool mod.
  * Craft your tools with style, then modify until the original is gone!
@@ -25,7 +26,7 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
  * @dependencies: IC2 API, EBXL API
  */
 
-@Mod(modid = "TConstruct", name = "TConstruct", version = "1.5.1_1.3dev.14", dependencies = "required-after:Forge@[7.7.1.659,)")
+@Mod(modid = "TConstruct", name = "TConstruct", version = "1.5.1_1.3dev.16", dependencies = "required-after:Forge@[7.7.1.659,)")
 @NetworkMod(serverSideRequired = false, clientSideRequired = true, channels = { "TConstruct" }, packetHandler = mods.tinker.tconstruct.TPacketHandler.class)
 public class TConstruct
 {
@@ -64,6 +65,14 @@ public class TConstruct
         GameRegistry.registerFuelHandler(content);
         GameRegistry.registerCraftingHandler(new TCraftingHandler());
         NetworkRegistry.instance().registerGuiHandler(instance, new TGuiHandler());
+
+        TVillageTrades trades = new TVillageTrades();
+        VillagerRegistry.instance().registerVillagerType(78943, "/mods/tinker/textures/mob/villagertools.png");
+        VillagerRegistry.instance().registerVillageTradeHandler(78943, trades);
+        VillagerRegistry.instance().registerVillageCreationHandler(new VillageToolStationHandler());
+        VillagerRegistry.instance().registerVillageCreationHandler(new VillageSmelteryHandler());
+        /*VillagerRegistry.instance().registerVillagerType(78944, "/mods/tinker/textures/mob/villagersmeltery.png");
+        VillagerRegistry.instance().registerVillageTradeHandler(78944, trades);*/
 
         //DimensionManager.unregisterProviderType(0);
         //DimensionManager.registerProviderType(0, OverworldProvider.class, true);

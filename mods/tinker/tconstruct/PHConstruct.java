@@ -171,12 +171,19 @@ public class PHConstruct
         aluminumuDensity = config.get("Worldgen", "Aluminum Underground Density", xycraft ? 1 : 0).getInt(xycraft ? 1 : 0);
         netherDensity = config.get("Worldgen", "Nether Ores Density", 8).getInt(8);
         
-        copperuHeight = config.get("Worldgen", "Copper Underground Min Y", 20).getInt(20);
-        copperuRange = config.get("Worldgen", "Copper Underground Max Y", 60).getInt(60);
-        tinuHeight = config.get("Worldgen", "Tin Underground Min Y", 0).getInt(0);
-        tinuRange = config.get("Worldgen", "Tin Underground Max Y", 40).getInt(40);
-        aluminumuHeight = config.get("Worldgen", "Aluminum Underground Min Y", 0).getInt(0);
-        aluminumuRange = config.get("Worldgen", "Aluminum Underground Max Y", 64).getInt(64);
+        copperuMinY = config.get("Worldgen", "Copper Underground Min Y", 20).getInt(20);
+        copperuMaxY = config.get("Worldgen", "Copper Underground Max Y", 60).getInt(60);
+        tinuMinY = config.get("Worldgen", "Tin Underground Min Y", 0).getInt(0);
+        tinuMaxY = config.get("Worldgen", "Tin Underground Max Y", 40).getInt(40);
+        aluminumuMinY = config.get("Worldgen", "Aluminum Underground Min Y", 0).getInt(0);
+        aluminumuMaxY = config.get("Worldgen", "Aluminum Underground Max Y", 64).getInt(64);
+        
+        copperbMinY = config.get("Worldgen", "Copper Bush Min Y", 20).getInt(20);
+        copperbMaxY = config.get("Worldgen", "Copper Bush Max Y", 60).getInt(60);
+        tinbMinY = config.get("Worldgen", "Tin Bush Min Y", 0).getInt(0);
+        tinbMaxY = config.get("Worldgen", "Tin Bush Max Y", 40).getInt(40);
+        aluminumbMinY = config.get("Worldgen", "Aluminum Bush Min Y", 0).getInt(0);
+        aluminumbMaxY = config.get("Worldgen", "Aluminum Bush Max Y", 64).getInt(64);
         
         ironsRarity = config.get("Worldgen", "Iron Surface Rarity", 50).getInt(50);
         goldsRarity = config.get("Worldgen", "Gold Surface Rarity", 150).getInt(150);
@@ -323,14 +330,19 @@ public class PHConstruct
     public static int aluminumbDensity;
     public static int silverbDensity;
     
-    public static int copperuHeight;
-    public static int copperuRange;
+    public static int copperuMinY;
+    public static int copperuMaxY;
+    public static int tinuMinY;
+    public static int tinuMaxY;    
+    public static int aluminumuMinY;
+    public static int aluminumuMaxY;
     
-    public static int tinuHeight;
-    public static int tinuRange;
-    
-    public static int aluminumuHeight;
-    public static int aluminumuRange;
+    public static int copperbMinY;
+    public static int copperbMaxY;
+    public static int tinbMinY;
+    public static int tinbMaxY;    
+    public static int aluminumbMinY;
+    public static int aluminumbMaxY;
     
     public static int seaLevel;
 

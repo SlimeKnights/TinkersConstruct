@@ -29,7 +29,6 @@ public class TBaseWorldGenerator implements IWorldGenerator
         aluminumSurface = new SurfaceOreGen(TContent.oreGravel.blockID, 4, 12, true);
         cobaltSurface = new SurfaceOreGen(TContent.oreGravel.blockID, 4, 30, true);
 
-
         ironBush = new OreberryBushGen(TContent.oreBerry.blockID, 12, 12);
         goldBush = new OreberryBushGen(TContent.oreBerry.blockID, 13, 6);
         copperBush = new OreberryBushGen(TContent.oreBerry.blockID, 14, 12);
@@ -71,7 +70,7 @@ public class TBaseWorldGenerator implements IWorldGenerator
             for (int q = 0; q <= PHConstruct.copperuDensity; q++)
             {
                 xPos = xChunk + random.nextInt(16);
-                yPos = PHConstruct.copperuHeight + random.nextInt(PHConstruct.copperuRange - PHConstruct.copperuHeight);
+                yPos = PHConstruct.copperuMinY + random.nextInt(PHConstruct.copperuMaxY - PHConstruct.copperuMinY);
                 zPos = zChunk + random.nextInt(16);
                 copper.generate(world, random, xPos, yPos, zPos);
             }
@@ -81,7 +80,7 @@ public class TBaseWorldGenerator implements IWorldGenerator
             for (int q = 0; q <= PHConstruct.tinuDensity; q++)
             {
                 xPos = xChunk + random.nextInt(16);
-                yPos = PHConstruct.tinuHeight + random.nextInt(PHConstruct.tinuRange - PHConstruct.tinuHeight);
+                yPos = PHConstruct.tinuMinY + random.nextInt(PHConstruct.tinuMaxY - PHConstruct.tinuMinY);
                 zPos = zChunk + random.nextInt(16);
                 tin.generate(world, random, xPos, yPos, zPos);
             }
@@ -91,7 +90,7 @@ public class TBaseWorldGenerator implements IWorldGenerator
             for (int q = 0; q <= PHConstruct.aluminumuDensity; q++)
             {
                 xPos = xChunk + random.nextInt(16);
-                yPos = PHConstruct.aluminumuHeight + random.nextInt(PHConstruct.aluminumuRange - PHConstruct.aluminumuHeight);
+                yPos = PHConstruct.aluminumuMinY + random.nextInt(PHConstruct.aluminumuMaxY - PHConstruct.aluminumuMinY);
                 zPos = zChunk + random.nextInt(16);
                 aluminum.generate(world, random, xPos, yPos, zPos);
             }
@@ -185,9 +184,9 @@ public class TBaseWorldGenerator implements IWorldGenerator
             for (int i = 0; i < PHConstruct.copperbDensity; i++)
             {
                 xPos = xChunk + random.nextInt(16);
-                yPos = (PHConstruct.copperuRange + PHConstruct.copperuHeight) / 2;
+                yPos = (PHConstruct.copperbMaxY + PHConstruct.copperbMinY) / 2;
                 zPos = zChunk + random.nextInt(16);
-                yPos = findAdequateLocation(world, xPos, yPos, zPos, PHConstruct.copperuHeight, PHConstruct.tinuRange);
+                yPos = findAdequateLocation(world, xPos, yPos, zPos, PHConstruct.copperbMaxY, PHConstruct.copperbMinY);
                 if (yPos != -1)
                 {
                     /*CoordTuple coord = new CoordTuple(xPos, yPos, zPos);
@@ -201,9 +200,9 @@ public class TBaseWorldGenerator implements IWorldGenerator
             for (int i = 0; i < PHConstruct.tinbDensity; i++)
             {
                 xPos = xChunk + random.nextInt(16);
-                yPos = (PHConstruct.tinuRange + PHConstruct.tinuHeight) / 2;
+                yPos = (PHConstruct.tinuMaxY + PHConstruct.tinbMinY) / 2;
                 zPos = zChunk + random.nextInt(16);
-                yPos = findAdequateLocation(world, xPos, yPos, zPos, PHConstruct.tinuRange, PHConstruct.tinuHeight);
+                yPos = findAdequateLocation(world, xPos, yPos, zPos, PHConstruct.tinbMaxY, PHConstruct.tinbMinY);
                 if (yPos != -1)
                 {
                     /*CoordTuple coord = new CoordTuple(xPos, yPos, zPos);
@@ -217,9 +216,9 @@ public class TBaseWorldGenerator implements IWorldGenerator
             for (int i = 0; i < PHConstruct.aluminumbDensity; i++)
             {
                 xPos = xChunk + random.nextInt(16);
-                yPos = (PHConstruct.aluminumuRange + PHConstruct.aluminumuHeight) / 2;
+                yPos = (PHConstruct.aluminumuMaxY + PHConstruct.aluminumbMinY) / 2;
                 zPos = zChunk + random.nextInt(16);
-                yPos = findAdequateLocation(world, xPos, yPos, zPos, PHConstruct.aluminumuRange, PHConstruct.aluminumuHeight);
+                yPos = findAdequateLocation(world, xPos, yPos, zPos, PHConstruct.aluminumbMaxY, PHConstruct.aluminumbMinY);
                 if (yPos != -1)
                 {
                     /*CoordTuple coord = new CoordTuple(xPos, yPos, zPos);

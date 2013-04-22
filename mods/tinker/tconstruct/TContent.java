@@ -199,7 +199,7 @@ public class TContent implements IFuelHandler
 
         String[] metalTypes = new String[] { "compressed_cobalt", "compressed_ardite", "compressed_manyullyn", "compressed_copper", "compressed_bronze", "compressed_tin", "compressed_aluminum",
                 "compressed_alubrass", "compressed_alumite", "compressed_steel" };
-        metalBlock = new TConstructBlock(PHConstruct.metalBlock, Material.iron, 10.0F, metalTypes);
+        metalBlock = new TMetalBlock(PHConstruct.metalBlock, Material.iron, 10.0F, metalTypes);
         metalBlock.stepSound = Block.soundMetalFootstep;
         GameRegistry.registerBlock(metalBlock, MetalItemBlock.class, "MetalBlock");
 
@@ -613,6 +613,8 @@ public class TContent implements IFuelHandler
         //Ore
         Smeltery.addMelting(Block.oreIron, 0, 600, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 0));
         Smeltery.addMelting(Block.oreGold, 0, 550, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 1));
+        Smeltery.addMelting(oreGravel, 0, 600, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 0));
+        Smeltery.addMelting(oreGravel, 1, 550, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 1));
 
         //Items
         Smeltery.addMelting(new ItemStack(Item.ingotIron, 4), Block.blockIron.blockID, 0, 500, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 0));
