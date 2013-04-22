@@ -178,19 +178,19 @@ public class PHConstruct
         aluminumuHeight = config.get("Worldgen", "Aluminum Underground Min Y", 0).getInt(0);
         aluminumuRange = config.get("Worldgen", "Aluminum Underground Max Y", 64).getInt(64);
         
-        ironsRarity = config.get("Worldgen", "Iron Surface Rarity", 38).getInt(38);
-        goldsRarity = config.get("Worldgen", "Gold Surface Rarity", 100).getInt(100);
-        coppersRarity = config.get("Worldgen", "Copper Surface Rarity", 26).getInt(26);
-        tinsRarity = config.get("Worldgen", "Tin Surface Rarity", 26).getInt(26);
+        ironsRarity = config.get("Worldgen", "Iron Surface Rarity", 50).getInt(50);
+        goldsRarity = config.get("Worldgen", "Gold Surface Rarity", 150).getInt(150);
+        coppersRarity = config.get("Worldgen", "Copper Surface Rarity", 32).getInt(32);
+        tinsRarity = config.get("Worldgen", "Tin Surface Rarity", 32).getInt(32);
         aluminumsRarity = config.get("Worldgen", "Aluminum Surface Rarity", 32).getInt(32);
-        cobaltsRarity = config.get("Worldgen", "Aluminum Surface Rarity", 400).getInt(400);
+        cobaltsRarity = config.get("Worldgen", "Cobalt Surface Rarity", 400).getInt(400);
         
-        ironbRarity = config.get("Worldgen", "Iron Bush Rarity", 28).getInt(28);
-        goldbRarity = config.get("Worldgen", "Gold Bush Rarity", 125).getInt(125);
-        copperbRarity = config.get("Worldgen", "Copper Bush Rarity", 20).getInt(20);
-        tinbRarity = config.get("Worldgen", "Tin Bush Rarity", 20).getInt(20);
-        aluminumbRarity = config.get("Worldgen", "Aluminum Bush Rarity", 20).getInt(20);
-        silverbRarity = config.get("Worldgen", "Silver Bush Rarity", 100).getInt(100);
+        ironbDensity = config.get("Worldgen", "Iron Bush Density", 1).getInt(1);
+        goldbDensity = config.get("Worldgen", "Gold Bush Density", 1).getInt(1);
+        copperbDensity = config.get("Worldgen", "Copper Bush Density", 2).getInt(2);
+        tinbDensity = config.get("Worldgen", "Tin Bush Density", 2).getInt(2);
+        aluminumbDensity = config.get("Worldgen", "Aluminum Bush Density", 2).getInt(2);
+        silverbDensity = config.get("Worldgen", "Silver Bush Density", 1).getInt(1);
         
         seaLevel = config.get("general", "Sea level", 64).getInt(64);
 
@@ -316,12 +316,12 @@ public class PHConstruct
     public static int aluminumsRarity;
     public static int cobaltsRarity;
     
-    public static int ironbRarity;
-    public static int goldbRarity;
-    public static int copperbRarity;
-    public static int tinbRarity;
-    public static int aluminumbRarity;
-    public static int silverbRarity;
+    public static int ironbDensity;
+    public static int goldbDensity;
+    public static int copperbDensity;
+    public static int tinbDensity;
+    public static int aluminumbDensity;
+    public static int silverbDensity;
     
     public static int copperuHeight;
     public static int copperuRange;

@@ -11,10 +11,12 @@ import net.minecraft.block.BlockLeavesBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -30,15 +32,17 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
     public Icon[] fastIcons;
     public Icon[] fancyIcons;
     public String[] textureNames;
+    public String[] oreTypes;
     public int itemMeat;
     private int subitems;
 
-    public OreberryBush(int id, String[] textureNames, int meta, int sub)
+    public OreberryBush(int id, String[] textureNames, int meta, int sub, String[] oreTypes)
     {
         super(id, Material.leaves, false);
         this.textureNames = textureNames;
         this.itemMeat = meta;
         this.subitems = sub;
+        this.oreTypes = oreTypes;
         this.setTickRandomly(true);
         random = new Random();
         this.setHardness(0.3F);
@@ -254,24 +258,24 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
             return;
         }
 
-        int height;
-
-        for (height = 1; world.getBlockId(x, y - height, z) == this.blockID; ++height)
+        if (random1.nextInt(20) == 0)// && world.getBlockLightValue(x, y, z) <= 8)
         {
-            ;
-        }
-
-        if (random1.nextInt(20) == 0 && world.getBlockLightValue(x, y, z) >= 8)
-        {
-            int md = world.getBlockMetadata(x, y, z);
-            if (md < 12)
+            int meta = world.getBlockMetadata(x, y, z);
+            if (world.getFullBlockLightValue(x, y, z) < 13)
             {
-                world.setBlock(x, y, z, blockID, md + 4, 3);
+                if (meta < 12)
+                {
+                    world.setBlock(x, y, z, blockID, meta + 4, 3);
+                }
+                if (meta > 7)
+                {
+                    
+                }
             }
-            /*if (random1.nextInt(3) == 0 && height < 3 && world.getBlockId(x, y + 1, z) == 0 && md >= 8)
+            else if (meta < 8)
             {
-                world.setBlock(x, y + 1, z, blockID, md % 4, 3);
-            }*/
+                world.setBlock(x, y, z, blockID, meta + 4, 3);
+            }
         }
     }
     
@@ -280,6 +284,13 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
         if (plant instanceof OreberryBush)
             return (world.getBlockMetadata(x, y, z) > 7);
         return super.canSustainPlant(world, x, y, z, direction, plant);
+    }
+    
+    public boolean canPlaceBlockAt(World world, int x, int y, int z)
+    {
+        if (world.getFullBlockLightValue(x, y, z) < 13)
+            return super.canPlaceBlockAt(world, x, y, z);
+        return false;
     }
 
     /* Resistance to fire */
@@ -331,5 +342,11 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
     public int getPlantMetadata (World world, int x, int y, int z)
     {
         return world.getBlockMetadata(x, y, z) - 4;
+    }
+    
+    public void onEntityCollidedWithBlock (World world, int i, int j, int k, Entity entity)
+    {
+        if (!(entity instanceof EntityItem))
+            entity.attackEntityFrom(DamageSource.cactus, 1);
     }
 }

@@ -239,10 +239,10 @@ public class TContent implements IFuelHandler
         
         //Ores
         String[] berryOres = new String[] { "berry_iron", "berry_gold", "berry_copper", "berry_tin", "berry_iron_ripe", "berry_gold_ripe", "berry_copper_ripe", "berry_tin_ripe" };
-        oreBerry = (OreberryBush) new OreberryBush(PHConstruct.oreBerry, berryOres, 0, 4).setUnlocalizedName("ore.berries.one");
+        oreBerry = (OreberryBush) new OreberryBush(PHConstruct.oreBerry, berryOres, 0, 4, new String[] { "oreIron", "oreGold", "oreCopper", "oreTin"}).setUnlocalizedName("ore.berries.one");
         GameRegistry.registerBlock(oreBerry, OreberryBushItem.class, "ore.berries.one");
         String[] berryOresTwo = new String[] { "berry_aluminum", "berry_silver", "", "", "berry_aluminum_ripe", "berry_silver_ripe", "", "" };
-        oreBerrySecond = (OreberryBush) new OreberryBush(PHConstruct.oreBerrySecond, berryOresTwo, 4, 2).setUnlocalizedName("ore.berries.two");
+        oreBerrySecond = (OreberryBush) new OreberryBush(PHConstruct.oreBerrySecond, berryOresTwo, 4, 2, new String[] { "oreAluminum", "oreSilver" }).setUnlocalizedName("ore.berries.two");
         GameRegistry.registerBlock(oreBerrySecond, OreberryBushSecondItem.class, "ore.berries.two");
         
         String[] oreTypes = new String[] { "nether_slag", "nether_cobalt", "nether_ardite", "ore_copper", "ore_tin", "ore_aluminum", "ore_slag" };
@@ -592,18 +592,18 @@ public class TContent implements IFuelHandler
         
         LiquidBlockCasting lbc = LiquidBlockCasting.instance;
         lbc.addBlockCastingRecipe(new ItemStack(Block.blockIron), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 0), null, true, 100); //Iron
-        lbc.addBlockCastingRecipe(new ItemStack(Block.blockGold), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 1), bucket, true, 100); //gold
-        lbc.addBlockCastingRecipe(new ItemStack(metalBlock, 1, 3), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 2), bucket, true, 100); //copper
-        lbc.addBlockCastingRecipe(new ItemStack(metalBlock, 1, 5), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 3), bucket, true, 100); //tin
-        lbc.addBlockCastingRecipe(new ItemStack(metalBlock, 1, 6), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 4), bucket, true, 100); //aluminum
-        lbc.addBlockCastingRecipe(new ItemStack(metalBlock, 1, 0), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 5), bucket, true, 100); //cobalt
-        lbc.addBlockCastingRecipe(new ItemStack(metalBlock, 1, 1), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 6), bucket, true, 100); //ardite
-        lbc.addBlockCastingRecipe(new ItemStack(metalBlock, 1, 4), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 7), bucket, true, 100); //bronze
-        lbc.addBlockCastingRecipe(new ItemStack(metalBlock, 1, 7), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 8), bucket, true, 100); //albrass
-        lbc.addBlockCastingRecipe(new ItemStack(metalBlock, 1, 2), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 9), bucket, true, 100); //manyullyn
-        lbc.addBlockCastingRecipe(new ItemStack(metalBlock, 1, 8), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 10), bucket, true, 100); //alumite
-        lbc.addBlockCastingRecipe(new ItemStack(Block.obsidian), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 11), bucket, true, 100);// obsidian
-        lbc.addBlockCastingRecipe(new ItemStack(metalBlock, 1, 9), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 12), bucket, true, 100); //steel
+        lbc.addBlockCastingRecipe(new ItemStack(Block.blockGold), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 1), null, true, 100); //gold
+        lbc.addBlockCastingRecipe(new ItemStack(metalBlock, 1, 3), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 2), null, true, 100); //copper
+        lbc.addBlockCastingRecipe(new ItemStack(metalBlock, 1, 5), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 3), null, true, 100); //tin
+        lbc.addBlockCastingRecipe(new ItemStack(metalBlock, 1, 6), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 4), null, true, 100); //aluminum
+        lbc.addBlockCastingRecipe(new ItemStack(metalBlock, 1, 0), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 5), null, true, 100); //cobalt
+        lbc.addBlockCastingRecipe(new ItemStack(metalBlock, 1, 1), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 6), null, true, 100); //ardite
+        lbc.addBlockCastingRecipe(new ItemStack(metalBlock, 1, 4), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 7), null, true, 100); //bronze
+        lbc.addBlockCastingRecipe(new ItemStack(metalBlock, 1, 7), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 8), null, true, 100); //albrass
+        lbc.addBlockCastingRecipe(new ItemStack(metalBlock, 1, 2), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 9), null, true, 100); //manyullyn
+        lbc.addBlockCastingRecipe(new ItemStack(metalBlock, 1, 8), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 10), null, true, 100); //alumite
+        lbc.addBlockCastingRecipe(new ItemStack(Block.obsidian), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 11), null, true, 100);// obsidian
+        lbc.addBlockCastingRecipe(new ItemStack(metalBlock, 1, 9), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 12), null, true, 100); //steel
     }
 
     //WeakReference<ToolCore> tool = new WeakReference<ToolCore>(null);
@@ -702,6 +702,38 @@ public class TContent implements IFuelHandler
         FurnaceRecipes.smelting().addSmelting(oreGravel.blockID, 2, new ItemStack(materials, 1, 9), 0.2f);
         FurnaceRecipes.smelting().addSmelting(oreGravel.blockID, 3, new ItemStack(materials, 1, 10), 0.2f);
         FurnaceRecipes.smelting().addSmelting(oreGravel.blockID, 4, new ItemStack(materials, 1, 12), 0.2f);
+        
+        //Metal conversion
+        GameRegistry.addRecipe(new ItemStack(materials, 9, 9), "m", 'm', new ItemStack(metalBlock, 1, 3)); //Copper
+        GameRegistry.addRecipe(new ItemStack(materials, 9, 10), "m", 'm', new ItemStack(metalBlock, 1, 5)); //Tin
+        GameRegistry.addRecipe(new ItemStack(materials, 9, 12), "m", 'm', new ItemStack(metalBlock, 1, 6)); //Aluminum
+        GameRegistry.addRecipe(new ItemStack(materials, 9, 13), "m", 'm', new ItemStack(metalBlock, 1, 4)); //Bronze
+        GameRegistry.addRecipe(new ItemStack(materials, 9, 14), "m", 'm', new ItemStack(metalBlock, 1, 7)); //AluBrass
+        GameRegistry.addRecipe(new ItemStack(materials, 9, 3), "m", 'm', new ItemStack(metalBlock, 1, 0)); //Cobalt
+        GameRegistry.addRecipe(new ItemStack(materials, 9, 4), "m", 'm', new ItemStack(metalBlock, 1, 1)); //Ardite
+        GameRegistry.addRecipe(new ItemStack(materials, 9, 5), "m", 'm', new ItemStack(metalBlock, 1, 2)); //Manyullyn
+        GameRegistry.addRecipe(new ItemStack(materials, 9, 15), "m", 'm', new ItemStack(metalBlock, 1, 8)); //Alumite
+        GameRegistry.addRecipe(new ItemStack(materials, 9, 16), "m", 'm', new ItemStack(metalBlock, 1, 9)); //Steel
+        
+        GameRegistry.addRecipe(new ItemStack(Item.ingotIron), "mmm", "mmm", "mmm", 'm', new ItemStack(materials, 1, 19)); //Iron
+        GameRegistry.addRecipe(new ItemStack(materials, 9, 9), "mmm", "mmm", "mmm", 'm', new ItemStack(materials, 1, 20)); //Copper
+        GameRegistry.addRecipe(new ItemStack(materials, 9, 10), "mmm", "mmm", "mmm", 'm', new ItemStack(materials, 1, 21)); //Tin
+        GameRegistry.addRecipe(new ItemStack(materials, 9, 12), "mmm", "mmm", "mmm", 'm', new ItemStack(materials, 1, 22)); //Aluminum
+        
+        LiquidBlockCasting lbc = LiquidBlockCasting.instance;
+        lbc.addBlockCastingRecipe(new ItemStack(Block.blockIron), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 0), null, true, 100); //Iron
+        lbc.addBlockCastingRecipe(new ItemStack(Block.blockGold), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 1), null, true, 100); //gold
+        lbc.addBlockCastingRecipe(new ItemStack(metalBlock, 1, 3), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 2), null, true, 100); //copper
+        lbc.addBlockCastingRecipe(new ItemStack(metalBlock, 1, 5), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 3), null, true, 100); //tin
+        lbc.addBlockCastingRecipe(new ItemStack(metalBlock, 1, 6), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 4), null, true, 100); //aluminum
+        lbc.addBlockCastingRecipe(new ItemStack(metalBlock, 1, 0), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 5), null, true, 100); //cobalt
+        lbc.addBlockCastingRecipe(new ItemStack(metalBlock, 1, 1), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 6), null, true, 100); //ardite
+        lbc.addBlockCastingRecipe(new ItemStack(metalBlock, 1, 4), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 7), null, true, 100); //bronze
+        lbc.addBlockCastingRecipe(new ItemStack(metalBlock, 1, 7), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 8), null, true, 100); //albrass
+        lbc.addBlockCastingRecipe(new ItemStack(metalBlock, 1, 2), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 9), null, true, 100); //manyullyn
+        lbc.addBlockCastingRecipe(new ItemStack(metalBlock, 1, 8), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 10), null, true, 100); //alumite
+        lbc.addBlockCastingRecipe(new ItemStack(Block.obsidian), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 11), null, true, 100);// obsidian
+        lbc.addBlockCastingRecipe(new ItemStack(metalBlock, 1, 9), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 12), null, true, 100); //steel
 
         //Smeltery
         ItemStack searedBrick = new ItemStack(materials, 1, 2);
@@ -820,7 +852,6 @@ public class TContent implements IFuelHandler
         ItemStack chargedReBattery = ic2.api.Items.getItem("chargedReBattery");
         if (chargedReBattery != null)
         {
-            //modE.batteries.add(new ItemStack(chargedReBattery.getItem(), 1, Short.MAX_VALUE));
             modE.batteries.add(chargedReBattery);
         }
         ItemStack electronicCircuit = ic2.api.Items.getItem("electronicCircuit");
@@ -850,30 +881,6 @@ public class TContent implements IFuelHandler
             return null;
         }
     }
-
-    /*public static String blockTexture = "/tinkertextures/ConstructBlocks.png";
-    public static String blankSprite = "/tinkertextures/blanksprite.png";
-    public static String liquidTexture = "/tinkertextures/LiquidWhite.png";
-
-    public static String craftingTexture = "/tinkertextures/materials.png";
-    public static String patternTexture = "/tinkertextures/patterns.png";
-    public static String baseHeads = "/tinkertextures/tools/baseheads.png";
-    public static String baseAccessories = "/tinkertextures/tools/baseaccessories.png";
-    public static String swordparts = "/tinkertextures/tools/swordparts.png";
-    public static String jokeparts = "/tinkertextures/tools/jokeparts.png";
-    public static String broadheads = "/tinkertextures/tools/broadheads.png";
-
-    public static String pickaxeTexture = "/tinkertextures/tools/pickaxe/";
-    public static String broadswordTexture = "/tinkertextures/tools/broadsword/";
-    public static String shovelTexture = "/tinkertextures/tools/shovel/";
-    public static String axeTexture = "/tinkertextures/tools/axe/";
-    public static String longswordTexture = "/tinkertextures/tools/longsword/";
-    public static String rapierTexture = "/tinkertextures/tools/rapier/";
-    public static String frypanTexture = "/tinkertextures/tools/frypan/";
-    public static String signTexture = "/tinkertextures/tools/battlesign/";
-    public static String bowTexture = "/tinkertextures/tools/bow/";
-    public static String mattockTexture = "/tinkertextures/tools/mattock/";
-    public static String lumberaxeTexture = "/tinkertextures/tools/lumberaxe/";*/
 
     @Override
     public int getBurnTime (ItemStack fuel)

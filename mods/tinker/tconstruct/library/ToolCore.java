@@ -186,7 +186,7 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
             effectIcons.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue()));
         }
         
-        emptyIcon =  iconRegister.registerIcon("tinker:blankface.png");
+        emptyIcon =  iconRegister.registerIcon("tinker:blankface");
     }
 
     @Override

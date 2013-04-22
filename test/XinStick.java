@@ -35,6 +35,7 @@ public class XinStick extends Item
 		spawnEntity(player.posX, player.posY+1, player.posZ, new GolemBase(world), world, player);
 	    //System.out.println("Health! "+player.getHealth());
 	    //healPlayer(player);
+		removeChunk(world, player.posX, player.posZ);
 		return stack;
 	}
 	
