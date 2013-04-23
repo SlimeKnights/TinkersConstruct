@@ -21,7 +21,7 @@ public class OreBerries extends CraftingItem
     @SideOnly(Side.CLIENT)
     public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean par4)
     {
-        switch (stack.getItemDamage() % 4)
+        switch (stack.getItemDamage())
         {
         case 0: 
             list.add("Sweet Irony");

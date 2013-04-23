@@ -1,6 +1,7 @@
 package mods.tinker.tconstruct.client.gui;
 
 import mods.tinker.tconstruct.container.ArmorExtendedContainer;
+import mods.tinker.tconstruct.player.ArmorExtended;
 import mods.tinker.tconstruct.player.TPlayerStats;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.InventoryEffectRenderer;
@@ -15,13 +16,13 @@ import org.lwjgl.opengl.GL12;
 public class ArmorExtendedGui extends InventoryEffectRenderer
 {
     public InventoryPlayer inv;
-    public TPlayerStats stats;
+    public ArmorExtended stats;
     
     private float xSize_lo;
     private float ySize_lo;
 
 
-    public ArmorExtendedGui(InventoryPlayer inventoryplayer, TPlayerStats holder)
+    public ArmorExtendedGui(InventoryPlayer inventoryplayer, ArmorExtended holder)
     {
         super(new ArmorExtendedContainer(inventoryplayer, holder));
         inv = inventoryplayer;

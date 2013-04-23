@@ -178,8 +178,8 @@ public class PHConstruct
         aluminumuMinY = config.get("Worldgen", "Aluminum Underground Min Y", 0).getInt(0);
         aluminumuMaxY = config.get("Worldgen", "Aluminum Underground Max Y", 64).getInt(64);
         
-        ironsRarity = config.get("Worldgen", "Iron Surface Rarity", 50).getInt(50);
-        goldsRarity = config.get("Worldgen", "Gold Surface Rarity", 150).getInt(150);
+        ironsRarity = config.get("Worldgen", "Iron Surface Rarity", 70).getInt(70);
+        goldsRarity = config.get("Worldgen", "Gold Surface Rarity", 200).getInt(200);
         coppersRarity = config.get("Worldgen", "Copper Surface Rarity", 32).getInt(32);
         tinsRarity = config.get("Worldgen", "Tin Surface Rarity", 32).getInt(32);
         aluminumsRarity = config.get("Worldgen", "Aluminum Surface Rarity", 32).getInt(32);
@@ -189,8 +189,15 @@ public class PHConstruct
         goldBushDensity = config.get("Worldgen", "Gold Bush Density", 1).getInt(1);
         copperBushDensity = config.get("Worldgen", "Copper Bush Density", 2).getInt(2);
         tinBushDensity = config.get("Worldgen", "Tin Bush Density", 2).getInt(2);
-        aluminumbDensity = config.get("Worldgen", "Aluminum Bush Density", 2).getInt(2);
+        aluminumBushDensity = config.get("Worldgen", "Aluminum Bush Density", 2).getInt(2);
         silverBushDensity = config.get("Worldgen", "Silver Bush Density", 1).getInt(1);
+        
+        ironBushRarity = config.get("Worldgen", "Iron Bush Rarity", 2).getInt(2);
+        goldBushRarity = config.get("Worldgen", "Gold Bush Rarity", 4).getInt(4);
+        copperBushRarity = config.get("Worldgen", "Copper Bush Rarity", 1).getInt(1);
+        tinBushRarity = config.get("Worldgen", "Tin Bush Rarity", 1).getInt(1);
+        aluminumBushRarity = config.get("Worldgen", "Aluminum Bush Rarity", 1).getInt(1);
+        silverBushRarity = config.get("Worldgen", "Silver Bush Rarity", 2).getInt(2);
         
         copperBushMinY = config.get("Worldgen", "Copper Bush Min Y", 20).getInt(20);
         copperBushMaxY = config.get("Worldgen", "Copper Bush Max Y", 60).getInt(60);
@@ -327,8 +334,15 @@ public class PHConstruct
     public static int goldBushDensity;
     public static int copperBushDensity;
     public static int tinBushDensity;
-    public static int aluminumbDensity;
+    public static int aluminumBushDensity;
     public static int silverBushDensity;
+    
+    public static int ironBushRarity;
+    public static int goldBushRarity;
+    public static int copperBushRarity;
+    public static int tinBushRarity;
+    public static int aluminumBushRarity;
+    public static int silverBushRarity;
     
     public static int copperuMinY;
     public static int copperuMaxY;

@@ -1,6 +1,6 @@
 package mods.tinker.tconstruct.container;
 
-import mods.tinker.common.IPattern;
+import mods.tinker.tconstruct.player.ArmorExtended;
 import mods.tinker.tconstruct.player.TPlayerStats;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -10,25 +10,25 @@ import net.minecraft.item.ItemStack;
 public class ArmorExtendedContainer extends ActiveContainer
 {
     public InventoryPlayer invPlayer;
-    public TPlayerStats armor;
+    public ArmorExtended armor;
     
-    public ArmorExtendedContainer(InventoryPlayer inventoryplayer, TPlayerStats stats)
+    public ArmorExtendedContainer(InventoryPlayer inventoryplayer, ArmorExtended armor)
     {
         invPlayer = inventoryplayer;
-        armor = stats;
+        this.armor = armor;
         
-        this.addSlotToContainer(new Slot(stats, 0, 80, 17));
-        this.addSlotToContainer(new Slot(stats, 1, 80, 35));
-        this.addSlotToContainer(new Slot(stats, 2, 116, 17));
-        this.addSlotToContainer(new Slot(stats, 3, 116, 35));
-        this.addSlotToContainer(new Slot(stats, 4, 152, 17));
-        this.addSlotToContainer(new Slot(stats, 5, 152, 35));
-        this.addSlotToContainer(new Slot(stats, 6, 152, 53));
+        this.addSlotToContainer(new Slot(armor, 0, 80, 17));
+        this.addSlotToContainer(new Slot(armor, 1, 80, 35));
+        this.addSlotToContainer(new Slot(armor, 2, 116, 17));
+        this.addSlotToContainer(new Slot(armor, 3, 116, 35));
+        this.addSlotToContainer(new Slot(armor, 4, 152, 17));
+        this.addSlotToContainer(new Slot(armor, 5, 152, 35));
+        this.addSlotToContainer(new Slot(armor, 6, 152, 53));
             
         /* Player inventory */
-        for (int armor = 0; armor < 4; ++armor)
+        for (int playerArmor = 0; playerArmor < 4; ++playerArmor)
         {
-            this.addSlotToContainer(new SlotArmorCopy(this, inventoryplayer, inventoryplayer.getSizeInventory() - 1 - armor, 98, 8 + armor * 18, armor));
+            this.addSlotToContainer(new SlotArmorCopy(this, inventoryplayer, inventoryplayer.getSizeInventory() - 1 - playerArmor, 98, 8 + playerArmor * 18, playerArmor));
         }
         
         for (int column = 0; column < 3; column++)

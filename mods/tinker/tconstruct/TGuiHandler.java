@@ -42,9 +42,9 @@ public class TGuiHandler implements IGuiHandler
         {
             if (ID == armor)
             {
-                System.out.println("Server Armor Gui: "+player.username);
                 TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
-                return new ArmorExtendedContainer(player.inventory, stats);
+                System.out.println("Server Armor Gui: "+stats.armor);
+                return new ArmorExtendedContainer(player.inventory, stats.armor);
             }
         }
         return null;
@@ -72,9 +72,9 @@ public class TGuiHandler implements IGuiHandler
         }
         if (ID == armor)
         {
-            System.out.println("Client Armor Gui: "+player.username);
-            TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
-            return new ArmorExtendedGui(player.inventory, stats);
+            System.out.println("Client Armor Gui: "+TProxyClient.armorExtended);
+            //TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
+            return new ArmorExtendedGui(player.inventory, TProxyClient.armorExtended);
         }
         return null;
     }

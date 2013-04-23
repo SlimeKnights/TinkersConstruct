@@ -13,7 +13,7 @@ public class VillageToolStationHandler implements IVillageCreationHandler
     @Override
     public StructureVillagePieceWeight getVillagePieceWeight (Random random, int i)
     {
-        return new StructureVillagePieceWeight(ComponentToolWorkshop.class, 30, random.nextInt(5) + i);
+        return new StructureVillagePieceWeight(ComponentToolWorkshop.class, 30, random.nextInt(3) + i);
     }
 
     @Override

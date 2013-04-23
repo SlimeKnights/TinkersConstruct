@@ -44,6 +44,9 @@ public class TBaseWorldGenerator implements IWorldGenerator
             generateNether(random, chunkX * 16, chunkZ * 16, world);
         else
             generateSurface(random, chunkX * 16, chunkZ * 16, world);
+        
+        if (world.provider.dimensionId == 0)
+            generateOreBushes(random, chunkX * 16, chunkZ * 16, world);
     }
 
     void generateSurface (Random random, int xChunk, int zChunk, World world)
@@ -53,7 +56,6 @@ public class TBaseWorldGenerator implements IWorldGenerator
 
         generateUndergroundOres(random, xChunk, zChunk, world);
         generateSurfaceOres(random, xChunk, zChunk, world);
-        generateOreBushes(random, xChunk, zChunk, world);
 
         if (biomeName == "Extreme Hills Edge" || biomeName == "Extreme Hills")
         {
@@ -147,7 +149,7 @@ public class TBaseWorldGenerator implements IWorldGenerator
     void generateOreBushes (Random random, int xChunk, int zChunk, World world)
     {
         int xPos, yPos, zPos;
-        if (PHConstruct.generateIronBush)
+        if (PHConstruct.generateIronBush && random.nextInt(PHConstruct.ironBushRarity + 1) == 0)
         {
             for (int i = 0; i < PHConstruct.ironBushDensity; i++)
             {
@@ -163,7 +165,7 @@ public class TBaseWorldGenerator implements IWorldGenerator
                 }
             }
         }
-        if (PHConstruct.generateGoldBush)
+        if (PHConstruct.generateGoldBush && random.nextInt(PHConstruct.goldBushRarity + 1) == 0)
         {
             for (int i = 0; i < PHConstruct.goldBushDensity; i++)
             {
@@ -179,7 +181,7 @@ public class TBaseWorldGenerator implements IWorldGenerator
                 }
             }
         }
-        if (PHConstruct.generateCopperBush)// && random.nextInt(PHConstruct.copperbRarity) == 0)
+        if (PHConstruct.generateCopperBush && random.nextInt(PHConstruct.copperBushRarity + 1) == 0)// && random.nextInt(PHConstruct.copperbRarity) == 0)
         {
             for (int i = 0; i < PHConstruct.copperBushDensity; i++)
             {
@@ -195,7 +197,7 @@ public class TBaseWorldGenerator implements IWorldGenerator
                 }
             }
         }
-        if (PHConstruct.generateTinBush)// && random.nextInt(PHConstruct.tinbRarity) == 0)
+        if (PHConstruct.generateTinBush && random.nextInt(PHConstruct.tinBushRarity + 1) == 0)// && random.nextInt(PHConstruct.tinbRarity) == 0)
         {
             for (int i = 0; i < PHConstruct.tinBushDensity; i++)
             {
@@ -211,9 +213,9 @@ public class TBaseWorldGenerator implements IWorldGenerator
                 }
             }
         }
-        if (PHConstruct.generateAluminumBush)// && random.nextInt(PHConstruct.aluminumbRarity) == 0)
+        if (PHConstruct.generateAluminumBush && random.nextInt(PHConstruct.aluminumBushRarity + 1) == 0)// && random.nextInt(PHConstruct.aluminumbRarity) == 0)
         {
-            for (int i = 0; i < PHConstruct.aluminumbDensity; i++)
+            for (int i = 0; i < PHConstruct.aluminumBushDensity; i++)
             {
                 xPos = xChunk + random.nextInt(16);
                 yPos = (PHConstruct.aluminumBushMaxY + PHConstruct.aluminumBushMinY) / 2;
@@ -227,7 +229,7 @@ public class TBaseWorldGenerator implements IWorldGenerator
                 }
             }
         }
-        if (PHConstruct.generateSilverBush && random.nextInt(PHConstruct.silverBushDensity) == 0)
+        if (PHConstruct.generateSilverBush && random.nextInt(PHConstruct.silverBushRarity) == 0)
         {
             for (int i = 0; i < PHConstruct.silverBushDensity; i++)
             {

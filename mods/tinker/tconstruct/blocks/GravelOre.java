@@ -44,9 +44,9 @@ public class GravelOre extends BlockSand
 	{
 		int meta = world.getBlockMetadata(x, y, z);
 		if (meta == 5)
-			return 12f;
+			return 10f;
 		else
-			return 5f;
+			return 3f;
 	}
 	
 	@Override

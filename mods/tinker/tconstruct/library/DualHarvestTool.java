@@ -118,9 +118,23 @@ public abstract class DualHarvestTool extends HarvestTool
 		return super.getStrVsBlock(stack, block, meta);
 	}
 	
-	public boolean canHarvestBlock(Block block)
+	public boolean canHarvestBlock (Block block)
     {
-		return true;
+        if (block.blockMaterial.isToolNotRequired())
+        {
+            return true;
+        }
+        for (Material m : getEffectiveMaterials())
+        {
+            if (m == block.blockMaterial)
+                return true;
+        }
+        for (Material m : getEffectiveSecondaryMaterials())
+        {
+            if (m == block.blockMaterial)
+                return true;
+        }
+        return false;
     }
 	
 	protected abstract Material[] getEffectiveSecondaryMaterials();

@@ -34,7 +34,7 @@ public abstract class HarvestTool extends ToolCore
         int meta = world.getBlockMetadata(x, y, z);
         Block block = Block.blocksList[bID];
         int hlvl = MinecraftForge.getBlockHarvestLevel(block, meta, getHarvestType());
-
+        
         if (hlvl <= tags.getInteger("HarvestLevel"))
         {
             if (tags.getBoolean("Lava") && block.quantityDropped(meta, 0, random) != 0)
@@ -42,7 +42,6 @@ public abstract class HarvestTool extends ToolCore
                 ItemStack result = FurnaceRecipes.smelting().getSmeltingResult(new ItemStack(block.idDropped(bID, random, 0), 1, block.damageDropped(meta)));
                 if (result != null)
                 {
-                    //System.out.println("Woo~");
                     world.setBlockToAir(x, y, z);
                     if (!player.capabilities.isCreativeMode)
                         onBlockDestroyed(stack, world, bID, x, y, z, player);
@@ -110,7 +109,16 @@ public abstract class HarvestTool extends ToolCore
 
     public boolean canHarvestBlock (Block block)
     {
-        return true;
+        if (block.blockMaterial.isToolNotRequired())
+        {
+            return true;
+        }
+        for (Material m : getEffectiveMaterials())
+        {
+            if (m == block.blockMaterial)
+                return true;
+        }
+        return false;
     }
 
     protected abstract Material[] getEffectiveMaterials ();

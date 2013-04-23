@@ -45,6 +45,7 @@ public class TPlayerHandler implements IPlayerTracker
 		}
 		TPlayerStats stats = new TPlayerStats();
 		stats.player = new WeakReference<EntityPlayer>(entityplayer);
+        stats.armor = new ArmorExtended();
 		stats.level = entityplayer.experienceLevel;
 		stats.health = entityplayer.maxHealth;
 		stats.hunger = entityplayer.getFoodStats().getFoodLevel();
@@ -167,6 +168,7 @@ public class TPlayerHandler implements IPlayerTracker
 	public TPlayerStats getPlayerStats (String username)
 	{
 		TPlayerStats stats = playerStats.get(username);
+        System.out.println("Stats: "+stats);
 		if (stats == null)
 		{
 			stats = new TPlayerStats();

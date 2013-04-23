@@ -26,7 +26,7 @@ import cpw.mods.fml.common.registry.VillagerRegistry;
  * @dependencies: IC2 API, EBXL API
  */
 
-@Mod(modid = "TConstruct", name = "TConstruct", version = "1.5.1_1.3dev.19", dependencies = "required-after:Forge@[7.7.1.659,)")
+@Mod(modid = "TConstruct", name = "TConstruct", version = "1.5.1_1.3rc.2", dependencies = "required-after:Forge@[7.7.1.659,)")
 @NetworkMod(serverSideRequired = false, clientSideRequired = true, channels = { "TConstruct" }, packetHandler = mods.tinker.tconstruct.TPacketHandler.class)
 public class TConstruct
 {
@@ -59,16 +59,15 @@ public class TConstruct
         proxy.registerTickHandler();
         proxy.addNames();
         proxy.readManuals();
-        proxy.registerKeys();
+        //proxy.registerKeys();
 
         GameRegistry.registerWorldGenerator(new TBaseWorldGenerator());
         GameRegistry.registerFuelHandler(content);
         GameRegistry.registerCraftingHandler(new TCraftingHandler());
         NetworkRegistry.instance().registerGuiHandler(instance, new TGuiHandler());
 
-        TVillageTrades trades = new TVillageTrades();
         VillagerRegistry.instance().registerVillagerType(78943, "/mods/tinker/textures/mob/villagertools.png");
-        VillagerRegistry.instance().registerVillageTradeHandler(78943, trades);
+        VillagerRegistry.instance().registerVillageTradeHandler(78943, new TVillageTrades());
         VillagerRegistry.instance().registerVillageCreationHandler(new VillageToolStationHandler());
         VillagerRegistry.instance().registerVillageCreationHandler(new VillageSmelteryHandler());
         /*VillagerRegistry.instance().registerVillagerType(78944, "/mods/tinker/textures/mob/villagersmeltery.png");

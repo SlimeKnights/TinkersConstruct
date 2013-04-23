@@ -68,6 +68,8 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
         this.setCreativeTab(TConstructRegistry.toolTab);
         damageVsEntity = baseDamage;
         TConstructRegistry.addToolMapping(this);
+        setNoRepair();
+        canRepair = false;
     }
 
     /** Determines what type of heads the tool has.
@@ -451,16 +453,16 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
 
     public void onUpdate (ItemStack stack, World world, Entity entity, int par4, boolean par5)
     {
-        if (entity instanceof EntityLiving)
+        if (!world.isRemote && entity instanceof EntityLiving)
         {
             NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
             if (tags.hasKey("Moss"))
             {
                 int chance = tags.getInteger("Moss");
-                int check = world.canBlockSeeTheSky((int) entity.posX, (int) entity.posY, (int) entity.posZ) ? 200 : 700;
+                int check = world.canBlockSeeTheSky((int) entity.posX, (int) entity.posY, (int) entity.posZ) ? 350 : 1150;
                 if (random.nextInt(check) < chance)
                 {
-                    AbilityHelper.damageTool(stack, -1, (EntityLiving) entity, true);
+                    AbilityHelper.healTool(stack, 1, (EntityLiving) entity, true, !((EntityLiving)entity).isSwingInProgress);
                 }
             }
         }
@@ -528,6 +530,11 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
 
     @Override
     public boolean getIsRepairable (ItemStack par1ItemStack, ItemStack par2ItemStack)
+    {
+        return false;
+    }
+    
+    public boolean isRepairable()
     {
         return false;
     }

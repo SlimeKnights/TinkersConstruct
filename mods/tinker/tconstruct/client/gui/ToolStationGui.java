@@ -161,7 +161,7 @@ public class ToolStationGui extends NewContainerGui
         else
             drawToolInformation();
         
-        this.fontRenderer.drawString("Namebox active: "+active, this.xSize / 2 - 18, -10, 0xffffff);
+        //this.fontRenderer.drawString("Namebox active: "+active, this.xSize / 2 - 18, -10, 0xffffff);
     }
 
     void drawToolStats ()
@@ -325,6 +325,11 @@ public class ToolStationGui extends NewContainerGui
         int cornerX = (this.width - this.xSize) / 2;
         int cornerY = (this.height - this.ySize) / 2;
         this.drawTexturedModalRect(cornerX, cornerY, 0, 0, this.xSize, this.ySize);
+        
+        if (active)
+        {
+            this.drawTexturedModalRect(cornerX+68, cornerY+6, 0, this.ySize, 102, 12);
+        }
 
         //texID = this.mc.renderEngine.getTexture("/mods/tinker/textures/gui/icons.png");
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
@@ -349,6 +354,7 @@ public class ToolStationGui extends NewContainerGui
         cornerX = (this.width + this.xSize) / 2;
         cornerY = (this.height - this.ySize) / 2;
         this.drawTexturedModalRect(cornerX, cornerY, 0, 0, 126, this.ySize + 30);
+        
     }
 
     protected void keyTyped (char par1, int keyCode)
