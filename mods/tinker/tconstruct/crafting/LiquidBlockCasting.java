@@ -79,7 +79,7 @@ public class LiquidBlockCasting
     }
     
     //Getter for public viewing
-    public ArrayList<CastingRecipe> getBlockCastingRecipes()
+    public ArrayList<CastingRecipe> getCastingRecipes()
     {
         return blockCasts;
     }
