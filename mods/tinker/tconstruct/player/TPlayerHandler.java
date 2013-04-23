@@ -164,7 +164,7 @@ public class TPlayerHandler implements IPlayerTracker
 	}
 
 	/* Find the right player */
-	TPlayerStats getPlayerStats (String username)
+	public TPlayerStats getPlayerStats (String username)
 	{
 		TPlayerStats stats = playerStats.get(username);
 		if (stats == null)

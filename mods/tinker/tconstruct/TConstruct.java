@@ -3,10 +3,10 @@ package mods.tinker.tconstruct;
 import mods.tinker.tconstruct.library.TConstructRegistry;
 import mods.tinker.tconstruct.library.TabTools;
 import mods.tinker.tconstruct.player.TPlayerHandler;
-import mods.tinker.tconstruct.village.TVillageTrades;
-import mods.tinker.tconstruct.village.VillageSmelteryHandler;
-import mods.tinker.tconstruct.village.VillageToolStationHandler;
 import mods.tinker.tconstruct.worldgen.TBaseWorldGenerator;
+import mods.tinker.tconstruct.worldgen.village.TVillageTrades;
+import mods.tinker.tconstruct.worldgen.village.VillageSmelteryHandler;
+import mods.tinker.tconstruct.worldgen.village.VillageToolStationHandler;
 import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Instance;
@@ -26,7 +26,7 @@ import cpw.mods.fml.common.registry.VillagerRegistry;
  * @dependencies: IC2 API, EBXL API
  */
 
-@Mod(modid = "TConstruct", name = "TConstruct", version = "1.5.1_1.3dev.16", dependencies = "required-after:Forge@[7.7.1.659,)")
+@Mod(modid = "TConstruct", name = "TConstruct", version = "1.5.1_1.3dev.19", dependencies = "required-after:Forge@[7.7.1.659,)")
 @NetworkMod(serverSideRequired = false, clientSideRequired = true, channels = { "TConstruct" }, packetHandler = mods.tinker.tconstruct.TPacketHandler.class)
 public class TConstruct
 {
@@ -59,7 +59,7 @@ public class TConstruct
         proxy.registerTickHandler();
         proxy.addNames();
         proxy.readManuals();
-        //proxy.registerKeys();
+        proxy.registerKeys();
 
         GameRegistry.registerWorldGenerator(new TBaseWorldGenerator());
         GameRegistry.registerFuelHandler(content);

@@ -16,24 +16,48 @@ public class TPlayerStats implements IInventory
 	public boolean materialManual;
 	public boolean smelteryManual;
 	
-	public ItemStack[] armor = new ItemStack[7];
+	public ItemStack[] inventory = new ItemStack[7];
 	
     @Override
     public int getSizeInventory ()
     {
-        return armor.length;
+        return inventory.length;
+    }
+    
+    public boolean isStackInSlot (int slot)
+    {
+        return inventory[slot] != null;
     }
     
     @Override
     public ItemStack getStackInSlot (int slot)
     {
-        return null;
+        return inventory[slot];
     }
     
     @Override
     public ItemStack decrStackSize (int slot, int quantity)
     {
-        return null;
+        if (inventory[slot] != null)
+        {
+            System.out.println("Took something from slot "+slot);
+            if (inventory[slot].stackSize <= quantity)
+            {
+                ItemStack stack = inventory[slot];
+                inventory[slot] = null;
+                return stack;
+            }
+            ItemStack split = inventory[slot].splitStack(quantity);
+            if (inventory[slot].stackSize == 0)
+            {
+                inventory[slot] = null;
+            }
+            return split;
+        }
+        else
+        {
+            return null;
+        }
     }
     
     @Override
@@ -45,13 +69,18 @@ public class TPlayerStats implements IInventory
     @Override
     public void setInventorySlotContents (int slot, ItemStack itemstack)
     {
-        
+        inventory[slot] = itemstack;
+        //System.out.println("Changed slot "+slot);
+        if (itemstack != null && itemstack.stackSize > getInventoryStackLimit())
+        {
+            itemstack.stackSize = getInventoryStackLimit();
+        }
     }
     
     @Override
     public String getInvName ()
     {
-        return null;
+        return "";
     }
     
     @Override
@@ -63,13 +92,12 @@ public class TPlayerStats implements IInventory
     @Override
     public int getInventoryStackLimit ()
     {
-        return 0;
+        return 64;
     }
     
     @Override
     public void onInventoryChanged ()
     {
-        
     }
     
     @Override
@@ -78,17 +106,8 @@ public class TPlayerStats implements IInventory
         return true;
     }
     
-    @Override
-    public void openChest ()
-    {
-        
-    }
-    
-    @Override
-    public void closeChest ()
-    {
-        
-    }
+    public void openChest () {}
+    public void closeChest () {}
     
     @Override
     public boolean isStackValidForSlot (int slot, ItemStack itemstack)

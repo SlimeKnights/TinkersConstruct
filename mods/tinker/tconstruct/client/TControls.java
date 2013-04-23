@@ -5,6 +5,7 @@ import java.io.DataOutputStream;
 import java.util.EnumSet;
 
 import mods.tinker.tconstruct.TConstruct;
+import mods.tinker.tconstruct.TGuiHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.settings.KeyBinding;
@@ -15,8 +16,9 @@ import cpw.mods.fml.common.network.PacketDispatcher;
 
 public class TControls extends TKeyHandler
 {
-	static KeyBinding grabKey = new KeyBinding("key.grab", 29);
+	//static KeyBinding grabKey = new KeyBinding("key.grab", 29);
 	//static KeyBinding stiltsKey = new KeyBinding("key.stilts", 46);
+    static KeyBinding armorKey = new KeyBinding("key.armor", 23);
 	static KeyBinding jumpKey;
 	static Minecraft mc;
 	boolean jumping;
@@ -24,11 +26,13 @@ public class TControls extends TKeyHandler
 	boolean climbing = false;
 	boolean onGround = false;
 	boolean onStilts = false;
+	
+	boolean armorGuiOpen = false;
 	//boolean onStilts = false;
 
 	public TControls()
 	{
-		super(new KeyBinding[] { grabKey }, new boolean[] { false }, getVanillaKeyBindings(), new boolean[] { false });
+		super(new KeyBinding[] { armorKey }, new boolean[] { false }, getVanillaKeyBindings(), new boolean[] { false });
 		//System.out.println("Controls registered");
 	}
 
@@ -50,7 +54,12 @@ public class TControls extends TKeyHandler
 	{
 		if (tickEnd && mc.theWorld != null)
 		{
-			if (kb == jumpKey) //Double jump
+		    if (kb == armorKey && !armorGuiOpen) //Extended Armor
+		    {
+		        //mc.thePlayer.openGui(TConstruct.instance, TGuiHandler.armor, mc.theWorld, (int)mc.thePlayer.posX, (int)mc.thePlayer.posY, (int)mc.thePlayer.posZ);
+		        openArmorGui(mc.thePlayer.username);
+		    }
+			/*if (kb == jumpKey) //Double jump
 			{
 				if (jumping && !doubleJump)
 				{
@@ -71,7 +80,7 @@ public class TControls extends TKeyHandler
 
 				if (!jumping)
 					jumping = mc.thePlayer.isAirBorne;
-			}
+			}*/
 		}
 		/*else if (kb == stiltsKey) //Stilts
 		{
@@ -152,6 +161,23 @@ public class TControls extends TKeyHandler
 		}
 
 		updateServer(bos);
+	}
+	
+	void openArmorGui(String username)
+	{
+	    ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
+        DataOutputStream outputStream = new DataOutputStream(bos);
+        try
+        {
+            outputStream.writeByte(3);
+            outputStream.writeUTF(username);
+        }
+        catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
+
+        updateServer(bos);
 	}
 	
 	void updateServer(ByteArrayOutputStream bos)

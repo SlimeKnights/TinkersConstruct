@@ -149,7 +149,7 @@ public class TBaseWorldGenerator implements IWorldGenerator
         int xPos, yPos, zPos;
         if (PHConstruct.generateIronBush)
         {
-            for (int i = 0; i < PHConstruct.ironbDensity; i++)
+            for (int i = 0; i < PHConstruct.ironBushDensity; i++)
             {
                 xPos = xChunk + random.nextInt(16);
                 yPos = PHConstruct.seaLevel - 32;
@@ -165,7 +165,7 @@ public class TBaseWorldGenerator implements IWorldGenerator
         }
         if (PHConstruct.generateGoldBush)
         {
-            for (int i = 0; i < PHConstruct.goldbDensity; i++)
+            for (int i = 0; i < PHConstruct.goldBushDensity; i++)
             {
                 xPos = xChunk + random.nextInt(16);
                 yPos = 16;
@@ -181,12 +181,12 @@ public class TBaseWorldGenerator implements IWorldGenerator
         }
         if (PHConstruct.generateCopperBush)// && random.nextInt(PHConstruct.copperbRarity) == 0)
         {
-            for (int i = 0; i < PHConstruct.copperbDensity; i++)
+            for (int i = 0; i < PHConstruct.copperBushDensity; i++)
             {
                 xPos = xChunk + random.nextInt(16);
-                yPos = (PHConstruct.copperbMaxY + PHConstruct.copperbMinY) / 2;
+                yPos = (PHConstruct.copperBushMaxY + PHConstruct.copperBushMinY) / 2;
                 zPos = zChunk + random.nextInt(16);
-                yPos = findAdequateLocation(world, xPos, yPos, zPos, PHConstruct.copperbMaxY, PHConstruct.copperbMinY);
+                yPos = findAdequateLocation(world, xPos, yPos, zPos, PHConstruct.copperBushMaxY, PHConstruct.copperBushMinY);
                 if (yPos != -1)
                 {
                     /*CoordTuple coord = new CoordTuple(xPos, yPos, zPos);
@@ -197,12 +197,12 @@ public class TBaseWorldGenerator implements IWorldGenerator
         }
         if (PHConstruct.generateTinBush)// && random.nextInt(PHConstruct.tinbRarity) == 0)
         {
-            for (int i = 0; i < PHConstruct.tinbDensity; i++)
+            for (int i = 0; i < PHConstruct.tinBushDensity; i++)
             {
                 xPos = xChunk + random.nextInt(16);
-                yPos = (PHConstruct.tinuMaxY + PHConstruct.tinbMinY) / 2;
+                yPos = (PHConstruct.tinBushMaxY + PHConstruct.tinBushMinY) / 2;
                 zPos = zChunk + random.nextInt(16);
-                yPos = findAdequateLocation(world, xPos, yPos, zPos, PHConstruct.tinbMaxY, PHConstruct.tinbMinY);
+                yPos = findAdequateLocation(world, xPos, yPos, zPos, PHConstruct.tinBushMaxY, PHConstruct.tinBushMinY);
                 if (yPos != -1)
                 {
                     /*CoordTuple coord = new CoordTuple(xPos, yPos, zPos);
@@ -216,9 +216,9 @@ public class TBaseWorldGenerator implements IWorldGenerator
             for (int i = 0; i < PHConstruct.aluminumbDensity; i++)
             {
                 xPos = xChunk + random.nextInt(16);
-                yPos = (PHConstruct.aluminumuMaxY + PHConstruct.aluminumbMinY) / 2;
+                yPos = (PHConstruct.aluminumBushMaxY + PHConstruct.aluminumBushMinY) / 2;
                 zPos = zChunk + random.nextInt(16);
-                yPos = findAdequateLocation(world, xPos, yPos, zPos, PHConstruct.aluminumbMaxY, PHConstruct.aluminumbMinY);
+                yPos = findAdequateLocation(world, xPos, yPos, zPos, PHConstruct.aluminumBushMaxY, PHConstruct.aluminumBushMinY);
                 if (yPos != -1)
                 {
                     /*CoordTuple coord = new CoordTuple(xPos, yPos, zPos);
@@ -227,9 +227,9 @@ public class TBaseWorldGenerator implements IWorldGenerator
                 }
             }
         }
-        if (PHConstruct.generateSilverBush && random.nextInt(PHConstruct.silverbDensity) == 0)
+        if (PHConstruct.generateSilverBush && random.nextInt(PHConstruct.silverBushDensity) == 0)
         {
-            for (int i = 0; i < PHConstruct.silverbDensity; i++)
+            for (int i = 0; i < PHConstruct.silverBushDensity; i++)
             {
                 xPos = xChunk + random.nextInt(16);
                 yPos = PHConstruct.seaLevel - 16;

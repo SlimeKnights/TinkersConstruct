@@ -101,18 +101,25 @@ public class TPacketHandler implements IPacketHandler
 				}
 			}
 			
+			else if (packetID == 3) //Armor
+            {
+                String user = inputStream.readUTF();
+                EntityPlayer player = TConstruct.playerTracker.getEntityPlayer(user);
+                player.openGui(TConstruct.instance, TGuiHandler.armor, player.worldObj, (int)player.posX, (int)player.posY, (int)player.posZ);
+            }
+			
 			else if (packetID == 10) //Double jump
 			{
 				String user = inputStream.readUTF();
 				EntityPlayer player = TConstruct.playerTracker.getEntityPlayer(user);
 				player.fallDistance = 0;
 			}
-			else if (packetID == 11)
+			/*else if (packetID == 11)
 			{
 				String user = inputStream.readUTF();
 				float size = inputStream.readFloat();
 				TConstruct.playerTracker.updateSize(user, size);
-			}
+			}*/
 		}
 		catch (IOException e)
 		{

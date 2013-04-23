@@ -3,7 +3,9 @@ package mods.tinker.tconstruct;
 import mods.tinker.common.InventoryLogic;
 import mods.tinker.tconstruct.client.*;
 import mods.tinker.tconstruct.client.gui.*;
+import mods.tinker.tconstruct.container.*;
 import mods.tinker.tconstruct.logic.*;
+import mods.tinker.tconstruct.player.TPlayerStats;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -19,6 +21,7 @@ public class TGuiHandler implements IGuiHandler
     public static int frypanID = 4;
 
     public static int smeltery = 7;
+    public static int armor = 101;
     public static int manualGui = -1;
 
     @Override
@@ -27,10 +30,22 @@ public class TGuiHandler implements IGuiHandler
         if (ID < 0)
             return null;
 
-        TileEntity tile = world.getBlockTileEntity(x, y, z);
-        if (tile != null && tile instanceof InventoryLogic)
+        else if (ID <= 100)
         {
-            return ((InventoryLogic) tile).getGuiContainer(player.inventory, world, x, y, z);
+            TileEntity tile = world.getBlockTileEntity(x, y, z);
+            if (tile != null && tile instanceof InventoryLogic)
+            {
+                return ((InventoryLogic) tile).getGuiContainer(player.inventory, world, x, y, z);
+            }
+        }
+        else
+        {
+            if (ID == armor)
+            {
+                System.out.println("Server Armor Gui: "+player.username);
+                TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
+                return new ArmorExtendedContainer(player.inventory, stats);
+            }
         }
         return null;
     }
@@ -54,6 +69,12 @@ public class TGuiHandler implements IGuiHandler
         {
             ItemStack stack = player.getCurrentEquippedItem();
             return new GuiManual(stack, TProxyClient.getManualFromStack(stack));
+        }
+        if (ID == armor)
+        {
+            System.out.println("Client Armor Gui: "+player.username);
+            TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
+            return new ArmorExtendedGui(player.inventory, stats);
         }
         return null;
     }
