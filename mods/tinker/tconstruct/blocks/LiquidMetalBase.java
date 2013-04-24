@@ -1,5 +1,6 @@
 package mods.tinker.tconstruct.blocks;
 
+import java.util.List;
 import java.util.Random;
 
 import mods.tinker.tconstruct.TContent;
@@ -8,7 +9,9 @@ import mods.tinker.tconstruct.logic.LiquidTextureLogic;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.Icon;
@@ -565,6 +568,10 @@ public abstract class LiquidMetalBase extends Block
 			par1World.spawnParticle("dripLava", var21, var22, var23, 0.0D, 0.0D, 0.0D);
 		}
 	}
+	
+	public void getSubBlocks(int par1, CreativeTabs par2CreativeTabs, List par3List)
+    {
+    }
 
 	/**
 	 * Called whenever the block is added into the world. Args: world, x, y, z

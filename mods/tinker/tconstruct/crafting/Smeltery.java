@@ -150,4 +150,24 @@ public class Smeltery
     	}
     	return liquids;
     }
+    
+    public static HashMap<List<Integer>, LiquidStack> getSmeltingList()
+    {
+        return instance.smeltingList;
+    }
+    
+    public static HashMap<List<Integer>, Integer> getTemperatureList()
+    {
+        return instance.temperatureList;
+    }
+    
+    public static HashMap<List<Integer>, ItemStack> getRenderIndex()
+    {
+        return instance.renderIndex;
+    }
+    
+    public ArrayList<AlloyMix> getAlloyList()
+    {
+        return instance.alloys;
+    }
 }

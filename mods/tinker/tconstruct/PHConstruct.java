@@ -57,7 +57,7 @@ public class PHConstruct
 
         redCreeper = config.get("Mob Spawning", "Activate Nitro Creeper Spawns", true).getBoolean(true);
         blueSlime = config.get("Mob Spawning", "Activate Blue Slime Spawns", true).getBoolean(true);
-        redCreeperWeight = config.get("Mob Spawning", "Spawn Weight for Nitro Creeper", 7).getInt(7);
+        redCreeperWeight = config.get("Mob Spawning", "Spawn Weight for Nitro Creeper", 8).getInt(8);
         blueSlimeWeight = config.get("Mob Spawning", "Spawn Weight for Blue Slime", 8).getInt(8);
 
         woodCrafter = config.getBlock("Wood Tool Station", 1471).getInt(1471);
@@ -82,6 +82,7 @@ public class PHConstruct
         oreBerrySecond = config.getBlock("Ore Berry Two", 1486).getInt(1486);
         //netherOreBerry = config.getBlock("Ore Berry Nether", 1487).getInt(1487);
         oreGravel = config.getBlock("Ores Gravel", 1488).getInt(1488);
+        speedBlock = config.getBlock("Speed Block", 1489).getInt(1489);
 
         manual = config.getItem("Patterns and Misc", "Tinker's Manual", 14018).getInt(14018);
         blankPattern = config.getItem("Patterns and Misc", "Blank Patterns", 14019).getInt(14019);
@@ -115,6 +116,7 @@ public class PHConstruct
         broadsword = config.getItem("Tools", "Broadsword", 14055).getInt(14055);
         longsword = config.getItem("Tools", "Longsword", 14056).getInt(14056);
         rapier = config.getItem("Tools", "Rapier", 14057).getInt(14057);
+        dagger = config.getItem("Tools", "Dagger", 14065).getInt(14065);
 
         frypan = config.getItem("Tools", "Frying Pan", 14058).getInt(14058);
         battlesign = config.getItem("Tools", "Battlesign", 14059).getInt(14059);
@@ -165,6 +167,7 @@ public class PHConstruct
         generateTinBush = config.get("Worldgen Disabler", "Generate Tin Bushes", true).getBoolean(true);
         generateAluminumBush = config.get("Worldgen Disabler", "Generate Aluminum Bushes", true).getBoolean(true);
         generateSilverBush = config.get("Worldgen Disabler", "Generate Silver Bushes", true).getBoolean(true);
+        addToVillages = config.get("Worldgen Disabler", "Add Village Generation", true).getBoolean(true);
 
         copperuDensity = config.get("Worldgen", "Copper Underground Density", ic2 ? 1 : 0).getInt(ic2 ? 1 : 0);
         tinuDensity = config.get("Worldgen", "Tin Underground Density", ic2 ? 1 : 0).getInt(ic2 ? 1 : 0);
@@ -236,6 +239,9 @@ public class PHConstruct
 
     //Traps
     //public static int landmine;
+    
+    //InfiBlocks
+    public static int speedBlock;
 
     //Liquids
     public static int metalFlowing;
@@ -270,6 +276,7 @@ public class PHConstruct
     public static int broadsword;
     public static int longsword;
     public static int rapier;
+    public static int dagger;
 
     public static int frypan;
     public static int battlesign;
@@ -317,6 +324,8 @@ public class PHConstruct
     public static boolean generateTinBush;
     public static boolean generateAluminumBush;
     public static boolean generateSilverBush;
+    
+    public static boolean addToVillages;
     
     public static int copperuDensity;
     public static int tinuDensity;

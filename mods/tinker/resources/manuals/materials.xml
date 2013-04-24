@@ -58,7 +58,7 @@ Effective on: Stone or rock, ores, and metal.</text>
 <title>Shovel</title>
 <text>The Shovel is a basic digging tool. It is the most common way of moving earth around.</text>
 <text>Class: Precision Tool
-Effective on: Dirt, sand, and snow.</text>
+Effective on: Dirt, sand, gravel, and snow.</text>
 <icon>shovelicon</icon>
 <item>
  <text>Shovel Head</text>
@@ -74,7 +74,7 @@ Effective on: Dirt, sand, and snow.</text>
 <title>Axe</title>
 <text>The Axe is a basic chopping tool. It is the simplest way to shape lumber.</text>
 <text>Class: Precision Tool
-Effective on: Trees.</text>
+Effective on: Wood, Leaves, and Trees.</text>
 <icon>axeicon</icon>
 <item>
  <text>Axe Head</text>

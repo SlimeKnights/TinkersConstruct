@@ -2,6 +2,7 @@ package mods.tinker.tconstruct.entity.projectile;
 
 import mods.tinker.tconstruct.library.ToolCore;
 import mods.tinker.tconstruct.tools.Dagger;
+import net.minecraft.block.Block;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
@@ -23,7 +24,6 @@ import com.google.common.io.ByteArrayDataOutput;
 import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
 
 public class DaggerEntity extends RotatingBase
-    implements IEntityAdditionalSpawnData
 {
 
     public DaggerEntity(World world)
@@ -34,23 +34,27 @@ public class DaggerEntity extends RotatingBase
     public DaggerEntity(ItemStack itemstack, World world, EntityPlayer entityplayer)
     {
         super(world, entityplayer, 0.75F, 0.8F);
-        //System.out.println("check2 " + ((Dagger)(itemstack.getItem())).headType);
+        System.out.println("Stack: "+itemstack);
+        this.setEntityItemStack(itemstack);
         returnStackSlot = entityplayer.inventory.currentItem;
-        //texID = itemstack.getIconIndex();
-        //tex2ID = ((Dagger) itemstack.getItem()).secondIconIndex;
         returnStack = itemstack;
-        //damageDealt = ((Dagger) itemstack.getItem()).toolDamage - 1;
     }
 
     public DaggerEntity(World world, EntityPlayer entityplayer, float f, float g)
     {
         super(world, entityplayer, f, g);
     }
+    
+    @Override
+    protected void entityInit()
+    {
+        this.getDataWatcher().addObjectByDataType(10, 5);
+    }
 
-    public void entityInit ()
+    /*public void entityInit ()
     {
         super.entityInit();
-    }
+    }*/
 
     @Override
     public void onHit (MovingObjectPosition movingobjectposition)
@@ -259,22 +263,33 @@ public class DaggerEntity extends RotatingBase
     {
     }
 
-    public void onUpdate ()
+    /*public void onUpdate ()
     {
         super.onUpdate();
-    }
-
-    @Override
-    public void writeSpawnData (ByteArrayDataOutput data)
+    }*/
+    
+    public ItemStack getEntityItem()
     {
-        // TODO Auto-generated method stub
-        
-    }
+        ItemStack itemstack = this.getDataWatcher().getWatchableObjectItemStack(10);
 
-    @Override
-    public void readSpawnData (ByteArrayDataInput data)
+        if (itemstack == null)
+        {
+            if (this.worldObj != null)
+            {
+                this.worldObj.getWorldLogAgent().logSevere("Dagger entity " + this.entityId + " has no item?!");
+            }
+
+            return new ItemStack(Block.stone);
+        }
+        else
+        {
+            return itemstack;
+        }
+    }
+    
+    public void setEntityItemStack(ItemStack itemstack)
     {
-        // TODO Auto-generated method stub
-        
+        this.getDataWatcher().updateObject(10, itemstack);
+        this.getDataWatcher().setObjectWatched(10);
     }
 }

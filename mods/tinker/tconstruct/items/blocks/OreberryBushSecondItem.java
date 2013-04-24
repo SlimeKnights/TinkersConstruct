@@ -4,7 +4,7 @@ import java.util.List;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import mods.natura.common.NaturaContent;
+import mods.natura.common.NContent;
 import mods.tinker.tconstruct.TContent;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;

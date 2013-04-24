@@ -32,6 +32,12 @@ public class CastingBasinLogic extends InventoryLogic
 	{
 		super(2);
 	}
+	
+	@Override
+    public int getInventoryStackLimit ()
+    {
+        return 1;
+    }
 
 	@Override
 	public String getInvName () //Not a gui block

@@ -18,9 +18,9 @@ public class ToolBuilder
 {
 	public static ToolBuilder instance = new ToolBuilder();
 	
-	List<ToolRecipe> combos = new ArrayList<ToolRecipe>();
-	HashMap<String, String> modifiers = new HashMap<String, String>();
-	List<ToolMod> toolMods = new ArrayList<ToolMod>();
+	public List<ToolRecipe> combos = new ArrayList<ToolRecipe>();
+	public HashMap<String, String> modifiers = new HashMap<String, String>();
+	public List<ToolMod> toolMods = new ArrayList<ToolMod>();
 
 	/* Build tools */
 	public static void addToolRecipe (ToolCore output, Item head)

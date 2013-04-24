@@ -4,8 +4,10 @@ import mods.tinker.common.*;
 import mods.tinker.common.fancyitem.FancyEntityItem;
 
 import mods.tinker.tconstruct.blocks.*;
+import mods.tinker.tconstruct.blocks.infiblocks.*;
 import mods.tinker.tconstruct.crafting.*;
 import mods.tinker.tconstruct.entity.*;
+import mods.tinker.tconstruct.entity.projectile.DaggerEntity;
 import mods.tinker.tconstruct.items.*;
 import mods.tinker.tconstruct.items.blocks.*;
 import mods.tinker.tconstruct.library.*;
@@ -63,6 +65,7 @@ public class TContent implements IFuelHandler
     public static ToolCore broadsword;
     public static ToolCore longsword;
     public static ToolCore rapier;
+    public static ToolCore dagger;
 
     public static ToolCore frypan;
     public static ToolCore battlesign;
@@ -104,11 +107,14 @@ public class TContent implements IFuelHandler
     //Traps
     public static Block landmine;
 
+    //InfiBlocks
+    public static Block speedBlock;
+
     //Liquids
     public static Block liquidMetalFlowing;
     public static Block liquidMetalStill;
     public static Material liquidMetal;
-    
+
     //Ores
     public static Block oreSlag;
     public static Block oreGravel;
@@ -124,7 +130,7 @@ public class TContent implements IFuelHandler
     /*public static Block glowSapling;
     public static Block glowLeaves;
     public static Block glowLog;*/
-    
+
     public static Block redstoneBallRepeater;
     public static Item redstoneBallRepeaterItem;
 
@@ -153,6 +159,7 @@ public class TContent implements IFuelHandler
     void createEntities ()
     {
         EntityRegistry.registerModEntity(FancyEntityItem.class, "Fancy Item", 0, TConstruct.instance, 32, 5, true);
+        //EntityRegistry.registerModEntity(DaggerEntity.class, "Dagger", 1, TConstruct.instance, 32, 5, true);
         //EntityRegistry.registerModEntity(LaunchedPotion.class, "Launched Potion", 1, TConstruct.instance, 32, 3, true);
         //EntityRegistry.registerModEntity(GolemBase.class, "Golembase", 2, TConstruct.instance, 32, 5, true);
         //EntityRegistry.registerModEntity(CartEntity.class, "Small Wagon", 1, TConstruct.instance, 32, 5, true);
@@ -172,7 +179,7 @@ public class TContent implements IFuelHandler
                 BiomeGenBase.swampland, BiomeGenBase.river, BiomeGenBase.frozenOcean, BiomeGenBase.frozenRiver, BiomeGenBase.icePlains, BiomeGenBase.iceMountains, BiomeGenBase.beach,
                 BiomeGenBase.desertHills, BiomeGenBase.forestHills, BiomeGenBase.taigaHills, BiomeGenBase.extremeHillsEdge, BiomeGenBase.jungle, BiomeGenBase.jungleHills };
         if (PHConstruct.redCreeper)
-            EntityRegistry.addSpawn(NitroCreeper.class, PHConstruct.redCreeperWeight, 4, 6, EnumCreatureType.monster, overworldBiomes);
+            EntityRegistry.addSpawn(NitroCreeper.class, PHConstruct.redCreeperWeight, 4, 6, EnumCreatureType.monster, BiomeGenBase.hell);
         if (PHConstruct.blueSlime)
             EntityRegistry.addSpawn(BlueSlime.class, PHConstruct.blueSlimeWeight, 4, 4, EnumCreatureType.monster, overworldBiomes);
         //EntityRegistry.addSpawn(MetalSlime.class, 1, 4, 4, EnumCreatureType.monster, overworldBiomes);
@@ -236,34 +243,37 @@ public class TContent implements IFuelHandler
         //Decoration
         stoneTorch = new StoneTorch(PHConstruct.stoneTorch).setUnlocalizedName("decoration.stonetorch");
         GameRegistry.registerBlock(stoneTorch, "decoration.stonetorch");
-        
+
         //Ores
         String[] berryOres = new String[] { "berry_iron", "berry_gold", "berry_copper", "berry_tin", "berry_iron_ripe", "berry_gold_ripe", "berry_copper_ripe", "berry_tin_ripe" };
-        oreBerry = (OreberryBush) new OreberryBush(PHConstruct.oreBerry, berryOres, 0, 4, new String[] { "oreIron", "oreGold", "oreCopper", "oreTin"}).setUnlocalizedName("ore.berries.one");
+        oreBerry = (OreberryBush) new OreberryBush(PHConstruct.oreBerry, berryOres, 0, 4, new String[] { "oreIron", "oreGold", "oreCopper", "oreTin" }).setUnlocalizedName("ore.berries.one");
         GameRegistry.registerBlock(oreBerry, OreberryBushItem.class, "ore.berries.one");
         String[] berryOresTwo = new String[] { "berry_aluminum", "berry_silver", "", "", "berry_aluminum_ripe", "berry_silver_ripe", "", "" };
         oreBerrySecond = (OreberryBush) new OreberryBush(PHConstruct.oreBerrySecond, berryOresTwo, 4, 2, new String[] { "oreAluminum", "oreSilver" }).setUnlocalizedName("ore.berries.two");
         GameRegistry.registerBlock(oreBerrySecond, OreberryBushSecondItem.class, "ore.berries.two");
-        
+
         String[] oreTypes = new String[] { "nether_slag", "nether_cobalt", "nether_ardite", "ore_copper", "ore_tin", "ore_aluminum", "ore_slag" };
         oreSlag = new MetalOre(PHConstruct.oreSlag, Material.iron, 10.0F, oreTypes);
-        GameRegistry.registerBlock(oreSlag, MetalOreItemBlock .class, "SearedBrick");
+        GameRegistry.registerBlock(oreSlag, MetalOreItemBlock.class, "SearedBrick");
         MinecraftForge.setBlockHarvestLevel(oreSlag, 1, "pickaxe", 4);
         MinecraftForge.setBlockHarvestLevel(oreSlag, 2, "pickaxe", 4);
         MinecraftForge.setBlockHarvestLevel(oreSlag, 3, "pickaxe", 1);
         MinecraftForge.setBlockHarvestLevel(oreSlag, 4, "pickaxe", 1);
         MinecraftForge.setBlockHarvestLevel(oreSlag, 5, "pickaxe", 1);
-        
-        oreGravel = new GravelOre(PHConstruct.oreGravel);
+
+        oreGravel = new GravelOre(PHConstruct.oreGravel).setUnlocalizedName("GravelOre");
         GameRegistry.registerBlock(oreGravel, GravelOreItem.class, "GravelOre");
-        
+
         MinecraftForge.setBlockHarvestLevel(oreGravel, 0, "shovel", 1);
         MinecraftForge.setBlockHarvestLevel(oreGravel, 1, "shovel", 2);
         MinecraftForge.setBlockHarvestLevel(oreGravel, 2, "shovel", 1);
         MinecraftForge.setBlockHarvestLevel(oreGravel, 3, "shovel", 1);
         MinecraftForge.setBlockHarvestLevel(oreGravel, 4, "shovel", 1);
         MinecraftForge.setBlockHarvestLevel(oreGravel, 5, "shovel", 4);
-        
+
+        /*speedBlock = new SpeedBlock(PHConstruct.speedBlock).setUnlocalizedName("SpeedBlock");
+        GameRegistry.registerBlock(speedBlock, SpeedBlockItem.class, "SpeedBlock");*/
+
         /*redstoneBallRepeater = new RedstoneBallRepeater(PHConstruct.redstoneBallRepeater, false).setUnlocalizedName("decoration.redstoneballrepeater");
         GameRegistry.registerBlock(redstoneBallRepeater, "decoration.redstoneballrepeater");
         Item.itemsList[PHConstruct.redstoneBallRepeater] = null;
@@ -276,7 +286,7 @@ public class TContent implements IFuelHandler
         
         golemHead = new GolemHeadBlock(PHConstruct.golemHead).setUnlocalizedName("golemhead");
         GameRegistry.registerBlock(golemHead, "Golem Head");*/
-        
+
         /*golemPedestal = new GolemPedestalBlock(PHConstruct.golemPedestal).setUnlocalizedName("golempedestal");
         GameRegistry.registerBlock(golemPedestal, "Golem Pedestal");
         GameRegistry.registerTileEntity(GolemPedestalLogic.class, "TConstruct.GolemPedestal");*/
@@ -293,8 +303,8 @@ public class TContent implements IFuelHandler
                 "CopperNugget", "TinNugget", "AluminumNugget", "SilverNugget" };
         String[] craftingTextures = new String[] { "material_paperstack", "material_slimecrystal", "material_searedbrick", "material_cobaltingot", "material_arditeingot", "material_manyullyningot",
                 "material_mossball", "material_lavacrystal", "material_necroticbone", "material_copperingot", "material_tiningot", "material_aluminumingot", "material_aluminumraw",
-                "material_bronzeingot", "material_alubrassingot", "material_alumiteingot", "material_steelingot", "material_blueslimecrystal", "material_obsidianingot",
-                "material_nugget_iron", "material_nugget_copper", "material_nugget_tin", "material_nugget_aluminum", "material_nugget_silver" };
+                "material_bronzeingot", "material_alubrassingot", "material_alumiteingot", "material_steelingot", "material_blueslimecrystal", "material_obsidianingot", "material_nugget_iron",
+                "material_nugget_copper", "material_nugget_tin", "material_nugget_aluminum", "material_nugget_silver" };
 
         materials = new CraftingItem(PHConstruct.materials, craftingMaterials, craftingTextures, "materials/").setUnlocalizedName("tconstruct.Materials");
         toolRod = new ToolPart(PHConstruct.toolRod, "ToolRod", "_rod").setUnlocalizedName("tconstruct.ToolRod");
@@ -313,6 +323,7 @@ public class TContent implements IFuelHandler
         broadsword = new Broadsword(PHConstruct.broadsword);
         longsword = new Longsword(PHConstruct.longsword);
         rapier = new Rapier(PHConstruct.rapier);
+        //dagger = new Dagger(PHConstruct.dagger);
 
         frypan = new FryingPan(PHConstruct.frypan);
         battlesign = new BattleSign(PHConstruct.battlesign);
@@ -492,6 +503,7 @@ public class TContent implements IFuelHandler
         tb.addToolRecipe(frypan, frypanHead);
         tb.addToolRecipe(battlesign, signHead);
         tb.addToolRecipe(mattock, axeHead, shovelHead);
+        //tb.addToolRecipe(dagger, swordBlade);
         //tb.addToolRecipe(longbow, toolRod, toolRod);
         //tb.addToolRecipe(lumberaxe, lumberHead);
 
@@ -543,7 +555,7 @@ public class TContent implements IFuelHandler
         LiquidCasting lc = LiquidCasting.instance;
         //Blank
         lc.addCastingRecipe(new ItemStack(blankPattern, 1, 1), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 8), 80);
-        lc.addCastingRecipe(new ItemStack(blankPattern, 1, 1), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue*2, 1), 80);
+        lc.addCastingRecipe(new ItemStack(blankPattern, 1, 1), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 1), 80);
 
         //Ingots
         lc.addCastingRecipe(new ItemStack(Item.ingotIron), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 0), ingotcast, 80); //Iron
@@ -586,10 +598,11 @@ public class TContent implements IFuelHandler
             ItemStack cast = new ItemStack(metalPattern, 1, iter + 1);
             for (int iterTwo = 0; iterTwo < liquids.length; iterTwo++)
             {
-                lc.addCastingRecipe(new ItemStack(patternOutputs[iter], 1, liquidDamage[iterTwo]), liquids[iterTwo], cast, 50);
+                lc.addCastingRecipe(new ItemStack(patternOutputs[iter], 1, liquidDamage[iterTwo]), new LiquidStack(liquids[iterTwo].itemID, ((IPattern) metalPattern).getPatternCost(iter)
+                        * TConstruct.ingotLiquidValue / 2, liquids[iterTwo].itemMeta), cast, 50);
             }
         }
-        
+
         LiquidBlockCasting lbc = LiquidBlockCasting.instance;
         lbc.addBlockCastingRecipe(new ItemStack(Block.blockIron), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 0), null, true, 100); //Iron
         lbc.addBlockCastingRecipe(new ItemStack(Block.blockGold), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 1), null, true, 100); //gold
@@ -620,7 +633,7 @@ public class TContent implements IFuelHandler
         Smeltery.addMelting(new ItemStack(Item.ingotIron, 4), Block.blockIron.blockID, 0, 500, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 0));
         Smeltery.addMelting(new ItemStack(Item.ingotGold, 4), Block.blockGold.blockID, 0, 450, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 1));
         Smeltery.addMelting(new ItemStack(Item.goldNugget, 4), Block.blockGold.blockID, 0, 150, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue / 9, 1));
-        
+
         Smeltery.addMelting(new ItemStack(Item.bucketEmpty), Block.blockIron.blockID, 0, 600, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 3, 0));
         Smeltery.addMelting(new ItemStack(Item.minecartEmpty), Block.blockIron.blockID, 0, 600, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 5, 0));
 
@@ -636,13 +649,13 @@ public class TContent implements IFuelHandler
         Smeltery.addAlloyMixing(new LiquidStack(liquidMetalStill.blockID, 1, 9), new LiquidStack(liquidMetalStill.blockID, 2, 5), new LiquidStack(liquidMetalStill.blockID, 2, 6)); //Manyullyn
         Smeltery.addAlloyMixing(new LiquidStack(liquidMetalStill.blockID, 3, 10), new LiquidStack(liquidMetalStill.blockID, 5, 4), new LiquidStack(liquidMetalStill.blockID, 2, 0), new LiquidStack(
                 liquidMetalStill.blockID, 2, 11)); //Alumite
-        
+
         //Oreberries
-        Smeltery.addMelting(new ItemStack(oreBerries, 4, 0), Block.blockIron.blockID, 0, 100, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue/9, 0)); //Iron
-        Smeltery.addMelting(new ItemStack(oreBerries, 4, 1), Block.blockGold.blockID, 0, 100, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue/9, 1)); //Gold
-        Smeltery.addMelting(new ItemStack(oreBerries, 4, 2), metalBlock.blockID, 3, 100, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue/9, 2)); //Copper
-        Smeltery.addMelting(new ItemStack(oreBerries, 4, 3), metalBlock.blockID, 5, 100, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue/9, 3)); //Tin
-        Smeltery.addMelting(new ItemStack(oreBerries, 4, 4), metalBlock.blockID, 6, 100, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue/9, 4)); //Aluminum
+        Smeltery.addMelting(new ItemStack(oreBerries, 4, 0), Block.blockIron.blockID, 0, 100, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue / 9, 0)); //Iron
+        Smeltery.addMelting(new ItemStack(oreBerries, 4, 1), Block.blockGold.blockID, 0, 100, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue / 9, 1)); //Gold
+        Smeltery.addMelting(new ItemStack(oreBerries, 4, 2), metalBlock.blockID, 3, 100, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue / 9, 2)); //Copper
+        Smeltery.addMelting(new ItemStack(oreBerries, 4, 3), metalBlock.blockID, 5, 100, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue / 9, 3)); //Tin
+        Smeltery.addMelting(new ItemStack(oreBerries, 4, 4), metalBlock.blockID, 6, 100, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue / 9, 4)); //Aluminum
     }
 
     void addCraftingRecipes ()
@@ -691,20 +704,20 @@ public class TContent implements IFuelHandler
         FurnaceRecipes.smelting().addSmelting(oreSlag.blockID, 3, new ItemStack(materials, 1, 9), 0.5f);
         FurnaceRecipes.smelting().addSmelting(oreSlag.blockID, 4, new ItemStack(materials, 1, 10), 0.5f);
         FurnaceRecipes.smelting().addSmelting(oreSlag.blockID, 5, new ItemStack(materials, 1, 12), 0.5f);
-        
+
         FurnaceRecipes.smelting().addSmelting(oreBerries.itemID, 0, new ItemStack(materials, 1, 19), 0.2f);
         FurnaceRecipes.smelting().addSmelting(oreBerries.itemID, 1, new ItemStack(Item.goldNugget), 0.2f);
         FurnaceRecipes.smelting().addSmelting(oreBerries.itemID, 2, new ItemStack(materials, 1, 20), 0.2f);
         FurnaceRecipes.smelting().addSmelting(oreBerries.itemID, 3, new ItemStack(materials, 1, 21), 0.2f);
         FurnaceRecipes.smelting().addSmelting(oreBerries.itemID, 4, new ItemStack(materials, 1, 22), 0.2f);
         FurnaceRecipes.smelting().addSmelting(oreBerries.itemID, 5, new ItemStack(materials, 1, 23), 0.2f);
-        
+
         FurnaceRecipes.smelting().addSmelting(oreGravel.blockID, 0, new ItemStack(Item.ingotIron), 0.2f);
         FurnaceRecipes.smelting().addSmelting(oreGravel.blockID, 1, new ItemStack(Item.ingotGold), 0.2f);
         FurnaceRecipes.smelting().addSmelting(oreGravel.blockID, 2, new ItemStack(materials, 1, 9), 0.2f);
         FurnaceRecipes.smelting().addSmelting(oreGravel.blockID, 3, new ItemStack(materials, 1, 10), 0.2f);
         FurnaceRecipes.smelting().addSmelting(oreGravel.blockID, 4, new ItemStack(materials, 1, 12), 0.2f);
-        
+
         //Metal conversion
         GameRegistry.addRecipe(new ItemStack(materials, 9, 9), "m", 'm', new ItemStack(metalBlock, 1, 3)); //Copper
         GameRegistry.addRecipe(new ItemStack(materials, 9, 10), "m", 'm', new ItemStack(metalBlock, 1, 5)); //Tin
@@ -716,12 +729,12 @@ public class TContent implements IFuelHandler
         GameRegistry.addRecipe(new ItemStack(materials, 9, 5), "m", 'm', new ItemStack(metalBlock, 1, 2)); //Manyullyn
         GameRegistry.addRecipe(new ItemStack(materials, 9, 15), "m", 'm', new ItemStack(metalBlock, 1, 8)); //Alumite
         GameRegistry.addRecipe(new ItemStack(materials, 9, 16), "m", 'm', new ItemStack(metalBlock, 1, 9)); //Steel
-        
+
         GameRegistry.addRecipe(new ItemStack(Item.ingotIron), "mmm", "mmm", "mmm", 'm', new ItemStack(materials, 1, 19)); //Iron
         GameRegistry.addRecipe(new ItemStack(materials, 1, 9), "mmm", "mmm", "mmm", 'm', new ItemStack(materials, 1, 20)); //Copper
         GameRegistry.addRecipe(new ItemStack(materials, 1, 10), "mmm", "mmm", "mmm", 'm', new ItemStack(materials, 1, 21)); //Tin
         GameRegistry.addRecipe(new ItemStack(materials, 1, 12), "mmm", "mmm", "mmm", 'm', new ItemStack(materials, 1, 22)); //Aluminum
-        
+
         LiquidBlockCasting lbc = LiquidBlockCasting.instance;
         lbc.addBlockCastingRecipe(new ItemStack(Block.blockIron), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 0), null, true, 100); //Iron
         lbc.addBlockCastingRecipe(new ItemStack(Block.blockGold), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 1), null, true, 100); //gold
@@ -754,7 +767,7 @@ public class TContent implements IFuelHandler
         GameRegistry.addRecipe(new ItemStack(stoneTorch, 4), "p", "w", 'p', new ItemStack(Item.coal, 1, Short.MAX_VALUE), 'w', new ItemStack(toolRod, 1, 1));
         GameRegistry.addRecipe(new ItemStack(toolRod, 4, 1), "c", "c", 'c', new ItemStack(Block.stone));
         GameRegistry.addRecipe(new ItemStack(toolRod, 2, 1), "c", "c", 'c', new ItemStack(Block.cobblestone));
-        
+
         ItemStack aluBrass = new ItemStack(materials, 1, 14);
         GameRegistry.addRecipe(new ItemStack(Item.pocketSundial), " i ", "iri", " i ", 'i', aluBrass, 'r', new ItemStack(Item.redstone));
         GameRegistry.addRecipe(new ItemStack(Block.pressurePlateGold), "ii", 'i', aluBrass);
@@ -776,7 +789,7 @@ public class TContent implements IFuelHandler
         //TConstruct.
         TConstructRegistry.toolTab.init(tool);
     }
-    
+
     public static LiquidStack[] liquidIcons;
     public static String[] liquidNames;
 
@@ -787,12 +800,12 @@ public class TContent implements IFuelHandler
         OreDictionary.registerOre("oreCopper", new ItemStack(oreSlag, 1, 3));
         OreDictionary.registerOre("oreTin", new ItemStack(oreSlag, 1, 4));
         OreDictionary.registerOre("oreNaturalAluminum", new ItemStack(oreSlag, 1, 5));
-        
+
         OreDictionary.registerOre("oreCobalt", new ItemStack(oreGravel, 1, 5));
         OreDictionary.registerOre("oreCopper", new ItemStack(oreGravel, 1, 2));
         OreDictionary.registerOre("oreTin", new ItemStack(oreGravel, 1, 3));
         OreDictionary.registerOre("oreNaturalAluminum", new ItemStack(oreGravel, 1, 4));
-        
+
         OreDictionary.registerOre("ingotCobalt", new ItemStack(materials, 1, 3));
         OreDictionary.registerOre("ingotArdite", new ItemStack(materials, 1, 4));
         OreDictionary.registerOre("ingotManyullyn", new ItemStack(materials, 1, 5));
@@ -815,7 +828,7 @@ public class TContent implements IFuelHandler
         OreDictionary.registerOre("blockAluminumBrass", new ItemStack(metalBlock, 1, 7));
         OreDictionary.registerOre("blockAlumite", new ItemStack(metalBlock, 1, 8));
         OreDictionary.registerOre("blockSteel", new ItemStack(metalBlock, 1, 9));
-        
+
         OreDictionary.registerOre("nuggetIron", new ItemStack(materials, 1, 19));
         OreDictionary.registerOre("nuggetCopper", new ItemStack(materials, 1, 20));
         OreDictionary.registerOre("nuggetTin", new ItemStack(materials, 1, 21));

@@ -37,12 +37,20 @@
   <entry key="block.oreberry.aluminum.name">Aluminum Oreberry Bush</entry>
   <entry key="block.oreberry.silver.name">Silver Oreberry Bush</entry>
   
-  <entry key="block.ore.gravel.iron.name">Iron Ore</entry>
-  <entry key="block.ore.gravel.gold.name">Gold Ore</entry>
-  <entry key="block.ore.gravel.copper.name">Copper Ore</entry>
-  <entry key="block.ore.gravel.tin.name">Tin Ore</entry>
-  <entry key="block.ore.gravel.aluminum.name">Aluminum Ore</entry>
-  <entry key="block.ore.gravel.cobalt.name">Cobalt Ore</entry>
+  <entry key="block.ore.gravel.iron.name">Iron Gravel Ore</entry>
+  <entry key="block.ore.gravel.gold.name">Gold Gravel Ore</entry>
+  <entry key="block.ore.gravel.copper.name">Copper Gravel Ore</entry>
+  <entry key="block.ore.gravel.tin.name">Tin Gravel Ore</entry>
+  <entry key="block.ore.gravel.aluminum.name">Aluminum Gravel Ore</entry>
+  <entry key="block.ore.gravel.cobalt.name">Cobalt Gravel Ore</entry>
+    
+  <entry key="block.brownstone.rough.name">Rough Brownstone</entry>
+  <entry key="block.brownstone.rough.road.name">Brownstone Road</entry>
+  <entry key="block.brownstone.smooth.name">Brownstone</entry>
+  <entry key="block.brownstone.smooth.brick.name">Brownstone Brick</entry>
+  <entry key="block.brownstone.smooth.road.name">Brownstone Road</entry>
+  <entry key="block.brownstone.smooth.fancy.name">Fancy Brownstone</entry>
+  <entry key="block.brownstone.smooth.chiseled.name">Chiseled Brownstone</entry>
   
   <entry key="item.oreberry.iron.name">Iron Oreberry</entry>
   <entry key="item.oreberry.gold.name">Gold Oreberry</entry>

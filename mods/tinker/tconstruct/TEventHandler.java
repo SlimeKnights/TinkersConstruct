@@ -112,12 +112,12 @@ public class TEventHandler
 		
 		else if (evt.Name == "crystalQuartz")
         {
-		    ToolBuilder.instance.registerToolMod(new ModAttack("Quartz", new ItemStack[] { evt.Ore }, 11, 16));
+		    ToolBuilder.instance.registerToolMod(new ModAttack("Quartz", new ItemStack[] { evt.Ore }, 11, 2));
         }
 		
 		else if (evt.Name == "crystalCerusQuartz")
         {
-            ToolBuilder.instance.registerToolMod(new ModAttack("Quartz", new ItemStack[] { evt.Ore }, 11, 72));
+            ToolBuilder.instance.registerToolMod(new ModAttack("Quartz", new ItemStack[] { evt.Ore }, 11, 24));
         }
 
 		//Ingots

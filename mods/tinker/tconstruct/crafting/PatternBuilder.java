@@ -14,11 +14,11 @@ public class PatternBuilder
 {
 	public static PatternBuilder instance = new PatternBuilder();
 	//Map items to their parts with a hashmap
-	List<ItemKey> materials = new ArrayList<ItemKey>();
-	HashMap materialSets = new HashMap<String, MaterialSet>();
+	public List<ItemKey> materials = new ArrayList<ItemKey>();
+	public HashMap materialSets = new HashMap<String, MaterialSet>();
 
 	//We could use IRecipe if it wasn't tied to InventoryCrafting
-	List<IPattern> toolPatterns = new ArrayList<IPattern>();
+	public List<IPattern> toolPatterns = new ArrayList<IPattern>();
 
 	/* Register methods */
 	public void registerMaterial (ItemStack material, int value, String key)

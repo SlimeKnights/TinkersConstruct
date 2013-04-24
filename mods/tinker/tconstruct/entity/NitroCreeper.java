@@ -8,6 +8,7 @@ import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSource;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
 public class NitroCreeper extends EntityCreeper
@@ -34,7 +35,7 @@ public class NitroCreeper extends EntityCreeper
 
     public int getMaxHealth ()
     {
-        return 12;
+        return 20;
     }
 
     protected void fall (float distance)
@@ -51,7 +52,7 @@ public class NitroCreeper extends EntityCreeper
                 }
                 else
                 {
-                    this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, (float) (0.75f * (worldObj.difficultySetting - 1)), false);
+                    this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, 3f, false);
                 }
 
                 this.setDead();
@@ -114,7 +115,7 @@ public class NitroCreeper extends EntityCreeper
                     }
                     else
                     {
-                        this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, (float) (this.explosionRadius + 1f * (difficulty - 1)), flag);
+                        this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, 3f, flag);
                     }
 
                     this.setDead();
@@ -188,5 +189,13 @@ public class NitroCreeper extends EntityCreeper
             damage = 1000; 
         }
         return super.attackEntityFrom(source, damage);
+    }
+    
+    public boolean getCanSpawnHere()
+    {
+        int i = MathHelper.floor_double(this.posX);
+        int j = MathHelper.floor_double(this.boundingBox.minY);
+        int k = MathHelper.floor_double(this.posZ);
+        return this.worldObj.checkNoEntityCollision(this.boundingBox) && this.worldObj.getCollidingBoundingBoxes(this, this.boundingBox).isEmpty() && !this.worldObj.isAnyLiquid(this.boundingBox) && this.getBlockPathWeight(i, j, k) >= 0.0F;
     }
 }

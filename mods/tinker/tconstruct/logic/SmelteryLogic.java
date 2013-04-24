@@ -324,6 +324,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         if (moltenMetal.size() == 0)
         {
             moltenMetal.add(liquid);
+            currentLiquid += liquid.amount;
             return true;
         }
         else
@@ -332,8 +333,8 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                 return false;
 
             currentLiquid += liquid.amount;
+            System.out.println("Current liquid: "+currentLiquid);
             boolean added = false;
-            //for (LiquidStack l : moltenMetal)
             for (int i = 0; i < moltenMetal.size(); i++)
             {
                 LiquidStack l = moltenMetal.get(i);
@@ -725,7 +726,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                 //liquid = null;
                 moltenMetal.remove(liquid);
                 worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-                currentLiquid -= liq.amount;
+                currentLiquid = 0;
             }
             return liq;
         }
@@ -735,7 +736,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
             {
                 liquid.amount -= maxDrain;
                 worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-                currentLiquid = 0;
+                currentLiquid -= maxDrain;
             }
             return new LiquidStack(liquid.itemID, maxDrain, liquid.itemMeta);
         }

@@ -26,7 +26,7 @@ import cpw.mods.fml.common.registry.VillagerRegistry;
  * @dependencies: IC2 API, EBXL API
  */
 
-@Mod(modid = "TConstruct", name = "TConstruct", version = "1.5.1_1.3rc.2", dependencies = "required-after:Forge@[7.7.1.659,)")
+@Mod(modid = "TConstruct", name = "TConstruct", version = "1.5.1_1.3.0.2", dependencies = "required-after:Forge@[7.7.1.659,)")
 @NetworkMod(serverSideRequired = false, clientSideRequired = true, channels = { "TConstruct" }, packetHandler = mods.tinker.tconstruct.TPacketHandler.class)
 public class TConstruct
 {
@@ -68,10 +68,11 @@ public class TConstruct
 
         VillagerRegistry.instance().registerVillagerType(78943, "/mods/tinker/textures/mob/villagertools.png");
         VillagerRegistry.instance().registerVillageTradeHandler(78943, new TVillageTrades());
-        VillagerRegistry.instance().registerVillageCreationHandler(new VillageToolStationHandler());
-        VillagerRegistry.instance().registerVillageCreationHandler(new VillageSmelteryHandler());
-        /*VillagerRegistry.instance().registerVillagerType(78944, "/mods/tinker/textures/mob/villagersmeltery.png");
-        VillagerRegistry.instance().registerVillageTradeHandler(78944, trades);*/
+        if (PHConstruct.addToVillages)
+        {
+            VillagerRegistry.instance().registerVillageCreationHandler(new VillageToolStationHandler());
+            VillagerRegistry.instance().registerVillageCreationHandler(new VillageSmelteryHandler());
+        }
 
         //DimensionManager.unregisterProviderType(0);
         //DimensionManager.registerProviderType(0, OverworldProvider.class, true);
@@ -86,7 +87,7 @@ public class TConstruct
 
         content.modIntegration();
     }
-    
+
     public static TEventHandler events;
     public static TPlayerHandler playerTracker;
     public static TContent content;

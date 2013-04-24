@@ -1,4 +1,5 @@
 package mods.tinker.tconstruct.entity.projectile;
+
 import java.util.List;
 
 import mods.tinker.tconstruct.library.AbilityHelper;
@@ -21,7 +22,7 @@ public class RotatingBase extends Entity
         super(world);
         System.out.println("single constructor");
         texID = 0;
-        tex2ID = 16*3;
+        tex2ID = 16 * 3;
         returnStackSlot = -1;
         hasHitGround = false;
         hasHitMob = false;
@@ -48,7 +49,7 @@ public class RotatingBase extends Entity
     {
         this(world);
         owner = entityliving;
-        setLocationAndAngles(entityliving.posX, entityliving.posY + (double)entityliving.getEyeHeight(), entityliving.posZ, entityliving.rotationYaw, entityliving.rotationPitch);
+        setLocationAndAngles(entityliving.posX, entityliving.posY + (double) entityliving.getEyeHeight(), entityliving.posZ, entityliving.rotationYaw, entityliving.rotationPitch);
         posX -= MathHelper.cos((rotationYaw / 180F) * 3.141593F) * 0.16F;
         posY -= 0.10000000149011612D;
         posZ -= MathHelper.sin((rotationYaw / 180F) * 3.141593F) * 0.16F;
@@ -60,24 +61,19 @@ public class RotatingBase extends Entity
         setArrowHeading(motionX, motionY, motionZ, f, f1);
     }
 
-    protected void entityInit()
+    protected void entityInit ()
     {
     }
-    
-    public void damageDagger(int i, boolean flag)
+
+    public void damageDagger (int i, boolean flag)
     {
-        /*if(returnStack.itemID == mod_2by2.daggerWood.shiftedIndex && fire > 0)
-        {
-            i *= 6;
-        }
-        returnStack.damageItem(1, this);*/
-        if(!flag)
+        if (!flag)
         {
             return;
         }
-        if(returnStack.stackSize < 1)
+        if (returnStack.stackSize < 1)
         {
-            for(int j = 0; j < 8; j++)
+            for (int j = 0; j < 8; j++)
             {
                 worldObj.spawnParticle("snowballpoof", posX, posY, posZ, 0.0D, 0.0D, 0.0D);
             }
@@ -104,27 +100,26 @@ public class RotatingBase extends Entity
     }
     */
 
-    public void determineRotation()
+    public void determineRotation ()
     {
-        rotationPitch = -57.29578F * (float)Math.atan2(motionY, motionX);
-        double d = Math.sqrt((double)(rotationYaw * rotationYaw) + motionY * motionY);
-        prevRotationYaw = -57.29578F * (float)Math.atan2(motionZ, d);
+        rotationPitch = -57.29578F * (float) Math.atan2(motionY, motionX);
+        double d = Math.sqrt((double) (rotationYaw * rotationYaw) + motionY * motionY);
+        prevRotationYaw = -57.29578F * (float) Math.atan2(motionZ, d);
     }
 
-    public void onHit(MovingObjectPosition movingobjectposition)
+    public void onHit (MovingObjectPosition movingobjectposition)
     {
     }
 
-    public void setArrowHeading(double d, double d1, double d2, float f, 
-            float f1)
+    public void setArrowHeading (double d, double d1, double d2, float f, float f1)
     {
         float f2 = MathHelper.sqrt_double(d * d + d1 * d1 + d2 * d2);
         d /= f2;
         d1 /= f2;
         d2 /= f2;
-        d += rand.nextGaussian() * 0.0074999998323619366D * (double)f1;
-        d1 += rand.nextGaussian() * 0.0074999998323619366D * (double)f1;
-        d2 += rand.nextGaussian() * 0.0074999998323619366D * (double)f1;
+        d += rand.nextGaussian() * 0.0074999998323619366D * (double) f1;
+        d1 += rand.nextGaussian() * 0.0074999998323619366D * (double) f1;
+        d2 += rand.nextGaussian() * 0.0074999998323619366D * (double) f1;
         d *= f;
         d1 *= f;
         d2 *= f;
@@ -132,43 +127,43 @@ public class RotatingBase extends Entity
         motionY = d1;
         motionZ = d2;
         float f3 = MathHelper.sqrt_double(d * d + d2 * d2);
-        prevRotationYaw = rotationYaw = (float)((Math.atan2(d, d2) * 180D) / 3.1415927410125732D);
-        prevRotationPitch = rotationPitch = (float)((Math.atan2(d1, f3) * 180D) / 3.1415927410125732D);
+        prevRotationYaw = rotationYaw = (float) ((Math.atan2(d, d2) * 180D) / 3.1415927410125732D);
+        prevRotationPitch = rotationPitch = (float) ((Math.atan2(d1, f3) * 180D) / 3.1415927410125732D);
         ticksInGround = 0;
     }
 
     @Override
-    public void setVelocity(double d, double d1, double d2)
+    public void setVelocity (double d, double d1, double d2)
     {
         motionX = d;
         motionY = d1;
         motionZ = d2;
-        if(prevRotationPitch == 0.0F && prevRotationYaw == 0.0F)
+        if (prevRotationPitch == 0.0F && prevRotationYaw == 0.0F)
         {
             float f = MathHelper.sqrt_double(d * d + d2 * d2);
-            prevRotationYaw = rotationYaw = (float)((Math.atan2(d, d2) * 180D) / 3.1415927410125732D);
-            prevRotationPitch = rotationPitch = (float)((Math.atan2(d1, f) * 180D) / 3.1415927410125732D);
+            prevRotationYaw = rotationYaw = (float) ((Math.atan2(d, d2) * 180D) / 3.1415927410125732D);
+            prevRotationPitch = rotationPitch = (float) ((Math.atan2(d1, f) * 180D) / 3.1415927410125732D);
         }
     }
 
     @Override
-    public void onUpdate()
+    public void onUpdate ()
     {
         super.onUpdate();
-        if(prevRotationPitch == 0.0F && prevRotationYaw == 0.0F)
+        if (prevRotationPitch == 0.0F && prevRotationYaw == 0.0F)
         {
             float f = MathHelper.sqrt_double(motionX * motionX + motionZ * motionZ);
-            prevRotationYaw = rotationYaw = (float)((Math.atan2(motionX, motionZ) * 180D) / Math.PI);
-            prevRotationPitch = rotationPitch = (float)((Math.atan2(motionY, f) * 180D) / Math.PI);
+            prevRotationYaw = rotationYaw = (float) ((Math.atan2(motionX, motionZ) * 180D) / Math.PI);
+            prevRotationPitch = rotationPitch = (float) ((Math.atan2(motionY, f) * 180D) / Math.PI);
         }
-        if(arrowShake > 0)
+        if (arrowShake > 0)
         {
             arrowShake--;
         }
-        if(inGround)
+        if (inGround)
         {
             int i = worldObj.getBlockId(xTile, yTile, zTile);
-            if(i != inTile)
+            if (i != inTile)
             {
                 inGround = false;
                 motionX *= rand.nextFloat() * 0.2F;
@@ -176,25 +171,27 @@ public class RotatingBase extends Entity
                 motionZ *= rand.nextFloat() * 0.2F;
                 ticksInGround = 0;
                 ticksInAir = 0;
-            } else
+            }
+            else
             {
                 ticksInGround++;
-                if(ticksInGround == 1200)
+                if (ticksInGround == 1200)
                 {
                     setDead();
                 }
-                if(ticksInGround == maxGroundTicks)
+                if (ticksInGround == maxGroundTicks)
                 {
                     setDead();
                 }
-                if(!hasHitGround)
+                if (!hasHitGround)
                 {
                     hasHitGround = true;
                     damageDagger(1, true);
                 }
                 return;
             }
-        } else
+        }
+        else
         {
             ticksInAir++;
         }
@@ -203,41 +200,41 @@ public class RotatingBase extends Entity
         MovingObjectPosition movingobjectposition = worldObj.rayTraceBlocks(vec3d, vec3d1);
         vec3d = Vec3.createVectorHelper(posX, posY, posZ);
         vec3d1 = Vec3.createVectorHelper(posX + motionX, posY + motionY, posZ + motionZ);
-        if(movingobjectposition != null)
+        if (movingobjectposition != null)
         {
             vec3d1 = Vec3.createVectorHelper(movingobjectposition.hitVec.xCoord, movingobjectposition.hitVec.yCoord, movingobjectposition.hitVec.zCoord);
         }
         Entity entity = null;
         List list = worldObj.getEntitiesWithinAABBExcludingEntity(this, boundingBox.addCoord(motionX, motionY, motionZ).expand(1.0D, 1.0D, 1.0D));
         double d = 0.0D;
-        for(int j = 0; j < list.size(); j++)
+        for (int j = 0; j < list.size(); j++)
         {
-            Entity entity1 = (Entity)list.get(j);
-            if(!entity1.canBeCollidedWith() || entity1 == owner && ticksInAir < 5)
+            Entity entity1 = (Entity) list.get(j);
+            if (!entity1.canBeCollidedWith() || entity1 == owner && ticksInAir < 5)
             {
                 continue;
             }
             float f3 = 0.3F;
             AxisAlignedBB axisalignedbb = entity1.boundingBox.expand(f3, f3, f3);
             MovingObjectPosition movingobjectposition2 = axisalignedbb.calculateIntercept(vec3d, vec3d1);
-            if(movingobjectposition2 == null)
+            if (movingobjectposition2 == null)
             {
                 continue;
             }
             double d1 = vec3d.distanceTo(movingobjectposition2.hitVec);
-            if(d1 < d || d == 0.0D)
+            if (d1 < d || d == 0.0D)
             {
                 entity = entity1;
                 d = d1;
             }
         }
 
-        if(entity != null)
+        if (entity != null)
         {
             MovingObjectPosition movingobjectposition1 = new MovingObjectPosition(entity);
             onHit(movingobjectposition1);
         }
-        if(movingobjectposition != null)
+        if (movingobjectposition != null)
         {
             onHit(movingobjectposition);
         }
@@ -245,21 +242,29 @@ public class RotatingBase extends Entity
         posY += motionY;
         posZ += motionZ;
         float f1 = MathHelper.sqrt_double(motionX * motionX + motionZ * motionZ);
-        rotationYaw = (float)((Math.atan2(motionX, motionZ) * 180D) / 3.1415927410125732D);
-        for(rotationPitch = (float)((Math.atan2(motionY, f1) * 180D) / 3.1415927410125732D); rotationPitch - prevRotationPitch < -180F; prevRotationPitch -= 360F) { }
-        for(; rotationPitch - prevRotationPitch >= 180F; prevRotationPitch += 360F) { }
-        for(; rotationYaw - prevRotationYaw < -180F; prevRotationYaw -= 360F) { }
-        for(; rotationYaw - prevRotationYaw >= 180F; prevRotationYaw += 360F) { }
+        rotationYaw = (float) ((Math.atan2(motionX, motionZ) * 180D) / 3.1415927410125732D);
+        for (rotationPitch = (float) ((Math.atan2(motionY, f1) * 180D) / 3.1415927410125732D); rotationPitch - prevRotationPitch < -180F; prevRotationPitch -= 360F)
+        {
+        }
+        for (; rotationPitch - prevRotationPitch >= 180F; prevRotationPitch += 360F)
+        {
+        }
+        for (; rotationYaw - prevRotationYaw < -180F; prevRotationYaw -= 360F)
+        {
+        }
+        for (; rotationYaw - prevRotationYaw >= 180F; prevRotationYaw += 360F)
+        {
+        }
         rotationPitch = prevRotationPitch + (rotationPitch - prevRotationPitch) * 0.2F;
         rotationYaw = prevRotationYaw + (rotationYaw - prevRotationYaw) * 0.2F;
         float f2 = 0.99F;
         float f4 = 0.03F;
-        if(isInWater())
+        if (isInWater())
         {
-            for(int k = 0; k < 4; k++)
+            for (int k = 0; k < 4; k++)
             {
                 float f5 = 0.25F;
-                worldObj.spawnParticle("bubble", posX - motionX * (double)f5, posY - motionY * (double)f5, posZ - motionZ * (double)f5, motionX, motionY, motionZ);
+                worldObj.spawnParticle("bubble", posX - motionX * (double) f5, posY - motionY * (double) f5, posZ - motionZ * (double) f5, motionX, motionY, motionZ);
             }
 
             f2 = 0.8F;
@@ -269,24 +274,26 @@ public class RotatingBase extends Entity
         motionZ *= f2;
         motionY -= f4;
         setPosition(posX, posY, posZ);
-        if(!inGround)
+        if (!inGround)
         {
             prevBoomerangRotation = boomerangRotation;
-            for(boomerangRotation += 36F; boomerangRotation > 360F; boomerangRotation -= 360F) { }
+            for (boomerangRotation += 36F; boomerangRotation > 360F; boomerangRotation -= 360F)
+            {
+            }
         }
     }
 
-    public void writeEntityToNBT(NBTTagCompound nbttagcompound)
+    public void writeEntityToNBT (NBTTagCompound nbttagcompound)
     {
-        nbttagcompound.setShort("xTile", (short)xTile);
-        nbttagcompound.setShort("yTile", (short)yTile);
-        nbttagcompound.setShort("zTile", (short)zTile);
-        nbttagcompound.setByte("inTile", (byte)inTile);
-        nbttagcompound.setByte("shake", (byte)arrowShake);
-        nbttagcompound.setByte("inGround", (byte)(inGround ? 1 : 0));
+        nbttagcompound.setShort("xTile", (short) xTile);
+        nbttagcompound.setShort("yTile", (short) yTile);
+        nbttagcompound.setShort("zTile", (short) zTile);
+        nbttagcompound.setByte("inTile", (byte) inTile);
+        nbttagcompound.setByte("shake", (byte) arrowShake);
+        nbttagcompound.setByte("inGround", (byte) (inGround ? 1 : 0));
     }
 
-    public void readEntityFromNBT(NBTTagCompound nbttagcompound)
+    public void readEntityFromNBT (NBTTagCompound nbttagcompound)
     {
         xTile = nbttagcompound.getShort("xTile");
         yTile = nbttagcompound.getShort("yTile");
@@ -296,20 +303,20 @@ public class RotatingBase extends Entity
         inGround = nbttagcompound.getByte("inGround") == 1;
     }
 
-    public void onCollideWithPlayer(EntityPlayer entityplayer)
+    public void onCollideWithPlayer (EntityPlayer entityplayer)
     {
         onCollideWithPlayer(entityplayer, true);
     }
 
-    public void onCollideWithPlayer(EntityPlayer entityplayer, boolean flag)
+    public void onCollideWithPlayer (EntityPlayer entityplayer, boolean flag)
     {
-        if(returnStack == null || returnStack.stackSize == 0 || worldObj.isRemote)
+        if (returnStack == null || returnStack.stackSize == 0 || worldObj.isRemote)
         {
             return;
         }
-        if(!flag || inGround && arrowShake <= 0)
+        if (!flag || inGround && arrowShake <= 0)
         {
-            if(!flag || returnsTo != null && !returnsTo.isDead && returnsTo != entityplayer)
+            if (!flag || returnsTo != null && !returnsTo.isDead && returnsTo != entityplayer)
             {
                 return;
             }
@@ -320,7 +327,7 @@ public class RotatingBase extends Entity
         }
     }
 
-    public float getShadowSize()
+    public float getShadowSize ()
     {
         return 0.0F;
     }
