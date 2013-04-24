@@ -104,6 +104,24 @@
   <entry key="item.tconstruct.bucket.DSteel.name">Liquid Damascus Steel Bucket</entry>
   <entry key="item.tconstruct.bucket.Angmallen.name">Liquid Angmallen Bucket</entry>
   
+  <entry key="LiquidMetal.Iron.name">Liquid Iron</entry>
+  <entry key="LiquidMetal.Gold.name">Liquid Gold</entry>
+  <entry key="LiquidMetal.Copper.name">Liquid Copper</entry>
+  <entry key="LiquidMetal.Tin.name">Liquid Tin</entry>
+  <entry key="LiquidMetal.Aluminum.name">Liquid Aluminum</entry>
+  <entry key="LiquidMetal.Cobalt.name">Liquid Cobalt</entry>
+  <entry key="LiquidMetal.Ardite.name">Liquid Ardite</entry>
+  <entry key="LiquidMetal.Bronze.name">Liquid Bronze</entry>
+  <entry key="LiquidMetal.AlBrass.name">Liquid Aluminum Brass</entry>
+  <entry key="LiquidMetal.Manyullyn.name">Liquid Manyullyn</entry>
+  <entry key="LiquidMetal.Alumite.name">Liquid Alumite</entry>
+  <entry key="LiquidMetal.Obsidian.name">Liquid Obsidian</entry>
+  <entry key="LiquidMetal.Steel.name">Liquid Steel</entry>
+  <entry key="LiquidMetal.Manganese.name">Liquid Manganese</entry>
+  <entry key="LiquidMetal.Heptazion.name">Liquid Heptazion</entry>
+  <entry key="LiquidMetal.DSteel.name">Liquid Damascus Steel</entry>
+  <entry key="LiquidMetal.Angmallen.name">Liquid Angmallen</entry>
+  
   <entry key="item.tconstruct.strangefood.edibleslime.name">Gelatinous Slime</entry>
   
   <entry key="SearedBlock.Table.name">Casting Table</entry>
