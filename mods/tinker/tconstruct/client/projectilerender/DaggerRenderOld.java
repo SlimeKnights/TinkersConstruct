@@ -7,9 +7,9 @@ import net.minecraft.entity.Entity;
 
 import org.lwjgl.opengl.GL11;
 
-public class DaggerRender extends RangedRenderBase
+public class DaggerRenderOld extends RangedRenderBase
 {
-    public DaggerRender(double d)
+    public DaggerRenderOld(double d)
     {
         System.out.println("new renderer");
         shadowSize = 0.15F;

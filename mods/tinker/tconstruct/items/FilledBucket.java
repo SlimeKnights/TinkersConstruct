@@ -28,6 +28,7 @@ public class FilledBucket extends ItemBucket
 		//setIconIndex(224);
 		setUnlocalizedName("tconstruct.bucket");
 		setContainerItem(Item.bucketEmpty);
+        this.setHasSubtypes(true);
 	}
 
 	public ItemStack onItemRightClick (ItemStack stack, World world, EntityPlayer player)

@@ -13,6 +13,7 @@ import mods.tinker.tconstruct.TContent;
 import mods.tinker.tconstruct.TProxyCommon;
 import mods.tinker.tconstruct.client.blockrender.*;
 import mods.tinker.tconstruct.client.entityrender.*;
+import mods.tinker.tconstruct.client.projectilerender.LaunchedItemRender;
 import mods.tinker.tconstruct.crafting.ToolBuilder;
 import mods.tinker.tconstruct.entity.*;
 import mods.tinker.tconstruct.entity.projectile.*;
@@ -111,10 +112,10 @@ public class TProxyClient extends TProxyCommon
         RenderingRegistry.registerEntityRenderingHandler(GolemBase.class, new GolemRender(0));
         
         RenderingRegistry.registerEntityRenderingHandler(CartEntity.class, new CartRender());
-        //RenderingRegistry.registerEntityRenderingHandler(DaggerEntity.class, new RangedItemRender());
+        RenderingRegistry.registerEntityRenderingHandler(DaggerEntity.class, new RangedItemRender());
         RenderingRegistry.registerEntityRenderingHandler(Skyla.class, new SkylaRender());
         RenderingRegistry.registerEntityRenderingHandler(Crystal.class, new CrystalRender());
-        RenderingRegistry.registerEntityRenderingHandler(LaunchedPotion.class, new ThrownItemRender(Item.potion, 16384));
+        RenderingRegistry.registerEntityRenderingHandler(LaunchedPotion.class, new LaunchedItemRender(Item.potion, 16384));
         //RenderingRegistry.registerEntityRenderingHandler(net.minecraft.entity.player.EntityPlayer.class, new PlayerArmorRender()); // <-- Works, woo!
 
         addRenderMappings();

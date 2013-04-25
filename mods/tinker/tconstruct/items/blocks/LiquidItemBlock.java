@@ -7,7 +7,7 @@ import net.minecraft.util.MathHelper;
 public class LiquidItemBlock extends ItemBlock
 {
     public static final String blockType[] =
-    	{ "Iron", "Gold", "Copper", "Tin", "Aluminum", "Cobalt", "Ardite", "Bronze", "Brass", "Manyullyn", "Alumite", "Obsidian", "Steel" };
+    	{ "Iron", "Gold", "Copper", "Tin", "Aluminum", "Cobalt", "Ardite", "Bronze", "AluBrass", "Manyullyn", "Alumite", "Obsidian", "Steel" };
 
     public LiquidItemBlock(int id)
     {

@@ -2,7 +2,7 @@ package mods.tinker.tconstruct.tools;
 
 import java.util.List;
 
-import mods.tinker.tconstruct.entity.LaunchedPotion;
+import mods.tinker.tconstruct.entity.projectile.LaunchedPotion;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;

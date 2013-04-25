@@ -35,7 +35,6 @@ public class DaggerEntity extends RotatingBase
     {
         super(world, entityplayer, 0.75F, 0.8F);
         System.out.println("Stack: "+itemstack);
-        this.setEntityItemStack(itemstack);
         returnStackSlot = entityplayer.inventory.currentItem;
         returnStack = itemstack;
     }
@@ -43,12 +42,6 @@ public class DaggerEntity extends RotatingBase
     public DaggerEntity(World world, EntityPlayer entityplayer, float f, float g)
     {
         super(world, entityplayer, f, g);
-    }
-    
-    @Override
-    protected void entityInit()
-    {
-        this.getDataWatcher().addObjectByDataType(10, 5);
     }
 
     /*public void entityInit ()
@@ -267,29 +260,4 @@ public class DaggerEntity extends RotatingBase
     {
         super.onUpdate();
     }*/
-    
-    public ItemStack getEntityItem()
-    {
-        ItemStack itemstack = this.getDataWatcher().getWatchableObjectItemStack(10);
-
-        if (itemstack == null)
-        {
-            if (this.worldObj != null)
-            {
-                this.worldObj.getWorldLogAgent().logSevere("Dagger entity " + this.entityId + " has no item?!");
-            }
-
-            return new ItemStack(Block.stone);
-        }
-        else
-        {
-            return itemstack;
-        }
-    }
-    
-    public void setEntityItemStack(ItemStack itemstack)
-    {
-        this.getDataWatcher().updateObject(10, itemstack);
-        this.getDataWatcher().setObjectWatched(10);
-    }
 }

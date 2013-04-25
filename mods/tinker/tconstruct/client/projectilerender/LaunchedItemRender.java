@@ -1,6 +1,6 @@
-package mods.tinker.tconstruct.client.entityrender;
+package mods.tinker.tconstruct.client.projectilerender;
 
-import mods.tinker.tconstruct.entity.LaunchedPotion;
+import mods.tinker.tconstruct.entity.projectile.LaunchedPotion;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
@@ -16,18 +16,18 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class ThrownItemRender extends Render
+public class LaunchedItemRender extends Render
 {
     private Item field_94151_a;
     private int field_94150_f;
 
-    public ThrownItemRender(Item par1, int par2)
+    public LaunchedItemRender(Item par1, int par2)
     {
         this.field_94151_a = par1;
         this.field_94150_f = par2;
     }
 
-    public ThrownItemRender(Item par1)
+    public LaunchedItemRender(Item par1)
     {
         this(par1, 0);
     }

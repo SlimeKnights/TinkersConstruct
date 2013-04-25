@@ -12,12 +12,12 @@ import cpw.mods.fml.common.TickType;
 
 public abstract class TKeyHandler implements ITickHandler
 {
-    protected KeyBinding[] keyBindings;
-    protected KeyBinding[] vKeyBindings;
-    protected boolean[] keyDown;
-    protected boolean[] repeatings;
-    protected boolean[] vRepeatings;
-    private boolean isDummy;
+    public KeyBinding[] keyBindings;
+    public KeyBinding[] vKeyBindings;
+    public boolean[] keyDown;
+    public boolean[] repeatings;
+    public boolean[] vRepeatings;
+    public boolean isDummy;
 
     /**
      * Pass an array of keybindings and a repeat flag for each one

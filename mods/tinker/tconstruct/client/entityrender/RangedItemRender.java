@@ -2,6 +2,7 @@ package mods.tinker.tconstruct.client.entityrender;
 
 import java.util.Random;
 
+import mods.tinker.tconstruct.entity.projectile.RotatingBase;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.ItemRenderer;
@@ -32,7 +33,6 @@ public class RangedItemRender extends Render
 
     /** Defines the zLevel of rendering of item on GUI. */
     public float zLevel = 0.0F;
-    public static boolean renderInFrame = false;
 
     public RangedItemRender()
     {
@@ -43,16 +43,16 @@ public class RangedItemRender extends Render
     /**
      * Renders the item
      */
-    public void doRenderItem (EntityItem par1EntityItem, double par2, double par4, double par6, float par8, float par9)
+    public void doRenderItem (RotatingBase rotator, double par2, double par4, double par6, float par8, float par9)
     {
         this.random.setSeed(187L);
-        ItemStack itemstack = par1EntityItem.getEntityItem();
+        ItemStack itemstack = rotator.getEntityItem();
 
         if (itemstack.getItem() != null)
         {
             GL11.glPushMatrix();
-            float f2 = shouldBob() ? MathHelper.sin(((float) par1EntityItem.age + par9) / 10.0F + par1EntityItem.hoverStart) * 0.1F + 0.1F : 0F;
-            float f3 = (((float) par1EntityItem.age + par9) / 20.0F + par1EntityItem.hoverStart) * (180F / (float) Math.PI);
+            float f2 = shouldBob() ? MathHelper.sin(((float) rotator.age + par9) / 10.0F + rotator.hoverStart) * 0.1F + 0.1F : 0F;
+            float f3 = (((float) rotator.age + par9) / 20.0F + rotator.hoverStart) * (180F / (float) Math.PI);
             byte b0 = getMiniBlockCount(itemstack);
 
             GL11.glTranslatef((float) par2, (float) par4 + f2, (float) par6);
@@ -66,15 +66,8 @@ public class RangedItemRender extends Render
 
             if (itemstack.getItem().requiresMultipleRenderPasses())
             {
-                if (renderInFrame)
-                {
-                    GL11.glScalef(0.5128205F, 0.5128205F, 0.5128205F);
-                    GL11.glTranslatef(0.0F, -0.05F, 0.0F);
-                }
-                else
-                {
-                    GL11.glScalef(0.5F, 0.5F, 0.5F);
-                }
+                GL11.glScalef(0.5128205F, 0.5128205F, 0.5128205F);
+                GL11.glTranslatef(0.0F, -0.05F, 0.0F);
 
                 this.loadTexture("/gui/items.png");
 
@@ -91,25 +84,18 @@ public class RangedItemRender extends Render
                         f4 = (float) (i >> 8 & 255) / 255.0F;
                         f6 = (float) (i & 255) / 255.0F;
                         GL11.glColor4f(f5 * f8, f4 * f8, f6 * f8, 1.0F);
-                        this.renderDroppedItem(par1EntityItem, icon, b0, par9, f5 * f8, f4 * f8, f6 * f8);
+                        this.renderDroppedItem(rotator, icon, b0, par9, f5 * f8, f4 * f8, f6 * f8);
                     }
                     else
                     {
-                        this.renderDroppedItem(par1EntityItem, icon, b0, par9, 1.0F, 1.0F, 1.0F);
+                        this.renderDroppedItem(rotator, icon, b0, par9, 1.0F, 1.0F, 1.0F);
                     }
                 }
             }
             else
             {
-                if (renderInFrame)
-                {
-                    GL11.glScalef(0.5128205F, 0.5128205F, 0.5128205F);
-                    GL11.glTranslatef(0.0F, -0.05F, 0.0F);
-                }
-                else
-                {
-                    GL11.glScalef(0.5F, 0.5F, 0.5F);
-                }
+                GL11.glScalef(0.5128205F, 0.5128205F, 0.5128205F);
+                GL11.glTranslatef(0.0F, -0.05F, 0.0F);
 
                 Icon icon1 = itemstack.getIconIndex();
 
@@ -129,11 +115,11 @@ public class RangedItemRender extends Render
                     float f9 = (float) (l >> 8 & 255) / 255.0F;
                     f5 = (float) (l & 255) / 255.0F;
                     f4 = 1.0F;
-                    this.renderDroppedItem(par1EntityItem, icon1, b0, par9, f8 * f4, f9 * f4, f5 * f4);
+                    this.renderDroppedItem(rotator, icon1, b0, par9, f8 * f4, f9 * f4, f5 * f4);
                 }
                 else
                 {
-                    this.renderDroppedItem(par1EntityItem, icon1, b0, par9, 1.0F, 1.0F, 1.0F);
+                    this.renderDroppedItem(rotator, icon1, b0, par9, 1.0F, 1.0F, 1.0F);
                 }
             }
 
@@ -145,7 +131,7 @@ public class RangedItemRender extends Render
     /**
      * Renders a dropped item
      */
-    private void renderDroppedItem (EntityItem par1EntityItem, Icon par2Icon, int par3, float par4, float par5, float par6, float par7)
+    private void renderDroppedItem (RotatingBase par1EntityItem, Icon par2Icon, int par3, float par4, float par5, float par6, float par7)
     {
         Tessellator tessellator = Tessellator.instance;
 
@@ -165,15 +151,7 @@ public class RangedItemRender extends Render
 
         GL11.glPushMatrix();
 
-        if (renderInFrame)
-        {
-            GL11.glRotatef(180.0F, 0.0F, 1.0F, 0.0F);
-        }
-        else
-        {
-            GL11.glRotatef((((float) par1EntityItem.age + par4) / 20.0F + par1EntityItem.hoverStart) * (180F / (float) Math.PI), 0.0F, 1.0F, 0.0F);
-        }
-
+        GL11.glRotatef(180.0F, 0.0F, 1.0F, 0.0F);
         float f12 = 0.0625F;
         f11 = 0.021875F;
         ItemStack itemstack = par1EntityItem.getEntityItem();
@@ -467,7 +445,7 @@ public class RangedItemRender extends Render
      */
     public void doRender (Entity par1Entity, double par2, double par4, double par6, float par8, float par9)
     {
-        this.doRenderItem((EntityItem) par1Entity, par2, par4, par6, par8, par9);
+        this.doRenderItem((RotatingBase) par1Entity, par2, par4, par6, par8, par9);
     }
 
     /**

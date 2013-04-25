@@ -1,4 +1,4 @@
-package mods.tinker.tconstruct.player;
+package mods.tinker.tconstruct.client;
 
 import java.util.EnumSet;
 

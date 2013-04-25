@@ -166,7 +166,7 @@ public class Smeltery
         return instance.renderIndex;
     }
     
-    public ArrayList<AlloyMix> getAlloyList()
+    public static ArrayList<AlloyMix> getAlloyList()
     {
         return instance.alloys;
     }

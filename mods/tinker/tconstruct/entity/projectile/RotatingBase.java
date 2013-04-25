@@ -2,6 +2,9 @@ package mods.tinker.tconstruct.entity.projectile;
 
 import java.util.List;
 
+import com.google.common.io.ByteArrayDataInput;
+import com.google.common.io.ByteArrayDataOutput;
+
 import mods.tinker.tconstruct.library.AbilityHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -13,6 +16,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
+import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
 
 public class RotatingBase extends Entity
 {
@@ -20,7 +24,6 @@ public class RotatingBase extends Entity
     public RotatingBase(World world)
     {
         super(world);
-        System.out.println("single constructor");
         texID = 0;
         tex2ID = 16 * 3;
         returnStackSlot = -1;
@@ -61,7 +64,8 @@ public class RotatingBase extends Entity
         setArrowHeading(motionX, motionY, motionZ, f, f1);
     }
 
-    protected void entityInit ()
+    @Override
+    protected void entityInit()
     {
     }
 
@@ -282,25 +286,58 @@ public class RotatingBase extends Entity
             }
         }
     }
-
-    public void writeEntityToNBT (NBTTagCompound nbttagcompound)
+    
+    /*public void readEntityFromNBT(NBTTagCompound par1NBTTagCompound)
     {
-        nbttagcompound.setShort("xTile", (short) xTile);
-        nbttagcompound.setShort("yTile", (short) yTile);
-        nbttagcompound.setShort("zTile", (short) zTile);
-        nbttagcompound.setByte("inTile", (byte) inTile);
-        nbttagcompound.setByte("shake", (byte) arrowShake);
-        nbttagcompound.setByte("inGround", (byte) (inGround ? 1 : 0));
+        super.readEntityFromNBT(par1NBTTagCompound);
+
+        if (par1NBTTagCompound.hasKey("Potion"))
+        {
+            this.potionDamage = ItemStack.loadItemStackFromNBT(par1NBTTagCompound.getCompoundTag("Potion"));
+        }
+        else
+        {
+            this.setPotionDamage(par1NBTTagCompound.getInteger("potionValue"));
+        }
+
+        if (this.potionDamage == null)
+        {
+            this.setDead();
+        }
     }
 
-    public void readEntityFromNBT (NBTTagCompound nbttagcompound)
+    public void writeEntityToNBT(NBTTagCompound par1NBTTagCompound)
     {
-        xTile = nbttagcompound.getShort("xTile");
-        yTile = nbttagcompound.getShort("yTile");
-        zTile = nbttagcompound.getShort("zTile");
-        inTile = nbttagcompound.getByte("inTile") & 0xff;
-        arrowShake = nbttagcompound.getByte("shake") & 0xff;
-        inGround = nbttagcompound.getByte("inGround") == 1;
+        super.writeEntityToNBT(par1NBTTagCompound);
+
+        if (this.potionDamage != null)
+        {
+            
+        }
+    }*/
+
+    public void writeEntityToNBT (NBTTagCompound tags)
+    {
+        tags.setCompoundTag("Throwable", this.returnStack.writeToNBT(new NBTTagCompound()));
+        tags.setShort("xTile", (short) xTile);
+        tags.setShort("yTile", (short) yTile);
+        tags.setShort("zTile", (short) zTile);
+        tags.setByte("inTile", (byte) inTile);
+        tags.setByte("shake", (byte) arrowShake);
+        tags.setByte("inGround", (byte) (inGround ? 1 : 0));
+    }
+
+    public void readEntityFromNBT (NBTTagCompound tags)
+    {
+        //super.readEntityFromNBT(tags);
+
+        this.returnStack = ItemStack.loadItemStackFromNBT(tags.getCompoundTag("Throwable"));
+        xTile = tags.getShort("xTile");
+        yTile = tags.getShort("yTile");
+        zTile = tags.getShort("zTile");
+        inTile = tags.getByte("inTile") & 0xff;
+        arrowShake = tags.getByte("shake") & 0xff;
+        inGround = tags.getByte("inGround") == 1;
     }
 
     public void onCollideWithPlayer (EntityPlayer entityplayer)
@@ -331,7 +368,16 @@ public class RotatingBase extends Entity
     {
         return 0.0F;
     }
+    
 
+    
+    public ItemStack getEntityItem()
+    {
+        return returnStack;
+    }
+
+    public int age = 0;
+    public int hoverStart = 0;
     public int texID;
     public int tex2ID;
     public ItemStack returnStack;

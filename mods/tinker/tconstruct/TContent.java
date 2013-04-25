@@ -159,7 +159,7 @@ public class TContent implements IFuelHandler
     void createEntities ()
     {
         EntityRegistry.registerModEntity(FancyEntityItem.class, "Fancy Item", 0, TConstruct.instance, 32, 5, true);
-        //EntityRegistry.registerModEntity(DaggerEntity.class, "Dagger", 1, TConstruct.instance, 32, 5, true);
+        EntityRegistry.registerModEntity(DaggerEntity.class, "Dagger", 1, TConstruct.instance, 32, 5, true);
         //EntityRegistry.registerModEntity(LaunchedPotion.class, "Launched Potion", 1, TConstruct.instance, 32, 3, true);
         //EntityRegistry.registerModEntity(GolemBase.class, "Golembase", 2, TConstruct.instance, 32, 5, true);
         //EntityRegistry.registerModEntity(CartEntity.class, "Small Wagon", 1, TConstruct.instance, 32, 5, true);
@@ -323,7 +323,7 @@ public class TContent implements IFuelHandler
         broadsword = new Broadsword(PHConstruct.broadsword);
         longsword = new Longsword(PHConstruct.longsword);
         rapier = new Rapier(PHConstruct.rapier);
-        //dagger = new Dagger(PHConstruct.dagger);
+        dagger = new Dagger(PHConstruct.dagger);
 
         frypan = new FryingPan(PHConstruct.frypan);
         battlesign = new BattleSign(PHConstruct.battlesign);
@@ -503,7 +503,7 @@ public class TContent implements IFuelHandler
         tb.addToolRecipe(frypan, frypanHead);
         tb.addToolRecipe(battlesign, signHead);
         tb.addToolRecipe(mattock, axeHead, shovelHead);
-        //tb.addToolRecipe(dagger, swordBlade);
+        tb.addToolRecipe(dagger, swordBlade);
         //tb.addToolRecipe(longbow, toolRod, toolRod);
         //tb.addToolRecipe(lumberaxe, lumberHead);
 

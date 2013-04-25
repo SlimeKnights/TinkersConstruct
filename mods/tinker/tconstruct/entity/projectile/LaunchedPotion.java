@@ -1,4 +1,4 @@
-package mods.tinker.tconstruct.entity;
+package mods.tinker.tconstruct.entity.projectile;
 
 import java.util.Iterator;
 import java.util.List;
