@@ -121,13 +121,13 @@ public class TProxyCommon
             "Copper", "Bronze", "Alumite", "Steel", "Blue Slime" };
 
     public static final String[] materialTypes = new String[] { "ToolRod", "PickaxeHead", "ShovelHead", "AxeHead", "SwordBlade", "LargeGuard", "MediumGuard", "Crossbar", "Binding", "FrypanHead",
-            "SignHead", "LumberHead" };
+            "SignHead", "LumberHead", "KnifeBlade" };
 
     public static final String[] materialNames = new String[] { " Rod", " Pickaxe Head", " Shovel Head", " Axe Head", " Sword Blade", " Wide Guard", " Hand Guard", " Crossbar", " Binding", " Pan",
-            " Board", " Broad Axe Head" };
+            " Board", " Broad Axe Head", " Knife Blade" };
 
-    public static final String[] patterns = new String[] { "ingot", "rod", "pickaxe", "shovel", "axe", "swordblade", "largeguard", "mediumguard", "crossbar", "binding", "frypan", "sign" };
+    public static final String[] patterns = new String[] { "ingot", "rod", "pickaxe", "shovel", "axe", "swordblade", "largeguard", "mediumguard", "crossbar", "binding", "frypan", "sign", "knifeblade" };
 
     public static final String[] patternNames = new String[] { "Ingot", "Tool Rod", "Pickaxe Head", "Shovel Head", "Axe Head", "Sword Blade", "Wide Guard", "Hand Guard", "Crossbar", "Tool Binding",
-            "Pan", "Board", "Broad Axe Head" };
+            "Pan", "Board", "Knife Blade" };
 }

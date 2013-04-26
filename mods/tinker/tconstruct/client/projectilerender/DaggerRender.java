@@ -1,4 +1,4 @@
-package mods.tinker.tconstruct.client.entityrender;
+package mods.tinker.tconstruct.client.projectilerender;
 
 import java.util.Random;
 
@@ -24,7 +24,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class RangedItemRender extends Render
+public class DaggerRender extends Render
 {
 
     /** The RNG used in RenderItem (for bobbing itemstacks on the ground) */
@@ -34,7 +34,7 @@ public class RangedItemRender extends Render
     /** Defines the zLevel of rendering of item on GUI. */
     public float zLevel = 0.0F;
 
-    public RangedItemRender()
+    public DaggerRender()
     {
         this.shadowSize = 0.15F;
         this.shadowOpaque = 0.75F;
@@ -51,8 +51,8 @@ public class RangedItemRender extends Render
         if (itemstack.getItem() != null)
         {
             GL11.glPushMatrix();
-            float f2 = shouldBob() ? MathHelper.sin(((float) rotator.age + par9) / 10.0F + rotator.hoverStart) * 0.1F + 0.1F : 0F;
-            float f3 = (((float) rotator.age + par9) / 20.0F + rotator.hoverStart) * (180F / (float) Math.PI);
+            float f2 = shouldBob() ? MathHelper.sin(((float) rotator.boomerangRotation + par9 * 0.2f) / 10.0F + rotator.hoverStart) * 0.1F + 0.1F : 0F;
+            float f3 = (((float) rotator.age + par9 * 0.2f) / 20.0F + rotator.boomerangRotation) * (180F / (float) Math.PI);
             byte b0 = getMiniBlockCount(itemstack);
 
             GL11.glTranslatef((float) par2, (float) par4 + f2, (float) par6);
@@ -66,7 +66,7 @@ public class RangedItemRender extends Render
 
             if (itemstack.getItem().requiresMultipleRenderPasses())
             {
-                GL11.glScalef(0.5128205F, 0.5128205F, 0.5128205F);
+                //GL11.glScalef(0.5128205F, 0.5128205F, 0.5128205F);
                 GL11.glTranslatef(0.0F, -0.05F, 0.0F);
 
                 this.loadTexture("/gui/items.png");
@@ -131,13 +131,13 @@ public class RangedItemRender extends Render
     /**
      * Renders a dropped item
      */
-    private void renderDroppedItem (RotatingBase par1EntityItem, Icon par2Icon, int par3, float par4, float par5, float par6, float par7)
+    private void renderDroppedItem (RotatingBase dagger, Icon par2Icon, int par3, float par4, float par5, float par6, float par7)
     {
         Tessellator tessellator = Tessellator.instance;
 
         if (par2Icon == null)
         {
-            par2Icon = this.renderManager.renderEngine.getMissingIcon(par1EntityItem.getEntityItem().getItemSpriteNumber());
+            par2Icon = this.renderManager.renderEngine.getMissingIcon(dagger.getEntityItem().getItemSpriteNumber());
         }
 
         float f4 = par2Icon.getMinU();
@@ -150,11 +150,13 @@ public class RangedItemRender extends Render
         float f11;
 
         GL11.glPushMatrix();
-
-        GL11.glRotatef(180.0F, 0.0F, 1.0F, 0.0F);
+        //float rotation = dagger.prevBoomerangRotation + (dagger.boomerangRotation - dagger.prevBoomerangRotation) * par7 * 0.001F;
+        float rotation = dagger.prevRotationPitch + (dagger.rotationPitch - dagger.prevRotationPitch) * par7;
+        GL11.glRotatef(dagger.rotationYaw + 90, 0.0F, 1.0F, 0.0F);
+        GL11.glRotatef(-rotation * 15, 0.0F, 0.0F, 1.0F);
         float f12 = 0.0625F;
         f11 = 0.021875F;
-        ItemStack itemstack = par1EntityItem.getEntityItem();
+        ItemStack itemstack = dagger.getEntityItem();
         int j = itemstack.stackSize;
         byte b0 = getMiniItemCount(itemstack);
 
@@ -162,20 +164,7 @@ public class RangedItemRender extends Render
 
         for (int k = 0; k < b0; ++k)
         {
-            GL11.glTranslatef(0.0F, 0.0F, f12 + f11);
-            // Makes items offset when in 3D, like when in 2D, looks much
-            // better. Considered a vanilla bug...
-            if (k > 0 && shouldSpreadItems())
-            {
-                float x = (random.nextFloat() * 2.0F - 1.0F) * 0.3F / 0.5F;
-                float y = (random.nextFloat() * 2.0F - 1.0F) * 0.3F / 0.5F;
-                float z = (random.nextFloat() * 2.0F - 1.0F) * 0.3F / 0.5F;
-                GL11.glTranslatef(x, y, f12 + f11);
-            }
-            else
-            {
-                GL11.glTranslatef(0f, 0f, f12 + f11);
-            }
+            GL11.glTranslatef(0f, 0f, f12 + f11);
 
             if (itemstack.getItemSpriteNumber() == 0)
             {

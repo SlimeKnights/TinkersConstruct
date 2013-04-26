@@ -7,6 +7,7 @@ import mods.tinker.tconstruct.PHConstruct;
 import mods.tinker.tconstruct.TContent;
 import net.minecraft.block.Block;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldType;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.feature.WorldGenMinable;
 import cpw.mods.fml.common.IWorldGenerator;
@@ -41,12 +42,15 @@ public class TBaseWorldGenerator implements IWorldGenerator
     public void generate (Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider)
     {
         if (world.provider.isHellWorld)
+        {
             generateNether(random, chunkX * 16, chunkZ * 16, world);
-        else
+        }
+        else if (world.provider.terrainType != WorldType.FLAT)
+        {
             generateSurface(random, chunkX * 16, chunkZ * 16, world);
-        
-        if (world.provider.dimensionId == 0)
-            generateOreBushes(random, chunkX * 16, chunkZ * 16, world);
+            if (world.provider.dimensionId == 0)
+                generateOreBushes(random, chunkX * 16, chunkZ * 16, world);
+        }
     }
 
     void generateSurface (Random random, int xChunk, int zChunk, World world)

@@ -1,21 +1,87 @@
 package mods.tinker.tconstruct;
 
-import mods.tinker.common.*;
+import mods.tinker.common.IPattern;
+import mods.tinker.common.RecipeRemover;
 import mods.tinker.common.fancyitem.FancyEntityItem;
-
-import mods.tinker.tconstruct.blocks.*;
-import mods.tinker.tconstruct.blocks.infiblocks.*;
-import mods.tinker.tconstruct.crafting.*;
-import mods.tinker.tconstruct.entity.*;
+import mods.tinker.tconstruct.blocks.EquipBlock;
+import mods.tinker.tconstruct.blocks.GravelOre;
+import mods.tinker.tconstruct.blocks.LavaTankBlock;
+import mods.tinker.tconstruct.blocks.LiquidMetalFlowing;
+import mods.tinker.tconstruct.blocks.LiquidMetalStill;
+import mods.tinker.tconstruct.blocks.MetalOre;
+import mods.tinker.tconstruct.blocks.OreberryBush;
+import mods.tinker.tconstruct.blocks.SearedBlock;
+import mods.tinker.tconstruct.blocks.SmelteryBlock;
+import mods.tinker.tconstruct.blocks.StoneTorch;
+import mods.tinker.tconstruct.blocks.TConstructBlock;
+import mods.tinker.tconstruct.blocks.TMetalBlock;
+import mods.tinker.tconstruct.blocks.ToolStationBlock;
+import mods.tinker.tconstruct.crafting.LiquidBlockCasting;
+import mods.tinker.tconstruct.crafting.LiquidCasting;
+import mods.tinker.tconstruct.crafting.PatternBuilder;
+import mods.tinker.tconstruct.crafting.Smeltery;
+import mods.tinker.tconstruct.crafting.ToolBuilder;
+import mods.tinker.tconstruct.entity.BlueSlime;
+import mods.tinker.tconstruct.entity.NitroCreeper;
 import mods.tinker.tconstruct.entity.projectile.DaggerEntity;
-import mods.tinker.tconstruct.items.*;
-import mods.tinker.tconstruct.items.blocks.*;
-import mods.tinker.tconstruct.library.*;
-import mods.tinker.tconstruct.library.client.*;
-import mods.tinker.tconstruct.logic.*;
-import mods.tinker.tconstruct.modifiers.*;
-import mods.tinker.tconstruct.tools.*;
-
+import mods.tinker.tconstruct.items.CraftingItem;
+import mods.tinker.tconstruct.items.FilledBucket;
+import mods.tinker.tconstruct.items.MetalPattern;
+import mods.tinker.tconstruct.items.OreBerries;
+import mods.tinker.tconstruct.items.Pattern;
+import mods.tinker.tconstruct.items.PatternManual;
+import mods.tinker.tconstruct.items.StrangeFood;
+import mods.tinker.tconstruct.items.TitleIcon;
+import mods.tinker.tconstruct.items.ToolPart;
+import mods.tinker.tconstruct.items.ToolShard;
+import mods.tinker.tconstruct.items.blocks.CraftedSoilItemBlock;
+import mods.tinker.tconstruct.items.blocks.GravelOreItem;
+import mods.tinker.tconstruct.items.blocks.LavaTankItemBlock;
+import mods.tinker.tconstruct.items.blocks.LiquidItemBlock;
+import mods.tinker.tconstruct.items.blocks.MetalItemBlock;
+import mods.tinker.tconstruct.items.blocks.MetalOreItemBlock;
+import mods.tinker.tconstruct.items.blocks.OreberryBushItem;
+import mods.tinker.tconstruct.items.blocks.OreberryBushSecondItem;
+import mods.tinker.tconstruct.items.blocks.SearedTableItemBlock;
+import mods.tinker.tconstruct.items.blocks.SmelteryItemBlock;
+import mods.tinker.tconstruct.items.blocks.ToolStationItemBlock;
+import mods.tinker.tconstruct.library.TConstructRegistry;
+import mods.tinker.tconstruct.library.ToolCore;
+import mods.tinker.tconstruct.library.client.TConstructClientRegistry;
+import mods.tinker.tconstruct.logic.CastingBasinLogic;
+import mods.tinker.tconstruct.logic.CastingTableLogic;
+import mods.tinker.tconstruct.logic.FaucetLogic;
+import mods.tinker.tconstruct.logic.FrypanLogic;
+import mods.tinker.tconstruct.logic.LavaTankLogic;
+import mods.tinker.tconstruct.logic.LiquidTextureLogic;
+import mods.tinker.tconstruct.logic.MultiServantLogic;
+import mods.tinker.tconstruct.logic.PartCrafterLogic;
+import mods.tinker.tconstruct.logic.PatternChestLogic;
+import mods.tinker.tconstruct.logic.PatternShaperLogic;
+import mods.tinker.tconstruct.logic.SmelteryDrainLogic;
+import mods.tinker.tconstruct.logic.SmelteryLogic;
+import mods.tinker.tconstruct.logic.ToolStationLogic;
+import mods.tinker.tconstruct.modifiers.ModAttack;
+import mods.tinker.tconstruct.modifiers.ModBlaze;
+import mods.tinker.tconstruct.modifiers.ModBoolean;
+import mods.tinker.tconstruct.modifiers.ModDurability;
+import mods.tinker.tconstruct.modifiers.ModElectric;
+import mods.tinker.tconstruct.modifiers.ModExtraModifier;
+import mods.tinker.tconstruct.modifiers.ModInteger;
+import mods.tinker.tconstruct.modifiers.ModLapis;
+import mods.tinker.tconstruct.modifiers.ModRedstone;
+import mods.tinker.tconstruct.modifiers.ModRepair;
+import mods.tinker.tconstruct.tools.Axe;
+import mods.tinker.tconstruct.tools.BattleSign;
+import mods.tinker.tconstruct.tools.Broadsword;
+import mods.tinker.tconstruct.tools.Dagger;
+import mods.tinker.tconstruct.tools.FryingPan;
+import mods.tinker.tconstruct.tools.Longsword;
+import mods.tinker.tconstruct.tools.Mattock;
+import mods.tinker.tconstruct.tools.Pickaxe;
+import mods.tinker.tconstruct.tools.PotionLauncher;
+import mods.tinker.tconstruct.tools.Rapier;
+import mods.tinker.tconstruct.tools.Shovel;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
@@ -37,6 +103,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import cpw.mods.fml.common.IFuelHandler;
+import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 
@@ -80,11 +147,13 @@ public class TContent implements IFuelHandler
     public static Item pickaxeHead;
     public static Item shovelHead;
     public static Item axeHead;
+    public static Item binding;
+    
     public static Item swordBlade;
     public static Item wideGuard;
     public static Item handGuard;
     public static Item crossbar;
-    public static Item binding;
+    public static Item knifeBlade;
 
     public static Item frypanHead;
     public static Item signHead;
@@ -335,11 +404,13 @@ public class TContent implements IFuelHandler
         pickaxeHead = new ToolPart(PHConstruct.pickaxeHead, "PickaxeHead", "_pickaxe_head").setUnlocalizedName("tconstruct.PickaxeHead");
         shovelHead = new ToolPart(PHConstruct.shovelHead, "ShovelHead", "_shovel_head").setUnlocalizedName("tconstruct.ShovelHead");
         axeHead = new ToolPart(PHConstruct.axeHead, "AxeHead", "_axe_head").setUnlocalizedName("tconstruct.AxeHead");
+        binding = new ToolPart(PHConstruct.binding, "Binding", "_binding").setUnlocalizedName("tconstruct.Binding");
+        
         swordBlade = new ToolPart(PHConstruct.swordBlade, "SwordBlade", "_sword_blade").setUnlocalizedName("tconstruct.SwordBlade");
         wideGuard = new ToolPart(PHConstruct.largeGuard, "LargeGuard", "_large_guard").setUnlocalizedName("tconstruct.LargeGuard");
         handGuard = new ToolPart(PHConstruct.medGuard, "MediumGuard", "_medium_guard").setUnlocalizedName("tconstruct.MediumGuard");
         crossbar = new ToolPart(PHConstruct.crossbar, "Crossbar", "_crossbar").setUnlocalizedName("tconstruct.Crossbar");
-        binding = new ToolPart(PHConstruct.binding, "Binding", "_binding").setUnlocalizedName("tconstruct.Binding");
+        knifeBlade = new ToolPart(PHConstruct.knifeBlade, "KnifeBlade", "_knife_blade").setUnlocalizedName("tconstruct.KnifeBlade");
 
         frypanHead = new ToolPart(PHConstruct.frypanHead, "FrypanHead", "_frypan_head").setUnlocalizedName("tconstruct.FrypanHead");
         signHead = new ToolPart(PHConstruct.signHead, "SignHead", "_battlesign_head").setUnlocalizedName("tconstruct.SignHead");
@@ -491,7 +562,7 @@ public class TContent implements IFuelHandler
 
         RecipeRemover.removeShapedRecipes(removeTools);*/
 
-        patternOutputs = new Item[] { toolRod, pickaxeHead, shovelHead, axeHead, swordBlade, wideGuard, handGuard, crossbar, binding, frypanHead, signHead };
+        patternOutputs = new Item[] { toolRod, pickaxeHead, shovelHead, axeHead, swordBlade, wideGuard, handGuard, crossbar, binding, frypanHead, signHead, knifeBlade };
 
         ToolBuilder tb = ToolBuilder.instance;
         tb.addToolRecipe(pickaxe, pickaxeHead, binding);
@@ -503,7 +574,7 @@ public class TContent implements IFuelHandler
         tb.addToolRecipe(frypan, frypanHead);
         tb.addToolRecipe(battlesign, signHead);
         tb.addToolRecipe(mattock, axeHead, shovelHead);
-        tb.addToolRecipe(dagger, swordBlade);
+        tb.addToolRecipe(dagger, knifeBlade, crossbar);
         //tb.addToolRecipe(longbow, toolRod, toolRod);
         //tb.addToolRecipe(lumberaxe, lumberHead);
 
@@ -801,6 +872,8 @@ public class TContent implements IFuelHandler
         OreDictionary.registerOre("oreTin", new ItemStack(oreSlag, 1, 4));
         OreDictionary.registerOre("oreNaturalAluminum", new ItemStack(oreSlag, 1, 5));
 
+        OreDictionary.registerOre("oreIron", new ItemStack(oreGravel, 1, 0));
+        OreDictionary.registerOre("oreGold", new ItemStack(oreGravel, 1, 1));
         OreDictionary.registerOre("oreCobalt", new ItemStack(oreGravel, 1, 5));
         OreDictionary.registerOre("oreCopper", new ItemStack(oreGravel, 1, 2));
         OreDictionary.registerOre("oreTin", new ItemStack(oreGravel, 1, 3));
@@ -855,6 +928,16 @@ public class TContent implements IFuelHandler
         RecipeRemover.removeShapedRecipe(new ItemStack(Item.magmaCream));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Block.pistonStickyBase), "slimeball", Block.pistonBase));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Item.magmaCream), "slimeball", Item.blazePowder));
+    }
+    
+    public void intermodCommunication()
+    {
+        FMLInterModComms.sendMessage("Thaumcraft", "harvestClickableCrop", new ItemStack(oreBerry, 1, 12));
+        FMLInterModComms.sendMessage("Thaumcraft", "harvestClickableCrop", new ItemStack(oreBerry, 1, 13));
+        FMLInterModComms.sendMessage("Thaumcraft", "harvestClickableCrop", new ItemStack(oreBerry, 1, 14));
+        FMLInterModComms.sendMessage("Thaumcraft", "harvestClickableCrop", new ItemStack(oreBerry, 1, 15));
+        FMLInterModComms.sendMessage("Thaumcraft", "harvestClickableCrop", new ItemStack(oreBerrySecond, 1, 12));
+        FMLInterModComms.sendMessage("Thaumcraft", "harvestClickableCrop", new ItemStack(oreBerrySecond, 1, 13));
     }
 
     public void modIntegration ()

@@ -6,6 +6,7 @@ import mods.tinker.tconstruct.TContent;
 import mods.tinker.tconstruct.entity.projectile.DaggerEntity;
 import mods.tinker.tconstruct.library.Weapon;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -17,37 +18,37 @@ public class Dagger extends Weapon
         super(id, 1);
     }
 
-    public ItemStack onItemRightClick (ItemStack itemstack, World world, EntityPlayer entityplayer)
+    public ItemStack onItemRightClick (ItemStack itemstack, World world, EntityPlayer player)
     {
-        ItemStack is = itemstack.copy();
-        is.stackSize--;
+        player.setItemInUse(itemstack, this.getMaxItemUseDuration(itemstack));
+        return itemstack;
+    }
+
+    public ItemStack onEaten (ItemStack itemstack, World world, EntityPlayer player)
+    {
+        ItemStack stack = itemstack.copy();
         if (!world.isRemote)
         {
-            DaggerEntity dagger = new DaggerEntity(itemstack, world, entityplayer);
+            DaggerEntity dagger = new DaggerEntity(stack, world, player);
             world.spawnEntityInWorld(dagger);
         }
-        return is;
+        itemstack.stackSize--;
+        return itemstack;
     }
     
-    @SideOnly(Side.CLIENT)
-    @Override
-    public int getRenderPasses (int metadata)
+    public EnumAction getItemUseAction(ItemStack par1ItemStack)
     {
-        return 8;
+        return EnumAction.bow;
     }
-    
-    @Override
-    public int getPartAmount()
+
+    public int getMaxItemUseDuration (ItemStack stack)
     {
-        return 2;
+        return 10;
     }
-    
-    @Override
-    public void registerPartPaths (int index, String[] location)
+
+    public boolean rangedTool ()
     {
-        headStrings.put(index, location[0]);
-        brokenHeadStrings.put(index, location[1]);
-        handleStrings.put(index, location[2]);
+        return true;
     }
 
     @Override
@@ -61,6 +62,8 @@ public class Dagger extends Weapon
             return "_dagger_blade_broken";
         case 2:
             return "_dagger_handle";
+        case 3:
+            return "_dagger_accessory";
         default:
             return "";
         }
@@ -81,12 +84,12 @@ public class Dagger extends Weapon
     @Override
     protected Item getHeadItem ()
     {
-        return TContent.swordBlade;
+        return TContent.knifeBlade;
     }
 
     @Override
     protected Item getAccessoryItem ()
     {
-        return null;
+        return TContent.crossbar;
     }
 }

@@ -36,7 +36,7 @@ public class Pattern extends CraftingItem
 	}
 
 	public static final String[] patternName = new String[] { 
-		"ingot", "rod", "pickaxe", "shovel", "axe", "swordblade", "largeguard", "mediumguard", "crossbar", "binding", "frypan", "sign" };
+		"ingot", "rod", "pickaxe", "shovel", "axe", "swordblade", "largeguard", "mediumguard", "crossbar", "binding", "frypan", "sign", "knifeblade" };
 	
 	/*@SideOnly(Side.CLIENT)
     public void updateIcons(IconRegister iconRegister)
@@ -97,7 +97,7 @@ public class Pattern extends CraftingItem
 		case 9: return 1;
 		case 10: return 2;
 		case 11: return 2;
-		case 12: return 10;
+		case 12: return 1;
 		default: return 0;
 		}
 	}

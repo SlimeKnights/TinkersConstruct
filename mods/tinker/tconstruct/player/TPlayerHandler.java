@@ -242,7 +242,7 @@ public class TPlayerHandler implements IPlayerTracker
 	Random rand = new Random();
 
 	/* Bows */
-	@ForgeSubscribe
+	/*@ForgeSubscribe
 	public void arrowShoot (ArrowLooseEvent event)
 	{
 		event.setCanceled(true);
@@ -305,5 +305,5 @@ public class TPlayerHandler implements IPlayerTracker
 				event.entityPlayer.worldObj.spawnEntityInWorld(entityarrow);
 			}
 		}
-	}
+	}*/
 }

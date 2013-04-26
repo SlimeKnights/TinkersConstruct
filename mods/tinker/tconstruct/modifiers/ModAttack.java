@@ -47,7 +47,8 @@ public class ModAttack extends ToolMod
 		if (tags.hasKey(key))
 		{
 		    int amount = 24;
-		    if (((ToolCore) tool.getItem()).pierceArmor())
+		    ToolCore toolItem = (ToolCore) tool.getItem();
+		    if (toolItem.pierceArmor() || toolItem.rangedTool())
 		        amount = 36;
 		    
 			int[] keyPair = tags.getIntArray(key);

@@ -183,6 +183,28 @@ Class: Melee Weapon</text>
 </page>
 
 <page type="toolpage">
+<title>Dagger</title>
+<text>The Dagger is a short weapon. It is light and usable as both a striking and throwing weapon.</text>
+<text>Right-click: Throw Dagger
+- Toss the item for a ranged attack
+
+Class: Ranged/Melee Weapon</text>
+<icon>daggerIcon</icon>
+<item>
+ <text>Knife Blade</text>
+ <icon>knifeblade</icon>
+</item>
+<item>
+ <text>Tool Rod</text>
+ <icon>toolrod</icon>
+</item>
+<item>
+ <text>Crossbar</text>
+ <icon>crossbar</icon>
+</item>
+</page>
+
+<page type="toolpage">
 <title>Frying Pan</title>
 <text>The Frying is a heavy weapon that uses sheer weight to stun foes or a place to cook your food. It is common to hunt pigs and cook them with the same pan.</text>
 <text>Right-click: Block
@@ -235,6 +257,9 @@ Class: Lethal Joke Weapon</text>
 - Spiny: The tool mines does more damage as it wears out, but mines slower
 - Writable: One extra modifier per piece
 - Awareness: Unknown</text>
+</page>
+
+<page type="blank">
 </page>
 
 <page type="materialstats">

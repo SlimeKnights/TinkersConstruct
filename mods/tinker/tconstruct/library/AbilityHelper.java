@@ -247,7 +247,7 @@ public class AbilityHelper
         NBTTagCompound tags = stack.getTagCompound();
         damageTool(stack, dam, tags, entity, ignoreCharge, true);
     }
-    
+
     public static void healTool (ItemStack stack, int dam, EntityLiving entity, boolean ignoreCharge, boolean updateDamageBar)
     {
         NBTTagCompound tags = stack.getTagCompound();
@@ -265,7 +265,7 @@ public class AbilityHelper
             {
                 tags.getCompoundTag("InfiTool").setInteger("Damage", 0);
                 if (updateDamageBar)
-                stack.setItemDamage(0);
+                    stack.setItemDamage(0);
             }
 
             else if (damageTrue > maxDamage)
@@ -282,7 +282,7 @@ public class AbilityHelper
                 int stackDamage = stack.getItemDamage();
                 if (updateDamageBar && toolDamage != stackDamage)
                 {
-                        stack.setItemDamage((damage * 100 / maxDamage) + 1);
+                    stack.setItemDamage((damage * 100 / maxDamage) + 1);
                 }
             }
         }
@@ -493,58 +493,61 @@ public class AbilityHelper
             entityitem.onCollideWithPlayer(player);
         }
     }
-    
+
     /* Ranged weapons */
-    
-    public static void forceAddToInv(EntityPlayer entityplayer, ItemStack itemstack, int i, boolean flag)
+
+    public static void forceAddToInv (EntityPlayer entityplayer, ItemStack itemstack, int i, boolean flag)
     {
         ItemStack itemstack1 = entityplayer.inventory.getStackInSlot(i);
         entityplayer.inventory.setInventorySlotContents(i, itemstack);
-        if(itemstack1 != null)
+        if (itemstack1 != null)
         {
             addToInv(entityplayer, itemstack1, flag);
         }
     }
-    
-    public static boolean addToInv(EntityPlayer entityplayer, ItemStack itemstack, boolean flag)
+
+    public static boolean addToInv (EntityPlayer entityplayer, ItemStack itemstack, boolean flag)
     {
         return addToInv(entityplayer, itemstack, entityplayer.inventory.currentItem, flag);
     }
-    
-    public static boolean addToInv(EntityPlayer entityplayer, ItemStack itemstack, int i, boolean flag)
+
+    public static boolean addToInv (EntityPlayer entityplayer, ItemStack itemstack, int i, boolean flag)
     {
         ItemStack itemstack1 = entityplayer.inventory.getStackInSlot(i);
         boolean flag1;
-        if(itemstack1 == null)
+        if (itemstack1 == null)
         {
             entityplayer.inventory.setInventorySlotContents(i, itemstack);
             flag1 = true;
-        } else
+        }
+        else
         {
             flag1 = entityplayer.inventory.addItemStackToInventory(itemstack);
         }
-        if(flag && !flag1)
+        if (flag && !flag1)
         {
-            addItemStackToWorld(entityplayer.worldObj, (float)Math.floor(entityplayer.posX), (float)Math.floor(entityplayer.posY), (float)Math.floor(entityplayer.posZ), itemstack);
+            addItemStackToWorld(entityplayer.worldObj, (float) Math.floor(entityplayer.posX), (float) Math.floor(entityplayer.posY), (float) Math.floor(entityplayer.posZ), itemstack);
             return true;
-        } else
+        }
+        else
         {
             return flag1;
         }
     }
-    
-    public static EntityItem addItemStackToWorld(World world, float f, float f1, float f2, ItemStack itemstack)
+
+    public static EntityItem addItemStackToWorld (World world, float f, float f1, float f2, ItemStack itemstack)
     {
         return addItemStackToWorld(world, f, f1, f2, itemstack, false);
     }
-    
-    public static EntityItem addItemStackToWorld(World world, float f, float f1, float f2, ItemStack itemstack, boolean flag)
+
+    public static EntityItem addItemStackToWorld (World world, float f, float f1, float f2, ItemStack itemstack, boolean flag)
     {
         EntityItem entityitem;
-        if(flag)
+        if (flag)
         {
             entityitem = new EntityItem(world, f, f1, f2, itemstack);
-        } else
+        }
+        else
         {
             float f3 = 0.7F;
             float f4 = random.nextFloat() * f3 + (1.0F - f3) * 0.5F;

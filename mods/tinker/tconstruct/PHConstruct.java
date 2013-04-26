@@ -107,6 +107,7 @@ public class PHConstruct
         signHead = config.getItem("Tool Parts", "Sign Head", 14036).getInt(14036);
 
         lumberHead = config.getItem("Tool Parts", "Lumber Axe Head", 14037).getInt(14037);
+        knifeBlade = config.getItem("Tool Parts", "Knife Blade", 14038).getInt(14038);
 
         pickaxe = config.getItem("Tools", "Pickaxe", 14051).getInt(14051);
         shovel = config.getItem("Tools", "Shovel", 14052).getInt(14052);
@@ -181,12 +182,12 @@ public class PHConstruct
         aluminumuMinY = config.get("Worldgen", "Aluminum Underground Min Y", 0).getInt(0);
         aluminumuMaxY = config.get("Worldgen", "Aluminum Underground Max Y", 64).getInt(64);
         
-        ironsRarity = config.get("Worldgen", "Iron Surface Rarity", 70).getInt(70);
-        goldsRarity = config.get("Worldgen", "Gold Surface Rarity", 200).getInt(200);
-        coppersRarity = config.get("Worldgen", "Copper Surface Rarity", 32).getInt(32);
-        tinsRarity = config.get("Worldgen", "Tin Surface Rarity", 32).getInt(32);
-        aluminumsRarity = config.get("Worldgen", "Aluminum Surface Rarity", 32).getInt(32);
-        cobaltsRarity = config.get("Worldgen", "Cobalt Surface Rarity", 400).getInt(400);
+        ironsRarity = config.get("Worldgen", "Iron Surface Rarity", 200).getInt(200);
+        goldsRarity = config.get("Worldgen", "Gold Surface Rarity", 500).getInt(500);
+        coppersRarity = config.get("Worldgen", "Copper Surface Rarity", 80).getInt(80);
+        tinsRarity = config.get("Worldgen", "Tin Surface Rarity", 80).getInt(80);
+        aluminumsRarity = config.get("Worldgen", "Aluminum Surface Rarity", 70).getInt(70);
+        cobaltsRarity = config.get("Worldgen", "Cobalt Surface Rarity", 1000).getInt(1000);
         
         ironBushDensity = config.get("Worldgen", "Iron Bush Density", 1).getInt(1);
         goldBushDensity = config.get("Worldgen", "Gold Bush Density", 1).getInt(1);
@@ -292,6 +293,7 @@ public class PHConstruct
     public static int largeGuard;
     public static int medGuard;
     public static int crossbar;
+    public static int knifeBlade;
 
     public static int pickaxeHead;
     public static int axeHead;

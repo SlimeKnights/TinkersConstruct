@@ -13,6 +13,7 @@ import mods.tinker.tconstruct.TContent;
 import mods.tinker.tconstruct.TProxyCommon;
 import mods.tinker.tconstruct.client.blockrender.*;
 import mods.tinker.tconstruct.client.entityrender.*;
+import mods.tinker.tconstruct.client.projectilerender.DaggerRender;
 import mods.tinker.tconstruct.client.projectilerender.LaunchedItemRender;
 import mods.tinker.tconstruct.crafting.ToolBuilder;
 import mods.tinker.tconstruct.entity.*;
@@ -71,8 +72,8 @@ public class TProxyClient extends TProxyCommon
     public static Icon metalBall;
     public static Minecraft mc;
     public static ArmorExtended armorExtended = new ArmorExtended();
-    
-    public void registerTickHandler()
+
+    public void registerTickHandler ()
     {
         TickRegistry.registerTickHandler(new TClientTickHandler(), Side.CLIENT);
         //TickRegistry.registerTickHandler(new TCommonTickHandler(), Side.CLIENT);
@@ -110,9 +111,9 @@ public class TProxyClient extends TProxyCommon
         RenderingRegistry.registerEntityRenderingHandler(NitroCreeper.class, new RenderCreeper());
         RenderingRegistry.registerEntityRenderingHandler(BlueSlime.class, new SlimeRender(new ModelSlime(16), new ModelSlime(0), 0.25F));
         RenderingRegistry.registerEntityRenderingHandler(GolemBase.class, new GolemRender(0));
-        
+
         RenderingRegistry.registerEntityRenderingHandler(CartEntity.class, new CartRender());
-        RenderingRegistry.registerEntityRenderingHandler(DaggerEntity.class, new RangedItemRender());
+        RenderingRegistry.registerEntityRenderingHandler(DaggerEntity.class, new DaggerRender());
         RenderingRegistry.registerEntityRenderingHandler(Skyla.class, new SkylaRender());
         RenderingRegistry.registerEntityRenderingHandler(Crystal.class, new CrystalRender());
         RenderingRegistry.registerEntityRenderingHandler(LaunchedPotion.class, new LaunchedItemRender(Item.potion, 16384));
@@ -207,6 +208,7 @@ public class TProxyClient extends TProxyCommon
         TConstructClientRegistry.registerManualIcon("swordblade", new ItemStack(TContent.swordBlade, 1, 2));
         TConstructClientRegistry.registerManualIcon("pan", new ItemStack(TContent.frypanHead, 1, 2));
         TConstructClientRegistry.registerManualIcon("board", new ItemStack(TContent.signHead, 1, 2));
+        TConstructClientRegistry.registerManualIcon("knifeblade", new ItemStack(TContent.knifeBlade, 1, 2));
 
         TConstructClientRegistry.registerManualIcon("toolrod", new ItemStack(Item.stick));
 
@@ -228,6 +230,8 @@ public class TProxyClient extends TProxyCommon
                 ToolBuilder.instance.buildTool(new ItemStack(TContent.swordBlade, 1, 10), new ItemStack(TContent.toolRod, 1, 11), new ItemStack(TContent.handGuard, 1, 12), ""));
         TConstructClientRegistry.registerManualIcon("rapiericon",
                 ToolBuilder.instance.buildTool(new ItemStack(TContent.swordBlade, 1, 10), new ItemStack(TContent.toolRod, 1, 11), new ItemStack(TContent.crossbar, 1, 12), ""));
+        TConstructClientRegistry.registerManualIcon("daggerIcon",
+                ToolBuilder.instance.buildTool(new ItemStack(TContent.knifeBlade, 1, 10), new ItemStack(TContent.toolRod, 1, 11), new ItemStack(TContent.crossbar, 1, 12), ""));
         TConstructClientRegistry.registerManualIcon("frypanicon", ToolBuilder.instance.buildTool(new ItemStack(TContent.frypanHead, 1, 10), new ItemStack(TContent.toolRod, 1, 11), null, ""));
         TConstructClientRegistry.registerManualIcon("battlesignicon", ToolBuilder.instance.buildTool(new ItemStack(TContent.signHead, 1, 10), new ItemStack(TContent.toolRod, 1, 11), null, ""));
     }
@@ -270,16 +274,18 @@ public class TProxyClient extends TProxyCommon
         TConstructClientRegistry.registerManualLargeRecipe("slimymud", slimyMud, null, slimeball, slimeball, null, slimeball, slimeball, null, dirt, sand);
         TConstructClientRegistry.registerManualFurnaceRecipe("slimecrystal", new ItemStack(TContent.materials, 1, 1), slimyMud);
         TConstructClientRegistry.registerManualSmallRecipe("paperstack", new ItemStack(TContent.materials, 1, 0), paper, paper, paper, paper);
-        TConstructClientRegistry.registerManualLargeRecipe("mossball", new ItemStack(TContent.materials, 1, 6), mossycobble, mossycobble, mossycobble, mossycobble, mossycobble, mossycobble, mossycobble, mossycobble, mossycobble);
-        TConstructClientRegistry.registerManualLargeRecipe("lavacrystal", new ItemStack(TContent.materials, 1, 7), blazerod, firecharge, blazerod, firecharge, new ItemStack(Item.bucketLava), firecharge, blazerod, firecharge, blazerod);
+        TConstructClientRegistry.registerManualLargeRecipe("mossball", new ItemStack(TContent.materials, 1, 6), mossycobble, mossycobble, mossycobble, mossycobble, mossycobble, mossycobble,
+                mossycobble, mossycobble, mossycobble);
+        TConstructClientRegistry.registerManualLargeRecipe("lavacrystal", new ItemStack(TContent.materials, 1, 7), blazerod, firecharge, blazerod, firecharge, new ItemStack(Item.bucketLava),
+                firecharge, blazerod, firecharge, blazerod);
 
         TConstructClientRegistry.registerManualSmallRecipe("grout", grout, sand, gravel, null, clay);
         TConstructClientRegistry.registerManualFurnaceRecipe("searedbrick", searedbrick, grout);
         TConstructClientRegistry.registerManualSmallRecipe("searedbricks", new ItemStack(TContent.smeltery, 1, 2), searedbrick, searedbrick, searedbrick, searedbrick);
         TConstructClientRegistry.registerManualLargeRecipe("smelterycontroller", new ItemStack(TContent.smeltery, 1, 0), searedbrick, searedbrick, searedbrick, searedbrick, null, searedbrick,
                 searedbrick, searedbrick, searedbrick);
-        TConstructClientRegistry.registerManualLargeRecipe("smelterydrain", new ItemStack(TContent.smeltery, 1, 1), searedbrick, null, searedbrick, searedbrick, null, searedbrick, searedbrick,
-                null, searedbrick);
+        TConstructClientRegistry.registerManualLargeRecipe("smelterydrain", new ItemStack(TContent.smeltery, 1, 1), searedbrick, null, searedbrick, searedbrick, null, searedbrick, searedbrick, null,
+                searedbrick);
 
         TConstructClientRegistry.registerManualLargeRecipe("smelterytank1", new ItemStack(TContent.lavaTank, 1, 0), searedbrick, searedbrick, searedbrick, searedbrick, glass, searedbrick,
                 searedbrick, searedbrick, searedbrick);
@@ -291,8 +297,8 @@ public class TProxyClient extends TProxyCommon
         TConstructClientRegistry.registerManualLargeRecipe("smelterytable", new ItemStack(TContent.searedBlock, 1, 0), searedbrick, searedbrick, searedbrick, searedbrick, null, searedbrick,
                 searedbrick, null, searedbrick);
         TConstructClientRegistry.registerManualLargeRecipe("smelteryfaucet", new ItemStack(TContent.searedBlock, 1, 1), searedbrick, null, searedbrick, null, searedbrick, null, null, null, null);
-        TConstructClientRegistry.registerManualLargeRecipe("smelterybasin", new ItemStack(TContent.searedBlock, 1, 2), searedbrick, null, searedbrick, searedbrick, null, searedbrick,
-                searedbrick, searedbrick, searedbrick);
+        TConstructClientRegistry.registerManualLargeRecipe("smelterybasin", new ItemStack(TContent.searedBlock, 1, 2), searedbrick, null, searedbrick, searedbrick, null, searedbrick, searedbrick,
+                searedbrick, searedbrick);
 
         //Modifier recipes
         ItemStack ironpick = ToolBuilder.instance.buildTool(new ItemStack(TContent.pickaxeHead, 1, 6), new ItemStack(TContent.toolRod, 1, 2), new ItemStack(TContent.binding, 1, 6), "");
@@ -347,6 +353,7 @@ public class TProxyClient extends TProxyCommon
             new int[] { 1, 0, 1 }, //Broadsword
             new int[] { 1, 1, 1 }, //Longsword
             new int[] { 1, 2, 1 }, //Rapier
+            new int[] { 1, 5, 1 }, //Dagger
             new int[] { 2, 3, 1 }, //Frying pan
             new int[] { 2, 4, 1 } //Battlesign
     };
@@ -361,6 +368,7 @@ public class TProxyClient extends TProxyCommon
             new int[] { 1, 0, 2 }, new int[] { 2, 3, 3 }, //Broadsword
             new int[] { 1, 0, 3 }, new int[] { 2, 3, 3 }, //Longsword
             new int[] { 1, 0, 4 }, new int[] { 2, 3, 3 }, //Rapier
+            new int[] { 7, 0, 4 }, new int[] { 2, 3, 3 }, //Dagger
             new int[] { 4, 0, 13 }, new int[] { 2, 3, 13 }, //Frying Pan
             new int[] { 5, 0, 13 }, new int[] { 2, 3, 13 } //Battlesign
     };
@@ -368,7 +376,7 @@ public class TProxyClient extends TProxyCommon
     static String[] toolNames = { "Repair and Modification", "Pickaxe", "Shovel", "Axe",
             //"Lumber Axe",
             //"Ice Axe",
-            "Mattock", "Broadsword", "Longsword", "Rapier", "Frying Pan", "Battlesign" };
+            "Mattock", "Broadsword", "Longsword", "Rapier", "Dagger", "Frying Pan", "Battlesign" };
 
     static String[] toolDescriptions = {
             "The main way to repair or change your tools. Place a tool and a material on the left to get started.",
@@ -381,6 +389,7 @@ public class TProxyClient extends TProxyCommon
             "The Broadsword is a defensive weapon. Blocking cuts damage in half.\n\nSpecial Ability: Block\nDamage: Moderate\nDurability: High\n\nRequired parts:\n- Sword Blade\n- Wide Guard\n- Handle",
             "The Longsword is an offensive weapon. It is often used for charging into battle at full speed.\n\nNatural Ability:\n- Charge Boost\nSpecial Ability: Lunge\n\nDamage: Moderate\nDurability: Moderate",
             "The Rapier is a special weapon that relies on quick strikes to defeat foes.\n\nNatural Abilities:\n- Armor Pierce\n- Quick Strike\n- Charge Boost\nSpecial Ability:\n- Backpedal\n\nDamage: High\nDurability: Low",
+            "The Dagger is a short blade that can be thrown.\n\nSpecial Ability:\n- Throw Item\n\nDamage: Low\nDurability: Moderate\n\nRequired parts:\n- Knife Blade\n- Crossbar\n- Handle",
             "The Frying is a heavy weapon that uses sheer weight to stun foes.\n\nSpecial Ability: Block\nNatural Ability: Heavy\nShift+rClick: Place Frying Pan\nDamage: Low\nDurability: High\n\nRequired parts:\n- Pan\n- Handle",
             //"The Battlesign is an advance in weapon technology worthy of Zombie Pigmen everywhere.\n\nSpecial Ability: Block\nShift-rClick: Place sign\nDamage: Low\nDurability: Average\n\nRequired parts:\n- Board\n- Handle"
             "The Battlesign is an advance in weapon technology worthy of Zombie Pigmen everywhere.\n\nSpecial Ability: Block\nDamage: Low\nDurability: Average\n\nRequired parts:\n- Sign Board\n- Handle" };
@@ -407,7 +416,11 @@ public class TProxyClient extends TProxyCommon
         {
             TConstructClientRegistry.addMaterialRenderMapping(partIter, "tinker", partTypes[partIter], true);
         }
-        for (int effectIter = 0; effectIter < effectTypes.length; effectIter++)
+        for (int effectIter = 0; effectIter < 2; effectIter++)
+        {
+            TConstructClientRegistry.addEffectRenderMapping(effectIter, "tinker", effectTypes[effectIter], true);
+        }
+        for (int effectIter = 3; effectIter < effectTypes.length; effectIter++)
         {
             TConstructClientRegistry.addEffectRenderMapping(effectIter, "tinker", effectTypes[effectIter], true);
         }

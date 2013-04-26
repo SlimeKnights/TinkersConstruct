@@ -26,7 +26,7 @@ public class DaggerRenderOld extends RangedRenderBase
         GL11.glRotatef(f, 0.0F, 1.0F, 0.0F);
         float f2 = dagger.prevRotationPitch + (dagger.rotationPitch - dagger.prevRotationPitch) * f1;
         GL11.glRotatef(-f2, 1.0F, 0.0F, 0.0F);
-        if(!dagger.inGround)
+        if(!dagger.onGround)
         {
             float f3 = dagger.prevBoomerangRotation + (dagger.boomerangRotation - dagger.prevBoomerangRotation) * f1 * 1.1F;
             GL11.glRotatef(f3, 1.0F, 0.0F, 0.0F);

@@ -62,7 +62,7 @@ public class MultiServantLogic extends TileEntity
 	
 	public boolean verifyMaster(int x, int y, int z)
 	{
-		if (master.equals(x, y, z) && worldObj.getBlockId(x, y, z) == masterID && worldObj.getBlockMetadata(x, y, z) == masterMeat)
+		if (master.equalCoords(x, y, z) && worldObj.getBlockId(x, y, z) == masterID && worldObj.getBlockMetadata(x, y, z) == masterMeat)
 			return true;
 		else
 			return false;

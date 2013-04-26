@@ -19,6 +19,7 @@ import net.minecraft.world.World;
 import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
 
 public class RotatingBase extends Entity
+    implements IEntityAdditionalSpawnData
 {
 
     public RotatingBase(World world)
@@ -35,7 +36,7 @@ public class RotatingBase extends Entity
         yTile = -1;
         zTile = -1;
         inTile = 0;
-        inGround = false;
+        onGround = false;
         arrowShake = 0;
         ticksInAir = 0;
         setSize(0.5F, 0.5F);
@@ -48,7 +49,7 @@ public class RotatingBase extends Entity
         yOffset = 0.0F;
     }
 
-    public RotatingBase(World world, EntityLiving entityliving, float f, float f1)
+    public RotatingBase(World world, EntityPlayer entityliving, float f, float f1)
     {
         this(world);
         owner = entityliving;
@@ -60,16 +61,27 @@ public class RotatingBase extends Entity
         yOffset = 0.0F;
         motionX = -MathHelper.sin((rotationYaw / 180F) * 3.141593F) * MathHelper.cos((rotationPitch / 180F) * 3.141593F);
         motionZ = MathHelper.cos((rotationYaw / 180F) * 3.141593F) * MathHelper.cos((rotationPitch / 180F) * 3.141593F);
-        motionY = -MathHelper.sin((rotationPitch / 180F) * 3.141593F);
+        motionY = -MathHelper.sin((rotationPitch / 180F) * 3.141593F - 0.2f);
         setArrowHeading(motionX, motionY, motionZ, f, f1);
     }
+    
+    /*public void setOnGround(boolean flag)
+    {
+        onGround = flag;
+        this.dataWatcher.updateObject(6, Byte.valueOf((byte) (flag == true ? 1 : 0)));
+    }
+    
+    public boolean getOnGround()
+    {
+        return this.dataWatcher.getWatchableObjectByte(0) == 1 ? true : false;
+    }*/
 
     @Override
     protected void entityInit()
     {
     }
 
-    public void damageDagger (int i, boolean flag)
+    public void damageItem (int i, boolean flag)
     {
         if (!flag)
         {
@@ -82,7 +94,7 @@ public class RotatingBase extends Entity
                 worldObj.spawnParticle("snowballpoof", posX, posY, posZ, 0.0D, 0.0D, 0.0D);
             }
 
-            kill();
+            //kill();
         }
     }
 
@@ -164,12 +176,12 @@ public class RotatingBase extends Entity
         {
             arrowShake--;
         }
-        if (inGround)
+        if (onGround)
         {
             int i = worldObj.getBlockId(xTile, yTile, zTile);
             if (i != inTile)
             {
-                inGround = false;
+                onGround = false;
                 motionX *= rand.nextFloat() * 0.2F;
                 motionY *= rand.nextFloat() * 0.2F;
                 motionZ *= rand.nextFloat() * 0.2F;
@@ -178,7 +190,10 @@ public class RotatingBase extends Entity
             }
             else
             {
-                ticksInGround++;
+                /*this.motionX = 0;
+                this.motionY = 0;
+                this.motionZ = 0;*/
+                /*ticksInGround++;
                 if (ticksInGround == 1200)
                 {
                     setDead();
@@ -186,14 +201,15 @@ public class RotatingBase extends Entity
                 if (ticksInGround == maxGroundTicks)
                 {
                     setDead();
-                }
+                }*/
                 if (!hasHitGround)
                 {
                     hasHitGround = true;
-                    damageDagger(1, true);
+                    damageItem(1, true);
                 }
                 return;
             }
+            return;
         }
         else
         {
@@ -278,7 +294,7 @@ public class RotatingBase extends Entity
         motionZ *= f2;
         motionY -= f4;
         setPosition(posX, posY, posZ);
-        if (!inGround)
+        if (!onGround)
         {
             prevBoomerangRotation = boomerangRotation;
             for (boomerangRotation += 36F; boomerangRotation > 360F; boomerangRotation -= 360F)
@@ -324,7 +340,7 @@ public class RotatingBase extends Entity
         tags.setShort("zTile", (short) zTile);
         tags.setByte("inTile", (byte) inTile);
         tags.setByte("shake", (byte) arrowShake);
-        tags.setByte("inGround", (byte) (inGround ? 1 : 0));
+        tags.setByte("onGround", (byte) (onGround ? 1 : 0));
     }
 
     public void readEntityFromNBT (NBTTagCompound tags)
@@ -337,7 +353,7 @@ public class RotatingBase extends Entity
         zTile = tags.getShort("zTile");
         inTile = tags.getByte("inTile") & 0xff;
         arrowShake = tags.getByte("shake") & 0xff;
-        inGround = tags.getByte("inGround") == 1;
+        onGround = tags.getByte("onGround") == 1;
     }
 
     public void onCollideWithPlayer (EntityPlayer entityplayer)
@@ -351,7 +367,7 @@ public class RotatingBase extends Entity
         {
             return;
         }
-        if (!flag || inGround && arrowShake <= 0)
+        if (!flag || onGround && arrowShake <= 0)
         {
             if (!flag || returnsTo != null && !returnsTo.isDead && returnsTo != entityplayer)
             {
@@ -393,9 +409,67 @@ public class RotatingBase extends Entity
     protected int yTile;
     protected int zTile;
     protected int inTile;
-    public boolean inGround;
     public int arrowShake;
-    public EntityLiving owner;
+    public EntityPlayer owner;
     protected int ticksInGround;
     protected int ticksInAir;
+    
+    @Override
+    public void writeSpawnData (ByteArrayDataOutput data)
+    {
+        NBTTagCompound tags = returnStack.getTagCompound().getCompoundTag("InfiTool");
+        data.writeShort(returnStack.itemID);
+        data.writeFloat(rotationYaw);
+        data.writeInt(tags.getInteger("RenderHandle"));
+        data.writeInt(tags.getInteger("RenderHead"));
+        data.writeInt(tags.getInteger("RenderAccessory"));
+        
+        int effects = 0;
+        if (tags.hasKey("Effect1"))
+            effects++;
+        if (tags.hasKey("Effect2"))
+            effects++;
+        if (tags.hasKey("Effect3"))
+            effects++;
+        if (tags.hasKey("Effect4"))
+            effects++;
+        if (tags.hasKey("Effect5"))
+            effects++;
+        if (tags.hasKey("Effect6"))
+            effects++;
+        data.writeInt(effects);
+        
+        switch (effects)
+        {
+        case 6: data.writeInt(tags.getInteger("Effect6"));
+        case 5: data.writeInt(tags.getInteger("Effect5"));
+        case 4: data.writeInt(tags.getInteger("Effect4"));
+        case 3: data.writeInt(tags.getInteger("Effect3"));
+        case 2: data.writeInt(tags.getInteger("Effect2"));
+        case 1: data.writeInt(tags.getInteger("Effect1"));
+        }
+    }
+
+    @Override
+    public void readSpawnData (ByteArrayDataInput data)
+    {        
+        returnStack = new ItemStack(data.readShort(), 1, 0);
+        rotationYaw = data.readFloat();
+        NBTTagCompound compound = new NBTTagCompound();
+        NBTTagCompound toolTag = new NBTTagCompound();
+        toolTag.setInteger("RenderHead", data.readInt());
+        toolTag.setInteger("RenderHandle", data.readInt());
+        toolTag.setInteger("RenderAccessory", data.readInt());
+        switch (data.readInt())
+        {
+        case 6: toolTag.setInteger("Effect6", data.readInt());
+        case 5: toolTag.setInteger("Effect5", data.readInt());
+        case 4: toolTag.setInteger("Effect4", data.readInt());
+        case 3: toolTag.setInteger("Effect3", data.readInt());
+        case 2: toolTag.setInteger("Effect2", data.readInt());
+        case 1: toolTag.setInteger("Effect1", data.readInt());
+        }
+        compound.setCompoundTag("InfiTool", toolTag);
+        returnStack.setTagCompound(compound);
+    }
 }

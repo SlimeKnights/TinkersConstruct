@@ -551,6 +551,11 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
     {
         return false;
     }
+    
+    public boolean rangedTool ()
+    {
+        return false;
+    }
 
     public float chargeAttack ()
     {
