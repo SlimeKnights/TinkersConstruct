@@ -333,7 +333,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                 return false;
 
             currentLiquid += liquid.amount;
-            System.out.println("Current liquid: "+currentLiquid);
+            //System.out.println("Current liquid: "+currentLiquid);
             boolean added = false;
             for (int i = 0; i < moltenMetal.size(); i++)
             {

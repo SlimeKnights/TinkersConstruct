@@ -1,5 +1,8 @@
 package mods.tinker.tconstruct.modifiers;
 
+import java.util.Arrays;
+import java.util.List;
+
 import mods.tinker.common.ToolMod;
 import mods.tinker.tconstruct.library.ToolCore;
 import net.minecraft.item.ItemStack;
@@ -48,7 +51,7 @@ public class ModAttack extends ToolMod
 		{
 		    int amount = 24;
 		    ToolCore toolItem = (ToolCore) tool.getItem();
-		    if (toolItem.pierceArmor() || toolItem.rangedTool())
+		    if (toolItem.pierceArmor() || !validType(toolItem))
 		        amount = 36;
 		    
 			int[] keyPair = tags.getIntArray(key);
@@ -102,5 +105,11 @@ public class ModAttack extends ToolMod
 		String tip = "ModifierTip"+keys[2];
 		String modName = "\u00a7f"+guiType+" ("+keys[0]+"/"+keys[1]+")";
 		tags.setString(tip, modName);
+	}
+	
+	public boolean validType(ToolCore tool)
+	{
+	    List list = Arrays.asList(tool.toolCategories());
+	    return list.contains("throwing");
 	}
 }

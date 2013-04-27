@@ -1,10 +1,12 @@
 package mods.tinker.common;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
+import mods.tinker.tconstruct.library.ToolCore;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -157,4 +159,9 @@ public abstract class ToolMod
 			}
 		}
 	}
+	
+	public boolean validType(ToolCore tool)
+    {
+        return true;
+    }
 }

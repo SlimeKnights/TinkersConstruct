@@ -90,6 +90,8 @@ public class DaggerRender extends Render
                     {
                         this.renderDroppedItem(rotator, icon, b0, par9, 1.0F, 1.0F, 1.0F);
                     }
+                    GL11.glScalef(1.005f, 1.005f, 1.005f);
+                    //GL11.glTranslatef(0F, -0.0025F, 0.0F);
                 }
             }
             else

@@ -457,8 +457,8 @@ public class RotatingBase extends Entity
         rotationYaw = data.readFloat();
         NBTTagCompound compound = new NBTTagCompound();
         NBTTagCompound toolTag = new NBTTagCompound();
-        toolTag.setInteger("RenderHead", data.readInt());
         toolTag.setInteger("RenderHandle", data.readInt());
+        toolTag.setInteger("RenderHead", data.readInt());
         toolTag.setInteger("RenderAccessory", data.readInt());
         switch (data.readInt())
         {

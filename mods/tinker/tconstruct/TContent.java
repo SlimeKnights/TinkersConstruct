@@ -16,6 +16,7 @@ import mods.tinker.tconstruct.blocks.StoneTorch;
 import mods.tinker.tconstruct.blocks.TConstructBlock;
 import mods.tinker.tconstruct.blocks.TMetalBlock;
 import mods.tinker.tconstruct.blocks.ToolStationBlock;
+import mods.tinker.tconstruct.blocks.infiblocks.SpeedBlock;
 import mods.tinker.tconstruct.crafting.LiquidBlockCasting;
 import mods.tinker.tconstruct.crafting.LiquidCasting;
 import mods.tinker.tconstruct.crafting.PatternBuilder;
@@ -44,6 +45,7 @@ import mods.tinker.tconstruct.items.blocks.OreberryBushItem;
 import mods.tinker.tconstruct.items.blocks.OreberryBushSecondItem;
 import mods.tinker.tconstruct.items.blocks.SearedTableItemBlock;
 import mods.tinker.tconstruct.items.blocks.SmelteryItemBlock;
+import mods.tinker.tconstruct.items.blocks.SpeedBlockItem;
 import mods.tinker.tconstruct.items.blocks.ToolStationItemBlock;
 import mods.tinker.tconstruct.library.TConstructRegistry;
 import mods.tinker.tconstruct.library.ToolCore;
@@ -275,7 +277,7 @@ public class TContent implements IFuelHandler
 
         String[] metalTypes = new String[] { "compressed_cobalt", "compressed_ardite", "compressed_manyullyn", "compressed_copper", "compressed_bronze", "compressed_tin", "compressed_aluminum",
                 "compressed_alubrass", "compressed_alumite", "compressed_steel" };
-        metalBlock = new TMetalBlock(PHConstruct.metalBlock, Material.iron, 10.0F, metalTypes);
+        metalBlock = new TMetalBlock(PHConstruct.metalBlock, Material.iron, 10.0F, metalTypes).setUnlocalizedName("tconstruct.metalblock");
         metalBlock.stepSound = Block.soundMetalFootstep;
         GameRegistry.registerBlock(metalBlock, MetalItemBlock.class, "MetalBlock");
 
@@ -322,7 +324,7 @@ public class TContent implements IFuelHandler
         GameRegistry.registerBlock(oreBerrySecond, OreberryBushSecondItem.class, "ore.berries.two");
 
         String[] oreTypes = new String[] { "nether_slag", "nether_cobalt", "nether_ardite", "ore_copper", "ore_tin", "ore_aluminum", "ore_slag" };
-        oreSlag = new MetalOre(PHConstruct.oreSlag, Material.iron, 10.0F, oreTypes);
+        oreSlag = new MetalOre(PHConstruct.oreSlag, Material.iron, 10.0F, oreTypes).setUnlocalizedName("tconstruct.stoneore");
         GameRegistry.registerBlock(oreSlag, MetalOreItemBlock.class, "SearedBrick");
         MinecraftForge.setBlockHarvestLevel(oreSlag, 1, "pickaxe", 4);
         MinecraftForge.setBlockHarvestLevel(oreSlag, 2, "pickaxe", 4);
@@ -330,7 +332,7 @@ public class TContent implements IFuelHandler
         MinecraftForge.setBlockHarvestLevel(oreSlag, 4, "pickaxe", 1);
         MinecraftForge.setBlockHarvestLevel(oreSlag, 5, "pickaxe", 1);
 
-        oreGravel = new GravelOre(PHConstruct.oreGravel).setUnlocalizedName("GravelOre");
+        oreGravel = new GravelOre(PHConstruct.oreGravel).setUnlocalizedName("GravelOre").setUnlocalizedName("tconstruct.gravelore");
         GameRegistry.registerBlock(oreGravel, GravelOreItem.class, "GravelOre");
 
         MinecraftForge.setBlockHarvestLevel(oreGravel, 0, "shovel", 1);
@@ -340,8 +342,8 @@ public class TContent implements IFuelHandler
         MinecraftForge.setBlockHarvestLevel(oreGravel, 4, "shovel", 1);
         MinecraftForge.setBlockHarvestLevel(oreGravel, 5, "shovel", 4);
 
-        /*speedBlock = new SpeedBlock(PHConstruct.speedBlock).setUnlocalizedName("SpeedBlock");
-        GameRegistry.registerBlock(speedBlock, SpeedBlockItem.class, "SpeedBlock");*/
+        speedBlock = new SpeedBlock(PHConstruct.speedBlock).setUnlocalizedName("SpeedBlock");
+        GameRegistry.registerBlock(speedBlock, SpeedBlockItem.class, "SpeedBlock");
 
         /*redstoneBallRepeater = new RedstoneBallRepeater(PHConstruct.redstoneBallRepeater, false).setUnlocalizedName("decoration.redstoneballrepeater");
         GameRegistry.registerBlock(redstoneBallRepeater, "decoration.redstoneballrepeater");
@@ -688,6 +690,8 @@ public class TContent implements IFuelHandler
         lbc.addBlockCastingRecipe(new ItemStack(metalBlock, 1, 8), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 10), null, true, 100); //alumite
         lbc.addBlockCastingRecipe(new ItemStack(Block.obsidian), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 11), null, true, 100);// obsidian
         lbc.addBlockCastingRecipe(new ItemStack(metalBlock, 1, 9), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 12), null, true, 100); //steel
+        
+        lbc.addBlockCastingRecipe(new ItemStack(speedBlock, 1, 0), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue / 9, 3), new ItemStack(Block.gravel), true, 100); //steel
     }
 
     //WeakReference<ToolCore> tool = new WeakReference<ToolCore>(null);
@@ -944,15 +948,15 @@ public class TContent implements IFuelHandler
     {
         ItemStack ironpick = ToolBuilder.instance.buildTool(new ItemStack(TContent.pickaxeHead, 1, 6), new ItemStack(TContent.toolRod, 1, 2), new ItemStack(TContent.binding, 1, 6), "");
         /* IC2 */
-        ItemStack reBattery = ic2.api.Items.getItem("reBattery");
+        ItemStack reBattery = ic2.api.item.Items.getItem("reBattery");
         if (reBattery != null)
             modE.batteries.add(reBattery);
-        ItemStack chargedReBattery = ic2.api.Items.getItem("chargedReBattery");
+        ItemStack chargedReBattery = ic2.api.item.Items.getItem("chargedReBattery");
         if (chargedReBattery != null)
         {
             modE.batteries.add(chargedReBattery);
         }
-        ItemStack electronicCircuit = ic2.api.Items.getItem("electronicCircuit");
+        ItemStack electronicCircuit = ic2.api.item.Items.getItem("electronicCircuit");
         if (electronicCircuit != null)
             modE.circuits.add(electronicCircuit);
 

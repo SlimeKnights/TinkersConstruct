@@ -1,7 +1,7 @@
 package mods.tinker.tconstruct.library;
 
-import ic2.api.IBoxable;
-import ic2.api.ICustomElectricItem;
+import ic2.api.item.IBoxable;
+import ic2.api.item.ICustomElectricItem;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -426,10 +426,10 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
         return ret;
     }
 
+    /* Creative mode tools */
     static String[] toolMaterialNames = { "Wooden ", "Stone ", "Iron ", "Flint ", "Cactus ", "Bone ", "Obsidian ", "Nethrrack ", "Slime ", "Paper ", "Cobalt ", "Ardite ", "Manyullyn ", "Copper ",
             "Bronze ", "Alumite ", "Steel ", "Slime " };
 
-    /* Creative mode tools */
     public void getSubItems (int id, CreativeTabs tab, List list)
     {
         for (int i = 0; i < 18; i++)
@@ -450,6 +450,8 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
     {
         return TConstructRegistry.toolRod;
     }
+    
+    /* Updating */
 
     public void onUpdate (ItemStack stack, World world, Entity entity, int par4, boolean par5)
     {
@@ -469,6 +471,11 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
     }
 
     /* Tool uses */
+    
+    //Types
+    public abstract String[] toolCategories();
+    
+    //Mining
     @Override
     public boolean onBlockStartBreak (ItemStack stack, int x, int y, int z, EntityPlayer player)
     {
@@ -508,12 +515,6 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
     }
 
     @Override
-    public boolean hitEntity (ItemStack stack, EntityLiving mob, EntityLiving player)
-    {
-        return true;
-    }
-
-    @Override
     public float getStrVsBlock (ItemStack stack, Block block, int meta)
     {
         NBTTagCompound tags = stack.getTagCompound();
@@ -522,24 +523,7 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
         return 1f;
     }
 
-    //Vanilla repairs
-    public boolean isItemTool (ItemStack par1ItemStack)
-    {
-        return false;
-    }
-
-    @Override
-    public boolean getIsRepairable (ItemStack par1ItemStack, ItemStack par2ItemStack)
-    {
-        return false;
-    }
-    
-    public boolean isRepairable()
-    {
-        return false;
-    }
-
-    /* Attacking */
+    // Attacking
     @Override
     public boolean onLeftClickEntity (ItemStack stack, EntityPlayer player, Entity entity)
     {
@@ -547,12 +531,13 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
         return true;
     }
 
-    public boolean pierceArmor ()
+    @Override
+    public boolean hitEntity (ItemStack stack, EntityLiving mob, EntityLiving player)
     {
-        return false;
+        return true;
     }
-    
-    public boolean rangedTool ()
+
+    public boolean pierceArmor ()
     {
         return false;
     }
@@ -567,23 +552,11 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
         return this.damageVsEntity;
     }
 
-    /* Enchanting */
-    public int getItemEnchantability ()
-    {
-        return 0;
-    }
-
     //Changes how much durability the base tool has
     public float getDurabilityModifier ()
     {
         return 1f;
     }
-
-    public boolean isFull3D ()
-    {
-        return true;
-    }
-
     /*
      * IC2 Support
      * Every tool can be an electric tool if you modify it right
@@ -725,4 +698,32 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
     {
         return false;
     }
+
+    //Vanilla overrides
+    public boolean isItemTool (ItemStack par1ItemStack)
+    {
+        return false;
+    }
+
+    @Override
+    public boolean getIsRepairable (ItemStack par1ItemStack, ItemStack par2ItemStack)
+    {
+        return false;
+    }
+    
+    public boolean isRepairable()
+    {
+        return false;
+    }
+    
+    public int getItemEnchantability ()
+    {
+        return 0;
+    }
+    
+    public boolean isFull3D ()
+    {
+        return true;
+    }
+
 }

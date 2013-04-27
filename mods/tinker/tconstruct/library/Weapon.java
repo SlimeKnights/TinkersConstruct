@@ -80,7 +80,7 @@ public abstract class Weapon extends ToolCore
 		}
         return super.canHarvestBlock(block);
     }
-    
+
     protected Material[] getEffectiveMaterials()
     {
     	return web;
@@ -92,10 +92,17 @@ public abstract class Weapon extends ToolCore
 		return 1;
 	}
     
+    @Override
     public boolean onLeftClickEntity (ItemStack stack, EntityPlayer player, Entity entity)
     {
         TContent.modL.midStreamModify(stack);
         return super.onLeftClickEntity(stack, player, entity);
+    }
+    
+    @Override
+    public String[] toolCategories()
+    {
+        return new String[] { "weapon", "melee" };
     }
 	
 	public static Material[] web = new Material[] { Material.web };

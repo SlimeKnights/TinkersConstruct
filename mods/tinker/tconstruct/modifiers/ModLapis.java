@@ -1,9 +1,12 @@
 package mods.tinker.tconstruct.modifiers;
 
+import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import mods.tinker.common.ToolMod;
+import mods.tinker.tconstruct.library.ToolCore;
 import mods.tinker.tconstruct.library.Weapon;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -27,6 +30,10 @@ public class ModLapis extends ToolMod
     @Override
     protected boolean canModify (ItemStack tool, ItemStack[] input)
     {
+        ToolCore toolItem = (ToolCore) tool.getItem();
+        if (!validType(toolItem))
+            return false;
+        
         NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
         if (!tags.hasKey(key))
             return tags.getInteger("Modifiers") > 0;
@@ -185,5 +192,11 @@ public class ModLapis extends ToolMod
         String tip = "ModifierTip" + keys[1];
         String modName = "\u00a79Lapis (" + keys[0] + "/" + max + ")";
         tags.setString(tip, modName);
+    }
+    
+    public boolean validType(ToolCore tool)
+    {
+        List list = Arrays.asList(tool.toolCategories());
+        return list.contains("weapon") || list.contains("harvest");
     }
 }

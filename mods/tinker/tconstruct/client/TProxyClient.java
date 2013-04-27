@@ -416,11 +416,11 @@ public class TProxyClient extends TProxyCommon
         {
             TConstructClientRegistry.addMaterialRenderMapping(partIter, "tinker", partTypes[partIter], true);
         }
-        for (int effectIter = 0; effectIter < 2; effectIter++)
+        for (int effectIter = 0; effectIter < 3; effectIter++)
         {
             TConstructClientRegistry.addEffectRenderMapping(effectIter, "tinker", effectTypes[effectIter], true);
         }
-        for (int effectIter = 3; effectIter < effectTypes.length; effectIter++)
+        for (int effectIter = 4; effectIter < effectTypes.length; effectIter++)
         {
             TConstructClientRegistry.addEffectRenderMapping(effectIter, "tinker", effectTypes[effectIter], true);
         }

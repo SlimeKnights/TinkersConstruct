@@ -1,6 +1,10 @@
 package mods.tinker.tconstruct.modifiers;
 
+import java.util.Arrays;
+import java.util.List;
+
 import mods.tinker.common.ToolMod;
+import mods.tinker.tconstruct.library.ToolCore;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -21,7 +25,10 @@ public class ModBlaze extends ToolMod
 	@Override
 	protected boolean canModify (ItemStack tool, ItemStack[] input)
 	{
-		
+	    ToolCore toolItem = (ToolCore) tool.getItem();
+        if (!validType(toolItem))
+            return false;
+        
 		NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
 		if (!tags.hasKey(key))
 			return tags.getInteger("Modifiers") > 0;
@@ -86,4 +93,10 @@ public class ModBlaze extends ToolMod
 		String modName = "\u00a76Blaze ("+keys[0]+"/"+keys[1]+")";
 		tags.setString(tip, modName);
 	}
+	
+	public boolean validType(ToolCore tool)
+    {
+        List list = Arrays.asList(tool.toolCategories());
+        return list.contains("melee") || list.contains("ammo");
+    }
 }

@@ -36,6 +36,12 @@ public class Dagger extends Weapon
         return itemstack;
     }
     
+    @Override
+    public String[] toolCategories()
+    {
+        return new String[] { "weapon", "melee", "throwing" };
+    }
+    
     public EnumAction getItemUseAction(ItemStack par1ItemStack)
     {
         return EnumAction.bow;

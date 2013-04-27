@@ -33,6 +33,8 @@ public abstract class DualHarvestTool extends HarvestTool
 		int bID = player.worldObj.getBlockId(x, y, z);
 		int meta = world.getBlockMetadata(x, y, z);
 		Block block = Block.blocksList[bID];
+		if (block == null || bID < 1)
+		    return false;
 		int hlvl = MinecraftForge.getBlockHarvestLevel(block, meta, getHarvestType());
 		int shlvl = MinecraftForge.getBlockHarvestLevel(block, meta, getSecondHarvestType());
 		
@@ -135,6 +137,12 @@ public abstract class DualHarvestTool extends HarvestTool
                 return true;
         }
         return false;
+    }
+	
+	@Override
+    public String[] toolCategories()
+    {
+        return new String[] { "harvest", "dualharvest" };
     }
 	
 	protected abstract Material[] getEffectiveSecondaryMaterials();

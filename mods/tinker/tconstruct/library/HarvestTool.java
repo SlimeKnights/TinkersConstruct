@@ -33,6 +33,8 @@ public abstract class HarvestTool extends ToolCore
         int bID = player.worldObj.getBlockId(x, y, z);
         int meta = world.getBlockMetadata(x, y, z);
         Block block = Block.blocksList[bID];
+        if (block == null || bID < 1)
+            return false;
         int hlvl = MinecraftForge.getBlockHarvestLevel(block, meta, getHarvestType());
         
         if (hlvl <= tags.getInteger("HarvestLevel"))
@@ -119,6 +121,12 @@ public abstract class HarvestTool extends ToolCore
                 return true;
         }
         return false;
+    }
+    
+    @Override
+    public String[] toolCategories()
+    {
+        return new String[] { "harvest" };
     }
 
     protected abstract Material[] getEffectiveMaterials ();

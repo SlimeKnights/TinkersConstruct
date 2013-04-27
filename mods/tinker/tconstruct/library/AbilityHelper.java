@@ -1,7 +1,7 @@
 package mods.tinker.tconstruct.library;
 
-import ic2.api.ICustomElectricItem;
-import ic2.api.IElectricItem;
+import ic2.api.item.ICustomElectricItem;
+import ic2.api.item.IElectricItem;
 
 import java.util.Iterator;
 import java.util.List;
@@ -9,7 +9,6 @@ import java.util.Random;
 
 import mods.tinker.common.PiercingEntityDamage;
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.EnchantmentThorns;
 import net.minecraft.entity.Entity;
@@ -26,13 +25,11 @@ import net.minecraft.stats.AchievementList;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumMovingObjectType;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.Event.Result;
 import net.minecraftforge.event.entity.player.UseHoeEvent;
-import cpw.mods.fml.client.FMLClientHandler;
 
 public class AbilityHelper
 {

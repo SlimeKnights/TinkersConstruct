@@ -348,7 +348,7 @@ public class SearedRender implements ISimpleBlockRenderingHandler
                 CastingBasinLogic logic = (CastingBasinLogic) world.getBlockTileEntity(x, y, z);
                 if (logic.liquid != null)
                 {
-                    float height = logic.getLiquidAmount() / (logic.getCapacity() * 1.03F) * 0.6875F;
+                    float height = logic.getLiquidAmount() / (logic.getCapacity() * 1.05F) * 0.6875F;
                     renderer.setRenderBounds(0.0625F, 0.25f, 0.0625F, 0.9375F, 0.25f + height, 0.9375F);
                     if (logic.liquid.itemID < 4096) //Block
                     {

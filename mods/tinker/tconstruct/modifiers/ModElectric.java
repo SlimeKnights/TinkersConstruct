@@ -1,6 +1,6 @@
 package mods.tinker.tconstruct.modifiers;
 
-import ic2.api.IElectricItem;
+import ic2.api.item.IElectricItem;
 
 import java.util.ArrayList;
 
