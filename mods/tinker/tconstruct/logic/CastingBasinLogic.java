@@ -5,7 +5,6 @@ import mods.tinker.common.InventoryLogic;
 import mods.tinker.tconstruct.TConstruct;
 import mods.tinker.tconstruct.crafting.CastingRecipe;
 import mods.tinker.tconstruct.crafting.LiquidBlockCasting;
-import mods.tinker.tconstruct.crafting.LiquidCasting;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ISidedInventory;
@@ -91,7 +90,7 @@ public class CastingBasinLogic extends InventoryLogic implements ILiquidTank, IT
 
         if (liquid == null)
         {
-            if (inventory[1] == null && LiquidCasting.instance.getCastingRecipe(resource, inventory[0]) != null)
+            if (inventory[1] == null && LiquidBlockCasting.instance.getCastingRecipe(resource, inventory[0]) != null)
             {
                 liquid = resource.copy();
                 int capacity = getCapacity();
@@ -104,7 +103,7 @@ public class CastingBasinLogic extends InventoryLogic implements ILiquidTank, IT
                     }
                     if (liquid.amount == capacity)
                     {
-                        castingDelay = LiquidCasting.instance.getCastingDelay(liquid, inventory[0]);
+                        castingDelay = LiquidBlockCasting.instance.getCastingDelay(liquid, inventory[0]);
                     }
                     renderOffset = liquid.amount;
                     worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
@@ -126,7 +125,7 @@ public class CastingBasinLogic extends InventoryLogic implements ILiquidTank, IT
             {
                 renderOffset = roomInTank;
                 liquid.amount = total;
-                castingDelay = LiquidCasting.instance.getCastingDelay(liquid, inventory[0]);
+                castingDelay = LiquidBlockCasting.instance.getCastingDelay(liquid, inventory[0]);
                 worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
             }
             return roomInTank;

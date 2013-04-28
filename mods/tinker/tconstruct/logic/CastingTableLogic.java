@@ -135,8 +135,8 @@ public class CastingTableLogic extends InventoryLogic implements ILiquidTank, IT
         {
             if (doFill)
             {
-                worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
                 liquid.amount += resource.amount;
+                worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
             }
             return resource.amount;
         }
