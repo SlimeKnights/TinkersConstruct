@@ -3,8 +3,8 @@ package mods.tinker.tconstruct.modifiers;
 import java.util.Arrays;
 import java.util.List;
 
-import mods.tinker.common.ToolMod;
 import mods.tinker.tconstruct.library.ToolCore;
+import mods.tinker.tconstruct.library.ToolMod;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 

@@ -2,7 +2,7 @@ package mods.tinker.tconstruct.worldgen.village;
 
 import java.util.Random;
 
-import mods.tinker.tconstruct.TContent;
+import mods.tinker.tconstruct.common.TContent;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

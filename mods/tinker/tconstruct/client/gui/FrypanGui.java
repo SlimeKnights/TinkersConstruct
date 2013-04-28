@@ -1,6 +1,6 @@
 package mods.tinker.tconstruct.client.gui;
 
-import mods.tinker.tconstruct.logic.FrypanLogic;
+import mods.tinker.tconstruct.blocks.logic.FrypanLogic;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.StatCollector;

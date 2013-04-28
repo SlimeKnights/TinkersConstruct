@@ -1,10 +1,10 @@
 package mods.tinker.tconstruct.client.gui;
 
 import mods.tinker.tconstruct.client.TProxyClient;
-import mods.tinker.tconstruct.crafting.PatternBuilder;
 import mods.tinker.tconstruct.library.TConstructRegistry;
 import mods.tinker.tconstruct.library.ToolMaterial;
 import mods.tinker.tconstruct.library.client.TConstructClientRegistry;
+import mods.tinker.tconstruct.library.crafting.PatternBuilder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiParticle;

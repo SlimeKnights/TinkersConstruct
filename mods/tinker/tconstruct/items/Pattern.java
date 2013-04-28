@@ -2,9 +2,9 @@ package mods.tinker.tconstruct.items;
 
 import java.util.List;
 
-import mods.tinker.common.IPattern;
-import mods.tinker.tconstruct.TContent;
-import mods.tinker.tconstruct.crafting.PatternBuilder.MaterialSet;
+import mods.tinker.tconstruct.common.TContent;
+import mods.tinker.tconstruct.library.IPattern;
+import mods.tinker.tconstruct.library.crafting.PatternBuilder.MaterialSet;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;

@@ -2,7 +2,7 @@ package mods.tinker.tconstruct.client;
 
 import java.util.EnumSet;
 
-import mods.tinker.tconstruct.TContent;
+import mods.tinker.tconstruct.common.TContent;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;

@@ -3,9 +3,9 @@ package mods.tinker.tconstruct.blocks;
 import java.util.List;
 import java.util.Random;
 
-import mods.tinker.tconstruct.TContent;
-import mods.tinker.tconstruct.client.blockrender.FluidRender;
-import mods.tinker.tconstruct.logic.LiquidTextureLogic;
+import mods.tinker.tconstruct.blocks.logic.LiquidTextureLogic;
+import mods.tinker.tconstruct.client.block.FluidRender;
+import mods.tinker.tconstruct.common.TContent;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;

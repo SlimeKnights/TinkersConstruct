@@ -3,9 +3,9 @@ package mods.tinker.tconstruct.client.gui;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 
-import mods.tinker.tconstruct.TContent;
-import mods.tinker.tconstruct.container.PatternShaperContainer;
-import mods.tinker.tconstruct.logic.PatternShaperLogic;
+import mods.tinker.tconstruct.blocks.logic.PatternShaperLogic;
+import mods.tinker.tconstruct.common.TContent;
+import mods.tinker.tconstruct.inventory.PatternShaperContainer;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;

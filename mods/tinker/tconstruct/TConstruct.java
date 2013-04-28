@@ -1,8 +1,14 @@
 package mods.tinker.tconstruct;
 
+import mods.tinker.tconstruct.common.TContent;
+import mods.tinker.tconstruct.common.TProxyCommon;
 import mods.tinker.tconstruct.library.TConstructRegistry;
 import mods.tinker.tconstruct.library.TabTools;
-import mods.tinker.tconstruct.player.TPlayerHandler;
+import mods.tinker.tconstruct.util.PHConstruct;
+import mods.tinker.tconstruct.util.TCraftingHandler;
+import mods.tinker.tconstruct.util.TEventHandler;
+import mods.tinker.tconstruct.util.network.TGuiHandler;
+import mods.tinker.tconstruct.util.player.TPlayerHandler;
 import mods.tinker.tconstruct.worldgen.TBaseWorldGenerator;
 import mods.tinker.tconstruct.worldgen.village.TVillageTrades;
 import mods.tinker.tconstruct.worldgen.village.VillageSmelteryHandler;
@@ -29,7 +35,7 @@ import cpw.mods.fml.common.registry.VillagerRegistry;
  */
 
 @Mod(modid = "TConstruct", name = "TConstruct", version = "1.5.1_1.3.2.dev26", dependencies = "required-after:Forge@[7.7.1.659,)")
-@NetworkMod(serverSideRequired = false, clientSideRequired = true, channels = { "TConstruct" }, packetHandler = mods.tinker.tconstruct.TPacketHandler.class)
+@NetworkMod(serverSideRequired = false, clientSideRequired = true, channels = { "TConstruct" }, packetHandler = mods.tinker.tconstruct.util.network.TPacketHandler.class)
 public class TConstruct
 {
     /** The value of one ingot in millibuckets */
@@ -58,10 +64,10 @@ public class TConstruct
         content.oreRegistry();
 
         proxy.registerRenderer();
-        proxy.registerTickHandler();
+        //proxy.registerTickHandler();
         proxy.addNames();
         proxy.readManuals();
-        proxy.registerKeys();
+        //proxy.registerKeys();
 
         GameRegistry.registerWorldGenerator(new TBaseWorldGenerator());
         GameRegistry.registerFuelHandler(content);

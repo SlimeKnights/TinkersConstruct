@@ -2,13 +2,13 @@ package mods.tinker.tconstruct.blocks;
 
 import java.util.List;
 
-import mods.tinker.common.InventoryBlock;
 import mods.tinker.tconstruct.TConstruct;
-import mods.tinker.tconstruct.client.blockrender.SearedRender;
+import mods.tinker.tconstruct.blocks.logic.CastingBasinLogic;
+import mods.tinker.tconstruct.blocks.logic.CastingTableLogic;
+import mods.tinker.tconstruct.blocks.logic.FaucetLogic;
+import mods.tinker.tconstruct.client.block.SearedRender;
+import mods.tinker.tconstruct.library.InventoryBlock;
 import mods.tinker.tconstruct.library.TConstructRegistry;
-import mods.tinker.tconstruct.logic.CastingBasinLogic;
-import mods.tinker.tconstruct.logic.CastingTableLogic;
-import mods.tinker.tconstruct.logic.FaucetLogic;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.item.EntityItem;

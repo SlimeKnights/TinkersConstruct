@@ -6,8 +6,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import mods.tinker.tconstruct.container.ActiveContainer;
-import mods.tinker.tconstruct.container.ActiveSlot;
+import mods.tinker.tconstruct.inventory.ActiveContainer;
+import mods.tinker.tconstruct.inventory.ActiveSlot;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.OpenGlHelper;

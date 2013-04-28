@@ -2,14 +2,14 @@ package mods.tinker.tconstruct.blocks;
 
 import java.util.List;
 
-import mods.tinker.common.InventoryBlock;
 import mods.tinker.tconstruct.TConstruct;
-import mods.tinker.tconstruct.client.blockrender.TableRender;
+import mods.tinker.tconstruct.blocks.logic.PartCrafterLogic;
+import mods.tinker.tconstruct.blocks.logic.PatternChestLogic;
+import mods.tinker.tconstruct.blocks.logic.PatternShaperLogic;
+import mods.tinker.tconstruct.blocks.logic.ToolStationLogic;
+import mods.tinker.tconstruct.client.block.TableRender;
+import mods.tinker.tconstruct.library.InventoryBlock;
 import mods.tinker.tconstruct.library.TConstructRegistry;
-import mods.tinker.tconstruct.logic.PartCrafterLogic;
-import mods.tinker.tconstruct.logic.PatternChestLogic;
-import mods.tinker.tconstruct.logic.PatternShaperLogic;
-import mods.tinker.tconstruct.logic.ToolStationLogic;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;

@@ -1,7 +1,7 @@
 package mods.tinker.tconstruct.modifiers;
 
-import mods.tinker.common.ToolMod;
-import mods.tinker.tconstruct.crafting.PatternBuilder;
+import mods.tinker.tconstruct.library.ToolMod;
+import mods.tinker.tconstruct.library.crafting.PatternBuilder;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 

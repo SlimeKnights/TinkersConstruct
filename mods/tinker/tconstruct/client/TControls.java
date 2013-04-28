@@ -5,7 +5,7 @@ import java.io.DataOutputStream;
 import java.util.EnumSet;
 
 import mods.tinker.tconstruct.TConstruct;
-import mods.tinker.tconstruct.TGuiHandler;
+import mods.tinker.tconstruct.util.network.TGuiHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.client.settings.KeyBinding;

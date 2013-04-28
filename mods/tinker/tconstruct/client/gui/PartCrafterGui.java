@@ -1,11 +1,11 @@
 package mods.tinker.tconstruct.client.gui;
 
-import mods.tinker.tconstruct.container.ActiveContainer;
-import mods.tinker.tconstruct.container.PartCrafterChestContainer;
-import mods.tinker.tconstruct.crafting.PatternBuilder;
+import mods.tinker.tconstruct.blocks.logic.PartCrafterLogic;
+import mods.tinker.tconstruct.inventory.ActiveContainer;
+import mods.tinker.tconstruct.inventory.PartCrafterChestContainer;
 import mods.tinker.tconstruct.library.TConstructRegistry;
 import mods.tinker.tconstruct.library.ToolMaterial;
-import mods.tinker.tconstruct.logic.PartCrafterLogic;
+import mods.tinker.tconstruct.library.crafting.PatternBuilder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;

@@ -1,7 +1,7 @@
 package mods.tinker.tconstruct.entity;
 
 import mods.tinker.tconstruct.TConstruct;
-import mods.tinker.tconstruct.TContent;
+import mods.tinker.tconstruct.common.TContent;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.IMob;

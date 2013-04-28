@@ -3,9 +3,9 @@ package mods.tinker.tconstruct.worldgen.village;
 import java.util.List;
 import java.util.Random;
 
-import mods.tinker.common.CoordTuple;
-import mods.tinker.tconstruct.TContent;
-import mods.tinker.tconstruct.logic.SmelteryLogic;
+import mods.tinker.tconstruct.blocks.logic.SmelteryLogic;
+import mods.tinker.tconstruct.common.TContent;
+import mods.tinker.tconstruct.library.CoordTuple;
 import net.minecraft.block.Block;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.structure.ComponentVillage;

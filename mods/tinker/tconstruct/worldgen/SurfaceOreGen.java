@@ -2,7 +2,7 @@ package mods.tinker.tconstruct.worldgen;
 
 import java.util.Random;
 
-import mods.tinker.tconstruct.PHConstruct;
+import mods.tinker.tconstruct.util.PHConstruct;
 import net.minecraft.block.Block;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;

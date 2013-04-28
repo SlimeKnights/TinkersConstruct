@@ -3,8 +3,8 @@ package mods.tinker.tconstruct.blocks;
 import java.util.List;
 import java.util.Random;
 
-import mods.tinker.tconstruct.TContent;
-import mods.tinker.tconstruct.client.blockrender.OreberryRender;
+import mods.tinker.tconstruct.client.block.OreberryRender;
+import mods.tinker.tconstruct.common.TContent;
 import mods.tinker.tconstruct.library.TConstructRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLeavesBase;

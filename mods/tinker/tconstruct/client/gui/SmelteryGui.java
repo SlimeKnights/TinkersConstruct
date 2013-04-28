@@ -3,9 +3,9 @@ package mods.tinker.tconstruct.client.gui;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 
-import mods.tinker.tconstruct.container.ActiveContainer;
-import mods.tinker.tconstruct.container.SmelteryContainer;
-import mods.tinker.tconstruct.logic.SmelteryLogic;
+import mods.tinker.tconstruct.blocks.logic.SmelteryLogic;
+import mods.tinker.tconstruct.inventory.ActiveContainer;
+import mods.tinker.tconstruct.inventory.SmelteryContainer;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;

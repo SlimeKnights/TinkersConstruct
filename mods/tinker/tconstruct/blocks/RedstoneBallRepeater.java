@@ -2,8 +2,8 @@ package mods.tinker.tconstruct.blocks;
 
 import java.util.Random;
 
-import mods.tinker.tconstruct.TContent;
-import mods.tinker.tconstruct.client.blockrender.BallRepeaterRender;
+import mods.tinker.tconstruct.client.block.BallRepeaterRender;
+import mods.tinker.tconstruct.common.TContent;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRedstoneLogic;
 import net.minecraft.client.renderer.texture.IconRegister;

@@ -1,7 +1,7 @@
 package mods.tinker.tconstruct.blocks;
 
-import mods.tinker.tconstruct.TContent;
-import mods.tinker.tconstruct.logic.GolemCoreLogic;
+import mods.tinker.tconstruct.blocks.logic.GolemCoreLogic;
+import mods.tinker.tconstruct.common.TContent;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
