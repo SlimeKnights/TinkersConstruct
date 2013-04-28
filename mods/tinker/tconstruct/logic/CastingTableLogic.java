@@ -95,17 +95,20 @@ public class CastingTableLogic extends InventoryLogic implements ILiquidTank, IT
             {
                 liquid = resource.copy();
                 int capacity = getCapacity();
-                if (liquid.amount > capacity)
-                {
-                    liquid.amount = capacity;
-                }
-                if (liquid.amount == capacity)
-                {
-                    castingDelay = LiquidCasting.instance.getCastingDelay(liquid, inventory[0]);
-                }
 
-                renderOffset = liquid.amount;
-                worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+                if (doFill)
+                {
+                    if (liquid.amount > capacity)
+                    {
+                        liquid.amount = capacity;
+                    }
+                    if (liquid.amount == capacity)
+                    {
+                        castingDelay = LiquidCasting.instance.getCastingDelay(liquid, inventory[0]);
+                    }
+                    renderOffset = liquid.amount;
+                    worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+                }
                 return liquid.amount;
             }
             else
