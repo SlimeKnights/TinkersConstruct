@@ -76,6 +76,7 @@ import mods.tinker.tconstruct.modifiers.ModRepair;
 import mods.tinker.tconstruct.tools.Axe;
 import mods.tinker.tconstruct.tools.BattleSign;
 import mods.tinker.tconstruct.tools.Broadsword;
+import mods.tinker.tconstruct.tools.Chisel;
 import mods.tinker.tconstruct.tools.Dagger;
 import mods.tinker.tconstruct.tools.FryingPan;
 import mods.tinker.tconstruct.tools.Longsword;
@@ -138,6 +139,7 @@ public class TContent implements IFuelHandler
 
     public static ToolCore frypan;
     public static ToolCore battlesign;
+    public static ToolCore chisel;
     //public static ToolCore longbow;
 
     public static ToolCore mattock;
@@ -159,6 +161,7 @@ public class TContent implements IFuelHandler
 
     public static Item frypanHead;
     public static Item signHead;
+    public static Item chiselHead;
 
     public static Item lumberHead;
 
@@ -398,9 +401,9 @@ public class TContent implements IFuelHandler
 
         frypan = new FryingPan(PHConstruct.frypan);
         battlesign = new BattleSign(PHConstruct.battlesign);
-        //longbow = new RangedWeapon(PHConstruct.longbow);
         mattock = new Mattock(PHConstruct.mattock);
         //lumberaxe = new LumberAxe(PHConstruct.lumberaxe, lumberaxeTexture);
+        chisel = new Chisel(PHConstruct.chisel);
         potionLauncher = new PotionLauncher(PHConstruct.potionLauncher).setUnlocalizedName("tconstruct.PotionLauncher");
 
         pickaxeHead = new ToolPart(PHConstruct.pickaxeHead, "PickaxeHead", "_pickaxe_head").setUnlocalizedName("tconstruct.PickaxeHead");
@@ -416,6 +419,7 @@ public class TContent implements IFuelHandler
 
         frypanHead = new ToolPart(PHConstruct.frypanHead, "FrypanHead", "_frypan_head").setUnlocalizedName("tconstruct.FrypanHead");
         signHead = new ToolPart(PHConstruct.signHead, "SignHead", "_battlesign_head").setUnlocalizedName("tconstruct.SignHead");
+        chiselHead = new ToolPart(PHConstruct.chiselHead, "ChiselHead", "_chisel_head").setUnlocalizedName("tconstruct.ChiselHead");
 
         strangeFood = new StrangeFood(PHConstruct.slimefood).setUnlocalizedName("tconstruct.strangefood");
         oreBerries = new OreBerries(PHConstruct.oreChunks).setUnlocalizedName("oreberry");
@@ -448,7 +452,7 @@ public class TContent implements IFuelHandler
         TConstructRegistry.addToolMaterial(13, "Copper", 1, 1, 180, 500, 2, 1.15F, 0, 0f, "\u00A7c", "");
         TConstructRegistry.addToolMaterial(14, "Bronze", 1, 2, 350, 700, 2, 1.3F, 1, 0f, "\u00A76", "");
         TConstructRegistry.addToolMaterial(15, "Alumite", 2, 4, 550, 800, 3, 1.3F, 2, 0f, "\u00A7d", "");
-        TConstructRegistry.addToolMaterial(16, "Steel", 2, 3, 750, 800, 3, 1.3F, 2, 0f);
+        TConstructRegistry.addToolMaterial(16, "Steel", 2, 4, 750, 800, 3, 1.3F, 2, 0f);
         TConstructRegistry.addToolMaterial(17, "BlueSlime", 1, 1, 500, 150, 0, 1.5F, 0, 0f, "\u00A7b", "");
 
         //Thaumcraft
@@ -577,6 +581,7 @@ public class TContent implements IFuelHandler
         tb.addToolRecipe(battlesign, signHead);
         tb.addToolRecipe(mattock, axeHead, shovelHead);
         tb.addToolRecipe(dagger, knifeBlade, crossbar);
+        tb.addToolRecipe(chisel, chiselHead);
         //tb.addToolRecipe(longbow, toolRod, toolRod);
         //tb.addToolRecipe(lumberaxe, lumberHead);
 

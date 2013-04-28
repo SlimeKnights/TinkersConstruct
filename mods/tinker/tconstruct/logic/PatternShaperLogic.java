@@ -5,10 +5,12 @@ import mods.tinker.tconstruct.TContent;
 import mods.tinker.tconstruct.container.PatternShaperContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
+import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 public class PatternShaperLogic extends InventoryLogic
+    implements ISidedInventory
 {
 	public PatternShaperLogic()
 	{
@@ -100,4 +102,22 @@ public class PatternShaperLogic extends InventoryLogic
 		else
 			return false;
 	}
+	
+	@Override
+    public int[] getSizeInventorySide (int var1)
+    {
+        return null;
+    }
+
+    @Override
+    public boolean func_102007_a (int i, ItemStack itemstack, int j)
+    {
+        return false;
+    }
+
+    @Override
+    public boolean func_102008_b (int i, ItemStack itemstack, int j)
+    {
+        return false;
+    }
 }

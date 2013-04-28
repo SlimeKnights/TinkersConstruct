@@ -46,6 +46,15 @@ public class TConstructClientRegistry
         }
     }
 
+    public static void addSingleEffectRenderMapping (ToolCore tool, int materialID, String domain, String renderName, boolean useDefaultFolder)
+    {
+        String icon = domain + ":";
+        if (useDefaultFolder)
+            icon += tool.getDefaultFolder() + "/";
+        icon += renderName + tool.getEffectSuffix();
+        tool.registerEffectPath(materialID, icon);
+    }
+
     public static void registerManualIcon (String name, ItemStack stack)
     {
         manualIcons.put(name, stack);

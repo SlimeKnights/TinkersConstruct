@@ -10,6 +10,7 @@ import mods.tinker.tconstruct.entity.NitroCreeper;
 import mods.tinker.tconstruct.logic.LiquidTextureLogic;
 import mods.tinker.tconstruct.modifiers.ModAttack;
 import net.minecraft.entity.monster.EntitySkeleton;
+import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -82,6 +83,16 @@ public class TEventHandler
             for (int iter = 0; iter < amount; ++iter)
             {
                 event.entityLiving.dropItem(Item.leather.itemID, 1);
+            }
+        }
+        
+        else if (event.entityLiving.getClass() == EntityChicken.class)
+        {
+            int amount = random.nextInt(3) + random.nextInt(1 + event.lootingLevel) + random.nextInt(3) + random.nextInt(1 + event.lootingLevel) + 1;
+
+            for (int iter = 0; iter < amount; ++iter)
+            {
+                event.entityLiving.dropItem(Item.feather.itemID, 1);
             }
         }
         

@@ -5,6 +5,7 @@ import mods.tinker.common.InventoryLogic;
 import mods.tinker.tconstruct.TConstruct;
 import mods.tinker.tconstruct.crafting.CastingRecipe;
 import mods.tinker.tconstruct.crafting.LiquidBlockCasting;
+import mods.tinker.tconstruct.crafting.LiquidCasting;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ISidedInventory;
@@ -90,7 +91,7 @@ public class CastingBasinLogic extends InventoryLogic implements ILiquidTank, IT
 
         if (liquid == null)
         {
-            if (inventory[1] == null && LiquidBlockCasting.instance.getCastingRecipe(resource, inventory[0]) != null)
+            if (inventory[1] == null && LiquidCasting.instance.getCastingRecipe(resource, inventory[0]) != null)
             {
                 liquid = resource.copy();
                 int capacity = getCapacity();
@@ -100,11 +101,11 @@ public class CastingBasinLogic extends InventoryLogic implements ILiquidTank, IT
                 }
                 if (liquid.amount == capacity)
                 {
-                    castingDelay = LiquidBlockCasting.instance.getCastingDelay(liquid, inventory[0]);
+                    castingDelay = LiquidCasting.instance.getCastingDelay(liquid, inventory[0]);
                 }
 
                 renderOffset = liquid.amount;
-                worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+                worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
                 return liquid.amount;
             }
             else
@@ -117,24 +118,21 @@ public class CastingBasinLogic extends InventoryLogic implements ILiquidTank, IT
         else if (resource.amount + liquid.amount >= getCapacity()) //Start timer here
         {
             int total = getCapacity();
-            int cap = total - liquid.amount;
-            if (doFill && cap != total)
+            int roomInTank = total - liquid.amount;
+            if (doFill && roomInTank > 0)
             {
-                worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-                liquid.amount = getCapacity();
-                if (castingDelay <= 0)
-                {
-                    castingDelay = LiquidBlockCasting.instance.getCastingDelay(liquid, inventory[0]);
-                }
+                renderOffset = roomInTank;
+                liquid.amount = total;
+                castingDelay = LiquidCasting.instance.getCastingDelay(liquid, inventory[0]);
+                worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
             }
-            renderOffset = cap;
-            return cap;
+            return roomInTank;
         }
         else
         {
             if (doFill)
             {
-                worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+                worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
                 liquid.amount += resource.amount;
             }
             return resource.amount;

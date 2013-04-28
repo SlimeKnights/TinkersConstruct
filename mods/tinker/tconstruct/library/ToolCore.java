@@ -203,7 +203,7 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
             {
                 if (renderPass == 0) // Handle
                 {
-                    return (handleIcons.get(tags.getInteger("RenderHandle")));
+                    return handleIcons.get(tags.getInteger("RenderHandle"));
                 }
 
                 else if (renderPass == 1) // Head
@@ -288,7 +288,7 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
                     color = "\u00a76";
             }
 
-            String charge = new StringBuilder().append(color).append(tags.getInteger("charge")).append("/").append(getMaxCharge(stack)).append(" En").toString();
+            String charge = new StringBuilder().append(color).append(tags.getInteger("charge")).append("/").append(getMaxCharge(stack)).append(" EU").toString();
             list.add(charge);
         }
         if (tags.hasKey("InfiTool"))

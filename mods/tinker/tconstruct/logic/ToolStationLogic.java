@@ -5,6 +5,7 @@ import mods.tinker.tconstruct.container.ToolStationContainer;
 import mods.tinker.tconstruct.crafting.ToolBuilder;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
+import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
@@ -13,6 +14,7 @@ import net.minecraft.world.World;
  */
 
 public class ToolStationLogic extends InventoryLogic
+    implements ISidedInventory
 {
 	ItemStack previousTool;
 	String toolName;
@@ -81,6 +83,24 @@ public class ToolStationLogic extends InventoryLogic
 	}
 	
 	public boolean canUpdate()
+    {
+        return false;
+    }
+
+    @Override
+    public int[] getSizeInventorySide (int var1)
+    {
+        return null;
+    }
+
+    @Override
+    public boolean func_102007_a (int i, ItemStack itemstack, int j)
+    {
+        return false;
+    }
+
+    @Override
+    public boolean func_102008_b (int i, ItemStack itemstack, int j)
     {
         return false;
     }

@@ -28,7 +28,7 @@ import cpw.mods.fml.common.registry.VillagerRegistry;
  * @dependencies: IC2 API, EBXL API
  */
 
-@Mod(modid = "TConstruct", name = "TConstruct", version = "1.5.1_1.3.2.dev23", dependencies = "required-after:Forge@[7.7.1.659,)")
+@Mod(modid = "TConstruct", name = "TConstruct", version = "1.5.1_1.3.2.dev25", dependencies = "required-after:Forge@[7.7.1.659,)")
 @NetworkMod(serverSideRequired = false, clientSideRequired = true, channels = { "TConstruct" }, packetHandler = mods.tinker.tconstruct.TPacketHandler.class)
 public class TConstruct
 {

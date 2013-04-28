@@ -25,6 +25,7 @@ public class CastingTableLogic extends InventoryLogic implements ILiquidTank, IT
     int castingDelay = 0;
     int renderOffset = 0;
     boolean needsUpdate;
+    boolean canAcceptLiquid = true;
     int tick;
 
     public CastingTableLogic()
@@ -104,7 +105,7 @@ public class CastingTableLogic extends InventoryLogic implements ILiquidTank, IT
                 }
 
                 renderOffset = liquid.amount;
-                worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+                worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
                 return liquid.amount;
             }
             else
@@ -117,24 +118,21 @@ public class CastingTableLogic extends InventoryLogic implements ILiquidTank, IT
         else if (resource.amount + liquid.amount >= getCapacity()) //Start timer here
         {
             int total = getCapacity();
-            int cap = total - liquid.amount;
-            if (doFill && cap != total)
+            int roomInTank = total - liquid.amount;
+            if (doFill && roomInTank > 0)
             {
-                worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-                liquid.amount = getCapacity();
-                if (castingDelay <= 0)
-                {
-                    castingDelay = LiquidCasting.instance.getCastingDelay(liquid, inventory[0]);
-                }
+                renderOffset = roomInTank;
+                liquid.amount = total;
+                castingDelay = LiquidCasting.instance.getCastingDelay(liquid, inventory[0]);
+                worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
             }
-            renderOffset = cap;
-            return cap;
+            return roomInTank;
         }
         else
         {
             if (doFill)
             {
-                worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+                worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
                 liquid.amount += resource.amount;
             }
             return resource.amount;

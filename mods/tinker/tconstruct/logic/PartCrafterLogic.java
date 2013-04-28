@@ -7,12 +7,14 @@ import mods.tinker.tconstruct.container.PartCrafterContainer;
 import mods.tinker.tconstruct.crafting.PatternBuilder;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
+import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
 public class PartCrafterLogic extends InventoryLogic
+    implements ISidedInventory
 {
 	boolean craftedTop;
 	boolean craftedBottom;
@@ -158,4 +160,22 @@ public class PartCrafterLogic extends InventoryLogic
 		tags.setBoolean("CraftedTop", craftedTop);
 		tags.setBoolean("CraftedBottom", craftedBottom);
 	}
+	
+	@Override
+    public int[] getSizeInventorySide (int var1)
+    {
+        return null;
+    }
+
+    @Override
+    public boolean func_102007_a (int i, ItemStack itemstack, int j)
+    {
+        return false;
+    }
+
+    @Override
+    public boolean func_102008_b (int i, ItemStack itemstack, int j)
+    {
+        return false;
+    }
 }

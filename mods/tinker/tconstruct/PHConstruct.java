@@ -108,6 +108,7 @@ public class PHConstruct
 
         lumberHead = config.getItem("Tool Parts", "Lumber Axe Head", 14037).getInt(14037);
         knifeBlade = config.getItem("Tool Parts", "Knife Blade", 14038).getInt(14038);
+        chiselHead = config.getItem("Tool Parts", "Chisel Head", 14039).getInt(14039);
 
         pickaxe = config.getItem("Tools", "Pickaxe", 14051).getInt(14051);
         shovel = config.getItem("Tools", "Shovel", 14052).getInt(14052);
@@ -126,6 +127,8 @@ public class PHConstruct
         longbow = config.getItem("Tools", "Longbow", 14062).getInt(14062);
         shortbow = config.getItem("Tools", "Shortbow", 14063).getInt(14063);
         potionLauncher = config.getItem("Tools", "Potion Launcher", 14064).getInt(14064);
+        
+        chisel = config.getItem("Tools", "Chisel", 14066).getInt(14066);
 
         buckets = config.getItem("Patterns and Misc", "Buckets", 14101).getInt(14101);
         uselessItem = config.getItem("Patterns and Misc", "Title Icon", 14102).getInt(14102);
@@ -287,6 +290,8 @@ public class PHConstruct
 
     public static int mattock;
     public static int lumberaxe;
+    
+    public static int chisel;
 
     //Tool parts
     public static int swordBlade;
@@ -302,6 +307,7 @@ public class PHConstruct
 
     public static int frypanHead;
     public static int signHead;
+    public static int chiselHead;
 
     public static int lumberHead;
 

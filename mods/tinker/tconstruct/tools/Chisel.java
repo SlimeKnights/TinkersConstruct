@@ -11,6 +11,7 @@ public class Chisel extends ToolCore
     public Chisel(int id)
     {
         super(id, 0);
+        this.setUnlocalizedName("InfiTool.Chisel");
     }
 
     @Override
@@ -77,7 +78,6 @@ public class Chisel extends ToolCore
     @Override
     protected Item getAccessoryItem ()
     {
-        // TODO Auto-generated method stub
         return null;
     }
 

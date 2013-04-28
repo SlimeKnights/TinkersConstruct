@@ -3,24 +3,54 @@ package mods.tinker.tconstruct.client;
 import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import mods.tinker.common.fancyitem.*;
+import mods.tinker.common.fancyitem.FancyEntityItem;
+import mods.tinker.common.fancyitem.FancyItemRender;
 import mods.tinker.tconstruct.TConstruct;
 import mods.tinker.tconstruct.TContent;
 import mods.tinker.tconstruct.TProxyCommon;
-import mods.tinker.tconstruct.client.blockrender.*;
-import mods.tinker.tconstruct.client.entityrender.*;
+import mods.tinker.tconstruct.client.blockrender.CastingBasinSpecialRender;
+import mods.tinker.tconstruct.client.blockrender.CastingTableSpecialRenderer;
+import mods.tinker.tconstruct.client.blockrender.FluidRender;
+import mods.tinker.tconstruct.client.blockrender.FrypanRender;
+import mods.tinker.tconstruct.client.blockrender.GolemCoreRender;
+import mods.tinker.tconstruct.client.blockrender.GolemCoreSpecialRender;
+import mods.tinker.tconstruct.client.blockrender.OreberryRender;
+import mods.tinker.tconstruct.client.blockrender.SearedRender;
+import mods.tinker.tconstruct.client.blockrender.SmallFontRenderer;
+import mods.tinker.tconstruct.client.blockrender.SmelteryRender;
+import mods.tinker.tconstruct.client.blockrender.TableRender;
+import mods.tinker.tconstruct.client.blockrender.TankRender;
+import mods.tinker.tconstruct.client.entityrender.CartRender;
+import mods.tinker.tconstruct.client.entityrender.CrystalRender;
+import mods.tinker.tconstruct.client.entityrender.GolemRender;
+import mods.tinker.tconstruct.client.entityrender.SkylaRender;
+import mods.tinker.tconstruct.client.entityrender.SlimeRender;
 import mods.tinker.tconstruct.client.projectilerender.DaggerRender;
 import mods.tinker.tconstruct.client.projectilerender.LaunchedItemRender;
 import mods.tinker.tconstruct.crafting.ToolBuilder;
-import mods.tinker.tconstruct.entity.*;
-import mods.tinker.tconstruct.entity.projectile.*;
-import mods.tinker.tconstruct.library.client.*;
-import mods.tinker.tconstruct.logic.*;
-import mods.tinker.tconstruct.player.*;
+import mods.tinker.tconstruct.entity.BlueSlime;
+import mods.tinker.tconstruct.entity.CartEntity;
+import mods.tinker.tconstruct.entity.Crystal;
+import mods.tinker.tconstruct.entity.GolemBase;
+import mods.tinker.tconstruct.entity.NitroCreeper;
+import mods.tinker.tconstruct.entity.Skyla;
+import mods.tinker.tconstruct.entity.projectile.DaggerEntity;
+import mods.tinker.tconstruct.entity.projectile.LaunchedPotion;
+import mods.tinker.tconstruct.library.TConstructRegistry;
+import mods.tinker.tconstruct.library.ToolCore;
+import mods.tinker.tconstruct.library.client.TConstructClientRegistry;
+import mods.tinker.tconstruct.library.client.ToolGuiElement;
+import mods.tinker.tconstruct.logic.CastingBasinLogic;
+import mods.tinker.tconstruct.logic.CastingTableLogic;
+import mods.tinker.tconstruct.logic.GolemCoreLogic;
+import mods.tinker.tconstruct.player.ArmorExtended;
+import mods.tinker.tconstruct.tools.Dagger;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
@@ -209,6 +239,7 @@ public class TProxyClient extends TProxyCommon
         TConstructClientRegistry.registerManualIcon("pan", new ItemStack(TContent.frypanHead, 1, 2));
         TConstructClientRegistry.registerManualIcon("board", new ItemStack(TContent.signHead, 1, 2));
         TConstructClientRegistry.registerManualIcon("knifeblade", new ItemStack(TContent.knifeBlade, 1, 2));
+        TConstructClientRegistry.registerManualIcon("chiselhead", new ItemStack(TContent.chiselHead, 1, 2));
 
         TConstructClientRegistry.registerManualIcon("toolrod", new ItemStack(Item.stick));
 
@@ -343,7 +374,7 @@ public class TProxyClient extends TProxyCommon
         return Minecraft.getMinecraftDir();
     }
 
-    static int[][] slotTypes = { new int[] { 0, 3, 0 }, //Repair
+    static int[][] itemIcons = { new int[] { 0, 3, 0 }, //Repair
             new int[] { 1, 4, 0 }, //Pickaxe
             new int[] { 2, 5, 0 }, //Shovel
             new int[] { 2, 6, 0 }, //Axe
@@ -355,7 +386,8 @@ public class TProxyClient extends TProxyCommon
             new int[] { 1, 2, 1 }, //Rapier
             new int[] { 1, 5, 1 }, //Dagger
             new int[] { 2, 3, 1 }, //Frying pan
-            new int[] { 2, 4, 1 } //Battlesign
+            new int[] { 2, 4, 1 }, //Battlesign
+            new int[] { 2, 6, 1 } //Chisel
     };
 
     static int[][] iconCoords = { new int[] { 0, 1, 2 }, new int[] { 13, 13, 13 }, //Repair
@@ -370,13 +402,14 @@ public class TProxyClient extends TProxyCommon
             new int[] { 1, 0, 4 }, new int[] { 2, 3, 3 }, //Rapier
             new int[] { 7, 0, 4 }, new int[] { 2, 3, 3 }, //Dagger
             new int[] { 4, 0, 13 }, new int[] { 2, 3, 13 }, //Frying Pan
-            new int[] { 5, 0, 13 }, new int[] { 2, 3, 13 } //Battlesign
+            new int[] { 5, 0, 13 }, new int[] { 2, 3, 13 }, //Battlesign
+            new int[] { 7, 0, 13 }, new int[] { 3, 3, 13 } //Chisel
     };
 
     static String[] toolNames = { "Repair and Modification", "Pickaxe", "Shovel", "Axe",
             //"Lumber Axe",
             //"Ice Axe",
-            "Mattock", "Broadsword", "Longsword", "Rapier", "Dagger", "Frying Pan", "Battlesign" };
+            "Mattock", "Broadsword", "Longsword", "Rapier", "Dagger", "Frying Pan", "Battlesign", "Chisel" };
 
     static String[] toolDescriptions = {
             "The main way to repair or change your tools. Place a tool and a material on the left to get started.",
@@ -392,13 +425,14 @@ public class TProxyClient extends TProxyCommon
             "The Dagger is a short blade that can be thrown.\n\nSpecial Ability:\n- Throw Item\n\nDamage: Low\nDurability: Moderate\n\nRequired parts:\n- Knife Blade\n- Crossbar\n- Handle",
             "The Frying is a heavy weapon that uses sheer weight to stun foes.\n\nSpecial Ability: Block\nNatural Ability: Heavy\nShift+rClick: Place Frying Pan\nDamage: Low\nDurability: High\n\nRequired parts:\n- Pan\n- Handle",
             //"The Battlesign is an advance in weapon technology worthy of Zombie Pigmen everywhere.\n\nSpecial Ability: Block\nShift-rClick: Place sign\nDamage: Low\nDurability: Average\n\nRequired parts:\n- Board\n- Handle"
-            "The Battlesign is an advance in weapon technology worthy of Zombie Pigmen everywhere.\n\nSpecial Ability: Block\nDamage: Low\nDurability: Average\n\nRequired parts:\n- Sign Board\n- Handle" };
+            "The Battlesign is an advance in weapon technology worthy of Zombie Pigmen everywhere.\n\nSpecial Ability: Block\nDamage: Low\nDurability: Average\n\nRequired parts:\n- Sign Board\n- Handle",
+            "The Chisel is a utility tool that carves shapes into blocks.\n\nSpecial Ability: Chisel\nDurability: Average\n\nRequired parts:\n- Chisel Head\n- Handle"};
 
     void addToolButtons ()
     {
         for (int i = 0; i < toolNames.length; i++)
         {
-            addToolButton(slotTypes[i][0], slotTypes[i][1], slotTypes[i][2], iconCoords[i * 2], iconCoords[i * 2 + 1], toolNames[i], toolDescriptions[i]);
+            addToolButton(itemIcons[i][0], itemIcons[i][1], itemIcons[i][2], iconCoords[i * 2], iconCoords[i * 2 + 1], toolNames[i], toolDescriptions[i]);
         }
     }
 
@@ -412,18 +446,59 @@ public class TProxyClient extends TProxyCommon
         String[] partTypes = { "wood", "stone", "iron", "flint", "cactus", "bone", "obsidian", "netherrack", "slime", "paper", "cobalt", "ardite", "manyullyn", "copper", "bronze", "alumite", "steel",
                 "blueslime" };
         String[] effectTypes = { "diamond", "emerald", "redstone", "glowstone", "moss", "ice", "lava", "blaze", "necrotic", "electric", "lapis", "quartz" };
+        int[] validHarvestEffects = { 0, 1, 2, 4, 6, 7, 8, 9, 10, 11 };
+        int[] validWeaponEffects = { 0, 1, 4, 5, 6, 7, 8, 9, 10, 11};
+        int[] validUtilityEffects = { 0, 1, 4, 9 };
+        
+        int[] validDaggerEffects = { 0, 1, 2, 4, 5, 6, 7, 8, 9, 10, 11};
+        
         for (int partIter = 0; partIter < partTypes.length; partIter++)
         {
             TConstructClientRegistry.addMaterialRenderMapping(partIter, "tinker", partTypes[partIter], true);
         }
-        for (int effectIter = 0; effectIter < 3; effectIter++)
+        
+        for (ToolCore tool : TConstructRegistry.getToolMapping())
+        {
+            if (tool instanceof Dagger)
+            {
+                for (int i = 0; i < validDaggerEffects.length; i++)
+                {
+                    TConstructClientRegistry.addEffectRenderMapping(validDaggerEffects[i], "tinker", effectTypes[validDaggerEffects[i]], true);
+                }
+                return;
+            }
+            List list = Arrays.asList(tool.toolCategories());
+            if (list.contains("harvest"))
+            {
+                for (int i = 0; i < validHarvestEffects.length; i++)
+                {
+                    TConstructClientRegistry.addEffectRenderMapping(validHarvestEffects[i], "tinker", effectTypes[validHarvestEffects[i]], true);
+                }
+            }
+            else if (list.contains("melee"))
+            {
+                for (int i = 0; i < validWeaponEffects.length; i++)
+                {
+                    TConstructClientRegistry.addEffectRenderMapping(validWeaponEffects[i], "tinker", effectTypes[validWeaponEffects[i]], true);
+                }
+            }
+            else if (list.contains("utility"))
+            {
+                for (int i = 0; i < validUtilityEffects.length; i++)
+                {
+                    TConstructClientRegistry.addEffectRenderMapping(validUtilityEffects[i], "tinker", effectTypes[validUtilityEffects[i]], true);
+                }
+            }
+            //return list.contains("throwing");
+        }
+        /*for (int effectIter = 0; effectIter < 3; effectIter++)
         {
             TConstructClientRegistry.addEffectRenderMapping(effectIter, "tinker", effectTypes[effectIter], true);
         }
         for (int effectIter = 4; effectIter < effectTypes.length; effectIter++)
         {
             TConstructClientRegistry.addEffectRenderMapping(effectIter, "tinker", effectTypes[effectIter], true);
-        }
+        }*/
     }
 
     /* Keybindings */
