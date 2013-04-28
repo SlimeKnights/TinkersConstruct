@@ -1,11 +1,24 @@
 package mods.tinker.tconstruct;
 
 import mods.tinker.common.InventoryLogic;
-import mods.tinker.tconstruct.client.*;
-import mods.tinker.tconstruct.client.gui.*;
-import mods.tinker.tconstruct.container.*;
-import mods.tinker.tconstruct.logic.*;
+import mods.tinker.tconstruct.client.TProxyClient;
+import mods.tinker.tconstruct.client.gui.ArmorExtendedGui;
+import mods.tinker.tconstruct.client.gui.FrypanGui;
+import mods.tinker.tconstruct.client.gui.GuiManual;
+import mods.tinker.tconstruct.client.gui.PartCrafterGui;
+import mods.tinker.tconstruct.client.gui.PatternChestGui;
+import mods.tinker.tconstruct.client.gui.PatternShaperGui;
+import mods.tinker.tconstruct.client.gui.SmelteryGui;
+import mods.tinker.tconstruct.client.gui.ToolStationGui;
+import mods.tinker.tconstruct.container.ArmorExtendedContainer;
+import mods.tinker.tconstruct.logic.FrypanLogic;
+import mods.tinker.tconstruct.logic.PartCrafterLogic;
+import mods.tinker.tconstruct.logic.PatternChestLogic;
+import mods.tinker.tconstruct.logic.PatternShaperLogic;
+import mods.tinker.tconstruct.logic.SmelteryLogic;
+import mods.tinker.tconstruct.logic.ToolStationLogic;
 import mods.tinker.tconstruct.player.TPlayerStats;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -74,6 +87,7 @@ public class TGuiHandler implements IGuiHandler
         {
             System.out.println("Client Armor Gui: "+TProxyClient.armorExtended);
             //TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
+            TProxyClient.armorExtended.init(Minecraft.getMinecraft().thePlayer);
             return new ArmorExtendedGui(player.inventory, TProxyClient.armorExtended);
         }
         return null;

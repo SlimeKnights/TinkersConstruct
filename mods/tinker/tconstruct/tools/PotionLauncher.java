@@ -172,4 +172,11 @@ public class PotionLauncher extends Item
 		}
 		return true;
 	}
+	
+	@Override
+    @SideOnly(Side.CLIENT)
+    public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean par4)
+    {
+        list.add("Test Item");
+    }
 }

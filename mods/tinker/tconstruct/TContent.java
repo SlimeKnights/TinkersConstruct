@@ -27,6 +27,7 @@ import mods.tinker.tconstruct.entity.NitroCreeper;
 import mods.tinker.tconstruct.entity.projectile.DaggerEntity;
 import mods.tinker.tconstruct.items.CraftingItem;
 import mods.tinker.tconstruct.items.FilledBucket;
+import mods.tinker.tconstruct.items.HeartContainer;
 import mods.tinker.tconstruct.items.MetalPattern;
 import mods.tinker.tconstruct.items.OreBerries;
 import mods.tinker.tconstruct.items.Pattern;
@@ -217,6 +218,9 @@ public class TContent implements IFuelHandler
     public static Item corestone;
     public static Item notebook;
     public static Item note;
+    
+    //Wearaables
+    public static Item heartContainer;
 
     public TContent()
     {
@@ -244,10 +248,10 @@ public class TContent implements IFuelHandler
         EntityRegistry.registerModEntity(BlueSlime.class, "EdibleSlime", 12, TConstruct.instance, 64, 5, true);
         //EntityRegistry.registerModEntity(MetalSlime.class, "MetalSlime", 13, TConstruct.instance, 64, 5, true);
 
-        EntityList.IDtoClassMapping.put(7789011, NitroCreeper.class);
+        /*EntityList.IDtoClassMapping.put(7789011, NitroCreeper.class);
         EntityList.entityEggs.put(Integer.valueOf(7789011), new EntityEggInfo(7789011, 0xff7050, 0x555555));
         EntityList.IDtoClassMapping.put(7789012, BlueSlime.class);
-        EntityList.entityEggs.put(Integer.valueOf(7789012), new EntityEggInfo(7789012, 0x3399ff, 0x004499));
+        EntityList.entityEggs.put(Integer.valueOf(7789012), new EntityEggInfo(7789012, 0x3399ff, 0x004499));*/
 
         BiomeGenBase[] overworldBiomes = new BiomeGenBase[] { BiomeGenBase.ocean, BiomeGenBase.plains, BiomeGenBase.desert, BiomeGenBase.extremeHills, BiomeGenBase.forest, BiomeGenBase.taiga,
                 BiomeGenBase.swampland, BiomeGenBase.river, BiomeGenBase.frozenOcean, BiomeGenBase.frozenRiver, BiomeGenBase.icePlains, BiomeGenBase.iceMountains, BiomeGenBase.beach,
@@ -424,6 +428,11 @@ public class TContent implements IFuelHandler
         strangeFood = new StrangeFood(PHConstruct.slimefood).setUnlocalizedName("tconstruct.strangefood");
         oreBerries = new OreBerries(PHConstruct.oreChunks).setUnlocalizedName("oreberry");
         //lumberHead = new ToolPart(PHConstruct.lumberHead, 0, broadheads).setUnlocalizedName("tconstruct.LumberHead");
+        
+        //Wearables
+        heartContainer = new HeartContainer(PHConstruct.heartContainer).setUnlocalizedName("tconstruct.canister");
+        
+        //Vanilla stack sizes
         Item.doorWood.setMaxStackSize(16);
         Item.doorIron.setMaxStackSize(16);
         Item.snowball.setMaxStackSize(64);

@@ -61,7 +61,7 @@ public class TConstruct
         proxy.registerTickHandler();
         proxy.addNames();
         proxy.readManuals();
-        //proxy.registerKeys();
+        proxy.registerKeys();
 
         GameRegistry.registerWorldGenerator(new TBaseWorldGenerator());
         GameRegistry.registerFuelHandler(content);

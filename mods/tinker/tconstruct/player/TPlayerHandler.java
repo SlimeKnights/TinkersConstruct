@@ -7,6 +7,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import mods.tinker.tconstruct.PHConstruct;
 import mods.tinker.tconstruct.TContent;
+import mods.tinker.tconstruct.client.TProxyClient;
 import mods.tinker.tconstruct.library.AbilityHelper;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -46,6 +47,9 @@ public class TPlayerHandler implements IPlayerTracker
 		TPlayerStats stats = new TPlayerStats();
 		stats.player = new WeakReference<EntityPlayer>(entityplayer);
         stats.armor = new ArmorExtended();
+        stats.armor.init(entityplayer);
+        stats.armor.loadFromNBT(entityplayer);
+        
 		stats.level = entityplayer.experienceLevel;
 		stats.health = entityplayer.maxHealth;
 		stats.hunger = entityplayer.getFoodStats().getFoodLevel();
@@ -61,13 +65,14 @@ public class TPlayerHandler implements IPlayerTracker
 				AbilityHelper.spawnItemAtPlayer(entityplayer, diary);
 			}
 		}
+
 		playerStats.put(entityplayer.username, stats);
 	}
 
 	@Override
 	public void onPlayerLogout (EntityPlayer entityplayer)
 	{
-		//Save player?
+		getPlayerStats(entityplayer.username).armor.saveToNBT(entityplayer);
 		playerStats.remove(entityplayer.username);
 	}
 

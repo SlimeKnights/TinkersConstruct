@@ -134,6 +134,8 @@ public class PHConstruct
         uselessItem = config.getItem("Patterns and Misc", "Title Icon", 14102).getInt(14102);
         slimefood = config.getItem("Patterns and Misc", "Strange Food", 14103).getInt(14103);
         oreChunks = config.getItem("Patterns and Misc", "Ore Chunks", 14104).getInt(14104);
+        
+        heartContainer = config.getItem("Equipables", "Heart Canister", 14105).getInt(14105);
 
         boolean ic2 = true;
         boolean xycraft = true;
@@ -312,6 +314,9 @@ public class PHConstruct
     public static int lumberHead;
 
     public static int binding;
+    
+    //Equipables
+    public static int heartContainer;
 
     //Ore values
     public static boolean generateCopper;

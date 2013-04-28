@@ -191,11 +191,11 @@ public class NitroCreeper extends EntityCreeper
         return super.attackEntityFrom(source, damage);
     }
     
-    public boolean getCanSpawnHere()
+    /*public boolean getCanSpawnHere()
     {
         int i = MathHelper.floor_double(this.posX);
         int j = MathHelper.floor_double(this.boundingBox.minY);
         int k = MathHelper.floor_double(this.posZ);
         return this.worldObj.checkNoEntityCollision(this.boundingBox) && this.worldObj.getCollidingBoundingBoxes(this, this.boundingBox).isEmpty() && !this.worldObj.isAnyLiquid(this.boundingBox) && this.getBlockPathWeight(i, j, k) >= 0.0F;
-    }
+    }*/
 }
