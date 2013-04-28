@@ -1,4 +1,4 @@
-package mods.tinker.tconstruct.library;
+package mods.tinker.tconstruct.library.blocks;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;

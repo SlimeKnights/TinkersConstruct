@@ -2,7 +2,7 @@ package mods.tinker.tconstruct.items.tools;
 
 import java.util.ArrayList;
 
-import mods.tinker.tconstruct.library.HarvestTool;
+import mods.tinker.tconstruct.library.tools.HarvestTool;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
 

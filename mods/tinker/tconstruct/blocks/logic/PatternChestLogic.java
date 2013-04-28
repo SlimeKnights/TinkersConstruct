@@ -1,7 +1,7 @@
 package mods.tinker.tconstruct.blocks.logic;
 
 import mods.tinker.tconstruct.inventory.PatternChestContainer;
-import mods.tinker.tconstruct.library.InventoryLogic;
+import mods.tinker.tconstruct.library.blocks.InventoryLogic;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.world.World;

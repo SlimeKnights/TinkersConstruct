@@ -5,11 +5,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import mods.tinker.tconstruct.library.IToolPart;
 import mods.tinker.tconstruct.library.TConstructRegistry;
-import mods.tinker.tconstruct.library.ToolCore;
-import mods.tinker.tconstruct.library.ToolMaterial;
-import mods.tinker.tconstruct.library.ToolMod;
+import mods.tinker.tconstruct.library.tools.ToolCore;
+import mods.tinker.tconstruct.library.tools.ToolMaterial;
+import mods.tinker.tconstruct.library.tools.ToolMod;
+import mods.tinker.tconstruct.library.util.IToolPart;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;

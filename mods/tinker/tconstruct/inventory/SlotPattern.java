@@ -1,6 +1,6 @@
 package mods.tinker.tconstruct.inventory;
 
-import mods.tinker.tconstruct.library.IPattern;
+import mods.tinker.tconstruct.library.util.IPattern;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;

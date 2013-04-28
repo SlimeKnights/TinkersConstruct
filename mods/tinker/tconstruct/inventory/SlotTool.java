@@ -2,7 +2,7 @@ package mods.tinker.tconstruct.inventory;
 
 import java.util.Random;
 
-import mods.tinker.tconstruct.library.ToolCore;
+import mods.tinker.tconstruct.library.tools.ToolCore;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;

@@ -3,7 +3,7 @@ package mods.tinker.tconstruct.blocks;
 import java.util.Random;
 
 import mods.tinker.tconstruct.blocks.logic.GolemPedestalLogic;
-import mods.tinker.tconstruct.library.InventoryBlock;
+import mods.tinker.tconstruct.library.blocks.InventoryBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;

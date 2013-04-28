@@ -17,7 +17,7 @@ import mods.tinker.tconstruct.client.gui.PatternShaperGui;
 import mods.tinker.tconstruct.client.gui.SmelteryGui;
 import mods.tinker.tconstruct.client.gui.ToolStationGui;
 import mods.tinker.tconstruct.inventory.ArmorExtendedContainer;
-import mods.tinker.tconstruct.library.InventoryLogic;
+import mods.tinker.tconstruct.library.blocks.InventoryLogic;
 import mods.tinker.tconstruct.util.player.TPlayerStats;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;

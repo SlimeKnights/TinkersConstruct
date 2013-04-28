@@ -4,7 +4,7 @@ import ic2.api.item.IElectricItem;
 
 import java.util.ArrayList;
 
-import mods.tinker.tconstruct.library.ToolCore;
+import mods.tinker.tconstruct.library.tools.ToolCore;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 

@@ -5,8 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import mods.tinker.tconstruct.library.TConstructRegistry;
-import mods.tinker.tconstruct.library.ToolCore;
 import mods.tinker.tconstruct.library.crafting.ToolBuilder;
+import mods.tinker.tconstruct.library.tools.ToolCore;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 

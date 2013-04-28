@@ -3,7 +3,7 @@ package mods.tinker.tconstruct.items.tools;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import mods.tinker.tconstruct.common.TContent;
-import mods.tinker.tconstruct.library.ToolCore;
+import mods.tinker.tconstruct.library.tools.ToolCore;
 import net.minecraft.item.Item;
 
 public class Chisel extends ToolCore

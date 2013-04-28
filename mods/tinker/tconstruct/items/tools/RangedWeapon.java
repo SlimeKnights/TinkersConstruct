@@ -1,7 +1,7 @@
 package mods.tinker.tconstruct.items.tools;
 
 import mods.tinker.tconstruct.common.TContent;
-import mods.tinker.tconstruct.library.ToolCore;
+import mods.tinker.tconstruct.library.tools.ToolCore;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;

@@ -1,6 +1,6 @@
 package mods.tinker.tconstruct.blocks.logic;
 
-import mods.tinker.tconstruct.library.IFacingLogic;
+import mods.tinker.tconstruct.library.util.IFacingLogic;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.INetworkManager;

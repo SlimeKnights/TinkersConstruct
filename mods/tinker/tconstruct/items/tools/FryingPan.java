@@ -2,8 +2,8 @@ package mods.tinker.tconstruct.items.tools;
 
 import mods.tinker.tconstruct.blocks.logic.EquipLogic;
 import mods.tinker.tconstruct.common.TContent;
-import mods.tinker.tconstruct.library.AbilityHelper;
-import mods.tinker.tconstruct.library.Weapon;
+import mods.tinker.tconstruct.library.tools.AbilityHelper;
+import mods.tinker.tconstruct.library.tools.Weapon;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;

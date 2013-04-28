@@ -1,7 +1,7 @@
 package mods.tinker.tconstruct.items.tools;
 
 import mods.tinker.tconstruct.common.TContent;
-import mods.tinker.tconstruct.library.HarvestTool;
+import mods.tinker.tconstruct.library.tools.HarvestTool;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
 import cpw.mods.fml.relauncher.Side;

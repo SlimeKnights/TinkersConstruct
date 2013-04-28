@@ -1,4 +1,4 @@
-package mods.tinker.tconstruct.library;
+package mods.tinker.tconstruct.library.util;
 
 import net.minecraft.entity.EntityLiving;
 import net.minecraftforge.common.ForgeDirection;

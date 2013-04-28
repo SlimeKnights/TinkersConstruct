@@ -5,7 +5,7 @@ import java.util.List;
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteArrayDataOutput;
 
-import mods.tinker.tconstruct.library.AbilityHelper;
+import mods.tinker.tconstruct.library.tools.AbilityHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;

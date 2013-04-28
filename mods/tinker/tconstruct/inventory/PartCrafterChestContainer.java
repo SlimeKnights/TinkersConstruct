@@ -2,7 +2,7 @@ package mods.tinker.tconstruct.inventory;
 
 import mods.tinker.tconstruct.blocks.logic.PartCrafterLogic;
 import mods.tinker.tconstruct.blocks.logic.PatternChestLogic;
-import mods.tinker.tconstruct.library.IPattern;
+import mods.tinker.tconstruct.library.util.IPattern;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;

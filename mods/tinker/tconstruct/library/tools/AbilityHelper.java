@@ -1,4 +1,4 @@
-package mods.tinker.tconstruct.library;
+package mods.tinker.tconstruct.library.tools;
 
 import ic2.api.item.ICustomElectricItem;
 import ic2.api.item.IElectricItem;
@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
+import mods.tinker.tconstruct.library.util.PiercingEntityDamage;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.EnchantmentThorns;

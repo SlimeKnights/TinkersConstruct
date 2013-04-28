@@ -3,7 +3,7 @@ package mods.tinker.tconstruct.worldgen;
 import java.util.Random;
 
 import mods.tinker.tconstruct.common.TContent;
-import mods.tinker.tconstruct.library.CoordTuple;
+import mods.tinker.tconstruct.library.util.CoordTuple;
 import mods.tinker.tconstruct.util.PHConstruct;
 import net.minecraft.block.Block;
 import net.minecraft.world.World;

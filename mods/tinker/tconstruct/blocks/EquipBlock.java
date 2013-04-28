@@ -5,7 +5,7 @@ import java.util.Random;
 import mods.tinker.tconstruct.TConstruct;
 import mods.tinker.tconstruct.blocks.logic.FrypanLogic;
 import mods.tinker.tconstruct.client.block.FrypanRender;
-import mods.tinker.tconstruct.library.InventoryBlock;
+import mods.tinker.tconstruct.library.blocks.InventoryBlock;
 import mods.tinker.tconstruct.util.network.TGuiHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;

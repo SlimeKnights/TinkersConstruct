@@ -1,7 +1,7 @@
 package mods.tinker.tconstruct.blocks.logic;
 
 import mods.tinker.tconstruct.inventory.FrypanContainer;
-import mods.tinker.tconstruct.library.IActiveLogic;
+import mods.tinker.tconstruct.library.util.IActiveLogic;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.InventoryPlayer;

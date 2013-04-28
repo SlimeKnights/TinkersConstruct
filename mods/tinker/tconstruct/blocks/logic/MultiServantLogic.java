@@ -1,8 +1,8 @@
 package mods.tinker.tconstruct.blocks.logic;
 
-import mods.tinker.tconstruct.library.CoordTuple;
-import mods.tinker.tconstruct.library.IMasterLogic;
-import mods.tinker.tconstruct.library.IServantLogic;
+import mods.tinker.tconstruct.library.util.CoordTuple;
+import mods.tinker.tconstruct.library.util.IMasterLogic;
+import mods.tinker.tconstruct.library.util.IServantLogic;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.INetworkManager;

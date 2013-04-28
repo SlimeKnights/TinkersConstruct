@@ -3,6 +3,9 @@ package mods.tinker.tconstruct.library;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import mods.tinker.tconstruct.library.tools.ToolCore;
+import mods.tinker.tconstruct.library.tools.ToolMaterial;
+import mods.tinker.tconstruct.library.util.TabTools;
 import net.minecraft.item.Item;
 
 /** A registry to store any relevant API work

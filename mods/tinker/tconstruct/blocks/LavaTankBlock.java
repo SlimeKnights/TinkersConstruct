@@ -4,8 +4,8 @@ import java.util.List;
 
 import mods.tinker.tconstruct.blocks.logic.LavaTankLogic;
 import mods.tinker.tconstruct.client.block.TankRender;
-import mods.tinker.tconstruct.library.IServantLogic;
 import mods.tinker.tconstruct.library.TConstructRegistry;
+import mods.tinker.tconstruct.library.util.IServantLogic;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;

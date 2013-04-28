@@ -1,7 +1,9 @@
-package mods.tinker.tconstruct.library;
+package mods.tinker.tconstruct.library.blocks;
 
 import java.util.Random;
 
+import mods.tinker.tconstruct.library.util.IActiveLogic;
+import mods.tinker.tconstruct.library.util.IFacingLogic;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;

@@ -1,4 +1,4 @@
-package mods.tinker.tconstruct.library;
+package mods.tinker.tconstruct.library.tools;
 
 import ic2.api.item.IBoxable;
 import ic2.api.item.ICustomElectricItem;
@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import mods.tinker.tconstruct.library.TConstructRegistry;
 import mods.tinker.tconstruct.library.crafting.ToolBuilder;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IconRegister;

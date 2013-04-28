@@ -1,4 +1,4 @@
-package mods.tinker.tconstruct.library;
+package mods.tinker.tconstruct.library.tools;
 
 import java.util.ArrayList;
 import java.util.Arrays;

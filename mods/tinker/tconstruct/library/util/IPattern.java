@@ -1,4 +1,4 @@
-package mods.tinker.tconstruct.library;
+package mods.tinker.tconstruct.library.util;
 
 import mods.tinker.tconstruct.library.crafting.PatternBuilder.MaterialSet;
 import net.minecraft.item.ItemStack;

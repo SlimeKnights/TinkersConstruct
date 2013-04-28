@@ -1,10 +1,10 @@
 package mods.tinker.tconstruct.blocks.logic;
 
 import mods.tinker.tconstruct.TConstruct;
-import mods.tinker.tconstruct.library.IPattern;
-import mods.tinker.tconstruct.library.InventoryLogic;
+import mods.tinker.tconstruct.library.blocks.InventoryLogic;
 import mods.tinker.tconstruct.library.crafting.CastingRecipe;
 import mods.tinker.tconstruct.library.crafting.LiquidCasting;
+import mods.tinker.tconstruct.library.util.IPattern;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ISidedInventory;

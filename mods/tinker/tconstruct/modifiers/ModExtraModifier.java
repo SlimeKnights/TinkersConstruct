@@ -2,8 +2,8 @@ package mods.tinker.tconstruct.modifiers;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import mods.tinker.tconstruct.library.ToolMod;
 import mods.tinker.tconstruct.library.crafting.PatternBuilder;
+import mods.tinker.tconstruct.library.tools.ToolMod;
 
 public class ModExtraModifier extends ToolMod
 {

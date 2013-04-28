@@ -1,7 +1,7 @@
 package mods.tinker.tconstruct.items.tools;
 
 import mods.tinker.tconstruct.common.TContent;
-import mods.tinker.tconstruct.library.Weapon;
+import mods.tinker.tconstruct.library.tools.Weapon;
 import net.minecraft.item.Item;
 
 public class Broadsword extends Weapon

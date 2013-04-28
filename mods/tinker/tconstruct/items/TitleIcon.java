@@ -1,7 +1,7 @@
 package mods.tinker.tconstruct.items;
 
 import mods.tinker.tconstruct.client.TProxyClient;
-import mods.tinker.tconstruct.library.ToolCore;
+import mods.tinker.tconstruct.library.tools.ToolCore;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.item.Item;
 

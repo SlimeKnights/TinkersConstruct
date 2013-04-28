@@ -1,6 +1,6 @@
 package mods.tinker.tconstruct.modifiers;
 
-import mods.tinker.tconstruct.library.ToolMod;
+import mods.tinker.tconstruct.library.tools.ToolMod;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 

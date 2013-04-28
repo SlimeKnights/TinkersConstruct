@@ -7,7 +7,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import mods.tinker.tconstruct.client.TProxyClient;
 import mods.tinker.tconstruct.common.TContent;
-import mods.tinker.tconstruct.library.AbilityHelper;
+import mods.tinker.tconstruct.library.tools.AbilityHelper;
 import mods.tinker.tconstruct.util.PHConstruct;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;

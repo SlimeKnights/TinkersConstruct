@@ -3,7 +3,7 @@ package mods.tinker.tconstruct;
 import mods.tinker.tconstruct.common.TContent;
 import mods.tinker.tconstruct.common.TProxyCommon;
 import mods.tinker.tconstruct.library.TConstructRegistry;
-import mods.tinker.tconstruct.library.TabTools;
+import mods.tinker.tconstruct.library.util.TabTools;
 import mods.tinker.tconstruct.util.PHConstruct;
 import mods.tinker.tconstruct.util.TCraftingHandler;
 import mods.tinker.tconstruct.util.TEventHandler;

@@ -1,4 +1,4 @@
-package mods.tinker.tconstruct.library;
+package mods.tinker.tconstruct.library.tools;
 /**
  * This class is temporary. A full material registry is planned
  */

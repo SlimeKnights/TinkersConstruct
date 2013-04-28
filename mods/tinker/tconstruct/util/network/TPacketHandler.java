@@ -7,7 +7,7 @@ import java.io.IOException;
 import mods.tinker.tconstruct.TConstruct;
 import mods.tinker.tconstruct.blocks.logic.ToolStationLogic;
 import mods.tinker.tconstruct.inventory.SmelteryContainer;
-import mods.tinker.tconstruct.library.InventoryLogic;
+import mods.tinker.tconstruct.library.blocks.InventoryLogic;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.INetworkManager;

@@ -1,4 +1,4 @@
-package mods.tinker.tconstruct.library;
+package mods.tinker.tconstruct.library.tools;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;

@@ -2,7 +2,7 @@ package mods.tinker.tconstruct.blocks.logic;
 
 import mods.tinker.tconstruct.common.TContent;
 import mods.tinker.tconstruct.inventory.PatternShaperContainer;
-import mods.tinker.tconstruct.library.InventoryLogic;
+import mods.tinker.tconstruct.library.blocks.InventoryLogic;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ISidedInventory;

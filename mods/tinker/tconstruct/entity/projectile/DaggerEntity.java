@@ -1,8 +1,8 @@
 package mods.tinker.tconstruct.entity.projectile;
 
 import mods.tinker.tconstruct.items.tools.Dagger;
-import mods.tinker.tconstruct.library.AbilityHelper;
-import mods.tinker.tconstruct.library.ToolCore;
+import mods.tinker.tconstruct.library.tools.AbilityHelper;
+import mods.tinker.tconstruct.library.tools.ToolCore;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
