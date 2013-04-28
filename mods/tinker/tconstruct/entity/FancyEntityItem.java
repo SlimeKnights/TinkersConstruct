@@ -1,4 +1,4 @@
-package mods.tinker.common.fancyitem;
+package mods.tinker.tconstruct.entity;
 
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;

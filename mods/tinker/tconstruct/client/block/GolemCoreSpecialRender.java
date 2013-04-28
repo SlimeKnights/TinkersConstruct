@@ -1,7 +1,7 @@
 package mods.tinker.tconstruct.client.block;
 
-import mods.tinker.common.fancyitem.FancyEntityItem;
 import mods.tinker.tconstruct.blocks.logic.GolemCoreLogic;
+import mods.tinker.tconstruct.entity.FancyEntityItem;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;

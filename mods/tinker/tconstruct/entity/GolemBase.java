@@ -3,7 +3,6 @@ package mods.tinker.tconstruct.entity;
 import java.util.ArrayList;
 import java.util.Random;
 
-import mods.tinker.common.fancyitem.FancyEntityItem;
 import mods.tinker.tconstruct.entity.ai.CoreAI;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.player.EntityPlayer;

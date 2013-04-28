@@ -1,6 +1,5 @@
 package mods.tinker.tconstruct.common;
 
-import mods.tinker.common.fancyitem.FancyEntityItem;
 import mods.tinker.tconstruct.TConstruct;
 import mods.tinker.tconstruct.blocks.EquipBlock;
 import mods.tinker.tconstruct.blocks.GravelOre;
@@ -30,6 +29,7 @@ import mods.tinker.tconstruct.blocks.logic.SmelteryDrainLogic;
 import mods.tinker.tconstruct.blocks.logic.SmelteryLogic;
 import mods.tinker.tconstruct.blocks.logic.ToolStationLogic;
 import mods.tinker.tconstruct.entity.BlueSlime;
+import mods.tinker.tconstruct.entity.FancyEntityItem;
 import mods.tinker.tconstruct.entity.NitroCreeper;
 import mods.tinker.tconstruct.entity.projectile.DaggerEntity;
 import mods.tinker.tconstruct.items.CraftingItem;

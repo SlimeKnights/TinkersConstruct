@@ -1,4 +1,4 @@
-package mods.tinker.common.fancyitem;
+package mods.tinker.tconstruct.client.entity;
 
 import java.util.Random;
 
