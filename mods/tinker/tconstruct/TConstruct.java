@@ -7,7 +7,6 @@ import mods.tinker.tconstruct.library.util.TabTools;
 import mods.tinker.tconstruct.util.PHConstruct;
 import mods.tinker.tconstruct.util.TCraftingHandler;
 import mods.tinker.tconstruct.util.TEventHandler;
-import mods.tinker.tconstruct.util.network.TGuiHandler;
 import mods.tinker.tconstruct.util.player.TPlayerHandler;
 import mods.tinker.tconstruct.worldgen.TBaseWorldGenerator;
 import mods.tinker.tconstruct.worldgen.village.TVillageTrades;

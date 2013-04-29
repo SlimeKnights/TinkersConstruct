@@ -13,7 +13,6 @@ import mods.tinker.tconstruct.library.blocks.InventoryBlock;
 import mods.tinker.tconstruct.library.util.IFacingLogic;
 import mods.tinker.tconstruct.library.util.IMasterLogic;
 import mods.tinker.tconstruct.library.util.IServantLogic;
-import mods.tinker.tconstruct.util.network.TGuiHandler;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLiving;

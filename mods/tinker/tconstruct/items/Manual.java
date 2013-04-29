@@ -2,14 +2,12 @@ package mods.tinker.tconstruct.items;
 
 import java.util.List;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import mods.tinker.tconstruct.TConstruct;
-import mods.tinker.tconstruct.common.TContent;
-import mods.tinker.tconstruct.util.network.TGuiHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class Manual extends CraftingItem
 {
