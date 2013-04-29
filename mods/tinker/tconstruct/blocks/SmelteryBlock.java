@@ -126,7 +126,7 @@ public class SmelteryBlock extends InventoryBlock
 	@Override
 	public Integer getGui (World world, int x, int y, int z, EntityPlayer entityplayer)
 	{
-		return TGuiHandler.smeltery;
+		return TConstruct.proxy.smelteryGuiID;
 	}
 
 	public void randomDisplayTick (World world, int x, int y, int z, Random random)

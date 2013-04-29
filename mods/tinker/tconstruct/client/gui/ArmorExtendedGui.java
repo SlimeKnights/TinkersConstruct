@@ -3,12 +3,16 @@ package mods.tinker.tconstruct.client.gui;
 import mods.tinker.tconstruct.inventory.ArmorExtendedContainer;
 import mods.tinker.tconstruct.util.player.ArmorExtended;
 import mods.tinker.tconstruct.util.player.TPlayerStats;
+import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.renderer.InventoryEffectRenderer;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
@@ -28,10 +32,24 @@ public class ArmorExtendedGui extends InventoryEffectRenderer
         inv = inventoryplayer;
         stats = holder;
     }
+    
+    public void initGui()
+    {
+        super.initGui();
+        
+        int cornerX = (this.width - this.xSize) / 2;
+        int cornerY = (this.height - this.ySize) / 2;
+        this.buttonList.clear();
+
+        InventoryTab repairButton = new InventoryTab(2, cornerX, cornerY - 28, new ItemStack(Block.workbench), 0);
+        this.buttonList.add(repairButton);
+        repairButton = new InventoryTab(3, cornerX+28, cornerY - 28, new ItemStack(Item.plateDiamond), 1);
+        repairButton.enabled = false;
+        this.buttonList.add(repairButton);
+    }
 
     protected void drawGuiContainerForegroundLayer(int par1, int par2)
     {
-        //fontRenderer.drawString("This Gui is broken :D", 8, -10, 0x404040);
         //fontRenderer.drawString(StatCollector.translateToLocal("inventory.armorextended"), 60, 6, 0x404040);
         //fontRenderer.drawString(StatCollector.translateToLocal("container.inventory"), 17, (ySize - 96) + 2, 0x404040);
     }

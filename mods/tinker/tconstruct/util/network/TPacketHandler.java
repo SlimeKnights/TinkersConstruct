@@ -106,7 +106,7 @@ public class TPacketHandler implements IPacketHandler
             {
                 String user = inputStream.readUTF();
                 EntityPlayer player = TConstruct.playerTracker.getEntityPlayer(user);
-                player.openGui(TConstruct.instance, TGuiHandler.armor, player.worldObj, (int)player.posX, (int)player.posY, (int)player.posZ);
+                player.openGui(TConstruct.instance, TConstruct.proxy.armorGuiID, player.worldObj, (int)player.posX, (int)player.posY, (int)player.posZ);
             }
 			
 			else if (packetID == 10) //Double jump

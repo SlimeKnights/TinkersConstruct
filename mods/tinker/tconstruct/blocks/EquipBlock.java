@@ -97,7 +97,7 @@ public class EquipBlock extends InventoryBlock
 	@Override
 	public Integer getGui (World world, int x, int y, int z, EntityPlayer entityplayer)
 	{
-		return TGuiHandler.frypanID;
+		return TConstruct.proxy.frypanGuiID;
 	}
 
 	@Override

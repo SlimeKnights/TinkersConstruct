@@ -2,15 +2,66 @@ package mods.tinker.tconstruct.common;
 
 import java.io.File;
 
+import mods.tinker.tconstruct.TConstruct;
+import mods.tinker.tconstruct.inventory.ArmorExtendedContainer;
+import mods.tinker.tconstruct.library.blocks.InventoryLogic;
+import mods.tinker.tconstruct.util.player.TPlayerStats;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 
+import cpw.mods.fml.common.network.IGuiHandler;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
 /**
  * Common proxy class for InfiTools
  */
 
-public class TProxyCommon
+public class TProxyCommon implements IGuiHandler
 {
+    public static int stationGuiID = 0;
+    public static int partGuiID = 1;
+    public static int pchestGuiID = 2;
+    public static int pshaperGuiID = 3;
+    public static int frypanGuiID = 4;
+
+    public static int smelteryGuiID = 7;
+    public static int armorGuiID = 101;
+    public static int manualGuiID = -1;
+    
+    @Override
+    public Object getServerGuiElement (int ID, EntityPlayer player, World world, int x, int y, int z)
+    {
+        if (ID < 0)
+            return null;
+
+        else if (ID <= 100)
+        {
+            TileEntity tile = world.getBlockTileEntity(x, y, z);
+            if (tile != null && tile instanceof InventoryLogic)
+            {
+                return ((InventoryLogic) tile).getGuiContainer(player.inventory, world, x, y, z);
+            }
+        }
+        else
+        {
+            if (ID == armorGuiID)
+            {
+                TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
+                return new ArmorExtendedContainer(player.inventory, stats.armor);
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public Object getClientGuiElement (int ID, EntityPlayer player, World world, int x, int y, int z)
+    {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    
     public void registerTickHandler()
     {
         

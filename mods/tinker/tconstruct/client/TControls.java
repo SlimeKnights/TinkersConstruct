@@ -4,13 +4,14 @@ import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.util.EnumSet;
 
-import mods.tinker.tconstruct.TConstruct;
-import mods.tinker.tconstruct.util.network.TGuiHandler;
+import mods.tinker.tconstruct.client.gui.InventoryTab;
+import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityClientPlayerMP;
+import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.settings.KeyBinding;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.network.packet.Packet250CustomPayload;
-import net.minecraft.potion.Potion;
 import cpw.mods.fml.common.TickType;
 import cpw.mods.fml.common.network.PacketDispatcher;
 
@@ -18,8 +19,9 @@ public class TControls extends TKeyHandler
 {
 	//static KeyBinding grabKey = new KeyBinding("key.grab", 29);
 	//static KeyBinding stiltsKey = new KeyBinding("key.stilts", 46);
-    static KeyBinding armorKey = new KeyBinding("key.armor", 23);
+    //static KeyBinding armorKey = new KeyBinding("key.armor", 23);
 	static KeyBinding jumpKey;
+	static KeyBinding invKey;
 	static Minecraft mc;
 	boolean jumping;
 	boolean doubleJump = true;
@@ -27,12 +29,11 @@ public class TControls extends TKeyHandler
 	boolean onGround = false;
 	boolean onStilts = false;
 	
-	boolean armorGuiOpen = false;
 	//boolean onStilts = false;
 
 	public TControls()
 	{
-		super(new KeyBinding[] { armorKey }, new boolean[] { false }, getVanillaKeyBindings(), new boolean[] { false });
+		super(new KeyBinding[] { }, new boolean[] { }, getVanillaKeyBindings(), new boolean[] { false, false });
 		//System.out.println("Controls registered");
 	}
 
@@ -40,7 +41,8 @@ public class TControls extends TKeyHandler
 	{
 		mc = Minecraft.getMinecraft();
 		jumpKey = mc.gameSettings.keyBindJump;
-		return new KeyBinding[] { jumpKey };
+		invKey = mc.gameSettings.keyBindInventory;
+		return new KeyBinding[] { jumpKey, invKey };
 	}
 
 	@Override
@@ -54,10 +56,14 @@ public class TControls extends TKeyHandler
 	{
 		if (tickEnd && mc.theWorld != null)
 		{
-		    if (kb == armorKey && !armorGuiOpen) //Extended Armor
+		    /*if (kb == armorKey && mc.currentScreen == null) //Extended Armor
 		    {
-		        //mc.thePlayer.openGui(TConstruct.instance, TGuiHandler.armor, mc.theWorld, (int)mc.thePlayer.posX, (int)mc.thePlayer.posY, (int)mc.thePlayer.posZ);
 		        openArmorGui(mc.thePlayer.username);
+		    }*/
+		    if (kb == invKey && mc.currentScreen != null && mc.currentScreen.getClass() == GuiInventory.class)// && !mc.playerController.isInCreativeMode())
+		    {
+		        TProxyClient.addTabsToInventory();
+
 		    }
 			/*if (kb == jumpKey) //Double jump
 			{
@@ -163,7 +169,7 @@ public class TControls extends TKeyHandler
 		updateServer(bos);
 	}
 	
-	void openArmorGui(String username)
+	public static void openArmorGui(String username)
 	{
 	    ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
         DataOutputStream outputStream = new DataOutputStream(bos);
@@ -180,7 +186,7 @@ public class TControls extends TKeyHandler
         updateServer(bos);
 	}
 	
-	void updateServer(ByteArrayOutputStream bos)
+	static void updateServer(ByteArrayOutputStream bos)
 	{
 		Packet250CustomPayload packet = new Packet250CustomPayload();
 		packet.channel = "TConstruct";

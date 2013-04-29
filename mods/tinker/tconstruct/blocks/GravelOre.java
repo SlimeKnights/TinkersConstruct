@@ -1,12 +1,14 @@
 package mods.tinker.tconstruct.blocks;
 
 import java.util.List;
+import java.util.Random;
 
 import mods.tinker.tconstruct.library.TConstructRegistry;
 import net.minecraft.block.BlockSand;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
 import net.minecraft.world.World;
@@ -52,7 +54,16 @@ public class GravelOre extends BlockSand
 	@Override
     public int damageDropped (int meta)
     {
+	    if (meta == 1)
+	        return 0;
         return meta;
+    }
+	
+	public int idDropped(int par1, Random par2Random, int par3)
+    {
+	    if (par1 == 1)
+	        return Item.goldNugget.itemID;
+        return this.blockID;
     }
 	
 	@Override

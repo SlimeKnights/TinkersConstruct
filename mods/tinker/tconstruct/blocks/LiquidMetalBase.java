@@ -15,6 +15,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.Icon;
+import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -66,9 +67,10 @@ public abstract class LiquidMetalBase extends Block
 	@Override
 	public Icon getIcon (int side, int meta)
 	{
+	    int pos = MathHelper.clamp_int(meta, 0, stillInoms.length-1);
 		if (side == 0 || side == 1)
-			return (stillInoms[meta]);
-		return flowInoms[meta];
+			return (stillInoms[pos]);
+		return flowInoms[pos];
 	}
 
 	@Override

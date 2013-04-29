@@ -189,11 +189,11 @@ public class PHConstruct
         aluminumuMaxY = config.get("Worldgen", "Aluminum Underground Max Y", 64).getInt(64);
         
         ironsRarity = config.get("Worldgen", "Iron Surface Rarity", 200).getInt(200);
-        goldsRarity = config.get("Worldgen", "Gold Surface Rarity", 500).getInt(500);
+        goldsRarity = config.get("Worldgen", "Gold Surface Rarity", 700).getInt(700);
         coppersRarity = config.get("Worldgen", "Copper Surface Rarity", 80).getInt(80);
         tinsRarity = config.get("Worldgen", "Tin Surface Rarity", 80).getInt(80);
         aluminumsRarity = config.get("Worldgen", "Aluminum Surface Rarity", 70).getInt(70);
-        cobaltsRarity = config.get("Worldgen", "Cobalt Surface Rarity", 1000).getInt(1000);
+        cobaltsRarity = config.get("Worldgen", "Cobalt Surface Rarity", 1500).getInt(1500);
         
         ironBushDensity = config.get("Worldgen", "Iron Bush Density", 1).getInt(1);
         goldBushDensity = config.get("Worldgen", "Gold Bush Density", 1).getInt(1);

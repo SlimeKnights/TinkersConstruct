@@ -52,11 +52,9 @@ public class LiquidCasting
 
     public int getCastingDelay (LiquidStack metal, ItemStack cast)
     {
-        for (CastingRecipe recipe : casts)
-        {
-            if (recipe.matches(metal, cast))
-                return recipe.coolTime;
-        }
+        CastingRecipe recipe = getCastingRecipe(metal, cast);
+        if (recipe != null)
+            return recipe.coolTime;
         return -1;
     }
 

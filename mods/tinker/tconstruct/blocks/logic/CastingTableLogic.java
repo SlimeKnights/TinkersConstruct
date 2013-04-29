@@ -24,8 +24,9 @@ public class CastingTableLogic extends InventoryLogic implements ILiquidTank, IT
     public LiquidStack liquid;
     int castingDelay = 0;
     int renderOffset = 0;
+    int capacity = 0;
     boolean needsUpdate;
-    boolean canAcceptLiquid = true;
+    boolean init = true;
     int tick;
 
     public CastingTableLogic()
@@ -61,11 +62,16 @@ public class CastingTableLogic extends InventoryLogic implements ILiquidTank, IT
     @Override
     public LiquidStack getLiquid ()
     {
-        return liquid;
+        return this.liquid;
     }
 
     @Override
     public int getCapacity ()
+    {
+        return this.capacity;
+    }
+
+    public int updateCapacity () //Only used to initialize
     {
         int ret = TConstruct.ingotLiquidValue;
 
@@ -75,7 +81,22 @@ public class CastingTableLogic extends InventoryLogic implements ILiquidTank, IT
             ret *= ((IPattern) inv.getItem()).getPatternCost(inv.getItemDamage()) * 0.5;
 
         else
-            ret = LiquidCasting.instance.getCastingAmount(liquid, inv);
+            ret = LiquidCasting.instance.getCastingAmount(this.liquid, inv);
+
+        return ret;
+    }
+    
+    public int updateCapacity (int capacity)
+    {
+        int ret = TConstruct.ingotLiquidValue;
+
+        ItemStack inv = inventory[0];
+
+        if (inv != null && inv.getItem() instanceof IPattern)
+            ret *= ((IPattern) inv.getItem()).getPatternCost(inv.getItemDamage()) * 0.5;
+
+        else
+            ret = capacity;
 
         return ret;
     }
@@ -83,67 +104,80 @@ public class CastingTableLogic extends InventoryLogic implements ILiquidTank, IT
     @Override
     public int fill (LiquidStack resource, boolean doFill)
     {
-        if (doFill)
-            needsUpdate = true;
-
         if (resource == null)
             return 0;
 
-        if (liquid == null)
+        if (this.liquid == null)
         {
-            if (inventory[1] == null && LiquidCasting.instance.getCastingRecipe(resource, inventory[0]) != null)
+            CastingRecipe recipe = LiquidCasting.instance.getCastingRecipe(resource, inventory[0]);
+            if (recipe == null)
+                return 0;
+            this.capacity = updateCapacity(recipe.castingMetal.amount);
+            
+            if (inventory[1] == null)
             {
-                liquid = resource.copy();
-                int capacity = getCapacity();
+                LiquidStack copyLiquid = resource.copy();
+
+                if (copyLiquid.amount > this.capacity)
+                {
+                    copyLiquid.amount = this.capacity;
+                }
 
                 if (doFill)
                 {
-                    if (liquid.amount > capacity)
+                    if (copyLiquid.amount == this.capacity)
                     {
-                        liquid.amount = capacity;
+                        castingDelay = recipe.coolTime;
                     }
-                    if (liquid.amount == capacity)
-                    {
-                        castingDelay = LiquidCasting.instance.getCastingDelay(liquid, inventory[0]);
-                    }
-                    renderOffset = liquid.amount;
+                    renderOffset = copyLiquid.amount;
                     worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+                    this.liquid = copyLiquid;
+                    needsUpdate = true;
                 }
-                return liquid.amount;
+                return copyLiquid.amount;
             }
             else
-                return 0;
-        }
-        else if (resource.itemID != liquid.itemID || resource.itemMeta != liquid.itemMeta)
-        {
-            return 0;
-        }
-        else if (resource.amount + liquid.amount >= getCapacity()) //Start timer here
-        {
-            int total = getCapacity();
-            int roomInTank = total - liquid.amount;
-            if (doFill && roomInTank > 0)
             {
-                renderOffset = roomInTank;
-                liquid.amount = total;
-                castingDelay = LiquidCasting.instance.getCastingDelay(liquid, inventory[0]);
-                worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+                return 0;
             }
-            return roomInTank;
         }
+
+        else if (resource.isLiquidEqual(this.liquid))
+        {
+            if (resource.amount + this.liquid.amount >= this.capacity) //Start timer here
+            {
+                int roomInTank = this.capacity - liquid.amount;
+                if (doFill && roomInTank > 0)
+                {
+                    renderOffset = roomInTank;
+                    castingDelay = LiquidCasting.instance.getCastingDelay(this.liquid, inventory[0]);
+                    this.liquid.amount = this.capacity;
+                    worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+                    needsUpdate = true;
+                }
+                return roomInTank;
+            }
+
+            else
+            {
+                if (doFill)
+                {
+                    this.liquid.amount += resource.amount;
+                    worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+                    needsUpdate = true;
+                }
+                return resource.amount;
+            }
+        }
+
         else
         {
-            if (doFill)
-            {
-                liquid.amount += resource.amount;
-                worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
-            }
-            return resource.amount;
+            return 0;
         }
     }
 
     @Override
-    public void onInventoryChanged ()
+    public void onInventoryChanged () //Isn't actually called?
     {
         super.onInventoryChanged();
         worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
@@ -220,6 +254,7 @@ public class CastingTableLogic extends InventoryLogic implements ILiquidTank, IT
     {
         if (castingDelay > 0)
         {
+            //System.out.println("Casting");
             castingDelay--;
             if (castingDelay == 0)
                 castLiquid();
@@ -267,6 +302,11 @@ public class CastingTableLogic extends InventoryLogic implements ILiquidTank, IT
             this.liquid = new LiquidStack(tags.getInteger("itemID"), tags.getInteger("amount"), tags.getInteger("itemMeta"));
         else
             this.liquid = null;
+
+        if (tags.getBoolean("Initialized"))
+            this.capacity = tags.getInteger("Capacity");
+        else
+            this.capacity = updateCapacity();
     }
 
     @Override
@@ -285,6 +325,8 @@ public class CastingTableLogic extends InventoryLogic implements ILiquidTank, IT
             tags.setInteger("amount", liquid.amount);
             tags.setInteger("itemMeta", liquid.itemMeta);
         }
+        tags.setBoolean("Initialized", init);
+        tags.setInteger("Capacity", capacity);
     }
 
     /* Packets */

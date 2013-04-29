@@ -12,7 +12,13 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import mods.tinker.tconstruct.TConstruct;
 import mods.tinker.tconstruct.blocks.logic.CastingBasinLogic;
 import mods.tinker.tconstruct.blocks.logic.CastingTableLogic;
+import mods.tinker.tconstruct.blocks.logic.FrypanLogic;
 import mods.tinker.tconstruct.blocks.logic.GolemCoreLogic;
+import mods.tinker.tconstruct.blocks.logic.PartCrafterLogic;
+import mods.tinker.tconstruct.blocks.logic.PatternChestLogic;
+import mods.tinker.tconstruct.blocks.logic.PatternShaperLogic;
+import mods.tinker.tconstruct.blocks.logic.SmelteryLogic;
+import mods.tinker.tconstruct.blocks.logic.ToolStationLogic;
 import mods.tinker.tconstruct.client.block.CastingBasinSpecialRender;
 import mods.tinker.tconstruct.client.block.CastingTableSpecialRenderer;
 import mods.tinker.tconstruct.client.block.FluidRender;
@@ -33,6 +39,15 @@ import mods.tinker.tconstruct.client.entity.SkylaRender;
 import mods.tinker.tconstruct.client.entity.SlimeRender;
 import mods.tinker.tconstruct.client.entity.projectile.DaggerRender;
 import mods.tinker.tconstruct.client.entity.projectile.LaunchedItemRender;
+import mods.tinker.tconstruct.client.gui.ArmorExtendedGui;
+import mods.tinker.tconstruct.client.gui.FrypanGui;
+import mods.tinker.tconstruct.client.gui.GuiManual;
+import mods.tinker.tconstruct.client.gui.InventoryTab;
+import mods.tinker.tconstruct.client.gui.PartCrafterGui;
+import mods.tinker.tconstruct.client.gui.PatternChestGui;
+import mods.tinker.tconstruct.client.gui.PatternShaperGui;
+import mods.tinker.tconstruct.client.gui.SmelteryGui;
+import mods.tinker.tconstruct.client.gui.ToolStationGui;
 import mods.tinker.tconstruct.common.TContent;
 import mods.tinker.tconstruct.common.TProxyCommon;
 import mods.tinker.tconstruct.entity.BlueSlime;
@@ -54,6 +69,8 @@ import mods.tinker.tconstruct.util.player.ArmorExtended;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.model.ModelSlime;
 import net.minecraft.client.particle.EntityAuraFX;
 import net.minecraft.client.particle.EntityBreakingFX;
@@ -81,11 +98,14 @@ import net.minecraft.client.particle.EntitySpellParticleFX;
 import net.minecraft.client.particle.EntitySplashFX;
 import net.minecraft.client.particle.EntitySuspendFX;
 import net.minecraft.client.renderer.entity.RenderCreeper;
+import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.client.settings.KeyBinding;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
+import net.minecraft.world.World;
 
 import org.w3c.dom.Document;
 
@@ -102,6 +122,58 @@ public class TProxyClient extends TProxyCommon
     public static Icon metalBall;
     public static Minecraft mc;
     public static ArmorExtended armorExtended = new ArmorExtended();
+    public static RenderItem itemRenderer = new RenderItem();
+    
+    @Override
+    public Object getClientGuiElement (int ID, EntityPlayer player, World world, int x, int y, int z)
+    {
+        if (ID == stationGuiID)
+            return new ToolStationGui(player.inventory, (ToolStationLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
+        if (ID == partGuiID)
+            return new PartCrafterGui(player.inventory, (PartCrafterLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
+        if (ID == pchestGuiID)
+            return new PatternChestGui(player.inventory, (PatternChestLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
+        if (ID == frypanGuiID)
+            return new FrypanGui(player.inventory, (FrypanLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
+        if (ID == smelteryGuiID)
+            return new SmelteryGui(player.inventory, (SmelteryLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
+        if (ID == pshaperGuiID)
+            return new PatternShaperGui(player.inventory, (PatternShaperLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
+        if (ID == manualGuiID)
+        {
+            ItemStack stack = player.getCurrentEquippedItem();
+            return new GuiManual(stack, TProxyClient.getManualFromStack(stack));
+        }
+        if (ID == armorGuiID)
+        {
+            //TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
+            TProxyClient.armorExtended.init(Minecraft.getMinecraft().thePlayer);
+            return new ArmorExtendedGui(player.inventory, TProxyClient.armorExtended);
+        }
+        return null;
+    }
+    
+    public static void openInventoryGui()
+    {
+        mc.displayGuiScreen(new GuiInventory(mc.thePlayer));
+        addTabsToInventory();
+    }
+    
+    public static void addTabsToInventory()
+    {
+        if (mc == null)
+            mc = Minecraft.getMinecraft();
+        GuiInventory gui = (GuiInventory) mc.currentScreen;
+        int cornerX = (gui.width - gui.xSize) / 2;
+        int cornerY = (gui.height - gui.ySize) / 2;
+        gui.buttonList.clear();
+
+        InventoryTab repairButton = new InventoryTab(2, cornerX, cornerY - 28, new ItemStack(Block.workbench), 0);
+        repairButton.enabled = false;
+        gui.buttonList.add(repairButton);
+        repairButton = new InventoryTab(3, cornerX+28, cornerY - 28, new ItemStack(Item.plateDiamond), 1);
+        gui.buttonList.add(repairButton);
+    }
 
     public void registerTickHandler ()
     {

@@ -34,7 +34,7 @@ import cpw.mods.fml.common.registry.VillagerRegistry;
  * @dependencies: IC2 API, EBXL API
  */
 
-@Mod(modid = "TConstruct", name = "TConstruct", version = "1.5.1_1.3.2.dev26", dependencies = "required-after:Forge@[7.7.1.659,)")
+@Mod(modid = "TConstruct", name = "TConstruct", version = "1.5.1_1.3.2.dev29", dependencies = "required-after:Forge@[7.7.1.675,)")
 @NetworkMod(serverSideRequired = false, clientSideRequired = true, channels = { "TConstruct" }, packetHandler = mods.tinker.tconstruct.util.network.TPacketHandler.class)
 public class TConstruct
 {
@@ -46,7 +46,7 @@ public class TConstruct
     @Instance("TConstruct")
     public static TConstruct instance;
     /* Proxies for sides, used for graphics processing */
-    @SidedProxy(clientSide = "mods.tinker.tconstruct.client.TProxyClient", serverSide = "mods.tinker.tconstruct.TProxyCommon")
+    @SidedProxy(clientSide = "mods.tinker.tconstruct.client.TProxyClient", serverSide = "mods.tinker.tconstruct.common.TProxyCommon")
     public static TProxyCommon proxy;
 
     @PreInit
@@ -64,7 +64,7 @@ public class TConstruct
         content.oreRegistry();
 
         proxy.registerRenderer();
-        //proxy.registerTickHandler();
+        proxy.registerTickHandler();
         proxy.addNames();
         proxy.readManuals();
         proxy.registerKeys();
@@ -72,7 +72,7 @@ public class TConstruct
         GameRegistry.registerWorldGenerator(new TBaseWorldGenerator());
         GameRegistry.registerFuelHandler(content);
         GameRegistry.registerCraftingHandler(new TCraftingHandler());
-        NetworkRegistry.instance().registerGuiHandler(instance, new TGuiHandler());
+        NetworkRegistry.instance().registerGuiHandler(instance, proxy);
 
         VillagerRegistry.instance().registerVillagerType(78943, "/mods/tinker/textures/mob/villagertools.png");
         VillagerRegistry.instance().registerVillageTradeHandler(78943, new TVillageTrades());

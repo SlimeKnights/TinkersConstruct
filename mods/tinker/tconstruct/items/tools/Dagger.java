@@ -16,6 +16,7 @@ public class Dagger extends Weapon
     public Dagger(int id)
     {
         super(id, 1);
+        this.setUnlocalizedName("InfiTool.Dagger");
     }
 
     public ItemStack onItemRightClick (ItemStack itemstack, World world, EntityPlayer player)

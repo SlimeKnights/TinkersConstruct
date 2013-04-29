@@ -37,6 +37,26 @@ public class TankRender implements ISimpleBlockRenderingHandler
 	{
 		if (modelID == tankModelID)
 		{
+		    //Liquid
+            LavaTankLogic logic = (LavaTankLogic) world.getBlockTileEntity(x, y, z);
+            if (logic.containsLiquid())
+            {
+                LiquidStack liquid = logic.tank.getLiquid();
+                renderer.setRenderBounds(0.001, 0.001, 0.001, 0.999, logic.getLiquidAmountScaled(), 0.999);
+                if (liquid.itemID < 4096) //Block
+                {
+                    Block liquidBlock = Block.blocksList[liquid.itemID];
+                    BlockSkinRenderHelper.renderMetadataBlock(liquidBlock, liquid.itemMeta, x, y, z, renderer, world);
+                }
+                else
+                //Item
+                {
+                    Item liquidItem = Item.itemsList[liquid.itemID];
+                    BlockSkinRenderHelper.renderFakeBlock(liquidItem.getIconFromDamage(liquid.itemMeta), liquid.itemMeta, x, y, z, renderer, world);
+                }
+            }
+            
+            //Block
 			int meta = world.getBlockMetadata(x, y, z);
 			if (meta == 0 && world.getBlockId(x, y + 1, z) == 0)
 			{
@@ -45,23 +65,6 @@ public class TankRender implements ISimpleBlockRenderingHandler
 				renderer.setRenderBounds(0, 0, 0, 1, 1, 1);
 			}
 			renderer.renderStandardBlock(block, x, y, z);
-			LavaTankLogic logic = (LavaTankLogic) world.getBlockTileEntity(x, y, z);
-			if (logic.containsLiquid())
-			{
-				LiquidStack liquid = logic.tank.getLiquid();
-				renderer.setRenderBounds(0.001, 0.001, 0.001, 0.999, logic.getLiquidAmountScaled(), 0.999);
-				if (liquid.itemID < 4096) //Block
-				{
-					Block liquidBlock = Block.blocksList[liquid.itemID];
-					BlockSkinRenderHelper.renderMetadataBlock(liquidBlock, liquid.itemMeta, x, y, z, renderer, world);
-				}
-				else
-				//Item
-				{
-					Item liquidItem = Item.itemsList[liquid.itemID];
-					BlockSkinRenderHelper.renderFakeBlock(liquidItem.getIconFromDamage(liquid.itemMeta), liquid.itemMeta, x, y, z, renderer, world);
-				}
-			}
 		}
 		return true;
 	}
