@@ -1,11 +1,15 @@
 package mods.tinker.tconstruct.library;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import mods.tinker.tconstruct.TConstruct;
+import mods.tinker.tconstruct.library.crafting.LiquidCasting;
 import mods.tinker.tconstruct.library.tools.ToolCore;
 import mods.tinker.tconstruct.library.tools.ToolMaterial;
 import mods.tinker.tconstruct.library.util.TabTools;
+import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 
 /** A registry to store any relevant API work
@@ -64,4 +68,46 @@ public class TConstructRegistry
     {
         return (toolMaterialStrings.get(key));
     }
+	
+	public static LiquidCasting getTableCasting()
+	{
+	    return instance.tableCasting();
+	}
+	
+	LiquidCasting tableCasting()
+	{
+	    try
+        {
+            Class clazz = Class.forName("mods.tinker.tconstruct.TConstruct");
+            Method method = clazz.getMethod("getTableCasting");
+            LiquidCasting lc = (LiquidCasting) method.invoke(this);
+            return lc;
+        }
+	    catch (Exception e)
+	    {
+	        System.out.println("[TCon API] Could not find casting table recipes.");
+	        return null;
+	    }
+	}
+	
+	public static LiquidCasting getBasinCasting()
+    {
+        return instance.basinCasting();
+    }
+	
+	LiquidCasting basinCasting()
+	{
+	    try
+        {
+            Class clazz = Class.forName("mods.tinker.tconstruct.TConstruct");
+            Method method = clazz.getMethod("getBasinCasting");
+            LiquidCasting lc = (LiquidCasting) method.invoke(this);
+            return lc;
+        }
+        catch (Exception e)
+        {
+            System.out.println("[TCon API] Could not find casting table recipes.");
+            return null;
+        }
+	}
 }

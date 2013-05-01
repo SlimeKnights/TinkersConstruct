@@ -3,6 +3,7 @@ package mods.tinker.tconstruct;
 import mods.tinker.tconstruct.common.TContent;
 import mods.tinker.tconstruct.common.TProxyCommon;
 import mods.tinker.tconstruct.library.TConstructRegistry;
+import mods.tinker.tconstruct.library.crafting.LiquidCasting;
 import mods.tinker.tconstruct.library.util.TabTools;
 import mods.tinker.tconstruct.util.PHConstruct;
 import mods.tinker.tconstruct.util.TCraftingHandler;
@@ -33,7 +34,7 @@ import cpw.mods.fml.common.registry.VillagerRegistry;
  * @dependencies: IC2 API, EBXL API
  */
 
-@Mod(modid = "TConstruct", name = "TConstruct", version = "1.5.1_1.3.2.dev29", dependencies = "required-after:Forge@[7.7.1.675,)")
+@Mod(modid = "TConstruct", name = "TConstruct", version = "1.5.1_1.3.2.dev30", dependencies = "required-after:Forge@[7.7.1.675,)")
 @NetworkMod(serverSideRequired = false, clientSideRequired = true, channels = { "TConstruct" }, packetHandler = mods.tinker.tconstruct.util.network.TPacketHandler.class)
 public class TConstruct
 {
@@ -55,6 +56,9 @@ public class TConstruct
         TConstructRegistry.materialTab = new TabTools("TConstructMaterials");
         TConstructRegistry.toolTab = new TabTools("TConstructTools");
         TConstructRegistry.blockTab = new TabTools("TConstructBlocks");
+
+        tableCasting = new LiquidCasting();
+        basinCasting = new LiquidCasting();
         content = new TContent();
 
         events = new TEventHandler();
@@ -100,8 +104,20 @@ public class TConstruct
 
         content.modIntegration();
     }
+    
+    public static LiquidCasting getTableCasting()
+    {
+        return tableCasting;
+    }
+    
+    public static LiquidCasting getBasinCasting()
+    {
+        return basinCasting;
+    }
 
     public static TEventHandler events;
     public static TPlayerHandler playerTracker;
     public static TContent content;
+    public static LiquidCasting tableCasting;
+    public static LiquidCasting basinCasting;
 }

@@ -11,7 +11,7 @@ import net.minecraftforge.liquids.LiquidStack;
 /* Melting becomes hardened */
 public class LiquidCasting
 {
-    public static LiquidCasting instance = new LiquidCasting();
+    //public static LiquidCasting instance = new LiquidCasting();
     private ArrayList<CastingRecipe> casts = new ArrayList<CastingRecipe>();
 
     /** Adds a casting recipe
@@ -22,9 +22,9 @@ public class LiquidCasting
      * @param consume Whether the item should be consumed while casting
      * @param delay Time to cast in ticks
      */
-    public static void addCastingRecipe (ItemStack output, LiquidStack metal, ItemStack cast, boolean consume, int delay)
+    public void addCastingRecipe (ItemStack output, LiquidStack metal, ItemStack cast, boolean consume, int delay)
     {
-        instance.casts.add(new CastingRecipe(output, metal, cast, consume, delay));
+        casts.add(new CastingRecipe(output, metal, cast, consume, delay));
     }
 
     /** Adds a casting recipe. Does not consume the cast
@@ -34,7 +34,7 @@ public class LiquidCasting
      * @param cast The empty item to cast with. ex Ingot Cast
      * @param delay Time to cast in ticks
      */
-    public static void addCastingRecipe (ItemStack output, LiquidStack metal, ItemStack cast, int delay)
+    public void addCastingRecipe (ItemStack output, LiquidStack metal, ItemStack cast, int delay)
     {
         addCastingRecipe(output, metal, cast, false, delay);
     }
@@ -45,7 +45,7 @@ public class LiquidCasting
      * @param metal Liquid to be used in casting. This also decides how much metal is consumed
      * @param delay Time to cast in ticks
      */
-    public static void addCastingRecipe (ItemStack output, LiquidStack metal, int delay)
+    public void addCastingRecipe (ItemStack output, LiquidStack metal, int delay)
     {
         addCastingRecipe(output, metal, null, false, delay);
     }

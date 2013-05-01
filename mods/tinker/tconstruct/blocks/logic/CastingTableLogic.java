@@ -81,7 +81,7 @@ public class CastingTableLogic extends InventoryLogic implements ILiquidTank, IT
             ret *= ((IPattern) inv.getItem()).getPatternCost(inv.getItemDamage()) * 0.5;
 
         else
-            ret = LiquidCasting.instance.getCastingAmount(this.liquid, inv);
+            ret = TConstruct.tableCasting.getCastingAmount(this.liquid, inv);
 
         return ret;
     }
@@ -109,7 +109,7 @@ public class CastingTableLogic extends InventoryLogic implements ILiquidTank, IT
 
         if (this.liquid == null)
         {
-            CastingRecipe recipe = LiquidCasting.instance.getCastingRecipe(resource, inventory[0]);
+            CastingRecipe recipe = TConstruct.tableCasting.getCastingRecipe(resource, inventory[0]);
             if (recipe == null)
                 return 0;
             this.capacity = updateCapacity(recipe.castingMetal.amount);
@@ -150,7 +150,7 @@ public class CastingTableLogic extends InventoryLogic implements ILiquidTank, IT
                 if (doFill && roomInTank > 0)
                 {
                     renderOffset = roomInTank;
-                    castingDelay = LiquidCasting.instance.getCastingDelay(this.liquid, inventory[0]);
+                    castingDelay = TConstruct.tableCasting.getCastingDelay(this.liquid, inventory[0]);
                     this.liquid.amount = this.capacity;
                     worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
                     needsUpdate = true;
@@ -276,7 +276,7 @@ public class CastingTableLogic extends InventoryLogic implements ILiquidTank, IT
 
     public void castLiquid ()
     {
-        CastingRecipe recipe = LiquidCasting.instance.getCastingRecipe(liquid, inventory[0]);
+        CastingRecipe recipe = TConstruct.tableCasting.getCastingRecipe(liquid, inventory[0]);
         if (recipe != null)
         {
             inventory[1] = recipe.getResult();

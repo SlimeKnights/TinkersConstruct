@@ -62,8 +62,8 @@ public class TankRender implements ISimpleBlockRenderingHandler
 			{
 				renderer.setRenderBounds(0.1875, 0, 0.1875, 0.8125, 0.125, 0.8125);
 				renderer.renderStandardBlock(block, x, y + 1, z);
-				renderer.setRenderBounds(0, 0, 0, 1, 1, 1);
 			}
+            renderer.setRenderBounds(0, 0, 0, 1, 1, 1);
 			renderer.renderStandardBlock(block, x, y, z);
 		}
 		return true;

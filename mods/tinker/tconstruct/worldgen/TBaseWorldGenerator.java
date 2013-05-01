@@ -28,7 +28,7 @@ public class TBaseWorldGenerator implements IWorldGenerator
         copperSurface = new SurfaceOreGen(TContent.oreGravel.blockID, 2, 12, true);
         tinSurface = new SurfaceOreGen(TContent.oreGravel.blockID, 3, 12, true);
         aluminumSurface = new SurfaceOreGen(TContent.oreGravel.blockID, 4, 12, true);
-        cobaltSurface = new SurfaceOreGen(TContent.oreGravel.blockID, 4, 30, true);
+        cobaltSurface = new SurfaceOreGen(TContent.oreGravel.blockID, 5, 30, true);
 
         ironBush = new OreberryBushGen(TContent.oreBerry.blockID, 12, 12);
         goldBush = new OreberryBushGen(TContent.oreBerry.blockID, 13, 6);

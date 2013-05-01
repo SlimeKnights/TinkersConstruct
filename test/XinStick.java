@@ -12,7 +12,7 @@ import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 
 /*
- * mDiyo's development testing mod
+ * mDiyo's development testing item
  * Does everything on right-click!
  */
 

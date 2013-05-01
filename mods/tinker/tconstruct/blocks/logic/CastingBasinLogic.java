@@ -3,7 +3,6 @@ package mods.tinker.tconstruct.blocks.logic;
 import mods.tinker.tconstruct.TConstruct;
 import mods.tinker.tconstruct.library.blocks.InventoryLogic;
 import mods.tinker.tconstruct.library.crafting.CastingRecipe;
-import mods.tinker.tconstruct.library.crafting.LiquidBlockCasting;
 import mods.tinker.tconstruct.library.util.IPattern;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -81,7 +80,7 @@ public class CastingBasinLogic extends InventoryLogic implements ILiquidTank, IT
             ret *= ((IPattern) inv.getItem()).getPatternCost(inv.getItemDamage()) * 0.5;
 
         else
-            ret = LiquidBlockCasting.instance.getCastingAmount(this.liquid, inv);
+            ret = TConstruct.basinCasting.getCastingAmount(this.liquid, inv);
 
         return ret;
     }
@@ -109,7 +108,7 @@ public class CastingBasinLogic extends InventoryLogic implements ILiquidTank, IT
 
         if (this.liquid == null)
         {
-            CastingRecipe recipe = LiquidBlockCasting.instance.getCastingRecipe(resource, inventory[0]);
+            CastingRecipe recipe = TConstruct.basinCasting.getCastingRecipe(resource, inventory[0]);
             if (recipe == null)
                 return 0;
             this.capacity = updateCapacity(recipe.castingMetal.amount);
@@ -150,7 +149,7 @@ public class CastingBasinLogic extends InventoryLogic implements ILiquidTank, IT
                 if (doFill && roomInTank > 0)
                 {
                     renderOffset = roomInTank;
-                    castingDelay = LiquidBlockCasting.instance.getCastingDelay(this.liquid, inventory[0]);
+                    castingDelay = TConstruct.basinCasting.getCastingDelay(this.liquid, inventory[0]);
                     this.liquid.amount = this.capacity;
                     worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
                     needsUpdate = true;
@@ -276,7 +275,7 @@ public class CastingBasinLogic extends InventoryLogic implements ILiquidTank, IT
 
     public void castLiquid ()
     {
-        CastingRecipe recipe = LiquidBlockCasting.instance.getCastingRecipe(liquid, inventory[0]);
+        CastingRecipe recipe = TConstruct.basinCasting.getCastingRecipe(liquid, inventory[0]);
         if (recipe != null)
         {
             inventory[1] = recipe.getResult();
