@@ -106,7 +106,7 @@ public class TConstructRegistry
         }
         catch (Exception e)
         {
-            System.out.println("[TCon API] Could not find casting table recipes.");
+            System.out.println("[TCon API] Could not find casting basin recipes.");
             return null;
         }
 	}
