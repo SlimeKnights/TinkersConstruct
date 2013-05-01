@@ -69,6 +69,7 @@ import mods.tinker.tconstruct.items.tools.Rapier;
 import mods.tinker.tconstruct.items.tools.Shovel;
 import mods.tinker.tconstruct.library.TConstructRegistry;
 import mods.tinker.tconstruct.library.client.TConstructClientRegistry;
+import mods.tinker.tconstruct.library.crafting.Detailing;
 import mods.tinker.tconstruct.library.crafting.LiquidCasting;
 import mods.tinker.tconstruct.library.crafting.PatternBuilder;
 import mods.tinker.tconstruct.library.crafting.Smeltery;
@@ -530,51 +531,8 @@ public class TContent implements IFuelHandler
 
     void addCraftingRecipes ()
     {
-        /*List<ItemStack> removeTools = new ArrayList<ItemStack>();
-        if (PHConstruct.disableWoodTools)
-        {
-            removeTools.add(new ItemStack(Item.pickaxeWood));
-            removeTools.add(new ItemStack(Item.axeWood));
-            removeTools.add(new ItemStack(Item.shovelWood));
-            removeTools.add(new ItemStack(Item.swordWood));
-            removeTools.add(new ItemStack(Item.hoeWood));
-        }
-        if (PHConstruct.disableStoneTools)
-        {
-            removeTools.add(new ItemStack(Item.pickaxeStone));
-            removeTools.add(new ItemStack(Item.axeStone));
-            removeTools.add(new ItemStack(Item.shovelStone));
-            removeTools.add(new ItemStack(Item.swordStone));
-            removeTools.add(new ItemStack(Item.hoeStone));
-        }
-        if (PHConstruct.disableIronTools)
-        {
-            removeTools.add(new ItemStack(Item.pickaxeSteel));
-            removeTools.add(new ItemStack(Item.axeSteel));
-            removeTools.add(new ItemStack(Item.shovelSteel));
-            removeTools.add(new ItemStack(Item.swordSteel));
-            removeTools.add(new ItemStack(Item.hoeSteel));
-        }
-        if (PHConstruct.disableDiamondTools)
-        {
-            removeTools.add(new ItemStack(Item.pickaxeDiamond));
-            removeTools.add(new ItemStack(Item.axeDiamond));
-            removeTools.add(new ItemStack(Item.shovelDiamond));
-            removeTools.add(new ItemStack(Item.swordDiamond));
-            removeTools.add(new ItemStack(Item.hoeDiamond));
-        }
-        if (PHConstruct.disableGoldTools)
-        {
-            removeTools.add(new ItemStack(Item.pickaxeGold));
-            removeTools.add(new ItemStack(Item.axeGold));
-            removeTools.add(new ItemStack(Item.shovelGold));
-            removeTools.add(new ItemStack(Item.swordGold));
-            removeTools.add(new ItemStack(Item.hoeGold));
-        }
-
-        RecipeRemover.removeShapedRecipes(removeTools);*/
-
-        patternOutputs = new Item[] { toolRod, pickaxeHead, shovelHead, axeHead, swordBlade, wideGuard, handGuard, crossbar, binding, frypanHead, signHead, knifeBlade };
+        /* Tools */
+        patternOutputs = new Item[] { toolRod, pickaxeHead, shovelHead, axeHead, swordBlade, wideGuard, handGuard, crossbar, binding, frypanHead, signHead, knifeBlade, chiselHead };
 
         ToolBuilder tb = ToolBuilder.instance;
         tb.addToolRecipe(pickaxe, pickaxeHead, binding);
@@ -634,7 +592,7 @@ public class TContent implements IFuelHandler
         tb.registerToolMod(new ModExtraModifier(new ItemStack[] { diamond, new ItemStack(Block.blockGold) }, "Tier1Free"));
         tb.registerToolMod(new ModExtraModifier(new ItemStack[] { new ItemStack(Item.netherStar) }, "Tier2Free"));
 
-        //Smeltery
+        /* Smeltery */
         ItemStack ingotcast = new ItemStack(metalPattern, 1, 0);
 
         LiquidCasting tableCasting = TConstructRegistry.instance.getTableCasting();
@@ -707,13 +665,13 @@ public class TContent implements IFuelHandler
         
         //Ore
         Smeltery.addMelting(Block.oreIron, 0, 600, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 0));
-        Smeltery.addMelting(Block.oreGold, 0, 550, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 1));
+        Smeltery.addMelting(Block.oreGold, 0, 400, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 1));
         Smeltery.addMelting(oreGravel, 0, 600, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 0));
-        Smeltery.addMelting(oreGravel, 1, 550, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 1));
+        Smeltery.addMelting(oreGravel, 1, 400, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 1));
 
         //Items
         Smeltery.addMelting(new ItemStack(Item.ingotIron, 4), Block.blockIron.blockID, 0, 500, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 0));
-        Smeltery.addMelting(new ItemStack(Item.ingotGold, 4), Block.blockGold.blockID, 0, 450, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 1));
+        Smeltery.addMelting(new ItemStack(Item.ingotGold, 4), Block.blockGold.blockID, 0, 300, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 1));
         Smeltery.addMelting(new ItemStack(Item.goldNugget, 4), Block.blockGold.blockID, 0, 150, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue / 9, 1));
 
         Smeltery.addMelting(new ItemStack(Item.bucketEmpty), Block.blockIron.blockID, 0, 600, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 3, 0));
@@ -721,7 +679,7 @@ public class TContent implements IFuelHandler
 
         //Blocks
         Smeltery.addMelting(Block.blockIron, 0, 600, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 0));
-        Smeltery.addMelting(Block.blockGold, 0, 550, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 1));
+        Smeltery.addMelting(Block.blockGold, 0, 400, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 1));
         Smeltery.addMelting(Block.obsidian, 0, 800, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 11));
         Smeltery.addMelting(Block.ice, 0, 75, new LiquidStack(Block.waterStill.blockID, 1000, 0));
 
@@ -739,7 +697,16 @@ public class TContent implements IFuelHandler
         Smeltery.addMelting(new ItemStack(oreBerries, 4, 3), metalBlock.blockID, 5, 100, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue / 9, 3)); //Tin
         Smeltery.addMelting(new ItemStack(oreBerries, 4, 4), metalBlock.blockID, 6, 100, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue / 9, 4)); //Aluminum
         
-        //Crafting
+        /* Detailing */
+        Detailing chiseling = TConstructRegistry.getChiselDetailing();
+        chiseling.addDetailing(Block.stone, 0, Block.stoneBrick, 0, chisel);
+        chiseling.addDetailing(speedBlock, 0, speedBlock, 1, chisel);
+        chiseling.addDetailing(speedBlock, 2, speedBlock, 3, chisel);
+        chiseling.addDetailing(speedBlock, 3, speedBlock, 4, chisel);
+        chiseling.addDetailing(speedBlock, 4, speedBlock, 5, chisel);
+        chiseling.addDetailing(speedBlock, 5, speedBlock, 6, chisel);
+        
+        /* Crafting */
         GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 0), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', Block.workbench);
         GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 1), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(Block.wood, 1, 0));
         GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 2), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(Block.wood, 1, 1));
@@ -797,6 +764,8 @@ public class TContent implements IFuelHandler
         FurnaceRecipes.smelting().addSmelting(oreGravel.blockID, 2, new ItemStack(materials, 1, 9), 0.2f);
         FurnaceRecipes.smelting().addSmelting(oreGravel.blockID, 3, new ItemStack(materials, 1, 10), 0.2f);
         FurnaceRecipes.smelting().addSmelting(oreGravel.blockID, 4, new ItemStack(materials, 1, 12), 0.2f);
+        
+        FurnaceRecipes.smelting().addSmelting(speedBlock.blockID, 0, new ItemStack(speedBlock, 1, 2), 0.2f);
 
         //Metal conversion
         GameRegistry.addRecipe(new ItemStack(materials, 9, 9), "m", 'm', new ItemStack(metalBlock, 1, 3)); //Copper
@@ -814,21 +783,6 @@ public class TContent implements IFuelHandler
         GameRegistry.addRecipe(new ItemStack(materials, 1, 9), "mmm", "mmm", "mmm", 'm', new ItemStack(materials, 1, 20)); //Copper
         GameRegistry.addRecipe(new ItemStack(materials, 1, 10), "mmm", "mmm", "mmm", 'm', new ItemStack(materials, 1, 21)); //Tin
         GameRegistry.addRecipe(new ItemStack(materials, 1, 12), "mmm", "mmm", "mmm", 'm', new ItemStack(materials, 1, 22)); //Aluminum
-
-        /*LiquidBlockCasting lbc = LiquidBlockCasting.instance;
-        lbc.addBlockCastingRecipe(new ItemStack(Block.blockIron), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 0), null, true, 100); //Iron
-        lbc.addBlockCastingRecipe(new ItemStack(Block.blockGold), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 1), null, true, 100); //gold
-        lbc.addBlockCastingRecipe(new ItemStack(metalBlock, 1, 3), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 2), null, true, 100); //copper
-        lbc.addBlockCastingRecipe(new ItemStack(metalBlock, 1, 5), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 3), null, true, 100); //tin
-        lbc.addBlockCastingRecipe(new ItemStack(metalBlock, 1, 6), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 4), null, true, 100); //aluminum
-        lbc.addBlockCastingRecipe(new ItemStack(metalBlock, 1, 0), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 5), null, true, 100); //cobalt
-        lbc.addBlockCastingRecipe(new ItemStack(metalBlock, 1, 1), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 6), null, true, 100); //ardite
-        lbc.addBlockCastingRecipe(new ItemStack(metalBlock, 1, 4), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 7), null, true, 100); //bronze
-        lbc.addBlockCastingRecipe(new ItemStack(metalBlock, 1, 7), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 8), null, true, 100); //albrass
-        lbc.addBlockCastingRecipe(new ItemStack(metalBlock, 1, 2), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 9), null, true, 100); //manyullyn
-        lbc.addBlockCastingRecipe(new ItemStack(metalBlock, 1, 8), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 10), null, true, 100); //alumite
-        lbc.addBlockCastingRecipe(new ItemStack(Block.obsidian), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 11), null, true, 100);// obsidian
-        lbc.addBlockCastingRecipe(new ItemStack(metalBlock, 1, 9), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 12), null, true, 100); //steel*/
 
         //Smeltery
         ItemStack searedBrick = new ItemStack(materials, 1, 2);

@@ -140,6 +140,8 @@ public class TProxyCommon implements IGuiHandler
         LanguageRegistry.addName(TContent.battlesign, "Battlesign");
         LanguageRegistry.addName(TContent.mattock, "Mattock");
         LanguageRegistry.addName(TContent.potionLauncher, "Potion Launcher");
+        LanguageRegistry.addName(TContent.dagger, "Dagger");
+        LanguageRegistry.addName(TContent.chisel, "Chisel");
         //LanguageRegistry.addName(TContent.lumberaxe, "Lumber Axe");
 
     }
@@ -172,13 +174,13 @@ public class TProxyCommon implements IGuiHandler
             "Copper", "Bronze", "Alumite", "Steel", "Blue Slime" };
 
     public static final String[] materialTypes = new String[] { "ToolRod", "PickaxeHead", "ShovelHead", "AxeHead", "SwordBlade", "LargeGuard", "MediumGuard", "Crossbar", "Binding", "FrypanHead",
-            "SignHead", "LumberHead", "KnifeBlade" };
+            "SignHead", "LumberHead", "KnifeBlade", "ChiselHead" };
 
     public static final String[] materialNames = new String[] { " Rod", " Pickaxe Head", " Shovel Head", " Axe Head", " Sword Blade", " Wide Guard", " Hand Guard", " Crossbar", " Binding", " Pan",
-            " Board", " Broad Axe Head", " Knife Blade" };
+            " Board", " Broad Axe Head", " Knife Blade", " Chisel Head" };
 
-    public static final String[] patterns = new String[] { "ingot", "rod", "pickaxe", "shovel", "axe", "swordblade", "largeguard", "mediumguard", "crossbar", "binding", "frypan", "sign", "knifeblade" };
+    public static final String[] patterns = new String[] { "ingot", "rod", "pickaxe", "shovel", "axe", "swordblade", "largeguard", "mediumguard", "crossbar", "binding", "frypan", "sign", "knifeblade", "chisel" };
 
     public static final String[] patternNames = new String[] { "Ingot", "Tool Rod", "Pickaxe Head", "Shovel Head", "Axe Head", "Sword Blade", "Wide Guard", "Hand Guard", "Crossbar", "Tool Binding",
-            "Pan", "Board", "Knife Blade" };
+            "Pan", "Board", "Knife Blade", "Chisel Head" };
 }

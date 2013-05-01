@@ -1,10 +1,19 @@
 package mods.tinker.tconstruct.items.tools;
 
+import mods.tinker.tconstruct.TConstruct;
+import mods.tinker.tconstruct.common.TContent;
+import mods.tinker.tconstruct.library.crafting.Detailing.DetailInput;
+import mods.tinker.tconstruct.library.tools.AbilityHelper;
+import mods.tinker.tconstruct.library.tools.ToolCore;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumAction;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumMovingObjectType;
+import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import mods.tinker.tconstruct.common.TContent;
-import mods.tinker.tconstruct.library.tools.ToolCore;
-import net.minecraft.item.Item;
 
 public class Chisel extends ToolCore
 {
@@ -12,6 +21,84 @@ public class Chisel extends ToolCore
     {
         super(id, 0);
         this.setUnlocalizedName("InfiTool.Chisel");
+        this.setContainerItem(this);
+    }
+
+    @Override
+    public ItemStack getContainerItemStack (ItemStack itemStack)
+    {
+        return itemStack;
+    }
+
+    @Override
+    public boolean doesContainerItemLeaveCraftingGrid (ItemStack par1ItemStack)
+    {
+        return false;
+    }
+
+    boolean performDetailing (World world, int x, int y, int z, int blockID, int blockMeta)
+    {
+        boolean detailed = false;
+        return detailed;
+    }
+
+    @Override
+    public ItemStack onItemRightClick (ItemStack itemstack, World world, EntityPlayer entityplayer)
+    {
+        if (entityplayer.capabilities.isCreativeMode)
+        {
+            onEaten(itemstack, world, entityplayer);
+        }
+        else
+        {
+            entityplayer.setItemInUse(itemstack, getMaxItemUseDuration(itemstack));
+        }
+        return itemstack;
+    }
+
+    @Override
+    public ItemStack onEaten (ItemStack itemstack, World world, EntityPlayer entityplayer)
+    {
+        if (!world.isRemote)
+        {
+            MovingObjectPosition movingobjectposition = getMovingObjectPositionFromPlayer(world, entityplayer, true);
+            if (movingobjectposition == null)
+            {
+                return itemstack;
+            }
+            if (movingobjectposition.typeOfHit == EnumMovingObjectType.TILE)
+            {
+                int x = movingobjectposition.blockX;
+                int y = movingobjectposition.blockY;
+                int z = movingobjectposition.blockZ;
+                int blockID = world.getBlockId(x, y, z);
+                int meta = world.getBlockMetadata(x, y, z);
+
+                DetailInput details = TConstruct.chiselDetailing.getDetailing(blockID, meta);
+                if (details != null && details.outputID < 4096)
+                {
+                    world.setBlock(x, y, z, details.outputID, details.outputMeta, 3);
+                    if (!(entityplayer.capabilities.isCreativeMode))
+                        AbilityHelper.damageTool(itemstack, 1, entityplayer, false);
+                    world.playAuxSFX(2001, x, y, z, blockID + (meta << 12));
+                    entityplayer.swingItem();
+                }
+            }
+        }
+
+        return itemstack;
+    }
+
+    @Override
+    public int getMaxItemUseDuration (ItemStack itemstack)
+    {
+        return 15;
+    }
+
+    @Override
+    public EnumAction getItemUseAction (ItemStack itemstack)
+    {
+        return EnumAction.eat;
     }
 
     @Override
@@ -26,13 +113,13 @@ public class Chisel extends ToolCore
     {
         return 8;
     }
-    
+
     @Override
-    public int getPartAmount()
+    public int getPartAmount ()
     {
         return 2;
     }
-    
+
     @Override
     public void registerPartPaths (int index, String[] location)
     {
@@ -40,7 +127,7 @@ public class Chisel extends ToolCore
         brokenHeadStrings.put(index, location[1]);
         handleStrings.put(index, location[2]);
     }
-    
+
     @Override
     public String getIconSuffix (int partType)
     {
