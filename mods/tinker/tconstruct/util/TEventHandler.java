@@ -81,23 +81,26 @@ public class TEventHandler
     @ForgeSubscribe
     public void onLivingDrop (LivingDropsEvent event)
     {
-        if (event.entityLiving.getClass() == EntityCow.class)
+        if (!event.entityLiving.isChild())
         {
-            int amount = random.nextInt(3) + random.nextInt(1 + event.lootingLevel) + random.nextInt(3) + random.nextInt(1 + event.lootingLevel) + 1;
-
-            for (int iter = 0; iter < amount; ++iter)
+            if (event.entityLiving.getClass() == EntityCow.class)
             {
-                event.entityLiving.dropItem(Item.leather.itemID, 1);
+                int amount = random.nextInt(3) + random.nextInt(1 + event.lootingLevel) + random.nextInt(3) + random.nextInt(1 + event.lootingLevel) + 1;
+
+                for (int iter = 0; iter < amount; ++iter)
+                {
+                    event.entityLiving.dropItem(Item.leather.itemID, 1);
+                }
             }
-        }
 
-        else if (event.entityLiving.getClass() == EntityChicken.class)
-        {
-            int amount = random.nextInt(3) + random.nextInt(1 + event.lootingLevel) + random.nextInt(3) + random.nextInt(1 + event.lootingLevel) + 1;
-
-            for (int iter = 0; iter < amount; ++iter)
+            else if (event.entityLiving.getClass() == EntityChicken.class)
             {
-                event.entityLiving.dropItem(Item.feather.itemID, 1);
+                int amount = random.nextInt(3) + random.nextInt(1 + event.lootingLevel) + random.nextInt(3) + random.nextInt(1 + event.lootingLevel) + 1;
+
+                for (int iter = 0; iter < amount; ++iter)
+                {
+                    event.entityLiving.dropItem(Item.feather.itemID, 1);
+                }
             }
         }
 

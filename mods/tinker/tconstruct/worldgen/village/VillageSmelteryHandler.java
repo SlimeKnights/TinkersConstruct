@@ -13,7 +13,7 @@ public class VillageSmelteryHandler implements IVillageCreationHandler
     @Override
     public StructureVillagePieceWeight getVillagePieceWeight (Random random, int i)
     {
-        return new StructureVillagePieceWeight(ComponentSmeltery.class, 18, i);
+        return new StructureVillagePieceWeight(ComponentSmeltery.class, 18, i + 1);
     }
 
     @Override

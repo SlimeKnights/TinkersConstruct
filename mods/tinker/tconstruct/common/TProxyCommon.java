@@ -104,12 +104,12 @@ public class TProxyCommon implements IGuiHandler
             LanguageRegistry.instance().addStringLocalization(internalName, "en_US", visibleName);
         }
 
-        for (int i = 0; i < materialItemNames.length; i++)
+        /*for (int i = 0; i < materialItemNames.length; i++)
         {
             String internalName = "item.tconstruct.Materials." + materialItemInternalNames[i] + ".name";
             String visibleName = materialItemNames[i];
             LanguageRegistry.instance().addStringLocalization(internalName, "en_US", visibleName);
-        }
+        }*/
 
         for (int i = 0; i < patterns.length; i++)
         {
@@ -162,13 +162,13 @@ public class TProxyCommon implements IGuiHandler
     public static final String[] shardNames = new String[] { "Wood", "Stone Shard", "Iron Chunk", "Flint Shard", "Cactus Shard", "Bone", "Obsidian Shard", "Netherrack Shard",
             "Slime Crystal Fragment", "Paper", "Cobalt Chunk", "Ardite Chunk", "Manyullyn Chunk", "Copper Chunk", "Bronze Chunk", "Alumite Chunk", "Steel Chunk", "Slime Crystal Fragment" };
 
-    public static final String[] materialItemInternalNames = new String[] { "PaperStack", "SlimeCrystal", "SearedBrick", "CobaltIngot", "ArditeIngot", "ManyullynIngot", "Mossball", "LavaCrystal",
-            "NecroticBone", "CopperIngot", "TinIngot", "AluminumIngot", "RawAluminum", "BronzeIngot", "AlBrassIngot", "AlumiteIngot", "SteelIngot", "BlueSlimeCrystal", "ObsidianIngot", "IronNugget",
+    /*public static final String[] materialItemInternalNames = new String[] {
+            "IronNugget",
             "CopperNugget", "TinNugget", "AluminumNugget", "SilverNugget" };
 
-    public static final String[] materialItemNames = new String[] { "Paper Stack", "Slime Crystal", "Seared Brick", "Cobalt Ingot", "Ardite Ingot", "Manyullyn Ingot", "Ball of Moss", "Lava Crystal",
-            "Necrotic Bone", "Copper Ingot", "Tin Ingot", "Aluminum Ingot", "Raw Aluminum", "Bronze Ingot", "Aluminum Brass Ingot", "Alumite Ingot", "Steel Ingot", "Slime Crystal", "Obsidian Ingot", "Iron Nugget",
-            "Copper Nugget", "Tin Nugget", "Aluminum Nugget", "Silver Nugget" };
+    public static final String[] materialItemNames = new String[] { 
+            "Iron Nugget",
+            "Copper Nugget", "Tin Nugget", "Aluminum Nugget", "Silver Nugget" };*/
 
     public static final String[] toolMaterialNames = new String[] { "Wood", "Stone", "Iron", "Flint", "Cactus", "Bone", "Obsidian", "Netherrack", "Slime", "Paper", "Cobalt", "Ardite", "Manyullyn",
             "Copper", "Bronze", "Alumite", "Steel", "Blue Slime" };

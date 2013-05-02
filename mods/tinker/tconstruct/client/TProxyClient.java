@@ -302,6 +302,7 @@ public class TProxyClient extends TProxyCommon
         TConstructClientRegistry.registerManualIcon("arditeingot", new ItemStack(TContent.materials, 1, 4));
         TConstructClientRegistry.registerManualIcon("copperingot", new ItemStack(TContent.materials, 1, 9));
         TConstructClientRegistry.registerManualIcon("steelingot", new ItemStack(TContent.materials, 1, 16));
+        
 
         //Tool parts
         TConstructClientRegistry.registerManualIcon("pickhead", new ItemStack(TContent.pickaxeHead, 1, 2));
@@ -366,6 +367,9 @@ public class TProxyClient extends TProxyCommon
         ItemStack slimyMud = new ItemStack(TContent.craftedSoil);
         ItemStack blazerod = new ItemStack(Item.blazeRod);
         ItemStack firecharge = new ItemStack(Item.fireballCharge);
+        ItemStack string = new ItemStack(Item.silk);
+        
+        ItemStack silkyCloth = new ItemStack(TContent.materials, 1, 25);
 
         //TConstruct recipes
         TConstructClientRegistry.registerManualSmallRecipe("blankpattern", pattern, plank, stick, stick, plank);
@@ -381,6 +385,10 @@ public class TProxyClient extends TProxyCommon
                 mossycobble, mossycobble, mossycobble);
         TConstructClientRegistry.registerManualLargeRecipe("lavacrystal", new ItemStack(TContent.materials, 1, 7), blazerod, firecharge, blazerod, firecharge, new ItemStack(Item.bucketLava),
                 firecharge, blazerod, firecharge, blazerod);
+        TConstructClientRegistry.registerManualLargeRecipe("silkycloth", silkyCloth, string, string, string, string, new ItemStack(TContent.materials, 1, 24),
+                string, string, string, string);
+        TConstructClientRegistry.registerManualLargeRecipe("silkyjewel", new ItemStack(TContent.materials, 1, 26), null, silkyCloth, null, silkyCloth, new ItemStack(Item.emerald),
+                silkyCloth, null, silkyCloth, null);
 
         TConstructClientRegistry.registerManualSmallRecipe("grout", grout, sand, gravel, null, clay);
         TConstructClientRegistry.registerManualFurnaceRecipe("searedbrick", searedbrick, grout);
@@ -418,6 +426,7 @@ public class TProxyClient extends TProxyCommon
         TConstructClientRegistry.registerManualModifier("quartzmod", ironlongsword.copy(), new ItemStack(Item.netherQuartz), new ItemStack(Block.blockNetherQuartz));
         TConstructClientRegistry.registerManualModifier("blazemod", ironlongsword.copy(), new ItemStack(Item.blazePowder));
         TConstructClientRegistry.registerManualModifier("necroticmod", ironlongsword.copy(), new ItemStack(TContent.materials, 1, 8));
+        TConstructClientRegistry.registerManualModifier("silkymod", ironpick.copy(), new ItemStack(TContent.materials, 1, 26));
         TConstructClientRegistry.registerManualModifier("electricmod", ironpick.copy(), new ItemStack(Block.dirt), new ItemStack(Block.dirt));
         TConstructClientRegistry.registerManualModifier("tier1free", ironpick.copy(), new ItemStack(Item.diamond), new ItemStack(Block.blockGold));
         TConstructClientRegistry.registerManualModifier("tier2free", ironpick.copy(), new ItemStack(Item.netherStar));
@@ -517,12 +526,12 @@ public class TProxyClient extends TProxyCommon
     {
         String[] partTypes = { "wood", "stone", "iron", "flint", "cactus", "bone", "obsidian", "netherrack", "slime", "paper", "cobalt", "ardite", "manyullyn", "copper", "bronze", "alumite", "steel",
                 "blueslime" };
-        String[] effectTypes = { "diamond", "emerald", "redstone", "glowstone", "moss", "ice", "lava", "blaze", "necrotic", "electric", "lapis", "quartz" };
-        int[] validHarvestEffects = { 0, 1, 2, 4, 6, 7, 8, 9, 10, 11 };
-        int[] validWeaponEffects = { 0, 1, 4, 5, 6, 7, 8, 9, 10, 11};
+        String[] effectTypes = { "diamond", "emerald", "redstone", "glowstone", "moss", "ice", "lava", "blaze", "necrotic", "electric", "lapis", "quartz", "silk" };
+        int[] validHarvestEffects = { 0, 1, 2, 4, 6, 7, 8, 9, 10, 11, 12 };
+        int[] validWeaponEffects = { 0, 1, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
         int[] validUtilityEffects = { 0, 1, 4, 9 };
         
-        int[] validDaggerEffects = { 0, 1, 2, 4, 5, 6, 7, 8, 9, 10, 11};
+        int[] validDaggerEffects = { 0, 1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
         
         for (int partIter = 0; partIter < partTypes.length; partIter++)
         {

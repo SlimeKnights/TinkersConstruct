@@ -59,6 +59,34 @@
   <entry key="item.oreberry.aluminum.name">Aluminum Oreberry</entry>
   <entry key="item.oreberry.silver.name">Silver Oreberry</entry>
   
+  <entry key="item.tconstruct.Materials.PaperStack.name">Paper Stack</entry>
+  <entry key="item.tconstruct.Materials.SlimeCrystal.name">Slime Crystal</entry>
+  <entry key="item.tconstruct.Materials.SearedBrick.name">Seared Brick</entry>
+  <entry key="item.tconstruct.Materials.CobaltIngot.name">Cobalt Ingot</entry>
+  <entry key="item.tconstruct.Materials.ArditeIngot.name">Ardite Ingot</entry>
+  <entry key="item.tconstruct.Materials.ManyullynIngot.name">Manyullyn Ingot</entry>
+  <entry key="item.tconstruct.Materials.Mossball.name">Ball of Moss</entry>
+  <entry key="item.tconstruct.Materials.LavaCrystal.name">Lava Crystal</entry>
+  <entry key="item.tconstruct.Materials.NecroticBone.name">Necrotic Bone"</entry>
+  <entry key="item.tconstruct.Materials.CopperIngot.name">Copper Ingot</entry>
+  <entry key="item.tconstruct.Materials.TinIngot.name">Tin Ingot</entry>
+  <entry key="item.tconstruct.Materials.AluminumIngot.name">Aluminum Ingot</entry>
+  <entry key="item.tconstruct.Materials.RawAluminum.name">Raw Aluminum</entry>
+  <entry key="item.tconstruct.Materials.BronzeIngot.name">Bronze Ingot</entry>
+  <entry key="item.tconstruct.Materials.AluBrassIngot.name">Aluminum Brass Ingot</entry>
+  <entry key="item.tconstruct.Materials.AlumiteIngot.name">Alumite Ingot</entry>
+  <entry key="item.tconstruct.Materials.SteelIngot.name">Steel Ingot</entry>
+  <entry key="item.tconstruct.Materials.BlueSlimeCrystal.name">Slime Crystal</entry>
+  <entry key="item.tconstruct.Materials.ObsidianIngot.name">Obsidian Ingot</entry>
+  <entry key="item.tconstruct.Materials.IronNugget.name">Iron Nugget</entry>
+  <entry key="item.tconstruct.Materials.CopperNugget.name">Copper Nugget</entry>
+  <entry key="item.tconstruct.Materials.TinNugget.name">Tin Nugget</entry>
+  <entry key="item.tconstruct.Materials.AluminumNugget.name">Aluminum Nugget</entry>
+  <entry key="item.tconstruct.Materials.SilverNugget.name">Silver Nugget</entry>
+  <entry key="item.tconstruct.Materials.AluBrassNugget.name">Aluminum Brass Nugget</entry>
+  <entry key="item.tconstruct.Materials.SilkyCloth.name">Silky Cloth</entry>
+  <entry key="item.tconstruct.Materials.SilkyJewel.name">Silky Jewel</entry>
+  
   <entry key="Smeltery.Controller.name">Smeltery Controller</entry>
   <entry key="Smeltery.Drain.name">Smeltery Drain</entry>
   <entry key="Smeltery.Brick.name">Seared Bricks</entry>
@@ -112,7 +140,7 @@
   <entry key="LiquidMetal.Cobalt.name">Liquid Cobalt</entry>
   <entry key="LiquidMetal.Ardite.name">Liquid Ardite</entry>
   <entry key="LiquidMetal.Bronze.name">Liquid Bronze</entry>
-  <entry key="LiquidMetal.AlBrass.name">Liquid Aluminum Brass</entry>
+  <entry key="LiquidMetal.AluBrass.name">Liquid Aluminum Brass</entry>
   <entry key="LiquidMetal.Manyullyn.name">Liquid Manyullyn</entry>
   <entry key="LiquidMetal.Alumite.name">Liquid Alumite</entry>
   <entry key="LiquidMetal.Obsidian.name">Liquid Obsidian</entry>

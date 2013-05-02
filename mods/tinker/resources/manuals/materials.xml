@@ -524,6 +524,7 @@ Effects:
 - Smelts blocks as they're harvested
 - Sets mobs on fire for 3 seconds
 - Stacks with Luck
+- Not compatible with Silky
 
 Type: Multi-use
 Stackable: No</text>
@@ -542,6 +543,7 @@ Effects:
 - Adds fortune or looting, depends on tool type
 - Increases level at a maximum threshold, but has a chance of increasing before
 - Sometimes adds extra pieces for free
+- Not compatible with Silky
 
 Type: Single-use
 Stackable: No</text>
@@ -601,6 +603,39 @@ Stackable: Yes</text>
 <page type="modifier">
 <tooltype>weapon</tooltype>
 <recipe>necroticmod</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Silky</title>
+<text>Adding a large glob of alunimum brass or gold and a bunch of string seems to give the tool silky-smooth properties.
+
+Effects:
+- Allows blocks to be harvested directly
+- Not compatible with Luck or Auto-Smelt
+
+Type: Single-use
+Stackable: No</text>
+</page>
+
+<page type="modifier">
+<tooltype>tool</tooltype>
+<recipe>silkymod</recipe>
+</page>
+
+<page type="crafting">
+<text>Silky Cloth</text>
+<recipe>
+ <name>silkycloth</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Silky Jewel</text>
+<recipe>
+ <name>silkyjewel</name>
+ <size>three</size>
+</recipe>
 </page>
 
 <page type="sectionpage">

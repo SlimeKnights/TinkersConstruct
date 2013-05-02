@@ -32,10 +32,10 @@ import cpw.mods.fml.common.registry.VillagerRegistry;
 /** TConstruct, the tool mod.
  * Craft your tools with style, then modify until the original is gone!
  * @author: mDiyo
- * @dependencies: IC2 API, EBXL API
+ * @dependencies: IC2 API
  */
 
-@Mod(modid = "TConstruct", name = "TConstruct", version = "1.5.1_1.3.2.dev31", dependencies = "required-after:Forge@[7.7.1.675,)")
+@Mod(modid = "TConstruct", name = "TConstruct", version = "1.5.1_1.3.2.dev33", dependencies = "required-after:Forge@[7.7.1.675,)")
 @NetworkMod(serverSideRequired = false, clientSideRequired = true, channels = { "TConstruct" }, packetHandler = mods.tinker.tconstruct.util.network.TPacketHandler.class)
 public class TConstruct
 {

@@ -36,6 +36,7 @@ import mods.tinker.tconstruct.items.CraftingItem;
 import mods.tinker.tconstruct.items.FilledBucket;
 import mods.tinker.tconstruct.items.HeartContainer;
 import mods.tinker.tconstruct.items.Manual;
+import mods.tinker.tconstruct.items.MaterialItem;
 import mods.tinker.tconstruct.items.MetalPattern;
 import mods.tinker.tconstruct.items.OreBerries;
 import mods.tinker.tconstruct.items.Pattern;
@@ -77,8 +78,9 @@ import mods.tinker.tconstruct.library.crafting.ToolBuilder;
 import mods.tinker.tconstruct.library.tools.ToolCore;
 import mods.tinker.tconstruct.library.util.IPattern;
 import mods.tinker.tconstruct.modifiers.ModAttack;
+import mods.tinker.tconstruct.modifiers.ModAutoSmelt;
 import mods.tinker.tconstruct.modifiers.ModBlaze;
-import mods.tinker.tconstruct.modifiers.ModBoolean;
+import mods.tinker.tconstruct.modifiers.ModButtertouch;
 import mods.tinker.tconstruct.modifiers.ModDurability;
 import mods.tinker.tconstruct.modifiers.ModElectric;
 import mods.tinker.tconstruct.modifiers.ModExtraModifier;
@@ -374,15 +376,7 @@ public class TContent implements IFuelHandler
         String[] blanks = new String[] { "blank_pattern", "blank_cast" };
         blankPattern = new CraftingItem(PHConstruct.blankPattern, blanks, blanks, "materials/").setUnlocalizedName("tconstruct.Pattern");
 
-        String[] craftingMaterials = new String[] { "PaperStack", "SlimeCrystal", "SearedBrick", "CobaltIngot", "ArditeIngot", "ManyullynIngot", "Mossball", "LavaCrystal", "NecroticBone",
-                "CopperIngot", "TinIngot", "AluminumIngot", "RawAluminum", "BronzeIngot", "AlBrassIngot", "AlumiteIngot", "SteelIngot", "BlueSlimeCrystal", "ObsidianIngot", "IronNugget",
-                "CopperNugget", "TinNugget", "AluminumNugget", "SilverNugget" };
-        String[] craftingTextures = new String[] { "material_paperstack", "material_slimecrystal", "material_searedbrick", "material_cobaltingot", "material_arditeingot", "material_manyullyningot",
-                "material_mossball", "material_lavacrystal", "material_necroticbone", "material_copperingot", "material_tiningot", "material_aluminumingot", "material_aluminumraw",
-                "material_bronzeingot", "material_alubrassingot", "material_alumiteingot", "material_steelingot", "material_blueslimecrystal", "material_obsidianingot", "material_nugget_iron",
-                "material_nugget_copper", "material_nugget_tin", "material_nugget_aluminum", "material_nugget_silver" };
-
-        materials = new CraftingItem(PHConstruct.materials, craftingMaterials, craftingTextures, "materials/").setUnlocalizedName("tconstruct.Materials");
+        materials = new MaterialItem(PHConstruct.materials).setUnlocalizedName("tconstruct.Materials");
         toolRod = new ToolPart(PHConstruct.toolRod, "ToolRod", "_rod").setUnlocalizedName("tconstruct.ToolRod");
         TConstructRegistry.toolRod = toolRod;
         toolShard = new ToolShard(PHConstruct.toolShard, "ToolShard", "_chunk").setUnlocalizedName("tconstruct.ToolShard");
@@ -578,7 +572,7 @@ public class TContent implements IFuelHandler
         ItemStack blazePowder = new ItemStack(Item.blazePowder);
         tb.registerToolMod(new ModBlaze(new ItemStack[] { blazePowder }, 7, 1));
         tb.registerToolMod(new ModBlaze(new ItemStack[] { blazePowder, blazePowder }, 7, 2));
-        tb.registerToolMod(new ModBoolean(new ItemStack[] { new ItemStack(materials, 1, 7) }, 6, "Lava", "\u00a74", "Auto-Smelt"));
+        tb.registerToolMod(new ModAutoSmelt(new ItemStack[] { new ItemStack(materials, 1, 7) }, 6, "Lava", "\u00a74", "Auto-Smelt"));
         tb.registerToolMod(new ModInteger(new ItemStack[] { new ItemStack(materials, 1, 8) }, 8, "Necrotic", 1, "\u00a78", "Life Steal"));
 
         ItemStack quartzItem = new ItemStack(Item.netherQuartz);
@@ -591,6 +585,9 @@ public class TContent implements IFuelHandler
 
         tb.registerToolMod(new ModExtraModifier(new ItemStack[] { diamond, new ItemStack(Block.blockGold) }, "Tier1Free"));
         tb.registerToolMod(new ModExtraModifier(new ItemStack[] { new ItemStack(Item.netherStar) }, "Tier2Free"));
+        
+        ItemStack silkyJewel = new ItemStack(materials, 1, 26);
+        tb.registerToolMod(new ModButtertouch(new ItemStack[] {silkyJewel}, 12));
 
         /* Smeltery */
         ItemStack ingotcast = new ItemStack(metalPattern, 1, 0);
@@ -745,6 +742,10 @@ public class TContent implements IFuelHandler
         FurnaceRecipes.smelting().addSmelting(craftedSoil.blockID, 1, new ItemStack(materials, 1, 2), 2f); //Seared brick item
         FurnaceRecipes.smelting().addSmelting(craftedSoil.blockID, 2, new ItemStack(materials, 1, 17), 2f); //Blue Slime
         //GameRegistry.addRecipe(new ItemStack(oreSlag, 1, 0), "pp", "pp", 'p', new ItemStack(materials, 1, 2)); //Seared brick block
+        
+        GameRegistry.addRecipe(new ItemStack(materials, 1, 25), "sss", "sns", "sss", 'n', new ItemStack(materials, 1, 24), 's', new ItemStack(Item.silk)); //Silky Cloth
+        GameRegistry.addRecipe(new ItemStack(materials, 1, 25), "sss", "sns", "sss", 'n', new ItemStack(Item.goldNugget), 's', new ItemStack(Item.silk));
+        GameRegistry.addRecipe(new ItemStack(materials, 1, 26), " c ", "cec", " c ", 'c', new ItemStack(materials, 1, 25), 'e', new ItemStack(Item.emerald)); //Silky Jewel
 
         //FurnaceRecipes.smelting().addSmelting(oreSlag.blockID, 1, new ItemStack(materials, 1, 3), 3f);
         //FurnaceRecipes.smelting().addSmelting(oreSlag.blockID, 2, new ItemStack(materials, 1, 4), 3f);
@@ -783,6 +784,12 @@ public class TContent implements IFuelHandler
         GameRegistry.addRecipe(new ItemStack(materials, 1, 9), "mmm", "mmm", "mmm", 'm', new ItemStack(materials, 1, 20)); //Copper
         GameRegistry.addRecipe(new ItemStack(materials, 1, 10), "mmm", "mmm", "mmm", 'm', new ItemStack(materials, 1, 21)); //Tin
         GameRegistry.addRecipe(new ItemStack(materials, 1, 12), "mmm", "mmm", "mmm", 'm', new ItemStack(materials, 1, 22)); //Aluminum
+        GameRegistry.addRecipe(new ItemStack(materials, 1, 14), "mmm", "mmm", "mmm", 'm', new ItemStack(materials, 1, 24)); //Aluminum Brass
+        
+        GameRegistry.addRecipe(new ItemStack(materials, 9, 24), "m", 'm', new ItemStack(materials, 1, 14)); //Aluminum Brass Nugget
+
+        /*OreDictionary.registerOre("ingotAluminumBrass", new ItemStack(materials, 1, 14));
+        OreDictionary.registerOre("nuggetAluminumBrass", new ItemStack(materials, 1, 24));*/
 
         //Smeltery
         ItemStack searedBrick = new ItemStack(materials, 1, 2);
@@ -870,6 +877,7 @@ public class TContent implements IFuelHandler
         OreDictionary.registerOre("nuggetTin", new ItemStack(materials, 1, 21));
         OreDictionary.registerOre("nuggetNaturalAluminum", new ItemStack(materials, 1, 22));
         OreDictionary.registerOre("nuggetSilver", new ItemStack(materials, 1, 23));
+        OreDictionary.registerOre("nuggetAluminumBrass", new ItemStack(materials, 1, 24));
 
         String[] names = new String[] { "Iron", "Gold", "Copper", "Tin", "Aluminum", "Cobalt", "Ardite", "Bronze", "Brass", "Manyullyn", "Alumite", "Obsidian", "Steel" };
         liquidIcons = new LiquidStack[names.length];

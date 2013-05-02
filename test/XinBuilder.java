@@ -131,11 +131,7 @@ public class XinBuilder extends Item
         float f6 = MathHelper.sin(-f1 * 0.017453292F);
         float f7 = f4 * f5;
         float f8 = f3 * f5;
-        double d3 = 500.0D;
-        if (par2EntityPlayer instanceof EntityPlayerMP)
-        {
-            d3 = ((EntityPlayerMP) par2EntityPlayer).theItemInWorldManager.getBlockReachDistance();
-        }
+        double d3 = 500.0D; //Max range
         Vec3 vec31 = vec3.addVector((double) f7 * d3, (double) f6 * d3, (double) f8 * d3);
         return par1World.rayTraceBlocks_do_do(vec3, vec31, par3, !par3);
     }

@@ -35,6 +35,10 @@ public class ModLapis extends ToolMod
             return false;
         
         NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
+        
+        if (tags.getBoolean("Silk Touch"))
+            return false;
+        
         if (!tags.hasKey(key))
             return tags.getInteger("Modifiers") > 0;
 
