@@ -1,0 +1,112 @@
+package mods.tinker.tconstruct.blocks;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.entity.Entity;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.Icon;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
+
+public class MultiBrick extends TConstructBlock
+{
+    static String blockTextures[] = { "brick_obsidian", "brick_sandstone", "brick_netherrack", "brick_stone_refined", "brick_iron", "brick_gold", "brick_lapis", "brick_diamond", "brick_redstone",
+            "brick_bone", "brick_slime", "brick_blueslime" };
+
+    public MultiBrick(int id)
+    {
+        super(id, Material.rock, 3f, blockTextures);
+    }
+
+    @Override
+    public float getBlockHardness(World world, int x, int y, int z) 
+    {
+        int meta = world.getBlockMetadata(x, y, z);
+        switch(meta) 
+        {
+        case 0: return Block.obsidian.getBlockHardness(world, x, y, z);
+        case 1: return Block.sandStone.getBlockHardness(world, x, y, z);
+        case 2: return Block.netherrack.getBlockHardness(world, x, y, z);
+        case 3: return Block.stone.getBlockHardness(world, x, y, z);
+        case 4: return Block.blockIron.getBlockHardness(world, x, y, z);
+        case 5: return Block.blockGold.getBlockHardness(world, x, y, z);
+        case 6: return Block.blockLapis.getBlockHardness(world, x, y, z);
+        case 7: return Block.blockDiamond.getBlockHardness(world, x, y, z);
+        case 8: return Block.blockRedstone.getBlockHardness(world, x, y, z);
+        case 9: return 1.0F;
+        case 10: return 1.5F;
+        case 11: return 1.5F;
+        default: return blockHardness;
+        }
+    }
+
+    public float getExplosionResistance(Entity entity, World world, int x, int y, int z, double explosionX, double explosionY, double explosionZ)
+    {
+        int meta = world.getBlockMetadata(x, y, z);
+        switch(meta) 
+        {
+        case 0: return Block.obsidian.getExplosionResistance(entity);
+        case 1: return Block.sandStone.getExplosionResistance(entity);
+        case 2: return Block.netherrack.getExplosionResistance(entity);
+        case 3: return Block.stone.getExplosionResistance(entity);
+        case 4: return Block.blockIron.getExplosionResistance(entity);
+        case 5: return Block.blockGold.getExplosionResistance(entity);
+        case 6: return Block.blockLapis.getExplosionResistance(entity);
+        case 7: return Block.blockDiamond.getExplosionResistance(entity);
+        case 8: return Block.blockRedstone.getExplosionResistance(entity);
+        case 9: return 1.0F;
+        case 10: return 1.5F;
+        case 11: return 1.5F;
+        default: return getExplosionResistance(entity);
+        }
+    }
+
+    @Override
+    public void onEntityCollidedWithBlock (World world, int x, int y, int z, Entity entity)
+    {
+        int meta = world.getBlockMetadata(x, y, z);
+        if (meta == 10 || meta == 11)
+        {
+            if (entity.motionY < 0)
+                entity.motionY *= -1.2F;
+            entity.fallDistance = 0;
+        }
+    }
+
+    @Override
+    public AxisAlignedBB getCollisionBoundingBoxFromPool (World world, int x, int y, int z)
+    {
+        int meta = world.getBlockMetadata(x, y, z);
+        if (meta == 10 || meta == 11)
+            return AxisAlignedBB.getBoundingBox(x, y, z, (double) x + 1.0D, (double) y + 0.625D, (double) z + 1.0D);
+        return super.getCollisionBoundingBoxFromPool(world, x, y, z);
+    }
+    
+    public boolean canProvidePower()
+    {
+        return true;
+    }
+    
+    @Override
+    public int isProvidingWeakPower(IBlockAccess world, int x, int y, int z, int side)
+    {
+        if (world.getBlockMetadata(x, y, z) == 8)
+            return 4;
+        return 0;
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void registerIcons (IconRegister iconRegister)
+    {
+        this.icons = new Icon[textureNames.length];
+
+        for (int i = 0; i < this.icons.length; ++i)
+        {
+            this.icons[i] = iconRegister.registerIcon("tinker:bricks/" + textureNames[i]);
+        }
+    }
+}

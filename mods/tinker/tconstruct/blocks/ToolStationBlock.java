@@ -10,6 +10,7 @@ import mods.tinker.tconstruct.blocks.logic.ToolStationLogic;
 import mods.tinker.tconstruct.client.block.TableRender;
 import mods.tinker.tconstruct.library.TConstructRegistry;
 import mods.tinker.tconstruct.library.blocks.InventoryBlock;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -27,8 +28,11 @@ public class ToolStationBlock extends InventoryBlock
 		super(id, material);
 		this.setCreativeTab(TConstructRegistry.blockTab);
 		this.setHardness(2f);
+        this.setStepSound(Block.soundWoodFootstep);
 	}
 
+	//Block.hasComparatorInputOverride and Block.getComparatorInputOverride
+	
 	/* Rendering */
 	@Override
 	public String[] getTextureNames()

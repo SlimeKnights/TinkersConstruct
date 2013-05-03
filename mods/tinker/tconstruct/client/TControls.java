@@ -19,7 +19,7 @@ public class TControls extends TKeyHandler
 {
 	//static KeyBinding grabKey = new KeyBinding("key.grab", 29);
 	//static KeyBinding stiltsKey = new KeyBinding("key.stilts", 46);
-    //static KeyBinding armorKey = new KeyBinding("key.armor", 23);
+    static KeyBinding armorKey = new KeyBinding("key.armor", 23);
 	static KeyBinding jumpKey;
 	static KeyBinding invKey;
 	static Minecraft mc;
@@ -33,7 +33,7 @@ public class TControls extends TKeyHandler
 
 	public TControls()
 	{
-		super(new KeyBinding[] { }, new boolean[] { }, getVanillaKeyBindings(), new boolean[] { false, false });
+		super(new KeyBinding[] { armorKey }, new boolean[] { false }, getVanillaKeyBindings(), new boolean[] { false, false });
 		//System.out.println("Controls registered");
 	}
 
@@ -56,10 +56,10 @@ public class TControls extends TKeyHandler
 	{
 		if (tickEnd && mc.theWorld != null)
 		{
-		    /*if (kb == armorKey && mc.currentScreen == null) //Extended Armor
+		    if (kb == armorKey && mc.currentScreen == null) //Extended Armor
 		    {
 		        openArmorGui(mc.thePlayer.username);
-		    }*/
+		    }
 		    if (kb == invKey && mc.currentScreen != null && mc.currentScreen.getClass() == GuiInventory.class)// && !mc.playerController.isInCreativeMode())
 		    {
 		        TProxyClient.addTabsToInventory();

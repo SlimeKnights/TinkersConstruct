@@ -261,15 +261,11 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
         if (random1.nextInt(20) == 0)// && world.getBlockLightValue(x, y, z) <= 8)
         {
             int meta = world.getBlockMetadata(x, y, z);
-            if (world.getFullBlockLightValue(x, y, z) < 13)
+            if (world.getFullBlockLightValue(x, y, z) < 10)
             {
                 if (meta < 12)
                 {
                     world.setBlock(x, y, z, blockID, meta + 4, 3);
-                }
-                if (meta > 7)
-                {
-                    
                 }
             }
             else if (meta < 8)

@@ -52,6 +52,19 @@
   <entry key="block.brownstone.smooth.fancy.name">Fancy Brownstone</entry>
   <entry key="block.brownstone.smooth.chiseled.name">Chiseled Brownstone</entry>
   
+  <entry key="block.brick.obsidian.name">Obsidian Brick</entry>
+  <entry key="block.brick.sandstone.name">Sandstone Brick</entry>
+  <entry key="block.brick.netherrack.name">Netherrack Brick</entry>
+  <entry key="block.brick.iron.name">Iron Brick</entry>
+  <entry key="block.brick.gold.name">Gold Brick</entry>
+  <entry key="block.brick.diamond.name">Diamond Brick</entry>
+  <entry key="block.brick.lapis.name">Lapis Brick</entry>
+  <entry key="block.brick.stone.refined.name">Refined Stone Brick</entry>
+  <entry key="block.brick.redstone.name">Redstone Brick</entry>
+  <entry key="block.brick.bone.name">Bone Brick</entry>
+  <entry key="block.brick.slime.name">Slime Brick</entry>
+  <entry key="block.brick.blueslime.name">Slime Brick</entry>
+  
   <entry key="item.oreberry.iron.name">Iron Oreberry</entry>
   <entry key="item.oreberry.gold.name">Gold Oreberry</entry>
   <entry key="item.oreberry.copper.name">Copper Oreberry</entry>

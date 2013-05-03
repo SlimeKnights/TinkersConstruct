@@ -1,95 +1,21 @@
 package mods.tinker.tconstruct.common;
 
-import mods.tinker.tconstruct.TConstruct;
-import mods.tinker.tconstruct.blocks.EquipBlock;
-import mods.tinker.tconstruct.blocks.GravelOre;
-import mods.tinker.tconstruct.blocks.LavaTankBlock;
-import mods.tinker.tconstruct.blocks.LiquidMetalFlowing;
-import mods.tinker.tconstruct.blocks.LiquidMetalStill;
-import mods.tinker.tconstruct.blocks.MetalOre;
-import mods.tinker.tconstruct.blocks.OreberryBush;
-import mods.tinker.tconstruct.blocks.SearedBlock;
-import mods.tinker.tconstruct.blocks.SmelteryBlock;
-import mods.tinker.tconstruct.blocks.SpeedBlock;
-import mods.tinker.tconstruct.blocks.StoneTorch;
-import mods.tinker.tconstruct.blocks.TConstructBlock;
-import mods.tinker.tconstruct.blocks.TMetalBlock;
-import mods.tinker.tconstruct.blocks.ToolStationBlock;
-import mods.tinker.tconstruct.blocks.logic.CastingBasinLogic;
-import mods.tinker.tconstruct.blocks.logic.CastingTableLogic;
-import mods.tinker.tconstruct.blocks.logic.FaucetLogic;
-import mods.tinker.tconstruct.blocks.logic.FrypanLogic;
-import mods.tinker.tconstruct.blocks.logic.LavaTankLogic;
-import mods.tinker.tconstruct.blocks.logic.LiquidTextureLogic;
-import mods.tinker.tconstruct.blocks.logic.MultiServantLogic;
-import mods.tinker.tconstruct.blocks.logic.PartCrafterLogic;
-import mods.tinker.tconstruct.blocks.logic.PatternChestLogic;
-import mods.tinker.tconstruct.blocks.logic.PatternShaperLogic;
-import mods.tinker.tconstruct.blocks.logic.SmelteryDrainLogic;
-import mods.tinker.tconstruct.blocks.logic.SmelteryLogic;
-import mods.tinker.tconstruct.blocks.logic.ToolStationLogic;
-import mods.tinker.tconstruct.entity.BlueSlime;
-import mods.tinker.tconstruct.entity.FancyEntityItem;
-import mods.tinker.tconstruct.entity.NitroCreeper;
-import mods.tinker.tconstruct.entity.projectile.DaggerEntity;
-import mods.tinker.tconstruct.items.CraftingItem;
-import mods.tinker.tconstruct.items.FilledBucket;
-import mods.tinker.tconstruct.items.HeartContainer;
-import mods.tinker.tconstruct.items.Manual;
-import mods.tinker.tconstruct.items.MaterialItem;
-import mods.tinker.tconstruct.items.MetalPattern;
-import mods.tinker.tconstruct.items.OreBerries;
-import mods.tinker.tconstruct.items.Pattern;
-import mods.tinker.tconstruct.items.StrangeFood;
-import mods.tinker.tconstruct.items.TitleIcon;
-import mods.tinker.tconstruct.items.ToolPart;
-import mods.tinker.tconstruct.items.ToolShard;
-import mods.tinker.tconstruct.items.blocks.CraftedSoilItemBlock;
-import mods.tinker.tconstruct.items.blocks.GravelOreItem;
-import mods.tinker.tconstruct.items.blocks.LavaTankItemBlock;
-import mods.tinker.tconstruct.items.blocks.LiquidItemBlock;
-import mods.tinker.tconstruct.items.blocks.MetalItemBlock;
-import mods.tinker.tconstruct.items.blocks.MetalOreItemBlock;
-import mods.tinker.tconstruct.items.blocks.OreberryBushItem;
-import mods.tinker.tconstruct.items.blocks.OreberryBushSecondItem;
-import mods.tinker.tconstruct.items.blocks.SearedTableItemBlock;
-import mods.tinker.tconstruct.items.blocks.SmelteryItemBlock;
-import mods.tinker.tconstruct.items.blocks.SpeedBlockItem;
-import mods.tinker.tconstruct.items.blocks.ToolStationItemBlock;
-import mods.tinker.tconstruct.items.tools.Axe;
-import mods.tinker.tconstruct.items.tools.BattleSign;
-import mods.tinker.tconstruct.items.tools.Broadsword;
-import mods.tinker.tconstruct.items.tools.Chisel;
-import mods.tinker.tconstruct.items.tools.Dagger;
-import mods.tinker.tconstruct.items.tools.FryingPan;
-import mods.tinker.tconstruct.items.tools.Longsword;
-import mods.tinker.tconstruct.items.tools.Mattock;
-import mods.tinker.tconstruct.items.tools.Pickaxe;
-import mods.tinker.tconstruct.items.tools.PotionLauncher;
-import mods.tinker.tconstruct.items.tools.Rapier;
-import mods.tinker.tconstruct.items.tools.Shovel;
-import mods.tinker.tconstruct.library.TConstructRegistry;
+import mods.tinker.tconstruct.*;
+import mods.tinker.tconstruct.blocks.*;
+import mods.tinker.tconstruct.blocks.logic.*;
+import mods.tinker.tconstruct.entity.*;
+import mods.tinker.tconstruct.entity.projectile.*;
+import mods.tinker.tconstruct.items.*;
+import mods.tinker.tconstruct.items.blocks.*;
+import mods.tinker.tconstruct.items.tools.*;
+import mods.tinker.tconstruct.library.*;
 import mods.tinker.tconstruct.library.client.TConstructClientRegistry;
-import mods.tinker.tconstruct.library.crafting.Detailing;
-import mods.tinker.tconstruct.library.crafting.LiquidCasting;
-import mods.tinker.tconstruct.library.crafting.PatternBuilder;
-import mods.tinker.tconstruct.library.crafting.Smeltery;
-import mods.tinker.tconstruct.library.crafting.ToolBuilder;
-import mods.tinker.tconstruct.library.tools.ToolCore;
-import mods.tinker.tconstruct.library.util.IPattern;
-import mods.tinker.tconstruct.modifiers.ModAttack;
-import mods.tinker.tconstruct.modifiers.ModAutoSmelt;
-import mods.tinker.tconstruct.modifiers.ModBlaze;
-import mods.tinker.tconstruct.modifiers.ModButtertouch;
-import mods.tinker.tconstruct.modifiers.ModDurability;
-import mods.tinker.tconstruct.modifiers.ModElectric;
-import mods.tinker.tconstruct.modifiers.ModExtraModifier;
-import mods.tinker.tconstruct.modifiers.ModInteger;
-import mods.tinker.tconstruct.modifiers.ModLapis;
-import mods.tinker.tconstruct.modifiers.ModRedstone;
-import mods.tinker.tconstruct.modifiers.ModRepair;
-import mods.tinker.tconstruct.util.PHConstruct;
-import mods.tinker.tconstruct.util.RecipeRemover;
+import mods.tinker.tconstruct.library.crafting.*;
+import mods.tinker.tconstruct.library.tools.*;
+import mods.tinker.tconstruct.library.util.*;
+import mods.tinker.tconstruct.modifiers.*;
+import mods.tinker.tconstruct.util.*;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
@@ -180,6 +106,7 @@ public class TContent implements IFuelHandler
 
     //Decoration
     public static Block stoneTorch;
+    public static Block multiBrick;
 
     //Traps
     public static Block landmine;
@@ -266,19 +193,19 @@ public class TContent implements IFuelHandler
     void registerBlocks ()
     {
         //Tool Station
-        toolStationWood = new ToolStationBlock(PHConstruct.woodCrafter, Material.wood);
+        toolStationWood = new ToolStationBlock(PHConstruct.woodCrafter, Material.wood).setUnlocalizedName("ToolStation");
         GameRegistry.registerBlock(toolStationWood, ToolStationItemBlock.class, "ToolStationBlock");
         GameRegistry.registerTileEntity(ToolStationLogic.class, "ToolStation");
         GameRegistry.registerTileEntity(PartCrafterLogic.class, "PartCrafter");
         GameRegistry.registerTileEntity(PatternChestLogic.class, "PatternHolder");
         GameRegistry.registerTileEntity(PatternShaperLogic.class, "PatternShaper");
 
-        heldItemBlock = new EquipBlock(PHConstruct.heldItemBlock, Material.wood);
+        heldItemBlock = new EquipBlock(PHConstruct.heldItemBlock, Material.wood).setUnlocalizedName("Frypan");
         GameRegistry.registerBlock(heldItemBlock, "HeldItemBlock");
         GameRegistry.registerTileEntity(FrypanLogic.class, "FrypanLogic");
 
         String[] soilTypes = new String[] { "slimesand", "grout", "slimesandblue" };
-        craftedSoil = new TConstructBlock(PHConstruct.craftedSoil, Material.sand, 3.0F, soilTypes);
+        craftedSoil = new TConstructBlock(PHConstruct.craftedSoil, Material.sand, 3.0F, soilTypes).setUnlocalizedName("TConstruct.Soil");
         craftedSoil.stepSound = Block.soundGravelFootstep;
         GameRegistry.registerBlock(craftedSoil, CraftedSoilItemBlock.class, "CraftedSoil");
 
@@ -321,6 +248,9 @@ public class TContent implements IFuelHandler
         //Decoration
         stoneTorch = new StoneTorch(PHConstruct.stoneTorch).setUnlocalizedName("decoration.stonetorch");
         GameRegistry.registerBlock(stoneTorch, "decoration.stonetorch");
+        
+        multiBrick = new MultiBrick(PHConstruct.multiBrick).setUnlocalizedName("Decoration.Brick");
+        GameRegistry.registerBlock(multiBrick, MultiBrickItem.class, "decoration.multibrick");
 
         //Ores
         String[] berryOres = new String[] { "berry_iron", "berry_gold", "berry_copper", "berry_tin", "berry_iron_ripe", "berry_gold_ripe", "berry_copper_ripe", "berry_tin_ripe" };
@@ -422,7 +352,7 @@ public class TContent implements IFuelHandler
         //lumberHead = new ToolPart(PHConstruct.lumberHead, 0, broadheads).setUnlocalizedName("tconstruct.LumberHead");
         
         //Wearables
-        heartContainer = new HeartContainer(PHConstruct.heartContainer).setUnlocalizedName("tconstruct.canister");
+        //heartContainer = new HeartContainer(PHConstruct.heartContainer).setUnlocalizedName("tconstruct.canister");
         
         //Vanilla stack sizes
         Item.doorWood.setMaxStackSize(16);
@@ -702,6 +632,24 @@ public class TContent implements IFuelHandler
         chiseling.addDetailing(speedBlock, 3, speedBlock, 4, chisel);
         chiseling.addDetailing(speedBlock, 4, speedBlock, 5, chisel);
         chiseling.addDetailing(speedBlock, 5, speedBlock, 6, chisel);
+        
+        chiseling.addDetailing(Block.obsidian, 0, multiBrick, 0, chisel);
+        chiseling.addDetailing(Block.sandStone, 0, Block.sandStone, 2, chisel);
+        chiseling.addDetailing(Block.sandStone, 2, Block.sandStone, 1, chisel);
+        chiseling.addDetailing(Block.sandStone, 1, multiBrick, 1, chisel);
+        //chiseling.addDetailing(Block.netherrack, 0, multiBrick, 2, chisel);
+        //chiseling.addDetailing(Block.stone_refined, 0, multiBrick, 3, chisel);
+        chiseling.addDetailing(Item.ingotIron, 0, multiBrick, 4, chisel);
+        chiseling.addDetailing(Item.ingotGold, 0, multiBrick, 5, chisel);
+        chiseling.addDetailing(Item.dyePowder, 4, multiBrick, 6, chisel);
+        chiseling.addDetailing(Item.diamond, 0, multiBrick, 7, chisel);
+        chiseling.addDetailing(Item.redstone, 0, multiBrick, 8, chisel);
+        chiseling.addDetailing(Block.obsidian, 0, multiBrick, 9, chisel);
+        chiseling.addDetailing(Item.slimeBall, 0, multiBrick, 10, chisel);
+        chiseling.addDetailing(strangeFood, 0, multiBrick, 11, chisel);
+        
+        /*static String blockTextures[] = { "brick_obsidian", "brick_sandstone", "brick_netherrack", "brick_stone_refined", "brick_iron", "brick_gold", "brick_lapis", "brick_diamond", 
+            "brick_redstone", "brick_slime", "brick_bone" };*/
         
         /* Crafting */
         GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 0), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', Block.workbench);

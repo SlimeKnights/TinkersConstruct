@@ -55,7 +55,7 @@ public class GuiManual extends GuiScreen
         this.itemstackBook = stack;
         currentPage = 0; //Stack page
         manual = doc;
-        renderitem.renderInFrame = true;
+        //renderitem.renderInFrame = true;
     }
 
     @Override

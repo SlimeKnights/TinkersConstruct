@@ -2,6 +2,9 @@ package mods.tinker.tconstruct.blocks;
 
 import java.util.List;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 import mods.tinker.tconstruct.library.TConstructRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -28,6 +31,8 @@ public class TConstructBlock extends Block
 		return meta;
 	}
 	
+	@Override
+	@SideOnly(Side.CLIENT)
 	public void registerIcons(IconRegister iconRegister)
     {
 		this.icons = new Icon[textureNames.length];
@@ -39,6 +44,7 @@ public class TConstructBlock extends Block
     }
 	
 	@Override
+    @SideOnly(Side.CLIENT)
 	public Icon getIcon (int side, int meta)
 	{
 		return icons[meta];

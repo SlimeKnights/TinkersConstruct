@@ -71,19 +71,23 @@ public class PHConstruct
         metalBlock = config.getBlock("Metal Storage", 1478).getInt(1478);
         metalFlowing = config.getBlock("Liquid Metal Flowing", 1479).getInt(1479);
         metalStill = config.getBlock("Liquid Metal Still", 1480).getInt(1480);
+        
+        multiBrick = config.getBlock("Multi Brick", 1481).getInt(1481);
+
+        stoneTorch = config.getBlock("Stone Torch", 1484).getInt(1484);
+        oreBerry = config.getBlock("Ore Berry One", 1485).getInt(1485);
+        oreBerrySecond = config.getBlock("Ore Berry Two", 1486).getInt(1486);
+        
+        oreGravel = config.getBlock("Ores Gravel", 1488).getInt(1488);
+        speedBlock = config.getBlock("Speed Block", 1489).getInt(1489);        
+
         //landmine = config.getBlock("Landmine", 1481).getInt(1481);
 
         /*golemCore = config.getBlock("Golem Core", 1481).getInt(1481);
         golemHead = config.getBlock("Golem Head", 1482).getInt(1482);*/
         //golemPedestal = config.getBlock("Golem Pedestal", 1483).getInt(1483);
         //redstoneBallRepeater = config.getBlock("Redstone Ball Repeater", 1483).getInt(1483);
-
-        stoneTorch = config.getBlock("Stone Torch", 1484).getInt(1484);
-        oreBerry = config.getBlock("Ore Berry One", 1485).getInt(1485);
-        oreBerrySecond = config.getBlock("Ore Berry Two", 1486).getInt(1486);
         //netherOreBerry = config.getBlock("Ore Berry Nether", 1487).getInt(1487);
-        oreGravel = config.getBlock("Ores Gravel", 1488).getInt(1488);
-        speedBlock = config.getBlock("Speed Block", 1489).getInt(1489);
 
         manual = config.getItem("Patterns and Misc", "Tinker's Manual", 14018).getInt(14018);
         blankPattern = config.getItem("Patterns and Misc", "Blank Patterns", 14019).getInt(14019);
@@ -256,6 +260,7 @@ public class PHConstruct
 
     //Decoration
     public static int stoneTorch;
+    public static int multiBrick;
     public static int redstoneBallRepeater;
 
     //Patterns and misc

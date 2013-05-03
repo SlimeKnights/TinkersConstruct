@@ -42,7 +42,6 @@ import mods.tinker.tconstruct.client.entity.projectile.LaunchedItemRender;
 import mods.tinker.tconstruct.client.gui.ArmorExtendedGui;
 import mods.tinker.tconstruct.client.gui.FrypanGui;
 import mods.tinker.tconstruct.client.gui.GuiManual;
-import mods.tinker.tconstruct.client.gui.InventoryTab;
 import mods.tinker.tconstruct.client.gui.PartCrafterGui;
 import mods.tinker.tconstruct.client.gui.PatternChestGui;
 import mods.tinker.tconstruct.client.gui.PatternShaperGui;
@@ -96,7 +95,6 @@ import net.minecraft.client.particle.EntitySnowShovelFX;
 import net.minecraft.client.particle.EntitySpellParticleFX;
 import net.minecraft.client.particle.EntitySplashFX;
 import net.minecraft.client.particle.EntitySuspendFX;
-import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.entity.RenderCreeper;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.settings.GameSettings;
@@ -106,6 +104,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
 import net.minecraft.world.World;
+import net.minecraftforge.client.MinecraftForgeClient;
 
 import org.w3c.dom.Document;
 
@@ -161,7 +160,7 @@ public class TProxyClient extends TProxyCommon
     
     public static void addTabsToInventory()
     {
-        if (mc == null)
+        /*if (mc == null)
             mc = Minecraft.getMinecraft();
         GuiInventory gui = (GuiInventory) mc.currentScreen;
         int cornerX = (gui.width - gui.xSize) / 2;
@@ -172,7 +171,7 @@ public class TProxyClient extends TProxyCommon
         repairButton.enabled = false;
         gui.buttonList.add(repairButton);
         repairButton = new InventoryTab(3, cornerX+28, cornerY - 28, new ItemStack(Item.plateDiamond), 1);
-        gui.buttonList.add(repairButton);
+        gui.buttonList.add(repairButton);*/
     }
 
     public void registerTickHandler ()
@@ -202,6 +201,8 @@ public class TProxyClient extends TProxyCommon
         {
         	MinecraftForgeClient.registerItemRenderer(tool.itemID, render);
         }*/
+        
+        //MinecraftForgeClient.registerItemRenderer(TContent.chisel.itemID, new ChiselRotator());
 
         //Special Renderers
         ClientRegistry.bindTileEntitySpecialRenderer(CastingTableLogic.class, new CastingTableSpecialRenderer());

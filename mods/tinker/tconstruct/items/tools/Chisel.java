@@ -9,6 +9,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumMovingObjectType;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
@@ -27,6 +28,7 @@ public class Chisel extends ToolCore
     @Override
     public ItemStack getContainerItemStack (ItemStack itemStack)
     {
+        AbilityHelper.damageTool(itemStack, 1, null, false);
         return itemStack;
     }
 
@@ -43,17 +45,19 @@ public class Chisel extends ToolCore
     }
 
     @Override
-    public ItemStack onItemRightClick (ItemStack itemstack, World world, EntityPlayer entityplayer)
+    public ItemStack onItemRightClick (ItemStack stack, World world, EntityPlayer entityplayer)
     {
         if (entityplayer.capabilities.isCreativeMode)
         {
-            onEaten(itemstack, world, entityplayer);
+            onEaten(stack, world, entityplayer);
         }
         else
         {
-            entityplayer.setItemInUse(itemstack, getMaxItemUseDuration(itemstack));
+            NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
+            if (!tags.getBoolean("Broken"))
+                entityplayer.setItemInUse(stack, getMaxItemUseDuration(stack));
         }
-        return itemstack;
+        return stack;
     }
 
     @Override

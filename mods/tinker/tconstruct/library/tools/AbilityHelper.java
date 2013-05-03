@@ -253,6 +253,9 @@ public class AbilityHelper
 
     public static void damageTool (ItemStack stack, int dam, NBTTagCompound tags, EntityLiving entity, boolean ignoreCharge, boolean updateDamageBar)
     {
+        if (entity instanceof EntityPlayer && ((EntityPlayer) entity).capabilities.isCreativeMode)
+            return;
+
         if (ignoreCharge || !damageElectricTool(stack, tags, entity))
         {
             int damage = tags.getCompoundTag("InfiTool").getInteger("Damage");
@@ -405,10 +408,11 @@ public class AbilityHelper
 
     }
 
-    public static void breakTool (ItemStack stack, NBTTagCompound tags, Entity player)
+    public static void breakTool (ItemStack stack, NBTTagCompound tags, Entity entity)
     {
         tags.getCompoundTag("InfiTool").setBoolean("Broken", true);
-        player.worldObj.playSound(player.posX, player.posY, player.posZ, "random.break", 1f, 1f, true);
+        if (entity != null)
+            entity.worldObj.playSound(entity.posX, entity.posY, entity.posZ, "random.break", 1f, 1f, true);
     }
 
     public static void repairTool (ItemStack stack, NBTTagCompound tags)

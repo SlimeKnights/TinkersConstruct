@@ -173,7 +173,7 @@ public class TPlayerHandler implements IPlayerTracker
 	public TPlayerStats getPlayerStats (String username)
 	{
 		TPlayerStats stats = playerStats.get(username);
-        System.out.println("Stats: "+stats);
+        //System.out.println("Stats: "+stats);
 		if (stats == null)
 		{
 			stats = new TPlayerStats();
@@ -205,7 +205,7 @@ public class TPlayerHandler implements IPlayerTracker
 
 	public static void setEntitySize (float width, float height, Entity entity)
 	{
-		System.out.println("Size: " + height);
+		//System.out.println("Size: " + height);
 		if (width != entity.width || height != entity.height)
 		{
 			entity.width = width;

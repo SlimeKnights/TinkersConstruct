@@ -98,6 +98,7 @@ public class Pattern extends CraftingItem
 		case 10: return 2;
 		case 11: return 2;
 		case 12: return 1;
+		case 13: return 1;
 		default: return 0;
 		}
 	}

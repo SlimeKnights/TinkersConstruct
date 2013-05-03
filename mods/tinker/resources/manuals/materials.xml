@@ -542,7 +542,7 @@ Stackable: No</text>
 Effects:
 - Adds fortune or looting, depends on tool type
 - Increases level at a maximum threshold, but has a chance of increasing before
-- Sometimes adds extra pieces for free
+- Sometimes adds extra luck to the tool
 - Not compatible with Silky
 
 Type: Single-use
