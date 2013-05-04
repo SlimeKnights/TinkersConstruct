@@ -114,6 +114,8 @@ public class TProxyClient extends TProxyCommon
     
     public static void openInventoryGui()
     {
+        if (mc == null)
+            mc = Minecraft.getMinecraft();
         mc.displayGuiScreen(new GuiInventory(mc.thePlayer));
         addTabsToInventory();
     }
