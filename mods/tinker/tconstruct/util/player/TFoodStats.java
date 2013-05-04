@@ -96,17 +96,20 @@ public class TFoodStats extends FoodStats
     
     public void readStats(FoodStats stats)
     {
-        this.foodLevel = stats.foodLevel;
+        this.foodLevel = stats.getFoodLevel();
 
         /** The player's food saturation. */
-        this.foodSaturationLevel = stats.foodSaturationLevel;
+        this.foodSaturationLevel = stats.getSaturationLevel();
 
         /** The player's food exhaustion. */
-        this.foodExhaustionLevel = stats.foodExhaustionLevel;
+        // TODO Broken in 1.5.2
+        //this.foodExhaustionLevel = stats.foodExhaustionLevel;
 
         /** The player's food timer value. */
-        this.foodTimer = stats.foodTimer;
-        this.prevFoodLevel = stats.prevFoodLevel;
+        // TODO Broken in 1.5.2
+        //this.foodTimer = stats.foodTimer;
+        // TODO Broken in 1.5.2
+        //this.prevFoodLevel = stats.prevFoodLevel;
     }
 
     /**

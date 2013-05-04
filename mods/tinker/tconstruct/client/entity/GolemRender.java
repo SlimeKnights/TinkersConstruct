@@ -96,10 +96,10 @@ public class GolemRender extends RenderLiving
     public void doRenderLiving (EntityLiving entityliving, double d, double d1, double d2, float f, float f1)
     {
         /*loadTexture("/terrain.png");
-        renderBlocks.renderNorthFace(Block.brick, d, d1 + 5D, d2, 1);
-        renderBlocks.renderSouthFace(Block.brick, d, d1 + 5D, d2, 1);
-        renderBlocks.renderEastFace(Block.brick, d, d1 + 5D, d2, 1);
-        renderBlocks.renderWestFace(Block.brick, d, d1 + 5D, d2, 1);*/
+        renderBlocks.renderFaceZNeg(Block.brick, d, d1 + 5D, d2, 1);
+        renderBlocks.renderFaceZPos(Block.brick, d, d1 + 5D, d2, 1);
+        renderBlocks.renderFaceXPos(Block.brick, d, d1 + 5D, d2, 1);
+        renderBlocks.renderFaceXNeg(Block.brick, d, d1 + 5D, d2, 1);*/
     }
     
     protected void renderSnowmanPumpkin(GolemBase par1EntitySnowman, float par2)
@@ -321,42 +321,42 @@ public class GolemRender extends RenderLiving
             f5 = f4;
         }
         tessellator.setColorOpaque_F(f * f5, f * f5, f * f5);
-        renderBlocks.renderBottomFace(block, -0.5D, -0.5D, -0.5D, block.getIcon(0, side));
+        renderBlocks.renderFaceYNeg(block, -0.5D, -0.5D, -0.5D, block.getIcon(0, side));
         f5 = 1.0F;
         if (f5 < f4)
         {
             f5 = f4;
         }
         tessellator.setColorOpaque_F(f1 * f5, f1 * f5, f1 * f5);
-        renderBlocks.renderTopFace(block, -0.5D, -0.5D, -0.5D, block.getIcon(1, side));
+        renderBlocks.renderFaceYPos(block, -0.5D, -0.5D, -0.5D, block.getIcon(1, side));
         f5 = 1.0F;
         if (f5 < f4)
         {
             f5 = f4;
         }
         tessellator.setColorOpaque_F(f2 * f5, f2 * f5, f2 * f5);
-        renderBlocks.renderEastFace(block, -0.5D, -0.5D, -0.5D, block.getIcon(2, side));
+        renderBlocks.renderFaceXPos(block, -0.5D, -0.5D, -0.5D, block.getIcon(2, side));
         f5 = 1.0F;
         if (f5 < f4)
         {
             f5 = f4;
         }
         tessellator.setColorOpaque_F(f2 * f5, f2 * f5, f2 * f5);
-        renderBlocks.renderWestFace(block, -0.5D, -0.5D, -0.5D, block.getIcon(3, side));
+        renderBlocks.renderFaceXNeg(block, -0.5D, -0.5D, -0.5D, block.getIcon(3, side));
         f5 = 1.0F;
         if (f5 < f4)
         {
             f5 = f4;
         }
         tessellator.setColorOpaque_F(f3 * f5, f3 * f5, f3 * f5);
-        renderBlocks.renderNorthFace(block, -0.5D, -0.5D, -0.5D, block.getIcon(4, side));
+        renderBlocks.renderFaceZNeg(block, -0.5D, -0.5D, -0.5D, block.getIcon(4, side));
         f5 = 1.0F;
         if (f5 < f4)
         {
             f5 = f4;
         }
         tessellator.setColorOpaque_F(f3 * f5, f3 * f5, f3 * f5);
-        renderBlocks.renderSouthFace(block, -0.5D, -0.5D, -0.5D, block.getIcon(5, side));
+        renderBlocks.renderFaceZPos(block, -0.5D, -0.5D, -0.5D, block.getIcon(5, side));
         tessellator.draw();
     }
 
@@ -382,7 +382,7 @@ public class GolemRender extends RenderLiving
         tessellator.setColorOpaque_F(f4, f5, f6);
         if (block.getIcon(2, l) == BlockGolemHead.face)
         {
-            renderBlocks.renderEastFace(block, -0.5D, -0.5D, -0.5D - d, mod_Golems.faceTex);
+            renderBlocks.renderFaceXPos(block, -0.5D, -0.5D, -0.5D - d, mod_Golems.faceTex);
         }
         f8 = 1.0F;
         if (f8 < f7)
@@ -392,7 +392,7 @@ public class GolemRender extends RenderLiving
         tessellator.setColorOpaque_F(f4, f5, f6);
         if (block.getIcon(3, l) == BlockGolemHead.face)
         {
-            renderBlocks.renderWestFace(block, -0.5D, -0.5D, -0.5D + d, mod_Golems.faceTex);
+            renderBlocks.renderFaceXNeg(block, -0.5D, -0.5D, -0.5D + d, mod_Golems.faceTex);
         }
         f8 = 1.0F;
         if (f8 < f7)
@@ -402,7 +402,7 @@ public class GolemRender extends RenderLiving
         tessellator.setColorOpaque_F(f4, f5, f6);
         if (block.getIcon(4, l) == BlockGolemHead.face)
         {
-            renderBlocks.renderNorthFace(block, -0.5D - d, -0.5D, -0.5D, mod_Golems.faceTex);
+            renderBlocks.renderFaceZNeg(block, -0.5D - d, -0.5D, -0.5D, mod_Golems.faceTex);
         }
         f8 = 1.0F;
         if (f8 < f7)
@@ -412,7 +412,7 @@ public class GolemRender extends RenderLiving
         tessellator.setColorOpaque_F(f4, f5, f6);
         if (block.getIcon(5, l) == BlockGolemHead.face)
         {
-            renderBlocks.renderSouthFace(block, -0.5D + d, -0.5D, -0.5D, mod_Golems.faceTex);
+            renderBlocks.renderFaceZPos(block, -0.5D + d, -0.5D, -0.5D, mod_Golems.faceTex);
         }
         tessellator.draw();
     }*/
