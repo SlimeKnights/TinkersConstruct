@@ -37,8 +37,7 @@ public class TPlayerHandler implements IPlayerTracker
 	{
 		//Lookup player
 	    TFoodStats food = new TFoodStats();
-	    food.readStats(entityplayer.getFoodStats());
-	    // TODO repalce with something else
+	    food.readStats(entityplayer.foodStats);
 	    entityplayer.foodStats = food;
 		NBTTagCompound tags = entityplayer.getEntityData();
 		if (!tags.hasKey("TConstruct"))
@@ -92,7 +91,6 @@ public class TPlayerHandler implements IPlayerTracker
 		stats.player = new WeakReference<EntityPlayer>(entityplayer);
 
         TFoodStats food = new TFoodStats();
-        // TODO repalce with something else
         entityplayer.foodStats = food;
 		
 		if (PHConstruct.keepLevels)
