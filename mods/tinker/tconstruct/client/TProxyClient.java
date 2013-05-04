@@ -23,8 +23,7 @@ import mods.tinker.tconstruct.library.*;
 import mods.tinker.tconstruct.library.client.*;
 import mods.tinker.tconstruct.library.crafting.*;
 import mods.tinker.tconstruct.library.tools.*;
-import mods.tinker.tconstruct.util.player.*
-;
+import mods.tinker.tconstruct.util.player.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
@@ -82,7 +81,7 @@ public class TProxyClient extends TProxyCommon
     public static Minecraft mc;
     public static ArmorExtended armorExtended = new ArmorExtended();
     public static RenderItem itemRenderer = new RenderItem();
-    
+
     @Override
     public Object getClientGuiElement (int ID, EntityPlayer player, World world, int x, int y, int z)
     {
@@ -111,29 +110,32 @@ public class TProxyClient extends TProxyCommon
         }
         return null;
     }
-    
-    public static void openInventoryGui()
+
+    public static void openInventoryGui ()
     {
         if (mc == null)
             mc = Minecraft.getMinecraft();
         mc.displayGuiScreen(new GuiInventory(mc.thePlayer));
         addTabsToInventory();
     }
-    
-    public static void addTabsToInventory()
+
+    public static void addTabsToInventory ()
     {
         if (mc == null)
             mc = Minecraft.getMinecraft();
-        GuiInventory gui = (GuiInventory) mc.currentScreen;
-        int cornerX = (gui.width - gui.xSize) / 2;
-        int cornerY = (gui.height - gui.ySize) / 2;
-        gui.buttonList.clear();
+        if (mc.currentScreen.getClass() == GuiInventory.class)
+        {
+            GuiInventory gui = (GuiInventory) mc.currentScreen;
+            int cornerX = (gui.width - gui.xSize) / 2;
+            int cornerY = (gui.height - gui.ySize) / 2;
+            gui.buttonList.clear();
 
-        InventoryTab repairButton = new InventoryTab(2, cornerX, cornerY - 28, new ItemStack(Block.workbench), 0);
-        repairButton.enabled = false;
-        gui.buttonList.add(repairButton);
-        repairButton = new InventoryTab(3, cornerX+28, cornerY - 28, new ItemStack(Item.plateDiamond), 1);
-        gui.buttonList.add(repairButton);
+            InventoryTab repairButton = new InventoryTab(2, cornerX, cornerY - 28, new ItemStack(Block.workbench), 0);
+            repairButton.enabled = false;
+            gui.buttonList.add(repairButton);
+            repairButton = new InventoryTab(3, cornerX + 28, cornerY - 28, new ItemStack(Item.plateDiamond), 1);
+            gui.buttonList.add(repairButton);
+        }
     }
 
     public void registerTickHandler ()
@@ -164,7 +166,7 @@ public class TProxyClient extends TProxyCommon
         {
         	MinecraftForgeClient.registerItemRenderer(tool.itemID, render);
         }*/
-        
+
         //MinecraftForgeClient.registerItemRenderer(TContent.chisel.itemID, new ChiselRotator());
 
         //Special Renderers
@@ -266,7 +268,6 @@ public class TProxyClient extends TProxyCommon
         TConstructClientRegistry.registerManualIcon("arditeingot", new ItemStack(TContent.materials, 1, 4));
         TConstructClientRegistry.registerManualIcon("copperingot", new ItemStack(TContent.materials, 1, 9));
         TConstructClientRegistry.registerManualIcon("steelingot", new ItemStack(TContent.materials, 1, 16));
-        
 
         //Tool parts
         TConstructClientRegistry.registerManualIcon("pickhead", new ItemStack(TContent.pickaxeHead, 1, 2));
@@ -332,7 +333,7 @@ public class TProxyClient extends TProxyCommon
         ItemStack blazerod = new ItemStack(Item.blazeRod);
         ItemStack firecharge = new ItemStack(Item.fireballCharge);
         ItemStack string = new ItemStack(Item.silk);
-        
+
         ItemStack silkyCloth = new ItemStack(TContent.materials, 1, 25);
 
         //TConstruct recipes
@@ -349,10 +350,9 @@ public class TProxyClient extends TProxyCommon
                 mossycobble, mossycobble, mossycobble);
         TConstructClientRegistry.registerManualLargeRecipe("lavacrystal", new ItemStack(TContent.materials, 1, 7), blazerod, firecharge, blazerod, firecharge, new ItemStack(Item.bucketLava),
                 firecharge, blazerod, firecharge, blazerod);
-        TConstructClientRegistry.registerManualLargeRecipe("silkycloth", silkyCloth, string, string, string, string, new ItemStack(TContent.materials, 1, 24),
-                string, string, string, string);
-        TConstructClientRegistry.registerManualLargeRecipe("silkyjewel", new ItemStack(TContent.materials, 1, 26), null, silkyCloth, null, silkyCloth, new ItemStack(Item.emerald),
-                silkyCloth, null, silkyCloth, null);
+        TConstructClientRegistry.registerManualLargeRecipe("silkycloth", silkyCloth, string, string, string, string, new ItemStack(TContent.materials, 1, 24), string, string, string, string);
+        TConstructClientRegistry.registerManualLargeRecipe("silkyjewel", new ItemStack(TContent.materials, 1, 26), null, silkyCloth, null, silkyCloth, new ItemStack(Item.emerald), silkyCloth, null,
+                silkyCloth, null);
 
         TConstructClientRegistry.registerManualSmallRecipe("grout", grout, sand, gravel, null, clay);
         TConstructClientRegistry.registerManualFurnaceRecipe("searedbrick", searedbrick, grout);
@@ -471,7 +471,7 @@ public class TProxyClient extends TProxyCommon
             "The Frying is a heavy weapon that uses sheer weight to stun foes.\n\nSpecial Ability: Block\nNatural Ability: Heavy\nShift+rClick: Place Frying Pan\nDamage: Low\nDurability: High\n\nRequired parts:\n- Pan\n- Handle",
             //"The Battlesign is an advance in weapon technology worthy of Zombie Pigmen everywhere.\n\nSpecial Ability: Block\nShift-rClick: Place sign\nDamage: Low\nDurability: Average\n\nRequired parts:\n- Board\n- Handle"
             "The Battlesign is an advance in weapon technology worthy of Zombie Pigmen everywhere.\n\nSpecial Ability: Block\nDamage: Low\nDurability: Average\n\nRequired parts:\n- Sign Board\n- Handle",
-            "The Chisel is a utility tool that carves shapes into blocks.\n\nCrafting Grid:\n- Shape Items\nSpecial Ability: Chisel\nDurability: Average\n\nRequired parts:\n- Chisel Head\n- Handle"};
+            "The Chisel is a utility tool that carves shapes into blocks.\n\nCrafting Grid:\n- Shape Items\nSpecial Ability: Chisel\nDurability: Average\n\nRequired parts:\n- Chisel Head\n- Handle" };
 
     void addToolButtons ()
     {
@@ -494,14 +494,14 @@ public class TProxyClient extends TProxyCommon
         int[] validHarvestEffects = { 0, 1, 2, 4, 6, 7, 8, 9, 10, 11, 12 };
         int[] validWeaponEffects = { 0, 1, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
         int[] validUtilityEffects = { 0, 1, 4, 9 };
-        
+
         int[] validDaggerEffects = { 0, 1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
-        
+
         for (int partIter = 0; partIter < partTypes.length; partIter++)
         {
             TConstructClientRegistry.addMaterialRenderMapping(partIter, "tinker", partTypes[partIter], true);
         }
-        
+
         for (ToolCore tool : TConstructRegistry.getToolMapping())
         {
             if (tool instanceof Dagger)
