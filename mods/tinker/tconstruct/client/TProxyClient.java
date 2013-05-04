@@ -10,61 +10,21 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import mods.tinker.tconstruct.TConstruct;
-import mods.tinker.tconstruct.blocks.logic.CastingBasinLogic;
-import mods.tinker.tconstruct.blocks.logic.CastingTableLogic;
-import mods.tinker.tconstruct.blocks.logic.FrypanLogic;
-import mods.tinker.tconstruct.blocks.logic.GolemCoreLogic;
-import mods.tinker.tconstruct.blocks.logic.PartCrafterLogic;
-import mods.tinker.tconstruct.blocks.logic.PatternChestLogic;
-import mods.tinker.tconstruct.blocks.logic.PatternShaperLogic;
-import mods.tinker.tconstruct.blocks.logic.SmelteryLogic;
-import mods.tinker.tconstruct.blocks.logic.ToolStationLogic;
-import mods.tinker.tconstruct.client.block.CastingBasinSpecialRender;
-import mods.tinker.tconstruct.client.block.CastingTableSpecialRenderer;
-import mods.tinker.tconstruct.client.block.FluidRender;
-import mods.tinker.tconstruct.client.block.FrypanRender;
-import mods.tinker.tconstruct.client.block.GolemCoreRender;
-import mods.tinker.tconstruct.client.block.GolemCoreSpecialRender;
-import mods.tinker.tconstruct.client.block.OreberryRender;
-import mods.tinker.tconstruct.client.block.SearedRender;
-import mods.tinker.tconstruct.client.block.SmallFontRenderer;
-import mods.tinker.tconstruct.client.block.SmelteryRender;
-import mods.tinker.tconstruct.client.block.TableRender;
-import mods.tinker.tconstruct.client.block.TankRender;
-import mods.tinker.tconstruct.client.entity.CartRender;
-import mods.tinker.tconstruct.client.entity.CrystalRender;
-import mods.tinker.tconstruct.client.entity.FancyItemRender;
-import mods.tinker.tconstruct.client.entity.GolemRender;
-import mods.tinker.tconstruct.client.entity.SkylaRender;
-import mods.tinker.tconstruct.client.entity.SlimeRender;
-import mods.tinker.tconstruct.client.entity.projectile.DaggerRender;
-import mods.tinker.tconstruct.client.entity.projectile.LaunchedItemRender;
-import mods.tinker.tconstruct.client.gui.ArmorExtendedGui;
-import mods.tinker.tconstruct.client.gui.FrypanGui;
-import mods.tinker.tconstruct.client.gui.GuiManual;
-import mods.tinker.tconstruct.client.gui.PartCrafterGui;
-import mods.tinker.tconstruct.client.gui.PatternChestGui;
-import mods.tinker.tconstruct.client.gui.PatternShaperGui;
-import mods.tinker.tconstruct.client.gui.SmelteryGui;
-import mods.tinker.tconstruct.client.gui.ToolStationGui;
-import mods.tinker.tconstruct.common.TContent;
-import mods.tinker.tconstruct.common.TProxyCommon;
-import mods.tinker.tconstruct.entity.BlueSlime;
-import mods.tinker.tconstruct.entity.CartEntity;
-import mods.tinker.tconstruct.entity.Crystal;
-import mods.tinker.tconstruct.entity.FancyEntityItem;
-import mods.tinker.tconstruct.entity.GolemBase;
-import mods.tinker.tconstruct.entity.NitroCreeper;
-import mods.tinker.tconstruct.entity.Skyla;
-import mods.tinker.tconstruct.entity.projectile.DaggerEntity;
-import mods.tinker.tconstruct.entity.projectile.LaunchedPotion;
-import mods.tinker.tconstruct.items.tools.Dagger;
-import mods.tinker.tconstruct.library.TConstructRegistry;
-import mods.tinker.tconstruct.library.client.TConstructClientRegistry;
-import mods.tinker.tconstruct.library.client.ToolGuiElement;
-import mods.tinker.tconstruct.library.crafting.ToolBuilder;
-import mods.tinker.tconstruct.library.tools.ToolCore;
-import mods.tinker.tconstruct.util.player.ArmorExtended;
+import mods.tinker.tconstruct.blocks.logic.*;
+import mods.tinker.tconstruct.client.block.*;
+import mods.tinker.tconstruct.client.entity.*;
+import mods.tinker.tconstruct.client.entity.projectile.*;
+import mods.tinker.tconstruct.client.gui.*;
+import mods.tinker.tconstruct.common.*;
+import mods.tinker.tconstruct.entity.*;
+import mods.tinker.tconstruct.entity.projectile.*;
+import mods.tinker.tconstruct.items.tools.*;
+import mods.tinker.tconstruct.library.*;
+import mods.tinker.tconstruct.library.client.*;
+import mods.tinker.tconstruct.library.crafting.*;
+import mods.tinker.tconstruct.library.tools.*;
+import mods.tinker.tconstruct.util.player.*
+;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
@@ -160,7 +120,7 @@ public class TProxyClient extends TProxyCommon
     
     public static void addTabsToInventory()
     {
-        /*if (mc == null)
+        if (mc == null)
             mc = Minecraft.getMinecraft();
         GuiInventory gui = (GuiInventory) mc.currentScreen;
         int cornerX = (gui.width - gui.xSize) / 2;
@@ -171,7 +131,7 @@ public class TProxyClient extends TProxyCommon
         repairButton.enabled = false;
         gui.buttonList.add(repairButton);
         repairButton = new InventoryTab(3, cornerX+28, cornerY - 28, new ItemStack(Item.plateDiamond), 1);
-        gui.buttonList.add(repairButton);*/
+        gui.buttonList.add(repairButton);
     }
 
     public void registerTickHandler ()
@@ -193,6 +153,7 @@ public class TProxyClient extends TProxyCommon
         RenderingRegistry.registerBlockHandler(new FluidRender());
         RenderingRegistry.registerBlockHandler(new GolemCoreRender());
         RenderingRegistry.registerBlockHandler(new OreberryRender());
+        //RenderingRegistry.registerBlockHandler(new BrickRender());
         //RenderingRegistry.registerBlockHandler(new BallRepeaterRender());
 
         //Tools

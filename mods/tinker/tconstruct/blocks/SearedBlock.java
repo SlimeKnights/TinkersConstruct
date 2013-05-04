@@ -9,6 +9,7 @@ import mods.tinker.tconstruct.blocks.logic.FaucetLogic;
 import mods.tinker.tconstruct.client.block.SearedRender;
 import mods.tinker.tconstruct.library.TConstructRegistry;
 import mods.tinker.tconstruct.library.blocks.InventoryBlock;
+import mods.tinker.tconstruct.library.tools.AbilityHelper;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.item.EntityItem;
@@ -157,14 +158,15 @@ public class SearedBlock extends InventoryBlock
         return true;
     }
 
-	protected void addItemToInventory (EntityPlayer player, World world, int x, int y, int z, ItemStack stack)
+	public void addItemToInventory (EntityPlayer player, World world, int x, int y, int z, ItemStack stack)
 	{
-		if (!world.isRemote)
+	    AbilityHelper.spawnItemAtPlayer(player, stack);
+		/*if (!world.isRemote)
 		{
 			EntityItem entityitem = new EntityItem(world, (double) x + 0.5D, (double) y + 0.9325D, (double) z + 0.5D, stack);
 			world.spawnEntityInWorld(entityitem);
 			entityitem.onCollideWithPlayer(player);
-		}
+		}*/
 	}
 
 	/* Rendering */

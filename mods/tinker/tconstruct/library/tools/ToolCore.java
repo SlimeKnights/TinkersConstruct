@@ -487,7 +487,10 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
 
         if (tags.getBoolean("Lava") && block.quantityDropped(meta, 0, random) != 0)
         {
-            ItemStack result = FurnaceRecipes.smelting().getSmeltingResult(new ItemStack(block.idDropped(bID, random, 0), 1, block.damageDropped(meta)));
+            ItemStack smeltStack = new ItemStack(block.idDropped(block.blockID, random, 0), 1, block.damageDropped(meta));
+            if (smeltStack.itemID < 0 || smeltStack.itemID >= 32000 || smeltStack.getItem() == null)
+                return false;
+            ItemStack result = FurnaceRecipes.smelting().getSmeltingResult(smeltStack);
             if (result != null)
             {
                 world.setBlockToAir(x, y, z);

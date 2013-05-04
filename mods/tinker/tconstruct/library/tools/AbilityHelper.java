@@ -487,11 +487,18 @@ public class AbilityHelper
 
     public static void spawnItemAtPlayer (EntityPlayer player, ItemStack stack)
     {
-        if (!player.worldObj.isRemote)
+        if (!player.inventory.addItemStackToInventory(stack))
         {
-            EntityItem entityitem = new EntityItem(player.worldObj, player.posX + 0.5D, player.posY + 0.5D, player.posZ + 0.5D, stack);
-            player.worldObj.spawnEntityInWorld(entityitem);
-            entityitem.onCollideWithPlayer(player);
+            if (!player.worldObj.isRemote)
+            {
+                EntityItem entityitem = new EntityItem(player.worldObj, player.posX + 0.5D, player.posY + 0.5D, player.posZ + 0.5D, stack);
+                player.worldObj.spawnEntityInWorld(entityitem);
+                entityitem.onCollideWithPlayer(player);
+            }
+        }
+        else
+        {
+            player.worldObj.playSoundAtEntity(player, "random.pop", 0.2F, ((random.nextFloat() - random.nextFloat()) * 0.7F + 1.0F) * 2.0F);
         }
     }
 

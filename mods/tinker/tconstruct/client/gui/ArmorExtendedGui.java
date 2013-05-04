@@ -1,5 +1,6 @@
 package mods.tinker.tconstruct.client.gui;
 
+import mods.tinker.tconstruct.client.TControls;
 import mods.tinker.tconstruct.inventory.ArmorExtendedContainer;
 import mods.tinker.tconstruct.util.player.ArmorExtended;
 import mods.tinker.tconstruct.util.player.TPlayerStats;
@@ -121,4 +122,14 @@ public class ArmorExtendedGui extends InventoryEffectRenderer
         GL11.glDisable(GL11.GL_TEXTURE_2D);
         OpenGlHelper.setActiveTexture(OpenGlHelper.defaultTexUnit);
     }
+    
+    /*protected void keyTyped(char par1, int par2)
+    {
+        if (par2 == TControls.armorKey.keyCode)
+        {
+            this.mc.thePlayer.closeScreen();
+        }
+
+        super.keyTyped(par1, par2);
+    }*/
 }

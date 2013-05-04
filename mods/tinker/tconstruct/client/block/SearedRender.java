@@ -185,7 +185,7 @@ public class SearedRender implements ISimpleBlockRenderingHandler
 						if (liquidItem != null)
 						{
 							//ForgeHooksClient.bindTexture(liquidItem.getTextureFile(), 0);
-							BlockSkinRenderHelper.renderFakeBlock(liquidItem.getIconFromDamage(logic.liquid.itemMeta), logic.liquid.itemMeta, x, y, z, renderer, world);
+							BlockSkinRenderHelper.renderFakeBlock(liquidItem.getIconFromDamage(logic.liquid.itemMeta), x, y, z, renderer, world);
 						}
 					}
 				}
@@ -272,9 +272,9 @@ public class SearedRender implements ISimpleBlockRenderingHandler
 						Item liquidItem = Item.itemsList[blockToRender.itemID];
 						//ForgeHooksClient.bindTexture(liquidItem.getTextureFile(), 0);
 						int meta = blockToRender.getItemDamage();
-						BlockSkinRenderHelper.renderFakeBlock(liquidItem.getIconFromDamage(meta), meta, x, y, z, renderer, world);
+						BlockSkinRenderHelper.renderFakeBlock(liquidItem.getIconFromDamage(meta), x, y, z, renderer, world);
 						renderer.setRenderBounds(xMin, yMin, zMin, xMax, 0.625, zMax);
-						BlockSkinRenderHelper.renderFakeBlock(liquidItem.getIconFromDamage(meta), meta, x, y, z, renderer, world);
+						BlockSkinRenderHelper.renderFakeBlock(liquidItem.getIconFromDamage(meta), x, y, z, renderer, world);
 					}
 					//renderer.renderStandardBlock(block, x, y, z);
 				}
@@ -365,7 +365,7 @@ public class SearedRender implements ISimpleBlockRenderingHandler
                         if (liquidItem != null)
                         {
                             //ForgeHooksClient.bindTexture(liquidItem.getTextureFile(), 0);
-                            BlockSkinRenderHelper.renderFakeBlock(liquidItem.getIconFromDamage(logic.liquid.itemMeta), logic.liquid.itemMeta, x, y, z, renderer, world);
+                            BlockSkinRenderHelper.renderFakeBlock(liquidItem.getIconFromDamage(logic.liquid.itemMeta), x, y, z, renderer, world);
                         }
                     }
                 }

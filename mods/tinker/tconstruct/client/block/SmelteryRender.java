@@ -75,7 +75,7 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
                             Item liquidItem = Item.itemsList[blockToRender.itemID];
                             //ForgeHooksClient.bindTexture(liquidItem.getTextureFile(), 0);
                             int metadata = blockToRender.getItemDamage();
-                            BlockSkinRenderHelper.renderFakeBlock(liquidItem.getIconFromDamage(metadata), metadata, posX, posY + i / 9, posZ, renderer, world);
+                            BlockSkinRenderHelper.renderFakeBlock(liquidItem.getIconFromDamage(metadata), posX, posY + i / 9, posZ, renderer, world);
                         }
                     }
                 }
@@ -112,7 +112,7 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
                         Item liquidItem = Item.itemsList[liquid.itemID];
                         //ForgeHooksClient.bindTexture(liquidItem.getTextureFile(), 0);
                         for (int i = 0; i < 9; i++)
-                            BlockSkinRenderHelper.renderFakeBlock(liquidItem.getIconFromDamage(liquid.itemMeta), liquid.itemMeta, posX, posY + yBase, posZ, renderer, world);
+                            BlockSkinRenderHelper.renderFakeBlock(liquidItem.getIconFromDamage(liquid.itemMeta), posX, posY + yBase, posZ, renderer, world);
                     }
 
                     if (countSize == room)
@@ -149,7 +149,7 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
                 {
                     Item liquidItem = Item.itemsList[blockToRender.itemID];
                     int metadata = blockToRender.getItemDamage();
-                    BlockSkinRenderHelper.renderFakeBlock(liquidItem.getIconFromDamage(metadata), metadata, posX + i % 3, posY, posZ + i / 3, renderer, world);
+                    BlockSkinRenderHelper.renderFakeBlock(liquidItem.getIconFromDamage(metadata), posX + i % 3, posY, posZ + i / 3, renderer, world);
                 }
             }
         }

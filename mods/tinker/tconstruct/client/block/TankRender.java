@@ -52,7 +52,7 @@ public class TankRender implements ISimpleBlockRenderingHandler
                 //Item
                 {
                     Item liquidItem = Item.itemsList[liquid.itemID];
-                    BlockSkinRenderHelper.renderFakeBlock(liquidItem.getIconFromDamage(liquid.itemMeta), liquid.itemMeta, x, y, z, renderer, world);
+                    BlockSkinRenderHelper.renderFakeBlock(liquidItem.getIconFromDamage(liquid.itemMeta), x, y, z, renderer, world);
                 }
             }
             

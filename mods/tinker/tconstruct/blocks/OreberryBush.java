@@ -6,6 +6,7 @@ import java.util.Random;
 import mods.tinker.tconstruct.client.block.OreberryRender;
 import mods.tinker.tconstruct.common.TContent;
 import mods.tinker.tconstruct.library.TConstructRegistry;
+import mods.tinker.tconstruct.library.tools.AbilityHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLeavesBase;
 import net.minecraft.block.material.Material;
@@ -182,9 +183,7 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
             if (meta >= 12)
             {
                 world.setBlock(x, y, z, blockID, meta - 4, 3);
-                EntityItem entityitem = new EntityItem(world, player.posX, player.posY - 1.0D, player.posZ, new ItemStack(TContent.oreBerries, 1, meta % 4 + itemMeat));
-                world.spawnEntityInWorld(entityitem);
-                entityitem.onCollideWithPlayer(player);
+                AbilityHelper.spawnItemAtPlayer(player, new ItemStack(TContent.oreBerries, 1, meta % 4 + itemMeat));
             }
         }
     }
@@ -203,9 +202,7 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
                 return true;
             
             world.setBlock(x, y, z, blockID, meta - 4, 3);
-            EntityItem entityitem = new EntityItem(world, player.posX, player.posY - 1.0D, player.posZ, new ItemStack(TContent.oreBerries, 1, meta % 4 + itemMeat));
-            world.spawnEntityInWorld(entityitem);
-            entityitem.onCollideWithPlayer(player);
+            AbilityHelper.spawnItemAtPlayer(player, new ItemStack(TContent.oreBerries, 1, meta % 4 + itemMeat));
             return true;
         }
         

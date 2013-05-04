@@ -850,7 +850,7 @@ public class BlockSkinRenderHelper
         return flag;
     }
 	
-	public static boolean renderFakeBlock (Icon texture, int metadata, int x, int y, int z, RenderBlocks renderer, IBlockAccess world)
+	public static boolean renderFakeBlock (Icon texture, int x, int y, int z, RenderBlocks renderer, IBlockAccess world)
 	{
 		Block block = Block.stone;
 		int var5 = block.colorMultiplier(world, x, y, z);
@@ -869,11 +869,11 @@ public class BlockSkinRenderHelper
 		}
 
 		return Minecraft.isAmbientOcclusionEnabled() ? 
-				renderFakeBlockWithAmbientOcclusion(texture, metadata, x, y, z, var6, var7, var8, renderer, world)
-				: renderFakeBlockWithColorMultiplier(texture, metadata, x, y, z, var6, var7, var8, renderer, world);
+				renderFakeBlockWithAmbientOcclusion(texture, x, y, z, var6, var7, var8, renderer, world)
+				: renderFakeBlockWithColorMultiplier(texture, x, y, z, var6, var7, var8, renderer, world);
 	}
 	
-	static boolean renderFakeBlockWithAmbientOcclusion(Icon texture, int metadata, int xMin, int yMin, int zMin, 
+	static boolean renderFakeBlockWithAmbientOcclusion(Icon texture, int xMin, int yMin, int zMin, 
 			float xMax, float yMax, float zMax, RenderBlocks render, IBlockAccess world)
     {
 		Block block = Block.stone;
@@ -1591,7 +1591,7 @@ public class BlockSkinRenderHelper
         return flag;
     }
 	
-	static boolean renderFakeBlockWithColorMultiplier(Icon texture, int metadata, int xMin, int yMin, int zMin, float xMax, float yMax, float zMax, RenderBlocks render, IBlockAccess world)
+	static boolean renderFakeBlockWithColorMultiplier(Icon texture, int xMin, int yMin, int zMin, float xMax, float yMax, float zMax, RenderBlocks render, IBlockAccess world)
     {
 		Block block = Block.stone;
 		render.enableAO = false;

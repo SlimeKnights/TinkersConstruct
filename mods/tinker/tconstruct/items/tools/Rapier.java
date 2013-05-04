@@ -56,7 +56,7 @@ public class Rapier extends Weapon
 
 	public float chargeAttack ()
 	{
-		return 2f;
+		return 1.5f;
 	}
 
 	public boolean pierceArmor ()

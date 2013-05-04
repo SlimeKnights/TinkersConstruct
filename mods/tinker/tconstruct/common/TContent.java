@@ -644,7 +644,7 @@ public class TContent implements IFuelHandler
         chiseling.addDetailing(Item.dyePowder, 4, multiBrick, 6, chisel);
         chiseling.addDetailing(Item.diamond, 0, multiBrick, 7, chisel);
         chiseling.addDetailing(Item.redstone, 0, multiBrick, 8, chisel);
-        chiseling.addDetailing(Block.obsidian, 0, multiBrick, 9, chisel);
+        chiseling.addDetailing(Item.bone, 0, multiBrick, 9, chisel);
         chiseling.addDetailing(Item.slimeBall, 0, multiBrick, 10, chisel);
         chiseling.addDetailing(strangeFood, 0, multiBrick, 11, chisel);
         

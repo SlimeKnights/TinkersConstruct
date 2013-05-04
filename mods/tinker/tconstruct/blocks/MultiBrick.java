@@ -1,7 +1,6 @@
 package mods.tinker.tconstruct.blocks;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import mods.tinker.tconstruct.client.block.BrickRender;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -10,6 +9,8 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class MultiBrick extends TConstructBlock
 {
@@ -85,6 +86,19 @@ public class MultiBrick extends TConstructBlock
         return super.getCollisionBoundingBoxFromPool(world, x, y, z);
     }
     
+    /*@Override
+    public int getRenderType ()
+    {
+        return BrickRender.model;
+    }*/
+    
+    @Override
+    public boolean isBlockNormalCube(World world, int x, int y, int z)
+    {
+        return world.getBlockMetadata(x, y, z) != 8;
+    }
+    
+    @Override
     public boolean canProvidePower()
     {
         return true;
