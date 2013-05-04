@@ -86,6 +86,7 @@ public class CrystalRender extends RenderLiving
     {
         if (par1EntityCreeper.getPowered())
         {
+            // TODO Not updated jet
             if (par1EntityCreeper.getHasActivePotion())
             {
                 GL11.glDepthMask(false);

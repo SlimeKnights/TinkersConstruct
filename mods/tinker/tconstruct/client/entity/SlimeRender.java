@@ -26,6 +26,7 @@ public class SlimeRender extends RenderLiving
      */
     protected int shouldSlimeRenderPass(BlueSlime par1EdibleSlime, int par2, float par3)
     {
+        // TODO Not updated jet
         if (par1EdibleSlime.getHasActivePotion())
         {
             return 0;

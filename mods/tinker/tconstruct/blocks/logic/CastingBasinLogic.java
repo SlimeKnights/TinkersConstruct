@@ -345,7 +345,7 @@ public class CastingBasinLogic extends InventoryLogic implements ILiquidTank, IT
     }
 
     @Override
-    public int[] getSizeInventorySide (int side)
+    public int[] getAccessibleSlotsFromSide (int side)
     {
         if (side == 0)
             return new int[] { 1 };
@@ -354,15 +354,14 @@ public class CastingBasinLogic extends InventoryLogic implements ILiquidTank, IT
     }
 
     @Override
-    public boolean func_102007_a (int i, ItemStack itemstack, int j)
+    public boolean canInsertItem (int i, ItemStack itemstack, int j)
     {
         return true;
     }
 
     @Override
-    public boolean func_102008_b (int i, ItemStack itemstack, int j)
+    public boolean canExtractItem (int i, ItemStack itemstack, int j)
     {
         return true;
     }
-
 }
