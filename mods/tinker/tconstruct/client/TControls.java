@@ -19,7 +19,7 @@ public class TControls extends TKeyHandler
 {
 	//static KeyBinding grabKey = new KeyBinding("key.grab", 29);
 	//static KeyBinding stiltsKey = new KeyBinding("key.stilts", 46);
-    public static KeyBinding armorKey = new KeyBinding("key.armor", 23);
+    public static KeyBinding armorKey = new KeyBinding("key.tarmor", 24);
 	static KeyBinding jumpKey;
 	static KeyBinding invKey;
 	static Minecraft mc;

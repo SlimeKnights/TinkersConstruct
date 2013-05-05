@@ -14,11 +14,14 @@ import mods.tinker.tconstruct.library.crafting.ToolBuilder;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
@@ -187,8 +190,8 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
             Map.Entry pairs = (Map.Entry) iter.next();
             effectIcons.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue()));
         }
-        
-        emptyIcon =  iconRegister.registerIcon("tinker:blankface");
+
+        emptyIcon = iconRegister.registerIcon("tinker:blankface");
     }
 
     @Override
@@ -450,7 +453,7 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
     {
         return TConstructRegistry.toolRod;
     }
-    
+
     /* Updating */
 
     public void onUpdate (ItemStack stack, World world, Entity entity, int par4, boolean par5)
@@ -464,17 +467,17 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
                 int check = world.canBlockSeeTheSky((int) entity.posX, (int) entity.posY, (int) entity.posZ) ? 350 : 1150;
                 if (random.nextInt(check) < chance)
                 {
-                    AbilityHelper.healTool(stack, 1, (EntityLiving) entity, true, !((EntityLiving)entity).isSwingInProgress);
+                    AbilityHelper.healTool(stack, 1, (EntityLiving) entity, true, !((EntityLiving) entity).isSwingInProgress);
                 }
             }
         }
     }
 
     /* Tool uses */
-    
+
     //Types
-    public abstract String[] toolCategories();
-    
+    public abstract String[] toolCategories ();
+
     //Mining
     @Override
     public boolean onBlockStartBreak (ItemStack stack, int x, int y, int z, EntityPlayer player)
@@ -484,10 +487,12 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
         int bID = player.worldObj.getBlockId(x, y, z);
         int meta = world.getBlockMetadata(x, y, z);
         Block block = Block.blocksList[bID];
+        if (block == null || bID < 1 || bID > 4095)
+            return false;
 
         if (tags.getBoolean("Lava") && block.quantityDropped(meta, 0, random) != 0)
         {
-            ItemStack smeltStack = new ItemStack(block.idDropped(block.blockID, random, 0), 1, block.damageDropped(meta));
+            ItemStack smeltStack = new ItemStack(block.idDropped(meta, random, 0), 1, block.damageDropped(meta));
             if (smeltStack.itemID < 0 || smeltStack.itemID >= 32000 || smeltStack.getItem() == null)
                 return false;
             ItemStack result = FurnaceRecipes.smelting().getSmeltingResult(smeltStack);
@@ -498,11 +503,39 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
                     onBlockDestroyed(stack, world, bID, x, y, z, player);
                 if (!world.isRemote)
                 {
-                    EntityItem entityitem = new EntityItem(world, x + 0.5, y + 0.5, z + 0.5, result.copy());
+                    ItemStack spawnme = result.copy();
+                    if (!(result.getItem() instanceof ItemBlock))
+                    {
+                        int loot = EnchantmentHelper.getEnchantmentLevel(Enchantment.fortune.effectId, stack);
+                        if (loot > 0)
+                        {
+                            spawnme.stackSize *= (random.nextInt(loot + 1) + 1);
+                        }
+                    }
+                    EntityItem entityitem = new EntityItem(world, x + 0.5, y + 0.5, z + 0.5, spawnme);
 
                     entityitem.delayBeforeCanPickup = 10;
                     world.spawnEntityInWorld(entityitem);
                     world.playAuxSFX(2001, x, y, z, bID + (meta << 12));
+                }
+                for (int i = 0; i < 6; i++)
+                {
+                    float f = (float) x + random.nextFloat();
+                    float f1 = (float) y + random.nextFloat();
+                    float f2 = (float) z + random.nextFloat();
+                    float f3 = 0.52F;
+                    float f4 = random.nextFloat() * 0.6F - 0.3F;
+                    world.spawnParticle("smoke", f - f3, f1, f2 + f4, 0.0D, 0.0D, 0.0D);
+                    world.spawnParticle("flame", f - f3, f1, f2 + f4, 0.0D, 0.0D, 0.0D);
+
+                    world.spawnParticle("smoke", f + f3, f1, f2 + f4, 0.0D, 0.0D, 0.0D);
+                    world.spawnParticle("flame", f + f3, f1, f2 + f4, 0.0D, 0.0D, 0.0D);
+
+                    world.spawnParticle("smoke", f + f4, f1, f2 - f3, 0.0D, 0.0D, 0.0D);
+                    world.spawnParticle("flame", f + f4, f1, f2 - f3, 0.0D, 0.0D, 0.0D);
+
+                    world.spawnParticle("smoke", f + f4, f1, f2 + f3, 0.0D, 0.0D, 0.0D);
+                    world.spawnParticle("flame", f + f4, f1, f2 + f3, 0.0D, 0.0D, 0.0D);
                 }
                 return true;
             }
@@ -560,8 +593,35 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
     {
         return 1f;
     }
-    /*
-     * IC2 Support
+
+    //Right-click
+    public boolean onItemUse (ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float clickX, float clickY, float clickZ)
+    {
+        int hotbarSlot = player.inventory.currentItem;
+        if (hotbarSlot == 0)
+        {
+            ItemStack next = player.inventory.getStackInSlot(8);
+            if (next != null && next.getItem() instanceof ItemBlock)
+            {
+                next.getItem().onItemUse(next, player, world, x, y, z, side, clickX, clickY, clickZ);
+                if (next.stackSize < 1)
+                    player.inventory.setInventorySlotContents(8, null);
+            }
+        }
+        else if (hotbarSlot < 8)
+        {
+            ItemStack next = player.inventory.getStackInSlot(hotbarSlot + 1);
+            if (next != null && next.getItem() instanceof ItemBlock)
+            {
+                next.getItem().onItemUse(next, player, world, x, y, z, side, clickX, clickY, clickZ);
+                if (next.stackSize < 1)
+                    player.inventory.setInventorySlotContents(hotbarSlot + 1, null);
+            }
+        }
+        return false;
+    }
+
+    /* IC2 Support
      * Every tool can be an electric tool if you modify it right
      */
     @Override
@@ -713,17 +773,17 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
     {
         return false;
     }
-    
-    public boolean isRepairable()
+
+    public boolean isRepairable ()
     {
         return false;
     }
-    
+
     public int getItemEnchantability ()
     {
         return 0;
     }
-    
+
     public boolean isFull3D ()
     {
         return true;

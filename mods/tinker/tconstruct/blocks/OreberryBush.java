@@ -198,8 +198,8 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
         int meta = world.getBlockMetadata(x, y, z);
         if (meta >= 12)
         {
-            if (world.isRemote)
-                return true;
+            /*if (world.isRemote)
+                return true;*/
             
             world.setBlock(x, y, z, blockID, meta - 4, 3);
             AbilityHelper.spawnItemAtPlayer(player, new ItemStack(TContent.oreBerries, 1, meta % 4 + itemMeat));

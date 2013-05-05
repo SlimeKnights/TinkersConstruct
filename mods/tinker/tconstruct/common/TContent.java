@@ -8,6 +8,7 @@ import mods.tinker.tconstruct.entity.projectile.*;
 import mods.tinker.tconstruct.items.*;
 import mods.tinker.tconstruct.items.blocks.*;
 import mods.tinker.tconstruct.items.tools.*;
+import mods.tinker.tconstruct.items.armor.*;
 import mods.tinker.tconstruct.library.*;
 import mods.tinker.tconstruct.library.client.TConstructClientRegistry;
 import mods.tinker.tconstruct.library.crafting.*;
@@ -149,6 +150,11 @@ public class TContent implements IFuelHandler
     public static Item note;
     
     //Wearaables
+    public static Item heavyHelmet;
+    public static Item heavyChestplate;
+    public static Item heavyPants;
+    public static Item heavyBoots;
+    
     public static Item heartContainer;
 
     public TContent()
@@ -352,6 +358,7 @@ public class TContent implements IFuelHandler
         //lumberHead = new ToolPart(PHConstruct.lumberHead, 0, broadheads).setUnlocalizedName("tconstruct.LumberHead");
         
         //Wearables
+        //heavyHelmet = new TArmorBase(PHConstruct.heavyHelmet, 0).setUnlocalizedName("tconstruct.HeavyHelmet");
         //heartContainer = new HeartContainer(PHConstruct.heartContainer).setUnlocalizedName("tconstruct.canister");
         
         //Vanilla stack sizes
@@ -363,6 +370,11 @@ public class TContent implements IFuelHandler
         Item.minecartCrate.setMaxStackSize(3);
         Item.minecartPowered.setMaxStackSize(3);
         Block.torchWood.setTickRandomly(false);
+        if (PHConstruct.clearWater)
+        {
+        Block.waterMoving.setLightOpacity(1);
+        Block.waterStill.setLightOpacity(1);
+        }
     }
 
     void registerMaterials ()

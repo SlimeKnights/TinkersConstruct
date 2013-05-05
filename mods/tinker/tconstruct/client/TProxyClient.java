@@ -23,6 +23,7 @@ import mods.tinker.tconstruct.library.*;
 import mods.tinker.tconstruct.library.client.*;
 import mods.tinker.tconstruct.library.crafting.*;
 import mods.tinker.tconstruct.library.tools.*;
+import mods.tinker.tconstruct.util.PHConstruct;
 import mods.tinker.tconstruct.util.player.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -140,7 +141,7 @@ public class TProxyClient extends TProxyCommon
 
     public void registerTickHandler ()
     {
-        TickRegistry.registerTickHandler(new TClientTickHandler(), Side.CLIENT);
+        //TickRegistry.registerTickHandler(new TClientTickHandler(), Side.CLIENT);
         //TickRegistry.registerTickHandler(new TCommonTickHandler(), Side.CLIENT);
     }
 

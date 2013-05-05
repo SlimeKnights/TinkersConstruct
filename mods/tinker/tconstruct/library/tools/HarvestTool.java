@@ -28,7 +28,8 @@ public abstract class HarvestTool extends ToolCore
     public boolean onBlockStartBreak (ItemStack stack, int x, int y, int z, EntityPlayer player)
     {
         TContent.modL.midStreamModify(stack);
-        NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
+        return super.onBlockStartBreak(stack, x, y, z, player);
+        /*NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
         World world = player.worldObj;
         int bID = player.worldObj.getBlockId(x, y, z);
         int meta = world.getBlockMetadata(x, y, z);
@@ -80,7 +81,7 @@ public abstract class HarvestTool extends ToolCore
             if (!world.isRemote)
                 world.playAuxSFX(2001, x, y, z, bID + (meta << 12));
             return true;
-        }
+        }*/
     }
 
     @Override

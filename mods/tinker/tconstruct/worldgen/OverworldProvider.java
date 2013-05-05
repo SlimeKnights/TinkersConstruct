@@ -1,5 +1,6 @@
 package mods.tinker.tconstruct.worldgen;
 
+import mods.tinker.tconstruct.util.PHConstruct;
 import net.minecraft.world.WorldProvider;
 
 public class OverworldProvider extends WorldProvider
@@ -11,7 +12,14 @@ public class OverworldProvider extends WorldProvider
         return "Overworld";
     }
     
-    public float calculateCelestialAngle(long worldtime, float par3)
+    public boolean getWorldHasVoidParticles()
+    {
+        if (PHConstruct.voidFog)
+            return false;
+        return this.terrainType.hasVoidParticles(this.hasNoSky);
+    }
+    
+    /*public float calculateCelestialAngle(long worldtime, float par3)
     {
         int timeOfDay = (int)(worldtime % 43200L);
         float f1 = ((float)timeOfDay + par3) / 43200.0F - 0.25F;
@@ -35,5 +43,5 @@ public class OverworldProvider extends WorldProvider
     public int getMoonPhase(long par1)
     {
         return (int)(par1 / 43200L) % 8;
-    }
+    }*/
 }

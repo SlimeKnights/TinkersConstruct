@@ -40,7 +40,7 @@ public class GuiButtonTool extends GuiButton
             this.field_82253_i = mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height;
             int var5 = this.getHoverState(this.field_82253_i);
             int index = 18 * getHoverState(field_82253_i);
-            this.drawTexturedModalRect(this.xPosition, this.yPosition, index, 0, 18, 18);
+            this.drawTexturedModalRect(this.xPosition, this.yPosition, 144 + index*2, 216, 18, 18);
             this.drawTexturedModalRect(this.xPosition, this.yPosition, textureX*18, textureY*18, 18, 18);
         }
     }

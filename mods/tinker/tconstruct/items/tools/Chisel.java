@@ -43,6 +43,11 @@ public class Chisel extends ToolCore
         boolean detailed = false;
         return detailed;
     }
+    
+    public boolean onItemUse (ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float clickX, float clickY, float clickZ)
+    {
+        return false;
+    }
 
     @Override
     public ItemStack onItemRightClick (ItemStack stack, World world, EntityPlayer entityplayer)

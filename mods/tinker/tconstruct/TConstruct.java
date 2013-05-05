@@ -10,10 +10,12 @@ import mods.tinker.tconstruct.util.PHConstruct;
 import mods.tinker.tconstruct.util.TCraftingHandler;
 import mods.tinker.tconstruct.util.TEventHandler;
 import mods.tinker.tconstruct.util.player.TPlayerHandler;
+import mods.tinker.tconstruct.worldgen.OverworldProvider;
 import mods.tinker.tconstruct.worldgen.TBaseWorldGenerator;
 import mods.tinker.tconstruct.worldgen.village.TVillageTrades;
 import mods.tinker.tconstruct.worldgen.village.VillageSmelteryHandler;
 import mods.tinker.tconstruct.worldgen.village.VillageToolStationHandler;
+import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
@@ -35,7 +37,7 @@ import cpw.mods.fml.common.registry.VillagerRegistry;
  * @dependencies: IC2 API
  */
 
-@Mod(modid = "TConstruct", name = "TConstruct", version = "1.5.1_1.3.2", dependencies = "required-after:Forge@[7.7.1.675,)")
+@Mod(modid = "TConstruct", name = "TConstruct", version = "1.5.1_1.3.2.15", dependencies = "required-after:Forge@[7.7.1.675,)")
 @NetworkMod(serverSideRequired = false, clientSideRequired = true, channels = { "TConstruct" }, packetHandler = mods.tinker.tconstruct.util.network.TPacketHandler.class)
 public class TConstruct
 {
@@ -88,8 +90,8 @@ public class TConstruct
             VillagerRegistry.instance().registerVillageCreationHandler(new VillageSmelteryHandler());
         }
 
-        //DimensionManager.unregisterProviderType(0);
-        //DimensionManager.registerProviderType(0, OverworldProvider.class, true);
+        DimensionManager.unregisterProviderType(0);
+        DimensionManager.registerProviderType(0, OverworldProvider.class, true);
     }
     
     @Init

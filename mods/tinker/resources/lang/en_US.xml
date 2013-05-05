@@ -176,6 +176,6 @@
   <entry key="entity.TConstruct.EdibleSlime">Blue Slime</entry>
   <entry key="entity.TConstruct.UnstableCreeper">Nitro Creeper</entry>
   
-  <entry key="key.armor">Armor Gui</entry>
+  <entry key="key.tarmor">Armor Gui</entry>
   
 </properties>

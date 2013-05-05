@@ -44,6 +44,8 @@ public class PHConstruct
         //removeToolRecipes = config.get("Diffuclty Changes", "Remove vanilla tool recipes", false).getBoolean(false);
         keepHunger = config.get("Difficulty Changes", "Keep hunger on death", true).getBoolean(true);
         keepLevels = config.get("Difficulty Changes", "Keep levels on death", true).getBoolean(true);
+        clearWater = config.get("Difficulty Changes", "Turn water clear", true).getBoolean(true);
+        voidFog = config.get("Difficulty Changes", "Remove Overworld void fog", true).getBoolean(true);
 
         /*disableWoodTools = config.get("Difficulty Changes", "Disable vanilla wooden tools", false).getBoolean(false);
         disableStoneTools = config.get("Difficulty Changes", "Disable vanilla stone tools", true).getBoolean(true);
@@ -141,6 +143,7 @@ public class PHConstruct
         oreChunks = config.getItem("Patterns and Misc", "Ore Chunks", 14104).getInt(14104);
         
         heartContainer = config.getItem("Equipables", "Heart Canister", 14105).getInt(14105);
+        heavyHelmet = config.getItem("Equipables", "Heavy Helmet", 14106).getInt(14106);
 
         boolean ic2 = true;
         boolean xycraft = true;
@@ -321,7 +324,12 @@ public class PHConstruct
 
     public static int binding;
     
-    //Equipables
+    //Wearables
+    public static int heavyHelmet;
+    public static int heavyChestplate;
+    public static int heavyPants;
+    public static int heavyBoots;
+    
     public static int heartContainer;
 
     //Ore values
@@ -397,6 +405,8 @@ public class PHConstruct
     //Difficulty modifiers
     public static boolean keepHunger;
     public static boolean keepLevels;
+    public static boolean clearWater;
+    public static boolean voidFog;
 
     public static boolean disableWoodTools;
     public static boolean disableStoneTools;

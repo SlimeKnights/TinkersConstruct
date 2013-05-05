@@ -328,7 +328,7 @@ public class ToolStationGui extends NewContainerGui
         
         if (active)
         {
-            this.drawTexturedModalRect(cornerX+68, cornerY+6, 0, this.ySize, 102, 12);
+            this.drawTexturedModalRect(cornerX+62, cornerY, 0, this.ySize, 112, 22);
         }
 
         //texID = this.mc.renderEngine.getTexture("/mods/tinker/textures/gui/icons.png");
@@ -339,7 +339,7 @@ public class ToolStationGui extends NewContainerGui
 
         for (int i = 0; i < slotX.length; i++)
         {
-            this.drawTexturedModalRect(cornerX + slotX[i], cornerY + slotY[i], 0, 0, 18, 18);
+            this.drawTexturedModalRect(cornerX + slotX[i]-4, cornerY + slotY[i]-4, 140, 212, 28, 28);
             if (!logic.isStackInSlot(i + 1))
             {
                 this.drawTexturedModalRect(cornerX + slotX[i], cornerY + slotY[i], 18 * iconX[i], 18 * iconY[i], 18, 18);

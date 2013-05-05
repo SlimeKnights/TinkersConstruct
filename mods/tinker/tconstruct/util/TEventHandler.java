@@ -10,14 +10,20 @@ import mods.tinker.tconstruct.entity.NitroCreeper;
 import mods.tinker.tconstruct.library.crafting.PatternBuilder;
 import mods.tinker.tconstruct.library.crafting.Smeltery;
 import mods.tinker.tconstruct.library.crafting.ToolBuilder;
+import mods.tinker.tconstruct.library.tools.ToolCore;
+import mods.tinker.tconstruct.library.util.IFacingLogic;
 import mods.tinker.tconstruct.modifiers.ModAttack;
+import net.minecraft.block.Block;
+import net.minecraft.entity.monster.EntityGhast;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EntityDamageSource;
 import net.minecraft.util.EnumMovingObjectType;
+import net.minecraft.world.World;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.client.event.sound.SoundLoadEvent;
 import net.minecraftforge.event.Event.Result;
@@ -25,6 +31,8 @@ import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.player.FillBucketEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 import net.minecraftforge.liquids.LiquidStack;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.OreDictionary.OreRegisterEvent;
@@ -111,6 +119,11 @@ public class TEventHandler
             {
                 skeleton.entityDropItem(new ItemStack(TContent.materials, 1, 8), 0f);
             }
+        }
+
+        else if (event.entityLiving.getClass() == EntityGhast.class)
+        {
+            event.entityLiving.entityDropItem(new ItemStack(Item.ghastTear), 0);
         }
     }
 
@@ -642,10 +655,9 @@ public class TEventHandler
             int hitY = evt.target.blockY;
             int hitZ = evt.target.blockZ;
 
-            if (!evt.entityPlayer.canPlayerEdit(hitX, hitY, hitZ, evt.target.sideHit, evt.current))
+            if (evt.entityPlayer != null && !evt.entityPlayer.canPlayerEdit(hitX, hitY, hitZ, evt.target.sideHit, evt.current))
             {
                 return;
-                //return evt.current;
             }
 
             int bID = evt.world.getBlockId(hitX, hitY, hitZ);
