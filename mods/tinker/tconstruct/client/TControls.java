@@ -60,7 +60,7 @@ public class TControls extends TKeyHandler
 		    {
 		        openArmorGui(mc.thePlayer.username);
 		    }
-		    if (kb == invKey && mc.currentScreen != null && mc.currentScreen.getClass() == GuiInventory.class)// && !mc.playerController.isInCreativeMode())
+		    if (kb == invKey && mc.currentScreen != null && (mc.currentScreen.getClass() == GuiInventory.class || this.classMatches(mc.currentScreen, "micdoodle8.mods.galacticraft.core.client.gui.GCCoreGuiInventory")))// && !mc.playerController.isInCreativeMode())
 		    {
 		        TProxyClient.addTabsToInventory();
 
@@ -106,6 +106,18 @@ public class TControls extends TKeyHandler
 			}
 		}*/
 	}
+
+    public static boolean classMatches(Object paramObject, String paramString)
+    {
+    	try 
+      	{
+    		return paramObject.getClass().getName().equals(paramString); 
+      	} 
+      	catch (Exception localException) 
+      	{
+      		return false;
+      	}
+    }
 
 	@Override
 	public void keyUp (EnumSet<TickType> types, KeyBinding kb, boolean tickEnd)
