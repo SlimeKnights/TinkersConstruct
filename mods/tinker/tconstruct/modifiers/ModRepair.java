@@ -1,6 +1,7 @@
 package mods.tinker.tconstruct.modifiers;
 
 import mods.tinker.tconstruct.library.crafting.PatternBuilder;
+import mods.tinker.tconstruct.library.tools.AbilityHelper;
 import mods.tinker.tconstruct.library.tools.ToolMod;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -58,16 +59,38 @@ public class ModRepair extends ToolMod
 			materialValue = PatternBuilder.instance.getPartValue(input[1]);
 		
 		int increase = (int) (50 + (dur * 0.4f * materialValue));
+		//System.out.println("Increase: "+increase);
+		
+		int modifiers = tags.getInteger("Modifiers");
+		float mods = 1.0f;
+		if (modifiers == 2)
+		    mods = 0.8f;
+		else if (modifiers == 1)
+		    mods = 0.6f;
+		else if (modifiers == 0)
+		    mods = 0.4f;
+		
+		increase *= mods;
+		
+        int repair = tags.getInteger("RepairCount");
+        repair += 1;
+        tags.setInteger("RepairCount", repair);
+        
+        float repairCount = (100 - repair) / 100f;
+        if (repairCount < 0.5f)
+            repairCount = 0.5f;
+        increase *= repairCount;
+
+        //System.out.println("Modified increase: "+increase);
+		        
 		damage -= increase;
 		if (damage < 0)
 			damage = 0;
 		tags.setInteger("Damage", damage);
 		
-		tool.setItemDamage(damage * 100 / dur);
+		AbilityHelper.damageTool(tool, 0, null, true);
+		//tool.setItemDamage(damage * 100 / dur);
 		
-		int repair = tags.getInteger("RepairCount");
-		repair += 1;
-		tags.setInteger("RepairCount", repair);
 	}
 	
 	@Override

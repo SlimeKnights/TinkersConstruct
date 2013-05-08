@@ -6,6 +6,7 @@ import mods.tinker.tconstruct.common.TContent;
 import mods.tinker.tconstruct.library.util.CoordTuple;
 import mods.tinker.tconstruct.util.PHConstruct;
 import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.chunk.IChunkProvider;
@@ -50,6 +51,11 @@ public class TBaseWorldGenerator implements IWorldGenerator
             generateSurface(random, chunkX * 16, chunkZ * 16, world);
             if (world.provider.dimensionId == 0)
                 generateOreBushes(random, chunkX * 16, chunkZ * 16, world);
+        }
+
+        if (PHConstruct.superfunWorld && world.provider.dimensionId == 0)
+        {
+            superfunGenerate(random, chunkX * 16, chunkZ * 16, world);
         }
     }
 
@@ -303,6 +309,38 @@ public class TBaseWorldGenerator implements IWorldGenerator
         } while (height > depthLimit);
 
         return -1;
+    }
+
+    void superfunGenerate (Random random, int chunkX, int chunkZ, World world)
+    {
+        /*for (int x = 0; x < 16; x++)
+            for (int z = 0; z < 16; z++)
+                world.setBlock(x+chunkX, 192, z+chunkZ, Block.glowStone.blockID);*/
+
+        for (int x = 0; x < 16; x++)
+        {
+            for (int z = 0; z < 16; z++)
+            {
+                for (int y = 0; y < 128; y++)
+                {
+                    int blockID = world.getBlockId(x + chunkX, y, z + chunkZ);
+                    Block block = Block.blocksList[blockID];
+                    if (block != null)
+                    {
+                        if (block.blockMaterial == Material.leaves)
+                            world.setBlock(x + chunkX, y, z + chunkZ, Block.lavaStill.blockID, 0, 0);
+                        if (block.blockMaterial == Material.wood)
+                            world.setBlock(x + chunkX, y, z + chunkZ, Block.netherrack.blockID, 0, 0);
+                        if (block.blockID == Block.stone.blockID)
+                            world.setBlock(x + chunkX, y, z + chunkZ, Block.whiteStone.blockID, 0, 0);
+                        if (y > 40 && (block.blockMaterial == Material.ground || block.blockMaterial == Material.grass))
+                            world.setBlock(x + chunkX, y, z + chunkZ, Block.slowSand.blockID, 0, 0);
+                        if (block.blockMaterial == Material.sand)
+                            world.setBlock(x + chunkX, y, z + chunkZ, Block.silverfish.blockID, 0, 0);
+                    }
+                }
+            }
+        }
     }
 
     WorldGenMinable copper;

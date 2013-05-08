@@ -25,6 +25,7 @@ import mods.tinker.tconstruct.library.crafting.*;
 import mods.tinker.tconstruct.library.tools.*;
 import mods.tinker.tconstruct.util.PHConstruct;
 import mods.tinker.tconstruct.util.player.*;
+import mods.tinker.tconstruct.worldgen.OverworldProvider;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
@@ -65,6 +66,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 import net.minecraftforge.client.MinecraftForgeClient;
+import net.minecraftforge.common.DimensionManager;
 
 import org.w3c.dom.Document;
 
@@ -114,15 +116,15 @@ public class TProxyClient extends TProxyCommon
 
     public static void openInventoryGui ()
     {
-        if (mc == null)
+        /*if (mc == null)
             mc = Minecraft.getMinecraft();
         mc.displayGuiScreen(new GuiInventory(mc.thePlayer));
-        addTabsToInventory();
+        addTabsToInventory();*/
     }
 
     public static void addTabsToInventory ()
     {
-        if (mc == null)
+        /*if (mc == null)
             mc = Minecraft.getMinecraft();
         if (mc.currentScreen.getClass() == GuiInventory.class)
         {
@@ -136,12 +138,12 @@ public class TProxyClient extends TProxyCommon
             gui.buttonList.add(repairButton);
             repairButton = new InventoryTab(3, cornerX + 28, cornerY - 28, new ItemStack(Item.plateDiamond), 1);
             gui.buttonList.add(repairButton);
-        }
+        }*/
     }
 
     public void registerTickHandler ()
     {
-        //TickRegistry.registerTickHandler(new TClientTickHandler(), Side.CLIENT);
+        TickRegistry.registerTickHandler(new TClientTickHandler(), Side.CLIENT);
         //TickRegistry.registerTickHandler(new TCommonTickHandler(), Side.CLIENT);
     }
 
@@ -187,6 +189,15 @@ public class TProxyClient extends TProxyCommon
         RenderingRegistry.registerEntityRenderingHandler(Crystal.class, new CrystalRender());
         RenderingRegistry.registerEntityRenderingHandler(LaunchedPotion.class, new LaunchedItemRender(Item.potion, 16384));
         //RenderingRegistry.registerEntityRenderingHandler(net.minecraft.entity.player.EntityPlayer.class, new PlayerArmorRender()); // <-- Works, woo!
+
+        if (PHConstruct.clearWater)
+        {
+            Block.waterMoving.setLightOpacity(1);
+            Block.waterStill.setLightOpacity(1);
+        }
+
+        DimensionManager.unregisterProviderType(0);
+        DimensionManager.registerProviderType(0, OverworldProvider.class, true);
 
         addRenderMappings();
         addToolButtons();

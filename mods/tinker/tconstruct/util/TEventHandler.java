@@ -112,7 +112,7 @@ public class TEventHandler
             }
         }
 
-        else if (event.recentlyHit && event.entityLiving.getClass() == EntitySkeleton.class)
+        if (event.recentlyHit && event.entityLiving.getClass() == EntitySkeleton.class)
         {
             EntitySkeleton skeleton = (EntitySkeleton) event.entityLiving;
             if (skeleton.getSkeletonType() == 1 && random.nextInt(Math.max(1, 5 - event.lootingLevel)) == 0)

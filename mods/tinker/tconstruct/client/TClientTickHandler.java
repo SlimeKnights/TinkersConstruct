@@ -24,16 +24,9 @@ public class TClientTickHandler implements ITickHandler
         TContent.oreBerry.setGraphicsLevel(Block.leaves.graphicsLevel);
         TContent.oreBerrySecond.setGraphicsLevel(Block.leaves.graphicsLevel);
         
-        player = mc.thePlayer;
+        /*player = mc.thePlayer;
         if (player == null || player.capabilities.isCreativeMode)
             return;
-        
-        /*ticks++;
-        if (ticks >= 200)
-        {
-            player.setEntityHealth(50);
-            ticks = 0;
-        }*/
         
         ScaledResolution scaledresolution = new ScaledResolution(this.mc.gameSettings, this.mc.displayWidth, this.mc.displayHeight);
         int scaledWidth = scaledresolution.getScaledWidth();
@@ -56,7 +49,7 @@ public class TClientTickHandler implements ITickHandler
             {
                 this.drawTexturedModalRect(xBasePos + 8*renderHearts, yBasePos, 9 + 18*iter, 0, 8, 8);
             }
-        }
+        }*/
     }
 
     @Override

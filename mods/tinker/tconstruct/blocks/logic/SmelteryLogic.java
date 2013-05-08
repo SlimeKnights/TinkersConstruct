@@ -529,24 +529,24 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 
     public void checkValidStructure (int x, int y, int z)
     {
-        int capacity = 0;
+        int checkLayers = 0;
         tempValidStructure = false;
         if (checkSameLevel(x, y, z))
         {
-            capacity++;
-            capacity += recurseStructureUp(x, y + 1, z, 0);
-            capacity += recurseStructureDown(x, y - 1, z, 0);
+            checkLayers++;
+            checkLayers += recurseStructureUp(x, y + 1, z, 0);
+            checkLayers += recurseStructureDown(x, y - 1, z, 0);
         }
 
         //maxLiquid = capacity * 20000;
 
-        if (tempValidStructure != validStructure)
+        if (tempValidStructure != validStructure || checkLayers != this.layers)
         {
             if (tempValidStructure)
             {
                 internalTemp = 800;
                 activeLavaTank = lavaTanks.get(0);
-                adjustLayers(capacity, false);
+                adjustLayers(checkLayers, false);
                 worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
                 validStructure = true;
             }

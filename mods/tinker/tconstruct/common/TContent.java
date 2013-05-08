@@ -370,11 +370,6 @@ public class TContent implements IFuelHandler
         Item.minecartCrate.setMaxStackSize(3);
         Item.minecartPowered.setMaxStackSize(3);
         Block.torchWood.setTickRandomly(false);
-        if (PHConstruct.clearWater)
-        {
-        Block.waterMoving.setLightOpacity(1);
-        Block.waterStill.setLightOpacity(1);
-        }
     }
 
     void registerMaterials ()

@@ -46,6 +46,8 @@ public class PHConstruct
         keepLevels = config.get("Difficulty Changes", "Keep levels on death", true).getBoolean(true);
         clearWater = config.get("Difficulty Changes", "Turn water clear", true).getBoolean(true);
         voidFog = config.get("Difficulty Changes", "Remove Overworld void fog", true).getBoolean(true);
+        
+        superfunWorld = config.get("Superfun", "All the world is Superfun", false).getBoolean(false);
 
         /*disableWoodTools = config.get("Difficulty Changes", "Disable vanilla wooden tools", false).getBoolean(false);
         disableStoneTools = config.get("Difficulty Changes", "Disable vanilla stone tools", true).getBoolean(true);
@@ -418,4 +420,7 @@ public class PHConstruct
     public static boolean enableTStone;
     public static boolean enableTCactus;
     public static boolean enableTBone;
+    
+    //Superfun
+    public static boolean superfunWorld;
 }

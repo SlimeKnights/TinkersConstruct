@@ -464,7 +464,7 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
             if (tags.hasKey("Moss"))
             {
                 int chance = tags.getInteger("Moss");
-                int check = world.canBlockSeeTheSky((int) entity.posX, (int) entity.posY, (int) entity.posZ) ? 350 : 1150;
+                int check = world.canBlockSeeTheSky((int) entity.posX, (int) entity.posY, (int) entity.posZ) ? 750 : 1500;
                 if (random.nextInt(check) < chance)
                 {
                     AbilityHelper.healTool(stack, 1, (EntityLiving) entity, true, !((EntityLiving) entity).isSwingInProgress);
@@ -597,6 +597,46 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
     //Right-click
     public boolean onItemUse (ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float clickX, float clickY, float clickZ)
     {
+        int posX = x;
+        int posY = y;
+        int posZ = z;
+        int playerPosX = (int) Math.floor(player.posX);
+        int playerPosY = (int) Math.floor(player.posY);
+        int playerPosZ = (int) Math.floor(player.posZ);
+        if (side == 0)
+        {
+            --posY;
+        }
+
+        if (side == 1)
+        {
+            ++posY;
+        }
+
+        if (side == 2)
+        {
+            --posZ;
+        }
+
+        if (side == 3)
+        {
+            ++posZ;
+        }
+
+        if (side == 4)
+        {
+            --posX;
+        }
+
+        if (side == 5)
+        {
+            ++posX;
+        }
+        if (posX == playerPosX && (posY == playerPosY || posY == playerPosY + 1 || posY == playerPosY - 1) && posZ == playerPosZ)
+        {
+            return false;
+        }
+        
         int hotbarSlot = player.inventory.currentItem;
         if (hotbarSlot == 0)
         {
