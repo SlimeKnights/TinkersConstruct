@@ -8,6 +8,7 @@ import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.ShapelessRecipes;
+import net.minecraft.nbt.NBTTagCompound;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 public class Detailing
@@ -48,7 +49,16 @@ public class Detailing
     public void addDetailing (DetailInput details, ToolCore tool)
     {
         detailing.add(details);
-        addShapelessToolRecipe(new ItemStack(details.outputID, 1, details.outputMeta), new ItemStack(tool, 1, Short.MAX_VALUE), new ItemStack(details.inputID, 1, details.inputMeta));
+        ItemStack toolstack = new ItemStack(tool, 1, Short.MAX_VALUE);
+
+        NBTTagCompound compound = new NBTTagCompound();
+        NBTTagCompound toolTag = new NBTTagCompound();
+        toolTag.setInteger("RenderHandle", 0);
+        toolTag.setInteger("RenderHead", 2);
+        toolTag.setInteger("RenderAccessory", 2);
+        compound.setCompoundTag("InfiTool", toolTag);
+        toolstack.setTagCompound(compound);
+        addShapelessToolRecipe(new ItemStack(details.outputID, 1, details.outputMeta), toolstack, new ItemStack(details.inputID, 1, details.inputMeta));
     }
 
     public void addShapelessToolRecipe (ItemStack par1ItemStack, Object... par2ArrayOfObj)

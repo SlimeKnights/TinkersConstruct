@@ -42,22 +42,29 @@ public class Rapier extends Weapon
 	public boolean hitEntity (ItemStack stack, EntityLiving mob, EntityLiving player)
 	{
 		//AbilityHelper.hitEntity(stack, mob, player, damageVsEntity);
-		AbilityHelper.knockbackEntity(mob, 0.8f);
-		mob.motionY *= 0.5;
-		if (mob.hurtResistantTime > 16)
-			mob.hurtResistantTime -= 6;
+		//AbilityHelper.knockbackEntity(mob, 0.8f);
+		mob.motionY *= 0.8;
+		if (mob.hurtResistantTime > 18)
+			mob.hurtResistantTime -= 5;
 		return true;
 	}
 
+	@Override
 	public float getDurabilityModifier ()
 	{
 		return 0.7f;
 	}
+	
+	@Override
+	public float getDamageModifier ()
+    {
+        return 0.8f;
+    }
 
-	public float chargeAttack ()
+	/*public float chargeAttack ()
 	{
-		return 1.5f;
-	}
+		return 1.0f;
+	}*/
 
 	public boolean pierceArmor ()
 	{

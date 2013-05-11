@@ -430,7 +430,7 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
     }
 
     /* Creative mode tools */
-    static String[] toolMaterialNames = { "Wooden ", "Stone ", "Iron ", "Flint ", "Cactus ", "Bone ", "Obsidian ", "Nethrrack ", "Slime ", "Paper ", "Cobalt ", "Ardite ", "Manyullyn ", "Copper ",
+    static String[] toolMaterialNames = { "Wooden ", "Stone ", "Iron ", "Flint ", "Cactus ", "Bone ", "Obsidian ", "Netherrack ", "Slime ", "Paper ", "Cobalt ", "Ardite ", "Manyullyn ", "Copper ",
             "Bronze ", "Alumite ", "Steel ", "Slime " };
 
     public void getSubItems (int id, CreativeTabs tab, List list)
@@ -458,7 +458,7 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
 
     public void onUpdate (ItemStack stack, World world, Entity entity, int par4, boolean par5)
     {
-        if (!world.isRemote && entity instanceof EntityLiving)
+        if (!world.isRemote && entity instanceof EntityLiving && !((EntityLiving) entity).isSwingInProgress)
         {
             NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
             if (tags.hasKey("Moss"))
@@ -467,7 +467,7 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
                 int check = world.canBlockSeeTheSky((int) entity.posX, (int) entity.posY, (int) entity.posZ) ? 750 : 1500;
                 if (random.nextInt(check) < chance)
                 {
-                    AbilityHelper.healTool(stack, 1, (EntityLiving) entity, true, !((EntityLiving) entity).isSwingInProgress);
+                    AbilityHelper.healTool(stack, 1, (EntityLiving) entity, true, false);
                 }
             }
         }
@@ -592,6 +592,11 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
     public float getDurabilityModifier ()
     {
         return 1f;
+    }
+    
+    public float getDamageModifier ()
+    {
+        return 1.0f;
     }
 
     //Right-click

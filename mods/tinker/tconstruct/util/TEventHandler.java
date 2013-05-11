@@ -10,17 +10,19 @@ import mods.tinker.tconstruct.entity.NitroCreeper;
 import mods.tinker.tconstruct.library.crafting.PatternBuilder;
 import mods.tinker.tconstruct.library.crafting.Smeltery;
 import mods.tinker.tconstruct.library.crafting.ToolBuilder;
-import mods.tinker.tconstruct.library.tools.ToolCore;
-import mods.tinker.tconstruct.library.util.IFacingLogic;
 import mods.tinker.tconstruct.modifiers.ModAttack;
-import net.minecraft.block.Block;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.monster.EntityGhast;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.passive.EntityCow;
+import net.minecraft.entity.passive.EntityPig;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EntityDamageSource;
 import net.minecraft.util.EnumMovingObjectType;
 import net.minecraft.world.World;
@@ -30,9 +32,8 @@ import net.minecraftforge.event.Event.Result;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.event.entity.player.FillBucketEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 import net.minecraftforge.liquids.LiquidStack;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.OreDictionary.OreRegisterEvent;
@@ -97,7 +98,10 @@ public class TEventHandler
 
                 for (int iter = 0; iter < amount; ++iter)
                 {
-                    event.entityLiving.dropItem(Item.leather.itemID, 1);
+                    ItemStack dropStack = new ItemStack(Item.leather, 1);
+                    EntityItem entityitem = new EntityItem(event.entityLiving.worldObj, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, dropStack);
+                    entityitem.delayBeforeCanPickup = 10;
+                    event.drops.add(entityitem);
                 }
             }
 
@@ -107,7 +111,11 @@ public class TEventHandler
 
                 for (int iter = 0; iter < amount; ++iter)
                 {
-                    event.entityLiving.dropItem(Item.feather.itemID, 1);
+                    ItemStack dropStack = new ItemStack(Item.feather, 1);
+                    EntityItem entityitem = new EntityItem(event.entityLiving.worldObj, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, dropStack);
+                    entityitem.delayBeforeCanPickup = 10;
+                    event.drops.add(entityitem);
+                    //event.entityLiving.dropItem(Item.feather.itemID, 1);
                 }
             }
         }
@@ -117,13 +125,41 @@ public class TEventHandler
             EntitySkeleton skeleton = (EntitySkeleton) event.entityLiving;
             if (skeleton.getSkeletonType() == 1 && random.nextInt(Math.max(1, 5 - event.lootingLevel)) == 0)
             {
-                skeleton.entityDropItem(new ItemStack(TContent.materials, 1, 8), 0f);
+                ItemStack dropStack = new ItemStack(TContent.materials, 1, 8);
+                EntityItem entityitem = new EntityItem(event.entityLiving.worldObj, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, dropStack);
+                entityitem.delayBeforeCanPickup = 10;
+                event.drops.add(entityitem);
             }
         }
 
         else if (event.entityLiving.getClass() == EntityGhast.class)
         {
-            event.entityLiving.entityDropItem(new ItemStack(Item.ghastTear), 0);
+            ItemStack dropStack = new ItemStack(Item.ghastTear, 1);
+            EntityItem entityitem = new EntityItem(event.entityLiving.worldObj, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, dropStack);
+            entityitem.delayBeforeCanPickup = 10;
+            event.drops.add(entityitem);
+        }
+    }
+    
+    @ForgeSubscribe
+    public void onLivingSpawn (LivingSpawnEvent.SpecialSpawn event)
+    {
+        if (event.entityLiving instanceof EntityCreeper && random.nextInt(500) == 0)
+        {
+            EntityPig pig = new EntityPig(event.entityLiving.worldObj);
+            spawnEntity(event.entityLiving.posX, event.entityLiving.posY+1, event.entityLiving.posZ, pig, event.entityLiving.worldObj);
+            event.entityLiving.mountEntity(pig);
+        }
+    }
+    
+    public static void spawnEntity (double x, double y, double z, Entity entity, World world)
+    {
+        if (!world.isRemote)
+        {
+            entity.setPosition(x, y, z);
+            //entity.setAngles(player.cameraYaw, player.cameraYaw);
+            ((EntityLiving) entity).initCreature();
+            world.spawnEntityInWorld(entity);
         }
     }
 

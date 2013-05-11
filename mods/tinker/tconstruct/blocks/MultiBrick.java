@@ -15,7 +15,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class MultiBrick extends TConstructBlock
 {
     static String blockTextures[] = { "brick_obsidian", "brick_sandstone", "brick_netherrack", "brick_stone_refined", "brick_iron", "brick_gold", "brick_lapis", "brick_diamond", "brick_redstone",
-            "brick_bone", "brick_slime", "brick_blueslime" };
+            "brick_bone", "brick_slime", "brick_blueslime", "brick_endstone", "brick_obsidian_ingot" };
 
     public MultiBrick(int id)
     {
@@ -40,6 +40,8 @@ public class MultiBrick extends TConstructBlock
         case 9: return 1.0F;
         case 10: return 1.5F;
         case 11: return 1.5F;
+        case 12: return Block.whiteStone.getBlockHardness(world, x, y, z);
+        case 13: return Block.obsidian.getBlockHardness(world, x, y, z);
         default: return blockHardness;
         }
     }
@@ -61,6 +63,8 @@ public class MultiBrick extends TConstructBlock
         case 9: return 1.0F;
         case 10: return 1.5F;
         case 11: return 1.5F;
+        case 12: return Block.whiteStone.getExplosionResistance(entity);
+        case 13: return Block.obsidian.getExplosionResistance(entity);
         default: return getExplosionResistance(entity);
         }
     }

@@ -132,7 +132,7 @@ public class TProxyCommon implements IGuiHandler
         //LanguageRegistry.addName(TContent.blankPattern, "Blank Pattern");
         LanguageRegistry.addName(TContent.pickaxe, "Pickaxe");
         LanguageRegistry.addName(TContent.shovel, "Shovel");
-        LanguageRegistry.addName(TContent.axe, "Axe");
+        LanguageRegistry.addName(TContent.axe, "Hatchet");
         LanguageRegistry.addName(TContent.broadsword, "Broadsword");
         LanguageRegistry.addName(TContent.longsword, "Longsword");
         LanguageRegistry.addName(TContent.rapier, "Rapier");

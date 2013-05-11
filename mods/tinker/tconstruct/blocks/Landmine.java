@@ -94,7 +94,7 @@ public class Landmine extends Block
         if (var6)
         {
             this.dropBlockAsItem(par1World, par2, par3, par4, par1World.getBlockMetadata(par2, par3, par4), 0);
-            //par1World.setBlockWithNotify(par2, par3, par4, 0);
+            //par1World.setBlock(par2, par3, par4, 0);
         }
     }
 
@@ -169,7 +169,7 @@ public class Landmine extends Block
 
         if (var6 && !var5)
         {
-        	//world.setBlockWithNotify(posX, posY, posZ, 0);
+        	//world.setBlock(posX, posY, posZ, 0);
         	world.createExplosion((Entity)null, posX, posY, posZ, 2.0F, true);
             /*par1World.setBlockMetadataWithNotify(posX, posY, posZ, 1);
             par1World.notifyBlocksOfNeighborChange(posX, posY, posZ, this.blockID);

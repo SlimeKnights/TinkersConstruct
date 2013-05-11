@@ -144,11 +144,11 @@ public class LiquidMetalStill extends LiquidMetalBase implements ILiquid
 
 					if (var6 == 0)
 					{
-					    par1World.setBlockWithNotify(par2, par3, par4, Block.obsidian.blockID);
+					    par1World.setBlock(par2, par3, par4, Block.obsidian.blockID);
 					}
 					else if (var6 <= 4)
 					{
-					    par1World.setBlockWithNotify(par2, par3, par4, Block.cobblestone.blockID);
+					    par1World.setBlock(par2, par3, par4, Block.cobblestone.blockID);
 					}*/
 
 					this.triggerLavaMixEffects(par1World, par2, par3, par4);

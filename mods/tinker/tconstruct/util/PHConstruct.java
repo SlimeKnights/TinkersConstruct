@@ -223,7 +223,7 @@ public class PHConstruct
         tinBushMinY = config.get("Worldgen", "Tin Bush Min Y", 0).getInt(0);
         tinBushMaxY = config.get("Worldgen", "Tin Bush Max Y", 40).getInt(40);
         aluminumBushMinY = config.get("Worldgen", "Aluminum Bush Min Y", 0).getInt(0);
-        aluminumBushMaxY = config.get("Worldgen", "Aluminum Bush Max Y", 64).getInt(64);
+        aluminumBushMaxY = config.get("Worldgen", "Aluminum Bush Max Y", 60).getInt(60);
         
         seaLevel = config.get("general", "Sea level", 64).getInt(64);
 

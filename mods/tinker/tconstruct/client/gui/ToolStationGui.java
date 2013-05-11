@@ -184,7 +184,7 @@ public class ToolStationGui extends NewContainerGui
         int maxDur = tags.getInteger("TotalDurability");
         dur = maxDur - dur;
         fontRenderer.drawString("Durability: " + dur + "/" + maxDur, xSize + 8, 24, 0xffffff);
-        int attack = tags.getInteger("Attack");
+        int attack = (int) (tags.getInteger("Attack") * tool.getDamageModifier());
 
         String heart = attack == 2 ? " Heart" : " Hearts";
         if (attack % 2 == 0)

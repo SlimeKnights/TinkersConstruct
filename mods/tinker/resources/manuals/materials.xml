@@ -71,13 +71,13 @@ Effective on: Dirt, sand, gravel, and snow.</text>
 </page>
 
 <page type="toolpage">
-<title>Axe</title>
-<text>The Axe is a basic chopping tool. It is the simplest way to shape lumber.</text>
+<title>Hatchet</title>
+<text>The Hatchet is a basic chopping tool. It is the simplest way to shape lumber.</text>
 <text>Class: Precision Tool
 Effective on: Wood, Leaves, and Trees.</text>
 <icon>axeicon</icon>
 <item>
- <text>Axe Head</text>
+ <text>Hatchet Head</text>
  <icon>axehead</icon>
 </item>
 <item>
@@ -249,8 +249,8 @@ Class: Lethal Joke Weapon</text>
 </page>
 
 <page type="sectionpage">
-<title>Material Abilities</title>
-<text>Some materials have abilities that augment their natural uses.
+<title>Material Traits</title>
+<text>Some materials have traits that augment their natural uses.
 
 - Reinforced: 10% chance per level of not using durability
 - Stonebound: The tool mines faster as it wears out, but does less damage

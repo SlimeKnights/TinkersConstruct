@@ -601,7 +601,7 @@ public class TContent implements IFuelHandler
         Smeltery.addMelting(Block.oreIron, 0, 600, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 0));
         Smeltery.addMelting(Block.oreGold, 0, 400, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 1));
         Smeltery.addMelting(oreGravel, 0, 600, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 0));
-        Smeltery.addMelting(oreGravel, 1, 400, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 1));
+        //Smeltery.addMelting(oreGravel, 1, 400, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 1));
 
         //Items
         Smeltery.addMelting(new ItemStack(Item.ingotIron, 4), Block.blockIron.blockID, 0, 500, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 0));
@@ -610,6 +610,7 @@ public class TContent implements IFuelHandler
 
         Smeltery.addMelting(new ItemStack(Item.bucketEmpty), Block.blockIron.blockID, 0, 600, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 3, 0));
         Smeltery.addMelting(new ItemStack(Item.minecartEmpty), Block.blockIron.blockID, 0, 600, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 5, 0));
+        Smeltery.addMelting(new ItemStack(materials, 1, 18), Block.obsidian.blockID, 0, 750, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 11));//obsidian
 
         //Blocks
         Smeltery.addMelting(Block.blockIron, 0, 600, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 0));
@@ -654,6 +655,8 @@ public class TContent implements IFuelHandler
         chiseling.addDetailing(Item.bone, 0, multiBrick, 9, chisel);
         chiseling.addDetailing(Item.slimeBall, 0, multiBrick, 10, chisel);
         chiseling.addDetailing(strangeFood, 0, multiBrick, 11, chisel);
+        chiseling.addDetailing(Block.whiteStone, 0, multiBrick, 12, chisel);
+        chiseling.addDetailing(materials, 18, multiBrick, 13, chisel);
         
         /*static String blockTextures[] = { "brick_obsidian", "brick_sandstone", "brick_netherrack", "brick_stone_refined", "brick_iron", "brick_gold", "brick_lapis", "brick_diamond", 
             "brick_redstone", "brick_slime", "brick_bone" };*/
@@ -798,7 +801,7 @@ public class TContent implements IFuelHandler
         OreDictionary.registerOre("oreNaturalAluminum", new ItemStack(oreSlag, 1, 5));
 
         OreDictionary.registerOre("oreIron", new ItemStack(oreGravel, 1, 0));
-        OreDictionary.registerOre("oreGold", new ItemStack(oreGravel, 1, 1));
+        //OreDictionary.registerOre("oreGold", new ItemStack(oreGravel, 1, 1));
         OreDictionary.registerOre("oreCobalt", new ItemStack(oreGravel, 1, 5));
         OreDictionary.registerOre("oreCopper", new ItemStack(oreGravel, 1, 2));
         OreDictionary.registerOre("oreTin", new ItemStack(oreGravel, 1, 3));

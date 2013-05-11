@@ -113,6 +113,11 @@ public class AbilityHelper
                     }
 
                     damage += enchantDamage;
+                    
+                    if (tool.getDamageModifier() != 1f)
+                    {
+                        damage *= tool.getDamageModifier();
+                    }
                     boolean var6 = false;
                     int fireAspect = EnchantmentHelper.getFireAspectModifier(player);
 
@@ -135,7 +140,7 @@ public class AbilityHelper
                         damageTool(stack, 1, player, false);
                         int drain = toolTags.getInteger("Necrotic") * 2;
                         if (drain > 0)
-                            player.heal(drain);
+                            player.heal(random.nextInt(drain));
 
                         if (knockback > 0)
                         {
@@ -386,7 +391,8 @@ public class AbilityHelper
 
                     if (stack.getMaxDamage() > 2)
                     {
-                        stack.setItemDamage(1 + (ielectricitem.getMaxCharge(stack) - charge) * (stack.getMaxDamage() - 2) / ielectricitem.getMaxCharge(stack));
+                        if (stack.getItemDamage() + 1 < stack.getMaxDamage())
+                            stack.setItemDamage(1 + (ielectricitem.getMaxCharge(stack) - charge) * (stack.getMaxDamage() - 2) / ielectricitem.getMaxCharge(stack));
                     }
                     else
                     {

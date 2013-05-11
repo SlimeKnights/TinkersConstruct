@@ -64,6 +64,8 @@
   <entry key="block.brick.bone.name">Bone Brick</entry>
   <entry key="block.brick.slime.name">Slime Brick</entry>
   <entry key="block.brick.blueslime.name">Slime Brick</entry>
+  <entry key="block.brick.endstone.name">Endstone Brick</entry>
+  <entry key="block.brick.obsidian.ingot.name">Obsidian Brick</entry>
   
   <entry key="item.oreberry.iron.name">Iron Oreberry</entry>
   <entry key="item.oreberry.gold.name">Gold Oreberry</entry>
