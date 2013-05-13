@@ -325,7 +325,7 @@ public class TContent implements IFuelHandler
 
         pickaxe = new Pickaxe(PHConstruct.pickaxe);
         shovel = new Shovel(PHConstruct.shovel);
-        axe = new Axe(PHConstruct.axe);
+        axe = new Hatchet(PHConstruct.axe);
         broadsword = new Broadsword(PHConstruct.broadsword);
         longsword = new Longsword(PHConstruct.longsword);
         rapier = new Rapier(PHConstruct.rapier);

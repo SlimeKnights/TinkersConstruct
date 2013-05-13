@@ -32,7 +32,7 @@ public class ToolPart extends CraftingItem
 	}
 	
 	/*@SideOnly(Side.CLIENT)
-    public void updateIcons(IconRegister iconRegister)
+    public void registerIcons(IconRegister iconRegister)
     {
 		this.icons = new Icon[textureNames.length];
 

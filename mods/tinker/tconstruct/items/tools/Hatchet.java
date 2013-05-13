@@ -12,9 +12,9 @@ import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class Axe extends HarvestTool
+public class Hatchet extends HarvestTool
 {
-	public Axe(int itemID)
+	public Hatchet(int itemID)
 	{
 		super(itemID, 3);
 		this.setUnlocalizedName("InfiTool.Axe");
@@ -48,7 +48,7 @@ public class Axe extends HarvestTool
 		return AbilityHelper.onBlockChanged(itemstack, world, bID, x, y, z, player, random);
 	}
 
-	static Material[] materials = { Material.wood, Material.leaves, Material.circuits, Material.cactus, Material.pumpkin };
+	static Material[] materials = { Material.wood, Material.leaves, Material.vine, Material.circuits, Material.cactus, Material.pumpkin };
 
 	@Override
 	protected Item getHeadItem ()

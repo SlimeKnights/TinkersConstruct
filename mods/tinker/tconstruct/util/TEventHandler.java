@@ -51,8 +51,8 @@ public class TEventHandler
     {
         try
         {
-            event.manager.soundPoolSounds.addSound("hit.frypan", TConstruct.class.getResource("/mods/tinker/resources/sounds/frypan_hit.ogg"));
-            event.manager.soundPoolSounds.addSound("crafting.saw", TConstruct.class.getResource("/mods/tinker/resources/sounds/little_saw.ogg"));
+            event.manager.soundPoolSounds.addSound("mods/tinker/resources/sounds/frypan_hit.ogg", TConstruct.class.getResource("/mods/tinker/resources/sounds/frypan_hit.ogg"));
+            event.manager.soundPoolSounds.addSound("mods/tinker/resources/sounds/little_saw.ogg", TConstruct.class.getResource("/mods/tinker/resources/sounds/little_saw.ogg"));
             System.out.println("[TConstruct] Successfully loaded sounds.");
         }
         catch (Exception e)

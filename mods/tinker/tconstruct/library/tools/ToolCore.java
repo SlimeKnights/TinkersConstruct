@@ -428,6 +428,12 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
         }
         return ret;
     }
+    
+    //Used for sounds and the like
+    public void onEntityDamaged(World world, EntityPlayer player, Entity entity)
+    {
+        
+    }
 
     /* Creative mode tools */
     static String[] toolMaterialNames = { "Wooden ", "Stone ", "Iron ", "Flint ", "Cactus ", "Bone ", "Obsidian ", "Netherrack ", "Slime ", "Paper ", "Cobalt ", "Ardite ", "Manyullyn ", "Copper ",

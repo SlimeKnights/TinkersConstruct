@@ -138,6 +138,7 @@ public class AbilityHelper
                     if (causedDamage)
                     {
                         damageTool(stack, 1, player, false);
+                        tool.onEntityDamaged(player.worldObj, player, entity);
                         int drain = toolTags.getInteger("Necrotic") * 2;
                         if (drain > 0)
                             player.heal(random.nextInt(drain));
