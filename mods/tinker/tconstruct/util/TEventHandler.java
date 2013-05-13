@@ -44,36 +44,6 @@ public class TEventHandler
 {
     Random random = new Random();
 
-    /* Sounds */
-    @ForgeSubscribe
-    @SideOnly(Side.CLIENT)
-    public void onSound (SoundLoadEvent event)
-    {
-        try
-        {
-            event.manager.soundPoolSounds.addSound("mods/tinker/resources/sounds/frypan_hit.ogg", TConstruct.class.getResource("/mods/tinker/resources/sounds/frypan_hit.ogg"));
-            event.manager.soundPoolSounds.addSound("mods/tinker/resources/sounds/little_saw.ogg", TConstruct.class.getResource("/mods/tinker/resources/sounds/little_saw.ogg"));
-            System.out.println("[TConstruct] Successfully loaded sounds.");
-        }
-        catch (Exception e)
-        {
-            System.err.println("[TConstruct] Failed to register one or more sounds");
-        }
-    }
-
-    @ForgeSubscribe
-    @SideOnly(Side.CLIENT)
-    public void postStitch (TextureStitchEvent.Post event)
-    {
-        for (int i = 0; i < TContent.liquidIcons.length; i++)
-        {
-            TContent.liquidIcons[i].setRenderingIcon(TContent.liquidMetalStill.getIcon(0, i));
-            LiquidStack canon = TContent.liquidIcons[i].canonical();
-            if (canon != null)
-                canon.setRenderingIcon(TContent.liquidMetalStill.getIcon(0, i));
-        }
-    }
-
     @ForgeSubscribe
     public void onHurt (LivingHurtEvent event)
     {

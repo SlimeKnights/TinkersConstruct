@@ -69,6 +69,7 @@ import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.DimensionManager;
+import net.minecraftforge.common.MinecraftForge;
 
 import org.lwjgl.opengl.GL11;
 import org.w3c.dom.Document;
@@ -185,6 +186,7 @@ public class TProxyClient extends TProxyCommon
     public void registerRenderer ()
     {
         Minecraft mc = Minecraft.getMinecraft();
+        MinecraftForge.EVENT_BUS.register(new TClientEvents());
         smallFontRenderer = new SmallFontRenderer(mc.gameSettings, "/font/default.png", mc.renderEngine, false);
         RenderingRegistry.registerBlockHandler(new TableRender());
         RenderingRegistry.registerBlockHandler(new FrypanRender());
