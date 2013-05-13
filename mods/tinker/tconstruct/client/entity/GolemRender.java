@@ -307,7 +307,7 @@ public class GolemRender extends RenderLiving
 
     public void renderBlock (Block block, World world, int x, int y, int z, int side)
     {
-        float f = 0.5F;
+        /*float f = 0.5F;
         float f1 = 1.0F;
         float f2 = 0.8F;
         float f3 = 0.6F;
@@ -357,7 +357,7 @@ public class GolemRender extends RenderLiving
         }
         tessellator.setColorOpaque_F(f3 * f5, f3 * f5, f3 * f5);
         renderBlocks.renderSouthFace(block, -0.5D, -0.5D, -0.5D, block.getIcon(5, side));
-        tessellator.draw();
+        tessellator.draw();*/
     }
 
     /*public void renderFace (GolemBase entitygenericgolem, Block block, World world, int i, int j, int k, int l)

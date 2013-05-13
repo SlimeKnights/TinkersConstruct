@@ -1,5 +1,9 @@
 package mods.tinker.tconstruct.items.armor;
 
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
+
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -7,7 +11,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumArmorMaterial;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
@@ -20,6 +23,8 @@ public class TArmorBase extends ItemArmor
 {
     Icon[] icons;
     String[] iconNames = { "wood_helmet" };
+    static Minecraft mc = Minecraft.getMinecraft();
+    private ModelBiped modelArmor;
     
     public TArmorBase(int id, int armorSlot)
     {
@@ -29,6 +34,7 @@ public class TArmorBase extends ItemArmor
         setNoRepair();
         canRepair = false;
         this.setCreativeTab(CreativeTabs.tabMisc);
+        this.modelArmor = new ModelBiped(0.75F);
         //this.setCreativeTab(TConstructRegistry.toolTab);
     }
     
@@ -50,6 +56,8 @@ public class TArmorBase extends ItemArmor
      * @param layer The render layer, either 1 or 2, 2 is only used for CLOTH armor by default
      * @return Path of texture to bind, or null to use default
      */
+    @Override
+    @SideOnly(Side.CLIENT)
     public String getArmorTexture(ItemStack stack, Entity entity, int slot, int layer)
     {
         return "/mods/tinker/textures/armor/wood_1.png";
@@ -64,8 +72,9 @@ public class TArmorBase extends ItemArmor
      * 
      * @return  A ModelBiped to render instead of the default
      */
+    @Override
     @SideOnly(Side.CLIENT)
-    public ModelBiped getArmorModel(EntityLiving entityLiving, ItemStack itemStack, int armorSlot)
+    public ModelBiped getArmorModel(EntityLiving par1EntityLiving, ItemStack itemStack, int armorSlot)
     {
         return null;
     }

@@ -24,9 +24,9 @@ public class SlimeRender extends RenderLiving
     /**
      * Determines whether Slime Render should pass or not.
      */
-    protected int shouldSlimeRenderPass(BlueSlime par1EdibleSlime, int par2, float par3)
+    protected int shouldSlimeRenderPass(BlueSlime blueSlime, int par2, float par3)
     {
-        if (par1EdibleSlime.getHasActivePotion())
+        if (blueSlime.isInvisible())
         {
             return 0;
         }

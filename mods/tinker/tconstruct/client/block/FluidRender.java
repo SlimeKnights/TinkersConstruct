@@ -135,7 +135,7 @@ public class FluidRender implements ISimpleBlockRenderingHandler
 				tessellator.setBrightness(block.getMixedBrightnessForBlock(world, x, y - 1, z));
 				float f10 = 1.0F;
 				tessellator.setColorOpaque_F(f3 * f10, f3 * f10, f3 * f10);
-				renderer.renderBottomFace(block, (double) x, (double) y + d6, (double) z, block.getBlockTexture(world, x, y, z, 0));
+				renderer.renderFaceYNeg(block, (double) x, (double) y + d6, (double) z, block.getBlockTexture(world, x, y, z, 0));
 				flag2 = true;
 			}
 

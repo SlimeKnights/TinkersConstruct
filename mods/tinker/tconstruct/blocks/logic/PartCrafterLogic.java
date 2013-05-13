@@ -162,19 +162,19 @@ public class PartCrafterLogic extends InventoryLogic
 	}
 	
 	@Override
-    public int[] getSizeInventorySide (int var1)
+    public int[] getAccessibleSlotsFromSide (int side)
     {
         return null;
     }
 
     @Override
-    public boolean func_102007_a (int i, ItemStack itemstack, int j)
+    public boolean canInsertItem (int i, ItemStack itemstack, int j)
     {
         return false;
     }
 
     @Override
-    public boolean func_102008_b (int i, ItemStack itemstack, int j)
+    public boolean canExtractItem (int i, ItemStack itemstack, int j)
     {
         return false;
     }

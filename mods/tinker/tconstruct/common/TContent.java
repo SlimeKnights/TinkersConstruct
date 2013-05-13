@@ -358,8 +358,8 @@ public class TContent implements IFuelHandler
         //lumberHead = new ToolPart(PHConstruct.lumberHead, 0, broadheads).setUnlocalizedName("tconstruct.LumberHead");
         
         //Wearables
-        //heavyHelmet = new TArmorBase(PHConstruct.heavyHelmet, 0).setUnlocalizedName("tconstruct.HeavyHelmet");
-        //heartContainer = new HeartContainer(PHConstruct.heartContainer).setUnlocalizedName("tconstruct.canister");
+        heavyHelmet = new TArmorBase(PHConstruct.heavyHelmet, 0).setUnlocalizedName("tconstruct.HeavyHelmet");
+        heartContainer = new HeartContainer(PHConstruct.heartContainer).setUnlocalizedName("tconstruct.canister");
         
         //Vanilla stack sizes
         Item.doorWood.setMaxStackSize(16);
