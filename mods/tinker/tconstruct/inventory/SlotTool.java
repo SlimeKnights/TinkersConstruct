@@ -60,7 +60,7 @@ public class SlotTool extends Slot
 			for (int i = 1; i <= 3; i++)
 				inventory.decrStackSize(i, 1);
 			if (!player.worldObj.isRemote && full )
-                player.worldObj.playSoundEffect(player.posX, player.posY, player.posZ, "mods.tinker.resources.sounds.little_saw", 1.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F);
+                player.worldObj.playSoundEffect(player.posX, player.posY, player.posZ, "sounds.little_saw", 1.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F);
 				//player.worldObj.playAuxSFX(1021, (int)player.posX, (int)player.posY, (int)player.posZ, 0);
 		}
     }

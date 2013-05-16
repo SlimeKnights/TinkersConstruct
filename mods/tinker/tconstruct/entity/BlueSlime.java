@@ -17,9 +17,9 @@ import net.minecraftforge.common.ForgeHooks;
 public class BlueSlime extends EntityLiving implements IMob
 {
 	private static final float[] field_100000_e = new float[] { 1.0F, 0.75F, 0.5F, 0.25F, 0.0F, 0.25F, 0.5F, 0.75F };
-	public float field_70813_a;
-	public float field_70811_b;
-	public float field_70812_c;
+	public float sizeOffset;
+	public float sizeFactor;
+	public float sizeHeight;
 
 	/** the time between each jump of the slime */
 	protected int slimeJumpDelay = 0;
@@ -220,8 +220,8 @@ public class BlueSlime extends EntityLiving implements IMob
 			this.isDead = true;
 		}
 
-		this.field_70811_b += (this.field_70813_a - this.field_70811_b) * 0.5F;
-		this.field_70812_c = this.field_70811_b;
+		this.sizeFactor += (this.sizeOffset - this.sizeFactor) * 0.5F;
+		this.sizeHeight = this.sizeFactor;
 		boolean flag = this.onGround;
 		super.onUpdate();
 		int i;
@@ -244,11 +244,11 @@ public class BlueSlime extends EntityLiving implements IMob
 				this.playSound(this.getJumpSound(), this.getSoundVolume(), ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.2F + 1.0F) / 0.8F);
 			}
 
-			this.field_70813_a = -0.5F;
+			this.sizeOffset = -0.5F;
 		}
 		else if (!this.onGround && flag)
 		{
-			this.field_70813_a = 1.0F;
+			this.sizeOffset = 1.0F;
 		}
 
 		this.func_70808_l();
@@ -311,7 +311,7 @@ public class BlueSlime extends EntityLiving implements IMob
 
 	protected void func_70808_l ()
 	{
-		this.field_70813_a *= 0.6F;
+		this.sizeOffset *= 0.6F;
 	}
 
 	/**

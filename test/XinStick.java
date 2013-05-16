@@ -1,11 +1,10 @@
 package test;
 
+import mods.tinker.tconstruct.entity.SlimeClone;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.monster.EntityCreeper;
-import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -33,11 +32,12 @@ public class XinStick extends Item
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
 	{
-	    EntityCreeper creeper = new EntityCreeper(world);
+	    /*EntityCreeper creeper = new EntityCreeper(world);
         EntityPig pig = new EntityPig(world);
 		spawnEntity(player.posX, player.posY+1, player.posZ, creeper, world, player);
         spawnEntity(player.posX, player.posY+1, player.posZ, pig, world, player);
-        creeper.mountEntity(pig);
+        creeper.mountEntity(pig);*/
+		spawnEntity(player.posX, player.posY+1, player.posZ, new SlimeClone(world, player.username), world, player);
 	    //System.out.println("Health! "+player.getHealth());
 	    //healPlayer(player);
 		//removeChunk(world, player.posX, player.posZ);

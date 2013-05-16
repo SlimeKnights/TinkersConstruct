@@ -62,22 +62,22 @@ public class GolemBase extends EntityCreature
             super.updateWanderPath();
     }
 
-    protected void coreRoutine ()
+    protected void coreIdle ()
     {
 
     }
 
-    protected void guardRoutine ()
+    protected void coreGuard ()
     {
 
     }
 
-    protected void followRoutine ()
+    protected void coreFollow ()
     {
 
     }
 
-    protected void protectRoutine ()
+    protected void coreProtect ()
     {
 
     }

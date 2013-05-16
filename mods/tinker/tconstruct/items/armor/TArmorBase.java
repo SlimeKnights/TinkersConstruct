@@ -23,8 +23,8 @@ public class TArmorBase extends ItemArmor
 {
     Icon[] icons;
     String[] iconNames = { "wood_helmet" };
-    static Minecraft mc = Minecraft.getMinecraft();
-    private ModelBiped modelArmor;
+    //static Minecraft mc = Minecraft.getMinecraft();
+    //private ModelBiped modelArmor;
     
     public TArmorBase(int id, int armorSlot)
     {
@@ -34,7 +34,7 @@ public class TArmorBase extends ItemArmor
         setNoRepair();
         canRepair = false;
         this.setCreativeTab(CreativeTabs.tabMisc);
-        this.modelArmor = new ModelBiped(0.75F);
+        //this.modelArmor = new ModelBiped(0.75F);
         //this.setCreativeTab(TConstructRegistry.toolTab);
     }
     

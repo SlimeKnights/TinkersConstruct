@@ -41,7 +41,7 @@ public class FryingPan extends Weapon
 
     public void onEntityDamaged(World world, EntityPlayer player, Entity entity)
     {
-        world.playSoundEffect(entity.posX, entity.posY, entity.posZ, "mods.tinker.resources.sounds.frypan_hit", 1.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F);
+        world.playSoundEffect(entity.posX, entity.posY, entity.posZ, "sounds.frypan_hit", 1.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F);
     }
 
     public String getToolName ()

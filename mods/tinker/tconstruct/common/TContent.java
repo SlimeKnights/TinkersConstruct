@@ -27,6 +27,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.biome.BiomeGenBase;
+import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.liquids.LiquidContainerData;
 import net.minecraftforge.liquids.LiquidContainerRegistry;
@@ -159,7 +160,6 @@ public class TContent implements IFuelHandler
 
     public TContent()
     {
-        createEntities();
         registerBlocks();
         registerItems();
         registerMaterials();
@@ -167,12 +167,12 @@ public class TContent implements IFuelHandler
         setupToolTabs();
     }
 
-    void createEntities ()
+    public void createEntities ()
     {
         EntityRegistry.registerModEntity(FancyEntityItem.class, "Fancy Item", 0, TConstruct.instance, 32, 5, true);
         EntityRegistry.registerModEntity(DaggerEntity.class, "Dagger", 1, TConstruct.instance, 32, 5, true);
+        EntityRegistry.registerModEntity(SlimeClone.class, "SlimeClone", 2, TConstruct.instance, 32, 5, true);
         //EntityRegistry.registerModEntity(LaunchedPotion.class, "Launched Potion", 1, TConstruct.instance, 32, 3, true);
-        //EntityRegistry.registerModEntity(GolemBase.class, "Golembase", 2, TConstruct.instance, 32, 5, true);
         //EntityRegistry.registerModEntity(CartEntity.class, "Small Wagon", 1, TConstruct.instance, 32, 5, true);
         //EntityRegistry.registerModEntity(Crystal.class, "Crystal", 2, TConstruct.instance, 32, 5, true);
 
@@ -181,18 +181,32 @@ public class TContent implements IFuelHandler
         EntityRegistry.registerModEntity(BlueSlime.class, "EdibleSlime", 12, TConstruct.instance, 64, 5, true);
         //EntityRegistry.registerModEntity(MetalSlime.class, "MetalSlime", 13, TConstruct.instance, 64, 5, true);
 
-        /*EntityList.IDtoClassMapping.put(7789011, NitroCreeper.class);
-        EntityList.entityEggs.put(Integer.valueOf(7789011), new EntityEggInfo(7789011, 0xff7050, 0x555555));
-        EntityList.IDtoClassMapping.put(7789012, BlueSlime.class);
-        EntityList.entityEggs.put(Integer.valueOf(7789012), new EntityEggInfo(7789012, 0x3399ff, 0x004499));*/
-
-        BiomeGenBase[] overworldBiomes = new BiomeGenBase[] { BiomeGenBase.ocean, BiomeGenBase.plains, BiomeGenBase.desert, BiomeGenBase.extremeHills, BiomeGenBase.forest, BiomeGenBase.taiga,
-                BiomeGenBase.swampland, BiomeGenBase.river, BiomeGenBase.frozenOcean, BiomeGenBase.frozenRiver, BiomeGenBase.icePlains, BiomeGenBase.iceMountains, BiomeGenBase.beach,
-                BiomeGenBase.desertHills, BiomeGenBase.forestHills, BiomeGenBase.taigaHills, BiomeGenBase.extremeHillsEdge, BiomeGenBase.jungle, BiomeGenBase.jungleHills };
+        BiomeGenBase[] plains = BiomeDictionary.getBiomesForType(BiomeDictionary.Type.PLAINS);
+        BiomeGenBase[] mountain = BiomeDictionary.getBiomesForType(BiomeDictionary.Type.MOUNTAIN);
+        BiomeGenBase[] hills = BiomeDictionary.getBiomesForType(BiomeDictionary.Type.HILLS);
+        BiomeGenBase[] swamp = BiomeDictionary.getBiomesForType(BiomeDictionary.Type.SWAMP);
+        BiomeGenBase[] desert = BiomeDictionary.getBiomesForType(BiomeDictionary.Type.DESERT);
+        BiomeGenBase[] frozen = BiomeDictionary.getBiomesForType(BiomeDictionary.Type.FROZEN);
+        BiomeGenBase[] jungle = BiomeDictionary.getBiomesForType(BiomeDictionary.Type.JUNGLE);
+        BiomeGenBase[] wasteland = BiomeDictionary.getBiomesForType(BiomeDictionary.Type.WASTELAND);
+        
+        BiomeGenBase[] nether = BiomeDictionary.getBiomesForType(BiomeDictionary.Type.NETHER);
+        
         if (PHConstruct.redCreeper)
-            EntityRegistry.addSpawn(NitroCreeper.class, PHConstruct.redCreeperWeight, 4, 6, EnumCreatureType.monster, BiomeGenBase.hell);
+        {
+            EntityRegistry.addSpawn(NitroCreeper.class, PHConstruct.redCreeperWeight, 4, 6, EnumCreatureType.monster, nether);
+        }
         if (PHConstruct.blueSlime)
-            EntityRegistry.addSpawn(BlueSlime.class, PHConstruct.blueSlimeWeight, 4, 4, EnumCreatureType.monster, overworldBiomes);
+        {
+            EntityRegistry.addSpawn(BlueSlime.class, PHConstruct.blueSlimeWeight, 4, 4, EnumCreatureType.monster, plains);
+            EntityRegistry.addSpawn(BlueSlime.class, PHConstruct.blueSlimeWeight, 4, 4, EnumCreatureType.monster, mountain);
+            EntityRegistry.addSpawn(BlueSlime.class, PHConstruct.blueSlimeWeight, 4, 4, EnumCreatureType.monster, hills);
+            EntityRegistry.addSpawn(BlueSlime.class, PHConstruct.blueSlimeWeight, 4, 4, EnumCreatureType.monster, swamp);
+            EntityRegistry.addSpawn(BlueSlime.class, PHConstruct.blueSlimeWeight, 4, 4, EnumCreatureType.monster, desert);
+            EntityRegistry.addSpawn(BlueSlime.class, PHConstruct.blueSlimeWeight, 4, 4, EnumCreatureType.monster, frozen);
+            EntityRegistry.addSpawn(BlueSlime.class, PHConstruct.blueSlimeWeight, 4, 4, EnumCreatureType.monster, jungle);
+            EntityRegistry.addSpawn(BlueSlime.class, PHConstruct.blueSlimeWeight, 4, 4, EnumCreatureType.monster, wasteland);
+        }
         //EntityRegistry.addSpawn(MetalSlime.class, 1, 4, 4, EnumCreatureType.monster, overworldBiomes);
     }
 
@@ -358,8 +372,8 @@ public class TContent implements IFuelHandler
         //lumberHead = new ToolPart(PHConstruct.lumberHead, 0, broadheads).setUnlocalizedName("tconstruct.LumberHead");
         
         //Wearables
-        heavyHelmet = new TArmorBase(PHConstruct.heavyHelmet, 0).setUnlocalizedName("tconstruct.HeavyHelmet");
-        heartContainer = new HeartContainer(PHConstruct.heartContainer).setUnlocalizedName("tconstruct.canister");
+        //heavyHelmet = new TArmorBase(PHConstruct.heavyHelmet, 0).setUnlocalizedName("tconstruct.HeavyHelmet");
+        //heartContainer = new HeartContainer(PHConstruct.heartContainer).setUnlocalizedName("tconstruct.canister");
         
         //Vanilla stack sizes
         Item.doorWood.setMaxStackSize(16);
