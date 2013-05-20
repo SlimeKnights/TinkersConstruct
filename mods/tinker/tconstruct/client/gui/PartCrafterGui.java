@@ -95,7 +95,13 @@ public class PartCrafterGui extends NewContainerGui
             this.fontRenderer.drawString("Handle Modifier: " + topEnum.handleDurability() + "x", xSize + 8, offset + 27, 16777215);
             this.fontRenderer.drawString("Mining Speed: " + topEnum.toolSpeed() / 100f, xSize + 8, offset + 38, 16777215);
             this.fontRenderer.drawString("Mining Level: " + getHarvestLevelName(topEnum.harvestLevel()), xSize + 8, offset + 49, 16777215);
-            this.fontRenderer.drawString("Base Attack: " + topEnum.attack(), xSize + 8, offset + 60, 16777215);
+
+            int attack = topEnum.attack();
+            String heart = attack == 2 ? " Heart" : " Hearts";
+            if (attack % 2 == 0)
+                this.fontRenderer.drawString("Attack: " + attack / 2 + heart, xSize + 8, offset + 60, 0xffffff);
+            else
+                this.fontRenderer.drawString("Attack: " + attack / 2f + heart, xSize + 8, offset + 60, 0xffffff);
         }
 
         offset = 90;
@@ -106,7 +112,12 @@ public class PartCrafterGui extends NewContainerGui
             this.fontRenderer.drawString("Handle Modifier: " + bottomEnum.handleDurability() + "x", xSize + 8, offset + 27, 16777215);
             this.fontRenderer.drawString("Mining Speed: " + bottomEnum.toolSpeed() / 100f, xSize + 8, offset + 38, 16777215);
             this.fontRenderer.drawString("Mining Level: " + getHarvestLevelName(bottomEnum.harvestLevel()), xSize + 8, offset + 49, 16777215);
-            this.fontRenderer.drawString("Base Attack: " + bottomEnum.attack(), xSize + 8, offset + 60, 16777215);
+            int attack = bottomEnum.attack();
+            String heart = attack == 2 ? " Heart" : " Hearts";
+            if (attack % 2 == 0)
+                this.fontRenderer.drawString("Attack: " + attack / 2 + heart, xSize + 8, offset + 60, 0xffffff);
+            else
+                this.fontRenderer.drawString("Attack: " + attack / 2f + heart, xSize + 8, offset + 60, 0xffffff);
         }
 
         if (!hasTop && !hasBottom)

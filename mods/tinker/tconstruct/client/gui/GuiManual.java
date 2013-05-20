@@ -845,7 +845,7 @@ public class GuiManual extends GuiScreen
 
         if (material.shoddy() > 0)
         {
-            this.fontRenderer.drawString("Mining Aspect level: " + material.shoddy(), localWidth, localHeight + 120 + 10 * offset, 0);
+            this.fontRenderer.drawString("Stonebound level: " + material.shoddy(), localWidth, localHeight + 120 + 10 * offset, 0);
             offset++;
         }
         else if (material.shoddy() < 0)

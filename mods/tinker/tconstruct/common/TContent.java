@@ -646,6 +646,22 @@ public class TContent implements IFuelHandler
         Smeltery.addMelting(new ItemStack(oreBerries, 4, 3), metalBlock.blockID, 5, 100, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue / 9, 3)); //Tin
         Smeltery.addMelting(new ItemStack(oreBerries, 4, 4), metalBlock.blockID, 6, 100, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue / 9, 4)); //Aluminum
         
+        //Vanilla Armor
+        Smeltery.addMelting(new ItemStack(Item.helmetIron, 1, 0), Block.blockIron.blockID, 0, 600, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 5, 0));
+        Smeltery.addMelting(new ItemStack(Item.plateIron, 1, 0), Block.blockIron.blockID, 0, 600, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 8, 0));
+        Smeltery.addMelting(new ItemStack(Item.legsIron, 1, 0), Block.blockIron.blockID, 0, 600, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 7, 0));
+        Smeltery.addMelting(new ItemStack(Item.bootsIron, 1, 0), Block.blockIron.blockID, 0, 600, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 4, 0));
+        
+        Smeltery.addMelting(new ItemStack(Item.helmetGold, 1, 0), Block.blockGold.blockID, 0, 350, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 5, 1));
+        Smeltery.addMelting(new ItemStack(Item.plateGold, 1, 0), Block.blockGold.blockID, 0, 350, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 8, 1));
+        Smeltery.addMelting(new ItemStack(Item.legsGold, 1, 0), Block.blockGold.blockID, 0, 350, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 7, 1));
+        Smeltery.addMelting(new ItemStack(Item.bootsGold, 1, 0), Block.blockGold.blockID, 0, 350, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 4, 1));
+       
+        Smeltery.addMelting(new ItemStack(Item.helmetChain, 1, 0), this.metalBlock.blockID, 9, 700, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 12));
+        Smeltery.addMelting(new ItemStack(Item.plateChain, 1, 0), this.metalBlock.blockID, 9, 700, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 12));
+        Smeltery.addMelting(new ItemStack(Item.legsChain, 1, 0), this.metalBlock.blockID, 9, 700, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 12));
+        Smeltery.addMelting(new ItemStack(Item.bootsChain, 1, 0), this.metalBlock.blockID, 9, 700, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 12));
+        
         /* Detailing */
         Detailing chiseling = TConstructRegistry.getChiselDetailing();
         chiseling.addDetailing(Block.stone, 0, Block.stoneBrick, 0, chisel);

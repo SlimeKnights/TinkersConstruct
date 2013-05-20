@@ -224,10 +224,6 @@ Natural Abilities:
  <text>Tool Rod</text>
  <icon>toolrod</icon>
 </item>
-<item>
- <text>Crossbar</text>
- <icon>crossbar</icon>
-</item>
 </page>
 
 <page type="toolpage">
@@ -441,7 +437,7 @@ Class: Lethal Joke Weapon</text>
 <page type="materialstats">
 <title>Steel</title>
 <icon>steelsword</icon>
-<text>An Iron alloy. The method for obtaining this is unknown.</text>
+<text>An Iron alloy. The method for obtaining this is unknown. Enemy chainmail seems to be made of it.</text>
 <material>
  <main>steelingot</main>
 </material>

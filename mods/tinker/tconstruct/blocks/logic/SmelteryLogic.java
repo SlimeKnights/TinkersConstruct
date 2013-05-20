@@ -379,10 +379,17 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         if (activeLavaTank == null || useTime > 0)
             return;
 
+        if (!worldObj.blockExists(activeLavaTank.x, activeLavaTank.y, activeLavaTank.z))
+        {
+        	fuelGague = 0;
+        	return;
+        }
+        
         TileEntity tankContainer = worldObj.getBlockTileEntity(activeLavaTank.x, activeLavaTank.y, activeLavaTank.z);
         if (tankContainer == null)
         {
             fuelGague = 0;
+        	return;
         }
         if (tankContainer instanceof ITankContainer)
         {

@@ -197,12 +197,12 @@ public class PHConstruct
         aluminumuMinY = config.get("Worldgen", "Aluminum Underground Min Y", 0).getInt(0);
         aluminumuMaxY = config.get("Worldgen", "Aluminum Underground Max Y", 64).getInt(64);
         
-        ironsRarity = config.get("Worldgen", "Iron Surface Rarity", 200).getInt(200);
-        goldsRarity = config.get("Worldgen", "Gold Surface Rarity", 700).getInt(700);
-        coppersRarity = config.get("Worldgen", "Copper Surface Rarity", 80).getInt(80);
-        tinsRarity = config.get("Worldgen", "Tin Surface Rarity", 80).getInt(80);
+        ironsRarity = config.get("Worldgen", "Iron Surface Rarity", 400).getInt(400);
+        goldsRarity = config.get("Worldgen", "Gold Surface Rarity", 900).getInt(900);
+        coppersRarity = config.get("Worldgen", "Copper Surface Rarity", 100).getInt(100);
+        tinsRarity = config.get("Worldgen", "Tin Surface Rarity", 100).getInt(100);
         aluminumsRarity = config.get("Worldgen", "Aluminum Surface Rarity", 70).getInt(70);
-        cobaltsRarity = config.get("Worldgen", "Cobalt Surface Rarity", 1500).getInt(1500);
+        cobaltsRarity = config.get("Worldgen", "Cobalt Surface Rarity", 2000).getInt(2000);
         
         ironBushDensity = config.get("Worldgen", "Iron Bush Density", 1).getInt(1);
         goldBushDensity = config.get("Worldgen", "Gold Bush Density", 1).getInt(1);
@@ -211,12 +211,12 @@ public class PHConstruct
         aluminumBushDensity = config.get("Worldgen", "Aluminum Bush Density", 2).getInt(2);
         silverBushDensity = config.get("Worldgen", "Silver Bush Density", 1).getInt(1);
         
-        ironBushRarity = config.get("Worldgen", "Iron Bush Rarity", 2).getInt(2);
-        goldBushRarity = config.get("Worldgen", "Gold Bush Rarity", 4).getInt(4);
-        copperBushRarity = config.get("Worldgen", "Copper Bush Rarity", 1).getInt(1);
-        tinBushRarity = config.get("Worldgen", "Tin Bush Rarity", 1).getInt(1);
-        aluminumBushRarity = config.get("Worldgen", "Aluminum Bush Rarity", 1).getInt(1);
-        silverBushRarity = config.get("Worldgen", "Silver Bush Rarity", 2).getInt(2);
+        ironBushRarity = config.get("Worldgen", "Iron Bush Rarity", 5).getInt(5);
+        goldBushRarity = config.get("Worldgen", "Gold Bush Rarity", 8).getInt(8);
+        copperBushRarity = config.get("Worldgen", "Copper Bush Rarity", 3).getInt(3);
+        tinBushRarity = config.get("Worldgen", "Tin Bush Rarity", 3).getInt(3);
+        aluminumBushRarity = config.get("Worldgen", "Aluminum Bush Rarity", 2).getInt(2);
+        silverBushRarity = config.get("Worldgen", "Silver Bush Rarity", 8).getInt(8);
         
         copperBushMinY = config.get("Worldgen", "Copper Bush Min Y", 20).getInt(20);
         copperBushMaxY = config.get("Worldgen", "Copper Bush Max Y", 60).getInt(60);

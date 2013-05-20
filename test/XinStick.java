@@ -37,7 +37,7 @@ public class XinStick extends Item
 		spawnEntity(player.posX, player.posY+1, player.posZ, creeper, world, player);
         spawnEntity(player.posX, player.posY+1, player.posZ, pig, world, player);
         creeper.mountEntity(pig);*/
-		spawnEntity(player.posX, player.posY+1, player.posZ, new SlimeClone(world, player.username), world, player);
+		spawnEntity(player.posX, player.posY+1, player.posZ, new SlimeClone(world, "Etho"), world, player);
 	    //System.out.println("Health! "+player.getHealth());
 	    //healPlayer(player);
 		//removeChunk(world, player.posX, player.posZ);
