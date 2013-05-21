@@ -1,6 +1,8 @@
 package mods.tinker.tconstruct.client.gui;
 
+import mods.tinker.tconstruct.client.RenderItemCopy;
 import mods.tinker.tconstruct.client.TProxyClient;
+import mods.tinker.tconstruct.client.block.SmallFontRenderer;
 import mods.tinker.tconstruct.library.TConstructRegistry;
 import mods.tinker.tconstruct.library.client.TConstructClientRegistry;
 import mods.tinker.tconstruct.library.crafting.PatternBuilder;
@@ -10,7 +12,6 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiParticle;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.item.ItemStack;
 
 import org.lwjgl.opengl.GL11;
@@ -28,7 +29,7 @@ public class GuiManual extends GuiScreen
 {
     ItemStack itemstackBook;
     Document manual;
-    private RenderItem renderitem = new RenderItem();
+    private RenderItemCopy renderitem = new RenderItemCopy();
     int bookImageWidth = 206;
     int bookImageHeight = 200;
     int bookTotalPages = 1;
@@ -48,6 +49,8 @@ public class GuiManual extends GuiScreen
     ItemStack[] iconsRight;
     String[] multiTextRight;
     ToolMaterial materialRight;
+    
+    SmallFontRenderer fonts = TProxyClient.smallFontRenderer;
 
     public GuiManual(ItemStack stack, Document doc)
     {
@@ -63,7 +66,6 @@ public class GuiManual extends GuiScreen
     {
         this.guiParticles = new GuiParticle(minecraft);
         this.mc = minecraft;
-        this.fontRenderer = TProxyClient.smallFontRenderer;
         this.width = w;
         this.height = h;
         this.buttonList.clear();
@@ -616,34 +618,34 @@ public class GuiManual extends GuiScreen
     /* Page types */
     public void drawTextPage (String text, int localWidth, int localHeight)
     {
-        this.fontRenderer.drawSplitString(text, localWidth, localHeight, 178, 0);
+        this.fonts.drawSplitString(text, localWidth, localHeight, 178, 0);
     }
 
     public void drawTitlePage (String text, int localWidth, int localHeight)
     {
-        this.fontRenderer.drawSplitString(text, localWidth, localHeight, 178, 0);
+        this.fonts.drawSplitString(text, localWidth, localHeight, 178, 0);
     }
 
     public void drawSectionPage (String title, String body, int localWidth, int localHeight)
     {
-        this.fontRenderer.drawSplitString("\u00a7n" + title, localWidth + 70, localHeight + 4, 178, 0);
-        this.fontRenderer.drawSplitString(body, localWidth, localHeight + 16, 190, 0);
+        this.fonts.drawSplitString("\u00a7n" + title, localWidth + 70, localHeight + 4, 178, 0);
+        this.fonts.drawSplitString(body, localWidth, localHeight + 16, 190, 0);
     }
 
     public void drawContentTablePage (String info, ItemStack[] icons, String[] multiText, int localWidth, int localHeight)
     {
         if (info != null)
-            this.fontRenderer.drawString("\u00a7n" + info, localWidth + 25 + fontRenderer.getStringWidth(info) / 2, localHeight + 4, 0);
+            this.fonts.drawString("\u00a7n" + info, localWidth + 25 + fonts.getStringWidth(info) / 2, localHeight + 4, 0);
         GL11.glEnable(GL12.GL_RESCALE_NORMAL);
         RenderHelper.enableGUIStandardItemLighting();
         renderitem.zLevel = 100;
         for (int i = 0; i < icons.length; i++)
         {
-            renderitem.renderItemIntoGUI(fontRenderer, mc.renderEngine, icons[i], localWidth + 16, localHeight + 18 * i + 18);
+            renderitem.renderItemIntoGUI(fonts, mc.renderEngine, icons[i], localWidth + 16, localHeight + 18 * i + 18);
             int yOffset = 18;
             if (multiText[i].length() > 40)
                 yOffset = 13;
-            this.fontRenderer.drawString(multiText[i], localWidth + 38, localHeight + 18 * i + yOffset, 0);
+            this.fonts.drawString(multiText[i], localWidth + 38, localHeight + 18 * i + yOffset, 0);
         }
         renderitem.zLevel = 0;
         RenderHelper.disableStandardItemLighting();
@@ -652,17 +654,17 @@ public class GuiManual extends GuiScreen
 
     public void drawSidebarPage (String info, ItemStack[] icons, String[] multiText, int localWidth, int localHeight)
     {
-        this.fontRenderer.drawSplitString(info, localWidth, localHeight, 178, 0);
+        this.fonts.drawSplitString(info, localWidth, localHeight, 178, 0);
         GL11.glEnable(GL12.GL_RESCALE_NORMAL);
         RenderHelper.enableGUIStandardItemLighting();
         renderitem.zLevel = 100;
         for (int i = 0; i < icons.length; i++)
         {
-            renderitem.renderItemIntoGUI(fontRenderer, mc.renderEngine, icons[i], localWidth + 8, localHeight + 18 * i + 36);
+            renderitem.renderItemIntoGUI(fonts, mc.renderEngine, icons[i], localWidth + 8, localHeight + 18 * i + 36);
             int yOffset = 39;
             if (multiText[i].length() > 40)
                 yOffset = 34;
-            this.fontRenderer.drawSplitString(multiText[i], localWidth + 30, localHeight + 18 * i + yOffset, 140, 0);
+            this.fonts.drawSplitString(multiText[i], localWidth + 30, localHeight + 18 * i + yOffset, 140, 0);
         }
         renderitem.zLevel = 0;
         RenderHelper.disableStandardItemLighting();
@@ -677,7 +679,7 @@ public class GuiManual extends GuiScreen
 
     public void drawPicturePage (String info, int localWidth, int localHeight)
     {
-        this.fontRenderer.drawSplitString(info, localWidth + 8, localHeight, 178, 0);
+        this.fonts.drawSplitString(info, localWidth + 8, localHeight, 178, 0);
     }
 
     public void drawCrafting (int size, int localWidth, int localHeight)
@@ -692,7 +694,7 @@ public class GuiManual extends GuiScreen
     public void drawCraftingPage (String info, ItemStack[] icons, int recipeSize, int localWidth, int localHeight)
     {
         if (info != null)
-            this.fontRenderer.drawString("\u00a7n" + info, localWidth + 50, localHeight + 4, 0);
+            this.fonts.drawString("\u00a7n" + info, localWidth + 50, localHeight + 4, 0);
 
         GL11.glScalef(2f, 2f, 2f);
         GL11.glEnable(GL12.GL_RESCALE_NORMAL);
@@ -701,25 +703,25 @@ public class GuiManual extends GuiScreen
 
         if (recipeSize == 2)
         {
-            renderitem.renderItemAndEffectIntoGUI(fontRenderer, mc.renderEngine, icons[0], (localWidth + 126) / 2, (localHeight + 68) / 2);
+            renderitem.renderItemAndEffectIntoGUI(fonts, mc.renderEngine, icons[0], (localWidth + 126) / 2, (localHeight + 68) / 2);
             if (icons[0].stackSize > 1)
-                renderitem.renderItemOverlayIntoGUI(fontRenderer, mc.renderEngine, icons[0], (localWidth + 126) / 2, (localHeight + 68) / 2, String.valueOf(icons[0].stackSize));
+                renderitem.renderItemOverlayIntoGUI(fonts, mc.renderEngine, icons[0], (localWidth + 126) / 2, (localHeight + 68) / 2, String.valueOf(icons[0].stackSize));
             for (int i = 0; i < icons.length - 1; i++)
             {
                 if (icons[i + 1] != null)
-                    renderitem.renderItemAndEffectIntoGUI(fontRenderer, mc.renderEngine, icons[i + 1], (localWidth + 14 + 36 * (i % 2)) / 2, (localHeight + 36 * (i / 2) + 52) / 2);
+                    renderitem.renderItemAndEffectIntoGUI(fonts, mc.renderEngine, icons[i + 1], (localWidth + 14 + 36 * (i % 2)) / 2, (localHeight + 36 * (i / 2) + 52) / 2);
             }
         }
 
         if (recipeSize == 3)
         {
-            renderitem.renderItemAndEffectIntoGUI(fontRenderer, mc.renderEngine, icons[0], (localWidth + 138) / 2, (localHeight + 70) / 2);
+            renderitem.renderItemAndEffectIntoGUI(fonts, mc.renderEngine, icons[0], (localWidth + 138) / 2, (localHeight + 70) / 2);
             if (icons[0].stackSize > 1)
-                renderitem.renderItemOverlayIntoGUI(fontRenderer, mc.renderEngine, icons[0], (localWidth + 126) / 2, (localHeight + 68) / 2, String.valueOf(icons[0].stackSize));
+                renderitem.renderItemOverlayIntoGUI(fonts, mc.renderEngine, icons[0], (localWidth + 126) / 2, (localHeight + 68) / 2, String.valueOf(icons[0].stackSize));
             for (int i = 0; i < icons.length - 1; i++)
             {
                 if (icons[i + 1] != null)
-                    renderitem.renderItemAndEffectIntoGUI(fontRenderer, mc.renderEngine, icons[i + 1], (localWidth - 2 + 36 * (i % 3)) / 2, (localHeight + 36 * (i / 3) + 34) / 2);
+                    renderitem.renderItemAndEffectIntoGUI(fonts, mc.renderEngine, icons[i + 1], (localWidth - 2 + 36 * (i % 3)) / 2, (localHeight + 36 * (i / 3) + 34) / 2);
             }
         }
 
@@ -738,19 +740,19 @@ public class GuiManual extends GuiScreen
     public void drawSmeltingPage (String info, ItemStack[] icons, int localWidth, int localHeight)
     {
         if (info != null)
-            this.fontRenderer.drawString("\u00a7n" + info, localWidth + 50, localHeight + 4, 0);
+            this.fonts.drawString("\u00a7n" + info, localWidth + 50, localHeight + 4, 0);
 
         GL11.glScalef(2f, 2f, 2f);
         GL11.glEnable(GL12.GL_RESCALE_NORMAL);
         RenderHelper.enableGUIStandardItemLighting();
         renderitem.zLevel = 100;
 
-        renderitem.renderItemAndEffectIntoGUI(fontRenderer, mc.renderEngine, TConstructClientRegistry.getManualIcon("coal"), (localWidth + 38) / 2, (localHeight + 110) / 2);
-        renderitem.renderItemAndEffectIntoGUI(fontRenderer, mc.renderEngine, icons[0], (localWidth + 106) / 2, (localHeight + 74) / 2);
-        renderitem.renderItemAndEffectIntoGUI(fontRenderer, mc.renderEngine, icons[1], (localWidth + 38) / 2, (localHeight + 38) / 2);
+        renderitem.renderItemAndEffectIntoGUI(fonts, mc.renderEngine, TConstructClientRegistry.getManualIcon("coal"), (localWidth + 38) / 2, (localHeight + 110) / 2);
+        renderitem.renderItemAndEffectIntoGUI(fonts, mc.renderEngine, icons[0], (localWidth + 106) / 2, (localHeight + 74) / 2);
+        renderitem.renderItemAndEffectIntoGUI(fonts, mc.renderEngine, icons[1], (localWidth + 38) / 2, (localHeight + 38) / 2);
 
         if (icons[0].stackSize > 1)
-            renderitem.renderItemOverlayIntoGUI(fontRenderer, mc.renderEngine, icons[0], (localWidth + 106) / 2, (localHeight + 74) / 2, String.valueOf(icons[0].stackSize));
+            renderitem.renderItemOverlayIntoGUI(fonts, mc.renderEngine, icons[0], (localWidth + 106) / 2, (localHeight + 74) / 2, String.valueOf(icons[0].stackSize));
 
         renderitem.zLevel = 0;
         GL11.glScalef(0.5F, 0.5F, 0.5F);
@@ -766,7 +768,7 @@ public class GuiManual extends GuiScreen
 
     public void drawModifierPage (ItemStack[] icons, String type, int localWidth, int localHeight)
     {
-        this.fontRenderer.drawString("\u00a7nTool Station", localWidth + 60, localHeight + 4, 0);
+        this.fonts.drawString("\u00a7nTool Station", localWidth + 60, localHeight + 4, 0);
         GL11.glScalef(2f, 2f, 2f);
         GL11.glEnable(GL12.GL_RESCALE_NORMAL);
         RenderHelper.enableGUIStandardItemLighting();
@@ -776,11 +778,11 @@ public class GuiManual extends GuiScreen
             toolstack = TConstructClientRegistry.getManualIcon("ironlongsword");
 
         renderitem.zLevel = 100;
-        renderitem.renderItemAndEffectIntoGUI(fontRenderer, mc.renderEngine, toolstack, (localWidth + 54) / 2, (localHeight + 54) / 2);
-        renderitem.renderItemAndEffectIntoGUI(fontRenderer, mc.renderEngine, icons[0], (localWidth + 130) / 2, (localHeight + 54) / 2);
-        renderitem.renderItemAndEffectIntoGUI(fontRenderer, mc.renderEngine, icons[1], (localWidth + 18) / 2, (localHeight + 36) / 2);
+        renderitem.renderItemAndEffectIntoGUI(fonts, mc.renderEngine, toolstack, (localWidth + 54) / 2, (localHeight + 54) / 2);
+        renderitem.renderItemAndEffectIntoGUI(fonts, mc.renderEngine, icons[0], (localWidth + 130) / 2, (localHeight + 54) / 2);
+        renderitem.renderItemAndEffectIntoGUI(fonts, mc.renderEngine, icons[1], (localWidth + 18) / 2, (localHeight + 36) / 2);
         if (icons[2] != null)
-            renderitem.renderItemAndEffectIntoGUI(fontRenderer, mc.renderEngine, icons[2], (localWidth + 18) / 2, (localHeight + 74) / 2);
+            renderitem.renderItemAndEffectIntoGUI(fonts, mc.renderEngine, icons[2], (localWidth + 18) / 2, (localHeight + 74) / 2);
         renderitem.zLevel = 0;
         
         GL11.glScalef(0.5F, 0.5F, 0.5F);
@@ -790,88 +792,88 @@ public class GuiManual extends GuiScreen
 
     public void drawMaterialPage (String title, ItemStack[] icons, String[] multiText, ToolMaterial material, int localWidth, int localHeight)
     {
-        this.fontRenderer.drawString("\u00a7n" + title, localWidth + 70, localHeight + 4, 0);
-        this.fontRenderer.drawSplitString(multiText[0], localWidth, localHeight + 16, 178, 0);
+        this.fonts.drawString("\u00a7n" + title, localWidth + 70, localHeight + 4, 0);
+        this.fonts.drawSplitString(multiText[0], localWidth, localHeight + 16, 178, 0);
 
-        this.fontRenderer.drawString("Material: ", localWidth + 108, localHeight + 40, 0);
-        this.fontRenderer.drawString("Shard: ", localWidth + 108, localHeight + 72, 0);
-        this.fontRenderer.drawString("Rod: ", localWidth + 108, localHeight + 104, 0);
+        this.fonts.drawString("Material: ", localWidth + 108, localHeight + 40, 0);
+        this.fonts.drawString("Shard: ", localWidth + 108, localHeight + 72, 0);
+        this.fonts.drawString("Rod: ", localWidth + 108, localHeight + 104, 0);
 
         GL11.glEnable(GL12.GL_RESCALE_NORMAL);
         RenderHelper.enableGUIStandardItemLighting();
         renderitem.zLevel = 100;
-        //renderitem.renderItemAndEffectIntoGUI(fontRenderer, mc.renderEngine, icons[0], localWidth + 50, localHeight + 0);
-        renderitem.renderItemAndEffectIntoGUI(fontRenderer, mc.renderEngine, icons[1], localWidth + 108, localHeight + 50);
-        renderitem.renderItemAndEffectIntoGUI(fontRenderer, mc.renderEngine, icons[2], localWidth + 108, localHeight + 82);
-        renderitem.renderItemAndEffectIntoGUI(fontRenderer, mc.renderEngine, icons[3], localWidth + 108, localHeight + 114);
+        //renderitem.renderItemAndEffectIntoGUI(fonts, mc.renderEngine, icons[0], localWidth + 50, localHeight + 0);
+        renderitem.renderItemAndEffectIntoGUI(fonts, mc.renderEngine, icons[1], localWidth + 108, localHeight + 50);
+        renderitem.renderItemAndEffectIntoGUI(fonts, mc.renderEngine, icons[2], localWidth + 108, localHeight + 82);
+        renderitem.renderItemAndEffectIntoGUI(fonts, mc.renderEngine, icons[3], localWidth + 108, localHeight + 114);
         renderitem.zLevel = 0;
         RenderHelper.disableStandardItemLighting();
         GL11.glDisable(GL12.GL_RESCALE_NORMAL);
 
-        this.fontRenderer.drawSplitString(icons[1].getTooltip(this.mc.thePlayer, false).get((0)).toString(), localWidth + 128, localHeight + 53, 52, 0);
-        this.fontRenderer.drawSplitString(icons[2].getTooltip(this.mc.thePlayer, false).get((0)).toString(), localWidth + 128, localHeight + 85, 52, 0);
-        this.fontRenderer.drawSplitString(icons[3].getTooltip(this.mc.thePlayer, false).get((0)).toString(), localWidth + 128, localHeight + 117, 52, 0);
+        this.fonts.drawSplitString(icons[1].getTooltip(this.mc.thePlayer, false).get((0)).toString(), localWidth + 128, localHeight + 53, 52, 0);
+        this.fonts.drawSplitString(icons[2].getTooltip(this.mc.thePlayer, false).get((0)).toString(), localWidth + 128, localHeight + 85, 52, 0);
+        this.fonts.drawSplitString(icons[3].getTooltip(this.mc.thePlayer, false).get((0)).toString(), localWidth + 128, localHeight + 117, 52, 0);
 
-        this.fontRenderer.drawString("Durability: " + material.durability(), localWidth, localHeight + 40, 0);
-        this.fontRenderer.drawString("Handle Modifier: " + material.handleDurability() + "x", localWidth, localHeight + 50, 0);
-        this.fontRenderer.drawString("Full Tool Durability: " + (int) (material.durability() * material.handleDurability()), localWidth, localHeight + 60, 0);
+        this.fonts.drawString("Durability: " + material.durability(), localWidth, localHeight + 40, 0);
+        this.fonts.drawString("Handle Modifier: " + material.handleDurability() + "x", localWidth, localHeight + 50, 0);
+        this.fonts.drawString("Full Tool Durability: " + (int) (material.durability() * material.handleDurability()), localWidth, localHeight + 60, 0);
 
-        this.fontRenderer.drawString("Mining Speed: " + material.toolSpeed() / 100f, localWidth, localHeight + 80, 0);
-        this.fontRenderer.drawString("Mining Level: " + material.harvestLevel() + " (" + PartCrafterGui.getHarvestLevelName(material.harvestLevel()) + ")", localWidth, localHeight + 90, 0);
+        this.fonts.drawString("Mining Speed: " + material.toolSpeed() / 100f, localWidth, localHeight + 80, 0);
+        this.fonts.drawString("Mining Level: " + material.harvestLevel() + " (" + PartCrafterGui.getHarvestLevelName(material.harvestLevel()) + ")", localWidth, localHeight + 90, 0);
         int attack = material.attack();
         String heart = attack == 2 ? " Heart" : " Hearts";
         if (attack % 2 == 0)
-            this.fontRenderer.drawString("Base Attack: " + material.attack() / 2 + heart, localWidth, localHeight + 100, 0);
+            this.fonts.drawString("Base Attack: " + material.attack() / 2 + heart, localWidth, localHeight + 100, 0);
         else
-            this.fontRenderer.drawString("Base Attack: " + material.attack() / 2f + heart, localWidth, localHeight + 100, 0);
+            this.fonts.drawString("Base Attack: " + material.attack() / 2f + heart, localWidth, localHeight + 100, 0);
 
         int offset = 0;
         String ability = material.ability();
         if (!ability.equals(""))
         {
-            this.fontRenderer.drawString("Material ability: " + material.ability(), localWidth, localHeight + 120 + 10 * offset, 0);
+            this.fonts.drawString("Material ability: " + material.ability(), localWidth, localHeight + 120 + 10 * offset, 0);
             offset++;
             if (ability.equals("Writable"))
-                this.fontRenderer.drawString("+1 Modifiers", localWidth, localHeight + 120 + 10 * offset, 0);
+                this.fonts.drawString("+1 Modifiers", localWidth, localHeight + 120 + 10 * offset, 0);
         }
 
         if (material.reinforced() > 0)
         {
-            this.fontRenderer.drawString("Material ability: Reinforced", localWidth, localHeight + 120 + 10 * offset, 0);
+            this.fonts.drawString("Material ability: Reinforced", localWidth, localHeight + 120 + 10 * offset, 0);
             offset++;
-            this.fontRenderer.drawString("Reinforced level: " + material.reinforced(), localWidth, localHeight + 120 + 10 * offset, 0);
+            this.fonts.drawString("Reinforced level: " + material.reinforced(), localWidth, localHeight + 120 + 10 * offset, 0);
             offset++;
         }
 
         if (material.shoddy() > 0)
         {
-            this.fontRenderer.drawString("Stonebound level: " + material.shoddy(), localWidth, localHeight + 120 + 10 * offset, 0);
+            this.fonts.drawString("Stonebound level: " + material.shoddy(), localWidth, localHeight + 120 + 10 * offset, 0);
             offset++;
         }
         else if (material.shoddy() < 0)
         {
-            this.fontRenderer.drawString("Splintering level: " + -material.shoddy(), localWidth, localHeight + 120 + 10 * offset, 0);
+            this.fonts.drawString("Splintering level: " + -material.shoddy(), localWidth, localHeight + 120 + 10 * offset, 0);
             offset++;
         }
     }
 
     public void drawToolPage (String title, ItemStack[] icons, String[] multiText, int localWidth, int localHeight)
     {
-        this.fontRenderer.drawString("\u00a7n" + title, localWidth + 70, localHeight + 4, 0);
-        this.fontRenderer.drawSplitString(multiText[0], localWidth, localHeight + 16, 178, 0);
+        this.fonts.drawString("\u00a7n" + title, localWidth + 70, localHeight + 4, 0);
+        this.fonts.drawSplitString(multiText[0], localWidth, localHeight + 16, 178, 0);
         int size = multiText[0].length() / 50;
-        this.fontRenderer.drawSplitString(multiText[1], localWidth, localHeight + 28 + 10 * size, 118, 0);
+        this.fonts.drawSplitString(multiText[1], localWidth, localHeight + 28 + 10 * size, 118, 0);
 
-        this.fontRenderer.drawString("Crafting Parts: ", localWidth + 124, localHeight + 28 + 10 * size, 0);
+        this.fonts.drawString("Crafting Parts: ", localWidth + 124, localHeight + 28 + 10 * size, 0);
 
         GL11.glEnable(GL12.GL_RESCALE_NORMAL);
         RenderHelper.enableGUIStandardItemLighting();
         renderitem.zLevel = 100;
-        renderitem.renderItemAndEffectIntoGUI(fontRenderer, mc.renderEngine, icons[0], localWidth + 50, localHeight + 0);
+        renderitem.renderItemAndEffectIntoGUI(fonts, mc.renderEngine, icons[0], localWidth + 50, localHeight + 0);
         for (int i = 1; i < icons.length; i++)
         {
-            renderitem.renderItemAndEffectIntoGUI(fontRenderer, mc.renderEngine, icons[i], localWidth + 120, localHeight + 20 + 10 * size + 18 * i);
-            this.fontRenderer.drawSplitString(multiText[i + 1], localWidth + 140, localHeight + 24 + 10 * size + 18 * i, 42, 0);
+            renderitem.renderItemAndEffectIntoGUI(fonts, mc.renderEngine, icons[i], localWidth + 120, localHeight + 20 + 10 * size + 18 * i);
+            this.fonts.drawSplitString(multiText[i + 1], localWidth + 140, localHeight + 24 + 10 * size + 18 * i, 42, 0);
         }
         renderitem.zLevel = 0;
         RenderHelper.disableStandardItemLighting();

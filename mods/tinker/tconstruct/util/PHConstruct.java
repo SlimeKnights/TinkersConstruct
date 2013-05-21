@@ -185,9 +185,9 @@ public class PHConstruct
         generateSilverBush = config.get("Worldgen Disabler", "Generate Silver Bushes", true).getBoolean(true);
         addToVillages = config.get("Worldgen Disabler", "Add Village Generation", true).getBoolean(true);
 
-        copperuDensity = config.get("Worldgen", "Copper Underground Density", ic2 ? 1 : 0).getInt(ic2 ? 1 : 0);
-        tinuDensity = config.get("Worldgen", "Tin Underground Density", ic2 ? 1 : 0).getInt(ic2 ? 1 : 0);
-        aluminumuDensity = config.get("Worldgen", "Aluminum Underground Density", xycraft ? 1 : 0).getInt(xycraft ? 1 : 0);
+        copperuDensity = config.get("Worldgen", "Copper Underground Density", 2).getInt(2);
+        tinuDensity = config.get("Worldgen", "Tin Underground Density", 2).getInt(2);
+        aluminumuDensity = config.get("Worldgen", "Aluminum Underground Density", 3).getInt(3);
         netherDensity = config.get("Worldgen", "Nether Ores Density", 8).getInt(8);
         
         copperuMinY = config.get("Worldgen", "Copper Underground Min Y", 20).getInt(20);
@@ -201,7 +201,7 @@ public class PHConstruct
         goldsRarity = config.get("Worldgen", "Gold Surface Rarity", 900).getInt(900);
         coppersRarity = config.get("Worldgen", "Copper Surface Rarity", 100).getInt(100);
         tinsRarity = config.get("Worldgen", "Tin Surface Rarity", 100).getInt(100);
-        aluminumsRarity = config.get("Worldgen", "Aluminum Surface Rarity", 70).getInt(70);
+        aluminumsRarity = config.get("Worldgen", "Aluminum Surface Rarity", 50).getInt(50);
         cobaltsRarity = config.get("Worldgen", "Cobalt Surface Rarity", 2000).getInt(2000);
         
         ironBushDensity = config.get("Worldgen", "Iron Bush Density", 1).getInt(1);

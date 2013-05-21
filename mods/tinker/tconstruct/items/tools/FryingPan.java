@@ -97,7 +97,7 @@ public class FryingPan extends Weapon
             else
             {
                 world.setBlock(x, y, z, TContent.heldItemBlock.blockID, 0, 3);
-                world.playSoundEffect(x, y, z, "mods.tinker.resources.sounds.frypan_hit", 1.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 0.65F);
+                world.playSoundEffect(x, y, z, "sounds.frypan_hit", 1.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 0.65F);
 
                 EquipLogic logic = (EquipLogic) world.getBlockTileEntity(x, y, z);
                 logic.setEquipmentItem(stack);

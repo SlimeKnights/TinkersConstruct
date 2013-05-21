@@ -164,7 +164,7 @@ public class PartCrafterLogic extends InventoryLogic
 	@Override
     public int[] getAccessibleSlotsFromSide (int side)
     {
-        return null;
+        return new int[0];
     }
 
     @Override

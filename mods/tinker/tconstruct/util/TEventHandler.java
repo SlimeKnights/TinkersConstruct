@@ -85,7 +85,6 @@ public class TEventHandler
                     EntityItem entityitem = new EntityItem(event.entityLiving.worldObj, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, dropStack);
                     entityitem.delayBeforeCanPickup = 10;
                     event.drops.add(entityitem);
-                    //event.entityLiving.dropItem(Item.feather.itemID, 1);
                 }
             }
         }
