@@ -30,28 +30,27 @@ import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-/** NBTTags
- * Main tag - InfiTool
- * @see ToolBuilder
- * 
- * Required:
- * Head: Base and render tag, above the handle
- * Handle: Base and render tag, bottom layer
- * 
- * Damage: Replacement for metadata
- * MaxDamage: ItemStacks only read setMaxDamage()
- * Broken: Represents whether the tool is broken (boolean)
- * Attack: How much damage a mob will take
- * MiningSpeed: The speed at which a tool mines
- * 
- * Others: 
- * Accessory: Base and tag, above head. Sword guards, binding, etc
- * Effects: Render tag, top layer. Fancy effects like moss or diamond edge.
- * Render order: Handle > Head > Accessory > Effect1 > Effect2 > Effect3
- * Unbreaking: Reinforced in-game, 10% chance to not use durability per level
+/**
+ * NBTTags Main tag - InfiTool
+ * <p>
+ * <b>Required:</b> <br>
+ * Head: Base and render tag, above the handle <br>
+ * Handle: Base and render tag, bottom layer <br>
+ * Damage: Replacement for metadata MaxDamage: ItemStacks only read <br>
+ * setMaxDamage() Broken: Represents whether the tool is broken (boolean) <br>
+ * Attack: How much damage a mob will take MiningSpeed: The speed at which a
+ * tool mines
+ * <p>
+ * <b>Others:</b> <br>
+ * Accessory: Base and tag, above head. Sword guards, binding, etc <br>
+ * Effects: Render tag, top layer. Fancy effects like moss or diamond edge. <br>
+ * Render order: Handle > Head > Accessory > Effect1 > Effect2 > Effect3 <br>
+ * Unbreaking: Reinforced in-game, 10% chance to not use durability per level <br>
  * Shoddy/Spiny: Mines faster or slower and does less or more attack.
- * 
+ * <p>
  * Modifiers have their own tags.
+ * 
+ * @see ToolBuilder
  * @see ToolMod
  */
 
