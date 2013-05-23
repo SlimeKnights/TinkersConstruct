@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import mods.tinker.tconstruct.library.ActiveToolMod;
 import mods.tinker.tconstruct.library.TConstructRegistry;
 import mods.tinker.tconstruct.library.crafting.ToolBuilder;
 import net.minecraft.block.Block;
@@ -47,9 +48,10 @@ import cpw.mods.fml.relauncher.SideOnly;
  * Others: 
  * Accessory: Base and tag, above head. Sword guards, binding, etc
  * Effects: Render tag, top layer. Fancy effects like moss or diamond edge.
- * Render order: Handle > Head > Accessory > Effect1 > Effect2 > Effect3
+ * Render order: Handle > Head > Accessory > Effect1 > Effect2 > Effect3 > etc
  * Unbreaking: Reinforced in-game, 10% chance to not use durability per level
- * Shoddy/Spiny: Mines faster or slower and does less or more attack.
+ * Stonebound: Mines faster as the tool takes damage, but has less attack
+ * Spiny: Opposite of stonebound
  * 
  * Modifiers have their own tags.
  * @see ToolMod
@@ -464,19 +466,10 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
 
     public void onUpdate (ItemStack stack, World world, Entity entity, int par4, boolean par5)
     {
-        if (!world.isRemote && entity instanceof EntityLiving && !((EntityLiving) entity).isSwingInProgress)
-        {
-            NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
-            if (tags.hasKey("Moss"))
-            {
-                int chance = tags.getInteger("Moss");
-                int check = world.canBlockSeeTheSky((int) entity.posX, (int) entity.posY, (int) entity.posZ) ? 750 : 1500;
-                if (random.nextInt(check) < chance)
-                {
-                    AbilityHelper.healTool(stack, 1, (EntityLiving) entity, true, false);
-                }
-            }
-        }
+    	for (ActiveToolMod mod : TConstructRegistry.activeModifiers)
+    	{
+    		mod.updateTool(this, stack, world, entity);
+    	}
     }
 
     /* Tool uses */
@@ -488,72 +481,20 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
     @Override
     public boolean onBlockStartBreak (ItemStack stack, int x, int y, int z, EntityPlayer player)
     {
-        NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
-        World world = player.worldObj;
-        int bID = player.worldObj.getBlockId(x, y, z);
-        int meta = world.getBlockMetadata(x, y, z);
-        Block block = Block.blocksList[bID];
-        if (block == null || bID < 1 || bID > 4095)
-            return false;
+    	boolean cancelHarvest = false;
+    	for (ActiveToolMod mod : TConstructRegistry.activeModifiers)
+    	{
+    		if (mod.beforeBlockBreak(this, stack, x, y, z, player));
+    		cancelHarvest = true;
+    	}
 
-        if (tags.getBoolean("Lava") && block.quantityDropped(meta, 0, random) != 0)
-        {
-            ItemStack smeltStack = new ItemStack(block.idDropped(meta, random, 0), 1, block.damageDropped(meta));
-            if (smeltStack.itemID < 0 || smeltStack.itemID >= 32000 || smeltStack.getItem() == null)
-                return false;
-            ItemStack result = FurnaceRecipes.smelting().getSmeltingResult(smeltStack);
-            if (result != null)
-            {
-                world.setBlockToAir(x, y, z);
-                if (!player.capabilities.isCreativeMode)
-                    onBlockDestroyed(stack, world, bID, x, y, z, player);
-                if (!world.isRemote)
-                {
-                    ItemStack spawnme = result.copy();
-                    if (!(result.getItem() instanceof ItemBlock))
-                    {
-                        int loot = EnchantmentHelper.getEnchantmentLevel(Enchantment.fortune.effectId, stack);
-                        if (loot > 0)
-                        {
-                            spawnme.stackSize *= (random.nextInt(loot + 1) + 1);
-                        }
-                    }
-                    EntityItem entityitem = new EntityItem(world, x + 0.5, y + 0.5, z + 0.5, spawnme);
-
-                    entityitem.delayBeforeCanPickup = 10;
-                    world.spawnEntityInWorld(entityitem);
-                    world.playAuxSFX(2001, x, y, z, bID + (meta << 12));
-                }
-                for (int i = 0; i < 6; i++)
-                {
-                    float f = (float) x + random.nextFloat();
-                    float f1 = (float) y + random.nextFloat();
-                    float f2 = (float) z + random.nextFloat();
-                    float f3 = 0.52F;
-                    float f4 = random.nextFloat() * 0.6F - 0.3F;
-                    world.spawnParticle("smoke", f - f3, f1, f2 + f4, 0.0D, 0.0D, 0.0D);
-                    world.spawnParticle("flame", f - f3, f1, f2 + f4, 0.0D, 0.0D, 0.0D);
-
-                    world.spawnParticle("smoke", f + f3, f1, f2 + f4, 0.0D, 0.0D, 0.0D);
-                    world.spawnParticle("flame", f + f3, f1, f2 + f4, 0.0D, 0.0D, 0.0D);
-
-                    world.spawnParticle("smoke", f + f4, f1, f2 - f3, 0.0D, 0.0D, 0.0D);
-                    world.spawnParticle("flame", f + f4, f1, f2 - f3, 0.0D, 0.0D, 0.0D);
-
-                    world.spawnParticle("smoke", f + f4, f1, f2 + f3, 0.0D, 0.0D, 0.0D);
-                    world.spawnParticle("flame", f + f4, f1, f2 + f3, 0.0D, 0.0D, 0.0D);
-                }
-                return true;
-            }
-        }
-
-        return false;
+        return cancelHarvest;
     }
 
     @Override
-    public boolean onBlockDestroyed (ItemStack itemstack, World world, int bID, int x, int y, int z, EntityLiving player)
+    public boolean onBlockDestroyed (ItemStack itemstack, World world, int blockID, int x, int y, int z, EntityLiving player)
     {
-        return AbilityHelper.onBlockChanged(itemstack, world, bID, x, y, z, player, random);
+        return AbilityHelper.onBlockChanged(itemstack, world, blockID, x, y, z, player, random);
     }
 
     @Override

@@ -539,6 +539,8 @@ public class TContent implements IFuelHandler
         
         ItemStack silkyJewel = new ItemStack(materials, 1, 26);
         tb.registerToolMod(new ModButtertouch(new ItemStack[] {silkyJewel}, 12));
+        
+        TConstructRegistry.registerActiveToolMod(new TActiveOmniMod());
 
         /* Smeltery */
         ItemStack ingotcast = new ItemStack(metalPattern, 1, 0);
@@ -609,7 +611,7 @@ public class TContent implements IFuelHandler
         basinCasting.addCastingRecipe(new ItemStack(Block.obsidian), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 11), null, true, 100);// obsidian
         basinCasting.addCastingRecipe(new ItemStack(metalBlock, 1, 9), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 12), null, true, 100); //steel
         
-        basinCasting.addCastingRecipe(new ItemStack(speedBlock, 1, 0), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue / 9, 3), new ItemStack(Block.gravel), true, 100); //steel
+        basinCasting.addCastingRecipe(new ItemStack(speedBlock, 1, 0), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue / 9, 3), new ItemStack(Block.gravel), true, 100); //brownstone
         
         //Ore
         Smeltery.addMelting(Block.oreIron, 0, 600, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 0));

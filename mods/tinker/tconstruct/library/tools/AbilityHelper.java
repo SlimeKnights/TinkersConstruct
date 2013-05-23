@@ -7,6 +7,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
+import mods.tinker.tconstruct.library.ActiveToolMod;
+import mods.tinker.tconstruct.library.TConstructRegistry;
 import mods.tinker.tconstruct.library.util.PiercingEntityDamage;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -50,7 +52,7 @@ public class AbilityHelper
 
 		if (random.nextInt(10) < 10 - durability)
 		{
-			damageTool(stack, 1, tags, player, false, true);
+			damageTool(stack, 1, tags, player, false);
 		}
 
 		return true;
@@ -68,8 +70,15 @@ public class AbilityHelper
 				boolean broken = toolTags.getBoolean("Broken");
 
 				int durability = tags.getCompoundTag("InfiTool").getInteger("Damage");
-				float shoddy = tags.getCompoundTag("InfiTool").getFloat("Shoddy");
-				float damageModifier = -shoddy * durability / 100f;
+				float stonebound = tags.getCompoundTag("InfiTool").getFloat("Shoddy");
+				float stoneboundDamage = -stonebound * durability / 100f;
+				
+		    	int earlyModDamage = 0;
+		    	for (ActiveToolMod mod : TConstructRegistry.activeModifiers)
+		    	{
+		    		earlyModDamage = mod.baseAttackDamage(earlyModDamage, damage, tool, stack, player, entity);
+		    	}
+		    	damage += earlyModDamage;
 
 				if (player.isPotionActive(Potion.damageBoost))
 				{
@@ -90,7 +99,7 @@ public class AbilityHelper
 					knockback += EnchantmentHelper.getKnockbackModifier(player, (EntityLiving) entity);
 				}
 
-				damage += damageModifier;
+				damage += stoneboundDamage;
 
 				if (player.isSprinting())
 				{
@@ -102,6 +111,20 @@ public class AbilityHelper
 						damage *= lunge;
 					}
 				}
+				
+				float modKnockback = 0f;
+		    	for (ActiveToolMod mod : TConstructRegistry.activeModifiers)
+		    	{
+		    		modKnockback = mod.knockback(modKnockback, knockback, tool, stack, player, entity);
+		    	}		    	
+		    	knockback += modKnockback;
+		    	
+		    	int modDamage = 0;
+		    	for (ActiveToolMod mod : TConstructRegistry.activeModifiers)
+		    	{
+		    		modDamage = mod.attackDamage(modDamage, damage, tool, stack, player, entity);
+		    	}
+		    	damage += modDamage;
 
 				if (damage > 0 || enchantDamage > 0)
 				{
@@ -249,36 +272,39 @@ public class AbilityHelper
 	public static void damageTool (ItemStack stack, int dam, EntityLiving entity, boolean ignoreCharge)
 	{
 		NBTTagCompound tags = stack.getTagCompound();
-		damageTool(stack, dam, tags, entity, ignoreCharge, true);
+		damageTool(stack, dam, tags, entity, ignoreCharge);
 	}
 
-	public static void healTool (ItemStack stack, int dam, EntityLiving entity, boolean ignoreCharge, boolean updateDamageBar)
+	public static void healTool (ItemStack stack, int dam, EntityLiving entity, boolean ignoreCharge)
 	{
 		NBTTagCompound tags = stack.getTagCompound();
-		damageTool(stack, -dam, tags, entity, ignoreCharge, updateDamageBar);
+		damageTool(stack, -dam, tags, entity, ignoreCharge);
 	}
 
-	public static void damageTool (ItemStack stack, int dam, NBTTagCompound tags, EntityLiving entity, boolean ignoreCharge, boolean updateDamageBar)
+	public static void damageTool (ItemStack stack, int dam, NBTTagCompound tags, EntityLiving entity, boolean ignoreCharge)
 	{
 		if (entity instanceof EntityPlayer && ((EntityPlayer) entity).capabilities.isCreativeMode)
 			return;
 
 		if (ignoreCharge || !damageElectricTool(stack, tags, entity))
 		{
+	    	for (ActiveToolMod mod : TConstructRegistry.activeModifiers)
+	    	{
+	    		if (mod.damageTool(stack, dam, entity));
+	    		return;
+	    	}
 			int damage = tags.getCompoundTag("InfiTool").getInteger("Damage");
 			int damageTrue = damage + dam;
 			int maxDamage = tags.getCompoundTag("InfiTool").getInteger("TotalDurability");
 			if (damageTrue <= 0)
 			{
 				tags.getCompoundTag("InfiTool").setInteger("Damage", 0);
-				if (updateDamageBar)
 					stack.setItemDamage(0);
 			}
 
 			else if (damageTrue > maxDamage)
 			{
 				breakTool(stack, tags, entity);
-				if (updateDamageBar)
 					stack.setItemDamage(0);
 			}
 
@@ -287,7 +313,7 @@ public class AbilityHelper
 				tags.getCompoundTag("InfiTool").setInteger("Damage", damage + dam);
 				int toolDamage = (damage * 100 / maxDamage) + 1;
 				int stackDamage = stack.getItemDamage();
-				if (updateDamageBar && toolDamage != stackDamage)
+				if (toolDamage != stackDamage)
 				{
 					stack.setItemDamage((damage * 100 / maxDamage) + 1);
 				}

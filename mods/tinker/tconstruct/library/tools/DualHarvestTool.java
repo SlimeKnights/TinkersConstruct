@@ -1,5 +1,7 @@
 package mods.tinker.tconstruct.library.tools;
 
+import mods.tinker.tconstruct.library.ActiveToolMod;
+import mods.tinker.tconstruct.library.TConstructRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.enchantment.Enchantment;
@@ -43,58 +45,14 @@ public abstract class DualHarvestTool extends HarvestTool
 
         if (hlvl <= tags.getInteger("HarvestLevel") && shlvl <= tags.getInteger("HarvestLevel2"))
         {
-            if (tags.getBoolean("Lava") && block.quantityDropped(meta, 0, random) != 0)
-            {
-                ItemStack smeltStack = new ItemStack(block.idDropped(block.blockID, random, 0), 1, block.damageDropped(meta));
-                if (smeltStack.itemID < 0 || smeltStack.itemID >= 32000 || smeltStack.getItem() == null)
-                    return false;
-                ItemStack result = FurnaceRecipes.smelting().getSmeltingResult(smeltStack);
-                if (result != null)
-                {
-                    world.setBlockToAir(x, y, z);
-                    if (!player.capabilities.isCreativeMode)
-                        onBlockDestroyed(stack, world, bID, x, y, z, player);
-                    if (!world.isRemote)
-                    {
-                        ItemStack spawnme = result.copy();
-                        if (!(result.getItem() instanceof ItemBlock))
-                        {
-                            int loot = EnchantmentHelper.getEnchantmentLevel(Enchantment.fortune.effectId, stack);
-                            if (loot > 0)
-                            {
-                                spawnme.stackSize *= (random.nextInt(loot + 1) + 1);
-                            }
-                        }
-                        EntityItem entityitem = new EntityItem(world, x + 0.5, y + 0.5, z + 0.5, spawnme);
+        	boolean cancelHarvest = false;
+	    	for (ActiveToolMod mod : TConstructRegistry.activeModifiers)
+	    	{
+	    		if (mod.beforeBlockBreak(this, stack, x, y, z, player));
+	    		cancelHarvest = true;
+	    	}
 
-                        entityitem.delayBeforeCanPickup = 10;
-                        world.spawnEntityInWorld(entityitem);
-                        world.playAuxSFX(2001, x, y, z, bID + (meta << 12));
-
-                    }
-                    for (int i = 0; i < 6; i++)
-                    {
-                        float f = (float) x + random.nextFloat();
-                        float f1 = (float) y + random.nextFloat();
-                        float f2 = (float) z + random.nextFloat();
-                        float f3 = 0.52F;
-                        float f4 = random.nextFloat() * 0.6F - 0.3F;
-                        world.spawnParticle("smoke", f - f3, f1, f2 + f4, 0.0D, 0.0D, 0.0D);
-                        world.spawnParticle("flame", f - f3, f1, f2 + f4, 0.0D, 0.0D, 0.0D);
-
-                        world.spawnParticle("smoke", f + f3, f1, f2 + f4, 0.0D, 0.0D, 0.0D);
-                        world.spawnParticle("flame", f + f3, f1, f2 + f4, 0.0D, 0.0D, 0.0D);
-
-                        world.spawnParticle("smoke", f + f4, f1, f2 - f3, 0.0D, 0.0D, 0.0D);
-                        world.spawnParticle("flame", f + f4, f1, f2 - f3, 0.0D, 0.0D, 0.0D);
-
-                        world.spawnParticle("smoke", f + f4, f1, f2 + f3, 0.0D, 0.0D, 0.0D);
-                        world.spawnParticle("flame", f + f4, f1, f2 + f3, 0.0D, 0.0D, 0.0D);
-                    }
-                    return true;
-                }
-            }
-            return false;
+	        return cancelHarvest;
         }
         else
         {

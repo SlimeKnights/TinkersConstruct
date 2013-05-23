@@ -3,6 +3,7 @@ package mods.tinker.tconstruct.library;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 
 import mods.tinker.tconstruct.library.crafting.Detailing;
 import mods.tinker.tconstruct.library.crafting.LiquidCasting;
@@ -22,10 +23,13 @@ public class TConstructRegistry
     public static ArrayList<ToolCore> tools = new ArrayList<ToolCore>(20);
     public static HashMap<Integer, ToolMaterial> toolMaterials = new HashMap<Integer, ToolMaterial>(40);
     public static HashMap<String, ToolMaterial> toolMaterialStrings = new HashMap<String, ToolMaterial>(40);
+    
+    public static LinkedList<ActiveToolMod> activeModifiers = new LinkedList<ActiveToolMod>();
 
     public static TabTools toolTab;
     public static TabTools materialTab;
     public static TabTools blockTab;
+    @Deprecated
     public static Item toolRod;
 
     //Tools
@@ -131,5 +135,10 @@ public class TConstructRegistry
             System.out.println("[TCon API] Could not find chisel detailing recipes.");
             return null;
         }
+    }
+    
+    public static void registerActiveToolMod(ActiveToolMod mod)
+    {
+    	activeModifiers.add(mod);
     }
 }
