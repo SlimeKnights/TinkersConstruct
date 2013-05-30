@@ -15,16 +15,12 @@ import mods.tinker.tconstruct.library.crafting.ToolBuilder;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.Icon;
 import net.minecraft.world.World;
@@ -453,11 +449,11 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
         }
     }
 
-    protected abstract Item getHeadItem ();
+    public abstract Item getHeadItem ();
 
-    protected abstract Item getAccessoryItem ();
+    public abstract Item getAccessoryItem ();
 
-    protected Item getHandleItem ()
+    public Item getHandleItem ()
     {
         return TConstructRegistry.toolRod;
     }
@@ -484,7 +480,7 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
     	boolean cancelHarvest = false;
     	for (ActiveToolMod mod : TConstructRegistry.activeModifiers)
     	{
-    		if (mod.beforeBlockBreak(this, stack, x, y, z, player));
+    		if (mod.beforeBlockBreak(this, stack, x, y, z, player))
     		cancelHarvest = true;
     	}
 

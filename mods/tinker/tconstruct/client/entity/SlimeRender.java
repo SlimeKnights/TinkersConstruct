@@ -4,6 +4,8 @@ import mods.tinker.tconstruct.entity.BlueSlime;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.boss.BossStatus;
+import net.minecraft.entity.boss.IBossDisplayData;
 
 import org.lwjgl.opengl.GL11;
 
@@ -21,6 +23,18 @@ public class SlimeRender extends RenderLiving
         this.scaleAmount = par2ModelBase;
     }
 
+    public void doRenderLiving(EntityLiving par1EntityLiving, double par2, double par4, double par6, float par8, float par9)
+    {
+    	super.doRenderLiving(par1EntityLiving, par2, par4, par6, par8, par9);
+    	renderBossHealth((BlueSlime) par1EntityLiving);
+    }
+    
+    public void renderBossHealth(BlueSlime slime)
+    {
+    	if (slime.getSlimeSize() >= 8)
+        BossStatus.func_82824_a(slime, true);
+    }
+    
     /**
      * Determines whether Slime Render should pass or not.
      */

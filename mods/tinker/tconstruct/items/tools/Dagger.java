@@ -89,13 +89,13 @@ public class Dagger extends Weapon
     }
 
     @Override
-    protected Item getHeadItem ()
+    public Item getHeadItem ()
     {
         return TContent.knifeBlade;
     }
 
     @Override
-    protected Item getAccessoryItem ()
+    public Item getAccessoryItem ()
     {
         return TContent.crossbar;
     }

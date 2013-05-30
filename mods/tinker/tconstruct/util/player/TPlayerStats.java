@@ -11,7 +11,8 @@ public class TPlayerStats
 {
 	public WeakReference<EntityPlayer> player;
 	public int level;
-	public int health;
+	public int levelHealth;
+	public int bonusHealth;
 	public int hunger;
 	public boolean beginnerManual;
 	public boolean materialManual;

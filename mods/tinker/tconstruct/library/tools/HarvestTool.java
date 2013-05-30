@@ -1,17 +1,11 @@
 package mods.tinker.tconstruct.library.tools;
 
-import mods.tinker.tconstruct.common.TContent;
 import mods.tinker.tconstruct.library.ActiveToolMod;
 import mods.tinker.tconstruct.library.TConstructRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;

@@ -35,7 +35,7 @@ public class TActiveOmniMod extends ActiveToolMod
 			if (tags.hasKey("Moss"))
 			{
 				int chance = tags.getInteger("Moss");
-				int check = world.canBlockSeeTheSky((int) entity.posX, (int) entity.posY, (int) entity.posZ) ? 750 : 1500;
+				int check = world.canBlockSeeTheSky((int) entity.posX, (int) entity.posY, (int) entity.posZ) ? 350 : 1150;
 				if (random.nextInt(check) < chance)
 				{
 					AbilityHelper.healTool(stack, 1, (EntityLiving) entity, true);

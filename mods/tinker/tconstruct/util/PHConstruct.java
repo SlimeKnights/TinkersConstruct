@@ -144,8 +144,12 @@ public class PHConstruct
         slimefood = config.getItem("Patterns and Misc", "Strange Food", 14103).getInt(14103);
         oreChunks = config.getItem("Patterns and Misc", "Ore Chunks", 14104).getInt(14104);
         
-        heartContainer = config.getItem("Equipables", "Heart Canister", 14105).getInt(14105);
+        heartCanister = config.getItem("Equipables", "Heart Canister", 14105).getInt(14105);
         heavyHelmet = config.getItem("Equipables", "Heavy Helmet", 14106).getInt(14106);
+        diamondApple = config.getItem("Patterns and Misc", "Jeweled Apple", 14107).getInt(14107);
+        heavyChestplate = config.getItem("Equipables", "Heavy Chestplate", 14108).getInt(14108);
+        heavyPants = config.getItem("Equipables", "Heavy Pants", 14109).getInt(14109);
+        heavyBoots = config.getItem("Equipables", "Heavy Boots", 14110).getInt(14110);
 
         boolean ic2 = true;
         boolean xycraft = true;
@@ -282,6 +286,7 @@ public class PHConstruct
     public static int oreChunks;
 
     //Food
+    public static int diamondApple;
     public static int slimefood;
 
     //Tools
@@ -332,7 +337,7 @@ public class PHConstruct
     public static int heavyPants;
     public static int heavyBoots;
     
-    public static int heartContainer;
+    public static int heartCanister;
 
     //Ore values
     public static boolean generateCopper;

@@ -23,7 +23,7 @@ public class BattleSign extends Weapon
 	
 	public String getToolName ()
 	{
-		return "Battle Sign";
+		return "Battlesign";
 	}
 	
 	/*public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer player, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10)
@@ -97,13 +97,13 @@ public class BattleSign extends Weapon
     }*/
 
 	@Override
-	protected Item getHeadItem ()
+	public Item getHeadItem ()
 	{
 		return  TContent.signHead;
 	}
 
 	@Override
-	protected Item getAccessoryItem ()
+	public Item getAccessoryItem ()
 	{
 		return null;
 	}

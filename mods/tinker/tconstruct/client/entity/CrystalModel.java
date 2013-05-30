@@ -21,11 +21,11 @@ public class CrystalModel extends ModelBase
 		body.setRotationPoint(0F, 0F, 0F);
 		setRotation(body, 0, 0.7853982F, 0);
 		top = new ModelRendererTurbo(this, 0, 0, 32, 32);
-		top.addCone(0, 0, 0, 2.8F, 4, 4, 0, ModelRendererTurbo.MR_BOTTOM, 4, 4);
+		top.addCone(0, 0, 0, 2.8F, 4, 4, 0, ModelRendererTurbo.MR_BOTTOM, 4, 8);
 		top.setRotationPoint(0F, -4F, 0F);
 		setRotation(top, 0F, 0F, 0F);
 		bottom = new ModelRendererTurbo(this, 0, 18, 32, 32);
-		top.addCone(0, 10, 0, 2.8F, 4, 4, 0, ModelRendererTurbo.MR_TOP, 4, 4);
+		top.addCone(0, 10, 0, 2.8F, 4, 4, 0, ModelRendererTurbo.MR_TOP, 4, 8);
 		bottom.setRotationPoint(0F, 6F, 0F);
 		//setRotation(bottom, 0F, 0F, 0F);
 	}

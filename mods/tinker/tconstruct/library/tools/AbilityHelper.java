@@ -288,11 +288,16 @@ public class AbilityHelper
 
 		if (ignoreCharge || !damageElectricTool(stack, tags, entity))
 		{
+			boolean damagedTool = false;
 	    	for (ActiveToolMod mod : TConstructRegistry.activeModifiers)
 	    	{
-	    		if (mod.damageTool(stack, dam, entity));
-	    		return;
+	    		if (mod.damageTool(stack, dam, entity))
+	    		damagedTool = true;
 	    	}
+	    	
+	    	if (damagedTool)
+	    		return;
+
 			int damage = tags.getCompoundTag("InfiTool").getInteger("Damage");
 			int damageTrue = damage + dam;
 			int maxDamage = tags.getCompoundTag("InfiTool").getInteger("TotalDurability");

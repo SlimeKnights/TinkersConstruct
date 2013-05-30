@@ -168,13 +168,13 @@ public class LumberAxe extends HarvestTool
 	}
 
 	@Override
-	protected Item getHeadItem ()
+	public Item getHeadItem ()
 	{
 		return TContent.lumberHead;
 	}
 
 	@Override
-	protected Item getAccessoryItem ()
+	public Item getAccessoryItem ()
 	{
 		return null;
 	}

@@ -36,13 +36,13 @@ public class Shovel extends HarvestTool
 	static Material[] materials = { Material.grass, Material.ground, Material.sand, Material.snow, Material.craftedSnow, Material.clay };
 
 	@Override
-	protected Item getHeadItem ()
+	public Item getHeadItem ()
 	{
 		return  TContent.shovelHead;
 	}
 
 	@Override
-	protected Item getAccessoryItem ()
+	public Item getAccessoryItem ()
 	{
 		return null;
 	}

@@ -34,13 +34,13 @@ public class Pickaxe extends HarvestTool
 	static Material[] materials = new Material[] { Material.rock, Material.iron, Material.ice, Material.glass, Material.piston, Material.anvil, Material.circuits };
 
 	@Override
-	protected Item getHeadItem ()
+	public Item getHeadItem ()
 	{
 		return  TContent.pickaxeHead;
 	}
 
 	@Override
-	protected Item getAccessoryItem ()
+	public Item getAccessoryItem ()
 	{
 		return  TContent.binding;
 	}

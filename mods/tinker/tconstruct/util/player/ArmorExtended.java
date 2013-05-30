@@ -2,6 +2,7 @@ package mods.tinker.tconstruct.util.player;
 
 import java.lang.ref.WeakReference;
 
+import mods.tinker.tconstruct.TConstruct;
 import mods.tinker.tconstruct.common.TContent;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -54,6 +55,7 @@ public class ArmorExtended implements IInventory
             {
                 inventory[slot] = null;
             }
+            recalculateHealth();
             return split;
         }
         else
@@ -77,6 +79,7 @@ public class ArmorExtended implements IInventory
         {
             itemstack.stackSize = getInventoryStackLimit();
         }
+        recalculateHealth();
     }
 
     @Override
@@ -100,9 +103,23 @@ public class ArmorExtended implements IInventory
     @Override
     public void onInventoryChanged ()
     {
-        if (inventory[6] != null && inventory[6].getItem() == TContent.heartContainer)
+        recalculateHealth();
+    }
+    
+    public void recalculateHealth()
+    {
+    	if (inventory[6] != null && inventory[6].getItem() == TContent.heartCanister)
         {
-            parent.get().maxHealth = 40;
+        	ItemStack stack = inventory[6];
+        	int meta = stack.getItemDamage();
+        	if (meta == 2)
+        	{
+        		EntityPlayer player = parent.get();
+        		TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
+        		int bonusHP = stack.stackSize * 2;
+        		stats.bonusHealth = bonusHP;
+        		player.maxHealth = 20 + bonusHP;
+        	}
         }
         else
         {

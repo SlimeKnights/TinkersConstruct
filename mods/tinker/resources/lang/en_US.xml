@@ -74,6 +74,8 @@
   <entry key="item.oreberry.aluminum.name">Aluminum Oreberry</entry>
   <entry key="item.oreberry.silver.name">Silver Oreberry</entry>
   
+  <entry key="item.tconstruct.titleicon.name">Spawn </entry>
+  
   <entry key="item.tconstruct.Materials.PaperStack.name">Paper Stack</entry>
   <entry key="item.tconstruct.Materials.SlimeCrystal.name">Slime Crystal</entry>
   <entry key="item.tconstruct.Materials.SearedBrick.name">Seared Brick</entry>
@@ -165,15 +167,18 @@
   <entry key="LiquidMetal.DSteel.name">Liquid Damascus Steel</entry>
   <entry key="LiquidMetal.Angmallen.name">Liquid Angmallen</entry>
   
+  <entry key="item.food.apple.diamond.name">Jeweled Apple</entry>
   <entry key="item.tconstruct.strangefood.edibleslime.name">Gelatinous Slime</entry>
   <entry key="item.tconstruct.canister.empty.name">Empty Canister</entry>
-  <entry key="item.tconstruct.canister.heart.name">Heart Container</entry>
+  <entry key="item.tconstruct.canister.miniheart.red.name">Miniature Red Heart</entry>
+  <entry key="item.tconstruct.canister.heart.name">Heart Canister</entry>
   
   <entry key="SearedBlock.Table.name">Casting Table</entry>
   <entry key="SearedBlock.Faucet.name">Seared Faucet</entry>
   <entry key="SearedBlock.Basin.name">Casting Basin</entry>
   
   <entry key="entity.TConstruct.EdibleSlime.name">Blue Slime</entry>
+  <entry key="entity.TConstruct.KingSlime.name">King Slime</entry>
   <entry key="entity.TConstruct.UnstableCreeper.name">Nitro Creeper</entry>
   <entry key="entity.TConstruct.EdibleSlime">Blue Slime</entry>
   <entry key="entity.TConstruct.UnstableCreeper">Nitro Creeper</entry>

@@ -70,7 +70,6 @@ public class TFoodStats extends FoodStats
             if (this.foodTimer >= 80)
             {
                 player.heal(1);
-                //player.setEntityHealth(player.getHealth() + 1);
                 this.foodTimer = 0;
             }
         }

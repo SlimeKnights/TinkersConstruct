@@ -19,6 +19,27 @@ public class OverworldProvider extends WorldProvider
         return this.terrainType.hasVoidParticles(this.hasNoSky);
     }
     
+    public float calculateCelestialAngle(long worldtime, float par3)
+    {
+        int timeOfDay = 18000;
+        float f1 = ((float)timeOfDay + par3) / 24000.0F - 0.25F;
+
+        if (f1 < 0.0F)
+        {
+            ++f1;
+        }
+
+        if (f1 > 1.0F)
+        {
+            --f1;
+        }
+
+        float f2 = f1;
+        f1 = 1.0F - (float)((Math.cos((double)f1 * Math.PI) + 1.0D) / 2.0D);
+        f1 = f2 + (f1 - f2) / 3.0F;
+        return f1;
+    }
+    
     /*public float calculateCelestialAngle(long worldtime, float par3)
     {
         int timeOfDay = (int)(worldtime % 43200L);

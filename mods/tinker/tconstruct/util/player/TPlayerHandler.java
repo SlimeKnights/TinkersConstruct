@@ -44,13 +44,13 @@ public class TPlayerHandler implements IPlayerTracker
 		stats.armor.loadFromNBT(entityplayer);
 
 		stats.level = entityplayer.experienceLevel;
-		stats.health = entityplayer.maxHealth;
 		stats.hunger = entityplayer.getFoodStats().getFoodLevel();
 		stats.beginnerManual = tags.getCompoundTag("TConstruct").getBoolean("beginnerManual");
 		stats.materialManual = tags.getCompoundTag("TConstruct").getBoolean("materialManual");
 		stats.smelteryManual = tags.getCompoundTag("TConstruct").getBoolean("smelteryManual");
 		if (!stats.beginnerManual)
 		{
+			stats.beginnerManual = true;
 			tags.getCompoundTag("TConstruct").setBoolean("beginnerManual", true);
 			ItemStack diary = new ItemStack(TContent.manualBook);
 			if (!entityplayer.inventory.addItemStackToInventory(diary))
@@ -79,7 +79,7 @@ public class TPlayerHandler implements IPlayerTracker
 		if (player != null)
 		{
 			TPlayerStats stats = getPlayerStats(player.username);
-			if (stats != null)
+			if (stats != null && stats.armor != null)
 			{
 				stats.armor.saveToNBT(player);
 				if (clean)
@@ -98,6 +98,7 @@ public class TPlayerHandler implements IPlayerTracker
 		//Boom!
 		TPlayerStats stats = getPlayerStats(entityplayer.username);
 		stats.player = new WeakReference<EntityPlayer>(entityplayer);
+		stats.armor.recalculateHealth();
 
 		TFoodStats food = new TFoodStats();
 		entityplayer.foodStats = food;

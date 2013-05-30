@@ -2,19 +2,28 @@ package mods.tinker.tconstruct.entity;
 
 import mods.tinker.tconstruct.TConstruct;
 import mods.tinker.tconstruct.common.TContent;
+import mods.tinker.tconstruct.library.TConstructRegistry;
+import mods.tinker.tconstruct.library.crafting.ToolBuilder;
+import mods.tinker.tconstruct.library.tools.ToolCore;
+import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.boss.IBossDisplayData;
+import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 
-public class BlueSlime extends EntityLiving implements IMob
+public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
 {
 	private static final float[] field_100000_e = new float[] { 1.0F, 0.75F, 0.5F, 0.25F, 0.0F, 0.25F, 0.5F, 0.75F };
 	public float sizeOffset;
@@ -28,13 +37,13 @@ public class BlueSlime extends EntityLiving implements IMob
 	{
 		super(world);
 		this.texture = "/mods/tinker/textures/mob/slimeedible.png";
-		int offset = this.rand.nextInt(99);
-		if (offset < 49)
+		int offset = this.rand.nextInt(199);
+		if (offset < 99)
 			offset = 1;
-		else if (offset < 98)
-		    offset = 2;
+		else if (offset < 198)
+			offset = 2;
 		else
-		    offset = 3;
+			offset = 3;
 		int size = 1 << offset;
 		this.yOffset = 0.0F;
 		this.slimeJumpDelay = this.rand.nextInt(120) + 40;
@@ -50,12 +59,20 @@ public class BlueSlime extends EntityLiving implements IMob
 		super.damageEntity(damageSource, damage);
 	}
 
-	/*public boolean attackEntityFrom(DamageSource damageSource, int damage)
+	public String getEntityName ()
 	{
-		if (damageSource.damageType.equals("arrow") && rand.nextInt(5) == 0)
-			return false;
-		return super.attackEntityFrom(damageSource, damage);
-	}*/
+		String s = EntityList.getEntityString(this);
+
+		if (s == null)
+		{
+			s = "generic";
+		}
+
+		if (getSlimeSize() >= 8)
+			s = "TConstruct.KingSlime";
+
+		return StatCollector.translateToLocal("entity." + s + ".name");
+	}
 
 	@Override
 	public void initCreature ()
@@ -68,7 +85,35 @@ public class BlueSlime extends EntityLiving implements IMob
 			this.worldObj.spawnEntityInWorld(entityskeleton);
 			entityskeleton.mountEntity(this);
 		}
+		if (getSlimeSize() == 4 && rand.nextInt(12) == 0)
+		{
+			EntityCreeper creeper = new EntityCreeper(this.worldObj);
+			creeper.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
+			creeper.initCreature();
+			this.worldObj.spawnEntityInWorld(creeper);
+			creeper.mountEntity(this);
+		}
+		if (getSlimeSize() == 8)
+		{
+			for (int i = 0; i < 5; i++)
+			{
+				BlueSlime slime = new BlueSlime(this.worldObj);
+				slime.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
+				slime.initCreature();
+				this.worldObj.spawnEntityInWorld(slime);
+			}
 
+			BlueSlime slime = new BlueSlime(this.worldObj);
+			slime.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
+			slime.setSlimeSize(2);
+			this.worldObj.spawnEntityInWorld(slime);
+
+			EntitySkeleton skelton = new EntitySkeleton(this.worldObj);
+			skelton.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
+			skelton.initCreature();
+			this.worldObj.spawnEntityInWorld(skelton);
+			skelton.mountEntity(slime);
+		}
 	}
 
 	@Override
@@ -92,15 +137,19 @@ public class BlueSlime extends EntityLiving implements IMob
 			this.motionX -= (double) (MathHelper.sin(f) * 0.2F);
 			this.motionZ += (double) (MathHelper.cos(f) * 0.2F);
 		}
-		
-        if (this.getBrightness(1.0F) > 0.9F && rand.nextInt(5) == 0 && this.worldObj.canBlockSeeTheSky(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY), MathHelper.floor_double(this.posZ)))
-        {
-            int size = this.getSlimeSize() - 1;
-            if (size <= 0)
-                this.kill();
-            else
-                this.setSlimeSize(size);
-        }
+
+		if (this.getBrightness(1.0F) > 0.9F && rand.nextInt(5) == 0
+				&& this.worldObj.canBlockSeeTheSky(MathHelper.floor_double(this.posX), MathHelper.floor_double(this.posY), MathHelper.floor_double(this.posZ)))
+		{
+			int size = this.getSlimeSize() - 1;
+			if (size < 7)
+			{
+				if (size <= 0)
+					this.kill();
+				else
+					this.setSlimeSize(size);
+			}
+		}
 
 		this.isAirBorne = true;
 		ForgeHooks.onLivingJump(this);
@@ -127,10 +176,10 @@ public class BlueSlime extends EntityLiving implements IMob
 		int x = MathHelper.floor_double(this.posX);
 		int y = MathHelper.floor_double(this.boundingBox.minY);
 		int z = MathHelper.floor_double(this.posZ);
-		
+
 		if (y < 60 && rand.nextInt(5) != 0)
 		{
-		    return false;
+			return false;
 		}
 
 		if (this.worldObj.getSavedLightValue(EnumSkyBlock.Sky, x, y, z) > this.rand.nextInt(32))
@@ -157,15 +206,18 @@ public class BlueSlime extends EntityLiving implements IMob
 	{
 		super.entityInit();
 		this.dataWatcher.addObject(16, new Byte((byte) 1));
+		this.dataWatcher.addObject(17, new Integer(100));
 	}
 
-	protected void setSlimeSize (int size)
+	public void setSlimeSize (int size)
 	{
 		this.dataWatcher.updateObject(16, new Byte((byte) size));
 		this.setSize(0.6F * size, 0.6F * size);
 		this.setPosition(this.posX, this.posY, this.posZ);
 		this.setEntityHealth(this.getMaxHealth());
 		this.experienceValue = size + 2;
+		if (size >= 8)
+			this.experienceValue = 500;
 	}
 
 	public int getMaxHealth ()
@@ -173,6 +225,8 @@ public class BlueSlime extends EntityLiving implements IMob
 		int i = this.getSlimeSize();
 		if (i == 1)
 			return 4;
+		if (i == 8)
+			return 100;
 		return (int) Math.min(i * i + 8, 49);
 	}
 
@@ -200,6 +254,7 @@ public class BlueSlime extends EntityLiving implements IMob
 	{
 		super.readEntityFromNBT(par1NBTTagCompound);
 		this.setSlimeSize(par1NBTTagCompound.getInteger("Size") + 1);
+		this.dataWatcher.updateObject(17, Integer.valueOf(this.health));
 	}
 
 	/**
@@ -218,6 +273,11 @@ public class BlueSlime extends EntityLiving implements IMob
 		if (!this.worldObj.isRemote && this.worldObj.difficultySetting == 0 && this.getSlimeSize() > 0)
 		{
 			this.isDead = true;
+		}
+
+		if (!this.worldObj.isRemote)
+		{
+			this.dataWatcher.updateObject(17, Integer.valueOf(this.health));
 		}
 
 		this.sizeFactor += (this.sizeOffset - this.sizeFactor) * 0.5F;
@@ -332,14 +392,14 @@ public class BlueSlime extends EntityLiving implements IMob
 	 */
 	public void setDead ()
 	{
-		int i = this.getSlimeSize();
+		int size = this.getSlimeSize();
 
-		if (!this.worldObj.isRemote && i > 1 && this.getHealth() <= 0)
+		if (!this.worldObj.isRemote && size > 1 && this.getHealth() <= 0 && size < 8)
 		{
-			float f = (-0.5F) * (float) i / 4.0F;
-			float f1 = (-0.5F) * (float) i / 4.0F;
+			float f = (-0.5F) * (float) size / 4.0F;
+			float f1 = (-0.5F) * (float) size / 4.0F;
 			BlueSlime entityslime = this.createInstance();
-			entityslime.setSlimeSize(i / 2);
+			entityslime.setSlimeSize(size / 2);
 			entityslime.setLocationAndAngles(this.posX + (double) f, this.posY + 0.5D, this.posZ + (double) f1, this.rand.nextFloat() * 360.0F, 0.0F);
 			this.worldObj.spawnEntityInWorld(entityslime);
 		}
@@ -349,9 +409,10 @@ public class BlueSlime extends EntityLiving implements IMob
 
 	protected void dropFewItems (boolean par1, int par2)
 	{
+		int size = this.getSlimeSize();
 		int j = this.getDropItemId();
 
-		if (j > 0 && rand.nextInt(2) == 0)
+		if (j > 0 && (rand.nextInt(2) == 0) || size >= 8)
 		{
 			int k = rand.nextInt(3) + rand.nextInt(this.getSlimeSize());
 
@@ -364,6 +425,24 @@ public class BlueSlime extends EntityLiving implements IMob
 			{
 				this.dropItem(j, 1);
 			}
+		}
+
+		if (size == 8)
+		{
+			ToolCore tool = TConstructRegistry.tools.get(rand.nextInt(TConstructRegistry.tools.size()));
+
+			Item accessory = tool.getAccessoryItem();
+			ItemStack accessoryStack = accessory != null ? new ItemStack(tool.getAccessoryItem(), 1, 17) : null;
+			ItemStack toolStack = ToolBuilder.instance.buildTool(new ItemStack(tool.getHeadItem(), 1, 17), new ItemStack(tool.getHandleItem(), 1, 17), accessoryStack,
+					"King Slime " + tool.getToolName());
+
+			NBTTagCompound tags = toolStack.getTagCompound().getCompoundTag("InfiTool");
+			tags.setInteger("Attack", 3 + tool.getDamageVsEntity(null));
+			tags.setInteger("TotalDurability", 1500);
+			tags.setInteger("BaseDurability", 1500);
+			tags.setInteger("MiningSpeed", 800);
+
+			this.entityDropItem(toolStack, 0f);
 		}
 	}
 
@@ -455,5 +534,11 @@ public class BlueSlime extends EntityLiving implements IMob
 	protected boolean makesSoundOnLand ()
 	{
 		return this.getSlimeSize() > 2;
+	}
+
+	@Override
+	public int getBossHealth ()
+	{
+		return this.dataWatcher.getWatchableObjectInt(17);
 	}
 }

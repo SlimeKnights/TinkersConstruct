@@ -51,13 +51,13 @@ public class Hatchet extends HarvestTool
 	static Material[] materials = { Material.wood, Material.leaves, Material.vine, Material.circuits, Material.cactus, Material.pumpkin };
 
 	@Override
-	protected Item getHeadItem ()
+	public Item getHeadItem ()
 	{
 		return TContent.axeHead;
 	}
 
 	@Override
-	protected Item getAccessoryItem ()
+	public Item getAccessoryItem ()
 	{
 		return null;
 	}

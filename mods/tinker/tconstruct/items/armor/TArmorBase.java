@@ -22,7 +22,7 @@ public class TArmorBase extends ItemArmor
     //implements ISpecialArmor
 {
     Icon[] icons;
-    String[] iconNames = { "wood_helmet" };
+    String[] iconNames = { "wood_boots" };
     //static Minecraft mc = Minecraft.getMinecraft();
     //private ModelBiped modelArmor;
     

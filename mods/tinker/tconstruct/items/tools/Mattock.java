@@ -63,13 +63,13 @@ public class Mattock extends DualHarvestTool
     }
 
 	@Override
-	protected Item getHeadItem ()
+	public Item getHeadItem ()
 	{
 		return TContent.axeHead;
 	}
 
 	@Override
-	protected Item getAccessoryItem ()
+	public Item getAccessoryItem ()
 	{
 		return TContent.shovelHead;
 	}

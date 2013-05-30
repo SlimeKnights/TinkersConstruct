@@ -62,13 +62,13 @@ public class Longsword extends Weapon
     }
 
     @Override
-    protected Item getHeadItem ()
+    public Item getHeadItem ()
     {
         return TContent.swordBlade;
     }
 
     @Override
-    protected Item getAccessoryItem ()
+    public Item getAccessoryItem ()
     {
         return TContent.handGuard;
     }

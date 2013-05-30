@@ -521,7 +521,7 @@ public class TProxyClient extends TProxyCommon
             new int[] { 7, 0, 13 }, new int[] { 3, 3, 13 } //Chisel
     };
 
-    static String[] toolNames = { "Repair and Modification", "Pickaxe", "Shovel", "Axe",
+    static String[] toolNames = { "Repair and Modification", "Pickaxe", "Shovel", "Hatchet",
             //"Lumber Axe",
             //"Ice Axe",
             "Mattock", "Broadsword", "Longsword", "Rapier", "Dagger", "Frying Pan", "Battlesign", "Chisel" };

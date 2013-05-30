@@ -166,13 +166,13 @@ public class Chisel extends ToolCore
     }
 
     @Override
-    protected Item getHeadItem ()
+    public Item getHeadItem ()
     {
         return TContent.chiselHead;
     }
 
     @Override
-    protected Item getAccessoryItem ()
+    public Item getAccessoryItem ()
     {
         return null;
     }

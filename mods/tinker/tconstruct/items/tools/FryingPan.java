@@ -1,14 +1,19 @@
 package mods.tinker.tconstruct.items.tools;
 
+import java.util.List;
+
 import mods.tinker.tconstruct.blocks.logic.EquipLogic;
 import mods.tinker.tconstruct.common.TContent;
+import mods.tinker.tconstruct.library.crafting.ToolBuilder;
 import mods.tinker.tconstruct.library.tools.AbilityHelper;
 import mods.tinker.tconstruct.library.tools.Weapon;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
@@ -47,6 +52,29 @@ public class FryingPan extends Weapon
     public String getToolName ()
     {
         return "Frying Pan";
+    }
+    
+    public void getSubItems (int id, CreativeTabs tab, List list)
+    {
+    	super.getSubItems(id, tab, list);
+    	
+    	Item accessory = getAccessoryItem();
+        ItemStack tool = ToolBuilder.instance.buildTool(new ItemStack(getHeadItem(), 1, 2), new ItemStack(getHandleItem(), 1, 16), null, "Bane of Pigs");
+        
+        NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
+        tags.setInteger("Modifiers", 0);
+        tags.setInteger("Attack", Integer.MAX_VALUE/100);
+        tags.setInteger("TotalDurability", Integer.MAX_VALUE/100);
+        tags.setInteger("BaseDurability", Integer.MAX_VALUE/100);
+        tags.setInteger("MiningSpeed", Integer.MAX_VALUE/100);
+        
+		int[] keyPair = new int[] { Integer.MAX_VALUE/100, 0, 0 };
+		tags.setIntArray("Blaze", keyPair);
+		tags.setInteger("Necrotic", Integer.MAX_VALUE/100);
+		tags.setInteger("Effect1", 7);
+		
+        tags.setBoolean("Built", true);
+        list.add(tool);
     }
 
     public boolean onItemUse (ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float clickX, float clickY, float clickZ)
@@ -109,13 +137,13 @@ public class FryingPan extends Weapon
     }
 
     @Override
-    protected Item getHeadItem ()
+    public Item getHeadItem ()
     {
         return TContent.frypanHead;
     }
 
     @Override
-    protected Item getAccessoryItem ()
+    public Item getAccessoryItem ()
     {
         return null;
     }

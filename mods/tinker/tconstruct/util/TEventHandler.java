@@ -17,17 +17,15 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.monster.EntityGhast;
 import net.minecraft.entity.monster.EntitySkeleton;
+import net.minecraft.entity.monster.EntitySpider;
+import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.passive.EntityCow;
-import net.minecraft.entity.passive.EntityPig;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EntityDamageSource;
 import net.minecraft.util.EnumMovingObjectType;
 import net.minecraft.world.World;
-import net.minecraftforge.client.event.TextureStitchEvent;
-import net.minecraftforge.client.event.sound.SoundLoadEvent;
 import net.minecraftforge.event.Event.Result;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
@@ -37,8 +35,6 @@ import net.minecraftforge.event.entity.player.FillBucketEvent;
 import net.minecraftforge.liquids.LiquidStack;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.OreDictionary.OreRegisterEvent;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class TEventHandler
 {
@@ -60,6 +56,14 @@ public class TEventHandler
     @ForgeSubscribe
     public void onLivingDrop (LivingDropsEvent event)
     {
+    	if (random.nextInt(500) == 0 && event.entityLiving instanceof IMob && event.entityLiving.dimension == 0)
+    	{
+    		ItemStack dropStack = new ItemStack(TContent.heartCanister, 1, 1);
+            EntityItem entityitem = new EntityItem(event.entityLiving.worldObj, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, dropStack);
+            entityitem.delayBeforeCanPickup = 10;
+            event.drops.add(entityitem);
+    	}
+    	
         if (!event.entityLiving.isChild())
         {
             if (event.entityLiving.getClass() == EntityCow.class)
@@ -112,12 +116,15 @@ public class TEventHandler
     
     @ForgeSubscribe
     public void onLivingSpawn (LivingSpawnEvent.SpecialSpawn event)
-    {
-        if (event.entityLiving instanceof EntityCreeper && random.nextInt(500) == 0)
+    {    	
+    	if (event.entityLiving.getClass() == EntitySpider.class && random.nextInt(100) == 0)
         {
-            EntityPig pig = new EntityPig(event.entityLiving.worldObj);
-            spawnEntity(event.entityLiving.posX, event.entityLiving.posY+1, event.entityLiving.posZ, pig, event.entityLiving.worldObj);
-            event.entityLiving.mountEntity(pig);
+            EntityCreeper creeper = new EntityCreeper(event.entityLiving.worldObj);
+            spawnEntity(event.entityLiving.posX, event.entityLiving.posY+1, event.entityLiving.posZ, creeper, event.entityLiving.worldObj);
+            EntitySkeleton skeleton = new EntitySkeleton(event.entityLiving.worldObj);
+            spawnEntity(event.entityLiving.posX, event.entityLiving.posY+1, event.entityLiving.posZ, skeleton, event.entityLiving.worldObj);
+            skeleton.mountEntity(creeper);
+            creeper.mountEntity(event.entityLiving);
         }
     }
     
@@ -126,7 +133,6 @@ public class TEventHandler
         if (!world.isRemote)
         {
             entity.setPosition(x, y, z);
-            //entity.setAngles(player.cameraYaw, player.cameraYaw);
             ((EntityLiving) entity).initCreature();
             world.spawnEntityInWorld(entity);
         }

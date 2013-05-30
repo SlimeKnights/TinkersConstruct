@@ -80,13 +80,13 @@ public class Hammer extends HarvestTool
 	}*/
 
 	@Override
-	protected Item getHeadItem ()
+	public Item getHeadItem ()
 	{
 		return null;
 	}
 
 	@Override
-	protected Item getAccessoryItem ()
+	public Item getAccessoryItem ()
 	{
 		return null;
 	}

@@ -21,7 +21,7 @@ public class ActiveToolMod
     	return false;
     }
     
-    public boolean afterBlockBreak()
+    public boolean afterBlockBreak() //Unfinished, not called
     {
     	return false;
     }
@@ -44,7 +44,7 @@ public class ActiveToolMod
     	return 0;
     }
     
-    public void lateAttackEntity()
+    public void lateAttackEntity() //Unfinished, not called
     {
     	
     }

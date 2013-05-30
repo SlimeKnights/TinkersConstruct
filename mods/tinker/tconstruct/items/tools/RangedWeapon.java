@@ -32,13 +32,13 @@ public abstract class RangedWeapon extends ToolCore
 	}
 
 	@Override
-	protected Item getHeadItem ()
+	public Item getHeadItem ()
 	{
 		return TContent.toolRod;
 	}
 
 	@Override
-	protected Item getAccessoryItem ()
+	public Item getAccessoryItem ()
 	{
 		return TContent.toolRod;
 	}
