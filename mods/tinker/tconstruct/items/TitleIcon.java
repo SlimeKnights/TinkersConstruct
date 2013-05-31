@@ -2,9 +2,9 @@ package mods.tinker.tconstruct.items;
 
 import java.util.List;
 
+import mods.natura.entity.NitroCreeper;
 import mods.tinker.tconstruct.client.TProxyClient;
 import mods.tinker.tconstruct.entity.BlueSlime;
-import mods.tinker.tconstruct.entity.NitroCreeper;
 import mods.tinker.tconstruct.library.tools.ToolCore;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -24,9 +24,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class TitleIcon extends Item
 {
-	int[] primaryColor = { 0x66BBE8, 0x66BBE8, 0xF73E6C };
-	int[] secondaryColor = { 0x1567BF, 0x1567BF, 0x9B5004 };
-	String[] mobNames = { "TConstruct.EdibleSlime", "TConstruct.KingSlime", "TConstruct.UnstableCreeper" };
+	int[] primaryColor = { 0x66BBE8, 0x66BBE8 };
+	int[] secondaryColor = { 0x1567BF, 0xFFEC6E };
+	String[] mobNames = { "TConstruct.EdibleSlime", "TConstruct.KingSlime" };
 
 	public TitleIcon(int par1)
 	{

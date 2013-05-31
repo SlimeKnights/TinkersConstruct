@@ -3,10 +3,10 @@ package mods.tinker.tconstruct.util;
 import java.util.ArrayList;
 import java.util.Random;
 
+import mods.natura.entity.NitroCreeper;
 import mods.tinker.tconstruct.TConstruct;
 import mods.tinker.tconstruct.blocks.logic.LiquidTextureLogic;
 import mods.tinker.tconstruct.common.TContent;
-import mods.tinker.tconstruct.entity.NitroCreeper;
 import mods.tinker.tconstruct.library.crafting.PatternBuilder;
 import mods.tinker.tconstruct.library.crafting.Smeltery;
 import mods.tinker.tconstruct.library.crafting.ToolBuilder;
@@ -121,9 +121,6 @@ public class TEventHandler
         {
             EntityCreeper creeper = new EntityCreeper(event.entityLiving.worldObj);
             spawnEntity(event.entityLiving.posX, event.entityLiving.posY+1, event.entityLiving.posZ, creeper, event.entityLiving.worldObj);
-            EntitySkeleton skeleton = new EntitySkeleton(event.entityLiving.worldObj);
-            spawnEntity(event.entityLiving.posX, event.entityLiving.posY+1, event.entityLiving.posZ, skeleton, event.entityLiving.worldObj);
-            skeleton.mountEntity(creeper);
             creeper.mountEntity(event.entityLiving);
         }
     }

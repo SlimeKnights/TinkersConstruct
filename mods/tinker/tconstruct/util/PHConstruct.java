@@ -60,9 +60,7 @@ public class PHConstruct
         enableTCactus = config.get("Difficulty Changes", "Enable mod cactus tools", true).getBoolean(true);
         enableTBone = config.get("Difficulty Changes", "Enable mod bone tools", true).getBoolean(true);
 
-        redCreeper = config.get("Mob Spawning", "Activate Nitro Creeper Spawns", true).getBoolean(true);
         blueSlime = config.get("Mob Spawning", "Activate Blue Slime Spawns", true).getBoolean(true);
-        redCreeperWeight = config.get("Mob Spawning", "Spawn Weight for Nitro Creeper", 8).getInt(8);
         blueSlimeWeight = config.get("Mob Spawning", "Spawn Weight for Blue Slime", 8).getInt(8);
 
         woodCrafter = config.getBlock("Wood Tool Station", 1471).getInt(1471);
@@ -404,8 +402,6 @@ public class PHConstruct
     public static int seaLevel;
 
     //Mobs
-    public static boolean redCreeper;
-    public static int redCreeperWeight;
     public static boolean blueSlime;
     public static int blueSlimeWeight;
 

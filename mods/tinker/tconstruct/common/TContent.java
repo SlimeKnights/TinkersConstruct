@@ -1,5 +1,7 @@
 package mods.tinker.tconstruct.common;
 
+import java.util.Collection;
+
 import mods.tinker.tconstruct.TConstruct;
 import mods.tinker.tconstruct.blocks.EquipBlock;
 import mods.tinker.tconstruct.blocks.GravelOre;
@@ -30,9 +32,7 @@ import mods.tinker.tconstruct.blocks.logic.SmelteryDrainLogic;
 import mods.tinker.tconstruct.blocks.logic.SmelteryLogic;
 import mods.tinker.tconstruct.blocks.logic.ToolStationLogic;
 import mods.tinker.tconstruct.entity.BlueSlime;
-import mods.tinker.tconstruct.entity.Crystal;
 import mods.tinker.tconstruct.entity.FancyEntityItem;
-import mods.tinker.tconstruct.entity.NitroCreeper;
 import mods.tinker.tconstruct.entity.projectile.DaggerEntity;
 import mods.tinker.tconstruct.items.CraftingItem;
 import mods.tinker.tconstruct.items.DiamondApple;
@@ -96,7 +96,6 @@ import mods.tinker.tconstruct.modifiers.ModRepair;
 import mods.tinker.tconstruct.modifiers.TActiveOmniMod;
 import mods.tinker.tconstruct.util.PHConstruct;
 import mods.tinker.tconstruct.util.RecipeRemover;
-import mods.tinker.tconstruct.worldgen.OverworldProvider;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
@@ -110,7 +109,6 @@ import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.ChestGenHooks;
-import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.liquids.LiquidContainerData;
 import net.minecraftforge.liquids.LiquidContainerRegistry;
@@ -123,6 +121,7 @@ import cpw.mods.fml.common.IFuelHandler;
 import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
+import extrabiomes.api.BiomeManager;
 
 public class TContent implements IFuelHandler
 {
@@ -260,13 +259,12 @@ public class TContent implements IFuelHandler
 	{
 		EntityRegistry.registerModEntity(FancyEntityItem.class, "Fancy Item", 0, TConstruct.instance, 32, 5, true);
 		EntityRegistry.registerModEntity(DaggerEntity.class, "Dagger", 1, TConstruct.instance, 32, 5, true);
-		EntityRegistry.registerModEntity(Crystal.class, "Crystal", 2, TConstruct.instance, 32, 5, true);
+		//EntityRegistry.registerModEntity(Crystal.class, "Crystal", 2, TConstruct.instance, 32, 5, true);
 		//EntityRegistry.registerModEntity(SlimeClone.class, "SlimeClone", 2, TConstruct.instance, 32, 5, true);
 		//EntityRegistry.registerModEntity(LaunchedPotion.class, "Launched Potion", 1, TConstruct.instance, 32, 3, true);
 		//EntityRegistry.registerModEntity(CartEntity.class, "Small Wagon", 1, TConstruct.instance, 32, 5, true);
 
 		//EntityRegistry.registerModEntity(Skyla.class, "Skyla", 10, TConstruct.instance, 32, 5, true);
-		EntityRegistry.registerModEntity(NitroCreeper.class, "UnstableCreeper", 11, TConstruct.instance, 64, 5, true);
 		EntityRegistry.registerModEntity(BlueSlime.class, "EdibleSlime", 12, TConstruct.instance, 64, 5, true);
 		//EntityRegistry.registerModEntity(MetalSlime.class, "MetalSlime", 13, TConstruct.instance, 64, 5, true);
 
@@ -281,7 +279,7 @@ public class TContent implements IFuelHandler
 
 		BiomeGenBase[] nether = BiomeDictionary.getBiomesForType(BiomeDictionary.Type.NETHER);
 
-		if (PHConstruct.superfunWorld)
+		/*if (PHConstruct.superfunWorld)
 		{
 			EntityRegistry.addSpawn(NitroCreeper.class, 1000, 100, 100, EnumCreatureType.monster, plains);
 			EntityRegistry.addSpawn(NitroCreeper.class, 1000, 100, 100, EnumCreatureType.monster, mountain);
@@ -293,12 +291,7 @@ public class TContent implements IFuelHandler
 			EntityRegistry.addSpawn(NitroCreeper.class, 1000, 100, 100, EnumCreatureType.monster, wasteland);
 			DimensionManager.unregisterProviderType(0);
 			DimensionManager.registerProviderType(0, OverworldProvider.class, true);
-		}
-
-		if (PHConstruct.redCreeper)
-		{
-			EntityRegistry.addSpawn(NitroCreeper.class, PHConstruct.redCreeperWeight, 4, 6, EnumCreatureType.monster, nether);
-		}
+		}*/
 		if (PHConstruct.blueSlime)
 		{
 			EntityRegistry.addSpawn(BlueSlime.class, PHConstruct.blueSlimeWeight, 4, 4, EnumCreatureType.monster, plains);
@@ -309,6 +302,18 @@ public class TContent implements IFuelHandler
 			EntityRegistry.addSpawn(BlueSlime.class, PHConstruct.blueSlimeWeight, 4, 4, EnumCreatureType.monster, frozen);
 			EntityRegistry.addSpawn(BlueSlime.class, PHConstruct.blueSlimeWeight, 4, 4, EnumCreatureType.monster, jungle);
 			EntityRegistry.addSpawn(BlueSlime.class, PHConstruct.blueSlimeWeight, 4, 4, EnumCreatureType.monster, wasteland);
+		}
+		
+		try
+		{
+			Class.forName("extrabiomes.api.BiomeManager");
+			Collection<BiomeGenBase> ebxlCollection = BiomeManager.getBiomes();
+			BiomeGenBase[] ebxlBiomes = (BiomeGenBase[]) ebxlCollection.toArray();
+			EntityRegistry.addSpawn(BlueSlime.class, PHConstruct.blueSlimeWeight, 4, 4, EnumCreatureType.monster, ebxlBiomes);
+		}
+		catch (Exception e)
+		{
+			
 		}
 		//EntityRegistry.addSpawn(MetalSlime.class, 1, 4, 4, EnumCreatureType.monster, overworldBiomes);
 	}

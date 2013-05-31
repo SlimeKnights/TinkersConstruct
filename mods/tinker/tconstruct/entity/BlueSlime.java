@@ -37,10 +37,10 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
 	{
 		super(world);
 		this.texture = "/mods/tinker/textures/mob/slimeedible.png";
-		int offset = this.rand.nextInt(199);
-		if (offset < 99)
+		int offset = this.rand.nextInt(299);
+		if (offset < 149)
 			offset = 1;
-		else if (offset < 198)
+		else if (offset < 298)
 			offset = 2;
 		else
 			offset = 3;
@@ -443,6 +443,11 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
 			tags.setInteger("MiningSpeed", 800);
 
 			this.entityDropItem(toolStack, 0f);
+			if (rand.nextInt(10) == 0)
+			{
+				ItemStack dropStack = new ItemStack(TContent.heartCanister, 1, 1);
+				this.entityDropItem(dropStack, 0f);
+			}
 		}
 	}
 

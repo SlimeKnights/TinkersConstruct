@@ -9,6 +9,7 @@ import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import mods.natura.entity.NitroCreeper;
 import mods.tinker.tconstruct.TConstruct;
 import mods.tinker.tconstruct.blocks.logic.CastingBasinLogic;
 import mods.tinker.tconstruct.blocks.logic.CastingTableLogic;
@@ -56,7 +57,6 @@ import mods.tinker.tconstruct.entity.CartEntity;
 import mods.tinker.tconstruct.entity.Crystal;
 import mods.tinker.tconstruct.entity.FancyEntityItem;
 import mods.tinker.tconstruct.entity.GolemBase;
-import mods.tinker.tconstruct.entity.NitroCreeper;
 import mods.tinker.tconstruct.entity.Skyla;
 import mods.tinker.tconstruct.entity.SlimeClone;
 import mods.tinker.tconstruct.entity.projectile.DaggerEntity;
@@ -245,7 +245,6 @@ public class TProxyClient extends TProxyCommon
 
         //Entities
         RenderingRegistry.registerEntityRenderingHandler(FancyEntityItem.class, new FancyItemRender());
-        RenderingRegistry.registerEntityRenderingHandler(NitroCreeper.class, new RenderCreeper());
         RenderingRegistry.registerEntityRenderingHandler(BlueSlime.class, new SlimeRender(new ModelSlime(16), new ModelSlime(0), 0.25F));
         RenderingRegistry.registerEntityRenderingHandler(SlimeClone.class, new SlimeCloneRender(new CloneHeadModel(0), new CloneHeadModel(1f), 0.25F));
         RenderingRegistry.registerEntityRenderingHandler(GolemBase.class, new GolemRender(0));

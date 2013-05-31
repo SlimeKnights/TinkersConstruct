@@ -1,10 +1,10 @@
 package mods.tinker.tconstruct.plugins.minefactoryreloaded;
 
+import mods.natura.entity.NitroCreeper;
 import mods.tinker.tconstruct.common.TContent;
 import mods.tinker.tconstruct.entity.BlueSlime;
 import mods.tinker.tconstruct.entity.Crystal;
 import mods.tinker.tconstruct.entity.MetalSlime;
-import mods.tinker.tconstruct.entity.NitroCreeper;
 import mods.tinker.tconstruct.entity.Skyla;
 import mods.tinker.tconstruct.plugins.minefactoryreloaded.grindables.GrindableStandard;
 import mods.tinker.tconstruct.plugins.minefactoryreloaded.harvestables.HarvestableOreBerry;
