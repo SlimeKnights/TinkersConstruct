@@ -18,9 +18,6 @@ import cpw.mods.fml.common.Mod.Init;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 
-import powercrystals.minefactoryreloaded.api.FarmingRegistry;
-
-
 @Mod(modid = "TConstruct|CompatMineFactoryReloaded", name = "TConstruct Compat: MFR", version = "0.1", dependencies = "after:MineFactoryReloaded;after:TConstruct")
 @NetworkMod(clientSideRequired = false, serverSideRequired = false)
 public class MineFactoryReloaded
