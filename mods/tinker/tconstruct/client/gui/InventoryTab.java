@@ -65,7 +65,7 @@ public class InventoryTab extends GuiButton
             if (this.id == 2)
                 TProxyClient.openInventoryGui();
             if (this.id == 3)
-                TControls.openArmorGui(mc.thePlayer.username);
+                TControls.openArmorGui();//mc.thePlayer.username);
         }
         return inWindow;
     }

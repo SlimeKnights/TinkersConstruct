@@ -9,7 +9,6 @@ import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import mods.natura.entity.NitroCreeper;
 import mods.tinker.tconstruct.TConstruct;
 import mods.tinker.tconstruct.blocks.logic.CastingBasinLogic;
 import mods.tinker.tconstruct.blocks.logic.CastingTableLogic;
@@ -67,7 +66,9 @@ import mods.tinker.tconstruct.library.client.TConstructClientRegistry;
 import mods.tinker.tconstruct.library.client.ToolGuiElement;
 import mods.tinker.tconstruct.library.crafting.ToolBuilder;
 import mods.tinker.tconstruct.library.tools.ToolCore;
+import mods.tinker.tconstruct.skill.Skill;
 import mods.tinker.tconstruct.util.player.ArmorExtended;
+import mods.tinker.tconstruct.util.player.ArmorExtendedClient;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
@@ -99,7 +100,6 @@ import net.minecraft.client.particle.EntitySplashFX;
 import net.minecraft.client.particle.EntitySuspendFX;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.entity.RenderCreeper;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.client.settings.KeyBinding;
@@ -125,8 +125,9 @@ public class TProxyClient extends TProxyCommon
     public static SmallFontRenderer smallFontRenderer;
     public static Icon metalBall;
     public static Minecraft mc;
-    public static ArmorExtended armorExtended = new ArmorExtended();
     public static RenderItem itemRenderer = new RenderItem();
+    
+    public static ArmorExtended armorExtended = new ArmorExtended();
 
     @Override
     public Object getClientGuiElement (int ID, EntityPlayer player, World world, int x, int y, int z)

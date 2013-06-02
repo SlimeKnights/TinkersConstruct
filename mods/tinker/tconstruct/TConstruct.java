@@ -2,20 +2,21 @@ package mods.tinker.tconstruct;
 
 import mods.tinker.tconstruct.common.TContent;
 import mods.tinker.tconstruct.common.TProxyCommon;
+import mods.tinker.tconstruct.library.SkillRegistry;
 import mods.tinker.tconstruct.library.TConstructRegistry;
 import mods.tinker.tconstruct.library.crafting.Detailing;
 import mods.tinker.tconstruct.library.crafting.LiquidCasting;
 import mods.tinker.tconstruct.library.util.TabTools;
+import mods.tinker.tconstruct.skill.Jump;
+import mods.tinker.tconstruct.skill.WallBuilding;
 import mods.tinker.tconstruct.util.PHConstruct;
 import mods.tinker.tconstruct.util.TCraftingHandler;
 import mods.tinker.tconstruct.util.TEventHandler;
 import mods.tinker.tconstruct.util.player.TPlayerHandler;
-import mods.tinker.tconstruct.worldgen.OverworldProvider;
 import mods.tinker.tconstruct.worldgen.TBaseWorldGenerator;
 import mods.tinker.tconstruct.worldgen.village.TVillageTrades;
 import mods.tinker.tconstruct.worldgen.village.VillageSmelteryHandler;
 import mods.tinker.tconstruct.worldgen.village.VillageToolStationHandler;
-import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
@@ -37,7 +38,7 @@ import cpw.mods.fml.common.registry.VillagerRegistry;
  * @dependencies: IC2 API, MFR API
  */
 
-@Mod(modid = "TConstruct", name = "TConstruct", version = "1.5.1_1.3.dev49", dependencies = "required-after:Forge@[7.7.1.675,)")
+@Mod(modid = "TConstruct", name = "TConstruct", version = "1.5.1_1.3.4", dependencies = "required-after:Forge@[7.7.1.675,)")
 @NetworkMod(serverSideRequired = false, clientSideRequired = true, channels = { "TConstruct" }, packetHandler = mods.tinker.tconstruct.util.network.TPacketHandler.class)
 public class TConstruct
 {
@@ -106,6 +107,8 @@ public class TConstruct
 
         content.modIntegration();
         content.createEntities();
+        SkillRegistry.registerSkill("Wall Building", new WallBuilding());
+        SkillRegistry.registerSkill("Jump", new Jump());
     }
     
     public static LiquidCasting getTableCasting()
@@ -122,11 +125,12 @@ public class TConstruct
     {
         return chiselDetailing;
     }
-
+    
     public static TEventHandler events;
     public static TPlayerHandler playerTracker;
     public static TContent content;
     public static LiquidCasting tableCasting;
     public static LiquidCasting basinCasting;
     public static Detailing chiselDetailing;
+    public static SkillRegistry skillRegistry;
 }

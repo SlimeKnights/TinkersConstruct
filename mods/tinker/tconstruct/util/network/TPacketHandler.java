@@ -6,9 +6,10 @@ import java.io.IOException;
 
 import mods.tinker.tconstruct.TConstruct;
 import mods.tinker.tconstruct.blocks.logic.ToolStationLogic;
-import mods.tinker.tconstruct.inventory.SmelteryContainer;
 import mods.tinker.tconstruct.library.blocks.InventoryLogic;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet250CustomPayload;
@@ -31,7 +32,7 @@ public class TPacketHandler implements IPacketHandler
 		if (packet.channel.equals("TConstruct"))
 		{
 			if (side == Side.SERVER)
-				handleServerPacket(packet);
+				handleServerPacket(packet, (EntityPlayerMP) player);
 			else
 				handleClientPacket(packet);
 		}
@@ -60,7 +61,7 @@ public class TPacketHandler implements IPacketHandler
 		}
 	}
 
-	void handleServerPacket (Packet250CustomPayload packet)
+	void handleServerPacket (Packet250CustomPayload packet, EntityPlayerMP player)
 	{
 		DataInputStream inputStream = new DataInputStream(new ByteArrayInputStream(packet.data));
 
@@ -104,23 +105,23 @@ public class TPacketHandler implements IPacketHandler
 			
 			else if (packetID == 3) //Armor
             {
-                String user = inputStream.readUTF();
-                EntityPlayer player = TConstruct.playerTracker.getEntityPlayer(user);
+                //String user = inputStream.readUTF();
+                //EntityPlayer player = TConstruct.playerTracker.getEntityPlayer(user);
                 player.openGui(TConstruct.instance, TConstruct.proxy.armorGuiID, player.worldObj, (int)player.posX, (int)player.posY, (int)player.posZ);
             }
 			
+			else if (packetID == 4) //Active Skills
+			{
+				Byte id = inputStream.readByte();
+				TConstruct.playerTracker.activateSkill(player, id);
+			}
+			
 			else if (packetID == 10) //Double jump
 			{
-				String user = inputStream.readUTF();
-				EntityPlayer player = TConstruct.playerTracker.getEntityPlayer(user);
+				//String user = inputStream.readUTF();
+				//EntityPlayer player = TConstruct.playerTracker.getEntityPlayer(user);
 				player.fallDistance = 0;
 			}
-			/*else if (packetID == 11)
-			{
-				String user = inputStream.readUTF();
-				float size = inputStream.readFloat();
-				TConstruct.playerTracker.updateSize(user, size);
-			}*/
 		}
 		catch (IOException e)
 		{
@@ -128,5 +129,15 @@ public class TPacketHandler implements IPacketHandler
 			e.printStackTrace();
 			return;
 		}
+	}
+
+	Entity getEntity (World world, int id)
+	{
+		for (Object o : world.loadedEntityList)
+		{
+			if (((Entity)o).entityId == id)
+				return (Entity) o;
+		}
+		return null;
 	}
 }

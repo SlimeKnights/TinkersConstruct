@@ -4,6 +4,7 @@ import java.lang.ref.WeakReference;
 
 import mods.tinker.tconstruct.TConstruct;
 import mods.tinker.tconstruct.common.TContent;
+import mods.tinker.tconstruct.library.SkillRegistry;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -55,7 +56,9 @@ public class ArmorExtended implements IInventory
             {
                 inventory[slot] = null;
             }
-            recalculateHealth();
+            EntityPlayer player = parent.get();
+    		TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
+            recalculateHealth(player, stats);
             return split;
         }
         else
@@ -79,7 +82,10 @@ public class ArmorExtended implements IInventory
         {
             itemstack.stackSize = getInventoryStackLimit();
         }
-        recalculateHealth();
+        
+		EntityPlayer player = parent.get();
+		TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
+        recalculateHealth(player, stats);
     }
 
     @Override
@@ -103,10 +109,38 @@ public class ArmorExtended implements IInventory
     @Override
     public void onInventoryChanged ()
     {
-        recalculateHealth();
+		EntityPlayer player = parent.get();
+		TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
+    	recalculateSkills(player, stats);
+        recalculateHealth(player, stats);
     }
     
-    public void recalculateHealth()
+    public void recalculateSkills(EntityPlayer player, TPlayerStats stats)
+    {
+    	if (inventory[1] != null && inventory[1].getItem() == TContent.glove)
+    	{
+    		if (stats.skillList.size() < 1)
+    		{
+    			try
+    			{
+    				stats.skillList.add(SkillRegistry.skills.get("Wall Building").copy());
+    			}
+    			catch (Exception e)
+    			{
+    				e.printStackTrace();
+    			}
+    		}
+    	}
+    	else
+    	{
+    		if (stats.skillList.size() > 0)
+    		{
+    			stats.skillList.remove(0);
+    		}
+    	}
+    }
+    
+    public void recalculateHealth(EntityPlayer player, TPlayerStats stats)
     {
     	if (inventory[6] != null && inventory[6].getItem() == TContent.heartCanister)
         {
@@ -114,8 +148,6 @@ public class ArmorExtended implements IInventory
         	int meta = stack.getItemDamage();
         	if (meta == 2)
         	{
-        		EntityPlayer player = parent.get();
-        		TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
         		int bonusHP = stack.stackSize * 2;
         		stats.bonusHealth = bonusHP;
         		player.maxHealth = 20 + bonusHP;
@@ -147,7 +179,7 @@ public class ArmorExtended implements IInventory
         return false;
     }
     
-    //Save/Load
+    /* Save/Load */
     public void saveToNBT (EntityPlayer entityplayer)
     {
         NBTTagCompound tags = entityplayer.getEntityData();
@@ -168,7 +200,7 @@ public class ArmorExtended implements IInventory
         tags.setTag("TConstruct.Inventory", tagList);
     }
 
-    public void loadFromNBT (EntityPlayer entityplayer)
+    public void readFromNBT (EntityPlayer entityplayer)
     {
         NBTTagCompound tags = entityplayer.getEntityData();
         NBTTagList tagList = tags.getTagList("TConstruct.Inventory");

@@ -47,6 +47,7 @@ import mods.tinker.tconstruct.items.StrangeFood;
 import mods.tinker.tconstruct.items.TitleIcon;
 import mods.tinker.tconstruct.items.ToolPart;
 import mods.tinker.tconstruct.items.ToolShard;
+import mods.tinker.tconstruct.items.armor.Glove;
 import mods.tinker.tconstruct.items.armor.TArmorBase;
 import mods.tinker.tconstruct.items.blocks.CraftedSoilItemBlock;
 import mods.tinker.tconstruct.items.blocks.GravelOreItem;
@@ -233,11 +234,12 @@ public class TContent implements IFuelHandler
 	public static Item notebook;
 	public static Item note;
 
-	//Wearaables
+	//Wearables
 	public static Item heavyHelmet;
 	public static Item heavyChestplate;
 	public static Item heavyPants;
 	public static Item heavyBoots;
+	public static Item glove;
 
 	public static Item heartCanister;
 	
@@ -484,6 +486,7 @@ public class TContent implements IFuelHandler
 		//heavyHelmet = new TArmorBase(PHConstruct.heavyHelmet, 0).setUnlocalizedName("tconstruct.HeavyHelmet");
 		heartCanister = new HeartCanister(PHConstruct.heartCanister).setUnlocalizedName("tconstruct.canister");
 		heavyBoots = new TArmorBase(PHConstruct.heavyBoots, 3).setUnlocalizedName("tconstruct.HeavyBoots");
+		glove = new Glove(PHConstruct.glove).setUnlocalizedName("tconstruct.Glove");
 		/*public static Item heavyHelmet;
 		public static Item heavyChestplate;
 		public static Item heavyPants;

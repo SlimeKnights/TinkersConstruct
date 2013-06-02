@@ -40,7 +40,7 @@ public class HeartCanister extends CraftingItem
 					slotStack.stackSize++;
 					stack.stackSize--;
 				}
-				armor.recalculateHealth();
+				armor.recalculateHealth(player, stats);
 			}
 		}
 		return stack;

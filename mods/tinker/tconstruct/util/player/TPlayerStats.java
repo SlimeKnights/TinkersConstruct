@@ -1,11 +1,10 @@
 package mods.tinker.tconstruct.util.player;
 
 import java.lang.ref.WeakReference;
+import java.util.List;
 
+import mods.tinker.tconstruct.skill.Skill;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
-import cpw.mods.fml.common.FMLCommonHandler;
 
 public class TPlayerStats
 {
@@ -18,4 +17,5 @@ public class TPlayerStats
 	public boolean materialManual;
 	public boolean smelteryManual;
 	public ArmorExtended armor;
+	public List<Skill> skillList;
 }

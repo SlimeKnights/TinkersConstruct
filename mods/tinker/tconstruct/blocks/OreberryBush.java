@@ -116,7 +116,7 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
         }
         else
         {
-            return AxisAlignedBB.getBoundingBox(x, y, z, (double) x + 1.0D, (double) y + 1.0D, (double) z + 1.0D);
+            return AxisAlignedBB.getBoundingBox(x+0.0625, y, z+0.0625, (double) x + 0.9375D, (double) y + 0.9375D, (double) z + 0.9375D);
         }
     }
 

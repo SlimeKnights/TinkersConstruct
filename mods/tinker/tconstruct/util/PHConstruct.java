@@ -148,6 +148,7 @@ public class PHConstruct
         heavyChestplate = config.getItem("Equipables", "Heavy Chestplate", 14108).getInt(14108);
         heavyPants = config.getItem("Equipables", "Heavy Pants", 14109).getInt(14109);
         heavyBoots = config.getItem("Equipables", "Heavy Boots", 14110).getInt(14110);
+        glove = config.getItem("Equipables", "Gloves", 14111).getInt(14111);
 
         boolean ic2 = true;
         boolean xycraft = true;
@@ -334,6 +335,7 @@ public class PHConstruct
     public static int heavyChestplate;
     public static int heavyPants;
     public static int heavyBoots;
+    public static int glove;
     
     public static int heartCanister;
 

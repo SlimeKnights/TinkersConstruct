@@ -1,11 +1,15 @@
 package mods.tinker.tconstruct.util.player;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 
 import mods.tinker.tconstruct.common.TContent;
+import mods.tinker.tconstruct.library.SkillRegistry;
 import mods.tinker.tconstruct.library.tools.AbilityHelper;
+import mods.tinker.tconstruct.skill.Skill;
+import mods.tinker.tconstruct.skill.WallBuilding;
 import mods.tinker.tconstruct.util.PHConstruct;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EnumEntitySize;
@@ -28,6 +32,7 @@ public class TPlayerHandler implements IPlayerTracker
 	@Override
 	public void onPlayerLogin (EntityPlayer entityplayer)
 	{
+		System.out.println("Player: "+entityplayer);
 		//Lookup player
 		TFoodStats food = new TFoodStats();
 		food.readStats(entityplayer.foodStats);
@@ -41,7 +46,7 @@ public class TPlayerHandler implements IPlayerTracker
 		stats.player = new WeakReference<EntityPlayer>(entityplayer);
 		stats.armor = new ArmorExtended();
 		stats.armor.init(entityplayer);
-		stats.armor.loadFromNBT(entityplayer);
+		stats.armor.readFromNBT(entityplayer);
 
 		stats.level = entityplayer.experienceLevel;
 		stats.hunger = entityplayer.getFoodStats().getFoodLevel();
@@ -59,7 +64,36 @@ public class TPlayerHandler implements IPlayerTracker
 			}
 		}
 
+		stats.skillList = new ArrayList<Skill>();
+		stats.armor.recalculateSkills(entityplayer, stats);
+		/*try
+		{
+			stats.skillList.add(SkillRegistry.skills.get("Wall Building").copy());
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}/*
+		//stats.skillList.add(new ActiveSkill(new Jump()));
+		/*for (Map.Entry<String, SkillBase> entry : SkillRegistry.skills.entrySet())
+		{
+			SkillBase skill = entry.getValue();
+		}*/
+
 		playerStats.put(entityplayer.username, stats);
+	}
+
+	public void activateSkill (EntityPlayer player, int slot)
+	{
+		TPlayerStats stats = getPlayerStats(player.username);
+		if (stats.skillList.size() > slot)
+		{
+			Skill skill = stats.skillList.get(slot);
+			if (skill != null)
+			{
+				skill.activate(player, player.worldObj);
+			}
+		}
 	}
 
 	@Override
@@ -85,9 +119,10 @@ public class TPlayerHandler implements IPlayerTracker
 				if (clean)
 					playerStats.remove(player.username);
 			}
-			else //Revalidate all players
+			else
+			//Revalidate all players
 			{
-				
+
 			}
 		}
 	}
@@ -98,7 +133,7 @@ public class TPlayerHandler implements IPlayerTracker
 		//Boom!
 		TPlayerStats stats = getPlayerStats(entityplayer.username);
 		stats.player = new WeakReference<EntityPlayer>(entityplayer);
-		stats.armor.recalculateHealth();
+		stats.armor.recalculateHealth(entityplayer, stats);
 
 		TFoodStats food = new TFoodStats();
 		entityplayer.foodStats = food;

@@ -1,24 +1,17 @@
 package mods.tinker.tconstruct.plugins.minefactoryreloaded;
 
-import mods.natura.entity.NitroCreeper;
 import mods.tinker.tconstruct.common.TContent;
 import mods.tinker.tconstruct.entity.BlueSlime;
-import mods.tinker.tconstruct.entity.Crystal;
-import mods.tinker.tconstruct.entity.MetalSlime;
-import mods.tinker.tconstruct.entity.Skyla;
 import mods.tinker.tconstruct.plugins.minefactoryreloaded.grindables.GrindableStandard;
 import mods.tinker.tconstruct.plugins.minefactoryreloaded.harvestables.HarvestableOreBerry;
-
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import powercrystals.minefactoryreloaded.api.FarmingRegistry;
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
-
-import powercrystals.minefactoryreloaded.api.FarmingRegistry;
 
 
 @Mod(modid = "TConstruct|CompatMineFactoryReloaded", name = "TConstruct Compat: MFR", version = "0.1", dependencies = "after:MineFactoryReloaded;after:TConstruct")
@@ -42,10 +35,10 @@ public class MineFactoryReloaded
 			
 			// A note: in 1.6, this method of registering grindables will no longer exist, once MFR moves to a more universal way of gathering drops.
 			FarmingRegistry.registerGrindable(new GrindableStandard(BlueSlime.class, new ItemStack(TContent.strangeFood)));
-			FarmingRegistry.registerGrindable(new GrindableStandard(Crystal.class, new ItemStack(Item.gunpowder)));
-			FarmingRegistry.registerGrindable(new GrindableStandard(MetalSlime.class, new ItemStack(TContent.strangeFood)));
-			FarmingRegistry.registerGrindable(new GrindableStandard(NitroCreeper.class, new ItemStack(Item.gunpowder)));
-			FarmingRegistry.registerGrindable(new GrindableStandard(Skyla.class, new ItemStack(Item.gunpowder)));
+			//FarmingRegistry.registerGrindable(new GrindableStandard(Crystal.class, new ItemStack(Item.gunpowder)));
+			//FarmingRegistry.registerGrindable(new GrindableStandard(MetalSlime.class, new ItemStack(TContent.strangeFood)));
+			//FarmingRegistry.registerGrindable(new GrindableStandard(NitroCreeper.class, new ItemStack(Item.gunpowder)));
+			//FarmingRegistry.registerGrindable(new GrindableStandard(Skyla.class, new ItemStack(Item.gunpowder)));
 			
 			/*
 			 * Perhaps TC ores should be registered as drops from the MFR Laser Drill here, but I don't know which things would be suitable for that.

@@ -1,8 +1,12 @@
 package mods.tinker.tconstruct.client;
 
+import java.util.List;
+
 import mods.tinker.tconstruct.TConstruct;
 import mods.tinker.tconstruct.client.armor.WingModel;
 import mods.tinker.tconstruct.common.TContent;
+import mods.tinker.tconstruct.skill.Skill;
+import mods.tinker.tconstruct.util.player.TPlayerStats;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.model.ModelBiped;
@@ -13,7 +17,12 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.client.event.sound.SoundLoadEvent;
 import net.minecraftforge.event.ForgeSubscribe;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 import net.minecraftforge.liquids.LiquidStack;
+
+import org.lwjgl.opengl.GL11;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -22,6 +31,22 @@ public class TClientEvents
 {
 	Minecraft mc = Minecraft.getMinecraft();
 	EntityPlayer player;
+	
+	/*@ForgeSubscribe
+	public void interact (PlayerInteractEvent event)
+	{
+		if (event.action == Action.RIGHT_CLICK_BLOCK && event.entityPlayer.worldObj.isRemote)
+		{
+			System.out.println("Fired");
+			List<Skill> skills = TProxyClient.skillList;
+			if (skills.size() > 0)
+			{
+				Skill walls = TConstruct.playerTracker.getPlayerStats(event.entityPlayer.username).skillList.get(0);
+				walls.rightClickActivate(event.entityPlayer, event.entityPlayer.worldObj);
+			}
+		}
+	}*/
+	
 	/* Sounds */
 	@ForgeSubscribe
 	public void onSound (SoundLoadEvent event)
@@ -51,20 +76,22 @@ public class TClientEvents
 		}
 	}
 	
-	/* Health */
+	/* HUD */
 	@ForgeSubscribe
 	public void renderHealthbar (RenderGameOverlayEvent.Post event)
 	{
+		if (player == null)
+			player = mc.thePlayer;
+		
+		ScaledResolution scaledresolution = new ScaledResolution(this.mc.gameSettings, this.mc.displayWidth, this.mc.displayHeight);
+        int scaledWidth = scaledresolution.getScaledWidth();
+        int scaledHeight = scaledresolution.getScaledHeight();
+        int xBasePos = scaledWidth / 2 - 91;
+        int yBasePos = scaledHeight - 39;
+		TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
+        
 		if (event.type == RenderGameOverlayEvent.ElementType.HEALTH)
-		{
-			if (player == null)
-				player = mc.thePlayer;
-			
-			ScaledResolution scaledresolution = new ScaledResolution(this.mc.gameSettings, this.mc.displayWidth, this.mc.displayHeight);
-	        int scaledWidth = scaledresolution.getScaledWidth();
-	        int scaledHeight = scaledresolution.getScaledHeight();
-	        int xBasePos = scaledWidth / 2 - 91;
-	        int yBasePos = scaledHeight - 39;
+		{			
 	        this.mc.renderEngine.bindTexture("/mods/tinker/textures/gui/newhearts.png");
 	        
 	        int hp = player.getHealth();
@@ -85,9 +112,22 @@ public class TClientEvents
 
 	        this.mc.renderEngine.bindTexture("/gui/icons.png");
 		}
+		
+		if (event.type == RenderGameOverlayEvent.ElementType.HOTBAR)
+		{
+	        int amount = 0;
+	        GL11.glScalef(1/16f, 1/16f, 1/16f);
+	        for (Skill skill : stats.skillList)
+	        {
+	        	if (!skill.getActive())
+	                GL11.glColor4f(0.5f, 0.5f, 0.5f, 1.0F);
+		        this.mc.renderEngine.bindTexture(skill.getTextureFile(scaledresolution.getScaleFactor()));
+	            this.drawTexturedModalRect((2+amount*18)*16, 32, 0, 0, 256, 256);
+	            amount++;
+	        }
+	        GL11.glScalef(16f, 16f, 16f);
+		}
 	}
-	
-
 
 	public void drawTexturedModalRect(int par1, int par2, int par3, int par4, int par5, int par6)
     {

@@ -14,11 +14,13 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
 public class TActiveOmniMod extends ActiveToolMod
@@ -50,7 +52,7 @@ public class TActiveOmniMod extends ActiveToolMod
 	{
 		if (player.capabilities.isCreativeMode)
 			return false;
-		
+
 		if (tool instanceof HarvestTool)
 			TContent.modL.midStreamModify(stack);
 
@@ -89,6 +91,33 @@ public class TActiveOmniMod extends ActiveToolMod
 					entityitem.delayBeforeCanPickup = 10;
 					world.spawnEntityInWorld(entityitem);
 					world.playAuxSFX(2001, x, y, z, bID + (meta << 12));
+
+					int i = spawnme.stackSize;
+					float f = FurnaceRecipes.smelting().getExperience(spawnme);
+					int j;
+
+					if (f == 0.0F)
+					{
+						i = 0;
+					}
+					else if (f < 1.0F)
+					{
+						j = MathHelper.floor_float((float) i * f);
+
+						if (j < MathHelper.ceiling_float_int((float) i * f) && (float) Math.random() < (float) i * f - (float) j)
+						{
+							++j;
+						}
+
+						i = j;
+					}
+
+					while (i > 0)
+					{
+						j = EntityXPOrb.getXPSplit(i);
+						i -= j;
+						player.worldObj.spawnEntityInWorld(new EntityXPOrb(world, x, y + 0.5, z, j));
+					}
 				}
 				for (int i = 0; i < 6; i++)
 				{

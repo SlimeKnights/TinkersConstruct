@@ -2,7 +2,6 @@ package mods.tinker.tconstruct.items;
 
 import java.util.List;
 
-import mods.natura.entity.NitroCreeper;
 import mods.tinker.tconstruct.client.TProxyClient;
 import mods.tinker.tconstruct.entity.BlueSlime;
 import mods.tinker.tconstruct.library.tools.ToolCore;
@@ -10,7 +9,6 @@ import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -105,9 +103,6 @@ public class TitleIcon extends Item
             	break;
             case 1:
             	spawnBossSlime(posX, posY, posZ, new BlueSlime(world), world, player);
-            	break;
-            case 2:
-    			spawnEntity(posX, posY, posZ, new NitroCreeper(world), world, player);
             	break;
             }
 			if (!player.capabilities.isCreativeMode)
