@@ -1,7 +1,5 @@
 package mods.tinker.tconstruct.client;
 
-import java.util.List;
-
 import mods.tinker.tconstruct.TConstruct;
 import mods.tinker.tconstruct.client.armor.WingModel;
 import mods.tinker.tconstruct.common.TContent;
@@ -12,13 +10,10 @@ import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.client.event.sound.SoundLoadEvent;
 import net.minecraftforge.event.ForgeSubscribe;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 import net.minecraftforge.liquids.LiquidStack;
 
 import org.lwjgl.opengl.GL11;
@@ -30,7 +25,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class TClientEvents
 {
 	Minecraft mc = Minecraft.getMinecraft();
-	EntityPlayer player;
 	
 	/*@ForgeSubscribe
 	public void interact (PlayerInteractEvent event)
@@ -80,21 +74,19 @@ public class TClientEvents
 	@ForgeSubscribe
 	public void renderHealthbar (RenderGameOverlayEvent.Post event)
 	{
-		if (player == null)
-			player = mc.thePlayer;
 		
 		ScaledResolution scaledresolution = new ScaledResolution(this.mc.gameSettings, this.mc.displayWidth, this.mc.displayHeight);
         int scaledWidth = scaledresolution.getScaledWidth();
         int scaledHeight = scaledresolution.getScaledHeight();
         int xBasePos = scaledWidth / 2 - 91;
         int yBasePos = scaledHeight - 39;
-		TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
+		TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(mc.thePlayer.username);
         
 		if (event.type == RenderGameOverlayEvent.ElementType.HEALTH)
 		{			
 	        this.mc.renderEngine.bindTexture("/mods/tinker/textures/gui/newhearts.png");
 	        
-	        int hp = player.getHealth();
+	        int hp = mc.thePlayer.getHealth();
 	        for (int iter = 0; iter < hp / 20; iter++)
 	        {
 	            int renderHearts = (hp - 20*(iter+1)) / 2;
@@ -113,8 +105,11 @@ public class TClientEvents
 	        this.mc.renderEngine.bindTexture("/gui/icons.png");
 		}
 		
-		if (event.type == RenderGameOverlayEvent.ElementType.HOTBAR)
+		/*if (event.type == RenderGameOverlayEvent.ElementType.HOTBAR)
 		{
+			if (stats.skillList == null)
+				return;
+			
 	        int amount = 0;
 	        GL11.glScalef(1/16f, 1/16f, 1/16f);
 	        for (Skill skill : stats.skillList)
@@ -126,7 +121,7 @@ public class TClientEvents
 	            amount++;
 	        }
 	        GL11.glScalef(16f, 16f, 16f);
-		}
+		}*/
 	}
 
 	public void drawTexturedModalRect(int par1, int par2, int par3, int par4, int par5, int par6)

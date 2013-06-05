@@ -6,6 +6,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
@@ -13,7 +14,6 @@ import net.minecraftforge.common.ForgeDirection;
 
 public class WallBuilding extends Skill
 {
-
 	@Override
 	public String getTextureFile (int guiscale)
 	{
@@ -34,7 +34,6 @@ public class WallBuilding extends Skill
 	@Override
 	public void activate (Entity entity, World world)
 	{
-		if (!world.isRemote)
 			this.active = !active;
 	}
 

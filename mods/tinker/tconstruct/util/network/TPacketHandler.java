@@ -3,10 +3,14 @@ package mods.tinker.tconstruct.util.network;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import mods.tinker.tconstruct.TConstruct;
 import mods.tinker.tconstruct.blocks.logic.ToolStationLogic;
+import mods.tinker.tconstruct.library.SkillRegistry;
 import mods.tinker.tconstruct.library.blocks.InventoryLogic;
+import mods.tinker.tconstruct.skill.Skill;
+import mods.tinker.tconstruct.util.player.TPlayerStats;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -34,26 +38,33 @@ public class TPacketHandler implements IPacketHandler
 			if (side == Side.SERVER)
 				handleServerPacket(packet, (EntityPlayerMP) player);
 			else
-				handleClientPacket(packet);
+				handleClientPacket(packet, (EntityPlayer) player);
 		}
 	}
 
-	void handleClientPacket (Packet250CustomPayload packet)
+	void handleClientPacket (Packet250CustomPayload packet, EntityPlayer player)
 	{
 		DataInputStream inputStream = new DataInputStream(new ByteArrayInputStream(packet.data));
 
-		byte packetType;
-		int dimension;
 		byte packetID;
 
 		try
 		{
 			packetID = inputStream.readByte();
-			dimension = inputStream.readInt();
-
-			World world = DimensionManager.getWorld(dimension);
+			if (packetID == 1)
+			{
+				TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
+				stats.skillList = new ArrayList<Skill>();
+				int size = inputStream.readInt();
+				for (int i = 0; i < size; i++)
+				{
+					Skill skill = SkillRegistry.skillMapping.get(inputStream.readInt()).copy();
+					skill.setActive(inputStream.readBoolean());
+					stats.skillList.add(skill);
+				}
+			}
 		}
-		catch (IOException e)
+		catch (Exception e)
 		{
 			System.out.println("Failed at reading client packet for TConstruct.");
 			e.printStackTrace();

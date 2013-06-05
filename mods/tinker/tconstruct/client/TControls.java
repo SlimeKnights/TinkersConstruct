@@ -12,6 +12,7 @@ import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.packet.Packet250CustomPayload;
+import net.minecraft.server.MinecraftServer;
 import cpw.mods.fml.common.TickType;
 import cpw.mods.fml.common.network.PacketDispatcher;
 
@@ -20,11 +21,11 @@ public class TControls extends TKeyHandler
 	//static KeyBinding grabKey = new KeyBinding("key.grab", 29);
 	//static KeyBinding stiltsKey = new KeyBinding("key.stilts", 46);
 	public static KeyBinding armorKey = new KeyBinding("key.tarmor", 24);
-	public static KeyBinding skillOne = new KeyBinding("key.skill.one", 44);
+	/*public static KeyBinding skillOne = new KeyBinding("key.skill.one", 44);
 	public static KeyBinding skillTwo = new KeyBinding("key.skill.two", 45);
 	public static KeyBinding skillThree = new KeyBinding("key.skill.three", 46);
 	public static KeyBinding skillFour = new KeyBinding("key.skill.four", 47);
-	public static KeyBinding skillFive = new KeyBinding("key.skill.five", 48);
+	public static KeyBinding skillFive = new KeyBinding("key.skill.five", 48);*/
 	static KeyBinding jumpKey;
 	static KeyBinding invKey;
 	static Minecraft mc;
@@ -39,7 +40,7 @@ public class TControls extends TKeyHandler
 
 	public TControls()
 	{
-		super(new KeyBinding[] { armorKey, skillOne, skillTwo, skillThree, skillFour, skillFive }, new boolean[] { false, false, false, false, false, false }, getVanillaKeyBindings(), new boolean[] {
+		super(new KeyBinding[] { armorKey/*, skillOne, skillTwo, skillThree, skillFour, skillFive*/ }, new boolean[] { false/*, false, false, false, false, false*/ }, getVanillaKeyBindings(), new boolean[] {
 				false, false });
 		//System.out.println("Controls registered");Natura
 	}
@@ -71,7 +72,7 @@ public class TControls extends TKeyHandler
 			{
 				TProxyClient.addTabsToInventory();
 			}
-			if (kb == skillOne)
+			/*if (kb == skillOne)
 			{
 				sendSkillkey(mc.thePlayer, (byte) 0);//, mc.thePlayer.dimension, mc.thePlayer.entityId);
 			}
@@ -90,7 +91,7 @@ public class TControls extends TKeyHandler
 			if (kb == skillFive)
 			{
 				sendSkillkey(mc.thePlayer, (byte) 4);//, mc.thePlayer.dimension, mc.thePlayer.entityId);
-			}
+			}*/
 			/*if (kb == jumpKey) //Double jump
 			{
 				if (jumping && !doubleJump)
@@ -211,7 +212,7 @@ public class TControls extends TKeyHandler
 
 		updateServer(bos);
 	}
-	
+
 	/*public void activateSkill (EntityPlayer player, int slot)
 	{
 		if (TProxyClient.skillList.size() > slot)
@@ -223,25 +224,29 @@ public class TControls extends TKeyHandler
 			}
 		}
 	}*/
-	
-	public void sendSkillkey (EntityPlayer player, byte key)//, int dim, int id)
+
+	public void sendSkillkey (EntityPlayer player, byte key)
 	{
 		TConstruct.playerTracker.activateSkill(player, key);
-		ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
-		DataOutputStream outputStream = new DataOutputStream(bos);
-		try
-		{
-			outputStream.writeByte(4);
-			//outputStream.writeInt(dim);
-			//outputStream.writeInt(id);
-			outputStream.writeByte(key);
-		}
-		catch (Exception ex)
-		{
-			ex.printStackTrace();
-		}
 
-		updateServer(bos);
+		System.out.println(MinecraftServer.getServer());
+		if (MinecraftServer.getServer().isDedicatedServer())
+		{
+			System.out.println("Send");
+			ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
+			DataOutputStream outputStream = new DataOutputStream(bos);
+			try
+			{
+				outputStream.writeByte(4);
+				outputStream.writeByte(key);
+			}
+			catch (Exception ex)
+			{
+				ex.printStackTrace();
+			}
+
+			updateServer(bos);
+		}
 	}
 
 	static void updateServer (ByteArrayOutputStream bos)

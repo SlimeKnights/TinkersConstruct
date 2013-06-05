@@ -111,11 +111,11 @@ public class ArmorExtended implements IInventory
     {
 		EntityPlayer player = parent.get();
 		TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
-    	recalculateSkills(player, stats);
+    	//recalculateSkills(player, stats);
         recalculateHealth(player, stats);
     }
     
-    public void recalculateSkills(EntityPlayer player, TPlayerStats stats)
+    /*public void recalculateSkills(EntityPlayer player, TPlayerStats stats)
     {
     	if (inventory[1] != null && inventory[1].getItem() == TContent.glove)
     	{
@@ -138,7 +138,7 @@ public class ArmorExtended implements IInventory
     			stats.skillList.remove(0);
     		}
     	}
-    }
+    }*/
     
     public void recalculateHealth(EntityPlayer player, TPlayerStats stats)
     {

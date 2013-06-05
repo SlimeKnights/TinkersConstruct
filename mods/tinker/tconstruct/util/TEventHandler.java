@@ -45,7 +45,7 @@ public class TEventHandler
 
 	/* Interact */
 
-	@ForgeSubscribe
+	/*@ForgeSubscribe
 	public void interact (PlayerInteractEvent event)
 	{
 		if (event.action == Action.RIGHT_CLICK_BLOCK)// && !event.entityPlayer.worldObj.isRemote)
@@ -57,7 +57,7 @@ public class TEventHandler
 				walls.rightClickActivate(event.entityPlayer, event.entityPlayer.worldObj);
 			}
 		}
-	}
+	}*/
 
 	/*@ForgeSubscribe
 	public void onHurt (LivingHurtEvent event)
@@ -133,14 +133,14 @@ public class TEventHandler
 		}
 	}
 
-	@ForgeSubscribe
+	/*@ForgeSubscribe
 	public void onLivingSpawn (EntityJoinWorldEvent event)
 	{
 		if (event.entity instanceof EntityXPOrb)
 		{
 			System.out.println("Entity: " + event.entity);
 		}
-	}
+	}*/
 
 	@ForgeSubscribe
 	public void onLivingSpawn (LivingSpawnEvent.SpecialSpawn event)

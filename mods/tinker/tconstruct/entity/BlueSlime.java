@@ -5,6 +5,7 @@ import mods.tinker.tconstruct.common.TContent;
 import mods.tinker.tconstruct.library.TConstructRegistry;
 import mods.tinker.tconstruct.library.crafting.ToolBuilder;
 import mods.tinker.tconstruct.library.tools.ToolCore;
+import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.boss.IBossDisplayData;
@@ -368,6 +369,11 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
 			}
 		}
 	}
+	
+	public boolean handleWaterMovement()
+    {
+        return false;
+    }
 
 	protected void func_70808_l ()
 	{
@@ -443,7 +449,7 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
 			tags.setInteger("MiningSpeed", 800);
 
 			this.entityDropItem(toolStack, 0f);
-			if (rand.nextInt(10) == 0)
+			if (rand.nextInt(5) == 0)
 			{
 				ItemStack dropStack = new ItemStack(TContent.heartCanister, 1, 1);
 				this.entityDropItem(dropStack, 0f);

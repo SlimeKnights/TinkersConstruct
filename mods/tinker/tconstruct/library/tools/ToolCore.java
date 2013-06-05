@@ -776,5 +776,77 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
     {
         return true;
     }
+    
+    /* Proper stack damage */
+    public int getItemDamageFromStack(ItemStack stack)
+    {
+    	NBTTagCompound tags = stack.getTagCompound();
+    	if (tags == null)
+    	{
+    		/*System.out.println("Tool item is uninitalized! This method should never be called with a default item");
+    		Exception e = new NullPointerException();
+    		e.printStackTrace();*/
+    		return 0;
+    	}
+    	
+    	if (tags.hasKey("charge"))
+    	{
+    		int charge = tags.getInteger("charge");
+    		if (charge > 0)
+    			return charge;
+    	}
+    	return tags.getCompoundTag("InfiTool").getInteger("Damage");
+    }
+
+    /**
+     * Return the itemDamage display value represented by this itemstack.
+     * @param stack the stack
+     * @return the damage value
+     */
+    public int getItemDamageFromStackForDisplay(ItemStack stack)
+    {
+    	NBTTagCompound tags = stack.getTagCompound();
+    	if (tags == null)
+    	{
+    		/*System.out.println("Tool item is uninitalized! This method should never be called with a default item");
+    		Exception e = new NullPointerException();
+    		e.printStackTrace();*/
+    		return 0;
+    	}
+    	
+    	if (tags.hasKey("charge"))
+    	{
+    		int charge = tags.getInteger("charge");
+    		if (charge > 0)
+    			return charge;
+    	}
+    	return tags.getCompoundTag("InfiTool").getInteger("Damage");
+    }
+    
+    /**
+     * Return the maxDamage for this ItemStack. Defaults to the maxDamage field in this item, but can be overridden here for other sources such as NBT.
+     *
+     * @param stack The itemstack that is damaged
+     * @return the damage value
+     */
+    public int getItemMaxDamageFromStack(ItemStack stack)
+    {
+    	NBTTagCompound tags = stack.getTagCompound();
+    	if (tags == null)
+    	{
+    		/*System.out.println("Tool item is uninitalized! This method should never be called with a default item");
+    		Exception e = new NullPointerException();
+    		e.printStackTrace();*/
+    		return 0;
+    	}
+    	
+    	if (tags.hasKey("charge"))
+    	{
+    		int charge = tags.getInteger("charge");
+    		if (charge > 0)
+    			return this.getMaxCharge(stack);
+    	}
+    	return tags.getCompoundTag("InfiTool").getInteger("TotalDurability");
+    }
 
 }

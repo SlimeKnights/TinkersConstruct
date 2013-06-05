@@ -31,6 +31,8 @@ import mods.tinker.tconstruct.blocks.logic.PatternShaperLogic;
 import mods.tinker.tconstruct.blocks.logic.SmelteryDrainLogic;
 import mods.tinker.tconstruct.blocks.logic.SmelteryLogic;
 import mods.tinker.tconstruct.blocks.logic.ToolStationLogic;
+import mods.tinker.tconstruct.blocks.traps.BarricadeBlock;
+import mods.tinker.tconstruct.blocks.traps.Landmine;
 import mods.tinker.tconstruct.entity.BlueSlime;
 import mods.tinker.tconstruct.entity.FancyEntityItem;
 import mods.tinker.tconstruct.entity.projectile.DaggerEntity;
@@ -98,6 +100,7 @@ import mods.tinker.tconstruct.modifiers.TActiveOmniMod;
 import mods.tinker.tconstruct.util.PHConstruct;
 import mods.tinker.tconstruct.util.RecipeRemover;
 import net.minecraft.block.Block;
+import net.minecraft.block.EnumMobType;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialLiquid;
@@ -196,6 +199,7 @@ public class TContent implements IFuelHandler
 
 	//Traps
 	public static Block landmine;
+	public static Block barricade;
 
 	//InfiBlocks
 	public static Block speedBlock;
@@ -428,6 +432,12 @@ public class TContent implements IFuelHandler
 		/*golemPedestal = new GolemPedestalBlock(PHConstruct.golemPedestal).setUnlocalizedName("golempedestal");
 		GameRegistry.registerBlock(golemPedestal, "Golem Pedestal");
 		GameRegistry.registerTileEntity(GolemPedestalLogic.class, "TConstruct.GolemPedestal");*/
+		
+		//Traps
+		/*landmine = new Landmine(PHConstruct.landmine, EnumMobType.mobs, Material.wood).setUnlocalizedName("tconstruct.landmine");
+		GameRegistry.registerBlock(landmine, "Landmine");
+		barricade = new BarricadeBlock(PHConstruct.barricade).setUnlocalizedName("tconstruct.barricade");
+		GameRegistry.registerBlock(barricade, "Barricade");*/
 	}
 
 	void registerItems ()
@@ -824,7 +834,7 @@ public class TContent implements IFuelHandler
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(toolStationWood, 1, 1), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', "logWood"));
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(toolStationWood, 1, 10), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', "plankWood"));
 
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(blankPattern, 1, 0), "ps", "sp", 'p', "plankWood", 's', Item.stick));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(blankPattern, 1, 0), "ps", "sp", 'p', "plankWood", 's', "stickWood"));
 		GameRegistry.addRecipe(new ItemStack(manualBook), "wp", 'w', new ItemStack(blankPattern, 1, 0), 'p', Item.paper);
 		GameRegistry.addShapelessRecipe(new ItemStack(manualBook, 2, 0), new ItemStack(manualBook, 1, 0), Item.book);
 		GameRegistry.addShapelessRecipe(new ItemStack(manualBook, 1, 1), new ItemStack(manualBook, 1, 0));
@@ -911,7 +921,8 @@ public class TContent implements IFuelHandler
 		GameRegistry.addRecipe(new ItemStack(searedBlock, 1, 0), "bbb", "b b", "b b", 'b', searedBrick); //Table
 		GameRegistry.addRecipe(new ItemStack(searedBlock, 1, 1), "b b", " b ", 'b', searedBrick); //Faucet
 		GameRegistry.addRecipe(new ItemStack(searedBlock, 1, 2), "b b", "b b", "bbb", 'b', searedBrick); //Basin
-
+		
+		GameRegistry.addRecipe(new ItemStack(Block.pumpkinLantern, 1, 0), "p", "s", 'p', new ItemStack(Block.pumpkin), 'w', new ItemStack(toolRod, 1, 1));
 		GameRegistry.addRecipe(new ItemStack(stoneTorch, 4), "p", "w", 'p', new ItemStack(Item.coal, 1, Short.MAX_VALUE), 'w', new ItemStack(toolRod, 1, 1));
 		GameRegistry.addRecipe(new ItemStack(toolRod, 4, 1), "c", "c", 'c', new ItemStack(Block.stone));
 		GameRegistry.addRecipe(new ItemStack(toolRod, 2, 1), "c", "c", 'c', new ItemStack(Block.cobblestone));

@@ -6,7 +6,6 @@ import net.minecraft.world.World;
 
 public class Jump extends Skill
 {
-
 	@Override
 	public String getTextureFile (int guiscale)
 	{

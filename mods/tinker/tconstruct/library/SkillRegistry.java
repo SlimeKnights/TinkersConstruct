@@ -9,15 +9,15 @@ public class SkillRegistry
     public static HashMap<String, Skill> skills = new HashMap<String, Skill>();
     
     static int skillID = 0;
-    public static HashMap<Integer, String> skillMapping = new HashMap<Integer, String>(); //Simplifies network transmission
+    public static HashMap<Integer, Skill> skillMapping = new HashMap<Integer, Skill>(); //Simplifies network transmission
     
     public static void registerSkill(String name, Skill skill)
     {
     	skills.put(name, skill);
-    	skillMapping.put(getNextID(), name);
+    	skillMapping.put(getNextAvailableID(), skill);
     }
 
-	static Integer getNextID ()
+	static Integer getNextAvailableID ()
 	{
 		return skillID++;
 	}

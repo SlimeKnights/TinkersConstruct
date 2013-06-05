@@ -1,4 +1,4 @@
-package mods.tinker.tconstruct.blocks;
+package mods.tinker.tconstruct.blocks.traps;
 
 import java.util.Iterator;
 import java.util.List;
@@ -9,10 +9,12 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockFence;
 import net.minecraft.block.EnumMobType;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
@@ -29,6 +31,26 @@ public class Landmine extends Block
         this.setTickRandomly(true);
         float var5 = 0.0625F;
         this.setBlockBounds(var5, 0.0F, var5, 1.0F - var5, 0.03125F, 1.0F - var5);
+    }
+    
+    public Icon getBlockTexture(IBlockAccess world, int x, int y, int z, int side)
+    {
+    	Block block = Block.blocksList[world.getBlockId(x, y-1, z)];
+    	if (block != null)
+    	{
+    		return block.getBlockTexture(world, x, y-1, z, side);
+    	}
+        return Block.sponge.getIcon(side, world.getBlockMetadata(x, y, z));
+    }
+    
+    public Icon getIcon(int side, int meta)
+    {
+        return Block.sponge.getIcon(1, meta);
+    }
+    
+    public void registerIcons(IconRegister par1IconRegister)
+    {
+    	
     }
 
     /**
@@ -169,7 +191,7 @@ public class Landmine extends Block
 
         if (var6 && !var5)
         {
-        	//world.setBlock(posX, posY, posZ, 0);
+        	world.setBlock(posX, posY, posZ, 0);
         	world.createExplosion((Entity)null, posX, posY, posZ, 2.0F, true);
             /*par1World.setBlockMetadataWithNotify(posX, posY, posZ, 1);
             par1World.notifyBlocksOfNeighborChange(posX, posY, posZ, this.blockID);

@@ -1,26 +1,30 @@
 package mods.tinker.tconstruct.util.player;
 
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 
 import mods.tinker.tconstruct.common.TContent;
-import mods.tinker.tconstruct.library.SkillRegistry;
 import mods.tinker.tconstruct.library.tools.AbilityHelper;
 import mods.tinker.tconstruct.skill.Skill;
-import mods.tinker.tconstruct.skill.WallBuilding;
 import mods.tinker.tconstruct.util.PHConstruct;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EnumEntitySize;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.event.entity.player.PlayerDropsEvent;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.IPlayerTracker;
+import cpw.mods.fml.common.network.PacketDispatcher;
+import cpw.mods.fml.common.network.Player;
 import cpw.mods.fml.relauncher.Side;
 
 public class TPlayerHandler implements IPlayerTracker
@@ -65,22 +69,47 @@ public class TPlayerHandler implements IPlayerTracker
 		}
 
 		stats.skillList = new ArrayList<Skill>();
-		stats.armor.recalculateSkills(entityplayer, stats);
-		/*try
-		{
-			stats.skillList.add(SkillRegistry.skills.get("Wall Building").copy());
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}/*
-		//stats.skillList.add(new ActiveSkill(new Jump()));
-		/*for (Map.Entry<String, SkillBase> entry : SkillRegistry.skills.entrySet())
-		{
-			SkillBase skill = entry.getValue();
-		}*/
+		//stats.armor.recalculateSkills(entityplayer, stats);
 
 		playerStats.put(entityplayer.username, stats);
+		
+		//sendSkills(entityplayer, stats);
+	}
+
+	void sendSkills (EntityPlayer entityplayer, TPlayerStats stats)
+	{
+		ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
+		DataOutputStream outputStream = new DataOutputStream(bos);
+		List<Skill> skills = stats.skillList;
+		
+		try
+		{
+			outputStream.writeByte(1);
+			outputStream.writeInt(skills.size());
+
+	        for (Skill skill : stats.skillList)
+	        {
+				outputStream.writeInt(skill.getSkillID());
+				outputStream.writeBoolean(skill.getActive());        	
+	        }
+			//outputStream.writeByte(key);
+		}
+		catch (Exception ex)
+		{
+			ex.printStackTrace();
+		}
+
+		updateClientPlayer(bos, entityplayer);
+	}
+
+	void updateClientPlayer (ByteArrayOutputStream bos, EntityPlayer player)
+	{
+		Packet250CustomPayload packet = new Packet250CustomPayload();
+		packet.channel = "TConstruct";
+		packet.data = bos.toByteArray();
+		packet.length = bos.size();
+
+		PacketDispatcher.sendPacketToPlayer(packet, (Player) player);
 	}
 
 	public void activateSkill (EntityPlayer player, int slot)
@@ -163,19 +192,7 @@ public class TPlayerHandler implements IPlayerTracker
 	{
 		if (evt.entityLiving instanceof EntityPlayer)
 		{
-			/*Side side = FMLCommonHandler.instance().getEffectiveSide();
-			if (side == Side.CLIENT)
-			{
-				TProxyClient.controlInstance.landOnGround();
-			}*/
-			//else
-			//System.out.println("Server side");
-
 			evt.distance -= 1;
-			//evt.distance = 0;
-			//TPlayerStats stats = playerStats.get(((EntityPlayer)evt.entityLiving).username);
-			//stats.prevMotionY = evt.entityLiving.motionY;
-			//evt.entityLiving.motionY = 10.2;
 		}
 	}
 
@@ -239,7 +256,7 @@ public class TPlayerHandler implements IPlayerTracker
 			return stats.player.get();
 		}
 	}
-
+	
 	/* Modify Player */
 	public void updateSize (String user, float offset)
 	{
@@ -291,69 +308,4 @@ public class TPlayerHandler implements IPlayerTracker
 
 	Random rand = new Random();
 
-	/* Bows */
-	/*@ForgeSubscribe
-	public void arrowShoot (ArrowLooseEvent event)
-	{
-		event.setCanceled(true);
-		int j = event.charge;
-
-		boolean flag = event.entityPlayer.capabilities.isCreativeMode || EnchantmentHelper.getEnchantmentLevel(Enchantment.infinity.effectId, event.bow) > 0;
-
-		if (flag || event.entityPlayer.inventory.hasItem(Item.arrow.itemID))
-		{
-			float f = (float) j / 20.0F;
-			f = (f * f + f * 2.0F) / 3.0F;
-
-			if ((double) f < 0.1D)
-			{
-				return;
-			}
-
-			if (f > 1.0F)
-			{
-				f = 1.0F;
-			}
-
-			EntityArrow entityarrow = new EntityArrow(event.entityPlayer.worldObj, event.entityPlayer, f * 2.0F);
-
-			if (f == 1.0F)
-			{
-				entityarrow.setIsCritical(true);
-			}
-
-			int k = EnchantmentHelper.getEnchantmentLevel(Enchantment.power.effectId, event.bow);
-
-			entityarrow.setDamage(1.5D + k * 0.45D);
-
-			int l = EnchantmentHelper.getEnchantmentLevel(Enchantment.punch.effectId, event.bow);
-
-			if (l > 0)
-			{
-				entityarrow.setKnockbackStrength(l);
-			}
-
-			if (EnchantmentHelper.getEnchantmentLevel(Enchantment.flame.effectId, event.bow) > 0)
-			{
-				entityarrow.setFire(100);
-			}
-
-			event.bow.damageItem(1, event.entityPlayer);
-			event.entityPlayer.worldObj.playSoundAtEntity(event.entityPlayer, "random.bow", 1.0F, 1.0F / (rand.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
-
-			if (flag)
-			{
-				entityarrow.canBePickedUp = 2;
-			}
-			else
-			{
-				event.entityPlayer.inventory.consumeInventoryItem(Item.arrow.itemID);
-			}
-
-			if (!event.entityPlayer.worldObj.isRemote)
-			{
-				event.entityPlayer.worldObj.spawnEntityInWorld(entityarrow);
-			}
-		}
-	}*/
 }

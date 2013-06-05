@@ -74,7 +74,7 @@ public class AbilityHelper
 
 				int durability = tags.getCompoundTag("InfiTool").getInteger("Damage");
 				float stonebound = tags.getCompoundTag("InfiTool").getFloat("Shoddy");
-				float stoneboundDamage = -stonebound * durability / 100f;
+				float stoneboundDamage = -stonebound * durability / 50f;
 				
 		    	int earlyModDamage = 0;
 		    	for (ActiveToolMod mod : TConstructRegistry.activeModifiers)
@@ -103,6 +103,8 @@ public class AbilityHelper
 				}
 
 				damage += stoneboundDamage;
+				if (damage < 1)
+					damage = 1;
 
 				if (player.isSprinting())
 				{
@@ -338,6 +340,10 @@ public class AbilityHelper
 		int mineSpeed = tags.getCompoundTag("InfiTool").getInteger("MiningSpeed");
 		if (tags.getCompoundTag("InfiTool").hasKey("MiningSpeed2"))
 			mineSpeed = (mineSpeed + tags.getCompoundTag("InfiTool").getInteger("MiningSpeed2")) / 2;
+		
+		int durability = tags.getInteger("Damage");
+		float shoddy = tags.getFloat("Shoddy");
+		mineSpeed += shoddy * durability / 100f;
 		mineSpeed /= 15;
 
 		if (charge < mineSpeed)

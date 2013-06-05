@@ -31,7 +31,7 @@ public class TActiveOmniMod extends ActiveToolMod
 	@Override
 	public void updateTool (ToolCore tool, ItemStack stack, World world, Entity entity)
 	{
-		if (!world.isRemote && entity instanceof EntityLiving && !((EntityLiving) entity).isSwingInProgress)
+		if (!world.isRemote && entity instanceof EntityLiving && !((EntityLiving) entity).isSwingInProgress && stack.getTagCompound() != null)
 		{
 			NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
 			if (tags.hasKey("Moss"))

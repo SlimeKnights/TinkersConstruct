@@ -12,7 +12,8 @@ import net.minecraft.world.World;
  */
 
 public abstract class Skill
-{
+{	
+	public int skillID;
 	boolean active = true;
 	public abstract String getTextureFile(int guiscale);
 	public abstract String getSkillName();
@@ -34,6 +35,11 @@ public abstract class Skill
 		return 0;
 	}
 	
+	public void setActive(boolean flag)
+	{
+		this.active = flag;
+	}
+	
 	public boolean getActive()
 	{
 		return active;
@@ -41,8 +47,20 @@ public abstract class Skill
 	
 	public Skill copy() throws InstantiationException, IllegalAccessException
     {
-        return this.getClass().newInstance();
+		Skill skill = this.getClass().newInstance();
+		skill.setSkillID(this.skillID);
+        return skill;
     }
+	
+	public void setSkillID(int i)
+	{
+		skillID = i;
+	}
+	
+	public int getSkillID ()
+	{
+		return skillID;
+	}
 	
 	/* Save/Load */
     public void saveToNBT (NBTTagCompound tag)

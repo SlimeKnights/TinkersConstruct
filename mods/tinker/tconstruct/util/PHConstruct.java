@@ -83,7 +83,8 @@ public class PHConstruct
         oreGravel = config.getBlock("Ores Gravel", 1488).getInt(1488);
         speedBlock = config.getBlock("Speed Block", 1489).getInt(1489);        
 
-        //landmine = config.getBlock("Landmine", 1481).getInt(1481);
+        landmine = config.getBlock("Landmine", 1470).getInt(1470);
+        barricade = config.getBlock("Barricade", 1469).getInt(1469);
 
         /*golemCore = config.getBlock("Golem Core", 1481).getInt(1481);
         golemHead = config.getBlock("Golem Head", 1482).getInt(1482);*/
@@ -257,7 +258,8 @@ public class PHConstruct
     public static int netherOreBerry;
 
     //Traps
-    //public static int landmine;
+    public static int landmine;
+    public static int barricade;
     
     //InfiBlocks
     public static int speedBlock;
