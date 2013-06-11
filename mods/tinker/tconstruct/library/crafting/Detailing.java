@@ -56,6 +56,8 @@ public class Detailing
         toolTag.setInteger("RenderHandle", 0);
         toolTag.setInteger("RenderHead", 2);
         toolTag.setInteger("RenderAccessory", 2);
+        toolTag.setInteger("Damage", 0);
+        toolTag.setInteger("TotalDurability", 100);
         compound.setCompoundTag("InfiTool", toolTag);
         toolstack.setTagCompound(compound);
         addShapelessToolRecipe(new ItemStack(details.outputID, 1, details.outputMeta), toolstack, new ItemStack(details.inputID, 1, details.inputMeta));

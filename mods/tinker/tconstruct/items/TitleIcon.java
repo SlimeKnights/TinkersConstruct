@@ -49,6 +49,8 @@ public class TitleIcon extends Item
 	@SideOnly(Side.CLIENT)
 	public Icon getIconFromDamageForRenderPass (int par1, int par2)
 	{
+	    if (par1 == 255)
+	        return itemIcon;
 		return Item.monsterPlacer.getIconFromDamageForRenderPass(par1, par2);
 	}
 
@@ -77,6 +79,8 @@ public class TitleIcon extends Item
 	public int getColorFromItemStack (ItemStack stack, int pass)
 	{
 		int damage = stack.getItemDamage();
+		if (damage == 255)
+		    return 0xffffff;
 		return pass == 0 ? primaryColor[damage] : secondaryColor[damage];
 	}
 

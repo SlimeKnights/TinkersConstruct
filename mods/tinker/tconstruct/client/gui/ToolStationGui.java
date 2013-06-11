@@ -54,14 +54,14 @@ public class ToolStationGui extends NewContainerGui
         resetGui();
         Keyboard.enableRepeatEvents(true);
     }
-    
+
     protected void mouseClicked (int mouseX, int mouseY, int mouseButton)
     {
         super.mouseClicked(mouseX, mouseY, mouseButton);
         if (mouseButton == 0)
         {
-            int gLeft = this.guiLeft+68;
-            int gTop = this.guiTop+6;
+            int gLeft = this.guiLeft + 68;
+            int gTop = this.guiTop + 6;
             int gWidth = 102;
             int gHeight = 12;
             active = mouseX > gLeft && mouseX < gLeft + gWidth && mouseY > gTop && mouseY < gTop + gHeight;
@@ -87,14 +87,14 @@ public class ToolStationGui extends NewContainerGui
 
         this.buttonList.clear();
         ToolGuiElement repair = TConstructClientRegistry.toolButtons.get(0);
-        GuiButtonTool repairButton = new GuiButtonTool(0, cornerX - 110, cornerY, repair.buttonIconX, repair.buttonIconY, repair.texture); // Repair
+        GuiButtonTool repairButton = new GuiButtonTool(0, cornerX - 110, cornerY, repair.buttonIconX, repair.buttonIconY, repair.texture, repair); // Repair
         repairButton.enabled = false;
         this.buttonList.add(repairButton);
 
         for (int iter = 1; iter < TConstructClientRegistry.toolButtons.size(); iter++)
         {
             ToolGuiElement element = TConstructClientRegistry.toolButtons.get(iter);
-            GuiButtonTool button = new GuiButtonTool(iter, cornerX - 110 + 22 * (iter % 5), cornerY + 22 * (iter / 5), element.buttonIconX, element.buttonIconY, element.texture); // Repair
+            GuiButtonTool button = new GuiButtonTool(iter, cornerX - 110 + 22 * (iter % 5), cornerY + 22 * (iter / 5), element.buttonIconX, element.buttonIconY, element.texture, element);
             this.buttonList.add(button);
         }
     }
@@ -160,7 +160,7 @@ public class ToolStationGui extends NewContainerGui
             drawToolStats();
         else
             drawToolInformation();
-        
+
         //this.fontRenderer.drawString("Namebox active: "+active, this.xSize / 2 - 18, -10, 0xffffff);
     }
 
@@ -186,12 +186,27 @@ public class ToolStationGui extends NewContainerGui
         fontRenderer.drawString("Durability: " + dur + "/" + maxDur, xSize + 8, 24, 0xffffff);
         int attack = (int) (tags.getInteger("Attack") * tool.getDamageModifier());
 
+        int durability = tags.getInteger("Damage");
+        float stonebound = tags.getFloat("Shoddy");
+        float stoneboundDamage = -stonebound * durability / 65f;
+        if (stonebound > 0)
+            stoneboundDamage = -stonebound * durability / 100f;
+        attack += stoneboundDamage;
+        if (attack < 1)
+            attack = 1;
+
         String heart = attack == 2 ? " Heart" : " Hearts";
         if (attack % 2 == 0)
             this.fontRenderer.drawString("Attack: " + attack / 2 + heart, xSize + 8, 35, 0xffffff);
         else
             this.fontRenderer.drawString("Attack: " + attack / 2f + heart, xSize + 8, 35, 0xffffff);
         //fontRenderer.drawString("Attack: " + damage, xSize + 8, 35, 0xffffff);
+        if (stoneboundDamage != 0)
+        {
+            heart = stoneboundDamage == 2 ? " Heart" : " Hearts";
+            String bloss = stoneboundDamage > 0 ? "Bonus: " : "Loss: ";
+            this.fontRenderer.drawString(bloss + (int) stoneboundDamage / 2 + heart, xSize + 8, 46, 0xffffff);
+        }
 
         fontRenderer.drawString("Modifiers remaining: " + tags.getInteger("Modifiers"), xSize + 8, 57, 0xffffff);
         if (tags.hasKey("Tooltip1"))
@@ -325,10 +340,10 @@ public class ToolStationGui extends NewContainerGui
         int cornerX = (this.width - this.xSize) / 2;
         int cornerY = (this.height - this.ySize) / 2;
         this.drawTexturedModalRect(cornerX, cornerY, 0, 0, this.xSize, this.ySize);
-        
+
         if (active)
         {
-            this.drawTexturedModalRect(cornerX+62, cornerY, 0, this.ySize, 112, 22);
+            this.drawTexturedModalRect(cornerX + 62, cornerY, 0, this.ySize, 112, 22);
         }
 
         //texID = this.mc.renderEngine.getTexture("/mods/tinker/textures/gui/icons.png");
@@ -339,7 +354,7 @@ public class ToolStationGui extends NewContainerGui
 
         for (int i = 0; i < slotX.length; i++)
         {
-            this.drawTexturedModalRect(cornerX + slotX[i]-4, cornerY + slotY[i]-4, 140, 212, 28, 28);
+            this.drawTexturedModalRect(cornerX + slotX[i] - 4, cornerY + slotY[i] - 4, 140, 212, 28, 28);
             if (!logic.isStackInSlot(i + 1))
             {
                 this.drawTexturedModalRect(cornerX + slotX[i], cornerY + slotY[i], 18 * iconX[i], 18 * iconY[i], 18, 18);
@@ -354,7 +369,7 @@ public class ToolStationGui extends NewContainerGui
         cornerX = (this.width + this.xSize) / 2;
         cornerY = (this.height - this.ySize) / 2;
         this.drawTexturedModalRect(cornerX, cornerY, 0, 0, 126, this.ySize + 30);
-        
+
     }
 
     protected void keyTyped (char par1, int keyCode)

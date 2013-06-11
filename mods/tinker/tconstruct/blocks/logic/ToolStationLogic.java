@@ -21,7 +21,7 @@ public class ToolStationLogic extends InventoryLogic
 
 	public ToolStationLogic()
 	{
-		super(5);
+		super(4);
 		toolName = "";
 	}
 	

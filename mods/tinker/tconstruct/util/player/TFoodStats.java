@@ -49,9 +49,9 @@ public class TFoodStats extends FoodStats
         int difficulty = player.worldObj.difficultySetting;
         this.prevFoodLevel = this.foodLevel;
 
-        if (this.foodExhaustionLevel > 4.0F)
+        if (this.foodExhaustionLevel > 6.0F)
         {
-            this.foodExhaustionLevel -= 4.0F;
+            this.foodExhaustionLevel -= 6.0F;
 
             if (this.foodSaturationLevel > 0.0F)
             {

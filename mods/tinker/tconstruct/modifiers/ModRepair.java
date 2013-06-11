@@ -80,8 +80,7 @@ public class ModRepair extends ToolMod
         if (repairCount < 0.5f)
             repairCount = 0.5f;
         increase *= repairCount;
-
-        //System.out.println("Modified increase: "+increase);
+        increase /= tool.getRepairCost();
 		        
 		damage -= increase;
 		if (damage < 0)

@@ -1,5 +1,6 @@
 package mods.tinker.tconstruct.client.gui;
 
+import mods.tinker.tconstruct.library.client.ToolGuiElement;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 
@@ -16,14 +17,16 @@ public class GuiButtonTool extends GuiButton
      */
     int textureX;
     int textureY;
-    String texture;
+    public String texture;
+    public ToolGuiElement element;
 
-    public GuiButtonTool(int id, int posX, int posY, int texX, int texY, String tex)
+    public GuiButtonTool(int id, int posX, int posY, int texX, int texY, String tex, ToolGuiElement e)
     {
         super(id, posX, posY, 18, 18, "");
         textureX = texX;
         textureY = texY;
         texture = tex;
+        element = e;
     }
 
     /**

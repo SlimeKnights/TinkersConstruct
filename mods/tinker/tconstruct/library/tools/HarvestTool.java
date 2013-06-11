@@ -56,7 +56,9 @@ public abstract class HarvestTool extends ToolCore
 	@Override
 	public float getStrVsBlock (ItemStack stack, Block block, int meta)
 	{
-
+        if (!stack.hasTagCompound())
+	        return 1.0f;
+	    
 		NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
 		if (tags.getBoolean("Broken"))
 			return 0.1f;

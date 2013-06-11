@@ -61,9 +61,9 @@ public class AbilityHelper
 		return true;
 	}
 
-	public static void onLeftClickEntity (ItemStack stack, EntityPlayer player, Entity entity, ToolCore tool)
+	public static boolean onLeftClickEntity (ItemStack stack, EntityPlayer player, Entity entity, ToolCore tool)
 	{
-		if (entity.canAttackWithItem())
+		if (entity.canAttackWithItem() && stack.hasTagCompound())
 		{
 			if (!entity.func_85031_j(player)) // can't attack this entity
 			{
@@ -74,7 +74,9 @@ public class AbilityHelper
 
 				int durability = tags.getCompoundTag("InfiTool").getInteger("Damage");
 				float stonebound = tags.getCompoundTag("InfiTool").getFloat("Shoddy");
-				float stoneboundDamage = -stonebound * durability / 50f;
+				float stoneboundDamage = -stonebound * durability / 65f;
+				if (stonebound > 0)
+					stoneboundDamage = -stonebound * durability / 100f;
 				
 		    	int earlyModDamage = 0;
 		    	for (ActiveToolMod mod : TConstructRegistry.activeModifiers)
@@ -234,9 +236,12 @@ public class AbilityHelper
 					}
 
 					player.addExhaustion(0.3F);
+					if (causedDamage)
+					return true;
 				}
 			}
 		}
+		return false;
 	}
 
 	static void alertPlayerWolves (EntityPlayer player, EntityLiving living, boolean par2)
@@ -288,7 +293,7 @@ public class AbilityHelper
 
 	public static void damageTool (ItemStack stack, int dam, NBTTagCompound tags, EntityLiving entity, boolean ignoreCharge)
 	{
-		if (entity instanceof EntityPlayer && ((EntityPlayer) entity).capabilities.isCreativeMode)
+		if (entity instanceof EntityPlayer && ((EntityPlayer) entity).capabilities.isCreativeMode || tags == null)
 			return;
 
 		if (ignoreCharge || !damageElectricTool(stack, tags, entity))

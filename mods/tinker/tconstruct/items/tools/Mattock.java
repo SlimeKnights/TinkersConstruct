@@ -44,23 +44,6 @@ public class Mattock extends DualHarvestTool
 	
 	static Material[] axeMaterials = { Material.wood, Material.cactus, Material.pumpkin, Material.plants, Material.vine };
 	static Material[] shovelMaterials = { Material.grass, Material.ground, Material.clay };
-	
-	public float getDurabilityModifier ()
-	{
-		return 1.2f;
-	}
-	
-	/* Mattock specific */
-	
-	@Override
-	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float clickX, float clickY, float clickZ)
-    {
-		NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
-		if (tags.getBoolean("Broken"))
-			return false;
-		
-        return AbilityHelper.hoeGround(stack, player, world, x, y, z, side, random);
-    }
 
 	@Override
 	public Item getHeadItem ()
@@ -72,6 +55,11 @@ public class Mattock extends DualHarvestTool
 	public Item getAccessoryItem ()
 	{
 		return TContent.shovelHead;
+	}
+	
+	public int durabilityTypeAccessory ()
+	{
+		return 2;
 	}
 	
 	@Override
@@ -103,4 +91,16 @@ public class Mattock extends DualHarvestTool
 	{
 		return "mattock";
 	}
+	
+	/* Mattock specific */
+	
+	@Override
+	public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float clickX, float clickY, float clickZ)
+    {
+		NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
+		if (tags.getBoolean("Broken"))
+			return false;
+		
+        return AbilityHelper.hoeGround(stack, player, world, x, y, z, side, random);
+    }
 }

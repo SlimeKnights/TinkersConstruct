@@ -13,6 +13,7 @@ import net.minecraft.item.ItemStack;
 public class TConstructClientRegistry
 {
     public static ArrayList<ToolGuiElement> toolButtons = new ArrayList<ToolGuiElement>(20);
+    public static ArrayList<ToolGuiElement> tierTwoButtons = new ArrayList<ToolGuiElement>();
     public static Map<String, ItemStack> manualIcons = new HashMap<String, ItemStack>();
     public static Map<String, ItemStack[]> recipeIcons = new HashMap<String, ItemStack[]>();
     public static ItemStack defaultStack = new ItemStack(Item.ingotIron);
@@ -120,6 +121,16 @@ public class TConstructClientRegistry
     public static void addToolButton (int slotType, int xButton, int yButton, int[] xIcons, int[] yIcons, String title, String body, String texture)
     {
         toolButtons.add(new ToolGuiElement(slotType, xButton, yButton, xIcons, yIcons, title, body, texture));
+    }
+
+    public static void addTierTwoButton (ToolGuiElement element)
+    {
+        tierTwoButtons.add(element);
+    }
+
+    public static void addTierTwoButton (int slotType, int xButton, int yButton, int[] xIcons, int[] yIcons, String title, String body, String texture)
+    {
+        tierTwoButtons.add(new ToolGuiElement(slotType, xButton, yButton, xIcons, yIcons, title, body, texture));
     }
 
     public static ArrayList<ToolGuiElement> getToolButtons ()

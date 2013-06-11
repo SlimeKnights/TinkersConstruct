@@ -6,6 +6,7 @@
   <entry key="itemGroup.TConstructBlocks">TConstruct Blocks</entry>
   
   <entry key="crafters.ToolStation">Tool Station</entry>
+  <entry key="crafters.ToolForge">Tool Forge</entry>
   <entry key="crafters.PartBuilder">Part Builder</entry>
   <entry key="crafters.PatternShaper">Stencil Table</entry>
   <entry key="inventory.PatternChest">Pattern Chest</entry>
@@ -18,6 +19,7 @@
   <entry key="ToolStation.PatternShaper.name">Stencil Table</entry>
   <entry key="ToolStation.CastingTable.name">Casting Table</entry>
   
+  <entry key="tile.ToolForge.name">Tool Forge</entry>
   <entry key="CraftedSoil.Slime.name">Slimy Mud</entry>
   <entry key="CraftedSoil.Grout.name">Grout</entry>
   <entry key="CraftedSoil.BlueSlime.name">Slimy Mud</entry>

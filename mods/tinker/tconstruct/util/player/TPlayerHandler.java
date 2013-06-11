@@ -61,10 +61,13 @@ public class TPlayerHandler implements IPlayerTracker
 		{
 			stats.beginnerManual = true;
 			tags.getCompoundTag("TConstruct").setBoolean("beginnerManual", true);
+			if (PHConstruct.beginnerBook)
+			{
 			ItemStack diary = new ItemStack(TContent.manualBook);
 			if (!entityplayer.inventory.addItemStackToInventory(diary))
 			{
 				AbilityHelper.spawnItemAtPlayer(entityplayer, diary);
+			}
 			}
 		}
 

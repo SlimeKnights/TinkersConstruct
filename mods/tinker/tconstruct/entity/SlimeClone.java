@@ -39,7 +39,6 @@ public class SlimeClone extends GolemBase
         health = 100;
         baseAttack = 3;
         paused = false;
-        inventory = new ItemStack[2];
     }
 	
 	public void onUpdate ()

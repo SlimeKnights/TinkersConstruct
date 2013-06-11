@@ -2,13 +2,12 @@ package mods.tinker.tconstruct;
 
 import mods.tinker.tconstruct.common.TContent;
 import mods.tinker.tconstruct.common.TProxyCommon;
+import mods.tinker.tconstruct.dimension.TinkerWorldProvider;
 import mods.tinker.tconstruct.library.SkillRegistry;
 import mods.tinker.tconstruct.library.TConstructRegistry;
 import mods.tinker.tconstruct.library.crafting.Detailing;
 import mods.tinker.tconstruct.library.crafting.LiquidCasting;
 import mods.tinker.tconstruct.library.util.TabTools;
-import mods.tinker.tconstruct.skill.Jump;
-import mods.tinker.tconstruct.skill.WallBuilding;
 import mods.tinker.tconstruct.util.PHConstruct;
 import mods.tinker.tconstruct.util.TCraftingHandler;
 import mods.tinker.tconstruct.util.TEventHandler;
@@ -17,6 +16,7 @@ import mods.tinker.tconstruct.worldgen.TBaseWorldGenerator;
 import mods.tinker.tconstruct.worldgen.village.TVillageTrades;
 import mods.tinker.tconstruct.worldgen.village.VillageSmelteryHandler;
 import mods.tinker.tconstruct.worldgen.village.VillageToolStationHandler;
+import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
@@ -38,7 +38,7 @@ import cpw.mods.fml.common.registry.VillagerRegistry;
  * @dependencies: IC2 API, MFR API
  */
 
-@Mod(modid = "TConstruct", name = "TConstruct", version = "1.5.1_1.3.4.5", dependencies = "required-after:Forge@[7.7.1.675,)")
+@Mod(modid = "TConstruct", name = "TConstruct", version = "1.5.1_1.3.dev.52", dependencies = "required-after:Forge@[7.7.1.675,)")
 @NetworkMod(serverSideRequired = false, clientSideRequired = true, channels = { "TConstruct" }, packetHandler = mods.tinker.tconstruct.util.network.TPacketHandler.class)
 public class TConstruct
 {
@@ -90,6 +90,9 @@ public class TConstruct
             VillagerRegistry.instance().registerVillageCreationHandler(new VillageToolStationHandler());
             VillagerRegistry.instance().registerVillageCreationHandler(new VillageSmelteryHandler());
         }
+        
+        /*DimensionManager.registerProviderType(-7, TinkerWorldProvider.class, true);
+        DimensionManager.registerDimension(-7, -7);*/
     }
     
     @Init
@@ -125,10 +128,10 @@ public class TConstruct
     {
         return chiselDetailing;
     }
-    
+
+    public static TContent content;
     public static TEventHandler events;
     public static TPlayerHandler playerTracker;
-    public static TContent content;
     public static LiquidCasting tableCasting;
     public static LiquidCasting basinCasting;
     public static Detailing chiselDetailing;

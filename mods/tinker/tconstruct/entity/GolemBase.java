@@ -3,11 +3,8 @@ package mods.tinker.tconstruct.entity;
 import java.util.ArrayList;
 import java.util.Random;
 
-import mods.tinker.tconstruct.entity.ai.CoreAI;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 public class GolemBase extends EntityCreature
@@ -19,15 +16,14 @@ public class GolemBase extends EntityCreature
     float bodyHeight;
     float bodyWidth;
     int movementType;
+    public int swings;
+    public int targetBlock[];
 
-    protected ItemStack[] inventory;
-    protected FancyEntityItem coreItem;
-    public ArrayList<CoreAI> aiList = new ArrayList<CoreAI>();
+    public Entity escort;
 
     public GolemBase(World world)
     {
         super(world);
-        this.texture = "/terrain.png";
         //setInitialStats();
     }
 
@@ -47,45 +43,14 @@ public class GolemBase extends EntityCreature
         //maxHealth = 20;
         baseAttack = 3;
         paused = false;
-        inventory = new ItemStack[0];
     }
 
     /* AI */
-    public void addCoreAI (CoreAI ai, boolean flag)
-    {
-        aiList.add(ai);
-    }
 
     protected void updateWanderPath ()
     {
         if (!paused)
             super.updateWanderPath();
-    }
-
-    protected void coreIdle ()
-    {
-
-    }
-
-    protected void coreGuard ()
-    {
-
-    }
-
-    protected void coreFollow ()
-    {
-
-    }
-
-    protected void coreProtect ()
-    {
-
-    }
-
-    /* Types */
-    public void setTraits ()
-    {
-
     }
 
     /* Other */
@@ -216,6 +181,86 @@ public class GolemBase extends EntityCreature
                 worldObj.spawnParticle(s, (((float) posX - f9) + random.nextFloat() * f1) - 0.5F, (float) posY + f3 + f6 + random.nextFloat() * f1,
                         (((float) posZ - f10) + random.nextFloat() * f1) - 0.5F, d, d1, d2);
             }
+        }
+    }
+    
+    public ArrayList findNearbyBlock(int i, int j)
+    {
+        return findNearbyBlock(i, j, false);
+    }
+
+    public ArrayList findNearbyBlock(int i, int j, boolean flag)
+    {
+        ArrayList arraylist = new ArrayList();
+        int k = j;
+        int l = (int)posX;
+        int i1 = (int)posY;
+        int j1 = (int)posZ;
+        for (int k1 = 2; k1 >= -1; k1--)
+        {
+            for (int l1 = 0; l1 <= k; l1 = l1 <= 0 ? Math.abs(l1) + 1 : -l1)
+            {
+                for (int i2 = 0; i2 <= k; i2 = i2 <= 0 ? Math.abs(i2) + 1 : -i2)
+                {
+                    int j2 = worldObj.getBlockId(l + l1, i1 + k1, j1 + i2);
+                    if (j2 != 0 && j2 == i)
+                    {
+                        int ai[] = new int[3];
+                        ai[0] = l + l1;
+                        ai[1] = i1 + k1;
+                        ai[2] = j1 + i2;
+                        arraylist.add(ai);
+                    }
+                }
+            }
+        }
+
+        return arraylist.size() == 0 ? null : arraylist;
+    }
+    
+    public boolean checkNeighbor(int ai[], int i)
+    {
+        int j = ai[0] + 1;
+        int l = ai[1] + 0;
+        int j1 = ai[2] + 0;
+        if (worldObj.getBlockId(j, l, j1) == i)
+        {
+            return true;
+        }
+        j = ai[0] + 0;
+        l = ai[1] + 1;
+        j1 = ai[2] + 0;
+        if (worldObj.getBlockId(j, l, j1) == i)
+        {
+            return true;
+        }
+        j = ai[0] + 0;
+        l = ai[1] + 0;
+        j1 = ai[2] + 1;
+        if (worldObj.getBlockId(j, l, j1) == i)
+        {
+            return true;
+        }
+        j = ai[0] - 1;
+        l = ai[1] + 0;
+        j1 = ai[2] + 0;
+        if (worldObj.getBlockId(j, l, j1) == i)
+        {
+            return true;
+        }
+        j = ai[0] + 0;
+        l = ai[1] - 1;
+        j1 = ai[2] + 0;
+        if (worldObj.getBlockId(j, l, j1) == i)
+        {
+            return true;
+        }
+        else
+        {
+            int k = ai[0] + 0;
+            int i1 = ai[1] + 0;
+            int k1 = ai[2] - 1;
+            return worldObj.getBlockId(k, i1, k1) == i;
         }
     }
 }

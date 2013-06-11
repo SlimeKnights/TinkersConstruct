@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import mods.tinker.tconstruct.TConstruct;
+import mods.tinker.tconstruct.blocks.logic.ToolForgeLogic;
 import mods.tinker.tconstruct.blocks.logic.ToolStationLogic;
 import mods.tinker.tconstruct.library.SkillRegistry;
 import mods.tinker.tconstruct.library.blocks.InventoryLogic;
@@ -96,6 +97,10 @@ public class TPacketHandler implements IPacketHandler
 				{
 					((ToolStationLogic) te).setToolname(toolName);
 				}
+				if (te instanceof ToolForgeLogic)
+                {
+                    ((ToolForgeLogic) te).setToolname(toolName);
+                }
 			}
 			else if (packetID == 2) //Stencil Table
 			{

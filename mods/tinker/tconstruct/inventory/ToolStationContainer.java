@@ -1,5 +1,7 @@
 package mods.tinker.tconstruct.inventory;
 
+import java.util.Random;
+
 import mods.tinker.tconstruct.blocks.logic.ToolStationLogic;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -14,6 +16,7 @@ public class ToolStationContainer extends ActiveContainer
 	ToolStationLogic logic;
 	Slot[] slots;
 	SlotTool toolSlot;
+    Random random = new Random();
 	
 	public ToolStationContainer(InventoryPlayer inventoryplayer, ToolStationLogic builderlogic)
 	{
@@ -49,7 +52,7 @@ public class ToolStationContainer extends ActiveContainer
 		inventorySlots.clear();
 		inventoryItemStacks.clear();
 		this.addSlotToContainer(toolSlot);
-		for (int iter = 0; iter < posX.length; iter++)
+		for (int iter = 0; iter < 3; iter++)
 		{
 			slots[iter].xDisplayPosition = posX[iter]+1;
 			slots[iter].yDisplayPosition = posY[iter]+1;
@@ -126,6 +129,8 @@ public class ToolStationContainer extends ActiveContainer
 			tags.getCompoundTag("InfiTool").setBoolean("Built", true);
 			for (int i = 1; i <= 3; i++)
 				logic.decrStackSize(i, 1);
+
+			logic.worldObj.playSoundEffect(logic.xCoord, logic.yCoord, logic.zCoord, "sounds.little_saw", 1.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F);
 			/*if (!player.worldObj.isRemote)
 				player.worldObj.playAuxSFX(1021, (int)player.posX, (int)player.posY, (int)player.posZ, 0);*/
 		}

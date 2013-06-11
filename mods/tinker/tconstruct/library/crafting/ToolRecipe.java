@@ -1,5 +1,8 @@
 package mods.tinker.tconstruct.library.crafting;
 
+import java.util.LinkedList;
+
+import mods.tinker.tconstruct.common.TContent;
 import mods.tinker.tconstruct.library.TConstructRegistry;
 import mods.tinker.tconstruct.library.tools.ToolCore;
 import net.minecraft.item.Item;
@@ -10,44 +13,118 @@ import net.minecraft.item.Item;
 
 public class ToolRecipe
 {
-	Item head;
-	Item accessory;
-	ToolCore item;
-	
-	public ToolRecipe(Item h, Item acc, ToolCore i)
+	LinkedList<Item> headList = new LinkedList<Item>();
+	LinkedList<Item> handleList = new LinkedList<Item>();
+	LinkedList<Item> accessoryList = new LinkedList<Item>();
+	LinkedList<Item> extraList = new LinkedList<Item>();
+	ToolCore result;
+
+	public ToolRecipe(Item head, ToolCore tool)
 	{
-		head = h;
-		accessory = acc;
-		item = i;
+		this(head, TConstructRegistry.toolRod, null, null, tool);
+	}
+
+	public ToolRecipe(Item head, Item accessory, ToolCore tool)
+	{
+		this(head, TConstructRegistry.toolRod, accessory, null, tool);
+	}
+
+	public ToolRecipe(Item head, Item accessory, Item extra, ToolCore tool)
+	{
+		this(head, TConstructRegistry.toolRod, accessory, extra, tool);
+	}
+
+    public ToolRecipe(Item head, Item handle, Item accessory, Item extra, ToolCore tool)
+    {
+        this.headList.add(head);
+        this.handleList.add(handle);
+        if (accessory != null)
+            this.accessoryList.add(accessory);
+        if (extra != null)
+            this.extraList.add(extra);
+        result = tool;
+    }
+	
+	public void addHeadItem(Item head)
+	{
+		this.headList.add(head);
 	}
 	
-	public boolean validHead(Item he)
+	public void addHandleItem(Item head)
 	{
-		if (head == he)
-			return true;
-		else
+		this.handleList.add(head);
+	}
+	
+	public void addAccessoryItem(Item head)
+	{
+		this.accessoryList.add(head);
+	}
+	
+	public void addExtraItem(Item head)
+	{
+		this.extraList.add(head);
+	}
+
+	public boolean validHead (Item input)
+	{
+		for (Item part : headList)
+		{
+			if (part == input)
+				return true;
+		}
+		return false;
+	}
+
+	public boolean validHandle (Item input)
+	{
+		for (Item part : handleList)
+		{
+			if (part == input)
+				return true;
+			if (part == TContent.toolRod && (input == Item.stick || input == Item.bone))
+			    return true;
+		}
+		return false;
+	}
+
+	public boolean validAccessory (Item input)
+	{
+		if (input == null)
+		{
+			if (accessoryList.size() < 1)
+				return true;
 			return false;
+		}
+		for (Item part : accessoryList)
+		{
+			if (part == input)
+				return true;
+            if (part == TContent.toolRod && (input == Item.stick || input == Item.bone))
+                return true;
+		}
+		return false;
 	}
 	
-	public boolean validHandle(Item handle)
+	public boolean validExtra (Item input)
 	{
-		return (handle == TConstructRegistry.toolRod || handle == Item.stick || handle == Item.bone);
-	}
-	
-	public boolean validAccessory(Item acc)
-	{
-		if (accessory == null && acc == null)
-			return true;
-		else if (accessory == TConstructRegistry.toolRod)
-			return validHandle(acc);
-		else if (accessory == acc)
-			return true;
-		else
+		if (input == null)
+		{
+			if (extraList.size() < 1)
+				return true;
 			return false;
+		}
+		for (Item part : extraList)
+		{
+			if (part == input)
+				return true;
+            if (part == TContent.toolRod && (input == Item.stick || input == Item.bone))
+                return true;
+		}
+		return false;
 	}
-	
-	public ToolCore getType()
+
+	public ToolCore getType ()
 	{
-		return item;
+		return result;
 	}
 }

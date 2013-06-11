@@ -1,6 +1,6 @@
 package test;
 
-import mods.tinker.tconstruct.entity.Crystal;
+import mods.tinker.tconstruct.entity.Automaton;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -32,13 +32,10 @@ public class XinStick extends Item
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
 	{
-	    /*EntityCreeper creeper = new EntityCreeper(world);
-        EntityPig pig = new EntityPig(world);
-		spawnEntity(player.posX, player.posY+1, player.posZ, creeper, world, player);
-        spawnEntity(player.posX, player.posY+1, player.posZ, pig, world, player);
-        creeper.mountEntity(pig);*/
-		spawnEntity(player.posX, player.posY+1, player.posZ, new Crystal(world), world, player);
-	    //System.out.println("Health! "+player.getHealth());
+		//if (!world.isRemote)
+			//MinecraftServer.getServer().getConfigurationManager().transferPlayerToDimension((EntityPlayerMP) player, -7);
+		//player.travelToDimension(-7);
+		spawnEntity(player.posX, player.posY+1, player.posZ, new Automaton(world), world, player);
 	    //healPlayer(player);
 		//removeChunk(world, player.posX, player.posZ);
 		return stack;

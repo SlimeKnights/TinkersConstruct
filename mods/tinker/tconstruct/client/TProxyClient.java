@@ -10,15 +10,60 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import mods.tinker.tconstruct.TConstruct;
-import mods.tinker.tconstruct.blocks.logic.*;
-import mods.tinker.tconstruct.client.block.*;
-import mods.tinker.tconstruct.client.entity.*;
-import mods.tinker.tconstruct.client.entity.projectile.*;
-import mods.tinker.tconstruct.client.gui.*;
+import mods.tinker.tconstruct.blocks.logic.CastingBasinLogic;
+import mods.tinker.tconstruct.blocks.logic.CastingTableLogic;
+import mods.tinker.tconstruct.blocks.logic.FrypanLogic;
+import mods.tinker.tconstruct.blocks.logic.GolemCoreLogic;
+import mods.tinker.tconstruct.blocks.logic.PartCrafterLogic;
+import mods.tinker.tconstruct.blocks.logic.PatternChestLogic;
+import mods.tinker.tconstruct.blocks.logic.StencilTableLogic;
+import mods.tinker.tconstruct.blocks.logic.SmelteryLogic;
+import mods.tinker.tconstruct.blocks.logic.ToolForgeLogic;
+import mods.tinker.tconstruct.blocks.logic.ToolStationLogic;
+import mods.tinker.tconstruct.client.block.BarricadeRender;
+import mods.tinker.tconstruct.client.block.CastingBasinSpecialRender;
+import mods.tinker.tconstruct.client.block.CastingTableSpecialRenderer;
+import mods.tinker.tconstruct.client.block.FluidRender;
+import mods.tinker.tconstruct.client.block.FrypanRender;
+import mods.tinker.tconstruct.client.block.GolemCoreRender;
+import mods.tinker.tconstruct.client.block.GolemCoreSpecialRender;
+import mods.tinker.tconstruct.client.block.OreberryRender;
+import mods.tinker.tconstruct.client.block.SearedRender;
+import mods.tinker.tconstruct.client.block.SmallFontRenderer;
+import mods.tinker.tconstruct.client.block.SmelteryRender;
+import mods.tinker.tconstruct.client.block.TableRender;
+import mods.tinker.tconstruct.client.block.TankRender;
+import mods.tinker.tconstruct.client.entity.CartRender;
+import mods.tinker.tconstruct.client.entity.CloneHeadModel;
+import mods.tinker.tconstruct.client.entity.CrystalRender;
+import mods.tinker.tconstruct.client.entity.FancyItemRender;
+import mods.tinker.tconstruct.client.entity.GolemRender;
+import mods.tinker.tconstruct.client.entity.SkylaRender;
+import mods.tinker.tconstruct.client.entity.SlimeCloneRender;
+import mods.tinker.tconstruct.client.entity.SlimeRender;
+import mods.tinker.tconstruct.client.entity.projectile.DaggerRender;
+import mods.tinker.tconstruct.client.entity.projectile.LaunchedItemRender;
+import mods.tinker.tconstruct.client.gui.ArmorExtendedGui;
+import mods.tinker.tconstruct.client.gui.FrypanGui;
+import mods.tinker.tconstruct.client.gui.GuiManual;
+import mods.tinker.tconstruct.client.gui.PartCrafterGui;
+import mods.tinker.tconstruct.client.gui.PatternChestGui;
+import mods.tinker.tconstruct.client.gui.StencilTableGui;
+import mods.tinker.tconstruct.client.gui.SmelteryGui;
+import mods.tinker.tconstruct.client.gui.ToolForgeGui;
+import mods.tinker.tconstruct.client.gui.ToolStationGui;
 import mods.tinker.tconstruct.common.TContent;
 import mods.tinker.tconstruct.common.TProxyCommon;
-import mods.tinker.tconstruct.entity.*;
-import mods.tinker.tconstruct.entity.projectile.*;
+import mods.tinker.tconstruct.entity.Automaton;
+import mods.tinker.tconstruct.entity.BlueSlime;
+import mods.tinker.tconstruct.entity.CartEntity;
+import mods.tinker.tconstruct.entity.Crystal;
+import mods.tinker.tconstruct.entity.FancyEntityItem;
+import mods.tinker.tconstruct.entity.GolemBase;
+import mods.tinker.tconstruct.entity.Skyla;
+import mods.tinker.tconstruct.entity.SlimeClone;
+import mods.tinker.tconstruct.entity.projectile.DaggerEntity;
+import mods.tinker.tconstruct.entity.projectile.LaunchedPotion;
 import mods.tinker.tconstruct.items.tools.Dagger;
 import mods.tinker.tconstruct.library.TConstructRegistry;
 import mods.tinker.tconstruct.library.client.TConstructClientRegistry;
@@ -29,6 +74,7 @@ import mods.tinker.tconstruct.util.player.ArmorExtended;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelSlime;
 import net.minecraft.client.particle.EntityAuraFX;
 import net.minecraft.client.particle.EntityBreakingFX;
@@ -57,6 +103,7 @@ import net.minecraft.client.particle.EntitySplashFX;
 import net.minecraft.client.particle.EntitySuspendFX;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.entity.RenderBiped;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.client.settings.KeyBinding;
@@ -100,7 +147,9 @@ public class TProxyClient extends TProxyCommon
         if (ID == smelteryGuiID)
             return new SmelteryGui(player.inventory, (SmelteryLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
         if (ID == pshaperGuiID)
-            return new PatternShaperGui(player.inventory, (PatternShaperLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
+            return new StencilTableGui(player.inventory, (StencilTableLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
+        if (ID == toolForge)
+            return new ToolForgeGui(player.inventory, (ToolForgeLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
         if (ID == manualGuiID)
         {
             ItemStack stack = player.getCurrentEquippedItem();
@@ -212,6 +261,7 @@ public class TProxyClient extends TProxyCommon
         RenderingRegistry.registerEntityRenderingHandler(DaggerEntity.class, new DaggerRender());
         RenderingRegistry.registerEntityRenderingHandler(Skyla.class, new SkylaRender());
         RenderingRegistry.registerEntityRenderingHandler(Crystal.class, new CrystalRender());
+        RenderingRegistry.registerEntityRenderingHandler(Automaton.class, new RenderBiped(new ModelBiped(), 0));
         RenderingRegistry.registerEntityRenderingHandler(LaunchedPotion.class, new LaunchedItemRender(Item.potion, 16384));
         //RenderingRegistry.registerEntityRenderingHandler(net.minecraft.entity.player.EntityPlayer.class, new PlayerArmorRender()); // <-- Works, woo!
 
@@ -463,20 +513,20 @@ public class TProxyClient extends TProxyCommon
             new int[] { 2, 6, 1 } //Chisel
     };
 
-    static int[][] iconCoords = { new int[] { 0, 1, 2 }, new int[] { 13, 13, 13 }, //Repair
-            new int[] { 0, 0, 1 }, new int[] { 2, 3, 3 }, //Pickaxe
-            new int[] { 3, 0, 13 }, new int[] { 2, 3, 13 }, //Shovel
-            new int[] { 2, 0, 13 }, new int[] { 2, 3, 13 }, //Axe
-            //new int[] { 6, 0, 13 }, new int[] { 2, 3, 13 }, //Lumber Axe
-            //new int[] { 0, 0, 5 }, new int[] { 2, 3, 3 }, //Ice Axe
-            new int[] { 2, 0, 3 }, new int[] { 2, 3, 2 }, //Mattock
-            new int[] { 1, 0, 2 }, new int[] { 2, 3, 3 }, //Broadsword
-            new int[] { 1, 0, 3 }, new int[] { 2, 3, 3 }, //Longsword
-            new int[] { 1, 0, 4 }, new int[] { 2, 3, 3 }, //Rapier
-            new int[] { 7, 0, 4 }, new int[] { 2, 3, 3 }, //Dagger
-            new int[] { 4, 0, 13 }, new int[] { 2, 3, 13 }, //Frying Pan
-            new int[] { 5, 0, 13 }, new int[] { 2, 3, 13 }, //Battlesign
-            new int[] { 7, 0, 13 }, new int[] { 3, 3, 13 } //Chisel
+    static int[][] iconCoords = { new int[] { 0, 1, 2, 13 }, new int[] { 13, 13, 13, 13 }, //Repair
+            new int[] { 0, 0, 1, 13 }, new int[] { 2, 3, 3, 13 }, //Pickaxe
+            new int[] { 3, 0, 13, 13 }, new int[] { 2, 3, 13, 13 }, //Shovel
+            new int[] { 2, 0, 13, 13 }, new int[] { 2, 3, 13, 13 }, //Axe
+            //new int[] { 6, 0, 13, 13 }, new int[] { 2, 3, 13, 13 }, //Lumber Axe
+            //new int[] { 0, 0, 5, 13 }, new int[] { 2, 3, 3, 13 }, //Ice Axe
+            new int[] { 2, 0, 3, 13 }, new int[] { 2, 3, 2, 13 }, //Mattock
+            new int[] { 1, 0, 2, 13 }, new int[] { 2, 3, 3, 13 }, //Broadsword
+            new int[] { 1, 0, 3, 13 }, new int[] { 2, 3, 3, 13 }, //Longsword
+            new int[] { 1, 0, 4, 13 }, new int[] { 2, 3, 3, 13 }, //Rapier
+            new int[] { 7, 0, 4, 13 }, new int[] { 2, 3, 3, 13 }, //Dagger
+            new int[] { 4, 0, 13, 13 }, new int[] { 2, 3, 13, 13 }, //Frying Pan
+            new int[] { 5, 0, 13, 13 }, new int[] { 2, 3, 13, 13 }, //Battlesign
+            new int[] { 7, 0, 13, 13 }, new int[] { 3, 3, 13, 13 } //Chisel
     };
 
     static String[] toolNames = { "Repair and Modification", "Pickaxe", "Shovel", "Hatchet",
@@ -486,8 +536,8 @@ public class TProxyClient extends TProxyCommon
 
     static String[] toolDescriptions = {
             "The main way to repair or change your tools. Place a tool and a material on the left to get started.",
-            "The Pickaxe is a basic mining tool. It is effective on stone and ores.\n\nRequired parts:\n- Pickaxe Head\n- Tool Binding\n- Handle",
-            "The Shovel is a basic digging tool. It is effective on dirt, sand, and snow.\n\nRequired parts:\n- Shovel Head\n- Handle",
+            "The Pickaxe is a precise mining tool. It is effective on stone and ores.\n\nRequired parts:\n- Pickaxe Head\n- Tool Binding\n- Handle",
+            "The Shovel is a precise digging tool. It is effective on dirt, sand, and snow.\n\nRequired parts:\n- Shovel Head\n- Handle",
             "The Hatchet is a basic chopping tool. It is effective on wood and leaves.\n\nRequired parts:\n- Axe Head\n- Handle",
             //"The Lumber Axe is a broad chopping tool. It harvests wood in a wide range and can fell entire trees.\n\nRequired parts:\n- Broad Axe Head\n- Handle",
             //"The Ice Axe is a tool for harvesting ice, mining, and attacking foes.\n\nSpecial Ability:\n- Wall Climb\nNatural Ability:\n- Ice Harvest\nDamage: Moderate\n\nRequired parts:\n- Pickaxe Head\n- Spike\n- Handle",
@@ -507,11 +557,25 @@ public class TProxyClient extends TProxyCommon
         {
             addToolButton(itemIcons[i][0], itemIcons[i][1], itemIcons[i][2], iconCoords[i * 2], iconCoords[i * 2 + 1], toolNames[i], toolDescriptions[i]);
         }
+        
+        addTierTwoButton(4, 10, 0, new int[] { 8, 8, 9, 8 }, new int[] { 2, 3, 3, 3 }, "Scythe", 
+        	"The Scythe is a broad reaping tool. It is effective on plants and attacks enemies in a wide range.\n\nNatural Ability:\nArea of Effect\n- (3x3x3)\n\nDurability: Triple\nDamage: Low, AoE");
+        addTierTwoButton(5, 11, 0, new int[] { 6, 8, 9, 9 }, new int[] { 2, 3, 2, 3 }, "Lumber Axe", 
+            "The Lumber Axe is a broad chopping tool. It can fell entire trees or gather wood in a wide range.\n\nNatural Abiliyies:\n- Fell Trees\nArea of Effect\n- (3x3x3)\n\nDurability: Triple");
+        addTierTwoButton(4, 12, 0, new int[] { 10, 8, 9, 8 }, new int[] { 2, 3, 3, 3 }, "Excavator", 
+            "The Excavator is a broad digging tool. It harvests soil and snow in a wide range.\n\nNatural Ability:\n- Area of Effect\n- (3x3)\n\nDurability: Triple");
+        addTierTwoButton(5, 7, 1, new int[] { 6, 8, 9, 8 }, new int[] { 3, 3, 2, 3 }, "Breaker Blade", 
+            "The Breaker Blade is a heavy defensive weapon. It has powerful strikes, but is difficult to wield.\n\nSpecial Ability: Block\nNatural Ability:\n- Beheading\n\nDamage: Very High\nDurability: Triple");
     }
 
     void addToolButton (int slotType, int xButton, int yButton, int[] xIcons, int[] yIcons, String title, String body)
     {
-        TConstructClientRegistry.addToolButton(new ToolGuiElement(slotType, xButton, yButton, xIcons, yIcons, title, body));
+        TConstructClientRegistry.addToolButton(new ToolGuiElement(slotType, xButton, yButton, xIcons, yIcons, title, body, "/mods/tinker/textures/gui/icons.png"));
+    }
+    
+    void addTierTwoButton (int slotType, int xButton, int yButton, int[] xIcons, int[] yIcons, String title, String body)
+    {
+        TConstructClientRegistry.addTierTwoButton(new ToolGuiElement(slotType, xButton, yButton, xIcons, yIcons, title, body, "/mods/tinker/textures/gui/icons.png"));
     }
 
     void addRenderMappings ()

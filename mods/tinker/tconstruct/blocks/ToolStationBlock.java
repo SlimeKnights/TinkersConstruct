@@ -5,7 +5,7 @@ import java.util.List;
 import mods.tinker.tconstruct.TConstruct;
 import mods.tinker.tconstruct.blocks.logic.PartCrafterLogic;
 import mods.tinker.tconstruct.blocks.logic.PatternChestLogic;
-import mods.tinker.tconstruct.blocks.logic.PatternShaperLogic;
+import mods.tinker.tconstruct.blocks.logic.StencilTableLogic;
 import mods.tinker.tconstruct.blocks.logic.ToolStationLogic;
 import mods.tinker.tconstruct.client.block.TableRender;
 import mods.tinker.tconstruct.library.TConstructRegistry;
@@ -157,13 +157,13 @@ public class ToolStationBlock extends InventoryBlock
 		case 9:
 			return new PatternChestLogic();
 		case 10:
-			return new PatternShaperLogic();
+			return new StencilTableLogic();
 		case 11:
-			return new PatternShaperLogic();
+			return new StencilTableLogic();
 		case 12:
-			return new PatternShaperLogic();
+			return new StencilTableLogic();
 		case 13:
-			return new PatternShaperLogic();
+			return new StencilTableLogic();
 		/*case 14:
 			return new CastingTableLogic();*/
 		default:

@@ -5,12 +5,9 @@ import java.util.List;
 import mods.tinker.tconstruct.common.TContent;
 import mods.tinker.tconstruct.library.crafting.PatternBuilder.MaterialSet;
 import mods.tinker.tconstruct.library.util.IPattern;
-import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
-import net.minecraft.util.MathHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -36,7 +33,8 @@ public class Pattern extends CraftingItem
 	}
 
 	public static final String[] patternName = new String[] { 
-		"ingot", "rod", "pickaxe", "shovel", "axe", "swordblade", "largeguard", "mediumguard", "crossbar", "binding", "frypan", "sign", "knifeblade", "chisel" };
+		"ingot", "rod", "pickaxe", "shovel", "axe", "swordblade", "largeguard", "mediumguard", "crossbar", "binding", "frypan", "sign", "knifeblade", "chisel", "largerod", "toughbinding", "largeplate",
+		"broadaxe", "scythe", "excavator", "largeblade" };
 	
 	/*@SideOnly(Side.CLIENT)
     public void registerIcons(IconRegister iconRegister)
@@ -99,6 +97,13 @@ public class Pattern extends CraftingItem
 		case 11: return 2;
 		case 12: return 1;
 		case 13: return 1;
+		case 14: return 6;
+		case 15: return 6;
+		case 16: return 16;
+		case 17: return 16;
+		case 18: return 16;
+		case 19: return 16;
+		case 20: return 16;
 		default: return 0;
 		}
 	}

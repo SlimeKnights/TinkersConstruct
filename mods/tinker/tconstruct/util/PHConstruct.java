@@ -44,8 +44,7 @@ public class PHConstruct
         //removeToolRecipes = config.get("Diffuclty Changes", "Remove vanilla tool recipes", false).getBoolean(false);
         keepHunger = config.get("Difficulty Changes", "Keep hunger on death", true).getBoolean(true);
         keepLevels = config.get("Difficulty Changes", "Keep levels on death", true).getBoolean(true);
-        clearWater = config.get("Difficulty Changes", "Turn water clear", true).getBoolean(true);
-        voidFog = config.get("Difficulty Changes", "Remove Overworld void fog", true).getBoolean(true);
+        beginnerBook = config.get("Difficulty Changes", "Spawn beginner book", true).getBoolean(true);
         
         superfunWorld = config.get("Superfun", "All the world is Superfun", false).getBoolean(false);
 
@@ -61,7 +60,7 @@ public class PHConstruct
         enableTBone = config.get("Difficulty Changes", "Enable mod bone tools", true).getBoolean(true);
 
         blueSlime = config.get("Mob Spawning", "Activate Blue Slime Spawns", true).getBoolean(true);
-        blueSlimeWeight = config.get("Mob Spawning", "Spawn Weight for Blue Slime", 8).getInt(8);
+        blueSlimeWeight = config.get("Mob Spawning", "Spawn Weight for Blue Slime", 7).getInt(7);
 
         woodCrafter = config.getBlock("Wood Tool Station", 1471).getInt(1471);
         heldItemBlock = config.getBlock("Held Item Block", 1472).getInt(1472);
@@ -85,6 +84,7 @@ public class PHConstruct
 
         landmine = config.getBlock("Landmine", 1470).getInt(1470);
         barricade = config.getBlock("Barricade", 1469).getInt(1469);
+        toolForge = config.getBlock("Tool Forge", 1468).getInt(1468);
 
         /*golemCore = config.getBlock("Golem Core", 1481).getInt(1481);
         golemHead = config.getBlock("Golem Head", 1482).getInt(1482);*/
@@ -117,6 +117,12 @@ public class PHConstruct
         lumberHead = config.getItem("Tool Parts", "Lumber Axe Head", 14037).getInt(14037);
         knifeBlade = config.getItem("Tool Parts", "Knife Blade", 14038).getInt(14038);
         chiselHead = config.getItem("Tool Parts", "Chisel Head", 14039).getInt(14039);
+        scytheBlade = config.getItem("Tool Parts", "Scythe Head", 14040).getInt(14040);
+        toughBinding = config.getItem("Tool Parts", "Tough Binding", 14041).getInt(14041);
+        toughRod = config.getItem("Tool Parts", "Tough Rod", 14042).getInt(14042);
+        largeSwordBlade = config.getItem("Tool Parts", "Large Sword Blade", 14043).getInt(14043);
+        largePlate = config.getItem("Tool Parts", "Large Plate", 14044).getInt(14044);
+        excavatorHead = config.getItem("Tool Parts", "Excavator Head", 14045).getInt(14045);
 
         pickaxe = config.getItem("Tools", "Pickaxe", 14051).getInt(14051);
         shovel = config.getItem("Tools", "Shovel", 14052).getInt(14052);
@@ -135,8 +141,11 @@ public class PHConstruct
         longbow = config.getItem("Tools", "Longbow", 14062).getInt(14062);
         shortbow = config.getItem("Tools", "Shortbow", 14063).getInt(14063);
         potionLauncher = config.getItem("Tools", "Potion Launcher", 14064).getInt(14064);
-        
+
         chisel = config.getItem("Tools", "Chisel", 14066).getInt(14066);
+        scythe = config.getItem("Tools", "Scythe", 14067).getInt(14067);
+        cleaver = config.getItem("Tools", "Cleaver", 14068).getInt(14068);
+        excavator = config.getItem("Tools", "Excavator", 14069).getInt(14069);
 
         buckets = config.getItem("Patterns and Misc", "Buckets", 14101).getInt(14101);
         uselessItem = config.getItem("Patterns and Misc", "Title Icon", 14102).getInt(14102);
@@ -237,6 +246,7 @@ public class PHConstruct
 
     //Blocks
     public static int woodCrafter;
+    public static int toolForge;
     public static int heldItemBlock;
     public static int ores;
     public static int lavaTank;
@@ -306,9 +316,12 @@ public class PHConstruct
     public static int longbow;
     public static int shortbow;
     public static int potionLauncher;
-
     public static int mattock;
+    
     public static int lumberaxe;
+    public static int scythe;
+    public static int cleaver;
+    public static int excavator;
     
     public static int chisel;
 
@@ -327,10 +340,16 @@ public class PHConstruct
     public static int frypanHead;
     public static int signHead;
     public static int chiselHead;
-
+    
+    public static int scytheBlade;
     public static int lumberHead;
+    public static int largeSwordBlade;
+    public static int excavatorHead;
 
     public static int binding;
+    public static int toughBinding;
+    public static int toughRod;
+    public static int largePlate;
     
     //Wearables
     public static int heavyHelmet;
@@ -428,4 +447,5 @@ public class PHConstruct
     
     //Superfun
     public static boolean superfunWorld;
+    public static boolean beginnerBook;
 }

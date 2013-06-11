@@ -1,6 +1,6 @@
 package mods.tinker.tconstruct.inventory;
 
-import mods.tinker.tconstruct.blocks.logic.PatternShaperLogic;
+import mods.tinker.tconstruct.blocks.logic.StencilTableLogic;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -9,9 +9,9 @@ import net.minecraft.item.ItemStack;
 
 public class PatternShaperContainer extends Container
 {
-	public PatternShaperLogic logic;
+	public StencilTableLogic logic;
 
-    public PatternShaperContainer(InventoryPlayer inventoryplayer, PatternShaperLogic shaper)
+    public PatternShaperContainer(InventoryPlayer inventoryplayer, StencilTableLogic shaper)
     {
     	logic = shaper;
         this.addSlotToContainer(new Slot(shaper, 0, 48, 35));

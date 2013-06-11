@@ -24,6 +24,7 @@ public class TProxyCommon implements IGuiHandler
     public static int pchestGuiID = 2;
     public static int pshaperGuiID = 3;
     public static int frypanGuiID = 4;
+	public static int toolForge = 5;
 
     public static int smelteryGuiID = 7;
     public static int armorGuiID = 101;
@@ -142,7 +143,10 @@ public class TProxyCommon implements IGuiHandler
         LanguageRegistry.addName(TContent.potionLauncher, "Potion Launcher");
         LanguageRegistry.addName(TContent.dagger, "Dagger");
         LanguageRegistry.addName(TContent.chisel, "Chisel");
-        //LanguageRegistry.addName(TContent.lumberaxe, "Lumber Axe");
+        LanguageRegistry.addName(TContent.scythe, "Scythe");
+        LanguageRegistry.addName(TContent.lumberaxe, "Lumber Axe");
+        LanguageRegistry.addName(TContent.breakerBlade, "Breaker Blade");
+        LanguageRegistry.addName(TContent.excavator, "Excavator");
 
     }
 	
@@ -156,9 +160,6 @@ public class TProxyCommon implements IGuiHandler
 	}
 
 	public void spawnParticle (String slimeParticle, double xPos, double yPos, double zPos, double velX, double velY, double velZ) {}
-	
-
-
     public static final String[] shardNames = new String[] { "Wood", "Stone Shard", "Iron Chunk", "Flint Shard", "Cactus Shard", "Bone", "Obsidian Shard", "Netherrack Shard",
             "Slime Crystal Fragment", "Paper", "Cobalt Chunk", "Ardite Chunk", "Manyullyn Chunk", "Copper Chunk", "Bronze Chunk", "Alumite Chunk", "Steel Chunk", "Slime Crystal Fragment" };
 
@@ -174,13 +175,14 @@ public class TProxyCommon implements IGuiHandler
             "Copper", "Bronze", "Alumite", "Steel", "Blue Slime" };
 
     public static final String[] materialTypes = new String[] { "ToolRod", "PickaxeHead", "ShovelHead", "AxeHead", "SwordBlade", "LargeGuard", "MediumGuard", "Crossbar", "Binding", "FrypanHead",
-            "SignHead", "LumberHead", "KnifeBlade", "ChiselHead" };
+            "SignHead", "LumberHead", "KnifeBlade", "ChiselHead", "ScytheBlade", "LumberHead", "ThickRod", "ThickBinding", "LargeSwordBlade", "LargePlate", "ExcavatorHead" };
 
     public static final String[] materialNames = new String[] { " Rod", " Pickaxe Head", " Shovel Head", " Axe Head", " Sword Blade", " Wide Guard", " Hand Guard", " Crossbar", " Binding", " Pan",
-            " Board", " Broad Axe Head", " Knife Blade", " Chisel Head" };
+            " Board", " Broad Axe Head", " Knife Blade", " Chisel Head", " Scythe Blade", " Broad Axe Head", " Tough Tool Rod", " Tough Binding", " Large Sword Blade", " Large Plate", " Excavator Head" };
 
-    public static final String[] patterns = new String[] { "ingot", "rod", "pickaxe", "shovel", "axe", "swordblade", "largeguard", "mediumguard", "crossbar", "binding", "frypan", "sign", "knifeblade", "chisel" };
+    public static final String[] patterns = new String[] { "ingot", "rod", "pickaxe", "shovel", "axe", "swordblade", "largeguard", "mediumguard", "crossbar", "binding", "frypan", "sign", "knifeblade", "chisel",
+        "largerod", "toughbinding", "largeplate",  "broadaxe", "scythe", "excavator", "largeblade"};
 
     public static final String[] patternNames = new String[] { "Ingot", "Tool Rod", "Pickaxe Head", "Shovel Head", "Axe Head", "Sword Blade", "Wide Guard", "Hand Guard", "Crossbar", "Tool Binding",
-            "Pan", "Board", "Knife Blade", "Chisel Head" };
+            "Pan", "Board", "Knife Blade", "Chisel Head", "Tough Tool Rod", "Tough Binding", "Large Plate", "Broad Axe Head", "Scythe Head", "Broad Shovel Head", "Large Blade" };
 }

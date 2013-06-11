@@ -1,5 +1,8 @@
 package mods.tinker.tconstruct.items.blocks;
 
+import java.util.List;
+
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
@@ -27,5 +30,11 @@ public class MetalItemBlock extends ItemBlock
     {
         int pos = MathHelper.clamp_int(itemstack.getItemDamage(), 0, blockType.length-1);
         return (new StringBuilder()).append("StorageMetals.").append(blockType[pos]).toString();
+    }
+    
+    @Override
+    public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean par4)
+    {
+        list.add("Usable for Beacon bases");
     }
 }
