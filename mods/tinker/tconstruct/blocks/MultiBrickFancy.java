@@ -15,7 +15,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class MultiBrickFancy extends TConstructBlock
 {
     static String blockTextures[] = { "fancybrick_obsidian", "fancybrick_sandstone", "fancybrick_netherrack", "fancybrick_stone_refined", "fancybrick_iron", "fancybrick_gold", "fancybrick_lapis", "fancybrick_diamond", "fancybrick_redstone",
-            "fancybrick_bone", "fancybrick_slime", "fancybrick_blueslime", "fancybrick_endstone", "fancybrick_obsidian_ingot" };
+            "fancybrick_bone", "fancybrick_slime", "fancybrick_blueslime", "fancybrick_endstone", "fancybrick_obsidian_ingot", "road_stone", "road_refinedstone" };
 
     public MultiBrickFancy(int id)
     {
@@ -31,7 +31,6 @@ public class MultiBrickFancy extends TConstructBlock
         case 0: return Block.obsidian.getBlockHardness(world, x, y, z);
         case 1: return Block.sandStone.getBlockHardness(world, x, y, z);
         case 2: return Block.netherrack.getBlockHardness(world, x, y, z);
-        case 3: return Block.stone.getBlockHardness(world, x, y, z);
         case 4: return Block.blockIron.getBlockHardness(world, x, y, z);
         case 5: return Block.blockGold.getBlockHardness(world, x, y, z);
         case 6: return Block.blockLapis.getBlockHardness(world, x, y, z);
@@ -42,6 +41,10 @@ public class MultiBrickFancy extends TConstructBlock
         case 11: return 1.5F;
         case 12: return Block.whiteStone.getBlockHardness(world, x, y, z);
         case 13: return Block.obsidian.getBlockHardness(world, x, y, z);
+        case 3: 
+        case 14:
+        case 15:
+            return Block.stone.getBlockHardness(world, x, y, z);
         default: return blockHardness;
         }
     }
@@ -54,7 +57,6 @@ public class MultiBrickFancy extends TConstructBlock
         case 0: return Block.obsidian.getExplosionResistance(entity);
         case 1: return Block.sandStone.getExplosionResistance(entity);
         case 2: return Block.netherrack.getExplosionResistance(entity);
-        case 3: return Block.stone.getExplosionResistance(entity);
         case 4: return Block.blockIron.getExplosionResistance(entity);
         case 5: return Block.blockGold.getExplosionResistance(entity);
         case 6: return Block.blockLapis.getExplosionResistance(entity);
@@ -65,6 +67,10 @@ public class MultiBrickFancy extends TConstructBlock
         case 11: return 1.5F;
         case 12: return Block.whiteStone.getExplosionResistance(entity);
         case 13: return Block.obsidian.getExplosionResistance(entity);
+        case 3: 
+        case 14:
+        case 15:
+            return Block.stone.getExplosionResistance(entity);
         default: return getExplosionResistance(entity);
         }
     }

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import mods.tinker.tconstruct.event.ToolCraftEvent;
 import mods.tinker.tconstruct.library.TConstructRegistry;
 import mods.tinker.tconstruct.library.tools.ToolCore;
 import mods.tinker.tconstruct.library.tools.ToolMaterial;
@@ -13,6 +14,7 @@ import mods.tinker.tconstruct.library.util.IToolPart;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.common.MinecraftForge;
 
 public class ToolBuilder
 {
@@ -306,6 +308,9 @@ public class ToolBuilder
             compound.setCompoundTag("display", new NBTTagCompound());
             compound.getCompoundTag("display").setString("Name", "\u00A7f" + name);
         }
+        
+        ToolCraftEvent event = new ToolCraftEvent(item, compound, new ToolMaterial[] {headMat, handleMat, accessoryMat, extraMat});
+        MinecraftForge.EVENT_BUS.post(event);
 
         tool.setTagCompound(compound);
 

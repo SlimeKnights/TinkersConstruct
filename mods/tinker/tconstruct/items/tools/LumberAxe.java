@@ -42,7 +42,7 @@ public class LumberAxe extends HarvestTool
     }
 
     @Override
-    public float getRepairModifier ()
+    public float getRepairCost ()
     {
         return 4.0f;
     }
@@ -179,7 +179,7 @@ public class LumberAxe extends HarvestTool
                             int localID = world.getBlockId(xPos, yPos, zPos);
                             if (localID == bID && world.getBlockMetadata(xPos, yPos, zPos) % 4 == meta % 4)
                             {
-                                world.setBlockToAir(xPos, yPos, zPos);
+                                world.setBlock(xPos, yPos, zPos, 0, 0, 4);
                                 if (!player.capabilities.isCreativeMode)
                                 {
                                     Block.blocksList[bID].harvestBlock(world, player, xPos, yPos, zPos, meta);
@@ -248,7 +248,7 @@ public class LumberAxe extends HarvestTool
     @Override
     public Item getHeadItem ()
     {
-        return TContent.lumberHead;
+        return TContent.broadAxeHead;
     }
 
     @Override
@@ -260,7 +260,7 @@ public class LumberAxe extends HarvestTool
     @Override
     public Item getAccessoryItem ()
     {
-        return TContent.largePlate;
+        return TContent.heavyPlate;
     }
 
     @Override

@@ -3,108 +3,21 @@ package mods.tinker.tconstruct.common;
 import java.util.Collection;
 
 import mods.tinker.tconstruct.TConstruct;
-import mods.tinker.tconstruct.blocks.EquipBlock;
-import mods.tinker.tconstruct.blocks.GravelOre;
-import mods.tinker.tconstruct.blocks.LavaTankBlock;
-import mods.tinker.tconstruct.blocks.LiquidMetalFlowing;
-import mods.tinker.tconstruct.blocks.LiquidMetalStill;
-import mods.tinker.tconstruct.blocks.MetalOre;
-import mods.tinker.tconstruct.blocks.MultiBrick;
-import mods.tinker.tconstruct.blocks.OreberryBush;
-import mods.tinker.tconstruct.blocks.SearedBlock;
-import mods.tinker.tconstruct.blocks.SmelteryBlock;
-import mods.tinker.tconstruct.blocks.SpeedBlock;
-import mods.tinker.tconstruct.blocks.StoneTorch;
-import mods.tinker.tconstruct.blocks.TConstructBlock;
-import mods.tinker.tconstruct.blocks.TMetalBlock;
-import mods.tinker.tconstruct.blocks.ToolForgeBlock;
-import mods.tinker.tconstruct.blocks.ToolStationBlock;
-import mods.tinker.tconstruct.blocks.logic.CastingBasinLogic;
-import mods.tinker.tconstruct.blocks.logic.CastingTableLogic;
-import mods.tinker.tconstruct.blocks.logic.FaucetLogic;
-import mods.tinker.tconstruct.blocks.logic.FrypanLogic;
-import mods.tinker.tconstruct.blocks.logic.LavaTankLogic;
-import mods.tinker.tconstruct.blocks.logic.LiquidTextureLogic;
-import mods.tinker.tconstruct.blocks.logic.MultiServantLogic;
-import mods.tinker.tconstruct.blocks.logic.PartCrafterLogic;
-import mods.tinker.tconstruct.blocks.logic.PatternChestLogic;
-import mods.tinker.tconstruct.blocks.logic.StencilTableLogic;
-import mods.tinker.tconstruct.blocks.logic.SmelteryDrainLogic;
-import mods.tinker.tconstruct.blocks.logic.SmelteryLogic;
-import mods.tinker.tconstruct.blocks.logic.ToolForgeLogic;
-import mods.tinker.tconstruct.blocks.logic.ToolStationLogic;
-import mods.tinker.tconstruct.entity.Automaton;
-import mods.tinker.tconstruct.entity.BlueSlime;
-import mods.tinker.tconstruct.entity.FancyEntityItem;
-import mods.tinker.tconstruct.entity.projectile.DaggerEntity;
-import mods.tinker.tconstruct.items.CraftingItem;
-import mods.tinker.tconstruct.items.DiamondApple;
-import mods.tinker.tconstruct.items.FilledBucket;
-import mods.tinker.tconstruct.items.HeartCanister;
-import mods.tinker.tconstruct.items.Manual;
-import mods.tinker.tconstruct.items.MaterialItem;
-import mods.tinker.tconstruct.items.MetalPattern;
-import mods.tinker.tconstruct.items.OreBerries;
-import mods.tinker.tconstruct.items.Pattern;
-import mods.tinker.tconstruct.items.StrangeFood;
-import mods.tinker.tconstruct.items.TitleIcon;
-import mods.tinker.tconstruct.items.ToolPart;
-import mods.tinker.tconstruct.items.ToolShard;
-import mods.tinker.tconstruct.items.armor.Glove;
-import mods.tinker.tconstruct.items.armor.TArmorBase;
-import mods.tinker.tconstruct.items.blocks.CraftedSoilItemBlock;
-import mods.tinker.tconstruct.items.blocks.GravelOreItem;
-import mods.tinker.tconstruct.items.blocks.LavaTankItemBlock;
-import mods.tinker.tconstruct.items.blocks.LiquidItemBlock;
-import mods.tinker.tconstruct.items.blocks.MetalItemBlock;
-import mods.tinker.tconstruct.items.blocks.MetalOreItemBlock;
-import mods.tinker.tconstruct.items.blocks.MultiBrickItem;
-import mods.tinker.tconstruct.items.blocks.OreberryBushItem;
-import mods.tinker.tconstruct.items.blocks.OreberryBushSecondItem;
-import mods.tinker.tconstruct.items.blocks.SearedTableItemBlock;
-import mods.tinker.tconstruct.items.blocks.SmelteryItemBlock;
-import mods.tinker.tconstruct.items.blocks.SpeedBlockItem;
-import mods.tinker.tconstruct.items.blocks.ToolForgeItemBlock;
-import mods.tinker.tconstruct.items.blocks.ToolStationItemBlock;
-import mods.tinker.tconstruct.items.tools.BattleSign;
-import mods.tinker.tconstruct.items.tools.Broadsword;
-import mods.tinker.tconstruct.items.tools.Chisel;
-import mods.tinker.tconstruct.items.tools.BreakerBlade;
-import mods.tinker.tconstruct.items.tools.Dagger;
-import mods.tinker.tconstruct.items.tools.Excavator;
-import mods.tinker.tconstruct.items.tools.FryingPan;
-import mods.tinker.tconstruct.items.tools.Hatchet;
-import mods.tinker.tconstruct.items.tools.Longsword;
-import mods.tinker.tconstruct.items.tools.LumberAxe;
-import mods.tinker.tconstruct.items.tools.Mattock;
-import mods.tinker.tconstruct.items.tools.Pickaxe;
-import mods.tinker.tconstruct.items.tools.PotionLauncher;
-import mods.tinker.tconstruct.items.tools.Rapier;
-import mods.tinker.tconstruct.items.tools.Scythe;
-import mods.tinker.tconstruct.items.tools.Shovel;
+import mods.tinker.tconstruct.blocks.*;
+import mods.tinker.tconstruct.blocks.logic.*;
+import mods.tinker.tconstruct.entity.*;
+import mods.tinker.tconstruct.entity.projectile.*;
+import mods.tinker.tconstruct.items.*;
+import mods.tinker.tconstruct.items.armor.*;
+import mods.tinker.tconstruct.items.blocks.*;
+import mods.tinker.tconstruct.items.tools.*;
 import mods.tinker.tconstruct.library.TConstructRegistry;
 import mods.tinker.tconstruct.library.client.TConstructClientRegistry;
-import mods.tinker.tconstruct.library.crafting.Detailing;
-import mods.tinker.tconstruct.library.crafting.LiquidCasting;
-import mods.tinker.tconstruct.library.crafting.PatternBuilder;
-import mods.tinker.tconstruct.library.crafting.Smeltery;
-import mods.tinker.tconstruct.library.crafting.ToolBuilder;
+import mods.tinker.tconstruct.library.crafting.*;
 import mods.tinker.tconstruct.library.tools.ToolCore;
 import mods.tinker.tconstruct.library.util.IPattern;
-import mods.tinker.tconstruct.modifiers.ModAttack;
-import mods.tinker.tconstruct.modifiers.ModAutoSmelt;
-import mods.tinker.tconstruct.modifiers.ModBlaze;
-import mods.tinker.tconstruct.modifiers.ModButtertouch;
-import mods.tinker.tconstruct.modifiers.ModDurability;
-import mods.tinker.tconstruct.modifiers.ModElectric;
-import mods.tinker.tconstruct.modifiers.ModExtraModifier;
-import mods.tinker.tconstruct.modifiers.ModInteger;
-import mods.tinker.tconstruct.modifiers.ModLapis;
-import mods.tinker.tconstruct.modifiers.ModRedstone;
-import mods.tinker.tconstruct.modifiers.ModRepair;
-import mods.tinker.tconstruct.modifiers.TActiveOmniMod;
-import mods.tinker.tconstruct.util.PHConstruct;
-import mods.tinker.tconstruct.util.RecipeRemover;
+import mods.tinker.tconstruct.modifiers.*;
+import mods.tinker.tconstruct.util.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
@@ -168,8 +81,10 @@ public class TContent implements IFuelHandler
 
 	public static ToolCore scythe;
 	public static ToolCore lumberaxe;
-    public static ToolCore breakerBlade;
+    public static ToolCore cleaver;
     public static ToolCore excavator;
+    public static ToolCore hammer;
+    public static ToolCore battleaxe;
 
 	public static Item potionLauncher;
 
@@ -177,7 +92,7 @@ public class TContent implements IFuelHandler
     public static Item binding;
     public static Item toughBinding;
     public static Item toughRod;
-    public static Item largePlate;
+    public static Item heavyPlate;
     
 	public static Item pickaxeHead;
 	public static Item shovelHead;
@@ -186,8 +101,9 @@ public class TContent implements IFuelHandler
     public static Item signHead;
     public static Item chiselHead;
     public static Item scytheBlade;
-    public static Item lumberHead;
+    public static Item broadAxeHead;
     public static Item excavatorHead;
+    public static Item hammerHead;
 
 	public static Item swordBlade;
     public static Item largeSwordBlade;
@@ -487,11 +403,14 @@ public class TContent implements IFuelHandler
 		frypan = new FryingPan(PHConstruct.frypan);
 		battlesign = new BattleSign(PHConstruct.battlesign);
 		mattock = new Mattock(PHConstruct.mattock);
-		scythe = new Scythe(PHConstruct.scythe);
-		lumberaxe = new LumberAxe(PHConstruct.lumberaxe);
 		chisel = new Chisel(PHConstruct.chisel);
-        breakerBlade = new BreakerBlade(PHConstruct.cleaver);
+		
+        lumberaxe = new LumberAxe(PHConstruct.lumberaxe);
+        cleaver = new Cleaver(PHConstruct.cleaver);
+        scythe = new Scythe(PHConstruct.scythe);
         excavator = new Excavator(PHConstruct.excavator);
+        hammer = new Hammer(PHConstruct.hammer);
+        battleaxe = new Battleaxe(PHConstruct.battleaxe);
         
 		potionLauncher = new PotionLauncher(PHConstruct.potionLauncher).setUnlocalizedName("tconstruct.PotionLauncher");
 
@@ -501,7 +420,7 @@ public class TContent implements IFuelHandler
 		binding = new ToolPart(PHConstruct.binding, "Binding", "_binding").setUnlocalizedName("tconstruct.Binding");
 		toughBinding = new ToolPart(PHConstruct.toughBinding, "ThickBinding", "_toughbind").setUnlocalizedName("tconstruct.ThickBinding");
 		toughRod = new ToolPart(PHConstruct.toughRod, "ThickRod", "_toughrod").setUnlocalizedName("tconstruct.ThickRod");
-		largePlate = new ToolPart(PHConstruct.largePlate, "LargePlate", "_largeplate").setUnlocalizedName("tconstruct.LargePlate");
+		heavyPlate = new ToolPart(PHConstruct.largePlate, "LargePlate", "_largeplate").setUnlocalizedName("tconstruct.LargePlate");
 
 		swordBlade = new ToolPart(PHConstruct.swordBlade, "SwordBlade", "_sword_blade").setUnlocalizedName("tconstruct.SwordBlade");
 		wideGuard = new ToolPart(PHConstruct.largeGuard, "LargeGuard", "_large_guard").setUnlocalizedName("tconstruct.LargeGuard");
@@ -514,9 +433,10 @@ public class TContent implements IFuelHandler
 		chiselHead = new ToolPart(PHConstruct.chiselHead, "ChiselHead", "_chisel_head").setUnlocalizedName("tconstruct.ChiselHead");
 		
 		scytheBlade = new ToolPart(PHConstruct.scytheBlade, "ScytheBlade", "_scythe_head").setUnlocalizedName("tconstruct.ScytheBlade");
-        lumberHead = new ToolPart(PHConstruct.lumberHead, "LumberHead", "_lumberaxe_head").setUnlocalizedName("tconstruct.LumberHead");
+        broadAxeHead = new ToolPart(PHConstruct.lumberHead, "LumberHead", "_lumberaxe_head").setUnlocalizedName("tconstruct.LumberHead");
         excavatorHead = new ToolPart(PHConstruct.excavatorHead, "ExcavatorHead", "_excavator_head").setUnlocalizedName("tconstruct.ExcavatorHead");
         largeSwordBlade = new ToolPart(PHConstruct.largeSwordBlade, "LargeSwordBlade", "_large_sword_blade").setUnlocalizedName("tconstruct.LargeSwordBlade");
+        hammerHead = new ToolPart(PHConstruct.hammerHead, "HammerHead", "_hammer_head").setUnlocalizedName("tconstruct.HammerHead");
 
 		diamondApple = new DiamondApple(PHConstruct.diamondApple).setUnlocalizedName("tconstruct.apple.diamond");
 		strangeFood = new StrangeFood(PHConstruct.slimefood).setUnlocalizedName("tconstruct.strangefood");
@@ -635,7 +555,7 @@ public class TContent implements IFuelHandler
 	{
 		/* Tools */
 		patternOutputs = new Item[] { toolRod, pickaxeHead, shovelHead, axeHead, swordBlade, wideGuard, handGuard, crossbar, binding, frypanHead, signHead, knifeBlade, chiselHead,
-		        toughRod, toughBinding, largePlate, lumberHead, scytheBlade, excavatorHead, largeSwordBlade};
+		        toughRod, toughBinding, heavyPlate, broadAxeHead, scytheBlade, excavatorHead, largeSwordBlade, hammerHead};
 
 		ToolBuilder tb = ToolBuilder.instance;
 		tb.addToolRecipe(pickaxe, pickaxeHead, binding);
@@ -650,12 +570,11 @@ public class TContent implements IFuelHandler
 		tb.addToolRecipe(dagger, knifeBlade, crossbar);
 		tb.addToolRecipe(chisel, chiselHead);
 		tb.addCustomToolRecipe(scythe, scytheBlade, toughRod, toughBinding, toughRod);
-        tb.addCustomToolRecipe(lumberaxe, lumberHead, toughRod, largePlate, toughBinding);
-        tb.addCustomToolRecipe(breakerBlade, largeSwordBlade, toughRod, largePlate, toughRod);
+        tb.addCustomToolRecipe(lumberaxe, broadAxeHead, toughRod, heavyPlate, toughBinding);
+        tb.addCustomToolRecipe(cleaver, largeSwordBlade, toughRod, heavyPlate, toughRod);
         tb.addCustomToolRecipe(excavator, excavatorHead, toughRod, toughBinding, toughRod);
-		
-		//tb.addToolRecipe(longbow, toolRod, toolRod);
-		//tb.addToolRecipe(lumberaxe, lumberHead);
+        tb.addCustomToolRecipe(hammer, hammerHead, toughRod, heavyPlate, heavyPlate);
+        tb.addCustomToolRecipe(battleaxe, broadAxeHead, toughRod, broadAxeHead, toughBinding);
 
 		ItemStack diamond = new ItemStack(Item.diamond);
 		tb.registerToolMod(new ModRepair());

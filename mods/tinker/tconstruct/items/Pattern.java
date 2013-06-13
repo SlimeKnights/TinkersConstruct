@@ -34,7 +34,7 @@ public class Pattern extends CraftingItem
 
 	public static final String[] patternName = new String[] { 
 		"ingot", "rod", "pickaxe", "shovel", "axe", "swordblade", "largeguard", "mediumguard", "crossbar", "binding", "frypan", "sign", "knifeblade", "chisel", "largerod", "toughbinding", "largeplate",
-		"broadaxe", "scythe", "excavator", "largeblade" };
+		"broadaxe", "scythe", "excavator", "largeblade", "hammerhead" };
 	
 	/*@SideOnly(Side.CLIENT)
     public void registerIcons(IconRegister iconRegister)
@@ -104,6 +104,7 @@ public class Pattern extends CraftingItem
 		case 18: return 16;
 		case 19: return 16;
 		case 20: return 16;
+        case 21: return 16;
 		default: return 0;
 		}
 	}

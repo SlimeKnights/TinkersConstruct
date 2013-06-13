@@ -435,7 +435,7 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
 
 		if (size == 8)
 		{
-			ToolCore tool = TConstructRegistry.tools.get(rand.nextInt(TConstructRegistry.tools.size()));
+		    ToolCore tool = getValidTool();
 
 			Item accessory = tool.getAccessoryItem();
 			ItemStack accessoryStack = accessory != null ? new ItemStack(tool.getAccessoryItem(), 1, 17) : null;
@@ -455,6 +455,14 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
 				this.entityDropItem(dropStack, 0f);
 			}
 		}
+	}
+	
+	ToolCore getValidTool()
+	{
+        ToolCore tool = TConstructRegistry.tools.get(rand.nextInt(TConstructRegistry.tools.size()));
+        if (tool.getAccessoryItem() != null)
+            tool = getValidTool();
+        return tool;
 	}
 
 	/**

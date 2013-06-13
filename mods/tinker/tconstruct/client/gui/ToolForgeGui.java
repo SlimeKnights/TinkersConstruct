@@ -150,6 +150,10 @@ public class ToolForgeGui extends NewContainerGui
             slotX = new int[] { 38, 47, 56, 47 }; // Four parts, double head
             slotY = new int[] { 19, 55, 19, 37 };
             break;
+        case 6:
+            slotX = new int[] { 38, 38, 20, 56 }; // Double head
+            slotY = new int[] { 28, 46, 28, 28 };
+            break;
         }
         toolSlots.resetSlots(slotX, slotY);
     }

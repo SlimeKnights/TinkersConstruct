@@ -81,7 +81,7 @@ public class AbilityHelper
 		    	int earlyModDamage = 0;
 		    	for (ActiveToolMod mod : TConstructRegistry.activeModifiers)
 		    	{
-		    		earlyModDamage = mod.baseAttackDamage(earlyModDamage, damage, tool, stack, player, entity);
+		    		earlyModDamage = mod.baseAttackDamage(earlyModDamage, damage, tool, tags, toolTags, stack, player, entity);
 		    	}
 		    	damage += earlyModDamage;
 
@@ -129,7 +129,7 @@ public class AbilityHelper
 		    	int modDamage = 0;
 		    	for (ActiveToolMod mod : TConstructRegistry.activeModifiers)
 		    	{
-		    		modDamage = mod.attackDamage(modDamage, damage, tool, stack, player, entity);
+		    		modDamage = mod.attackDamage(modDamage, damage, tool, tags, toolTags, stack, player, entity);
 		    	}
 		    	damage += modDamage;
 

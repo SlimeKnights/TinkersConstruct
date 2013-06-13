@@ -6,7 +6,7 @@ import mods.tinker.tconstruct.common.TContent;
 import mods.tinker.tconstruct.library.ActiveToolMod;
 import mods.tinker.tconstruct.library.TConstructRegistry;
 import mods.tinker.tconstruct.library.tools.AbilityHelper;
-import mods.tinker.tconstruct.library.tools.HarvestTool;
+import mods.tinker.tconstruct.library.tools.Weapon;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
@@ -19,7 +19,7 @@ import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class Scythe extends HarvestTool
+public class Scythe extends Weapon
 {
 	public Scythe(int itemID)
 	{
@@ -27,11 +27,11 @@ public class Scythe extends HarvestTool
 		this.setUnlocalizedName("InfiTool.Scythe");
 	}
 	
-	@Override
+	/*@Override
 	protected String getHarvestType()
 	{
 		return "sword";
-	}
+	}*/
 
 	@Override
 	protected Material[] getEffectiveMaterials()
@@ -104,7 +104,7 @@ public class Scythe extends HarvestTool
 	}
 
     @Override
-    public float getRepairModifier ()
+    public float getRepairCost ()
     {
         return 4.0f;
     }

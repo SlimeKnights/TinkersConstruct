@@ -6,12 +6,14 @@ import java.util.Random;
 import mods.tinker.tconstruct.TConstruct;
 import mods.tinker.tconstruct.blocks.logic.LiquidTextureLogic;
 import mods.tinker.tconstruct.common.TContent;
+import mods.tinker.tconstruct.event.ToolCraftEvent;
 import mods.tinker.tconstruct.library.crafting.PatternBuilder;
 import mods.tinker.tconstruct.library.crafting.Smeltery;
 import mods.tinker.tconstruct.library.crafting.ToolBuilder;
 import mods.tinker.tconstruct.modifiers.ModAttack;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.monster.EntityGhast;
@@ -39,6 +41,21 @@ import net.minecraftforge.oredict.OreDictionary.OreRegisterEvent;
 public class TEventHandler
 {
     Random random = new Random();
+
+    /* Crafting */
+    @ForgeSubscribe
+    public void craftTool (ToolCraftEvent event)
+    {
+        if (event.tool == TContent.hammer)
+        {
+            event.toolTag.setInteger("Smite", 2);
+        }
+
+        if (event.tool == TContent.cleaver)
+        {
+            event.toolTag.setInteger("Beheading", 2);
+        }
+    }
 
     /* Interact */
 
@@ -80,6 +97,14 @@ public class TEventHandler
             event.drops.add(entityitem);
         }
 
+        if (event.entityLiving instanceof EntityWither && random.nextInt(5) == 0)
+        {
+            ItemStack dropStack = new ItemStack(TContent.heartCanister, 1, 1);
+            EntityItem entityitem = new EntityItem(event.entityLiving.worldObj, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, dropStack);
+            entityitem.delayBeforeCanPickup = 10;
+            event.drops.add(entityitem);
+        }
+
         if (event.entityLiving.worldObj.getGameRules().getGameRuleBooleanValue("doMobLoot"))
         {
             if (!event.entityLiving.isChild())
@@ -109,18 +134,22 @@ public class TEventHandler
             {
                 if (event.entityLiving.getClass() == EntitySkeleton.class)
                 {
-                    EntitySkeleton skeleton = (EntitySkeleton) event.entityLiving;
+                    EntitySkeleton enemy = (EntitySkeleton) event.entityLiving;
 
                     if (event.source.damageType.equals("player"))
                     {
                         EntityPlayer player = (EntityPlayer) event.source.getEntity();
                         ItemStack stack = player.getCurrentEquippedItem();
-                        if (stack.getItem() == TContent.breakerBlade && random.nextInt(100) < 10) //Swap out for real beheading
+                        if (stack.hasTagCompound())
                         {
-                            addDrops(event, new ItemStack(Item.skull.itemID, 1, skeleton.getSkeletonType()));
+                            int beheading = stack.getTagCompound().getCompoundTag("InfiTool").getInteger("Beheading");
+                            if (beheading > 0 && random.nextInt(100) < beheading * 10)
+                            {
+                                addDrops(event, new ItemStack(Item.skull.itemID, 1, enemy.getSkeletonType()));
+                            }
                         }
                     }
-                    if (skeleton.getSkeletonType() == 1 && random.nextInt(Math.max(1, 5 - event.lootingLevel)) == 0)
+                    if (enemy.getSkeletonType() == 1 && random.nextInt(Math.max(1, 5 - event.lootingLevel)) == 0)
                     {
                         addDrops(event, new ItemStack(TContent.materials, 1, 8));
                     }
@@ -134,10 +163,19 @@ public class TEventHandler
                     {
                         EntityPlayer player = (EntityPlayer) event.source.getEntity();
                         ItemStack stack = player.getCurrentEquippedItem();
-                        if (stack.getItem() == TContent.breakerBlade && random.nextInt(100) < 10) //Swap out for real beheading
+
+                        if (stack.hasTagCompound())
+                        {
+                            int beheading = stack.getTagCompound().getCompoundTag("InfiTool").getInteger("Beheading");
+                            if (beheading > 0 && random.nextInt(100) < beheading * 10)
+                            {
+                                addDrops(event, new ItemStack(Item.skull.itemID, 1, 2));
+                            }
+                        }
+                        /*if (stack.getItem() == TContent.breakerBlade && random.nextInt(100) < 10) //Swap out for real beheading
                         {
                             addDrops(event, new ItemStack(Item.skull.itemID, 1, 2));
-                        }
+                        }*/
                     }
                 }
 
@@ -149,13 +187,17 @@ public class TEventHandler
                     {
                         EntityPlayer player = (EntityPlayer) event.source.getEntity();
                         ItemStack stack = player.getCurrentEquippedItem();
-                        if (stack.getItem() == TContent.breakerBlade && random.nextInt(100) < 10) //Swap out for real beheading
+                        if (stack.hasTagCompound())
                         {
-                            addDrops(event, new ItemStack(Item.skull.itemID, 1, 4));
+                            int beheading = stack.getTagCompound().getCompoundTag("InfiTool").getInteger("Beheading");
+                            if (beheading > 0 && random.nextInt(100) < beheading * 5)
+                            {
+                                addDrops(event, new ItemStack(Item.skull.itemID, 1, 4));
+                            }
                         }
                     }
                 }
-                
+
                 if (event.entityLiving instanceof EntityPlayer)
                 {
                     EntityPlayer enemy = (EntityPlayer) event.entityLiving;
@@ -164,13 +206,16 @@ public class TEventHandler
                     {
                         EntityPlayer player = (EntityPlayer) event.source.getEntity();
                         ItemStack stack = player.getCurrentEquippedItem();
-                        if (stack.getItem() == TContent.breakerBlade && random.nextInt(100) < 10) //Swap out for real beheading
+                        if (stack.hasTagCompound())
                         {
-                            ItemStack dropStack = new ItemStack(Item.skull.itemID, 1, 3);
-                            NBTTagCompound nametag = new NBTTagCompound();
-                            nametag.setString("SkullOwner", enemy.username);
-                            //par1ItemStack.getTagCompound().getString("SkullOwner");
-                            addDrops(event, dropStack);
+                            int beheading = stack.getTagCompound().getCompoundTag("InfiTool").getInteger("Beheading");
+                            if (beheading > 0 && random.nextInt(100) < beheading * 50)
+                            {
+                                ItemStack dropStack = new ItemStack(Item.skull.itemID, 1, 3);
+                                NBTTagCompound nametag = new NBTTagCompound();
+                                nametag.setString("SkullOwner", enemy.username);
+                                addDrops(event, dropStack);
+                            }
                         }
                     }
                 }

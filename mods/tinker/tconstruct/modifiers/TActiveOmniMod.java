@@ -148,10 +148,21 @@ public class TActiveOmniMod extends ActiveToolMod
 	/* Attacking */
 
 	@Override
-	public int baseAttackDamage (int earlyModDamage, int damage, ToolCore tool, ItemStack stack, EntityPlayer player, Entity entity)
+	public int baseAttackDamage (int earlyModDamage, int damage, ToolCore tool, NBTTagCompound tags, NBTTagCompound toolTags, ItemStack stack, EntityPlayer player, Entity entity)
 	{
 		if (tool instanceof Weapon)
 			TContent.modL.midStreamModify(stack);
 		return 0;
 	}
+
+    @Override
+    public int attackDamage(int modDamage, int currentDamage, ToolCore tool, NBTTagCompound tags, NBTTagCompound toolTags, ItemStack stack, EntityPlayer player, Entity entity)
+    {
+        if (toolTags.hasKey("Smite"))
+        {
+            int level = toolTags.getInteger("Smite");
+            int bonus = random.nextInt(level*2+1) + level*2;
+        }
+        return 0;
+    }
 }

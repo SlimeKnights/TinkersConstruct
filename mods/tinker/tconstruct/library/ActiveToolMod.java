@@ -5,6 +5,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 
 public class ActiveToolMod
@@ -28,7 +29,7 @@ public class ActiveToolMod
     
     /* Attacking */
     
-    public int baseAttackDamage(int earlyModDamage, int damage, ToolCore tool, ItemStack stack, EntityPlayer player, Entity entity)
+    public int baseAttackDamage(int earlyModDamage, int damage, ToolCore tool, NBTTagCompound tags, NBTTagCompound toolTags, ItemStack stack, EntityPlayer player, Entity entity)
     {
     	return 0;
     }
@@ -39,7 +40,7 @@ public class ActiveToolMod
     	return 0f;
     }
     
-    public int attackDamage(int modDamage, int currentDamage, ToolCore tool, ItemStack stack, EntityPlayer player, Entity entity)
+    public int attackDamage(int modDamage, int currentDamage, ToolCore tool, NBTTagCompound tags, NBTTagCompound toolTags, ItemStack stack, EntityPlayer player, Entity entity)
     {
     	return 0;
     }

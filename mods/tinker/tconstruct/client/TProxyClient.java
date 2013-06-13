@@ -557,15 +557,19 @@ public class TProxyClient extends TProxyCommon
         {
             addToolButton(itemIcons[i][0], itemIcons[i][1], itemIcons[i][2], iconCoords[i * 2], iconCoords[i * 2 + 1], toolNames[i], toolDescriptions[i]);
         }
-        
-        addTierTwoButton(4, 10, 0, new int[] { 8, 8, 9, 8 }, new int[] { 2, 3, 3, 3 }, "Scythe", 
-        	"The Scythe is a broad reaping tool. It is effective on plants and attacks enemies in a wide range.\n\nNatural Ability:\nArea of Effect\n- (3x3x3)\n\nDurability: Triple\nDamage: Low, AoE");
+
+        addTierTwoButton(6, 13, 0, new int[] { 11, 8, 9, 9 }, new int[] { 2, 3, 2, 2 }, "Hammer", 
+            "The Hammer is a broad mining tool. It harvests blocks in a wide range and is effective against undead.\n\nNatural Abilities:\nArea of Effect\n- (3x3x3)\n- Smite\n\nDurability: High");
         addTierTwoButton(5, 11, 0, new int[] { 6, 8, 9, 9 }, new int[] { 2, 3, 2, 3 }, "Lumber Axe", 
-            "The Lumber Axe is a broad chopping tool. It can fell entire trees or gather wood in a wide range.\n\nNatural Abiliyies:\n- Fell Trees\nArea of Effect\n- (3x3x3)\n\nDurability: Triple");
+            "The Lumber Axe is a broad chopping tool. It can fell entire trees or gather wood in a wide range.\n\nNatural Abilities:\n- Fell Trees\nArea of Effect\n- (3x3x3)\n\nDurability: Average");
         addTierTwoButton(4, 12, 0, new int[] { 10, 8, 9, 8 }, new int[] { 2, 3, 3, 3 }, "Excavator", 
-            "The Excavator is a broad digging tool. It harvests soil and snow in a wide range.\n\nNatural Ability:\n- Area of Effect\n- (3x3)\n\nDurability: Triple");
-        addTierTwoButton(5, 7, 1, new int[] { 6, 8, 9, 8 }, new int[] { 3, 3, 2, 3 }, "Breaker Blade", 
-            "The Breaker Blade is a heavy defensive weapon. It has powerful strikes, but is difficult to wield.\n\nSpecial Ability: Block\nNatural Ability:\n- Beheading\n\nDamage: Very High\nDurability: Triple");
+            "The Excavator is a broad digging tool. It harvests soil and snow in a wide range.\n\nNatural Ability:\n- Area of Effect\n- (3x3)\n\nDurability: Average");
+        addTierTwoButton(4, 10, 0, new int[] { 8, 8, 9, 8 }, new int[] { 2, 3, 3, 3 }, "Scythe", 
+            "The Scythe is a broad reaping tool. It is effective on plants and attacks enemies in a wide range.\n\nNatural Ability:\nArea of Effect\n- (3x3x3)\n\nDurability: Average\nDamage: Low, AoE");
+        addTierTwoButton(5, 7, 1, new int[] { 6, 8, 9, 8 }, new int[] { 3, 3, 2, 3 }, "Cleaver", 
+            "The Cleaver is a heavy defensive weapon. It has powerful strikes, but is difficult to wield.\n\nSpecial Ability: Block\nNatural Ability:\n- Beheading\n\nDamage: Very High\nDurability: Average");
+        addTierTwoButton(5, 8, 1, new int[] { 6, 8, 6, 9 }, new int[] { 2, 3, 2, 3 }, "Battleaxe", 
+            "The Battleaxe is a heavy offensive weapon. It is capable of bringing down small trees and can send foes flying.\n\nSpecial Ability: Block\nNatural Abilities:\n- Knockback\n- Area of Effect\n- (1x9)\n\nDamage: Average\nDurability: Average");
     }
 
     void addToolButton (int slotType, int xButton, int yButton, int[] xIcons, int[] yIcons, String title, String body)
@@ -583,11 +587,15 @@ public class TProxyClient extends TProxyCommon
         String[] partTypes = { "wood", "stone", "iron", "flint", "cactus", "bone", "obsidian", "netherrack", "slime", "paper", "cobalt", "ardite", "manyullyn", "copper", "bronze", "alumite", "steel",
                 "blueslime" };
         String[] effectTypes = { "diamond", "emerald", "redstone", "glowstone", "moss", "ice", "lava", "blaze", "necrotic", "electric", "lapis", "quartz", "silk" };
-        int[] validHarvestEffects = { 0, 1, 2, 4, 6, 7, 8, 9, 10, 11, 12 };
+        /*int[] validHarvestEffects = { 0, 1, 2, 4, 6, 7, 8, 9, 10, 11, 12 };
         int[] validWeaponEffects = { 0, 1, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
         int[] validUtilityEffects = { 0, 1, 4, 9 };
 
-        int[] validDaggerEffects = { 0, 1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
+        int[] validDaggerEffects = { 0, 1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 12 };*/
+        int[] universalEffects = { 0, 1, 4, 9 };
+        int[] weaponEffects = { 5, 7, 8, 12 };
+        int[] harvestEffects = { 2 };
+        int[] nonUtility = { 6, 10, 11 };
 
         for (int partIter = 0; partIter < partTypes.length; partIter++)
         {
@@ -596,46 +604,36 @@ public class TProxyClient extends TProxyCommon
 
         for (ToolCore tool : TConstructRegistry.getToolMapping())
         {
-            if (tool instanceof Dagger)
-            {
-                for (int i = 0; i < validDaggerEffects.length; i++)
-                {
-                    TConstructClientRegistry.addEffectRenderMapping(validDaggerEffects[i], "tinker", effectTypes[validDaggerEffects[i]], true);
-                }
-                return;
-            }
             List list = Arrays.asList(tool.toolCategories());
+            for (int i = 0; i < universalEffects.length; i++)
+            {
+                TConstructClientRegistry.addEffectRenderMapping(universalEffects[i], "tinker", effectTypes[universalEffects[i]], true);
+            }
+            
             if (list.contains("harvest"))
-            {
-                for (int i = 0; i < validHarvestEffects.length; i++)
+            {                
+                for (int i = 0; i < harvestEffects.length; i++)
                 {
-                    TConstructClientRegistry.addEffectRenderMapping(validHarvestEffects[i], "tinker", effectTypes[validHarvestEffects[i]], true);
+                    TConstructClientRegistry.addEffectRenderMapping(harvestEffects[i], "tinker", effectTypes[harvestEffects[i]], true);
                 }
             }
-            else if (list.contains("melee"))
+            
+            if (list.contains("weapon"))
             {
-                for (int i = 0; i < validWeaponEffects.length; i++)
+                for (int i = 0; i < weaponEffects.length; i++)
                 {
-                    TConstructClientRegistry.addEffectRenderMapping(validWeaponEffects[i], "tinker", effectTypes[validWeaponEffects[i]], true);
+                    TConstructClientRegistry.addEffectRenderMapping(weaponEffects[i], "tinker", effectTypes[weaponEffects[i]], true);
                 }
             }
-            else if (list.contains("utility"))
+            
+            if (list.contains("weapon") || list.contains("harvest"))
             {
-                for (int i = 0; i < validUtilityEffects.length; i++)
+                for (int i = 0; i < nonUtility.length; i++)
                 {
-                    TConstructClientRegistry.addEffectRenderMapping(validUtilityEffects[i], "tinker", effectTypes[validUtilityEffects[i]], true);
+                    TConstructClientRegistry.addEffectRenderMapping(nonUtility[i], "tinker", effectTypes[nonUtility[i]], true);
                 }
             }
-            //return list.contains("throwing");
         }
-        /*for (int effectIter = 0; effectIter < 3; effectIter++)
-        {
-            TConstructClientRegistry.addEffectRenderMapping(effectIter, "tinker", effectTypes[effectIter], true);
-        }
-        for (int effectIter = 4; effectIter < effectTypes.length; effectIter++)
-        {
-            TConstructClientRegistry.addEffectRenderMapping(effectIter, "tinker", effectTypes[effectIter], true);
-        }*/
     }
 
     /* Keybindings */

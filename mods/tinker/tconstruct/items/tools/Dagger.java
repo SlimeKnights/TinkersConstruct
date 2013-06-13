@@ -21,8 +21,16 @@ public class Dagger extends Weapon
 
     public ItemStack onItemRightClick (ItemStack itemstack, World world, EntityPlayer player)
     {
-        player.setItemInUse(itemstack, this.getMaxItemUseDuration(itemstack));
+        ItemStack stack = itemstack.copy();
+        if (!world.isRemote)
+        {
+            DaggerEntity dagger = new DaggerEntity(stack, world, player);
+            world.spawnEntityInWorld(dagger);
+        }
+        itemstack.stackSize--;
         return itemstack;
+        /*player.setItemInUse(itemstack, this.getMaxItemUseDuration(itemstack));
+        return itemstack;*/
     }
 
     public ItemStack onEaten (ItemStack itemstack, World world, EntityPlayer player)

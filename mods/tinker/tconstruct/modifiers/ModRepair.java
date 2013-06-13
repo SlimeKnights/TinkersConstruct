@@ -2,6 +2,7 @@ package mods.tinker.tconstruct.modifiers;
 
 import mods.tinker.tconstruct.library.crafting.PatternBuilder;
 import mods.tinker.tconstruct.library.tools.AbilityHelper;
+import mods.tinker.tconstruct.library.tools.ToolCore;
 import mods.tinker.tconstruct.library.tools.ToolMod;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -80,7 +81,7 @@ public class ModRepair extends ToolMod
         if (repairCount < 0.5f)
             repairCount = 0.5f;
         increase *= repairCount;
-        increase /= tool.getRepairCost();
+        increase /= ((ToolCore) tool.getItem()).getRepairCost();
 		        
 		damage -= increase;
 		if (damage < 0)
