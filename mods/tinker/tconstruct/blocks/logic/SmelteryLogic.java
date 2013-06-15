@@ -576,7 +576,8 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         {
             for (int zPos = z - 1; zPos <= z + 1; zPos++)
             {
-                if (worldObj.getBlockId(xPos, y, zPos) != 0)
+                Block block = Block.blocksList[worldObj.getBlockId(xPos, y, zPos)];
+                if (!block.isAirBlock(worldObj, xPos, y, zPos))
                     return false;
             }
         }
