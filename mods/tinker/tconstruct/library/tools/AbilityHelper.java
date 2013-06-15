@@ -122,7 +122,7 @@ public class AbilityHelper
 				float modKnockback = 0f;
 		    	for (ActiveToolMod mod : TConstructRegistry.activeModifiers)
 		    	{
-		    		modKnockback = mod.knockback(modKnockback, knockback, tool, stack, player, entity);
+		    		modKnockback = mod.knockback(modKnockback, knockback, tool, tags, toolTags, stack, player, entity);
 		    	}		    	
 		    	knockback += modKnockback;
 		    	

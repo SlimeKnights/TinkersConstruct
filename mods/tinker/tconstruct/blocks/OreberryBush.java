@@ -340,7 +340,8 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
 		return world.getBlockMetadata(x, y, z) - 4;
 	}
 
-	public void onEntityCollidedWithBlock (World world, int i, int j, int k, Entity entity)
+	@Override
+	public void onEntityCollidedWithBlock (World world, int x, int y, int z, Entity entity)
 	{
 		if (!(entity instanceof EntityItem))
 			entity.attackEntityFrom(DamageSource.cactus, 1);

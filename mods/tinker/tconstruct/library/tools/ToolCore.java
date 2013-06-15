@@ -368,7 +368,8 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
                         list.add(getStyleForType(extra) + extraName);
                 }
 
-                String reinforced = getReinforcedName(head, handle, binding, extra);
+                int unbreaking = tags.getCompoundTag("InfiTool").getInteger("Unbreaking");
+                String reinforced = getReinforcedName(head, handle, binding, extra, unbreaking);
                 if (!reinforced.equals(""))
                     list.add(reinforced);
 
@@ -401,7 +402,7 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
         return TConstructRegistry.getMaterial(type).ability();
     }
 
-    public String getReinforcedName (int head, int handle, int accessory, int extra)
+    public String getReinforcedName (int head, int handle, int accessory, int extra, int unbreaking)
     {
         ToolMaterial headMat = TConstructRegistry.getMaterial(head);
         ToolMaterial handleMat = TConstructRegistry.getMaterial(handle);
@@ -440,6 +441,8 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
                 reinforced = current;
             }
         }
+        
+        reinforced += unbreaking - reinforced;
 
         if (reinforced > 0)
         {
@@ -450,6 +453,8 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
 
     String getReinforcedString (int reinforced)
     {
+        if (reinforced > 9)
+            return "Unbreakable";
         String ret = "Reinforced ";
         switch (reinforced)
         {

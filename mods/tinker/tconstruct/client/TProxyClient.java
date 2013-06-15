@@ -381,6 +381,7 @@ public class TProxyClient extends TProxyCommon
                 ToolBuilder.instance.buildTool(new ItemStack(TContent.knifeBlade, 1, 10), new ItemStack(TContent.toolRod, 1, 11), new ItemStack(TContent.crossbar, 1, 12), ""));
         TConstructClientRegistry.registerManualIcon("frypanicon", ToolBuilder.instance.buildTool(new ItemStack(TContent.frypanHead, 1, 10), new ItemStack(TContent.toolRod, 1, 11), null, ""));
         TConstructClientRegistry.registerManualIcon("battlesignicon", ToolBuilder.instance.buildTool(new ItemStack(TContent.signHead, 1, 10), new ItemStack(TContent.toolRod, 1, 11), null, ""));
+        TConstructClientRegistry.registerManualIcon("chiselicon", ToolBuilder.instance.buildTool(new ItemStack(TContent.chiselHead, 1, 10), new ItemStack(TContent.toolRod, 1, 11), null, ""));
     }
 
     public void initManualRecipes ()
@@ -586,14 +587,9 @@ public class TProxyClient extends TProxyCommon
     {
         String[] partTypes = { "wood", "stone", "iron", "flint", "cactus", "bone", "obsidian", "netherrack", "slime", "paper", "cobalt", "ardite", "manyullyn", "copper", "bronze", "alumite", "steel",
                 "blueslime" };
-        String[] effectTypes = { "diamond", "emerald", "redstone", "glowstone", "moss", "ice", "lava", "blaze", "necrotic", "electric", "lapis", "quartz", "silk" };
-        /*int[] validHarvestEffects = { 0, 1, 2, 4, 6, 7, 8, 9, 10, 11, 12 };
-        int[] validWeaponEffects = { 0, 1, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
-        int[] validUtilityEffects = { 0, 1, 4, 9 };
-
-        int[] validDaggerEffects = { 0, 1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 12 };*/
-        int[] universalEffects = { 0, 1, 4, 9 };
-        int[] weaponEffects = { 5, 7, 8, 12 };
+        String[] effectTypes = { "diamond", "emerald", "redstone", "piston", "moss", "ice", "lava", "blaze", "necrotic", "electric", "lapis", "quartz", "silk", "beheading", "smite", "spider", "reinforced" };
+        int[] universalEffects = { 0, 1, 4, 9, 16 };
+        int[] weaponEffects = { 3, 5, 7, 8, 12, 13, 14, 15 };
         int[] harvestEffects = { 2 };
         int[] nonUtility = { 6, 10, 11 };
 

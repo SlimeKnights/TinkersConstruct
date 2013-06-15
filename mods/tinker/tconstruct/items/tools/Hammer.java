@@ -12,10 +12,13 @@ import mods.tinker.tconstruct.library.tools.AbilityHelper;
 import mods.tinker.tconstruct.library.tools.HarvestTool;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.Icon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
@@ -27,7 +30,6 @@ public class Hammer extends HarvestTool
     {
         super(itemID, 2);
         this.setUnlocalizedName("InfiTool.Hammer");
-        setupCoords();
     }
 
     @SideOnly(Side.CLIENT)
@@ -95,10 +97,10 @@ public class Hammer extends HarvestTool
     {
         return TContent.heavyPlate;
     }
-    
+
     public float getDurabilityModifier ()
     {
-        return 5.5f;
+        return 4.5f;
     }
 
     @Override
@@ -211,77 +213,89 @@ public class Hammer extends HarvestTool
 
     ArrayList<int[]> coords = new ArrayList<int[]>();
 
-    void setupCoords ()
-    {
-        coords.add(new int[] { 0, 0, 0 });
-        coords.add(new int[] { 1, 0, 0 });
-        coords.add(new int[] { -1, 0, 0 });
-        coords.add(new int[] { 0, 1, 0 });
-        coords.add(new int[] { 0, -1, 0 });
-        coords.add(new int[] { 0, 0, 1 });
-        coords.add(new int[] { 0, 0, -1 });
-        
-        coords.add(new int[] { -1, 0, 0 });
-        coords.add(new int[] { -1, 0, 1 });
-        coords.add(new int[] { -1, 0, -1 });
-        coords.add(new int[] { -1, 1, 0 });
-        coords.add(new int[] { -1, -1, 0 });
-        
-        coords.add(new int[] { 1, 0, 0 });
-        coords.add(new int[] { 1, 0, 1 });
-        coords.add(new int[] { 1, 0, -1 });
-        coords.add(new int[] { 1, 1, 0 });
-        coords.add(new int[] { 1, -1, 0 });
-        
-        coords.add(new int[] { 0, 1, 1 });
-        coords.add(new int[] { 0, 1, 0 });
-        coords.add(new int[] { 0, 1, -1 });
-        
-        coords.add(new int[] { 0, -1, 1 });
-        coords.add(new int[] { 0, -1, 0 });
-        coords.add(new int[] { 0, -1, -1 });
-    }
-
     @Override
     public boolean onBlockStartBreak (ItemStack stack, int x, int y, int z, EntityPlayer player)
     {
         World world = player.worldObj;
-        int blockID = 0;
-        int meta = 0;
+        int blockID = world.getBlockId(x, y, z);
+        int meta = world.getBlockMetadata(x, y, z);
+        Block block = Block.blocksList[blockID];
         if (!stack.hasTagCompound())
             return false;
-        NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
 
-        if (!(tags.getBoolean("Broken")))
+        boolean validStart = false;
+        for (int iter = 0; iter < materials.length; iter++)
         {
-            for (int[] coord : coords)
+            if (materials[iter] == block.blockMaterial)
             {
-                int xPos = x + coord[0], yPos = y + coord[1], zPos = z + coord[2];
-                boolean cancelHarvest = false;
-                for (ActiveToolMod mod : TConstructRegistry.activeModifiers)
-                {
-                    if (mod.beforeBlockBreak(this, stack, xPos, yPos, zPos, player))
-                        cancelHarvest = true;
-                }
+                validStart = true;
+                break;
+            }
+        }
 
-                if (!cancelHarvest)
+        MovingObjectPosition mop = AbilityHelper.raytraceFromEntity(world, player, true, 6);
+        if (mop == null || !validStart)
+            return super.onBlockStartBreak(stack, x, y, z, player);
+
+        int xRange = 1;
+        int yRange = 1;
+        int zRange = 1;
+        switch (mop.sideHit)
+        {
+        case 0:
+        case 1:
+            yRange = 0;
+            break;
+        case 2:
+        case 3:
+            zRange = 0;
+            break;
+        case 4:
+        case 5:
+            xRange = 0;
+            break;
+        }
+        NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
+        for (int xPos = x - xRange; xPos <= x + xRange; xPos++)
+        {
+            for (int yPos = y - yRange; yPos <= y + yRange; yPos++)
+            {
+                for (int zPos = z - zRange; zPos <= z + zRange; zPos++)
                 {
-                    int localblockID = world.getBlockId(xPos, yPos, zPos);
-                    Block block = Block.blocksList[localblockID];
-                    if (block != null)
+                    if (!(tags.getBoolean("Broken")))
                     {
-                        for (int iter = 0; iter < materials.length; iter++)
+                        int localblockID = world.getBlockId(xPos, yPos, zPos);
+                        block = Block.blocksList[localblockID];
+                        meta = world.getBlockMetadata(xPos, yPos, zPos);
+                        int hlvl = MinecraftForge.getBlockHarvestLevel(block, meta, getHarvestType());
+
+                        if (hlvl <= tags.getInteger("HarvestLevel"))
                         {
-                            if (materials[iter] == block.blockMaterial)
+                            boolean cancelHarvest = false;
+                            for (ActiveToolMod mod : TConstructRegistry.activeModifiers)
                             {
-                                meta = world.getBlockMetadata(xPos, yPos, zPos);
-                                world.setBlockToAir(xPos, yPos, zPos);
-                                if (!player.capabilities.isCreativeMode)
+                                if (mod.beforeBlockBreak(this, stack, xPos, yPos, zPos, player))
+                                    cancelHarvest = true;
+                            }
+
+                            if (!cancelHarvest)
+                            {
+                                if (block != null && !(block.blockHardness < 0))
                                 {
-                                    block.harvestBlock(world, player, xPos, yPos, zPos, meta);
-                                    onBlockDestroyed(stack, world, localblockID, xPos, yPos, zPos, player);
+                                    for (int iter = 0; iter < materials.length; iter++)
+                                    {
+                                        if (materials[iter] == block.blockMaterial)
+                                        {
+                                            world.setBlockToAir(xPos, yPos, zPos);
+                                            if (!player.capabilities.isCreativeMode)
+                                            {
+                                                block.harvestBlock(world, player, xPos, yPos, zPos, meta);
+                                                onBlockDestroyed(stack, world, localblockID, xPos, yPos, zPos, player);
+                                            }
+                                            blockID = localblockID;
+                                        }
+                                    }
                                 }
-                                blockID = localblockID;
                             }
                         }
                     }
@@ -290,42 +304,26 @@ public class Hammer extends HarvestTool
         }
         if (!world.isRemote)
             world.playAuxSFX(2001, x, y, z, blockID + (meta << 12));
-        return super.onBlockStartBreak(stack, x, y, z, player);
+        return true;
     }
     
     @Override
-    public float getStrVsBlock (ItemStack stack, Block block, int meta)
+    public void onUpdate (ItemStack stack, World world, Entity entity, int par4, boolean par5)
     {
-        if (!stack.hasTagCompound())
-            return 1.0f;
-
-        NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
-        if (tags.getBoolean("Broken"))
-            return 0.1f;
-
-        Material[] materials = getEffectiveMaterials();
-        for (int i = 0; i < materials.length; i++)
+        super.onUpdate(stack, world, entity, par4, par5);
+        if (entity instanceof EntityPlayer)
         {
-            if (materials[i] == block.blockMaterial)
+            EntityPlayer player = (EntityPlayer) entity;
+            ItemStack equipped = player.getCurrentEquippedItem();
+            if (equipped == stack)
             {
-                float speed = tags.getInteger("MiningSpeed");
-                speed /= 200f;
-                int hlvl = MinecraftForge.getBlockHarvestLevel(block, meta, getHarvestType());
-                int durability = tags.getInteger("Damage");
-
-                float shoddy = tags.getFloat("Shoddy");
-                speed += shoddy * durability / 100f;
-
-                if (hlvl <= tags.getInteger("HarvestLevel"))
-                    return speed;
-                return 0.1f;
+                player.addPotionEffect(new PotionEffect(Potion.digSlowdown.id, 1, 1));
             }
         }
-        return super.getStrVsBlock(stack, block, meta);
     }
-    
+
     @Override
-    public String[] toolCategories()
+    public String[] toolCategories ()
     {
         return new String[] { "weapon", "harvest", "melee", "bludgeoning" };
     }

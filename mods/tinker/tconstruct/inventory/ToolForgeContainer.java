@@ -12,14 +12,14 @@ public class ToolForgeContainer extends ActiveContainer
     InventoryPlayer invPlayer;
     ToolForgeLogic logic;
     Slot[] slots;
-    SlotTool toolSlot;
+    SlotToolForge toolSlot;
 
     public ToolForgeContainer(InventoryPlayer inventoryplayer, ToolForgeLogic logic)
     {
         invPlayer = inventoryplayer;
         this.logic = logic;
 
-        toolSlot = new SlotTool(inventoryplayer.player, logic, 0, 115, 38);
+        toolSlot = new SlotToolForge(inventoryplayer.player, logic, 0, 115, 38);
         this.addSlotToContainer(toolSlot);
         slots = new Slot[] { new Slot(logic, 1, 57, 29), new Slot(logic, 2, 39, 29), new Slot(logic, 3, 57, 47), new Slot(logic, 4, 39, 47) };
 
@@ -123,8 +123,8 @@ public class ToolForgeContainer extends ActiveContainer
             tags.getCompoundTag("InfiTool").setBoolean("Built", true);
             for (int i = 1; i <= 4; i++)
                 logic.decrStackSize(i, 1);
-            /*if (!player.worldObj.isRemote)
-            	player.worldObj.playAuxSFX(1021, (int)player.posX, (int)player.posY, (int)player.posZ, 0);*/
+            if (!logic.worldObj.isRemote)
+                logic.worldObj.playAuxSFX(1021, (int)logic.xCoord, (int)logic.yCoord, (int)logic.zCoord, 0);
         }
     }
 

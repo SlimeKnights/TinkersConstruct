@@ -35,7 +35,7 @@ public class ActiveToolMod
     }
     
     //Calculated after sprinting and enchant bonuses
-    public float knockback(float modKnockback, float currentKnockback, ToolCore tool, ItemStack stack, EntityPlayer player, Entity entity)
+    public float knockback(float modKnockback, float currentKnockback, ToolCore tool, NBTTagCompound tags, NBTTagCompound toolTags, ItemStack stack, EntityPlayer player, Entity entity)
     {
     	return 0f;
     }

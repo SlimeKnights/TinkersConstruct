@@ -29,8 +29,6 @@ public class Longsword extends Weapon
         if (player.onGround)
         {
             player.setItemInUse(stack, this.getMaxItemUseDuration(stack));
-            NBTTagCompound tags = stack.getTagCompound();
-            tags.getCompoundTag("InfiTool").setBoolean("InUse", true);
         }
         return stack;
     }

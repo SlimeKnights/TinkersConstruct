@@ -7,13 +7,16 @@ import mods.tinker.tconstruct.library.tools.AbilityHelper;
 import mods.tinker.tconstruct.library.tools.HarvestTool;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.relauncher.Side;
@@ -130,16 +133,55 @@ public class Battleaxe extends HarvestTool
     {
         return "battleaxe";
     }
-    
+
     @Override
-    public String[] toolCategories()
+    public String[] toolCategories ()
     {
-        return new String[] { "weapon", "harvest", "slicing" };
+        return new String[] { "weapon", "harvest", "melee", "slicing" };
     }
 
     /* Battleaxe Specific */
 
-    /* Lumber axe specific */
+    public EnumAction getItemUseAction (ItemStack par1ItemStack)
+    {
+        return EnumAction.bow;
+    }
+
+    public ItemStack onItemRightClick (ItemStack stack, World world, EntityPlayer player)
+    {
+        if (player.onGround)
+        {
+            player.setItemInUse(stack, this.getMaxItemUseDuration(stack));
+            //player.motionY += 0.52;
+        }
+        return stack;
+    }
+
+    @Override
+    public void onPlayerStoppedUsing (ItemStack stack, World world, EntityPlayer player, int useCount)
+    {
+        player.addExhaustion(0.2F);
+        world.playSoundEffect(player.posX, player.posY, player.posZ, "sounds.frypan_hit", 1.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F);
+        player.swingItem();
+        /*player.setSprinting(true);
+
+        float increase = (float) (0.02 * 20 + 0.2);
+        if (increase > 0.56f)
+            increase = 0.56f;
+        player.motionY += increase;
+
+        float speed = 0.05F * 20;
+        if (speed > 0.925f)
+            speed = 0.925f;
+        player.motionX = (double) (-MathHelper.sin(player.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(player.rotationPitch / 180.0F * (float) Math.PI) * speed);
+        player.motionZ = (double) (MathHelper.cos(player.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(player.rotationPitch / 180.0F * (float) Math.PI) * speed);*/
+    }
+
+    public int getMaxItemUseDuration (ItemStack par1ItemStack)
+    {
+        return 80;
+    }
+
     @Override
     public boolean hitEntity (ItemStack stack, EntityLiving mob, EntityLiving player)
     {
@@ -148,34 +190,18 @@ public class Battleaxe extends HarvestTool
     }
 
     @Override
-    public float getStrVsBlock (ItemStack stack, Block block, int meta)
+    public void onUpdate (ItemStack stack, World world, Entity entity, int par4, boolean par5)
     {
-        if (!stack.hasTagCompound())
-            return 1.0f;
-
-        NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
-        if (tags.getBoolean("Broken"))
-            return 0.1f;
-
-        Material[] materials = getEffectiveMaterials();
-        for (int i = 0; i < materials.length; i++)
+        super.onUpdate(stack, world, entity, par4, par5);
+        if (entity instanceof EntityPlayer)
         {
-            if (materials[i] == block.blockMaterial)
+            EntityPlayer player = (EntityPlayer) entity;
+            ItemStack equipped = player.getCurrentEquippedItem();
+            if (equipped == stack)
             {
-                float speed = tags.getInteger("MiningSpeed");
-                speed /= 200f;
-                int hlvl = MinecraftForge.getBlockHarvestLevel(block, meta, getHarvestType());
-                int durability = tags.getInteger("Damage");
-
-                float shoddy = tags.getFloat("Shoddy");
-                speed += shoddy * durability / 100f;
-
-                if (hlvl <= tags.getInteger("HarvestLevel"))
-                    return speed;
-                return 0.1f;
+                player.addPotionEffect(new PotionEffect(Potion.digSlowdown.id, 1, 1));
             }
         }
-        return super.getStrVsBlock(stack, block, meta);
     }
 
     @Override
@@ -190,25 +216,32 @@ public class Battleaxe extends HarvestTool
         {
             int blockID = world.getBlockId(x, yPos, z);
             Block block = Block.blocksList[blockID];
-            if (!(tags.getBoolean("Broken")) && block != null && block.blockMaterial == Material.wood )
+            if (!(tags.getBoolean("Broken")) && block != null && block.blockMaterial == Material.wood)
             {
-                boolean cancelHarvest = false;
-                for (ActiveToolMod mod : TConstructRegistry.activeModifiers)
-                {
-                    if (mod.beforeBlockBreak(this, stack, x, yPos, z, player))
-                        cancelHarvest = true;
-                }
+                int localblockID = world.getBlockId(x, yPos, z);
+                meta = world.getBlockMetadata(x, yPos, z);
+                int hlvl = MinecraftForge.getBlockHarvestLevel(block, meta, getHarvestType());
 
-                if (!cancelHarvest)
+                if (hlvl <= tags.getInteger("HarvestLevel"))
                 {
-                    if (block != null && block.blockMaterial == Material.wood)
+                    boolean cancelHarvest = false;
+                    for (ActiveToolMod mod : TConstructRegistry.activeModifiers)
                     {
-                        meta = world.getBlockMetadata(x, yPos, z);
-                        world.setBlockToAir(x, yPos, z);
-                        if (!player.capabilities.isCreativeMode)
+                        if (mod.beforeBlockBreak(this, stack, x, yPos, z, player))
+                            cancelHarvest = true;
+                    }
+
+                    if (!cancelHarvest)
+                    {
+                        if (block != null && block.blockMaterial == Material.wood)
                         {
-                            Block.blocksList[blockID].harvestBlock(world, player, x, yPos, z, meta);
-                            onBlockDestroyed(stack, world, blockID, x, yPos, z, player);
+                            meta = world.getBlockMetadata(x, yPos, z);
+                            world.setBlockToAir(x, yPos, z);
+                            if (!player.capabilities.isCreativeMode)
+                            {
+                                Block.blocksList[blockID].harvestBlock(world, player, x, yPos, z, meta);
+                                onBlockDestroyed(stack, world, blockID, x, yPos, z, player);
+                            }
                         }
                     }
                 }

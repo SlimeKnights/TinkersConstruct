@@ -131,8 +131,8 @@ public class PHConstruct
         hoe = config.getItem("Tools", "Hoe", 14054).getInt(14054);
 
         broadsword = config.getItem("Tools", "Broadsword", 14055).getInt(14055);
-        longsword = config.getItem("Tools", "Longsword", 14056).getInt(14056);
         rapier = config.getItem("Tools", "Rapier", 14057).getInt(14057);
+        longsword = config.getItem("Tools", "Longsword", 14056).getInt(14056);
         dagger = config.getItem("Tools", "Dagger", 14065).getInt(14065);
 
         frypan = config.getItem("Tools", "Frying Pan", 14058).getInt(14058);

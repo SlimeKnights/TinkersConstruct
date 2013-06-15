@@ -36,7 +36,7 @@ public class TPlayerHandler implements IPlayerTracker
 	@Override
 	public void onPlayerLogin (EntityPlayer entityplayer)
 	{
-		System.out.println("Player: "+entityplayer);
+		//System.out.println("Player: "+entityplayer);
 		//Lookup player
 		TFoodStats food = new TFoodStats();
 		food.readStats(entityplayer.foodStats);

@@ -10,6 +10,7 @@ import mods.tinker.tconstruct.event.ToolCraftEvent;
 import mods.tinker.tconstruct.library.crafting.PatternBuilder;
 import mods.tinker.tconstruct.library.crafting.Smeltery;
 import mods.tinker.tconstruct.library.crafting.ToolBuilder;
+import mods.tinker.tconstruct.library.tools.ToolCore;
 import mods.tinker.tconstruct.modifiers.ModAttack;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -46,10 +47,10 @@ public class TEventHandler
     @ForgeSubscribe
     public void craftTool (ToolCraftEvent event)
     {
-        if (event.tool == TContent.hammer)
+        /*if (event.tool == TContent.hammer)
         {
-            event.toolTag.setInteger("Smite", 2);
-        }
+            event.toolTag.setIntArray("Smite", new int[] { 20, 20, 1});
+        }*/
 
         if (event.tool == TContent.cleaver)
         {
@@ -140,7 +141,7 @@ public class TEventHandler
                     {
                         EntityPlayer player = (EntityPlayer) event.source.getEntity();
                         ItemStack stack = player.getCurrentEquippedItem();
-                        if (stack.hasTagCompound())
+                        if (stack.hasTagCompound() && stack.getItem() instanceof ToolCore)
                         {
                             int beheading = stack.getTagCompound().getCompoundTag("InfiTool").getInteger("Beheading");
                             if (beheading > 0 && random.nextInt(100) < beheading * 10)
@@ -164,7 +165,7 @@ public class TEventHandler
                         EntityPlayer player = (EntityPlayer) event.source.getEntity();
                         ItemStack stack = player.getCurrentEquippedItem();
 
-                        if (stack.hasTagCompound())
+                        if (stack.hasTagCompound() && stack.getItem() instanceof ToolCore)
                         {
                             int beheading = stack.getTagCompound().getCompoundTag("InfiTool").getInteger("Beheading");
                             if (beheading > 0 && random.nextInt(100) < beheading * 10)
@@ -187,7 +188,7 @@ public class TEventHandler
                     {
                         EntityPlayer player = (EntityPlayer) event.source.getEntity();
                         ItemStack stack = player.getCurrentEquippedItem();
-                        if (stack.hasTagCompound())
+                        if (stack.hasTagCompound() && stack.getItem() instanceof ToolCore)
                         {
                             int beheading = stack.getTagCompound().getCompoundTag("InfiTool").getInteger("Beheading");
                             if (beheading > 0 && random.nextInt(100) < beheading * 5)
@@ -206,7 +207,7 @@ public class TEventHandler
                     {
                         EntityPlayer player = (EntityPlayer) event.source.getEntity();
                         ItemStack stack = player.getCurrentEquippedItem();
-                        if (stack.hasTagCompound())
+                        if (stack.hasTagCompound() && stack.getItem() instanceof ToolCore)
                         {
                             int beheading = stack.getTagCompound().getCompoundTag("InfiTool").getInteger("Beheading");
                             if (beheading > 0 && random.nextInt(100) < beheading * 50)

@@ -23,6 +23,8 @@
   <entry key="CraftedSoil.Slime.name">Slimy Mud</entry>
   <entry key="CraftedSoil.Grout.name">Grout</entry>
   <entry key="CraftedSoil.BlueSlime.name">Slimy Mud</entry>
+  <entry key="CraftedSoil.GraveyardSoil.name">Graveyard Soil</entry>
+  <entry key="CraftedSoil.ConsecratedSoil.name">Consecrated Soil</entry>
   
   <entry key="MetalOre.NetherSlag.name">Netherack Slag</entry>
   <entry key="MetalOre.Cobalt.name">Cobalt Ore</entry>

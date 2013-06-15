@@ -158,11 +158,37 @@ public class TActiveOmniMod extends ActiveToolMod
     @Override
     public int attackDamage(int modDamage, int currentDamage, ToolCore tool, NBTTagCompound tags, NBTTagCompound toolTags, ItemStack stack, EntityPlayer player, Entity entity)
     {
-        if (toolTags.hasKey("Smite"))
+        int bonus = 0;
+        if (tool == TContent.hammer)
         {
-            int level = toolTags.getInteger("Smite");
-            int bonus = random.nextInt(level*2+1) + level*2;
+            int level = 2;
+            bonus += random.nextInt(level*2+1) + level*2;
         }
-        return 0;
+        if (toolTags.hasKey("ModSmite"))
+        {
+            int[] array = toolTags.getIntArray("ModSmite");
+            int base = array[0] / 18;
+            bonus += 1 + base + random.nextInt(base+1);
+        }
+        if (toolTags.hasKey("ModAntiSpider"))
+        {
+            int[] array = toolTags.getIntArray("ModAntiSpider");
+            int base = array[0] / 2;
+            bonus += 1 + base + random.nextInt(base+1);
+        }
+        System.out.println("Bonus damage: "+bonus);
+        return bonus;
+    }
+    
+    @Override
+    public float knockback(float modKnockback, float currentKnockback, ToolCore tool, NBTTagCompound tags, NBTTagCompound toolTags, ItemStack stack, EntityPlayer player, Entity entity)
+    {
+        float bonus = 0f;
+        if (toolTags.hasKey("Knockback"))
+        {
+            float level = toolTags.getFloat("Knockback");
+            bonus += level;
+        }
+        return bonus;
     }
 }
