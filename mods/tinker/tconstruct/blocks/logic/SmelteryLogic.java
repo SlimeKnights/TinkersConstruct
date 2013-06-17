@@ -381,15 +381,15 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 
         if (!worldObj.blockExists(activeLavaTank.x, activeLavaTank.y, activeLavaTank.z))
         {
-        	fuelGague = 0;
-        	return;
+            fuelGague = 0;
+            return;
         }
-        
+
         TileEntity tankContainer = worldObj.getBlockTileEntity(activeLavaTank.x, activeLavaTank.y, activeLavaTank.z);
         if (tankContainer == null)
         {
             fuelGague = 0;
-        	return;
+            return;
         }
         if (tankContainer instanceof ITankContainer)
         {
@@ -505,48 +505,38 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         int southID = worldObj.getBlockId(x, y, z - 1);
         int eastID = worldObj.getBlockId(x + 1, y, z);
         int westID = worldObj.getBlockId(x - 1, y, z);
-        
+
         Block northBlock = Block.blocksList[northID];
         Block southBlock = Block.blocksList[southID];
         Block eastBlock = Block.blocksList[eastID];
         Block westBlock = Block.blocksList[westID];
 
-        if ( (northBlock == null || northBlock.isAirBlock(worldObj, x, y, z + 1)) &&
-            (southBlock == null || southBlock.isAirBlock(worldObj, x, y, z - 1)) &&
-            (eastBlock == null || eastBlock.isAirBlock(worldObj, x + 1, y, z)) &&
-            (westBlock == null || westBlock.isAirBlock(worldObj, x - 1, y, z)) )
+        if ((northBlock == null || northBlock.isAirBlock(worldObj, x, y, z + 1)) && (southBlock == null || southBlock.isAirBlock(worldObj, x, y, z - 1))
+                && (eastBlock == null || eastBlock.isAirBlock(worldObj, x + 1, y, z)) && (westBlock == null || westBlock.isAirBlock(worldObj, x - 1, y, z)))
         {
             checkValidStructure(x, y, z);
         }
 
-        else if ( (northBlock != null && !northBlock.isAirBlock(worldObj, x, y, z + 1)) &&
-                (southBlock == null || southBlock.isAirBlock(worldObj, x, y, z - 1)) &&
-                (eastBlock == null || eastBlock.isAirBlock(worldObj, x + 1, y, z)) &&
-                (westBlock == null || westBlock.isAirBlock(worldObj, x - 1, y, z)) )
+        else if ((northBlock != null && !northBlock.isAirBlock(worldObj, x, y, z + 1)) && (southBlock == null || southBlock.isAirBlock(worldObj, x, y, z - 1))
+                && (eastBlock == null || eastBlock.isAirBlock(worldObj, x + 1, y, z)) && (westBlock == null || westBlock.isAirBlock(worldObj, x - 1, y, z)))
         {
             checkValidStructure(x, y, z - 1);
         }
 
-        else if ( (northBlock == null || northBlock.isAirBlock(worldObj, x, y, z + 1)) &&
-                (southBlock != null && !southBlock.isAirBlock(worldObj, x, y, z - 1)) &&
-                (eastBlock == null || eastBlock.isAirBlock(worldObj, x + 1, y, z)) &&
-                (westBlock == null || westBlock.isAirBlock(worldObj, x - 1, y, z)) )
+        else if ((northBlock == null || northBlock.isAirBlock(worldObj, x, y, z + 1)) && (southBlock != null && !southBlock.isAirBlock(worldObj, x, y, z - 1))
+                && (eastBlock == null || eastBlock.isAirBlock(worldObj, x + 1, y, z)) && (westBlock == null || westBlock.isAirBlock(worldObj, x - 1, y, z)))
         {
             checkValidStructure(x, y, z + 1);
         }
 
-        else if ( (northBlock == null || northBlock.isAirBlock(worldObj, x, y, z + 1)) &&
-                (southBlock == null || southBlock.isAirBlock(worldObj, x, y, z - 1)) &&
-                (eastBlock != null && !eastBlock.isAirBlock(worldObj, x + 1, y, z)) &&
-                (westBlock == null || westBlock.isAirBlock(worldObj, x - 1, y, z)) )
+        else if ((northBlock == null || northBlock.isAirBlock(worldObj, x, y, z + 1)) && (southBlock == null || southBlock.isAirBlock(worldObj, x, y, z - 1))
+                && (eastBlock != null && !eastBlock.isAirBlock(worldObj, x + 1, y, z)) && (westBlock == null || westBlock.isAirBlock(worldObj, x - 1, y, z)))
         {
             checkValidStructure(x - 1, y, z);
         }
 
-        else if ( (northBlock == null || northBlock.isAirBlock(worldObj, x, y, z + 1)) &&
-                (southBlock == null || southBlock.isAirBlock(worldObj, x, y, z - 1)) &&
-                (eastBlock == null || eastBlock.isAirBlock(worldObj, x + 1, y, z)) &&
-                (westBlock != null && !westBlock.isAirBlock(worldObj, x - 1, y, z)) )
+        else if ((northBlock == null || northBlock.isAirBlock(worldObj, x, y, z + 1)) && (southBlock == null || southBlock.isAirBlock(worldObj, x, y, z - 1))
+                && (eastBlock == null || eastBlock.isAirBlock(worldObj, x + 1, y, z)) && (westBlock != null && !westBlock.isAirBlock(worldObj, x - 1, y, z)))
         {
             checkValidStructure(x + 1, y, z);
         }
@@ -589,7 +579,6 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     {
         numBricks = 0;
         lavaTanks.clear();
-        boolean hasLavaTank = false;
         Block block;
 
         //Check inside
@@ -606,21 +595,17 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         //Check outer layer
         for (int xPos = x - 1; xPos <= x + 1; xPos++)
         {
-            if (checkBricks(xPos, y, z - 2))
-                hasLavaTank = true;
-            if (checkBricks(xPos, y, z + 2))
-                hasLavaTank = true;
+            numBricks += checkBricks(xPos, y, z - 2);
+            numBricks += checkBricks(xPos, y, z + 2);
         }
 
         for (int zPos = z - 1; zPos <= z + 1; zPos++)
         {
-            if (checkBricks(x - 2, y, zPos))
-                hasLavaTank = true;
-            if (checkBricks(x + 2, y, zPos))
-                hasLavaTank = true;
+            numBricks += checkBricks(x - 2, y, zPos);
+            numBricks += checkBricks(x + 2, y, zPos);
         }
 
-        if (numBricks == 12 && hasLavaTank)
+        if (numBricks == 12 && lavaTanks.size() > 0)
             return true;
         else
             return false;
@@ -634,8 +619,8 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         {
             for (int zPos = z - 1; zPos <= z + 1; zPos++)
             {
-            	Block block = Block.blocksList[worldObj.getBlockId(xPos, y, zPos)];
-                if (block != null && block.isAirBlock(worldObj, xPos, y, zPos))
+                Block block = Block.blocksList[worldObj.getBlockId(xPos, y, zPos)];
+                if (block != null && !block.isAirBlock(worldObj, xPos, y, zPos))
                     return count;
             }
         }
@@ -643,14 +628,14 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         //Check outer layer
         for (int xPos = x - 1; xPos <= x + 1; xPos++)
         {
-            checkBricks(xPos, y, z - 2);
-            checkBricks(xPos, y, z + 2);
+            numBricks += checkBricks(xPos, y, z - 2);
+            numBricks += checkBricks(xPos, y, z + 2);
         }
 
         for (int zPos = z - 1; zPos <= z + 1; zPos++)
         {
-            checkBricks(x - 2, y, zPos);
-            checkBricks(x + 2, y, zPos);
+            numBricks += checkBricks(x - 2, y, zPos);
+            numBricks += checkBricks(x + 2, y, zPos);
         }
 
         if (numBricks != 12)
@@ -683,14 +668,14 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         //Check outer layer
         for (int xPos = x - 1; xPos <= x + 1; xPos++)
         {
-            checkBricks(xPos, y, z - 2);
-            checkBricks(xPos, y, z + 2);
+            numBricks += checkBricks(xPos, y, z - 2);
+            numBricks += checkBricks(xPos, y, z + 2);
         }
 
         for (int zPos = z - 1; zPos <= z + 1; zPos++)
         {
-            checkBricks(x - 2, y, zPos);
-            checkBricks(x + 2, y, zPos);
+            numBricks += checkBricks(x - 2, y, zPos);
+            numBricks += checkBricks(x + 2, y, zPos);
         }
 
         if (numBricks != 12)
@@ -720,16 +705,19 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         return count;
     }
 
-    boolean checkBricks (int x, int y, int z)
+    /* Returns whether the brick is a lava tank or not.
+     * Increments bricks, sets them as part of the structure, and adds tanks to the list.
+     */
+    int checkBricks (int x, int y, int z)
     {
+        int tempBricks = 0;
         int blockID = worldObj.getBlockId(x, y, z);
         if (blockID == TContent.smeltery.blockID || blockID == TContent.lavaTank.blockID)
         {
             TileEntity te = worldObj.getBlockTileEntity(x, y, z);
             if (te == this)
             {
-                numBricks++;
-                return false;
+                tempBricks++;
             }
             else if (te instanceof MultiServantLogic)
             {
@@ -737,21 +725,20 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                 if (servant.hasValidMaster())
                 {
                     if (servant.verifyMaster(this.xCoord, this.yCoord, this.zCoord))
-                        numBricks++;
+                        tempBricks++;
                 }
                 else if (servant.setMaster(this.xCoord, this.yCoord, this.zCoord))
                 {
-                    numBricks++;
+                    tempBricks++;
                 }
 
                 if (te instanceof LavaTankLogic)
                 {
                     lavaTanks.add(new CoordTuple(x, y, z));
-                    return true;
                 }
             }
         }
-        return false;
+        return tempBricks;
     }
 
     public int getCapacity ()
