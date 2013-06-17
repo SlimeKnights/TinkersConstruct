@@ -95,7 +95,27 @@ public class StoneTorch extends Block
     public int onBlockPlaced(World par1World, int par2, int par3, int par4, int par5, float par6, float par7, float par8, int par9)
     {
         int j1 = par9;
-
+        
+        if (par5 == 0)
+        {
+            if (this.canPlaceTorchOn(par1World, par2, par3 - 1, par4))
+            {
+                j1 = 5;
+            }
+            else if (par1World.isBlockSolidOnSide(par2, par3, par4 + 1, NORTH, true)) {
+                j1 = 4;
+            }
+            else if (par1World.isBlockSolidOnSide(par2, par3, par4 - 1, SOUTH, true)) {
+                j1 = 3;
+            }
+            else if (par1World.isBlockSolidOnSide(par2 + 1, par3, par4, WEST, true)) {
+                j1 = 2;
+            }
+            else if (par1World.isBlockSolidOnSide(par2 - 1, par3, par4, EAST, true)) {
+                j1 = 1;
+            }
+        }
+        
         if (par5 == 1 && this.canPlaceTorchOn(par1World, par2, par3 - 1, par4))
         {
             j1 = 5;
