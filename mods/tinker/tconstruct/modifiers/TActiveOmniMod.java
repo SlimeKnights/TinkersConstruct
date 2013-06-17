@@ -48,17 +48,17 @@ public class TActiveOmniMod extends ActiveToolMod
 
 	/* Harvesting */
 	@Override
-	public boolean beforeBlockBreak (ToolCore tool, ItemStack stack, int x, int y, int z, EntityPlayer player)
+	public boolean beforeBlockBreak (ToolCore tool, ItemStack stack, int x, int y, int z, EntityLiving entity)
 	{
-		if (player.capabilities.isCreativeMode)
+		if (entity instanceof EntityPlayer && ((EntityPlayer)entity).capabilities.isCreativeMode)
 			return false;
 
 		if (tool instanceof HarvestTool)
 			TContent.modL.midStreamModify(stack);
 
 		NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
-		World world = player.worldObj;
-		int bID = player.worldObj.getBlockId(x, y, z);
+		World world = entity.worldObj;
+		int bID = entity.worldObj.getBlockId(x, y, z);
 		int meta = world.getBlockMetadata(x, y, z);
 		Block block = Block.blocksList[bID];
 		if (block == null || bID < 1 || bID > 4095)
@@ -73,8 +73,8 @@ public class TActiveOmniMod extends ActiveToolMod
 			if (result != null)
 			{
 				world.setBlockToAir(x, y, z);
-				if (!player.capabilities.isCreativeMode)
-					tool.onBlockDestroyed(stack, world, bID, x, y, z, player);
+		        if (entity instanceof EntityPlayer && !((EntityPlayer)entity).capabilities.isCreativeMode)
+					tool.onBlockDestroyed(stack, world, bID, x, y, z, entity);
 				if (!world.isRemote)
 				{
 					ItemStack spawnme = result.copy();
@@ -116,7 +116,7 @@ public class TActiveOmniMod extends ActiveToolMod
 					{
 						j = EntityXPOrb.getXPSplit(i);
 						i -= j;
-						player.worldObj.spawnEntityInWorld(new EntityXPOrb(world, x, y + 0.5, z, j));
+						entity.worldObj.spawnEntityInWorld(new EntityXPOrb(world, x, y + 0.5, z, j));
 					}
 				}
 				for (int i = 0; i < 6; i++)
@@ -176,7 +176,6 @@ public class TActiveOmniMod extends ActiveToolMod
             int base = array[0] / 2;
             bonus += 1 + base + random.nextInt(base+1);
         }
-        System.out.println("Bonus damage: "+bonus);
         return bonus;
     }
     

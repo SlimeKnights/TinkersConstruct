@@ -34,6 +34,14 @@ public class TConstructClientRegistry
             tool.registerPartPaths(materialID, toolIcons);
         }
     }
+    public static void addEffectRenderMapping (ToolCore tool, int materialID, String domain, String renderName, boolean useDefaultFolder)
+    {
+        String icon = domain + ":";
+        if (useDefaultFolder)
+            icon += tool.getDefaultFolder() + "/";
+        icon += renderName + tool.getEffectSuffix();
+        tool.registerEffectPath(materialID, icon);
+    }
 
     public static void addEffectRenderMapping (int materialID, String domain, String renderName, boolean useDefaultFolder)
     {

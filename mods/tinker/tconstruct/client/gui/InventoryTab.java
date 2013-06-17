@@ -4,7 +4,6 @@ import mods.tinker.tconstruct.client.TControls;
 import mods.tinker.tconstruct.client.TProxyClient;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.item.ItemStack;
 
@@ -65,7 +64,9 @@ public class InventoryTab extends GuiButton
             if (this.id == 2)
                 TProxyClient.openInventoryGui();
             if (this.id == 3)
-                TControls.openArmorGui();//mc.thePlayer.username);
+                TControls.openArmorGui();
+            if (this.id == 4)
+                TControls.openKnapsackGui();
         }
         return inWindow;
     }

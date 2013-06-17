@@ -1,6 +1,7 @@
 package mods.tinker.tconstruct.client.gui;
 
 import mods.tinker.tconstruct.client.TControls;
+import mods.tinker.tconstruct.common.TContent;
 import mods.tinker.tconstruct.inventory.ArmorExtendedContainer;
 import mods.tinker.tconstruct.util.player.ArmorExtended;
 import mods.tinker.tconstruct.util.player.TPlayerStats;
@@ -22,10 +23,9 @@ public class ArmorExtendedGui extends InventoryEffectRenderer
 {
     public InventoryPlayer inv;
     public ArmorExtended stats;
-    
+
     private float xSize_lo;
     private float ySize_lo;
-
 
     public ArmorExtendedGui(InventoryPlayer inventoryplayer, ArmorExtended holder)
     {
@@ -33,69 +33,86 @@ public class ArmorExtendedGui extends InventoryEffectRenderer
         inv = inventoryplayer;
         stats = holder;
     }
-    
-    public void initGui()
+
+    public void initGui ()
     {
         super.initGui();
-        
-        int cornerX = (this.width - this.xSize) / 2;
+
+        int cornerX = guiLeft;
         int cornerY = (this.height - this.ySize) / 2;
         this.buttonList.clear();
 
-        InventoryTab repairButton = new InventoryTab(2, cornerX, cornerY - 28, new ItemStack(Block.workbench), 0);
-        this.buttonList.add(repairButton);
-        repairButton = new InventoryTab(3, cornerX+28, cornerY - 28, new ItemStack(Item.plateDiamond), 1);
-        repairButton.enabled = false;
-        this.buttonList.add(repairButton);
+        InventoryTab tab = new InventoryTab(2, cornerX, cornerY - 28, new ItemStack(Block.workbench), 0);
+        this.buttonList.add(tab);
+        tab = new InventoryTab(3, cornerX + 28, cornerY - 28, new ItemStack(Item.plateDiamond), 1);
+        tab.enabled = false;
+        this.buttonList.add(tab);
     }
 
-    protected void drawGuiContainerForegroundLayer(int par1, int par2)
+    protected void drawGuiContainerForegroundLayer (int par1, int par2)
     {
         //fontRenderer.drawString(StatCollector.translateToLocal("inventory.armorextended"), 60, 6, 0x404040);
         //fontRenderer.drawString(StatCollector.translateToLocal("container.inventory"), 17, (ySize - 96) + 2, 0x404040);
     }
-    
-    public void drawScreen(int par1, int par2, float par3)
+
+    public void drawScreen (int par1, int par2, float par3)
     {
         super.drawScreen(par1, par2, par3);
-        this.xSize_lo = (float)par1;
-        this.ySize_lo = (float)par2;
+        this.xSize_lo = (float) par1;
+        this.ySize_lo = (float) par2;
+        if (stats.inventory[2] != null && stats.inventory[2].getItem() == TContent.knapsack)
+        {
+            if (this.buttonList.size() < 3)
+            {
+                int cornerX = guiLeft;
+                int cornerY = (this.height - this.ySize) / 2;
+                InventoryTab tab = new InventoryTab(4, cornerX + 56, cornerY - 28, new ItemStack(TContent.knapsack), 1);
+                this.buttonList.add(tab);
+            }
+        }
+        else
+        {
+            if (this.buttonList.size() >= 3)
+            {
+                buttonList.remove(2);
+            }
+        }
     }
 
-    protected void drawGuiContainerBackgroundLayer(float f, int i, int j)
+    protected void drawGuiContainerBackgroundLayer (float f, int i, int j)
     {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         mc.renderEngine.bindTexture("/mods/tinker/textures/gui/armorextended.png");
-        int cornerX = (width - xSize) / 2;
+        int cornerX = guiLeft;
         int cornerY = (height - ySize) / 2;
         drawTexturedModalRect(cornerX, cornerY, 0, 0, xSize, ySize);
-        
+
         if (!stats.isStackInSlot(0))
-            drawTexturedModalRect(cornerX+79, cornerY+16, 176, 9, 18, 18);
+            drawTexturedModalRect(cornerX + 79, cornerY + 16, 176, 9, 18, 18);
         if (!stats.isStackInSlot(1))
-            drawTexturedModalRect(cornerX+79, cornerY+34, 176, 27, 18, 18);
+            drawTexturedModalRect(cornerX + 79, cornerY + 34, 176, 27, 18, 18);
         if (!stats.isStackInSlot(2))
-            drawTexturedModalRect(cornerX+115, cornerY+16, 212, 9, 18, 18);
+            drawTexturedModalRect(cornerX + 115, cornerY + 16, 212, 9, 18, 18);
         if (!stats.isStackInSlot(3))
-            drawTexturedModalRect(cornerX+115, cornerY+34, 212, 27, 18, 18);
+            drawTexturedModalRect(cornerX + 115, cornerY + 34, 212, 27, 18, 18);
         if (!stats.isStackInSlot(4))
-            drawTexturedModalRect(cornerX+151, cornerY+16, 230, 0, 18, 18);
+            drawTexturedModalRect(cornerX + 151, cornerY + 16, 230, 0, 18, 18);
         if (!stats.isStackInSlot(5))
-            drawTexturedModalRect(cornerX+151, cornerY+34, 230, 18, 18, 18);
+            drawTexturedModalRect(cornerX + 151, cornerY + 34, 230, 18, 18, 18);
         if (!stats.isStackInSlot(6))
-            drawTexturedModalRect(cornerX+151, cornerY+52, 230, 36, 18, 18);
+            drawTexturedModalRect(cornerX + 151, cornerY + 52, 230, 36, 18, 18);
 
         cornerX = this.guiLeft;
         cornerY = this.guiTop;
-        drawPlayerOnGui(this.mc, cornerX + 33, cornerY + 75, 30, (float)(cornerX + 51) - this.xSize_lo, (float)(cornerY + 75 - 50) - this.ySize_lo);
+        drawPlayerOnGui(this.mc, cornerX + 33, cornerY + 75, 30, (float) (cornerX + 51) - this.xSize_lo, (float) (cornerY + 75 - 50) - this.ySize_lo);
     }
-    
-    public static void drawPlayerOnGui(Minecraft par0Minecraft, int par1, int par2, int par3, float par4, float par5)
+
+    public static void drawPlayerOnGui (Minecraft par0Minecraft, int par1, int par2, int par3, float par4, float par5)
     {
         GL11.glEnable(GL11.GL_COLOR_MATERIAL);
         GL11.glPushMatrix();
-        GL11.glTranslatef((float)par1, (float)par2, 50.0F);
-        GL11.glScalef((float)(-par3), (float)par3, (float)par3);
+        GL11.glTranslatef((float) par1, (float) par2, 50.0F);
+        GL11.glScalef((float) (-par3), (float) par3, (float) par3);
         GL11.glRotatef(180.0F, 0.0F, 0.0F, 1.0F);
         float f2 = par0Minecraft.thePlayer.renderYawOffset;
         float f3 = par0Minecraft.thePlayer.rotationYaw;
@@ -104,10 +121,10 @@ public class ArmorExtendedGui extends InventoryEffectRenderer
         GL11.glRotatef(135.0F, 0.0F, 1.0F, 0.0F);
         RenderHelper.enableStandardItemLighting();
         GL11.glRotatef(-135.0F, 0.0F, 1.0F, 0.0F);
-        GL11.glRotatef(-((float)Math.atan((double)(par5 / 40.0F))) * 20.0F, 1.0F, 0.0F, 0.0F);
-        par0Minecraft.thePlayer.renderYawOffset = (float)Math.atan((double)(par4 / 40.0F)) * 20.0F;
-        par0Minecraft.thePlayer.rotationYaw = (float)Math.atan((double)(par4 / 40.0F)) * 40.0F;
-        par0Minecraft.thePlayer.rotationPitch = -((float)Math.atan((double)(par5 / 40.0F))) * 20.0F;
+        GL11.glRotatef(-((float) Math.atan((double) (par5 / 40.0F))) * 20.0F, 1.0F, 0.0F, 0.0F);
+        par0Minecraft.thePlayer.renderYawOffset = (float) Math.atan((double) (par4 / 40.0F)) * 20.0F;
+        par0Minecraft.thePlayer.rotationYaw = (float) Math.atan((double) (par4 / 40.0F)) * 40.0F;
+        par0Minecraft.thePlayer.rotationPitch = -((float) Math.atan((double) (par5 / 40.0F))) * 20.0F;
         par0Minecraft.thePlayer.rotationYawHead = par0Minecraft.thePlayer.rotationYaw;
         GL11.glTranslatef(0.0F, par0Minecraft.thePlayer.yOffset, 0.0F);
         RenderManager.instance.playerViewY = 180.0F;
@@ -122,7 +139,7 @@ public class ArmorExtendedGui extends InventoryEffectRenderer
         GL11.glDisable(GL11.GL_TEXTURE_2D);
         OpenGlHelper.setActiveTexture(OpenGlHelper.defaultTexUnit);
     }
-    
+
     /*protected void keyTyped(char par1, int par2)
     {
         if (par2 == TControls.armorKey.keyCode)

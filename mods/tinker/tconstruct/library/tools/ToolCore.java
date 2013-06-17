@@ -680,28 +680,29 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
             return false;
         }
 
+        boolean used = false;
         int hotbarSlot = player.inventory.currentItem;
         if (hotbarSlot == 0)
         {
-            ItemStack next = player.inventory.getStackInSlot(8);
-            if (next != null && next.getItem() instanceof ItemBlock)
+            ItemStack nearbyStack = player.inventory.getStackInSlot(8);
+            if (nearbyStack != null && nearbyStack.getItem() instanceof ItemBlock)
             {
-                next.getItem().onItemUse(next, player, world, x, y, z, side, clickX, clickY, clickZ);
-                if (next.stackSize < 1)
+                used = nearbyStack.getItem().onItemUse(nearbyStack, player, world, x, y, z, side, clickX, clickY, clickZ);
+                if (nearbyStack.stackSize < 1)
                     player.inventory.setInventorySlotContents(8, null);
             }
         }
         else if (hotbarSlot < 8)
         {
-            ItemStack next = player.inventory.getStackInSlot(hotbarSlot + 1);
-            if (next != null && next.getItem() instanceof ItemBlock)
+            ItemStack nearbyStack = player.inventory.getStackInSlot(hotbarSlot + 1);
+            if (nearbyStack != null && nearbyStack.getItem() instanceof ItemBlock)
             {
-                next.getItem().onItemUse(next, player, world, x, y, z, side, clickX, clickY, clickZ);
-                if (next.stackSize < 1)
+                used = nearbyStack.getItem().onItemUse(nearbyStack, player, world, x, y, z, side, clickX, clickY, clickZ);
+                if (nearbyStack.stackSize < 1)
                     player.inventory.setInventorySlotContents(hotbarSlot + 1, null);
             }
         }
-        return false;
+        return used;
     }
 
     /* IC2 Support

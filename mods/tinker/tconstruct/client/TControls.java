@@ -8,6 +8,7 @@ import mods.tinker.tconstruct.TConstruct;
 import mods.tinker.tconstruct.skill.Skill;
 import mods.tinker.tconstruct.util.player.TPlayerStats;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.player.EntityPlayer;
@@ -35,6 +36,8 @@ public class TControls extends TKeyHandler
 	boolean climbing = false;
 	boolean onGround = false;
 	boolean onStilts = false;
+	
+	int currentTab = 1;
 
 	//boolean onStilts = false;
 
@@ -70,7 +73,7 @@ public class TControls extends TKeyHandler
 			}
 			if (kb == invKey && mc.currentScreen != null && mc.currentScreen.getClass() == GuiInventory.class)// && !mc.playerController.isInCreativeMode())
 			{
-				TProxyClient.addTabsToInventory();
+				TProxyClient.addTabsToInventory((GuiContainer) mc.currentScreen);
 			}
 			/*if (kb == skillOne)
 			{
@@ -195,15 +198,32 @@ public class TControls extends TKeyHandler
 
 		updateServer(bos);
 	}
+	
+	public static void openInventoryGui ()
+    {
+        ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
+        DataOutputStream outputStream = new DataOutputStream(bos);
+        try
+        {
+            outputStream.writeByte(3);
+            outputStream.writeByte(0);
+        }
+        catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
 
-	public static void openArmorGui ()//String username)
+        updateServer(bos);
+    }
+
+	public static void openArmorGui ()
 	{
 		ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
 		DataOutputStream outputStream = new DataOutputStream(bos);
 		try
 		{
 			outputStream.writeByte(3);
-			//outputStream.writeUTF(username);
+            outputStream.writeByte(1);
 		}
 		catch (Exception ex)
 		{
@@ -212,6 +232,23 @@ public class TControls extends TKeyHandler
 
 		updateServer(bos);
 	}
+	
+	public static void openKnapsackGui ()
+    {
+        ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
+        DataOutputStream outputStream = new DataOutputStream(bos);
+        try
+        {
+            outputStream.writeByte(3);
+            outputStream.writeByte(2);
+        }
+        catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
+
+        updateServer(bos);
+    }
 
 	/*public void activateSkill (EntityPlayer player, int slot)
 	{

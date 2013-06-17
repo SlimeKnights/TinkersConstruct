@@ -505,28 +505,48 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         int southID = worldObj.getBlockId(x, y, z - 1);
         int eastID = worldObj.getBlockId(x + 1, y, z);
         int westID = worldObj.getBlockId(x - 1, y, z);
+        
+        Block northBlock = Block.blocksList[northID];
+        Block southBlock = Block.blocksList[southID];
+        Block eastBlock = Block.blocksList[eastID];
+        Block westBlock = Block.blocksList[westID];
 
-        if (northID == 0 && southID == 0 && eastID == 0 && westID == 0) //Center
+        if ( (northBlock == null || northBlock.isAirBlock(worldObj, x, y, z + 1)) &&
+            (southBlock == null || southBlock.isAirBlock(worldObj, x, y, z - 1)) &&
+            (eastBlock == null || eastBlock.isAirBlock(worldObj, x + 1, y, z)) &&
+            (westBlock == null || westBlock.isAirBlock(worldObj, x - 1, y, z)) )
         {
             checkValidStructure(x, y, z);
         }
 
-        else if (northID != 0 && southID == 0 && eastID == 0 && westID == 0)
+        else if ( (northBlock != null && !northBlock.isAirBlock(worldObj, x, y, z + 1)) &&
+                (southBlock == null || southBlock.isAirBlock(worldObj, x, y, z - 1)) &&
+                (eastBlock == null || eastBlock.isAirBlock(worldObj, x + 1, y, z)) &&
+                (westBlock == null || westBlock.isAirBlock(worldObj, x - 1, y, z)) )
         {
             checkValidStructure(x, y, z - 1);
         }
 
-        else if (northID == 0 && southID != 0 && eastID == 0 && westID == 0)
+        else if ( (northBlock == null || northBlock.isAirBlock(worldObj, x, y, z + 1)) &&
+                (southBlock != null && !southBlock.isAirBlock(worldObj, x, y, z - 1)) &&
+                (eastBlock == null || eastBlock.isAirBlock(worldObj, x + 1, y, z)) &&
+                (westBlock == null || westBlock.isAirBlock(worldObj, x - 1, y, z)) )
         {
             checkValidStructure(x, y, z + 1);
         }
 
-        else if (northID == 0 && southID == 0 && eastID != 0 && westID == 0)
+        else if ( (northBlock == null || northBlock.isAirBlock(worldObj, x, y, z + 1)) &&
+                (southBlock == null || southBlock.isAirBlock(worldObj, x, y, z - 1)) &&
+                (eastBlock != null && !eastBlock.isAirBlock(worldObj, x + 1, y, z)) &&
+                (westBlock == null || westBlock.isAirBlock(worldObj, x - 1, y, z)) )
         {
             checkValidStructure(x - 1, y, z);
         }
 
-        else if (northID == 0 && southID == 0 && eastID == 0 && westID != 0)
+        else if ( (northBlock == null || northBlock.isAirBlock(worldObj, x, y, z + 1)) &&
+                (southBlock == null || southBlock.isAirBlock(worldObj, x, y, z - 1)) &&
+                (eastBlock == null || eastBlock.isAirBlock(worldObj, x + 1, y, z)) &&
+                (westBlock != null && !westBlock.isAirBlock(worldObj, x - 1, y, z)) )
         {
             checkValidStructure(x + 1, y, z);
         }
@@ -570,13 +590,15 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         numBricks = 0;
         lavaTanks.clear();
         boolean hasLavaTank = false;
+        Block block;
 
         //Check inside
         for (int xPos = x - 1; xPos <= x + 1; xPos++)
         {
             for (int zPos = z - 1; zPos <= z + 1; zPos++)
             {
-                if (worldObj.getBlockId(xPos, y, zPos) != 0)
+                block = Block.blocksList[worldObj.getBlockId(xPos, y, zPos)];
+                if (block != null && !block.isAirBlock(worldObj, xPos, y, zPos))
                     return false;
             }
         }

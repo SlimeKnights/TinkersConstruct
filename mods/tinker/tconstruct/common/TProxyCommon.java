@@ -4,12 +4,13 @@ import java.io.File;
 
 import mods.tinker.tconstruct.TConstruct;
 import mods.tinker.tconstruct.inventory.ArmorExtendedContainer;
+import mods.tinker.tconstruct.inventory.KnapsackContainer;
 import mods.tinker.tconstruct.library.blocks.InventoryLogic;
 import mods.tinker.tconstruct.util.player.TPlayerStats;
+import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-
 import cpw.mods.fml.common.network.IGuiHandler;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
@@ -25,9 +26,12 @@ public class TProxyCommon implements IGuiHandler
     public static int pshaperGuiID = 3;
     public static int frypanGuiID = 4;
 	public static int toolForge = 5;
-
     public static int smelteryGuiID = 7;
+    
+    public static int inventoryGui = 100;
     public static int armorGuiID = 101;
+    public static int knapsackGuiID = 102;
+    
     public static int manualGuiID = -1;
     
     @Override
@@ -36,7 +40,7 @@ public class TProxyCommon implements IGuiHandler
         if (ID < 0)
             return null;
 
-        else if (ID <= 100)
+        else if (ID < 100)
         {
             TileEntity tile = world.getBlockTileEntity(x, y, z);
             if (tile != null && tile instanceof InventoryLogic)
@@ -46,10 +50,20 @@ public class TProxyCommon implements IGuiHandler
         }
         else
         {
+            if (ID == inventoryGui)
+            {
+                //GuiInventory inv = new GuiInventory(player);
+                return player.inventoryContainer;
+            }
             if (ID == armorGuiID)
             {
                 TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
                 return new ArmorExtendedContainer(player.inventory, stats.armor);
+            }
+            if (ID == knapsackGuiID)
+            {
+                TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
+                return new KnapsackContainer(player.inventory, stats.knapsack);
             }
         }
         return null;

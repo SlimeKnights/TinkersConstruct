@@ -19,7 +19,7 @@ public class ModPiston extends ToolMod
 		super(items, effect, "Piston");
 		tooltipName = "\u00a77Knockback";
 		increase = inc;
-		max = 25;
+		max = 10;
 	}
 
 	@Override
@@ -82,7 +82,7 @@ public class ModPiston extends ToolMod
 		
 		float knockback = tags.getFloat("Knockback");
 		
-		knockback += 0.015 * increase;
+		knockback += 0.1 * increase;
         tags.setFloat("Knockback", knockback);
 	}
 	

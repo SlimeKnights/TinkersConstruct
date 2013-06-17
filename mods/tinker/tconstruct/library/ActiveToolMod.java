@@ -17,7 +17,7 @@ public class ActiveToolMod
 	}
 	
 	/* Harvesting */
-    public boolean beforeBlockBreak (ToolCore tool, ItemStack stack, int x, int y, int z, EntityPlayer player)
+    public boolean beforeBlockBreak (ToolCore tool, ItemStack stack, int x, int y, int z, EntityLiving entity)
     {
     	return false;
     }

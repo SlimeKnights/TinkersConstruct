@@ -51,6 +51,10 @@ public class TPlayerHandler implements IPlayerTracker
 		stats.armor = new ArmorExtended();
 		stats.armor.init(entityplayer);
 		stats.armor.readFromNBT(entityplayer);
+		
+        stats.knapsack = new KnapsackInventory();
+        stats.knapsack.init(entityplayer);
+        stats.knapsack.readFromNBT(entityplayer);
 
 		stats.level = entityplayer.experienceLevel;
 		stats.hunger = entityplayer.getFoodStats().getFoodLevel();

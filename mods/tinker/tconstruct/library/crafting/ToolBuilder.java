@@ -237,7 +237,7 @@ public class ToolBuilder
             modifier /= handles;
         }
 
-        durability = (int) (durability * modifier * (0.5 + heads * 0.5) / heads * item.getDurabilityModifier());
+        durability = (int) (durability / heads * (0.5 + heads * 0.5) * modifier * item.getDurabilityModifier());
         attack = attack / heads + item.getDamageVsEntity(null);
         if (attack % heads != 0)
             attack++;

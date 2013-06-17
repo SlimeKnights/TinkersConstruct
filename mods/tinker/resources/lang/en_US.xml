@@ -12,6 +12,7 @@
   <entry key="inventory.PatternChest">Pattern Chest</entry>
   <entry key="crafters.Smeltery">Smeltery</entry>
   <entry key="crafters.Frypan">Frying Pan</entry>
+  <entry key="inventory.knapsack">Knapsack</entry>
   
   <entry key="ToolStation.Crafter.name">Tool Station</entry>
   <entry key="ToolStation.Parts.name">Part Builder</entry>

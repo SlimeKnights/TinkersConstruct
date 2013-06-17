@@ -16,8 +16,8 @@ import mods.tinker.tconstruct.blocks.logic.FrypanLogic;
 import mods.tinker.tconstruct.blocks.logic.GolemCoreLogic;
 import mods.tinker.tconstruct.blocks.logic.PartCrafterLogic;
 import mods.tinker.tconstruct.blocks.logic.PatternChestLogic;
-import mods.tinker.tconstruct.blocks.logic.StencilTableLogic;
 import mods.tinker.tconstruct.blocks.logic.SmelteryLogic;
+import mods.tinker.tconstruct.blocks.logic.StencilTableLogic;
 import mods.tinker.tconstruct.blocks.logic.ToolForgeLogic;
 import mods.tinker.tconstruct.blocks.logic.ToolStationLogic;
 import mods.tinker.tconstruct.client.block.BarricadeRender;
@@ -46,10 +46,12 @@ import mods.tinker.tconstruct.client.entity.projectile.LaunchedItemRender;
 import mods.tinker.tconstruct.client.gui.ArmorExtendedGui;
 import mods.tinker.tconstruct.client.gui.FrypanGui;
 import mods.tinker.tconstruct.client.gui.GuiManual;
+import mods.tinker.tconstruct.client.gui.InventoryTab;
+import mods.tinker.tconstruct.client.gui.KnapsackGui;
 import mods.tinker.tconstruct.client.gui.PartCrafterGui;
 import mods.tinker.tconstruct.client.gui.PatternChestGui;
-import mods.tinker.tconstruct.client.gui.StencilTableGui;
 import mods.tinker.tconstruct.client.gui.SmelteryGui;
+import mods.tinker.tconstruct.client.gui.StencilTableGui;
 import mods.tinker.tconstruct.client.gui.ToolForgeGui;
 import mods.tinker.tconstruct.client.gui.ToolStationGui;
 import mods.tinker.tconstruct.common.TContent;
@@ -64,16 +66,18 @@ import mods.tinker.tconstruct.entity.Skyla;
 import mods.tinker.tconstruct.entity.SlimeClone;
 import mods.tinker.tconstruct.entity.projectile.DaggerEntity;
 import mods.tinker.tconstruct.entity.projectile.LaunchedPotion;
-import mods.tinker.tconstruct.items.tools.Dagger;
 import mods.tinker.tconstruct.library.TConstructRegistry;
 import mods.tinker.tconstruct.library.client.TConstructClientRegistry;
 import mods.tinker.tconstruct.library.client.ToolGuiElement;
 import mods.tinker.tconstruct.library.crafting.ToolBuilder;
 import mods.tinker.tconstruct.library.tools.ToolCore;
 import mods.tinker.tconstruct.util.player.ArmorExtended;
+import mods.tinker.tconstruct.util.player.KnapsackInventory;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelSlime;
 import net.minecraft.client.particle.EntityAuraFX;
@@ -130,8 +134,9 @@ public class TProxyClient extends TProxyCommon
     public static Icon metalBall;
     public static Minecraft mc;
     public static RenderItem itemRenderer = new RenderItem();
-    
+
     public static ArmorExtended armorExtended = new ArmorExtended();
+    public static KnapsackInventory knapsack = new KnapsackInventory();
 
     @Override
     public Object getClientGuiElement (int ID, EntityPlayer player, World world, int x, int y, int z)
@@ -155,71 +160,102 @@ public class TProxyClient extends TProxyCommon
             ItemStack stack = player.getCurrentEquippedItem();
             return new GuiManual(stack, TProxyClient.getManualFromStack(stack));
         }
+        if (ID == inventoryGui)
+        {
+            GuiInventory inventory = new GuiInventory(player);
+            addTabsToInventory(inventory);
+            return inventory;
+        }
         if (ID == armorGuiID)
         {
-            //TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
             TProxyClient.armorExtended.init(Minecraft.getMinecraft().thePlayer);
             return new ArmorExtendedGui(player.inventory, TProxyClient.armorExtended);
         }
+        if (ID == knapsackGuiID)
+        {
+            TProxyClient.knapsack.init(Minecraft.getMinecraft().thePlayer);
+            return new KnapsackGui(player.inventory, TProxyClient.knapsack);
+        }
         return null;
     }
-    
-    public static void renderStandardInvBlock(RenderBlocks renderblocks, Block block, int meta)
-	{
-		Tessellator tessellator = Tessellator.instance;
-		GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
-		tessellator.startDrawingQuads();
-		tessellator.setNormal(0.0F, -1F, 0.0F);
-		renderblocks.renderFaceYNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(0, meta));
-		tessellator.draw();
-		tessellator.startDrawingQuads();
-		tessellator.setNormal(0.0F, 1.0F, 0.0F);
-		renderblocks.renderFaceYPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(1, meta));
-		tessellator.draw();
-		tessellator.startDrawingQuads();
-		tessellator.setNormal(0.0F, 0.0F, -1F);
-		renderblocks.renderFaceZNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(2, meta));
-		tessellator.draw();
-		tessellator.startDrawingQuads();
-		tessellator.setNormal(0.0F, 0.0F, 1.0F);
-		renderblocks.renderFaceZPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(3, meta));
-		tessellator.draw();
-		tessellator.startDrawingQuads();
-		tessellator.setNormal(-1F, 0.0F, 0.0F);
-		renderblocks.renderFaceXNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(4, meta));
-		tessellator.draw();
-		tessellator.startDrawingQuads();
-		tessellator.setNormal(1.0F, 0.0F, 0.0F);
-		renderblocks.renderFaceXPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(5, meta));
-		tessellator.draw();
-		GL11.glTranslatef(0.5F, 0.5F, 0.5F);
-	}
+
+    public static void renderStandardInvBlock (RenderBlocks renderblocks, Block block, int meta)
+    {
+        Tessellator tessellator = Tessellator.instance;
+        GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
+        tessellator.startDrawingQuads();
+        tessellator.setNormal(0.0F, -1F, 0.0F);
+        renderblocks.renderFaceYNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(0, meta));
+        tessellator.draw();
+        tessellator.startDrawingQuads();
+        tessellator.setNormal(0.0F, 1.0F, 0.0F);
+        renderblocks.renderFaceYPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(1, meta));
+        tessellator.draw();
+        tessellator.startDrawingQuads();
+        tessellator.setNormal(0.0F, 0.0F, -1F);
+        renderblocks.renderFaceZNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(2, meta));
+        tessellator.draw();
+        tessellator.startDrawingQuads();
+        tessellator.setNormal(0.0F, 0.0F, 1.0F);
+        renderblocks.renderFaceZPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(3, meta));
+        tessellator.draw();
+        tessellator.startDrawingQuads();
+        tessellator.setNormal(-1F, 0.0F, 0.0F);
+        renderblocks.renderFaceXNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(4, meta));
+        tessellator.draw();
+        tessellator.startDrawingQuads();
+        tessellator.setNormal(1.0F, 0.0F, 0.0F);
+        renderblocks.renderFaceXPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(5, meta));
+        tessellator.draw();
+        GL11.glTranslatef(0.5F, 0.5F, 0.5F);
+    }
 
     public static void openInventoryGui ()
     {
-        /*if (mc == null)
+        //controlInstance.openInventoryGui();
+        if (mc == null)
             mc = Minecraft.getMinecraft();
-        mc.displayGuiScreen(new GuiInventory(mc.thePlayer));
-        addTabsToInventory();*/
+        GuiInventory inventory = new GuiInventory(mc.thePlayer);
+        mc.displayGuiScreen(inventory);
+        addTabsToInventory(inventory);
     }
 
-    public static void addTabsToInventory ()
+    public static void addTabsToInventory (GuiContainer gui)
     {
         /*if (mc == null)
-            mc = Minecraft.getMinecraft();
-        if (mc.currentScreen.getClass() == GuiInventory.class)
+            mc = Minecraft.getMinecraft();*/
+        if (gui.getClass() == GuiInventory.class || classMatches(gui, "micdoodle8.mods.galacticraft.core.client.gui.GCCoreGuiInventory"))
         {
-            GuiInventory gui = (GuiInventory) mc.currentScreen;
-            int cornerX = (gui.width - gui.xSize) / 2;
+            int cornerX = gui.guiLeft;
             int cornerY = (gui.height - gui.ySize) / 2;
             gui.buttonList.clear();
 
-            InventoryTab repairButton = new InventoryTab(2, cornerX, cornerY - 28, new ItemStack(Block.workbench), 0);
-            repairButton.enabled = false;
-            gui.buttonList.add(repairButton);
-            repairButton = new InventoryTab(3, cornerX + 28, cornerY - 28, new ItemStack(Item.plateDiamond), 1);
-            gui.buttonList.add(repairButton);
-        }*/
+            InventoryTab tab = new InventoryTab(2, cornerX, cornerY - 28, new ItemStack(Block.workbench), 0);
+            tab.enabled = false;
+            gui.buttonList.add(tab);
+            tab = new InventoryTab(3, cornerX + 28, cornerY - 28, new ItemStack(Item.plateDiamond), 1);
+            gui.buttonList.add(tab);
+            if (armorExtended.inventory[2] != null && armorExtended.inventory[2].getItem() == TContent.knapsack)
+            {
+                if (gui.buttonList.size() < 3)
+                {
+                    tab = new InventoryTab(4, cornerX + 56, cornerY - 28, new ItemStack(TContent.knapsack), 1);
+                    gui.buttonList.add(tab);
+                }
+            }
+        }
+    }
+
+    public static boolean classMatches (Object paramObject, String paramString)
+    {
+        try
+        {
+            return paramObject.getClass().getName().equals(paramString);
+        }
+        catch (Exception localException)
+        {
+            return false;
+        }
     }
 
     public void registerTickHandler ()
@@ -415,6 +451,9 @@ public class TProxyClient extends TProxyCommon
 
         ItemStack silkyCloth = new ItemStack(TContent.materials, 1, 25);
 
+        ItemStack graveyardsoil = new ItemStack(TContent.craftedSoil, 1, 3);
+        ItemStack consecratedsoil = new ItemStack(TContent.craftedSoil, 1, 4);
+
         //TConstruct recipes
         TConstructClientRegistry.registerManualSmallRecipe("blankpattern", pattern, plank, stick, stick, plank);
         TConstructClientRegistry.registerManualSmallRecipe("toolstation", new ItemStack(TContent.toolStationWood, 1, 0), null, pattern, null, workbench);
@@ -432,6 +471,9 @@ public class TProxyClient extends TProxyCommon
         TConstructClientRegistry.registerManualLargeRecipe("silkycloth", silkyCloth, string, string, string, string, new ItemStack(TContent.materials, 1, 24), string, string, string, string);
         TConstructClientRegistry.registerManualLargeRecipe("silkyjewel", new ItemStack(TContent.materials, 1, 26), null, silkyCloth, null, silkyCloth, new ItemStack(Item.emerald), silkyCloth, null,
                 silkyCloth, null);
+
+        TConstructClientRegistry.registerManualSmallRecipe("graveyardsoil", graveyardsoil, new ItemStack(Block.dirt), new ItemStack(Item.rottenFlesh), new ItemStack(Item.dyePowder, 1, 15), null);
+        TConstructClientRegistry.registerManualFurnaceRecipe("consecratedsoil", consecratedsoil, graveyardsoil);
 
         TConstructClientRegistry.registerManualSmallRecipe("grout", grout, sand, gravel, null, clay);
         TConstructClientRegistry.registerManualFurnaceRecipe("searedbrick", searedbrick, grout);
@@ -470,6 +512,13 @@ public class TProxyClient extends TProxyCommon
         TConstructClientRegistry.registerManualModifier("blazemod", ironlongsword.copy(), new ItemStack(Item.blazePowder));
         TConstructClientRegistry.registerManualModifier("necroticmod", ironlongsword.copy(), new ItemStack(TContent.materials, 1, 8));
         TConstructClientRegistry.registerManualModifier("silkymod", ironpick.copy(), new ItemStack(TContent.materials, 1, 26));
+        TConstructClientRegistry.registerManualModifier("reinforcedmod", ironpick.copy(), new ItemStack(TContent.heavyPlate, 1, 6));
+
+        TConstructClientRegistry.registerManualModifier("pistonmod", ironlongsword.copy(), new ItemStack(Block.pistonBase));
+        TConstructClientRegistry.registerManualModifier("beheadingmod", ironlongsword.copy(), new ItemStack(Item.enderPearl), new ItemStack(Block.obsidian));
+        TConstructClientRegistry.registerManualModifier("spidermod", ironlongsword.copy(), new ItemStack(Item.fermentedSpiderEye));
+        TConstructClientRegistry.registerManualModifier("smitemod", ironlongsword.copy(), new ItemStack(TContent.craftedSoil, 1, 4));
+
         TConstructClientRegistry.registerManualModifier("electricmod", ironpick.copy(), new ItemStack(Block.dirt), new ItemStack(Block.dirt));
         TConstructClientRegistry.registerManualModifier("tier1free", ironpick.copy(), new ItemStack(Item.diamond), new ItemStack(Block.blockGold));
         TConstructClientRegistry.registerManualModifier("tier2free", ironpick.copy(), new ItemStack(Item.netherStar));
@@ -559,25 +608,31 @@ public class TProxyClient extends TProxyCommon
             addToolButton(itemIcons[i][0], itemIcons[i][1], itemIcons[i][2], iconCoords[i * 2], iconCoords[i * 2 + 1], toolNames[i], toolDescriptions[i]);
         }
 
-        addTierTwoButton(6, 13, 0, new int[] { 11, 8, 9, 9 }, new int[] { 2, 3, 2, 2 }, "Hammer", 
-            "The Hammer is a broad mining tool. It harvests blocks in a wide range and is effective against undead.\n\nNatural Abilities:\nArea of Effect\n- (3x3x3)\n- Smite\n\nDurability: High");
-        addTierTwoButton(5, 11, 0, new int[] { 6, 8, 9, 9 }, new int[] { 2, 3, 2, 3 }, "Lumber Axe", 
-            "The Lumber Axe is a broad chopping tool. It can fell entire trees or gather wood in a wide range.\n\nNatural Abilities:\n- Fell Trees\nArea of Effect\n- (3x3x3)\n\nDurability: Average");
-        addTierTwoButton(4, 12, 0, new int[] { 10, 8, 9, 8 }, new int[] { 2, 3, 3, 3 }, "Excavator", 
-            "The Excavator is a broad digging tool. It harvests soil and snow in a wide range.\n\nNatural Ability:\n- Area of Effect\n- (3x3)\n\nDurability: Average");
-        addTierTwoButton(4, 10, 0, new int[] { 8, 8, 9, 8 }, new int[] { 2, 3, 3, 3 }, "Scythe", 
-            "The Scythe is a broad reaping tool. It is effective on plants and attacks enemies in a wide range.\n\nNatural Ability:\nArea of Effect\n- (3x3x3)\n\nDurability: Average\nDamage: Low, AoE");
-        addTierTwoButton(5, 7, 1, new int[] { 6, 8, 9, 8 }, new int[] { 3, 3, 2, 3 }, "Cleaver", 
-            "The Cleaver is a heavy defensive weapon. It has powerful strikes, but is difficult to wield.\n\nSpecial Ability: Block\nNatural Ability:\n- Beheading\n\nDamage: Very High\nDurability: Average");
-        addTierTwoButton(5, 8, 1, new int[] { 6, 8, 6, 9 }, new int[] { 2, 3, 2, 3 }, "Battleaxe", 
-            "The Battleaxe is a heavy offensive weapon. It is capable of bringing down small trees and can send foes flying.\n\nSpecial Ability: Block\nNatural Abilities:\n- Knockback\n- Area of Effect\n- (1x9)\n\nDamage: Average\nDurability: Average");
+        addTierTwoButton(6, 13, 0, new int[] { 11, 8, 9, 9 }, new int[] { 2, 3, 2, 2 }, "Hammer",
+                "The Hammer is a broad mining tool. It harvests blocks in a wide range and is effective against undead.\n\nNatural Abilities:\nArea of Effect\n- (3x3x3)\n- Smite\n\nDurability: High");
+        addTierTwoButton(5, 11, 0, new int[] { 6, 8, 9, 9 }, new int[] { 2, 3, 2, 3 }, "Lumber Axe",
+                "The Lumber Axe is a broad chopping tool. It can fell entire trees or gather wood in a wide range.\n\nNatural Abilities:\n- Fell Trees\nArea of Effect\n- (3x3x3)\n\nDurability: Average");
+        addTierTwoButton(4, 12, 0, new int[] { 10, 8, 9, 8 }, new int[] { 2, 3, 3, 3 }, "Excavator",
+                "The Excavator is a broad digging tool. It harvests soil and snow in a wide range.\n\nNatural Ability:\n- Area of Effect\n- (3x3)\n\nDurability: Average");
+        addTierTwoButton(4, 10, 0, new int[] { 8, 8, 9, 8 }, new int[] { 2, 3, 3, 3 }, "Scythe",
+                "The Scythe is a broad reaping tool. It is effective on plants and attacks enemies in a wide range.\n\nNatural Ability:\nArea of Effect\n- (3x3x3)\n\nDurability: Average\nDamage: Low, AoE");
+        addTierTwoButton(5, 7, 1, new int[] { 6, 8, 9, 8 }, new int[] { 3, 3, 2, 3 }, "Cleaver",
+                "The Cleaver is a heavy defensive weapon. It has powerful strikes, but is difficult to wield.\n\nSpecial Ability: Block\nNatural Ability:\n- Beheading\n\nDamage: Very High\nDurability: Average");
+        addTierTwoButton(
+                5,
+                8,
+                1,
+                new int[] { 6, 8, 6, 9 },
+                new int[] { 2, 3, 2, 3 },
+                "Battleaxe",
+                "The Battleaxe is a heavy offensive weapon. It is capable of bringing down small trees and can send foes flying.\n\nSpecial Ability: Block\nNatural Abilities:\n- Knockback\n- Area of Effect\n- (1x9)\n\nDamage: Average\nDurability: Average");
     }
 
     void addToolButton (int slotType, int xButton, int yButton, int[] xIcons, int[] yIcons, String title, String body)
     {
         TConstructClientRegistry.addToolButton(new ToolGuiElement(slotType, xButton, yButton, xIcons, yIcons, title, body, "/mods/tinker/textures/gui/icons.png"));
     }
-    
+
     void addTierTwoButton (int slotType, int xButton, int yButton, int[] xIcons, int[] yIcons, String title, String body)
     {
         TConstructClientRegistry.addTierTwoButton(new ToolGuiElement(slotType, xButton, yButton, xIcons, yIcons, title, body, "/mods/tinker/textures/gui/icons.png"));
@@ -587,11 +642,12 @@ public class TProxyClient extends TProxyCommon
     {
         String[] partTypes = { "wood", "stone", "iron", "flint", "cactus", "bone", "obsidian", "netherrack", "slime", "paper", "cobalt", "ardite", "manyullyn", "copper", "bronze", "alumite", "steel",
                 "blueslime" };
-        String[] effectTypes = { "diamond", "emerald", "redstone", "piston", "moss", "ice", "lava", "blaze", "necrotic", "electric", "lapis", "quartz", "silk", "beheading", "smite", "spider", "reinforced" };
+        String[] effectTypes = { "diamond", "emerald", "redstone", "piston", "moss", "ice", "lava", "blaze", "necrotic", "electric", "lapis", "quartz", "silk", "beheading", "smite", "spider",
+                "reinforced" };
         int[] universalEffects = { 0, 1, 4, 9, 16 };
-        int[] weaponEffects = { 3, 5, 7, 8, 12, 13, 14, 15 };
+        int[] weaponEffects = { 3, 5, 7, 8, 11, 13, 14, 15 };
         int[] harvestEffects = { 2 };
-        int[] nonUtility = { 6, 10, 11 };
+        int[] nonUtility = { 6, 10, 12 };
 
         for (int partIter = 0; partIter < partTypes.length; partIter++)
         {
@@ -603,30 +659,30 @@ public class TProxyClient extends TProxyCommon
             List list = Arrays.asList(tool.toolCategories());
             for (int i = 0; i < universalEffects.length; i++)
             {
-                TConstructClientRegistry.addEffectRenderMapping(universalEffects[i], "tinker", effectTypes[universalEffects[i]], true);
+                TConstructClientRegistry.addEffectRenderMapping(tool, universalEffects[i], "tinker", effectTypes[universalEffects[i]], true);
             }
-            
+
             if (list.contains("harvest"))
-            {                
+            {
                 for (int i = 0; i < harvestEffects.length; i++)
                 {
-                    TConstructClientRegistry.addEffectRenderMapping(harvestEffects[i], "tinker", effectTypes[harvestEffects[i]], true);
+                    TConstructClientRegistry.addEffectRenderMapping(tool, harvestEffects[i], "tinker", effectTypes[harvestEffects[i]], true);
                 }
             }
-            
+
             if (list.contains("weapon"))
             {
                 for (int i = 0; i < weaponEffects.length; i++)
                 {
-                    TConstructClientRegistry.addEffectRenderMapping(weaponEffects[i], "tinker", effectTypes[weaponEffects[i]], true);
+                    TConstructClientRegistry.addEffectRenderMapping(tool, weaponEffects[i], "tinker", effectTypes[weaponEffects[i]], true);
                 }
             }
-            
+
             if (list.contains("weapon") || list.contains("harvest"))
             {
                 for (int i = 0; i < nonUtility.length; i++)
                 {
-                    TConstructClientRegistry.addEffectRenderMapping(nonUtility[i], "tinker", effectTypes[nonUtility[i]], true);
+                    TConstructClientRegistry.addEffectRenderMapping(tool, nonUtility[i], "tinker", effectTypes[nonUtility[i]], true);
                 }
             }
         }

@@ -176,6 +176,7 @@ public class TContent implements IFuelHandler
 	public static Item heavyPants;
 	public static Item heavyBoots;
 	public static Item glove;
+	public static Item knapsack;
 
 	public static Item heartCanister;
 	
@@ -446,6 +447,7 @@ public class TContent implements IFuelHandler
 		heartCanister = new HeartCanister(PHConstruct.heartCanister).setUnlocalizedName("tconstruct.canister");
 		heavyBoots = new TArmorBase(PHConstruct.heavyBoots, 3).setUnlocalizedName("tconstruct.HeavyBoots");
 		glove = new Glove(PHConstruct.glove).setUnlocalizedName("tconstruct.Glove");
+		knapsack = new Knapsack(PHConstruct.knapsack).setUnlocalizedName("tconstruct.storage");
 		/*public static Item heavyHelmet;
 		public static Item heavyChestplate;
 		public static Item heavyPants;
@@ -636,7 +638,7 @@ public class TContent implements IFuelHandler
         tb.registerToolMod(new ModAntiSpider("Anti-Spider", new ItemStack[] { spidereyeball, spidereyeball }, 15, 2));
         
         ItemStack obsidianPlate = new ItemStack(heavyPlate, 1, 6);
-        tb.registerToolMod(new ModReinforced( new ItemStack[] { obsidianPlate }, 16, 1));   
+        tb.registerToolMod(new ModReinforced( new ItemStack[] { obsidianPlate }, 16, 1));
 
 		TConstructRegistry.registerActiveToolMod(new TActiveOmniMod());
 
@@ -932,10 +934,13 @@ public class TContent implements IFuelHandler
 		GameRegistry.addRecipe(new ItemStack(Block.pressurePlateGold), "ii", 'i', aluBrass);
 
 		ItemStack necroticBone = new ItemStack(materials, 1, 8);
+		
 		//Accessories
 		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(heartCanister, 1, 0), "##", "##", '#', "ingotNaturalAluminum"));
 		GameRegistry.addRecipe(new ItemStack(diamondApple), " d ", "d#d", " d ", 'd', new ItemStack(Item.diamond), '#', new ItemStack(Item.appleRed));
 		GameRegistry.addShapelessRecipe(new ItemStack(heartCanister, 1, 2), new ItemStack(diamondApple), necroticBone, new ItemStack(heartCanister, 1, 0), new ItemStack(heartCanister, 1, 1));
+        GameRegistry.addRecipe(new ItemStack(knapsack, 1, 0), "###", "rmr", "###", '#', new ItemStack(Item.leather), 'r', new ItemStack(toughRod, 1, 2), 'm', new ItemStack(Item.ingotGold));
+        GameRegistry.addRecipe(new ItemStack(knapsack, 1, 0), "###", "rmr", "###", '#', new ItemStack(Item.leather), 'r', new ItemStack(toughRod, 1, 2), 'm', new ItemStack(materials, 1, 14));
 	}
 
 	void setupToolTabs ()

@@ -17,5 +17,6 @@ public class TPlayerStats
 	public boolean materialManual;
 	public boolean smelteryManual;
 	public ArmorExtended armor;
+	public KnapsackInventory knapsack;
 	public List<Skill> skillList;
 }

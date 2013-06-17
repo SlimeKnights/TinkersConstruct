@@ -113,6 +113,11 @@ public class ArmorExtended implements IInventory
 		TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
     	//recalculateSkills(player, stats);
         recalculateHealth(player, stats);
+        
+        if (inventory[2] != null && inventory[2].getItem() == TContent.knapsack)
+        {
+            
+        }
     }
     
     /*public void recalculateSkills(EntityPlayer player, TPlayerStats stats)
