@@ -28,11 +28,14 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumMovingObjectType;
 import net.minecraft.world.World;
 import net.minecraftforge.event.Event.Result;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.event.entity.player.FillBucketEvent;
 import net.minecraftforge.liquids.LiquidStack;
@@ -76,15 +79,24 @@ public class TEventHandler
 
     /*@ForgeSubscribe
     public void onHurt (LivingHurtEvent event)
-    {
-        if (event.source instanceof EntityDamageSource && event.source.damageType.equals("explosion.player") && ((EntityDamageSource) event.source).getEntity() instanceof NitroCreeper)
+    {*/
+        /*if (event.entityLiving instanceof EntityPlayer)
+        {
+            EntityPlayer player = (EntityPlayer) event.entityLiving;
+            ItemStack stack = player.getItemInUse();
+            if (stack != null && stack.getItem() == TContent.cutlass)
+            {
+                player.addPotionEffect(new PotionEffect(Potion.moveSpeed.id, 3*20, 1));
+            }
+        }*/
+        /*if (event.source instanceof EntityDamageSource && event.source.damageType.equals("explosion.player") && ((EntityDamageSource) event.source).getEntity() instanceof NitroCreeper)
         {
             if (event.entityLiving.worldObj.difficultySetting == 3)
                 event.ammount /= 2.3;
             else
                 event.ammount /= 1.5;
-        }
-    }*/
+        }*/
+    //}
 
     /* Drops */
     @ForgeSubscribe
@@ -141,7 +153,7 @@ public class TEventHandler
                     {
                         EntityPlayer player = (EntityPlayer) event.source.getEntity();
                         ItemStack stack = player.getCurrentEquippedItem();
-                        if (stack.hasTagCompound() && stack.getItem() instanceof ToolCore)
+                        if (stack != null && stack.hasTagCompound() && stack.getItem() instanceof ToolCore)
                         {
                             int beheading = stack.getTagCompound().getCompoundTag("InfiTool").getInteger("Beheading");
                             if (beheading > 0 && random.nextInt(100) < beheading * 10)
@@ -165,7 +177,7 @@ public class TEventHandler
                         EntityPlayer player = (EntityPlayer) event.source.getEntity();
                         ItemStack stack = player.getCurrentEquippedItem();
 
-                        if (stack.hasTagCompound() && stack.getItem() instanceof ToolCore)
+                        if (stack != null && stack.hasTagCompound() && stack.getItem() instanceof ToolCore)
                         {
                             int beheading = stack.getTagCompound().getCompoundTag("InfiTool").getInteger("Beheading");
                             if (beheading > 0 && random.nextInt(100) < beheading * 10)
@@ -188,7 +200,7 @@ public class TEventHandler
                     {
                         EntityPlayer player = (EntityPlayer) event.source.getEntity();
                         ItemStack stack = player.getCurrentEquippedItem();
-                        if (stack.hasTagCompound() && stack.getItem() instanceof ToolCore)
+                        if (stack != null && stack.hasTagCompound() && stack.getItem() instanceof ToolCore)
                         {
                             int beheading = stack.getTagCompound().getCompoundTag("InfiTool").getInteger("Beheading");
                             if (beheading > 0 && random.nextInt(100) < beheading * 5)
@@ -207,7 +219,7 @@ public class TEventHandler
                     {
                         EntityPlayer player = (EntityPlayer) event.source.getEntity();
                         ItemStack stack = player.getCurrentEquippedItem();
-                        if (stack.hasTagCompound() && stack.getItem() instanceof ToolCore)
+                        if (stack != null && stack.hasTagCompound() && stack.getItem() instanceof ToolCore)
                         {
                             int beheading = stack.getTagCompound().getCompoundTag("InfiTool").getInteger("Beheading");
                             if (beheading > 0 && random.nextInt(100) < beheading * 50)

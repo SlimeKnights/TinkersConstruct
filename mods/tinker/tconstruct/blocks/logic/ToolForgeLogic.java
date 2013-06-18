@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 /* Simple class for storing items in the block
  */
 
-public class ToolForgeLogic extends InventoryLogic
+public class ToolForgeLogic extends ToolStationLogic
     implements ISidedInventory
 {
 	ItemStack previousTool;
@@ -25,18 +25,6 @@ public class ToolForgeLogic extends InventoryLogic
 		toolName = "";
 	}
 	
-	public boolean canDropInventorySlot(int slot)
-    {
-	    if (slot == 0)
-	        return false;
-        return true;
-    }
-
-	@Override
-	public ItemStack getStackInSlotOnClosing (int var1)
-	{
-		return null;
-	}
 
 	@Override
 	public String getDefaultName ()
@@ -48,16 +36,6 @@ public class ToolForgeLogic extends InventoryLogic
 	public Container getGuiContainer (InventoryPlayer inventoryplayer, World world, int x, int y, int z)
 	{
 		return new ToolForgeContainer(inventoryplayer, this);
-	}
-
-	public void onInventoryChanged ()
-	{
-		buildTool(toolName);
-		if (this.worldObj != null)
-		{
-			this.blockMetadata = this.worldObj.getBlockMetadata(this.xCoord, this.yCoord, this.zCoord);
-			this.worldObj.updateTileEntityChunkAndDoNothing(this.xCoord, this.yCoord, this.zCoord, this);
-		}
 	}
 
 	public void buildTool (String name)
@@ -75,33 +53,4 @@ public class ToolForgeLogic extends InventoryLogic
 			}
 		}
 	}
-	
-	public void setToolname (String name)
-	{
-		toolName = name;
-		buildTool (name);
-	}
-	
-	public boolean canUpdate()
-    {
-        return false;
-    }
-
-	@Override
-    public int[] getAccessibleSlotsFromSide (int side)
-    {
-        return new int[0];
-    }
-
-    @Override
-    public boolean canInsertItem (int i, ItemStack itemstack, int j)
-    {
-        return false;
-    }
-
-    @Override
-    public boolean canExtractItem (int i, ItemStack itemstack, int j)
-    {
-        return false;
-    }
 }

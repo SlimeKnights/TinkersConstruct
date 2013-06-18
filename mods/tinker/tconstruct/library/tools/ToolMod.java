@@ -156,7 +156,51 @@ public abstract class ToolMod
 				tags.setString(modTip, modifierTip);
 				return tipNum;
 			}
+			else
+			{
+			    String tag = tags.getString(tip);
+			    if (tag.contains(tooltip))
+			    {
+	                tags.setString(tip, getProperName(tooltip, tag));
+	                String modTip = "ModifierTip" + tipNum;
+	                tag = tags.getString(modTip);
+	                tags.setString(modTip, getProperName(modifierTip, tag));
+	                return tipNum;
+			    }
+			}
 		}
+	}
+	
+	protected String getProperName(String tooltip, String tag)
+	{
+	    if (tag.equals(tooltip))
+	        return tooltip + " II";
+
+        if (tag.equals(tooltip + " II"))
+            return tooltip + " III";
+        
+        if (tag.equals(tooltip + " III"))
+            return tooltip + " IV";
+        
+        if (tag.equals(tooltip + " IV"))
+            return tooltip + " V";
+        
+        if (tag.equals(tooltip + " V"))
+            return tooltip + " VI";
+        
+        if (tag.equals(tooltip + " VI"))
+            return tooltip + " VII";
+        
+        if (tag.equals(tooltip + " VII"))
+            return tooltip + " VIII";
+        
+        if (tag.equals(tooltip + " VIII"))
+            return tooltip + " IX";
+        
+        if (tag.equals(tooltip + " IX"))
+            return tooltip + " X";
+	    
+	    return tooltip + " X+";
 	}
 	
 	public boolean validType(ToolCore tool)

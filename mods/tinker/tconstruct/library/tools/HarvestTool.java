@@ -67,16 +67,35 @@ public abstract class HarvestTool extends ToolCore
 		{
 			if (materials[i] == block.blockMaterial)
 			{
-				float speed = tags.getInteger("MiningSpeed");
-				speed /= 100f;
+				float mineSpeed = tags.getInteger("MiningSpeed");
+				int heads = 1;
+	            if (tags.hasKey("MiningSpeed2"))
+	            {
+	                mineSpeed += tags.getInteger("MiningSpeed2");
+	                heads++;
+	            }
+	            
+	            if (tags.hasKey("MiningSpeedHandle"))
+	            {
+	                mineSpeed += tags.getInteger("MiningSpeedHandle");
+	                heads++;
+	            }
+	            
+	            if (tags.hasKey("MiningSpeedExtra"))
+	            {
+	                mineSpeed += tags.getInteger("MiningSpeedExtra");
+	                heads++;
+	            }
+	            float trueSpeed = mineSpeed / (heads * 100f);
 				int hlvl = MinecraftForge.getBlockHarvestLevel(block, meta, getHarvestType());
 				int durability = tags.getInteger("Damage");
 
-				float shoddy = tags.getFloat("Shoddy");
-				speed += shoddy * durability / 100f;
+				float stonebound = tags.getFloat("Shoddy");
+				float bonusLog = (float) Math.log(durability / 72f + 1) * 2 * stonebound;
+				trueSpeed += bonusLog;
 
 				if (hlvl <= tags.getInteger("HarvestLevel"))
-					return speed;
+					return trueSpeed;
 				return 0.1f;
 			}
 		}

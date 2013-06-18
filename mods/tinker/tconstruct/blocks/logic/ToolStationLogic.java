@@ -16,14 +16,20 @@ import net.minecraft.world.World;
 public class ToolStationLogic extends InventoryLogic
     implements ISidedInventory
 {
-	ItemStack previousTool;
-	String toolName;
+	public ItemStack previousTool;
+	public String toolName;
 
 	public ToolStationLogic()
 	{
 		super(4);
 		toolName = "";
 	}
+
+    public ToolStationLogic(int slots)
+    {
+        super(slots);
+        toolName = "";
+    }
 	
 	public boolean canDropInventorySlot(int slot)
     {

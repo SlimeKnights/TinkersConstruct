@@ -9,47 +9,15 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
-public class SlotToolForge extends Slot
+public class SlotToolForge extends SlotTool
 {
     /** The player that is using the GUI where this slot resides. */
-    private EntityPlayer player;
     Random random = new Random();
 
     public SlotToolForge(EntityPlayer entityplayer, IInventory builder, int par3, int par4, int par5)
     {
-        super(builder, par3, par4, par5);
-        this.player = entityplayer;
+        super(entityplayer, builder, par3, par4, par5);
     }
-
-    /**
-     * Check if the stack is a valid item for this slot. Always true beside for the armor slots.
-     */
-    public boolean isItemValid (ItemStack stack)
-    {
-        return false;
-        //return stack.getItem() instanceof ToolCore;
-    }
-
-    public void onPickupFromSlot (EntityPlayer par1EntityPlayer, ItemStack stack)
-    {
-        this.onCrafting(stack);
-        //stack.setUnlocalizedName("\u00A7f" + toolName);
-        super.onPickupFromSlot(par1EntityPlayer, stack);
-    }
-
-    /**
-     * the itemStack passed in is the output - ie, iron ingots, and pickaxes, not ore and wood. Typically increases an
-     * internal count then calls onCrafting(item).
-     */
-    protected void onCrafting (ItemStack stack, int par2)
-    {
-        //this.field_75228_b += par2;
-        this.onCrafting(stack);
-    }
-
-    /**
-     * the itemStack passed in is the output - ie, iron ingots, and pickaxes, not ore and wood.
-     */
     protected void onCrafting (ItemStack stack)
     {
         NBTTagCompound tags = stack.getTagCompound();

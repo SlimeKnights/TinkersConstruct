@@ -158,7 +158,7 @@ public class ArmorExtended implements IInventory
         		player.maxHealth = 20 + bonusHP;
         	}
         }
-        else
+        else if (parent != null && parent.get() != null)
         {
             parent.get().maxHealth = 20;
         }

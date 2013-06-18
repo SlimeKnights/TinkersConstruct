@@ -12,7 +12,7 @@ import net.minecraft.nbt.NBTTagCompound;
 public class SlotTool extends Slot
 {
     /** The player that is using the GUI where this slot resides. */
-    private EntityPlayer player;
+    public EntityPlayer player;
     Random random = new Random();
 
     public SlotTool(EntityPlayer entityplayer, IInventory builder, int par3, int par4, int par5)

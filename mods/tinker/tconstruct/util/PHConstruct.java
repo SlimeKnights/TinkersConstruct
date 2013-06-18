@@ -124,6 +124,7 @@ public class PHConstruct
         largePlate = config.getItem("Tool Parts", "Large Plate", 14044).getInt(14044);
         excavatorHead = config.getItem("Tool Parts", "Excavator Head", 14045).getInt(14045);
         hammerHead = config.getItem("Tool Parts", "Hammer Head", 14046).getInt(14046);
+        fullGuard = config.getItem("Tool Parts", "Full Guard", 14047).getInt(14047);
 
         pickaxe = config.getItem("Tools", "Pickaxe", 14051).getInt(14051);
         shovel = config.getItem("Tools", "Shovel", 14052).getInt(14052);
@@ -149,6 +150,8 @@ public class PHConstruct
         excavator = config.getItem("Tools", "Excavator", 14069).getInt(14069);
         hammer = config.getItem("Tools", "Hammer", 14070).getInt(14070);
         battleaxe = config.getItem("Tools", "Battleaxe", 14071).getInt(14071);
+        
+        cutlass = config.getItem("Tools", "Cutlass", 14072).getInt(14072);
 
         buckets = config.getItem("Patterns and Misc", "Buckets", 14101).getInt(14101);
         uselessItem = config.getItem("Patterns and Misc", "Title Icon", 14102).getInt(14102);
@@ -314,6 +317,7 @@ public class PHConstruct
     public static int longsword;
     public static int rapier;
     public static int dagger;
+    public static int cutlass;
 
     public static int frypan;
     public static int battlesign;
@@ -337,6 +341,7 @@ public class PHConstruct
     public static int medGuard;
     public static int crossbar;
     public static int knifeBlade;
+    public static int fullGuard;
 
     public static int pickaxeHead;
     public static int axeHead;

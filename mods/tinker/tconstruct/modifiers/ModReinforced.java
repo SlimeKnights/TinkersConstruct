@@ -33,5 +33,38 @@ public class ModReinforced extends ModInteger
         int reinforced = tags.getInteger("Unbreaking");
         reinforced += 1;
         tags.setInteger("Unbreaking", reinforced);
+        
+        addToolTip(tool, color+tooltipName, color+key);
+    }
+    
+    protected int addToolTip (ItemStack tool, String tooltip, String modifierTip)
+    {
+        NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
+        int tipNum = 0;
+        while (true)
+        {
+            tipNum++;
+            String tip = "Tooltip" + tipNum;
+            if (!tags.hasKey(tip))
+            {
+                //tags.setString(tip, tooltip);
+                String modTip = "ModifierTip" + tipNum;
+                String tag = tags.getString(modTip);
+                tags.setString(modTip, getProperName(modifierTip, tag));
+                return tipNum;
+            }
+            else
+            {
+                String modTip = "ModifierTip" + tipNum;
+                String tag = tags.getString(modTip);
+                if (tag.contains(modifierTip))
+                {
+                    //tags.setString(tip, getProperName(tooltip, tag));
+                    tag = tags.getString(modTip);
+                    tags.setString(modTip, getProperName(modifierTip, tag));
+                    return tipNum;
+                }
+            }
+        }
     }
 }

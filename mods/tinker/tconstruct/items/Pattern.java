@@ -34,7 +34,7 @@ public class Pattern extends CraftingItem
 
 	public static final String[] patternName = new String[] { 
 		"ingot", "rod", "pickaxe", "shovel", "axe", "swordblade", "largeguard", "mediumguard", "crossbar", "binding", "frypan", "sign", "knifeblade", "chisel", "largerod", "toughbinding", "largeplate",
-		"broadaxe", "scythe", "excavator", "largeblade", "hammerhead" };
+		"broadaxe", "scythe", "excavator", "largeblade", "hammerhead", "fullguard" };
 	
 	/*@SideOnly(Side.CLIENT)
     public void registerIcons(IconRegister iconRegister)
@@ -49,7 +49,7 @@ public class Pattern extends CraftingItem
 
 	public void getSubItems (int id, CreativeTabs tab, List list)
 	{
-		for (int i = 1; i < patternName.length; i++)
+		for (int i = 1; i < patternName.length-1; i++)
 			list.add(new ItemStack(id, 1, i));
 	}
 
@@ -105,6 +105,7 @@ public class Pattern extends CraftingItem
 		case 19: return 16;
 		case 20: return 16;
         case 21: return 16;
+        case 22: return 2;
 		default: return 0;
 		}
 	}

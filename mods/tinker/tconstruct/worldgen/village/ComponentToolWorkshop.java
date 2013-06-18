@@ -116,7 +116,7 @@ public class ComponentToolWorkshop extends ComponentVillage
 		this.placeBlockAtCurrentPosition(world, Block.ladder.blockID, i, 3, 4, 5, sbb);
 
 		this.placeBlockAtCurrentPosition(world, TContent.toolStationWood.blockID, 0, 1, 1, 1, sbb); //Inside
-		this.generateStructureChestContents(world, sbb, random, 1, 1, 2, TContent.tinkerHousePatterns.getItems(random), TContent.tinkerHousePatterns.getCount(random));
+		this.generateStructurePatternChestContents(world, sbb, random, 1, 1, 2, TContent.tinkerHousePatterns.getItems(random), TContent.tinkerHousePatterns.getCount(random));
 		//this.placeBlockAtCurrentPosition(world, TContent.toolStationWood.blockID, 5, 1, 1, 2, sbb);
 		this.placeBlockAtCurrentPosition(world, TContent.toolStationWood.blockID, 1, 1, 1, 3, sbb);
 		this.placeBlockAtCurrentPosition(world, Block.workbench.blockID, 0, 1, 1, 4, sbb);

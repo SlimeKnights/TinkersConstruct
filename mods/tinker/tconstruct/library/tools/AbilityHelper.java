@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
+import mods.tinker.tconstruct.common.TContent;
 import mods.tinker.tconstruct.library.ActiveToolMod;
 import mods.tinker.tconstruct.library.TConstructRegistry;
 import mods.tinker.tconstruct.library.util.PiercingEntityDamage;
@@ -74,9 +75,8 @@ public class AbilityHelper
 
 				int durability = tags.getCompoundTag("InfiTool").getInteger("Damage");
 				float stonebound = tags.getCompoundTag("InfiTool").getFloat("Shoddy");
-				float stoneboundDamage = -stonebound * durability / 65f;
-				if (stonebound > 0)
-					stoneboundDamage = -stonebound * durability / 100f;
+
+				float stoneboundDamage = (float) Math.log(durability / 72f + 1) * -2 * stonebound;
 				
 		    	int earlyModDamage = 0;
 		    	for (ActiveToolMod mod : TConstructRegistry.activeModifiers)
@@ -137,6 +137,9 @@ public class AbilityHelper
 				{
 					boolean criticalHit = player.fallDistance > 0.0F && !player.onGround && !player.isOnLadder() && !player.isInWater() && !player.isPotionActive(Potion.blindness)
 							&& player.ridingEntity == null && entity instanceof EntityLiving;
+					
+					if (tool == TContent.cutlass && random.nextInt(10) == 0)
+					    criticalHit = true;
 
 					if (criticalHit)
 					{
@@ -172,7 +175,7 @@ public class AbilityHelper
 						tool.onEntityDamaged(player.worldObj, player, entity);
 						int drain = toolTags.getInteger("Necrotic") * 2;
 						if (drain > 0)
-							player.heal(random.nextInt(drain));
+							player.heal(random.nextInt(drain+1));
 
 						if (knockback > 0)
 						{

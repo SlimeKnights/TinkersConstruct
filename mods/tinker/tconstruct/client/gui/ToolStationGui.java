@@ -2,6 +2,10 @@ package mods.tinker.tconstruct.client.gui;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.util.Arrays;
+import java.util.List;
 
 import mods.tinker.tconstruct.blocks.logic.ToolStationLogic;
 import mods.tinker.tconstruct.inventory.ActiveContainer;
@@ -9,7 +13,6 @@ import mods.tinker.tconstruct.inventory.ToolStationContainer;
 import mods.tinker.tconstruct.library.client.TConstructClientRegistry;
 import mods.tinker.tconstruct.library.client.ToolGuiElement;
 import mods.tinker.tconstruct.library.tools.ToolCore;
-import mods.tinker.tconstruct.library.tools.Weapon;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -29,14 +32,14 @@ import cpw.mods.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class ToolStationGui extends NewContainerGui
 {
-    ToolStationLogic logic;
-    ToolStationContainer toolSlots;
-    GuiTextField text;
-    String toolName;
-    int guiType;
-    int[] slotX, slotY, iconX, iconY;
-    boolean active;
-    String title, body = "";
+    public ToolStationLogic logic;
+    public ToolStationContainer toolSlots;
+    public GuiTextField text;
+    public String toolName;
+    public int guiType;
+    public int[] slotX, slotY, iconX, iconY;
+    public boolean active;
+    public String title, body = "";
 
     public ToolStationGui(InventoryPlayer inventoryplayer, ToolStationLogic stationlogic, World world, int x, int y, int z)
     {
@@ -133,10 +136,6 @@ public class ToolStationGui extends NewContainerGui
             slotX = new int[] { 38, 47, 56 }; // Double head
             slotY = new int[] { 28, 46, 28 };
             break;
-        case 4:
-            slotX = new int[] { 47, 47, 38, 56 }; // Four parts
-            slotY = new int[] { 19, 55, 37, 37 };
-            break;
         }
         toolSlots.resetSlots(slotX, slotY);
     }
@@ -170,12 +169,163 @@ public class ToolStationGui extends NewContainerGui
         ToolCore tool = (ToolCore) stack.getItem();
         NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
         this.drawCenteredString(fontRenderer, "\u00A7n" + tool.getToolName(), xSize + 63, 8, 0xffffff);
-        if (tool instanceof Weapon)
+
+        drawModularToolStats(stack, tool, tags);
+        /*if (tool instanceof Weapon)
             drawWeaponStats(stack, tool, tags);
         else if (tool.getHeadType() == 3)
             drawDualStats(stack, tool, tags);
         else
-            drawHarvestStats(stack, tool, tags);
+            drawHarvestStats(stack, tool, tags);*/
+    }
+
+    void drawModularToolStats (ItemStack stack, ToolCore tool, NBTTagCompound tags)
+    {
+        List categories = Arrays.asList(tool.toolCategories());
+        final int durability = tags.getInteger("Damage");
+        final int maxDur = tags.getInteger("TotalDurability");
+        int availableDurability = maxDur - durability;
+
+        //Durability
+        int base = 24;
+        int offset = 0;
+        if (maxDur >= 10000)
+        {
+            fontRenderer.drawString("Durability:", xSize + 8, base + offset * 11, 0xffffff);
+            offset++;
+            fontRenderer.drawString("- " + availableDurability + "/" + maxDur, xSize + 8, base + offset * 10, 0xffffff);
+            offset++;
+        }
+        else
+        {
+            fontRenderer.drawString("Durability: " + availableDurability + "/" + maxDur, xSize + 8, base + offset * 10, 0xffffff);
+            offset++;
+        }
+
+        final float stonebound = tags.getFloat("Shoddy");
+        //Attack
+        if (categories.contains("weapon"))
+        {
+            int attack = tags.getInteger("Attack");
+            float stoneboundDamage = (float) Math.log(durability / 72f + 1) * -2 * stonebound;
+            attack += stoneboundDamage;
+            if (attack < 1)
+                attack = 1;
+
+            String heart = attack == 2 ? " Heart" : " Hearts";
+            if (attack % 2 == 0)
+                this.fontRenderer.drawString("Attack: " + attack / 2 + heart, xSize + 8, base + offset * 10, 0xffffff);
+            else
+                this.fontRenderer.drawString("Attack: " + attack / 2f + heart, xSize + 8, base + offset * 10, 0xffffff);
+            offset++;
+
+            if (stoneboundDamage != 0)
+            {
+                heart = stoneboundDamage == 2 ? " Heart" : " Hearts";
+                String bloss = stoneboundDamage > 0 ? "Bonus: " : "Loss: ";
+                this.fontRenderer.drawString(bloss + (int) stoneboundDamage / 2 + heart, xSize + 8, base + offset * 10, 0xffffff);
+                offset++;
+            }
+            offset++;
+        }
+
+        //Mining
+        if (categories.contains("dualharvest"))
+        {
+            float mineSpeed = tags.getInteger("MiningSpeed") / 100f;
+            float mineSpeed2 = tags.getInteger("MiningSpeed2") / 100f;
+            float stoneboundSpeed = (float) Math.log(durability / 90f + 1) * 2 * stonebound;
+            DecimalFormat df = new DecimalFormat("##.##");
+            df.setRoundingMode(RoundingMode.DOWN);
+            float trueSpeed = mineSpeed + stoneboundSpeed;
+            float trueSpeed2 = mineSpeed + stoneboundSpeed;
+            
+            fontRenderer.drawString("Mining Speeds: ", xSize + 8, base + offset * 10, 0xffffff);
+            offset++;
+            fontRenderer.drawString("- " + df.format(trueSpeed) + ", " + df.format(trueSpeed2), xSize + 8, base + offset * 10, 0xffffff);
+            offset++;
+            if (stoneboundSpeed != 0)
+            {
+                String bloss = stoneboundSpeed > 0 ? "Bonus: " : "Loss: ";
+                fontRenderer.drawString(bloss + df.format(stoneboundSpeed), xSize + 8, base + offset * 10, 0xffffff);
+                offset++;
+            }
+            offset++;
+            fontRenderer.drawString("Harvest Levels:", xSize + 8, base + offset * 10, 0xffffff);
+            offset++;
+            fontRenderer.drawString("- " + getHarvestLevelName(tags.getInteger("HarvestLevel"))+", " + getHarvestLevelName(tags.getInteger("HarvestLevel2")), xSize + 8, base + offset * 10, 0xffffff);
+            offset++;
+            offset++;
+        }
+        else if (categories.contains("harvest"))
+        {
+            float mineSpeed = tags.getInteger("MiningSpeed");
+            int heads = 1;
+            
+            if (tags.hasKey("MiningSpeed2"))
+            {
+                mineSpeed += tags.getInteger("MiningSpeed2");
+                heads++;
+            }
+            
+            if (tags.hasKey("MiningSpeedHandle"))
+            {
+                mineSpeed += tags.getInteger("MiningSpeedHandle");
+                heads++;
+            }
+            
+            if (tags.hasKey("MiningSpeedExtra"))
+            {
+                mineSpeed += tags.getInteger("MiningSpeedExtra");
+                heads++;
+            }
+            
+            float trueSpeed = mineSpeed / (heads * 100f);
+            
+            float stoneboundSpeed = (float) Math.log(durability / 90f + 1) * 2 * stonebound;
+            DecimalFormat df = new DecimalFormat("##.##");
+            df.setRoundingMode(RoundingMode.DOWN);
+            trueSpeed += stoneboundSpeed;
+            if (trueSpeed < 0)
+                trueSpeed = 0;
+            fontRenderer.drawString("Mining Speed: " + df.format(trueSpeed), xSize + 8, base + offset * 10, 0xffffff);
+            offset++;
+            if (stoneboundSpeed != 0)
+            {
+                String bloss = stoneboundSpeed > 0 ? "Bonus: " : "Loss: ";
+                fontRenderer.drawString(bloss + df.format(stoneboundSpeed), xSize + 8, base + offset * 10, 0xffffff);
+                offset++;
+            }
+            fontRenderer.drawString("Mining Level: " + getHarvestLevelName(tags.getInteger("HarvestLevel")), xSize + 8, base + offset * 10, 0xffffff);
+            offset++;
+            offset++;
+        }
+
+        int modifiers = tags.getInteger("Modifiers");
+        if (modifiers > 0)
+        {
+            fontRenderer.drawString("Modifiers remaining: " + tags.getInteger("Modifiers"), xSize + 8, base + offset * 10, 0xffffff);
+            offset++;
+        }
+        if (tags.hasKey("Tooltip1"))
+        {
+            fontRenderer.drawString("Modifiers:", xSize + 8, base + offset * 10, 0xffffff);
+        }
+
+        boolean displayToolTips = true;
+        int tipNum = 0;
+        while (displayToolTips)
+        {
+            tipNum++;
+            String tooltip = "ModifierTip" + tipNum;
+            if (tags.hasKey(tooltip))
+            {
+                String tipName = tags.getString(tooltip);
+                fontRenderer.drawString("- " + tipName, xSize + 8, base + (offset + tipNum) * 10, 0xffffff);
+            }
+            else
+                displayToolTips = false;
+        }
     }
 
     void drawWeaponStats (ItemStack stack, ToolCore tool, NBTTagCompound tags)
@@ -183,24 +333,23 @@ public class ToolStationGui extends NewContainerGui
         int dur = tags.getInteger("Damage");
         int maxDur = tags.getInteger("TotalDurability");
         dur = maxDur - dur;
-        fontRenderer.drawString("Durability: " + dur + "/" + maxDur, xSize + 8, 24, 0xffffff);
+        fontRenderer.drawString("Durability: ", xSize + 8, 24, 0xffffff);
+        fontRenderer.drawString("- " + dur + "/" + maxDur, xSize + 8, 35, 0xffffff);
         int attack = (int) (tags.getInteger("Attack") * tool.getDamageModifier());
 
         int durability = tags.getInteger("Damage");
         float stonebound = tags.getFloat("Shoddy");
-        float stoneboundDamage = -stonebound * durability / 65f;
-        if (stonebound > 0)
-            stoneboundDamage = -stonebound * durability / 100f;
+        float stoneboundDamage = (float) Math.log(durability / 72f + 1) * -2 * stonebound;
         attack += stoneboundDamage;
         if (attack < 1)
             attack = 1;
 
         String heart = attack == 2 ? " Heart" : " Hearts";
         if (attack % 2 == 0)
-            this.fontRenderer.drawString("Attack: " + attack / 2 + heart, xSize + 8, 35, 0xffffff);
+            this.fontRenderer.drawString("Attack: " + attack / 2 + heart, xSize + 8, 46, 0xffffff);
         else
-            this.fontRenderer.drawString("Attack: " + attack / 2f + heart, xSize + 8, 35, 0xffffff);
-        //fontRenderer.drawString("Attack: " + damage, xSize + 8, 35, 0xffffff);
+            this.fontRenderer.drawString("Attack: " + attack / 2f + heart, xSize + 8, 46, 0xffffff);
+
         if (stoneboundDamage != 0)
         {
             heart = stoneboundDamage == 2 ? " Heart" : " Hearts";
@@ -208,7 +357,7 @@ public class ToolStationGui extends NewContainerGui
             this.fontRenderer.drawString(bloss + (int) stoneboundDamage / 2 + heart, xSize + 8, 46, 0xffffff);
         }
 
-        fontRenderer.drawString("Modifiers remaining: " + tags.getInteger("Modifiers"), xSize + 8, 57, 0xffffff);
+        fontRenderer.drawString("Modifiers remaining: " + tags.getInteger("Modifiers"), xSize + 8, 68, 0xffffff);
         if (tags.hasKey("Tooltip1"))
             fontRenderer.drawString("Modifiers:", xSize + 8, 68, 0xffffff);
 
@@ -233,23 +382,24 @@ public class ToolStationGui extends NewContainerGui
         int dur = tags.getInteger("Damage");
         int maxDur = tags.getInteger("TotalDurability");
         dur = maxDur - dur;
-        fontRenderer.drawString("Durability: " + dur + "/" + maxDur, xSize + 8, 24, 0xffffff);
+        fontRenderer.drawString("Durability:", xSize + 8, 24, 0xffffff);
+        fontRenderer.drawString("- " + dur + "/" + maxDur, xSize + 8, 35, 0xffffff);
 
         int attack = tags.getInteger("Attack");
         String heart = attack == 2 ? " Heart" : " Hearts";
         if (attack % 2 == 0)
-            this.fontRenderer.drawString("Attack: " + attack / 2 + heart, xSize + 8, 35, 0xffffff);
+            this.fontRenderer.drawString("Attack: " + attack / 2 + heart, xSize + 8, 46, 0xffffff);
         else
-            this.fontRenderer.drawString("Attack: " + attack / 2f + heart, xSize + 8, 35, 0xffffff);
+            this.fontRenderer.drawString("Attack: " + attack / 2f + heart, xSize + 8, 46, 0xffffff);
         /*int damage = tags.getInteger("Attack");
         fontRenderer.drawString("Damage: " + damage, xSize + 8, 35, 0xffffff);*/
         float mineSpeed = tags.getInteger("MiningSpeed") / 100f;
-        fontRenderer.drawString("Mining Speed: " + mineSpeed, xSize + 8, 46, 0xffffff);
-        fontRenderer.drawString("Mining Level: " + getHarvestLevelName(tags.getInteger("HarvestLevel")), xSize + 8, 57, 0xffffff);
+        fontRenderer.drawString("Mining Speed: " + mineSpeed, xSize + 8, 57, 0xffffff);
+        fontRenderer.drawString("Mining Level: " + getHarvestLevelName(tags.getInteger("HarvestLevel")), xSize + 8, 68, 0xffffff);
 
-        fontRenderer.drawString("Modifiers remaining: " + tags.getInteger("Modifiers"), xSize + 8, 79, 0xffffff);
+        fontRenderer.drawString("Modifiers remaining: " + tags.getInteger("Modifiers"), xSize + 8, 90, 0xffffff);
         if (tags.hasKey("Tooltip1"))
-            fontRenderer.drawString("Modifiers:", xSize + 8, 90, 0xffffff);
+            fontRenderer.drawString("Modifiers:", xSize + 8, 101, 0xffffff);
 
         boolean displayToolTips = true;
         int tipNum = 0;
@@ -260,7 +410,7 @@ public class ToolStationGui extends NewContainerGui
             if (tags.hasKey(tooltip))
             {
                 String tipName = tags.getString(tooltip);
-                fontRenderer.drawString("- " + tipName, xSize + 8, 90 + tipNum * 11, 0xffffff);
+                fontRenderer.drawString("- " + tipName, xSize + 8, 101 + tipNum * 11, 0xffffff);
             }
             else
                 displayToolTips = false;

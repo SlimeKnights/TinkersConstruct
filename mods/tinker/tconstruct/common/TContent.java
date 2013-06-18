@@ -72,6 +72,7 @@ public class TContent implements IFuelHandler
 	public static ToolCore longsword;
 	public static ToolCore rapier;
 	public static ToolCore dagger;
+    public static ToolCore cutlass;
 
 	public static ToolCore frypan;
 	public static ToolCore battlesign;
@@ -112,6 +113,7 @@ public class TContent implements IFuelHandler
 	public static Item wideGuard;
 	public static Item handGuard;
 	public static Item crossbar;
+    public static Item fullGuard;
 
 	//Crafting blocks
 	public static Block toolStationWood;
@@ -399,6 +401,7 @@ public class TContent implements IFuelHandler
 		longsword = new Longsword(PHConstruct.longsword);
 		rapier = new Rapier(PHConstruct.rapier);
 		dagger = new Dagger(PHConstruct.dagger);
+		cutlass = new Cutlass(PHConstruct.cutlass);
 
 		frypan = new FryingPan(PHConstruct.frypan);
 		battlesign = new BattleSign(PHConstruct.battlesign);
@@ -427,6 +430,7 @@ public class TContent implements IFuelHandler
 		handGuard = new ToolPart(PHConstruct.medGuard, "MediumGuard", "_medium_guard").setUnlocalizedName("tconstruct.MediumGuard");
 		crossbar = new ToolPart(PHConstruct.crossbar, "Crossbar", "_crossbar").setUnlocalizedName("tconstruct.Crossbar");
 		knifeBlade = new ToolPart(PHConstruct.knifeBlade, "KnifeBlade", "_knife_blade").setUnlocalizedName("tconstruct.KnifeBlade");
+		fullGuard = new ToolPartHidden(PHConstruct.fullGuard, "FullGuard", "_full_guard").setUnlocalizedName("tconstruct.FullGuard");
 
 		frypanHead = new ToolPart(PHConstruct.frypanHead, "FrypanHead", "_frypan_head").setUnlocalizedName("tconstruct.FrypanHead");
 		signHead = new ToolPart(PHConstruct.signHead, "SignHead", "_battlesign_head").setUnlocalizedName("tconstruct.SignHead");
@@ -477,7 +481,7 @@ public class TContent implements IFuelHandler
 		TConstructRegistry.addToolMaterial(8, "Slime", 1, 3, 1500, 150, 0, 2.0F, 0, 0f, "\u00A7a", "");
 		TConstructRegistry.addToolMaterial(9, "Paper", 1, 0, 30, 200, 0, 0.3F, 0, 0f, "\u00A7f", "Writable");
 		TConstructRegistry.addToolMaterial(10, "Cobalt", 2, 4, 800, 1100, 3, 1.75F, 2, 0f, "\u00A73", "");
-		TConstructRegistry.addToolMaterial(11, "Ardite", 2, 4, 600, 800, 3, 2.0F, 0, 3f, "\u00A74", "Stonebound");
+		TConstructRegistry.addToolMaterial(11, "Ardite", 2, 4, 600, 800, 3, 2.0F, 0, 2f, "\u00A74", "Stonebound");
 		TConstructRegistry.addToolMaterial(12, "Manyullyn", 2, 5, 1200, 900, 4, 2.5F, 0, 0f, "\u00A75", "");
 		TConstructRegistry.addToolMaterial(13, "Copper", 1, 1, 180, 500, 2, 1.15F, 0, 0f, "\u00A7c", "");
 		TConstructRegistry.addToolMaterial(14, "Bronze", 1, 2, 350, 700, 2, 1.3F, 1, 0f, "\u00A76", "");
@@ -556,7 +560,7 @@ public class TContent implements IFuelHandler
 	{
 		/* Tools */
 		patternOutputs = new Item[] { toolRod, pickaxeHead, shovelHead, axeHead, swordBlade, wideGuard, handGuard, crossbar, binding, frypanHead, signHead, knifeBlade, chiselHead,
-		        toughRod, toughBinding, heavyPlate, broadAxeHead, scytheBlade, excavatorHead, largeSwordBlade, hammerHead};
+		        toughRod, toughBinding, heavyPlate, broadAxeHead, scytheBlade, excavatorHead, largeSwordBlade, hammerHead };
 
 		ToolBuilder tb = ToolBuilder.instance;
 		tb.addToolRecipe(pickaxe, pickaxeHead, binding);
@@ -569,6 +573,7 @@ public class TContent implements IFuelHandler
 		tb.addToolRecipe(battlesign, signHead);
 		tb.addToolRecipe(mattock, axeHead, shovelHead);
 		tb.addToolRecipe(dagger, knifeBlade, crossbar);
+        tb.addToolRecipe(cutlass, swordBlade, fullGuard);
 		tb.addToolRecipe(chisel, chiselHead);
 		tb.addCustomToolRecipe(scythe, scytheBlade, toughRod, toughBinding, toughRod);
         tb.addCustomToolRecipe(lumberaxe, broadAxeHead, toughRod, heavyPlate, toughBinding);
@@ -985,6 +990,7 @@ public class TContent implements IFuelHandler
 		{
 			tinkerHousePatterns.addItem(new WeightedRandomChestContent(new ItemStack(woodPattern, 1, i+1), 1, 3, 20));
 		}
+        tinkerHousePatterns.addItem(new WeightedRandomChestContent(new ItemStack(woodPattern, 1, 22), 1, 3, 40));
 	}
 
 	public static LiquidStack[] liquidIcons = new LiquidStack[0];
@@ -999,7 +1005,7 @@ public class TContent implements IFuelHandler
 		OreDictionary.registerOre("oreNaturalAluminum", new ItemStack(oreSlag, 1, 5));
 
 		OreDictionary.registerOre("oreIron", new ItemStack(oreGravel, 1, 0));
-		//OreDictionary.registerOre("oreGold", new ItemStack(oreGravel, 1, 1));
+		OreDictionary.registerOre("oreGold", new ItemStack(oreGravel, 1, 1));
 		OreDictionary.registerOre("oreCobalt", new ItemStack(oreGravel, 1, 5));
 		OreDictionary.registerOre("oreCopper", new ItemStack(oreGravel, 1, 2));
 		OreDictionary.registerOre("oreTin", new ItemStack(oreGravel, 1, 3));

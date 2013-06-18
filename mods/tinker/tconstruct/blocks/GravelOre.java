@@ -54,15 +54,15 @@ public class GravelOre extends BlockSand
 	@Override
     public int damageDropped (int meta)
     {
-	    if (meta == 1)
-	        return 0;
+	    /*if (meta == 1)
+	        return 0;*/
         return meta;
     }
 	
 	public int idDropped(int par1, Random par2Random, int par3)
     {
-	    if (par1 == 1)
-	        return Item.goldNugget.itemID;
+	    /*if (par1 == 1)
+	        return Item.goldNugget.itemID;*/
         return this.blockID;
     }
 	

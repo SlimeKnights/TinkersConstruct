@@ -45,11 +45,6 @@ public class Hammer extends HarvestTool
         return 4;
     }
 
-    public int durabilityTypeHandle ()
-    {
-        return 2;
-    }
-
     public int durabilityTypeAccessory ()
     {
         return 2;
@@ -57,7 +52,7 @@ public class Hammer extends HarvestTool
 
     public int durabilityTypeExtra ()
     {
-        return 1;
+        return 2;
     }
 
     @Override
