@@ -52,7 +52,7 @@ public class Battleaxe extends HarvestTool
         return AbilityHelper.onBlockChanged(itemstack, world, bID, x, y, z, player, random);
     }
 
-    static Material[] materials = { Material.wood, Material.leaves, Material.vine, Material.circuits, Material.cactus, Material.pumpkin };
+    static Material[] materials = { Material.wood, Material.vine, Material.circuits, Material.cactus, Material.pumpkin };
 
     @Override
     public Item getHeadItem ()
@@ -153,45 +153,64 @@ public class Battleaxe extends HarvestTool
     }
 
     /* Battleaxe Specific */
+    
+    @Override
+    public boolean onItemUse (ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float clickX, float clickY, float clickZ)
+    {
+        return false;
+    }
 
+    @Override
     public EnumAction getItemUseAction (ItemStack par1ItemStack)
     {
         return EnumAction.bow;
     }
 
+    @Override
     public ItemStack onItemRightClick (ItemStack stack, World world, EntityPlayer player)
     {
-        if (player.onGround)
-        {
+        //player.rotationYaw += 1;
+        //if (player.onGround)
+        //{
             player.setItemInUse(stack, this.getMaxItemUseDuration(stack));
-            //player.motionY += 0.52;
-        }
+        //}
         return stack;
     }
 
     @Override
     public void onPlayerStoppedUsing (ItemStack stack, World world, EntityPlayer player, int useCount)
     {
-        player.addExhaustion(0.2F);
-        world.playSoundEffect(player.posX, player.posY, player.posZ, "sounds.frypan_hit", 1.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F);
-        player.swingItem();
-        /*player.setSprinting(true);
+        //if (player.onGround)
+        {
+            int time = this.getMaxItemUseDuration(stack) - useCount;
+            int boost = time / 100;
+            if (boost > 2)
+                boost = 2;
+            player.addPotionEffect(new PotionEffect(Potion.moveSpeed.id, time*4, boost));
+            player.addPotionEffect(new PotionEffect(Potion.jump.id, time*4, boost));
+            if (time > 5 && player.onGround)
+            {
+                player.addExhaustion(0.2F);
+                player.setSprinting(true);
 
-        float increase = (float) (0.02 * 20 + 0.2);
-        if (increase > 0.56f)
-            increase = 0.56f;
-        player.motionY += increase;
+                float speed = 0.025F * time;
+                if (speed > 0.925f)
+                    speed = 0.925f;
 
-        float speed = 0.05F * 20;
-        if (speed > 0.925f)
-            speed = 0.925f;
-        player.motionX = (double) (-MathHelper.sin(player.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(player.rotationPitch / 180.0F * (float) Math.PI) * speed);
-        player.motionZ = (double) (MathHelper.cos(player.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(player.rotationPitch / 180.0F * (float) Math.PI) * speed);*/
+                float increase = (float) (0.02 * time + 0.2);
+                if (increase > 0.56f)
+                    increase = 0.56f;
+                player.motionY += increase;
+
+                player.motionX = (double) (-MathHelper.sin(player.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(player.rotationPitch / 180.0F * (float) Math.PI) * speed);
+                player.motionZ = (double) (MathHelper.cos(player.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(player.rotationPitch / 180.0F * (float) Math.PI) * speed);
+            }
+        }
     }
 
     public int getMaxItemUseDuration (ItemStack par1ItemStack)
     {
-        return 80;
+        return 72000;
     }
 
     @Override
@@ -201,7 +220,7 @@ public class Battleaxe extends HarvestTool
         return true;
     }
 
-    @Override
+    /*@Override
     public void onUpdate (ItemStack stack, World world, Entity entity, int par4, boolean par5)
     {
         super.onUpdate(stack, world, entity, par4, par5);
@@ -214,7 +233,7 @@ public class Battleaxe extends HarvestTool
                 player.addPotionEffect(new PotionEffect(Potion.digSlowdown.id, 1, 1));
             }
         }
-    }
+    }*/
 
     @Override
     public boolean onBlockStartBreak (ItemStack stack, int x, int y, int z, EntityPlayer player)

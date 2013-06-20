@@ -36,6 +36,9 @@ public class TConstructRegistry
      * frypan, battlesign, mattock, chisel
      * lumberaxe, cleaver, scythe, excavator, hammer, battleaxe
      * 
+     * Patterns:
+     * blankPattern, woodPattern, metalPattern
+     * 
      * Tool crafting parts:
      * toolRod, toolShard, binding, toughBinding, toughRod, heavyPlate
      * pickaxeHead, shovelhead, hatchetHead, swordBlade, wideguard, handGuard, crossbar, knifeBlade,
@@ -84,6 +87,9 @@ public class TConstructRegistry
      * oreberryIron, oreberryGold, oreberryCopper, oreberryTin, oreberryTin, oreberrySilver, 
      * diamondApple, blueSlimeFood, canisterEmpty, miniRedHeart, canisterRedHeart
      * 
+     * Patterns - These have a suffix of Pattern or Cast. ex: hatchetHeadPattern
+     * ingot, toolRod, pickaxeHead, shovelHead, hatchetHead, swordBlade, wideGuard, handGuard, crossbar, binding, frypanHead, signHead, 
+     * knifeBlade, chiselHead, toughRod, toughBinding, largePlate, broadAxeHead, scytheHead, excavatorHead, largeBlade, hammerHead, fullGuard
      */
     static HashMap<String, ItemStack> itemstackDirectory = new HashMap<String, ItemStack>();
     

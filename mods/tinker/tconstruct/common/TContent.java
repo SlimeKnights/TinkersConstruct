@@ -399,6 +399,22 @@ public class TContent implements IFuelHandler
         metalPattern = new MetalPattern(PHConstruct.metalPattern, "MetalPattern", "cast_", "materials/").setUnlocalizedName("tconstruct.MetalPattern");
         //netherPattern = new Pattern(PHTools.netherPattern, 128, patternTexture).setUnlocalizedName("tconstruct.Pattern");
 
+        TConstructRegistry.addItemToDirectory("blankPattern", blankPattern);
+        TConstructRegistry.addItemToDirectory("woodPattern", woodPattern);
+        TConstructRegistry.addItemToDirectory("metalPattern", metalPattern);
+
+        String[] patternTypes = { "ingot", "toolRod", "pickaxeHead", "shovelHead", "hatchetHead", "swordBlade", "wideGuard", "handGuard", "crossbar", "binding", "frypanHead", "signHead",
+                "knifeBlade", "chiselHead", "toughRod", "toughBinding", "largePlate", "broadAxeHead", "scytheHead", "excavatorHead", "largeBlade", "hammerHead", "fullGuard" };
+
+        for (int i = 1; i < patternTypes.length; i++)
+        {
+            TConstructRegistry.addItemStackToDirectory(patternTypes[i] + "Pattern", new ItemStack(woodPattern, 1, i));
+        }
+        for (int i = 0; i < patternTypes.length; i++)
+        {
+            TConstructRegistry.addItemStackToDirectory(patternTypes[i] + "Cast", new ItemStack(metalPattern, 1, i));
+        }
+
         manualBook = new Manual(PHConstruct.manual);
         buckets = new FilledBucket(PHConstruct.buckets);
 
@@ -1040,8 +1056,11 @@ public class TContent implements IFuelHandler
         GameRegistry.addRecipe(new ItemStack(knapsack, 1, 0), "###", "rmr", "###", '#', new ItemStack(Item.leather), 'r', new ItemStack(toughRod, 1, 2), 'm', new ItemStack(materials, 1, 14));
 
         //Remove vanilla recipes
-        RecipeRemover.removeShapedRecipe(new ItemStack(Block.blockIron));
-        RecipeRemover.removeShapedRecipe(new ItemStack(Block.blockGold));
+        if (!PHConstruct.vanillaMetalBlocks)
+        {
+            RecipeRemover.removeShapedRecipe(new ItemStack(Block.blockIron));
+            RecipeRemover.removeShapedRecipe(new ItemStack(Block.blockGold));
+        }
     }
 
     void setupToolTabs ()

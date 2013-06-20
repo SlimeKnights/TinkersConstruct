@@ -59,6 +59,7 @@ public class PHConstruct
         enableTCactus = config.get("Difficulty Changes", "Enable mod cactus tools", true).getBoolean(true);
         enableTBone = config.get("Difficulty Changes", "Enable mod bone tools", true).getBoolean(true);
         craftMetalTools = config.get("Difficulty Changes", "Craft metals with Wood Patterns", false).getBoolean(false);
+        craftMetalTools = config.get("Difficulty Changes", "Craft vanilla metal blocks", true).getBoolean(true);
 
         blueSlime = config.get("Mob Spawning", "Activate Blue Slime Spawns", true).getBoolean(true);
         blueSlimeWeight = config.get("Mob Spawning", "Spawn Weight for Blue Slime", 7).getInt(7);
@@ -466,6 +467,7 @@ public class PHConstruct
     public static boolean enableTBone;
     
     public static boolean craftMetalTools;
+    public static boolean vanillaMetalBlocks;
     
     //Superfun
     public static boolean superfunWorld;
