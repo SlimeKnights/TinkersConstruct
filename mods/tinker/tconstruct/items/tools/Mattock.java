@@ -48,7 +48,7 @@ public class Mattock extends DualHarvestTool
 	@Override
 	public Item getHeadItem ()
 	{
-		return TContent.axeHead;
+		return TContent.hatchetHead;
 	}
 
 	@Override

@@ -48,13 +48,13 @@ public class AbilityHelper
 		if (!stack.hasTagCompound())
 			return false;
 
-		int durability = 0;
+		int reinforced = 0;
 		NBTTagCompound tags = stack.getTagCompound();
 
 		if (tags.getCompoundTag("InfiTool").hasKey("Unbreaking"))
-			durability = tags.getCompoundTag("InfiTool").getInteger("Unbreaking");
+			reinforced = tags.getCompoundTag("InfiTool").getInteger("Unbreaking");
 
-		if (random.nextInt(10) < 10 - durability)
+		if (random.nextInt(10) < 10 - reinforced)
 		{
 			damageTool(stack, 1, tags, player, false);
 		}

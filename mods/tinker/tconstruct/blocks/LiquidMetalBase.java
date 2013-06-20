@@ -34,7 +34,7 @@ public abstract class LiquidMetalBase extends Block
     protected LiquidMetalBase(int par1, Material par2Material)
     {
         super(par1, par2Material);
-        textureNames = new String[] { "iron", "gold", "copper", "tin", "aluminum", "cobalt", "ardite", "bronze", "alubrass", "manyullyn", "alumite", "obsidian", "steel" };
+        textureNames = new String[] { "iron", "gold", "copper", "tin", "aluminum", "cobalt", "ardite", "bronze", "alubrass", "manyullyn", "alumite", "obsidian", "steel", "glass" };
         setLightValue(0.625F);
     }
 

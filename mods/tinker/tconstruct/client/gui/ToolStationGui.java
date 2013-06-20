@@ -300,6 +300,14 @@ public class ToolStationGui extends NewContainerGui
             offset++;
             offset++;
         }
+        else if (categories.contains("utility"))
+        {
+            float mineSpeed = tags.getInteger("MiningSpeed");            
+            float trueSpeed = mineSpeed / (100f);
+            fontRenderer.drawString("Usage Speed: " + trueSpeed, xSize + 8, base + offset * 10, 0xffffff);
+            offset++;
+            offset++;
+        }
 
         int modifiers = tags.getInteger("Modifiers");
         if (modifiers > 0)

@@ -27,6 +27,7 @@ public class TProxyCommon implements IGuiHandler
     public static int frypanGuiID = 4;
 	public static int toolForge = 5;
     public static int smelteryGuiID = 7;
+    public static int glowstoneAggregatorGui = 8;
     
     public static int inventoryGui = 100;
     public static int armorGuiID = 101;
@@ -147,7 +148,7 @@ public class TProxyCommon implements IGuiHandler
         //LanguageRegistry.addName(TContent.blankPattern, "Blank Pattern");
         LanguageRegistry.addName(TContent.pickaxe, "Pickaxe");
         LanguageRegistry.addName(TContent.shovel, "Shovel");
-        LanguageRegistry.addName(TContent.axe, "Hatchet");
+        LanguageRegistry.addName(TContent.hatchet, "Hatchet");
         LanguageRegistry.addName(TContent.broadsword, "Broadsword");
         LanguageRegistry.addName(TContent.longsword, "Longsword");
         LanguageRegistry.addName(TContent.rapier, "Rapier");
@@ -164,6 +165,8 @@ public class TProxyCommon implements IGuiHandler
         LanguageRegistry.addName(TContent.hammer, "Hammer");
         LanguageRegistry.addName(TContent.battleaxe, "Battleaxe");
         LanguageRegistry.addName(TContent.cutlass, "Cutlass");
+        LanguageRegistry.addName(TContent.aggregator, "Glowstone Aggregator");
+        LanguageRegistry.addName(TContent.knapsack, "Knapsack");
 
     }
 	

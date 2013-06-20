@@ -28,7 +28,18 @@ public class Chisel extends ToolCore
     @Override
     public ItemStack getContainerItemStack (ItemStack itemStack)
     {
-        AbilityHelper.damageTool(itemStack, 1, null, false);
+        //AbilityHelper.damageTool(itemStack, 1, null, false);
+
+        int reinforced = 0;
+        NBTTagCompound tags = itemStack.getTagCompound();
+
+        if (tags.getCompoundTag("InfiTool").hasKey("Unbreaking"))
+            reinforced = tags.getCompoundTag("InfiTool").getInteger("Unbreaking");
+
+        if (random.nextInt(10) < 10 - reinforced)
+        {
+            AbilityHelper.damageTool(itemStack, 1, null, false);
+        }
         return itemStack;
     }
 
@@ -43,7 +54,7 @@ public class Chisel extends ToolCore
         boolean detailed = false;
         return detailed;
     }
-    
+
     public boolean onItemUse (ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float clickX, float clickY, float clickZ)
     {
         return false;
@@ -88,7 +99,18 @@ public class Chisel extends ToolCore
                 {
                     world.setBlock(x, y, z, details.outputID, details.outputMeta, 3);
                     if (!(entityplayer.capabilities.isCreativeMode))
-                        AbilityHelper.damageTool(itemstack, 1, entityplayer, false);
+                    {
+                        int reinforced = 0;
+                        NBTTagCompound tags = itemstack.getTagCompound();
+
+                        if (tags.getCompoundTag("InfiTool").hasKey("Unbreaking"))
+                            reinforced = tags.getCompoundTag("InfiTool").getInteger("Unbreaking");
+
+                        if (random.nextInt(10) < 10 - reinforced)
+                        {
+                            AbilityHelper.damageTool(itemstack, 1, null, false);
+                        }
+                    }
                     world.playAuxSFX(2001, x, y, z, blockID + (meta << 12));
                     entityplayer.swingItem();
                 }
@@ -101,13 +123,20 @@ public class Chisel extends ToolCore
     @Override
     public int getMaxItemUseDuration (ItemStack itemstack)
     {
-        return 15;
+        if (!itemstack.hasTagCompound())
+            return 20;
+
+        int speed = itemstack.getTagCompound().getCompoundTag("InfiTool").getInteger("MiningSpeed") / 100;
+        int truespeed = 20 - speed;
+        if (truespeed < 0)
+            truespeed = 0;
+        return truespeed;
     }
 
     @Override
     public EnumAction getItemUseAction (ItemStack itemstack)
     {
-        return EnumAction.bow;
+        return EnumAction.eat;
     }
 
     @Override

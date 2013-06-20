@@ -103,6 +103,6 @@ public class ModRedstone extends ToolMod
 	public boolean validType(ToolCore tool)
     {
         List list = Arrays.asList(tool.toolCategories());
-        return list.contains("harvest");
+        return list.contains("harvest") || list.contains("utility");
     }
 }

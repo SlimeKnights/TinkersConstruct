@@ -79,6 +79,18 @@ public class Battleaxe extends HarvestTool
     }
 
     @Override
+    public int durabilityTypeAccessory ()
+    {
+        return 2;
+    }
+
+    @Override
+    public int durabilityTypeExtra ()
+    {
+        return 1;
+    }
+
+    @Override
     public float getRepairCost ()
     {
         return 4.0f;

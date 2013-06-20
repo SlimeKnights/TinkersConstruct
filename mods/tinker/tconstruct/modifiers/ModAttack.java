@@ -26,8 +26,11 @@ public class ModAttack extends ToolMod
 	@Override
 	protected boolean canModify (ItemStack tool, ItemStack[] input)
 	{
-		
-		NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
+        ToolCore toolItem = (ToolCore) tool.getItem();
+        if (!validType(toolItem))
+            return false;
+        
+		NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");        
 		if (!tags.hasKey(key))
 			return tags.getInteger("Modifiers") > 0;
 
@@ -51,7 +54,7 @@ public class ModAttack extends ToolMod
 		{
 		    int amount = 24;
 		    ToolCore toolItem = (ToolCore) tool.getItem();
-		    if (toolItem.pierceArmor() || !validType(toolItem))
+		    if (toolItem.pierceArmor() || !nerfType(toolItem))
 		        amount = 36;
 		    
 			int[] keyPair = tags.getIntArray(key);
@@ -107,7 +110,13 @@ public class ModAttack extends ToolMod
 		tags.setString(tip, modName);
 	}
 	
-	public boolean validType(ToolCore tool)
+    public boolean validType(ToolCore tool)
+    {
+        List list = Arrays.asList(tool.toolCategories());
+        return list.contains("melee") || list.contains("harvest");
+    }
+	
+	public boolean nerfType(ToolCore tool)
 	{
 	    List list = Arrays.asList(tool.toolCategories());
 	    return list.contains("throwing");

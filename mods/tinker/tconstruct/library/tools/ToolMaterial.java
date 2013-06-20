@@ -1,39 +1,32 @@
 package mods.tinker.tconstruct.library.tools;
-/**
- * This class is temporary. A full material registry is planned
+/*
+ * Dynamic substitute for an enum. It carries a lot of information
  */
 public class ToolMaterial
 {    
     //mining level, durability, mining speed, baseDamage, handle modifier, Reinforced level, shoddy/spiny level, color/style on name
     
 	public final String materialName;
-	public final int craftingTier; //Not used
 	public final int harvestLevel;
 	public final int durability;
 	public final int miningspeed; // <-- divided by 100
 	public final int attack;
 	public final float handleModifier;
 	public final int reinforced;
-	public final float shoddy;
+	public final float stonebound;
 	public final String tipStyle;
 	public final String ability;
-	
-	public ToolMaterial(String name, int tier, int level, int durability, int speed, int damage, float handle, int reinforced, float shoddy)
-    {
-    	this(name, reinforced, reinforced, reinforced, reinforced, reinforced, shoddy, reinforced, shoddy, "", "");
-    }
 
-    public ToolMaterial(String name, int tier, int level, int durability, int speed, int damage, float handle, int reinforced, float shoddy, String style, String ability)
+    public ToolMaterial(String name, int level, int durability, int speed, int damage, float handle, int reinforced, float stonebound, String style, String ability)
     {
     	this.materialName = name;
-    	this.craftingTier = tier;
         this.harvestLevel = level;
         this.durability = durability;
         this.miningspeed = speed;
         this.attack = damage;
         this.handleModifier = handle;
         this.reinforced = reinforced;
-        this.shoddy = shoddy;
+        this.stonebound = stonebound;
         this.tipStyle = style;
         this.ability = ability;
     }
@@ -41,11 +34,6 @@ public class ToolMaterial
     public String name()
     {
     	return materialName;
-    }
-    
-    public int tier()
-    {
-    	return craftingTier;
     }
     
     public int durability()
@@ -80,7 +68,7 @@ public class ToolMaterial
     
     public float shoddy()
     {
-    	return this.shoddy;
+    	return this.stonebound;
     }
     
     public String style()

@@ -49,7 +49,7 @@ public class GuiManual extends GuiScreen
     ItemStack[] iconsRight;
     String[] multiTextRight;
     ToolMaterial materialRight;
-    
+
     SmallFontRenderer fonts = TProxyClient.smallFontRenderer;
 
     public GuiManual(ItemStack stack, Document doc)
@@ -784,7 +784,7 @@ public class GuiManual extends GuiScreen
         if (icons[2] != null)
             renderitem.renderItemAndEffectIntoGUI(fonts, mc.renderEngine, icons[2], (localWidth + 18) / 2, (localHeight + 74) / 2);
         renderitem.zLevel = 0;
-        
+
         GL11.glScalef(0.5F, 0.5F, 0.5F);
         RenderHelper.disableStandardItemLighting();
         GL11.glDisable(GL12.GL_RESCALE_NORMAL);
@@ -811,8 +811,10 @@ public class GuiManual extends GuiScreen
         GL11.glDisable(GL12.GL_RESCALE_NORMAL);
 
         this.fonts.drawSplitString(icons[1].getTooltip(this.mc.thePlayer, false).get((0)).toString(), localWidth + 128, localHeight + 53, 52, 0);
-        this.fonts.drawSplitString(icons[2].getTooltip(this.mc.thePlayer, false).get((0)).toString(), localWidth + 128, localHeight + 85, 52, 0);
-        this.fonts.drawSplitString(icons[3].getTooltip(this.mc.thePlayer, false).get((0)).toString(), localWidth + 128, localHeight + 117, 52, 0);
+        if (icons[2] != null)
+            this.fonts.drawSplitString(icons[2].getTooltip(this.mc.thePlayer, false).get((0)).toString(), localWidth + 128, localHeight + 85, 52, 0);
+        if (icons[3] != null)
+            this.fonts.drawSplitString(icons[3].getTooltip(this.mc.thePlayer, false).get((0)).toString(), localWidth + 128, localHeight + 117, 52, 0);
 
         this.fonts.drawString("Durability: " + material.durability(), localWidth, localHeight + 40, 0);
         this.fonts.drawString("Handle Modifier: " + material.handleDurability() + "x", localWidth, localHeight + 50, 0);

@@ -72,6 +72,23 @@
   <entry key="block.brick.endstone.name">Endstone Brick</entry>
   <entry key="block.brick.obsidian.ingot.name">Obsidian Brick</entry>
   
+  <entry key="block.fancybrick.obsidian.name">Obsidian Fancy Brick</entry>
+  <entry key="block.fancybrick.sandstone.name">Sandstone Fancy Brick</entry>
+  <entry key="block.fancybrick.netherrack.name">Netherrack Fancy Brick</entry>
+  <entry key="block.fancybrick.iron.name">Iron Fancy Brick</entry>
+  <entry key="block.fancybrick.gold.name">Gold Fancy Brick</entry>
+  <entry key="block.fancybrick.diamond.name">Diamond Fancy Brick</entry>
+  <entry key="block.fancybrick.lapis.name">Lapis Fancy Brick</entry>
+  <entry key="block.fancybrick.stone.refined.name">Refined Stone Fancy Brick</entry>
+  <entry key="block.fancybrick.redstone.name">Redstone Fancy Brick</entry>
+  <entry key="block.fancybrick.bone.name">Bone Fancy Brick</entry>
+  <entry key="block.fancybrick.slime.name">Slime Fancy Brick</entry>
+  <entry key="block.fancybrick.blueslime.name">Slime Fancy Brick</entry>
+  <entry key="block.fancybrick.endstone.name">Endstone Fancy Brick</entry>
+  <entry key="block.fancybrick.obsidian.ingot.name">Obsidian Fancy Brick</entry>
+  <entry key="block.fancybrick.stone.road.name">Stone Road</entry>
+  <entry key="block.fancybrick.stone.name">Stone Fancy Brick</entry>
+  
   <entry key="item.oreberry.iron.name">Iron Oreberry</entry>
   <entry key="item.oreberry.gold.name">Gold Oreberry</entry>
   <entry key="item.oreberry.copper.name">Copper Oreberry</entry>
@@ -129,6 +146,7 @@
   
   <entry key="tile.decoration.stonetorch.name">Torch</entry>
   
+  <entry key="item.tconstruct.storage.knapsack.name">Knapsack</entry>  
   <entry key="item.tconstruct.blankpattern.pattern.name">Blank Pattern</entry>
   <entry key="item.tconstruct.blankpattern.cast.name">Blank Cast</entry>
   
@@ -149,10 +167,6 @@
   <entry key="item.tconstruct.bucket.Alumite.name">Liquid Alumite Bucket</entry>
   <entry key="item.tconstruct.bucket.Obsidian.name">Liquid Obsidian Bucket</entry>
   <entry key="item.tconstruct.bucket.Steel.name">Liquid Steel Bucket</entry>
-  <entry key="item.tconstruct.bucket.Manganese.name">Liquid Manganese Bucket</entry>
-  <entry key="item.tconstruct.bucket.Heptazion.name">Liquid Heptazion Bucket</entry>
-  <entry key="item.tconstruct.bucket.DSteel.name">Liquid Damascus Steel Bucket</entry>
-  <entry key="item.tconstruct.bucket.Angmallen.name">Liquid Angmallen Bucket</entry>
   
   <entry key="LiquidMetal.Iron.name">Liquid Iron</entry>
   <entry key="LiquidMetal.Gold.name">Liquid Gold</entry>

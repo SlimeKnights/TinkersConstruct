@@ -26,7 +26,7 @@ public class ToolBuilder
     public List<ToolMod> toolMods = new ArrayList<ToolMod>();
 
     /* Build tools */
-    public static void addToolRecipe (ToolCore output, Item head)
+    public static void addNormalToolRecipe (ToolCore output, Item head)
     {
         ToolRecipe recipe = instance.recipeList.get(output.getToolName());
         if (recipe != null)
@@ -41,7 +41,7 @@ public class ToolBuilder
         }
     }
 
-    public static void addToolRecipe (ToolCore output, Item head, Item accessory)
+    public static void addNormalToolRecipe (ToolCore output, Item head, Item accessory)
     {
         //instance.combos.add(new ToolRecipe(head, accessory, output));
         ToolRecipe recipe = instance.recipeList.get(output.getToolName());
@@ -57,26 +57,8 @@ public class ToolBuilder
             instance.recipeList.put(output.getToolName(), recipe);
         }
     }
-
-    public static void addToolRecipe (ToolCore output, Item head, Item accessory, Item extra)
-    {
-        //instance.combos.add(new ToolRecipe(head, accessory, extra, output));
-        ToolRecipe recipe = instance.recipeList.get(output.getToolName());
-        if (recipe != null)
-        {
-            recipe.addHeadItem(head);
-            recipe.addAccessoryItem(accessory);
-            recipe.addExtraItem(accessory);
-        }
-        else
-        {
-            recipe = new ToolRecipe(head, accessory, extra, output);
-            instance.combos.add(recipe);
-            instance.recipeList.put(output.getToolName(), recipe);
-        }
-    }
     
-    public static void addCustomToolRecipe (ToolCore output, Item head, Item handle, Item accessory, Item extra)
+    public static void addNormalToolRecipe (ToolCore output, Item head, Item handle, Item accessory, Item extra)
     {
         ToolRecipe recipe = instance.recipeList.get(output.getToolName());
         if (recipe != null)
@@ -92,6 +74,23 @@ public class ToolBuilder
             instance.combos.add(recipe);
             instance.recipeList.put(output.getToolName(), recipe);
         }
+    }
+    
+    public static void addCustomToolRecipe(ToolRecipe recipe)
+    {
+        instance.combos.add(recipe);
+    }
+    
+    public static void addToolRecipe (ToolCore output, Item... items)
+    {
+        if (items.length == 1)
+            addNormalToolRecipe(output, items[0]);
+        if (items.length == 2)
+            addNormalToolRecipe(output, items[0], items[1]);
+        if (items.length == 3)
+            addToolRecipe(output, items[0], items[1], items[2]);
+        if (items.length == 4)
+            addNormalToolRecipe(output, items[0], items[1], items[2], items[3]);
     }
 
     public ToolCore getMatchingRecipe (Item head, Item handle, Item accessory, Item extra)

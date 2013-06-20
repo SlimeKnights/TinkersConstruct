@@ -89,14 +89,14 @@ public class StencilTableGui extends GuiContainer
 				if (button.id == 0)
 				{
 					patternIndex++;
-					if (patternIndex > TContent.patternOutputs.length-1)
+					if (patternIndex >= TContent.patternOutputs.length-1)
 						patternIndex = 0;
 				}
 				else if (button.id == 1)
 				{
 					patternIndex--;
 					if (patternIndex < 0)
-						patternIndex = TContent.patternOutputs.length-1;
+						patternIndex = TContent.patternOutputs.length-2;
 				}
 				ItemStack stack = new ItemStack(TContent.woodPattern, 1, patternIndex + 1);
 				logic.setInventorySlotContents(1, stack);
@@ -107,14 +107,14 @@ public class StencilTableGui extends GuiContainer
 				if (button.id == 0)
 				{
 					patternIndex++;
-					if (patternIndex > TContent.patternOutputs.length)
+					if (patternIndex > TContent.patternOutputs.length-1)
 						patternIndex = 0;
 				}
 				else if (button.id == 1)
 				{
 					patternIndex--;
 					if (patternIndex < 0)
-						patternIndex = TContent.patternOutputs.length;
+						patternIndex = TContent.patternOutputs.length-1;
 				}
 				ItemStack stack = new ItemStack(TContent.metalPattern, 1, patternIndex);
 				logic.setInventorySlotContents(1, stack);

@@ -61,22 +61,25 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
                     if (input != null && logic.getTempForSlot(i) > 20)
                     {
                         ItemStack blockToRender = Smeltery.getRenderIndex(input);
-                        float blockHeight = input.stackSize / (float) blockToRender.stackSize;
-                        renderer.setRenderBounds(-0.001F, 0.0F, -0.001F, 1.001F, MathHelper.clamp_float(blockHeight, 0.01F, 1.0F), 1.001F);
+                        if (blockToRender != null)
+                        {
+                            float blockHeight = input.stackSize / (float) blockToRender.stackSize;
+                            renderer.setRenderBounds(-0.001F, 0.0F, -0.001F, 1.001F, MathHelper.clamp_float(blockHeight, 0.01F, 1.0F), 1.001F);
 
-                        if (blockToRender.itemID < 4096) //Block
-                        {
-                            Block liquidBlock = Block.blocksList[blockToRender.itemID];
-                            //ForgeHooksClient.bindTexture(liquidBlock.getTextureFile(), 0);
-                            BlockSkinRenderHelper.renderMetadataBlock(liquidBlock, blockToRender.getItemDamage(), posX + i % 3, posY + i / 9, posZ + i / 3, renderer, world);
-                        }
-                        else
-                        //Item
-                        {
-                            Item liquidItem = Item.itemsList[blockToRender.itemID];
-                            //ForgeHooksClient.bindTexture(liquidItem.getTextureFile(), 0);
-                            int metadata = blockToRender.getItemDamage();
-                            BlockSkinRenderHelper.renderFakeBlock(liquidItem.getIconFromDamage(metadata), posX, posY + i / 9, posZ, renderer, world);
+                            if (blockToRender.itemID < 4096) //Block
+                            {
+                                Block liquidBlock = Block.blocksList[blockToRender.itemID];
+                                //ForgeHooksClient.bindTexture(liquidBlock.getTextureFile(), 0);
+                                BlockSkinRenderHelper.renderMetadataBlock(liquidBlock, blockToRender.getItemDamage(), posX + i % 3, posY + i / 9, posZ + i / 3, renderer, world);
+                            }
+                            else
+                            //Item
+                            {
+                                Item liquidItem = Item.itemsList[blockToRender.itemID];
+                                //ForgeHooksClient.bindTexture(liquidItem.getTextureFile(), 0);
+                                int metadata = blockToRender.getItemDamage();
+                                BlockSkinRenderHelper.renderFakeBlock(liquidItem.getIconFromDamage(metadata), posX, posY + i / 9, posZ, renderer, world);
+                            }
                         }
                     }
                 }
@@ -147,7 +150,8 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
                         Block liquidBlock = Block.blocksList[blockToRender.itemID];
                         BlockSkinRenderHelper.renderMetadataBlock(liquidBlock, blockToRender.getItemDamage(), posX + i % 3, posY, posZ + i / 3, renderer, world);
                     }
-                    else //Item                        
+                    else
+                    //Item                        
                     {
                         Item liquidItem = Item.itemsList[blockToRender.itemID];
                         int metadata = blockToRender.getItemDamage();

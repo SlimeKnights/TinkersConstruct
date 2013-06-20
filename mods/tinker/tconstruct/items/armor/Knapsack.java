@@ -22,32 +22,6 @@ public class Knapsack extends CraftingItem
     }
 
     @Override
-    public ItemStack onItemRightClick (ItemStack stack, World world, EntityPlayer player)
-    {
-        /*if (!world.isRemote && stack.getItemDamage() == 2)
-        {
-            TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
-            if (stats != null)
-            {
-                ArmorExtended armor = stats.armor;
-                ItemStack slotStack = armor.getStackInSlot(6);
-                if (slotStack == null)// || slotStack.getItem() == this)
-                {
-                    armor.setInventorySlotContents(6, new ItemStack(this, 1, 2));
-                    stack.stackSize--;
-                }
-                else if (slotStack.getItem() == this && slotStack.stackSize < this.maxStackSize)
-                {
-                    slotStack.stackSize++;
-                    stack.stackSize--;
-                }
-                armor.recalculateHealth(player, stats);
-            }
-        }*/
-        return stack;
-    }
-
-    @Override
     @SideOnly(Side.CLIENT)
     public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean par4)
     {

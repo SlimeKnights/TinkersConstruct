@@ -12,7 +12,7 @@ import net.minecraft.util.MathHelper;
 public class MultiBrickItem extends ItemBlock
 {
     static String blockType[] = { "obsidian", "sandstone", "netherrack", "stone.refined", "iron", "gold", "lapis", "diamond",
-         "redstone", "bone", "slime", "blueslime", "endstone", "obsidian.ingot" };
+         "redstone", "bone", "slime", "blueslime", "endstone", "obsidian.ingot", "stone.road", "stone.refined.road" };
 
     public MultiBrickItem(int id)
     {

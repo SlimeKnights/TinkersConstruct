@@ -21,17 +21,17 @@ public class ToolRecipe
 
 	public ToolRecipe(Item head, ToolCore tool)
 	{
-		this(head, TConstructRegistry.toolRod, null, null, tool);
+		this(head, TContent.toolRod, null, null, tool);
 	}
 
 	public ToolRecipe(Item head, Item accessory, ToolCore tool)
 	{
-		this(head, TConstructRegistry.toolRod, accessory, null, tool);
+		this(head, TContent.toolRod, accessory, null, tool);
 	}
 
 	public ToolRecipe(Item head, Item accessory, Item extra, ToolCore tool)
 	{
-		this(head, TConstructRegistry.toolRod, accessory, extra, tool);
+		this(head, TContent.toolRod, accessory, extra, tool);
 	}
 
     public ToolRecipe(Item head, Item handle, Item accessory, Item extra, ToolCore tool)

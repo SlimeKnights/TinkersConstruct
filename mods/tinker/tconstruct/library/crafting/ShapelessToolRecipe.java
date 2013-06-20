@@ -39,7 +39,8 @@ public class ShapelessToolRecipe extends ShapelessRecipes
                     {
                         ItemStack itemstack1 = (ItemStack)iterator.next();
 
-                        if (itemstack.itemID == itemstack1.itemID && (itemstack1.getItemDamage() == 32767 || itemstack.getItemDamage() == itemstack1.getItemDamage()))
+                        //System.out.println("Rawr! "+itemstack1.getItemDamage());
+                        if (itemstack.itemID == itemstack1.itemID && (itemstack1.getItemDamage() == Short.MAX_VALUE || itemstack.getItemDamage() == itemstack1.getItemDamage()))
                         {
                             if (itemstack.getItem() instanceof ToolCore)
                             {

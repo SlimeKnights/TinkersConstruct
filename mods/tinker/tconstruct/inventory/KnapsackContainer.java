@@ -22,7 +22,7 @@ public class KnapsackContainer extends Container
         {
             for (int row = 0; row < 9; row++)
             {
-                this.addSlotToContainer(new Slot(knapsack, row + column * 9, 8 + row * 18, 18 + column * 18));
+                this.addSlotToContainer(new Slot(knapsack, row + column * 9, 8 + row * 18, 17 + column * 18));
             }
         }
         
@@ -82,14 +82,5 @@ public class KnapsackContainer extends Container
         }
 
         return stack;
-    }
-    
-    @Override
-    protected boolean mergeItemStack(ItemStack stack, int inventorySize, int slotSize, boolean par4)
-    {
-        if (!(stack.getItem() instanceof IPattern))
-            return false;
-        
-        return super.mergeItemStack(stack, inventorySize, slotSize, par4);
     }
 }

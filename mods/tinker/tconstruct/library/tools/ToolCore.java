@@ -228,8 +228,16 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
 
         emptyIcon = iconRegister.registerIcon("tinker:blankface");
     }
+    
+    @Override
+    @SideOnly(Side.CLIENT)
+    public Icon getIconFromDamage(int meta)
+    {
+        return blankSprite;
+    }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public Icon getIcon (ItemStack stack, int renderPass)
     {
         NBTTagCompound tags = stack.getTagCompound();
@@ -535,7 +543,7 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
 
     public Item getHandleItem ()
     {
-        return TConstructRegistry.toolRod;
+        return TConstructRegistry.getItem("toolRod");//TContent.toolRod;
     }
 
     /* Updating */
@@ -630,15 +638,8 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
     //Right-click
     public boolean onItemUse (ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float clickX, float clickY, float clickZ)
     {
-        //Workaround for impossible crash?
-        if (!player.isSneaking())
-        {
-            Block block = Block.blocksList[world.getBlockId(x, y, z)];
-            if (block.hasTileEntity(world.getBlockMetadata(x, y, z)))
-            {
-                return false;
-            }
-        }
+        /*if (world.isRemote)
+            return true;*/
 
         int posX = x;
         int posY = y;
@@ -682,26 +683,28 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
 
         boolean used = false;
         int hotbarSlot = player.inventory.currentItem;
-        if (hotbarSlot == 0)
+        int itemSlot = hotbarSlot == 0 ? 8 : hotbarSlot + 1;
+        ItemStack nearbyStack = null;
+        
+        if (hotbarSlot < 8)
         {
-            ItemStack nearbyStack = player.inventory.getStackInSlot(8);
+            nearbyStack = player.inventory.getStackInSlot(itemSlot);
             if (nearbyStack != null && nearbyStack.getItem() instanceof ItemBlock)
             {
                 used = nearbyStack.getItem().onItemUse(nearbyStack, player, world, x, y, z, side, clickX, clickY, clickZ);
                 if (nearbyStack.stackSize < 1)
-                    player.inventory.setInventorySlotContents(8, null);
+                {
+                    nearbyStack = null;
+                    player.inventory.setInventorySlotContents(itemSlot, null);
+                }
             }
         }
-        else if (hotbarSlot < 8)
+        
+        /*if (used) //Update client
         {
-            ItemStack nearbyStack = player.inventory.getStackInSlot(hotbarSlot + 1);
-            if (nearbyStack != null && nearbyStack.getItem() instanceof ItemBlock)
-            {
-                used = nearbyStack.getItem().onItemUse(nearbyStack, player, world, x, y, z, side, clickX, clickY, clickZ);
-                if (nearbyStack.stackSize < 1)
-                    player.inventory.setInventorySlotContents(hotbarSlot + 1, null);
-            }
-        }
+            Packet103SetSlot packet = new Packet103SetSlot(player.openContainer.windowId, itemSlot, nearbyStack);
+            ((EntityPlayerMP)player).playerNetServerHandler.sendPacketToPlayer(packet);
+        }*/
         return used;
     }
 
@@ -876,6 +879,8 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
     /* Proper stack damage */
     public int getItemDamageFromStack (ItemStack stack)
     {
+        if (stack.itemDamage == Short.MAX_VALUE )
+            return Short.MAX_VALUE;
         NBTTagCompound tags = stack.getTagCompound();
         if (tags == null)
         {

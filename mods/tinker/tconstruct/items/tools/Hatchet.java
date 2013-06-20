@@ -53,7 +53,7 @@ public class Hatchet extends HarvestTool
 	@Override
 	public Item getHeadItem ()
 	{
-		return TContent.axeHead;
+		return TContent.hatchetHead;
 	}
 
 	@Override

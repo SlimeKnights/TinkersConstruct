@@ -85,6 +85,9 @@ public class PHConstruct
         landmine = config.getBlock("Landmine", 1470).getInt(1470);
         barricade = config.getBlock("Barricade", 1469).getInt(1469);
         toolForge = config.getBlock("Tool Forge", 1468).getInt(1468);
+        multiBrickFancy = config.getBlock("Multi Brick Fancy", 1467).getInt(1467);
+        
+        aggregator = config.getBlock("Aggregator", 3221).getInt(3221);
 
         /*golemCore = config.getBlock("Golem Core", 1481).getInt(1481);
         golemHead = config.getBlock("Golem Head", 1482).getInt(1482);*/
@@ -280,6 +283,8 @@ public class PHConstruct
     
     //InfiBlocks
     public static int speedBlock;
+    
+    public static int aggregator;
 
     //Liquids
     public static int metalFlowing;
@@ -288,6 +293,7 @@ public class PHConstruct
     //Decoration
     public static int stoneTorch;
     public static int multiBrick;
+    public static int multiBrickFancy;
     public static int redstoneBallRepeater;
 
     //Patterns and misc

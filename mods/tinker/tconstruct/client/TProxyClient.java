@@ -13,6 +13,7 @@ import mods.tinker.tconstruct.TConstruct;
 import mods.tinker.tconstruct.blocks.logic.CastingBasinLogic;
 import mods.tinker.tconstruct.blocks.logic.CastingTableLogic;
 import mods.tinker.tconstruct.blocks.logic.FrypanLogic;
+import mods.tinker.tconstruct.blocks.logic.GlowstoneAggregator;
 import mods.tinker.tconstruct.blocks.logic.GolemCoreLogic;
 import mods.tinker.tconstruct.blocks.logic.PartCrafterLogic;
 import mods.tinker.tconstruct.blocks.logic.PatternChestLogic;
@@ -45,6 +46,7 @@ import mods.tinker.tconstruct.client.entity.projectile.DaggerRender;
 import mods.tinker.tconstruct.client.entity.projectile.LaunchedItemRender;
 import mods.tinker.tconstruct.client.gui.ArmorExtendedGui;
 import mods.tinker.tconstruct.client.gui.FrypanGui;
+import mods.tinker.tconstruct.client.gui.GlowstoneAggregatorGui;
 import mods.tinker.tconstruct.client.gui.GuiManual;
 import mods.tinker.tconstruct.client.gui.InventoryTab;
 import mods.tinker.tconstruct.client.gui.KnapsackGui;
@@ -155,6 +157,9 @@ public class TProxyClient extends TProxyCommon
             return new StencilTableGui(player.inventory, (StencilTableLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
         if (ID == toolForge)
             return new ToolForgeGui(player.inventory, (ToolForgeLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
+        if (ID == glowstoneAggregatorGui)
+            return new GlowstoneAggregatorGui(player.inventory, (GlowstoneAggregator) world.getBlockTileEntity(x, y, z), world, x, y, z);
+        
         if (ID == manualGuiID)
         {
             ItemStack stack = player.getCurrentEquippedItem();
@@ -386,7 +391,7 @@ public class TProxyClient extends TProxyCommon
         //Tool parts
         TConstructClientRegistry.registerManualIcon("pickhead", new ItemStack(TContent.pickaxeHead, 1, 2));
         TConstructClientRegistry.registerManualIcon("shovelhead", new ItemStack(TContent.shovelHead, 1, 2));
-        TConstructClientRegistry.registerManualIcon("axehead", new ItemStack(TContent.axeHead, 1, 2));
+        TConstructClientRegistry.registerManualIcon("axehead", new ItemStack(TContent.hatchetHead, 1, 2));
         TConstructClientRegistry.registerManualIcon("swordblade", new ItemStack(TContent.swordBlade, 1, 2));
         TConstructClientRegistry.registerManualIcon("pan", new ItemStack(TContent.frypanHead, 1, 2));
         TConstructClientRegistry.registerManualIcon("board", new ItemStack(TContent.signHead, 1, 2));
@@ -404,9 +409,9 @@ public class TProxyClient extends TProxyCommon
         TConstructClientRegistry.registerManualIcon("pickicon",
                 ToolBuilder.instance.buildTool(new ItemStack(TContent.pickaxeHead, 1, 10), new ItemStack(TContent.toolRod, 1, 11), new ItemStack(TContent.binding, 1, 12), ""));
         TConstructClientRegistry.registerManualIcon("shovelicon", ToolBuilder.instance.buildTool(new ItemStack(TContent.shovelHead, 1, 10), new ItemStack(TContent.toolRod, 1, 11), null, ""));
-        TConstructClientRegistry.registerManualIcon("axeicon", ToolBuilder.instance.buildTool(new ItemStack(TContent.axeHead, 1, 10), new ItemStack(TContent.toolRod, 1, 11), null, ""));
+        TConstructClientRegistry.registerManualIcon("axeicon", ToolBuilder.instance.buildTool(new ItemStack(TContent.hatchetHead, 1, 10), new ItemStack(TContent.toolRod, 1, 11), null, ""));
         TConstructClientRegistry.registerManualIcon("mattockicon",
-                ToolBuilder.instance.buildTool(new ItemStack(TContent.axeHead, 1, 10), new ItemStack(TContent.toolRod, 1, 11), new ItemStack(TContent.shovelHead, 1, 12), ""));
+                ToolBuilder.instance.buildTool(new ItemStack(TContent.hatchetHead, 1, 10), new ItemStack(TContent.toolRod, 1, 11), new ItemStack(TContent.shovelHead, 1, 12), ""));
         TConstructClientRegistry.registerManualIcon("swordicon",
                 ToolBuilder.instance.buildTool(new ItemStack(TContent.swordBlade, 1, 10), new ItemStack(TContent.toolRod, 1, 11), new ItemStack(TContent.wideGuard, 1, 12), ""));
         TConstructClientRegistry.registerManualIcon("longswordicon",
@@ -645,9 +650,9 @@ public class TProxyClient extends TProxyCommon
         String[] effectTypes = { "diamond", "emerald", "redstone", "piston", "moss", "ice", "lava", "blaze", "necrotic", "electric", "lapis", "quartz", "silk", "beheading", "smite", "spider",
                 "reinforced" };
         int[] universalEffects = { 0, 1, 4, 9, 16 };
-        int[] weaponEffects = { 3, 5, 7, 8, 11, 13, 14, 15 };
+        int[] weaponEffects = { 3, 5, 7, 13, 14, 15 };
         int[] harvestEffects = { 2 };
-        int[] nonUtility = { 6, 10, 12 };
+        int[] nonUtility = { 6, 8, 10, 11, 12 };
 
         for (int partIter = 0; partIter < partTypes.length; partIter++)
         {
@@ -656,13 +661,17 @@ public class TProxyClient extends TProxyCommon
 
         for (ToolCore tool : TConstructRegistry.getToolMapping())
         {
-            List list = Arrays.asList(tool.toolCategories());
+            for (int i = 0; i < effectTypes.length; i++)
+            {
+                TConstructClientRegistry.addEffectRenderMapping(tool, i, "tinker", effectTypes[i], true);
+            }
+            /*List list = Arrays.asList(tool.toolCategories());
             for (int i = 0; i < universalEffects.length; i++)
             {
                 TConstructClientRegistry.addEffectRenderMapping(tool, universalEffects[i], "tinker", effectTypes[universalEffects[i]], true);
             }
 
-            if (list.contains("harvest"))
+            if (list.contains("harvest") || list.contains("utility"))
             {
                 for (int i = 0; i < harvestEffects.length; i++)
                 {
@@ -684,7 +693,7 @@ public class TProxyClient extends TProxyCommon
                 {
                     TConstructClientRegistry.addEffectRenderMapping(tool, nonUtility[i], "tinker", effectTypes[nonUtility[i]], true);
                 }
-            }
+            }*/
         }
     }
 
