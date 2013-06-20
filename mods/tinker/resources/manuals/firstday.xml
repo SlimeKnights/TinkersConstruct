@@ -37,6 +37,19 @@ You can then shape a material in a part builder with the pattern, then combine p
 Together these make the Tool Workshop. It is recommended you keep all of these nearby when using any of them.</text>
 </page>
 
+<page type="text">
+<text>Oreberry Bushes
+
+Sometime in your travels you will happen upon the bush known as the Oreberry. They grow underground in dark areas, and require close to complete darkness to produce anything. 
+
+The berries can be melted down into nuggets and ingots, making them an invaluable source of metals.</text>
+</page>
+
+<page type="picture">
+<text>Oreberries in their natural environment</text>
+<picture>/mods/tinker/resources/manuals/oreberries.png</picture>
+</page>
+
 <page type="crafting">
 <text>Blank Pattern</text>
 <recipe>

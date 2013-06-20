@@ -810,11 +810,22 @@ public class GuiManual extends GuiScreen
         RenderHelper.disableStandardItemLighting();
         GL11.glDisable(GL12.GL_RESCALE_NORMAL);
 
-        this.fonts.drawSplitString(icons[1].getTooltip(this.mc.thePlayer, false).get((0)).toString(), localWidth + 128, localHeight + 53, 52, 0);
+        String icon = icons[1].getTooltip(this.mc.thePlayer, false).get((0)).toString();
+        int iconOffset = icon.length() > 12 ? 0 : 3;
+        this.fonts.drawSplitString(icon, localWidth + 128, localHeight + 50 + iconOffset, 52, 0);
+        
         if (icons[2] != null)
-            this.fonts.drawSplitString(icons[2].getTooltip(this.mc.thePlayer, false).get((0)).toString(), localWidth + 128, localHeight + 85, 52, 0);
+        {
+            icon = icons[2].getTooltip(this.mc.thePlayer, false).get((0)).toString();
+            iconOffset = icon.length() > 12 ? 0 : 3;
+            this.fonts.drawSplitString(icons[2].getTooltip(this.mc.thePlayer, false).get((0)).toString(), localWidth + 128, localHeight + 82 + iconOffset, 52, 0);
+        }
         if (icons[3] != null)
-            this.fonts.drawSplitString(icons[3].getTooltip(this.mc.thePlayer, false).get((0)).toString(), localWidth + 128, localHeight + 117, 52, 0);
+        {
+            icon = icons[3].getTooltip(this.mc.thePlayer, false).get((0)).toString();
+            iconOffset = icon.length() > 12 ? 0 : 3;
+            this.fonts.drawSplitString(icons[3].getTooltip(this.mc.thePlayer, false).get((0)).toString(), localWidth + 128, localHeight + 114 + iconOffset, 52, 0);
+        }
 
         this.fonts.drawString("Durability: " + material.durability(), localWidth, localHeight + 40, 0);
         this.fonts.drawString("Handle Modifier: " + material.handleDurability() + "x", localWidth, localHeight + 50, 0);
@@ -863,7 +874,7 @@ public class GuiManual extends GuiScreen
     {
         this.fonts.drawString("\u00a7n" + title, localWidth + 70, localHeight + 4, 0);
         this.fonts.drawSplitString(multiText[0], localWidth, localHeight + 16, 178, 0);
-        int size = multiText[0].length() / 50;
+        int size = multiText[0].length() / 48;
         this.fonts.drawSplitString(multiText[1], localWidth, localHeight + 28 + 10 * size, 118, 0);
 
         this.fonts.drawString("Crafting Parts: ", localWidth + 124, localHeight + 28 + 10 * size, 0);
@@ -875,7 +886,8 @@ public class GuiManual extends GuiScreen
         for (int i = 1; i < icons.length; i++)
         {
             renderitem.renderItemAndEffectIntoGUI(fonts, mc.renderEngine, icons[i], localWidth + 120, localHeight + 20 + 10 * size + 18 * i);
-            this.fonts.drawSplitString(multiText[i + 1], localWidth + 140, localHeight + 24 + 10 * size + 18 * i, 42, 0);
+            int partOffset = multiText[i+1].length() > 11 ? -3 : 0;
+            this.fonts.drawSplitString(multiText[i + 1], localWidth + 140, localHeight + 24 + 10 * size + 18 * i + partOffset, 44, 0);
         }
         renderitem.zLevel = 0;
         RenderHelper.disableStandardItemLighting();

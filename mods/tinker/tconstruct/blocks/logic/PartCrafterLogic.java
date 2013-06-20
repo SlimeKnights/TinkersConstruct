@@ -63,7 +63,7 @@ public class PartCrafterLogic extends InventoryLogic
 			{
 				int value = PatternBuilder.instance.getPartValue(inventory[2]);
 				IPattern item = (IPattern)inventory[0].getItem();
-				int cost = item != null ? item.getPatternCost(inventory[0].getItemDamage()) : 0;
+				int cost = item != null ? item.getPatternCost(inventory[0]) : 0;
 				if (value > 0 && cost > 0)
 				{
 					int decrease = cost / value;
@@ -88,7 +88,7 @@ public class PartCrafterLogic extends InventoryLogic
 			{
 				int value = PatternBuilder.instance.getPartValue(inventory[3]);
 				IPattern item = (IPattern)inventory[1].getItem();
-				int cost = item != null ? item.getPatternCost(inventory[1].getItemDamage()) : 0;
+				int cost = item != null ? item.getPatternCost(inventory[1]) : 0;
 				if (value > 0 && cost > 0)
 				{
 					int decrease = cost / value;

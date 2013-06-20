@@ -2,7 +2,7 @@ package mods.tinker.tconstruct.items;
 
 import java.util.List;
 
-import mods.tinker.tconstruct.common.TContent;
+import mods.tinker.tconstruct.library.TConstructRegistry;
 import mods.tinker.tconstruct.library.crafting.PatternBuilder.MaterialSet;
 import mods.tinker.tconstruct.library.util.IPattern;
 import net.minecraft.creativetab.CreativeTabs;
@@ -68,7 +68,7 @@ public class Pattern extends CraftingItem
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack stack, EntityPlayer player, List list, boolean par4)
 	{
-		float cost = getPatternCost(stack.getItemDamage()) / 2f;
+		float cost = getPatternCost(stack) / 2f;
 		if (cost > 0)
 		{
 			if (cost - (int)cost < 0.1)
@@ -79,9 +79,10 @@ public class Pattern extends CraftingItem
 	}
 
 	//2 for full material, 1 for half.
-	public int getPatternCost (int meta)
+	@Override
+	public int getPatternCost (ItemStack pattern)
 	{
-		switch (meta)
+		switch (pattern.getItemDamage())
 		{
 		case 0: return 2;
 		case 1: return 1;
@@ -111,13 +112,8 @@ public class Pattern extends CraftingItem
 	}
 
 	@Override
-	public ItemStack getPatternOutput (ItemStack stack, MaterialSet set)
+	public ItemStack getPatternOutput (ItemStack stack, ItemStack input, MaterialSet set)
 	{
-		int type = stack.getItemDamage();
-		if (type != 0 && type < TContent.patternOutputs.length + 1)
-		{
-			return new ItemStack(TContent.patternOutputs[type - 1], 1, set.materialID);
-		}
-		return null;
+		return TConstructRegistry.getPartMapping(this.itemID, stack.getItemDamage(), set.materialID);
 	}
 }

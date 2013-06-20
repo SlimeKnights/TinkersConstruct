@@ -152,4 +152,17 @@ public class KnapsackInventory implements IInventory
             }
         }
     }
+
+    public void dropItems ()
+    {
+        EntityPlayer player = parent.get();
+        for (int i = 0; i < inventory.length; ++i)
+        {
+            if (this.inventory[i] != null)
+            {
+                player.dropPlayerItemWithRandomChoice(this.inventory[i], true);
+                this.inventory[i] = null;
+            }
+        }  
+    }
 }

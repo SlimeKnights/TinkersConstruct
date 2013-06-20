@@ -487,22 +487,22 @@ public class TContent implements IFuelHandler
         String[] materialStrings = { "paperStack", "greenSlimeCrystal", "searedBrick", "ingotCobalt", "ingotArdite", "ingotManyullyn", "mossBall", "lavaCrystal", "necroticBone", "ingotCopper",
                 "ingotTin", "ingotAluminum", "rawAluminum", "ingotBronze", "ingotAluminumBrass", "ingotAlumite", "ingotSteel", "blueSlimeCrystal", "ingotObsidian", "nuggetIron", "nuggetCopper",
                 "nuggetTin", "nuggetAluminum", "nuggetSilver", "nuggetAluminumBrass", "silkyCloth", "silkyJewel" };
-        
+
         for (int i = 0; i < materialStrings.length; i++)
         {
             TConstructRegistry.addItemStackToDirectory(materialStrings[i], new ItemStack(materials, 1, i));
         }
 
         String[] oreberries = { "Iron", "Gold", "Copper", "Tin", "Aluminum", "Silver" };
-        
+
         for (int i = 0; i < oreberries.length; i++)
         {
-            TConstructRegistry.addItemStackToDirectory("oreberry"+oreberries[i], new ItemStack(oreBerries, 1, i));
+            TConstructRegistry.addItemStackToDirectory("oreberry" + oreberries[i], new ItemStack(oreBerries, 1, i));
         }
-        
+
         TConstructRegistry.addItemStackToDirectory("diamondApple", new ItemStack(diamondApple, 1, 0));
         TConstructRegistry.addItemStackToDirectory("blueSlimeFood", new ItemStack(strangeFood, 1, 0));
-        
+
         TConstructRegistry.addItemStackToDirectory("canisterEmpty", new ItemStack(heartCanister, 1, 0));
         TConstructRegistry.addItemStackToDirectory("miniRedHeart", new ItemStack(heartCanister, 1, 1));
         TConstructRegistry.addItemStackToDirectory("canisterRedHeart", new ItemStack(heartCanister, 1, 2));
@@ -612,6 +612,31 @@ public class TContent implements IFuelHandler
         patternOutputs = new Item[] { toolRod, pickaxeHead, shovelHead, hatchetHead, swordBlade, wideGuard, handGuard, crossbar, binding, frypanHead, signHead, knifeBlade, chiselHead, toughRod,
                 toughBinding, heavyPlate, broadAxeHead, scytheBlade, excavatorHead, largeSwordBlade, hammerHead, fullGuard };
 
+        int[] nonMetals = { 0, 1, 3, 4, 5, 6, 7, 8, 9, 17 };
+
+        if (PHConstruct.craftMetalTools)
+        {
+            for (int mat = 0; mat < 18; mat++)
+            {
+                for (int meta = 0; meta < patternOutputs.length; meta++)
+                {
+                    TConstructRegistry.addPartMapping(woodPattern.itemID, meta + 1, mat, new ItemStack(patternOutputs[meta], 1, mat));
+                }
+                TConstructRegistry.addPartMapping(woodPattern.itemID, 22, mat, new ItemStack(fullGuard, 1, mat));
+            }
+        }
+        else
+        {
+            for (int mat = 0; mat < nonMetals.length; mat++)
+            {
+                for (int meta = 0; meta < patternOutputs.length; meta++)
+                {
+                    TConstructRegistry.addPartMapping(woodPattern.itemID, meta + 1, nonMetals[mat], new ItemStack(patternOutputs[meta], 1, nonMetals[mat]));
+                }
+                TConstructRegistry.addPartMapping(woodPattern.itemID, 22, nonMetals[mat], new ItemStack(fullGuard, 1, nonMetals[mat]));
+            }
+        }
+
         ToolBuilder tb = ToolBuilder.instance;
         tb.addNormalToolRecipe(pickaxe, pickaxeHead, binding);
         tb.addNormalToolRecipe(broadsword, swordBlade, wideGuard);
@@ -628,7 +653,7 @@ public class TContent implements IFuelHandler
         tb.addNormalToolRecipe(scythe, scytheBlade, toughRod, toughBinding, toughRod);
         tb.addNormalToolRecipe(lumberaxe, broadAxeHead, toughRod, heavyPlate, toughBinding);
         tb.addNormalToolRecipe(cleaver, largeSwordBlade, toughRod, heavyPlate, toughRod);
-        tb.addNormalToolRecipe(excavator, excavatorHead, toughRod, toughBinding, toughRod);
+        tb.addNormalToolRecipe(excavator, excavatorHead, toughRod, heavyPlate, toughBinding);
         tb.addNormalToolRecipe(hammer, hammerHead, toughRod, heavyPlate, heavyPlate);
         tb.addNormalToolRecipe(battleaxe, broadAxeHead, toughRod, broadAxeHead, toughBinding);
 
@@ -746,8 +771,9 @@ public class TContent implements IFuelHandler
             ItemStack cast = new ItemStack(metalPattern, 1, iter + 1);
             for (int iterTwo = 0; iterTwo < liquids.length; iterTwo++)
             {
-                tableCasting.addCastingRecipe(new ItemStack(patternOutputs[iter], 1, liquidDamage[iterTwo]), new LiquidStack(liquids[iterTwo].itemID, ((IPattern) metalPattern).getPatternCost(iter)
-                        * TConstruct.ingotLiquidValue / 2, liquids[iterTwo].itemMeta), cast, 50);
+                ItemStack metalCast = new ItemStack(patternOutputs[iter], 1, liquidDamage[iterTwo]);
+                tableCasting.addCastingRecipe(metalCast, new LiquidStack(liquids[iterTwo].itemID, ((IPattern) metalPattern).getPatternCost(metalCast) * TConstruct.ingotLiquidValue / 2,
+                        liquids[iterTwo].itemMeta), cast, 50);
             }
         }
 
@@ -1012,6 +1038,10 @@ public class TContent implements IFuelHandler
         GameRegistry.addShapelessRecipe(new ItemStack(heartCanister, 1, 2), new ItemStack(diamondApple), necroticBone, new ItemStack(heartCanister, 1, 0), new ItemStack(heartCanister, 1, 1));
         GameRegistry.addRecipe(new ItemStack(knapsack, 1, 0), "###", "rmr", "###", '#', new ItemStack(Item.leather), 'r', new ItemStack(toughRod, 1, 2), 'm', new ItemStack(Item.ingotGold));
         GameRegistry.addRecipe(new ItemStack(knapsack, 1, 0), "###", "rmr", "###", '#', new ItemStack(Item.leather), 'r', new ItemStack(toughRod, 1, 2), 'm', new ItemStack(materials, 1, 14));
+
+        //Remove vanilla recipes
+        RecipeRemover.removeShapedRecipe(new ItemStack(Block.blockIron));
+        RecipeRemover.removeShapedRecipe(new ItemStack(Block.blockGold));
     }
 
     void setupToolTabs ()

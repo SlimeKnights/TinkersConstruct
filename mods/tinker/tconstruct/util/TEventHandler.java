@@ -6,12 +6,13 @@ import java.util.Random;
 import mods.tinker.tconstruct.TConstruct;
 import mods.tinker.tconstruct.blocks.logic.LiquidTextureLogic;
 import mods.tinker.tconstruct.common.TContent;
-import mods.tinker.tconstruct.event.ToolCraftEvent;
 import mods.tinker.tconstruct.library.crafting.PatternBuilder;
 import mods.tinker.tconstruct.library.crafting.Smeltery;
 import mods.tinker.tconstruct.library.crafting.ToolBuilder;
+import mods.tinker.tconstruct.library.event.ToolCraftEvent;
 import mods.tinker.tconstruct.library.tools.ToolCore;
 import mods.tinker.tconstruct.modifiers.ModAttack;
+import mods.tinker.tconstruct.util.player.TPlayerStats;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.boss.EntityWither;
@@ -28,14 +29,11 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumMovingObjectType;
 import net.minecraft.world.World;
 import net.minecraftforge.event.Event.Result;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
-import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.event.entity.player.FillBucketEvent;
 import net.minecraftforge.liquids.LiquidStack;
@@ -210,33 +208,40 @@ public class TEventHandler
                         }
                     }
                 }
-
-                if (event.entityLiving instanceof EntityPlayer)
-                {
-                    EntityPlayer enemy = (EntityPlayer) event.entityLiving;
-
-                    if (event.source.damageType.equals("player"))
-                    {
-                        EntityPlayer player = (EntityPlayer) event.source.getEntity();
-                        ItemStack stack = player.getCurrentEquippedItem();
-                        if (stack != null && stack.hasTagCompound() && stack.getItem() instanceof ToolCore)
-                        {
-                            int beheading = stack.getTagCompound().getCompoundTag("InfiTool").getInteger("Beheading");
-                            if (beheading > 0 && random.nextInt(100) < beheading * 50)
-                            {
-                                ItemStack dropStack = new ItemStack(Item.skull.itemID, 1, 3);
-                                NBTTagCompound nametag = new NBTTagCompound();
-                                nametag.setString("SkullOwner", enemy.username);
-                                addDrops(event, dropStack);
-                            }
-                        }
-                    }
-                }
             }
 
             else if (event.entityLiving.getClass() == EntityGhast.class)
             {
                 addDrops(event, new ItemStack(Item.ghastTear, 1));
+            }
+        }
+        
+        if (event.entityLiving instanceof EntityPlayer)
+        {
+            EntityPlayer player = (EntityPlayer) event.entityLiving;
+
+            if (event.source.damageType.equals("player"))
+            {
+                EntityPlayer source = (EntityPlayer) event.source.getEntity();
+                ItemStack stack = source.getCurrentEquippedItem();
+                if (stack != null && stack.hasTagCompound() && stack.getItem() instanceof ToolCore)
+                {
+                    int beheading = stack.getTagCompound().getCompoundTag("InfiTool").getInteger("Beheading");
+                    if (beheading > 0 && random.nextInt(100) < beheading * 50)
+                    {
+                        ItemStack dropStack = new ItemStack(Item.skull.itemID, 1, 3);
+                        NBTTagCompound nametag = new NBTTagCompound();
+                        nametag.setString("SkullOwner", player.username);
+                        addDrops(event, dropStack);
+                    }
+                }
+            }
+
+            if (!player.worldObj.getGameRules().getGameRuleBooleanValue("keepInventory"))
+            {
+                TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
+                stats.armor.dropItems();
+                stats.knapsack.dropItems();
             }
         }
     }

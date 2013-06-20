@@ -3,8 +3,6 @@ package mods.tinker.tconstruct.client;
 import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -32,6 +30,7 @@ import mods.tinker.tconstruct.client.block.OreberryRender;
 import mods.tinker.tconstruct.client.block.SearedRender;
 import mods.tinker.tconstruct.client.block.SmallFontRenderer;
 import mods.tinker.tconstruct.client.block.SmelteryRender;
+import mods.tinker.tconstruct.client.block.TableForgeRender;
 import mods.tinker.tconstruct.client.block.TableRender;
 import mods.tinker.tconstruct.client.block.TankRender;
 import mods.tinker.tconstruct.client.entity.CartRender;
@@ -159,7 +158,7 @@ public class TProxyClient extends TProxyCommon
             return new ToolForgeGui(player.inventory, (ToolForgeLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
         if (ID == glowstoneAggregatorGui)
             return new GlowstoneAggregatorGui(player.inventory, (GlowstoneAggregator) world.getBlockTileEntity(x, y, z), world, x, y, z);
-        
+
         if (ID == manualGuiID)
         {
             ItemStack stack = player.getCurrentEquippedItem();
@@ -276,6 +275,7 @@ public class TProxyClient extends TProxyCommon
         MinecraftForge.EVENT_BUS.register(new TClientEvents());
         smallFontRenderer = new SmallFontRenderer(mc.gameSettings, "/font/default.png", mc.renderEngine, false);
         RenderingRegistry.registerBlockHandler(new TableRender());
+        RenderingRegistry.registerBlockHandler(new TableForgeRender());
         RenderingRegistry.registerBlockHandler(new FrypanRender());
         RenderingRegistry.registerBlockHandler(new SmelteryRender());
         RenderingRegistry.registerBlockHandler(new TankRender());
@@ -398,12 +398,22 @@ public class TProxyClient extends TProxyCommon
         TConstructClientRegistry.registerManualIcon("knifeblade", new ItemStack(TContent.knifeBlade, 1, 2));
         TConstructClientRegistry.registerManualIcon("chiselhead", new ItemStack(TContent.chiselHead, 1, 2));
 
+        TConstructClientRegistry.registerManualIcon("hammerhead", new ItemStack(TContent.hammerHead, 1, 2));
+        TConstructClientRegistry.registerManualIcon("excavatorhead", new ItemStack(TContent.excavatorHead, 1, 2));
+        TConstructClientRegistry.registerManualIcon("scythehead", new ItemStack(TContent.scytheBlade, 1, 2));
+        TConstructClientRegistry.registerManualIcon("broadaxehead", new ItemStack(TContent.broadAxeHead, 1, 2));
+        TConstructClientRegistry.registerManualIcon("largeswordblade", new ItemStack(TContent.largeSwordBlade, 1, 2));
+
         TConstructClientRegistry.registerManualIcon("toolrod", new ItemStack(Item.stick));
 
         TConstructClientRegistry.registerManualIcon("binding", new ItemStack(TContent.binding, 1, 4));
         TConstructClientRegistry.registerManualIcon("wideguard", new ItemStack(TContent.wideGuard, 1, 4));
         TConstructClientRegistry.registerManualIcon("handguard", new ItemStack(TContent.handGuard, 1, 4));
         TConstructClientRegistry.registerManualIcon("crossbar", new ItemStack(TContent.crossbar, 1, 4));
+
+        TConstructClientRegistry.registerManualIcon("toughrod", new ItemStack(TContent.toughRod, 1, 0));
+        TConstructClientRegistry.registerManualIcon("toughbinding", new ItemStack(TContent.toughBinding, 1, 17));
+        TConstructClientRegistry.registerManualIcon("largeplate", new ItemStack(TContent.heavyPlate, 1, 17));
 
         //ToolIcons
         TConstructClientRegistry.registerManualIcon("pickicon",
@@ -423,6 +433,19 @@ public class TProxyClient extends TProxyCommon
         TConstructClientRegistry.registerManualIcon("frypanicon", ToolBuilder.instance.buildTool(new ItemStack(TContent.frypanHead, 1, 10), new ItemStack(TContent.toolRod, 1, 11), null, ""));
         TConstructClientRegistry.registerManualIcon("battlesignicon", ToolBuilder.instance.buildTool(new ItemStack(TContent.signHead, 1, 10), new ItemStack(TContent.toolRod, 1, 11), null, ""));
         TConstructClientRegistry.registerManualIcon("chiselicon", ToolBuilder.instance.buildTool(new ItemStack(TContent.chiselHead, 1, 10), new ItemStack(TContent.toolRod, 1, 11), null, ""));
+
+        TConstructClientRegistry.registerManualIcon("hammericon", ToolBuilder.instance.buildTool(new ItemStack(TContent.hammerHead, 1, 10), new ItemStack(TContent.toughRod, 1, 11), 
+                new ItemStack(TContent.heavyPlate, 1, 12), new ItemStack(TContent.heavyPlate, 8), ""));
+        TConstructClientRegistry.registerManualIcon("lumbericon", ToolBuilder.instance.buildTool(new ItemStack(TContent.broadAxeHead, 1, 10), new ItemStack(TContent.toughRod, 1, 11), 
+                new ItemStack(TContent.heavyPlate, 1, 12), new ItemStack(TContent.toughBinding, 8), ""));
+        TConstructClientRegistry.registerManualIcon("excavatoricon", ToolBuilder.instance.buildTool(new ItemStack(TContent.excavatorHead, 1, 10), new ItemStack(TContent.toughRod, 1, 11), 
+                new ItemStack(TContent.heavyPlate, 1, 12), new ItemStack(TContent.toughBinding, 8), ""));
+        TConstructClientRegistry.registerManualIcon("scytheicon", ToolBuilder.instance.buildTool(new ItemStack(TContent.scytheBlade, 1, 10), new ItemStack(TContent.toughRod, 1, 11), 
+                new ItemStack(TContent.toughBinding, 1, 12), new ItemStack(TContent.toughRod, 8), ""));
+        TConstructClientRegistry.registerManualIcon("cleavericon", ToolBuilder.instance.buildTool(new ItemStack(TContent.largeSwordBlade, 1, 10), new ItemStack(TContent.toughRod, 1, 11), 
+                new ItemStack(TContent.heavyPlate, 1, 12), new ItemStack(TContent.toughRod, 8), ""));
+        TConstructClientRegistry.registerManualIcon("battleaxeicon", ToolBuilder.instance.buildTool(new ItemStack(TContent.broadAxeHead, 1, 10), new ItemStack(TContent.toughRod, 1, 11), 
+                new ItemStack(TContent.broadAxeHead, 1, 12), new ItemStack(TContent.toughBinding, 8), ""));
     }
 
     public void initManualRecipes ()
@@ -614,23 +637,18 @@ public class TProxyClient extends TProxyCommon
         }
 
         addTierTwoButton(6, 13, 0, new int[] { 11, 8, 9, 9 }, new int[] { 2, 3, 2, 2 }, "Hammer",
-                "The Hammer is a broad mining tool. It harvests blocks in a wide range and is effective against undead.\n\nNatural Abilities:\nArea of Effect\n- (3x3x3)\n- Smite\n\nDurability: High");
+                "The Hammer is a broad mining tool. It harvests blocks in a wide range and is effective against undead.\n\nNatural Abilities:\nArea of Effect\n- (3x3)\n- Smite\n\nDurability: High");
         addTierTwoButton(5, 11, 0, new int[] { 6, 8, 9, 9 }, new int[] { 2, 3, 2, 3 }, "Lumber Axe",
-                "The Lumber Axe is a broad chopping tool. It can fell entire trees or gather wood in a wide range.\n\nNatural Abilities:\n- Fell Trees\nArea of Effect\n- (3x3x3)\n\nDurability: Average");
-        addTierTwoButton(4, 12, 0, new int[] { 10, 8, 9, 8 }, new int[] { 2, 3, 3, 3 }, "Excavator",
+                "The Lumber Axe is a broad chopping tool. It can fell entire trees or gather wood in a wide range.\n\nNatural Abilities:\nArea of Effect\n- Fell Trees\n- (3x3x3)\n\nDurability: Average");
+        addTierTwoButton(5, 12, 0, new int[] { 10, 8, 9, 9 }, new int[] { 2, 3, 2, 3 }, "Excavator",
                 "The Excavator is a broad digging tool. It harvests soil and snow in a wide range.\n\nNatural Ability:\n- Area of Effect\n- (3x3)\n\nDurability: Average");
         addTierTwoButton(4, 10, 0, new int[] { 8, 8, 9, 8 }, new int[] { 2, 3, 3, 3 }, "Scythe",
                 "The Scythe is a broad reaping tool. It is effective on plants and attacks enemies in a wide range.\n\nNatural Ability:\nArea of Effect\n- (3x3x3)\n\nDurability: Average\nDamage: Low, AoE");
         addTierTwoButton(5, 7, 1, new int[] { 6, 8, 9, 8 }, new int[] { 3, 3, 2, 3 }, "Cleaver",
                 "The Cleaver is a heavy defensive weapon. It has powerful strikes, but is difficult to wield.\n\nSpecial Ability: Block\nNatural Ability:\n- Beheading\n\nDamage: Very High\nDurability: Average");
-        addTierTwoButton(
-                5,
-                8,
-                1,
-                new int[] { 6, 8, 6, 9 },
-                new int[] { 2, 3, 2, 3 },
-                "Battleaxe",
-                "The Battleaxe is a heavy offensive weapon. It is capable of bringing down small trees and can send foes flying.\n\nSpecial Ability: Block\nNatural Abilities:\n- Knockback\n- Area of Effect\n- (1x9)\n\nDamage: Average\nDurability: Average");
+        addTierTwoButton(5, 8, 1, new int[] { 6, 8, 6, 9 }, new int[] { 2, 3, 2, 3 }, "Battleaxe",
+                "The Battleaxe is a heavy offensive weapon. It is capable of bringing down small trees and can send foes flying.\n\nSpecial Ability: Block\nNatural Abilities:"
+                        + "\n- Knockback\n- Area of Effect\n- (1x9)\n\nDamage: Average\nDurability: Average");
     }
 
     void addToolButton (int slotType, int xButton, int yButton, int[] xIcons, int[] yIcons, String title, String body)

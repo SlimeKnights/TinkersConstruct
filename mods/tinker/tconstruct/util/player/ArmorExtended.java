@@ -221,4 +221,17 @@ public class ArmorExtended implements IInventory
             }
         }
     }
+
+    public void dropItems ()
+    {
+        EntityPlayer player = parent.get();
+        for (int i = 0; i < 4; ++i)
+        {
+            if (this.inventory[i] != null)
+            {
+                player.dropPlayerItemWithRandomChoice(this.inventory[i], true);
+                this.inventory[i] = null;
+            }
+        }   
+    }
 }

@@ -64,7 +64,7 @@
   <entry key="block.brick.gold.name">Gold Brick</entry>
   <entry key="block.brick.diamond.name">Diamond Brick</entry>
   <entry key="block.brick.lapis.name">Lapis Brick</entry>
-  <entry key="block.brick.stone.refined.name">Refined Stone Brick</entry>
+  <entry key="block.brick.stone.refined.name">Polished Stone Brick</entry>
   <entry key="block.brick.redstone.name">Redstone Brick</entry>
   <entry key="block.brick.bone.name">Bone Brick</entry>
   <entry key="block.brick.slime.name">Slime Brick</entry>
@@ -79,7 +79,7 @@
   <entry key="block.fancybrick.gold.name">Gold Fancy Brick</entry>
   <entry key="block.fancybrick.diamond.name">Diamond Fancy Brick</entry>
   <entry key="block.fancybrick.lapis.name">Lapis Fancy Brick</entry>
-  <entry key="block.fancybrick.stone.refined.name">Refined Stone Fancy Brick</entry>
+  <entry key="block.fancybrick.stone.refined.name">Polished Stone Fancy Brick</entry>
   <entry key="block.fancybrick.redstone.name">Redstone Fancy Brick</entry>
   <entry key="block.fancybrick.bone.name">Bone Fancy Brick</entry>
   <entry key="block.fancybrick.slime.name">Slime Fancy Brick</entry>

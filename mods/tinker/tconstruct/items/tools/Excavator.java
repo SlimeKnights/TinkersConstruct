@@ -57,13 +57,13 @@ public class Excavator extends HarvestTool
     @Override
     public Item getAccessoryItem ()
     {
-        return TContent.toughBinding;
+        return TContent.heavyPlate;
     }
 
     @Override
     public Item getExtraItem ()
     {
-        return TContent.toughRod;
+        return TContent.toughBinding;
     }
 
     @Override
@@ -80,7 +80,7 @@ public class Excavator extends HarvestTool
     @Override
     public int durabilityTypeAccessory ()
     {
-        return 1;
+        return 2;
     }
 
     @Override

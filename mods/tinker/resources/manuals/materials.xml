@@ -214,7 +214,7 @@ Shift+Right-click: Place Item
 - The frying pan cooks a large amount of food at a time.
 
 Natural Abilities:
-- Heavy, does extra knockback and stuns the foe.</text>
+- Bash, does extra knockback and stuns the foe.</text>
 <icon>frypanicon</icon>
 <item>
  <text>Pan</text>
@@ -262,6 +262,178 @@ Class: Utility Tool</text>
 </item>
 </page>
 
+<page type="toolpage">
+<title>Hammer</title>
+<text>The Hammer is a heavy mining tool meant for digging out large areas. It is also effective on undead.</text>
+<text>Natural Abilities: 
+- Area of Effect, Mines a 3x3 area. The direction depends on which face is pounded.
+- Smite II, Does 2-4 extra hearts of damage against undead.
+- Huge Durability, his tool has very high durability to make up for the constant beating it will recieve.
+
+Class: Broad Mining Tool</text>
+<icon>hammericon</icon>
+<item>
+ <text>Hammer Head</text>
+ <icon>hammerhead</icon>
+</item>
+<item>
+ <text>Large Plate</text>
+ <icon>largeplate</icon>
+</item>
+<item>
+ <text>Tough Rod</text>
+ <icon>toughrod</icon>
+</item>
+<item>
+ <text>Large Plate</text>
+ <icon>largeplate</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>Lumber Axe</title>
+<text>The Lumber Axe is capable of bringing down whole trees or clearing large swaths of food in a single swing.</text>
+<text>Natural Abilities:
+Fell Trees
+- Harvests entire trees. It has a max height of 30. Trees are defined as Leaves on top of Logs.
+Area of Effect
+- Mines a 3x3x3 area. This is a fallback if a tree is not found.
+
+Class: Broad Mining Tool</text>
+<icon>lumbericon</icon>
+<item>
+ <text>Broad Axe Head</text>
+ <icon>broadaxehead</icon>
+</item>
+<item>
+ <text>Large Plate</text>
+ <icon>largeplate</icon>
+</item>
+<item>
+ <text>Tough Rod</text>
+ <icon>toughrod</icon>
+</item>
+<item>
+ <text>Tough Binding</text>
+ <icon>toughbinding</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>Excavator</title>
+<text>The Excavator is a large digging tool used for clearing out large swaths of land, gravel, or snow.</text>
+<text>Natural Abilities: 
+Area of Effect
+- Mines a 3x3 area. The direction depends on which face is scooped.
+
+Class: Broad Mining Tool</text>
+<icon>excavatoricon</icon>
+<item>
+ <text>Excavator Head</text>
+ <icon>excavatorhead</icon>
+</item>
+<item>
+ <text>Large Plate</text>
+ <icon>largeplate</icon>
+</item>
+<item>
+ <text>Tough Rod</text>
+ <icon>toughrod</icon>
+</item>
+<item>
+ <text>Tough Binding</text>
+ <icon>toughbinding</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>Scythe</title>
+<text>The Scythe is well known for its large swinging area. It can be used to harvest crops, leaves, and is a decent weapon.</text>
+<text>Natural Abilities: 
+Area of Effect
+- Attacks mobs in a 3x3x3.
+- Harvests a 3x3x3 area.
+
+Class: Broad Melee Weapon</text>
+<icon>scytheicon</icon>
+<item>
+ <text>Scythe Head</text>
+ <icon>excavatorhead</icon>
+</item>
+<item>
+ <text>Tough Rod</text>
+ <icon>toughrod</icon>
+</item>
+<item>
+ <text>Tough Binding</text>
+ <icon>toughbinding</icon>
+</item>
+<item>
+ <text>Tough Rod</text>
+ <icon>toughrod</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>Cleaver</title>
+<text>The Cleaver is a heavy defensive weapon. The sword is unwieldly, but the sheer weight of the tool crushes foes.</text>
+<text>Right-click: Block
+- Blocking cuts a wide variety of damage types in half.
+
+Natural Abilities: 
+- Beheading II, Beheads mobs. Their head is dropped as loot.
+- Heavy, Base attack is increased at the cost of swing time
+
+Class: Heavy Melee Weapon</text>
+<icon>cleavericon</icon>
+<item>
+ <text>Large Blade</text>
+ <icon>largeswordblade</icon>
+</item>
+<item>
+ <text>Large Plate</text>
+ <icon>largeplate</icon>
+</item>
+<item>
+ <text>Tough Rod</text>
+ <icon>toughrod</icon>
+</item>
+<item>
+ <text>Tough Rod</text>
+ <icon>toughrod</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>Battleaxe</title>
+<text>The battleaxe is an offensive melee weapon that can also bring down small trees.</text>
+<text>Right-click: TBD
+- This ability is incomplete
+
+Natural Abilities: 
+- Area of Effect, harvests wood blocks in a 1x9 tower.
+- Bash, knocks the enemy further away than normal.
+
+Class: Heavy Melee Weapon</text>
+<icon>battleaxeicon</icon>
+<item>
+ <text>Broad Axe Head</text>
+ <icon>broadaxehead</icon>
+</item>
+<item>
+ <text>Broad Axe Head</text>
+ <icon>broadaxehead</icon>
+</item>
+<item>
+ <text>Tough Rod</text>
+ <icon>toughrod</icon>
+</item>
+<item>
+ <text>Tough Binding</text>
+ <icon>toughbinding</icon>
+</item>
+</page>
+
 <page type="sectionpage">
 <title>Material Traits</title>
 <text>Some materials have traits that augment their natural uses.
@@ -269,8 +441,7 @@ Class: Utility Tool</text>
 - Reinforced: 10% chance per level of not using durability
 - Stonebound: The tool mines faster as it wears out, but does less damage
 - Spiny: The tool mines does more damage as it wears out, but mines slower
-- Writable: One extra modifier per piece
-- Awareness: Unknown</text>
+- Writable: One extra modifier per piece</text>
 </page>
 
 <page type="materialstats">

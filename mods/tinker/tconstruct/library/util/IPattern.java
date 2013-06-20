@@ -5,6 +5,6 @@ import net.minecraft.item.ItemStack;
 
 public interface IPattern
 {
-	public int getPatternCost (int metadata);
-	public ItemStack getPatternOutput(ItemStack stack, MaterialSet set);
+	public int getPatternCost (ItemStack pattern);
+	public ItemStack getPatternOutput(ItemStack pattern, ItemStack input, MaterialSet set);
 }

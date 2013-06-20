@@ -2,13 +2,16 @@ package mods.tinker.tconstruct.library;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 import mods.tinker.tconstruct.library.crafting.*;
 import mods.tinker.tconstruct.library.tools.*;
 import mods.tinker.tconstruct.library.util.*;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.ForgeHooks;
 
 /** A registry to store any relevant API work
  * 
@@ -114,6 +117,30 @@ public class TConstructRegistry
         return ret;
     }
     public static ArrayList<ToolCore> tools = new ArrayList<ToolCore>(20);
+    
+    //Parts
+    
+    /** List: Item ID, metadata, material ID
+     *  ItemStack: Output. Ex: Cactus Binding
+     */
+    public static HashMap<List, ItemStack> patternPartMapping = new HashMap<List, ItemStack>();
+    
+    /** Maps an item and a material ID to an output part
+     * 
+     * @param patternID ID to check against
+     * @param patternMeta Metadata to check against
+     * @param materialID Material that goes with the item
+     * @param output The resulting part
+     */
+    public static void addPartMapping(int patternID, int patternMeta, int materialID, ItemStack output)
+    {
+        patternPartMapping.put(Arrays.asList(patternID, patternMeta, materialID), output);
+    }
+    
+    public static ItemStack getPartMapping(int itemID, int metadata, int materialID)
+    {
+        return patternPartMapping.get(Arrays.asList(itemID, metadata, materialID));
+    }
     
     //Tools
     

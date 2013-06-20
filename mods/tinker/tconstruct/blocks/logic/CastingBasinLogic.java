@@ -78,7 +78,7 @@ public class CastingBasinLogic extends InventoryLogic implements ILiquidTank, IT
         ItemStack inv = inventory[0];
 
         if (inv != null && inv.getItem() instanceof IPattern)
-            ret *= ((IPattern) inv.getItem()).getPatternCost(inv.getItemDamage()) * 0.5;
+            ret *= ((IPattern) inv.getItem()).getPatternCost(inv) * 0.5;
 
         else
             ret = TConstruct.basinCasting.getCastingAmount(this.liquid, inv);
@@ -93,7 +93,7 @@ public class CastingBasinLogic extends InventoryLogic implements ILiquidTank, IT
         ItemStack inv = inventory[0];
 
         if (inv != null && inv.getItem() instanceof IPattern)
-            ret *= ((IPattern) inv.getItem()).getPatternCost(inv.getItemDamage()) * 0.5;
+            ret *= ((IPattern) inv.getItem()).getPatternCost(inv) * 0.5;
 
         else
             ret = capacity;
