@@ -654,18 +654,18 @@ public class TContent implements IFuelHandler
         }
 
         ToolBuilder tb = ToolBuilder.instance;
-        tb.addNormalToolRecipe(pickaxe, pickaxeHead, binding);
-        tb.addNormalToolRecipe(broadsword, swordBlade, wideGuard);
-        tb.addNormalToolRecipe(hatchet, hatchetHead);
-        tb.addNormalToolRecipe(shovel, shovelHead);
-        tb.addNormalToolRecipe(longsword, swordBlade, handGuard);
-        tb.addNormalToolRecipe(rapier, swordBlade, crossbar);
-        tb.addNormalToolRecipe(frypan, frypanHead);
-        tb.addNormalToolRecipe(battlesign, signHead);
-        tb.addNormalToolRecipe(mattock, hatchetHead, shovelHead);
-        tb.addNormalToolRecipe(dagger, knifeBlade, crossbar);
-        tb.addNormalToolRecipe(cutlass, swordBlade, fullGuard);
-        tb.addNormalToolRecipe(chisel, chiselHead);
+        tb.addNormalToolRecipe(pickaxe, pickaxeHead, toolRod, binding);
+        tb.addNormalToolRecipe(broadsword, swordBlade, toolRod, wideGuard);
+        tb.addNormalToolRecipe(hatchet, hatchetHead, toolRod);
+        tb.addNormalToolRecipe(shovel, shovelHead, toolRod);
+        tb.addNormalToolRecipe(longsword, swordBlade, toolRod, handGuard);
+        tb.addNormalToolRecipe(rapier, swordBlade, toolRod, crossbar);
+        tb.addNormalToolRecipe(frypan, frypanHead, toolRod);
+        tb.addNormalToolRecipe(battlesign, signHead, toolRod);
+        tb.addNormalToolRecipe(mattock, hatchetHead, toolRod, shovelHead);
+        tb.addNormalToolRecipe(dagger, knifeBlade, toolRod, crossbar);
+        tb.addNormalToolRecipe(cutlass, swordBlade, toolRod, fullGuard);
+        tb.addNormalToolRecipe(chisel, chiselHead, toolRod);
         tb.addNormalToolRecipe(scythe, scytheBlade, toughRod, toughBinding, toughRod);
         tb.addNormalToolRecipe(lumberaxe, broadAxeHead, toughRod, heavyPlate, toughBinding);
         tb.addNormalToolRecipe(cleaver, largeSwordBlade, toughRod, heavyPlate, toughRod);

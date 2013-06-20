@@ -18,20 +18,21 @@ public class ToolRecipe
 	LinkedList<Item> accessoryList = new LinkedList<Item>();
 	LinkedList<Item> extraList = new LinkedList<Item>();
 	ToolCore result;
+	Item toolRod = TConstructRegistry.getItem("toolRod");
 
-	public ToolRecipe(Item head, ToolCore tool)
+	/*public ToolRecipe(Item head, ToolCore tool)
 	{
 		this(head, TContent.toolRod, null, null, tool);
-	}
+	}*/
 
-	public ToolRecipe(Item head, Item accessory, ToolCore tool)
-	{
-		this(head, TContent.toolRod, accessory, null, tool);
-	}
+    public ToolRecipe(Item head, Item handle, ToolCore tool)
+    {
+        this(head, handle, null, null, tool);
+    }
 
-	public ToolRecipe(Item head, Item accessory, Item extra, ToolCore tool)
+	public ToolRecipe(Item head, Item handle, Item accessory, ToolCore tool)
 	{
-		this(head, TContent.toolRod, accessory, extra, tool);
+		this(head, handle, accessory, null, tool);
 	}
 
     public ToolRecipe(Item head, Item handle, Item accessory, Item extra, ToolCore tool)
@@ -81,7 +82,7 @@ public class ToolRecipe
 		{
 			if (part == input)
 				return true;
-			if (part == TContent.toolRod && (input == Item.stick || input == Item.bone))
+			if (toolRod != null && part == toolRod && (input == Item.stick || input == Item.bone))
 			    return true;
 		}
 		return false;
@@ -99,7 +100,7 @@ public class ToolRecipe
 		{
 			if (part == input)
 				return true;
-            if (part == TContent.toolRod && (input == Item.stick || input == Item.bone))
+            if (toolRod != null && part == toolRod && (input == Item.stick || input == Item.bone))
                 return true;
 		}
 		return false;
@@ -117,7 +118,7 @@ public class ToolRecipe
 		{
 			if (part == input)
 				return true;
-            if (part == TContent.toolRod && (input == Item.stick || input == Item.bone))
+            if (toolRod != null && part == toolRod && (input == Item.stick || input == Item.bone))
                 return true;
 		}
 		return false;
