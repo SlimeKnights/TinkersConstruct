@@ -53,10 +53,10 @@ public class TEventHandler
             event.toolTag.setIntArray("Smite", new int[] { 20, 20, 1});
         }*/
 
-        if (event.tool == TContent.cleaver)
+        /*if (event.tool == TContent.cleaver)
         {
-            event.toolTag.setInteger("Beheading", 2);
-        }
+            event.toolTag.getCompoundTag("InfiTool").setInteger("Beheading", 2);
+        }*/
     }
 
     /* Interact */
@@ -116,8 +116,8 @@ public class TEventHandler
             event.drops.add(entityitem);
         }
 
-        if (event.entityLiving.worldObj.getGameRules().getGameRuleBooleanValue("doMobLoot"))
-        {
+        //if (event.entityLiving.worldObj.getGameRules().getGameRuleBooleanValue("doMobLoot"))
+        //{
             if (!event.entityLiving.isChild())
             {
                 if (event.entityLiving.getClass() == EntityCow.class)
@@ -154,6 +154,8 @@ public class TEventHandler
                         if (stack != null && stack.hasTagCompound() && stack.getItem() instanceof ToolCore)
                         {
                             int beheading = stack.getTagCompound().getCompoundTag("InfiTool").getInteger("Beheading");
+                            if (stack.getItem() == TContent.cleaver)
+                                beheading += 2;
                             if (beheading > 0 && random.nextInt(100) < beheading * 10)
                             {
                                 addDrops(event, new ItemStack(Item.skull.itemID, 1, enemy.getSkeletonType()));
@@ -178,6 +180,8 @@ public class TEventHandler
                         if (stack != null && stack.hasTagCompound() && stack.getItem() instanceof ToolCore)
                         {
                             int beheading = stack.getTagCompound().getCompoundTag("InfiTool").getInteger("Beheading");
+                            if (stack.getItem() == TContent.cleaver)
+                                beheading += 2;
                             if (beheading > 0 && random.nextInt(100) < beheading * 10)
                             {
                                 addDrops(event, new ItemStack(Item.skull.itemID, 1, 2));
@@ -201,6 +205,8 @@ public class TEventHandler
                         if (stack != null && stack.hasTagCompound() && stack.getItem() instanceof ToolCore)
                         {
                             int beheading = stack.getTagCompound().getCompoundTag("InfiTool").getInteger("Beheading");
+                            if (stack.getItem() == TContent.cleaver)
+                                beheading += 2;
                             if (beheading > 0 && random.nextInt(100) < beheading * 5)
                             {
                                 addDrops(event, new ItemStack(Item.skull.itemID, 1, 4));
@@ -214,7 +220,7 @@ public class TEventHandler
             {
                 addDrops(event, new ItemStack(Item.ghastTear, 1));
             }
-        }
+        //}
         
         if (event.entityLiving instanceof EntityPlayer)
         {
@@ -227,6 +233,8 @@ public class TEventHandler
                 if (stack != null && stack.hasTagCompound() && stack.getItem() instanceof ToolCore)
                 {
                     int beheading = stack.getTagCompound().getCompoundTag("InfiTool").getInteger("Beheading");
+                    if (stack.getItem() == TContent.cleaver)
+                        beheading += 2;
                     if (beheading > 0 && random.nextInt(100) < beheading * 50)
                     {
                         ItemStack dropStack = new ItemStack(Item.skull.itemID, 1, 3);
