@@ -139,7 +139,9 @@ public class TContent implements IFuelHandler
     //InfiBlocks
     public static Block speedBlock;
 
+    //Crystalline
     public static Block aggregator;
+    public static Block lightCrystalBase;
 
     //Liquids
     public static Block liquidMetalFlowing;
@@ -359,8 +361,13 @@ public class TContent implements IFuelHandler
         GameRegistry.registerBlock(speedBlock, SpeedBlockItem.class, "SpeedBlock");
 
         aggregator = new Aggregator(PHConstruct.aggregator).setUnlocalizedName("Aggregator");
+        aggregator.stepSound = Block.soundMetalFootstep;
         GameRegistry.registerBlock(aggregator, "Aggregator");
         GameRegistry.registerTileEntity(GlowstoneAggregator.class, "GlowstoneAggregator");
+        
+        /*lightCrystalBase = new LightCrystalBase(PHConstruct.lightCrystalBase).setUnlocalizedName("LightCrystalBase");
+        lightCrystalBase.stepSound = Block.soundGlassFootstep;
+        GameRegistry.registerBlock(lightCrystalBase, LightCrystalItem.class, "LightCrystalBase");*/
 
         /*redstoneBallRepeater = new RedstoneBallRepeater(PHConstruct.redstoneBallRepeater, false).setUnlocalizedName("decoration.redstoneballrepeater");
         GameRegistry.registerBlock(redstoneBallRepeater, "decoration.redstoneballrepeater");

@@ -145,7 +145,10 @@ public class TConstructRegistry
     
     public static ItemStack getPartMapping(int itemID, int metadata, int materialID)
     {
-        return patternPartMapping.get(Arrays.asList(itemID, metadata, materialID)).copy();
+        ItemStack stack = patternPartMapping.get(Arrays.asList(itemID, metadata, materialID));
+        if (stack != null)
+            return stack.copy();
+        return null;
     }
     
     //Tools

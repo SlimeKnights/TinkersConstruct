@@ -166,6 +166,7 @@ public class TProxyCommon implements IGuiHandler
         LanguageRegistry.addName(TContent.battleaxe, "Battleaxe");
         LanguageRegistry.addName(TContent.cutlass, "Cutlass");
         LanguageRegistry.addName(TContent.aggregator, "Glowstone Aggregator");
+        //LanguageRegistry.addName(TContent.lightCrystalBase, "Lightstone Crystal");
         LanguageRegistry.addName(TContent.knapsack, "Knapsack");
 
     }
