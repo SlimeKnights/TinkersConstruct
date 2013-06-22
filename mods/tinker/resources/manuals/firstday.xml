@@ -90,6 +90,14 @@ The berries can be melted down into nuggets and ingots, making them an invaluabl
 </recipe>
 </page>
 
+<page type="crafting">
+<text>Tool Forge</text>
+<recipe>
+ <name>toolforge</name>
+ <size>three</size>
+</recipe>
+</page>
+
 <page type="text">
 <text>Once you're well established, you can begin to process metals in a more efficient manner. The scope of the smeltery is beyond this volume, but a few recipes will help you get started.</text>
 </page>

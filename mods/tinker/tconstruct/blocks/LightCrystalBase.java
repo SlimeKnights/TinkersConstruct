@@ -23,8 +23,8 @@ public class LightCrystalBase extends Block
     public Icon getIcon (int side, int meta)
     {
         if (meta < 5)
-            return Block.glowStone.getIcon(side, meta);
-        return Block.blockNetherQuartz.getIcon(side, 1);
+            return Block.cake.getIcon(side, meta);
+        return Block.sponge.getIcon(side, 1);
     }
 
     @Override

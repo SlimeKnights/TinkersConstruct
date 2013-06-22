@@ -246,9 +246,11 @@ Class: Lethal Joke Weapon</text>
 
 <page type="toolpage">
 <title>Chisel</title>
-<text>The Battlesign is an advance in weapon technology worthy of Zombie Pigmen everywhere.</text>
-<text>Right-click: Block
-- Blocking cuts a wide variety of damage types in half.
+<text>The Chisel is an advanced detailing tool for carving shapes into blocks.</text>
+<text>Right-click: Chisel
+- Transforms various blocks into bricks.
+Crafting grid: Chisel
+- Some items can only be chiseled in the crafting grid.
 
 Class: Utility Tool</text>
 <icon>chiselicon</icon>
@@ -669,7 +671,7 @@ Stackable: No</text>
 
 Effects:
 - Each redstone dust increases mining speed by 0.08.
-- At 25/25 the boost is 2.0, equivalent to a higher level tool.
+- At 50/50 the boost is 4.0, making a wood pickaxe equivalent in speed to iron.
 - Not useful on weapons
 
 Type: Multi-use

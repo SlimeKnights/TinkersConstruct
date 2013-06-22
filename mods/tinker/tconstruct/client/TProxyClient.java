@@ -414,9 +414,11 @@ public class TProxyClient extends TProxyCommon
         ItemStack gravel = new ItemStack(Block.gravel, 1, 0);
         ItemStack clay = new ItemStack(Item.clay, 1, 0);
         ItemStack glass = new ItemStack(Block.glass, 1, 0);
+        ItemStack ironblock = new ItemStack(Block.blockIron, 1, 0);
 
         ItemStack grout = new ItemStack(TContent.craftedSoil, 2, 1);
         ItemStack searedbrick = new ItemStack(TContent.materials, 1, 2);
+        ItemStack searedbrickBlock = new ItemStack(TContent.smeltery, 1, 2);
 
         ItemStack coal = new ItemStack(Item.coal);
         ItemStack paper = new ItemStack(Item.paper);
@@ -437,6 +439,8 @@ public class TProxyClient extends TProxyCommon
         TConstructClientRegistry.registerManualSmallRecipe("partcrafter", new ItemStack(TContent.toolStationWood, 1, 1), null, pattern, null, log);
         TConstructClientRegistry.registerManualSmallRecipe("patternchest", new ItemStack(TContent.toolStationWood, 1, 5), null, pattern, null, chest);
         TConstructClientRegistry.registerManualSmallRecipe("stenciltable", new ItemStack(TContent.toolStationWood, 1, 10), null, pattern, null, plank);
+        TConstructClientRegistry.registerManualLargeRecipe("toolforge", new ItemStack(TContent.toolForge, 1, 0), searedbrickBlock, searedbrickBlock, searedbrickBlock, ironblock,
+                new ItemStack(TContent.toolStationWood, 1, 0), ironblock, ironblock, null, ironblock);
 
         TConstructClientRegistry.registerManualLargeRecipe("slimymud", slimyMud, null, slimeball, slimeball, null, slimeball, slimeball, null, dirt, sand);
         TConstructClientRegistry.registerManualFurnaceRecipe("slimecrystal", new ItemStack(TContent.materials, 1, 1), slimyMud);
