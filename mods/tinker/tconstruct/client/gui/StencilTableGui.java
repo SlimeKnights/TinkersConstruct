@@ -104,19 +104,7 @@ public class StencilTableGui extends GuiContainer
 			}
 			else if (meta == 1)
 			{
-				if (button.id == 0)
-				{
-					patternIndex++;
-					if (patternIndex > TContent.patternOutputs.length-1)
-						patternIndex = 0;
-				}
-				else if (button.id == 1)
-				{
-					patternIndex--;
-					if (patternIndex < 0)
-						patternIndex = TContent.patternOutputs.length-1;
-				}
-				ItemStack stack = new ItemStack(TContent.metalPattern, 1, patternIndex);
+				ItemStack stack = new ItemStack(TContent.metalPattern, 1, 0);
 				logic.setInventorySlotContents(1, stack);
 				updateServer(stack);
 			}

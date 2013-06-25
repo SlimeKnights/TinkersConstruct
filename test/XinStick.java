@@ -35,7 +35,10 @@ public class XinStick extends Item
 		//if (!world.isRemote)
 			//MinecraftServer.getServer().getConfigurationManager().transferPlayerToDimension((EntityPlayerMP) player, -7);
 		//player.travelToDimension(-7);
-		spawnEntity(player.posX, player.posY+1, player.posZ, new Automaton(world), world, player);
+	    Automaton entity = new Automaton(world);
+	    entity.setOwner(player);
+	    //entity.username = "NekoGloop";
+		spawnEntity(player.posX, player.posY+1, player.posZ, entity, world, player);
 	    //healPlayer(player);
 		//removeChunk(world, player.posX, player.posZ);
 		return stack;

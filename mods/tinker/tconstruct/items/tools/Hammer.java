@@ -208,105 +208,6 @@ public class Hammer extends HarvestTool
 
     ArrayList<int[]> coords = new ArrayList<int[]>();
 
-    /*@Override
-    public boolean onBlockDestroyed (ItemStack stack, World world, int blockID, int x, int y, int z, EntityLiving entity)
-    {
-        System.out.println("Rawr!");
-        //return AbilityHelper.onBlockChanged(stack, world, blockID, x, y, z, player, random);
-        int localID = blockID;
-        int meta = world.getBlockMetadata(x, y, z);
-        Block block = Block.blocksList[blockID];
-        if (!stack.hasTagCompound())
-            return false;
-
-        boolean validStart = false;
-        for (int iter = 0; iter < materials.length; iter++)
-        {
-            if (materials[iter] == block.blockMaterial)
-            {
-                validStart = true;
-                break;
-            }
-        }
-
-        MovingObjectPosition mop = AbilityHelper.raytraceFromEntity(world, entity, true, 6);
-        if (mop == null || !validStart)
-            return AbilityHelper.onBlockChanged(stack, world, blockID, x, y, z, entity, random);
-
-        int xRange = 1;
-        int yRange = 1;
-        int zRange = 1;
-        switch (mop.sideHit)
-        {
-        case 0:
-        case 1:
-            yRange = 0;
-            break;
-        case 2:
-        case 3:
-            zRange = 0;
-            break;
-        case 4:
-        case 5:
-            xRange = 0;
-            break;
-        }
-        NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
-        for (int xPos = x - xRange; xPos <= x + xRange; xPos++)
-        {
-            for (int yPos = y - yRange; yPos <= y + yRange; yPos++)
-            {
-                for (int zPos = z - zRange; zPos <= z + zRange; zPos++)
-                {
-                    if (!(tags.getBoolean("Broken")))
-                    {
-                        int localblockID = world.getBlockId(xPos, yPos, zPos);
-                        block = Block.blocksList[localblockID];
-                        meta = world.getBlockMetadata(xPos, yPos, zPos);
-                        int hlvl = MinecraftForge.getBlockHarvestLevel(block, meta, getHarvestType());
-
-                        if (hlvl <= tags.getInteger("HarvestLevel"))
-                        {
-                            boolean cancelHarvest = false;
-                            for (ActiveToolMod mod : TConstructRegistry.activeModifiers)
-                            {
-                                if (mod.beforeBlockBreak(this, stack, xPos, yPos, zPos, entity))
-                                    cancelHarvest = true;
-                            }
-
-                            if (!cancelHarvest)
-                            {
-                                if (block != null && !(block.blockHardness < 0))
-                                {
-                                    for (int iter = 0; iter < materials.length; iter++)
-                                    {
-                                        if (materials[iter] == block.blockMaterial)
-                                        {
-                                            world.setBlockToAir(xPos, yPos, zPos);
-                                            if (entity instanceof EntityPlayer)
-                                            {
-                                                if (!((EntityPlayer) entity).capabilities.isCreativeMode)
-                                                {
-                                                    block.harvestBlock(world, (EntityPlayer) entity, xPos, yPos, zPos, meta);
-                                                    AbilityHelper.onBlockChanged(stack, world, blockID, x, y, z, entity, random);
-                                                }
-                                            }
-                                            localID = localblockID;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        AbilityHelper.onBlockChanged(stack, world, blockID, x, y, z, entity, random);
-        if (!world.isRemote)
-            world.playAuxSFX(2001, x, y, z, localID + (meta << 12));
-        return true;
-    }*/
-
     @Override
     public boolean onBlockStartBreak (ItemStack stack, int x, int y, int z, EntityPlayer player)
     {
@@ -316,6 +217,9 @@ public class Hammer extends HarvestTool
         Block block = Block.blocksList[blockID];
         if (!stack.hasTagCompound())
             return false;
+
+        if (block == null)
+            return super.onBlockStartBreak(stack, x, y, z, player);
 
         boolean validStart = false;
         for (int iter = 0; iter < materials.length; iter++)
@@ -380,12 +284,13 @@ public class Hammer extends HarvestTool
                                     {
                                         if (materials[iter] == block.blockMaterial)
                                         {
-                                            world.setBlockToAir(xPos, yPos, zPos);
                                             if (!player.capabilities.isCreativeMode)
                                             {
                                                 block.harvestBlock(world, player, xPos, yPos, zPos, meta);
+                                                block.onBlockHarvested(world, x, y, z, meta, player);
                                                 onBlockDestroyed(stack, world, localblockID, xPos, yPos, zPos, player);
                                             }
+                                            world.setBlockToAir(xPos, yPos, zPos);
                                             blockID = localblockID;
                                         }
                                     }
@@ -400,8 +305,58 @@ public class Hammer extends HarvestTool
             world.playAuxSFX(2001, x, y, z, blockID + (meta << 12));
         return true;
     }
-
+    
     @Override
+    public float getStrVsBlock (ItemStack stack, Block block, int meta)
+    {
+        if (!stack.hasTagCompound())
+            return 1.0f;
+        
+        NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
+        if (tags.getBoolean("Broken"))
+            return 0.1f;
+
+        Material[] materials = getEffectiveMaterials();
+        for (int i = 0; i < materials.length; i++)
+        {
+            if (materials[i] == block.blockMaterial)
+            {
+                float mineSpeed = tags.getInteger("MiningSpeed");
+                int heads = 1;
+                if (tags.hasKey("MiningSpeed2"))
+                {
+                    mineSpeed += tags.getInteger("MiningSpeed2");
+                    heads++;
+                }
+                
+                if (tags.hasKey("MiningSpeedHandle"))
+                {
+                    mineSpeed += tags.getInteger("MiningSpeedHandle");
+                    heads++;
+                }
+                
+                if (tags.hasKey("MiningSpeedExtra"))
+                {
+                    mineSpeed += tags.getInteger("MiningSpeedExtra");
+                    heads++;
+                }
+                float trueSpeed = mineSpeed / (heads * 300f);
+                int hlvl = MinecraftForge.getBlockHarvestLevel(block, meta, getHarvestType());
+                int durability = tags.getInteger("Damage");
+
+                float stonebound = tags.getFloat("Shoddy");
+                float bonusLog = (float) Math.log(durability / 72f + 1) * 2 * stonebound;
+                trueSpeed += bonusLog;
+
+                if (hlvl <= tags.getInteger("HarvestLevel"))
+                    return trueSpeed;
+                return 0.1f;
+            }
+        }
+        return super.getStrVsBlock(stack, block, meta);
+    }
+
+    /*@Override
     public void onUpdate (ItemStack stack, World world, Entity entity, int par4, boolean par5)
     {
         super.onUpdate(stack, world, entity, par4, par5);
@@ -414,7 +369,7 @@ public class Hammer extends HarvestTool
                 player.addPotionEffect(new PotionEffect(Potion.digSlowdown.id, 1, 1));
             }
         }
-    }
+    }*/
 
     @Override
     public String[] toolCategories ()

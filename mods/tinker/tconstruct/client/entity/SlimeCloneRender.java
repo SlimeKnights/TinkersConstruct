@@ -55,7 +55,7 @@ public class SlimeCloneRender extends RenderLiving
      */
     protected void scaleSlime(SlimeClone slimeClone, float par2)
     {
-        float f1 = 2;
+        float f1 = slimeClone.getSlimeSize();
         float f2 = (slimeClone.sizeHeight + (slimeClone.sizeFactor - slimeClone.sizeHeight) * par2) / (f1 * 0.5F + 1.0F);
         float f3 = 1.0F / (f2 + 1.0F);
         GL11.glScalef(f3 * f1, 1.0F / f3 * f1, f3 * f1);

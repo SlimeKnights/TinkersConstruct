@@ -3,21 +3,19 @@ package mods.tinker.tconstruct.client;
 import mods.tinker.tconstruct.TConstruct;
 import mods.tinker.tconstruct.client.armor.WingModel;
 import mods.tinker.tconstruct.common.TContent;
-import mods.tinker.tconstruct.skill.Skill;
 import mods.tinker.tconstruct.util.player.TPlayerStats;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.client.event.sound.SoundLoadEvent;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.liquids.LiquidStack;
-
-import org.lwjgl.opengl.GL11;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -74,13 +72,19 @@ public class TClientEvents
 	@ForgeSubscribe
 	public void renderHealthbar (RenderGameOverlayEvent.Post event)
 	{
-		
 		ScaledResolution scaledresolution = new ScaledResolution(this.mc.gameSettings, this.mc.displayWidth, this.mc.displayHeight);
         int scaledWidth = scaledresolution.getScaledWidth();
         int scaledHeight = scaledresolution.getScaledHeight();
         int xBasePos = scaledWidth / 2 - 91;
         int yBasePos = scaledHeight - 39;
 		TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(mc.thePlayer.username);
+
+        PotionEffect potion = mc.thePlayer.getActivePotionEffect(Potion.wither);
+        if (potion != null)
+            return;
+        potion = mc.thePlayer.getActivePotionEffect(Potion.poison);
+        if (potion != null)
+            return;
         
 		if (event.type == RenderGameOverlayEvent.ElementType.HEALTH)
 		{			

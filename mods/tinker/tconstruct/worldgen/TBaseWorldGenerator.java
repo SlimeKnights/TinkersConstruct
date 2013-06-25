@@ -1,8 +1,11 @@
 package mods.tinker.tconstruct.worldgen;
 
+import java.util.HashMap;
 import java.util.Random;
 
 import mods.tinker.tconstruct.common.TContent;
+import mods.tinker.tconstruct.crystal.TheftValueTracker;
+import mods.tinker.tconstruct.library.util.ChunkCoordTuple;
 import mods.tinker.tconstruct.library.util.CoordTuple;
 import mods.tinker.tconstruct.util.PHConstruct;
 import net.minecraft.block.Block;
@@ -42,6 +45,8 @@ public class TBaseWorldGenerator implements IWorldGenerator
     @Override
     public void generate (Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider)
     {
+        initializeChunkData(chunkX, chunkZ, world.provider.dimensionId);
+        
         if (world.provider.isHellWorld)
         {
             generateNether(random, chunkX * 16, chunkZ * 16, world);
@@ -57,6 +62,24 @@ public class TBaseWorldGenerator implements IWorldGenerator
         {
             superfunGenerate(random, chunkX * 16, chunkZ * 16, world);
         }
+
+        if (PHConstruct.worldBorder)
+        {
+            generateChunkBorder(random, chunkX * 16, chunkZ * 16, world);
+        }
+    }
+    
+    void initializeChunkData(int chunkX, int chunkZ, int worldID)
+    {
+        ChunkCoordTuple coord = new ChunkCoordTuple(chunkX, chunkZ);
+        int crystal = 0;
+        HashMap<ChunkCoordTuple, Integer> crystalMap = TheftValueTracker.crystallinity.get(worldID);
+        if (crystalMap == null)
+        {
+            crystalMap = new HashMap<ChunkCoordTuple, Integer>();
+            TheftValueTracker.crystallinity.put(worldID, crystalMap);
+        }
+        crystalMap.put(coord, crystal);
     }
 
     void generateSurface (Random random, int xChunk, int zChunk, World world)
@@ -337,6 +360,23 @@ public class TBaseWorldGenerator implements IWorldGenerator
                             world.setBlock(x + chunkX, y, z + chunkZ, Block.slowSand.blockID, 0, 0);
                         if (block.blockMaterial == Material.sand)
                             world.setBlock(x + chunkX, y, z + chunkZ, Block.silverfish.blockID, 0, 0);
+                    }
+                }
+            }
+        }
+    }
+
+    void generateChunkBorder (Random random, int chunkX, int chunkZ, World world)
+    {
+        for (int x = 0; x < 16; x++)
+        {
+            for (int z = 0; z < 16; z++)
+            {
+                if (x + chunkX == PHConstruct.worldBorderSize || x + chunkX == -PHConstruct.worldBorderSize || z + chunkZ == PHConstruct.worldBorderSize || z + chunkZ == -PHConstruct.worldBorderSize)
+                {
+                    for (int y = 0; y < 256; y++)
+                    {
+                        world.setBlock(x + chunkX, y, z + chunkZ, Block.bedrock.blockID, 0, 0);
                     }
                 }
             }

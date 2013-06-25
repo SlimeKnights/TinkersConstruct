@@ -149,7 +149,7 @@ public class TActiveOmniMod extends ActiveToolMod
     /* Attacking */
 
     @Override
-    public int baseAttackDamage (int earlyModDamage, int damage, ToolCore tool, NBTTagCompound tags, NBTTagCompound toolTags, ItemStack stack, EntityPlayer player, Entity entity)
+    public int baseAttackDamage (int earlyModDamage, int damage, ToolCore tool, NBTTagCompound tags, NBTTagCompound toolTags, ItemStack stack, EntityLiving player, Entity entity)
     {
         if (tool instanceof Weapon)
             TContent.modL.midStreamModify(stack);
@@ -157,7 +157,7 @@ public class TActiveOmniMod extends ActiveToolMod
     }
 
     @Override
-    public int attackDamage (int modDamage, int currentDamage, ToolCore tool, NBTTagCompound tags, NBTTagCompound toolTags, ItemStack stack, EntityPlayer player, Entity entity)
+    public int attackDamage (int modDamage, int currentDamage, ToolCore tool, NBTTagCompound tags, NBTTagCompound toolTags, ItemStack stack, EntityLiving player, Entity entity)
     {
         int bonus = 0;
         if (entity instanceof EntityLiving)
@@ -191,7 +191,7 @@ public class TActiveOmniMod extends ActiveToolMod
     }
 
     @Override
-    public float knockback (float modKnockback, float currentKnockback, ToolCore tool, NBTTagCompound tags, NBTTagCompound toolTags, ItemStack stack, EntityPlayer player, Entity entity)
+    public float knockback (float modKnockback, float currentKnockback, ToolCore tool, NBTTagCompound tags, NBTTagCompound toolTags, ItemStack stack, EntityLiving player, Entity entity)
     {
         float bonus = 0f;
         if (toolTags.hasKey("Knockback"))

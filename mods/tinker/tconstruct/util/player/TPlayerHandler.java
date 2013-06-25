@@ -79,6 +79,13 @@ public class TPlayerHandler implements IPlayerTracker
         //stats.armor.recalculateSkills(entityplayer, stats);
 
         playerStats.put(entityplayer.username, stats);
+        
+        if (PHConstruct.gregtech)
+        {
+            PHConstruct.gregtech = false;
+            entityplayer.addChatMessage("Warning: GregTech Exploit Present!");
+            entityplayer.addChatMessage("Please disable all Reverse Smelting recipes from GregTech.");
+        }
 
         //sendSkills(entityplayer, stats);
     }

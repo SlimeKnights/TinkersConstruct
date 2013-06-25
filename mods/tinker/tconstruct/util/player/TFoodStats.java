@@ -1,6 +1,6 @@
 package mods.tinker.tconstruct.util.player;
 
-import mods.tinker.tconstruct.TConstruct;
+import mods.tinker.tconstruct.util.PHConstruct;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemFood;
 import net.minecraft.nbt.NBTTagCompound;
@@ -63,7 +63,7 @@ public class TFoodStats extends FoodStats
             }
         }
 
-        if (this.foodLevel >= 12 + 2*difficulty && player.shouldHeal())
+        if (this.foodLevel >= 12 + 2*difficulty && player.shouldHeal() && PHConstruct.enableHealthRegen)
         {
             ++this.foodTimer;
 

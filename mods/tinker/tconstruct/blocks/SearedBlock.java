@@ -90,7 +90,6 @@ public class SearedBlock extends InventoryBlock
 	{
 		if (!world.isRemote)
 		{
-			//System.out.println("Castses");
 			CastingTableLogic logic = (CastingTableLogic) world.getBlockTileEntity(x, y, z);
 			if (logic.liquid != null)
 				return true;
@@ -126,7 +125,6 @@ public class SearedBlock extends InventoryBlock
     {
         if (!world.isRemote)
         {
-            //System.out.println("Castses");
             CastingBasinLogic logic = (CastingBasinLogic) world.getBlockTileEntity(x, y, z);
             if (logic.liquid != null)
                 return true;

@@ -56,7 +56,7 @@ public class TConstructRegistry
     public static void addItemToDirectory(String name, Item itemstack)
     {
         Item add = itemDirectory.get(name);
-        if (add == null)
+        if (add != null)
             System.out.println("[TCon API] "+name+" is already present in the Item directory");
         
         itemDirectory.put(name, itemstack);
@@ -102,7 +102,7 @@ public class TConstructRegistry
     public static void addItemStackToDirectory(String name, ItemStack itemstack)
     {
         ItemStack add = itemstackDirectory.get(name);
-        if (add == null)
+        if (add != null)
             System.out.println("[TCon API] "+name+" is already present in the ItemStack directory");
         
         itemstackDirectory.put(name, itemstack);

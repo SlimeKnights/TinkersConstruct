@@ -3,6 +3,7 @@ package mods.tinker.tconstruct.entity;
 import mods.tinker.tconstruct.TConstruct;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
@@ -52,7 +53,7 @@ public class SlimeClone extends GolemBase
 		this.sizeHeight = this.sizeFactor;
 		boolean flag = this.onGround;
 		super.onUpdate();
-		int i;
+		float i;
 
 		if (this.onGround && !flag)
 		{
@@ -128,9 +129,9 @@ public class SlimeClone extends GolemBase
 		return "blueslime";
 	}
 	
-	public int getSlimeSize ()
+	public float getSlimeSize ()
 	{
-		return 2;
+		return 1.5f;
 	}
 
 	/**
@@ -148,6 +149,18 @@ public class SlimeClone extends GolemBase
 	{
 		return this.getSlimeSize() > 2;
 	}
+	
+	public void writeEntityToNBT (NBTTagCompound tags)
+    {
+        super.writeEntityToNBT(tags);
+        tags.setString("Username", username);
+    }
+
+    public void readEntityFromNBT (NBTTagCompound tags)
+    {
+        super.readEntityFromNBT(tags);
+        username = tags.getString("Username");
+    }
 	
 	@Override
     public void writeSpawnData (ByteArrayDataOutput data)

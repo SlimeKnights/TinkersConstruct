@@ -1,16 +1,19 @@
 package mods.tinker.tconstruct.util;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 
 import mods.tinker.tconstruct.TConstruct;
 import mods.tinker.tconstruct.blocks.logic.LiquidTextureLogic;
 import mods.tinker.tconstruct.common.TContent;
+import mods.tinker.tconstruct.crystal.TheftValueTracker;
 import mods.tinker.tconstruct.library.crafting.PatternBuilder;
 import mods.tinker.tconstruct.library.crafting.Smeltery;
 import mods.tinker.tconstruct.library.crafting.ToolBuilder;
 import mods.tinker.tconstruct.library.event.ToolCraftEvent;
 import mods.tinker.tconstruct.library.tools.ToolCore;
+import mods.tinker.tconstruct.library.util.ChunkCoordTuple;
 import mods.tinker.tconstruct.modifiers.ModAttack;
 import mods.tinker.tconstruct.util.player.TPlayerStats;
 import net.minecraft.entity.Entity;
@@ -36,6 +39,8 @@ import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.event.entity.player.FillBucketEvent;
+import net.minecraftforge.event.world.ChunkDataEvent;
+import net.minecraftforge.event.world.ChunkEvent;
 import net.minecraftforge.liquids.LiquidStack;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.OreDictionary.OreRegisterEvent;
@@ -48,11 +53,6 @@ public class TEventHandler
     @ForgeSubscribe
     public void craftTool (ToolCraftEvent event)
     {
-        /*if (event.tool == TContent.hammer)
-        {
-            event.toolTag.setIntArray("Smite", new int[] { 20, 20, 1});
-        }*/
-
         /*if (event.tool == TContent.cleaver)
         {
             event.toolTag.getCompoundTag("InfiTool").setInteger("Beheading", 2);
@@ -75,25 +75,26 @@ public class TEventHandler
     	}
     }*/
 
+    /* Damage */
     /*@ForgeSubscribe
     public void onHurt (LivingHurtEvent event)
     {*/
-        /*if (event.entityLiving instanceof EntityPlayer)
+    /*if (event.entityLiving instanceof EntityPlayer)
+    {
+        EntityPlayer player = (EntityPlayer) event.entityLiving;
+        ItemStack stack = player.getItemInUse();
+        if (stack != null && stack.getItem() == TContent.cutlass)
         {
-            EntityPlayer player = (EntityPlayer) event.entityLiving;
-            ItemStack stack = player.getItemInUse();
-            if (stack != null && stack.getItem() == TContent.cutlass)
-            {
-                player.addPotionEffect(new PotionEffect(Potion.moveSpeed.id, 3*20, 1));
-            }
-        }*/
-        /*if (event.source instanceof EntityDamageSource && event.source.damageType.equals("explosion.player") && ((EntityDamageSource) event.source).getEntity() instanceof NitroCreeper)
-        {
-            if (event.entityLiving.worldObj.difficultySetting == 3)
-                event.ammount /= 2.3;
-            else
-                event.ammount /= 1.5;
-        }*/
+            player.addPotionEffect(new PotionEffect(Potion.moveSpeed.id, 3*20, 1));
+        }
+    }*/
+    /*if (event.source instanceof EntityDamageSource && event.source.damageType.equals("explosion.player") && ((EntityDamageSource) event.source).getEntity() instanceof NitroCreeper)
+    {
+        if (event.entityLiving.worldObj.difficultySetting == 3)
+            event.ammount /= 2.3;
+        else
+            event.ammount /= 1.5;
+    }*/
     //}
 
     /* Drops */
@@ -118,115 +119,136 @@ public class TEventHandler
 
         //if (event.entityLiving.worldObj.getGameRules().getGameRuleBooleanValue("doMobLoot"))
         //{
-            if (!event.entityLiving.isChild())
+        if (!event.entityLiving.isChild())
+        {
+            if (event.entityLiving.getClass() == EntityCow.class)
             {
-                if (event.entityLiving.getClass() == EntityCow.class)
+                int amount = random.nextInt(3) + random.nextInt(1 + event.lootingLevel) + random.nextInt(3) + random.nextInt(1 + event.lootingLevel) + 1;
+
+                for (int iter = 0; iter < amount; ++iter)
                 {
-                    int amount = random.nextInt(3) + random.nextInt(1 + event.lootingLevel) + random.nextInt(3) + random.nextInt(1 + event.lootingLevel) + 1;
-
-                    for (int iter = 0; iter < amount; ++iter)
-                    {
-                        addDrops(event, new ItemStack(Item.leather, 1));
-                    }
-                }
-
-                else if (event.entityLiving.getClass() == EntityChicken.class)
-                {
-                    int amount = random.nextInt(3) + random.nextInt(1 + event.lootingLevel) + random.nextInt(3) + random.nextInt(1 + event.lootingLevel) + 1;
-
-                    for (int iter = 0; iter < amount; ++iter)
-                    {
-                        addDrops(event, new ItemStack(Item.feather, 1));
-                    }
+                    addDrops(event, new ItemStack(Item.leather, 1));
                 }
             }
 
-            if (event.recentlyHit)
+            else if (event.entityLiving.getClass() == EntityChicken.class)
             {
-                if (event.entityLiving.getClass() == EntitySkeleton.class)
-                {
-                    EntitySkeleton enemy = (EntitySkeleton) event.entityLiving;
+                int amount = random.nextInt(3) + random.nextInt(1 + event.lootingLevel) + random.nextInt(3) + random.nextInt(1 + event.lootingLevel) + 1;
 
-                    if (event.source.damageType.equals("player"))
+                for (int iter = 0; iter < amount; ++iter)
+                {
+                    addDrops(event, new ItemStack(Item.feather, 1));
+                }
+            }
+        }
+
+        if (event.recentlyHit)
+        {
+            if (event.entityLiving.getClass() == EntitySkeleton.class)
+            {
+                EntitySkeleton enemy = (EntitySkeleton) event.entityLiving;
+
+                if (event.source.damageType.equals("player"))
+                {
+                    EntityPlayer player = (EntityPlayer) event.source.getEntity();
+                    ItemStack stack = player.getCurrentEquippedItem();
+                    if (stack != null && stack.hasTagCompound() && stack.getItem() instanceof ToolCore)
                     {
-                        EntityPlayer player = (EntityPlayer) event.source.getEntity();
-                        ItemStack stack = player.getCurrentEquippedItem();
-                        if (stack != null && stack.hasTagCompound() && stack.getItem() instanceof ToolCore)
+                        int beheading = stack.getTagCompound().getCompoundTag("InfiTool").getInteger("Beheading");
+                        if (stack.getItem() == TContent.cleaver)
+                            beheading += 2;
+                        if (beheading > 0 && random.nextInt(100) < beheading * 10)
                         {
-                            int beheading = stack.getTagCompound().getCompoundTag("InfiTool").getInteger("Beheading");
-                            if (stack.getItem() == TContent.cleaver)
-                                beheading += 2;
-                            if (beheading > 0 && random.nextInt(100) < beheading * 10)
-                            {
-                                addDrops(event, new ItemStack(Item.skull.itemID, 1, enemy.getSkeletonType()));
-                            }
+                            addDrops(event, new ItemStack(Item.skull.itemID, 1, enemy.getSkeletonType()));
                         }
-                    }
-                    if (enemy.getSkeletonType() == 1 && random.nextInt(Math.max(1, 5 - event.lootingLevel)) == 0)
-                    {
-                        addDrops(event, new ItemStack(TContent.materials, 1, 8));
                     }
                 }
-
-                if (event.entityLiving.getClass() == EntityZombie.class)
+                if (enemy.getSkeletonType() == 1 && random.nextInt(Math.max(1, 5 - event.lootingLevel)) == 0)
                 {
-                    EntityZombie enemy = (EntityZombie) event.entityLiving;
+                    addDrops(event, new ItemStack(TContent.materials, 1, 8));
+                }
+            }
 
-                    if (event.source.damageType.equals("player"))
+            if (event.entityLiving.getClass() == EntityZombie.class)
+            {
+                EntityZombie enemy = (EntityZombie) event.entityLiving;
+
+                if (event.source.damageType.equals("player"))
+                {
+                    EntityPlayer player = (EntityPlayer) event.source.getEntity();
+                    ItemStack stack = player.getCurrentEquippedItem();
+
+                    if (stack != null && stack.hasTagCompound() && stack.getItem() instanceof ToolCore)
                     {
-                        EntityPlayer player = (EntityPlayer) event.source.getEntity();
-                        ItemStack stack = player.getCurrentEquippedItem();
-
-                        if (stack != null && stack.hasTagCompound() && stack.getItem() instanceof ToolCore)
-                        {
-                            int beheading = stack.getTagCompound().getCompoundTag("InfiTool").getInteger("Beheading");
-                            if (stack.getItem() == TContent.cleaver)
-                                beheading += 2;
-                            if (beheading > 0 && random.nextInt(100) < beheading * 10)
-                            {
-                                addDrops(event, new ItemStack(Item.skull.itemID, 1, 2));
-                            }
-                        }
-                        /*if (stack.getItem() == TContent.breakerBlade && random.nextInt(100) < 10) //Swap out for real beheading
+                        int beheading = stack.getTagCompound().getCompoundTag("InfiTool").getInteger("Beheading");
+                        if (stack.getItem() == TContent.cleaver)
+                            beheading += 2;
+                        if (beheading > 0 && random.nextInt(100) < beheading * 10)
                         {
                             addDrops(event, new ItemStack(Item.skull.itemID, 1, 2));
-                        }*/
+                        }
                     }
-                }
-
-                if (event.entityLiving.getClass() == EntityCreeper.class)
-                {
-                    EntityCreeper enemy = (EntityCreeper) event.entityLiving;
-
-                    if (event.source.damageType.equals("player"))
+                    /*if (stack.getItem() == TContent.breakerBlade && random.nextInt(100) < 10) //Swap out for real beheading
                     {
-                        EntityPlayer player = (EntityPlayer) event.source.getEntity();
-                        ItemStack stack = player.getCurrentEquippedItem();
-                        if (stack != null && stack.hasTagCompound() && stack.getItem() instanceof ToolCore)
+                        addDrops(event, new ItemStack(Item.skull.itemID, 1, 2));
+                    }*/
+                }
+            }
+
+            if (event.entityLiving.getClass() == EntityCreeper.class)
+            {
+                EntityCreeper enemy = (EntityCreeper) event.entityLiving;
+
+                if (event.source.damageType.equals("player"))
+                {
+                    EntityPlayer player = (EntityPlayer) event.source.getEntity();
+                    ItemStack stack = player.getCurrentEquippedItem();
+                    if (stack != null && stack.hasTagCompound() && stack.getItem() instanceof ToolCore)
+                    {
+                        int beheading = stack.getTagCompound().getCompoundTag("InfiTool").getInteger("Beheading");
+                        if (stack.getItem() == TContent.cleaver)
+                            beheading += 2;
+                        if (beheading > 0 && random.nextInt(100) < beheading * 5)
                         {
-                            int beheading = stack.getTagCompound().getCompoundTag("InfiTool").getInteger("Beheading");
-                            if (stack.getItem() == TContent.cleaver)
-                                beheading += 2;
-                            if (beheading > 0 && random.nextInt(100) < beheading * 5)
-                            {
-                                addDrops(event, new ItemStack(Item.skull.itemID, 1, 4));
-                            }
+                            addDrops(event, new ItemStack(Item.skull.itemID, 1, 4));
                         }
                     }
                 }
             }
+        }
 
-            else if (event.entityLiving.getClass() == EntityGhast.class)
+        if (event.entityLiving.getClass() == EntityGhast.class)
+        {
+            if (PHConstruct.uhcGhastDrops)
+            {
+                for (EntityItem o : event.drops)
+                {
+                    if (o.getEntityItem().itemID == Item.ghastTear.itemID)
+                    {
+                        o.setEntityItemStack(new ItemStack(Item.ingotGold, 1));
+                    }
+                }
+            }
+            else
             {
                 addDrops(event, new ItemStack(Item.ghastTear, 1));
             }
+        }
         //}
-        
+
         if (event.entityLiving instanceof EntityPlayer)
         {
             EntityPlayer player = (EntityPlayer) event.entityLiving;
 
-            if (event.source.damageType.equals("player"))
+            if (PHConstruct.dropPlayerHeads)
+            {
+                ItemStack dropStack = new ItemStack(Item.skull.itemID, 1, 3);
+                NBTTagCompound nametag = new NBTTagCompound();
+                nametag.setString("SkullOwner", player.username);
+                addDrops(event, dropStack);
+            }
+
+            else if (event.source.damageType.equals("player"))
             {
                 EntityPlayer source = (EntityPlayer) event.source.getEntity();
                 ItemStack stack = source.getCurrentEquippedItem();
@@ -290,6 +312,41 @@ public class TEventHandler
             world.spawnEntityInWorld(entity);
         }
     }
+
+    /* Chunks */
+    /*@ForgeSubscribe
+    public void chunkDataLoad (ChunkDataEvent.Load event)
+    {
+        ChunkCoordTuple coord = new ChunkCoordTuple(event.getChunk().xPosition, event.getChunk().zPosition);
+        int worldID = event.getChunk().worldObj.provider.dimensionId;
+        int crystal = event.getData().getInteger("TConstruct.Crystallinity");
+
+        HashMap<ChunkCoordTuple, Integer> crystalMap = TheftValueTracker.crystallinity.get(worldID);
+        if (crystalMap == null)
+        {
+            crystalMap = new HashMap<ChunkCoordTuple, Integer>();
+            TheftValueTracker.crystallinity.put(worldID, crystalMap);
+        }
+        crystalMap.put(coord, crystal);
+    }
+
+    @ForgeSubscribe
+    public void chunkDataSave (ChunkDataEvent.Save event)
+    {
+        ChunkCoordTuple coord = new ChunkCoordTuple(event.getChunk().xPosition, event.getChunk().zPosition);
+        int worldID = event.getChunk().worldObj.provider.dimensionId;
+        HashMap<ChunkCoordTuple, Integer> crystalMap = TheftValueTracker.crystallinity.get(worldID);
+        
+        if (crystalMap.containsKey(coord))
+        {
+            int crystal = crystalMap.get(coord);
+            event.getData().setInteger("TConstruct.Crystallinity", crystal);
+            if (!event.getChunk().isChunkLoaded)
+            {
+                TheftValueTracker.crystallinity.remove(worldID);
+            }
+        }
+    }*/
 
     /* Ore Dictionary */
     @ForgeSubscribe

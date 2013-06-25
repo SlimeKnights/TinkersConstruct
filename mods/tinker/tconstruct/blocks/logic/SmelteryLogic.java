@@ -41,6 +41,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     int internalTemp;
     public int useTime;
     public int fuelGague;
+    public int fuelAmount;
     boolean inUse;
 
     ArrayList<CoordTuple> lavaTanks;
@@ -374,13 +375,14 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         }
     }
 
-    void updateFuelGague ()
+    public void updateFuelDisplay ()
     {
         if (activeLavaTank == null || useTime > 0)
             return;
 
         if (!worldObj.blockExists(activeLavaTank.x, activeLavaTank.y, activeLavaTank.z))
         {
+            fuelAmount = 0;
             fuelGague = 0;
             return;
         }
@@ -388,6 +390,45 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         TileEntity tankContainer = worldObj.getBlockTileEntity(activeLavaTank.x, activeLavaTank.y, activeLavaTank.z);
         if (tankContainer == null)
         {
+            fuelAmount = 0;
+            fuelGague = 0;
+            return;
+        }
+        if (tankContainer instanceof ITankContainer)
+        {
+            needsUpdate = true;
+            LiquidStack liquid = ((ITankContainer) tankContainer).drain(ForgeDirection.DOWN, 150, false);
+            if (liquid != null && liquid.itemID == Block.lavaStill.blockID)
+            {
+                ILiquidTank tank = ((ITankContainer) tankContainer).getTank(ForgeDirection.DOWN, liquid);
+                int capacity = tank.getCapacity();
+                fuelAmount = liquid.amount;
+                fuelGague = liquid.amount * 52 / capacity;
+            }
+            else
+            {
+                fuelAmount = 0;
+                fuelGague = 0;
+            }
+        }
+    }
+
+    void updateFuelGague ()
+    {
+        if (activeLavaTank == null || useTime > 0)
+            return;
+
+        if (!worldObj.blockExists(activeLavaTank.x, activeLavaTank.y, activeLavaTank.z))
+        {
+            fuelAmount = 0;
+            fuelGague = 0;
+            return;
+        }
+
+        TileEntity tankContainer = worldObj.getBlockTileEntity(activeLavaTank.x, activeLavaTank.y, activeLavaTank.z);
+        if (tankContainer == null)
+        {
+            fuelAmount = 0;
             fuelGague = 0;
             return;
         }
@@ -404,9 +445,15 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                 liquid = tank.getLiquid();
                 int capacity = tank.getCapacity();
                 if (liquid != null)
+                {
+                    fuelAmount = liquid.amount;
                     fuelGague = liquid.amount * 52 / capacity;
+                }
                 else
+                {
+                    fuelAmount = 0;
                     fuelGague = 0;
+                }
             }
             else
             {
@@ -431,9 +478,15 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                             liquid = newTank.getLiquid();
                             int capacity = newTank.getCapacity();
                             if (liquid != null)
+                            {
+                                fuelAmount = liquid.amount;
                                 fuelGague = liquid.amount * 52 / capacity;
+                            }
                             else
+                            {
+                                fuelAmount = 0;
                                 fuelGague = 0;
+                            }
                         }
                     }
                     iter++;
@@ -744,6 +797,11 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     public int getCapacity ()
     {
         return maxLiquid;
+    }
+
+    public int getTotalLiquid ()
+    {
+        return currentLiquid;
     }
 
     public LiquidStack drain (int maxDrain, boolean doDrain)

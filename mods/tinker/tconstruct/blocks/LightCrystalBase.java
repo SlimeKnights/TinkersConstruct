@@ -7,12 +7,16 @@ import mods.tinker.tconstruct.client.block.CrystalBlockRender;
 import mods.tinker.tconstruct.library.TConstructRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
 
 public class LightCrystalBase extends Block
 {
+    String[] textureNames = { "amber_crystal" };
+    Icon[] icons;
+
     public LightCrystalBase(int id)
     {
         super(id, Material.glass);
@@ -23,8 +27,10 @@ public class LightCrystalBase extends Block
     public Icon getIcon (int side, int meta)
     {
         if (meta < 5)
-            return Block.cake.getIcon(side, meta);
-        return Block.sponge.getIcon(side, 1);
+            return Block.glowStone.getIcon(side, meta);
+        if (meta < 10)
+            return Block.blockNetherQuartz.getIcon(side, 1);
+        return icons[0];
     }
 
     @Override
@@ -48,9 +54,20 @@ public class LightCrystalBase extends Block
     @Override
     public void getSubBlocks (int id, CreativeTabs tab, List list)
     {
-        for (int iter = 0; iter < 10; iter++)
+        for (int iter = 0; iter < 15; iter++)
         {
             list.add(new ItemStack(id, 1, iter));
+        }
+    }
+
+    @Override
+    public void registerIcons (IconRegister iconRegister)
+    {
+        this.icons = new Icon[textureNames.length];
+
+        for (int i = 0; i < this.icons.length; ++i)
+        {
+            this.icons[i] = iconRegister.registerIcon("tinker:" + textureNames[i]);
         }
     }
 }

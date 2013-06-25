@@ -501,7 +501,7 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
     }
 
     //Used for sounds and the like
-    public void onEntityDamaged (World world, EntityPlayer player, Entity entity)
+    public void onEntityDamaged (World world, EntityLiving player, Entity entity)
     {
 
     }
@@ -594,7 +594,7 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
     @Override
     public boolean onLeftClickEntity (ItemStack stack, EntityPlayer player, Entity entity)
     {
-        AbilityHelper.onLeftClickEntity(stack, player, entity, this);
+        AbilityHelper.onLeftClickEntity(stack, player, entity, this, 0);
         return true;
     }
 
@@ -877,56 +877,11 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
     }
 
     /* Proper stack damage */
-    public int getItemDamageFromStack (ItemStack stack)
-    {
-        if (stack.itemDamage == Short.MAX_VALUE )
-            return Short.MAX_VALUE;
-        NBTTagCompound tags = stack.getTagCompound();
-        if (tags == null)
-        {
-            //System.out.println("Tool item is uninitalized! This method should never be called with a default item");
-            //Exception e = new NullPointerException();
-            //e.printStackTrace();
-            return 0;
-        }
-
-        if (tags.hasKey("charge"))
-        {
-            int charge = tags.getInteger("charge");
-            if (charge > 0)
-                return getMaxCharge(stack) - charge;
-        }
-        return tags.getCompoundTag("InfiTool").getInteger("Damage");
-    }
-
-    public int getItemDamageFromStackForDisplay (ItemStack stack)
-    {
-        NBTTagCompound tags = stack.getTagCompound();
-        if (tags == null)
-        {
-            //System.out.println("Tool item is uninitalized! This method should never be called with a default item");
-            //Exception e = new NullPointerException();
-            //e.printStackTrace();
-            return 0;
-        }
-
-        if (tags.hasKey("charge"))
-        {
-            int charge = tags.getInteger("charge");
-            if (charge > 0)
-                return getMaxCharge(stack) - charge;
-        }
-        return tags.getCompoundTag("InfiTool").getInteger("Damage");
-    }
-
     public int getItemMaxDamageFromStack (ItemStack stack)
     {
         NBTTagCompound tags = stack.getTagCompound();
         if (tags == null)
         {
-            //System.out.println("Tool item is uninitalized! This method should never be called with a default item");
-            //Exception e = new NullPointerException();
-            //e.printStackTrace();
             return 0;
         }
 
@@ -937,6 +892,23 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
                 return this.getMaxCharge(stack);
         }
         return tags.getCompoundTag("InfiTool").getInteger("TotalDurability");
+    }
+    
+    public int getItemDamageFromStackForDisplay (ItemStack stack)
+    {
+        NBTTagCompound tags = stack.getTagCompound();
+        if (tags == null)
+        {
+            return 0;
+        }
+
+        if (tags.hasKey("charge"))
+        {
+            int charge = tags.getInteger("charge");
+            if (charge > 0)
+                return getMaxCharge(stack) - charge;
+        }
+        return tags.getCompoundTag("InfiTool").getInteger("Damage");
     }
 
 }

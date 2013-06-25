@@ -55,7 +55,7 @@ public abstract class InventoryBlock extends BlockContainer
     /* Inventory */
 
     @Override
-    public void breakBlock (World par1World, int x, int y, int z, int par5, int par6)
+    public void breakBlock (World par1World, int x, int y, int z, int par5, int meta)
     {
         TileEntity te = par1World.getBlockTileEntity(x, y, z);
 
@@ -100,7 +100,7 @@ public abstract class InventoryBlock extends BlockContainer
             }
         }
 
-        super.breakBlock(par1World, x, y, z, par5, par6);
+        super.breakBlock(par1World, x, y, z, par5, meta);
     }
 
     /* Placement */

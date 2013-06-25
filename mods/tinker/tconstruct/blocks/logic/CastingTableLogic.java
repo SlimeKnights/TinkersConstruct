@@ -194,7 +194,7 @@ public class CastingTableLogic extends InventoryLogic implements ILiquidTank, IT
 	@Override
 	public LiquidStack drain (int maxDrain, boolean doDrain)
 	{
-		if (liquid == null || liquid.itemID <= 0) return null;
+		if (liquid == null || liquid.itemID <= 0 || castingDelay > 0) return null;
         if (liquid.amount <= 0) return null;
 
         int used = maxDrain;

@@ -172,6 +172,7 @@ public class PHConstruct
         heavyBoots = config.getItem("Equipables", "Heavy Boots", 14110).getInt(14110);
         glove = config.getItem("Equipables", "Gloves", 14111).getInt(14111);
         knapsack = config.getItem("Equipables", "Knapsack", 14112).getInt(14112);
+        goldHead = config.getItem("Patterns and Misc", "Golden Head", 14113).getInt(14113);
 
         boolean ic2 = true;
         boolean xycraft = true;
@@ -252,9 +253,26 @@ public class PHConstruct
         aluminumBushMaxY = config.get("Worldgen", "Aluminum Bush Max Y", 60).getInt(60);
         
         seaLevel = config.get("general", "Sea level", 64).getInt(64);
+        
+        enableHealthRegen = config.get("Ultra Hardcore Changes", "Passive Health Regen", true).getBoolean(true); //Check
+        goldAppleRecipe = config.get("Ultra Hardcore Changes", "Change Crafting Recipes", false).getBoolean(false); //Check
+        dropPlayerHeads = config.get("Ultra Hardcore Changes", "Players drop heads on death", false).getBoolean(false); //Check
+        uhcGhastDrops = config.get("Ultra Hardcore Changes", "Change Ghast drops to Gold Ingots", false).getBoolean(false); //Check
+        worldBorder = config.get("Ultra Hardcore Changes", "Add World Border", false).getBoolean(false);
+        worldBorderSize = config.get("Ultra Hardcore Changes", "World Border Radius", 1000).getInt(1000);
+        freePatterns = config.get("Ultra Hardcore Changes", "Add Patterns to Pattern Chests", false).getBoolean(false); //Check
 
         /* Save the configuration file */
         config.save();
+        
+        File gt = new File(TConstruct.proxy.getLocation() + "/config/GregTech");
+        if (gt.exists())
+        {
+            File gtDyn = new File(TConstruct.proxy.getLocation() + "/config/GregTech/DynamicConfig.cfg");
+            Configuration gtConfig = new Configuration(gtDyn);
+            gtConfig.load();
+            gregtech = gtConfig.get("smelting", "tile.anvil.slightlyDamaged", false).getBoolean(false);
+        }
     }
 
     //Blocks
@@ -472,7 +490,19 @@ public class PHConstruct
     public static boolean craftMetalTools;
     public static boolean vanillaMetalBlocks;
     
+    //Ultra Hardcore modifiers
+    public static boolean enableHealthRegen;
+    public static boolean goldAppleRecipe;
+    public static boolean dropPlayerHeads;
+    public static boolean uhcGhastDrops;
+    public static boolean worldBorder;
+    public static int worldBorderSize;
+    public static boolean freePatterns;
+    public static int goldHead;
+    
     //Superfun
     public static boolean superfunWorld;
     public static boolean beginnerBook;
+    
+    public static boolean gregtech;
 }

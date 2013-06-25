@@ -442,7 +442,7 @@ Class: Heavy Melee Weapon</text>
 
 - Reinforced: 10% chance per level of not using durability
 - Stonebound: The tool mines faster as it wears out, but does less damage
-- Spiny: The tool mines does more damage as it wears out, but mines slower
+- Spiny: The tool attacks with does more damage as it wears out, but mines slower
 - Writable: One extra modifier per piece</text>
 </page>
 

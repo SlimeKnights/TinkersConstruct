@@ -182,12 +182,20 @@ public class Scythe extends Weapon
                                     if (materials[iter] == block.blockMaterial)
                                     {
                                         meta = world.getBlockMetadata(xPos, yPos, zPos);
-                                        world.setBlockToAir(xPos, yPos, zPos);
+                                        /*world.setBlockToAir(xPos, yPos, zPos);
                                         if (!player.capabilities.isCreativeMode)
                                         {
                                             block.harvestBlock(world, player, xPos, yPos, zPos, meta);
                                             onBlockDestroyed(stack, world, localblockID, xPos, yPos, zPos, player);
                                         }
+                                        blockID = localblockID;*/
+                                        if (!player.capabilities.isCreativeMode)
+                                        {
+                                            block.harvestBlock(world, player, xPos, yPos, zPos, meta);
+                                            block.onBlockHarvested(world, x, y, z, meta, player);
+                                            onBlockDestroyed(stack, world, localblockID, xPos, yPos, zPos, player);
+                                        }
+                                        world.setBlockToAir(xPos, yPos, zPos);
                                         blockID = localblockID;
                                     }
                                 }

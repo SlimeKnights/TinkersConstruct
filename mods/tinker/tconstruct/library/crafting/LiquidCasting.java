@@ -49,6 +49,11 @@ public class LiquidCasting
     {
         addCastingRecipe(output, metal, null, false, delay);
     }
+    
+    public void addCustomCastingRecipe(CastingRecipe recipe)
+    {
+        casts.add(recipe);
+    }
 
     public int getCastingDelay (LiquidStack metal, ItemStack cast)
     {

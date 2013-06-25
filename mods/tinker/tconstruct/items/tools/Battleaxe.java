@@ -267,12 +267,20 @@ public class Battleaxe extends HarvestTool
                         if (block != null && block.blockMaterial == Material.wood)
                         {
                             meta = world.getBlockMetadata(x, yPos, z);
-                            world.setBlockToAir(x, yPos, z);
+                            /*world.setBlockToAir(x, yPos, z);
                             if (!player.capabilities.isCreativeMode)
                             {
                                 Block.blocksList[blockID].harvestBlock(world, player, x, yPos, z, meta);
                                 onBlockDestroyed(stack, world, blockID, x, yPos, z, player);
+                            }*/
+                            if (!player.capabilities.isCreativeMode)
+                            {
+                                block.harvestBlock(world, player, x, yPos, z, meta);
+                                block.onBlockHarvested(world, x, y, z, meta, player);
+                                onBlockDestroyed(stack, world, localblockID, x, yPos, z, player);
                             }
+                            world.setBlockToAir(x, yPos, z);
+                            blockID = localblockID;
                         }
                     }
                 }

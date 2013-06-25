@@ -238,20 +238,20 @@ public class TProxyClient extends TProxyCommon
 
         //Special Renderers
         ClientRegistry.bindTileEntitySpecialRenderer(CastingTableLogic.class, new CastingTableSpecialRenderer());
-        ClientRegistry.bindTileEntitySpecialRenderer(GolemCoreLogic.class, new GolemCoreSpecialRender());
+        //ClientRegistry.bindTileEntitySpecialRenderer(GolemCoreLogic.class, new GolemCoreSpecialRender());
         ClientRegistry.bindTileEntitySpecialRenderer(CastingBasinLogic.class, new CastingBasinSpecialRender());
 
         //Entities
         RenderingRegistry.registerEntityRenderingHandler(FancyEntityItem.class, new FancyItemRender());
         RenderingRegistry.registerEntityRenderingHandler(BlueSlime.class, new SlimeRender(new ModelSlime(16), new ModelSlime(0), 0.25F));
         RenderingRegistry.registerEntityRenderingHandler(SlimeClone.class, new SlimeCloneRender(new CloneHeadModel(0), new CloneHeadModel(1f), 0.25F));
-        RenderingRegistry.registerEntityRenderingHandler(GolemBase.class, new GolemRender(0));
+        //RenderingRegistry.registerEntityRenderingHandler(GolemBase.class, new GolemRender(0));
 
         RenderingRegistry.registerEntityRenderingHandler(CartEntity.class, new CartRender());
         RenderingRegistry.registerEntityRenderingHandler(DaggerEntity.class, new DaggerRender());
-        RenderingRegistry.registerEntityRenderingHandler(Skyla.class, new SkylaRender());
-        RenderingRegistry.registerEntityRenderingHandler(Crystal.class, new CrystalRender());
-        RenderingRegistry.registerEntityRenderingHandler(Automaton.class, new RenderBiped(new ModelBiped(), 0));
+       // RenderingRegistry.registerEntityRenderingHandler(Skyla.class, new SkylaRender());
+        RenderingRegistry.registerEntityRenderingHandler(Automaton.class, new CrystalGuardianRender());
+        //RenderingRegistry.registerEntityRenderingHandler(Automaton.class, new RenderBiped(new ModelBiped(), 0));
         RenderingRegistry.registerEntityRenderingHandler(LaunchedPotion.class, new LaunchedItemRender(Item.potion, 16384));
         //RenderingRegistry.registerEntityRenderingHandler(net.minecraft.entity.player.EntityPlayer.class, new PlayerArmorRender()); // <-- Works, woo!
 

@@ -145,6 +145,9 @@ public class Excavator extends HarvestTool
         Block block = Block.blocksList[blockID];
         if (!stack.hasTagCompound())
             return false;
+        
+        if (block == null)
+            return super.onBlockStartBreak(stack, x, y, z, player);
 
         boolean validStart = false;
         for (int iter = 0; iter < materials.length; iter++)
@@ -209,12 +212,20 @@ public class Excavator extends HarvestTool
                                     {
                                         if (materials[iter] == block.blockMaterial)
                                         {
-                                            world.setBlockToAir(xPos, yPos, zPos);
+                                           /*world.setBlockToAir(xPos, yPos, zPos);
                                             if (!player.capabilities.isCreativeMode)
                                             {
                                                 block.harvestBlock(world, player, xPos, yPos, zPos, meta);
                                                 onBlockDestroyed(stack, world, localblockID, xPos, yPos, zPos, player);
                                             }
+                                            blockID = localblockID;*/
+                                            if (!player.capabilities.isCreativeMode)
+                                            {
+                                                block.harvestBlock(world, player, xPos, yPos, zPos, meta);
+                                                block.onBlockHarvested(world, x, y, z, meta, player);
+                                                onBlockDestroyed(stack, world, localblockID, xPos, yPos, zPos, player);
+                                            }
+                                            world.setBlockToAir(xPos, yPos, zPos);
                                             blockID = localblockID;
                                         }
                                     }
@@ -231,6 +242,55 @@ public class Excavator extends HarvestTool
     }
 
     @Override
+    public float getStrVsBlock (ItemStack stack, Block block, int meta)
+    {
+        if (!stack.hasTagCompound())
+            return 1.0f;
+        
+        NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
+        if (tags.getBoolean("Broken"))
+            return 0.1f;
+
+        Material[] materials = getEffectiveMaterials();
+        for (int i = 0; i < materials.length; i++)
+        {
+            if (materials[i] == block.blockMaterial)
+            {
+                float mineSpeed = tags.getInteger("MiningSpeed");
+                int heads = 1;
+                if (tags.hasKey("MiningSpeed2"))
+                {
+                    mineSpeed += tags.getInteger("MiningSpeed2");
+                    heads++;
+                }
+                
+                if (tags.hasKey("MiningSpeedHandle"))
+                {
+                    mineSpeed += tags.getInteger("MiningSpeedHandle");
+                    heads++;
+                }
+                
+                if (tags.hasKey("MiningSpeedExtra"))
+                {
+                    mineSpeed += tags.getInteger("MiningSpeedExtra");
+                    heads++;
+                }
+                float trueSpeed = mineSpeed / (heads * 300f);
+                int hlvl = MinecraftForge.getBlockHarvestLevel(block, meta, getHarvestType());
+                int durability = tags.getInteger("Damage");
+
+                float stonebound = tags.getFloat("Shoddy");
+                float bonusLog = (float) Math.log(durability / 72f + 1) * 2 * stonebound;
+                trueSpeed += bonusLog;
+
+                if (hlvl <= tags.getInteger("HarvestLevel"))
+                    return trueSpeed;
+                return 0.1f;
+            }
+        }
+        return super.getStrVsBlock(stack, block, meta);
+    }
+    /*@Override
     public void onUpdate (ItemStack stack, World world, Entity entity, int par4, boolean par5)
     {
         super.onUpdate(stack, world, entity, par4, par5);
@@ -243,5 +303,5 @@ public class Excavator extends HarvestTool
                 player.addPotionEffect(new PotionEffect(Potion.digSlowdown.id, 1, 1));
             }
         }
-    }
+    }*/
 }

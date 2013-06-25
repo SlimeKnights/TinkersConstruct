@@ -12,7 +12,7 @@ public class GlowstoneAggregator extends AggregatorLogic
 {
     short currentTime;
     short maxTime = 20 * 60 * 5;
-    int currentLightLevel;
+    public int currentLightLevel;
 
     public GlowstoneAggregator()
     {

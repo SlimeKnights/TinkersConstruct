@@ -32,7 +32,8 @@ public class CraftingItem extends Item
 	@SideOnly(Side.CLIENT)
 	public Icon getIconFromDamage(int meta)
 	{
-		return icons[meta];
+        int arr = MathHelper.clamp_int(meta, 0, unlocalizedNames.length);
+		return icons[arr];
 	}
 	
 	@SideOnly(Side.CLIENT)

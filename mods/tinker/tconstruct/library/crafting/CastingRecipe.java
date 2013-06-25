@@ -20,9 +20,9 @@ public class CastingRecipe
 		coolTime = delay;
 	}
 	
-	public boolean matches(LiquidStack metal, ItemStack cast)
+	public boolean matches(LiquidStack metal, ItemStack inputCast)
 	{
-		if (castingMetal.isLiquidEqual(metal) && ItemStack.areItemStacksEqual(this.cast, cast))
+		if (castingMetal.isLiquidEqual(metal) && ((cast != null && cast.itemDamage == Short.MAX_VALUE && inputCast.getItem() == cast.getItem()) || ItemStack.areItemStacksEqual(this.cast, inputCast)) )
 			return true;
 		else
 			return false;
