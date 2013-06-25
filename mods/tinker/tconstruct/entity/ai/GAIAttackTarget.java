@@ -1,14 +1,9 @@
 package mods.tinker.tconstruct.entity.ai;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import mods.tinker.tconstruct.entity.GolemBase;
-import mods.touhou_alice_dolls.DollRegistry;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.pathfinding.PathNavigate;
-import net.minecraft.util.DamageSource;
 
 public class GAIAttackTarget extends GolemAIBase
 {
