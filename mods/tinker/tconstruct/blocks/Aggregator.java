@@ -58,7 +58,7 @@ public class Aggregator extends InventoryBlock
         if (side == 1)
         {
             GlowstoneAggregator logic = (GlowstoneAggregator) iblockaccess.getBlockTileEntity(x, y, z);
-            if (logic.currentLightLevel >= 12)
+            if (logic.getActive())
                 return icons[0];
             else
                 return icons[1];
@@ -73,7 +73,7 @@ public class Aggregator extends InventoryBlock
         if (side == 0)
             return icons[3];
         if (side == 1)
-            return icons[0];
+            return icons[1];
         return icons[2];
         //return icons[meta];
     }
@@ -83,14 +83,14 @@ public class Aggregator extends InventoryBlock
     {
         super.onBlockPlacedBy(world, x, y, z, entityliving, stack);
         if (!world.isRemote)
-            TheftValueTracker.updateCrystallinity(x, z, world.provider.dimensionId, 4);
+            TheftValueTracker.updateCrystallinity(world.provider.dimensionId, x, z, 4);
     }
 
     @Override
     public void breakBlock (World world, int x, int y, int z, int par5, int par6)
     {
         super.breakBlock(world, x, y, z, par5, par6);
-        TheftValueTracker.updateCrystallinity(x, z, world.provider.dimensionId, -4);
+        TheftValueTracker.updateCrystallinity(world.provider.dimensionId, x, z, -4);
     }
 
     @Override

@@ -108,7 +108,7 @@ public class SmelteryGui extends NewContainerGui
     {
         fontRenderer.drawString(StatCollector.translateToLocal("crafters.Smeltery"), 86, 5, 0x404040);
         fontRenderer.drawString(StatCollector.translateToLocal("container.inventory"), 90, (ySize - 96) + 2, 0x404040);
-        
+
         int base = 0;
         int cornerX = (width - xSize) / 2 + 36;
         int cornerY = (height - ySize) / 2;
@@ -124,9 +124,9 @@ public class SmelteryGui extends NewContainerGui
                 liquidSize = liquid.amount * 52 / liquidLayers;
                 base += liquidSize;
             }
-            
+
             int leftX = cornerX + basePos;
-            int topY =  (cornerY + 68) - base;
+            int topY = (cornerY + 68) - base;
             int sizeX = 52;
             int sizeY = liquidSize;
             if (mouseX >= leftX && mouseX <= leftX + sizeX && mouseY >= topY && mouseY < topY + sizeY)
@@ -134,11 +134,11 @@ public class SmelteryGui extends NewContainerGui
                 drawLiquidStackTooltip(liquid, mouseX - cornerX + 36, mouseY - cornerY);
             }
         }
-        
+
         if (logic.fuelGague > 0)
         {
             int leftX = cornerX + 117;
-            int topY =  (cornerY + 68) - logic.getScaledFuelGague(52);
+            int topY = (cornerY + 68) - logic.getScaledFuelGague(52);
             int sizeX = 12;
             int sizeY = logic.getScaledFuelGague(52);
             if (mouseX >= leftX && mouseX <= leftX + sizeX && mouseY >= topY && mouseY < topY + sizeY)
@@ -219,7 +219,7 @@ public class SmelteryGui extends NewContainerGui
                     base += size;
                 }
             }
-            
+
             /*int leftX = cornerX + basePos;
             int topY =  (cornerY + 68) - base;
             int sizeX = 52;
@@ -273,7 +273,7 @@ public class SmelteryGui extends NewContainerGui
             }
         }
     }
-    
+
     protected void drawLiquidStackTooltip (LiquidStack par1ItemStack, int par2, int par3)
     {
         this.zLevel = 100;
@@ -287,8 +287,8 @@ public class SmelteryGui extends NewContainerGui
         this.drawToolTip(list, par2, par3);
         this.zLevel = 0;
     }
-    
-    public List getLiquidTooltip(LiquidStack liquid, boolean par2)
+
+    public List getLiquidTooltip (LiquidStack liquid, boolean par2)
     {
         ArrayList list = new ArrayList();
         if (liquid.itemID == Block.lavaStill.blockID)
@@ -296,21 +296,28 @@ public class SmelteryGui extends NewContainerGui
             list.add("\u00A7fFuel");
             int mB = liquid.amount;
             if (mB > 0)
-                list.add("mB: "+mB);
+                list.add("mB: " + mB);
         }
         else
         {
-        list.add("\u00A7f"+LiquidDictionary.findLiquidName(liquid));
-        int ingots = liquid.amount / 144;
-        if (ingots > 0)
-            list.add("Ingots: "+ingots);
-        int mB = liquid.amount % 144;
-        if (mB > 0)
-            list.add("mB: "+mB);
+            list.add("\u00A7f" + LiquidDictionary.findLiquidName(liquid));
+            int ingots = liquid.amount / 144;
+            if (ingots > 0)
+                list.add("Ingots: " + ingots);
+            int mB = liquid.amount % 144;
+            if (mB > 0)
+            {
+                if (mB % 72 == 0)
+                    list.add("Chunks: " + liquid.amount % 144 / 72);
+                else if (mB % 16 == 0)
+                    list.add("Nuggets: " + liquid.amount % 144 / 16);
+                else
+                    list.add("mB: " + mB);
+            }
         }
         return list;
     }
-    
+
     protected void drawToolTip (List par1List, int par2, int par3)
     {
         if (!par1List.isEmpty())
@@ -388,15 +395,15 @@ public class SmelteryGui extends NewContainerGui
             GL11.glEnable(GL12.GL_RESCALE_NORMAL);*/
         }
     }
-    
-    public void drawLiquidRect(int par1, int par2, Icon par3Icon, int par4, int par5)
+
+    public void drawLiquidRect (int par1, int par2, Icon par3Icon, int par4, int par5)
     {
         Tessellator tessellator = Tessellator.instance;
         tessellator.startDrawingQuads();
-        tessellator.addVertexWithUV((double)(par1 + 0), (double)(par2 + par5), (double)this.zLevel, (double)par3Icon.getMinU(), (double)par3Icon.getMaxV());
-        tessellator.addVertexWithUV((double)(par1 + par4), (double)(par2 + par5), (double)this.zLevel, (double)par3Icon.getMaxU(), (double)par3Icon.getMaxV());
-        tessellator.addVertexWithUV((double)(par1 + par4), (double)(par2 + 0), (double)this.zLevel, (double)par3Icon.getMaxU(), (double)par3Icon.getMinV());
-        tessellator.addVertexWithUV((double)(par1 + 0), (double)(par2 + 0), (double)this.zLevel, (double)par3Icon.getMinU(), (double)par3Icon.getMinV());
+        tessellator.addVertexWithUV((double) (par1 + 0), (double) (par2 + par5), (double) this.zLevel, (double) par3Icon.getMinU(), (double) par3Icon.getMaxV());
+        tessellator.addVertexWithUV((double) (par1 + par4), (double) (par2 + par5), (double) this.zLevel, (double) par3Icon.getMaxU(), (double) par3Icon.getMaxV());
+        tessellator.addVertexWithUV((double) (par1 + par4), (double) (par2 + 0), (double) this.zLevel, (double) par3Icon.getMaxU(), (double) par3Icon.getMinV());
+        tessellator.addVertexWithUV((double) (par1 + 0), (double) (par2 + 0), (double) this.zLevel, (double) par3Icon.getMinU(), (double) par3Icon.getMinV());
         tessellator.draw();
     }
 }

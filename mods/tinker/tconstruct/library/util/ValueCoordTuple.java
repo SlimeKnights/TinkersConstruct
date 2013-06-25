@@ -1,19 +1,21 @@
 package mods.tinker.tconstruct.library.util;
 
-public class ChunkCoordTuple
+public class ValueCoordTuple
 {
+    public final int dim;
     public final int x;
     public final int z;
 
-    public ChunkCoordTuple(int posX, int posZ)
+    public ValueCoordTuple(int worldID, int posX, int posZ)
     {
+        dim = worldID;
         x = posX;
         z = posZ;
     }
 
-    public boolean equalCoords (int posX, int posZ)
+    public boolean equalCoords (int worldID, int posX, int posZ)
     {
-        if (this.x == posX && this.z == posZ)
+        if (this.dim == posX && this.x == posX && this.z == posZ)
             return true;
         else
             return false;
@@ -27,8 +29,8 @@ public class ChunkCoordTuple
         
         if(getClass() == obj.getClass())
         {
-            ChunkCoordTuple coord = (ChunkCoordTuple)obj;
-            if(this.x == coord.x && this.z == coord.z)
+            ValueCoordTuple coord = (ValueCoordTuple)obj;
+            if(this.dim == coord.dim && this.x == coord.x && this.z == coord.z)
                 return true;
         }
         return false;
@@ -39,6 +41,7 @@ public class ChunkCoordTuple
     {
         final int prime = 37;
         int result = 1;
+        result = prime * result + dim;
         result = prime * result + x;
         result = prime * result + z;
         return result;
@@ -46,6 +49,6 @@ public class ChunkCoordTuple
 
     public String toString ()
     {
-        return "ChunkX: " + x + ", ChunkZ: " + z;
+        return "Dim: " + dim + ", X: " + x + ", Z: " + z;
     }
 }

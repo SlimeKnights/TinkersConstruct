@@ -368,9 +368,9 @@ public class TContent implements IFuelHandler
         GameRegistry.registerBlock(aggregator, "Aggregator");
         GameRegistry.registerTileEntity(GlowstoneAggregator.class, "GlowstoneAggregator");
         
-        /*lightCrystalBase = new LightCrystalBase(PHConstruct.lightCrystalBase).setUnlocalizedName("LightCrystalBase");
+        lightCrystalBase = new LightCrystalBase(PHConstruct.lightCrystalBase).setUnlocalizedName("LightCrystalBase");
         lightCrystalBase.stepSound = Block.soundGlassFootstep;
-        GameRegistry.registerBlock(lightCrystalBase, LightCrystalItem.class, "LightCrystalBase");*/
+        GameRegistry.registerBlock(lightCrystalBase, LightCrystalItem.class, "LightCrystalBase");
 
         /*redstoneBallRepeater = new RedstoneBallRepeater(PHConstruct.redstoneBallRepeater, false).setUnlocalizedName("decoration.redstoneballrepeater");
         GameRegistry.registerBlock(redstoneBallRepeater, "decoration.redstoneballrepeater");

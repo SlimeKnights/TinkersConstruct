@@ -7,12 +7,13 @@ import mods.tinker.tconstruct.inventory.ArmorExtendedContainer;
 import mods.tinker.tconstruct.inventory.KnapsackContainer;
 import mods.tinker.tconstruct.library.blocks.InventoryLogic;
 import mods.tinker.tconstruct.util.player.TPlayerStats;
-import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import cpw.mods.fml.common.network.IGuiHandler;
 import cpw.mods.fml.common.registry.LanguageRegistry;
+import cpw.mods.fml.common.registry.TickRegistry;
+import cpw.mods.fml.relauncher.Side;
 
 /**
  * Common proxy class for InfiTools
@@ -77,11 +78,11 @@ public class TProxyCommon implements IGuiHandler
         return null;
     }
 
-    
     public void registerTickHandler()
     {
-        
+        //TickRegistry.registerTickHandler(new TimeTicker(), Side.SERVER);
     }
+    
 	/* Registers any rendering code. Does nothing server-side */
 	public void registerRenderer() {}
     /* Ties an internal name to a visible one. */
@@ -166,7 +167,7 @@ public class TProxyCommon implements IGuiHandler
         LanguageRegistry.addName(TContent.battleaxe, "Battleaxe");
         LanguageRegistry.addName(TContent.cutlass, "Cutlass");
         LanguageRegistry.addName(TContent.aggregator, "Glowstone Aggregator");
-        //LanguageRegistry.addName(TContent.lightCrystalBase, "Lightstone Crystal");
+        LanguageRegistry.addName(TContent.lightCrystalBase, "Lightstone Crystal");
         LanguageRegistry.addName(TContent.knapsack, "Knapsack");
 
     }

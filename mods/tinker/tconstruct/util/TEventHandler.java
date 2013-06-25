@@ -1,7 +1,6 @@
 package mods.tinker.tconstruct.util;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Random;
 
 import mods.tinker.tconstruct.TConstruct;
@@ -13,7 +12,7 @@ import mods.tinker.tconstruct.library.crafting.Smeltery;
 import mods.tinker.tconstruct.library.crafting.ToolBuilder;
 import mods.tinker.tconstruct.library.event.ToolCraftEvent;
 import mods.tinker.tconstruct.library.tools.ToolCore;
-import mods.tinker.tconstruct.library.util.ChunkCoordTuple;
+import mods.tinker.tconstruct.library.util.ValueCoordTuple;
 import mods.tinker.tconstruct.modifiers.ModAttack;
 import mods.tinker.tconstruct.util.player.TPlayerStats;
 import net.minecraft.entity.Entity;
@@ -34,13 +33,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumMovingObjectType;
 import net.minecraft.world.World;
+import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.event.Event.Result;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.event.entity.player.FillBucketEvent;
 import net.minecraftforge.event.world.ChunkDataEvent;
-import net.minecraftforge.event.world.ChunkEvent;
 import net.minecraftforge.liquids.LiquidStack;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.OreDictionary.OreRegisterEvent;
@@ -314,28 +313,46 @@ public class TEventHandler
     }
 
     /* Chunks */
-    /*@ForgeSubscribe
+    @ForgeSubscribe
     public void chunkDataLoad (ChunkDataEvent.Load event)
     {
-        ChunkCoordTuple coord = new ChunkCoordTuple(event.getChunk().xPosition, event.getChunk().zPosition);
+        Chunk chunk = event.getChunk();
+        int worldID = chunk.worldObj.provider.dimensionId;
+        ValueCoordTuple coord = new ValueCoordTuple(worldID, chunk.xPosition, chunk.zPosition);
+        TheftValueTracker.crystallinity.put(coord, event.getData().getInteger("TConstruct.Crystallinity"));
+
+        /*ValueCoordTuple coord = new ValueCoordTuple(event.getChunk().xPosition, event.getChunk().zPosition);
         int worldID = event.getChunk().worldObj.provider.dimensionId;
         int crystal = event.getData().getInteger("TConstruct.Crystallinity");
 
-        HashMap<ChunkCoordTuple, Integer> crystalMap = TheftValueTracker.crystallinity.get(worldID);
+        HashMap<ValueCoordTuple, Integer> crystalMap = TheftValueTracker.crystallinity.get(worldID);
         if (crystalMap == null)
         {
-            crystalMap = new HashMap<ChunkCoordTuple, Integer>();
+            crystalMap = new HashMap<ValueCoordTuple, Integer>();
             TheftValueTracker.crystallinity.put(worldID, crystalMap);
         }
-        crystalMap.put(coord, crystal);
+        crystalMap.put(coord, crystal);*/
     }
 
     @ForgeSubscribe
     public void chunkDataSave (ChunkDataEvent.Save event)
     {
-        ChunkCoordTuple coord = new ChunkCoordTuple(event.getChunk().xPosition, event.getChunk().zPosition);
+        Chunk chunk = event.getChunk();
+        int worldID = chunk.worldObj.provider.dimensionId;
+        ValueCoordTuple coord = new ValueCoordTuple(worldID, chunk.xPosition, chunk.zPosition);
+        if (TheftValueTracker.crystallinity.containsKey(coord))
+        {
+            int crystal = TheftValueTracker.crystallinity.get(coord);
+            event.getData().setInteger("TConstruct.Crystallinity", crystal);
+            if (!event.getChunk().isChunkLoaded)
+            {
+                TheftValueTracker.crystallinity.remove(worldID);
+            }
+        }
+        
+        /*ValueCoordTuple coord = new ValueCoordTuple(event.getChunk().xPosition, event.getChunk().zPosition);
         int worldID = event.getChunk().worldObj.provider.dimensionId;
-        HashMap<ChunkCoordTuple, Integer> crystalMap = TheftValueTracker.crystallinity.get(worldID);
+        HashMap<ValueCoordTuple, Integer> crystalMap = TheftValueTracker.crystallinity.get(worldID);
         
         if (crystalMap.containsKey(coord))
         {
@@ -345,8 +362,8 @@ public class TEventHandler
             {
                 TheftValueTracker.crystallinity.remove(worldID);
             }
-        }
-    }*/
+        }*/
+    }
 
     /* Ore Dictionary */
     @ForgeSubscribe

@@ -4,6 +4,7 @@ import java.util.List;
 
 import mods.natura.common.NContent;
 import mods.tinker.tconstruct.client.block.CrystalBlockRender;
+import mods.tinker.tconstruct.crystal.TheftValueTracker;
 import mods.tinker.tconstruct.library.TConstructRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -11,6 +12,7 @@ import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
+import net.minecraft.world.World;
 
 public class LightCrystalBase extends Block
 {
@@ -68,6 +70,27 @@ public class LightCrystalBase extends Block
         for (int i = 0; i < this.icons.length; ++i)
         {
             this.icons[i] = iconRegister.registerIcon("tinker:" + textureNames[i]);
+        }
+    }
+
+    @Override
+    public void breakBlock (World world, int x, int y, int z, int par5, int meta)
+    {
+        switch (meta % 5)
+        {
+        case 0:
+        case 4:
+            TheftValueTracker.updateCrystallinity(world.provider.dimensionId, x, z, -10);
+            break;
+        case 1:
+            TheftValueTracker.updateCrystallinity(world.provider.dimensionId, x, z, -20);
+            break;
+        case 2:
+            TheftValueTracker.updateCrystallinity(world.provider.dimensionId, x, z, -35);
+            break;
+        case 3:
+            TheftValueTracker.updateCrystallinity(world.provider.dimensionId, x, z, -60);
+            break;
         }
     }
 }

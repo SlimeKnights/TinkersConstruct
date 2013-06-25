@@ -90,7 +90,7 @@ public class PHConstruct
         multiBrickFancy = config.getBlock("Multi Brick Fancy", 1467).getInt(1467);
         
         aggregator = config.getBlock("Aggregator", 3221).getInt(3221);
-        //lightCrystalBase = config.getBlock("Light Crystal", 3222).getInt(3222);
+        lightCrystalBase = config.getBlock("Light Crystal", 3222).getInt(3222);
 
         /*golemCore = config.getBlock("Golem Core", 1481).getInt(1481);
         golemHead = config.getBlock("Golem Head", 1482).getInt(1482);*/

@@ -5,7 +5,7 @@ import java.util.Random;
 
 import mods.tinker.tconstruct.common.TContent;
 import mods.tinker.tconstruct.crystal.TheftValueTracker;
-import mods.tinker.tconstruct.library.util.ChunkCoordTuple;
+import mods.tinker.tconstruct.library.util.ValueCoordTuple;
 import mods.tinker.tconstruct.library.util.CoordTuple;
 import mods.tinker.tconstruct.util.PHConstruct;
 import net.minecraft.block.Block;
@@ -71,15 +71,8 @@ public class TBaseWorldGenerator implements IWorldGenerator
     
     void initializeChunkData(int chunkX, int chunkZ, int worldID)
     {
-        ChunkCoordTuple coord = new ChunkCoordTuple(chunkX, chunkZ);
-        int crystal = 0;
-        HashMap<ChunkCoordTuple, Integer> crystalMap = TheftValueTracker.crystallinity.get(worldID);
-        if (crystalMap == null)
-        {
-            crystalMap = new HashMap<ChunkCoordTuple, Integer>();
-            TheftValueTracker.crystallinity.put(worldID, crystalMap);
-        }
-        crystalMap.put(coord, crystal);
+        ValueCoordTuple coord = new ValueCoordTuple(worldID, chunkX, chunkZ);
+        TheftValueTracker.crystallinity.put(coord, 0);
     }
 
     void generateSurface (Random random, int xChunk, int zChunk, World world)

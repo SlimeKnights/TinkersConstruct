@@ -213,6 +213,7 @@ public class TProxyClient extends TProxyCommon
     public void registerTickHandler ()
     {
         TickRegistry.registerTickHandler(new TClientTickHandler(), Side.CLIENT);
+        //TickRegistry.registerTickHandler(new TimeTicker(), Side.CLIENT);
         //TickRegistry.registerTickHandler(new TCommonTickHandler(), Side.CLIENT);
     }
 
