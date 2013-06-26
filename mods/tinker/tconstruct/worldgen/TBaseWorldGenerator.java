@@ -1,12 +1,10 @@
 package mods.tinker.tconstruct.worldgen;
 
-import java.util.HashMap;
 import java.util.Random;
 
 import mods.tinker.tconstruct.common.TContent;
 import mods.tinker.tconstruct.crystal.TheftValueTracker;
 import mods.tinker.tconstruct.library.util.ValueCoordTuple;
-import mods.tinker.tconstruct.library.util.CoordTuple;
 import mods.tinker.tconstruct.util.PHConstruct;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -26,13 +24,6 @@ public class TBaseWorldGenerator implements IWorldGenerator
 
         cobalt = new WorldGenMinable(TContent.oreSlag.blockID, 1, 3, Block.netherrack.blockID);
         ardite = new WorldGenMinable(TContent.oreSlag.blockID, 2, 3, Block.netherrack.blockID);
-
-        ironSurface = new SurfaceOreGen(TContent.oreGravel.blockID, 0, 12, true);
-        goldSurface = new SurfaceOreGen(TContent.oreGravel.blockID, 1, 20, true);
-        copperSurface = new SurfaceOreGen(TContent.oreGravel.blockID, 2, 12, true);
-        tinSurface = new SurfaceOreGen(TContent.oreGravel.blockID, 3, 12, true);
-        aluminumSurface = new SurfaceOreGen(TContent.oreGravel.blockID, 4, 12, true);
-        cobaltSurface = new SurfaceOreGen(TContent.oreGravel.blockID, 5, 30, true);
 
         ironBush = new OreberryBushGen(TContent.oreBerry.blockID, 12, 12);
         goldBush = new OreberryBushGen(TContent.oreBerry.blockID, 13, 6);
@@ -77,16 +68,13 @@ public class TBaseWorldGenerator implements IWorldGenerator
 
     void generateSurface (Random random, int xChunk, int zChunk, World world)
     {
-        int xPos, yPos, zPos;
         String biomeName = world.getWorldChunkManager().getBiomeGenAt(xChunk, zChunk).biomeName;
 
         generateUndergroundOres(random, xChunk, zChunk, world);
-        generateSurfaceOres(random, xChunk, zChunk, world);
 
         if (biomeName == "Extreme Hills Edge" || biomeName == "Extreme Hills")
         {
             generateUndergroundOres(random, xChunk, zChunk, world);
-            generateSurfaceOres(random, xChunk, zChunk, world);
         }
     }
 
@@ -122,53 +110,6 @@ public class TBaseWorldGenerator implements IWorldGenerator
                 zPos = zChunk + random.nextInt(16);
                 aluminum.generate(world, random, xPos, yPos, zPos);
             }
-        }
-    }
-
-    void generateSurfaceOres (Random random, int xChunk, int zChunk, World world)
-    {
-        int xPos, yPos, zPos;
-        if (PHConstruct.generateIronSurface && random.nextInt(PHConstruct.ironsRarity) == 0)
-        {
-            xPos = xChunk + random.nextInt(16);
-            yPos = 64 + PHConstruct.seaLevel;
-            zPos = zChunk + random.nextInt(16);
-            ironSurface.generate(world, random, xPos, yPos, zPos);
-        }
-        if (PHConstruct.generateGoldSurface && random.nextInt(PHConstruct.goldsRarity) == 0)
-        {
-            xPos = xChunk + random.nextInt(16);
-            yPos = 64 + PHConstruct.seaLevel;
-            zPos = zChunk + random.nextInt(16);
-            goldSurface.generate(world, random, xPos, yPos, zPos);
-        }
-        if (PHConstruct.generateCopperSurface && random.nextInt(PHConstruct.coppersRarity) == 0)
-        {
-            xPos = xChunk + random.nextInt(16);
-            yPos = 64 + PHConstruct.seaLevel;
-            zPos = zChunk + random.nextInt(16);
-            copperSurface.generate(world, random, xPos, yPos, zPos);
-        }
-        if (PHConstruct.generateTinSurface && random.nextInt(PHConstruct.tinsRarity) == 0)
-        {
-            xPos = xChunk + random.nextInt(16);
-            yPos = 64 + PHConstruct.seaLevel;
-            zPos = zChunk + random.nextInt(16);
-            tinSurface.generate(world, random, xPos, yPos, zPos);
-        }
-        if (PHConstruct.generateAluminumSurface && random.nextInt(PHConstruct.aluminumsRarity) == 0)
-        {
-            xPos = xChunk + random.nextInt(16);
-            yPos = 64 + PHConstruct.seaLevel;
-            zPos = zChunk + random.nextInt(16);
-            aluminumSurface.generate(world, random, xPos, yPos, zPos);
-        }
-        if (PHConstruct.generateCobaltSurface && random.nextInt(PHConstruct.cobaltsRarity) == 0)
-        {
-            xPos = xChunk + random.nextInt(16);
-            yPos = 64 + PHConstruct.seaLevel;
-            zPos = zChunk + random.nextInt(16);
-            cobaltSurface.generate(world, random, xPos, yPos, zPos);
         }
     }
 
@@ -381,13 +322,6 @@ public class TBaseWorldGenerator implements IWorldGenerator
     WorldGenMinable aluminum;
     WorldGenMinable cobalt;
     WorldGenMinable ardite;
-
-    SurfaceOreGen ironSurface;
-    SurfaceOreGen goldSurface;
-    SurfaceOreGen copperSurface;
-    SurfaceOreGen tinSurface;
-    SurfaceOreGen aluminumSurface;
-    SurfaceOreGen cobaltSurface;
 
     OreberryBushGen ironBush;
     OreberryBushGen goldBush;
