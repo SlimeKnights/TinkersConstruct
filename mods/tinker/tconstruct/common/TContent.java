@@ -1228,6 +1228,17 @@ public class TContent implements IFuelHandler
         FMLInterModComms.sendMessage("Thaumcraft", "harvestClickableCrop", new ItemStack(oreBerry, 1, 15));
         FMLInterModComms.sendMessage("Thaumcraft", "harvestClickableCrop", new ItemStack(oreBerrySecond, 1, 12));
         FMLInterModComms.sendMessage("Thaumcraft", "harvestClickableCrop", new ItemStack(oreBerrySecond, 1, 13));
+        
+        /* FORESTRY
+         * Edit these strings to change what items are added to the backpacks
+         * Format info: "[backpack ID]@[item ID].[metadata or *]:[next item]" and so on
+         * Avaliable backpack IDs: forester, miner, digger, hunter, adventurer, builder
+         * May add more backpack items later - Spyboticsguy 
+         */
+        
+        String builderItems = "builder@" + String.valueOf(stoneTorch.blockID) + ".*";
+        
+        FMLInterModComms.sendMessage("Forestry", "add-backpack-items", builderItems);
     }
 
     public void modIntegration ()
