@@ -2,7 +2,6 @@ package mods.tinker.tconstruct;
 
 import mods.tinker.tconstruct.common.TContent;
 import mods.tinker.tconstruct.common.TProxyCommon;
-import mods.tinker.tconstruct.dimension.TinkerWorldProvider;
 import mods.tinker.tconstruct.library.SkillRegistry;
 import mods.tinker.tconstruct.library.TConstructRegistry;
 import mods.tinker.tconstruct.library.crafting.Detailing;
@@ -13,10 +12,10 @@ import mods.tinker.tconstruct.util.TCraftingHandler;
 import mods.tinker.tconstruct.util.TEventHandler;
 import mods.tinker.tconstruct.util.player.TPlayerHandler;
 import mods.tinker.tconstruct.worldgen.TBaseWorldGenerator;
+import mods.tinker.tconstruct.worldgen.TerrainGenEventHandler;
 import mods.tinker.tconstruct.worldgen.village.TVillageTrades;
 import mods.tinker.tconstruct.worldgen.village.VillageSmelteryHandler;
 import mods.tinker.tconstruct.worldgen.village.VillageToolStationHandler;
-import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
@@ -84,6 +83,7 @@ public class TConstruct
         proxy.registerKeys();
 
         GameRegistry.registerWorldGenerator(new TBaseWorldGenerator());
+        MinecraftForge.TERRAIN_GEN_BUS.register(new TerrainGenEventHandler());
         GameRegistry.registerFuelHandler(content);
         GameRegistry.registerCraftingHandler(new TCraftingHandler());
         NetworkRegistry.instance().registerGuiHandler(instance, proxy);
