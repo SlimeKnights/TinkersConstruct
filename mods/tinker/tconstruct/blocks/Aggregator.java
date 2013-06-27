@@ -96,7 +96,7 @@ public class Aggregator extends InventoryBlock
     @Override
     public void getSubBlocks (int id, CreativeTabs tab, List list)
     {
-        list.add(new ItemStack(id, 1, 0));
+        //list.add(new ItemStack(id, 1, 0));
         /*for (int iter = 0; iter < icons.length; iter++)
         {
             list.add(new ItemStack(id, 1, iter));

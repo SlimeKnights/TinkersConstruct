@@ -114,9 +114,9 @@ public class ArmorExtended implements IInventory
     	//recalculateSkills(player, stats);
         recalculateHealth(player, stats);
         
-        if (inventory[2] != null && inventory[2].getItem() == TContent.knapsack)
+        if (inventory[2] == null && stats.knapsack != null)
         {
-            
+            stats.knapsack.unequipItems();
         }
     }
     

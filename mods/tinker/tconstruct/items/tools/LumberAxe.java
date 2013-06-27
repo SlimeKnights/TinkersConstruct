@@ -88,13 +88,13 @@ public class LumberAxe extends HarvestTool
             }
         }
     }*/
-    
+
     @Override
     public float getStrVsBlock (ItemStack stack, Block block, int meta)
     {
         if (!stack.hasTagCompound())
             return 1.0f;
-        
+
         NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
         if (tags.getBoolean("Broken"))
             return 0.1f;
@@ -111,13 +111,13 @@ public class LumberAxe extends HarvestTool
                     mineSpeed += tags.getInteger("MiningSpeed2");
                     heads++;
                 }
-                
+
                 if (tags.hasKey("MiningSpeedHandle"))
                 {
                     mineSpeed += tags.getInteger("MiningSpeedHandle");
                     heads++;
                 }
-                
+
                 if (tags.hasKey("MiningSpeedExtra"))
                 {
                     mineSpeed += tags.getInteger("MiningSpeedExtra");
@@ -143,7 +143,7 @@ public class LumberAxe extends HarvestTool
     public boolean onBlockStartBreak (ItemStack stack, int x, int y, int z, EntityPlayer player)
     {
         World world = player.worldObj;
-        int woodID = world.getBlockId(x, y, z);
+        final int woodID = world.getBlockId(x, y, z);
         Block wood = Block.blocksList[woodID];
         if (wood.isWood(world, x, y, z))
         {
@@ -202,55 +202,58 @@ public class LumberAxe extends HarvestTool
                     if (!(tags.getBoolean("Broken")))
                     {
                         int localblockID = world.getBlockId(xPos, yPos, zPos);
-                        block = Block.blocksList[localblockID];
-                        meta = world.getBlockMetadata(xPos, yPos, zPos);
-                        int hlvl = MinecraftForge.getBlockHarvestLevel(block, meta, getHarvestType());
-
-                        if (hlvl <= tags.getInteger("HarvestLevel"))
+                        if (bID == localblockID)
                         {
-                            boolean cancelHarvest = false;
-                            for (ActiveToolMod mod : TConstructRegistry.activeModifiers)
-                            {
-                                if (mod.beforeBlockBreak(this, stack, xPos, yPos, zPos, player))
-                                    cancelHarvest = true;
-                            }
+                            block = Block.blocksList[localblockID];
+                            meta = world.getBlockMetadata(xPos, yPos, zPos);
+                            int hlvl = MinecraftForge.getBlockHarvestLevel(block, meta, getHarvestType());
 
-                            if (cancelHarvest)
+                            if (hlvl <= tags.getInteger("HarvestLevel"))
                             {
-                                breakTree(world, xPos, yPos, zPos, stack, tags, bID, meta, player);
-                            }
-                            else
-                            {
-                                if (localblockID == bID && world.getBlockMetadata(xPos, yPos, zPos) % 4 == meta % 4)
+                                boolean cancelHarvest = false;
+                                for (ActiveToolMod mod : TConstructRegistry.activeModifiers)
                                 {
-                                   /* world.setBlock(xPos, yPos, zPos, 0, 0, 3);
-                                    if (!player.capabilities.isCreativeMode)
-                                    {
-                                        Block.blocksList[bID].harvestBlock(world, player, xPos, yPos, zPos, meta);
-                                        onBlockDestroyed(stack, world, bID, xPos, yPos, zPos, player);
-                                    }*/
-                                    if (!player.capabilities.isCreativeMode)
-                                    {
-                                        block.harvestBlock(world, player, xPos, yPos, zPos, meta);
-                                        block.onBlockHarvested(world, x, y, z, meta, player);
-                                        onBlockDestroyed(stack, world, localblockID, xPos, yPos, zPos, player);
-                                    }
-                                    world.setBlockToAir(xPos, yPos, zPos);
+                                    if (mod.beforeBlockBreak(this, stack, xPos, yPos, zPos, player))
+                                        cancelHarvest = true;
+                                }
+
+                                if (cancelHarvest)
+                                {
                                     breakTree(world, xPos, yPos, zPos, stack, tags, bID, meta, player);
                                 }
-                                /*else
+                                else
                                 {
-                                    Block leaves = Block.blocksList[localID];
-                                    if (leaves != null && leaves.isLeaves(world, xPos, yPos, zPos))
+                                    if (localblockID == bID && world.getBlockMetadata(xPos, yPos, zPos) % 4 == meta % 4)
                                     {
-                                        world.setBlockToAir(xPos, yPos, zPos);
+                                        /* world.setBlock(xPos, yPos, zPos, 0, 0, 3);
+                                         if (!player.capabilities.isCreativeMode)
+                                         {
+                                             Block.blocksList[bID].harvestBlock(world, player, xPos, yPos, zPos, meta);
+                                             onBlockDestroyed(stack, world, bID, xPos, yPos, zPos, player);
+                                         }*/
                                         if (!player.capabilities.isCreativeMode)
                                         {
-                                            Block.blocksList[bID].harvestBlock(world, player, xPos, yPos, zPos, meta);
-                                            onBlockDestroyed(stack, world, bID, xPos, yPos, zPos, player);
+                                            block.harvestBlock(world, player, xPos, yPos, zPos, meta);
+                                            block.onBlockHarvested(world, x, y, z, meta, player);
+                                            onBlockDestroyed(stack, world, localblockID, xPos, yPos, zPos, player);
                                         }
+                                        world.setBlockToAir(xPos, yPos, zPos);
+                                        breakTree(world, xPos, yPos, zPos, stack, tags, bID, meta, player);
                                     }
-                                }*/
+                                    /*else
+                                    {
+                                        Block leaves = Block.blocksList[localID];
+                                        if (leaves != null && leaves.isLeaves(world, xPos, yPos, zPos))
+                                        {
+                                            world.setBlockToAir(xPos, yPos, zPos);
+                                            if (!player.capabilities.isCreativeMode)
+                                            {
+                                                Block.blocksList[bID].harvestBlock(world, player, xPos, yPos, zPos, meta);
+                                                onBlockDestroyed(stack, world, bID, xPos, yPos, zPos, player);
+                                            }
+                                        }
+                                    }*/
+                                }
                             }
                         }
                     }

@@ -60,6 +60,7 @@ public class PHConstruct
         enableTBone = config.get("Difficulty Changes", "Enable mod bone tools", true).getBoolean(true);
         craftMetalTools = config.get("Difficulty Changes", "Craft metals with Wood Patterns", false).getBoolean(false);
         vanillaMetalBlocks = config.get("Difficulty Changes", "Craft vanilla metal blocks", true).getBoolean(true);
+        lavaFortuneInteraction = config.get("Difficulty Changes", "Enable Auto-Smelt and Fortune interaction", true).getBoolean(true);
 
         blueSlime = config.get("Mob Spawning", "Activate Blue Slime Spawns", true).getBoolean(true);
         blueSlimeWeight = config.get("Mob Spawning", "Spawn Weight for Blue Slime", 7).getInt(7);
@@ -505,4 +506,5 @@ public class PHConstruct
     public static boolean beginnerBook;
     
     public static boolean gregtech;
+    public static boolean lavaFortuneInteraction;
 }

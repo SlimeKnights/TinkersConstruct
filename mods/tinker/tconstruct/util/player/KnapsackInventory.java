@@ -2,6 +2,8 @@ package mods.tinker.tconstruct.util.player;
 
 import java.lang.ref.WeakReference;
 
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -163,6 +165,25 @@ public class KnapsackInventory implements IInventory
                 player.dropPlayerItemWithRandomChoice(this.inventory[i], true);
                 this.inventory[i] = null;
             }
-        }  
+        }
+    }
+    
+    public void unequipItems ()
+    {
+        EntityPlayer player = parent.get();
+        for (int i = 0; i < inventory.length; ++i)
+        {
+            if (this.inventory[i] != null)
+            {
+                dropItemEntity(player, inventory[i]);
+                this.inventory[i] = null;
+            }
+        }
+    }
+    
+    void dropItemEntity (Entity dropper, ItemStack dropStack)
+    {
+        EntityItem entityitem = new EntityItem(dropper.worldObj, dropper.posX, dropper.posY, dropper.posZ, dropStack);
+        dropper.worldObj.spawnEntityInWorld(entityitem);
     }
 }

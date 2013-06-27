@@ -8,6 +8,7 @@ import mods.tinker.tconstruct.library.tools.AbilityHelper;
 import mods.tinker.tconstruct.library.tools.HarvestTool;
 import mods.tinker.tconstruct.library.tools.ToolCore;
 import mods.tinker.tconstruct.library.tools.Weapon;
+import mods.tinker.tconstruct.util.PHConstruct;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -67,7 +68,7 @@ public class TActiveOmniMod extends ActiveToolMod
 
         if (tags.getBoolean("Lava") && block.quantityDropped(meta, 0, random) != 0)
         {
-            ItemStack smeltStack = new ItemStack(block.idDropped(meta, random, 0), 1, block.damageDropped(meta));
+            ItemStack smeltStack = new ItemStack(block.idDropped(meta, random, 0), block.quantityDropped(meta, 0, random), block.damageDropped(meta));
             if (smeltStack.itemID < 0 || smeltStack.itemID >= 32000 || smeltStack.getItem() == null)
                 return false;
             ItemStack result = FurnaceRecipes.smelting().getSmeltingResult(smeltStack);
@@ -79,7 +80,7 @@ public class TActiveOmniMod extends ActiveToolMod
                 if (!world.isRemote)
                 {
                     ItemStack spawnme = result.copy();
-                    if (!(result.getItem() instanceof ItemBlock))
+                    if (!(result.getItem() instanceof ItemBlock) && PHConstruct.lavaFortuneInteraction)
                     {
                         int loot = EnchantmentHelper.getEnchantmentLevel(Enchantment.fortune.effectId, stack);
                         if (loot > 0)
@@ -120,7 +121,7 @@ public class TActiveOmniMod extends ActiveToolMod
                         entity.worldObj.spawnEntityInWorld(new EntityXPOrb(world, x, y + 0.5, z, j));
                     }
                 }
-                for (int i = 0; i < 6; i++)
+                for (int i = 0; i < 5; i++)
                 {
                     float f = (float) x + random.nextFloat();
                     float f1 = (float) y + random.nextFloat();

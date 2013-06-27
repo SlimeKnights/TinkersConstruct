@@ -36,6 +36,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.event.Event.Result;
 import net.minecraftforge.event.ForgeSubscribe;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.event.entity.player.FillBucketEvent;
@@ -266,6 +267,21 @@ public class TEventHandler
                 }
             }
 
+            /*if (!player.worldObj.getGameRules().getGameRuleBooleanValue("keepInventory"))
+            {
+                TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
+                stats.armor.dropItems();
+                stats.knapsack.dropItems();
+            }*/
+        }
+    }
+
+    @ForgeSubscribe
+    public void onLivingDeath (LivingDeathEvent event)
+    {
+        if (event.entityLiving instanceof EntityPlayer)
+        {
+            EntityPlayer player = (EntityPlayer) event.entityLiving;
             if (!player.worldObj.getGameRules().getGameRuleBooleanValue("keepInventory"))
             {
                 TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
@@ -320,18 +336,6 @@ public class TEventHandler
         int worldID = chunk.worldObj.provider.dimensionId;
         ValueCoordTuple coord = new ValueCoordTuple(worldID, chunk.xPosition, chunk.zPosition);
         TheftValueTracker.crystallinity.put(coord, event.getData().getInteger("TConstruct.Crystallinity"));
-
-        /*ValueCoordTuple coord = new ValueCoordTuple(event.getChunk().xPosition, event.getChunk().zPosition);
-        int worldID = event.getChunk().worldObj.provider.dimensionId;
-        int crystal = event.getData().getInteger("TConstruct.Crystallinity");
-
-        HashMap<ValueCoordTuple, Integer> crystalMap = TheftValueTracker.crystallinity.get(worldID);
-        if (crystalMap == null)
-        {
-            crystalMap = new HashMap<ValueCoordTuple, Integer>();
-            TheftValueTracker.crystallinity.put(worldID, crystalMap);
-        }
-        crystalMap.put(coord, crystal);*/
     }
 
     @ForgeSubscribe
@@ -349,20 +353,6 @@ public class TEventHandler
                 TheftValueTracker.crystallinity.remove(worldID);
             }
         }
-        
-        /*ValueCoordTuple coord = new ValueCoordTuple(event.getChunk().xPosition, event.getChunk().zPosition);
-        int worldID = event.getChunk().worldObj.provider.dimensionId;
-        HashMap<ValueCoordTuple, Integer> crystalMap = TheftValueTracker.crystallinity.get(worldID);
-        
-        if (crystalMap.containsKey(coord))
-        {
-            int crystal = crystalMap.get(coord);
-            event.getData().setInteger("TConstruct.Crystallinity", crystal);
-            if (!event.getChunk().isChunkLoaded)
-            {
-                TheftValueTracker.crystallinity.remove(worldID);
-            }
-        }*/
     }
 
     /* Ore Dictionary */

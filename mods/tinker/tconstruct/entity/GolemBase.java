@@ -130,7 +130,7 @@ public class GolemBase extends EntityCreature implements IInventory
         if (stack == null)
             target.attackEntityFrom(DamageSource.causeMobDamage(this), baseAttack);
 
-        if (stack.getItem() instanceof ToolCore)
+        else if (stack.getItem() instanceof ToolCore)
         {
             if (stack.hasTagCompound())
             {
