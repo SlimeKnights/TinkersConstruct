@@ -52,6 +52,12 @@ public class LavaTankBlock extends BlockContainer
             this.icons[i] = iconRegister.registerIcon("tinker:" + textureNames[i]);
         }
     }
+    
+    @Override
+    public int getRenderBlockPass ()
+    {
+        return 1;
+    }
 
     @Override
     public boolean isOpaqueCube ()

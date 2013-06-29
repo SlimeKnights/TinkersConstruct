@@ -144,7 +144,7 @@ public class LumberAxe extends HarvestTool
     {
         World world = player.worldObj;
         final int woodID = world.getBlockId(x, y, z);
-        Block wood = Block.blocksList[woodID];
+        final Block wood = Block.blocksList[woodID];
         if (wood.isWood(world, x, y, z))
         {
             int height = y;

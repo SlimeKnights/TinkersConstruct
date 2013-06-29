@@ -72,22 +72,22 @@
   <entry key="block.brick.endstone.name">Endstone Brick</entry>
   <entry key="block.brick.obsidian.ingot.name">Obsidian Brick</entry>
   
-  <entry key="block.fancybrick.obsidian.name">Obsidian Fancy Brick</entry>
-  <entry key="block.fancybrick.sandstone.name">Sandstone Fancy Brick</entry>
-  <entry key="block.fancybrick.netherrack.name">Netherrack Fancy Brick</entry>
-  <entry key="block.fancybrick.iron.name">Iron Fancy Brick</entry>
-  <entry key="block.fancybrick.gold.name">Gold Fancy Brick</entry>
-  <entry key="block.fancybrick.diamond.name">Diamond Fancy Brick</entry>
-  <entry key="block.fancybrick.lapis.name">Lapis Fancy Brick</entry>
-  <entry key="block.fancybrick.stone.refined.name">Polished Stone Fancy Brick</entry>
-  <entry key="block.fancybrick.redstone.name">Redstone Fancy Brick</entry>
-  <entry key="block.fancybrick.bone.name">Bone Fancy Brick</entry>
-  <entry key="block.fancybrick.slime.name">Slime Fancy Brick</entry>
-  <entry key="block.fancybrick.blueslime.name">Slime Fancy Brick</entry>
-  <entry key="block.fancybrick.endstone.name">Endstone Fancy Brick</entry>
-  <entry key="block.fancybrick.obsidian.ingot.name">Obsidian Fancy Brick</entry>
+  <entry key="block.fancybrick.obsidian.name">Fancy Obsidian Brick</entry>
+  <entry key="block.fancybrick.sandstone.name">Fancy Sandstone Brick</entry>
+  <entry key="block.fancybrick.netherrack.name">Fancy Netherrack Brick</entry>
+  <entry key="block.fancybrick.iron.name">Fancy Iron Brick</entry>
+  <entry key="block.fancybrick.gold.name">Fancy Gold Brick</entry>
+  <entry key="block.fancybrick.diamond.name">Fancy Diamond Brick</entry>
+  <entry key="block.fancybrick.lapis.name">Fancy Lapis Brick</entry>
+  <entry key="block.fancybrick.stone.refined.name">Fancy Polished Stone Brick</entry>
+  <entry key="block.fancybrick.redstone.name">Fancy Redstone Brick</entry>
+  <entry key="block.fancybrick.bone.name">Fancy Bone Brick</entry>
+  <entry key="block.fancybrick.slime.name">Fancy Slime Brick</entry>
+  <entry key="block.fancybrick.blueslime.name">Fancy Slime Brick</entry>
+  <entry key="block.fancybrick.endstone.name">Fancy Endstone Brick</entry>
+  <entry key="block.fancybrick.obsidian.ingot.name">Fancy Obsidian Brick</entry>
   <entry key="block.fancybrick.stone.road.name">Stone Road</entry>
-  <entry key="block.fancybrick.stone.name">Stone Fancy Brick</entry>
+  <entry key="block.fancybrick.stone.name">Fancy Stone Brick</entry>
   
   <entry key="item.oreberry.iron.name">Iron Oreberry</entry>
   <entry key="item.oreberry.gold.name">Gold Oreberry</entry>
@@ -130,9 +130,21 @@
   <entry key="Smeltery.Controller.name">Smeltery Controller</entry>
   <entry key="Smeltery.Drain.name">Smeltery Drain</entry>
   <entry key="Smeltery.Brick.name">Seared Bricks</entry>
+  <entry key="Smeltery.Stone.name">Seared Stone</entry>
+  <entry key="Smeltery.Cobblestone.name">Seared Cobblestone</entry>
+  <entry key="Smeltery.Paver.name">Seared Paver</entry>
+  <entry key="Smeltery.Brick.Cracked.name">Cracked Seared Bricks</entry>
+  <entry key="Smeltery.Road.name">Seared Road</entry>
+  <entry key="Smeltery.Brick.Fancy.name">Fancy Seared Bricks</entry>
+  <entry key="Smeltery.Brick.Square.name">Chiseled Seared Bricks</entry>
+  <entry key="Smeltery.Brick.Creeper.name">Chiseled Seared Bricks</entry>
+  
   <entry key="LavaTank.Tank.name">Lava Tank</entry>
   <entry key="LavaTank.Gague.name">Seared Glass</entry>
   <entry key="LavaTank.Window.name">Seared Window</entry>
+  
+  <entry key="block.drawbridge.name">Drawbridge</entry>
+  <entry key="block.firestarter.name">Igniter</entry>
   
   <entry key="StorageMetals.Cobalt.name">Block of Cobalt</entry>
   <entry key="StorageMetals.Ardite.name">Block of Ardite</entry>
@@ -145,7 +157,28 @@
   <entry key="StorageMetals.Alumite.name">Block of Alumite</entry>
   <entry key="StorageMetals.Steel.name">Block of Steel</entry>
   
+  <entry key="block.glass.pure.name">Clear Glass</entry>
+  <entry key="block.glass.soul.name">Soul Glass</entry>
+  <entry key="block.glass.soul.pure.name">Clear Soul Glass</entry>
+  
   <entry key="tile.decoration.stonetorch.name">Torch</entry>
+  
+  <entry key="block.stainedglass.white.name">White Stained Glass</entry>
+  <entry key="block.stainedglass.orange.name">Orange Stained Glass</entry>
+  <entry key="block.stainedglass.magenta.name">Magenta Stained Glass</entry>
+  <entry key="block.stainedglass.lightblue.name">Light Blue Stained Glass</entry>
+  <entry key="block.stainedglass.yellow.name">Yellow Stained Glass</entry>
+  <entry key="block.stainedglass.lime.name">Lime Stained Glass</entry>
+  <entry key="block.stainedglass.pink.name">Pink Stained Glass</entry>
+  <entry key="block.stainedglass.gray.name">Gray Stained Glass</entry>
+  <entry key="block.stainedglass.lightgray.name">Light Gray Stained Glass</entry>
+  <entry key="block.stainedglass.cyan.name">Cyan Stained Glass</entry>
+  <entry key="block.stainedglass.purple.name">Purple Stained Glass</entry>
+  <entry key="block.stainedglass.blue.name">Blue Stained Glass</entry>
+  <entry key="block.stainedglass.brown.name">Brown Stained Glass</entry>
+  <entry key="block.stainedglass.green.name">Green Stained Glass</entry>
+  <entry key="block.stainedglass.red.name">Red Stained Glass</entry>
+  <entry key="block.stainedglass.black.name">Black Stained Glass</entry>
   
   <entry key="item.tconstruct.storage.knapsack.name">Knapsack</entry>  
   <entry key="item.tconstruct.blankpattern.pattern.name">Blank Pattern</entry>
@@ -168,6 +201,10 @@
   <entry key="item.tconstruct.bucket.Alumite.name">Liquid Alumite Bucket</entry>
   <entry key="item.tconstruct.bucket.Obsidian.name">Liquid Obsidian Bucket</entry>
   <entry key="item.tconstruct.bucket.Steel.name">Liquid Steel Bucket</entry>
+  <entry key="item.tconstruct.bucket.Glass.name">Liquid Glass Bucket</entry>
+  <entry key="item.tconstruct.bucket.Stone.name">Seared Stone Bucket</entry>
+  <entry key="item.tconstruct.bucket.Villager.name">Liquid Emerald Bucket</entry>
+  <entry key="item.tconstruct.bucket.Cow.name">Bucket o' Blood</entry>
   
   <entry key="LiquidMetal.Iron.name">Liquid Iron</entry>
   <entry key="LiquidMetal.Gold.name">Liquid Gold</entry>
@@ -205,5 +242,10 @@
   <entry key="entity.TConstruct.UnstableCreeper">Nitro Creeper</entry>
   
   <entry key="key.tarmor">Armor Gui</entry>
+  
+  <entry key="death.one.smeltery">%1$s transformed into Soylent Green</entry>
+  <entry key="death.two.smeltery">%1$s has fused with the Smeltery</entry>
+  <entry key="death.three.smeltery">%1$s will be a stepping stone for our revolution!</entry>
+  <entry key="death.four.smeltery">%1$s thought swimming in hot liquids was a good idea</entry>
   
 </properties>

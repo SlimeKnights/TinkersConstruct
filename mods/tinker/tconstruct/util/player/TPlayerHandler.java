@@ -79,13 +79,16 @@ public class TPlayerHandler implements IPlayerTracker
         //stats.armor.recalculateSkills(entityplayer, stats);
 
         playerStats.put(entityplayer.username, stats);
-        
+
         if (PHConstruct.gregtech)
         {
             PHConstruct.gregtech = false;
-            entityplayer.addChatMessage("Warning: Cross-mod Exploit Present!");
-            entityplayer.addChatMessage("Solution 1: Disable Reverse Smelting recipes from GregTech.");
-            entityplayer.addChatMessage("Solution 2: Disable Auto-Smelt/Fortune interaction from TConstruct.");
+            if (PHConstruct.lavaFortuneInteraction)
+            {
+                entityplayer.addChatMessage("Warning: Cross-mod Exploit Present!");
+                entityplayer.addChatMessage("Solution 1: Disable Reverse Smelting recipes from GregTech.");
+                entityplayer.addChatMessage("Solution 2: Disable Auto-Smelt/Fortune interaction from TConstruct.");
+            }
         }
 
         //sendSkills(entityplayer, stats);

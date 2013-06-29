@@ -1,8 +1,7 @@
-package mods.tinker.tconstruct.library;
+package mods.tinker.tconstruct.skill;
 
 import java.util.HashMap;
 
-import mods.tinker.tconstruct.skill.Skill;
 
 public class SkillRegistry
 {

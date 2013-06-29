@@ -221,6 +221,8 @@ public class Hammer extends HarvestTool
         if (block == null)
             return super.onBlockStartBreak(stack, x, y, z, player);
 
+        float blockHardness = block.getBlockHardness(world, x, y, z);
+
         boolean validStart = false;
         for (int iter = 0; iter < materials.length; iter++)
         {
@@ -266,8 +268,9 @@ public class Hammer extends HarvestTool
                         block = Block.blocksList[localblockID];
                         meta = world.getBlockMetadata(xPos, yPos, zPos);
                         int hlvl = MinecraftForge.getBlockHarvestLevel(block, meta, getHarvestType());
+                        float localHardness = block == null ? Float.MAX_VALUE : block.getBlockHardness(world, xPos, yPos, zPos);
 
-                        if (hlvl <= tags.getInteger("HarvestLevel"))
+                        if (hlvl <= tags.getInteger("HarvestLevel") && localHardness <= blockHardness)
                         {
                             boolean cancelHarvest = false;
                             for (ActiveToolMod mod : TConstructRegistry.activeModifiers)
@@ -288,7 +291,8 @@ public class Hammer extends HarvestTool
                                             {
                                                 block.harvestBlock(world, player, xPos, yPos, zPos, meta);
                                                 block.onBlockHarvested(world, x, y, z, meta, player);
-                                                onBlockDestroyed(stack, world, localblockID, xPos, yPos, zPos, player);
+                                                if (blockHardness > 0f)
+                                                    onBlockDestroyed(stack, world, localblockID, xPos, yPos, zPos, player);
                                             }
                                             world.setBlockToAir(xPos, yPos, zPos);
                                             blockID = localblockID;
@@ -305,13 +309,13 @@ public class Hammer extends HarvestTool
             world.playAuxSFX(2001, x, y, z, blockID + (meta << 12));
         return true;
     }
-    
+
     @Override
     public float getStrVsBlock (ItemStack stack, Block block, int meta)
     {
         if (!stack.hasTagCompound())
             return 1.0f;
-        
+
         NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
         if (tags.getBoolean("Broken"))
             return 0.1f;
@@ -328,13 +332,13 @@ public class Hammer extends HarvestTool
                     mineSpeed += tags.getInteger("MiningSpeed2");
                     heads++;
                 }
-                
+
                 if (tags.hasKey("MiningSpeedHandle"))
                 {
                     mineSpeed += tags.getInteger("MiningSpeedHandle");
                     heads++;
                 }
-                
+
                 if (tags.hasKey("MiningSpeedExtra"))
                 {
                     mineSpeed += tags.getInteger("MiningSpeedExtra");

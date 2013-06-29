@@ -5,13 +5,13 @@ import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
-public class CrystalModel extends ModelBase
+public class CrystalModelSmall extends ModelBase
 {
 	ModelRenderer body;
 	ModelRendererTurbo top;
 	ModelRendererTurbo bottom;
 
-	public CrystalModel()
+	public CrystalModelSmall()
 	{
 		textureWidth = 32;
 		textureHeight = 32;

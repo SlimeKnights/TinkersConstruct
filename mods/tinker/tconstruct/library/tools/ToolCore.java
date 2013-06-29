@@ -578,7 +578,11 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
     @Override
     public boolean onBlockDestroyed (ItemStack itemstack, World world, int blockID, int x, int y, int z, EntityLiving player)
     {
-        return AbilityHelper.onBlockChanged(itemstack, world, blockID, x, y, z, player, random);
+        if ((double)Block.blocksList[blockID].getBlockHardness(world, x, y, z) != 0.0D)
+        {
+            return AbilityHelper.onBlockChanged(itemstack, world, blockID, x, y, z, player, random);
+        }
+        return true;
     }
 
     @Override

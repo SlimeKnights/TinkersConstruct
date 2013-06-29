@@ -151,8 +151,8 @@ public class Scythe extends Weapon
     public boolean onBlockStartBreak (ItemStack stack, int x, int y, int z, EntityPlayer player)
     {
         World world = player.worldObj;
-        int blockID = 0;
-        int meta = 0;
+        final int blockID = world.getBlockId(x, y, z);
+        final int meta = world.getBlockMetadata(x, y, z);
         if (!stack.hasTagCompound())
             return false;
         NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
@@ -181,22 +181,14 @@ public class Scythe extends Weapon
                                 {
                                     if (materials[iter] == block.blockMaterial)
                                     {
-                                        meta = world.getBlockMetadata(xPos, yPos, zPos);
-                                        /*world.setBlockToAir(xPos, yPos, zPos);
+                                        int localMeta = world.getBlockMetadata(xPos, yPos, zPos);
                                         if (!player.capabilities.isCreativeMode)
                                         {
-                                            block.harvestBlock(world, player, xPos, yPos, zPos, meta);
-                                            onBlockDestroyed(stack, world, localblockID, xPos, yPos, zPos, player);
-                                        }
-                                        blockID = localblockID;*/
-                                        if (!player.capabilities.isCreativeMode)
-                                        {
-                                            block.harvestBlock(world, player, xPos, yPos, zPos, meta);
-                                            block.onBlockHarvested(world, x, y, z, meta, player);
+                                            block.harvestBlock(world, player, xPos, yPos, zPos, localMeta);
+                                            block.onBlockHarvested(world, x, y, z, localMeta, player);
                                             onBlockDestroyed(stack, world, localblockID, xPos, yPos, zPos, player);
                                         }
                                         world.setBlockToAir(xPos, yPos, zPos);
-                                        blockID = localblockID;
                                     }
                                 }
                             }

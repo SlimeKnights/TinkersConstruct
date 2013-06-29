@@ -104,6 +104,18 @@ public abstract class InventoryBlock extends BlockContainer
     }
 
     /* Placement */
+    
+
+    public int onBlockPlaced(World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int meta)
+    {
+        TileEntity logic = world.getBlockTileEntity(x, y, z);
+        if (logic instanceof IFacingLogic)
+        {
+            IFacingLogic direction = (IFacingLogic) logic;
+            direction.setDirection(side);
+        }
+        return meta;
+    }
 
     @Override
     public void onBlockPlacedBy (World world, int x, int y, int z, EntityLiving entityliving, ItemStack stack)

@@ -41,7 +41,7 @@ import net.minecraftforge.event.entity.player.UseHoeEvent;
 
 public class AbilityHelper
 {
-    static Random random = new Random();
+    public static Random random = new Random();
 
     /* Normal interactions */
     public static boolean onBlockChanged (ItemStack stack, World world, int bID, int x, int y, int z, EntityLiving player, Random random)
@@ -143,9 +143,12 @@ public class AbilityHelper
                 {
                     boolean criticalHit = player.fallDistance > 0.0F && !player.onGround && !player.isOnLadder() && !player.isInWater() && !player.isPotionActive(Potion.blindness)
                             && player.ridingEntity == null && entity instanceof EntityLiving;
-
-                    if (tool == TContent.cutlass && random.nextInt(10) == 0)
-                        criticalHit = true;
+                    
+                    for (ActiveToolMod mod : TConstructRegistry.activeModifiers)
+                    {
+                        if (mod.doesCriticalHit(tool, tags, toolTags, stack, player, entity))
+                            criticalHit = true;
+                    }
 
                     if (criticalHit)
                     {

@@ -1,6 +1,7 @@
 package mods.tinker.tconstruct.blocks.logic;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import mods.tinker.tconstruct.common.TContent;
@@ -11,9 +12,12 @@ import mods.tinker.tconstruct.library.util.CoordTuple;
 import mods.tinker.tconstruct.library.util.IActiveLogic;
 import mods.tinker.tconstruct.library.util.IFacingLogic;
 import mods.tinker.tconstruct.library.util.IMasterLogic;
+import mods.tinker.tconstruct.util.SmelteryDamageSource;
 import net.minecraft.block.Block;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
@@ -23,6 +27,8 @@ import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
@@ -185,6 +191,12 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     {
         return ForgeDirection.VALID_DIRECTIONS[direction];
     }
+    
+    @Override
+    public void setDirection (int side)
+    {
+        
+    }
 
     @Override
     public void setDirection (float yaw, float pitch, EntityLiving player)
@@ -256,9 +268,8 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         if (tick % 4 == 0)
             heatItems();
 
-        if (tick == 20)
+        if (tick % 20 == 0)
         {
-            tick = 0;
             if (!validStructure)
                 checkValidPlacement();
 
@@ -275,6 +286,80 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                 needsUpdate = false;
                 worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
             }
+        }
+
+        if (tick == 60)
+        {
+            tick = 0;
+            if (validStructure)
+                detectEntities();
+        }
+    }
+
+    void detectEntities ()
+    {
+        AxisAlignedBB box = AxisAlignedBB.getAABBPool().getAABB(centerPos.x, centerPos.y, centerPos.z, centerPos.x + 1.0D, centerPos.y + 1.0D, centerPos.z + 1.0D).expand(1.0D, 0.0D, 1.0D);
+
+        List list = worldObj.getEntitiesWithinAABB(Entity.class, box);
+        for (Object o : list)
+        {
+            if (o instanceof EntityVillager)
+            {
+                EntityVillager villager = (EntityVillager) o;
+                if (villager.attackEntityFrom(new SmelteryDamageSource(), 1))
+                {
+                    if (currentLiquid + 8 < maxLiquid)
+                    {
+                        int amount = villager.isChild() ? 4 : 8;
+                        this.addMoltenMetal(new LiquidStack(TContent.liquidMetalStill.blockID, amount, 15), false);
+                    }
+                }
+            }
+            else if (o instanceof EntityLiving)
+            {
+                EntityLiving living = (EntityLiving) o;
+                if (living.attackEntityFrom(new SmelteryDamageSource(), 1))
+                {
+                    if (currentLiquid + 8 < maxLiquid)
+                    {
+                        int amount = living.isChild() ? 4 : 8;
+                        this.addMoltenMetal(new LiquidStack(TContent.liquidMetalStill.blockID, amount, 16), false);
+                    }
+                }
+            }
+            boolean itemAdded = false;
+            if (o instanceof EntityItem)
+            {
+                EntityItem item = (EntityItem) o;
+                item.age = 0;
+                int position = 0;
+                boolean canContinue = true;
+                do
+                {
+                    if (inventory[position] == null)
+                    {
+                        ItemStack stack = item.getEntityItem();
+                        if (stack.stackSize > 0)
+                        {
+                            itemAdded = true;
+                            this.setInventorySlotContents(position, stack.copy());
+                            stack.stackSize--;
+                            this.onInventoryChanged();
+                            //worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+                        }
+                        if (stack.stackSize < 1)
+                        {
+                            canContinue = false;
+                            item.attackEntityFrom(DamageSource.magic, 1000);
+                        }
+                    }
+                    position++;
+                    if (position == inventory.length)
+                        canContinue = false;
+                } while (canContinue);
+            }
+            if (itemAdded)
+                this.needsUpdate = true;
         }
     }
 
@@ -745,7 +830,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         {
             for (int zPos = z - 1; zPos <= z + 1; zPos++)
             {
-                if (worldObj.getBlockId(xPos, y, zPos) == TContent.smeltery.blockID && (worldObj.getBlockMetadata(xPos, y, zPos) == 2))
+                if (worldObj.getBlockId(xPos, y, zPos) == TContent.smeltery.blockID && (worldObj.getBlockMetadata(xPos, y, zPos) >= 2))
                     bottomBricks++;
             }
         }

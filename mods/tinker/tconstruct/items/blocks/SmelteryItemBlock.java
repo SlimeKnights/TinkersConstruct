@@ -8,7 +8,7 @@ public class SmelteryItemBlock extends ItemBlock
 {
     public static final String blockType[] =
     {
-        "Controller", "Drain", "Brick", "Gague", "Window"
+        "Controller", "Drain", "Brick", "Furnace", "Stone", "Cobblestone", "Paver", "Brick.Cracked", "Road", "Brick.Fancy", "Brick.Square"
     };
 
     public SmelteryItemBlock(int id)

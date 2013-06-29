@@ -145,9 +145,11 @@ public class Excavator extends HarvestTool
         Block block = Block.blocksList[blockID];
         if (!stack.hasTagCompound())
             return false;
-        
+
         if (block == null)
             return super.onBlockStartBreak(stack, x, y, z, player);
+
+        float blockHardness = block.getBlockHardness(world, x, y, z);
 
         boolean validStart = false;
         for (int iter = 0; iter < materials.length; iter++)
@@ -194,8 +196,9 @@ public class Excavator extends HarvestTool
                         block = Block.blocksList[localblockID];
                         meta = world.getBlockMetadata(xPos, yPos, zPos);
                         int hlvl = MinecraftForge.getBlockHarvestLevel(block, meta, getHarvestType());
+                        float localHardness = block == null ? Float.MAX_VALUE : block.getBlockHardness(world, xPos, yPos, zPos);
 
-                        if (hlvl <= tags.getInteger("HarvestLevel"))
+                        if (hlvl <= tags.getInteger("HarvestLevel") && localHardness <= blockHardness)
                         {
                             boolean cancelHarvest = false;
                             for (ActiveToolMod mod : TConstructRegistry.activeModifiers)
@@ -212,18 +215,12 @@ public class Excavator extends HarvestTool
                                     {
                                         if (materials[iter] == block.blockMaterial)
                                         {
-                                           /*world.setBlockToAir(xPos, yPos, zPos);
-                                            if (!player.capabilities.isCreativeMode)
-                                            {
-                                                block.harvestBlock(world, player, xPos, yPos, zPos, meta);
-                                                onBlockDestroyed(stack, world, localblockID, xPos, yPos, zPos, player);
-                                            }
-                                            blockID = localblockID;*/
                                             if (!player.capabilities.isCreativeMode)
                                             {
                                                 block.harvestBlock(world, player, xPos, yPos, zPos, meta);
                                                 block.onBlockHarvested(world, x, y, z, meta, player);
-                                                onBlockDestroyed(stack, world, localblockID, xPos, yPos, zPos, player);
+                                                if (blockHardness > 0f)
+                                                    onBlockDestroyed(stack, world, localblockID, xPos, yPos, zPos, player);
                                             }
                                             world.setBlockToAir(xPos, yPos, zPos);
                                             blockID = localblockID;

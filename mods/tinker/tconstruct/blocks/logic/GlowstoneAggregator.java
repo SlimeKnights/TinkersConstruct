@@ -45,7 +45,7 @@ public class GlowstoneAggregator extends AggregatorLogic implements IActiveLogic
         if (worldObj.isRemote)
             return;
 
-        if (worldObj.canBlockSeeTheSky(xCoord, yCoord+1, zCoord) && crystalValue < 64)
+        if (worldObj.canBlockSeeTheSky(xCoord, yCoord + 1, zCoord) && crystalValue < 64)
         {
             Block block = Block.blocksList[worldObj.getBlockId(xCoord, yCoord + 1, zCoord)];
             if (block == null || validBlock(block) || block.isAirBlock(worldObj, xCoord, yCoord + 1, zCoord))
@@ -71,7 +71,7 @@ public class GlowstoneAggregator extends AggregatorLogic implements IActiveLogic
                             }
                             else if (crystalValue >= 28)
                             {
-                                if (meta < 3)
+                                if (meta < 2)
                                 {
                                     worldObj.setBlockMetadataWithNotify(xCoord, yCoord + 1, zCoord, 2, 3);
                                     TheftValueTracker.updateCrystallinity(worldObj.provider.dimensionId, xCoord, zCoord, 15); //Total 35
@@ -169,5 +169,29 @@ public class GlowstoneAggregator extends AggregatorLogic implements IActiveLogic
     {
         readCustomNBT(packet.customParam1);
         worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+    }
+
+    public void updateCrystalValue ()
+    {
+        if (crystalValue > 0)
+        {
+            Block block = Block.blocksList[worldObj.getBlockId(xCoord, yCoord + 1, zCoord)];
+            if (block == TContent.lightCrystalBase)
+            {
+                int meta = worldObj.getBlockMetadata(xCoord, yCoord + 1, zCoord);
+                if (meta == 3)
+                    crystalValue = 64;
+                else if (meta == 2)
+                    crystalValue = 28;
+                else if (meta == 1)
+                    crystalValue = 8;
+                else
+                    crystalValue = 1;
+            }
+            else
+            {
+                crystalValue = 0;
+            }
+        }
     }
 }

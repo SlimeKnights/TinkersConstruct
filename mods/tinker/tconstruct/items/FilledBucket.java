@@ -147,7 +147,7 @@ public class FilledBucket extends ItemBucket
 	@Override
 	public void getSubItems(int id, CreativeTabs tab, List list)
     {
-		for (int i = 0; i < 13; i++)
+		for (int i = 0; i < icons.length; i++)
 			list.add(new ItemStack(id, 1, i));
     }
 	
@@ -177,9 +177,8 @@ public class FilledBucket extends ItemBucket
 	}
 	
 	public static final String[] materialNames = new String[] { 
-		"Iron", "Gold", "Copper", "Tin", "Aluminum", "Cobalt", "Ardite", "Bronze", "AlBrass", "Manyullyn", "Alumite", "Obsidian", "Steel",
-		"Manganese", "Heptazion", "DSteel", "Angmallen"};
+		"Iron", "Gold", "Copper", "Tin", "Aluminum", "Cobalt", "Ardite", "Bronze", "AluBrass", "Manyullyn", "Alumite", "Obsidian", "Steel", "Glass", "Stone", "Villager" };
 	
 	public static final String[] textureNames = new String[] { 
-		"iron", "gold", "copper", "tin", "aluminum", "cobalt", "ardite", "bronze", "alubrass", "manyullyn", "alumite", "obsidian", "steel" };
+		"iron", "gold", "copper", "tin", "aluminum", "cobalt", "ardite", "bronze", "alubrass", "manyullyn", "alumite", "obsidian", "steel", "glass", "stone", "villager" };
 }

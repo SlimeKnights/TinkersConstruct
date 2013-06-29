@@ -4,6 +4,7 @@ import java.util.List;
 
 import mods.natura.common.NContent;
 import mods.tinker.tconstruct.client.block.CrystalBlockRender;
+import mods.tinker.tconstruct.common.TContent;
 import mods.tinker.tconstruct.crystal.TheftValueTracker;
 import mods.tinker.tconstruct.library.TConstructRegistry;
 import net.minecraft.block.Block;
@@ -91,6 +92,12 @@ public class LightCrystalBase extends Block
         case 3:
             TheftValueTracker.updateCrystallinity(world.provider.dimensionId, x, z, -60);
             break;
+        }
+        
+        Block block = Block.blocksList[world.getBlockId(x, y-1, z)];
+        if (block == TContent.aggregator)
+        {
+            ((Aggregator)block).updateCrystalValue(world, x, y-1, z);
         }
     }
 }

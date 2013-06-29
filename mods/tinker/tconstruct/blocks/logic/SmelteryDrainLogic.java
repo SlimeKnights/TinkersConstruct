@@ -132,6 +132,12 @@ public class SmelteryDrainLogic extends MultiServantLogic
 		return ForgeDirection.VALID_DIRECTIONS[direction];
 	}
 
+    @Override
+    public void setDirection (int side)
+    {
+        
+    }
+
 	@Override
 	public void setDirection (float yaw, float pitch, EntityLiving player)
 	{

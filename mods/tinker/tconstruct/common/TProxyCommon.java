@@ -26,16 +26,17 @@ public class TProxyCommon implements IGuiHandler
     public static int pchestGuiID = 2;
     public static int pshaperGuiID = 3;
     public static int frypanGuiID = 4;
-	public static int toolForge = 5;
+    public static int toolForge = 5;
     public static int smelteryGuiID = 7;
     public static int glowstoneAggregatorGui = 8;
-    
+    public static int drawbridgeGui = 9;
+
     public static int inventoryGui = 100;
     public static int armorGuiID = 101;
     public static int knapsackGuiID = 102;
-    
+
     public static int manualGuiID = -1;
-    
+
     @Override
     public Object getServerGuiElement (int ID, EntityPlayer player, World world, int x, int y, int z)
     {
@@ -78,13 +79,16 @@ public class TProxyCommon implements IGuiHandler
         return null;
     }
 
-    public void registerTickHandler()
+    public void registerTickHandler ()
     {
         //TickRegistry.registerTickHandler(new TimeTicker(), Side.SERVER);
     }
-    
-	/* Registers any rendering code. Does nothing server-side */
-	public void registerRenderer() {}
+
+    /* Registers any rendering code. Does nothing server-side */
+    public void registerRenderer ()
+    {
+    }
+
     /* Ties an internal name to a visible one. */
     public void addNames ()
     {
@@ -171,17 +175,24 @@ public class TProxyCommon implements IGuiHandler
         LanguageRegistry.addName(TContent.knapsack, "Knapsack");
 
     }
-	
-	public void readManuals() {}
-	
-	public void registerKeys() {}
-	
-	public File getLocation()
-	{
-		return new File(".");
-	}
 
-	public void spawnParticle (String slimeParticle, double xPos, double yPos, double zPos, double velX, double velY, double velZ) {}
+    public void readManuals ()
+    {
+    }
+
+    public void registerKeys ()
+    {
+    }
+
+    public File getLocation ()
+    {
+        return new File(".");
+    }
+
+    public void spawnParticle (String slimeParticle, double xPos, double yPos, double zPos, double velX, double velY, double velZ)
+    {
+    }
+
     public static final String[] shardNames = new String[] { "Wood", "Stone Shard", "Iron Chunk", "Flint Shard", "Cactus Shard", "Bone", "Obsidian Shard", "Netherrack Shard",
             "Slime Crystal Fragment", "Paper", "Cobalt Chunk", "Ardite Chunk", "Manyullyn Chunk", "Copper Chunk", "Bronze Chunk", "Alumite Chunk", "Steel Chunk", "Slime Crystal Fragment" };
 
@@ -200,12 +211,13 @@ public class TProxyCommon implements IGuiHandler
             "SignHead", "LumberHead", "KnifeBlade", "ChiselHead", "ScytheBlade", "LumberHead", "ThickRod", "ThickBinding", "LargeSwordBlade", "LargePlate", "ExcavatorHead", "HammerHead", "FullGuard" };
 
     public static final String[] materialNames = new String[] { " Rod", " Pickaxe Head", " Shovel Head", " Axe Head", " Sword Blade", " Wide Guard", " Hand Guard", " Crossbar", " Binding", " Pan",
-            " Board", " Broad Axe Head", " Knife Blade", " Chisel Head", " Scythe Blade", " Broad Axe Head", " Tough Tool Rod", " Tough Binding", " Large Sword Blade", " Large Plate", " Excavator Head",
-            " Hammer Head", " Full Guard"};
+            " Board", " Broad Axe Head", " Knife Blade", " Chisel Head", " Scythe Blade", " Broad Axe Head", " Tough Tool Rod", " Tough Binding", " Large Sword Blade", " Large Plate",
+            " Excavator Head", " Hammer Head", " Full Guard" };
 
-    public static final String[] patterns = new String[] { "ingot", "rod", "pickaxe", "shovel", "axe", "swordblade", "largeguard", "mediumguard", "crossbar", "binding", "frypan", "sign", "knifeblade", "chisel",
-        "largerod", "toughbinding", "largeplate",  "broadaxe", "scythe", "excavator", "largeblade", "hammerhead", "fullguard"};
+    public static final String[] patterns = new String[] { "ingot", "rod", "pickaxe", "shovel", "axe", "swordblade", "largeguard", "mediumguard", "crossbar", "binding", "frypan", "sign",
+            "knifeblade", "chisel", "largerod", "toughbinding", "largeplate", "broadaxe", "scythe", "excavator", "largeblade", "hammerhead", "fullguard", "jewel" };
 
     public static final String[] patternNames = new String[] { "Ingot", "Tool Rod", "Pickaxe Head", "Shovel Head", "Axe Head", "Sword Blade", "Wide Guard", "Hand Guard", "Crossbar", "Tool Binding",
-            "Pan", "Board", "Knife Blade", "Chisel Head", "Tough Tool Rod", "Tough Binding", "Large Plate", "Broad Axe Head", "Scythe Head", "Broad Shovel Head", "Large Blade", "Hammer Head", "Full Guard" };
+            "Pan", "Board", "Knife Blade", "Chisel Head", "Tough Tool Rod", "Tough Binding", "Large Plate", "Broad Axe Head", "Scythe Head", "Broad Shovel Head", "Large Blade", "Hammer Head",
+            "Full Guard", "Jewel" };
 }

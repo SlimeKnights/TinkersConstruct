@@ -12,8 +12,6 @@ import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
@@ -34,7 +32,7 @@ public abstract class LiquidMetalBase extends Block
     protected LiquidMetalBase(int par1, Material par2Material)
     {
         super(par1, par2Material);
-        textureNames = new String[] { "iron", "gold", "copper", "tin", "aluminum", "cobalt", "ardite", "bronze", "alubrass", "manyullyn", "alumite", "obsidian", "steel", "glass" };
+        textureNames = new String[] { "iron", "gold", "copper", "tin", "aluminum", "cobalt", "ardite", "bronze", "alubrass", "manyullyn", "alumite", "obsidian", "steel", "glass", "stone", "villager", "cow" };
         setLightValue(0.625F);
     }
 
@@ -343,10 +341,13 @@ public abstract class LiquidMetalBase extends Block
      * Returns true if the given side of this block type should be rendered, if the adjacent block is at the given
      * coordinates.  Args: blockAccess, x, y, z, side
      */
-    public boolean shouldSideBeRendered (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
+    public boolean shouldSideBeRendered (IBlockAccess world, int x, int y, int z, int side)
     {
-        Material var6 = par1IBlockAccess.getBlockMaterial(par2, par3, par4);
-        return var6 == this.blockMaterial ? false : (par5 == 1 ? true : (var6 == Material.ice ? false : super.shouldSideBeRendered(par1IBlockAccess, par2, par3, par4, par5)));
+        Material material = world.getBlockMaterial(x, y, z);
+        int blockID = world.getBlockId(x, y, z);
+        if (blockID != TContent.liquidMetalFlowing.blockID && blockID != TContent.liquidMetalStill.blockID)
+            return true;
+        return material == this.blockMaterial ? false : (side == 1 ? true : (material == Material.ice ? false : super.shouldSideBeRendered(world, x, y, z, side)));
     }
 
     /**

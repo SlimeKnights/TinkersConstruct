@@ -47,6 +47,12 @@ public class SearedBlock extends InventoryBlock
 			return null;
 		}
 	}
+    
+    @Override
+    public int getRenderBlockPass ()
+    {
+        return 1;
+    }
 
 	@Override
 	public Integer getGui (World world, int x, int y, int z, EntityPlayer entityplayer)

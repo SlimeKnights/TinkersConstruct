@@ -106,6 +106,8 @@ public class TProxyClient extends TProxyCommon
             return new ToolForgeGui(player.inventory, (ToolForgeLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
         if (ID == glowstoneAggregatorGui)
             return new GlowstoneAggregatorGui(player.inventory, (GlowstoneAggregator) world.getBlockTileEntity(x, y, z), world, x, y, z);
+        if (ID == drawbridgeGui)
+            return new DrawbridgeGui(player.inventory, (DrawbridgeLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
 
         if (ID == manualGuiID)
         {
@@ -234,6 +236,7 @@ public class TProxyClient extends TProxyCommon
         RenderingRegistry.registerBlockHandler(new OreberryRender());
         RenderingRegistry.registerBlockHandler(new BarricadeRender());
         RenderingRegistry.registerBlockHandler(new CrystalBlockRender());
+        RenderingRegistry.registerBlockHandler(new MachineRender());
         //RenderingRegistry.registerBlockHandler(new BrickRender());
         //RenderingRegistry.registerBlockHandler(new BallRepeaterRender());
 
@@ -246,13 +249,12 @@ public class TProxyClient extends TProxyCommon
         RenderingRegistry.registerEntityRenderingHandler(FancyEntityItem.class, new FancyItemRender());
         RenderingRegistry.registerEntityRenderingHandler(BlueSlime.class, new SlimeRender(new ModelSlime(16), new ModelSlime(0), 0.25F));
         RenderingRegistry.registerEntityRenderingHandler(SlimeClone.class, new SlimeCloneRender(new CloneHeadModel(0), new CloneHeadModel(1f), 0.25F));
-        //RenderingRegistry.registerEntityRenderingHandler(GolemBase.class, new GolemRender(0));
 
         RenderingRegistry.registerEntityRenderingHandler(CartEntity.class, new CartRender());
         RenderingRegistry.registerEntityRenderingHandler(DaggerEntity.class, new DaggerRender());
+        RenderingRegistry.registerEntityRenderingHandler(Crystal.class, new CrystalRender());
        // RenderingRegistry.registerEntityRenderingHandler(Skyla.class, new SkylaRender());
         RenderingRegistry.registerEntityRenderingHandler(Automaton.class, new CrystalGuardianRender());
-        //RenderingRegistry.registerEntityRenderingHandler(Automaton.class, new RenderBiped(new ModelBiped(), 0));
         RenderingRegistry.registerEntityRenderingHandler(LaunchedPotion.class, new LaunchedItemRender(Item.potion, 16384));
         //RenderingRegistry.registerEntityRenderingHandler(net.minecraft.entity.player.EntityPlayer.class, new PlayerArmorRender()); // <-- Works, woo!
 

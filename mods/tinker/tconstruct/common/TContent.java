@@ -3,28 +3,142 @@ package mods.tinker.tconstruct.common;
 import java.util.Collection;
 
 import mods.tinker.tconstruct.TConstruct;
-import mods.tinker.tconstruct.blocks.*;
-import mods.tinker.tconstruct.blocks.logic.*;
-import mods.tinker.tconstruct.entity.*;
-import mods.tinker.tconstruct.entity.projectile.*;
-import mods.tinker.tconstruct.items.*;
-import mods.tinker.tconstruct.items.armor.*;
-import mods.tinker.tconstruct.items.blocks.*;
-import mods.tinker.tconstruct.items.tools.*;
+import mods.tinker.tconstruct.blocks.Aggregator;
+import mods.tinker.tconstruct.blocks.EquipBlock;
+import mods.tinker.tconstruct.blocks.GlassBlock;
+import mods.tinker.tconstruct.blocks.GlassBlockStained;
+import mods.tinker.tconstruct.blocks.GravelOre;
+import mods.tinker.tconstruct.blocks.LavaTankBlock;
+import mods.tinker.tconstruct.blocks.LightCrystalBase;
+import mods.tinker.tconstruct.blocks.LiquidMetalFlowing;
+import mods.tinker.tconstruct.blocks.LiquidMetalStill;
+import mods.tinker.tconstruct.blocks.MetalOre;
+import mods.tinker.tconstruct.blocks.MultiBrick;
+import mods.tinker.tconstruct.blocks.MultiBrickFancy;
+import mods.tinker.tconstruct.blocks.OreberryBush;
+import mods.tinker.tconstruct.blocks.RedstoneMachine;
+import mods.tinker.tconstruct.blocks.SearedBlock;
+import mods.tinker.tconstruct.blocks.SmelteryBlock;
+import mods.tinker.tconstruct.blocks.SoilBlock;
+import mods.tinker.tconstruct.blocks.SpeedBlock;
+import mods.tinker.tconstruct.blocks.StoneTorch;
+import mods.tinker.tconstruct.blocks.TMetalBlock;
+import mods.tinker.tconstruct.blocks.ToolForgeBlock;
+import mods.tinker.tconstruct.blocks.ToolStationBlock;
+import mods.tinker.tconstruct.blocks.logic.CastingBasinLogic;
+import mods.tinker.tconstruct.blocks.logic.CastingTableLogic;
+import mods.tinker.tconstruct.blocks.logic.DrawbridgeLogic;
+import mods.tinker.tconstruct.blocks.logic.FaucetLogic;
+import mods.tinker.tconstruct.blocks.logic.FirestarterLogic;
+import mods.tinker.tconstruct.blocks.logic.FrypanLogic;
+import mods.tinker.tconstruct.blocks.logic.GlowstoneAggregator;
+import mods.tinker.tconstruct.blocks.logic.LavaTankLogic;
+import mods.tinker.tconstruct.blocks.logic.LiquidTextureLogic;
+import mods.tinker.tconstruct.blocks.logic.MultiServantLogic;
+import mods.tinker.tconstruct.blocks.logic.PartCrafterLogic;
+import mods.tinker.tconstruct.blocks.logic.PatternChestLogic;
+import mods.tinker.tconstruct.blocks.logic.SmelteryDrainLogic;
+import mods.tinker.tconstruct.blocks.logic.SmelteryLogic;
+import mods.tinker.tconstruct.blocks.logic.StencilTableLogic;
+import mods.tinker.tconstruct.blocks.logic.ToolForgeLogic;
+import mods.tinker.tconstruct.blocks.logic.ToolStationLogic;
+import mods.tinker.tconstruct.entity.Automaton;
+import mods.tinker.tconstruct.entity.BlueSlime;
+import mods.tinker.tconstruct.entity.Crystal;
+import mods.tinker.tconstruct.entity.FancyEntityItem;
+import mods.tinker.tconstruct.entity.SlimeClone;
+import mods.tinker.tconstruct.entity.projectile.DaggerEntity;
+import mods.tinker.tconstruct.items.CraftingItem;
+import mods.tinker.tconstruct.items.DiamondApple;
+import mods.tinker.tconstruct.items.FilledBucket;
+import mods.tinker.tconstruct.items.GoldenHead;
+import mods.tinker.tconstruct.items.Manual;
+import mods.tinker.tconstruct.items.MaterialItem;
+import mods.tinker.tconstruct.items.MetalPattern;
+import mods.tinker.tconstruct.items.OreBerries;
+import mods.tinker.tconstruct.items.Pattern;
+import mods.tinker.tconstruct.items.StrangeFood;
+import mods.tinker.tconstruct.items.TitleIcon;
+import mods.tinker.tconstruct.items.ToolPart;
+import mods.tinker.tconstruct.items.ToolPartHidden;
+import mods.tinker.tconstruct.items.ToolShard;
+import mods.tinker.tconstruct.items.armor.Glove;
+import mods.tinker.tconstruct.items.armor.HeartCanister;
+import mods.tinker.tconstruct.items.armor.Knapsack;
+import mods.tinker.tconstruct.items.armor.TArmorBase;
+import mods.tinker.tconstruct.items.blocks.CraftedSoilItemBlock;
+import mods.tinker.tconstruct.items.blocks.GlassBlockItem;
+import mods.tinker.tconstruct.items.blocks.GravelOreItem;
+import mods.tinker.tconstruct.items.blocks.LavaTankItemBlock;
+import mods.tinker.tconstruct.items.blocks.LightCrystalItem;
+import mods.tinker.tconstruct.items.blocks.LiquidItemBlock;
+import mods.tinker.tconstruct.items.blocks.MetalItemBlock;
+import mods.tinker.tconstruct.items.blocks.MetalOreItemBlock;
+import mods.tinker.tconstruct.items.blocks.MultiBrickFancyItem;
+import mods.tinker.tconstruct.items.blocks.MultiBrickItem;
+import mods.tinker.tconstruct.items.blocks.OreberryBushItem;
+import mods.tinker.tconstruct.items.blocks.OreberryBushSecondItem;
+import mods.tinker.tconstruct.items.blocks.RedstoneMachineItem;
+import mods.tinker.tconstruct.items.blocks.SearedTableItemBlock;
+import mods.tinker.tconstruct.items.blocks.SmelteryItemBlock;
+import mods.tinker.tconstruct.items.blocks.SpeedBlockItem;
+import mods.tinker.tconstruct.items.blocks.StainedGlassClearItem;
+import mods.tinker.tconstruct.items.blocks.ToolForgeItemBlock;
+import mods.tinker.tconstruct.items.blocks.ToolStationItemBlock;
+import mods.tinker.tconstruct.items.tools.BattleSign;
+import mods.tinker.tconstruct.items.tools.Battleaxe;
+import mods.tinker.tconstruct.items.tools.Broadsword;
+import mods.tinker.tconstruct.items.tools.Chisel;
+import mods.tinker.tconstruct.items.tools.Cleaver;
+import mods.tinker.tconstruct.items.tools.Cutlass;
+import mods.tinker.tconstruct.items.tools.Dagger;
+import mods.tinker.tconstruct.items.tools.Excavator;
+import mods.tinker.tconstruct.items.tools.FryingPan;
+import mods.tinker.tconstruct.items.tools.Hammer;
+import mods.tinker.tconstruct.items.tools.Hatchet;
+import mods.tinker.tconstruct.items.tools.Longsword;
+import mods.tinker.tconstruct.items.tools.LumberAxe;
+import mods.tinker.tconstruct.items.tools.Mattock;
+import mods.tinker.tconstruct.items.tools.Pickaxe;
+import mods.tinker.tconstruct.items.tools.PotionLauncher;
+import mods.tinker.tconstruct.items.tools.Rapier;
+import mods.tinker.tconstruct.items.tools.Scythe;
+import mods.tinker.tconstruct.items.tools.Shovel;
 import mods.tinker.tconstruct.library.TConstructRegistry;
 import mods.tinker.tconstruct.library.client.TConstructClientRegistry;
-import mods.tinker.tconstruct.library.crafting.*;
+import mods.tinker.tconstruct.library.crafting.Detailing;
+import mods.tinker.tconstruct.library.crafting.LiquidCasting;
+import mods.tinker.tconstruct.library.crafting.PatternBuilder;
+import mods.tinker.tconstruct.library.crafting.Smeltery;
+import mods.tinker.tconstruct.library.crafting.ToolBuilder;
 import mods.tinker.tconstruct.library.tools.ToolCore;
 import mods.tinker.tconstruct.library.util.IPattern;
-import mods.tinker.tconstruct.modifiers.*;
-import mods.tinker.tconstruct.util.*;
+import mods.tinker.tconstruct.modifiers.ModAntiSpider;
+import mods.tinker.tconstruct.modifiers.ModAttack;
+import mods.tinker.tconstruct.modifiers.ModAutoSmelt;
+import mods.tinker.tconstruct.modifiers.ModBlaze;
+import mods.tinker.tconstruct.modifiers.ModButtertouch;
+import mods.tinker.tconstruct.modifiers.ModDurability;
+import mods.tinker.tconstruct.modifiers.ModElectric;
+import mods.tinker.tconstruct.modifiers.ModExtraModifier;
+import mods.tinker.tconstruct.modifiers.ModInteger;
+import mods.tinker.tconstruct.modifiers.ModLapis;
+import mods.tinker.tconstruct.modifiers.ModPiston;
+import mods.tinker.tconstruct.modifiers.ModRedstone;
+import mods.tinker.tconstruct.modifiers.ModReinforced;
+import mods.tinker.tconstruct.modifiers.ModRepair;
+import mods.tinker.tconstruct.modifiers.ModSmite;
+import mods.tinker.tconstruct.modifiers.TActiveOmniMod;
+import mods.tinker.tconstruct.util.PHConstruct;
+import mods.tinker.tconstruct.util.RecipeRemover;
+import mods.tinker.tconstruct.util.TDispenserBehaviorSpawnEgg;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockDispenser;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialLiquid;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemAppleGold;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
@@ -129,6 +243,8 @@ public class TContent implements IFuelHandler
     public static Block searedBlock;
     public static Block metalBlock;
 
+    public static Block redstoneMachine;
+
     //Decoration
     public static Block stoneTorch;
     public static Block multiBrick;
@@ -140,6 +256,15 @@ public class TContent implements IFuelHandler
 
     //InfiBlocks
     public static Block speedBlock;
+    public static Block glass;
+    public static Block stainedGlass;
+    public static Block stainedGlassClear;
+    public static Block glassPane;
+    public static Block stainedGlassPane;
+    public static Block stainedGlassClearPane;
+    public static Block glassMagicSlab;
+    public static Block stainedGlassMagicSlab;
+    public static Block stainedGlassClearMagicSlab;
 
     //Crystalline
     public static Block aggregator;
@@ -208,7 +333,7 @@ public class TContent implements IFuelHandler
     {
         EntityRegistry.registerModEntity(FancyEntityItem.class, "Fancy Item", 0, TConstruct.instance, 32, 5, true);
         EntityRegistry.registerModEntity(DaggerEntity.class, "Dagger", 1, TConstruct.instance, 32, 5, true);
-        //EntityRegistry.registerModEntity(Crystal.class, "Crystal", 2, TConstruct.instance, 32, 5, true);
+        EntityRegistry.registerModEntity(Crystal.class, "Crystal", 2, TConstruct.instance, 32, 3, true);
         //EntityRegistry.registerModEntity(LaunchedPotion.class, "Launched Potion", 1, TConstruct.instance, 32, 3, true);
         //EntityRegistry.registerModEntity(CartEntity.class, "Small Wagon", 1, TConstruct.instance, 32, 5, true);
 
@@ -312,6 +437,12 @@ public class TContent implements IFuelHandler
         GameRegistry.registerTileEntity(FaucetLogic.class, "Faucet");
         GameRegistry.registerTileEntity(CastingBasinLogic.class, "CastingBasin");
 
+        //Redstone machines
+        redstoneMachine = new RedstoneMachine(PHConstruct.redstoneMachine).setUnlocalizedName("Redstone.Machine");
+        GameRegistry.registerBlock(redstoneMachine, RedstoneMachineItem.class, "Redstone.Machine");
+        GameRegistry.registerTileEntity(DrawbridgeLogic.class, "Drawbridge");
+        GameRegistry.registerTileEntity(FirestarterLogic.class, "Firestarter");
+
         //Traps
         /*landmine = new Landmine(PHConstruct.landmine, 0, EnumMobType.mobs, Material.cactus).setUnlocalizedName("landmine");
         GameRegistry.registerBlock(landmine, "landmine");*/
@@ -363,11 +494,22 @@ public class TContent implements IFuelHandler
         speedBlock = new SpeedBlock(PHConstruct.speedBlock).setUnlocalizedName("SpeedBlock");
         GameRegistry.registerBlock(speedBlock, SpeedBlockItem.class, "SpeedBlock");
 
+        glass = new GlassBlock(PHConstruct.glass).setUnlocalizedName("GlassBlock");
+        glass.stepSound = Block.soundGlassFootstep;
+        GameRegistry.registerBlock(glass, GlassBlockItem.class, "GlassBlock");
+
+        stainedGlassClear = new GlassBlockStained(PHConstruct.stainedGlassClear, "stainedglass_").setUnlocalizedName("GlassBlock.StainedClear");
+        stainedGlassClear.stepSound = Block.soundGlassFootstep;
+        GameRegistry.registerBlock(stainedGlassClear, StainedGlassClearItem.class, "GlassBlock.StainedClear");
+
+        /*public static Block stainedGlass;
+        public static Block stainedGlassClear;*/
+
         aggregator = new Aggregator(PHConstruct.aggregator).setUnlocalizedName("Aggregator");
         aggregator.stepSound = Block.soundMetalFootstep;
         GameRegistry.registerBlock(aggregator, "Aggregator");
         GameRegistry.registerTileEntity(GlowstoneAggregator.class, "GlowstoneAggregator");
-        
+
         lightCrystalBase = new LightCrystalBase(PHConstruct.lightCrystalBase).setUnlocalizedName("LightCrystalBase");
         lightCrystalBase.stepSound = Block.soundGlassFootstep;
         GameRegistry.registerBlock(lightCrystalBase, LightCrystalItem.class, "LightCrystalBase");
@@ -399,7 +541,7 @@ public class TContent implements IFuelHandler
     void registerItems ()
     {
         titleIcon = new TitleIcon(PHConstruct.uselessItem).setUnlocalizedName("tconstruct.titleicon");
-        String[] blanks = new String[] { "blank_pattern", "blank_cast" };
+        String[] blanks = new String[] { "blank_pattern", "blank_cast", "blank_cast" };
         blankPattern = new CraftingItem(PHConstruct.blankPattern, blanks, blanks, "materials/").setUnlocalizedName("tconstruct.Pattern");
 
         materials = new MaterialItem(PHConstruct.materials).setUnlocalizedName("tconstruct.Materials");
@@ -752,11 +894,12 @@ public class TContent implements IFuelHandler
 
         /* Smeltery */
         ItemStack ingotcast = new ItemStack(metalPattern, 1, 0);
+        ItemStack jewelCast = new ItemStack(metalPattern, 1, 23);
 
         LiquidCasting tableCasting = TConstructRegistry.instance.getTableCasting();
         //Blank
         tableCasting.addCastingRecipe(new ItemStack(blankPattern, 1, 1), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 8), 80);
-        tableCasting.addCastingRecipe(new ItemStack(blankPattern, 1, 1), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 1), 80);
+        tableCasting.addCastingRecipe(new ItemStack(blankPattern, 1, 2), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 1), 80);
 
         //Ingots
         tableCasting.addCastingRecipe(new ItemStack(Item.ingotIron), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 0), ingotcast, 80); //Iron
@@ -788,6 +931,11 @@ public class TContent implements IFuelHandler
         tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 10), new LiquidStack(liquidMetalStill.blockID, LiquidContainerRegistry.BUCKET_VOLUME, 10), bucket, true, 10); //alumite
         tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 11), new LiquidStack(liquidMetalStill.blockID, LiquidContainerRegistry.BUCKET_VOLUME, 11), bucket, true, 10);// obsidian
         tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 12), new LiquidStack(liquidMetalStill.blockID, LiquidContainerRegistry.BUCKET_VOLUME, 12), bucket, true, 10); //steel
+        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 13), new LiquidStack(liquidMetalStill.blockID, LiquidContainerRegistry.BUCKET_VOLUME, 13), bucket, true, 10); //glass
+        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 14), new LiquidStack(liquidMetalStill.blockID, LiquidContainerRegistry.BUCKET_VOLUME, 14), bucket, true, 10); //seared stone
+        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 15), new LiquidStack(liquidMetalStill.blockID, LiquidContainerRegistry.BUCKET_VOLUME, 15), bucket, true, 10); //emerald
+
+        tableCasting.addCastingRecipe(new ItemStack(Item.emerald), new LiquidStack(liquidMetalStill.blockID, 320, 15), jewelCast, 80);
 
         liquids = new LiquidStack[] { new LiquidStack(liquidMetalStill.blockID, 1, 0), new LiquidStack(liquidMetalStill.blockID, 1, 2), new LiquidStack(liquidMetalStill.blockID, 1, 5),
                 new LiquidStack(liquidMetalStill.blockID, 1, 6), new LiquidStack(liquidMetalStill.blockID, 1, 9), new LiquidStack(liquidMetalStill.blockID, 1, 7),
@@ -797,12 +945,10 @@ public class TContent implements IFuelHandler
         for (int iter = 0; iter < patternOutputs.length; iter++)
         {
             ItemStack cast = new ItemStack(metalPattern, 1, iter + 1);
-            
-            tableCasting.addCastingRecipe(cast, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 8), new ItemStack(woodPattern, 1, iter+1), true, 50);
-            tableCasting.addCastingRecipe(cast, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue*2, 1), new ItemStack(woodPattern, 1, iter+1), true, 50);
+
             tableCasting.addCastingRecipe(cast, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 8), new ItemStack(patternOutputs[iter], 1, Short.MAX_VALUE), false, 50);
-            tableCasting.addCastingRecipe(cast, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue*2, 1), new ItemStack(patternOutputs[iter], 1, Short.MAX_VALUE), false, 50);
-            
+            tableCasting.addCastingRecipe(cast, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 1), new ItemStack(patternOutputs[iter], 1, Short.MAX_VALUE), false, 50);
+
             for (int iterTwo = 0; iterTwo < liquids.length; iterTwo++)
             {
                 ItemStack metalCast = new ItemStack(patternOutputs[iter], 1, liquidDamage[iterTwo]);
@@ -810,12 +956,10 @@ public class TContent implements IFuelHandler
                         liquids[iterTwo].itemMeta), cast, 50);
             }
         }
-        
+
         ItemStack fullguardCast = new ItemStack(metalPattern, 1, 22);
-        tableCasting.addCastingRecipe(fullguardCast, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 8), new ItemStack(woodPattern, 1, 22), true, 50);
-        tableCasting.addCastingRecipe(fullguardCast, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue*2, 1), new ItemStack(woodPattern, 1, 22), true, 50);
         tableCasting.addCastingRecipe(fullguardCast, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 8), new ItemStack(fullGuard, 1, Short.MAX_VALUE), false, 50);
-        tableCasting.addCastingRecipe(fullguardCast, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue*2, 1), new ItemStack(fullGuard, 1, Short.MAX_VALUE), false, 50);
+        tableCasting.addCastingRecipe(fullguardCast, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 1), new ItemStack(fullGuard, 1, Short.MAX_VALUE), false, 50);
 
         LiquidCasting basinCasting = TConstructRegistry.getBasinCasting();
         basinCasting.addCastingRecipe(new ItemStack(Block.blockIron), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 0), null, true, 100); //Iron
@@ -831,6 +975,8 @@ public class TContent implements IFuelHandler
         basinCasting.addCastingRecipe(new ItemStack(metalBlock, 1, 8), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 10), null, true, 100); //alumite
         basinCasting.addCastingRecipe(new ItemStack(Block.obsidian), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 11), null, true, 100);// obsidian
         basinCasting.addCastingRecipe(new ItemStack(metalBlock, 1, 9), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 12), null, true, 100); //steel
+        basinCasting.addCastingRecipe(new ItemStack(glass, 1, 0), new LiquidStack(liquidMetalStill.blockID, LiquidContainerRegistry.BUCKET_VOLUME, 13), null, true, 100); //glass
+        basinCasting.addCastingRecipe(new ItemStack(smeltery, 1, 4), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 14), null, true, 100); //seared stone
 
         basinCasting.addCastingRecipe(new ItemStack(speedBlock, 1, 0), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue / 9, 3), new ItemStack(Block.gravel), true, 100); //brownstone
 
@@ -846,14 +992,21 @@ public class TContent implements IFuelHandler
         Smeltery.addMelting(new ItemStack(Item.goldNugget, 4), Block.blockGold.blockID, 0, 150, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue / 9, 1));
 
         Smeltery.addMelting(new ItemStack(Item.bucketEmpty), Block.blockIron.blockID, 0, 600, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 3, 0));
-        Smeltery.addMelting(new ItemStack(Item.minecartEmpty), Block.blockIron.blockID, 0, 600, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 5, 0));
+        Smeltery.addMelting(new ItemStack(Item.minecartEmpty), Block.blockIron.blockID, 8, 600, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 5, 0));
         Smeltery.addMelting(new ItemStack(materials, 1, 18), Block.obsidian.blockID, 0, 750, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 11));//obsidian
+
+        Smeltery.addMelting(new ItemStack(blankPattern, 4, 1), metalBlock.blockID, 7, 150, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 8));
+        Smeltery.addMelting(new ItemStack(blankPattern, 4, 2), metalBlock.blockID, 7, 150, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 1));
 
         //Blocks
         Smeltery.addMelting(Block.blockIron, 0, 600, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 0));
         Smeltery.addMelting(Block.blockGold, 0, 400, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 1));
         Smeltery.addMelting(Block.obsidian, 0, 800, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 11));
         Smeltery.addMelting(Block.ice, 0, 75, new LiquidStack(Block.waterStill.blockID, 1000, 0));
+        Smeltery.addMelting(Block.sand, 0, 625, new LiquidStack(liquidMetalStill.blockID, LiquidContainerRegistry.BUCKET_VOLUME, 13));
+        Smeltery.addMelting(Block.glass, 0, 625, new LiquidStack(liquidMetalStill.blockID, LiquidContainerRegistry.BUCKET_VOLUME, 13));
+        Smeltery.addMelting(Block.stone, 0, 800, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue / 18, 14));
+        Smeltery.addMelting(Block.cobblestone, 0, 800, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue / 18, 14));
 
         //Alloys
         Smeltery.addAlloyMixing(new LiquidStack(liquidMetalStill.blockID, 16, 7), new LiquidStack(liquidMetalStill.blockID, 24, 2), new LiquidStack(liquidMetalStill.blockID, 8, 3)); //Bronze
@@ -932,6 +1085,13 @@ public class TContent implements IFuelHandler
         /*chiseling.addDetailing(multiBrick, 14, multiBrickFancy, 14, chisel);
         chiseling.addDetailing(multiBrick, 15, multiBrickFancy, 15, chisel);*/
 
+        chiseling.addDetailing(smeltery, 4, smeltery, 6, chisel);
+        chiseling.addDetailing(smeltery, 6, smeltery, 11, chisel);
+        chiseling.addDetailing(smeltery, 11, smeltery, 2, chisel);
+        chiseling.addDetailing(smeltery, 2, smeltery, 8, chisel);
+        chiseling.addDetailing(smeltery, 8, smeltery, 9, chisel);
+        chiseling.addDetailing(smeltery, 9, smeltery, 10, chisel);
+
         GameRegistry.addRecipe(new ItemStack(toolForge, 1, 0), "bbb", "msm", "m m", 'b', new ItemStack(smeltery, 1, 2), 's', new ItemStack(toolStationWood, 1, 0), 'm', Block.blockIron);
         GameRegistry.addRecipe(new ItemStack(toolForge, 1, 1), "bbb", "msm", "m m", 'b', new ItemStack(smeltery, 1, 2), 's', new ItemStack(toolStationWood, 1, 0), 'm', Block.blockGold);
         GameRegistry.addRecipe(new ItemStack(toolForge, 1, 2), "bbb", "msm", "m m", 'b', new ItemStack(smeltery, 1, 2), 's', new ItemStack(toolStationWood, 1, 0), 'm', Block.blockDiamond);
@@ -956,6 +1116,14 @@ public class TContent implements IFuelHandler
                 "blockAlumite"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(toolForge, 1, 13), "bbb", "msm", "m m", 'b', new ItemStack(smeltery, 1, 2), 's', new ItemStack(toolStationWood, 1, 0), 'm',
                 "blockSteel"));
+
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(redstoneMachine, 1, 0), "aca", "#d#", "#r#", '#', "ingotBronze", 'a', "ingotAluminumBrass", 'c', new ItemStack(blankPattern, 1, 1),
+                'r', new ItemStack(Item.redstone), 'd', new ItemStack(Block.dispenser))); //Drawbridge
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(redstoneMachine, 1, 0), "aca", "#d#", "#r#", '#', "ingotBronze", 'a', "ingotAluminumBrass", 'c', new ItemStack(blankPattern, 1, 2),
+                'r', new ItemStack(Item.redstone), 'd', new ItemStack(Block.dispenser)));
+        
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(redstoneMachine, 1, 1), "aca", "#d#", "#r#", '#', "ingotBronze", 'a', "ingotAluminumBrass", 'c', new ItemStack(heavyPlate, 1, 7),
+                'r', new ItemStack(Item.redstone), 'd', new ItemStack(Item.flintAndSteel))); //Igniter
 
         /* Crafting */
         GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 0), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', Block.workbench);
@@ -1044,8 +1212,16 @@ public class TContent implements IFuelHandler
 
         GameRegistry.addRecipe(new ItemStack(materials, 9, 24), "m", 'm', new ItemStack(materials, 1, 14)); //Aluminum Brass Nugget
 
-        /*OreDictionary.registerOre("ingotAluminumBrass", new ItemStack(materials, 1, 14));
-        OreDictionary.registerOre("nuggetAluminumBrass", new ItemStack(materials, 1, 24));*/
+        //Dyes
+        String[] pattern = { "###", "#m#", "###" };
+        String[] dyeTypes = { "dyeBlack", "dyeRed", "dyeGreen", "dyeBrown", "dyeBlue", "dyePurple", "dyeCyan", "dyeLightGray", "dyeGray", "dyePink", "dyeLime", "dyeYellow", "dyeLightBlue",
+                "dyeMagenta", "dyeOrange", "dyeWhite" };
+        for (int i = 0; i < 16; i++)
+        {
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Block.cloth, 8, i), pattern, 'm', dyeTypes[15 - i], '#', new ItemStack(Block.cloth, 1, Short.MAX_VALUE)));
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(stainedGlassClear, 8, i), pattern, 'm', dyeTypes[15 - i], '#', glass));
+            GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(stainedGlassClear, 1, i), dyeTypes[15 - i], glass));
+        }
 
         //Smeltery
         ItemStack searedBrick = new ItemStack(materials, 1, 2);
@@ -1085,7 +1261,7 @@ public class TContent implements IFuelHandler
             RecipeRemover.removeShapedRecipe(new ItemStack(Block.blockIron));
             RecipeRemover.removeShapedRecipe(new ItemStack(Block.blockGold));
         }
-        
+
         //Ultra hardcore recipes
         String[] surround = { "###", "#m#", "###" };
         if (PHConstruct.goldAppleRecipe)
@@ -1093,7 +1269,7 @@ public class TContent implements IFuelHandler
             RecipeRemover.removeShapedRecipe(new ItemStack(Item.appleGold));
             RecipeRemover.removeShapedRecipe(new ItemStack(Item.goldenCarrot));
             RecipeRemover.removeShapelessRecipe(new ItemStack(Item.speckledMelon));
-            
+
             GameRegistry.addRecipe(new ItemStack(Item.appleGold), surround, '#', new ItemStack(Item.ingotGold), 'm', new ItemStack(Item.appleRed));
             GameRegistry.addRecipe(new ItemStack(Item.goldenCarrot), surround, '#', new ItemStack(Item.ingotGold), 'm', new ItemStack(Item.carrot));
             GameRegistry.addRecipe(new ItemStack(goldHead), surround, '#', new ItemStack(Item.ingotGold), 'm', new ItemStack(Item.skull, 1, 3));
@@ -1198,18 +1374,28 @@ public class TContent implements IFuelHandler
         OreDictionary.registerOre("nuggetSilver", new ItemStack(materials, 1, 23));
         OreDictionary.registerOre("nuggetAluminumBrass", new ItemStack(materials, 1, 24));
 
-        String[] names = new String[] { "Iron", "Gold", "Copper", "Tin", "Aluminum", "Cobalt", "Ardite", "Bronze", "Aluminum Brass", "Manyullyn", "Alumite", "Obsidian", "Steel" };
+        String[] names = new String[] { "Molten Iron", "Molten Gold", "Molten Copper", "Molten Tin", "Molten Aluminum", "Molten Cobalt", "Molten Ardite", "Molten Bronze", "Molten Aluminum Brass",
+                "Molten Manyullyn", "Molten Alumite", "Molten Obsidian", "Molten Steel", "Molten Glass", "Seared Stone", "Liquified Emerald", "Blood" };
         liquidIcons = new LiquidStack[names.length];
         liquidNames = new String[names.length];
         for (int iter = 0; iter < names.length; iter++)
         {
             LiquidStack liquidstack = new LiquidStack(liquidMetalStill.blockID, LiquidContainerRegistry.BUCKET_VOLUME, iter);
-            String name = "Molten " + names[iter];
+            String name = names[iter];
             liquidIcons[iter] = liquidstack;
             liquidNames[iter] = name;
             LiquidDictionary.getOrCreateLiquid(name, liquidstack);
             LiquidContainerRegistry.registerLiquid(new LiquidContainerData(liquidstack, new ItemStack(buckets, 1, iter), new ItemStack(Item.bucketEmpty)));
         }
+
+        String[] glassTypes = { "glassBlack", "glassRed", "glassGreen", "glassBrown", "glassBlue", "glassPurple", "glassCyan", "glassLightGray", "glassGray", "glassPink", "glassLime", "glassYellow",
+                "glassLightBlue", "glassMagenta", "glassOrange", "glassWhite" };
+        for (int i = 0; i < 16; i++)
+        {
+            OreDictionary.registerOre(glassTypes[15 - i], new ItemStack(stainedGlassClear, 1, i));
+        }
+        
+        BlockDispenser.dispenseBehaviorRegistry.putObject(titleIcon, new TDispenserBehaviorSpawnEgg());
 
         //Vanilla stuff
         OreDictionary.registerOre("slimeball", new ItemStack(Item.slimeBall));
@@ -1228,16 +1414,16 @@ public class TContent implements IFuelHandler
         FMLInterModComms.sendMessage("Thaumcraft", "harvestClickableCrop", new ItemStack(oreBerry, 1, 15));
         FMLInterModComms.sendMessage("Thaumcraft", "harvestClickableCrop", new ItemStack(oreBerrySecond, 1, 12));
         FMLInterModComms.sendMessage("Thaumcraft", "harvestClickableCrop", new ItemStack(oreBerrySecond, 1, 13));
-        
+
         /* FORESTRY
          * Edit these strings to change what items are added to the backpacks
          * Format info: "[backpack ID]@[item ID].[metadata or *]:[next item]" and so on
          * Avaliable backpack IDs: forester, miner, digger, hunter, adventurer, builder
          * May add more backpack items later - Spyboticsguy 
          */
-        
-        String builderItems = "builder@" + String.valueOf(stoneTorch.blockID) + ".*";
-        
+
+        String builderItems = "builder@" + String.valueOf(stoneTorch.blockID) + ":*";
+
         FMLInterModComms.sendMessage("Forestry", "add-backpack-items", builderItems);
     }
 

@@ -239,10 +239,10 @@ public class Battleaxe extends HarvestTool
     public boolean onBlockStartBreak (ItemStack stack, int x, int y, int z, EntityPlayer player)
     {
         World world = player.worldObj;
-        int woodID = world.getBlockId(x, y, z);
-        Block wood = Block.blocksList[woodID];
+        final int woodID = world.getBlockId(x, y, z);
+        final Block wood = Block.blocksList[woodID];
         NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
-        int meta = world.getBlockMetadata(x, y, z);
+        final int meta = world.getBlockMetadata(x, y, z);
         for (int yPos = y + 1; yPos < y + 9; yPos++)
         {
             int blockID = world.getBlockId(x, yPos, z);
@@ -250,7 +250,7 @@ public class Battleaxe extends HarvestTool
             if (!(tags.getBoolean("Broken")) && block != null && block.blockMaterial == Material.wood)
             {
                 int localblockID = world.getBlockId(x, yPos, z);
-                meta = world.getBlockMetadata(x, yPos, z);
+                int localMeta = world.getBlockMetadata(x, yPos, z);
                 int hlvl = MinecraftForge.getBlockHarvestLevel(block, meta, getHarvestType());
 
                 if (hlvl <= tags.getInteger("HarvestLevel"))
@@ -266,21 +266,14 @@ public class Battleaxe extends HarvestTool
                     {
                         if (block != null && block.blockMaterial == Material.wood)
                         {
-                            meta = world.getBlockMetadata(x, yPos, z);
-                            /*world.setBlockToAir(x, yPos, z);
+                            localMeta = world.getBlockMetadata(x, yPos, z);
                             if (!player.capabilities.isCreativeMode)
                             {
-                                Block.blocksList[blockID].harvestBlock(world, player, x, yPos, z, meta);
-                                onBlockDestroyed(stack, world, blockID, x, yPos, z, player);
-                            }*/
-                            if (!player.capabilities.isCreativeMode)
-                            {
-                                block.harvestBlock(world, player, x, yPos, z, meta);
-                                block.onBlockHarvested(world, x, y, z, meta, player);
+                                block.harvestBlock(world, player, x, yPos, z, localMeta);
+                                block.onBlockHarvested(world, x, y, z, localMeta, player);
                                 onBlockDestroyed(stack, world, localblockID, x, yPos, z, player);
                             }
                             world.setBlockToAir(x, yPos, z);
-                            blockID = localblockID;
                         }
                     }
                 }

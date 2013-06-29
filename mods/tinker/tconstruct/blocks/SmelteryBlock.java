@@ -55,7 +55,15 @@ public class SmelteryBlock extends InventoryBlock
 			"drain_side",
 			"drain_out",
 			"drain_basin",
-			"searedbrick",	
+			"searedbrick",
+            "searedstone",
+            "searedcobble",
+            "searedpaver",
+            "searedbrickcracked",
+            "searedroad",
+            "searedbrickfancy",
+            "searedbricksquare",
+            "searedcreeper"
 		};
 		
 		return textureNames;
@@ -68,10 +76,17 @@ public class SmelteryBlock extends InventoryBlock
 			int sideTex = side == 3 ? 1 : 0;
 			return icons[sideTex + meta*3];
 		}
-		else
+		else if (meta == 2)
 		{
-			return icons[6];
+		    return icons[6];
 		}
+		else if (meta == 11)
+		{
+		    if (side == 0 || side == 1)
+		        return icons[9];
+		}
+		
+		return icons[3 + meta];
 	}
 
 	public Icon getBlockTexture (IBlockAccess world, int x, int y, int z, int side)
@@ -106,11 +121,24 @@ public class SmelteryBlock extends InventoryBlock
 			else
 				return icons[3];
 		}
-		else //Brick
+		else if (meta == 2)
 		{
-			return icons[6];
+		    return icons[6];
 		}
+        else if (meta == 11)
+        {
+            if (side == 0 || side == 1)
+                return icons[9];
+        }
+		return icons[3 + meta];
+		
 	}
+
+    @Override
+    public int getRenderBlockPass()
+    {
+        return 1;
+    }
 
 	public int damageDropped (int meta)
 	{
@@ -211,9 +239,9 @@ public class SmelteryBlock extends InventoryBlock
 		{
 		case 0:	return new SmelteryLogic();
 		case 1: return new SmelteryDrainLogic();
-		case 2: return new MultiServantLogic();
-		default: return null;
+		case 3: return null; //Furnace
 		}
+		return new MultiServantLogic();
 	}
 
 	@Override
@@ -239,8 +267,9 @@ public class SmelteryBlock extends InventoryBlock
 	@Override
 	public void getSubBlocks (int id, CreativeTabs tab, List list)
 	{
-		for (int iter = 0; iter < 3; iter++)
+		for (int iter = 0; iter < 12; iter++)
 		{
+		    if (iter != 3)
 			list.add(new ItemStack(id, 1, iter));
 		}
 	}

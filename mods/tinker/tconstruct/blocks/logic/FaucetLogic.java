@@ -122,6 +122,12 @@ public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogi
 	{
 		return ForgeDirection.VALID_DIRECTIONS[direction];
 	}
+	
+    @Override
+    public void setDirection (int side)
+    {
+        //direction = (byte) side;
+    }
 
 	@Override
 	public void setDirection (float yaw, float pitch, EntityLiving player)
@@ -253,5 +259,4 @@ public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogi
     {
         return null;
     }
-
 }

@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import mods.tinker.tconstruct.TConstruct;
+import net.minecraft.block.Block;
 import net.minecraftforge.common.Configuration;
 
 public class PHConstruct
@@ -92,6 +93,10 @@ public class PHConstruct
         
         aggregator = config.getBlock("Aggregator", 3221).getInt(3221);
         lightCrystalBase = config.getBlock("Light Crystal", 3222).getInt(3222);
+        glass = config.getBlock("Clear Glass", 3223).getInt(3223);
+        stainedGlass = config.getBlock("Stained Glass", 3224).getInt(3224);
+        stainedGlassClear = config.getBlock("Clear Stained Glass", 3225).getInt(3225);
+        redstoneMachine = config.getBlock("Redstone Machines", 3226).getInt(3226);
 
         /*golemCore = config.getBlock("Golem Core", 1481).getInt(1481);
         golemHead = config.getBlock("Golem Head", 1482).getInt(1482);*/
@@ -288,7 +293,8 @@ public class PHConstruct
     public static int oreSlag;
     public static int oreGravel;
     public static int metalBlock;
-    //public static int axle;
+    
+    public static int redstoneMachine;
 
     public static int golemCore;
     public static int golemHead;
@@ -305,6 +311,9 @@ public class PHConstruct
     
     //InfiBlocks
     public static int speedBlock;
+    public static int glass;
+    public static int stainedGlass;
+    public static int stainedGlassClear;
     
     //Crystalline
     public static int aggregator;

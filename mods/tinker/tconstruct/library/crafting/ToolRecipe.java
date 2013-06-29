@@ -2,7 +2,6 @@ package mods.tinker.tconstruct.library.crafting;
 
 import java.util.LinkedList;
 
-import mods.tinker.tconstruct.common.TContent;
 import mods.tinker.tconstruct.library.TConstructRegistry;
 import mods.tinker.tconstruct.library.tools.ToolCore;
 import net.minecraft.item.Item;

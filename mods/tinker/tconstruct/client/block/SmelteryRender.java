@@ -57,31 +57,6 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
                 for (int i = 0; i < logic.layers; i++)
                 {
                     renderLayer(logic, i * 9, posX, posY + i, posZ, renderer, world);
-                    ItemStack input = logic.getStackInSlot(i);
-                    if (input != null && logic.getTempForSlot(i) > 20)
-                    {
-                        ItemStack blockToRender = Smeltery.getRenderIndex(input);
-                        if (blockToRender != null)
-                        {
-                            float blockHeight = input.stackSize / (float) blockToRender.stackSize;
-                            renderer.setRenderBounds(-0.001F, 0.0F, -0.001F, 1.001F, MathHelper.clamp_float(blockHeight, 0.01F, 1.0F), 1.001F);
-
-                            if (blockToRender.itemID < 4096) //Block
-                            {
-                                Block liquidBlock = Block.blocksList[blockToRender.itemID];
-                                //ForgeHooksClient.bindTexture(liquidBlock.getTextureFile(), 0);
-                                BlockSkinRenderHelper.renderMetadataBlock(liquidBlock, blockToRender.getItemDamage(), posX + i % 3, posY + i / 9, posZ + i / 3, renderer, world);
-                            }
-                            else
-                            //Item
-                            {
-                                Item liquidItem = Item.itemsList[blockToRender.itemID];
-                                //ForgeHooksClient.bindTexture(liquidItem.getTextureFile(), 0);
-                                int metadata = blockToRender.getItemDamage();
-                                BlockSkinRenderHelper.renderFakeBlock(liquidItem.getIconFromDamage(metadata), posX, posY + i / 9, posZ, renderer, world);
-                            }
-                        }
-                    }
                 }
             }
 
@@ -99,24 +74,38 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
                     liquidSize -= countSize;
 
                     float height = countSize > 20000 ? 1.0F : countSize / 20000F;
-                    renderer.setRenderBounds(0, base, 0, 1, height + base, 1);
+                    //renderer.setRenderBounds(0, base, 0, 1, height + base, 1);
+                    float renderBase = base;
+                    float renderHeight = height + base;
                     base += height;
                     liquidBase += countSize;
 
                     if (liquid.itemID < 4096) //Block
                     {
                         Block liquidBlock = Block.blocksList[liquid.itemID];
-                        //ForgeHooksClient.bindTexture(liquidBlock.getTextureFile(), 0);
                         for (int i = 0; i < 9; i++)
+                        {
+                            float minX = i % 3 == 0 ? -0.001F : 0F;
+                            float minZ = i / 3 == 0 ? -0.001F : 0F;
+                            float maxX = i % 3 == 2 ? 1.001F : 1F;
+                            float maxZ = i / 3 == 2 ? 1.001F : 1F;
+                            renderer.setRenderBounds(minX, renderBase, minZ, maxX, renderHeight, maxZ);
                             BlockSkinRenderHelper.renderMetadataBlock(liquidBlock, liquid.itemMeta, posX + i % 3, posY + yBase, posZ + i / 3, renderer, world);
+                        }
                     }
                     else
                     //Item
                     {
                         Item liquidItem = Item.itemsList[liquid.itemID];
-                        //ForgeHooksClient.bindTexture(liquidItem.getTextureFile(), 0);
                         for (int i = 0; i < 9; i++)
+                        {
+                            float minX = i % 3 == 0 ? -0.001F : 0F;
+                            float minZ = i / 3 == 0 ? -0.001F : 0F;
+                            float maxX = i % 3 == 2 ? 1.001F : 1F;
+                            float maxZ = i / 3 == 2 ? 1.001F : 1F;
+                            renderer.setRenderBounds(minX, renderBase, minZ, maxX, renderHeight, maxZ);
                             BlockSkinRenderHelper.renderFakeBlock(liquidItem.getIconFromDamage(liquid.itemMeta), posX, posY + yBase, posZ, renderer, world);
+                        }
                     }
 
                     if (countSize == room)

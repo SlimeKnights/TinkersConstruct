@@ -1,6 +1,6 @@
 package test;
 
-import mods.tinker.tconstruct.entity.Automaton;
+import mods.tinker.tconstruct.entity.Crystal;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -35,8 +35,8 @@ public class XinStick extends Item
 		//if (!world.isRemote)
 			//MinecraftServer.getServer().getConfigurationManager().transferPlayerToDimension((EntityPlayerMP) player, -7);
 		//player.travelToDimension(-7);
-	    Automaton entity = new Automaton(world);
-	    entity.setOwner(player);
+	    Crystal entity = new Crystal(world);
+	    //entity.setOwner(player);
 	    //entity.username = "NekoGloop";
 		spawnEntity(player.posX, player.posY+1, player.posZ, entity, world, player);
 	    //healPlayer(player);

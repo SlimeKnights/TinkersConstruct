@@ -4,7 +4,7 @@ import java.lang.ref.WeakReference;
 
 import mods.tinker.tconstruct.TConstruct;
 import mods.tinker.tconstruct.common.TContent;
-import mods.tinker.tconstruct.library.SkillRegistry;
+import mods.tinker.tconstruct.skill.SkillRegistry;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;

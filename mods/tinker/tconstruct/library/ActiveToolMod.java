@@ -55,4 +55,9 @@ public class ActiveToolMod
     {
     	return false;
     }
+
+    public boolean doesCriticalHit (ToolCore tool, NBTTagCompound tags, NBTTagCompound toolTags, ItemStack stack, EntityLiving player, Entity entity)
+    {
+        return false;
+    }
 }

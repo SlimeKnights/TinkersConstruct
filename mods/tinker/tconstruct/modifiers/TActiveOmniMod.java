@@ -202,4 +202,11 @@ public class TActiveOmniMod extends ActiveToolMod
         }
         return bonus;
     }
+
+    public boolean doesCriticalHit (ToolCore tool, NBTTagCompound tags, NBTTagCompound toolTags, ItemStack stack, EntityLiving player, Entity entity)
+    {
+        if (tool == TContent.cutlass && random.nextInt(10) == 0)
+            return true;
+        return false;
+    }
 }
