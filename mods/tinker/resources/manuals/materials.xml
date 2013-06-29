@@ -555,7 +555,7 @@ Class: Heavy Melee Weapon</text>
 </recipe>
 </page>
 
-<page type="smelting">
+<page type="furnace">
 <text>Slime Crystal</text>
 <recipe>slimecrystal</recipe>
 </page>
@@ -929,7 +929,7 @@ Stackable: Yes</text>
 </recipe>
 </page>
 
-<page type="smelting">
+<page type="furnace">
 <text>Consecrated Soil</text>
 <recipe>consecratedsoil</recipe>
 </page>

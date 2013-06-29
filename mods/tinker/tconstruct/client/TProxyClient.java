@@ -13,6 +13,7 @@ import mods.tinker.tconstruct.client.block.*;
 import mods.tinker.tconstruct.client.entity.*;
 import mods.tinker.tconstruct.client.entity.projectile.*;
 import mods.tinker.tconstruct.client.gui.*;
+import mods.tinker.tconstruct.client.pages.*;
 import mods.tinker.tconstruct.common.*;
 import mods.tinker.tconstruct.entity.*;
 import mods.tinker.tconstruct.entity.projectile.*;
@@ -276,6 +277,7 @@ public class TProxyClient extends TProxyCommon
         smelter = readManual("/mods/tinker/resources/manuals/smeltery.xml", dbFactory);
         initManualIcons();
         initManualRecipes();
+        initManualPages();
     }
 
     Document readManual (String location, DocumentBuilderFactory dbFactory)
@@ -507,6 +509,24 @@ public class TProxyClient extends TProxyCommon
         TConstructClientRegistry.registerManualModifier("tier1free", ironpick.copy(), new ItemStack(Item.diamond), new ItemStack(Block.blockGold));
         TConstructClientRegistry.registerManualModifier("tier2free", ironpick.copy(), new ItemStack(Item.netherStar));
     }
+    
+    void initManualPages()
+    {
+        TConstructClientRegistry.registerManualPage("crafting", CraftingPage.class);
+        TConstructClientRegistry.registerManualPage("picture", PicturePage.class);
+        TConstructClientRegistry.registerManualPage("text", TextPage.class);
+        TConstructClientRegistry.registerManualPage("intro", TextPage.class);
+        TConstructClientRegistry.registerManualPage("sectionpage", SectionPage.class);
+        TConstructClientRegistry.registerManualPage("intro", TitlePage.class);
+        TConstructClientRegistry.registerManualPage("contents", ContentsTablePage.class);
+        TConstructClientRegistry.registerManualPage("furnace", FurnacePage.class);
+        TConstructClientRegistry.registerManualPage("sidebar", SidebarPage.class);
+        TConstructClientRegistry.registerManualPage("materialstats", MaterialPage.class);
+        TConstructClientRegistry.registerManualPage("toolpage", ToolPage.class);
+        TConstructClientRegistry.registerManualPage("modifier", ModifierPage.class);
+        
+        TConstructClientRegistry.registerManualPage("blank", BlankPage.class);
+    }
 
     public static Document getManualFromStack (ItemStack stack)
     {
@@ -578,7 +598,7 @@ public class TProxyClient extends TProxyCommon
             "The Cutter Mattock is a versatile farming tool. It is effective on wood, dirt, and plants.\n\nSpecial Ability: Hoe\n\nRequired parts:\n- Axe Head\n- Shovel Head\n- Handle",
             "The Broadsword is a defensive weapon. Blocking cuts damage in half.\n\nSpecial Ability: Block\nDamage: Moderate\nDurability: High\n\nRequired parts:\n- Sword Blade\n- Wide Guard\n- Handle",
             "The Longsword is an offensive weapon. It is often used for charging into battle at full speed.\n\nNatural Ability:\n- Charge Boost\nSpecial Ability: Lunge\n\nDamage: Moderate\nDurability: Moderate",
-            "The Rapier is a special weapon that relies on quick strikes to defeat foes.\n\nNatural Abilities:\n- Armor Pierce\n- Quick Strike\n- Charge Boost\nSpecial Ability:\n- Backpedal\n\nDamage: High\nDurability: Low",
+            "The Rapier is a special weapon that relies on quick strikes to defeat foes.\n\nNatural Abilities:\n- Armor Pierce\n- Quick Strike\n- Charge Boost\nSpecial Ability:\n- Backpedal\n\nDamage: Low\nDurability: Low",
             "The Dagger is a short blade that can be thrown.\n\nSpecial Ability:\n- Throw Item\n\nDamage: Low\nDurability: Moderate\n\nRequired parts:\n- Knife Blade\n- Crossbar\n- Handle",
             "The Frying is a heavy weapon that uses sheer weight to stun foes.\n\nSpecial Ability: Block\nNatural Ability: Heavy\nShift+rClick: Place Frying Pan\nDamage: Low\nDurability: High\n\nRequired parts:\n- Pan\n- Handle",
             //"The Battlesign is an advance in weapon technology worthy of Zombie Pigmen everywhere.\n\nSpecial Ability: Block\nShift-rClick: Place sign\nDamage: Low\nDurability: Average\n\nRequired parts:\n- Board\n- Handle"
@@ -601,7 +621,7 @@ public class TProxyClient extends TProxyCommon
         addTierTwoButton(4, 10, 0, new int[] { 8, 8, 9, 8 }, new int[] { 2, 3, 3, 3 }, "Scythe",
                 "The Scythe is a broad reaping tool. It is effective on plants and attacks enemies in a wide range.\n\nNatural Ability:\nArea of Effect\n- (3x3x3)\n\nDurability: Average\nDamage: Low, AoE");
         addTierTwoButton(5, 7, 1, new int[] { 6, 8, 9, 8 }, new int[] { 3, 3, 2, 3 }, "Cleaver",
-                "The Cleaver is a heavy defensive weapon. It has powerful strikes, but is difficult to wield.\n\nSpecial Ability: Block\nNatural Ability:\n- Beheading\n\nDamage: Very High\nDurability: Average");
+                "The Cleaver is a heavy defensive weapon. It has powerful strikes, but is difficult to wield.\n\nSpecial Ability: Block\nNatural Ability:\n- Beheading\n\nDamage: High\nDurability: Average");
         addTierTwoButton(5, 8, 1, new int[] { 6, 8, 6, 9 }, new int[] { 2, 3, 2, 3 }, "Battleaxe",
                 "The Battleaxe is a heavy offensive weapon. It is capable of bringing down small trees and can send foes flying.\n\nSpecial Ability: Block\nNatural Abilities:"
                         + "\n- Knockback\n- Area of Effect\n- (1x9)\n\nDamage: Average\nDurability: Average");

@@ -4,7 +4,7 @@ import net.minecraft.entity.Entity;
 
 /** A comprehensive class for 
  * 
- * @author RaustBlackDragon, mDiyo
+ * @author RaustBlackDragon
  */
 
 public interface ISparrow

@@ -47,7 +47,7 @@ The berries can be melted down into nuggets and ingots, making them an invaluabl
 
 <page type="picture">
 <text>Oreberries in their natural environment</text>
-<picture>/mods/tinker/resources/manuals/oreberries.png</picture>
+<location>/mods/tinker/resources/manuals/oreberries.png</location>
 </page>
 
 <page type="crafting">
@@ -112,7 +112,7 @@ Note: The Smeltery is required to process all metals, including iron.</text>
 </recipe>
 </page>
 
-<page type="smelting">
+<page type="furnace">
 <text>Seared Brick</text>
 <recipe>searedbrick</recipe>
 </page>
