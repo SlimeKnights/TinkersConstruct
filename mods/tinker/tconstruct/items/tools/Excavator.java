@@ -140,8 +140,8 @@ public class Excavator extends HarvestTool
     public boolean onBlockStartBreak (ItemStack stack, int x, int y, int z, EntityPlayer player)
     {
         World world = player.worldObj;
-        int blockID = world.getBlockId(x, y, z);
-        int meta = world.getBlockMetadata(x, y, z);
+        final int blockID = world.getBlockId(x, y, z);
+        final int meta = world.getBlockMetadata(x, y, z);
         Block block = Block.blocksList[blockID];
         if (!stack.hasTagCompound())
             return false;
@@ -194,7 +194,7 @@ public class Excavator extends HarvestTool
                     {
                         int localblockID = world.getBlockId(xPos, yPos, zPos);
                         block = Block.blocksList[localblockID];
-                        meta = world.getBlockMetadata(xPos, yPos, zPos);
+                        int localMeta = world.getBlockMetadata(xPos, yPos, zPos);
                         int hlvl = MinecraftForge.getBlockHarvestLevel(block, meta, getHarvestType());
                         float localHardness = block == null ? Float.MAX_VALUE : block.getBlockHardness(world, xPos, yPos, zPos);
 
@@ -217,13 +217,12 @@ public class Excavator extends HarvestTool
                                         {
                                             if (!player.capabilities.isCreativeMode)
                                             {
-                                                block.harvestBlock(world, player, xPos, yPos, zPos, meta);
-                                                block.onBlockHarvested(world, x, y, z, meta, player);
+                                                block.harvestBlock(world, player, xPos, yPos, zPos, localMeta);
+                                                block.onBlockHarvested(world, x, y, z, localMeta, player);
                                                 if (blockHardness > 0f)
                                                     onBlockDestroyed(stack, world, localblockID, xPos, yPos, zPos, player);
                                             }
                                             world.setBlockToAir(xPos, yPos, zPos);
-                                            blockID = localblockID;
                                         }
                                     }
                                 }
