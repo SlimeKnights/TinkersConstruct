@@ -7,7 +7,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
-import mods.tinker.tconstruct.common.TContent;
 import mods.tinker.tconstruct.library.ActiveToolMod;
 import mods.tinker.tconstruct.library.TConstructRegistry;
 import mods.tinker.tconstruct.library.util.PiercingEntityDamage;

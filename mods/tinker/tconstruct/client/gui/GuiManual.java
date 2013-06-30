@@ -3,20 +3,14 @@ package mods.tinker.tconstruct.client.gui;
 import mods.tinker.tconstruct.client.RenderItemCopy;
 import mods.tinker.tconstruct.client.TProxyClient;
 import mods.tinker.tconstruct.client.block.SmallFontRenderer;
-import mods.tinker.tconstruct.library.TConstructRegistry;
-import mods.tinker.tconstruct.library.client.BookPage;
-import mods.tinker.tconstruct.library.client.TConstructClientRegistry;
-import mods.tinker.tconstruct.library.crafting.PatternBuilder;
-import mods.tinker.tconstruct.library.tools.ToolMaterial;
+import mods.tinker.tconstruct.client.pages.BookPage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiParticle;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.item.ItemStack;
 
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -110,7 +104,7 @@ public class GuiManual extends GuiScreen
         if (node.getNodeType() == Node.ELEMENT_NODE)
         {
             Element element = (Element) node;
-            Class clazz = TConstructClientRegistry.getPageClass(element.getAttribute("type"));
+            Class clazz = TProxyClient.getPageClass(element.getAttribute("type"));
             if (clazz != null)
             {
                 try
@@ -133,7 +127,7 @@ public class GuiManual extends GuiScreen
         if (node != null && node.getNodeType() == Node.ELEMENT_NODE)
         {
             Element element = (Element) node;
-            Class clazz = TConstructClientRegistry.getPageClass(element.getAttribute("type"));
+            Class clazz = TProxyClient.getPageClass(element.getAttribute("type"));
             if (clazz != null)
             {
                 try

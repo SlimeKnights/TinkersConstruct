@@ -1,4 +1,4 @@
-package mods.tinker.tconstruct.library.client;
+package mods.tinker.tconstruct.client.pages;
 
 import mods.tinker.tconstruct.client.gui.GuiManual;
 

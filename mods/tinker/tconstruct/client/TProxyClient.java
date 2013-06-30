@@ -3,32 +3,97 @@ package mods.tinker.tconstruct.client;
 import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import mods.tinker.tconstruct.TConstruct;
-import mods.tinker.tconstruct.blocks.logic.*;
-import mods.tinker.tconstruct.client.block.*;
-import mods.tinker.tconstruct.client.entity.*;
-import mods.tinker.tconstruct.client.entity.projectile.*;
-import mods.tinker.tconstruct.client.gui.*;
-import mods.tinker.tconstruct.client.pages.*;
-import mods.tinker.tconstruct.common.*;
-import mods.tinker.tconstruct.entity.*;
-import mods.tinker.tconstruct.entity.projectile.*;
-import mods.tinker.tconstruct.library.*;
-import mods.tinker.tconstruct.library.client.*;
-import mods.tinker.tconstruct.library.crafting.*;
-import mods.tinker.tconstruct.library.tools.*;
-import mods.tinker.tconstruct.util.player.*;
-
+import mods.tinker.tconstruct.blocks.logic.CastingBasinLogic;
+import mods.tinker.tconstruct.blocks.logic.CastingTableLogic;
+import mods.tinker.tconstruct.blocks.logic.DrawbridgeLogic;
+import mods.tinker.tconstruct.blocks.logic.FrypanLogic;
+import mods.tinker.tconstruct.blocks.logic.GlowstoneAggregator;
+import mods.tinker.tconstruct.blocks.logic.PartCrafterLogic;
+import mods.tinker.tconstruct.blocks.logic.PatternChestLogic;
+import mods.tinker.tconstruct.blocks.logic.SmelteryLogic;
+import mods.tinker.tconstruct.blocks.logic.StencilTableLogic;
+import mods.tinker.tconstruct.blocks.logic.ToolForgeLogic;
+import mods.tinker.tconstruct.blocks.logic.ToolStationLogic;
+import mods.tinker.tconstruct.client.block.BarricadeRender;
+import mods.tinker.tconstruct.client.block.CastingBasinSpecialRender;
+import mods.tinker.tconstruct.client.block.CastingTableSpecialRenderer;
+import mods.tinker.tconstruct.client.block.CrystalBlockRender;
+import mods.tinker.tconstruct.client.block.FluidRender;
+import mods.tinker.tconstruct.client.block.FrypanRender;
+import mods.tinker.tconstruct.client.block.GolemCoreRender;
+import mods.tinker.tconstruct.client.block.MachineRender;
+import mods.tinker.tconstruct.client.block.OreberryRender;
+import mods.tinker.tconstruct.client.block.SearedRender;
+import mods.tinker.tconstruct.client.block.SmallFontRenderer;
+import mods.tinker.tconstruct.client.block.SmelteryRender;
+import mods.tinker.tconstruct.client.block.TableForgeRender;
+import mods.tinker.tconstruct.client.block.TableRender;
+import mods.tinker.tconstruct.client.block.TankRender;
+import mods.tinker.tconstruct.client.entity.CartRender;
+import mods.tinker.tconstruct.client.entity.CloneHeadModel;
+import mods.tinker.tconstruct.client.entity.CrystalGuardianRender;
+import mods.tinker.tconstruct.client.entity.CrystalRender;
+import mods.tinker.tconstruct.client.entity.FancyItemRender;
+import mods.tinker.tconstruct.client.entity.SlimeCloneRender;
+import mods.tinker.tconstruct.client.entity.SlimeRender;
+import mods.tinker.tconstruct.client.entity.projectile.DaggerRender;
+import mods.tinker.tconstruct.client.entity.projectile.LaunchedItemRender;
+import mods.tinker.tconstruct.client.gui.ArmorExtendedGui;
+import mods.tinker.tconstruct.client.gui.DrawbridgeGui;
+import mods.tinker.tconstruct.client.gui.FrypanGui;
+import mods.tinker.tconstruct.client.gui.GlowstoneAggregatorGui;
+import mods.tinker.tconstruct.client.gui.GuiManual;
+import mods.tinker.tconstruct.client.gui.InventoryTab;
+import mods.tinker.tconstruct.client.gui.KnapsackGui;
+import mods.tinker.tconstruct.client.gui.PartCrafterGui;
+import mods.tinker.tconstruct.client.gui.PatternChestGui;
+import mods.tinker.tconstruct.client.gui.SmelteryGui;
+import mods.tinker.tconstruct.client.gui.StencilTableGui;
+import mods.tinker.tconstruct.client.gui.ToolForgeGui;
+import mods.tinker.tconstruct.client.gui.ToolStationGui;
+import mods.tinker.tconstruct.client.pages.BlankPage;
+import mods.tinker.tconstruct.client.pages.BlockCastPage;
+import mods.tinker.tconstruct.client.pages.BookPage;
+import mods.tinker.tconstruct.client.pages.ContentsTablePage;
+import mods.tinker.tconstruct.client.pages.CraftingPage;
+import mods.tinker.tconstruct.client.pages.FurnacePage;
+import mods.tinker.tconstruct.client.pages.MaterialPage;
+import mods.tinker.tconstruct.client.pages.ModifierPage;
+import mods.tinker.tconstruct.client.pages.PicturePage;
+import mods.tinker.tconstruct.client.pages.SectionPage;
+import mods.tinker.tconstruct.client.pages.SidebarPage;
+import mods.tinker.tconstruct.client.pages.TextPage;
+import mods.tinker.tconstruct.client.pages.TitlePage;
+import mods.tinker.tconstruct.client.pages.ToolPage;
+import mods.tinker.tconstruct.common.TContent;
+import mods.tinker.tconstruct.common.TProxyCommon;
+import mods.tinker.tconstruct.entity.Automaton;
+import mods.tinker.tconstruct.entity.BlueSlime;
+import mods.tinker.tconstruct.entity.CartEntity;
+import mods.tinker.tconstruct.entity.Crystal;
+import mods.tinker.tconstruct.entity.FancyEntityItem;
+import mods.tinker.tconstruct.entity.SlimeClone;
+import mods.tinker.tconstruct.entity.projectile.DaggerEntity;
+import mods.tinker.tconstruct.entity.projectile.LaunchedPotion;
+import mods.tinker.tconstruct.library.TConstructRegistry;
+import mods.tinker.tconstruct.library.client.TConstructClientRegistry;
+import mods.tinker.tconstruct.library.client.ToolGuiElement;
+import mods.tinker.tconstruct.library.crafting.ToolBuilder;
+import mods.tinker.tconstruct.library.tools.ToolCore;
+import mods.tinker.tconstruct.util.player.ArmorExtended;
+import mods.tinker.tconstruct.util.player.KnapsackInventory;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.gui.inventory.GuiInventory;
-import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.model.ModelSlime;
 import net.minecraft.client.particle.EntityAuraFX;
 import net.minecraft.client.particle.EntityBreakingFX;
@@ -57,7 +122,6 @@ import net.minecraft.client.particle.EntitySplashFX;
 import net.minecraft.client.particle.EntitySuspendFX;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.entity.RenderBiped;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.client.settings.KeyBinding;
@@ -67,7 +131,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.liquids.LiquidStack;
 
 import org.lwjgl.opengl.GL11;
 import org.w3c.dom.Document;
@@ -552,24 +615,35 @@ public class TProxyClient extends TProxyCommon
         TConstructClientRegistry.registerManualSmeltery("searedstone", new ItemStack(TContent.smeltery, 1, 4), new ItemStack(TContent.liquidMetalStill, 1, 14), null);
 
     }
+    public static Map<String, Class<? extends BookPage>> pageClasses = new HashMap<String, Class<? extends BookPage>>();
+    
+    public static void registerManualPage(String type, Class<? extends BookPage> clazz)
+    {
+        pageClasses.put(type, clazz);
+    }
+    
+    public static Class<? extends BookPage> getPageClass(String type)
+    {
+        return pageClasses.get(type);
+    }
 
     void initManualPages ()
     {
-        TConstructClientRegistry.registerManualPage("crafting", CraftingPage.class);
-        TConstructClientRegistry.registerManualPage("picture", PicturePage.class);
-        TConstructClientRegistry.registerManualPage("text", TextPage.class);
-        TConstructClientRegistry.registerManualPage("intro", TextPage.class);
-        TConstructClientRegistry.registerManualPage("sectionpage", SectionPage.class);
-        TConstructClientRegistry.registerManualPage("intro", TitlePage.class);
-        TConstructClientRegistry.registerManualPage("contents", ContentsTablePage.class);
-        TConstructClientRegistry.registerManualPage("furnace", FurnacePage.class);
-        TConstructClientRegistry.registerManualPage("sidebar", SidebarPage.class);
-        TConstructClientRegistry.registerManualPage("materialstats", MaterialPage.class);
-        TConstructClientRegistry.registerManualPage("toolpage", ToolPage.class);
-        TConstructClientRegistry.registerManualPage("modifier", ModifierPage.class);
-        TConstructClientRegistry.registerManualPage("blockcast", BlockCastPage.class);
+        TProxyClient.registerManualPage("crafting", CraftingPage.class);
+        TProxyClient.registerManualPage("picture", PicturePage.class);
+        TProxyClient.registerManualPage("text", TextPage.class);
+        TProxyClient.registerManualPage("intro", TextPage.class);
+        TProxyClient.registerManualPage("sectionpage", SectionPage.class);
+        TProxyClient.registerManualPage("intro", TitlePage.class);
+        TProxyClient.registerManualPage("contents", ContentsTablePage.class);
+        TProxyClient.registerManualPage("furnace", FurnacePage.class);
+        TProxyClient.registerManualPage("sidebar", SidebarPage.class);
+        TProxyClient.registerManualPage("materialstats", MaterialPage.class);
+        TProxyClient.registerManualPage("toolpage", ToolPage.class);
+        TProxyClient.registerManualPage("modifier", ModifierPage.class);
+        TProxyClient.registerManualPage("blockcast", BlockCastPage.class);
 
-        TConstructClientRegistry.registerManualPage("blank", BlankPage.class);
+        TProxyClient.registerManualPage("blank", BlankPage.class);
     }
 
     public static Document getManualFromStack (ItemStack stack)

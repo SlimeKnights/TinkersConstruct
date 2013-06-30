@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import mods.tinker.tconstruct.client.pages.BookPage;
 import mods.tinker.tconstruct.library.TConstructRegistry;
 import mods.tinker.tconstruct.library.crafting.ToolBuilder;
 import mods.tinker.tconstruct.library.tools.ToolCore;
@@ -16,7 +17,6 @@ public class TConstructClientRegistry
     public static ArrayList<ToolGuiElement> tierTwoButtons = new ArrayList<ToolGuiElement>();
     public static Map<String, ItemStack> manualIcons = new HashMap<String, ItemStack>();
     public static Map<String, ItemStack[]> recipeIcons = new HashMap<String, ItemStack[]>();
-    public static Map<String, Class<? extends BookPage>> pageClasses = new HashMap<String, Class<? extends BookPage>>();
     public static ItemStack defaultStack = new ItemStack(Item.ingotIron);
 
     public static void addMaterialRenderMapping (int materialID, String domain, String renderName, boolean useDefaultFolder)
@@ -154,15 +154,5 @@ public class TConstructClientRegistry
     public static ArrayList<ToolGuiElement> getToolButtons ()
     {
         return toolButtons;
-    }
-    
-    public static void registerManualPage(String type, Class<? extends BookPage> clazz)
-    {
-        pageClasses.put(type, clazz);
-    }
-    
-    public static Class<? extends BookPage> getPageClass(String type)
-    {
-        return pageClasses.get(type);
     }
 }
