@@ -1,8 +1,8 @@
 package mods.tinker.tconstruct.client.pages;
 
-import mods.tinker.tconstruct.client.gui.BookPage;
 import mods.tinker.tconstruct.client.gui.PartCrafterGui;
 import mods.tinker.tconstruct.library.TConstructRegistry;
+import mods.tinker.tconstruct.library.client.BookPage;
 import mods.tinker.tconstruct.library.client.TConstructClientRegistry;
 import mods.tinker.tconstruct.library.crafting.PatternBuilder;
 import mods.tinker.tconstruct.library.tools.ToolMaterial;

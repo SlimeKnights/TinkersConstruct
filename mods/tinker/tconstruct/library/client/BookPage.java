@@ -1,4 +1,6 @@
-package mods.tinker.tconstruct.client.gui;
+package mods.tinker.tconstruct.library.client;
+
+import mods.tinker.tconstruct.client.gui.GuiManual;
 
 import org.w3c.dom.*;
 

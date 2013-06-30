@@ -1,8 +1,8 @@
 package mods.tinker.tconstruct.client.pages;
 
 import mods.tinker.tconstruct.client.TProxyClient;
-import mods.tinker.tconstruct.client.gui.BookPage;
 import mods.tinker.tconstruct.client.gui.GuiManual;
+import mods.tinker.tconstruct.library.client.BookPage;
 import mods.tinker.tconstruct.library.client.TConstructClientRegistry;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.item.ItemStack;

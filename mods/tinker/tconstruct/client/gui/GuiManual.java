@@ -4,6 +4,7 @@ import mods.tinker.tconstruct.client.RenderItemCopy;
 import mods.tinker.tconstruct.client.TProxyClient;
 import mods.tinker.tconstruct.client.block.SmallFontRenderer;
 import mods.tinker.tconstruct.library.TConstructRegistry;
+import mods.tinker.tconstruct.library.client.BookPage;
 import mods.tinker.tconstruct.library.client.TConstructClientRegistry;
 import mods.tinker.tconstruct.library.crafting.PatternBuilder;
 import mods.tinker.tconstruct.library.tools.ToolMaterial;

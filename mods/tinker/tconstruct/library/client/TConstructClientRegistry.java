@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import mods.tinker.tconstruct.client.gui.BookPage;
 import mods.tinker.tconstruct.library.TConstructRegistry;
 import mods.tinker.tconstruct.library.crafting.ToolBuilder;
 import mods.tinker.tconstruct.library.tools.ToolCore;
