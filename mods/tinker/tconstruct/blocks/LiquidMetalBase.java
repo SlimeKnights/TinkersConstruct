@@ -6,12 +6,14 @@ import java.util.Random;
 import mods.tinker.tconstruct.blocks.logic.LiquidTextureLogic;
 import mods.tinker.tconstruct.client.block.FluidRender;
 import mods.tinker.tconstruct.common.TContent;
+import mods.tinker.tconstruct.library.TConstructRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
@@ -25,15 +27,16 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public abstract class LiquidMetalBase extends Block
 {
-    public String[] textureNames;
+    public static String[] textureNames = new String[] { "iron", "gold", "copper", "tin", "aluminum", "cobalt", "ardite", "bronze", "alubrass", "manyullyn", "alumite", "obsidian", "steel", "glass",
+            "stone", "villager", "cow" };
     public Icon[] stillInoms;
     public Icon[] flowInoms;
 
     protected LiquidMetalBase(int par1, Material par2Material)
     {
         super(par1, par2Material);
-        textureNames = new String[] { "iron", "gold", "copper", "tin", "aluminum", "cobalt", "ardite", "bronze", "alubrass", "manyullyn", "alumite", "obsidian", "steel", "glass", "stone", "villager", "cow" };
         setLightValue(0.625F);
+        this.setCreativeTab(TConstructRegistry.blockTab);
     }
 
     @Override
@@ -589,7 +592,6 @@ public abstract class LiquidMetalBase extends Block
     public void getSubBlocks (int par1, CreativeTabs par2CreativeTabs, List par3List)
     {
     }
-
     /**
      * Called whenever the block is added into the world. Args: world, x, y, z
      */

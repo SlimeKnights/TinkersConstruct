@@ -62,7 +62,7 @@ The main structure for melting liquids is called the Smeltery. It is larger than
  <icon>smeltery</icon>
 </item>
 <item>
- <text>1 Lava Tank</text>
+ <text>1 Seared Tank</text>
  <icon>lavatank</icon>
 </item>
 <item>
@@ -70,7 +70,7 @@ The main structure for melting liquids is called the Smeltery. It is larger than
  <icon>searedbrick</icon>
 </item>
 <item>
- <text>Any combination of 10 Seared Bricks, Lava Tanks, or Drains
+ <text>Any combination of 10 Seared Bricks, Seared Tanks, or Drains
  </text>
  <icon>drain</icon>
 </item>
@@ -127,12 +127,15 @@ Other liquid removal objects will work, but are frowned upon. An example picture
 </item>
 </page>
 
-<page type="sidebar">
-<text>Blank casts are made by pouring aluminum brass or gold into an empty casting table. These can be turned into ingot casts in the Stencil Table. Other part casts must be created by pouring metal around existing parts, like a pickaxe head, or on the wooden patterns.</text>
-<item>
- <text>Blank Cast</text>
- <icon>blankcast</icon>
-</item>
+<page type="text">
+<text>Blank casts are made by pouring aluminum brass or gold into an empty casting table. These can be turned into ingot casts in the Stencil Table. 
+
+Other part casts must be created by pouring metal around existing parts, like a pickaxe head, or on the wooden patterns.</text>
+</page>
+
+<page type="picture">
+<text>Forming a Cast</text>
+<location>/mods/tinker/resources/manuals/casting.png</location>
 </page>
 
 <page type="crafting">
@@ -173,7 +176,7 @@ Other liquid removal objects will work, but are frowned upon. An example picture
 </page>
 
 <page type="crafting">
-<text>Lava Tank</text>
+<text>Seared Tank</text>
 <recipe>
  <name>smelterytank1</name>
  <size>three</size>
@@ -218,6 +221,21 @@ Other liquid removal objects will work, but are frowned upon. An example picture
  <name>smelterybasin</name>
  <size>three</size>
 </recipe>
+</page>
+
+<page type="blockcast">
+<text>Brownstone</text>
+<recipe>brownstone</recipe>
+</page>
+
+<page type="blockcast">
+<text>Clear Glass</text>
+<recipe>clearglass</recipe>
+</page>
+
+<page type="blockcast">
+<text>Seared Stone</text>
+<recipe>searedstone</recipe>
 </page>
 
 </book>

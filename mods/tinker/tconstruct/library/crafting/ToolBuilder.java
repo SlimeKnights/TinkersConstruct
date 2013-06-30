@@ -112,7 +112,7 @@ public class ToolBuilder
     public ItemStack buildTool (ItemStack headStack, ItemStack handleStack, ItemStack accessoryStack, ItemStack extraStack, String name)
     {
         if (headStack != null && headStack.getItem() instanceof ToolCore)
-            return modifyTool(headStack, handleStack, accessoryStack);
+            return modifyTool(headStack, handleStack, accessoryStack, extraStack);
 
         if (headStack == null || handleStack == null) //Nothing to build without these. All tools need at least two parts!
             return null;
@@ -316,10 +316,10 @@ public class ToolBuilder
         return tool;
     }
 
-    public ItemStack modifyTool (ItemStack input, ItemStack topSlot, ItemStack bottomSlot)
+    public ItemStack modifyTool (ItemStack input, ItemStack topSlot, ItemStack bottomSlot, ItemStack extraStack)
     {
-        //if (topSlot == null && bottomSlot == null)
-        //return input;
+        if (extraStack != null)
+            return null;
 
         ItemStack tool = input.copy();
         NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");

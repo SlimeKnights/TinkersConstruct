@@ -1,6 +1,7 @@
 package mods.tinker.tconstruct.client.block;
 
 import mods.tinker.tconstruct.blocks.LiquidMetalBase;
+import mods.tinker.tconstruct.client.TProxyClient;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.RenderBlocks;
@@ -18,7 +19,7 @@ public class FluidRender implements ISimpleBlockRenderingHandler
 	@Override
 	public void renderInventoryBlock (Block block, int metadata, int modelID, RenderBlocks renderer)
 	{
-		//Inventory should be an item. renderer is not here!
+        TProxyClient.renderStandardInvBlock(renderer, block, metadata);
 	}
 
 	@Override

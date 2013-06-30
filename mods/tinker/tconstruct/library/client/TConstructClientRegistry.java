@@ -116,6 +116,15 @@ public class TConstructClientRegistry
         recipe[2] = bottominput;
         recipeIcons.put(name, recipe);
     }
+    
+    public static void registerManualSmeltery (String name, ItemStack output, ItemStack liquid, ItemStack cast)
+    {
+        ItemStack[] recipe = new ItemStack[3];
+        recipe[0] = output;
+        recipe[1] = liquid;
+        recipe[2] = cast;
+        recipeIcons.put(name, recipe);
+    }
 
     public static ItemStack[] getRecipeIcons (String recipeName)
     {

@@ -55,21 +55,5 @@ public class SidebarPage extends BookPage
         manual.renderitem.zLevel = 0;
         RenderHelper.disableStandardItemLighting();
         GL11.glDisable(GL12.GL_RESCALE_NORMAL);
-        /*if (text != null)
-            manual.fonts.drawString("\u00a7n" + text, localWidth + 25 + manual.fonts.getStringWidth(text) / 2, localHeight + 4, 0);
-        GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-        RenderHelper.enableGUIStandardItemLighting();
-        manual.renderitem.zLevel = 100;
-        for (int i = 0; i < icons.length; i++)
-        {
-            manual.renderitem.renderItemIntoGUI(manual.fonts, manual.getMC().renderEngine, icons[i], localWidth + 16, localHeight + 18 * i + 18);
-            int yOffset = 18;
-            if (iconText[i].length() > 40)
-                yOffset = 13;
-            manual.fonts.drawString(iconText[i], localWidth + 38, localHeight + 18 * i + yOffset, 0);
-        }
-        manual.renderitem.zLevel = 0;
-        RenderHelper.disableStandardItemLighting();
-        GL11.glDisable(GL12.GL_RESCALE_NORMAL);*/
     }
 }

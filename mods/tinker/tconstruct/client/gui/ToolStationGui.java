@@ -203,7 +203,7 @@ public class ToolStationGui extends NewContainerGui
         //Attack
         if (categories.contains("weapon"))
         {
-            int attack = tags.getInteger("Attack");
+            int attack = (int) (tags.getInteger("Attack"));// * tool.getDamageModifier());
             float stoneboundDamage = (float) Math.log(durability / 72f + 1) * -2 * stonebound;
             attack += stoneboundDamage;
             if (attack < 1)

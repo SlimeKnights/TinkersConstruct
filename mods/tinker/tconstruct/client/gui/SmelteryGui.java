@@ -300,19 +300,36 @@ public class SmelteryGui extends NewContainerGui
         }
         else
         {
-            list.add("\u00A7f" + LiquidDictionary.findLiquidName(liquid));
-            int ingots = liquid.amount / 144;
-            if (ingots > 0)
-                list.add("Ingots: " + ingots);
-            int mB = liquid.amount % 144;
-            if (mB > 0)
+            String name = LiquidDictionary.findLiquidName(liquid);
+            list.add("\u00A7f" + name);
+            if (name.equals("Liquified Emerald"))
             {
-                if (mB % 72 == 0)
-                    list.add("Chunks: " + liquid.amount % 144 / 72);
-                else if (mB % 16 == 0)
-                    list.add("Nuggets: " + liquid.amount % 144 / 16);
-                else
+                float emeralds = liquid.amount / 320f;
+                list.add("Emeralds: " + emeralds);
+                /*int emeralds = liquid.amount / 320;
+                if (emeralds > 0)
+                    list.add("Emeralds: " + emeralds);
+                int mB = liquid.amount % 320;
+                if (mB > 0)
+                {
                     list.add("mB: " + mB);
+                }*/
+            }
+            else
+            {
+                int ingots = liquid.amount / 144;
+                if (ingots > 0)
+                    list.add("Ingots: " + ingots);
+                int mB = liquid.amount % 144;
+                if (mB > 0)
+                {
+                    if (mB % 72 == 0)
+                        list.add("Chunks: " + liquid.amount % 144 / 72);
+                    else if (mB % 16 == 0)
+                        list.add("Nuggets: " + liquid.amount % 144 / 16);
+                    else
+                        list.add("mB: " + mB);
+                }
             }
         }
         return list;

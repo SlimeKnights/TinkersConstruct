@@ -98,6 +98,30 @@ The berries can be melted down into nuggets and ingots, making them an invaluabl
 </recipe>
 </page>
 
+<page type="crafting">
+<text>Materials and You: v1</text>
+<recipe>
+ <name>patternbook1</name>
+ <size>two</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Materials and You: v2</text>
+<recipe>
+ <name>patternbook2</name>
+ <size>two</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Mighty Smelting</text>
+<recipe>
+ <name>patternbook3</name>
+ <size>two</size>
+</recipe>
+</page>
+
 <page type="text">
 <text>Once you're well established, you can begin to process metals in a more efficient manner. The scope of the smeltery is beyond this volume, but a few recipes will help you get started.
 

@@ -182,10 +182,13 @@ public class GuiManual extends GuiScreen
             pageRight.renderContentLayer(localWidth + 220, localHeight + 12);
     }
 
-    /* Page types */
-
     public Minecraft getMC ()
     {
         return mc;
+    }
+    
+    public boolean doesGuiPauseGame()
+    {
+        return false;
     }
 }
