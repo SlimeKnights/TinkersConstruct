@@ -7,6 +7,7 @@ public class ToolMaterial
     //mining level, durability, mining speed, baseDamage, handle modifier, Reinforced level, shoddy/spiny level, color/style on name
     
 	public final String materialName;
+	public final String displayName;
 	public final int harvestLevel;
 	public final int durability;
 	public final int miningspeed; // <-- divided by 100
@@ -19,7 +20,13 @@ public class ToolMaterial
 
     public ToolMaterial(String name, int level, int durability, int speed, int damage, float handle, int reinforced, float stonebound, String style, String ability)
     {
-    	this.materialName = name;
+        this(name, name + " ", level, durability, speed, damage, handle, reinforced, stonebound, style, ability);
+    }
+    
+    public ToolMaterial(String name, String displayName, int level, int durability, int speed, int damage, float handle, int reinforced, float stonebound, String style, String ability)
+    {
+        this.materialName = name;
+        this.displayName = name + " ";
         this.harvestLevel = level;
         this.durability = durability;
         this.miningspeed = speed;

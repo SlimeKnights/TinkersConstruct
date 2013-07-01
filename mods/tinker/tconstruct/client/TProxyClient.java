@@ -13,6 +13,7 @@ import mods.tinker.tconstruct.TConstruct;
 import mods.tinker.tconstruct.blocks.logic.CastingBasinLogic;
 import mods.tinker.tconstruct.blocks.logic.CastingTableLogic;
 import mods.tinker.tconstruct.blocks.logic.DrawbridgeLogic;
+import mods.tinker.tconstruct.blocks.logic.DryingRackLogic;
 import mods.tinker.tconstruct.blocks.logic.FrypanLogic;
 import mods.tinker.tconstruct.blocks.logic.GlowstoneAggregator;
 import mods.tinker.tconstruct.blocks.logic.PartCrafterLogic;
@@ -25,6 +26,8 @@ import mods.tinker.tconstruct.client.block.BarricadeRender;
 import mods.tinker.tconstruct.client.block.CastingBasinSpecialRender;
 import mods.tinker.tconstruct.client.block.CastingTableSpecialRenderer;
 import mods.tinker.tconstruct.client.block.CrystalBlockRender;
+import mods.tinker.tconstruct.client.block.DryingRackRender;
+import mods.tinker.tconstruct.client.block.DryingRackSpecialRender;
 import mods.tinker.tconstruct.client.block.FluidRender;
 import mods.tinker.tconstruct.client.block.FrypanRender;
 import mods.tinker.tconstruct.client.block.GolemCoreRender;
@@ -336,13 +339,15 @@ public class TProxyClient extends TProxyCommon
         RenderingRegistry.registerBlockHandler(new BarricadeRender());
         RenderingRegistry.registerBlockHandler(new CrystalBlockRender());
         RenderingRegistry.registerBlockHandler(new MachineRender());
+        RenderingRegistry.registerBlockHandler(new DryingRackRender());
         //RenderingRegistry.registerBlockHandler(new BrickRender());
         //RenderingRegistry.registerBlockHandler(new BallRepeaterRender());
 
         //Special Renderers
         ClientRegistry.bindTileEntitySpecialRenderer(CastingTableLogic.class, new CastingTableSpecialRenderer());
-        //ClientRegistry.bindTileEntitySpecialRenderer(GolemCoreLogic.class, new GolemCoreSpecialRender());
         ClientRegistry.bindTileEntitySpecialRenderer(CastingBasinLogic.class, new CastingBasinSpecialRender());
+        ClientRegistry.bindTileEntitySpecialRenderer(DryingRackLogic.class, new DryingRackSpecialRender());
+        //ClientRegistry.bindTileEntitySpecialRenderer(GolemCoreLogic.class, new GolemCoreSpecialRender());
 
         //Entities
         RenderingRegistry.registerEntityRenderingHandler(FancyEntityItem.class, new FancyItemRender());
@@ -759,6 +764,7 @@ public class TProxyClient extends TProxyCommon
     {
         String[] partTypes = { "wood", "stone", "iron", "flint", "cactus", "bone", "obsidian", "netherrack", "slime", "paper", "cobalt", "ardite", "manyullyn", "copper", "bronze", "alumite", "steel",
                 "blueslime" };
+        String[] modPartTypes = { "thaumium" };
         String[] effectTypes = { "diamond", "emerald", "redstone", "piston", "moss", "ice", "lava", "blaze", "necrotic", "electric", "lapis", "quartz", "silk", "beheading", "smite", "spider",
                 "reinforced" };
         int[] universalEffects = { 0, 1, 4, 9, 16 };
@@ -770,6 +776,11 @@ public class TProxyClient extends TProxyCommon
         {
             TConstructClientRegistry.addMaterialRenderMapping(partIter, "tinker", partTypes[partIter], true);
         }
+        
+        for (int iter = 0; iter < modPartTypes.length; iter++)
+        {
+            TConstructClientRegistry.addMaterialRenderMapping(31 + iter, "tinker", modPartTypes[iter], true);
+        }
 
         for (ToolCore tool : TConstructRegistry.getToolMapping())
         {
@@ -777,35 +788,6 @@ public class TProxyClient extends TProxyCommon
             {
                 TConstructClientRegistry.addEffectRenderMapping(tool, i, "tinker", effectTypes[i], true);
             }
-            /*List list = Arrays.asList(tool.toolCategories());
-            for (int i = 0; i < universalEffects.length; i++)
-            {
-                TConstructClientRegistry.addEffectRenderMapping(tool, universalEffects[i], "tinker", effectTypes[universalEffects[i]], true);
-            }
-
-            if (list.contains("harvest") || list.contains("utility"))
-            {
-                for (int i = 0; i < harvestEffects.length; i++)
-                {
-                    TConstructClientRegistry.addEffectRenderMapping(tool, harvestEffects[i], "tinker", effectTypes[harvestEffects[i]], true);
-                }
-            }
-
-            if (list.contains("weapon"))
-            {
-                for (int i = 0; i < weaponEffects.length; i++)
-                {
-                    TConstructClientRegistry.addEffectRenderMapping(tool, weaponEffects[i], "tinker", effectTypes[weaponEffects[i]], true);
-                }
-            }
-
-            if (list.contains("weapon") || list.contains("harvest"))
-            {
-                for (int i = 0; i < nonUtility.length; i++)
-                {
-                    TConstructClientRegistry.addEffectRenderMapping(tool, nonUtility[i], "tinker", effectTypes[nonUtility[i]], true);
-                }
-            }*/
         }
     }
 

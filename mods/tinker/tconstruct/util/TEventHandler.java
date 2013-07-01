@@ -53,10 +53,29 @@ public class TEventHandler
     @ForgeSubscribe
     public void craftTool (ToolCraftEvent event)
     {
-        /*if (event.tool == TContent.cleaver)
+        NBTTagCompound toolTag = event.toolTag.getCompoundTag("InfiTool");
+        int thaum = 0;
+        if (toolTag.getInteger("Head") == 31)
+            thaum++;
+        if (toolTag.getInteger("Handle") == 31)
+            thaum++;
+        if (toolTag.getInteger("Accessory") == 31)
+            thaum++;
+        if (toolTag.getInteger("Extra") == 31)
+            thaum++;
+
+        if ( (thaum >= 3) || (!toolTag.hasKey("Accessory") && thaum >= 2) )
         {
-            event.toolTag.getCompoundTag("InfiTool").setInteger("Beheading", 2);
-        }*/
+            int modifiers = toolTag.getInteger("Modifiers");
+            modifiers += 2;
+            toolTag.setInteger("Modifiers", modifiers);
+        }
+        else if (thaum >= 1)
+        {
+            int modifiers = toolTag.getInteger("Modifiers");
+            modifiers += 1;
+            toolTag.setInteger("Modifiers", modifiers);
+        }
     }
 
     /* Interact */

@@ -231,6 +231,35 @@ public class TConstructRegistry
      * 
      * @param materialID Unique ID, stored for each part
      * @exception materialID must be unique
+     * @param materialName Unique name for data lookup purposes
+     * @param displayName Prefix for creative mode tools
+     * @param harvestLevel The materials which the tool can harvest. Pickaxe levels - 0: Wood, 1: Stone, 2: Redstone/Diamond, 3: Obsidian, 4: Cobalt/Ardite, 5: Manyullyn
+     * @param durability Base durability of the tool, affects tool heads.
+     * @param miningspeed Base mining speed, divided by 100 in use
+     * @param attack Base attack
+     * @param handleModifier Durability multiplier on the tool
+     * @param reinforced Reinforced level
+     * @param unbreaking Amount of Stonebound to put on the tool. Negative numbers are Spiny.
+     */
+
+    public static void addToolMaterial (int materialID, String materialName, String displayName, int harvestLevel, int durability, int miningspeed, int attack, float handleModifier, int reinforced,
+            float unbreaking, String style, String ability)
+    {
+        ToolMaterial mat = toolMaterials.get(materialID);
+        if (mat == null)
+        {
+            mat = new ToolMaterial(materialName, displayName, harvestLevel, durability, miningspeed, attack, handleModifier, reinforced, unbreaking, style, ability);
+            toolMaterials.put(materialID, mat);
+            toolMaterialStrings.put(materialName, mat);
+        }
+        else
+            throw new IllegalArgumentException("[TCon API] Material ID " + materialID + " is already occupied by " + mat.materialName);
+    }
+    
+    /** Adds a tool material to the registry
+     * 
+     * @param materialID Unique ID, stored for each part
+     * @exception materialID must be unique
      * @param material Complete tool material to add. Uses the name in the material for lookup purposes.
      */
     

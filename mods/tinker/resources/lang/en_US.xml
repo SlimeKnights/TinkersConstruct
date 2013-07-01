@@ -21,6 +21,7 @@
   <entry key="ToolStation.CastingTable.name">Casting Table</entry>
   
   <entry key="tile.ToolForge.name">Tool Forge</entry>
+  <entry key="tile.Armor.DryingRack.name">Drying Rack</entry>
   <entry key="CraftedSoil.Slime.name">Slimy Mud</entry>
   <entry key="CraftedSoil.Grout.name">Grout</entry>
   <entry key="CraftedSoil.BlueSlime.name">Slimy Mud</entry>

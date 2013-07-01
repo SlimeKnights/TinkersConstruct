@@ -97,6 +97,7 @@ public class PHConstruct
         stainedGlass = config.getBlock("Stained Glass", 3224).getInt(3224);
         stainedGlassClear = config.getBlock("Clear Stained Glass", 3225).getInt(3225);
         redstoneMachine = config.getBlock("Redstone Machines", 3226).getInt(3226);
+        dryingRack = config.getBlock("Drying Rack", 3227).getInt(3227);
 
         /*golemCore = config.getBlock("Golem Core", 1481).getInt(1481);
         golemHead = config.getBlock("Golem Head", 1482).getInt(1482);*/
@@ -295,6 +296,7 @@ public class PHConstruct
     public static int metalBlock;
     
     public static int redstoneMachine;
+    public static int dryingRack;
 
     public static int golemCore;
     public static int golemHead;

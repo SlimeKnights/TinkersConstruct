@@ -228,10 +228,10 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
 
         emptyIcon = iconRegister.registerIcon("tinker:blankface");
     }
-    
+
     @Override
     @SideOnly(Side.CLIENT)
-    public Icon getIconFromDamage(int meta)
+    public Icon getIconFromDamage (int meta)
     {
         return blankSprite;
     }
@@ -449,7 +449,7 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
                 reinforced = current;
             }
         }
-        
+
         reinforced += unbreaking - reinforced;
 
         if (reinforced > 0)
@@ -507,28 +507,34 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
     }
 
     /* Creative mode tools */
-    static String[] toolMaterialNames = { "Wooden ", "Stone ", "Iron ", "Flint ", "Cactus ", "Bone ", "Obsidian ", "Netherrack ", "Slime ", "Paper ", "Cobalt ", "Ardite ", "Manyullyn ", "Copper ",
-            "Bronze ", "Alumite ", "Steel ", "Slime " };
 
     public void getSubItems (int id, CreativeTabs tab, List list)
     {
-        for (int i = 0; i < 18; i++)
+        Iterator iter = TConstructRegistry.toolMaterials.entrySet().iterator();
+        while (iter.hasNext())
         {
-            Item accessory = getAccessoryItem();
-            ItemStack accessoryStack = accessory != null ? new ItemStack(getAccessoryItem(), 1, i) : null;
-            Item extra = getExtraItem();
-            ItemStack extraStack = extra != null ? new ItemStack(getExtraItem(), 1, i) : null;
-            ItemStack tool = ToolBuilder.instance.buildTool(new ItemStack(getHeadItem(), 1, i), new ItemStack(getHandleItem(), 1, i), accessoryStack, extraStack, toolMaterialNames[i] + getToolName());
-            if (tool == null)
-            {
-                System.out.println("Creative builder failed tool for "+toolMaterialNames[i] + this.getToolName());
-                System.out.println("Make sure you do not have item ID conflicts");
-            }
-            else
-            {
-                tool.getTagCompound().getCompoundTag("InfiTool").setBoolean("Built", true);
-                list.add(tool);
-            }
+            Map.Entry pairs = (Map.Entry) iter.next();
+            ToolMaterial material = (ToolMaterial) pairs.getValue();
+            buildTool((Integer) pairs.getKey(), material.displayName, list);
+        }
+    }
+
+    public void buildTool (int id, String name, List list)
+    {
+        Item accessory = getAccessoryItem();
+        ItemStack accessoryStack = accessory != null ? new ItemStack(getAccessoryItem(), 1, id) : null;
+        Item extra = getExtraItem();
+        ItemStack extraStack = extra != null ? new ItemStack(getExtraItem(), 1, id) : null;
+        ItemStack tool = ToolBuilder.instance.buildTool(new ItemStack(getHeadItem(), 1, id), new ItemStack(getHandleItem(), 1, id), accessoryStack, extraStack, name + getToolName());
+        if (tool == null)
+        {
+            System.out.println("Creative builder failed tool for " + name + this.getToolName());
+            System.out.println("Make sure you do not have item ID conflicts");
+        }
+        else
+        {
+            tool.getTagCompound().getCompoundTag("InfiTool").setBoolean("Built", true);
+            list.add(tool);
         }
     }
 
@@ -579,7 +585,7 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
     public boolean onBlockDestroyed (ItemStack itemstack, World world, int blockID, int x, int y, int z, EntityLiving player)
     {
         Block block = Block.blocksList[blockID];
-        if (block != null && (double)block.getBlockHardness(world, x, y, z) != 0.0D)
+        if (block != null && (double) block.getBlockHardness(world, x, y, z) != 0.0D)
         {
             return AbilityHelper.onBlockChanged(itemstack, world, blockID, x, y, z, player, random);
         }
@@ -690,7 +696,7 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
         int hotbarSlot = player.inventory.currentItem;
         int itemSlot = hotbarSlot == 0 ? 8 : hotbarSlot + 1;
         ItemStack nearbyStack = null;
-        
+
         if (hotbarSlot < 8)
         {
             nearbyStack = player.inventory.getStackInSlot(itemSlot);
@@ -704,7 +710,7 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
                 }
             }
         }
-        
+
         /*if (used) //Update client
         {
             Packet103SetSlot packet = new Packet103SetSlot(player.openContainer.windowId, itemSlot, nearbyStack);
@@ -898,7 +904,7 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
         }
         return tags.getCompoundTag("InfiTool").getInteger("TotalDurability");
     }
-    
+
     public int getItemDamageFromStackForDisplay (ItemStack stack)
     {
         NBTTagCompound tags = stack.getTagCompound();

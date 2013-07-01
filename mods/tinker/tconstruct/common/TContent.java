@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import mods.tinker.tconstruct.TConstruct;
 import mods.tinker.tconstruct.blocks.Aggregator;
+import mods.tinker.tconstruct.blocks.DryingRack;
 import mods.tinker.tconstruct.blocks.EquipBlock;
 import mods.tinker.tconstruct.blocks.GlassBlock;
 import mods.tinker.tconstruct.blocks.GlassBlockStained;
@@ -28,6 +29,7 @@ import mods.tinker.tconstruct.blocks.ToolStationBlock;
 import mods.tinker.tconstruct.blocks.logic.CastingBasinLogic;
 import mods.tinker.tconstruct.blocks.logic.CastingTableLogic;
 import mods.tinker.tconstruct.blocks.logic.DrawbridgeLogic;
+import mods.tinker.tconstruct.blocks.logic.DryingRackLogic;
 import mods.tinker.tconstruct.blocks.logic.FaucetLogic;
 import mods.tinker.tconstruct.blocks.logic.FirestarterLogic;
 import mods.tinker.tconstruct.blocks.logic.FrypanLogic;
@@ -244,6 +246,7 @@ public class TContent implements IFuelHandler
     public static Block metalBlock;
 
     public static Block redstoneMachine;
+    public static Block dryingRack;
 
     //Decoration
     public static Block stoneTorch;
@@ -443,6 +446,10 @@ public class TContent implements IFuelHandler
         GameRegistry.registerTileEntity(DrawbridgeLogic.class, "Drawbridge");
         GameRegistry.registerTileEntity(FirestarterLogic.class, "Firestarter");
 
+        dryingRack = new DryingRack(PHConstruct.dryingRack).setUnlocalizedName("Armor.DryingRack");
+        GameRegistry.registerBlock(dryingRack, "Armor.DryingRack");
+        GameRegistry.registerTileEntity(DryingRackLogic.class, "Armor.DryingRack");
+
         //Traps
         /*landmine = new Landmine(PHConstruct.landmine, 0, EnumMobType.mobs, Material.cactus).setUnlocalizedName("landmine");
         GameRegistry.registerBlock(landmine, "landmine");*/
@@ -545,8 +552,8 @@ public class TContent implements IFuelHandler
         blankPattern = new CraftingItem(PHConstruct.blankPattern, blanks, blanks, "materials/").setUnlocalizedName("tconstruct.Pattern");
 
         materials = new MaterialItem(PHConstruct.materials).setUnlocalizedName("tconstruct.Materials");
-        toolRod = new ToolPart(PHConstruct.toolRod, "ToolRod", "_rod").setUnlocalizedName("tconstruct.ToolRod");
-        toolShard = new ToolShard(PHConstruct.toolShard, "ToolShard", "_chunk").setUnlocalizedName("tconstruct.ToolShard");
+        toolRod = new ToolPart(PHConstruct.toolRod, "_rod").setUnlocalizedName("tconstruct.ToolRod");
+        toolShard = new ToolShard(PHConstruct.toolShard, "_chunk").setUnlocalizedName("tconstruct.ToolShard");
         woodPattern = new Pattern(PHConstruct.woodPattern, "WoodPattern", "pattern_", "materials/").setUnlocalizedName("tconstruct.Pattern");
         metalPattern = new MetalPattern(PHConstruct.metalPattern, "MetalPattern", "cast_", "materials/").setUnlocalizedName("tconstruct.MetalPattern");
         //netherPattern = new Pattern(PHTools.netherPattern, 128, patternTexture).setUnlocalizedName("tconstruct.Pattern");
@@ -602,30 +609,30 @@ public class TContent implements IFuelHandler
 
         potionLauncher = new PotionLauncher(PHConstruct.potionLauncher).setUnlocalizedName("tconstruct.PotionLauncher");
 
-        pickaxeHead = new ToolPart(PHConstruct.pickaxeHead, "PickaxeHead", "_pickaxe_head").setUnlocalizedName("tconstruct.PickaxeHead");
-        shovelHead = new ToolPart(PHConstruct.shovelHead, "ShovelHead", "_shovel_head").setUnlocalizedName("tconstruct.ShovelHead");
-        hatchetHead = new ToolPart(PHConstruct.axeHead, "AxeHead", "_axe_head").setUnlocalizedName("tconstruct.AxeHead");
-        binding = new ToolPart(PHConstruct.binding, "Binding", "_binding").setUnlocalizedName("tconstruct.Binding");
-        toughBinding = new ToolPart(PHConstruct.toughBinding, "ThickBinding", "_toughbind").setUnlocalizedName("tconstruct.ThickBinding");
-        toughRod = new ToolPart(PHConstruct.toughRod, "ThickRod", "_toughrod").setUnlocalizedName("tconstruct.ThickRod");
-        heavyPlate = new ToolPart(PHConstruct.largePlate, "LargePlate", "_largeplate").setUnlocalizedName("tconstruct.LargePlate");
+        pickaxeHead = new ToolPart(PHConstruct.pickaxeHead, "_pickaxe_head").setUnlocalizedName("tconstruct.PickaxeHead");
+        shovelHead = new ToolPart(PHConstruct.shovelHead, "_shovel_head").setUnlocalizedName("tconstruct.ShovelHead");
+        hatchetHead = new ToolPart(PHConstruct.axeHead, "_axe_head").setUnlocalizedName("tconstruct.AxeHead");
+        binding = new ToolPart(PHConstruct.binding, "_binding").setUnlocalizedName("tconstruct.Binding");
+        toughBinding = new ToolPart(PHConstruct.toughBinding, "_toughbind").setUnlocalizedName("tconstruct.ThickBinding");
+        toughRod = new ToolPart(PHConstruct.toughRod, "_toughrod").setUnlocalizedName("tconstruct.ThickRod");
+        heavyPlate = new ToolPart(PHConstruct.largePlate, "_largeplate").setUnlocalizedName("tconstruct.LargePlate");
 
-        swordBlade = new ToolPart(PHConstruct.swordBlade, "SwordBlade", "_sword_blade").setUnlocalizedName("tconstruct.SwordBlade");
-        wideGuard = new ToolPart(PHConstruct.largeGuard, "LargeGuard", "_large_guard").setUnlocalizedName("tconstruct.LargeGuard");
-        handGuard = new ToolPart(PHConstruct.medGuard, "MediumGuard", "_medium_guard").setUnlocalizedName("tconstruct.MediumGuard");
-        crossbar = new ToolPart(PHConstruct.crossbar, "Crossbar", "_crossbar").setUnlocalizedName("tconstruct.Crossbar");
-        knifeBlade = new ToolPart(PHConstruct.knifeBlade, "KnifeBlade", "_knife_blade").setUnlocalizedName("tconstruct.KnifeBlade");
-        fullGuard = new ToolPartHidden(PHConstruct.fullGuard, "FullGuard", "_full_guard").setUnlocalizedName("tconstruct.FullGuard");
+        swordBlade = new ToolPart(PHConstruct.swordBlade, "_sword_blade").setUnlocalizedName("tconstruct.SwordBlade");
+        wideGuard = new ToolPart(PHConstruct.largeGuard, "_large_guard").setUnlocalizedName("tconstruct.LargeGuard");
+        handGuard = new ToolPart(PHConstruct.medGuard, "_medium_guard").setUnlocalizedName("tconstruct.MediumGuard");
+        crossbar = new ToolPart(PHConstruct.crossbar, "_crossbar").setUnlocalizedName("tconstruct.Crossbar");
+        knifeBlade = new ToolPart(PHConstruct.knifeBlade, "_knife_blade").setUnlocalizedName("tconstruct.KnifeBlade");
+        fullGuard = new ToolPartHidden(PHConstruct.fullGuard, "_full_guard").setUnlocalizedName("tconstruct.FullGuard");
 
-        frypanHead = new ToolPart(PHConstruct.frypanHead, "FrypanHead", "_frypan_head").setUnlocalizedName("tconstruct.FrypanHead");
-        signHead = new ToolPart(PHConstruct.signHead, "SignHead", "_battlesign_head").setUnlocalizedName("tconstruct.SignHead");
-        chiselHead = new ToolPart(PHConstruct.chiselHead, "ChiselHead", "_chisel_head").setUnlocalizedName("tconstruct.ChiselHead");
+        frypanHead = new ToolPart(PHConstruct.frypanHead, "_frypan_head").setUnlocalizedName("tconstruct.FrypanHead");
+        signHead = new ToolPart(PHConstruct.signHead, "_battlesign_head").setUnlocalizedName("tconstruct.SignHead");
+        chiselHead = new ToolPart(PHConstruct.chiselHead, "_chisel_head").setUnlocalizedName("tconstruct.ChiselHead");
 
-        scytheBlade = new ToolPart(PHConstruct.scytheBlade, "ScytheBlade", "_scythe_head").setUnlocalizedName("tconstruct.ScytheBlade");
-        broadAxeHead = new ToolPart(PHConstruct.lumberHead, "LumberHead", "_lumberaxe_head").setUnlocalizedName("tconstruct.LumberHead");
-        excavatorHead = new ToolPart(PHConstruct.excavatorHead, "ExcavatorHead", "_excavator_head").setUnlocalizedName("tconstruct.ExcavatorHead");
-        largeSwordBlade = new ToolPart(PHConstruct.largeSwordBlade, "LargeSwordBlade", "_large_sword_blade").setUnlocalizedName("tconstruct.LargeSwordBlade");
-        hammerHead = new ToolPart(PHConstruct.hammerHead, "HammerHead", "_hammer_head").setUnlocalizedName("tconstruct.HammerHead");
+        scytheBlade = new ToolPart(PHConstruct.scytheBlade, "_scythe_head").setUnlocalizedName("tconstruct.ScytheBlade");
+        broadAxeHead = new ToolPart(PHConstruct.lumberHead, "_lumberaxe_head").setUnlocalizedName("tconstruct.LumberHead");
+        excavatorHead = new ToolPart(PHConstruct.excavatorHead, "_excavator_head").setUnlocalizedName("tconstruct.ExcavatorHead");
+        largeSwordBlade = new ToolPart(PHConstruct.largeSwordBlade, "_large_sword_blade").setUnlocalizedName("tconstruct.LargeSwordBlade");
+        hammerHead = new ToolPart(PHConstruct.hammerHead, "_hammer_head").setUnlocalizedName("tconstruct.HammerHead");
 
         Item[] toolParts = { toolRod, toolShard, pickaxeHead, shovelHead, hatchetHead, binding, toughBinding, toughRod, heavyPlate, swordBlade, wideGuard, handGuard, crossbar, knifeBlade, fullGuard,
                 frypanHead, signHead, chiselHead, scytheBlade, broadAxeHead, excavatorHead, largeSwordBlade, hammerHead };
@@ -685,12 +692,12 @@ public class TContent implements IFuelHandler
         Item.minecartEmpty.setMaxStackSize(3);
         Item.minecartCrate.setMaxStackSize(3);
         Item.minecartPowered.setMaxStackSize(3);
-        Block.torchWood.setTickRandomly(false);
+        //Block.torchWood.setTickRandomly(false);
     }
 
     void registerMaterials ()
     {
-        TConstructRegistry.addToolMaterial(0, "Wood", 0, 59, 200, 0, 1.0F, 0, 0f, "\u00A7e", "");
+        TConstructRegistry.addToolMaterial(0, "Wood", "Wooden ", 0, 59, 200, 0, 1.0F, 0, 0f, "\u00A7e", "");
         TConstructRegistry.addToolMaterial(1, "Stone", 1, 131, 400, 1, 0.5F, 0, 1f, "", "Stonebound");
         TConstructRegistry.addToolMaterial(2, "Iron", 2, 250, 600, 2, 1.3F, 1, 0f, "\u00A7f", "");
         TConstructRegistry.addToolMaterial(3, "Flint", 1, 171, 525, 2, 0.7F, 0, 1f, "\u00A78", "Stonebound");
@@ -707,10 +714,7 @@ public class TContent implements IFuelHandler
         TConstructRegistry.addToolMaterial(14, "Bronze", 2, 350, 700, 2, 1.3F, 1, 0f, "\u00A76", "");
         TConstructRegistry.addToolMaterial(15, "Alumite", 4, 550, 800, 3, 1.3F, 2, 0f, "\u00A7d", "");
         TConstructRegistry.addToolMaterial(16, "Steel", 4, 750, 800, 3, 1.3F, 2, 0f, "", "");
-        TConstructRegistry.addToolMaterial(17, "BlueSlime", 1, 500, 150, 0, 1.5F, 0, 0f, "\u00A7b", "");
-
-        //Thaumcraft
-        //TConstructRegistry.addToolMaterial(21, "Thaumium", 2, 250, 600, 2, 1.3F, 1, 0f, "", "");
+        TConstructRegistry.addToolMaterial(17, "BlueSlime", "Slime ", 1, 500, 150, 0, 1.5F, 0, 0f, "\u00A7b", "");
 
         /*//Metallurgy
         TConstructRegistry.addToolMaterial(22, "Heptazion", 2, 2, 300, 800, 1, 1.0F, 0, 0f);
@@ -792,7 +796,6 @@ public class TContent implements IFuelHandler
                 {
                     TConstructRegistry.addPartMapping(woodPattern.itemID, meta + 1, mat, new ItemStack(patternOutputs[meta], 1, mat));
                 }
-                TConstructRegistry.addPartMapping(woodPattern.itemID, 22, mat, new ItemStack(fullGuard, 1, mat));
             }
         }
         else
@@ -803,7 +806,6 @@ public class TContent implements IFuelHandler
                 {
                     TConstructRegistry.addPartMapping(woodPattern.itemID, meta + 1, nonMetals[mat], new ItemStack(patternOutputs[meta], 1, nonMetals[mat]));
                 }
-                TConstructRegistry.addPartMapping(woodPattern.itemID, 22, nonMetals[mat], new ItemStack(fullGuard, 1, nonMetals[mat]));
             }
         }
 
@@ -990,7 +992,7 @@ public class TContent implements IFuelHandler
         Smeltery.addMelting(new ItemStack(Item.ingotIron, 4), Block.blockIron.blockID, 0, 500, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 0));
         Smeltery.addMelting(new ItemStack(Item.ingotGold, 4), Block.blockGold.blockID, 0, 300, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 1));
         Smeltery.addMelting(new ItemStack(Item.goldNugget, 4), Block.blockGold.blockID, 0, 150, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue / 9, 1));
-        
+
         Smeltery.addMelting(new ItemStack(materials, 1, 18), Block.obsidian.blockID, 0, 750, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 11)); //Obsidian ingot
 
         Smeltery.addMelting(new ItemStack(blankPattern, 4, 1), metalBlock.blockID, 7, 150, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 8));
@@ -1035,7 +1037,7 @@ public class TContent implements IFuelHandler
         Smeltery.addMelting(new ItemStack(Item.plateChain, 1, 0), this.metalBlock.blockID, 9, 700, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 12));
         Smeltery.addMelting(new ItemStack(Item.legsChain, 1, 0), this.metalBlock.blockID, 9, 700, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 12));
         Smeltery.addMelting(new ItemStack(Item.bootsChain, 1, 0), this.metalBlock.blockID, 9, 700, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 12));
-        
+
         //Vanilla tools
         Smeltery.addMelting(new ItemStack(Item.hoeIron, 1, 0), Block.blockIron.blockID, 0, 600, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 0));
         Smeltery.addMelting(new ItemStack(Item.swordIron, 1, 0), Block.blockIron.blockID, 0, 600, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 0));
@@ -1052,7 +1054,7 @@ public class TContent implements IFuelHandler
 
         Smeltery.addMelting(new ItemStack(Item.flintAndSteel, 1, 0), Block.blockIron.blockID, 0, 600, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 0));
         Smeltery.addMelting(new ItemStack(Item.compass, 1, 0), Block.blockIron.blockID, 0, 600, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 4, 0));
-        
+
         //Vanilla blocks
         Smeltery.addMelting(new ItemStack(Item.bucketEmpty), Block.blockIron.blockID, 0, 600, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 3, 0));
         Smeltery.addMelting(new ItemStack(Item.minecartEmpty), Block.blockIron.blockID, 8, 600, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 5, 0));
@@ -1065,10 +1067,10 @@ public class TContent implements IFuelHandler
         Smeltery.addMelting(new ItemStack(Block.railDetector), Block.blockIron.blockID, 8, 600, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 0));
         Smeltery.addMelting(new ItemStack(Block.railActivator), Block.blockIron.blockID, 8, 600, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 0));
         Smeltery.addMelting(new ItemStack(Block.enchantmentTable), Block.obsidian.blockID, 0, 750, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 4, 11));
-        Smeltery.addMelting(new ItemStack(Block.cauldron), Block.blockIron.blockID, 8, 600, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue*7, 0));
-        Smeltery.addMelting(new ItemStack(Block.anvil, 1, 0), Block.blockIron.blockID, 8, 800, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue*31, 0));
-        Smeltery.addMelting(new ItemStack(Block.anvil, 1, 1), Block.blockIron.blockID, 8, 800, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue*31, 0));
-        Smeltery.addMelting(new ItemStack(Block.anvil, 1, 2), Block.blockIron.blockID, 8, 800, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue*31, 0));
+        Smeltery.addMelting(new ItemStack(Block.cauldron), Block.blockIron.blockID, 8, 600, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 7, 0));
+        Smeltery.addMelting(new ItemStack(Block.anvil, 1, 0), Block.blockIron.blockID, 8, 800, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 31, 0));
+        Smeltery.addMelting(new ItemStack(Block.anvil, 1, 1), Block.blockIron.blockID, 8, 800, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 31, 0));
+        Smeltery.addMelting(new ItemStack(Block.anvil, 1, 2), Block.blockIron.blockID, 8, 800, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 31, 0));
 
         /* Detailing */
         Detailing chiseling = TConstructRegistry.getChiselDetailing();
@@ -1153,9 +1155,9 @@ public class TContent implements IFuelHandler
                 'r', new ItemStack(Item.redstone), 'd', new ItemStack(Block.dispenser))); //Drawbridge
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(redstoneMachine, 1, 0), "aca", "#d#", "#r#", '#', "ingotBronze", 'a', "ingotAluminumBrass", 'c', new ItemStack(blankPattern, 1, 2),
                 'r', new ItemStack(Item.redstone), 'd', new ItemStack(Block.dispenser)));
-        
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(redstoneMachine, 1, 1), "aca", "#d#", "#r#", '#', "ingotBronze", 'a', "ingotAluminumBrass", 'c', new ItemStack(heavyPlate, 1, 7),
-                'r', new ItemStack(Item.redstone), 'd', new ItemStack(Item.flintAndSteel))); //Igniter
+
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(redstoneMachine, 1, 1), "aca", "#d#", "#r#", '#', "ingotBronze", 'a', "ingotAluminumBrass", 'c', new ItemStack(heavyPlate, 1, 7), 'r',
+                new ItemStack(Item.redstone), 'd', new ItemStack(Item.flintAndSteel))); //Igniter
 
         /* Crafting */
         GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 0), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', Block.workbench);
@@ -1287,6 +1289,9 @@ public class TContent implements IFuelHandler
         GameRegistry.addRecipe(new ItemStack(knapsack, 1, 0), "###", "rmr", "###", '#', new ItemStack(Item.leather), 'r', new ItemStack(toughRod, 1, 2), 'm', new ItemStack(Item.ingotGold));
         GameRegistry.addRecipe(new ItemStack(knapsack, 1, 0), "###", "rmr", "###", '#', new ItemStack(Item.leather), 'r', new ItemStack(toughRod, 1, 2), 'm', new ItemStack(materials, 1, 14));
 
+        //Armor
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(dryingRack, 1, 0), "bbb", 'b', "slabWood"));
+
         //Remove vanilla recipes
         if (!PHConstruct.vanillaMetalBlocks)
         {
@@ -1407,7 +1412,7 @@ public class TContent implements IFuelHandler
         OreDictionary.registerOre("nuggetAluminumBrass", new ItemStack(materials, 1, 24));
 
         String[] names = new String[] { "Molten Iron", "Molten Gold", "Molten Copper", "Molten Tin", "Molten Aluminum", "Molten Cobalt", "Molten Ardite", "Molten Bronze", "Molten Aluminum Brass",
-                "Molten Manyullyn", "Molten Alumite", "Molten Obsidian", "Molten Steel", "Molten Glass", "Seared Stone", "Liquified Emerald", "Blood" };
+                "Molten Manyullyn", "Molten Alumite", "Molten Obsidian", "Molten Steel", "Molten Glass", "Seared Stone", "Molten Emerald", "mushroomsoup" };
         liquidIcons = new LiquidStack[names.length];
         liquidNames = new String[names.length];
         for (int iter = 0; iter < names.length; iter++)
@@ -1426,7 +1431,7 @@ public class TContent implements IFuelHandler
         {
             OreDictionary.registerOre(glassTypes[15 - i], new ItemStack(stainedGlassClear, 1, i));
         }
-        
+
         BlockDispenser.dispenseBehaviorRegistry.putObject(titleIcon, new TDispenserBehaviorSpawnEgg());
 
         //Vanilla stuff
@@ -1479,7 +1484,21 @@ public class TContent implements IFuelHandler
             TConstructClientRegistry.registerManualModifier("electricmod", ironpick.copy(), chargedReBattery, electronicCircuit);
 
         /* Thaumcraft */
-        //Object obj = getItem("itemResource", "thaumcraft.common.Config");
+        Object obj = getItem("itemResource", "thaumcraft.common.Config");
+        if (obj != null)
+        {
+            System.out.println("[TConstruct] Thaumcraft detected. Adding thaumium tools.");
+            TConstructRegistry.addToolMaterial(31, "Thaumium", 3, 400, 700, 2, 1.3F, 2, 0f, "\u00A75", "Thaumic");
+            PatternBuilder.instance.registerFullMaterial(new ItemStack((Item) obj, 1, 2), 2, "Thaumium", new ItemStack(toolShard, 1, 31), new ItemStack(toolRod, 1, 31), 31);
+            for (int meta = 0; meta < patternOutputs.length; meta++)
+            {
+                TConstructRegistry.addPartMapping(woodPattern.itemID, meta + 1, 31, new ItemStack(patternOutputs[meta], 1, 31));
+            }
+        }
+        else
+        {
+            System.out.println("[TConstruct] Thaumcraft not detected.");
+        }
     }
 
     public static Object getItem (String name, String classPackage)
@@ -1494,7 +1513,7 @@ public class TContent implements IFuelHandler
         }
         catch (Exception e)
         {
-            System.out.println("[TConstruct] Could not find item for " + name);
+            //System.out.println("[TConstruct] Could not find " + name);
             return null;
         }
     }
