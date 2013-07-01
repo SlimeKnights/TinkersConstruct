@@ -9,8 +9,12 @@ import java.util.List;
 import mods.tinker.tconstruct.library.crafting.*;
 import mods.tinker.tconstruct.library.tools.*;
 import mods.tinker.tconstruct.library.util.*;
+import net.minecraft.block.*;
+import net.minecraft.block.material.Material;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntitySign;
 import net.minecraftforge.common.ForgeHooks;
 
 /** A registry to store any relevant API work
@@ -331,6 +335,187 @@ public class TConstructRegistry
     public static void registerActiveToolMod(ActiveToolMod mod)
     {
     	activeModifiers.add(mod);
+    }
+    
+    /* Used to determine how blocks are laid out in the drawbridge
+     * 0: Metadata has to match
+     * 1: Metadata has no meaning
+     * 2: Should not be placed
+     * 3: Has rotational metadata
+     * 4: Rails
+     * 5: Has rotational TileEntity data
+     */
+    public static int[] drawbridgeState = new int[Block.blocksList.length];
+    /** Blocks that are interchangable with each other. Ex: Still and flowing water */
+    public static int[] interchangableBlockMapping = new int[Block.blocksList.length];
+    /** Blocks that place items, and vice versa */
+    public static int[] blockToItemMapping = new int[Item.itemsList.length];
+
+    static void initializeDrawbridgeState ()
+    {
+        drawbridgeState[Block.stone.blockID] = 1;
+        drawbridgeState[Block.grass.blockID] = 1;
+        drawbridgeState[Block.dirt.blockID] = 1;
+        drawbridgeState[Block.cobblestone.blockID] = 1;
+        drawbridgeState[Block.bedrock.blockID] = 2;
+        drawbridgeState[Block.waterMoving.blockID] = 1;
+        drawbridgeState[Block.waterStill.blockID] = 1;
+        interchangableBlockMapping[Block.waterStill.blockID] = Block.waterMoving.blockID;
+        interchangableBlockMapping[Block.waterMoving.blockID] = Block.waterStill.blockID;
+        drawbridgeState[Block.lavaMoving.blockID] = 1;
+        drawbridgeState[Block.lavaStill.blockID] = 1;
+        interchangableBlockMapping[Block.lavaStill.blockID] = Block.lavaMoving.blockID;
+        interchangableBlockMapping[Block.lavaMoving.blockID] = Block.lavaStill.blockID;
+        drawbridgeState[Block.sand.blockID] = 1;
+        drawbridgeState[Block.gravel.blockID] = 1;
+        drawbridgeState[Block.oreGold.blockID] = 1;
+        drawbridgeState[Block.oreIron.blockID] = 1;
+        drawbridgeState[Block.oreCoal.blockID] = 1;
+        drawbridgeState[Block.sponge.blockID] = 1;
+        drawbridgeState[Block.oreLapis.blockID] = 1;
+        drawbridgeState[Block.blockLapis.blockID] = 1;
+        drawbridgeState[Block.dispenser.blockID] = 3;
+        drawbridgeState[Block.music.blockID] = 1;
+        drawbridgeState[Block.bed.blockID] = 2;
+        drawbridgeState[Block.railPowered.blockID] = 4;
+        drawbridgeState[Block.railDetector.blockID] = 4;
+        drawbridgeState[Block.pistonStickyBase.blockID] = 3;
+        drawbridgeState[Block.web.blockID] = 1;
+        drawbridgeState[Block.pistonBase.blockID] = 3;
+        drawbridgeState[Block.pistonExtension.blockID] = 2;
+        drawbridgeState[Block.plantYellow.blockID] = 1;
+        drawbridgeState[Block.plantRed.blockID] = 1;
+        drawbridgeState[Block.mushroomBrown.blockID] = 1;
+        drawbridgeState[Block.mushroomRed.blockID] = 1;
+        drawbridgeState[Block.blockGold.blockID] = 1;
+        drawbridgeState[Block.blockIron.blockID] = 1;
+        drawbridgeState[Block.brick.blockID] = 1;
+        drawbridgeState[Block.tnt.blockID] = 1;
+        drawbridgeState[Block.bookShelf.blockID] = 1;
+        drawbridgeState[Block.cobblestoneMossy.blockID] = 1;
+        drawbridgeState[Block.obsidian.blockID] = 1;
+        drawbridgeState[Block.torchWood.blockID] = 1;
+        drawbridgeState[Block.fire.blockID] = 1;
+        drawbridgeState[Block.mobSpawner.blockID] = 2;
+        drawbridgeState[Block.stairsWoodOak.blockID] = 3;
+        drawbridgeState[Block.chest.blockID] = 5;
+        drawbridgeState[Block.redstoneWire.blockID] = 1;
+        blockToItemMapping[Block.redstoneWire.blockID] = Item.redstone.itemID;
+        blockToItemMapping[Item.redstone.itemID] = Block.redstoneWire.blockID;
+        drawbridgeState[Block.oreDiamond.blockID] = 1;
+        drawbridgeState[Block.blockDiamond.blockID] = 1;
+        drawbridgeState[Block.workbench.blockID] = 1;
+        drawbridgeState[Block.crops.blockID] = 2;
+        drawbridgeState[Block.tilledField.blockID] = 1;
+        drawbridgeState[Block.furnaceIdle.blockID] = 3;
+        drawbridgeState[Block.furnaceBurning.blockID] = 3;
+        interchangableBlockMapping[Block.furnaceIdle.blockID] = Block.furnaceBurning.blockID;
+        interchangableBlockMapping[Block.furnaceBurning.blockID] = Block.furnaceIdle.blockID;
+        drawbridgeState[Block.tilledField.blockID] = 1;
+        drawbridgeState[Block.signPost.blockID] = 3;
+        drawbridgeState[Block.doorWood.blockID] = 2;
+        drawbridgeState[Block.ladder.blockID] = 1;
+        drawbridgeState[Block.rail.blockID] = 4;
+        drawbridgeState[Block.stairsCobblestone.blockID] = 3;
+        drawbridgeState[Block.signWall.blockID] = 3;
+        drawbridgeState[Block.lever.blockID] = 3;
+        drawbridgeState[Block.pressurePlateStone.blockID] = 1;
+        drawbridgeState[Block.doorIron.blockID] = 2;
+        drawbridgeState[Block.pressurePlatePlanks.blockID] = 1;
+        drawbridgeState[Block.oreRedstone.blockID] = 1;
+        drawbridgeState[Block.oreRedstoneGlowing.blockID] = 1;
+        drawbridgeState[Block.torchRedstoneIdle.blockID] = 1;
+        drawbridgeState[Block.torchRedstoneActive.blockID] = 1;
+        drawbridgeState[Block.stoneButton.blockID] = 3;
+        drawbridgeState[Block.snow.blockID] = 1;
+        drawbridgeState[Block.ice.blockID] = 1;
+        drawbridgeState[Block.blockSnow.blockID] = 1;
+        drawbridgeState[Block.cactus.blockID] = 2;
+        drawbridgeState[Block.blockClay.blockID] = 1;
+        drawbridgeState[Block.reed.blockID] = 1;
+        drawbridgeState[Block.jukebox.blockID] = 1;
+        drawbridgeState[Block.fence.blockID] = 1;
+        drawbridgeState[Block.pumpkin.blockID] = 1;
+        drawbridgeState[Block.netherrack.blockID] = 1;
+        drawbridgeState[Block.slowSand.blockID] = 1;
+        drawbridgeState[Block.glowStone.blockID] = 1;
+        drawbridgeState[Block.portal.blockID] = 2;
+        drawbridgeState[Block.pumpkinLantern.blockID] = 1;
+        drawbridgeState[Block.cake.blockID] = 2;
+        drawbridgeState[Block.redstoneRepeaterIdle.blockID] = 3;
+        drawbridgeState[Block.redstoneRepeaterActive.blockID] = 3;
+        interchangableBlockMapping[Block.redstoneRepeaterIdle.blockID] = Block.redstoneRepeaterActive.blockID;
+        interchangableBlockMapping[Block.redstoneRepeaterActive.blockID] = Block.redstoneRepeaterIdle.blockID;
+        blockToItemMapping[Block.redstoneRepeaterIdle.blockID] = Item.redstoneRepeater.itemID;
+        blockToItemMapping[Block.redstoneRepeaterActive.blockID] = Item.redstoneRepeater.itemID;
+        blockToItemMapping[Item.redstoneRepeater.itemID] = Block.redstoneRepeaterIdle.blockID;
+        drawbridgeState[Block.lockedChest.blockID] = 5;
+        drawbridgeState[Block.trapdoor.blockID] = 3;
+        drawbridgeState[Block.mushroomCapBrown.blockID] = 1;
+        drawbridgeState[Block.mushroomCapRed.blockID] = 1;
+        drawbridgeState[Block.fenceIron.blockID] = 1;
+        drawbridgeState[Block.thinGlass.blockID] = 1;
+        drawbridgeState[Block.melon.blockID] = 1;
+        drawbridgeState[Block.pumpkinStem.blockID] = 2;
+        drawbridgeState[Block.melonStem.blockID] = 2;
+        drawbridgeState[Block.vine.blockID] = 3;
+        drawbridgeState[Block.fenceGate.blockID] = 3;
+        drawbridgeState[Block.stairsBrick.blockID] = 3;
+        drawbridgeState[Block.stairsStoneBrick.blockID] = 3;
+        drawbridgeState[Block.mycelium.blockID] = 1;
+        drawbridgeState[Block.waterlily.blockID] = 1;
+        drawbridgeState[Block.netherBrick.blockID] = 1;
+        drawbridgeState[Block.netherFence.blockID] = 1;
+        drawbridgeState[Block.netherFence.blockID] = 3;
+        drawbridgeState[Block.netherStalk.blockID] = 2;
+        drawbridgeState[Block.enchantmentTable.blockID] = 1;
+        drawbridgeState[Block.brewingStand.blockID] = 1;
+        drawbridgeState[Block.cauldron.blockID] = 1;
+        drawbridgeState[Block.endPortal.blockID] = 2;
+        drawbridgeState[Block.dragonEgg.blockID] = 1;
+        drawbridgeState[Block.redstoneLampIdle.blockID] = 1;
+        drawbridgeState[Block.redstoneLampActive.blockID] = 1;
+        drawbridgeState[Block.cocoaPlant.blockID] = 2;
+        drawbridgeState[Block.stairsSandStone.blockID] = 3;
+        drawbridgeState[Block.oreEmerald.blockID] = 1;
+        drawbridgeState[Block.enderChest.blockID] = 5;
+        drawbridgeState[Block.tripWireSource.blockID] = 1;
+        drawbridgeState[Block.tripWire.blockID] = 1;
+        drawbridgeState[Block.blockEmerald.blockID] = 1;
+        drawbridgeState[Block.stairsWoodSpruce.blockID] = 3;
+        drawbridgeState[Block.stairsWoodBirch.blockID] = 3;
+        drawbridgeState[Block.stairsWoodJungle.blockID] = 3;
+        drawbridgeState[Block.commandBlock.blockID] = 1;
+        drawbridgeState[Block.beacon.blockID] = 1;
+        drawbridgeState[Block.cobblestoneWall.blockID] = 1;
+        drawbridgeState[Block.flowerPot.blockID] = 1;
+        drawbridgeState[Block.carrot.blockID] = 2;
+        drawbridgeState[Block.potato.blockID] = 1;
+        drawbridgeState[Block.woodenButton.blockID] = 3;
+        drawbridgeState[Block.skull.blockID] = 2;
+        drawbridgeState[Block.chestTrapped.blockID] = 5;
+        drawbridgeState[Block.pressurePlateGold.blockID] = 1;
+        drawbridgeState[Block.pressurePlateIron.blockID] = 1;
+        drawbridgeState[Block.redstoneComparatorIdle.blockID] = 1;
+        drawbridgeState[Block.redstoneComparatorActive.blockID] = 1;
+        interchangableBlockMapping[Block.redstoneComparatorIdle.blockID] = Block.redstoneComparatorActive.blockID;
+        interchangableBlockMapping[Block.redstoneComparatorActive.blockID] = Block.redstoneComparatorIdle.blockID;
+        blockToItemMapping[Block.redstoneComparatorIdle.blockID] = Item.comparator.itemID;
+        blockToItemMapping[Block.redstoneComparatorActive.blockID] = Item.comparator.itemID;
+        blockToItemMapping[Item.comparator.itemID] = Block.redstoneComparatorIdle.blockID;
+        drawbridgeState[Block.daylightSensor.blockID] = 1;
+        drawbridgeState[Block.blockRedstone.blockID] = 1;
+        drawbridgeState[Block.oreNetherQuartz.blockID] = 1;
+        drawbridgeState[Block.hopperBlock.blockID] = 3;
+        drawbridgeState[Block.blockNetherQuartz.blockID] = 1;
+        drawbridgeState[Block.stairsNetherQuartz.blockID] = 3;
+        drawbridgeState[Block.railActivator.blockID] = 4;
+        drawbridgeState[Block.dropper.blockID] = 3;
+    }
+    
+    static
+    {
+        initializeDrawbridgeState();
     }
     
     /** Default Material Index

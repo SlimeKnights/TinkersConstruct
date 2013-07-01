@@ -19,6 +19,7 @@ public class DrawbridgeContainer extends Container
         this.logic = logic;
 
         this.addSlotToContainer(new Slot(logic, 0, 80, 36));
+        this.addSlotToContainer(new Slot(logic, 1, 35, 36));
         
         /* Player inventory */
         for (int column = 0; column < 3; column++)

@@ -12,6 +12,7 @@ import mods.tinker.tconstruct.library.TConstructRegistry;
 import mods.tinker.tconstruct.library.blocks.InventoryBlock;
 import mods.tinker.tconstruct.library.util.IActiveLogic;
 import mods.tinker.tconstruct.library.util.IFacingLogic;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -111,6 +112,14 @@ public class RedstoneMachine extends InventoryBlock
         int meta = world.getBlockMetadata(x, y, z);
         if (meta == 0)
         {
+            DrawbridgeLogic drawbridge = (DrawbridgeLogic) logic;
+            ItemStack stack = drawbridge.getStackInSlot(1);
+            if (stack != null && stack.itemID < 4096)
+            {
+                Block block = Block.blocksList[stack.itemID];
+                if (block != null && block.renderAsNormalBlock())
+                    return block.getIcon(side, stack.getItemDamage());
+            }
             if (side == direction)
             {
                 return icons[getTextureIndex(side) + 3];

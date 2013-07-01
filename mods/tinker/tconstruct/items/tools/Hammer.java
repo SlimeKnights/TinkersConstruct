@@ -270,7 +270,7 @@ public class Hammer extends HarvestTool
                         int hlvl = MinecraftForge.getBlockHarvestLevel(block, meta, getHarvestType());
                         float localHardness = block == null ? Float.MAX_VALUE : block.getBlockHardness(world, xPos, yPos, zPos);
 
-                        if (hlvl <= tags.getInteger("HarvestLevel") && localHardness <= blockHardness)
+                        if (hlvl <= tags.getInteger("HarvestLevel") && localHardness - 1.5 <= blockHardness)
                         {
                             boolean cancelHarvest = false;
                             for (ActiveToolMod mod : TConstructRegistry.activeModifiers)
