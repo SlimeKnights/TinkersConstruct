@@ -1,5 +1,6 @@
 package mods.tinker.tconstruct.common;
 
+import java.lang.reflect.Field;
 import java.util.Collection;
 
 import mods.tinker.tconstruct.TConstruct;
@@ -1484,11 +1485,11 @@ public class TContent implements IFuelHandler
             TConstructClientRegistry.registerManualModifier("electricmod", ironpick.copy(), chargedReBattery, electronicCircuit);
 
         /* Thaumcraft */
-        Object obj = getItem("itemResource", "thaumcraft.common.Config");
+        Object obj = getStaticItem("itemResource", "thaumcraft.common.Config");
         if (obj != null)
         {
             System.out.println("[TConstruct] Thaumcraft detected. Adding thaumium tools.");
-            TConstructRegistry.addToolMaterial(31, "Thaumium", 3, 400, 700, 2, 1.3F, 2, 0f, "\u00A75", "Thaumic");
+            TConstructRegistry.addToolMaterial(31, "Thaumium", 3, 400, 700, 2, 1.3F, 0, 0f, "\u00A75", "Thaumic");
             PatternBuilder.instance.registerFullMaterial(new ItemStack((Item) obj, 1, 2), 2, "Thaumium", new ItemStack(toolShard, 1, 31), new ItemStack(toolRod, 1, 31), 31);
             for (int meta = 0; meta < patternOutputs.length; meta++)
             {
@@ -1501,12 +1502,13 @@ public class TContent implements IFuelHandler
         }
     }
 
-    public static Object getItem (String name, String classPackage)
+    public static Object getStaticItem (String name, String classPackage)
     {
         try
         {
-            Class c = Class.forName(classPackage);
-            Object ret = c.getField(name);
+            Class clazz = Class.forName(classPackage);
+            Field field = clazz.getDeclaredField(name);
+            Object ret = field.get(null);
             if (ret != null && (ret instanceof ItemStack || ret instanceof Item))
                 return ret;
             return null;

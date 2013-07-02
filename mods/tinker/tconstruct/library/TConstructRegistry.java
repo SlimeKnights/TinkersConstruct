@@ -210,16 +210,16 @@ public class TConstructRegistry
      * @param attack Base attack
      * @param handleModifier Durability multiplier on the tool
      * @param reinforced Reinforced level
-     * @param unbreaking Amount of Stonebound to put on the tool. Negative numbers are Spiny.
+     * @param stonebound Amount of Stonebound to put on the tool. Negative numbers are Spiny.
      */
 
     public static void addToolMaterial (int materialID, String materialName, int harvestLevel, int durability, int miningspeed, int attack, float handleModifier, int reinforced,
-            float unbreaking, String style, String ability)
+            float stonebound, String style, String ability)
     {
         ToolMaterial mat = toolMaterials.get(materialID);
         if (mat == null)
         {
-            mat = new ToolMaterial(materialName, harvestLevel, durability, miningspeed, attack, handleModifier, reinforced, unbreaking, style, ability);
+            mat = new ToolMaterial(materialName, harvestLevel, durability, miningspeed, attack, handleModifier, reinforced, stonebound, style, ability);
             toolMaterials.put(materialID, mat);
             toolMaterialStrings.put(materialName, mat);
         }
@@ -239,16 +239,16 @@ public class TConstructRegistry
      * @param attack Base attack
      * @param handleModifier Durability multiplier on the tool
      * @param reinforced Reinforced level
-     * @param unbreaking Amount of Stonebound to put on the tool. Negative numbers are Spiny.
+     * @param stonebound Amount of Stonebound to put on the tool. Negative numbers are Spiny.
      */
 
     public static void addToolMaterial (int materialID, String materialName, String displayName, int harvestLevel, int durability, int miningspeed, int attack, float handleModifier, int reinforced,
-            float unbreaking, String style, String ability)
+            float stonebound, String style, String ability)
     {
         ToolMaterial mat = toolMaterials.get(materialID);
         if (mat == null)
         {
-            mat = new ToolMaterial(materialName, displayName, harvestLevel, durability, miningspeed, attack, handleModifier, reinforced, unbreaking, style, ability);
+            mat = new ToolMaterial(materialName, displayName, harvestLevel, durability, miningspeed, attack, handleModifier, reinforced, stonebound, style, ability);
             toolMaterials.put(materialID, mat);
             toolMaterialStrings.put(materialName, mat);
         }
