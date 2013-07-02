@@ -110,6 +110,7 @@ import mods.tinker.tconstruct.items.tools.Shovel;
 import mods.tinker.tconstruct.library.TConstructRegistry;
 import mods.tinker.tconstruct.library.client.TConstructClientRegistry;
 import mods.tinker.tconstruct.library.crafting.Detailing;
+import mods.tinker.tconstruct.library.crafting.DryingRackRecipes;
 import mods.tinker.tconstruct.library.crafting.LiquidCasting;
 import mods.tinker.tconstruct.library.crafting.PatternBuilder;
 import mods.tinker.tconstruct.library.crafting.Smeltery;
@@ -1317,6 +1318,9 @@ public class TContent implements IFuelHandler
         {
             GameRegistry.addRecipe(new ItemStack(goldHead), surround, '#', new ItemStack(Item.goldNugget), 'm', new ItemStack(Item.skull, 1, 3));
         }
+        
+        //Drying rack
+        DryingRackRecipes.addDryingRecipe(Item.rottenFlesh, 20, Item.leather);
     }
 
     void setupToolTabs ()
