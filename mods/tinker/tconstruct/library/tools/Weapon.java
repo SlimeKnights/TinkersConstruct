@@ -89,12 +89,6 @@ public abstract class Weapon extends ToolCore
     	return web;
     }
     
-    @Override
-	public int getHeadType ()
-	{
-		return 1;
-	}
-    
     /*@Override
     public boolean onLeftClickEntity (ItemStack stack, EntityPlayer player, Entity entity)
     {

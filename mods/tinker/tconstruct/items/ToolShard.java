@@ -5,6 +5,7 @@ import java.util.List;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
+import mods.tinker.tconstruct.common.TContent;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
@@ -55,8 +56,10 @@ public class ToolShard extends ToolPart
             list.add(new ItemStack(id, 1, i));
         for (int i = 6; i < 9; i++)
             list.add(new ItemStack(id, 1, i));
-        for (int i = 10; i < icons.length; i++)
-            if (!(textureNames[i].equals("")))
-                list.add(new ItemStack(id, 1, i));
+        for (int i = 10; i < 17; i++)
+            list.add(new ItemStack(id, 1, i));
+
+        if (TContent.thaumcraftAvailable)
+            list.add(new ItemStack(id, 1, 31));
     }
 }

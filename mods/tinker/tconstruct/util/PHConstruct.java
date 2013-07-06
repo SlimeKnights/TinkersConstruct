@@ -10,16 +10,17 @@ import net.minecraftforge.common.Configuration;
 public class PHConstruct
 {
 
-    public static void initProps ()
+    public static void initProps (File location)
     {
         /* Here we will set up the config file for the mod 
          * First: Create a folder inside the config folder
          * Second: Create the actual config file
          * Note: Configs are a pain, but absolutely necessary for every mod.
          */
-        File file = new File(TConstruct.proxy.getLocation() + "/config");
-        file.mkdir();
-        File newFile = new File(TConstruct.proxy.getLocation() + "/config/TinkersWorkshop.txt");
+        //File file = new File(TConstruct.proxy.getLocation() + "/config");
+        //file.mkdir();
+        //File newFile = new File(TConstruct.proxy.getLocation() + "/config/TinkersWorkshop.txt");
+        File newFile = new File(location + "/TinkersWorkshop.txt");
 
         /* Some basic debugging will go a long way */
         try
@@ -98,6 +99,8 @@ public class PHConstruct
         stainedGlassClear = config.getBlock("Clear Stained Glass", 3225).getInt(3225);
         redstoneMachine = config.getBlock("Redstone Machines", 3226).getInt(3226);
         dryingRack = config.getBlock("Drying Rack", 3227).getInt(3227);
+        glassPane = config.getBlock("Glass Pane", 3228).getInt(3228);
+        stainedGlassClearPane = config.getBlock("Clear Stained Glass Pane", 3229).getInt(3229);
 
         /*golemCore = config.getBlock("Golem Core", 1481).getInt(1481);
         golemHead = config.getBlock("Golem Head", 1482).getInt(1482);*/
@@ -138,6 +141,7 @@ public class PHConstruct
         excavatorHead = config.getItem("Tool Parts", "Excavator Head", 14045).getInt(14045);
         hammerHead = config.getItem("Tool Parts", "Hammer Head", 14046).getInt(14046);
         fullGuard = config.getItem("Tool Parts", "Full Guard", 14047).getInt(14047);
+        bowstring = config.getItem("Tool Parts", "Bowstring", 14048).getInt(14048);
 
         pickaxe = config.getItem("Tools", "Pickaxe", 14051).getInt(14051);
         shovel = config.getItem("Tools", "Shovel", 14052).getInt(14052);
@@ -314,8 +318,10 @@ public class PHConstruct
     //InfiBlocks
     public static int speedBlock;
     public static int glass;
+    public static int glassPane;
     public static int stainedGlass;
     public static int stainedGlassClear;
+    public static int stainedGlassClearPane;
     
     //Crystalline
     public static int aggregator;
@@ -403,6 +409,8 @@ public class PHConstruct
     public static int toughBinding;
     public static int toughRod;
     public static int largePlate;
+    
+    public static int bowstring;
     
     //Wearables
     public static int heavyHelmet;

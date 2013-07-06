@@ -5,10 +5,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import mods.tinker.tconstruct.library.event.PartBuilderEvent;
+import mods.tinker.tconstruct.library.event.ToolCraftEvent;
+import mods.tinker.tconstruct.library.tools.ToolMaterial;
 import mods.tinker.tconstruct.library.util.IPattern;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.Event.Result;
 
 public class PatternBuilder
 {
@@ -49,6 +54,18 @@ public class PatternBuilder
 	{
 		if (material != null && pattern != null)
 		{
+		    PartBuilderEvent.NormalPart event = new PartBuilderEvent.NormalPart(material, pattern, otherPattern);
+	        MinecraftForge.EVENT_BUS.post(event);
+	        
+	        if (event.getResult() == Result.ALLOW)
+	        {
+	            return event.getResultStacks();
+	        }
+	        else if (event.getResult() == Result.DENY)
+	        {
+	            return null;
+	        }
+	        
 			ItemKey key = getItemKey(material);
 			if (key != null)
 			{

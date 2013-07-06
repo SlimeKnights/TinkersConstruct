@@ -20,12 +20,6 @@ public abstract class DualHarvestTool extends HarvestTool
 	}
 
 	@Override
-	public int getHeadType ()
-	{
-		return 3;
-	}
-
-	@Override
 	public boolean onBlockStartBreak (ItemStack stack, int x, int y, int z, EntityPlayer player)
 	{
 		NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");

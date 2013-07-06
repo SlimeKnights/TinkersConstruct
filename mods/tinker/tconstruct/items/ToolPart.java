@@ -2,15 +2,10 @@ package mods.tinker.tconstruct.items;
 
 import java.util.List;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-
+import mods.tinker.tconstruct.common.TContent;
 import mods.tinker.tconstruct.library.util.IToolPart;
-import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
-import net.minecraft.util.MathHelper;
 
 public class ToolPart extends CraftingItem implements IToolPart
 {
@@ -34,22 +29,20 @@ public class ToolPart extends CraftingItem implements IToolPart
         return names;
     }
 
-    /*@SideOnly(Side.CLIENT)
-    public void registerIcons(IconRegister iconRegister)
-    {
-    	this.icons = new Icon[textureNames.length];
-
-        for (int i = 0; i < this.icons.length; ++i)
-        {
-            this.icons[i] = iconRegister.registerIcon("tinker:parts/"+textureNames[i]);
-        }
-    }*/
-
     public static final String[] toolMaterialNames = new String[] { "Wood", "Stone", "Iron", "Flint", "Cactus", "Bone", "Obsidian", "Netherrack", "Slime", "Paper", "Cobalt", "Ardite", "Manyullyn",
             "Copper", "Bronze", "Alumite", "Steel", "Blue Slime", "", "", "", "", "", "", "", "", "", "", "", "", "", "Thaumium" };
 
     public static final String[] toolTextureNames = new String[] { "wood", "stone", "iron", "flint", "cactus", "bone", "obsidian", "netherrack", "slime", "paper", "cobalt", "ardite", "manyullyn",
             "copper", "bronze", "alumite", "steel", "blueslime", "", "", "", "", "", "", "", "", "", "", "", "", "", "thaumium" };
+
+    public void getSubItems (int id, CreativeTabs tab, List list)
+    {
+        for (int i = 0; i < 17; i++)
+            list.add(new ItemStack(id, 1, i));
+        
+        if (TContent.thaumcraftAvailable)
+            list.add(new ItemStack(id, 1, 31));
+    }
 
     @Override
     public int getMaterialID (ItemStack stack)

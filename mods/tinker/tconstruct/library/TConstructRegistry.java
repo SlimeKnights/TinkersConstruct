@@ -93,7 +93,7 @@ public class TConstructRegistry
      * 
      * Patterns - These have a suffix of Pattern or Cast. ex: hatchetHeadPattern
      * ingot, toolRod, pickaxeHead, shovelHead, hatchetHead, swordBlade, wideGuard, handGuard, crossbar, binding, frypanHead, signHead, 
-     * knifeBlade, chiselHead, toughRod, toughBinding, largePlate, broadAxeHead, scytheHead, excavatorHead, largeBlade, hammerHead, fullGuard
+     * knifeBlade, chiselHead, toughRod, toughBinding, largePlate, broadAxeHead, scytheHead, excavatorHead, largeBlade, hammerHead, fullGuard, bowstring
      */
     static HashMap<String, ItemStack> itemstackDirectory = new HashMap<String, ItemStack>();
     
@@ -295,6 +295,62 @@ public class TConstructRegistry
     public static ToolMaterial getMaterial (String key)
     {
         return (toolMaterialStrings.get(key));
+    }
+    
+    //Bow materials
+    public static HashMap<Integer, BowMaterial> bowMaterials = new HashMap<Integer, BowMaterial>(40);
+    
+    public static void addBowMaterial(int materialID, int durability, int drawSpeed, float speedMax)
+    {
+        BowMaterial mat = bowMaterials.get(materialID);
+        if (mat == null)
+        {
+            mat = new BowMaterial(durability, drawSpeed, speedMax);
+            bowMaterials.put(materialID, mat);
+            //toolMaterialStrings.put(materialName, mat);
+        }
+        else
+            throw new IllegalArgumentException("[TCon API] Bow Material ID " + materialID + " is already occupied");
+    }
+    
+    public static boolean validBowMaterial(int materialID)
+    {
+        return bowMaterials.containsKey(materialID);
+    }
+    
+    public static BowMaterial getBowMaterial(int materialID)
+    {
+        return bowMaterials.get(materialID);
+    }
+
+    public static ArrayList<BowstringMaterial> bowstringMaterials = new ArrayList<BowstringMaterial>();
+    
+    public static void addBowstringMaterial(int materialID, ItemStack stack, ItemStack craftingMaterial, float durability, float drawSpeed, float flightSpeed)
+    {
+        BowstringMaterial mat = new BowstringMaterial(materialID, stack, craftingMaterial, durability, drawSpeed, flightSpeed);
+        bowstringMaterials.add(mat);
+    }
+    
+    public static BowstringMaterial getBowstringMaterial(int materialID)
+    {
+        for (BowstringMaterial mat : bowstringMaterials)
+        {
+            if (mat.materialID == materialID)
+                return mat;
+        }
+        return null;
+    }
+    
+    public static ItemStack craftBowString(ItemStack stack)
+    {
+        for (BowstringMaterial mat : bowstringMaterials)
+        {
+            System.out.println("mat: "+mat.input);
+            //if (ItemStack.areItemStacksEqual(stack, mat.input))
+            if (stack.isItemEqual(mat.input))
+                return mat.craftingItem.copy();
+        }
+        return null;
     }
 
     public static LiquidCasting getTableCasting ()

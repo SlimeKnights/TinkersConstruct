@@ -173,6 +173,7 @@ public class TProxyCommon implements IGuiHandler
         LanguageRegistry.addName(TContent.aggregator, "Glowstone Aggregator");
         LanguageRegistry.addName(TContent.lightCrystalBase, "Lightstone Crystal");
         LanguageRegistry.addName(TContent.knapsack, "Knapsack");
+        LanguageRegistry.addName(TContent.shortbow, "Shortbow");
 
     }
 
@@ -215,9 +216,9 @@ public class TProxyCommon implements IGuiHandler
             " Excavator Head", " Hammer Head", " Full Guard" };
 
     public static final String[] patterns = new String[] { "ingot", "rod", "pickaxe", "shovel", "axe", "swordblade", "largeguard", "mediumguard", "crossbar", "binding", "frypan", "sign",
-            "knifeblade", "chisel", "largerod", "toughbinding", "largeplate", "broadaxe", "scythe", "excavator", "largeblade", "hammerhead", "fullguard", "jewel" };
+            "knifeblade", "chisel", "largerod", "toughbinding", "largeplate", "broadaxe", "scythe", "excavator", "largeblade", "hammerhead", "fullguard", "bowstring" };
 
     public static final String[] patternNames = new String[] { "Ingot", "Tool Rod", "Pickaxe Head", "Shovel Head", "Axe Head", "Sword Blade", "Wide Guard", "Hand Guard", "Crossbar", "Tool Binding",
             "Pan", "Board", "Knife Blade", "Chisel Head", "Tough Tool Rod", "Tough Binding", "Large Plate", "Broad Axe Head", "Scythe Head", "Broad Shovel Head", "Large Blade", "Hammer Head",
-            "Full Guard", "Jewel" };
+            "Full Guard", "Bowstring" };
 }

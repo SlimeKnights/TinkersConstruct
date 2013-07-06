@@ -37,7 +37,7 @@ import cpw.mods.fml.common.registry.VillagerRegistry;
  * @dependencies: IC2 API, MFR API
  */
 
-@Mod(modid = "TConstruct", name = "TConstruct", version = "1.5.1_1.4.dev.9", dependencies = "required-after:Forge@[7.7.1.675,)")
+@Mod(modid = "TConstruct", name = "TConstruct", version = "1.5.1_1.4.dev.12", dependencies = "required-after:Forge@[7.7.1.675,)")
 @NetworkMod(serverSideRequired = false, clientSideRequired = true, channels = { "TConstruct" }, packetHandler = mods.tinker.tconstruct.util.network.TPacketHandler.class)
 public class TConstruct
 {
@@ -58,9 +58,9 @@ public class TConstruct
     }
 
     @PreInit
-    public void preInit (FMLPreInitializationEvent evt)
+    public void preInit (FMLPreInitializationEvent event)
     {
-        PHConstruct.initProps();
+        PHConstruct.initProps(event.getModConfigurationDirectory());
         TConstructRegistry.materialTab = new TabTools("TConstructMaterials");
         TConstructRegistry.toolTab = new TabTools("TConstructTools");
         TConstructRegistry.blockTab = new TabTools("TConstructBlocks");

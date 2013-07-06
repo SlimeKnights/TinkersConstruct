@@ -19,13 +19,7 @@ public class Hatchet extends HarvestTool
 		super(itemID, 3);
 		this.setUnlocalizedName("InfiTool.Axe");
 	}
-
-	@Override
-	public int getHeadType ()
-	{
-		return 1;
-	}
-
+	
 	@Override
 	protected Material[] getEffectiveMaterials ()
 	{
@@ -79,7 +73,7 @@ public class Hatchet extends HarvestTool
 	public void registerPartPaths (int index, String[] location)
 	{
 		headStrings.put(index, location[0]);
-		brokenHeadStrings.put(index, location[1]);
+		brokenPartStrings.put(index, location[1]);
 		handleStrings.put(index, location[2]);
 	}
 	

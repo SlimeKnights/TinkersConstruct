@@ -92,7 +92,7 @@ public class ModLapis extends ToolMod
         updateModTag(tool, keyPair);
     }
 
-    public void midStreamModify (ItemStack tool)
+    public void midStreamModify (ItemStack tool, ToolCore toolItem)
     {
         NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
         if (!tags.hasKey(key))
@@ -109,7 +109,9 @@ public class ModLapis extends ToolMod
             updateModTag(tool, keyPair);
         }
 
-        if (tool.getItem() instanceof Weapon)
+        List list = Arrays.asList(toolItem.toolCategories());
+        //return list.contains("weapon") || list.contains("harvest");
+        if (list.contains("weapon"))
         {
             if (keyPair[0] >= 350)
             {
@@ -130,7 +132,8 @@ public class ModLapis extends ToolMod
                     addEnchantment(tool, Enchantment.looting, 1);
             }
         }
-        else
+
+        if (list.contains("harvest"))
         {
             if (keyPair[0] >= 350)
             {

@@ -139,12 +139,6 @@ public class Chisel extends ToolCore
         return EnumAction.eat;
     }
 
-    @Override
-    public int getHeadType ()
-    {
-        return 1;
-    }
-
     @SideOnly(Side.CLIENT)
     @Override
     public int getRenderPasses (int metadata)
@@ -162,7 +156,7 @@ public class Chisel extends ToolCore
     public void registerPartPaths (int index, String[] location)
     {
         headStrings.put(index, location[0]);
-        brokenHeadStrings.put(index, location[1]);
+        brokenPartStrings.put(index, location[1]);
         handleStrings.put(index, location[2]);
     }
 

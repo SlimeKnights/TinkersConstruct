@@ -73,16 +73,10 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
         canRepair = false;
     }
 
-    @Deprecated
-    public int getHeadType ()
-    {
-        return 0;
-    }
-
     /** Determines crafting behavior with regards to durability
      * 0: None
      * 1: Adds handle modifier
-     * 2: Averages part with the rest of the tool
+     * 2: Averages part with the rest of the tool (head)
      * @return type
      */
 
@@ -122,7 +116,7 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
 
     //Not liking this
     public HashMap<Integer, String> headStrings = new HashMap<Integer, String>();
-    public HashMap<Integer, String> brokenHeadStrings = new HashMap<Integer, String>();
+    public HashMap<Integer, String> brokenPartStrings = new HashMap<Integer, String>();
     public HashMap<Integer, String> handleStrings = new HashMap<Integer, String>();
     public HashMap<Integer, String> accessoryStrings = new HashMap<Integer, String>();
     public HashMap<Integer, String> effectStrings = new HashMap<Integer, String>();
@@ -157,12 +151,18 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
     public void registerPartPaths (int index, String[] location)
     {
         headStrings.put(index, location[0]);
-        brokenHeadStrings.put(index, location[1]);
+        brokenPartStrings.put(index, location[1]);
         handleStrings.put(index, location[2]);
         if (location.length > 3)
             accessoryStrings.put(index, location[3]);
         if (location.length > 4)
             extraStrings.put(index, location[4]);
+    }
+    
+
+    public void registerAlternatePartPaths (int index, String[] location)
+    {
+        
     }
 
     public void registerEffectPath (int index, String location)
@@ -177,6 +177,7 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
         brokenIcons.clear();
         handleIcons.clear();
         accessoryIcons.clear();
+        extraIcons.clear();
         effectIcons.clear();
         Iterator iter = headStrings.entrySet().iterator();
         while (iter.hasNext())
@@ -185,7 +186,7 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
             headIcons.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue()));
         }
 
-        iter = brokenHeadStrings.entrySet().iterator();
+        iter = brokenPartStrings.entrySet().iterator();
         while (iter.hasNext())
         {
             Map.Entry pairs = (Map.Entry) iter.next();

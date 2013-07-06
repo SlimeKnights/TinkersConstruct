@@ -26,7 +26,7 @@ public class ToolMaterial
     public ToolMaterial(String name, String displayName, int level, int durability, int speed, int damage, float handle, int reinforced, float stonebound, String style, String ability)
     {
         this.materialName = name;
-        this.displayName = name + " ";
+        this.displayName = displayName;
         this.harvestLevel = level;
         this.durability = durability;
         this.miningspeed = speed;

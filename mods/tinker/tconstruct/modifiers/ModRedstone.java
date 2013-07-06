@@ -49,9 +49,10 @@ public class ModRedstone extends ToolMod
 	public void modify (ItemStack[] input, ItemStack tool)
 	{
 		NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
+		int[] keyPair;
 		if (tags.hasKey(key))
 		{
-			int[] keyPair = tags.getIntArray(key);
+			keyPair = tags.getIntArray(key);
 			if (keyPair[0] % max == 0)
 			{
 				keyPair[0] += increase;
@@ -76,7 +77,7 @@ public class ModRedstone extends ToolMod
 			tags.setInteger("Modifiers", modifiers);
 			String modName = "\u00a74Redstone ("+increase+"/"+max+")";
 			int tooltipIndex = addToolTip(tool, tooltipName, modName);
-			int[] keyPair = new int[] { increase, max, tooltipIndex };
+			keyPair = new int[] { increase, max, tooltipIndex };
 			tags.setIntArray(key, keyPair);
 		}
 		
@@ -89,6 +90,14 @@ public class ModRedstone extends ToolMod
 			int miningSpeed2 = tags.getInteger("MiningSpeed2");
 			miningSpeed2 += (increase*8);
 			tags.setInteger("MiningSpeed2", miningSpeed2);
+		}
+		
+		if (tags.hasKey("DrawSpeed"))
+		{
+		    //int drawSpeed = tags.getInteger("DrawSpeed");
+            int baseDrawSpeed = tags.getInteger("BaseDrawSpeed");
+            int drawSpeed = (int) (baseDrawSpeed - (0.1f * baseDrawSpeed * (keyPair[0] / 50f) ));
+            tags.setInteger("DrawSpeed", drawSpeed);
 		}
 	}
 	
@@ -103,6 +112,6 @@ public class ModRedstone extends ToolMod
 	public boolean validType(ToolCore tool)
     {
         List list = Arrays.asList(tool.toolCategories());
-        return list.contains("harvest") || list.contains("utility");
+        return list.contains("harvest") || list.contains("utility") || list.contains("bow");
     }
 }

@@ -16,12 +16,6 @@ public class Shovel extends HarvestTool
 	}
 	
 	@Override
-	public int getHeadType ()
-	{
-		return 1;
-	}
-	
-	@Override
 	protected Material[] getEffectiveMaterials()
 	{
 		return materials;
@@ -64,7 +58,7 @@ public class Shovel extends HarvestTool
 	public void registerPartPaths (int index, String[] location)
 	{
 		headStrings.put(index, location[0]);
-		brokenHeadStrings.put(index, location[1]);
+		brokenPartStrings.put(index, location[1]);
 		handleStrings.put(index, location[2]);
 	}
 	

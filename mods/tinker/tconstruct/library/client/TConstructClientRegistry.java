@@ -34,6 +34,21 @@ public class TConstructClientRegistry
             tool.registerPartPaths(materialID, toolIcons);
         }
     }
+
+    public static void addAlternateMaterialRenderMapping (ToolCore tool, int materialID, String domain, String renderName, boolean useDefaultFolder)
+    {
+        String[] toolIcons = new String[tool.getPartAmount() + 1];
+        for (int i = 0; i < tool.getPartAmount() + 1; i++)
+        {
+            String icon = domain + ":";
+            if (useDefaultFolder)
+                icon += tool.getDefaultFolder() + "/";
+            icon += renderName + tool.getIconSuffix(i);
+            toolIcons[i] = icon;
+        }
+        tool.registerAlternatePartPaths(materialID, toolIcons);
+    }
+
     public static void addEffectRenderMapping (ToolCore tool, int materialID, String domain, String renderName, boolean useDefaultFolder)
     {
         String icon = domain + ":";
@@ -114,7 +129,7 @@ public class TConstructClientRegistry
         recipe[2] = bottominput;
         recipeIcons.put(name, recipe);
     }
-    
+
     public static void registerManualSmeltery (String name, ItemStack output, ItemStack liquid, ItemStack cast)
     {
         ItemStack[] recipe = new ItemStack[3];

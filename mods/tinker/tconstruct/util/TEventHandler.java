@@ -7,10 +7,14 @@ import mods.tinker.tconstruct.TConstruct;
 import mods.tinker.tconstruct.blocks.logic.LiquidTextureLogic;
 import mods.tinker.tconstruct.common.TContent;
 import mods.tinker.tconstruct.crystal.TheftValueTracker;
+import mods.tinker.tconstruct.library.TConstructRegistry;
 import mods.tinker.tconstruct.library.crafting.PatternBuilder;
 import mods.tinker.tconstruct.library.crafting.Smeltery;
 import mods.tinker.tconstruct.library.crafting.ToolBuilder;
+import mods.tinker.tconstruct.library.event.PartBuilderEvent;
 import mods.tinker.tconstruct.library.event.ToolCraftEvent;
+import mods.tinker.tconstruct.library.tools.BowMaterial;
+import mods.tinker.tconstruct.library.tools.BowstringMaterial;
 import mods.tinker.tconstruct.library.tools.ToolCore;
 import mods.tinker.tconstruct.library.util.ValueCoordTuple;
 import mods.tinker.tconstruct.modifiers.ModAttack;
@@ -51,7 +55,7 @@ public class TEventHandler
 
     /* Crafting */
     @ForgeSubscribe
-    public void craftTool (ToolCraftEvent event)
+    public void craftTool (ToolCraftEvent.NormalTool event)
     {
         NBTTagCompound toolTag = event.toolTag.getCompoundTag("InfiTool");
         int thaum = 0;
@@ -64,7 +68,7 @@ public class TEventHandler
         if (toolTag.getInteger("Extra") == 31)
             thaum++;
 
-        if ( (thaum >= 3) || (!toolTag.hasKey("Accessory") && thaum >= 2) )
+        if ((thaum >= 3) || (!toolTag.hasKey("Accessory") && thaum >= 2))
         {
             int modifiers = toolTag.getInteger("Modifiers");
             modifiers += 2;
@@ -75,6 +79,45 @@ public class TEventHandler
             int modifiers = toolTag.getInteger("Modifiers");
             modifiers += 1;
             toolTag.setInteger("Modifiers", modifiers);
+        }
+
+        if (event.tool == TContent.shortbow)
+        {
+            BowMaterial top = TConstructRegistry.getBowMaterial(toolTag.getInteger("Head"));
+            BowMaterial bottom = TConstructRegistry.getBowMaterial(toolTag.getInteger("Accessory"));
+            BowstringMaterial string = TConstructRegistry.getBowstringMaterial(toolTag.getInteger("Handle"));
+            
+            if (toolTag.getInteger("Handle") == 1)
+            {
+                int modifiers = toolTag.getInteger("Modifiers");
+                modifiers += 1;
+                toolTag.setInteger("Modifiers", modifiers);
+            }
+
+            int durability = (int) ((top.durability + bottom.durability) / 2 * string.durabilityModifier);
+            toolTag.setInteger("TotalDurability", durability);
+            toolTag.setInteger("BaseDurability", durability);
+
+            int drawSpeed = (int) ((top.drawspeed + bottom.drawspeed) / 2 * string.drawspeedModifier);
+            toolTag.setInteger("DrawSpeed", drawSpeed);
+            toolTag.setInteger("BaseDrawSpeed", drawSpeed);
+
+            float flightSpeed = (top.flightSpeedMax + bottom.flightSpeedMax) / 2f * string.flightSpeedModifier;
+            toolTag.setFloat("FlightSpeed", flightSpeed);
+        }
+    }
+
+    @ForgeSubscribe
+    public void craftPart (PartBuilderEvent.NormalPart event)
+    {
+        if (event.pattern.getItem() == TContent.woodPattern && event.pattern.getItemDamage() == 23)
+        {
+            //System.out.println("Fire! ");
+            ItemStack result = TConstructRegistry.craftBowString(event.material);
+            if (result != null)
+            {
+                event.overrideResult(new ItemStack[] { result, null });
+            }
         }
     }
 

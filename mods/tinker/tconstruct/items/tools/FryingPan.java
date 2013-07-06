@@ -44,7 +44,8 @@ public class FryingPan extends Weapon
         return true;
     }
 
-    public void onEntityDamaged(World world, EntityPlayer player, Entity entity)
+    @Override
+    public void onEntityDamaged(World world, EntityLiving player, Entity entity)
     {
         world.playSoundEffect(entity.posX, entity.posY, entity.posZ, "sounds.frypan_hit", 1.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F);
     }
@@ -165,7 +166,7 @@ public class FryingPan extends Weapon
     public void registerPartPaths (int index, String[] location)
     {
         headStrings.put(index, location[0]);
-        brokenHeadStrings.put(index, location[1]);
+        brokenPartStrings.put(index, location[1]);
         handleStrings.put(index, location[2]);
     }
 

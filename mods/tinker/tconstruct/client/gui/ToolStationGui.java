@@ -225,6 +225,20 @@ public class ToolStationGui extends NewContainerGui
             }
             offset++;
         }
+        
+        if (categories.contains("bow"))
+        {
+            DecimalFormat df = new DecimalFormat("##.##");
+            df.setRoundingMode(RoundingMode.DOWN);
+            int drawSpeed = tags.getInteger("DrawSpeed");
+            float flightSpeed = tags.getFloat("FlightSpeed");
+            float trueDraw = drawSpeed / 20f * flightSpeed;
+            this.fontRenderer.drawString("Draw Speed: " + df.format(trueDraw)+"s", xSize + 8, base + offset * 10, 0xffffff);
+            offset++;
+            this.fontRenderer.drawString("Arrow Speed: " + df.format(flightSpeed)+"x", xSize + 8, base + offset * 10, 0xffffff);
+            offset++;
+            offset++;
+        }
 
         //Mining
         if (categories.contains("dualharvest"))

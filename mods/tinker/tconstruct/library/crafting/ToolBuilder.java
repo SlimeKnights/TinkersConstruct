@@ -15,6 +15,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.Event.Result;
 
 public class ToolBuilder
 {
@@ -308,10 +309,21 @@ public class ToolBuilder
             compound.getCompoundTag("display").setString("Name", "\u00A7f" + name);
         }
         
-        ToolCraftEvent event = new ToolCraftEvent(item, compound, new ToolMaterial[] {headMat, handleMat, accessoryMat, extraMat});
+        ToolCraftEvent.NormalTool event = new ToolCraftEvent.NormalTool(item, compound, new ToolMaterial[] {headMat, handleMat, accessoryMat, extraMat});
         MinecraftForge.EVENT_BUS.post(event);
-
-        tool.setTagCompound(compound);
+        
+        if (event.getResult() == Result.DEFAULT)
+        {
+            tool.setTagCompound(compound);
+        }
+        else if (event.getResult() == Result.ALLOW)
+        {
+            tool = event.getResultStack();
+        }
+        else
+        {
+            tool = null;
+        }
 
         return tool;
     }

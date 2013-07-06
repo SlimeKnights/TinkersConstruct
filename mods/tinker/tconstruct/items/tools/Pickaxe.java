@@ -14,12 +14,6 @@ public class Pickaxe extends HarvestTool
 	}
 	
 	@Override
-	public int getHeadType ()
-	{
-		return 1;
-	}
-	
-	@Override
 	protected String getHarvestType()
 	{
 		return "pickaxe";

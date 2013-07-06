@@ -194,7 +194,15 @@ public class AbilityHelper
 
                     if (causedDamage)
                     {
-                        damageTool(stack, 1, player, false);
+                        int reinforced = 0;
+                        if (toolTags.hasKey("Unbreaking"))
+                            reinforced = tags.getCompoundTag("InfiTool").getInteger("Unbreaking");
+
+                        if (random.nextInt(10) < 10 - reinforced)
+                        {
+                            damageTool(stack, 1, tags, player, false);
+                        }
+                        //damageTool(stack, 1, player, false);
                         tool.onEntityDamaged(player.worldObj, player, entity);
                         int drain = toolTags.getInteger("Necrotic") * 2;
                         if (drain > 0)

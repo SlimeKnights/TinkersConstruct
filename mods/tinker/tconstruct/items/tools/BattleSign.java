@@ -125,7 +125,7 @@ public class BattleSign extends Weapon
 	public void registerPartPaths (int index, String[] location)
 	{
 		headStrings.put(index, location[0]);
-		brokenHeadStrings.put(index, location[1]);
+		brokenPartStrings.put(index, location[1]);
 		handleStrings.put(index, location[2]);
 	}
 	

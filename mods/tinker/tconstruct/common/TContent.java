@@ -4,138 +4,21 @@ import java.lang.reflect.Field;
 import java.util.Collection;
 
 import mods.tinker.tconstruct.TConstruct;
-import mods.tinker.tconstruct.blocks.Aggregator;
-import mods.tinker.tconstruct.blocks.DryingRack;
-import mods.tinker.tconstruct.blocks.EquipBlock;
-import mods.tinker.tconstruct.blocks.GlassBlock;
-import mods.tinker.tconstruct.blocks.GlassBlockStained;
-import mods.tinker.tconstruct.blocks.GravelOre;
-import mods.tinker.tconstruct.blocks.LavaTankBlock;
-import mods.tinker.tconstruct.blocks.LightCrystalBase;
-import mods.tinker.tconstruct.blocks.LiquidMetalFlowing;
-import mods.tinker.tconstruct.blocks.LiquidMetalStill;
-import mods.tinker.tconstruct.blocks.MetalOre;
-import mods.tinker.tconstruct.blocks.MultiBrick;
-import mods.tinker.tconstruct.blocks.MultiBrickFancy;
-import mods.tinker.tconstruct.blocks.OreberryBush;
-import mods.tinker.tconstruct.blocks.RedstoneMachine;
-import mods.tinker.tconstruct.blocks.SearedBlock;
-import mods.tinker.tconstruct.blocks.SmelteryBlock;
-import mods.tinker.tconstruct.blocks.SoilBlock;
-import mods.tinker.tconstruct.blocks.SpeedBlock;
-import mods.tinker.tconstruct.blocks.StoneTorch;
-import mods.tinker.tconstruct.blocks.TMetalBlock;
-import mods.tinker.tconstruct.blocks.ToolForgeBlock;
-import mods.tinker.tconstruct.blocks.ToolStationBlock;
-import mods.tinker.tconstruct.blocks.logic.CastingBasinLogic;
-import mods.tinker.tconstruct.blocks.logic.CastingTableLogic;
-import mods.tinker.tconstruct.blocks.logic.DrawbridgeLogic;
-import mods.tinker.tconstruct.blocks.logic.DryingRackLogic;
-import mods.tinker.tconstruct.blocks.logic.FaucetLogic;
-import mods.tinker.tconstruct.blocks.logic.FirestarterLogic;
-import mods.tinker.tconstruct.blocks.logic.FrypanLogic;
-import mods.tinker.tconstruct.blocks.logic.GlowstoneAggregator;
-import mods.tinker.tconstruct.blocks.logic.LavaTankLogic;
-import mods.tinker.tconstruct.blocks.logic.LiquidTextureLogic;
-import mods.tinker.tconstruct.blocks.logic.MultiServantLogic;
-import mods.tinker.tconstruct.blocks.logic.PartCrafterLogic;
-import mods.tinker.tconstruct.blocks.logic.PatternChestLogic;
-import mods.tinker.tconstruct.blocks.logic.SmelteryDrainLogic;
-import mods.tinker.tconstruct.blocks.logic.SmelteryLogic;
-import mods.tinker.tconstruct.blocks.logic.StencilTableLogic;
-import mods.tinker.tconstruct.blocks.logic.ToolForgeLogic;
-import mods.tinker.tconstruct.blocks.logic.ToolStationLogic;
-import mods.tinker.tconstruct.entity.Automaton;
-import mods.tinker.tconstruct.entity.BlueSlime;
-import mods.tinker.tconstruct.entity.Crystal;
-import mods.tinker.tconstruct.entity.FancyEntityItem;
-import mods.tinker.tconstruct.entity.SlimeClone;
-import mods.tinker.tconstruct.entity.projectile.DaggerEntity;
-import mods.tinker.tconstruct.items.CraftingItem;
-import mods.tinker.tconstruct.items.DiamondApple;
-import mods.tinker.tconstruct.items.FilledBucket;
-import mods.tinker.tconstruct.items.GoldenHead;
-import mods.tinker.tconstruct.items.Manual;
-import mods.tinker.tconstruct.items.MaterialItem;
-import mods.tinker.tconstruct.items.MetalPattern;
-import mods.tinker.tconstruct.items.OreBerries;
-import mods.tinker.tconstruct.items.Pattern;
-import mods.tinker.tconstruct.items.StrangeFood;
-import mods.tinker.tconstruct.items.TitleIcon;
-import mods.tinker.tconstruct.items.ToolPart;
-import mods.tinker.tconstruct.items.ToolPartHidden;
-import mods.tinker.tconstruct.items.ToolShard;
-import mods.tinker.tconstruct.items.armor.Glove;
-import mods.tinker.tconstruct.items.armor.HeartCanister;
-import mods.tinker.tconstruct.items.armor.Knapsack;
-import mods.tinker.tconstruct.items.armor.TArmorBase;
-import mods.tinker.tconstruct.items.blocks.CraftedSoilItemBlock;
-import mods.tinker.tconstruct.items.blocks.GlassBlockItem;
-import mods.tinker.tconstruct.items.blocks.GravelOreItem;
-import mods.tinker.tconstruct.items.blocks.LavaTankItemBlock;
-import mods.tinker.tconstruct.items.blocks.LightCrystalItem;
-import mods.tinker.tconstruct.items.blocks.LiquidItemBlock;
-import mods.tinker.tconstruct.items.blocks.MetalItemBlock;
-import mods.tinker.tconstruct.items.blocks.MetalOreItemBlock;
-import mods.tinker.tconstruct.items.blocks.MultiBrickFancyItem;
-import mods.tinker.tconstruct.items.blocks.MultiBrickItem;
-import mods.tinker.tconstruct.items.blocks.OreberryBushItem;
-import mods.tinker.tconstruct.items.blocks.OreberryBushSecondItem;
-import mods.tinker.tconstruct.items.blocks.RedstoneMachineItem;
-import mods.tinker.tconstruct.items.blocks.SearedTableItemBlock;
-import mods.tinker.tconstruct.items.blocks.SmelteryItemBlock;
-import mods.tinker.tconstruct.items.blocks.SpeedBlockItem;
-import mods.tinker.tconstruct.items.blocks.StainedGlassClearItem;
-import mods.tinker.tconstruct.items.blocks.ToolForgeItemBlock;
-import mods.tinker.tconstruct.items.blocks.ToolStationItemBlock;
-import mods.tinker.tconstruct.items.tools.BattleSign;
-import mods.tinker.tconstruct.items.tools.Battleaxe;
-import mods.tinker.tconstruct.items.tools.Broadsword;
-import mods.tinker.tconstruct.items.tools.Chisel;
-import mods.tinker.tconstruct.items.tools.Cleaver;
-import mods.tinker.tconstruct.items.tools.Cutlass;
-import mods.tinker.tconstruct.items.tools.Dagger;
-import mods.tinker.tconstruct.items.tools.Excavator;
-import mods.tinker.tconstruct.items.tools.FryingPan;
-import mods.tinker.tconstruct.items.tools.Hammer;
-import mods.tinker.tconstruct.items.tools.Hatchet;
-import mods.tinker.tconstruct.items.tools.Longsword;
-import mods.tinker.tconstruct.items.tools.LumberAxe;
-import mods.tinker.tconstruct.items.tools.Mattock;
-import mods.tinker.tconstruct.items.tools.Pickaxe;
-import mods.tinker.tconstruct.items.tools.PotionLauncher;
-import mods.tinker.tconstruct.items.tools.Rapier;
-import mods.tinker.tconstruct.items.tools.Scythe;
-import mods.tinker.tconstruct.items.tools.Shovel;
-import mods.tinker.tconstruct.library.TConstructRegistry;
-import mods.tinker.tconstruct.library.client.TConstructClientRegistry;
-import mods.tinker.tconstruct.library.crafting.Detailing;
-import mods.tinker.tconstruct.library.crafting.DryingRackRecipes;
-import mods.tinker.tconstruct.library.crafting.LiquidCasting;
-import mods.tinker.tconstruct.library.crafting.PatternBuilder;
-import mods.tinker.tconstruct.library.crafting.Smeltery;
-import mods.tinker.tconstruct.library.crafting.ToolBuilder;
-import mods.tinker.tconstruct.library.tools.ToolCore;
-import mods.tinker.tconstruct.library.util.IPattern;
-import mods.tinker.tconstruct.modifiers.ModAntiSpider;
-import mods.tinker.tconstruct.modifiers.ModAttack;
-import mods.tinker.tconstruct.modifiers.ModAutoSmelt;
-import mods.tinker.tconstruct.modifiers.ModBlaze;
-import mods.tinker.tconstruct.modifiers.ModButtertouch;
-import mods.tinker.tconstruct.modifiers.ModDurability;
-import mods.tinker.tconstruct.modifiers.ModElectric;
-import mods.tinker.tconstruct.modifiers.ModExtraModifier;
-import mods.tinker.tconstruct.modifiers.ModInteger;
-import mods.tinker.tconstruct.modifiers.ModLapis;
-import mods.tinker.tconstruct.modifiers.ModPiston;
-import mods.tinker.tconstruct.modifiers.ModRedstone;
-import mods.tinker.tconstruct.modifiers.ModReinforced;
-import mods.tinker.tconstruct.modifiers.ModRepair;
-import mods.tinker.tconstruct.modifiers.ModSmite;
-import mods.tinker.tconstruct.modifiers.TActiveOmniMod;
-import mods.tinker.tconstruct.util.PHConstruct;
-import mods.tinker.tconstruct.util.RecipeRemover;
-import mods.tinker.tconstruct.util.TDispenserBehaviorSpawnEgg;
+import mods.tinker.tconstruct.blocks.*;
+import mods.tinker.tconstruct.blocks.logic.*;
+import mods.tinker.tconstruct.entity.*;
+import mods.tinker.tconstruct.entity.projectile.*;
+import mods.tinker.tconstruct.items.*;
+import mods.tinker.tconstruct.items.armor.*;
+import mods.tinker.tconstruct.items.blocks.*;
+import mods.tinker.tconstruct.items.tools.*;
+import mods.tinker.tconstruct.library.*;
+import mods.tinker.tconstruct.library.client.*;
+import mods.tinker.tconstruct.library.crafting.*;
+import mods.tinker.tconstruct.library.tools.*;
+import mods.tinker.tconstruct.library.util.*;
+import mods.tinker.tconstruct.modifiers.*;
+import mods.tinker.tconstruct.util.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.block.material.MapColor;
@@ -198,7 +81,7 @@ public class TContent implements IFuelHandler
     public static ToolCore battlesign;
     public static ToolCore chisel;
     public static ToolCore mattock;
-    //public static ToolCore longbow;
+    public static ToolCore shortbow;
 
     public static ToolCore scythe;
     public static ToolCore lumberaxe;
@@ -234,6 +117,8 @@ public class TContent implements IFuelHandler
     public static Item handGuard;
     public static Item crossbar;
     public static Item fullGuard;
+
+    public static Item bowstring;
 
     //Crafting blocks
     public static Block toolStationWood;
@@ -503,13 +388,20 @@ public class TContent implements IFuelHandler
         speedBlock = new SpeedBlock(PHConstruct.speedBlock).setUnlocalizedName("SpeedBlock");
         GameRegistry.registerBlock(speedBlock, SpeedBlockItem.class, "SpeedBlock");
 
+        //Glass
         glass = new GlassBlock(PHConstruct.glass).setUnlocalizedName("GlassBlock");
         glass.stepSound = Block.soundGlassFootstep;
         GameRegistry.registerBlock(glass, GlassBlockItem.class, "GlassBlock");
 
+        glassPane = new GlassPane(PHConstruct.glassPane);
+        GameRegistry.registerBlock(glassPane, GlassPaneItem.class, "GlassPane");
+
         stainedGlassClear = new GlassBlockStained(PHConstruct.stainedGlassClear, "stainedglass_").setUnlocalizedName("GlassBlock.StainedClear");
         stainedGlassClear.stepSound = Block.soundGlassFootstep;
         GameRegistry.registerBlock(stainedGlassClear, StainedGlassClearItem.class, "GlassBlock.StainedClear");
+
+        stainedGlassClearPane = new GlassPaneStained(PHConstruct.stainedGlassClearPane);
+        GameRegistry.registerBlock(stainedGlassClearPane, StainedGlassClearPaneItem.class, "GlassPaneClearStained");
 
         /*public static Block stainedGlass;
         public static Block stainedGlassClear;*/
@@ -600,6 +492,8 @@ public class TContent implements IFuelHandler
         hammer = new Hammer(PHConstruct.hammer);
         battleaxe = new Battleaxe(PHConstruct.battleaxe);
 
+        shortbow = new Shortbow(PHConstruct.shortbow);
+
         Item[] tools = { pickaxe, shovel, hatchet, broadsword, longsword, rapier, cutlass, frypan, battlesign, mattock, chisel, lumberaxe, cleaver, scythe, excavator, hammer, battleaxe };
         String[] toolStrings = { "pickaxe", "shovel", "hatchet", "broadsword", "longsword", "rapier", "cutlass", "frypan", "battlesign", "mattock", "chisel", "lumberaxe", "cleaver", "scythe",
                 "excavator", "hammer", "battleaxe" };
@@ -636,10 +530,12 @@ public class TContent implements IFuelHandler
         largeSwordBlade = new ToolPart(PHConstruct.largeSwordBlade, "_large_sword_blade").setUnlocalizedName("tconstruct.LargeSwordBlade");
         hammerHead = new ToolPart(PHConstruct.hammerHead, "_hammer_head").setUnlocalizedName("tconstruct.HammerHead");
 
+        bowstring = new Bowstring(PHConstruct.bowstring).setUnlocalizedName("tconstruct.bowstring");
+
         Item[] toolParts = { toolRod, toolShard, pickaxeHead, shovelHead, hatchetHead, binding, toughBinding, toughRod, heavyPlate, swordBlade, wideGuard, handGuard, crossbar, knifeBlade, fullGuard,
-                frypanHead, signHead, chiselHead, scytheBlade, broadAxeHead, excavatorHead, largeSwordBlade, hammerHead };
+                frypanHead, signHead, chiselHead, scytheBlade, broadAxeHead, excavatorHead, largeSwordBlade, hammerHead, bowstring };
         String[] toolPartStrings = { "toolRod", "toolShard", "pickaxeHead", "shovelHead", "hatchetHead", "binding", "toughBinding", "toughRod", "heavyPlate", "swordBlade", "wideGuard", "handGuard",
-                "crossbar", "knifeBlade", "fullGuard", "frypanHead", "signHead", "chiselHead", "scytheBlade", "broadAxeHead", "excavatorHead", "largeSwordBlade", "hammerHead" };
+                "crossbar", "knifeBlade", "fullGuard", "frypanHead", "signHead", "chiselHead", "scytheBlade", "broadAxeHead", "excavatorHead", "largeSwordBlade", "hammerHead", "bowstring" };
 
         for (int i = 0; i < toolParts.length; i++)
         {
@@ -718,6 +614,27 @@ public class TContent implements IFuelHandler
         TConstructRegistry.addToolMaterial(16, "Steel", 4, 750, 800, 3, 1.3F, 2, 0f, "", "");
         TConstructRegistry.addToolMaterial(17, "BlueSlime", "Slime ", 1, 500, 150, 0, 1.5F, 0, 0f, "\u00A7b", "");
 
+        TConstructRegistry.addBowMaterial(0, 384, 20, 1.0f); //Wood
+        TConstructRegistry.addBowMaterial(1, 10, 80, 0.2f); //Stone
+        TConstructRegistry.addBowMaterial(2, 576, 40, 1.2f); //Iron
+        TConstructRegistry.addBowMaterial(3, 10, 80, 0.2f); //Flint
+        TConstructRegistry.addBowMaterial(4, 384, 20, 1.0f); //Cactus
+        TConstructRegistry.addBowMaterial(5, 192, 30, 1.0f); //Bone
+        TConstructRegistry.addBowMaterial(6, 10, 80, 0.2f); //Obsidian
+        TConstructRegistry.addBowMaterial(7, 10, 80, 0.2f); //Netherrack
+        TConstructRegistry.addBowMaterial(8, 1536, 20, 1.2f); //Slime
+        TConstructRegistry.addBowMaterial(9, 48, 25, 0.5f); //Paper
+        TConstructRegistry.addBowMaterial(10, 1152, 40, 1.2f); //Cobalt
+        TConstructRegistry.addBowMaterial(11, 960, 40, 1.2f); //Ardite
+        TConstructRegistry.addBowMaterial(12, 1536, 40, 1.2f); //Manyullyn
+        TConstructRegistry.addBowMaterial(13, 384, 40, 1.2f); //Copper
+        TConstructRegistry.addBowMaterial(14, 576, 40, 1.2f); //Bronze
+        TConstructRegistry.addBowMaterial(15, 768, 40, 1.2f); //Alumite
+        TConstructRegistry.addBowMaterial(16, 768, 40, 1.2f); //Steel
+        TConstructRegistry.addBowMaterial(17, 576, 20, 1.2f); //Blue Slime
+
+        TConstructRegistry.addBowstringMaterial(0, new ItemStack(Item.silk), new ItemStack(bowstring, 1, 0), 1F, 1F, 1f); //String
+
         /*//Metallurgy
         TConstructRegistry.addToolMaterial(22, "Heptazion", 2, 2, 300, 800, 1, 1.0F, 0, 0f);
         TConstructRegistry.addToolMaterial(23, "Damascus Steel", 2, 3, 500, 600, 2, 1.35F, 1, 0f);
@@ -786,7 +703,7 @@ public class TContent implements IFuelHandler
     {
         /* Tools */
         patternOutputs = new Item[] { toolRod, pickaxeHead, shovelHead, hatchetHead, swordBlade, wideGuard, handGuard, crossbar, binding, frypanHead, signHead, knifeBlade, chiselHead, toughRod,
-                toughBinding, heavyPlate, broadAxeHead, scytheBlade, excavatorHead, largeSwordBlade, hammerHead, fullGuard };
+                toughBinding, heavyPlate, broadAxeHead, scytheBlade, excavatorHead, largeSwordBlade, hammerHead, fullGuard, null };
 
         int[] nonMetals = { 0, 1, 3, 4, 5, 6, 7, 8, 9, 17 };
 
@@ -796,7 +713,8 @@ public class TContent implements IFuelHandler
             {
                 for (int meta = 0; meta < patternOutputs.length; meta++)
                 {
-                    TConstructRegistry.addPartMapping(woodPattern.itemID, meta + 1, mat, new ItemStack(patternOutputs[meta], 1, mat));
+                    if (patternOutputs[meta] != null)
+                        TConstructRegistry.addPartMapping(woodPattern.itemID, meta + 1, mat, new ItemStack(patternOutputs[meta], 1, mat));
                 }
             }
         }
@@ -806,7 +724,8 @@ public class TContent implements IFuelHandler
             {
                 for (int meta = 0; meta < patternOutputs.length; meta++)
                 {
-                    TConstructRegistry.addPartMapping(woodPattern.itemID, meta + 1, nonMetals[mat], new ItemStack(patternOutputs[meta], 1, nonMetals[mat]));
+                    if (patternOutputs[meta] != null)
+                        TConstructRegistry.addPartMapping(woodPattern.itemID, meta + 1, nonMetals[mat], new ItemStack(patternOutputs[meta], 1, nonMetals[mat]));
                 }
             }
         }
@@ -824,12 +743,15 @@ public class TContent implements IFuelHandler
         tb.addNormalToolRecipe(dagger, knifeBlade, toolRod, crossbar);
         tb.addNormalToolRecipe(cutlass, swordBlade, toolRod, fullGuard);
         tb.addNormalToolRecipe(chisel, chiselHead, toolRod);
+
         tb.addNormalToolRecipe(scythe, scytheBlade, toughRod, toughBinding, toughRod);
         tb.addNormalToolRecipe(lumberaxe, broadAxeHead, toughRod, heavyPlate, toughBinding);
         tb.addNormalToolRecipe(cleaver, largeSwordBlade, toughRod, heavyPlate, toughRod);
         tb.addNormalToolRecipe(excavator, excavatorHead, toughRod, heavyPlate, toughBinding);
         tb.addNormalToolRecipe(hammer, hammerHead, toughRod, heavyPlate, heavyPlate);
         tb.addNormalToolRecipe(battleaxe, broadAxeHead, toughRod, broadAxeHead, toughBinding);
+
+        tb.addNormalToolRecipe(shortbow, toolRod, bowstring, toolRod);
 
         ItemStack diamond = new ItemStack(Item.diamond);
         tb.registerToolMod(new ModRepair());
@@ -948,16 +870,19 @@ public class TContent implements IFuelHandler
 
         for (int iter = 0; iter < patternOutputs.length; iter++)
         {
-            ItemStack cast = new ItemStack(metalPattern, 1, iter + 1);
-
-            tableCasting.addCastingRecipe(cast, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 8), new ItemStack(patternOutputs[iter], 1, Short.MAX_VALUE), false, 50);
-            tableCasting.addCastingRecipe(cast, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 1), new ItemStack(patternOutputs[iter], 1, Short.MAX_VALUE), false, 50);
-
-            for (int iterTwo = 0; iterTwo < liquids.length; iterTwo++)
+            if (patternOutputs[iter] != null)
             {
-                ItemStack metalCast = new ItemStack(patternOutputs[iter], 1, liquidDamage[iterTwo]);
-                tableCasting.addCastingRecipe(metalCast, new LiquidStack(liquids[iterTwo].itemID, ((IPattern) metalPattern).getPatternCost(metalCast) * TConstruct.ingotLiquidValue / 2,
-                        liquids[iterTwo].itemMeta), cast, 50);
+                ItemStack cast = new ItemStack(metalPattern, 1, iter + 1);
+
+                tableCasting.addCastingRecipe(cast, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 8), new ItemStack(patternOutputs[iter], 1, Short.MAX_VALUE), false, 50);
+                tableCasting.addCastingRecipe(cast, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 1), new ItemStack(patternOutputs[iter], 1, Short.MAX_VALUE), false, 50);
+
+                for (int iterTwo = 0; iterTwo < liquids.length; iterTwo++)
+                {
+                    ItemStack metalCast = new ItemStack(patternOutputs[iter], 1, liquidDamage[iterTwo]);
+                    tableCasting.addCastingRecipe(metalCast, new LiquidStack(liquids[iterTwo].itemID, ((IPattern) metalPattern).getPatternCost(metalCast) * TConstruct.ingotLiquidValue / 2,
+                            liquids[iterTwo].itemMeta), cast, 50);
+                }
             }
         }
 
@@ -1318,7 +1243,7 @@ public class TContent implements IFuelHandler
         {
             GameRegistry.addRecipe(new ItemStack(goldHead), surround, '#', new ItemStack(Item.goldNugget), 'm', new ItemStack(Item.skull, 1, 3));
         }
-        
+
         //Drying rack
         DryingRackRecipes.addDryingRecipe(Item.rottenFlesh, 20, Item.leather);
     }
@@ -1447,6 +1372,8 @@ public class TContent implements IFuelHandler
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Block.pistonStickyBase), "slimeball", Block.pistonBase));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Item.magmaCream), "slimeball", Item.blazePowder));
     }
+    
+    public static boolean thaumcraftAvailable;
 
     public void intermodCommunication ()
     {
@@ -1493,12 +1420,18 @@ public class TContent implements IFuelHandler
         if (obj != null)
         {
             System.out.println("[TConstruct] Thaumcraft detected. Adding thaumium tools.");
+            thaumcraftAvailable = true;
+            TConstructClientRegistry.addMaterialRenderMapping(31, "tinker", "thaumium", true);
             TConstructRegistry.addToolMaterial(31, "Thaumium", 3, 400, 700, 2, 1.3F, 0, 0f, "\u00A75", "Thaumic");
             PatternBuilder.instance.registerFullMaterial(new ItemStack((Item) obj, 1, 2), 2, "Thaumium", new ItemStack(toolShard, 1, 31), new ItemStack(toolRod, 1, 31), 31);
             for (int meta = 0; meta < patternOutputs.length; meta++)
             {
-                TConstructRegistry.addPartMapping(woodPattern.itemID, meta + 1, 31, new ItemStack(patternOutputs[meta], 1, 31));
+                if (patternOutputs[meta] != null)
+                    TConstructRegistry.addPartMapping(woodPattern.itemID, meta + 1, 31, new ItemStack(patternOutputs[meta], 1, 31));
             }
+            
+            TConstructRegistry.addBowstringMaterial(1, new ItemStack((Item) obj, 1, 7), new ItemStack(bowstring, 1, 1), 1F, 1F, 0.85f);
+            TConstructRegistry.addBowMaterial(31, 576, 40, 1.2f);
         }
         else
         {

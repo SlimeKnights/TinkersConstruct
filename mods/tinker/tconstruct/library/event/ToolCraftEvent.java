@@ -2,6 +2,7 @@ package mods.tinker.tconstruct.library.event;
 
 import mods.tinker.tconstruct.library.tools.ToolCore;
 import mods.tinker.tconstruct.library.tools.ToolMaterial;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.event.Event;
 
@@ -14,11 +15,40 @@ public class ToolCraftEvent extends Event
     public final ToolCore tool;
     public final NBTTagCompound toolTag;
     public final ToolMaterial[] materials;
+    protected ItemStack resultStack;
     
     public ToolCraftEvent(ToolCore tool, NBTTagCompound toolTag, ToolMaterial[] materials)
     {
         this.tool = tool;
         this.toolTag = toolTag;
         this.materials = materials;
+    }
+    
+    @HasResult
+    public static class NormalTool extends ToolCraftEvent
+    {
+        public NormalTool(ToolCore tool, NBTTagCompound toolTag, ToolMaterial[] materials)
+        {
+            super(tool, toolTag, materials);
+        }
+        
+        /** Fires just before the tool is put together
+         * 
+         * Result is significant:
+         *    DEFAULT: Allows tool to be crafted normally 
+         *    ALLOW:   Uses resultStack instead 
+         *    DENY:    Stops tool crafting altogether
+         */
+        
+        public void overrideResult(ItemStack result)
+        {
+            resultStack = result;
+            this.setResult(Result.ALLOW);
+        }
+        
+        public ItemStack getResultStack()
+        {
+            return resultStack;
+        }
     }
 }

@@ -10,88 +10,20 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import mods.tinker.tconstruct.TConstruct;
-import mods.tinker.tconstruct.blocks.logic.CastingBasinLogic;
-import mods.tinker.tconstruct.blocks.logic.CastingTableLogic;
-import mods.tinker.tconstruct.blocks.logic.DrawbridgeLogic;
-import mods.tinker.tconstruct.blocks.logic.DryingRackLogic;
-import mods.tinker.tconstruct.blocks.logic.FrypanLogic;
-import mods.tinker.tconstruct.blocks.logic.GlowstoneAggregator;
-import mods.tinker.tconstruct.blocks.logic.PartCrafterLogic;
-import mods.tinker.tconstruct.blocks.logic.PatternChestLogic;
-import mods.tinker.tconstruct.blocks.logic.SmelteryLogic;
-import mods.tinker.tconstruct.blocks.logic.StencilTableLogic;
-import mods.tinker.tconstruct.blocks.logic.ToolForgeLogic;
-import mods.tinker.tconstruct.blocks.logic.ToolStationLogic;
-import mods.tinker.tconstruct.client.block.BarricadeRender;
-import mods.tinker.tconstruct.client.block.CastingBasinSpecialRender;
-import mods.tinker.tconstruct.client.block.CastingTableSpecialRenderer;
-import mods.tinker.tconstruct.client.block.CrystalBlockRender;
-import mods.tinker.tconstruct.client.block.DryingRackRender;
-import mods.tinker.tconstruct.client.block.DryingRackSpecialRender;
-import mods.tinker.tconstruct.client.block.FluidRender;
-import mods.tinker.tconstruct.client.block.FrypanRender;
-import mods.tinker.tconstruct.client.block.GolemCoreRender;
-import mods.tinker.tconstruct.client.block.MachineRender;
-import mods.tinker.tconstruct.client.block.OreberryRender;
-import mods.tinker.tconstruct.client.block.SearedRender;
-import mods.tinker.tconstruct.client.block.SmallFontRenderer;
-import mods.tinker.tconstruct.client.block.SmelteryRender;
-import mods.tinker.tconstruct.client.block.TableForgeRender;
-import mods.tinker.tconstruct.client.block.TableRender;
-import mods.tinker.tconstruct.client.block.TankRender;
-import mods.tinker.tconstruct.client.entity.CartRender;
-import mods.tinker.tconstruct.client.entity.CloneHeadModel;
-import mods.tinker.tconstruct.client.entity.CrystalGuardianRender;
-import mods.tinker.tconstruct.client.entity.CrystalRender;
-import mods.tinker.tconstruct.client.entity.FancyItemRender;
-import mods.tinker.tconstruct.client.entity.SlimeCloneRender;
-import mods.tinker.tconstruct.client.entity.SlimeRender;
-import mods.tinker.tconstruct.client.entity.projectile.DaggerRender;
-import mods.tinker.tconstruct.client.entity.projectile.LaunchedItemRender;
-import mods.tinker.tconstruct.client.gui.ArmorExtendedGui;
-import mods.tinker.tconstruct.client.gui.DrawbridgeGui;
-import mods.tinker.tconstruct.client.gui.FrypanGui;
-import mods.tinker.tconstruct.client.gui.GlowstoneAggregatorGui;
-import mods.tinker.tconstruct.client.gui.GuiManual;
-import mods.tinker.tconstruct.client.gui.InventoryTab;
-import mods.tinker.tconstruct.client.gui.KnapsackGui;
-import mods.tinker.tconstruct.client.gui.PartCrafterGui;
-import mods.tinker.tconstruct.client.gui.PatternChestGui;
-import mods.tinker.tconstruct.client.gui.SmelteryGui;
-import mods.tinker.tconstruct.client.gui.StencilTableGui;
-import mods.tinker.tconstruct.client.gui.ToolForgeGui;
-import mods.tinker.tconstruct.client.gui.ToolStationGui;
-import mods.tinker.tconstruct.client.pages.BlankPage;
-import mods.tinker.tconstruct.client.pages.BlockCastPage;
-import mods.tinker.tconstruct.client.pages.BookPage;
-import mods.tinker.tconstruct.client.pages.ContentsTablePage;
-import mods.tinker.tconstruct.client.pages.CraftingPage;
-import mods.tinker.tconstruct.client.pages.FurnacePage;
-import mods.tinker.tconstruct.client.pages.MaterialPage;
-import mods.tinker.tconstruct.client.pages.ModifierPage;
-import mods.tinker.tconstruct.client.pages.PicturePage;
-import mods.tinker.tconstruct.client.pages.SectionPage;
-import mods.tinker.tconstruct.client.pages.SidebarPage;
-import mods.tinker.tconstruct.client.pages.TextPage;
-import mods.tinker.tconstruct.client.pages.TitlePage;
-import mods.tinker.tconstruct.client.pages.ToolPage;
-import mods.tinker.tconstruct.common.TContent;
-import mods.tinker.tconstruct.common.TProxyCommon;
-import mods.tinker.tconstruct.entity.Automaton;
-import mods.tinker.tconstruct.entity.BlueSlime;
-import mods.tinker.tconstruct.entity.CartEntity;
-import mods.tinker.tconstruct.entity.Crystal;
-import mods.tinker.tconstruct.entity.FancyEntityItem;
-import mods.tinker.tconstruct.entity.SlimeClone;
-import mods.tinker.tconstruct.entity.projectile.DaggerEntity;
-import mods.tinker.tconstruct.entity.projectile.LaunchedPotion;
-import mods.tinker.tconstruct.library.TConstructRegistry;
-import mods.tinker.tconstruct.library.client.TConstructClientRegistry;
-import mods.tinker.tconstruct.library.client.ToolGuiElement;
-import mods.tinker.tconstruct.library.crafting.ToolBuilder;
-import mods.tinker.tconstruct.library.tools.ToolCore;
-import mods.tinker.tconstruct.util.player.ArmorExtended;
-import mods.tinker.tconstruct.util.player.KnapsackInventory;
+import mods.tinker.tconstruct.blocks.logic.*;
+import mods.tinker.tconstruct.client.block.*;
+import mods.tinker.tconstruct.client.entity.*;
+import mods.tinker.tconstruct.client.entity.projectile.*;
+import mods.tinker.tconstruct.client.gui.*;
+import mods.tinker.tconstruct.client.pages.*;
+import mods.tinker.tconstruct.common.*;
+import mods.tinker.tconstruct.entity.*;
+import mods.tinker.tconstruct.entity.projectile.*;
+import mods.tinker.tconstruct.library.*;
+import mods.tinker.tconstruct.library.client.*;
+import mods.tinker.tconstruct.library.crafting.*;
+import mods.tinker.tconstruct.library.tools.*;
+import mods.tinker.tconstruct.util.player.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
@@ -133,6 +65,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
 import net.minecraft.world.World;
+import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.MinecraftForge;
 
 import org.lwjgl.opengl.GL11;
@@ -340,6 +273,7 @@ public class TProxyClient extends TProxyCommon
         RenderingRegistry.registerBlockHandler(new CrystalBlockRender());
         RenderingRegistry.registerBlockHandler(new MachineRender());
         RenderingRegistry.registerBlockHandler(new DryingRackRender());
+        RenderingRegistry.registerBlockHandler(new PaneRender());
         //RenderingRegistry.registerBlockHandler(new BrickRender());
         //RenderingRegistry.registerBlockHandler(new BallRepeaterRender());
 
@@ -361,6 +295,8 @@ public class TProxyClient extends TProxyCommon
         RenderingRegistry.registerEntityRenderingHandler(Automaton.class, new CrystalGuardianRender());
         RenderingRegistry.registerEntityRenderingHandler(LaunchedPotion.class, new LaunchedItemRender(Item.potion, 16384));
         //RenderingRegistry.registerEntityRenderingHandler(net.minecraft.entity.player.EntityPlayer.class, new PlayerArmorRender()); // <-- Works, woo!
+        
+        MinecraftForgeClient.registerItemRenderer(TContent.shortbow.itemID, new CustomBowRenderer());
 
         addRenderMappings();
         addToolButtons();
@@ -735,6 +671,8 @@ public class TProxyClient extends TProxyCommon
             addToolButton(itemIcons[i][0], itemIcons[i][1], itemIcons[i][2], iconCoords[i * 2], iconCoords[i * 2 + 1], toolNames[i], toolDescriptions[i]);
         }
 
+        addToolButton(3, 9, 1, new int[] { 0, 10, 0, 13 }, new int[] { 3, 3, 3, 13 }, "Shortbow",
+                "The Shortbow is a ranged weapon. It fires arrows quickly and precisely at its foes.\n\nDraw Speed: Quick\n\nRequired parts:\n- Tool Rod\n- Bowstring\n- Tool Rod");
         addTierTwoButton(6, 13, 0, new int[] { 11, 8, 9, 9 }, new int[] { 2, 3, 2, 2 }, "Hammer",
                 "The Hammer is a broad mining tool. It harvests blocks in a wide range and is effective against undead.\n\nNatural Abilities:\nArea of Effect\n- (3x3)\n- Smite\n\nDurability: High");
         addTierTwoButton(5, 11, 0, new int[] { 6, 8, 9, 9 }, new int[] { 2, 3, 2, 3 }, "Lumber Axe",
@@ -764,7 +702,7 @@ public class TProxyClient extends TProxyCommon
     {
         String[] partTypes = { "wood", "stone", "iron", "flint", "cactus", "bone", "obsidian", "netherrack", "slime", "paper", "cobalt", "ardite", "manyullyn", "copper", "bronze", "alumite", "steel",
                 "blueslime" };
-        String[] modPartTypes = { "thaumium" };
+        //String[] modPartTypes = { "thaumium" };
         String[] effectTypes = { "diamond", "emerald", "redstone", "piston", "moss", "ice", "lava", "blaze", "necrotic", "electric", "lapis", "quartz", "silk", "beheading", "smite", "spider",
                 "reinforced" };
         int[] universalEffects = { 0, 1, 4, 9, 16 };
@@ -777,10 +715,10 @@ public class TProxyClient extends TProxyCommon
             TConstructClientRegistry.addMaterialRenderMapping(partIter, "tinker", partTypes[partIter], true);
         }
         
-        for (int iter = 0; iter < modPartTypes.length; iter++)
+        /*for (int iter = 0; iter < modPartTypes.length; iter++)
         {
             TConstructClientRegistry.addMaterialRenderMapping(31 + iter, "tinker", modPartTypes[iter], true);
-        }
+        }*/
 
         for (ToolCore tool : TConstructRegistry.getToolMapping())
         {
@@ -788,6 +726,12 @@ public class TProxyClient extends TProxyCommon
             {
                 TConstructClientRegistry.addEffectRenderMapping(tool, i, "tinker", effectTypes[i], true);
             }
+        }
+        
+        String[] bowstringTypes = { "string", "magicfabric" };
+        for (int bowIter = 0; bowIter < bowstringTypes.length; bowIter++)
+        {
+            TConstructClientRegistry.addAlternateMaterialRenderMapping(TContent.shortbow, bowIter, "tinker", bowstringTypes[bowIter], true);
         }
     }
 

@@ -158,11 +158,15 @@
   <entry key="StorageMetals.Alumite.name">Block of Alumite</entry>
   <entry key="StorageMetals.Steel.name">Block of Steel</entry>
   
+  <entry key="tile.decoration.stonetorch.name">Torch</entry>
+  
   <entry key="block.glass.pure.name">Clear Glass</entry>
   <entry key="block.glass.soul.name">Soul Glass</entry>
   <entry key="block.glass.soul.pure.name">Clear Soul Glass</entry>
   
-  <entry key="tile.decoration.stonetorch.name">Torch</entry>
+  <entry key="block.glass.pure.pane.name">Clear Pane</entry>
+  <entry key="block.glass.soul.pane.name">Soul Pane</entry>
+  <entry key="block.glass.soul.pane.pure.name">Clear Soul Pane</entry>
   
   <entry key="block.stainedglass.white.name">White Stained Glass</entry>
   <entry key="block.stainedglass.orange.name">Orange Stained Glass</entry>
@@ -180,6 +184,23 @@
   <entry key="block.stainedglass.green.name">Green Stained Glass</entry>
   <entry key="block.stainedglass.red.name">Red Stained Glass</entry>
   <entry key="block.stainedglass.black.name">Black Stained Glass</entry>
+  
+  <entry key="block.stainedglass.white.pane.name">White Stained Pane</entry>
+  <entry key="block.stainedglass.orange.pane.name">Orange Stained Pane</entry>
+  <entry key="block.stainedglass.magenta.pane.name">Magenta Stained Pane</entry>
+  <entry key="block.stainedglass.lightblue.pane.name">Light Blue Stained Pane</entry>
+  <entry key="block.stainedglass.yellow.pane.name">Yellow Stained Pane</entry>
+  <entry key="block.stainedglass.lime.pane.name">Lime Stained Pane</entry>
+  <entry key="block.stainedglass.pink.pane.name">Pink Stained Pane</entry>
+  <entry key="block.stainedglass.gray.pane.name">Gray Stained Pane</entry>
+  <entry key="block.stainedglass.lightgray.pane.name">Light Gray Stained Pane</entry>
+  <entry key="block.stainedglass.cyan.pane.name">Cyan Stained Pane</entry>
+  <entry key="block.stainedglass.purple.pane.name">Purple Stained Pane</entry>
+  <entry key="block.stainedglass.blue.pane.name">Blue Stained Pane</entry>
+  <entry key="block.stainedglass.brown.pane.name">Brown Stained Pane</entry>
+  <entry key="block.stainedglass.green.pane.name">Green Stained Pane</entry>
+  <entry key="block.stainedglass.red.pane.name">Red Stained Pane</entry>
+  <entry key="block.stainedglass.black.pane.name">Black Stained Pane</entry>
   
   <entry key="item.tconstruct.storage.knapsack.name">Knapsack</entry>  
   <entry key="item.tconstruct.blankpattern.pattern.name">Blank Pattern</entry>
@@ -206,6 +227,9 @@
   <entry key="item.tconstruct.bucket.Stone.name">Seared Stone Bucket</entry>
   <entry key="item.tconstruct.bucket.Villager.name">Liquified Emerald Bucket</entry>
   <entry key="item.tconstruct.bucket.Cow.name">Bucket o' Blood</entry>
+  
+  <entry key="item.tconstruct.bowstring.string.name">Bowstring</entry>
+  <entry key="item.tconstruct.bowstring.enchantedfabric.name">Enchanted Bowstring</entry>
   
   <entry key="LiquidMetal.Iron.name">Molten Iron</entry>
   <entry key="LiquidMetal.Gold.name">Molten Gold</entry>
