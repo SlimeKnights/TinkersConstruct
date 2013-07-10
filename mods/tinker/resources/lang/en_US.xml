@@ -41,7 +41,7 @@
   <entry key="block.oreberry.copper.name">Copper Oreberry Bush</entry>
   <entry key="block.oreberry.tin.name">Tin Oreberry Bush</entry>
   <entry key="block.oreberry.aluminum.name">Aluminum Oreberry Bush</entry>
-  <entry key="block.oreberry.silver.name">Silver Oreberry Bush</entry>
+  <entry key="block.oreberry.essence.name">Essence Oreberry Bush</entry>
   
   <entry key="block.ore.gravel.iron.name">Iron Gravel Ore</entry>
   <entry key="block.ore.gravel.gold.name">Gold Gravel Ore</entry>
@@ -95,7 +95,7 @@
   <entry key="item.oreberry.copper.name">Copper Oreberry</entry>
   <entry key="item.oreberry.tin.name">Tin Oreberry</entry>
   <entry key="item.oreberry.aluminum.name">Aluminum Oreberry</entry>
-  <entry key="item.oreberry.silver.name">Silver Oreberry</entry>
+  <entry key="item.oreberry.essence.name">Concentrated Essence Berry</entry>
   
   <entry key="item.goldenhead.name">Golden Head</entry>
   <entry key="item.tconstruct.titleicon.name">Spawn </entry>
@@ -123,7 +123,7 @@
   <entry key="item.tconstruct.Materials.CopperNugget.name">Copper Nugget</entry>
   <entry key="item.tconstruct.Materials.TinNugget.name">Tin Nugget</entry>
   <entry key="item.tconstruct.Materials.AluminumNugget.name">Aluminum Nugget</entry>
-  <entry key="item.tconstruct.Materials.SilverNugget.name">Silver Nugget</entry>
+  <entry key="item.tconstruct.Materials.EssenceCrystal.name">Essence Crystal</entry>
   <entry key="item.tconstruct.Materials.AluBrassNugget.name">Aluminum Brass Nugget</entry>
   <entry key="item.tconstruct.Materials.SilkyCloth.name">Silky Cloth</entry>
   <entry key="item.tconstruct.Materials.SilkyJewel.name">Silky Jewel</entry>

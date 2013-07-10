@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 
 import mods.tinker.tconstruct.TConstruct;
+import mods.tinker.tconstruct.items.Fletching;
+import mods.tinker.tconstruct.items.ToolPart;
 import net.minecraft.block.Block;
 import net.minecraftforge.common.Configuration;
 
@@ -142,6 +144,8 @@ public class PHConstruct
         hammerHead = config.getItem("Tool Parts", "Hammer Head", 14046).getInt(14046);
         fullGuard = config.getItem("Tool Parts", "Full Guard", 14047).getInt(14047);
         bowstring = config.getItem("Tool Parts", "Bowstring", 14048).getInt(14048);
+        arrowhead = config.getItem("Tool Parts", "Arrowhead", 14049).getInt(14049);
+        fletching = config.getItem("Tool Parts", "Fletching", 14050).getInt(14050);
 
         pickaxe = config.getItem("Tools", "Pickaxe", 14051).getInt(14051);
         shovel = config.getItem("Tools", "Shovel", 14052).getInt(14052);
@@ -169,6 +173,7 @@ public class PHConstruct
         battleaxe = config.getItem("Tools", "Battleaxe", 14071).getInt(14071);
         
         cutlass = config.getItem("Tools", "Cutlass", 14072).getInt(14072);
+        arrow = config.getItem("Tools", "Arrow", 14073).getInt(14073);
 
         buckets = config.getItem("Patterns and Misc", "Buckets", 14101).getInt(14101);
         uselessItem = config.getItem("Patterns and Misc", "Title Icon", 14102).getInt(14102);
@@ -220,7 +225,7 @@ public class PHConstruct
         generateCopperBush = config.get("Worldgen Disabler", "Generate Copper Bushes", true).getBoolean(true);
         generateTinBush = config.get("Worldgen Disabler", "Generate Tin Bushes", true).getBoolean(true);
         generateAluminumBush = config.get("Worldgen Disabler", "Generate Aluminum Bushes", true).getBoolean(true);
-        generateSilverBush = config.get("Worldgen Disabler", "Generate Silver Bushes", true).getBoolean(true);
+        generateEssenceBush = config.get("Worldgen Disabler", "Generate Essence Bushes", true).getBoolean(true);
         addToVillages = config.get("Worldgen Disabler", "Add Village Generation", true).getBoolean(true);
 
         copperuDensity = config.get("Worldgen", "Copper Underground Density", 2).getInt(2);
@@ -254,7 +259,7 @@ public class PHConstruct
         copperBushRarity = config.get("Worldgen", "Copper Bush Rarity", 3).getInt(3);
         tinBushRarity = config.get("Worldgen", "Tin Bush Rarity", 3).getInt(3);
         aluminumBushRarity = config.get("Worldgen", "Aluminum Bush Rarity", 2).getInt(2);
-        silverBushRarity = config.get("Worldgen", "Silver Bush Rarity", 8).getInt(8);
+        essenceBushRarity = config.get("Worldgen", "Essence Bush Rarity", 6).getInt(6);
         
         copperBushMinY = config.get("Worldgen", "Copper Bush Min Y", 20).getInt(20);
         copperBushMaxY = config.get("Worldgen", "Copper Bush Max Y", 60).getInt(60);
@@ -276,10 +281,10 @@ public class PHConstruct
         /* Save the configuration file */
         config.save();
         
-        File gt = new File(TConstruct.proxy.getLocation() + "/config/GregTech");
+        File gt = new File(location+"/GregTech");
         if (gt.exists())
         {
-            File gtDyn = new File(TConstruct.proxy.getLocation() + "/config/GregTech/DynamicConfig.cfg");
+            File gtDyn = new File(location + "/GregTech/DynamicConfig.cfg");
             Configuration gtConfig = new Configuration(gtDyn);
             gtConfig.load();
             gregtech = gtConfig.get("smelting", "tile.anvil.slightlyDamaged", false).getBoolean(false);
@@ -381,6 +386,7 @@ public class PHConstruct
     public static int battleaxe;
     
     public static int chisel;
+    public static int arrow;
 
     //Tool parts
     public static int swordBlade;
@@ -411,6 +417,8 @@ public class PHConstruct
     public static int largePlate;
     
     public static int bowstring;
+    public static int arrowhead;
+    public static int fletching;
     
     //Wearables
     public static int heavyHelmet;
@@ -440,7 +448,7 @@ public class PHConstruct
     public static boolean generateCopperBush;
     public static boolean generateTinBush;
     public static boolean generateAluminumBush;
-    public static boolean generateSilverBush;
+    public static boolean generateEssenceBush;
     
     public static boolean addToVillages;
     
@@ -468,7 +476,7 @@ public class PHConstruct
     public static int copperBushRarity;
     public static int tinBushRarity;
     public static int aluminumBushRarity;
-    public static int silverBushRarity;
+    public static int essenceBushRarity;
     
     public static int copperuMinY;
     public static int copperuMaxY;

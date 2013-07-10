@@ -58,10 +58,10 @@ public class LightCrystalBase extends Block
     @Override
     public void getSubBlocks (int id, CreativeTabs tab, List list)
     {
-        /*for (int iter = 0; iter < 15; iter++)
+        for (int iter = 0; iter < 15; iter++)
         {
             list.add(new ItemStack(id, 1, iter));
-        }*/
+        }
     }
 
     @Override

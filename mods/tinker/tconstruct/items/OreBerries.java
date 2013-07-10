@@ -9,8 +9,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class OreBerries extends CraftingItem
 {
-    static String[] names = new String[] { "iron", "gold", "copper", "tin", "aluminum", "silver" };
-    static String[] tex = new String[] { "oreberry_iron", "oreberry_gold", "oreberry_copper", "oreberry_tin", "oreberry_aluminum", "oreberry_silver" };
+    static String[] names = new String[] { "iron", "gold", "copper", "tin", "aluminum", "essence" };
+    static String[] tex = new String[] { "oreberry_iron", "oreberry_gold", "oreberry_copper", "oreberry_tin", "oreberry_aluminum", "oreberry_essence" };
 
     public OreBerries(int id)
     {
@@ -39,7 +39,7 @@ public class OreBerries extends CraftingItem
             list.add("White Chocolate");
             break;
         case 5: 
-            list.add("Somewhat precious");
+            list.add("Tastes like Creeper");
             break;
         }
     }

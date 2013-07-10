@@ -267,7 +267,7 @@ public class TProxyClient extends TProxyCommon
         RenderingRegistry.registerBlockHandler(new TankRender());
         RenderingRegistry.registerBlockHandler(new SearedRender());
         RenderingRegistry.registerBlockHandler(new FluidRender());
-        RenderingRegistry.registerBlockHandler(new GolemCoreRender());
+        //RenderingRegistry.registerBlockHandler(new GolemCoreRender());
         RenderingRegistry.registerBlockHandler(new OreberryRender());
         RenderingRegistry.registerBlockHandler(new BarricadeRender());
         RenderingRegistry.registerBlockHandler(new CrystalBlockRender());
@@ -292,8 +292,10 @@ public class TProxyClient extends TProxyCommon
         RenderingRegistry.registerEntityRenderingHandler(DaggerEntity.class, new DaggerRender());
         RenderingRegistry.registerEntityRenderingHandler(Crystal.class, new CrystalRender());
         // RenderingRegistry.registerEntityRenderingHandler(Skyla.class, new SkylaRender());
+        RenderingRegistry.registerEntityRenderingHandler(MiniGardy.class, new MiniGardyRender());
         RenderingRegistry.registerEntityRenderingHandler(Automaton.class, new CrystalGuardianRender());
         RenderingRegistry.registerEntityRenderingHandler(LaunchedPotion.class, new LaunchedItemRender(Item.potion, 16384));
+        RenderingRegistry.registerEntityRenderingHandler(ArrowEntity.class, new ArrowRender());
         //RenderingRegistry.registerEntityRenderingHandler(net.minecraft.entity.player.EntityPlayer.class, new PlayerArmorRender()); // <-- Works, woo!
         
         MinecraftForgeClient.registerItemRenderer(TContent.shortbow.itemID, new CustomBowRenderer());
@@ -604,12 +606,6 @@ public class TProxyClient extends TProxyCommon
         return null;
     }
 
-    @Override
-    public File getLocation ()
-    {
-        return Minecraft.getMinecraftDir();
-    }
-
     static int[][] itemIcons = { new int[] { 0, 3, 0 }, //Repair
             new int[] { 1, 4, 0 }, //Pickaxe
             new int[] { 2, 5, 0 }, //Shovel
@@ -673,6 +669,8 @@ public class TProxyClient extends TProxyCommon
 
         addToolButton(3, 9, 1, new int[] { 0, 10, 0, 13 }, new int[] { 3, 3, 3, 13 }, "Shortbow",
                 "The Shortbow is a ranged weapon. It fires arrows quickly and precisely at its foes.\n\nDraw Speed: Quick\n\nRequired parts:\n- Tool Rod\n- Bowstring\n- Tool Rod");
+        addToolButton(7, 10, 1, new int[] { 11, 0, 12, 13 }, new int[] { 3, 3, 3, 13 }, "Arrow",
+                "Arrows are projectiles usually fired from bows.\n\nRequired parts:\n- Arrowhead\n- Tool Rod\n- Fletching");
         addTierTwoButton(6, 13, 0, new int[] { 11, 8, 9, 9 }, new int[] { 2, 3, 2, 2 }, "Hammer",
                 "The Hammer is a broad mining tool. It harvests blocks in a wide range and is effective against undead.\n\nNatural Abilities:\nArea of Effect\n- (3x3)\n- Smite\n\nDurability: High");
         addTierTwoButton(5, 11, 0, new int[] { 6, 8, 9, 9 }, new int[] { 2, 3, 2, 3 }, "Lumber Axe",
@@ -732,6 +730,12 @@ public class TProxyClient extends TProxyCommon
         for (int bowIter = 0; bowIter < bowstringTypes.length; bowIter++)
         {
             TConstructClientRegistry.addAlternateMaterialRenderMapping(TContent.shortbow, bowIter, "tinker", bowstringTypes[bowIter], true);
+        }
+        
+        String[] fletching = { "feather", "leaf", "slime", "blueslime" };
+        for (int arrowIter = 0; arrowIter < fletching.length; arrowIter++)
+        {
+            TConstructClientRegistry.addAlternateMaterialRenderMapping(TContent.arrow, arrowIter, "tinker", fletching[arrowIter], true);
         }
     }
 

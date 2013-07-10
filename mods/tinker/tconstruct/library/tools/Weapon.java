@@ -1,7 +1,11 @@
 package mods.tinker.tconstruct.library.tools;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemStack;
@@ -87,6 +91,23 @@ public abstract class Weapon extends ToolCore
     protected Material[] getEffectiveMaterials()
     {
     	return web;
+    }
+    
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void onUpdate (ItemStack stack, World world, Entity entity, int par4, boolean par5)
+    {
+        super.onUpdate(stack, world, entity, par4, par5);
+        if (entity instanceof EntityPlayerSP)
+        {
+            EntityPlayerSP player = (EntityPlayerSP) entity;
+            ItemStack usingItem = player.getItemInUse();
+            if (usingItem != null && usingItem.getItem() == this)
+            {
+                player.movementInput.moveForward *= 2.5F;
+                player.movementInput.moveStrafe *= 2.5F;
+            }
+        }
     }
     
     /*@Override

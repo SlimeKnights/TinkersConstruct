@@ -161,7 +161,7 @@ public class Excavator extends HarvestTool
             }
         }
 
-        MovingObjectPosition mop = AbilityHelper.raytraceFromEntity(world, player, true, 6);
+        MovingObjectPosition mop = AbilityHelper.raytraceFromEntity(world, player, true, 5.0D);
         if (mop == null || !validStart)
             return super.onBlockStartBreak(stack, x, y, z, player);
 
@@ -209,7 +209,7 @@ public class Excavator extends HarvestTool
 
                             if (!cancelHarvest)
                             {
-                                if (block != null && !(block.blockHardness < 0))
+                                if (block != null && !(localHardness < 0))
                                 {
                                     for (int iter = 0; iter < materials.length; iter++)
                                     {

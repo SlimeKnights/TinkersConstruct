@@ -18,10 +18,10 @@ public class MaterialItem extends CraftingItem
 
     static String[] materialNames = new String[] { "PaperStack", "SlimeCrystal", "SearedBrick", "CobaltIngot", "ArditeIngot", "ManyullynIngot", "Mossball", "LavaCrystal", "NecroticBone",
             "CopperIngot", "TinIngot", "AluminumIngot", "RawAluminum", "BronzeIngot", "AluBrassIngot", "AlumiteIngot", "SteelIngot", "BlueSlimeCrystal", "ObsidianIngot", "IronNugget", "CopperNugget",
-            "TinNugget", "AluminumNugget", "SilverNugget", "AluBrassNugget", "SilkyCloth", "SilkyJewel" };
+            "TinNugget", "AluminumNugget", "EssenceCrystal", "AluBrassNugget", "SilkyCloth", "SilkyJewel" };
     
     static String[] craftingTextures = new String[] { "paperstack", "slimecrystal", "searedbrick", "cobaltingot", "arditeingot", "manyullyningot", "mossball", "lavacrystal", "necroticbone",
             "copperingot", "tiningot", "aluminumingot", "aluminumraw", "bronzeingot", "alubrassingot", "alumiteingot", "steelingot", "blueslimecrystal", "obsidianingot", "nugget_iron",
-            "nugget_copper", "nugget_tin", "nugget_aluminum", "nugget_silver", "nugget_alubrass", "silkycloth", "silkyjewel" };
+            "nugget_copper", "nugget_tin", "nugget_aluminum", "essencecrystal", "nugget_alubrass", "silkycloth", "silkyjewel" };
 
 }

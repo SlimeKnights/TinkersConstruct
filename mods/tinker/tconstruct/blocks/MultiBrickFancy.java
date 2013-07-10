@@ -111,7 +111,7 @@ public class MultiBrickFancy extends TConstructBlock
     @Override
     public boolean canProvidePower()
     {
-        return true;
+        return false;
     }
     
     @Override

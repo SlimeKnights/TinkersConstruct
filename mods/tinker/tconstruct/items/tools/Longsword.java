@@ -1,8 +1,12 @@
 package mods.tinker.tconstruct.items.tools;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import mods.tinker.tconstruct.common.TContent;
 import mods.tinker.tconstruct.library.tools.AbilityHelper;
 import mods.tinker.tconstruct.library.tools.Weapon;
+import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
@@ -77,6 +81,23 @@ public class Longsword extends Weapon
                 speed = 0.925f;
             player.motionX = (double) (-MathHelper.sin(player.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(player.rotationPitch / 180.0F * (float) Math.PI) * speed);
             player.motionZ = (double) (MathHelper.cos(player.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(player.rotationPitch / 180.0F * (float) Math.PI) * speed);
+        }
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void onUpdate (ItemStack stack, World world, Entity entity, int par4, boolean par5)
+    {
+        super.onUpdate(stack, world, entity, par4, par5);
+        if (entity instanceof EntityPlayerSP)
+        {
+            EntityPlayerSP player = (EntityPlayerSP) entity;
+            ItemStack usingItem = player.getItemInUse();
+            if (usingItem != null && usingItem.getItem() == this)
+            {
+                player.movementInput.moveForward *= 5.0F;
+                player.movementInput.moveStrafe *= 5.0F;
+            }
         }
     }
 

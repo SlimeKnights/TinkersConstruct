@@ -5,11 +5,14 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import mods.tinker.tconstruct.common.TContent;
+import mods.tinker.tconstruct.entity.projectile.ArrowEntity;
 import mods.tinker.tconstruct.library.crafting.ToolBuilder;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
@@ -43,11 +46,11 @@ public abstract class BowBase extends ToolCore
     }*/
 
     /* Bow usage */
-    public void onPlayerStoppedUsing (ItemStack stack, World par2World, EntityPlayer par3EntityPlayer, int useRemaining)
+    public void onPlayerStoppedUsing (ItemStack stack, World world, EntityPlayer player, int useRemaining)
     {
         int time = this.getMaxItemUseDuration(stack) - useRemaining;
 
-        ArrowLooseEvent event = new ArrowLooseEvent(par3EntityPlayer, stack, time);
+        ArrowLooseEvent event = new ArrowLooseEvent(player, stack, time);
         MinecraftForge.EVENT_BUS.post(event);
         if (event.isCanceled())
         {
@@ -55,9 +58,13 @@ public abstract class BowBase extends ToolCore
         }
         time = event.charge;
 
-        boolean var5 = par3EntityPlayer.capabilities.isCreativeMode || EnchantmentHelper.getEnchantmentLevel(Enchantment.infinity.effectId, stack) > 0;
+        boolean creative = player.capabilities.isCreativeMode || EnchantmentHelper.getEnchantmentLevel(Enchantment.infinity.effectId, stack) > 0;
+        int slotID = getInventorySlotContainItem(TContent.arrow.itemID, player.inventory);
+        ItemStack arrow = null;
+        if (slotID != -1)
+            arrow = player.inventory.getStackInSlot(slotID);
 
-        if (var5 || par3EntityPlayer.inventory.hasItem(Item.arrow.itemID))
+        if (creative || arrow != null || player.inventory.hasItem(Item.arrow.itemID))
         {
             NBTTagCompound toolTag = stack.getTagCompound().getCompoundTag("InfiTool");
             float drawTime = toolTag.getInteger("DrawSpeed");
@@ -75,7 +82,17 @@ public abstract class BowBase extends ToolCore
                 speedBase = flightSpeed;
             }
 
-            EntityArrow arrowEntity = new EntityArrow(par2World, par3EntityPlayer, speedBase * 2.0F);
+            EntityArrow arrowEntity = null;
+            if (arrow != null)
+            {
+                ItemStack arrowStack = arrow.copy();
+                arrowStack.stackSize = 1;
+                arrowEntity = new ArrowEntity(world, player, speedBase * 2.0F, arrowStack);
+            }
+            else
+            {
+                arrowEntity = new EntityArrow(world, player, speedBase * 2.0F);
+            }
 
             if (speedBase >= 1.0F)
             {
@@ -101,23 +118,51 @@ public abstract class BowBase extends ToolCore
                 arrowEntity.setFire(100);
             }
 
-            stack.damageItem(1, par3EntityPlayer);
-            par2World.playSoundAtEntity(par3EntityPlayer, "random.bow", 1.0F, 1.0F / (itemRand.nextFloat() * 0.4F + 1.2F) + speedBase * 0.5F);
+            int reinforced = 0;
 
-            if (var5)
+            if (toolTag.hasKey("Unbreaking"))
+                reinforced = toolTag.getInteger("Unbreaking");
+
+            if (random.nextInt(10) < 10 - reinforced)
+            {
+                AbilityHelper.damageTool(stack, 1, player, false);
+            }
+            world.playSoundAtEntity(player, "random.bow", 1.0F, 1.0F / (itemRand.nextFloat() * 0.4F + 1.2F) + speedBase * 0.5F);
+
+            if (creative)
             {
                 arrowEntity.canBePickedUp = 2;
             }
             else
             {
-                par3EntityPlayer.inventory.consumeInventoryItem(Item.arrow.itemID);
+                if (arrow != null)
+                {
+                    player.inventory.consumeInventoryItem(TContent.arrow.itemID);
+                }
+                else
+                {
+                    player.inventory.consumeInventoryItem(Item.arrow.itemID);
+                }
             }
 
-            if (!par2World.isRemote)
+            if (!world.isRemote)
             {
-                par2World.spawnEntityInWorld(arrowEntity);
+                world.spawnEntityInWorld(arrowEntity);
             }
         }
+    }
+
+    int getInventorySlotContainItem (int itemID, InventoryPlayer inventory)
+    {
+        for (int j = 0; j < inventory.mainInventory.length; ++j)
+        {
+            if (inventory.mainInventory[j] != null && inventory.mainInventory[j].itemID == itemID)
+            {
+                return j;
+            }
+        }
+
+        return -1;
     }
 
     public ItemStack onFoodEaten (ItemStack stack, World par2World, EntityPlayer par3EntityPlayer)
@@ -144,21 +189,28 @@ public abstract class BowBase extends ToolCore
     /**
      * Called whenever this item is equipped and the right mouse button is pressed. Args: itemStack, world, entityPlayer
      */
-    public ItemStack onItemRightClick (ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
+    public ItemStack onItemRightClick (ItemStack stack, World par2World, EntityPlayer player)
     {
-        ArrowNockEvent event = new ArrowNockEvent(par3EntityPlayer, par1ItemStack);
-        MinecraftForge.EVENT_BUS.post(event);
-        if (event.isCanceled())
+        if (stack.hasTagCompound())
         {
-            return event.result;
+            NBTTagCompound toolTag = stack.getTagCompound().getCompoundTag("InfiTool");
+            if (!toolTag.getBoolean("Broken"))
+            {
+                ArrowNockEvent event = new ArrowNockEvent(player, stack);
+                MinecraftForge.EVENT_BUS.post(event);
+                if (event.isCanceled())
+                {
+                    return event.result;
+                }
+
+                if (player.capabilities.isCreativeMode || player.inventory.hasItem(Item.arrow.itemID) || player.inventory.hasItem(TContent.arrow.itemID))
+                {
+                    player.setItemInUse(stack, this.getMaxItemUseDuration(stack));
+                }
+            }
         }
 
-        if (par3EntityPlayer.capabilities.isCreativeMode || par3EntityPlayer.inventory.hasItem(Item.arrow.itemID))
-        {
-            par3EntityPlayer.setItemInUse(par1ItemStack, this.getMaxItemUseDuration(par1ItemStack));
-        }
-
-        return par1ItemStack;
+        return stack;
     }
 
     @SideOnly(Side.CLIENT)
@@ -182,14 +234,14 @@ public abstract class BowBase extends ToolCore
         while (iterOne.hasNext())
         {
             Map.Entry pairs = (Map.Entry) iterOne.next();
-            headIcons1.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue()+"_1"));
+            headIcons1.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue() + "_1"));
         }
 
         iterOne = handleStrings.entrySet().iterator();
         while (iterOne.hasNext())
         {
             Map.Entry pairs = (Map.Entry) iterOne.next();
-            handleIcons1.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue()+"_1"));
+            handleIcons1.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue() + "_1"));
         }
 
         if (getPartAmount() > 2)
@@ -198,7 +250,7 @@ public abstract class BowBase extends ToolCore
             while (iterOne.hasNext())
             {
                 Map.Entry pairs = (Map.Entry) iterOne.next();
-                accessoryIcons1.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue()+"_1"));
+                accessoryIcons1.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue() + "_1"));
             }
         }
 
@@ -208,7 +260,7 @@ public abstract class BowBase extends ToolCore
             while (iterOne.hasNext())
             {
                 Map.Entry pairs = (Map.Entry) iterOne.next();
-                extraIcons1.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue()+"_1"));
+                extraIcons1.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue() + "_1"));
             }
         }
 
@@ -216,9 +268,9 @@ public abstract class BowBase extends ToolCore
         while (iterOne.hasNext())
         {
             Map.Entry pairs = (Map.Entry) iterOne.next();
-            effectIcons1.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue()+"_1"));
+            effectIcons1.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue() + "_1"));
         }
-        
+
         headIcons2.clear();
         handleIcons2.clear();
         accessoryIcons2.clear();
@@ -228,14 +280,14 @@ public abstract class BowBase extends ToolCore
         while (iterTwo.hasNext())
         {
             Map.Entry pairs = (Map.Entry) iterTwo.next();
-            headIcons2.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue()+"_2"));
+            headIcons2.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue() + "_2"));
         }
 
         iterTwo = handleStrings.entrySet().iterator();
         while (iterTwo.hasNext())
         {
             Map.Entry pairs = (Map.Entry) iterTwo.next();
-            handleIcons2.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue()+"_2"));
+            handleIcons2.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue() + "_2"));
         }
 
         if (getPartAmount() > 2)
@@ -244,7 +296,7 @@ public abstract class BowBase extends ToolCore
             while (iterTwo.hasNext())
             {
                 Map.Entry pairs = (Map.Entry) iterTwo.next();
-                accessoryIcons2.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue()+"_2"));
+                accessoryIcons2.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue() + "_2"));
             }
         }
 
@@ -254,7 +306,7 @@ public abstract class BowBase extends ToolCore
             while (iterTwo.hasNext())
             {
                 Map.Entry pairs = (Map.Entry) iterTwo.next();
-                extraIcons2.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue()+"_2"));
+                extraIcons2.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue() + "_2"));
             }
         }
 
@@ -262,9 +314,9 @@ public abstract class BowBase extends ToolCore
         while (iterTwo.hasNext())
         {
             Map.Entry pairs = (Map.Entry) iterTwo.next();
-            effectIcons2.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue()+"_2"));
+            effectIcons2.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue() + "_2"));
         }
-        
+
         headIcons3.clear();
         handleIcons3.clear();
         accessoryIcons3.clear();
@@ -274,14 +326,14 @@ public abstract class BowBase extends ToolCore
         while (iterThree.hasNext())
         {
             Map.Entry pairs = (Map.Entry) iterThree.next();
-            headIcons3.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue()+"_3"));
+            headIcons3.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue() + "_3"));
         }
 
         iterThree = handleStrings.entrySet().iterator();
         while (iterThree.hasNext())
         {
             Map.Entry pairs = (Map.Entry) iterThree.next();
-            handleIcons3.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue()+"_3"));
+            handleIcons3.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue() + "_3"));
         }
 
         if (getPartAmount() > 2)
@@ -290,7 +342,7 @@ public abstract class BowBase extends ToolCore
             while (iterThree.hasNext())
             {
                 Map.Entry pairs = (Map.Entry) iterThree.next();
-                accessoryIcons3.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue()+"_3"));
+                accessoryIcons3.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue() + "_3"));
             }
         }
 
@@ -300,7 +352,7 @@ public abstract class BowBase extends ToolCore
             while (iterThree.hasNext())
             {
                 Map.Entry pairs = (Map.Entry) iterThree.next();
-                extraIcons3.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue()+"_3"));
+                extraIcons3.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue() + "_3"));
             }
         }
 
@@ -308,19 +360,19 @@ public abstract class BowBase extends ToolCore
         while (iterThree.hasNext())
         {
             Map.Entry pairs = (Map.Entry) iterThree.next();
-            effectIcons3.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue()+"_3"));
+            effectIcons3.put((Integer) pairs.getKey(), iconRegister.registerIcon((String) pairs.getValue() + "_3"));
         }
-        
+
         registerArrows(iconRegister);
     }
-    
-    void registerArrows(IconRegister iconRegister)
+
+    void registerArrows (IconRegister iconRegister)
     {
-        arrow1 = iconRegister.registerIcon("tinker:"+getDefaultFolder()+"/arrow_1");
-        arrow2 = iconRegister.registerIcon("tinker:"+getDefaultFolder()+"/arrow_2");
-        arrow3 = iconRegister.registerIcon("tinker:"+getDefaultFolder()+"/arrow_3");
+        arrow1 = iconRegister.registerIcon("tinker:" + getDefaultFolder() + "/arrow_1");
+        arrow2 = iconRegister.registerIcon("tinker:" + getDefaultFolder() + "/arrow_2");
+        arrow3 = iconRegister.registerIcon("tinker:" + getDefaultFolder() + "/arrow_3");
     }
-    
+
     @Override
     public Icon getIcon (ItemStack stack, int renderPass)
     {
@@ -409,24 +461,24 @@ public abstract class BowBase extends ToolCore
         if (location.length > 4)
             extraStrings.put(index, location[4]);
     }
-    
+
     @Override
-    public void registerAlternatePartPaths(int index, String[] location)
+    public void registerAlternatePartPaths (int index, String[] location)
     {
         brokenPartStrings.put(index, location[1]);
         handleStrings.put(index, location[2]);
     }
-    
+
     public Icon arrow1;
     public Icon arrow2;
     public Icon arrow3;
-    
+
     public HashMap<Integer, Icon> headIcons1 = new HashMap<Integer, Icon>();
     public HashMap<Integer, Icon> handleIcons1 = new HashMap<Integer, Icon>();
     public HashMap<Integer, Icon> accessoryIcons1 = new HashMap<Integer, Icon>();
     public HashMap<Integer, Icon> extraIcons1 = new HashMap<Integer, Icon>();
     public HashMap<Integer, Icon> effectIcons1 = new HashMap<Integer, Icon>();
-    
+
     public HashMap<Integer, Icon> headIcons2 = new HashMap<Integer, Icon>();
     public HashMap<Integer, Icon> handleIcons2 = new HashMap<Integer, Icon>();
     public HashMap<Integer, Icon> accessoryIcons2 = new HashMap<Integer, Icon>();
@@ -445,7 +497,7 @@ public abstract class BowBase extends ToolCore
         int useTime = stack.getMaxItemUseDuration() - useRemaining;
         if (!stack.hasTagCompound())
             return emptyIcon;
-        
+
         NBTTagCompound toolTag = stack.getTagCompound().getCompoundTag("InfiTool");
         int drawTime = toolTag.getInteger("DrawSpeed");
         float flightSpeed = toolTag.getFloat("FlightSpeed");
@@ -460,7 +512,7 @@ public abstract class BowBase extends ToolCore
         }
         return getIcon1(stack, renderPass);
     }
-    
+
     public Icon getIcon1 (ItemStack stack, int renderPass)
     {
         NBTTagCompound tags = stack.getTagCompound();
@@ -614,7 +666,7 @@ public abstract class BowBase extends ToolCore
         }
         return emptyIcon;
     }
-    
+
     public Icon getIcon3 (ItemStack stack, int renderPass)
     {
         NBTTagCompound tags = stack.getTagCompound();
@@ -691,7 +743,7 @@ public abstract class BowBase extends ToolCore
         }
         return emptyIcon;
     }
-    
+
     @Override
     public void buildTool (int id, String name, List list)
     {

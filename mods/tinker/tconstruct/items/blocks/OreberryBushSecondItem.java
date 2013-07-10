@@ -32,9 +32,13 @@ public class OreberryBushSecondItem extends ItemBlock
     
     /* Place bushes on dirt, grass, or other bushes only */
     @Override    
-    public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float par8, float par9, float par10)
+    public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
     {
         if (side != 1)
+            return false;
+        
+        int meta = stack.getItemDamage();
+        if (meta % 4 != 1 && world.getFullBlockLightValue(x, y+1, z) >= 13)
             return false;
         
         else if (player.canPlayerEdit(x, y, z, side, stack) && player.canPlayerEdit(x, y + 1, z, side, stack))
@@ -66,8 +70,8 @@ public class OreberryBushSecondItem extends ItemBlock
     }
     public static final String blockType[] =
     {
-        "aluminum", "silver", "", "", "aluminum", "silver", "", "",
-        "aluminum", "silver", "", "", "aluminum", "silver", "", ""
+        "aluminum", "essence", "", "", "aluminum", "essence", "", "",
+        "aluminum", "essence", "", "", "aluminum", "essence", "", ""
     };
     
     @Override
@@ -80,7 +84,7 @@ public class OreberryBushSecondItem extends ItemBlock
             list.add("White Chocolate");
             break;
         case 1: 
-            list.add("Somewhat precious");
+            list.add("Tastes like Creeper");
             break;
         }
     }

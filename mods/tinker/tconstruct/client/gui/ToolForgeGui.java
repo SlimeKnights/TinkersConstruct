@@ -136,6 +136,10 @@ public class ToolForgeGui extends ToolStationGui
             slotX = new int[] { 38, 38, 20, 56 }; // Double head
             slotY = new int[] { 28, 46, 28, 28 };
             break;
+        case 7:
+            slotX = new int[] { 56, 56, 56 }; // Three parts reverse
+            slotY = new int[] { 19, 37, 55 };
+            break;
         }
         toolSlots.resetSlots(slotX, slotY);
     }

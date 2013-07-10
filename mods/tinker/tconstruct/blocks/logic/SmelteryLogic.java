@@ -327,7 +327,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                     }
                 }
             }
-            boolean itemAdded = false;
+            /*boolean itemAdded = false;
             if (o instanceof EntityItem)
             {
                 EntityItem item = (EntityItem) o;
@@ -359,7 +359,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                 } while (canContinue);
             }
             if (itemAdded)
-                this.needsUpdate = true;
+                this.needsUpdate = true;*/
         }
     }
 

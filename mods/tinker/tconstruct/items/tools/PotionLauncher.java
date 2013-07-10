@@ -6,7 +6,9 @@ import mods.tinker.tconstruct.entity.projectile.LaunchedPotion;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -18,162 +20,162 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class PotionLauncher extends Item
 {
-	@SideOnly(Side.CLIENT)
-	private Icon[] icons;
-	public static final String[] textureNames = new String[] { "potionlauncher" };
+    @SideOnly(Side.CLIENT)
+    private Icon[] icons;
+    public static final String[] textureNames = new String[] { "potionlauncher" };
 
-	public PotionLauncher(int par1)
-	{
-		super(par1);
-		this.maxStackSize = 1;
-		this.setCreativeTab(CreativeTabs.tabCombat);
-		this.setMaxDamage(3);
-	}
+    public PotionLauncher(int par1)
+    {
+        super(par1);
+        this.maxStackSize = 1;
+        this.setCreativeTab(CreativeTabs.tabCombat);
+        this.setMaxDamage(3);
+    }
 
-	public ItemStack onEaten (ItemStack stack, World world, EntityPlayer player)
-	{
-		NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
-		boolean loaded = tags.getBoolean("Loaded");
-		//boolean fired = tags.getBoolean("Fired");
-		if (!loaded)
-		{
-			tags.setBoolean("Loaded", true);
-		}
-		/*else if (fired)
-		{
-			tags.setBoolean("Loaded", false);
-			tags.setBoolean("Ready", false);
-			tags.setBoolean("Fired", false);
-		}*/
-		return stack;
-	}
+    public ItemStack onEaten (ItemStack stack, World world, EntityPlayer player)
+    {
+        NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
+        boolean loaded = tags.getBoolean("Loaded");
+        if (!loaded)
+        {
+            int slotID = getInventorySlotContainItem(Item.potion.itemID, player.inventory);
+            ItemStack potion = player.inventory.getStackInSlot(slotID);
 
-	public void onPlayerStoppedUsing (ItemStack stack, World world, EntityPlayer player, int time)
-	{
-		/*NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
-		boolean loaded = tags.getBoolean("Loaded");
-		boolean ready = tags.getBoolean("Ready");
-		boolean fired = tags.getBoolean("Fired");
-		if (loaded)
-		{
-			tags.setBoolean("Ready", true);
-		}
-		if (loaded && ready && fired)
-		{
-			tags.setBoolean("Loaded", false);
-			tags.setBoolean("Ready", false);
-			tags.setBoolean("Fired", false);
-		}*/
-	}
+            NBTTagCompound potionTag = new NBTTagCompound();
+            potion.writeToNBT(potionTag);
+            tags.setCompoundTag("LoadedPotion", potionTag);
+            tags.setBoolean("Loaded", true);
 
-	public ItemStack onItemRightClick (ItemStack stack, World world, EntityPlayer player)
-	{
-		/*NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
-		boolean loaded = tags.getBoolean("Loaded");
-		boolean ready = tags.getBoolean("Ready");
-		boolean fired = tags.getBoolean("Fired");
-		if (loaded && ready && !fired)
-		{
-			world.playSoundAtEntity(player, "random.bow", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
+            if (!player.capabilities.isCreativeMode)
+            {
+                potion.stackSize--;
+                if (potion.stackSize < 1)
+                    player.inventory.setInventorySlotContents(slotID, null);
+            }
 
-			if (!world.isRemote)
-			{
-				world.spawnEntityInWorld(new LaunchedPotion(world, player, stack));
-			}
-			tags.setBoolean("Fired", true);
-		}
-		player.setItemInUse(stack, this.getMaxItemUseDuration(stack));*/
-		NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
-		if (!tags.getBoolean("Loaded"))
-			player.setItemInUse(stack, this.getMaxItemUseDuration(stack));
-		return stack;
-	}
+            world.playSoundEffect(player.posX, player.posY, player.posZ, "sounds.launcher_clank", 1.0F, (world.rand.nextFloat() - world.rand.nextFloat()) * 0.15F + 1.0F);
+        }
+        return stack;
+    }
 
-	public void onUpdate (ItemStack stack, World world, Entity entity, int slot, boolean equipped)
-	{
-		/*if (equipped && entity instanceof EntityPlayer)
-		{  
-			EntityPlayer player = ((EntityPlayer) entity);
-			if (!player.worldObj.isRemote)
-			System.out.println(player.getItemInUse());
-			NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
-			//System.out.println("useTime "+((EntityPlayer) entity).getItemInUseCount());
-		}*/
-	}
+    public void onPlayerStoppedUsing (ItemStack stack, World world, EntityPlayer player, int time)
+    {
 
-	/**
-	 * How long it takes to use or consume an item
-	 */
-	public int getMaxItemUseDuration (ItemStack stack)
-	{
-		//if (!stack.getTagCompound().getCompoundTag("InfiTool").getBoolean("Loaded"))
-			return 30;
-		//else
-			//return 72000;
-	}
+    }
 
-	/**
-	 * returns the action that specifies what animation to play when the items is being used
-	 */
-	public EnumAction getItemUseAction (ItemStack stack)
-	{
-		if (!stack.getTagCompound().getCompoundTag("InfiTool").getBoolean("Loaded"))
-			return EnumAction.bow;
-		else
-			return EnumAction.none;
-	}
+    public ItemStack onItemRightClick (ItemStack stack, World world, EntityPlayer player)
+    {
+        NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
+        int slotID = getInventorySlotContainItem(Item.potion.itemID, player.inventory);
+        if (!tags.getBoolean("Loaded") && slotID >= 0)
+            player.setItemInUse(stack, this.getMaxItemUseDuration(stack));
+        return stack;
+    }
 
-	@SideOnly(Side.CLIENT)
-	public void registerIcons (IconRegister par1IconRegister)
-	{
-		this.icons = new Icon[textureNames.length];
+    /**
+     * How long it takes to use or consume an item
+     */
+    public int getMaxItemUseDuration (ItemStack stack)
+    {
+        return 30;
+    }
 
-		for (int i = 0; i < this.icons.length; ++i)
-		{
-			this.icons[i] = par1IconRegister.registerIcon("tinker:" + textureNames[i]);
-		}
-	}
+    /**
+     * returns the action that specifies what animation to play when the items is being used
+     */
+    public EnumAction getItemUseAction (ItemStack stack)
+    {
+        if (!stack.getTagCompound().getCompoundTag("InfiTool").getBoolean("Loaded"))
+            return EnumAction.bow;
+        else
+            return EnumAction.none;
+    }
 
-	@SideOnly(Side.CLIENT)
-	public Icon getIconFromDamage (int meta)
-	{
-		return icons[0];
-	}
+    @SideOnly(Side.CLIENT)
+    public void registerIcons (IconRegister par1IconRegister)
+    {
+        this.icons = new Icon[textureNames.length];
 
-	@Override
-	public void getSubItems (int id, CreativeTabs tabs, List list)
-	{
-		ItemStack stack = new ItemStack(id, 1, 0);
-		NBTTagCompound compound = new NBTTagCompound();
-		NBTTagCompound tags = new NBTTagCompound();
-		compound.setCompoundTag("InfiTool", tags);
+        for (int i = 0; i < this.icons.length; ++i)
+        {
+            this.icons[i] = par1IconRegister.registerIcon("tinker:" + textureNames[i]);
+        }
+    }
 
-		tags.setBoolean("Loaded", false);
+    @SideOnly(Side.CLIENT)
+    public Icon getIconFromDamage (int meta)
+    {
+        return icons[0];
+    }
 
-		stack.setTagCompound(compound);
+    @Override
+    public void getSubItems (int id, CreativeTabs tabs, List list)
+    {
+        ItemStack stack = new ItemStack(id, 1, 0);
+        NBTTagCompound compound = new NBTTagCompound();
+        NBTTagCompound tags = new NBTTagCompound();
+        compound.setCompoundTag("InfiTool", tags);
 
-		list.add(stack);
-	}
+        tags.setBoolean("Loaded", false);
 
-	public boolean swingItem (EntityPlayer player, ItemStack stack)
-	{
-		NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
-		if (tags.getBoolean("Loaded"))
-		{
-			World world = player.worldObj;
-			world.playSoundAtEntity(player, "random.bow", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
+        stack.setTagCompound(compound);
 
-			if (!world.isRemote)
-			{
-				world.spawnEntityInWorld(new LaunchedPotion(world, player, stack));
-			}
-			tags.setBoolean("Loaded", false);
-			return false;
-		}
-		return true;
-	}
-	
-	@Override
+        list.add(stack);
+    }
+
+    @Override
+    public boolean onEntitySwing (EntityLiving player, ItemStack stack)
+    {
+        NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
+        if (tags.getBoolean("Loaded"))
+        {
+            NBTTagCompound potionTag = tags.getCompoundTag("LoadedPotion");
+            ItemStack potion = ItemStack.loadItemStackFromNBT(potionTag);//findPotion(player);InventoryLogic
+            if (potion != null)
+            {
+                World world = player.worldObj;
+                world.playSoundAtEntity(player, "random.bow", 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
+
+                if (!world.isRemote)
+                {
+                    world.spawnEntityInWorld(new LaunchedPotion(world, player, potion));
+                }
+                tags.removeTag("LoadedPotion");
+                tags.setBoolean("Loaded", false);
+            }
+            return true;
+        }
+        return false;
+    }
+
+    ItemStack findPotion (EntityLiving living)
+    {
+        if (living instanceof EntityPlayer)
+        {
+            EntityPlayer player = (EntityPlayer) living;
+            int potionSlot = getInventorySlotContainItem(Item.potion.itemID, player.inventory);
+            if (potionSlot >= 0)
+            {
+                return player.inventory.getStackInSlot(potionSlot);
+            }
+        }
+        return null;
+    }
+
+    int getInventorySlotContainItem (int itemID, InventoryPlayer inventory)
+    {
+        for (int j = 0; j < inventory.mainInventory.length; ++j)
+        {
+            if (inventory.mainInventory[j] != null && inventory.mainInventory[j].itemID == itemID)
+            {
+                return j;
+            }
+        }
+
+        return -1;
+    }
+
+    @Override
     @SideOnly(Side.CLIENT)
     public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean par4)
     {

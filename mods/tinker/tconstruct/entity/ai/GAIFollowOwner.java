@@ -33,10 +33,6 @@ public class GAIFollowOwner extends GolemAIBase
         {
             return false;
         }
-        /*if (!this.golem.isFollowMode())
-        {
-            return false;
-        }*/
         if (this.golem.getDistanceSqToEntity(owner) < (double) (this.minDist * this.minDist))
         {
             return false;
@@ -56,10 +52,6 @@ public class GAIFollowOwner extends GolemAIBase
         {
             return false;
         }
-        /*if (!this.golem.isFollowMode())
-        {
-            return false;
-        }*/
         return true;
     }
 

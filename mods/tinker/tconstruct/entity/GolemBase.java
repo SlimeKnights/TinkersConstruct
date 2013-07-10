@@ -5,6 +5,7 @@ import java.util.Random;
 
 import mods.tinker.tconstruct.library.tools.AbilityHelper;
 import mods.tinker.tconstruct.library.tools.ToolCore;
+import mods.tinker.tconstruct.library.util.CoordTuple;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.EnchantmentThorns;
 import net.minecraft.entity.Entity;
@@ -35,6 +36,11 @@ public class GolemBase extends EntityCreature implements IInventory
     public boolean paused;
     int useTime;
     protected static Random rand = new Random();
+    //public static CoordTuple target;
+    public int targetX;
+    public int targetY;
+    public int targetZ;
+    public boolean targetLock;
 
     public ItemStack[] inventory;
 
@@ -277,12 +283,12 @@ public class GolemBase extends EntityCreature implements IInventory
         }
     }
 
-    public void destroyCurrentEquippedItem ()
+    public void teleport(double x, double y, double z)
     {
-        worldObj.playSoundAtEntity(this, "random.break", 0.5F, (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);
-        this.setCurrentItemOrArmor(0, null);
+        this.setPosition(x, y, z);
+        worldObj.playSoundAtEntity(this, "mob.endermen.portal", 0.5F, (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);
     }
-
+    
     /* Other */
     protected boolean canDespawn ()
     {
@@ -302,6 +308,7 @@ public class GolemBase extends EntityCreature implements IInventory
         return icon;
     }
 
+    /* Inventory */
     @Override
     public ItemStack getStackInSlot (int slot)
     {
@@ -366,7 +373,7 @@ public class GolemBase extends EntityCreature implements IInventory
     @Override
     public String getInvName ()
     {
-        return "tconstruct.knapsack";
+        return "golem.none";
     }
 
     @Override
@@ -405,7 +412,14 @@ public class GolemBase extends EntityCreature implements IInventory
     {
         return true;
     }
+    
+    public void destroyCurrentEquippedItem ()
+    {
+        worldObj.playSoundAtEntity(this, "random.break", 0.5F, (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);
+        this.setCurrentItemOrArmor(0, null);
+    }
 
+    /* Saving */
     public void writeEntityToNBT (NBTTagCompound tags)
     {
         super.writeEntityToNBT(tags);

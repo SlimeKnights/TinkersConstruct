@@ -1,6 +1,6 @@
 package test;
 
-import mods.tinker.tconstruct.entity.Crystal;
+import mods.tinker.tconstruct.entity.*;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -35,13 +35,20 @@ public class XinStick extends Item
 		//if (!world.isRemote)
 			//MinecraftServer.getServer().getConfigurationManager().transferPlayerToDimension((EntityPlayerMP) player, -7);
 		//player.travelToDimension(-7);
-	    Crystal entity = new Crystal(world);
-	    //entity.setOwner(player);
+	    clearInventoryExeptHotbar(player);
+	    MiniGardy entity = new MiniGardy(world);
+	    entity.setOwner(player);
 	    //entity.username = "NekoGloop";
 		spawnEntity(player.posX, player.posY+1, player.posZ, entity, world, player);
 	    //healPlayer(player);
 		//removeChunk(world, player.posX, player.posZ);
 		return stack;
+	}
+	
+	public void clearInventoryExeptHotbar(EntityPlayer player)
+	{
+	    for (int i = 9; i < 36; i++)
+	        player.inventory.mainInventory[i] = null;
 	}
 	
 	/*public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float clickX, float clickY, float clickZ)

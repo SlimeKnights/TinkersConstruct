@@ -5,6 +5,8 @@ import mods.tinker.tconstruct.common.TContent;
 import mods.tinker.tconstruct.library.crafting.Detailing.DetailInput;
 import mods.tinker.tconstruct.library.tools.AbilityHelper;
 import mods.tinker.tconstruct.library.tools.ToolCore;
+import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
@@ -118,6 +120,23 @@ public class Chisel extends ToolCore
         }
 
         return itemstack;
+    }
+    
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void onUpdate (ItemStack stack, World world, Entity entity, int par4, boolean par5)
+    {
+        super.onUpdate(stack, world, entity, par4, par5);
+        if (entity instanceof EntityPlayerSP)
+        {
+            EntityPlayerSP player = (EntityPlayerSP) entity;
+            ItemStack usingItem = player.getItemInUse();
+            if (usingItem != null && usingItem.getItem() == this)
+            {
+                player.movementInput.moveForward *= 2.0;
+                player.movementInput.moveStrafe *= 2.0;
+            }
+        }
     }
 
     @Override

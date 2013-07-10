@@ -7,6 +7,7 @@ import mods.tinker.tconstruct.library.tools.AbilityHelper;
 import mods.tinker.tconstruct.library.tools.HarvestTool;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
@@ -188,6 +189,8 @@ public class Battleaxe extends HarvestTool
                 boost = 2;
             player.addPotionEffect(new PotionEffect(Potion.moveSpeed.id, time*4, boost));
             player.addPotionEffect(new PotionEffect(Potion.jump.id, time*4, boost));
+            player.addPotionEffect(new PotionEffect(Potion.damageBoost.id, time*4, 0));
+            player.addPotionEffect(new PotionEffect(Potion.hunger.id, time*2, 0));
             if (time > 5 && player.onGround)
             {
                 player.addExhaustion(0.2F);
@@ -220,20 +223,22 @@ public class Battleaxe extends HarvestTool
         return true;
     }
 
-    /*@Override
+    @Override
+    @SideOnly(Side.CLIENT)
     public void onUpdate (ItemStack stack, World world, Entity entity, int par4, boolean par5)
     {
         super.onUpdate(stack, world, entity, par4, par5);
-        if (entity instanceof EntityPlayer)
+        if (entity instanceof EntityPlayerSP)
         {
-            EntityPlayer player = (EntityPlayer) entity;
-            ItemStack equipped = player.getCurrentEquippedItem();
-            if (equipped == stack)
+            EntityPlayerSP player = (EntityPlayerSP) entity;
+            ItemStack usingItem = player.getItemInUse();
+            if (usingItem != null && usingItem.getItem() == this)
             {
-                player.addPotionEffect(new PotionEffect(Potion.digSlowdown.id, 1, 1));
+                player.movementInput.moveForward *= 5.0F;
+                player.movementInput.moveStrafe *= 5.0F;
             }
         }
-    }*/
+    }
 
     @Override
     public boolean onBlockStartBreak (ItemStack stack, int x, int y, int z, EntityPlayer player)

@@ -196,7 +196,7 @@ public class TBaseWorldGenerator implements IWorldGenerator
                 }
             }
         }
-        if (PHConstruct.generateSilverBush && random.nextInt(PHConstruct.silverBushRarity) == 0)
+        if (PHConstruct.generateEssenceBush && random.nextInt(PHConstruct.essenceBushRarity) == 0)
         {
             for (int i = 0; i < PHConstruct.silverBushDensity; i++)
             {

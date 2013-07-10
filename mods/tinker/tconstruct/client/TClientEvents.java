@@ -47,6 +47,7 @@ public class TClientEvents
 		{
 			event.manager.soundPoolSounds.addSound("sounds/frypan_hit.ogg", TConstruct.class.getResource("/sounds/frypan_hit.ogg"));
 			event.manager.soundPoolSounds.addSound("sounds/little_saw.ogg", TConstruct.class.getResource("/sounds/little_saw.ogg"));
+            event.manager.soundPoolSounds.addSound("sounds/launcher_clank.ogg", TConstruct.class.getResource("/sounds/launcher_clank.ogg"));
 			System.out.println("[TConstruct] Successfully loaded sounds.");
 		}
 		catch (Exception e)

@@ -555,6 +555,7 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
 
     /* Updating */
 
+    @Override
     public void onUpdate (ItemStack stack, World world, Entity entity, int par4, boolean par5)
     {
         for (ActiveToolMod mod : TConstructRegistry.activeModifiers)

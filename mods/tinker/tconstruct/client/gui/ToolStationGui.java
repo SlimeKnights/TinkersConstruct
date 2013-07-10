@@ -136,6 +136,10 @@ public class ToolStationGui extends NewContainerGui
             slotX = new int[] { 38, 47, 56 }; // Double head
             slotY = new int[] { 28, 46, 28 };
             break;
+        case 7:
+            slotX = new int[] { 56, 56, 56 }; // Three parts reverse
+            slotY = new int[] { 19, 37, 55 };
+            break;
         }
         toolSlots.resetSlots(slotX, slotY);
     }
@@ -186,24 +190,27 @@ public class ToolStationGui extends NewContainerGui
         //Durability
         int base = 24;
         int offset = 0;
-        if (maxDur >= 10000)
+        if (maxDur > 0)
         {
-            fontRenderer.drawString("Durability:", xSize + 8, base + offset * 11, 0xffffff);
-            offset++;
-            fontRenderer.drawString("- " + availableDurability + "/" + maxDur, xSize + 8, base + offset * 10, 0xffffff);
-            offset++;
-        }
-        else
-        {
-            fontRenderer.drawString("Durability: " + availableDurability + "/" + maxDur, xSize + 8, base + offset * 10, 0xffffff);
-            offset++;
+            if (maxDur >= 10000)
+            {
+                fontRenderer.drawString("Durability:", xSize + 8, base + offset * 11, 0xffffff);
+                offset++;
+                fontRenderer.drawString("- " + availableDurability + "/" + maxDur, xSize + 8, base + offset * 10, 0xffffff);
+                offset++;
+            }
+            else
+            {
+                fontRenderer.drawString("Durability: " + availableDurability + "/" + maxDur, xSize + 8, base + offset * 10, 0xffffff);
+                offset++;
+            }
         }
 
         final float stonebound = tags.getFloat("Shoddy");
         //Attack
         if (categories.contains("weapon"))
         {
-            int attack = (int) (tags.getInteger("Attack"));// * tool.getDamageModifier());
+            int attack = (int) (tags.getInteger("Attack"));
             float stoneboundDamage = (float) Math.log(durability / 72f + 1) * -2 * stonebound;
             attack += stoneboundDamage;
             if (attack < 1)
@@ -225,7 +232,7 @@ public class ToolStationGui extends NewContainerGui
             }
             offset++;
         }
-        
+
         if (categories.contains("bow"))
         {
             DecimalFormat df = new DecimalFormat("##.##");
@@ -233,9 +240,35 @@ public class ToolStationGui extends NewContainerGui
             int drawSpeed = tags.getInteger("DrawSpeed");
             float flightSpeed = tags.getFloat("FlightSpeed");
             float trueDraw = drawSpeed / 20f * flightSpeed;
-            this.fontRenderer.drawString("Draw Speed: " + df.format(trueDraw)+"s", xSize + 8, base + offset * 10, 0xffffff);
+            this.fontRenderer.drawString("Draw Speed: " + df.format(trueDraw) + "s", xSize + 8, base + offset * 10, 0xffffff);
             offset++;
-            this.fontRenderer.drawString("Arrow Speed: " + df.format(flightSpeed)+"x", xSize + 8, base + offset * 10, 0xffffff);
+            this.fontRenderer.drawString("Arrow Speed: " + df.format(flightSpeed) + "x", xSize + 8, base + offset * 10, 0xffffff);
+            offset++;
+            offset++;
+        }
+
+        if (categories.contains("ammo"))
+        {
+            DecimalFormat df = new DecimalFormat("##.##");
+            df.setRoundingMode(RoundingMode.DOWN);
+            int attack = (int) (tags.getInteger("Attack"));
+            float mass = tags.getFloat("Mass");
+            float shatter = tags.getFloat("BreakChance");
+            float accuracy = tags.getFloat("Accuracy");
+            
+            String heart = attack == 2 ? " Heart" : " Hearts";
+            if (attack % 2 == 0)
+                this.fontRenderer.drawString("Attack: " + attack / 2 + heart, xSize + 8, base + offset * 10, 0xffffff);
+            else
+                this.fontRenderer.drawString("Attack: " + attack / 2f + heart, xSize + 8, base + offset * 10, 0xffffff);
+            offset++;
+            
+            this.fontRenderer.drawString("Weight: " + df.format(mass), xSize + 8, base + offset * 10, 0xffffff);
+            offset++;
+            offset++;
+            this.fontRenderer.drawString("Accuracy: " + df.format(accuracy)+"%", xSize + 8, base + offset * 10, 0xffffff);
+            offset++;
+            this.fontRenderer.drawString("Chance to break: " + df.format(shatter)+"%", xSize + 8, base + offset * 10, 0xffffff);
             offset++;
             offset++;
         }

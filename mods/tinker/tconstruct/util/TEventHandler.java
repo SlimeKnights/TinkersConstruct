@@ -13,8 +13,10 @@ import mods.tinker.tconstruct.library.crafting.Smeltery;
 import mods.tinker.tconstruct.library.crafting.ToolBuilder;
 import mods.tinker.tconstruct.library.event.PartBuilderEvent;
 import mods.tinker.tconstruct.library.event.ToolCraftEvent;
+import mods.tinker.tconstruct.library.tools.ArrowMaterial;
 import mods.tinker.tconstruct.library.tools.BowMaterial;
 import mods.tinker.tconstruct.library.tools.BowstringMaterial;
+import mods.tinker.tconstruct.library.tools.FletchingMaterial;
 import mods.tinker.tconstruct.library.tools.ToolCore;
 import mods.tinker.tconstruct.library.util.ValueCoordTuple;
 import mods.tinker.tconstruct.modifiers.ModAttack;
@@ -85,25 +87,50 @@ public class TEventHandler
         {
             BowMaterial top = TConstructRegistry.getBowMaterial(toolTag.getInteger("Head"));
             BowMaterial bottom = TConstructRegistry.getBowMaterial(toolTag.getInteger("Accessory"));
-            BowstringMaterial string = TConstructRegistry.getBowstringMaterial(toolTag.getInteger("Handle"));
-            
-            if (toolTag.getInteger("Handle") == 1)
+            BowstringMaterial string = (BowstringMaterial) TConstructRegistry.getCustomMaterial(toolTag.getInteger("Handle"), BowstringMaterial.class);
+
+            if (top != null && bottom != null && string != null)
             {
-                int modifiers = toolTag.getInteger("Modifiers");
-                modifiers += 1;
-                toolTag.setInteger("Modifiers", modifiers);
+                if (toolTag.getInteger("Handle") == 1)
+                {
+                    int modifiers = toolTag.getInteger("Modifiers");
+                    modifiers += 1;
+                    toolTag.setInteger("Modifiers", modifiers);
+                }
+
+                int durability = (int) ((top.durability + bottom.durability) / 2 * string.durabilityModifier);
+                toolTag.setInteger("TotalDurability", durability);
+                toolTag.setInteger("BaseDurability", durability);
+
+                int drawSpeed = (int) ((top.drawspeed + bottom.drawspeed) / 2 * string.drawspeedModifier);
+                toolTag.setInteger("DrawSpeed", drawSpeed);
+                toolTag.setInteger("BaseDrawSpeed", drawSpeed);
+
+                float flightSpeed = (top.flightSpeedMax + bottom.flightSpeedMax) / 2f * string.flightSpeedModifier;
+                toolTag.setFloat("FlightSpeed", flightSpeed);
             }
+        }
+        
+        if (event.tool == TContent.arrow)
+        {
+            ArrowMaterial head = TConstructRegistry.getArrowMaterial(toolTag.getInteger("Head"));
+            ArrowMaterial shaft = TConstructRegistry.getArrowMaterial(toolTag.getInteger("Handle"));
+            FletchingMaterial fletching = (FletchingMaterial) TConstructRegistry.getCustomMaterial(toolTag.getInteger("Accessory"), FletchingMaterial.class);
 
-            int durability = (int) ((top.durability + bottom.durability) / 2 * string.durabilityModifier);
-            toolTag.setInteger("TotalDurability", durability);
-            toolTag.setInteger("BaseDurability", durability);
-
-            int drawSpeed = (int) ((top.drawspeed + bottom.drawspeed) / 2 * string.drawspeedModifier);
-            toolTag.setInteger("DrawSpeed", drawSpeed);
-            toolTag.setInteger("BaseDrawSpeed", drawSpeed);
-
-            float flightSpeed = (top.flightSpeedMax + bottom.flightSpeedMax) / 2f * string.flightSpeedModifier;
-            toolTag.setFloat("FlightSpeed", flightSpeed);
+            if (head != null && shaft != null && fletching != null)
+            {
+                float mass = (head.mass / 5f + shaft.mass) / 1.2f;
+                float shatter = (head.breakChance + shaft.breakChance + fletching.breakChance) / 4f;
+                float accuracy = (head.accuracy + shaft.accuracy + fletching.accuracy) / 3;
+                
+                ItemStack arrow = new ItemStack(event.tool, 4);
+                toolTag.setInteger("TotalDurability", 0);
+                toolTag.setFloat("Mass", mass);
+                toolTag.setFloat("BreakChance", shatter);
+                toolTag.setFloat("Accuracy", accuracy);
+                arrow.setTagCompound(event.toolTag);
+                event.overrideResult(arrow);
+            }
         }
     }
 
@@ -112,13 +139,40 @@ public class TEventHandler
     {
         if (event.pattern.getItem() == TContent.woodPattern && event.pattern.getItemDamage() == 23)
         {
-            //System.out.println("Fire! ");
-            ItemStack result = TConstructRegistry.craftBowString(event.material);
+            ItemStack result = craftBowString(event.material);
             if (result != null)
             {
                 event.overrideResult(new ItemStack[] { result, null });
             }
         }
+        
+        if (event.pattern.getItem() == TContent.woodPattern && event.pattern.getItemDamage() == 24)
+        {
+            ItemStack result = craftFletching(event.material);
+            if (result != null)
+            {
+                event.overrideResult(new ItemStack[] { result, null });
+            }
+        }
+    }
+    
+    public static ItemStack craftBowString(ItemStack stack)
+    {
+        if (stack.stackSize < 3)
+            return null;
+        
+        BowstringMaterial mat = (BowstringMaterial) TConstructRegistry.getCustomMaterial(stack, BowstringMaterial.class);
+        if (mat != null)
+            return mat.craftingItem.copy();
+        return null;
+    }
+    
+    public static ItemStack craftFletching(ItemStack stack)
+    {        
+        FletchingMaterial mat = (FletchingMaterial) TConstructRegistry.getCustomMaterial(stack, FletchingMaterial.class);
+        if (mat != null)
+            return mat.craftingItem.copy();
+        return null;
     }
 
     /* Interact */

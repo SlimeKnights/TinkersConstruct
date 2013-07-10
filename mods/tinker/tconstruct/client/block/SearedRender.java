@@ -63,18 +63,7 @@ public class SearedRender implements ISimpleBlockRenderingHandler
 			    renderer.setRenderBounds(0.125F, 0.125f, 0.125F, 0.875F, 0.25F, 0.875F);
                 TProxyClient.renderStandardInvBlock(renderer, block, metadata);
                 
-                //Outside
-                renderer.setRenderBounds(0.0f, 0.125, 0f, 0.125, 1.0F, 1);
-                TProxyClient.renderStandardInvBlock(renderer, block, metadata);
-                renderer.setRenderBounds(0.875f, 0.125, 0f, 1, 1.0F, 1);
-                TProxyClient.renderStandardInvBlock(renderer, block, metadata);
-                renderer.setRenderBounds(0.125f, 0.125, 0f, 0.875f, 1.0F, 0.125f);
-                TProxyClient.renderStandardInvBlock(renderer, block, metadata);
-                renderer.setRenderBounds(0.125f, 0.125, 0.875f, 0.875f, 1.0F, 1);
-                TProxyClient.renderStandardInvBlock(renderer, block, metadata);
-                
-                //Details
-                
+                //Details                
                 renderer.setRenderBounds(0.001f, 0.1245f, 0.001f, 0.1245f, 0.999f, 0.4375f);
                 TProxyClient.renderStandardInvBlock(renderer, block, metadata);
                 renderer.setRenderBounds(0.001f, 0.1245f, 0.5625f, 0.1245f, 0.999f, 0.999f);
@@ -119,6 +108,16 @@ public class SearedRender implements ISimpleBlockRenderingHandler
                 renderer.setRenderBounds(0.0F, 0.0F, 0.6875F, 0.3125F, 0.125, 1.0F);
                 TProxyClient.renderStandardInvBlock(renderer, block, metadata);                
                 renderer.setRenderBounds(0.6875F, 0.0F, 0.6875F, 1.0F, 0.125, 1.0F);
+                TProxyClient.renderStandardInvBlock(renderer, block, metadata);
+                
+                //Outside
+                renderer.setRenderBounds(0.0f, 0.125, 0f, 0.125, 1.0F, 1);
+                TProxyClient.renderStandardInvBlock(renderer, block, metadata);
+                renderer.setRenderBounds(0.875f, 0.125, 0f, 1, 1.0F, 1);
+                TProxyClient.renderStandardInvBlock(renderer, block, metadata);
+                renderer.setRenderBounds(0.125f, 0.125, 0f, 0.875f, 1.0F, 0.125f);
+                TProxyClient.renderStandardInvBlock(renderer, block, metadata);
+                renderer.setRenderBounds(0.125f, 0.125, 0.875f, 0.875f, 1.0F, 1);
                 TProxyClient.renderStandardInvBlock(renderer, block, metadata);
 			}
 			else

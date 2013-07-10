@@ -56,8 +56,8 @@ public class CustomBowRenderer implements IItemRenderer
         if (living instanceof EntityPlayer)
         {
             EntityPlayer player = (EntityPlayer)living;
-            if (player.itemInUse != null)
-            icon = stack.getItem().getIcon(stack, renderPass, player, player.itemInUse, player.getItemInUseCount());
+            if (player.getItemInUse() != null)
+            icon = stack.getItem().getIcon(stack, renderPass, player, player.getItemInUse(), player.getItemInUseCount());
         }
 
         if (icon == null)

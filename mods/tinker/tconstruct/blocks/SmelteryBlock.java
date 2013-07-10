@@ -134,11 +134,11 @@ public class SmelteryBlock extends InventoryBlock
 		
 	}
 
-    @Override
+    /*@Override
     public int getRenderBlockPass()
     {
         return 1;
-    }
+    }*/
 
 	public int damageDropped (int meta)
 	{

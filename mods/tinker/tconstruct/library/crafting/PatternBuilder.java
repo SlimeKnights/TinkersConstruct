@@ -5,9 +5,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import mods.tinker.tconstruct.library.TConstructRegistry;
 import mods.tinker.tconstruct.library.event.PartBuilderEvent;
-import mods.tinker.tconstruct.library.event.ToolCraftEvent;
-import mods.tinker.tconstruct.library.tools.ToolMaterial;
+import mods.tinker.tconstruct.library.tools.BowstringMaterial;
+import mods.tinker.tconstruct.library.tools.CustomMaterial;
 import mods.tinker.tconstruct.library.util.IPattern;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -137,6 +138,12 @@ public class PatternBuilder
 			ItemKey key = getItemKey(material);
 			if (key != null)
 				return key.value;
+			
+			for (CustomMaterial mat : TConstructRegistry.customMaterials)
+			{
+			    if (material.isItemEqual(mat.input))
+			        return mat.value;
+			}
 		}
 		return 0;
 	}

@@ -17,8 +17,6 @@ public class GAIFindTarget extends GolemAIBase
     private int counter;
     public static double searchRange = 16;
     public static double searchHeight = 4;
-    public static String searchEntityRegex;
-    public static String targetEntityRegex;
 
     public GAIFindTarget(GolemBase golem)
     {
@@ -50,41 +48,14 @@ public class GAIFindTarget extends GolemAIBase
         if (counter == 0)
         {
             List<EntityLiving> targetList = (List<EntityLiving>) (world.getEntitiesWithinAABB(EntityLiving.class, golem.boundingBox.expand(searchRange, searchHeight, searchRange)));
-            /*Pattern searchPattern = Pattern.compile(searchEntityRegex);
-            Pattern targetPattern = Pattern.compile(targetEntityRegex);
-            Matcher searchMatcher, targetMatcher;
-            TreeMap<String, Integer> entityCount = new TreeMap<String, Integer>();*/
             EntityLiving theTarget = null;
             EntityLiving stealTarget = null;
 
             theTarget = null;
             for (EntityLiving e : targetList)
             {
-                /*String name = EntityList.getEntityString(e);
-                if (name == null)
-                {
-                    continue;
-                }
-
-                searchMatcher = searchPattern.matcher(name);
-                if (searchMatcher.find())
-                {
-                    if (entityCount.containsKey(name))
-                    {
-                        int c = entityCount.get(name).intValue() + 1;
-                        entityCount.put(name, new Integer(c));
-                    }
-                    else
-                    {
-                        entityCount.put(name, new Integer(1));
-                    }
-                }*/
-
-                //System.out.println("Entity: "+e);
                 if (golem.patrolling())
                 {
-                    //targetMatcher = targetPattern.matcher(name);
-                    //if (targetMatcher.find())
                     if (e instanceof IMob)
                     {
                         if (theTarget == null)

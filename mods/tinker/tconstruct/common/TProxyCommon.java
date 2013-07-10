@@ -174,6 +174,7 @@ public class TProxyCommon implements IGuiHandler
         LanguageRegistry.addName(TContent.lightCrystalBase, "Lightstone Crystal");
         LanguageRegistry.addName(TContent.knapsack, "Knapsack");
         LanguageRegistry.addName(TContent.shortbow, "Shortbow");
+        LanguageRegistry.addName(TContent.arrow, "Arrow");
 
     }
 
@@ -183,11 +184,6 @@ public class TProxyCommon implements IGuiHandler
 
     public void registerKeys ()
     {
-    }
-
-    public File getLocation ()
-    {
-        return new File(".");
     }
 
     public void spawnParticle (String slimeParticle, double xPos, double yPos, double zPos, double velX, double velY, double velZ)
@@ -206,19 +202,20 @@ public class TProxyCommon implements IGuiHandler
             "Copper Nugget", "Tin Nugget", "Aluminum Nugget", "Silver Nugget" };*/
 
     public static final String[] toolMaterialNames = new String[] { "Wood", "Stone", "Iron", "Flint", "Cactus", "Bone", "Obsidian", "Netherrack", "Slime", "Paper", "Cobalt", "Ardite", "Manyullyn",
-            "Copper", "Bronze", "Alumite", "Steel", "Blue Slime", "", "", "", "", "", "", "", "", "", "", "", "", "", "Thaumium"  };
+            "Copper", "Bronze", "Alumite", "Steel", "Blue Slime", "", "", "", "", "", "", "", "", "", "", "", "", "", "Thaumium" };
 
     public static final String[] materialTypes = new String[] { "ToolRod", "PickaxeHead", "ShovelHead", "AxeHead", "SwordBlade", "LargeGuard", "MediumGuard", "Crossbar", "Binding", "FrypanHead",
-            "SignHead", "LumberHead", "KnifeBlade", "ChiselHead", "ScytheBlade", "LumberHead", "ThickRod", "ThickBinding", "LargeSwordBlade", "LargePlate", "ExcavatorHead", "HammerHead", "FullGuard" };
+            "SignHead", "LumberHead", "KnifeBlade", "ChiselHead", "ScytheBlade", "LumberHead", "ThickRod", "ThickBinding", "LargeSwordBlade", "LargePlate", "ExcavatorHead", "HammerHead", "FullGuard",
+            "Bowstring", "Fletching", "Arrowhead" };
 
     public static final String[] materialNames = new String[] { " Rod", " Pickaxe Head", " Shovel Head", " Axe Head", " Sword Blade", " Wide Guard", " Hand Guard", " Crossbar", " Binding", " Pan",
             " Board", " Broad Axe Head", " Knife Blade", " Chisel Head", " Scythe Blade", " Broad Axe Head", " Tough Tool Rod", " Tough Binding", " Large Sword Blade", " Large Plate",
-            " Excavator Head", " Hammer Head", " Full Guard" };
+            " Excavator Head", " Hammer Head", " Full Guard", " Bowstring", " Fletching", " Arrowhead" };
 
     public static final String[] patterns = new String[] { "ingot", "rod", "pickaxe", "shovel", "axe", "swordblade", "largeguard", "mediumguard", "crossbar", "binding", "frypan", "sign",
-            "knifeblade", "chisel", "largerod", "toughbinding", "largeplate", "broadaxe", "scythe", "excavator", "largeblade", "hammerhead", "fullguard", "bowstring" };
+            "knifeblade", "chisel", "largerod", "toughbinding", "largeplate", "broadaxe", "scythe", "excavator", "largeblade", "hammerhead", "fullguard", "bowstring", "fletching", "arrowhead" };
 
     public static final String[] patternNames = new String[] { "Ingot", "Tool Rod", "Pickaxe Head", "Shovel Head", "Axe Head", "Sword Blade", "Wide Guard", "Hand Guard", "Crossbar", "Tool Binding",
             "Pan", "Board", "Knife Blade", "Chisel Head", "Tough Tool Rod", "Tough Binding", "Large Plate", "Broad Axe Head", "Scythe Head", "Broad Shovel Head", "Large Blade", "Hammer Head",
-            "Full Guard", "Bowstring" };
+            "Full Guard", "Bowstring", "Fletching", "Arrowhead" };
 }
