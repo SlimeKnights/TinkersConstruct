@@ -255,21 +255,30 @@ public class ToolStationGui extends NewContainerGui
             float mass = tags.getFloat("Mass");
             float shatter = tags.getFloat("BreakChance");
             float accuracy = tags.getFloat("Accuracy");
-            
+
+            this.fontRenderer.drawString("Base Attack:", xSize + 8, base + offset * 10, 0xffffff);
+            offset++;
             String heart = attack == 2 ? " Heart" : " Hearts";
             if (attack % 2 == 0)
-                this.fontRenderer.drawString("Attack: " + attack / 2 + heart, xSize + 8, base + offset * 10, 0xffffff);
+                this.fontRenderer.drawString("- "+attack / 2 + heart, xSize + 8, base + offset * 10, 0xffffff);
             else
-                this.fontRenderer.drawString("Attack: " + attack / 2f + heart, xSize + 8, base + offset * 10, 0xffffff);
+                this.fontRenderer.drawString("- "+attack / 2f + heart, xSize + 8, base + offset * 10, 0xffffff);
+            offset++;
+            int minAttack = attack;
+            int maxAttack = attack *2;
+            heart = " Hearts";
+            this.fontRenderer.drawString("Shortbow Attack:", xSize + 8, base + offset * 10, 0xffffff);
+            offset++;
+            this.fontRenderer.drawString(df.format(minAttack / 2f)+"-"+df.format(maxAttack / 2f)+heart, xSize + 8, base + offset * 10, 0xffffff);
+            offset++;
             offset++;
             
             this.fontRenderer.drawString("Weight: " + df.format(mass), xSize + 8, base + offset * 10, 0xffffff);
             offset++;
+            this.fontRenderer.drawString("Accuracy: " + df.format(accuracy-4)+"%", xSize + 8, base + offset * 10, 0xffffff);
             offset++;
-            this.fontRenderer.drawString("Accuracy: " + df.format(accuracy)+"%", xSize + 8, base + offset * 10, 0xffffff);
-            offset++;
-            this.fontRenderer.drawString("Chance to break: " + df.format(shatter)+"%", xSize + 8, base + offset * 10, 0xffffff);
-            offset++;
+            /*this.fontRenderer.drawString("Chance to break: " + df.format(shatter)+"%", xSize + 8, base + offset * 10, 0xffffff);
+            offset++;*/
             offset++;
         }
 

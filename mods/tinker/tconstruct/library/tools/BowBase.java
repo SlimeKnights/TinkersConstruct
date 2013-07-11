@@ -60,11 +60,13 @@ public abstract class BowBase extends ToolCore
 
         boolean creative = player.capabilities.isCreativeMode || EnchantmentHelper.getEnchantmentLevel(Enchantment.infinity.effectId, stack) > 0;
         int slotID = getInventorySlotContainItem(TContent.arrow.itemID, player.inventory);
-        ItemStack arrow = null;
+        int arrowID = getInventorySlotContainItem(Item.arrow.itemID, player.inventory);
+        int arrowState = 0;
+        ItemStack tinkerArrow = null;
         if (slotID != -1)
-            arrow = player.inventory.getStackInSlot(slotID);
+            tinkerArrow = player.inventory.getStackInSlot(slotID);
 
-        if (creative || arrow != null || player.inventory.hasItem(Item.arrow.itemID))
+        if (creative || tinkerArrow != null || arrowID != -1)
         {
             NBTTagCompound toolTag = stack.getTagCompound().getCompoundTag("InfiTool");
             float drawTime = toolTag.getInteger("DrawSpeed");
@@ -83,9 +85,10 @@ public abstract class BowBase extends ToolCore
             }
 
             EntityArrow arrowEntity = null;
-            if (arrow != null)
+            //if (tinkerArrow != null)
+            if (slotID != 1 && (arrowID == -1 || slotID < arrowID))
             {
-                ItemStack arrowStack = arrow.copy();
+                ItemStack arrowStack = tinkerArrow.copy();
                 arrowStack.stackSize = 1;
                 arrowEntity = new ArrowEntity(world, player, speedBase * 2.0F, arrowStack);
             }
@@ -135,7 +138,8 @@ public abstract class BowBase extends ToolCore
             }
             else
             {
-                if (arrow != null)
+                //if (tinkerArrow != null)
+                if (slotID != 1 && (arrowID == -1 || slotID < arrowID))
                 {
                     player.inventory.consumeInventoryItem(TContent.arrow.itemID);
                 }
@@ -211,6 +215,11 @@ public abstract class BowBase extends ToolCore
         }
 
         return stack;
+    }
+    
+    public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float clickX, float clickY, float clickZ)
+    {
+        return false;
     }
 
     @SideOnly(Side.CLIENT)
@@ -506,7 +515,7 @@ public abstract class BowBase extends ToolCore
         {
             return getIcon3(stack, renderPass);
         }
-        if (useTime >= (drawTime * 3 / 5))
+        if (useTime >= (drawTime * 2 / 3))
         {
             return getIcon2(stack, renderPass);
         }

@@ -608,7 +608,7 @@ public class TContent implements IFuelHandler
         TConstructRegistry.addToolMaterial(0, "Wood", "Wooden ", 0, 59, 200, 0, 1.0F, 0, 0f, "\u00A7e", "");
         TConstructRegistry.addToolMaterial(1, "Stone", 1, 131, 400, 1, 0.5F, 0, 1f, "", "Stonebound");
         TConstructRegistry.addToolMaterial(2, "Iron", 2, 250, 600, 2, 1.3F, 1, 0f, "\u00A7f", "");
-        TConstructRegistry.addToolMaterial(3, "Flint", 1, 171, 525, 2, 0.7F, 0, -1F, "\u00A78", "Jagged");
+        TConstructRegistry.addToolMaterial(3, "Flint", 1, 171, 525, 2, 0.7F, 0, 0f, "\u00A78", "");
         TConstructRegistry.addToolMaterial(4, "Cactus", 1, 150, 500, 2, 1.0F, 0, -1f, "\u00A72", "Jagged");
         TConstructRegistry.addToolMaterial(5, "Bone", 1, 200, 400, 1, 1.0F, 0, 0f, "\u00A7e", "");
         TConstructRegistry.addToolMaterial(6, "Obsidian", 3, 89, 700, 2, 0.8F, 3, 0f, "\u00A7d", "");
@@ -652,8 +652,8 @@ public class TContent implements IFuelHandler
         TConstructRegistry.addArrowMaterial(5, 0.69F, 1.0F, 90F); //Bone
         TConstructRegistry.addArrowMaterial(6, 2.4F, 1.0F, 100F); //Obsidian
         TConstructRegistry.addArrowMaterial(7, 3.5F, 1.0F, 100F); //Netherrack
-        TConstructRegistry.addArrowMaterial(8, 0.69F, 0.0F, 100F); //Slime
-        TConstructRegistry.addArrowMaterial(9, 0.75F, 3.0F, 80F); //Paper
+        TConstructRegistry.addArrowMaterial(8, 0.42F, 0.0F, 100F); //Slime
+        TConstructRegistry.addArrowMaterial(9, 1.1F, 3.0F, 80F); //Paper
         TConstructRegistry.addArrowMaterial(10, 8.9F, 0.25F, 100F); //Cobalt
         TConstructRegistry.addArrowMaterial(11, 7.2F, 0.25F, 100F); //Ardite
         TConstructRegistry.addArrowMaterial(12, 10.6F, 0.1F, 100F); //Manyullyn
@@ -661,13 +661,13 @@ public class TContent implements IFuelHandler
         TConstructRegistry.addArrowMaterial(14, 7.9F, 0.25F, 100F); //Bronze
         TConstructRegistry.addArrowMaterial(15, 4.7F, 0.25F, 100F); //Alumite
         TConstructRegistry.addArrowMaterial(16, 7.6F, 0.25F, 100F); //Steel
-        TConstructRegistry.addArrowMaterial(17, 0.69F, 0.0F, 100F); //Blue Slime
+        TConstructRegistry.addArrowMaterial(17, 0.42F, 0.0F, 100F); //Blue Slime
 
         TConstructRegistry.addBowstringMaterial(0, 2, new ItemStack(Item.silk), new ItemStack(bowstring, 1, 0), 1F, 1F, 1f); //String
-        TConstructRegistry.addFletchingMaterial(0, 2, new ItemStack(Item.feather), new ItemStack(fletching, 1, 0), 100F, 0F); //Feather
-        TConstructRegistry.addFletchingMaterial(1, 2, new ItemStack(Block.leaves), new ItemStack(fletching, 1, 1), 75F, 0F); //Leaves
-        TConstructRegistry.addFletchingMaterial(2, 2, new ItemStack(materials, 1, 1), new ItemStack(fletching, 1, 2), 100F, 0F); //Slime
-        TConstructRegistry.addFletchingMaterial(3, 2, new ItemStack(materials, 1, 17), new ItemStack(fletching, 1, 3), 100F, 0F); //BlueSlime
+        TConstructRegistry.addFletchingMaterial(0, 2, new ItemStack(Item.feather), new ItemStack(fletching, 1, 0), 100F, 0F, 0.05F); //Feather
+        TConstructRegistry.addFletchingMaterial(1, 2, new ItemStack(Block.leaves), new ItemStack(fletching, 1, 1), 75F, 0F, 0.2F); //Leaves
+        TConstructRegistry.addFletchingMaterial(2, 2, new ItemStack(materials, 1, 1), new ItemStack(fletching, 1, 2), 100F, 0F, 0.12F); //Slime
+        TConstructRegistry.addFletchingMaterial(3, 2, new ItemStack(materials, 1, 17), new ItemStack(fletching, 1, 3), 100F, 0F, 0.12F); //BlueSlime
 
         PatternBuilder pb = PatternBuilder.instance;
         if (PHConstruct.enableTWood)
@@ -1443,8 +1443,9 @@ public class TContent implements IFuelHandler
                     TConstructRegistry.addPartMapping(woodPattern.itemID, meta + 1, 31, new ItemStack(patternOutputs[meta], 1, 31));
             }
 
-            TConstructRegistry.addBowstringMaterial(1, 2, new ItemStack((Item) obj, 1, 7), new ItemStack(bowstring, 1, 1), 1F, 1F, 0.85f);
+            TConstructRegistry.addBowstringMaterial(1, 2, new ItemStack((Item) obj, 1, 7), new ItemStack(bowstring, 1, 1), 1F, 1F, 0.9f);
             TConstructRegistry.addBowMaterial(31, 576, 40, 1.2f);
+            TConstructRegistry.addArrowMaterial(31, 1.8F, 0.5F, 100F);
         }
         else
         {

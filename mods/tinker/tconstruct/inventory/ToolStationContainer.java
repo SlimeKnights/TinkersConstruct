@@ -3,6 +3,7 @@ package mods.tinker.tconstruct.inventory;
 import java.util.Random;
 
 import mods.tinker.tconstruct.blocks.logic.ToolStationLogic;
+import mods.tinker.tconstruct.library.tools.ToolCore;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -132,8 +133,10 @@ public class ToolStationContainer extends ActiveContainer
 		if (!tags.getCompoundTag("InfiTool").hasKey("Built"))
 		{
 			tags.getCompoundTag("InfiTool").setBoolean("Built", true);
-			for (int i = 1; i <= 3; i++)
+			for (int i = 2; i <= 3; i++)
 				logic.decrStackSize(i, 1);
+            int amount = logic.getStackInSlot(1).getItem() instanceof ToolCore ? stack.stackSize : 1;
+            logic.decrStackSize(1, amount);
 
 			logic.worldObj.playSoundEffect(logic.xCoord, logic.yCoord, logic.zCoord, "sounds.little_saw", 1.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F);
 			/*if (!player.worldObj.isRemote)

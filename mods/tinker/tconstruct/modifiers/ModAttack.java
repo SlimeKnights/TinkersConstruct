@@ -112,13 +112,14 @@ public class ModAttack extends ToolMod
 	
     public boolean validType(ToolCore tool)
     {
-        List list = Arrays.asList(tool.toolCategories());
-        return list.contains("melee") || list.contains("harvest");
+        return true;
+        /*List list = Arrays.asList(tool.toolCategories());
+        return list.contains("melee") || list.contains("harvest") || list.contains("ammo");*/
     }
 	
 	public boolean nerfType(ToolCore tool)
 	{
 	    List list = Arrays.asList(tool.toolCategories());
-	    return list.contains("throwing");
+	    return list.contains("throwing") || list.contains("ammo");
 	}
 }

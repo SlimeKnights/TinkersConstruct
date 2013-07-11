@@ -1,10 +1,6 @@
 package mods.tinker.tconstruct.entity.ai;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import mods.tinker.tconstruct.entity.GolemBase;
-import mods.touhou_alice_dolls.DollRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.StepSound;
 import net.minecraft.util.MathHelper;

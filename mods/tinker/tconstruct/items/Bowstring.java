@@ -5,6 +5,7 @@ import java.util.List;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
+import mods.tinker.tconstruct.common.TContent;
 import mods.tinker.tconstruct.library.util.IToolPart;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -42,5 +43,12 @@ public class Bowstring extends CraftingItem implements IToolPart
     public int getMaterialID (ItemStack stack)
     {
         return stack.getItemDamage();
+    }
+
+    public void getSubItems (int id, CreativeTabs tab, List list)
+    {
+        list.add(new ItemStack(id, 1, 0));
+        if (TContent.thaumcraftAvailable)
+            list.add(new ItemStack(id, 1, 1));
     }
 }

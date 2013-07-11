@@ -206,6 +206,13 @@
   <entry key="item.tconstruct.blankpattern.pattern.name">Blank Pattern</entry>
   <entry key="item.tconstruct.blankpattern.cast.name">Blank Cast</entry>
   
+  <entry key="item.tconstruct.Bowstring.string.name">Bowstring</entry>
+  <entry key="item.tconstruct.Bowstring.enchantedfabric.name">Enchanted Bowstring</entry>
+  <entry key="item.tconstruct.Fletching.feather.name">Feather Fletching</entry>
+  <entry key="item.tconstruct.Fletching.leaf.name">Leaf Fletching</entry>
+  <entry key="item.tconstruct.Fletching.slime.name">Slime Fletching</entry>
+  <entry key="item.tconstruct.Fletching.blueslime.name">Slime Fletching</entry>
+  
   <entry key="item.tconstruct.manual.beginner.name">Materials and You</entry>
   <entry key="item.tconstruct.manual.toolstation.name">Materials and You</entry>
   <entry key="item.tconstruct.manual.smeltery.name">Mighty Smelting</entry>
@@ -229,7 +236,7 @@
   <entry key="item.tconstruct.bucket.Cow.name">Bucket o' Blood</entry>
   
   <entry key="item.tconstruct.bowstring.string.name">Bowstring</entry>
-  <entry key="item.tconstruct.bowstring.enchantedfabric.name">Enchanted Bowstring</entry>
+  <entry key="item.tconstruct.bowstring.enchantedfabriI donc.name">Enchanted Bowstring</entry>
   
   <entry key="LiquidMetal.Iron.name">Molten Iron</entry>
   <entry key="LiquidMetal.Gold.name">Molten Gold</entry>

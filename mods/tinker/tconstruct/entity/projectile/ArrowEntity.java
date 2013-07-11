@@ -31,6 +31,8 @@ import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
 public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnData
 {
     public ItemStack returnStack;
+    public float mass;
+    public int baseDamage;
 
     public ArrowEntity(World par1World)
     {
@@ -41,6 +43,9 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
     {
         super(world, living, baseSpeed);
         this.returnStack = stack;
+        NBTTagCompound toolTag = stack.getTagCompound().getCompoundTag("InfiTool");
+        this.mass = toolTag.getFloat("Mass");
+        this.baseDamage = toolTag.getInteger("Attack");
     }
 
     @Override
@@ -135,7 +140,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
             List list = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox.addCoord(this.motionX, this.motionY, this.motionZ).expand(1.0D, 1.0D, 1.0D));
             double d0 = 0.0D;
             int l;
-            float f1;
+            float ySpeed;
 
             for (l = 0; l < list.size(); ++l)
             {
@@ -143,8 +148,8 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
 
                 if (entity1.canBeCollidedWith() && (entity1 != this.shootingEntity || this.ticksInAir >= 5))
                 {
-                    f1 = 0.3F;
-                    AxisAlignedBB axisalignedbb1 = entity1.boundingBox.expand((double) f1, (double) f1, (double) f1);
+                    ySpeed = 0.3F;
+                    AxisAlignedBB axisalignedbb1 = entity1.boundingBox.expand((double) ySpeed, (double) ySpeed, (double) ySpeed);
                     MovingObjectPosition movingobjectposition1 = axisalignedbb1.calculateIntercept(vec3, vec31);
 
                     if (movingobjectposition1 != null)
@@ -175,21 +180,29 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
                 }
             }
 
-            float f2;
+            float speed;
             float f3;
 
             if (movingobjectposition != null)
             {
                 if (movingobjectposition.entityHit != null)
                 {
-                    f2 = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionY * this.motionY + this.motionZ * this.motionZ);
-                    int i1 = MathHelper.ceiling_double_int((double) f2 * this.damage);
+                    speed = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionY * this.motionY + this.motionZ * this.motionZ);
+                    double damageSpeed = (double) speed * this.damage;
+                    damageSpeed *= baseDamage;
+                    damageSpeed /= 5D;
+                    int damageInflicted = MathHelper.ceiling_double_int(damageSpeed);
 
                     if (this.getIsCritical())
                     {
-                        i1 += this.rand.nextInt(i1 / 2 + 2);
+                        damageInflicted += this.rand.nextInt(damageInflicted / 2 + 2);
                     }
 
+                    if (!worldObj.isRemote)
+                    {
+                    System.out.println("Speed: "+damageSpeed);
+                    System.out.println("Damage: "+damageInflicted);
+                    }
                     DamageSource damagesource = null;
 
                     if (this.shootingEntity == null)
@@ -206,7 +219,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
                         movingobjectposition.entityHit.setFire(5);
                     }
 
-                    if (movingobjectposition.entityHit.attackEntityFrom(damagesource, i1))
+                    if (movingobjectposition.entityHit.attackEntityFrom(damagesource, damageInflicted))
                     {
                         if (movingobjectposition.entityHit instanceof EntityLiving)
                         {
@@ -280,10 +293,10 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
                     this.motionX = (double) ((float) (movingobjectposition.hitVec.xCoord - this.posX));
                     this.motionY = (double) ((float) (movingobjectposition.hitVec.yCoord - this.posY));
                     this.motionZ = (double) ((float) (movingobjectposition.hitVec.zCoord - this.posZ));
-                    f2 = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionY * this.motionY + this.motionZ * this.motionZ);
-                    this.posX -= this.motionX / (double) f2 * 0.05000000074505806D;
-                    this.posY -= this.motionY / (double) f2 * 0.05000000074505806D;
-                    this.posZ -= this.motionZ / (double) f2 * 0.05000000074505806D;
+                    speed = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionY * this.motionY + this.motionZ * this.motionZ);
+                    this.posX -= this.motionX / (double) speed * 0.05000000074505806D;
+                    this.posY -= this.motionY / (double) speed * 0.05000000074505806D;
+                    this.posZ -= this.motionZ / (double) speed * 0.05000000074505806D;
                     this.playSound("random.bowhit", 1.0F, 1.2F / (this.rand.nextFloat() * 0.2F + 0.9F));
                     this.inGround = true;
                     this.arrowShake = 7;
@@ -308,10 +321,10 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
             this.posX += this.motionX;
             this.posY += this.motionY;
             this.posZ += this.motionZ;
-            f2 = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionZ * this.motionZ);
+            speed = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionZ * this.motionZ);
             this.rotationYaw = (float) (Math.atan2(this.motionX, this.motionZ) * 180.0D / Math.PI);
 
-            for (this.rotationPitch = (float) (Math.atan2(this.motionY, (double) f2) * 180.0D / Math.PI); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F)
+            for (this.rotationPitch = (float) (Math.atan2(this.motionY, (double) speed) * 180.0D / Math.PI); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F)
             {
                 ;
             }
@@ -333,8 +346,9 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
 
             this.rotationPitch = this.prevRotationPitch + (this.rotationPitch - this.prevRotationPitch) * 0.2F;
             this.rotationYaw = this.prevRotationYaw + (this.rotationYaw - this.prevRotationYaw) * 0.2F;
-            float f4 = 0.99F;
-            f1 = 0.05F;
+            float dropSpeed = 0.99F;
+            float speedMod = 1.05f + (mass / 1.26F) / 6F;
+            ySpeed = 0.05F * speedMod;
 
             if (this.isInWater())
             {
@@ -345,13 +359,13 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
                             this.motionY, this.motionZ);
                 }
 
-                f4 = 0.8F;
+                dropSpeed = 0.8F;
             }
 
-            this.motionX *= (double) f4;
-            this.motionY *= (double) f4;
-            this.motionZ *= (double) f4;
-            this.motionY -= (double) f1;
+            this.motionX *= (double) dropSpeed;
+            this.motionY *= (double) dropSpeed;
+            this.motionZ *= (double) dropSpeed;
+            this.motionY -= (double) ySpeed;
             this.setPosition(this.posX, this.posY, this.posZ);
             this.doBlockCollisions();
         }
@@ -547,6 +561,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
         NBTTagCompound tags = returnStack.getTagCompound().getCompoundTag("InfiTool");
         data.writeShort(returnStack.itemID);
         data.writeFloat(rotationYaw);
+        data.writeFloat(mass);
         data.writeInt(tags.getInteger("RenderHandle"));
         data.writeInt(tags.getInteger("RenderHead"));
         data.writeInt(tags.getInteger("RenderAccessory"));
@@ -588,6 +603,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
     {
         returnStack = new ItemStack(data.readShort(), 1, 0);
         rotationYaw = data.readFloat();
+        mass = data.readFloat();
         NBTTagCompound compound = new NBTTagCompound();
         NBTTagCompound toolTag = new NBTTagCompound();
         toolTag.setInteger("RenderHandle", data.readInt());

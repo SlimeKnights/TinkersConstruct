@@ -525,7 +525,7 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
         Item accessory = getAccessoryItem();
         ItemStack accessoryStack = accessory != null ? new ItemStack(getAccessoryItem(), 1, id) : null;
         Item extra = getExtraItem();
-        ItemStack extraStack = extra != null ? new ItemStack(getExtraItem(), 1, id) : null;
+        ItemStack extraStack = extra != null ? new ItemStack(extra, 1, id) : null;
         ItemStack tool = ToolBuilder.instance.buildTool(new ItemStack(getHeadItem(), 1, id), new ItemStack(getHandleItem(), 1, id), accessoryStack, extraStack, name + getToolName());
         if (tool == null)
         {

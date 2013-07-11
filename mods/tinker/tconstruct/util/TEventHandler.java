@@ -119,7 +119,7 @@ public class TEventHandler
 
             if (head != null && shaft != null && fletching != null)
             {
-                float mass = (head.mass / 5f + shaft.mass) / 1.2f;
+                float mass = head.mass / 5f + shaft.mass + fletching.mass;
                 float shatter = (head.breakChance + shaft.breakChance + fletching.breakChance) / 4f;
                 float accuracy = (head.accuracy + shaft.accuracy + fletching.accuracy) / 3;
                 

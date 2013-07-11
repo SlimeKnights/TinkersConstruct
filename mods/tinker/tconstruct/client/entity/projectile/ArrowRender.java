@@ -156,7 +156,7 @@ public class ArrowRender extends Render
         GL11.glRotatef(dagger.rotationYaw + 90, 0.0F, 1.0F, 0.0F);
         GL11.glRotatef(-rotation * 15, 0.0F, 0.0F, 1.0F);*/
         GL11.glRotatef(arrow.prevRotationYaw + (arrow.rotationYaw - arrow.prevRotationYaw) * par4 - 90.0F, 0.0F, 1.0F, 0.0F);
-        GL11.glRotatef(arrow.prevRotationPitch + (arrow.rotationPitch - arrow.prevRotationPitch) * par4 - 30.0F, 0.0F, 0.0F, 1.0F);
+        GL11.glRotatef(arrow.prevRotationPitch + (arrow.rotationPitch - arrow.prevRotationPitch) * par4 - 45.0F, 0.0F, 0.0F, 1.0F);
         float f12 = 0.0625F;
         f11 = 0.021875F;
         ItemStack itemstack = arrow.getEntityItem();

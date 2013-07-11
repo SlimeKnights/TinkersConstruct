@@ -122,6 +122,8 @@ public class SmelteryGui extends NewContainerGui
                 int total = logic.getTotalLiquid();
                 int liquidLayers = (total / 20000 + 1) * 20000;
                 liquidSize = liquid.amount * 52 / liquidLayers;
+                if (liquidSize == 0)
+                    liquidSize = 1;
                 base += liquidSize;
             }
 
@@ -208,6 +210,8 @@ public class SmelteryGui extends NewContainerGui
                 int total = logic.getTotalLiquid();
                 int liquidLayers = (total / 20000 + 1) * 20000;
                 int liquidSize = liquid.amount * 52 / liquidLayers;
+                if (liquidSize == 0)
+                    liquidSize = 1;
                 while (liquidSize > 0)
                 {
                     int size = liquidSize >= 16 ? 16 : liquidSize;
