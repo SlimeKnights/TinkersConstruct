@@ -49,12 +49,13 @@ public class Arrow extends ToolCore
     {
         return "_arrow_effect";
     }
+
     @Override
     public String getDefaultFolder ()
     {
         return "arrow";
     }
-    
+
     @Override
     public void registerPartPaths (int index, String[] location)
     {
@@ -83,9 +84,9 @@ public class Arrow extends ToolCore
     @Override
     public String[] toolCategories ()
     {
-        return new String[] {"ammo"};
+        return new String[] { "ammo" };
     }
-    
+
     @Override
     public void getSubItems (int id, CreativeTabs tab, List list)
     {
@@ -106,14 +107,15 @@ public class Arrow extends ToolCore
             tool.getTagCompound().getCompoundTag("InfiTool").setBoolean("Built", true);
             list.add(tool);
         }
-        
+
         //Random arrow
         accessory = getAccessoryItem();
         accessoryStack = accessory != null ? new ItemStack(getAccessoryItem(), 1, random.nextInt(4)) : null;
         extra = getExtraItem();
         extraStack = extra != null ? new ItemStack(extra, 1, 0) : null;
-        tool = ToolBuilder.instance.buildTool(new ItemStack(getHeadItem(), 1, random.nextInt(18)), new ItemStack(getHandleItem(), 1, random.nextInt(18)), accessoryStack, extraStack, "Random Streamer");
-        
+        tool = ToolBuilder.instance
+                .buildTool(new ItemStack(getHeadItem(), 1, random.nextInt(18)), new ItemStack(getHandleItem(), 1, random.nextInt(18)), accessoryStack, extraStack, "Random Streamer");
+
         if (tool == null)
         {
             System.out.println("Creative builder failed tool for Vanilla style" + this.getToolName());
@@ -148,12 +150,12 @@ public class Arrow extends ToolCore
             list.add(tool);
         }
     }
-    
-    public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float clickX, float clickY, float clickZ)
+
+    public boolean onItemUse (ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float clickX, float clickY, float clickZ)
     {
         return false;
     }
-    
+
     @Override
     @SideOnly(Side.CLIENT)
     public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean par4)

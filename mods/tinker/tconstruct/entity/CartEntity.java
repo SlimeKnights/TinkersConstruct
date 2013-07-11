@@ -29,8 +29,7 @@ import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class CartEntity extends Entity 
-	implements IInventory, IEntityAdditionalSpawnData
+public class CartEntity extends Entity implements IInventory, IEntityAdditionalSpawnData
 {
     /** Array of item stacks stored in minecart (for storage minecarts). */
     protected ItemStack[] cargoItems;
@@ -44,7 +43,8 @@ public class CartEntity extends Entity
     protected boolean field_82345_h;
 
     /** Minecart rotational logic matrix */
-    protected static final int[][][] matrix = new int[][][] {{{0, 0, -1}, {0, 0, 1}}, {{ -1, 0, 0}, {1, 0, 0}}, {{ -1, -1, 0}, {1, 0, 0}}, {{ -1, 0, 0}, {1, -1, 0}}, {{0, 0, -1}, {0, -1, 1}}, {{0, -1, -1}, {0, 0, 1}}, {{0, 0, 1}, {1, 0, 0}}, {{0, 0, 1}, { -1, 0, 0}}, {{0, 0, -1}, { -1, 0, 0}}, {{0, 0, -1}, {1, 0, 0}}};
+    protected static final int[][][] matrix = new int[][][] { { { 0, 0, -1 }, { 0, 0, 1 } }, { { -1, 0, 0 }, { 1, 0, 0 } }, { { -1, -1, 0 }, { 1, 0, 0 } }, { { -1, 0, 0 }, { 1, -1, 0 } },
+            { { 0, 0, -1 }, { 0, -1, 1 } }, { { 0, -1, -1 }, { 0, 0, 1 } }, { { 0, 0, 1 }, { 1, 0, 0 } }, { { 0, 0, 1 }, { -1, 0, 0 } }, { { 0, 0, -1 }, { -1, 0, 0 } }, { { 0, 0, -1 }, { 1, 0, 0 } } };
 
     /** appears to be the progress of the turn */
     protected int turnProgress;
@@ -77,7 +77,7 @@ public class CartEntity extends Entity
     protected float maxSpeedAirLateral;
     protected float maxSpeedAirVertical;
     protected double dragAir;
-    
+
     Entity entityFollowing;
 
     public CartEntity(World par1World)
@@ -104,11 +104,11 @@ public class CartEntity extends Entity
         this(world);
         pullcartType = type;
     }
-    
+
     public CartEntity(World world, double x, double y, double z, int type)
     {
         this(world);
-        this.setPosition(x, y + (double)this.yOffset, z);
+        this.setPosition(x, y + (double) this.yOffset, z);
         this.motionX = 0.0D;
         this.motionY = 0.0D;
         this.motionZ = 0.0D;
@@ -123,14 +123,14 @@ public class CartEntity extends Entity
      * returns if this entity triggers Block.onEntityWalking on the blocks they walk on. used for spiders and wolves to
      * prevent them from trampling crops
      */
-    protected boolean canTriggerWalking()
+    protected boolean canTriggerWalking ()
     {
         return false;
     }
 
-    protected void entityInit()
+    protected void entityInit ()
     {
-        this.dataWatcher.addObject(16, new Byte((byte)0));
+        this.dataWatcher.addObject(16, new Byte((byte) 0));
         this.dataWatcher.addObject(17, new Integer(0));
         this.dataWatcher.addObject(18, new Integer(1));
         this.dataWatcher.addObject(19, new Integer(0));
@@ -140,7 +140,7 @@ public class CartEntity extends Entity
      * Returns a boundingBox used to collide the entity with other entities and blocks. This enables the entity to be
      * pushable on contact, like boats or minecarts.
      */
-    public AxisAlignedBB getCollisionBox(Entity par1Entity)
+    public AxisAlignedBB getCollisionBox (Entity par1Entity)
     {
         return par1Entity.boundingBox;
     }
@@ -148,7 +148,7 @@ public class CartEntity extends Entity
     /**
      * returns the bounding box for this entity
      */
-    public AxisAlignedBB getBoundingBox()
+    public AxisAlignedBB getBoundingBox ()
     {
         return this.boundingBox;
     }
@@ -156,7 +156,7 @@ public class CartEntity extends Entity
     /**
      * Returns true if this entity should push and be pushed by other entities when colliding.
      */
-    public boolean canBePushed()
+    public boolean canBePushed ()
     {
         return canBePushed;
     }
@@ -164,15 +164,15 @@ public class CartEntity extends Entity
     /**
      * Returns the Y offset from the entity's position for any entity riding this one.
      */
-    public double getMountedYOffset()
+    public double getMountedYOffset ()
     {
-        return (double)this.height * 0.0D - 0.30000001192092896D;
+        return (double) this.height * 0.0D - 0.30000001192092896D;
     }
 
     /**
      * Called when the entity is attacked.
      */
-    public boolean attackEntityFrom(DamageSource par1DamageSource, int par2)
+    public boolean attackEntityFrom (DamageSource par1DamageSource, int par2)
     {
         if (!this.worldObj.isRemote && !this.isDead)
         {
@@ -187,7 +187,7 @@ public class CartEntity extends Entity
                 this.setBeenAttacked();
                 this.setDamage(this.getDamage() + par2 * 10);
 
-                if (par1DamageSource.getEntity() instanceof EntityPlayer && ((EntityPlayer)par1DamageSource.getEntity()).capabilities.isCreativeMode)
+                if (par1DamageSource.getEntity() instanceof EntityPlayer && ((EntityPlayer) par1DamageSource.getEntity()).capabilities.isCreativeMode)
                 {
                     this.setDamage(100);
                 }
@@ -213,11 +213,10 @@ public class CartEntity extends Entity
     }
 
     @SideOnly(Side.CLIENT)
-
     /**
      * Setups the entity to do the hurt animation. Only used by packets in multiplayer.
      */
-    public void performHurtAnimation()
+    public void performHurtAnimation ()
     {
         this.func_70494_i(-this.func_70493_k());
         this.func_70497_h(10);
@@ -227,7 +226,7 @@ public class CartEntity extends Entity
     /**
      * Returns true if other Entities should be prevented from moving through this Entity.
      */
-    public boolean canBeCollidedWith()
+    public boolean canBeCollidedWith ()
     {
         return !this.isDead;
     }
@@ -235,7 +234,7 @@ public class CartEntity extends Entity
     /**
      * Will get destroyed next tick.
      */
-    public void setDead()
+    public void setDead ()
     {
         if (this.field_82345_h)
         {
@@ -259,17 +258,18 @@ public class CartEntity extends Entity
                         }
 
                         var2.stackSize -= var6;
-                        EntityItem entityitem = new EntityItem(this.worldObj, this.posX + (double)var3, this.posY + (double)var4, this.posZ + (double)var5, new ItemStack(var2.itemID, var6, var2.getItemDamage()));
+                        EntityItem entityitem = new EntityItem(this.worldObj, this.posX + (double) var3, this.posY + (double) var4, this.posZ + (double) var5, new ItemStack(var2.itemID, var6,
+                                var2.getItemDamage()));
 
                         if (var2.hasTagCompound())
                         {
-                            entityitem.getEntityItem().setTagCompound((NBTTagCompound)var2.getTagCompound().copy());
+                            entityitem.getEntityItem().setTagCompound((NBTTagCompound) var2.getTagCompound().copy());
                         }
 
                         float var8 = 0.05F;
-                        entityitem.motionX = (double)((float)this.rand.nextGaussian() * var8);
-                        entityitem.motionY = (double)((float)this.rand.nextGaussian() * var8 + 0.2F);
-                        entityitem.motionZ = (double)((float)this.rand.nextGaussian() * var8);
+                        entityitem.motionX = (double) ((float) this.rand.nextGaussian() * var8);
+                        entityitem.motionY = (double) ((float) this.rand.nextGaussian() * var8 + 0.2F);
+                        entityitem.motionZ = (double) ((float) this.rand.nextGaussian() * var8);
                         this.worldObj.spawnEntityInWorld(entityitem);
                     }
                 }
@@ -282,7 +282,7 @@ public class CartEntity extends Entity
     /**
      * Teleports the entity to another dimension. Params: Dimension number to teleport to
      */
-    public void travelToDimension(int par1)
+    public void travelToDimension (int par1)
     {
         this.field_82345_h = false;
         super.travelToDimension(par1);
@@ -291,7 +291,7 @@ public class CartEntity extends Entity
     /**
      * Called to update the entity's position/logic.
      */
-    public void onUpdate()
+    public void onUpdate ()
     {
         if (this.func_70496_j() > 0)
         {
@@ -318,7 +318,7 @@ public class CartEntity extends Entity
         if (!this.worldObj.isRemote && this.worldObj instanceof WorldServer)
         {
             this.worldObj.theProfiler.startSection("portal");
-            MinecraftServer var1 = ((WorldServer)this.worldObj).getMinecraftServer();
+            MinecraftServer var1 = ((WorldServer) this.worldObj).getMinecraftServer();
             var2 = this.getMaxInPortalTime();
 
             if (this.inPortal)
@@ -372,12 +372,12 @@ public class CartEntity extends Entity
         {
             if (this.turnProgress > 0)
             {
-                double var46 = this.posX + (this.minecartX - this.posX) / (double)this.turnProgress;
-                double var48 = this.posY + (this.minecartY - this.posY) / (double)this.turnProgress;
-                double var5 = this.posZ + (this.minecartZ - this.posZ) / (double)this.turnProgress;
-                double var7 = MathHelper.wrapAngleTo180_double(this.minecartYaw - (double)this.rotationYaw);
-                this.rotationYaw = (float)((double)this.rotationYaw + var7 / (double)this.turnProgress);
-                this.rotationPitch = (float)((double)this.rotationPitch + (this.minecartPitch - (double)this.rotationPitch) / (double)this.turnProgress);
+                double var46 = this.posX + (this.minecartX - this.posX) / (double) this.turnProgress;
+                double var48 = this.posY + (this.minecartY - this.posY) / (double) this.turnProgress;
+                double var5 = this.posZ + (this.minecartZ - this.posZ) / (double) this.turnProgress;
+                double var7 = MathHelper.wrapAngleTo180_double(this.minecartYaw - (double) this.rotationYaw);
+                this.rotationYaw = (float) ((double) this.rotationYaw + var7 / (double) this.turnProgress);
+                this.rotationPitch = (float) ((double) this.rotationPitch + (this.minecartPitch - (double) this.rotationPitch) / (double) this.turnProgress);
                 --this.turnProgress;
                 this.setPosition(var46, var48, var5);
                 this.setRotation(this.rotationYaw, this.rotationPitch);
@@ -409,7 +409,7 @@ public class CartEntity extends Entity
 
             moveMinecartOffRail(var45, var2, var47);
             if (entityFollowing != null)
-            	moveTowardsEntity(entityFollowing);
+                moveTowardsEntity(entityFollowing);
 
             this.doBlockCollisions();
             this.rotationPitch = 0.0F;
@@ -418,7 +418,7 @@ public class CartEntity extends Entity
 
             if (var49 * var49 + var50 * var50 > 0.001D)
             {
-                this.rotationYaw = (float)(Math.atan2(var50, var49) * 180.0D / Math.PI);
+                this.rotationYaw = (float) (Math.atan2(var50, var49) * 180.0D / Math.PI);
 
                 if (this.field_70499_f)
                 {
@@ -426,7 +426,7 @@ public class CartEntity extends Entity
                 }
             }
 
-            double var51 = (double)MathHelper.wrapAngleTo180_float(this.rotationYaw - this.prevRotationYaw);
+            double var51 = (double) MathHelper.wrapAngleTo180_float(this.rotationYaw - this.prevRotationYaw);
 
             if (var51 < -170.0D || var51 >= 170.0D)
             {
@@ -444,7 +444,7 @@ public class CartEntity extends Entity
             {
                 for (int var52 = 0; var52 < var15.size(); ++var52)
                 {
-                    Entity var17 = (Entity)var15.get(var52);
+                    Entity var17 = (Entity) var15.get(var52);
 
                     if (var17 != this.riddenByEntity && var17.canBePushed() && var17 instanceof CartEntity)
                     {
@@ -466,26 +466,26 @@ public class CartEntity extends Entity
             updateFuel();
         }
     }
-    
-    void moveTowardsEntity(Entity entity)
-    {
-    	//System.out.println("Moving towards entity");
-    	/*double distX = this.posX - entity.posX;
-    	double distZ = this.posZ - entity.posZ;
-    	//posY = posY + 0.1;
 
-    	if (entity.posY > this.posY)
-    		motionY += 0.1;
-    	if (distX > 0.5 && distZ > 0.5)
-    	{
-    		motionX = -distX;
-    		motionZ = -distZ;
-    	}*/
-    	
-    	double var15 = entity.posX;
+    void moveTowardsEntity (Entity entity)
+    {
+        //System.out.println("Moving towards entity");
+        /*double distX = this.posX - entity.posX;
+        double distZ = this.posZ - entity.posZ;
+        //posY = posY + 0.1;
+
+        if (entity.posY > this.posY)
+        	motionY += 0.1;
+        if (distX > 0.5 && distZ > 0.5)
+        {
+        	motionX = -distX;
+        	motionZ = -distZ;
+        }*/
+
+        double var15 = entity.posX;
         double var19 = entity.posZ;
-    	
-    	if (this.calculateDistance(this.prevPosX, var15) > 1.5D || this.calculateDistance(this.prevPosZ, var19) > 1.5D)
+
+        if (this.calculateDistance(this.prevPosX, var15) > 1.5D || this.calculateDistance(this.prevPosZ, var19) > 1.5D)
         {
             double var28 = this.prevPosX;
             double var30 = this.prevPosZ;
@@ -529,12 +529,12 @@ public class CartEntity extends Entity
                 this.motionZ = -var42;// * var26;
             }
         }
-    	
-    	/*if (entity.posY > this.posY)
-    		motionY += 0.1;*/
+
+        /*if (entity.posY > this.posY)
+        	motionY += 0.1;*/
     }
-    
-    public double calculateDistance(double pos1, double pos2)
+
+    public double calculateDistance (double pos1, double pos2)
     {
         double distance = Math.abs(pos1 - pos2); //0.0D;
         /*double absPos1 = Math.abs(pos1);
@@ -557,7 +557,7 @@ public class CartEntity extends Entity
     }
 
     @SideOnly(Side.CLIENT)
-    public Vec3 func_70495_a(double par1, double par3, double par5, double par7)
+    public Vec3 func_70495_a (double par1, double par3, double par5, double par7)
     {
         int var9 = MathHelper.floor_double(par1);
         int var10 = MathHelper.floor_double(par3);
@@ -572,8 +572,8 @@ public class CartEntity extends Entity
 
         return null;
     }
-    
-    public Vec3 func_70489_a(double par1, double par3, double par5)
+
+    public Vec3 func_70489_a (double par1, double par3, double par5)
     {
         int var7 = MathHelper.floor_double(par1);
         int var8 = MathHelper.floor_double(par3);
@@ -589,34 +589,34 @@ public class CartEntity extends Entity
         if (BlockRail.isRailBlock(var10))
         {
             int var11 = 0;
-            par3 = (double)var8;
+            par3 = (double) var8;
 
             if (var11 >= 2 && var11 <= 5)
             {
-                par3 = (double)(var8 + 1);
+                par3 = (double) (var8 + 1);
             }
 
             int[][] var12 = matrix[var11];
             double var13 = 0.0D;
-            double var15 = (double)var7 + 0.5D + (double)var12[0][0] * 0.5D;
-            double var17 = (double)var8 + 0.5D + (double)var12[0][1] * 0.5D;
-            double var19 = (double)var9 + 0.5D + (double)var12[0][2] * 0.5D;
-            double var21 = (double)var7 + 0.5D + (double)var12[1][0] * 0.5D;
-            double var23 = (double)var8 + 0.5D + (double)var12[1][1] * 0.5D;
-            double var25 = (double)var9 + 0.5D + (double)var12[1][2] * 0.5D;
+            double var15 = (double) var7 + 0.5D + (double) var12[0][0] * 0.5D;
+            double var17 = (double) var8 + 0.5D + (double) var12[0][1] * 0.5D;
+            double var19 = (double) var9 + 0.5D + (double) var12[0][2] * 0.5D;
+            double var21 = (double) var7 + 0.5D + (double) var12[1][0] * 0.5D;
+            double var23 = (double) var8 + 0.5D + (double) var12[1][1] * 0.5D;
+            double var25 = (double) var9 + 0.5D + (double) var12[1][2] * 0.5D;
             double var27 = var21 - var15;
             double var29 = (var23 - var17) * 2.0D;
             double var31 = var25 - var19;
 
             if (var27 == 0.0D)
             {
-                par1 = (double)var7 + 0.5D;
-                var13 = par5 - (double)var9;
+                par1 = (double) var7 + 0.5D;
+                var13 = par5 - (double) var9;
             }
             else if (var31 == 0.0D)
             {
-                par5 = (double)var9 + 0.5D;
-                var13 = par1 - (double)var7;
+                par5 = (double) var9 + 0.5D;
+                var13 = par1 - (double) var7;
             }
             else
             {
@@ -651,7 +651,7 @@ public class CartEntity extends Entity
      * (abstract) Protected helper method to write subclass entity data to NBT.
      */
     @Override
-    protected void writeEntityToNBT(NBTTagCompound par1NBTTagCompound)
+    protected void writeEntityToNBT (NBTTagCompound par1NBTTagCompound)
     {
         par1NBTTagCompound.setInteger("Type", pullcartType);
 
@@ -671,7 +671,7 @@ public class CartEntity extends Entity
                 if (this.cargoItems[var3] != null)
                 {
                     NBTTagCompound var4 = new NBTTagCompound();
-                    var4.setByte("Slot", (byte)var3);
+                    var4.setByte("Slot", (byte) var3);
                     this.cargoItems[var3].writeToNBT(var4);
                     var2.appendTag(var4);
                 }
@@ -685,10 +685,10 @@ public class CartEntity extends Entity
      * (abstract) Protected helper method to read subclass entity data from NBT.
      */
     @Override
-    protected void readEntityFromNBT(NBTTagCompound par1NBTTagCompound)
+    protected void readEntityFromNBT (NBTTagCompound par1NBTTagCompound)
     {
         pullcartType = par1NBTTagCompound.getInteger("Type");
-        
+
         if (isPoweredCart())
         {
             this.pushX = par1NBTTagCompound.getDouble("PushX");
@@ -710,7 +710,7 @@ public class CartEntity extends Entity
 
             for (int var3 = 0; var3 < var2.tagCount(); ++var3)
             {
-                NBTTagCompound var4 = (NBTTagCompound)var2.tagAt(var3);
+                NBTTagCompound var4 = (NBTTagCompound) var2.tagAt(var3);
                 int var5 = var4.getByte("Slot") & 255;
 
                 if (var5 >= 0 && var5 < this.cargoItems.length)
@@ -722,7 +722,7 @@ public class CartEntity extends Entity
     }
 
     @SideOnly(Side.CLIENT)
-    public float getShadowSize()
+    public float getShadowSize ()
     {
         return 0.5F;
     }
@@ -730,13 +730,14 @@ public class CartEntity extends Entity
     /**
      * Applies a velocity to each of the entities pushing them away from each other. Args: entity
      */
-    public void applyEntityCollision(Entity par1Entity)
+    public void applyEntityCollision (Entity par1Entity)
     {
         if (!this.worldObj.isRemote)
         {
             if (par1Entity != this.riddenByEntity)
             {
-                if (par1Entity instanceof EntityLiving && !(par1Entity instanceof EntityPlayer) && !(par1Entity instanceof EntityIronGolem) && canBeRidden() && this.motionX * this.motionX + this.motionZ * this.motionZ > 0.01D && this.riddenByEntity == null && par1Entity.ridingEntity == null)
+                if (par1Entity instanceof EntityLiving && !(par1Entity instanceof EntityPlayer) && !(par1Entity instanceof EntityIronGolem) && canBeRidden()
+                        && this.motionX * this.motionX + this.motionZ * this.motionZ > 0.01D && this.riddenByEntity == null && par1Entity.ridingEntity == null)
                 {
                     par1Entity.mountEntity(this);
                 }
@@ -747,7 +748,7 @@ public class CartEntity extends Entity
 
                 if (var6 >= 9.999999747378752E-5D)
                 {
-                    var6 = (double)MathHelper.sqrt_double(var6);
+                    var6 = (double) MathHelper.sqrt_double(var6);
                     var2 /= var6;
                     var4 /= var6;
                     double var8 = 1.0D / var6;
@@ -761,8 +762,8 @@ public class CartEntity extends Entity
                     var4 *= var8;
                     var2 *= 0.10000000149011612D;
                     var4 *= 0.10000000149011612D;
-                    var2 *= (double)(1.0F - this.entityCollisionReduction);
-                    var4 *= (double)(1.0F - this.entityCollisionReduction);
+                    var2 *= (double) (1.0F - this.entityCollisionReduction);
+                    var4 *= (double) (1.0F - this.entityCollisionReduction);
                     var2 *= 0.5D;
                     var4 *= 0.5D;
 
@@ -771,7 +772,9 @@ public class CartEntity extends Entity
                         double var10 = par1Entity.posX - this.posX;
                         double var12 = par1Entity.posZ - this.posZ;
                         Vec3 var14 = this.worldObj.getWorldVec3Pool().getVecFromPool(var10, 0.0D, var12).normalize();
-                        Vec3 var15 = this.worldObj.getWorldVec3Pool().getVecFromPool((double)MathHelper.cos(this.rotationYaw * (float)Math.PI / 180.0F), 0.0D, (double)MathHelper.sin(this.rotationYaw * (float)Math.PI / 180.0F)).normalize();
+                        Vec3 var15 = this.worldObj.getWorldVec3Pool()
+                                .getVecFromPool((double) MathHelper.cos(this.rotationYaw * (float) Math.PI / 180.0F), 0.0D, (double) MathHelper.sin(this.rotationYaw * (float) Math.PI / 180.0F))
+                                .normalize();
                         double var16 = Math.abs(var14.dotProduct(var15));
 
                         if (var16 < 0.8D)
@@ -782,7 +785,7 @@ public class CartEntity extends Entity
                         double var18 = par1Entity.motionX + this.motionX;
                         double var20 = par1Entity.motionZ + this.motionZ;
 
-                        if (((CartEntity)par1Entity).isPoweredCart() && !isPoweredCart())
+                        if (((CartEntity) par1Entity).isPoweredCart() && !isPoweredCart())
                         {
                             this.motionX *= 0.20000000298023224D;
                             this.motionZ *= 0.20000000298023224D;
@@ -790,7 +793,7 @@ public class CartEntity extends Entity
                             par1Entity.motionX *= 0.949999988079071D;
                             par1Entity.motionZ *= 0.949999988079071D;
                         }
-                        else if (!((CartEntity)par1Entity).isPoweredCart() && isPoweredCart())
+                        else if (!((CartEntity) par1Entity).isPoweredCart() && isPoweredCart())
                         {
                             par1Entity.motionX *= 0.20000000298023224D;
                             par1Entity.motionZ *= 0.20000000298023224D;
@@ -823,7 +826,7 @@ public class CartEntity extends Entity
     /**
      * Returns the number of slots in the inventory.
      */
-    public int getSizeInventory()
+    public int getSizeInventory ()
     {
         return (pullcartType == 1 && getClass() == CartEntity.class ? 27 : 0);
     }
@@ -831,7 +834,7 @@ public class CartEntity extends Entity
     /**
      * Returns the stack in slot i
      */
-    public ItemStack getStackInSlot(int par1)
+    public ItemStack getStackInSlot (int par1)
     {
         return this.cargoItems[par1];
     }
@@ -840,7 +843,7 @@ public class CartEntity extends Entity
      * Removes from an inventory slot (first arg) up to a specified number (second arg) of items and returns them in a
      * new stack.
      */
-    public ItemStack decrStackSize(int par1, int par2)
+    public ItemStack decrStackSize (int par1, int par2)
     {
         if (this.cargoItems[par1] != null)
         {
@@ -874,7 +877,7 @@ public class CartEntity extends Entity
      * When some containers are closed they call this on each slot, then drop whatever it returns as an EntityItem -
      * like when you close a workbench GUI.
      */
-    public ItemStack getStackInSlotOnClosing(int par1)
+    public ItemStack getStackInSlotOnClosing (int par1)
     {
         if (this.cargoItems[par1] != null)
         {
@@ -891,7 +894,7 @@ public class CartEntity extends Entity
     /**
      * Sets the given item stack to the specified slot in the inventory (can be crafting or armor sections).
      */
-    public void setInventorySlotContents(int par1, ItemStack par2ItemStack)
+    public void setInventorySlotContents (int par1, ItemStack par2ItemStack)
     {
         this.cargoItems[par1] = par2ItemStack;
 
@@ -904,7 +907,7 @@ public class CartEntity extends Entity
     /**
      * Returns the name of the inventory.
      */
-    public String getInvName()
+    public String getInvName ()
     {
         return "container.minecart";
     }
@@ -913,7 +916,7 @@ public class CartEntity extends Entity
      * Returns the maximum stack size for a inventory slot. Seems to always be 64, possibly will be extended. *Isn't
      * this more of a set than a get?*
      */
-    public int getInventoryStackLimit()
+    public int getInventoryStackLimit ()
     {
         return 64;
     }
@@ -921,29 +924,31 @@ public class CartEntity extends Entity
     /**
      * Called when an the contents of an Inventory change, usually
      */
-    public void onInventoryChanged() {}
+    public void onInventoryChanged ()
+    {
+    }
 
     /**
      * Called when a player interacts with a mob. e.g. gets milk from a cow, gets into the saddle on a pig.
      */
-    public boolean interact(EntityPlayer player)
+    public boolean interact (EntityPlayer player)
     {
-    	if (player.isSneaking())
-    	{
-    		if (entityFollowing == null)
-    		{
-    			entityFollowing = player;
-    			//if (!worldObj.isRemote)
-    				//player.addChatMessage("The cart is following you");
-    		}
-    		else
-    		{
-    			entityFollowing = null;
-    			//if (!worldObj.isRemote)
-    				//player.addChatMessage("The cart has stopped following you");
-    		}
-    		return true;
-    	}
+        if (player.isSneaking())
+        {
+            if (entityFollowing == null)
+            {
+                entityFollowing = player;
+                //if (!worldObj.isRemote)
+                //player.addChatMessage("The cart is following you");
+            }
+            else
+            {
+                entityFollowing = null;
+                //if (!worldObj.isRemote)
+                //player.addChatMessage("The cart has stopped following you");
+            }
+            return true;
+        }
         if (canBeRidden())
         {
             if (this.riddenByEntity != null && this.riddenByEntity instanceof EntityPlayer && this.riddenByEntity != player)
@@ -971,7 +976,7 @@ public class CartEntity extends Entity
             {
                 if (--var2.stackSize == 0)
                 {
-                    player.inventory.setInventorySlotContents(player.inventory.currentItem, (ItemStack)null);
+                    player.inventory.setInventorySlotContents(player.inventory.currentItem, (ItemStack) null);
                 }
 
                 this.fuel += 3600;
@@ -985,18 +990,17 @@ public class CartEntity extends Entity
     }
 
     @SideOnly(Side.CLIENT)
-
     /**
      * Sets the position and rotation. Only difference from the other one is no bounding on the rotation. Args: posX,
      * posY, posZ, yaw, pitch
      */
-    public void setPositionAndRotation2(double par1, double par3, double par5, float par7, float par8, int par9)
+    public void setPositionAndRotation2 (double par1, double par3, double par5, float par7, float par8, int par9)
     {
         this.minecartX = par1;
         this.minecartY = par3;
         this.minecartZ = par5;
-        this.minecartYaw = (double)par7;
-        this.minecartPitch = (double)par8;
+        this.minecartYaw = (double) par7;
+        this.minecartPitch = (double) par8;
         this.turnProgress = par9 + 2;
         this.motionX = this.velocityX;
         this.motionY = this.velocityY;
@@ -1004,11 +1008,10 @@ public class CartEntity extends Entity
     }
 
     @SideOnly(Side.CLIENT)
-
     /**
      * Sets the velocity to the args. Args: x, y, z
      */
-    public void setVelocity(double par1, double par3, double par5)
+    public void setVelocity (double par1, double par3, double par5)
     {
         this.velocityX = this.motionX = par1;
         this.velocityY = this.motionY = par3;
@@ -1018,7 +1021,7 @@ public class CartEntity extends Entity
     /**
      * Do not make give this method the name canInteractWith because it clashes with Container
      */
-    public boolean isUseableByPlayer(EntityPlayer par1EntityPlayer)
+    public boolean isUseableByPlayer (EntityPlayer par1EntityPlayer)
     {
         return this.isDead ? false : par1EntityPlayer.getDistanceSqToEntity(this) <= 64.0D;
     }
@@ -1026,7 +1029,7 @@ public class CartEntity extends Entity
     /**
      * Is this minecart powered (Fuel > 0)
      */
-    public boolean isMinecartPowered()
+    public boolean isMinecartPowered ()
     {
         return (this.dataWatcher.getWatchableObjectByte(16) & 1) != 0;
     }
@@ -1034,27 +1037,31 @@ public class CartEntity extends Entity
     /**
      * Set if this minecart is powered (Fuel > 0)
      */
-    protected void setMinecartPowered(boolean par1)
+    protected void setMinecartPowered (boolean par1)
     {
         if (par1)
         {
-            this.dataWatcher.updateObject(16, Byte.valueOf((byte)(this.dataWatcher.getWatchableObjectByte(16) | 1)));
+            this.dataWatcher.updateObject(16, Byte.valueOf((byte) (this.dataWatcher.getWatchableObjectByte(16) | 1)));
         }
         else
         {
-            this.dataWatcher.updateObject(16, Byte.valueOf((byte)(this.dataWatcher.getWatchableObjectByte(16) & -2)));
+            this.dataWatcher.updateObject(16, Byte.valueOf((byte) (this.dataWatcher.getWatchableObjectByte(16) & -2)));
         }
     }
 
-    public void openChest() {}
+    public void openChest ()
+    {
+    }
 
-    public void closeChest() {}
+    public void closeChest ()
+    {
+    }
 
     /**
      * Sets the current amount of damage the minecart has taken. Decreases over time. The cart breaks when this is over
      * 40.
      */
-    public void setDamage(int par1)
+    public void setDamage (int par1)
     {
         this.dataWatcher.updateObject(19, Integer.valueOf(par1));
     }
@@ -1063,27 +1070,27 @@ public class CartEntity extends Entity
      * Gets the current amount of damage the minecart has taken. Decreases over time. The cart breaks when this is over
      * 40.
      */
-    public int getDamage()
+    public int getDamage ()
     {
         return this.dataWatcher.getWatchableObjectInt(19);
     }
 
-    public void func_70497_h(int par1)
+    public void func_70497_h (int par1)
     {
         this.dataWatcher.updateObject(17, Integer.valueOf(par1));
     }
 
-    public int func_70496_j()
+    public int func_70496_j ()
     {
         return this.dataWatcher.getWatchableObjectInt(17);
     }
 
-    public void func_70494_i(int par1)
+    public void func_70494_i (int par1)
     {
         this.dataWatcher.updateObject(18, Integer.valueOf(par1));
     }
 
-    public int func_70493_k()
+    public int func_70493_k ()
     {
         return this.dataWatcher.getWatchableObjectInt(18);
     }
@@ -1091,9 +1098,9 @@ public class CartEntity extends Entity
     /**
      * Drops the cart as a item. The exact item dropped is defined by getItemDropped().
      */
-    public void dropCartAsItem()
+    public void dropCartAsItem ()
     {
-        for(ItemStack item : getItemsDropped())
+        for (ItemStack item : getItemsDropped())
         {
             entityDropItem(item, 0);
         }
@@ -1105,7 +1112,7 @@ public class CartEntity extends Entity
      * that is handled elsewhere.
      * @return A list of items dropped.
      */
-    public List<ItemStack> getItemsDropped()
+    public List<ItemStack> getItemsDropped ()
     {
         /*List<ItemStack> items = new ArrayList<ItemStack>();
         items.add(new ItemStack(Item.minecartEmpty));
@@ -1120,7 +1127,7 @@ public class CartEntity extends Entity
                 break;
         }
         return items;*/
-    	return new ArrayList<ItemStack>();
+        return new ArrayList<ItemStack>();
     }
 
     /**
@@ -1130,9 +1137,9 @@ public class CartEntity extends Entity
      * but is not necessary the item the cart drops when destroyed.
      * @return An ItemStack that can be used to place the cart.
      */
-    public ItemStack getCartItem()
+    public ItemStack getCartItem ()
     {
-    	return null;
+        return null;
         //return MinecartRegistry.getItemForCart(this);
     }
 
@@ -1140,7 +1147,7 @@ public class CartEntity extends Entity
      * Returns true if this cart is self propelled.
      * @return True if powered.
      */
-    public boolean isPoweredCart()
+    public boolean isPoweredCart ()
     {
         return pullcartType == 2 && getClass() == CartEntity.class;
     }
@@ -1151,7 +1158,7 @@ public class CartEntity extends Entity
      * and some carts without inventories may be storage carts.
      * @return True if this cart should be classified as a storage cart.
      */
-    public boolean isStorageCart()
+    public boolean isStorageCart ()
     {
         return pullcartType == 1 && getClass() == CartEntity.class;
     }
@@ -1160,9 +1167,9 @@ public class CartEntity extends Entity
      * Returns true if this cart can be ridden by an Entity.
      * @return True if this cart can be ridden.
      */
-    public boolean canBeRidden()
+    public boolean canBeRidden ()
     {
-        if(pullcartType == 0 && getClass() == CartEntity.class)
+        if (pullcartType == 0 && getClass() == CartEntity.class)
         {
             return true;
         }
@@ -1174,7 +1181,7 @@ public class CartEntity extends Entity
      * This function is mainly used to gracefully detach a minecart from a rail.
      * @return True if the minecart can use rails.
      */
-    public boolean canUseRail()
+    public boolean canUseRail ()
     {
         return false;
     }
@@ -1184,7 +1191,7 @@ public class CartEntity extends Entity
      * This function is mainly used to gracefully detach a minecart from a rail.
      * @param use Whether the minecart can currently use rails.
      */
-    public void setCanUseRail(boolean use)
+    public void setCanUseRail (boolean use)
     {
         canUseRail = use;
     }
@@ -1193,7 +1200,7 @@ public class CartEntity extends Entity
      * Return false if this cart should not call IRail.onMinecartPass() and should ignore Powered Rails.
      * @return True if this cart should call IRail.onMinecartPass().
      */
-    public boolean shouldDoRailFunctions()
+    public boolean shouldDoRailFunctions ()
     {
         return true;
     }
@@ -1202,16 +1209,16 @@ public class CartEntity extends Entity
      * Simply returns the minecartType variable.
      * @return minecartType
      */
-    public int getCartType()
+    public int getCartType ()
     {
-    	return pullcartType;
+        return pullcartType;
     }
 
     /**
      * Carts should return their drag factor here
      * @return The drag rate.
      */
-    protected double getDrag()
+    protected double getDrag ()
     {
         return riddenByEntity != null ? defaultDragRidden : defaultDragEmpty;
     }
@@ -1220,12 +1227,12 @@ public class CartEntity extends Entity
      * Moved to allow overrides.
      * This code applies drag and updates push forces.
      */
-    protected void applyDragAndPushForces()
+    protected void applyDragAndPushForces ()
     {
-        if(isPoweredCart())
+        if (isPoweredCart())
         {
             double d27 = MathHelper.sqrt_double(pushX * pushX + pushZ * pushZ);
-            if(d27 > 0.01D)
+            if (d27 > 0.01D)
             {
                 pushX /= d27;
                 pushZ /= d27;
@@ -1252,16 +1259,16 @@ public class CartEntity extends Entity
      * Moved to allow overrides.
      * This code updates push forces.
      */
-    protected void updatePushForces()
+    protected void updatePushForces ()
     {
-        if(isPoweredCart())
+        if (isPoweredCart())
         {
             double push = MathHelper.sqrt_double(pushX * pushX + pushZ * pushZ);
-            if(push > 0.01D && motionX * motionX + motionZ * motionZ > 0.001D)
+            if (push > 0.01D && motionX * motionX + motionZ * motionZ > 0.001D)
             {
                 pushX /= push;
                 pushZ /= push;
-                if(pushX * motionX + pushZ * motionZ < 0.0D)
+                if (pushX * motionX + pushZ * motionZ < 0.0D)
                 {
                     pushX = 0.0D;
                     pushZ = 0.0D;
@@ -1279,35 +1286,39 @@ public class CartEntity extends Entity
      * Moved to allow overrides.
      * This code handles minecart movement and speed capping when not on a rail.
      */
-    protected void moveMinecartOffRail(int i, int j, int k)
+    protected void moveMinecartOffRail (int i, int j, int k)
     {
         double d2 = getMaxSpeedGround();
-        if(!onGround)
+        if (!onGround)
         {
             d2 = getMaxSpeedAirLateral();
         }
-        if(motionX < -d2) motionX = -d2;
-        if(motionX >  d2) motionX =  d2;
-        if(motionZ < -d2) motionZ = -d2;
-        if(motionZ >  d2) motionZ =  d2;
+        if (motionX < -d2)
+            motionX = -d2;
+        if (motionX > d2)
+            motionX = d2;
+        if (motionZ < -d2)
+            motionZ = -d2;
+        if (motionZ > d2)
+            motionZ = d2;
         double moveY = motionY;
-        if(getMaxSpeedAirVertical() > 0 && motionY > getMaxSpeedAirVertical())
+        if (getMaxSpeedAirVertical() > 0 && motionY > getMaxSpeedAirVertical())
         {
             moveY = getMaxSpeedAirVertical();
-            if(Math.abs(motionX) < 0.3f && Math.abs(motionZ) < 0.3f)
+            if (Math.abs(motionX) < 0.3f && Math.abs(motionZ) < 0.3f)
             {
                 moveY = 0.15f;
                 motionY = moveY;
             }
         }
-        if(onGround)
+        if (onGround)
         {
             motionX *= 0.5D;
             motionY *= 0.5D;
             motionZ *= 0.5D;
         }
         moveEntity(motionX, moveY, motionZ);
-        if(!onGround)
+        if (!onGround)
         {
             motionX *= getDragAir();
             motionY *= getDragAir();
@@ -1319,10 +1330,12 @@ public class CartEntity extends Entity
      * Moved to allow overrides.
      * This code applies fuel consumption.
      */
-    protected void updateFuel()
+    protected void updateFuel ()
     {
-        if (fuel > 0) fuel--;
-        if (fuel <= 0) pushX = pushZ = 0.0D;
+        if (fuel > 0)
+            fuel--;
+        if (fuel <= 0)
+            pushX = pushZ = 0.0D;
         setMinecartPowered(fuel > 0);
     }
 
@@ -1330,7 +1343,7 @@ public class CartEntity extends Entity
      * Moved to allow overrides, This code handle slopes affecting velocity.
      * @param metadata The blocks position metadata
      */
-    protected void adjustSlopeVelocities(int metadata)
+    protected void adjustSlopeVelocities (int metadata)
     {
         double acceleration = 0.0078125D;
         if (metadata == 2)
@@ -1363,81 +1376,81 @@ public class CartEntity extends Entity
      * the carts current max speed. A normal rails max speed is 0.4.
      * @return Carts max speed.
      */
-    public float getMaxSpeedRail()
+    public float getMaxSpeedRail ()
     {
         return maxSpeedRail;
     }
 
-    public void setMaxSpeedRail(float value)
+    public void setMaxSpeedRail (float value)
     {
         maxSpeedRail = value;
     }
 
-    public float getMaxSpeedGround()
+    public float getMaxSpeedGround ()
     {
         return maxSpeedGround;
     }
 
-    public void setMaxSpeedGround(float value)
+    public void setMaxSpeedGround (float value)
     {
         maxSpeedGround = value;
     }
 
-    public float getMaxSpeedAirLateral()
+    public float getMaxSpeedAirLateral ()
     {
         return maxSpeedAirLateral;
     }
 
-    public void setMaxSpeedAirLateral(float value)
+    public void setMaxSpeedAirLateral (float value)
     {
         maxSpeedAirLateral = value;
     }
 
-    public float getMaxSpeedAirVertical()
+    public float getMaxSpeedAirVertical ()
     {
         return maxSpeedAirVertical;
     }
 
-    public void setMaxSpeedAirVertical(float value)
+    public void setMaxSpeedAirVertical (float value)
     {
         maxSpeedAirVertical = value;
     }
 
-    public double getDragAir()
+    public double getDragAir ()
     {
         return dragAir;
     }
 
-    public void setDragAir(double value)
+    public void setDragAir (double value)
     {
         dragAir = value;
     }
 
-	@Override
-	public void writeSpawnData (ByteArrayDataOutput data)
-	{
-		data.writeInt(pullcartType);
-		
-	}
+    @Override
+    public void writeSpawnData (ByteArrayDataOutput data)
+    {
+        data.writeInt(pullcartType);
 
-	@Override
-	public void readSpawnData (ByteArrayDataInput data)
-	{
-		pullcartType = data.readInt();
-		
-	}
+    }
 
-	@Override
-	public boolean isInvNameLocalized ()
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public void readSpawnData (ByteArrayDataInput data)
+    {
+        pullcartType = data.readInt();
 
-	@Override
-	public boolean isStackValidForSlot (int i, ItemStack itemstack)
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
+    }
+
+    @Override
+    public boolean isInvNameLocalized ()
+    {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public boolean isStackValidForSlot (int i, ItemStack itemstack)
+    {
+        // TODO Auto-generated method stub
+        return false;
+    }
 }

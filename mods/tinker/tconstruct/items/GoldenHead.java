@@ -24,22 +24,21 @@ public class GoldenHead extends ItemFood
     }
 
     @SideOnly(Side.CLIENT)
-    public boolean hasEffect(ItemStack par1ItemStack)
+    public boolean hasEffect (ItemStack par1ItemStack)
     {
         return par1ItemStack.getItemDamage() > 0;
     }
 
     @SideOnly(Side.CLIENT)
-
     /**
      * Return an item rarity from EnumRarity
      */
-    public EnumRarity getRarity(ItemStack par1ItemStack)
+    public EnumRarity getRarity (ItemStack par1ItemStack)
     {
         return par1ItemStack.getItemDamage() == 0 ? EnumRarity.rare : EnumRarity.epic;
     }
 
-    protected void onFoodEaten(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
+    protected void onFoodEaten (ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
     {
         if (par1ItemStack.getItemDamage() > 0)
         {
@@ -57,20 +56,17 @@ public class GoldenHead extends ItemFood
     }
 
     @SideOnly(Side.CLIENT)
-
     /**
      * returns a list of items with the same ID, but different meta (eg: dye returns 16 items)
      */
-    public void getSubItems(int par1, CreativeTabs par2CreativeTabs, List par3List)
+    public void getSubItems (int par1, CreativeTabs par2CreativeTabs, List par3List)
     {
         par3List.add(new ItemStack(par1, 1, 0));
     }
-    
 
-    
     @SideOnly(Side.CLIENT)
     @Override
-    public void registerIcons(IconRegister iconRegister)
+    public void registerIcons (IconRegister iconRegister)
     {
         this.itemIcon = iconRegister.registerIcon("tinker:skull_char_gold");
         /*this.icons = new Icon[textureNames.length];

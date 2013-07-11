@@ -111,19 +111,18 @@ public class DrawbridgeLogic extends InventoryLogic implements IFacingLogic, IAc
     protected String getDefaultName ()
     {
         return "tinker.drawbridge";
-    }    
+    }
 
     @Override
-    public void setInventorySlotContents(int slot, ItemStack itemstack)
+    public void setInventorySlotContents (int slot, ItemStack itemstack)
     {
         super.setInventorySlotContents(slot, itemstack);
         if (slot == 1)
             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
     }
-    
 
     @Override
-    public ItemStack decrStackSize(int slot, int quantity)
+    public ItemStack decrStackSize (int slot, int quantity)
     {
         ItemStack stack = super.decrStackSize(slot, quantity);
         if (slot == 1)
@@ -175,7 +174,7 @@ public class DrawbridgeLogic extends InventoryLogic implements IFacingLogic, IAc
                         {
                             //tryExtend(worldObj, xPos, yPos, zPos, direction);
                             worldObj.setBlock(xPos, yPos, zPos, inventory[0].itemID, inventory[0].getItemDamage(), 3);
-                            worldObj.playSoundEffect((double)xPos + 0.5D, (double)yPos + 0.5D, (double)zPos + 0.5D, "tile.piston.out", 0.25F, worldObj.rand.nextFloat() * 0.25F + 0.6F);
+                            worldObj.playSoundEffect((double) xPos + 0.5D, (double) yPos + 0.5D, (double) zPos + 0.5D, "tile.piston.out", 0.25F, worldObj.rand.nextFloat() * 0.25F + 0.6F);
                             inventory[0].stackSize--;
                         }
                         else
@@ -190,7 +189,8 @@ public class DrawbridgeLogic extends InventoryLogic implements IFacingLogic, IAc
                         working = false;
                     }
                 }
-                else //Retraction
+                else
+                //Retraction
                 {
                     if ((inventory[0] == null || inventory[0].stackSize < inventory[0].getMaxStackSize()) && extension > 0)
                     {
@@ -219,14 +219,14 @@ public class DrawbridgeLogic extends InventoryLogic implements IFacingLogic, IAc
                             xPos += extension;
                             break;
                         }
-                        
+
                         Block block = Block.blocksList[worldObj.getBlockId(xPos, yPos, zPos)];
                         if (block != null)
                         {
                             int meta = worldObj.getBlockMetadata(xPos, yPos, zPos);
                             if (inventory[0] != null && validBlock(block) && validMetadata(block.blockID, meta))
                             {
-                                worldObj.playSoundEffect((double)xPos + 0.5D, (double)yPos + 0.5D, (double)zPos + 0.5D, "tile.piston.in", 0.25F, worldObj.rand.nextFloat() * 0.15F + 0.6F);
+                                worldObj.playSoundEffect((double) xPos + 0.5D, (double) yPos + 0.5D, (double) zPos + 0.5D, "tile.piston.in", 0.25F, worldObj.rand.nextFloat() * 0.15F + 0.6F);
                                 worldObj.setBlock(xPos, yPos, zPos, 0);
                                 inventory[0].stackSize++;
                             }
@@ -245,8 +245,8 @@ public class DrawbridgeLogic extends InventoryLogic implements IFacingLogic, IAc
             }
         }
     }
-    
-    boolean validBlock(Block block)
+
+    boolean validBlock (Block block)
     {
         int type = TConstructRegistry.interchangableBlockMapping[block.blockID];
         if (type != 0)
@@ -285,8 +285,8 @@ public class DrawbridgeLogic extends InventoryLogic implements IFacingLogic, IAc
         }
         return false;
     }
-    
-    private boolean tryExtend(World par1World, int x, int y, int z, int side)
+
+    private boolean tryExtend (World par1World, int x, int y, int z, int side)
     {
         int posX = x + Facing.offsetsXForSide[side];
         int posY = y + Facing.offsetsYForSide[side];
@@ -384,8 +384,8 @@ public class DrawbridgeLogic extends InventoryLogic implements IFacingLogic, IAc
             return true;
         }
     }
-    
-    private static boolean canPushBlock(int par0, World par1World, int par2, int par3, int par4, boolean par5)
+
+    private static boolean canPushBlock (int par0, World par1World, int par2, int par3, int par4, boolean par5)
     {
         if (par0 == Block.obsidian.blockID)
         {

@@ -142,7 +142,7 @@ public class AbilityHelper
                 {
                     boolean criticalHit = player.fallDistance > 0.0F && !player.onGround && !player.isOnLadder() && !player.isInWater() && !player.isPotionActive(Potion.blindness)
                             && player.ridingEntity == null && entity instanceof EntityLiving;
-                    
+
                     for (ActiveToolMod mod : TConstructRegistry.activeModifiers)
                     {
                         if (mod.doesCriticalHit(tool, tags, toolTags, stack, player, entity))
@@ -390,7 +390,7 @@ public class AbilityHelper
 
         int durability = tags.getInteger("Damage");
         float shoddy = tags.getFloat("Shoddy");
-        
+
         float mineSpeed = tags.getInteger("MiningSpeed");
         int heads = 1;
         if (tags.hasKey("MiningSpeed2"))
@@ -398,13 +398,13 @@ public class AbilityHelper
             mineSpeed += tags.getInteger("MiningSpeed2");
             heads++;
         }
-        
+
         if (tags.hasKey("MiningSpeedHandle"))
         {
             mineSpeed += tags.getInteger("MiningSpeedHandle");
             heads++;
         }
-        
+
         if (tags.hasKey("MiningSpeedExtra"))
         {
             mineSpeed += tags.getInteger("MiningSpeedExtra");
@@ -414,7 +414,6 @@ public class AbilityHelper
         float stonebound = tags.getFloat("Shoddy");
         float bonusLog = (float) Math.log(durability / 72f + 1) * 2 * stonebound;
         trueSpeed += bonusLog;
-        
 
         /*mineSpeed += shoddy * durability / 100f;
         mineSpeed /= 15;*/

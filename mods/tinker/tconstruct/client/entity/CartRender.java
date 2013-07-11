@@ -27,18 +27,18 @@ public class CartRender extends Render
         renderblocks = new RenderBlocks();
     }
 
-    public void renderPullcart(CartEntity cart, double posX, double posY, double posZ, float par8, float par9)
+    public void renderPullcart (CartEntity cart, double posX, double posY, double posZ, float par8, float par9)
     {
         GL11.glPushMatrix();
-        long var10 = (long)cart.entityId * 493286711L;
+        long var10 = (long) cart.entityId * 493286711L;
         var10 = var10 * var10 * 4392167121L + var10 * 98761L;
-        float var12 = (((float)(var10 >> 16 & 7L) + 0.5F) / 8.0F - 0.5F) * 0.004F;
-        float var13 = (((float)(var10 >> 20 & 7L) + 0.5F) / 8.0F - 0.5F) * 0.004F;
-        float var14 = (((float)(var10 >> 24 & 7L) + 0.5F) / 8.0F - 0.5F) * 0.004F;
+        float var12 = (((float) (var10 >> 16 & 7L) + 0.5F) / 8.0F - 0.5F) * 0.004F;
+        float var13 = (((float) (var10 >> 20 & 7L) + 0.5F) / 8.0F - 0.5F) * 0.004F;
+        float var14 = (((float) (var10 >> 24 & 7L) + 0.5F) / 8.0F - 0.5F) * 0.004F;
         GL11.glTranslatef(var12, var13, var14);
-        double var15 = cart.lastTickPosX + (cart.posX - cart.lastTickPosX) * (double)par9;
-        double var17 = cart.lastTickPosY + (cart.posY - cart.lastTickPosY) * (double)par9;
-        double var19 = cart.lastTickPosZ + (cart.posZ - cart.lastTickPosZ) * (double)par9;
+        double var15 = cart.lastTickPosX + (cart.posX - cart.lastTickPosX) * (double) par9;
+        double var17 = cart.lastTickPosY + (cart.posY - cart.lastTickPosY) * (double) par9;
+        double var19 = cart.lastTickPosZ + (cart.posZ - cart.lastTickPosZ) * (double) par9;
         double var21 = 0.30000001192092896D;
         Vec3 var23 = cart.func_70489_a(var15, var17, var19);
         float var24 = cart.prevRotationPitch + (cart.rotationPitch - cart.prevRotationPitch) * par9;
@@ -66,16 +66,16 @@ public class CartRender extends Render
             if (var27.lengthVector() != 0.0D)
             {
                 var27 = var27.normalize();
-                par8 = (float)(Math.atan2(var27.zCoord, var27.xCoord) * 180.0D / Math.PI);
-                var24 = (float)(Math.atan(var27.yCoord) * 73.0D);
+                par8 = (float) (Math.atan2(var27.zCoord, var27.xCoord) * 180.0D / Math.PI);
+                var24 = (float) (Math.atan(var27.yCoord) * 73.0D);
             }
         }
 
-        GL11.glTranslatef((float)posX, (float)posY + 0.3125f, (float)posZ);
+        GL11.glTranslatef((float) posX, (float) posY + 0.3125f, (float) posZ);
         GL11.glRotatef(180.0F - par8, 0.0F, 1.0F, 0.0F);
         GL11.glRotatef(-var24, 0.0F, 0.0F, 1.0F);
-        float var28 = (float)cart.func_70496_j() - par9;
-        float var30 = (float)cart.getDamage() - par9;
+        float var28 = (float) cart.func_70496_j() - par9;
+        float var30 = (float) cart.getDamage() - par9;
 
         if (var30 < 0.0F)
         {
@@ -84,7 +84,7 @@ public class CartRender extends Render
 
         if (var28 > 0.0F)
         {
-            GL11.glRotatef(MathHelper.sin(var28) * var28 * var30 / 10.0F * (float)cart.func_70493_k(), 1.0F, 0.0F, 0.0F);
+            GL11.glRotatef(MathHelper.sin(var28) * var28 * var30 / 10.0F * (float) cart.func_70493_k(), 1.0F, 0.0F, 0.0F);
         }
 
         if (cart.getCartType() != 0)
@@ -125,8 +125,8 @@ public class CartRender extends Render
      * (Render<T extends Entity) and this method has signature public void doRender(T entity, double d, double d1,
      * double d2, float f, float f1). But JAD is pre 1.5 so doesn't do that.
      */
-    public void doRender(Entity par1Entity, double par2, double par4, double par6, float par8, float par9)
+    public void doRender (Entity par1Entity, double par2, double par4, double par6, float par8, float par9)
     {
-        this.renderPullcart((CartEntity)par1Entity, par2, par4, par6, par8, par9);
+        this.renderPullcart((CartEntity) par1Entity, par2, par4, par6, par8, par9);
     }
 }

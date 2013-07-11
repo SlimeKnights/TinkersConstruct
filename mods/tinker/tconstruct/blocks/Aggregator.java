@@ -126,8 +126,8 @@ public class Aggregator extends InventoryBlock
     {
         return textureNames;
     }
-    
-    public void updateCrystalValue(World world, int x, int y, int z)
+
+    public void updateCrystalValue (World world, int x, int y, int z)
     {
         GlowstoneAggregator logic = (GlowstoneAggregator) world.getBlockTileEntity(x, y, z);
         logic.updateCrystalValue();

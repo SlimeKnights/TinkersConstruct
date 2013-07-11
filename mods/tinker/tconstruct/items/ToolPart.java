@@ -39,7 +39,7 @@ public class ToolPart extends CraftingItem implements IToolPart
     {
         for (int i = 0; i < 17; i++)
             list.add(new ItemStack(id, 1, i));
-        
+
         if (TContent.thaumcraftAvailable)
             list.add(new ItemStack(id, 1, 31));
     }

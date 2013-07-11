@@ -6,11 +6,8 @@ import net.minecraft.util.MathHelper;
 
 public class LightCrystalItem extends ItemBlock
 {
-    public static final String blockType[] =
-    {
-        "Crafter", "Parts", "Parts", "Parts", "Parts", "PatternChest", "PatternChest", "PatternChest", "PatternChest", "PatternChest", 
-        "PatternShaper", "PatternShaper", "PatternShaper", "PatternShaper", "CastingTable"
-    };
+    public static final String blockType[] = { "Crafter", "Parts", "Parts", "Parts", "Parts", "PatternChest", "PatternChest", "PatternChest", "PatternChest", "PatternChest", "PatternShaper",
+            "PatternShaper", "PatternShaper", "PatternShaper", "CastingTable" };
 
     public LightCrystalItem(int id)
     {
@@ -19,7 +16,7 @@ public class LightCrystalItem extends ItemBlock
         setHasSubtypes(true);
     }
 
-    public int getMetadata(int meta)
+    public int getMetadata (int meta)
     {
         return meta;
     }

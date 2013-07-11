@@ -158,11 +158,10 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
         if (location.length > 4)
             extraStrings.put(index, location[4]);
     }
-    
 
     public void registerAlternatePartPaths (int index, String[] location)
     {
-        
+
     }
 
     public void registerEffectPath (int index, String location)

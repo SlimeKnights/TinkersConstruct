@@ -38,12 +38,12 @@ public class MachineRender implements ISimpleBlockRenderingHandler
         }
         return true;
     }
-    
-    public boolean renderRotatedBlock(Block block, int x, int y, int z, IBlockAccess world, RenderBlocks renderer)
+
+    public boolean renderRotatedBlock (Block block, int x, int y, int z, IBlockAccess world, RenderBlocks renderer)
     {
         IFacingLogic logic = (IFacingLogic) world.getBlockTileEntity(x, y, z);
         byte direction = logic.getRenderDirection();
-        
+
         if (direction == 0)
         {
             renderer.uvRotateEast = 3;

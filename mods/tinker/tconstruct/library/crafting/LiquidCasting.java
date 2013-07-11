@@ -49,8 +49,8 @@ public class LiquidCasting
     {
         addCastingRecipe(output, metal, null, false, delay);
     }
-    
-    public void addCustomCastingRecipe(CastingRecipe recipe)
+
+    public void addCustomCastingRecipe (CastingRecipe recipe)
     {
         casts.add(recipe);
     }
@@ -80,9 +80,9 @@ public class LiquidCasting
         }
         return null;
     }
-    
-  //Getter for public viewing
-    public ArrayList<CastingRecipe> getCastingRecipes()
+
+    //Getter for public viewing
+    public ArrayList<CastingRecipe> getCastingRecipes ()
     {
         return casts;
     }

@@ -16,6 +16,7 @@ public class CraftingPage extends BookPage
     String text;
     String size;
     ItemStack[] icons;
+
     @Override
     public void readPageFromXML (Element element)
     {
@@ -40,7 +41,7 @@ public class CraftingPage extends BookPage
         if (size.equals("three"))
             drawCraftingPage(text, icons, 3, localWidth + (side != 1 ? 6 : 0), localHeight + 12);
     }
-    
+
     public void drawCraftingPage (String info, ItemStack[] icons, int recipeSize, int localWidth, int localHeight)
     {
         if (info != null)
@@ -81,7 +82,7 @@ public class CraftingPage extends BookPage
         GL11.glDisable(GL12.GL_RESCALE_NORMAL);
     }
 
-    public void renderBackgroundLayer(int localwidth, int localheight) 
+    public void renderBackgroundLayer (int localwidth, int localheight)
     {
         if (size.equals("two"))
             drawBackground(2, localwidth, localheight + 12);

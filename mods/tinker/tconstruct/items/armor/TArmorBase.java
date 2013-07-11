@@ -19,13 +19,14 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class TArmorBase extends ItemArmor
-    //implements ISpecialArmor
+//implements ISpecialArmor
 {
     Icon[] icons;
     String[] iconNames = { "wood_boots" };
+
     //static Minecraft mc = Minecraft.getMinecraft();
     //private ModelBiped modelArmor;
-    
+
     public TArmorBase(int id, int armorSlot)
     {
         super(id, EnumArmorMaterial.CLOTH, 0, armorSlot);
@@ -37,12 +38,12 @@ public class TArmorBase extends ItemArmor
         //this.modelArmor = new ModelBiped(0.75F);
         //this.setCreativeTab(TConstructRegistry.toolTab);
     }
-    
-    public void onArmorTickUpdate(World world, EntityPlayer player, ItemStack itemStack)
+
+    public void onArmorTickUpdate (World world, EntityPlayer player, ItemStack itemStack)
     {
 
     }
-    
+
     /**
      * Called by RenderBiped and RenderPlayer to determine the armor texture that 
      * should be use for the currently equiped item.
@@ -58,11 +59,11 @@ public class TArmorBase extends ItemArmor
      */
     @Override
     @SideOnly(Side.CLIENT)
-    public String getArmorTexture(ItemStack stack, Entity entity, int slot, int layer)
+    public String getArmorTexture (ItemStack stack, Entity entity, int slot, int layer)
     {
         return "/mods/tinker/textures/armor/wood_1.png";
     }
-    
+
     /**
      * Override this method to have an item handle its own armor rendering.
      * 
@@ -74,33 +75,33 @@ public class TArmorBase extends ItemArmor
      */
     @Override
     @SideOnly(Side.CLIENT)
-    public ModelBiped getArmorModel(EntityLiving par1EntityLiving, ItemStack itemStack, int armorSlot)
+    public ModelBiped getArmorModel (EntityLiving par1EntityLiving, ItemStack itemStack, int armorSlot)
     {
         return null;
     }
-    
+
     @SideOnly(Side.CLIENT)
-    public boolean requiresMultipleRenderPasses()
+    public boolean requiresMultipleRenderPasses ()
     {
         return false;
     }
-    
+
     @SideOnly(Side.CLIENT)
     @Override
-    public Icon getIconFromDamage(int meta)
+    public Icon getIconFromDamage (int meta)
     {
         return icons[0];
     }
-    
+
     @SideOnly(Side.CLIENT)
     @Override
-    public void registerIcons(IconRegister iconRegister)
+    public void registerIcons (IconRegister iconRegister)
     {
         this.icons = new Icon[iconNames.length];
 
         for (int i = 0; i < this.icons.length; ++i)
         {
-            this.icons[i] = iconRegister.registerIcon("tinker:armor/"+iconNames[i]);
+            this.icons[i] = iconRegister.registerIcon("tinker:armor/" + iconNames[i]);
         }
     }
 

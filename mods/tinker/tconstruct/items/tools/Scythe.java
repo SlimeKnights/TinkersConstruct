@@ -21,87 +21,87 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class Scythe extends Weapon
 {
-	public Scythe(int itemID)
-	{
-		super(itemID, 4);
-		this.setUnlocalizedName("InfiTool.Scythe");
-	}
-	
-	/*@Override
-	protected String getHarvestType()
-	{
-		return "sword";
-	}*/
+    public Scythe(int itemID)
+    {
+        super(itemID, 4);
+        this.setUnlocalizedName("InfiTool.Scythe");
+    }
 
-	@Override
-	protected Material[] getEffectiveMaterials()
-	{
-		return materials;
-	}
+    /*@Override
+    protected String getHarvestType()
+    {
+    	return "sword";
+    }*/
 
-	static Material[] materials = new Material[] { Material.web, Material.cactus, Material.pumpkin, Material.plants, Material.vine, Material.leaves };
+    @Override
+    protected Material[] getEffectiveMaterials ()
+    {
+        return materials;
+    }
 
-	@Override
-	public Item getHeadItem ()
-	{
-		return  TContent.scytheBlade;
-	}
-    
+    static Material[] materials = new Material[] { Material.web, Material.cactus, Material.pumpkin, Material.plants, Material.vine, Material.leaves };
+
+    @Override
+    public Item getHeadItem ()
+    {
+        return TContent.scytheBlade;
+    }
+
     @Override
     public Item getHandleItem ()
     {
         return TContent.toughRod;
     }
 
-	@Override
-	public Item getAccessoryItem ()
-	{
-		return  TContent.toughBinding;
-	}
+    @Override
+    public Item getAccessoryItem ()
+    {
+        return TContent.toughBinding;
+    }
 
-	@Override
-	public Item getExtraItem ()
-	{
-		return  TContent.toughRod;
-	}
-	
-	@SideOnly(Side.CLIENT)
-	@Override
-	public int getRenderPasses (int metadata)
-	{
-		return 10;
-	}
-	
-	@Override
-	public int getPartAmount()
-	{
-		return 4;
-	}
-	
-	@Override
-	public String getIconSuffix (int partType)
-	{
-		switch (partType)
-		{
-		case 0:
-			return "_scythe_head";
-		case 1:
-			return "_scythe_head_broken";
-		case 2:
-			return "_scythe_handle";
-		case 3:
-			return "_scythe_binding";
-		case 4:
-			return "_scythe_accessory";
-		default:
-			return "";
-		}
-	}
-	
-	public float getDurabilityModifier ()
-	{
-		return 3.0f;
-	}
+    @Override
+    public Item getExtraItem ()
+    {
+        return TContent.toughRod;
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public int getRenderPasses (int metadata)
+    {
+        return 10;
+    }
+
+    @Override
+    public int getPartAmount ()
+    {
+        return 4;
+    }
+
+    @Override
+    public String getIconSuffix (int partType)
+    {
+        switch (partType)
+        {
+        case 0:
+            return "_scythe_head";
+        case 1:
+            return "_scythe_head_broken";
+        case 2:
+            return "_scythe_handle";
+        case 3:
+            return "_scythe_binding";
+        case 4:
+            return "_scythe_accessory";
+        default:
+            return "";
+        }
+    }
+
+    public float getDurabilityModifier ()
+    {
+        return 3.0f;
+    }
 
     @Override
     public float getRepairCost ()
@@ -109,45 +109,45 @@ public class Scythe extends Weapon
         return 4.0f;
     }
 
-	@Override
-	public String getEffectSuffix ()
-	{
-		return "_scythe_effect";
-	}
+    @Override
+    public String getEffectSuffix ()
+    {
+        return "_scythe_effect";
+    }
 
-	@Override
-	public String getDefaultFolder ()
-	{
-		return "scythe";
-	}
-	
-	@Override
-	public int durabilityTypeAccessory ()
-	{
-		return 1;
-	}
+    @Override
+    public String getDefaultFolder ()
+    {
+        return "scythe";
+    }
 
-	@Override
-	public int durabilityTypeExtra ()
-	{
-		return 1;
-	}
+    @Override
+    public int durabilityTypeAccessory ()
+    {
+        return 1;
+    }
+
+    @Override
+    public int durabilityTypeExtra ()
+    {
+        return 1;
+    }
 
     @Override
     public float getDamageModifier ()
     {
         return 0.75f;
     }
-    
-	@Override
-    public String[] toolCategories()
+
+    @Override
+    public String[] toolCategories ()
     {
         return new String[] { "weapon", "melee", "harvest" };
     }
-	
-	/* Scythe Specific */
-	
-	@Override
+
+    /* Scythe Specific */
+
+    @Override
     public boolean onBlockStartBreak (ItemStack stack, int x, int y, int z, EntityPlayer player)
     {
         World world = player.worldObj;
@@ -198,10 +198,9 @@ public class Scythe extends Weapon
             }
         }
         if (!world.isRemote)
-        world.playAuxSFX(2001, x, y, z, blockID + (meta << 12));
+            world.playAuxSFX(2001, x, y, z, blockID + (meta << 12));
         return super.onBlockStartBreak(stack, x, y, z, player);
     }
-	
 
     public boolean onLeftClickEntity (ItemStack stack, EntityPlayer player, Entity entity)
     {
@@ -213,5 +212,5 @@ public class Scythe extends Weapon
         }
         return true;
     }
-	
+
 }

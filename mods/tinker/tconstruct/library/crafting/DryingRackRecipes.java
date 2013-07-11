@@ -9,12 +9,12 @@ import net.minecraft.item.ItemStack;
 public class DryingRackRecipes
 {
     public static ArrayList<DryingRecipe> recipes = new ArrayList<DryingRecipe>();
-    
-    public static void addDryingRecipe(Object input, int time, Object output)
+
+    public static void addDryingRecipe (Object input, int time, Object output)
     {
         ItemStack inputItem = null;
         ItemStack outputItem = null;
-        
+
         if (input instanceof ItemStack)
             inputItem = (ItemStack) input;
         else if (input instanceof Item)
@@ -22,8 +22,8 @@ public class DryingRackRecipes
         else if (input instanceof Block)
             inputItem = new ItemStack((Block) input, 1, 0);
         else
-            throw new RuntimeException("Drying recipe input is invalid!");    
-        
+            throw new RuntimeException("Drying recipe input is invalid!");
+
         if (output instanceof ItemStack)
             outputItem = (ItemStack) output;
         else if (output instanceof Item)
@@ -32,50 +32,51 @@ public class DryingRackRecipes
             outputItem = new ItemStack((Block) output, 1, 0);
         else
             throw new RuntimeException("Drying recipe output is invalid!");
-        
+
         recipes.add(new DryingRecipe(inputItem, time, outputItem));
     }
-    
-    public static int getDryingTime(ItemStack input)
+
+    public static int getDryingTime (ItemStack input)
     {
         for (DryingRecipe r : recipes)
         {
             if (r.matches(input))
                 return r.time;
         }
-        
+
         return -1;
     }
-    
-    public static ItemStack getDryingResult(ItemStack input)
+
+    public static ItemStack getDryingResult (ItemStack input)
     {
         for (DryingRecipe r : recipes)
         {
             if (r.matches(input))
                 return r.getResult();
         }
-        
+
         return null;
     }
-    
+
     static class DryingRecipe
     {
         public final int time;
         public final ItemStack input;
         public final ItemStack result;
+
         DryingRecipe(ItemStack input, int time, ItemStack result)
         {
             this.time = time;
             this.input = input;
             this.result = result;
         }
-        
-        public boolean matches(ItemStack input)
+
+        public boolean matches (ItemStack input)
         {
             return ItemStack.areItemStacksEqual(this.input, input);
         }
-        
-        public ItemStack getResult()
+
+        public ItemStack getResult ()
         {
             return result.copy();
         }

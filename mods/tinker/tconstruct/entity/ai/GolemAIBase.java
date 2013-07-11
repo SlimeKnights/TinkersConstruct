@@ -14,9 +14,9 @@ public class GolemAIBase extends EntityAIBase
         golem = entity;
         world = entity.worldObj;
     }
-    
+
     @Override
-    public boolean shouldExecute()
+    public boolean shouldExecute ()
     {
         return false;
     }

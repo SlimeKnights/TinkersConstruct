@@ -27,16 +27,16 @@ public class TFoodStats extends FoodStats
     /**
      * Args: int foodLevel, float foodSaturationModifier
      */
-    public void addStats(int par1, float par2)
+    public void addStats (int par1, float par2)
     {
         this.foodLevel = Math.min(par1 + this.foodLevel, 20);
-        this.foodSaturationLevel = Math.min(this.foodSaturationLevel + (float)par1 * par2 * 2.0F, (float)this.foodLevel);
+        this.foodSaturationLevel = Math.min(this.foodSaturationLevel + (float) par1 * par2 * 2.0F, (float) this.foodLevel);
     }
 
     /**
      * Eat some food.
      */
-    public void addStats(ItemFood par1ItemFood)
+    public void addStats (ItemFood par1ItemFood)
     {
         this.addStats(par1ItemFood.getHealAmount(), par1ItemFood.getSaturationModifier());
     }
@@ -44,7 +44,7 @@ public class TFoodStats extends FoodStats
     /**
      * Handles the food game logic.
      */
-    public void onUpdate(EntityPlayer player)
+    public void onUpdate (EntityPlayer player)
     {
         int difficulty = player.worldObj.difficultySetting;
         this.prevFoodLevel = this.foodLevel;
@@ -63,7 +63,7 @@ public class TFoodStats extends FoodStats
             }
         }
 
-        if (this.foodLevel >= 12 + 2*difficulty && player.shouldHeal() && PHConstruct.enableHealthRegen)
+        if (this.foodLevel >= 12 + 2 * difficulty && player.shouldHeal() && PHConstruct.enableHealthRegen)
         {
             ++this.foodTimer;
 
@@ -92,8 +92,8 @@ public class TFoodStats extends FoodStats
             this.foodTimer = 0;
         }
     }
-    
-    public void readStats(FoodStats stats)
+
+    public void readStats (FoodStats stats)
     {
         this.foodLevel = stats.foodLevel;
 
@@ -111,7 +111,7 @@ public class TFoodStats extends FoodStats
     /**
      * Reads food stats from an NBT object.
      */
-    public void readNBT(NBTTagCompound par1NBTTagCompound)
+    public void readNBT (NBTTagCompound par1NBTTagCompound)
     {
         if (par1NBTTagCompound.hasKey("foodLevel"))
         {
@@ -125,7 +125,7 @@ public class TFoodStats extends FoodStats
     /**
      * Writes food stats to an NBT object.
      */
-    public void writeNBT(NBTTagCompound par1NBTTagCompound)
+    public void writeNBT (NBTTagCompound par1NBTTagCompound)
     {
         par1NBTTagCompound.setInteger("foodLevel", this.foodLevel);
         par1NBTTagCompound.setInteger("foodTickTimer", this.foodTimer);
@@ -136,13 +136,13 @@ public class TFoodStats extends FoodStats
     /**
      * Get the player's food level.
      */
-    public int getFoodLevel()
+    public int getFoodLevel ()
     {
         return this.foodLevel;
     }
 
     @SideOnly(Side.CLIENT)
-    public int getPrevFoodLevel()
+    public int getPrevFoodLevel ()
     {
         return this.prevFoodLevel;
     }
@@ -150,7 +150,7 @@ public class TFoodStats extends FoodStats
     /**
      * If foodLevel is not max.
      */
-    public boolean needFood()
+    public boolean needFood ()
     {
         return this.foodLevel < 20;
     }
@@ -158,7 +158,7 @@ public class TFoodStats extends FoodStats
     /**
      * adds input to foodExhaustionLevel to a max of 40
      */
-    public void addExhaustion(float par1)
+    public void addExhaustion (float par1)
     {
         this.foodExhaustionLevel = Math.min(this.foodExhaustionLevel + par1, 40.0F);
     }
@@ -166,19 +166,19 @@ public class TFoodStats extends FoodStats
     /**
      * Get the player's food saturation level.
      */
-    public float getSaturationLevel()
+    public float getSaturationLevel ()
     {
         return this.foodSaturationLevel;
     }
 
     @SideOnly(Side.CLIENT)
-    public void setFoodLevel(int par1)
+    public void setFoodLevel (int par1)
     {
         this.foodLevel = par1;
     }
 
     @SideOnly(Side.CLIENT)
-    public void setFoodSaturationLevel(float par1)
+    public void setFoodSaturationLevel (float par1)
     {
         this.foodSaturationLevel = par1;
     }

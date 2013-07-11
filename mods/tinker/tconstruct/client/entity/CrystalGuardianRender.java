@@ -22,14 +22,15 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class CrystalGuardianRender extends RenderLiving
 {
     CrystalGuardianModel model;
+
     public CrystalGuardianRender()
     {
         super(new CrystalGuardianModel(), 0.5F);
-        this.model = (CrystalGuardianModel)this.mainModel;
+        this.model = (CrystalGuardianModel) this.mainModel;
     }
-    
+
     @Override
-    protected void renderEquippedItems(EntityLiving par1EntityLiving, float par2)
+    protected void renderEquippedItems (EntityLiving par1EntityLiving, float par2)
     {
         float f1 = 1.0F;
         GL11.glColor3f(f1, f1, f1);
@@ -135,7 +136,7 @@ public class CrystalGuardianRender extends RenderLiving
                 GL11.glRotatef(-90.0F, 1.0F, 0.0F, 0.0F);
                 GL11.glRotatef(20.0F, 0.0F, 0.0F, 1.0F);
             }
-            
+
             float f6;
             float f11;
             int j;
@@ -146,9 +147,9 @@ public class CrystalGuardianRender extends RenderLiving
                 for (j = 0; j < itemstack.getItem().getRenderPasses(itemstack.getItemDamage()); j++)
                 {
                     int k = itemstack.getItem().getColorFromItemStack(itemstack, j);
-                    f12 = (float)(k >> 16 & 255) / 255.0F;
-                    f11 = (float)(k >> 8 & 255) / 255.0F;
-                    f6 = (float)(k & 255) / 255.0F;
+                    f12 = (float) (k >> 16 & 255) / 255.0F;
+                    f11 = (float) (k >> 8 & 255) / 255.0F;
+                    f6 = (float) (k & 255) / 255.0F;
                     GL11.glColor4f(f12, f11, f6, 1.0F);
                     this.renderManager.itemRenderer.renderItem(par1EntityLiving, itemstack, j);
                 }
@@ -156,9 +157,9 @@ public class CrystalGuardianRender extends RenderLiving
             else
             {
                 j = itemstack.getItem().getColorFromItemStack(itemstack, 0);
-                f6 = (float)(j >> 16 & 255) / 255.0F;
-                f12 = (float)(j >> 8 & 255) / 255.0F;
-                f11 = (float)(j & 255) / 255.0F;
+                f6 = (float) (j >> 16 & 255) / 255.0F;
+                f12 = (float) (j >> 8 & 255) / 255.0F;
+                f11 = (float) (j & 255) / 255.0F;
                 GL11.glColor4f(f6, f12, f11, 1.0F);
                 this.renderManager.itemRenderer.renderItem(par1EntityLiving, itemstack, 0);
             }
@@ -176,8 +177,8 @@ public class CrystalGuardianRender extends RenderLiving
             GL11.glPopMatrix();
         }
     }
-    
-    protected void func_82422_c()
+
+    protected void func_82422_c ()
     {
         GL11.glTranslatef(0.0F, 0.1875F, 0.0F);
     }

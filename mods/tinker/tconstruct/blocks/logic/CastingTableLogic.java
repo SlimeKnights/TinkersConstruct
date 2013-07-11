@@ -91,7 +91,7 @@ public class CastingTableLogic extends InventoryLogic implements ILiquidTank, IT
             ret = TConstruct.tableCasting.getCastingAmount(this.liquid, inv);
         }
 
-        System.out.println("Ret: "+ret);
+        System.out.println("Ret: " + ret);
         return ret;
     }
 

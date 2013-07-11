@@ -23,22 +23,22 @@ public class SlimeRender extends RenderLiving
         this.scaleAmount = par2ModelBase;
     }
 
-    public void doRenderLiving(EntityLiving par1EntityLiving, double par2, double par4, double par6, float par8, float par9)
+    public void doRenderLiving (EntityLiving par1EntityLiving, double par2, double par4, double par6, float par8, float par9)
     {
-    	super.doRenderLiving(par1EntityLiving, par2, par4, par6, par8, par9);
-    	renderBossHealth((BlueSlime) par1EntityLiving);
+        super.doRenderLiving(par1EntityLiving, par2, par4, par6, par8, par9);
+        renderBossHealth((BlueSlime) par1EntityLiving);
     }
-    
-    public void renderBossHealth(BlueSlime slime)
+
+    public void renderBossHealth (BlueSlime slime)
     {
-    	if (slime.getSlimeSize() >= 8)
-        BossStatus.func_82824_a(slime, true);
+        if (slime.getSlimeSize() >= 8)
+            BossStatus.func_82824_a(slime, true);
     }
-    
+
     /**
      * Determines whether Slime Render should pass or not.
      */
-    protected int shouldSlimeRenderPass(BlueSlime blueSlime, int par2, float par3)
+    protected int shouldSlimeRenderPass (BlueSlime blueSlime, int par2, float par3)
     {
         if (blueSlime.isInvisible())
         {
@@ -67,9 +67,9 @@ public class SlimeRender extends RenderLiving
     /**
      * sets the scale for the slime based on getSlimeSize in EdibleSlime
      */
-    protected void scaleSlime(BlueSlime par1EdibleSlime, float par2)
+    protected void scaleSlime (BlueSlime par1EdibleSlime, float par2)
     {
-        float f1 = (float)par1EdibleSlime.getSlimeSize();
+        float f1 = (float) par1EdibleSlime.getSlimeSize();
         float f2 = (par1EdibleSlime.sizeHeight + (par1EdibleSlime.sizeFactor - par1EdibleSlime.sizeHeight) * par2) / (f1 * 0.5F + 1.0F);
         float f3 = 1.0F / (f2 + 1.0F);
         GL11.glScalef(f3 * f1, 1.0F / f3 * f1, f3 * f1);
@@ -79,16 +79,16 @@ public class SlimeRender extends RenderLiving
      * Allows the render to do any OpenGL state modifications necessary before the model is rendered. Args:
      * entityLiving, partialTickTime
      */
-    protected void preRenderCallback(EntityLiving par1EntityLiving, float par2)
+    protected void preRenderCallback (EntityLiving par1EntityLiving, float par2)
     {
-        this.scaleSlime((BlueSlime)par1EntityLiving, par2);
+        this.scaleSlime((BlueSlime) par1EntityLiving, par2);
     }
 
     /**
      * Queries whether should render the specified pass or not.
      */
-    protected int shouldRenderPass(EntityLiving par1EntityLiving, int par2, float par3)
+    protected int shouldRenderPass (EntityLiving par1EntityLiving, int par2, float par3)
     {
-        return this.shouldSlimeRenderPass((BlueSlime)par1EntityLiving, par2, par3);
+        return this.shouldSlimeRenderPass((BlueSlime) par1EntityLiving, par2, par3);
     }
 }

@@ -19,7 +19,7 @@ public class SidebarPage extends BookPage
 
     @Override
     public void readPageFromXML (Element element)
-    {        
+    {
         NodeList nodes = element.getElementsByTagName("text");
         if (nodes != null)
             text = nodes.item(0).getTextContent();
@@ -37,7 +37,7 @@ public class SidebarPage extends BookPage
 
     @Override
     public void renderContentLayer (int localWidth, int localHeight)
-    {        
+    {
         manual.fonts.drawSplitString(text, localWidth, localHeight, 178, 0);
         GL11.glEnable(GL12.GL_RESCALE_NORMAL);
         RenderHelper.enableGUIStandardItemLighting();

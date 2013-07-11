@@ -32,31 +32,31 @@ public class Landmine extends Block
         float var5 = 0.0625F;
         this.setBlockBounds(var5, 0.0F, var5, 1.0F - var5, 0.03125F, 1.0F - var5);
     }
-    
-    public Icon getBlockTexture(IBlockAccess world, int x, int y, int z, int side)
+
+    public Icon getBlockTexture (IBlockAccess world, int x, int y, int z, int side)
     {
-    	Block block = Block.blocksList[world.getBlockId(x, y-1, z)];
-    	if (block != null)
-    	{
-    		return block.getBlockTexture(world, x, y-1, z, side);
-    	}
+        Block block = Block.blocksList[world.getBlockId(x, y - 1, z)];
+        if (block != null)
+        {
+            return block.getBlockTexture(world, x, y - 1, z, side);
+        }
         return Block.sponge.getIcon(side, world.getBlockMetadata(x, y, z));
     }
-    
-    public Icon getIcon(int side, int meta)
+
+    public Icon getIcon (int side, int meta)
     {
         return Block.sponge.getIcon(1, meta);
     }
-    
-    public void registerIcons(IconRegister par1IconRegister)
+
+    public void registerIcons (IconRegister par1IconRegister)
     {
-    	
+
     }
 
     /**
      * How many world ticks before ticking
      */
-    public int tickRate()
+    public int tickRate ()
     {
         return 20;
     }
@@ -65,7 +65,7 @@ public class Landmine extends Block
      * Returns a bounding box from the pool of bounding boxes (this means this box can change after the pool has been
      * cleared to be reused)
      */
-    public AxisAlignedBB getCollisionBoundingBoxFromPool(World par1World, int par2, int par3, int par4)
+    public AxisAlignedBB getCollisionBoundingBoxFromPool (World par1World, int par2, int par3, int par4)
     {
         return null;
     }
@@ -74,7 +74,7 @@ public class Landmine extends Block
      * Is this block (a) opaque and (b) a full 1m cube?  This determines whether or not to render the shared face of two
      * adjacent blocks and also whether the player can attach torches, redstone wire, etc to this block.
      */
-    public boolean isOpaqueCube()
+    public boolean isOpaqueCube ()
     {
         return false;
     }
@@ -82,12 +82,12 @@ public class Landmine extends Block
     /**
      * If this block doesn't render as an ordinary block it will return False (examples: signs, buttons, stairs, etc)
      */
-    public boolean renderAsNormalBlock()
+    public boolean renderAsNormalBlock ()
     {
         return false;
     }
 
-    public boolean getBlocksMovement(IBlockAccess par1IBlockAccess, int par2, int par3, int par4)
+    public boolean getBlocksMovement (IBlockAccess par1IBlockAccess, int par2, int par3, int par4)
     {
         return true;
     }
@@ -95,7 +95,7 @@ public class Landmine extends Block
     /**
      * Checks to see if its valid to put this block at the specified coordinates. Args: world, x, y, z
      */
-    public boolean canPlaceBlockAt(World par1World, int par2, int par3, int par4)
+    public boolean canPlaceBlockAt (World par1World, int par2, int par3, int par4)
     {
         return par1World.doesBlockHaveSolidTopSurface(par2, par3 - 1, par4) || BlockFence.isIdAFence(par1World.getBlockId(par2, par3 - 1, par4));
     }
@@ -104,7 +104,7 @@ public class Landmine extends Block
      * Lets the block know when one of its neighbor changes. Doesn't know which neighbor changed (coordinates passed are
      * their own) Args: x, y, z, neighbor blockID
      */
-    public void onNeighborBlockChange(World par1World, int par2, int par3, int par4, int par5)
+    public void onNeighborBlockChange (World par1World, int par2, int par3, int par4, int par5)
     {
         boolean var6 = false;
 
@@ -123,7 +123,7 @@ public class Landmine extends Block
     /**
      * Ticks the block if it's been scheduled
      */
-    public void updateTick(World par1World, int par2, int par3, int par4, Random par5Random)
+    public void updateTick (World par1World, int par2, int par3, int par4, Random par5Random)
     {
         if (!par1World.isRemote)
         {
@@ -137,7 +137,7 @@ public class Landmine extends Block
     /**
      * Triggered whenever an entity collides with this block (enters into the block). Args: world, x, y, z, entity
      */
-    public void onEntityCollidedWithBlock(World par1World, int par2, int par3, int par4, Entity par5Entity)
+    public void onEntityCollidedWithBlock (World par1World, int par2, int par3, int par4, Entity par5Entity)
     {
         if (!par1World.isRemote)
         {
@@ -151,7 +151,7 @@ public class Landmine extends Block
     /**
      * Checks if there are mobs on the plate. If a mob is on the plate and it is off, it turns it on, and vice versa.
      */
-    private void setStateIfMobInteractsWithPlate(World world, int posX, int posY, int posZ)
+    private void setStateIfMobInteractsWithPlate (World world, int posX, int posY, int posZ)
     {
         boolean var5 = world.getBlockMetadata(posX, posY, posZ) == 1;
         boolean var6 = false;
@@ -160,17 +160,26 @@ public class Landmine extends Block
 
         if (this.triggerMobType == EnumMobType.everything)
         {
-            var8 = world.getEntitiesWithinAABBExcludingEntity((Entity)null, AxisAlignedBB.getAABBPool().getAABB((double)((float)posX + var7), (double)posY, (double)((float)posZ + var7), (double)((float)(posX + 1) - var7), (double)posY + 0.25D, (double)((float)(posZ + 1) - var7)));
+            var8 = world.getEntitiesWithinAABBExcludingEntity(
+                    (Entity) null,
+                    AxisAlignedBB.getAABBPool().getAABB((double) ((float) posX + var7), (double) posY, (double) ((float) posZ + var7), (double) ((float) (posX + 1) - var7), (double) posY + 0.25D,
+                            (double) ((float) (posZ + 1) - var7)));
         }
 
         if (this.triggerMobType == EnumMobType.mobs)
         {
-            var8 = world.getEntitiesWithinAABB(EntityLiving.class, AxisAlignedBB.getAABBPool().getAABB((double)((float)posX + var7), (double)posY, (double)((float)posZ + var7), (double)((float)(posX + 1) - var7), (double)posY + 0.25D, (double)((float)(posZ + 1) - var7)));
+            var8 = world.getEntitiesWithinAABB(
+                    EntityLiving.class,
+                    AxisAlignedBB.getAABBPool().getAABB((double) ((float) posX + var7), (double) posY, (double) ((float) posZ + var7), (double) ((float) (posX + 1) - var7), (double) posY + 0.25D,
+                            (double) ((float) (posZ + 1) - var7)));
         }
 
         if (this.triggerMobType == EnumMobType.players)
         {
-            var8 = world.getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getAABBPool().getAABB((double)((float)posX + var7), (double)posY, (double)((float)posZ + var7), (double)((float)(posX + 1) - var7), (double)posY + 0.25D, (double)((float)(posZ + 1) - var7)));
+            var8 = world.getEntitiesWithinAABB(
+                    EntityPlayer.class,
+                    AxisAlignedBB.getAABBPool().getAABB((double) ((float) posX + var7), (double) posY, (double) ((float) posZ + var7), (double) ((float) (posX + 1) - var7), (double) posY + 0.25D,
+                            (double) ((float) (posZ + 1) - var7)));
         }
 
         if (!var8.isEmpty())
@@ -179,7 +188,7 @@ public class Landmine extends Block
 
             while (var9.hasNext())
             {
-                Entity var10 = (Entity)var9.next();
+                Entity var10 = (Entity) var9.next();
 
                 if (!var10.doesEntityNotTriggerPressurePlate())
                 {
@@ -191,8 +200,8 @@ public class Landmine extends Block
 
         if (var6 && !var5)
         {
-        	world.setBlock(posX, posY, posZ, 0);
-        	world.createExplosion((Entity)null, posX, posY, posZ, 2.0F, true);
+            world.setBlock(posX, posY, posZ, 0);
+            world.createExplosion((Entity) null, posX, posY, posZ, 2.0F, true);
             /*par1World.setBlockMetadataWithNotify(posX, posY, posZ, 1);
             par1World.notifyBlocksOfNeighborChange(posX, posY, posZ, this.blockID);
             par1World.notifyBlocksOfNeighborChange(posX, posY - 1, posZ, this.blockID);
@@ -218,7 +227,7 @@ public class Landmine extends Block
     /**
      * ejects contained items into the world, and notifies neighbours of an update, as appropriate
      */
-    public void breakBlock(World par1World, int par2, int par3, int par4, int par5, int par6)
+    public void breakBlock (World par1World, int par2, int par3, int par4, int par5, int par6)
     {
         if (par6 > 0)
         {
@@ -232,7 +241,7 @@ public class Landmine extends Block
     /**
      * Updates the blocks bounds based on its current state. Args: world, x, y, z
      */
-    public void setBlockBoundsBasedOnState(IBlockAccess par1IBlockAccess, int par2, int par3, int par4)
+    public void setBlockBoundsBasedOnState (IBlockAccess par1IBlockAccess, int par2, int par3, int par4)
     {
         boolean var5 = par1IBlockAccess.getBlockMetadata(par2, par3, par4) == 1;
         float var6 = 0.0625F;
@@ -250,7 +259,7 @@ public class Landmine extends Block
     /**
      * Sets the block's bounds for rendering it as an item
      */
-    public void setBlockBoundsForItemRender()
+    public void setBlockBoundsForItemRender ()
     {
         float var1 = 0.5F;
         float var2 = 0.125F;
@@ -262,7 +271,7 @@ public class Landmine extends Block
      * Returns the mobility information of the block, 0 = free, 1 = can't push but can move over, 2 = total immobility
      * and stop pistons
      */
-    public int getMobilityFlag()
+    public int getMobilityFlag ()
     {
         return 1;
     }

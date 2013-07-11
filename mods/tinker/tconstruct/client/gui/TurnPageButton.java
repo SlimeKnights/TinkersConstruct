@@ -25,7 +25,7 @@ public class TurnPageButton extends GuiButton
     /**
      * Draws this button to the screen.
      */
-    public void drawButton(Minecraft par1Minecraft, int par2, int par3)
+    public void drawButton (Minecraft par1Minecraft, int par2, int par3)
     {
         if (this.drawButton)
         {

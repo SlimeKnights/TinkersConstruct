@@ -76,24 +76,24 @@ public class PaneRender implements ISimpleBlockRenderingHandler
         Icon icon;
         Icon icon1;
         int meta = iblockaccess.getBlockMetadata(x, y, z);
-            icon = renderblocks.getBlockIconFromSideAndMetadata(pane, 0, meta);
-            icon1 = pane.getSideTextureIndex(meta);
+        icon = renderblocks.getBlockIconFromSideAndMetadata(pane, 0, meta);
+        icon1 = pane.getSideTextureIndex(meta);
 
         meta = icon.getOriginX();
         int k1 = icon.getOriginY();
-        double d = (double)icon.getMinU();
-        double d1 = (double)icon.getInterpolatedU(8.0D);
-        double d2 = (double)icon.getMaxU();
-        double d3 = (double)icon.getMinV();
-        double d4 = (double)icon.getMaxV();
+        double d = (double) icon.getMinU();
+        double d1 = (double) icon.getInterpolatedU(8.0D);
+        double d2 = (double) icon.getMaxU();
+        double d3 = (double) icon.getMinV();
+        double d4 = (double) icon.getMaxV();
         int l1 = icon1.getOriginX();
         int i2 = icon1.getOriginY();
-        double d5 = (double)icon1.getInterpolatedU(7.0D);
-        double d6 = (double)icon1.getInterpolatedU(9.0D);
-        double d7 = (double)icon1.getMinV();
-        double d8 = (double)icon1.getInterpolatedV(8.0D);
-        double d9 = (double)icon1.getMaxV();
-        
+        double d5 = (double) icon1.getInterpolatedU(7.0D);
+        double d6 = (double) icon1.getInterpolatedU(9.0D);
+        double d7 = (double) icon1.getMinV();
+        double d8 = (double) icon1.getInterpolatedV(8.0D);
+        double d9 = (double) icon1.getMaxV();
+
         /*int blockTextureIndex;
         int blockSideIndex;
 
@@ -115,7 +115,7 @@ public class PaneRender implements ISimpleBlockRenderingHandler
         double d7 = (float) l2 / 256F;
         double d8 = (float) (l2 + 8) / 256F;
         double d9 = ((float) l2 + 15.99F) / 256F;*/
-        
+
         double xBot = x;
         double xMid = (double) x + 0.5D;
         double xTop = x + 1;

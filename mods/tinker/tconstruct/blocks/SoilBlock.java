@@ -38,7 +38,7 @@ public class SoilBlock extends TConstructBlock
             }
         }
     }
-    
+
     /*public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z)
     {
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);

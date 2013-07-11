@@ -23,7 +23,7 @@ public class OreBerries extends CraftingItem
     {
         switch (stack.getItemDamage())
         {
-        case 0: 
+        case 0:
             list.add("Sweet Irony");
             break;
         case 1:
@@ -35,10 +35,10 @@ public class OreBerries extends CraftingItem
         case 3:
             list.add("Tin Man");
             break;
-        case 4: 
+        case 4:
             list.add("White Chocolate");
             break;
-        case 5: 
+        case 5:
             list.add("Tastes like Creeper");
             break;
         }

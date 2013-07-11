@@ -15,9 +15,8 @@ public class ToolForgeContainer extends ToolStationContainer
     {
         super(inventoryplayer, logic);
     }
-    
 
-    public void initializeContainer(InventoryPlayer inventoryplayer, ToolStationLogic builderlogic)
+    public void initializeContainer (InventoryPlayer inventoryplayer, ToolStationLogic builderlogic)
     {
         invPlayer = inventoryplayer;
         this.logic = builderlogic;
@@ -80,7 +79,7 @@ public class ToolForgeContainer extends ToolStationContainer
             for (int i = 1; i <= 4; i++)
                 logic.decrStackSize(i, 1);
             if (!logic.worldObj.isRemote)
-                logic.worldObj.playAuxSFX(1021, (int)logic.xCoord, (int)logic.yCoord, (int)logic.zCoord, 0);
+                logic.worldObj.playAuxSFX(1021, (int) logic.xCoord, (int) logic.yCoord, (int) logic.zCoord, 0);
         }
     }
 }

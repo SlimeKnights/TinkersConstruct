@@ -101,8 +101,8 @@ public class GolemRender extends RenderLiving
         renderBlocks.renderEastFace(Block.brick, d, d1 + 5D, d2, 1);
         renderBlocks.renderWestFace(Block.brick, d, d1 + 5D, d2, 1);*/
     }
-    
-    protected void renderSnowmanPumpkin(GolemBase par1EntitySnowman, float par2)
+
+    protected void renderSnowmanPumpkin (GolemBase par1EntitySnowman, float par2)
     {
         super.renderEquippedItems(par1EntitySnowman, par2);
         ItemStack itemstack = new ItemStack(Block.pumpkin, 1);
@@ -128,9 +128,9 @@ public class GolemRender extends RenderLiving
         }
     }
 
-    protected void renderEquippedItems(EntityLiving par1EntityLiving, float par2)
+    protected void renderEquippedItems (EntityLiving par1EntityLiving, float par2)
     {
-        this.renderSnowmanPumpkin((GolemBase)par1EntityLiving, par2);
+        this.renderSnowmanPumpkin((GolemBase) par1EntityLiving, par2);
     }
 
     public void doRender (Entity entity, double d, double d1, double d2, float f, float f1)
@@ -156,7 +156,7 @@ public class GolemRender extends RenderLiving
             //this.renderManager.itemRenderer.renderItem((EntityLiving) entity, itemstack, 0);
             GL11.glPopMatrix();
         }
-        
+
         boolean flag = false;
         float f2 = 1.0F;
         float f3 = 0.0F;

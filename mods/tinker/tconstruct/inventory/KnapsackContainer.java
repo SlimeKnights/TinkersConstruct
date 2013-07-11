@@ -25,7 +25,7 @@ public class KnapsackContainer extends Container
                 this.addSlotToContainer(new Slot(knapsack, row + column * 9, 8 + row * 18, 17 + column * 18));
             }
         }
-        
+
         /* Player inventory */
         for (int column = 0; column < 3; column++)
         {
@@ -41,18 +41,17 @@ public class KnapsackContainer extends Container
         }
     }
 
-
     @Override
-    public boolean canInteractWith(EntityPlayer entityplayer)
+    public boolean canInteractWith (EntityPlayer entityplayer)
     {
         return backpack.isUseableByPlayer(entityplayer);
     }
-    
+
     @Override
-    public ItemStack transferStackInSlot(EntityPlayer player, int slotID)
+    public ItemStack transferStackInSlot (EntityPlayer player, int slotID)
     {
         ItemStack stack = null;
-        Slot slot = (Slot)this.inventorySlots.get(slotID);
+        Slot slot = (Slot) this.inventorySlots.get(slotID);
 
         if (slot != null && slot.getHasStack())
         {
@@ -73,7 +72,7 @@ public class KnapsackContainer extends Container
 
             if (slotStack.stackSize == 0)
             {
-                slot.putStack((ItemStack)null);
+                slot.putStack((ItemStack) null);
             }
             else
             {

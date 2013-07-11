@@ -9,6 +9,7 @@ import mods.tinker.tconstruct.library.util.CoordTuple;
 public class TheftValueTracker
 {
     public static HashMap<ValueCoordTuple, Integer> crystallinity = new HashMap<ValueCoordTuple, Integer>();
+
     //public static HashMap<Integer, HashMap<ChunkCoordTuple, Integer>> crystallinity = new HashMap<Integer, HashMap<ChunkCoordTuple, Integer>>();
 
     public static void updateCrystallinity (int dim, int posX, int posZ, int value)

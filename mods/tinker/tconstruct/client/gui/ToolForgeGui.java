@@ -65,15 +65,16 @@ public class ToolForgeGui extends ToolStationGui
         for (int iter = 0; iter < TConstructClientRegistry.tierTwoButtons.size(); iter++)
         {
             ToolGuiElement element = TConstructClientRegistry.tierTwoButtons.get(iter);
-            GuiButtonTool button = new GuiButtonTool(iter+1, cornerX - 110 + 22 * ((iter + 1) % 5), cornerY + 22 * ((iter + 1) / 5), element.buttonIconX, element.buttonIconY, element.texture, element);
+            GuiButtonTool button = new GuiButtonTool(iter + 1, cornerX - 110 + 22 * ((iter + 1) % 5), cornerY + 22 * ((iter + 1) / 5), element.buttonIconX, element.buttonIconY, element.texture,
+                    element);
             this.buttonList.add(button);
         }
 
         for (int iter = 1; iter < TConstructClientRegistry.toolButtons.size(); iter++)
         {
             ToolGuiElement element = TConstructClientRegistry.toolButtons.get(iter);
-            GuiButtonTool button = new GuiButtonTool(iter+offset, cornerX - 110 + 22 * ((iter + offset) % 5), cornerY + 22 * ((iter + offset) / 5), element.buttonIconX, element.buttonIconY, element.texture,
-                    element);
+            GuiButtonTool button = new GuiButtonTool(iter + offset, cornerX - 110 + 22 * ((iter + offset) % 5), cornerY + 22 * ((iter + offset) / 5), element.buttonIconX, element.buttonIconY,
+                    element.texture, element);
             this.buttonList.add(button);
         }
     }
@@ -91,7 +92,7 @@ public class ToolForgeGui extends ToolStationGui
         title = "\u00A7n" + b.element.title;
         body = b.element.body;
     }
-    
+
     @Override
     void resetGui ()
     {

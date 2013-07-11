@@ -18,8 +18,7 @@ import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
 
-public class RotatingBase extends Entity
-    implements IEntityAdditionalSpawnData
+public class RotatingBase extends Entity implements IEntityAdditionalSpawnData
 {
 
     public RotatingBase(World world)
@@ -64,7 +63,7 @@ public class RotatingBase extends Entity
         motionY = -MathHelper.sin((rotationPitch / 180F) * 3.141593F - 0.2f);
         setArrowHeading(motionX, motionY, motionZ, f, f1);
     }
-    
+
     /*public void setOnGround(boolean flag)
     {
         onGround = flag;
@@ -77,7 +76,7 @@ public class RotatingBase extends Entity
     }*/
 
     @Override
-    protected void entityInit()
+    protected void entityInit ()
     {
     }
 
@@ -302,7 +301,7 @@ public class RotatingBase extends Entity
             }
         }
     }
-    
+
     /*public void readEntityFromNBT(NBTTagCompound par1NBTTagCompound)
     {
         super.readEntityFromNBT(par1NBTTagCompound);
@@ -384,10 +383,8 @@ public class RotatingBase extends Entity
     {
         return 0.0F;
     }
-    
 
-    
-    public ItemStack getEntityItem()
+    public ItemStack getEntityItem ()
     {
         return returnStack;
     }
@@ -413,7 +410,7 @@ public class RotatingBase extends Entity
     public EntityPlayer owner;
     protected int ticksInGround;
     protected int ticksInAir;
-    
+
     @Override
     public void writeSpawnData (ByteArrayDataOutput data)
     {
@@ -423,7 +420,7 @@ public class RotatingBase extends Entity
         data.writeInt(tags.getInteger("RenderHandle"));
         data.writeInt(tags.getInteger("RenderHead"));
         data.writeInt(tags.getInteger("RenderAccessory"));
-        
+
         int effects = 0;
         if (tags.hasKey("Effect1"))
             effects++;
@@ -438,21 +435,27 @@ public class RotatingBase extends Entity
         if (tags.hasKey("Effect6"))
             effects++;
         data.writeInt(effects);
-        
+
         switch (effects)
         {
-        case 6: data.writeInt(tags.getInteger("Effect6"));
-        case 5: data.writeInt(tags.getInteger("Effect5"));
-        case 4: data.writeInt(tags.getInteger("Effect4"));
-        case 3: data.writeInt(tags.getInteger("Effect3"));
-        case 2: data.writeInt(tags.getInteger("Effect2"));
-        case 1: data.writeInt(tags.getInteger("Effect1"));
+        case 6:
+            data.writeInt(tags.getInteger("Effect6"));
+        case 5:
+            data.writeInt(tags.getInteger("Effect5"));
+        case 4:
+            data.writeInt(tags.getInteger("Effect4"));
+        case 3:
+            data.writeInt(tags.getInteger("Effect3"));
+        case 2:
+            data.writeInt(tags.getInteger("Effect2"));
+        case 1:
+            data.writeInt(tags.getInteger("Effect1"));
         }
     }
 
     @Override
     public void readSpawnData (ByteArrayDataInput data)
-    {        
+    {
         returnStack = new ItemStack(data.readShort(), 1, 0);
         rotationYaw = data.readFloat();
         NBTTagCompound compound = new NBTTagCompound();
@@ -462,12 +465,18 @@ public class RotatingBase extends Entity
         toolTag.setInteger("RenderAccessory", data.readInt());
         switch (data.readInt())
         {
-        case 6: toolTag.setInteger("Effect6", data.readInt());
-        case 5: toolTag.setInteger("Effect5", data.readInt());
-        case 4: toolTag.setInteger("Effect4", data.readInt());
-        case 3: toolTag.setInteger("Effect3", data.readInt());
-        case 2: toolTag.setInteger("Effect2", data.readInt());
-        case 1: toolTag.setInteger("Effect1", data.readInt());
+        case 6:
+            toolTag.setInteger("Effect6", data.readInt());
+        case 5:
+            toolTag.setInteger("Effect5", data.readInt());
+        case 4:
+            toolTag.setInteger("Effect4", data.readInt());
+        case 3:
+            toolTag.setInteger("Effect3", data.readInt());
+        case 2:
+            toolTag.setInteger("Effect2", data.readInt());
+        case 1:
+            toolTag.setInteger("Effect1", data.readInt());
         }
         compound.setCompoundTag("InfiTool", toolTag);
         returnStack.setTagCompound(compound);

@@ -43,23 +43,23 @@ public class ModButtertouch extends ModBoolean
         NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
         tags.setBoolean(key, true);
         addEnchantment(tool, Enchantment.silkTouch, 1);
-        
+
         int modifiers = tags.getInteger("Modifiers");
         modifiers -= 1;
         tags.setInteger("Modifiers", modifiers);
-        
+
         int attack = tags.getInteger("Attack");
         attack -= 3;
         if (attack < 0)
             attack = 0;
         tags.setInteger("Attack", attack);
-        
+
         int miningSpeed = tags.getInteger("MiningSpeed");
         miningSpeed -= 300;
         if (miningSpeed < 0)
             miningSpeed = 0;
         tags.setInteger("MiningSpeed", miningSpeed);
-        
+
         if (tags.hasKey("MiningSpeed2"))
         {
             int miningSpeed2 = tags.getInteger("MiningSpeed2");
@@ -69,7 +69,7 @@ public class ModButtertouch extends ModBoolean
             tags.setInteger("MiningSpeed2", miningSpeed2);
         }
 
-        addToolTip(tool, color+tooltipName, color+key);
+        addToolTip(tool, color + tooltipName, color + key);
     }
 
     public void addEnchantment (ItemStack tool, Enchantment enchant, int level)

@@ -14,6 +14,6 @@ public class ToolPartHidden extends ToolPart
 
     public void getSubItems (int id, CreativeTabs tab, List list)
     {
-        
+
     }
 }

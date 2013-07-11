@@ -15,6 +15,7 @@ public class SectionPage extends BookPage
 {
     String title;
     String body;
+
     @Override
     public void readPageFromXML (Element element)
     {

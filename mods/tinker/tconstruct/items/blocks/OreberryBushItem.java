@@ -17,26 +17,27 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class OreberryBushItem extends ItemBlock
 {
     public int blockID;
+
     public OreberryBushItem(int id)
     {
         super(id);
-        blockID = id+256;
+        blockID = id + 256;
         setHasSubtypes(true);
     }
-    
+
     @Override
-    public int getMetadata(int meta)
+    public int getMetadata (int meta)
     {
         return meta % 4;
     }
-    
+
     /* Place bushes on dirt, grass, or other bushes only */
-    @Override    
-    public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float par8, float par9, float par10)
+    @Override
+    public boolean onItemUse (ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float par8, float par9, float par10)
     {
         if (side != 1)
             return false;
-        
+
         else if (player.canPlayerEdit(x, y, z, side, stack) && player.canPlayerEdit(x, y + 1, z, side, stack))
         {
             Block block = Block.blocksList[world.getBlockId(x, y, z)];
@@ -59,24 +60,21 @@ public class OreberryBushItem extends ItemBlock
 
     /* Block name in inventory */
     @Override
-    public String getUnlocalizedName(ItemStack itemstack)
+    public String getUnlocalizedName (ItemStack itemstack)
     {
-        int pos = MathHelper.clamp_int(itemstack.getItemDamage(), 0, blockType.length-1);
+        int pos = MathHelper.clamp_int(itemstack.getItemDamage(), 0, blockType.length - 1);
         return (new StringBuilder()).append("block.oreberry.").append(blockType[pos]).toString();
     }
-    public static final String blockType[] =
-    {
-        "iron", "gold", "copper", "tin", "iron", "gold", "copper", "tin",
-        "iron", "gold", "copper", "tin", "iron", "gold", "copper", "tin"
-    };
-    
+
+    public static final String blockType[] = { "iron", "gold", "copper", "tin", "iron", "gold", "copper", "tin", "iron", "gold", "copper", "tin", "iron", "gold", "copper", "tin" };
+
     @Override
     @SideOnly(Side.CLIENT)
     public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean par4)
     {
         switch (stack.getItemDamage() % 4)
         {
-        case 0: 
+        case 0:
             list.add("Sweet Irony");
             break;
         case 1:

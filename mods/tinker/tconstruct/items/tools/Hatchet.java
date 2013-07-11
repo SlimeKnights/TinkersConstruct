@@ -14,94 +14,94 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class Hatchet extends HarvestTool
 {
-	public Hatchet(int itemID)
-	{
-		super(itemID, 3);
-		this.setUnlocalizedName("InfiTool.Axe");
-	}
-	
-	@Override
-	protected Material[] getEffectiveMaterials ()
-	{
-		return materials;
-	}
+    public Hatchet(int itemID)
+    {
+        super(itemID, 3);
+        this.setUnlocalizedName("InfiTool.Axe");
+    }
 
-	@Override
-	protected String getHarvestType ()
-	{
-		return "axe";
-	}
+    @Override
+    protected Material[] getEffectiveMaterials ()
+    {
+        return materials;
+    }
 
-	@Override
-	public boolean onBlockDestroyed (ItemStack itemstack, World world, int bID, int x, int y, int z, EntityLiving player)
-	{
-		Block block = Block.blocksList[bID];
-		if (block != null && block.blockMaterial == Material.leaves)
-			return false;
+    @Override
+    protected String getHarvestType ()
+    {
+        return "axe";
+    }
 
-		return AbilityHelper.onBlockChanged(itemstack, world, bID, x, y, z, player, random);
-	}
+    @Override
+    public boolean onBlockDestroyed (ItemStack itemstack, World world, int bID, int x, int y, int z, EntityLiving player)
+    {
+        Block block = Block.blocksList[bID];
+        if (block != null && block.blockMaterial == Material.leaves)
+            return false;
 
-	static Material[] materials = { Material.wood, Material.leaves, Material.vine, Material.circuits, Material.cactus, Material.pumpkin };
+        return AbilityHelper.onBlockChanged(itemstack, world, bID, x, y, z, player, random);
+    }
 
-	@Override
-	public Item getHeadItem ()
-	{
-		return TContent.hatchetHead;
-	}
+    static Material[] materials = { Material.wood, Material.leaves, Material.vine, Material.circuits, Material.cactus, Material.pumpkin };
 
-	@Override
-	public Item getAccessoryItem ()
-	{
-		return null;
-	}
-	
-	@SideOnly(Side.CLIENT)
-	@Override
-	public int getRenderPasses (int metadata)
-	{
-		return 8;
-	}
-	
-	@Override
-	public int getPartAmount()
-	{
-		return 2;
-	}
-	
-	@Override
-	public void registerPartPaths (int index, String[] location)
-	{
-		headStrings.put(index, location[0]);
-		brokenPartStrings.put(index, location[1]);
-		handleStrings.put(index, location[2]);
-	}
-	
-	@Override
-	public String getIconSuffix (int partType)
-	{
-		switch (partType)
-		{
-		case 0:
-			return "_axe_head";
-		case 1:
-			return "_axe_head_broken";
-		case 2:
-			return "_axe_handle";
-		default:
-			return "";
-		}
-	}
+    @Override
+    public Item getHeadItem ()
+    {
+        return TContent.hatchetHead;
+    }
 
-	@Override
-	public String getEffectSuffix ()
-	{
-		return "_axe_effect";
-	}
+    @Override
+    public Item getAccessoryItem ()
+    {
+        return null;
+    }
 
-	@Override
-	public String getDefaultFolder ()
-	{
-		return "axe";
-	}
+    @SideOnly(Side.CLIENT)
+    @Override
+    public int getRenderPasses (int metadata)
+    {
+        return 8;
+    }
+
+    @Override
+    public int getPartAmount ()
+    {
+        return 2;
+    }
+
+    @Override
+    public void registerPartPaths (int index, String[] location)
+    {
+        headStrings.put(index, location[0]);
+        brokenPartStrings.put(index, location[1]);
+        handleStrings.put(index, location[2]);
+    }
+
+    @Override
+    public String getIconSuffix (int partType)
+    {
+        switch (partType)
+        {
+        case 0:
+            return "_axe_head";
+        case 1:
+            return "_axe_head_broken";
+        case 2:
+            return "_axe_handle";
+        default:
+            return "";
+        }
+    }
+
+    @Override
+    public String getEffectSuffix ()
+    {
+        return "_axe_effect";
+    }
+
+    @Override
+    public String getDefaultFolder ()
+    {
+        return "axe";
+    }
 }

@@ -8,7 +8,7 @@ public abstract class CustomMaterial
     public final int value;
     public final ItemStack input;
     public final ItemStack craftingItem;
-    
+
     public CustomMaterial(int materialID, int value, ItemStack input, ItemStack craftingItem)
     {
         this.materialID = materialID;
@@ -16,7 +16,7 @@ public abstract class CustomMaterial
         this.input = input;
         this.craftingItem = craftingItem;
     }
-    
+
     /*public boolean matches(ItemStack input, ItemStack pattern)
     {
         if (ItemStack.areItemStacksEqual(this.input, input) && ItemStack.areItemStacksEqual(this.craftingPattern, pattern))

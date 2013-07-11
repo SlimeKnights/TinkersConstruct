@@ -23,49 +23,79 @@ public class MultiBrick extends TConstructBlock
     }
 
     @Override
-    public float getBlockHardness(World world, int x, int y, int z) 
+    public float getBlockHardness (World world, int x, int y, int z)
     {
         int meta = world.getBlockMetadata(x, y, z);
-        switch(meta) 
+        switch (meta)
         {
-        case 0: return Block.obsidian.getBlockHardness(world, x, y, z);
-        case 1: return Block.sandStone.getBlockHardness(world, x, y, z);
-        case 2: return Block.netherrack.getBlockHardness(world, x, y, z);
-        case 3: return Block.stone.getBlockHardness(world, x, y, z);
-        case 4: return Block.blockIron.getBlockHardness(world, x, y, z);
-        case 5: return Block.blockGold.getBlockHardness(world, x, y, z);
-        case 6: return Block.blockLapis.getBlockHardness(world, x, y, z);
-        case 7: return Block.blockDiamond.getBlockHardness(world, x, y, z);
-        case 8: return Block.blockRedstone.getBlockHardness(world, x, y, z);
-        case 9: return 1.0F;
-        case 10: return 1.5F;
-        case 11: return 1.5F;
-        case 12: return Block.whiteStone.getBlockHardness(world, x, y, z);
-        case 13: return Block.obsidian.getBlockHardness(world, x, y, z);
-        default: return blockHardness;
+        case 0:
+            return Block.obsidian.getBlockHardness(world, x, y, z);
+        case 1:
+            return Block.sandStone.getBlockHardness(world, x, y, z);
+        case 2:
+            return Block.netherrack.getBlockHardness(world, x, y, z);
+        case 3:
+            return Block.stone.getBlockHardness(world, x, y, z);
+        case 4:
+            return Block.blockIron.getBlockHardness(world, x, y, z);
+        case 5:
+            return Block.blockGold.getBlockHardness(world, x, y, z);
+        case 6:
+            return Block.blockLapis.getBlockHardness(world, x, y, z);
+        case 7:
+            return Block.blockDiamond.getBlockHardness(world, x, y, z);
+        case 8:
+            return Block.blockRedstone.getBlockHardness(world, x, y, z);
+        case 9:
+            return 1.0F;
+        case 10:
+            return 1.5F;
+        case 11:
+            return 1.5F;
+        case 12:
+            return Block.whiteStone.getBlockHardness(world, x, y, z);
+        case 13:
+            return Block.obsidian.getBlockHardness(world, x, y, z);
+        default:
+            return blockHardness;
         }
     }
 
-    public float getExplosionResistance(Entity entity, World world, int x, int y, int z, double explosionX, double explosionY, double explosionZ)
+    public float getExplosionResistance (Entity entity, World world, int x, int y, int z, double explosionX, double explosionY, double explosionZ)
     {
         int meta = world.getBlockMetadata(x, y, z);
-        switch(meta) 
+        switch (meta)
         {
-        case 0: return Block.obsidian.getExplosionResistance(entity);
-        case 1: return Block.sandStone.getExplosionResistance(entity);
-        case 2: return Block.netherrack.getExplosionResistance(entity);
-        case 3: return Block.stone.getExplosionResistance(entity);
-        case 4: return Block.blockIron.getExplosionResistance(entity);
-        case 5: return Block.blockGold.getExplosionResistance(entity);
-        case 6: return Block.blockLapis.getExplosionResistance(entity);
-        case 7: return Block.blockDiamond.getExplosionResistance(entity);
-        case 8: return Block.blockRedstone.getExplosionResistance(entity);
-        case 9: return 1.0F;
-        case 10: return 1.5F;
-        case 11: return 1.5F;
-        case 12: return Block.whiteStone.getExplosionResistance(entity);
-        case 13: return Block.obsidian.getExplosionResistance(entity);
-        default: return getExplosionResistance(entity);
+        case 0:
+            return Block.obsidian.getExplosionResistance(entity);
+        case 1:
+            return Block.sandStone.getExplosionResistance(entity);
+        case 2:
+            return Block.netherrack.getExplosionResistance(entity);
+        case 3:
+            return Block.stone.getExplosionResistance(entity);
+        case 4:
+            return Block.blockIron.getExplosionResistance(entity);
+        case 5:
+            return Block.blockGold.getExplosionResistance(entity);
+        case 6:
+            return Block.blockLapis.getExplosionResistance(entity);
+        case 7:
+            return Block.blockDiamond.getExplosionResistance(entity);
+        case 8:
+            return Block.blockRedstone.getExplosionResistance(entity);
+        case 9:
+            return 1.0F;
+        case 10:
+            return 1.5F;
+        case 11:
+            return 1.5F;
+        case 12:
+            return Block.whiteStone.getExplosionResistance(entity);
+        case 13:
+            return Block.obsidian.getExplosionResistance(entity);
+        default:
+            return getExplosionResistance(entity);
         }
     }
 
@@ -89,27 +119,27 @@ public class MultiBrick extends TConstructBlock
             return AxisAlignedBB.getBoundingBox(x, y, z, (double) x + 1.0D, (double) y + 0.625D, (double) z + 1.0D);
         return super.getCollisionBoundingBoxFromPool(world, x, y, z);
     }
-    
+
     /*@Override
     public int getRenderType ()
     {
         return BrickRender.model;
     }*/
-    
+
     @Override
-    public boolean isBlockNormalCube(World world, int x, int y, int z)
+    public boolean isBlockNormalCube (World world, int x, int y, int z)
     {
         return world.getBlockMetadata(x, y, z) != 8;
     }
-    
+
     @Override
-    public boolean canProvidePower()
+    public boolean canProvidePower ()
     {
         return true;
     }
-    
+
     @Override
-    public int isProvidingWeakPower(IBlockAccess world, int x, int y, int z, int side)
+    public int isProvidingWeakPower (IBlockAccess world, int x, int y, int z, int side)
     {
         if (world.getBlockMetadata(x, y, z) == 8)
             return 4;

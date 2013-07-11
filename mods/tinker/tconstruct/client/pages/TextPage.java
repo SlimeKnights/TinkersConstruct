@@ -14,6 +14,7 @@ import org.w3c.dom.NodeList;
 public class TextPage extends BookPage
 {
     String text;
+
     @Override
     public void readPageFromXML (Element element)
     {

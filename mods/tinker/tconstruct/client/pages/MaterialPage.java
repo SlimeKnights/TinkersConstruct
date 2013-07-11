@@ -19,6 +19,7 @@ public class MaterialPage extends BookPage
     ItemStack[] icons;
     String iconText;
     ToolMaterial material;
+
     @Override
     public void readPageFromXML (Element element)
     {

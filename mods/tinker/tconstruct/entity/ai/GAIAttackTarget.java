@@ -12,6 +12,7 @@ public class GAIAttackTarget extends GolemAIBase
     private float speed;
     private int counter;
     private boolean avoidsWater = true;
+
     //public static String targetEntityRegex;
 
     public GAIAttackTarget(GolemBase doll)
@@ -71,14 +72,14 @@ public class GAIAttackTarget extends GolemAIBase
     @Override
     public boolean continueExecuting ()
     {
-       /* if (!golem.isEnable())
-        {
-            return false;
-        }
-        if (golem.isStandbyMode() || golem.isRideonMode())
-        {
-            return false;
-        }*/
+        /* if (!golem.isEnable())
+         {
+             return false;
+         }
+         if (golem.isStandbyMode() || golem.isRideonMode())
+         {
+             return false;
+         }*/
         if (this.pathfinder.noPath())
         {
             return false;

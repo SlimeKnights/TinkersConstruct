@@ -8,58 +8,58 @@ import net.minecraft.tileentity.TileEntity;
 
 public class LiquidTextureLogic extends TileEntity
 {
-	int texturePos;
+    int texturePos;
 
-	public boolean canUpdate()
+    public boolean canUpdate ()
     {
         return false;
     }
-	
-	public void setLiquidType (int tex)
-	{
-		texturePos = tex;
-		worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
-	}
 
-	public int getLiquidType ()
-	{
-		return texturePos;
-	}
+    public void setLiquidType (int tex)
+    {
+        texturePos = tex;
+        worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+    }
 
-	public void readFromNBT (NBTTagCompound tags)
-	{
-		super.readFromNBT(tags);
-		readCustomNBT(tags);
-	}
-	
-	public void readCustomNBT(NBTTagCompound tags)
-	{
-		texturePos = tags.getInteger("Texture");
-	}
+    public int getLiquidType ()
+    {
+        return texturePos;
+    }
 
-	public void writeToNBT (NBTTagCompound tags)
-	{
-		super.writeToNBT(tags);
-		writeCustomNBT(tags);
-	}
-	
-	public void writeCustomNBT (NBTTagCompound tags)
-	{
-		tags.setInteger("Texture", texturePos);
-	}
+    public void readFromNBT (NBTTagCompound tags)
+    {
+        super.readFromNBT(tags);
+        readCustomNBT(tags);
+    }
 
-	@Override
-	public Packet getDescriptionPacket ()
-	{
-		NBTTagCompound tag = new NBTTagCompound();
-		writeCustomNBT(tag);
-		return new Packet132TileEntityData(xCoord, yCoord, zCoord, 1, tag);
-	}
+    public void readCustomNBT (NBTTagCompound tags)
+    {
+        texturePos = tags.getInteger("Texture");
+    }
 
-	@Override
-	public void onDataPacket (INetworkManager net, Packet132TileEntityData packet)
-	{
-		readCustomNBT(packet.customParam1);
-		worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
-	}
+    public void writeToNBT (NBTTagCompound tags)
+    {
+        super.writeToNBT(tags);
+        writeCustomNBT(tags);
+    }
+
+    public void writeCustomNBT (NBTTagCompound tags)
+    {
+        tags.setInteger("Texture", texturePos);
+    }
+
+    @Override
+    public Packet getDescriptionPacket ()
+    {
+        NBTTagCompound tag = new NBTTagCompound();
+        writeCustomNBT(tag);
+        return new Packet132TileEntityData(xCoord, yCoord, zCoord, 1, tag);
+    }
+
+    @Override
+    public void onDataPacket (INetworkManager net, Packet132TileEntityData packet)
+    {
+        readCustomNBT(packet.customParam1);
+        worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+    }
 }

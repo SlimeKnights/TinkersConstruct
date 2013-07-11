@@ -164,7 +164,7 @@ public class TProxyClient extends TProxyCommon
         tessellator.draw();
         GL11.glTranslatef(0.5F, 0.5F, 0.5F);
     }
-    
+
     public static void renderInvBlockFace (RenderBlocks renderblocks, Block block, int meta)
     {
         Tessellator tessellator = Tessellator.instance;
@@ -297,7 +297,7 @@ public class TProxyClient extends TProxyCommon
         RenderingRegistry.registerEntityRenderingHandler(LaunchedPotion.class, new LaunchedItemRender(Item.potion, 16384));
         RenderingRegistry.registerEntityRenderingHandler(ArrowEntity.class, new ArrowRender());
         //RenderingRegistry.registerEntityRenderingHandler(net.minecraft.entity.player.EntityPlayer.class, new PlayerArmorRender()); // <-- Works, woo!
-        
+
         MinecraftForgeClient.registerItemRenderer(TContent.shortbow.itemID, new CustomBowRenderer());
 
         addRenderMappings();
@@ -558,14 +558,15 @@ public class TProxyClient extends TProxyCommon
         TConstructClientRegistry.registerManualSmeltery("searedstone", new ItemStack(TContent.smeltery, 1, 4), new ItemStack(TContent.liquidMetalStill, 1, 14), null);
 
     }
+
     public static Map<String, Class<? extends BookPage>> pageClasses = new HashMap<String, Class<? extends BookPage>>();
-    
-    public static void registerManualPage(String type, Class<? extends BookPage> clazz)
+
+    public static void registerManualPage (String type, Class<? extends BookPage> clazz)
     {
         pageClasses.put(type, clazz);
     }
-    
-    public static Class<? extends BookPage> getPageClass(String type)
+
+    public static Class<? extends BookPage> getPageClass (String type)
     {
         return pageClasses.get(type);
     }
@@ -712,7 +713,7 @@ public class TProxyClient extends TProxyCommon
         {
             TConstructClientRegistry.addMaterialRenderMapping(partIter, "tinker", partTypes[partIter], true);
         }
-        
+
         /*for (int iter = 0; iter < modPartTypes.length; iter++)
         {
             TConstructClientRegistry.addMaterialRenderMapping(31 + iter, "tinker", modPartTypes[iter], true);
@@ -725,13 +726,13 @@ public class TProxyClient extends TProxyCommon
                 TConstructClientRegistry.addEffectRenderMapping(tool, i, "tinker", effectTypes[i], true);
             }
         }
-        
+
         String[] bowstringTypes = { "string", "magicfabric" };
         for (int bowIter = 0; bowIter < bowstringTypes.length; bowIter++)
         {
             TConstructClientRegistry.addAlternateMaterialRenderMapping(TContent.shortbow, bowIter, "tinker", bowstringTypes[bowIter], true);
         }
-        
+
         String[] fletching = { "feather", "leaf", "slime", "blueslime" };
         for (int arrowIter = 0; arrowIter < fletching.length; arrowIter++)
         {

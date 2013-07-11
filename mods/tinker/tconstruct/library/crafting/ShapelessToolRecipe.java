@@ -18,9 +18,9 @@ public class ShapelessToolRecipe extends ShapelessRecipes
     {
         super(par1ItemStack, par2List);
     }
-    
+
     @Override
-    public boolean matches(InventoryCrafting par1InventoryCrafting, World par2World)
+    public boolean matches (InventoryCrafting par1InventoryCrafting, World par2World)
     {
         ArrayList arraylist = new ArrayList(this.recipeItems);
 
@@ -37,7 +37,7 @@ public class ShapelessToolRecipe extends ShapelessRecipes
 
                     while (iterator.hasNext())
                     {
-                        ItemStack itemstack1 = (ItemStack)iterator.next();
+                        ItemStack itemstack1 = (ItemStack) iterator.next();
 
                         //System.out.println("Rawr! "+itemstack1.getItemDamage());
                         if (itemstack.itemID == itemstack1.itemID && (itemstack1.getItemDamage() == Short.MAX_VALUE || itemstack.getItemDamage() == itemstack1.getItemDamage()))

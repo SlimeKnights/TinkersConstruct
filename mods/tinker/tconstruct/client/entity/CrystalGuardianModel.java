@@ -94,18 +94,18 @@ public class CrystalGuardianModel extends ModelBase
     }
 
     @Override
-    public void setRotationAngles(float par1, float par2, float par3, float par4, float par5, float par6, Entity par7Entity)
+    public void setRotationAngles (float par1, float par2, float par3, float par4, float par5, float par6, Entity par7Entity)
     {
         //super.setRotationAngles(f, f1, f2, f3, f4, f5, entity);
 
         this.rightleg.rotateAngleX = -1.5F * this.func_78172_a(par1, 13.0F) * par2;
         this.leftleg.rotateAngleX = 1.5F * this.func_78172_a(par1, 13.0F) * par2;
     }
-    
+
     @Override
-    public void setLivingAnimations(EntityLiving par1EntityLiving, float par2, float par3, float par4)
+    public void setLivingAnimations (EntityLiving par1EntityLiving, float par2, float par3, float par4)
     {
-        Automaton entityirongolem = (Automaton)par1EntityLiving;
+        Automaton entityirongolem = (Automaton) par1EntityLiving;
         int i = 0;//entityirongolem.getAttackTimer();
 
         this.rightarm.rotateAngleX = (-0.2F + 1.5F * this.func_78172_a(par2, 13.0F)) * par3;
@@ -114,7 +114,7 @@ public class CrystalGuardianModel extends ModelBase
         this.leftarm.rotateAngleX = -2.0F + 1.5F * this.func_78172_a((float)i - par4, 10.0F);*/
     }
 
-    private float func_78172_a(float par1, float par2)
+    private float func_78172_a (float par1, float par2)
     {
         return (Math.abs(par1 % par2 - par2 * 0.5F) - par2 * 0.25F) / (par2 * 0.25F);
     }

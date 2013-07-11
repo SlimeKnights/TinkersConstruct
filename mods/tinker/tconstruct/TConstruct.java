@@ -52,7 +52,7 @@ public class TConstruct
     /* Proxies for sides, used for graphics processing */
     @SidedProxy(clientSide = "mods.tinker.tconstruct.client.TProxyClient", serverSide = "mods.tinker.tconstruct.common.TProxyCommon")
     public static TProxyCommon proxy;
-    
+
     public TConstruct()
     {
         if (Loader.isModLoaded("Natura"))
@@ -79,7 +79,7 @@ public class TConstruct
         tableCasting = new LiquidCasting();
         basinCasting = new LiquidCasting();
         chiselDetailing = new Detailing();
-        
+
         content = new TContent();
 
         events = new TEventHandler();
@@ -106,11 +106,11 @@ public class TConstruct
             VillagerRegistry.instance().registerVillageCreationHandler(new VillageToolStationHandler());
             VillagerRegistry.instance().registerVillageCreationHandler(new VillageSmelteryHandler());
         }
-        
+
         /*DimensionManager.registerProviderType(-7, TinkerWorldProvider.class, true);
         DimensionManager.registerDimension(-7, -7);*/
     }
-    
+
     @Init
     public void init (FMLInitializationEvent event)
     {
@@ -129,18 +129,18 @@ public class TConstruct
         /*SkillRegistry.registerSkill("Wall Building", new WallBuilding());
         SkillRegistry.registerSkill("Jump", new Jump());*/
     }
-    
-    public static LiquidCasting getTableCasting()
+
+    public static LiquidCasting getTableCasting ()
     {
         return tableCasting;
     }
-    
-    public static LiquidCasting getBasinCasting()
+
+    public static LiquidCasting getBasinCasting ()
     {
         return basinCasting;
     }
-    
-    public static Detailing getChiselDetailing()
+
+    public static Detailing getChiselDetailing ()
     {
         return chiselDetailing;
     }

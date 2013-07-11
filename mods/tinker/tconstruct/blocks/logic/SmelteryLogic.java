@@ -191,11 +191,11 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     {
         return ForgeDirection.VALID_DIRECTIONS[direction];
     }
-    
+
     @Override
     public void setDirection (int side)
     {
-        
+
     }
 
     @Override

@@ -11,6 +11,7 @@ public class TimeTicker implements ITickHandler
     public static int tickParts = 0;
     public static int seconds = 0;
     public static int minutes = 0;
+
     @Override
     public void tickStart (EnumSet<TickType> type, Object... tickData)
     {

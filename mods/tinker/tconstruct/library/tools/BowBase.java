@@ -86,7 +86,7 @@ public abstract class BowBase extends ToolCore
 
             EntityArrow arrowEntity = null;
             //if (tinkerArrow != null)
-            if (slotID != 1 && (arrowID == -1 || slotID < arrowID))
+            if (slotID != -1 && (arrowID == -1 || slotID < arrowID))
             {
                 ItemStack arrowStack = tinkerArrow.copy();
                 arrowStack.stackSize = 1;
@@ -110,6 +110,10 @@ public abstract class BowBase extends ToolCore
             }
 
             int var10 = EnchantmentHelper.getEnchantmentLevel(Enchantment.punch.effectId, stack);
+
+            if (slotID != -1 && (arrowID == -1 || slotID < arrowID))
+                ((ArrowEntity) arrowEntity).setKnockbackModStrength(toolTag.getFloat("Knockback"));
+            //var10 += toolTag.getFloat("Knockback");
 
             if (var10 > 0)
             {
@@ -139,7 +143,7 @@ public abstract class BowBase extends ToolCore
             else
             {
                 //if (tinkerArrow != null)
-                if (slotID != 1 && (arrowID == -1 || slotID < arrowID))
+                if (slotID != -1 && (arrowID == -1 || slotID < arrowID))
                 {
                     player.inventory.consumeInventoryItem(TContent.arrow.itemID);
                 }
@@ -216,8 +220,8 @@ public abstract class BowBase extends ToolCore
 
         return stack;
     }
-    
-    public boolean onItemUse(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float clickX, float clickY, float clickZ)
+
+    public boolean onItemUse (ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float clickX, float clickY, float clickZ)
     {
         return false;
     }

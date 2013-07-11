@@ -14,42 +14,42 @@ public class KnapsackInventory implements IInventory
 {
     public ItemStack[] inventory = new ItemStack[27];
     public WeakReference<EntityPlayer> parent;
-    
-    public void init(EntityPlayer player)
+
+    public void init (EntityPlayer player)
     {
         parent = new WeakReference<EntityPlayer>(player);
     }
-    
+
     @Override
-    public ItemStack getStackInSlot(int slot)
+    public ItemStack getStackInSlot (int slot)
     {
         return inventory[slot];
     }
-    
-    public boolean isStackInSlot(int slot)
+
+    public boolean isStackInSlot (int slot)
     {
         return inventory[slot] != null;
     }
-    
+
     @Override
-    public int getSizeInventory()
+    public int getSizeInventory ()
     {
         return inventory.length;
     }
-    
+
     @Override
     public int getInventoryStackLimit ()
     {
         return 64;
     }
-    
-    public boolean canDropInventorySlot(int slot)
+
+    public boolean canDropInventorySlot (int slot)
     {
         return true;
     }
-    
+
     @Override
-    public void setInventorySlotContents(int slot, ItemStack itemstack)
+    public void setInventorySlotContents (int slot, ItemStack itemstack)
     {
         inventory[slot] = itemstack;
         if (itemstack != null && itemstack.stackSize > getInventoryStackLimit())
@@ -57,9 +57,9 @@ public class KnapsackInventory implements IInventory
             itemstack.stackSize = getInventoryStackLimit();
         }
     }
-    
+
     @Override
-    public ItemStack decrStackSize(int slot, int quantity)
+    public ItemStack decrStackSize (int slot, int quantity)
     {
         if (inventory[slot] != null)
         {
@@ -97,13 +97,21 @@ public class KnapsackInventory implements IInventory
     @Override
     public void onInventoryChanged ()
     {
-        
+
     }
 
+    public ItemStack getStackInSlotOnClosing (int slot)
+    {
+        return null;
+    }
 
-    public ItemStack getStackInSlotOnClosing (int slot) { return null; }
-    public void openChest () {}
-    public void closeChest () {}
+    public void openChest ()
+    {
+    }
+
+    public void closeChest ()
+    {
+    }
 
     @Override
     public boolean isStackValidForSlot (int i, ItemStack itemstack)
@@ -116,7 +124,7 @@ public class KnapsackInventory implements IInventory
     {
         return true;
     }
-    
+
     /* Save/Load */
     public void saveToNBT (EntityPlayer entityplayer)
     {
@@ -167,7 +175,7 @@ public class KnapsackInventory implements IInventory
             }
         }
     }
-    
+
     public void unequipItems ()
     {
         EntityPlayer player = parent.get();
@@ -180,7 +188,7 @@ public class KnapsackInventory implements IInventory
             }
         }
     }
-    
+
     void dropItemEntity (Entity dropper, ItemStack dropStack)
     {
         EntityItem entityitem = new EntityItem(dropper.worldObj, dropper.posX, dropper.posY, dropper.posZ, dropStack);

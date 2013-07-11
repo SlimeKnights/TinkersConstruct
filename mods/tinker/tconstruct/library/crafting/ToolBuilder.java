@@ -60,7 +60,7 @@ public class ToolBuilder
             instance.recipeList.put(output.getToolName(), recipe);
         }
     }
-    
+
     public static void addNormalToolRecipe (ToolCore output, Item head, Item handle, Item accessory, Item extra)
     {
         ToolRecipe recipe = instance.recipeList.get(output.getToolName());
@@ -78,12 +78,12 @@ public class ToolBuilder
             instance.recipeList.put(output.getToolName(), recipe);
         }
     }
-    
-    public static void addCustomToolRecipe(ToolRecipe recipe)
+
+    public static void addCustomToolRecipe (ToolRecipe recipe)
     {
         instance.combos.add(recipe);
     }
-    
+
     public static void addToolRecipe (ToolCore output, Item... items)
     {
         if (items.length == 2)
@@ -167,7 +167,7 @@ public class ToolBuilder
                 item = getMatchingRecipe(headStack.getItem(), handleStack.getItem(), accessoryStack.getItem(), null);
             }
         }
-        
+
         //System.out.println("Valid: "+item);
 
         if (item == null)
@@ -233,7 +233,7 @@ public class ToolBuilder
 
         if (handles > 0)
         {
-            modifier *= (0.5+handles*0.5);
+            modifier *= (0.5 + handles * 0.5);
             modifier /= handles;
         }
 
@@ -308,10 +308,10 @@ public class ToolBuilder
             compound.setCompoundTag("display", new NBTTagCompound());
             compound.getCompoundTag("display").setString("Name", "\u00A7f" + name);
         }
-        
-        ToolCraftEvent.NormalTool event = new ToolCraftEvent.NormalTool(item, compound, new ToolMaterial[] {headMat, handleMat, accessoryMat, extraMat});
+
+        ToolCraftEvent.NormalTool event = new ToolCraftEvent.NormalTool(item, compound, new ToolMaterial[] { headMat, handleMat, accessoryMat, extraMat });
         MinecraftForge.EVENT_BUS.post(event);
-        
+
         if (event.getResult() == Result.DEFAULT)
         {
             tool.setTagCompound(compound);

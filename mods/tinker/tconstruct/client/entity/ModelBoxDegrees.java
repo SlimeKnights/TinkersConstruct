@@ -40,14 +40,14 @@ public class ModelBoxDegrees
         this.posX1 = par4;
         this.posY1 = par5;
         this.posZ1 = par6;
-        this.posX2 = par4 + (float)par7;
-        this.posY2 = par5 + (float)par8;
-        this.posZ2 = par6 + (float)par9;
+        this.posX2 = par4 + (float) par7;
+        this.posY2 = par5 + (float) par8;
+        this.posZ2 = par6 + (float) par9;
         this.vertexPositions = new PositionTextureVertex[8];
         this.quadList = new TexturedQuad[6];
-        float f4 = par4 + (float)par7;
-        float f5 = par5 + (float)par8;
-        float f6 = par6 + (float)par9;
+        float f4 = par4 + (float) par7;
+        float f5 = par5 + (float) par8;
+        float f6 = par6 + (float) par9;
         par4 -= par10;
         par5 -= par10;
         par6 -= par10;
@@ -78,12 +78,18 @@ public class ModelBoxDegrees
         this.vertexPositions[5] = positiontexturevertex5;
         this.vertexPositions[6] = positiontexturevertex6;
         this.vertexPositions[7] = positiontexturevertex7;
-        this.quadList[0] = new TexturedQuad(new PositionTextureVertex[] {positiontexturevertex5, positiontexturevertex1, positiontexturevertex2, positiontexturevertex6}, par2 + par9 + par7, par3 + par9, par2 + par9 + par7 + par9, par3 + par9 + par8, par1ModelRenderer.textureWidth, par1ModelRenderer.textureHeight);
-        this.quadList[1] = new TexturedQuad(new PositionTextureVertex[] {positiontexturevertex, positiontexturevertex4, positiontexturevertex7, positiontexturevertex3}, par2, par3 + par9, par2 + par9, par3 + par9 + par8, par1ModelRenderer.textureWidth, par1ModelRenderer.textureHeight);
-        this.quadList[2] = new TexturedQuad(new PositionTextureVertex[] {positiontexturevertex5, positiontexturevertex4, positiontexturevertex, positiontexturevertex1}, par2 + par9, par3, par2 + par9 + par7, par3 + par9, par1ModelRenderer.textureWidth, par1ModelRenderer.textureHeight);
-        this.quadList[3] = new TexturedQuad(new PositionTextureVertex[] {positiontexturevertex2, positiontexturevertex3, positiontexturevertex7, positiontexturevertex6}, par2 + par9 + par7, par3 + par9, par2 + par9 + par7 + par7, par3, par1ModelRenderer.textureWidth, par1ModelRenderer.textureHeight);
-        this.quadList[4] = new TexturedQuad(new PositionTextureVertex[] {positiontexturevertex1, positiontexturevertex, positiontexturevertex3, positiontexturevertex2}, par2 + par9, par3 + par9, par2 + par9 + par7, par3 + par9 + par8, par1ModelRenderer.textureWidth, par1ModelRenderer.textureHeight);
-        this.quadList[5] = new TexturedQuad(new PositionTextureVertex[] {positiontexturevertex4, positiontexturevertex5, positiontexturevertex6, positiontexturevertex7}, par2 + par9 + par7 + par9, par3 + par9, par2 + par9 + par7 + par9 + par7, par3 + par9 + par8, par1ModelRenderer.textureWidth, par1ModelRenderer.textureHeight);
+        this.quadList[0] = new TexturedQuad(new PositionTextureVertex[] { positiontexturevertex5, positiontexturevertex1, positiontexturevertex2, positiontexturevertex6 }, par2 + par9 + par7, par3
+                + par9, par2 + par9 + par7 + par9, par3 + par9 + par8, par1ModelRenderer.textureWidth, par1ModelRenderer.textureHeight);
+        this.quadList[1] = new TexturedQuad(new PositionTextureVertex[] { positiontexturevertex, positiontexturevertex4, positiontexturevertex7, positiontexturevertex3 }, par2, par3 + par9, par2
+                + par9, par3 + par9 + par8, par1ModelRenderer.textureWidth, par1ModelRenderer.textureHeight);
+        this.quadList[2] = new TexturedQuad(new PositionTextureVertex[] { positiontexturevertex5, positiontexturevertex4, positiontexturevertex, positiontexturevertex1 }, par2 + par9, par3, par2
+                + par9 + par7, par3 + par9, par1ModelRenderer.textureWidth, par1ModelRenderer.textureHeight);
+        this.quadList[3] = new TexturedQuad(new PositionTextureVertex[] { positiontexturevertex2, positiontexturevertex3, positiontexturevertex7, positiontexturevertex6 }, par2 + par9 + par7, par3
+                + par9, par2 + par9 + par7 + par7, par3, par1ModelRenderer.textureWidth, par1ModelRenderer.textureHeight);
+        this.quadList[4] = new TexturedQuad(new PositionTextureVertex[] { positiontexturevertex1, positiontexturevertex, positiontexturevertex3, positiontexturevertex2 }, par2 + par9, par3 + par9,
+                par2 + par9 + par7, par3 + par9 + par8, par1ModelRenderer.textureWidth, par1ModelRenderer.textureHeight);
+        this.quadList[5] = new TexturedQuad(new PositionTextureVertex[] { positiontexturevertex4, positiontexturevertex5, positiontexturevertex6, positiontexturevertex7 }, par2 + par9 + par7 + par9,
+                par3 + par9, par2 + par9 + par7 + par9 + par7, par3 + par9 + par8, par1ModelRenderer.textureWidth, par1ModelRenderer.textureHeight);
 
         if (par1ModelRenderer.mirror)
         {
@@ -98,7 +104,7 @@ public class ModelBoxDegrees
      * Draw the six sided box defined by this ModelBox
      */
     @SideOnly(Side.CLIENT)
-    public void render(Tessellator par1Tessellator, float par2)
+    public void render (Tessellator par1Tessellator, float par2)
     {
         for (int i = 0; i < this.quadList.length; ++i)
         {
@@ -106,7 +112,7 @@ public class ModelBoxDegrees
         }
     }
 
-    public ModelBoxDegrees func_78244_a(String par1Str)
+    public ModelBoxDegrees func_78244_a (String par1Str)
     {
         this.field_78247_g = par1Str;
         return this;

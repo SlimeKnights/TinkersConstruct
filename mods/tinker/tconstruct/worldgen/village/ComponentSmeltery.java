@@ -66,7 +66,7 @@ public class ComponentSmeltery extends ComponentVillage
         this.placeBlockAtCurrentPosition(world, TContent.searedBlock.blockID, 2, 1, 1, 4, sbb);
         this.placeBlockAtCurrentPosition(world, TContent.searedBlock.blockID, 0, 7, 1, 2, sbb);
         this.placeBlockAtCurrentPosition(world, TContent.searedBlock.blockID, 2, 7, 1, 4, sbb);
-        
+
         for (int l = 1; l < 6; ++l)
         {
             for (int i1 = 0; i1 < 9; ++i1)
@@ -75,7 +75,7 @@ public class ComponentSmeltery extends ComponentVillage
                 this.fillCurrentPositionBlocksDownwards(world, Block.stoneBrick.blockID, 0, i1, -1, l, sbb);
             }
         }
-        
+
         for (int l = 0; l < 7; ++l)
         {
             for (int i1 = 1; i1 < 8; ++i1)
@@ -86,16 +86,20 @@ public class ComponentSmeltery extends ComponentVillage
         }
         return true;
     }
-    
-    int remapDirection(int direction)
+
+    int remapDirection (int direction)
     {
-        System.out.println("Direction: "+direction);
+        System.out.println("Direction: " + direction);
         switch (direction)
         {
-        case 0: return 2;
-        case 1: return 3;
-        case 2: return 1;
-        case 3: return 0;
+        case 0:
+            return 2;
+        case 1:
+            return 3;
+        case 2:
+            return 1;
+        case 3:
+            return 0;
         }
         System.out.println("This shouldn't happen");
         return -1;

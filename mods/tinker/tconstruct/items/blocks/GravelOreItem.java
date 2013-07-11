@@ -6,10 +6,7 @@ import net.minecraft.util.MathHelper;
 
 public class GravelOreItem extends ItemBlock
 {
-    public static final String blockType[] =
-    {
-        "iron", "gold", "copper", "tin", "aluminum", "cobalt"
-    };
+    public static final String blockType[] = { "iron", "gold", "copper", "tin", "aluminum", "cobalt" };
 
     public GravelOreItem(int id)
     {
@@ -18,14 +15,14 @@ public class GravelOreItem extends ItemBlock
         setHasSubtypes(true);
     }
 
-    public int getMetadata(int meta)
+    public int getMetadata (int meta)
     {
         return meta;
     }
 
-    public String getUnlocalizedName(ItemStack itemstack)
+    public String getUnlocalizedName (ItemStack itemstack)
     {
-        int pos = MathHelper.clamp_int(itemstack.getItemDamage(), 0, blockType.length-1);
+        int pos = MathHelper.clamp_int(itemstack.getItemDamage(), 0, blockType.length - 1);
         return (new StringBuilder()).append("block.ore.gravel.").append(blockType[pos]).toString();
     }
 }

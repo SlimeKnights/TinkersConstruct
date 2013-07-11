@@ -10,7 +10,7 @@ public class ModAutoSmelt extends ModBoolean
     {
         super(items, effect, tag, c, tip);
     }
-    
+
     @Override
     protected boolean canModify (ItemStack tool, ItemStack[] input)
     {

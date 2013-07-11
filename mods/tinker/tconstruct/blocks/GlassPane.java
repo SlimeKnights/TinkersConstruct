@@ -14,6 +14,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class GlassPane extends PaneBase
 {
     static String blockTextures[] = { "glass_clear", "soulglass", "soulglass_clear" };
+
     public GlassPane(int id)
     {
         super(id, Material.glass, "glass/", blockTextures);

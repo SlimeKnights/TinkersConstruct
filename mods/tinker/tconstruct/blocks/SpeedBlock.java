@@ -28,7 +28,7 @@ public class SpeedBlock extends TConstructBlock
         int metadata = world.getBlockMetadata(x, y, z);
         if (metadata == 1 || metadata == 4)
             boost = 2.7D;
-        
+
         double mX = Math.abs(entity.motionX);
         double mZ = Math.abs(entity.motionZ);
         if (mX < 0.5D)

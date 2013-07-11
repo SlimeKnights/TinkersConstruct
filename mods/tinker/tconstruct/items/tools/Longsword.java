@@ -70,7 +70,7 @@ public class Longsword extends Weapon
         {
             player.addExhaustion(0.2F);
             player.setSprinting(true);
-            
+
             float increase = (float) (0.02 * time + 0.2);
             if (increase > 0.56f)
                 increase = 0.56f;

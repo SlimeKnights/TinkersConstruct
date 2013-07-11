@@ -283,12 +283,12 @@ public class GolemBase extends EntityCreature implements IInventory
         }
     }
 
-    public void teleport(double x, double y, double z)
+    public void teleport (double x, double y, double z)
     {
         this.setPosition(x, y, z);
         worldObj.playSoundAtEntity(this, "mob.endermen.portal", 0.5F, (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);
     }
-    
+
     /* Other */
     protected boolean canDespawn ()
     {
@@ -412,7 +412,7 @@ public class GolemBase extends EntityCreature implements IInventory
     {
         return true;
     }
-    
+
     public void destroyCurrentEquippedItem ()
     {
         worldObj.playSoundAtEntity(this, "random.break", 0.5F, (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);

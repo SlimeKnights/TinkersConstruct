@@ -58,7 +58,7 @@ public class Shortbow extends BowBase
     {
         return TContent.toolRod;
     }
-    
+
     @Override
     public Item getHandleItem ()
     {
@@ -93,7 +93,7 @@ public class Shortbow extends BowBase
             }
         }
     }
-    
+
     @Override
     @SideOnly(Side.CLIENT)
     public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean par4)
@@ -178,14 +178,17 @@ public class Shortbow extends BowBase
             }
         }
     }
-    
+
     public String getBowstringName (int type)
     {
         switch (type)
         {
-        case 0: return "";
-        case 1: return "\u00A7bEnchanted";
-        default: return "";
+        case 0:
+            return "";
+        case 1:
+            return "\u00A7bEnchanted";
+        default:
+            return "";
         }
         //return TConstructRegistry.getMaterial(type).ability();
     }

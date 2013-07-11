@@ -51,9 +51,9 @@ public class BlockCastPage extends BookPage
         RenderHelper.disableStandardItemLighting();
         GL11.glDisable(GL12.GL_RESCALE_NORMAL);
         manual.fonts.drawString("Ingredients:", localWidth + 120, localHeight + 32, 0);
-        manual.fonts.drawString("- "+icons[1].getDisplayName(), localWidth + 120, localHeight + 42, 0);
+        manual.fonts.drawString("- " + icons[1].getDisplayName(), localWidth + 120, localHeight + 42, 0);
         if (icons[2] != null)
-            manual.fonts.drawString("- "+icons[2].getDisplayName(), localWidth + 120, localHeight + 50, 0);
+            manual.fonts.drawString("- " + icons[2].getDisplayName(), localWidth + 120, localHeight + 50, 0);
     }
 
     public void renderBackgroundLayer (int localWidth, int localHeight)

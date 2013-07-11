@@ -59,14 +59,13 @@ public class GolemPedestalBlock extends InventoryBlock
         world.setBlockMetadata(i, j, k, itemstack.getItemDamage());
     }*/
 
-    public void onBlockRemoval(World world, int i, int j, int k)
+    public void onBlockRemoval (World world, int i, int j, int k)
     {
         Random random = new Random();
-        GolemPedestalLogic tileentitygolempedestal = (GolemPedestalLogic)world.getBlockTileEntity(i, j, k);
+        GolemPedestalLogic tileentitygolempedestal = (GolemPedestalLogic) world.getBlockTileEntity(i, j, k);
         if (tileentitygolempedestal != null)
         {
-            label0:
-            for (int l = 0; l < tileentitygolempedestal.getSizeInventory(); l++)
+            label0: for (int l = 0; l < tileentitygolempedestal.getSizeInventory(); l++)
             {
                 ItemStack itemstack = tileentitygolempedestal.getStackInSlot(l);
                 if (itemstack == null)
@@ -88,20 +87,19 @@ public class GolemPedestalBlock extends InventoryBlock
                         i1 = itemstack.stackSize;
                     }
                     itemstack.stackSize -= i1;
-                    EntityItem entityitem = new EntityItem(world, (float)i + f, (float)j + f1, (float)k + f2, new ItemStack(itemstack.itemID, i1, itemstack.getItemDamage()));
+                    EntityItem entityitem = new EntityItem(world, (float) i + f, (float) j + f1, (float) k + f2, new ItemStack(itemstack.itemID, i1, itemstack.getItemDamage()));
                     float f3 = 0.05F;
-                    entityitem.motionX = (float)random.nextGaussian() * f3;
-                    entityitem.motionY = (float)random.nextGaussian() * f3 + 0.2F;
-                    entityitem.motionZ = (float)random.nextGaussian() * f3;
+                    entityitem.motionX = (float) random.nextGaussian() * f3;
+                    entityitem.motionY = (float) random.nextGaussian() * f3 + 0.2F;
+                    entityitem.motionZ = (float) random.nextGaussian() * f3;
                     world.spawnEntityInWorld(entityitem);
-                }
-                while (true);
+                } while (true);
             }
         }
         //super.onBlockRemoval(world, i, j, k);
     }
 
-    public boolean blockActivated(World world, int i, int j, int k, EntityPlayer entityplayer)
+    public boolean blockActivated (World world, int i, int j, int k, EntityPlayer entityplayer)
     {
         /*ItemStack itemstack = entityplayer.getCurrentEquippedItem();
         if (world.isRemote)
@@ -117,31 +115,31 @@ public class GolemPedestalBlock extends InventoryBlock
         {
             return false;
         }*/
-    	return false;
+        return false;
     }
 
-	@Override
-	public TileEntity createTileEntity (World world, int metadata)
-	{
+    @Override
+    public TileEntity createTileEntity (World world, int metadata)
+    {
         return new GolemPedestalLogic();
-	}
+    }
 
-	@Override
-	public Integer getGui (World world, int x, int y, int z, EntityPlayer entityplayer)
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public Integer getGui (World world, int x, int y, int z, EntityPlayer entityplayer)
+    {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public Object getModInstance ()
-	{
-		return null;
-	}
+    @Override
+    public Object getModInstance ()
+    {
+        return null;
+    }
 
-	@Override
-	public String[] getTextureNames ()
-	{
-		return null;
-	}
+    @Override
+    public String[] getTextureNames ()
+    {
+        return null;
+    }
 }

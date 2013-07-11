@@ -18,6 +18,7 @@ public class ToolPage extends BookPage
     String title;
     ItemStack[] icons;
     String[] iconText;
+
     @Override
     public void readPageFromXML (Element element)
     {
@@ -65,7 +66,7 @@ public class ToolPage extends BookPage
         for (int i = 1; i < icons.length; i++)
         {
             manual.renderitem.renderItemAndEffectIntoGUI(manual.fonts, manual.getMC().renderEngine, icons[i], localWidth + 120, localHeight + 20 + 10 * size + 18 * i);
-            int partOffset = iconText[i+1].length() > 11 ? -3 : 0;
+            int partOffset = iconText[i + 1].length() > 11 ? -3 : 0;
             manual.fonts.drawSplitString(iconText[i + 1], localWidth + 140, localHeight + 24 + 10 * size + 18 * i + partOffset, 44, 0);
         }
         manual.renderitem.zLevel = 0;

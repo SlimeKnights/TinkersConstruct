@@ -15,49 +15,48 @@ import net.minecraft.world.World;
  * Abstract to avoid instantiation
  */
 
-public abstract class InventoryLogic extends TileEntity
-	implements IInventory
+public abstract class InventoryLogic extends TileEntity implements IInventory
 {
-	protected ItemStack[] inventory;
-	protected String invName;
-	
-	public InventoryLogic(int invSize)
-	{
-		inventory = new ItemStack[invSize];
-	}
-	
-	/* Inventory management */
-	
-	@Override
-	public ItemStack getStackInSlot(int slot)
+    protected ItemStack[] inventory;
+    protected String invName;
+
+    public InventoryLogic(int invSize)
+    {
+        inventory = new ItemStack[invSize];
+    }
+
+    /* Inventory management */
+
+    @Override
+    public ItemStack getStackInSlot (int slot)
     {
         return inventory[slot];
     }
-    
-    public boolean isStackInSlot(int slot)
+
+    public boolean isStackInSlot (int slot)
     {
-    	return inventory[slot] != null;
+        return inventory[slot] != null;
     }
-	
+
     @Override
-	public int getSizeInventory()
+    public int getSizeInventory ()
     {
         return inventory.length;
     }
-	
-	@Override
-	public int getInventoryStackLimit ()
-	{
-		return 64;
-	}
-	
-	public boolean canDropInventorySlot(int slot)
-	{
-		return true;
-	}
-	
-	@Override
-	public void setInventorySlotContents(int slot, ItemStack itemstack)
+
+    @Override
+    public int getInventoryStackLimit ()
+    {
+        return 64;
+    }
+
+    public boolean canDropInventorySlot (int slot)
+    {
+        return true;
+    }
+
+    @Override
+    public void setInventorySlotContents (int slot, ItemStack itemstack)
     {
         inventory[slot] = itemstack;
         if (itemstack != null && itemstack.stackSize > getInventoryStackLimit())
@@ -65,9 +64,9 @@ public abstract class InventoryLogic extends TileEntity
             itemstack.stackSize = getInventoryStackLimit();
         }
     }
-	
-	@Override
-	public ItemStack decrStackSize(int slot, int quantity)
+
+    @Override
+    public ItemStack decrStackSize (int slot, int quantity)
     {
         if (inventory[slot] != null)
         {
@@ -89,24 +88,24 @@ public abstract class InventoryLogic extends TileEntity
             return null;
         }
     }
-	
-	/* Supporting methods */
-	@Override
-	public boolean isUseableByPlayer(EntityPlayer entityplayer)
+
+    /* Supporting methods */
+    @Override
+    public boolean isUseableByPlayer (EntityPlayer entityplayer)
     {
         if (worldObj.getBlockTileEntity(xCoord, yCoord, zCoord) != this)
             return false;
-        
+
         else
-            return entityplayer.getDistance((double)xCoord + 0.5D, (double)yCoord + 0.5D, (double)zCoord + 0.5D) <= 64D;
-        
+            return entityplayer.getDistance((double) xCoord + 0.5D, (double) yCoord + 0.5D, (double) zCoord + 0.5D) <= 64D;
+
     }
-	
-	public abstract Container getGuiContainer (InventoryPlayer inventoryplayer, World world, int x, int y, int z);
-	
-	/* NBT */
-	@Override
-    public void readFromNBT(NBTTagCompound tags)
+
+    public abstract Container getGuiContainer (InventoryPlayer inventoryplayer, World world, int x, int y, int z);
+
+    /* NBT */
+    @Override
+    public void readFromNBT (NBTTagCompound tags)
     {
         super.readFromNBT(tags);
         this.invName = tags.getString("InvName");
@@ -114,7 +113,7 @@ public abstract class InventoryLogic extends TileEntity
         inventory = new ItemStack[getSizeInventory()];
         for (int iter = 0; iter < nbttaglist.tagCount(); iter++)
         {
-            NBTTagCompound tagList = (NBTTagCompound)nbttaglist.tagAt(iter);
+            NBTTagCompound tagList = (NBTTagCompound) nbttaglist.tagAt(iter);
             byte slotID = tagList.getByte("Slot");
             if (slotID >= 0 && slotID < inventory.length)
             {
@@ -123,8 +122,8 @@ public abstract class InventoryLogic extends TileEntity
         }
     }
 
-	@Override
-    public void writeToNBT(NBTTagCompound tags)
+    @Override
+    public void writeToNBT (NBTTagCompound tags)
     {
         super.writeToNBT(tags);
         if (invName != null)
@@ -135,7 +134,7 @@ public abstract class InventoryLogic extends TileEntity
             if (inventory[iter] != null)
             {
                 NBTTagCompound tagList = new NBTTagCompound();
-                tagList.setByte("Slot", (byte)iter);
+                tagList.setByte("Slot", (byte) iter);
                 inventory[iter].writeToNBT(tagList);
                 nbttaglist.appendTag(tagList);
             }
@@ -143,32 +142,41 @@ public abstract class InventoryLogic extends TileEntity
 
         tags.setTag("Items", nbttaglist);
     }
-    
-	/* Default implementations of hardly used methods */
-	public ItemStack getStackInSlotOnClosing (int slot) { return null; }
-	public void openChest () {}
-	public void closeChest () {}
-	
-	protected abstract String getDefaultName();
-	
-	public String getInvName()
+
+    /* Default implementations of hardly used methods */
+    public ItemStack getStackInSlotOnClosing (int slot)
+    {
+        return null;
+    }
+
+    public void openChest ()
+    {
+    }
+
+    public void closeChest ()
+    {
+    }
+
+    protected abstract String getDefaultName ();
+
+    public String getInvName ()
     {
         return this.isInvNameLocalized() ? this.invName : getDefaultName();
     }
 
-    public boolean isInvNameLocalized()
+    public boolean isInvNameLocalized ()
     {
         return this.invName != null && this.invName.length() > 0;
     }
 
-	@Override
-	public boolean isStackValidForSlot (int slot, ItemStack itemstack)
-	{
-	    if (slot < getSizeInventory())
-	    {
-	        if (inventory[slot] == null || itemstack.stackSize + inventory[slot].stackSize <= getInventoryStackLimit())
-	        return true;
-	    }
-	    return false;
-	}
+    @Override
+    public boolean isStackValidForSlot (int slot, ItemStack itemstack)
+    {
+        if (slot < getSizeInventory())
+        {
+            if (inventory[slot] == null || itemstack.stackSize + inventory[slot].stackSize <= getInventoryStackLimit())
+                return true;
+        }
+        return false;
+    }
 }

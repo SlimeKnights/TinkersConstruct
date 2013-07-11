@@ -36,7 +36,6 @@ public abstract class TKeyHandler implements ITickHandler
         this.keyDown = new boolean[keyBindings.length + vanillaKeys.length];
     }
 
-
     /**
      * Register the keys into the system. You will do your own keyboard management elsewhere. No events will fire
      * if you use this method
@@ -49,7 +48,7 @@ public abstract class TKeyHandler implements ITickHandler
         this.isDummy = true;
     }
 
-    public KeyBinding[] getKeyBindings()
+    public KeyBinding[] getKeyBindings ()
     {
         return this.keyBindings;
     }
@@ -58,7 +57,7 @@ public abstract class TKeyHandler implements ITickHandler
      * Not to be overridden - KeyBindings are tickhandlers under the covers
      */
     @Override
-    public final void tickStart(EnumSet<TickType> type, Object... tickData)
+    public final void tickStart (EnumSet<TickType> type, Object... tickData)
     {
         keyTick(type, false);
     }
@@ -67,12 +66,12 @@ public abstract class TKeyHandler implements ITickHandler
      * Not to be overridden - KeyBindings are tickhandlers under the covers
      */
     @Override
-    public final void tickEnd(EnumSet<TickType> type, Object... tickData)
+    public final void tickEnd (EnumSet<TickType> type, Object... tickData)
     {
         keyTick(type, true);
     }
 
-    public void keyTick(EnumSet<TickType> type, boolean tickEnd)
+    public void keyTick (EnumSet<TickType> type, boolean tickEnd)
     {
         for (int i = 0; i < keyBindings.length; i++)
         {
@@ -83,7 +82,7 @@ public abstract class TKeyHandler implements ITickHandler
             {
                 if (state)
                 {
-                    keyDown(type, keyBinding, tickEnd, state!=keyDown[i]);
+                    keyDown(type, keyBinding, tickEnd, state != keyDown[i]);
                 }
                 else
                 {
@@ -100,11 +99,11 @@ public abstract class TKeyHandler implements ITickHandler
             KeyBinding keyBinding = vKeyBindings[i];
             int keyCode = keyBinding.keyCode;
             boolean state = (keyCode < 0 ? Mouse.isButtonDown(keyCode + 100) : Keyboard.isKeyDown(keyCode));
-            if (state != keyDown[i+keyBindings.length] || (state && vRepeatings[i]))
+            if (state != keyDown[i + keyBindings.length] || (state && vRepeatings[i]))
             {
                 if (state)
                 {
-                    keyDown(type, keyBinding, tickEnd, state!=keyDown[i+keyBindings.length]);
+                    keyDown(type, keyBinding, tickEnd, state != keyDown[i + keyBindings.length]);
                 }
                 else
                 {
@@ -112,7 +111,7 @@ public abstract class TKeyHandler implements ITickHandler
                 }
                 if (tickEnd)
                 {
-                    keyDown[i+keyBindings.length] = state;
+                    keyDown[i + keyBindings.length] = state;
                 }
             }
         }
@@ -128,7 +127,8 @@ public abstract class TKeyHandler implements ITickHandler
      * @param tickEnd was it an end or start tick which fired the key
      * @param isRepeat is it a repeat key event
      */
-    public abstract void keyDown(EnumSet<TickType> types, KeyBinding kb, boolean tickEnd, boolean isRepeat);
+    public abstract void keyDown (EnumSet<TickType> types, KeyBinding kb, boolean tickEnd, boolean isRepeat);
+
     /**
      * Fired once when the key changes state from down to up
      *
@@ -137,8 +137,7 @@ public abstract class TKeyHandler implements ITickHandler
      * @param types the type(s) of tick that fired when this key was first down
      * @param tickEnd was it an end or start tick which fired the key
      */
-    public abstract void keyUp(EnumSet<TickType> types, KeyBinding kb, boolean tickEnd);
-
+    public abstract void keyUp (EnumSet<TickType> types, KeyBinding kb, boolean tickEnd);
 
     /**
      * This is the list of ticks for which the key binding should trigger. The only
@@ -146,5 +145,5 @@ public abstract class TKeyHandler implements ITickHandler
      *
      * @see cpw.mods.fml.common.ITickHandler#ticks()
      */
-    public abstract EnumSet<TickType> ticks();
+    public abstract EnumSet<TickType> ticks ();
 }

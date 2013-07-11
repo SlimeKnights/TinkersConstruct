@@ -13,44 +13,42 @@ import net.minecraft.world.World;
 /* Simple class for storing items in the block
  */
 
-public class ToolForgeLogic extends ToolStationLogic
-    implements ISidedInventory
+public class ToolForgeLogic extends ToolStationLogic implements ISidedInventory
 {
-	ItemStack previousTool;
-	String toolName;
+    ItemStack previousTool;
+    String toolName;
 
-	public ToolForgeLogic()
-	{
-		super(6);
-		toolName = "";
-	}
-	
+    public ToolForgeLogic()
+    {
+        super(6);
+        toolName = "";
+    }
 
-	@Override
-	public String getDefaultName ()
-	{
-		return "toolforge.crafting";
-	}
+    @Override
+    public String getDefaultName ()
+    {
+        return "toolforge.crafting";
+    }
 
-	@Override
-	public Container getGuiContainer (InventoryPlayer inventoryplayer, World world, int x, int y, int z)
-	{
-		return new ToolForgeContainer(inventoryplayer, this);
-	}
+    @Override
+    public Container getGuiContainer (InventoryPlayer inventoryplayer, World world, int x, int y, int z)
+    {
+        return new ToolForgeContainer(inventoryplayer, this);
+    }
 
-	public void buildTool (String name)
-	{
-		toolName = name;
-		ItemStack tool = ToolBuilder.instance.buildTool(inventory[1], inventory[2], inventory[3], inventory[4], name);
-		if (inventory[0] == null)
-			inventory[0] = tool;
-		else
-		{
-			NBTTagCompound tags = inventory[0].getTagCompound();
-			if (!tags.getCompoundTag("InfiTool").hasKey("Built"))
-			{
-				inventory[0] = tool;
-			}
-		}
-	}
+    public void buildTool (String name)
+    {
+        toolName = name;
+        ItemStack tool = ToolBuilder.instance.buildTool(inventory[1], inventory[2], inventory[3], inventory[4], name);
+        if (inventory[0] == null)
+            inventory[0] = tool;
+        else
+        {
+            NBTTagCompound tags = inventory[0].getTagCompound();
+            if (!tags.getCompoundTag("InfiTool").hasKey("Built"))
+            {
+                inventory[0] = tool;
+            }
+        }
+    }
 }

@@ -52,16 +52,16 @@ public class DryingRackLogic extends InventoryLogic
             }
         }
     }
-    
+
     @Override
-    public void setInventorySlotContents(int slot, ItemStack itemstack)
+    public void setInventorySlotContents (int slot, ItemStack itemstack)
     {
         super.setInventorySlotContents(slot, itemstack);
         updateDryingTime();
     }
-    
+
     @Override
-    public ItemStack decrStackSize(int slot, int quantity)
+    public ItemStack decrStackSize (int slot, int quantity)
     {
         ItemStack stack = super.decrStackSize(slot, quantity);
         maxTime = 0;
@@ -69,7 +69,6 @@ public class DryingRackLogic extends InventoryLogic
         return stack;
     }
 
-    
     public void updateDryingTime ()
     {
         currentTime = 0;

@@ -13,8 +13,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class GlassPaneStained extends PaneBase
 {
-    static String blockTextures[] = { "white", "orange", "magenta", "lightblue", "yellow", "lime", "pink", "gray", "lightgray", "cyan",
-        "purple", "blue", "brown", "green", "red", "black" };
+    static String blockTextures[] = { "white", "orange", "magenta", "lightblue", "yellow", "lime", "pink", "gray", "lightgray", "cyan", "purple", "blue", "brown", "green", "red", "black" };
+
     public GlassPaneStained(int id)
     {
         super(id, Material.glass, "glass/", assembleBlockTextures());
@@ -23,13 +23,13 @@ public class GlassPaneStained extends PaneBase
         this.setUnlocalizedName("tconstruct.glasspanestained");
         this.setCreativeTab(TConstructRegistry.blockTab);
     }
-    
+
     private static String[] assembleBlockTextures ()
     {
         String[] textures = new String[blockTextures.length];
         for (int i = 0; i < blockTextures.length; i++)
         {
-            textures[i] = "stainedglass_"+blockTextures[i];
+            textures[i] = "stainedglass_" + blockTextures[i];
         }
         return textures;
     }

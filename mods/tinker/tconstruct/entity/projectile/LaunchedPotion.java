@@ -54,22 +54,22 @@ public class LaunchedPotion extends EntityThrowable
     /**
      * Gets the amount of gravity to apply to the thrown entity with each tick.
      */
-    protected float getGravityVelocity()
+    protected float getGravityVelocity ()
     {
         return 0.05F;
     }
 
-    protected float func_70182_d()
+    protected float func_70182_d ()
     {
         return 1.0F;
     }
 
-    protected float func_70183_g()
+    protected float func_70183_g ()
     {
         return -10.0F;
     }
 
-    public void setPotionDamage(int par1)
+    public void setPotionDamage (int par1)
     {
         if (this.potionDamage == null)
         {
@@ -82,7 +82,7 @@ public class LaunchedPotion extends EntityThrowable
     /**
      * Returns the damage value of the thrown potion that this EntityPotion represents.
      */
-    public int getPotionDamage()
+    public int getPotionDamage ()
     {
         if (this.potionDamage == null)
         {
@@ -95,7 +95,7 @@ public class LaunchedPotion extends EntityThrowable
     /**
      * Called when this EntityThrowable hits a block or entity.
      */
-    protected void onImpact(MovingObjectPosition par1MovingObjectPosition)
+    protected void onImpact (MovingObjectPosition par1MovingObjectPosition)
     {
         if (!this.worldObj.isRemote)
         {
@@ -112,7 +112,7 @@ public class LaunchedPotion extends EntityThrowable
 
                     while (iterator.hasNext())
                     {
-                        EntityLiving entityliving = (EntityLiving)iterator.next();
+                        EntityLiving entityliving = (EntityLiving) iterator.next();
                         double d0 = this.getDistanceSqToEntity(entityliving);
 
                         if (d0 < 16.0D)
@@ -128,7 +128,7 @@ public class LaunchedPotion extends EntityThrowable
 
                             while (iterator1.hasNext())
                             {
-                                PotionEffect potioneffect = (PotionEffect)iterator1.next();
+                                PotionEffect potioneffect = (PotionEffect) iterator1.next();
                                 int i = potioneffect.getPotionID();
 
                                 if (Potion.potionTypes[i].isInstant())
@@ -137,7 +137,7 @@ public class LaunchedPotion extends EntityThrowable
                                 }
                                 else
                                 {
-                                    int j = (int)(d1 * (double)potioneffect.getDuration() + 0.5D);
+                                    int j = (int) (d1 * (double) potioneffect.getDuration() + 0.5D);
 
                                     if (j > 20)
                                     {
@@ -150,7 +150,7 @@ public class LaunchedPotion extends EntityThrowable
                 }
             }
 
-            this.worldObj.playAuxSFX(2002, (int)Math.round(this.posX), (int)Math.round(this.posY), (int)Math.round(this.posZ), this.getPotionDamage());
+            this.worldObj.playAuxSFX(2002, (int) Math.round(this.posX), (int) Math.round(this.posY), (int) Math.round(this.posZ), this.getPotionDamage());
             this.setDead();
         }
     }
@@ -158,7 +158,7 @@ public class LaunchedPotion extends EntityThrowable
     /**
      * (abstract) Protected helper method to read subclass entity data from NBT.
      */
-    public void readEntityFromNBT(NBTTagCompound par1NBTTagCompound)
+    public void readEntityFromNBT (NBTTagCompound par1NBTTagCompound)
     {
         super.readEntityFromNBT(par1NBTTagCompound);
 
@@ -180,7 +180,7 @@ public class LaunchedPotion extends EntityThrowable
     /**
      * (abstract) Protected helper method to write subclass entity data to NBT.
      */
-    public void writeEntityToNBT(NBTTagCompound par1NBTTagCompound)
+    public void writeEntityToNBT (NBTTagCompound par1NBTTagCompound)
     {
         super.writeEntityToNBT(par1NBTTagCompound);
 

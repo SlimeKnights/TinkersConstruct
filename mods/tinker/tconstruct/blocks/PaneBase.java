@@ -24,6 +24,7 @@ public class PaneBase extends Block
     public String folder;
     public Icon[] icons;
     public Icon[] sideIcons;
+
     public PaneBase(int id, Material material, String folder, String[] blockTextures)
     {
         super(id, material);
@@ -41,53 +42,53 @@ public class PaneBase extends Block
     {
         return sideIcons[meta];
     }
-    
+
     @Override
     @SideOnly(Side.CLIENT)
-    public void registerIcons(IconRegister iconRegister)
+    public void registerIcons (IconRegister iconRegister)
     {
         this.icons = new Icon[textureNames.length];
         this.sideIcons = new Icon[textureNames.length];
 
         for (int i = 0; i < this.icons.length; ++i)
         {
-            this.icons[i] = iconRegister.registerIcon("tinker:"+folder+textureNames[i]);
-            this.sideIcons[i] = iconRegister.registerIcon("tinker:"+folder+textureNames[i]+"_side");
+            this.icons[i] = iconRegister.registerIcon("tinker:" + folder + textureNames[i]);
+            this.sideIcons[i] = iconRegister.registerIcon("tinker:" + folder + textureNames[i] + "_side");
         }
     }
-    
+
     @Override
     @SideOnly(Side.CLIENT)
     public Icon getIcon (int side, int meta)
     {
         return icons[meta];
     }
-    
+
     @Override
-    public void getSubBlocks(int id, CreativeTabs tab, List list)
+    public void getSubBlocks (int id, CreativeTabs tab, List list)
     {
         for (int iter = 0; iter < textureNames.length; iter++)
         {
             list.add(new ItemStack(id, 1, iter));
         }
     }
-    
-    public boolean isOpaqueCube()
+
+    public boolean isOpaqueCube ()
     {
         return false;
     }
 
-    public boolean renderAsNormalBlock()
+    public boolean renderAsNormalBlock ()
     {
         return false;
     }
 
-    public int getRenderType()
+    public int getRenderType ()
     {
         return PaneRender.model;
     }
 
-    public boolean shouldSideBeRendered(IBlockAccess iblockaccess, int i, int j, int k, int l)
+    public boolean shouldSideBeRendered (IBlockAccess iblockaccess, int i, int j, int k, int l)
     {
         int bID = iblockaccess.getBlockId(i, j, k);
         if (Block.blocksList[bID] instanceof PaneBase || Block.blocksList[bID] instanceof BlockPane)
@@ -101,7 +102,7 @@ public class PaneBase extends Block
     }
 
     @Override
-    public void addCollisionBoxesToList(World world, int x, int y, int z, AxisAlignedBB axisalignedbb, List arraylist, Entity entity)
+    public void addCollisionBoxesToList (World world, int x, int y, int z, AxisAlignedBB axisalignedbb, List arraylist, Entity entity)
     {
         boolean south = canConnectTo(world.getBlockId(x, y, z - 1));
         boolean north = canConnectTo(world.getBlockId(x, y, z + 1));
@@ -139,12 +140,12 @@ public class PaneBase extends Block
         }
     }
 
-    public void setBlockBoundsForItemRender()
+    public void setBlockBoundsForItemRender ()
     {
         setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
     }
 
-    public void setBlockBoundsBasedOnState(IBlockAccess iblockaccess, int i, int j, int k)
+    public void setBlockBoundsBasedOnState (IBlockAccess iblockaccess, int i, int j, int k)
     {
         float f = 0.4375F;
         float f1 = 0.5625F;

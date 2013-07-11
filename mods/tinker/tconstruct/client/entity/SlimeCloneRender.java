@@ -24,7 +24,7 @@ public class SlimeCloneRender extends RenderLiving
     /**
      * Determines whether Slime Render should pass or not.
      */
-    protected int shouldSlimeRenderPass(SlimeClone blueSlime, int par2, float par3)
+    protected int shouldSlimeRenderPass (SlimeClone blueSlime, int par2, float par3)
     {
         if (blueSlime.isInvisible())
         {
@@ -53,7 +53,7 @@ public class SlimeCloneRender extends RenderLiving
     /**
      * sets the scale for the slime based on getSlimeSize in EdibleSlime
      */
-    protected void scaleSlime(SlimeClone slimeClone, float par2)
+    protected void scaleSlime (SlimeClone slimeClone, float par2)
     {
         float f1 = slimeClone.getSlimeSize();
         float f2 = (slimeClone.sizeHeight + (slimeClone.sizeFactor - slimeClone.sizeHeight) * par2) / (f1 * 0.5F + 1.0F);
@@ -65,27 +65,27 @@ public class SlimeCloneRender extends RenderLiving
      * Allows the render to do any OpenGL state modifications necessary before the model is rendered. Args:
      * entityLiving, partialTickTime
      */
-    protected void preRenderCallback(EntityLiving par1EntityLiving, float par2)
+    protected void preRenderCallback (EntityLiving par1EntityLiving, float par2)
     {
-        this.scaleSlime((SlimeClone)par1EntityLiving, par2);
+        this.scaleSlime((SlimeClone) par1EntityLiving, par2);
     }
 
     /**
      * Queries whether should render the specified pass or not.
      */
-    protected int shouldRenderPass(EntityLiving par1EntityLiving, int par2, float par3)
+    protected int shouldRenderPass (EntityLiving par1EntityLiving, int par2, float par3)
     {
-        return this.shouldSlimeRenderPass((SlimeClone)par1EntityLiving, par2, par3);
+        return this.shouldSlimeRenderPass((SlimeClone) par1EntityLiving, par2, par3);
     }
-    
-    protected void func_98191_a(SlimeClone slime)
+
+    protected void func_98191_a (SlimeClone slime)
     {
         this.loadDownloadableImageTexture(slime.skinUrl, slime.getTexture());
     }
-    
+
     @Override
-    protected void func_98190_a(EntityLiving par1EntityLiving)
+    protected void func_98190_a (EntityLiving par1EntityLiving)
     {
-        this.func_98191_a((SlimeClone)par1EntityLiving);
+        this.func_98191_a((SlimeClone) par1EntityLiving);
     }
 }

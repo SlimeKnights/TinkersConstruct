@@ -9,44 +9,43 @@ import com.google.common.io.ByteArrayDataOutput;
 
 import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
 
-public class FakeBlockEntity extends Entity
-	implements IEntityAdditionalSpawnData
+public class FakeBlockEntity extends Entity implements IEntityAdditionalSpawnData
 {
 
-	public FakeBlockEntity(World world)
-	{
-		super(world);
-		preventEntitySpawning = true;
-	}
-	
-	@Override
-	protected void entityInit ()
-	{
-		
-	}
+    public FakeBlockEntity(World world)
+    {
+        super(world);
+        preventEntitySpawning = true;
+    }
 
-	@Override
-	public void writeSpawnData (ByteArrayDataOutput data)
-	{
-		
-	}
+    @Override
+    protected void entityInit ()
+    {
 
-	@Override
-	public void readSpawnData (ByteArrayDataInput data)
-	{
-		
-	}
+    }
 
-	@Override
-	protected void readEntityFromNBT (NBTTagCompound var1)
-	{
-		
-	}
+    @Override
+    public void writeSpawnData (ByteArrayDataOutput data)
+    {
 
-	@Override
-	protected void writeEntityToNBT (NBTTagCompound var1)
-	{
-		
-	}
+    }
+
+    @Override
+    public void readSpawnData (ByteArrayDataInput data)
+    {
+
+    }
+
+    @Override
+    protected void readEntityFromNBT (NBTTagCompound var1)
+    {
+
+    }
+
+    @Override
+    protected void writeEntityToNBT (NBTTagCompound var1)
+    {
+
+    }
 
 }

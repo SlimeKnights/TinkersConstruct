@@ -22,37 +22,36 @@ public class PatternChestContainer extends Container
         {
             for (int row = 0; row < 10; row++)
             {
-            	this.addSlotToContainer(new SlotPattern(chest, row + column * 10, 8 + row * 18, 18 + column * 18));
+                this.addSlotToContainer(new SlotPattern(chest, row + column * 10, 8 + row * 18, 18 + column * 18));
             }
         }
-        
+
         /* Player inventory */
-		for (int column = 0; column < 3; column++)
+        for (int column = 0; column < 3; column++)
         {
             for (int row = 0; row < 9; row++)
             {
-            	this.addSlotToContainer(new Slot(inventoryplayer, row + column * 9 + 9, 17 + row * 18, 86 + column * 18));
+                this.addSlotToContainer(new Slot(inventoryplayer, row + column * 9 + 9, 17 + row * 18, 86 + column * 18));
             }
         }
 
         for (int column = 0; column < 9; column++)
         {
-        	this.addSlotToContainer(new Slot(inventoryplayer, column, 17 + column * 18, 144));
+            this.addSlotToContainer(new Slot(inventoryplayer, column, 17 + column * 18, 144));
         }
     }
 
-
     @Override
-    public boolean canInteractWith(EntityPlayer entityplayer)
+    public boolean canInteractWith (EntityPlayer entityplayer)
     {
         return logic.isUseableByPlayer(entityplayer);
     }
-    
+
     @Override
-    public ItemStack transferStackInSlot(EntityPlayer player, int slotID)
+    public ItemStack transferStackInSlot (EntityPlayer player, int slotID)
     {
-		ItemStack stack = null;
-        Slot slot = (Slot)this.inventorySlots.get(slotID);
+        ItemStack stack = null;
+        Slot slot = (Slot) this.inventorySlots.get(slotID);
 
         if (slot != null && slot.getHasStack())
         {
@@ -73,7 +72,7 @@ public class PatternChestContainer extends Container
 
             if (slotStack.stackSize == 0)
             {
-                slot.putStack((ItemStack)null);
+                slot.putStack((ItemStack) null);
             }
             else
             {
@@ -83,13 +82,13 @@ public class PatternChestContainer extends Container
 
         return stack;
     }
-	
+
     @Override
-    protected boolean mergeItemStack(ItemStack stack, int inventorySize, int slotSize, boolean par4)
+    protected boolean mergeItemStack (ItemStack stack, int inventorySize, int slotSize, boolean par4)
     {
-    	if (!(stack.getItem() instanceof IPattern))
-    		return false;
-    	
-    	return super.mergeItemStack(stack, inventorySize, slotSize, par4);
+        if (!(stack.getItem() instanceof IPattern))
+            return false;
+
+        return super.mergeItemStack(stack, inventorySize, slotSize, par4);
     }
 }

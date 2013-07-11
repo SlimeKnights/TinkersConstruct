@@ -46,7 +46,7 @@ public class RenderItemCopy extends Render
     /**
      * Renders the item
      */
-    public void doRenderItem(EntityItem par1EntityItem, double par2, double par4, double par6, float par8, float par9)
+    public void doRenderItem (EntityItem par1EntityItem, double par2, double par4, double par6, float par8, float par9)
     {
         this.random.setSeed(187L);
         ItemStack itemstack = par1EntityItem.getEntityItem();
@@ -54,11 +54,11 @@ public class RenderItemCopy extends Render
         if (itemstack.getItem() != null)
         {
             GL11.glPushMatrix();
-            float f2 = shouldBob() ? MathHelper.sin(((float)par1EntityItem.age + par9) / 10.0F + par1EntityItem.hoverStart) * 0.1F + 0.1F : 0F;
-            float f3 = (((float)par1EntityItem.age + par9) / 20.0F + par1EntityItem.hoverStart) * (180F / (float)Math.PI);
+            float f2 = shouldBob() ? MathHelper.sin(((float) par1EntityItem.age + par9) / 10.0F + par1EntityItem.hoverStart) * 0.1F + 0.1F : 0F;
+            float f3 = (((float) par1EntityItem.age + par9) / 20.0F + par1EntityItem.hoverStart) * (180F / (float) Math.PI);
             byte b0 = getMiniBlockCount(itemstack);
 
-            GL11.glTranslatef((float)par2, (float)par4 + f2, (float)par6);
+            GL11.glTranslatef((float) par2, (float) par4 + f2, (float) par6);
             GL11.glEnable(GL12.GL_RESCALE_NORMAL);
             int i;
             float f4;
@@ -141,9 +141,9 @@ public class RenderItemCopy extends Render
                         if (this.renderWithColor)
                         {
                             i = Item.itemsList[itemstack.itemID].getColorFromItemStack(itemstack, k);
-                            f5 = (float)(i >> 16 & 255) / 255.0F;
-                            f4 = (float)(i >> 8 & 255) / 255.0F;
-                            f6 = (float)(i & 255) / 255.0F;
+                            f5 = (float) (i >> 16 & 255) / 255.0F;
+                            f4 = (float) (i >> 8 & 255) / 255.0F;
+                            f6 = (float) (i & 255) / 255.0F;
                             GL11.glColor4f(f5 * f8, f4 * f8, f6 * f8, 1.0F);
                             this.renderDroppedItem(par1EntityItem, icon, b0, par9, f5 * f8, f4 * f8, f6 * f8);
                         }
@@ -179,9 +179,9 @@ public class RenderItemCopy extends Render
                     if (this.renderWithColor)
                     {
                         int l = Item.itemsList[itemstack.itemID].getColorFromItemStack(itemstack, 0);
-                        f8 = (float)(l >> 16 & 255) / 255.0F;
-                        float f9 = (float)(l >> 8 & 255) / 255.0F;
-                        f5 = (float)(l & 255) / 255.0F;
+                        f8 = (float) (l >> 16 & 255) / 255.0F;
+                        float f9 = (float) (l >> 8 & 255) / 255.0F;
+                        f5 = (float) (l & 255) / 255.0F;
                         f4 = 1.0F;
                         this.renderDroppedItem(par1EntityItem, icon1, b0, par9, f8 * f4, f9 * f4, f5 * f4);
                     }
@@ -200,7 +200,7 @@ public class RenderItemCopy extends Render
     /**
      * Renders a dropped item
      */
-    private void renderDroppedItem(EntityItem par1EntityItem, Icon par2Icon, int par3, float par4, float par5, float par6, float par7)
+    private void renderDroppedItem (EntityItem par1EntityItem, Icon par2Icon, int par3, float par4, float par5, float par6, float par7)
     {
         Tessellator tessellator = Tessellator.instance;
 
@@ -228,7 +228,7 @@ public class RenderItemCopy extends Render
             }
             else
             {
-                GL11.glRotatef((((float)par1EntityItem.age + par4) / 20.0F + par1EntityItem.hoverStart) * (180F / (float)Math.PI), 0.0F, 1.0F, 0.0F);
+                GL11.glRotatef((((float) par1EntityItem.age + par4) / 20.0F + par1EntityItem.hoverStart) * (180F / (float) Math.PI), 0.0F, 1.0F, 0.0F);
             }
 
             float f12 = 0.0625F;
@@ -237,7 +237,7 @@ public class RenderItemCopy extends Render
             int j = itemstack.stackSize;
             byte b0 = getMiniItemCount(itemstack);
 
-            GL11.glTranslatef(-f9, -f10, -((f12 + f11) * (float)b0 / 2.0F));
+            GL11.glTranslatef(-f9, -f10, -((f12 + f11) * (float) b0 / 2.0F));
 
             for (int k = 0; k < b0; ++k)
             {
@@ -279,14 +279,14 @@ public class RenderItemCopy extends Render
                     GL11.glPushMatrix();
                     float f14 = 0.125F;
                     GL11.glScalef(f14, f14, f14);
-                    float f15 = (float)(Minecraft.getSystemTime() % 3000L) / 3000.0F * 8.0F;
+                    float f15 = (float) (Minecraft.getSystemTime() % 3000L) / 3000.0F * 8.0F;
                     GL11.glTranslatef(f15, 0.0F, 0.0F);
                     GL11.glRotatef(-50.0F, 0.0F, 0.0F, 1.0F);
                     ItemRenderer.renderItemIn2D(tessellator, 0.0F, 0.0F, 1.0F, 1.0F, 255, 255, f12);
                     GL11.glPopMatrix();
                     GL11.glPushMatrix();
                     GL11.glScalef(f14, f14, f14);
-                    f15 = (float)(Minecraft.getSystemTime() % 4873L) / 4873.0F * 8.0F;
+                    f15 = (float) (Minecraft.getSystemTime() % 4873L) / 4873.0F * 8.0F;
                     GL11.glTranslatef(-f15, 0.0F, 0.0F);
                     GL11.glRotatef(10.0F, 0.0F, 0.0F, 1.0F);
                     ItemRenderer.renderItemIn2D(tessellator, 0.0F, 0.0F, 1.0F, 1.0F, 255, 255, f12);
@@ -322,10 +322,10 @@ public class RenderItemCopy extends Render
                 GL11.glColor4f(par5, par6, par7, 1.0F);
                 tessellator.startDrawingQuads();
                 tessellator.setNormal(0.0F, 1.0F, 0.0F);
-                tessellator.addVertexWithUV((double)(0.0F - f9), (double)(0.0F - f10), 0.0D, (double)f4, (double)f7);
-                tessellator.addVertexWithUV((double)(f8 - f9), (double)(0.0F - f10), 0.0D, (double)f5, (double)f7);
-                tessellator.addVertexWithUV((double)(f8 - f9), (double)(1.0F - f10), 0.0D, (double)f5, (double)f6);
-                tessellator.addVertexWithUV((double)(0.0F - f9), (double)(1.0F - f10), 0.0D, (double)f4, (double)f6);
+                tessellator.addVertexWithUV((double) (0.0F - f9), (double) (0.0F - f10), 0.0D, (double) f4, (double) f7);
+                tessellator.addVertexWithUV((double) (f8 - f9), (double) (0.0F - f10), 0.0D, (double) f5, (double) f7);
+                tessellator.addVertexWithUV((double) (f8 - f9), (double) (1.0F - f10), 0.0D, (double) f5, (double) f6);
+                tessellator.addVertexWithUV((double) (0.0F - f9), (double) (1.0F - f10), 0.0D, (double) f4, (double) f6);
                 tessellator.draw();
                 GL11.glPopMatrix();
             }
@@ -335,7 +335,7 @@ public class RenderItemCopy extends Render
     /**
      * Renders the item's icon or block into the UI at the specified position.
      */
-    public void renderItemIntoGUI(SmallFontRenderer par1SmallFontRenderer, RenderEngine par2RenderEngine, ItemStack par3ItemStack, int par4, int par5)
+    public void renderItemIntoGUI (SmallFontRenderer par1SmallFontRenderer, RenderEngine par2RenderEngine, ItemStack par3ItemStack, int par4, int par5)
     {
         int k = par3ItemStack.itemID;
         int l = par3ItemStack.getItemDamage();
@@ -349,16 +349,16 @@ public class RenderItemCopy extends Render
         {
             par2RenderEngine.bindTexture("/terrain.png");
             GL11.glPushMatrix();
-            GL11.glTranslatef((float)(par4 - 2), (float)(par5 + 3), -3.0F + this.zLevel);
+            GL11.glTranslatef((float) (par4 - 2), (float) (par5 + 3), -3.0F + this.zLevel);
             GL11.glScalef(10.0F, 10.0F, 10.0F);
             GL11.glTranslatef(1.0F, 0.5F, 1.0F);
             GL11.glScalef(1.0F, 1.0F, -1.0F);
             GL11.glRotatef(210.0F, 1.0F, 0.0F, 0.0F);
             GL11.glRotatef(45.0F, 0.0F, 1.0F, 0.0F);
             int i1 = Item.itemsList[k].getColorFromItemStack(par3ItemStack, 0);
-            f2 = (float)(i1 >> 16 & 255) / 255.0F;
-            f = (float)(i1 >> 8 & 255) / 255.0F;
-            f1 = (float)(i1 & 255) / 255.0F;
+            f2 = (float) (i1 >> 16 & 255) / 255.0F;
+            f = (float) (i1 >> 8 & 255) / 255.0F;
+            f1 = (float) (i1 & 255) / 255.0F;
 
             if (this.renderWithColor)
             {
@@ -384,9 +384,9 @@ public class RenderItemCopy extends Render
                 {
                     Icon icon1 = Item.itemsList[k].getIcon(par3ItemStack, j1);
                     int k1 = Item.itemsList[k].getColorFromItemStack(par3ItemStack, j1);
-                    f = (float)(k1 >> 16 & 255) / 255.0F;
-                    f1 = (float)(k1 >> 8 & 255) / 255.0F;
-                    float f3 = (float)(k1 & 255) / 255.0F;
+                    f = (float) (k1 >> 16 & 255) / 255.0F;
+                    f1 = (float) (k1 >> 8 & 255) / 255.0F;
+                    float f3 = (float) (k1 & 255) / 255.0F;
 
                     if (this.renderWithColor)
                     {
@@ -417,9 +417,9 @@ public class RenderItemCopy extends Render
                 }
 
                 j1 = Item.itemsList[k].getColorFromItemStack(par3ItemStack, 0);
-                float f4 = (float)(j1 >> 16 & 255) / 255.0F;
-                f2 = (float)(j1 >> 8 & 255) / 255.0F;
-                f = (float)(j1 & 255) / 255.0F;
+                float f4 = (float) (j1 >> 16 & 255) / 255.0F;
+                f2 = (float) (j1 >> 8 & 255) / 255.0F;
+                f = (float) (j1 & 255) / 255.0F;
 
                 if (this.renderWithColor)
                 {
@@ -437,11 +437,11 @@ public class RenderItemCopy extends Render
     /**
      * Render the item's icon or block into the GUI, including the glint effect.
      */
-    public void renderItemAndEffectIntoGUI(SmallFontRenderer par1SmallFontRenderer, RenderEngine par2RenderEngine, ItemStack par3ItemStack, int par4, int par5)
+    public void renderItemAndEffectIntoGUI (SmallFontRenderer par1SmallFontRenderer, RenderEngine par2RenderEngine, ItemStack par3ItemStack, int par4, int par5)
     {
         if (par3ItemStack != null)
         {
-            if (!ForgeHooksClient.renderInventoryItem(renderBlocks, par2RenderEngine, par3ItemStack, renderWithColor, zLevel, (float)par4, (float)par5))
+            if (!ForgeHooksClient.renderInventoryItem(renderBlocks, par2RenderEngine, par3ItemStack, renderWithColor, zLevel, (float) par4, (float) par5))
             {
                 this.renderItemIntoGUI(par1SmallFontRenderer, par2RenderEngine, par3ItemStack, par4, par5);
             }
@@ -466,7 +466,7 @@ public class RenderItemCopy extends Render
         }
     }
 
-    private void renderGlint(int par1, int par2, int par3, int par4, int par5)
+    private void renderGlint (int par1, int par2, int par3, int par4, int par5)
     {
         for (int j1 = 0; j1 < 2; ++j1)
         {
@@ -482,7 +482,7 @@ public class RenderItemCopy extends Render
 
             float f = 0.00390625F;
             float f1 = 0.00390625F;
-            float f2 = (float)(Minecraft.getSystemTime() % (long)(3000 + j1 * 1873)) / (3000.0F + (float)(j1 * 1873)) * 256.0F;
+            float f2 = (float) (Minecraft.getSystemTime() % (long) (3000 + j1 * 1873)) / (3000.0F + (float) (j1 * 1873)) * 256.0F;
             float f3 = 0.0F;
             Tessellator tessellator = Tessellator.instance;
             float f4 = 4.0F;
@@ -493,10 +493,11 @@ public class RenderItemCopy extends Render
             }
 
             tessellator.startDrawingQuads();
-            tessellator.addVertexWithUV((double)(par2 + 0), (double)(par3 + par5), (double)this.zLevel, (double)((f2 + (float)par5 * f4) * f), (double)((f3 + (float)par5) * f1));
-            tessellator.addVertexWithUV((double)(par2 + par4), (double)(par3 + par5), (double)this.zLevel, (double)((f2 + (float)par4 + (float)par5 * f4) * f), (double)((f3 + (float)par5) * f1));
-            tessellator.addVertexWithUV((double)(par2 + par4), (double)(par3 + 0), (double)this.zLevel, (double)((f2 + (float)par4) * f), (double)((f3 + 0.0F) * f1));
-            tessellator.addVertexWithUV((double)(par2 + 0), (double)(par3 + 0), (double)this.zLevel, (double)((f2 + 0.0F) * f), (double)((f3 + 0.0F) * f1));
+            tessellator.addVertexWithUV((double) (par2 + 0), (double) (par3 + par5), (double) this.zLevel, (double) ((f2 + (float) par5 * f4) * f), (double) ((f3 + (float) par5) * f1));
+            tessellator.addVertexWithUV((double) (par2 + par4), (double) (par3 + par5), (double) this.zLevel, (double) ((f2 + (float) par4 + (float) par5 * f4) * f),
+                    (double) ((f3 + (float) par5) * f1));
+            tessellator.addVertexWithUV((double) (par2 + par4), (double) (par3 + 0), (double) this.zLevel, (double) ((f2 + (float) par4) * f), (double) ((f3 + 0.0F) * f1));
+            tessellator.addVertexWithUV((double) (par2 + 0), (double) (par3 + 0), (double) this.zLevel, (double) ((f2 + 0.0F) * f), (double) ((f3 + 0.0F) * f1));
             tessellator.draw();
         }
     }
@@ -505,12 +506,12 @@ public class RenderItemCopy extends Render
      * Renders the item's overlay information. Examples being stack count or damage on top of the item's image at the
      * specified position.
      */
-    public void renderItemOverlayIntoGUI(SmallFontRenderer par1SmallFontRenderer, RenderEngine par2RenderEngine, ItemStack par3ItemStack, int par4, int par5)
+    public void renderItemOverlayIntoGUI (SmallFontRenderer par1SmallFontRenderer, RenderEngine par2RenderEngine, ItemStack par3ItemStack, int par4, int par5)
     {
-        this.renderItemOverlayIntoGUI(par1SmallFontRenderer, par2RenderEngine, par3ItemStack, par4, par5, (String)null);
+        this.renderItemOverlayIntoGUI(par1SmallFontRenderer, par2RenderEngine, par3ItemStack, par4, par5, (String) null);
     }
 
-    public void renderItemOverlayIntoGUI(SmallFontRenderer par1SmallFontRenderer, RenderEngine par2RenderEngine, ItemStack par3ItemStack, int par4, int par5, String par6Str)
+    public void renderItemOverlayIntoGUI (SmallFontRenderer par1SmallFontRenderer, RenderEngine par2RenderEngine, ItemStack par3ItemStack, int par4, int par5, String par6Str)
     {
         if (par3ItemStack != null)
         {
@@ -526,8 +527,8 @@ public class RenderItemCopy extends Render
 
             if (par3ItemStack.isItemDamaged())
             {
-                int k = (int)Math.round(13.0D - (double)par3ItemStack.getItemDamageForDisplay() * 13.0D / (double)par3ItemStack.getMaxDamage());
-                int l = (int)Math.round(255.0D - (double)par3ItemStack.getItemDamageForDisplay() * 255.0D / (double)par3ItemStack.getMaxDamage());
+                int k = (int) Math.round(13.0D - (double) par3ItemStack.getItemDamageForDisplay() * 13.0D / (double) par3ItemStack.getMaxDamage());
+                int l = (int) Math.round(255.0D - (double) par3ItemStack.getItemDamageForDisplay() * 255.0D / (double) par3ItemStack.getMaxDamage());
                 GL11.glDisable(GL11.GL_LIGHTING);
                 GL11.glDisable(GL11.GL_DEPTH_TEST);
                 GL11.glDisable(GL11.GL_TEXTURE_2D);
@@ -549,25 +550,25 @@ public class RenderItemCopy extends Render
      * Adds a quad to the tesselator at the specified position with the set width and height and color.  Args:
      * tessellator, x, y, width, height, color
      */
-    private void renderQuad(Tessellator par1Tessellator, int par2, int par3, int par4, int par5, int par6)
+    private void renderQuad (Tessellator par1Tessellator, int par2, int par3, int par4, int par5, int par6)
     {
         par1Tessellator.startDrawingQuads();
         par1Tessellator.setColorOpaque_I(par6);
-        par1Tessellator.addVertex((double)(par2 + 0), (double)(par3 + 0), 0.0D);
-        par1Tessellator.addVertex((double)(par2 + 0), (double)(par3 + par5), 0.0D);
-        par1Tessellator.addVertex((double)(par2 + par4), (double)(par3 + par5), 0.0D);
-        par1Tessellator.addVertex((double)(par2 + par4), (double)(par3 + 0), 0.0D);
+        par1Tessellator.addVertex((double) (par2 + 0), (double) (par3 + 0), 0.0D);
+        par1Tessellator.addVertex((double) (par2 + 0), (double) (par3 + par5), 0.0D);
+        par1Tessellator.addVertex((double) (par2 + par4), (double) (par3 + par5), 0.0D);
+        par1Tessellator.addVertex((double) (par2 + par4), (double) (par3 + 0), 0.0D);
         par1Tessellator.draw();
     }
 
-    public void renderIcon(int par1, int par2, Icon par3Icon, int par4, int par5)
+    public void renderIcon (int par1, int par2, Icon par3Icon, int par4, int par5)
     {
         Tessellator tessellator = Tessellator.instance;
         tessellator.startDrawingQuads();
-        tessellator.addVertexWithUV((double)(par1 + 0), (double)(par2 + par5), (double)this.zLevel, (double)par3Icon.getMinU(), (double)par3Icon.getMaxV());
-        tessellator.addVertexWithUV((double)(par1 + par4), (double)(par2 + par5), (double)this.zLevel, (double)par3Icon.getMaxU(), (double)par3Icon.getMaxV());
-        tessellator.addVertexWithUV((double)(par1 + par4), (double)(par2 + 0), (double)this.zLevel, (double)par3Icon.getMaxU(), (double)par3Icon.getMinV());
-        tessellator.addVertexWithUV((double)(par1 + 0), (double)(par2 + 0), (double)this.zLevel, (double)par3Icon.getMinU(), (double)par3Icon.getMinV());
+        tessellator.addVertexWithUV((double) (par1 + 0), (double) (par2 + par5), (double) this.zLevel, (double) par3Icon.getMinU(), (double) par3Icon.getMaxV());
+        tessellator.addVertexWithUV((double) (par1 + par4), (double) (par2 + par5), (double) this.zLevel, (double) par3Icon.getMaxU(), (double) par3Icon.getMaxV());
+        tessellator.addVertexWithUV((double) (par1 + par4), (double) (par2 + 0), (double) this.zLevel, (double) par3Icon.getMaxU(), (double) par3Icon.getMinV());
+        tessellator.addVertexWithUV((double) (par1 + 0), (double) (par2 + 0), (double) this.zLevel, (double) par3Icon.getMinU(), (double) par3Icon.getMinV());
         tessellator.draw();
     }
 
@@ -577,16 +578,16 @@ public class RenderItemCopy extends Render
      * (Render<T extends Entity) and this method has signature public void doRender(T entity, double d, double d1,
      * double d2, float f, float f1). But JAD is pre 1.5 so doesn't do that.
      */
-    public void doRender(Entity par1Entity, double par2, double par4, double par6, float par8, float par9)
+    public void doRender (Entity par1Entity, double par2, double par4, double par6, float par8, float par9)
     {
-        this.doRenderItem((EntityItem)par1Entity, par2, par4, par6, par8, par9);
+        this.doRenderItem((EntityItem) par1Entity, par2, par4, par6, par8, par9);
     }
 
     /**
      * Items should spread out when rendered in 3d?
      * @return
      */
-    public boolean shouldSpreadItems()
+    public boolean shouldSpreadItems ()
     {
         return true;
     }
@@ -595,18 +596,22 @@ public class RenderItemCopy extends Render
      * Items should have a bob effect
      * @return
      */
-    public boolean shouldBob()
+    public boolean shouldBob ()
     {
         return true;
     }
 
-    public byte getMiniBlockCount(ItemStack stack)
+    public byte getMiniBlockCount (ItemStack stack)
     {
         byte ret = 1;
-        if (stack.stackSize > 1 ) ret = 2;
-        if (stack.stackSize > 5 ) ret = 3;
-        if (stack.stackSize > 20) ret = 4;
-        if (stack.stackSize > 40) ret = 5;
+        if (stack.stackSize > 1)
+            ret = 2;
+        if (stack.stackSize > 5)
+            ret = 3;
+        if (stack.stackSize > 20)
+            ret = 4;
+        if (stack.stackSize > 40)
+            ret = 5;
         return ret;
     }
 
@@ -616,12 +621,15 @@ public class RenderItemCopy extends Render
      * @param stack
      * @return
      */
-    public byte getMiniItemCount(ItemStack stack)
+    public byte getMiniItemCount (ItemStack stack)
     {
         byte ret = 1;
-        if (stack.stackSize > 1) ret = 2;
-        if (stack.stackSize > 15) ret = 3;
-        if (stack.stackSize > 31) ret = 4;
+        if (stack.stackSize > 1)
+            ret = 2;
+        if (stack.stackSize > 15)
+            ret = 3;
+        if (stack.stackSize > 31)
+            ret = 4;
         return ret;
     }
 }

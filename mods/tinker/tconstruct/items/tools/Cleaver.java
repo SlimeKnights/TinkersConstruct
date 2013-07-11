@@ -45,7 +45,7 @@ public class Cleaver extends Weapon
     {
         return TContent.toughRod;
     }
-    
+
     @Override
     public int durabilityTypeAccessory ()
     {
@@ -128,13 +128,13 @@ public class Cleaver extends Weapon
         if (AbilityHelper.onLeftClickEntity(stack, player, entity, this))
         {
             entity.hurtResistantTime += 7;
-            
+
             if (entity instanceof EntityLiving)
             {
                 EntityLiving living = (EntityLiving) entity;
                 if (living.getHealth() <= 0)
                 {
-                    
+
                 }
             }
             //if (entity.getHealth() <= 0)

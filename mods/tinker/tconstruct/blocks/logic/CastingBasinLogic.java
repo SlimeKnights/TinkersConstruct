@@ -85,7 +85,7 @@ public class CastingBasinLogic extends InventoryLogic implements ILiquidTank, IT
 
         return ret;
     }
-    
+
     public int updateCapacity (int capacity)
     {
         int ret = TConstruct.ingotLiquidValue;
@@ -113,7 +113,7 @@ public class CastingBasinLogic extends InventoryLogic implements ILiquidTank, IT
             if (recipe == null)
                 return 0;
             this.capacity = updateCapacity(recipe.castingMetal.amount);
-            
+
             if (inventory[1] == null)
             {
                 LiquidStack copyLiquid = resource.copy();
@@ -192,13 +192,16 @@ public class CastingBasinLogic extends InventoryLogic implements ILiquidTank, IT
     }
 
     @Override
-	public LiquidStack drain (int maxDrain, boolean doDrain)
-	{
-		if (liquid == null || liquid.itemID <= 0 || castingDelay > 0) return null;
-        if (liquid.amount <= 0) return null;
+    public LiquidStack drain (int maxDrain, boolean doDrain)
+    {
+        if (liquid == null || liquid.itemID <= 0 || castingDelay > 0)
+            return null;
+        if (liquid.amount <= 0)
+            return null;
 
         int used = maxDrain;
-        if (liquid.amount < used) used = liquid.amount;
+        if (liquid.amount < used)
+            used = liquid.amount;
 
         if (doDrain)
         {
@@ -208,13 +211,14 @@ public class CastingBasinLogic extends InventoryLogic implements ILiquidTank, IT
         LiquidStack drained = new LiquidStack(liquid.itemID, used, liquid.itemMeta);
 
         // Reset liquid if emptied
-        if (liquid.amount <= 0) liquid = null;
+        if (liquid.amount <= 0)
+            liquid = null;
 
         if (doDrain)
             LiquidEvent.fireEvent(new LiquidEvent.LiquidDrainingEvent(drained, this.worldObj, this.xCoord, this.yCoord, this.zCoord, this));
 
         return drained;
-	}
+    }
 
     @Override
     public int getTankPressure ()
@@ -239,16 +243,16 @@ public class CastingBasinLogic extends InventoryLogic implements ILiquidTank, IT
     }
 
     @Override
-	public LiquidStack drain (ForgeDirection from, int maxDrain, boolean doDrain)
-	{
-		return drain(0, maxDrain, doDrain);
-	}
+    public LiquidStack drain (ForgeDirection from, int maxDrain, boolean doDrain)
+    {
+        return drain(0, maxDrain, doDrain);
+    }
 
-	@Override
-	public LiquidStack drain (int tankIndex, int maxDrain, boolean doDrain)
-	{
-		return drain(maxDrain, doDrain);
-	}
+    @Override
+    public LiquidStack drain (int tankIndex, int maxDrain, boolean doDrain)
+    {
+        return drain(maxDrain, doDrain);
+    }
 
     @Override
     public ILiquidTank[] getTanks (ForgeDirection direction)
@@ -365,29 +369,29 @@ public class CastingBasinLogic extends InventoryLogic implements ILiquidTank, IT
     }
 
     @Override
-	public int[] getAccessibleSlotsFromSide (int side)
-	{
-		return new int[] { 0, 1 };
-	}
+    public int[] getAccessibleSlotsFromSide (int side)
+    {
+        return new int[] { 0, 1 };
+    }
 
-	@Override
-	public boolean canInsertItem (int slot, ItemStack itemstack, int side)
-	{
-		if (liquid != null)
-			return false;
-		
-		if (slot == 0)
-			return true;
-		
-		return false;
-	}
+    @Override
+    public boolean canInsertItem (int slot, ItemStack itemstack, int side)
+    {
+        if (liquid != null)
+            return false;
 
-	@Override
-	public boolean canExtractItem (int slot, ItemStack itemstack, int side)
-	{
-		if (slot == 1)
-			return true;
-		
-		return false;
-	}
+        if (slot == 0)
+            return true;
+
+        return false;
+    }
+
+    @Override
+    public boolean canExtractItem (int slot, ItemStack itemstack, int side)
+    {
+        if (slot == 1)
+            return true;
+
+        return false;
+    }
 }

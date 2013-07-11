@@ -33,6 +33,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
     public ItemStack returnStack;
     public float mass;
     public int baseDamage;
+    private float knockbackStrengthMod;
 
     public ArrowEntity(World par1World)
     {
@@ -200,8 +201,8 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
 
                     if (!worldObj.isRemote)
                     {
-                    System.out.println("Speed: "+damageSpeed);
-                    System.out.println("Damage: "+damageInflicted);
+                        System.out.println("Speed: " + damageSpeed);
+                        System.out.println("Damage: " + damageInflicted);
                     }
                     DamageSource damagesource = null;
 
@@ -230,14 +231,15 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
                                 entityliving.setArrowCountInEntity(entityliving.getArrowCountInEntity() + 1);
                             }
 
-                            if (this.knockbackStrength > 0)
+                            if (this.knockbackStrength > 0 || this.knockbackStrengthMod > 0)
                             {
                                 f3 = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionZ * this.motionZ);
 
                                 if (f3 > 0.0F)
                                 {
+                                    float knockback = knockbackStrength + knockbackStrengthMod;
                                     movingobjectposition.entityHit.addVelocity(this.motionX * (double) this.knockbackStrength * 0.6000000238418579D / (double) f3, 0.1D, this.motionZ
-                                            * (double) this.knockbackStrength * 0.6000000238418579D / (double) f3);
+                                            * (double) knockback * 0.6000000238418579D / (double) f3);
                                 }
                             }
 
@@ -390,7 +392,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
                     if (slotID >= 0)
                     {
                         living.setCurrentItemOrArmor(slotID, par1ItemStack);
-                        living.func_96120_a(slotID, 1.0f);
+                        living.func_96120_a(slotID, 2.0f);
                         par1ItemStack.stackSize = 0;
                         return true;
                     }
@@ -458,7 +460,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
                 if (living.getCurrentItemOrArmor(slotID) == null)
                 {
                     living.setCurrentItemOrArmor(slotID, par1ItemStack);
-                    living.func_96120_a(slotID, 1.0f);
+                    living.func_96120_a(slotID, 2.0f);
                 }
 
                 return 0;
@@ -483,7 +485,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
                 if (stack == null)
                 {
                     living.setCurrentItemOrArmor(slotID, par1ItemStack);
-                    living.func_96120_a(slotID, 1.0f);
+                    living.func_96120_a(slotID, 2.0f);
                     return par1ItemStack.stackSize;
                     /*this.mainInventory[slotID] = new ItemStack(i, 0, par1ItemStack.getItemDamage());
 
@@ -516,7 +518,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
                         j -= l;
                         stack.stackSize++;
                         living.setCurrentItemOrArmor(slotID, stack);
-                        living.func_96120_a(slotID, 1.0f);
+                        living.func_96120_a(slotID, 2.0f);
                         //this.mainInventory[slotID].stackSize += l;
                         //this.mainInventory[slotID].animationsToGo = 5;
                         return j;
@@ -539,6 +541,11 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
         }
 
         return -1;
+    }
+
+    public void setKnockbackModStrength (float par1)
+    {
+        this.knockbackStrengthMod = par1;
     }
 
     public void writeEntityToNBT (NBTTagCompound tags)

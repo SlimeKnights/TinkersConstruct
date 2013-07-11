@@ -75,7 +75,7 @@ public class DaggerEntity extends RotatingBase
             worldObj.playSoundAtEntity(this, "random.drr", 1.0F, 1.2F / (rand.nextFloat() * 0.2F + 0.9F));
             arrowShake = 7;
             if (!worldObj.isRemote)
-            AbilityHelper.damageTool(returnStack, 1, owner, false);
+                AbilityHelper.damageTool(returnStack, 1, owner, false);
         }
     }
 

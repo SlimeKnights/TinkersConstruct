@@ -27,7 +27,7 @@ public class TerrainGenEventHandler
     private static ImmutableCollection<BiomeGenBase> EXTRA_ORE_BIOMES = ImmutableList.of(extremeHills, extremeHillsEdge);
 
     @ForgeSubscribe
-    public void onDecorateEvent(Decorate e)
+    public void onDecorateEvent (Decorate e)
     {
         // Trigger just before sand pass one--which comes just after vanilla ore generation.
         if (e.type != SAND)

@@ -220,15 +220,16 @@ public class SmelteryContainer extends ActiveContainer
                 }
             }
         }*/
-        
+
         if (inputStack.isStackable() && startSlot >= logic.getSizeInventory())
         {
             while (inputStack.stackSize > 0 && (!flag && slotPos < endSlot || flag && slotPos >= startSlot))
             {
-                slot = (Slot)this.inventorySlots.get(slotPos);
+                slot = (Slot) this.inventorySlots.get(slotPos);
                 slotStack = slot.getStack();
 
-                if (slotStack != null && slotStack.itemID == inputStack.itemID && (!inputStack.getHasSubtypes() || inputStack.getItemDamage() == slotStack.getItemDamage()) && ItemStack.areItemStackTagsEqual(inputStack, slotStack))
+                if (slotStack != null && slotStack.itemID == inputStack.itemID && (!inputStack.getHasSubtypes() || inputStack.getItemDamage() == slotStack.getItemDamage())
+                        && ItemStack.areItemStackTagsEqual(inputStack, slotStack))
                 {
                     int l = slotStack.stackSize + inputStack.stackSize;
 

@@ -37,7 +37,7 @@ public class TBaseWorldGenerator implements IWorldGenerator
     public void generate (Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider)
     {
         initializeChunkData(chunkX, chunkZ, world.provider.dimensionId);
-        
+
         if (world.provider.isHellWorld)
         {
             generateNether(random, chunkX * 16, chunkZ * 16, world);
@@ -59,8 +59,8 @@ public class TBaseWorldGenerator implements IWorldGenerator
             generateChunkBorder(random, chunkX * 16, chunkZ * 16, world);
         }
     }
-    
-    void initializeChunkData(int chunkX, int chunkZ, int worldID)
+
+    void initializeChunkData (int chunkX, int chunkZ, int worldID)
     {
         ValueCoordTuple coord = new ValueCoordTuple(worldID, chunkX, chunkZ);
         TheftValueTracker.crystallinity.put(coord, 0);

@@ -25,18 +25,18 @@ public class ModReinforced extends ModInteger
         {
             tags.setInteger(key, initialIncrease);
         }
-        
+
         int modifiers = tags.getInteger("Modifiers");
         modifiers -= 1;
         tags.setInteger("Modifiers", modifiers);
-        
+
         int reinforced = tags.getInteger("Unbreaking");
         reinforced += 1;
         tags.setInteger("Unbreaking", reinforced);
-        
-        addToolTip(tool, color+tooltipName, color+key);
+
+        addToolTip(tool, color + tooltipName, color + key);
     }
-    
+
     protected int addToolTip (ItemStack tool, String tooltip, String modifierTip)
     {
         NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");

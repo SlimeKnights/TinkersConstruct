@@ -40,12 +40,12 @@ public class FryingPan extends Weapon
     public boolean onLeftClickEntity (ItemStack stack, EntityPlayer player, Entity mob)
     {
         if (mob.canAttackWithItem() && !mob.func_85031_j(player) && mob.hurtResistantTime < 14)
-        AbilityHelper.onLeftClickEntity(stack, player, mob, this);
+            AbilityHelper.onLeftClickEntity(stack, player, mob, this);
         return true;
     }
 
     @Override
-    public void onEntityDamaged(World world, EntityLiving player, Entity entity)
+    public void onEntityDamaged (World world, EntityLiving player, Entity entity)
     {
         world.playSoundEffect(entity.posX, entity.posY, entity.posZ, "sounds.frypan_hit", 1.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F);
     }
@@ -54,26 +54,26 @@ public class FryingPan extends Weapon
     {
         return "Frying Pan";
     }
-    
+
     public void getSubItems (int id, CreativeTabs tab, List list)
     {
-    	super.getSubItems(id, tab, list);
-    	
-    	Item accessory = getAccessoryItem();
+        super.getSubItems(id, tab, list);
+
+        Item accessory = getAccessoryItem();
         ItemStack tool = ToolBuilder.instance.buildTool(new ItemStack(getHeadItem(), 1, 2), new ItemStack(getHandleItem(), 1, 16), null, "Bane of Pigs");
-        
+
         NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
         tags.setInteger("Modifiers", 0);
-        tags.setInteger("Attack", Integer.MAX_VALUE/100);
-        tags.setInteger("TotalDurability", Integer.MAX_VALUE/100);
-        tags.setInteger("BaseDurability", Integer.MAX_VALUE/100);
-        tags.setInteger("MiningSpeed", Integer.MAX_VALUE/100);
-        
-		int[] keyPair = new int[] { Integer.MAX_VALUE/100, 0, 0 };
-		tags.setIntArray("Blaze", keyPair);
-		tags.setInteger("Necrotic", Integer.MAX_VALUE/100);
-		tags.setInteger("Effect1", 7);
-		
+        tags.setInteger("Attack", Integer.MAX_VALUE / 100);
+        tags.setInteger("TotalDurability", Integer.MAX_VALUE / 100);
+        tags.setInteger("BaseDurability", Integer.MAX_VALUE / 100);
+        tags.setInteger("MiningSpeed", Integer.MAX_VALUE / 100);
+
+        int[] keyPair = new int[] { Integer.MAX_VALUE / 100, 0, 0 };
+        tags.setIntArray("Blaze", keyPair);
+        tags.setInteger("Necrotic", Integer.MAX_VALUE / 100);
+        tags.setInteger("Effect1", 7);
+
         tags.setBoolean("Built", true);
         list.add(tool);
     }

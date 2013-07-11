@@ -16,14 +16,14 @@ public class PartBuilderEvent extends Event
     public final ItemStack pattern;
     public final ItemStack otherPattern;
     protected ItemStack[] resultStacks;
-    
+
     public PartBuilderEvent(ItemStack material, ItemStack pattern, ItemStack otherPattern)
     {
         this.material = material;
         this.pattern = pattern;
         this.otherPattern = otherPattern;
     }
-    
+
     @HasResult
     public static class NormalPart extends PartBuilderEvent
     {
@@ -31,7 +31,7 @@ public class PartBuilderEvent extends Event
         {
             super(material, pattern, otherPattern);
         }
-        
+
         /** Fires before other processing is done
          * 
          * Result is significant:
@@ -39,14 +39,14 @@ public class PartBuilderEvent extends Event
          *    ALLOW:   Uses resultStack instead 
          *    DENY:    Stops part crafting altogether
          */
-        
-        public void overrideResult(ItemStack[] result)
+
+        public void overrideResult (ItemStack[] result)
         {
             resultStacks = result;
             this.setResult(Result.ALLOW);
         }
-        
-        public ItemStack[] getResultStacks()
+
+        public ItemStack[] getResultStacks ()
         {
             return resultStacks;
         }

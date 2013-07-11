@@ -242,7 +242,7 @@ public class Excavator extends HarvestTool
     {
         if (!stack.hasTagCompound())
             return 1.0f;
-        
+
         NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
         if (tags.getBoolean("Broken"))
             return 0.1f;
@@ -259,13 +259,13 @@ public class Excavator extends HarvestTool
                     mineSpeed += tags.getInteger("MiningSpeed2");
                     heads++;
                 }
-                
+
                 if (tags.hasKey("MiningSpeedHandle"))
                 {
                     mineSpeed += tags.getInteger("MiningSpeedHandle");
                     heads++;
                 }
-                
+
                 if (tags.hasKey("MiningSpeedExtra"))
                 {
                     mineSpeed += tags.getInteger("MiningSpeedExtra");

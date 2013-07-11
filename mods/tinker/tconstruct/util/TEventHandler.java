@@ -110,7 +110,7 @@ public class TEventHandler
                 toolTag.setFloat("FlightSpeed", flightSpeed);
             }
         }
-        
+
         if (event.tool == TContent.arrow)
         {
             ArrowMaterial head = TConstructRegistry.getArrowMaterial(toolTag.getInteger("Head"));
@@ -122,7 +122,7 @@ public class TEventHandler
                 float mass = head.mass / 5f + shaft.mass + fletching.mass;
                 float shatter = (head.breakChance + shaft.breakChance + fletching.breakChance) / 4f;
                 float accuracy = (head.accuracy + shaft.accuracy + fletching.accuracy) / 3;
-                
+
                 ItemStack arrow = new ItemStack(event.tool, 4);
                 toolTag.setInteger("TotalDurability", 0);
                 toolTag.setFloat("Mass", mass);
@@ -145,7 +145,7 @@ public class TEventHandler
                 event.overrideResult(new ItemStack[] { result, null });
             }
         }
-        
+
         if (event.pattern.getItem() == TContent.woodPattern && event.pattern.getItemDamage() == 24)
         {
             ItemStack result = craftFletching(event.material);
@@ -155,20 +155,20 @@ public class TEventHandler
             }
         }
     }
-    
-    public static ItemStack craftBowString(ItemStack stack)
+
+    public static ItemStack craftBowString (ItemStack stack)
     {
         if (stack.stackSize < 3)
             return null;
-        
+
         BowstringMaterial mat = (BowstringMaterial) TConstructRegistry.getCustomMaterial(stack, BowstringMaterial.class);
         if (mat != null)
             return mat.craftingItem.copy();
         return null;
     }
-    
-    public static ItemStack craftFletching(ItemStack stack)
-    {        
+
+    public static ItemStack craftFletching (ItemStack stack)
+    {
         FletchingMaterial mat = (FletchingMaterial) TConstructRegistry.getCustomMaterial(stack, FletchingMaterial.class);
         if (mat != null)
             return mat.craftingItem.copy();

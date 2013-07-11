@@ -181,8 +181,8 @@ public class GuiManual extends GuiScreen
     {
         return mc;
     }
-    
-    public boolean doesGuiPauseGame()
+
+    public boolean doesGuiPauseGame ()
     {
         return false;
     }

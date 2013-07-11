@@ -13,13 +13,13 @@ public class ActiveSlot extends Slot
         super(iinventory, par2, par3, par4);
         active = flag;
     }
-    
-    public void setActive(boolean flag)
+
+    public void setActive (boolean flag)
     {
         active = flag;
     }
 
-    public boolean getActive()
+    public boolean getActive ()
     {
         return active;
     }

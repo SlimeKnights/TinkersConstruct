@@ -18,14 +18,14 @@ public class GlowstoneAggregatorGui extends GuiContainer
         logic = frypan;
     }
 
-    protected void drawGuiContainerForegroundLayer(int par1, int par2)
+    protected void drawGuiContainerForegroundLayer (int par1, int par2)
     {
         //fontRenderer.drawString(StatCollector.translateToLocal("aggregator.glowstone"), 60, 6, 0x404040);
         fontRenderer.drawString("Glowstone Aggregator", 8, 6, 0x404040);
         fontRenderer.drawString(StatCollector.translateToLocal("container.inventory"), 8, (ySize - 96) + 2, 0x404040);
     }
 
-    protected void drawGuiContainerBackgroundLayer(float f, int i, int j)
+    protected void drawGuiContainerBackgroundLayer (float f, int i, int j)
     {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         mc.renderEngine.bindTexture("/mods/tinker/textures/gui/aggregator.png");

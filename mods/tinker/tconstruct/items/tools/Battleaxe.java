@@ -154,7 +154,7 @@ public class Battleaxe extends HarvestTool
     }
 
     /* Battleaxe Specific */
-    
+
     @Override
     public boolean onItemUse (ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float clickX, float clickY, float clickZ)
     {
@@ -173,7 +173,7 @@ public class Battleaxe extends HarvestTool
         //player.rotationYaw += 1;
         //if (player.onGround)
         //{
-            player.setItemInUse(stack, this.getMaxItemUseDuration(stack));
+        player.setItemInUse(stack, this.getMaxItemUseDuration(stack));
         //}
         return stack;
     }
@@ -187,10 +187,10 @@ public class Battleaxe extends HarvestTool
             int boost = time / 100;
             if (boost > 2)
                 boost = 2;
-            player.addPotionEffect(new PotionEffect(Potion.moveSpeed.id, time*4, boost));
-            player.addPotionEffect(new PotionEffect(Potion.jump.id, time*4, boost));
-            player.addPotionEffect(new PotionEffect(Potion.damageBoost.id, time*4, 0));
-            player.addPotionEffect(new PotionEffect(Potion.hunger.id, time*2, 0));
+            player.addPotionEffect(new PotionEffect(Potion.moveSpeed.id, time * 4, boost));
+            player.addPotionEffect(new PotionEffect(Potion.jump.id, time * 4, boost));
+            player.addPotionEffect(new PotionEffect(Potion.damageBoost.id, time * 4, 0));
+            player.addPotionEffect(new PotionEffect(Potion.hunger.id, time * 2, 0));
             if (time > 5 && player.onGround)
             {
                 player.addExhaustion(0.2F);

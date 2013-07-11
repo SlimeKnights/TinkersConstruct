@@ -18,6 +18,7 @@ public class SlotToolForge extends SlotTool
     {
         super(entityplayer, builder, par3, par4, par5);
     }
+
     protected void onCrafting (ItemStack stack)
     {
         NBTTagCompound tags = stack.getTagCompound();
@@ -29,7 +30,7 @@ public class SlotToolForge extends SlotTool
                 inventory.decrStackSize(i, 1);
             if (!player.worldObj.isRemote && full)
                 //player.worldObj.playSoundEffect(player.posX, player.posY, player.posZ, "sounds.little_saw", 1.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F);
-            player.worldObj.playAuxSFX(1021, (int)player.posX, (int)player.posY, (int)player.posZ, 0);
+                player.worldObj.playAuxSFX(1021, (int) player.posX, (int) player.posY, (int) player.posZ, 0);
         }
     }
 }

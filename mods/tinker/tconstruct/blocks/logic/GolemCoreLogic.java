@@ -12,102 +12,106 @@ import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.world.World;
 
-public class GolemCoreLogic extends InventoryLogic
-    implements IInventory
+public class GolemCoreLogic extends InventoryLogic implements IInventory
 {
 
     public GolemCoreLogic()
     {
-    	super(1);
-    }
-    
-    public ItemStack getKey()
-    {
-    	return inventory[0];
+        super(1);
     }
 
-    public void setKey(ItemStack itemstack)
+    public ItemStack getKey ()
+    {
+        return inventory[0];
+    }
+
+    public void setKey (ItemStack itemstack)
     {
         inventory[0] = itemstack;
         onInventoryChanged();
     }
 
-    public void clear()
+    public void clear ()
     {
-    	inventory[0] = null;
+        inventory[0] = null;
     }
 
-    public int getSizeInventory()
+    public int getSizeInventory ()
     {
         return 1;
     }
 
-    public ItemStack getStackInSlot(int slot)
+    public ItemStack getStackInSlot (int slot)
     {
         return inventory[0];
     }
 
-    public int getInventoryStackLimit()
+    public int getInventoryStackLimit ()
     {
         return 1;
     }
 
-    public boolean canInteractWith(EntityPlayer entityplayer)
+    public boolean canInteractWith (EntityPlayer entityplayer)
     {
         return true;
     }
 
-    public void openChest() {}
-    public void closeChest() {}
+    public void openChest ()
+    {
+    }
 
-    public boolean isUseableByPlayer(EntityPlayer entityplayer)
+    public void closeChest ()
+    {
+    }
+
+    public boolean isUseableByPlayer (EntityPlayer entityplayer)
     {
         return true;
     }
 
-	@Override
-	public ItemStack getStackInSlotOnClosing (int i)
-	{
-		return null;
-	}
+    @Override
+    public ItemStack getStackInSlotOnClosing (int i)
+    {
+        return null;
+    }
 
-	@Override
-	public boolean isInvNameLocalized ()
-	{
-		return false;
-	}
+    @Override
+    public boolean isInvNameLocalized ()
+    {
+        return false;
+    }
 
-	@Override
-	public boolean isStackValidForSlot (int i, ItemStack itemstack)
-	{
-		return true;
-	}
+    @Override
+    public boolean isStackValidForSlot (int i, ItemStack itemstack)
+    {
+        return true;
+    }
 
-	@Override
-	public Container getGuiContainer (InventoryPlayer inventoryplayer, World world, int x, int y, int z)
-	{
-		return null;
-	}
+    @Override
+    public Container getGuiContainer (InventoryPlayer inventoryplayer, World world, int x, int y, int z)
+    {
+        return null;
+    }
 
-	@Override
-	protected String getDefaultName ()
-	{
-		return "golems.core";
-	}
-	
-	/* Packets */
-	@Override
-	public Packet getDescriptionPacket ()
-	{
-		NBTTagCompound tag = new NBTTagCompound();
-		writeToNBT(tag);
-		return new Packet132TileEntityData(xCoord, yCoord, zCoord, 1, tag);
-	}
+    @Override
+    protected String getDefaultName ()
+    {
+        return "golems.core";
+    }
 
-	@Override
-	public void onDataPacket (INetworkManager net, Packet132TileEntityData packet)
-	{
-		readFromNBT(packet.customParam1);
-		worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
-	}
+    /* Packets */
+    @Override
+    public Packet getDescriptionPacket ()
+    {
+        NBTTagCompound tag = new NBTTagCompound();
+        writeToNBT(tag);
+        return new Packet132TileEntityData(xCoord, yCoord, zCoord, 1, tag);
+    }
+
+    @Override
+    public void onDataPacket (INetworkManager net, Packet132TileEntityData packet)
+    {
+        readFromNBT(packet.customParam1);
+        worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+    }
 }

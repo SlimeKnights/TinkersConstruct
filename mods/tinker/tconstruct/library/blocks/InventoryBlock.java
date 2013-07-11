@@ -27,11 +27,16 @@ public abstract class InventoryBlock extends BlockContainer
     }
 
     /* Logic backend */
-    public TileEntity createNewTileEntity (World var1) 
-    { return null; }    
-    public abstract TileEntity createTileEntity(World world, int metadata);
-    public abstract Integer getGui(World world, int x, int y, int z, EntityPlayer entityplayer);    
-    public abstract Object getModInstance();
+    public TileEntity createNewTileEntity (World var1)
+    {
+        return null;
+    }
+
+    public abstract TileEntity createTileEntity (World world, int metadata);
+
+    public abstract Integer getGui (World world, int x, int y, int z, EntityPlayer entityplayer);
+
+    public abstract Object getModInstance ();
 
     @Override
     public boolean onBlockActivated (World world, int x, int y, int z, EntityPlayer player, int side, float clickX, float clickY, float clickZ)
@@ -104,9 +109,8 @@ public abstract class InventoryBlock extends BlockContainer
     }
 
     /* Placement */
-    
 
-    public int onBlockPlaced(World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int meta)
+    public int onBlockPlaced (World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int meta)
     {
         TileEntity logic = world.getBlockTileEntity(x, y, z);
         if (logic instanceof IFacingLogic)

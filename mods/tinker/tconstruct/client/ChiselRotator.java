@@ -54,15 +54,15 @@ public class ChiselRotator implements IItemRenderer
         for (int x = 1; x < stack.getItem().getRenderPasses(stack.getItemDamage()); x++)
         {
             int i1 = Item.itemsList[stack.itemID].getColorFromItemStack(stack, x);
-            float f10 = (float)(i1 >> 16 & 255) / 255.0F;
-            float f11 = (float)(i1 >> 8 & 255) / 255.0F;
-            float f12 = (float)(i1 & 255) / 255.0F;
+            float f10 = (float) (i1 >> 16 & 255) / 255.0F;
+            float f11 = (float) (i1 >> 8 & 255) / 255.0F;
+            float f12 = (float) (i1 & 255) / 255.0F;
             GL11.glColor4f(f3 * f10, f3 * f11, f3 * f12, 1.0F);
             this.renderItem(stack, living, x);
         }
     }
-    
-    void renderItem(ItemStack stack, EntityLiving living, int pass)
+
+    void renderItem (ItemStack stack, EntityLiving living, int pass)
     {
         GL11.glPushMatrix();
 

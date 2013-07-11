@@ -38,7 +38,7 @@ public class CustomBowRenderer implements IItemRenderer
     {
         EntityLiving living = (EntityLiving) data[1];
         ItemRenderer renderer = RenderManager.instance.itemRenderer;
-        for (int i = 0; i < item.getItem().getRenderPasses(item.getItemDamage())+1; i++)
+        for (int i = 0; i < item.getItem().getRenderPasses(item.getItemDamage()) + 1; i++)
             renderItem(living, item, i, type);
     }
 
@@ -55,9 +55,9 @@ public class CustomBowRenderer implements IItemRenderer
         Icon icon = living.getItemIcon(stack, renderPass);
         if (living instanceof EntityPlayer)
         {
-            EntityPlayer player = (EntityPlayer)living;
+            EntityPlayer player = (EntityPlayer) living;
             if (player.getItemInUse() != null)
-            icon = stack.getItem().getIcon(stack, renderPass, player, player.getItemInUse(), player.getItemInUseCount());
+                icon = stack.getItem().getIcon(stack, renderPass, player, player.getItemInUse(), player.getItemInUseCount());
         }
 
         if (icon == null)
@@ -85,11 +85,11 @@ public class CustomBowRenderer implements IItemRenderer
             GL11.glRotatef(45.0F, 1.0F, 0.0F, 0.75F);
             GL11.glTranslatef(-0.6F, -0.25F, 1.0F);
             //GL11.glRotatef(-90.0F, 0F, 1.0F, -1.0F);
-            
+
             //GL11.glRotatef(90.0F, 0F, 1.0F, 1.0F);
             //GL11.glRotatef(90.0F, 1.0F, 0F, 1.0F);
             //GL11.glRotatef(90.0F, 0F, 1.0F, 0.5F);
-            
+
             //GL11.glRotatef(-90.0F, 0.0F, 0.0F, 1.0F);
             //GL11.glRotatef(59.0F, 0.0F, 0.0F, 1.0F);
             GL11.glScalef(1.75F, 1.75F, 1.75F);

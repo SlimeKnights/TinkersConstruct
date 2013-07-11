@@ -33,12 +33,12 @@ public class ModLapis extends ToolMod
         ToolCore toolItem = (ToolCore) tool.getItem();
         if (!validType(toolItem))
             return false;
-        
+
         NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
-        
+
         if (tags.getBoolean("Silk Touch"))
             return false;
-        
+
         if (!tags.hasKey(key))
             return tags.getInteger("Modifiers") > 0;
 
@@ -200,8 +200,8 @@ public class ModLapis extends ToolMod
         String modName = "\u00a79Lapis (" + keys[0] + "/" + max + ")";
         tags.setString(tip, modName);
     }
-    
-    public boolean validType(ToolCore tool)
+
+    public boolean validType (ToolCore tool)
     {
         List list = Arrays.asList(tool.toolCategories());
         return list.contains("weapon") || list.contains("harvest");

@@ -10,8 +10,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.src.ModLoader;
 import net.minecraft.tileentity.TileEntity;
 
-public class GolemPedestalLogic extends TileEntity
-    implements IInventory
+public class GolemPedestalLogic extends TileEntity implements IInventory
 {
     public ItemStack supply;
     public static int cost[] = null;
@@ -175,12 +174,12 @@ public class GolemPedestalLogic extends TileEntity
         }
     }
 
-    public int getSizeInventory()
+    public int getSizeInventory ()
     {
         return 9;
     }
 
-    public ItemStack getStackInSlot(int i)
+    public ItemStack getStackInSlot (int i)
     {
         if (supply != null && supply.getItem() == null)
         {
@@ -189,7 +188,7 @@ public class GolemPedestalLogic extends TileEntity
         return supply;
     }
 
-    public boolean subtractSoul(int i)
+    public boolean subtractSoul (int i)
     {
         System.out.println("SUBTRACT WHY");
         if (supply == null || supply.itemID >= 512 || cost[supply.itemID] == 0)
@@ -201,26 +200,29 @@ public class GolemPedestalLogic extends TileEntity
         int j = cost[supply.itemID];
         int k = souls[supply.itemID];
         int l = (supply.stackSize / j) * k;
-        System.out.println((new StringBuilder()).append("Subtracting amt").append(i).append(" s").append(k).append(" c").append(j).append(" ss").append(supply.stackSize).append(" id").append(supply.itemID).append(" sa").append(l).append(" calc").append(Math.ceil((double)i / (double)k)).toString());
+        System.out.println((new StringBuilder()).append("Subtracting amt").append(i).append(" s").append(k).append(" c").append(j).append(" ss").append(supply.stackSize).append(" id")
+                .append(supply.itemID).append(" sa").append(l).append(" calc").append(Math.ceil((double) i / (double) k)).toString());
         if (l < i)
         {
             worldObj.playSoundAtEntity(ModLoader.getMinecraftInstance().thePlayer, "mob.blaze.death", 1.0F, 0.5F);
             ModLoader.getMinecraftInstance().thePlayer.addChatMessage("I need more souls...");
             return false;
         }
-        supply.stackSize -= Math.ceil((double)i / (double)k) * (double)j;
+        supply.stackSize -= Math.ceil((double) i / (double) k) * (double) j;
         if (supply.stackSize == 0)
         {
             supply = null;
         }
         else if (supply.stackSize < 0)
         {
-            throw new UnsupportedOperationException((new StringBuilder()).append("If you are getting this error then your golems mod has derped, \nplease contact billythegoat101 on the minecraftforums with the error code: LERN YO MATHS [i").append(supply.itemID).append(",ss").append(supply.stackSize).append(",a").append(i).append("]").toString());
+            throw new UnsupportedOperationException((new StringBuilder())
+                    .append("If you are getting this error then your golems mod has derped, \nplease contact billythegoat101 on the minecraftforums with the error code: LERN YO MATHS [i")
+                    .append(supply.itemID).append(",ss").append(supply.stackSize).append(",a").append(i).append("]").toString());
         }
         return true;
     }
 
-    public ItemStack decrStackSize(int i, int j)
+    public ItemStack decrStackSize (int i, int j)
     {
         if (supply != null && supply.getItem() == null)
         {
@@ -249,7 +251,7 @@ public class GolemPedestalLogic extends TileEntity
         }
     }
 
-    public void setInventorySlotContents(int i, ItemStack itemstack)
+    public void setInventorySlotContents (int i, ItemStack itemstack)
     {
         supply = itemstack;
         if (itemstack != null && itemstack.stackSize > getInventoryStackLimit())
@@ -263,7 +265,7 @@ public class GolemPedestalLogic extends TileEntity
         onInventoryChanged();
     }
 
-    public void writeToNBT(NBTTagCompound nbttagcompound)
+    public void writeToNBT (NBTTagCompound nbttagcompound)
     {
         super.writeToNBT(nbttagcompound);
         if (supply == null)
@@ -274,21 +276,21 @@ public class GolemPedestalLogic extends TileEntity
         if (supply != null)
         {
             NBTTagCompound nbttagcompound1 = new NBTTagCompound();
-            nbttagcompound1.setByte("Slot", (byte)0);
+            nbttagcompound1.setByte("Slot", (byte) 0);
             supply.writeToNBT(nbttagcompound1);
             nbttaglist.appendTag(nbttagcompound1);
         }
         nbttagcompound.setTag("Items", nbttaglist);
     }
 
-    public void readFromNBT(NBTTagCompound nbttagcompound)
+    public void readFromNBT (NBTTagCompound nbttagcompound)
     {
         super.readFromNBT(nbttagcompound);
         supply = new ItemStack(0, 0, 0);
         NBTTagList nbttaglist = nbttagcompound.getTagList("Items");
         for (int i = 0; i < nbttaglist.tagCount(); i++)
         {
-            NBTTagCompound nbttagcompound1 = (NBTTagCompound)nbttaglist.tagAt(i);
+            NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist.tagAt(i);
             int j = nbttagcompound1.getByte("Slot") & 0xff;
             if (j >= 0 && j < 1)
             {
@@ -302,57 +304,57 @@ public class GolemPedestalLogic extends TileEntity
         }
     }
 
-    public String getInvName()
+    public String getInvName ()
     {
         return "golempedestalinv";
     }
 
-    public int getInventoryStackLimit()
+    public int getInventoryStackLimit ()
     {
         return 64;
     }
 
-    public boolean canInteractWith(EntityPlayer entityplayer)
+    public boolean canInteractWith (EntityPlayer entityplayer)
     {
         return true;
     }
 
-    public void openChest()
+    public void openChest ()
     {
     }
 
-    public void closeChest()
+    public void closeChest ()
     {
     }
 
-    public void clear()
+    public void clear ()
     {
         supply = null;
     }
 
-    public boolean isUseableByPlayer(EntityPlayer entityplayer)
+    public boolean isUseableByPlayer (EntityPlayer entityplayer)
     {
         return true;
     }
 
-	@Override
-	public ItemStack getStackInSlotOnClosing (int i)
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public ItemStack getStackInSlotOnClosing (int i)
+    {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
-	@Override
-	public boolean isInvNameLocalized ()
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public boolean isInvNameLocalized ()
+    {
+        // TODO Auto-generated method stub
+        return false;
+    }
 
-	@Override
-	public boolean isStackValidForSlot (int i, ItemStack itemstack)
-	{
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    public boolean isStackValidForSlot (int i, ItemStack itemstack)
+    {
+        // TODO Auto-generated method stub
+        return false;
+    }
 }

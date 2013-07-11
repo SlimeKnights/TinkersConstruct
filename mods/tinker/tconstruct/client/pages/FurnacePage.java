@@ -15,6 +15,7 @@ public class FurnacePage extends BookPage
 {
     String text;
     ItemStack[] icons;
+
     @Override
     public void readPageFromXML (Element element)
     {
@@ -51,7 +52,7 @@ public class FurnacePage extends BookPage
         GL11.glDisable(GL12.GL_RESCALE_NORMAL);
     }
 
-    public void renderBackgroundLayer(int localWidth, int localHeight) 
+    public void renderBackgroundLayer (int localWidth, int localHeight)
     {
         manual.getMC().renderEngine.bindTexture("/mods/tinker/textures/gui/bookfurnace.png");
         manual.drawTexturedModalRect(localWidth + 32, localHeight + 32, 0, 0, 111, 114);

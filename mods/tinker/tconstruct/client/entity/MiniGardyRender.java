@@ -29,7 +29,7 @@ public class MiniGardyRender extends RenderLiving
     }
 
     @Override
-    protected void renderEquippedItems(EntityLiving par1EntityLiving, float par2)
+    protected void renderEquippedItems (EntityLiving par1EntityLiving, float par2)
     {
         float f1 = 1.0F;
         GL11.glColor3f(f1, f1, f1);
@@ -114,7 +114,8 @@ public class MiniGardyRender extends RenderLiving
                 GL11.glRotatef(-100.0F, 1.0F, 0.0F, 0.0F);
                 GL11.glRotatef(45.0F, 0.0F, 1.0F, 0.0F);
             }
-            else //if (Item.itemsList[heldItem.itemID].isFull3D())
+            else
+            //if (Item.itemsList[heldItem.itemID].isFull3D())
             {
                 f2 = 0.625F;
 
@@ -138,7 +139,7 @@ public class MiniGardyRender extends RenderLiving
                 GL11.glRotatef(-90.0F, 1.0F, 0.0F, 0.0F);
                 GL11.glRotatef(20.0F, 0.0F, 0.0F, 1.0F);
             }*/
-            
+
             float f6;
             float f11;
             int j;
@@ -149,9 +150,9 @@ public class MiniGardyRender extends RenderLiving
                 for (j = 0; j < heldItem.getItem().getRenderPasses(heldItem.getItemDamage()); j++)
                 {
                     int k = heldItem.getItem().getColorFromItemStack(heldItem, j);
-                    f12 = (float)(k >> 16 & 255) / 255.0F;
-                    f11 = (float)(k >> 8 & 255) / 255.0F;
-                    f6 = (float)(k & 255) / 255.0F;
+                    f12 = (float) (k >> 16 & 255) / 255.0F;
+                    f11 = (float) (k >> 8 & 255) / 255.0F;
+                    f6 = (float) (k & 255) / 255.0F;
                     GL11.glColor4f(f12, f11, f6, 1.0F);
                     this.renderManager.itemRenderer.renderItem(par1EntityLiving, heldItem, j);
                 }
@@ -159,9 +160,9 @@ public class MiniGardyRender extends RenderLiving
             else
             {
                 j = heldItem.getItem().getColorFromItemStack(heldItem, 0);
-                f6 = (float)(j >> 16 & 255) / 255.0F;
-                f12 = (float)(j >> 8 & 255) / 255.0F;
-                f11 = (float)(j & 255) / 255.0F;
+                f6 = (float) (j >> 16 & 255) / 255.0F;
+                f12 = (float) (j >> 8 & 255) / 255.0F;
+                f11 = (float) (j & 255) / 255.0F;
                 GL11.glColor4f(f6, f12, f11, 1.0F);
                 this.renderManager.itemRenderer.renderItem(par1EntityLiving, heldItem, 0);
             }
@@ -169,8 +170,8 @@ public class MiniGardyRender extends RenderLiving
             GL11.glPopMatrix();
         }
     }
-    
-    protected void translateItem()
+
+    protected void translateItem ()
     {
         GL11.glTranslatef(0.0F, 0.1875F, 0.0F);
     }

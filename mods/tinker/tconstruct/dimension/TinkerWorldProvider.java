@@ -12,7 +12,7 @@ public class TinkerWorldProvider extends WorldProvider
     /**
      * creates a new world chunk manager for WorldProvider
      */
-    public void registerWorldChunkManager()
+    public void registerWorldChunkManager ()
     {
         this.worldChunkMgr = new TinkerChunkManager(BiomeGenBase.iceMountains, 1.0F, 0.0F);
         this.isHellWorld = true;
@@ -23,7 +23,7 @@ public class TinkerWorldProvider extends WorldProvider
     /**
      * Creates the light to brightness table
      */
-    protected void generateLightBrightnessTable()
+    protected void generateLightBrightnessTable ()
     {
         float f = 1.0F;
 
@@ -37,7 +37,7 @@ public class TinkerWorldProvider extends WorldProvider
     /**
      * Returns a new chunk provider which generates chunks for this world
      */
-    public IChunkProvider createChunkGenerator()
+    public IChunkProvider createChunkGenerator ()
     {
         return new TinkerChunkProvider(this.worldObj, this.worldObj.getSeed());
     }
@@ -45,7 +45,7 @@ public class TinkerWorldProvider extends WorldProvider
     /**
      * Returns 'true' if in the "main surface world", but 'false' if in the Nether or End dimensions.
      */
-    public boolean isSurfaceWorld()
+    public boolean isSurfaceWorld ()
     {
         return false;
     }
@@ -53,7 +53,7 @@ public class TinkerWorldProvider extends WorldProvider
     /**
      * Will check if the x, z position specified is alright to be set as the map spawn point
      */
-    public boolean canCoordinateBeSpawn(int par1, int par2)
+    public boolean canCoordinateBeSpawn (int par1, int par2)
     {
         return false;
     }
@@ -61,7 +61,7 @@ public class TinkerWorldProvider extends WorldProvider
     /**
      * Calculates the angle of sun and moon in the sky relative to a specified time (usually worldTime)
      */
-    public float calculateCelestialAngle(long par1, float par3)
+    public float calculateCelestialAngle (long par1, float par3)
     {
         return 0.5F;
     }
@@ -69,17 +69,16 @@ public class TinkerWorldProvider extends WorldProvider
     /**
      * True if the player can respawn in this dimension (true = overworld, false = nether).
      */
-    public boolean canRespawnHere()
+    public boolean canRespawnHere ()
     {
         return false;
     }
 
     @SideOnly(Side.CLIENT)
-
     /**
      * Returns true if the given X,Z coordinate should show environmental fog.
      */
-    public boolean doesXZShowFog(int par1, int par2)
+    public boolean doesXZShowFog (int par1, int par2)
     {
         return false;
     }
@@ -87,7 +86,7 @@ public class TinkerWorldProvider extends WorldProvider
     /**
      * Returns the dimension's name, e.g. "The End", "Nether", or "Overworld".
      */
-    public String getDimensionName()
+    public String getDimensionName ()
     {
         return "Skylands";
     }

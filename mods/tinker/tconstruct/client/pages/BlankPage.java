@@ -2,7 +2,6 @@ package mods.tinker.tconstruct.client.pages;
 
 import org.w3c.dom.Element;
 
-
 public class BlankPage extends BookPage
 {
 

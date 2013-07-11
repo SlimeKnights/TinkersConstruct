@@ -8,13 +8,13 @@ import net.minecraft.world.World;
 public class Punji extends Block
 {
 
-	public Punji(int id)
-	{
-		super(id, Material.circuits);
-	}
-	
-	@Override
-    public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity)
+    public Punji(int id)
+    {
+        super(id, Material.circuits);
+    }
+
+    @Override
+    public void onEntityCollidedWithBlock (World world, int x, int y, int z, Entity entity)
     {
         entity.fallDistance *= 2.0F;
     }

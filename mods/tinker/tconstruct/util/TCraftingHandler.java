@@ -21,22 +21,22 @@ public class TCraftingHandler implements ICraftingHandler
             int itemID = item.getItem().itemID;
             if (itemID == TContent.toolStationWood.blockID)
             {
-            	TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
+                TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
                 NBTTagCompound tags = player.getEntityData().getCompoundTag("TConstruct");
                 if (!tags.getBoolean("materialManual") || !stats.materialManual)
                 {
-                	stats.materialManual = true;
+                    stats.materialManual = true;
                     tags.setBoolean("materialManual", true);
                     AbilityHelper.spawnItemAtPlayer(player, new ItemStack(TContent.manualBook, 1, 1));
                 }
             }
             if (itemID == TContent.smeltery.blockID || itemID == TContent.lavaTank.blockID)
             {
-            	TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
+                TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
                 NBTTagCompound tags = player.getEntityData().getCompoundTag("TConstruct");
                 if (!tags.getBoolean("smelteryManual") || !stats.smelteryManual)
                 {
-                	stats.smelteryManual = true;
+                    stats.smelteryManual = true;
                     tags.setBoolean("smelteryManual", true);
                     AbilityHelper.spawnItemAtPlayer(player, new ItemStack(TContent.manualBook, 1, 2));
                 }

@@ -18,43 +18,51 @@ public class GlassBlock extends TConstructBlock
         super(id, Material.glass, 3f, blockTextures);
     }
 
-    public boolean isOpaqueCube()
+    public boolean isOpaqueCube ()
     {
         return false;
     }
 
     @SideOnly(Side.CLIENT)
-    public boolean shouldSideBeRendered(IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
+    public boolean shouldSideBeRendered (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
     {
         int i1 = par1IBlockAccess.getBlockId(par2, par3, par4);
         return i1 == this.blockID ? false : super.shouldSideBeRendered(par1IBlockAccess, par2, par3, par4, par5);
     }
 
     @Override
-    public float getBlockHardness(World world, int x, int y, int z) 
+    public float getBlockHardness (World world, int x, int y, int z)
     {
         int meta = world.getBlockMetadata(x, y, z);
-        switch(meta) 
+        switch (meta)
         {
-        case 0: return 0.3F;
-        case 1: return 50.0F;
-        case 2: return 50.0F;
-        default: return blockHardness;
+        case 0:
+            return 0.3F;
+        case 1:
+            return 50.0F;
+        case 2:
+            return 50.0F;
+        default:
+            return blockHardness;
         }
     }
 
-    public float getExplosionResistance(Entity entity, World world, int x, int y, int z, double explosionX, double explosionY, double explosionZ)
+    public float getExplosionResistance (Entity entity, World world, int x, int y, int z, double explosionX, double explosionY, double explosionZ)
     {
         int meta = world.getBlockMetadata(x, y, z);
-        switch(meta) 
+        switch (meta)
         {
-        case 0: return 1.5F;
-        case 1: return 2000F;
-        case 2: return 2000F;
-        default: return getExplosionResistance(entity);
+        case 0:
+            return 1.5F;
+        case 1:
+            return 2000F;
+        case 2:
+            return 2000F;
+        default:
+            return getExplosionResistance(entity);
         }
     }
-    
+
     @Override
     @SideOnly(Side.CLIENT)
     public void registerIcons (IconRegister iconRegister)

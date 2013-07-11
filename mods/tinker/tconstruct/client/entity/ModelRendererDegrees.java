@@ -67,7 +67,7 @@ public class ModelRendererDegrees
 
     public ModelRendererDegrees(ModelBase par1ModelBase)
     {
-        this(par1ModelBase, (String)null);
+        this(par1ModelBase, (String) null);
     }
 
     public ModelRendererDegrees(ModelBase par1ModelBase, int par2, int par3)
@@ -79,7 +79,7 @@ public class ModelRendererDegrees
     /**
      * Sets the current box's rotation points and rotation angles to another box.
      */
-    public void addChild(ModelRendererDegrees par1ModelRenderer)
+    public void addChild (ModelRendererDegrees par1ModelRenderer)
     {
         if (this.childModels == null)
         {
@@ -89,14 +89,14 @@ public class ModelRendererDegrees
         this.childModels.add(par1ModelRenderer);
     }
 
-    public ModelRendererDegrees setTextureOffset(int par1, int par2)
+    public ModelRendererDegrees setTextureOffset (int par1, int par2)
     {
         this.textureOffsetX = par1;
         this.textureOffsetY = par2;
         return this;
     }
 
-    public ModelRendererDegrees addBox(String par1Str, float par2, float par3, float par4, int par5, int par6, int par7)
+    public ModelRendererDegrees addBox (String par1Str, float par2, float par3, float par4, int par5, int par6, int par7)
     {
         par1Str = this.boxName + "." + par1Str;
         TextureOffset textureoffset = this.baseModel.getTextureOffset(par1Str);
@@ -105,7 +105,7 @@ public class ModelRendererDegrees
         return this;
     }
 
-    public ModelRendererDegrees addBox(float par1, float par2, float par3, int par4, int par5, int par6)
+    public ModelRendererDegrees addBox (float par1, float par2, float par3, int par4, int par5, int par6)
     {
         this.cubeList.add(new ModelBoxDegrees(this, this.textureOffsetX, this.textureOffsetY, par1, par2, par3, par4, par5, par6, 0.0F));
         return this;
@@ -114,20 +114,20 @@ public class ModelRendererDegrees
     /**
      * Creates a textured box. Args: originX, originY, originZ, width, height, depth, scaleFactor.
      */
-    public void addBox(float par1, float par2, float par3, int par4, int par5, int par6, float par7)
+    public void addBox (float par1, float par2, float par3, int par4, int par5, int par6, float par7)
     {
         this.cubeList.add(new ModelBoxDegrees(this, this.textureOffsetX, this.textureOffsetY, par1, par2, par3, par4, par5, par6, par7));
     }
 
-    public void setRotationPoint(float par1, float par2, float par3)
+    public void setRotationPoint (float par1, float par2, float par3)
     {
         this.rotationPointX = par1;
         this.rotationPointY = par2;
         this.rotationPointZ = par3;
     }
-    
+
     @SideOnly(Side.CLIENT)
-    public void render(float par1)
+    public void render (float par1)
     {
         if (!this.isHidden)
         {
@@ -151,7 +151,7 @@ public class ModelRendererDegrees
                         {
                             for (i = 0; i < this.childModels.size(); ++i)
                             {
-                                ((ModelRendererDegrees)this.childModels.get(i)).render(par1);
+                                ((ModelRendererDegrees) this.childModels.get(i)).render(par1);
                             }
                         }
                     }
@@ -164,7 +164,7 @@ public class ModelRendererDegrees
                         {
                             for (i = 0; i < this.childModels.size(); ++i)
                             {
-                                ((ModelRendererDegrees)this.childModels.get(i)).render(par1);
+                                ((ModelRendererDegrees) this.childModels.get(i)).render(par1);
                             }
                         }
 
@@ -197,7 +197,7 @@ public class ModelRendererDegrees
                     {
                         for (i = 0; i < this.childModels.size(); ++i)
                         {
-                            ((ModelRendererDegrees)this.childModels.get(i)).render(par1);
+                            ((ModelRendererDegrees) this.childModels.get(i)).render(par1);
                         }
                     }
 
@@ -210,7 +210,7 @@ public class ModelRendererDegrees
     }
 
     @SideOnly(Side.CLIENT)
-    public void renderWithRotation(float par1)
+    public void renderWithRotation (float par1)
     {
         if (!this.isHidden)
         {
@@ -226,17 +226,17 @@ public class ModelRendererDegrees
 
                 if (this.rotateAngleY != 0.0F)
                 {
-                    GL11.glRotatef(this.rotateAngleY * (180F / (float)Math.PI), 0.0F, 1.0F, 0.0F);
+                    GL11.glRotatef(this.rotateAngleY * (180F / (float) Math.PI), 0.0F, 1.0F, 0.0F);
                 }
 
                 if (this.rotateAngleX != 0.0F)
                 {
-                    GL11.glRotatef(this.rotateAngleX * (180F / (float)Math.PI), 1.0F, 0.0F, 0.0F);
+                    GL11.glRotatef(this.rotateAngleX * (180F / (float) Math.PI), 1.0F, 0.0F, 0.0F);
                 }
 
                 if (this.rotateAngleZ != 0.0F)
                 {
-                    GL11.glRotatef(this.rotateAngleZ * (180F / (float)Math.PI), 0.0F, 0.0F, 1.0F);
+                    GL11.glRotatef(this.rotateAngleZ * (180F / (float) Math.PI), 0.0F, 0.0F, 1.0F);
                 }
 
                 GL11.glCallList(this.displayList);
@@ -249,7 +249,7 @@ public class ModelRendererDegrees
      * Allows the changing of Angles after a box has been rendered
      */
     @SideOnly(Side.CLIENT)
-    public void postRender(float par1)
+    public void postRender (float par1)
     {
         if (!this.isHidden)
         {
@@ -294,7 +294,7 @@ public class ModelRendererDegrees
      * Compiles a GL display list for this model
      */
     @SideOnly(Side.CLIENT)
-    private void compileDisplayList(float par1)
+    private void compileDisplayList (float par1)
     {
         this.displayList = GLAllocation.generateDisplayLists(1);
         GL11.glNewList(this.displayList, GL11.GL_COMPILE);
@@ -302,7 +302,7 @@ public class ModelRendererDegrees
 
         for (int i = 0; i < this.cubeList.size(); ++i)
         {
-            ((ModelBoxDegrees)this.cubeList.get(i)).render(tessellator, par1);
+            ((ModelBoxDegrees) this.cubeList.get(i)).render(tessellator, par1);
         }
 
         GL11.glEndList();
@@ -312,10 +312,10 @@ public class ModelRendererDegrees
     /**
      * Returns the model renderer with the new texture parameters.
      */
-    public ModelRendererDegrees setTextureSize(int par1, int par2)
+    public ModelRendererDegrees setTextureSize (int par1, int par2)
     {
-        this.textureWidth = (float)par1;
-        this.textureHeight = (float)par2;
+        this.textureWidth = (float) par1;
+        this.textureHeight = (float) par2;
         return this;
     }
 }

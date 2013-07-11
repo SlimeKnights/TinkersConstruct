@@ -7,6 +7,7 @@ public class FletchingMaterial extends CustomMaterial
     public final float accuracy;
     public final float breakChance;
     public final float mass;
+
     public FletchingMaterial(int materialID, int value, ItemStack input, ItemStack craftingItem, float accuracy, float breakChance, float mass)
     {
         super(materialID, value, input, craftingItem);

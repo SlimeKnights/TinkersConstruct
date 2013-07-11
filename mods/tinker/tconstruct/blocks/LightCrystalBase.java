@@ -1,4 +1,3 @@
-
 package mods.tinker.tconstruct.blocks;
 
 import java.util.List;
@@ -94,11 +93,11 @@ public class LightCrystalBase extends Block
             TheftValueTracker.updateCrystallinity(world.provider.dimensionId, x, z, -60);
             break;
         }
-        
-        Block block = Block.blocksList[world.getBlockId(x, y-1, z)];
+
+        Block block = Block.blocksList[world.getBlockId(x, y - 1, z)];
         if (block == TContent.aggregator)
         {
-            ((Aggregator)block).updateCrystalValue(world, x, y-1, z);
+            ((Aggregator) block).updateCrystalValue(world, x, y - 1, z);
         }
     }
 }

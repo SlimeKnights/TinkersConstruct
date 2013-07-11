@@ -14,107 +14,107 @@ import net.minecraft.world.World;
 
 public class Rapier extends Weapon
 {
-	public Rapier(int itemID)
-	{
-		super(itemID, 2);
-		this.setUnlocalizedName("InfiTool.Rapier");
-	}
+    public Rapier(int itemID)
+    {
+        super(itemID, 2);
+        this.setUnlocalizedName("InfiTool.Rapier");
+    }
 
-	public EnumAction getItemUseAction (ItemStack par1ItemStack)
-	{
-		return EnumAction.none;
-	}
+    public EnumAction getItemUseAction (ItemStack par1ItemStack)
+    {
+        return EnumAction.none;
+    }
 
-	public ItemStack onItemRightClick (ItemStack stack, World world, EntityPlayer player)
-	{
-	    if (player.onGround)
-	    {
-	        player.addExhaustion(0.1f);
-	        player.motionY += 0.32;
+    public ItemStack onItemRightClick (ItemStack stack, World world, EntityPlayer player)
+    {
+        if (player.onGround)
+        {
+            player.addExhaustion(0.1f);
+            player.motionY += 0.32;
             float f = 0.5F;
             player.motionX = (double) (MathHelper.sin(player.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(player.rotationPitch / 180.0F * (float) Math.PI) * f);
             player.motionZ = (double) (-MathHelper.cos(player.rotationYaw / 180.0F * (float) Math.PI) * MathHelper.cos(player.rotationPitch / 180.0F * (float) Math.PI) * f);
-	    }
-		return stack;
-	}
+        }
+        return stack;
+    }
 
-	@Override
-	public boolean hitEntity (ItemStack stack, EntityLiving mob, EntityLiving player)
-	{
-		//AbilityHelper.hitEntity(stack, mob, player, damageVsEntity);
-		//AbilityHelper.knockbackEntity(mob, 0.8f);
-		mob.motionY *= 0.8;
-		if (mob.hurtResistantTime > 18)
-			mob.hurtResistantTime -= 5;
-		return true;
-	}
+    @Override
+    public boolean hitEntity (ItemStack stack, EntityLiving mob, EntityLiving player)
+    {
+        //AbilityHelper.hitEntity(stack, mob, player, damageVsEntity);
+        //AbilityHelper.knockbackEntity(mob, 0.8f);
+        mob.motionY *= 0.8;
+        if (mob.hurtResistantTime > 18)
+            mob.hurtResistantTime -= 5;
+        return true;
+    }
 
-	@Override
-	public float getDurabilityModifier ()
-	{
-		return 0.7f;
-	}
-	
-	@Override
-	public float getDamageModifier ()
+    @Override
+    public float getDurabilityModifier ()
+    {
+        return 0.7f;
+    }
+
+    @Override
+    public float getDamageModifier ()
     {
         return 0.8f;
     }
 
-	/*public float chargeAttack ()
-	{
-		return 1.0f;
-	}*/
-
-	public boolean pierceArmor ()
-	{
-		return true;
-	}
-
-	@Override
-	public Item getHeadItem ()
-	{
-		return TContent.swordBlade;
-	}
-
-	@Override
-	public Item getAccessoryItem ()
-	{
-		return TContent.crossbar;
-	}
-
-	@Override
-	public String getIconSuffix (int partType)
-	{
-		switch (partType)
-		{
-		case 0:
-			return "_rapier_blade";
-		case 1:
-			return "_rapier_blade_broken";
-		case 2:
-			return "_rapier_handle";
-		case 3:
-			return "_rapier_accessory";
-		default:
-			return "";
-		}
-	}
-
-	@Override
-	public String getEffectSuffix ()
-	{
-		return "_rapier_effect";
-	}
-
-	@Override
-	public String getDefaultFolder ()
-	{
-		return "rapier";
-	}
-	
-	protected Material[] getEffectiveMaterials()
+    /*public float chargeAttack ()
     {
-	    return none;
+    	return 1.0f;
+    }*/
+
+    public boolean pierceArmor ()
+    {
+        return true;
+    }
+
+    @Override
+    public Item getHeadItem ()
+    {
+        return TContent.swordBlade;
+    }
+
+    @Override
+    public Item getAccessoryItem ()
+    {
+        return TContent.crossbar;
+    }
+
+    @Override
+    public String getIconSuffix (int partType)
+    {
+        switch (partType)
+        {
+        case 0:
+            return "_rapier_blade";
+        case 1:
+            return "_rapier_blade_broken";
+        case 2:
+            return "_rapier_handle";
+        case 3:
+            return "_rapier_accessory";
+        default:
+            return "";
+        }
+    }
+
+    @Override
+    public String getEffectSuffix ()
+    {
+        return "_rapier_effect";
+    }
+
+    @Override
+    public String getDefaultFolder ()
+    {
+        return "rapier";
+    }
+
+    protected Material[] getEffectiveMaterials ()
+    {
+        return none;
     }
 }

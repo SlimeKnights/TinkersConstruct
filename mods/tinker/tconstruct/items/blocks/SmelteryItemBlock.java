@@ -6,10 +6,7 @@ import net.minecraft.util.MathHelper;
 
 public class SmelteryItemBlock extends ItemBlock
 {
-    public static final String blockType[] =
-    {
-        "Controller", "Drain", "Brick", "Furnace", "Stone", "Cobblestone", "Paver", "Brick.Cracked", "Road", "Brick.Fancy", "Brick.Square"
-    };
+    public static final String blockType[] = { "Controller", "Drain", "Brick", "Furnace", "Stone", "Cobblestone", "Paver", "Brick.Cracked", "Road", "Brick.Fancy", "Brick.Square" };
 
     public SmelteryItemBlock(int id)
     {
@@ -18,14 +15,14 @@ public class SmelteryItemBlock extends ItemBlock
         setHasSubtypes(true);
     }
 
-    public int getMetadata(int meta)
+    public int getMetadata (int meta)
     {
         return meta;
     }
 
-    public String getUnlocalizedName(ItemStack itemstack)
+    public String getUnlocalizedName (ItemStack itemstack)
     {
-        int pos = MathHelper.clamp_int(itemstack.getItemDamage(), 0, blockType.length-1);
+        int pos = MathHelper.clamp_int(itemstack.getItemDamage(), 0, blockType.length - 1);
         return (new StringBuilder()).append("Smeltery.").append(blockType[pos]).toString();
     }
 }

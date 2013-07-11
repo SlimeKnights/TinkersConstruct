@@ -6,11 +6,8 @@ import net.minecraft.util.MathHelper;
 
 public class ToolStationItemBlock extends ItemBlock
 {
-    public static final String blockType[] =
-    {
-        "Crafter", "Parts", "Parts", "Parts", "Parts", "PatternChest", "PatternChest", "PatternChest", "PatternChest", "PatternChest", 
-        "PatternShaper", "PatternShaper", "PatternShaper", "PatternShaper", "CastingTable"
-    };
+    public static final String blockType[] = { "Crafter", "Parts", "Parts", "Parts", "Parts", "PatternChest", "PatternChest", "PatternChest", "PatternChest", "PatternChest", "PatternShaper",
+            "PatternShaper", "PatternShaper", "PatternShaper", "CastingTable" };
 
     public ToolStationItemBlock(int id)
     {
@@ -19,15 +16,15 @@ public class ToolStationItemBlock extends ItemBlock
         setHasSubtypes(true);
     }
 
-    public int getMetadata(int meta)
+    public int getMetadata (int meta)
     {
         return meta;
     }
 
     @Override
-    public String getUnlocalizedName(ItemStack itemstack)
+    public String getUnlocalizedName (ItemStack itemstack)
     {
-        int pos = MathHelper.clamp_int(itemstack.getItemDamage(), 0, blockType.length-1);
+        int pos = MathHelper.clamp_int(itemstack.getItemDamage(), 0, blockType.length - 1);
         return (new StringBuilder()).append("ToolStation.").append(blockType[pos]).toString();
     }
 }

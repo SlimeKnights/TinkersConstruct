@@ -121,7 +121,7 @@ public class Chisel extends ToolCore
 
         return itemstack;
     }
-    
+
     @Override
     @SideOnly(Side.CLIENT)
     public void onUpdate (ItemStack stack, World world, Entity entity, int par4, boolean par5)

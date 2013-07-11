@@ -52,9 +52,10 @@ public class RedstoneMachine extends InventoryBlock
     public Integer getGui (World world, int x, int y, int z, EntityPlayer entityplayer)
     {
         int meta = world.getBlockMetadata(x, y, z);
-        switch(meta)
+        switch (meta)
         {
-        case 0: return TConstruct.proxy.drawbridgeGui; 
+        case 0:
+            return TConstruct.proxy.drawbridgeGui;
         }
         return null;
     }
@@ -70,9 +71,8 @@ public class RedstoneMachine extends InventoryBlock
     @Override
     public String[] getTextureNames ()
     {
-        String[] textureNames = { "drawbridge_top", "drawbridge_side", "drawbridge_bottom", "drawbridge_top_face", "drawbridge_side_face", "drawbridge_bottom_face",
-                "firestarter_top", "firestarter_side", "firestarter_bottom" 
-                };
+        String[] textureNames = { "drawbridge_top", "drawbridge_side", "drawbridge_bottom", "drawbridge_top_face", "drawbridge_side_face", "drawbridge_bottom_face", "firestarter_top",
+                "firestarter_side", "firestarter_bottom" };
 
         return textureNames;
     }
@@ -100,7 +100,7 @@ public class RedstoneMachine extends InventoryBlock
         }
         if (meta == 1)
         {
-            return icons[getTextureIndex(side)+6];
+            return icons[getTextureIndex(side) + 6];
         }
         return icons[0];
     }
@@ -154,13 +154,13 @@ public class RedstoneMachine extends InventoryBlock
 
         return 1;
     }
-    
+
     public int getRenderType ()
     {
         return MachineRender.model;
     }
-    
-    public boolean isFireSource(World world, int x, int y, int z, int metadata, ForgeDirection side)
+
+    public boolean isFireSource (World world, int x, int y, int z, int metadata, ForgeDirection side)
     {
         if (metadata == 1)
             return side == UP;

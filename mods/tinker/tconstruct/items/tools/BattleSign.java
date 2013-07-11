@@ -8,25 +8,25 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class BattleSign extends Weapon
 {
-	public BattleSign(int itemID)
-	{
-		super(itemID, 1);
-		this.setUnlocalizedName("InfiTool.Battlesign");
-	}
-	
-	/*public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
+    public BattleSign(int itemID)
     {
-		if (!player.isSneaking())
-			player.setItemInUse(stack, this.getMaxItemUseDuration(stack));
+        super(itemID, 1);
+        this.setUnlocalizedName("InfiTool.Battlesign");
+    }
+
+    /*public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player)
+    {
+    	if (!player.isSneaking())
+    		player.setItemInUse(stack, this.getMaxItemUseDuration(stack));
         return stack;
     }*/
-	
-	public String getToolName ()
-	{
-		return "Battlesign";
-	}
-	
-	/*public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer player, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10)
+
+    public String getToolName ()
+    {
+        return "Battlesign";
+    }
+
+    /*public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer player, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10)
     {
         if (par7 == 0 || !player.isSneaking())
         {
@@ -96,64 +96,64 @@ public class BattleSign extends Weapon
         }
     }*/
 
-	@Override
-	public Item getHeadItem ()
-	{
-		return  TContent.signHead;
-	}
+    @Override
+    public Item getHeadItem ()
+    {
+        return TContent.signHead;
+    }
 
-	@Override
-	public Item getAccessoryItem ()
-	{
-		return null;
-	}
-	
-	@SideOnly(Side.CLIENT)
+    @Override
+    public Item getAccessoryItem ()
+    {
+        return null;
+    }
+
+    @SideOnly(Side.CLIENT)
     @Override
     public int getRenderPasses (int metadata)
     {
         return 8;
     }
-    
+
     @Override
-    public int getPartAmount()
+    public int getPartAmount ()
     {
         return 2;
     }
-	
-	@Override
-	public void registerPartPaths (int index, String[] location)
-	{
-		headStrings.put(index, location[0]);
-		brokenPartStrings.put(index, location[1]);
-		handleStrings.put(index, location[2]);
-	}
-	
-	@Override
-	public String getIconSuffix (int partType)
-	{
-		switch (partType)
-		{
-		case 0:
-			return "_battlesign_head";
-		case 1:
-			return "_battlesign_head_broken";
-		case 2:
-			return "_battlesign_handle";
-		default:
-			return "";
-		}
-	}
 
-	@Override
-	public String getEffectSuffix ()
-	{
-		return "_battlesign_effect";
-	}
+    @Override
+    public void registerPartPaths (int index, String[] location)
+    {
+        headStrings.put(index, location[0]);
+        brokenPartStrings.put(index, location[1]);
+        handleStrings.put(index, location[2]);
+    }
 
-	@Override
-	public String getDefaultFolder ()
-	{
-		return "battlesign";
-	}
+    @Override
+    public String getIconSuffix (int partType)
+    {
+        switch (partType)
+        {
+        case 0:
+            return "_battlesign_head";
+        case 1:
+            return "_battlesign_head_broken";
+        case 2:
+            return "_battlesign_handle";
+        default:
+            return "";
+        }
+    }
+
+    @Override
+    public String getEffectSuffix ()
+    {
+        return "_battlesign_effect";
+    }
+
+    @Override
+    public String getDefaultFolder ()
+    {
+        return "battlesign";
+    }
 }

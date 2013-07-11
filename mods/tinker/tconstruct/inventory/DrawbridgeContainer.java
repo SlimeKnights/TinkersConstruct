@@ -20,7 +20,7 @@ public class DrawbridgeContainer extends Container
 
         this.addSlotToContainer(new Slot(logic, 0, 80, 36));
         this.addSlotToContainer(new Slot(logic, 1, 35, 36));
-        
+
         /* Player inventory */
         for (int column = 0; column < 3; column++)
         {
@@ -36,18 +36,17 @@ public class DrawbridgeContainer extends Container
         }
     }
 
-
     @Override
-    public boolean canInteractWith(EntityPlayer entityplayer)
+    public boolean canInteractWith (EntityPlayer entityplayer)
     {
         return logic.isUseableByPlayer(entityplayer);
     }
-    
+
     @Override
-    public ItemStack transferStackInSlot(EntityPlayer player, int slotID)
+    public ItemStack transferStackInSlot (EntityPlayer player, int slotID)
     {
         ItemStack stack = null;
-        Slot slot = (Slot)this.inventorySlots.get(slotID);
+        Slot slot = (Slot) this.inventorySlots.get(slotID);
 
         if (slot != null && slot.getHasStack())
         {
@@ -68,7 +67,7 @@ public class DrawbridgeContainer extends Container
 
             if (slotStack.stackSize == 0)
             {
-                slot.putStack((ItemStack)null);
+                slot.putStack((ItemStack) null);
             }
             else
             {

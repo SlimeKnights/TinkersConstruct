@@ -11,8 +11,8 @@ import net.minecraft.util.MathHelper;
 
 public class MultiBrickFancyItem extends ItemBlock
 {
-    static String blockType[] = { "obsidian", "sandstone", "netherrack", "stone.refined", "iron", "gold", "lapis", "diamond",
-         "redstone", "bone", "slime", "blueslime", "endstone", "obsidian.ingot", "stone", "stone.road" };
+    static String blockType[] = { "obsidian", "sandstone", "netherrack", "stone.refined", "iron", "gold", "lapis", "diamond", "redstone", "bone", "slime", "blueslime", "endstone", "obsidian.ingot",
+            "stone", "stone.road" };
 
     public MultiBrickFancyItem(int id)
     {
@@ -21,17 +21,17 @@ public class MultiBrickFancyItem extends ItemBlock
         setHasSubtypes(true);
     }
 
-    public int getMetadata(int meta)
+    public int getMetadata (int meta)
     {
         return meta;
     }
 
-    public String getUnlocalizedName(ItemStack itemstack)
+    public String getUnlocalizedName (ItemStack itemstack)
     {
-        int pos = MathHelper.clamp_int(itemstack.getItemDamage(), 0, blockType.length-1);
+        int pos = MathHelper.clamp_int(itemstack.getItemDamage(), 0, blockType.length - 1);
         return (new StringBuilder()).append("block.fancybrick.").append(blockType[pos]).toString();
     }
-    
+
     @Override
     @SideOnly(Side.CLIENT)
     public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean par4)

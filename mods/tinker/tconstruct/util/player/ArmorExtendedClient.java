@@ -7,9 +7,9 @@ import net.minecraft.entity.player.EntityPlayer;
 
 public class ArmorExtendedClient extends ArmorExtended
 {
-	/*public void recalculateSkills(EntityPlayer player, TPlayerStats stats)
+    /*public void recalculateSkills(EntityPlayer player, TPlayerStats stats)
     {
-		System.out.println("Client skills");
+    	System.out.println("Client skills");
     	if (inventory[1] != null && inventory[1].getItem() == TContent.glove)
     	{
     		if (TProxyClient.skillList.size() < 1)

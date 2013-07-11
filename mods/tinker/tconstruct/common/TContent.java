@@ -642,7 +642,7 @@ public class TContent implements IFuelHandler
         TConstructRegistry.addBowMaterial(15, 768, 40, 1.2f); //Alumite
         TConstructRegistry.addBowMaterial(16, 768, 40, 1.2f); //Steel
         TConstructRegistry.addBowMaterial(17, 576, 20, 1.2f); //Blue Slime
-        
+
         //Material ID, mass, fragility
         TConstructRegistry.addArrowMaterial(0, 0.69F, 1.0F, 100F); //Wood
         TConstructRegistry.addArrowMaterial(1, 2.5F, 5.0F, 100F); //Stone

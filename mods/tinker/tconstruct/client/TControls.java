@@ -19,187 +19,187 @@ import cpw.mods.fml.common.network.PacketDispatcher;
 
 public class TControls extends TKeyHandler
 {
-	//static KeyBinding grabKey = new KeyBinding("key.grab", 29);
-	//static KeyBinding stiltsKey = new KeyBinding("key.stilts", 46);
-	public static KeyBinding armorKey = new KeyBinding("key.tarmor", 24);
-	/*public static KeyBinding skillOne = new KeyBinding("key.skill.one", 44);
-	public static KeyBinding skillTwo = new KeyBinding("key.skill.two", 45);
-	public static KeyBinding skillThree = new KeyBinding("key.skill.three", 46);
-	public static KeyBinding skillFour = new KeyBinding("key.skill.four", 47);
-	public static KeyBinding skillFive = new KeyBinding("key.skill.five", 48);*/
-	static KeyBinding jumpKey;
-	static KeyBinding invKey;
-	static Minecraft mc;
+    //static KeyBinding grabKey = new KeyBinding("key.grab", 29);
+    //static KeyBinding stiltsKey = new KeyBinding("key.stilts", 46);
+    public static KeyBinding armorKey = new KeyBinding("key.tarmor", 24);
+    /*public static KeyBinding skillOne = new KeyBinding("key.skill.one", 44);
+    public static KeyBinding skillTwo = new KeyBinding("key.skill.two", 45);
+    public static KeyBinding skillThree = new KeyBinding("key.skill.three", 46);
+    public static KeyBinding skillFour = new KeyBinding("key.skill.four", 47);
+    public static KeyBinding skillFive = new KeyBinding("key.skill.five", 48);*/
+    static KeyBinding jumpKey;
+    static KeyBinding invKey;
+    static Minecraft mc;
 
-	boolean jumping;
-	boolean doubleJump = true;
-	boolean climbing = false;
-	boolean onGround = false;
-	boolean onStilts = false;
-	
-	int currentTab = 1;
+    boolean jumping;
+    boolean doubleJump = true;
+    boolean climbing = false;
+    boolean onGround = false;
+    boolean onStilts = false;
 
-	//boolean onStilts = false;
+    int currentTab = 1;
 
-	public TControls()
-	{
-		super(new KeyBinding[] { armorKey/*, skillOne, skillTwo, skillThree, skillFour, skillFive*/ }, new boolean[] { false/*, false, false, false, false, false*/ }, getVanillaKeyBindings(), new boolean[] {
-				false, false });
-		//System.out.println("Controls registered");Natura
-	}
+    //boolean onStilts = false;
 
-	private static KeyBinding[] getVanillaKeyBindings ()
-	{
-		mc = Minecraft.getMinecraft();
-		jumpKey = mc.gameSettings.keyBindJump;
-		invKey = mc.gameSettings.keyBindInventory;
-		return new KeyBinding[] { jumpKey, invKey };
-	}
+    public TControls()
+    {
+        super(new KeyBinding[] { armorKey /*, skillOne, skillTwo, skillThree, skillFour, skillFive*/}, new boolean[] { false /*, false, false, false, false, false*/}, getVanillaKeyBindings(),
+                new boolean[] { false, false });
+        //System.out.println("Controls registered");Natura
+    }
 
-	@Override
-	public String getLabel ()
-	{
-		return null;
-	}
+    private static KeyBinding[] getVanillaKeyBindings ()
+    {
+        mc = Minecraft.getMinecraft();
+        jumpKey = mc.gameSettings.keyBindJump;
+        invKey = mc.gameSettings.keyBindInventory;
+        return new KeyBinding[] { jumpKey, invKey };
+    }
 
-	@Override
-	public void keyDown (EnumSet<TickType> types, KeyBinding kb, boolean tickEnd, boolean isRepeat)
-	{
-		if (tickEnd && mc.theWorld != null)
-		{
-			if (kb == armorKey && mc.currentScreen == null) //Extended Armor
-			{
-				openArmorGui();//mc.thePlayer.username);
-			}
-			if (kb == invKey && mc.currentScreen != null && mc.currentScreen.getClass() == GuiInventory.class)// && !mc.playerController.isInCreativeMode())
-			{
-				TProxyClient.addTabsToInventory((GuiContainer) mc.currentScreen);
-			}
-			/*if (kb == skillOne)
-			{
-				sendSkillkey(mc.thePlayer, (byte) 0);//, mc.thePlayer.dimension, mc.thePlayer.entityId);
-			}
-			if (kb == skillTwo)
-			{
-				sendSkillkey(mc.thePlayer, (byte) 1);//, mc.thePlayer.dimension, mc.thePlayer.entityId);
-			}
-			if (kb == skillThree)
-			{
-				sendSkillkey(mc.thePlayer, (byte) 2);//, mc.thePlayer.dimension, mc.thePlayer.entityId);
-			}
-			if (kb == skillFour)
-			{
-				sendSkillkey(mc.thePlayer, (byte) 3);//, mc.thePlayer.dimension, mc.thePlayer.entityId);
-			}
-			if (kb == skillFive)
-			{
-				sendSkillkey(mc.thePlayer, (byte) 4);//, mc.thePlayer.dimension, mc.thePlayer.entityId);
-			}*/
-			/*if (kb == jumpKey) //Double jump
-			{
-				if (jumping && !doubleJump)
-				{
-					//if (player == null)
-						//player = mc.thePlayer;
+    @Override
+    public String getLabel ()
+    {
+        return null;
+    }
 
-					mc.thePlayer.motionY = 0.42D;
-					mc.thePlayer.fallDistance = 0;
+    @Override
+    public void keyDown (EnumSet<TickType> types, KeyBinding kb, boolean tickEnd, boolean isRepeat)
+    {
+        if (tickEnd && mc.theWorld != null)
+        {
+            if (kb == armorKey && mc.currentScreen == null) //Extended Armor
+            {
+                openArmorGui();//mc.thePlayer.username);
+            }
+            if (kb == invKey && mc.currentScreen != null && mc.currentScreen.getClass() == GuiInventory.class)// && !mc.playerController.isInCreativeMode())
+            {
+                TProxyClient.addTabsToInventory((GuiContainer) mc.currentScreen);
+            }
+            /*if (kb == skillOne)
+            {
+            	sendSkillkey(mc.thePlayer, (byte) 0);//, mc.thePlayer.dimension, mc.thePlayer.entityId);
+            }
+            if (kb == skillTwo)
+            {
+            	sendSkillkey(mc.thePlayer, (byte) 1);//, mc.thePlayer.dimension, mc.thePlayer.entityId);
+            }
+            if (kb == skillThree)
+            {
+            	sendSkillkey(mc.thePlayer, (byte) 2);//, mc.thePlayer.dimension, mc.thePlayer.entityId);
+            }
+            if (kb == skillFour)
+            {
+            	sendSkillkey(mc.thePlayer, (byte) 3);//, mc.thePlayer.dimension, mc.thePlayer.entityId);
+            }
+            if (kb == skillFive)
+            {
+            	sendSkillkey(mc.thePlayer, (byte) 4);//, mc.thePlayer.dimension, mc.thePlayer.entityId);
+            }*/
+            /*if (kb == jumpKey) //Double jump
+            {
+            	if (jumping && !doubleJump)
+            	{
+            		//if (player == null)
+            			//player = mc.thePlayer;
 
-					if (mc.thePlayer.isPotionActive(Potion.jump))
-					{
-						mc.thePlayer.motionY += (double) ((float) (mc.thePlayer.getActivePotionEffect(Potion.jump).getAmplifier() + 1) * 0.1F);
-					}
+            		mc.thePlayer.motionY = 0.42D;
+            		mc.thePlayer.fallDistance = 0;
 
-					doubleJump = true;
-					resetFallDamage(mc.thePlayer.username);
-				}
+            		if (mc.thePlayer.isPotionActive(Potion.jump))
+            		{
+            			mc.thePlayer.motionY += (double) ((float) (mc.thePlayer.getActivePotionEffect(Potion.jump).getAmplifier() + 1) * 0.1F);
+            		}
 
-				if (!jumping)
-					jumping = mc.thePlayer.isAirBorne;
-			}*/
-		}
-		/*else if (kb == stiltsKey) //Stilts
-		{
-			float size = 1.8F;
-			if (!onStilts)
-				size = 0.8F;
-			TConstruct.playerTracker.updateSize(mc.thePlayer.username, size);
-			onStilts = !onStilts;
-			//updateServer(mc.thePlayer.username, (byte) 11);
-			if (onStilts)
-			{
-				onStilts = false;
-			}
-			else
-			{
-				onStilts = true;
-			}
-		}*/
-	}
+            		doubleJump = true;
+            		resetFallDamage(mc.thePlayer.username);
+            	}
 
-	@Override
-	public void keyUp (EnumSet<TickType> types, KeyBinding kb, boolean tickEnd)
-	{
-		//landOnGround();
-	}
+            	if (!jumping)
+            		jumping = mc.thePlayer.isAirBorne;
+            }*/
+        }
+        /*else if (kb == stiltsKey) //Stilts
+        {
+        	float size = 1.8F;
+        	if (!onStilts)
+        		size = 0.8F;
+        	TConstruct.playerTracker.updateSize(mc.thePlayer.username, size);
+        	onStilts = !onStilts;
+        	//updateServer(mc.thePlayer.username, (byte) 11);
+        	if (onStilts)
+        	{
+        		onStilts = false;
+        	}
+        	else
+        	{
+        		onStilts = true;
+        	}
+        }*/
+    }
 
-	@Override
-	public EnumSet<TickType> ticks ()
-	{
-		return EnumSet.of(TickType.CLIENT);
-	}
+    @Override
+    public void keyUp (EnumSet<TickType> types, KeyBinding kb, boolean tickEnd)
+    {
+        //landOnGround();
+    }
 
-	public void landOnGround ()
-	{
-		doubleJump = false;
-		jumping = false;
-	}
+    @Override
+    public EnumSet<TickType> ticks ()
+    {
+        return EnumSet.of(TickType.CLIENT);
+    }
 
-	public void resetControls ()
-	{
-		doubleJump = false;
-		jumping = false;
-		climbing = false;
-		onGround = false;
-		onStilts = false;
-	}
+    public void landOnGround ()
+    {
+        doubleJump = false;
+        jumping = false;
+    }
 
-	void resetFallDamage (String name)
-	{
-		ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
-		DataOutputStream outputStream = new DataOutputStream(bos);
-		try
-		{
-			outputStream.writeByte(10);
-			outputStream.writeUTF(name);
-		}
-		catch (Exception ex)
-		{
-			ex.printStackTrace();
-		}
+    public void resetControls ()
+    {
+        doubleJump = false;
+        jumping = false;
+        climbing = false;
+        onGround = false;
+        onStilts = false;
+    }
 
-		updateServer(bos);
-	}
+    void resetFallDamage (String name)
+    {
+        ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
+        DataOutputStream outputStream = new DataOutputStream(bos);
+        try
+        {
+            outputStream.writeByte(10);
+            outputStream.writeUTF(name);
+        }
+        catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
 
-	void updateSize (String name, float size)
-	{
-		ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
-		DataOutputStream outputStream = new DataOutputStream(bos);
-		try
-		{
-			outputStream.writeByte(11);
-			outputStream.writeUTF(name);
-			outputStream.writeFloat(size);
-		}
-		catch (Exception ex)
-		{
-			ex.printStackTrace();
-		}
+        updateServer(bos);
+    }
 
-		updateServer(bos);
-	}
-	
-	public static void openInventoryGui ()
+    void updateSize (String name, float size)
+    {
+        ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
+        DataOutputStream outputStream = new DataOutputStream(bos);
+        try
+        {
+            outputStream.writeByte(11);
+            outputStream.writeUTF(name);
+            outputStream.writeFloat(size);
+        }
+        catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
+
+        updateServer(bos);
+    }
+
+    public static void openInventoryGui ()
     {
         ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
         DataOutputStream outputStream = new DataOutputStream(bos);
@@ -216,24 +216,24 @@ public class TControls extends TKeyHandler
         updateServer(bos);
     }
 
-	public static void openArmorGui ()
-	{
-		ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
-		DataOutputStream outputStream = new DataOutputStream(bos);
-		try
-		{
-			outputStream.writeByte(3);
+    public static void openArmorGui ()
+    {
+        ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
+        DataOutputStream outputStream = new DataOutputStream(bos);
+        try
+        {
+            outputStream.writeByte(3);
             outputStream.writeByte(1);
-		}
-		catch (Exception ex)
-		{
-			ex.printStackTrace();
-		}
+        }
+        catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
 
-		updateServer(bos);
-	}
-	
-	public static void openKnapsackGui ()
+        updateServer(bos);
+    }
+
+    public static void openKnapsackGui ()
     {
         ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
         DataOutputStream outputStream = new DataOutputStream(bos);
@@ -250,49 +250,49 @@ public class TControls extends TKeyHandler
         updateServer(bos);
     }
 
-	/*public void activateSkill (EntityPlayer player, int slot)
-	{
-		if (TProxyClient.skillList.size() > slot)
-		{
-			Skill skill = TProxyClient.skillList.get(slot);
-			if (skill != null)
-			{
-				skill.activate(player, player.worldObj);
-			}
-		}
-	}*/
+    /*public void activateSkill (EntityPlayer player, int slot)
+    {
+    	if (TProxyClient.skillList.size() > slot)
+    	{
+    		Skill skill = TProxyClient.skillList.get(slot);
+    		if (skill != null)
+    		{
+    			skill.activate(player, player.worldObj);
+    		}
+    	}
+    }*/
 
-	public void sendSkillkey (EntityPlayer player, byte key)
-	{
-		TConstruct.playerTracker.activateSkill(player, key);
+    public void sendSkillkey (EntityPlayer player, byte key)
+    {
+        TConstruct.playerTracker.activateSkill(player, key);
 
-		System.out.println(MinecraftServer.getServer());
-		if (MinecraftServer.getServer().isDedicatedServer())
-		{
-			System.out.println("Send");
-			ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
-			DataOutputStream outputStream = new DataOutputStream(bos);
-			try
-			{
-				outputStream.writeByte(4);
-				outputStream.writeByte(key);
-			}
-			catch (Exception ex)
-			{
-				ex.printStackTrace();
-			}
+        System.out.println(MinecraftServer.getServer());
+        if (MinecraftServer.getServer().isDedicatedServer())
+        {
+            System.out.println("Send");
+            ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
+            DataOutputStream outputStream = new DataOutputStream(bos);
+            try
+            {
+                outputStream.writeByte(4);
+                outputStream.writeByte(key);
+            }
+            catch (Exception ex)
+            {
+                ex.printStackTrace();
+            }
 
-			updateServer(bos);
-		}
-	}
+            updateServer(bos);
+        }
+    }
 
-	static void updateServer (ByteArrayOutputStream bos)
-	{
-		Packet250CustomPayload packet = new Packet250CustomPayload();
-		packet.channel = "TConstruct";
-		packet.data = bos.toByteArray();
-		packet.length = bos.size();
+    static void updateServer (ByteArrayOutputStream bos)
+    {
+        Packet250CustomPayload packet = new Packet250CustomPayload();
+        packet.channel = "TConstruct";
+        packet.data = bos.toByteArray();
+        packet.length = bos.size();
 
-		PacketDispatcher.sendPacketToServer(packet);
-	}
+        PacketDispatcher.sendPacketToServer(packet);
+    }
 }

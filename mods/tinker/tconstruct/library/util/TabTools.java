@@ -5,20 +5,20 @@ import net.minecraft.item.ItemStack;
 
 public class TabTools extends CreativeTabs
 {
-	ItemStack display;
-	
-	public TabTools(String label) 
-	{
-		super(label);
-	}
-	
-	public void init(ItemStack stack)
-	{
-		display = stack;
-	}
-	
-	public ItemStack getIconItemStack()
+    ItemStack display;
+
+    public TabTools(String label)
     {
-		return display;
+        super(label);
+    }
+
+    public void init (ItemStack stack)
+    {
+        display = stack;
+    }
+
+    public ItemStack getIconItemStack ()
+    {
+        return display;
     }
 }

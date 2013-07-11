@@ -10,8 +10,8 @@ import net.minecraft.util.MathHelper;
 
 public class LiquidItemBlock extends ItemBlock
 {
-    public static final String blockType[] =
-    	{ "Iron", "Gold", "Copper", "Tin", "Aluminum", "Cobalt", "Ardite", "Bronze", "AluBrass", "Manyullyn", "Alumite", "Obsidian", "Steel", "Glass", "Stone", "Villager", "Cow" };
+    public static final String blockType[] = { "Iron", "Gold", "Copper", "Tin", "Aluminum", "Cobalt", "Ardite", "Bronze", "AluBrass", "Manyullyn", "Alumite", "Obsidian", "Steel", "Glass", "Stone",
+            "Villager", "Cow" };
 
     public LiquidItemBlock(int id)
     {
@@ -20,22 +20,21 @@ public class LiquidItemBlock extends ItemBlock
         setHasSubtypes(true);
     }
 
-    public int getMetadata(int meta)
+    public int getMetadata (int meta)
     {
         return meta;
     }
 
     @SideOnly(Side.CLIENT)
-    public Icon getIconFromDamage(int meta)
+    public Icon getIconFromDamage (int meta)
     {
         int arr = MathHelper.clamp_int(meta, 0, blockType.length);
         return TContent.liquidMetalStill.getIcon(1, arr);
     }
-    
 
-    public String getUnlocalizedName(ItemStack itemstack)
+    public String getUnlocalizedName (ItemStack itemstack)
     {
-        int pos = MathHelper.clamp_int(itemstack.getItemDamage(), 0, blockType.length-1);
+        int pos = MathHelper.clamp_int(itemstack.getItemDamage(), 0, blockType.length - 1);
         return (new StringBuilder()).append("LiquidMetal.").append(blockType[pos]).toString();
     }
 }

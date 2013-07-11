@@ -15,6 +15,7 @@ public class ModifierPage extends BookPage
 {
     String type;
     ItemStack[] icons;
+
     @Override
     public void readPageFromXML (Element element)
     {
@@ -52,7 +53,7 @@ public class ModifierPage extends BookPage
         GL11.glDisable(GL12.GL_RESCALE_NORMAL);
     }
 
-    public void renderBackgroundLayer(int localWidth, int localHeight) 
+    public void renderBackgroundLayer (int localWidth, int localHeight)
     {
         manual.getMC().renderEngine.bindTexture("/mods/tinker/textures/gui/bookmodify.png");
         manual.drawTexturedModalRect(localWidth + 12, localHeight + 32, 0, 0, 154, 78);

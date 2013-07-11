@@ -22,15 +22,15 @@ public class ValueCoordTuple
     }
 
     @Override
-    public boolean equals(Object obj)
+    public boolean equals (Object obj)
     {
         if (obj == null)
             return false;
-        
-        if(getClass() == obj.getClass())
+
+        if (getClass() == obj.getClass())
         {
-            ValueCoordTuple coord = (ValueCoordTuple)obj;
-            if(this.dim == coord.dim && this.x == coord.x && this.z == coord.z)
+            ValueCoordTuple coord = (ValueCoordTuple) obj;
+            if (this.dim == coord.dim && this.x == coord.x && this.z == coord.z)
                 return true;
         }
         return false;

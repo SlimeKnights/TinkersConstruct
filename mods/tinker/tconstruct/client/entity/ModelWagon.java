@@ -381,7 +381,7 @@ public class ModelWagon extends ModelBase
      * Sets the models various rotation angles then renders the model.
      */
     @Override
-    public void render(Entity var1, float var2, float var3, float var4, float var5, float var6, float var7)
+    public void render (Entity var1, float var2, float var3, float var4, float var5, float var6, float var7)
     {
         super.render(var1, var2, var3, var4, var5, var6, var7);
         this.setRotationAngles(var2, var3, var4, var5, var6, var7, var1);
@@ -440,7 +440,7 @@ public class ModelWagon extends ModelBase
         this.StandRight.render(var7);
     }
 
-    private void setRotation(ModelRenderer var1, float var2, float var3, float var4)
+    private void setRotation (ModelRenderer var1, float var2, float var3, float var4)
     {
         var1.rotateAngleX = var2;
         var1.rotateAngleY = var3;
@@ -451,7 +451,7 @@ public class ModelWagon extends ModelBase
      * Sets the models various rotation angles.
      */
     @Override
-    public void setRotationAngles(float var1, float var2, float var3, float var4, float var5, float var6, Entity par7Entity)
+    public void setRotationAngles (float var1, float var2, float var3, float var4, float var5, float var6, Entity par7Entity)
     {
         super.setRotationAngles(var1, var2, var3, var4, var5, var6, par7Entity);
     }

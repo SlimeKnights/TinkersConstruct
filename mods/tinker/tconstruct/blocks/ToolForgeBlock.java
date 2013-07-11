@@ -63,12 +63,17 @@ public class ToolForgeBlock extends InventoryBlock
         {
             switch (meta)
             {
-            case 0: return Block.blockIron.getIcon(side, 0);
-            case 1: return Block.blockGold.getIcon(side, 0);
-            case 2: return Block.blockDiamond.getIcon(side, 0);
-            case 3: return Block.blockEmerald.getIcon(side, 0);
-            default: return TContent.metalBlock.getIcon(side, meta - 4);
-            }            
+            case 0:
+                return Block.blockIron.getIcon(side, 0);
+            case 1:
+                return Block.blockGold.getIcon(side, 0);
+            case 2:
+                return Block.blockDiamond.getIcon(side, 0);
+            case 3:
+                return Block.blockEmerald.getIcon(side, 0);
+            default:
+                return TContent.metalBlock.getIcon(side, meta - 4);
+            }
         }
 
         return this.icons[meta];

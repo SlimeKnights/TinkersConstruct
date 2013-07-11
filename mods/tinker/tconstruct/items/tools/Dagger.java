@@ -44,14 +44,14 @@ public class Dagger extends Weapon
         itemstack.stackSize--;
         return itemstack;
     }
-    
+
     @Override
-    public String[] toolCategories()
+    public String[] toolCategories ()
     {
         return new String[] { "weapon", "melee", "throwing" };
     }
-    
-    public EnumAction getItemUseAction(ItemStack par1ItemStack)
+
+    public EnumAction getItemUseAction (ItemStack par1ItemStack)
     {
         return EnumAction.bow;
     }

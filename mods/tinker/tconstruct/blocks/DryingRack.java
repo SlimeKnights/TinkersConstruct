@@ -68,25 +68,25 @@ public class DryingRack extends InventoryBlock
         return TConstruct.instance;
     }
 
-    public int onBlockPlaced(World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int meta)
+    public int onBlockPlaced (World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int meta)
     {
         if (side > 1)
             return side;
         return meta;
     }
-    
-    public void onBlockPlacedBy(World world, int x, int y, int z, EntityLiving living, ItemStack stack)
+
+    public void onBlockPlacedBy (World world, int x, int y, int z, EntityLiving living, ItemStack stack)
     {
         int meta = world.getBlockMetadata(x, y, z);
         if (meta == 0)
         {
-            int l = MathHelper.floor_double((double)(living.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
+            int l = MathHelper.floor_double((double) (living.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
             int direction = l % 2;
             if (direction == 1)
                 world.setBlockMetadataWithNotify(x, y, z, 1, 2);
         }
     }
-    
+
     /* Activation */
     @Override
     public boolean onBlockActivated (World world, int x, int y, int z, EntityPlayer player, int side, float clickX, float clickY, float clickZ)
@@ -128,9 +128,8 @@ public class DryingRack extends InventoryBlock
     {
         AbilityHelper.spawnItemAtPlayer(player, stack);
     }
-    
 
-    public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int x, int y, int z)
+    public AxisAlignedBB getSelectedBoundingBoxFromPool (World world, int x, int y, int z)
     {
         int metadata = world.getBlockMetadata(x, y, z);
         float xMin = 0F;
@@ -141,17 +140,37 @@ public class DryingRack extends InventoryBlock
         float zMax = 1F;
         switch (metadata)
         {
-        case 0: zMin = 0.375F; yMax = 0.25F; zMax = 0.625F; break;
-        case 1: xMin = 0.375F; yMax = 0.25F; xMax = 0.625F; break;
-        case 2: zMin = 0.75F; yMin = 0.75F; break;
-        case 3: zMax = 0.25F; yMin = 0.75F; break;
-        case 4: xMin = 0.75F; yMin = 0.75F; break;
-        case 5: xMax = 0.25F; yMin = 0.75F; break;
+        case 0:
+            zMin = 0.375F;
+            yMax = 0.25F;
+            zMax = 0.625F;
+            break;
+        case 1:
+            xMin = 0.375F;
+            yMax = 0.25F;
+            xMax = 0.625F;
+            break;
+        case 2:
+            zMin = 0.75F;
+            yMin = 0.75F;
+            break;
+        case 3:
+            zMax = 0.25F;
+            yMin = 0.75F;
+            break;
+        case 4:
+            xMin = 0.75F;
+            yMin = 0.75F;
+            break;
+        case 5:
+            xMax = 0.25F;
+            yMin = 0.75F;
+            break;
         }
-        return AxisAlignedBB.getAABBPool().getAABB((double)x + xMin, (double)y + yMin, (double)z + zMin, (double)x + xMax, (double)y + yMax, (double)z + zMax);
+        return AxisAlignedBB.getAABBPool().getAABB((double) x + xMin, (double) y + yMin, (double) z + zMin, (double) x + xMax, (double) y + yMax, (double) z + zMax);
     }
-    
-    public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z)
+
+    public void setBlockBoundsBasedOnState (IBlockAccess world, int x, int y, int z)
     {
         int metadata = world.getBlockMetadata(x, y, z);
         float xMin = 0F;
@@ -162,17 +181,37 @@ public class DryingRack extends InventoryBlock
         float zMax = 1F;
         switch (metadata)
         {
-        case 0: zMin = 0.375F; yMax = 0.25F; zMax = 0.625F; break;
-        case 1: xMin = 0.375F; yMax = 0.25F; xMax = 0.625F; break;
-        case 2: zMin = 0.75F; yMin = 0.75F; break;
-        case 3: zMax = 0.25F; yMin = 0.75F; break;
-        case 4: xMin = 0.75F; yMin = 0.75F; break;
-        case 5: xMax = 0.25F; yMin = 0.75F; break;
+        case 0:
+            zMin = 0.375F;
+            yMax = 0.25F;
+            zMax = 0.625F;
+            break;
+        case 1:
+            xMin = 0.375F;
+            yMax = 0.25F;
+            xMax = 0.625F;
+            break;
+        case 2:
+            zMin = 0.75F;
+            yMin = 0.75F;
+            break;
+        case 3:
+            zMax = 0.25F;
+            yMin = 0.75F;
+            break;
+        case 4:
+            xMin = 0.75F;
+            yMin = 0.75F;
+            break;
+        case 5:
+            xMax = 0.25F;
+            yMin = 0.75F;
+            break;
         }
         this.setBlockBounds(xMin, yMin, zMin, xMax, yMax, zMax);
     }
-    
-    public void addCollisionBoxesToList(World world, int x, int y, int z, AxisAlignedBB aabb, List list, Entity entity)
+
+    public void addCollisionBoxesToList (World world, int x, int y, int z, AxisAlignedBB aabb, List list, Entity entity)
     {
         this.setBlockBoundsBasedOnState(world, x, y, z);
         super.addCollisionBoxesToList(world, x, y, z, aabb, list, entity);

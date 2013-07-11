@@ -21,14 +21,14 @@ import net.minecraft.item.ItemStack;
 public class TConstructRegistry
 {
     public static TConstructRegistry instance = new TConstructRegistry();
-    
+
     /* Creative tabs */
     public static TabTools toolTab;
     public static TabTools materialTab;
     public static TabTools blockTab;
-    
+
     /* Items */
-    
+
     /** A directory of crafting items and tools used by the mod.
      * 
      * Tools:
@@ -47,37 +47,37 @@ public class TConstructRegistry
      * bowstring, fletching, arrowhead
      */
     public static HashMap<String, Item> itemDirectory = new HashMap<String, Item>();
-    
+
     /** Adds an item to the directory
      * 
      * @param name Associates the name with the stack
      * @param itemstack The stack to add to the directory
      */
-    
-    public static void addItemToDirectory(String name, Item itemstack)
+
+    public static void addItemToDirectory (String name, Item itemstack)
     {
         Item add = itemDirectory.get(name);
         if (add != null)
-            System.out.println("[TCon API] "+name+" is already present in the Item directory");
-        
+            System.out.println("[TCon API] " + name + " is already present in the Item directory");
+
         itemDirectory.put(name, itemstack);
     }
-    
+
     /** Retrieves an itemstack from the directory
      * 
      * @param name The name of the item to get
      * @return Item associated with the name, or null if not present.
      */
-    
-    public static Item getItem(String name)
+
+    public static Item getItem (String name)
     {
         Item ret = itemDirectory.get(name);
         if (ret == null)
-            System.out.println("[TCon API] Could not find "+name+" in the Item directory");
-        
+            System.out.println("[TCon API] Could not find " + name + " in the Item directory");
+
         return ret;
     }
-    
+
     /** A directory of ItemStacks. Contains mostly crafting items
      * 
      * Materials:
@@ -93,45 +93,46 @@ public class TConstructRegistry
      * knifeBlade, chiselHead, toughRod, toughBinding, largePlate, broadAxeHead, scytheHead, excavatorHead, largeBlade, hammerHead, fullGuard, bowstring
      */
     static HashMap<String, ItemStack> itemstackDirectory = new HashMap<String, ItemStack>();
-    
+
     /** Adds an itemstack to the directory
      * 
      * @param name Associates the name with the stack
      * @param itemstack The stack to add to the directory
      */
-    
-    public static void addItemStackToDirectory(String name, ItemStack itemstack)
+
+    public static void addItemStackToDirectory (String name, ItemStack itemstack)
     {
         ItemStack add = itemstackDirectory.get(name);
         if (add != null)
-            System.out.println("[TCon API] "+name+" is already present in the ItemStack directory");
-        
+            System.out.println("[TCon API] " + name + " is already present in the ItemStack directory");
+
         itemstackDirectory.put(name, itemstack);
     }
-    
+
     /** Retrieves an itemstack from the directory
      * 
      * @param name The name of the item to get
      * @return Item associated with the name, or null if not present.
      */
-    
-    public static ItemStack getItemStack(String name)
+
+    public static ItemStack getItemStack (String name)
     {
         ItemStack ret = itemstackDirectory.get(name);
         if (ret == null)
-            System.out.println("[TCon API] Could not find "+name+" in the ItemStack directory");
-        
+            System.out.println("[TCon API] Could not find " + name + " in the ItemStack directory");
+
         return ret;
     }
+
     public static ArrayList<ToolCore> tools = new ArrayList<ToolCore>(20);
-    
+
     //Parts
-    
+
     /** List: Item ID, metadata, material ID
      *  ItemStack: Output. Ex: Cactus Binding
      */
     public static HashMap<List, ItemStack> patternPartMapping = new HashMap<List, ItemStack>();
-    
+
     /** Maps an item and a material ID to an output part
      * 
      * @param patternID ID to check against
@@ -139,31 +140,31 @@ public class TConstructRegistry
      * @param materialID Material that goes with the item
      * @param output The resulting part
      */
-    public static void addPartMapping(int patternID, int patternMeta, int materialID, ItemStack output)
+    public static void addPartMapping (int patternID, int patternMeta, int materialID, ItemStack output)
     {
         patternPartMapping.put(Arrays.asList(patternID, patternMeta, materialID), output);
     }
-    
-    public static ItemStack getPartMapping(int itemID, int metadata, int materialID)
+
+    public static ItemStack getPartMapping (int itemID, int metadata, int materialID)
     {
         ItemStack stack = patternPartMapping.get(Arrays.asList(itemID, metadata, materialID));
         if (stack != null)
             return stack.copy();
         return null;
     }
-    
+
     //Tools
-    
+
     /** Internal tool mapping, used for adding textures
      * 
      * @param tool
      */
-    
+
     public static void addToolMapping (ToolCore tool)
     {
         tools.add(tool);
     }
-    
+
     /** Internal tool mapping, used for adding textures
      * 
      * @return List of tools
@@ -173,7 +174,7 @@ public class TConstructRegistry
     {
         return tools;
     }
-    
+
     /** Registers a tool to its crafting parts.
      * If an output is registered multiple times the parts are added to the recipe's input list
      * Valid part amounts are 1, 2, and 4. Part counts of 1 and 2 assume a Tool Rod as a handle.
@@ -183,19 +184,19 @@ public class TConstructRegistry
      * @param output The ToolCore to craft
      * @param parts Pieces to make the tool with
      */
-    public static void addToolRecipe(ToolCore output, Item... parts)
+    public static void addToolRecipe (ToolCore output, Item... parts)
     {
         ToolBuilder tb = ToolBuilder.instance;
         if (parts.length < 1 || parts.length > 4 || parts.length == 3)
             System.out.println("[TCon API] Wrong amount of items to craft into a tool");
-        
-        tb.addToolRecipe(output, parts);        
+
+        tb.addToolRecipe(output, parts);
     }
 
     //Materials
     public static HashMap<Integer, ToolMaterial> toolMaterials = new HashMap<Integer, ToolMaterial>(40);
     public static HashMap<String, ToolMaterial> toolMaterialStrings = new HashMap<String, ToolMaterial>(40);
-    
+
     /** Adds a tool material to the registry
      * 
      * @param materialID Unique ID, stored for each part
@@ -210,8 +211,8 @@ public class TConstructRegistry
      * @param stonebound Amount of Stonebound to put on the tool. Negative numbers are Spiny.
      */
 
-    public static void addToolMaterial (int materialID, String materialName, int harvestLevel, int durability, int miningspeed, int attack, float handleModifier, int reinforced,
-            float stonebound, String style, String ability)
+    public static void addToolMaterial (int materialID, String materialName, int harvestLevel, int durability, int miningspeed, int attack, float handleModifier, int reinforced, float stonebound,
+            String style, String ability)
     {
         ToolMaterial mat = toolMaterials.get(materialID);
         if (mat == null)
@@ -223,7 +224,7 @@ public class TConstructRegistry
         else
             throw new IllegalArgumentException("[TCon API] Material ID " + materialID + " is already occupied by " + mat.materialName);
     }
-    
+
     /** Adds a tool material to the registry
      * 
      * @param materialID Unique ID, stored for each part
@@ -252,15 +253,15 @@ public class TConstructRegistry
         else
             throw new IllegalArgumentException("[TCon API] Material ID " + materialID + " is already occupied by " + mat.materialName);
     }
-    
+
     /** Adds a tool material to the registry
      * 
      * @param materialID Unique ID, stored for each part
      * @exception materialID must be unique
      * @param material Complete tool material to add. Uses the name in the material for lookup purposes.
      */
-    
-    public static void addtoolMaterial(int materialID, ToolMaterial material)
+
+    public static void addtoolMaterial (int materialID, ToolMaterial material)
     {
         ToolMaterial mat = toolMaterials.get(materialID);
         if (mat == null)
@@ -271,7 +272,7 @@ public class TConstructRegistry
         else
             throw new IllegalArgumentException("[TCon API] Material ID " + materialID + " is already occupied by " + mat.materialName);
     }
-    
+
     /** Looks up a tool material by ID
      * 
      * @param key The ID to look up
@@ -282,7 +283,7 @@ public class TConstructRegistry
     {
         return (toolMaterials.get(key));
     }
-    
+
     /** Looks up a tool material by name
      * 
      * @param key the name to look up
@@ -293,11 +294,11 @@ public class TConstructRegistry
     {
         return (toolMaterialStrings.get(key));
     }
-    
+
     //Bow materials
     public static HashMap<Integer, BowMaterial> bowMaterials = new HashMap<Integer, BowMaterial>(40);
-    
-    public static void addBowMaterial(int materialID, int durability, int drawSpeed, float speedMax)
+
+    public static void addBowMaterial (int materialID, int durability, int drawSpeed, float speedMax)
     {
         BowMaterial mat = bowMaterials.get(materialID);
         if (mat == null)
@@ -308,20 +309,20 @@ public class TConstructRegistry
         else
             throw new IllegalArgumentException("[TCon API] Bow Material ID " + materialID + " is already occupied");
     }
-    
-    public static boolean validBowMaterial(int materialID)
+
+    public static boolean validBowMaterial (int materialID)
     {
         return bowMaterials.containsKey(materialID);
     }
-    
-    public static BowMaterial getBowMaterial(int materialID)
+
+    public static BowMaterial getBowMaterial (int materialID)
     {
         return bowMaterials.get(materialID);
     }
-    
+
     public static HashMap<Integer, ArrowMaterial> arrowMaterials = new HashMap<Integer, ArrowMaterial>(40);
-    
-    public static void addArrowMaterial(int materialID, float mass, float breakChance, float accuracy)
+
+    public static void addArrowMaterial (int materialID, float mass, float breakChance, float accuracy)
     {
         ArrowMaterial mat = arrowMaterials.get(materialID);
         if (mat == null)
@@ -332,39 +333,39 @@ public class TConstructRegistry
         else
             throw new IllegalArgumentException("[TCon API] Arrow Material ID " + materialID + " is already occupied");
     }
-    
-    public static boolean validArrowMaterial(int materialID)
+
+    public static boolean validArrowMaterial (int materialID)
     {
         return arrowMaterials.containsKey(materialID);
     }
-    
-    public static ArrowMaterial getArrowMaterial(int materialID)
+
+    public static ArrowMaterial getArrowMaterial (int materialID)
     {
         return arrowMaterials.get(materialID);
     }
 
     //Custom materials - bowstrings, fletching, etc
     public static ArrayList<CustomMaterial> customMaterials = new ArrayList<CustomMaterial>();
-    
-    public static void addCustomMaterial(CustomMaterial mat)
+
+    public static void addCustomMaterial (CustomMaterial mat)
     {
         if (mat != null)
             customMaterials.add(mat);
     }
-    
-    public static void addBowstringMaterial(int materialID, int value, ItemStack input, ItemStack craftingMaterial, float durability, float drawSpeed, float flightSpeed)
+
+    public static void addBowstringMaterial (int materialID, int value, ItemStack input, ItemStack craftingMaterial, float durability, float drawSpeed, float flightSpeed)
     {
         BowstringMaterial mat = new BowstringMaterial(materialID, value, input, craftingMaterial, durability, drawSpeed, flightSpeed);
         customMaterials.add(mat);
     }
-    
-    public static void addFletchingMaterial(int materialID, int value, ItemStack input, ItemStack craftingMaterial, float accuracy, float breakChance, float mass)
+
+    public static void addFletchingMaterial (int materialID, int value, ItemStack input, ItemStack craftingMaterial, float accuracy, float breakChance, float mass)
     {
         FletchingMaterial mat = new FletchingMaterial(materialID, value, input, craftingMaterial, accuracy, breakChance, mass);
         customMaterials.add(mat);
     }
-    
-    public static CustomMaterial getCustomMaterial(int materialID, Class<? extends CustomMaterial> clazz)
+
+    public static CustomMaterial getCustomMaterial (int materialID, Class<? extends CustomMaterial> clazz)
     {
         for (CustomMaterial mat : customMaterials)
         {
@@ -373,8 +374,8 @@ public class TConstructRegistry
         }
         return null;
     }
-    
-    public static CustomMaterial getCustomMaterial(ItemStack input, Class<? extends CustomMaterial> clazz)
+
+    public static CustomMaterial getCustomMaterial (ItemStack input, Class<? extends CustomMaterial> clazz)
     {
         for (CustomMaterial mat : customMaterials)
         {
@@ -383,7 +384,7 @@ public class TConstructRegistry
         }
         return null;
     }
-    
+
     /*public static CustomMaterial getCustomMaterial(ItemStack input, ItemStack pattern)
     {
         for (CustomMaterial mat : customMaterials)
@@ -393,7 +394,7 @@ public class TConstructRegistry
         }
         return null;
     }*/
-    
+
     /*public static ItemStack craftBowString(ItemStack stack)
     {
         if (stack.stackSize < 3)
@@ -461,7 +462,7 @@ public class TConstructRegistry
             return null;
         }
     }
-    
+
     public static Detailing getChiselDetailing ()
     {
         return instance.chiselDetailing();
@@ -484,11 +485,12 @@ public class TConstructRegistry
     }
 
     public static ArrayList<ActiveToolMod> activeModifiers = new ArrayList<ActiveToolMod>();
-    public static void registerActiveToolMod(ActiveToolMod mod)
+
+    public static void registerActiveToolMod (ActiveToolMod mod)
     {
-    	activeModifiers.add(mod);
+        activeModifiers.add(mod);
     }
-    
+
     /* Used to determine how blocks are laid out in the drawbridge
      * 0: Metadata has to match
      * 1: Metadata has no meaning
@@ -664,12 +666,12 @@ public class TConstructRegistry
         drawbridgeState[Block.railActivator.blockID] = 4;
         drawbridgeState[Block.dropper.blockID] = 3;
     }
-    
+
     static
     {
         initializeDrawbridgeState();
     }
-    
+
     /** Default Material Index
      * 0:  Wood
      * 1:  Stone

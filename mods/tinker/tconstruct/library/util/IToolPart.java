@@ -9,5 +9,5 @@ public interface IToolPart
      * @param stack This item
      * @return Proper material ID. -1 for invalid
      */
-	public int getMaterialID(ItemStack stack);
+    public int getMaterialID (ItemStack stack);
 }

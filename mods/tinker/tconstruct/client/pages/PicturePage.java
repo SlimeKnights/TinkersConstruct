@@ -15,6 +15,7 @@ public class PicturePage extends BookPage
 {
     String text;
     String location;
+
     @Override
     public void readPageFromXML (Element element)
     {
@@ -33,7 +34,7 @@ public class PicturePage extends BookPage
         manual.fonts.drawSplitString(text, localWidth + 8, localHeight, 178, 0);
     }
 
-    public void renderBackgroundLayer(int localWidth, int localHeight) 
+    public void renderBackgroundLayer (int localWidth, int localHeight)
     {
         manual.getMC().renderEngine.bindTexture(location);
         manual.drawTexturedModalRect(localWidth, localHeight + 12, 0, 0, 170, 144);

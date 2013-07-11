@@ -49,7 +49,7 @@ public class PHConstruct
         keepHunger = config.get("Difficulty Changes", "Keep hunger on death", true).getBoolean(true);
         keepLevels = config.get("Difficulty Changes", "Keep levels on death", true).getBoolean(true);
         beginnerBook = config.get("Difficulty Changes", "Spawn beginner book", true).getBoolean(true);
-        
+
         superfunWorld = config.get("Superfun", "All the world is Superfun", false).getBoolean(false);
 
         /*disableWoodTools = config.get("Difficulty Changes", "Disable vanilla wooden tools", false).getBoolean(false);
@@ -79,21 +79,21 @@ public class PHConstruct
         metalBlock = config.getBlock("Metal Storage", 1478).getInt(1478);
         metalFlowing = config.getBlock("Liquid Metal Flowing", 1479).getInt(1479);
         metalStill = config.getBlock("Liquid Metal Still", 1480).getInt(1480);
-        
+
         multiBrick = config.getBlock("Multi Brick", 1481).getInt(1481);
 
         stoneTorch = config.getBlock("Stone Torch", 1484).getInt(1484);
         oreBerry = config.getBlock("Ore Berry One", 1485).getInt(1485);
         oreBerrySecond = config.getBlock("Ore Berry Two", 1486).getInt(1486);
-        
+
         oreGravel = config.getBlock("Ores Gravel", 1488).getInt(1488);
-        speedBlock = config.getBlock("Speed Block", 1489).getInt(1489);        
+        speedBlock = config.getBlock("Speed Block", 1489).getInt(1489);
 
         landmine = config.getBlock("Landmine", 1470).getInt(1470);
         barricade = config.getBlock("Barricade", 1469).getInt(1469);
         toolForge = config.getBlock("Tool Forge", 1468).getInt(1468);
         multiBrickFancy = config.getBlock("Multi Brick Fancy", 1467).getInt(1467);
-        
+
         aggregator = config.getBlock("Aggregator", 3221).getInt(3221);
         lightCrystalBase = config.getBlock("Light Crystal", 3222).getInt(3222);
         glass = config.getBlock("Clear Glass", 3223).getInt(3223);
@@ -171,7 +171,7 @@ public class PHConstruct
         excavator = config.getItem("Tools", "Excavator", 14069).getInt(14069);
         hammer = config.getItem("Tools", "Hammer", 14070).getInt(14070);
         battleaxe = config.getItem("Tools", "Battleaxe", 14071).getInt(14071);
-        
+
         cutlass = config.getItem("Tools", "Cutlass", 14072).getInt(14072);
         arrow = config.getItem("Tools", "Arrow", 14073).getInt(14073);
 
@@ -179,7 +179,7 @@ public class PHConstruct
         uselessItem = config.getItem("Patterns and Misc", "Title Icon", 14102).getInt(14102);
         slimefood = config.getItem("Patterns and Misc", "Strange Food", 14103).getInt(14103);
         oreChunks = config.getItem("Patterns and Misc", "Ore Chunks", 14104).getInt(14104);
-        
+
         heartCanister = config.getItem("Equipables", "Heart Canister", 14105).getInt(14105);
         heavyHelmet = config.getItem("Equipables", "Heavy Helmet", 14106).getInt(14106);
         diamondApple = config.getItem("Patterns and Misc", "Jeweled Apple", 14107).getInt(14107);
@@ -232,44 +232,44 @@ public class PHConstruct
         tinuDensity = config.get("Worldgen", "Tin Underground Density", 2).getInt(2);
         aluminumuDensity = config.get("Worldgen", "Aluminum Underground Density", 3).getInt(3);
         netherDensity = config.get("Worldgen", "Nether Ores Density", 8).getInt(8);
-        
+
         copperuMinY = config.get("Worldgen", "Copper Underground Min Y", 20).getInt(20);
         copperuMaxY = config.get("Worldgen", "Copper Underground Max Y", 60).getInt(60);
         tinuMinY = config.get("Worldgen", "Tin Underground Min Y", 0).getInt(0);
         tinuMaxY = config.get("Worldgen", "Tin Underground Max Y", 40).getInt(40);
         aluminumuMinY = config.get("Worldgen", "Aluminum Underground Min Y", 0).getInt(0);
         aluminumuMaxY = config.get("Worldgen", "Aluminum Underground Max Y", 64).getInt(64);
-        
+
         ironsRarity = config.get("Worldgen", "Iron Surface Rarity", 400).getInt(400);
         goldsRarity = config.get("Worldgen", "Gold Surface Rarity", 900).getInt(900);
         coppersRarity = config.get("Worldgen", "Copper Surface Rarity", 100).getInt(100);
         tinsRarity = config.get("Worldgen", "Tin Surface Rarity", 100).getInt(100);
         aluminumsRarity = config.get("Worldgen", "Aluminum Surface Rarity", 50).getInt(50);
         cobaltsRarity = config.get("Worldgen", "Cobalt Surface Rarity", 2000).getInt(2000);
-        
+
         ironBushDensity = config.get("Worldgen", "Iron Bush Density", 1).getInt(1);
         goldBushDensity = config.get("Worldgen", "Gold Bush Density", 1).getInt(1);
         copperBushDensity = config.get("Worldgen", "Copper Bush Density", 2).getInt(2);
         tinBushDensity = config.get("Worldgen", "Tin Bush Density", 2).getInt(2);
         aluminumBushDensity = config.get("Worldgen", "Aluminum Bush Density", 2).getInt(2);
         silverBushDensity = config.get("Worldgen", "Silver Bush Density", 1).getInt(1);
-        
+
         ironBushRarity = config.get("Worldgen", "Iron Bush Rarity", 5).getInt(5);
         goldBushRarity = config.get("Worldgen", "Gold Bush Rarity", 8).getInt(8);
         copperBushRarity = config.get("Worldgen", "Copper Bush Rarity", 3).getInt(3);
         tinBushRarity = config.get("Worldgen", "Tin Bush Rarity", 3).getInt(3);
         aluminumBushRarity = config.get("Worldgen", "Aluminum Bush Rarity", 2).getInt(2);
         essenceBushRarity = config.get("Worldgen", "Essence Bush Rarity", 6).getInt(6);
-        
+
         copperBushMinY = config.get("Worldgen", "Copper Bush Min Y", 20).getInt(20);
         copperBushMaxY = config.get("Worldgen", "Copper Bush Max Y", 60).getInt(60);
         tinBushMinY = config.get("Worldgen", "Tin Bush Min Y", 0).getInt(0);
         tinBushMaxY = config.get("Worldgen", "Tin Bush Max Y", 40).getInt(40);
         aluminumBushMinY = config.get("Worldgen", "Aluminum Bush Min Y", 0).getInt(0);
         aluminumBushMaxY = config.get("Worldgen", "Aluminum Bush Max Y", 60).getInt(60);
-        
+
         seaLevel = config.get("general", "Sea level", 64).getInt(64);
-        
+
         enableHealthRegen = config.get("Ultra Hardcore Changes", "Passive Health Regen", true).getBoolean(true); //Check
         goldAppleRecipe = config.get("Ultra Hardcore Changes", "Change Crafting Recipes", false).getBoolean(false); //Check
         dropPlayerHeads = config.get("Ultra Hardcore Changes", "Players drop heads on death", false).getBoolean(false); //Check
@@ -280,8 +280,8 @@ public class PHConstruct
 
         /* Save the configuration file */
         config.save();
-        
-        File gt = new File(location+"/GregTech");
+
+        File gt = new File(location + "/GregTech");
         if (gt.exists())
         {
             File gtDyn = new File(location + "/GregTech/DynamicConfig.cfg");
@@ -303,14 +303,14 @@ public class PHConstruct
     public static int oreSlag;
     public static int oreGravel;
     public static int metalBlock;
-    
+
     public static int redstoneMachine;
     public static int dryingRack;
 
     public static int golemCore;
     public static int golemHead;
     public static int golemPedestal;
-    
+
     //Crops
     public static int oreBerry;
     public static int oreBerrySecond;
@@ -319,7 +319,7 @@ public class PHConstruct
     //Traps
     public static int landmine;
     public static int barricade;
-    
+
     //InfiBlocks
     public static int speedBlock;
     public static int glass;
@@ -327,7 +327,7 @@ public class PHConstruct
     public static int stainedGlass;
     public static int stainedGlassClear;
     public static int stainedGlassClearPane;
-    
+
     //Crystalline
     public static int aggregator;
     public static int lightCrystalBase;
@@ -377,14 +377,14 @@ public class PHConstruct
     public static int shortbow;
     public static int potionLauncher;
     public static int mattock;
-    
+
     public static int lumberaxe;
     public static int scythe;
     public static int cleaver;
     public static int excavator;
     public static int hammer;
     public static int battleaxe;
-    
+
     public static int chisel;
     public static int arrow;
 
@@ -404,7 +404,7 @@ public class PHConstruct
     public static int frypanHead;
     public static int signHead;
     public static int chiselHead;
-    
+
     public static int scytheBlade;
     public static int lumberHead;
     public static int largeSwordBlade;
@@ -415,11 +415,11 @@ public class PHConstruct
     public static int toughBinding;
     public static int toughRod;
     public static int largePlate;
-    
+
     public static int bowstring;
     public static int arrowhead;
     public static int fletching;
-    
+
     //Wearables
     public static int heavyHelmet;
     public static int heavyChestplate;
@@ -427,7 +427,7 @@ public class PHConstruct
     public static int heavyBoots;
     public static int glove;
     public static int knapsack;
-    
+
     public static int heartCanister;
 
     //Ore values
@@ -435,63 +435,63 @@ public class PHConstruct
     public static boolean generateTin;
     public static boolean generateAluminum;
     public static boolean generateNetherOres;
-    
+
     public static boolean generateIronSurface;
     public static boolean generateGoldSurface;
     public static boolean generateCopperSurface;
     public static boolean generateTinSurface;
     public static boolean generateAluminumSurface;
     public static boolean generateCobaltSurface;
-    
+
     public static boolean generateIronBush;
     public static boolean generateGoldBush;
     public static boolean generateCopperBush;
     public static boolean generateTinBush;
     public static boolean generateAluminumBush;
     public static boolean generateEssenceBush;
-    
+
     public static boolean addToVillages;
-    
+
     public static int copperuDensity;
     public static int tinuDensity;
     public static int aluminumuDensity;
     public static int netherDensity;
-    
+
     public static int ironsRarity;
     public static int goldsRarity;
     public static int coppersRarity;
     public static int tinsRarity;
     public static int aluminumsRarity;
     public static int cobaltsRarity;
-    
+
     public static int ironBushDensity;
     public static int goldBushDensity;
     public static int copperBushDensity;
     public static int tinBushDensity;
     public static int aluminumBushDensity;
     public static int silverBushDensity;
-    
+
     public static int ironBushRarity;
     public static int goldBushRarity;
     public static int copperBushRarity;
     public static int tinBushRarity;
     public static int aluminumBushRarity;
     public static int essenceBushRarity;
-    
+
     public static int copperuMinY;
     public static int copperuMaxY;
     public static int tinuMinY;
-    public static int tinuMaxY;    
+    public static int tinuMaxY;
     public static int aluminumuMinY;
     public static int aluminumuMaxY;
-    
+
     public static int copperBushMinY;
     public static int copperBushMaxY;
     public static int tinBushMinY;
-    public static int tinBushMaxY;    
+    public static int tinBushMaxY;
     public static int aluminumBushMinY;
     public static int aluminumBushMaxY;
-    
+
     public static int seaLevel;
 
     //Mobs
@@ -514,10 +514,10 @@ public class PHConstruct
     public static boolean enableTStone;
     public static boolean enableTCactus;
     public static boolean enableTBone;
-    
+
     public static boolean craftMetalTools;
     public static boolean vanillaMetalBlocks;
-    
+
     //Ultra Hardcore modifiers
     public static boolean enableHealthRegen;
     public static boolean goldAppleRecipe;
@@ -527,11 +527,11 @@ public class PHConstruct
     public static int worldBorderSize;
     public static boolean freePatterns;
     public static int goldHead;
-    
+
     //Superfun
     public static boolean superfunWorld;
     public static boolean beginnerBook;
-    
+
     public static boolean gregtech;
     public static boolean lavaFortuneInteraction;
 }
