@@ -354,4 +354,10 @@ public class DrawbridgeLogic extends InventoryLogic implements IFacingLogic, IAc
     {
         return extension != 0;
     }
+    
+    @Override
+	public void onInventoryChanged() {
+		super.onInventoryChanged();
+		this.worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+	}
 }
