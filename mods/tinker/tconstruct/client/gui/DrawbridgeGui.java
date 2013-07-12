@@ -32,12 +32,5 @@ public class DrawbridgeGui extends GuiContainer
         int cornerX = (width - xSize) / 2;
         int cornerY = (height - ySize) / 2;
         drawTexturedModalRect(cornerX, cornerY, 0, 0, xSize, ySize);
-        /*if (logic.fuel > 0)
-        {
-            int fuel = logic.gaugeFuelScaled(12);
-            drawTexturedModalRect(cornerX + 27, (cornerY + 40) - fuel, 176, 12 - fuel, 14, fuel + 2);
-        }
-        int fuelgague = logic.gaugeProgressScaled(24);
-        drawTexturedModalRect(cornerX + 140, cornerY + 8, 176, 14, fuelgague, 16);*/
     }
 }

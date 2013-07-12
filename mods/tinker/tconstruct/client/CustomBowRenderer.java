@@ -52,12 +52,18 @@ public class CustomBowRenderer implements IItemRenderer
             block = Block.blocksList[stack.itemID];
         }
 
-        Icon icon = living.getItemIcon(stack, renderPass);
+        Icon icon = null; //living.getItemIcon(stack, renderPass);
         if (living instanceof EntityPlayer)
         {
             EntityPlayer player = (EntityPlayer) living;
             if (player.getItemInUse() != null)
                 icon = stack.getItem().getIcon(stack, renderPass, player, player.getItemInUse(), player.getItemInUseCount());
+            else
+                icon = living.getItemIcon(stack, renderPass);
+        }
+        else
+        {
+            icon = living.getItemIcon(stack, renderPass);
         }
 
         if (icon == null)
@@ -84,14 +90,6 @@ public class CustomBowRenderer implements IItemRenderer
             GL11.glRotatef(180.0F, 0F, 0F, 1.0F);
             GL11.glRotatef(45.0F, 1.0F, 0.0F, 0.75F);
             GL11.glTranslatef(-0.6F, -0.25F, 1.0F);
-            //GL11.glRotatef(-90.0F, 0F, 1.0F, -1.0F);
-
-            //GL11.glRotatef(90.0F, 0F, 1.0F, 1.0F);
-            //GL11.glRotatef(90.0F, 1.0F, 0F, 1.0F);
-            //GL11.glRotatef(90.0F, 0F, 1.0F, 0.5F);
-
-            //GL11.glRotatef(-90.0F, 0.0F, 0.0F, 1.0F);
-            //GL11.glRotatef(59.0F, 0.0F, 0.0F, 1.0F);
             GL11.glScalef(1.75F, 1.75F, 1.75F);
         }
 
@@ -111,7 +109,7 @@ public class CustomBowRenderer implements IItemRenderer
         GL11.glTranslatef(-0.9375F, -0.0625F, 0.0F);
         ItemRenderer.renderItemIn2D(tessellator, f1, f2, f, f3, icon.getSheetWidth(), icon.getSheetHeight(), 0.0625F);
 
-        if (stack != null && stack.hasEffect() && renderPass == 0)
+        /*if (stack != null && stack.hasEffect() && renderPass == 0)
         {
             GL11.glDepthFunc(GL11.GL_EQUAL);
             GL11.glDisable(GL11.GL_LIGHTING);
@@ -140,7 +138,7 @@ public class CustomBowRenderer implements IItemRenderer
             GL11.glDisable(GL11.GL_BLEND);
             GL11.glEnable(GL11.GL_LIGHTING);
             GL11.glDepthFunc(GL11.GL_LEQUAL);
-        }
+        }*/
 
         GL11.glDisable(GL12.GL_RESCALE_NORMAL);
 

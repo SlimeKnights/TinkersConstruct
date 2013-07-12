@@ -498,6 +498,7 @@ public class TConstructRegistry
      * 3: Has rotational metadata
      * 4: Rails
      * 5: Has rotational TileEntity data
+     * 6: Custom placement logic
      */
     public static int[] drawbridgeState = new int[Block.blocksList.length];
     /** Blocks that are interchangable with each other. Ex: Still and flowing water */

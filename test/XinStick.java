@@ -38,6 +38,7 @@ public class XinStick extends Item
         //clearInventoryExeptHotbar(player);
         MiniGardy entity = new MiniGardy(world);
         entity.setOwner(player);
+        //entity.func_94058_c("Cutie");
         //entity.username = "NekoGloop";
         spawnEntity(player.posX, player.posY + 1, player.posZ, entity, world, player);
         //healPlayer(player);

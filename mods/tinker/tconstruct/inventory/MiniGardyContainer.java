@@ -1,45 +1,47 @@
 package mods.tinker.tconstruct.inventory;
 
-import mods.tinker.tconstruct.blocks.logic.DrawbridgeLogic;
+import mods.tinker.tconstruct.entity.MiniGardy;
+import mods.tinker.tconstruct.library.util.IPattern;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
-public class DrawbridgeContainer extends Container
+public class MiniGardyContainer extends Container
 {
-    public DrawbridgeLogic logic;
-    public int progress = 0;
-    public int fuel = 0;
-    public int fuelGague = 0;
+    public MiniGardy gardy;
 
-    public DrawbridgeContainer(InventoryPlayer inventoryplayer, DrawbridgeLogic logic)
+    public MiniGardyContainer(InventoryPlayer inventoryplayer, MiniGardy entity)
     {
-        this.logic = logic;
-
-        this.addSlotToContainer(new DrawbridgeSlot(logic, 0, 80, 36, logic));
-        this.addSlotToContainer(new Slot(logic, 1, 35, 36));
+        gardy = entity;
+        for (int column = 0; column < 2; column++)
+        {
+            for (int row = 0; row < 7; row++)
+            {
+                this.addSlotToContainer(new Slot(entity, row + column * 7, 44 + row * 18, 36 + column * 18));
+            }
+        }
 
         /* Player inventory */
         for (int column = 0; column < 3; column++)
         {
             for (int row = 0; row < 9; row++)
             {
-                this.addSlotToContainer(new Slot(inventoryplayer, row + column * 9 + 9, 8 + row * 18, 84 + column * 18));
+                this.addSlotToContainer(new Slot(inventoryplayer, row + column * 9 + 9, 8 + row * 18, 86 + column * 18));
             }
         }
 
         for (int column = 0; column < 9; column++)
         {
-            this.addSlotToContainer(new Slot(inventoryplayer, column, 8 + column * 18, 142));
+            this.addSlotToContainer(new Slot(inventoryplayer, column, 8 + column * 18, 144));
         }
     }
 
     @Override
     public boolean canInteractWith (EntityPlayer entityplayer)
     {
-        return logic.isUseableByPlayer(entityplayer);
+        return gardy.isUseableByPlayer(entityplayer);
     }
 
     @Override
@@ -53,14 +55,14 @@ public class DrawbridgeContainer extends Container
             ItemStack slotStack = slot.getStack();
             stack = slotStack.copy();
 
-            if (slotID < logic.getSizeInventory())
+            if (slotID < gardy.getSizeInventory())
             {
-                if (!this.mergeItemStack(slotStack, logic.getSizeInventory(), this.inventorySlots.size(), true))
+                if (!this.mergeItemStack(slotStack, gardy.getSizeInventory(), this.inventorySlots.size(), true))
                 {
                     return null;
                 }
             }
-            else if (!this.mergeItemStack(slotStack, 0, logic.getSizeInventory(), false))
+            else if (!this.mergeItemStack(slotStack, 0, gardy.getSizeInventory(), false))
             {
                 return null;
             }

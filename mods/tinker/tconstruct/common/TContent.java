@@ -151,10 +151,10 @@ public class TContent implements IFuelHandler
     //InfiBlocks
     public static Block speedBlock;
     public static Block glass;
-    public static Block stainedGlass;
+    //public static Block stainedGlass;
     public static Block stainedGlassClear;
     public static Block glassPane;
-    public static Block stainedGlassPane;
+    //public static Block stainedGlassPane;
     public static Block stainedGlassClearPane;
     public static Block glassMagicSlab;
     public static Block stainedGlassMagicSlab;
@@ -947,6 +947,15 @@ public class TContent implements IFuelHandler
         Smeltery.addMelting(Block.glass, 0, 625, new LiquidStack(liquidMetalStill.blockID, LiquidContainerRegistry.BUCKET_VOLUME, 13));
         Smeltery.addMelting(Block.stone, 0, 800, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue / 18, 14));
         Smeltery.addMelting(Block.cobblestone, 0, 800, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue / 18, 14));
+        
+        Smeltery.addMelting(glass, 0, 500, new LiquidStack(liquidMetalStill.blockID, 1000, 13));
+        Smeltery.addMelting(glassPane, 0, 350, new LiquidStack(liquidMetalStill.blockID, 250, 13));
+        
+        for (int i = 0; i < 16; i++)
+        {
+            Smeltery.addMelting(stainedGlassClear, i, 500, new LiquidStack(liquidMetalStill.blockID, 1000, 13));
+            Smeltery.addMelting(stainedGlassClearPane, i, 350, new LiquidStack(liquidMetalStill.blockID, 250, 13));
+        }
 
         //Alloys
         Smeltery.addAlloyMixing(new LiquidStack(liquidMetalStill.blockID, 16, 7), new LiquidStack(liquidMetalStill.blockID, 24, 2), new LiquidStack(liquidMetalStill.blockID, 8, 3)); //Bronze

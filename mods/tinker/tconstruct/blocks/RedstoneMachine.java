@@ -197,7 +197,7 @@ public class RedstoneMachine extends InventoryBlock
     /* Redstone */
     public boolean canConnectRedstone (IBlockAccess world, int x, int y, int z, int side)
     {
-        return true;
+        return false;
     }
 
     public void onNeighborBlockChange (World world, int x, int y, int z, int neighborBlockID)

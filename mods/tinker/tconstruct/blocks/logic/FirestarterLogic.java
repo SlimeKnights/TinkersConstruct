@@ -16,7 +16,8 @@ import net.minecraftforge.common.ForgeDirection;
 public class FirestarterLogic extends TileEntity implements IFacingLogic, IActiveLogic
 {
     boolean active;
-    boolean putOut;
+    //boolean putOut;
+    boolean shouldActivate;
     byte direction;
 
     @Override
@@ -28,10 +29,14 @@ public class FirestarterLogic extends TileEntity implements IFacingLogic, IActiv
     @Override
     public void setActive (boolean flag)
     {
-        if (active && !flag)
+        /*if (active && !flag)
+        {
             putOut = true;
+        }*/
+
         active = flag;
-        setFire();
+        shouldActivate = true;
+        //setFire();
     }
 
     void setFire ()
@@ -65,6 +70,7 @@ public class FirestarterLogic extends TileEntity implements IFacingLogic, IActiv
         Block block = Block.blocksList[worldObj.getBlockId(xPos, yPos, zPos)];
         if (active)
         {
+            System.out.println("Setting fire");
             if (block == null || block.isAirBlock(worldObj, xPos, yPos, zPos))
             {
                 worldObj.playSoundEffect((double) xPos + 0.5D, (double) yPos + 0.5D, (double) zPos + 0.5D, "fire.ignite", 1.0F, AbilityHelper.random.nextFloat() * 0.4F + 0.8F);
@@ -73,15 +79,24 @@ public class FirestarterLogic extends TileEntity implements IFacingLogic, IActiv
         }
         else
         {
+            //System.out.println("Stopping fire "+putOut);
             if (block == Block.fire)
             {
-                if (putOut)
-                {
-                    worldObj.playSoundEffect((double) xPos + 0.5D, (double) yPos + 0.5D, (double) zPos + 0.5D, "random.fizz", 1.0F, AbilityHelper.random.nextFloat() * 0.4F + 0.8F);
-                    putOut = false;
-                }
+                //worldObj.playSoundEffect((double) xPos + 0.5D, (double) yPos + 0.5D, (double) zPos + 0.5D, "random.fizz", 1.0F, AbilityHelper.random.nextFloat() * 0.4F + 0.8F);
+                worldObj.playSoundEffect((double) xPos + 0.5D, (double) yPos + 0.5D, (double) zPos + 0.5D, "fire.ignite", 1.0F, AbilityHelper.random.nextFloat() * 0.4F + 0.8F);
                 worldObj.setBlock(xPos, yPos, zPos, 0, 0, 3);
+                //putOut = false;
+                shouldActivate = true;
             }
+        }
+    }
+    
+    public void updateEntity ()
+    {
+        if (shouldActivate)
+        {
+            shouldActivate = false;
+            setFire();
         }
     }
 

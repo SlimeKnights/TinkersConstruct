@@ -1,19 +1,16 @@
 package mods.tinker.tconstruct.common;
 
-import java.io.File;
-
 import mods.tinker.tconstruct.TConstruct;
-import mods.tinker.tconstruct.inventory.ArmorExtendedContainer;
-import mods.tinker.tconstruct.inventory.KnapsackContainer;
+import mods.tinker.tconstruct.entity.MiniGardy;
+import mods.tinker.tconstruct.inventory.*;
 import mods.tinker.tconstruct.library.blocks.InventoryLogic;
 import mods.tinker.tconstruct.util.player.TPlayerStats;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import cpw.mods.fml.common.network.IGuiHandler;
 import cpw.mods.fml.common.registry.LanguageRegistry;
-import cpw.mods.fml.common.registry.TickRegistry;
-import cpw.mods.fml.relauncher.Side;
 
 /**
  * Common proxy class for InfiTools
@@ -34,6 +31,8 @@ public class TProxyCommon implements IGuiHandler
     public static int inventoryGui = 100;
     public static int armorGuiID = 101;
     public static int knapsackGuiID = 102;
+    
+    public static int miniGardyGui = 131;
 
     public static int manualGuiID = -1;
 
@@ -67,6 +66,18 @@ public class TProxyCommon implements IGuiHandler
             {
                 TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
                 return new KnapsackContainer(player.inventory, stats.knapsack);
+            }
+            if (ID == miniGardyGui)
+            {
+                for (Object o : world.loadedEntityList)
+                {
+                    Entity entity = (Entity) o;
+                    if (entity.entityId == x)
+                    {
+                        return new MiniGardyContainer(player.inventory, (MiniGardy) entity);
+                    }
+                }
+                return null;
             }
         }
         return null;

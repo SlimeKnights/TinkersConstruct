@@ -19,6 +19,7 @@ import mods.tinker.tconstruct.client.pages.*;
 import mods.tinker.tconstruct.common.*;
 import mods.tinker.tconstruct.entity.*;
 import mods.tinker.tconstruct.entity.projectile.*;
+import mods.tinker.tconstruct.inventory.MiniGardyContainer;
 import mods.tinker.tconstruct.library.*;
 import mods.tinker.tconstruct.library.client.*;
 import mods.tinker.tconstruct.library.crafting.*;
@@ -60,6 +61,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.client.settings.KeyBinding;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -130,6 +132,18 @@ public class TProxyClient extends TProxyCommon
         {
             TProxyClient.knapsack.init(Minecraft.getMinecraft().thePlayer);
             return new KnapsackGui(player.inventory, TProxyClient.knapsack);
+        }
+        if (ID == miniGardyGui)
+        {
+            for (Object o : world.loadedEntityList)
+            {
+                Entity entity = (Entity) o;
+                if (entity.entityId == x)
+                {
+                    return new MiniGardyGui(player.inventory, (MiniGardy) entity);
+                }
+            }
+            return null;
         }
         return null;
     }
