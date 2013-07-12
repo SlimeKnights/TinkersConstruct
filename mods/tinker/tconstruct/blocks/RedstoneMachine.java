@@ -35,6 +35,19 @@ public class RedstoneMachine extends InventoryBlock
     }
 
     @Override
+	public int getLightValue(IBlockAccess world, int x, int y, int z) {
+		TileEntityLandmine te = (TileEntityLandmine) world.getBlockTileEntity(x, y, z);
+		
+		if(te != null){
+			if(te.getStackInSlot(3) != null){
+				return lightValue[te.getStackInSlot(1).itemID];
+			}
+		}
+		
+		return super.getLightValue(world, x, y, z);
+	}
+
+    @Override
     public TileEntity createTileEntity (World world, int metadata)
     {
         switch (metadata)
@@ -197,7 +210,7 @@ public class RedstoneMachine extends InventoryBlock
     /* Redstone */
     public boolean canConnectRedstone (IBlockAccess world, int x, int y, int z, int side)
     {
-        return false;
+        return true;
     }
 
     public void onNeighborBlockChange (World world, int x, int y, int z, int neighborBlockID)
