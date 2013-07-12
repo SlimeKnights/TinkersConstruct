@@ -35,6 +35,20 @@ public class RedstoneMachine extends InventoryBlock
     }
 
     @Override
+	public int getLightValue(IBlockAccess world, int x, int y, int z) {
+		if(world.getBlockMetadata(x, y, z) == 0){
+			DrawbridgeLogic te = (DrawbridgeLogic) world.getBlockTileEntity(x, y, z);
+			
+			if(te != null){
+				if(te.getStackInSlot(3) != null){
+					return lightValue[te.getStackInSlot(1).itemID];
+				}
+			}
+		}
+		return super.getLightValue(world, x, y, z);
+	}
+
+    @Override
     public TileEntity createTileEntity (World world, int metadata)
     {
         switch (metadata)
