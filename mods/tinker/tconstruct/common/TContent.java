@@ -649,11 +649,11 @@ public class TContent implements IFuelHandler
         TConstructRegistry.addArrowMaterial(2, 7.2F, 0.5F, 100F); //Iron
         TConstructRegistry.addArrowMaterial(3, 2.65F, 1.0F, 100F); //Flint
         TConstructRegistry.addArrowMaterial(4, 0.76F, 1.0F, 100F); //Cactus
-        TConstructRegistry.addArrowMaterial(5, 0.69F, 1.0F, 90F); //Bone
+        TConstructRegistry.addArrowMaterial(5, 0.69F, 1.0F, 100); //Bone
         TConstructRegistry.addArrowMaterial(6, 2.4F, 1.0F, 100F); //Obsidian
         TConstructRegistry.addArrowMaterial(7, 3.5F, 1.0F, 100F); //Netherrack
         TConstructRegistry.addArrowMaterial(8, 0.42F, 0.0F, 100F); //Slime
-        TConstructRegistry.addArrowMaterial(9, 1.1F, 3.0F, 80F); //Paper
+        TConstructRegistry.addArrowMaterial(9, 1.1F, 3.0F, 90F); //Paper
         TConstructRegistry.addArrowMaterial(10, 8.9F, 0.25F, 100F); //Cobalt
         TConstructRegistry.addArrowMaterial(11, 7.2F, 0.25F, 100F); //Ardite
         TConstructRegistry.addArrowMaterial(12, 10.6F, 0.1F, 100F); //Manyullyn

@@ -269,9 +269,7 @@
   
   <entry key="entity.TConstruct.EdibleSlime.name">Blue Slime</entry>
   <entry key="entity.TConstruct.KingSlime.name">King Slime</entry>
-  <entry key="entity.TConstruct.UnstableCreeper.name">Nitro Creeper</entry>
-  <entry key="entity.TConstruct.EdibleSlime">Blue Slime</entry>
-  <entry key="entity.TConstruct.UnstableCreeper">Nitro Creeper</entry>
+  <entry key="entity.TConstruct.MiniGardy.name">Gardeslime</entry> 
   
   <entry key="key.tarmor">Armor Gui</entry>
   

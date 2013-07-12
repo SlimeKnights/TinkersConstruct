@@ -2,8 +2,11 @@ package mods.tinker.tconstruct.items;
 
 import java.util.List;
 
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -43,4 +46,24 @@ public class OreBerries extends CraftingItem
             break;
         }
     }
+    
+    @Override
+    public ItemStack onItemRightClick (ItemStack stack, World world, EntityPlayer player)
+    {
+        EntityXPOrb entity = new EntityXPOrb(world, player.posX, player.posY + 1, player.posZ, itemRand.nextInt(4)+3);
+        spawnEntity(player.posX, player.posY + 1, player.posZ, entity, world, player);
+        stack.stackSize--;
+        return stack;
+    }
+    
+    public static void spawnEntity (double x, double y, double z, Entity entity, World world, EntityPlayer player)
+    {
+        if (!world.isRemote)
+        {
+            entity.setPosition(x, y, z);
+            entity.setAngles(player.cameraYaw, player.cameraYaw);
+            world.spawnEntityInWorld(entity);
+        }
+    }
+
 }

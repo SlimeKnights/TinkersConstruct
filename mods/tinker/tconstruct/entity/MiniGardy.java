@@ -4,6 +4,7 @@ import mods.tinker.tconstruct.TConstruct;
 import mods.tinker.tconstruct.common.TProxyCommon;
 import mods.tinker.tconstruct.entity.ai.GAIFellTree;
 import mods.tinker.tconstruct.entity.ai.GAIFollowOwner;
+import mods.tinker.tconstruct.entity.ai.GAISwim;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -17,8 +18,9 @@ public class MiniGardy extends GolemBase
         super(world);
         this.texture = "/mods/tinker/textures/mob/googirl.png";
         this.setSize(0.375F, 0.875F);
-        this.tasks.addTask(3, new GAIFollowOwner(this));
-        this.tasks.addTask(1, new GAIFellTree(this));
+        this.tasks.addTask(1, new GAISwim(this));
+        this.tasks.addTask(8, new GAIFellTree(this));
+        this.tasks.addTask(10, new GAIFollowOwner(this));
     }
 
     @Override

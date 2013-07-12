@@ -35,18 +35,22 @@ public class RedstoneMachine extends InventoryBlock
     }
 
     @Override
-	public int getLightValue(IBlockAccess world, int x, int y, int z) {
-		if(world.getBlockMetadata(x, y, z) == 0){
-			DrawbridgeLogic te = (DrawbridgeLogic) world.getBlockTileEntity(x, y, z);
-			
-			if(te != null){
-				if(te.getStackInSlot(3) != null){
-					return lightValue[te.getStackInSlot(1).itemID];
-				}
-			}
-		}
-		return super.getLightValue(world, x, y, z);
-	}
+    public int getLightValue (IBlockAccess world, int x, int y, int z)
+    {
+        if (world.getBlockMetadata(x, y, z) == 0)
+        {
+            DrawbridgeLogic logic = (DrawbridgeLogic) world.getBlockTileEntity(x, y, z);
+
+            if (logic != null)
+            {
+                if (logic.getStackInSlot(1) != null)
+                {
+                    return lightValue[logic.getStackInSlot(1).itemID];
+                }
+            }
+        }
+        return super.getLightValue(world, x, y, z);
+    }
 
     @Override
     public TileEntity createTileEntity (World world, int metadata)
@@ -181,24 +185,6 @@ public class RedstoneMachine extends InventoryBlock
         return false;
     }
 
-    /*@Override
-    public boolean renderAsNormalBlock ()
-    {
-        return false;
-    }
-
-    @Override
-    public boolean isOpaqueCube ()
-    {
-        return false;
-    }
-
-    @Override
-    public boolean shouldSideBeRendered (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
-    {
-        return true;
-    }*/
-
     @Override
     public void getSubBlocks (int id, CreativeTabs tab, List list)
     {
@@ -209,11 +195,6 @@ public class RedstoneMachine extends InventoryBlock
     }
 
     /* Redstone */
-    public boolean canConnectRedstone (IBlockAccess world, int x, int y, int z, int side)
-    {
-        return false;
-    }
-
     public void onNeighborBlockChange (World world, int x, int y, int z, int neighborBlockID)
     {
         IActiveLogic logic = (IActiveLogic) world.getBlockTileEntity(x, y, z);
