@@ -110,7 +110,6 @@ public class ModLapis extends ToolMod
         }
 
         List list = Arrays.asList(toolItem.toolCategories());
-        //return list.contains("weapon") || list.contains("harvest");
         if (list.contains("weapon"))
         {
             if (keyPair[0] >= 350)

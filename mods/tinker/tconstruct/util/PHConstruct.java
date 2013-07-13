@@ -103,6 +103,10 @@ public class PHConstruct
         dryingRack = config.getBlock("Drying Rack", 3227).getInt(3227);
         glassPane = config.getBlock("Glass Pane", 3228).getInt(3228);
         stainedGlassClearPane = config.getBlock("Clear Stained Glass Pane", 3229).getInt(3229);
+        
+        searedSlab = config.getBlock("Seared Slab", 3230).getInt(3230);
+        speedSlab = config.getBlock("Speed Slab", 3231).getInt(3231);
+        //grassSlab = config.getBlock("Grass Slab", 3230).getInt(3230);
 
         /*golemCore = config.getBlock("Golem Core", 1481).getInt(1481);
         golemHead = config.getBlock("Golem Head", 1482).getInt(1482);*/
@@ -307,9 +311,9 @@ public class PHConstruct
     public static int redstoneMachine;
     public static int dryingRack;
 
-    public static int golemCore;
+    /*public static int golemCore;
     public static int golemHead;
-    public static int golemPedestal;
+    public static int golemPedestal;*/
 
     //Crops
     public static int oreBerry;
@@ -341,6 +345,8 @@ public class PHConstruct
     public static int multiBrick;
     public static int multiBrickFancy;
     public static int redstoneBallRepeater;
+    public static int searedSlab;
+    public static int speedSlab;
 
     //Patterns and misc
     public static int blankPattern;

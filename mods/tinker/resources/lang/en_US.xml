@@ -58,6 +58,14 @@
   <entry key="block.brownstone.smooth.fancy.name">Fancy Brownstone</entry>
   <entry key="block.brownstone.smooth.chiseled.name">Chiseled Brownstone</entry>
   
+  <entry key="block.brownstone.rough.slab.name">Rough Brownstone Slab</entry>
+  <entry key="block.brownstone.rough.road.slab.name">Brownstone Road Slab</entry>
+  <entry key="block.brownstone.smooth.slab.name">Brownstone Slab</entry>
+  <entry key="block.brownstone.smooth.brick.slab.name">Brownstone Brick Slab</entry>
+  <entry key="block.brownstone.smooth.road.slab.name">Brownstone Road Slab</entry>
+  <entry key="block.brownstone.smooth.fancy.slab.name">Fancy Brownstone Slab</entry>
+  <entry key="block.brownstone.smooth.chiseled.slab.name">Chiseled Brownstone Slab</entry>
+  
   <entry key="block.brick.obsidian.name">Obsidian Brick</entry>
   <entry key="block.brick.sandstone.name">Sandstone Brick</entry>
   <entry key="block.brick.netherrack.name">Netherrack Brick</entry>
@@ -201,6 +209,23 @@
   <entry key="block.stainedglass.green.pane.name">Green Stained Pane</entry>
   <entry key="block.stainedglass.red.pane.name">Red Stained Pane</entry>
   <entry key="block.stainedglass.black.pane.name">Black Stained Pane</entry>
+  
+  <entry key="block.searedstone.slab.brick.name">Seared Brick Slab</entry>
+  <entry key="block.searedstone.slab.stone.name">Seared Stone Slab</entry>
+  <entry key="block.searedstone.slab.cobble.name">Seared Cobblestone Slab</entry>
+  <entry key="block.searedstone.slab.paver.name">Seared Paver Slab</entry>
+  <entry key="block.searedstone.slab.road.name">Seared Road Slab</entry>
+  <entry key="block.searedstone.slab.fancy.name">Fancy Seared Slab</entry>
+  <entry key="block.searedstone.slab.square.name">Chiseled Seared Slab</entry>
+  <entry key="block.searedstone.slab.creeper.name">Chiseled Seared Slab</entry>
+  
+  <entry key="block.soil.slab.dirt.name">Dirt Slab</entry>
+  <entry key="block.soil.slab.mycelium.name">Full Mycelium Slab</entry>
+  <entry key="block.soil.slab.slime.name">Slimy Mud Slab</entry>
+  <entry key="block.soil.slab.grout.name">Grout Slab</entry>
+  <entry key="block.soil.slab.blueslime.name">Slimy Mud Slab</entry>
+  <entry key="block.soil.slab.graveyardsoil.name">Graveyard Soil Slab</entry>
+  <entry key="block.soil.slab.consecratedsoil.name">Consecrated Soil Slab</entry>
   
   <entry key="item.tconstruct.storage.knapsack.name">Knapsack</entry>  
   <entry key="item.tconstruct.blankpattern.pattern.name">Blank Pattern</entry>

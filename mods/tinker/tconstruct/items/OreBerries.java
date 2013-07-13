@@ -46,22 +46,24 @@ public class OreBerries extends CraftingItem
             break;
         }
     }
-    
+
     @Override
     public ItemStack onItemRightClick (ItemStack stack, World world, EntityPlayer player)
     {
-        EntityXPOrb entity = new EntityXPOrb(world, player.posX, player.posY + 1, player.posZ, itemRand.nextInt(4)+3);
-        spawnEntity(player.posX, player.posY + 1, player.posZ, entity, world, player);
-        stack.stackSize--;
+        if (stack.getItemDamage() == 5)
+        {
+            EntityXPOrb entity = new EntityXPOrb(world, player.posX, player.posY + 1, player.posZ, itemRand.nextInt(4) + 3);
+            spawnEntity(player.posX, player.posY + 1, player.posZ, entity, world, player);
+            if (!player.capabilities.isCreativeMode)
+                stack.stackSize--;
+        }
         return stack;
     }
-    
+
     public static void spawnEntity (double x, double y, double z, Entity entity, World world, EntityPlayer player)
     {
         if (!world.isRemote)
         {
-            entity.setPosition(x, y, z);
-            entity.setAngles(player.cameraYaw, player.cameraYaw);
             world.spawnEntityInWorld(entity);
         }
     }

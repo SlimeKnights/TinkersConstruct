@@ -10,6 +10,7 @@ import mods.tinker.tconstruct.blocks.logic.FirestarterLogic;
 import mods.tinker.tconstruct.client.block.MachineRender;
 import mods.tinker.tconstruct.library.TConstructRegistry;
 import mods.tinker.tconstruct.library.blocks.InventoryBlock;
+import mods.tinker.tconstruct.library.blocks.InventoryLogic;
 import mods.tinker.tconstruct.library.util.IActiveLogic;
 import mods.tinker.tconstruct.library.util.IFacingLogic;
 import net.minecraft.block.Block;
@@ -17,6 +18,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
@@ -39,13 +41,14 @@ public class RedstoneMachine extends InventoryBlock
     {
         if (world.getBlockMetadata(x, y, z) == 0)
         {
-            DrawbridgeLogic logic = (DrawbridgeLogic) world.getBlockTileEntity(x, y, z);
+            //DrawbridgeLogic logic = (DrawbridgeLogic) world.getBlockTileEntity(x, y, z);
+            TileEntity logic = world.getBlockTileEntity(x, y, z);
 
-            if (logic != null)
+            if (logic != null && logic instanceof IInventory)
             {
-                if (logic.getStackInSlot(1) != null)
+                if (((IInventory) logic).getStackInSlot(1) != null)
                 {
-                    return lightValue[logic.getStackInSlot(1).itemID];
+                    return lightValue[((IInventory) logic).getStackInSlot(1).itemID];
                 }
             }
         }

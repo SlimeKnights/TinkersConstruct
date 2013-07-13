@@ -143,6 +143,9 @@ public class TContent implements IFuelHandler
     public static Block stoneTorch;
     public static Block multiBrick;
     public static Block multiBrickFancy;
+    
+    public static Block searedSlab;
+    public static Block speedSlab;
 
     //Traps
     public static Block landmine;
@@ -310,6 +313,14 @@ public class TContent implements IFuelHandler
         craftedSoil = new SoilBlock(PHConstruct.craftedSoil).setUnlocalizedName("TConstruct.Soil");
         craftedSoil.stepSound = Block.soundGravelFootstep;
         GameRegistry.registerBlock(craftedSoil, CraftedSoilItemBlock.class, "CraftedSoil");
+        
+        searedSlab = new SearedSlab(PHConstruct.searedSlab).setUnlocalizedName("SearedSlab");
+        searedSlab.stepSound = Block.soundStoneFootstep;
+        GameRegistry.registerBlock(searedSlab, SearedSlabItem.class, "SearedSlab");
+        
+        speedSlab = new SpeedSlab(PHConstruct.speedSlab).setUnlocalizedName("SpeedSlab");
+        speedSlab.stepSound = Block.soundStoneFootstep;
+        GameRegistry.registerBlock(speedSlab, SpeedSlabItem.class, "SpeedSlab");
 
         metalBlock = new TMetalBlock(PHConstruct.metalBlock, Material.iron, 10.0F).setUnlocalizedName("tconstruct.metalblock");
         metalBlock.stepSound = Block.soundMetalFootstep;
@@ -1110,6 +1121,7 @@ public class TContent implements IFuelHandler
 
         /* Crafting */
         GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 0), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', Block.workbench);
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(toolStationWood, 1, 1), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', "crafterWood"));
         GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 1), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(Block.wood, 1, 0));
         GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 2), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(Block.wood, 1, 1));
         GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 3), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(Block.wood, 1, 2));
@@ -1268,6 +1280,20 @@ public class TContent implements IFuelHandler
 
         //Drying rack
         DryingRackRecipes.addDryingRecipe(Item.rottenFlesh, 20, Item.leather);
+        
+        //Slabs
+        for (int i = 0; i < 7; i++)
+        {
+            GameRegistry.addRecipe(new ItemStack(speedSlab, 6, i), "bbb", 'b', new ItemStack(speedBlock, 1, i));
+        }
+        GameRegistry.addRecipe(new ItemStack(searedSlab, 6, 0), "bbb", 'b', new ItemStack(smeltery, 1, 2));
+        GameRegistry.addRecipe(new ItemStack(searedSlab, 6, 1), "bbb", 'b', new ItemStack(smeltery, 1, 4));
+        GameRegistry.addRecipe(new ItemStack(searedSlab, 6, 2), "bbb", 'b', new ItemStack(smeltery, 1, 5));
+        GameRegistry.addRecipe(new ItemStack(searedSlab, 6, 3), "bbb", 'b', new ItemStack(smeltery, 1, 6));
+        GameRegistry.addRecipe(new ItemStack(searedSlab, 6, 4), "bbb", 'b', new ItemStack(smeltery, 1, 8));
+        GameRegistry.addRecipe(new ItemStack(searedSlab, 6, 5), "bbb", 'b', new ItemStack(smeltery, 1, 9));
+        GameRegistry.addRecipe(new ItemStack(searedSlab, 6, 6), "bbb", 'b', new ItemStack(smeltery, 1, 10));
+        GameRegistry.addRecipe(new ItemStack(searedSlab, 6, 7), "bbb", 'b', new ItemStack(smeltery, 1, 11));
     }
 
     void setupToolTabs ()

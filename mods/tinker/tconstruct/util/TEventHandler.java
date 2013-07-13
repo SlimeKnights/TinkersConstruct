@@ -128,6 +128,7 @@ public class TEventHandler
                 toolTag.setFloat("Mass", mass);
                 toolTag.setFloat("BreakChance", shatter);
                 toolTag.setFloat("Accuracy", accuracy);
+                toolTag.setInteger("Unbreaking", 10);
                 arrow.setTagCompound(event.toolTag);
                 event.overrideResult(arrow);
             }

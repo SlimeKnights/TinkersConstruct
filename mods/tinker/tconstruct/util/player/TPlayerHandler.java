@@ -91,7 +91,13 @@ public class TPlayerHandler implements IPlayerTracker
             }
         }
 
+        updatePlayerInventory(entityplayer, stats);
         //sendSkills(entityplayer, stats);
+    }
+
+    void updatePlayerInventory (EntityPlayer entityplayer, TPlayerStats stats)
+    {
+        
     }
 
     void sendSkills (EntityPlayer entityplayer, TPlayerStats stats)
