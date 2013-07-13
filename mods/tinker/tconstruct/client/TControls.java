@@ -5,8 +5,6 @@ import java.io.DataOutputStream;
 import java.util.EnumSet;
 
 import mods.tinker.tconstruct.TConstruct;
-import mods.tinker.tconstruct.skill.Skill;
-import mods.tinker.tconstruct.util.player.TPlayerStats;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.gui.inventory.GuiInventory;

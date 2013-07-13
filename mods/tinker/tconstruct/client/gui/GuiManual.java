@@ -6,7 +6,6 @@ import mods.tinker.tconstruct.client.block.SmallFontRenderer;
 import mods.tinker.tconstruct.client.pages.BookPage;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiParticle;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.item.ItemStack;
 

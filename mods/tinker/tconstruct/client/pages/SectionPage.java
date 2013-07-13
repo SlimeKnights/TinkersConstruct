@@ -1,13 +1,5 @@
 package mods.tinker.tconstruct.client.pages;
 
-import mods.tinker.tconstruct.client.TProxyClient;
-import mods.tinker.tconstruct.client.gui.GuiManual;
-import mods.tinker.tconstruct.library.client.TConstructClientRegistry;
-import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.item.ItemStack;
-
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 

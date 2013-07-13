@@ -12,15 +12,20 @@ import java.util.List;
 import java.util.Random;
 import javax.imageio.ImageIO;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.RenderEngine;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.texture.TextureManager;
+import net.minecraft.client.resources.ResourceManager;
+import net.minecraft.client.resources.ResourceManagerReloadListener;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.util.ChatAllowedCharacters;
+import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
 @SideOnly(Side.CLIENT)
-public class SmallFontRenderer
+public class SmallFontRenderer implements ResourceManagerReloadListener
 {
+    private static final ResourceLocation[] field_111274_c = new ResourceLocation[256];
+
     /** Array of width of all the characters in default.png */
     private int[] charWidth = new int[256];
 
@@ -38,10 +43,10 @@ public class SmallFontRenderer
      * drop shadows.
      */
     private int[] colorCode = new int[32];
-    private final String fontTextureName;
+    private final ResourceLocation field_111273_g;
 
     /** The RenderEngine used to load and setup glyph textures. */
-    private final RenderEngine renderEngine;
+    private final TextureManager renderEngine;
 
     /** Current X coordinate at which to draw the next character. */
     private float posX;
@@ -75,38 +80,30 @@ public class SmallFontRenderer
     private int textColor;
 
     /** Set if the "k" style (random) is active in currently rendering string */
-    private boolean randomStyle = false;
+    private boolean randomStyle;
 
     /** Set if the "l" style (bold) is active in currently rendering string */
-    private boolean boldStyle = false;
+    private boolean boldStyle;
 
     /** Set if the "o" style (italic) is active in currently rendering string */
-    private boolean italicStyle = false;
+    private boolean italicStyle;
 
     /**
      * Set if the "n" style (underlined) is active in currently rendering string
      */
-    private boolean underlineStyle = false;
+    private boolean underlineStyle;
 
     /**
      * Set if the "m" style (strikethrough) is active in currently rendering string
      */
-    private boolean strikethroughStyle = false;
+    private boolean strikethroughStyle;
 
-    SmallFontRenderer()
+    public SmallFontRenderer(GameSettings par1GameSettings, ResourceLocation par2ResourceLocation, TextureManager par3TextureManager, boolean par4)
     {
-        this.renderEngine = null;
-        this.fontTextureName = null;
+        this.field_111273_g = par2ResourceLocation;
+        this.renderEngine = par3TextureManager;
         this.unicodeFlag = true;
-    }
-
-    public SmallFontRenderer(GameSettings par1GameSettings, String par2Str, RenderEngine par3RenderEngine, boolean par4)
-    {
-        this.fontTextureName = par2Str;
-        this.renderEngine = par3RenderEngine;
-        this.unicodeFlag = true;
-        this.readFontData();
-        par3RenderEngine.bindTexture(par2Str);
+        par3TextureManager.func_110577_a(this.field_111273_g);
 
         for (int i = 0; i < 32; ++i)
         {
@@ -139,21 +136,22 @@ public class SmallFontRenderer
 
             this.colorCode[i] = (k & 255) << 16 | (l & 255) << 8 | i1 & 255;
         }
-    }
 
-    public void readFontData ()
-    {
         this.readGlyphSizes();
-        this.readFontTexture(this.fontTextureName);
     }
 
-    private void readFontTexture (String par1Str)
+    public void func_110549_a(ResourceManager par1ResourceManager)
+    {
+        this.func_111272_d();
+    }
+
+    private void func_111272_d()
     {
         BufferedImage bufferedimage;
 
         try
         {
-            bufferedimage = ImageIO.read(RenderEngine.class.getResourceAsStream(par1Str));
+            bufferedimage = ImageIO.read(Minecraft.getMinecraft().func_110442_L().func_110536_a(this.field_111273_g).func_110527_b());
         }
         catch (IOException ioexception)
         {
@@ -164,27 +162,36 @@ public class SmallFontRenderer
         int j = bufferedimage.getHeight();
         int[] aint = new int[i * j];
         bufferedimage.getRGB(0, 0, i, j, aint, 0, i);
-        int k = 0;
+        int k = j / 16;
+        int l = i / 16;
+        byte b0 = 1;
+        float f = 8.0F / (float)l;
+        int i1 = 0;
 
-        while (k < 256)
+        while (i1 < 256)
         {
-            int l = k % 16;
-            int i1 = k / 16;
-            int j1 = 7;
+            int j1 = i1 % 16;
+            int k1 = i1 / 16;
+
+            if (i1 == 32)
+            {
+                this.charWidth[i1] = 3 + b0;
+            }
+
+            int l1 = l - 1;
 
             while (true)
             {
-                if (j1 >= 0)
+                if (l1 >= 0)
                 {
-                    int k1 = l * 8 + j1;
+                    int i2 = j1 * l + l1;
                     boolean flag = true;
 
-                    for (int l1 = 0; l1 < 8 && flag; ++l1)
+                    for (int j2 = 0; j2 < k && flag; ++j2)
                     {
-                        int i2 = (i1 * 8 + l1) * i;
-                        int j2 = aint[k1 + i2] & 255;
+                        int k2 = (k1 * l + j2) * i;
 
-                        if (j2 > 0)
+                        if ((aint[i2 + k2] >> 24 & 255) != 0)
                         {
                             flag = false;
                         }
@@ -192,28 +199,24 @@ public class SmallFontRenderer
 
                     if (flag)
                     {
-                        --j1;
+                        --l1;
                         continue;
                     }
                 }
 
-                if (k == 32)
-                {
-                    j1 = 2;
-                }
-
-                this.charWidth[k] = j1 + 2;
-                ++k;
+                ++l1;
+                this.charWidth[i1] = (int)(0.5D + (double)((float)l1 * f)) + b0;
+                ++i1;
                 break;
             }
         }
     }
 
-    private void readGlyphSizes ()
+    private void readGlyphSizes()
     {
         try
         {
-            InputStream inputstream = Minecraft.getMinecraft().texturePackList.getSelectedTexturePack().getResourceAsStream("/font/glyph_sizes.bin");
+            InputStream inputstream = Minecraft.getMinecraft().func_110442_L().func_110536_a(new ResourceLocation("font/glyph_sizes.bin")).func_110527_b();
             inputstream.read(this.glyphWidth);
         }
         catch (IOException ioexception)
@@ -225,7 +228,7 @@ public class SmallFontRenderer
     /**
      * Pick how to render a single character and return the width used.
      */
-    private float renderCharAtPos (int par1, char par2, boolean par3)
+    private float renderCharAtPos(int par1, char par2, boolean par3)
     {
         return par2 == 32 ? 4.0F : (par1 > 0 && !this.unicodeFlag ? this.renderDefaultChar(par1 + 32, par3) : this.renderUnicodeChar(par2, par3));
     }
@@ -233,39 +236,48 @@ public class SmallFontRenderer
     /**
      * Render a single character with the default.png font at current (posX,posY) location...
      */
-    private float renderDefaultChar (int par1, boolean par2)
+    private float renderDefaultChar(int par1, boolean par2)
     {
-        float f = (float) (par1 % 16 * 8);
-        float f1 = (float) (par1 / 16 * 8);
+        float f = (float)(par1 % 16 * 8);
+        float f1 = (float)(par1 / 16 * 8);
         float f2 = par2 ? 1.0F : 0.0F;
-        this.renderEngine.bindTexture(this.fontTextureName);
-        float f3 = (float) this.charWidth[par1] - 0.01F;
+        this.renderEngine.func_110577_a(this.field_111273_g);
+        float f3 = (float)this.charWidth[par1] - 0.01F;
         GL11.glBegin(GL11.GL_TRIANGLE_STRIP);
         GL11.glTexCoord2f(f / 128.0F, f1 / 128.0F);
         GL11.glVertex3f(this.posX + f2, this.posY, 0.0F);
         GL11.glTexCoord2f(f / 128.0F, (f1 + 7.99F) / 128.0F);
         GL11.glVertex3f(this.posX - f2, this.posY + 7.99F, 0.0F);
-        GL11.glTexCoord2f((f + f3) / 128.0F, f1 / 128.0F);
-        GL11.glVertex3f(this.posX + f3 + f2, this.posY, 0.0F);
-        GL11.glTexCoord2f((f + f3) / 128.0F, (f1 + 7.99F) / 128.0F);
-        GL11.glVertex3f(this.posX + f3 - f2, this.posY + 7.99F, 0.0F);
+        GL11.glTexCoord2f((f + f3 - 1.0F) / 128.0F, f1 / 128.0F);
+        GL11.glVertex3f(this.posX + f3 - 1.0F + f2, this.posY, 0.0F);
+        GL11.glTexCoord2f((f + f3 - 1.0F) / 128.0F, (f1 + 7.99F) / 128.0F);
+        GL11.glVertex3f(this.posX + f3 - 1.0F - f2, this.posY + 7.99F, 0.0F);
         GL11.glEnd();
-        return (float) this.charWidth[par1];
+        return (float)this.charWidth[par1];
+    }
+
+    private ResourceLocation func_111271_a(int par1)
+    {
+        if (field_111274_c[par1] == null)
+        {
+            field_111274_c[par1] = new ResourceLocation(String.format("textures/font/unicode_page_%02x.png", new Object[] {Integer.valueOf(par1)}));
+        }
+
+        return field_111274_c[par1];
     }
 
     /**
      * Load one of the /font/glyph_XX.png into a new GL texture and store the texture ID in glyphTextureName array.
      */
-    private void loadGlyphTexture (int par1)
+    private void loadGlyphTexture(int par1)
     {
-        String s = String.format("/font/glyph_%02X.png", new Object[] { Integer.valueOf(par1) });
-        this.renderEngine.bindTexture(s);
+        this.renderEngine.func_110577_a(this.func_111271_a(par1));
     }
 
     /**
      * Render a single Unicode character at current (posX,posY) location using one of the /font/glyph_XX.png files...
      */
-    private float renderUnicodeChar (char par1, boolean par2)
+    private float renderUnicodeChar(char par1, boolean par2)
     {
         if (this.glyphWidth[par1] == 0)
         {
@@ -277,10 +289,10 @@ public class SmallFontRenderer
             this.loadGlyphTexture(i);
             int j = this.glyphWidth[par1] >>> 4;
             int k = this.glyphWidth[par1] & 15;
-            float f = (float) j;
-            float f1 = (float) (k + 1);
-            float f2 = (float) (par1 % 16 * 16) + f;
-            float f3 = (float) ((par1 & 255) / 16 * 16);
+            float f = (float)j;
+            float f1 = (float)(k + 1);
+            float f2 = (float)(par1 % 16 * 16) + f;
+            float f3 = (float)((par1 & 255) / 16 * 16);
             float f4 = f1 - f - 0.02F;
             float f5 = par2 ? 1.0F : 0.0F;
             GL11.glBegin(GL11.GL_TRIANGLE_STRIP);
@@ -300,7 +312,7 @@ public class SmallFontRenderer
     /**
      * Draws the specified string with a shadow.
      */
-    public int drawStringWithShadow (String par1Str, int par2, int par3, int par4)
+    public int drawStringWithShadow(String par1Str, int par2, int par3, int par4)
     {
         return this.drawString(par1Str, par2, par3, par4, true);
     }
@@ -308,7 +320,7 @@ public class SmallFontRenderer
     /**
      * Draws the specified string.
      */
-    public int drawString (String par1Str, int par2, int par3, int par4)
+    public int drawString(String par1Str, int par2, int par3, int par4)
     {
         return this.drawString(par1Str, par2, par3, par4, false);
     }
@@ -316,7 +328,7 @@ public class SmallFontRenderer
     /**
      * Draws the specified string. Args: string, x, y, color, dropShadow
      */
-    public int drawString (String par1Str, int par2, int par3, int par4, boolean par5)
+    public int drawString(String par1Str, int par2, int par3, int par4, boolean par5)
     {
         this.resetStyles();
 
@@ -343,7 +355,7 @@ public class SmallFontRenderer
     /**
      * Apply Unicode Bidirectional Algorithm to string and return a new possibly reordered string for visual rendering.
      */
-    private String bidiReorder (String par1Str)
+    private String bidiReorder(String par1Str)
     {
         if (par1Str != null && Bidi.requiresBidi(par1Str.toCharArray(), 0, par1Str.length()))
         {
@@ -358,11 +370,11 @@ public class SmallFontRenderer
                 i = bidi.getRunLimit(j);
                 int l = bidi.getRunLevel(j);
                 String s1 = par1Str.substring(k, i);
-                abyte[j] = (byte) l;
+                abyte[j] = (byte)l;
                 astring[j] = s1;
             }
 
-            String[] astring1 = (String[]) astring.clone();
+            String[] astring1 = (String[])astring.clone();
             Bidi.reorderVisually(abyte, 0, astring, 0, abyte.length);
             StringBuilder stringbuilder = new StringBuilder();
             i = 0;
@@ -424,7 +436,7 @@ public class SmallFontRenderer
     /**
      * Reset all style flag fields in the class to false; called at the start of string rendering
      */
-    private void resetStyles ()
+    private void resetStyles()
     {
         this.randomStyle = false;
         this.boldStyle = false;
@@ -436,7 +448,7 @@ public class SmallFontRenderer
     /**
      * Render a single line string at the current (posX,posY) and update posX
      */
-    private void renderStringAtPos (String par1Str, boolean par2)
+    private void renderStringAtPos(String par1Str, boolean par2)
     {
         for (int i = 0; i < par1Str.length(); ++i)
         {
@@ -468,7 +480,7 @@ public class SmallFontRenderer
 
                     k = this.colorCode[j];
                     this.textColor = k;
-                    GL11.glColor4f((float) (k >> 16) / 255.0F, (float) (k >> 8 & 255) / 255.0F, (float) (k & 255) / 255.0F, this.alpha);
+                    GL11.glColor4f((float)(k >> 16) / 255.0F, (float)(k >> 8 & 255) / 255.0F, (float)(k & 255) / 255.0F, this.alpha);
                 }
                 else if (j == 16)
                 {
@@ -511,7 +523,8 @@ public class SmallFontRenderer
                     do
                     {
                         k = this.fontRandom.nextInt(ChatAllowedCharacters.allowedCharacters.length());
-                    } while (this.charWidth[j + 32] != this.charWidth[k + 32]);
+                    }
+                    while (this.charWidth[j + 32] != this.charWidth[k + 32]);
 
                     j = k;
                 }
@@ -562,10 +575,10 @@ public class SmallFontRenderer
                     tessellator = Tessellator.instance;
                     GL11.glDisable(GL11.GL_TEXTURE_2D);
                     tessellator.startDrawingQuads();
-                    tessellator.addVertex((double) this.posX, (double) (this.posY + (float) (this.FONT_HEIGHT / 2)), 0.0D);
-                    tessellator.addVertex((double) (this.posX + f1), (double) (this.posY + (float) (this.FONT_HEIGHT / 2)), 0.0D);
-                    tessellator.addVertex((double) (this.posX + f1), (double) (this.posY + (float) (this.FONT_HEIGHT / 2) - 1.0F), 0.0D);
-                    tessellator.addVertex((double) this.posX, (double) (this.posY + (float) (this.FONT_HEIGHT / 2) - 1.0F), 0.0D);
+                    tessellator.addVertex((double)this.posX, (double)(this.posY + (float)(this.FONT_HEIGHT / 2)), 0.0D);
+                    tessellator.addVertex((double)(this.posX + f1), (double)(this.posY + (float)(this.FONT_HEIGHT / 2)), 0.0D);
+                    tessellator.addVertex((double)(this.posX + f1), (double)(this.posY + (float)(this.FONT_HEIGHT / 2) - 1.0F), 0.0D);
+                    tessellator.addVertex((double)this.posX, (double)(this.posY + (float)(this.FONT_HEIGHT / 2) - 1.0F), 0.0D);
                     tessellator.draw();
                     GL11.glEnable(GL11.GL_TEXTURE_2D);
                 }
@@ -576,15 +589,15 @@ public class SmallFontRenderer
                     GL11.glDisable(GL11.GL_TEXTURE_2D);
                     tessellator.startDrawingQuads();
                     int l = this.underlineStyle ? -1 : 0;
-                    tessellator.addVertex((double) (this.posX + (float) l), (double) (this.posY + (float) this.FONT_HEIGHT), 0.0D);
-                    tessellator.addVertex((double) (this.posX + f1), (double) (this.posY + (float) this.FONT_HEIGHT), 0.0D);
-                    tessellator.addVertex((double) (this.posX + f1), (double) (this.posY + (float) this.FONT_HEIGHT - 1.0F), 0.0D);
-                    tessellator.addVertex((double) (this.posX + (float) l), (double) (this.posY + (float) this.FONT_HEIGHT - 1.0F), 0.0D);
+                    tessellator.addVertex((double)(this.posX + (float)l), (double)(this.posY + (float)this.FONT_HEIGHT), 0.0D);
+                    tessellator.addVertex((double)(this.posX + f1), (double)(this.posY + (float)this.FONT_HEIGHT), 0.0D);
+                    tessellator.addVertex((double)(this.posX + f1), (double)(this.posY + (float)this.FONT_HEIGHT - 1.0F), 0.0D);
+                    tessellator.addVertex((double)(this.posX + (float)l), (double)(this.posY + (float)this.FONT_HEIGHT - 1.0F), 0.0D);
                     tessellator.draw();
                     GL11.glEnable(GL11.GL_TEXTURE_2D);
                 }
 
-                this.posX += (float) ((int) f1);
+                this.posX += (float)((int)f1);
             }
         }
     }
@@ -592,7 +605,7 @@ public class SmallFontRenderer
     /**
      * Render string either left or right aligned depending on bidiFlag
      */
-    private int renderStringAligned (String par1Str, int par2, int par3, int par4, int par5, boolean par6)
+    private int renderStringAligned(String par1Str, int par2, int par3, int par4, int par5, boolean par6)
     {
         if (this.bidiFlag)
         {
@@ -607,7 +620,7 @@ public class SmallFontRenderer
     /**
      * Render single line string by setting GL color, current (posX,posY), and calling renderStringAtPos()
      */
-    private int renderString (String par1Str, int par2, int par3, int par4, boolean par5)
+    private int renderString(String par1Str, int par2, int par3, int par4, boolean par5)
     {
         if (par1Str == null)
         {
@@ -625,22 +638,22 @@ public class SmallFontRenderer
                 par4 = (par4 & 16579836) >> 2 | par4 & -16777216;
             }
 
-            this.red = (float) (par4 >> 16 & 255) / 255.0F;
-            this.blue = (float) (par4 >> 8 & 255) / 255.0F;
-            this.green = (float) (par4 & 255) / 255.0F;
-            this.alpha = (float) (par4 >> 24 & 255) / 255.0F;
+            this.red = (float)(par4 >> 16 & 255) / 255.0F;
+            this.blue = (float)(par4 >> 8 & 255) / 255.0F;
+            this.green = (float)(par4 & 255) / 255.0F;
+            this.alpha = (float)(par4 >> 24 & 255) / 255.0F;
             GL11.glColor4f(this.red, this.blue, this.green, this.alpha);
-            this.posX = (float) par2;
-            this.posY = (float) par3;
+            this.posX = (float)par2;
+            this.posY = (float)par3;
             this.renderStringAtPos(par1Str, par5);
-            return (int) this.posX;
+            return (int)this.posX;
         }
     }
 
     /**
      * Returns the width of this string. Equivalent of FontMetrics.stringWidth(String s).
      */
-    public int getStringWidth (String par1Str)
+    public int getStringWidth(String par1Str)
     {
         if (par1Str == null)
         {
@@ -691,7 +704,7 @@ public class SmallFontRenderer
     /**
      * Returns the width of this character as rendered.
      */
-    public int getCharWidth (char par1)
+    public int getCharWidth(char par1)
     {
         if (par1 == 167)
         {
@@ -733,7 +746,7 @@ public class SmallFontRenderer
     /**
      * Trims a string to fit a specified Width.
      */
-    public String trimStringToWidth (String par1Str, int par2)
+    public String trimStringToWidth(String par1Str, int par2)
     {
         return this.trimStringToWidth(par1Str, par2, false);
     }
@@ -741,7 +754,7 @@ public class SmallFontRenderer
     /**
      * Trims a string to a specified width, and will reverse it if par3 is set.
      */
-    public String trimStringToWidth (String par1Str, int par2, boolean par3)
+    public String trimStringToWidth(String par1Str, int par2, boolean par3)
     {
         StringBuilder stringbuilder = new StringBuilder();
         int j = 0;
@@ -806,7 +819,7 @@ public class SmallFontRenderer
     /**
      * Remove all newline characters from the end of the string
      */
-    private String trimStringNewline (String par1Str)
+    private String trimStringNewline(String par1Str)
     {
         while (par1Str != null && par1Str.endsWith("\n"))
         {
@@ -819,7 +832,7 @@ public class SmallFontRenderer
     /**
      * Splits and draws a String with wordwrap (maximum length is parameter k)
      */
-    public void drawSplitString (String par1Str, int par2, int par3, int par4, int par5)
+    public void drawSplitString(String par1Str, int par2, int par3, int par4, int par5)
     {
         this.resetStyles();
         this.textColor = par5;
@@ -831,13 +844,13 @@ public class SmallFontRenderer
      * Perform actual work of rendering a multi-line string with wordwrap and with darker drop shadow color if flag is
      * set
      */
-    private void renderSplitString (String par1Str, int par2, int par3, int par4, boolean par5)
+    private void renderSplitString(String par1Str, int par2, int par3, int par4, boolean par5)
     {
         List list = this.listFormattedStringToWidth(par1Str, par4);
 
         for (Iterator iterator = list.iterator(); iterator.hasNext(); par3 += this.FONT_HEIGHT)
         {
-            String s1 = (String) iterator.next();
+            String s1 = (String)iterator.next();
             this.renderStringAligned(s1, par2, par3, par4, this.textColor, par5);
         }
     }
@@ -845,7 +858,7 @@ public class SmallFontRenderer
     /**
      * Returns the width of the wordwrapped String (maximum length is parameter k)
      */
-    public int splitStringWidth (String par1Str, int par2)
+    public int splitStringWidth(String par1Str, int par2)
     {
         return this.FONT_HEIGHT * this.listFormattedStringToWidth(par1Str, par2).size();
     }
@@ -854,7 +867,7 @@ public class SmallFontRenderer
      * Set unicodeFlag controlling whether strings should be rendered with Unicode fonts instead of the default.png
      * font.
      */
-    public void setUnicodeFlag (boolean par1)
+    public void setUnicodeFlag(boolean par1)
     {
         this.unicodeFlag = par1;
     }
@@ -863,7 +876,7 @@ public class SmallFontRenderer
      * Get unicodeFlag controlling whether strings should be rendered with Unicode fonts instead of the default.png
      * font.
      */
-    public boolean getUnicodeFlag ()
+    public boolean getUnicodeFlag()
     {
         return this.unicodeFlag;
     }
@@ -871,7 +884,7 @@ public class SmallFontRenderer
     /**
      * Set bidiFlag to control if the Unicode Bidirectional Algorithm should be run before rendering any string.
      */
-    public void setBidiFlag (boolean par1)
+    public void setBidiFlag(boolean par1)
     {
         this.bidiFlag = par1;
     }
@@ -879,7 +892,7 @@ public class SmallFontRenderer
     /**
      * Breaks a string into a list of pieces that will fit a specified width.
      */
-    public List listFormattedStringToWidth (String par1Str, int par2)
+    public List listFormattedStringToWidth(String par1Str, int par2)
     {
         return Arrays.asList(this.wrapFormattedStringToWidth(par1Str, par2).split("\n"));
     }
@@ -887,7 +900,7 @@ public class SmallFontRenderer
     /**
      * Inserts newline and formatting into a string to wrap it within the specified width.
      */
-    String wrapFormattedStringToWidth (String par1Str, int par2)
+    String wrapFormattedStringToWidth(String par1Str, int par2)
     {
         int j = this.sizeStringToWidth(par1Str, par2);
 
@@ -908,7 +921,7 @@ public class SmallFontRenderer
     /**
      * Determines how many characters from the string will fit into the specified width.
      */
-    private int sizeStringToWidth (String par1Str, int par2)
+    private int sizeStringToWidth(String par1Str, int par2)
     {
         int j = par1Str.length();
         int k = 0;
@@ -921,38 +934,38 @@ public class SmallFontRenderer
 
             switch (c0)
             {
-            case 10:
-                --l;
-                break;
-            case 167:
-                if (l < j - 1)
-                {
-                    ++l;
-                    char c1 = par1Str.charAt(l);
-
-                    if (c1 != 108 && c1 != 76)
+                case 10:
+                    --l;
+                    break;
+                case 167:
+                    if (l < j - 1)
                     {
-                        if (c1 == 114 || c1 == 82 || isFormatColor(c1))
+                        ++l;
+                        char c1 = par1Str.charAt(l);
+
+                        if (c1 != 108 && c1 != 76)
                         {
-                            flag = false;
+                            if (c1 == 114 || c1 == 82 || isFormatColor(c1))
+                            {
+                                flag = false;
+                            }
+                        }
+                        else
+                        {
+                            flag = true;
                         }
                     }
-                    else
+
+                    break;
+                case 32:
+                    i1 = l;
+                default:
+                    k += this.getCharWidth(c0);
+
+                    if (flag)
                     {
-                        flag = true;
+                        ++k;
                     }
-                }
-
-                break;
-            case 32:
-                i1 = l;
-            default:
-                k += this.getCharWidth(c0);
-
-                if (flag)
-                {
-                    ++k;
-                }
             }
 
             if (c0 == 10)
@@ -974,7 +987,7 @@ public class SmallFontRenderer
     /**
      * Checks if the char code is a hexadecimal character, used to set colour.
      */
-    private static boolean isFormatColor (char par0)
+    private static boolean isFormatColor(char par0)
     {
         return par0 >= 48 && par0 <= 57 || par0 >= 97 && par0 <= 102 || par0 >= 65 && par0 <= 70;
     }
@@ -982,7 +995,7 @@ public class SmallFontRenderer
     /**
      * Checks if the char code is O-K...lLrRk-o... used to set special formatting.
      */
-    private static boolean isFormatSpecial (char par0)
+    private static boolean isFormatSpecial(char par0)
     {
         return par0 >= 107 && par0 <= 111 || par0 >= 75 && par0 <= 79 || par0 == 114 || par0 == 82;
     }
@@ -990,7 +1003,7 @@ public class SmallFontRenderer
     /**
      * Digests a string for nonprinting formatting characters then returns a string containing only that formatting.
      */
-    private static String getFormatFromString (String par0Str)
+    private static String getFormatFromString(String par0Str)
     {
         String s1 = "";
         int i = -1;
@@ -1019,7 +1032,7 @@ public class SmallFontRenderer
     /**
      * Get bidiFlag that controls if the Unicode Bidirectional Algorithm should be run before rendering any string
      */
-    public boolean getBidiFlag ()
+    public boolean getBidiFlag()
     {
         return this.bidiFlag;
     }

@@ -3,9 +3,10 @@ package mods.tinker.tconstruct.client.entity;
 import mods.tinker.tconstruct.entity.BlueSlime;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderLiving;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.boss.BossStatus;
-import net.minecraft.entity.boss.IBossDisplayData;
+import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
@@ -91,4 +92,12 @@ public class SlimeRender extends RenderLiving
     {
         return this.shouldSlimeRenderPass((BlueSlime) par1EntityLiving, par2, par3);
     }
+    
+    @Override
+    protected ResourceLocation func_110775_a(Entity par1Entity)
+    {
+        return texture;
+    }
+    
+    static final ResourceLocation texture = new ResourceLocation("assets/tinker/textures/mob/slimeedible.png");
 }

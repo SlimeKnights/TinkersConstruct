@@ -1,14 +1,10 @@
 package mods.tinker.tconstruct.items.armor;
 
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
-
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.ItemArmor;
@@ -75,7 +71,7 @@ public class TArmorBase extends ItemArmor
      */
     @Override
     @SideOnly(Side.CLIENT)
-    public ModelBiped getArmorModel (EntityLiving par1EntityLiving, ItemStack itemStack, int armorSlot)
+    public ModelBiped getArmorModel (EntityLivingBase par1EntityLiving, ItemStack itemStack, int armorSlot)
     {
         return null;
     }

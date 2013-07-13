@@ -1,7 +1,6 @@
 package mods.tinker.tconstruct.library.crafting;
 
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.liquids.LiquidStack;
 
 public class CastingRecipe
 {

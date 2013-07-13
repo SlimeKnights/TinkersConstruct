@@ -1,12 +1,7 @@
 package mods.tinker.tconstruct.blocks.logic;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import mods.tinker.tconstruct.common.TContent;
 import mods.tinker.tconstruct.library.blocks.InventoryLogic;
 import mods.tinker.tconstruct.library.crafting.DryingRackRecipes;
-import mods.tinker.tconstruct.library.util.IActiveLogic;
-import net.minecraft.block.Block;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
@@ -16,6 +11,8 @@ import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class DryingRackLogic extends InventoryLogic
 {

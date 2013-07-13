@@ -1,8 +1,6 @@
 package mods.tinker.tconstruct.items.blocks;
 
 import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.MathHelper;
 
 public class ToolForgeItemBlock extends ItemBlock
 {

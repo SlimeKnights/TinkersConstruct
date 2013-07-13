@@ -2,21 +2,21 @@ package mods.tinker.tconstruct.client.entity;
 
 import static net.minecraftforge.client.IItemRenderer.ItemRenderType.EQUIPPED;
 import static net.minecraftforge.client.IItemRenderer.ItemRendererHelper.BLOCK_3D;
-
-import org.lwjgl.opengl.GL11;
-
-import mods.tinker.tconstruct.entity.MiniGardy;
 import net.minecraft.block.Block;
-import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.tileentity.TileEntitySkullRenderer;
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.client.MinecraftForgeClient;
+
+import org.lwjgl.opengl.GL11;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -29,13 +29,13 @@ public class MiniGardyRender extends RenderLiving
     }
 
     @Override
-    protected void renderEquippedItems (EntityLiving par1EntityLiving, float par2)
+    protected void renderEquippedItems (EntityLivingBase par1EntityLiving, float par2)
     {
         float f1 = 1.0F;
         GL11.glColor3f(f1, f1, f1);
         super.renderEquippedItems(par1EntityLiving, par2);
         ItemStack heldItem = par1EntityLiving.getHeldItem();
-        ItemStack helmetItem = par1EntityLiving.getCurrentArmor(3);
+        ItemStack helmetItem = par1EntityLiving.getCurrentItemOrArmor(4);
         float f2;
 
         ModelMiniGardy model = (ModelMiniGardy) this.mainModel;
@@ -175,4 +175,12 @@ public class MiniGardyRender extends RenderLiving
     {
         GL11.glTranslatef(0.0F, 0.1875F, 0.0F);
     }
+    
+    @Override
+    protected ResourceLocation func_110775_a(Entity par1Entity)
+    {
+        return texture;
+    }
+    
+    static final ResourceLocation texture = new ResourceLocation("assets/tinker/textures/mob/googirl.png");
 }

@@ -3,10 +3,6 @@ package mods.tinker.tconstruct.util;
 import java.io.File;
 import java.io.IOException;
 
-import mods.tinker.tconstruct.TConstruct;
-import mods.tinker.tconstruct.items.Fletching;
-import mods.tinker.tconstruct.items.ToolPart;
-import net.minecraft.block.Block;
 import net.minecraftforge.common.Configuration;
 
 public class PHConstruct

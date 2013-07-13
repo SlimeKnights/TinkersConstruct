@@ -1,15 +1,11 @@
 package mods.tinker.tconstruct.blocks.logic;
 
-import mods.tinker.tconstruct.common.TContent;
 import mods.tinker.tconstruct.inventory.DrawbridgeContainer;
 import mods.tinker.tconstruct.library.TConstructRegistry;
 import mods.tinker.tconstruct.library.blocks.InventoryLogic;
-import mods.tinker.tconstruct.library.util.CoordTuple;
 import mods.tinker.tconstruct.library.util.IActiveLogic;
 import mods.tinker.tconstruct.library.util.IFacingLogic;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockPistonMoving;
-import net.minecraft.block.BlockSnow;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -18,7 +14,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.Packet132TileEntityData;
-import net.minecraft.util.Facing;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;

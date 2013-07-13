@@ -1,6 +1,5 @@
 package mods.tinker.tconstruct.client;
 
-import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,21 +9,93 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import mods.tinker.tconstruct.TConstruct;
-import mods.tinker.tconstruct.blocks.logic.*;
-import mods.tinker.tconstruct.client.block.*;
-import mods.tinker.tconstruct.client.entity.*;
-import mods.tinker.tconstruct.client.entity.projectile.*;
-import mods.tinker.tconstruct.client.gui.*;
-import mods.tinker.tconstruct.client.pages.*;
-import mods.tinker.tconstruct.common.*;
-import mods.tinker.tconstruct.entity.*;
-import mods.tinker.tconstruct.entity.projectile.*;
-import mods.tinker.tconstruct.inventory.MiniGardyContainer;
-import mods.tinker.tconstruct.library.*;
-import mods.tinker.tconstruct.library.client.*;
-import mods.tinker.tconstruct.library.crafting.*;
-import mods.tinker.tconstruct.library.tools.*;
-import mods.tinker.tconstruct.util.player.*;
+import mods.tinker.tconstruct.blocks.logic.CastingBasinLogic;
+import mods.tinker.tconstruct.blocks.logic.CastingTableLogic;
+import mods.tinker.tconstruct.blocks.logic.DrawbridgeLogic;
+import mods.tinker.tconstruct.blocks.logic.DryingRackLogic;
+import mods.tinker.tconstruct.blocks.logic.FrypanLogic;
+import mods.tinker.tconstruct.blocks.logic.GlowstoneAggregator;
+import mods.tinker.tconstruct.blocks.logic.PartCrafterLogic;
+import mods.tinker.tconstruct.blocks.logic.PatternChestLogic;
+import mods.tinker.tconstruct.blocks.logic.SmelteryLogic;
+import mods.tinker.tconstruct.blocks.logic.StencilTableLogic;
+import mods.tinker.tconstruct.blocks.logic.ToolForgeLogic;
+import mods.tinker.tconstruct.blocks.logic.ToolStationLogic;
+import mods.tinker.tconstruct.client.block.BarricadeRender;
+import mods.tinker.tconstruct.client.block.CastingBasinSpecialRender;
+import mods.tinker.tconstruct.client.block.CastingTableSpecialRenderer;
+import mods.tinker.tconstruct.client.block.CrystalBlockRender;
+import mods.tinker.tconstruct.client.block.DryingRackRender;
+import mods.tinker.tconstruct.client.block.DryingRackSpecialRender;
+import mods.tinker.tconstruct.client.block.FluidRender;
+import mods.tinker.tconstruct.client.block.FrypanRender;
+import mods.tinker.tconstruct.client.block.MachineRender;
+import mods.tinker.tconstruct.client.block.OreberryRender;
+import mods.tinker.tconstruct.client.block.PaneRender;
+import mods.tinker.tconstruct.client.block.SearedRender;
+import mods.tinker.tconstruct.client.block.SmallFontRenderer;
+import mods.tinker.tconstruct.client.block.SmelteryRender;
+import mods.tinker.tconstruct.client.block.TableForgeRender;
+import mods.tinker.tconstruct.client.block.TableRender;
+import mods.tinker.tconstruct.client.block.TankRender;
+import mods.tinker.tconstruct.client.entity.CartRender;
+import mods.tinker.tconstruct.client.entity.CloneHeadModel;
+import mods.tinker.tconstruct.client.entity.CrystalGuardianRender;
+import mods.tinker.tconstruct.client.entity.CrystalRender;
+import mods.tinker.tconstruct.client.entity.FancyItemRender;
+import mods.tinker.tconstruct.client.entity.MiniGardyRender;
+import mods.tinker.tconstruct.client.entity.SlimeCloneRender;
+import mods.tinker.tconstruct.client.entity.SlimeRender;
+import mods.tinker.tconstruct.client.entity.projectile.ArrowRender;
+import mods.tinker.tconstruct.client.entity.projectile.DaggerRender;
+import mods.tinker.tconstruct.client.entity.projectile.LaunchedItemRender;
+import mods.tinker.tconstruct.client.gui.ArmorExtendedGui;
+import mods.tinker.tconstruct.client.gui.DrawbridgeGui;
+import mods.tinker.tconstruct.client.gui.FrypanGui;
+import mods.tinker.tconstruct.client.gui.GlowstoneAggregatorGui;
+import mods.tinker.tconstruct.client.gui.GuiManual;
+import mods.tinker.tconstruct.client.gui.InventoryTab;
+import mods.tinker.tconstruct.client.gui.KnapsackGui;
+import mods.tinker.tconstruct.client.gui.MiniGardyGui;
+import mods.tinker.tconstruct.client.gui.PartCrafterGui;
+import mods.tinker.tconstruct.client.gui.PatternChestGui;
+import mods.tinker.tconstruct.client.gui.SmelteryGui;
+import mods.tinker.tconstruct.client.gui.StencilTableGui;
+import mods.tinker.tconstruct.client.gui.ToolForgeGui;
+import mods.tinker.tconstruct.client.gui.ToolStationGui;
+import mods.tinker.tconstruct.client.pages.BlankPage;
+import mods.tinker.tconstruct.client.pages.BlockCastPage;
+import mods.tinker.tconstruct.client.pages.BookPage;
+import mods.tinker.tconstruct.client.pages.ContentsTablePage;
+import mods.tinker.tconstruct.client.pages.CraftingPage;
+import mods.tinker.tconstruct.client.pages.FurnacePage;
+import mods.tinker.tconstruct.client.pages.MaterialPage;
+import mods.tinker.tconstruct.client.pages.ModifierPage;
+import mods.tinker.tconstruct.client.pages.PicturePage;
+import mods.tinker.tconstruct.client.pages.SectionPage;
+import mods.tinker.tconstruct.client.pages.SidebarPage;
+import mods.tinker.tconstruct.client.pages.TextPage;
+import mods.tinker.tconstruct.client.pages.TitlePage;
+import mods.tinker.tconstruct.client.pages.ToolPage;
+import mods.tinker.tconstruct.common.TContent;
+import mods.tinker.tconstruct.common.TProxyCommon;
+import mods.tinker.tconstruct.entity.Automaton;
+import mods.tinker.tconstruct.entity.BlueSlime;
+import mods.tinker.tconstruct.entity.CartEntity;
+import mods.tinker.tconstruct.entity.Crystal;
+import mods.tinker.tconstruct.entity.FancyEntityItem;
+import mods.tinker.tconstruct.entity.MiniGardy;
+import mods.tinker.tconstruct.entity.SlimeClone;
+import mods.tinker.tconstruct.entity.projectile.ArrowEntity;
+import mods.tinker.tconstruct.entity.projectile.DaggerEntity;
+import mods.tinker.tconstruct.entity.projectile.LaunchedPotion;
+import mods.tinker.tconstruct.library.TConstructRegistry;
+import mods.tinker.tconstruct.library.client.TConstructClientRegistry;
+import mods.tinker.tconstruct.library.client.ToolGuiElement;
+import mods.tinker.tconstruct.library.crafting.ToolBuilder;
+import mods.tinker.tconstruct.library.tools.ToolCore;
+import mods.tinker.tconstruct.util.player.ArmorExtended;
+import mods.tinker.tconstruct.util.player.KnapsackInventory;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
@@ -66,7 +137,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
-import net.minecraft.world.ColorizerGrass;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.MinecraftForge;
@@ -274,7 +345,7 @@ public class TProxyClient extends TProxyCommon
     {
         Minecraft mc = Minecraft.getMinecraft();
         MinecraftForge.EVENT_BUS.register(new TClientEvents());
-        smallFontRenderer = new SmallFontRenderer(mc.gameSettings, "/font/default.png", mc.renderEngine, false);
+        smallFontRenderer = new SmallFontRenderer(mc.gameSettings, new ResourceLocation("/font/default.png"), mc.renderEngine, false);
         RenderingRegistry.registerBlockHandler(new TableRender());
         RenderingRegistry.registerBlockHandler(new TableForgeRender());
         RenderingRegistry.registerBlockHandler(new FrypanRender());
@@ -933,7 +1004,7 @@ public class TProxyClient extends TProxyCommon
                     }
                     else if (par1Str.equals("snowballpoof"))
                     {
-                        entityfx = new EntityBreakingFX(mc.theWorld, par2, par4, par6, Item.snowball, mc.renderEngine);
+                        entityfx = new EntityBreakingFX(mc.theWorld, par2, par4, par6, Item.snowball);
                     }
                     else if (par1Str.equals("dripWater"))
                     {
@@ -949,7 +1020,7 @@ public class TProxyClient extends TProxyCommon
                     }
                     else if (par1Str.equals("blueslime"))
                     {
-                        entityfx = new EntityBreakingFX(mc.theWorld, par2, par4, par6, TContent.strangeFood, mc.renderEngine);
+                        entityfx = new EntityBreakingFX(mc.theWorld, par2, par4, par6, TContent.strangeFood);
                     }
                     else if (par1Str.equals("heart"))
                     {
@@ -966,18 +1037,6 @@ public class TProxyClient extends TProxyCommon
                         entityfx = new EntityAuraFX(mc.theWorld, par2, par4, par6, par8, par10, par12);
                         ((EntityFX) entityfx).setParticleTextureIndex(82);
                         ((EntityFX) entityfx).setRBGColorF(1.0F, 1.0F, 1.0F);
-                    }
-                    else if (par1Str.startsWith("iconcrack_"))
-                    {
-                        int j = Integer.parseInt(par1Str.substring(par1Str.indexOf("_") + 1));
-                        entityfx = new EntityBreakingFX(mc.theWorld, par2, par4, par6, par8, par10, par12, Item.itemsList[j], mc.renderEngine);
-                    }
-                    else if (par1Str.startsWith("tilecrack_"))
-                    {
-                        String[] astring = par1Str.split("_", 3);
-                        int k = Integer.parseInt(astring[1]);
-                        int l = Integer.parseInt(astring[2]);
-                        entityfx = (new EntityDiggingFX(mc.theWorld, par2, par4, par6, par8, par10, par12, Block.blocksList[k], 0, l, mc.renderEngine)).applyRenderColor(l);
                     }
 
                     if (entityfx != null)

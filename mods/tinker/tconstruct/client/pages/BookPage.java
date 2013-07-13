@@ -2,7 +2,7 @@ package mods.tinker.tconstruct.client.pages;
 
 import mods.tinker.tconstruct.client.gui.GuiManual;
 
-import org.w3c.dom.*;
+import org.w3c.dom.Element;
 
 public abstract class BookPage
 {

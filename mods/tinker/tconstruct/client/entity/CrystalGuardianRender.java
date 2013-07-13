@@ -6,10 +6,13 @@ import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.tileentity.TileEntitySkullRenderer;
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.client.MinecraftForgeClient;
 
@@ -30,13 +33,13 @@ public class CrystalGuardianRender extends RenderLiving
     }
 
     @Override
-    protected void renderEquippedItems (EntityLiving par1EntityLiving, float par2)
+    protected void renderEquippedItems (EntityLivingBase par1EntityLiving, float par2)
     {
         float f1 = 1.0F;
         GL11.glColor3f(f1, f1, f1);
         super.renderEquippedItems(par1EntityLiving, par2);
         ItemStack itemstack = par1EntityLiving.getHeldItem();
-        ItemStack itemstack1 = par1EntityLiving.getCurrentArmor(3);
+        ItemStack itemstack1 = par1EntityLiving.getCurrentItemOrArmor(4);
         float f2;
 
         if (itemstack1 != null)
@@ -182,4 +185,12 @@ public class CrystalGuardianRender extends RenderLiving
     {
         GL11.glTranslatef(0.0F, 0.1875F, 0.0F);
     }
+
+    @Override
+    protected ResourceLocation func_110775_a(Entity par1Entity)
+    {
+        return texture;
+    }
+    
+    static final ResourceLocation texture = new ResourceLocation("assets/tinker/textures/mob/crystalguardamber.png");
 }

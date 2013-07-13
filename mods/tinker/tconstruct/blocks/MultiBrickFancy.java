@@ -1,6 +1,5 @@
 package mods.tinker.tconstruct.blocks;
 
-import mods.tinker.tconstruct.client.block.BrickRender;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;

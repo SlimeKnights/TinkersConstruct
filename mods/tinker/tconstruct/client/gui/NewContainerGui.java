@@ -875,7 +875,7 @@ public abstract class NewContainerGui extends GuiScreen
     {
         if (this.mc.thePlayer != null)
         {
-            this.container.onCraftGuiClosed(this.mc.thePlayer);
+            this.container.onContainerClosed(this.mc.thePlayer);
         }
     }
 

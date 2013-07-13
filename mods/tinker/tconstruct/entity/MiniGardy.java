@@ -16,7 +16,7 @@ public class MiniGardy extends GolemBase
     public MiniGardy(World world)
     {
         super(world);
-        this.texture = "/mods/tinker/textures/mob/googirl.png";
+        //this.texture = "/mods/tinker/textures/mob/googirl.png";
         this.setSize(0.375F, 0.875F);
         this.tasks.addTask(1, new GAISwim(this));
         this.tasks.addTask(8, new GAIFellTree(this));

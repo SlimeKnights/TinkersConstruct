@@ -1,7 +1,6 @@
 package mods.tinker.tconstruct.entity;
 
 import net.minecraft.entity.monster.EntityCreeper;
-import net.minecraft.util.ChunkCoordinates;
 import net.minecraft.world.World;
 
 public class Skyla extends EntityCreeper
@@ -11,7 +10,7 @@ public class Skyla extends EntityCreeper
     {
         super(par1World);
         //username = "Skyla";
-        texture = "/mods/tinker/textures/mob/skyla.png";
+        //texture = "/mods/tinker/textures/mob/skyla.png";
     }
 
     /*@Override

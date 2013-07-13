@@ -1,19 +1,20 @@
 package mods.tinker.tconstruct.worldgen;
 
-import java.util.Random;
+import static net.minecraft.world.biome.BiomeGenBase.extremeHills;
+import static net.minecraft.world.biome.BiomeGenBase.extremeHillsEdge;
+import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.SAND;
 
-import com.google.common.collect.ImmutableCollection;
-import com.google.common.collect.ImmutableList;
+import java.util.Random;
 
 import mods.tinker.tconstruct.common.TContent;
 import mods.tinker.tconstruct.util.PHConstruct;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.event.ForgeSubscribe;
-import static net.minecraft.world.biome.BiomeGenBase.extremeHills;
-import static net.minecraft.world.biome.BiomeGenBase.extremeHillsEdge;
-import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate;
-import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.EventType.SAND;
+import net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate;
+
+import com.google.common.collect.ImmutableCollection;
+import com.google.common.collect.ImmutableList;
 
 public class TerrainGenEventHandler
 {

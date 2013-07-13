@@ -12,7 +12,6 @@ import mods.tinker.tconstruct.library.blocks.InventoryBlock;
 import mods.tinker.tconstruct.library.tools.AbilityHelper;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;

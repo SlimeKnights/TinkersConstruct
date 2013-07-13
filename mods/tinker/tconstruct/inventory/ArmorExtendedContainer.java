@@ -1,7 +1,6 @@
 package mods.tinker.tconstruct.inventory;
 
 import mods.tinker.tconstruct.util.player.ArmorExtended;
-import mods.tinker.tconstruct.util.player.TPlayerStats;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;

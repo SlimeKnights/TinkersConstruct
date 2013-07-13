@@ -1,9 +1,7 @@
 package mods.tinker.tconstruct.entity;
 
 import mods.tinker.tconstruct.TConstruct;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;

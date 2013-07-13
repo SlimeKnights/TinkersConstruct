@@ -1,6 +1,6 @@
 package mods.tinker.tconstruct.library.util;
 
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraftforge.common.ForgeDirection;
 
 public interface IFacingLogic
@@ -11,5 +11,5 @@ public interface IFacingLogic
 
     public void setDirection (int side);
 
-    public void setDirection (float yaw, float pitch, EntityLiving player);
+    public void setDirection (float yaw, float pitch, EntityLivingBase player);
 }

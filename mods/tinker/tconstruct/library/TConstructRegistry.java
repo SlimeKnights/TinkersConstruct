@@ -6,8 +6,16 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-import mods.tinker.tconstruct.library.crafting.*;
-import mods.tinker.tconstruct.library.tools.*;
+import mods.tinker.tconstruct.library.crafting.Detailing;
+import mods.tinker.tconstruct.library.crafting.LiquidCasting;
+import mods.tinker.tconstruct.library.crafting.ToolBuilder;
+import mods.tinker.tconstruct.library.tools.ArrowMaterial;
+import mods.tinker.tconstruct.library.tools.BowMaterial;
+import mods.tinker.tconstruct.library.tools.BowstringMaterial;
+import mods.tinker.tconstruct.library.tools.CustomMaterial;
+import mods.tinker.tconstruct.library.tools.FletchingMaterial;
+import mods.tinker.tconstruct.library.tools.ToolCore;
+import mods.tinker.tconstruct.library.tools.ToolMaterial;
 import mods.tinker.tconstruct.library.util.TabTools;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;

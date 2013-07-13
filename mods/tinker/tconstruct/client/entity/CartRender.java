@@ -7,6 +7,7 @@ import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Vec3;
 
 import org.lwjgl.opengl.GL11;
@@ -129,4 +130,11 @@ public class CartRender extends Render
     {
         this.renderPullcart((CartEntity) par1Entity, par2, par4, par6, par8, par9);
     }
+    
+    protected ResourceLocation func_110775_a(Entity par1Entity)
+    {
+        return texture;
+    }
+    
+    static final ResourceLocation texture = new ResourceLocation("assets/tinker/textures/mob/pullcart.png");
 }

@@ -5,12 +5,12 @@ import java.util.Random;
 
 import mods.tinker.tconstruct.library.tools.AbilityHelper;
 import mods.tinker.tconstruct.library.tools.ToolCore;
-import mods.tinker.tconstruct.library.util.CoordTuple;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.EnchantmentThorns;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityMultiPart;
 import net.minecraft.entity.boss.EntityDragonPart;
 import net.minecraft.entity.player.EntityPlayer;
@@ -79,7 +79,7 @@ public class GolemBase extends EntityCreature implements IInventory
         return leader.get();
     }
 
-    public void setOwner (EntityLiving living)
+    public void setOwner (EntityLivingBase living)
     {
         if (living instanceof EntityPlayer)
             ownerName = ((EntityPlayer) living).username;
@@ -407,7 +407,7 @@ public class GolemBase extends EntityCreature implements IInventory
     }
 
     @Override
-    public boolean isStackValidForSlot (int i, ItemStack itemstack)
+    public boolean isItemValidForSlot (int i, ItemStack itemstack)
     {
         return true;
     }

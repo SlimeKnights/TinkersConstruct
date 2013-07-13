@@ -3,13 +3,10 @@ package mods.tinker.tconstruct.blocks;
 import java.util.Random;
 
 import mods.tinker.tconstruct.client.block.BallRepeaterRender;
-import mods.tinker.tconstruct.common.TContent;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRedstoneLogic;
 import net.minecraft.client.renderer.texture.IconRegister;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;

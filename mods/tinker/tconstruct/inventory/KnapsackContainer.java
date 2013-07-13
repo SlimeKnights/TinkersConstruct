@@ -1,6 +1,5 @@
 package mods.tinker.tconstruct.inventory;
 
-import mods.tinker.tconstruct.library.util.IPattern;
 import mods.tinker.tconstruct.util.player.KnapsackInventory;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;

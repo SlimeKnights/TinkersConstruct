@@ -1,10 +1,6 @@
 package mods.tinker.tconstruct.client.pages;
 
-import mods.tinker.tconstruct.client.gui.PartCrafterGui;
-import mods.tinker.tconstruct.library.TConstructRegistry;
 import mods.tinker.tconstruct.library.client.TConstructClientRegistry;
-import mods.tinker.tconstruct.library.crafting.PatternBuilder;
-import mods.tinker.tconstruct.library.tools.ToolMaterial;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.item.ItemStack;
 

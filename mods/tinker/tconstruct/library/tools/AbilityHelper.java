@@ -14,7 +14,7 @@ import net.minecraft.block.Block;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.EnchantmentThorns;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.monster.EntityGhast;
@@ -43,7 +43,7 @@ public class AbilityHelper
     public static Random random = new Random();
 
     /* Normal interactions */
-    public static boolean onBlockChanged (ItemStack stack, World world, int bID, int x, int y, int z, EntityLiving player, Random random)
+    public static boolean onBlockChanged (ItemStack stack, World world, int bID, int x, int y, int z, EntityLivingBase player, Random random)
     {
         if (!stack.hasTagCompound())
             return false;
@@ -62,12 +62,12 @@ public class AbilityHelper
         return true;
     }
 
-    public static boolean onLeftClickEntity (ItemStack stack, EntityLiving player, Entity entity, ToolCore tool)
+    public static boolean onLeftClickEntity (ItemStack stack, EntityLivingBase player, Entity entity, ToolCore tool)
     {
         return onLeftClickEntity(stack, player, entity, tool, 0);
     }
 
-    public static boolean onLeftClickEntity (ItemStack stack, EntityLiving player, Entity entity, ToolCore tool, int baseDamage)
+    public static boolean onLeftClickEntity (ItemStack stack, EntityLivingBase player, Entity entity, ToolCore tool, int baseDamage)
     {
         if (entity.canAttackWithItem() && stack.hasTagCompound())
         {
@@ -103,10 +103,10 @@ public class AbilityHelper
                 float knockback = 0;
                 int enchantDamage = 0;
 
-                if (entity instanceof EntityLiving)
+                if (entity instanceof EntityLivingBase)
                 {
-                    enchantDamage = EnchantmentHelper.getEnchantmentModifierLiving(player, (EntityLiving) entity);
-                    knockback += EnchantmentHelper.getKnockbackModifier(player, (EntityLiving) entity);
+                    enchantDamage = EnchantmentHelper.getEnchantmentModifierLiving(player, (EntityLivingBase) entity);
+                    knockback += EnchantmentHelper.getKnockbackModifier(player, (EntityLivingBase) entity);
                 }
 
                 damage += stoneboundDamage;
@@ -141,7 +141,7 @@ public class AbilityHelper
                 if (damage > 0 || enchantDamage > 0)
                 {
                     boolean criticalHit = player.fallDistance > 0.0F && !player.onGround && !player.isOnLadder() && !player.isInWater() && !player.isPotionActive(Potion.blindness)
-                            && player.ridingEntity == null && entity instanceof EntityLiving;
+                            && player.ridingEntity == null && entity instanceof EntityLivingBase;
 
                     for (ActiveToolMod mod : TConstructRegistry.activeModifiers)
                     {
@@ -163,7 +163,7 @@ public class AbilityHelper
                     boolean var6 = false;
                     int fireAspect = EnchantmentHelper.getFireAspectModifier(player);
 
-                    if (entity instanceof EntityLiving && fireAspect > 0 && !entity.isBurning())
+                    if (entity instanceof EntityLivingBase && fireAspect > 0 && !entity.isBurning())
                     {
                         var6 = true;
                         entity.setFire(1);
@@ -237,27 +237,27 @@ public class AbilityHelper
 
                         player.setLastAttackingEntity(entity);
 
-                        if (entity instanceof EntityLiving)
+                        if (entity instanceof EntityLivingBase)
                         {
-                            EnchantmentThorns.func_92096_a(player, (EntityLiving) entity, random);
+                            EnchantmentThorns.func_92096_a(player, (EntityLivingBase) entity, random);
                         }
                     }
 
-                    if (entity instanceof EntityLiving)
+                    if (entity instanceof EntityLivingBase)
                     {
                         if (entity instanceof EntityPlayer)
                         {
-                            stack.hitEntity((EntityLiving) entity, (EntityPlayer) player);
+                            stack.hitEntity((EntityLivingBase) entity, (EntityPlayer) player);
                             if (entity.isEntityAlive())
                             {
-                                alertPlayerWolves((EntityPlayer) player, (EntityLiving) entity, true);
+                                alertPlayerWolves((EntityPlayer) player, (EntityLivingBase) entity, true);
                             }
 
                             ((EntityPlayer) player).addStat(StatList.damageDealtStat, damage);
                         }
                         else
                         {
-                            Item.itemsList[stack.itemID].hitEntity(stack, (EntityLiving) entity, player);
+                            Item.itemsList[stack.itemID].hitEntity(stack, (EntityLivingBase) entity, player);
                         }
 
                         if ((fireAspect > 0 || toolTags.hasKey("Fiery") || toolTags.hasKey("Lava")) && causedDamage)
@@ -289,7 +289,7 @@ public class AbilityHelper
         return false;
     }
 
-    static void alertPlayerWolves (EntityPlayer player, EntityLiving living, boolean par2)
+    static void alertPlayerWolves (EntityPlayer player, EntityLivingBase living, boolean par2)
     {
         if (!(living instanceof EntityCreeper) && !(living instanceof EntityGhast))
         {
@@ -324,19 +324,19 @@ public class AbilityHelper
     }
 
     /* Tool specific */
-    public static void damageTool (ItemStack stack, int dam, EntityLiving entity, boolean ignoreCharge)
+    public static void damageTool (ItemStack stack, int dam, EntityLivingBase entity, boolean ignoreCharge)
     {
         NBTTagCompound tags = stack.getTagCompound();
         damageTool(stack, dam, tags, entity, ignoreCharge);
     }
 
-    public static void healTool (ItemStack stack, int dam, EntityLiving entity, boolean ignoreCharge)
+    public static void healTool (ItemStack stack, int dam, EntityLivingBase entity, boolean ignoreCharge)
     {
         NBTTagCompound tags = stack.getTagCompound();
         damageTool(stack, -dam, tags, entity, ignoreCharge);
     }
 
-    public static void damageTool (ItemStack stack, int dam, NBTTagCompound tags, EntityLiving entity, boolean ignoreCharge)
+    public static void damageTool (ItemStack stack, int dam, NBTTagCompound tags, EntityLivingBase entity, boolean ignoreCharge)
     {
         if (entity instanceof EntityPlayer && ((EntityPlayer) entity).capabilities.isCreativeMode || tags == null)
             return;
@@ -541,7 +541,7 @@ public class AbilityHelper
         tags.getCompoundTag("InfiTool").setInteger("Damage", 0);
     }
 
-    public static DamageSource causePiercingDamage (EntityLiving mob)
+    public static DamageSource causePiercingDamage (EntityLivingBase mob)
     {
         return new PiercingEntityDamage("mob", mob);
     }
@@ -551,7 +551,7 @@ public class AbilityHelper
         return new PiercingEntityDamage("player", player);
     }
 
-    public static void knockbackEntity (EntityLiving living, double boost)
+    public static void knockbackEntity (EntityLivingBase living, double boost)
     {
         living.motionX *= boost;
         //living.motionY *= boost/2;

@@ -5,7 +5,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.util.DamageSource;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 public class SoilBlock extends TConstructBlock

@@ -7,7 +7,6 @@ import java.util.List;
 
 import mods.tinker.tconstruct.library.TConstructRegistry;
 import mods.tinker.tconstruct.library.event.PartBuilderEvent;
-import mods.tinker.tconstruct.library.tools.BowstringMaterial;
 import mods.tinker.tconstruct.library.tools.CustomMaterial;
 import mods.tinker.tconstruct.library.util.IPattern;
 import net.minecraft.block.Block;

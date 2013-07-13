@@ -4,13 +4,11 @@ import java.lang.ref.WeakReference;
 
 import mods.tinker.tconstruct.TConstruct;
 import mods.tinker.tconstruct.common.TContent;
-import mods.tinker.tconstruct.skill.SkillRegistry;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import cpw.mods.fml.common.FMLCommonHandler;
 
 public class ArmorExtended implements IInventory
 {
@@ -179,7 +177,7 @@ public class ArmorExtended implements IInventory
     }
 
     @Override
-    public boolean isStackValidForSlot (int slot, ItemStack itemstack)
+    public boolean isItemValidForSlot (int slot, ItemStack itemstack)
     {
         return false;
     }

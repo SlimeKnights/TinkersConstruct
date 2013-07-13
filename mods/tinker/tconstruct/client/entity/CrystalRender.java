@@ -1,10 +1,11 @@
 package mods.tinker.tconstruct.client.entity;
 
 import mods.tinker.tconstruct.entity.Crystal;
-import mods.tinker.tconstruct.entity.Skyla;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderLiving;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.util.ResourceLocation;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -62,4 +63,11 @@ public class CrystalRender extends RenderLiving
     {
         return this.func_77061_b((Crystal) par1EntityLiving, par2, par3);
     }
+
+    protected ResourceLocation func_110775_a(Entity par1Entity)
+    {
+        return texture;
+    }
+    
+    static final ResourceLocation texture = new ResourceLocation("assets/tinker/textures/mob/crystalwater.png");
 }

@@ -170,7 +170,7 @@ public abstract class InventoryLogic extends TileEntity implements IInventory
     }
 
     @Override
-    public boolean isStackValidForSlot (int slot, ItemStack itemstack)
+    public boolean isItemValidForSlot (int slot, ItemStack itemstack)
     {
         if (slot < getSizeInventory())
         {

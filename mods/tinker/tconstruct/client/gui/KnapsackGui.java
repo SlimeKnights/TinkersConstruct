@@ -4,18 +4,13 @@ import mods.tinker.tconstruct.common.TContent;
 import mods.tinker.tconstruct.inventory.KnapsackContainer;
 import mods.tinker.tconstruct.util.player.KnapsackInventory;
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 
 import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
 
 public class KnapsackGui extends GuiContainer
 {

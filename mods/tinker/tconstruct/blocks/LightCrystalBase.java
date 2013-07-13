@@ -2,7 +2,6 @@ package mods.tinker.tconstruct.blocks;
 
 import java.util.List;
 
-import mods.natura.common.NContent;
 import mods.tinker.tconstruct.client.block.CrystalBlockRender;
 import mods.tinker.tconstruct.common.TContent;
 import mods.tinker.tconstruct.crystal.TheftValueTracker;

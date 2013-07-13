@@ -2,13 +2,7 @@ package mods.tinker.tconstruct.items.tools;
 
 import mods.tinker.tconstruct.common.TContent;
 import mods.tinker.tconstruct.library.tools.Weapon;
-import net.minecraft.client.entity.EntityPlayerSP;
-import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class Broadsword extends Weapon
 {

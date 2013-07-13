@@ -7,15 +7,17 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.client.renderer.RenderEngine;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
+import net.minecraft.client.renderer.texture.TextureManager;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.ForgeHooksClient;
 
 import org.lwjgl.opengl.GL11;
@@ -27,6 +29,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class FancyItemRender extends Render
 {
+    private static final ResourceLocation field_110798_h = new ResourceLocation("textures/misc/enchanted_item_glint.png");
     private RenderBlocks itemRenderBlocks = new RenderBlocks();
 
     /** The RNG used in RenderItem (for bobbing itemstacks on the ground) */
@@ -34,8 +37,8 @@ public class FancyItemRender extends Render
     public boolean renderWithColor = true;
 
     /** Defines the zLevel of rendering of item on GUI. */
-    public float zLevel = 0.0F;
-    public static boolean renderInFrame = false;
+    public float zLevel;
+    public static boolean renderInFrame;
 
     public FancyItemRender()
     {
@@ -48,6 +51,7 @@ public class FancyItemRender extends Render
      */
     public void doRenderItem (EntityItem par1EntityItem, double par2, double par4, double par6, float par8, float par9)
     {
+        this.func_110777_b(par1EntityItem);
         this.random.setSeed(187L);
         ItemStack itemstack = par1EntityItem.getEntityItem();
 
@@ -60,10 +64,10 @@ public class FancyItemRender extends Render
 
             GL11.glTranslatef((float) par2, (float) par4 + f2, (float) par6);
             GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-            int i;
             float f4;
             float f5;
             float f6;
+            int i;
 
             Block block = null;
             if (itemstack.itemID < Block.blocksList.length)
@@ -86,7 +90,6 @@ public class FancyItemRender extends Render
                     GL11.glRotatef(-90.0F, 0.0F, 1.0F, 0.0F);
                 }
 
-                this.loadTexture("/terrain.png");
                 float f7 = 0.25F;
                 int j = block.getRenderType();
 
@@ -118,7 +121,7 @@ public class FancyItemRender extends Render
             {
                 float f8;
 
-                if (itemstack.getItem().requiresMultipleRenderPasses())
+                if (itemstack.getItemSpriteNumber() == 1 && itemstack.getItem().requiresMultipleRenderPasses())
                 {
                     if (renderInFrame)
                     {
@@ -129,8 +132,6 @@ public class FancyItemRender extends Render
                     {
                         GL11.glScalef(0.5F, 0.5F, 0.5F);
                     }
-
-                    this.loadTexture("/gui/items.png");
 
                     for (int k = 0; k < itemstack.getItem().getRenderPasses(itemstack.getItemDamage()); ++k)
                     {
@@ -145,11 +146,11 @@ public class FancyItemRender extends Render
                             f4 = (float) (i >> 8 & 255) / 255.0F;
                             f6 = (float) (i & 255) / 255.0F;
                             GL11.glColor4f(f5 * f8, f4 * f8, f6 * f8, 1.0F);
-                            this.renderDroppedItem(par1EntityItem, icon, b0, par9, f5 * f8, f4 * f8, f6 * f8);
+                            this.renderDroppedItem(par1EntityItem, icon, b0, par9, f5 * f8, f4 * f8, f6 * f8, k);
                         }
                         else
                         {
-                            this.renderDroppedItem(par1EntityItem, icon, b0, par9, 1.0F, 1.0F, 1.0F);
+                            this.renderDroppedItem(par1EntityItem, icon, b0, par9, 1.0F, 1.0F, 1.0F, k);
                         }
                     }
                 }
@@ -166,15 +167,6 @@ public class FancyItemRender extends Render
                     }
 
                     Icon icon1 = itemstack.getIconIndex();
-
-                    if (itemstack.getItemSpriteNumber() == 0)
-                    {
-                        this.loadTexture("/terrain.png");
-                    }
-                    else
-                    {
-                        this.loadTexture("/gui/items.png");
-                    }
 
                     if (this.renderWithColor)
                     {
@@ -197,22 +189,34 @@ public class FancyItemRender extends Render
         }
     }
 
+    protected ResourceLocation func_110796_a (EntityItem par1EntityItem)
+    {
+        return this.renderManager.renderEngine.func_130087_a(par1EntityItem.getEntityItem().getItemSpriteNumber());
+    }
+
     /**
      * Renders a dropped item
      */
     private void renderDroppedItem (EntityItem par1EntityItem, Icon par2Icon, int par3, float par4, float par5, float par6, float par7)
     {
+        renderDroppedItem(par1EntityItem, par2Icon, par3, par4, par5, par6, par7, 0);
+    }
+
+    private void renderDroppedItem (EntityItem par1EntityItem, Icon par2Icon, int par3, float par4, float par5, float par6, float par7, int pass)
+    {
         Tessellator tessellator = Tessellator.instance;
 
         if (par2Icon == null)
         {
-            par2Icon = this.renderManager.renderEngine.getMissingIcon(par1EntityItem.getEntityItem().getItemSpriteNumber());
+            TextureManager texturemanager = Minecraft.getMinecraft().func_110434_K();
+            ResourceLocation resourcelocation = texturemanager.func_130087_a(par1EntityItem.getEntityItem().getItemSpriteNumber());
+            par2Icon = ((TextureMap) texturemanager.func_110581_b(resourcelocation)).func_110572_b("missingno");
         }
 
-        float f4 = par2Icon.getMinU();
-        float f5 = par2Icon.getMaxU();
-        float f6 = par2Icon.getMinV();
-        float f7 = par2Icon.getMaxV();
+        float f4 = ((Icon) par2Icon).getMinU();
+        float f5 = ((Icon) par2Icon).getMaxU();
+        float f6 = ((Icon) par2Icon).getMinV();
+        float f7 = ((Icon) par2Icon).getMaxV();
         float f8 = 1.0F;
         float f9 = 0.5F;
         float f10 = 0.25F;
@@ -239,9 +243,7 @@ public class FancyItemRender extends Render
 
         for (int k = 0; k < b0; ++k)
         {
-            GL11.glTranslatef(0.0F, 0.0F, f12 + f11);
-            // Makes items offset when in 3D, like when in 2D, looks much
-            // better. Considered a vanilla bug...
+            // Makes items offset when in 3D, like when in 2D, looks much better. Considered a vanilla bug...
             if (k > 0 && shouldSpreadItems())
             {
                 float x = (random.nextFloat() * 2.0F - 1.0F) * 0.3F / 0.5F;
@@ -256,21 +258,21 @@ public class FancyItemRender extends Render
 
             if (itemstack.getItemSpriteNumber() == 0)
             {
-                this.loadTexture("/terrain.png");
+                this.func_110776_a(TextureMap.field_110575_b);
             }
             else
             {
-                this.loadTexture("/gui/items.png");
+                this.func_110776_a(TextureMap.field_110576_c);
             }
 
             GL11.glColor4f(par5, par6, par7, 1.0F);
-            ItemRenderer.renderItemIn2D(tessellator, f5, f6, f4, f7, par2Icon.getSheetWidth(), par2Icon.getSheetHeight(), f12);
+            ItemRenderer.renderItemIn2D(tessellator, f5, f6, f4, f7, ((Icon) par2Icon).getOriginX(), ((Icon) par2Icon).getOriginY(), f12);
 
-            if (itemstack != null && itemstack.hasEffect())
+            if (itemstack.hasEffect(pass))
             {
                 GL11.glDepthFunc(GL11.GL_EQUAL);
                 GL11.glDisable(GL11.GL_LIGHTING);
-                this.renderManager.renderEngine.bindTexture("%blur%/misc/glint.png");
+                this.renderManager.renderEngine.func_110577_a(field_110798_h);
                 GL11.glEnable(GL11.GL_BLEND);
                 GL11.glBlendFunc(GL11.GL_SRC_COLOR, GL11.GL_ONE);
                 float f13 = 0.76F;
@@ -305,19 +307,25 @@ public class FancyItemRender extends Render
     /**
      * Renders the item's icon or block into the UI at the specified position.
      */
-    public void renderItemIntoGUI (FontRenderer par1FontRenderer, RenderEngine par2RenderEngine, ItemStack par3ItemStack, int par4, int par5)
+    public void renderItemIntoGUI (FontRenderer par1FontRenderer, TextureManager par2TextureManager, ItemStack par3ItemStack, int par4, int par5)
+    {
+        renderItemIntoGUI(par1FontRenderer, par2TextureManager, par3ItemStack, par4, par5, false);
+    }
+
+    public void renderItemIntoGUI (FontRenderer par1FontRenderer, TextureManager par2TextureManager, ItemStack par3ItemStack, int par4, int par5, boolean renderEffect)
     {
         int k = par3ItemStack.itemID;
         int l = par3ItemStack.getItemDamage();
-        Icon icon = par3ItemStack.getIconIndex();
+        Object object = par3ItemStack.getIconIndex();
         float f;
+        int i1;
         float f1;
         float f2;
 
         Block block = (k < Block.blocksList.length ? Block.blocksList[k] : null);
         if (par3ItemStack.getItemSpriteNumber() == 0 && block != null && RenderBlocks.renderItemIn3d(Block.blocksList[k].getRenderType()))
         {
-            par2RenderEngine.bindTexture("/terrain.png");
+            par2TextureManager.func_110577_a(TextureMap.field_110575_b);
             GL11.glPushMatrix();
             GL11.glTranslatef((float) (par4 - 2), (float) (par5 + 3), -3.0F + this.zLevel);
             GL11.glScalef(10.0F, 10.0F, 10.0F);
@@ -325,14 +333,14 @@ public class FancyItemRender extends Render
             GL11.glScalef(1.0F, 1.0F, -1.0F);
             GL11.glRotatef(210.0F, 1.0F, 0.0F, 0.0F);
             GL11.glRotatef(45.0F, 0.0F, 1.0F, 0.0F);
-            int i1 = Item.itemsList[k].getColorFromItemStack(par3ItemStack, 0);
-            f2 = (float) (i1 >> 16 & 255) / 255.0F;
-            f = (float) (i1 >> 8 & 255) / 255.0F;
-            f1 = (float) (i1 & 255) / 255.0F;
+            i1 = Item.itemsList[k].getColorFromItemStack(par3ItemStack, 0);
+            f = (float) (i1 >> 16 & 255) / 255.0F;
+            f1 = (float) (i1 >> 8 & 255) / 255.0F;
+            f2 = (float) (i1 & 255) / 255.0F;
 
             if (this.renderWithColor)
             {
-                GL11.glColor4f(f2, f, f1, 1.0F);
+                GL11.glColor4f(f, f1, f2, 1.0F);
             }
 
             GL11.glRotatef(-90.0F, 0.0F, 1.0F, 0.0F);
@@ -341,87 +349,104 @@ public class FancyItemRender extends Render
             this.itemRenderBlocks.useInventoryTint = true;
             GL11.glPopMatrix();
         }
-        else
+        else if (Item.itemsList[k].requiresMultipleRenderPasses())
         {
-            int j1;
+            GL11.glDisable(GL11.GL_LIGHTING);
 
-            if (Item.itemsList[k].requiresMultipleRenderPasses())
+            for (int j1 = 0; j1 < Item.itemsList[k].getRenderPasses(l); ++j1)
             {
-                GL11.glDisable(GL11.GL_LIGHTING);
-                par2RenderEngine.bindTexture(par3ItemStack.getItemSpriteNumber() == 0 ? "/terrain.png" : "/gui/items.png");
-
-                for (j1 = 0; j1 < Item.itemsList[k].getRenderPasses(l); ++j1)
-                {
-                    Icon icon1 = Item.itemsList[k].getIcon(par3ItemStack, j1);
-                    int k1 = Item.itemsList[k].getColorFromItemStack(par3ItemStack, j1);
-                    f = (float) (k1 >> 16 & 255) / 255.0F;
-                    f1 = (float) (k1 >> 8 & 255) / 255.0F;
-                    float f3 = (float) (k1 & 255) / 255.0F;
-
-                    if (this.renderWithColor)
-                    {
-                        GL11.glColor4f(f, f1, f3, 1.0F);
-                    }
-
-                    this.renderIcon(par4, par5, icon1, 16, 16);
-                }
-
-                GL11.glEnable(GL11.GL_LIGHTING);
-            }
-            else
-            {
-                GL11.glDisable(GL11.GL_LIGHTING);
-
-                if (par3ItemStack.getItemSpriteNumber() == 0)
-                {
-                    par2RenderEngine.bindTexture("/terrain.png");
-                }
-                else
-                {
-                    par2RenderEngine.bindTexture("/gui/items.png");
-                }
-
-                if (icon == null)
-                {
-                    icon = par2RenderEngine.getMissingIcon(par3ItemStack.getItemSpriteNumber());
-                }
-
-                j1 = Item.itemsList[k].getColorFromItemStack(par3ItemStack, 0);
-                float f4 = (float) (j1 >> 16 & 255) / 255.0F;
-                f2 = (float) (j1 >> 8 & 255) / 255.0F;
-                f = (float) (j1 & 255) / 255.0F;
+                par2TextureManager.func_110577_a(par3ItemStack.getItemSpriteNumber() == 0 ? TextureMap.field_110575_b : TextureMap.field_110576_c);
+                Icon icon = Item.itemsList[k].getIcon(par3ItemStack, j1);
+                int k1 = Item.itemsList[k].getColorFromItemStack(par3ItemStack, j1);
+                f1 = (float) (k1 >> 16 & 255) / 255.0F;
+                f2 = (float) (k1 >> 8 & 255) / 255.0F;
+                float f3 = (float) (k1 & 255) / 255.0F;
 
                 if (this.renderWithColor)
                 {
-                    GL11.glColor4f(f4, f2, f, 1.0F);
+                    GL11.glColor4f(f1, f2, f3, 1.0F);
                 }
 
                 this.renderIcon(par4, par5, icon, 16, 16);
-                GL11.glEnable(GL11.GL_LIGHTING);
+
+                if (par3ItemStack.hasEffect(j1))
+                {
+                    renderEffect(par2TextureManager, par4, par5);
+                }
+            }
+
+            GL11.glEnable(GL11.GL_LIGHTING);
+        }
+        else
+        {
+            GL11.glDisable(GL11.GL_LIGHTING);
+            ResourceLocation resourcelocation = par2TextureManager.func_130087_a(par3ItemStack.getItemSpriteNumber());
+            par2TextureManager.func_110577_a(resourcelocation);
+
+            if (object == null)
+            {
+                object = ((TextureMap) Minecraft.getMinecraft().func_110434_K().func_110581_b(resourcelocation)).func_110572_b("missingno");
+            }
+
+            i1 = Item.itemsList[k].getColorFromItemStack(par3ItemStack, 0);
+            f = (float) (i1 >> 16 & 255) / 255.0F;
+            f1 = (float) (i1 >> 8 & 255) / 255.0F;
+            f2 = (float) (i1 & 255) / 255.0F;
+
+            if (this.renderWithColor)
+            {
+                GL11.glColor4f(f, f1, f2, 1.0F);
+            }
+
+            this.renderIcon(par4, par5, (Icon) object, 16, 16);
+            GL11.glEnable(GL11.GL_LIGHTING);
+
+            if (par3ItemStack.hasEffect(0))
+            {
+                renderEffect(par2TextureManager, par4, par5);
             }
         }
 
         GL11.glEnable(GL11.GL_CULL_FACE);
     }
 
+    private void renderEffect (TextureManager manager, int x, int y)
+    {
+        GL11.glDepthFunc(GL11.GL_GREATER);
+        GL11.glDisable(GL11.GL_LIGHTING);
+        GL11.glDepthMask(false);
+        manager.func_110577_a(field_110798_h);
+        this.zLevel -= 50.0F;
+        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glBlendFunc(GL11.GL_DST_COLOR, GL11.GL_DST_COLOR);
+        GL11.glColor4f(0.5F, 0.25F, 0.8F, 1.0F);
+        this.renderGlint(x * 431278612 + y * 32178161, x - 2, y - 2, 20, 20);
+        GL11.glDisable(GL11.GL_BLEND);
+        GL11.glDepthMask(true);
+        this.zLevel += 50.0F;
+        GL11.glEnable(GL11.GL_LIGHTING);
+        GL11.glDepthFunc(GL11.GL_LEQUAL);
+    }
+
     /**
      * Render the item's icon or block into the GUI, including the glint effect.
      */
-    public void renderItemAndEffectIntoGUI (FontRenderer par1FontRenderer, RenderEngine par2RenderEngine, ItemStack par3ItemStack, int par4, int par5)
+    public void renderItemAndEffectIntoGUI (FontRenderer par1FontRenderer, TextureManager par2TextureManager, ItemStack par3ItemStack, int par4, int par5)
     {
         if (par3ItemStack != null)
         {
-            if (!ForgeHooksClient.renderInventoryItem(renderBlocks, par2RenderEngine, par3ItemStack, renderWithColor, zLevel, (float) par4, (float) par5))
+            if (!ForgeHooksClient.renderInventoryItem(renderBlocks, par2TextureManager, par3ItemStack, renderWithColor, zLevel, (float) par4, (float) par5))
             {
-                this.renderItemIntoGUI(par1FontRenderer, par2RenderEngine, par3ItemStack, par4, par5);
+                this.renderItemIntoGUI(par1FontRenderer, par2TextureManager, par3ItemStack, par4, par5, true);
             }
 
+            /* Modders must handle this themselves if they use custom renderers!
             if (par3ItemStack.hasEffect())
             {
                 GL11.glDepthFunc(GL11.GL_GREATER);
                 GL11.glDisable(GL11.GL_LIGHTING);
                 GL11.glDepthMask(false);
-                par2RenderEngine.bindTexture("%blur%/misc/glint.png");
+                par2TextureManager.func_110577_a(field_110798_h);
                 this.zLevel -= 50.0F;
                 GL11.glEnable(GL11.GL_BLEND);
                 GL11.glBlendFunc(GL11.GL_DST_COLOR, GL11.GL_DST_COLOR);
@@ -433,6 +458,7 @@ public class FancyItemRender extends Render
                 GL11.glEnable(GL11.GL_LIGHTING);
                 GL11.glDepthFunc(GL11.GL_LEQUAL);
             }
+            */
         }
     }
 
@@ -473,15 +499,15 @@ public class FancyItemRender extends Render
     }
 
     /**
-     * Renders the item's overlay information. Examples being stack count or
-     * damage on top of the item's image at the specified position.
+     * Renders the item's overlay information. Examples being stack count or damage on top of the item's image at the
+     * specified position.
      */
-    public void renderItemOverlayIntoGUI (FontRenderer par1FontRenderer, RenderEngine par2RenderEngine, ItemStack par3ItemStack, int par4, int par5)
+    public void renderItemOverlayIntoGUI (FontRenderer par1FontRenderer, TextureManager par2TextureManager, ItemStack par3ItemStack, int par4, int par5)
     {
-        this.renderItemStack(par1FontRenderer, par2RenderEngine, par3ItemStack, par4, par5, (String) null);
+        this.renderItemOverlayIntoGUI(par1FontRenderer, par2TextureManager, par3ItemStack, par4, par5, (String) null);
     }
 
-    public void renderItemStack (FontRenderer par1FontRenderer, RenderEngine par2RenderEngine, ItemStack par3ItemStack, int par4, int par5, String par6Str)
+    public void renderItemOverlayIntoGUI (FontRenderer par1FontRenderer, TextureManager par2TextureManager, ItemStack par3ItemStack, int par4, int par5, String par6Str)
     {
         if (par3ItemStack != null)
         {
@@ -517,8 +543,8 @@ public class FancyItemRender extends Render
     }
 
     /**
-     * Adds a quad to the tesselator at the specified position with the set
-     * width and height and color. Args: tessellator, x, y, width, height, color
+     * Adds a quad to the tesselator at the specified position with the set width and height and color.  Args:
+     * tessellator, x, y, width, height, color
      */
     private void renderQuad (Tessellator par1Tessellator, int par2, int par3, int par4, int par5, int par6)
     {
@@ -542,13 +568,16 @@ public class FancyItemRender extends Render
         tessellator.draw();
     }
 
+    protected ResourceLocation func_110775_a (Entity par1Entity)
+    {
+        return this.func_110796_a((EntityItem) par1Entity);
+    }
+
     /**
-     * Actually renders the given argument. This is a synthetic bridge method,
-     * always casting down its argument and then handing it off to a worker
-     * function which does the actual work. In all probabilty, the class Render
-     * is generic (Render<T extends Entity) and this method has signature public
-     * void doRender(T entity, double d, double d1, double d2, float f, float
-     * f1). But JAD is pre 1.5 so doesn't do that.
+     * Actually renders the given argument. This is a synthetic bridge method, always casting down its argument and then
+     * handing it off to a worker function which does the actual work. In all probabilty, the class Render is generic
+     * (Render<T extends Entity) and this method has signature public void doRender(T entity, double d, double d1,
+     * double d2, float f, float f1). But JAD is pre 1.5 so doesn't do that.
      */
     public void doRender (Entity par1Entity, double par2, double par4, double par6, float par8, float par9)
     {
@@ -557,7 +586,6 @@ public class FancyItemRender extends Render
 
     /**
      * Items should spread out when rendered in 3d?
-     * 
      * @return
      */
     public boolean shouldSpreadItems ()
@@ -567,7 +595,6 @@ public class FancyItemRender extends Render
 
     /**
      * Items should have a bob effect
-     * 
      * @return
      */
     public boolean shouldBob ()
@@ -592,7 +619,6 @@ public class FancyItemRender extends Render
     /**
      * Allows for a subclass to override how many rendered items appear in a
      * "mini item 3d stack"
-     * 
      * @param stack
      * @return
      */

@@ -7,15 +7,13 @@ import java.util.Random;
 import mods.tinker.tconstruct.common.TContent;
 import mods.tinker.tconstruct.library.ActiveToolMod;
 import mods.tinker.tconstruct.library.tools.AbilityHelper;
-import mods.tinker.tconstruct.library.tools.HarvestTool;
 import mods.tinker.tconstruct.library.tools.ToolCore;
-import mods.tinker.tconstruct.library.tools.Weapon;
 import mods.tinker.tconstruct.util.PHConstruct;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityXPOrb;
@@ -35,7 +33,7 @@ public class TActiveOmniMod extends ActiveToolMod
     @Override
     public void updateTool (ToolCore tool, ItemStack stack, World world, Entity entity)
     {
-        if (!world.isRemote && entity instanceof EntityLiving && !((EntityLiving) entity).isSwingInProgress && stack.getTagCompound() != null)
+        if (!world.isRemote && entity instanceof EntityLivingBase && !((EntityLivingBase) entity).isSwingInProgress && stack.getTagCompound() != null)
         {
             NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
             if (tags.hasKey("Moss"))
@@ -44,7 +42,7 @@ public class TActiveOmniMod extends ActiveToolMod
                 int check = world.canBlockSeeTheSky((int) entity.posX, (int) entity.posY, (int) entity.posZ) ? 350 : 1150;
                 if (random.nextInt(check) < chance)
                 {
-                    AbilityHelper.healTool(stack, 1, (EntityLiving) entity, true);
+                    AbilityHelper.healTool(stack, 1, (EntityLivingBase) entity, true);
                 }
             }
         }
@@ -52,7 +50,7 @@ public class TActiveOmniMod extends ActiveToolMod
 
     /* Harvesting */
     @Override
-    public boolean beforeBlockBreak (ToolCore tool, ItemStack stack, int x, int y, int z, EntityLiving entity)
+    public boolean beforeBlockBreak (ToolCore tool, ItemStack stack, int x, int y, int z, EntityLivingBase entity)
     {
         if (entity instanceof EntityPlayer && ((EntityPlayer) entity).capabilities.isCreativeMode)
             return false;
@@ -153,7 +151,7 @@ public class TActiveOmniMod extends ActiveToolMod
     /* Attacking */
 
     @Override
-    public int baseAttackDamage (int earlyModDamage, int damage, ToolCore tool, NBTTagCompound tags, NBTTagCompound toolTags, ItemStack stack, EntityLiving player, Entity entity)
+    public int baseAttackDamage (int earlyModDamage, int damage, ToolCore tool, NBTTagCompound tags, NBTTagCompound toolTags, ItemStack stack, EntityLivingBase player, Entity entity)
     {
         List list = Arrays.asList(tool.toolCategories());
         if (list.contains("weapon"))
@@ -162,12 +160,12 @@ public class TActiveOmniMod extends ActiveToolMod
     }
 
     @Override
-    public int attackDamage (int modDamage, int currentDamage, ToolCore tool, NBTTagCompound tags, NBTTagCompound toolTags, ItemStack stack, EntityLiving player, Entity entity)
+    public int attackDamage (int modDamage, int currentDamage, ToolCore tool, NBTTagCompound tags, NBTTagCompound toolTags, ItemStack stack, EntityLivingBase player, Entity entity)
     {
         int bonus = 0;
-        if (entity instanceof EntityLiving)
+        if (entity instanceof EntityLivingBase)
         {
-            EnumCreatureAttribute attribute = ((EntityLiving) entity).getCreatureAttribute();
+            EnumCreatureAttribute attribute = ((EntityLivingBase) entity).getCreatureAttribute();
             if (attribute == EnumCreatureAttribute.UNDEAD)
             {
                 if (tool == TContent.hammer)
@@ -196,7 +194,7 @@ public class TActiveOmniMod extends ActiveToolMod
     }
 
     @Override
-    public float knockback (float modKnockback, float currentKnockback, ToolCore tool, NBTTagCompound tags, NBTTagCompound toolTags, ItemStack stack, EntityLiving player, Entity entity)
+    public float knockback (float modKnockback, float currentKnockback, ToolCore tool, NBTTagCompound tags, NBTTagCompound toolTags, ItemStack stack, EntityLivingBase player, Entity entity)
     {
         float bonus = 0f;
         if (toolTags.hasKey("Knockback"))
@@ -207,7 +205,7 @@ public class TActiveOmniMod extends ActiveToolMod
         return bonus;
     }
 
-    public boolean doesCriticalHit (ToolCore tool, NBTTagCompound tags, NBTTagCompound toolTags, ItemStack stack, EntityLiving player, Entity entity)
+    public boolean doesCriticalHit (ToolCore tool, NBTTagCompound tags, NBTTagCompound toolTags, ItemStack stack, EntityLivingBase player, Entity entity)
     {
         if (tool == TContent.cutlass && random.nextInt(10) == 0)
             return true;

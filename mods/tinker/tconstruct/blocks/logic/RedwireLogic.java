@@ -1,6 +1,5 @@
 package mods.tinker.tconstruct.blocks.logic;
 
-import mods.tinker.tconstruct.library.util.CoordTuple;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet;

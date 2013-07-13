@@ -1,14 +1,9 @@
 package mods.tinker.tconstruct.client.block;
 
-import org.lwjgl.opengl.GL11;
-
 import mods.tinker.tconstruct.client.TProxyClient;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.src.ModLoader;
 import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 

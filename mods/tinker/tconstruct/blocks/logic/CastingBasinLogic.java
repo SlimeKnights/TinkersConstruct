@@ -14,10 +14,6 @@ import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
-import net.minecraftforge.liquids.ILiquidTank;
-import net.minecraftforge.liquids.ITankContainer;
-import net.minecraftforge.liquids.LiquidEvent;
-import net.minecraftforge.liquids.LiquidStack;
 
 public class CastingBasinLogic extends InventoryLogic implements ILiquidTank, ITankContainer, ISidedInventory
 {

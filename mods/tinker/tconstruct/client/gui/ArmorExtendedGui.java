@@ -1,13 +1,10 @@
 package mods.tinker.tconstruct.client.gui;
 
-import mods.tinker.tconstruct.client.TControls;
 import mods.tinker.tconstruct.common.TContent;
 import mods.tinker.tconstruct.inventory.ArmorExtendedContainer;
 import mods.tinker.tconstruct.util.player.ArmorExtended;
-import mods.tinker.tconstruct.util.player.TPlayerStats;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.renderer.InventoryEffectRenderer;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;

@@ -10,7 +10,6 @@ import mods.tinker.tconstruct.blocks.logic.FirestarterLogic;
 import mods.tinker.tconstruct.client.block.MachineRender;
 import mods.tinker.tconstruct.library.TConstructRegistry;
 import mods.tinker.tconstruct.library.blocks.InventoryBlock;
-import mods.tinker.tconstruct.library.blocks.InventoryLogic;
 import mods.tinker.tconstruct.library.util.IActiveLogic;
 import mods.tinker.tconstruct.library.util.IFacingLogic;
 import net.minecraft.block.Block;

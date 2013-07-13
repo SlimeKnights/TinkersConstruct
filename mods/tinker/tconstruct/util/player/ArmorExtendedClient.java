@@ -1,9 +1,5 @@
 package mods.tinker.tconstruct.util.player;
 
-import mods.tinker.tconstruct.client.TProxyClient;
-import mods.tinker.tconstruct.common.TContent;
-import mods.tinker.tconstruct.skill.SkillRegistry;
-import net.minecraft.entity.player.EntityPlayer;
 
 public class ArmorExtendedClient extends ArmorExtended
 {

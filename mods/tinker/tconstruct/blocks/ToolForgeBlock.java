@@ -5,7 +5,6 @@ import java.util.List;
 import mods.tinker.tconstruct.TConstruct;
 import mods.tinker.tconstruct.blocks.logic.ToolForgeLogic;
 import mods.tinker.tconstruct.client.block.TableForgeRender;
-import mods.tinker.tconstruct.client.block.TableRender;
 import mods.tinker.tconstruct.common.TContent;
 import mods.tinker.tconstruct.common.TProxyCommon;
 import mods.tinker.tconstruct.library.TConstructRegistry;

@@ -45,9 +45,9 @@ public class PatternShaperContainer extends Container
     }*/
 
     /*@Override
-    public void onCraftGuiClosed(EntityPlayer entityplayer)
+    public void onContainerClosed(EntityPlayer entityplayer)
     {
-        super.onCraftGuiClosed(entityplayer);
+        super.onContainerClosed(entityplayer);
         if (logic.worldObj.isRemote)
         {
             return;

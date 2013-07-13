@@ -127,7 +127,8 @@ public class CustomFont
 
         // Render the finished bitmap into the Minecraft
         // graphics engine.
-        texID = mc.renderEngine.allocateAndSetupTexture(img);
+        // Sadly broken by 1.6
+        //texID = mc.renderEngine.allocateAndSetupTexture(img);
     }
 
     /**

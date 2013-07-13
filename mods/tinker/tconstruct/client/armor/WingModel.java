@@ -1,6 +1,5 @@
 package mods.tinker.tconstruct.client.armor;
 
-import mods.tinker.tconstruct.client.tmt.ModelRendererTurbo;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.entity.Entity;

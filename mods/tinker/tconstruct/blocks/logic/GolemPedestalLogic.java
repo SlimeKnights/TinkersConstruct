@@ -53,7 +53,7 @@ public class GolemPedestalLogic extends TileEntity implements IInventory
             cost[Block.mushroomBrown.blockID] = 16;
             cost[Block.mushroomRed.blockID] = cost[Block.mushroomBrown.blockID];
             cost[Block.netherStalk.blockID] = 6;
-            cost[Item.lightStoneDust.itemID] = 4;
+            cost[Item.glowstone.itemID] = 4;
             cost[Item.diamond.itemID] = 1;
             cost[Item.ingotIron.itemID] = 8;
             cost[Item.ingotGold.itemID] = 2;
@@ -127,7 +127,7 @@ public class GolemPedestalLogic extends TileEntity implements IInventory
             souls[Block.mushroomBrown.blockID] = 1;
             souls[Block.mushroomRed.blockID] = souls[Block.mushroomBrown.blockID];
             souls[Block.netherStalk.blockID] = 1;
-            souls[Item.lightStoneDust.itemID] = 1;
+            souls[Item.glowstone.itemID] = 1;
             souls[Item.diamond.itemID] = 3;
             souls[Item.ingotIron.itemID] = 1;
             souls[Item.ingotGold.itemID] = 1;
@@ -352,7 +352,7 @@ public class GolemPedestalLogic extends TileEntity implements IInventory
     }
 
     @Override
-    public boolean isStackValidForSlot (int i, ItemStack itemstack)
+    public boolean isItemValidForSlot (int i, ItemStack itemstack)
     {
         // TODO Auto-generated method stub
         return false;

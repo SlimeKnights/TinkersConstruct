@@ -1,10 +1,8 @@
 package mods.tinker.tconstruct.crystal;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import mods.tinker.tconstruct.library.util.ValueCoordTuple;
-import mods.tinker.tconstruct.library.util.CoordTuple;
 
 public class TheftValueTracker
 {

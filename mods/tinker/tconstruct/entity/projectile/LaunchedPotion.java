@@ -3,7 +3,7 @@ package mods.tinker.tconstruct.entity.projectile;
 import java.util.Iterator;
 import java.util.List;
 
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -28,12 +28,12 @@ public class LaunchedPotion extends EntityThrowable
         super(par1World);
     }
 
-    public LaunchedPotion(World par1World, EntityLiving par2EntityLiving, int par3)
+    public LaunchedPotion(World par1World, EntityLivingBase par2EntityLiving, int par3)
     {
         this(par1World, par2EntityLiving, new ItemStack(Item.potion, 1, par3));
     }
 
-    public LaunchedPotion(World par1World, EntityLiving par2EntityLiving, ItemStack par3ItemStack)
+    public LaunchedPotion(World par1World, EntityLivingBase par2EntityLiving, ItemStack par3ItemStack)
     {
         super(par1World, par2EntityLiving);
         this.potionDamage = par3ItemStack;
@@ -104,7 +104,7 @@ public class LaunchedPotion extends EntityThrowable
             if (list != null && !list.isEmpty())
             {
                 AxisAlignedBB axisalignedbb = this.boundingBox.expand(4.0D, 2.0D, 4.0D);
-                List list1 = this.worldObj.getEntitiesWithinAABB(EntityLiving.class, axisalignedbb);
+                List list1 = this.worldObj.getEntitiesWithinAABB(EntityLivingBase.class, axisalignedbb);
 
                 if (list1 != null && !list1.isEmpty())
                 {
@@ -112,7 +112,7 @@ public class LaunchedPotion extends EntityThrowable
 
                     while (iterator.hasNext())
                     {
-                        EntityLiving entityliving = (EntityLiving) iterator.next();
+                        EntityLivingBase entityliving = (EntityLivingBase) iterator.next();
                         double d0 = this.getDistanceSqToEntity(entityliving);
 
                         if (d0 < 16.0D)

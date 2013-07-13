@@ -3,7 +3,9 @@ package mods.tinker.tconstruct.client.entity;
 import mods.tinker.tconstruct.entity.Skyla;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderLiving;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.util.ResourceLocation;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -60,5 +62,12 @@ public class SkylaRender extends RenderLiving
     protected int inheritRenderPass (EntityLiving par1EntityLiving, int par2, float par3)
     {
         return this.func_77061_b((Skyla) par1EntityLiving, par2, par3);
+    }
+
+    @Override
+    protected ResourceLocation func_110775_a (Entity entity)
+    {
+        // TODO Auto-generated method stub
+        return null;
     }
 }

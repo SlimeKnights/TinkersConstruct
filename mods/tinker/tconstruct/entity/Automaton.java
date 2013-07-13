@@ -1,8 +1,9 @@
 package mods.tinker.tconstruct.entity;
 
-import mods.tinker.tconstruct.entity.ai.*;
+import mods.tinker.tconstruct.entity.ai.GAIAttackTarget;
+import mods.tinker.tconstruct.entity.ai.GAIFindTarget;
+import mods.tinker.tconstruct.entity.ai.GAIFollowOwner;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.world.World;
 
 public class Automaton extends GolemBase
@@ -16,7 +17,7 @@ public class Automaton extends GolemBase
     {
         super(world);
         this.setSize(0.9F, 2.42F);
-        this.texture = "/mods/tinker/textures/mob/crystalguardamber.png";
+        //this.texture = "/mods/tinker/textures/mob/crystalguardamber.png";
         this.tasks.addTask(1, new GAIAttackTarget(this));
         this.tasks.addTask(2, new GAIFindTarget(this));
         this.tasks.addTask(3, new GAIFollowOwner(this));

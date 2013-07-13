@@ -2,13 +2,9 @@ package mods.tinker.tconstruct.items.armor;
 
 import java.util.List;
 
-import mods.tinker.tconstruct.TConstruct;
 import mods.tinker.tconstruct.items.CraftingItem;
-import mods.tinker.tconstruct.util.player.ArmorExtended;
-import mods.tinker.tconstruct.util.player.TPlayerStats;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 

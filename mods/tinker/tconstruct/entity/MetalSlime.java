@@ -1,9 +1,6 @@
 package mods.tinker.tconstruct.entity;
 
-import mods.tinker.tconstruct.common.TContent;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 

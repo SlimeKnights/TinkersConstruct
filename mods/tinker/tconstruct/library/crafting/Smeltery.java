@@ -7,7 +7,6 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.liquids.LiquidStack;
 
 /** Melting and hacking, churn and burn */
 public class Smeltery

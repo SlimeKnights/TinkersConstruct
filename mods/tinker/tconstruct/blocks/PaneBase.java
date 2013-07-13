@@ -2,9 +2,6 @@ package mods.tinker.tconstruct.blocks;
 
 import java.util.List;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-
 import mods.tinker.tconstruct.client.block.PaneRender;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPane;
@@ -17,6 +14,8 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class PaneBase extends Block
 {

@@ -1,6 +1,5 @@
 package mods.tinker.tconstruct.dimension;
 
-import net.minecraft.util.Vec3;
 import net.minecraft.world.WorldProvider;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraft.world.chunk.IChunkProvider;

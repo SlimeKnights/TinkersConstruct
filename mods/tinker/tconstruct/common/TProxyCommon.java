@@ -2,7 +2,9 @@ package mods.tinker.tconstruct.common;
 
 import mods.tinker.tconstruct.TConstruct;
 import mods.tinker.tconstruct.entity.MiniGardy;
-import mods.tinker.tconstruct.inventory.*;
+import mods.tinker.tconstruct.inventory.ArmorExtendedContainer;
+import mods.tinker.tconstruct.inventory.KnapsackContainer;
+import mods.tinker.tconstruct.inventory.MiniGardyContainer;
 import mods.tinker.tconstruct.library.blocks.InventoryLogic;
 import mods.tinker.tconstruct.util.player.TPlayerStats;
 import net.minecraft.entity.Entity;

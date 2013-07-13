@@ -8,6 +8,7 @@ import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.enchantment.EnchantmentThorns;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -40,7 +41,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
         super(par1World);
     }
 
-    public ArrowEntity(World world, EntityLiving living, float baseSpeed, ItemStack stack)
+    public ArrowEntity(World world, EntityLivingBase living, float baseSpeed, ItemStack stack)
     {
         super(world, living, baseSpeed);
         this.returnStack = stack;
@@ -222,9 +223,9 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
 
                     if (movingobjectposition.entityHit.attackEntityFrom(damagesource, damageInflicted))
                     {
-                        if (movingobjectposition.entityHit instanceof EntityLiving)
+                        if (movingobjectposition.entityHit instanceof EntityLivingBase)
                         {
-                            EntityLiving entityliving = (EntityLiving) movingobjectposition.entityHit;
+                            EntityLivingBase entityliving = (EntityLivingBase) movingobjectposition.entityHit;
 
                             if (!this.worldObj.isRemote)
                             {
@@ -267,9 +268,9 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
                                 if (player.inventory.addItemStackToInventory(returnStack))
                                     this.setDead();
                             }
-                            else if (movingobjectposition.entityHit instanceof EntityLiving)
+                            else if (movingobjectposition.entityHit instanceof EntityLivingBase)
                             {
-                                EntityLiving living = (EntityLiving) movingobjectposition.entityHit;
+                                EntityLivingBase living = (EntityLivingBase) movingobjectposition.entityHit;
                                 if (addItemStackToInventory(returnStack, living))
                                     this.setDead();
                             }
@@ -373,7 +374,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
         }
     }
 
-    public boolean addItemStackToInventory (ItemStack par1ItemStack, EntityLiving living)
+    public boolean addItemStackToInventory (ItemStack par1ItemStack, EntityLivingBase living)
     {
         if (par1ItemStack == null)
         {
@@ -424,7 +425,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
         }
     }
 
-    public int getFirstEmptyStack (EntityLiving living)
+    public int getFirstEmptyStack (EntityLivingBase living)
     {
         for (int i = 0; i < 5; ++i)
         {
@@ -437,7 +438,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
         return -1;
     }
 
-    private int storePartialItemStack (ItemStack par1ItemStack, EntityLiving living)
+    private int storePartialItemStack (ItemStack par1ItemStack, EntityLivingBase living)
     {
         int i = par1ItemStack.itemID;
         int j = par1ItemStack.stackSize;
@@ -460,7 +461,8 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
                 if (living.getCurrentItemOrArmor(slotID) == null)
                 {
                     living.setCurrentItemOrArmor(slotID, par1ItemStack);
-                    living.func_96120_a(slotID, 2.0f);
+                    if (living instanceof EntityLiving)
+                        ((EntityLiving) living).setEquipmentDropChance(slotID, 2.0f);
                 }
 
                 return 0;
@@ -485,14 +487,9 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
                 if (stack == null)
                 {
                     living.setCurrentItemOrArmor(slotID, par1ItemStack);
-                    living.func_96120_a(slotID, 2.0f);
+                    if (living instanceof EntityLiving)
+                        ((EntityLiving) living).setEquipmentDropChance(slotID, 2.0f);
                     return par1ItemStack.stackSize;
-                    /*this.mainInventory[slotID] = new ItemStack(i, 0, par1ItemStack.getItemDamage());
-
-                    if (par1ItemStack.hasTagCompound())
-                    {
-                        this.mainInventory[slotID].setTagCompound((NBTTagCompound) par1ItemStack.getTagCompound().copy());
-                    }*/
                 }
                 else
                 {
@@ -518,9 +515,8 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
                         j -= l;
                         stack.stackSize++;
                         living.setCurrentItemOrArmor(slotID, stack);
-                        living.func_96120_a(slotID, 2.0f);
-                        //this.mainInventory[slotID].stackSize += l;
-                        //this.mainInventory[slotID].animationsToGo = 5;
+                        if (living instanceof EntityLiving)
+                            ((EntityLiving) living).setEquipmentDropChance(slotID, 2.0f);
                         return j;
                     }
                 }
@@ -528,7 +524,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
         }
     }
 
-    private int storeItemStack (ItemStack par1ItemStack, EntityLiving living)
+    private int storeItemStack (ItemStack par1ItemStack, EntityLivingBase living)
     {
         for (int slotID = 0; slotID < 5; ++slotID)
         {

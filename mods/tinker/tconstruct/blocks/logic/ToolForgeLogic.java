@@ -1,7 +1,6 @@
 package mods.tinker.tconstruct.blocks.logic;
 
 import mods.tinker.tconstruct.inventory.ToolForgeContainer;
-import mods.tinker.tconstruct.library.blocks.InventoryLogic;
 import mods.tinker.tconstruct.library.crafting.ToolBuilder;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;

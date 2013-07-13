@@ -5,7 +5,6 @@ import mods.tinker.tconstruct.common.TContent;
 import mods.tinker.tconstruct.library.TConstructRegistry;
 import mods.tinker.tconstruct.library.crafting.ToolBuilder;
 import mods.tinker.tconstruct.library.tools.ToolCore;
-import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.boss.IBossDisplayData;
@@ -37,7 +36,7 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
     public BlueSlime(World world)
     {
         super(world);
-        this.texture = "/mods/tinker/textures/mob/slimeedible.png";
+        //this.texture = "/mods/tinker/textures/mob/slimeedible.png";
         int offset = this.rand.nextInt(299);
         if (offset < 149)
             offset = 1;

@@ -8,9 +8,8 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import net.minecraftforge.liquids.ILiquid;
 
-public class LiquidMetalFlowing extends LiquidMetalBase implements ILiquid
+public class LiquidMetalFlowing extends LiquidMetalBase// implements ILiquid
 {
     boolean isOptimalFlowDirection[] = new boolean[4];
     int flowCost[] = new int[4];
@@ -295,19 +294,19 @@ public class LiquidMetalFlowing extends LiquidMetalBase implements ILiquid
         }
     }
 
-    @Override
+    //@Override
     public int stillLiquidMeta ()
     {
         return 0;
     }
 
-    @Override
+    //@Override
     public boolean isMetaSensitive ()
     {
         return false;
     }
 
-    @Override
+    //@Override
     public int stillLiquidId ()
     {
         return TContent.liquidMetalStill.blockID;

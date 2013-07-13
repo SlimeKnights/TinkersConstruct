@@ -9,9 +9,8 @@ import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.liquids.ILiquid;
 
-public class LiquidMetalStill extends LiquidMetalBase implements ILiquid
+public class LiquidMetalStill extends LiquidMetalBase// implements ILiquid
 {
     public LiquidMetalStill(int id)
     {
@@ -19,7 +18,7 @@ public class LiquidMetalStill extends LiquidMetalBase implements ILiquid
         //this.setCreativeTab(TConstruct.blockTab);
     }
 
-    @Override
+    //@Override
     public int stillLiquidId ()
     {
         return this.blockID;
@@ -30,13 +29,13 @@ public class LiquidMetalStill extends LiquidMetalBase implements ILiquid
         return TContent.liquidMetalFlowing.blockID;
     }
 
-    @Override
+    //@Override
     public boolean isMetaSensitive ()
     {
         return false;
     }
 
-    @Override
+    //@Override
     public int stillLiquidMeta ()
     {
         return 0;

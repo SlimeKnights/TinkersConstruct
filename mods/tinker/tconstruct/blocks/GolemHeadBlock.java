@@ -6,7 +6,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
 import net.minecraft.util.MathHelper;
@@ -102,7 +102,7 @@ public class GolemHeadBlock extends Block
     }*/
 
     @Override
-    public void onBlockPlacedBy (World world, int i, int j, int k, EntityLiving entityliving, ItemStack par6ItemStack)
+    public void onBlockPlacedBy (World world, int i, int j, int k, EntityLivingBase entityliving, ItemStack par6ItemStack)
     {
         int l = MathHelper.floor_double((double) ((entityliving.rotationYaw * 4F) / 360F) + 2.5D) & 3;
         world.setBlockMetadataWithNotify(i, j, k, l, 3);

@@ -4,12 +4,10 @@ import mods.tinker.tconstruct.library.util.CoordTuple;
 import mods.tinker.tconstruct.library.util.IMasterLogic;
 import mods.tinker.tconstruct.library.util.IServantLogic;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.liquids.LiquidStack;
 
 public class MultiServantLogic extends TileEntity implements IServantLogic
 {
