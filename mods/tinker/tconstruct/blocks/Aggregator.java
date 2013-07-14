@@ -11,7 +11,7 @@ import mods.tinker.tconstruct.library.blocks.InventoryBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -79,7 +79,7 @@ public class Aggregator extends InventoryBlock
     }
 
     @Override
-    public void onBlockPlacedBy (World world, int x, int y, int z, EntityLiving entityliving, ItemStack stack)
+    public void onBlockPlacedBy (World world, int x, int y, int z, EntityLivingBase entityliving, ItemStack stack)
     {
         super.onBlockPlacedBy(world, x, y, z, entityliving, stack);
         if (!world.isRemote)

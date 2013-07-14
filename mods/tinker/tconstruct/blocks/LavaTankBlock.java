@@ -18,6 +18,10 @@ import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.fluids.FluidContainerRegistry;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTankInfo;
+import net.minecraftforge.fluids.IFluidTank;
 
 public class LavaTankBlock extends BlockContainer
 {
@@ -140,11 +144,11 @@ public class LavaTankBlock extends BlockContainer
         ItemStack heldItem = player.inventory.getCurrentItem();
         if (heldItem != null)
         {
-            LiquidStack liquid = LiquidContainerRegistry.getLiquidForFilledItem(player.getCurrentEquippedItem());
+            FluidStack liquid = FluidContainerRegistry.getFluidForFilledItem(player.getCurrentEquippedItem());
             LavaTankLogic logic = (LavaTankLogic) world.getBlockTileEntity(x, y, z);
             if (liquid != null)
             {
-                int amount = logic.fill(0, liquid, false);
+                int amount = logic.fill(ForgeDirection.UNKNOWN, liquid, false);
                 if (amount == liquid.amount)
                 {
                     logic.fill(ForgeDirection.UNKNOWN, liquid, true);
@@ -155,14 +159,14 @@ public class LavaTankBlock extends BlockContainer
                 else
                     return true;
             }
-            else if (LiquidContainerRegistry.isBucket(heldItem))
+            else if (FluidContainerRegistry.isBucket(heldItem))
             {
-                ILiquidTank[] tanks = logic.getTanks(ForgeDirection.UNKNOWN);
-                LiquidStack fillLiquid = tanks[0].getLiquid();
-                ItemStack fillStack = LiquidContainerRegistry.fillLiquidContainer(fillLiquid, heldItem);
+                FluidTankInfo[] tanks = logic.getTankInfo(ForgeDirection.UNKNOWN);
+                FluidStack fillFluid = tanks[0].fluid;//getFluid();
+                ItemStack fillStack = FluidContainerRegistry.fillFluidContainer(fillFluid, heldItem);
                 if (fillStack != null)
                 {
-                    logic.drain(ForgeDirection.UNKNOWN, LiquidContainerRegistry.getLiquidForFilledItem(fillStack).amount, true);
+                    logic.drain(ForgeDirection.UNKNOWN, FluidContainerRegistry.getFluidForFilledItem(fillStack).amount, true);
                     if (!player.capabilities.isCreativeMode)
                     {
                         if (heldItem.stackSize == 1)

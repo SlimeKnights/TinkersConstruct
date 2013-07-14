@@ -15,6 +15,7 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.client.event.sound.SoundLoadEvent;
 import net.minecraftforge.event.ForgeSubscribe;
+import net.minecraftforge.fluids.FluidStack;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -62,7 +63,7 @@ public class TClientEvents
         for (int i = 0; i < TContent.liquidIcons.length; i++)
         {
             TContent.liquidIcons[i].setRenderingIcon(TContent.liquidMetalStill.getIcon(0, i));
-            LiquidStack canon = TContent.liquidIcons[i].canonical();
+            FluidStack canon = TContent.liquidIcons[i].canonical();
             if (canon != null)
                 canon.setRenderingIcon(TContent.liquidMetalStill.getIcon(0, i));
         }

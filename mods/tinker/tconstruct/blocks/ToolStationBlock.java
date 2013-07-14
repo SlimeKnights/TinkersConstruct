@@ -15,7 +15,7 @@ import mods.tinker.tconstruct.util.PHConstruct;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -185,9 +185,8 @@ public class ToolStationBlock extends InventoryBlock
         }
     }
 
-    //public void onBlockPlacedBy(World par1World, int par2, int par3, int par4, EntityLiving par5EntityLiving, ItemStack par6ItemStack) {}
     @Override
-    public void onBlockPlacedBy (World world, int x, int y, int z, EntityLiving par5EntityLiving, ItemStack par6ItemStack)
+    public void onBlockPlacedBy (World world, int x, int y, int z, EntityLivingBase par5EntityLiving, ItemStack par6ItemStack)
     {
         if (PHConstruct.freePatterns)
         {

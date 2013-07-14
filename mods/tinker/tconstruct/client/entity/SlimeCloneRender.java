@@ -3,7 +3,9 @@ package mods.tinker.tconstruct.client.entity;
 import mods.tinker.tconstruct.entity.SlimeClone;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderLiving;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
@@ -78,7 +80,7 @@ public class SlimeCloneRender extends RenderLiving
         return this.shouldSlimeRenderPass((SlimeClone) par1EntityLiving, par2, par3);
     }
 
-    protected void func_98191_a (SlimeClone slime)
+    /*protected ResourceLocation func_98191_a (SlimeClone slime)
     {
         this.loadDownloadableImageTexture(slime.skinUrl, slime.getTexture());
     }
@@ -87,5 +89,12 @@ public class SlimeCloneRender extends RenderLiving
     protected void func_98190_a (EntityLiving par1EntityLiving)
     {
         this.func_98191_a((SlimeClone) par1EntityLiving);
+    }*/
+
+    @Override
+    protected ResourceLocation func_110775_a (Entity entity)
+    {
+        //return func_98191_a((SlimeClone)entity);
+        return null;
     }
 }

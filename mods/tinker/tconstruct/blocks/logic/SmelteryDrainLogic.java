@@ -1,15 +1,19 @@
 package mods.tinker.tconstruct.blocks.logic;
 
 import mods.tinker.tconstruct.library.util.IFacingLogic;
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.util.MathHelper;
 import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTankInfo;
+import net.minecraftforge.fluids.IFluidHandler;
 
-public class SmelteryDrainLogic extends MultiServantLogic implements ITankContainer, IFacingLogic
+public class SmelteryDrainLogic extends MultiServantLogic implements IFluidHandler, IFacingLogic
 {
     byte direction;
 
@@ -19,7 +23,7 @@ public class SmelteryDrainLogic extends MultiServantLogic implements ITankContai
     }
 
     /*@Override
-    public LiquidStack getLiquid ()
+    public FluidStack getLiquid ()
     {
     	return null;
     }
@@ -35,27 +39,19 @@ public class SmelteryDrainLogic extends MultiServantLogic implements ITankContai
     }*/
 
     /*@Override
-    public int fill (LiquidStack resource, boolean doFill)
+    public int fill (FluidStack resource, boolean doFill)
     {
     	
     }*/
 
     /*@Override
-    public LiquidStack drain (int maxDrain, boolean doDrain)
+    public FluidStack drain (int maxDrain, boolean doDrain)
     {
     	
     }*/
 
     @Override
-    public int fill (ForgeDirection from, LiquidStack resource, boolean doFill)
-    {
-        //if (from == ForgeDirection.OPPOSITES[getRenderDirection()])
-        return fill(0, resource, doFill);
-        //return 0;
-    }
-
-    @Override
-    public int fill (int tankIndex, LiquidStack resource, boolean doFill)
+    public int fill (ForgeDirection from, FluidStack resource, boolean doFill)
     {
         if (hasMaster && resource != null)
         {
@@ -76,13 +72,7 @@ public class SmelteryDrainLogic extends MultiServantLogic implements ITankContai
     }
 
     @Override
-    public LiquidStack drain (ForgeDirection from, int maxDrain, boolean doDrain)
-    {
-        return drain(0, maxDrain, doDrain);
-    }
-
-    @Override
-    public LiquidStack drain (int tankIndex, int maxDrain, boolean doDrain)
+    public FluidStack drain (ForgeDirection from, int maxDrain, boolean doDrain)
     {
         if (hasValidMaster())
         {
@@ -94,6 +84,33 @@ public class SmelteryDrainLogic extends MultiServantLogic implements ITankContai
             return null;
         }
     }
+    
+    @Override
+    public FluidStack drain (ForgeDirection from, FluidStack resource, boolean doDrain)
+    {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    @Override
+    public boolean canFill (ForgeDirection from, Fluid fluid)
+    {
+        return false;
+    }
+
+    @Override
+    public boolean canDrain (ForgeDirection from, Fluid fluid)
+    {
+        return false;
+    }
+
+    @Override
+    public FluidTankInfo[] getTankInfo (ForgeDirection from)
+    {
+        return null;
+    }
+
+    /*
 
     @Override
     public ILiquidTank[] getTanks (ForgeDirection direction)
@@ -107,14 +124,14 @@ public class SmelteryDrainLogic extends MultiServantLogic implements ITankContai
     }
 
     @Override
-    public ILiquidTank getTank (ForgeDirection direction, LiquidStack type)
+    public ILiquidTank getTank (ForgeDirection direction, FluidStack type)
     {
         if (hasValidMaster())
         {
             return (SmelteryLogic) worldObj.getBlockTileEntity(master.x, master.y, master.z);
         }
         return null;
-    }
+    }*/
 
     @Override
     public byte getRenderDirection ()
@@ -135,7 +152,7 @@ public class SmelteryDrainLogic extends MultiServantLogic implements ITankContai
     }
 
     @Override
-    public void setDirection (float yaw, float pitch, EntityLiving player)
+    public void setDirection (float yaw, float pitch, EntityLivingBase player)
     {
         if (pitch > 45)
             direction = 1;

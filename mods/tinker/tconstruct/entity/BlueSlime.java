@@ -7,6 +7,9 @@ import mods.tinker.tconstruct.library.crafting.ToolBuilder;
 import mods.tinker.tconstruct.library.tools.ToolCore;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingData;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.SpiderEffectsGroupData;
 import net.minecraft.entity.boss.IBossDisplayData;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.monster.EntitySkeleton;
@@ -16,6 +19,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.StatCollector;
@@ -74,14 +78,14 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
         return StatCollector.translateToLocal("entity." + s + ".name");
     }
 
-    @Override
+    /*@Override
     public void initCreature ()
     {
         if (getSlimeSize() == 2 && rand.nextInt(8) == 0)
         {
             EntitySkeleton entityskeleton = new EntitySkeleton(this.worldObj);
             entityskeleton.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
-            entityskeleton.initCreature();
+            //entityskeleton.initCreature();
             this.worldObj.spawnEntityInWorld(entityskeleton);
             entityskeleton.mountEntity(this);
         }
@@ -89,7 +93,7 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
         {
             EntityCreeper creeper = new EntityCreeper(this.worldObj);
             creeper.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
-            creeper.initCreature();
+            //creeper.initCreature();
             this.worldObj.spawnEntityInWorld(creeper);
             creeper.mountEntity(this);
         }
@@ -99,7 +103,7 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
             {
                 BlueSlime slime = new BlueSlime(this.worldObj);
                 slime.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
-                slime.initCreature();
+                //slime.initCreature();
                 this.worldObj.spawnEntityInWorld(slime);
             }
 
@@ -110,10 +114,55 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
 
             EntitySkeleton skelton = new EntitySkeleton(this.worldObj);
             skelton.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
-            skelton.initCreature();
+            //skelton.initCreature();
             this.worldObj.spawnEntityInWorld(skelton);
             skelton.mountEntity(slime);
         }
+    }*/
+    
+    public EntityLivingData func_110161_a(EntityLivingData par1EntityLivingData)
+    {
+        Object par1EntityLivingData1 = super.func_110161_a(par1EntityLivingData);
+
+        if (getSlimeSize() == 2 && rand.nextInt(8) == 0)
+        {
+            EntitySkeleton entityskeleton = new EntitySkeleton(this.worldObj);
+            entityskeleton.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
+            entityskeleton.func_110161_a(par1EntityLivingData);
+            this.worldObj.spawnEntityInWorld(entityskeleton);
+            entityskeleton.mountEntity(this);
+        }
+        if (getSlimeSize() == 4 && rand.nextInt(12) == 0)
+        {
+            EntityCreeper creeper = new EntityCreeper(this.worldObj);
+            creeper.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
+            creeper.func_110161_a(par1EntityLivingData);
+            this.worldObj.spawnEntityInWorld(creeper);
+            creeper.mountEntity(this);
+        }
+        if (getSlimeSize() == 8)
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                BlueSlime slime = new BlueSlime(this.worldObj);
+                slime.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
+                slime.func_110161_a(par1EntityLivingData);
+                this.worldObj.spawnEntityInWorld(slime);
+            }
+
+            BlueSlime slime = new BlueSlime(this.worldObj);
+            slime.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
+            slime.setSlimeSize(2);
+            this.worldObj.spawnEntityInWorld(slime);
+
+            EntitySkeleton skelton = new EntitySkeleton(this.worldObj);
+            skelton.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
+            skelton.func_110161_a(par1EntityLivingData);
+            this.worldObj.spawnEntityInWorld(skelton);
+            skelton.mountEntity(slime);
+        }
+
+        return (EntityLivingData)par1EntityLivingData1;
     }
 
     @Override
@@ -206,16 +255,29 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
     {
         super.entityInit();
         this.dataWatcher.addObject(16, new Byte((byte) 1));
-        this.dataWatcher.addObject(17, new Integer(100));
+        //this.dataWatcher.addObject(17, new Integer(100));
     }
 
-    public void setSlimeSize (int size)
+    /*public void setSlimeSize (int size)
     {
         this.dataWatcher.updateObject(16, new Byte((byte) size));
         this.setSize(0.6F * size, 0.6F * size);
         this.setPosition(this.posX, this.posY, this.posZ);
         this.setEntityHealth(this.getMaxHealth());
         this.experienceValue = size + 2;
+        if (size >= 8)
+            this.experienceValue = 500;
+    }*/
+    
+    protected void setSlimeSize(int size)
+    {
+        this.dataWatcher.updateObject(16, new Byte((byte)size));
+        this.setSize(0.6F * (float)size, 0.6F * (float)size);
+        this.setPosition(this.posX, this.posY, this.posZ);
+        this.func_110148_a(SharedMonsterAttributes.field_111267_a).func_111128_a(this.getMaxHealth());
+        this.setEntityHealth(this.func_110138_aP());
+
+        this.experienceValue = size + 2^(size);
         if (size >= 8)
             this.experienceValue = 500;
     }
@@ -254,7 +316,7 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
     {
         super.readEntityFromNBT(par1NBTTagCompound);
         this.setSlimeSize(par1NBTTagCompound.getInteger("Size") + 1);
-        this.dataWatcher.updateObject(17, Integer.valueOf(this.health));
+        //this.dataWatcher.updateObject(17, Integer.valueOf(this.health));
     }
 
     /**
@@ -275,10 +337,10 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
             this.isDead = true;
         }
 
-        if (!this.worldObj.isRemote)
+        /*if (!this.worldObj.isRemote)
         {
             this.dataWatcher.updateObject(17, Integer.valueOf(this.health));
-        }
+        }*/
 
         this.sizeFactor += (this.sizeOffset - this.sizeFactor) * 0.5F;
         this.sizeHeight = this.sizeFactor;
@@ -399,7 +461,7 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
     {
         int size = this.getSlimeSize();
 
-        if (!this.worldObj.isRemote && size > 1 && this.getHealth() <= 0 && size < 8)
+        if (!this.worldObj.isRemote && size > 1 && this.func_110143_aJ() <= 0 && size < 8)
         {
             float f = (-0.5F) * (float) size / 4.0F;
             float f1 = (-0.5F) * (float) size / 4.0F;
@@ -554,9 +616,9 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
         return this.getSlimeSize() > 2;
     }
 
-    @Override
+    /*@Override
     public int getBossHealth ()
     {
         return this.dataWatcher.getWatchableObjectInt(17);
-    }
+    }*/
 }

@@ -3,7 +3,7 @@ package mods.tinker.tconstruct.blocks.logic;
 import mods.tinker.tconstruct.TConstruct;
 import mods.tinker.tconstruct.library.util.IActiveLogic;
 import mods.tinker.tconstruct.library.util.IFacingLogic;
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet;
@@ -11,12 +11,16 @@ import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTankInfo;
+import net.minecraftforge.fluids.IFluidHandler;
 
-public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogic, ITankContainer
+public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogic, IFluidHandler
 {
     byte direction;
     boolean active;
-    public LiquidStack liquid;
+    public FluidStack liquid;
 
     public boolean activateFaucet ()
     {
@@ -42,9 +46,9 @@ public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogi
             TileEntity drainte = worldObj.getBlockTileEntity(x, yCoord, z);
             TileEntity tankte = worldObj.getBlockTileEntity(xCoord, yCoord - 1, zCoord);
 
-            if (drainte != null && drainte instanceof ITankContainer && tankte != null && tankte instanceof ITankContainer)
+            /*if (drainte != null && drainte instanceof ITankContainer && tankte != null && tankte instanceof ITankContainer)
             {
-                LiquidStack templiquid = ((ITankContainer) drainte).drain(getForgeDirection(), TConstruct.ingotLiquidValue, false);
+                FluidStack templiquid = ((ITankContainer) drainte).drain(getForgeDirection(), TConstruct.ingotLiquidValue, false);
                 if (templiquid != null)
                 {
                     int drained = ((ITankContainer) tankte).fill(ForgeDirection.UP, templiquid, false);
@@ -61,31 +65,7 @@ public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogi
                     }
 
                 }
-                /*if (liquid != null)
-                {
-                	int drained = ((ITankContainer) tankte).fill(ForgeDirection.UP, liquid, true);
-                	if (drained != liquid.amount)
-                	{
-                		liquid.amount -= drained;
-                		((ITankContainer) drainte).fill(getForgeDirection(), liquid, true);
-                	}
-                	if (drained > 0)
-                	{
-                		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-                		return true;
-                	}
-                	else
-                	{
-                		liquid = null;
-                		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-                		return false;
-                	}
-                }
-                else
-                {
-                	((ITankContainer) drainte).fill(getForgeDirection(), liquid, true);
-                }*/
-            }
+            }*/
         }
         return false;
     }
@@ -127,7 +107,7 @@ public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogi
     }
 
     @Override
-    public void setDirection (float yaw, float pitch, EntityLiving player)
+    public void setDirection (float yaw, float pitch, EntityLivingBase player)
     {
         int facing = MathHelper.floor_double((double) (yaw / 360) + 0.5D) & 3;
         switch (facing)
@@ -161,7 +141,9 @@ public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogi
     {
         direction = tags.getByte("Direction");
         if (tags.getBoolean("hasLiquid"))
-            this.liquid = new LiquidStack(tags.getInteger("itemID"), tags.getInteger("amount"), tags.getInteger("itemMeta"));
+        {
+            this.liquid = FluidStack.loadFluidStackFromNBT(tags.getCompoundTag("Fluid"));
+        }
         else
             this.liquid = null;
     }
@@ -179,9 +161,9 @@ public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogi
         tags.setBoolean("hasLiquid", liquid != null);
         if (liquid != null)
         {
-            tags.setInteger("itemID", liquid.itemID);
-            tags.setInteger("amount", liquid.amount);
-            tags.setInteger("itemMeta", liquid.itemMeta);
+            NBTTagCompound nbt = new NBTTagCompound();
+            liquid.writeToNBT(nbt);
+            tags.setCompoundTag("Fluid", nbt);
         }
     }
 
@@ -222,38 +204,44 @@ public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogi
     }
 
     @Override
-    public int fill (ForgeDirection from, LiquidStack resource, boolean doFill)
+    public int fill (ForgeDirection from, FluidStack resource, boolean doFill)
     {
+        // TODO Auto-generated method stub
         return 0;
     }
 
     @Override
-    public int fill (int tankIndex, LiquidStack resource, boolean doFill)
+    public FluidStack drain (ForgeDirection from, FluidStack resource, boolean doDrain)
     {
-        return 0;
-    }
-
-    @Override
-    public LiquidStack drain (ForgeDirection from, int maxDrain, boolean doDrain)
-    {
+        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public LiquidStack drain (int tankIndex, int maxDrain, boolean doDrain)
+    public FluidStack drain (ForgeDirection from, int maxDrain, boolean doDrain)
     {
+        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public ILiquidTank[] getTanks (ForgeDirection direction)
+    public boolean canFill (ForgeDirection from, Fluid fluid)
     {
-        return null;
+        // TODO Auto-generated method stub
+        return false;
     }
 
     @Override
-    public ILiquidTank getTank (ForgeDirection direction, LiquidStack type)
+    public boolean canDrain (ForgeDirection from, Fluid fluid)
     {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public FluidTankInfo[] getTankInfo (ForgeDirection from)
+    {
+        // TODO Auto-generated method stub
         return null;
     }
 }

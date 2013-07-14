@@ -165,23 +165,23 @@ public class SearedRender implements ISimpleBlockRenderingHandler
                 {
                     float height = logic.getLiquidAmount() / (logic.getCapacity() * 1.03F) / 16F;
                     renderer.setRenderBounds(0.0625F, 0.9375F, 0.0625F, 0.9375F, 0.9375F + height, 0.9375F);
-                    if (logic.liquid.itemID < 4096) //Block
+                    if (logic.liquid.fluidID < 4096) //Block
                     {
-                        Block liquidBlock = Block.blocksList[logic.liquid.itemID];
+                        Block liquidBlock = Block.blocksList[logic.liquid.fluidID];
                         if (liquidBlock != null)
                         {
                             //ForgeHooksClient.bindTexture(liquidBlock.getTextureFile(), 0);
-                            BlockSkinRenderHelper.renderMetadataBlock(liquidBlock, logic.liquid.itemMeta, x, y, z, renderer, world);
+                            BlockSkinRenderHelper.renderMetadataBlock(liquidBlock, 0, x, y, z, renderer, world);
                         }
                     }
                     else
                     //Item
                     {
-                        Item liquidItem = Item.itemsList[logic.liquid.itemID];
+                        Item liquidItem = Item.itemsList[logic.liquid.fluidID];
                         if (liquidItem != null)
                         {
                             //ForgeHooksClient.bindTexture(liquidItem.getTextureFile(), 0);
-                            BlockSkinRenderHelper.renderFakeBlock(liquidItem.getIconFromDamage(logic.liquid.itemMeta), x, y, z, renderer, world);
+                            BlockSkinRenderHelper.renderFakeBlock(liquidItem.getIconFromDamage(0), x, y, z, renderer, world);
                         }
                     }
                 }
@@ -253,7 +253,7 @@ public class SearedRender implements ISimpleBlockRenderingHandler
 
                 if (logic.liquid != null)
                 {
-                    ItemStack blockToRender = new ItemStack(logic.liquid.itemID, 1, logic.liquid.itemMeta);
+                    ItemStack blockToRender = new ItemStack(logic.liquid.fluidID, 1, logic.liquid.itemMeta);
                     if (blockToRender.itemID < 4096) //Block
                     {
                         Block liquidBlock = Block.blocksList[blockToRender.itemID];

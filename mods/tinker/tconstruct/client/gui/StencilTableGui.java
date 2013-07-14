@@ -11,6 +11,7 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.packet.Packet250CustomPayload;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
@@ -41,11 +42,13 @@ public class StencilTableGui extends GuiContainer
         fontRenderer.drawString(StatCollector.translateToLocal("crafters.PatternShaper"), 50, 6, 0x404040);
         fontRenderer.drawString(StatCollector.translateToLocal("container.inventory"), 8, (ySize - 96) + 2, 0x404040);
     }
+    
+    private static final ResourceLocation background = new ResourceLocation("tinker", "textures/gui/patternshaper.png");
 
     protected void drawGuiContainerBackgroundLayer (float par1, int par2, int par3)
     {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        this.mc.renderEngine.bindTexture("/mods/tinker/textures/gui/patternshaper.png");
+        this.mc.func_110434_K().func_110577_a(background);
         int cornerX = (this.width - this.xSize) / 2;
         int cornerY = (this.height - this.ySize) / 2;
         this.drawTexturedModalRect(cornerX, cornerY, 0, 0, this.xSize, this.ySize);

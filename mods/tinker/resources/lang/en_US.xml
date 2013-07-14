@@ -303,4 +303,22 @@
   <entry key="death.three.smeltery">%1$s will be a stepping stone for our revolution!</entry>
   <entry key="death.four.smeltery">%1$s thought swimming in hot liquids was a good idea</entry>
   
+  <entry key="parttype.Wood">Wooden</entry>
+  <entry key="parttype.Stone">Stone</entry>
+  <entry key="parttype.Iron">Iron</entry>
+  <entry key="parttype.Flint">Flint</entry>
+  <entry key="parttype.Cactus">Cactus</entry>
+  <entry key="parttype.Bone">Bone</entry>
+  <entry key="parttype.Obsidian">Obsidian</entry>
+  <entry key="parttype.Slime">Slime</entry>
+  <entry key="parttype.Paper">Paper</entry>
+  <entry key="parttype.Cobalt">Cobalt</entry>
+  <entry key="parttype.Ardite">Ardite</entry>
+  <entry key="parttype.Manyullyn">Manyullyn</entry>
+  <entry key="parttype.Copper">Copper</entry>
+  <entry key="parttype.Bronze">Bronze</entry>
+  <entry key="parttype.Alumite">Alumite</entry>
+  <entry key="parttype.Steel">Steel</entry>
+  <entry key="parttype.BlueSlime">Slime</entry>
+  
 </properties>

@@ -16,6 +16,7 @@ import mods.tinker.tconstruct.util.SmelteryDamageSource;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -31,11 +32,15 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTankInfo;
+import net.minecraftforge.fluids.IFluidHandler;
+import net.minecraftforge.fluids.IFluidTank;
 
 /* Simple class for storing items in the block
  */
 
-public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFacingLogic, ILiquidTank, IMasterLogic
+public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFacingLogic, IFluidTank, IMasterLogic
 {
     public boolean validStructure;
     public boolean tempValidStructure;
@@ -54,7 +59,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     public int[] meltingTemps;
     int tick;
 
-    public ArrayList<LiquidStack> moltenMetal = new ArrayList<LiquidStack>();
+    public ArrayList<FluidStack> moltenMetal = new ArrayList<FluidStack>();
     int maxLiquid;
     int currentLiquid;
     public int layers;
@@ -195,7 +200,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     }
 
     @Override
-    public void setDirection (float yaw, float pitch, EntityLiving player)
+    public void setDirection (float yaw, float pitch, EntityLivingBase player)
     {
         int facing = MathHelper.floor_double((double) (yaw / 360) + 0.5D) & 3;
         switch (facing)
@@ -304,11 +309,11 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                 EntityVillager villager = (EntityVillager) o;
                 if (villager.attackEntityFrom(new SmelteryDamageSource(), 1))
                 {
-                    if (currentLiquid + 8 < maxLiquid)
+                    /*if (currentLiquid + 8 < maxLiquid)
                     {
                         int amount = villager.isChild() ? 2 : 8;
-                        this.addMoltenMetal(new LiquidStack(TContent.liquidMetalStill.blockID, amount, 15), false);
-                    }
+                        this.addMoltenMetal(new FluidStack(TContent.liquidMetalStill.blockID, amount, 15), false);
+                    }*/
                 }
             }
             else if (o instanceof EntityLiving)
@@ -319,7 +324,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                     /*if (currentLiquid + 8 < maxLiquid)
                     {
                         int amount = living.isChild() ? 2 : 8;
-                        this.addMoltenMetal(new LiquidStack(TContent.liquidMetalStill.blockID, amount, 16), false);
+                        this.addMoltenMetal(new FluidStack(TContent.liquidMetalStill.blockID, amount, 16), false);
                     }*/
                 }
             }
@@ -377,7 +382,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                     {
                         if (!worldObj.isRemote)
                         {
-                            LiquidStack result = getResultFor(inventory[i]);
+                            FluidStack result = getResultFor(inventory[i]);
                             if (result != null)
                             {
                                 if (addMoltenMetal(result, false))
@@ -387,7 +392,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                                     ArrayList alloys = Smeltery.mixMetals(moltenMetal);
                                     for (int al = 0; al < alloys.size(); al++)
                                     {
-                                        LiquidStack liquid = (LiquidStack) alloys.get(al);
+                                        FluidStack liquid = (FluidStack) alloys.get(al);
                                         addMoltenMetal(liquid, true);
                                     }
                                     onInventoryChanged();
@@ -405,7 +410,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         }
     }
 
-    boolean addMoltenMetal (LiquidStack liquid, boolean first)
+    boolean addMoltenMetal (FluidStack liquid, boolean first)
     {
         needsUpdate = true;
         if (moltenMetal.size() == 0)
@@ -424,8 +429,9 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
             boolean added = false;
             for (int i = 0; i < moltenMetal.size(); i++)
             {
-                LiquidStack l = moltenMetal.get(i);
-                if (l.itemID == liquid.itemID && l.itemMeta == liquid.itemMeta)
+                FluidStack l = moltenMetal.get(i);
+                //if (l.itemID == liquid.itemID && l.itemMeta == liquid.itemMeta)
+                if (l.isFluidEqual(liquid))
                 {
                     l.amount += liquid.amount;
                     added = true;
@@ -475,13 +481,13 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
             fuelGague = 0;
             return;
         }
-        if (tankContainer instanceof ITankContainer)
+        /*if (tankContainer instanceof IFluidHandler)
         {
             needsUpdate = true;
-            LiquidStack liquid = ((ITankContainer) tankContainer).drain(ForgeDirection.DOWN, 150, false);
+            FluidStack liquid = ((IFluidHandler) tankContainer).drain(ForgeDirection.DOWN, 150, false);
             if (liquid != null && liquid.itemID == Block.lavaStill.blockID)
             {
-                ILiquidTank tank = ((ITankContainer) tankContainer).getTank(ForgeDirection.DOWN, liquid);
+                IFluidTank tank = ((IFluidHandler) tankContainer).getTank(ForgeDirection.DOWN, liquid);
                 int capacity = tank.getCapacity();
                 fuelAmount = liquid.amount;
                 fuelGague = liquid.amount * 52 / capacity;
@@ -491,7 +497,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                 fuelAmount = 0;
                 fuelGague = 0;
             }
-        }
+        }*/
     }
 
     void updateFuelGague ()
@@ -513,18 +519,18 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
             fuelGague = 0;
             return;
         }
-        if (tankContainer instanceof ITankContainer)
+        if (tankContainer instanceof IFluidHandler)
         {
             needsUpdate = true;
-            LiquidStack liquid = ((ITankContainer) tankContainer).drain(ForgeDirection.DOWN, 150, false);
-            if (liquid != null && liquid.itemID == Block.lavaStill.blockID)
+            FluidStack liquid = ((IFluidHandler) tankContainer).drain(ForgeDirection.DOWN, 150, false);
+            if (liquid != null && liquid.fluidID == Block.lavaStill.blockID)
             {
-                liquid = ((ITankContainer) tankContainer).drain(ForgeDirection.DOWN, 150, true);
+                liquid = ((IFluidHandler) tankContainer).drain(ForgeDirection.DOWN, 150, true);
                 useTime += liquid.amount;
 
-                ILiquidTank tank = ((ITankContainer) tankContainer).getTank(ForgeDirection.DOWN, liquid);
-                liquid = tank.getLiquid();
-                int capacity = tank.getCapacity();
+                FluidTankInfo[] info = ((IFluidHandler) tankContainer).getTankInfo(ForgeDirection.DOWN);
+                liquid = info[0].fluid;
+                int capacity = info[0].capacity;
                 if (liquid != null)
                 {
                     fuelAmount = liquid.amount;
@@ -544,20 +550,23 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                 {
                     CoordTuple possibleTank = lavaTanks.get(iter);
                     TileEntity newTankContainer = worldObj.getBlockTileEntity(possibleTank.x, possibleTank.y, possibleTank.z);
-                    if (newTankContainer instanceof ITankContainer)
+                    if (newTankContainer instanceof IFluidHandler)
                     {
                         //System.out.println("Tank: "+possibleTank.toString());
-                        LiquidStack newliquid = ((ITankContainer) newTankContainer).drain(ForgeDirection.UNKNOWN, 150, false);
-                        if (newliquid != null && newliquid.itemID == Block.lavaStill.blockID && newliquid.amount > 0)
+                        FluidStack newliquid = ((IFluidHandler) newTankContainer).drain(ForgeDirection.UNKNOWN, 150, false);
+                        if (newliquid != null && newliquid.fluidID == Block.lavaStill.blockID && newliquid.amount > 0)
                         {
                             //System.out.println("Tank: "+possibleTank.toString());
                             foundTank = true;
                             activeLavaTank = possibleTank;
                             iter = lavaTanks.size();
 
-                            ILiquidTank newTank = ((ITankContainer) newTankContainer).getTank(ForgeDirection.UNKNOWN, liquid);
-                            liquid = newTank.getLiquid();
-                            int capacity = newTank.getCapacity();
+                            /*IFluidTank newTank = ((IFluidHandler) newTankContainer).getTank(ForgeDirection.UNKNOWN, liquid);
+                            liquid = newTank.getFluid();
+                            int capacity = newTank.getCapacity();*/
+                            FluidTankInfo[] info = ((IFluidHandler) tankContainer).getTankInfo(ForgeDirection.DOWN);
+                            liquid = info[0].fluid;
+                            int capacity = info[0].capacity;
                             if (liquid != null)
                             {
                                 fuelAmount = liquid.amount;
@@ -579,7 +588,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         }
     }
 
-    public LiquidStack getResultFor (ItemStack stack)
+    public FluidStack getResultFor (ItemStack stack)
     {
         return Smeltery.instance.getSmelteryResult(stack);
     }
@@ -587,7 +596,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     /* Inventory */
     /*public int getMaxStackStackSize (ItemStack stack)
     {
-    	LiquidStack liquid = getResultFor(stack);
+    	FluidStack liquid = getResultFor(stack);
     	if (liquid == null)
     		return 0;
     	return liquid.amount;
@@ -885,15 +894,16 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         return currentLiquid;
     }
 
-    public LiquidStack drain (int maxDrain, boolean doDrain)
+    @Override
+    public FluidStack drain (int maxDrain, boolean doDrain)
     {
         if (moltenMetal.size() == 0)
             return null;
 
-        LiquidStack liquid = moltenMetal.get(0);
+        FluidStack liquid = moltenMetal.get(0);
         if (liquid.amount - maxDrain <= 0)
         {
-            LiquidStack liq = liquid.copy();
+            FluidStack liq = liquid.copy();
             if (doDrain)
             {
                 //liquid = null;
@@ -913,11 +923,12 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                 currentLiquid -= maxDrain;
                 needsUpdate = true;
             }
-            return new LiquidStack(liquid.itemID, maxDrain, liquid.itemMeta);
+            return new FluidStack(liquid.fluidID, maxDrain, liquid.tag);
         }
     }
 
-    public int fill (LiquidStack resource, boolean doFill)
+    @Override
+    public int fill (FluidStack resource, boolean doFill)
     {
         if (resource != null && resource.amount + currentLiquid < maxLiquid)
         {
@@ -929,7 +940,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                     ArrayList alloys = Smeltery.mixMetals(moltenMetal);
                     for (int al = 0; al < alloys.size(); al++)
                     {
-                        LiquidStack liquid = (LiquidStack) alloys.get(al);
+                        FluidStack liquid = (FluidStack) alloys.get(al);
                         addMoltenMetal(liquid, true);
                     }
                 }
@@ -943,7 +954,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     }
 
     @Override
-    public LiquidStack getLiquid ()
+    public FluidStack getFluid ()
     {
         if (moltenMetal.size() == 0)
             return null;
@@ -951,10 +962,17 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     }
 
     @Override
-    public int getTankPressure ()
+    public int getFluidAmount ()
     {
-        return 0;
+        return currentLiquid;
     }
+
+    @Override
+    public FluidTankInfo getInfo ()
+    {
+        //TODO: This
+        return null;
+    }    
 
     /* NBT */
 
@@ -987,11 +1005,9 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 
         for (int iter = 0; iter < liquidTag.tagCount(); iter++)
         {
-            NBTTagCompound tagList = (NBTTagCompound) liquidTag.tagAt(iter);
-            int id = tagList.getInteger("id");
-            int amount = tagList.getInteger("amount");
-            int meta = tagList.getInteger("meta");
-            moltenMetal.add(new LiquidStack(id, amount, meta));
+            NBTTagCompound nbt = (NBTTagCompound) liquidTag.tagAt(iter);
+            FluidStack fluid = FluidStack.loadFluidStackFromNBT(nbt);
+            moltenMetal.add(fluid);
         }
         //adjustLayers(layers, true);
         //checkValidPlacement();
@@ -1022,13 +1038,11 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         tags.setIntArray("ActiveTemps", activeTemps);
 
         NBTTagList taglist = new NBTTagList();
-        for (LiquidStack liquid : moltenMetal)
+        for (FluidStack liquid : moltenMetal)
         {
-            NBTTagCompound liquidTag = new NBTTagCompound();
-            liquidTag.setInteger("id", liquid.itemID);
-            liquidTag.setInteger("amount", liquid.amount);
-            liquidTag.setInteger("meta", liquid.itemMeta);
-            taglist.appendTag(liquidTag);
+            NBTTagCompound nbt = new NBTTagCompound();
+            liquid.writeToNBT(nbt);
+            taglist.appendTag(nbt);
         }
 
         tags.setTag("Liquids", taglist);

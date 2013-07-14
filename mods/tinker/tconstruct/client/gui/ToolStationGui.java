@@ -19,6 +19,7 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.packet.Packet250CustomPayload;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
@@ -416,6 +417,10 @@ public class ToolStationGui extends NewContainerGui
             return String.valueOf(num);
         }
     }
+    
+    private static final ResourceLocation background = new ResourceLocation("tinker", "textures/gui/toolstation.png");
+    private static final ResourceLocation icons = new ResourceLocation("tinker", "textures/gui/icons.png");
+    private static final ResourceLocation description = new ResourceLocation("tinker", "textures/gui/description.png");
 
     /**
      * Draw the background layer for the GuiContainer (everything behind the items)
@@ -423,9 +428,8 @@ public class ToolStationGui extends NewContainerGui
     protected void drawGuiContainerBackgroundLayer (float par1, int par2, int par3)
     {
         // Draw the background
-        //int texID = this.mc.renderEngine.getTexture("/mods/tinker/textures/gui/toolstation.png");
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        this.mc.renderEngine.bindTexture("/mods/tinker/textures/gui/toolstation.png");
+        this.mc.func_110434_K().func_110577_a(background);
         int cornerX = (this.width - this.xSize) / 2;
         int cornerY = (this.height - this.ySize) / 2;
         this.drawTexturedModalRect(cornerX, cornerY, 0, 0, this.xSize, this.ySize);
@@ -435,10 +439,8 @@ public class ToolStationGui extends NewContainerGui
             this.drawTexturedModalRect(cornerX + 62, cornerY, 0, this.ySize, 112, 22);
         }
 
-        //texID = this.mc.renderEngine.getTexture("/mods/tinker/textures/gui/icons.png");
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        //this.mc.renderEngine.bindTexture(texID);
-        this.mc.renderEngine.bindTexture("/mods/tinker/textures/gui/icons.png");
+        this.mc.func_110434_K().func_110577_a(icons);
         // Draw the slots
 
         for (int i = 0; i < slotX.length; i++)
@@ -451,10 +453,8 @@ public class ToolStationGui extends NewContainerGui
         }
 
         // Draw description
-        //texID = this.mc.renderEngine.getTexture("/mods/tinker/textures/gui/description.png");
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        //this.mc.renderEngine.bindTexture(texID);
-        this.mc.renderEngine.bindTexture("/mods/tinker/textures/gui/description.png");
+        this.mc.func_110434_K().func_110577_a(description);
         cornerX = (this.width + this.xSize) / 2;
         cornerY = (this.height - this.ySize) / 2;
         this.drawTexturedModalRect(cornerX, cornerY, 0, 0, 126, this.ySize + 30);

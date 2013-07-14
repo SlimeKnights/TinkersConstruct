@@ -7,6 +7,7 @@ import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.item.Item;
 import net.minecraft.world.IBlockAccess;
+import net.minecraftforge.fluids.FluidStack;
 
 import org.lwjgl.opengl.GL11;
 
@@ -38,20 +39,20 @@ public class TankRender implements ISimpleBlockRenderingHandler
         {
             //Liquid
             LavaTankLogic logic = (LavaTankLogic) world.getBlockTileEntity(x, y, z);
-            if (logic.containsLiquid())
+            if (logic.containsFluid())
             {
-                LiquidStack liquid = logic.tank.getLiquid();
-                renderer.setRenderBounds(0.001, 0.001, 0.001, 0.999, logic.getLiquidAmountScaled(), 0.999);
-                if (liquid.itemID < 4096) //Block
+                FluidStack liquid = logic.tank.getFluid();
+                renderer.setRenderBounds(0.001, 0.001, 0.001, 0.999, logic.getFluidAmountScaled(), 0.999);
+                if (liquid.fluidID < 4096) //Block
                 {
-                    Block liquidBlock = Block.blocksList[liquid.itemID];
-                    BlockSkinRenderHelper.renderMetadataBlock(liquidBlock, liquid.itemMeta, x, y, z, renderer, world);
+                    Block liquidBlock = Block.blocksList[liquid.fluidID];
+                    BlockSkinRenderHelper.renderMetadataBlock(liquidBlock, 0, x, y, z, renderer, world);
                 }
                 else
                 //Item
                 {
-                    Item liquidItem = Item.itemsList[liquid.itemID];
-                    BlockSkinRenderHelper.renderFakeBlock(liquidItem.getIconFromDamage(liquid.itemMeta), x, y, z, renderer, world);
+                    Item liquidItem = Item.itemsList[liquid.fluidID];
+                    BlockSkinRenderHelper.renderFakeBlock(liquidItem.getIconFromDamage(0), x, y, z, renderer, world);
                 }
             }
 

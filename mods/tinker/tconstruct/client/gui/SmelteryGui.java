@@ -16,6 +16,7 @@ import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.Icon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import net.minecraftforge.fluids.FluidStack;
 
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
@@ -104,7 +105,7 @@ public class SmelteryGui extends NewContainerGui
         int base = 0;
         int cornerX = (width - xSize) / 2 + 36;
         int cornerY = (height - ySize) / 2;
-        for (LiquidStack liquid : logic.moltenMetal)
+        for (FluidStack liquid : logic.moltenMetal)
         {
             int basePos = 54;
             int initialLiquidSize = 0;
@@ -125,7 +126,7 @@ public class SmelteryGui extends NewContainerGui
             int sizeY = liquidSize;
             if (mouseX >= leftX && mouseX <= leftX + sizeX && mouseY >= topY && mouseY < topY + sizeY)
             {
-                drawLiquidStackTooltip(liquid, mouseX - cornerX + 36, mouseY - cornerY);
+                drawFluidStackTooltip(liquid, mouseX - cornerX + 36, mouseY - cornerY);
             }
         }
 
@@ -137,7 +138,7 @@ public class SmelteryGui extends NewContainerGui
             int sizeY = logic.getScaledFuelGague(52);
             if (mouseX >= leftX && mouseX <= leftX + sizeX && mouseY >= topY && mouseY < topY + sizeY)
             {
-                drawLiquidStackTooltip(new LiquidStack(Block.lavaStill.blockID, logic.fuelAmount, 0), mouseX - cornerX + 36, mouseY - cornerY);
+                drawFluidStackTooltip(new FluidStack(Block.lavaStill.blockID, logic.fuelAmount, 0), mouseX - cornerX + 36, mouseY - cornerY);
             }
             /*this.mc.renderEngine.bindTexture("/terrain.png");
             Icon lavaIcon = Block.lavaStill.getIcon(0, 0);
@@ -179,7 +180,7 @@ public class SmelteryGui extends NewContainerGui
 
         //Liquids - molten metal
         int base = 0;
-        for (LiquidStack liquid : logic.moltenMetal)
+        for (FluidStack liquid : logic.moltenMetal)
         {
             Icon renderIndex;
             if (liquid.itemID < 4096) //Block
@@ -222,7 +223,7 @@ public class SmelteryGui extends NewContainerGui
             int sizeY = base;
             if (mouseX >= leftX && mouseX <= leftX + sizeX && mouseY >= topY && mouseY <= topY + sizeY)
             {
-                drawLiquidStackTooltip(liquid, mouseX, mouseY);
+                drawFluidStackTooltip(liquid, mouseX, mouseY);
             }*/
         }
 
@@ -270,7 +271,7 @@ public class SmelteryGui extends NewContainerGui
         }
     }
 
-    protected void drawLiquidStackTooltip (LiquidStack par1ItemStack, int par2, int par3)
+    protected void drawFluidStackTooltip (FluidStack par1ItemStack, int par2, int par3)
     {
         this.zLevel = 100;
         List list = getLiquidTooltip(par1ItemStack, this.mc.gameSettings.advancedItemTooltips);
@@ -284,7 +285,7 @@ public class SmelteryGui extends NewContainerGui
         this.zLevel = 0;
     }
 
-    public List getLiquidTooltip (LiquidStack liquid, boolean par2)
+    public List getLiquidTooltip (FluidStack liquid, boolean par2)
     {
         ArrayList list = new ArrayList();
         if (liquid.itemID == Block.lavaStill.blockID)

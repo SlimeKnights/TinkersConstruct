@@ -11,6 +11,7 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
@@ -143,12 +144,16 @@ public class PartCrafterGui extends NewContainerGui
             return String.valueOf(num);
         }
     }
+    
+    private static final ResourceLocation background = new ResourceLocation("tinker", "textures/gui/toolparts.png");
+    private static final ResourceLocation minichest = new ResourceLocation("tinker", "textures/gui/patternchestmini.png");
+    private static final ResourceLocation description = new ResourceLocation("tinker", "textures/gui/description.png");
 
     protected void drawGuiContainerBackgroundLayer (float par1, int par2, int par3)
     {
         // Draw the background
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        this.mc.renderEngine.bindTexture("/mods/tinker/textures/gui/toolparts.png");
+        this.mc.func_110434_K().func_110577_a(background);
         int cornerX = (this.width - this.xSize) / 2;
         int cornerY = (this.height - this.ySize) / 2;
         this.drawTexturedModalRect(cornerX, cornerY, 0, 0, this.xSize, this.ySize);
@@ -175,18 +180,14 @@ public class PartCrafterGui extends NewContainerGui
         // Draw chest
         if (drawChestPart)
         {
-            //texID = this.mc.renderEngine.getTexture("/mods/tinker/textures/gui/patternchestmini.png");
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-            //his.mc.renderEngine.bindTexture(texID);
-            this.mc.renderEngine.bindTexture("/mods/tinker/textures/gui/patternchestmini.png");
+            this.mc.func_110434_K().func_110577_a(minichest);
             this.drawTexturedModalRect(cornerX - 116, cornerY + 11, 0, 0, this.xSize, this.ySize);
         }
 
         // Draw description
-        //texID = this.mc.renderEngine.getTexture("/mods/tinker/textures/gui/description.png");
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        //this.mc.renderEngine.bindTexture(texID);
-        this.mc.renderEngine.bindTexture("/mods/tinker/textures/gui/description.png");
+        this.mc.func_110434_K().func_110577_a(description);
         cornerX = (this.width + this.xSize) / 2;
         cornerY = (this.height - this.ySize) / 2;
         this.drawTexturedModalRect(cornerX, cornerY, 126, 0, 126, this.ySize);

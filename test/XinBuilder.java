@@ -1,15 +1,12 @@
 package test;
 
-import mods.tinker.tconstruct.client.TProxyClient;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumMovingObjectType;
 import net.minecraft.util.Icon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
@@ -56,7 +53,7 @@ public class XinBuilder extends Item
     }
 
     @Override
-    public boolean onEntitySwing (EntityLiving entityLiving, ItemStack stack)
+    public boolean onEntitySwing (EntityLivingBase entityLiving, ItemStack stack)
     {
         if (entityLiving instanceof EntityPlayer && !mod_Test.leftClick)
         {

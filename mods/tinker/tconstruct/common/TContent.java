@@ -168,6 +168,7 @@ import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.ChestGenHooks;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
@@ -849,7 +850,7 @@ public class TContent implements IFuelHandler
     }
 
     public static Item[] patternOutputs;
-    public static LiquidStack[] liquids;
+    public static FluidStack[] liquids;
 
     void addCraftingRecipes ()
     {
@@ -977,48 +978,48 @@ public class TContent implements IFuelHandler
 
         LiquidCasting tableCasting = TConstructRegistry.instance.getTableCasting();
         //Blank
-        tableCasting.addCastingRecipe(new ItemStack(blankPattern, 1, 1), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 8), 80);
-        tableCasting.addCastingRecipe(new ItemStack(blankPattern, 1, 2), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 1), 80);
+        tableCasting.addCastingRecipe(new ItemStack(blankPattern, 1, 1), new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 8), 80);
+        tableCasting.addCastingRecipe(new ItemStack(blankPattern, 1, 2), new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 1), 80);
 
         //Ingots
-        tableCasting.addCastingRecipe(new ItemStack(Item.ingotIron), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 0), ingotcast, 80); //Iron
-        tableCasting.addCastingRecipe(new ItemStack(Item.ingotGold), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 1), ingotcast, 80); //gold
-        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 9), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 2), ingotcast, 80); //copper
-        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 10), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 3), ingotcast, 80); //tin
-        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 11), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 4), ingotcast, 80); //aluminum
-        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 3), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 5), ingotcast, 80); //cobalt
-        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 4), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 6), ingotcast, 80); //ardite
-        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 13), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 7), ingotcast, 80); //bronze
-        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 14), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 8), ingotcast, 80); //albrass
-        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 5), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 9), ingotcast, 80); //manyullyn
-        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 15), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 10), ingotcast, 80); //alumite
-        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 18), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 11), ingotcast, 80); //obsidian
-        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 16), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 12), ingotcast, 80); //steel
+        tableCasting.addCastingRecipe(new ItemStack(Item.ingotIron), new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 0), ingotcast, 80); //Iron
+        tableCasting.addCastingRecipe(new ItemStack(Item.ingotGold), new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 1), ingotcast, 80); //gold
+        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 9), new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 2), ingotcast, 80); //copper
+        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 10), new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 3), ingotcast, 80); //tin
+        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 11), new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 4), ingotcast, 80); //aluminum
+        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 3), new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 5), ingotcast, 80); //cobalt
+        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 4), new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 6), ingotcast, 80); //ardite
+        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 13), new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 7), ingotcast, 80); //bronze
+        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 14), new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 8), ingotcast, 80); //albrass
+        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 5), new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 9), ingotcast, 80); //manyullyn
+        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 15), new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 10), ingotcast, 80); //alumite
+        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 18), new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 11), ingotcast, 80); //obsidian
+        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 16), new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 12), ingotcast, 80); //steel
 
         //Buckets
         ItemStack bucket = new ItemStack(Item.bucketEmpty);
-        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 0), new LiquidStack(liquidMetalStill.blockID, LiquidContainerRegistry.BUCKET_VOLUME, 0), bucket, true, 10); //Iron
-        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 1), new LiquidStack(liquidMetalStill.blockID, LiquidContainerRegistry.BUCKET_VOLUME, 1), bucket, true, 10); //gold
-        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 2), new LiquidStack(liquidMetalStill.blockID, LiquidContainerRegistry.BUCKET_VOLUME, 2), bucket, true, 10); //copper
-        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 3), new LiquidStack(liquidMetalStill.blockID, LiquidContainerRegistry.BUCKET_VOLUME, 3), bucket, true, 10); //tin
-        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 4), new LiquidStack(liquidMetalStill.blockID, LiquidContainerRegistry.BUCKET_VOLUME, 4), bucket, true, 10); //aluminum
-        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 5), new LiquidStack(liquidMetalStill.blockID, LiquidContainerRegistry.BUCKET_VOLUME, 5), bucket, true, 10); //cobalt
-        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 6), new LiquidStack(liquidMetalStill.blockID, LiquidContainerRegistry.BUCKET_VOLUME, 6), bucket, true, 10); //ardite
-        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 7), new LiquidStack(liquidMetalStill.blockID, LiquidContainerRegistry.BUCKET_VOLUME, 7), bucket, true, 10); //bronze
-        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 8), new LiquidStack(liquidMetalStill.blockID, LiquidContainerRegistry.BUCKET_VOLUME, 8), bucket, true, 10); //alubrass
-        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 9), new LiquidStack(liquidMetalStill.blockID, LiquidContainerRegistry.BUCKET_VOLUME, 9), bucket, true, 10); //manyullyn
-        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 10), new LiquidStack(liquidMetalStill.blockID, LiquidContainerRegistry.BUCKET_VOLUME, 10), bucket, true, 10); //alumite
-        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 11), new LiquidStack(liquidMetalStill.blockID, LiquidContainerRegistry.BUCKET_VOLUME, 11), bucket, true, 10);// obsidian
-        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 12), new LiquidStack(liquidMetalStill.blockID, LiquidContainerRegistry.BUCKET_VOLUME, 12), bucket, true, 10); //steel
-        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 13), new LiquidStack(liquidMetalStill.blockID, LiquidContainerRegistry.BUCKET_VOLUME, 13), bucket, true, 10); //glass
-        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 14), new LiquidStack(liquidMetalStill.blockID, LiquidContainerRegistry.BUCKET_VOLUME, 14), bucket, true, 10); //seared stone
-        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 15), new LiquidStack(liquidMetalStill.blockID, LiquidContainerRegistry.BUCKET_VOLUME, 15), bucket, true, 10); //emerald
+        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 0), new FluidStack(liquidMetalStill.blockID, LiquidContainerRegistry.BUCKET_VOLUME, 0), bucket, true, 10); //Iron
+        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 1), new FluidStack(liquidMetalStill.blockID, LiquidContainerRegistry.BUCKET_VOLUME, 1), bucket, true, 10); //gold
+        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 2), new FluidStack(liquidMetalStill.blockID, LiquidContainerRegistry.BUCKET_VOLUME, 2), bucket, true, 10); //copper
+        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 3), new FluidStack(liquidMetalStill.blockID, LiquidContainerRegistry.BUCKET_VOLUME, 3), bucket, true, 10); //tin
+        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 4), new FluidStack(liquidMetalStill.blockID, LiquidContainerRegistry.BUCKET_VOLUME, 4), bucket, true, 10); //aluminum
+        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 5), new FluidStack(liquidMetalStill.blockID, LiquidContainerRegistry.BUCKET_VOLUME, 5), bucket, true, 10); //cobalt
+        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 6), new FluidStack(liquidMetalStill.blockID, LiquidContainerRegistry.BUCKET_VOLUME, 6), bucket, true, 10); //ardite
+        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 7), new FluidStack(liquidMetalStill.blockID, LiquidContainerRegistry.BUCKET_VOLUME, 7), bucket, true, 10); //bronze
+        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 8), new FluidStack(liquidMetalStill.blockID, LiquidContainerRegistry.BUCKET_VOLUME, 8), bucket, true, 10); //alubrass
+        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 9), new FluidStack(liquidMetalStill.blockID, LiquidContainerRegistry.BUCKET_VOLUME, 9), bucket, true, 10); //manyullyn
+        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 10), new FluidStack(liquidMetalStill.blockID, LiquidContainerRegistry.BUCKET_VOLUME, 10), bucket, true, 10); //alumite
+        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 11), new FluidStack(liquidMetalStill.blockID, LiquidContainerRegistry.BUCKET_VOLUME, 11), bucket, true, 10);// obsidian
+        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 12), new FluidStack(liquidMetalStill.blockID, LiquidContainerRegistry.BUCKET_VOLUME, 12), bucket, true, 10); //steel
+        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 13), new FluidStack(liquidMetalStill.blockID, LiquidContainerRegistry.BUCKET_VOLUME, 13), bucket, true, 10); //glass
+        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 14), new FluidStack(liquidMetalStill.blockID, LiquidContainerRegistry.BUCKET_VOLUME, 14), bucket, true, 10); //seared stone
+        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 15), new FluidStack(liquidMetalStill.blockID, LiquidContainerRegistry.BUCKET_VOLUME, 15), bucket, true, 10); //emerald
 
-        tableCasting.addCastingRecipe(new ItemStack(glassPane), new LiquidStack(liquidMetalStill.blockID, 250, 13), null, 80);
+        tableCasting.addCastingRecipe(new ItemStack(glassPane), new FluidStack(liquidMetalStill.blockID, 250, 13), null, 80);
 
-        liquids = new LiquidStack[] { new LiquidStack(liquidMetalStill.blockID, 1, 0), new LiquidStack(liquidMetalStill.blockID, 1, 2), new LiquidStack(liquidMetalStill.blockID, 1, 5),
-                new LiquidStack(liquidMetalStill.blockID, 1, 6), new LiquidStack(liquidMetalStill.blockID, 1, 9), new LiquidStack(liquidMetalStill.blockID, 1, 7),
-                new LiquidStack(liquidMetalStill.blockID, 1, 10), new LiquidStack(liquidMetalStill.blockID, 1, 11), new LiquidStack(liquidMetalStill.blockID, 1, 12) };
+        liquids = new FluidStack[] { new FluidStack(liquidMetalStill.blockID, 1, 0), new FluidStack(liquidMetalStill.blockID, 1, 2), new FluidStack(liquidMetalStill.blockID, 1, 5),
+                new FluidStack(liquidMetalStill.blockID, 1, 6), new FluidStack(liquidMetalStill.blockID, 1, 9), new FluidStack(liquidMetalStill.blockID, 1, 7),
+                new FluidStack(liquidMetalStill.blockID, 1, 10), new FluidStack(liquidMetalStill.blockID, 1, 11), new FluidStack(liquidMetalStill.blockID, 1, 12) };
         int[] liquidDamage = new int[] { 2, 13, 10, 11, 12, 14, 15, 6, 16 };
 
         for (int iter = 0; iter < patternOutputs.length; iter++)
@@ -1027,139 +1028,139 @@ public class TContent implements IFuelHandler
             {
                 ItemStack cast = new ItemStack(metalPattern, 1, iter + 1);
 
-                tableCasting.addCastingRecipe(cast, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 8), new ItemStack(patternOutputs[iter], 1, Short.MAX_VALUE), false, 50);
-                tableCasting.addCastingRecipe(cast, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 1), new ItemStack(patternOutputs[iter], 1, Short.MAX_VALUE), false, 50);
+                tableCasting.addCastingRecipe(cast, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 8), new ItemStack(patternOutputs[iter], 1, Short.MAX_VALUE), false, 50);
+                tableCasting.addCastingRecipe(cast, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 1), new ItemStack(patternOutputs[iter], 1, Short.MAX_VALUE), false, 50);
 
                 for (int iterTwo = 0; iterTwo < liquids.length; iterTwo++)
                 {
                     ItemStack metalCast = new ItemStack(patternOutputs[iter], 1, liquidDamage[iterTwo]);
-                    tableCasting.addCastingRecipe(metalCast, new LiquidStack(liquids[iterTwo].itemID, ((IPattern) metalPattern).getPatternCost(metalCast) * TConstruct.ingotLiquidValue / 2,
+                    tableCasting.addCastingRecipe(metalCast, new FluidStack(liquids[iterTwo].itemID, ((IPattern) metalPattern).getPatternCost(metalCast) * TConstruct.ingotLiquidValue / 2,
                             liquids[iterTwo].itemMeta), cast, 50);
                 }
             }
         }
 
         ItemStack fullguardCast = new ItemStack(metalPattern, 1, 22);
-        tableCasting.addCastingRecipe(fullguardCast, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 8), new ItemStack(fullGuard, 1, Short.MAX_VALUE), false, 50);
-        tableCasting.addCastingRecipe(fullguardCast, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 1), new ItemStack(fullGuard, 1, Short.MAX_VALUE), false, 50);
+        tableCasting.addCastingRecipe(fullguardCast, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 8), new ItemStack(fullGuard, 1, Short.MAX_VALUE), false, 50);
+        tableCasting.addCastingRecipe(fullguardCast, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 1), new ItemStack(fullGuard, 1, Short.MAX_VALUE), false, 50);
 
         LiquidCasting basinCasting = TConstructRegistry.getBasinCasting();
-        basinCasting.addCastingRecipe(new ItemStack(Block.blockIron), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 0), null, true, 100); //Iron
-        basinCasting.addCastingRecipe(new ItemStack(Block.blockGold), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 1), null, true, 100); //gold
-        basinCasting.addCastingRecipe(new ItemStack(metalBlock, 1, 3), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 2), null, true, 100); //copper
-        basinCasting.addCastingRecipe(new ItemStack(metalBlock, 1, 5), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 3), null, true, 100); //tin
-        basinCasting.addCastingRecipe(new ItemStack(metalBlock, 1, 6), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 4), null, true, 100); //aluminum
-        basinCasting.addCastingRecipe(new ItemStack(metalBlock, 1, 0), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 5), null, true, 100); //cobalt
-        basinCasting.addCastingRecipe(new ItemStack(metalBlock, 1, 1), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 6), null, true, 100); //ardite
-        basinCasting.addCastingRecipe(new ItemStack(metalBlock, 1, 4), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 7), null, true, 100); //bronze
-        basinCasting.addCastingRecipe(new ItemStack(metalBlock, 1, 7), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 8), null, true, 100); //albrass
-        basinCasting.addCastingRecipe(new ItemStack(metalBlock, 1, 2), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 9), null, true, 100); //manyullyn
-        basinCasting.addCastingRecipe(new ItemStack(metalBlock, 1, 8), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 10), null, true, 100); //alumite
-        basinCasting.addCastingRecipe(new ItemStack(Block.obsidian), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 11), null, true, 100);// obsidian
-        basinCasting.addCastingRecipe(new ItemStack(metalBlock, 1, 9), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 12), null, true, 100); //steel
-        basinCasting.addCastingRecipe(new ItemStack(glass, 1, 0), new LiquidStack(liquidMetalStill.blockID, LiquidContainerRegistry.BUCKET_VOLUME, 13), null, true, 100); //glass
-        basinCasting.addCastingRecipe(new ItemStack(smeltery, 1, 4), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 14), null, true, 100); //seared stone
+        basinCasting.addCastingRecipe(new ItemStack(Block.blockIron), new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 0), null, true, 100); //Iron
+        basinCasting.addCastingRecipe(new ItemStack(Block.blockGold), new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 1), null, true, 100); //gold
+        basinCasting.addCastingRecipe(new ItemStack(metalBlock, 1, 3), new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 2), null, true, 100); //copper
+        basinCasting.addCastingRecipe(new ItemStack(metalBlock, 1, 5), new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 3), null, true, 100); //tin
+        basinCasting.addCastingRecipe(new ItemStack(metalBlock, 1, 6), new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 4), null, true, 100); //aluminum
+        basinCasting.addCastingRecipe(new ItemStack(metalBlock, 1, 0), new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 5), null, true, 100); //cobalt
+        basinCasting.addCastingRecipe(new ItemStack(metalBlock, 1, 1), new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 6), null, true, 100); //ardite
+        basinCasting.addCastingRecipe(new ItemStack(metalBlock, 1, 4), new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 7), null, true, 100); //bronze
+        basinCasting.addCastingRecipe(new ItemStack(metalBlock, 1, 7), new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 8), null, true, 100); //albrass
+        basinCasting.addCastingRecipe(new ItemStack(metalBlock, 1, 2), new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 9), null, true, 100); //manyullyn
+        basinCasting.addCastingRecipe(new ItemStack(metalBlock, 1, 8), new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 10), null, true, 100); //alumite
+        basinCasting.addCastingRecipe(new ItemStack(Block.obsidian), new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 11), null, true, 100);// obsidian
+        basinCasting.addCastingRecipe(new ItemStack(metalBlock, 1, 9), new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 12), null, true, 100); //steel
+        basinCasting.addCastingRecipe(new ItemStack(glass, 1, 0), new FluidStack(liquidMetalStill.blockID, LiquidContainerRegistry.BUCKET_VOLUME, 13), null, true, 100); //glass
+        basinCasting.addCastingRecipe(new ItemStack(smeltery, 1, 4), new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 14), null, true, 100); //seared stone
 
-        basinCasting.addCastingRecipe(new ItemStack(speedBlock, 1, 0), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue / 9, 3), new ItemStack(Block.gravel), true, 100); //brownstone
+        basinCasting.addCastingRecipe(new ItemStack(speedBlock, 1, 0), new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue / 9, 3), new ItemStack(Block.gravel), true, 100); //brownstone
 
         //Ore
-        Smeltery.addMelting(Block.oreIron, 0, 600, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 0));
-        Smeltery.addMelting(Block.oreGold, 0, 400, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 1));
-        Smeltery.addMelting(oreGravel, 0, 600, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 0));
-        //Smeltery.addMelting(oreGravel, 1, 400, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 1));
+        Smeltery.addMelting(Block.oreIron, 0, 600, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 0));
+        Smeltery.addMelting(Block.oreGold, 0, 400, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 1));
+        Smeltery.addMelting(oreGravel, 0, 600, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 0));
+        //Smeltery.addMelting(oreGravel, 1, 400, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 1));
 
         //Items
-        Smeltery.addMelting(new ItemStack(Item.ingotIron, 4), Block.blockIron.blockID, 0, 500, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 0));
-        Smeltery.addMelting(new ItemStack(Item.ingotGold, 4), Block.blockGold.blockID, 0, 300, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 1));
-        Smeltery.addMelting(new ItemStack(Item.goldNugget, 4), Block.blockGold.blockID, 0, 150, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue / 9, 1));
+        Smeltery.addMelting(new ItemStack(Item.ingotIron, 4), Block.blockIron.blockID, 0, 500, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 0));
+        Smeltery.addMelting(new ItemStack(Item.ingotGold, 4), Block.blockGold.blockID, 0, 300, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 1));
+        Smeltery.addMelting(new ItemStack(Item.goldNugget, 4), Block.blockGold.blockID, 0, 150, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue / 9, 1));
 
-        Smeltery.addMelting(new ItemStack(materials, 1, 18), Block.obsidian.blockID, 0, 750, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 11)); //Obsidian ingot
+        Smeltery.addMelting(new ItemStack(materials, 1, 18), Block.obsidian.blockID, 0, 750, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 11)); //Obsidian ingot
 
-        Smeltery.addMelting(new ItemStack(blankPattern, 4, 1), metalBlock.blockID, 7, 150, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 8));
-        Smeltery.addMelting(new ItemStack(blankPattern, 4, 2), metalBlock.blockID, 7, 150, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 1));
+        Smeltery.addMelting(new ItemStack(blankPattern, 4, 1), metalBlock.blockID, 7, 150, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 8));
+        Smeltery.addMelting(new ItemStack(blankPattern, 4, 2), metalBlock.blockID, 7, 150, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 1));
 
         //Blocks
-        Smeltery.addMelting(Block.blockIron, 0, 600, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 0));
-        Smeltery.addMelting(Block.blockGold, 0, 400, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 1));
-        Smeltery.addMelting(Block.obsidian, 0, 800, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 11));
-        Smeltery.addMelting(Block.ice, 0, 75, new LiquidStack(Block.waterStill.blockID, 1000, 0));
-        Smeltery.addMelting(Block.sand, 0, 625, new LiquidStack(liquidMetalStill.blockID, LiquidContainerRegistry.BUCKET_VOLUME, 13));
-        Smeltery.addMelting(Block.glass, 0, 625, new LiquidStack(liquidMetalStill.blockID, LiquidContainerRegistry.BUCKET_VOLUME, 13));
-        Smeltery.addMelting(Block.stone, 0, 800, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue / 18, 14));
-        Smeltery.addMelting(Block.cobblestone, 0, 800, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue / 18, 14));
+        Smeltery.addMelting(Block.blockIron, 0, 600, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 0));
+        Smeltery.addMelting(Block.blockGold, 0, 400, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 1));
+        Smeltery.addMelting(Block.obsidian, 0, 800, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 11));
+        Smeltery.addMelting(Block.ice, 0, 75, new FluidStack(Block.waterStill.blockID, 1000, 0));
+        Smeltery.addMelting(Block.sand, 0, 625, new FluidStack(liquidMetalStill.blockID, LiquidContainerRegistry.BUCKET_VOLUME, 13));
+        Smeltery.addMelting(Block.glass, 0, 625, new FluidStack(liquidMetalStill.blockID, LiquidContainerRegistry.BUCKET_VOLUME, 13));
+        Smeltery.addMelting(Block.stone, 0, 800, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue / 18, 14));
+        Smeltery.addMelting(Block.cobblestone, 0, 800, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue / 18, 14));
         
-        Smeltery.addMelting(glass, 0, 500, new LiquidStack(liquidMetalStill.blockID, 1000, 13));
-        Smeltery.addMelting(glassPane, 0, 350, new LiquidStack(liquidMetalStill.blockID, 250, 13));
+        Smeltery.addMelting(glass, 0, 500, new FluidStack(liquidMetalStill.blockID, 1000, 13));
+        Smeltery.addMelting(glassPane, 0, 350, new FluidStack(liquidMetalStill.blockID, 250, 13));
         
         for (int i = 0; i < 16; i++)
         {
-            Smeltery.addMelting(stainedGlassClear, i, 500, new LiquidStack(liquidMetalStill.blockID, 1000, 13));
-            Smeltery.addMelting(stainedGlassClearPane, i, 350, new LiquidStack(liquidMetalStill.blockID, 250, 13));
+            Smeltery.addMelting(stainedGlassClear, i, 500, new FluidStack(liquidMetalStill.blockID, 1000, 13));
+            Smeltery.addMelting(stainedGlassClearPane, i, 350, new FluidStack(liquidMetalStill.blockID, 250, 13));
         }
 
         //Alloys
-        Smeltery.addAlloyMixing(new LiquidStack(liquidMetalStill.blockID, 16, 7), new LiquidStack(liquidMetalStill.blockID, 24, 2), new LiquidStack(liquidMetalStill.blockID, 8, 3)); //Bronze
-        Smeltery.addAlloyMixing(new LiquidStack(liquidMetalStill.blockID, 16, 8), new LiquidStack(liquidMetalStill.blockID, 24, 4), new LiquidStack(liquidMetalStill.blockID, 8, 2)); //Aluminum Brass
-        Smeltery.addAlloyMixing(new LiquidStack(liquidMetalStill.blockID, 16, 9), new LiquidStack(liquidMetalStill.blockID, 32, 5), new LiquidStack(liquidMetalStill.blockID, 32, 6)); //Manyullyn
-        Smeltery.addAlloyMixing(new LiquidStack(liquidMetalStill.blockID, 48, 10), new LiquidStack(liquidMetalStill.blockID, 80, 4), new LiquidStack(liquidMetalStill.blockID, 32, 0), new LiquidStack(
+        Smeltery.addAlloyMixing(new FluidStack(liquidMetalStill.blockID, 16, 7), new FluidStack(liquidMetalStill.blockID, 24, 2), new FluidStack(liquidMetalStill.blockID, 8, 3)); //Bronze
+        Smeltery.addAlloyMixing(new FluidStack(liquidMetalStill.blockID, 16, 8), new FluidStack(liquidMetalStill.blockID, 24, 4), new FluidStack(liquidMetalStill.blockID, 8, 2)); //Aluminum Brass
+        Smeltery.addAlloyMixing(new FluidStack(liquidMetalStill.blockID, 16, 9), new FluidStack(liquidMetalStill.blockID, 32, 5), new FluidStack(liquidMetalStill.blockID, 32, 6)); //Manyullyn
+        Smeltery.addAlloyMixing(new FluidStack(liquidMetalStill.blockID, 48, 10), new FluidStack(liquidMetalStill.blockID, 80, 4), new FluidStack(liquidMetalStill.blockID, 32, 0), new FluidStack(
                 liquidMetalStill.blockID, 32, 11)); //Alumite
 
         //Oreberries
-        Smeltery.addMelting(new ItemStack(oreBerries, 4, 0), Block.blockIron.blockID, 0, 100, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue / 9, 0)); //Iron
-        Smeltery.addMelting(new ItemStack(oreBerries, 4, 1), Block.blockGold.blockID, 0, 100, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue / 9, 1)); //Gold
-        Smeltery.addMelting(new ItemStack(oreBerries, 4, 2), metalBlock.blockID, 3, 100, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue / 9, 2)); //Copper
-        Smeltery.addMelting(new ItemStack(oreBerries, 4, 3), metalBlock.blockID, 5, 100, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue / 9, 3)); //Tin
-        Smeltery.addMelting(new ItemStack(oreBerries, 4, 4), metalBlock.blockID, 6, 100, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue / 9, 4)); //Aluminum
+        Smeltery.addMelting(new ItemStack(oreBerries, 4, 0), Block.blockIron.blockID, 0, 100, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue / 9, 0)); //Iron
+        Smeltery.addMelting(new ItemStack(oreBerries, 4, 1), Block.blockGold.blockID, 0, 100, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue / 9, 1)); //Gold
+        Smeltery.addMelting(new ItemStack(oreBerries, 4, 2), metalBlock.blockID, 3, 100, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue / 9, 2)); //Copper
+        Smeltery.addMelting(new ItemStack(oreBerries, 4, 3), metalBlock.blockID, 5, 100, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue / 9, 3)); //Tin
+        Smeltery.addMelting(new ItemStack(oreBerries, 4, 4), metalBlock.blockID, 6, 100, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue / 9, 4)); //Aluminum
 
         //Vanilla Armor
-        Smeltery.addMelting(new ItemStack(Item.helmetIron, 1, 0), Block.blockIron.blockID, 0, 600, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 5, 0));
-        Smeltery.addMelting(new ItemStack(Item.plateIron, 1, 0), Block.blockIron.blockID, 0, 600, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 8, 0));
-        Smeltery.addMelting(new ItemStack(Item.legsIron, 1, 0), Block.blockIron.blockID, 0, 600, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 7, 0));
-        Smeltery.addMelting(new ItemStack(Item.bootsIron, 1, 0), Block.blockIron.blockID, 0, 600, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 4, 0));
+        Smeltery.addMelting(new ItemStack(Item.helmetIron, 1, 0), Block.blockIron.blockID, 0, 600, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 5, 0));
+        Smeltery.addMelting(new ItemStack(Item.plateIron, 1, 0), Block.blockIron.blockID, 0, 600, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 8, 0));
+        Smeltery.addMelting(new ItemStack(Item.legsIron, 1, 0), Block.blockIron.blockID, 0, 600, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 7, 0));
+        Smeltery.addMelting(new ItemStack(Item.bootsIron, 1, 0), Block.blockIron.blockID, 0, 600, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 4, 0));
 
-        Smeltery.addMelting(new ItemStack(Item.helmetGold, 1, 0), Block.blockGold.blockID, 0, 350, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 5, 1));
-        Smeltery.addMelting(new ItemStack(Item.plateGold, 1, 0), Block.blockGold.blockID, 0, 350, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 8, 1));
-        Smeltery.addMelting(new ItemStack(Item.legsGold, 1, 0), Block.blockGold.blockID, 0, 350, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 7, 1));
-        Smeltery.addMelting(new ItemStack(Item.bootsGold, 1, 0), Block.blockGold.blockID, 0, 350, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 4, 1));
+        Smeltery.addMelting(new ItemStack(Item.helmetGold, 1, 0), Block.blockGold.blockID, 0, 350, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 5, 1));
+        Smeltery.addMelting(new ItemStack(Item.plateGold, 1, 0), Block.blockGold.blockID, 0, 350, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 8, 1));
+        Smeltery.addMelting(new ItemStack(Item.legsGold, 1, 0), Block.blockGold.blockID, 0, 350, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 7, 1));
+        Smeltery.addMelting(new ItemStack(Item.bootsGold, 1, 0), Block.blockGold.blockID, 0, 350, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 4, 1));
 
-        Smeltery.addMelting(new ItemStack(Item.helmetChain, 1, 0), this.metalBlock.blockID, 9, 700, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 12));
-        Smeltery.addMelting(new ItemStack(Item.plateChain, 1, 0), this.metalBlock.blockID, 9, 700, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 12));
-        Smeltery.addMelting(new ItemStack(Item.legsChain, 1, 0), this.metalBlock.blockID, 9, 700, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 12));
-        Smeltery.addMelting(new ItemStack(Item.bootsChain, 1, 0), this.metalBlock.blockID, 9, 700, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 12));
+        Smeltery.addMelting(new ItemStack(Item.helmetChain, 1, 0), this.metalBlock.blockID, 9, 700, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 12));
+        Smeltery.addMelting(new ItemStack(Item.plateChain, 1, 0), this.metalBlock.blockID, 9, 700, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 12));
+        Smeltery.addMelting(new ItemStack(Item.legsChain, 1, 0), this.metalBlock.blockID, 9, 700, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 12));
+        Smeltery.addMelting(new ItemStack(Item.bootsChain, 1, 0), this.metalBlock.blockID, 9, 700, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 12));
 
         //Vanilla tools
-        Smeltery.addMelting(new ItemStack(Item.hoeIron, 1, 0), Block.blockIron.blockID, 0, 600, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 0));
-        Smeltery.addMelting(new ItemStack(Item.swordIron, 1, 0), Block.blockIron.blockID, 0, 600, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 0));
-        Smeltery.addMelting(new ItemStack(Item.shovelIron, 1, 0), Block.blockIron.blockID, 0, 600, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 1, 0));
-        Smeltery.addMelting(new ItemStack(Item.pickaxeIron, 1, 0), Block.blockIron.blockID, 0, 600, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 3, 0));
-        Smeltery.addMelting(new ItemStack(Item.axeIron, 1, 0), Block.blockIron.blockID, 0, 600, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 3, 0));
+        Smeltery.addMelting(new ItemStack(Item.hoeIron, 1, 0), Block.blockIron.blockID, 0, 600, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 0));
+        Smeltery.addMelting(new ItemStack(Item.swordIron, 1, 0), Block.blockIron.blockID, 0, 600, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 0));
+        Smeltery.addMelting(new ItemStack(Item.shovelIron, 1, 0), Block.blockIron.blockID, 0, 600, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 1, 0));
+        Smeltery.addMelting(new ItemStack(Item.pickaxeIron, 1, 0), Block.blockIron.blockID, 0, 600, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 3, 0));
+        Smeltery.addMelting(new ItemStack(Item.axeIron, 1, 0), Block.blockIron.blockID, 0, 600, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 3, 0));
 
-        Smeltery.addMelting(new ItemStack(Item.hoeGold, 1, 0), Block.blockGold.blockID, 0, 350, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 1));
-        Smeltery.addMelting(new ItemStack(Item.swordGold, 1, 0), Block.blockGold.blockID, 0, 350, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 1));
-        Smeltery.addMelting(new ItemStack(Item.shovelGold, 1, 0), Block.blockGold.blockID, 0, 350, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 1, 1));
-        Smeltery.addMelting(new ItemStack(Item.pickaxeGold, 1, 0), Block.blockGold.blockID, 0, 350, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 3, 1));
-        Smeltery.addMelting(new ItemStack(Item.axeGold, 1, 0), Block.blockGold.blockID, 0, 350, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 3, 1));
+        Smeltery.addMelting(new ItemStack(Item.hoeGold, 1, 0), Block.blockGold.blockID, 0, 350, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 1));
+        Smeltery.addMelting(new ItemStack(Item.swordGold, 1, 0), Block.blockGold.blockID, 0, 350, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 1));
+        Smeltery.addMelting(new ItemStack(Item.shovelGold, 1, 0), Block.blockGold.blockID, 0, 350, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 1, 1));
+        Smeltery.addMelting(new ItemStack(Item.pickaxeGold, 1, 0), Block.blockGold.blockID, 0, 350, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 3, 1));
+        Smeltery.addMelting(new ItemStack(Item.axeGold, 1, 0), Block.blockGold.blockID, 0, 350, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 3, 1));
         //Vanilla items
 
-        Smeltery.addMelting(new ItemStack(Item.flintAndSteel, 1, 0), Block.blockIron.blockID, 0, 600, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 0));
-        Smeltery.addMelting(new ItemStack(Item.compass, 1, 0), Block.blockIron.blockID, 0, 600, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 4, 0));
+        Smeltery.addMelting(new ItemStack(Item.flintAndSteel, 1, 0), Block.blockIron.blockID, 0, 600, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 0));
+        Smeltery.addMelting(new ItemStack(Item.compass, 1, 0), Block.blockIron.blockID, 0, 600, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 4, 0));
 
         //Vanilla blocks
-        Smeltery.addMelting(new ItemStack(Item.bucketEmpty), Block.blockIron.blockID, 0, 600, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 3, 0));
-        Smeltery.addMelting(new ItemStack(Item.minecartEmpty), Block.blockIron.blockID, 8, 600, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 5, 0));
-        Smeltery.addMelting(new ItemStack(Item.doorIron), Block.blockIron.blockID, 8, 600, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 6, 0));
-        Smeltery.addMelting(new ItemStack(Block.fenceIron), Block.blockIron.blockID, 8, 600, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 6 / 16, 0));
-        Smeltery.addMelting(new ItemStack(Block.pressurePlateIron), Block.blockIron.blockID, 0, 600, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 0));
-        Smeltery.addMelting(new ItemStack(Block.pressurePlateGold, 4), Block.blockGold.blockID, 0, 600, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 1));
-        Smeltery.addMelting(new ItemStack(Block.rail), Block.blockIron.blockID, 8, 600, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 6 / 16, 0));
-        Smeltery.addMelting(new ItemStack(Block.railPowered), Block.blockGold.blockID, 8, 350, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 1));
-        Smeltery.addMelting(new ItemStack(Block.railDetector), Block.blockIron.blockID, 8, 600, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 0));
-        Smeltery.addMelting(new ItemStack(Block.railActivator), Block.blockIron.blockID, 8, 600, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 0));
-        Smeltery.addMelting(new ItemStack(Block.enchantmentTable), Block.obsidian.blockID, 0, 750, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 4, 11));
-        Smeltery.addMelting(new ItemStack(Block.cauldron), Block.blockIron.blockID, 8, 600, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 7, 0));
-        Smeltery.addMelting(new ItemStack(Block.anvil, 1, 0), Block.blockIron.blockID, 8, 800, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 31, 0));
-        Smeltery.addMelting(new ItemStack(Block.anvil, 1, 1), Block.blockIron.blockID, 8, 800, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 31, 0));
-        Smeltery.addMelting(new ItemStack(Block.anvil, 1, 2), Block.blockIron.blockID, 8, 800, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 31, 0));
+        Smeltery.addMelting(new ItemStack(Item.bucketEmpty), Block.blockIron.blockID, 0, 600, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 3, 0));
+        Smeltery.addMelting(new ItemStack(Item.minecartEmpty), Block.blockIron.blockID, 8, 600, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 5, 0));
+        Smeltery.addMelting(new ItemStack(Item.doorIron), Block.blockIron.blockID, 8, 600, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 6, 0));
+        Smeltery.addMelting(new ItemStack(Block.fenceIron), Block.blockIron.blockID, 8, 600, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 6 / 16, 0));
+        Smeltery.addMelting(new ItemStack(Block.pressurePlateIron), Block.blockIron.blockID, 0, 600, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 0));
+        Smeltery.addMelting(new ItemStack(Block.pressurePlateGold, 4), Block.blockGold.blockID, 0, 600, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 1));
+        Smeltery.addMelting(new ItemStack(Block.rail), Block.blockIron.blockID, 8, 600, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 6 / 16, 0));
+        Smeltery.addMelting(new ItemStack(Block.railPowered), Block.blockGold.blockID, 8, 350, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 1));
+        Smeltery.addMelting(new ItemStack(Block.railDetector), Block.blockIron.blockID, 8, 600, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 0));
+        Smeltery.addMelting(new ItemStack(Block.railActivator), Block.blockIron.blockID, 8, 600, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 0));
+        Smeltery.addMelting(new ItemStack(Block.enchantmentTable), Block.obsidian.blockID, 0, 750, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 4, 11));
+        Smeltery.addMelting(new ItemStack(Block.cauldron), Block.blockIron.blockID, 8, 600, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 7, 0));
+        Smeltery.addMelting(new ItemStack(Block.anvil, 1, 0), Block.blockIron.blockID, 8, 800, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 31, 0));
+        Smeltery.addMelting(new ItemStack(Block.anvil, 1, 1), Block.blockIron.blockID, 8, 800, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 31, 0));
+        Smeltery.addMelting(new ItemStack(Block.anvil, 1, 2), Block.blockIron.blockID, 8, 800, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 31, 0));
 
         /* Detailing */
         Detailing chiseling = TConstructRegistry.getChiselDetailing();
@@ -1470,7 +1471,7 @@ public class TContent implements IFuelHandler
         tinkerHousePatterns.addItem(new WeightedRandomChestContent(new ItemStack(woodPattern, 1, 22), 1, 3, 40));
     }
 
-    public static LiquidStack[] liquidIcons = new LiquidStack[0];
+    public static FluidStack[] liquidIcons = new FluidStack[0];
     public static String[] liquidNames;
 
     public void oreRegistry ()
@@ -1520,16 +1521,16 @@ public class TContent implements IFuelHandler
 
         String[] names = new String[] { "Molten Iron", "Molten Gold", "Molten Copper", "Molten Tin", "Molten Aluminum", "Molten Cobalt", "Molten Ardite", "Molten Bronze", "Molten Aluminum Brass",
                 "Molten Manyullyn", "Molten Alumite", "Molten Obsidian", "Molten Steel", "Molten Glass", "Seared Stone", "Molten Emerald", "mushroomsoup" };
-        liquidIcons = new LiquidStack[names.length];
+        liquidIcons = new FluidStack[names.length];
         liquidNames = new String[names.length];
         for (int iter = 0; iter < names.length; iter++)
         {
-            LiquidStack liquidstack = new LiquidStack(liquidMetalStill.blockID, LiquidContainerRegistry.BUCKET_VOLUME, iter);
+            FluidStack FluidStack = new FluidStack(liquidMetalStill.blockID, LiquidContainerRegistry.BUCKET_VOLUME, iter);
             String name = names[iter];
-            liquidIcons[iter] = liquidstack;
+            liquidIcons[iter] = FluidStack;
             liquidNames[iter] = name;
-            LiquidDictionary.getOrCreateLiquid(name, liquidstack);
-            LiquidContainerRegistry.registerLiquid(new LiquidContainerData(liquidstack, new ItemStack(buckets, 1, iter), new ItemStack(Item.bucketEmpty)));
+            LiquidDictionary.getOrCreateLiquid(name, FluidStack);
+            LiquidContainerRegistry.registerLiquid(new LiquidContainerData(FluidStack, new ItemStack(buckets, 1, iter), new ItemStack(Item.bucketEmpty)));
         }
 
         String[] glassTypes = { "glassBlack", "glassRed", "glassGreen", "glassBrown", "glassBlue", "glassPurple", "glassCyan", "glassLightGray", "glassGray", "glassPink", "glassLime", "glassYellow",

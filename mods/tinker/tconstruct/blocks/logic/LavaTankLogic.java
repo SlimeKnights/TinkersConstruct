@@ -6,45 +6,27 @@ import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidContainerRegistry;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTank;
+import net.minecraftforge.fluids.FluidTankInfo;
+import net.minecraftforge.fluids.IFluidHandler;
+import net.minecraftforge.fluids.IFluidTank;
 
-public class LavaTankLogic extends MultiServantLogic implements ITankContainer
+public class LavaTankLogic extends MultiServantLogic implements IFluidHandler
 {
-    public LiquidTank tank;
+    public FluidTank tank;
     public int renderOffset;
-
-    //public LiquidStack renderLiquid;
-    //public int counter;
-    //public int updateAmount;
 
     public LavaTankLogic()
     {
-        tank = new LiquidTank(LiquidContainerRegistry.BUCKET_VOLUME * 4);
+        tank = new FluidTank(FluidContainerRegistry.BUCKET_VOLUME * 4);
     }
 
     @Override
-    public int fill (ForgeDirection from, LiquidStack resource, boolean doFill)
+    public int fill (ForgeDirection from, FluidStack resource, boolean doFill)
     {
-        return fill(0, resource, doFill);
-    }
-
-    @Override
-    public int fill (int tankIndex, LiquidStack resource, boolean doFill)
-    {
-        /*if (resource != null && resource.amount > 20 && counter == 0)
-        {
-        	if (tank.getLiquid() == null)
-        	{
-        		renderLiquid = new LiquidStack(resource.itemID, 0, resource.itemMeta);
-        	}
-        	else
-        	{
-        		renderLiquid = tank.getLiquid();
-        	}
-        	counter = 24;
-        	updateAmount = resource.amount / 24;
-        	System.out.println("renderLiquid: "+renderLiquid.amount);			
-        }*/
-        //renderLiquid = tank.getLiquid();
         int amount = tank.fill(resource, doFill);
         if (amount > 0 && doFill)
         {
@@ -52,27 +34,13 @@ public class LavaTankLogic extends MultiServantLogic implements ITankContainer
             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
         }
 
-        //System.out.println("tankLiquid: "+tank.getLiquid().amount);	
         return amount;
     }
 
     @Override
-    public LiquidStack drain (ForgeDirection from, int maxDrain, boolean doDrain)
+    public FluidStack drain (ForgeDirection from, int maxDrain, boolean doDrain)
     {
-        return drain(0, maxDrain, doDrain);
-    }
-
-    @Override
-    public LiquidStack drain (int tankIndex, int maxDrain, boolean doDrain)
-    {
-        /*if (maxDrain > 20 && counter == 0)
-        {
-        	renderLiquid = tank.getLiquid();
-        	counter = 24;
-        	updateAmount = -(maxDrain / 24);
-        }*/
-
-        LiquidStack amount = tank.drain(maxDrain, doDrain);
+        FluidStack amount = tank.drain(maxDrain, doDrain);
         if (amount != null && doDrain)
         {
             renderOffset = -maxDrain;
@@ -80,34 +48,61 @@ public class LavaTankLogic extends MultiServantLogic implements ITankContainer
         }
         return amount;
     }
-
+    
     @Override
-    public ILiquidTank[] getTanks (ForgeDirection direction)
+    public FluidStack drain (ForgeDirection from, FluidStack resource, boolean doDrain)
     {
-        return new ILiquidTank[] { tank };
+        return null;
     }
 
     @Override
-    public ILiquidTank getTank (ForgeDirection direction, LiquidStack type)
+    public boolean canFill (ForgeDirection from, Fluid fluid)
+    {
+        //return tank.fill(fluid, false) > 0;
+        return false;
+    }
+
+    @Override
+    public boolean canDrain (ForgeDirection from, Fluid fluid)
+    {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public FluidTankInfo[] getTankInfo (ForgeDirection from)
+    {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
+    /*@Override
+    public IFluidTank[] getTanks (ForgeDirection direction)
+    {
+        return new IFluidTank[] { tank };
+    }
+
+    @Override
+    public IFluidTank getTank (ForgeDirection direction, FluidStack type)
     {
         return tank;
+    }*/
+
+    public float getFluidAmountScaled ()
+    {
+        return (float) (tank.getFluid().amount - renderOffset) / (float) (tank.getCapacity() * 1.01F);
     }
 
-    public float getLiquidAmountScaled ()
+    public boolean containsFluid ()
     {
-        return (float) (tank.getLiquid().amount - renderOffset) / (float) (tank.getCapacity() * 1.01F);
-    }
-
-    public boolean containsLiquid ()
-    {
-        return tank.getLiquid() != null;
+        return tank.getFluid() != null;
     }
 
     public int getBrightness ()
     {
-        if (containsLiquid())
+        if (containsFluid())
         {
-            int id = tank.getLiquid().itemID;
+            int id = tank.getFluid().fluidID;
             if (id < 4096)
             {
                 return Block.lightValue[id];
@@ -132,22 +127,20 @@ public class LavaTankLogic extends MultiServantLogic implements ITankContainer
 
     public void readCustomNBT (NBTTagCompound tags)
     {
-        if (tags.getBoolean("hasLiquid"))
-            tank.setLiquid(new LiquidStack(tags.getInteger("itemID"), tags.getInteger("amount"), tags.getInteger("itemMeta")));
+        if (tags.getBoolean("hasFluid"))
+            tank.setFluid(new FluidStack(tags.getInteger("itemID"), tags.getInteger("amount")));
         else
-            tank.setLiquid(null);
-        //renderLiquid = tank.getLiquid();
+            tank.setFluid(null);
     }
 
     public void writeCustomNBT (NBTTagCompound tags)
     {
-        LiquidStack liquid = tank.getLiquid();
-        tags.setBoolean("hasLiquid", liquid != null);
+        FluidStack liquid = tank.getFluid();
+        tags.setBoolean("hasFluid", liquid != null);
         if (liquid != null)
         {
-            tags.setInteger("itemID", liquid.itemID);
+            tags.setInteger("itemID", liquid.fluidID);
             tags.setInteger("amount", liquid.amount);
-            tags.setInteger("itemMeta", liquid.itemMeta);
         }
     }
 

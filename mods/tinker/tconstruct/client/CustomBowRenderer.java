@@ -6,7 +6,8 @@ import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.client.renderer.texture.TextureManager;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -36,13 +37,13 @@ public class CustomBowRenderer implements IItemRenderer
     @Override
     public void renderItem (ItemRenderType type, ItemStack item, Object... data)
     {
-        EntityLiving living = (EntityLiving) data[1];
+        EntityLivingBase living = (EntityLivingBase) data[1];
         ItemRenderer renderer = RenderManager.instance.itemRenderer;
         for (int i = 0; i < item.getItem().getRenderPasses(item.getItemDamage()) + 1; i++)
             renderItem(living, item, i, type);
     }
 
-    public void renderItem (EntityLiving living, ItemStack stack, int renderPass, ItemRenderType type)
+    public void renderItem (EntityLivingBase living, ItemStack stack, int renderPass, ItemRenderType type)
     {
         GL11.glPushMatrix();
 
@@ -72,14 +73,16 @@ public class CustomBowRenderer implements IItemRenderer
             return;
         }
 
-        if (stack.getItemSpriteNumber() == 0)
+        /*if (stack.getItemSpriteNumber() == 0)
         {
             this.mc.renderEngine.bindTexture("/terrain.png");
         }
         else
         {
             this.mc.renderEngine.bindTexture("/gui/items.png");
-        }
+        }*/
+        TextureManager texturemanager = this.mc.func_110434_K();
+        texturemanager.func_110577_a(texturemanager.func_130087_a(stack.getItemSpriteNumber()));
 
         if (type == ItemRenderType.EQUIPPED_FIRST_PERSON)
         {
@@ -107,7 +110,7 @@ public class CustomBowRenderer implements IItemRenderer
         GL11.glRotatef(50.0F, 0.0F, 1.0F, 0.0F);
         GL11.glRotatef(335.0F, 0.0F, 0.0F, 1.0F);
         GL11.glTranslatef(-0.9375F, -0.0625F, 0.0F);
-        ItemRenderer.renderItemIn2D(tessellator, f1, f2, f, f3, icon.getSheetWidth(), icon.getSheetHeight(), 0.0625F);
+        ItemRenderer.renderItemIn2D(tessellator, f1, f2, f, f3, icon.getOriginX(), icon.getOriginY(), 0.0625F);
 
         /*if (stack != null && stack.hasEffect() && renderPass == 0)
         {

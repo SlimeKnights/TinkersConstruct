@@ -16,6 +16,7 @@ import mods.tinker.tconstruct.library.util.IServantLogic;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -233,14 +234,14 @@ public class SmelteryBlock extends InventoryBlock
     }
 
     @Override
-    public void onBlockPlacedBy (World world, int x, int y, int z, EntityLiving entityliving, ItemStack stack)
+    public void onBlockPlacedBy (World world, int x, int y, int z, EntityLivingBase entityliving, ItemStack stack)
     {
         super.onBlockPlacedBy(world, x, y, z, entityliving, stack);
         if (world.getBlockMetadata(x, y, z) == 0)
             onBlockPlacedElsewhere(world, x, y, z, entityliving);
     }
 
-    public void onBlockPlacedElsewhere (World world, int x, int y, int z, EntityLiving entityliving)
+    public void onBlockPlacedElsewhere (World world, int x, int y, int z, EntityLivingBase entityliving)
     {
         SmelteryLogic logic = (SmelteryLogic) world.getBlockTileEntity(x, y, z);
         logic.checkValidPlacement();

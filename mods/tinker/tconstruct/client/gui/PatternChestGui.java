@@ -3,6 +3,7 @@ package mods.tinker.tconstruct.client.gui;
 import mods.tinker.tconstruct.blocks.logic.PatternChestLogic;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
@@ -25,11 +26,13 @@ public class PatternChestGui extends GuiContainer
         fontRenderer.drawString(StatCollector.translateToLocal("inventory.PatternChest"), 60, 6, 0x404040);
         fontRenderer.drawString(StatCollector.translateToLocal("container.inventory"), 17, (ySize - 96) + 2, 0x404040);
     }
-
+    
+    private static final ResourceLocation background = new ResourceLocation("tinker", "textures/gui/patternchest.png");
+    
     protected void drawGuiContainerBackgroundLayer (float f, int i, int j)
     {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        mc.renderEngine.bindTexture("/mods/tinker/textures/gui/patternchest.png");
+        this.mc.func_110434_K().func_110577_a(background);
         int cornerX = (width - xSize) / 2;
         int cornerY = (height - ySize) / 2;
         drawTexturedModalRect(cornerX, cornerY, 0, 0, xSize, ySize);

@@ -9,6 +9,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
+import net.minecraftforge.fluids.FluidStack;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 
@@ -58,7 +59,7 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
             float base = 0F;
             int yBase = 0;
             int liquidBase = 0;
-            for (LiquidStack liquid : logic.moltenMetal)
+            for (FluidStack liquid : logic.moltenMetal)
             {
                 int liquidSize = liquid.amount;
                 while (liquidSize > 0)

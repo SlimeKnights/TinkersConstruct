@@ -8,6 +8,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 import org.w3c.dom.Document;
@@ -47,7 +48,7 @@ public class GuiManual extends GuiScreen
         //renderitem.renderInFrame = true;
     }
 
-    @Override
+    /*@Override
     public void setWorldAndResolution (Minecraft minecraft, int w, int h)
     {
         this.guiParticles = new GuiParticle(minecraft);
@@ -56,7 +57,7 @@ public class GuiManual extends GuiScreen
         this.height = h;
         this.buttonList.clear();
         this.initGui();
-    }
+    }*/
 
     public void initGui ()
     {
@@ -149,17 +150,20 @@ public class GuiManual extends GuiScreen
             pageRight = null;
         }
     }
+    
+    private static final ResourceLocation bookRight = new ResourceLocation("tinker", "textures/gui/bookright.png");
+    private static final ResourceLocation bookLeft = new ResourceLocation("tinker", "textures/gui/bookleft.png");
 
     public void drawScreen (int par1, int par2, float par3)
     {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        this.mc.renderEngine.bindTexture("/mods/tinker/textures/gui/bookright.png");
+        this.mc.func_110434_K().func_110577_a(bookRight);
         int localWidth = (this.width) / 2;
         byte localHeight = 8;
         this.drawTexturedModalRect(localWidth, localHeight, 0, 0, this.bookImageWidth, this.bookImageHeight);
 
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        this.mc.renderEngine.bindTexture("/mods/tinker/textures/gui/bookleft.png");
+        this.mc.func_110434_K().func_110577_a(bookLeft);
         localWidth = localWidth - this.bookImageWidth;
         this.drawTexturedModalRect(localWidth, localHeight, 256 - this.bookImageWidth, 0, this.bookImageWidth, this.bookImageHeight);
 

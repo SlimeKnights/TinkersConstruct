@@ -4,7 +4,7 @@ import mods.tinker.tconstruct.library.tools.AbilityHelper;
 import mods.tinker.tconstruct.library.util.IActiveLogic;
 import mods.tinker.tconstruct.library.util.IFacingLogic;
 import net.minecraft.block.Block;
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet;
@@ -118,7 +118,7 @@ public class FirestarterLogic extends TileEntity implements IFacingLogic, IActiv
     }
 
     @Override
-    public void setDirection (float yaw, float pitch, EntityLiving player)
+    public void setDirection (float yaw, float pitch, EntityLivingBase player)
     {
         if (pitch > 45)
         {

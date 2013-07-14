@@ -9,7 +9,6 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.EnchantmentThorns;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IEntityMultiPart;
 import net.minecraft.entity.boss.EntityDragonPart;
@@ -29,7 +28,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class GolemBase extends EntityCreature implements IInventory
 {
-    public WeakReference<EntityLiving> leader; //Monster
+    public WeakReference<EntityLivingBase> leader; //Monster
     public String ownerName = ""; //Player
     public int maxHealth = 20;
     public int baseAttack;
@@ -55,7 +54,7 @@ public class GolemBase extends EntityCreature implements IInventory
         inventory = new ItemStack[0];
     }
 
-    @Override
+    /*@Override
     public int getMaxHealth ()
     {
         //Workaround for dying on spawn
@@ -70,9 +69,9 @@ public class GolemBase extends EntityCreature implements IInventory
     {
         baseAttack = 3;
         paused = false;
-    }
+    }*/
 
-    public EntityLiving getOwner ()
+    public EntityLivingBase getOwner ()
     {
         if (leader == null || leader.get() == null)
             return this.worldObj.getPlayerEntityByName(ownerName);
@@ -171,10 +170,10 @@ public class GolemBase extends EntityCreature implements IInventory
                     int j = 0;
                     int k = 0;
 
-                    if (target instanceof EntityLiving)
+                    if (target instanceof EntityLivingBase)
                     {
-                        k = EnchantmentHelper.getEnchantmentModifierLiving(this, (EntityLiving) target);
-                        j += EnchantmentHelper.getKnockbackModifier(this, (EntityLiving) target);
+                        k = EnchantmentHelper.getEnchantmentModifierLiving(this, (EntityLivingBase) target);
+                        j += EnchantmentHelper.getKnockbackModifier(this, (EntityLivingBase) target);
                     }
 
                     if (this.isSprinting())
@@ -185,7 +184,7 @@ public class GolemBase extends EntityCreature implements IInventory
                     if (i > 0 || k > 0)
                     {
                         boolean flag = this.fallDistance > 0.0F && !this.onGround && !this.isOnLadder() && !this.isInWater() && !this.isPotionActive(Potion.blindness) && this.ridingEntity == null
-                                && target instanceof EntityLiving;
+                                && target instanceof EntityLivingBase;
 
                         if (flag && i > 0)
                         {
@@ -196,7 +195,7 @@ public class GolemBase extends EntityCreature implements IInventory
                         boolean flag1 = false;
                         int l = EnchantmentHelper.getFireAspectModifier(this);
 
-                        if (target instanceof EntityLiving && l > 0 && !target.isBurning())
+                        if (target instanceof EntityLivingBase && l > 0 && !target.isBurning())
                         {
                             flag1 = true;
                             target.setFire(1);
@@ -232,9 +231,9 @@ public class GolemBase extends EntityCreature implements IInventory
 
                             this.setLastAttackingEntity(target);
 
-                            if (target instanceof EntityLiving)
+                            if (target instanceof EntityLivingBase)
                             {
-                                EnchantmentThorns.func_92096_a(this, (EntityLiving) target, this.rand);
+                                EnchantmentThorns.func_92096_a(this, (EntityLivingBase) target, this.rand);
                             }
                         }
 
@@ -245,16 +244,16 @@ public class GolemBase extends EntityCreature implements IInventory
                         {
                             IEntityMultiPart ientitymultipart = ((EntityDragonPart) target).entityDragonObj;
 
-                            if (ientitymultipart != null && ientitymultipart instanceof EntityLiving)
+                            if (ientitymultipart != null && ientitymultipart instanceof EntityLivingBase)
                             {
-                                object = (EntityLiving) ientitymultipart;
+                                object = (EntityLivingBase) ientitymultipart;
                             }
                         }
 
-                        if (stack != null && object instanceof EntityLiving)
+                        if (stack != null && object instanceof EntityLivingBase)
                         {
                             //stack.hitEntity((EntityLiving)object, this);
-                            Item.itemsList[stack.itemID].hitEntity(stack, (EntityLiving) object, this);
+                            Item.itemsList[stack.itemID].hitEntity(stack, (EntityLivingBase) object, this);
 
                             if (stack.stackSize <= 0)
                             {
@@ -262,7 +261,7 @@ public class GolemBase extends EntityCreature implements IInventory
                             }
                         }
 
-                        if (target instanceof EntityLiving)
+                        if (target instanceof EntityLivingBase)
                         {
                             /*if (target.isEntityAlive())
                             {

@@ -1,31 +1,30 @@
 package mods.tinker.tconstruct.blocks.logic;
 
 import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.common.ForgeDirection;
 
 public class AqueductLogic extends TileEntity //implements ITankContainer
 {
 
     /*@Override
-    public int fill (ForgeDirection from, LiquidStack resource, boolean doFill)
+    public int fill (ForgeDirection from, FluidStack resource, boolean doFill)
     {
         return 0;
     }
 
     @Override
-    public int fill (int tankIndex, LiquidStack resource, boolean doFill)
+    public int fill (int tankIndex, FluidStack resource, boolean doFill)
     {
         return 0;
     }
 
     @Override
-    public LiquidStack drain (ForgeDirection from, int maxDrain, boolean doDrain)
+    public FluidStack drain (ForgeDirection from, int maxDrain, boolean doDrain)
     {
         return null;
     }
 
     @Override
-    public LiquidStack drain (int tankIndex, int maxDrain, boolean doDrain)
+    public FluidStack drain (int tankIndex, int maxDrain, boolean doDrain)
     {
         return null;
     }
@@ -37,7 +36,7 @@ public class AqueductLogic extends TileEntity //implements ITankContainer
     }
 
     @Override
-    public ILiquidTank getTank (ForgeDirection direction, LiquidStack type)
+    public ILiquidTank getTank (ForgeDirection direction, FluidStack type)
     {
         return null;
     }*/

@@ -6,7 +6,7 @@ import mods.tinker.tconstruct.library.blocks.InventoryLogic;
 import mods.tinker.tconstruct.library.util.IActiveLogic;
 import mods.tinker.tconstruct.library.util.IFacingLogic;
 import net.minecraft.block.Block;
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
@@ -62,7 +62,7 @@ public class DrawbridgeLogic extends InventoryLogic implements IFacingLogic, IAc
     }
 
     @Override
-    public void setDirection (float yaw, float pitch, EntityLiving player)
+    public void setDirection (float yaw, float pitch, EntityLivingBase player)
     {
         if (pitch > 45)
         {

@@ -18,6 +18,7 @@ public class SlimeClone extends GolemBase implements IEntityAdditionalSpawnData
     public float sizeFactor;
     public float sizeHeight;
     public String username = "";
+    public String skinUrl = "";
 
     public SlimeClone(World world)
     {
@@ -31,14 +32,14 @@ public class SlimeClone extends GolemBase implements IEntityAdditionalSpawnData
         this.username = username;
     }
 
-    @Override
+    /*@Override
     public void initCreature ()
     {
         maxHealth = 100;
-        health = 100;
+        //health = 100;
         baseAttack = 3;
         paused = false;
-    }
+    }*/
 
     public void onUpdate ()
     {

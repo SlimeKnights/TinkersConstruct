@@ -2,6 +2,7 @@ package mods.tinker.tconstruct.client.gui;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
@@ -21,6 +22,8 @@ public class TurnPageButton extends GuiButton
         super(par1, par2, par3, 23, 13, "");
         this.nextPage = par4;
     }
+    
+    private static final ResourceLocation background = new ResourceLocation("tinker", "textures/gui/bookleft.png");
 
     /**
      * Draws this button to the screen.
@@ -31,7 +34,7 @@ public class TurnPageButton extends GuiButton
         {
             boolean var4 = par2 >= this.xPosition && par3 >= this.yPosition && par2 < this.xPosition + this.width && par3 < this.yPosition + this.height;
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-            par1Minecraft.renderEngine.bindTexture("/mods/tinker/textures/gui/bookleft.png");
+            par1Minecraft.func_110434_K().func_110577_a(background);
             int var5 = 0;
             int var6 = 192;
 

@@ -14,10 +14,16 @@ import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidEvent;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTankInfo;
+import net.minecraftforge.fluids.IFluidHandler;
+import net.minecraftforge.fluids.IFluidTank;
 
-public class CastingTableLogic extends InventoryLogic implements ILiquidTank, ITankContainer, ISidedInventory
+public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFluidHandler, ISidedInventory
 {
-    public LiquidStack liquid;
+    public FluidStack liquid;
     int castingDelay = 0;
     int renderOffset = 0;
     int capacity = 0;
@@ -55,11 +61,6 @@ public class CastingTableLogic extends InventoryLogic implements ILiquidTank, IT
     }
 
     /* Tank */
-    @Override
-    public LiquidStack getLiquid ()
-    {
-        return this.liquid;
-    }
 
     @Override
     public int getCapacity ()
@@ -113,7 +114,7 @@ public class CastingTableLogic extends InventoryLogic implements ILiquidTank, IT
     }
 
     @Override
-    public int fill (LiquidStack resource, boolean doFill)
+    public int fill (FluidStack resource, boolean doFill)
     {
         if (resource == null)
             return 0;
@@ -127,7 +128,7 @@ public class CastingTableLogic extends InventoryLogic implements ILiquidTank, IT
 
             if (inventory[1] == null)
             {
-                LiquidStack copyLiquid = resource.copy();
+                FluidStack copyLiquid = resource.copy();
 
                 if (copyLiquid.amount > this.capacity)
                 {
@@ -153,7 +154,7 @@ public class CastingTableLogic extends InventoryLogic implements ILiquidTank, IT
             }
         }
 
-        else if (resource.isLiquidEqual(this.liquid))
+        else if (resource.isFluidEqual(this.liquid))
         {
             if (resource.amount + this.liquid.amount >= this.capacity) //Start timer here
             {
@@ -203,9 +204,9 @@ public class CastingTableLogic extends InventoryLogic implements ILiquidTank, IT
     }
 
     @Override
-    public LiquidStack drain (int maxDrain, boolean doDrain)
+    public FluidStack drain (int maxDrain, boolean doDrain)
     {
-        if (liquid == null || liquid.itemID <= 0 || castingDelay > 0)
+        if (liquid == null || liquid.fluidID <= 0 || castingDelay > 0)
             return null;
         if (liquid.amount <= 0)
             return null;
@@ -219,62 +220,78 @@ public class CastingTableLogic extends InventoryLogic implements ILiquidTank, IT
             liquid.amount -= used;
         }
 
-        LiquidStack drained = new LiquidStack(liquid.itemID, used, liquid.itemMeta);
+        FluidStack drained = liquid.copy();//new FluidStack(liquid.itemID, used, liquid.itemMeta);
+        drained.amount = used;
 
         // Reset liquid if emptied
         if (liquid.amount <= 0)
             liquid = null;
 
         if (doDrain)
-            LiquidEvent.fireEvent(new LiquidEvent.LiquidDrainingEvent(drained, this.worldObj, this.xCoord, this.yCoord, this.zCoord, this));
+            FluidEvent.fireEvent(new FluidEvent.FluidDrainingEvent(drained, this.worldObj, this.xCoord, this.yCoord, this.zCoord, this));
 
         return drained;
-    }
-
-    @Override
-    public int getTankPressure ()
-    {
-        return 0;
     }
 
     /* Tank Container */
 
     @Override
-    public int fill (ForgeDirection from, LiquidStack resource, boolean doFill)
+    public int fill (ForgeDirection from, FluidStack resource, boolean doFill)
     {
         //if (from == ForgeDirection.UP)
-        return fill(0, resource, doFill);
+        return fill(resource, doFill);
         //return 0;
     }
 
     @Override
-    public int fill (int tankIndex, LiquidStack resource, boolean doFill)
-    {
-        return fill(resource, doFill);
-    }
-
-    @Override
-    public LiquidStack drain (ForgeDirection from, int maxDrain, boolean doDrain)
-    {
-        return drain(0, maxDrain, doDrain);
-    }
-
-    @Override
-    public LiquidStack drain (int tankIndex, int maxDrain, boolean doDrain)
+    public FluidStack drain (ForgeDirection from, int maxDrain, boolean doDrain)
     {
         return drain(maxDrain, doDrain);
+    }   
+
+
+    @Override
+    public FluidStack drain (ForgeDirection from, FluidStack resource, boolean doDrain)
+    {
+        return null;
     }
 
     @Override
-    public ILiquidTank[] getTanks (ForgeDirection direction)
+    public boolean canFill (ForgeDirection from, Fluid fluid)
     {
-        return new ILiquidTank[] { this };
+        return false;
     }
 
     @Override
-    public ILiquidTank getTank (ForgeDirection direction, LiquidStack type)
+    public boolean canDrain (ForgeDirection from, Fluid fluid)
     {
-        return this;
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public FluidTankInfo[] getTankInfo (ForgeDirection from)
+    {
+        return new FluidTankInfo[] {getInfo()};
+    }
+
+    @Override
+    public FluidStack getFluid ()
+    {
+        return liquid.copy();
+    }
+
+    @Override
+    public int getFluidAmount ()
+    {
+        return liquid != null ? liquid.amount : 0;
+    }
+
+    @Override
+    public FluidTankInfo getInfo ()
+    {
+        FluidTankInfo info = new FluidTankInfo(this);
+        return info;
     }
 
     public int getLiquidAmount ()
@@ -333,7 +350,11 @@ public class CastingTableLogic extends InventoryLogic implements ILiquidTank, IT
     public void readCustomNBT (NBTTagCompound tags)
     {
         if (tags.getBoolean("hasLiquid"))
-            this.liquid = new LiquidStack(tags.getInteger("itemID"), tags.getInteger("amount"), tags.getInteger("itemMeta"));
+        {
+            this.liquid = FluidStack.loadFluidStackFromNBT(tags.getCompoundTag("Fluid"));
+        }
+            //FluidStack fluid = FluidStack.loadFluidStackFromNBT(nbt);
+            //this.liquid = new FluidStack(tags.getInteger("itemID"), tags.getInteger("amount"), tags.getInteger("itemMeta"));
         else
             this.liquid = null;
 
@@ -355,9 +376,9 @@ public class CastingTableLogic extends InventoryLogic implements ILiquidTank, IT
         tags.setBoolean("hasLiquid", liquid != null);
         if (liquid != null)
         {
-            tags.setInteger("itemID", liquid.itemID);
-            tags.setInteger("amount", liquid.amount);
-            tags.setInteger("itemMeta", liquid.itemMeta);
+            NBTTagCompound nbt = new NBTTagCompound();
+            liquid.writeToNBT(nbt);
+            tags.setCompoundTag("Fluid", nbt);
         }
         tags.setBoolean("Initialized", init);
         tags.setInteger("Capacity", capacity);
@@ -405,5 +426,4 @@ public class CastingTableLogic extends InventoryLogic implements ILiquidTank, IT
 
         return false;
     }
-
 }
