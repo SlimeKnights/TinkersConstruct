@@ -184,7 +184,7 @@ public class SmelteryGui extends NewContainerGui
             {
                 int total = logic.getTotalLiquid();
                 int liquidLayers = (total / 20000 + 1) * 20000;
-                if (liquidLayers != 0)
+                if (liquidLayers > 0)
                 {
                     int liquidSize = liquid.amount * 52 / liquidLayers;
                     if (liquidSize == 0)
@@ -280,7 +280,7 @@ public class SmelteryGui extends NewContainerGui
                 float emeralds = liquid.amount / 320f;
                 list.add("Emeralds: " + emeralds);
             }
-            else
+            else if (name.contains("Molten"))
             {
                 int ingots = liquid.amount / 144;
                 if (ingots > 0)
@@ -295,6 +295,22 @@ public class SmelteryGui extends NewContainerGui
                     else
                         list.add("mB: " + mB);
                 }
+            }
+            else if (name.equals("Seared Stone"))
+            {
+                int ingots = liquid.amount / 144;
+                if (ingots > 0)
+                    list.add("Blocks: " + ingots);
+                int mB = liquid.amount % 144;
+                if (mB > 0)
+                {
+                    list.add("mB: " + mB);
+                }
+            }
+            else
+            {
+                int mB = liquid.amount;
+                list.add("mB: " + mB);
             }
         }
         return list;

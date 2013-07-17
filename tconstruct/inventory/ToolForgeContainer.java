@@ -70,6 +70,7 @@ public class ToolForgeContainer extends ToolStationContainer
         }
     }
 
+    @Override
     protected void craftTool (ItemStack stack)
     {
         NBTTagCompound tags = stack.getTagCompound();

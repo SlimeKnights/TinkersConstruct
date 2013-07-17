@@ -68,11 +68,13 @@ public class GoldenHead extends ItemFood
     public void registerIcons (IconRegister iconRegister)
     {
         this.itemIcon = iconRegister.registerIcon("tinker:skull_char_gold");
-        /*this.icons = new Icon[textureNames.length];
-
-        for (int i = 0; i < this.icons.length; ++i)
-        {
-            this.icons[i] = iconRegister.registerIcon("tinker:"+textureNames[i]);
-        }*/
+    }
+    
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean par4)
+    {
+        list.add("\u00a75\u00a7oSome say consuming the head of a");
+        list.add("\u00a75\u00a7ofallen foe strengthens the blood");
     }
 }
