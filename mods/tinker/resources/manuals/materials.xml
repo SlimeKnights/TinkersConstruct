@@ -436,6 +436,47 @@ Class: Heavy Melee Weapon</text>
 </item>
 </page>
 
+<page type="toolpage">
+<title>Shortbow</title>
+<text>The Shortbow is a weapon used to fire arrows. It has a quick, short range.</text>
+<text>Right-click: Draw bow
+- The further a bow is drawn, the further an arrow flies and the more damage it does.
+
+Class: Ranged Projectile Launcher</text>
+<icon>shortbowIcon</icon>
+<item>
+ <text>Tool Rod</text>
+ <icon>toolrod</icon>
+</item>
+<item>
+ <text>Bowstring</text>
+ <icon>bowstring</icon>
+</item>
+<item>
+ <text>Tool Rod</text>
+ <icon>toolrod</icon>
+</item>
+</page>
+
+<page type="toolpage">
+<title>Arrow</title>
+<text>Arrows are fired from bows as projectiles. They can also be used as stabbing weapons in a pinch.</text>
+<text>Class: Ammunition</text>
+<icon>arrowIcon</icon>
+<item>
+ <text>Arrowhead</text>
+ <icon>arrowhead</icon>
+</item>
+<item>
+ <text>Tool Rod</text>
+ <icon>toolrod</icon>
+</item>
+<item>
+ <text>Fletching</text>
+ <icon>fletching</icon>
+</item>
+</page>
+
 <page type="sectionpage">
 <title>Material Traits</title>
 <text>Some materials have traits that augment their natural uses.

@@ -209,18 +209,21 @@ public class SmelteryGui extends NewContainerGui
             {
                 int total = logic.getTotalLiquid();
                 int liquidLayers = (total / 20000 + 1) * 20000;
-                int liquidSize = liquid.amount * 52 / liquidLayers;
-                if (liquidSize == 0)
-                    liquidSize = 1;
-                while (liquidSize > 0)
+                if (liquidLayers > 0)
                 {
-                    int size = liquidSize >= 16 ? 16 : liquidSize;
-                    drawTexturedModelRectFromIcon(cornerX + basePos, (cornerY + 68) - size - base, renderIndex, 16, size);
-                    drawTexturedModelRectFromIcon(cornerX + basePos + 16, (cornerY + 68) - size - base, renderIndex, 16, size);
-                    drawTexturedModelRectFromIcon(cornerX + basePos + 32, (cornerY + 68) - size - base, renderIndex, 16, size);
-                    drawTexturedModelRectFromIcon(cornerX + basePos + 48, (cornerY + 68) - size - base, renderIndex, 4, size);
-                    liquidSize -= size;
-                    base += size;
+                    int liquidSize = liquid.amount * 52 / liquidLayers;
+                    if (liquidSize == 0)
+                        liquidSize = 1;
+                    while (liquidSize > 0)
+                    {
+                        int size = liquidSize >= 16 ? 16 : liquidSize;
+                        drawTexturedModelRectFromIcon(cornerX + basePos, (cornerY + 68) - size - base, renderIndex, 16, size);
+                        drawTexturedModelRectFromIcon(cornerX + basePos + 16, (cornerY + 68) - size - base, renderIndex, 16, size);
+                        drawTexturedModelRectFromIcon(cornerX + basePos + 32, (cornerY + 68) - size - base, renderIndex, 16, size);
+                        drawTexturedModelRectFromIcon(cornerX + basePos + 48, (cornerY + 68) - size - base, renderIndex, 4, size);
+                        liquidSize -= size;
+                        base += size;
+                    }
                 }
             }
 
@@ -319,7 +322,7 @@ public class SmelteryGui extends NewContainerGui
                     list.add("mB: " + mB);
                 }*/
             }
-            else
+            else if (name.contains("Molten"))
             {
                 int ingots = liquid.amount / 144;
                 if (ingots > 0)
@@ -334,6 +337,22 @@ public class SmelteryGui extends NewContainerGui
                     else
                         list.add("mB: " + mB);
                 }
+            }
+            else if (name.equals("Seared Stone"))
+            {
+                int ingots = liquid.amount / 144;
+                if (ingots > 0)
+                    list.add("Blocks: " + ingots);
+                int mB = liquid.amount % 144;
+                if (mB > 0)
+                {
+                    list.add("mB: " + mB);
+                }
+            }
+            else
+            {
+                int mB = liquid.amount;
+                list.add("mB: " + mB);
             }
         }
         return list;

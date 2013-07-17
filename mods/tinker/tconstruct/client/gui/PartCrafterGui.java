@@ -56,13 +56,15 @@ public class PartCrafterGui extends NewContainerGui
     void drawMaterialInformation ()
     {
         ItemStack top = logic.getStackInSlot(2);
+        //ItemStack topResult = logic.getStackInSlot(4);
         ItemStack bottom = logic.getStackInSlot(3);
+        //ItemStack bottomResult = logic.getStackInSlot(6);
         if (topMaterial != top)
         {
             topMaterial = top;
             int topID = PatternBuilder.instance.getPartID(top);
 
-            if (topID != Short.MAX_VALUE)
+            if (topID != Short.MAX_VALUE)// && topResult != null)
             {
                 topEnum = TConstructRegistry.getMaterial(topID);
                 hasTop = true;
@@ -77,7 +79,7 @@ public class PartCrafterGui extends NewContainerGui
             bottomMaterial = bottom;
             int bottomID = PatternBuilder.instance.getPartID(bottom);
 
-            if (bottomID != Short.MAX_VALUE)
+            if (bottomID != Short.MAX_VALUE)// && bottomResult != null)
             {
                 bottomEnum = TConstructRegistry.getMaterial(bottomID);
                 hasBottom = true;

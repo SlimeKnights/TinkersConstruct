@@ -220,6 +220,25 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
                         movingobjectposition.entityHit.setFire(5);
                     }
 
+                    if (returnStack.hasTagCompound())
+                    {
+                        int fireAspect = 0;
+                        NBTTagCompound toolTags = returnStack.getTagCompound().getCompoundTag("InfiTool");
+                        if (toolTags.hasKey("Fiery") || toolTags.hasKey("Lava"))
+                        {
+                            fireAspect *= 4;
+                            if (toolTags.hasKey("Fiery"))
+                            {
+                                fireAspect += toolTags.getInteger("Fiery") / 5 + 1;
+                            }
+                            if (toolTags.getBoolean("Lava"))
+                            {
+                                fireAspect += 3;
+                            }
+                            entity.setFire(fireAspect);
+                        }
+                    }
+
                     if (movingobjectposition.entityHit.attackEntityFrom(damagesource, damageInflicted))
                     {
                         if (movingobjectposition.entityHit instanceof EntityLiving)

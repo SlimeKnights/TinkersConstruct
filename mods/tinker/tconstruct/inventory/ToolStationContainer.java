@@ -139,8 +139,6 @@ public class ToolStationContainer extends ActiveContainer
             logic.decrStackSize(1, amount);
 
             logic.worldObj.playSoundEffect(logic.xCoord, logic.yCoord, logic.zCoord, "sounds.little_saw", 1.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F);
-            /*if (!player.worldObj.isRemote)
-            	player.worldObj.playAuxSFX(1021, (int)player.posX, (int)player.posY, (int)player.posZ, 0);*/
         }
     }
 

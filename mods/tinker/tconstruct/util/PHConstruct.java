@@ -65,6 +65,7 @@ public class PHConstruct
         craftMetalTools = config.get("Difficulty Changes", "Craft metals with Wood Patterns", false).getBoolean(false);
         vanillaMetalBlocks = config.get("Difficulty Changes", "Craft vanilla metal blocks", true).getBoolean(true);
         lavaFortuneInteraction = config.get("Difficulty Changes", "Enable Auto-Smelt and Fortune interaction", true).getBoolean(true);
+        removeVanillaToolRecipes = config.get("Difficulty Changes", "Remove Vanilla Tool Recipes", false).getBoolean(false);
 
         blueSlime = config.get("Mob Spawning", "Activate Blue Slime Spawns", true).getBoolean(true);
         blueSlimeWeight = config.get("Mob Spawning", "Spawn Weight for Blue Slime", 7).getInt(7);
@@ -523,6 +524,7 @@ public class PHConstruct
 
     public static boolean craftMetalTools;
     public static boolean vanillaMetalBlocks;
+    public static boolean removeVanillaToolRecipes;
 
     //Ultra Hardcore modifiers
     public static boolean enableHealthRegen;

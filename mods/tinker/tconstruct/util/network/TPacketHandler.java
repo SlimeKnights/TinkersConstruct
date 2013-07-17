@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import mods.tinker.tconstruct.TConstruct;
 import mods.tinker.tconstruct.blocks.logic.ToolForgeLogic;
 import mods.tinker.tconstruct.blocks.logic.ToolStationLogic;
+import mods.tinker.tconstruct.common.TContent;
 import mods.tinker.tconstruct.library.blocks.InventoryLogic;
 import mods.tinker.tconstruct.skill.Skill;
 import mods.tinker.tconstruct.skill.SkillRegistry;
@@ -63,6 +64,10 @@ public class TPacketHandler implements IPacketHandler
                     skill.setActive(inputStream.readBoolean());
                     stats.skillList.add(skill);
                 }
+            }
+            else if (packetID == 2)
+            {
+                TContent.modRecipes();
             }
         }
         catch (Exception e)

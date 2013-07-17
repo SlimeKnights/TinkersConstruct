@@ -201,10 +201,10 @@ public class Arrow extends ToolCore
                 if (!handleName.equals("") && handle != head)
                     list.add(getStyleForType(handle) + handleName);
 
-                int unbreaking = tags.getCompoundTag("InfiTool").getInteger("Unbreaking");
+                /*int unbreaking = tags.getCompoundTag("InfiTool").getInteger("Unbreaking");
                 String reinforced = getReinforcedName(head, handle, 0, 0, unbreaking);
                 if (!reinforced.equals(""))
-                    list.add(reinforced);
+                    list.add(reinforced);*/
 
                 boolean displayToolTips = true;
                 int tipNum = 0;

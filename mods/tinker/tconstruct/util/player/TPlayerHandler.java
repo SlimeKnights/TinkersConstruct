@@ -23,6 +23,7 @@ import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.event.entity.player.PlayerDropsEvent;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.IPlayerTracker;
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.common.network.Player;
 import cpw.mods.fml.relauncher.Side;
@@ -90,14 +91,25 @@ public class TPlayerHandler implements IPlayerTracker
                 entityplayer.addChatMessage("Solution 2: Disable Auto-Smelt/Fortune interaction from TConstruct.");
             }
         }
-
+        
         updatePlayerInventory(entityplayer, stats);
         //sendSkills(entityplayer, stats);
     }
 
     void updatePlayerInventory (EntityPlayer entityplayer, TPlayerStats stats)
     {
-        
+        ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
+        DataOutputStream outputStream = new DataOutputStream(bos);
+        try
+        {
+            outputStream.writeByte(2);
+            updateClientPlayer(bos, entityplayer);
+        }
+
+        catch (Exception ex)
+        {
+            
+        }
     }
 
     void sendSkills (EntityPlayer entityplayer, TPlayerStats stats)

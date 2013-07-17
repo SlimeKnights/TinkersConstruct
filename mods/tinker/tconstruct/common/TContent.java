@@ -2,23 +2,158 @@ package mods.tinker.tconstruct.common;
 
 import java.lang.reflect.Field;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
 
 import mods.tinker.tconstruct.TConstruct;
-import mods.tinker.tconstruct.blocks.*;
-import mods.tinker.tconstruct.blocks.logic.*;
-import mods.tinker.tconstruct.entity.*;
-import mods.tinker.tconstruct.entity.projectile.*;
-import mods.tinker.tconstruct.items.*;
-import mods.tinker.tconstruct.items.armor.*;
-import mods.tinker.tconstruct.items.blocks.*;
-import mods.tinker.tconstruct.items.tools.*;
-import mods.tinker.tconstruct.library.*;
-import mods.tinker.tconstruct.library.client.*;
-import mods.tinker.tconstruct.library.crafting.*;
-import mods.tinker.tconstruct.library.tools.*;
-import mods.tinker.tconstruct.library.util.*;
-import mods.tinker.tconstruct.modifiers.*;
-import mods.tinker.tconstruct.util.*;
+import mods.tinker.tconstruct.blocks.Aggregator;
+import mods.tinker.tconstruct.blocks.DryingRack;
+import mods.tinker.tconstruct.blocks.EquipBlock;
+import mods.tinker.tconstruct.blocks.GlassBlock;
+import mods.tinker.tconstruct.blocks.GlassBlockStained;
+import mods.tinker.tconstruct.blocks.GlassPane;
+import mods.tinker.tconstruct.blocks.GlassPaneStained;
+import mods.tinker.tconstruct.blocks.GravelOre;
+import mods.tinker.tconstruct.blocks.LavaTankBlock;
+import mods.tinker.tconstruct.blocks.LightCrystalBase;
+import mods.tinker.tconstruct.blocks.LiquidMetalFlowing;
+import mods.tinker.tconstruct.blocks.LiquidMetalStill;
+import mods.tinker.tconstruct.blocks.MetalOre;
+import mods.tinker.tconstruct.blocks.MultiBrick;
+import mods.tinker.tconstruct.blocks.MultiBrickFancy;
+import mods.tinker.tconstruct.blocks.OreberryBush;
+import mods.tinker.tconstruct.blocks.OreberryBushEssence;
+import mods.tinker.tconstruct.blocks.RedstoneMachine;
+import mods.tinker.tconstruct.blocks.SearedBlock;
+import mods.tinker.tconstruct.blocks.SearedSlab;
+import mods.tinker.tconstruct.blocks.SmelteryBlock;
+import mods.tinker.tconstruct.blocks.SoilBlock;
+import mods.tinker.tconstruct.blocks.SpeedBlock;
+import mods.tinker.tconstruct.blocks.SpeedSlab;
+import mods.tinker.tconstruct.blocks.StoneTorch;
+import mods.tinker.tconstruct.blocks.TMetalBlock;
+import mods.tinker.tconstruct.blocks.ToolForgeBlock;
+import mods.tinker.tconstruct.blocks.ToolStationBlock;
+import mods.tinker.tconstruct.blocks.logic.CastingBasinLogic;
+import mods.tinker.tconstruct.blocks.logic.CastingTableLogic;
+import mods.tinker.tconstruct.blocks.logic.DrawbridgeLogic;
+import mods.tinker.tconstruct.blocks.logic.DryingRackLogic;
+import mods.tinker.tconstruct.blocks.logic.FaucetLogic;
+import mods.tinker.tconstruct.blocks.logic.FirestarterLogic;
+import mods.tinker.tconstruct.blocks.logic.FrypanLogic;
+import mods.tinker.tconstruct.blocks.logic.GlowstoneAggregator;
+import mods.tinker.tconstruct.blocks.logic.LavaTankLogic;
+import mods.tinker.tconstruct.blocks.logic.LiquidTextureLogic;
+import mods.tinker.tconstruct.blocks.logic.MultiServantLogic;
+import mods.tinker.tconstruct.blocks.logic.PartCrafterLogic;
+import mods.tinker.tconstruct.blocks.logic.PatternChestLogic;
+import mods.tinker.tconstruct.blocks.logic.SmelteryDrainLogic;
+import mods.tinker.tconstruct.blocks.logic.SmelteryLogic;
+import mods.tinker.tconstruct.blocks.logic.StencilTableLogic;
+import mods.tinker.tconstruct.blocks.logic.ToolForgeLogic;
+import mods.tinker.tconstruct.blocks.logic.ToolStationLogic;
+import mods.tinker.tconstruct.entity.Automaton;
+import mods.tinker.tconstruct.entity.BlueSlime;
+import mods.tinker.tconstruct.entity.Crystal;
+import mods.tinker.tconstruct.entity.FancyEntityItem;
+import mods.tinker.tconstruct.entity.MiniGardy;
+import mods.tinker.tconstruct.entity.SlimeClone;
+import mods.tinker.tconstruct.entity.projectile.ArrowEntity;
+import mods.tinker.tconstruct.entity.projectile.DaggerEntity;
+import mods.tinker.tconstruct.entity.projectile.LaunchedPotion;
+import mods.tinker.tconstruct.items.Bowstring;
+import mods.tinker.tconstruct.items.CraftingItem;
+import mods.tinker.tconstruct.items.DiamondApple;
+import mods.tinker.tconstruct.items.FilledBucket;
+import mods.tinker.tconstruct.items.Fletching;
+import mods.tinker.tconstruct.items.GoldenHead;
+import mods.tinker.tconstruct.items.Manual;
+import mods.tinker.tconstruct.items.MaterialItem;
+import mods.tinker.tconstruct.items.MetalPattern;
+import mods.tinker.tconstruct.items.OreBerries;
+import mods.tinker.tconstruct.items.Pattern;
+import mods.tinker.tconstruct.items.StrangeFood;
+import mods.tinker.tconstruct.items.TitleIcon;
+import mods.tinker.tconstruct.items.ToolPart;
+import mods.tinker.tconstruct.items.ToolPartHidden;
+import mods.tinker.tconstruct.items.ToolShard;
+import mods.tinker.tconstruct.items.armor.Glove;
+import mods.tinker.tconstruct.items.armor.HeartCanister;
+import mods.tinker.tconstruct.items.armor.Knapsack;
+import mods.tinker.tconstruct.items.armor.TArmorBase;
+import mods.tinker.tconstruct.items.blocks.CraftedSoilItemBlock;
+import mods.tinker.tconstruct.items.blocks.GlassBlockItem;
+import mods.tinker.tconstruct.items.blocks.GlassPaneItem;
+import mods.tinker.tconstruct.items.blocks.GravelOreItem;
+import mods.tinker.tconstruct.items.blocks.LavaTankItemBlock;
+import mods.tinker.tconstruct.items.blocks.LightCrystalItem;
+import mods.tinker.tconstruct.items.blocks.LiquidItemBlock;
+import mods.tinker.tconstruct.items.blocks.MetalItemBlock;
+import mods.tinker.tconstruct.items.blocks.MetalOreItemBlock;
+import mods.tinker.tconstruct.items.blocks.MultiBrickFancyItem;
+import mods.tinker.tconstruct.items.blocks.MultiBrickItem;
+import mods.tinker.tconstruct.items.blocks.OreberryBushItem;
+import mods.tinker.tconstruct.items.blocks.OreberryBushSecondItem;
+import mods.tinker.tconstruct.items.blocks.RedstoneMachineItem;
+import mods.tinker.tconstruct.items.blocks.SearedSlabItem;
+import mods.tinker.tconstruct.items.blocks.SearedTableItemBlock;
+import mods.tinker.tconstruct.items.blocks.SmelteryItemBlock;
+import mods.tinker.tconstruct.items.blocks.SpeedBlockItem;
+import mods.tinker.tconstruct.items.blocks.SpeedSlabItem;
+import mods.tinker.tconstruct.items.blocks.StainedGlassClearItem;
+import mods.tinker.tconstruct.items.blocks.StainedGlassClearPaneItem;
+import mods.tinker.tconstruct.items.blocks.ToolForgeItemBlock;
+import mods.tinker.tconstruct.items.blocks.ToolStationItemBlock;
+import mods.tinker.tconstruct.items.tools.Arrow;
+import mods.tinker.tconstruct.items.tools.BattleSign;
+import mods.tinker.tconstruct.items.tools.Battleaxe;
+import mods.tinker.tconstruct.items.tools.Broadsword;
+import mods.tinker.tconstruct.items.tools.Chisel;
+import mods.tinker.tconstruct.items.tools.Cleaver;
+import mods.tinker.tconstruct.items.tools.Cutlass;
+import mods.tinker.tconstruct.items.tools.Dagger;
+import mods.tinker.tconstruct.items.tools.Excavator;
+import mods.tinker.tconstruct.items.tools.FryingPan;
+import mods.tinker.tconstruct.items.tools.Hammer;
+import mods.tinker.tconstruct.items.tools.Hatchet;
+import mods.tinker.tconstruct.items.tools.Longsword;
+import mods.tinker.tconstruct.items.tools.LumberAxe;
+import mods.tinker.tconstruct.items.tools.Mattock;
+import mods.tinker.tconstruct.items.tools.Pickaxe;
+import mods.tinker.tconstruct.items.tools.PotionLauncher;
+import mods.tinker.tconstruct.items.tools.Rapier;
+import mods.tinker.tconstruct.items.tools.Scythe;
+import mods.tinker.tconstruct.items.tools.Shortbow;
+import mods.tinker.tconstruct.items.tools.Shovel;
+import mods.tinker.tconstruct.library.TConstructRegistry;
+import mods.tinker.tconstruct.library.client.TConstructClientRegistry;
+import mods.tinker.tconstruct.library.crafting.Detailing;
+import mods.tinker.tconstruct.library.crafting.DryingRackRecipes;
+import mods.tinker.tconstruct.library.crafting.LiquidCasting;
+import mods.tinker.tconstruct.library.crafting.PatternBuilder;
+import mods.tinker.tconstruct.library.crafting.Smeltery;
+import mods.tinker.tconstruct.library.crafting.ToolBuilder;
+import mods.tinker.tconstruct.library.tools.ToolCore;
+import mods.tinker.tconstruct.library.util.IPattern;
+import mods.tinker.tconstruct.modifiers.ModAntiSpider;
+import mods.tinker.tconstruct.modifiers.ModAttack;
+import mods.tinker.tconstruct.modifiers.ModAutoSmelt;
+import mods.tinker.tconstruct.modifiers.ModBlaze;
+import mods.tinker.tconstruct.modifiers.ModButtertouch;
+import mods.tinker.tconstruct.modifiers.ModDurability;
+import mods.tinker.tconstruct.modifiers.ModElectric;
+import mods.tinker.tconstruct.modifiers.ModExtraModifier;
+import mods.tinker.tconstruct.modifiers.ModInteger;
+import mods.tinker.tconstruct.modifiers.ModLapis;
+import mods.tinker.tconstruct.modifiers.ModPiston;
+import mods.tinker.tconstruct.modifiers.ModRedstone;
+import mods.tinker.tconstruct.modifiers.ModReinforced;
+import mods.tinker.tconstruct.modifiers.ModRepair;
+import mods.tinker.tconstruct.modifiers.ModSmite;
+import mods.tinker.tconstruct.modifiers.TActiveOmniMod;
+import mods.tinker.tconstruct.util.PHConstruct;
+import mods.tinker.tconstruct.util.RecipeRemover;
+import mods.tinker.tconstruct.util.TDispenserBehaviorSpawnEgg;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.block.material.MapColor;
@@ -27,7 +162,11 @@ import net.minecraft.block.material.MaterialLiquid;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.FurnaceRecipes;
+import net.minecraft.item.crafting.RecipesTools;
+import net.minecraft.item.crafting.RecipesWeapons;
+import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.WeightedRandomChestContent;
@@ -143,7 +282,7 @@ public class TContent implements IFuelHandler
     public static Block stoneTorch;
     public static Block multiBrick;
     public static Block multiBrickFancy;
-    
+
     public static Block searedSlab;
     public static Block speedSlab;
 
@@ -313,11 +452,11 @@ public class TContent implements IFuelHandler
         craftedSoil = new SoilBlock(PHConstruct.craftedSoil).setUnlocalizedName("TConstruct.Soil");
         craftedSoil.stepSound = Block.soundGravelFootstep;
         GameRegistry.registerBlock(craftedSoil, CraftedSoilItemBlock.class, "CraftedSoil");
-        
+
         searedSlab = new SearedSlab(PHConstruct.searedSlab).setUnlocalizedName("SearedSlab");
         searedSlab.stepSound = Block.soundStoneFootstep;
         GameRegistry.registerBlock(searedSlab, SearedSlabItem.class, "SearedSlab");
-        
+
         speedSlab = new SpeedSlab(PHConstruct.speedSlab).setUnlocalizedName("SpeedSlab");
         speedSlab.stepSound = Block.soundStoneFootstep;
         GameRegistry.registerBlock(speedSlab, SpeedSlabItem.class, "SpeedSlab");
@@ -958,10 +1097,10 @@ public class TContent implements IFuelHandler
         Smeltery.addMelting(Block.glass, 0, 625, new LiquidStack(liquidMetalStill.blockID, LiquidContainerRegistry.BUCKET_VOLUME, 13));
         Smeltery.addMelting(Block.stone, 0, 800, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue / 18, 14));
         Smeltery.addMelting(Block.cobblestone, 0, 800, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue / 18, 14));
-        
+
         Smeltery.addMelting(glass, 0, 500, new LiquidStack(liquidMetalStill.blockID, 1000, 13));
         Smeltery.addMelting(glassPane, 0, 350, new LiquidStack(liquidMetalStill.blockID, 250, 13));
-        
+
         for (int i = 0; i < 16; i++)
         {
             Smeltery.addMelting(stainedGlassClear, i, 500, new LiquidStack(liquidMetalStill.blockID, 1000, 13));
@@ -1216,7 +1355,14 @@ public class TContent implements IFuelHandler
             GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Block.cloth, 8, i), pattern, 'm', dyeTypes[15 - i], '#', new ItemStack(Block.cloth, 1, Short.MAX_VALUE)));
             GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(stainedGlassClear, 8, i), pattern, 'm', dyeTypes[15 - i], '#', glass));
             GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(stainedGlassClear, 1, i), dyeTypes[15 - i], glass));
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(stainedGlassClearPane, 8, i), pattern, 'm', dyeTypes[15 - i], '#', glassPane));
+            GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(stainedGlassClearPane, 1, i), dyeTypes[15 - i], glassPane));
         }
+
+        //Glass
+        GameRegistry.addRecipe(new ItemStack(Item.glassBottle, 3), new Object[] {"# #", " # ", '#', glass});
+        GameRegistry.addRecipe(new ItemStack(Block.daylightSensor), new Object[] {"GGG", "QQQ", "WWW", 'G', Block.glass, 'Q', Item.netherQuartz, 'W', Block.woodSingleSlab});
+        GameRegistry.addRecipe(new ItemStack(Block.beacon, 1), new Object[] {"GGG", "GSG", "OOO", 'G', glass, 'S', Item.netherStar, 'O', Block.obsidian});
 
         //Smeltery
         ItemStack searedBrick = new ItemStack(materials, 1, 2);
@@ -1227,6 +1373,10 @@ public class TContent implements IFuelHandler
         GameRegistry.addRecipe(new ItemStack(lavaTank, 1, 0), "bbb", "bgb", "bbb", 'b', searedBrick, 'g', Block.glass); //Tank
         GameRegistry.addRecipe(new ItemStack(lavaTank, 1, 1), "bgb", "ggg", "bgb", 'b', searedBrick, 'g', Block.glass); //Glass
         GameRegistry.addRecipe(new ItemStack(lavaTank, 1, 2), "bgb", "bgb", "bgb", 'b', searedBrick, 'g', Block.glass); //Window
+        
+        GameRegistry.addRecipe(new ItemStack(lavaTank, 1, 0), "bbb", "bgb", "bbb", 'b', searedBrick, 'g', glass); //Tank
+        GameRegistry.addRecipe(new ItemStack(lavaTank, 1, 1), "bgb", "ggg", "bgb", 'b', searedBrick, 'g', glass); //Glass
+        GameRegistry.addRecipe(new ItemStack(lavaTank, 1, 2), "bgb", "bgb", "bgb", 'b', searedBrick, 'g', glass); //Window
 
         GameRegistry.addRecipe(new ItemStack(searedBlock, 1, 0), "bbb", "b b", "b b", 'b', searedBrick); //Table
         GameRegistry.addRecipe(new ItemStack(searedBlock, 1, 1), "b b", " b ", 'b', searedBrick); //Faucet
@@ -1253,13 +1403,6 @@ public class TContent implements IFuelHandler
         //Armor
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(dryingRack, 1, 0), "bbb", 'b', "slabWood"));
 
-        //Remove vanilla recipes
-        if (!PHConstruct.vanillaMetalBlocks)
-        {
-            RecipeRemover.removeShapedRecipe(new ItemStack(Block.blockIron));
-            RecipeRemover.removeShapedRecipe(new ItemStack(Block.blockGold));
-        }
-
         //Ultra hardcore recipes
         String[] surround = { "###", "#m#", "###" };
         if (PHConstruct.goldAppleRecipe)
@@ -1279,8 +1422,8 @@ public class TContent implements IFuelHandler
         }
 
         //Drying rack
-        DryingRackRecipes.addDryingRecipe(Item.rottenFlesh, 20, Item.leather);
-        
+        DryingRackRecipes.addDryingRecipe(Item.rottenFlesh, 20*60*5, Item.leather);
+
         //Slabs
         for (int i = 0; i < 7; i++)
         {
@@ -1390,7 +1533,7 @@ public class TContent implements IFuelHandler
         OreDictionary.registerOre("nuggetAluminumBrass", new ItemStack(materials, 1, 24));
 
         String[] names = new String[] { "Molten Iron", "Molten Gold", "Molten Copper", "Molten Tin", "Molten Aluminum", "Molten Cobalt", "Molten Ardite", "Molten Bronze", "Molten Aluminum Brass",
-                "Molten Manyullyn", "Molten Alumite", "Molten Obsidian", "Molten Steel", "Molten Glass", "Seared Stone", "Molten Emerald", "mushroomsoup" };
+                "Molten Manyullyn", "Molten Alumite", "Molten Obsidian", "Molten Steel", "Molten Glass", "Seared Stone", "Molten Emerald", "Blood" };
         liquidIcons = new LiquidStack[names.length];
         liquidNames = new String[names.length];
         for (int iter = 0; iter < names.length; iter++)
@@ -1486,6 +1629,151 @@ public class TContent implements IFuelHandler
         {
             System.out.println("[TConstruct] Thaumcraft not detected.");
         }
+    }
+
+    private static boolean initRecipes;
+
+    public static void modRecipes ()
+    {
+        if (!initRecipes)
+        {
+            initRecipes = true;
+            if (PHConstruct.removeVanillaToolRecipes)
+            {
+                RecipeRemover.removeShapedRecipe(new ItemStack(Item.pickaxeWood));
+                RecipeRemover.removeShapedRecipe(new ItemStack(Item.axeWood));
+                RecipeRemover.removeShapedRecipe(new ItemStack(Item.shovelWood));
+                RecipeRemover.removeShapedRecipe(new ItemStack(Item.hoeWood));
+                RecipeRemover.removeShapedRecipe(new ItemStack(Item.swordWood));
+
+                RecipeRemover.removeShapedRecipe(new ItemStack(Item.pickaxeStone));
+                RecipeRemover.removeShapedRecipe(new ItemStack(Item.axeStone));
+                RecipeRemover.removeShapedRecipe(new ItemStack(Item.shovelStone));
+                RecipeRemover.removeShapedRecipe(new ItemStack(Item.hoeStone));
+                RecipeRemover.removeShapedRecipe(new ItemStack(Item.swordStone));
+
+                RecipeRemover.removeShapedRecipe(new ItemStack(Item.pickaxeIron));
+                RecipeRemover.removeShapedRecipe(new ItemStack(Item.axeIron));
+                RecipeRemover.removeShapedRecipe(new ItemStack(Item.shovelIron));
+                RecipeRemover.removeShapedRecipe(new ItemStack(Item.hoeIron));
+                RecipeRemover.removeShapedRecipe(new ItemStack(Item.swordIron));
+
+                RecipeRemover.removeShapedRecipe(new ItemStack(Item.pickaxeDiamond));
+                RecipeRemover.removeShapedRecipe(new ItemStack(Item.axeDiamond));
+                RecipeRemover.removeShapedRecipe(new ItemStack(Item.shovelDiamond));
+                RecipeRemover.removeShapedRecipe(new ItemStack(Item.hoeDiamond));
+                RecipeRemover.removeShapedRecipe(new ItemStack(Item.swordDiamond));
+
+                RecipeRemover.removeShapedRecipe(new ItemStack(Item.pickaxeGold));
+                RecipeRemover.removeShapedRecipe(new ItemStack(Item.axeGold));
+                RecipeRemover.removeShapedRecipe(new ItemStack(Item.shovelGold));
+                RecipeRemover.removeShapedRecipe(new ItemStack(Item.hoeGold));
+                RecipeRemover.removeShapedRecipe(new ItemStack(Item.swordGold));
+            }
+            /*else
+            {
+                CraftingManager cm = CraftingManager.getInstance();
+                new RecipesTools().addRecipes(cm);
+                new RecipesWeapons().addRecipes(cm);
+            }*/
+
+            if (!PHConstruct.vanillaMetalBlocks)
+            {
+                RecipeRemover.removeShapedRecipe(new ItemStack(Block.blockIron));
+                RecipeRemover.removeShapedRecipe(new ItemStack(Block.blockGold));
+            }
+            /*else
+            {
+                String[] blockPattern = new String[] { "###", "###", "###" };
+                GameRegistry.addRecipe(new ItemStack(Block.blockIron), blockPattern, '#', new ItemStack(Item.ingotIron));
+                GameRegistry.addRecipe(new ItemStack(Block.blockGold), blockPattern, '#', new ItemStack(Item.ingotGold));
+                GameRegistry.addRecipe(new ItemStack(Block.blockDiamond), blockPattern, '#', new ItemStack(Item.diamond));
+                GameRegistry.addRecipe(new ItemStack(Block.blockLapis), blockPattern, '#', new ItemStack(Item.dyePowder, 1, 4));
+                GameRegistry.addRecipe(new ItemStack(Block.blockEmerald), blockPattern, '#', new ItemStack(Item.emerald));
+                GameRegistry.addRecipe(new ItemStack(Block.blockRedstone), blockPattern, '#', new ItemStack(Item.redstone));
+                GameRegistry.addRecipe(new ItemStack(Block.blockNetherQuartz, 1), "##", "##", '#', Item.netherQuartz);
+            }*/
+            
+            /*GameRegistry.addRecipe(new ItemStack(Item.flintAndSteel, 1), "A ", " B", 'A', Item.ingotIron, 'B', Item.flint);
+            List recipes = CraftingManager.getInstance().getRecipeList();
+            addShapedRecipeFirst(recipes, new ItemStack(Block.planks, 4, 0), "#", '#', new ItemStack(Block.wood, 1, 0));
+            addShapedRecipeFirst(recipes, new ItemStack(Block.planks, 4, 1), "#", '#', new ItemStack(Block.wood, 1, 1));
+            addShapedRecipeFirst(recipes, new ItemStack(Block.planks, 4, 2), "#", '#', new ItemStack(Block.wood, 1, 2));
+            addShapedRecipeFirst(recipes, new ItemStack(Block.planks, 4, 3), "#", '#', new ItemStack(Block.wood, 1, 3));*/
+        }
+    }
+    
+    public static void addShapedRecipeFirst (List recipeList, ItemStack itemstack, Object... objArray)
+    {
+        String var3 = "";
+        int var4 = 0;
+        int var5 = 0;
+        int var6 = 0;
+
+        if (objArray[var4] instanceof String[])
+        {
+            String[] var7 = (String[]) ((String[]) objArray[var4++]);
+
+            for (int var8 = 0; var8 < var7.length; ++var8)
+            {
+                String var9 = var7[var8];
+                ++var6;
+                var5 = var9.length();
+                var3 = var3 + var9;
+            }
+        }
+        else
+        {
+            while (objArray[var4] instanceof String)
+            {
+                String var11 = (String) objArray[var4++];
+                ++var6;
+                var5 = var11.length();
+                var3 = var3 + var11;
+            }
+        }
+
+        HashMap var12;
+
+        for (var12 = new HashMap(); var4 < objArray.length; var4 += 2)
+        {
+            Character var13 = (Character) objArray[var4];
+            ItemStack var14 = null;
+
+            if (objArray[var4 + 1] instanceof Item)
+            {
+                var14 = new ItemStack((Item) objArray[var4 + 1]);
+            }
+            else if (objArray[var4 + 1] instanceof Block)
+            {
+                var14 = new ItemStack((Block) objArray[var4 + 1], 1, Short.MAX_VALUE);
+            }
+            else if (objArray[var4 + 1] instanceof ItemStack)
+            {
+                var14 = (ItemStack) objArray[var4 + 1];
+            }
+
+            var12.put(var13, var14);
+        }
+
+        ItemStack[] var15 = new ItemStack[var5 * var6];
+
+        for (int var16 = 0; var16 < var5 * var6; ++var16)
+        {
+            char var10 = var3.charAt(var16);
+
+            if (var12.containsKey(Character.valueOf(var10)))
+            {
+                var15[var16] = ((ItemStack) var12.get(Character.valueOf(var10))).copy();
+            }
+            else
+            {
+                var15[var16] = null;
+            }
+        }
+
+        ShapedRecipes var17 = new ShapedRecipes(var5, var6, var15, itemstack);
+        recipeList.add(0, var17);
     }
 
     public static Object getStaticItem (String name, String classPackage)

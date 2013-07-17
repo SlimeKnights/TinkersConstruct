@@ -2,6 +2,7 @@ package mods.tinker.tconstruct.inventory;
 
 import mods.tinker.tconstruct.blocks.logic.ToolForgeLogic;
 import mods.tinker.tconstruct.blocks.logic.ToolStationLogic;
+import mods.tinker.tconstruct.library.tools.ToolCore;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
@@ -70,14 +71,19 @@ public class ToolForgeContainer extends ToolStationContainer
         }
     }
 
+    @Override
     protected void craftTool (ItemStack stack)
     {
         NBTTagCompound tags = stack.getTagCompound();
         if (!tags.getCompoundTag("InfiTool").hasKey("Built"))
         {
             tags.getCompoundTag("InfiTool").setBoolean("Built", true);
-            for (int i = 1; i <= 4; i++)
+            /*for (int i = 1; i <= 4; i++)
+                logic.decrStackSize(i, 1);*/
+            for (int i = 2; i <= 4; i++)
                 logic.decrStackSize(i, 1);
+            int amount = logic.getStackInSlot(1).getItem() instanceof ToolCore ? stack.stackSize : 1;
+            logic.decrStackSize(1, amount);
             if (!logic.worldObj.isRemote)
                 logic.worldObj.playAuxSFX(1021, (int) logic.xCoord, (int) logic.yCoord, (int) logic.zCoord, 0);
         }
