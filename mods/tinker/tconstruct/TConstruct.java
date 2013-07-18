@@ -38,7 +38,7 @@ import cpw.mods.fml.common.registry.VillagerRegistry;
  * @dependencies: IC2 API, MFR API
  */
 
-@Mod(modid = "TConstruct", name = "TConstruct", version = "1.5.1_1.4.1", dependencies = "required-after:Forge@[7.7.1.687,)")
+@Mod(modid = "TConstruct", name = "TConstruct", version = "1.5.1_1.4.1.4", dependencies = "required-after:Forge@[7.7.1.687,)")//, modExclusionList="GregTech-Addon")
 @NetworkMod(serverSideRequired = false, clientSideRequired = true, channels = { "TConstruct" }, packetHandler = mods.tinker.tconstruct.util.network.TPacketHandler.class)
 public class TConstruct
 {
@@ -81,7 +81,6 @@ public class TConstruct
         chiselDetailing = new Detailing();
 
         content = new TContent();
-        content.modRecipes();
 
         events = new TEventHandler();
         events.unfuxOreDictionary();

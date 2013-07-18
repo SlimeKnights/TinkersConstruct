@@ -360,6 +360,7 @@ public class AbilityHelper
             {
                 tags.getCompoundTag("InfiTool").setInteger("Damage", 0);
                 stack.setItemDamage(0);
+                tags.getCompoundTag("InfiTool").setBoolean("Broken", false);
             }
 
             else if (damageTrue > maxDamage)
@@ -415,19 +416,14 @@ public class AbilityHelper
         float bonusLog = (float) Math.log(durability / 72f + 1) * 2 * stonebound;
         trueSpeed += bonusLog;
 
-        /*mineSpeed += shoddy * durability / 100f;
-        mineSpeed /= 15;*/
-
         if (charge < trueSpeed)
         {
             if (charge > 0)
                 tags.setInteger("charge", 0);
             return false;
         }
-        /*if (entity instanceof EntityPlayer && ElectricItem.use(stack, mineSpeed, (EntityPlayer) entity))
-        	return true;*/
 
-        charge -= mineSpeed;
+        charge -= trueSpeed;
         ToolCore tool = (ToolCore) stack.getItem();
         stack.setItemDamage(1 + (tool.getMaxCharge(stack) - charge) * (stack.getMaxDamage() - 1) / tool.getMaxCharge(stack));
         tags.setInteger("charge", charge);

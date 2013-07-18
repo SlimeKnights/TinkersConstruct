@@ -1108,7 +1108,10 @@ public class TContent implements IFuelHandler
         }
 
         //Alloys
-        Smeltery.addAlloyMixing(new LiquidStack(liquidMetalStill.blockID, 16, 7), new LiquidStack(liquidMetalStill.blockID, 24, 2), new LiquidStack(liquidMetalStill.blockID, 8, 3)); //Bronze
+        if (PHConstruct.harderBronze)
+            Smeltery.addAlloyMixing(new LiquidStack(liquidMetalStill.blockID, 16, 7), new LiquidStack(liquidMetalStill.blockID, 24, 2), new LiquidStack(liquidMetalStill.blockID, 8, 3)); //Bronze
+        else
+            Smeltery.addAlloyMixing(new LiquidStack(liquidMetalStill.blockID, 24, 7), new LiquidStack(liquidMetalStill.blockID, 24, 2), new LiquidStack(liquidMetalStill.blockID, 8, 3));
         Smeltery.addAlloyMixing(new LiquidStack(liquidMetalStill.blockID, 16, 8), new LiquidStack(liquidMetalStill.blockID, 24, 4), new LiquidStack(liquidMetalStill.blockID, 8, 2)); //Aluminum Brass
         Smeltery.addAlloyMixing(new LiquidStack(liquidMetalStill.blockID, 16, 9), new LiquidStack(liquidMetalStill.blockID, 32, 5), new LiquidStack(liquidMetalStill.blockID, 32, 6)); //Manyullyn
         Smeltery.addAlloyMixing(new LiquidStack(liquidMetalStill.blockID, 48, 10), new LiquidStack(liquidMetalStill.blockID, 80, 4), new LiquidStack(liquidMetalStill.blockID, 32, 0), new LiquidStack(
@@ -1360,9 +1363,9 @@ public class TContent implements IFuelHandler
         }
 
         //Glass
-        GameRegistry.addRecipe(new ItemStack(Item.glassBottle, 3), new Object[] {"# #", " # ", '#', glass});
-        GameRegistry.addRecipe(new ItemStack(Block.daylightSensor), new Object[] {"GGG", "QQQ", "WWW", 'G', Block.glass, 'Q', Item.netherQuartz, 'W', Block.woodSingleSlab});
-        GameRegistry.addRecipe(new ItemStack(Block.beacon, 1), new Object[] {"GGG", "GSG", "OOO", 'G', glass, 'S', Item.netherStar, 'O', Block.obsidian});
+        GameRegistry.addRecipe(new ItemStack(Item.glassBottle, 3), new Object[] { "# #", " # ", '#', glass });
+        GameRegistry.addRecipe(new ItemStack(Block.daylightSensor), new Object[] { "GGG", "QQQ", "WWW", 'G', Block.glass, 'Q', Item.netherQuartz, 'W', Block.woodSingleSlab });
+        GameRegistry.addRecipe(new ItemStack(Block.beacon, 1), new Object[] { "GGG", "GSG", "OOO", 'G', glass, 'S', Item.netherStar, 'O', Block.obsidian });
 
         //Smeltery
         ItemStack searedBrick = new ItemStack(materials, 1, 2);
@@ -1373,7 +1376,7 @@ public class TContent implements IFuelHandler
         GameRegistry.addRecipe(new ItemStack(lavaTank, 1, 0), "bbb", "bgb", "bbb", 'b', searedBrick, 'g', Block.glass); //Tank
         GameRegistry.addRecipe(new ItemStack(lavaTank, 1, 1), "bgb", "ggg", "bgb", 'b', searedBrick, 'g', Block.glass); //Glass
         GameRegistry.addRecipe(new ItemStack(lavaTank, 1, 2), "bgb", "bgb", "bgb", 'b', searedBrick, 'g', Block.glass); //Window
-        
+
         GameRegistry.addRecipe(new ItemStack(lavaTank, 1, 0), "bbb", "bgb", "bbb", 'b', searedBrick, 'g', glass); //Tank
         GameRegistry.addRecipe(new ItemStack(lavaTank, 1, 1), "bgb", "ggg", "bgb", 'b', searedBrick, 'g', glass); //Glass
         GameRegistry.addRecipe(new ItemStack(lavaTank, 1, 2), "bgb", "bgb", "bgb", 'b', searedBrick, 'g', glass); //Window
@@ -1382,8 +1385,8 @@ public class TContent implements IFuelHandler
         GameRegistry.addRecipe(new ItemStack(searedBlock, 1, 1), "b b", " b ", 'b', searedBrick); //Faucet
         GameRegistry.addRecipe(new ItemStack(searedBlock, 1, 2), "b b", "b b", "bbb", 'b', searedBrick); //Basin
 
-        GameRegistry.addRecipe(new ItemStack(Block.pumpkinLantern, 1, 0), "p", "s", 'p', new ItemStack(Block.pumpkin), 'w', new ItemStack(toolRod, 1, 1));
-        GameRegistry.addRecipe(new ItemStack(stoneTorch, 4), "p", "w", 'p', new ItemStack(Item.coal, 1, Short.MAX_VALUE), 'w', new ItemStack(toolRod, 1, 1));
+        GameRegistry.addRecipe(new ItemStack(Block.pumpkinLantern, 1, 0), "p", "s", 'p', new ItemStack(Block.pumpkin), 'w', new ItemStack(stoneTorch));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(stoneTorch, 4), "p", "w", 'p', new ItemStack(Item.coal, 1, Short.MAX_VALUE), 'w', "stoneRod"));
         GameRegistry.addRecipe(new ItemStack(toolRod, 4, 1), "c", "c", 'c', new ItemStack(Block.stone));
         GameRegistry.addRecipe(new ItemStack(toolRod, 2, 1), "c", "c", 'c', new ItemStack(Block.cobblestone));
 
@@ -1422,7 +1425,7 @@ public class TContent implements IFuelHandler
         }
 
         //Drying rack
-        DryingRackRecipes.addDryingRecipe(Item.rottenFlesh, 20*60*5, Item.leather);
+        DryingRackRecipes.addDryingRecipe(Item.rottenFlesh, 20 * 60 * 5, Item.leather);
 
         //Slabs
         for (int i = 0; i < 7; i++)
@@ -1529,8 +1532,16 @@ public class TContent implements IFuelHandler
         OreDictionary.registerOre("nuggetCopper", new ItemStack(materials, 1, 20));
         OreDictionary.registerOre("nuggetTin", new ItemStack(materials, 1, 21));
         OreDictionary.registerOre("nuggetNaturalAluminum", new ItemStack(materials, 1, 22));
-        OreDictionary.registerOre("nuggetSilver", new ItemStack(materials, 1, 23));
+        //OreDictionary.registerOre("nuggetSilver", new ItemStack(materials, 1, 23));
         OreDictionary.registerOre("nuggetAluminumBrass", new ItemStack(materials, 1, 24));
+
+        String[] matNames = { "wood", "stone", "iron", "flint", "cactus", "bone", "obsidian", "netherrack", "slime", "paper", "cobalt", "ardite", "manyullyn", "copper", "bronze", "alumite", "steel",
+                "blueslime" };
+
+        for (int i = 0; i < matNames.length; i++)
+            OreDictionary.registerOre(matNames[i] + "Rod", new ItemStack(toolRod, 1, i));
+
+        OreDictionary.registerOre("thaumiumRod", new ItemStack(toolRod, 1, 31));
 
         String[] names = new String[] { "Molten Iron", "Molten Gold", "Molten Copper", "Molten Tin", "Molten Aluminum", "Molten Cobalt", "Molten Ardite", "Molten Bronze", "Molten Aluminum Brass",
                 "Molten Manyullyn", "Molten Alumite", "Molten Obsidian", "Molten Steel", "Molten Glass", "Seared Stone", "Molten Emerald", "Blood" };
@@ -1670,19 +1681,19 @@ public class TContent implements IFuelHandler
                 RecipeRemover.removeShapedRecipe(new ItemStack(Item.hoeGold));
                 RecipeRemover.removeShapedRecipe(new ItemStack(Item.swordGold));
             }
-            /*else
+            else if (PHConstruct.geGreg)
             {
                 CraftingManager cm = CraftingManager.getInstance();
                 new RecipesTools().addRecipes(cm);
                 new RecipesWeapons().addRecipes(cm);
-            }*/
+            }
 
             if (!PHConstruct.vanillaMetalBlocks)
             {
                 RecipeRemover.removeShapedRecipe(new ItemStack(Block.blockIron));
                 RecipeRemover.removeShapedRecipe(new ItemStack(Block.blockGold));
             }
-            /*else
+            else if (PHConstruct.geGreg)
             {
                 String[] blockPattern = new String[] { "###", "###", "###" };
                 GameRegistry.addRecipe(new ItemStack(Block.blockIron), blockPattern, '#', new ItemStack(Item.ingotIron));
@@ -1692,17 +1703,20 @@ public class TContent implements IFuelHandler
                 GameRegistry.addRecipe(new ItemStack(Block.blockEmerald), blockPattern, '#', new ItemStack(Item.emerald));
                 GameRegistry.addRecipe(new ItemStack(Block.blockRedstone), blockPattern, '#', new ItemStack(Item.redstone));
                 GameRegistry.addRecipe(new ItemStack(Block.blockNetherQuartz, 1), "##", "##", '#', Item.netherQuartz);
-            }*/
-            
-            /*GameRegistry.addRecipe(new ItemStack(Item.flintAndSteel, 1), "A ", " B", 'A', Item.ingotIron, 'B', Item.flint);
-            List recipes = CraftingManager.getInstance().getRecipeList();
-            addShapedRecipeFirst(recipes, new ItemStack(Block.planks, 4, 0), "#", '#', new ItemStack(Block.wood, 1, 0));
-            addShapedRecipeFirst(recipes, new ItemStack(Block.planks, 4, 1), "#", '#', new ItemStack(Block.wood, 1, 1));
-            addShapedRecipeFirst(recipes, new ItemStack(Block.planks, 4, 2), "#", '#', new ItemStack(Block.wood, 1, 2));
-            addShapedRecipeFirst(recipes, new ItemStack(Block.planks, 4, 3), "#", '#', new ItemStack(Block.wood, 1, 3));*/
+            }
+
+            if (PHConstruct.geGreg)
+            {
+                GameRegistry.addRecipe(new ItemStack(Item.flintAndSteel, 1), "A ", " B", 'A', Item.ingotIron, 'B', Item.flint);
+                List recipes = CraftingManager.getInstance().getRecipeList();
+                addShapedRecipeFirst(recipes, new ItemStack(Block.planks, 4, 0), "#", '#', new ItemStack(Block.wood, 1, 0));
+                addShapedRecipeFirst(recipes, new ItemStack(Block.planks, 4, 1), "#", '#', new ItemStack(Block.wood, 1, 1));
+                addShapedRecipeFirst(recipes, new ItemStack(Block.planks, 4, 2), "#", '#', new ItemStack(Block.wood, 1, 2));
+                addShapedRecipeFirst(recipes, new ItemStack(Block.planks, 4, 3), "#", '#', new ItemStack(Block.wood, 1, 3));
+            }
         }
     }
-    
+
     public static void addShapedRecipeFirst (List recipeList, ItemStack itemstack, Object... objArray)
     {
         String var3 = "";

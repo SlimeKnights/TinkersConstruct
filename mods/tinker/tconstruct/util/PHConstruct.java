@@ -45,18 +45,11 @@ public class PHConstruct
          * Avoid values below 4096 for items and in the 250-450 range for blocks
          */
 
-        //removeToolRecipes = config.get("Diffuclty Changes", "Remove vanilla tool recipes", false).getBoolean(false);
         keepHunger = config.get("Difficulty Changes", "Keep hunger on death", true).getBoolean(true);
         keepLevels = config.get("Difficulty Changes", "Keep levels on death", true).getBoolean(true);
         beginnerBook = config.get("Difficulty Changes", "Spawn beginner book", true).getBoolean(true);
 
         superfunWorld = config.get("Superfun", "All the world is Superfun", false).getBoolean(false);
-
-        /*disableWoodTools = config.get("Difficulty Changes", "Disable vanilla wooden tools", false).getBoolean(false);
-        disableStoneTools = config.get("Difficulty Changes", "Disable vanilla stone tools", true).getBoolean(true);
-        disableIronTools = config.get("Difficulty Changes", "Disable vanilla iron tools", true).getBoolean(true);
-        disableDiamondTools = config.get("Difficulty Changes", "Disable vanilla diamond tools", true).getBoolean(true);
-        disableGoldTools = config.get("Difficulty Changes", "Disable vanilla gold tools", true).getBoolean(true);*/
 
         enableTWood = config.get("Difficulty Changes", "Enable mod wooden tools", true).getBoolean(true);
         enableTStone = config.get("Difficulty Changes", "Enable mod stone tools", true).getBoolean(true);
@@ -66,6 +59,8 @@ public class PHConstruct
         vanillaMetalBlocks = config.get("Difficulty Changes", "Craft vanilla metal blocks", true).getBoolean(true);
         lavaFortuneInteraction = config.get("Difficulty Changes", "Enable Auto-Smelt and Fortune interaction", true).getBoolean(true);
         removeVanillaToolRecipes = config.get("Difficulty Changes", "Remove Vanilla Tool Recipes", false).getBoolean(false);
+        geGreg = config.get("Difficulty Changes", "Remove Vanilla GregTech Nerfs", true).getBoolean(true);
+        harderBronze = config.get("Difficulty Changes", "Lower bronze output to 2 ingots", false).getBoolean(false);
 
         blueSlime = config.get("Mob Spawning", "Activate Blue Slime Spawns", true).getBoolean(true);
         blueSlimeWeight = config.get("Mob Spawning", "Spawn Weight for Blue Slime", 7).getInt(7);
@@ -508,8 +503,6 @@ public class PHConstruct
     //Difficulty modifiers
     public static boolean keepHunger;
     public static boolean keepLevels;
-    public static boolean clearWater;
-    public static boolean voidFog;
 
     public static boolean disableWoodTools;
     public static boolean disableStoneTools;
@@ -525,6 +518,7 @@ public class PHConstruct
     public static boolean craftMetalTools;
     public static boolean vanillaMetalBlocks;
     public static boolean removeVanillaToolRecipes;
+    public static boolean harderBronze;
 
     //Ultra Hardcore modifiers
     public static boolean enableHealthRegen;
@@ -542,4 +536,5 @@ public class PHConstruct
 
     public static boolean gregtech;
     public static boolean lavaFortuneInteraction;
+    public static boolean geGreg;
 }

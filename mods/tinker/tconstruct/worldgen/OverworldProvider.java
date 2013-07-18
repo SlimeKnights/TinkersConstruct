@@ -14,8 +14,6 @@ public class OverworldProvider extends WorldProvider
 
     public boolean getWorldHasVoidParticles ()
     {
-        if (PHConstruct.voidFog)
-            return false;
         return this.terrainType.hasVoidParticles(this.hasNoSky);
     }
 
