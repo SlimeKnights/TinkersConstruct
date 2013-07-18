@@ -88,7 +88,6 @@ public class TConstruct
         chiselDetailing = new Detailing();
 
         content = new TContent();
-        content.modRecipes();
 
         events = new TEventHandler();
         events.unfuxOreDictionary();

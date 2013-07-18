@@ -41,18 +41,11 @@ public class PHConstruct
          * Avoid values below 4096 for items and in the 250-450 range for blocks
          */
 
-        //removeToolRecipes = config.get("Diffuclty Changes", "Remove vanilla tool recipes", false).getBoolean(false);
         keepHunger = config.get("Difficulty Changes", "Keep hunger on death", true).getBoolean(true);
         keepLevels = config.get("Difficulty Changes", "Keep levels on death", true).getBoolean(true);
         beginnerBook = config.get("Difficulty Changes", "Spawn beginner book", true).getBoolean(true);
 
         superfunWorld = config.get("Superfun", "All the world is Superfun", false).getBoolean(false);
-
-        /*disableWoodTools = config.get("Difficulty Changes", "Disable vanilla wooden tools", false).getBoolean(false);
-        disableStoneTools = config.get("Difficulty Changes", "Disable vanilla stone tools", true).getBoolean(true);
-        disableIronTools = config.get("Difficulty Changes", "Disable vanilla iron tools", true).getBoolean(true);
-        disableDiamondTools = config.get("Difficulty Changes", "Disable vanilla diamond tools", true).getBoolean(true);
-        disableGoldTools = config.get("Difficulty Changes", "Disable vanilla gold tools", true).getBoolean(true);*/
 
         enableTWood = config.get("Difficulty Changes", "Enable mod wooden tools", true).getBoolean(true);
         enableTStone = config.get("Difficulty Changes", "Enable mod stone tools", true).getBoolean(true);
@@ -72,6 +65,7 @@ public class PHConstruct
         stencilTableCrafting = config.get("Difficulty Changes", "Craft Stencil Tables", true).getBoolean(true);
         miningLevelIncrease = config.get("Difficulty Changes", "Modifiers increase Mining Level", true).getBoolean(true);
         denyMattock = config.get("Difficulty Changes", "Deny creation of non-metal mattocks", false).getBoolean(false);
+        harderBronze = config.get("Difficulty Changes", "Lower bronze output to 2 ingots", false).getBoolean(false);
 
         blueSlime = config.get("Mob Spawning", "Activate Blue Slime Spawns", true).getBoolean(true);
         blueSlimeWeight = config.get("Mob Spawning", "Spawn Weight for Blue Slime", 6).getInt(6);
@@ -616,8 +610,6 @@ public class PHConstruct
     //Difficulty modifiers
     public static boolean keepHunger;
     public static boolean keepLevels;
-    public static boolean clearWater;
-    public static boolean voidFog;
 
     public static boolean disableWoodTools;
     public static boolean disableStoneTools;
