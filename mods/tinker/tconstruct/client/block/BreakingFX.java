@@ -2,10 +2,8 @@ package mods.tinker.tconstruct.client.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.particle.EntityFX;
-import net.minecraft.client.renderer.RenderEngine;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.item.Item;
-import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -13,18 +11,18 @@ import cpw.mods.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class BreakingFX extends EntityFX
 {
-    public BreakingFX(World par1World, double par2, double par4, double par6, Item par8Item, RenderEngine par9RenderEngine)
+    public BreakingFX(World par1World, double par2, double par4, double par6, Item par8Item)
     {
         super(par1World, par2, par4, par6, 0.0D, 0.0D, 0.0D);
-        this.setParticleIcon(par9RenderEngine, par8Item.getIconFromDamage(0));
+        this.func_110125_a(par8Item.getIconFromDamage(0));
         this.particleRed = this.particleGreen = this.particleBlue = 1.0F;
         this.particleGravity = Block.blockSnow.blockParticleGravity;
         this.particleScale /= 2.0F;
     }
 
-    public BreakingFX(World par1World, double par2, double par4, double par6, double par8, double par10, double par12, Item par14Item, RenderEngine par15RenderEngine)
+    public BreakingFX(World par1World, double par2, double par4, double par6, double par8, double par10, double par12, Item par14Item)
     {
-        this(par1World, par2, par4, par6, par14Item, par15RenderEngine);
+        this(par1World, par2, par4, par6, par14Item);
         this.motionX *= 0.10000000149011612D;
         this.motionY *= 0.10000000149011612D;
         this.motionZ *= 0.10000000149011612D;

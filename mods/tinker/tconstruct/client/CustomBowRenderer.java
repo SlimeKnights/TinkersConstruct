@@ -6,11 +6,12 @@ import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
 
 import org.lwjgl.opengl.GL11;
@@ -36,13 +37,13 @@ public class CustomBowRenderer implements IItemRenderer
     @Override
     public void renderItem (ItemRenderType type, ItemStack item, Object... data)
     {
-        EntityLiving living = (EntityLiving) data[1];
+        EntityLivingBase living = (EntityLivingBase) data[1];
         ItemRenderer renderer = RenderManager.instance.itemRenderer;
         for (int i = 0; i < item.getItem().getRenderPasses(item.getItemDamage()) + 1; i++)
             renderItem(living, item, i, type);
     }
 
-    public void renderItem (EntityLiving living, ItemStack stack, int renderPass, ItemRenderType type)
+    public void renderItem (EntityLivingBase living, ItemStack stack, int renderPass, ItemRenderType type)
     {
         GL11.glPushMatrix();
 
@@ -74,11 +75,11 @@ public class CustomBowRenderer implements IItemRenderer
 
         if (stack.getItemSpriteNumber() == 0)
         {
-            this.mc.renderEngine.bindTexture("/terrain.png");
+            this.mc.renderEngine.func_110577_a(new ResourceLocation("tinkers:terrain.png"));
         }
         else
         {
-            this.mc.renderEngine.bindTexture("/gui/items.png");
+            this.mc.renderEngine.func_110577_a(new ResourceLocation("tinkers:gui/items.png"));
         }
 
         if (type == ItemRenderType.EQUIPPED_FIRST_PERSON)

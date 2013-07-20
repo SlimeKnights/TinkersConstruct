@@ -16,6 +16,7 @@ import mods.tinker.tconstruct.worldgen.TerrainGenEventHandler;
 import mods.tinker.tconstruct.worldgen.village.TVillageTrades;
 import mods.tinker.tconstruct.worldgen.village.VillageSmelteryHandler;
 import mods.tinker.tconstruct.worldgen.village.VillageToolStationHandler;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
@@ -99,7 +100,8 @@ public class TConstruct
         GameRegistry.registerCraftingHandler(new TCraftingHandler());
         NetworkRegistry.instance().registerGuiHandler(instance, proxy);
 
-        VillagerRegistry.instance().registerVillagerType(78943, "/mods/tinker/textures/mob/villagertools.png");
+        VillagerRegistry.instance().registerVillagerId(78943);
+        VillagerRegistry.instance().registerVillagerSkin(78943, new ResourceLocation("tinker:mob/villagertools.png"));
         VillagerRegistry.instance().registerVillageTradeHandler(78943, new TVillageTrades());
         if (PHConstruct.addToVillages)
         {

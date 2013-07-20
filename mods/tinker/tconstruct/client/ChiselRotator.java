@@ -9,6 +9,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.IItemRenderer;
 
 import org.lwjgl.opengl.GL11;
@@ -76,11 +77,11 @@ public class ChiselRotator implements IItemRenderer
 
         if (stack.getItemSpriteNumber() == 0)
         {
-            this.mc.renderEngine.bindTexture("/terrain.png");
+            this.mc.renderEngine.func_110577_a(new ResourceLocation("tinkers:terrain.png"));
         }
         else
         {
-            this.mc.renderEngine.bindTexture("/gui/items.png");
+            this.mc.renderEngine.func_110577_a(new ResourceLocation("tinkers:gui/items.png"));
         }
 
         Tessellator tessellator = Tessellator.instance;
