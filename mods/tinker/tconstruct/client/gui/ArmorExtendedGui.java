@@ -1,13 +1,10 @@
 package mods.tinker.tconstruct.client.gui;
 
-import mods.tinker.tconstruct.client.TControls;
 import mods.tinker.tconstruct.common.TContent;
 import mods.tinker.tconstruct.inventory.ArmorExtendedContainer;
 import mods.tinker.tconstruct.util.player.ArmorExtended;
-import mods.tinker.tconstruct.util.player.TPlayerStats;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.renderer.InventoryEffectRenderer;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
@@ -15,6 +12,7 @@ import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
@@ -26,7 +24,9 @@ public class ArmorExtendedGui extends InventoryEffectRenderer
 
     private float xSize_lo;
     private float ySize_lo;
-
+    
+    private ResourceLocation background = new ResourceLocation("tinker:textures/gui/armorextended.png");
+    
     public ArmorExtendedGui(InventoryPlayer inventoryplayer, ArmorExtended holder)
     {
         super(new ArmorExtendedContainer(inventoryplayer, holder));
@@ -82,7 +82,7 @@ public class ArmorExtendedGui extends InventoryEffectRenderer
     protected void drawGuiContainerBackgroundLayer (float f, int i, int j)
     {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        mc.renderEngine.bindTexture("/mods/tinker/textures/gui/armorextended.png");
+        mc.renderEngine.func_110577_a(background);
         int cornerX = guiLeft;
         int cornerY = (height - ySize) / 2;
         drawTexturedModalRect(cornerX, cornerY, 0, 0, xSize, ySize);

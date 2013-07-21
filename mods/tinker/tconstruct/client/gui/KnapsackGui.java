@@ -12,6 +12,7 @@ import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 
 import org.lwjgl.opengl.GL11;
@@ -22,6 +23,8 @@ public class KnapsackGui extends GuiContainer
     public InventoryPlayer inv;
     public KnapsackInventory stats;
 
+    ResourceLocation background = new ResourceLocation("tinkers:textures/gui/knapsack.png");
+    
     public KnapsackGui(InventoryPlayer inventoryplayer, KnapsackInventory holder)
     {
         super(new KnapsackContainer(inventoryplayer, holder));
@@ -55,7 +58,7 @@ public class KnapsackGui extends GuiContainer
     protected void drawGuiContainerBackgroundLayer (float f, int i, int j)
     {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        mc.renderEngine.bindTexture("/mods/tinker/textures/gui/knapsack.png");
+        mc.renderEngine.func_110577_a(background);
         int cornerX = guiLeft;
         int cornerY = (height - ySize) / 2;
         drawTexturedModalRect(cornerX, cornerY, 0, 0, xSize, ySize);

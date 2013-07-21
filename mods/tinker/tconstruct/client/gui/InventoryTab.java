@@ -6,6 +6,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
@@ -17,8 +18,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class InventoryTab extends GuiButton
 {
     int textureX;
-    String texture = "/gui/allitems.png";
     ItemStack renderStack;
+    
+    ResourceLocation background = new ResourceLocation("tinkers:textures/gui/allitems.png");
 
     public InventoryTab(int id, int posX, int posY, ItemStack stack, int texX)
     {
@@ -35,7 +37,7 @@ public class InventoryTab extends GuiButton
         if (this.drawButton)
         {
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-            mc.renderEngine.bindTexture(texture);
+            mc.renderEngine.func_110577_a(background);
 
             int yTexPos = this.enabled ? 0 : 32;
             int ySize = this.enabled ? 28 : 32;

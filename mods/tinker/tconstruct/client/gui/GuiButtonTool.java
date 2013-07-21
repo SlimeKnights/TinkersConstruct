@@ -3,6 +3,7 @@ package mods.tinker.tconstruct.client.gui;
 import mods.tinker.tconstruct.library.client.ToolGuiElement;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
+import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
@@ -20,6 +21,8 @@ public class GuiButtonTool extends GuiButton
     public String texture;
     public ToolGuiElement element;
 
+    private ResourceLocation background;
+    
     public GuiButtonTool(int id, int posX, int posY, int texX, int texY, String tex, ToolGuiElement e)
     {
         super(id, posX, posY, 18, 18, "");
@@ -27,6 +30,7 @@ public class GuiButtonTool extends GuiButton
         textureY = texY;
         texture = tex;
         element = e;
+        background = new ResourceLocation(texture);
     }
 
     /**
@@ -38,7 +42,7 @@ public class GuiButtonTool extends GuiButton
         {
             boolean var4 = mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height;
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-            mc.renderEngine.bindTexture(texture);
+            mc.renderEngine.func_110577_a(background);
 
             this.field_82253_i = mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height;
             int var5 = this.getHoverState(this.field_82253_i);

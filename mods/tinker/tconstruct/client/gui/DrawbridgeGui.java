@@ -3,6 +3,7 @@ package mods.tinker.tconstruct.client.gui;
 import mods.tinker.tconstruct.blocks.logic.DrawbridgeLogic;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
@@ -12,6 +13,8 @@ public class DrawbridgeGui extends GuiContainer
 {
     public DrawbridgeLogic logic;
 
+    private ResourceLocation background = new ResourceLocation("tinker:textures/gui/drawbridge.png");
+    
     public DrawbridgeGui(InventoryPlayer inventoryplayer, DrawbridgeLogic frypan, World world, int x, int y, int z)
     {
         super(frypan.getGuiContainer(inventoryplayer, world, x, y, z));
@@ -28,7 +31,7 @@ public class DrawbridgeGui extends GuiContainer
     protected void drawGuiContainerBackgroundLayer (float f, int i, int j)
     {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        mc.renderEngine.bindTexture("/mods/tinker/textures/gui/drawbridge.png");
+        mc.renderEngine.func_110577_a(background);
         int cornerX = (width - xSize) / 2;
         int cornerY = (height - ySize) / 2;
         drawTexturedModalRect(cornerX, cornerY, 0, 0, xSize, ySize);

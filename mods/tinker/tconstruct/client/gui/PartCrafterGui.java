@@ -12,6 +12,7 @@ import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
@@ -27,6 +28,10 @@ public class PartCrafterGui extends NewContainerGui
     ItemStack topMaterial, bottomMaterial;
     ToolMaterial topEnum, bottomEnum;
 
+    ResourceLocation background = new ResourceLocation("tinkers:textures/gui/toolparts.png");
+    ResourceLocation patternChest = new ResourceLocation("tinkers:textures/gui/patternchestmini.png");
+    ResourceLocation descriptionTab = new ResourceLocation("tinkers:textures/gui/description.png");
+    
     public PartCrafterGui(InventoryPlayer inventoryplayer, PartCrafterLogic partlogic, World world, int x, int y, int z)
     {
         super((ActiveContainer) partlogic.getGuiContainer(inventoryplayer, world, x, y, z));
@@ -151,7 +156,7 @@ public class PartCrafterGui extends NewContainerGui
     {
         // Draw the background
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        this.mc.renderEngine.bindTexture("/mods/tinker/textures/gui/toolparts.png");
+        this.mc.renderEngine.func_110577_a(background);
         int cornerX = (this.width - this.xSize) / 2;
         int cornerY = (this.height - this.ySize) / 2;
         this.drawTexturedModalRect(cornerX, cornerY, 0, 0, this.xSize, this.ySize);
@@ -181,7 +186,7 @@ public class PartCrafterGui extends NewContainerGui
             //texID = this.mc.renderEngine.getTexture("/mods/tinker/textures/gui/patternchestmini.png");
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             //his.mc.renderEngine.bindTexture(texID);
-            this.mc.renderEngine.bindTexture("/mods/tinker/textures/gui/patternchestmini.png");
+            this.mc.renderEngine.func_110577_a(patternChest);
             this.drawTexturedModalRect(cornerX - 116, cornerY + 11, 0, 0, this.xSize, this.ySize);
         }
 
@@ -189,7 +194,7 @@ public class PartCrafterGui extends NewContainerGui
         //texID = this.mc.renderEngine.getTexture("/mods/tinker/textures/gui/description.png");
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         //this.mc.renderEngine.bindTexture(texID);
-        this.mc.renderEngine.bindTexture("/mods/tinker/textures/gui/description.png");
+        this.mc.renderEngine.func_110577_a(descriptionTab);
         cornerX = (this.width + this.xSize) / 2;
         cornerY = (this.height - this.ySize) / 2;
         this.drawTexturedModalRect(cornerX, cornerY, 126, 0, 126, this.ySize);

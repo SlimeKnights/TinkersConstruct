@@ -20,6 +20,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.Icon;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
@@ -30,7 +31,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public abstract class NewContainerGui extends GuiScreen
-{
+{	
     /** Stacks renderer. Icons, stack size, health, etc... */
     protected static RenderItem itemRenderer = new RenderItem();
 
@@ -75,6 +76,8 @@ public abstract class NewContainerGui extends GuiScreen
     protected boolean field_94074_J;
     protected ItemStack field_94075_K = null;
 
+    ResourceLocation background = new ResourceLocation("tinkers:textures/gui/items.png");
+    
     public NewContainerGui(ActiveContainer container)
     {
         this.container = container;
@@ -378,7 +381,7 @@ public abstract class NewContainerGui extends GuiScreen
                 return;
             }
 
-            if (Container.func_94527_a(par1Slot, itemstack1, true) && this.container.func_94531_b(par1Slot))
+            if (Container.func_94527_a(par1Slot, itemstack1, true) && this.container.canDragIntoSlot(par1Slot))
             {
                 itemstack = itemstack1.copy();
                 flag = true;
@@ -413,7 +416,7 @@ public abstract class NewContainerGui extends GuiScreen
             if (icon != null)
             {
                 GL11.glDisable(GL11.GL_LIGHTING);
-                this.mc.renderEngine.bindTexture("/gui/items.png");
+                this.mc.renderEngine.func_110577_a(background);
                 this.drawTexturedModelRectFromIcon(i, j, icon, 16, 16);
                 GL11.glEnable(GL11.GL_LIGHTING);
                 flag1 = true;
@@ -626,7 +629,7 @@ public abstract class NewContainerGui extends GuiScreen
             }
         }
         else if (this.field_94076_q && slot != null && itemstack != null && itemstack.stackSize > this.field_94077_p.size() && Container.func_94527_a(slot, itemstack, true)
-                && slot.isItemValid(itemstack) && this.container.func_94531_b(slot))
+                && slot.isItemValid(itemstack) && this.container.canDragIntoSlot(slot))
         {
             this.field_94077_p.add(slot);
             this.func_94066_g();
@@ -875,7 +878,7 @@ public abstract class NewContainerGui extends GuiScreen
     {
         if (this.mc.thePlayer != null)
         {
-            this.container.onCraftGuiClosed(this.mc.thePlayer);
+            this.container.onContainerClosed(this.mc.thePlayer);
         }
     }
 

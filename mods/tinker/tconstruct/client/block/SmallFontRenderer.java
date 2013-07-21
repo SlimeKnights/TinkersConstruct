@@ -1,7 +1,5 @@
 package mods.tinker.tconstruct.client.block;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,13 +8,20 @@ import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
+
 import javax.imageio.ImageIO;
+
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.RenderEngine;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.util.ChatAllowedCharacters;
+import net.minecraft.util.ResourceLocation;
+
 import org.lwjgl.opengl.GL11;
+
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class SmallFontRenderer
@@ -41,7 +46,7 @@ public class SmallFontRenderer
     private final String fontTextureName;
 
     /** The RenderEngine used to load and setup glyph textures. */
-    private final RenderEngine renderEngine;
+    private final TextureManager renderEngine;
 
     /** Current X coordinate at which to draw the next character. */
     private float posX;
@@ -100,13 +105,13 @@ public class SmallFontRenderer
         this.unicodeFlag = true;
     }
 
-    public SmallFontRenderer(GameSettings par1GameSettings, String par2Str, RenderEngine par3RenderEngine, boolean par4)
+    public SmallFontRenderer(GameSettings par1GameSettings, String par2Str, TextureManager par3RenderEngine, boolean par4)
     {
         this.fontTextureName = par2Str;
         this.renderEngine = par3RenderEngine;
         this.unicodeFlag = true;
         this.readFontData();
-        par3RenderEngine.bindTexture(par2Str);
+        par3RenderEngine.func_110577_a(new ResourceLocation("tinkers:" + par2Str));
 
         for (int i = 0; i < 32; ++i)
         {
@@ -153,7 +158,7 @@ public class SmallFontRenderer
 
         try
         {
-            bufferedimage = ImageIO.read(RenderEngine.class.getResourceAsStream(par1Str));
+            bufferedimage = ImageIO.read(TextureManager.class.getResourceAsStream(par1Str));
         }
         catch (IOException ioexception)
         {
@@ -213,7 +218,7 @@ public class SmallFontRenderer
     {
         try
         {
-            InputStream inputstream = Minecraft.getMinecraft().texturePackList.getSelectedTexturePack().getResourceAsStream("/font/glyph_sizes.bin");
+            InputStream inputstream = Minecraft.getMinecraft().func_110438_M().field_110620_b.func_110590_a(new ResourceLocation("tinkers:font/glyph_sizes.bin"));
             inputstream.read(this.glyphWidth);
         }
         catch (IOException ioexception)
@@ -238,7 +243,7 @@ public class SmallFontRenderer
         float f = (float) (par1 % 16 * 8);
         float f1 = (float) (par1 / 16 * 8);
         float f2 = par2 ? 1.0F : 0.0F;
-        this.renderEngine.bindTexture(this.fontTextureName);
+        this.renderEngine.func_110577_a(new ResourceLocation("tinkers:" + this.fontTextureName));
         float f3 = (float) this.charWidth[par1] - 0.01F;
         GL11.glBegin(GL11.GL_TRIANGLE_STRIP);
         GL11.glTexCoord2f(f / 128.0F, f1 / 128.0F);
@@ -258,8 +263,8 @@ public class SmallFontRenderer
      */
     private void loadGlyphTexture (int par1)
     {
-        String s = String.format("/font/glyph_%02X.png", new Object[] { Integer.valueOf(par1) });
-        this.renderEngine.bindTexture(s);
+        String s = String.format("font/glyph_%02X.png", new Object[] { Integer.valueOf(par1) });
+        this.renderEngine.func_110577_a(new ResourceLocation(s));
     }
 
     /**

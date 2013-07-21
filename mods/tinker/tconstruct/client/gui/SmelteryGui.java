@@ -20,6 +20,7 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.Icon;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.liquids.LiquidDictionary;
@@ -38,7 +39,8 @@ public class SmelteryGui extends NewContainerGui
     float currentScroll = 0.0F;
     int slotPos = 0;
     int prevSlotPos = 0;
-
+    ResourceLocation background = new ResourceLocation("tinkers:textures/gui/smeltery.png");
+    
     public SmelteryGui(InventoryPlayer inventoryplayer, SmelteryLogic smeltery, World world, int x, int y, int z)
     {
         super((ActiveContainer) smeltery.getGuiContainer(inventoryplayer, world, x, y, z));
@@ -164,7 +166,7 @@ public class SmelteryGui extends NewContainerGui
     protected void drawGuiContainerBackgroundLayer (float f, int mouseX, int mouseY)
     {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        mc.renderEngine.bindTexture("/mods/tinker/textures/gui/smeltery.png");
+        mc.renderEngine.func_110577_a(background);
         int cornerX = (width - xSize) / 2 + 36;
         int cornerY = (height - ySize) / 2;
         drawTexturedModalRect(cornerX + 46, cornerY, 0, 0, 176, ySize);

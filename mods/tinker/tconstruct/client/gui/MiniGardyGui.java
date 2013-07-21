@@ -4,6 +4,7 @@ import mods.tinker.tconstruct.entity.MiniGardy;
 import mods.tinker.tconstruct.inventory.MiniGardyContainer;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
@@ -13,6 +14,8 @@ public class MiniGardyGui extends GuiContainer
 {
     public MiniGardy gardy;
 
+    ResourceLocation background = new ResourceLocation("tinkers:textures/gui/googirl.png");
+    
     public MiniGardyGui(InventoryPlayer inventoryplayer, MiniGardy gardy)
     {
         super(new MiniGardyContainer(inventoryplayer, gardy));
@@ -28,7 +31,7 @@ public class MiniGardyGui extends GuiContainer
     protected void drawGuiContainerBackgroundLayer (float f, int i, int j)
     {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        mc.renderEngine.bindTexture("/mods/tinker/textures/gui/googirl.png");
+        mc.renderEngine.func_110577_a(background);
         int cornerX = (width - xSize) / 2;
         int cornerY = (height - ySize) / 2;
         drawTexturedModalRect(cornerX, cornerY, 0, 0, xSize, ySize);
