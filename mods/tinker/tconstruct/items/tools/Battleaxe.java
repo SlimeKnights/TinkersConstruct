@@ -274,16 +274,24 @@ public class Battleaxe extends HarvestTool
                             localMeta = world.getBlockMetadata(x, yPos, z);
                             if (!player.capabilities.isCreativeMode)
                             {
+                                if (block.removeBlockByPlayer(world, player, x, yPos, z))
+                                {
+                                    block.onBlockDestroyedByPlayer(world, x, yPos, z, localMeta);
+                                }
                                 block.harvestBlock(world, player, x, yPos, z, localMeta);
-                                block.onBlockHarvested(world, x, y, z, localMeta, player);
+                                block.onBlockHarvested(world, x, yPos, z, localMeta, player);
                                 onBlockDestroyed(stack, world, localblockID, x, yPos, z, player);
                             }
-                            world.setBlockToAir(x, yPos, z);
+                            else
+                            {
+                                world.setBlockToAir(x, yPos, z);
+                            }
                         }
                     }
                 }
             }
-
+            else
+                break;
         }
         if (!world.isRemote)
             world.playAuxSFX(2001, x, y, z, woodID + (meta << 12));

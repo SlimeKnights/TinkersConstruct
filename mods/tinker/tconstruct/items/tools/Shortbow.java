@@ -6,7 +6,6 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import mods.tinker.tconstruct.common.TContent;
 import mods.tinker.tconstruct.library.TConstructRegistry;
-import mods.tinker.tconstruct.library.tools.BowBase;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;

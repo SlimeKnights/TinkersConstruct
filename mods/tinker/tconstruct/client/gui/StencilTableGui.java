@@ -106,12 +106,12 @@ public class StencilTableGui extends GuiContainer
                 logic.setInventorySlotContents(1, stack);
                 updateServer(stack);
             }
-            else if (meta == 1 || meta == 2)
+            /*else if (meta == 1 || meta == 2)
             {
                 ItemStack stack = new ItemStack(TContent.metalPattern, 1, 0);
                 logic.setInventorySlotContents(1, stack);
                 updateServer(stack);
-            }
+            }*/
         }
     }
 

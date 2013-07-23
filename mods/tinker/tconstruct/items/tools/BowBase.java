@@ -1,4 +1,4 @@
-package mods.tinker.tconstruct.library.tools;
+package mods.tinker.tconstruct.items.tools;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -8,6 +8,8 @@ import java.util.Map;
 import mods.tinker.tconstruct.common.TContent;
 import mods.tinker.tconstruct.entity.projectile.ArrowEntity;
 import mods.tinker.tconstruct.library.crafting.ToolBuilder;
+import mods.tinker.tconstruct.library.tools.AbilityHelper;
+import mods.tinker.tconstruct.library.tools.ToolCore;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;

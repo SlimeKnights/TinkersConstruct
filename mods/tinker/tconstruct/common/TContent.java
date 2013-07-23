@@ -763,7 +763,7 @@ public class TContent implements IFuelHandler
         TConstructRegistry.addToolMaterial(5, "Bone", 1, 200, 400, 1, 1.0F, 0, 0f, "\u00A7e", "");
         TConstructRegistry.addToolMaterial(6, "Obsidian", 3, 89, 700, 2, 0.8F, 3, 0f, "\u00A7d", "");
         TConstructRegistry.addToolMaterial(7, "Netherrack", 2, 131, 400, 1, 1.2F, 0, 1f, "\u00A74", "Stonebound");
-        TConstructRegistry.addToolMaterial(8, "Slime", 3, 1500, 150, 0, 2.0F, 0, 0f, "\u00A7a", "");
+        TConstructRegistry.addToolMaterial(8, "Slime", PHConstruct.miningLevelIncrease ? 3 : 0, 1500, 150, 0, 2.0F, 0, 0f, "\u00A7a", "");
         TConstructRegistry.addToolMaterial(9, "Paper", 0, 30, 200, 0, 0.3F, 0, 0f, "\u00A7f", "Writable");
         TConstructRegistry.addToolMaterial(10, "Cobalt", 4, 800, 1100, 3, 1.75F, 2, 0f, "\u00A73", "");
         TConstructRegistry.addToolMaterial(11, "Ardite", 4, 600, 800, 3, 2.0F, 0, 2f, "\u00A74", "Stonebound");
@@ -772,7 +772,7 @@ public class TContent implements IFuelHandler
         TConstructRegistry.addToolMaterial(14, "Bronze", 2, 350, 700, 2, 1.3F, 1, 0f, "\u00A76", "");
         TConstructRegistry.addToolMaterial(15, "Alumite", 4, 550, 800, 3, 1.3F, 2, 0f, "\u00A7d", "");
         TConstructRegistry.addToolMaterial(16, "Steel", 4, 750, 800, 3, 1.3F, 2, 0f, "", "");
-        TConstructRegistry.addToolMaterial(17, "BlueSlime", "Slime ", 1, 500, 150, 0, 1.5F, 0, 0f, "\u00A7b", "");
+        TConstructRegistry.addToolMaterial(17, "BlueSlime", "Slime ", PHConstruct.miningLevelIncrease ? 1 : 0, 500, 150, 0, 1.5F, 0, 0f, "\u00A7b", "");
 
         TConstructRegistry.addBowMaterial(0, 384, 20, 1.0f); //Wood
         TConstructRegistry.addBowMaterial(1, 10, 80, 0.2f); //Stone
@@ -829,10 +829,13 @@ public class TContent implements IFuelHandler
             pb.registerFullMaterial(Block.stone, 2, "Stone", new ItemStack(TContent.toolShard, 1, 1), new ItemStack(TContent.toolRod, 1, 1), 1);
             pb.registerMaterial(Block.cobblestone, 2, "Stone");
         }
-        //else
-        //pb.registerMaterialSet("Stone", new ItemStack(TContent.toolShard, 1, 1), new ItemStack(TContent.toolRod, 1, 1), 1);
+        else
+            pb.registerMaterialSet("Stone", new ItemStack(TContent.toolShard, 1, 1), new ItemStack(TContent.toolRod, 1, 1), 0);
         pb.registerFullMaterial(Item.ingotIron, 2, "Iron", new ItemStack(TContent.toolShard, 1, 2), new ItemStack(TContent.toolRod, 1, 2), 2);
-        pb.registerFullMaterial(Item.flint, 2, "Flint", new ItemStack(TContent.toolShard, 1, 3), new ItemStack(TContent.toolRod, 1, 3), 3);
+        if (PHConstruct.enableTFlint)
+            pb.registerFullMaterial(Item.flint, 2, "Flint", new ItemStack(TContent.toolShard, 1, 3), new ItemStack(TContent.toolRod, 1, 3), 3);
+        else
+            pb.registerMaterialSet("Flint", new ItemStack(TContent.toolShard, 1, 3), new ItemStack(TContent.toolRod, 1, 3), 3);
         if (PHConstruct.enableTCactus)
             pb.registerFullMaterial(Block.cactus, 2, "Cactus", new ItemStack(TContent.toolShard, 1, 4), new ItemStack(TContent.toolRod, 1, 4), 4);
         else
@@ -843,9 +846,18 @@ public class TContent implements IFuelHandler
             pb.registerMaterialSet("Bone", new ItemStack(Item.dyePowder, 1, 15), new ItemStack(Item.bone), 5);
         pb.registerFullMaterial(Block.obsidian, 2, "Obsidian", new ItemStack(TContent.toolShard, 1, 6), new ItemStack(TContent.toolRod, 1, 6), 6);
         pb.registerMaterial(new ItemStack(materials, 1, 18), 2, "Obsidian");
-        pb.registerFullMaterial(Block.netherrack, 2, "Netherrack", new ItemStack(TContent.toolShard, 1, 7), new ItemStack(TContent.toolRod, 1, 7), 7);
-        pb.registerFullMaterial(new ItemStack(materials, 1, 1), 2, "Slime", new ItemStack(toolShard, 1, 8), new ItemStack(toolRod, 1, 8), 8);
-        pb.registerFullMaterial(new ItemStack(materials, 1, 0), 2, "Paper", new ItemStack(Item.paper, 2), new ItemStack(toolRod, 1, 9), 9);
+        if (PHConstruct.enableTNetherrack)
+            pb.registerFullMaterial(Block.netherrack, 2, "Netherrack", new ItemStack(TContent.toolShard, 1, 7), new ItemStack(TContent.toolRod, 1, 7), 7);
+        else
+            pb.registerMaterialSet("Netherrack", new ItemStack(TContent.toolShard, 1, 7), new ItemStack(TContent.toolRod, 1, 7), 7);
+        if (PHConstruct.enableTSlime)
+            pb.registerFullMaterial(new ItemStack(materials, 1, 1), 2, "Slime", new ItemStack(toolShard, 1, 8), new ItemStack(toolRod, 1, 8), 8);
+        else
+            pb.registerMaterialSet("Slime", new ItemStack(TContent.toolShard, 1, 8), new ItemStack(TContent.toolRod, 1, 17), 8);
+        if (PHConstruct.enableTPaper)
+            pb.registerFullMaterial(new ItemStack(materials, 1, 0), 2, "Paper", new ItemStack(Item.paper, 2), new ItemStack(toolRod, 1, 9), 9);
+        else
+            pb.registerMaterialSet("BlueSlime", new ItemStack(Item.paper, 2), new ItemStack(TContent.toolRod, 1, 9), 9);
         pb.registerMaterialSet("Cobalt", new ItemStack(toolShard, 1, 10), new ItemStack(toolRod, 1, 10), 10);
         pb.registerMaterialSet("Ardite", new ItemStack(toolShard, 1, 11), new ItemStack(toolRod, 1, 11), 11);
         pb.registerMaterialSet("Manyullyn", new ItemStack(toolShard, 1, 12), new ItemStack(toolRod, 1, 12), 12);
@@ -853,7 +865,10 @@ public class TContent implements IFuelHandler
         pb.registerMaterialSet("Bronze", new ItemStack(toolShard, 1, 14), new ItemStack(toolRod, 1, 14), 14);
         pb.registerMaterialSet("Alumite", new ItemStack(toolShard, 1, 15), new ItemStack(toolRod, 1, 15), 15);
         pb.registerMaterialSet("Steel", new ItemStack(toolShard, 1, 16), new ItemStack(toolRod, 1, 16), 16);
-        pb.registerFullMaterial(new ItemStack(materials, 1, 17), 2, "BlueSlime", new ItemStack(toolShard, 1, 17), new ItemStack(toolRod, 1, 17), 17);
+        if (PHConstruct.enableTBlueSlime)
+            pb.registerFullMaterial(new ItemStack(materials, 1, 17), 2, "BlueSlime", new ItemStack(toolShard, 1, 17), new ItemStack(toolRod, 1, 17), 17);
+        else
+            pb.registerMaterialSet("BlueSlime", new ItemStack(TContent.toolShard, 1, 17), new ItemStack(TContent.toolRod, 1, 17), 17);
 
         pb.addToolPattern((IPattern) woodPattern);
     }
@@ -1048,6 +1063,27 @@ public class TContent implements IFuelHandler
                 }
             }
         }
+
+        ItemStack[] ingotShapes = { new ItemStack(Item.ingotIron), new ItemStack(Item.ingotGold), new ItemStack(Item.brick), new ItemStack(materials, 1, 2) };
+        for (int i = 0; i < ingotShapes.length; i++)
+        {
+            TConstruct.tableCasting.addCastingRecipe(new ItemStack(TContent.metalPattern, 1, 0), new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 8), ingotShapes[i],
+                    false, 50);
+            TConstruct.tableCasting.addCastingRecipe(new ItemStack(TContent.metalPattern, 1, 0), new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 1),
+                    ingotShapes[i], false, 50);
+        }
+
+        /*if (PHConstruct.convertWoodPatternsInSmeltery)
+        {
+            for (int i = 1; i < patternOutputs.length; i++)
+            {
+                if (patternOutputs[i] != null)
+                {
+                    tableCasting.addCastingRecipe(new ItemStack(metalPattern, 1, i), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 8), new ItemStack(woodPattern, 1, i), true, 50);
+                    tableCasting.addCastingRecipe(new ItemStack(metalPattern, 1, i), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 1), new ItemStack(woodPattern, 1, i), true, 50);
+                }
+            }
+        }*/
 
         ItemStack fullguardCast = new ItemStack(metalPattern, 1, 22);
         tableCasting.addCastingRecipe(fullguardCast, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 8), new ItemStack(fullGuard, 1, Short.MAX_VALUE), false, 50);
@@ -1269,12 +1305,16 @@ public class TContent implements IFuelHandler
         GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 3), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(Block.wood, 1, 2));
         GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 4), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(Block.wood, 1, 3));
         GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 5), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', Block.chest);
-        GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 10), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(Block.planks, 1, 0));
-        GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 11), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(Block.planks, 1, 1));
-        GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 12), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(Block.planks, 1, 2));
-        GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 13), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(Block.planks, 1, 3));
+        if (PHConstruct.stencilTableCrafting)
+        {
+            GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 10), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(Block.planks, 1, 0));
+            GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 11), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(Block.planks, 1, 1));
+            GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 12), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(Block.planks, 1, 2));
+            GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 13), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(Block.planks, 1, 3));
+        }
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(toolStationWood, 1, 1), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', "logWood"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(toolStationWood, 1, 10), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', "plankWood"));
+        if (PHConstruct.stencilTableCrafting)
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(toolStationWood, 1, 10), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', "plankWood"));
 
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(blankPattern, 1, 0), "ps", "sp", 'p', "plankWood", 's', "stickWood"));
         GameRegistry.addRecipe(new ItemStack(manualBook), "wp", 'w', new ItemStack(blankPattern, 1, 0), 'p', Item.paper);
@@ -1404,7 +1444,7 @@ public class TContent implements IFuelHandler
         GameRegistry.addRecipe(new ItemStack(knapsack, 1, 0), "###", "rmr", "###", '#', new ItemStack(Item.leather), 'r', new ItemStack(toughRod, 1, 2), 'm', new ItemStack(materials, 1, 14));
 
         //Armor
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(dryingRack, 1, 0), "bbb", 'b', "slabWood"));
+        //GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(dryingRack, 1, 0), "bbb", 'b', "slabWood"));
 
         //Ultra hardcore recipes
         String[] surround = { "###", "#m#", "###" };
@@ -1681,7 +1721,7 @@ public class TContent implements IFuelHandler
                 RecipeRemover.removeShapedRecipe(new ItemStack(Item.hoeGold));
                 RecipeRemover.removeShapedRecipe(new ItemStack(Item.swordGold));
             }
-            else if (PHConstruct.geGreg)
+            else if (PHConstruct.deGreg)
             {
                 CraftingManager cm = CraftingManager.getInstance();
                 new RecipesTools().addRecipes(cm);
@@ -1693,7 +1733,7 @@ public class TContent implements IFuelHandler
                 RecipeRemover.removeShapedRecipe(new ItemStack(Block.blockIron));
                 RecipeRemover.removeShapedRecipe(new ItemStack(Block.blockGold));
             }
-            else if (PHConstruct.geGreg)
+            else if (PHConstruct.deGreg)
             {
                 String[] blockPattern = new String[] { "###", "###", "###" };
                 GameRegistry.addRecipe(new ItemStack(Block.blockIron), blockPattern, '#', new ItemStack(Item.ingotIron));
@@ -1705,7 +1745,7 @@ public class TContent implements IFuelHandler
                 GameRegistry.addRecipe(new ItemStack(Block.blockNetherQuartz, 1), "##", "##", '#', Item.netherQuartz);
             }
 
-            if (PHConstruct.geGreg)
+            if (PHConstruct.deGreg)
             {
                 GameRegistry.addRecipe(new ItemStack(Item.flintAndSteel, 1), "A ", " B", 'A', Item.ingotIron, 'B', Item.flint);
                 List recipes = CraftingManager.getInstance().getRecipeList();
@@ -1713,6 +1753,11 @@ public class TContent implements IFuelHandler
                 addShapedRecipeFirst(recipes, new ItemStack(Block.planks, 4, 1), "#", '#', new ItemStack(Block.wood, 1, 1));
                 addShapedRecipeFirst(recipes, new ItemStack(Block.planks, 4, 2), "#", '#', new ItemStack(Block.wood, 1, 2));
                 addShapedRecipeFirst(recipes, new ItemStack(Block.planks, 4, 3), "#", '#', new ItemStack(Block.wood, 1, 3));
+                addShapedRecipeFirst(recipes, new ItemStack(Item.stick, 4), "#", "#", '#', new ItemStack(Block.wood, 1, 0));
+                addShapedRecipeFirst(recipes, new ItemStack(Item.stick, 4), "#", "#", '#', new ItemStack(Block.wood, 1, 1));
+                addShapedRecipeFirst(recipes, new ItemStack(Item.stick, 4), "#", "#", '#', new ItemStack(Block.wood, 1, 2));
+                addShapedRecipeFirst(recipes, new ItemStack(Item.stick, 4), "#", "#", '#', new ItemStack(Block.wood, 1, 3));
+                addShapedRecipeFirst(recipes, new ItemStack(Item.bucketEmpty), "# #", " # ", '#', new ItemStack(Item.ingotIron));
             }
         }
     }

@@ -55,12 +55,20 @@ public class PHConstruct
         enableTStone = config.get("Difficulty Changes", "Enable mod stone tools", true).getBoolean(true);
         enableTCactus = config.get("Difficulty Changes", "Enable mod cactus tools", true).getBoolean(true);
         enableTBone = config.get("Difficulty Changes", "Enable mod bone tools", true).getBoolean(true);
+        enableTFlint = config.get("Difficulty Changes", "Enable mod flint tools", true).getBoolean(true);
+        enableTNetherrack = config.get("Difficulty Changes", "Enable mod netherrack tools", true).getBoolean(true);
+        enableTSlime = config.get("Difficulty Changes", "Enable mod slime tools", true).getBoolean(true);
+        enableTPaper = config.get("Difficulty Changes", "Enable mod paper tools", true).getBoolean(true);
+        enableTBlueSlime = config.get("Difficulty Changes", "Enable mod blue slime tools", true).getBoolean(true);
+        
         craftMetalTools = config.get("Difficulty Changes", "Craft metals with Wood Patterns", false).getBoolean(false);
         vanillaMetalBlocks = config.get("Difficulty Changes", "Craft vanilla metal blocks", true).getBoolean(true);
         lavaFortuneInteraction = config.get("Difficulty Changes", "Enable Auto-Smelt and Fortune interaction", true).getBoolean(true);
         removeVanillaToolRecipes = config.get("Difficulty Changes", "Remove Vanilla Tool Recipes", false).getBoolean(false);
-        geGreg = config.get("Difficulty Changes", "Remove Vanilla GregTech Nerfs", true).getBoolean(true);
+        deGreg = config.get("Difficulty Changes", "Remove Vanilla GregTech Nerfs", true).getBoolean(true);
         harderBronze = config.get("Difficulty Changes", "Lower bronze output to 2 ingots", false).getBoolean(false);
+        stencilTableCrafting = config.get("Difficulty Changes", "Craft Stencil Tables", true).getBoolean(true);
+        miningLevelIncrease = config.get("Difficulty Changes", "Modifiers increase Mining Level", true).getBoolean(true);
 
         blueSlime = config.get("Mob Spawning", "Activate Blue Slime Spawns", true).getBoolean(true);
         blueSlimeWeight = config.get("Mob Spawning", "Spawn Weight for Blue Slime", 7).getInt(7);
@@ -270,13 +278,13 @@ public class PHConstruct
 
         seaLevel = config.get("general", "Sea level", 64).getInt(64);
 
-        enableHealthRegen = config.get("Ultra Hardcore Changes", "Passive Health Regen", true).getBoolean(true); //Check
-        goldAppleRecipe = config.get("Ultra Hardcore Changes", "Change Crafting Recipes", false).getBoolean(false); //Check
-        dropPlayerHeads = config.get("Ultra Hardcore Changes", "Players drop heads on death", false).getBoolean(false); //Check
-        uhcGhastDrops = config.get("Ultra Hardcore Changes", "Change Ghast drops to Gold Ingots", false).getBoolean(false); //Check
+        enableHealthRegen = config.get("Ultra Hardcore Changes", "Passive Health Regen", true).getBoolean(true);
+        goldAppleRecipe = config.get("Ultra Hardcore Changes", "Change Crafting Recipes", false).getBoolean(false);
+        dropPlayerHeads = config.get("Ultra Hardcore Changes", "Players drop heads on death", false).getBoolean(false);
+        uhcGhastDrops = config.get("Ultra Hardcore Changes", "Change Ghast drops to Gold Ingots", false).getBoolean(false);
         worldBorder = config.get("Ultra Hardcore Changes", "Add World Border", false).getBoolean(false);
         worldBorderSize = config.get("Ultra Hardcore Changes", "World Border Radius", 1000).getInt(1000);
-        freePatterns = config.get("Ultra Hardcore Changes", "Add Patterns to Pattern Chests", false).getBoolean(false); //Check
+        freePatterns = config.get("Ultra Hardcore Changes", "Add Patterns to Pattern Chests", false).getBoolean(false);
 
         /* Save the configuration file */
         config.save();
@@ -514,11 +522,18 @@ public class PHConstruct
     public static boolean enableTStone;
     public static boolean enableTCactus;
     public static boolean enableTBone;
+    public static boolean enableTFlint;
+    public static boolean enableTNetherrack;
+    public static boolean enableTSlime;
+    public static boolean enableTPaper;
+    public static boolean enableTBlueSlime;
 
     public static boolean craftMetalTools;
     public static boolean vanillaMetalBlocks;
     public static boolean removeVanillaToolRecipes;
     public static boolean harderBronze;
+    public static boolean stencilTableCrafting;
+    public static boolean miningLevelIncrease;
 
     //Ultra Hardcore modifiers
     public static boolean enableHealthRegen;
@@ -536,5 +551,5 @@ public class PHConstruct
 
     public static boolean gregtech;
     public static boolean lavaFortuneInteraction;
-    public static boolean geGreg;
+    public static boolean deGreg;
 }

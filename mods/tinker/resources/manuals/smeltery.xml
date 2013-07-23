@@ -52,7 +52,9 @@ The main structure for melting liquids is called the Smeltery. It is larger than
 
 * Mixing two metals in the Smeltery may result in an alloy. The process happens automatically.
 
-* If you need more space to process metal, add more layers.</text>
+* If you need more space to process metal, add more layers.
+
+* Casts are made differently from Patterns. Details are found later.</text>
 </page>
 
 <page type="sidebar">
@@ -128,9 +130,9 @@ Other liquid removal objects will work, but are frowned upon. An example picture
 </page>
 
 <page type="text">
-<text>Blank casts are made by pouring aluminum brass or gold into an empty casting table. These can be turned into ingot casts in the Stencil Table. 
+<text>Blank casts are made by pouring aluminum brass or gold into an empty casting table. These are used in crafting recipes and can be re-melted.
 
-Other part casts must be created by pouring metal around existing parts, like a pickaxe head.</text>
+Part casts must be created by pouring metal around existing parts, like a pickaxe head.</text>
 </page>
 
 <page type="picture">

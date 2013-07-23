@@ -1,6 +1,7 @@
 package mods.tinker.tconstruct.modifiers;
 
 import mods.tinker.tconstruct.library.tools.ToolMod;
+import mods.tinker.tconstruct.util.PHConstruct;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
@@ -53,9 +54,12 @@ public class ModDurability extends ToolMod
         tags.setInteger("BonusDurability", bonus);
         tags.setFloat("ModDurability", modDur);
 
-        int mLevel = tags.getInteger("HarvestLevel");
-        if (mLevel < miningLevel)
-            tags.setInteger("HarvestLevel", miningLevel);
+        if (PHConstruct.miningLevelIncrease)
+        {
+            int mLevel = tags.getInteger("HarvestLevel");
+            if (mLevel < miningLevel)
+                tags.setInteger("HarvestLevel", miningLevel);
+        }
 
         int modifiers = tags.getInteger("Modifiers");
         modifiers -= 1;

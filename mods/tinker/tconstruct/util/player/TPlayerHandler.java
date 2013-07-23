@@ -39,9 +39,12 @@ public class TPlayerHandler implements IPlayerTracker
     {
         //System.out.println("Player: "+entityplayer);
         //Lookup player
-        TFoodStats food = new TFoodStats();
-        food.readStats(entityplayer.foodStats);
-        entityplayer.foodStats = food;
+        if (!PHConstruct.enableHealthRegen)
+        {
+            TFoodStats food = new TFoodStats();
+            food.readStats(entityplayer.foodStats);
+            entityplayer.foodStats = food;
+        }
         NBTTagCompound tags = entityplayer.getEntityData();
         if (!tags.hasKey("TConstruct"))
         {
@@ -92,9 +95,9 @@ public class TPlayerHandler implements IPlayerTracker
             }
             entityplayer.addChatMessage("Warning: Cross-mod Exploit Present!");
         }
-        
-        TContent.modRecipes();
-        updatePlayerInventory(entityplayer, stats);
+
+        //TContent.modRecipes();
+        //updatePlayerInventory(entityplayer, stats);
         //sendSkills(entityplayer, stats);
     }
 
@@ -110,7 +113,7 @@ public class TPlayerHandler implements IPlayerTracker
 
         catch (Exception ex)
         {
-            
+
         }
     }
 

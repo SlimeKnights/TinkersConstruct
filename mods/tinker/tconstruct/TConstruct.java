@@ -38,7 +38,7 @@ import cpw.mods.fml.common.registry.VillagerRegistry;
  * @dependencies: IC2 API, MFR API
  */
 
-@Mod(modid = "TConstruct", name = "TConstruct", version = "1.5.1_1.4.1.4", dependencies = "required-after:Forge@[7.7.1.687,)")//, modExclusionList="GregTech-Addon")
+@Mod(modid = "TConstruct", name = "TConstruct", version = "1.5.1_1.4.1.7", dependencies = "required-after:Forge@[7.7.1.700,)")
 @NetworkMod(serverSideRequired = false, clientSideRequired = true, channels = { "TConstruct" }, packetHandler = mods.tinker.tconstruct.util.network.TPacketHandler.class)
 public class TConstruct
 {
@@ -125,6 +125,7 @@ public class TConstruct
         MinecraftForge.EVENT_BUS.register(playerTracker);
 
         content.modIntegration();
+        TContent.modRecipes();
         content.createEntities();
         /*SkillRegistry.registerSkill("Wall Building", new WallBuilding());
         SkillRegistry.registerSkill("Jump", new Jump());*/

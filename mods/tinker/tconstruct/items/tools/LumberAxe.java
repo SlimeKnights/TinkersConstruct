@@ -187,6 +187,14 @@ public class LumberAxe extends HarvestTool
             if (!world.isRemote)
                 world.playAuxSFX(2001, x, y, z, woodID + (meta << 12));
         }
+        else if (wood.blockMaterial == Material.wood)
+        {
+            NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
+            int meta = world.getBlockMetadata(x, y, z);
+            destroyWood(world, x, y, z, stack, tags, player);
+            if (!world.isRemote)
+                world.playAuxSFX(2001, x, y, z, woodID + (meta << 12));
+        }
         return super.onBlockStartBreak(stack, x, y, z, player);
     }
 
@@ -233,11 +241,18 @@ public class LumberAxe extends HarvestTool
                                          }*/
                                         if (!player.capabilities.isCreativeMode)
                                         {
+                                            if (block.removeBlockByPlayer(world, player, xPos, yPos, zPos))
+                                            {
+                                                block.onBlockDestroyedByPlayer(world, xPos, yPos, zPos, meta);
+                                            }
                                             block.harvestBlock(world, player, xPos, yPos, zPos, meta);
-                                            block.onBlockHarvested(world, x, y, z, meta, player);
+                                            block.onBlockHarvested(world, xPos, yPos, zPos, meta, player);
                                             onBlockDestroyed(stack, world, localblockID, xPos, yPos, zPos, player);
                                         }
-                                        world.setBlockToAir(xPos, yPos, zPos);
+                                        else
+                                        {
+                                            world.setBlockToAir(xPos, yPos, zPos);
+                                        }
                                         breakTree(world, xPos, yPos, zPos, stack, tags, bID, meta, player);
                                     }
                                     /*else
