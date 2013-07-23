@@ -294,7 +294,10 @@ public class Hammer extends HarvestTool
                                                 if (blockHardness > 0f)
                                                     onBlockDestroyed(stack, world, localblockID, xPos, yPos, zPos, player);
                                             }
-                                            world.setBlockToAir(xPos, yPos, zPos);
+                                            else
+                                            {
+                                                world.setBlockToAir(xPos, yPos, zPos);
+                                            }
                                         }
                                     }
                                 }
@@ -324,39 +327,47 @@ public class Hammer extends HarvestTool
         {
             if (materials[i] == block.blockMaterial)
             {
-                float mineSpeed = tags.getInteger("MiningSpeed");
-                int heads = 1;
-                if (tags.hasKey("MiningSpeed2"))
-                {
-                    mineSpeed += tags.getInteger("MiningSpeed2");
-                    heads++;
-                }
-
-                if (tags.hasKey("MiningSpeedHandle"))
-                {
-                    mineSpeed += tags.getInteger("MiningSpeedHandle");
-                    heads++;
-                }
-
-                if (tags.hasKey("MiningSpeedExtra"))
-                {
-                    mineSpeed += tags.getInteger("MiningSpeedExtra");
-                    heads++;
-                }
-                float trueSpeed = mineSpeed / (heads * 300f);
-                int hlvl = MinecraftForge.getBlockHarvestLevel(block, meta, getHarvestType());
-                int durability = tags.getInteger("Damage");
-
-                float stonebound = tags.getFloat("Shoddy");
-                float bonusLog = (float) Math.log(durability / 216f + 1) * 2 * stonebound;
-                trueSpeed += bonusLog;
-
-                if (hlvl <= tags.getInteger("HarvestLevel"))
-                    return trueSpeed;
-                return 0.1f;
+                return getblockSpeed(tags, block, meta);
             }
         }
+        
+        /*if (block == Block.silverfish)
+            return getblockSpeed(tags, block, meta);*/
+        
         return super.getStrVsBlock(stack, block, meta);
+    }
+
+    float getblockSpeed (NBTTagCompound tags, Block block, int meta)
+    {
+        float mineSpeed = tags.getInteger("MiningSpeed");
+        int heads = 1;
+        if (tags.hasKey("MiningSpeed2"))
+        {
+            mineSpeed += tags.getInteger("MiningSpeed2");
+            heads++;
+        }
+        if (tags.hasKey("MiningSpeedHandle"))
+        {
+            mineSpeed += tags.getInteger("MiningSpeedHandle");
+            heads++;
+        }
+
+        if (tags.hasKey("MiningSpeedExtra"))
+        {
+            mineSpeed += tags.getInteger("MiningSpeedExtra");
+            heads++;
+        }
+        float trueSpeed = mineSpeed / (heads * 300f);
+        int hlvl = MinecraftForge.getBlockHarvestLevel(block, meta, getHarvestType());
+        int durability = tags.getInteger("Damage");
+
+        float stonebound = tags.getFloat("Shoddy");
+        float bonusLog = (float) Math.log(durability / 72f + 1) * 2 * stonebound;
+        trueSpeed += bonusLog;
+
+        if (hlvl <= tags.getInteger("HarvestLevel"))
+            return trueSpeed;
+        return 0.1f;
     }
 
     /*@Override

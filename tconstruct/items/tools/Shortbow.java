@@ -2,9 +2,6 @@ package tconstruct.items.tools;
 
 import java.util.List;
 
-import tconstruct.common.TContent;
-import tconstruct.library.tools.BowBase;
-
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -12,6 +9,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
+import tconstruct.common.TContent;
+import tconstruct.library.tools.BowBase;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 

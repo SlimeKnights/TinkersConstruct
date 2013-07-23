@@ -49,7 +49,9 @@ public class RedstoneMachine extends InventoryBlock
             {
                 if (((IInventory) logic).getStackInSlot(1) != null)
                 {
-                    return lightValue[((IInventory) logic).getStackInSlot(1).itemID];
+                    ItemStack stack = ((IInventory) logic).getStackInSlot(1);
+                    if (stack.itemID < 4096 && Block.blocksList[stack.itemID] != null)
+                        return lightValue[stack.itemID];
                 }
             }
         }

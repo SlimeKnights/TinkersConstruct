@@ -9,7 +9,6 @@ import cpw.mods.fml.common.registry.VillagerRegistry.IVillageCreationHandler;
 
 public class VillageToolStationHandler implements IVillageCreationHandler
 {
-
     @Override
     public StructureVillagePieceWeight getVillagePieceWeight (Random random, int i)
     {
@@ -27,5 +26,4 @@ public class VillageToolStationHandler implements IVillageCreationHandler
     {
         return ComponentToolWorkshop.buildComponent(startPiece, pieces, random, p1, p2, p3, p4, p5);
     }
-
 }

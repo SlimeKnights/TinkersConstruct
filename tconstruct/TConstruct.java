@@ -137,6 +137,7 @@ public class TConstruct
 		Behavior.registerBuiltInBehaviors();
 		SpecialStackHandler.registerBuiltInStackHandlers();
         content.modIntegration();
+        TContent.modRecipes();
         content.createEntities();
         content.modRecipes();
     }

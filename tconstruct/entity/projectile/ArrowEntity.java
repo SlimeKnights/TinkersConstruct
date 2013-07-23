@@ -1,6 +1,7 @@
 package tconstruct.entity.projectile;
 
 import java.util.List;
+import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.crash.CrashReport;
@@ -35,6 +36,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
     public float mass;
     public int baseDamage;
     private float knockbackStrengthMod;
+    Random random = new Random();
 
     public ArrowEntity(World par1World)
     {
@@ -205,11 +207,6 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
                         damageInflicted += this.rand.nextInt(damageInflicted / 2 + 2);
                     }
 
-                    if (!worldObj.isRemote)
-                    {
-                        System.out.println("Speed: " + damageSpeed);
-                        System.out.println("Damage: " + damageInflicted);
-                    }
                     DamageSource damagesource = null;
 
                     if (this.shootingEntity == null)
@@ -243,6 +240,10 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
                             }
                             entity.setFire(fireAspect);
                         }
+                        
+                        int drain = toolTags.getInteger("Necrotic") * 2;
+                        if (drain > 0 && shootingEntity != null && shootingEntity instanceof EntityLiving)
+                            ((EntityLiving) shootingEntity).heal(random.nextInt(drain + 1));
                     }
 
                     if (movingobjectposition.entityHit.attackEntityFrom(damagesource, damageInflicted))

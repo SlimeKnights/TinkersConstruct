@@ -214,12 +214,19 @@ public class Excavator extends HarvestTool
                                         {
                                             if (!player.capabilities.isCreativeMode)
                                             {
+                                                if (block.removeBlockByPlayer(world, player, xPos, yPos, zPos))
+                                                {
+                                                    block.onBlockDestroyedByPlayer(world, xPos, yPos, zPos, localMeta);
+                                                }
                                                 block.harvestBlock(world, player, xPos, yPos, zPos, localMeta);
-                                                block.onBlockHarvested(world, x, y, z, localMeta, player);
+                                                block.onBlockHarvested(world, xPos, yPos, zPos, localMeta, player);
                                                 if (blockHardness > 0f)
                                                     onBlockDestroyed(stack, world, localblockID, xPos, yPos, zPos, player);
                                             }
-                                            world.setBlockToAir(xPos, yPos, zPos);
+                                            else
+                                            {
+                                                world.setBlockToAir(xPos, yPos, zPos);
+                                            }
                                         }
                                     }
                                 }
