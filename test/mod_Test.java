@@ -61,7 +61,7 @@ public class mod_Test
         mc = Minecraft.getMinecraft();*/
     }
 
-    @ForgeSubscribe
+    /*@ForgeSubscribe
     public void lastRender (RenderWorldLastEvent event)
     {
         //GuiIngameForge.renderCrosshairs = false;
@@ -151,8 +151,6 @@ public class mod_Test
                     GL11.glDepthMask(true);
 
                     //GL11.glTranslated(iPX, iPY, iPZ);
-                    /*event.context.globalRenderBlocks.renderStandardBlock(Block.blockIron, xPos, yPos, zPos);
-                    event.context.globalRenderBlocks.renderStandardBlock(Block.blockIron, -64, 91, 192);*/
                     //event.context.globalRenderBlocks.setRenderBounds(-1, -1, -1, 2, 2, 2);
                     //event.context.globalRenderBlocks.renderStandardBlock(Block.blockIron, 0, 0, 0);
                 }
@@ -163,7 +161,7 @@ public class mod_Test
                 GuiIngameForge.renderCrosshairs = true;
             }
         }
-    }
+    }*/
 
     public static void renderPulsingQuad (int texture, float maxTransparency)
     {

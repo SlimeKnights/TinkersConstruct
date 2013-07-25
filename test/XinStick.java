@@ -1,6 +1,5 @@
 package test;
 
-import mods.tinker.tconstruct.entity.MiniGardy;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -11,6 +10,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
 import net.minecraft.world.World;
+import tconstruct.entity.MiniGardy;
 
 /*
  * mDiyo's development testing item
@@ -91,7 +91,7 @@ public class XinStick extends Item
             entity.setPosition(x, y, z);
             entity.setAngles(player.cameraYaw, player.cameraYaw);
             //((BlueSlime) entity).setSlimeSize(8);
-            ((EntityLiving) entity).initCreature();
+            //((EntityLiving) entity).initCreature();
             world.spawnEntityInWorld(entity);
         }
     }
