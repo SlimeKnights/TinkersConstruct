@@ -105,7 +105,7 @@ public class TProxyCommon implements IGuiHandler
     {
 
         String langDir = "/mods/tinker/resources/lang/";
-        String[] langFiles = { "en_US.xml", "zh_CN.xml" };
+        String[] langFiles = { "en_US.xml", "zh_CN.xml", "de_DE.xml" };
 
         for (String langFile : langFiles)
         {
