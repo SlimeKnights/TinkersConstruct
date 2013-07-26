@@ -30,7 +30,7 @@ public class ModelPool
         File modelFile = null;
         for (int i = 0; i < resourceDir.length && (modelFile == null || !modelFile.exists()); i++)
         {
-            String absPath = Minecraft.getAppDir(resourceDir[i]).getAbsolutePath();
+            String absPath = new File(Minecraft.getMinecraft().mcDataDir, (resourceDir[i])).getAbsolutePath();
             if (!absPath.endsWith("/") || !absPath.endsWith("\\"))
                 absPath += "/";
             modelFile = entry.checkValidPath(absPath + file);

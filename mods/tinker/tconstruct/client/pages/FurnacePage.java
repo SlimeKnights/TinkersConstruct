@@ -1,10 +1,9 @@
 package mods.tinker.tconstruct.client.pages;
 
-import mods.tinker.tconstruct.client.TProxyClient;
-import mods.tinker.tconstruct.client.gui.GuiManual;
 import mods.tinker.tconstruct.library.client.TConstructClientRegistry;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
@@ -54,7 +53,7 @@ public class FurnacePage extends BookPage
 
     public void renderBackgroundLayer (int localWidth, int localHeight)
     {
-        manual.getMC().renderEngine.bindTexture("/mods/tinker/textures/gui/bookfurnace.png");
+        manual.getMC().renderEngine.func_110577_a(new ResourceLocation("tinker:textures/gui/bookfurnace.png"));
         manual.drawTexturedModalRect(localWidth + 32, localHeight + 32, 0, 0, 111, 114);
     }
 }

@@ -17,6 +17,7 @@ import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -501,7 +502,7 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
     }
 
     //Used for sounds and the like
-    public void onEntityDamaged (World world, EntityLiving player, Entity entity)
+    public void onEntityDamaged (World world, EntityLivingBase player, Entity entity)
     {
 
     }
@@ -583,7 +584,7 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
     }
 
     @Override
-    public boolean onBlockDestroyed (ItemStack itemstack, World world, int blockID, int x, int y, int z, EntityLiving player)
+    public boolean onBlockDestroyed (ItemStack itemstack, World world, int blockID, int x, int y, int z, EntityLivingBase player)
     {
         Block block = Block.blocksList[blockID];
         if (block != null && (double) block.getBlockHardness(world, x, y, z) != 0.0D)
@@ -611,7 +612,7 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
     }
 
     @Override
-    public boolean hitEntity (ItemStack stack, EntityLiving mob, EntityLiving player)
+    public boolean hitEntity (ItemStack stack, EntityLivingBase mob, EntityLivingBase player)
     {
         return true;
     }

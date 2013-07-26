@@ -155,12 +155,12 @@ public class ArmorExtended implements IInventory
             {
                 int bonusHP = stack.stackSize * 2;
                 stats.bonusHealth = bonusHP;
-                player.maxHealth = 20 + bonusHP;
+                player.func_110149_m(20 + bonusHP);
             }
         }
         else if (parent != null && parent.get() != null)
         {
-            parent.get().maxHealth = 20;
+            parent.get().func_110149_m(20);
         }
     }
 
@@ -179,7 +179,7 @@ public class ArmorExtended implements IInventory
     }
 
     @Override
-    public boolean isStackValidForSlot (int slot, ItemStack itemstack)
+    public boolean isItemValidForSlot (int slot, ItemStack itemstack)
     {
         return false;
     }

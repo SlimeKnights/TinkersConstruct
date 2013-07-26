@@ -10,6 +10,7 @@ import mods.tinker.tconstruct.library.tools.Weapon;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -29,7 +30,7 @@ public class FryingPan extends Weapon
     }
 
     @Override
-    public boolean hitEntity (ItemStack stack, EntityLiving mob, EntityLiving player)
+    public boolean hitEntity (ItemStack stack, EntityLivingBase mob, EntityLivingBase player)
     {
         AbilityHelper.knockbackEntity(mob, 1.7f);
         mob.addPotionEffect(new PotionEffect(Potion.moveSlowdown.id, 100, 0)); //5 seconds of stun
@@ -45,7 +46,7 @@ public class FryingPan extends Weapon
     }
 
     @Override
-    public void onEntityDamaged (World world, EntityLiving player, Entity entity)
+    public void onEntityDamaged (World world, EntityLivingBase player, Entity entity)
     {
         world.playSoundEffect(entity.posX, entity.posY, entity.posZ, "sounds.frypan_hit", 1.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F);
     }

@@ -132,7 +132,7 @@ public class Cleaver extends Weapon
             if (entity instanceof EntityLiving)
             {
                 EntityLiving living = (EntityLiving) entity;
-                if (living.getHealth() <= 0)
+                if (living.func_110143_aJ() <= 0)
                 {
 
                 }

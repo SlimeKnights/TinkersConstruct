@@ -5,8 +5,7 @@ import java.util.List;
 import mods.tinker.tconstruct.entity.projectile.LaunchedPotion;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.EnumAction;
@@ -124,7 +123,7 @@ public class PotionLauncher extends Item
     }
 
     @Override
-    public boolean onEntitySwing (EntityLiving player, ItemStack stack)
+    public boolean onEntitySwing (EntityLivingBase player, ItemStack stack)
     {
         NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
         if (tags.getBoolean("Loaded"))
@@ -148,7 +147,7 @@ public class PotionLauncher extends Item
         return false;
     }
 
-    ItemStack findPotion (EntityLiving living)
+    ItemStack findPotion (EntityLivingBase living)
     {
         if (living instanceof EntityPlayer)
         {

@@ -13,10 +13,11 @@ import net.minecraft.client.model.ModelRenderer;
 import net.minecraft.client.model.PositionTextureVertex;
 import net.minecraft.client.model.TexturedQuad;
 import net.minecraft.client.renderer.GLAllocation;
-import net.minecraft.client.renderer.RenderEngine;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
@@ -1813,7 +1814,7 @@ public class ModelRendererTurbo extends ModelRenderer
             GL11.glCallList(displayList);
         else
         {
-            RenderEngine renderEngine = RenderManager.instance.renderEngine;
+            TextureManager renderEngine = RenderManager.instance.renderEngine;
 
             Collection<TextureGroup> textures = textureGroup.values();
 
@@ -1824,7 +1825,7 @@ public class ModelRendererTurbo extends ModelRenderer
                 curTexGroup.loadTexture();
                 GL11.glCallList(displayListArray[i]);
                 if (!defaultTexture.equals(""))
-                    renderEngine.bindTexture(defaultTexture);
+                    renderEngine.func_110577_a(new ResourceLocation(defaultTexture));
             }
         }
     }

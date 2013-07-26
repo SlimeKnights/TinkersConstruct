@@ -5,6 +5,7 @@ import mods.tinker.tconstruct.client.gui.GuiManual;
 import mods.tinker.tconstruct.library.client.TConstructClientRegistry;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
@@ -55,7 +56,7 @@ public class ModifierPage extends BookPage
 
     public void renderBackgroundLayer (int localWidth, int localHeight)
     {
-        manual.getMC().renderEngine.bindTexture("/mods/tinker/textures/gui/bookmodify.png");
+        manual.getMC().renderEngine.func_110577_a(new ResourceLocation("tinker:textures/gui/bookmodify.png"));
         manual.drawTexturedModalRect(localWidth + 12, localHeight + 32, 0, 0, 154, 78);
     }
 }

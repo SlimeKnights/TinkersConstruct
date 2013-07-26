@@ -47,7 +47,7 @@ import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.event.entity.player.FillBucketEvent;
 import net.minecraftforge.event.world.ChunkDataEvent;
-import net.minecraftforge.liquids.LiquidStack;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.OreDictionary.OreRegisterEvent;
 
@@ -442,7 +442,6 @@ public class TEventHandler
         if (!world.isRemote)
         {
             entity.setPosition(x, y, z);
-            ((EntityLiving) entity).initCreature();
             world.spawnEntityInWorld(entity);
         }
     }

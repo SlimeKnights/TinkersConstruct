@@ -1,10 +1,9 @@
 package mods.tinker.tconstruct.items.tools;
 
 import mods.tinker.tconstruct.common.TContent;
-import mods.tinker.tconstruct.library.tools.AbilityHelper;
 import mods.tinker.tconstruct.library.tools.Weapon;
 import net.minecraft.block.material.Material;
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
@@ -39,7 +38,7 @@ public class Rapier extends Weapon
     }
 
     @Override
-    public boolean hitEntity (ItemStack stack, EntityLiving mob, EntityLiving player)
+    public boolean hitEntity (ItemStack stack, EntityLivingBase mob, EntityLivingBase player)
     {
         //AbilityHelper.hitEntity(stack, mob, player, damageVsEntity);
         //AbilityHelper.knockbackEntity(mob, 0.8f);

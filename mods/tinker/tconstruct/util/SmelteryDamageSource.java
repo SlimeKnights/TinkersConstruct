@@ -1,7 +1,8 @@
 package mods.tinker.tconstruct.util;
 
 import mods.tinker.tconstruct.library.tools.AbilityHelper;
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.util.ChatMessageComponent;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.StatCollector;
 
@@ -12,7 +13,7 @@ public class SmelteryDamageSource extends DamageSource
         super("smeltery");
     }
 
-    public String getDeathMessage (EntityLiving par1EntityLiving)
+    public ChatMessageComponent getDeathMessage (EntityLivingBase par1EntityLiving)
     {
         String type = "";
         switch (AbilityHelper.random.nextInt(4))
@@ -30,11 +31,9 @@ public class SmelteryDamageSource extends DamageSource
             type = "four.";
             break;
         }
-        EntityLiving entityliving1 = par1EntityLiving.func_94060_bK();
+        EntityLivingBase entityliving1 = par1EntityLiving.func_94060_bK();
         String s = "death." + type + this.damageType;
         String s1 = s + ".player";
-        return entityliving1 != null && StatCollector.func_94522_b(s1) ? StatCollector.translateToLocalFormatted(s1,
-                new Object[] { par1EntityLiving.getTranslatedEntityName(), entityliving1.getTranslatedEntityName() }) : StatCollector.translateToLocalFormatted(s,
-                new Object[] { par1EntityLiving.getTranslatedEntityName() });
+        return entityliving1 != null && StatCollector.func_94522_b(s1) ? ChatMessageComponent.func_111082_b(s1, new Object[] {par1EntityLiving.getTranslatedEntityName(), entityliving1.getTranslatedEntityName()}): ChatMessageComponent.func_111082_b(s, new Object[] {par1EntityLiving.getTranslatedEntityName()});
     }
 }

@@ -8,6 +8,7 @@ import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.enchantment.EnchantmentThorns;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -40,7 +41,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
         super(par1World);
     }
 
-    public ArrowEntity(World world, EntityLiving living, float baseSpeed, ItemStack stack)
+    public ArrowEntity(World world, EntityLivingBase living, float baseSpeed, ItemStack stack)
     {
         super(world, living, baseSpeed);
         this.returnStack = stack;

@@ -2,10 +2,6 @@ package mods.tinker.tconstruct.items;
 
 import java.util.List;
 
-import mods.natura.entity.FlameSpider;
-import mods.natura.entity.FlameSpiderBaby;
-import mods.natura.entity.ImpEntity;
-import mods.natura.entity.NitroCreeper;
 import mods.tinker.tconstruct.client.TProxyClient;
 import mods.tinker.tconstruct.entity.BlueSlime;
 import mods.tinker.tconstruct.library.tools.ToolCore;
@@ -155,7 +151,6 @@ public class TitleIcon extends Item
         if (!world.isRemote)
         {
             entity.setPosition(x, y, z);
-            ((EntityLiving) entity).initCreature();
             world.spawnEntityInWorld(entity);
         }
     }
@@ -166,7 +161,6 @@ public class TitleIcon extends Item
         {
             entity.setPosition(x, y, z);
             entity.setAngles(player.cameraYaw, player.cameraYaw);
-            ((EntityLiving) entity).initCreature();
             world.spawnEntityInWorld(entity);
         }
     }

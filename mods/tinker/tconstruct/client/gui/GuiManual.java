@@ -24,7 +24,7 @@ public class GuiManual extends GuiScreen
 {
     ItemStack itemstackBook;
     Document manual;
-    public RenderItemCopy renderitem = new RenderItemCopy();
+    public RenderItemCopy renderitem = new RenderItemCopy(mc);
     int bookImageWidth = 206;
     int bookImageHeight = 200;
     int bookTotalPages = 1;

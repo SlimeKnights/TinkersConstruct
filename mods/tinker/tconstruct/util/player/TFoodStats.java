@@ -79,7 +79,7 @@ public class TFoodStats extends FoodStats
 
             if (this.foodTimer >= 80)
             {
-                if (player.getHealth() > 10 || difficulty >= 3 || player.getHealth() > 1 && difficulty >= 2)
+                if (player.func_110143_aJ() > 10 || difficulty >= 3 || player.func_110143_aJ() > 1 && difficulty >= 2)
                 {
                     player.attackEntityFrom(DamageSource.starve, 1);
                 }
@@ -95,17 +95,17 @@ public class TFoodStats extends FoodStats
 
     public void readStats (FoodStats stats)
     {
-        this.foodLevel = stats.foodLevel;
+        this.foodLevel = stats.getFoodLevel();
 
         /** The player's food saturation. */
-        this.foodSaturationLevel = stats.foodSaturationLevel;
+        this.foodSaturationLevel = stats.getSaturationLevel();
 
         /** The player's food exhaustion. */
         this.foodExhaustionLevel = stats.foodExhaustionLevel;
 
         /** The player's food timer value. */
         this.foodTimer = stats.foodTimer;
-        this.prevFoodLevel = stats.prevFoodLevel;
+        this.prevFoodLevel = stats.getPrevFoodLevel();
     }
 
     /**

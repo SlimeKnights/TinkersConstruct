@@ -1,6 +1,6 @@
 package mods.tinker.tconstruct.inventory;
 
-import net.minecraft.inventory.Container;
+import net.minecraft.inventory.ContainerPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.Item;
@@ -20,9 +20,9 @@ public class SlotArmorCopy extends Slot
     /**
      * The parent class of this clot, ContainerPlayer, SlotArmor is a Anon inner class.
      */
-    final Container parent;
+    final ContainerPlayer parent;
 
-    public SlotArmorCopy(Container container, IInventory par2IInventory, int par3, int par4, int par5, int par6)
+    public SlotArmorCopy(ContainerPlayer container, IInventory par2IInventory, int par3, int par4, int par5, int par6)
     {
         super(par2IInventory, par3, par4, par5);
         this.parent = container;
@@ -44,7 +44,7 @@ public class SlotArmorCopy extends Slot
     public boolean isItemValid (ItemStack par1ItemStack)
     {
         Item item = (par1ItemStack == null ? null : par1ItemStack.getItem());
-        return item != null && item.isValidArmor(par1ItemStack, armorType);
+        return item != null && item.isValidArmor(par1ItemStack, armorType, parent.thePlayer);
     }
 
     @SideOnly(Side.CLIENT)

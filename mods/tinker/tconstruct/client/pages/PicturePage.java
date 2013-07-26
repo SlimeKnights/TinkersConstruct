@@ -5,6 +5,7 @@ import mods.tinker.tconstruct.client.gui.GuiManual;
 import mods.tinker.tconstruct.library.client.TConstructClientRegistry;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
@@ -36,7 +37,7 @@ public class PicturePage extends BookPage
 
     public void renderBackgroundLayer (int localWidth, int localHeight)
     {
-        manual.getMC().renderEngine.bindTexture(location);
+        manual.getMC().renderEngine.func_110577_a(new ResourceLocation(location));
         manual.drawTexturedModalRect(localWidth, localHeight + 12, 0, 0, 170, 144);
     }
 }

@@ -9,7 +9,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
@@ -44,7 +44,7 @@ public class Battleaxe extends HarvestTool
     }
 
     @Override
-    public boolean onBlockDestroyed (ItemStack itemstack, World world, int bID, int x, int y, int z, EntityLiving player)
+    public boolean onBlockDestroyed (ItemStack itemstack, World world, int bID, int x, int y, int z, EntityLivingBase player)
     {
         Block block = Block.blocksList[bID];
         if (block != null && block.blockMaterial == Material.leaves)
@@ -217,7 +217,7 @@ public class Battleaxe extends HarvestTool
     }
 
     @Override
-    public boolean hitEntity (ItemStack stack, EntityLiving mob, EntityLiving player)
+    public boolean hitEntity (ItemStack stack, EntityLivingBase mob, EntityLivingBase player)
     {
         AbilityHelper.knockbackEntity(mob, 1.5f);
         return true;

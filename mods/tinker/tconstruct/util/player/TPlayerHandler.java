@@ -40,7 +40,7 @@ public class TPlayerHandler implements IPlayerTracker
         //System.out.println("Player: "+entityplayer);
         //Lookup player
         TFoodStats food = new TFoodStats();
-        food.readStats(entityplayer.foodStats);
+        food.readStats(entityplayer.getFoodStats());
         entityplayer.foodStats = food;
         NBTTagCompound tags = entityplayer.getEntityData();
         if (!tags.hasKey("TConstruct"))

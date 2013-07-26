@@ -2,13 +2,13 @@ package mods.tinker.tconstruct.entity.ai;
 
 import mods.tinker.tconstruct.entity.GolemBase;
 import net.minecraft.entity.EntityList;
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.pathfinding.PathNavigate;
 
 public class GAIAttackTarget extends GolemAIBase
 {
     private PathNavigate pathfinder;
-    private EntityLiving theTarget;
+    private EntityLivingBase theTarget;
     private float speed;
     private int counter;
     private boolean avoidsWater = true;

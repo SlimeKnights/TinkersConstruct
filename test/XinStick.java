@@ -91,7 +91,6 @@ public class XinStick extends Item
             entity.setPosition(x, y, z);
             entity.setAngles(player.cameraYaw, player.cameraYaw);
             //((BlueSlime) entity).setSlimeSize(8);
-            ((EntityLiving) entity).initCreature();
             world.spawnEntityInWorld(entity);
         }
     }

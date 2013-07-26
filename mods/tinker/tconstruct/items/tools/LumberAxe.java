@@ -1,10 +1,5 @@
 package mods.tinker.tconstruct.items.tools;
 
-import java.util.List;
-
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-
 import mods.tinker.tconstruct.common.TContent;
 import mods.tinker.tconstruct.library.ActiveToolMod;
 import mods.tinker.tconstruct.library.TConstructRegistry;
@@ -12,17 +7,15 @@ import mods.tinker.tconstruct.library.tools.AbilityHelper;
 import mods.tinker.tconstruct.library.tools.HarvestTool;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class LumberAxe extends HarvestTool
 {
@@ -61,7 +54,7 @@ public class LumberAxe extends HarvestTool
     }
 
     @Override
-    public boolean onBlockDestroyed (ItemStack itemstack, World world, int bID, int x, int y, int z, EntityLiving player)
+    public boolean onBlockDestroyed (ItemStack itemstack, World world, int bID, int x, int y, int z, EntityLivingBase player)
     {
         Block block = Block.blocksList[bID];
         if (block != null && block.blockMaterial == Material.leaves)

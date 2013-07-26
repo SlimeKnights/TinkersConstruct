@@ -5,6 +5,7 @@ import net.minecraft.block.BlockDispenser;
 import net.minecraft.dispenser.BehaviorDefaultDispenseItem;
 import net.minecraft.dispenser.IBlockSource;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 
@@ -23,7 +24,7 @@ public class TDispenserBehaviorSpawnEgg extends BehaviorDefaultDispenseItem
 
         if (par2ItemStack.hasDisplayName())
         {
-            ((EntityLiving) entity).func_94058_c(par2ItemStack.getDisplayName());
+            ((EntityLiving) entity).setCustomNameTag(par2ItemStack.getDisplayName());
         }
 
         par2ItemStack.splitStack(1);

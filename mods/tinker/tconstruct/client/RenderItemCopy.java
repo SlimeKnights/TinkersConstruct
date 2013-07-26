@@ -7,9 +7,9 @@ import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.client.renderer.RenderEngine;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
+import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.Item;
@@ -335,7 +335,7 @@ public class RenderItemCopy extends Render
     /**
      * Renders the item's icon or block into the UI at the specified position.
      */
-    public void renderItemIntoGUI (SmallFontRenderer par1SmallFontRenderer, RenderEngine par2RenderEngine, ItemStack par3ItemStack, int par4, int par5)
+    public void renderItemIntoGUI (SmallFontRenderer par1SmallFontRenderer, TextureManager par2RenderEngine, ItemStack par3ItemStack, int par4, int par5)
     {
         int k = par3ItemStack.itemID;
         int l = par3ItemStack.getItemDamage();
@@ -437,7 +437,7 @@ public class RenderItemCopy extends Render
     /**
      * Render the item's icon or block into the GUI, including the glint effect.
      */
-    public void renderItemAndEffectIntoGUI (SmallFontRenderer par1SmallFontRenderer, RenderEngine par2RenderEngine, ItemStack par3ItemStack, int par4, int par5)
+    public void renderItemAndEffectIntoGUI (SmallFontRenderer par1SmallFontRenderer, TextureManager par2RenderEngine, ItemStack par3ItemStack, int par4, int par5)
     {
         if (par3ItemStack != null)
         {
@@ -511,7 +511,7 @@ public class RenderItemCopy extends Render
         this.renderItemOverlayIntoGUI(par1SmallFontRenderer, par2RenderEngine, par3ItemStack, par4, par5, (String) null);
     }
 
-    public void renderItemOverlayIntoGUI (SmallFontRenderer par1SmallFontRenderer, RenderEngine par2RenderEngine, ItemStack par3ItemStack, int par4, int par5, String par6Str)
+    public void renderItemOverlayIntoGUI (SmallFontRenderer par1SmallFontRenderer, TextureManager par2RenderEngine, ItemStack par3ItemStack, int par4, int par5, String par6Str)
     {
         if (par3ItemStack != null)
         {

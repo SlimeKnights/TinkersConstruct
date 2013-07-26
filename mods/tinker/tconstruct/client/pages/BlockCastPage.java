@@ -5,6 +5,7 @@ import mods.tinker.tconstruct.client.gui.GuiManual;
 import mods.tinker.tconstruct.library.client.TConstructClientRegistry;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
@@ -16,6 +17,8 @@ public class BlockCastPage extends BookPage
     String text;
     ItemStack[] icons;
 
+    ResourceLocation background = new ResourceLocation("tinkers:textures/gui/booksmeltery.png");
+    
     @Override
     public void readPageFromXML (Element element)
     {
@@ -58,7 +61,7 @@ public class BlockCastPage extends BookPage
 
     public void renderBackgroundLayer (int localWidth, int localHeight)
     {
-        manual.getMC().renderEngine.bindTexture("/mods/tinker/textures/gui/booksmeltery.png");
+        manual.getMC().renderEngine.func_110577_a(background);
         manual.drawTexturedModalRect(localWidth, localHeight + 32, 0, 0, 174, 115);
         manual.drawTexturedModalRect(localWidth + 62, localHeight + 105, 2, 118, 45, 45);
     }

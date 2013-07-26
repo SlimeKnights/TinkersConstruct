@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -28,12 +29,12 @@ public class LaunchedPotion extends EntityThrowable
         super(par1World);
     }
 
-    public LaunchedPotion(World par1World, EntityLiving par2EntityLiving, int par3)
+    public LaunchedPotion(World par1World, EntityLivingBase par2EntityLiving, int par3)
     {
         this(par1World, par2EntityLiving, new ItemStack(Item.potion, 1, par3));
     }
 
-    public LaunchedPotion(World par1World, EntityLiving par2EntityLiving, ItemStack par3ItemStack)
+    public LaunchedPotion(World par1World, EntityLivingBase par2EntityLiving, ItemStack par3ItemStack)
     {
         super(par1World, par2EntityLiving);
         this.potionDamage = par3ItemStack;

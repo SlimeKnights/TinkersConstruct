@@ -1,13 +1,13 @@
 package mods.tinker.tconstruct.entity.ai;
 
 import mods.tinker.tconstruct.entity.GolemBase;
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.pathfinding.PathNavigate;
 import net.minecraft.util.MathHelper;
 
 public class GAIFollowOwner extends GolemAIBase
 {
-    private EntityLiving leader;
+    private EntityLivingBase leader;
     private float speed;
     private float maxDist;
     private float minDist;
@@ -27,7 +27,7 @@ public class GAIFollowOwner extends GolemAIBase
 
     public boolean shouldExecute ()
     {
-        EntityLiving owner = this.golem.getOwner();
+        EntityLivingBase owner = this.golem.getOwner();
 
         if (owner == null)
         {
