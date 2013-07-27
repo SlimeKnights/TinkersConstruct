@@ -105,8 +105,8 @@
   <entry key="item.oreberry.aluminum.name">铝矿莓丛</entry>
   <entry key="item.oreberry.essence.name">精华莓丛</entry>
   
-  <entry key="item.goldenhead.name">黄金头颅#Golden Head</entry>
-  <entry key="item.tconstruct.titleicon.name">生成#Spawn </entry>
+  <entry key="item.goldenhead.name">黄金头颅</entry>
+  <entry key="item.tconstruct.titleicon.name">生成</entry>
   
   <entry key="item.tconstruct.Materials.PaperStack.name">一叠纸</entry>
   <entry key="item.tconstruct.Materials.SlimeCrystal.name">粘液球水晶</entry>
@@ -154,6 +154,7 @@
   
   <entry key="block.drawbridge.name">造桥器</entry>
   <entry key="block.firestarter.name">点火器</entry>
+  <entry key="tile.landmine.name">地雷</entry>
   
   <entry key="StorageMetals.Cobalt.name">钴方块</entry>
   <entry key="StorageMetals.Ardite.name">阿迪特方块</entry>
@@ -302,5 +303,27 @@
   <entry key="death.two.smeltery">%1$s被冶炼炉融化了!</entry>
   <entry key="death.three.smeltery">%1$s将成为我们革命的垫脚石!</entry>
   <entry key="death.four.smeltery">%1$s认为在炽热的液体中游泳是个不错的注意!</entry>
+  
+  <entry key="death.attack.Landmine">%1$s眼看着他们的腿被炸飞了!</entry>
+  <entry key="death.fell.assist.Landmine">%1$s被地雷炸死了!</entry>
+  <entry key="death.attack.LandmineFireworkExplode">%1$s骑着烟花火箭飞上了西天!</entry>
+  
+  <entry key="parttype.Wood">木</entry>
+  <entry key="parttype.Stone">石</entry>
+  <entry key="parttype.Iron">铁</entry>
+  <entry key="parttype.Flint">燧石</entry>
+  <entry key="parttype.Cactus">仙人掌</entry>
+  <entry key="parttype.Bone">骨头</entry>
+  <entry key="parttype.Obsidian">黑曜石</entry>
+  <entry key="parttype.Slime">史莱姆</entry>
+  <entry key="parttype.Paper">纸</entry>
+  <entry key="parttype.Cobalt">钴</entry>
+  <entry key="parttype.Ardite">阿迪特</entry>
+  <entry key="parttype.Manyullyn">玛玉灵</entry>
+  <entry key="parttype.Copper">铜</entry>
+  <entry key="parttype.Bronze">青铜</entry>
+  <entry key="parttype.Alumite">耐酸铝</entry>
+  <entry key="parttype.Steel">钢</entry>
+  <entry key="parttype.BlueSlime">蓝色史莱姆</entry>
   
 </properties>
