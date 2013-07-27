@@ -4,6 +4,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import tconstruct.common.TContent;
 import tconstruct.common.TProxyCommon;
+import tconstruct.landmine.logic.behavior.Behavior;
+import tconstruct.landmine.logic.behavior.stackCombo.SpecialStackHandler;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.Detailing;
 import tconstruct.library.crafting.LiquidCasting;
@@ -124,6 +126,8 @@ public class TConstruct
     @EventHandler
     public void postInit (FMLPostInitializationEvent evt)
     {
+		Behavior.registerBuiltInBehaviors();
+		SpecialStackHandler.registerBuiltInStackHandlers();
         content.modIntegration();
         content.createEntities();
         /*SkillRegistry.registerSkill("Wall Building", new WallBuilding());

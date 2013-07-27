@@ -137,6 +137,10 @@ import tconstruct.entity.SlimeClone;
 import tconstruct.entity.projectile.ArrowEntity;
 import tconstruct.entity.projectile.DaggerEntity;
 import tconstruct.entity.projectile.LaunchedPotion;
+import tconstruct.landmine.client.gui.GuiLandmine;
+import tconstruct.landmine.client.render.RenderLandmine;
+import tconstruct.landmine.inventory.ContainerLandmine;
+import tconstruct.landmine.tileentity.TileEntityLandmine;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.client.TConstructClientRegistry;
 import tconstruct.library.client.ToolGuiElement;
@@ -183,7 +187,10 @@ public class TProxyClient extends TProxyCommon
             return new GlowstoneAggregatorGui(player.inventory, (GlowstoneAggregator) world.getBlockTileEntity(x, y, z), world, x, y, z);
         if (ID == drawbridgeGui)
             return new DrawbridgeGui(player.inventory, (DrawbridgeLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
-
+        if (ID == landmineGui){
+        	return new GuiLandmine(new ContainerLandmine(player, (TileEntityLandmine) world.getBlockTileEntity(x, y, z)));
+        }
+        
         if (ID == manualGuiID)
         {
             ItemStack stack = player.getCurrentEquippedItem();
@@ -360,6 +367,7 @@ public class TProxyClient extends TProxyCommon
         RenderingRegistry.registerBlockHandler(new DryingRackRender());
         RenderingRegistry.registerBlockHandler(new PaneRender());
         RenderingRegistry.registerBlockHandler(new PaneConnectedRender());
+        RenderingRegistry.registerBlockHandler(new RenderLandmine());
         //RenderingRegistry.registerBlockHandler(new BrickRender());
         //RenderingRegistry.registerBlockHandler(new BallRepeaterRender());
 
