@@ -47,7 +47,7 @@ The berries can be melted down into nuggets and ingots, making them an invaluabl
 
 <page type="picture">
 <text>Oreberries in their natural environment</text>
-<location>/mods/tinker/resources/manuals/oreberries.png</location>
+<location>tinker:manuals/oreberries.png</location>
 </page>
 
 <page type="crafting">

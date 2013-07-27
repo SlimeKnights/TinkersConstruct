@@ -10,6 +10,7 @@ import net.minecraft.block.BlockDispenser;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialLiquid;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -150,6 +151,9 @@ import tconstruct.items.tools.Rapier;
 import tconstruct.items.tools.Scythe;
 import tconstruct.items.tools.Shortbow;
 import tconstruct.items.tools.Shovel;
+import tconstruct.landmine.block.BlockLandmine;
+import tconstruct.landmine.item.ItemBlockLandmine;
+import tconstruct.landmine.tileentity.TileEntityLandmine;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.client.TConstructClientRegistry;
 import tconstruct.library.crafting.Detailing;
@@ -539,6 +543,11 @@ public class TContent implements IFuelHandler
         GameRegistry.registerBlock(redstoneMachine, RedstoneMachineItem.class, "Redstone.Machine");
         GameRegistry.registerTileEntity(DrawbridgeLogic.class, "Drawbridge");
         GameRegistry.registerTileEntity(FirestarterLogic.class, "Firestarter");
+        
+        //Landmine
+        landmine = new BlockLandmine(PHConstruct.landmine).setHardness(0.5F).setResistance(0F).setStepSound(Block.soundMetalFootstep).setCreativeTab(CreativeTabs.tabRedstone).setUnlocalizedName("landmine");
+        GameRegistry.registerBlock(landmine, ItemBlockLandmine.class, "Redstone.Landmine");
+        GameRegistry.registerTileEntity(TileEntityLandmine.class, "Landmine");
 
         dryingRack = new DryingRack(PHConstruct.dryingRack).setUnlocalizedName("Armor.DryingRack");
         GameRegistry.registerBlock(dryingRack, "Armor.DryingRack");

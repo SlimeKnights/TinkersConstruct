@@ -1,6 +1,7 @@
 package tconstruct.inventory;
 
 import tconstruct.blocks.logic.DrawbridgeLogic;
+import tconstruct.landmine.inventory.SlotOpaqueBlocksOnly;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -19,7 +20,7 @@ public class DrawbridgeContainer extends Container
         this.logic = logic;
 
         this.addSlotToContainer(new DrawbridgeSlot(logic, 0, 80, 36, logic));
-        this.addSlotToContainer(new Slot(logic, 1, 35, 36));
+        this.addSlotToContainer(new SlotOpaqueBlocksOnly(logic, 1, 35, 36));
 
         /* Player inventory */
         for (int column = 0; column < 3; column++)
