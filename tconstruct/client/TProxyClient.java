@@ -647,9 +647,9 @@ public class TProxyClient extends TProxyCommon
         TConstructClientRegistry.registerManualModifier("tier1free", ironpick.copy(), new ItemStack(Item.diamond), new ItemStack(Block.blockGold));
         TConstructClientRegistry.registerManualModifier("tier2free", ironpick.copy(), new ItemStack(Item.netherStar));
 
-        /*TConstructClientRegistry.registerManualSmeltery("brownstone", new ItemStack(TContent.speedBlock), new ItemStack(TContent.liquidMetalStill, 1, 3), new ItemStack(Block.gravel));
-        TConstructClientRegistry.registerManualSmeltery("clearglass", new ItemStack(TContent.glass), new ItemStack(TContent.liquidMetalStill, 1, 13), null);
-        TConstructClientRegistry.registerManualSmeltery("searedstone", new ItemStack(TContent.smeltery, 1, 4), new ItemStack(TContent.liquidMetalStill, 1, 14), null);*/
+        TConstructClientRegistry.registerManualSmeltery("brownstone", new ItemStack(TContent.speedBlock), new ItemStack(TContent.moltenTin, 1), new ItemStack(Block.gravel));
+        TConstructClientRegistry.registerManualSmeltery("clearglass", new ItemStack(TContent.glass), new ItemStack(TContent.moltenGlass, 1), null);
+        TConstructClientRegistry.registerManualSmeltery("searedstone", new ItemStack(TContent.smeltery, 1, 4), new ItemStack(TContent.moltenStone, 1), null);
 
     }
 
