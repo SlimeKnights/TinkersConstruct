@@ -2,6 +2,7 @@ package tconstruct.inventory;
 
 import tconstruct.blocks.logic.DrawbridgeLogic;
 import tconstruct.landmine.inventory.SlotBlocksOnly;
+import tconstruct.library.TConstructRegistry;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
@@ -19,7 +20,13 @@ public class DrawbridgeSlot extends SlotBlocksOnly
     @Override
     public boolean isItemValid(ItemStack par1ItemStack)
     {
-        return !logic.hasExtended() && super.isItemValid(par1ItemStack);
+    	if(!super.isItemValid(par1ItemStack)){
+    		if(TConstructRegistry.blockToItemMapping[par1ItemStack.itemID] == 0){
+    			return false;
+    		}
+    	}
+    	
+        return !logic.hasExtended();
     }
     
     @Override
