@@ -1,6 +1,7 @@
 package tconstruct.client;
 
 import java.io.InputStream;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -11,6 +12,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.model.ModelSlime;
@@ -308,24 +310,35 @@ public class TProxyClient extends TProxyCommon
             mc = Minecraft.getMinecraft();*/
         if (gui.getClass() == GuiInventory.class || classMatches(gui, "micdoodle8.mods.galacticraft.core.client.gui.GCCoreGuiInventory"))
         {
-            int cornerX = gui.guiLeft;
-            int cornerY = (gui.height - gui.ySize) / 2;
-            gui.buttonList.clear();
-
-            InventoryTab tab = new InventoryTab(2, cornerX, cornerY - 28, new ItemStack(Block.workbench), 0);
-            tab.enabled = false;
-            gui.buttonList.add(tab);
-            tab = new InventoryTab(3, cornerX + 28, cornerY - 28, new ItemStack(Item.plateDiamond), 1);
-            gui.buttonList.add(tab);
-            if (armorExtended.inventory[2] != null && armorExtended.inventory[2].getItem() == TContent.knapsack)
-            {
-                if (gui.buttonList.size() < 3)
-                {
-                    tab = new InventoryTab(4, cornerX + 56, cornerY - 28, new ItemStack(TContent.knapsack), 1);
-                    gui.buttonList.add(tab);
-                }
-            }
-        }
+        	try{
+	        	Field guiLeft = GuiContainer.class.getDeclaredField("guiLeft");
+	        	guiLeft.setAccessible(true);
+	            int cornerX = (Integer)guiLeft.get(gui);
+	            Field ySize = GuiContainer.class.getDeclaredField("ySize");
+	            ySize.setAccessible(true);
+	            int cornerY = (gui.height - (Integer)ySize.get(gui)) / 2;
+	            Field buttonList = GuiScreen.class.getDeclaredField("buttonList");
+	            buttonList.setAccessible(true);
+	            ArrayList listOfButtons = (ArrayList)buttonList.get(gui);
+	            listOfButtons.clear();
+	
+	            InventoryTab tab = new InventoryTab(2, cornerX, cornerY - 28, new ItemStack(Block.workbench), 0);
+	            tab.enabled = false;
+	            listOfButtons.add(tab);
+	            tab = new InventoryTab(3, cornerX + 28, cornerY - 28, new ItemStack(Item.plateDiamond), 1);
+	            listOfButtons.add(tab);
+	            if (armorExtended.inventory[2] != null && armorExtended.inventory[2].getItem() == TContent.knapsack)
+	            {
+	                if (listOfButtons.size() < 3)
+	                {
+	                    tab = new InventoryTab(4, cornerX + 56, cornerY - 28, new ItemStack(TContent.knapsack), 1);
+	                    listOfButtons.add(tab);
+	                }
+	            }
+	        }catch(Exception e){
+	        	e.printStackTrace();
+	        }
+	    }
     }
 
     public static boolean classMatches (Object paramObject, String paramString)
