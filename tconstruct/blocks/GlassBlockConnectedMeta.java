@@ -7,6 +7,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
 
 /** @author fuj1n
  *
@@ -90,4 +91,9 @@ public class GlassBlockConnectedMeta extends GlassBlockConnected
         return par1;
     }
 
+	@Override
+	public boolean canPlaceTorchOnTop(World world, int x, int y, int z) {
+		return true;
+	}
+    
 }
