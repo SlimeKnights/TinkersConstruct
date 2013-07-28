@@ -133,8 +133,13 @@
   <entry key="item.tconstruct.Materials.AluminumNugget.name">Aluminum Nugget</entry>
   <entry key="item.tconstruct.Materials.EssenceCrystal.name">Essence Crystal</entry>
   <entry key="item.tconstruct.Materials.AluBrassNugget.name">Aluminum Brass Nugget</entry>
-  <entry key="item.tconstruct.Materials.SilkyCloth.name">Silky Cloth</entry>
-  <entry key="item.tconstruct.Materials.SilkyJewel.name">Silky Jewel</entry>
+  <entry key="item.tconstruct.Materials.ObsidianNugget.name">Obsidian Nugget</entry>
+  <entry key="item.tconstruct.Materials.CobaltNugget.name">Cobalt Nugget</entry>
+  <entry key="item.tconstruct.Materials.ArditeNugget.name">Ardite Nugget</entry>
+  <entry key="item.tconstruct.Materials.ManyullynNugget.name">Manyullyn Nugget</entry>
+  <entry key="item.tconstruct.Materials.BronzeNugget.name">Bronze Nugget</entry>
+  <entry key="item.tconstruct.Materials.AlumiteNugget.name">Alumite Nugget</entry>
+  <entry key="item.tconstruct.Materials.SteelNugget.name">Steel Nugget</entry>
   
   <entry key="Smeltery.Controller.name">Smeltery Controller</entry>
   <entry key="Smeltery.Drain.name">Smeltery Drain</entry>
@@ -154,6 +159,7 @@
   
   <entry key="block.drawbridge.name">Drawbridge</entry>
   <entry key="block.firestarter.name">Igniter</entry>
+  <entry key="tile.landmine.name">Landmine</entry>
   
   <entry key="StorageMetals.Cobalt.name">Block of Cobalt</entry>
   <entry key="StorageMetals.Ardite.name">Block of Ardite</entry>

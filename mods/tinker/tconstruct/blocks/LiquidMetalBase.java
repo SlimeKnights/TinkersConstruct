@@ -28,7 +28,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public abstract class LiquidMetalBase extends Block
 {
     public static String[] textureNames = new String[] { "iron", "gold", "copper", "tin", "aluminum", "cobalt", "ardite", "bronze", "alubrass", "manyullyn", "alumite", "obsidian", "steel", "glass",
-            "stone", "villager", "cow" };
+            "stone", "villager", "cow", "ferrous", "lead", "silver", "shiny", "invar", "electrum" };
     public Icon[] stillInoms;
     public Icon[] flowInoms;
 

@@ -292,18 +292,18 @@ public class LumberAxe extends HarvestTool
                         int meta = world.getBlockMetadata(xPos, yPos, zPos);
                         int hlvl = MinecraftForge.getBlockHarvestLevel(block, meta, getHarvestType());
 
-                        if (hlvl <= tags.getInteger("HarvestLevel"))
+                        if (block != null && block.blockMaterial == Material.wood)
                         {
-                            boolean cancelHarvest = false;
-                            for (ActiveToolMod mod : TConstructRegistry.activeModifiers)
+                            if (hlvl <= tags.getInteger("HarvestLevel"))
                             {
-                                if (mod.beforeBlockBreak(this, stack, xPos, yPos, zPos, player))
-                                    cancelHarvest = true;
-                            }
+                                boolean cancelHarvest = false;
+                                for (ActiveToolMod mod : TConstructRegistry.activeModifiers)
+                                {
+                                    if (mod.beforeBlockBreak(this, stack, xPos, yPos, zPos, player))
+                                        cancelHarvest = true;
+                                }
 
-                            if (!cancelHarvest)
-                            {
-                                if (block != null && block.blockMaterial == Material.wood)
+                                if (!cancelHarvest)
                                 {
                                     world.setBlockToAir(xPos, yPos, zPos);
                                     if (!player.capabilities.isCreativeMode)

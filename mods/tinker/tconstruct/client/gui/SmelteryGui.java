@@ -309,18 +309,13 @@ public class SmelteryGui extends NewContainerGui
         {
             String name = LiquidDictionary.findLiquidName(liquid);
             list.add("\u00A7f" + name);
+            if (name == null)
+                return list;
+            
             if (name.equals("Liquified Emerald"))
             {
                 float emeralds = liquid.amount / 320f;
                 list.add("Emeralds: " + emeralds);
-                /*int emeralds = liquid.amount / 320;
-                if (emeralds > 0)
-                    list.add("Emeralds: " + emeralds);
-                int mB = liquid.amount % 320;
-                if (mB > 0)
-                {
-                    list.add("mB: " + mB);
-                }*/
             }
             else if (name.contains("Molten"))
             {

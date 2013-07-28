@@ -69,6 +69,7 @@ public class PHConstruct
         harderBronze = config.get("Difficulty Changes", "Lower bronze output to 2 ingots", false).getBoolean(false);
         stencilTableCrafting = config.get("Difficulty Changes", "Craft Stencil Tables", true).getBoolean(true);
         miningLevelIncrease = config.get("Difficulty Changes", "Modifiers increase Mining Level", true).getBoolean(true);
+        denyMattock = config.get("Difficulty Changes", "Deny creation of non-metal mattocks", false).getBoolean(false);
 
         blueSlime = config.get("Mob Spawning", "Activate Blue Slime Spawns", true).getBoolean(true);
         blueSlimeWeight = config.get("Mob Spawning", "Spawn Weight for Blue Slime", 7).getInt(7);
@@ -534,6 +535,7 @@ public class PHConstruct
     public static boolean harderBronze;
     public static boolean stencilTableCrafting;
     public static boolean miningLevelIncrease;
+    public static boolean denyMattock;
 
     //Ultra Hardcore modifiers
     public static boolean enableHealthRegen;
