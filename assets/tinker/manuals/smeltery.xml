@@ -104,7 +104,7 @@ Other liquid removal objects will work, but are frowned upon. An example picture
 
 <page type="picture">
 <text>Figure 1a</text>
-<location>/mods/tinker/resources/manuals/smelterysmall.png</location>
+<location>tinker:manuals/smelterysmall.png</location>
 </page>
 
 <page type="sidebar">
@@ -135,7 +135,7 @@ Other part casts must be created by pouring metal around existing parts, like a 
 
 <page type="picture">
 <text>Forming a Cast</text>
-<location>/mods/tinker/resources/manuals/casting.png</location>
+<location>tinker:manuals/casting.png</location>
 </page>
 
 <page type="crafting">

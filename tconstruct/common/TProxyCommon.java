@@ -5,6 +5,8 @@ import tconstruct.entity.MiniGardy;
 import tconstruct.inventory.ArmorExtendedContainer;
 import tconstruct.inventory.KnapsackContainer;
 import tconstruct.inventory.MiniGardyContainer;
+import tconstruct.landmine.inventory.ContainerLandmine;
+import tconstruct.landmine.tileentity.TileEntityLandmine;
 import tconstruct.library.blocks.InventoryLogic;
 import tconstruct.util.player.TPlayerStats;
 import net.minecraft.entity.Entity;
@@ -29,7 +31,8 @@ public class TProxyCommon implements IGuiHandler
     public static int smelteryGuiID = 7;
     public static int glowstoneAggregatorGui = 8;
     public static int drawbridgeGui = 9;
-
+    public static int landmineGui = 10;
+    
     public static int inventoryGui = 100;
     public static int armorGuiID = 101;
     public static int knapsackGuiID = 102;
@@ -41,6 +44,11 @@ public class TProxyCommon implements IGuiHandler
     @Override
     public Object getServerGuiElement (int ID, EntityPlayer player, World world, int x, int y, int z)
     {
+    	
+    	if (ID == landmineGui){
+    		return new ContainerLandmine(player, (TileEntityLandmine)world.getBlockTileEntity(x, y, z));
+    	}
+    	
         if (ID < 0)
             return null;
 

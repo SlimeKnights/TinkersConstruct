@@ -154,6 +154,7 @@
   
   <entry key="block.drawbridge.name">Drawbridge</entry>
   <entry key="block.firestarter.name">Igniter</entry>
+  <entry key="tile.landmine.name">Landmine</entry>
   
   <entry key="StorageMetals.Cobalt.name">Block of Cobalt</entry>
   <entry key="StorageMetals.Ardite.name">Block of Ardite</entry>
@@ -302,6 +303,10 @@
   <entry key="death.two.smeltery">%1$s has fused with the Smeltery</entry>
   <entry key="death.three.smeltery">%1$s will be a stepping stone for our revolution!</entry>
   <entry key="death.four.smeltery">%1$s thought swimming in hot liquids was a good idea</entry>
+  
+  <entry key="death.attack.Landmine">%1$s watched their legs get blown off</entry>
+  <entry key="death.fell.assist.Landmine">%1$s was doomed to fall by Landmine</entry>
+  <entry key="death.attack.LandmineFireworkExplode">%1$s took a ride on a firework</entry>
   
   <entry key="parttype.Wood">Wooden</entry>
   <entry key="parttype.Stone">Stone</entry>

@@ -24,6 +24,7 @@ import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeDirection;
 
 public class ToolStationBlock extends InventoryBlock
 {
@@ -88,7 +89,12 @@ public class ToolStationBlock extends InventoryBlock
     {
         return false;
     }
-
+    
+    @Override
+    public boolean isBlockSolidOnSide(World world, int x, int y, int z, ForgeDirection side){
+    	return side == ForgeDirection.UP;
+    }
+    
     @Override
     public int getRenderType ()
     {
