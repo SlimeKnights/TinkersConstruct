@@ -135,6 +135,13 @@
   <entry key="item.tconstruct.Materials.AluBrassNugget.name">含铝黄铜粒</entry>
   <entry key="item.tconstruct.Materials.SilkyCloth.name">绢布</entry>
   <entry key="item.tconstruct.Materials.SilkyJewel.name">精致珠宝</entry>
+  <entry key="item.tconstruct.Materials.ObsidianNugget.name">黑曜石粒</entry>
+  <entry key="item.tconstruct.Materials.CobaltNugget.name">钴粒</entry>
+  <entry key="item.tconstruct.Materials.ArditeNugget.name">阿迪特粒</entry>
+  <entry key="item.tconstruct.Materials.ManyullynNugget.name">玛玉灵粒</entry>
+  <entry key="item.tconstruct.Materials.BronzeNugget.name">青铜粒</entry>
+  <entry key="item.tconstruct.Materials.AlumiteNugget.name">耐酸铝粒</entry>
+  <entry key="item.tconstruct.Materials.SteelNugget.name">钢粒</entry>
   
   <entry key="Smeltery.Controller.name">冶炼厂填料仓</entry>
   <entry key="Smeltery.Drain.name">铸造盆</entry>
