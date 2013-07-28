@@ -55,10 +55,7 @@ public class TActiveOmniMod extends ActiveToolMod
     {
         if (entity instanceof EntityPlayer && ((EntityPlayer) entity).capabilities.isCreativeMode)
             return false;
-
-        List list = Arrays.asList(tool.toolCategories());
-        if (list.contains("harvest"))
-            TContent.modL.midStreamModify(stack, tool);
+        TContent.modL.midStreamModify(stack, tool);
 
         NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
         World world = entity.worldObj;
@@ -154,9 +151,7 @@ public class TActiveOmniMod extends ActiveToolMod
     @Override
     public int baseAttackDamage (int earlyModDamage, int damage, ToolCore tool, NBTTagCompound tags, NBTTagCompound toolTags, ItemStack stack, EntityLivingBase player, Entity entity)
     {
-        List list = Arrays.asList(tool.toolCategories());
-        if (list.contains("weapon"))
-            TContent.modL.midStreamModify(stack, tool);
+        TContent.modL.midStreamModify(stack, tool);
         return 0;
     }
 

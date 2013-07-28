@@ -41,6 +41,7 @@ import net.minecraft.block.BlockDispenser;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialLiquid;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -436,6 +437,10 @@ public class TContent implements IFuelHandler
         GameRegistry.registerBlock(redstoneMachine, RedstoneMachineItem.class, "Redstone.Machine");
         GameRegistry.registerTileEntity(DrawbridgeLogic.class, "Drawbridge");
         GameRegistry.registerTileEntity(FirestarterLogic.class, "Firestarter");
+        
+        landmine = new BlockLandmine(PHConstruct.landmine).setHardness(0.5F).setResistance(0F).setStepSound(Block.soundMetalFootstep).setCreativeTab(TConstructRegistry.blockTab).setUnlocalizedName("landmine");
+        GameRegistry.registerBlock(landmine, ItemBlockLandmine.class, "Redstone.Landmine");
+        GameRegistry.registerTileEntity(TileEntityLandmine.class, "Landmine");
 
         essenceExtractor = new EssenceExtractor(PHConstruct.essenceExtractor).setHardness(12f).setUnlocalizedName("extractor.essence");
         GameRegistry.registerBlock(essenceExtractor, "extractor.essence");
@@ -1809,7 +1814,6 @@ public class TContent implements IFuelHandler
                 "blueslime" };
         for (int i = 0; i < matNames.length; i++)
             OreDictionary.registerOre(matNames[i] + "Rod", new ItemStack(toolRod, 1, i));
-
         String[] glassTypes = { "glassBlack", "glassRed", "glassGreen", "glassBrown", "glassBlue", "glassPurple", "glassCyan", "glassLightGray", "glassGray", "glassPink", "glassLime", "glassYellow",
                 "glassLightBlue", "glassMagenta", "glassOrange", "glassWhite" };
         for (int i = 0; i < 16; i++)

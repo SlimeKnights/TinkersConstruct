@@ -52,6 +52,10 @@ public class TProxyCommon implements IGuiHandler
     	
         if (ID < 0)
             return null;
+        
+        if (ID == landmineGui){
+            return new ContainerLandmine(player, (TileEntityLandmine)world.getBlockTileEntity(x, y, z));
+        }
 
         else if (ID < 100)
         {

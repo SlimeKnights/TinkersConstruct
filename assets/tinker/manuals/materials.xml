@@ -508,7 +508,8 @@ Class: Ranged Projectile Launcher</text>
 <page type="materialstats">
 <title>Iron</title>
 <icon>ironpick</icon>
-<text>A staple for tools, it can be refined and processed.</text>
+<text>A staple for tools, it can be refined and processed.
+- Requires the Smeltery</text>
 <material>
  <main>ironingot</main>
 </material>
@@ -553,7 +554,8 @@ Class: Ranged Projectile Launcher</text>
 <page type="materialstats">
 <title>Alumite</title>
 <icon>alumitepick</icon>
-<text>An uncommon alloy. It seems to be quite durable.</text>
+<text>An uncommon alloy. It seems to be quite durable.
+- Requires the Smeltery</text>
 <material>
  <main>alumiteingot</main>
 </material>
@@ -621,7 +623,8 @@ Class: Ranged Projectile Launcher</text>
 <page type="materialstats">
 <title>Cobalt</title>
 <icon>cobaltlongsword</icon>
-<text>One of the nether materials. It's bright blue.</text>
+<text>One of the nether materials. It's bright blue.
+- Requires the Smeltery</text>
 <material>
  <main>cobaltingot</main>
 </material>
@@ -630,7 +633,8 @@ Class: Ranged Projectile Launcher</text>
 <page type="materialstats">
 <title>Ardite</title>
 <icon>arditelongsword</icon>
-<text>One of the nether materials. It seems to mine faster as it wears out.</text>
+<text>One of the nether materials. It seems to mine faster as it wears out.
+- Requires the Smeltery</text>
 <material>
  <main>arditeingot</main>
 </material>
@@ -639,7 +643,8 @@ Class: Ranged Projectile Launcher</text>
 <page type="materialstats">
 <title>Manyullyn</title>
 <icon>manyullynlongsword</icon>
-<text>The nether alloy. It's stronger than diamond.</text>
+<text>The nether alloy. It's stronger than diamond.
+- Requires the Smeltery</text>
 <material>
  <main>manyullyningot</main>
 </material>
@@ -648,7 +653,8 @@ Class: Ranged Projectile Launcher</text>
 <page type="materialstats">
 <title>Copper</title>
 <icon>copperaxe</icon>
-<text>A common metal found in the ground.</text>
+<text>A common metal found in the ground.
+- Requires the Smeltery</text>
 <material>
  <main>copperingot</main>
 </material>
@@ -657,7 +663,8 @@ Class: Ranged Projectile Launcher</text>
 <page type="materialstats">
 <title>Bronze</title>
 <icon>bronzeaxe</icon>
-<text>A common alloy. It's a bit better than iron.</text>
+<text>A common alloy. It's a bit better than iron.
+- Requires the Smeltery</text>
 <material>
  <main>bronzeingot</main>
 </material>
@@ -666,7 +673,8 @@ Class: Ranged Projectile Launcher</text>
 <page type="materialstats">
 <title>Steel</title>
 <icon>steelsword</icon>
-<text>An Iron alloy. The method for obtaining this is unknown. Enemy chainmail seems to be made of it.</text>
+<text>An Iron alloy. The method for obtaining this is unknown. Enemy chainmail seems to be made of it.
+- Requires the Smeltery</text>
 <material>
  <main>steelingot</main>
 </material>

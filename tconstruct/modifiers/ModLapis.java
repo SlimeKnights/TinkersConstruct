@@ -114,7 +114,11 @@ public class ModLapis extends ToolMod
         List list = Arrays.asList(toolItem.toolCategories());
         if (list.contains("weapon"))
         {
-            if (keyPair[0] >= 350)
+            if (keyPair[0] >= 450)
+            {
+                addEnchantment(tool, Enchantment.looting, 3);
+            }
+            else if (keyPair[0] >= 350)
             {
                 int chance = keyPair[0] - 300;
                 if (random.nextInt(1000 - chance) == 0)
@@ -136,7 +140,11 @@ public class ModLapis extends ToolMod
 
         if (list.contains("harvest"))
         {
-            if (keyPair[0] >= 350)
+            if (keyPair[0] >= 450)
+            {
+                addEnchantment(tool, Enchantment.fortune, 3);
+            }
+            else if (keyPair[0] >= 350)
             {
                 int chance = keyPair[0] - 300;
                 if (random.nextInt(1000 - chance) == 0)
