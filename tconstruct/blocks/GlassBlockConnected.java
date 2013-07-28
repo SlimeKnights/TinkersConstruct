@@ -616,4 +616,9 @@ public class GlassBlockConnected extends Block
         icons[14] = par1IconRegister.registerIcon("tinker:glass/" + folder + "/glass_3_r");
         icons[15] = par1IconRegister.registerIcon("tinker:glass/" + folder + "/glass_4");
     }
+    
+	@Override
+	public boolean canPlaceTorchOnTop(World world, int x, int y, int z) {
+		return true;
+	}
 }

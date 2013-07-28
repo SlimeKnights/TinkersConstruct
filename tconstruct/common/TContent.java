@@ -562,6 +562,7 @@ public class TContent implements IFuelHandler
         
         moltenIronFluid = new Fluid("Molten Iron");
         moltenIron = new LiquidMetalFinite(PHConstruct.moltenIron, moltenIronFluid, "liquid_iron").setUnlocalizedName("metal.molten.iron");
+        GameRegistry.registerBlock(moltenIron, "metal.molten.iron");
         moltenIronFluid.setBlockID(moltenIron).setLuminosity(12).setDensity(3000).setViscosity(6000);
         fluids[0] = moltenIronFluid;
         fluidBlocks[0] = moltenIron;
@@ -570,6 +571,7 @@ public class TContent implements IFuelHandler
 
         moltenGoldFluid = new Fluid("Molten Gold");
         moltenGold = new LiquidMetalFinite(PHConstruct.moltenGold, moltenGoldFluid, "liquid_gold").setUnlocalizedName("metal.molten.gold");
+        GameRegistry.registerBlock(moltenGold, "metal.molten.gold");
         moltenGoldFluid.setBlockID(moltenGold).setLuminosity(12).setDensity(3000).setViscosity(6000);
         fluids[1] = moltenGoldFluid;
         fluidBlocks[1] = moltenGold;
@@ -578,6 +580,7 @@ public class TContent implements IFuelHandler
 
         moltenCopperFluid = new Fluid("Molten Copper");
         moltenCopper = new LiquidMetalFinite(PHConstruct.moltenCopper, moltenCopperFluid, "liquid_copper").setUnlocalizedName("metal.molten.copper");
+        GameRegistry.registerBlock(moltenCopper, "metal.molten.copper");
         moltenCopperFluid.setBlockID(moltenCopper).setLuminosity(12).setDensity(3000).setViscosity(6000);
         fluids[2] = moltenCopperFluid;
         fluidBlocks[2] = moltenCopper;
@@ -586,6 +589,7 @@ public class TContent implements IFuelHandler
 
         moltenTinFluid = new Fluid("Molten Tin");
         moltenTin = new LiquidMetalFinite(PHConstruct.moltenTin, moltenTinFluid, "liquid_tin").setUnlocalizedName("metal.molten.tin");
+        GameRegistry.registerBlock(moltenTin, "metal.molten.tin");
         moltenTinFluid.setBlockID(moltenTin).setLuminosity(12).setDensity(3000).setViscosity(6000);
         fluids[3] = moltenTinFluid;
         fluidBlocks[3] = moltenTin;
@@ -594,6 +598,7 @@ public class TContent implements IFuelHandler
 
         moltenAluminumFluid = new Fluid("Molten Aluminum");
         moltenAluminum = new LiquidMetalFinite(PHConstruct.moltenAluminum, moltenAluminumFluid, "liquid_aluminum").setUnlocalizedName("metal.molten.aluminum");
+        GameRegistry.registerBlock(moltenAluminum, "metal.molten.aluminum");
         moltenAluminumFluid.setBlockID(moltenAluminum).setLuminosity(12).setDensity(3000).setViscosity(6000);
         fluids[4] = moltenAluminumFluid;
         fluidBlocks[4] = moltenAluminum;
@@ -602,6 +607,7 @@ public class TContent implements IFuelHandler
 
         moltenCobaltFluid = new Fluid("Molten Cobalt");
         moltenCobalt = new LiquidMetalFinite(PHConstruct.moltenCobalt, moltenCobaltFluid, "liquid_cobalt").setUnlocalizedName("metal.molten.cobalt");
+        GameRegistry.registerBlock(moltenCobalt, "metal.molten.cobalt");
         moltenCobaltFluid.setBlockID(moltenCobalt).setLuminosity(12).setDensity(3000).setViscosity(6000);
         fluids[5] = moltenCobaltFluid;
         fluidBlocks[5] = moltenCobalt;
@@ -610,6 +616,7 @@ public class TContent implements IFuelHandler
 
         moltenArditeFluid = new Fluid("Molten Ardite");
         moltenArdite = new LiquidMetalFinite(PHConstruct.moltenArdite, moltenArditeFluid, "liquid_ardite").setUnlocalizedName("metal.molten.ardite");
+        GameRegistry.registerBlock(moltenArdite, "metal.molten.ardite");
         moltenArditeFluid.setBlockID(moltenArdite).setLuminosity(12).setDensity(3000).setViscosity(6000);
         fluids[6] = moltenArditeFluid;
         fluidBlocks[6] = moltenArdite;
@@ -618,6 +625,7 @@ public class TContent implements IFuelHandler
 
         moltenBronzeFluid = new Fluid("Molten Bronze");
         moltenBronze = new LiquidMetalFinite(PHConstruct.moltenBronze, moltenBronzeFluid, "liquid_bronze").setUnlocalizedName("metal.molten.bronze");
+        GameRegistry.registerBlock(moltenBronze, "metal.molten.bronze");
         moltenBronzeFluid.setBlockID(moltenBronze).setLuminosity(12).setDensity(3000).setViscosity(6000);
         fluids[7] = moltenBronzeFluid;
         fluidBlocks[7] = moltenBronze;
@@ -626,6 +634,7 @@ public class TContent implements IFuelHandler
 
         moltenAlubrassFluid = new Fluid("Molten Aluminum Brass");
         moltenAlubrass = new LiquidMetalFinite(PHConstruct.moltenAlubrass, moltenAlubrassFluid, "liquid_alubrass").setUnlocalizedName("metal.molten.alubrass");
+        GameRegistry.registerBlock(moltenAlubrass, "metal.molten.alubrass");
         moltenAlubrassFluid.setBlockID(moltenAlubrass).setLuminosity(12).setDensity(3000).setViscosity(6000);
         fluids[8] = moltenAlubrassFluid;
         fluidBlocks[8] = moltenAlubrass;
@@ -634,6 +643,7 @@ public class TContent implements IFuelHandler
 
         moltenManyullynFluid = new Fluid("Molten Manyullyn");
         moltenManyullyn = new LiquidMetalFinite(PHConstruct.moltenManyullyn, moltenManyullynFluid, "liquid_manyullyn").setUnlocalizedName("metal.molten.manyullyn");
+        GameRegistry.registerBlock(moltenManyullyn, "metal.molten.manyullyn");
         moltenManyullynFluid.setBlockID(moltenManyullyn).setLuminosity(12).setDensity(3000).setViscosity(6000);
         fluids[9] = moltenManyullynFluid;
         fluidBlocks[9] = moltenManyullyn;
@@ -642,6 +652,7 @@ public class TContent implements IFuelHandler
 
         moltenAlumiteFluid = new Fluid("Molten Alumite");
         moltenAlumite = new LiquidMetalFinite(PHConstruct.moltenAlumite, moltenAlumiteFluid, "liquid_alumite").setUnlocalizedName("metal.molten.alumite");
+        GameRegistry.registerBlock(moltenAlumite, "metal.molten.alumite");
         moltenAlumiteFluid.setBlockID(moltenAlumite).setLuminosity(12).setDensity(3000).setViscosity(6000);
         fluids[10] = moltenAlumiteFluid;
         fluidBlocks[10] = moltenAlumite;
@@ -650,6 +661,7 @@ public class TContent implements IFuelHandler
 
         moltenObsidianFluid = new Fluid("Molten Obsidian");
         moltenObsidian = new LiquidMetalFinite(PHConstruct.moltenObsidian, moltenObsidianFluid, "liquid_obsidian").setUnlocalizedName("metal.molten.obsidian");
+        GameRegistry.registerBlock(moltenObsidian, "metal.molten.obsidian");
         moltenObsidianFluid.setBlockID(moltenObsidian).setLuminosity(12).setDensity(3000).setViscosity(6000);
         fluids[11] = moltenObsidianFluid;
         fluidBlocks[11] = moltenObsidian;
@@ -658,6 +670,7 @@ public class TContent implements IFuelHandler
 
         moltenSteelFluid = new Fluid("Molten Steel");
         moltenSteel = new LiquidMetalFinite(PHConstruct.moltenSteel, moltenSteelFluid, "liquid_steel").setUnlocalizedName("metal.molten.steel");
+        GameRegistry.registerBlock(moltenSteel, "metal.molten.steel");
         moltenSteelFluid.setBlockID(moltenSteel).setLuminosity(12).setDensity(3000).setViscosity(6000);
         fluids[12] = moltenSteelFluid;
         fluidBlocks[12] = moltenSteel;
@@ -666,6 +679,7 @@ public class TContent implements IFuelHandler
 
         moltenGlassFluid = new Fluid("Molten Glass");
         moltenGlass = new LiquidMetalFinite(PHConstruct.moltenGlass, moltenGlassFluid, "liquid_glass").setUnlocalizedName("metal.molten.glass");
+        GameRegistry.registerBlock(moltenGlass, "metal.molten.glass");
         moltenGlassFluid.setBlockID(moltenGlass).setLuminosity(12).setDensity(3000).setViscosity(6000);
         fluids[13] = moltenGlassFluid;
         fluidBlocks[13] = moltenGlass;
@@ -674,6 +688,7 @@ public class TContent implements IFuelHandler
 
         moltenStoneFluid = new Fluid("Seared Stone");
         moltenStone = new LiquidMetalFinite(PHConstruct.moltenStone, moltenStoneFluid, "liquid_stone").setUnlocalizedName("molten.stone");
+        GameRegistry.registerBlock(moltenStone, "molten.stone");
         moltenStoneFluid.setBlockID(moltenStone).setLuminosity(12).setDensity(3000).setViscosity(6000);
         fluids[14] = moltenStoneFluid;
         fluidBlocks[14] = moltenStone;
@@ -682,6 +697,7 @@ public class TContent implements IFuelHandler
 
         moltenEmeraldFluid = new Fluid("Molten Emerald");
         moltenEmerald = new LiquidMetalFinite(PHConstruct.moltenEmerald, moltenEmeraldFluid, "liquid_villager").setUnlocalizedName("molten.emerald");
+        GameRegistry.registerBlock(moltenEmerald, "molten.emerald");
         moltenEmeraldFluid.setBlockID(moltenEmerald).setDensity(3000).setViscosity(6000);
         fluids[15] = moltenEmeraldFluid;
         fluidBlocks[15] = moltenEmerald;
@@ -690,6 +706,7 @@ public class TContent implements IFuelHandler
 
         bloodFluid = new Fluid("Blood");
         blood = new LiquidMetalFinite(PHConstruct.blood, bloodFluid, "liquid_cow").setUnlocalizedName("liquid.blood");
+        GameRegistry.registerBlock(blood, "liquid.blood");
         bloodFluid.setBlockID(blood).setDensity(3000).setViscosity(6000);
         fluids[16] = bloodFluid;
         fluidBlocks[16] = blood;
@@ -698,6 +715,7 @@ public class TContent implements IFuelHandler
 
         moltenNickelFluid = new Fluid("Molten Nickel");
         moltenNickel = new LiquidMetalFinite(PHConstruct.moltenNickel, moltenNickelFluid, "liquid_ferrous").setUnlocalizedName("metal.molten.nickel");
+        GameRegistry.registerBlock(moltenNickel, "metal.molten.nickel");
         moltenNickelFluid.setBlockID(moltenNickel).setDensity(3000).setViscosity(6000);
         fluids[17] = moltenNickelFluid;
         fluidBlocks[17] = moltenNickel;
@@ -706,6 +724,7 @@ public class TContent implements IFuelHandler
 
         moltenLeadFluid = new Fluid("Molten Lead");
         moltenLead = new LiquidMetalFinite(PHConstruct.moltenLead, moltenLeadFluid, "liquid_lead").setUnlocalizedName("metal.molten.lead");
+        GameRegistry.registerBlock(moltenLead, "metal.molten.lead");
         moltenLeadFluid.setBlockID(moltenLead).setDensity(3000).setViscosity(6000);
         fluids[18] = moltenLeadFluid;
         fluidBlocks[18] = moltenLead;
@@ -714,6 +733,7 @@ public class TContent implements IFuelHandler
 
         moltenSilverFluid = new Fluid("Molten Silver");
         moltenSilver = new LiquidMetalFinite(PHConstruct.moltenSilver, moltenSilverFluid, "liquid_silver").setUnlocalizedName("metal.molten.silver");
+        GameRegistry.registerBlock(moltenSilver, "metal.molten.silver");
         moltenSilverFluid.setBlockID(moltenSilver).setDensity(3000).setViscosity(6000);
         fluids[19] = moltenSilverFluid;
         fluidBlocks[19] = moltenSilver;
@@ -722,6 +742,7 @@ public class TContent implements IFuelHandler
 
         moltenShinyFluid = new Fluid("Molten Platinum");
         moltenShiny = new LiquidMetalFinite(PHConstruct.moltenShiny, moltenShinyFluid, "liquid_shiny").setUnlocalizedName("metal.molten.shiny");
+        GameRegistry.registerBlock(moltenShiny, "metal.molten.shiny");
         moltenShinyFluid.setBlockID(moltenShiny).setDensity(3000).setViscosity(6000);
         fluids[20] = moltenLeadFluid;
         fluidBlocks[20] = moltenShiny;
@@ -730,6 +751,7 @@ public class TContent implements IFuelHandler
 
         moltenInvarFluid = new Fluid("Molten Invar");
         moltenInvar = new LiquidMetalFinite(PHConstruct.moltenInvar, moltenInvarFluid, "liquid_invar").setUnlocalizedName("metal.molten.invar");
+        GameRegistry.registerBlock(moltenInvar, "metal.molten.invar");
         moltenInvarFluid.setBlockID(moltenInvar).setDensity(3000).setViscosity(6000);
         fluids[21] = moltenInvarFluid;
         fluidBlocks[21] = moltenInvar;
@@ -738,6 +760,7 @@ public class TContent implements IFuelHandler
 
         moltenElectrumFluid = new Fluid("Molten Electrum");
         moltenElectrum = new LiquidMetalFinite(PHConstruct.moltenElectrum, moltenElectrumFluid, "liquid_electrum").setUnlocalizedName("metal.molten.electrum");
+        GameRegistry.registerBlock(moltenElectrum, "metal.molten.electrum");
         moltenElectrumFluid.setBlockID(moltenElectrum).setDensity(3000).setViscosity(6000);
         fluids[22] = moltenElectrumFluid;
         fluidBlocks[22] = moltenElectrum;
