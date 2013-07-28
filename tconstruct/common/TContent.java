@@ -559,9 +559,7 @@ public class TContent implements IFuelHandler
 
         //Liquids
         liquidMetal = new MaterialLiquid(MapColor.tntColor);
-
-        System.out.println("Engaging liquid metals!");
-
+        
         moltenIronFluid = new Fluid("Molten Iron");
         moltenIron = new LiquidMetalFinite(PHConstruct.moltenIron, moltenIronFluid, "liquid_iron").setUnlocalizedName("metal.molten.iron");
         moltenIronFluid.setBlockID(moltenIron).setLuminosity(12).setDensity(3000).setViscosity(6000);
