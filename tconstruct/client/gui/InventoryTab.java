@@ -21,7 +21,7 @@ public class InventoryTab extends GuiButton
     int textureX;
     //String texture = "/gui/allitems.png";
     ItemStack renderStack;
-    private static final ResourceLocation background = new ResourceLocation("gui/allitems.png");
+    private static final ResourceLocation background = new ResourceLocation("textures/gui/container/creative_inventory/tabs.png");
 
     public InventoryTab(int id, int posX, int posY, ItemStack stack, int texX)
     {
