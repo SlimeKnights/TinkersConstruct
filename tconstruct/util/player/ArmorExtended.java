@@ -1,8 +1,11 @@
 package tconstruct.util.player;
 
+import java.util.UUID;
 import java.lang.ref.WeakReference;
 
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.AttributeInstance;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -18,6 +21,7 @@ public class ArmorExtended implements IInventory
 {
     public ItemStack[] inventory = new ItemStack[7];
     public WeakReference<EntityPlayer> parent;
+    public UUID = UUID.fromString("B243BE32-DC1B-4C53-8D13-8752D5C69D5B"); //or whatever
 
     public void init (EntityPlayer player)
     {
@@ -170,9 +174,12 @@ public class ArmorExtended implements IInventory
                 int healthChange = bonusHP - prevHealth;
                 if (healthChange != 0)
                 {
-                    double playerHP = player.func_110148_a(SharedMonsterAttributes.field_111267_a).func_111125_b();
-                    playerHP += healthChange;
-                    player.func_110148_a(SharedMonsterAttributes.field_111267_a).func_111128_a(playerHP);
+                    AttributeInstance attributeinstance = player.func_110140_aT().func_111151_a(SharedMonsterAttributes.field_111267_a);
+                    try
+                    {
+                        attributeinstance.func_111124_b(attributeinstance.func_111127_a(UUID));
+                    } catch(Exception e) {};
+                    attributeinstance.func_111121_a(new AttributeModifier(UUID, "tconstruct.heartCanister", bonusHP, 0));
                 }
                 /*public void setEntityHealth(float par1)
                 {
@@ -197,9 +204,11 @@ public class ArmorExtended implements IInventory
             int healthChange = bonusHP - prevHealth;
             if (healthChange != 0)
             {
-                double playerHP = player.func_110148_a(SharedMonsterAttributes.field_111267_a).func_111125_b();
-                playerHP += healthChange;
-                player.func_110148_a(SharedMonsterAttributes.field_111267_a).func_111128_a(playerHP);
+                AttributeInstance attributeinstance = player.func_110140_aT().func_111151_a(SharedMonsterAttributes.field_111267_a);
+                try
+                {
+                    attributeinstance.func_111124_b(attributeinstance.func_111127_a(UUID));
+                } catch(Exception e) {};
             }
             //player.func_110148_a(SharedMonsterAttributes.field_111267_a).func_111128_a(20);
             //player.setEntityHealth(20);
