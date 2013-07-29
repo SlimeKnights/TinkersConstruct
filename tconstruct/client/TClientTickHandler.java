@@ -2,12 +2,15 @@ package tconstruct.client;
 
 import java.util.EnumSet;
 
-import tconstruct.common.TContent;
-
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.MathHelper;
+import net.minecraft.util.ResourceLocation;
+import tconstruct.common.TContent;
 import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.TickType;
 
@@ -18,6 +21,8 @@ public class TClientTickHandler implements ITickHandler
     int zLevel = 0;
     int ticks = 0;
 
+    private static final ResourceLocation hearts = new ResourceLocation("tinker", "textures/gui/newhearts.png");
+    
     @Override
     public void tickEnd (EnumSet<TickType> type, Object... tickData)
     {
@@ -33,9 +38,11 @@ public class TClientTickHandler implements ITickHandler
         int scaledHeight = scaledresolution.getScaledHeight();
         int xBasePos = scaledWidth / 2 - 91;
         int yBasePos = scaledHeight - 39;
-        this.mc.renderEngine.bindTexture("/mods/tinker/textures/gui/newhearts.png");
-        
-        int hp = player.getHealth();
+        this.mc.func_110434_K().func_110577_a(hearts);
+        //this.mc.renderEngine.bindTexture("/mods/tinker/textures/gui/newhearts.png");
+
+        int hp = MathHelper.ceiling_float_int(this.mc.thePlayer.func_110143_aJ());//(int) player.func_110148_a(SharedMonsterAttributes.field_111267_a).func_111125_b();//player.getHealth();
+        //System.out.println("hp: "+hp);
         for (int iter = 0; iter < hp / 20; iter++)
         {
             int renderHearts = (hp - 20*(iter+1)) / 2;

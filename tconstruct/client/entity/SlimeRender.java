@@ -4,19 +4,20 @@ import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.boss.BossStatus;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
 import tconstruct.entity.BlueSlime;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class SlimeRender extends RenderLiving
 {
+    static final ResourceLocation texture = new ResourceLocation("tinker", "textures/mob/slimeedible.png");
     private ModelBase scaleAmount;
 
     public SlimeRender(ModelBase par1ModelBase, ModelBase par2ModelBase, float par3)
@@ -25,6 +26,7 @@ public class SlimeRender extends RenderLiving
         this.scaleAmount = par2ModelBase;
     }
 
+    @Override
     public void doRenderLiving (EntityLiving par1EntityLiving, double par2, double par4, double par6, float par8, float par9)
     {
         super.doRenderLiving(par1EntityLiving, par2, par4, par6, par8, par9);
@@ -81,7 +83,8 @@ public class SlimeRender extends RenderLiving
      * Allows the render to do any OpenGL state modifications necessary before the model is rendered. Args:
      * entityLiving, partialTickTime
      */
-    protected void preRenderCallback (EntityLiving par1EntityLiving, float par2)
+    @Override
+    protected void preRenderCallback (EntityLivingBase par1EntityLiving, float par2)
     {
         this.scaleSlime((BlueSlime) par1EntityLiving, par2);
     }
@@ -89,7 +92,8 @@ public class SlimeRender extends RenderLiving
     /**
      * Queries whether should render the specified pass or not.
      */
-    protected int shouldRenderPass (EntityLiving par1EntityLiving, int par2, float par3)
+    @Override
+    protected int shouldRenderPass (EntityLivingBase par1EntityLiving, int par2, float par3)
     {
         return this.shouldSlimeRenderPass((BlueSlime) par1EntityLiving, par2, par3);
     }
@@ -99,6 +103,4 @@ public class SlimeRender extends RenderLiving
     {
         return texture;
     }
-    
-    static final ResourceLocation texture = new ResourceLocation("tinker", "textures/mob/slimeedible.png");
 }

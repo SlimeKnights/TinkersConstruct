@@ -150,12 +150,14 @@ import tconstruct.library.crafting.ToolBuilder;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.util.player.ArmorExtended;
 import tconstruct.util.player.KnapsackInventory;
+import tconstruct.util.player.TPlayerStats;
 
 import com.google.common.collect.Lists;
 
 import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.registry.TickRegistry;
+import cpw.mods.fml.common.registry.VillagerRegistry;
 import cpw.mods.fml.relauncher.Side;
 
 public class TProxyClient extends TProxyCommon
@@ -167,6 +169,7 @@ public class TProxyClient extends TProxyCommon
 
     public static ArmorExtended armorExtended = new ArmorExtended();
     public static KnapsackInventory knapsack = new KnapsackInventory();
+    public static TPlayerStats stats = new TPlayerStats();
 
     @Override
     public Object getClientGuiElement (int ID, EntityPlayer player, World world, int x, int y, int z)
@@ -406,6 +409,7 @@ public class TProxyClient extends TProxyCommon
         //RenderingRegistry.registerEntityRenderingHandler(net.minecraft.entity.player.EntityPlayer.class, new PlayerArmorRender()); // <-- Works, woo!
 
         MinecraftForgeClient.registerItemRenderer(TContent.shortbow.itemID, new CustomBowRenderer());
+        VillagerRegistry.instance().registerVillagerSkin(78943, new ResourceLocation("/mods/tinker/textures/mob/villagertools.png"));
 
         addRenderMappings();
         addToolButtons();

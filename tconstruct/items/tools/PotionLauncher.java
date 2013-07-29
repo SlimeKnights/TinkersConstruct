@@ -53,7 +53,7 @@ public class PotionLauncher extends Item
                     player.inventory.setInventorySlotContents(slotID, null);
             }
 
-            world.playSoundEffect(player.posX, player.posY, player.posZ, "sounds.launcher_clank", 1.0F, (world.rand.nextFloat() - world.rand.nextFloat()) * 0.15F + 1.0F);
+            world.playSoundEffect(player.posX, player.posY, player.posZ, "tinker:launcher_clank", 1.0F, (world.rand.nextFloat() - world.rand.nextFloat()) * 0.15F + 1.0F);
         }
         return stack;
     }

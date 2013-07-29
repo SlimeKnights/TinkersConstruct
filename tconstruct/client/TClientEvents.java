@@ -2,6 +2,7 @@ package tconstruct.client;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.SoundPool;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.Tessellator;
@@ -44,19 +45,27 @@ public class TClientEvents
     }*/
 
     /* Sounds */
-    /*@ForgeSubscribe
+
+    /*boolean initSounds;
+
+    @ForgeSubscribe
     public void onSound (SoundLoadEvent event)
     {
-        try
+        if (!initSounds)
         {
-            event.manager.soundPoolSounds.addSound("sounds/frypan_hit.ogg", TConstruct.class.getResource("/sounds/frypan_hit.ogg"));
-            event.manager.soundPoolSounds.addSound("sounds/little_saw.ogg", TConstruct.class.getResource("/sounds/little_saw.ogg"));
-            event.manager.soundPoolSounds.addSound("sounds/launcher_clank.ogg", TConstruct.class.getResource("/sounds/launcher_clank.ogg"));
-            System.out.println("[TConstruct] Successfully loaded sounds.");
-        }
-        catch (Exception e)
-        {
-            System.err.println("[TConstruct] Failed to register one or more sounds");
+            initSounds = true;
+            try
+            {
+                SoundPool soundpool = event.manager.soundPoolSounds;
+                soundpool.addSound("tinker:frypan_hit.ogg");
+                soundpool.addSound("tinker:little_saw.ogg");
+                soundpool.addSound("tinker:launcher_clank.ogg");
+                System.out.println("[TConstruct] Successfully loaded sounds.");
+            }
+            catch (Exception e)
+            {
+                System.err.println("[TConstruct] Failed to register one or more sounds");
+            }
         }
     }*/
 
@@ -77,7 +86,9 @@ public class TClientEvents
             lava.setIcons(Block.waterStill.getIcon(0, 0), Block.waterStill.getIcon(2, 0));
         }
     }
-    private static final ResourceLocation background = new ResourceLocation("tinker", "textures/gui/newhearts.png");
+
+    private static final ResourceLocation hearts = new ResourceLocation("tinker", "textures/gui/newhearts.png");
+    private static final ResourceLocation icons = new ResourceLocation("textures/gui/icons.png");
 
     /* HUD */
     @ForgeSubscribe
@@ -99,9 +110,9 @@ public class TClientEvents
 
         /*if (event.type == RenderGameOverlayEvent.ElementType.HEALTH)
         {
-            this.mc.func_110434_K().func_110577_a(background);
+            this.mc.func_110434_K().func_110577_a(hearts);
 
-            int hp = mc.thePlayer.getHealth();
+            int hp = MathHelper.ceiling_float_int(this.mc.thePlayer.func_110143_aJ());
             for (int iter = 0; iter < hp / 20; iter++)
             {
                 int renderHearts = (hp - 20 * (iter + 1)) / 2;
@@ -117,7 +128,7 @@ public class TClientEvents
                 }
             }
 
-            this.mc.renderEngine.bindTexture("/gui/icons.png");
+            this.mc.func_110434_K().func_110577_a(icons);
         }*/
 
         /*if (event.type == RenderGameOverlayEvent.ElementType.HOTBAR)

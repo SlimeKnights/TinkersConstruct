@@ -2,14 +2,17 @@ package tconstruct.util.player;
 
 import java.lang.ref.WeakReference;
 
-import tconstruct.TConstruct;
-import tconstruct.common.TContent;
-
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.util.MathHelper;
+import tconstruct.TConstruct;
+import tconstruct.common.TContent;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.relauncher.Side;
 
 public class ArmorExtended implements IInventory
 {
@@ -146,19 +149,60 @@ public class ArmorExtended implements IInventory
 
     public void recalculateHealth (EntityPlayer player, TPlayerStats stats)
     {
+        Side side = FMLCommonHandler.instance().getEffectiveSide();
+
         if (inventory[6] != null && inventory[6].getItem() == TContent.heartCanister)
         {
+            //System.out.println("Calculating HP on side " + FMLCommonHandler.instance().getEffectiveSide());
             ItemStack stack = inventory[6];
             int meta = stack.getItemDamage();
+            //System.out.println("Calculating HP on side " + FMLCommonHandler.instance().getEffectiveSide());
             if (meta == 2)
             {
+                int prevHealth = stats.bonusHealth;
+                if (side == Side.CLIENT)
+                    prevHealth = stats.bonusHealthClient;
                 int bonusHP = stack.stackSize * 2;
-                stats.bonusHealth = bonusHP;
+                if (side == Side.CLIENT)
+                    stats.bonusHealthClient = bonusHP;
+                else
+                    stats.bonusHealth = bonusHP;
+                int healthChange = bonusHP - prevHealth;
+                if (healthChange != 0)
+                {
+                    double playerHP = player.func_110148_a(SharedMonsterAttributes.field_111267_a).func_111125_b();
+                    playerHP += healthChange;
+                    player.func_110148_a(SharedMonsterAttributes.field_111267_a).func_111128_a(playerHP);
+                }
+                /*public void setEntityHealth(float par1)
+                {
+                    this.dataWatcher.updateObject(6, Float.valueOf(MathHelper.clamp_float(par1, 0.0F, this.func_110138_aP())));
+                }*/
+                //player.func_110148_a(SharedMonsterAttributes.field_111267_a).func_111128_a(40);
+                //System.out.println("Health: "+player.func_110148_a(SharedMonsterAttributes.field_111267_a).func_111125_b());
+                //player.setEntityHealth(40);
                 //player.maxHealth = 20 + bonusHP;
             }
         }
         else if (parent != null && parent.get() != null)
         {
+            int prevHealth = stats.bonusHealth;
+            if (side == Side.CLIENT)
+                prevHealth = stats.bonusHealthClient;
+            int bonusHP = 0;
+            if (side == Side.CLIENT)
+                stats.bonusHealthClient = bonusHP;
+            else
+                stats.bonusHealth = bonusHP;
+            int healthChange = bonusHP - prevHealth;
+            if (healthChange != 0)
+            {
+                double playerHP = player.func_110148_a(SharedMonsterAttributes.field_111267_a).func_111125_b();
+                playerHP += healthChange;
+                player.func_110148_a(SharedMonsterAttributes.field_111267_a).func_111128_a(playerHP);
+            }
+            //player.func_110148_a(SharedMonsterAttributes.field_111267_a).func_111128_a(20);
+            //player.setEntityHealth(20);
             //parent.get().maxHealth = 20;
         }
     }

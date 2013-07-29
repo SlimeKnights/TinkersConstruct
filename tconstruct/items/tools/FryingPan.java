@@ -49,7 +49,7 @@ public class FryingPan extends Weapon
     @Override
     public void onEntityDamaged (World world, EntityLivingBase player, Entity entity)
     {
-        world.playSoundEffect(entity.posX, entity.posY, entity.posZ, "sounds.frypan_hit", 1.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F);
+        world.playSoundEffect(entity.posX, entity.posY, entity.posZ, "tinker:frypan_hit", 1.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F);
     }
 
     public String getToolName ()
@@ -128,7 +128,7 @@ public class FryingPan extends Weapon
             else
             {
                 world.setBlock(x, y, z, TContent.heldItemBlock.blockID, 0, 3);
-                world.playSoundEffect(x, y, z, "sounds.frypan_hit", 1.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 0.65F);
+                world.playSoundEffect(x, y, z, "tinker:frypan_hit", 1.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 0.65F);
 
                 EquipLogic logic = (EquipLogic) world.getBlockTileEntity(x, y, z);
                 logic.setEquipmentItem(stack);

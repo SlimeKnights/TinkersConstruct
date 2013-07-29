@@ -138,7 +138,7 @@ public class ToolStationContainer extends ActiveContainer
             int amount = logic.getStackInSlot(1).getItem() instanceof ToolCore ? stack.stackSize : 1;
             logic.decrStackSize(1, amount);
 
-            logic.worldObj.playSoundEffect(logic.xCoord, logic.yCoord, logic.zCoord, "sounds.little_saw", 1.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F);
+            logic.worldObj.playSoundEffect(logic.xCoord, logic.yCoord, logic.zCoord, "tinker:little_saw", 1.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F);
             /*if (!player.worldObj.isRemote)
             	player.worldObj.playAuxSFX(1021, (int)player.posX, (int)player.posY, (int)player.posZ, 0);*/
         }

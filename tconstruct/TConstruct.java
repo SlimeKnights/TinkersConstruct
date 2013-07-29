@@ -41,7 +41,7 @@ import cpw.mods.fml.common.registry.VillagerRegistry;
  * @dependencies: IC2 API, MFR API
  */
 
-@Mod(modid = "TConstruct", name = "TConstruct", version = "1.6.2_1.4.3", dependencies = "required-after:Forge@[7.7.1.687,)")
+@Mod(modid = "TConstruct", name = "TConstruct", version = "1.6.2_1.4.dev.24", dependencies = "required-after:Forge@[7.7.1.687,)")
 @NetworkMod(serverSideRequired = false, clientSideRequired = true, channels = { "TConstruct" }, packetHandler = tconstruct.util.network.TPacketHandler.class)
 public class TConstruct
 {
@@ -102,7 +102,6 @@ public class TConstruct
         GameRegistry.registerCraftingHandler(new TCraftingHandler());
         NetworkRegistry.instance().registerGuiHandler(instance, proxy);
 
-        VillagerRegistry.instance().registerVillagerSkin(78943, new ResourceLocation("/mods/tinker/textures/mob/villagertools.png"));
         VillagerRegistry.instance().registerVillageTradeHandler(78943, new TVillageTrades());
         if (PHConstruct.addToVillages)
         {
