@@ -29,8 +29,8 @@
   <entry key="CraftedSoil.ConsecratedSoil.name">Gesegnete Erde</entry>
 
   <entry key="MetalOre.NetherSlag.name">Netherstein-Schlacke</entry>
-  <entry key="MetalOre.Cobalt.name">Cobaltit</entry>
-  <entry key="MetalOre.Ardite.name">Ardit</entry>
+  <entry key="MetalOre.Cobalt.name">Cobalterz</entry>
+  <entry key="MetalOre.Ardite.name">Arditerz</entry>
   <entry key="MetalOre.Copper.name">Kupfererz</entry>
   <entry key="MetalOre.Tin.name">Zinnerz</entry>
   <entry key="MetalOre.Aluminum.name">Aluminiumerz</entry>
@@ -112,7 +112,7 @@
   <entry key="item.tconstruct.Materials.SlimeCrystal.name">Schleimkristall</entry>
   <entry key="item.tconstruct.Materials.SearedBrick.name">Versengter Ziegel</entry>
   <entry key="item.tconstruct.Materials.CobaltIngot.name">Cobaltbarren</entry>
-  <entry key="item.tconstruct.Materials.ArditeIngot.name">Ardiumbarren</entry>
+  <entry key="item.tconstruct.Materials.ArditeIngot.name">Arditbarren</entry>
   <entry key="item.tconstruct.Materials.ManyullynIngot.name">ManyullynBarren</entry>
   <entry key="item.tconstruct.Materials.Mossball.name">Moosballen</entry>
   <entry key="item.tconstruct.Materials.LavaCrystal.name">Lavakristall</entry>
@@ -133,6 +133,13 @@
   <entry key="item.tconstruct.Materials.AluminumNugget.name">Aluminiumklumpen</entry>
   <entry key="item.tconstruct.Materials.EssenceCrystal.name">Essenzkristall</entry>
   <entry key="item.tconstruct.Materials.AluBrassNugget.name">Duraluminiumklumpen</entry>
+  <entry key="item.tconstruct.Materials.ObsidianNugget.name">Obsidianklumpen</entry>
+  <entry key="item.tconstruct.Materials.CobaltNugget.name">Cobaltklumpen</entry>
+  <entry key="item.tconstruct.Materials.ArditeNugget.name">Arditklumpen</entry>
+  <entry key="item.tconstruct.Materials.ManyullynNugget.name">Manyullynklumpen</entry>
+  <entry key="item.tconstruct.Materials.BronzeNugget.name">Bronzeklumpen</entry>
+  <entry key="item.tconstruct.Materials.AlumiteNugget.name">Alumitklumpen</entry>
+  <entry key="item.tconstruct.Materials.SteelNugget.name">Stahlklumpen</entry>
   <entry key="item.tconstruct.Materials.SilkyCloth.name">Seide</entry>
   <entry key="item.tconstruct.Materials.SilkyJewel.name">Seidiger Edelstein</entry>
 
@@ -152,14 +159,15 @@
   <entry key="LavaTank.Gague.name">Versengtes Glas</entry>
   <entry key="LavaTank.Window.name">Versengtes Fenster</entry>
 
-
   <entry key="block.drawbridge.name">Zugbr\u00fccke</entry>
   <entry key="block.firestarter.name">Feuerzeug</entry>
+  <entry key="tile.landmine.name">Landmine</entry>
 
   <entry key="StorageMetals.Cobalt.name">Cobaltblock</entry>
-  <entry key="StorageMetals.Ardite.name">Ardiumblock</entry>
+  <entry key="StorageMetals.Ardite.name">Arditblock</entry>
   <entry key="StorageMetals.Manyullun.name">Manyullynblock</entry>
   <entry key="StorageMetals.Copper.name">Kupferblock</entry>
+  <entry key="StorageMetals.Bronze.name">Bronzeblock</entry>
   <entry key="StorageMetals.Tin.name">Zinnblock</entry>
   <entry key="StorageMetals.Aluminum.name">Aluminiumblock</entry>
   <entry key="StorageMetals.AlBrass.name">Duraluminiumblock</entry>
@@ -171,6 +179,10 @@
   <entry key="block.glass.pure.name">Klares Glas</entry>
   <entry key="block.glass.soul.name">Seelenglas</entry>
   <entry key="block.glass.soul.pure.name">Klares Seelenglas</entry>
+  
+  <entry key="block.glass.pure.pane.name">Klare Glasscheibe</entry>
+  <entry key="block.glass.soul.pane.name">Seelenglasscheibe</entry>
+  <entry key="block.glass.soul.pane.pure.name">Klare Seelenglasscheibe</entry>
 
   <entry key="block.stainedglass.white.name">Wei\u00df get\u00f6ntes Glas</entry>
   <entry key="block.stainedglass.orange.name">Orange get\u00f6ntes Glas</entry>
@@ -215,7 +227,6 @@
   <entry key="block.searedstone.slab.square.name">Versengte ziselierte Stufe</entry>
   <entry key="block.searedstone.slab.creeper.name">Versengte ziselierte Stufe</entry>
 
-
   <entry key="block.soil.slab.dirt.name">Erdstufe</entry>
   <entry key="block.soil.slab.mycelium.name">Myzelstufe</entry>
   <entry key="block.soil.slab.slime.name">Schleimige Matschstufe</entry>
@@ -230,7 +241,6 @@
 
   <entry key="item.tconstruct.Bowstring.string.name">Bogensehne</entry>
   <entry key="item.tconstruct.Bowstring.enchantedfabric.name">Verzauberte Bogensehne</entry>
-
   <entry key="item.tconstruct.Fletching.feather.name">Federne Befiederung</entry>
   <entry key="item.tconstruct.Fletching.leaf.name">Bl\u00e4tterne Befiederung</entry>
   <entry key="item.tconstruct.Fletching.slime.name">Schleimige Befiederung</entry>
@@ -246,7 +256,7 @@
   <entry key="item.tconstruct.bucket.Tin.name">Eimer mit fl\u00fcssigem Zinn</entry>
   <entry key="item.tconstruct.bucket.Aluminum.name">Eimer mit fl\u00fcssigem Aluminium</entry>
   <entry key="item.tconstruct.bucket.Cobalt.name">Eimer mit fl\u00fcssigem Cobalt</entry>
-  <entry key="item.tconstruct.bucket.Ardite.name">Eimer mit fl\u00fcssigem Ardium</entry>
+  <entry key="item.tconstruct.bucket.Ardite.name">Eimer mit fl\u00fcssigem Ardit</entry>
   <entry key="item.tconstruct.bucket.Bronze.name">Eimer mit fl\u00fcssigem Bronze</entry>
   <entry key="item.tconstruct.bucket.AluBrass.name">Eimer mit fl\u00fcssigem Duraluminium</entry>
   <entry key="item.tconstruct.bucket.Manyullyn.name">Eimer mit fl\u00fcssigem Manyullyn</entry>
@@ -267,7 +277,7 @@
   <entry key="LiquidMetal.Tin.name">Fl\u00fcssiges Zinn</entry>
   <entry key="LiquidMetal.Aluminum.name">Fl\u00fcssiges Aluminium</entry>
   <entry key="LiquidMetal.Cobalt.name">Fl\u00fcssiges Cobalt</entry>
-  <entry key="LiquidMetal.Ardite.name">Fl\u00fcssiges Ardium</entry>
+  <entry key="LiquidMetal.Ardite.name">Fl\u00fcssiges Ardit</entry>
   <entry key="LiquidMetal.Bronze.name">Fl\u00fcssige Bronze</entry>
   <entry key="LiquidMetal.AluBrass.name">Fl\u00fcssiges Duraluminium</entry>
   <entry key="LiquidMetal.Manyullyn.name">Fl\u00fcssiges Manyullyn</entry>
