@@ -42,7 +42,7 @@ public class TControls extends TKeyHandler
 
     public TControls()
     {
-        super(new KeyBinding[] { armorKey /*, skillOne, skillTwo, skillThree, skillFour, skillFive*/}, new boolean[] { false /*, false, false, false, false, false*/}, getVanillaKeyBindings(),
+        super(new KeyBinding[] { armorKey ,/* skillOne, skillTwo, skillThree, skillFour, skillFive*/}, new boolean[] { false , /*false, false, false, false, false*/}, getVanillaKeyBindings(),
                 new boolean[] { false, false });
         //System.out.println("Controls registered");Natura
     }
@@ -265,10 +265,10 @@ public class TControls extends TKeyHandler
     {
         TConstruct.playerTracker.activateSkill(player, key);
 
-        System.out.println(MinecraftServer.getServer());
+        //System.out.println(MinecraftServer.getServer());
         if (MinecraftServer.getServer().isDedicatedServer())
         {
-            System.out.println("Send");
+            //System.out.println("Send");
             ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
             DataOutputStream outputStream = new DataOutputStream(bos);
             try

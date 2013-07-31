@@ -1,29 +1,10 @@
 package tconstruct.util;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
-import tconstruct.TConstruct;
-import tconstruct.blocks.logic.LiquidTextureLogic;
-import tconstruct.common.TContent;
-import tconstruct.crystal.TheftValueTracker;
-import tconstruct.library.TConstructRegistry;
-import tconstruct.library.crafting.PatternBuilder;
-import tconstruct.library.crafting.Smeltery;
-import tconstruct.library.crafting.ToolBuilder;
-import tconstruct.library.event.PartBuilderEvent;
-import tconstruct.library.event.ToolCraftEvent;
-import tconstruct.library.tools.ArrowMaterial;
-import tconstruct.library.tools.BowMaterial;
-import tconstruct.library.tools.BowstringMaterial;
-import tconstruct.library.tools.FletchingMaterial;
-import tconstruct.library.tools.ToolCore;
-import tconstruct.library.util.ValueCoordTuple;
-import tconstruct.modifiers.ModAttack;
-import tconstruct.util.player.TPlayerStats;
-
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityCreeper;
@@ -47,10 +28,30 @@ import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.event.entity.player.FillBucketEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 import net.minecraftforge.event.world.ChunkDataEvent;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.OreDictionary.OreRegisterEvent;
+import tconstruct.TConstruct;
+import tconstruct.common.TContent;
+import tconstruct.crystal.TheftValueTracker;
+import tconstruct.library.TConstructRegistry;
+import tconstruct.library.crafting.PatternBuilder;
+import tconstruct.library.crafting.Smeltery;
+import tconstruct.library.crafting.ToolBuilder;
+import tconstruct.library.event.PartBuilderEvent;
+import tconstruct.library.event.ToolCraftEvent;
+import tconstruct.library.tools.ArrowMaterial;
+import tconstruct.library.tools.BowMaterial;
+import tconstruct.library.tools.BowstringMaterial;
+import tconstruct.library.tools.FletchingMaterial;
+import tconstruct.library.tools.ToolCore;
+import tconstruct.library.util.ValueCoordTuple;
+import tconstruct.modifiers.ModAttack;
+import tconstruct.skill.Skill;
+import tconstruct.util.player.TPlayerStats;
 
 public class TEventHandler
 {
@@ -204,19 +205,19 @@ public class TEventHandler
 
     /* Interact */
 
-    /*@ForgeSubscribe
+    @ForgeSubscribe
     public void interact (PlayerInteractEvent event)
     {
-    	if (event.action == Action.RIGHT_CLICK_BLOCK)// && !event.entityPlayer.worldObj.isRemote)
+    	if (event.action == Action.RIGHT_CLICK_BLOCK)
     	{
     		List<Skill> skills = TConstruct.playerTracker.getPlayerStats(event.entityPlayer.username).skillList;
     		if (skills.size() > 0)
     		{
-    			Skill walls = TConstruct.playerTracker.getPlayerStats(event.entityPlayer.username).skillList.get(0);
+    			Skill walls = skills.get(0);
     			walls.rightClickActivate(event.entityPlayer, event.entityPlayer.worldObj);
     		}
     	}
-    }*/
+    }
 
     /* Damage */
     /*@ForgeSubscribe

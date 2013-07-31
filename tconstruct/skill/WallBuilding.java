@@ -1,6 +1,5 @@
 package tconstruct.skill;
 
-import tconstruct.library.tools.AbilityHelper;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -8,19 +7,24 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import tconstruct.library.tools.AbilityHelper;
 
 public class WallBuilding extends Skill
 {
+    private static final ResourceLocation one = new ResourceLocation("tinker", "textures/skill/Wall16x.png");
+    private static final ResourceLocation two = new ResourceLocation("tinker", "textures/skill/Wall32x.png");
+    private static final ResourceLocation three = new ResourceLocation("tinker", "textures/skill/Wall48x.png");
+
     @Override
-    public String getTextureFile (int guiscale)
+    public ResourceLocation getResource (int guiscale)
     {
         if (guiscale == 2)
-            return "/mods/tinker/textures/skill/Wall32x.png";
+            return two;
         if (guiscale == 3)
-            return "/mods/tinker/textures/skill/Wall48x.png";
-
-        return "/mods/tinker/textures/skill/Wall16x.png";
+            return three;
+        return one;
     }
 
     @Override
@@ -33,6 +37,7 @@ public class WallBuilding extends Skill
     public void activate (Entity entity, World world)
     {
         this.active = !active;
+        System.out.println("Active: " + active);
     }
 
     @Override
@@ -94,6 +99,8 @@ public class WallBuilding extends Skill
                             zMax = 1;
                         }
 
+                        ItemStack copy = stack.copy();
+
                         for (int y = -1; y <= 1; y++)
                         {
                             for (int x = xMin; x <= xMax; x++)
@@ -101,31 +108,34 @@ public class WallBuilding extends Skill
                                 for (int z = zMin; z <= zMax; z++)
                                 {
                                     stack.getItem().onItemUse(stack, player, world, xPos + x, yPos + y, zPos + z, mop.sideHit, 0, 0, 0);
+                                    if (player.capabilities.isCreativeMode)
+                                    {
+                                        stack = copy.copy();
+                                    }
+
                                     if (stack.stackSize < 1)
                                     {
                                         player.inventory.setInventorySlotContents(player.inventory.currentItem, null);
                                         break;
                                     }
-                                    //world.setBlock(xPos + x, yPos + y, zPos + z, Block.whiteStone.blockID);
                                 }
                             }
                         }
-                        //entity.worldObj.setBlock(xPos, yPos, zPos, Block.stone.blockID, 0, 3);
-                        world.playAuxSFX(2001, xPos, yPos, zPos, Block.stone.blockID + (0 << 12));
+
+                        if (player.capabilities.isCreativeMode)
+                        {
+                            player.inventory.setInventorySlotContents(player.inventory.currentItem, stack);
+                        }
+                        Block block = Block.blocksList[copy.itemID];
+                        if (block != null)
+                        {
+                            world.playSoundEffect((double) ((float) xPos + 0.5F), (double) ((float) yPos + 0.5F), (double) ((float) zPos + 0.5F), block.stepSound.getPlaceSound(),
+                                    (block.stepSound.getVolume() + 1.0F) / 2.0F, block.stepSound.getPitch() * 0.8F);
+                        }
+                        //world.playAuxSFX(2001, xPos, yPos, zPos, copy.itemID + (copy.getItemDamage() << 12));
                     }
                 }
             }
-            /*for (int x = -2; x <= 2; x++)
-            {
-            	for (int y = -1; y <= 1; y++)
-            	{
-            		//for (int z = -2; z <= 2; z++)
-            		{
-            			world.setBlock((int) Math.floor(entity.posX) + x, (int) Math.floor(entity.posY) + y, (int) Math.floor(entity.posZ) + 2, Block.whiteStone.blockID);
-            		}
-            	}
-            }
-            world.playAuxSFX(2001, (int) entity.posX, (int) entity.posY, (int) entity.posZ, Block.stone.blockID + (0 << 12));*/
         }
     }
 

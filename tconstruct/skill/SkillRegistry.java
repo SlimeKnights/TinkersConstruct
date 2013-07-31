@@ -19,4 +19,9 @@ public class SkillRegistry
     {
         return skillID++;
     }
+    
+    public static Skill getSkill(String name)
+    {
+        return skills.get(name);
+    }
 }

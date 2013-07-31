@@ -1,8 +1,9 @@
 package tconstruct.client;
 
+import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.audio.SoundPool;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.Tessellator;
@@ -12,14 +13,19 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
-import net.minecraftforge.client.event.sound.SoundLoadEvent;
 import net.minecraftforge.event.ForgeSubscribe;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
+
+import org.lwjgl.opengl.GL11;
+
 import tconstruct.TConstruct;
 import tconstruct.blocks.LiquidMetalFinite;
 import tconstruct.client.armor.WingModel;
 import tconstruct.common.TContent;
+import tconstruct.skill.Skill;
 import tconstruct.util.player.TPlayerStats;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -28,21 +34,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class TClientEvents
 {
     Minecraft mc = Minecraft.getMinecraft();
-
-    /*@ForgeSubscribe
-    public void interact (PlayerInteractEvent event)
-    {
-    	if (event.action == Action.RIGHT_CLICK_BLOCK && event.entityPlayer.worldObj.isRemote)
-    	{
-    		System.out.println("Fired");
-    		List<Skill> skills = TProxyClient.skillList;
-    		if (skills.size() > 0)
-    		{
-    			Skill walls = TConstruct.playerTracker.getPlayerStats(event.entityPlayer.username).skillList.get(0);
-    			walls.rightClickActivate(event.entityPlayer, event.entityPlayer.worldObj);
-    		}
-    	}
-    }*/
 
     /* Sounds */
 
@@ -131,7 +122,7 @@ public class TClientEvents
             this.mc.func_110434_K().func_110577_a(icons);
         }*/
 
-        /*if (event.type == RenderGameOverlayEvent.ElementType.HOTBAR)
+        if (event.type == RenderGameOverlayEvent.ElementType.HOTBAR)
         {
         	if (stats.skillList == null)
         		return;
@@ -142,12 +133,13 @@ public class TClientEvents
             {
             	if (!skill.getActive())
                     GL11.glColor4f(0.5f, 0.5f, 0.5f, 1.0F);
-                this.mc.renderEngine.bindTexture(skill.getTextureFile(scaledresolution.getScaleFactor()));
+                this.mc.func_110434_K().func_110577_a(skill.getResource(scaledresolution.getScaleFactor()));
+                //this.mc.renderEngine.bindTexture(skill.getTextureFile(scaledresolution.getScaleFactor()));
                 this.drawTexturedModalRect((2+amount*18)*16, 32, 0, 0, 256, 256);
                 amount++;
             }
             GL11.glScalef(16f, 16f, 16f);
-        }*/
+        }
     }
 
     public void drawTexturedModalRect (int par1, int par2, int par3, int par4, int par5, int par6)

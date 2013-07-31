@@ -2,6 +2,7 @@ package tconstruct.skill;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
 /* Base skill
@@ -13,7 +14,8 @@ public abstract class Skill
     public int skillID;
     boolean active = true;
 
-    public abstract String getTextureFile (int guiscale);
+    //public abstract String getTextureFile (int guiscale);
+    public abstract ResourceLocation getResource(int guiscale);
 
     public abstract String getSkillName ();
 

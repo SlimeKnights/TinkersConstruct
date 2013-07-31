@@ -1,6 +1,5 @@
 package tconstruct;
 
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import tconstruct.common.TContent;
 import tconstruct.common.TProxyCommon;
@@ -10,7 +9,9 @@ import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.Detailing;
 import tconstruct.library.crafting.LiquidCasting;
 import tconstruct.library.util.TabTools;
+import tconstruct.skill.Jump;
 import tconstruct.skill.SkillRegistry;
+import tconstruct.skill.WallBuilding;
 import tconstruct.util.PHConstruct;
 import tconstruct.util.TCraftingHandler;
 import tconstruct.util.TEventHandler;
@@ -23,9 +24,7 @@ import tconstruct.worldgen.village.VillageToolStationHandler;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
-import cpw.mods.fml.common.Mod.Init;
 import cpw.mods.fml.common.Mod.Instance;
-import cpw.mods.fml.common.Mod.PostInit;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;

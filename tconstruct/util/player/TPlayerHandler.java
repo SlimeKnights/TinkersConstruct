@@ -8,11 +8,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 
-import tconstruct.common.TContent;
-import tconstruct.library.tools.AbilityHelper;
-import tconstruct.skill.Skill;
-import tconstruct.util.PHConstruct;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EnumEntitySize;
 import net.minecraft.entity.player.EntityPlayer;
@@ -22,6 +17,11 @@ import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.event.entity.player.PlayerDropsEvent;
+import tconstruct.common.TContent;
+import tconstruct.library.tools.AbilityHelper;
+import tconstruct.skill.Skill;
+import tconstruct.skill.SkillRegistry;
+import tconstruct.util.PHConstruct;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.IPlayerTracker;
 import cpw.mods.fml.common.Loader;
@@ -77,7 +77,8 @@ public class TPlayerHandler implements IPlayerTracker
             }
         }
 
-        stats.skillList = new ArrayList<Skill>();
+        /*stats.skillList = new ArrayList<Skill>();
+        stats.skillList.add(SkillRegistry.getSkill("Wall Building"));*/
         //stats.armor.recalculateSkills(entityplayer, stats);
 
         playerStats.put(entityplayer.username, stats);
@@ -105,7 +106,7 @@ public class TPlayerHandler implements IPlayerTracker
         }
 
         updatePlayerInventory(entityplayer, stats);
-        //sendSkills(entityplayer, stats);
+        sendSkills(entityplayer, stats);
     }
 
     void updatePlayerInventory (EntityPlayer entityplayer, TPlayerStats stats)

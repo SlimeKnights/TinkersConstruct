@@ -1,20 +1,16 @@
 package tconstruct.skill;
 
 import net.minecraft.entity.Entity;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
 public class Jump extends Skill
 {
+    private static final ResourceLocation three = new ResourceLocation("tinker", "textures/skill/Jump48x.png");
     @Override
-    public String getTextureFile (int guiscale)
+    public ResourceLocation getResource (int guiscale)
     {
-        /*if (guiscale == 2)
-        	return "/mods/tinker/textures/skill/Jump32x.png";
-        if (guiscale == 3)
-        	return "/mods/tinker/textures/skill/Jump48x.png";
-        
-        return "/mods/tinker/textures/skill/Jump16x.png";*/
-        return "/mods/tinker/textures/skill/Jump48x.png";
+        return three;
     }
 
     @Override
