@@ -1,9 +1,9 @@
 package tconstruct.util;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.entity.item.EntityItem;
@@ -28,8 +28,6 @@ import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.event.entity.player.FillBucketEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 import net.minecraftforge.event.world.ChunkDataEvent;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
@@ -50,7 +48,6 @@ import tconstruct.library.tools.FletchingMaterial;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.library.util.ValueCoordTuple;
 import tconstruct.modifiers.ModAttack;
-import tconstruct.skill.Skill;
 import tconstruct.util.player.TPlayerStats;
 
 public class TEventHandler
@@ -197,49 +194,28 @@ public class TEventHandler
 
     public static ItemStack craftFletching (ItemStack stack)
     {
+        if (matchesLeaves(stack))
+        {
+            FletchingMaterial leaves = (FletchingMaterial) TConstructRegistry.getCustomMaterial(new ItemStack(Block.leaves), FletchingMaterial.class);
+            return leaves.craftingItem.copy();
+        }
+
         FletchingMaterial mat = (FletchingMaterial) TConstructRegistry.getCustomMaterial(stack, FletchingMaterial.class);
         if (mat != null)
             return mat.craftingItem.copy();
         return null;
     }
 
-    /* Interact */
-
-    @ForgeSubscribe
-    public void interact (PlayerInteractEvent event)
+    public static boolean matchesLeaves (ItemStack stack)
     {
-    	if (event.action == Action.RIGHT_CLICK_BLOCK)
-    	{
-    		List<Skill> skills = TConstruct.playerTracker.getPlayerStats(event.entityPlayer.username).skillList;
-    		if (skills.size() > 0)
-    		{
-    			Skill walls = skills.get(0);
-    			walls.rightClickActivate(event.entityPlayer, event.entityPlayer.worldObj);
-    		}
-    	}
-    }
-
-    /* Damage */
-    /*@ForgeSubscribe
-    public void onHurt (LivingHurtEvent event)
-    {*/
-    /*if (event.entityLiving instanceof EntityPlayer)
-    {
-        EntityPlayer player = (EntityPlayer) event.entityLiving;
-        ItemStack stack = player.getItemInUse();
-        if (stack != null && stack.getItem() == TContent.cutlass)
+        Block block = Block.blocksList[stack.itemID];
+        if (block != null)
         {
-            player.addPotionEffect(new PotionEffect(Potion.moveSpeed.id, 3*20, 1));
+            if (block.isLeaves(null, 0, 0, 0))
+                return true;
         }
-    }*/
-    /*if (event.source instanceof EntityDamageSource && event.source.damageType.equals("explosion.player") && ((EntityDamageSource) event.source).getEntity() instanceof NitroCreeper)
-    {
-        if (event.entityLiving.worldObj.difficultySetting == 3)
-            event.ammount /= 2.3;
-        else
-            event.ammount /= 1.5;
-    }*/
-    //}
+        return false;
+    }
 
     /* Drops */
     @ForgeSubscribe

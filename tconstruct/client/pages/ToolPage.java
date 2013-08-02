@@ -70,25 +70,5 @@ public class ToolPage extends BookPage
         manual.renderitem.zLevel = 0;
         RenderHelper.disableStandardItemLighting();
         GL11.glDisable(GL12.GL_RESCALE_NORMAL);
-        /*manual.fonts.drawString("\u00a7n" + title, localWidth + 70, localHeight + 4, 0);
-        manual.fonts.drawSplitString(iconText[0], localWidth, localHeight + 16, 178, 0);
-        int size = iconText[0].length() / 48;
-        manual.fonts.drawSplitString(iconText[1], localWidth, localHeight + 28 + 10 * size, 118, 0);
-
-        manual.fonts.drawString("Crafting Parts: ", localWidth + 124, localHeight + 28 + 10 * size, 0);
-
-        GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-        RenderHelper.enableGUIStandardItemLighting();
-        manual.renderitem.zLevel = 100;
-        manual.renderitem.renderItemAndEffectIntoGUI(manual.fonts, manual.getMC().renderEngine, icons[0], localWidth + 50, localHeight + 0);
-        for (int i = 1; i < icons.length; i++)
-        {
-            manual.renderitem.renderItemAndEffectIntoGUI(manual.fonts, manual.getMC().renderEngine, icons[i], localWidth + 120, localHeight + 20 + 10 * size + 18 * i);
-            int partOffset = iconText[i + 1].length() > 11 ? -3 : 0;
-            manual.fonts.drawSplitString(iconText[i + 1], localWidth + 140, localHeight + 24 + 10 * size + 18 * i + partOffset, 44, 0);
-        }
-        manual.renderitem.zLevel = 0;
-        RenderHelper.disableStandardItemLighting();
-        GL11.glDisable(GL12.GL_RESCALE_NORMAL);*/
     }
 }

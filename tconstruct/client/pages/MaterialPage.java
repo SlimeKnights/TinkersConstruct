@@ -106,7 +106,7 @@ public class MaterialPage extends BookPage
         String ability = material.ability();
         if (!ability.equals(""))
         {
-            manual.fonts.drawString("Material ability: " + material.ability(), localWidth, localHeight + 120 + 10 * offset, 0);
+            manual.fonts.drawString("Material Trait: " + material.ability(), localWidth, localHeight + 120 + 10 * offset, 0);
             offset++;
             if (ability.equals("Writable"))
                 manual.fonts.drawString("+1 Modifiers", localWidth, localHeight + 120 + 10 * offset, 0);
@@ -114,7 +114,7 @@ public class MaterialPage extends BookPage
 
         if (material.reinforced() > 0)
         {
-            manual.fonts.drawString("Material ability: Reinforced", localWidth, localHeight + 120 + 10 * offset, 0);
+            manual.fonts.drawString("Material Trait: Reinforced", localWidth, localHeight + 120 + 10 * offset, 0);
             offset++;
             manual.fonts.drawString("Reinforced level: " + material.reinforced(), localWidth, localHeight + 120 + 10 * offset, 0);
             offset++;

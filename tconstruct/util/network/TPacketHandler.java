@@ -3,15 +3,6 @@ package tconstruct.util.network;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-
-import tconstruct.TConstruct;
-import tconstruct.blocks.logic.ToolForgeLogic;
-import tconstruct.blocks.logic.ToolStationLogic;
-import tconstruct.library.blocks.InventoryLogic;
-import tconstruct.skill.Skill;
-import tconstruct.skill.SkillRegistry;
-import tconstruct.util.player.TPlayerStats;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -22,6 +13,10 @@ import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
+import tconstruct.TConstruct;
+import tconstruct.blocks.logic.ToolForgeLogic;
+import tconstruct.blocks.logic.ToolStationLogic;
+import tconstruct.library.blocks.InventoryLogic;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.IPacketHandler;
 import cpw.mods.fml.common.network.Player;
@@ -53,18 +48,6 @@ public class TPacketHandler implements IPacketHandler
         try
         {
             packetID = inputStream.readByte();
-            if (packetID == 1)
-            {
-                TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
-                stats.skillList = new ArrayList<Skill>();
-                int size = inputStream.readInt();
-                for (int i = 0; i < size; i++)
-                {
-                    Skill skill = SkillRegistry.skillMapping.get(inputStream.readInt()).copy();
-                    skill.setActive(inputStream.readBoolean());
-                    stats.skillList.add(skill);
-                }
-            }
         }
         catch (Exception e)
         {
@@ -136,12 +119,6 @@ public class TPacketHandler implements IPacketHandler
                     player.openGui(TConstruct.instance, TConstruct.proxy.knapsackGuiID, player.worldObj, (int) player.posX, (int) player.posY, (int) player.posZ);
                     break;
                 }
-            }
-
-            else if (packetID == 4) //Active Skills
-            {
-                Byte id = inputStream.readByte();
-                TConstruct.playerTracker.activateSkill(player, id);
             }
 
             else if (packetID == 10) //Double jump

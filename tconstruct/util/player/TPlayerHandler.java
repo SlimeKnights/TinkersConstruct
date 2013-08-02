@@ -1,10 +1,7 @@
 package tconstruct.util.player;
 
 import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -19,12 +16,9 @@ import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.event.entity.player.PlayerDropsEvent;
 import tconstruct.common.TContent;
 import tconstruct.library.tools.AbilityHelper;
-import tconstruct.skill.Skill;
-import tconstruct.skill.SkillRegistry;
 import tconstruct.util.PHConstruct;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.IPlayerTracker;
-import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.common.network.Player;
 import cpw.mods.fml.relauncher.Side;
@@ -77,10 +71,6 @@ public class TPlayerHandler implements IPlayerTracker
             }
         }
 
-        /*stats.skillList = new ArrayList<Skill>();
-        stats.skillList.add(SkillRegistry.getSkill("Wall Building"));*/
-        //stats.armor.recalculateSkills(entityplayer, stats);
-
         playerStats.put(entityplayer.username, stats);
 
         if (PHConstruct.gregtech)
@@ -94,50 +84,12 @@ public class TPlayerHandler implements IPlayerTracker
             }
         }
 
-        if (Loader.isModLoaded("GregTech_Addon") || Loader.isModLoaded("GregTech-Addon"))
-        {
-            if (entityplayer.username.equals("GregoriousT") || entityplayer.username.equals("gregorioust"))
-                entityplayer.addChatMessage("Quit being a dick.");
-            else
-            {
-                entityplayer.addChatMessage("\u00A74!!!WARNING!!! \u00A7fGREGTECH PRESENT!! VANILLA MINECRAFT MAY BE IRREPARABLY DAMAGED");
-                entityplayer.addChatMessage("\u00A74!!!WARNING!!! \u00A7fGREGTECH PRESENT!! MODS MAY NOT FUNCTION PROPERLY");
-            }
-        }
-
         updatePlayerInventory(entityplayer, stats);
-        sendSkills(entityplayer, stats);
     }
 
     void updatePlayerInventory (EntityPlayer entityplayer, TPlayerStats stats)
     {
 
-    }
-
-    void sendSkills (EntityPlayer entityplayer, TPlayerStats stats)
-    {
-        ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
-        DataOutputStream outputStream = new DataOutputStream(bos);
-        List<Skill> skills = stats.skillList;
-
-        try
-        {
-            outputStream.writeByte(1);
-            outputStream.writeInt(skills.size());
-
-            for (Skill skill : stats.skillList)
-            {
-                outputStream.writeInt(skill.getSkillID());
-                outputStream.writeBoolean(skill.getActive());
-            }
-            //outputStream.writeByte(key);
-        }
-        catch (Exception ex)
-        {
-            ex.printStackTrace();
-        }
-
-        updateClientPlayer(bos, entityplayer);
     }
 
     void updateClientPlayer (ByteArrayOutputStream bos, EntityPlayer player)
@@ -148,19 +100,6 @@ public class TPlayerHandler implements IPlayerTracker
         packet.length = bos.size();
 
         PacketDispatcher.sendPacketToPlayer(packet, (Player) player);
-    }
-
-    public void activateSkill (EntityPlayer player, int slot)
-    {
-        TPlayerStats stats = getPlayerStats(player.username);
-        if (stats.skillList.size() > slot)
-        {
-            Skill skill = stats.skillList.get(slot);
-            if (skill != null)
-            {
-                skill.activate(player, player.worldObj);
-            }
-        }
     }
 
     @Override

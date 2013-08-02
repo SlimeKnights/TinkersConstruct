@@ -21,7 +21,7 @@ public class ArmorExtended implements IInventory
 {
     public ItemStack[] inventory = new ItemStack[7];
     public WeakReference<EntityPlayer> parent;
-    public UUID = UUID.fromString("B243BE32-DC1B-4C53-8D13-8752D5C69D5B"); //or whatever
+    public UUID globalID = UUID.fromString("B243BE32-DC1B-4C53-8D13-8752D5C69D5B");
 
     public void init (EntityPlayer player)
     {
@@ -157,7 +157,6 @@ public class ArmorExtended implements IInventory
 
         if (inventory[6] != null && inventory[6].getItem() == TContent.heartCanister)
         {
-            //System.out.println("Calculating HP on side " + FMLCommonHandler.instance().getEffectiveSide());
             ItemStack stack = inventory[6];
             int meta = stack.getItemDamage();
             //System.out.println("Calculating HP on side " + FMLCommonHandler.instance().getEffectiveSide());
@@ -166,29 +165,28 @@ public class ArmorExtended implements IInventory
                 int prevHealth = stats.bonusHealth;
                 if (side == Side.CLIENT)
                     prevHealth = stats.bonusHealthClient;
+
                 int bonusHP = stack.stackSize * 2;
                 if (side == Side.CLIENT)
                     stats.bonusHealthClient = bonusHP;
                 else
                     stats.bonusHealth = bonusHP;
+
                 int healthChange = bonusHP - prevHealth;
+                //System.out.println("healthChange: "+healthChange+" on side "+FMLCommonHandler.instance().getEffectiveSide());
                 if (healthChange != 0)
                 {
                     AttributeInstance attributeinstance = player.func_110140_aT().func_111151_a(SharedMonsterAttributes.field_111267_a);
                     try
                     {
-                        attributeinstance.func_111124_b(attributeinstance.func_111127_a(UUID));
-                    } catch(Exception e) {};
-                    attributeinstance.func_111121_a(new AttributeModifier(UUID, "tconstruct.heartCanister", bonusHP, 0));
+                        attributeinstance.func_111124_b(attributeinstance.func_111127_a(globalID));
+                    }
+                    catch (Exception e)
+                    {
+                    }
+
+                    attributeinstance.func_111121_a(new AttributeModifier(globalID, "tconstruct.heartCanister", bonusHP, 0));
                 }
-                /*public void setEntityHealth(float par1)
-                {
-                    this.dataWatcher.updateObject(6, Float.valueOf(MathHelper.clamp_float(par1, 0.0F, this.func_110138_aP())));
-                }*/
-                //player.func_110148_a(SharedMonsterAttributes.field_111267_a).func_111128_a(40);
-                //System.out.println("Health: "+player.func_110148_a(SharedMonsterAttributes.field_111267_a).func_111125_b());
-                //player.setEntityHealth(40);
-                //player.maxHealth = 20 + bonusHP;
             }
         }
         else if (parent != null && parent.get() != null)
@@ -207,12 +205,12 @@ public class ArmorExtended implements IInventory
                 AttributeInstance attributeinstance = player.func_110140_aT().func_111151_a(SharedMonsterAttributes.field_111267_a);
                 try
                 {
-                    attributeinstance.func_111124_b(attributeinstance.func_111127_a(UUID));
-                } catch(Exception e) {};
+                    attributeinstance.func_111124_b(attributeinstance.func_111127_a(globalID));
+                }
+                catch (Exception e)
+                {
+                }
             }
-            //player.func_110148_a(SharedMonsterAttributes.field_111267_a).func_111128_a(20);
-            //player.setEntityHealth(20);
-            //parent.get().maxHealth = 20;
         }
     }
 

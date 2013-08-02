@@ -9,9 +9,6 @@ import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.Detailing;
 import tconstruct.library.crafting.LiquidCasting;
 import tconstruct.library.util.TabTools;
-import tconstruct.skill.Jump;
-import tconstruct.skill.SkillRegistry;
-import tconstruct.skill.WallBuilding;
 import tconstruct.util.PHConstruct;
 import tconstruct.util.TCraftingHandler;
 import tconstruct.util.TEventHandler;
@@ -40,7 +37,7 @@ import cpw.mods.fml.common.registry.VillagerRegistry;
  * @dependencies: IC2 API, MFR API
  */
 
-@Mod(modid = "TConstruct", name = "TConstruct", version = "1.6.2_1.4.dev.24", dependencies = "required-after:Forge@[7.7.1.687,)")
+@Mod(modid = "TConstruct", name = "TConstruct", version = "1.6.2_1.4.dev.5", dependencies = "required-after:Forge@[7.7.1.687,)")
 @NetworkMod(serverSideRequired = false, clientSideRequired = true, channels = { "TConstruct" }, packetHandler = tconstruct.util.network.TPacketHandler.class)
 public class TConstruct
 {
@@ -128,8 +125,6 @@ public class TConstruct
 		SpecialStackHandler.registerBuiltInStackHandlers();
         content.modIntegration();
         content.createEntities();
-        /*SkillRegistry.registerSkill("Wall Building", new WallBuilding());
-        SkillRegistry.registerSkill("Jump", new Jump());*/
     }
 
     public static LiquidCasting getTableCasting ()
@@ -153,5 +148,4 @@ public class TConstruct
     public static LiquidCasting tableCasting;
     public static LiquidCasting basinCasting;
     public static Detailing chiselDetailing;
-    public static SkillRegistry skillRegistry;
 }
