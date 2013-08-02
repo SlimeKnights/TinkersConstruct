@@ -66,14 +66,14 @@ public class TEventHandler
             int head = toolTag.getInteger("Head");
             int handle = toolTag.getInteger("Handle");
             int accessory = toolTag.getInteger("Accessory");
-            
+
             if (!allowCrafting(head, handle, accessory))
             {
                 event.setResult(Result.DENY);
                 return;
             }
         }
-        
+
         int thaum = 0;
         if (toolTag.getInteger("Head") == 31)
             thaum++;
@@ -195,10 +195,27 @@ public class TEventHandler
 
     public static ItemStack craftFletching (ItemStack stack)
     {
+        if (matchesLeaves(stack))
+        {
+            FletchingMaterial leaves = (FletchingMaterial) TConstructRegistry.getCustomMaterial(new ItemStack(Block.leaves), FletchingMaterial.class);
+            return leaves.craftingItem.copy();
+        }
+
         FletchingMaterial mat = (FletchingMaterial) TConstructRegistry.getCustomMaterial(stack, FletchingMaterial.class);
         if (mat != null)
             return mat.craftingItem.copy();
         return null;
+    }
+
+    public static boolean matchesLeaves (ItemStack stack)
+    {
+        Block block = Block.blocksList[stack.itemID];
+        if (block != null)
+        {
+            if (block.isLeaves(null, 0, 0, 0))
+                return true;
+        }
+        return false;
     }
 
     /* Interact */
@@ -503,12 +520,15 @@ public class TEventHandler
     @ForgeSubscribe
     public void registerOre (OreRegisterEvent evt)
     {
-        if (evt.Name.contains("ingot"))
+        String ingot = evt.Name.toLowerCase();
+        if (ingot.contains("ingot"))
         {
-            TConstruct.tableCasting.addCastingRecipe(new ItemStack(TContent.metalPattern, 1, 0), new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 8), evt.Ore, false, 50);
-            TConstruct.tableCasting.addCastingRecipe(new ItemStack(TContent.metalPattern, 1, 0), new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue*2, 1), evt.Ore, false, 50);
+            TConstruct.tableCasting
+                    .addCastingRecipe(new ItemStack(TContent.metalPattern, 1, 0), new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 8), evt.Ore, false, 50);
+            TConstruct.tableCasting.addCastingRecipe(new ItemStack(TContent.metalPattern, 1, 0), new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 1), evt.Ore,
+                    false, 50);
         }
-        
+
         if (evt.Name == "battery")
             TConstruct.content.modE.batteries.add(evt.Ore);
 
@@ -783,13 +803,13 @@ public class TEventHandler
             Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 2, evt.Ore.getItemDamage()), Block.blockIron.blockID, 0, 600, new LiquidStack(TContent.liquidMetalStill.blockID,
                     TConstruct.ingotLiquidValue, 0));
         }
-        
+
         else if (evt.Name == "dustGold")
         {
             Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 2, evt.Ore.getItemDamage()), Block.blockGold.blockID, 0, 400, new LiquidStack(TContent.liquidMetalStill.blockID,
                     TConstruct.ingotLiquidValue, 1));
         }
-        
+
         else if (evt.Name == "dustCopper")
         {
             Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 2, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 3, 450, new LiquidStack(TContent.liquidMetalStill.blockID,
@@ -859,43 +879,49 @@ public class TEventHandler
         else if (evt.Name == "dustNickel")
         {
             Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 2, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 9, 500, new LiquidStack(TContent.liquidMetalStill.blockID,
-                    TConstruct.ingotLiquidValue, 17));
+                    TConstruct.ingotLiquidValue, 16));
         }
 
         else if (evt.Name == "dustLead")
         {
             Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 2, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 9, 500, new LiquidStack(TContent.liquidMetalStill.blockID,
-                    TConstruct.ingotLiquidValue, 18));
+                    TConstruct.ingotLiquidValue, 17));
         }
 
         else if (evt.Name == "dustSilver")
         {
             Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 2, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 9, 500, new LiquidStack(TContent.liquidMetalStill.blockID,
-                    TConstruct.ingotLiquidValue, 19));
+                    TConstruct.ingotLiquidValue, 18));
         }
 
         else if (evt.Name == "dustPlatinum")
         {
             Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 2, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 9, 500, new LiquidStack(TContent.liquidMetalStill.blockID,
-                    TConstruct.ingotLiquidValue, 20));
+                    TConstruct.ingotLiquidValue, 19));
         }
 
         else if (evt.Name == "dustInvar")
         {
             Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 2, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 9, 500, new LiquidStack(TContent.liquidMetalStill.blockID,
-                    TConstruct.ingotLiquidValue, 21));
+                    TConstruct.ingotLiquidValue, 20));
         }
 
         else if (evt.Name == "dustElectrum")
         {
             Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 2, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 9, 500, new LiquidStack(TContent.liquidMetalStill.blockID,
-                    TConstruct.ingotLiquidValue, 22));
+                    TConstruct.ingotLiquidValue, 21));
         }
     }
 
     public void unfuxOreDictionary ()
     {
-        ArrayList<ItemStack> ores = OreDictionary.getOres("ingotCopper");
+        ArrayList<ItemStack> ores = OreDictionary.getOres("plankWood");
+        for (ItemStack ore : ores)
+        {
+            PatternBuilder.instance.registerMaterial(ore, 2, "Wood");
+        }
+        
+        ores = OreDictionary.getOres("ingotCopper");
         for (ItemStack ore : ores)
         {
             PatternBuilder.instance.registerMaterial(ore, 2, "Copper");
@@ -1194,15 +1220,13 @@ public class TEventHandler
         ores = OreDictionary.getOres("dustIron");
         for (ItemStack ore : ores)
         {
-            Smeltery.addMelting(new ItemStack(ore.itemID, 2, ore.getItemDamage()), Block.blockIron.blockID, 0, 600, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue,
-                    0));
+            Smeltery.addMelting(new ItemStack(ore.itemID, 2, ore.getItemDamage()), Block.blockIron.blockID, 0, 600, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 0));
         }
 
         ores = OreDictionary.getOres("dustGold");
         for (ItemStack ore : ores)
         {
-            Smeltery.addMelting(new ItemStack(ore.itemID, 2, ore.getItemDamage()), Block.blockGold.blockID, 0, 450, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue,
-                    1));
+            Smeltery.addMelting(new ItemStack(ore.itemID, 2, ore.getItemDamage()), Block.blockGold.blockID, 0, 450, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 1));
         }
 
         ores = OreDictionary.getOres("dustCopper");
@@ -1321,7 +1345,7 @@ public class TEventHandler
         for (ItemStack ore : ores)
         {
             Smeltery.addMelting(new ItemStack(ore.itemID, 2, ore.getItemDamage()), TContent.metalBlock.blockID, 3, 450, new LiquidStack(TContent.liquidMetalStill.blockID,
-                    TConstruct.ingotLiquidValue / 9, 2));
+                    TConstruct.ingotLiquidValue / 9, 0));
         }
 
         ores = OreDictionary.getOres("nuggetCopper");

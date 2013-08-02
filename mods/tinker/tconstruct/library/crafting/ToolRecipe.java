@@ -12,12 +12,12 @@ import net.minecraft.item.Item;
 
 public class ToolRecipe
 {
-    LinkedList<Item> headList = new LinkedList<Item>();
-    LinkedList<Item> handleList = new LinkedList<Item>();
-    LinkedList<Item> accessoryList = new LinkedList<Item>();
-    LinkedList<Item> extraList = new LinkedList<Item>();
-    ToolCore result;
-    Item toolRod = TConstructRegistry.getItem("toolRod");
+    protected LinkedList<Item> headList = new LinkedList<Item>();
+    protected LinkedList<Item> handleList = new LinkedList<Item>();
+    protected LinkedList<Item> accessoryList = new LinkedList<Item>();
+    protected LinkedList<Item> extraList = new LinkedList<Item>();
+    protected ToolCore result;
+    protected Item toolRod = TConstructRegistry.getItem("toolRod");
 
     /*public ToolRecipe(Item head, ToolCore tool)
     {
