@@ -1656,6 +1656,9 @@ public class TContent implements IFuelHandler
         OreDictionary.registerOre("nuggetAlumite", new ItemStack(materials, 1, 32));
         OreDictionary.registerOre("nuggetSteel", new ItemStack(materials, 1, 33));
 
+        String[] matNames = { "wood", "stone", "iron", "flint", "cactus", "bone", "obsidian", "netherrack", "slime", "paper", "cobalt", "ardite", "manyullyn", "copper", "bronze", "alumite", "steel",
+                "blueslime" };
+
         String[] glassTypes = { "glassBlack", "glassRed", "glassGreen", "glassBrown", "glassBlue", "glassPurple", "glassCyan", "glassLightGray", "glassGray", "glassPink", "glassLime", "glassYellow",
                 "glassLightBlue", "glassMagenta", "glassOrange", "glassWhite" };
         for (int i = 0; i < 16; i++)

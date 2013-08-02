@@ -278,7 +278,7 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
     @Override
     public FluidStack getFluid ()
     {
-        return liquid.copy();
+        return liquid == null ? null : liquid.copy();
     }
 
     @Override
