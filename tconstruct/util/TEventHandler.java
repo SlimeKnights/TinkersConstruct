@@ -223,7 +223,7 @@ public class TEventHandler
         }
         return false;
     }
-    
+
     /* Damage */
     @ForgeSubscribe
     public void onHurt (LivingHurtEvent event)
@@ -869,7 +869,13 @@ public class TEventHandler
 
     public void unfuxOreDictionary ()
     {
-        ArrayList<ItemStack> ores = OreDictionary.getOres("ingotCopper");
+        ArrayList<ItemStack> ores = OreDictionary.getOres("plankWood");
+        for (ItemStack ore : ores)
+        {
+            PatternBuilder.instance.registerMaterial(ore, 2, "Wood");
+        }
+        
+        ores = OreDictionary.getOres("ingotCopper");
         for (ItemStack ore : ores)
         {
             PatternBuilder.instance.registerMaterial(ore, 2, "Copper");

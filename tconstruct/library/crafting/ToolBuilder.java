@@ -111,6 +111,21 @@ public class ToolBuilder
     {
         return buildTool(headStack, handleStack, accessoryStack, null, name);
     }
+    
+    public int getMaterialID(ItemStack stack)
+    {
+        if (stack == null)
+            return -1;
+        Item item = stack.getItem();
+        if (item == Item.stick)
+            return 0;
+        else if (item == Item.bone)
+            return 5;
+        else if (item instanceof IToolPart)
+            return ((IToolPart) item).getMaterialID(stack);
+        
+        return -1;
+    }
 
     public ItemStack buildTool (ItemStack headStack, ItemStack handleStack, ItemStack accessoryStack, ItemStack extraStack, String name)
     {
@@ -123,23 +138,27 @@ public class ToolBuilder
         ToolCore item;
         boolean validMaterials = true;
         int head = -1, handle = -1, accessory = -1, extra = -1;
-        if (headStack.getItem() instanceof IToolPart)
+        /*if (headStack.getItem() instanceof IToolPart)
         {
             head = ((IToolPart) headStack.getItem()).getMaterialID(headStack);
         }
         else
+            validMaterials = false;*/
+        head = getMaterialID(headStack);
+        if (head == -1)
             validMaterials = false;
 
-        Item handleItem = handleStack.getItem();
-
-        if (handleItem == Item.stick)
+        handle = getMaterialID(handleStack);
+        if (handle == -1)
+            validMaterials = false;
+        /*if (handleItem == Item.stick)
             handle = 0;
         else if (handleItem == Item.bone)
             handle = 5;
         else if (handleItem instanceof IToolPart)
             handle = ((IToolPart) handleItem).getMaterialID(handleStack);
         else
-            validMaterials = false;
+            validMaterials = false;*/
 
         if (!validMaterials)
             return null;
@@ -150,16 +169,24 @@ public class ToolBuilder
         }
         else
         {
-            if (accessoryStack.getItem() instanceof IToolPart)
+            /*if (accessoryStack.getItem() instanceof IToolPart)
                 accessory = ((IToolPart) accessoryStack.getItem()).getMaterialID(accessoryStack);
             else
+                return null;*/
+
+            accessory = getMaterialID(accessoryStack);
+            if (accessory == -1)
                 return null;
 
             if (extraStack != null)
             {
-                if (extraStack.getItem() instanceof IToolPart)
+                /*if (extraStack.getItem() instanceof IToolPart)
                     extra = ((IToolPart) extraStack.getItem()).getMaterialID(extraStack);
                 else
+                    return null;*/
+
+                extra = getMaterialID(extraStack);
+                if (extra == -1)
                     return null;
 
                 item = getMatchingRecipe(headStack.getItem(), handleStack.getItem(), accessoryStack.getItem(), extraStack.getItem());
