@@ -133,6 +133,8 @@
   <entry key="item.tconstruct.Materials.AluminumNugget.name">Aluminum Nugget</entry>
   <entry key="item.tconstruct.Materials.EssenceCrystal.name">Essence Crystal</entry>
   <entry key="item.tconstruct.Materials.AluBrassNugget.name">Aluminum Brass Nugget</entry>
+  <entry key="item.tconstruct.Materials.SilkyCloth.name">Silky Cloth</entry>
+  <entry key="item.tconstruct.Materials.SilkyJewel.name">Silky Jewel</entry>
   <entry key="item.tconstruct.Materials.ObsidianNugget.name">Obsidian Nugget</entry>
   <entry key="item.tconstruct.Materials.CobaltNugget.name">Cobalt Nugget</entry>
   <entry key="item.tconstruct.Materials.ArditeNugget.name">Ardite Nugget</entry>
@@ -160,6 +162,11 @@
   <entry key="block.drawbridge.name">Drawbridge</entry>
   <entry key="block.firestarter.name">Igniter</entry>
   <entry key="tile.landmine.name">Landmine</entry>
+  <entry key="tile.trap.punji.name">Punji Stick</entry>
+  <entry key="tile.trap.barricade.oak.name">Oak Barricade</entry>
+  <entry key="tile.trap.barricade.spruce.name">Spruce Barricade</entry>
+  <entry key="tile.trap.barricade.birch.name">Birch Barricade</entry>
+  <entry key="tile.trap.barricade.jungle.name">Jungle Barricade</entry>
   
   <entry key="StorageMetals.Cobalt.name">Block of Cobalt</entry>
   <entry key="StorageMetals.Ardite.name">Block of Ardite</entry>
@@ -173,6 +180,7 @@
   <entry key="StorageMetals.Steel.name">Block of Steel</entry>
   
   <entry key="tile.decoration.stonetorch.name">Torch</entry>
+  <entry key="tile.CraftingStation.name">Crafting Station</entry>
   
   <entry key="block.glass.pure.name">Clear Glass</entry>
   <entry key="block.glass.soul.name">Soul Glass</entry>
@@ -300,7 +308,7 @@
   
   <entry key="entity.TConstruct.EdibleSlime.name">Blue Slime</entry>
   <entry key="entity.TConstruct.KingSlime.name">King Slime</entry>
-  <entry key="entity.TConstruct.MiniGardy.name">Gardeslime</entry> 
+  <entry key="entity.TConstruct.Gardeslime.name">Gardeslime</entry> 
   
   <entry key="key.tarmor">Armor Gui</entry>
   

@@ -2,9 +2,9 @@ package mods.tinker.tconstruct.entity.ai;
 
 import mods.tinker.tconstruct.entity.GolemBase;
 
-public class GAISwim extends GolemAIBase
+public class AISwim extends GolemAIBase
 {
-    public GAISwim(GolemBase golem)
+    public AISwim(GolemBase golem)
     {
         super(golem);
         this.setMutexBits(4);

@@ -10,6 +10,7 @@ import java.util.Random;
 import mods.tinker.tconstruct.library.ActiveToolMod;
 import mods.tinker.tconstruct.library.TConstructRegistry;
 import mods.tinker.tconstruct.library.util.PiercingEntityDamage;
+import mods.tinker.tconstruct.util.PHConstruct;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.EnchantmentThorns;
@@ -18,6 +19,7 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.monster.EntityGhast;
+import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -204,9 +206,12 @@ public class AbilityHelper
                         }
                         //damageTool(stack, 1, player, false);
                         tool.onEntityDamaged(player.worldObj, player, entity);
-                        int drain = toolTags.getInteger("Necrotic") * 2;
-                        if (drain > 0)
-                            player.heal(random.nextInt(drain + 1));
+                        if (!PHConstruct.necroticUHS || (entity instanceof IMob && entity instanceof EntityLiving && ((EntityLiving) entity).getHealth() <= 0))
+                        {
+                            int drain = toolTags.getInteger("Necrotic") * 2;
+                            if (drain > 0)
+                                player.heal(random.nextInt(drain + 1));
+                        }
 
                         if (knockback > 0)
                         {

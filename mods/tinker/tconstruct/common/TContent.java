@@ -8,6 +8,7 @@ import java.util.List;
 
 import mods.tinker.tconstruct.TConstruct;
 import mods.tinker.tconstruct.blocks.Aggregator;
+import mods.tinker.tconstruct.blocks.CraftingStationBlock;
 import mods.tinker.tconstruct.blocks.DryingRack;
 import mods.tinker.tconstruct.blocks.EquipBlock;
 import mods.tinker.tconstruct.blocks.GlassBlockConnected;
@@ -37,6 +38,7 @@ import mods.tinker.tconstruct.blocks.ToolForgeBlock;
 import mods.tinker.tconstruct.blocks.ToolStationBlock;
 import mods.tinker.tconstruct.blocks.logic.CastingBasinLogic;
 import mods.tinker.tconstruct.blocks.logic.CastingTableLogic;
+import mods.tinker.tconstruct.blocks.logic.CraftingStationLogic;
 import mods.tinker.tconstruct.blocks.logic.DrawbridgeLogic;
 import mods.tinker.tconstruct.blocks.logic.DryingRackLogic;
 import mods.tinker.tconstruct.blocks.logic.FaucetLogic;
@@ -53,11 +55,13 @@ import mods.tinker.tconstruct.blocks.logic.SmelteryLogic;
 import mods.tinker.tconstruct.blocks.logic.StencilTableLogic;
 import mods.tinker.tconstruct.blocks.logic.ToolForgeLogic;
 import mods.tinker.tconstruct.blocks.logic.ToolStationLogic;
+import mods.tinker.tconstruct.blocks.traps.BarricadeBlock;
+import mods.tinker.tconstruct.blocks.traps.Punji;
 import mods.tinker.tconstruct.entity.Automaton;
 import mods.tinker.tconstruct.entity.BlueSlime;
 import mods.tinker.tconstruct.entity.Crystal;
 import mods.tinker.tconstruct.entity.FancyEntityItem;
-import mods.tinker.tconstruct.entity.MiniGardy;
+import mods.tinker.tconstruct.entity.Gardeslime;
 import mods.tinker.tconstruct.entity.SlimeClone;
 import mods.tinker.tconstruct.entity.projectile.ArrowEntity;
 import mods.tinker.tconstruct.entity.projectile.DaggerEntity;
@@ -82,6 +86,7 @@ import mods.tinker.tconstruct.items.armor.Glove;
 import mods.tinker.tconstruct.items.armor.HeartCanister;
 import mods.tinker.tconstruct.items.armor.Knapsack;
 import mods.tinker.tconstruct.items.armor.TArmorBase;
+import mods.tinker.tconstruct.items.blocks.BarricadeItem;
 import mods.tinker.tconstruct.items.blocks.CraftedSoilItemBlock;
 import mods.tinker.tconstruct.items.blocks.GlassBlockItem;
 import mods.tinker.tconstruct.items.blocks.GlassPaneItem;
@@ -137,7 +142,6 @@ import mods.tinker.tconstruct.library.crafting.LiquidCasting;
 import mods.tinker.tconstruct.library.crafting.PatternBuilder;
 import mods.tinker.tconstruct.library.crafting.Smeltery;
 import mods.tinker.tconstruct.library.crafting.ToolBuilder;
-import mods.tinker.tconstruct.library.crafting.ToolRecipe;
 import mods.tinker.tconstruct.library.tools.ToolCore;
 import mods.tinker.tconstruct.library.util.IPattern;
 import mods.tinker.tconstruct.modifiers.ModAntiSpider;
@@ -164,7 +168,6 @@ import net.minecraft.block.BlockDispenser;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialLiquid;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -243,7 +246,7 @@ public class TContent implements IFuelHandler
     public static Item binding;
     public static Item toughBinding;
     public static Item toughRod;
-    public static Item heavyPlate;
+    public static Item largePlate;
 
     public static Item pickaxeHead;
     public static Item shovelHead;
@@ -273,6 +276,8 @@ public class TContent implements IFuelHandler
     public static Block toolStationWood;
     public static Block toolStationStone;
     public static Block toolForge;
+    public static Block craftingStationWood;
+    
     public static Block heldItemBlock;
     public static Block craftedSoil;
 
@@ -294,7 +299,11 @@ public class TContent implements IFuelHandler
 
     //Traps
     public static Block landmine;
-    public static Block barricade;
+    public static Block punji;
+    public static Block barricadeOak;
+    public static Block barricadeSpruce;
+    public static Block barricadeBirch;
+    public static Block barricadeJungle;
 
     //InfiBlocks
     public static Block speedBlock;
@@ -327,25 +336,7 @@ public class TContent implements IFuelHandler
     //Tool modifiers
     public static ModElectric modE;
     public static ModLapis modL;
-
-    //Golems
-    /*public static Block glowSapling;
-    public static Block glowLeaves;
-    public static Block glowLog;*/
-
-    public static Block redstoneBallRepeater;
-    public static Item redstoneBallRepeaterItem;
-
-    public static Block golemCore;
-    public static Block golemPedestal;
-    public static Block golemHead;
-
-    public static Item golemWand;
-    public static Item golemRecharger;
-    public static Item corestone;
-    public static Item notebook;
-    public static Item note;
-
+    
     //Wearables
     public static Item heavyHelmet;
     public static Item heavyChestplate;
@@ -384,7 +375,7 @@ public class TContent implements IFuelHandler
         EntityRegistry.registerModEntity(SlimeClone.class, "SlimeClone", 10, TConstruct.instance, 32, 3, true);
         EntityRegistry.registerModEntity(Automaton.class, "Automaton", 11, TConstruct.instance, 64, 3, true);
         EntityRegistry.registerModEntity(BlueSlime.class, "EdibleSlime", 12, TConstruct.instance, 64, 5, true);
-        EntityRegistry.registerModEntity(MiniGardy.class, "MiniGardy", 13, TConstruct.instance, 64, 3, true);
+        EntityRegistry.registerModEntity(Gardeslime.class, "MiniGardy", 13, TConstruct.instance, 64, 3, true);
         //EntityRegistry.registerModEntity(MetalSlime.class, "MetalSlime", 13, TConstruct.instance, 64, 5, true);
 
         BiomeGenBase[] plains = BiomeDictionary.getBiomesForType(BiomeDictionary.Type.PLAINS);
@@ -440,7 +431,7 @@ public class TContent implements IFuelHandler
     void registerBlocks ()
     {
         //Tool Station
-        toolStationWood = new ToolStationBlock(PHConstruct.woodCrafter, Material.wood).setUnlocalizedName("ToolStation");
+        toolStationWood = new ToolStationBlock(PHConstruct.woodStation, Material.wood).setUnlocalizedName("ToolStation");
         GameRegistry.registerBlock(toolStationWood, ToolStationItemBlock.class, "ToolStationBlock");
         GameRegistry.registerTileEntity(ToolStationLogic.class, "ToolStation");
         GameRegistry.registerTileEntity(PartCrafterLogic.class, "PartCrafter");
@@ -450,6 +441,11 @@ public class TContent implements IFuelHandler
         toolForge = new ToolForgeBlock(PHConstruct.toolForge, Material.iron).setUnlocalizedName("ToolForge");
         GameRegistry.registerBlock(toolForge, ToolForgeItemBlock.class, "ToolForgeBlock");
         GameRegistry.registerTileEntity(ToolForgeLogic.class, "ToolForge");
+        
+        craftingStationWood = new CraftingStationBlock(PHConstruct.woodCrafter, Material.wood).setUnlocalizedName("CraftingStation");
+        GameRegistry.registerBlock(craftingStationWood, "CraftingStation");
+        GameRegistry.registerTileEntity(CraftingStationLogic.class, "CraftingStation");
+        //public static Block craftingStationWood;
 
         heldItemBlock = new EquipBlock(PHConstruct.heldItemBlock, Material.wood).setUnlocalizedName("Frypan");
         GameRegistry.registerBlock(heldItemBlock, "HeldItemBlock");
@@ -495,9 +491,25 @@ public class TContent implements IFuelHandler
         GameRegistry.registerTileEntity(DrawbridgeLogic.class, "Drawbridge");
         GameRegistry.registerTileEntity(FirestarterLogic.class, "Firestarter");
         
+        //Traps
         landmine = new BlockLandmine(PHConstruct.landmine).setHardness(0.5F).setResistance(0F).setStepSound(Block.soundMetalFootstep).setCreativeTab(TConstructRegistry.blockTab).setUnlocalizedName("landmine");
         GameRegistry.registerBlock(landmine, ItemBlockLandmine.class, "Redstone.Landmine");
         GameRegistry.registerTileEntity(TileEntityLandmine.class, "Landmine");
+        
+        punji = new Punji(PHConstruct.punji).setUnlocalizedName("trap.punji");
+        GameRegistry.registerBlock(punji, "trap.punji");
+        
+        barricadeOak = new BarricadeBlock(PHConstruct.barricadeOak, Block.wood, 0).setUnlocalizedName("trap.barricade.oak");
+        GameRegistry.registerBlock(barricadeOak, BarricadeItem.class, "trap.barricade.oak");
+        
+        barricadeSpruce = new BarricadeBlock(PHConstruct.barricadeSpruce, Block.wood, 1).setUnlocalizedName("trap.barricade.spruce");
+        GameRegistry.registerBlock(barricadeSpruce, BarricadeItem.class, "trap.barricade.spruce");
+        
+        barricadeBirch = new BarricadeBlock(PHConstruct.barricadeBirch, Block.wood, 2).setUnlocalizedName("trap.barricade.birch");
+        GameRegistry.registerBlock(barricadeBirch, BarricadeItem.class, "trap.barricade.birch");
+        
+        barricadeJungle = new BarricadeBlock(PHConstruct.barricadeJungle, Block.wood, 3).setUnlocalizedName("trap.barricade.jungle");
+        GameRegistry.registerBlock(barricadeJungle, BarricadeItem.class, "trap.barricade.jungle");
 
         dryingRack = new DryingRack(PHConstruct.dryingRack).setUnlocalizedName("Armor.DryingRack");
         GameRegistry.registerBlock(dryingRack, "Armor.DryingRack");
@@ -577,29 +589,6 @@ public class TContent implements IFuelHandler
         lightCrystalBase = new LightCrystalBase(PHConstruct.lightCrystalBase).setUnlocalizedName("LightCrystalBase");
         lightCrystalBase.stepSound = Block.soundGlassFootstep;
         GameRegistry.registerBlock(lightCrystalBase, LightCrystalItem.class, "LightCrystalBase");
-
-        /*redstoneBallRepeater = new RedstoneBallRepeater(PHConstruct.redstoneBallRepeater, false).setUnlocalizedName("decoration.redstoneballrepeater");
-        GameRegistry.registerBlock(redstoneBallRepeater, "decoration.redstoneballrepeater");
-        Item.itemsList[PHConstruct.redstoneBallRepeater] = null;
-        redstoneBallRepeaterItem = new RedstoneBallRepeaterItem(PHConstruct.redstoneBallRepeater-256).setUnlocalizedName("decoration.redstoneballrepeater");*/
-
-        //Golems
-        /*golemCore = new GolemCoreBlock(PHConstruct.golemCore).setUnlocalizedName("golemcore");
-        GameRegistry.registerBlock(golemCore, "Golem Core");
-        GameRegistry.registerTileEntity(GolemCoreLogic.class, "TConstruct.GolemCore");
-        
-        golemHead = new GolemHeadBlock(PHConstruct.golemHead).setUnlocalizedName("golemhead");
-        GameRegistry.registerBlock(golemHead, "Golem Head");*/
-
-        /*golemPedestal = new GolemPedestalBlock(PHConstruct.golemPedestal).setUnlocalizedName("golempedestal");
-        GameRegistry.registerBlock(golemPedestal, "Golem Pedestal");
-        GameRegistry.registerTileEntity(GolemPedestalLogic.class, "TConstruct.GolemPedestal");*/
-
-        //Traps
-        /*landmine = new Landmine(PHConstruct.landmine, EnumMobType.mobs, Material.wood).setUnlocalizedName("tconstruct.landmine");
-        GameRegistry.registerBlock(landmine, "Landmine");
-        barricade = new BarricadeBlock(PHConstruct.barricade).setUnlocalizedName("tconstruct.barricade");
-        GameRegistry.registerBlock(barricade, "Barricade");*/
     }
 
     void registerItems ()
@@ -675,7 +664,7 @@ public class TContent implements IFuelHandler
         binding = new ToolPart(PHConstruct.binding, "_binding").setUnlocalizedName("tconstruct.Binding");
         toughBinding = new ToolPart(PHConstruct.toughBinding, "_toughbind").setUnlocalizedName("tconstruct.ThickBinding");
         toughRod = new ToolPart(PHConstruct.toughRod, "_toughrod").setUnlocalizedName("tconstruct.ThickRod");
-        heavyPlate = new ToolPart(PHConstruct.largePlate, "_largeplate").setUnlocalizedName("tconstruct.LargePlate");
+        largePlate = new ToolPart(PHConstruct.largePlate, "_largeplate").setUnlocalizedName("tconstruct.LargePlate");
 
         swordBlade = new ToolPart(PHConstruct.swordBlade, "_sword_blade").setUnlocalizedName("tconstruct.SwordBlade");
         wideGuard = new ToolPart(PHConstruct.largeGuard, "_large_guard").setUnlocalizedName("tconstruct.LargeGuard");
@@ -698,7 +687,7 @@ public class TContent implements IFuelHandler
         arrowhead = new ToolPart(PHConstruct.arrowhead, "_arrowhead").setUnlocalizedName("tconstruct.Arrowhead");
         fletching = new Fletching(PHConstruct.fletching).setUnlocalizedName("tconstruct.Fletching");
 
-        Item[] toolParts = { toolRod, toolShard, pickaxeHead, shovelHead, hatchetHead, binding, toughBinding, toughRod, heavyPlate, swordBlade, wideGuard, handGuard, crossbar, knifeBlade, fullGuard,
+        Item[] toolParts = { toolRod, toolShard, pickaxeHead, shovelHead, hatchetHead, binding, toughBinding, toughRod, largePlate, swordBlade, wideGuard, handGuard, crossbar, knifeBlade, fullGuard,
                 frypanHead, signHead, chiselHead, scytheBlade, broadAxeHead, excavatorHead, largeSwordBlade, hammerHead, bowstring, fletching, arrowhead };
         String[] toolPartStrings = { "toolRod", "toolShard", "pickaxeHead", "shovelHead", "hatchetHead", "binding", "toughBinding", "toughRod", "heavyPlate", "swordBlade", "wideGuard", "handGuard",
                 "crossbar", "knifeBlade", "fullGuard", "frypanHead", "signHead", "chiselHead", "scytheBlade", "broadAxeHead", "excavatorHead", "largeSwordBlade", "hammerHead", "bowstring",
@@ -888,7 +877,7 @@ public class TContent implements IFuelHandler
     {
         /* Tools */
         patternOutputs = new Item[] { toolRod, pickaxeHead, shovelHead, hatchetHead, swordBlade, wideGuard, handGuard, crossbar, binding, frypanHead, signHead, knifeBlade, chiselHead, toughRod,
-                toughBinding, heavyPlate, broadAxeHead, scytheBlade, excavatorHead, largeSwordBlade, hammerHead, fullGuard, null, null, arrowhead };
+                toughBinding, largePlate, broadAxeHead, scytheBlade, excavatorHead, largeSwordBlade, hammerHead, fullGuard, null, null, arrowhead };
 
         int[] nonMetals = { 0, 1, 3, 4, 5, 6, 7, 8, 9, 17 };
 
@@ -930,10 +919,10 @@ public class TContent implements IFuelHandler
         tb.addNormalToolRecipe(chisel, chiselHead, toolRod);
 
         tb.addNormalToolRecipe(scythe, scytheBlade, toughRod, toughBinding, toughRod);
-        tb.addNormalToolRecipe(lumberaxe, broadAxeHead, toughRod, heavyPlate, toughBinding);
-        tb.addNormalToolRecipe(cleaver, largeSwordBlade, toughRod, heavyPlate, toughRod);
-        tb.addNormalToolRecipe(excavator, excavatorHead, toughRod, heavyPlate, toughBinding);
-        tb.addNormalToolRecipe(hammer, hammerHead, toughRod, heavyPlate, heavyPlate);
+        tb.addNormalToolRecipe(lumberaxe, broadAxeHead, toughRod, largePlate, toughBinding);
+        tb.addNormalToolRecipe(cleaver, largeSwordBlade, toughRod, largePlate, toughRod);
+        tb.addNormalToolRecipe(excavator, excavatorHead, toughRod, largePlate, toughBinding);
+        tb.addNormalToolRecipe(hammer, hammerHead, toughRod, largePlate, largePlate);
         tb.addNormalToolRecipe(battleaxe, broadAxeHead, toughRod, broadAxeHead, toughBinding);
 
         //tb.addNormalToolRecipe(shortbow, toolRod, bowstring, toolRod);
@@ -1001,7 +990,7 @@ public class TContent implements IFuelHandler
         tb.registerToolMod(new ModAntiSpider("Anti-Spider", new ItemStack[] { spidereyeball }, 15, 1));
         tb.registerToolMod(new ModAntiSpider("Anti-Spider", new ItemStack[] { spidereyeball, spidereyeball }, 15, 2));
 
-        ItemStack obsidianPlate = new ItemStack(heavyPlate, 1, 6);
+        ItemStack obsidianPlate = new ItemStack(largePlate, 1, 6);
         tb.registerToolMod(new ModReinforced(new ItemStack[] { obsidianPlate }, 16, 1));
 
         TConstructRegistry.registerActiveToolMod(new TActiveOmniMod());
@@ -1307,12 +1296,12 @@ public class TContent implements IFuelHandler
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(redstoneMachine, 1, 0), "aca", "#d#", "#r#", '#', "ingotBronze", 'a', "ingotAluminumBrass", 'c', new ItemStack(blankPattern, 1, 2),
                 'r', new ItemStack(Item.redstone), 'd', new ItemStack(Block.dispenser)));
 
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(redstoneMachine, 1, 1), "aca", "#d#", "#r#", '#', "ingotBronze", 'a', "ingotAluminumBrass", 'c', new ItemStack(heavyPlate, 1, 7), 'r',
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(redstoneMachine, 1, 1), "aca", "#d#", "#r#", '#', "ingotBronze", 'a', "ingotAluminumBrass", 'c', new ItemStack(largePlate, 1, 7), 'r',
                 new ItemStack(Item.redstone), 'd', new ItemStack(Item.flintAndSteel))); //Igniter
 
         /* Crafting */
         GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 0), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', Block.workbench);
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(toolStationWood, 1, 1), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', "crafterWood"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(toolStationWood, 1, 0), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', "crafterWood"));
         GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 1), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(Block.wood, 1, 0));
         GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 2), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(Block.wood, 1, 1));
         GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 3), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(Block.wood, 1, 2));
@@ -1511,6 +1500,19 @@ public class TContent implements IFuelHandler
         GameRegistry.addRecipe(new ItemStack(searedSlab, 6, 5), "bbb", 'b', new ItemStack(smeltery, 1, 9));
         GameRegistry.addRecipe(new ItemStack(searedSlab, 6, 6), "bbb", 'b', new ItemStack(smeltery, 1, 10));
         GameRegistry.addRecipe(new ItemStack(searedSlab, 6, 7), "bbb", 'b', new ItemStack(smeltery, 1, 11));
+        
+        //Traps
+        GameRegistry.addRecipe(new ItemStack(punji, 5, 0), "b b", " b ", "b b", 'b', new ItemStack(Item.reed));
+        
+        GameRegistry.addRecipe(new ItemStack(barricadeOak, 1, 0), "b", "b", 'b', new ItemStack(Block.wood, 1, 0));
+        GameRegistry.addRecipe(new ItemStack(barricadeSpruce, 1, 0), "b", "b", 'b', new ItemStack(Block.wood, 1, 1));
+        GameRegistry.addRecipe(new ItemStack(barricadeBirch, 1, 0), "b", "b", 'b', new ItemStack(Block.wood, 1, 2));
+        GameRegistry.addRecipe(new ItemStack(barricadeJungle, 1, 0), "b", "b", 'b', new ItemStack(Block.wood, 1, 3));
+        
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(barricadeOak, 1, 0), "b", "b", 'b', "logWood"));
+
+        GameRegistry.addRecipe(new ItemStack(craftingStationWood, 1, 0), "b", 'b', new ItemStack(Block.workbench));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(craftingStationWood, 1, 0), "b", 'b', "crafterWood"));
     }
 
     void setupToolTabs ()
@@ -1870,10 +1872,10 @@ public class TContent implements IFuelHandler
                 addShapedRecipeFirst(recipes, new ItemStack(Block.planks, 4, 1), "#", '#', new ItemStack(Block.wood, 1, 1));
                 addShapedRecipeFirst(recipes, new ItemStack(Block.planks, 4, 2), "#", '#', new ItemStack(Block.wood, 1, 2));
                 addShapedRecipeFirst(recipes, new ItemStack(Block.planks, 4, 3), "#", '#', new ItemStack(Block.wood, 1, 3));
-                addShapedRecipeFirst(recipes, new ItemStack(Item.stick, 4), "#", "#", '#', new ItemStack(Block.wood, 1, 0));
-                addShapedRecipeFirst(recipes, new ItemStack(Item.stick, 4), "#", "#", '#', new ItemStack(Block.wood, 1, 1));
-                addShapedRecipeFirst(recipes, new ItemStack(Item.stick, 4), "#", "#", '#', new ItemStack(Block.wood, 1, 2));
-                addShapedRecipeFirst(recipes, new ItemStack(Item.stick, 4), "#", "#", '#', new ItemStack(Block.wood, 1, 3));
+                addShapedRecipeFirst(recipes, new ItemStack(Item.stick, 4), "#", "#", '#', new ItemStack(Block.planks, 1, 0));
+                addShapedRecipeFirst(recipes, new ItemStack(Item.stick, 4), "#", "#", '#', new ItemStack(Block.planks, 1, 1));
+                addShapedRecipeFirst(recipes, new ItemStack(Item.stick, 4), "#", "#", '#', new ItemStack(Block.planks, 1, 2));
+                addShapedRecipeFirst(recipes, new ItemStack(Item.stick, 4), "#", "#", '#', new ItemStack(Block.planks, 1, 3));
                 addShapedRecipeFirst(recipes, new ItemStack(Item.bucketEmpty), "# #", " # ", '#', new ItemStack(Item.ingotIron));
             }
         }

@@ -74,7 +74,8 @@ public class PHConstruct
         blueSlime = config.get("Mob Spawning", "Activate Blue Slime Spawns", true).getBoolean(true);
         blueSlimeWeight = config.get("Mob Spawning", "Spawn Weight for Blue Slime", 7).getInt(7);
 
-        woodCrafter = config.getBlock("Wood Tool Station", 1471).getInt(1471);
+        //1467-1489
+        woodStation = config.getBlock("Wood Tool Station", 1471).getInt(1471);
         heldItemBlock = config.getBlock("Held Item Block", 1472).getInt(1472);
         lavaTank = config.getBlock("Lava Tank", 1473).getInt(1473);
         smeltery = config.getBlock("Smeltery", 1474).getInt(1474);
@@ -95,10 +96,15 @@ public class PHConstruct
         speedBlock = config.getBlock("Speed Block", 1489).getInt(1489);
 
         landmine = config.getBlock("Landmine", 1470).getInt(1470);
-        barricade = config.getBlock("Barricade", 1469).getInt(1469);
         toolForge = config.getBlock("Tool Forge", 1468).getInt(1468);
         multiBrickFancy = config.getBlock("Multi Brick Fancy", 1467).getInt(1467);
+        
+        barricadeOak = config.getBlock("Oak Barricade", 1469).getInt(1469);
+        barricadeSpruce = config.getBlock("Spruce Barricade", 1482).getInt(1482);
+        barricadeBirch = config.getBlock("Birch Barricade", 1483).getInt(1483);
+        barricadeJungle = config.getBlock("Jungle Barricade", 1487).getInt(1487);
 
+        //3221+
         aggregator = config.getBlock("Aggregator", 3221).getInt(3221);
         lightCrystalBase = config.getBlock("Light Crystal", 3222).getInt(3222);
         glass = config.getBlock("Clear Glass", 3223).getInt(3223);
@@ -111,13 +117,9 @@ public class PHConstruct
         
         searedSlab = config.getBlock("Seared Slab", 3230).getInt(3230);
         speedSlab = config.getBlock("Speed Slab", 3231).getInt(3231);
-        //grassSlab = config.getBlock("Grass Slab", 3230).getInt(3230);
-
-        /*golemCore = config.getBlock("Golem Core", 1481).getInt(1481);
-        golemHead = config.getBlock("Golem Head", 1482).getInt(1482);*/
-        //golemPedestal = config.getBlock("Golem Pedestal", 1483).getInt(1483);
-        //redstoneBallRepeater = config.getBlock("Redstone Ball Repeater", 1483).getInt(1483);
-        //netherOreBerry = config.getBlock("Ore Berry Nether", 1487).getInt(1487);
+        
+        punji = config.getBlock("Punji", 3232).getInt(3232);
+        woodCrafter = config.getBlock("Crafting Station", 3233).getInt(3233);
 
         manual = config.getItem("Patterns and Misc", "Tinker's Manual", 14018).getInt(14018);
         blankPattern = config.getItem("Patterns and Misc", "Blank Patterns", 14019).getInt(14019);
@@ -286,6 +288,7 @@ public class PHConstruct
         worldBorder = config.get("Ultra Hardcore Changes", "Add World Border", false).getBoolean(false);
         worldBorderSize = config.get("Ultra Hardcore Changes", "World Border Radius", 1000).getInt(1000);
         freePatterns = config.get("Ultra Hardcore Changes", "Add Patterns to Pattern Chests", false).getBoolean(false);
+        necroticUHS = config.get("Ultra Hardcore Changes", "Necrotic modifier only heals on hostile mob kills", false).getBoolean(false);
 
         /* Save the configuration file */
         config.save();
@@ -301,9 +304,11 @@ public class PHConstruct
     }
 
     //Blocks
-    public static int woodCrafter;
+    public static int woodStation;
     public static int toolForge;
     public static int heldItemBlock;
+    public static int woodCrafter;
+    
     public static int ores;
     public static int lavaTank;
     public static int smeltery;
@@ -316,10 +321,6 @@ public class PHConstruct
     public static int redstoneMachine;
     public static int dryingRack;
 
-    /*public static int golemCore;
-    public static int golemHead;
-    public static int golemPedestal;*/
-
     //Crops
     public static int oreBerry;
     public static int oreBerrySecond;
@@ -327,7 +328,11 @@ public class PHConstruct
 
     //Traps
     public static int landmine;
-    public static int barricade;
+    public static int punji;
+    public static int barricadeOak;
+    public static int barricadeSpruce;
+    public static int barricadeBirch;
+    public static int barricadeJungle;
 
     //InfiBlocks
     public static int speedBlock;
@@ -546,6 +551,7 @@ public class PHConstruct
     public static int worldBorderSize;
     public static boolean freePatterns;
     public static int goldHead;
+    public static boolean necroticUHS;
 
     //Superfun
     public static boolean superfunWorld;

@@ -43,11 +43,11 @@ public class RedstoneMachine extends InventoryBlock
         {
             TileEntity logic = world.getBlockTileEntity(x, y, z);
 
-            if (logic != null && logic instanceof IInventory)
+            if (logic != null && logic instanceof DrawbridgeLogic)
             {
-                if (((IInventory) logic).getStackInSlot(1) != null)
+                if (((DrawbridgeLogic) logic).getStackInSlot(1) != null)
                 {
-                    ItemStack stack = ((IInventory) logic).getStackInSlot(1);
+                    ItemStack stack = ((DrawbridgeLogic) logic).getStackInSlot(1);
                     if (stack.itemID < 4096 && Block.blocksList[stack.itemID] != null)
                         return lightValue[stack.itemID];
                 }

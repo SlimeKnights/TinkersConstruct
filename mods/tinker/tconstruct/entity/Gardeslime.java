@@ -2,25 +2,37 @@ package mods.tinker.tconstruct.entity;
 
 import mods.tinker.tconstruct.TConstruct;
 import mods.tinker.tconstruct.common.TProxyCommon;
-import mods.tinker.tconstruct.entity.ai.GAIFellTree;
-import mods.tinker.tconstruct.entity.ai.GAIFollowOwner;
-import mods.tinker.tconstruct.entity.ai.GAISwim;
+import mods.tinker.tconstruct.entity.ai.AIFellTree;
+import mods.tinker.tconstruct.entity.ai.AIFollowOwner;
+import mods.tinker.tconstruct.entity.ai.AISwim;
+import mods.tinker.tconstruct.entity.genetics.Trait;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class MiniGardy extends GolemBase
+public class Gardeslime extends GolemBase
 {
-    public MiniGardy(World world)
+    Trait strength;
+    Trait agility;
+    Trait capacity;
+    Trait intelligence;    
+    
+    public Gardeslime(World world)
     {
         super(world);
         this.texture = "/mods/tinker/textures/mob/googirl.png";
         this.setSize(0.375F, 0.875F);
-        this.tasks.addTask(1, new GAISwim(this));
-        this.tasks.addTask(8, new GAIFellTree(this));
-        this.tasks.addTask(10, new GAIFollowOwner(this));
+        this.tasks.addTask(1, new AISwim(this));
+        //this.tasks.addTask(8, new AIFellTree(this));
+        this.tasks.addTask(10, new AIFollowOwner(this));
+        
+        strength = new Trait(10, 30, 4, true).setName("Strength");
+        agility = new Trait(10, 30, 6, true).setName("Agility");
+        capacity = new Trait(10, 30, 1, true).setName("Capacity");
+        intelligence = new Trait(10, 30, 8, true).setName("Intelligence");
     }
 
     @Override
@@ -66,6 +78,34 @@ public class MiniGardy extends GolemBase
                 }
             }
             return true;
+        }
+    }
+
+    /* Saving */
+    public void writeEntityToNBT (NBTTagCompound tags)
+    {
+        super.writeEntityToNBT(tags);
+        NBTTagCompound traits = new NBTTagCompound();
+        
+        strength.saveToNBT(traits);
+        agility.saveToNBT(traits);
+        capacity.saveToNBT(traits);
+        intelligence.saveToNBT(traits);
+        
+        tags.setCompoundTag("Traits", traits);
+    }
+
+    public void readEntityFromNBT (NBTTagCompound tags)
+    {
+        super.readEntityFromNBT(tags);
+        NBTTagCompound traits = tags.getCompoundTag("Traits");
+        
+        if (traits != null)
+        {
+            strength = new Trait("Strength", traits);
+            agility = new Trait("Agility", traits);
+            capacity = new Trait("Capacity", traits);
+            intelligence = new Trait("Intelligence", traits);
         }
     }
 }

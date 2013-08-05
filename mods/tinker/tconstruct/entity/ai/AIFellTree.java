@@ -5,7 +5,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.StepSound;
 import net.minecraft.util.MathHelper;
 
-public class GAIFellTree extends GolemAIBase
+public class AIFellTree extends GolemAIBase
 {
     private int counter;
     private int logID;
@@ -15,7 +15,7 @@ public class GAIFellTree extends GolemAIBase
     public static int cutRange = 4;
     public static double cutSpeed = 2.5;
 
-    public GAIFellTree(GolemBase doll)
+    public AIFellTree(GolemBase doll)
     {
         super(doll);
         this.setMutexBits(3);

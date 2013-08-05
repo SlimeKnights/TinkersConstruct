@@ -37,7 +37,7 @@ public class Cleaver extends Weapon
     @Override
     public Item getAccessoryItem ()
     {
-        return TContent.heavyPlate;
+        return TContent.largePlate;
     }
 
     @Override

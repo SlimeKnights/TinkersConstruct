@@ -243,6 +243,9 @@ public class Battleaxe extends HarvestTool
     @Override
     public boolean onBlockStartBreak (ItemStack stack, int x, int y, int z, EntityPlayer player)
     {
+        if (!stack.hasTagCompound())
+            return false;
+        
         World world = player.worldObj;
         final int woodID = world.getBlockId(x, y, z);
         final Block wood = Block.blocksList[woodID];

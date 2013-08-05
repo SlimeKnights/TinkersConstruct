@@ -240,4 +240,20 @@ Part casts must be created by pouring metal around existing parts, like a pickax
 <recipe>searedstone</recipe>
 </page>
 
+<page type="crafting">
+<text>Drawbridge</text>
+<recipe>
+ <name>drawbridge</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Igniter</text>
+<recipe>
+ <name>igniter</name>
+ <size>three</size>
+</recipe>
+</page>
+
 </book>

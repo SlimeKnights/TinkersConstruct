@@ -5,7 +5,7 @@ import static net.minecraftforge.client.IItemRenderer.ItemRendererHelper.BLOCK_3
 
 import org.lwjgl.opengl.GL11;
 
-import mods.tinker.tconstruct.entity.MiniGardy;
+import mods.tinker.tconstruct.entity.Gardeslime;
 import net.minecraft.block.Block;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.RenderBlocks;

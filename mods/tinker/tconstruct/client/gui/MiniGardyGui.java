@@ -1,6 +1,6 @@
 package mods.tinker.tconstruct.client.gui;
 
-import mods.tinker.tconstruct.entity.MiniGardy;
+import mods.tinker.tconstruct.entity.Gardeslime;
 import mods.tinker.tconstruct.inventory.MiniGardyContainer;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -11,9 +11,9 @@ import org.lwjgl.opengl.GL11;
 
 public class MiniGardyGui extends GuiContainer
 {
-    public MiniGardy gardy;
+    public Gardeslime gardy;
 
-    public MiniGardyGui(InventoryPlayer inventoryplayer, MiniGardy gardy)
+    public MiniGardyGui(InventoryPlayer inventoryplayer, Gardeslime gardy)
     {
         super(new MiniGardyContainer(inventoryplayer, gardy));
         this.gardy = gardy;

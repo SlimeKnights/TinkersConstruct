@@ -209,6 +209,9 @@ public class TEventHandler
 
     public static boolean matchesLeaves (ItemStack stack)
     {
+        if (stack.itemID >= 4095)
+            return false;
+        
         Block block = Block.blocksList[stack.itemID];
         if (block != null)
         {
@@ -800,13 +803,13 @@ public class TEventHandler
         //Dust
         else if (evt.Name == "dustIron")
         {
-            Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 2, evt.Ore.getItemDamage()), Block.blockIron.blockID, 0, 600, new LiquidStack(TContent.liquidMetalStill.blockID,
+            Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 0, evt.Ore.getItemDamage()), Block.blockIron.blockID, 0, 600, new LiquidStack(TContent.liquidMetalStill.blockID,
                     TConstruct.ingotLiquidValue, 0));
         }
 
         else if (evt.Name == "dustGold")
         {
-            Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 2, evt.Ore.getItemDamage()), Block.blockGold.blockID, 0, 400, new LiquidStack(TContent.liquidMetalStill.blockID,
+            Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 1, evt.Ore.getItemDamage()), Block.blockGold.blockID, 0, 400, new LiquidStack(TContent.liquidMetalStill.blockID,
                     TConstruct.ingotLiquidValue, 1));
         }
 
@@ -1220,13 +1223,13 @@ public class TEventHandler
         ores = OreDictionary.getOres("dustIron");
         for (ItemStack ore : ores)
         {
-            Smeltery.addMelting(new ItemStack(ore.itemID, 2, ore.getItemDamage()), Block.blockIron.blockID, 0, 600, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 0));
+            Smeltery.addMelting(new ItemStack(ore.itemID, 0, ore.getItemDamage()), Block.blockIron.blockID, 0, 600, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 0));
         }
 
         ores = OreDictionary.getOres("dustGold");
         for (ItemStack ore : ores)
         {
-            Smeltery.addMelting(new ItemStack(ore.itemID, 2, ore.getItemDamage()), Block.blockGold.blockID, 0, 450, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 1));
+            Smeltery.addMelting(new ItemStack(ore.itemID, 1, ore.getItemDamage()), Block.blockGold.blockID, 0, 450, new LiquidStack(TContent.liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 1));
         }
 
         ores = OreDictionary.getOres("dustCopper");

@@ -19,7 +19,7 @@ public class Automaton extends GolemBase
         this.texture = "/mods/tinker/textures/mob/crystalguardamber.png";
         this.tasks.addTask(1, new GAIAttackTarget(this));
         this.tasks.addTask(2, new GAIFindTarget(this));
-        this.tasks.addTask(3, new GAIFollowOwner(this));
+        this.tasks.addTask(3, new AIFollowOwner(this));
 
         /*taskList.put("wait", new TaskWait(this));
         TaskBase task = new TaskClearcut(this);

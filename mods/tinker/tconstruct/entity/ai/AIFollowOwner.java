@@ -5,7 +5,7 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.pathfinding.PathNavigate;
 import net.minecraft.util.MathHelper;
 
-public class GAIFollowOwner extends GolemAIBase
+public class AIFollowOwner extends GolemAIBase
 {
     private EntityLiving leader;
     private float speed;
@@ -15,7 +15,7 @@ public class GAIFollowOwner extends GolemAIBase
     private boolean avoidsWater;
     private int counter;
 
-    public GAIFollowOwner(GolemBase golem)
+    public AIFollowOwner(GolemBase golem)
     {
         super(golem);
         this.speed = golem.getSpeed();

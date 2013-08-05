@@ -1,6 +1,6 @@
 package test;
 
-import mods.tinker.tconstruct.entity.MiniGardy;
+import mods.tinker.tconstruct.entity.Gardeslime;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -37,7 +37,7 @@ public class XinStick extends Item
         //MinecraftServer.getServer().getConfigurationManager().transferPlayerToDimension((EntityPlayerMP) player, -7);
         //player.travelToDimension(-7);
         //clearInventoryExeptHotbar(player);
-        MiniGardy entity = new MiniGardy(world);
+        Gardeslime entity = new Gardeslime(world);
         entity.setOwner(player);
         //entity.func_94058_c("Cutie");
         spawnEntity(player.posX, player.posY + 1, player.posZ, entity, world, player);

@@ -84,7 +84,7 @@ public class TPlayerHandler implements IPlayerTracker
 
         playerStats.put(entityplayer.username, stats);
 
-        if (PHConstruct.gregtech)
+        if (PHConstruct.gregtech && Loader.isModLoaded("GregTech-Addon"))
         {
             PHConstruct.gregtech = false;
             if (PHConstruct.lavaFortuneInteraction)

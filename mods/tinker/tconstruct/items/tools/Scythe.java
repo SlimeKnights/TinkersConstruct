@@ -150,6 +150,9 @@ public class Scythe extends Weapon
     @Override
     public boolean onBlockStartBreak (ItemStack stack, int x, int y, int z, EntityPlayer player)
     {
+        if (!stack.hasTagCompound())
+            return false;
+        
         World world = player.worldObj;
         final int blockID = world.getBlockId(x, y, z);
         final int meta = world.getBlockMetadata(x, y, z);

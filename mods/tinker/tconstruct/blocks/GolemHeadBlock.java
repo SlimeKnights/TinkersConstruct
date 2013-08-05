@@ -121,7 +121,8 @@ public class GolemHeadBlock extends Block
 
     private boolean idIsInvalid (int i)
     {
-        return Block.blocksList[i] != null && (!Block.blocksList[i].renderAsNormalBlock() && i != TContent.golemCore.blockID || i == 43 || i == 44 || i == Block.chest.blockID);
+        //return Block.blocksList[i] != null && (!Block.blocksList[i].renderAsNormalBlock() && i != TContent.golemCore.blockID || i == 43 || i == 44 || i == Block.chest.blockID);
+        return false;
     }
 
     private boolean buildGolem (World world, int x, int y, int z, int metadata)
