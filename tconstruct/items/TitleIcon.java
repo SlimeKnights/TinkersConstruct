@@ -2,10 +2,6 @@ package tconstruct.items;
 
 import java.util.List;
 
-import tconstruct.client.TProxyClient;
-import tconstruct.entity.BlueSlime;
-import tconstruct.library.tools.ToolCore;
-
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -19,6 +15,9 @@ import net.minecraft.util.Facing;
 import net.minecraft.util.Icon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import tconstruct.client.TProxyClient;
+import tconstruct.entity.BlueSlime;
+import tconstruct.library.tools.ToolCore;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 

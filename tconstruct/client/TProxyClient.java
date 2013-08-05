@@ -341,7 +341,6 @@ public class TProxyClient extends TProxyCommon
         RenderingRegistry.registerBlockHandler(new PaneConnectedRender());
         RenderingRegistry.registerBlockHandler(new RenderLandmine());
         RenderingRegistry.registerBlockHandler(new PunjiRender());
-        // RenderingRegistry.registerBlockHandler(new BrickRender());
 
         // Special Renderers
         ClientRegistry.bindTileEntitySpecialRenderer(CastingTableLogic.class, new CastingTableSpecialRenderer());
@@ -358,8 +357,6 @@ public class TProxyClient extends TProxyCommon
         RenderingRegistry.registerEntityRenderingHandler(CartEntity.class, new CartRender());
         RenderingRegistry.registerEntityRenderingHandler(DaggerEntity.class, new DaggerRenderCustom());
         RenderingRegistry.registerEntityRenderingHandler(Crystal.class, new CrystalRender());
-        // RenderingRegistry.registerEntityRenderingHandler(Skyla.class, new
-        // SkylaRender());
         RenderingRegistry.registerEntityRenderingHandler(MiniGardy.class, new MiniGardyRender());
         RenderingRegistry.registerEntityRenderingHandler(Automaton.class, new CrystalGuardianRender());
         RenderingRegistry.registerEntityRenderingHandler(LaunchedPotion.class, new LaunchedItemRender(Item.potion, 16384));
@@ -501,8 +498,8 @@ public class TProxyClient extends TProxyCommon
 
         TConstructClientRegistry.registerManualIcon("toughrod", new ItemStack(TContent.toughRod, 1, 0));
         TConstructClientRegistry.registerManualIcon("toughbinding", new ItemStack(TContent.toughBinding, 1, 17));
-        TConstructClientRegistry.registerManualIcon("largeplate", new ItemStack(TContent.heavyPlate, 1, 17));
-        
+        TConstructClientRegistry.registerManualIcon("largeplate", new ItemStack(TContent.largePlate, 1, 17));
+
         TConstructClientRegistry.registerManualIcon("bowstring", new ItemStack(TContent.bowstring, 1, 0));
         TConstructClientRegistry.registerManualIcon("arrowhead", new ItemStack(TContent.arrowhead, 1, 2));
         TConstructClientRegistry.registerManualIcon("fletching", new ItemStack(TContent.fletching, 1, 0));
@@ -525,19 +522,21 @@ public class TProxyClient extends TProxyCommon
         TConstructClientRegistry.registerManualIcon("frypanicon", ToolBuilder.instance.buildTool(new ItemStack(TContent.frypanHead, 1, 10), new ItemStack(TContent.toolRod, 1, 11), null, ""));
         TConstructClientRegistry.registerManualIcon("battlesignicon", ToolBuilder.instance.buildTool(new ItemStack(TContent.signHead, 1, 10), new ItemStack(TContent.toolRod, 1, 11), null, ""));
         TConstructClientRegistry.registerManualIcon("chiselicon", ToolBuilder.instance.buildTool(new ItemStack(TContent.chiselHead, 1, 10), new ItemStack(TContent.toolRod, 1, 11), null, ""));
-        TConstructClientRegistry.registerManualIcon("shortbowIcon", ToolBuilder.instance.buildTool(new ItemStack(TContent.toolRod, 1, 10), new ItemStack(TContent.bowstring, 1, 0), new ItemStack(TContent.toolRod, 1, 12), ""));
-        TConstructClientRegistry.registerManualIcon("arrowIcon", ToolBuilder.instance.buildTool(new ItemStack(TContent.arrowhead, 1, 10), new ItemStack(TContent.toolRod, 1, 11), new ItemStack(TContent.fletching, 1, 0), ""));
+        TConstructClientRegistry.registerManualIcon("shortbowIcon",
+                ToolBuilder.instance.buildTool(new ItemStack(TContent.toolRod, 1, 10), new ItemStack(TContent.bowstring, 1, 0), new ItemStack(TContent.toolRod, 1, 12), ""));
+        TConstructClientRegistry.registerManualIcon("arrowIcon",
+                ToolBuilder.instance.buildTool(new ItemStack(TContent.arrowhead, 1, 10), new ItemStack(TContent.toolRod, 1, 11), new ItemStack(TContent.fletching, 1, 0), ""));
 
         TConstructClientRegistry.registerManualIcon("hammericon", ToolBuilder.instance.buildTool(new ItemStack(TContent.hammerHead, 1, 10), new ItemStack(TContent.toughRod, 1, 11), new ItemStack(
-                TContent.heavyPlate, 1, 12), new ItemStack(TContent.heavyPlate, 8), ""));
+                TContent.largePlate, 1, 12), new ItemStack(TContent.largePlate, 8), ""));
         TConstructClientRegistry.registerManualIcon("lumbericon", ToolBuilder.instance.buildTool(new ItemStack(TContent.broadAxeHead, 1, 10), new ItemStack(TContent.toughRod, 1, 11), new ItemStack(
-                TContent.heavyPlate, 1, 12), new ItemStack(TContent.toughBinding, 8), ""));
+                TContent.largePlate, 1, 12), new ItemStack(TContent.toughBinding, 8), ""));
         TConstructClientRegistry.registerManualIcon("excavatoricon", ToolBuilder.instance.buildTool(new ItemStack(TContent.excavatorHead, 1, 10), new ItemStack(TContent.toughRod, 1, 11),
-                new ItemStack(TContent.heavyPlate, 1, 12), new ItemStack(TContent.toughBinding, 8), ""));
+                new ItemStack(TContent.largePlate, 1, 12), new ItemStack(TContent.toughBinding, 8), ""));
         TConstructClientRegistry.registerManualIcon("scytheicon", ToolBuilder.instance.buildTool(new ItemStack(TContent.scytheBlade, 1, 10), new ItemStack(TContent.toughRod, 1, 11), new ItemStack(
                 TContent.toughBinding, 1, 12), new ItemStack(TContent.toughRod, 8), ""));
         TConstructClientRegistry.registerManualIcon("cleavericon", ToolBuilder.instance.buildTool(new ItemStack(TContent.largeSwordBlade, 1, 10), new ItemStack(TContent.toughRod, 1, 11),
-                new ItemStack(TContent.heavyPlate, 1, 12), new ItemStack(TContent.toughRod, 8), ""));
+                new ItemStack(TContent.largePlate, 1, 12), new ItemStack(TContent.toughRod, 8), ""));
         TConstructClientRegistry.registerManualIcon("battleaxeicon", ToolBuilder.instance.buildTool(new ItemStack(TContent.broadAxeHead, 1, 10), new ItemStack(TContent.toughRod, 1, 11),
                 new ItemStack(TContent.broadAxeHead, 1, 12), new ItemStack(TContent.toughBinding, 8), ""));
     }
@@ -624,6 +623,22 @@ public class TProxyClient extends TProxyCommon
         TConstructClientRegistry.registerManualLargeRecipe("smelteryfaucet", new ItemStack(TContent.searedBlock, 1, 1), searedbrick, null, searedbrick, null, searedbrick, null, null, null, null);
         TConstructClientRegistry.registerManualLargeRecipe("smelterybasin", new ItemStack(TContent.searedBlock, 1, 2), searedbrick, null, searedbrick, searedbrick, null, searedbrick, searedbrick,
                 searedbrick, searedbrick);
+        
+        //Traps
+        ItemStack reed = new ItemStack(Item.reed);
+        TConstructClientRegistry.registerManualLargeRecipe("punji", new ItemStack(TContent.punji), reed, null, reed, null, reed, null, reed, null, reed);
+        TConstructClientRegistry.registerManualSmallRecipe("barricade", new ItemStack(TContent.barricadeOak), null, log, null, log);        
+
+        //Machines
+        ItemStack alubrassIngot = new ItemStack(TContent.materials, 1, 14);
+        ItemStack bronzeIngot = new ItemStack(TContent.materials, 1, 13);
+        ItemStack blankCast = new ItemStack(TContent.blankPattern, 1, 1);
+        ItemStack redstone = new ItemStack(Item.redstone);
+
+        TConstructClientRegistry.registerManualLargeRecipe("drawbridge", new ItemStack(TContent.redstoneMachine, 1, 0), alubrassIngot, blankCast, alubrassIngot, bronzeIngot, new ItemStack(
+                Block.dispenser), bronzeIngot, bronzeIngot, redstone, bronzeIngot);
+        TConstructClientRegistry.registerManualLargeRecipe("igniter", new ItemStack(TContent.redstoneMachine, 1, 1), alubrassIngot, new ItemStack(TContent.largePlate, 1, 7), alubrassIngot,
+                bronzeIngot, new ItemStack(Item.flintAndSteel), bronzeIngot, bronzeIngot, redstone, bronzeIngot);
 
         // Modifier recipes
         ItemStack ironpick = ToolBuilder.instance.buildTool(new ItemStack(TContent.pickaxeHead, 1, 6), new ItemStack(TContent.toolRod, 1, 2), new ItemStack(TContent.binding, 1, 6), "");
@@ -641,7 +656,7 @@ public class TProxyClient extends TProxyCommon
         TConstructClientRegistry.registerManualModifier("blazemod", ironlongsword.copy(), new ItemStack(Item.blazePowder));
         TConstructClientRegistry.registerManualModifier("necroticmod", ironlongsword.copy(), new ItemStack(TContent.materials, 1, 8));
         TConstructClientRegistry.registerManualModifier("silkymod", ironpick.copy(), new ItemStack(TContent.materials, 1, 26));
-        TConstructClientRegistry.registerManualModifier("reinforcedmod", ironpick.copy(), new ItemStack(TContent.heavyPlate, 1, 6));
+        TConstructClientRegistry.registerManualModifier("reinforcedmod", ironpick.copy(), new ItemStack(TContent.largePlate, 1, 6));
 
         TConstructClientRegistry.registerManualModifier("pistonmod", ironlongsword.copy(), new ItemStack(Block.pistonBase));
         TConstructClientRegistry.registerManualModifier("beheadingmod", ironlongsword.copy(), new ItemStack(Item.enderPearl), new ItemStack(Block.obsidian));

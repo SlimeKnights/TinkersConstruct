@@ -135,6 +135,9 @@ public class LumberAxe extends HarvestTool
     @Override
     public boolean onBlockStartBreak (ItemStack stack, int x, int y, int z, EntityPlayer player)
     {
+        if (!stack.hasTagCompound())
+            return false;
+        
         World world = player.worldObj;
         final int woodID = world.getBlockId(x, y, z);
         final Block wood = Block.blocksList[woodID];
@@ -154,7 +157,7 @@ public class LumberAxe extends HarvestTool
             } while (!foundTop);
 
             int numLeaves = 0;
-            if (height - y < 30)
+            if (height - y < 50)
             {
                 for (int xPos = x - 1; xPos <= x + 1; xPos++)
                 {
@@ -328,7 +331,7 @@ public class LumberAxe extends HarvestTool
     @Override
     public Item getAccessoryItem ()
     {
-        return TContent.heavyPlate;
+        return TContent.largePlate;
     }
 
     @Override

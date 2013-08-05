@@ -1,5 +1,9 @@
 package tconstruct.common;
 
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 import tconstruct.TConstruct;
 import tconstruct.entity.MiniGardy;
 import tconstruct.inventory.ArmorExtendedContainer;
@@ -9,10 +13,6 @@ import tconstruct.landmine.inventory.ContainerLandmine;
 import tconstruct.landmine.tileentity.TileEntityLandmine;
 import tconstruct.library.blocks.InventoryLogic;
 import tconstruct.util.player.TPlayerStats;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
 import cpw.mods.fml.common.network.IGuiHandler;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
@@ -33,7 +33,6 @@ public class TProxyCommon implements IGuiHandler
     public static int drawbridgeGui = 9;
     public static int landmineGui = 10;
     public static int craftingStationID = 11;
-    
     public static int inventoryGui = 100;
     public static int armorGuiID = 101;
     public static int knapsackGuiID = 102;
@@ -101,7 +100,6 @@ public class TProxyCommon implements IGuiHandler
     @Override
     public Object getClientGuiElement (int ID, EntityPlayer player, World world, int x, int y, int z)
     {
-        // TODO Auto-generated method stub
         return null;
     }
 

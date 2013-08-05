@@ -1,10 +1,10 @@
 package tconstruct.entity;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.world.World;
 import tconstruct.entity.ai.GAIAttackTarget;
 import tconstruct.entity.ai.GAIFindTarget;
 import tconstruct.entity.ai.GAIFollowOwner;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.world.World;
 
 public class Automaton extends GolemBase
 {

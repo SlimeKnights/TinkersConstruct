@@ -56,7 +56,7 @@ public class PHConstruct
         enableTSlime = config.get("Difficulty Changes", "Enable mod slime tools", true).getBoolean(true);
         enableTPaper = config.get("Difficulty Changes", "Enable mod paper tools", true).getBoolean(true);
         enableTBlueSlime = config.get("Difficulty Changes", "Enable mod blue slime tools", true).getBoolean(true);
-        
+
         craftMetalTools = config.get("Difficulty Changes", "Craft metals with Wood Patterns", false).getBoolean(false);
         vanillaMetalBlocks = config.get("Difficulty Changes", "Craft vanilla metal blocks", true).getBoolean(true);
         lavaFortuneInteraction = config.get("Difficulty Changes", "Enable Auto-Smelt and Fortune interaction", true).getBoolean(true);
@@ -73,6 +73,7 @@ public class PHConstruct
         blueSlime = config.get("Mob Spawning", "Activate Blue Slime Spawns", true).getBoolean(true);
         blueSlimeWeight = config.get("Mob Spawning", "Spawn Weight for Blue Slime", 6).getInt(6);
 
+        //1467-1489
         woodStation = config.getBlock("Wood Tool Station", 1471).getInt(1471);
         heldItemBlock = config.getBlock("Held Item Block", 1472).getInt(1472);
         lavaTank = config.getBlock("Lava Tank", 1473).getInt(1473);
@@ -96,13 +97,13 @@ public class PHConstruct
         landmine = config.getBlock("Landmine", 1470).getInt(1470);
         toolForge = config.getBlock("Tool Forge", 1468).getInt(1468);
         multiBrickFancy = config.getBlock("Multi Brick Fancy", 1467).getInt(1467);
-        
+
         barricadeOak = config.getBlock("Oak Barricade", 1469).getInt(1469);
         barricadeSpruce = config.getBlock("Spruce Barricade", 1482).getInt(1482);
         barricadeBirch = config.getBlock("Birch Barricade", 1483).getInt(1483);
         barricadeJungle = config.getBlock("Jungle Barricade", 1487).getInt(1487);
-        
-      //Thermal Expansion
+
+        //Thermal Expansion
         moltenSilver = config.getBlock("Molten Silver", 3195).getInt(3195);
         moltenLead = config.getBlock("Molten Lead", 3196).getInt(3196);
         moltenNickel = config.getBlock("Molten Nickel", 3197).getInt(3197);
@@ -128,6 +129,7 @@ public class PHConstruct
         blood = config.getBlock("Liquid Cow", 3217).getInt(3217);
         moltenEnder = config.getBlock("Molten Ender", 3218).getInt(3218);
 
+        //3221+
         aggregator = config.getBlock("Aggregator", 3221).getInt(3221);
         lightCrystalBase = config.getBlock("Light Crystal", 3222).getInt(3222);
         glass = config.getBlock("Clear Glass", 3223).getInt(3223);
@@ -137,33 +139,27 @@ public class PHConstruct
         dryingRack = config.getBlock("Drying Rack", 3227).getInt(3227);
         glassPane = config.getBlock("Glass Pane", 3228).getInt(3228);
         stainedGlassClearPane = config.getBlock("Clear Stained Glass Pane", 3229).getInt(3229);
-        
+
         searedSlab = config.getBlock("Seared Slab", 3230).getInt(3230);
         speedSlab = config.getBlock("Speed Slab", 3231).getInt(3231);
         //grassSlab = config.getBlock("Grass Slab", 3230).getInt(3230);
-        
+
         punji = config.getBlock("Punji", 3232).getInt(3232);
         woodCrafter = config.getBlock("Crafting Station", 3233).getInt(3233);
         essenceExtractor = config.getBlock("Essence Extractor", 3234).getInt(3234);
-        
+
         slimePoolBlue = config.getBlock("Liquid Blue Slime", 3235).getInt(3235);
         slimeGel = config.getBlock("Congealed Slime", 3237).getInt(3237);
         slimeGrass = config.getBlock("Slime Grass", 3238).getInt(3238);
         slimeTallGrass = config.getBlock("Slime Tall Grass", 3239).getInt(3239);
         slimeLeaves = config.getBlock("Slime Grass Leaves", 3240).getInt(3240);
         slimeSapling = config.getBlock("Slime Tree Sapling", 3241).getInt(3241);
-        
+
         meatBlock = config.getBlock("Meat Block", 3242).getInt(3242);
         woodCrafterSlab = config.getBlock("Crafting Slab", 3243).getInt(3243);
         woolSlab1 = config.getBlock("Wool Slab 1", 3244).getInt(3244);
         woolSlab2 = config.getBlock("Wool Slab 2", 3245).getInt(3245);
         castingChannel = config.getBlock("Casting Channel", 3249).getInt(3249);
-
-        /*golemCore = config.getBlock("Golem Core", 1481).getInt(1481);
-        golemHead = config.getBlock("Golem Head", 1482).getInt(1482);*/
-        //golemPedestal = config.getBlock("Golem Pedestal", 1483).getInt(1483);
-        //redstoneBallRepeater = config.getBlock("Redstone Ball Repeater", 1483).getInt(1483);
-        //netherOreBerry = config.getBlock("Ore Berry Nether", 1487).getInt(1487);
 
         manual = config.getItem("Patterns and Misc", "Tinker's Manual", 14018).getInt(14018);
         blankPattern = config.getItem("Patterns and Misc", "Blank Patterns", 14019).getInt(14019);
@@ -332,8 +328,9 @@ public class PHConstruct
         uhcGhastDrops = config.get("Ultra Hardcore Changes", "Change Ghast drops to Gold Ingots", false).getBoolean(false);
         worldBorder = config.get("Ultra Hardcore Changes", "Add World Border", false).getBoolean(false);
         worldBorderSize = config.get("Ultra Hardcore Changes", "World Border Radius", 1000).getInt(1000);
-        freePatterns = config.get("Ultra Hardcore Changes", "Add Patterns to Pattern Chests", false).getBoolean(false); //Check
-        
+        freePatterns = config.get("Ultra Hardcore Changes", "Add Patterns to Pattern Chests", false).getBoolean(false);
+        necroticUHS = config.get("Ultra Hardcore Changes", "Necrotic modifier only heals on hostile mob kills", false).getBoolean(false);
+
         //Slime pools
         islandRarity = config.get("Worldgen", "Slime Island Rarity", 1450).getInt(1450);
 
@@ -341,7 +338,7 @@ public class PHConstruct
         Property conTexMode = config.get("Looks", "Connected Textures Enabled", true);
         conTexMode.comment = "0 = disabled, 1 = enabled, 2 = enabled + ignore stained glass meta";
         connectedTexturesMode = conTexMode.getInt(2);
-        
+
         /* Save the configuration file */
         config.save();
 
@@ -361,7 +358,7 @@ public class PHConstruct
     public static int heldItemBlock;
     public static int woodCrafter;
     public static int woodCrafterSlab;
-    
+
     public static int ores;
     public static int lavaTank;
     public static int smeltery;
@@ -374,10 +371,6 @@ public class PHConstruct
 
     public static int redstoneMachine;
     public static int dryingRack;
-
-    /*public static int golemCore;
-    public static int golemHead;
-    public static int golemPedestal;*/
 
     //Crops
     public static int oreBerry;
@@ -409,7 +402,7 @@ public class PHConstruct
     //Liquids
     public static int metalFlowing;
     public static int metalStill;
-    
+
     public static int moltenIron;
     public static int moltenGold;
     public static int moltenCopper;
@@ -434,7 +427,7 @@ public class PHConstruct
     public static int moltenShiny;
     public static int moltenInvar;
     public static int moltenElectrum;
-    
+
     //Slime
     public static int slimePoolBlue;
     public static int slimeGel;
@@ -637,7 +630,7 @@ public class PHConstruct
     public static boolean stencilTableCrafting;
     public static boolean miningLevelIncrease;
     public static boolean denyMattock;
-    
+
     //Ultra Hardcore modifiers
     public static boolean enableHealthRegen;
     public static boolean goldAppleRecipe;
@@ -647,6 +640,7 @@ public class PHConstruct
     public static int worldBorderSize;
     public static boolean freePatterns;
     public static int goldHead;
+    public static boolean necroticUHS;
 
     //Superfun
     public static boolean superfunWorld;
@@ -654,9 +648,9 @@ public class PHConstruct
 
     public static boolean gregtech;
     public static boolean lavaFortuneInteraction;
-    
+
     public static int islandRarity;
-    
+
     //Looks
     public static int connectedTexturesMode;
 }

@@ -98,26 +98,22 @@ The berries can be melted down into nuggets and ingots, making them an invaluabl
 </recipe>
 </page>
 
+<page type="text">
+<text>A few traps or blockades may help with your early survival experience</text>
+</page>
+
 <page type="crafting">
-<text>Materials and You: v1</text>
+<text>Punji Stick</text>
 <recipe>
- <name>patternbook1</name>
- <size>two</size>
+ <name>punji</name>
+ <size>three</size>
 </recipe>
 </page>
 
 <page type="crafting">
-<text>Materials and You: v2</text>
+<text>Barricade</text>
 <recipe>
- <name>patternbook2</name>
- <size>two</size>
-</recipe>
-</page>
-
-<page type="crafting">
-<text>Mighty Smelting</text>
-<recipe>
- <name>patternbook3</name>
+ <name>barricade</name>
  <size>two</size>
 </recipe>
 </page>
@@ -157,59 +153,31 @@ Note: The Smeltery is required to process all metals, including iron.</text>
 </recipe>
 </page>
 
+<page type="text">
+<text>If you ever find yourself without this book, a new one is simple to make. Other books can be made from this one as well.</text>
+</page>
+
 <page type="crafting">
-<text>Smeltery Drain</text>
+<text>Materials and You: v1</text>
 <recipe>
- <name>smelterydrain</name>
- <size>three</size>
+ <name>patternbook1</name>
+ <size>two</size>
 </recipe>
 </page>
 
 <page type="crafting">
-<text>Lava Tank</text>
+<text>Materials and You: v2</text>
 <recipe>
- <name>smelterytank1</name>
- <size>three</size>
+ <name>patternbook2</name>
+ <size>two</size>
 </recipe>
 </page>
 
 <page type="crafting">
-<text>Seared Glass</text>
+<text>Mighty Smelting</text>
 <recipe>
- <name>smelterytank2</name>
- <size>three</size>
-</recipe>
-</page>
-
-<page type="crafting">
-<text>Seared Window</text>
-<recipe>
- <name>smelterytank3</name>
- <size>three</size>
-</recipe>
-</page>
-
-<page type="crafting">
-<text>Seared Faucet</text>
-<recipe>
- <name>smelteryfaucet</name>
- <size>three</size>
-</recipe>
-</page>
-
-<page type="crafting">
-<text>Casting Table</text>
-<recipe>
- <name>smelterytable</name>
- <size>three</size>
-</recipe>
-</page>
-
-<page type="crafting">
-<text>Casting Basin</text>
-<recipe>
- <name>smelterybasin</name>
- <size>three</size>
+ <name>patternbook3</name>
+ <size>two</size>
 </recipe>
 </page>
 
