@@ -1,0 +1,336 @@
+<?xml version="1.0"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties version = "1.0">
+  <entry key="itemGroup.TConstructTools">匠魂|工具</entry>
+  <entry key="itemGroup.TConstructMaterials">匠魂|材料</entry>
+  <entry key="itemGroup.TConstructBlocks">匠魂|方块</entry>
+  
+  <entry key="crafters.ToolStation">工具组装台</entry>
+  <entry key="crafters.ToolForge">工具装配站</entry>
+  <entry key="crafters.PartBuilder">零件加工台</entry>
+  <entry key="crafters.PatternShaper">Stencil Table</entry>
+  <entry key="inventory.PatternChest">模具箱</entry>
+  <entry key="crafters.Smeltery">冶炼厂</entry>
+  <entry key="crafters.Frypan">煎锅</entry>
+  <entry key="inventory.knapsack">背包</entry>
+  
+  <entry key="ToolStation.Crafter.name">工具组装台</entry>
+  <entry key="ToolStation.Parts.name">零件加工台</entry>
+  <entry key="ToolStation.PatternChest.name">模具箱</entry>
+  <entry key="ToolStation.PatternShaper.name">模具桌</entry>
+  <entry key="ToolStation.CastingTable.name">浇铸台</entry>
+  
+  <entry key="tile.ToolForge.name">工具装配站</entry>
+  <entry key="tile.Armor.DryingRack.name">晾干架</entry>
+  <entry key="CraftedSoil.Slime.name">黏滑泥泞</entry>
+  <entry key="CraftedSoil.Grout.name">水泥</entry>
+  <entry key="CraftedSoil.BlueSlime.name">黏滑蓝泥泞</entry>
+  <entry key="CraftedSoil.GraveyardSoil.name">黄泉土</entry>
+  <entry key="CraftedSoil.ConsecratedSoil.name">神圣土</entry>
+  
+  <entry key="MetalOre.NetherSlag.name">下界岩碎渣</entry>
+  <entry key="MetalOre.Cobalt.name">钴矿石</entry>
+  <entry key="MetalOre.Ardite.name">阿迪特矿石</entry>
+  <entry key="MetalOre.Copper.name">铜矿石</entry>
+  <entry key="MetalOre.Tin.name">锡矿石</entry>
+  <entry key="MetalOre.Aluminum.name">铝矿石</entry>
+  <entry key="MetalOre.Slag.name">石渣</entry>
+  
+  <entry key="block.oreberry.iron.name">铁矿莓丛</entry>
+  <entry key="block.oreberry.gold.name">金矿莓丛</entry>
+  <entry key="block.oreberry.copper.name">铜矿莓丛</entry>
+  <entry key="block.oreberry.tin.name">锡矿莓丛</entry>
+  <entry key="block.oreberry.aluminum.name">铝矿莓丛</entry>
+  <entry key="block.oreberry.essence.name">精华莓丛</entry>
+  
+  <entry key="block.ore.gravel.iron.name">铁矿砂砾</entry>
+  <entry key="block.ore.gravel.gold.name">金矿砂砾</entry>
+  <entry key="block.ore.gravel.copper.name">铜矿砂砾</entry>
+  <entry key="block.ore.gravel.tin.name">锡矿砂砾</entry>
+  <entry key="block.ore.gravel.aluminum.name">铝矿砂砾</entry>
+  <entry key="block.ore.gravel.cobalt.name">钴矿砂砾</entry>
+    
+  <entry key="block.brownstone.rough.name">光滑褐岩</entry>
+  <entry key="block.brownstone.rough.road.name">光滑褐岩铺路石</entry>
+  <entry key="block.brownstone.smooth.name">褐岩</entry>
+  <entry key="block.brownstone.smooth.brick.name">褐岩砖</entry>
+  <entry key="block.brownstone.smooth.road.name">褐岩铺路石</entry>
+  <entry key="block.brownstone.smooth.fancy.name">平滑褐岩砖</entry>
+  <entry key="block.brownstone.smooth.chiseled.name">錾制褐岩砖</entry>
+  
+  <entry key="block.brownstone.rough.slab.name">光滑褐岩台阶</entry>
+  <entry key="block.brownstone.rough.road.slab.name">光滑褐岩铺路台阶</entry>
+  <entry key="block.brownstone.smooth.slab.name">褐岩台阶</entry>
+  <entry key="block.brownstone.smooth.brick.slab.name">褐岩砖台阶</entry>
+  <entry key="block.brownstone.smooth.road.slab.name">褐岩铺路石台阶</entry>
+  <entry key="block.brownstone.smooth.fancy.slab.name">平滑褐岩砖台阶</entry>
+  <entry key="block.brownstone.smooth.chiseled.slab.name">錾制褐岩砖台阶</entry>
+  
+  <entry key="block.brick.obsidian.name">黑曜石砖块</entry>
+  <entry key="block.brick.sandstone.name">沙石砖块</entry>
+  <entry key="block.brick.netherrack.name">平滑下界岩砖块</entry>
+  <entry key="block.brick.iron.name">铁砖块</entry>
+  <entry key="block.brick.gold.name">金砖块</entry>
+  <entry key="block.brick.diamond.name">钻石砖块</entry>
+  <entry key="block.brick.lapis.name">青金石砖块</entry>
+  <entry key="block.brick.stone.refined.name">抛光石砖块</entry>
+  <entry key="block.brick.redstone.name">红石砖块</entry>
+  <entry key="block.brick.bone.name">白骨砖块</entry>
+  <entry key="block.brick.slime.name">史莱姆砖块</entry>
+  <entry key="block.brick.blueslime.name">蓝色史莱姆砖快</entry>
+  <entry key="block.brick.endstone.name">末地石砖块</entry>
+  <entry key="block.brick.obsidian.ingot.name">黑曜石锭砖</entry>
+  
+  <entry key="block.fancybrick.obsidian.name">平滑黑曜石砖</entry>
+  <entry key="block.fancybrick.sandstone.name">平滑沙石砖</entry>
+  <entry key="block.fancybrick.netherrack.name">平滑下界岩砖</entry>
+  <entry key="block.fancybrick.iron.name">平滑铁砖</entry>
+  <entry key="block.fancybrick.gold.name">平滑金砖</entry>
+  <entry key="block.fancybrick.diamond.name">平滑钻石砖</entry>
+  <entry key="block.fancybrick.lapis.name">平滑青金石砖</entry>
+  <entry key="block.fancybrick.stone.refined.name">平滑抛光石砖</entry>
+  <entry key="block.fancybrick.redstone.name">平滑红石砖</entry>
+  <entry key="block.fancybrick.bone.name">平滑骨砖</entry>
+  <entry key="block.fancybrick.slime.name">平滑史莱姆砖</entry>
+  <entry key="block.fancybrick.blueslime.name">平滑蓝史莱姆砖</entry>
+  <entry key="block.fancybrick.endstone.name">平滑末地石砖</entry>
+  <entry key="block.fancybrick.obsidian.ingot.name">平滑黑曜石锭砖</entry>
+  <entry key="block.fancybrick.stone.road.name">铺路石</entry>
+  <entry key="block.fancybrick.stone.name">平滑石砖</entry>
+  
+  <entry key="item.oreberry.iron.name">铁矿莓丛</entry>
+  <entry key="item.oreberry.gold.name">金矿莓丛</entry>
+  <entry key="item.oreberry.copper.name">铜矿莓丛</entry>
+  <entry key="item.oreberry.tin.name">锡矿莓丛</entry>
+  <entry key="item.oreberry.aluminum.name">铝矿莓丛</entry>
+  <entry key="item.oreberry.essence.name">精华莓丛</entry>
+  
+  <entry key="item.goldenhead.name">黄金头颅</entry>
+  <entry key="item.tconstruct.titleicon.name">生成</entry>
+  
+  <entry key="item.tconstruct.Materials.PaperStack.name">一叠纸</entry>
+  <entry key="item.tconstruct.Materials.SlimeCrystal.name">粘液球水晶</entry>
+  <entry key="item.tconstruct.Materials.SearedBrick.name">焦黑砖</entry>
+  <entry key="item.tconstruct.Materials.CobaltIngot.name">钴锭t</entry>
+  <entry key="item.tconstruct.Materials.ArditeIngot.name">阿迪特锭</entry>
+  <entry key="item.tconstruct.Materials.ManyullynIngot.name">玛玉灵锭</entry>
+  <entry key="item.tconstruct.Materials.Mossball.name">苔藓球</entry>
+  <entry key="item.tconstruct.Materials.LavaCrystal.name">熔岩水晶</entry>
+  <entry key="item.tconstruct.Materials.NecroticBone.name">坏死之骨</entry>
+  <entry key="item.tconstruct.Materials.CopperIngot.name">铜锭</entry>
+  <entry key="item.tconstruct.Materials.TinIngot.name">锡锭</entry>
+  <entry key="item.tconstruct.Materials.AluminumIngot.name">铝锭</entry>
+  <entry key="item.tconstruct.Materials.RawAluminum.name">生铝</entry>
+  <entry key="item.tconstruct.Materials.BronzeIngot.name">青铜锭</entry>
+  <entry key="item.tconstruct.Materials.AluBrassIngot.name">含铝黄铜锭</entry>
+  <entry key="item.tconstruct.Materials.AlumiteIngot.name">耐酸铝锭</entry>
+  <entry key="item.tconstruct.Materials.SteelIngot.name">钢锭</entry>
+  <entry key="item.tconstruct.Materials.BlueSlimeCrystal.name">蓝色史莱姆水晶</entry>
+  <entry key="item.tconstruct.Materials.ObsidianIngot.name">黑曜石锭</entry>
+  <entry key="item.tconstruct.Materials.IronNugget.name">铁粒</entry>
+  <entry key="item.tconstruct.Materials.CopperNugget.name">铜粒</entry>
+  <entry key="item.tconstruct.Materials.TinNugget.name">锡粒</entry>
+  <entry key="item.tconstruct.Materials.AluminumNugget.name">铝粒</entry>
+  <entry key="item.tconstruct.Materials.EssenceCrystal.name">精华水晶</entry>
+  <entry key="item.tconstruct.Materials.AluBrassNugget.name">含铝黄铜粒</entry>
+  <entry key="item.tconstruct.Materials.SilkyCloth.name">绢布</entry>
+  <entry key="item.tconstruct.Materials.SilkyJewel.name">精致珠宝</entry>
+  <entry key="item.tconstruct.Materials.ObsidianNugget.name">黑曜石粒</entry>
+  <entry key="item.tconstruct.Materials.CobaltNugget.name">钴粒</entry>
+  <entry key="item.tconstruct.Materials.ArditeNugget.name">阿迪特粒</entry>
+  <entry key="item.tconstruct.Materials.ManyullynNugget.name">玛玉灵粒</entry>
+  <entry key="item.tconstruct.Materials.BronzeNugget.name">青铜粒</entry>
+  <entry key="item.tconstruct.Materials.AlumiteNugget.name">耐酸铝粒</entry>
+  <entry key="item.tconstruct.Materials.SteelNugget.name">钢粒</entry>
+  
+  <entry key="Smeltery.Controller.name">冶炼厂填料仓</entry>
+  <entry key="Smeltery.Drain.name">铸造盆</entry>
+  <entry key="Smeltery.Brick.name">冶炼炉砖</entry>
+  <entry key="Smeltery.Stone.name">焦黑石头</entry>
+  <entry key="Smeltery.Cobblestone.name">焦黑圆石</entry>
+  <entry key="Smeltery.Paver.name">焦黑盖板石</entry>
+  <entry key="Smeltery.Brick.Cracked.name">裂纹焦黑石砖</entry>
+  <entry key="Smeltery.Road.name">焦黑铺路石</entry>
+  <entry key="Smeltery.Brick.Fancy.name">平滑焦黑石砖</entry>
+  <entry key="Smeltery.Brick.Square.name">裂纹焦黑石砖</entry>
+  <entry key="Smeltery.Brick.Creeper.name">雕琢焦黑石砖</entry>
+  
+  <entry key="LavaTank.Tank.name">冶炼槽</entry>
+  <entry key="LavaTank.Gague.name">冶炼炉玻璃</entry>
+  <entry key="LavaTank.Window.name">冶炼炉视窗</entry>
+  
+  <entry key="block.drawbridge.name">造桥器</entry>
+  <entry key="block.firestarter.name">点火器</entry>
+  <entry key="tile.landmine.name">地雷</entry>
+  
+  <entry key="StorageMetals.Cobalt.name">钴方块</entry>
+  <entry key="StorageMetals.Ardite.name">阿迪特方块</entry>
+  <entry key="StorageMetals.Manyullyn.name">玛玉灵方块</entry>
+  <entry key="StorageMetals.Copper.name">铜方块</entry>
+  <entry key="StorageMetals.Bronze.name">青铜方块</entry>
+  <entry key="StorageMetals.Tin.name">锡方块</entry>
+  <entry key="StorageMetals.Aluminum.name">铝方块</entry>
+  <entry key="StorageMetals.AlBrass.name">含铝黄铜方块</entry>
+  <entry key="StorageMetals.Alumite.name">耐酸铝方块</entry>
+  <entry key="StorageMetals.Steel.name">钢方块</entry>
+  
+  <entry key="tile.decoration.stonetorch.name">石柄火把</entry>
+  
+  <entry key="block.glass.pure.name">澄澈玻璃</entry>
+  <entry key="block.glass.soul.name">灵魂玻璃</entry>
+  <entry key="block.glass.soul.pure.name">澄澈灵魂玻璃</entry>
+  
+  <entry key="block.glass.pure.pane.name">澄澈玻璃板</entry>
+  <entry key="block.glass.soul.pane.name">灵魂玻璃板</entry>
+  <entry key="block.glass.soul.pane.pure.name">澄澈灵魂玻璃板</entry>
+  
+  <entry key="block.stainedglass.white.name">白色强化玻璃</entry>
+  <entry key="block.stainedglass.orange.name">橙色强化玻璃</entry>
+  <entry key="block.stainedglass.magenta.name">品红色强化玻璃</entry>
+  <entry key="block.stainedglass.lightblue.name">浅蓝色强化玻璃</entry>
+  <entry key="block.stainedglass.yellow.name">黄色强化玻璃</entry>
+  <entry key="block.stainedglass.lime.name">柠檬色强化玻璃</entry>
+  <entry key="block.stainedglass.pink.name">粉色强化玻璃</entry>
+  <entry key="block.stainedglass.gray.name">灰色强化玻璃</entry>
+  <entry key="block.stainedglass.lightgray.name">浅灰色强化玻璃</entry>
+  <entry key="block.stainedglass.cyan.name">青色强化玻璃</entry>
+  <entry key="block.stainedglass.purple.name">紫色强化玻璃</entry>
+  <entry key="block.stainedglass.blue.name">蓝色强化玻璃</entry>
+  <entry key="block.stainedglass.brown.name">棕色强化玻璃</entry>
+  <entry key="block.stainedglass.green.name">绿色强化玻璃</entry>
+  <entry key="block.stainedglass.red.name">红色强化玻璃</entry>
+  <entry key="block.stainedglass.black.name">黑色强化玻璃</entry>
+  
+  <entry key="block.stainedglass.white.pane.name">白色强化玻璃板</entry>
+  <entry key="block.stainedglass.orange.pane.name">橙色强化玻璃板</entry>
+  <entry key="block.stainedglass.magenta.pane.name">品红色强化玻璃板</entry>
+  <entry key="block.stainedglass.lightblue.pane.name">浅蓝色强化玻璃板</entry>
+  <entry key="block.stainedglass.yellow.pane.name">黄色强化玻璃板</entry>
+  <entry key="block.stainedglass.lime.pane.name">柠檬色强化玻璃板</entry>
+  <entry key="block.stainedglass.pink.pane.name">粉色强化玻璃板</entry>
+  <entry key="block.stainedglass.gray.pane.name">灰色强化玻璃板</entry>
+  <entry key="block.stainedglass.lightgray.pane.name">浅灰色强化玻璃板</entry>
+  <entry key="block.stainedglass.cyan.pane.name">青色强化玻璃板</entry>
+  <entry key="block.stainedglass.purple.pane.name">紫色强化玻璃板</entry>
+  <entry key="block.stainedglass.blue.pane.name">蓝色强化玻璃板</entry>
+  <entry key="block.stainedglass.brown.pane.name">棕色强化玻璃板</entry>
+  <entry key="block.stainedglass.green.pane.name">绿色强化玻璃板</entry>
+  <entry key="block.stainedglass.red.pane.name">红色强化玻璃板</entry>
+  <entry key="block.stainedglass.black.pane.name">黑色强化玻璃板</entry>
+  
+  <entry key="block.searedstone.slab.brick.name">焦黑石砖台阶</entry>
+  <entry key="block.searedstone.slab.stone.name">焦黑石头台阶</entry>
+  <entry key="block.searedstone.slab.cobble.name">焦黑圆石台阶</entry>
+  <entry key="block.searedstone.slab.paver.name">焦黑垫脚石台阶</entry>
+  <entry key="block.searedstone.slab.road.name">焦黑铺路石台阶</entry>
+  <entry key="block.searedstone.slab.fancy.name">平滑焦黑石头台阶</entry>
+  <entry key="block.searedstone.slab.square.name">裂纹焦黑石头台阶</entry>
+  <entry key="block.searedstone.slab.creeper.name">雕琢焦黑石头台阶</entry>
+  
+  <entry key="block.soil.slab.dirt.name">泥土台阶</entry>
+  <entry key="block.soil.slab.mycelium.name">菌丝台阶</entry>
+  <entry key="block.soil.slab.slime.name">史莱姆台阶</entry>
+  <entry key="block.soil.slab.grout.name">水泥台阶</entry>
+  <entry key="block.soil.slab.blueslime.name">蓝史莱姆台阶</entry>
+  <entry key="block.soil.slab.graveyardsoil.name">黄泉土台阶</entry>
+  <entry key="block.soil.slab.consecratedsoil.name">混泥土台阶</entry>
+  
+  <entry key="item.tconstruct.storage.knapsack.name">背包</entry>  
+  <entry key="item.tconstruct.blankpattern.pattern.name">空白模具</entry>
+  <entry key="item.tconstruct.blankpattern.cast.name">空白铸形</entry>
+  
+  <entry key="item.tconstruct.Bowstring.string.name">弓弦</entry>
+  <entry key="item.tconstruct.Bowstring.enchantedfabric.name">附魔弓弦</entry>
+  <entry key="item.tconstruct.Fletching.feather.name">羽毛箭羽</entry>
+  <entry key="item.tconstruct.Fletching.leaf.name">树叶箭羽</entry>
+  <entry key="item.tconstruct.Fletching.slime.name">史莱姆箭羽</entry>
+  <entry key="item.tconstruct.Fletching.blueslime.name">蓝史莱姆箭羽</entry>
+  
+  <entry key="item.tconstruct.manual.beginner.name">匠魂宝典Ⅰ</entry>
+  <entry key="item.tconstruct.manual.toolstation.name">匠魂宝典Ⅱ</entry>
+  <entry key="item.tconstruct.manual.smeltery.name">冶炼秘术</entry>
+  
+  <entry key="item.tconstruct.bucket.Iron.name">桶装液态铁</entry>
+  <entry key="item.tconstruct.bucket.Gold.name">桶装液态黄金</entry>
+  <entry key="item.tconstruct.bucket.Copper.name">桶装液态铜</entry>
+  <entry key="item.tconstruct.bucket.Tin.name">桶装液态锡</entry>
+  <entry key="item.tconstruct.bucket.Aluminum.name">桶装液态铝</entry>
+  <entry key="item.tconstruct.bucket.Cobalt.name">桶装液态钴</entry>
+  <entry key="item.tconstruct.bucket.Ardite.name">桶装液态阿迪特</entry>
+  <entry key="item.tconstruct.bucket.Bronze.name">桶装液态青铜</entry>
+  <entry key="item.tconstruct.bucket.AluBrass.name">桶装液态含铝黄铜</entry>
+  <entry key="item.tconstruct.bucket.Manyullyn.name">桶装液态玛玉灵</entry>
+  <entry key="item.tconstruct.bucket.Alumite.name">桶装液态耐酸铝</entry>
+  <entry key="item.tconstruct.bucket.Obsidian.name">桶装液态黑曜石</entry>
+  <entry key="item.tconstruct.bucket.Steel.name">桶装液态钢</entry>
+  <entry key="item.tconstruct.bucket.Glass.name">桶装液态玻璃</entry>
+  <entry key="item.tconstruct.bucket.Stone.name">桶装熔融石头</entry>
+  <entry key="item.tconstruct.bucket.Villager.name">桶装液态绿宝石</entry>
+  <entry key="item.tconstruct.bucket.Cow.name">血桶</entry>
+  
+  <entry key="item.tconstruct.bowstring.string.name">弓弦</entry>
+  <entry key="item.tconstruct.bowstring.enchantedfabriI donc.name">附魔弓弦</entry>
+  
+  <entry key="LiquidMetal.Iron.name">液态铁</entry>
+  <entry key="LiquidMetal.Gold.name">液态黄金</entry>
+  <entry key="LiquidMetal.Copper.name">液态铜</entry>
+  <entry key="LiquidMetal.Tin.name">液态锡</entry>
+  <entry key="LiquidMetal.Aluminum.name">液态铝</entry>
+  <entry key="LiquidMetal.Cobalt.name">液态钴</entry>
+  <entry key="LiquidMetal.Ardite.name">液态阿迪特</entry>
+  <entry key="LiquidMetal.Bronze.name">液态青铜</entry>
+  <entry key="LiquidMetal.AluBrass.name">液态含铝黄铜</entry>
+  <entry key="LiquidMetal.Manyullyn.name">液态玛玉灵</entry>
+  <entry key="LiquidMetal.Alumite.name">液态耐酸铝</entry>
+  <entry key="LiquidMetal.Obsidian.name">液态黑曜石</entry>
+  <entry key="LiquidMetal.Steel.name">液态钢</entry>
+  <entry key="LiquidMetal.Glass.name">液态玻璃</entry>
+  <entry key="LiquidMetal.Stone.name">熔融石头</entry>
+  <entry key="LiquidMetal.Villager.name">液态绿宝石</entry>
+  <entry key="LiquidMetal.Cow.name">血</entry>
+  
+  <entry key="item.food.apple.diamond.name">宝石苹果</entry>
+  <entry key="item.tconstruct.strangefood.edibleslime.name">胶状黏液</entry>
+  <entry key="item.tconstruct.canister.empty.name">心之容器(空)</entry>
+  <entry key="item.tconstruct.canister.miniheart.red.name">微型红心</entry>
+  <entry key="item.tconstruct.canister.heart.name">心之容器</entry>
+  <entry key="item.tconstruct.glove.name">鼹鼠手套</entry>
+  
+  <entry key="SearedBlock.Table.name">浇注台</entry>
+  <entry key="SearedBlock.Faucet.name">浇注道</entry>
+  <entry key="SearedBlock.Basin.name">铸造盆</entry>
+  
+  <entry key="entity.TConstruct.EdibleSlime.name">蓝色史莱姆</entry>
+  <entry key="entity.TConstruct.KingSlime.name">史莱姆王</entry>
+  <entry key="entity.TConstruct.MiniGardy.name">史莱姆护卫</entry> 
+  
+  <entry key="key.tarmor">装备界面</entry>
+  
+  <entry key="death.one.smeltery">%1$s被加工成了"绿色食品"!</entry>
+  <entry key="death.two.smeltery">%1$s被冶炼炉融化了!</entry>
+  <entry key="death.three.smeltery">%1$s将成为我们革命的垫脚石!</entry>
+  <entry key="death.four.smeltery">%1$s认为在炽热的液体中游泳是个不错的注意!</entry>
+  
+  <entry key="death.attack.Landmine">%1$s眼看着他们的腿被炸飞了!</entry>
+  <entry key="death.fell.assist.Landmine">%1$s被地雷炸死了!</entry>
+  <entry key="death.attack.LandmineFireworkExplode">%1$s骑着烟花火箭飞上了西天!</entry>
+  
+  <entry key="parttype.Wood">木</entry>
+  <entry key="parttype.Stone">石</entry>
+  <entry key="parttype.Iron">铁</entry>
+  <entry key="parttype.Flint">燧石</entry>
+  <entry key="parttype.Cactus">仙人掌</entry>
+  <entry key="parttype.Bone">骨头</entry>
+  <entry key="parttype.Obsidian">黑曜石</entry>
+  <entry key="parttype.Slime">史莱姆</entry>
+  <entry key="parttype.Paper">纸</entry>
+  <entry key="parttype.Cobalt">钴</entry>
+  <entry key="parttype.Ardite">阿迪特</entry>
+  <entry key="parttype.Manyullyn">玛玉灵</entry>
+  <entry key="parttype.Copper">铜</entry>
+  <entry key="parttype.Bronze">青铜</entry>
+  <entry key="parttype.Alumite">耐酸铝</entry>
+  <entry key="parttype.Steel">钢</entry>
+  <entry key="parttype.BlueSlime">蓝色史莱姆</entry>
+  
+</properties>
