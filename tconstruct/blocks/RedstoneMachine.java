@@ -1,7 +1,5 @@
 package tconstruct.blocks;
 
-import static net.minecraftforge.common.ForgeDirection.UP;
-
 import java.util.List;
 
 import net.minecraft.block.Block;
@@ -11,7 +9,6 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -27,6 +24,8 @@ import tconstruct.library.TConstructRegistry;
 import tconstruct.library.blocks.InventoryBlock;
 import tconstruct.library.util.IActiveLogic;
 import tconstruct.library.util.IFacingLogic;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class RedstoneMachine extends InventoryBlock
 {
@@ -56,6 +55,25 @@ public class RedstoneMachine extends InventoryBlock
             }
         }
         return super.getLightValue(world, x, y, z);
+    }
+    
+    @Override
+    @SideOnly(Side.CLIENT)
+    public int colorMultiplier (IBlockAccess world, int x, int y, int z)
+    {
+        if (world.getBlockMetadata(x, y, z) == 0)
+        {
+            TileEntity logic = world.getBlockTileEntity(x, y, z);
+
+            if (logic != null && logic instanceof DrawbridgeLogic)
+            {
+                ItemStack stack = ((DrawbridgeLogic) logic).getStackInSlot(1);
+                if (stack != null && stack.itemID < 4096 && Block.blocksList[stack.itemID] != null)
+                    return Block.blocksList[stack.itemID].colorMultiplier(world, x, y, z);
+            }
+        }
+        
+        return 0xffffff;
     }
 
     @Override
@@ -187,7 +205,7 @@ public class RedstoneMachine extends InventoryBlock
     public boolean isFireSource (World world, int x, int y, int z, int metadata, ForgeDirection side)
     {
         if (metadata == 1)
-            return side == UP;
+            return side == ForgeDirection.UP;
         return false;
     }
 
