@@ -12,6 +12,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.Direction;
 import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -238,12 +239,6 @@ public class RedstoneMachine extends InventoryBlock
                     
         return false;
     }
-
-    @Override
-    public boolean canConnectRedstone (IBlockAccess world, int x, int y, int z, int side)
-    {
-        return true;
-    }
     
     /* Keep inventory */
     @Override
@@ -337,5 +332,12 @@ public class RedstoneMachine extends InventoryBlock
                 logic.setPlacementDirection(stack.getTagCompound().getByte("Placement"));
             }
         }
+    }
+
+    /* Redstone connections */
+
+    public boolean canConnectRedstone (IBlockAccess world, int x, int y, int z, int side)
+    {
+        return true;
     }
 }
