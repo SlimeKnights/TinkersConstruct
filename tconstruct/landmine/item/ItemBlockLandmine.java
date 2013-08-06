@@ -19,6 +19,7 @@ public class ItemBlockLandmine extends ItemBlock{
 
 	public ItemBlockLandmine(int par1) {
 		super(par1);
+		this.setHasSubtypes(true);
 	}
 
 	@Override
