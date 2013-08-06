@@ -153,9 +153,21 @@ public class DrawbridgeLogic extends InventoryLogic implements IFacingLogic, IAc
         }
         else
         {
-            if (keycode % 2 == 0)
+            if (keycode == 0) //Forward
             {
                 fakePlayer.rotationYaw = mapDirection() * 90;
+
+                if (keycode == 0)
+                    fakePlayer.rotationPitch = 90;
+                else
+                    fakePlayer.rotationPitch = -90;
+            }
+            else if (keycode == 2) //Backward
+            {
+                int face = mapDirection() + 2;
+                if (face > 3)
+                    face -= 4;
+                fakePlayer.rotationYaw = face * 90;
 
                 if (keycode == 0)
                     fakePlayer.rotationPitch = 90;
@@ -416,7 +428,7 @@ public class DrawbridgeLogic extends InventoryLogic implements IFacingLogic, IAc
         }
         if (type == 3)
         {
-            return true; //TODO: rotational metadata
+            return true; //TODO: rotational metadata, probably not needed anymore
         }
         if (type == 4)
         {

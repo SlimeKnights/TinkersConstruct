@@ -28,6 +28,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.Direction;
 import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -229,7 +230,22 @@ public class RedstoneMachine extends InventoryBlock
     public void onNeighborBlockChange (World world, int x, int y, int z, int neighborBlockID)
     {
         IActiveLogic logic = (IActiveLogic) world.getBlockTileEntity(x, y, z);
-        logic.setActive(world.isBlockIndirectlyGettingPowered(x, y, z));
+        logic.setActive(world.isBlockIndirectlyGettingPowered(x, y, z) || activeNearbyRedstone(world, x, y, z));
+        //logic.setActive(isAnyPowered(world, x, y, z));
+    }
+
+    boolean activeNearbyRedstone (World world, int x, int y, int z)
+    {
+        return activeRedstone(world, x + 1, y, z) || activeRedstone(world, x - 1, y, z) || activeRedstone(world, x, y, z+1) || activeRedstone(world, x, y, z-1);
+    }
+
+    boolean activeRedstone (World world, int x, int y, int z)
+    {
+        Block wire = Block.blocksList[world.getBlockId(x, y, z)];
+        if (wire != null && wire.blockID == Block.redstoneWire.blockID)
+            return world.getBlockMetadata(x, y, z) > 0;
+                    
+        return false;
     }
 
     /* Keep inventory */
@@ -322,5 +338,12 @@ public class RedstoneMachine extends InventoryBlock
                 logic.setPlacementDirection(stack.getTagCompound().getByte("Placement"));
             }
         }
+    }
+
+    /* Redstone connections */
+
+    public boolean canConnectRedstone (IBlockAccess world, int x, int y, int z, int side)
+    {
+        return true;
     }
 }
