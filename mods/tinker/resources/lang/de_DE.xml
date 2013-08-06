@@ -133,6 +133,8 @@
   <entry key="item.tconstruct.Materials.AluminumNugget.name">Aluminiumklumpen</entry>
   <entry key="item.tconstruct.Materials.EssenceCrystal.name">Essenzkristall</entry>
   <entry key="item.tconstruct.Materials.AluBrassNugget.name">Duraluminiumklumpen</entry>
+  <entry key="item.tconstruct.Materials.SilkyCloth.name">Seide</entry>
+  <entry key="item.tconstruct.Materials.SilkyJewel.name">Seidiger Edelstein</entry>
   <entry key="item.tconstruct.Materials.ObsidianNugget.name">Obsidianklumpen</entry>
   <entry key="item.tconstruct.Materials.CobaltNugget.name">Cobaltklumpen</entry>
   <entry key="item.tconstruct.Materials.ArditeNugget.name">Arditklumpen</entry>
@@ -140,8 +142,6 @@
   <entry key="item.tconstruct.Materials.BronzeNugget.name">Bronzeklumpen</entry>
   <entry key="item.tconstruct.Materials.AlumiteNugget.name">Alumitklumpen</entry>
   <entry key="item.tconstruct.Materials.SteelNugget.name">Stahlklumpen</entry>
-  <entry key="item.tconstruct.Materials.SilkyCloth.name">Seide</entry>
-  <entry key="item.tconstruct.Materials.SilkyJewel.name">Seidiger Edelstein</entry>
 
   <entry key="Smeltery.Controller.name">Schmelzereikern</entry>
   <entry key="Smeltery.Drain.name">Schmelzereiausguss</entry>
@@ -162,6 +162,11 @@
   <entry key="block.drawbridge.name">Zugbrücke</entry>
   <entry key="block.firestarter.name">Feuerzeug</entry>
   <entry key="tile.landmine.name">Landmine</entry>
+  <entry key="tile.trap.punji.name">Punji-Stab</entry>
+  <entry key="tile.trap.barricade.oak.name">Eichen-Barrikade</entry>
+  <entry key="tile.trap.barricade.spruce.name">Fichten-Barrikade</entry>
+  <entry key="tile.trap.barricade.birch.name">Birken-Barrikade</entry>
+  <entry key="tile.trap.barricade.jungle.name">Tropen-Barrikade</entry>
 
   <entry key="StorageMetals.Cobalt.name">Cobaltblock</entry>
   <entry key="StorageMetals.Ardite.name">Arditblock</entry>
@@ -175,6 +180,7 @@
   <entry key="StorageMetals.Steel.name">Stahlblock</entry>
 
   <entry key="tile.decoration.stonetorch.name">Fackel</entry>
+  <entry key="tile.CraftingStation.name">Handwerksstation</entry>
 
   <entry key="block.glass.pure.name">Klares Glas</entry>
   <entry key="block.glass.soul.name">Seelenglas</entry>
@@ -302,7 +308,7 @@
 
   <entry key="entity.TConstruct.EdibleSlime.name">Blauer Schleim</entry>
   <entry key="entity.TConstruct.KingSlime.name">Königsschleim</entry>
-  <entry key="entity.TConstruct.MiniGardy.name">Schutzschleim</entry>
+  <entry key="entity.TConstruct.Gardeslime.name">Schutzschleim</entry>
 
   <entry key="key.tarmor">Rüstungs-GUI</entry>
 
