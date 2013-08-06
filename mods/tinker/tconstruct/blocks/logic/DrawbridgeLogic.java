@@ -37,9 +37,9 @@ public class DrawbridgeLogic extends InventoryLogic implements IFacingLogic, IAc
     {
         super(2);
     }
-    
+
     @Override
-    public void setWorldObj(World par1World)
+    public void setWorldObj (World par1World)
     {
         this.worldObj = par1World;
         fakePlayer = new FakePlayerLogic(worldObj, "Player.Drawbridge", this);
@@ -114,14 +114,14 @@ public class DrawbridgeLogic extends InventoryLogic implements IFacingLogic, IAc
             }
         }
     }
-    
+
     /* 0 = Up
      * 1 = Right
      * 2 = Down
      * 3 = Left
      * 4 = Center, neutral
      */
-    public void setPlacementDirection(byte keycode)
+    public void setPlacementDirection (byte keycode)
     {
         if (keycode == 4)
         {
@@ -132,13 +132,20 @@ public class DrawbridgeLogic extends InventoryLogic implements IFacingLogic, IAc
         {
             switch (keycode)
             {
-            case 0: fakePlayer.rotationYaw = 0; break;
-            case 1: fakePlayer.rotationYaw = 90; break;
-            case 2: fakePlayer.rotationYaw = 180; break;
-            case 3: fakePlayer.rotationYaw = 270; break;
+            case 0:
+                fakePlayer.rotationYaw = 0;
+                break;
+            case 1:
+                fakePlayer.rotationYaw = 90;
+                break;
+            case 2:
+                fakePlayer.rotationYaw = 180;
+                break;
+            case 3:
+                fakePlayer.rotationYaw = 270;
+                break;
             }
-            
-            
+
             if (this.direction == 0)
                 fakePlayer.rotationPitch = -90;
             else
@@ -149,7 +156,7 @@ public class DrawbridgeLogic extends InventoryLogic implements IFacingLogic, IAc
             if (keycode % 2 == 0)
             {
                 fakePlayer.rotationYaw = mapDirection() * 90;
-                
+
                 if (keycode == 0)
                     fakePlayer.rotationPitch = 90;
                 else
@@ -158,25 +165,25 @@ public class DrawbridgeLogic extends InventoryLogic implements IFacingLogic, IAc
             else
             {
                 fakePlayer.rotationPitch = 0;
-                
+
                 int facing = mapDirection();
                 if (keycode == 1)
                     facing += 1;
                 else
                     facing -= 1;
-                
+
                 if (facing >= 4)
                     facing = 0;
                 if (facing < 0)
                     facing = 3;
-                
+
                 fakePlayer.rotationYaw = facing * 90;
             }
-        } 
+        }
         placementDirection = keycode;
     }
-    
-    int mapDirection()
+
+    int mapDirection ()
     {
         if (this.direction == 2) //North
             return 0;
@@ -184,11 +191,11 @@ public class DrawbridgeLogic extends InventoryLogic implements IFacingLogic, IAc
             return 1;
         if (this.direction == 3) //South
             return 2;
-        
+
         return 3; //West
     }
-    
-    public byte getFacingDirection()
+
+    public byte getPlacementDirection ()
     {
         return placementDirection;
     }
@@ -331,8 +338,8 @@ public class DrawbridgeLogic extends InventoryLogic implements IFacingLogic, IAc
                             if (inventory[0] != null && validBlock(block) && validMetadata(block.blockID, meta))
                             {
                                 worldObj.playSoundEffect((double) xPos + 0.5D, (double) yPos + 0.5D, (double) zPos + 0.5D, "tile.piston.in", 0.25F, worldObj.rand.nextFloat() * 0.15F + 0.6F);
-                                worldObj.setBlock(xPos, yPos, zPos, 0);
-                                inventory[0].stackSize++;
+                                if (worldObj.setBlock(xPos, yPos, zPos, 0))
+                                    inventory[0].stackSize++;
                             }
                             else
                             {
@@ -359,20 +366,20 @@ public class DrawbridgeLogic extends InventoryLogic implements IFacingLogic, IAc
      * @param player The player who is placing the block. Can be null if the block is not being placed by a player.
      * @param side The side the player (or machine) right-clicked on.
      */
-    public boolean placeBlockAt(ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int metadata, Block block)
+    public boolean placeBlockAt (ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int metadata, Block block)
     {
-       if (!world.setBlock(x, y, z, block.blockID, metadata, 3))
-       {
-           return false;
-       }
+        if (!world.setBlock(x, y, z, block.blockID, metadata, 3))
+        {
+            return false;
+        }
 
-       if (world.getBlockId(x, y, z) == block.blockID)
-       {
-           block.onBlockPlacedBy(world, x, y, z, player, stack);
-           block.onPostBlockPlaced(world, x, y, z, metadata);
-       }
+        if (world.getBlockId(x, y, z) == block.blockID)
+        {
+            block.onBlockPlacedBy(world, x, y, z, player, stack);
+            block.onPostBlockPlaced(world, x, y, z, metadata);
+        }
 
-       return true;
+        return true;
     }
 
     boolean validBlock (Block block)
@@ -421,7 +428,7 @@ public class DrawbridgeLogic extends InventoryLogic implements IFacingLogic, IAc
         }
         return false;
     }
-    
+
     @Override
     public void readFromNBT (NBTTagCompound tags)
     {
@@ -452,7 +459,7 @@ public class DrawbridgeLogic extends InventoryLogic implements IFacingLogic, IAc
     {
         tags.setByte("Direction", direction);
         tags.setByte("Placement", placementDirection);
-        
+
     }
 
     /* Packets */
@@ -475,10 +482,11 @@ public class DrawbridgeLogic extends InventoryLogic implements IFacingLogic, IAc
     {
         return extension != 0;
     }
-    
+
     @Override
-	public void onInventoryChanged() {
-		super.onInventoryChanged();
-		this.worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-	}
+    public void onInventoryChanged ()
+    {
+        super.onInventoryChanged();
+        this.worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+    }
 }

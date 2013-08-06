@@ -51,23 +51,23 @@ public class DrawbridgeGui extends GuiContainer
 
         this.buttonList.clear();
         GuiButton button = new DrawbridgeButton(0, cornerX + 131, cornerY + 18, 176, 0, 21, 22);
-        if (logic.getFacingDirection() == 0)
+        if (logic.getPlacementDirection() == 0)
             button.enabled = false;
         this.buttonList.add(button);
         button = new DrawbridgeButton(1, cornerX + 146, cornerY + 34, 199, 23, 22, 21);
-        if (logic.getFacingDirection() == 1)
+        if (logic.getPlacementDirection() == 1)
             button.enabled = false;
         this.buttonList.add(button);
         button = new DrawbridgeButton(2, cornerX + 132, cornerY + 48, 199, 0, 21, 22);
-        if (logic.getFacingDirection() == 2)
+        if (logic.getPlacementDirection() == 2)
             button.enabled = false;
         this.buttonList.add(button);
         button = new DrawbridgeButton(3, cornerX + 117, cornerY + 34, 178, 23, 22, 21);
-        if (logic.getFacingDirection() == 3)
+        if (logic.getPlacementDirection() == 3)
             button.enabled = false;
         this.buttonList.add(button);
         button = new DrawbridgeButton(4, cornerX + 135, cornerY + 40, 217, 0, 10, 10);
-        if (logic.getFacingDirection() == 4)
+        if (logic.getPlacementDirection() == 4)
             button.enabled = false;
         this.buttonList.add(button);
     }

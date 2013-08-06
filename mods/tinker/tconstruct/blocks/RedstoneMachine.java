@@ -63,7 +63,7 @@ public class RedstoneMachine extends InventoryBlock
         }
         return super.getLightValue(world, x, y, z);
     }
-    
+
     @Override
     @SideOnly(Side.CLIENT)
     public int colorMultiplier (IBlockAccess world, int x, int y, int z)
@@ -79,7 +79,7 @@ public class RedstoneMachine extends InventoryBlock
                     return Block.blocksList[stack.itemID].colorMultiplier(world, x, y, z);
             }
         }
-        
+
         return 0xffffff;
     }
 
@@ -242,7 +242,7 @@ public class RedstoneMachine extends InventoryBlock
             ItemStack stack = new ItemStack(this.blockID, 1, meta);
             DrawbridgeLogic logic = (DrawbridgeLogic) world.getBlockTileEntity(x, y, z);
             NBTTagCompound tag = new NBTTagCompound();
-            
+
             boolean hasTag = false;
             ItemStack contents = logic.getStackInSlot(0);
             if (contents != null)
@@ -252,7 +252,7 @@ public class RedstoneMachine extends InventoryBlock
                 tag.setCompoundTag("Contents", contentTag);
                 hasTag = true;
             }
-            
+
             ItemStack camo = logic.getStackInSlot(1);
             if (camo != null)
             {
@@ -261,9 +261,15 @@ public class RedstoneMachine extends InventoryBlock
                 tag.setCompoundTag("Camoflauge", camoTag);
                 hasTag = true;
             }
+
+            if (logic.getPlacementDirection() != 4)
+            {
+                tag.setByte("Placement", logic.getPlacementDirection());
+                hasTag = true;
+            }
             if (hasTag == true)
                 stack.setTagCompound(tag);
-            
+
             dropDrawbridgeLogic(world, x, y, z, stack);
         }
 
@@ -296,20 +302,24 @@ public class RedstoneMachine extends InventoryBlock
         super.onBlockPlacedBy(world, x, y, z, living, stack);
         if (stack.hasTagCompound())
         {
+            DrawbridgeLogic logic = (DrawbridgeLogic) world.getBlockTileEntity(x, y, z);
             NBTTagCompound contentTag = stack.getTagCompound().getCompoundTag("Contents");
             if (contentTag != null)
             {
-                DrawbridgeLogic logic = (DrawbridgeLogic) world.getBlockTileEntity(x, y, z);
                 ItemStack contents = ItemStack.loadItemStackFromNBT(contentTag);
                 logic.setInventorySlotContents(0, contents);
             }
-            
+
             NBTTagCompound camoTag = stack.getTagCompound().getCompoundTag("Camoflauge");
             if (camoTag != null)
             {
-                DrawbridgeLogic logic = (DrawbridgeLogic) world.getBlockTileEntity(x, y, z);
                 ItemStack camoflauge = ItemStack.loadItemStackFromNBT(camoTag);
                 logic.setInventorySlotContents(1, camoflauge);
+            }
+
+            if (stack.getTagCompound().hasKey("Placement"))
+            {
+                logic.setPlacementDirection(stack.getTagCompound().getByte("Placement"));
             }
         }
     }

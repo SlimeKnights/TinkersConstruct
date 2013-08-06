@@ -51,6 +51,24 @@ public class RedstoneMachineItem extends ItemBlock
                 if (camo != null)
                     list.add("Camoflauge: " + camo.getDisplayName());
             }
+
+            if (stack.getTagCompound().hasKey("Placement"))
+            {
+                String string = getDirectionString(stack.getTagCompound().getByte("Placement"));
+                list.add("Placement Direction: " + string);
+            }
         }
+    }
+    
+    String getDirectionString(byte key)
+    {
+        if (key == 0)
+            return ("Up");
+        if (key == 1)
+            return ("Right");
+        if (key == 2)
+            return ("Down");
+        
+        return "Left";
     }
 }
