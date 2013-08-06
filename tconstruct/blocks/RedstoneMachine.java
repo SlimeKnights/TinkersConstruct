@@ -56,7 +56,7 @@ public class RedstoneMachine extends InventoryBlock
         }
         return super.getLightValue(world, x, y, z);
     }
-    
+
     @Override
     @SideOnly(Side.CLIENT)
     public int colorMultiplier (IBlockAccess world, int x, int y, int z)
@@ -72,7 +72,7 @@ public class RedstoneMachine extends InventoryBlock
                     return Block.blocksList[stack.itemID].colorMultiplier(world, x, y, z);
             }
         }
-        
+
         return 0xffffff;
     }
 

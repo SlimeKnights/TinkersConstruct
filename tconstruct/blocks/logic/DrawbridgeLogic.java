@@ -34,6 +34,7 @@ public class DrawbridgeLogic extends InventoryLogic implements IFacingLogic, IAc
     {
         super(2);
     }
+
     @Override
     public void setWorldObj (World par1World)
     {
@@ -110,14 +111,14 @@ public class DrawbridgeLogic extends InventoryLogic implements IFacingLogic, IAc
             }
         }
     }
-    
+
     /* 0 = Up
      * 1 = Right
      * 2 = Down
      * 3 = Left
      * 4 = Center, neutral
      */
-    public void setPlacementDirection(byte keycode)
+    public void setPlacementDirection (byte keycode)
     {
         if (keycode == 4)
         {
@@ -128,13 +129,20 @@ public class DrawbridgeLogic extends InventoryLogic implements IFacingLogic, IAc
         {
             switch (keycode)
             {
-            case 0: fakePlayer.rotationYaw = 0; break;
-            case 1: fakePlayer.rotationYaw = 90; break;
-            case 2: fakePlayer.rotationYaw = 180; break;
-            case 3: fakePlayer.rotationYaw = 270; break;
+            case 0:
+                fakePlayer.rotationYaw = 0;
+                break;
+            case 1:
+                fakePlayer.rotationYaw = 90;
+                break;
+            case 2:
+                fakePlayer.rotationYaw = 180;
+                break;
+            case 3:
+                fakePlayer.rotationYaw = 270;
+                break;
             }
-            
-            
+
             if (this.direction == 0)
                 fakePlayer.rotationPitch = -90;
             else
@@ -145,7 +153,7 @@ public class DrawbridgeLogic extends InventoryLogic implements IFacingLogic, IAc
             if (keycode % 2 == 0)
             {
                 fakePlayer.rotationYaw = mapDirection() * 90;
-                
+
                 if (keycode == 0)
                     fakePlayer.rotationPitch = 90;
                 else
@@ -154,25 +162,25 @@ public class DrawbridgeLogic extends InventoryLogic implements IFacingLogic, IAc
             else
             {
                 fakePlayer.rotationPitch = 0;
-                
+
                 int facing = mapDirection();
                 if (keycode == 1)
                     facing += 1;
                 else
                     facing -= 1;
-                
+
                 if (facing >= 4)
                     facing = 0;
                 if (facing < 0)
                     facing = 3;
-                
+
                 fakePlayer.rotationYaw = facing * 90;
             }
-        } 
+        }
         placementDirection = keycode;
     }
-    
-    int mapDirection()
+
+    int mapDirection ()
     {
         if (this.direction == 2) //North
             return 0;
@@ -180,13 +188,8 @@ public class DrawbridgeLogic extends InventoryLogic implements IFacingLogic, IAc
             return 1;
         if (this.direction == 3) //South
             return 2;
-        
+
         return 3; //West
-    }
-    
-    public byte getFacingDirection()
-    {
-        return placementDirection;
     }
 
     public byte getPlacementDirection ()
