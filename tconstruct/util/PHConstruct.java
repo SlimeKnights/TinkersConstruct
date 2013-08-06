@@ -132,8 +132,6 @@ public class PHConstruct
         moltenStone = config.getBlock("Molten Stone", 3215).getInt(3215);
         moltenEmerald = config.getBlock("Molten Emerald", 3216).getInt(3216);
         blood = config.getBlock("Liquid Cow", 3217).getInt(3217);
-        moltenSilver = config.getBlock("Molten Silver", 3218).getInt(3218);
-        moltenLead = config.getBlock("Molten Lead", 3219).getInt(3219);
 
         aggregator = config.getBlock("Aggregator", 3221).getInt(3221);
         lightCrystalBase = config.getBlock("Light Crystal", 3222).getInt(3222);
