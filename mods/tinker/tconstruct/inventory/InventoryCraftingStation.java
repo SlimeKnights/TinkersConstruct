@@ -43,7 +43,7 @@ public class InventoryCraftingStation extends InventoryCrafting
         if (row >= 0 && row < this.inventoryWidth)
         {
             int k = row + column * this.inventoryWidth;
-            return this.getStackInSlot(k+1);
+            return this.getStackInSlot(k);
         }
         else
         {
@@ -73,7 +73,6 @@ public class InventoryCraftingStation extends InventoryCrafting
     @Override
     public ItemStack decrStackSize(int slotID, int par2)
     {
-        System.out.println("Crafting slot: "+slotID);
         ItemStack stack = logic.getStackInSlot(slotID+1);
         if (stack != null)
         {

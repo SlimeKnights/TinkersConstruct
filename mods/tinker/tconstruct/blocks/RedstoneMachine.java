@@ -4,9 +4,13 @@ import static net.minecraftforge.common.ForgeDirection.UP;
 
 import java.util.List;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 import mods.tinker.tconstruct.TConstruct;
 import mods.tinker.tconstruct.blocks.logic.DrawbridgeLogic;
 import mods.tinker.tconstruct.blocks.logic.FirestarterLogic;
+import mods.tinker.tconstruct.blocks.logic.LavaTankLogic;
 import mods.tinker.tconstruct.client.block.MachineRender;
 import mods.tinker.tconstruct.library.TConstructRegistry;
 import mods.tinker.tconstruct.library.blocks.InventoryBlock;
@@ -17,14 +21,18 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.liquids.LiquidStack;
 
 public class RedstoneMachine extends InventoryBlock
 {
@@ -54,6 +62,25 @@ public class RedstoneMachine extends InventoryBlock
             }
         }
         return super.getLightValue(world, x, y, z);
+    }
+    
+    @Override
+    @SideOnly(Side.CLIENT)
+    public int colorMultiplier (IBlockAccess world, int x, int y, int z)
+    {
+        if (world.getBlockMetadata(x, y, z) == 0)
+        {
+            TileEntity logic = world.getBlockTileEntity(x, y, z);
+
+            if (logic != null && logic instanceof DrawbridgeLogic)
+            {
+                ItemStack stack = ((DrawbridgeLogic) logic).getStackInSlot(1);
+                if (stack != null && stack.itemID < 4096 && Block.blocksList[stack.itemID] != null)
+                    return Block.blocksList[stack.itemID].colorMultiplier(world, x, y, z);
+            }
+        }
+        
+        return 0xffffff;
     }
 
     @Override
@@ -203,5 +230,87 @@ public class RedstoneMachine extends InventoryBlock
     {
         IActiveLogic logic = (IActiveLogic) world.getBlockTileEntity(x, y, z);
         logic.setActive(world.isBlockIndirectlyGettingPowered(x, y, z));
+    }
+
+    /* Keep inventory */
+    public boolean removeBlockByPlayer (World world, EntityPlayer player, int x, int y, int z)
+    {
+        player.addExhaustion(0.025F);
+        int meta = world.getBlockMetadata(x, y, z);
+        if (meta == 0)
+        {
+            ItemStack stack = new ItemStack(this.blockID, 1, meta);
+            DrawbridgeLogic logic = (DrawbridgeLogic) world.getBlockTileEntity(x, y, z);
+            NBTTagCompound tag = new NBTTagCompound();
+            
+            boolean hasTag = false;
+            ItemStack contents = logic.getStackInSlot(0);
+            if (contents != null)
+            {
+                NBTTagCompound contentTag = new NBTTagCompound();
+                contents.writeToNBT(contentTag);
+                tag.setCompoundTag("Contents", contentTag);
+                hasTag = true;
+            }
+            
+            ItemStack camo = logic.getStackInSlot(1);
+            if (camo != null)
+            {
+                NBTTagCompound camoTag = new NBTTagCompound();
+                camo.writeToNBT(camoTag);
+                tag.setCompoundTag("Camoflauge", camoTag);
+                hasTag = true;
+            }
+            if (hasTag == true)
+                stack.setTagCompound(tag);
+            
+            dropDrawbridgeLogic(world, x, y, z, stack);
+        }
+
+        return world.setBlockToAir(x, y, z);
+    }
+
+    protected void dropDrawbridgeLogic (World world, int x, int y, int z, ItemStack stack)
+    {
+        if (!world.isRemote && world.getGameRules().getGameRuleBooleanValue("doTileDrops"))
+        {
+            float f = 0.7F;
+            double d0 = (double) (world.rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
+            double d1 = (double) (world.rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
+            double d2 = (double) (world.rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
+            EntityItem entityitem = new EntityItem(world, (double) x + d0, (double) y + d1, (double) z + d2, stack);
+            entityitem.delayBeforeCanPickup = 10;
+            world.spawnEntityInWorld(entityitem);
+        }
+    }
+
+    public void harvestBlock (World world, EntityPlayer player, int x, int y, int z, int meta)
+    {
+        if (meta != 0)
+            super.harvestBlock(world, player, x, y, z, meta);
+    }
+
+    @Override
+    public void onBlockPlacedBy (World world, int x, int y, int z, EntityLiving living, ItemStack stack)
+    {
+        super.onBlockPlacedBy(world, x, y, z, living, stack);
+        if (stack.hasTagCompound())
+        {
+            NBTTagCompound contentTag = stack.getTagCompound().getCompoundTag("Contents");
+            if (contentTag != null)
+            {
+                DrawbridgeLogic logic = (DrawbridgeLogic) world.getBlockTileEntity(x, y, z);
+                ItemStack contents = ItemStack.loadItemStackFromNBT(contentTag);
+                logic.setInventorySlotContents(0, contents);
+            }
+            
+            NBTTagCompound camoTag = stack.getTagCompound().getCompoundTag("Camoflauge");
+            if (camoTag != null)
+            {
+                DrawbridgeLogic logic = (DrawbridgeLogic) world.getBlockTileEntity(x, y, z);
+                ItemStack camoflauge = ItemStack.loadItemStackFromNBT(camoTag);
+                logic.setInventorySlotContents(1, camoflauge);
+            }
+        }
     }
 }

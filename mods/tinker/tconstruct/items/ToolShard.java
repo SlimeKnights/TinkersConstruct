@@ -25,7 +25,10 @@ public class ToolShard extends ToolPart
     {
         String[] names = new String[toolMaterialNames.length];
         for (int i = 0; i < toolMaterialNames.length; i++)
-            names[i] = toolTextureNames[i] + textureType;
+        {
+            if (!toolTextureNames[i].equals(""))
+                names[i] = toolTextureNames[i] + textureType;
+        }
         return names;
     }
 
@@ -46,7 +49,8 @@ public class ToolShard extends ToolPart
         icons[9] = icons[8];
         for (int i = 10; i < icons.length; ++i)
         {
-            this.icons[i] = iconRegister.registerIcon("tinker:" + folder + textureNames[i]);
+            if (!toolTextureNames[i].equals(""))
+                this.icons[i] = iconRegister.registerIcon("tinker:" + folder + textureNames[i]);
         }
     }
 

@@ -3,16 +3,22 @@ package mods.tinker.tconstruct.blocks;
 import java.util.List;
 
 import mods.tinker.tconstruct.blocks.logic.LavaTankLogic;
+import mods.tinker.tconstruct.blocks.logic.PatternChestLogic;
 import mods.tinker.tconstruct.client.block.TankRender;
+import mods.tinker.tconstruct.common.TContent;
 import mods.tinker.tconstruct.library.TConstructRegistry;
 import mods.tinker.tconstruct.library.util.IServantLogic;
+import mods.tinker.tconstruct.util.PHConstruct;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
@@ -230,6 +236,60 @@ public class LavaTankBlock extends BlockContainer
     public int damageDropped (int meta)
     {
         return meta;
+    }
+
+    public boolean removeBlockByPlayer(World world, EntityPlayer player, int x, int y, int z)
+    {
+        player.addExhaustion(0.025F);
+        int meta = world.getBlockMetadata(x, y, z);
+        ItemStack stack = new ItemStack(this.blockID, 1, meta);
+        LavaTankLogic logic = (LavaTankLogic) world.getBlockTileEntity(x, y, z);
+        LiquidStack liquid = logic.tank.getLiquid();
+        if (liquid != null)
+        {
+            NBTTagCompound tag = new NBTTagCompound();
+            NBTTagCompound liquidTag = new NBTTagCompound();
+            liquid.writeToNBT(liquidTag);
+            tag.setCompoundTag("Liquid", liquidTag);
+            stack.setTagCompound(tag);
+        }
+        dropTankBlock(world, x, y, z, stack);
+        
+        return world.setBlockToAir(x, y, z);
+    }
+    
+    protected void dropTankBlock(World world, int x, int y, int z, ItemStack stack)
+    {
+        if (!world.isRemote && world.getGameRules().getGameRuleBooleanValue("doTileDrops"))
+        {
+            float f = 0.7F;
+            double d0 = (double)(world.rand.nextFloat() * f) + (double)(1.0F - f) * 0.5D;
+            double d1 = (double)(world.rand.nextFloat() * f) + (double)(1.0F - f) * 0.5D;
+            double d2 = (double)(world.rand.nextFloat() * f) + (double)(1.0F - f) * 0.5D;
+            EntityItem entityitem = new EntityItem(world, (double)x + d0, (double)y + d1, (double)z + d2, stack);
+            entityitem.delayBeforeCanPickup = 10;
+            world.spawnEntityInWorld(entityitem);
+        }
+    }
+    
+    public void harvestBlock(World par1World, EntityPlayer par2EntityPlayer, int par3, int par4, int par5, int par6)
+    {
+        
+    }
+
+    @Override
+    public void onBlockPlacedBy (World world, int x, int y, int z, EntityLiving living, ItemStack stack)
+    {
+        if (stack.hasTagCompound())
+        {
+            NBTTagCompound liquidTag = stack.getTagCompound().getCompoundTag("Liquid");
+            if (liquidTag != null)
+            {
+                LiquidStack liquid = LiquidStack.loadLiquidStackFromNBT(liquidTag);
+                LavaTankLogic logic = (LavaTankLogic) world.getBlockTileEntity(x, y, z);
+                logic.tank.setLiquid(liquid);
+            }
+        }
     }
 
     /* Updates */

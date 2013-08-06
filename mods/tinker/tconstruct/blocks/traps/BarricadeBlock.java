@@ -6,6 +6,7 @@ import mods.tinker.tconstruct.client.block.BarricadeRender;
 import mods.tinker.tconstruct.library.TConstructRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -33,6 +34,12 @@ public class BarricadeBlock extends Block
     public Icon getIcon (int side, int meta)
     {
         return modelBlock.getIcon(2, modelMeta);
+    }
+    
+    @Override
+    public void registerIcons(IconRegister par1IconRegister)
+    {
+        
     }
 
     public boolean renderAsNormalBlock ()
