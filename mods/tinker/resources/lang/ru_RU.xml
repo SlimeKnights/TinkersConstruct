@@ -1,0 +1,334 @@
+<?xml version="1.0"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties version = "1.0">
+  <entry key="itemGroup.TConstructTools">TConstruct инструменты</entry>
+  <entry key="itemGroup.TConstructMaterials">TConstruct материалы</entry>
+  <entry key="itemGroup.TConstructBlocks">TConstruct блоки</entry>
+  
+  <entry key="crafters.ToolStation">Инструментальная станция</entry>
+  <entry key="crafters.ToolForge">Инструментальная кузница</entry>
+  <entry key="crafters.PartBuilder">Создатель деталей</entry>
+  <entry key="crafters.PatternShaper">Трафаретный стол</entry>
+  <entry key="inventory.PatternChest">Сундук со схемами</entry>
+  <entry key="crafters.Smeltery">Плавильня</entry>
+  <entry key="crafters.Frypan">Сковорода</entry>
+  <entry key="inventory.knapsack">Ранец</entry>
+  
+  <entry key="ToolStation.Crafter.name">Инструментальная станция</entry>
+  <entry key="ToolStation.Parts.name">Создатель деталей</entry>
+  <entry key="ToolStation.PatternChest.name">Сундук со схемами</entry>
+  <entry key="ToolStation.PatternShaper.name">Трафаретный стол/entry>
+  <entry key="ToolStation.CastingTable.name">Литейный стол</entry>
+  
+  <entry key="tile.ToolForge.name">Инструментальная кузница</entry>
+  <entry key="tile.Armor.DryingRack.name">Штатив для сушки</entry>
+  <entry key="CraftedSoil.Slime.name">Слизистая грязь</entry>
+  <entry key="CraftedSoil.Grout.name">Осадок</entry>
+  <entry key="CraftedSoil.BlueSlime.name">Слизистая грязь</entry>
+  <entry key="CraftedSoil.GraveyardSoil.name">Кладбищенская почва</entry>
+  <entry key="CraftedSoil.ConsecratedSoil.name">Священная почва</entry>
+  
+  <entry key="MetalOre.NetherSlag.name">Адская окалина</entry>
+  <entry key="MetalOre.Cobalt.name">Кобальтовая руда</entry>
+  <entry key="MetalOre.Ardite.name">Ардитовая руда</entry>
+  <entry key="MetalOre.Copper.name">Медная руда</entry>
+  <entry key="MetalOre.Tin.name">Оловянная руда</entry>
+  <entry key="MetalOre.Aluminum.name">Алюминиевая руда</entry>
+  <entry key="MetalOre.Slag.name">Каменная окалина</entry>
+  
+  <entry key="block.oreberry.iron.name">Железный рудный куст</entry>
+  <entry key="block.oreberry.gold.name">Золотой рудный куст</entry>
+  <entry key="block.oreberry.copper.name">Медный рудный куст</entry>
+  <entry key="block.oreberry.tin.name">Оловянный рудный куст</entry>
+  <entry key="block.oreberry.aluminum.name">Алюминиевый рудный куст</entry>
+  <entry key="block.oreberry.essence.name">Куст рудной эссенции</entry>
+  
+  <entry key="block.ore.gravel.iron.name">Железная гравиевая руда</entry>
+  <entry key="block.ore.gravel.gold.name">Золотая гравиевая руда</entry>
+  <entry key="block.ore.gravel.copper.name">Медная гравиевая руда</entry>
+  <entry key="block.ore.gravel.tin.name">Оловянная гравиевая руда</entry>
+  <entry key="block.ore.gravel.aluminum.name">Алюминиевая гравиевая руда</entry>
+  <entry key="block.ore.gravel.cobalt.name">Кобальтовая гравиевая руда</entry>
+    
+  <entry key="block.brownstone.rough.name">Грубый бурый песчаник</entry>
+  <entry key="block.brownstone.rough.road.name">Дорога из грубого бурого песчаника</entry>
+  <entry key="block.brownstone.smooth.name">Бурый песчаник</entry>
+  <entry key="block.brownstone.smooth.brick.name">Кирпич из бурого песчаника</entry>
+  <entry key="block.brownstone.smooth.road.name">Дорога из бурго песчаника</entry>
+  <entry key="block.brownstone.smooth.fancy.name">Красивый бурый песчаник</entry>
+  <entry key="block.brownstone.smooth.chiseled.name">Резной бурый песчаник</entry>
+  
+  <entry key="block.brownstone.rough.slab.name">Плита из грубого бурого песчаника</entry>
+  <entry key="block.brownstone.rough.road.slab.name">Плита из грубого дорожного бурого песчаника</entry>
+  <entry key="block.brownstone.smooth.slab.name">Плита из бурого песчаника</entry>
+  <entry key="block.brownstone.smooth.brick.slab.name">Плита из кирпича бурого песчаника</entry>
+  <entry key="block.brownstone.smooth.road.slab.name">Плита из дорожного бурого песчаника</entry>
+  <entry key="block.brownstone.smooth.fancy.slab.name">Плита из красивого бурого песчаника</entry>
+  <entry key="block.brownstone.smooth.chiseled.slab.name">Плита из резного бурого песчаника</entry>
+  
+  <entry key="block.brick.obsidian.name">Обсидиановый кирпич</entry>
+  <entry key="block.brick.sandstone.name">Песчаный кирпич</entry>
+  <entry key="block.brick.netherrack.name">Адский кирпич</entry>
+  <entry key="block.brick.iron.name">Железный кирпич</entry>
+  <entry key="block.brick.gold.name">Золотой кирпич</entry>
+  <entry key="block.brick.diamond.name">Алмазный кирпич</entry>
+  <entry key="block.brick.lapis.name">Лазуритовый кирпич</entry>
+  <entry key="block.brick.stone.refined.name">Кирпич из отполированного камня</entry>
+  <entry key="block.brick.redstone.name">Редстоун кирпич</entry>
+  <entry key="block.brick.bone.name">Костяной кирпич</entry>
+  <entry key="block.brick.slime.name">Слизистый кирпич</entry>
+  <entry key="block.brick.blueslime.name">Слизистый кирпич</entry>
+  <entry key="block.brick.endstone.name">Кирпич из камня края</entry>
+  <entry key="block.brick.obsidian.ingot.name">Обсидиановый кирпич</entry>
+  
+  <entry key="block.fancybrick.obsidian.name">Красивый обсидиановый кирпич</entry>
+  <entry key="block.fancybrick.sandstone.name">Красивый песчаный кирпич</entry>
+  <entry key="block.fancybrick.netherrack.name">Красивый адский кирпич</entry>
+  <entry key="block.fancybrick.iron.name">Красивый железный кирпич</entry>
+  <entry key="block.fancybrick.gold.name">Красивый золотой кирпич</entry>
+  <entry key="block.fancybrick.diamond.name">Красивый алмазный кирпич</entry>
+  <entry key="block.fancybrick.lapis.name">Красивый лазуритовый кирпич</entry>
+  <entry key="block.fancybrick.stone.refined.name">Кирпич из красивого отполированного камня</entry>
+  <entry key="block.fancybrick.redstone.name">Кирпич из красивого редстоуна</entry>
+  <entry key="block.fancybrick.bone.name">Красивый костяной кирпич</entry>
+  <entry key="block.fancybrick.slime.name">Красивый слизистый кирпич</entry>
+  <entry key="block.fancybrick.blueslime.name">Красивый слизистый кирпич</entry>
+  <entry key="block.fancybrick.endstone.name">Кирпич из красивого камня края</entry>
+  <entry key="block.fancybrick.obsidian.ingot.name">Красивый обсидиановый кирпич</entry>
+  <entry key="block.fancybrick.stone.road.name">Каменная дорого</entry>
+  <entry key="block.fancybrick.stone.name">Кирпич из красивого камня</entry>
+  
+  <entry key="item.oreberry.iron.name">Кусочки железа</entry>
+  <entry key="item.oreberry.gold.name">Кусочки золота</entry>
+  <entry key="item.oreberry.copper.name">Кусочки меди</entry>
+  <entry key="item.oreberry.tin.name">Кусочки олова</entry>
+  <entry key="item.oreberry.aluminum.name">Кусочки алюминия</entry>
+  <entry key="item.oreberry.essence.name">Кусочки концентрированной эссенции</entry>
+  
+  <entry key="item.goldenhead.name">Золотистая голова</entry>
+  <entry key="item.tconstruct.titleicon.name">Spawn </entry>
+  
+  <entry key="item.tconstruct.Materials.PaperStack.name">Кучка бумаги</entry>
+  <entry key="item.tconstruct.Materials.SlimeCrystal.name">Кристалл слизи</entry>
+  <entry key="item.tconstruct.Materials.SearedBrick.name">Обожжённый кирпич</entry>
+  <entry key="item.tconstruct.Materials.CobaltIngot.name">Кобальтовый слиток</entry>
+  <entry key="item.tconstruct.Materials.ArditeIngot.name">Ардитовый слиток</entry>
+  <entry key="item.tconstruct.Materials.ManyullynIngot.name">Мануллиновый слиток</entry>
+  <entry key="item.tconstruct.Materials.Mossball.name">Шарик мха</entry>
+  <entry key="item.tconstruct.Materials.LavaCrystal.name">Кристалл лавы</entry>
+  <entry key="item.tconstruct.Materials.NecroticBone.name">Некротическая кость</entry>
+  <entry key="item.tconstruct.Materials.CopperIngot.name">Медный слиток</entry>
+  <entry key="item.tconstruct.Materials.TinIngot.name">Оловянный слиток</entry>
+  <entry key="item.tconstruct.Materials.AluminumIngot.name">Алюминиевый слиток</entry>
+  <entry key="item.tconstruct.Materials.RawAluminum.name">Необработанный алюминий</entry>
+  <entry key="item.tconstruct.Materials.BronzeIngot.name">Бронзовый слиток</entry>
+  <entry key="item.tconstruct.Materials.AluBrassIngot.name">Слиток алюминиевой латуни</entry>
+  <entry key="item.tconstruct.Materials.AlumiteIngot.name">Алюмитовый слиток</entry>
+  <entry key="item.tconstruct.Materials.SteelIngot.name">Стальной слиток</entry>
+  <entry key="item.tconstruct.Materials.BlueSlimeCrystal.name">Кристалл слизи</entry>
+  <entry key="item.tconstruct.Materials.ObsidianIngot.name">Обсидиановый слиток</entry>
+  <entry key="item.tconstruct.Materials.IronNugget.name">Железный самородок</entry>
+  <entry key="item.tconstruct.Materials.CopperNugget.name">Медный самородок</entry>
+  <entry key="item.tconstruct.Materials.TinNugget.name">Оловянный самородок</entry>
+  <entry key="item.tconstruct.Materials.AluminumNugget.name">Алюминиевый самородок</entry>
+  <entry key="item.tconstruct.Materials.EssenceCrystal.name">Кристалл эссенции</entry>
+  <entry key="item.tconstruct.Materials.AluBrassNugget.name">Самородок алюминиевой латуни</entry>
+  <entry key="item.tconstruct.Materials.ObsidianNugget.name">Обсидиановый самородок</entry>
+  <entry key="item.tconstruct.Materials.CobaltNugget.name">Кобальтовый самородок</entry>
+  <entry key="item.tconstruct.Materials.ArditeNugget.name">Ардитовый самородок</entry>
+  <entry key="item.tconstruct.Materials.ManyullynNugget.name">Мануллиновый самородок</entry>
+  <entry key="item.tconstruct.Materials.BronzeNugget.name">Бронзовый самородок</entry>
+  <entry key="item.tconstruct.Materials.AlumiteNugget.name">Алюмитовый самородок</entry>
+  <entry key="item.tconstruct.Materials.SteelNugget.name">Кусочек стали</entry>
+  
+  <entry key="Smeltery.Controller.name">Контроллер плавильни</entry>
+  <entry key="Smeltery.Drain.name">Водосток плавильни</entry>
+  <entry key="Smeltery.Brick.name">Обожжённые кирпичи</entry>
+  <entry key="Smeltery.Stone.name">Обожжённый камень</entry>
+  <entry key="Smeltery.Cobblestone.name">Обожжённый булыжник</entry>
+  <entry key="Smeltery.Paver.name">Обожжённая брусчатка</entry>
+  <entry key="Smeltery.Brick.Cracked.name">Потресканные обожжённые кирпичи</entry>
+  <entry key="Smeltery.Road.name">Обожжённая дорога</entry>
+  <entry key="Smeltery.Brick.Fancy.name">Красивые обожжённые кирпичи</entry>
+  <entry key="Smeltery.Brick.Square.name">Резные обожжённые кирпичи</entry>
+  <entry key="Smeltery.Brick.Creeper.name">Резные обожжённые кирпичи</entry>
+  
+  <entry key="LavaTank.Tank.name">Обожжённый резервуар</entry>
+  <entry key="LavaTank.Gague.name">Обожжённое стекло</entry>
+  <entry key="LavaTank.Window.name">Обожжённое окно</entry>
+  
+  <entry key="block.drawbridge.name">Разводной мост</entry>
+  <entry key="block.firestarter.name">Воспламенитель</entry>
+  <entry key="tile.landmine.name">Фугас</entry>
+  
+  <entry key="StorageMetals.Cobalt.name">Кобальтовый блок</entry>
+  <entry key="StorageMetals.Ardite.name">Ардитовый блок</entry>
+  <entry key="StorageMetals.Manyullyn.name">Мануллиновый блок</entry>
+  <entry key="StorageMetals.Copper.name">Медный блок</entry>
+  <entry key="StorageMetals.Bronze.name">Бронзовый блок</entry>
+  <entry key="StorageMetals.Tin.name">Оловянный блок</entry>
+  <entry key="StorageMetals.Aluminum.name">Алюминиевый блок</entry>
+  <entry key="StorageMetals.AlBrass.name">Блок алюминиевой латуни</entry>
+  <entry key="StorageMetals.Alumite.name">Алюмитовый блок</entry>
+  <entry key="StorageMetals.Steel.name">Стальной блок</entry>
+  
+  <entry key="tile.decoration.stonetorch.name">Факел</entry>
+  
+  <entry key="block.glass.pure.name">Чистое стекло</entry>
+  <entry key="block.glass.soul.name">Душевное стекло</entry>
+  <entry key="block.glass.soul.pure.name">Чистое душевное стекло</entry>
+  
+  <entry key="block.glass.pure.pane.name">Чистая стеклянная панель</entry>
+  <entry key="block.glass.soul.pane.name">Душевная стеклянная панель</entry>
+  <entry key="block.glass.soul.pane.pure.name">Чистая душевная стеклянная панель</entry>
+  
+  <entry key="block.stainedglass.white.name">Белое стекло</entry>
+  <entry key="block.stainedglass.orange.name">Оранжевое стекло</entry>
+  <entry key="block.stainedglass.magenta.name">Сиреневое стекло</entry>
+  <entry key="block.stainedglass.lightblue.name">Светло-синее стекло</entry>
+  <entry key="block.stainedglass.yellow.name">Жёлтое стекло</entry>
+  <entry key="block.stainedglass.lime.name">Лаймовое стекло</entry>
+  <entry key="block.stainedglass.pink.name">Розовое стекло</entry>
+  <entry key="block.stainedglass.gray.name">Серое стекло</entry>
+  <entry key="block.stainedglass.lightgray.name">Светло-серое стекло</entry>
+  <entry key="block.stainedglass.cyan.name">Бирюзовое стекло</entry>
+  <entry key="block.stainedglass.purple.name">Фиолетовое стекло</entry>
+  <entry key="block.stainedglass.blue.name">Синее стекло</entry>
+  <entry key="block.stainedglass.brown.name">Коричневое стекло</entry>
+  <entry key="block.stainedglass.green.name">Зелёное стекло</entry>
+  <entry key="block.stainedglass.red.name">Красное стекло</entry>
+  <entry key="block.stainedglass.black.name">Чёрное стекло</entry>
+  
+  <entry key="block.stainedglass.white.pane.name">Белая стеклянная панель</entry>
+  <entry key="block.stainedglass.orange.pane.name">Оранжевая стеклянная панель</entry>
+  <entry key="block.stainedglass.magenta.pane.name">Сиреневая стеклянная панель</entry>
+  <entry key="block.stainedglass.lightblue.pane.name">Светло-синяя стеклянная панель</entry>
+  <entry key="block.stainedglass.yellow.pane.name">Жёлтая стеклянная панель</entry>
+  <entry key="block.stainedglass.lime.pane.name">Лаймовая стеклянная панель</entry>
+  <entry key="block.stainedglass.pink.pane.name">Розовая стеклянная панель</entry>
+  <entry key="block.stainedglass.gray.pane.name">Серая стеклянная панель</entry>
+  <entry key="block.stainedglass.lightgray.pane.name">Светло-серая стеклянная панель</entry>
+  <entry key="block.stainedglass.cyan.pane.name">Бирюзовая стеклянная панель</entry>
+  <entry key="block.stainedglass.purple.pane.name">Фиолетовая стеклянная панель</entry>
+  <entry key="block.stainedglass.blue.pane.name">Синяя стеклянная панель</entry>
+  <entry key="block.stainedglass.brown.pane.name">Коричневая стеклянная панель</entry>
+  <entry key="block.stainedglass.green.pane.name">Зелёная стеклянная панель</entry>
+  <entry key="block.stainedglass.red.pane.name">Красная стеклянная панель</entry>
+  <entry key="block.stainedglass.black.pane.name">Чёрная стеклянная панель</entry>
+  
+  <entry key="block.searedstone.slab.brick.name">Плита из обожжённого кирпича</entry>
+  <entry key="block.searedstone.slab.stone.name">Плита из обожжённого камня</entry>
+  <entry key="block.searedstone.slab.cobble.name">Плита из обожжённого булыжника</entry>
+  <entry key="block.searedstone.slab.paver.name">Плита из обожжённой брусчатки</entry>
+  <entry key="block.searedstone.slab.road.name">Плита из обожжённой дороги</entry>
+  <entry key="block.searedstone.slab.fancy.name">Красивая обожжённая плита</entry>
+  <entry key="block.searedstone.slab.square.name">Резная обожжённая плита</entry>
+  <entry key="block.searedstone.slab.creeper.name">Резная обожжённая плита</entry>
+  
+  <entry key="block.soil.slab.dirt.name">Земляная плита</entry>
+  <entry key="block.soil.slab.mycelium.name">Плита из широкого мицелия</entry>
+  <entry key="block.soil.slab.slime.name">Плита из слизистой грязи</entry>
+  <entry key="block.soil.slab.grout.name">Плита из осадка</entry>
+  <entry key="block.soil.slab.blueslime.name">Плита из слизистой грязи</entry>
+  <entry key="block.soil.slab.graveyardsoil.name">Плита из кладбищенской почвы</entry>
+  <entry key="block.soil.slab.consecratedsoil.name">Плита из священной почвы</entry>
+  
+  <entry key="item.tconstruct.storage.knapsack.name">Ранец</entry>  
+  <entry key="item.tconstruct.blankpattern.pattern.name">Пустая схема</entry>
+  <entry key="item.tconstruct.blankpattern.cast.name">Чистый чугун</entry>
+  
+  <entry key="item.tconstruct.Bowstring.string.name">Тетива</entry>
+  <entry key="item.tconstruct.Bowstring.enchantedfabric.name">Зачарованная тетива</entry>
+  <entry key="item.tconstruct.Fletching.feather.name">Feather Fletching</entry>
+  <entry key="item.tconstruct.Fletching.leaf.name">Leaf Fletching</entry>
+  <entry key="item.tconstruct.Fletching.slime.name">Slime Fletching</entry>
+  <entry key="item.tconstruct.Fletching.blueslime.name">Slime Fletching</entry>
+  
+  <entry key="item.tconstruct.manual.beginner.name">Материалы и Вы</entry>
+  <entry key="item.tconstruct.manual.toolstation.name">Материалы и Вы</entry>
+  <entry key="item.tconstruct.manual.smeltery.name">Могучая металлургия</entry>
+  
+  <entry key="item.tconstruct.bucket.Iron.name">Ведро расплавленного железа</entry>
+  <entry key="item.tconstruct.bucket.Gold.name">Ведро расплавленного золота</entry>
+  <entry key="item.tconstruct.bucket.Copper.name">Ведро расплавленной меди</entry>
+  <entry key="item.tconstruct.bucket.Tin.name">Ведро расплавленного олова</entry>
+  <entry key="item.tconstruct.bucket.Aluminum.name">Ведро расплавленного алюминия</entry>
+  <entry key="item.tconstruct.bucket.Cobalt.name">Ведро расплавленного кобальта</entry>
+  <entry key="item.tconstruct.bucket.Ardite.name">Ведро расплавленного ардита</entry>
+  <entry key="item.tconstruct.bucket.Bronze.name">Ведро расплавленной бронзы</entry>
+  <entry key="item.tconstruct.bucket.AluBrass.name">Ведро расплавленной алюминиевой латуни</entry>
+  <entry key="item.tconstruct.bucket.Manyullyn.name">Ведро расплавленного мануллина</entry>
+  <entry key="item.tconstruct.bucket.Alumite.name">Ведро расплавленного алюмита</entry>
+  <entry key="item.tconstruct.bucket.Obsidian.name">Ведро расплавленного обсидиана</entry>
+  <entry key="item.tconstruct.bucket.Steel.name">Ведро расплавленной стали</entry>
+  <entry key="item.tconstruct.bucket.Glass.name">Ведро расплавленного стекла</entry>
+  <entry key="item.tconstruct.bucket.Stone.name">Ведро расплавленного обожжённого камня</entry>
+  <entry key="item.tconstruct.bucket.Villager.name">Ведро сжиженного изумруда</entry>
+  <entry key="item.tconstruct.bucket.Cow.name">Ведро крови</entry>
+  
+  <entry key="item.tconstruct.bowstring.string.name">Тетива</entry>
+  <entry key="item.tconstruct.bowstring.enchantedfabriI donc.name">Зачарованная тетива</entry>
+  
+  <entry key="tile.metal.molten.iron.name">Расплавленное железо</entry>
+  <entry key="tile.metal.molten.gold.name">Расплавленное золото</entry>
+  <entry key="tile.metal.molten.copper.name">Расплавленная медь</entry>
+  <entry key="tile.metal.molten.tin.name">Жидкое олово</entry>
+  <entry key="tile.metal.molten.aluminum.name">Расплавленной алюминий</entry>
+  <entry key="tile.metal.molten.cobalt.name">Расплавленный кобальт</entry>
+  <entry key="tile.metal.molten.ardite.name">Расплавленный ардит</entry>
+  <entry key="tile.metal.molten.bronze.name">Расплавленная бронза</entry>
+  <entry key="tile.metal.molten.alubrass.name">Расплавленная алюминиевая латунь</entry>
+  <entry key="tile.metal.molten.manyullyn.name">Расплавленный мануллин</entry>
+  <entry key="tile.metal.molten.alumite.name">Расплавленный алюмит</entry>
+  <entry key="tile.metal.molten.obsidian.name">Расплавленный обсидиан</entry>
+  <entry key="tile.metal.molten.steel.name">Расплавленная сталь</entry>
+  <entry key="tile.metal.molten.glass.name">Расплавленное стекло</entry>
+  <entry key="tile.molten.stone.name">Расплавленный обожжённый камень</entry>
+  <entry key="tile.molten.emerald.name">Сжиженный изумруд</entry>
+  <entry key="tile.molten.blood.name">Кровь</entry>
+  
+  <entry key="item.food.apple.diamond.name">Драгоценное яблоко</entry>
+  <entry key="item.tconstruct.strangefood.edibleslime.name">Желатиновая слизь</entry>
+  <entry key="item.tconstruct.canister.empty.name">Пустая жестяная коробка</entry>
+  <entry key="item.tconstruct.canister.miniheart.red.name">Миниатюрное красное сердце</entry>
+  <entry key="item.tconstruct.canister.heart.name">Лечащая жестяная коробка</entry>
+  <entry key="item.tconstruct.glove.name">Dirtmover Gloves</entry>
+  
+  <entry key="SearedBlock.Table.name">Литейный стол</entry>
+  <entry key="SearedBlock.Faucet.name">Seared Faucet</entry>
+  <entry key="SearedBlock.Basin.name">Литейный резервуар</entry>
+  
+  <entry key="entity.TConstruct.EdibleSlime.name">Синий слизень</entry>
+  <entry key="entity.TConstruct.KingSlime.name">Король слизней</entry>
+  <entry key="entity.TConstruct.MiniGardy.name">Слизень охраник</entry> 
+  
+  <entry key="key.tarmor">Armor Gui</entry>
+  
+  <entry key="death.one.smeltery">%1$s превратился в зелёный сойлент</entry>
+  <entry key="death.two.smeltery">%1$s сплавился с плавильней</entry>
+  <entry key="death.three.smeltery">%1$s станет ступенькой в нашей революции!</entry>
+  <entry key="death.four.smeltery">%1$s думал, что купание в горячих жидкостях хорошая идея</entry>
+  
+  <entry key="death.attack.Landmine">%1$s наблюдал за тем как его ноги взорвались</entry>
+  <entry key="death.fell.assist.Landmine">%1$s был обречён на смерть от мины</entry>
+  <entry key="death.attack.LandmineFireworkExplode">%1$s взял поездку на фейерверк</entry>
+  
+  <entry key="parttype.Wood">Wooden</entry>
+  <entry key="parttype.Stone">Stone</entry>
+  <entry key="parttype.Iron">Iron</entry>
+  <entry key="parttype.Flint">Flint</entry>
+  <entry key="parttype.Cactus">Cactus</entry>
+  <entry key="parttype.Bone">Bone</entry>
+  <entry key="parttype.Obsidian">Obsidian</entry>
+  <entry key="parttype.Slime">Slime</entry>
+  <entry key="parttype.Paper">Paper</entry>
+  <entry key="parttype.Cobalt">Cobalt</entry>
+  <entry key="parttype.Ardite">Ardite</entry>
+  <entry key="parttype.Manyullyn">Manyullyn</entry>
+  <entry key="parttype.Copper">Copper</entry>
+  <entry key="parttype.Bronze">Bronze</entry>
+  <entry key="parttype.Alumite">Alumite</entry>
+  <entry key="parttype.Steel">Steel</entry>
+  <entry key="parttype.BlueSlime">Slime</entry>
+  
+</properties>
