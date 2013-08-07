@@ -2,10 +2,6 @@ package mods.tinker.tconstruct.items;
 
 import java.util.List;
 
-import mods.natura.entity.HeatscarSpider;
-import mods.natura.entity.BabyHeatscarSpider;
-import mods.natura.entity.ImpEntity;
-import mods.natura.entity.NitroCreeper;
 import mods.tinker.tconstruct.client.TProxyClient;
 import mods.tinker.tconstruct.entity.BlueSlime;
 import mods.tinker.tconstruct.library.tools.ToolCore;

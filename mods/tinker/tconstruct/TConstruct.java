@@ -38,7 +38,7 @@ import cpw.mods.fml.common.registry.VillagerRegistry;
  * @dependencies: IC2 API, MFR API
  */
 
-@Mod(modid = "TConstruct", name = "TConstruct", version = "1.5.2_1.4.2.3", dependencies = "required-after:Forge@[7.7.1.700,)")
+@Mod(modid = "TConstruct", name = "TConstruct", version = "1.5.2_1.4.2.5", dependencies = "required-after:Forge@[7.7.1.700,)")
 @NetworkMod(serverSideRequired = false, clientSideRequired = true, channels = { "TConstruct" }, packetHandler = mods.tinker.tconstruct.util.network.TPacketHandler.class)
 public class TConstruct
 {
