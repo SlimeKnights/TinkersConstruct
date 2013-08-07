@@ -400,19 +400,19 @@ public class AbilityHelper
 
         float mineSpeed = toolTag.getInteger("MiningSpeed");
         int heads = 1;
-        if (tags.hasKey("MiningSpeed2"))
+        if (toolTag.hasKey("MiningSpeed2"))
         {
             mineSpeed += toolTag.getInteger("MiningSpeed2");
             heads++;
         }
 
-        if (tags.hasKey("MiningSpeedHandle"))
+        if (toolTag.hasKey("MiningSpeedHandle"))
         {
             mineSpeed += toolTag.getInteger("MiningSpeedHandle");
             heads++;
         }
 
-        if (tags.hasKey("MiningSpeedExtra"))
+        if (toolTag.hasKey("MiningSpeedExtra"))
         {
             mineSpeed += toolTag.getInteger("MiningSpeedExtra");
             heads++;
@@ -421,6 +421,7 @@ public class AbilityHelper
         float stonebound = toolTag.getFloat("Shoddy");
         float bonusLog = (float) Math.log(durability / 72f + 1) * 2 * stonebound;
         trueSpeed += bonusLog;
+        trueSpeed *= 6;
 
         if (charge < trueSpeed)
         {
