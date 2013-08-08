@@ -125,6 +125,7 @@ public class TConstruct
 		SpecialStackHandler.registerBuiltInStackHandlers();
         content.modIntegration();
         content.createEntities();
+        content.modRecipes();
     }
 
     public static LiquidCasting getTableCasting ()
