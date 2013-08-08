@@ -61,6 +61,7 @@ import org.w3c.dom.Document;
 import tconstruct.TConstruct;
 import tconstruct.blocks.logic.CastingBasinLogic;
 import tconstruct.blocks.logic.CastingTableLogic;
+import tconstruct.blocks.logic.CraftingStationLogic;
 import tconstruct.blocks.logic.DrawbridgeLogic;
 import tconstruct.blocks.logic.DryingRackLogic;
 import tconstruct.blocks.logic.FrypanLogic;
@@ -82,6 +83,7 @@ import tconstruct.client.block.MachineRender;
 import tconstruct.client.block.OreberryRender;
 import tconstruct.client.block.PaneConnectedRender;
 import tconstruct.client.block.PaneRender;
+import tconstruct.client.block.PunjiRender;
 import tconstruct.client.block.SearedRender;
 import tconstruct.client.block.SmallFontRenderer;
 import tconstruct.client.block.SmelteryRender;
@@ -100,6 +102,7 @@ import tconstruct.client.entity.projectile.ArrowRender;
 import tconstruct.client.entity.projectile.DaggerRender;
 import tconstruct.client.entity.projectile.LaunchedItemRender;
 import tconstruct.client.gui.ArmorExtendedGui;
+import tconstruct.client.gui.CraftingStationGui;
 import tconstruct.client.gui.DrawbridgeGui;
 import tconstruct.client.gui.FrypanGui;
 import tconstruct.client.gui.GlowstoneAggregatorGui;
@@ -150,7 +153,6 @@ import tconstruct.library.crafting.ToolBuilder;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.util.player.ArmorExtended;
 import tconstruct.util.player.KnapsackInventory;
-import tconstruct.util.player.TPlayerStats;
 
 import com.google.common.collect.Lists;
 
@@ -191,9 +193,10 @@ public class TProxyClient extends TProxyCommon
             return new GlowstoneAggregatorGui(player.inventory, (GlowstoneAggregator) world.getBlockTileEntity(x, y, z), world, x, y, z);
         if (ID == drawbridgeGui)
             return new DrawbridgeGui(player.inventory, (DrawbridgeLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
-        if (ID == landmineGui){
-        	return new GuiLandmine(new ContainerLandmine(player, (TileEntityLandmine) world.getBlockTileEntity(x, y, z)));
-        }
+        if (ID == landmineGui)
+            return new GuiLandmine(new ContainerLandmine(player, (TileEntityLandmine) world.getBlockTileEntity(x, y, z)));
+        if (ID == craftingStationID)
+            return new CraftingStationGui(player.inventory, (CraftingStationLogic) world.getBlockTileEntity(x, y, z), x, y, z);
         
         if (ID == manualGuiID)
         {
@@ -367,7 +370,7 @@ public class TProxyClient extends TProxyCommon
     {
         Minecraft mc = Minecraft.getMinecraft();
         MinecraftForge.EVENT_BUS.register(new TClientEvents());
-        smallFontRenderer = new SmallFontRenderer(mc.gameSettings, new ResourceLocation("/font/default.png"), mc.renderEngine, false);
+        smallFontRenderer = new SmallFontRenderer(mc.gameSettings, new ResourceLocation("font/default.png"), mc.renderEngine, false);
         RenderingRegistry.registerBlockHandler(new TableRender());
         RenderingRegistry.registerBlockHandler(new TableForgeRender());
         RenderingRegistry.registerBlockHandler(new FrypanRender());
@@ -383,8 +386,8 @@ public class TProxyClient extends TProxyCommon
         RenderingRegistry.registerBlockHandler(new PaneRender());
         RenderingRegistry.registerBlockHandler(new PaneConnectedRender());
         RenderingRegistry.registerBlockHandler(new RenderLandmine());
+        RenderingRegistry.registerBlockHandler(new PunjiRender());
         //RenderingRegistry.registerBlockHandler(new BrickRender());
-        //RenderingRegistry.registerBlockHandler(new BallRepeaterRender());
 
         //Special Renderers
         ClientRegistry.bindTileEntitySpecialRenderer(CastingTableLogic.class, new CastingTableSpecialRenderer());
@@ -408,7 +411,7 @@ public class TProxyClient extends TProxyCommon
         //RenderingRegistry.registerEntityRenderingHandler(net.minecraft.entity.player.EntityPlayer.class, new PlayerArmorRender()); // <-- Works, woo!
 
         MinecraftForgeClient.registerItemRenderer(TContent.shortbow.itemID, new CustomBowRenderer());
-        VillagerRegistry.instance().registerVillagerSkin(78943, new ResourceLocation("/mods/tinker/textures/mob/villagertools.png"));
+        VillagerRegistry.instance().registerVillagerSkin(78943, new ResourceLocation("tinker", "textures/mob/villagertools.png"));
 
         addRenderMappings();
         addToolButtons();

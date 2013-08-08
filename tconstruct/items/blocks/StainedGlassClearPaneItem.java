@@ -23,6 +23,6 @@ public class StainedGlassClearPaneItem extends ItemBlock
     public String getUnlocalizedName (ItemStack itemstack)
     {
         int pos = MathHelper.clamp_int(itemstack.getItemDamage(), 0, blockType.length - 1);
-        return (new StringBuilder()).append("block.stainedglass.pane.").append(blockType[pos]).toString();
+        return (new StringBuilder()).append("block.stainedglass.").append(blockType[pos]).append(".pane").toString();
     }
 }

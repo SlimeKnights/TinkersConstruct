@@ -21,6 +21,7 @@
   <entry key="ToolStation.CastingTable.name">Casting Table</entry>
   
   <entry key="tile.ToolForge.name">Tool Forge</entry>
+  <entry key="tile.CraftingStation.name">Crafting Station</entry>
   <entry key="tile.Armor.DryingRack.name">Drying Rack</entry>
   <entry key="CraftedSoil.Slime.name">Slimy Mud</entry>
   <entry key="CraftedSoil.Grout.name">Grout</entry>
@@ -160,6 +161,11 @@
   <entry key="block.drawbridge.name">Drawbridge</entry>
   <entry key="block.firestarter.name">Igniter</entry>
   <entry key="tile.landmine.name">Landmine</entry>
+  <entry key="tile.trap.punji.name">Punji Stick</entry>
+  <entry key="tile.trap.barricade.oak.name">Oak Barricade</entry>
+  <entry key="tile.trap.barricade.spruce.name">Spruce Barricade</entry>
+  <entry key="tile.trap.barricade.birch.name">Birch Barricade</entry>
+  <entry key="tile.trap.barricade.jungle.name">Jungle Barricade</entry>
   
   <entry key="StorageMetals.Cobalt.name">Block of Cobalt</entry>
   <entry key="StorageMetals.Ardite.name">Block of Ardite</entry>
@@ -267,12 +273,12 @@
   <entry key="item.tconstruct.bucket.Cow.name">Bucket o' Blood</entry>
   
   <entry key="item.tconstruct.bowstring.string.name">Bowstring</entry>
-  <entry key="item.tconstruct.bowstring.enchantedfabriI donc.name">Enchanted Bowstring</entry>
+  <entry key="item.tconstruct.bowstring.enchantedfabric.name">Enchanted Bowstring</entry>
   
   <entry key="tile.metal.molten.iron.name">Molten Iron</entry>
   <entry key="tile.metal.molten.gold.name">Molten Gold</entry>
   <entry key="tile.metal.molten.copper.name">Molten Copper</entry>
-  <entry key="tile.metal.molten.tin.name">Liquid Tin</entry>
+  <entry key="tile.metal.molten.tin.name">Molten Tin</entry>
   <entry key="tile.metal.molten.aluminum.name">Molten Aluminum</entry>
   <entry key="tile.metal.molten.cobalt.name">Molten Cobalt</entry>
   <entry key="tile.metal.molten.ardite.name">Molten Ardite</entry>
@@ -286,6 +292,12 @@
   <entry key="tile.molten.stone.name">Seared Stone</entry>
   <entry key="tile.molten.emerald.name">Liquified Emerald</entry>
   <entry key="tile.molten.blood.name">Blood</entry>
+  <entry key="tile.metal.molten.nickel.name">Molten Nickel</entry>
+  <entry key="tile.metal.molten.lead.name">Molten Lead</entry>
+  <entry key="tile.metal.molten.silver.name">Molten Silver</entry>
+  <entry key="tile.metal.molten.shiny.name">Molten Shiny</entry>
+  <entry key="tile.metal.molten.invar.name">Molten Invar</entry>
+  <entry key="tile.metal.molten.electrum.name">Molten Electrum</entry>
   
   <entry key="item.food.apple.diamond.name">Jeweled Apple</entry>
   <entry key="item.tconstruct.strangefood.edibleslime.name">Gelatinous Slime</entry>
@@ -330,5 +342,29 @@
   <entry key="parttype.Alumite">Alumite</entry>
   <entry key="parttype.Steel">Steel</entry>
   <entry key="parttype.BlueSlime">Slime</entry>
+  
+  <entry key="molten iron">Molten Iron</entry>
+  <entry key="molten gold">Molten Gold</entry>
+  <entry key="molten copper">Molten Copper</entry>
+  <entry key="molten tin">Molten Tin</entry>
+  <entry key="molten aluminum">Molten Aluminum</entry>
+  <entry key="molten cobalt">Molten Cobalt</entry>
+  <entry key="molten ardite">Molten Ardite</entry>
+  <entry key="molten bronze">Molten Bronze</entry>
+  <entry key="molten aluminum brass">Molten Aluminum Brass</entry>
+  <entry key="molten manyullyn">Molten Manyullyn</entry>
+  <entry key="molten alumite">Molten Alumite</entry>
+  <entry key="molten obsidian">Molten Obsidian</entry>
+  <entry key="molten steel">Molten Steel</entry>
+  <entry key="molten glass">Molten Glass</entry>
+  <entry key="seared stone">Seared Stone</entry>
+  <entry key="liquified emerald">Liquified Emerald</entry>
+  <entry key="blood">Blood</entry>
+  <entry key="molten nickel">Molten Nickel</entry>
+  <entry key="molten lead">Molten Lead</entry>
+  <entry key="molten silver">Molten Silver</entry>
+  <entry key="molten platinum">Molten Platinum</entry>
+  <entry key="molten invar">Molten Invar</entry>
+  <entry key="molten shiny">Molten Shiny</entry>
   
 </properties>

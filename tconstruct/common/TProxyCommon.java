@@ -32,6 +32,7 @@ public class TProxyCommon implements IGuiHandler
     public static int glowstoneAggregatorGui = 8;
     public static int drawbridgeGui = 9;
     public static int landmineGui = 10;
+    public static int craftingStationID = 11;
     
     public static int inventoryGui = 100;
     public static int armorGuiID = 101;

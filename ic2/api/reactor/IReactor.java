@@ -88,6 +88,12 @@ public interface IReactor {
 	 * 
 	 * @return Energy output after adding the value, not multiplied by the base EU/t value
 	 */
+	public float addOutput(float energy);
+	
+	/**
+	 * Deprecated to avoid immediate API breaking. Don't use.
+	 */
+	@Deprecated
 	public int addOutput(int energy);
 	
 	/**

@@ -141,7 +141,7 @@ public class SmelteryGui extends NewContainerGui
             int sizeY = logic.getScaledFuelGague(52);
             if (mouseX >= leftX && mouseX <= leftX + sizeX && mouseY >= topY && mouseY < topY + sizeY)
             {
-                drawFluidStackTooltip(new FluidStack(Block.lavaStill.blockID, logic.fuelAmount), mouseX - cornerX + 36, mouseY - cornerY);
+                drawFluidStackTooltip(new FluidStack(-37, logic.fuelAmount), mouseX - cornerX + 36, mouseY - cornerY);
             }
         }
     }
@@ -261,7 +261,7 @@ public class SmelteryGui extends NewContainerGui
     public List getLiquidTooltip (FluidStack liquid, boolean par2)
     {
         ArrayList list = new ArrayList();
-        if (liquid.getFluid().getBlockID() == Block.lavaStill.blockID)
+        if (liquid.fluidID == -37)
         {
             list.add("\u00A7fFuel");
             int mB = liquid.amount;
@@ -270,9 +270,9 @@ public class SmelteryGui extends NewContainerGui
         }
         else
         {
-            String name = FluidRegistry.getFluidName(liquid);
+            String name = StatCollector.translateToLocal(FluidRegistry.getFluidName(liquid));
             list.add("\u00A7f" + name);
-            if (name.equals("Liquified Emerald"))
+            if (name.equals("liquified emerald"))
             {
                 float emeralds = liquid.amount / 320f;
                 list.add("Emeralds: " + emeralds);

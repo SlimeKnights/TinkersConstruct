@@ -4,6 +4,21 @@ import static net.minecraftforge.common.ForgeDirection.UP;
 
 import java.util.List;
 
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.Icon;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeDirection;
 import tconstruct.TConstruct;
 import tconstruct.blocks.logic.DrawbridgeLogic;
 import tconstruct.blocks.logic.FirestarterLogic;
@@ -12,19 +27,6 @@ import tconstruct.library.TConstructRegistry;
 import tconstruct.library.blocks.InventoryBlock;
 import tconstruct.library.util.IActiveLogic;
 import tconstruct.library.util.IFacingLogic;
-
-import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Icon;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
 
 public class RedstoneMachine extends InventoryBlock
 {
@@ -200,6 +202,120 @@ public class RedstoneMachine extends InventoryBlock
     public void onNeighborBlockChange (World world, int x, int y, int z, int neighborBlockID)
     {
         IActiveLogic logic = (IActiveLogic) world.getBlockTileEntity(x, y, z);
-        logic.setActive(world.isBlockIndirectlyGettingPowered(x, y, z));
+        logic.setActive(world.isBlockIndirectlyGettingPowered(x, y, z) || activeNearbyRedstone(world, x, y, z));
+    }
+
+    boolean activeNearbyRedstone (World world, int x, int y, int z)
+    {
+        return activeRedstone(world, x + 1, y, z) || activeRedstone(world, x - 1, y, z) || activeRedstone(world, x, y, z+1) || activeRedstone(world, x, y, z-1);
+    }
+
+    boolean activeRedstone (World world, int x, int y, int z)
+    {
+        Block wire = Block.blocksList[world.getBlockId(x, y, z)];
+        if (wire != null && wire.blockID == Block.redstoneWire.blockID)
+            return world.getBlockMetadata(x, y, z) > 0;
+                    
+        return false;
+    }
+
+    @Override
+    public boolean canConnectRedstone (IBlockAccess world, int x, int y, int z, int side)
+    {
+        return true;
+    }
+    
+    /* Keep inventory */
+    @Override
+    public boolean removeBlockByPlayer (World world, EntityPlayer player, int x, int y, int z)
+    {
+        player.addExhaustion(0.025F);
+        int meta = world.getBlockMetadata(x, y, z);
+        if (meta == 0)
+        {
+            ItemStack stack = new ItemStack(this.blockID, 1, meta);
+            DrawbridgeLogic logic = (DrawbridgeLogic) world.getBlockTileEntity(x, y, z);
+            NBTTagCompound tag = new NBTTagCompound();
+
+            boolean hasTag = false;
+            ItemStack contents = logic.getStackInSlot(0);
+            if (contents != null)
+            {
+                NBTTagCompound contentTag = new NBTTagCompound();
+                contents.writeToNBT(contentTag);
+                tag.setCompoundTag("Contents", contentTag);
+                hasTag = true;
+            }
+
+            ItemStack camo = logic.getStackInSlot(1);
+            if (camo != null)
+            {
+                NBTTagCompound camoTag = new NBTTagCompound();
+                camo.writeToNBT(camoTag);
+                tag.setCompoundTag("Camoflauge", camoTag);
+                hasTag = true;
+            }
+
+            if (logic.getPlacementDirection() != 4)
+            {
+                tag.setByte("Placement", logic.getPlacementDirection());
+                hasTag = true;
+            }
+            if (hasTag == true)
+                stack.setTagCompound(tag);
+
+            dropDrawbridgeLogic(world, x, y, z, stack);
+        }
+
+        return world.setBlockToAir(x, y, z);
+    }
+    
+    protected void dropDrawbridgeLogic (World world, int x, int y, int z, ItemStack stack)
+    {
+        if (!world.isRemote && world.getGameRules().getGameRuleBooleanValue("doTileDrops"))
+        {
+            float f = 0.7F;
+            double d0 = (double) (world.rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
+            double d1 = (double) (world.rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
+            double d2 = (double) (world.rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
+            EntityItem entityitem = new EntityItem(world, (double) x + d0, (double) y + d1, (double) z + d2, stack);
+            entityitem.delayBeforeCanPickup = 10;
+            world.spawnEntityInWorld(entityitem);
+        }
+    }
+
+    @Override
+    public void harvestBlock (World world, EntityPlayer player, int x, int y, int z, int meta)
+    {
+        if (meta != 0)
+            super.harvestBlock(world, player, x, y, z, meta);
+    }
+
+    @Override
+    public void onBlockPlacedBy (World world, int x, int y, int z, EntityLivingBase living, ItemStack stack)
+    {
+        super.onBlockPlacedBy(world, x, y, z, living, stack);
+        if (stack.hasTagCompound())
+        {
+            DrawbridgeLogic logic = (DrawbridgeLogic) world.getBlockTileEntity(x, y, z);
+            NBTTagCompound contentTag = stack.getTagCompound().getCompoundTag("Contents");
+            if (contentTag != null)
+            {
+                ItemStack contents = ItemStack.loadItemStackFromNBT(contentTag);
+                logic.setInventorySlotContents(0, contents);
+            }
+
+            NBTTagCompound camoTag = stack.getTagCompound().getCompoundTag("Camoflauge");
+            if (camoTag != null)
+            {
+                ItemStack camoflauge = ItemStack.loadItemStackFromNBT(camoTag);
+                logic.setInventorySlotContents(1, camoflauge);
+            }
+
+            if (stack.getTagCompound().hasKey("Placement"))
+            {
+                logic.setPlacementDirection(stack.getTagCompound().getByte("Placement"));
+            }
+        }
     }
 }

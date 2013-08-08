@@ -479,6 +479,12 @@ public class TEventHandler
     @ForgeSubscribe
     public void registerOre (OreRegisterEvent evt)
     {
+        String ingot = evt.Name.toLowerCase();
+        if (ingot.contains("ingot"))
+        {
+            TConstruct.tableCasting.addCastingRecipe(new ItemStack(TContent.metalPattern, 1, 0), new FluidStack(TContent.moltenAlubrassFluid, TConstruct.ingotLiquidValue), evt.Ore, false, 50);
+            TConstruct.tableCasting.addCastingRecipe(new ItemStack(TContent.metalPattern, 1, 0), new FluidStack(TContent.moltenGoldFluid, TConstruct.ingotLiquidValue * 2), evt.Ore, false, 50);
+        }
         if (evt.Name == "battery")
             TConstruct.content.modE.batteries.add(evt.Ore);
 

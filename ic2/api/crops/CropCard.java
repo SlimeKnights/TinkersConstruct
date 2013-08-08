@@ -2,10 +2,11 @@ package ic2.api.crops;
 
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
+
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -322,9 +323,9 @@ public abstract class CropCard
 	 */
 	public boolean onEntityCollision(ICropTile crop, Entity entity)
 	{
-		if (entity instanceof EntityLiving)
+		if (entity instanceof EntityLivingBase)
 		{
-			return ((EntityLiving)entity).isSprinting();
+			return ((EntityLivingBase)entity).isSprinting();
 		}
 		return false;
 	}
@@ -360,7 +361,7 @@ public abstract class CropCard
 	{
 		return Crops.instance.getIdFor(this);
 	}
-	
+
 	@SideOnly(Side.CLIENT)
 	protected Icon textures[];
 }

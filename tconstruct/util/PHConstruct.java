@@ -77,7 +77,7 @@ public class PHConstruct
         blueSlime = config.get("Mob Spawning", "Activate Blue Slime Spawns", true).getBoolean(true);
         blueSlimeWeight = config.get("Mob Spawning", "Spawn Weight for Blue Slime", 6).getInt(6);
 
-        woodCrafter = config.getBlock("Wood Tool Station", 1471).getInt(1471);
+        woodStation = config.getBlock("Wood Tool Station", 1471).getInt(1471);
         heldItemBlock = config.getBlock("Held Item Block", 1472).getInt(1472);
         lavaTank = config.getBlock("Lava Tank", 1473).getInt(1473);
         smeltery = config.getBlock("Smeltery", 1474).getInt(1474);
@@ -98,17 +98,15 @@ public class PHConstruct
         speedBlock = config.getBlock("Speed Block", 1489).getInt(1489);
 
         landmine = config.getBlock("Landmine", 1470).getInt(1470);
-        barricade = config.getBlock("Barricade", 1469).getInt(1469);
         toolForge = config.getBlock("Tool Forge", 1468).getInt(1468);
         multiBrickFancy = config.getBlock("Multi Brick Fancy", 1467).getInt(1467);
-
-        /*public static int moltenSilver; //Thermal Expansion
-        public static int moltenLead;
-        public static int moltenNickel;
-        public static int moltenPlatinum;
-        public static int moltenInvar;
-        public static int moltenElectrum;*/
-
+        
+        barricadeOak = config.getBlock("Oak Barricade", 1469).getInt(1469);
+        barricadeSpruce = config.getBlock("Spruce Barricade", 1482).getInt(1482);
+        barricadeBirch = config.getBlock("Birch Barricade", 1483).getInt(1483);
+        barricadeJungle = config.getBlock("Jungle Barricade", 1487).getInt(1487);
+        
+      //Thermal Expansion
         moltenSilver = config.getBlock("Molten Silver", 3195).getInt(3195);
         moltenLead = config.getBlock("Molten Lead", 3196).getInt(3196);
         moltenNickel = config.getBlock("Molten Nickel", 3197).getInt(3197);
@@ -146,6 +144,9 @@ public class PHConstruct
         searedSlab = config.getBlock("Seared Slab", 3230).getInt(3230);
         speedSlab = config.getBlock("Speed Slab", 3231).getInt(3231);
         //grassSlab = config.getBlock("Grass Slab", 3230).getInt(3230);
+        
+        punji = config.getBlock("Punji", 3232).getInt(3232);
+        woodCrafter = config.getBlock("Crafting Station", 3233).getInt(3233);
 
         /*golemCore = config.getBlock("Golem Core", 1481).getInt(1481);
         golemHead = config.getBlock("Golem Head", 1482).getInt(1482);*/
@@ -335,9 +336,11 @@ public class PHConstruct
     }
 
     //Blocks
-    public static int woodCrafter;
+    public static int woodStation;
     public static int toolForge;
     public static int heldItemBlock;
+    public static int woodCrafter;
+    
     public static int ores;
     public static int lavaTank;
     public static int smeltery;
@@ -361,7 +364,11 @@ public class PHConstruct
 
     //Traps
     public static int landmine;
-    public static int barricade;
+    public static int punji;
+    public static int barricadeOak;
+    public static int barricadeSpruce;
+    public static int barricadeBirch;
+    public static int barricadeJungle;
 
     //InfiBlocks
     public static int speedBlock;

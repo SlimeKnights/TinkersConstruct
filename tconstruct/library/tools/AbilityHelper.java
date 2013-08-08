@@ -388,32 +388,33 @@ public class AbilityHelper
         if (!tags.hasKey("charge"))
             return false;
 
+        NBTTagCompound toolTag = stack.getTagCompound().getCompoundTag("InfiTool");
         int charge = tags.getInteger("charge");
 
-        int durability = tags.getInteger("Damage");
-        float shoddy = tags.getFloat("Shoddy");
+        int durability = toolTag.getInteger("Damage");
+        float shoddy = toolTag.getFloat("Shoddy");
 
-        float mineSpeed = tags.getInteger("MiningSpeed");
+        float mineSpeed = toolTag.getInteger("MiningSpeed");
         int heads = 1;
         if (tags.hasKey("MiningSpeed2"))
         {
-            mineSpeed += tags.getInteger("MiningSpeed2");
+            mineSpeed += toolTag.getInteger("MiningSpeed2");
             heads++;
         }
 
         if (tags.hasKey("MiningSpeedHandle"))
         {
-            mineSpeed += tags.getInteger("MiningSpeedHandle");
+            mineSpeed += toolTag.getInteger("MiningSpeedHandle");
             heads++;
         }
 
         if (tags.hasKey("MiningSpeedExtra"))
         {
-            mineSpeed += tags.getInteger("MiningSpeedExtra");
+            mineSpeed += toolTag.getInteger("MiningSpeedExtra");
             heads++;
         }
         float trueSpeed = mineSpeed / (heads * 100f);
-        float stonebound = tags.getFloat("Shoddy");
+        float stonebound = toolTag.getFloat("Shoddy");
         float bonusLog = (float) Math.log(durability / 72f + 1) * 2 * stonebound;
         trueSpeed += bonusLog;
 

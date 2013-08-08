@@ -1,12 +1,8 @@
 package tconstruct.blocks.logic;
 
-import tconstruct.inventory.DrawbridgeContainer;
-import tconstruct.library.TConstructRegistry;
-import tconstruct.library.blocks.InventoryLogic;
-import tconstruct.library.util.IActiveLogic;
-import tconstruct.library.util.IFacingLogic;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
@@ -17,6 +13,12 @@ import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
+import tconstruct.inventory.DrawbridgeContainer;
+import tconstruct.library.TConstructRegistry;
+import tconstruct.library.blocks.InventoryLogic;
+import tconstruct.library.util.IActiveLogic;
+import tconstruct.library.util.IFacingLogic;
+import tconstruct.util.player.FakePlayerLogic;
 
 public class DrawbridgeLogic extends InventoryLogic implements IFacingLogic, IActiveLogic
 {
@@ -25,10 +27,19 @@ public class DrawbridgeLogic extends InventoryLogic implements IFacingLogic, IAc
     int ticks;
     byte extension;
     byte direction;
+    byte placementDirection = 4;
+    FakePlayerLogic fakePlayer;
 
     public DrawbridgeLogic()
     {
         super(2);
+    }
+
+    @Override
+    public void setWorldObj (World par1World)
+    {
+        this.worldObj = par1World;
+        fakePlayer = new FakePlayerLogic(worldObj, "Player.Drawbridge", this);
     }
 
     @Override
@@ -59,6 +70,11 @@ public class DrawbridgeLogic extends InventoryLogic implements IFacingLogic, IAc
     @Override
     public void setDirection (int side)
     {
+    }
+
+    public boolean canDropInventorySlot (int slot)
+    {
+        return false;
     }
 
     @Override
@@ -94,6 +110,103 @@ public class DrawbridgeLogic extends InventoryLogic implements IFacingLogic, IAc
                 break;
             }
         }
+    }
+
+    /* 0 = Up
+     * 1 = Right
+     * 2 = Down
+     * 3 = Left
+     * 4 = Center, neutral
+     */
+    public void setPlacementDirection (byte keycode)
+    {
+        if (keycode == 4)
+        {
+            fakePlayer.rotationYaw = 0;
+            fakePlayer.rotationPitch = 0;
+        }
+        else if (this.direction == 0 || this.direction == 1)
+        {
+            switch (keycode)
+            {
+            case 0:
+                fakePlayer.rotationYaw = 0;
+                break;
+            case 1:
+                fakePlayer.rotationYaw = 90;
+                break;
+            case 2:
+                fakePlayer.rotationYaw = 180;
+                break;
+            case 3:
+                fakePlayer.rotationYaw = 270;
+                break;
+            }
+
+            if (this.direction == 0)
+                fakePlayer.rotationPitch = -90;
+            else
+                fakePlayer.rotationPitch = 90;
+        }
+        else
+        {
+            if (keycode == 0) //Forward
+            {
+                fakePlayer.rotationYaw = mapDirection() * 90;
+
+                if (keycode == 0)
+                    fakePlayer.rotationPitch = 90;
+                else
+                    fakePlayer.rotationPitch = -90;
+            }
+            else if (keycode == 2) //Backward
+            {
+                int face = mapDirection() + 2;
+                if (face > 3)
+                    face -= 4;
+                fakePlayer.rotationYaw = face * 90;
+
+                if (keycode == 0)
+                    fakePlayer.rotationPitch = 90;
+                else
+                    fakePlayer.rotationPitch = -90;
+            }
+            else
+            {
+                fakePlayer.rotationPitch = 0;
+
+                int facing = mapDirection();
+                if (keycode == 1)
+                    facing += 1;
+                else
+                    facing -= 1;
+
+                if (facing >= 4)
+                    facing = 0;
+                if (facing < 0)
+                    facing = 3;
+
+                fakePlayer.rotationYaw = facing * 90;
+            }
+        }
+        placementDirection = keycode;
+    }
+
+    int mapDirection ()
+    {
+        if (this.direction == 2) //North
+            return 0;
+        if (this.direction == 5) //East
+            return 1;
+        if (this.direction == 3) //South
+            return 2;
+
+        return 3; //West
+    }
+
+    public byte getPlacementDirection ()
+    {
+        return placementDirection;
     }
 
     @Override
@@ -173,12 +286,13 @@ public class DrawbridgeLogic extends InventoryLogic implements IFacingLogic, IAc
                             {
                                 if (inventory[0].itemID >= 4096 || Block.blocksList[inventory[0].itemID] == null)
                                     return;
-                                
-                                worldObj.setBlock(xPos, yPos, zPos, inventory[0].itemID, inventory[0].getItemDamage(), 3);
+                                Block placeBlock = Block.blocksList[inventory[0].itemID];
+                                placeBlockAt(inventory[0], fakePlayer, worldObj, xPos, yPos, zPos, direction, 0, 0, 0, inventory[0].getItemDamage(), placeBlock);
                             }
                             else
                             {
-                                worldObj.setBlock(xPos, yPos, zPos, blockToItem, inventory[0].getItemDamage(), 3);
+                                Block placeBlock = Block.blocksList[blockToItem];
+                                placeBlockAt(inventory[0], fakePlayer, worldObj, xPos, yPos, zPos, direction, 0, 0, 0, inventory[0].getItemDamage(), placeBlock);
                             }
                             worldObj.playSoundEffect((double) xPos + 0.5D, (double) yPos + 0.5D, (double) zPos + 0.5D, "tile.piston.out", 0.25F, worldObj.rand.nextFloat() * 0.25F + 0.6F);
                             inventory[0].stackSize--;
@@ -233,8 +347,8 @@ public class DrawbridgeLogic extends InventoryLogic implements IFacingLogic, IAc
                             if (inventory[0] != null && validBlock(block) && validMetadata(block.blockID, meta))
                             {
                                 worldObj.playSoundEffect((double) xPos + 0.5D, (double) yPos + 0.5D, (double) zPos + 0.5D, "tile.piston.in", 0.25F, worldObj.rand.nextFloat() * 0.15F + 0.6F);
-                                worldObj.setBlock(xPos, yPos, zPos, 0);
-                                inventory[0].stackSize++;
+                                if (worldObj.setBlock(xPos, yPos, zPos, 0))
+                                    inventory[0].stackSize++;
                             }
                             else
                             {
@@ -250,6 +364,31 @@ public class DrawbridgeLogic extends InventoryLogic implements IFacingLogic, IAc
                 }
             }
         }
+    }
+
+    /**
+     * Called to actually place the block, after the location is determined
+     * and all permission checks have been made.
+     * Copied from ItemBlock
+     *
+     * @param stack The item stack that was used to place the block. This can be changed inside the method.
+     * @param player The player who is placing the block. Can be null if the block is not being placed by a player.
+     * @param side The side the player (or machine) right-clicked on.
+     */
+    public boolean placeBlockAt (ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int metadata, Block block)
+    {
+        if (!world.setBlock(x, y, z, block.blockID, metadata, 3))
+        {
+            return false;
+        }
+
+        if (world.getBlockId(x, y, z) == block.blockID)
+        {
+            block.onBlockPlacedBy(world, x, y, z, player, stack);
+            block.onPostBlockPlaced(world, x, y, z, metadata);
+        }
+
+        return true;
     }
 
     boolean validBlock (Block block)
@@ -286,7 +425,7 @@ public class DrawbridgeLogic extends InventoryLogic implements IFacingLogic, IAc
         }
         if (type == 3)
         {
-            return true; //TODO: rotational metadata
+            return true; //TODO: rotational metadata, probably not needed anymore
         }
         if (type == 4)
         {
@@ -298,7 +437,7 @@ public class DrawbridgeLogic extends InventoryLogic implements IFacingLogic, IAc
         }
         return false;
     }
-    
+
     @Override
     public void readFromNBT (NBTTagCompound tags)
     {
@@ -322,11 +461,14 @@ public class DrawbridgeLogic extends InventoryLogic implements IFacingLogic, IAc
     public void readCustomNBT (NBTTagCompound tags)
     {
         direction = tags.getByte("Direction");
+        placementDirection = tags.getByte("Placement");
     }
 
     public void writeCustomNBT (NBTTagCompound tags)
     {
         tags.setByte("Direction", direction);
+        tags.setByte("Placement", placementDirection);
+
     }
 
     /* Packets */
@@ -349,10 +491,11 @@ public class DrawbridgeLogic extends InventoryLogic implements IFacingLogic, IAc
     {
         return extension != 0;
     }
-    
+
     @Override
-	public void onInventoryChanged() {
-		super.onInventoryChanged();
-		this.worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-	}
+    public void onInventoryChanged ()
+    {
+        super.onInventoryChanged();
+        this.worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+    }
 }

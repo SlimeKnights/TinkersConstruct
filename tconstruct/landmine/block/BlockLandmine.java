@@ -488,7 +488,8 @@ public class BlockLandmine extends BlockContainer {
 		return false;
 	}
 
-	@Override
+	@SuppressWarnings("incomplete-switch")
+    @Override
 	public void setBlockBoundsBasedOnState(IBlockAccess par1IBlockAccess, int par2, int par3, int par4) {
 		int l = par1IBlockAccess.getBlockMetadata(par2, par3, par4);
 		int i1 = l & 7;
