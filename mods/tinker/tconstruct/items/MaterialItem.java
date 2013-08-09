@@ -1,5 +1,13 @@
 package mods.tinker.tconstruct.items;
 
+import java.util.List;
+
+import mods.tinker.tconstruct.blocks.logic.EssenceExtractorLogic;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class MaterialItem extends CraftingItem
 {
 
@@ -26,4 +34,21 @@ public class MaterialItem extends CraftingItem
             "nugget_copper", "nugget_tin", "nugget_aluminum", "essencecrystal", "nugget_alubrass", "silkycloth", "silkyjewel", "nugget_obsidian", "nugget_cobalt", "nugget_ardite", "nugget_manyullyn",
             "nugget_bronze", "nugget_alumite", "nugget_steel" };
 
+    /*@Override
+    @SideOnly(Side.CLIENT)
+    public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean par4)
+    {
+        if (stack.getItemDamage() == 23)
+        {
+            if (stack.hasTagCompound())
+            {
+                int amount = stack.getTagCompound().getInteger("Essence");
+                list.add("Stored Levels: " + EssenceExtractorLogic.getEssencelevels(amount));
+            }
+            else
+            {
+                list.add("Stored Levels: 0");
+            }
+        }
+    }*/
 }

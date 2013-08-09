@@ -9,7 +9,7 @@ import net.minecraft.util.MathHelper;
 
 public class MetalItemBlock extends ItemBlock
 {
-    public static final String blockType[] = { "Cobalt", "Ardite", "Manyullyn", "Copper", "Bronze", "Tin", "Aluminum", "AlBrass", "Alumite", "Steel" };
+    public static final String blockType[] = { "Cobalt", "Ardite", "Manyullyn", "Copper", "Bronze", "Tin", "Aluminum", "AlBrass", "Alumite", "Steel", "Ender" };
 
     public MetalItemBlock(int id)
     {

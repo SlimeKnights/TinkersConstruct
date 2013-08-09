@@ -11,6 +11,7 @@ import mods.tinker.tconstruct.blocks.Aggregator;
 import mods.tinker.tconstruct.blocks.CraftingStationBlock;
 import mods.tinker.tconstruct.blocks.DryingRack;
 import mods.tinker.tconstruct.blocks.EquipBlock;
+import mods.tinker.tconstruct.blocks.EssenceExtractor;
 import mods.tinker.tconstruct.blocks.GlassBlockConnected;
 import mods.tinker.tconstruct.blocks.GlassBlockConnectedMeta;
 import mods.tinker.tconstruct.blocks.GlassPane;
@@ -41,6 +42,7 @@ import mods.tinker.tconstruct.blocks.logic.CastingTableLogic;
 import mods.tinker.tconstruct.blocks.logic.CraftingStationLogic;
 import mods.tinker.tconstruct.blocks.logic.DrawbridgeLogic;
 import mods.tinker.tconstruct.blocks.logic.DryingRackLogic;
+import mods.tinker.tconstruct.blocks.logic.EssenceExtractorLogic;
 import mods.tinker.tconstruct.blocks.logic.FaucetLogic;
 import mods.tinker.tconstruct.blocks.logic.FirestarterLogic;
 import mods.tinker.tconstruct.blocks.logic.FrypanLogic;
@@ -69,6 +71,7 @@ import mods.tinker.tconstruct.entity.projectile.LaunchedPotion;
 import mods.tinker.tconstruct.items.Bowstring;
 import mods.tinker.tconstruct.items.CraftingItem;
 import mods.tinker.tconstruct.items.DiamondApple;
+import mods.tinker.tconstruct.items.EssenceCrystal;
 import mods.tinker.tconstruct.items.FilledBucket;
 import mods.tinker.tconstruct.items.Fletching;
 import mods.tinker.tconstruct.items.GoldenHead;
@@ -171,10 +174,7 @@ import net.minecraft.block.material.MaterialLiquid;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.FurnaceRecipes;
-import net.minecraft.item.crafting.RecipesTools;
-import net.minecraft.item.crafting.RecipesWeapons;
 import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
@@ -320,6 +320,8 @@ public class TContent implements IFuelHandler
     //Crystalline
     public static Block aggregator;
     public static Block lightCrystalBase;
+    public static Block essenceExtractor;
+    public static Item essenceCrystal;
 
     //Liquids
     public static Block liquidMetalFlowing;
@@ -489,6 +491,10 @@ public class TContent implements IFuelHandler
         GameRegistry.registerBlock(redstoneMachine, RedstoneMachineItem.class, "Redstone.Machine");
         GameRegistry.registerTileEntity(DrawbridgeLogic.class, "Drawbridge");
         GameRegistry.registerTileEntity(FirestarterLogic.class, "Firestarter");
+        
+        essenceExtractor = new EssenceExtractor(PHConstruct.essenceExtractor).setHardness(12f).setUnlocalizedName("extractor.essence");
+        GameRegistry.registerBlock(essenceExtractor, "extractor.essence");
+        GameRegistry.registerTileEntity(EssenceExtractorLogic.class, "extractor.essence");
         
         //Traps
         landmine = new BlockLandmine(PHConstruct.landmine).setHardness(0.5F).setResistance(0F).setStepSound(Block.soundMetalFootstep).setCreativeTab(TConstructRegistry.blockTab).setUnlocalizedName("landmine");
@@ -704,13 +710,12 @@ public class TContent implements IFuelHandler
         //Wearables
         //heavyHelmet = new TArmorBase(PHConstruct.heavyHelmet, 0).setUnlocalizedName("tconstruct.HeavyHelmet");
         heartCanister = new HeartCanister(PHConstruct.heartCanister).setUnlocalizedName("tconstruct.canister");
-        heavyBoots = new TArmorBase(PHConstruct.heavyBoots, 3).setUnlocalizedName("tconstruct.HeavyBoots");
-        glove = new Glove(PHConstruct.glove).setUnlocalizedName("tconstruct.Glove");
+        //heavyBoots = new TArmorBase(PHConstruct.heavyBoots, 3).setUnlocalizedName("tconstruct.HeavyBoots");
+        //glove = new Glove(PHConstruct.glove).setUnlocalizedName("tconstruct.Glove");
         knapsack = new Knapsack(PHConstruct.knapsack).setUnlocalizedName("tconstruct.storage");
-        /*public static Item heavyHelmet;
-        public static Item heavyChestplate;
-        public static Item heavyPants;
-        public static Item heavyBoots;*/
+        
+        //Crystalline
+        essenceCrystal = new EssenceCrystal(PHConstruct.essenceCrystal).setUnlocalizedName("tconstruct.crystal.essence");
 
         goldHead = new GoldenHead(PHConstruct.goldHead, 4, 1.2F, false).setAlwaysEdible().setPotionEffect(Potion.regeneration.id, 10, 0, 1.0F).setUnlocalizedName("goldenhead");
 
@@ -1105,6 +1110,8 @@ public class TContent implements IFuelHandler
         basinCasting.addCastingRecipe(new ItemStack(smeltery, 1, 4), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 14), null, true, 100); //seared stone
 
         basinCasting.addCastingRecipe(new ItemStack(speedBlock, 1, 0), new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue / 9, 3), new ItemStack(Block.gravel), true, 100); //brownstone
+        basinCasting.addCastingRecipe(new ItemStack(Block.whiteStone), new LiquidStack(liquidMetalStill.blockID, 25, 23), new ItemStack(Block.obsidian), true, 100); //endstone
+        basinCasting.addCastingRecipe(new ItemStack(metalBlock.blockID, 1, 10), new LiquidStack(liquidMetalStill.blockID, 1000, 23), null, true, 100); //ender
 
         //Ore
         Smeltery.addMelting(Block.oreIron, 0, 600, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 0));
@@ -1121,6 +1128,8 @@ public class TContent implements IFuelHandler
 
         Smeltery.addMelting(new ItemStack(blankPattern, 4, 1), metalBlock.blockID, 7, 150, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue, 8));
         Smeltery.addMelting(new ItemStack(blankPattern, 4, 2), metalBlock.blockID, 7, 150, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 1));
+        
+        Smeltery.addMelting(new ItemStack(Item.enderPearl, 4), metalBlock.blockID, 10, 500, new LiquidStack(liquidMetalStill.blockID, 250, 23));
 
         //Blocks
         Smeltery.addMelting(Block.blockIron, 0, 600, new LiquidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 9, 0));
@@ -1512,6 +1521,8 @@ public class TContent implements IFuelHandler
 
         GameRegistry.addRecipe(new ItemStack(craftingStationWood, 1, 0), "b", 'b', new ItemStack(Block.workbench));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(craftingStationWood, 1, 0), "b", 'b', "crafterWood"));
+        
+        GameRegistry.addRecipe(new ItemStack(essenceExtractor, 1, 0), " b ", "eme", "mmm", 'b', Item.book, 'e', Item.emerald, 'm', Block.whiteStone);
     }
 
     void setupToolTabs ()
@@ -1623,7 +1634,7 @@ public class TContent implements IFuelHandler
 
         String[] names = new String[] { "Molten Iron", "Molten Gold", "Molten Copper", "Molten Tin", "Molten Aluminum", "Molten Cobalt", "Molten Ardite", "Molten Bronze", "Molten Aluminum Brass",
                 "Molten Manyullyn", "Molten Alumite", "Molten Obsidian", "Molten Steel", "Molten Glass", "Seared Stone", "Molten Emerald", "Blood", "Liquid Nickel", "Liquid Lead", "Liquid Silver",
-                "Liquid Shiny", "Liquid Invar", "Liquid Electrum" };
+                "Liquid Shiny", "Liquid Invar", "Liquid Electrum", "ender" };
         liquidIcons = new LiquidStack[names.length];
         liquidNames = new String[names.length];
         for (int iter = 0; iter < names.length; iter++)

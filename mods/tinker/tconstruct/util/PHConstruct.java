@@ -119,6 +119,7 @@ public class PHConstruct
         
         punji = config.getBlock("Punji", 3232).getInt(3232);
         woodCrafter = config.getBlock("Crafting Station", 3233).getInt(3233);
+        essenceExtractor = config.getBlock("Essence Extractor", 3234).getInt(3234);
 
         manual = config.getItem("Patterns and Misc", "Tinker's Manual", 14018).getInt(14018);
         blankPattern = config.getItem("Patterns and Misc", "Blank Patterns", 14019).getInt(14019);
@@ -199,6 +200,7 @@ public class PHConstruct
         glove = config.getItem("Equipables", "Gloves", 14111).getInt(14111);
         knapsack = config.getItem("Equipables", "Knapsack", 14112).getInt(14112);
         goldHead = config.getItem("Patterns and Misc", "Golden Head", 14113).getInt(14113);
+        essenceCrystal = config.getItem("Patterns and Misc", "Essence Crystal", 14114).getInt(14114);
 
         boolean ic2 = true;
         boolean xycraft = true;
@@ -344,6 +346,8 @@ public class PHConstruct
     //Crystalline
     public static int aggregator;
     public static int lightCrystalBase;
+    public static int essenceExtractor;
+    public static int essenceCrystal;
 
     //Liquids
     public static int metalFlowing;

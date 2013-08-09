@@ -41,7 +41,7 @@
   <entry key="block.oreberry.copper.name">Copper Oreberry Bush</entry>
   <entry key="block.oreberry.tin.name">Tin Oreberry Bush</entry>
   <entry key="block.oreberry.aluminum.name">Aluminum Oreberry Bush</entry>
-  <entry key="block.oreberry.essence.name">Essence Oreberry Bush</entry>
+  <entry key="block.oreberry.essence.name">Essence Berry Bush</entry>
   
   <entry key="block.ore.gravel.iron.name">Iron Gravel Ore</entry>
   <entry key="block.ore.gravel.gold.name">Gold Gravel Ore</entry>
@@ -131,7 +131,7 @@
   <entry key="item.tconstruct.Materials.CopperNugget.name">Copper Nugget</entry>
   <entry key="item.tconstruct.Materials.TinNugget.name">Tin Nugget</entry>
   <entry key="item.tconstruct.Materials.AluminumNugget.name">Aluminum Nugget</entry>
-  <entry key="item.tconstruct.Materials.EssenceCrystal.name">Essence Crystal</entry>
+  <entry key="item.tconstruct.Materials.EssenceCrystal.name">Fake Essence Crystal</entry>
   <entry key="item.tconstruct.Materials.AluBrassNugget.name">Aluminum Brass Nugget</entry>
   <entry key="item.tconstruct.Materials.SilkyCloth.name">Silky Cloth</entry>
   <entry key="item.tconstruct.Materials.SilkyJewel.name">Silky Jewel</entry>
@@ -142,6 +142,8 @@
   <entry key="item.tconstruct.Materials.BronzeNugget.name">Bronze Nugget</entry>
   <entry key="item.tconstruct.Materials.AlumiteNugget.name">Alumite Nugget</entry>
   <entry key="item.tconstruct.Materials.SteelNugget.name">Steel Nugget</entry>
+  
+  <entry key="item.tconstruct.crystal.essence.name">Essence Crystal</entry>
   
   <entry key="Smeltery.Controller.name">Smeltery Controller</entry>
   <entry key="Smeltery.Drain.name">Smeltery Drain</entry>
@@ -167,6 +169,7 @@
   <entry key="tile.trap.barricade.spruce.name">Spruce Barricade</entry>
   <entry key="tile.trap.barricade.birch.name">Birch Barricade</entry>
   <entry key="tile.trap.barricade.jungle.name">Jungle Barricade</entry>
+  <entry key="tile.extractor.essence.name">Essence Extractor</entry>
   
   <entry key="StorageMetals.Cobalt.name">Block of Cobalt</entry>
   <entry key="StorageMetals.Ardite.name">Block of Ardite</entry>
@@ -178,6 +181,7 @@
   <entry key="StorageMetals.AlBrass.name">Block of Aluminum Brass</entry>
   <entry key="StorageMetals.Alumite.name">Block of Alumite</entry>
   <entry key="StorageMetals.Steel.name">Block of Steel</entry>
+  <entry key="StorageMetals.Ender.name">Block of Solid Ender</entry>
   
   <entry key="tile.decoration.stonetorch.name">Torch</entry>
   <entry key="tile.CraftingStation.name">Crafting Station</entry>
@@ -294,6 +298,13 @@
   <entry key="LiquidMetal.Stone.name">Seared Stone</entry>
   <entry key="LiquidMetal.Villager.name">Liquified Emerald</entry>
   <entry key="LiquidMetal.Cow.name">Blood</entry>
+  <entry key="LiquidMetal.Nickel.name">Molten Nickel</entry>
+  <entry key="LiquidMetal.Silver.name">Molten Silver</entry>
+  <entry key="LiquidMetal.Lead.name">Molten Lead</entry>
+  <entry key="LiquidMetal.Shiny.name">Molten Shiny</entry>
+  <entry key="LiquidMetal.Invar.name">Molten Invar</entry>
+  <entry key="LiquidMetal.Electrum.name">Molten Electrum</entry>
+  <entry key="LiquidMetal.Ender.name">Liquified Ender</entry>
   
   <entry key="item.food.apple.diamond.name">Jeweled Apple</entry>
   <entry key="item.tconstruct.strangefood.edibleslime.name">Gelatinous Slime</entry>

@@ -240,6 +240,11 @@ Part casts must be created by pouring metal around existing parts, like a pickax
 <recipe>searedstone</recipe>
 </page>
 
+<page type="blockcast">
+<text>Endstone</text>
+<recipe>endstone</recipe>
+</page>
+
 <page type="crafting">
 <text>Drawbridge</text>
 <recipe>
