@@ -277,6 +277,13 @@
   <entry key="item.tconstruct.bucket.Stone.name">Seared Stone Bucket</entry>
   <entry key="item.tconstruct.bucket.Villager.name">Liquified Emerald Bucket</entry>
   <entry key="item.tconstruct.bucket.Cow.name">Bucket o' Blood</entry>
+  <entry key="item.tconstruct.bucket.Nickel.name">Molten Nickel Bucket</entry>
+  <entry key="item.tconstruct.bucket.Lead.name">Molten Lead Bucket</entry>
+  <entry key="item.tconstruct.bucket.Silver.name">Molten Silver Bucket</entry>
+  <entry key="item.tconstruct.bucket.Shiny.name">Molten Shiny Bucket</entry>
+  <entry key="item.tconstruct.bucket.Invar.name">Molten Invar Bucket</entry>
+  <entry key="item.tconstruct.bucket.Electrum.name">Molten Electrum Bucket</entry>
+  <entry key="item.tconstruct.bucket.Ender.name">Molten Ender Bucket</entry>
   
   <entry key="item.tconstruct.bowstring.string.name">Bowstring</entry>
   <entry key="item.tconstruct.bowstring.enchantedfabriI donc.name">Enchanted Bowstring</entry>
