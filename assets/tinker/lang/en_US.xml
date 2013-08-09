@@ -173,6 +173,8 @@
 =======
 >>>>>>> Glass connected textures, experimental Thermal Expansion support, extra configs for Jadedcat:mods/tinker/resources/lang/en_US.xml
   
+  <entry key="item.tconstruct.crystal.essence.name">Essence Crystal</entry>
+  
   <entry key="Smeltery.Controller.name">Smeltery Controller</entry>
   <entry key="Smeltery.Drain.name">Smeltery Drain</entry>
   <entry key="Smeltery.Brick.name">Seared Bricks</entry>
@@ -202,11 +204,15 @@
   <entry key="tile.trap.barricade.birch.name">Birch Barricade</entry>
   <entry key="tile.trap.barricade.jungle.name">Jungle Barricade</entry>
 <<<<<<< HEAD:assets/tinker/lang/en_US.xml
+<<<<<<< HEAD:assets/tinker/lang/en_US.xml
   <entry key="tile.extractor.essence.name">Essence Extractor</entry>
 =======
 >>>>>>> Glass connected textures, experimental Thermal Expansion support, extra configs for Jadedcat:mods/tinker/resources/lang/en_US.xml
 =======
 >>>>>>> Crafting Station Start:mods/tinker/resources/lang/en_US.xml
+=======
+  <entry key="tile.extractor.essence.name">Essence Extractor</entry>
+>>>>>>> Added early essence extractor, liquid ender, updated lang files:mods/tinker/resources/lang/en_US.xml
   
   <entry key="StorageMetals.Cobalt.name">Block of Cobalt</entry>
   <entry key="StorageMetals.Ardite.name">Block of Ardite</entry>
@@ -336,6 +342,7 @@
   <entry key="item.tconstruct.bowstring.string.name">Bowstring</entry>
   <entry key="item.tconstruct.bowstring.enchantedfabriI donc.name">Enchanted Bowstring</entry>
   
+<<<<<<< HEAD:assets/tinker/lang/en_US.xml
   <entry key="tile.metal.molten.iron.name">Molten Iron</entry>
   <entry key="tile.metal.molten.gold.name">Molten Gold</entry>
   <entry key="tile.metal.molten.copper.name">Molten Copper</entry>
@@ -360,6 +367,32 @@
   <entry key="tile.metal.molten.invar.name">Molten Invar</entry>
   <entry key="tile.metal.molten.Electrum.name">Molten Electrum</entry>
   <entry key="tile.liquid.ender.name">Liquified Ender</entry>
+=======
+  <entry key="LiquidMetal.Iron.name">Molten Iron</entry>
+  <entry key="LiquidMetal.Gold.name">Molten Gold</entry>
+  <entry key="LiquidMetal.Copper.name">Molten Copper</entry>
+  <entry key="LiquidMetal.Tin.name">Liquid Tin</entry>
+  <entry key="LiquidMetal.Aluminum.name">Molten Aluminum</entry>
+  <entry key="LiquidMetal.Cobalt.name">Molten Cobalt</entry>
+  <entry key="LiquidMetal.Ardite.name">Molten Ardite</entry>
+  <entry key="LiquidMetal.Bronze.name">Molten Bronze</entry>
+  <entry key="LiquidMetal.AluBrass.name">Molten Aluminum Brass</entry>
+  <entry key="LiquidMetal.Manyullyn.name">Molten Manyullyn</entry>
+  <entry key="LiquidMetal.Alumite.name">Molten Alumite</entry>
+  <entry key="LiquidMetal.Obsidian.name">Molten Obsidian</entry>
+  <entry key="LiquidMetal.Steel.name">Molten Steel</entry>
+  <entry key="LiquidMetal.Glass.name">Molten Glass</entry>
+  <entry key="LiquidMetal.Stone.name">Seared Stone</entry>
+  <entry key="LiquidMetal.Villager.name">Liquified Emerald</entry>
+  <entry key="LiquidMetal.Cow.name">Blood</entry>
+  <entry key="LiquidMetal.Nickel.name">Molten Nickel</entry>
+  <entry key="LiquidMetal.Silver.name">Molten Silver</entry>
+  <entry key="LiquidMetal.Lead.name">Molten Lead</entry>
+  <entry key="LiquidMetal.Shiny.name">Molten Shiny</entry>
+  <entry key="LiquidMetal.Invar.name">Molten Invar</entry>
+  <entry key="LiquidMetal.Electrum.name">Molten Electrum</entry>
+  <entry key="LiquidMetal.Ender.name">Liquified Ender</entry>
+>>>>>>> Added early essence extractor, liquid ender, updated lang files:mods/tinker/resources/lang/en_US.xml
   
   <entry key="item.food.apple.diamond.name">Jeweled Apple</entry>
   <entry key="item.tconstruct.strangefood.edibleslime.name">Gelatinous Slime</entry>

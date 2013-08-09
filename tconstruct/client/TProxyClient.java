@@ -673,6 +673,7 @@ public class TProxyClient extends TProxyCommon
         TConstructClientRegistry.registerManualSmeltery("brownstone", new ItemStack(TContent.speedBlock), new ItemStack(TContent.moltenTin, 1), new ItemStack(Block.gravel));
         TConstructClientRegistry.registerManualSmeltery("clearglass", new ItemStack(TContent.clearGlass), new ItemStack(TContent.moltenGlass, 1), null);
         TConstructClientRegistry.registerManualSmeltery("searedstone", new ItemStack(TContent.smeltery, 1, 4), new ItemStack(TContent.moltenStone, 1), null);
+        TConstructClientRegistry.registerManualSmeltery("endstone", new ItemStack(Block.whiteStone), new ItemStack(TContent.moltenEnder, 1), new ItemStack(Block.obsidian));
 
     }
 

@@ -14,10 +14,7 @@ import net.minecraft.block.material.MaterialLiquid;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.FurnaceRecipes;
-import net.minecraft.item.crafting.RecipesTools;
-import net.minecraft.item.crafting.RecipesWeapons;
 import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
@@ -121,10 +118,8 @@ import tconstruct.items.TitleIcon;
 import tconstruct.items.ToolPart;
 import tconstruct.items.ToolPartHidden;
 import tconstruct.items.ToolShard;
-import tconstruct.items.armor.Glove;
 import tconstruct.items.armor.HeartCanister;
 import tconstruct.items.armor.Knapsack;
-import tconstruct.items.armor.TArmorBase;
 import tconstruct.items.blocks.BarricadeItem;
 import tconstruct.items.blocks.CraftedSoilItemBlock;
 import tconstruct.items.blocks.CraftingSlabItemBlock;
@@ -595,6 +590,10 @@ public class TContent implements IFuelHandler
         GameRegistry.registerBlock(redstoneMachine, RedstoneMachineItem.class, "Redstone.Machine");
         GameRegistry.registerTileEntity(DrawbridgeLogic.class, "Drawbridge");
         GameRegistry.registerTileEntity(FirestarterLogic.class, "Firestarter");
+        
+        essenceExtractor = new EssenceExtractor(PHConstruct.essenceExtractor).setHardness(12f).setUnlocalizedName("extractor.essence");
+        GameRegistry.registerBlock(essenceExtractor, "extractor.essence");
+        GameRegistry.registerTileEntity(EssenceExtractorLogic.class, "extractor.essence");
         
         //Traps
         landmine = new BlockLandmine(PHConstruct.landmine).setHardness(0.5F).setResistance(0F).setStepSound(Block.soundMetalFootstep).setCreativeTab(TConstructRegistry.blockTab).setUnlocalizedName("landmine");
@@ -1069,9 +1068,12 @@ public class TContent implements IFuelHandler
         //Wearables
         //heavyHelmet = new TArmorBase(PHConstruct.heavyHelmet, 0).setUnlocalizedName("tconstruct.HeavyHelmet");
         heartCanister = new HeartCanister(PHConstruct.heartCanister).setUnlocalizedName("tconstruct.canister");
-        heavyBoots = new TArmorBase(PHConstruct.heavyBoots, 3).setUnlocalizedName("tconstruct.HeavyBoots");
-        glove = new Glove(PHConstruct.glove).setUnlocalizedName("tconstruct.Glove");
+        //heavyBoots = new TArmorBase(PHConstruct.heavyBoots, 3).setUnlocalizedName("tconstruct.HeavyBoots");
+        //glove = new Glove(PHConstruct.glove).setUnlocalizedName("tconstruct.Glove");
         knapsack = new Knapsack(PHConstruct.knapsack).setUnlocalizedName("tconstruct.storage");
+        
+        //Crystalline
+        essenceCrystal = new EssenceCrystal(PHConstruct.essenceCrystal).setUnlocalizedName("tconstruct.crystal.essence");
         goldHead = new GoldenHead(PHConstruct.goldHead, 4, 1.2F, false).setAlwaysEdible().setPotionEffect(Potion.regeneration.id, 10, 0, 1.0F).setUnlocalizedName("goldenhead");
 
         essenceCrystal = new EssenceCrystal(PHConstruct.essenceCrystal).setUnlocalizedName("tconstruct.crystal.essence");
@@ -1883,6 +1885,8 @@ public class TContent implements IFuelHandler
         GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 3), "b", 'b', new ItemStack(toolStationWood, 1, 12));
         GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 3), "b", 'b', new ItemStack(toolStationWood, 1, 13));
         GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 5), "b", 'b', new ItemStack(toolForge, 1, Short.MAX_VALUE));
+        
+        GameRegistry.addRecipe(new ItemStack(essenceExtractor, 1, 0), " b ", "eme", "mmm", 'b', Item.book, 'e', Item.emerald, 'm', Block.whiteStone);
     }
 
     void setupToolTabs ()
@@ -1986,6 +1990,7 @@ public class TContent implements IFuelHandler
                 "blueslime" };
         for (int i = 0; i < matNames.length; i++)
             OreDictionary.registerOre(matNames[i] + "Rod", new ItemStack(toolRod, 1, i));
+        
         String[] glassTypes = { "glassBlack", "glassRed", "glassGreen", "glassBrown", "glassBlue", "glassPurple", "glassCyan", "glassLightGray", "glassGray", "glassPink", "glassLime", "glassYellow",
                 "glassLightBlue", "glassMagenta", "glassOrange", "glassWhite" };
         for (int i = 0; i < 16; i++)

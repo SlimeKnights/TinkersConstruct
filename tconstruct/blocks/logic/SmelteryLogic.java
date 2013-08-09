@@ -19,6 +19,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -314,6 +315,17 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                     {
                         int amount = villager.isChild() ? 1 : 8;
                         this.addMoltenMetal(new FluidStack(TContent.moltenEmeraldFluid, amount), false);
+                    }
+                }
+            }
+            else if (o instanceof EntityEnderman)
+            {
+                EntityEnderman villager = (EntityEnderman) o;
+                if (villager.attackEntityFrom(new SmelteryDamageSource(), 1))
+                {
+                    if (currentLiquid + 25 < maxLiquid)
+                    {
+                        this.addMoltenMetal(new FluidStack(TContent.moltenEnder.blockID, 25), false);
                     }
                 }
             }
