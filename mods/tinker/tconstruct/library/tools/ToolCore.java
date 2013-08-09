@@ -126,7 +126,7 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
     @Override
     public boolean requiresMultipleRenderPasses ()
     {
-        return true;
+        return false;
     }
 
     @SideOnly(Side.CLIENT)
