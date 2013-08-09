@@ -36,12 +36,12 @@
   <entry key="MetalOre.Aluminum.name">Aluminiumerz</entry>
   <entry key="MetalOre.Slag.name">Schlacke</entry>
 
-  <entry key="block.oreberry.iron.name">Eisenbusch</entry>
-  <entry key="block.oreberry.gold.name">Goldbusch</entry>
-  <entry key="block.oreberry.copper.name">Kupferbusch</entry>
-  <entry key="block.oreberry.tin.name">Zinnbusch</entry>
-  <entry key="block.oreberry.aluminum.name">Aluminiumbusch</entry>
-  <entry key="block.oreberry.essence.name">Essenzbusch</entry>
+  <entry key="block.oreberry.iron.name">Eisenbeerenbusch</entry>
+  <entry key="block.oreberry.gold.name">Goldbeerenbusch</entry>
+  <entry key="block.oreberry.copper.name">Kupferbeerenbusch</entry>
+  <entry key="block.oreberry.tin.name">Zinnbeerenbusch</entry>
+  <entry key="block.oreberry.aluminum.name">Aluminiumbeerenbusch</entry>
+  <entry key="block.oreberry.essence.name">Essenzbeerenbusch</entry>
 
   <entry key="block.ore.gravel.iron.name">Eisenkies</entry>
   <entry key="block.ore.gravel.gold.name">Goldkies</entry>
@@ -131,7 +131,7 @@
   <entry key="item.tconstruct.Materials.CopperNugget.name">Kupferklumpen</entry>
   <entry key="item.tconstruct.Materials.TinNugget.name">Zinnklumpen</entry>
   <entry key="item.tconstruct.Materials.AluminumNugget.name">Aluminiumklumpen</entry>
-  <entry key="item.tconstruct.Materials.EssenceCrystal.name">Essenzkristall</entry>
+  <entry key="item.tconstruct.Materials.EssenceCrystal.name">Falscher Essenzkristall</entry>
   <entry key="item.tconstruct.Materials.AluBrassNugget.name">Duraluminiumklumpen</entry>
   <entry key="item.tconstruct.Materials.SilkyCloth.name">Seide</entry>
   <entry key="item.tconstruct.Materials.SilkyJewel.name">Seidiger Edelstein</entry>
@@ -142,6 +142,8 @@
   <entry key="item.tconstruct.Materials.BronzeNugget.name">Bronzeklumpen</entry>
   <entry key="item.tconstruct.Materials.AlumiteNugget.name">Alumitklumpen</entry>
   <entry key="item.tconstruct.Materials.SteelNugget.name">Stahlklumpen</entry>
+  
+  <entry key="item.tconstruct.crystal.essence.name">Essenzkristall</entry>
 
   <entry key="Smeltery.Controller.name">Schmelzereikern</entry>
   <entry key="Smeltery.Drain.name">Schmelzereiausguss</entry>
@@ -167,6 +169,7 @@
   <entry key="tile.trap.barricade.spruce.name">Fichten-Barrikade</entry>
   <entry key="tile.trap.barricade.birch.name">Birken-Barrikade</entry>
   <entry key="tile.trap.barricade.jungle.name">Tropen-Barrikade</entry>
+  <entry key="tile.extractor.essence.name">Essenz-Extraktor</entry>
 
   <entry key="StorageMetals.Cobalt.name">Cobaltblock</entry>
   <entry key="StorageMetals.Ardite.name">Arditblock</entry>
@@ -178,6 +181,7 @@
   <entry key="StorageMetals.AlBrass.name">Duraluminiumblock</entry>
   <entry key="StorageMetals.Alumite.name">Alumitblock</entry>
   <entry key="StorageMetals.Steel.name">Stahlblock</entry>
+  <entry key="StorageMetals.Ender.name">Block Soliden Enders</entry>
 
   <entry key="tile.decoration.stonetorch.name">Fackel</entry>
   <entry key="tile.CraftingStation.name">Handwerksstation</entry>
@@ -256,44 +260,58 @@
   <entry key="item.tconstruct.manual.toolstation.name">Du und deine Materialien</entry>
   <entry key="item.tconstruct.manual.smeltery.name">Die Mächtige Schmelzerei</entry>
 
-  <entry key="item.tconstruct.bucket.Iron.name">Eimer mit flüssigem Eisen</entry>
-  <entry key="item.tconstruct.bucket.Gold.name">Eimer mit flüssigem Gold</entry>
-  <entry key="item.tconstruct.bucket.Copper.name">Eimer mit flüssigem Kupfer</entry>
-  <entry key="item.tconstruct.bucket.Tin.name">Eimer mit flüssigem Zinn</entry>
-  <entry key="item.tconstruct.bucket.Aluminum.name">Eimer mit flüssigem Aluminium</entry>
-  <entry key="item.tconstruct.bucket.Cobalt.name">Eimer mit flüssigem Cobalt</entry>
-  <entry key="item.tconstruct.bucket.Ardite.name">Eimer mit flüssigem Ardit</entry>
-  <entry key="item.tconstruct.bucket.Bronze.name">Eimer mit flüssigem Bronze</entry>
-  <entry key="item.tconstruct.bucket.AluBrass.name">Eimer mit flüssigem Duraluminium</entry>
-  <entry key="item.tconstruct.bucket.Manyullyn.name">Eimer mit flüssigem Manyullyn</entry>
-  <entry key="item.tconstruct.bucket.Alumite.name">Eimer mit flüssigem Alumit</entry>
-  <entry key="item.tconstruct.bucket.Obsidian.name">Eimer mit flüssigem Obsidian</entry>
-  <entry key="item.tconstruct.bucket.Steel.name">Eimer mit flüssigem Stahl</entry>
-  <entry key="item.tconstruct.bucket.Glass.name">Eimer mit flüssigem Glas</entry>
+  <entry key="item.tconstruct.bucket.Iron.name">Eimer mit geschmolzenem Eisen</entry>
+  <entry key="item.tconstruct.bucket.Gold.name">Eimer mit geschmolzenem Gold</entry>
+  <entry key="item.tconstruct.bucket.Copper.name">Eimer mit geschmolzenem Kupfer</entry>
+  <entry key="item.tconstruct.bucket.Tin.name">Eimer mit geschmolzenem Zinn</entry>
+  <entry key="item.tconstruct.bucket.Aluminum.name">Eimer mit geschmolzenem Aluminium</entry>
+  <entry key="item.tconstruct.bucket.Cobalt.name">Eimer mit geschmolzenem Cobalt</entry>
+  <entry key="item.tconstruct.bucket.Ardite.name">Eimer mit geschmolzenem Ardit</entry>
+  <entry key="item.tconstruct.bucket.Bronze.name">Eimer mit geschmolzener Bronze</entry>
+  <entry key="item.tconstruct.bucket.AluBrass.name">Eimer mit geschmolzenem Duraluminium</entry>
+  <entry key="item.tconstruct.bucket.Manyullyn.name">Eimer mit geschmolzenem Manyullyn</entry>
+  <entry key="item.tconstruct.bucket.Alumite.name">Eimer mit geschmolzenem Alumit</entry>
+  <entry key="item.tconstruct.bucket.Obsidian.name">Eimer mit geschmolzenem Obsidian</entry>
+  <entry key="item.tconstruct.bucket.Steel.name">Eimer mit geschmolzenem Stahl</entry>
+  <entry key="item.tconstruct.bucket.Glass.name">Eimer mit geschmolzenem Glas</entry>
   <entry key="item.tconstruct.bucket.Stone.name">Eimer mit versengtem Gestein</entry>
-  <entry key="item.tconstruct.bucket.Villager.name">Eimer mit flüssigem Smaragd</entry>
-  <entry key="item.tconstruct.bucket.Cow.name">Eimer mit Blut</entry>
+  <entry key="item.tconstruct.bucket.Villager.name">Eimer mit verflüssigtem Smaragd</entry>
+  <entry key="item.tconstruct.bucket.Cow.name">Eimer voller Blut</entry>
+  <entry key="item.tconstruct.bucket.Nickel.name">Eimer mit geschmolzenem Nickel</entry>
+  <entry key="item.tconstruct.bucket.Lead.name">Eimer mit geschmolzenem Blei</entry>
+  <entry key="item.tconstruct.bucket.Silver.name">Eimer mit geschmolzenem Silber</entry>
+  <entry key="item.tconstruct.bucket.Shiny.name">Eimer mit geschmolzenem Platin</entry>
+  <entry key="item.tconstruct.bucket.Invar.name">Eimer mit geschmolzenem Invar</entry>
+  <entry key="item.tconstruct.bucket.Electrum.name">Eimer mit geschmolzenem Elektrum</entry>
+  <entry key="item.tconstruct.bucket.Ender.name">Eimer mit verflüssigtem Ender</entry>
 
   <entry key="item.tconstruct.bowstring.string.name">Bogensehne</entry>
   <entry key="item.tconstruct.bowstring.enchantedfabriI donc.name">Verzauberte Bogensehne</entry>
 
-  <entry key="LiquidMetal.Iron.name">Flüssiges Eisen</entry>
-  <entry key="LiquidMetal.Gold.name">Flüssiges Gold</entry>
-  <entry key="LiquidMetal.Copper.name">Flüssiges Kupfer</entry>
-  <entry key="LiquidMetal.Tin.name">Flüssiges Zinn</entry>
-  <entry key="LiquidMetal.Aluminum.name">Flüssiges Aluminium</entry>
-  <entry key="LiquidMetal.Cobalt.name">Flüssiges Cobalt</entry>
-  <entry key="LiquidMetal.Ardite.name">Flüssiges Ardit</entry>
-  <entry key="LiquidMetal.Bronze.name">Flüssige Bronze</entry>
-  <entry key="LiquidMetal.AluBrass.name">Flüssiges Duraluminium</entry>
-  <entry key="LiquidMetal.Manyullyn.name">Flüssiges Manyullyn</entry>
-  <entry key="LiquidMetal.Alumite.name">Flüssiges Alumit</entry>
-  <entry key="LiquidMetal.Obsidian.name">Flüssiger Obsidian</entry>
-  <entry key="LiquidMetal.Steel.name">Flüssiger Stahl</entry>
-  <entry key="LiquidMetal.Glass.name">Flüssiges Glas</entry>
-  <entry key="LiquidMetal.Stone.name">Flüssiges Gestein</entry>
-  <entry key="LiquidMetal.Villager.name">Flüssiger Smaragd</entry>
+  <entry key="LiquidMetal.Iron.name">Geschmolzenes Eisen</entry>
+  <entry key="LiquidMetal.Gold.name">Geschmolzenes Gold</entry>
+  <entry key="LiquidMetal.Copper.name">Geschmolzenes Kupfer</entry>
+  <entry key="LiquidMetal.Tin.name">Geschmolzenes Zinn</entry>
+  <entry key="LiquidMetal.Aluminum.name">Geschmolzenes Aluminium</entry>
+  <entry key="LiquidMetal.Cobalt.name">Geschmolzenes Cobalt</entry>
+  <entry key="LiquidMetal.Ardite.name">Geschmolzenes Ardit</entry>
+  <entry key="LiquidMetal.Bronze.name">Geschmolzene Bronze</entry>
+  <entry key="LiquidMetal.AluBrass.name">Geschmolzenes Duraluminium</entry>
+  <entry key="LiquidMetal.Manyullyn.name">Geschmolzenes Manyullyn</entry>
+  <entry key="LiquidMetal.Alumite.name">Geschmolzenes Alumit</entry>
+  <entry key="LiquidMetal.Obsidian.name">Geschmolzenes Obsidian</entry>
+  <entry key="LiquidMetal.Steel.name">Geschmolzener Stahl</entry>
+  <entry key="LiquidMetal.Glass.name">Geschmolzenes Glas</entry>
+  <entry key="LiquidMetal.Stone.name">Versengtes Gestein</entry>
+  <entry key="LiquidMetal.Villager.name">Verflüssigter Smaragd</entry>
   <entry key="LiquidMetal.Cow.name">Blut</entry>
+  <entry key="LiquidMetal.Nickel.name">Geschmolzenes Nickel</entry>
+  <entry key="LiquidMetal.Silver.name">Geschmolzenes Silber</entry>
+  <entry key="LiquidMetal.Lead.name">Geschmolzenes Blei</entry>
+  <entry key="LiquidMetal.Shiny.name">Geschmolzenes Platin</entry>
+  <entry key="LiquidMetal.Invar.name">Geschmolzenes Invar</entry>
+  <entry key="LiquidMetal.Electrum.name">Geschmolzenes Elektrum</entry>
+  <entry key="LiquidMetal.Ender.name">Verflüssigtes Ender</entry>
 
   <entry key="item.food.apple.diamond.name">Verzierter Apfel</entry>
   <entry key="item.tconstruct.strangefood.edibleslime.name">Essbarer Schleim</entry>
