@@ -1809,73 +1809,41 @@ public class TContent implements IFuelHandler
             initRecipes = true;
             if (PHConstruct.removeVanillaToolRecipes)
             {
-                RecipeRemover.removeShapedRecipe(new ItemStack(Item.pickaxeWood));
-                RecipeRemover.removeShapedRecipe(new ItemStack(Item.axeWood));
-                RecipeRemover.removeShapedRecipe(new ItemStack(Item.shovelWood));
-                RecipeRemover.removeShapedRecipe(new ItemStack(Item.hoeWood));
-                RecipeRemover.removeShapedRecipe(new ItemStack(Item.swordWood));
+                RecipeRemover.removeAnyRecipe(new ItemStack(Item.pickaxeWood));
+                RecipeRemover.removeAnyRecipe(new ItemStack(Item.axeWood));
+                RecipeRemover.removeAnyRecipe(new ItemStack(Item.shovelWood));
+                RecipeRemover.removeAnyRecipe(new ItemStack(Item.hoeWood));
+                RecipeRemover.removeAnyRecipe(new ItemStack(Item.swordWood));
 
-                RecipeRemover.removeShapedRecipe(new ItemStack(Item.pickaxeStone));
-                RecipeRemover.removeShapedRecipe(new ItemStack(Item.axeStone));
-                RecipeRemover.removeShapedRecipe(new ItemStack(Item.shovelStone));
-                RecipeRemover.removeShapedRecipe(new ItemStack(Item.hoeStone));
-                RecipeRemover.removeShapedRecipe(new ItemStack(Item.swordStone));
+                RecipeRemover.removeAnyRecipe(new ItemStack(Item.pickaxeStone));
+                RecipeRemover.removeAnyRecipe(new ItemStack(Item.axeStone));
+                RecipeRemover.removeAnyRecipe(new ItemStack(Item.shovelStone));
+                RecipeRemover.removeAnyRecipe(new ItemStack(Item.hoeStone));
+                RecipeRemover.removeAnyRecipe(new ItemStack(Item.swordStone));
 
-                RecipeRemover.removeShapedRecipe(new ItemStack(Item.pickaxeIron));
-                RecipeRemover.removeShapedRecipe(new ItemStack(Item.axeIron));
-                RecipeRemover.removeShapedRecipe(new ItemStack(Item.shovelIron));
-                RecipeRemover.removeShapedRecipe(new ItemStack(Item.hoeIron));
-                RecipeRemover.removeShapedRecipe(new ItemStack(Item.swordIron));
+                RecipeRemover.removeAnyRecipe(new ItemStack(Item.pickaxeIron));
+                RecipeRemover.removeAnyRecipe(new ItemStack(Item.axeIron));
+                RecipeRemover.removeAnyRecipe(new ItemStack(Item.shovelIron));
+                RecipeRemover.removeAnyRecipe(new ItemStack(Item.hoeIron));
+                RecipeRemover.removeAnyRecipe(new ItemStack(Item.swordIron));
 
-                RecipeRemover.removeShapedRecipe(new ItemStack(Item.pickaxeDiamond));
-                RecipeRemover.removeShapedRecipe(new ItemStack(Item.axeDiamond));
-                RecipeRemover.removeShapedRecipe(new ItemStack(Item.shovelDiamond));
-                RecipeRemover.removeShapedRecipe(new ItemStack(Item.hoeDiamond));
-                RecipeRemover.removeShapedRecipe(new ItemStack(Item.swordDiamond));
+                RecipeRemover.removeAnyRecipe(new ItemStack(Item.pickaxeDiamond));
+                RecipeRemover.removeAnyRecipe(new ItemStack(Item.axeDiamond));
+                RecipeRemover.removeAnyRecipe(new ItemStack(Item.shovelDiamond));
+                RecipeRemover.removeAnyRecipe(new ItemStack(Item.hoeDiamond));
+                RecipeRemover.removeAnyRecipe(new ItemStack(Item.swordDiamond));
 
-                RecipeRemover.removeShapedRecipe(new ItemStack(Item.pickaxeGold));
-                RecipeRemover.removeShapedRecipe(new ItemStack(Item.axeGold));
-                RecipeRemover.removeShapedRecipe(new ItemStack(Item.shovelGold));
-                RecipeRemover.removeShapedRecipe(new ItemStack(Item.hoeGold));
-                RecipeRemover.removeShapedRecipe(new ItemStack(Item.swordGold));
-            }
-            else if (PHConstruct.deGreg)
-            {
-                CraftingManager cm = CraftingManager.getInstance();
-                new RecipesTools().addRecipes(cm);
-                new RecipesWeapons().addRecipes(cm);
+                RecipeRemover.removeAnyRecipe(new ItemStack(Item.pickaxeGold));
+                RecipeRemover.removeAnyRecipe(new ItemStack(Item.axeGold));
+                RecipeRemover.removeAnyRecipe(new ItemStack(Item.shovelGold));
+                RecipeRemover.removeAnyRecipe(new ItemStack(Item.hoeGold));
+                RecipeRemover.removeAnyRecipe(new ItemStack(Item.swordGold));
             }
 
             if (!PHConstruct.vanillaMetalBlocks)
             {
                 RecipeRemover.removeShapedRecipe(new ItemStack(Block.blockIron));
                 RecipeRemover.removeShapedRecipe(new ItemStack(Block.blockGold));
-            }
-            else if (PHConstruct.deGreg)
-            {
-                String[] blockPattern = new String[] { "###", "###", "###" };
-                GameRegistry.addRecipe(new ItemStack(Block.blockIron), blockPattern, '#', new ItemStack(Item.ingotIron));
-                GameRegistry.addRecipe(new ItemStack(Block.blockGold), blockPattern, '#', new ItemStack(Item.ingotGold));
-                GameRegistry.addRecipe(new ItemStack(Block.blockDiamond), blockPattern, '#', new ItemStack(Item.diamond));
-                GameRegistry.addRecipe(new ItemStack(Block.blockLapis), blockPattern, '#', new ItemStack(Item.dyePowder, 1, 4));
-                GameRegistry.addRecipe(new ItemStack(Block.blockEmerald), blockPattern, '#', new ItemStack(Item.emerald));
-                GameRegistry.addRecipe(new ItemStack(Block.blockRedstone), blockPattern, '#', new ItemStack(Item.redstone));
-                GameRegistry.addRecipe(new ItemStack(Block.blockNetherQuartz, 1), "##", "##", '#', Item.netherQuartz);
-            }
-
-            if (PHConstruct.deGreg)
-            {
-                GameRegistry.addRecipe(new ItemStack(Item.flintAndSteel, 1), "A ", " B", 'A', Item.ingotIron, 'B', Item.flint);
-                List recipes = CraftingManager.getInstance().getRecipeList();
-                addShapedRecipeFirst(recipes, new ItemStack(Block.planks, 4, 0), "#", '#', new ItemStack(Block.wood, 1, 0));
-                addShapedRecipeFirst(recipes, new ItemStack(Block.planks, 4, 1), "#", '#', new ItemStack(Block.wood, 1, 1));
-                addShapedRecipeFirst(recipes, new ItemStack(Block.planks, 4, 2), "#", '#', new ItemStack(Block.wood, 1, 2));
-                addShapedRecipeFirst(recipes, new ItemStack(Block.planks, 4, 3), "#", '#', new ItemStack(Block.wood, 1, 3));
-                addShapedRecipeFirst(recipes, new ItemStack(Item.stick, 4), "#", "#", '#', new ItemStack(Block.planks, 1, 0));
-                addShapedRecipeFirst(recipes, new ItemStack(Item.stick, 4), "#", "#", '#', new ItemStack(Block.planks, 1, 1));
-                addShapedRecipeFirst(recipes, new ItemStack(Item.stick, 4), "#", "#", '#', new ItemStack(Block.planks, 1, 2));
-                addShapedRecipeFirst(recipes, new ItemStack(Item.stick, 4), "#", "#", '#', new ItemStack(Block.planks, 1, 3));
-                addShapedRecipeFirst(recipes, new ItemStack(Item.bucketEmpty), "# #", " # ", '#', new ItemStack(Item.ingotIron));
             }
         }
     }
