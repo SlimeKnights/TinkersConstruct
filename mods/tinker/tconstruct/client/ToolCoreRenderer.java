@@ -123,10 +123,10 @@ public class ToolCoreRenderer implements IItemRenderer
 			tess.startDrawingQuads();
 			for (int i = 0; i < iconParts; ++i)
 			{
-				tess.addVertexWithUV(0,  16, 0, xMin[i], yMax[i]);
-				tess.addVertexWithUV(16, 16, 0, xMax[i], yMax[i]);
-				tess.addVertexWithUV(16,  0, 0, xMax[i], yMin[i]);
-				tess.addVertexWithUV(0,   0, 0, xMin[i], yMin[i]);
+				tess.addVertexWithUV(0,  16, -70, xMin[i], yMax[i]);
+				tess.addVertexWithUV(16, 16, -70, xMax[i], yMax[i]);
+				tess.addVertexWithUV(16,  0, -70, xMax[i], yMin[i]);
+				tess.addVertexWithUV(0,   0, -70, xMin[i], yMin[i]);
 			}
 			tess.draw();
 			GL11.glEnable(GL11.GL_LIGHTING);
