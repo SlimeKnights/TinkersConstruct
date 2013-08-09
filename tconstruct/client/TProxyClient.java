@@ -368,8 +368,8 @@ public class TProxyClient extends TProxyCommon
         VillagerRegistry.instance().registerVillagerSkin(78943, new ResourceLocation("tinker", "textures/mob/villagertools.png"));
 
         ToolCoreRenderer renderer = new ToolCoreRenderer();
-        MinecraftForgeClient.registerItemRenderer(TContent.arrow.itemID, renderer);
-        /*MinecraftForgeClient.registerItemRenderer(TContent.battleaxe.itemID, renderer);
+        /*MinecraftForgeClient.registerItemRenderer(TContent.arrow.itemID, renderer);
+        MinecraftForgeClient.registerItemRenderer(TContent.battleaxe.itemID, renderer);
         MinecraftForgeClient.registerItemRenderer(TContent.battlesign.itemID, renderer);
         MinecraftForgeClient.registerItemRenderer(TContent.broadsword.itemID, renderer);
         MinecraftForgeClient.registerItemRenderer(TContent.chisel.itemID, renderer);
@@ -377,6 +377,9 @@ public class TProxyClient extends TProxyCommon
         MinecraftForgeClient.registerItemRenderer(TContent.cutlass.itemID, renderer);*/
         MinecraftForgeClient.registerItemRenderer(TContent.dagger.itemID, renderer);
         /*MinecraftForgeClient.registerItemRenderer(TContent.excavator.itemID, renderer);
+        MinecraftForgeClient.registerItemRenderer(TContent.cutlass.itemID, renderer);
+        MinecraftForgeClient.registerItemRenderer(TContent.dagger.itemID, renderer);
+        MinecraftForgeClient.registerItemRenderer(TContent.excavator.itemID, renderer);
         MinecraftForgeClient.registerItemRenderer(TContent.frypan.itemID, renderer);
         MinecraftForgeClient.registerItemRenderer(TContent.hammer.itemID, renderer);
         MinecraftForgeClient.registerItemRenderer(TContent.hatchet.itemID, renderer);
