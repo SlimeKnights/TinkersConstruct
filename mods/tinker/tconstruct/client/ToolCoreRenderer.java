@@ -43,14 +43,14 @@ public class ToolCoreRenderer implements IItemRenderer
 	@Override
 	public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
 		ToolCore tool = (ToolCore)item.getItem();
-		
+
 		boolean isInventory = type == ItemRenderType.INVENTORY;
 		Entity ent = null;
 		if (data.length > 1)
 			ent = (Entity)data[1];
 
 		int iconParts = toolIcons;//tool.getRenderPasses(item.getItemDamage());
-		
+
 		Icon[] tempParts = new Icon[iconParts];
 		label: {
 			if (!isInventory && ent instanceof EntityPlayer)
@@ -68,7 +68,7 @@ public class ToolCoreRenderer implements IItemRenderer
 			for (int i = iconParts; i --> 0; )
 				tempParts[i] = tool.getIcon(item, i);
 		}
-		
+
 		int count = 0;
 		Icon[] parts = new Icon[iconParts];
 		for (int i = 0; i < iconParts; ++i)
@@ -80,6 +80,13 @@ public class ToolCoreRenderer implements IItemRenderer
 				parts[i - count] = part;
 		}
 		iconParts -= count;
+
+		if (iconParts <= 0)
+		{
+			iconParts = 1;
+			// TODO: assign default sprite
+			// parts = new Icon[]{ defaultSprite };
+		}
 
 		Tessellator tess = Tessellator.instance;
 		float[] xMax = new float[iconParts];
@@ -127,7 +134,7 @@ public class ToolCoreRenderer implements IItemRenderer
 		else
 		{
 			GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-			
+
 			switch (type)
 			{
 			case EQUIPPED_FIRST_PERSON:
@@ -136,7 +143,7 @@ public class ToolCoreRenderer implements IItemRenderer
 				GL11.glTranslatef(0, -4 / 16f, 0);
 				break;
 			case ENTITY:
-	            GL11.glTranslatef(0, 4 / 16f, 0);
+				GL11.glTranslatef(0, 4 / 16f, 0);
 				break;
 			default:
 			}
@@ -235,7 +242,7 @@ public class ToolCoreRenderer implements IItemRenderer
 			}
 
 			tess.draw();
-	        GL11.glDisable(GL12.GL_RESCALE_NORMAL);
+			GL11.glDisable(GL12.GL_RESCALE_NORMAL);
 		}
 
 		GL11.glPopMatrix();

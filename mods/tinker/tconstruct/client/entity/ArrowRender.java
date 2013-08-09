@@ -23,7 +23,7 @@ public class ArrowRender extends Render
 {
 	private static RenderItem renderer = new RenderItem();
 	private Random random = new Random();
-	
+
 	public ArrowRender() {}
 
 	/**
@@ -34,18 +34,18 @@ public class ArrowRender extends Render
 		random.setSeed(187L);
 		ItemStack item = arrow.getEntityItem();
 		GL11.glPushMatrix();
-        GL11.glTranslatef((float)par2, (float)par4, (float)par6);
-        GL11.glEnable(GL12.GL_RESCALE_NORMAL);
-        GL11.glRotatef(arrow.prevRotationYaw + (arrow.rotationYaw - arrow.prevRotationYaw) * par9 - 90.0F, 0.0F, 1.0F, 0.0F);
-        GL11.glRotatef(arrow.prevRotationPitch + (arrow.rotationPitch - arrow.prevRotationPitch) * par9 - 45.0F, 0.0F, 0.0F, 1.0F);
-        float shake = arrow.arrowShake - par9;
-        if (shake > 0.0F)
-            GL11.glRotatef(-MathHelper.sin(shake * 3) * shake, 0, 0, 1);
-        GL11.glTranslatef(-7 / 16f, -8 / 16f, -1 / 32f);
-        float scale = 1.35f;
-        GL11.glScalef(scale, scale, scale);
+		GL11.glTranslatef((float)par2, (float)par4, (float)par6);
+		GL11.glEnable(GL12.GL_RESCALE_NORMAL);
+		GL11.glRotatef(arrow.prevRotationYaw + (arrow.rotationYaw - arrow.prevRotationYaw) * par9 - 90.0F, 0.0F, 1.0F, 0.0F);
+		GL11.glRotatef(arrow.prevRotationPitch + (arrow.rotationPitch - arrow.prevRotationPitch) * par9 - 45.0F, 0.0F, 0.0F, 1.0F);
+		float shake = arrow.arrowShake - par9;
+		if (shake > 0.0F)
+			GL11.glRotatef(-MathHelper.sin(shake * 3) * shake, 0, 0, 1);
+		GL11.glTranslatef(-7 / 16f, -8 / 16f, -1 / 32f);
+		float scale = 1.35f;
+		GL11.glScalef(scale, scale, scale);
 		ForgeHooksClient.renderEntityItem(null, item, 0, 0, random, renderManager.renderEngine, renderBlocks);
-        GL11.glDisable(GL12.GL_RESCALE_NORMAL);
+		GL11.glDisable(GL12.GL_RESCALE_NORMAL);
 		GL11.glPopMatrix();
 	}
 
