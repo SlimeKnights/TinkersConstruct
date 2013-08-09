@@ -38,7 +38,7 @@ public class ToolCoreRenderer implements IItemRenderer
 				helper.ordinal() < ItemRendererHelper.EQUIPPED_BLOCK.ordinal();
 	}
 
-	private static final int toolIcons = 9;
+	private static final int toolIcons = 10;
 
 	@Override
 	public void renderItem(ItemRenderType type, ItemStack item, Object... data) {
