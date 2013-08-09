@@ -232,7 +232,7 @@ public abstract class BowBase extends ToolCore
     @Override
     public boolean requiresMultipleRenderPasses ()
     {
-        return true;
+        return false;
     }
 
     /* Rendering */
