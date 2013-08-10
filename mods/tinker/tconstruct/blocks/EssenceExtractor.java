@@ -2,7 +2,6 @@ package mods.tinker.tconstruct.blocks;
 
 import java.util.Random;
 
-import mods.natura.common.NContent;
 import mods.tinker.tconstruct.blocks.logic.EssenceExtractorLogic;
 import mods.tinker.tconstruct.common.TContent;
 import net.minecraft.block.Block;
