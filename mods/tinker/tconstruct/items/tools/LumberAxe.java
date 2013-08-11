@@ -148,7 +148,7 @@ public class LumberAxe extends HarvestTool
         World world = player.worldObj;
         final int woodID = world.getBlockId(x, y, z);
         final Block wood = Block.blocksList[woodID];
-        if (wood.isWood(world, x, y, z))
+        if (wood.isWood(world, x, y, z) || wood.blockMaterial == Material.sponge)
         {
             int height = y;
             boolean foundTop = false;

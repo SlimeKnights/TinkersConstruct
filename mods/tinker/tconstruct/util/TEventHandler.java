@@ -38,14 +38,19 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumMovingObjectType;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.event.Event.Result;
+import net.minecraftforge.event.Event;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
+import net.minecraftforge.event.entity.player.BonemealEvent;
 import net.minecraftforge.event.entity.player.FillBucketEvent;
 import net.minecraftforge.event.world.ChunkDataEvent;
 import net.minecraftforge.liquids.LiquidStack;
@@ -211,7 +216,7 @@ public class TEventHandler
     {
         if (stack.itemID >= 4095)
             return false;
-        
+
         Block block = Block.blocksList[stack.itemID];
         if (block != null)
         {
@@ -238,18 +243,27 @@ public class TEventHandler
     }*/
 
     /* Damage */
-    /*@ForgeSubscribe
+    @ForgeSubscribe
     public void onHurt (LivingHurtEvent event)
-    {*/
-    /*if (event.entityLiving instanceof EntityPlayer)
     {
-        EntityPlayer player = (EntityPlayer) event.entityLiving;
-        ItemStack stack = player.getItemInUse();
-        if (stack != null && stack.getItem() == TContent.cutlass)
+        if (event.entityLiving instanceof EntityPlayer)
         {
-            player.addPotionEffect(new PotionEffect(Potion.moveSpeed.id, 3*20, 1));
+            EntityPlayer player = (EntityPlayer) event.entityLiving;
+            //Cutlass
+            ItemStack stack = player.getCurrentEquippedItem();
+            if (stack != null && stack.getItem() == TContent.cutlass && player.isUsingItem())
+            {
+                player.addPotionEffect(new PotionEffect(Potion.moveSpeed.id, 3 * 20, 1));
+            }
+            
+            //Alpha behavior
+            if (PHConstruct.alphaHunger)// && player.getHealth() < player.getMaxHealth())
+            {
+                player.getFoodStats().setFoodLevel(10);
+            }
         }
-    }*/
+    }
+
     /*if (event.source instanceof EntityDamageSource && event.source.damageType.equals("explosion.player") && ((EntityDamageSource) event.source).getEntity() instanceof NitroCreeper)
     {
         if (event.entityLiving.worldObj.difficultySetting == 3)
@@ -515,6 +529,22 @@ public class TEventHandler
             if (!event.getChunk().isChunkLoaded)
             {
                 TheftValueTracker.crystallinity.remove(worldID);
+            }
+        }
+    }
+    
+    /* Bonemeal */
+
+
+    @ForgeSubscribe
+    public void bonemealEvent (BonemealEvent event)
+    {
+        if (!event.world.isRemote)
+        {
+            if (event.ID == TContent.slimeSapling.blockID)
+            {
+                if (TContent.slimeSapling.boneFertilize(event.world, event.X, event.Y, event.Z, event.world.rand, event.entityPlayer))
+                    event.setResult(Event.Result.ALLOW);
             }
         }
     }
@@ -914,6 +944,75 @@ public class TEventHandler
             Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 2, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 9, 500, new LiquidStack(TContent.liquidMetalStill.blockID,
                     TConstruct.ingotLiquidValue, 21));
         }
+
+        else if (evt.Name == "nuggetIron")
+        {
+            Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 2, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 3, 450, new LiquidStack(TContent.liquidMetalStill.blockID,
+                    TConstruct.ingotLiquidValue / 9, 0));
+        }
+
+        /*ores = OreDictionary.getOres("nuggetCopper");
+        for (ItemStack ore : ores)
+        {
+            Smeltery.addMelting(new ItemStack(ore.itemID, 2, ore.getItemDamage()), TContent.metalBlock.blockID, 3, 450, new LiquidStack(TContent.liquidMetalStill.blockID,
+                    TConstruct.ingotLiquidValue / 9, 2));
+        }
+
+        ores = OreDictionary.getOres("nuggetTin");
+        for (ItemStack ore : ores)
+        {
+            Smeltery.addMelting(new ItemStack(ore.itemID, 2, ore.getItemDamage()), TContent.metalBlock.blockID, 5, 175, new LiquidStack(TContent.liquidMetalStill.blockID,
+                    TConstruct.ingotLiquidValue / 9, 3));
+        }
+
+        ores = OreDictionary.getOres("nuggetNaturalAluminum");
+        for (ItemStack ore : ores)
+        {
+            Smeltery.addMelting(new ItemStack(ore.itemID, 2, ore.getItemDamage()), TContent.metalBlock.blockID, 6, 250, new LiquidStack(TContent.liquidMetalStill.blockID,
+                    TConstruct.ingotLiquidValue / 9, 4));
+        }
+
+        ores = OreDictionary.getOres("nuggetNickel");
+        for (ItemStack ore : ores)
+        {
+            Smeltery.addMelting(new ItemStack(ore.itemID, 2, ore.getItemDamage()), TContent.metalBlock.blockID, 0, 400, new LiquidStack(TContent.liquidMetalStill.blockID,
+                    TConstruct.ingotLiquidValue / 9, 17));
+        }
+
+        ores = OreDictionary.getOres("nuggetLead");
+        for (ItemStack ore : ores)
+        {
+            Smeltery.addMelting(new ItemStack(ore.itemID, 2, ore.getItemDamage()), TContent.metalBlock.blockID, 0, 400, new LiquidStack(TContent.liquidMetalStill.blockID,
+                    TConstruct.ingotLiquidValue / 9, 18));
+        }
+
+        ores = OreDictionary.getOres("nuggetSilver");
+        for (ItemStack ore : ores)
+        {
+            Smeltery.addMelting(new ItemStack(ore.itemID, 2, ore.getItemDamage()), TContent.metalBlock.blockID, 0, 400, new LiquidStack(TContent.liquidMetalStill.blockID,
+                    TConstruct.ingotLiquidValue / 9, 19));
+        }
+
+        ores = OreDictionary.getOres("nuggetPlatinum");
+        for (ItemStack ore : ores)
+        {
+            Smeltery.addMelting(new ItemStack(ore.itemID, 2, ore.getItemDamage()), TContent.metalBlock.blockID, 0, 400, new LiquidStack(TContent.liquidMetalStill.blockID,
+                    TConstruct.ingotLiquidValue / 9, 20));
+        }
+
+        ores = OreDictionary.getOres("nuggetInvar");
+        for (ItemStack ore : ores)
+        {
+            Smeltery.addMelting(new ItemStack(ore.itemID, 2, ore.getItemDamage()), TContent.metalBlock.blockID, 0, 400, new LiquidStack(TContent.liquidMetalStill.blockID,
+                    TConstruct.ingotLiquidValue / 9, 21));
+        }
+
+        ores = OreDictionary.getOres("nuggetElectrum");
+        for (ItemStack ore : ores)
+        {
+            Smeltery.addMelting(new ItemStack(ore.itemID, 2, ore.getItemDamage()), TContent.metalBlock.blockID, 0, 400, new LiquidStack(TContent.liquidMetalStill.blockID,
+                    TConstruct.ingotLiquidValue / 9, 22));
+        }*/
     }
 
     public void unfuxOreDictionary ()
@@ -923,7 +1022,7 @@ public class TEventHandler
         {
             PatternBuilder.instance.registerMaterial(ore, 2, "Wood");
         }
-        
+
         ores = OreDictionary.getOres("ingotCopper");
         for (ItemStack ore : ores)
         {

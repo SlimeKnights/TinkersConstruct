@@ -245,6 +245,15 @@
   <entry key="block.soil.slab.graveyardsoil.name">Graveyard Soil Slab</entry>
   <entry key="block.soil.slab.consecratedsoil.name">Consecrated Soil Slab</entry>
   
+  <entry key="block.slime.soil.blue.name">Blue Slimedirt</entry>
+  <entry key="block.slime.leaves.blue.name">Slimy Leaves</entry>
+  <entry key="block.slime.sapling.bluegreen.name">Slimy Sapling</entry>
+  <entry key="block.slime.grass.blue.name">Slimy Grass</entry>
+  <entry key="block.slime.grass.dirt.name">Slimy Grass</entry>
+  <entry key="block.slime.tallgrass.name">Slimy Grass</entry>
+  <entry key="block.slime.congealed.blue.name">Congealed Blue Slime</entry>
+  <entry key="block.slime.congealed.green.name">Congealed Green Slime</entry>
+  
   <entry key="item.tconstruct.storage.knapsack.name">Knapsack</entry>  
   <entry key="item.tconstruct.blankpattern.pattern.name">Blank Pattern</entry>
   <entry key="item.tconstruct.blankpattern.cast.name">Blank Cast</entry>
@@ -283,7 +292,7 @@
   <entry key="item.tconstruct.bucket.Shiny.name">Molten Shiny Bucket</entry>
   <entry key="item.tconstruct.bucket.Invar.name">Molten Invar Bucket</entry>
   <entry key="item.tconstruct.bucket.Electrum.name">Molten Electrum Bucket</entry>
-  <entry key="item.tconstruct.bucket.Ender.name">Molten Ender Bucket</entry>
+  <entry key="item.tconstruct.bucket.Ender.name">Liquified Ender Bucket</entry>
   
   <entry key="item.tconstruct.bowstring.string.name">Bowstring</entry>
   <entry key="item.tconstruct.bowstring.enchantedfabriI donc.name">Enchanted Bowstring</entry>

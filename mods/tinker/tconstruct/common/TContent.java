@@ -7,167 +7,33 @@ import java.util.HashMap;
 import java.util.List;
 
 import mods.tinker.tconstruct.TConstruct;
-import mods.tinker.tconstruct.blocks.Aggregator;
-import mods.tinker.tconstruct.blocks.CraftingStationBlock;
-import mods.tinker.tconstruct.blocks.DryingRack;
-import mods.tinker.tconstruct.blocks.EquipBlock;
-import mods.tinker.tconstruct.blocks.EssenceExtractor;
-import mods.tinker.tconstruct.blocks.GlassBlockConnected;
-import mods.tinker.tconstruct.blocks.GlassBlockConnectedMeta;
-import mods.tinker.tconstruct.blocks.GlassPane;
-import mods.tinker.tconstruct.blocks.GlassPaneStained;
-import mods.tinker.tconstruct.blocks.GravelOre;
-import mods.tinker.tconstruct.blocks.LavaTankBlock;
-import mods.tinker.tconstruct.blocks.LightCrystalBase;
-import mods.tinker.tconstruct.blocks.LiquidMetalFlowing;
-import mods.tinker.tconstruct.blocks.LiquidMetalStill;
-import mods.tinker.tconstruct.blocks.MetalOre;
-import mods.tinker.tconstruct.blocks.MultiBrick;
-import mods.tinker.tconstruct.blocks.MultiBrickFancy;
-import mods.tinker.tconstruct.blocks.OreberryBush;
-import mods.tinker.tconstruct.blocks.OreberryBushEssence;
-import mods.tinker.tconstruct.blocks.RedstoneMachine;
-import mods.tinker.tconstruct.blocks.SearedBlock;
-import mods.tinker.tconstruct.blocks.SearedSlab;
-import mods.tinker.tconstruct.blocks.SmelteryBlock;
-import mods.tinker.tconstruct.blocks.SoilBlock;
-import mods.tinker.tconstruct.blocks.SpeedBlock;
-import mods.tinker.tconstruct.blocks.SpeedSlab;
-import mods.tinker.tconstruct.blocks.StoneTorch;
-import mods.tinker.tconstruct.blocks.TMetalBlock;
-import mods.tinker.tconstruct.blocks.ToolForgeBlock;
-import mods.tinker.tconstruct.blocks.ToolStationBlock;
-import mods.tinker.tconstruct.blocks.logic.CastingBasinLogic;
-import mods.tinker.tconstruct.blocks.logic.CastingTableLogic;
-import mods.tinker.tconstruct.blocks.logic.CraftingStationLogic;
-import mods.tinker.tconstruct.blocks.logic.DrawbridgeLogic;
-import mods.tinker.tconstruct.blocks.logic.DryingRackLogic;
-import mods.tinker.tconstruct.blocks.logic.EssenceExtractorLogic;
-import mods.tinker.tconstruct.blocks.logic.FaucetLogic;
-import mods.tinker.tconstruct.blocks.logic.FirestarterLogic;
-import mods.tinker.tconstruct.blocks.logic.FrypanLogic;
-import mods.tinker.tconstruct.blocks.logic.GlowstoneAggregator;
-import mods.tinker.tconstruct.blocks.logic.LavaTankLogic;
-import mods.tinker.tconstruct.blocks.logic.LiquidTextureLogic;
-import mods.tinker.tconstruct.blocks.logic.MultiServantLogic;
-import mods.tinker.tconstruct.blocks.logic.PartCrafterLogic;
-import mods.tinker.tconstruct.blocks.logic.PatternChestLogic;
-import mods.tinker.tconstruct.blocks.logic.SmelteryDrainLogic;
-import mods.tinker.tconstruct.blocks.logic.SmelteryLogic;
-import mods.tinker.tconstruct.blocks.logic.StencilTableLogic;
-import mods.tinker.tconstruct.blocks.logic.ToolForgeLogic;
-import mods.tinker.tconstruct.blocks.logic.ToolStationLogic;
-import mods.tinker.tconstruct.blocks.traps.BarricadeBlock;
-import mods.tinker.tconstruct.blocks.traps.Punji;
-import mods.tinker.tconstruct.entity.Automaton;
-import mods.tinker.tconstruct.entity.BlueSlime;
-import mods.tinker.tconstruct.entity.Crystal;
-import mods.tinker.tconstruct.entity.FancyEntityItem;
-import mods.tinker.tconstruct.entity.Gardeslime;
-import mods.tinker.tconstruct.entity.SlimeClone;
-import mods.tinker.tconstruct.entity.projectile.ArrowEntity;
-import mods.tinker.tconstruct.entity.projectile.DaggerEntity;
-import mods.tinker.tconstruct.entity.projectile.LaunchedPotion;
-import mods.tinker.tconstruct.items.Bowstring;
-import mods.tinker.tconstruct.items.CraftingItem;
-import mods.tinker.tconstruct.items.DiamondApple;
-import mods.tinker.tconstruct.items.EssenceCrystal;
-import mods.tinker.tconstruct.items.FilledBucket;
-import mods.tinker.tconstruct.items.Fletching;
-import mods.tinker.tconstruct.items.GoldenHead;
-import mods.tinker.tconstruct.items.Manual;
-import mods.tinker.tconstruct.items.MaterialItem;
-import mods.tinker.tconstruct.items.MetalPattern;
-import mods.tinker.tconstruct.items.OreBerries;
-import mods.tinker.tconstruct.items.Pattern;
-import mods.tinker.tconstruct.items.StrangeFood;
-import mods.tinker.tconstruct.items.TitleIcon;
-import mods.tinker.tconstruct.items.ToolPart;
-import mods.tinker.tconstruct.items.ToolPartHidden;
-import mods.tinker.tconstruct.items.ToolShard;
-import mods.tinker.tconstruct.items.armor.Glove;
-import mods.tinker.tconstruct.items.armor.HeartCanister;
-import mods.tinker.tconstruct.items.armor.Knapsack;
-import mods.tinker.tconstruct.items.armor.TArmorBase;
-import mods.tinker.tconstruct.items.blocks.BarricadeItem;
-import mods.tinker.tconstruct.items.blocks.CraftedSoilItemBlock;
-import mods.tinker.tconstruct.items.blocks.GlassBlockItem;
-import mods.tinker.tconstruct.items.blocks.GlassPaneItem;
-import mods.tinker.tconstruct.items.blocks.GravelOreItem;
-import mods.tinker.tconstruct.items.blocks.LavaTankItemBlock;
-import mods.tinker.tconstruct.items.blocks.LightCrystalItem;
-import mods.tinker.tconstruct.items.blocks.LiquidItemBlock;
-import mods.tinker.tconstruct.items.blocks.MetalItemBlock;
-import mods.tinker.tconstruct.items.blocks.MetalOreItemBlock;
-import mods.tinker.tconstruct.items.blocks.MultiBrickFancyItem;
-import mods.tinker.tconstruct.items.blocks.MultiBrickItem;
-import mods.tinker.tconstruct.items.blocks.OreberryBushItem;
-import mods.tinker.tconstruct.items.blocks.OreberryBushSecondItem;
-import mods.tinker.tconstruct.items.blocks.RedstoneMachineItem;
-import mods.tinker.tconstruct.items.blocks.SearedSlabItem;
-import mods.tinker.tconstruct.items.blocks.SearedTableItemBlock;
-import mods.tinker.tconstruct.items.blocks.SmelteryItemBlock;
-import mods.tinker.tconstruct.items.blocks.SpeedBlockItem;
-import mods.tinker.tconstruct.items.blocks.SpeedSlabItem;
-import mods.tinker.tconstruct.items.blocks.StainedGlassClearItem;
-import mods.tinker.tconstruct.items.blocks.StainedGlassClearPaneItem;
-import mods.tinker.tconstruct.items.blocks.ToolForgeItemBlock;
-import mods.tinker.tconstruct.items.blocks.ToolStationItemBlock;
-import mods.tinker.tconstruct.items.tools.Arrow;
-import mods.tinker.tconstruct.items.tools.BattleSign;
-import mods.tinker.tconstruct.items.tools.Battleaxe;
-import mods.tinker.tconstruct.items.tools.Broadsword;
-import mods.tinker.tconstruct.items.tools.Chisel;
-import mods.tinker.tconstruct.items.tools.Cleaver;
-import mods.tinker.tconstruct.items.tools.Cutlass;
-import mods.tinker.tconstruct.items.tools.Dagger;
-import mods.tinker.tconstruct.items.tools.Excavator;
-import mods.tinker.tconstruct.items.tools.FryingPan;
-import mods.tinker.tconstruct.items.tools.Hammer;
-import mods.tinker.tconstruct.items.tools.Hatchet;
-import mods.tinker.tconstruct.items.tools.Longsword;
-import mods.tinker.tconstruct.items.tools.LumberAxe;
-import mods.tinker.tconstruct.items.tools.Mattock;
-import mods.tinker.tconstruct.items.tools.Pickaxe;
-import mods.tinker.tconstruct.items.tools.PotionLauncher;
-import mods.tinker.tconstruct.items.tools.Rapier;
-import mods.tinker.tconstruct.items.tools.Scythe;
-import mods.tinker.tconstruct.items.tools.Shortbow;
-import mods.tinker.tconstruct.items.tools.Shovel;
+import mods.tinker.tconstruct.blocks.*;
+import mods.tinker.tconstruct.blocks.decorative.*;
+import mods.tinker.tconstruct.blocks.fluid.*;
+import mods.tinker.tconstruct.blocks.logic.*;
+import mods.tinker.tconstruct.blocks.slime.*;
+import mods.tinker.tconstruct.blocks.traps.*;
+import mods.tinker.tconstruct.client.*;
+import mods.tinker.tconstruct.entity.*;
+import mods.tinker.tconstruct.entity.projectile.*;
+import mods.tinker.tconstruct.items.*;
+import mods.tinker.tconstruct.items.armor.*;
+import mods.tinker.tconstruct.items.blocks.*;
+import mods.tinker.tconstruct.items.tools.*;
 import mods.tinker.tconstruct.landmine.block.BlockLandmine;
 import mods.tinker.tconstruct.landmine.item.ItemBlockLandmine;
 import mods.tinker.tconstruct.landmine.tileentity.TileEntityLandmine;
 import mods.tinker.tconstruct.library.TConstructRegistry;
 import mods.tinker.tconstruct.library.client.TConstructClientRegistry;
-import mods.tinker.tconstruct.library.crafting.Detailing;
-import mods.tinker.tconstruct.library.crafting.DryingRackRecipes;
-import mods.tinker.tconstruct.library.crafting.LiquidCasting;
-import mods.tinker.tconstruct.library.crafting.PatternBuilder;
-import mods.tinker.tconstruct.library.crafting.Smeltery;
-import mods.tinker.tconstruct.library.crafting.ToolBuilder;
-import mods.tinker.tconstruct.library.tools.ToolCore;
-import mods.tinker.tconstruct.library.util.IPattern;
-import mods.tinker.tconstruct.modifiers.ModAntiSpider;
-import mods.tinker.tconstruct.modifiers.ModAttack;
-import mods.tinker.tconstruct.modifiers.ModAutoSmelt;
-import mods.tinker.tconstruct.modifiers.ModBlaze;
-import mods.tinker.tconstruct.modifiers.ModButtertouch;
-import mods.tinker.tconstruct.modifiers.ModDurability;
-import mods.tinker.tconstruct.modifiers.ModElectric;
-import mods.tinker.tconstruct.modifiers.ModExtraModifier;
-import mods.tinker.tconstruct.modifiers.ModInteger;
-import mods.tinker.tconstruct.modifiers.ModLapis;
-import mods.tinker.tconstruct.modifiers.ModPiston;
-import mods.tinker.tconstruct.modifiers.ModRedstone;
-import mods.tinker.tconstruct.modifiers.ModReinforced;
-import mods.tinker.tconstruct.modifiers.ModRepair;
-import mods.tinker.tconstruct.modifiers.ModSmite;
-import mods.tinker.tconstruct.modifiers.TActiveOmniMod;
-import mods.tinker.tconstruct.util.PHConstruct;
-import mods.tinker.tconstruct.util.RecipeRemover;
-import mods.tinker.tconstruct.util.TDispenserBehaviorSpawnEgg;
+import mods.tinker.tconstruct.library.crafting.*;
+import mods.tinker.tconstruct.library.tools.*;
+import mods.tinker.tconstruct.library.util.*;
+import mods.tinker.tconstruct.modifiers.*;
+import mods.tinker.tconstruct.util.*;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDispenser;
+import net.minecraft.block.StepSound;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialLiquid;
@@ -327,6 +193,15 @@ public class TContent implements IFuelHandler
     public static Block liquidMetalFlowing;
     public static Block liquidMetalStill;
     public static Material liquidMetal;
+    
+    //Slime
+    public static StepSound slimeStep;
+    public static Block slimePool;
+    public static Block slimeGel;
+    public static Block slimeGrass;
+    public static Block slimeTallGrass;
+    public static SlimeLeaves slimeLeaves;
+    public static SlimeSapling slimeSapling;
 
     //Ores
     public static Block oreSlag;
@@ -380,7 +255,7 @@ public class TContent implements IFuelHandler
         EntityRegistry.registerModEntity(Gardeslime.class, "MiniGardy", 13, TConstruct.instance, 64, 3, true);
         //EntityRegistry.registerModEntity(MetalSlime.class, "MetalSlime", 13, TConstruct.instance, 64, 5, true);
 
-        BiomeGenBase[] plains = BiomeDictionary.getBiomesForType(BiomeDictionary.Type.PLAINS);
+        /*BiomeGenBase[] plains = BiomeDictionary.getBiomesForType(BiomeDictionary.Type.PLAINS);
         BiomeGenBase[] mountain = BiomeDictionary.getBiomesForType(BiomeDictionary.Type.MOUNTAIN);
         BiomeGenBase[] hills = BiomeDictionary.getBiomesForType(BiomeDictionary.Type.HILLS);
         BiomeGenBase[] swamp = BiomeDictionary.getBiomesForType(BiomeDictionary.Type.SWAMP);
@@ -389,7 +264,7 @@ public class TContent implements IFuelHandler
         BiomeGenBase[] jungle = BiomeDictionary.getBiomesForType(BiomeDictionary.Type.JUNGLE);
         BiomeGenBase[] wasteland = BiomeDictionary.getBiomesForType(BiomeDictionary.Type.WASTELAND);
 
-        BiomeGenBase[] nether = BiomeDictionary.getBiomesForType(BiomeDictionary.Type.NETHER);
+        BiomeGenBase[] nether = BiomeDictionary.getBiomesForType(BiomeDictionary.Type.NETHER);*/
 
         /*if (PHConstruct.superfunWorld)
         {
@@ -404,7 +279,7 @@ public class TContent implements IFuelHandler
         	DimensionManager.unregisterProviderType(0);
         	DimensionManager.registerProviderType(0, OverworldProvider.class, true);
         }*/
-        if (PHConstruct.blueSlime)
+        /*if (PHConstruct.blueSlime)
         {
             EntityRegistry.addSpawn(BlueSlime.class, PHConstruct.blueSlimeWeight, 4, 4, EnumCreatureType.monster, plains);
             EntityRegistry.addSpawn(BlueSlime.class, PHConstruct.blueSlimeWeight, 4, 4, EnumCreatureType.monster, mountain);
@@ -426,7 +301,7 @@ public class TContent implements IFuelHandler
         catch (Exception e)
         {
 
-        }
+        }*/
         //EntityRegistry.addSpawn(MetalSlime.class, 1, 4, 4, EnumCreatureType.monster, overworldBiomes);
     }
 
@@ -527,6 +402,29 @@ public class TContent implements IFuelHandler
         GameRegistry.registerBlock(liquidMetalFlowing, LiquidItemBlock.class, "metalFlow");
         GameRegistry.registerBlock(liquidMetalStill, LiquidItemBlock.class, "metalStill");
         GameRegistry.registerTileEntity(LiquidTextureLogic.class, "LiquidTexture");
+        
+        //Slime
+        slimeStep = new StepSoundSlime("mob.slime", 1.0f, 1.0f);
+        slimePool = new SlimeFluid(PHConstruct.slimePoolBlue, Material.water).setCreativeTab(TConstructRegistry.blockTab).setStepSound(slimeStep).setUnlocalizedName("liquid.slime");
+        GameRegistry.registerBlock(slimePool, "liquid.slime");
+        
+        slimeGel = new SlimeGel(PHConstruct.slimeGel).setStepSound(slimeStep).setUnlocalizedName("slime.gel");
+        GameRegistry.registerBlock(slimeGel, SlimeGelItemBlock.class, "slime.gel");
+        
+        slimeGrass = new SlimeGrass(PHConstruct.slimeGrass).setStepSound(Block.soundGrassFootstep).setUnlocalizedName("slime.grass");
+        GameRegistry.registerBlock(slimeGrass, SlimeGrassItemBlock.class, "slime.grass");
+
+        slimeTallGrass = new SlimeTallGrass(PHConstruct.slimeTallGrass).setStepSound(Block.soundGrassFootstep).setUnlocalizedName("slime.grass.tall");
+        GameRegistry.registerBlock(slimeTallGrass, SlimeTallGrassItem.class, "slime.grass.tall");
+        
+        slimeLeaves = (SlimeLeaves) new SlimeLeaves(PHConstruct.slimeLeaves).setStepSound(slimeStep).setUnlocalizedName("slime.leaves");
+        GameRegistry.registerBlock(slimeLeaves, SlimeLeavesItemBlock.class, "slime.leaves");
+        
+        slimeSapling = (SlimeSapling) new SlimeSapling(PHConstruct.slimeSapling).setStepSound(slimeStep).setUnlocalizedName("slime.sapling");
+        GameRegistry.registerBlock(slimeSapling, SlimeSaplingItemBlock.class, "slime.sapling");
+
+        /*public static Block slimeTallGrass;
+        public static Block slimeLeaves;*/
 
         //Decoration
         stoneTorch = new StoneTorch(PHConstruct.stoneTorch).setUnlocalizedName("decoration.stonetorch");
@@ -1523,6 +1421,13 @@ public class TContent implements IFuelHandler
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(craftingStationWood, 1, 0), "b", 'b', "crafterWood"));
         
         GameRegistry.addRecipe(new ItemStack(essenceExtractor, 1, 0), " b ", "eme", "mmm", 'b', Item.book, 'e', Item.emerald, 'm', Block.whiteStone);
+        
+        //Slime
+        GameRegistry.addRecipe(new ItemStack(slimeGel, 1, 0), "##", "##", '#', strangeFood);
+        GameRegistry.addRecipe(new ItemStack(strangeFood, 4, 0), "#", '#', new ItemStack(slimeGel, 1, 0));
+        GameRegistry.addRecipe(new ItemStack(slimeGel, 1, 1), "##", "##", '#', Item.slimeBall);
+        GameRegistry.addRecipe(new ItemStack(Item.slimeBall, 4, 0), "#", '#', new ItemStack(slimeGel, 1, 1));
+        
     }
 
     void setupToolTabs ()
@@ -1633,8 +1538,8 @@ public class TContent implements IFuelHandler
         OreDictionary.registerOre("thaumiumRod", new ItemStack(toolRod, 1, 31));
 
         String[] names = new String[] { "Molten Iron", "Molten Gold", "Molten Copper", "Molten Tin", "Molten Aluminum", "Molten Cobalt", "Molten Ardite", "Molten Bronze", "Molten Aluminum Brass",
-                "Molten Manyullyn", "Molten Alumite", "Molten Obsidian", "Molten Steel", "Molten Glass", "Seared Stone", "Molten Emerald", "Blood", "Liquid Nickel", "Liquid Lead", "Liquid Silver",
-                "Liquid Shiny", "Liquid Invar", "Liquid Electrum", "ender" };
+                "Molten Manyullyn", "Molten Alumite", "Molten Obsidian", "Molten Steel", "Molten Glass", "Seared Stone", "Molten Emerald", "Blood", "nickel.molten", "lead.molten", "silver.molten",
+                "platinum.molten", "invar.molten", "electrum.molten", "ender" };
         liquidIcons = new LiquidStack[names.length];
         liquidNames = new String[names.length];
         for (int iter = 0; iter < names.length; iter++)

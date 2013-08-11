@@ -9,6 +9,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import mods.tinker.tconstruct.TConstruct;
+import mods.tinker.tconstruct.blocks.fluid.RenderBlockFluid;
 import mods.tinker.tconstruct.blocks.logic.CastingBasinLogic;
 import mods.tinker.tconstruct.blocks.logic.CastingTableLogic;
 import mods.tinker.tconstruct.blocks.logic.CraftingStationLogic;
@@ -372,6 +373,7 @@ public class TProxyClient extends TProxyCommon
         RenderingRegistry.registerBlockHandler(new PaneRender());
         RenderingRegistry.registerBlockHandler(new RenderLandmine());
         RenderingRegistry.registerBlockHandler(new PunjiRender());
+        RenderingRegistry.registerBlockHandler(new RenderBlockFluid());
         //RenderingRegistry.registerBlockHandler(new BrickRender());
         //RenderingRegistry.registerBlockHandler(new BallRepeaterRender());
 

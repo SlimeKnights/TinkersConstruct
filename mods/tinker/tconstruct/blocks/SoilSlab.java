@@ -2,6 +2,7 @@ package mods.tinker.tconstruct.blocks;
 
 import java.util.List;
 
+import mods.tinker.tconstruct.blocks.decorative.SlabBase;
 import mods.tinker.tconstruct.common.TContent;
 import mods.tinker.tconstruct.library.TConstructRegistry;
 import net.minecraft.block.Block;

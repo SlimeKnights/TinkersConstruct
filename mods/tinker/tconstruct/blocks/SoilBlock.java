@@ -10,7 +10,7 @@ import net.minecraft.world.World;
 
 public class SoilBlock extends TConstructBlock
 {
-    static String[] soilTypes = new String[] { "slimesand", "grout", "slimesandblue", "graveyardsoil", "consecratedsoil" };
+    static String[] soilTypes = new String[] { "slimesand", "grout", "slimesandblue", "graveyardsoil", "consecratedsoil", "slimedirt_blue" };
 
     public SoilBlock(int id)
     {
@@ -38,13 +38,4 @@ public class SoilBlock extends TConstructBlock
             }
         }
     }
-
-    /*public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z)
-    {
-        this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
-        if (world.getBlockMetadata(x, y, z) >= 3)
-        {
-            this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.875F, 1.0F);
-        }
-    }*/
 }

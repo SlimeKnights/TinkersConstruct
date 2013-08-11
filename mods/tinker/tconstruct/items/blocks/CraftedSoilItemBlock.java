@@ -11,7 +11,7 @@ import net.minecraft.util.MathHelper;
 
 public class CraftedSoilItemBlock extends ItemBlock
 {
-    public static final String blockType[] = { "Slime", "Grout", "BlueSlime", "GraveyardSoil", "ConsecratedSoil" };
+    public static final String blockType[] = { "Slime", "Grout", "BlueSlime", "GraveyardSoil", "ConsecratedSoil", "blue", "dirt" };
 
     public CraftedSoilItemBlock(int id)
     {
@@ -28,7 +28,9 @@ public class CraftedSoilItemBlock extends ItemBlock
     public String getUnlocalizedName (ItemStack itemstack)
     {
         int pos = MathHelper.clamp_int(itemstack.getItemDamage(), 0, blockType.length - 1);
-        return (new StringBuilder()).append("CraftedSoil.").append(blockType[pos]).toString();
+        if (pos <= 4)
+            return (new StringBuilder()).append("CraftedSoil.").append(blockType[pos]).toString();
+        return (new StringBuilder()).append("block.slime.soil.").append(blockType[pos]).toString();
     }
 
     @Override

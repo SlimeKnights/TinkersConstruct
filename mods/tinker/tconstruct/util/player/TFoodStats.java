@@ -1,5 +1,7 @@
 package mods.tinker.tconstruct.util.player;
 
+import java.lang.ref.WeakReference;
+
 import mods.tinker.tconstruct.util.PHConstruct;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemFood;
@@ -24,13 +26,47 @@ public class TFoodStats extends FoodStats
     public int foodTimer = 0;
     public int prevFoodLevel = 20;
 
+    public WeakReference<EntityPlayer> entityplayer;
+
+    public void initPlayer (EntityPlayer entityplayer)
+    {
+        this.entityplayer = new WeakReference<EntityPlayer>(entityplayer);
+    }
+
     /**
      * Args: int foodLevel, float foodSaturationModifier
      */
-    public void addStats (int par1, float par2)
+    public void addStats (int healAmount, float saturation)
     {
-        this.foodLevel = Math.min(par1 + this.foodLevel, 20);
-        this.foodSaturationLevel = Math.min(this.foodSaturationLevel + (float) par1 * par2 * 2.0F, (float) this.foodLevel);
+        if (PHConstruct.alphaRegen)
+        {
+            EntityPlayer player = this.entityplayer.get();
+            if (player != null)
+            {
+                player.heal(healAmount);
+
+                if (PHConstruct.alphaHunger)
+                {
+                    if (player.getHealth() >= player.maxHealth)
+                    {
+                        this.foodLevel = 20;
+                    }
+                    else
+                    {
+                        this.foodLevel = 10;
+                    }
+                }
+            }
+        }
+        else if (!PHConstruct.alphaHunger)
+        {
+            this.foodLevel = Math.min(healAmount + this.foodLevel, 20);
+            this.foodSaturationLevel = Math.min(this.foodSaturationLevel + (float) healAmount * saturation * 2.0F, (float) this.foodLevel);
+        }
+        else
+        {
+            this.foodLevel = 20;
+        }
     }
 
     /**
@@ -63,34 +99,38 @@ public class TFoodStats extends FoodStats
             }
         }
 
-        if (this.foodLevel >= 12 + 2 * difficulty && player.shouldHeal() && PHConstruct.enableHealthRegen)
+        if (!PHConstruct.alphaHunger)
         {
-            ++this.foodTimer;
-
-            if (this.foodTimer >= 80)
+            if (this.foodLevel >= 12 + 2 * difficulty && player.shouldHeal() && PHConstruct.enableHealthRegen)
             {
-                player.heal(1);
-                this.foodTimer = 0;
-            }
-        }
-        else if (this.foodLevel <= 0)
-        {
-            ++this.foodTimer;
+                ++this.foodTimer;
 
-            if (this.foodTimer >= 80)
-            {
-                if (player.getHealth() > 10 || difficulty >= 3 || player.getHealth() > 1 && difficulty >= 2)
+                if (this.foodTimer >= 80)
                 {
-                    player.attackEntityFrom(DamageSource.starve, 1);
+                    player.heal(1);
+                    this.foodTimer = 0;
                 }
+            }
+            else if (this.foodLevel <= 0)
+            {
+                ++this.foodTimer;
 
+                if (this.foodTimer >= 80)
+                {
+                    if (player.getHealth() > 10 || difficulty >= 3 || player.getHealth() > 1 && difficulty >= 2)
+                    {
+                        player.attackEntityFrom(DamageSource.starve, 1);
+                    }
+
+                    this.foodTimer = 0;
+                }
+            }
+            else
+            {
                 this.foodTimer = 0;
             }
         }
-        else
-        {
-            this.foodTimer = 0;
-        }
+
     }
 
     public void readStats (FoodStats stats)
@@ -171,13 +211,13 @@ public class TFoodStats extends FoodStats
         return this.foodSaturationLevel;
     }
 
-    @SideOnly(Side.CLIENT)
+    //@SideOnly(Side.CLIENT)
     public void setFoodLevel (int par1)
     {
         this.foodLevel = par1;
     }
 
-    @SideOnly(Side.CLIENT)
+    //@SideOnly(Side.CLIENT)
     public void setFoodSaturationLevel (float par1)
     {
         this.foodSaturationLevel = par1;

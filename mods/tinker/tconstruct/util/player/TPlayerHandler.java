@@ -39,10 +39,11 @@ public class TPlayerHandler implements IPlayerTracker
     {
         //System.out.println("Player: "+entityplayer);
         //Lookup player
-        if (!PHConstruct.enableHealthRegen)
+        if (!PHConstruct.enableHealthRegen || PHConstruct.alphaRegen)
         {
             TFoodStats food = new TFoodStats();
             food.readStats(entityplayer.foodStats);
+            food.initPlayer(entityplayer);
             entityplayer.foodStats = food;
         }
         NBTTagCompound tags = entityplayer.getEntityData();
@@ -93,7 +94,6 @@ public class TPlayerHandler implements IPlayerTracker
                 entityplayer.addChatMessage("Solution 1: Disable Reverse Smelting recipes from GregTech.");
                 entityplayer.addChatMessage("Solution 2: Disable Auto-Smelt/Fortune interaction from TConstruct.");
             }
-            entityplayer.addChatMessage("Warning: Cross-mod Exploit Present!");
         }
 
         //TContent.modRecipes();

@@ -1,6 +1,6 @@
 package mods.tinker.tconstruct.client.block;
 
-import mods.tinker.tconstruct.blocks.LiquidMetalBase;
+import mods.tinker.tconstruct.blocks.fluid.LiquidMetalBase;
 import mods.tinker.tconstruct.client.TProxyClient;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
