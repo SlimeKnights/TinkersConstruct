@@ -1,12 +1,7 @@
 package tconstruct;
 
 import net.minecraftforge.common.MinecraftForge;
-
 import tconstruct.client.event.EventCloakRender;
-import tconstruct.client.tabs.InventoryTabArmorExtended;
-import tconstruct.client.tabs.InventoryTabKnapsack;
-import tconstruct.client.tabs.InventoryTabVanilla;
-import tconstruct.client.tabs.TabRegistry;
 import tconstruct.common.TContent;
 import tconstruct.common.TProxyCommon;
 import tconstruct.landmine.logic.behavior.Behavior;

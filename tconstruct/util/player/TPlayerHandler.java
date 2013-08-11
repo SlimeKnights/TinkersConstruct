@@ -80,7 +80,6 @@ public class TPlayerHandler implements IPlayerTracker
                 entityplayer.addChatMessage("Solution 1: Disable Reverse Smelting recipes from GregTech.");
                 entityplayer.addChatMessage("Solution 2: Disable Auto-Smelt/Fortune interaction from TConstruct.");
             }
-            entityplayer.addChatMessage("Warning: Cross-mod Exploit Present!");
         }
         
         updatePlayerInventory(entityplayer, stats);

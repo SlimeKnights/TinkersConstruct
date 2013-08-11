@@ -173,7 +173,6 @@ public class TitleIcon extends Item
         if (!world.isRemote)
         {
             entity.setPosition(x, y, z);
-            entity.setAngles(player.cameraYaw, player.cameraYaw);
             entity.setSlimeSize(8);
             entity.func_110161_a((EntityLivingData)null);
             world.spawnEntityInWorld(entity);

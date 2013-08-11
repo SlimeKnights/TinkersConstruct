@@ -145,7 +145,7 @@ public class LumberAxe extends HarvestTool
         {
             return super.onBlockStartBreak(stack, x, y, z, player);
         }
-        if (wood.isWood(world, x, y, z))
+        if (wood.isWood(world, x, y, z) || wood.blockMaterial == Material.sponge)
         {
             int height = y;
             boolean foundTop = false;

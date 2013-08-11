@@ -19,8 +19,6 @@ import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.WeightedRandomChestContent;
-import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.ChestGenHooks;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.Fluid;
@@ -415,21 +413,6 @@ public class TContent implements IFuelHandler
     //Tool modifiers
     public static ModElectric modE;
     public static ModLapis modL;
-
-    //Golems
-
-    public static Block redstoneBallRepeater;
-    public static Item redstoneBallRepeaterItem;
-
-    public static Block golemCore;
-    public static Block golemPedestal;
-    public static Block golemHead;
-
-    public static Item golemWand;
-    public static Item golemRecharger;
-    public static Item corestone;
-    public static Item notebook;
-    public static Item note;
     //Wearables
     public static Item heavyHelmet;
     public static Item heavyChestplate;
@@ -470,7 +453,7 @@ public class TContent implements IFuelHandler
         EntityRegistry.registerModEntity(MiniGardy.class, "MiniGardy", 13, TConstruct.instance, 64, 3, true);
         //EntityRegistry.registerModEntity(MetalSlime.class, "MetalSlime", 13, TConstruct.instance, 64, 5, true);
 
-        BiomeGenBase[] plains = BiomeDictionary.getBiomesForType(BiomeDictionary.Type.PLAINS);
+        /*BiomeGenBase[] plains = BiomeDictionary.getBiomesForType(BiomeDictionary.Type.PLAINS);
         BiomeGenBase[] mountain = BiomeDictionary.getBiomesForType(BiomeDictionary.Type.MOUNTAIN);
         BiomeGenBase[] hills = BiomeDictionary.getBiomesForType(BiomeDictionary.Type.HILLS);
         BiomeGenBase[] swamp = BiomeDictionary.getBiomesForType(BiomeDictionary.Type.SWAMP);
@@ -479,7 +462,7 @@ public class TContent implements IFuelHandler
         BiomeGenBase[] jungle = BiomeDictionary.getBiomesForType(BiomeDictionary.Type.JUNGLE);
         BiomeGenBase[] wasteland = BiomeDictionary.getBiomesForType(BiomeDictionary.Type.WASTELAND);
 
-        BiomeGenBase[] nether = BiomeDictionary.getBiomesForType(BiomeDictionary.Type.NETHER);
+        BiomeGenBase[] nether = BiomeDictionary.getBiomesForType(BiomeDictionary.Type.NETHER);*/
 
         /*if (PHConstruct.blueSlime)
         {
@@ -874,10 +857,10 @@ public class TContent implements IFuelHandler
         fluids[24] = blueSlimeFluid;
         fluidBlocks[24] = slimePool;
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(blueSlimeFluid, 1000), new ItemStack(buckets, 1, 24), new ItemStack(Item.bucketEmpty)));
-
+        
         slimeGel = new SlimeGel(PHConstruct.slimeGel).setStepSound(slimeStep).setUnlocalizedName("slime.gel");
         GameRegistry.registerBlock(slimeGel, SlimeGelItemBlock.class, "slime.gel");
-
+        
         slimeGrass = new SlimeGrass(PHConstruct.slimeGrass).setStepSound(Block.soundGrassFootstep).setUnlocalizedName("slime.grass");
         GameRegistry.registerBlock(slimeGrass, SlimeGrassItemBlock.class, "slime.grass");
 
@@ -886,7 +869,7 @@ public class TContent implements IFuelHandler
 
         slimeLeaves = (SlimeLeaves) new SlimeLeaves(PHConstruct.slimeLeaves).setStepSound(slimeStep).setUnlocalizedName("slime.leaves");
         GameRegistry.registerBlock(slimeLeaves, SlimeLeavesItemBlock.class, "slime.leaves");
-
+        
         slimeSapling = (SlimeSapling) new SlimeSapling(PHConstruct.slimeSapling).setStepSound(slimeStep).setUnlocalizedName("slime.sapling");
         GameRegistry.registerBlock(slimeSapling, SlimeSaplingItemBlock.class, "slime.sapling");
 
@@ -1887,6 +1870,13 @@ public class TContent implements IFuelHandler
         GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 5), "b", 'b', new ItemStack(toolForge, 1, Short.MAX_VALUE));
         
         GameRegistry.addRecipe(new ItemStack(essenceExtractor, 1, 0), " b ", "eme", "mmm", 'b', Item.book, 'e', Item.emerald, 'm', Block.whiteStone);
+        
+        //Slime
+        GameRegistry.addRecipe(new ItemStack(slimeGel, 1, 0), "##", "##", '#', strangeFood);
+        GameRegistry.addRecipe(new ItemStack(strangeFood, 4, 0), "#", '#', new ItemStack(slimeGel, 1, 0));
+        GameRegistry.addRecipe(new ItemStack(slimeGel, 1, 1), "##", "##", '#', Item.slimeBall);
+        GameRegistry.addRecipe(new ItemStack(Item.slimeBall, 4, 0), "#", '#', new ItemStack(slimeGel, 1, 1));
+        
     }
 
     void setupToolTabs ()
@@ -1990,6 +1980,7 @@ public class TContent implements IFuelHandler
                 "blueslime" };
         for (int i = 0; i < matNames.length; i++)
             OreDictionary.registerOre(matNames[i] + "Rod", new ItemStack(toolRod, 1, i));
+        OreDictionary.registerOre("thaumiumRod", new ItemStack(toolRod, 1, 31));
         
         String[] glassTypes = { "glassBlack", "glassRed", "glassGreen", "glassBrown", "glassBlue", "glassPurple", "glassCyan", "glassLightGray", "glassGray", "glassPink", "glassLime", "glassYellow",
                 "glassLightBlue", "glassMagenta", "glassOrange", "glassWhite" };

@@ -44,6 +44,8 @@ public class PHConstruct
         keepHunger = config.get("Difficulty Changes", "Keep hunger on death", true).getBoolean(true);
         keepLevels = config.get("Difficulty Changes", "Keep levels on death", true).getBoolean(true);
         beginnerBook = config.get("Difficulty Changes", "Spawn beginner book", true).getBoolean(true);
+        alphaRegen = config.get("Alpha Behavior", "Regenerate HP from food", false).getBoolean(false);
+        alphaHunger = config.get("Alpha Behavior", "Remove hunger", false).getBoolean(false);
 
         superfunWorld = config.get("Superfun", "All the world is Superfun", false).getBoolean(false);
 
@@ -69,9 +71,6 @@ public class PHConstruct
         stencilTableCrafting = config.get("Difficulty Changes", "Craft Stencil Tables", true).getBoolean(true);
         miningLevelIncrease = config.get("Difficulty Changes", "Modifiers increase Mining Level", true).getBoolean(true);
         denyMattock = config.get("Difficulty Changes", "Deny creation of non-metal mattocks", false).getBoolean(false);
-
-        blueSlime = config.get("Mob Spawning", "Activate Blue Slime Spawns", true).getBoolean(true);
-        blueSlimeWeight = config.get("Mob Spawning", "Spawn Weight for Blue Slime", 6).getInt(6);
 
         //1467-1489
         woodStation = config.getBlock("Wood Tool Station", 1471).getInt(1471);
@@ -147,6 +146,13 @@ public class PHConstruct
         punji = config.getBlock("Punji", 3232).getInt(3232);
         woodCrafter = config.getBlock("Crafting Station", 3233).getInt(3233);
         essenceExtractor = config.getBlock("Essence Extractor", 3234).getInt(3234);
+        
+        slimePoolBlue = config.getBlock("Liquid Blue Slime", 3235).getInt(3235);
+        slimeGel = config.getBlock("Congealed Slime", 3237).getInt(3237);
+        slimeGrass = config.getBlock("Slime Grass", 3238).getInt(3238);
+        slimeTallGrass = config.getBlock("Slime Tall Grass", 3239).getInt(3239);
+        slimeLeaves = config.getBlock("Slime Grass Leaves", 3240).getInt(3240);
+        slimeSapling = config.getBlock("Slime Tree Sapling", 3241).getInt(3241);
 
         slimePoolBlue = config.getBlock("Liquid Blue Slime", 3235).getInt(3235);
         slimeGel = config.getBlock("Congealed Slime", 3237).getInt(3237);
@@ -280,7 +286,7 @@ public class PHConstruct
         generateEssenceBush = config.get("Worldgen Disabler", "Generate Essence Bushes", true).getBoolean(true);
         addToVillages = config.get("Worldgen Disabler", "Add Village Generation", true).getBoolean(true);
 
-        copperuDensity = config.get("Worldgen", "Copper Underground Density", 2).getInt(2);
+        copperuDensity = config.get("Worldgen", "Copper Underground Density", 2, "Density: Chances per chunk").getInt(2);
         tinuDensity = config.get("Worldgen", "Tin Underground Density", 2).getInt(2);
         aluminumuDensity = config.get("Worldgen", "Aluminum Underground Density", 3).getInt(3);
         netherDensity = config.get("Worldgen", "Nether Ores Density", 8).getInt(8);
@@ -294,7 +300,7 @@ public class PHConstruct
 
         ironsRarity = config.get("Worldgen", "Iron Surface Rarity", 400).getInt(400);
         goldsRarity = config.get("Worldgen", "Gold Surface Rarity", 900).getInt(900);
-        coppersRarity = config.get("Worldgen", "Copper Surface Rarity", 100).getInt(100);
+        coppersRarity = config.get("Worldgen", "Copper Surface Rarity", 100, "Rarity: 1/num to generate in chunk").getInt(100);
         tinsRarity = config.get("Worldgen", "Tin Surface Rarity", 100).getInt(100);
         aluminumsRarity = config.get("Worldgen", "Aluminum Surface Rarity", 50).getInt(50);
         cobaltsRarity = config.get("Worldgen", "Cobalt Surface Rarity", 2000).getInt(2000);
@@ -323,13 +329,16 @@ public class PHConstruct
         seaLevel = config.get("general", "Sea level", 64).getInt(64);
 
         enableHealthRegen = config.get("Ultra Hardcore Changes", "Passive Health Regen", true).getBoolean(true);
-        goldAppleRecipe = config.get("Ultra Hardcore Changes", "Change Crafting Recipes", false).getBoolean(false);
+        goldAppleRecipe = config.get("Ultra Hardcore Changes", "Change Crafting Recipes", false, "Makes recipes for gold apples, carrots, and melon potions more expensive").getBoolean(false);
         dropPlayerHeads = config.get("Ultra Hardcore Changes", "Players drop heads on death", false).getBoolean(false);
         uhcGhastDrops = config.get("Ultra Hardcore Changes", "Change Ghast drops to Gold Ingots", false).getBoolean(false);
         worldBorder = config.get("Ultra Hardcore Changes", "Add World Border", false).getBoolean(false);
         worldBorderSize = config.get("Ultra Hardcore Changes", "World Border Radius", 1000).getInt(1000);
-        freePatterns = config.get("Ultra Hardcore Changes", "Add Patterns to Pattern Chests", false).getBoolean(false);
+        freePatterns = config.get("Ultra Hardcore Changes", "Add Patterns to Pattern Chests", false, "Gives all tier 1 patterns when pattern chest is placed").getBoolean(false);
         necroticUHS = config.get("Ultra Hardcore Changes", "Necrotic modifier only heals on hostile mob kills", false).getBoolean(false);
+        
+        //Slime pools
+        islandRarity = config.get("Worldgen", "Slime Island Rarity", 450).getInt(450);
 
         //Slime pools
         islandRarity = config.get("Worldgen", "Slime Island Rarity", 1450).getInt(1450);
@@ -600,12 +609,12 @@ public class PHConstruct
     public static int seaLevel;
 
     //Mobs
-    public static boolean blueSlime;
-    public static int blueSlimeWeight;
 
     //Difficulty modifiers
     public static boolean keepHunger;
     public static boolean keepLevels;
+    public static boolean alphaRegen;
+    public static boolean alphaHunger;
 
     public static boolean disableWoodTools;
     public static boolean disableStoneTools;

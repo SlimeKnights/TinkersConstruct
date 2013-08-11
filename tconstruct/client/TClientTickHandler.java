@@ -4,11 +4,8 @@ import java.util.EnumSet;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import tconstruct.common.TContent;
 import cpw.mods.fml.common.ITickHandler;
@@ -28,6 +25,12 @@ public class TClientTickHandler implements ITickHandler
     {
         TContent.oreBerry.setGraphicsLevel(Block.leaves.graphicsLevel);
         TContent.oreBerrySecond.setGraphicsLevel(Block.leaves.graphicsLevel);
+        TContent.slimeLeaves.setGraphicsLevel(Block.leaves.graphicsLevel);
+        
+        /*if (PHConstruct.alphaHunger)
+        {
+            GuiIngameForge.renderFood = false;
+        }*/
 
         /*player = mc.thePlayer;
         if (player == null || player.capabilities.isCreativeMode)

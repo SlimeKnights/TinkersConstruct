@@ -3,7 +3,7 @@ package tconstruct.blocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
@@ -20,9 +20,9 @@ public class SoilBlock extends TConstructBlock
     @Override
     public void onEntityWalking (World world, int x, int y, int z, Entity entity)
     {
-        if (entity instanceof EntityLiving)
+        if (entity instanceof EntityLivingBase)
         {
-            EntityLiving living = ((EntityLiving) entity);
+            EntityLivingBase living = ((EntityLivingBase) entity);
             if (living.getCreatureAttribute() == EnumCreatureAttribute.UNDEAD)
             {
                 int metadata = world.getBlockMetadata(x, y, z);

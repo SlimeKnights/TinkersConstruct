@@ -51,6 +51,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fluids.RenderBlockFluid;
 
 import org.lwjgl.opengl.GL11;
 import org.w3c.dom.Document;

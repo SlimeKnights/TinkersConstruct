@@ -337,7 +337,10 @@
   <entry key="item.tconstruct.bucket.Invar.name">Molten Invar Bucket</entry>
   <entry key="item.tconstruct.bucket.Electrum.name">Molten Electrum Bucket</entry>
   <entry key="item.tconstruct.bucket.Ender.name">Liquified Ender Bucket</entry>
+<<<<<<< HEAD:assets/tinker/lang/en_US.xml
   <entry key="item.tconstruct.bucket.Slime.name">Liquid Slime Bucket</entry>
+=======
+>>>>>>> Slime islands:mods/tinker/resources/lang/en_US.xml
   
   <entry key="item.tconstruct.bowstring.string.name">Bowstring</entry>
   <entry key="item.tconstruct.bowstring.enchantedfabriI donc.name">Enchanted Bowstring</entry>
