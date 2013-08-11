@@ -40,7 +40,7 @@ public class TClientEvents
 
     boolean initSounds;
 
-    /*@ForgeSubscribe
+    @ForgeSubscribe
     public void onSound (SoundLoadEvent event)
     {
         if (!initSounds)
@@ -59,7 +59,7 @@ public class TClientEvents
                 System.err.println("[TConstruct] Failed to register one or more sounds");
             }
         }
-    }*/
+    }
 
     /* Liquids */
     @ForgeSubscribe

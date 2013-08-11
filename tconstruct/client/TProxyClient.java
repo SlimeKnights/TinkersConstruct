@@ -311,6 +311,28 @@ public class TProxyClient extends TProxyCommon {
 
 		MinecraftForgeClient.registerItemRenderer(TContent.shortbow.itemID, new CustomBowRenderer());
 		VillagerRegistry.instance().registerVillagerSkin(78943, new ResourceLocation("tinker", "textures/mob/villagertools.png"));
+		
+		ToolCoreRenderer renderer = new ToolCoreRenderer();
+        MinecraftForgeClient.registerItemRenderer(TContent.arrow.itemID, renderer);
+        MinecraftForgeClient.registerItemRenderer(TContent.battleaxe.itemID, renderer);
+        MinecraftForgeClient.registerItemRenderer(TContent.battlesign.itemID, renderer);
+        MinecraftForgeClient.registerItemRenderer(TContent.broadsword.itemID, renderer);
+        MinecraftForgeClient.registerItemRenderer(TContent.chisel.itemID, renderer);
+        MinecraftForgeClient.registerItemRenderer(TContent.cleaver.itemID, renderer);
+        MinecraftForgeClient.registerItemRenderer(TContent.cutlass.itemID, renderer);
+        MinecraftForgeClient.registerItemRenderer(TContent.dagger.itemID, renderer);
+        MinecraftForgeClient.registerItemRenderer(TContent.excavator.itemID, renderer);
+        MinecraftForgeClient.registerItemRenderer(TContent.frypan.itemID, renderer);
+        MinecraftForgeClient.registerItemRenderer(TContent.hammer.itemID, renderer);
+        MinecraftForgeClient.registerItemRenderer(TContent.hatchet.itemID, renderer);
+        MinecraftForgeClient.registerItemRenderer(TContent.longsword.itemID, renderer);
+        MinecraftForgeClient.registerItemRenderer(TContent.lumberaxe.itemID, renderer);
+        MinecraftForgeClient.registerItemRenderer(TContent.mattock.itemID, renderer);
+        MinecraftForgeClient.registerItemRenderer(TContent.pickaxe.itemID, renderer);
+        MinecraftForgeClient.registerItemRenderer(TContent.rapier.itemID, renderer);
+        MinecraftForgeClient.registerItemRenderer(TContent.scythe.itemID, renderer);
+        MinecraftForgeClient.registerItemRenderer(TContent.shortbow.itemID, renderer);
+        MinecraftForgeClient.registerItemRenderer(TContent.shovel.itemID, renderer);
 
 		addRenderMappings();
 		addToolButtons();
