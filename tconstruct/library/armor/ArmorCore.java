@@ -1,23 +1,23 @@
 package tconstruct.library.armor;
 
-import ic2.api.item.IBoxable;
-import ic2.api.item.ICustomElectricItem;
+import ic2.api.item.*;
+
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.dispenser.IBehaviorDispenseItem;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.*;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumArmorMaterial;
-import net.minecraft.item.ItemArmor;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ISpecialArmor;
+import net.minecraftforge.common.ISpecialArmor.ArmorProperties;
 
 /**
  * NBTTags
  * Main tag - InfiArmor
  */
-public abstract class ArmorCore extends ItemArmor implements ICustomElectricItem, IBoxable {
+public abstract class ArmorCore extends ItemArmor implements ICustomElectricItem, IBoxable, ISpecialArmor {
 
 	public static final String SET_NAME = "InfiArmor";
 	public final EnumArmorPart armorPart;
@@ -48,6 +48,46 @@ public abstract class ArmorCore extends ItemArmor implements ICustomElectricItem
 		}
 
 		return par1ItemStack;
+	}
+	
+	//ISpecialArmor overrides
+	@Override
+	public ArmorProperties getProperties(EntityLivingBase player, ItemStack armor, DamageSource source, double damage, int slot) {
+		NBTTagCompound tags = armor.getTagCompound();
+		NBTTagCompound data = tags.getCompoundTag(SET_NAME);
+		
+		return new ArmorProperties(0, damage / data.getInteger("damageReduction"), data.getInteger("maxAbsorb"));
+	}
+
+	@Override
+	public int getArmorDisplay(EntityPlayer player, ItemStack armor, int slot) {
+		return armor.getTagCompound().getCompoundTag(SET_NAME).getInteger("maxAbsorb");
+	}
+
+	@Override
+	public void damageArmor(EntityLivingBase entity, ItemStack stack, DamageSource source, int damage, int slot) {
+		NBTTagCompound tags = stack.getTagCompound();
+		NBTTagCompound data = tags.getCompoundTag(SET_NAME);
+		
+		if(tags.hasKey("charge")){
+			int charge = tags.getInteger("charge");
+			if(charge > damage){
+				charge -= damage;
+				tags.setInteger("charge", charge);
+				return;
+			}else{
+				damage -= charge;
+				tags.setInteger("charge", 0);
+				int dmg = data.getInteger("Damage");
+				dmg += damage;
+				data.setInteger("Damage", dmg);
+			}
+			
+		}else{
+			int dmg = data.getInteger("Damage");
+			dmg += damage;
+			data.setInteger("Damage", dmg);
+		}
 	}
 	
 	/*
