@@ -68,7 +68,6 @@ public class PHConstruct
         vanillaMetalBlocks = config.get("Difficulty Changes", "Craft vanilla metal blocks", true).getBoolean(true);
         lavaFortuneInteraction = config.get("Difficulty Changes", "Enable Auto-Smelt and Fortune interaction", true).getBoolean(true);
         removeVanillaToolRecipes = config.get("Difficulty Changes", "Remove Vanilla Tool Recipes", false).getBoolean(false);
-        deGreg = config.get("Difficulty Changes", "Remove Vanilla GregTech Nerfs", true).getBoolean(true);
         harderBronze = config.get("Difficulty Changes", "Lower bronze output to 2 ingots", false).getBoolean(false);
         stencilTableCrafting = config.get("Difficulty Changes", "Craft Stencil Tables", true).getBoolean(true);
         miningLevelIncrease = config.get("Difficulty Changes", "Modifiers increase Mining Level", true).getBoolean(true);
@@ -130,6 +129,7 @@ public class PHConstruct
         moltenStone = config.getBlock("Molten Stone", 3215).getInt(3215);
         moltenEmerald = config.getBlock("Molten Emerald", 3216).getInt(3216);
         blood = config.getBlock("Liquid Cow", 3217).getInt(3217);
+        moltenEnder = config.getBlock("Molten Ender", 3218).getInt(3218);
 
         aggregator = config.getBlock("Aggregator", 3221).getInt(3221);
         lightCrystalBase = config.getBlock("Light Crystal", 3222).getInt(3222);
@@ -147,6 +147,14 @@ public class PHConstruct
         
         punji = config.getBlock("Punji", 3232).getInt(3232);
         woodCrafter = config.getBlock("Crafting Station", 3233).getInt(3233);
+        essenceExtractor = config.getBlock("Essence Extractor", 3234).getInt(3234);
+        
+        slimePoolBlue = config.getBlock("Liquid Blue Slime", 3235).getInt(3235);
+        slimeGel = config.getBlock("Congealed Slime", 3237).getInt(3237);
+        slimeGrass = config.getBlock("Slime Grass", 3238).getInt(3238);
+        slimeTallGrass = config.getBlock("Slime Tall Grass", 3239).getInt(3239);
+        slimeLeaves = config.getBlock("Slime Grass Leaves", 3240).getInt(3240);
+        slimeSapling = config.getBlock("Slime Tree Sapling", 3241).getInt(3241);
 
         /*golemCore = config.getBlock("Golem Core", 1481).getInt(1481);
         golemHead = config.getBlock("Golem Head", 1482).getInt(1482);*/
@@ -233,6 +241,7 @@ public class PHConstruct
         glove = config.getItem("Equipables", "Gloves", 14111).getInt(14111);
         knapsack = config.getItem("Equipables", "Knapsack", 14112).getInt(14112);
         goldHead = config.getItem("Patterns and Misc", "Golden Head", 14113).getInt(14113);
+        essenceCrystal = config.getItem("Patterns and Misc", "Essence Crystal", 14114).getInt(14114);
 
         boolean ic2 = true;
         boolean xycraft = true;
@@ -321,6 +330,9 @@ public class PHConstruct
         worldBorder = config.get("Ultra Hardcore Changes", "Add World Border", false).getBoolean(false);
         worldBorderSize = config.get("Ultra Hardcore Changes", "World Border Radius", 1000).getInt(1000);
         freePatterns = config.get("Ultra Hardcore Changes", "Add Patterns to Pattern Chests", false).getBoolean(false); //Check
+        
+        //Slime pools
+        islandRarity = config.get("Worldgen", "Slime Island Rarity", 450).getInt(450);
 
         /* Save the configuration file */
         config.save();
@@ -381,6 +393,8 @@ public class PHConstruct
     //Crystalline
     public static int aggregator;
     public static int lightCrystalBase;
+    public static int essenceExtractor;
+    public static int essenceCrystal;
 
     //Liquids
     public static int metalFlowing;
@@ -403,12 +417,21 @@ public class PHConstruct
     public static int moltenStone;
     public static int moltenEmerald;
     public static int blood;
+    public static int moltenEnder;
     public static int moltenSilver; //Thermal Expansion
     public static int moltenLead;
     public static int moltenNickel;
     public static int moltenShiny;
     public static int moltenInvar;
     public static int moltenElectrum;
+    
+    //Slime
+    public static int slimePoolBlue;
+    public static int slimeGel;
+    public static int slimeGrass;
+    public static int slimeTallGrass;
+    public static int slimeLeaves;
+    public static int slimeSapling;
 
     //Decoration
     public static int stoneTorch;
@@ -620,5 +643,6 @@ public class PHConstruct
 
     public static boolean gregtech;
     public static boolean lavaFortuneInteraction;
-    public static boolean deGreg;
+    
+    public static int islandRarity;
 }
