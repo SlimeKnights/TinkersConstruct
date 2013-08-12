@@ -61,7 +61,7 @@ public abstract class ArmorCore extends ItemArmor implements ICustomElectricItem
 
 	@Override
 	public int getArmorDisplay(EntityPlayer player, ItemStack armor, int slot) {
-		return armor.getTagCompound().getCompoundTag(SET_NAME).getInteger("maxAbsorb");
+		return armor.getTagCompound() != null && armor.getTagCompound().getCompoundTag(SET_NAME) != null ? armor.getTagCompound().getCompoundTag(SET_NAME).getInteger("maxAbsorb") : 0;
 	}
 
 	@Override
