@@ -8,6 +8,7 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDispenser;
+import net.minecraft.block.StepSound;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialLiquid;
@@ -15,10 +16,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.FurnaceRecipes;
-import net.minecraft.item.crafting.RecipesTools;
-import net.minecraft.item.crafting.RecipesWeapons;
 import net.minecraft.item.crafting.ShapedRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
@@ -40,6 +38,7 @@ import tconstruct.blocks.Aggregator;
 import tconstruct.blocks.CraftingStationBlock;
 import tconstruct.blocks.DryingRack;
 import tconstruct.blocks.EquipBlock;
+import tconstruct.blocks.EssenceExtractor;
 import tconstruct.blocks.GlassBlockConnected;
 import tconstruct.blocks.GlassBlockConnectedMeta;
 import tconstruct.blocks.GlassPane;
@@ -69,6 +68,7 @@ import tconstruct.blocks.logic.CastingTableLogic;
 import tconstruct.blocks.logic.CraftingStationLogic;
 import tconstruct.blocks.logic.DrawbridgeLogic;
 import tconstruct.blocks.logic.DryingRackLogic;
+import tconstruct.blocks.logic.EssenceExtractorLogic;
 import tconstruct.blocks.logic.FaucetLogic;
 import tconstruct.blocks.logic.FirestarterLogic;
 import tconstruct.blocks.logic.FrypanLogic;
@@ -82,8 +82,15 @@ import tconstruct.blocks.logic.SmelteryLogic;
 import tconstruct.blocks.logic.StencilTableLogic;
 import tconstruct.blocks.logic.ToolForgeLogic;
 import tconstruct.blocks.logic.ToolStationLogic;
+import tconstruct.blocks.slime.SlimeFluid;
+import tconstruct.blocks.slime.SlimeGel;
+import tconstruct.blocks.slime.SlimeGrass;
+import tconstruct.blocks.slime.SlimeLeaves;
+import tconstruct.blocks.slime.SlimeSapling;
+import tconstruct.blocks.slime.SlimeTallGrass;
 import tconstruct.blocks.traps.BarricadeBlock;
 import tconstruct.blocks.traps.Punji;
+import tconstruct.client.StepSoundSlime;
 import tconstruct.entity.Automaton;
 import tconstruct.entity.BlueSlime;
 import tconstruct.entity.Crystal;
@@ -96,6 +103,7 @@ import tconstruct.entity.projectile.LaunchedPotion;
 import tconstruct.items.Bowstring;
 import tconstruct.items.CraftingItem;
 import tconstruct.items.DiamondApple;
+import tconstruct.items.EssenceCrystal;
 import tconstruct.items.FilledBucket;
 import tconstruct.items.Fletching;
 import tconstruct.items.GoldenHead;
@@ -129,6 +137,11 @@ import tconstruct.items.blocks.OreberryBushSecondItem;
 import tconstruct.items.blocks.RedstoneMachineItem;
 import tconstruct.items.blocks.SearedSlabItem;
 import tconstruct.items.blocks.SearedTableItemBlock;
+import tconstruct.items.blocks.SlimeGelItemBlock;
+import tconstruct.items.blocks.SlimeGrassItemBlock;
+import tconstruct.items.blocks.SlimeLeavesItemBlock;
+import tconstruct.items.blocks.SlimeSaplingItemBlock;
+import tconstruct.items.blocks.SlimeTallGrassItem;
 import tconstruct.items.blocks.SmelteryItemBlock;
 import tconstruct.items.blocks.SpeedBlockItem;
 import tconstruct.items.blocks.SpeedSlabItem;
@@ -319,6 +332,8 @@ public class TContent implements IFuelHandler
     //Crystalline
     public static Block aggregator;
     public static Block lightCrystalBase;
+    public static Block essenceExtractor;
+    public static Item essenceCrystal;
 
     //Liquids
     public static Material liquidMetal;
@@ -346,6 +361,8 @@ public class TContent implements IFuelHandler
     public static Fluid moltenShinyFluid;
     public static Fluid moltenInvarFluid;
     public static Fluid moltenElectrumFluid;
+    public static Fluid moltenEnderFluid;
+    public static Fluid blueSlimeFluid;
 
     public static Block moltenIron;
     public static Block moltenGold;
@@ -370,6 +387,16 @@ public class TContent implements IFuelHandler
     public static Block moltenShiny;
     public static Block moltenInvar;
     public static Block moltenElectrum;
+    public static Block moltenEnder;
+    
+    //Slime
+    public static StepSound slimeStep;
+    public static Block slimePool;
+    public static Block slimeGel;
+    public static Block slimeGrass;
+    public static Block slimeTallGrass;
+    public static SlimeLeaves slimeLeaves;
+    public static SlimeSapling slimeSapling;
 
     //Ores
     public static Block oreSlag;
@@ -448,7 +475,7 @@ public class TContent implements IFuelHandler
 
         BiomeGenBase[] nether = BiomeDictionary.getBiomesForType(BiomeDictionary.Type.NETHER);
 
-        if (PHConstruct.blueSlime)
+        /*if (PHConstruct.blueSlime)
         {
             EntityRegistry.addSpawn(BlueSlime.class, PHConstruct.blueSlimeWeight, 4, 4, EnumCreatureType.monster, plains);
             EntityRegistry.addSpawn(BlueSlime.class, PHConstruct.blueSlimeWeight, 4, 4, EnumCreatureType.monster, mountain);
@@ -470,11 +497,11 @@ public class TContent implements IFuelHandler
         catch (Exception e)
         {
 
-        }
+        }*/
     }
 
-    public static Fluid[] fluids = new Fluid[23];
-    public static Block[] fluidBlocks = new Block[23];
+    public static Fluid[] fluids = new Fluid[25];
+    public static Block[] fluidBlocks = new Block[25];
 
     void registerBlocks ()
     {
@@ -537,6 +564,10 @@ public class TContent implements IFuelHandler
         GameRegistry.registerBlock(redstoneMachine, RedstoneMachineItem.class, "Redstone.Machine");
         GameRegistry.registerTileEntity(DrawbridgeLogic.class, "Drawbridge");
         GameRegistry.registerTileEntity(FirestarterLogic.class, "Firestarter");
+        
+        essenceExtractor = new EssenceExtractor(PHConstruct.essenceExtractor).setHardness(12f).setUnlocalizedName("extractor.essence");
+        GameRegistry.registerBlock(essenceExtractor, "extractor.essence");
+        GameRegistry.registerTileEntity(EssenceExtractorLogic.class, "extractor.essence");
 
         //Traps
         landmine = new BlockLandmine(PHConstruct.landmine).setHardness(0.5F).setResistance(0F).setStepSound(Block.soundMetalFootstep).setCreativeTab(CreativeTabs.tabRedstone)
@@ -567,211 +598,247 @@ public class TContent implements IFuelHandler
         liquidMetal = new MaterialLiquid(MapColor.tntColor);
 
         moltenIronFluid = new Fluid("Molten Iron");
+        FluidRegistry.registerFluid(moltenIronFluid);
         moltenIron = new LiquidMetalFinite(PHConstruct.moltenIron, moltenIronFluid, "liquid_iron").setUnlocalizedName("metal.molten.iron");
         GameRegistry.registerBlock(moltenIron, "metal.molten.iron");
         moltenIronFluid.setBlockID(moltenIron).setLuminosity(12).setDensity(3000).setViscosity(6000);
         fluids[0] = moltenIronFluid;
         fluidBlocks[0] = moltenIron;
-        FluidRegistry.registerFluid(moltenIronFluid);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(moltenIronFluid, 1), new ItemStack(buckets, 1, 0), new ItemStack(Item.bucketEmpty)));
 
         moltenGoldFluid = new Fluid("Molten Gold");
+        FluidRegistry.registerFluid(moltenGoldFluid);
         moltenGold = new LiquidMetalFinite(PHConstruct.moltenGold, moltenGoldFluid, "liquid_gold").setUnlocalizedName("metal.molten.gold");
         GameRegistry.registerBlock(moltenGold, "metal.molten.gold");
         moltenGoldFluid.setBlockID(moltenGold).setLuminosity(12).setDensity(3000).setViscosity(6000);
         fluids[1] = moltenGoldFluid;
         fluidBlocks[1] = moltenGold;
-        FluidRegistry.registerFluid(moltenGoldFluid);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(moltenGoldFluid, 1), new ItemStack(buckets, 1, 1), new ItemStack(Item.bucketEmpty)));
 
         moltenCopperFluid = new Fluid("Molten Copper");
+        FluidRegistry.registerFluid(moltenCopperFluid);
         moltenCopper = new LiquidMetalFinite(PHConstruct.moltenCopper, moltenCopperFluid, "liquid_copper").setUnlocalizedName("metal.molten.copper");
         GameRegistry.registerBlock(moltenCopper, "metal.molten.copper");
         moltenCopperFluid.setBlockID(moltenCopper).setLuminosity(12).setDensity(3000).setViscosity(6000);
         fluids[2] = moltenCopperFluid;
         fluidBlocks[2] = moltenCopper;
-        FluidRegistry.registerFluid(moltenCopperFluid);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(moltenCopperFluid, 1), new ItemStack(buckets, 1, 2), new ItemStack(Item.bucketEmpty)));
 
         moltenTinFluid = new Fluid("Molten Tin");
+        FluidRegistry.registerFluid(moltenTinFluid);
         moltenTin = new LiquidMetalFinite(PHConstruct.moltenTin, moltenTinFluid, "liquid_tin").setUnlocalizedName("metal.molten.tin");
         GameRegistry.registerBlock(moltenTin, "metal.molten.tin");
         moltenTinFluid.setBlockID(moltenTin).setLuminosity(12).setDensity(3000).setViscosity(6000);
         fluids[3] = moltenTinFluid;
         fluidBlocks[3] = moltenTin;
-        FluidRegistry.registerFluid(moltenTinFluid);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(moltenTinFluid, 1), new ItemStack(buckets, 1, 3), new ItemStack(Item.bucketEmpty)));
 
         moltenAluminumFluid = new Fluid("Molten Aluminum");
+        FluidRegistry.registerFluid(moltenAluminumFluid);
         moltenAluminum = new LiquidMetalFinite(PHConstruct.moltenAluminum, moltenAluminumFluid, "liquid_aluminum").setUnlocalizedName("metal.molten.aluminum");
         GameRegistry.registerBlock(moltenAluminum, "metal.molten.aluminum");
         moltenAluminumFluid.setBlockID(moltenAluminum).setLuminosity(12).setDensity(3000).setViscosity(6000);
         fluids[4] = moltenAluminumFluid;
         fluidBlocks[4] = moltenAluminum;
-        FluidRegistry.registerFluid(moltenAluminumFluid);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(moltenAluminumFluid, 1), new ItemStack(buckets, 1, 4), new ItemStack(Item.bucketEmpty)));
 
         moltenCobaltFluid = new Fluid("Molten Cobalt");
+        FluidRegistry.registerFluid(moltenCobaltFluid);
         moltenCobalt = new LiquidMetalFinite(PHConstruct.moltenCobalt, moltenCobaltFluid, "liquid_cobalt").setUnlocalizedName("metal.molten.cobalt");
         GameRegistry.registerBlock(moltenCobalt, "metal.molten.cobalt");
         moltenCobaltFluid.setBlockID(moltenCobalt).setLuminosity(12).setDensity(3000).setViscosity(6000);
         fluids[5] = moltenCobaltFluid;
         fluidBlocks[5] = moltenCobalt;
-        FluidRegistry.registerFluid(moltenCobaltFluid);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(moltenCobaltFluid, 1), new ItemStack(buckets, 1, 5), new ItemStack(Item.bucketEmpty)));
 
         moltenArditeFluid = new Fluid("Molten Ardite");
+        FluidRegistry.registerFluid(moltenArditeFluid);
         moltenArdite = new LiquidMetalFinite(PHConstruct.moltenArdite, moltenArditeFluid, "liquid_ardite").setUnlocalizedName("metal.molten.ardite");
         GameRegistry.registerBlock(moltenArdite, "metal.molten.ardite");
         moltenArditeFluid.setBlockID(moltenArdite).setLuminosity(12).setDensity(3000).setViscosity(6000);
         fluids[6] = moltenArditeFluid;
         fluidBlocks[6] = moltenArdite;
-        FluidRegistry.registerFluid(moltenArditeFluid);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(moltenArditeFluid, 1), new ItemStack(buckets, 1, 6), new ItemStack(Item.bucketEmpty)));
 
         moltenBronzeFluid = new Fluid("Molten Bronze");
+        FluidRegistry.registerFluid(moltenBronzeFluid);
         moltenBronze = new LiquidMetalFinite(PHConstruct.moltenBronze, moltenBronzeFluid, "liquid_bronze").setUnlocalizedName("metal.molten.bronze");
         GameRegistry.registerBlock(moltenBronze, "metal.molten.bronze");
         moltenBronzeFluid.setBlockID(moltenBronze).setLuminosity(12).setDensity(3000).setViscosity(6000);
         fluids[7] = moltenBronzeFluid;
         fluidBlocks[7] = moltenBronze;
-        FluidRegistry.registerFluid(moltenBronzeFluid);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(moltenBronzeFluid, 1), new ItemStack(buckets, 1, 7), new ItemStack(Item.bucketEmpty)));
 
         moltenAlubrassFluid = new Fluid("Molten Aluminum Brass");
+        FluidRegistry.registerFluid(moltenAlubrassFluid);
         moltenAlubrass = new LiquidMetalFinite(PHConstruct.moltenAlubrass, moltenAlubrassFluid, "liquid_alubrass").setUnlocalizedName("metal.molten.alubrass");
         GameRegistry.registerBlock(moltenAlubrass, "metal.molten.alubrass");
         moltenAlubrassFluid.setBlockID(moltenAlubrass).setLuminosity(12).setDensity(3000).setViscosity(6000);
         fluids[8] = moltenAlubrassFluid;
         fluidBlocks[8] = moltenAlubrass;
-        FluidRegistry.registerFluid(moltenAlubrassFluid);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(moltenAlubrassFluid, 1), new ItemStack(buckets, 1, 8), new ItemStack(Item.bucketEmpty)));
 
         moltenManyullynFluid = new Fluid("Molten Manyullyn");
+        FluidRegistry.registerFluid(moltenManyullynFluid);
         moltenManyullyn = new LiquidMetalFinite(PHConstruct.moltenManyullyn, moltenManyullynFluid, "liquid_manyullyn").setUnlocalizedName("metal.molten.manyullyn");
         GameRegistry.registerBlock(moltenManyullyn, "metal.molten.manyullyn");
         moltenManyullynFluid.setBlockID(moltenManyullyn).setLuminosity(12).setDensity(3000).setViscosity(6000);
         fluids[9] = moltenManyullynFluid;
         fluidBlocks[9] = moltenManyullyn;
-        FluidRegistry.registerFluid(moltenManyullynFluid);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(moltenManyullynFluid, 1), new ItemStack(buckets, 1, 9), new ItemStack(Item.bucketEmpty)));
 
         moltenAlumiteFluid = new Fluid("Molten Alumite");
+        FluidRegistry.registerFluid(moltenAlumiteFluid);
         moltenAlumite = new LiquidMetalFinite(PHConstruct.moltenAlumite, moltenAlumiteFluid, "liquid_alumite").setUnlocalizedName("metal.molten.alumite");
         GameRegistry.registerBlock(moltenAlumite, "metal.molten.alumite");
         moltenAlumiteFluid.setBlockID(moltenAlumite).setLuminosity(12).setDensity(3000).setViscosity(6000);
         fluids[10] = moltenAlumiteFluid;
         fluidBlocks[10] = moltenAlumite;
-        FluidRegistry.registerFluid(moltenAlumiteFluid);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(moltenAlumiteFluid, 1), new ItemStack(buckets, 1, 10), new ItemStack(Item.bucketEmpty)));
 
         moltenObsidianFluid = new Fluid("Molten Obsidian");
+        FluidRegistry.registerFluid(moltenObsidianFluid);
         moltenObsidian = new LiquidMetalFinite(PHConstruct.moltenObsidian, moltenObsidianFluid, "liquid_obsidian").setUnlocalizedName("metal.molten.obsidian");
         GameRegistry.registerBlock(moltenObsidian, "metal.molten.obsidian");
         moltenObsidianFluid.setBlockID(moltenObsidian).setLuminosity(12).setDensity(3000).setViscosity(6000);
         fluids[11] = moltenObsidianFluid;
         fluidBlocks[11] = moltenObsidian;
-        FluidRegistry.registerFluid(moltenObsidianFluid);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(moltenObsidianFluid, 1), new ItemStack(buckets, 1, 11), new ItemStack(Item.bucketEmpty)));
 
         moltenSteelFluid = new Fluid("Molten Steel");
+        FluidRegistry.registerFluid(moltenSteelFluid);
         moltenSteel = new LiquidMetalFinite(PHConstruct.moltenSteel, moltenSteelFluid, "liquid_steel").setUnlocalizedName("metal.molten.steel");
         GameRegistry.registerBlock(moltenSteel, "metal.molten.steel");
         moltenSteelFluid.setBlockID(moltenSteel).setLuminosity(12).setDensity(3000).setViscosity(6000);
         fluids[12] = moltenSteelFluid;
         fluidBlocks[12] = moltenSteel;
-        FluidRegistry.registerFluid(moltenSteelFluid);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(moltenSteelFluid, 1), new ItemStack(buckets, 1, 12), new ItemStack(Item.bucketEmpty)));
 
         moltenGlassFluid = new Fluid("Molten Glass");
+        FluidRegistry.registerFluid(moltenGlassFluid);
         moltenGlass = new LiquidMetalFinite(PHConstruct.moltenGlass, moltenGlassFluid, "liquid_glass").setUnlocalizedName("metal.molten.glass");
         GameRegistry.registerBlock(moltenGlass, "metal.molten.glass");
         moltenGlassFluid.setBlockID(moltenGlass).setLuminosity(12).setDensity(3000).setViscosity(6000);
         fluids[13] = moltenGlassFluid;
         fluidBlocks[13] = moltenGlass;
-        FluidRegistry.registerFluid(moltenGlassFluid);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(moltenGlassFluid, 1), new ItemStack(buckets, 1, 13), new ItemStack(Item.bucketEmpty)));
 
         moltenStoneFluid = new Fluid("Seared Stone");
+        FluidRegistry.registerFluid(moltenStoneFluid);
         moltenStone = new LiquidMetalFinite(PHConstruct.moltenStone, moltenStoneFluid, "liquid_stone").setUnlocalizedName("molten.stone");
         GameRegistry.registerBlock(moltenStone, "molten.stone");
         moltenStoneFluid.setBlockID(moltenStone).setLuminosity(12).setDensity(3000).setViscosity(6000);
         fluids[14] = moltenStoneFluid;
         fluidBlocks[14] = moltenStone;
-        FluidRegistry.registerFluid(moltenStoneFluid);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(moltenStoneFluid, 1), new ItemStack(buckets, 1, 14), new ItemStack(Item.bucketEmpty)));
 
         moltenEmeraldFluid = new Fluid("Liquified Emerald");
+        FluidRegistry.registerFluid(moltenEmeraldFluid);
         moltenEmerald = new LiquidMetalFinite(PHConstruct.moltenEmerald, moltenEmeraldFluid, "liquid_villager").setUnlocalizedName("molten.emerald");
         GameRegistry.registerBlock(moltenEmerald, "molten.emerald");
         moltenEmeraldFluid.setBlockID(moltenEmerald).setDensity(3000).setViscosity(6000);
         fluids[15] = moltenEmeraldFluid;
         fluidBlocks[15] = moltenEmerald;
-        FluidRegistry.registerFluid(moltenEmeraldFluid);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(moltenEmeraldFluid, 1), new ItemStack(buckets, 1, 15), new ItemStack(Item.bucketEmpty)));
 
         bloodFluid = new Fluid("Blood");
+        FluidRegistry.registerFluid(bloodFluid);
         blood = new LiquidMetalFinite(PHConstruct.blood, bloodFluid, "liquid_cow").setUnlocalizedName("liquid.blood");
         GameRegistry.registerBlock(blood, "liquid.blood");
         bloodFluid.setBlockID(blood).setDensity(3000).setViscosity(6000);
         fluids[16] = bloodFluid;
         fluidBlocks[16] = blood;
-        FluidRegistry.registerFluid(bloodFluid);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(bloodFluid, 1), new ItemStack(buckets, 1, 16), new ItemStack(Item.bucketEmpty)));
 
-        moltenNickelFluid = new Fluid("Molten Nickel");
+        moltenNickelFluid = new Fluid("nickel.molten");
+        FluidRegistry.registerFluid(moltenNickelFluid);
         moltenNickel = new LiquidMetalFinite(PHConstruct.moltenNickel, moltenNickelFluid, "liquid_ferrous").setUnlocalizedName("metal.molten.nickel");
         GameRegistry.registerBlock(moltenNickel, "metal.molten.nickel");
         moltenNickelFluid.setBlockID(moltenNickel).setDensity(3000).setViscosity(6000);
         fluids[17] = moltenNickelFluid;
         fluidBlocks[17] = moltenNickel;
-        FluidRegistry.registerFluid(moltenNickelFluid);
-        //FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(moltenNickelFluid, 1), new ItemStack(buckets, 1, 17), new ItemStack(Item.bucketEmpty)));
+        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(moltenNickelFluid, 1), new ItemStack(buckets, 1, 17), new ItemStack(Item.bucketEmpty)));
 
-        moltenLeadFluid = new Fluid("Molten Lead");
+        moltenLeadFluid = new Fluid("lead.molten");
+        FluidRegistry.registerFluid(moltenLeadFluid);
         moltenLead = new LiquidMetalFinite(PHConstruct.moltenLead, moltenLeadFluid, "liquid_lead").setUnlocalizedName("metal.molten.lead");
         GameRegistry.registerBlock(moltenLead, "metal.molten.lead");
         moltenLeadFluid.setBlockID(moltenLead).setDensity(3000).setViscosity(6000);
         fluids[18] = moltenLeadFluid;
         fluidBlocks[18] = moltenLead;
-        FluidRegistry.registerFluid(moltenLeadFluid);
-        //FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(moltenLeadFluid, 1), new ItemStack(buckets, 1, 18), new ItemStack(Item.bucketEmpty)));
+        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(moltenLeadFluid, 1), new ItemStack(buckets, 1, 18), new ItemStack(Item.bucketEmpty)));
 
-        moltenSilverFluid = new Fluid("Molten Silver");
+        moltenSilverFluid = new Fluid("silver.molten");
+        FluidRegistry.registerFluid(moltenSilverFluid);
         moltenSilver = new LiquidMetalFinite(PHConstruct.moltenSilver, moltenSilverFluid, "liquid_silver").setUnlocalizedName("metal.molten.silver");
         GameRegistry.registerBlock(moltenSilver, "metal.molten.silver");
         moltenSilverFluid.setBlockID(moltenSilver).setDensity(3000).setViscosity(6000);
         fluids[19] = moltenSilverFluid;
         fluidBlocks[19] = moltenSilver;
-        FluidRegistry.registerFluid(moltenSilverFluid);
-        //FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(moltenSilverFluid, 1), new ItemStack(buckets, 1, 19), new ItemStack(Item.bucketEmpty)));
+        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(moltenSilverFluid, 1), new ItemStack(buckets, 1, 19), new ItemStack(Item.bucketEmpty)));
 
-        moltenShinyFluid = new Fluid("Molten Platinum");
+        moltenShinyFluid = new Fluid("platinum.molten");
+        FluidRegistry.registerFluid(moltenShinyFluid);
         moltenShiny = new LiquidMetalFinite(PHConstruct.moltenShiny, moltenShinyFluid, "liquid_shiny").setUnlocalizedName("metal.molten.shiny");
         GameRegistry.registerBlock(moltenShiny, "metal.molten.shiny");
         moltenShinyFluid.setBlockID(moltenShiny).setDensity(3000).setViscosity(6000);
         fluids[20] = moltenLeadFluid;
         fluidBlocks[20] = moltenShiny;
-        FluidRegistry.registerFluid(moltenShinyFluid);
-        //FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(moltenShinyFluid, 1), new ItemStack(buckets, 1, 20), new ItemStack(Item.bucketEmpty)));
+        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(moltenShinyFluid, 1), new ItemStack(buckets, 1, 20), new ItemStack(Item.bucketEmpty)));
 
-        moltenInvarFluid = new Fluid("Molten Invar");
+        moltenInvarFluid = new Fluid("invar.molten");
+        FluidRegistry.registerFluid(moltenInvarFluid);
         moltenInvar = new LiquidMetalFinite(PHConstruct.moltenInvar, moltenInvarFluid, "liquid_invar").setUnlocalizedName("metal.molten.invar");
         GameRegistry.registerBlock(moltenInvar, "metal.molten.invar");
         moltenInvarFluid.setBlockID(moltenInvar).setDensity(3000).setViscosity(6000);
         fluids[21] = moltenInvarFluid;
         fluidBlocks[21] = moltenInvar;
-        FluidRegistry.registerFluid(moltenInvarFluid);
-        //FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(moltenInvarFluid, 1), new ItemStack(buckets, 1, 21), new ItemStack(Item.bucketEmpty)));
+        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(moltenInvarFluid, 1), new ItemStack(buckets, 1, 21), new ItemStack(Item.bucketEmpty)));
 
-        moltenElectrumFluid = new Fluid("Molten Electrum");
+        moltenElectrumFluid = new Fluid("electrum.molten");
+        FluidRegistry.registerFluid(moltenElectrumFluid);
         moltenElectrum = new LiquidMetalFinite(PHConstruct.moltenElectrum, moltenElectrumFluid, "liquid_electrum").setUnlocalizedName("metal.molten.electrum");
         GameRegistry.registerBlock(moltenElectrum, "metal.molten.electrum");
         moltenElectrumFluid.setBlockID(moltenElectrum).setDensity(3000).setViscosity(6000);
         fluids[22] = moltenElectrumFluid;
         fluidBlocks[22] = moltenElectrum;
-        FluidRegistry.registerFluid(moltenElectrumFluid);
-        //FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(moltenElectrumFluid, 1), new ItemStack(buckets, 1, 22), new ItemStack(Item.bucketEmpty)));
+        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(moltenElectrumFluid, 1), new ItemStack(buckets, 1, 22), new ItemStack(Item.bucketEmpty)));
+
+        moltenEnderFluid = new Fluid("ender");
+        FluidRegistry.registerFluid(moltenEnderFluid);
+        moltenEnder = new LiquidMetalFinite(PHConstruct.moltenEnder, moltenEnderFluid, "liquid_ender").setUnlocalizedName("liquid.ender");
+        GameRegistry.registerBlock(moltenEnder, "liquid.ender");
+        moltenEnderFluid.setBlockID(moltenEnder).setDensity(3000).setViscosity(6000);
+        fluids[23] = moltenEnderFluid;
+        fluidBlocks[23] = moltenEnder;
+        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(moltenEnderFluid, 1), new ItemStack(buckets, 1, 23), new ItemStack(Item.bucketEmpty)));
+        
+        //Slime
+        slimeStep = new StepSoundSlime("mob.slime", 1.0f, 1.0f);
+        
+        blueSlimeFluid = new Fluid("slime.blue");
+        FluidRegistry.registerFluid(blueSlimeFluid);
+        slimePool = new SlimeFluid(PHConstruct.slimePoolBlue, blueSlimeFluid, Material.water).setCreativeTab(TConstructRegistry.blockTab).setStepSound(slimeStep).setUnlocalizedName("liquid.slime");
+        GameRegistry.registerBlock(slimePool, "liquid.slime");
+        blueSlimeFluid.setBlockID(slimePool);
+        fluids[24] = blueSlimeFluid;
+        fluidBlocks[24] = slimePool;
+        //FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(blueSlimeFluid, 1), new ItemStack(buckets, 1, 24), new ItemStack(Item.bucketEmpty)));
+        
+        slimeGel = new SlimeGel(PHConstruct.slimeGel).setStepSound(slimeStep).setUnlocalizedName("slime.gel");
+        GameRegistry.registerBlock(slimeGel, SlimeGelItemBlock.class, "slime.gel");
+        
+        slimeGrass = new SlimeGrass(PHConstruct.slimeGrass).setStepSound(Block.soundGrassFootstep).setUnlocalizedName("slime.grass");
+        GameRegistry.registerBlock(slimeGrass, SlimeGrassItemBlock.class, "slime.grass");
+
+        slimeTallGrass = new SlimeTallGrass(PHConstruct.slimeTallGrass).setStepSound(Block.soundGrassFootstep).setUnlocalizedName("slime.grass.tall");
+        GameRegistry.registerBlock(slimeTallGrass, SlimeTallGrassItem.class, "slime.grass.tall");
+        
+        slimeLeaves = (SlimeLeaves) new SlimeLeaves(PHConstruct.slimeLeaves).setStepSound(slimeStep).setUnlocalizedName("slime.leaves");
+        GameRegistry.registerBlock(slimeLeaves, SlimeLeavesItemBlock.class, "slime.leaves");
+        
+        slimeSapling = (SlimeSapling) new SlimeSapling(PHConstruct.slimeSapling).setStepSound(slimeStep).setUnlocalizedName("slime.sapling");
+        GameRegistry.registerBlock(slimeSapling, SlimeSaplingItemBlock.class, "slime.sapling");
 
         //Decoration
         stoneTorch = new StoneTorch(PHConstruct.stoneTorch).setUnlocalizedName("decoration.stonetorch");
@@ -955,6 +1022,8 @@ public class TContent implements IFuelHandler
         glove = new Glove(PHConstruct.glove).setUnlocalizedName("tconstruct.Glove");
         knapsack = new Knapsack(PHConstruct.knapsack).setUnlocalizedName("tconstruct.storage");
         goldHead = new GoldenHead(PHConstruct.goldHead, 4, 1.2F, false).setAlwaysEdible().setPotionEffect(Potion.regeneration.id, 10, 0, 1.0F).setUnlocalizedName("goldenhead");
+        
+        essenceCrystal = new EssenceCrystal(PHConstruct.essenceCrystal).setUnlocalizedName("tconstruct.crystal.essence");
 
         String[] materialStrings = { "paperStack", "greenSlimeCrystal", "searedBrick", "ingotCobalt", "ingotArdite", "ingotManyullyn", "mossBall", "lavaCrystal", "necroticBone", "ingotCopper",
                 "ingotTin", "ingotAluminum", "rawAluminum", "ingotBronze", "ingotAluminumBrass", "ingotAlumite", "ingotSteel", "blueSlimeCrystal", "ingotObsidian", "nuggetIron", "nuggetCopper",
@@ -1332,6 +1401,8 @@ public class TContent implements IFuelHandler
         basinCasting.addCastingRecipe(new ItemStack(smeltery, 1, 4), new FluidStack(moltenStoneFluid, TConstruct.ingotLiquidValue), null, true, 100); //seared stone
 
         basinCasting.addCastingRecipe(new ItemStack(speedBlock, 1, 0), new FluidStack(moltenTinFluid, TConstruct.ingotLiquidValue / 9), new ItemStack(Block.gravel), true, 100); //brownstone
+        basinCasting.addCastingRecipe(new ItemStack(Block.whiteStone), new FluidStack(moltenEnderFluid, 25), new ItemStack(Block.obsidian), true, 100); //endstone
+        basinCasting.addCastingRecipe(new ItemStack(metalBlock.blockID, 1, 10), new FluidStack(moltenEnderFluid, 1000), null, true, 100); //ender
 
         //Ore
         Smeltery.addMelting(Block.oreIron, 0, 600, new FluidStack(moltenIronFluid, TConstruct.ingotLiquidValue * 2));
@@ -1348,6 +1419,8 @@ public class TContent implements IFuelHandler
 
         Smeltery.addMelting(new ItemStack(blankPattern, 4, 1), metalBlock.blockID, 7, 150, new FluidStack(moltenAlubrassFluid, TConstruct.ingotLiquidValue));
         Smeltery.addMelting(new ItemStack(blankPattern, 4, 2), metalBlock.blockID, 7, 150, new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 2));
+        
+        Smeltery.addMelting(new ItemStack(Item.enderPearl, 4), metalBlock.blockID, 10, 500, new FluidStack(moltenEnderFluid, 250));
 
         //Blocks
         Smeltery.addMelting(Block.blockIron, 0, 600, new FluidStack(moltenIronFluid, TConstruct.ingotLiquidValue * 9));
