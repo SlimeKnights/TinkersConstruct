@@ -102,6 +102,8 @@ public class ToolCoreRenderer implements IItemRenderer
         float[] height = new float[iconParts];
         float[] xDiff = new float[iconParts];
         float[] yDiff = new float[iconParts];
+        float[] xSub = new float[iconParts];
+        float[] ySub = new float[iconParts];
         for (int i = 0; i < iconParts; ++i)
         {
             Icon icon = parts[i];
@@ -111,10 +113,12 @@ public class ToolCoreRenderer implements IItemRenderer
             yMax[i] = icon.getMaxV();
             sheetWidth[i] = icon.getOriginX();
             sheetHeight[i] = icon.getOriginY();
-            width[i] = sheetWidth[i] * (xMax[i] - xMin[i]);
-            height[i] = sheetHeight[i] * (yMax[i] - yMin[i]);
             xDiff[i] = xMin[i] - xMax[i];
             yDiff[i] = yMin[i] - yMax[i];
+            width[i] = sheetWidth[i] * xDiff[i];
+            height[i] = sheetHeight[i] * yDiff[i];
+            xSub[i] = 0.5f * (xMax[i] - xMin[i]) / sheetWidth[i];
+            ySub[i] = 0.5f * (yMax[i] - yMin[i]) / sheetHeight[i];
         }
         GL11.glPushMatrix();
 
@@ -180,7 +184,7 @@ public class ToolCoreRenderer implements IItemRenderer
                 for (k = 0; k < width[i]; ++k)
                 {
                     pos = k / width[i];
-                    iconPos = xMax[i] + xDiff[i] * pos - 0.5F / sheetWidth[i];
+                    iconPos = xMax[i] + xDiff[i] * pos - xSub[i];
                     tess.addVertexWithUV(pos, 0, -depth, iconPos, yMax[i]);
                     tess.addVertexWithUV(pos, 0, 0, iconPos, yMax[i]);
                     tess.addVertexWithUV(pos, 1, 0, iconPos, yMin[i]);
@@ -198,7 +202,7 @@ public class ToolCoreRenderer implements IItemRenderer
                 for (k = 0; k < width[i]; ++k)
                 {
                     pos = k / width[i];
-                    iconPos = xMax[i] + xDiff[i] * pos - 0.5F / sheetWidth[i];
+                    iconPos = xMax[i] + xDiff[i] * pos - xSub[i];
                     posEnd = pos + 1 / width[i];
                     tess.addVertexWithUV(posEnd, 1, -depth, iconPos, yMin[i]);
                     tess.addVertexWithUV(posEnd, 1, 0, iconPos, yMin[i]);
@@ -216,7 +220,7 @@ public class ToolCoreRenderer implements IItemRenderer
                 for (k = 0; k < height[i]; ++k)
                 {
                     pos = k / height[i];
-                    iconPos = yMax[i] + yDiff[i] * pos - 0.5F / sheetHeight[i];
+                    iconPos = yMax[i] + yDiff[i] * pos - ySub[i];
                     posEnd = pos + 1 / height[i];
                     tess.addVertexWithUV(0, posEnd, 0, xMax[i], iconPos);
                     tess.addVertexWithUV(1, posEnd, 0, xMin[i], iconPos);
@@ -234,7 +238,7 @@ public class ToolCoreRenderer implements IItemRenderer
                 for (k = 0; k < height[i]; ++k)
                 {
                     pos = k / height[i];
-                    iconPos = yMax[i] + yDiff[i] * pos - 0.5F / sheetHeight[i];
+                    iconPos = yMax[i] + yDiff[i] * pos - ySub[i];
                     tess.addVertexWithUV(1, pos, 0, xMin[i], iconPos);
                     tess.addVertexWithUV(0, pos, 0, xMax[i], iconPos);
                     tess.addVertexWithUV(0, pos, -depth, xMax[i], iconPos);
