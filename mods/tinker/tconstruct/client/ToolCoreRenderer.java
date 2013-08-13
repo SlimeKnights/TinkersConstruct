@@ -140,10 +140,10 @@ public class ToolCoreRenderer implements IItemRenderer
 			case EQUIPPED_FIRST_PERSON:
 				break;
 			case EQUIPPED:
-				GL11.glTranslatef(0, -4 / 16f, 0);
 				break;
 			case ENTITY:
-				GL11.glTranslatef(0, 4 / 16f, 0);
+				GL11.glTranslatef(0.5f, -0.3f, 0);
+				GL11.glRotatef(180, 0, 1, 0);
 				break;
 			default:
 			}
