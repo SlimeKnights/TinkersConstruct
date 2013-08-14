@@ -50,7 +50,7 @@ The main structure for melting metals is called the Smeltery. It is larger than 
 
 * Ores naturally have more material than processed versions, such as ingots. The Smeltery will preserve the full value of the ores - roughly twice as much as a regular furnace would provide.
 
-* Mixing two metals in the Smeltery may result in an alloy. The process happens automatically.
+* Mixing two or more metals in the Smeltery may result in an alloy. The process happens automatically.
 
 * If you need more space to process metal, add more layers.
 
