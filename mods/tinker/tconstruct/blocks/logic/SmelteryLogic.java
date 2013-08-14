@@ -17,6 +17,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -28,7 +29,6 @@ import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
@@ -312,6 +312,17 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                     {
                         int amount = villager.isChild() ? 2 : 8;
                         this.addMoltenMetal(new LiquidStack(TContent.liquidMetalStill.blockID, amount, 15), false);
+                    }
+                }
+            }
+            else if (o instanceof EntityEnderman)
+            {
+                EntityEnderman villager = (EntityEnderman) o;
+                if (villager.attackEntityFrom(new SmelteryDamageSource(), 1))
+                {
+                    if (currentLiquid + 25 < maxLiquid)
+                    {
+                        this.addMoltenMetal(new LiquidStack(TContent.liquidMetalStill.blockID, 25, 23), false);
                     }
                 }
             }

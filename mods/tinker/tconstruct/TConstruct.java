@@ -11,6 +11,7 @@ import mods.tinker.tconstruct.util.PHConstruct;
 import mods.tinker.tconstruct.util.TCraftingHandler;
 import mods.tinker.tconstruct.util.TEventHandler;
 import mods.tinker.tconstruct.util.player.TPlayerHandler;
+import mods.tinker.tconstruct.worldgen.SlimeIslandGen;
 import mods.tinker.tconstruct.worldgen.TBaseWorldGenerator;
 import mods.tinker.tconstruct.worldgen.TerrainGenEventHandler;
 import mods.tinker.tconstruct.worldgen.village.TVillageTrades;
@@ -38,7 +39,7 @@ import cpw.mods.fml.common.registry.VillagerRegistry;
  * @dependencies: IC2 API, MFR API
  */
 
-@Mod(modid = "TConstruct", name = "TConstruct", version = "1.5.2_1.4.dev.23", dependencies = "required-after:Forge@[7.7.1.700,)")
+@Mod(modid = "TConstruct", name = "TConstruct", version = "1.5.2_1.4.3d2", dependencies = "required-after:Forge@[7.7.1.700,)")
 @NetworkMod(serverSideRequired = false, clientSideRequired = true, channels = { "TConstruct" }, packetHandler = mods.tinker.tconstruct.util.network.TPacketHandler.class)
 public class TConstruct
 {
@@ -115,6 +116,7 @@ public class TConstruct
     public void init (FMLInitializationEvent event)
     {
         content.intermodCommunication();
+        GameRegistry.registerWorldGenerator(new SlimeIslandGen(TContent.slimePool.blockID, 0));
     }
 
     @PostInit

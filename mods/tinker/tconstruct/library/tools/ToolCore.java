@@ -126,7 +126,7 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
     @Override
     public boolean requiresMultipleRenderPasses ()
     {
-        return true;
+        return false;
     }
 
     @SideOnly(Side.CLIENT)
@@ -135,6 +135,12 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
     {
         return 9;
     }
+
+    @SideOnly(Side.CLIENT)
+	public boolean hasEffect(ItemStack par1ItemStack)
+	{
+		return false;
+	}
 
     //Override me please!
     public int getPartAmount ()

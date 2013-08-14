@@ -3,7 +3,9 @@ package mods.tinker.tconstruct.client;
 import mods.tinker.tconstruct.TConstruct;
 import mods.tinker.tconstruct.client.armor.WingModel;
 import mods.tinker.tconstruct.common.TContent;
+import mods.tinker.tconstruct.util.PHConstruct;
 import mods.tinker.tconstruct.util.player.TPlayerStats;
+import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.model.ModelBiped;
@@ -11,9 +13,11 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.MathHelper;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.client.event.sound.SoundLoadEvent;
+import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.liquids.LiquidStack;
 import cpw.mods.fml.relauncher.Side;
@@ -70,6 +74,73 @@ public class TClientEvents
     }
 
     /* HUD */
+    @ForgeSubscribe
+    public void renderArmor (RenderGameOverlayEvent.Pre event)
+    {
+        if (PHConstruct.alphaHunger)
+        {
+            if (event.type == RenderGameOverlayEvent.ElementType.ARMOR)
+            {
+                mc.mcProfiler.startSection("armor");
+
+                ScaledResolution scaledresolution = new ScaledResolution(this.mc.gameSettings, this.mc.displayWidth, this.mc.displayHeight);
+                int width = scaledresolution.getScaledWidth();
+                int height = scaledresolution.getScaledHeight();
+                int left = width / 2 + 10;
+                int top = height - 39;
+
+                int level = ForgeHooks.getTotalArmorValue(mc.thePlayer);
+                for (int i = 1; level > 0 && i < 20; i += 2)
+                {
+                    if (i < level)
+                    {
+                        drawTexturedModalRect(left, top, 34, 9, 9, 9);
+                    }
+                    else if (i == level)
+                    {
+                        drawTexturedModalRect(left, top, 25, 9, 9, 9);
+                    }
+                    else if (i > level)
+                    {
+                        drawTexturedModalRect(left, top, 16, 9, 9, 9);
+                    }
+                    left += 8;
+                }
+
+                mc.mcProfiler.endSection();
+                event.setCanceled(true);
+            }
+
+            if (event.type == RenderGameOverlayEvent.ElementType.AIR)
+            {
+                mc.mcProfiler.startSection("air");
+
+                ScaledResolution scaledresolution = new ScaledResolution(this.mc.gameSettings, this.mc.displayWidth, this.mc.displayHeight);
+                int width = scaledresolution.getScaledWidth();
+                int height = scaledresolution.getScaledHeight();
+
+                int left = width / 2 + 91;
+                int level = ForgeHooks.getTotalArmorValue(mc.thePlayer) > 0 ? 10 : 0;
+                int top = height - 39 - level;
+
+                if (mc.thePlayer.isInsideOfMaterial(Material.water))
+                {
+                    int air = mc.thePlayer.getAir();
+                    int full = MathHelper.ceiling_double_int((double) (air - 2) * 10.0D / 300.0D);
+                    int partial = MathHelper.ceiling_double_int((double) air * 10.0D / 300.0D) - full;
+
+                    for (int i = 0; i < full + partial; ++i)
+                    {
+                        drawTexturedModalRect(left - i * 8 - 9, top, (i < full ? 16 : 25), 18, 9, 9);
+                    }
+                }
+
+                mc.mcProfiler.endSection();
+                event.setCanceled(true);
+            }
+        }
+    }
+
     @ForgeSubscribe
     public void renderHealthbar (RenderGameOverlayEvent.Post event)
     {

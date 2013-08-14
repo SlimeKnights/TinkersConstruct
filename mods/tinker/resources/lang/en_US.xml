@@ -41,7 +41,7 @@
   <entry key="block.oreberry.copper.name">Copper Oreberry Bush</entry>
   <entry key="block.oreberry.tin.name">Tin Oreberry Bush</entry>
   <entry key="block.oreberry.aluminum.name">Aluminum Oreberry Bush</entry>
-  <entry key="block.oreberry.essence.name">Essence Oreberry Bush</entry>
+  <entry key="block.oreberry.essence.name">Essence Berry Bush</entry>
   
   <entry key="block.ore.gravel.iron.name">Iron Gravel Ore</entry>
   <entry key="block.ore.gravel.gold.name">Gold Gravel Ore</entry>
@@ -131,8 +131,10 @@
   <entry key="item.tconstruct.Materials.CopperNugget.name">Copper Nugget</entry>
   <entry key="item.tconstruct.Materials.TinNugget.name">Tin Nugget</entry>
   <entry key="item.tconstruct.Materials.AluminumNugget.name">Aluminum Nugget</entry>
-  <entry key="item.tconstruct.Materials.EssenceCrystal.name">Essence Crystal</entry>
+  <entry key="item.tconstruct.Materials.EssenceCrystal.name">Fake Essence Crystal</entry>
   <entry key="item.tconstruct.Materials.AluBrassNugget.name">Aluminum Brass Nugget</entry>
+  <entry key="item.tconstruct.Materials.SilkyCloth.name">Silky Cloth</entry>
+  <entry key="item.tconstruct.Materials.SilkyJewel.name">Silky Jewel</entry>
   <entry key="item.tconstruct.Materials.ObsidianNugget.name">Obsidian Nugget</entry>
   <entry key="item.tconstruct.Materials.CobaltNugget.name">Cobalt Nugget</entry>
   <entry key="item.tconstruct.Materials.ArditeNugget.name">Ardite Nugget</entry>
@@ -140,6 +142,8 @@
   <entry key="item.tconstruct.Materials.BronzeNugget.name">Bronze Nugget</entry>
   <entry key="item.tconstruct.Materials.AlumiteNugget.name">Alumite Nugget</entry>
   <entry key="item.tconstruct.Materials.SteelNugget.name">Steel Nugget</entry>
+  
+  <entry key="item.tconstruct.crystal.essence.name">Essence Crystal</entry>
   
   <entry key="Smeltery.Controller.name">Smeltery Controller</entry>
   <entry key="Smeltery.Drain.name">Smeltery Drain</entry>
@@ -160,6 +164,12 @@
   <entry key="block.drawbridge.name">Drawbridge</entry>
   <entry key="block.firestarter.name">Igniter</entry>
   <entry key="tile.landmine.name">Landmine</entry>
+  <entry key="tile.trap.punji.name">Punji Stick</entry>
+  <entry key="tile.trap.barricade.oak.name">Oak Barricade</entry>
+  <entry key="tile.trap.barricade.spruce.name">Spruce Barricade</entry>
+  <entry key="tile.trap.barricade.birch.name">Birch Barricade</entry>
+  <entry key="tile.trap.barricade.jungle.name">Jungle Barricade</entry>
+  <entry key="tile.extractor.essence.name">Essence Extractor</entry>
   
   <entry key="StorageMetals.Cobalt.name">Block of Cobalt</entry>
   <entry key="StorageMetals.Ardite.name">Block of Ardite</entry>
@@ -171,8 +181,10 @@
   <entry key="StorageMetals.AlBrass.name">Block of Aluminum Brass</entry>
   <entry key="StorageMetals.Alumite.name">Block of Alumite</entry>
   <entry key="StorageMetals.Steel.name">Block of Steel</entry>
+  <entry key="StorageMetals.Ender.name">Block of Solid Ender</entry>
   
   <entry key="tile.decoration.stonetorch.name">Torch</entry>
+  <entry key="tile.CraftingStation.name">Crafting Station</entry>
   
   <entry key="block.glass.pure.name">Clear Glass</entry>
   <entry key="block.glass.soul.name">Soul Glass</entry>
@@ -233,6 +245,15 @@
   <entry key="block.soil.slab.graveyardsoil.name">Graveyard Soil Slab</entry>
   <entry key="block.soil.slab.consecratedsoil.name">Consecrated Soil Slab</entry>
   
+  <entry key="block.slime.soil.blue.name">Blue Slimedirt</entry>
+  <entry key="block.slime.leaves.blue.name">Slimy Leaves</entry>
+  <entry key="block.slime.sapling.bluegreen.name">Slimy Sapling</entry>
+  <entry key="block.slime.grass.blue.name">Slimy Grass</entry>
+  <entry key="block.slime.grass.dirt.name">Slimy Grass</entry>
+  <entry key="block.slime.tallgrass.name">Slimy Grass</entry>
+  <entry key="block.slime.congealed.blue.name">Congealed Blue Slime</entry>
+  <entry key="block.slime.congealed.green.name">Congealed Green Slime</entry>
+  
   <entry key="item.tconstruct.storage.knapsack.name">Knapsack</entry>  
   <entry key="item.tconstruct.blankpattern.pattern.name">Blank Pattern</entry>
   <entry key="item.tconstruct.blankpattern.cast.name">Blank Cast</entry>
@@ -265,6 +286,13 @@
   <entry key="item.tconstruct.bucket.Stone.name">Seared Stone Bucket</entry>
   <entry key="item.tconstruct.bucket.Villager.name">Liquified Emerald Bucket</entry>
   <entry key="item.tconstruct.bucket.Cow.name">Bucket o' Blood</entry>
+  <entry key="item.tconstruct.bucket.Nickel.name">Molten Nickel Bucket</entry>
+  <entry key="item.tconstruct.bucket.Lead.name">Molten Lead Bucket</entry>
+  <entry key="item.tconstruct.bucket.Silver.name">Molten Silver Bucket</entry>
+  <entry key="item.tconstruct.bucket.Shiny.name">Molten Shiny Bucket</entry>
+  <entry key="item.tconstruct.bucket.Invar.name">Molten Invar Bucket</entry>
+  <entry key="item.tconstruct.bucket.Electrum.name">Molten Electrum Bucket</entry>
+  <entry key="item.tconstruct.bucket.Ender.name">Liquified Ender Bucket</entry>
   
   <entry key="item.tconstruct.bowstring.string.name">Bowstring</entry>
   <entry key="item.tconstruct.bowstring.enchantedfabriI donc.name">Enchanted Bowstring</entry>
@@ -286,6 +314,13 @@
   <entry key="LiquidMetal.Stone.name">Seared Stone</entry>
   <entry key="LiquidMetal.Villager.name">Liquified Emerald</entry>
   <entry key="LiquidMetal.Cow.name">Blood</entry>
+  <entry key="LiquidMetal.Nickel.name">Molten Nickel</entry>
+  <entry key="LiquidMetal.Silver.name">Molten Silver</entry>
+  <entry key="LiquidMetal.Lead.name">Molten Lead</entry>
+  <entry key="LiquidMetal.Shiny.name">Molten Shiny</entry>
+  <entry key="LiquidMetal.Invar.name">Molten Invar</entry>
+  <entry key="LiquidMetal.Electrum.name">Molten Electrum</entry>
+  <entry key="LiquidMetal.Ender.name">Liquified Ender</entry>
   
   <entry key="item.food.apple.diamond.name">Jeweled Apple</entry>
   <entry key="item.tconstruct.strangefood.edibleslime.name">Gelatinous Slime</entry>
@@ -300,7 +335,7 @@
   
   <entry key="entity.TConstruct.EdibleSlime.name">Blue Slime</entry>
   <entry key="entity.TConstruct.KingSlime.name">King Slime</entry>
-  <entry key="entity.TConstruct.MiniGardy.name">Gardeslime</entry> 
+  <entry key="entity.TConstruct.Gardeslime.name">Gardeslime</entry> 
   
   <entry key="key.tarmor">Armor Gui</entry>
   

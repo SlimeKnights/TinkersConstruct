@@ -1,8 +1,12 @@
 package mods.tinker.tconstruct.items.tools;
 
+import java.util.List;
+
 import mods.tinker.tconstruct.common.TContent;
+import mods.tinker.tconstruct.library.crafting.ToolBuilder;
 import mods.tinker.tconstruct.library.tools.AbilityHelper;
 import mods.tinker.tconstruct.library.tools.DualHarvestTool;
+import mods.tinker.tconstruct.util.PHConstruct;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -102,5 +106,38 @@ public class Mattock extends DualHarvestTool
             return false;
 
         return AbilityHelper.hoeGround(stack, player, world, x, y, z, side, random);
+    }
+
+    public void buildTool (int id, String name, List list)
+    {
+        if (!PHConstruct.denyMattock || allowCrafting(id))
+        {
+            Item accessory = getAccessoryItem();
+            ItemStack accessoryStack = accessory != null ? new ItemStack(getAccessoryItem(), 1, id) : null;
+            Item extra = getExtraItem();
+            ItemStack extraStack = extra != null ? new ItemStack(extra, 1, id) : null;
+            ItemStack tool = ToolBuilder.instance.buildTool(new ItemStack(getHeadItem(), 1, id), new ItemStack(getHandleItem(), 1, id), accessoryStack, extraStack, name + getToolName());
+            if (tool == null)
+            {
+                System.out.println("Creative builder failed tool for " + name + this.getToolName());
+                System.out.println("Make sure you do not have item ID conflicts");
+            }
+            else
+            {
+                tool.getTagCompound().getCompoundTag("InfiTool").setBoolean("Built", true);
+                list.add(tool);
+            }
+        }
+    }
+
+    private boolean allowCrafting (int head)
+    {
+        int[] nonMetals = { 0, 1, 3, 4, 5, 6, 7, 8, 9, 17 };
+        for (int i = 0; i < nonMetals.length; i++)
+        {
+            if (head == nonMetals[i])
+                return false;
+        }
+        return true;
     }
 }

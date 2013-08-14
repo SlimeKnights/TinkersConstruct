@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import mods.tinker.tconstruct.TConstruct;
+import mods.tinker.tconstruct.blocks.logic.DrawbridgeLogic;
 import mods.tinker.tconstruct.blocks.logic.ToolForgeLogic;
 import mods.tinker.tconstruct.blocks.logic.ToolStationLogic;
 import mods.tinker.tconstruct.common.TContent;
@@ -142,10 +143,26 @@ public class TPacketHandler implements IPacketHandler
                 }
             }
 
-            else if (packetID == 4) //Active Skills
+            /*else if (packetID == 4) //Active Skills
             {
                 Byte id = inputStream.readByte();
                 TConstruct.playerTracker.activateSkill(player, id);
+            }*/
+            
+            else if (packetID == 5) //Drawbridge
+            {
+                int dimension = inputStream.readInt();
+                World world = DimensionManager.getWorld(dimension);
+                int x = inputStream.readInt();
+                int y = inputStream.readInt();
+                int z = inputStream.readInt();
+                TileEntity te = world.getBlockTileEntity(x, y, z);
+
+                byte direction = inputStream.readByte();
+                if (te instanceof DrawbridgeLogic)
+                {
+                    ((DrawbridgeLogic) te).setPlacementDirection(direction);
+                }
             }
 
             else if (packetID == 10) //Double jump

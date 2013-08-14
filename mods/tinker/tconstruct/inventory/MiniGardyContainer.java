@@ -1,6 +1,6 @@
 package mods.tinker.tconstruct.inventory;
 
-import mods.tinker.tconstruct.entity.MiniGardy;
+import mods.tinker.tconstruct.entity.Gardeslime;
 import mods.tinker.tconstruct.library.util.IPattern;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -10,9 +10,9 @@ import net.minecraft.item.ItemStack;
 
 public class MiniGardyContainer extends Container
 {
-    public MiniGardy gardy;
+    public Gardeslime gardy;
 
-    public MiniGardyContainer(InventoryPlayer inventoryplayer, MiniGardy entity)
+    public MiniGardyContainer(InventoryPlayer inventoryplayer, Gardeslime entity)
     {
         gardy = entity;
         for (int column = 0; column < 2; column++)

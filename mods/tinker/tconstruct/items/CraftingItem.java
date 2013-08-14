@@ -37,8 +37,8 @@ public class CraftingItem extends Item
         return icons[arr];
     }
 
-    @SideOnly(Side.CLIENT)
     @Override
+    @SideOnly(Side.CLIENT)
     public void registerIcons (IconRegister iconRegister)
     {
         this.icons = new Icon[textureNames.length];

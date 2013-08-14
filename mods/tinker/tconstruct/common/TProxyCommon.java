@@ -1,7 +1,7 @@
 package mods.tinker.tconstruct.common;
 
 import mods.tinker.tconstruct.TConstruct;
-import mods.tinker.tconstruct.entity.MiniGardy;
+import mods.tinker.tconstruct.entity.Gardeslime;
 import mods.tinker.tconstruct.inventory.ArmorExtendedContainer;
 import mods.tinker.tconstruct.inventory.KnapsackContainer;
 import mods.tinker.tconstruct.inventory.MiniGardyContainer;
@@ -32,6 +32,7 @@ public class TProxyCommon implements IGuiHandler
     public static int glowstoneAggregatorGui = 8;
     public static int drawbridgeGui = 9;
     public static int landmineGui = 10;
+    public static int craftingStationID = 11;
 
     public static int inventoryGui = 100;
     public static int armorGuiID = 101;
@@ -83,7 +84,7 @@ public class TProxyCommon implements IGuiHandler
                     Entity entity = (Entity) o;
                     if (entity.entityId == x)
                     {
-                        return new MiniGardyContainer(player.inventory, (MiniGardy) entity);
+                        return new MiniGardyContainer(player.inventory, (Gardeslime) entity);
                     }
                 }
                 return null;
@@ -95,7 +96,6 @@ public class TProxyCommon implements IGuiHandler
     @Override
     public Object getClientGuiElement (int ID, EntityPlayer player, World world, int x, int y, int z)
     {
-        // TODO Auto-generated method stub
         return null;
     }
 
