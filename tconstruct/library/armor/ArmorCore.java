@@ -83,6 +83,8 @@ public abstract class ArmorCore extends ItemArmor implements ICustomElectricItem
 		if(data == null){
 			data = new NBTTagCompound();
 			tags.setCompoundTag(SET_NAME, data);
+			data.setInteger("damageReduction", damageReduceAmount);
+			data.setInteger("maxAbsorb", damageReduceAmount);
 		}
 		
 		if(tags.hasKey("charge")){
