@@ -42,7 +42,7 @@ By Thruul M'gon</text>
 
 You will learn how to cast everything from the softest Iron to the hardest Manyullyn into whatever shape you desire and create alloy mixes from obscure materials. As always, experimentation is key!
 
-The main structure for melting liquids is called the Smeltery. It is larger than structures you may be familiar with, but the method for construction is relatively simple. It operates much like a furnace with a drain.</text>
+The main structure for melting metals is called the Smeltery. It is larger than structures you may be familiar with, but the method for construction is relatively simple. It operates much like a furnace with a drain.</text>
 </page>
 
 <page type="text">
@@ -50,7 +50,7 @@ The main structure for melting liquids is called the Smeltery. It is larger than
 
 * Ores naturally have more material than processed versions, such as ingots. The Smeltery will preserve the full value of the ores - roughly twice as much as a regular furnace would provide.
 
-* Mixing two metals in the Smeltery may result in an alloy. The process happens automatically.
+* Mixing two or more metals in the Smeltery may result in an alloy. The process happens automatically.
 
 * If you need more space to process metal, add more layers.
 
@@ -91,13 +91,13 @@ The main structure for melting liquids is called the Smeltery. It is larger than
 
 Place the Controller one layer up and the lava tank anywhere on the same level. Fill in the rest of the space with seared bricks, lava tanks, or drains as you like. 
 
-The small end of drains should be facing the outside. If you're successful, the Controller will light up and start working. Fill the tank with lava, the basin with metal, and watch it go.
+The small end of drains should be facing the outside. If you're successful, the Controller will light up and start working. Fill the tank with lava, the Smeltery with metal, and watch it go.
 
-The structure must be a 5x5 shell due to the amount of heat lava gives off. There are no vertical restrictions to the size of the basin. </text>
+The structure must be a 5x5 shell due to the amount of heat lava gives off. There are no vertical restrictions to the size of the Smeltery. </text>
 </page>
 
 <page type="text">
-<text>Larger basins will hold more metal, of course, and the Controller can be on any level so long as there is a lava tank to match.
+<text>Larger Smelteries will hold more metal, of course, and the Controller can be on any level so long as there is a lava tank to match.
 
 When you are ready to pour liquid metal from the Smeltery, put a faucet on a drain and a casting table below it.
 
@@ -110,7 +110,7 @@ Other liquid removal objects will work, but are frowned upon. An example picture
 </page>
 
 <page type="sidebar">
-<text>Alloys are made when two metals are mixed in precise proportions. Currently known alloys are:</text>
+<text>Alloys are made when two or more metals are mixed in precise proportions. Currently known alloys are:</text>
 <item>
  <text>Bronze, made from Copper(3) and Tin(1)</text>
  <icon>bronzeingot</icon>
