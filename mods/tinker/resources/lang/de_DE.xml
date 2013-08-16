@@ -97,6 +97,23 @@
   <entry key="block.fancybrick.obsidian.ingot.name">Schöner Obsidianziegel</entry>
   <entry key="block.fancybrick.stone.road.name">Steinstraße</entry>
   <entry key="block.fancybrick.stone.name">Schöner Steinziegel</entry>
+  
+  <entry key="tile.cloth.white.slab.name">Wollstufe</entry>
+  <entry key="tile.cloth.orange.slab.name">Orange Wollstufe</entry>
+  <entry key="tile.cloth.magenta.slab.name">Magenta Wollstufe</entry>
+  <entry key="tile.cloth.lightBlue.slab.name">Hellblaue Wollstufe</entry>
+  <entry key="tile.cloth.yellow.slab.name">Gelbe Wollstufe</entry>
+  <entry key="tile.cloth.lime.slab.name">Hellgrüne Wollstufe</entry>
+  <entry key="tile.cloth.pink.slab.name">Pinke Wollstufe</entry>
+  <entry key="tile.cloth.gray.slab.name">Graue Wollstufe</entry>
+  <entry key="tile.cloth.silver.slab.name">Hellgraue Wollstufe</entry>
+  <entry key="tile.cloth.cyan.slab.name">Türkise Wollstufe</entry>
+  <entry key="tile.cloth.purple.slab.name">Violette Wollstufe</entry>
+  <entry key="tile.cloth.blue.slab.name">Blaue Wollstufe</entry>
+  <entry key="tile.cloth.brown.slab.name">Braune Wollstufe</entry>
+  <entry key="tile.cloth.green.slab.name">Grüne Wollstufe</entry>
+  <entry key="tile.cloth.red.slab.name">Rote Wollstufe</entry>
+  <entry key="tile.cloth.black.slab.name">Schwarze Wollstufe</entry>
 
   <entry key="item.oreberry.iron.name">Eisenbeere</entry>
   <entry key="item.oreberry.gold.name">Goldbeere</entry>
@@ -156,6 +173,7 @@
   <entry key="Smeltery.Brick.Fancy.name">Versengter schöner Ziegel</entry>
   <entry key="Smeltery.Brick.Square.name">Versengter ziselierter Ziegel</entry>
   <entry key="Smeltery.Brick.Creeper.name">Versengter ziselierter Ziegel</entry>
+  <entry key="Smeltery.Channel.name">Gusskanal</entry>
 
   <entry key="LavaTank.Tank.name">Versengter Tank</entry>
   <entry key="LavaTank.Gague.name">Versengtes Glas</entry>
@@ -335,7 +353,8 @@
 
   <entry key="entity.TConstruct.EdibleSlime.name">Blauer Schleim</entry>
   <entry key="entity.TConstruct.KingSlime.name">Königsschleim</entry>
-  <entry key="entity.TConstruct.Gardeslime.name">Schutzschleim</entry>
+  <entry key="entity.TConstruct.Gardeslime.name">Guardeschleim</entry>
+  <entry key="entity.TConstruct.MiniGardy.name">Guardeschleim</entry> 
 
   <entry key="key.tarmor">Rüstungs-GUI</entry>
 
