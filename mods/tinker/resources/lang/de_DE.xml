@@ -7,7 +7,7 @@
 
   <entry key="crafters.ToolStation">Werkzeugstation</entry>
   <entry key="crafters.ToolForge">Werkzeugesse</entry>
-  <entry key="crafters.PartBuilder">Teilbauer</entry>
+  <entry key="crafters.PartBuilder">Basteltisch</entry>
   <entry key="crafters.PatternShaper">Schablonenstanzer</entry>
   <entry key="inventory.PatternChest">Schablonenkiste</entry>
   <entry key="crafters.Smeltery">Schmelzerei</entry>
@@ -15,7 +15,7 @@
   <entry key="inventory.knapsack">Rucksack</entry>
 
   <entry key="ToolStation.Crafter.name">Werkzeugstation</entry>
-  <entry key="ToolStation.Parts.name">Teilbauer</entry>
+  <entry key="ToolStation.Parts.name">Basteltisch</entry>
   <entry key="ToolStation.PatternChest.name">Schablonenkiste</entry>
   <entry key="ToolStation.PatternShaper.name">Schablonenstanzer</entry>
   <entry key="ToolStation.CastingTable.name">Gusstisch</entry>
@@ -24,7 +24,7 @@
   <entry key="tile.Armor.DryingRack.name">Trockenregal</entry>
   <entry key="CraftedSoil.Slime.name">Schleimiger Matsch</entry>
   <entry key="CraftedSoil.Grout.name">Mörtel</entry>
-  <entry key="CraftedSoil.BlueSlime.name">Schleimiger Matsch (blau)</entry>
+  <entry key="CraftedSoil.BlueSlime.name">Schleimiger Matsch (Blau)</entry>
   <entry key="CraftedSoil.GraveyardSoil.name">Friedhoferde</entry>
   <entry key="CraftedSoil.ConsecratedSoil.name">Gesegnete Erde</entry>
 
@@ -110,13 +110,13 @@
 
   <entry key="item.tconstruct.Materials.PaperStack.name">Papierstapel</entry>
   <entry key="item.tconstruct.Materials.SlimeCrystal.name">Schleimkristall</entry>
-  <entry key="item.tconstruct.Materials.SearedBrick.name">Versengter Ziegel</entry>
+  <entry key="item.tconstruct.Materials.SearedBrick.name">Versengter Ziegelstein</entry>
   <entry key="item.tconstruct.Materials.CobaltIngot.name">Cobaltbarren</entry>
   <entry key="item.tconstruct.Materials.ArditeIngot.name">Arditbarren</entry>
-  <entry key="item.tconstruct.Materials.ManyullynIngot.name">ManyullynBarren</entry>
+  <entry key="item.tconstruct.Materials.ManyullynIngot.name">Manyullynbarren</entry>
   <entry key="item.tconstruct.Materials.Mossball.name">Moosballen</entry>
   <entry key="item.tconstruct.Materials.LavaCrystal.name">Lavakristall</entry>
-  <entry key="item.tconstruct.Materials.NecroticBone.name">Brandiger Knochen</entry>
+  <entry key="item.tconstruct.Materials.NecroticBone.name">Nekrotischer Knochen</entry>
   <entry key="item.tconstruct.Materials.CopperIngot.name">Kupferbarren</entry>
   <entry key="item.tconstruct.Materials.TinIngot.name">Zinnbarren</entry>
   <entry key="item.tconstruct.Materials.AluminumIngot.name">Aluminiumbarren</entry>
@@ -149,8 +149,8 @@
   <entry key="Smeltery.Drain.name">Schmelzereiausguss</entry>
   <entry key="Smeltery.Brick.name">Versengter Ziegel</entry>
   <entry key="Smeltery.Stone.name">Versengter Stein</entry>
-  <entry key="Smeltery.Cobblestone.name">Versengter Cobblestone</entry>
-  <entry key="Smeltery.Paver.name">Versengter Pflasterstein</entry>
+  <entry key="Smeltery.Cobblestone.name">Versengter Pflasterstein</entry>
+  <entry key="Smeltery.Paver.name">Versengter Pflasterziegel</entry>
   <entry key="Smeltery.Brick.Cracked.name">Rissiger versengter Ziegel</entry>
   <entry key="Smeltery.Road.name">Versengte Straße</entry>
   <entry key="Smeltery.Brick.Fancy.name">Versengter schöner Ziegel</entry>
@@ -245,6 +245,15 @@
   <entry key="block.soil.slab.graveyardsoil.name">Friedhofserdenstufe</entry>
   <entry key="block.soil.slab.consecratedsoil.name">Gesegnete Erdstufe</entry>
 
+  <entry key="block.slime.soil.blue.name">Blaue Schleimerde</entry>
+  <entry key="block.slime.leaves.blue.name">Schleimige Blätter</entry>
+  <entry key="block.slime.sapling.bluegreen.name">Schleimiger Setzling</entry>
+  <entry key="block.slime.grass.blue.name">Schleimiges Gras</entry>
+  <entry key="block.slime.grass.dirt.name">Schleimiges Gras</entry>
+  <entry key="block.slime.tallgrass.name">Schleimiges Gras</entry>
+  <entry key="block.slime.congealed.blue.name">Erstarrter Blauer Schleim</entry>
+  <entry key="block.slime.congealed.green.name">Erstarrter Grüner Schleim</entry>
+  
   <entry key="item.tconstruct.storage.knapsack.name">Rucksack</entry>
   <entry key="item.tconstruct.blankpattern.pattern.name">Leere Schablone</entry>
   <entry key="item.tconstruct.blankpattern.cast.name">Leere Gussform</entry>
