@@ -57,19 +57,19 @@ public class TProxyClient extends TProxyCommon {
 
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-		if (ID == stationGuiID)
+		if (ID == toolStationID)
 			return new ToolStationGui(player.inventory, (ToolStationLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
-		if (ID == partGuiID)
-			return new PartCrafterGui(player.inventory, (PartCrafterLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
-		if (ID == pchestGuiID)
+		if (ID == partBuilderID)
+			return new PartCrafterGui(player.inventory, (PartBuilderLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
+		if (ID == patternChestID)
 			return new PatternChestGui(player.inventory, (PatternChestLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
 		if (ID == frypanGuiID)
 			return new FrypanGui(player.inventory, (FrypanLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
 		if (ID == smelteryGuiID)
 			return new SmelteryGui(player.inventory, (SmelteryLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
-		if (ID == pshaperGuiID)
+		if (ID == stencilTableID)
 			return new StencilTableGui(player.inventory, (StencilTableLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
-		if (ID == toolForge)
+		if (ID == toolForgeID)
 			return new ToolForgeGui(player.inventory, (ToolForgeLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
 		if (ID == glowstoneAggregatorGui)
 			return new GlowstoneAggregatorGui(player.inventory, (GlowstoneAggregator) world.getBlockTileEntity(x, y, z), world, x, y, z);
@@ -484,7 +484,7 @@ public class TProxyClient extends TProxyCommon {
 		TConstructClientRegistry.registerManualModifier("tier2free", ironpick.copy(), new ItemStack(Item.netherStar));
 
 		TConstructClientRegistry.registerManualSmeltery("brownstone", new ItemStack(TContent.speedBlock), new ItemStack(TContent.moltenTin, 1), new ItemStack(Block.gravel));
-		TConstructClientRegistry.registerManualSmeltery("clearglass", new ItemStack(TContent.glass), new ItemStack(TContent.moltenGlass, 1), null);
+		TConstructClientRegistry.registerManualSmeltery("clearglass", new ItemStack(TContent.clearGlass), new ItemStack(TContent.moltenGlass, 1), null);
 		TConstructClientRegistry.registerManualSmeltery("searedstone", new ItemStack(TContent.smeltery, 1, 4), new ItemStack(TContent.moltenStone, 1), null);
 
 	}

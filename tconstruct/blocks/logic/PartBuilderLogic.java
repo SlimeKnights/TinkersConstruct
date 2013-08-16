@@ -13,12 +13,12 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class PartCrafterLogic extends InventoryLogic implements ISidedInventory
+public class PartBuilderLogic extends InventoryLogic implements ISidedInventory
 {
     boolean craftedTop;
     boolean craftedBottom;
 
-    public PartCrafterLogic()
+    public PartBuilderLogic()
     {
         super(10);
         craftedTop = false;

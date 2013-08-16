@@ -88,6 +88,12 @@ public class Arrow extends ToolCore
     }
 
     @Override
+    public float getDamageModifier ()
+    {
+        return 0.5f;
+    }
+
+    @Override
     public void getSubItems (int id, CreativeTabs tab, List list)
     {
         //Vanilla style arrow
@@ -200,11 +206,6 @@ public class Arrow extends ToolCore
                 String handleName = getAbilityNameForType(handle);
                 if (!handleName.equals("") && handle != head)
                     list.add(getStyleForType(handle) + handleName);
-
-                int unbreaking = tags.getCompoundTag("InfiTool").getInteger("Unbreaking");
-                String reinforced = getReinforcedName(head, handle, 0, 0, unbreaking);
-                if (!reinforced.equals(""))
-                    list.add(reinforced);
 
                 boolean displayToolTips = true;
                 int tipNum = 0;

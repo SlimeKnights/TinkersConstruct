@@ -75,7 +75,7 @@ public class ToolCoreRenderer implements IItemRenderer
         for (int i = 0; i < iconParts; ++i)
         {
             Icon part = tempParts[i];
-            if (part == null || part == ToolCore.blankSprite | part == ToolCore.emptyIcon)
+            if (part == null)// || part == ToolCore.blankSprite | part == ToolCore.emptyIcon)
                 ++count;
             else
                 parts[i - count] = part;

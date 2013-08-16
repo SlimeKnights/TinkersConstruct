@@ -2,6 +2,7 @@ package tconstruct.inventory;
 
 import tconstruct.blocks.logic.ToolForgeLogic;
 import tconstruct.blocks.logic.ToolStationLogic;
+import tconstruct.library.tools.ToolCore;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
@@ -75,8 +76,10 @@ public class ToolForgeContainer extends ToolStationContainer
         if (!tags.getCompoundTag("InfiTool").hasKey("Built"))
         {
             tags.getCompoundTag("InfiTool").setBoolean("Built", true);
-            for (int i = 1; i <= 4; i++)
+            for (int i = 2; i <= 4; i++)
                 logic.decrStackSize(i, 1);
+            int amount = logic.getStackInSlot(1).getItem() instanceof ToolCore ? stack.stackSize : 1;
+            logic.decrStackSize(1, amount);
             if (!logic.worldObj.isRemote)
                 logic.worldObj.playAuxSFX(1021, (int) logic.xCoord, (int) logic.yCoord, (int) logic.zCoord, 0);
         }

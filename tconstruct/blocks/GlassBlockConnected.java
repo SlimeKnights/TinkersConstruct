@@ -26,6 +26,7 @@ public class GlassBlockConnected extends Block
         this.setStepSound(soundGlassFootstep);
         folder = location;
         renderPass = hasAlpha ? 1 : 0;
+        setHardness(0.3F);
         this.setCreativeTab(TConstructRegistry.blockTab);
     }
 

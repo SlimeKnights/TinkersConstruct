@@ -22,12 +22,12 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 
 public class TProxyCommon implements IGuiHandler
 {
-    public static int stationGuiID = 0;
-    public static int partGuiID = 1;
-    public static int pchestGuiID = 2;
-    public static int pshaperGuiID = 3;
+    public static int toolStationID = 0;
+    public static int partBuilderID = 1;
+    public static int patternChestID = 2;
+    public static int stencilTableID = 3;
     public static int frypanGuiID = 4;
-    public static int toolForge = 5;
+    public static int toolForgeID = 5;
     public static int smelteryGuiID = 7;
     public static int glowstoneAggregatorGui = 8;
     public static int drawbridgeGui = 9;

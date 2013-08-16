@@ -129,7 +129,7 @@ public class FilledBucket extends ItemBucket
         }
     }
 
-    public boolean tryPlaceContainedLiquid (World world, int clickX, int clickY, int clickZ, int meta)
+    public boolean tryPlaceContainedLiquid (World world, int clickX, int clickY, int clickZ, int type)
     {
         if (!world.isAirBlock(clickX, clickY, clickZ) && world.getBlockMaterial(clickX, clickY, clickZ).isSolid())
         {
@@ -138,7 +138,10 @@ public class FilledBucket extends ItemBucket
         else
         {
             int id = 0;
-            world.setBlock(clickX, clickY, clickZ, TContent.fluidBlocks[meta].blockID, 7, 3); //TODO: Merge liquids
+            int metadata = 7;
+            if (type == 24)
+                metadata = 0;
+            world.setBlock(clickX, clickY, clickZ, TContent.fluidBlocks[type].blockID, metadata, 3); //TODO: Merge liquids
 
             return true;
         }
@@ -177,8 +180,8 @@ public class FilledBucket extends ItemBucket
     }
 
     public static final String[] materialNames = new String[] { "Iron", "Gold", "Copper", "Tin", "Aluminum", "Cobalt", "Ardite", "Bronze", "AluBrass", "Manyullyn", "Alumite", "Obsidian", "Steel",
-            "Glass", "Stone", "Villager", "Cow", "Nickel", "Lead", "Silver", "Shiny", "Invar", "Electrum", "Ender" };
+            "Glass", "Stone", "Villager", "Cow", "Nickel", "Lead", "Silver", "Shiny", "Invar", "Electrum", "Ender", "Slime" };
 
     public static final String[] textureNames = new String[] { "iron", "gold", "copper", "tin", "aluminum", "cobalt", "ardite", "bronze", "alubrass", "manyullyn", "alumite", "obsidian", "steel",
-            "glass", "stone", "emerald", "blood", "nickel", "lead", "silver", "shiny", "invar", "electrum", "ender" };
+            "glass", "stone", "emerald", "blood", "nickel", "lead", "silver", "shiny", "invar", "electrum", "ender", "slime" };
 }

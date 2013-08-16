@@ -2,7 +2,6 @@ package tconstruct.common;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
@@ -13,7 +12,6 @@ import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialLiquid;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
@@ -35,6 +33,7 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import tconstruct.TConstruct;
 import tconstruct.blocks.Aggregator;
+import tconstruct.blocks.CraftingSlab;
 import tconstruct.blocks.CraftingStationBlock;
 import tconstruct.blocks.DryingRack;
 import tconstruct.blocks.EquipBlock;
@@ -47,6 +46,7 @@ import tconstruct.blocks.GravelOre;
 import tconstruct.blocks.LavaTankBlock;
 import tconstruct.blocks.LightCrystalBase;
 import tconstruct.blocks.LiquidMetalFinite;
+import tconstruct.blocks.MeatBlock;
 import tconstruct.blocks.MetalOre;
 import tconstruct.blocks.MultiBrick;
 import tconstruct.blocks.MultiBrickFancy;
@@ -55,6 +55,7 @@ import tconstruct.blocks.OreberryBushEssence;
 import tconstruct.blocks.RedstoneMachine;
 import tconstruct.blocks.SearedBlock;
 import tconstruct.blocks.SearedSlab;
+import tconstruct.blocks.SlabBase;
 import tconstruct.blocks.SmelteryBlock;
 import tconstruct.blocks.SoilBlock;
 import tconstruct.blocks.SpeedBlock;
@@ -75,7 +76,7 @@ import tconstruct.blocks.logic.FrypanLogic;
 import tconstruct.blocks.logic.GlowstoneAggregator;
 import tconstruct.blocks.logic.LavaTankLogic;
 import tconstruct.blocks.logic.MultiServantLogic;
-import tconstruct.blocks.logic.PartCrafterLogic;
+import tconstruct.blocks.logic.PartBuilderLogic;
 import tconstruct.blocks.logic.PatternChestLogic;
 import tconstruct.blocks.logic.SmelteryDrainLogic;
 import tconstruct.blocks.logic.SmelteryLogic;
@@ -123,6 +124,7 @@ import tconstruct.items.armor.Knapsack;
 import tconstruct.items.armor.TArmorBase;
 import tconstruct.items.blocks.BarricadeItem;
 import tconstruct.items.blocks.CraftedSoilItemBlock;
+import tconstruct.items.blocks.CraftingSlabItemBlock;
 import tconstruct.items.blocks.GlassBlockItem;
 import tconstruct.items.blocks.GlassPaneItem;
 import tconstruct.items.blocks.GravelOreItem;
@@ -149,6 +151,8 @@ import tconstruct.items.blocks.StainedGlassClearItem;
 import tconstruct.items.blocks.StainedGlassClearPaneItem;
 import tconstruct.items.blocks.ToolForgeItemBlock;
 import tconstruct.items.blocks.ToolStationItemBlock;
+import tconstruct.items.blocks.WoolSlab1Item;
+import tconstruct.items.blocks.WoolSlab2Item;
 import tconstruct.items.tools.Arrow;
 import tconstruct.items.tools.BattleSign;
 import tconstruct.items.tools.Battleaxe;
@@ -206,7 +210,7 @@ import cpw.mods.fml.common.IFuelHandler;
 import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
-import extrabiomes.api.BiomeManager;
+import cpw.mods.fml.common.registry.LanguageRegistry;
 
 public class TContent implements IFuelHandler
 {
@@ -289,6 +293,7 @@ public class TContent implements IFuelHandler
     public static Block toolStationStone;
     public static Block toolForge;
     public static Block craftingStationWood;
+    public static Block craftingSlabWood;
 
     public static Block heldItemBlock;
     public static Block craftedSoil;
@@ -309,6 +314,10 @@ public class TContent implements IFuelHandler
     public static Block searedSlab;
     public static Block speedSlab;
 
+    public static Block meatBlock;
+    public static Block woolSlab1;
+    public static Block woolSlab2;
+
     //Traps
     public static Block landmine;
     public static Block punji;
@@ -319,7 +328,7 @@ public class TContent implements IFuelHandler
 
     //InfiBlocks
     public static Block speedBlock;
-    public static Block glass;
+    public static Block clearGlass;
     //public static Block stainedGlass;
     public static Block stainedGlassClear;
     public static Block glassPane;
@@ -509,7 +518,7 @@ public class TContent implements IFuelHandler
         toolStationWood = new ToolStationBlock(PHConstruct.woodStation, Material.wood).setUnlocalizedName("ToolStation");
         GameRegistry.registerBlock(toolStationWood, ToolStationItemBlock.class, "ToolStationBlock");
         GameRegistry.registerTileEntity(ToolStationLogic.class, "ToolStation");
-        GameRegistry.registerTileEntity(PartCrafterLogic.class, "PartCrafter");
+        GameRegistry.registerTileEntity(PartBuilderLogic.class, "PartCrafter");
         GameRegistry.registerTileEntity(PatternChestLogic.class, "PatternHolder");
         GameRegistry.registerTileEntity(StencilTableLogic.class, "PatternShaper");
 
@@ -520,6 +529,9 @@ public class TContent implements IFuelHandler
         craftingStationWood = new CraftingStationBlock(PHConstruct.woodCrafter, Material.wood).setUnlocalizedName("CraftingStation");
         GameRegistry.registerBlock(craftingStationWood, "CraftingStation");
         GameRegistry.registerTileEntity(CraftingStationLogic.class, "CraftingStation");
+        
+        craftingSlabWood = new CraftingSlab(PHConstruct.woodCrafterSlab, Material.wood).setUnlocalizedName("CraftingSlab");
+        GameRegistry.registerBlock(craftingSlabWood, CraftingSlabItemBlock.class, "CraftingSlab");
 
         heldItemBlock = new EquipBlock(PHConstruct.heldItemBlock, Material.wood).setUnlocalizedName("Frypan");
         GameRegistry.registerBlock(heldItemBlock, "HeldItemBlock");
@@ -540,6 +552,19 @@ public class TContent implements IFuelHandler
         metalBlock = new TMetalBlock(PHConstruct.metalBlock, Material.iron, 10.0F).setUnlocalizedName("tconstruct.metalblock");
         metalBlock.stepSound = Block.soundMetalFootstep;
         GameRegistry.registerBlock(metalBlock, MetalItemBlock.class, "MetalBlock");
+
+        meatBlock = new MeatBlock(PHConstruct.meatBlock).setUnlocalizedName("tconstruct.meatblock");
+        GameRegistry.registerBlock(meatBlock, "MeatBlock");
+        OreDictionary.registerOre("hambone", new ItemStack(meatBlock));
+        LanguageRegistry.addName(meatBlock, "Hambone");
+        GameRegistry.addRecipe(new ItemStack(meatBlock), "mmm", "mbm", "mmm", 'b', new ItemStack(Item.bone), 'm', new ItemStack(Item.porkRaw));
+        
+        woolSlab1 = new SlabBase(PHConstruct.woolSlab1, Material.cloth, Block.cloth, 0, 8).setUnlocalizedName("cloth");
+        woolSlab1.setStepSound(Block.soundClothFootstep).setCreativeTab(CreativeTabs.tabDecorations);
+        GameRegistry.registerBlock(woolSlab1, WoolSlab1Item.class, "WoolSlab1");
+        woolSlab2 = new SlabBase(PHConstruct.woolSlab2, Material.cloth, Block.cloth, 8, 8).setUnlocalizedName("cloth");
+        woolSlab2.setStepSound(Block.soundClothFootstep).setCreativeTab(CreativeTabs.tabDecorations);
+        GameRegistry.registerBlock(woolSlab2, WoolSlab2Item.class, "WoolSlab2");
 
         //Smeltery
         smeltery = new SmelteryBlock(PHConstruct.smeltery).setUnlocalizedName("Smeltery");
@@ -823,7 +848,7 @@ public class TContent implements IFuelHandler
         blueSlimeFluid.setBlockID(slimePool);
         fluids[24] = blueSlimeFluid;
         fluidBlocks[24] = slimePool;
-        //FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(blueSlimeFluid, 1), new ItemStack(buckets, 1, 24), new ItemStack(Item.bucketEmpty)));
+        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(blueSlimeFluid, 1), new ItemStack(buckets, 1, 24), new ItemStack(Item.bucketEmpty)));
         
         slimeGel = new SlimeGel(PHConstruct.slimeGel).setStepSound(slimeStep).setUnlocalizedName("slime.gel");
         GameRegistry.registerBlock(slimeGel, SlimeGelItemBlock.class, "slime.gel");
@@ -880,15 +905,15 @@ public class TContent implements IFuelHandler
         GameRegistry.registerBlock(speedBlock, SpeedBlockItem.class, "SpeedBlock");
 
         //Glass
-        glass = new GlassBlockConnected(PHConstruct.glass, "clear", false).setUnlocalizedName("GlassBlock");
-        glass.stepSound = Block.soundGlassFootstep;
-        GameRegistry.registerBlock(glass, GlassBlockItem.class, "GlassBlock");
+        clearGlass = new GlassBlockConnected(PHConstruct.glass, "clear", false).setUnlocalizedName("GlassBlock");
+        clearGlass.stepSound = Block.soundGlassFootstep;
+        GameRegistry.registerBlock(clearGlass, GlassBlockItem.class, "GlassBlock");
 
         glassPane = new GlassPane(PHConstruct.glassPane);
         GameRegistry.registerBlock(glassPane, GlassPaneItem.class, "GlassPane");
 
         stainedGlassClear = new GlassBlockConnectedMeta(PHConstruct.stainedGlassClear, "stained", true, "white", "orange", "magenta", "light_blue", "yellow", "lime", "pink", "gray", "light_gray",
-                "cyan", "purple", "blue", "brown", "green", "red", "black").setUnlocalizedName("GlassBlock.StainedClear");//new GlassBlockStained(PHConstruct.stainedGlassClear, "stainedglass_").setUnlocalizedName("GlassBlock.StainedClear");
+                "cyan", "purple", "blue", "brown", "green", "red", "black").setUnlocalizedName("GlassBlock.StainedClear");
         stainedGlassClear.stepSound = Block.soundGlassFootstep;
         GameRegistry.registerBlock(stainedGlassClear, StainedGlassClearItem.class, "GlassBlock.StainedClear");
 
@@ -1397,7 +1422,7 @@ public class TContent implements IFuelHandler
         basinCasting.addCastingRecipe(new ItemStack(metalBlock, 1, 8), new FluidStack(moltenAlumiteFluid, TConstruct.ingotLiquidValue * 9), null, true, 100); //alumite
         basinCasting.addCastingRecipe(new ItemStack(Block.obsidian), new FluidStack(moltenObsidianFluid, TConstruct.ingotLiquidValue * 2), null, true, 100);// obsidian
         basinCasting.addCastingRecipe(new ItemStack(metalBlock, 1, 9), new FluidStack(moltenSteelFluid, TConstruct.ingotLiquidValue * 9), null, true, 100); //steel
-        basinCasting.addCastingRecipe(new ItemStack(glass, 1, 0), new FluidStack(moltenGlassFluid, FluidContainerRegistry.BUCKET_VOLUME), null, true, 100); //glass
+        basinCasting.addCastingRecipe(new ItemStack(clearGlass, 1, 0), new FluidStack(moltenGlassFluid, FluidContainerRegistry.BUCKET_VOLUME), null, true, 100); //glass
         basinCasting.addCastingRecipe(new ItemStack(smeltery, 1, 4), new FluidStack(moltenStoneFluid, TConstruct.ingotLiquidValue), null, true, 100); //seared stone
 
         basinCasting.addCastingRecipe(new ItemStack(speedBlock, 1, 0), new FluidStack(moltenTinFluid, TConstruct.ingotLiquidValue / 9), new ItemStack(Block.gravel), true, 100); //brownstone
@@ -1432,7 +1457,7 @@ public class TContent implements IFuelHandler
         Smeltery.addMelting(Block.stone, 0, 800, new FluidStack(moltenStoneFluid, TConstruct.ingotLiquidValue / 18));
         Smeltery.addMelting(Block.cobblestone, 0, 800, new FluidStack(moltenStoneFluid, TConstruct.ingotLiquidValue / 18));
 
-        Smeltery.addMelting(glass, 0, 500, new FluidStack(moltenGlassFluid, 1000));
+        Smeltery.addMelting(clearGlass, 0, 500, new FluidStack(moltenGlassFluid, 1000));
         Smeltery.addMelting(glassPane, 0, 350, new FluidStack(moltenGlassFluid, 250));
 
         for (int i = 0; i < 16; i++)
@@ -1707,8 +1732,8 @@ public class TContent implements IFuelHandler
         for (int i = 0; i < 16; i++)
         {
             GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Block.cloth, 8, i), pattern, 'm', dyeTypes[15 - i], '#', new ItemStack(Block.cloth, 1, Short.MAX_VALUE)));
-            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(stainedGlassClear, 8, i), pattern, 'm', dyeTypes[15 - i], '#', glass));
-            GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(stainedGlassClear, 1, i), dyeTypes[15 - i], glass));
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(stainedGlassClear, 8, i), pattern, 'm', dyeTypes[15 - i], '#', clearGlass));
+            GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(stainedGlassClear, 1, i), dyeTypes[15 - i], clearGlass));
         }
 
         //Smeltery
@@ -1793,6 +1818,20 @@ public class TContent implements IFuelHandler
 
         GameRegistry.addRecipe(new ItemStack(craftingStationWood, 1, 0), "b", 'b', new ItemStack(Block.workbench));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(craftingStationWood, 1, 0), "b", 'b', "crafterWood"));
+        
+        //Slab crafters
+        GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 6, 0), "bbb", 'b', new ItemStack(Block.workbench));
+        GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 1), "b", 'b', new ItemStack(toolStationWood, 1, 0));
+        GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 2), "b", 'b', new ItemStack(toolStationWood, 1, 1));
+        GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 2), "b", 'b', new ItemStack(toolStationWood, 1, 2));
+        GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 2), "b", 'b', new ItemStack(toolStationWood, 1, 3));
+        GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 2), "b", 'b', new ItemStack(toolStationWood, 1, 4));
+        GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 4), "b", 'b', new ItemStack(toolStationWood, 1, 5));
+        GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 3), "b", 'b', new ItemStack(toolStationWood, 1, 10));
+        GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 3), "b", 'b', new ItemStack(toolStationWood, 1, 11));
+        GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 3), "b", 'b', new ItemStack(toolStationWood, 1, 12));
+        GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 3), "b", 'b', new ItemStack(toolStationWood, 1, 13));        
+        GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 5), "b", 'b', new ItemStack(toolForge, 1, Short.MAX_VALUE));
     }
 
     void setupToolTabs ()

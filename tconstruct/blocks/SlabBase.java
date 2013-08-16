@@ -4,16 +4,37 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import tconstruct.library.TConstructRegistry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class SlabBase extends Block
 {
+    Block modelBlock;
+    int startingMeta;
+    int totalSize;
+
     public SlabBase(int id, Material material)
     {
         super(id, material);
+        this.setCreativeTab(TConstructRegistry.blockTab);
+    }
+    
+    public SlabBase(int id, Material material, Block model, int meta, int totalSize)
+    {
+        super(id, material);
+        this.setCreativeTab(TConstructRegistry.blockTab);
+        this.modelBlock = model;
+        this.startingMeta = meta;
+        this.totalSize = totalSize;
     }
 
     @Override
@@ -54,5 +75,28 @@ public class SlabBase extends Block
     public boolean renderAsNormalBlock ()
     {
         return false;
+    }
+    
+    @Override
+    @SideOnly(Side.CLIENT)
+    public void registerIcons (IconRegister iconRegister)
+    {
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public Icon getIcon (int side, int meta)
+    {
+        meta = meta % 8 + startingMeta;
+        return modelBlock.getIcon(side, meta);
+    }
+
+    @Override
+    public void getSubBlocks (int id, CreativeTabs tab, List list)
+    {
+        for (int iter = 0; iter < totalSize; iter++)
+        {
+            list.add(new ItemStack(id, 1, iter));
+        }
     }
 }

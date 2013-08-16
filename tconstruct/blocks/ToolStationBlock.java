@@ -3,7 +3,7 @@ package tconstruct.blocks;
 import java.util.List;
 
 import tconstruct.TConstruct;
-import tconstruct.blocks.logic.PartCrafterLogic;
+import tconstruct.blocks.logic.PartBuilderLogic;
 import tconstruct.blocks.logic.PatternChestLogic;
 import tconstruct.blocks.logic.StencilTableLogic;
 import tconstruct.blocks.logic.ToolStationLogic;
@@ -124,13 +124,13 @@ public class ToolStationBlock extends InventoryBlock
         case 0:
             return new ToolStationLogic();
         case 1:
-            return new PartCrafterLogic();
+            return new PartBuilderLogic();
         case 2:
-            return new PartCrafterLogic();
+            return new PartBuilderLogic();
         case 3:
-            return new PartCrafterLogic();
+            return new PartBuilderLogic();
         case 4:
-            return new PartCrafterLogic();
+            return new PartBuilderLogic();
         case 5:
             return new PatternChestLogic();
         case 6:

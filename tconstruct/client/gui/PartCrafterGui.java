@@ -12,7 +12,7 @@ import net.minecraft.world.World;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 
-import tconstruct.blocks.logic.PartCrafterLogic;
+import tconstruct.blocks.logic.PartBuilderLogic;
 import tconstruct.inventory.ActiveContainer;
 import tconstruct.inventory.PartCrafterChestContainer;
 import tconstruct.library.TConstructRegistry;
@@ -21,14 +21,14 @@ import tconstruct.library.tools.ToolMaterial;
 
 public class PartCrafterGui extends NewContainerGui
 {
-    PartCrafterLogic logic;
+    PartBuilderLogic logic;
     String title, otherTitle = "";
     boolean drawChestPart;
     boolean hasTop, hasBottom;
     ItemStack topMaterial, bottomMaterial;
     ToolMaterial topEnum, bottomEnum;
 
-    public PartCrafterGui(InventoryPlayer inventoryplayer, PartCrafterLogic partlogic, World world, int x, int y, int z)
+    public PartCrafterGui(InventoryPlayer inventoryplayer, PartBuilderLogic partlogic, World world, int x, int y, int z)
     {
         super((ActiveContainer) partlogic.getGuiContainer(inventoryplayer, world, x, y, z));
         logic = partlogic;

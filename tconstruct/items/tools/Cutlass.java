@@ -63,9 +63,4 @@ public class Cutlass extends Weapon
     {
         return 1;
     }
-
-    public void getSubItems (int id, CreativeTabs tab, List list)
-    {
-
-    }
 }

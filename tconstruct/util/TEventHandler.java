@@ -19,6 +19,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumMovingObjectType;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
@@ -26,6 +28,7 @@ import net.minecraftforge.event.Event.Result;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.event.entity.player.FillBucketEvent;
 import net.minecraftforge.event.world.ChunkDataEvent;
@@ -33,6 +36,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.OreDictionary.OreRegisterEvent;
 import tconstruct.TConstruct;
+import tconstruct.blocks.LiquidMetalFinite;
 import tconstruct.common.TContent;
 import tconstruct.crystal.TheftValueTracker;
 import tconstruct.library.TConstructRegistry;
@@ -208,6 +212,9 @@ public class TEventHandler
 
     public static boolean matchesLeaves (ItemStack stack)
     {
+        if (stack.itemID >= 4096)
+            return false;
+        
         Block block = Block.blocksList[stack.itemID];
         if (block != null)
         {
@@ -215,6 +222,22 @@ public class TEventHandler
                 return true;
         }
         return false;
+    }
+    
+    /* Damage */
+    @ForgeSubscribe
+    public void onHurt (LivingHurtEvent event)
+    {
+        if (event.entityLiving instanceof EntityPlayer)
+        {
+            EntityPlayer player = (EntityPlayer) event.entityLiving;
+            //Cutlass
+            ItemStack stack = player.getCurrentEquippedItem();
+            if (stack != null && stack.getItem() == TContent.cutlass && player.isUsingItem())
+            {
+                player.addPotionEffect(new PotionEffect(Potion.moveSpeed.id, 3 * 20, 1));
+            }
+        }
     }
 
     /* Drops */
@@ -742,109 +765,109 @@ public class TEventHandler
         }
 
         //Dust
-        else if (evt.Name == "dustIron")
+        else if (evt.Name == "dustIron" || evt.Name == "crystallineIron")
         {
             Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 2, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 3, 450, new FluidStack(TContent.moltenIronFluid, TConstruct.ingotLiquidValue));
         }
 
-        else if (evt.Name == "dustGold")
+        else if (evt.Name == "dustGold" || evt.Name == "crystallineGold")
         {
             Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 2, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 3, 450, new FluidStack(TContent.moltenGoldFluid, TConstruct.ingotLiquidValue));
         }
 
-        else if (evt.Name == "dustCopper")
+        else if (evt.Name == "dustCopper" || evt.Name == "crystallineCopper")
         {
             Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 2, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 3, 450, new FluidStack(TContent.moltenCopperFluid, TConstruct.ingotLiquidValue));
         }
 
-        else if (evt.Name == "dustTin")
+        else if (evt.Name == "dustTin" || evt.Name == "crystallineTin")
         {
             Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 2, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 5, 175, new FluidStack(TContent.moltenTinFluid, TConstruct.ingotLiquidValue));
         }
 
-        else if (evt.Name == "dustBronze")
+        else if (evt.Name == "dustBronze" || evt.Name == "crystallineBronze")
         {
             Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 2, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 4, 500, new FluidStack(TContent.moltenBronzeFluid, TConstruct.ingotLiquidValue));
         }
 
-        else if (evt.Name == "dustCobalt")
+        else if (evt.Name == "dustCobalt" || evt.Name == "crystallineCobalt")
         {
             Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 2, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 0, 650, new FluidStack(TContent.moltenCobaltFluid, TConstruct.ingotLiquidValue));
         }
 
-        else if (evt.Name == "dustArdite")
+        else if (evt.Name == "dustArdite" || evt.Name == "crystallineArdite")
         {
             Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 2, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 1, 650, new FluidStack(TContent.moltenArditeFluid, TConstruct.ingotLiquidValue));
         }
 
-        else if (evt.Name == "dustManyullyn")
+        else if (evt.Name == "dustManyullyn" || evt.Name == "crystallineManyullyn")
         {
             Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 2, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 2, 750, new FluidStack(TContent.moltenManyullynFluid,
                     TConstruct.ingotLiquidValue));
         }
 
-        else if (evt.Name == "dustAluminum")
+        /*else if (evt.Name == "dustAluminum")
+        {
+            Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 2, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 6, 250, new FluidStack(TContent.moltenAluminumFluid,
+                    TConstruct.ingotLiquidValue));
+        }*/
+
+        else if (evt.Name == "dustNaturalAluminum" || evt.Name == "crystallineNaturalAluminum")
         {
             Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 2, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 6, 250, new FluidStack(TContent.moltenAluminumFluid,
                     TConstruct.ingotLiquidValue));
         }
 
-        else if (evt.Name == "dustNaturalAluminum")
-        {
-            Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 2, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 6, 250, new FluidStack(TContent.moltenAluminumFluid,
-                    TConstruct.ingotLiquidValue));
-        }
-
-        else if (evt.Name == "dustAluminumBrass")
+        else if (evt.Name == "dustAluminumBrass" || evt.Name == "crystallineAluminumBrass")
         {
             Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 2, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 7, 350, new FluidStack(TContent.moltenAlubrassFluid,
                     TConstruct.ingotLiquidValue));
         }
 
-        else if (evt.Name == "dustAlumite")
+        else if (evt.Name == "dustAlumite" || evt.Name == "crystallineAlumite")
         {
             Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 2, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 8, 500,
                     new FluidStack(TContent.moltenAlumiteFluid, TConstruct.ingotLiquidValue));
         }
 
-        else if (evt.Name == "dustSteel")
+        else if (evt.Name == "dustSteel" || evt.Name == "crystallineSteel")
         {
             Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 2, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 9, 500, new FluidStack(TContent.moltenSteelFluid, TConstruct.ingotLiquidValue));
         }
 
-        else if (evt.Name == "dustNickel")
+        else if (evt.Name == "dustNickel" || evt.Name == "crystallineNickel")
         {
             Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 2, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 9, 500, new FluidStack(TContent.moltenNickelFluid, TConstruct.ingotLiquidValue));
         }
 
-        else if (evt.Name == "dustLead")
+        else if (evt.Name == "dustLead" || evt.Name == "crystallineLead")
         {
             Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 2, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 9, 500, new FluidStack(TContent.moltenLeadFluid, TConstruct.ingotLiquidValue));
         }
 
-        else if (evt.Name == "dustSilver")
+        else if (evt.Name == "dustSilver" || evt.Name == "crystallineSilver")
         {
             Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 2, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 9, 500, new FluidStack(TContent.moltenSilverFluid, TConstruct.ingotLiquidValue));
         }
 
-        else if (evt.Name == "dustPlatinum")
+        else if (evt.Name == "dustPlatinum" || evt.Name == "crystallinePlatinum")
         {
             Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 2, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 9, 500, new FluidStack(TContent.moltenShinyFluid, TConstruct.ingotLiquidValue));
         }
 
-        else if (evt.Name == "dustInvar")
+        else if (evt.Name == "dustInvar" || evt.Name == "crystallineInvar")
         {
             Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 2, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 9, 500, new FluidStack(TContent.moltenInvarFluid, TConstruct.ingotLiquidValue));
         }
 
-        else if (evt.Name == "dustElectrum")
+        else if (evt.Name == "dustElectrum" || evt.Name == "crystallineElectrum")
         {
             Smeltery.addMelting(new ItemStack(evt.Ore.itemID, 2, evt.Ore.getItemDamage()), TContent.metalBlock.blockID, 9, 500, new FluidStack(TContent.moltenElectrumFluid,
                     TConstruct.ingotLiquidValue));
         }
     }
 
-    public void unfuxOreDictionary () //TODO: This isn't the best
+    public void unfuxOreDictionary ()
     {
         ArrayList<ItemStack> ores = OreDictionary.getOres("ingotCopper");
         for (ItemStack ore : ores)
@@ -1213,6 +1236,102 @@ public class TEventHandler
             Smeltery.addMelting(new ItemStack(ore.itemID, 2, ore.getItemDamage()), TContent.metalBlock.blockID, 0, 400, new FluidStack(TContent.moltenShinyFluid, TConstruct.ingotLiquidValue));
         }
 
+        ores = OreDictionary.getOres("crystallineIron");
+        for (ItemStack ore : ores)
+        {
+            Smeltery.addMelting(new ItemStack(ore.itemID, 2, ore.getItemDamage()), TContent.metalBlock.blockID, 3, 450, new FluidStack(TContent.moltenIronFluid, TConstruct.ingotLiquidValue));
+        }
+
+        ores = OreDictionary.getOres("crystallineGold");
+        for (ItemStack ore : ores)
+        {
+            Smeltery.addMelting(new ItemStack(ore.itemID, 2, ore.getItemDamage()), TContent.metalBlock.blockID, 3, 450, new FluidStack(TContent.moltenGoldFluid, TConstruct.ingotLiquidValue));
+        }
+
+        ores = OreDictionary.getOres("crystallineCopper");
+        for (ItemStack ore : ores)
+        {
+            Smeltery.addMelting(new ItemStack(ore.itemID, 2, ore.getItemDamage()), TContent.metalBlock.blockID, 3, 450, new FluidStack(TContent.moltenCopperFluid, TConstruct.ingotLiquidValue));
+        }
+
+        ores = OreDictionary.getOres("crystallineTin");
+        for (ItemStack ore : ores)
+        {
+            Smeltery.addMelting(new ItemStack(ore.itemID, 2, ore.getItemDamage()), TContent.metalBlock.blockID, 5, 175, new FluidStack(TContent.moltenTinFluid, TConstruct.ingotLiquidValue));
+        }
+
+        ores = OreDictionary.getOres("crystallineBronze");
+        for (ItemStack ore : ores)
+        {
+            Smeltery.addMelting(new ItemStack(ore.itemID, 2, ore.getItemDamage()), TContent.metalBlock.blockID, 4, 500, new FluidStack(TContent.moltenBronzeFluid, TConstruct.ingotLiquidValue));
+        }
+
+        ores = OreDictionary.getOres("crystallineCobalt");
+        for (ItemStack ore : ores)
+        {
+            Smeltery.addMelting(new ItemStack(ore.itemID, 2, ore.getItemDamage()), TContent.metalBlock.blockID, 0, 650, new FluidStack(TContent.moltenCobaltFluid, TConstruct.ingotLiquidValue));
+        }
+
+        ores = OreDictionary.getOres("crystallineArdite");
+        for (ItemStack ore : ores)
+        {
+            Smeltery.addMelting(new ItemStack(ore.itemID, 2, ore.getItemDamage()), TContent.metalBlock.blockID, 1, 650, new FluidStack(TContent.moltenArditeFluid, TConstruct.ingotLiquidValue));
+        }
+
+        ores = OreDictionary.getOres("crystallineManyullyn");
+        for (ItemStack ore : ores)
+        {
+            Smeltery.addMelting(new ItemStack(ore.itemID, 2, ore.getItemDamage()), TContent.metalBlock.blockID, 2, 750, new FluidStack(TContent.moltenManyullynFluid, TConstruct.ingotLiquidValue));
+        }
+
+        ores = OreDictionary.getOres("crystallineNaturalAluminum");
+        for (ItemStack ore : ores)
+        {
+            Smeltery.addMelting(new ItemStack(ore.itemID, 2, ore.getItemDamage()), TContent.metalBlock.blockID, 6, 250, new FluidStack(TContent.moltenAluminumFluid, TConstruct.ingotLiquidValue));
+        }
+
+        ores = OreDictionary.getOres("crystallineAluminumBrass");
+        for (ItemStack ore : ores)
+        {
+            Smeltery.addMelting(new ItemStack(ore.itemID, 2, ore.getItemDamage()), TContent.metalBlock.blockID, 7, 350, new FluidStack(TContent.moltenAlubrassFluid, TConstruct.ingotLiquidValue));
+        }
+
+        ores = OreDictionary.getOres("crystallineAlumite");
+        for (ItemStack ore : ores)
+        {
+            Smeltery.addMelting(new ItemStack(ore.itemID, 2, ore.getItemDamage()), TContent.metalBlock.blockID, 8, 500, new FluidStack(TContent.moltenAlumiteFluid, TConstruct.ingotLiquidValue));
+        }
+
+        ores = OreDictionary.getOres("crystallineSteel");
+        for (ItemStack ore : ores)
+        {
+            Smeltery.addMelting(new ItemStack(ore.itemID, 2, ore.getItemDamage()), TContent.metalBlock.blockID, 9, 500, new FluidStack(TContent.moltenSteelFluid, TConstruct.ingotLiquidValue));
+        }
+
+        ores = OreDictionary.getOres("crystallineNickel");
+        for (ItemStack ore : ores)
+        {
+            Smeltery.addMelting(new ItemStack(ore.itemID, 2, ore.getItemDamage()), TContent.metalBlock.blockID, 0, 400, new FluidStack(TContent.moltenNickelFluid, TConstruct.ingotLiquidValue));
+        }
+
+        ores = OreDictionary.getOres("crystallineLead");
+        for (ItemStack ore : ores)
+        {
+            Smeltery.addMelting(new ItemStack(ore.itemID, 2, ore.getItemDamage()), TContent.metalBlock.blockID, 0, 400, new FluidStack(TContent.moltenLeadFluid, TConstruct.ingotLiquidValue));
+        }
+
+        ores = OreDictionary.getOres("crystallineSilver");
+        for (ItemStack ore : ores)
+        {
+            Smeltery.addMelting(new ItemStack(ore.itemID, 2, ore.getItemDamage()), TContent.metalBlock.blockID, 0, 400, new FluidStack(TContent.moltenSilverFluid, TConstruct.ingotLiquidValue));
+        }
+
+        ores = OreDictionary.getOres("crystallinePlatinum");
+        for (ItemStack ore : ores)
+        {
+            Smeltery.addMelting(new ItemStack(ore.itemID, 2, ore.getItemDamage()), TContent.metalBlock.blockID, 0, 400, new FluidStack(TContent.moltenShinyFluid, TConstruct.ingotLiquidValue));
+        }
+        
         ores = OreDictionary.getOres("dustInvar");
         for (ItemStack ore : ores)
         {
@@ -1311,40 +1430,51 @@ public class TEventHandler
                     }
                     else
                     {
-                        int quanta = 0;
-                        for (int posX = -1; posX <= 1; posX++)
+                        if (TContent.fluidBlocks[id] instanceof LiquidMetalFinite)
                         {
-                            for (int posZ = -1; posZ <= 1; posZ++)
+                            int quanta = 0;
+                            for (int posX = -1; posX <= 1; posX++)
                             {
-                                int localID = evt.world.getBlockId(hitX + posX, hitY, hitZ + posZ);
-                                if (localID == bID)
+                                for (int posZ = -1; posZ <= 1; posZ++)
                                 {
-                                    quanta += evt.world.getBlockMetadata(hitX + posX, hitY, hitZ + posZ) + 1;
+                                    int localID = evt.world.getBlockId(hitX + posX, hitY, hitZ + posZ);
+                                    if (localID == bID)
+                                    {
+                                        quanta += evt.world.getBlockMetadata(hitX + posX, hitY, hitZ + posZ) + 1;
+                                    }
                                 }
                             }
-                        }
 
-                        if (quanta >= 8)
-                            while (quanta > 0)
+                            if (quanta >= 8)
                             {
-                                for (int posX = -1; posX <= 1; posX++)
+                                while (quanta > 0)
                                 {
-                                    for (int posZ = -1; posZ <= 1; posZ++)
+                                    for (int posX = -1; posX <= 1; posX++)
                                     {
-                                        int localID = evt.world.getBlockId(hitX + posX, hitY, hitZ + posZ);
-                                        if (localID == bID)
+                                        for (int posZ = -1; posZ <= 1; posZ++)
                                         {
-                                            quanta -= 1;
-                                            int meta = evt.world.getBlockMetadata(hitX + posX, hitY, hitZ + posZ);
-                                            if (meta > 0)
-                                                evt.world.setBlockMetadataWithNotify(hitX + posX, hitY, hitZ + posZ, meta - 1, 3);
-                                            else
-                                                evt.world.setBlockToAir(hitX + posX, hitY, hitZ + posZ);
+                                            int localID = evt.world.getBlockId(hitX + posX, hitY, hitZ + posZ);
+                                            if (localID == bID)
+                                            {
+                                                quanta -= 1;
+                                                int meta = evt.world.getBlockMetadata(hitX + posX, hitY, hitZ + posZ);
+                                                if (meta > 0)
+                                                    evt.world.setBlockMetadataWithNotify(hitX + posX, hitY, hitZ + posZ, meta - 1, 3);
+                                                else
+                                                    evt.world.setBlockToAir(hitX + posX, hitY, hitZ + posZ);
+                                            }
                                         }
                                     }
                                 }
                             }
+                        }
+                        else
+                        {
+                            evt.world.setBlockToAir(hitX, hitY, hitZ);
+                        }
+
                         evt.setResult(Result.ALLOW);
+                        evt.result = new ItemStack(TContent.buckets, 1, id);
                     }
                 }
             }

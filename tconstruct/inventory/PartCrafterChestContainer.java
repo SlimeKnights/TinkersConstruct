@@ -1,6 +1,6 @@
 package tconstruct.inventory;
 
-import tconstruct.blocks.logic.PartCrafterLogic;
+import tconstruct.blocks.logic.PartBuilderLogic;
 import tconstruct.blocks.logic.PatternChestLogic;
 import tconstruct.library.util.IPattern;
 import net.minecraft.entity.player.EntityPlayer;
@@ -12,12 +12,12 @@ public class PartCrafterChestContainer extends ActiveContainer
 {
     protected PatternChestLogic patternLogic;
     protected InventoryPlayer invPlayer;
-    protected PartCrafterLogic logic;
+    protected PartBuilderLogic logic;
     protected Slot[] input;
     protected Slot[] inventory;
     public boolean largeInventory;
 
-    public PartCrafterChestContainer(InventoryPlayer inventoryplayer, PartCrafterLogic partLogic, PatternChestLogic pLogic)
+    public PartCrafterChestContainer(InventoryPlayer inventoryplayer, PartBuilderLogic partLogic, PatternChestLogic pLogic)
     {
         logic = partLogic;
         patternLogic = pLogic;
