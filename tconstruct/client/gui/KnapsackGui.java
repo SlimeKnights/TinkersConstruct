@@ -1,16 +1,12 @@
 package tconstruct.client.gui;
 
-import net.minecraft.block.Block;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
-
 import org.lwjgl.opengl.GL11;
-
-import tconstruct.common.TContent;
+import tconstruct.client.tabs.InventoryTabKnapsack;
+import tconstruct.client.tabs.TabRegistry;
 import tconstruct.inventory.KnapsackContainer;
 import tconstruct.util.player.KnapsackInventory;
 
@@ -34,13 +30,16 @@ public class KnapsackGui extends GuiContainer
         int cornerY = (this.height - this.ySize) / 2;
         this.buttonList.clear();
 
-        InventoryTab tab = new InventoryTab(2, cornerX, cornerY - 28, new ItemStack(Block.workbench), 0);
-        this.buttonList.add(tab);
-        tab = new InventoryTab(3, cornerX + 28, cornerY - 28, new ItemStack(Item.plateDiamond), 1);
-        this.buttonList.add(tab);
-        tab = new InventoryTab(4, cornerX + 56, cornerY - 28, new ItemStack(TContent.knapsack), 1);
-        tab.enabled = false;
-        this.buttonList.add(tab);
+        TabRegistry.updateTabValues(cornerX, cornerY, InventoryTabKnapsack.class);
+        TabRegistry.addTabsToList(this.buttonList);
+        
+//        InventoryTab tab = new InventoryTab(2, cornerX, cornerY - 28, new ItemStack(Block.workbench), 0);
+//        this.buttonList.add(tab);
+//        tab = new InventoryTab(3, cornerX + 28, cornerY - 28, new ItemStack(Item.plateDiamond), 1);
+//        this.buttonList.add(tab);
+//        tab = new InventoryTab(4, cornerX + 56, cornerY - 28, new ItemStack(TContent.knapsack), 1);
+//        tab.enabled = false;
+//        this.buttonList.add(tab);
     }
 
     protected void drawGuiContainerForegroundLayer (int par1, int par2)

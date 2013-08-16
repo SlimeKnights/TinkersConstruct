@@ -1,6 +1,10 @@
 package tconstruct;
 
 import net.minecraftforge.common.MinecraftForge;
+import tconstruct.client.tabs.InventoryTabArmorExtended;
+import tconstruct.client.tabs.InventoryTabKnapsack;
+import tconstruct.client.tabs.InventoryTabVanilla;
+import tconstruct.client.tabs.TabRegistry;
 import tconstruct.common.TContent;
 import tconstruct.common.TProxyCommon;
 import tconstruct.landmine.logic.behavior.Behavior;
@@ -118,6 +122,10 @@ public class TConstruct
     {
         content.intermodCommunication();
         GameRegistry.registerWorldGenerator(new SlimeIslandGen(TContent.slimePool.blockID, 0));
+
+        TabRegistry.registerTab(new InventoryTabVanilla());
+        TabRegistry.registerTab(new InventoryTabArmorExtended());
+        TabRegistry.registerTab(new InventoryTabKnapsack());
     }
 
     @EventHandler

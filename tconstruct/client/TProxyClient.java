@@ -1,20 +1,14 @@
 package tconstruct.client;
 
 import java.io.InputStream;
-import java.lang.reflect.Field;
 import java.util.*;
-
 import javax.xml.parsers.*;
-
 import org.lwjgl.opengl.GL11;
 import org.w3c.dom.Document;
-
 import com.google.common.collect.Lists;
-
 import cpw.mods.fml.client.registry.*;
 import cpw.mods.fml.common.registry.*;
 import cpw.mods.fml.relauncher.Side;
-
 import tconstruct.TConstruct;
 import tconstruct.blocks.logic.*;
 import tconstruct.client.block.*;
@@ -22,6 +16,7 @@ import tconstruct.client.entity.*;
 import tconstruct.client.entity.projectile.*;
 import tconstruct.client.gui.*;
 import tconstruct.client.pages.*;
+import tconstruct.client.tabs.*;
 import tconstruct.common.*;
 import tconstruct.entity.*;
 import tconstruct.entity.projectile.*;
@@ -34,11 +29,9 @@ import tconstruct.library.client.*;
 import tconstruct.library.crafting.ToolBuilder;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.util.player.*;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.*;
 import net.minecraft.client.model.ModelSlime;
 import net.minecraft.client.particle.*;
@@ -93,7 +86,7 @@ public class TProxyClient extends TProxyCommon {
 		}
 		if (ID == inventoryGui) {
 			GuiInventory inventory = new GuiInventory(player);
-			addTabsToInventory(inventory);
+			TabRegistry.addTabsToInventory(inventory);
 			return inventory;
 		}
 		if (ID == armorGuiID) {
@@ -177,74 +170,6 @@ public class TProxyClient extends TProxyCommon {
 		renderblocks.renderFaceXPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(5, meta));
 		tessellator.draw();
 		GL11.glTranslatef(0.5F, 0.5F, 0.5F);
-	}
-
-	public static void openInventoryGui() {
-		// controlInstance.openInventoryGui();
-		if (mc == null)
-			mc = Minecraft.getMinecraft();
-		GuiInventory inventory = new GuiInventory(mc.thePlayer);
-		mc.displayGuiScreen(inventory);
-		addTabsToInventory(inventory);
-	}
-
-	public static void addTabsToInventory(GuiContainer gui) {
-		/*
-		 * if (mc == null) mc = Minecraft.getMinecraft();
-		 */
-		if (gui.getClass() == GuiInventory.class || classMatches(gui, "micdoodle8.mods.galacticraft.core.client.gui.GCCoreGuiInventory")) {
-			try {
-				Field guiLeft = GuiContainer.class.getDeclaredField("p");
-				guiLeft.setAccessible(true);
-				int cornerX = (Integer) guiLeft.get(gui);
-				Field ySize = GuiContainer.class.getDeclaredField("d");
-				ySize.setAccessible(true);
-				int cornerY = (gui.height - (Integer) ySize.get(gui)) / 2;
-				Field buttonList = GuiScreen.class.getDeclaredField("i");
-				buttonList.setAccessible(true);
-				ArrayList listOfButtons = (ArrayList) buttonList.get(gui);
-				listOfButtons.clear();
-
-				InventoryTab tab = new InventoryTab(2, cornerX, cornerY - 28, new ItemStack(Block.workbench), 0);
-				tab.enabled = false;
-				listOfButtons.add(tab);
-				tab = new InventoryTab(3, cornerX + 28, cornerY - 28, new ItemStack(Item.plateDiamond), 1);
-				listOfButtons.add(tab);
-				if (armorExtended.inventory[2] != null && armorExtended.inventory[2].getItem() == TContent.knapsack) {
-					if (listOfButtons.size() < 3) {
-						tab = new InventoryTab(4, cornerX + 56, cornerY - 28, new ItemStack(TContent.knapsack), 1);
-						listOfButtons.add(tab);
-					}
-				}
-			} catch (Exception e) {
-				try {
-					Field guiLeft = GuiContainer.class.getDeclaredField("guiLeft");
-					guiLeft.setAccessible(true);
-					int cornerX = (Integer) guiLeft.get(gui);
-					Field ySize = GuiContainer.class.getDeclaredField("ySize");
-					ySize.setAccessible(true);
-					int cornerY = (gui.height - (Integer) ySize.get(gui)) / 2;
-					Field buttonList = GuiScreen.class.getDeclaredField("buttonList");
-					buttonList.setAccessible(true);
-					ArrayList listOfButtons = (ArrayList) buttonList.get(gui);
-					listOfButtons.clear();
-
-					InventoryTab tab = new InventoryTab(2, cornerX, cornerY - 28, new ItemStack(Block.workbench), 0);
-					tab.enabled = false;
-					listOfButtons.add(tab);
-					tab = new InventoryTab(3, cornerX + 28, cornerY - 28, new ItemStack(Item.plateDiamond), 1);
-					listOfButtons.add(tab);
-					if (armorExtended.inventory[2] != null && armorExtended.inventory[2].getItem() == TContent.knapsack) {
-						if (listOfButtons.size() < 3) {
-							tab = new InventoryTab(4, cornerX + 56, cornerY - 28, new ItemStack(TContent.knapsack), 1);
-							listOfButtons.add(tab);
-						}
-					}
-				} catch (Exception ex) {
-					ex.printStackTrace();
-				}
-			}
-		}
 	}
 
 	public static boolean classMatches(Object paramObject, String paramString) {
