@@ -40,4 +40,10 @@ public class GlassPaneStained extends PaneBase
     {
         return 1;
     }
+
+    @Override
+    public int damageDropped (int par1)
+    {
+        return par1;
+    }
 }

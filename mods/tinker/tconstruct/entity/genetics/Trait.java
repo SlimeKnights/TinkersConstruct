@@ -118,6 +118,6 @@ public class Trait
     
     public void loadFromNBT(NBTTagCompound tags)
     {
-        tags.getIntArray(traitName+".Alleles");
+        alleles = tags.getIntArray(traitName+".Alleles");
     }
 }

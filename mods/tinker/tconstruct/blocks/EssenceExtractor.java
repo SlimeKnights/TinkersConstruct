@@ -4,6 +4,7 @@ import java.util.Random;
 
 import mods.tinker.tconstruct.blocks.logic.EssenceExtractorLogic;
 import mods.tinker.tconstruct.common.TContent;
+import mods.tinker.tconstruct.library.TConstructRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -33,7 +34,7 @@ public class EssenceExtractor extends BlockContainer
         super(par1, Material.rock);
         this.setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.75F, 1.0F);
         this.setLightOpacity(0);
-        this.setCreativeTab(CreativeTabs.tabDecorations);
+        this.setCreativeTab(TConstructRegistry.blockTab);
     }
 
     /**

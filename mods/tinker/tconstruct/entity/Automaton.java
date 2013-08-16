@@ -1,8 +1,10 @@
 package mods.tinker.tconstruct.entity;
 
-import mods.tinker.tconstruct.entity.ai.*;
+import mods.tinker.tconstruct.entity.ai.AIFollowOwner;
+import mods.tinker.tconstruct.entity.ai.GAIAttackTarget;
+import mods.tinker.tconstruct.entity.ai.GAIFindTarget;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 public class Automaton extends GolemBase
@@ -66,7 +68,9 @@ public class Automaton extends GolemBase
 
     public boolean interact (EntityPlayer par1EntityPlayer)
     {
-        this.setCurrentItemOrArmor(0, par1EntityPlayer.getCurrentEquippedItem().copy());
+        ItemStack equipped = par1EntityPlayer.getCurrentEquippedItem();
+        if (equipped != null)
+            this.setCurrentItemOrArmor(0, equipped.copy());
         return true;
     }
 }

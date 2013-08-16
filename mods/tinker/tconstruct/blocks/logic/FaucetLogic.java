@@ -64,30 +64,6 @@ public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogi
                     }
 
                 }
-                /*if (liquid != null)
-                {
-                	int drained = ((ITankContainer) tankte).fill(ForgeDirection.UP, liquid, true);
-                	if (drained != liquid.amount)
-                	{
-                		liquid.amount -= drained;
-                		((ITankContainer) drainte).fill(getForgeDirection(), liquid, true);
-                	}
-                	if (drained > 0)
-                	{
-                		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-                		return true;
-                	}
-                	else
-                	{
-                		liquid = null;
-                		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-                		return false;
-                	}
-                }
-                else
-                {
-                	((ITankContainer) drainte).fill(getForgeDirection(), liquid, true);
-                }*/
             }
         }
         return false;

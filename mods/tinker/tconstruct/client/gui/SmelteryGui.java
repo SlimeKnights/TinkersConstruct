@@ -344,6 +344,17 @@ public class SmelteryGui extends NewContainerGui
                     list.add("mB: " + mB);
                 }
             }
+            else if (name.equals("Molten Glass"))
+            {
+                int ingots = liquid.amount / 1000;
+                if (ingots > 0)
+                    list.add("Blocks: " + ingots);
+                int mB = liquid.amount % 144;
+                if (mB > 0)
+                {
+                    list.add("mB: " + mB);
+                }
+            }
             else
             {
                 int mB = liquid.amount;

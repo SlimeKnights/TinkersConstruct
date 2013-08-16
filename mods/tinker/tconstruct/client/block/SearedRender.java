@@ -250,6 +250,10 @@ public class SearedRender implements ISimpleBlockRenderingHandler
                 {
                     yMin = -1F;
                 }
+                else if (uID == TContent.castingChannel.blockID)
+                {
+                    yMin = -0.5F;
+                }
 
                 if (logic.liquid != null)
                 {

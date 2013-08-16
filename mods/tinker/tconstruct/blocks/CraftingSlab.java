@@ -3,18 +3,22 @@ package mods.tinker.tconstruct.blocks;
 import java.util.List;
 
 import mods.tinker.tconstruct.TConstruct;
+import mods.tinker.tconstruct.blocks.logic.CraftingStationLogic;
 import mods.tinker.tconstruct.blocks.logic.PartCrafterLogic;
 import mods.tinker.tconstruct.blocks.logic.PatternChestLogic;
 import mods.tinker.tconstruct.blocks.logic.StencilTableLogic;
+import mods.tinker.tconstruct.blocks.logic.ToolForgeLogic;
 import mods.tinker.tconstruct.blocks.logic.ToolStationLogic;
 import mods.tinker.tconstruct.client.block.TableRender;
 import mods.tinker.tconstruct.common.TContent;
+import mods.tinker.tconstruct.common.TProxyCommon;
 import mods.tinker.tconstruct.library.TConstructRegistry;
 import mods.tinker.tconstruct.library.blocks.InventoryBlock;
 import mods.tinker.tconstruct.util.PHConstruct;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -24,9 +28,9 @@ import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class ToolStationBlock extends InventoryBlock
+public class CraftingSlab extends InventoryBlock
 {
-    public ToolStationBlock(int id, Material material)
+    public CraftingSlab(int id, Material material)
     {
         super(id, material);
         this.setCreativeTab(TConstructRegistry.blockTab);
@@ -34,17 +38,17 @@ public class ToolStationBlock extends InventoryBlock
         this.setStepSound(Block.soundWoodFootstep);
     }
 
-    //Block.hasComparatorInputOverride and Block.getComparatorInputOverride
-
     /* Rendering */
     @Override
     public String[] getTextureNames ()
     {
-        String[] textureNames = { "toolstation_top", "toolstation_side", "toolstation_bottom", "partbuilder_oak_top", "partbuilder_oak_side", "partbuilder_oak_bottom", "partbuilder_spruce_top",
-                "partbuilder_spruce_side", "partbuilder_spruce_bottom", "partbuilder_birch_top", "partbuilder_birch_side", "partbuilder_birch_bottom", "partbuilder_jungle_top",
-                "partbuilder_jungle_side", "partbuilder_jungle_bottom", "patternchest_top", "patternchest_side", "patternchest_bottom", "stenciltable_oak_top", "stenciltable_oak_side",
-                "stenciltable_oak_bottom", "stenciltable_spruce_top", "stenciltable_spruce_side", "stenciltable_spruce_bottom", "stenciltable_birch_top", "stenciltable_birch_side",
-                "stenciltable_birch_bottom", "stenciltable_jungle_top", "stenciltable_jungle_side", "stenciltable_jungle_bottom" };
+        String[] textureNames = { 
+                "craftingstation_top", "craftingstation_slab_side", "craftingstation_bottom",
+                "toolstation_top", "toolstation_slab_side", "toolstation_bottom",
+                "partbuilder_oak_top", "partbuilder_slab_side", "partbuilder_oak_bottom",
+                "stenciltable_oak_top", "stenciltable_slab_side", "stenciltable_oak_bottom",
+                "patternchest_top", "patternchest_slab_side", "patternchest_bottom",
+                "toolforge_top", "toolforge_slab_side", "toolforge_top" };
 
         return textureNames;
     }
@@ -52,18 +56,7 @@ public class ToolStationBlock extends InventoryBlock
     @Override
     public Icon getIcon (int side, int meta)
     {
-        if (meta <= 4)
-        {
-            return icons[meta * 3 + getTextureIndex(side)];
-        }
-        else if (meta <= 9)
-        {
-            return icons[15 + getTextureIndex(side)];
-        }
-        else
-        {
-            return icons[meta * 3 + getTextureIndex(side) - 12];
-        }
+        return icons[(meta % 8) * 3 + getTextureIndex(side)];
     }
 
     public int getTextureIndex (int side)
@@ -89,12 +82,6 @@ public class ToolStationBlock extends InventoryBlock
     }
 
     @Override
-    public int getRenderType ()
-    {
-        return TableRender.tabelModelID;
-    }
-
-    @Override
     public boolean shouldSideBeRendered (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
     {
         return true;
@@ -112,38 +99,20 @@ public class ToolStationBlock extends InventoryBlock
     @Override
     public TileEntity createTileEntity (World world, int metadata)
     {
-        switch (metadata)
+        switch (metadata % 8)
         {
         case 0:
-            return new ToolStationLogic();
+            return new CraftingStationLogic();
         case 1:
-            return new PartCrafterLogic();
+            return new ToolStationLogic();
         case 2:
             return new PartCrafterLogic();
         case 3:
-            return new PartCrafterLogic();
+            return new StencilTableLogic();
         case 4:
-            return new PartCrafterLogic();
+            return new PatternChestLogic();
         case 5:
-            return new PatternChestLogic();
-        case 6:
-            return new PatternChestLogic();
-        case 7:
-            return new PatternChestLogic();
-        case 8:
-            return new PatternChestLogic();
-        case 9:
-            return new PatternChestLogic();
-        case 10:
-            return new StencilTableLogic();
-        case 11:
-            return new StencilTableLogic();
-        case 12:
-            return new StencilTableLogic();
-        case 13:
-            return new StencilTableLogic();
-            /*case 14:
-            	return new CastingTableLogic();*/
+            return new ToolForgeLogic();
         default:
             return null;
         }
@@ -152,17 +121,24 @@ public class ToolStationBlock extends InventoryBlock
     @Override
     public Integer getGui (World world, int x, int y, int z, EntityPlayer entityplayer)
     {
-        int md = world.getBlockMetadata(x, y, z);
-        if (md == 0)
-            return 0;
-        else if (md < 5)
-            return 1;
-        else if (md < 10)
-            return 2;
-        else
-            return 3;
+        int meta = world.getBlockMetadata(x, y, z);
+        switch (meta)
+        {
+        case 0:
+            return TProxyCommon.craftingStationID;
+        case 1: 
+            return TProxyCommon.toolStationID;
+        case 2:
+            return TProxyCommon.partBuilderID;
+        case 3:
+            return TProxyCommon.stencilTableID;
+        case 4:
+            return TProxyCommon.patternChestID;
+        case 5:
+            return TProxyCommon.toolForgeID;
+        }
 
-        //return -1;
+        return -1;
     }
 
     @Override
@@ -178,21 +154,15 @@ public class ToolStationBlock extends InventoryBlock
         {
             list.add(new ItemStack(id, 1, iter));
         }
-
-        for (int iter = 10; iter < 14; iter++)
-        {
-            list.add(new ItemStack(id, 1, iter));
-        }
     }
 
-    //public void onBlockPlacedBy(World par1World, int par2, int par3, int par4, EntityLiving par5EntityLiving, ItemStack par6ItemStack) {}
     @Override
     public void onBlockPlacedBy (World world, int x, int y, int z, EntityLiving entityliving, ItemStack stack)
     {
         if (PHConstruct.freePatterns)
         {
             int meta = world.getBlockMetadata(x, y, z);
-            if (meta == 5)
+            if (meta == 4)
             {
                 PatternChestLogic logic = (PatternChestLogic) world.getBlockTileEntity(x, y, z);
                 for (int i = 1; i <= 13; i++)
@@ -203,5 +173,35 @@ public class ToolStationBlock extends InventoryBlock
             }
         }
         super.onBlockPlacedBy(world, x, y, z, entityliving, stack);
+    }
+    
+    @Override
+    public void addCollisionBoxesToList (World world, int x, int y, int z, AxisAlignedBB axisalignedbb, List arraylist, Entity entity)
+    {
+        setBlockBoundsBasedOnState(world, x, y, z);
+        super.addCollisionBoxesToList(world, x, y, z, axisalignedbb, arraylist, entity);
+    }
+
+    public void setBlockBoundsForItemRender ()
+    {
+        setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.5F, 1.0F);
+    }
+
+    public void setBlockBoundsBasedOnState (IBlockAccess world, int x, int y, int z)
+    {
+        int meta = world.getBlockMetadata(x, y, z) / 8;
+        float minY = meta == 1 ? 0.5F : 0.0F;
+        float maxY = meta == 1 ? 1.0F : 0.5F;
+        setBlockBounds(0.0F, minY, 0F, 1.0F, maxY, 1.0F);
+    }
+    
+    public int onBlockPlaced (World par1World, int blockX, int blockY, int blockZ, int side, float clickX, float clickY, float clickZ, int metadata)
+    {
+        if (side == 1)
+            return metadata;
+        if (side == 0 || clickY >= 0.5F)
+            return metadata | 8;
+        
+        return metadata;
     }
 }

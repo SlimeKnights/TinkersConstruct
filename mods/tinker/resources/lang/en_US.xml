@@ -98,6 +98,23 @@
   <entry key="block.fancybrick.stone.road.name">Stone Road</entry>
   <entry key="block.fancybrick.stone.name">Fancy Stone Brick</entry>
   
+  <entry key="tile.cloth.white.slab.name">Wool Slab</entry>
+  <entry key="tile.cloth.orange.slab.name">Orange Wool Slab</entry>
+  <entry key="tile.cloth.magenta.slab.name">Magenta Wool Slab</entry>
+  <entry key="tile.cloth.lightBlue.slab.name">Light Blue Wool Slab</entry>
+  <entry key="tile.cloth.yellow.slab.name">Yellow Wool Slab</entry>
+  <entry key="tile.cloth.lime.slab.name">Lime Wool Slab</entry>
+  <entry key="tile.cloth.pink.slab.name">Pink Wool Slab</entry>
+  <entry key="tile.cloth.gray.slab.name">Gray Wool Slab</entry>
+  <entry key="tile.cloth.silver.slab.name">Light Gray Wool Slab</entry>
+  <entry key="tile.cloth.cyan.slab.name">Cyan Wool Slab</entry>
+  <entry key="tile.cloth.purple.slab.name">Purple Wool Slab</entry>
+  <entry key="tile.cloth.blue.slab.name">Blue Wool Slab</entry>
+  <entry key="tile.cloth.brown.slab.name">Brown Wool Slab</entry>
+  <entry key="tile.cloth.green.slab.name">Green Wool Slab</entry>
+  <entry key="tile.cloth.red.slab.name">Red Wool Slab</entry>
+  <entry key="tile.cloth.black.slab.name">Black Wool Slab</entry>
+  
   <entry key="item.oreberry.iron.name">Iron Oreberry</entry>
   <entry key="item.oreberry.gold.name">Gold Oreberry</entry>
   <entry key="item.oreberry.copper.name">Copper Oreberry</entry>
@@ -156,6 +173,7 @@
   <entry key="Smeltery.Brick.Fancy.name">Fancy Seared Bricks</entry>
   <entry key="Smeltery.Brick.Square.name">Chiseled Seared Bricks</entry>
   <entry key="Smeltery.Brick.Creeper.name">Chiseled Seared Bricks</entry>
+  <entry key="Smeltery.Channel.name">Casting Channel</entry>
   
   <entry key="LavaTank.Tank.name">Seared Tank</entry>
   <entry key="LavaTank.Gague.name">Seared Glass</entry>
@@ -336,6 +354,7 @@
   <entry key="entity.TConstruct.EdibleSlime.name">Blue Slime</entry>
   <entry key="entity.TConstruct.KingSlime.name">King Slime</entry>
   <entry key="entity.TConstruct.Gardeslime.name">Gardeslime</entry> 
+  <entry key="entity.TConstruct.MiniGardy.name">Gardeslime</entry> 
   
   <entry key="key.tarmor">Armor Gui</entry>
   

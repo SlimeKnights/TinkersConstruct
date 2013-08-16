@@ -46,7 +46,7 @@ public class ToolStationLogic extends InventoryLogic implements ISidedInventory
     @Override
     public String getDefaultName ()
     {
-        return "toolstation.crafting";
+        return "crafters.ToolStation";
     }
 
     @Override

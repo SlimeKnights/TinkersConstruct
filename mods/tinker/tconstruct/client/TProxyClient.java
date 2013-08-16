@@ -24,6 +24,7 @@ import mods.tinker.tconstruct.blocks.logic.StencilTableLogic;
 import mods.tinker.tconstruct.blocks.logic.ToolForgeLogic;
 import mods.tinker.tconstruct.blocks.logic.ToolStationLogic;
 import mods.tinker.tconstruct.client.block.BarricadeRender;
+import mods.tinker.tconstruct.client.block.BlockRenderCastingChannel;
 import mods.tinker.tconstruct.client.block.CastingBasinSpecialRender;
 import mods.tinker.tconstruct.client.block.CastingTableSpecialRenderer;
 import mods.tinker.tconstruct.client.block.CrystalBlockRender;
@@ -172,25 +173,25 @@ public class TProxyClient extends TProxyCommon
     @Override
     public Object getClientGuiElement (int ID, EntityPlayer player, World world, int x, int y, int z)
     {
-        if (ID == stationGuiID)
+        if (ID == toolStationID)
             return new ToolStationGui(player.inventory, (ToolStationLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
-        if (ID == partGuiID)
+        if (ID == partBuilderID)
             return new PartCrafterGui(player.inventory, (PartCrafterLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
-        if (ID == pchestGuiID)
+        if (ID == patternChestID)
             return new PatternChestGui(player.inventory, (PatternChestLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
         if (ID == frypanGuiID)
             return new FrypanGui(player.inventory, (FrypanLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
         if (ID == smelteryGuiID)
             return new SmelteryGui(player.inventory, (SmelteryLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
-        if (ID == pshaperGuiID)
+        if (ID == stencilTableID)
             return new StencilTableGui(player.inventory, (StencilTableLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
-        if (ID == toolForge)
+        if (ID == toolForgeID)
             return new ToolForgeGui(player.inventory, (ToolForgeLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
-        if (ID == glowstoneAggregatorGui)
+        if (ID == glowstoneAggregatorID)
             return new GlowstoneAggregatorGui(player.inventory, (GlowstoneAggregator) world.getBlockTileEntity(x, y, z), world, x, y, z);
-        if (ID == drawbridgeGui)
+        if (ID == drawbridgeID)
             return new DrawbridgeGui(player.inventory, (DrawbridgeLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
-        if (ID == landmineGui)
+        if (ID == landmineID)
             return new GuiLandmine(new ContainerLandmine(player, (TileEntityLandmine) world.getBlockTileEntity(x, y, z)));
         if (ID == craftingStationID)
             return new CraftingStationGui(player.inventory, (CraftingStationLogic) world.getBlockTileEntity(x, y, z), x, y, z);
@@ -374,6 +375,7 @@ public class TProxyClient extends TProxyCommon
         RenderingRegistry.registerBlockHandler(new RenderLandmine());
         RenderingRegistry.registerBlockHandler(new PunjiRender());
         RenderingRegistry.registerBlockHandler(new RenderBlockFluid());
+        RenderingRegistry.registerBlockHandler(new BlockRenderCastingChannel());
         //RenderingRegistry.registerBlockHandler(new BrickRender());
         //RenderingRegistry.registerBlockHandler(new BallRepeaterRender());
 

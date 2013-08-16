@@ -22,16 +22,16 @@ import cpw.mods.fml.common.registry.LanguageRegistry;
 
 public class TProxyCommon implements IGuiHandler
 {
-    public static int stationGuiID = 0;
-    public static int partGuiID = 1;
-    public static int pchestGuiID = 2;
-    public static int pshaperGuiID = 3;
+    public static int toolStationID = 0;
+    public static int partBuilderID = 1;
+    public static int patternChestID = 2;
+    public static int stencilTableID = 3;
     public static int frypanGuiID = 4;
-    public static int toolForge = 5;
+    public static int toolForgeID = 5;
     public static int smelteryGuiID = 7;
-    public static int glowstoneAggregatorGui = 8;
-    public static int drawbridgeGui = 9;
-    public static int landmineGui = 10;
+    public static int glowstoneAggregatorID = 8;
+    public static int drawbridgeID = 9;
+    public static int landmineID = 10;
     public static int craftingStationID = 11;
 
     public static int inventoryGui = 100;
@@ -48,7 +48,7 @@ public class TProxyCommon implements IGuiHandler
         if (ID < 0)
             return null;
         
-        if (ID == landmineGui){
+        if (ID == landmineID){
             return new ContainerLandmine(player, (TileEntityLandmine)world.getBlockTileEntity(x, y, z));
         }
 
@@ -195,6 +195,7 @@ public class TProxyCommon implements IGuiHandler
         LanguageRegistry.addName(TContent.knapsack, "Knapsack");
         LanguageRegistry.addName(TContent.shortbow, "Shortbow");
         LanguageRegistry.addName(TContent.arrow, "Arrow");
+        LanguageRegistry.addName(TContent.meatBlock, "Hambone");
 
     }
 

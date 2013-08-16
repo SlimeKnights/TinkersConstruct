@@ -20,6 +20,8 @@ public class ToolCoreRenderer implements IItemRenderer
         switch (type)
         {
         case ENTITY:
+            GL11.glTranslatef(0.5f, -0.3f, 0);
+            GL11.glRotatef(180, 0, 1, 0);
         case EQUIPPED:
         case EQUIPPED_FIRST_PERSON:
         case INVENTORY:
@@ -75,7 +77,7 @@ public class ToolCoreRenderer implements IItemRenderer
         for (int i = 0; i < iconParts; ++i)
         {
             Icon part = tempParts[i];
-            if (part == null || part == ToolCore.blankSprite | part == ToolCore.emptyIcon)
+            if (part == null)
                 ++count;
             else
                 parts[i - count] = part;
