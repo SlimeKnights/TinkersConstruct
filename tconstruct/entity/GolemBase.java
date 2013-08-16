@@ -1,29 +1,23 @@
 package tconstruct.entity;
 
 import java.lang.ref.WeakReference;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
 
-import tconstruct.library.tools.AbilityHelper;
-import tconstruct.library.tools.ToolCore;
-
-
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.EnchantmentThorns;
+import net.minecraft.crash.CrashReport;
+import net.minecraft.crash.CrashReportCategory;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.IEntityMultiPart;
-import net.minecraft.entity.boss.EntityDragonPart;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.potion.Potion;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.Icon;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.ReportedException;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -49,6 +43,7 @@ public class GolemBase extends EntityCreature implements IInventory
     {
         super(world);
         setupInventory();
+        //setCanPickUpLoot(true);
     }
 
     public void setupInventory ()
@@ -120,8 +115,8 @@ public class GolemBase extends EntityCreature implements IInventory
         if (!paused)
             super.updateWanderPath();
     }
-    
-    public boolean standby()
+
+    public boolean standby ()
     {
         return false;
     }
@@ -293,6 +288,33 @@ public class GolemBase extends EntityCreature implements IInventory
     }
 
     /* Inventory */
+
+    @Override
+    public void onLivingUpdate ()
+    {
+        super.onLivingUpdate();
+        if (!this.worldObj.isRemote && !this.dead && this.worldObj.getGameRules().getGameRuleBooleanValue("mobGriefing"))
+        {
+            List list = this.worldObj.getEntitiesWithinAABB(EntityItem.class, this.boundingBox.expand(1.5D, 0.0D, 1.5D));
+            Iterator iterator = list.iterator();
+
+            while (iterator.hasNext())
+            {
+                EntityItem entityitem = (EntityItem) iterator.next();
+
+                if (!entityitem.isDead && entityitem.getEntityItem() != null)
+                {
+                    ItemStack itemstack = entityitem.getEntityItem();
+                    if (addItemStackToInventory(itemstack))
+                    {
+                        this.playSound("random.pop", 0.2F, ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.7F + 1.0F) * 2.0F);
+                        entityitem.setDead();
+                    }
+                }
+            }
+        }
+    }
+
     @Override
     public ItemStack getStackInSlot (int slot)
     {
@@ -353,6 +375,164 @@ public class GolemBase extends EntityCreature implements IInventory
             return null;
         }
     }
+
+    /* Inventory Management */
+
+    public boolean addItemStackToInventory (ItemStack par1ItemStack)
+    {
+        if (par1ItemStack == null)
+        {
+            return false;
+        }
+        else
+        {
+            try
+            {
+                int i;
+
+                if (par1ItemStack.isItemDamaged())
+                {
+                    i = this.getFirstEmptyStack();
+
+                    if (i >= 0)
+                    {
+                        this.inventory[i] = ItemStack.copyItemStack(par1ItemStack);
+                        this.inventory[i].animationsToGo = 5;
+                        par1ItemStack.stackSize = 0;
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else
+                {
+                    do
+                    {
+                        i = par1ItemStack.stackSize;
+                        par1ItemStack.stackSize = this.storePartialItemStack(par1ItemStack);
+                    } while (par1ItemStack.stackSize > 0 && par1ItemStack.stackSize < i);
+
+                    return par1ItemStack.stackSize < i;
+                }
+            }
+            catch (Throwable throwable)
+            {
+                CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Adding item to inventory");
+                CrashReportCategory crashreportcategory = crashreport.makeCategory("Item being added");
+                crashreportcategory.addCrashSection("Item ID", Integer.valueOf(par1ItemStack.itemID));
+                crashreportcategory.addCrashSection("Item data", Integer.valueOf(par1ItemStack.getItemDamage()));
+                throw new ReportedException(crashreport);
+            }
+        }
+    }
+
+    public int getFirstEmptyStack () //Equipped?
+    {
+        for (int i = 0; i < this.inventory.length; ++i)
+        {
+            if (this.inventory[i] == null)
+            {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    private int storePartialItemStack (ItemStack par1ItemStack)
+    {
+        int i = par1ItemStack.itemID;
+        int j = par1ItemStack.stackSize;
+        int k;
+
+        if (par1ItemStack.getMaxStackSize() == 1)
+        {
+            k = this.getFirstEmptyStack();
+
+            if (k < 0)
+            {
+                return j;
+            }
+            else
+            {
+                if (this.inventory[k] == null)
+                {
+                    this.inventory[k] = ItemStack.copyItemStack(par1ItemStack);
+                }
+
+                return 0;
+            }
+        }
+        else
+        {
+            k = this.storeItemStack(par1ItemStack);
+
+            if (k < 0)
+            {
+                k = this.getFirstEmptyStack();
+            }
+
+            if (k < 0)
+            {
+                return j;
+            }
+            else
+            {
+                if (this.inventory[k] == null)
+                {
+                    this.inventory[k] = new ItemStack(i, 0, par1ItemStack.getItemDamage());
+
+                    if (par1ItemStack.hasTagCompound())
+                    {
+                        this.inventory[k].setTagCompound((NBTTagCompound) par1ItemStack.getTagCompound().copy());
+                    }
+                }
+
+                int l = j;
+
+                if (j > this.inventory[k].getMaxStackSize() - this.inventory[k].stackSize)
+                {
+                    l = this.inventory[k].getMaxStackSize() - this.inventory[k].stackSize;
+                }
+
+                if (l > this.getInventoryStackLimit() - this.inventory[k].stackSize)
+                {
+                    l = this.getInventoryStackLimit() - this.inventory[k].stackSize;
+                }
+
+                if (l == 0)
+                {
+                    return j;
+                }
+                else
+                {
+                    j -= l;
+                    this.inventory[k].stackSize += l;
+                    this.inventory[k].animationsToGo = 5;
+                    return j;
+                }
+            }
+        }
+    }
+
+    private int storeItemStack (ItemStack par1ItemStack)
+    {
+        for (int i = 0; i < this.inventory.length; ++i)
+        {
+            if (this.inventory[i] != null && this.inventory[i].itemID == par1ItemStack.itemID && this.inventory[i].isStackable() && this.inventory[i].stackSize < this.inventory[i].getMaxStackSize()
+                    && this.inventory[i].stackSize < this.getInventoryStackLimit() && (!this.inventory[i].getHasSubtypes() || this.inventory[i].getItemDamage() == par1ItemStack.getItemDamage())
+                    && ItemStack.areItemStackTagsEqual(this.inventory[i], par1ItemStack))
+            {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    /* Misc */
 
     @Override
     public String getInvName ()

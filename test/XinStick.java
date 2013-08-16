@@ -3,7 +3,6 @@ package test;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -40,9 +39,9 @@ public class XinStick extends Item
         entity.setOwner(player);
         //entity.setCustomNameTag("Cutie");
         spawnEntity(player.posX, player.posY + 1, player.posZ, entity, world, player);
-        EntityChicken chicken = new EntityChicken(world);
+        /*EntityChicken chicken = new EntityChicken(world);
         spawnEntity(player.posX, player.posY + 1, player.posZ, chicken, world, player);
-        entity.mountEntity(chicken);
+        entity.mountEntity(chicken);*/
         //healPlayer(player);
         //removeChunk(world, player.posX, player.posZ);
         return stack;

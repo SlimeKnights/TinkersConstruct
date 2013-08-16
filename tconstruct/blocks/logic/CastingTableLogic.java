@@ -353,8 +353,6 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
         {
             this.liquid = FluidStack.loadFluidStackFromNBT(tags.getCompoundTag("Fluid"));
         }
-            //FluidStack fluid = FluidStack.loadFluidStackFromNBT(nbt);
-            //this.liquid = new FluidStack(tags.getInteger("itemID"), tags.getInteger("amount"), tags.getInteger("itemMeta"));
         else
             this.liquid = null;
 

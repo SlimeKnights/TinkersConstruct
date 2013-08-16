@@ -113,7 +113,7 @@ public class Aggregator extends InventoryBlock
     @Override
     public Integer getGui (World world, int x, int y, int z, EntityPlayer entityplayer)
     {
-        return TProxyCommon.glowstoneAggregatorGui;
+        return TProxyCommon.glowstoneAggregatorID;
     }
 
     @Override

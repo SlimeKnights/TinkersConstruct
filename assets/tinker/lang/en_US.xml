@@ -186,6 +186,7 @@
   <entry key="Smeltery.Brick.Fancy.name">Fancy Seared Bricks</entry>
   <entry key="Smeltery.Brick.Square.name">Chiseled Seared Bricks</entry>
   <entry key="Smeltery.Brick.Creeper.name">Chiseled Seared Bricks</entry>
+  <entry key="Smeltery.Channel.name">Casting Channel</entry>
   
   <entry key="LavaTank.Tank.name">Seared Tank</entry>
   <entry key="LavaTank.Gague.name">Seared Glass</entry>
@@ -411,6 +412,7 @@
   <entry key="entity.TConstruct.EdibleSlime.name">Blue Slime</entry>
   <entry key="entity.TConstruct.KingSlime.name">King Slime</entry>
   <entry key="entity.TConstruct.Gardeslime.name">Gardeslime</entry> 
+  <entry key="entity.TConstruct.MiniGardy.name">Gardeslime</entry> 
   
   <entry key="key.tarmor">Armor Gui</entry>
   <entry key="key.tcapes.reload">Reload Capes</entry>

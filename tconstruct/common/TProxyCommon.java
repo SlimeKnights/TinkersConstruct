@@ -29,9 +29,9 @@ public class TProxyCommon implements IGuiHandler
     public static int frypanGuiID = 4;
     public static int toolForgeID = 5;
     public static int smelteryGuiID = 7;
-    public static int glowstoneAggregatorGui = 8;
-    public static int drawbridgeGui = 9;
-    public static int landmineGui = 10;
+    public static int glowstoneAggregatorID = 8;
+    public static int drawbridgeID = 9;
+    public static int landmineID = 10;
     public static int craftingStationID = 11;
     public static int inventoryGui = 100;
     public static int armorGuiID = 101;
@@ -43,16 +43,11 @@ public class TProxyCommon implements IGuiHandler
 
     @Override
     public Object getServerGuiElement (int ID, EntityPlayer player, World world, int x, int y, int z)
-    {
-    	
-    	if (ID == landmineGui){
-    		return new ContainerLandmine(player, (TileEntityLandmine)world.getBlockTileEntity(x, y, z));
-    	}
-    	
+    {    	
         if (ID < 0)
             return null;
         
-        if (ID == landmineGui){
+        if (ID == landmineID){
             return new ContainerLandmine(player, (TileEntityLandmine)world.getBlockTileEntity(x, y, z));
         }
 
@@ -199,6 +194,7 @@ public class TProxyCommon implements IGuiHandler
         LanguageRegistry.addName(TContent.knapsack, "Knapsack");
         LanguageRegistry.addName(TContent.shortbow, "Shortbow");
         LanguageRegistry.addName(TContent.arrow, "Arrow");
+        LanguageRegistry.addName(TContent.meatBlock, "Hambone");
 
     }
 

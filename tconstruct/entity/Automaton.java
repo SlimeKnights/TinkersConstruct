@@ -1,6 +1,7 @@
 package tconstruct.entity;
 
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import tconstruct.entity.ai.GAIAttackTarget;
 import tconstruct.entity.ai.GAIFindTarget;
@@ -67,7 +68,9 @@ public class Automaton extends GolemBase
 
     public boolean interact (EntityPlayer par1EntityPlayer)
     {
-        this.setCurrentItemOrArmor(0, par1EntityPlayer.getCurrentEquippedItem().copy());
+        ItemStack equipped = par1EntityPlayer.getCurrentEquippedItem();
+        if (equipped != null)
+            this.setCurrentItemOrArmor(0, equipped.copy());
         return true;
     }
 }

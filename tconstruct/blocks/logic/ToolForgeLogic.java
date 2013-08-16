@@ -26,7 +26,7 @@ public class ToolForgeLogic extends ToolStationLogic implements ISidedInventory
     @Override
     public String getDefaultName ()
     {
-        return "toolforge.crafting";
+        return "crafters.ToolForge";
     }
 
     @Override

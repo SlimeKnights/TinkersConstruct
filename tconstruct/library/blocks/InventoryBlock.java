@@ -15,7 +15,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.Icon;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
@@ -138,6 +140,11 @@ public abstract class InventoryBlock extends BlockContainer
             {
                 direction.setDirection(entityliving.rotationYaw * 4F, entityliving.rotationPitch, entityliving);
             }
+        }
+
+        if (stack.hasDisplayName())
+        {
+            ((InventoryLogic)world.getBlockTileEntity(x, y, z)).setInvName(stack.getDisplayName());
         }
     }
 

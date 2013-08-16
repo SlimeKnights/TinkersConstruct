@@ -158,6 +158,11 @@ public abstract class InventoryLogic extends TileEntity implements IInventory
     }
 
     protected abstract String getDefaultName ();
+    
+    public void setInvName(String name)
+    {
+        this.invName = name;
+    }
 
     public String getInvName ()
     {

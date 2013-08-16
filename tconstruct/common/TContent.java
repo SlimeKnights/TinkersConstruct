@@ -31,6 +31,7 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import tconstruct.TConstruct;
 import tconstruct.blocks.Aggregator;
+import tconstruct.blocks.CastingChannelBlock;
 import tconstruct.blocks.CraftingSlab;
 import tconstruct.blocks.CraftingStationBlock;
 import tconstruct.blocks.DryingRack;
@@ -63,6 +64,7 @@ import tconstruct.blocks.TMetalBlock;
 import tconstruct.blocks.ToolForgeBlock;
 import tconstruct.blocks.ToolStationBlock;
 import tconstruct.blocks.logic.CastingBasinLogic;
+import tconstruct.blocks.logic.CastingChannelLogic;
 import tconstruct.blocks.logic.CastingTableLogic;
 import tconstruct.blocks.logic.CraftingStationLogic;
 import tconstruct.blocks.logic.DrawbridgeLogic;
@@ -119,6 +121,7 @@ import tconstruct.items.ToolShard;
 import tconstruct.items.armor.HeartCanister;
 import tconstruct.items.armor.Knapsack;
 import tconstruct.items.blocks.BarricadeItem;
+import tconstruct.items.blocks.CastingChannelItem;
 import tconstruct.items.blocks.CraftedSoilItemBlock;
 import tconstruct.items.blocks.CraftingSlabItemBlock;
 import tconstruct.items.blocks.GlassBlockItem;
@@ -291,12 +294,14 @@ public class TContent implements IFuelHandler
     public static Block toolForge;
     public static Block craftingStationWood;
     public static Block craftingSlabWood;
+    
     public static Block heldItemBlock;
     public static Block craftedSoil;
 
     public static Block smeltery;
     public static Block lavaTank;
     public static Block searedBlock;
+    public static Block castingChannel;
     public static Block metalBlock;
 
     public static Block redstoneMachine;
@@ -413,6 +418,7 @@ public class TContent implements IFuelHandler
     //Tool modifiers
     public static ModElectric modE;
     public static ModLapis modL;
+
     //Wearables
     public static Item heavyHelmet;
     public static Item heavyChestplate;
@@ -505,10 +511,13 @@ public class TContent implements IFuelHandler
         toolForge = new ToolForgeBlock(PHConstruct.toolForge, Material.iron).setUnlocalizedName("ToolForge");
         GameRegistry.registerBlock(toolForge, ToolForgeItemBlock.class, "ToolForgeBlock");
         GameRegistry.registerTileEntity(ToolForgeLogic.class, "ToolForge");
-        
+
         craftingStationWood = new CraftingStationBlock(PHConstruct.woodCrafter, Material.wood).setUnlocalizedName("CraftingStation");
         GameRegistry.registerBlock(craftingStationWood, "CraftingStation");
         GameRegistry.registerTileEntity(CraftingStationLogic.class, "CraftingStation");
+        
+        craftingSlabWood = new CraftingSlab(PHConstruct.woodCrafterSlab, Material.wood).setUnlocalizedName("CraftingSlab");
+        GameRegistry.registerBlock(craftingSlabWood, CraftingSlabItemBlock.class, "CraftingSlab");
 
         craftingStationWood = new CraftingStationBlock(PHConstruct.woodCrafter, Material.wood).setUnlocalizedName("CraftingStation");
         GameRegistry.registerBlock(craftingStationWood, "CraftingStation");
@@ -539,10 +548,11 @@ public class TContent implements IFuelHandler
 
         meatBlock = new MeatBlock(PHConstruct.meatBlock).setUnlocalizedName("tconstruct.meatblock");
         GameRegistry.registerBlock(meatBlock, "MeatBlock");
+
         OreDictionary.registerOre("hambone", new ItemStack(meatBlock));
         LanguageRegistry.addName(meatBlock, "Hambone");
         GameRegistry.addRecipe(new ItemStack(meatBlock), "mmm", "mbm", "mmm", 'b', new ItemStack(Item.bone), 'm', new ItemStack(Item.porkRaw));
-
+        
         woolSlab1 = new SlabBase(PHConstruct.woolSlab1, Material.cloth, Block.cloth, 0, 8).setUnlocalizedName("cloth");
         woolSlab1.setStepSound(Block.soundClothFootstep).setCreativeTab(CreativeTabs.tabDecorations);
         GameRegistry.registerBlock(woolSlab1, WoolSlab1Item.class, "WoolSlab1");
@@ -568,33 +578,38 @@ public class TContent implements IFuelHandler
         GameRegistry.registerTileEntity(FaucetLogic.class, "Faucet");
         GameRegistry.registerTileEntity(CastingBasinLogic.class, "CastingBasin");
 
+        castingChannel = (new CastingChannelBlock(PHConstruct.castingChannel)).setUnlocalizedName("CastingChannel");
+        GameRegistry.registerBlock(castingChannel, CastingChannelItem.class, "CastingChannel");
+        GameRegistry.registerTileEntity(CastingChannelLogic.class, "CastingChannel");
+
         //Redstone machines
         redstoneMachine = new RedstoneMachine(PHConstruct.redstoneMachine).setUnlocalizedName("Redstone.Machine");
         GameRegistry.registerBlock(redstoneMachine, RedstoneMachineItem.class, "Redstone.Machine");
         GameRegistry.registerTileEntity(DrawbridgeLogic.class, "Drawbridge");
         GameRegistry.registerTileEntity(FirestarterLogic.class, "Firestarter");
-        
+
         essenceExtractor = new EssenceExtractor(PHConstruct.essenceExtractor).setHardness(12f).setUnlocalizedName("extractor.essence");
         GameRegistry.registerBlock(essenceExtractor, "extractor.essence");
         GameRegistry.registerTileEntity(EssenceExtractorLogic.class, "extractor.essence");
-        
+
         //Traps
-        landmine = new BlockLandmine(PHConstruct.landmine).setHardness(0.5F).setResistance(0F).setStepSound(Block.soundMetalFootstep).setCreativeTab(TConstructRegistry.blockTab).setUnlocalizedName("landmine");
+        landmine = new BlockLandmine(PHConstruct.landmine).setHardness(0.5F).setResistance(0F).setStepSound(Block.soundMetalFootstep).setCreativeTab(TConstructRegistry.blockTab)
+                .setUnlocalizedName("landmine");
         GameRegistry.registerBlock(landmine, ItemBlockLandmine.class, "Redstone.Landmine");
         GameRegistry.registerTileEntity(TileEntityLandmine.class, "Landmine");
-        
+
         punji = new Punji(PHConstruct.punji).setUnlocalizedName("trap.punji");
         GameRegistry.registerBlock(punji, "trap.punji");
-        
+
         barricadeOak = new BarricadeBlock(PHConstruct.barricadeOak, Block.wood, 0).setUnlocalizedName("trap.barricade.oak");
         GameRegistry.registerBlock(barricadeOak, BarricadeItem.class, "trap.barricade.oak");
-        
+
         barricadeSpruce = new BarricadeBlock(PHConstruct.barricadeSpruce, Block.wood, 1).setUnlocalizedName("trap.barricade.spruce");
         GameRegistry.registerBlock(barricadeSpruce, BarricadeItem.class, "trap.barricade.spruce");
-        
+
         barricadeBirch = new BarricadeBlock(PHConstruct.barricadeBirch, Block.wood, 2).setUnlocalizedName("trap.barricade.birch");
         GameRegistry.registerBlock(barricadeBirch, BarricadeItem.class, "trap.barricade.birch");
-        
+
         barricadeJungle = new BarricadeBlock(PHConstruct.barricadeJungle, Block.wood, 3).setUnlocalizedName("trap.barricade.jungle");
         GameRegistry.registerBlock(barricadeJungle, BarricadeItem.class, "trap.barricade.jungle");
 
@@ -860,7 +875,7 @@ public class TContent implements IFuelHandler
         
         slimeGel = new SlimeGel(PHConstruct.slimeGel).setStepSound(slimeStep).setUnlocalizedName("slime.gel");
         GameRegistry.registerBlock(slimeGel, SlimeGelItemBlock.class, "slime.gel");
-        
+
         slimeGrass = new SlimeGrass(PHConstruct.slimeGrass).setStepSound(Block.soundGrassFootstep).setUnlocalizedName("slime.grass");
         GameRegistry.registerBlock(slimeGrass, SlimeGrassItemBlock.class, "slime.grass");
 
@@ -869,7 +884,7 @@ public class TContent implements IFuelHandler
 
         slimeLeaves = (SlimeLeaves) new SlimeLeaves(PHConstruct.slimeLeaves).setStepSound(slimeStep).setUnlocalizedName("slime.leaves");
         GameRegistry.registerBlock(slimeLeaves, SlimeLeavesItemBlock.class, "slime.leaves");
-        
+
         slimeSapling = (SlimeSapling) new SlimeSapling(PHConstruct.slimeSapling).setStepSound(slimeStep).setUnlocalizedName("slime.sapling");
         GameRegistry.registerBlock(slimeSapling, SlimeSaplingItemBlock.class, "slime.sapling");
 
@@ -1054,7 +1069,7 @@ public class TContent implements IFuelHandler
         //heavyBoots = new TArmorBase(PHConstruct.heavyBoots, 3).setUnlocalizedName("tconstruct.HeavyBoots");
         //glove = new Glove(PHConstruct.glove).setUnlocalizedName("tconstruct.Glove");
         knapsack = new Knapsack(PHConstruct.knapsack).setUnlocalizedName("tconstruct.storage");
-        
+
         //Crystalline
         essenceCrystal = new EssenceCrystal(PHConstruct.essenceCrystal).setUnlocalizedName("tconstruct.crystal.essence");
         goldHead = new GoldenHead(PHConstruct.goldHead, 4, 1.2F, false).setAlwaysEdible().setPotionEffect(Potion.regeneration.id, 10, 0, 1.0F).setUnlocalizedName("goldenhead");
@@ -1093,6 +1108,7 @@ public class TContent implements IFuelHandler
         Item.minecartEmpty.setMaxStackSize(3);
         Item.minecartCrate.setMaxStackSize(3);
         Item.minecartPowered.setMaxStackSize(3);
+        Item.itemsList[Block.cake.blockID].setMaxStackSize(16);
         //Block.torchWood.setTickRandomly(false);
     }
 
@@ -1649,6 +1665,9 @@ public class TContent implements IFuelHandler
         if (PHConstruct.stencilTableCrafting)
             GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(toolStationWood, 1, 10), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', "plankWood"));
 
+        GameRegistry.addShapelessRecipe(new ItemStack(Item.book, 1, 0), new ItemStack(blankPattern, 1, 0), new ItemStack(blankPattern, 1, 0), new ItemStack(Item.paper, 1, 0), new ItemStack(
+                Item.paper, 1, 0), new ItemStack(Item.paper, 1, 0), new ItemStack(Item.silk, 1, 0));
+
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(blankPattern, 1, 0), "ps", "sp", 'p', "plankWood", 's', "stickWood"));
         GameRegistry.addRecipe(new ItemStack(manualBook), "wp", 'w', new ItemStack(blankPattern, 1, 0), 'p', Item.paper);
         GameRegistry.addShapelessRecipe(new ItemStack(manualBook, 2, 0), new ItemStack(manualBook, 1, 0), Item.book);
@@ -1778,6 +1797,8 @@ public class TContent implements IFuelHandler
         GameRegistry.addRecipe(new ItemStack(searedBlock, 1, 1), "b b", " b ", 'b', searedBrick); //Faucet
         GameRegistry.addRecipe(new ItemStack(searedBlock, 1, 2), "b b", "b b", "bbb", 'b', searedBrick); //Basin
 
+        GameRegistry.addRecipe(new ItemStack(castingChannel, 4, 0), "b b", "bbb", 'b', searedBrick); //Channel
+
         GameRegistry.addRecipe(new ItemStack(Block.pumpkinLantern, 1, 0), "p", "s", 'p', new ItemStack(Block.pumpkin), 'w', new ItemStack(stoneTorch));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(stoneTorch, 4), "p", "w", 'p', new ItemStack(Item.coal, 1, Short.MAX_VALUE), 'w', "stoneRod"));
         GameRegistry.addRecipe(new ItemStack(toolRod, 4, 1), "c", "c", 'c', new ItemStack(Block.stone));
@@ -1821,11 +1842,17 @@ public class TContent implements IFuelHandler
             GameRegistry.addRecipe(new ItemStack(Item.goldenCarrot), surround, '#', new ItemStack(Item.ingotGold), 'm', new ItemStack(Item.carrot));
             GameRegistry.addRecipe(new ItemStack(goldHead), surround, '#', new ItemStack(Item.ingotGold), 'm', new ItemStack(Item.skull, 1, 3));
             GameRegistry.addShapelessRecipe(new ItemStack(Item.speckledMelon), new ItemStack(Block.blockGold), new ItemStack(Item.melon));
+            tableCasting.addCastingRecipe(new ItemStack(Item.appleGold, 1), new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue*8), new ItemStack(Item.appleRed), true, 50);
         }
         else
         {
             GameRegistry.addRecipe(new ItemStack(goldHead), surround, '#', new ItemStack(Item.goldNugget), 'm', new ItemStack(Item.skull, 1, 3));
+            GameRegistry.addRecipe(new ItemStack(Item.appleGold), surround, '#', new ItemStack(oreBerries, 1, 1), 'm', new ItemStack(Item.appleRed));
+            GameRegistry.addRecipe(new ItemStack(Item.goldenCarrot), surround, '#', new ItemStack(oreBerries, 1, 1), 'm', new ItemStack(Item.appleRed));
+            GameRegistry.addRecipe(new ItemStack(goldHead), surround, '#', new ItemStack(oreBerries, 1, 1), 'm', new ItemStack(Item.appleRed));
+            tableCasting.addCastingRecipe(new ItemStack(Item.appleGold, 1), new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue/9*8), new ItemStack(Item.appleRed), true, 50);
         }
+        tableCasting.addCastingRecipe(new ItemStack(Item.appleGold, 1, 1), new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue*8*9), new ItemStack(Item.appleRed), true, 50);
 
         //Drying rack
         DryingRackRecipes.addDryingRecipe(Item.rottenFlesh, 20 * 60 * 5, Item.leather);
@@ -1870,13 +1897,13 @@ public class TContent implements IFuelHandler
         GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 5), "b", 'b', new ItemStack(toolForge, 1, Short.MAX_VALUE));
         
         GameRegistry.addRecipe(new ItemStack(essenceExtractor, 1, 0), " b ", "eme", "mmm", 'b', Item.book, 'e', Item.emerald, 'm', Block.whiteStone);
-        
+
         //Slime
         GameRegistry.addRecipe(new ItemStack(slimeGel, 1, 0), "##", "##", '#', strangeFood);
         GameRegistry.addRecipe(new ItemStack(strangeFood, 4, 0), "#", '#', new ItemStack(slimeGel, 1, 0));
         GameRegistry.addRecipe(new ItemStack(slimeGel, 1, 1), "##", "##", '#', Item.slimeBall);
         GameRegistry.addRecipe(new ItemStack(Item.slimeBall, 4, 0), "#", '#', new ItemStack(slimeGel, 1, 1));
-        
+
     }
 
     void setupToolTabs ()

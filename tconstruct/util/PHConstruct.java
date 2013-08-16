@@ -153,6 +153,12 @@ public class PHConstruct
         slimeTallGrass = config.getBlock("Slime Tall Grass", 3239).getInt(3239);
         slimeLeaves = config.getBlock("Slime Grass Leaves", 3240).getInt(3240);
         slimeSapling = config.getBlock("Slime Tree Sapling", 3241).getInt(3241);
+        
+        meatBlock = config.getBlock("Meat Block", 3242).getInt(3242);
+        woodCrafterSlab = config.getBlock("Crafting Slab", 3243).getInt(3243);
+        woolSlab1 = config.getBlock("Wool Slab 1", 3244).getInt(3244);
+        woolSlab2 = config.getBlock("Wool Slab 2", 3245).getInt(3245);
+        castingChannel = config.getBlock("Casting Channel", 3249).getInt(3249);
 
         slimePoolBlue = config.getBlock("Liquid Blue Slime", 3235).getInt(3235);
         slimeGel = config.getBlock("Congealed Slime", 3237).getInt(3237);
@@ -367,7 +373,7 @@ public class PHConstruct
     public static int heldItemBlock;
     public static int woodCrafter;
     public static int woodCrafterSlab;
-
+    
     public static int ores;
     public static int lavaTank;
     public static int smeltery;

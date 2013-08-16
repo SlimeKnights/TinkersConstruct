@@ -15,9 +15,9 @@ public class GAIFellTree extends GolemAIBase
     public static int cutRange = 4;
     public static double cutSpeed = 2.5;
 
-    public GAIFellTree(GolemBase doll)
+    public GAIFellTree(GolemBase golem)
     {
-        super(doll);
+        super(golem);
         this.setMutexBits(3);
     }
 

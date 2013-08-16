@@ -157,7 +157,7 @@ public class ToolStationGui extends NewContainerGui
      */
     protected void drawGuiContainerForegroundLayer (int par1, int par2)
     {
-        this.fontRenderer.drawString(StatCollector.translateToLocal("crafters.ToolStation"), 6, 8, 0x000000);
+        this.fontRenderer.drawString(StatCollector.translateToLocal(logic.getInvName()), 6, 8, 0x000000);
         this.fontRenderer.drawString(StatCollector.translateToLocal("container.inventory"), 8, this.ySize - 96 + 2, 0x000000);
         this.fontRenderer.drawString(toolName + "_", this.xSize / 2 - 18, 8, 0xffffff);
 

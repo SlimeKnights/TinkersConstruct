@@ -98,7 +98,7 @@ public class RedstoneMachine extends InventoryBlock
         switch (meta)
         {
         case 0:
-            return TConstruct.proxy.drawbridgeGui;
+            return TConstruct.proxy.drawbridgeID;
         }
         return null;
     }

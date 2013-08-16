@@ -71,6 +71,7 @@ import tconstruct.blocks.logic.StencilTableLogic;
 import tconstruct.blocks.logic.ToolForgeLogic;
 import tconstruct.blocks.logic.ToolStationLogic;
 import tconstruct.client.block.BarricadeRender;
+import tconstruct.client.block.BlockRenderCastingChannel;
 import tconstruct.client.block.CastingBasinSpecialRender;
 import tconstruct.client.block.CastingTableSpecialRenderer;
 import tconstruct.client.block.CrystalBlockRender;
@@ -190,11 +191,11 @@ public class TProxyClient extends TProxyCommon
             return new StencilTableGui(player.inventory, (StencilTableLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
         if (ID == toolForgeID)
             return new ToolForgeGui(player.inventory, (ToolForgeLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
-        if (ID == glowstoneAggregatorGui)
+        if (ID == glowstoneAggregatorID)
             return new GlowstoneAggregatorGui(player.inventory, (GlowstoneAggregator) world.getBlockTileEntity(x, y, z), world, x, y, z);
-        if (ID == drawbridgeGui)
+        if (ID == drawbridgeID)
             return new DrawbridgeGui(player.inventory, (DrawbridgeLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
-        if (ID == landmineGui)
+        if (ID == landmineID)
             return new GuiLandmine(new ContainerLandmine(player, (TileEntityLandmine) world.getBlockTileEntity(x, y, z)));
         if (ID == craftingStationID)
             return new CraftingStationGui(player.inventory, (CraftingStationLogic) world.getBlockTileEntity(x, y, z), x, y, z);
@@ -332,7 +333,6 @@ public class TProxyClient extends TProxyCommon
         RenderingRegistry.registerBlockHandler(new SmelteryRender());
         RenderingRegistry.registerBlockHandler(new TankRender());
         RenderingRegistry.registerBlockHandler(new SearedRender());
-        // RenderingRegistry.registerBlockHandler(new GolemCoreRender());
         RenderingRegistry.registerBlockHandler(new OreberryRender());
         RenderingRegistry.registerBlockHandler(new BarricadeRender());
         RenderingRegistry.registerBlockHandler(new CrystalBlockRender());
@@ -342,6 +342,8 @@ public class TProxyClient extends TProxyCommon
         RenderingRegistry.registerBlockHandler(new PaneConnectedRender());
         RenderingRegistry.registerBlockHandler(new RenderLandmine());
         RenderingRegistry.registerBlockHandler(new PunjiRender());
+        RenderingRegistry.registerBlockHandler(new RenderBlockFluid());
+        RenderingRegistry.registerBlockHandler(new BlockRenderCastingChannel());
 
         // Special Renderers
         ClientRegistry.bindTileEntitySpecialRenderer(CastingTableLogic.class, new CastingTableSpecialRenderer());

@@ -208,5 +208,6 @@ public class ToolStationBlock extends InventoryBlock
                 logic.setInventorySlotContents(13, new ItemStack(TContent.woodPattern, 1, 22));
             }
         }
+        super.onBlockPlacedBy(world, x, y, z, par5EntityLiving, par6ItemStack);
     }
 }
