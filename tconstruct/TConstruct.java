@@ -136,6 +136,7 @@ public class TConstruct
         content.modIntegration();
         content.createEntities();
         content.modRecipes();
+		proxy.initCape();
     }
 
     public static LiquidCasting getTableCasting ()

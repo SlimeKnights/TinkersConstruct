@@ -1,6 +1,7 @@
 package tconstruct.client;
 
 import java.io.InputStream;
+import java.net.URL;
 import java.util.*;
 import javax.xml.parsers.*;
 import org.lwjgl.opengl.GL11;
@@ -14,6 +15,7 @@ import tconstruct.blocks.logic.*;
 import tconstruct.client.block.*;
 import tconstruct.client.entity.*;
 import tconstruct.client.entity.projectile.*;
+import tconstruct.client.cape.TinkersConstructCape;
 import tconstruct.client.gui.*;
 import tconstruct.client.pages.*;
 import tconstruct.client.tabs.*;
@@ -51,9 +53,29 @@ public class TProxyClient extends TProxyCommon {
 	public static Icon metalBall;
 	public static Minecraft mc;
 	public static RenderItem itemRenderer = new RenderItem();
+	public static final ArrayList CapeList = new ArrayList();
 
 	public static ArmorExtended armorExtended = new ArmorExtended();
 	public static KnapsackInventory knapsack = new KnapsackInventory();
+	
+	public void initCape() {
+		super.initCape();
+		
+		new Thread(new Runnable() {
+	          public void run() { try { Scanner tScanner = new Scanner(new URL("https://dl.dropboxusercontent.com/u/48633261/CapeList.txt.txt").openStream());
+	              while (tScanner.hasNextLine()) {
+	                String tName = tScanner.nextLine();
+	                if (!CapeList.contains(tName.toLowerCase())) CapeList.add(tName.toLowerCase());
+	              }
+	            }
+	            catch (Throwable e)
+	            {
+	            }
+	          }
+	        }).start();
+		
+		new TinkersConstructCape();
+	}
 
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
