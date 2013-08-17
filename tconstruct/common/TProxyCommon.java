@@ -41,6 +41,8 @@ public class TProxyCommon implements IGuiHandler
     public static int miniGardyGui = 131;
 
     public static int manualGuiID = -1;
+	
+	public void initCape() {}
 
     @Override
     public Object getServerGuiElement (int ID, EntityPlayer player, World world, int x, int y, int z)
