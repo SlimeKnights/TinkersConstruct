@@ -74,18 +74,18 @@ public class ModLapis extends ToolMod
         {
             if (keyPair[0] >= 450)
                 addEnchantment(tool, Enchantment.looting, 3);
-            else if (keyPair[0] >= 300)
+            else if ((keyPair[0] >= 300) && (getEnchantmentLevel(Enchantment.looting.effectId, tool) < 3))
                 addEnchantment(tool, Enchantment.looting, 2);
-            else if (keyPair[0] >= 100)
+            else if ((keyPair[0] >= 100) && (getEnchantmentLevel(Enchantment.looting.effectId, tool) < 2))
                 addEnchantment(tool, Enchantment.looting, 1);
         }
         else
         {
             if (keyPair[0] >= 450)
                 addEnchantment(tool, Enchantment.fortune, 3);
-            else if (keyPair[0] >= 300)
+            else if ((keyPair[0] >= 300) && (getEnchantmentLevel(Enchantment.fortune.effectId, tool) < 3))
                 addEnchantment(tool, Enchantment.fortune, 2);
-            else if (keyPair[0] >= 100)
+            else if ((keyPair[0] >= 100) && (getEnchantmentLevel(Enchantment.fortune.effectId, tool) < 2))
                 addEnchantment(tool, Enchantment.fortune, 1);
         }
 
