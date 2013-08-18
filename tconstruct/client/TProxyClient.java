@@ -61,10 +61,6 @@ public class TProxyClient extends TProxyCommon {
 
 	public static ArmorExtended armorExtended = new ArmorExtended();
 	public static KnapsackInventory knapsack = new KnapsackInventory();
-
-	public TProxyClient(){
-//		MinecraftForge.EVENT_BUS.register(new EventCloakRender());
-	}
 	
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
