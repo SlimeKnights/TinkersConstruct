@@ -114,7 +114,7 @@ public class ModLapis extends ToolMod
         {
             if (getEnchantmentLevel(Enchantment.looting.effectId, tool) < 3) 
             {
-                if (keyPair[0] == 450)
+                if (keyPair[0] >= 450)
                 {
                     addEnchantment(tool, Enchantment.looting, 3);
                 }
