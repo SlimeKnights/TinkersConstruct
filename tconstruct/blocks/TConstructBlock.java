@@ -49,7 +49,7 @@ public class TConstructBlock extends Block
     @SideOnly(Side.CLIENT)
     public Icon getIcon (int side, int meta)
     {
-        return icons[meta];
+        return meta < icons.length ? icons[meta] : icons[0];
     }
 
     @Override
