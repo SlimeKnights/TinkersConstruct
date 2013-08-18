@@ -63,7 +63,7 @@ public class TProxyClient extends TProxyCommon {
 	public static KnapsackInventory knapsack = new KnapsackInventory();
 
 	public TProxyClient(){
-		MinecraftForge.EVENT_BUS.register(new EventCloakRender());
+//		MinecraftForge.EVENT_BUS.register(new EventCloakRender());
 	}
 	
 	@Override
