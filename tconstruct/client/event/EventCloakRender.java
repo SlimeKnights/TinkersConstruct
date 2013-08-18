@@ -24,27 +24,7 @@ public class EventCloakRender {
 	
 	@ForgeSubscribe
 	public void onPreRenderSpecials(RenderPlayerEvent.Specials.Pre event){
-		if(event.entityPlayer instanceof AbstractClientPlayer){
-			AbstractClientPlayer abstractClientPlayer = (AbstractClientPlayer)event.entityPlayer;
-			
-			if (abstractClientPlayer.func_110310_o().field_110560_d == null) {
-				String cloakURL = cloaks.get(event.entityPlayer.username);
-				
-				if(cloakURL == null){
-					return;
-				}
-				
-				abstractClientPlayer.func_110310_o().field_110560_d = new BufferedImage(64, 32, BufferedImage.TYPE_INT_RGB);
-				abstractClientPlayer.func_110310_o().field_110559_g = false;
-				try {
-					abstractClientPlayer.func_110310_o().field_110560_d.getGraphics().drawImage(new ImageIcon(new URL(cloakURL)).getImage(), 0, 0, null);
-				} catch (MalformedURLException e) {
-					e.printStackTrace();
-				}
-
-				event.renderCape = true;
-			}
-		}
+		new Thread(new CloakThread(event)).start();
 	}
 	
 	public void buildCloakURLDatabase(){
@@ -73,6 +53,42 @@ public class EventCloakRender {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	private class CloakThread implements Runnable{
+
+		RenderPlayerEvent.Specials.Pre event;
+		
+		public CloakThread(RenderPlayerEvent.Specials.Pre event){
+			this.event = event;
+		}
+		
+		@Override
+		public void run() {
+			if(event.entityPlayer instanceof AbstractClientPlayer){
+				AbstractClientPlayer abstractClientPlayer = (AbstractClientPlayer)event.entityPlayer;
+				
+				if (abstractClientPlayer.func_110310_o().field_110560_d == null) {
+					String cloakURL = cloaks.get(event.entityPlayer.username);
+					
+					if(cloakURL == null){
+						return;
+					}
+					
+					BufferedImage bo = new BufferedImage(64, 32, BufferedImage.TYPE_INT_RGB);
+					abstractClientPlayer.func_110310_o().field_110559_g = false;
+					try {
+						bo.getGraphics().drawImage(new ImageIcon(new URL(cloakURL)).getImage(), 0, 0, null);
+						abstractClientPlayer.func_110310_o().field_110560_d = bo;
+					} catch (MalformedURLException e) {
+						e.printStackTrace();
+					}
+
+					event.renderCape = true;
+				}
+			}
+		}
+		
 	}
 	
 }
