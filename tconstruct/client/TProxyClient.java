@@ -2,21 +2,27 @@ package tconstruct.client;
 
 import java.io.InputStream;
 import java.util.*;
+
 import javax.xml.parsers.*;
+
 import org.lwjgl.opengl.GL11;
 import org.w3c.dom.Document;
+
 import com.google.common.collect.Lists;
+
 import cpw.mods.fml.client.registry.*;
 import cpw.mods.fml.common.registry.*;
 import cpw.mods.fml.relauncher.Side;
+
 import tconstruct.TConstruct;
 import tconstruct.blocks.logic.*;
 import tconstruct.client.block.*;
 import tconstruct.client.entity.*;
 import tconstruct.client.entity.projectile.*;
+import tconstruct.client.event.EventCloakRender;
 import tconstruct.client.gui.*;
 import tconstruct.client.pages.*;
-import tconstruct.client.tabs.*;
+import tconstruct.client.tabs.TabRegistry;
 import tconstruct.common.*;
 import tconstruct.entity.*;
 import tconstruct.entity.projectile.*;
@@ -29,10 +35,11 @@ import tconstruct.library.client.*;
 import tconstruct.library.crafting.ToolBuilder;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.util.player.*;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.inventory.*;
+import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.model.ModelSlime;
 import net.minecraft.client.particle.*;
 import net.minecraft.client.renderer.*;
@@ -55,6 +62,10 @@ public class TProxyClient extends TProxyCommon {
 	public static ArmorExtended armorExtended = new ArmorExtended();
 	public static KnapsackInventory knapsack = new KnapsackInventory();
 
+	public TProxyClient(){
+		MinecraftForge.EVENT_BUS.register(new EventCloakRender());
+	}
+	
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		if (ID == toolStationID)
