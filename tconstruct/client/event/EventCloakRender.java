@@ -52,13 +52,16 @@ public class EventCloakRender {
 			BufferedReader br = new BufferedReader(new InputStreamReader(io));
 			
 			String str;
+			int linetracker = 1;
 			while((str = br.readLine()) != null){
 				if(str.contains(":")){
 					String nick = str.substring(0, str.indexOf(":"));
 					String link = str.substring(str.indexOf(":") + 1);
-					System.out.println(nick + " " + link);
 					cloaks.put(nick, link);
+				}else{
+					System.err.println("[TinkersConstruct] [Skins.txt] Syntax error on line " + linetracker + ":" + str);
 				}
+				linetracker++;
 			}
 			
 			br.close();
