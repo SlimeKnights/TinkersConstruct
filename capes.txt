@@ -2,5 +2,7 @@ mDiyo:https://dl.dropboxusercontent.com/u/42769935/mCape.png
 fuj1n:https://dl.dropboxusercontent.com/s/i6gra1pc6gxawwz/capeTCLogo.png
 alexbegt:https://dl.dropboxusercontent.com/u/48633261/cape.png
 Vexatos:https://dl.dropboxusercontent.com/u/57704711/Dokumente/Speziell/Minecraft/Public/TCape.png
-Hysting:https://dl.dropboxusercontent.com/u/42769935/mCapeBlue.png
-Xythyl:https://dl.dropboxusercontent.com/u/42769935/mCapeBlue.png
+Hysting:https://github.com/mDiyo/TinkersConstruct/blob/16working/capes/default_blue.png
+Xythyl:https://github.com/mDiyo/TinkersConstruct/blob/16working/capes/default_blue.png
+andrejsavikin:https://github.com/mDiyo/TinkersConstruct/blob/16working/capes/default_blue.png
+DentedLeftFender:http://www.mccapes.com/GalleryImages6x/0337da3471c1401dd2e8751d83f8a98e.png
