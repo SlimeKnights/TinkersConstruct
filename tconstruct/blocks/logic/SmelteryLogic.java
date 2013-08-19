@@ -912,7 +912,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
             {
                 //liquid = null;
                 moltenMetal.remove(liquid);
-                worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);RenderPlayerEvent
+                worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
                 currentLiquid = 0;
                 needsUpdate = true;
             }
