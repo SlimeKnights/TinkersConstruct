@@ -29,13 +29,13 @@ public class TabRegistry
         {
             try 
             {
-                Field guiLeft = GuiContainer.class.getDeclaredField("p");
+                Field guiLeft = GuiContainer.class.getDeclaredField("field_74198_m");
                 guiLeft.setAccessible(true);
                 int cornerX = (Integer) guiLeft.get(gui);
-                Field ySize = GuiContainer.class.getDeclaredField("d");
+                Field ySize = GuiContainer.class.getDeclaredField("field_74195_c");
                 ySize.setAccessible(true);
                 int cornerY = (gui.height - (Integer) ySize.get(gui)) / 2;
-                Field buttonList = GuiScreen.class.getDeclaredField("i");
+                Field buttonList = GuiScreen.class.getDeclaredField("field_73887_h");
                 buttonList.setAccessible(true);
                 ArrayList listOfButtons = (ArrayList) buttonList.get(gui);
                 listOfButtons.clear();
