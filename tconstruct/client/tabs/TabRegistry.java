@@ -26,47 +26,14 @@ public class TabRegistry
     public static void addTabsToInventory(GuiContainer gui) 
     {
         if (gui.getClass() == GuiInventory.class) 
-        {
-            try 
-            {
-                Field guiLeft = GuiContainer.class.getDeclaredField("field_74198_m");
-                guiLeft.setAccessible(true);
-                int cornerX = (Integer) guiLeft.get(gui);
-                Field ySize = GuiContainer.class.getDeclaredField("field_74195_c");
-                ySize.setAccessible(true);
-                int cornerY = (gui.height - (Integer) ySize.get(gui)) / 2;
-                Field buttonList = GuiScreen.class.getDeclaredField("field_73887_h");
-                buttonList.setAccessible(true);
-                ArrayList listOfButtons = (ArrayList) buttonList.get(gui);
-                listOfButtons.clear();
+        {            
+            //Values are public at runtime.
+            int cornerX = gui.guiLeft;
+            int cornerY = gui.ySize / 2;
+            gui.buttonList.clear();
 
-                updateTabValues(cornerX, cornerY, InventoryTabVanilla.class);
-                addTabsToList(listOfButtons);
-            } 
-            catch (Exception e) 
-            {
-                try 
-                {
-                    Field guiLeft = GuiContainer.class.getDeclaredField("guiLeft");
-                    guiLeft.setAccessible(true);
-                    int cornerX = (Integer) guiLeft.get(gui);
-                    Field ySize = GuiContainer.class.getDeclaredField("ySize");
-                    ySize.setAccessible(true);
-                    int cornerY = (gui.height - (Integer) ySize.get(gui)) / 2;
-                    Field buttonList = GuiScreen.class.getDeclaredField("buttonList");
-                    buttonList.setAccessible(true);
-                    ArrayList listOfButtons = (ArrayList) buttonList.get(gui);
-                    listOfButtons.clear();
-                    
-                    
-                    updateTabValues(cornerX, cornerY, InventoryTabVanilla.class);
-                    addTabsToList(listOfButtons);
-                } 
-                catch (Exception ex) 
-                {
-                    ex.printStackTrace();
-                }
-            }
+            updateTabValues(cornerX, cornerY, InventoryTabVanilla.class);
+            addTabsToList(gui.buttonList);
         }
     }
     

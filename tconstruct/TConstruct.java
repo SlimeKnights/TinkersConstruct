@@ -1,6 +1,8 @@
 package tconstruct;
 
 import net.minecraftforge.common.MinecraftForge;
+
+import tconstruct.client.event.EventCloakRender;
 import tconstruct.client.tabs.InventoryTabArmorExtended;
 import tconstruct.client.tabs.InventoryTabKnapsack;
 import tconstruct.client.tabs.InventoryTabVanilla;
@@ -35,6 +37,7 @@ import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.VillagerRegistry;
+import cpw.mods.fml.relauncher.Side;
 
 /** TConstruct, the tool mod.
  * Craft your tools with style, then modify until the original is gone!
@@ -120,6 +123,10 @@ public class TConstruct
     @EventHandler
     public void init (FMLInitializationEvent event)
     {
+    	if(event.getSide() == Side.CLIENT){
+    		MinecraftForge.EVENT_BUS.register(new EventCloakRender());
+    	}
+    	
         content.intermodCommunication();
         GameRegistry.registerWorldGenerator(new SlimeIslandGen(TContent.slimePool.blockID, 0));
     }
