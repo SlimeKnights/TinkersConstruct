@@ -53,6 +53,12 @@ public class SlimeGrass extends Block
     @SideOnly(Side.CLIENT)
     public Icon getIcon (int side, int meta)
     {
+        // Worlds could have been generated with meta 2 instead of 1 due to a bug in tconstruct.worldgen.SlimeIslandGen
+        if (meta == 2)
+        {
+            meta = 1;
+        }
+
         if (side == 0)
         {
             return meta % 2 == 1 ? Block.dirt.getIcon(0, 0) : icons[1];
