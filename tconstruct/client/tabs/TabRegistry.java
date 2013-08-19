@@ -29,7 +29,7 @@ public class TabRegistry
         {            
             //Values are public at runtime.
             int cornerX = gui.guiLeft;
-            int cornerY = gui.ySize / 2;
+            int cornerY = gui.guiTop;
             gui.buttonList.clear();
 
             updateTabValues(cornerX, cornerY, InventoryTabVanilla.class);
