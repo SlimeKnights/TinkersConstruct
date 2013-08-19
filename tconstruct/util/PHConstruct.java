@@ -338,7 +338,7 @@ public class PHConstruct
         freePatterns = config.get("Ultra Hardcore Changes", "Add Patterns to Pattern Chests", false).getBoolean(false); //Check
         
         //Slime pools
-        islandRarity = config.get("Worldgen", "Slime Island Rarity", 450).getInt(450);
+        islandRarity = config.get("Worldgen", "Slime Island Rarity", 1450).getInt(1450);
 
         /* Save the configuration file */
         config.save();
