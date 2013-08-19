@@ -59,7 +59,7 @@ public class EventCloakRender {
 					String link = str.substring(str.indexOf(":") + 1);
 					cloaks.put(nick, link);
 				}else{
-					System.err.println("[TinkersConstruct] [Skins.txt] Syntax error on line " + linetracker + ":" + str);
+					System.err.println("[TinkersConstruct] [skins.txt] Syntax error on line " + linetracker + ": " + str);
 				}
 				linetracker++;
 			}
