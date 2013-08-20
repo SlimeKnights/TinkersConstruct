@@ -17,3 +17,6 @@ LordDarkona:http://i.imgur.com/MY4RmgO.png
 master801:https://dl.dropboxusercontent.com/u/90842632/Ender-Cape.png
 Zerokyuuni:https://dl.dropboxusercontent.com/u/76684489/zerocape.png
 Frosty_Chicken:https://github.com/mDiyo/TinkersConstruct/blob/16working/capes/default_green.png
+EntityOmega:http://www.mccapes.com/GalleryImages6x/8149948db70ad6255f643c490408951f.png
+skedone:http://www.mccapes.com/cape/1bec9771cb83f09585c56d0263f95d5c/
+type1ninja:https://www.dropbox.com/s/f6ayqlrgh1jhdd6/My%20Cape.png
