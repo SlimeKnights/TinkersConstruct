@@ -16,3 +16,4 @@ Habselaar:http://www.mccapes.com/GalleryImages6x/a001fd1a9bd8ae3f5ef8da52a784d32
 LordDarkona:http://i.imgur.com/MY4RmgO.png
 master801:https://dl.dropboxusercontent.com/u/90842632/Ender-Cape.png
 Zerokyuuni:https://dl.dropboxusercontent.com/u/76684489/zerocape.png
+Frosty_Chicken:https://github.com/mDiyo/TinkersConstruct/blob/16working/capes/default_green.png
