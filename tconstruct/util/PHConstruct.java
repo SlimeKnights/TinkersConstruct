@@ -3,7 +3,7 @@ package tconstruct.util;
 import java.io.File;
 import java.io.IOException;
 
-import net.minecraftforge.common.Configuration;
+import net.minecraftforge.common.*;
 
 public class PHConstruct
 {
@@ -340,6 +340,11 @@ public class PHConstruct
         //Slime pools
         islandRarity = config.get("Worldgen", "Slime Island Rarity", 1450).getInt(1450);
 
+        //Looks
+        Property conTexMode = config.get("Looks", "Connected Textures Enabled", true);
+        conTexMode.comment = "0 = disabled, 1 = enabled, 2 = enabled + ignore stained glass meta";
+        connectedTexturesMode = conTexMode.getInt(2);
+        
         /* Save the configuration file */
         config.save();
 
@@ -656,4 +661,7 @@ public class PHConstruct
     public static boolean lavaFortuneInteraction;
     
     public static int islandRarity;
+    
+    //Looks
+    public static int connectedTexturesMode;
 }

@@ -2,6 +2,8 @@ package tconstruct.blocks;
 
 import java.util.List;
 
+import tconstruct.util.PHConstruct;
+
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
@@ -17,7 +19,7 @@ public class GlassBlockConnectedMeta extends GlassBlockConnected
 {
     public String[] textures;
     public Icon[][] icons;
-    boolean ignoreMetaForConnectedGlass = true;
+    boolean ignoreMetaForConnectedGlass = PHConstruct.connectedTexturesMode == 2;
 
     public GlassBlockConnectedMeta(int par1, String location, boolean hasAlpha, String... textures)
     {
