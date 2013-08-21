@@ -1,8 +1,5 @@
 package mods.tinker.tconstruct.items.blocks;
 
-import java.util.List;
-
-import mods.natura.common.NContent;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
@@ -10,8 +7,6 @@ import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class WoolSlab2Item extends ItemBlock
 {

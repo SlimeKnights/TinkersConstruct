@@ -169,7 +169,7 @@ public class TProxyClient extends TProxyCommon
 
     public static ArmorExtended armorExtended = new ArmorExtended();
     public static KnapsackInventory knapsack = new KnapsackInventory();
-
+    
     @Override
     public Object getClientGuiElement (int ID, EntityPlayer player, World world, int x, int y, int z)
     {

@@ -2,7 +2,6 @@ package mods.tinker.tconstruct.blocks.decorative;
 
 import java.util.List;
 
-import mods.natura.common.NaturaTab;
 import mods.tinker.tconstruct.library.TConstructRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;

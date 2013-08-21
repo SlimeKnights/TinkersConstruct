@@ -1,5 +1,6 @@
 package mods.tinker.tconstruct;
 
+import mods.tinker.tconstruct.client.event.EventCloakRender;
 import mods.tinker.tconstruct.common.TContent;
 import mods.tinker.tconstruct.common.TProxyCommon;
 import mods.tinker.tconstruct.library.TConstructRegistry;
@@ -32,6 +33,7 @@ import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.VillagerRegistry;
+import cpw.mods.fml.relauncher.Side;
 
 /** TConstruct, the tool mod.
  * Craft your tools with style, then modify until the original is gone!
@@ -115,6 +117,10 @@ public class TConstruct
     @Init
     public void init (FMLInitializationEvent event)
     {
+    	if(event.getSide() == Side.CLIENT){
+    		MinecraftForge.EVENT_BUS.register(new EventCloakRender());
+    	}
+    	
         content.intermodCommunication();
         GameRegistry.registerWorldGenerator(new SlimeIslandGen(TContent.slimePool.blockID, 0));
     }
