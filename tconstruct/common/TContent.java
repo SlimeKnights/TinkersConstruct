@@ -1472,9 +1472,6 @@ public class TContent implements IFuelHandler
         Smeltery.addAlloyMixing(new FluidStack(moltenManyullynFluid, 16), new FluidStack(moltenCobaltFluid, 32), new FluidStack(moltenArditeFluid, 32)); //Manyullyn
         Smeltery.addAlloyMixing(new FluidStack(moltenAlumiteFluid, 48), new FluidStack(moltenAluminumFluid, 80), new FluidStack(moltenIronFluid, 32), new FluidStack(moltenObsidianFluid, 32)); //Alumite
 
-        Smeltery.addAlloyMixing(new FluidStack(moltenInvarFluid, 24), new FluidStack(moltenIronFluid, 16), new FluidStack(moltenNickelFluid, 8)); //Invar
-        Smeltery.addAlloyMixing(new FluidStack(moltenElectrumFluid, 16), new FluidStack(moltenGoldFluid, 8), new FluidStack(moltenSilverFluid, 8)); //Electrum
-
         //Oreberries
         Smeltery.addMelting(new ItemStack(oreBerries, 4, 0), Block.blockIron.blockID, 0, 100, new FluidStack(moltenIronFluid, TConstruct.ingotLiquidValue / 9)); //Iron
         Smeltery.addMelting(new ItemStack(oreBerries, 4, 1), Block.blockGold.blockID, 0, 100, new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue / 9)); //Gold
@@ -2173,12 +2170,14 @@ public class TContent implements IFuelHandler
         {
             ItemStack ingot = ores.get(0);
             tableCasting.addCastingRecipe(ingot, new FluidStack(moltenInvarFluid, TConstruct.ingotLiquidValue), ingotcast, 80);
+            Smeltery.addAlloyMixing(new FluidStack(moltenInvarFluid, 24), new FluidStack(moltenIronFluid, 16), new FluidStack(moltenNickelFluid, 8)); //Invar
         }
         ores = OreDictionary.getOres("ingotElectrum");
         if (ores.size() > 0)
         {
             ItemStack ingot = ores.get(0);
             tableCasting.addCastingRecipe(ingot, new FluidStack(moltenElectrumFluid, TConstruct.ingotLiquidValue), ingotcast, 80);
+            Smeltery.addAlloyMixing(new FluidStack(moltenElectrumFluid, 16), new FluidStack(moltenGoldFluid, 8), new FluidStack(moltenSilverFluid, 8)); //Electrum
         }
 
         ores = OreDictionary.getOres("blockNickel");

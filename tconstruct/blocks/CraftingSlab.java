@@ -120,7 +120,7 @@ public class CraftingSlab extends InventoryBlock
     @Override
     public Integer getGui (World world, int x, int y, int z, EntityPlayer entityplayer)
     {
-        int meta = world.getBlockMetadata(x, y, z);
+        int meta = world.getBlockMetadata(x, y, z) % 8;
         switch (meta)
         {
         case 0:
@@ -202,5 +202,10 @@ public class CraftingSlab extends InventoryBlock
             return metadata | 8;
         
         return metadata;
+    }
+
+    public int damageDropped (int meta)
+    {
+        return meta % 8;
     }
 }
