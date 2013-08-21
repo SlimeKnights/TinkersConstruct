@@ -1,5 +1,6 @@
 package tconstruct.client.event;
 
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.*;
@@ -85,8 +86,9 @@ public class EventCloakRender {
 		@Override
 		public void run() {
 			try {
-				BufferedImage bo = new BufferedImage(64, 32, BufferedImage.TYPE_INT_ARGB);
-				bo.getGraphics().drawImage(new ImageIcon(new URL(cloakURL)).getImage(), 0, 0, null);
+				Image cape = new ImageIcon(new URL(cloakURL)).getImage();
+				BufferedImage bo = new BufferedImage(cape.getWidth(null), cape.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+				bo.getGraphics().drawImage(cape, 0, 0, null);
 				abstractClientPlayer.func_110310_o().field_110560_d = bo;
 			} catch (MalformedURLException e) {
 				e.printStackTrace();
