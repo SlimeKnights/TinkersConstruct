@@ -1,6 +1,8 @@
 package tconstruct.blocks;
 
 import tconstruct.library.TConstructRegistry;
+import tconstruct.util.PHConstruct;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -70,6 +72,10 @@ public class GlassBlockConnected extends Block
 
     public Icon getConnectedBlockTexture (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5, Icon[] icons)
     {
+    	if(PHConstruct.connectedTexturesMode == 0){
+    		return icons[0];
+    	}
+    	
         boolean isOpenUp = false, isOpenDown = false, isOpenLeft = false, isOpenRight = false;
 
         switch (par5)

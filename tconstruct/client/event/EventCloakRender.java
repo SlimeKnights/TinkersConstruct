@@ -1,5 +1,6 @@
 package tconstruct.client.event;
 
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.*;
@@ -12,10 +13,11 @@ import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.event.ForgeSubscribe;
 
 public class EventCloakRender {
-
+	
 	private final String serverLocation = "https://raw.github.com/mDiyo/TinkersConstruct/16working/capes.txt";
 	private final int timeout = 1000;
 	
+	private static final Graphics TEST_GRAPHICS = new BufferedImage(128, 128, BufferedImage.TYPE_INT_RGB).getGraphics();
 	private HashMap<String, String> cloaks = new HashMap<String, String>();
 	
 	public EventCloakRender(){
@@ -57,6 +59,7 @@ public class EventCloakRender {
 				if(str.contains(":")){
 					String nick = str.substring(0, str.indexOf(":"));
 					String link = str.substring(str.indexOf(":") + 1);
+					new Thread(new CloakPreload(link)).start();
 					cloaks.put(nick, link);
 				}else{
 					System.err.println("[TinkersConstruct] [skins.txt] Syntax error on line " + linetracker + ": " + str);
@@ -85,8 +88,9 @@ public class EventCloakRender {
 		@Override
 		public void run() {
 			try {
-				BufferedImage bo = new BufferedImage(64, 32, BufferedImage.TYPE_INT_RGB);
-				bo.getGraphics().drawImage(new ImageIcon(new URL(cloakURL)).getImage(), 0, 0, null);
+				Image cape = new ImageIcon(new URL(cloakURL)).getImage();
+				BufferedImage bo = new BufferedImage(cape.getWidth(null), cape.getHeight(null), BufferedImage.TYPE_INT_ARGB);
+				bo.getGraphics().drawImage(cape, 0, 0, null);
 				abstractClientPlayer.func_110310_o().field_110560_d = bo;
 			} catch (MalformedURLException e) {
 				e.printStackTrace();
@@ -94,4 +98,20 @@ public class EventCloakRender {
 		}
 	}
 	
+	private class CloakPreload implements Runnable{
+		String cloakURL;
+		
+		public CloakPreload(String link){
+			cloakURL = link;
+		}
+		
+		@Override
+		public void run(){
+			try {
+				TEST_GRAPHICS.drawImage(new ImageIcon(new URL(cloakURL)).getImage(), 0, 0, null);
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 }
