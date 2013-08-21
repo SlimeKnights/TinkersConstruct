@@ -95,8 +95,8 @@ import tconstruct.client.entity.FancyItemRender;
 import tconstruct.client.entity.MiniGardyRender;
 import tconstruct.client.entity.SlimeCloneRender;
 import tconstruct.client.entity.SlimeRender;
-import tconstruct.client.entity.projectile.ArrowRender;
-import tconstruct.client.entity.projectile.DaggerRender;
+import tconstruct.client.entity.projectile.ArrowRenderCustom;
+import tconstruct.client.entity.projectile.DaggerRenderCustom;
 import tconstruct.client.entity.projectile.LaunchedItemRender;
 import tconstruct.client.gui.ArmorExtendedGui;
 import tconstruct.client.gui.CraftingStationGui;
@@ -356,14 +356,14 @@ public class TProxyClient extends TProxyCommon
         RenderingRegistry.registerEntityRenderingHandler(SlimeClone.class, new SlimeCloneRender(new CloneHeadModel(0), new CloneHeadModel(1f), 0.25F));
 
         RenderingRegistry.registerEntityRenderingHandler(CartEntity.class, new CartRender());
-        RenderingRegistry.registerEntityRenderingHandler(DaggerEntity.class, new DaggerRender());
+        RenderingRegistry.registerEntityRenderingHandler(DaggerEntity.class, new DaggerRenderCustom());
         RenderingRegistry.registerEntityRenderingHandler(Crystal.class, new CrystalRender());
         // RenderingRegistry.registerEntityRenderingHandler(Skyla.class, new
         // SkylaRender());
         RenderingRegistry.registerEntityRenderingHandler(MiniGardy.class, new MiniGardyRender());
         RenderingRegistry.registerEntityRenderingHandler(Automaton.class, new CrystalGuardianRender());
         RenderingRegistry.registerEntityRenderingHandler(LaunchedPotion.class, new LaunchedItemRender(Item.potion, 16384));
-        RenderingRegistry.registerEntityRenderingHandler(ArrowEntity.class, new ArrowRender());
+        RenderingRegistry.registerEntityRenderingHandler(ArrowEntity.class, new ArrowRenderCustom());
         // RenderingRegistry.registerEntityRenderingHandler(net.minecraft.entity.player.EntityPlayer.class,
         // new PlayerArmorRender()); // <-- Works, woo!
 
@@ -372,14 +372,14 @@ public class TProxyClient extends TProxyCommon
 
         ToolCoreRenderer renderer = new ToolCoreRenderer();
         MinecraftForgeClient.registerItemRenderer(TContent.arrow.itemID, renderer);
-        MinecraftForgeClient.registerItemRenderer(TContent.battleaxe.itemID, renderer);
+        /*MinecraftForgeClient.registerItemRenderer(TContent.battleaxe.itemID, renderer);
         MinecraftForgeClient.registerItemRenderer(TContent.battlesign.itemID, renderer);
         MinecraftForgeClient.registerItemRenderer(TContent.broadsword.itemID, renderer);
         MinecraftForgeClient.registerItemRenderer(TContent.chisel.itemID, renderer);
         MinecraftForgeClient.registerItemRenderer(TContent.cleaver.itemID, renderer);
-        MinecraftForgeClient.registerItemRenderer(TContent.cutlass.itemID, renderer);
+        MinecraftForgeClient.registerItemRenderer(TContent.cutlass.itemID, renderer);*/
         MinecraftForgeClient.registerItemRenderer(TContent.dagger.itemID, renderer);
-        MinecraftForgeClient.registerItemRenderer(TContent.excavator.itemID, renderer);
+        /*MinecraftForgeClient.registerItemRenderer(TContent.excavator.itemID, renderer);
         MinecraftForgeClient.registerItemRenderer(TContent.frypan.itemID, renderer);
         MinecraftForgeClient.registerItemRenderer(TContent.hammer.itemID, renderer);
         MinecraftForgeClient.registerItemRenderer(TContent.hatchet.itemID, renderer);
@@ -390,7 +390,7 @@ public class TProxyClient extends TProxyCommon
         MinecraftForgeClient.registerItemRenderer(TContent.rapier.itemID, renderer);
         MinecraftForgeClient.registerItemRenderer(TContent.scythe.itemID, renderer);
         MinecraftForgeClient.registerItemRenderer(TContent.shortbow.itemID, renderer);
-        MinecraftForgeClient.registerItemRenderer(TContent.shovel.itemID, renderer);
+        MinecraftForgeClient.registerItemRenderer(TContent.shovel.itemID, renderer);*/
 
         addRenderMappings();
         addToolButtons();

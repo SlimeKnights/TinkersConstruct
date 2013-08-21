@@ -264,7 +264,7 @@ public class TEventHandler
         //{
         if (!event.entityLiving.isChild())
         {
-            if (event.entityLiving.getClass() == EntityCow.class)
+            /*if (event.entityLiving.getClass() == EntityCow.class)
             {
                 int amount = random.nextInt(3) + random.nextInt(1 + event.lootingLevel) + random.nextInt(3) + random.nextInt(1 + event.lootingLevel) + 1;
 
@@ -272,9 +272,9 @@ public class TEventHandler
                 {
                     addDrops(event, new ItemStack(Item.leather, 1));
                 }
-            }
+            }*/
 
-            else if (event.entityLiving.getClass() == EntityChicken.class)
+            if (event.entityLiving.getClass() == EntityChicken.class)
             {
                 int amount = random.nextInt(3) + random.nextInt(1 + event.lootingLevel) + random.nextInt(3) + random.nextInt(1 + event.lootingLevel) + 1;
 

@@ -21,4 +21,4 @@ EntityOmega:https://github.com/mDiyo/TinkersConstruct/blob/16working/capes/defau
 skedone:https://github.com/mDiyo/TinkersConstruct/blob/16working/capes/default_green.png
 type1ninja:https://www.dropbox.com/s/f6ayqlrgh1jhdd6/My%20Cape.png
 turbeauke:http://i.imgur.com/XdOIone.png
-Nieue:https://github.com/mDiyo/TinkersConstruct/blob/16working/capes/default_green.png
+Nieue:http://i.imgur.com/8c5yUgX.png
