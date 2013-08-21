@@ -19,6 +19,6 @@ Zerokyuuni:https://dl.dropboxusercontent.com/u/76684489/zerocape.png
 Frosty_Chicken:https://github.com/mDiyo/TinkersConstruct/blob/16working/capes/default_green.png
 EntityOmega:https://github.com/mDiyo/TinkersConstruct/blob/16working/capes/default_green.png
 skedone:https://github.com/mDiyo/TinkersConstruct/blob/16working/capes/default_green.png
-type1ninja:https://www.dropbox.com/s/f6ayqlrgh1jhdd6/My%20Cape.png
+type1ninja:https://dl.dropboxusercontent.com/s/0ufr1gtqktt1nl2/JeffCape.png
 turbeauke:http://i.imgur.com/XdOIone.png
 Nieue:https://github.com/mDiyo/TinkersConstruct/blob/16working/capes/default_green.png
