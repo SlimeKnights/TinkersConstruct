@@ -85,7 +85,7 @@ public class EventCloakRender {
 		@Override
 		public void run() {
 			try {
-				BufferedImage bo = new BufferedImage(64, 32, BufferedImage.TYPE_INT_RGB);
+				BufferedImage bo = new BufferedImage(64, 32, BufferedImage.TYPE_INT_ARGB);
 				bo.getGraphics().drawImage(new ImageIcon(new URL(cloakURL)).getImage(), 0, 0, null);
 				abstractClientPlayer.func_110310_o().field_110560_d = bo;
 			} catch (MalformedURLException e) {
