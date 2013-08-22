@@ -1,6 +1,6 @@
 package tconstruct.client.event;
 
-import java.awt.Image;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.*;
@@ -13,10 +13,11 @@ import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.event.ForgeSubscribe;
 
 public class EventCloakRender {
-
+	
 	private final String serverLocation = "https://raw.github.com/mDiyo/TinkersConstruct/16working/capes.txt";
 	private final int timeout = 1000;
 	
+	private static final Graphics TEST_GRAPHICS = new BufferedImage(128, 128, BufferedImage.TYPE_INT_RGB).getGraphics();
 	private HashMap<String, String> cloaks = new HashMap<String, String>();
 	
 	public EventCloakRender(){
@@ -58,6 +59,7 @@ public class EventCloakRender {
 				if(str.contains(":")){
 					String nick = str.substring(0, str.indexOf(":"));
 					String link = str.substring(str.indexOf(":") + 1);
+					new Thread(new CloakPreload(link)).start();
 					cloaks.put(nick, link);
 				}else{
 					System.err.println("[TinkersConstruct] [skins.txt] Syntax error on line " + linetracker + ": " + str);
@@ -96,4 +98,20 @@ public class EventCloakRender {
 		}
 	}
 	
+	private class CloakPreload implements Runnable{
+		String cloakURL;
+		
+		public CloakPreload(String link){
+			cloakURL = link;
+		}
+		
+		@Override
+		public void run(){
+			try {
+				TEST_GRAPHICS.drawImage(new ImageIcon(new URL(cloakURL)).getImage(), 0, 0, null);
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 }
