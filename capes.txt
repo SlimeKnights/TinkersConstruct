@@ -1,5 +1,5 @@
 mDiyo:https://dl.dropboxusercontent.com/u/42769935/mCape.png
-fuj1n:https://raw.github.com/mDiyo/TinkersConstruct/blob/master/capes/default_blue.png
+fuj1n:https://raw.github.com/mDiyo/TinkersConstruct/master/capes/default_blue.png
 Fudgy_Fetus:https://dl.dropboxusercontent.com/u/27415688/fudgecape.png
 Vexatos:https://dl.dropboxusercontent.com/u/57704711/Dokumente/Speziell/Minecraft/Public/TCape.png
 pillbox:https://github.com/mDiyo/TinkersConstruct/blob/master/capes/default_orange.png
