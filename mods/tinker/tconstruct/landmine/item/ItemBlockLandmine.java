@@ -23,7 +23,6 @@ public class ItemBlockLandmine extends ItemBlock{
 
 	@Override
     public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4) {
-        par3List.add("Work in Progress");
 		String interaction = null;
 		
 		switch(par1ItemStack.getItemDamage()){
