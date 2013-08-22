@@ -1829,7 +1829,6 @@ public class TContent implements IFuelHandler
                 Block.pressurePlateStone));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(landmine, 1, 3), "mcm", "rpr", 'm', Item.redstoneRepeater, 'c', new ItemStack(blankPattern, 1, 1), 'r', Item.redstone, 'p',
                 Block.pressurePlateStone));
-
         //Ultra hardcore recipes
         String[] surround = { "###", "#m#", "###" };
         if (PHConstruct.goldAppleRecipe)
