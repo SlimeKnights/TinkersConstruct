@@ -3,6 +3,8 @@ package mods.tinker.tconstruct;
 import mods.tinker.tconstruct.client.event.EventCloakRender;
 import mods.tinker.tconstruct.common.TContent;
 import mods.tinker.tconstruct.common.TProxyCommon;
+import mods.tinker.tconstruct.landmine.logic.behavior.Behavior;
+import mods.tinker.tconstruct.landmine.logic.behavior.stackCombo.SpecialStackHandler;
 import mods.tinker.tconstruct.library.TConstructRegistry;
 import mods.tinker.tconstruct.library.crafting.Detailing;
 import mods.tinker.tconstruct.library.crafting.LiquidCasting;
@@ -128,6 +130,8 @@ public class TConstruct
     @PostInit
     public void postInit (FMLPostInitializationEvent evt)
     {
+		Behavior.registerBuiltInBehaviors();
+		SpecialStackHandler.registerBuiltInStackHandlers();
         playerTracker = new TPlayerHandler();
         GameRegistry.registerPlayerTracker(playerTracker);
         MinecraftForge.EVENT_BUS.register(playerTracker);
