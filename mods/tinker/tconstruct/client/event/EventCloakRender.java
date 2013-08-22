@@ -30,7 +30,6 @@ public class EventCloakRender {
 		String cloakURL = cloaks.get(event.entityPlayer.username);
 //		System.out.println(cloakURL);
 		if(cloakURL != null){
-			Minecraft.getMinecraft().renderEngine.obtainImageData(cloakURL, new ImageBufferDownload());
 			event.entityPlayer.cloakUrl = cloakURL;
 			event.renderCape = true;
 		}
@@ -53,6 +52,7 @@ public class EventCloakRender {
 					String nick = str.substring(0, str.indexOf(":"));
 					String link = str.substring(str.indexOf(":") + 1);
 					cloaks.put(nick, link);
+					Minecraft.getMinecraft().renderEngine.obtainImageData(link, new ImageBufferDownload());
 				}else{
 					System.err.println("[TinkersConstruct] [skins.txt] Syntax error on line " + linetracker + ": " + str);
 				}
