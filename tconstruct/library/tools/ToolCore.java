@@ -890,6 +890,12 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
     {
         return true;
     }
+    
+    @SideOnly(Side.CLIENT)
+    public boolean hasEffect(ItemStack par1ItemStack, int pass)
+    {
+        return false;
+    }
 
     /* Proper stack damage */
     public int getItemMaxDamageFromStack (ItemStack stack)
