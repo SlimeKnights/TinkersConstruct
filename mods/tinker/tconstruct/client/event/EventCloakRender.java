@@ -16,7 +16,7 @@ import net.minecraftforge.event.ForgeSubscribe;
 
 public class EventCloakRender {
 
-	private final String serverLocation = "https://raw.github.com/mDiyo/TinkersConstruct/16working/capes.txt";
+	private final String serverLocation = "https://raw.github.com/mDiyo/TinkersConstruct/master/capes.txt";
 	private final int timeout = 1000;
 
 	private HashMap<String, String> cloaks = new HashMap<String, String>();
