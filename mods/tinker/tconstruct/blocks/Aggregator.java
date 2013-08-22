@@ -5,7 +5,7 @@ import java.util.List;
 import mods.tinker.tconstruct.TConstruct;
 import mods.tinker.tconstruct.blocks.logic.GlowstoneAggregator;
 import mods.tinker.tconstruct.common.TProxyCommon;
-import mods.tinker.tconstruct.crystal.TheftValueTracker;
+import mods.tinker.tconstruct.crystal.Crystallinity;
 import mods.tinker.tconstruct.library.TConstructRegistry;
 import mods.tinker.tconstruct.library.blocks.InventoryBlock;
 import net.minecraft.block.material.Material;
@@ -82,15 +82,15 @@ public class Aggregator extends InventoryBlock
     public void onBlockPlacedBy (World world, int x, int y, int z, EntityLiving entityliving, ItemStack stack)
     {
         super.onBlockPlacedBy(world, x, y, z, entityliving, stack);
-        if (!world.isRemote)
-            TheftValueTracker.updateCrystallinity(world.provider.dimensionId, x, z, 4);
+        /*if (!world.isRemote)
+            Crystallinity.updateCrystallinity(world.provider.dimensionId, x, z, 4);*/
     }
 
     @Override
     public void breakBlock (World world, int x, int y, int z, int par5, int par6)
     {
         super.breakBlock(world, x, y, z, par5, par6);
-        TheftValueTracker.updateCrystallinity(world.provider.dimensionId, x, z, -4);
+        //Crystallinity.updateCrystallinity(world.provider.dimensionId, x, z, -4);
     }
 
     @Override

@@ -49,13 +49,14 @@ public class CastingChannelLogic extends TileEntity implements ILiquidTank, ITan
             if (this.pullingLiquids)
                 pullLiquids();
         }
-        this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
         if (ticks == 20)
         {
             if (recentlyFilledDelay != 0)
                 recentlyFilledDelay--;
             if (recentlyFilledDelay == 0)
+            {
                 moveLiquidToTanks();
+            }
             ticks = 0;
         }
         if (ticksLPReset == 60)
@@ -70,7 +71,6 @@ public class CastingChannelLogic extends TileEntity implements ILiquidTank, ITan
         if (pullLiquid(xCoord + 1, yCoord, zCoord, ForgeDirection.EAST) || pullLiquid(xCoord - 1, yCoord, zCoord, ForgeDirection.WEST) || pullLiquid(xCoord, yCoord, zCoord + 1, ForgeDirection.NORTH)
                 || pullLiquid(xCoord, yCoord, zCoord - 1, ForgeDirection.SOUTH))
         {
-
         }
         else
         {
@@ -207,6 +207,10 @@ public class CastingChannelLogic extends TileEntity implements ILiquidTank, ITan
         TileEntity tankZminus = null;
         TileEntity tankYminus = null;
         HashMap tankMap = this.getOutputs();
+        if (tankMap == null)
+        {
+            tankMap = this.getOutputs();
+        }
         if (tankMap.size() <= 0)
         {
             //System.out.println("Nope, no connections to go to");
@@ -417,7 +421,8 @@ public class CastingChannelLogic extends TileEntity implements ILiquidTank, ITan
 
             if (doFill)
             {
-                this.worldObj.markBlockForRenderUpdate(this.xCoord, this.yCoord, this.zCoord);
+                this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
+                //this.worldObj.markBlockForRenderUpdate(this.xCoord, this.yCoord, this.zCoord);
                 this.liquid = transfered;
             }
             recentlyFilledDelay = 2;
@@ -434,7 +439,8 @@ public class CastingChannelLogic extends TileEntity implements ILiquidTank, ITan
                 if ((doFill) && (spaceInTank > 0))
                 {
                     this.liquid.amount = this.fillMax;
-                    this.worldObj.markBlockForRenderUpdate(this.xCoord, this.yCoord, this.zCoord);
+                    this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
+                    //this.worldObj.markBlockForRenderUpdate(this.xCoord, this.yCoord, this.zCoord);
                 }
                 return spaceInTank;
             }
@@ -442,7 +448,8 @@ public class CastingChannelLogic extends TileEntity implements ILiquidTank, ITan
             if (doFill)
             {
                 this.liquid.amount += stack.amount;
-                this.worldObj.markBlockForRenderUpdate(this.xCoord, this.yCoord, this.zCoord);
+                this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
+                //this.worldObj.markBlockForRenderUpdate(this.xCoord, this.yCoord, this.zCoord);
             }
             return stack.amount;
         }
@@ -495,6 +502,7 @@ public class CastingChannelLogic extends TileEntity implements ILiquidTank, ITan
         }
         if (doDrain)
         {
+            this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
             LiquidEvent.fireEvent(new LiquidEvent.LiquidDrainingEvent(drained, this.worldObj, this.xCoord, this.yCoord, this.zCoord, this));
         }
         return drained;
@@ -658,5 +666,11 @@ public class CastingChannelLogic extends TileEntity implements ILiquidTank, ITan
     public void setActive (boolean flag)
     {
         pullingLiquids = flag;
+        //tankMap = this.getOutputs();
+    }
+    
+    public void updateChannels()
+    {
+        //this.tankMap = this.getOutputs();
     }
 }

@@ -218,85 +218,6 @@ public class BlockRenderCastingChannel implements ISimpleBlockRenderingHandler
 					}
 
 				}
-				/*if(tile.lastProvider==ForgeDirection.UP && tile.recentlyFilledDelay != 0)
-				{
-					renderer.setRenderBounds(0.375D, 0.5D, 0.375D, 0.625D, 1D, 0.625D);
-					renderLiquidPart(world, x, y, z, block, renderer, tile);
-				}*/
-				
-
-				/*if(tile.hasTankConnected(ForgeDirection.NORTH)&&tile.lastProvider!=ForgeDirection.NORTH)//Channel to Z-
-				{
-					if(tile.recentlyFilledDelay == 0 || tile.lastProvider == ForgeDirection.UP)
-					{
-						renderer.setRenderBounds(0.375D, 0.5D, 0D, 0.625D, 0.625D, 0.375D);
-						renderLiquidPart(world, x, y, z, block, renderer, tile);
-					}
-					if(tile.recentlyFilledDelay != 0 && tile.lastProvider == ForgeDirection.UP)					
-					{
-							renderer.setRenderBounds(0.375D, 0.375D, 0.375D, 0.625D, 1D, 0.625D);
-							renderLiquidPart(world, x, y, z, block, renderer, tile);
-					}
-				}
-				if(tile.hasTankConnected(ForgeDirection.SOUTH)&&tile.lastProvider!=ForgeDirection.SOUTH)//Channel to Z+
-				{
-					if(tile.recentlyFilledDelay == 0 || tile.lastProvider == ForgeDirection.UP)
-					{
-						renderer.setRenderBounds(0.375D, 0.5D, 0.625D, 0.625D, 0.625D, 1D);
-						renderLiquidPart(world, x, y, z, block, renderer, tile);
-					}
-					if(tile.recentlyFilledDelay != 0 && tile.lastProvider == ForgeDirection.UP)
-					{
-						renderer.setRenderBounds(0.375D, 0.375D, 0.375D, 0.625D, 1D, 0.625D);
-						renderLiquidPart(world, x, y, z, block, renderer, tile);
-					}
-				}
-				if(tile.hasTankConnected(ForgeDirection.WEST)&&tile.lastProvider!=ForgeDirection.WEST)//Channel to X-
-				{
-					if(tile.recentlyFilledDelay == 0 || tile.lastProvider == ForgeDirection.UP)
-					{
-						renderer.setRenderBounds(0D, 0.5D, 0.375D, 0.375D, 0.625D, 0.625D);
-						renderLiquidPart(world, x, y, z, block, renderer, tile);
-					}
-					if(tile.recentlyFilledDelay != 0 && tile.lastProvider == ForgeDirection.UP)
-					{
-						renderer.setRenderBounds(0.375D, 0.375D, 0.375D, 0.625D, 1D, 0.625D);
-						renderLiquidPart(world, x, y, z, block, renderer, tile);
-					}
-				}
-				if(tile.hasTankConnected(ForgeDirection.EAST)&&tile.lastProvider!=ForgeDirection.EAST)//Channel to X+
-				{
-					if(tile.recentlyFilledDelay == 0 || tile.lastProvider == ForgeDirection.UP)
-					{
-						renderer.setRenderBounds(0.625D, 0.5D, 0.375D, 1D, 0.625D, 0.625D);
-						renderLiquidPart(world, x, y, z, block, renderer, tile);
-					}
-					if(tile.recentlyFilledDelay != 0 && tile.lastProvider == ForgeDirection.UP)
-					{
-						renderer.setRenderBounds(0.375D, 0.375D, 0.375D, 0.625D, 1D, 0.625D);
-						renderLiquidPart(world, x, y, z, block, renderer, tile);
-					}
-				}
-				if(tile.lastProvider==ForgeDirection.NORTH && tile.recentlyFilledDelay != 0)
-				{
-					renderer.setRenderBounds(0.375D, 0.5D, 0.625D, 0.625D, 0.625D, 1D);
-					renderLiquidPart(world, x, y, z, block, renderer, tile);
-				}
-				if(tile.lastProvider==ForgeDirection.SOUTH && tile.recentlyFilledDelay != 0)
-				{
-					renderer.setRenderBounds(0.375D, 0.5D, 0D, 0.625D, 0.625D, 0.375D);
-					renderLiquidPart(world, x, y, z, block, renderer, tile);
-				}
-				if(tile.lastProvider==ForgeDirection.WEST && tile.recentlyFilledDelay != 0)
-				{
-					renderer.setRenderBounds(0.625D, 0.5D, 0.375D, 1D, 0.625D, 0.625D);
-					renderLiquidPart(world, x, y, z, block, renderer, tile);
-				}
-				if(tile.lastProvider==ForgeDirection.EAST && tile.recentlyFilledDelay != 0)
-				{
-					renderer.setRenderBounds(0D, 0.5D, 0.375D, 0.375D, 0.625D, 0.625D);
-					renderLiquidPart(world, x, y, z, block, renderer, tile);
-				}*/
 			}
 
 
@@ -315,7 +236,7 @@ public class BlockRenderCastingChannel implements ISimpleBlockRenderingHandler
 				float red = (color >> 16 & 0xFF) / 255.0F;
 				float green = (color >> 8 & 0xFF) / 255.0F;
 				float blue = (color & 0xFF) / 255.0F;
-				RenderLiquid.renderMetadataBlockWithColorMultiplier(liquidBlock, tile.liquid.itemMeta, x, y, z, red, green, blue, renderer, world);
+                BlockSkinRenderHelper.renderMetadataBlock(liquidBlock, tile.liquid.itemMeta, x, y, z, renderer, world);
 			}
 
 		}
@@ -331,7 +252,7 @@ public class BlockRenderCastingChannel implements ISimpleBlockRenderingHandler
 				float var8 = (var5 & 0xFF) / 255.0F;
 				RenderLiquid.renderFakeBlockWithColorMultiplier(liquidItem.getIconFromDamage(tile.liquid.itemMeta), x, y, z, var6, var7, var8, renderer, world);
 			}
-		}		
+		}
 	}
 	
 	private void renderStandardBlock(Block block, int meta, RenderBlocks renderer)

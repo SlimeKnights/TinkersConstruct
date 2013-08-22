@@ -1,7 +1,7 @@
 package mods.tinker.tconstruct.blocks.logic;
 
 import mods.tinker.tconstruct.common.TContent;
-import mods.tinker.tconstruct.crystal.TheftValueTracker;
+import mods.tinker.tconstruct.crystal.Crystallinity;
 import mods.tinker.tconstruct.inventory.AggregatorContainer;
 import mods.tinker.tconstruct.library.util.IActiveLogic;
 import net.minecraft.block.Block;
@@ -66,7 +66,7 @@ public class GlowstoneAggregator extends AggregatorLogic implements IActiveLogic
                                 if (meta < 3)
                                 {
                                     worldObj.setBlockMetadataWithNotify(xCoord, yCoord + 1, zCoord, 3, 3);
-                                    TheftValueTracker.updateCrystallinity(worldObj.provider.dimensionId, xCoord, zCoord, 25); //Total 60
+                                    //Crystallinity.updateCrystallinity(worldObj.provider.dimensionId, xCoord, zCoord, 25); //Total 60
                                 }
                             }
                             else if (crystalValue >= 28)
@@ -74,7 +74,7 @@ public class GlowstoneAggregator extends AggregatorLogic implements IActiveLogic
                                 if (meta < 2)
                                 {
                                     worldObj.setBlockMetadataWithNotify(xCoord, yCoord + 1, zCoord, 2, 3);
-                                    TheftValueTracker.updateCrystallinity(worldObj.provider.dimensionId, xCoord, zCoord, 15); //Total 35
+                                    //Crystallinity.updateCrystallinity(worldObj.provider.dimensionId, xCoord, zCoord, 15); //Total 35
                                 }
                             }
                             else if (crystalValue >= 8)
@@ -82,14 +82,14 @@ public class GlowstoneAggregator extends AggregatorLogic implements IActiveLogic
                                 if (meta < 1)
                                 {
                                     worldObj.setBlockMetadataWithNotify(xCoord, yCoord + 1, zCoord, 1, 3);
-                                    TheftValueTracker.updateCrystallinity(worldObj.provider.dimensionId, xCoord, zCoord, 10); //Total 20
+                                    //Crystallinity.updateCrystallinity(worldObj.provider.dimensionId, xCoord, zCoord, 10); //Total 20
                                 }
                             }
                         }
                         else
                         {
                             worldObj.setBlock(xCoord, yCoord + 1, zCoord, TContent.lightCrystalBase.blockID, 0, 3);
-                            TheftValueTracker.updateCrystallinity(worldObj.provider.dimensionId, xCoord, zCoord, 10); //Total 10
+                            //Crystallinity.updateCrystallinity(worldObj.provider.dimensionId, xCoord, zCoord, 10); //Total 10
                         }
                     }
                     if (active == false)

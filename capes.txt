@@ -22,3 +22,5 @@ skedone:https://github.com/mDiyo/TinkersConstruct/blob/master/capes/default_gree
 type1ninja:https://dl.dropboxusercontent.com/s/0ufr1gtqktt1nl2/JeffCape.png
 turbeauke:http://i.imgur.com/XdOIone.png
 Nieue:http://i.imgur.com/8c5yUgX.png
+starr274:https://github.com/mDiyo/TinkersConstruct/blob/master/capes/default_gray.png
+zeflap:http://i.imgur.com/6OhKrVE.png

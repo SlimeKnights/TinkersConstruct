@@ -43,11 +43,11 @@ public class CastingChannelBlock extends BlockContainer
                 int amount = 0;
                 if (tile.getLiquid() != null)
                     amount = tile.getLiquidAmount();
-                player.addChatMessage("LiquidAmount: " + amount);
+                //player.addChatMessage("LiquidAmount: " + amount);
                 tile.setActive(true);
             }
         }
-        
+
         ItemStack stack = player.getCurrentEquippedItem();
         if (stack != null && stack.itemID == this.blockID)
             return false;
@@ -102,6 +102,16 @@ public class CastingChannelBlock extends BlockContainer
     public TileEntity createNewTileEntity (World var1)
     {
         return new CastingChannelLogic();
+    }
+
+    @Override
+    public void onNeighborBlockChange (World world, int x, int y, int z, int side)
+    {
+        TileEntity te = world.getBlockTileEntity(x, y, z);
+        if (te instanceof CastingChannelLogic)
+        {
+            ((CastingChannelLogic) te).updateChannels();
+        }
     }
 
 }

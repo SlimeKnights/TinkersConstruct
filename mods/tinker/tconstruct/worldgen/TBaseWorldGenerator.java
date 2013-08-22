@@ -3,7 +3,8 @@ package mods.tinker.tconstruct.worldgen;
 import java.util.Random;
 
 import mods.tinker.tconstruct.common.TContent;
-import mods.tinker.tconstruct.crystal.TheftValueTracker;
+import mods.tinker.tconstruct.crystal.CrystalValues;
+import mods.tinker.tconstruct.crystal.Crystallinity;
 import mods.tinker.tconstruct.library.util.ValueCoordTuple;
 import mods.tinker.tconstruct.util.PHConstruct;
 import net.minecraft.block.Block;
@@ -63,7 +64,7 @@ public class TBaseWorldGenerator implements IWorldGenerator
     void initializeChunkData (int chunkX, int chunkZ, int worldID)
     {
         ValueCoordTuple coord = new ValueCoordTuple(worldID, chunkX, chunkZ);
-        TheftValueTracker.crystallinity.put(coord, 0);
+        Crystallinity.crystallinity.put(coord, new CrystalValues());
     }
 
     void generateSurface (Random random, int xChunk, int zChunk, World world)

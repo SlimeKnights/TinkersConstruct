@@ -6,7 +6,8 @@ import java.util.Random;
 import mods.tinker.tconstruct.TConstruct;
 import mods.tinker.tconstruct.blocks.logic.LiquidTextureLogic;
 import mods.tinker.tconstruct.common.TContent;
-import mods.tinker.tconstruct.crystal.TheftValueTracker;
+import mods.tinker.tconstruct.crystal.CrystalValues;
+import mods.tinker.tconstruct.crystal.Crystallinity;
 import mods.tinker.tconstruct.library.TConstructRegistry;
 import mods.tinker.tconstruct.library.crafting.PatternBuilder;
 import mods.tinker.tconstruct.library.crafting.Smeltery;
@@ -255,7 +256,7 @@ public class TEventHandler
             {
                 player.addPotionEffect(new PotionEffect(Potion.moveSpeed.id, 3 * 20, 1));
             }
-            
+
             //Alpha behavior
             if (PHConstruct.alphaHunger)// && player.getHealth() < player.getMaxHealth())
             {
@@ -451,21 +452,17 @@ public class TEventHandler
                 stats.armor.dropItems();
                 stats.knapsack.dropItems();
             }*/
-        }
-    }
 
-    @ForgeSubscribe
-    public void onLivingDeath (LivingDeathEvent event)
-    {
-        if (event.entityLiving instanceof EntityPlayer)
-        {
-            EntityPlayer player = (EntityPlayer) event.entityLiving;
+            //if (event.entityLiving instanceof EntityPlayer)
+            //{
+            //EntityPlayer player = (EntityPlayer) event.entityLiving;
             if (!player.worldObj.getGameRules().getGameRuleBooleanValue("keepInventory"))
             {
                 TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
                 stats.armor.dropItems();
                 stats.knapsack.dropItems();
             }
+            //}
         }
     }
 
@@ -513,7 +510,8 @@ public class TEventHandler
         Chunk chunk = event.getChunk();
         int worldID = chunk.worldObj.provider.dimensionId;
         ValueCoordTuple coord = new ValueCoordTuple(worldID, chunk.xPosition, chunk.zPosition);
-        TheftValueTracker.crystallinity.put(coord, event.getData().getInteger("TConstruct.Crystallinity"));
+        CrystalValues crystal = new CrystalValues();
+        Crystallinity.crystallinity.put(coord, crystal.loadFromNBT(event.getData()));
     }
 
     @ForgeSubscribe
@@ -522,20 +520,18 @@ public class TEventHandler
         Chunk chunk = event.getChunk();
         int worldID = chunk.worldObj.provider.dimensionId;
         ValueCoordTuple coord = new ValueCoordTuple(worldID, chunk.xPosition, chunk.zPosition);
-        if (TheftValueTracker.crystallinity.containsKey(coord))
+        if (Crystallinity.crystallinity.containsKey(coord))
         {
-            int crystal = TheftValueTracker.crystallinity.get(coord);
-            event.getData().setInteger("TConstruct.Crystallinity", crystal);
+            CrystalValues crystal = Crystallinity.crystallinity.get(coord);
+            crystal.saveToNBT(event.getData());
             if (!event.getChunk().isChunkLoaded)
             {
-                TheftValueTracker.crystallinity.remove(worldID);
+                Crystallinity.crystallinity.remove(coord);
             }
         }
     }
-    
+
     /* Bonemeal */
-
-
     @ForgeSubscribe
     public void bonemealEvent (BonemealEvent event)
     {
