@@ -110,6 +110,8 @@ public class LavaTankBlock extends BlockContainer
 
     public Icon getIcon (int side, int meta)
     {
+        if (meta >= 3)
+            meta = 0;
         if (meta == 0)
         {
             if (side == 0 || side == 1)

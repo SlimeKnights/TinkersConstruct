@@ -253,7 +253,7 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
                     if (validLocations[(xPos * 16 + zPos) * 8 + yPos] && world.getBlockId(x + xPos, y + yPos - 1, z + zPos) == baseID
                             && world.getSavedLightValue(EnumSkyBlock.Sky, x + xPos, y + yPos, z + zPos) > 0)
                     {
-                        world.setBlock(x + xPos, y + yPos - 1, z + zPos, topID, 2, 0);
+                        world.setBlock(x + xPos, y + yPos - 1, z + zPos, topID, 0, 0);
                     }
                 }
             }
