@@ -1938,6 +1938,8 @@ public class TContent implements IFuelHandler
 
         String[] matNames = { "wood", "stone", "iron", "flint", "cactus", "bone", "obsidian", "netherrack", "slime", "paper", "cobalt", "ardite", "manyullyn", "copper", "bronze", "alumite", "steel",
                 "blueslime" };
+        for (int i = 0; i < matNames.length; i++)
+            OreDictionary.registerOre(matNames[i] + "Rod", new ItemStack(toolRod, 1, i));
 
         String[] glassTypes = { "glassBlack", "glassRed", "glassGreen", "glassBrown", "glassBlue", "glassPurple", "glassCyan", "glassLightGray", "glassGray", "glassPink", "glassLime", "glassYellow",
                 "glassLightBlue", "glassMagenta", "glassOrange", "glassWhite" };
