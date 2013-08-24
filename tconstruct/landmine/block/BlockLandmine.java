@@ -57,7 +57,7 @@ public class BlockLandmine extends BlockContainer {
 
 	@Override
 	public int getLightValue(IBlockAccess world, int x, int y, int z) {
-		if (world.getBlockTileEntity(x, y, z) instanceof TileEntityLandmine) {
+		if (world.getBlockId(x, y, z) == this.blockID && world.getBlockTileEntity(x, y, z) instanceof TileEntityLandmine) {
 			TileEntityLandmine te = (TileEntityLandmine) world.getBlockTileEntity(x, y, z);
 
 			if (te != null) {
