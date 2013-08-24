@@ -34,7 +34,7 @@ public class GlowstoneAggregator extends AggregatorLogic implements IActiveLogic
     }
 
     @Override
-    protected String getDefaultName ()NContent
+    protected String getDefaultName ()
     {
         return "aggregator.glowstone";
     }
