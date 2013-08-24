@@ -8,6 +8,8 @@ import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.network.packet.Packet250CustomPayload;
+
+import tconstruct.client.event.EventCloakRender;
 import tconstruct.client.tabs.TabRegistry;
 import cpw.mods.fml.common.TickType;
 import cpw.mods.fml.common.network.PacketDispatcher;
@@ -17,6 +19,7 @@ public class TControls extends TKeyHandler
     //static KeyBinding grabKey = new KeyBinding("key.grab", 29);
     //static KeyBinding stiltsKey = new KeyBinding("key.stilts", 46);
     public static KeyBinding armorKey = new KeyBinding("key.tarmor", 24);
+    public static KeyBinding refreshCapes = new KeyBinding("key.tcapes.reload", 88);
     static KeyBinding jumpKey;
     static KeyBinding invKey;
     static Minecraft mc;
@@ -33,7 +36,7 @@ public class TControls extends TKeyHandler
 
     public TControls()
     {
-        super(new KeyBinding[] { armorKey }, new boolean[] { false}, getVanillaKeyBindings(),
+        super(new KeyBinding[] { armorKey, refreshCapes }, new boolean[] { false, false }, getVanillaKeyBindings(),
                 new boolean[] { false, false });
         //System.out.println("Controls registered");
     }
@@ -64,6 +67,9 @@ public class TControls extends TKeyHandler
             if (kb == invKey && mc.currentScreen != null && mc.currentScreen.getClass() == GuiInventory.class)// && !mc.playerController.isInCreativeMode())
             {
                 TabRegistry.addTabsToInventory((GuiContainer) mc.currentScreen);
+            }
+            if (kb == refreshCapes && mc.currentScreen == null){
+            	EventCloakRender.instance.refreshCapes();
             }
             /*if (kb == jumpKey) //Double jump
             {

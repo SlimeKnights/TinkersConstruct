@@ -356,6 +356,7 @@
   <entry key="entity.TConstruct.Gardeslime.name">Gardeslime</entry> 
   
   <entry key="key.tarmor">Armor Gui</entry>
+  <entry key="key.tcapes.reload">Reload Capes</entry>
   
   <entry key="death.one.smeltery">%1$s transformed into Soylent Green</entry>
   <entry key="death.two.smeltery">%1$s has fused with the Smeltery</entry>

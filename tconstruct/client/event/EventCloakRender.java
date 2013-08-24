@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.*;
-import java.util.HashMap;
+import java.util.*;
 
 import javax.swing.ImageIcon;
 
@@ -19,9 +19,13 @@ public class EventCloakRender {
 	
 	private static final Graphics TEST_GRAPHICS = new BufferedImage(128, 128, BufferedImage.TYPE_INT_RGB).getGraphics();
 	private HashMap<String, String> cloaks = new HashMap<String, String>();
+	private ArrayList<AbstractClientPlayer> capePlayers = new ArrayList<AbstractClientPlayer>();
+	
+	public static EventCloakRender instance;
 	
 	public EventCloakRender(){
 		buildCloakURLDatabase();
+		instance = this;
 	}
 	
 	@ForgeSubscribe
@@ -29,12 +33,14 @@ public class EventCloakRender {
 		if(event.entityPlayer instanceof AbstractClientPlayer){
 			AbstractClientPlayer abstractClientPlayer = (AbstractClientPlayer)event.entityPlayer;
 			
-			if (abstractClientPlayer.func_110310_o().field_110560_d == null) {
+			if (!capePlayers.contains(abstractClientPlayer)) {
 				String cloakURL = cloaks.get(event.entityPlayer.username);
 				
 				if(cloakURL == null){
 					return;
 				}
+				
+				capePlayers.add(abstractClientPlayer);
 				
 				abstractClientPlayer.func_110310_o().field_110559_g = false;
 				new Thread(new CloakThread(abstractClientPlayer, cloakURL)).start();
@@ -113,5 +119,11 @@ public class EventCloakRender {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	public void refreshCapes(){
+		cloaks.clear();
+		capePlayers.clear();
+		buildCloakURLDatabase();
 	}
 }
