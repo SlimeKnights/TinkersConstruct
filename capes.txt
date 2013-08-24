@@ -24,3 +24,6 @@ turbeauke:http://i.imgur.com/XdOIone.png
 Nieue:http://i.imgur.com/8c5yUgX.png
 starr274:https://github.com/mDiyo/TinkersConstruct/blob/master/capes/default_gray.png
 zeflap:http://i.imgur.com/6OhKrVE.png
+kendfinger:https://dl.dropboxusercontent.com/u/48633261/cape.png
+sondrex76:http://i.imgur.com/C6buJnL.png
+GameGeek1998:http://i.imgur.com/hiMFLXY.png
