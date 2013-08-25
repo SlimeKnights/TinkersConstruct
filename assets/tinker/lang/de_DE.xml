@@ -316,30 +316,30 @@
   <entry key="item.tconstruct.bowstring.string.name">Bogensehne</entry>
   <entry key="item.tconstruct.bowstring.enchantedfabriI donc.name">Verzauberte Bogensehne</entry>
 
-  <entry key="LiquidMetal.Iron.name">Geschmolzenes Eisen</entry>
-  <entry key="LiquidMetal.Gold.name">Geschmolzenes Gold</entry>
-  <entry key="LiquidMetal.Copper.name">Geschmolzenes Kupfer</entry>
-  <entry key="LiquidMetal.Tin.name">Geschmolzenes Zinn</entry>
-  <entry key="LiquidMetal.Aluminum.name">Geschmolzenes Aluminium</entry>
-  <entry key="LiquidMetal.Cobalt.name">Geschmolzenes Cobalt</entry>
-  <entry key="LiquidMetal.Ardite.name">Geschmolzenes Ardit</entry>
-  <entry key="LiquidMetal.Bronze.name">Geschmolzene Bronze</entry>
-  <entry key="LiquidMetal.AluBrass.name">Geschmolzenes Duraluminium</entry>
-  <entry key="LiquidMetal.Manyullyn.name">Geschmolzenes Manyullyn</entry>
-  <entry key="LiquidMetal.Alumite.name">Geschmolzenes Alumit</entry>
-  <entry key="LiquidMetal.Obsidian.name">Geschmolzenes Obsidian</entry>
-  <entry key="LiquidMetal.Steel.name">Geschmolzener Stahl</entry>
-  <entry key="LiquidMetal.Glass.name">Geschmolzenes Glas</entry>
-  <entry key="LiquidMetal.Stone.name">Versengtes Gestein</entry>
-  <entry key="LiquidMetal.Villager.name">Verflüssigter Smaragd</entry>
-  <entry key="LiquidMetal.Cow.name">Blut</entry>
-  <entry key="LiquidMetal.Nickel.name">Geschmolzenes Nickel</entry>
-  <entry key="LiquidMetal.Silver.name">Geschmolzenes Silber</entry>
-  <entry key="LiquidMetal.Lead.name">Geschmolzenes Blei</entry>
-  <entry key="LiquidMetal.Shiny.name">Geschmolzenes Platin</entry>
-  <entry key="LiquidMetal.Invar.name">Geschmolzenes Invar</entry>
-  <entry key="LiquidMetal.Electrum.name">Geschmolzenes Elektrum</entry>
-  <entry key="LiquidMetal.Ender.name">Verflüssigtes Ender</entry>
+  <entry key="tile.metal.molten.iron.name">Geschmolzenes Eisen</entry>
+  <entry key="tile.metal.molten.gold.name">Geschmolzenes Gold</entry>
+  <entry key="tile.metal.molten.copper.name">Geschmolzenes Kupfer</entry>
+  <entry key="tile.metal.molten.tin.name">Geschmolzenes Zinn</entry>
+  <entry key="tile.metal.molten.aluminum.name">Geschmolzenes Aluminium</entry>
+  <entry key="tile.metal.molten.cobalt.name">Geschmolzenes Cobalt</entry>
+  <entry key="tile.metal.molten.ardite.name">Geschmolzenes Ardit</entry>
+  <entry key="tile.metal.molten.bronze.name">Geschmolzene Bronze</entry>
+  <entry key="tile.metal.molten.alubrass.name">Geschmolzenes Duraluminium</entry>
+  <entry key="tile.metal.molten.manyullyn.name">Geschmolzenes Manyullyn</entry>
+  <entry key="tile.metal.molten.alumite.name">Geschmolzenes Alumit</entry>
+  <entry key="tile.metal.molten.obsidian.name">Geschmolzenes Obsidian</entry>
+  <entry key="tile.metal.molten.steel.name">Geschmolzener Stahl</entry>
+  <entry key="tile.metal.molten.glass.name">Geschmolzenes Glas</entry>
+  <entry key="tile.molten.stone.name">Versengtes Gestein</entry>
+  <entry key="tile.molten.emerald.name">Verflüssigter Smaragd</entry>
+  <entry key="tile.liquid.blood.name">Blut</entry>
+  <entry key="tile.metal.molten.nickel.name">Geschmolzenes Nickel</entry>
+  <entry key="tile.metal.molten.silver.name">Geschmolzenes Silber</entry>
+  <entry key="tile.metal.molten.lead.name">Geschmolzenes Blei</entry>
+  <entry key="tile.metal.molten.shiny.name">Geschmolzenes Platin</entry>
+  <entry key="tile.metal.molten.invar.name">Geschmolzenes Invar</entry>
+  <entry key="tile.metal.molten.Electrum.name">Geschmolzenes Elektrum</entry>
+  <entry key="tile.liquid.ender.name">Verflüssigtes Ender</entry>
 
   <entry key="item.food.apple.diamond.name">Verzierter Apfel</entry>
   <entry key="item.tconstruct.strangefood.edibleslime.name">Essbarer Schleim</entry>
@@ -355,7 +355,6 @@
   <entry key="entity.TConstruct.EdibleSlime.name">Blauer Schleim</entry>
   <entry key="entity.TConstruct.KingSlime.name">Königsschleim</entry>
   <entry key="entity.TConstruct.Gardeslime.name">Guardeschleim</entry>
-  <entry key="entity.TConstruct.MiniGardy.name">Guardeschleim</entry> 
 
   <entry key="key.tarmor">Rüstungs-GUI</entry>
 
