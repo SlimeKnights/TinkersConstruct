@@ -1,20 +1,21 @@
 package mods.tinker.tconstruct.inventory;
 
-import mods.tinker.tconstruct.blocks.logic.GlowstoneAggregator;
+import mods.tinker.tconstruct.blocks.logic.LightAggregator;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
+import net.minecraft.inventory.ICrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
 public class AggregatorContainer extends Container
 {
-    public GlowstoneAggregator logic;
+    public LightAggregator logic;
     public int progress = 0;
     public int fuel = 0;
     public int fuelGague = 0;
 
-    public AggregatorContainer(InventoryPlayer inventoryplayer, GlowstoneAggregator logic)
+    public AggregatorContainer(InventoryPlayer inventoryplayer, LightAggregator logic)
     {
         this.logic = logic;
 
@@ -35,6 +36,12 @@ public class AggregatorContainer extends Container
         {
             this.addSlotToContainer(new Slot(inventoryplayer, column, 8 + column * 18, 142));
         }
+    }
+
+    public void addCraftingToCrafters(ICrafting par1ICrafting)
+    {
+        super.addCraftingToCrafters(par1ICrafting);
+        par1ICrafting.sendProgressBarUpdate(this, 0, logic.crystalValue);
     }
 
     @Override

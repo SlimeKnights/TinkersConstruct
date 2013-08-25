@@ -64,7 +64,8 @@ public class TBaseWorldGenerator implements IWorldGenerator
     void initializeChunkData (int chunkX, int chunkZ, int worldID)
     {
         ValueCoordTuple coord = new ValueCoordTuple(worldID, chunkX, chunkZ);
-        Crystallinity.crystallinity.put(coord, new CrystalValues());
+        Crystallinity.theftValue.put(coord, new CrystalValues("Theft"));
+        Crystallinity.charge.put(coord, new CrystalValues("Charge"));
     }
 
     void generateSurface (Random random, int xChunk, int zChunk, World world)

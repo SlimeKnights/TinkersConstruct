@@ -133,6 +133,7 @@ public class PHConstruct
         woodCrafterSlab = config.getBlock("Crafting Slab", 3243).getInt(3243);
         woolSlab1 = config.getBlock("Wool Slab 1", 3244).getInt(3244);
         woolSlab2 = config.getBlock("Wool Slab 2", 3245).getInt(3245);
+        darkBlock = config.getBlock("Antilight", 3246).getInt(3246);
         castingChannel = config.getBlock("Casting Channel", 3249).getInt(3249);
 
         manual = config.getItem("Patterns and Misc", "Tinker's Manual", 14018).getInt(14018);
@@ -367,6 +368,7 @@ public class PHConstruct
     public static int lightCrystalBase;
     public static int essenceExtractor;
     public static int essenceCrystal;
+    public static int darkBlock;
 
     //Liquids
     public static int metalFlowing;

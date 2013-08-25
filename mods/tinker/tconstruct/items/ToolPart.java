@@ -6,14 +6,34 @@ import mods.tinker.tconstruct.common.TContent;
 import mods.tinker.tconstruct.library.util.IToolPart;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 
 public class ToolPart extends CraftingItem implements IToolPart
 {
-    public ToolPart(int id, String textureType)
+    public String partName;
+    public ToolPart(int id, String textureType, String name)
     {
         super(id, toolMaterialNames, buildTextureNames(textureType), "parts/");
         this.setHasSubtypes(true);
         this.setMaxDamage(0);
+        this.partName = name;
+    }
+    
+    @Override
+    public String getItemDisplayName (ItemStack par1ItemStack)
+    {
+        StringBuilder builder = new StringBuilder();
+        builder.append(StatCollector.translateToLocal("parttype."+toolTextureNames[par1ItemStack.getItemDamage()])).append(" ").append(StatCollector.translateToLocal("toolpart."+partName));
+        return builder.toString();
+        /*String s = ("" + StatCollector.translateToLocal("toolpart."+partName)).trim();
+        String s1 = toolMaterialNames[par1ItemStack.getItemDamage()];
+
+        if (s1 != null)
+        {
+            s = s + " " + StatCollector.translateToLocal(s1);
+        }
+
+        return s;*/
     }
 
     private static String[] buildTextureNames (String textureType)

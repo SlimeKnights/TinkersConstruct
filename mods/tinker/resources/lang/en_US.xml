@@ -27,6 +27,7 @@
   <entry key="CraftedSoil.BlueSlime.name">Slimy Mud</entry>
   <entry key="CraftedSoil.GraveyardSoil.name">Graveyard Soil</entry>
   <entry key="CraftedSoil.ConsecratedSoil.name">Consecrated Soil</entry>
+  <entry key="tile.CastingChannel.name">Casting Channel</entry>
   
   <entry key="MetalOre.NetherSlag.name">Netherack Slag</entry>
   <entry key="MetalOre.Cobalt.name">Cobalt Ore</entry>
@@ -124,6 +125,30 @@
   
   <entry key="item.goldenhead.name">Golden Head</entry>
   <entry key="item.tconstruct.titleicon.name">Spawn </entry>
+  
+  <entry key="item.InfiTool.Pickaxe.name">Pickaxe</entry>
+  <entry key="item.InfiTool.Shovel.name">Shovel</entry>
+  <entry key="item.InfiTool.Axe.name">Hatchet</entry>
+  <entry key="item.InfiTool.Broadsword.name">Broadsword</entry>
+  <entry key="item.InfiTool.Longsword.name">Longsword</entry>
+  <entry key="item.InfiTool.Rapier.name">Rapier</entry>
+  <entry key="item.InfiTool.Frypan.name">Frying Pan</entry>
+  <entry key="item.InfiTool.Battlesign.name">Battlesign</entry>
+  <entry key="item.InfiTool.Dagger.name">Dagger</entry>
+  <entry key="item.InfiTool.Chisel.name">Chisel</entry>
+  <entry key="item.InfiTool.Scythe.name">Scythe</entry>
+  <entry key="item.InfiTool.LumberAxe.name">Lumber Axe</entry>
+  <entry key="item.InfiTool.Cleaver.name">Cleaver</entry>
+  <entry key="item.InfiTool.Excavator.name">Excavator</entry>
+  <entry key="item.InfiTool.Hammer.name">Hammer</entry>
+  <entry key="item.InfiTool.Battleaxe.name">Battleaxe</entry>
+  <entry key="item.InfiTool.Cutlass.name">Cutlass</entry>
+  <entry key="item.InfiTool.Shortbow.name">Shortbow</entry>
+  <entry key="item.InfiTool.Arrow.name">Arrow</entry>
+  <entry key="item.InfiTool.PotionLauncher.name">Potion Launcher</entry>
+  
+  <entry key="item.tconstruct.Pattern.blank_pattern.name">Blank Pattern</entry>
+  <entry key="item.tconstruct.Pattern.blank_cast.name">Blank Cast</entry>
   
   <entry key="item.tconstruct.Materials.PaperStack.name">Paper Stack</entry>
   <entry key="item.tconstruct.Materials.SlimeCrystal.name">Slime Crystal</entry>
@@ -362,5 +387,76 @@
   <entry key="death.two.smeltery">%1$s has fused with the Smeltery</entry>
   <entry key="death.three.smeltery">%1$s will be a stepping stone for our revolution!</entry>
   <entry key="death.four.smeltery">%1$s thought swimming in hot liquids was a good idea</entry>
+  
+  <entry key="parttype.wood">Wooden</entry>
+  <entry key="parttype.stone">Stone</entry>
+  <entry key="parttype.iron">Iron</entry>
+  <entry key="parttype.flint">Flint</entry>
+  <entry key="parttype.cactus">Cactus</entry>
+  <entry key="parttype.bone">Bone</entry>
+  <entry key="parttype.obsidian">Obsidian</entry>
+  <entry key="parttype.slime">Slime</entry>
+  <entry key="parttype.paper">Paper</entry>
+  <entry key="parttype.netherrack">Netherrack</entry>
+  <entry key="parttype.cobalt">Cobalt</entry>
+  <entry key="parttype.ardite">Ardite</entry>
+  <entry key="parttype.manyullyn">Manyullyn</entry>
+  <entry key="parttype.copper">Copper</entry>
+  <entry key="parttype.bronze">Bronze</entry>
+  <entry key="parttype.alumite">Alumite</entry>
+  <entry key="parttype.steel">Steel</entry>
+  <entry key="parttype.blueslime">Slime</entry>
+  <entry key="parttype.thaumium">Thaumium</entry>
+  
+  <entry key="toolpart.ToolRod">Tool Rod</entry>
+  <entry key="toolpart.PickHead">Pickaxe Head</entry>
+  <entry key="toolpart.ShovelHead">Shovel Head</entry>
+  <entry key="toolpart.AxeHead">Axe Head</entry>
+  <entry key="toolpart.Binding">Binding</entry>
+  <entry key="toolpart.ToughBind">Tough Binding</entry>
+  <entry key="toolpart.ToughRod">Tough Rod</entry>
+  <entry key="toolpart.LargePlate">Large Plate</entry>
+  <entry key="toolpart.SwordBlade">Sword Blade</entry>
+  <entry key="toolpart.LargeGuard">Large Guard</entry>
+  <entry key="toolpart.MediumGuard">Medium Guard</entry>
+  <entry key="toolpart.Crossbar">Crossbar</entry>
+  <entry key="toolpart.KnifeBlade">Knife Blade</entry>
+  <entry key="toolpart.FullGuard">Full Guard</entry>
+  <entry key="toolpart.FrypanHead">Pan</entry>
+  <entry key="toolpart.SignHead">Sign Head</entry>
+  <entry key="toolpart.ChiselHead">Chisel Head</entry>
+  <entry key="toolpart.ScytheHead">Scythe Head</entry>
+  <entry key="toolpart.LumberHead">Broad Axe Head</entry>
+  <entry key="toolpart.ExcavatorHead">Excavator Head</entry>
+  <entry key="toolpart.LargeSwordBlade">Large Sword Blade</entry>
+  <entry key="toolpart.HammerHead">Hammer Head</entry>
+  <entry key="toolpart.Bowstring">Bowstring</entry>
+  <entry key="toolpart.ArrowHead">Arrowhead</entry>
+  <entry key="toolpart.Fletching">Fletching</entry>
+  
+  <entry key="molten iron">Molten Iron</entry>
+  <entry key="molten gold">Molten Gold</entry>
+  <entry key="molten copper">Molten Copper</entry>
+  <entry key="molten tin">Molten Tin</entry>
+  <entry key="molten aluminum">Molten Aluminum</entry>
+  <entry key="molten cobalt">Molten Cobalt</entry>
+  <entry key="molten ardite">Molten Ardite</entry>
+  <entry key="molten bronze">Molten Bronze</entry>
+  <entry key="molten aluminum brass">Molten Aluminum Brass</entry>
+  <entry key="molten manyullyn">Molten Manyullyn</entry>
+  <entry key="molten alumite">Molten Alumite</entry>
+  <entry key="molten obsidian">Molten Obsidian</entry>
+  <entry key="molten steel">Molten Steel</entry>
+  <entry key="molten glass">Molten Glass</entry>
+  <entry key="seared stone">Seared Stone</entry>
+  <entry key="liquified emerald">Liquified Emerald</entry>
+  <entry key="blood">Blood</entry>
+  <entry key="molten nickel">Molten Nickel</entry>
+  <entry key="molten lead">Molten Lead</entry>
+  <entry key="molten silver">Molten Silver</entry>
+  <entry key="molten platinum">Molten Platinum</entry>
+  <entry key="molten invar">Molten Invar</entry>
+  <entry key="molten shiny">Molten Shiny</entry>
+  <entry key="ender">Liquid Ender</entry>
   
 </properties>

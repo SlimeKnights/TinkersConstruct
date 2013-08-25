@@ -37,6 +37,7 @@ import net.minecraft.block.StepSound;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialLiquid;
+import net.minecraft.block.material.MaterialTransparent;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.item.Item;
@@ -195,6 +196,7 @@ public class TContent implements IFuelHandler
     public static Block lightCrystalBase;
     public static Block essenceExtractor;
     public static Item essenceCrystal;
+    public static Block darkBlock;
 
     //Liquids
     public static Block liquidMetalFlowing;
@@ -505,18 +507,19 @@ public class TContent implements IFuelHandler
 
         stainedGlassClearPane = new GlassPaneStained(PHConstruct.stainedGlassClearPane);
         GameRegistry.registerBlock(stainedGlassClearPane, StainedGlassClearPaneItem.class, "GlassPaneClearStained");
-
-        /*public static Block stainedGlass;
-        public static Block stainedGlassClear;*/
-
+        
         aggregator = new Aggregator(PHConstruct.aggregator).setUnlocalizedName("Aggregator");
         aggregator.stepSound = Block.soundMetalFootstep;
         GameRegistry.registerBlock(aggregator, "Aggregator");
-        GameRegistry.registerTileEntity(GlowstoneAggregator.class, "GlowstoneAggregator");
+        GameRegistry.registerTileEntity(LightAggregator.class, "LightAggregator");
 
-        lightCrystalBase = new LightCrystalBase(PHConstruct.lightCrystalBase).setUnlocalizedName("LightCrystalBase");
+        lightCrystalBase = new CrystalBlock(PHConstruct.lightCrystalBase).setUnlocalizedName("Block.Crystal");
         lightCrystalBase.stepSound = Block.soundGlassFootstep;
-        GameRegistry.registerBlock(lightCrystalBase, LightCrystalItem.class, "LightCrystalBase");
+        GameRegistry.registerBlock(lightCrystalBase, LightCrystalItem.class, "Block.Crystal");
+        GameRegistry.registerTileEntity(CrystalLogic.class, "CrystalLogic");
+        
+        darkBlock = new AntiLight(PHConstruct.darkBlock).setUnlocalizedName("Antilight");
+        GameRegistry.registerBlock(darkBlock, "Antilight");
     }
 
     void registerItems ()
@@ -526,7 +529,7 @@ public class TContent implements IFuelHandler
         blankPattern = new CraftingItem(PHConstruct.blankPattern, blanks, blanks, "materials/").setUnlocalizedName("tconstruct.Pattern");
 
         materials = new MaterialItem(PHConstruct.materials).setUnlocalizedName("tconstruct.Materials");
-        toolRod = new ToolPart(PHConstruct.toolRod, "_rod").setUnlocalizedName("tconstruct.ToolRod");
+        toolRod = new ToolPart(PHConstruct.toolRod, "_rod", "ToolRod").setUnlocalizedName("tconstruct.ToolRod");
         toolShard = new ToolShard(PHConstruct.toolShard, "_chunk").setUnlocalizedName("tconstruct.ToolShard");
         woodPattern = new Pattern(PHConstruct.woodPattern, "WoodPattern", "pattern_", "materials/").setUnlocalizedName("tconstruct.Pattern");
         metalPattern = new MetalPattern(PHConstruct.metalPattern, "MetalPattern", "cast_", "materials/").setUnlocalizedName("tconstruct.MetalPattern");
@@ -586,33 +589,33 @@ public class TContent implements IFuelHandler
 
         potionLauncher = new PotionLauncher(PHConstruct.potionLauncher).setUnlocalizedName("tconstruct.PotionLauncher");
 
-        pickaxeHead = new ToolPart(PHConstruct.pickaxeHead, "_pickaxe_head").setUnlocalizedName("tconstruct.PickaxeHead");
-        shovelHead = new ToolPart(PHConstruct.shovelHead, "_shovel_head").setUnlocalizedName("tconstruct.ShovelHead");
-        hatchetHead = new ToolPart(PHConstruct.axeHead, "_axe_head").setUnlocalizedName("tconstruct.AxeHead");
-        binding = new ToolPart(PHConstruct.binding, "_binding").setUnlocalizedName("tconstruct.Binding");
-        toughBinding = new ToolPart(PHConstruct.toughBinding, "_toughbind").setUnlocalizedName("tconstruct.ThickBinding");
-        toughRod = new ToolPart(PHConstruct.toughRod, "_toughrod").setUnlocalizedName("tconstruct.ThickRod");
-        largePlate = new ToolPart(PHConstruct.largePlate, "_largeplate").setUnlocalizedName("tconstruct.LargePlate");
+        pickaxeHead = new ToolPart(PHConstruct.pickaxeHead, "_pickaxe_head", "PickHead").setUnlocalizedName("tconstruct.PickaxeHead");
+        shovelHead = new ToolPart(PHConstruct.shovelHead, "_shovel_head", "ShovelHead").setUnlocalizedName("tconstruct.ShovelHead");
+        hatchetHead = new ToolPart(PHConstruct.axeHead, "_axe_head", "AxeHead").setUnlocalizedName("tconstruct.AxeHead");
+        binding = new ToolPart(PHConstruct.binding, "_binding", "Binding").setUnlocalizedName("tconstruct.Binding");
+        toughBinding = new ToolPart(PHConstruct.toughBinding, "_toughbind", "ToughBind").setUnlocalizedName("tconstruct.ThickBinding");
+        toughRod = new ToolPart(PHConstruct.toughRod, "_toughrod", "ToughRod").setUnlocalizedName("tconstruct.ThickRod");
+        largePlate = new ToolPart(PHConstruct.largePlate, "_largeplate", "LargePlate").setUnlocalizedName("tconstruct.LargePlate");
 
-        swordBlade = new ToolPart(PHConstruct.swordBlade, "_sword_blade").setUnlocalizedName("tconstruct.SwordBlade");
-        wideGuard = new ToolPart(PHConstruct.largeGuard, "_large_guard").setUnlocalizedName("tconstruct.LargeGuard");
-        handGuard = new ToolPart(PHConstruct.medGuard, "_medium_guard").setUnlocalizedName("tconstruct.MediumGuard");
-        crossbar = new ToolPart(PHConstruct.crossbar, "_crossbar").setUnlocalizedName("tconstruct.Crossbar");
-        knifeBlade = new ToolPart(PHConstruct.knifeBlade, "_knife_blade").setUnlocalizedName("tconstruct.KnifeBlade");
-        fullGuard = new ToolPartHidden(PHConstruct.fullGuard, "_full_guard").setUnlocalizedName("tconstruct.FullGuard");
+        swordBlade = new ToolPart(PHConstruct.swordBlade, "_sword_blade", "SwordBlade").setUnlocalizedName("tconstruct.SwordBlade");
+        wideGuard = new ToolPart(PHConstruct.largeGuard, "_large_guard", "LargeGuard").setUnlocalizedName("tconstruct.LargeGuard");
+        handGuard = new ToolPart(PHConstruct.medGuard, "_medium_guard", "MediumGuard").setUnlocalizedName("tconstruct.MediumGuard");
+        crossbar = new ToolPart(PHConstruct.crossbar, "_crossbar", "Crossbar").setUnlocalizedName("tconstruct.Crossbar");
+        knifeBlade = new ToolPart(PHConstruct.knifeBlade, "_knife_blade", "KnifeBlade").setUnlocalizedName("tconstruct.KnifeBlade");
+        fullGuard = new ToolPartHidden(PHConstruct.fullGuard, "_full_guard", "FullGuard").setUnlocalizedName("tconstruct.FullGuard");
 
-        frypanHead = new ToolPart(PHConstruct.frypanHead, "_frypan_head").setUnlocalizedName("tconstruct.FrypanHead");
-        signHead = new ToolPart(PHConstruct.signHead, "_battlesign_head").setUnlocalizedName("tconstruct.SignHead");
-        chiselHead = new ToolPart(PHConstruct.chiselHead, "_chisel_head").setUnlocalizedName("tconstruct.ChiselHead");
+        frypanHead = new ToolPart(PHConstruct.frypanHead, "_frypan_head", "FrypanHead").setUnlocalizedName("tconstruct.FrypanHead");
+        signHead = new ToolPart(PHConstruct.signHead, "_battlesign_head", "SignHead").setUnlocalizedName("tconstruct.SignHead");
+        chiselHead = new ToolPart(PHConstruct.chiselHead, "_chisel_head", "ChiselHead").setUnlocalizedName("tconstruct.ChiselHead");
 
-        scytheBlade = new ToolPart(PHConstruct.scytheBlade, "_scythe_head").setUnlocalizedName("tconstruct.ScytheBlade");
-        broadAxeHead = new ToolPart(PHConstruct.lumberHead, "_lumberaxe_head").setUnlocalizedName("tconstruct.LumberHead");
-        excavatorHead = new ToolPart(PHConstruct.excavatorHead, "_excavator_head").setUnlocalizedName("tconstruct.ExcavatorHead");
-        largeSwordBlade = new ToolPart(PHConstruct.largeSwordBlade, "_large_sword_blade").setUnlocalizedName("tconstruct.LargeSwordBlade");
-        hammerHead = new ToolPart(PHConstruct.hammerHead, "_hammer_head").setUnlocalizedName("tconstruct.HammerHead");
+        scytheBlade = new ToolPart(PHConstruct.scytheBlade, "_scythe_head", "ScytheHead").setUnlocalizedName("tconstruct.ScytheBlade");
+        broadAxeHead = new ToolPart(PHConstruct.lumberHead, "_lumberaxe_head", "LumberHead").setUnlocalizedName("tconstruct.LumberHead");
+        excavatorHead = new ToolPart(PHConstruct.excavatorHead, "_excavator_head", "ExcavatorHead").setUnlocalizedName("tconstruct.ExcavatorHead");
+        largeSwordBlade = new ToolPart(PHConstruct.largeSwordBlade, "_large_sword_blade", "LargeSwordBlade").setUnlocalizedName("tconstruct.LargeSwordBlade");
+        hammerHead = new ToolPart(PHConstruct.hammerHead, "_hammer_head", "HammerHead").setUnlocalizedName("tconstruct.HammerHead");
 
         bowstring = new Bowstring(PHConstruct.bowstring).setUnlocalizedName("tconstruct.Bowstring");
-        arrowhead = new ToolPart(PHConstruct.arrowhead, "_arrowhead").setUnlocalizedName("tconstruct.Arrowhead");
+        arrowhead = new ToolPart(PHConstruct.arrowhead, "_arrowhead", "ArrowHead").setUnlocalizedName("tconstruct.Arrowhead");
         fletching = new Fletching(PHConstruct.fletching).setUnlocalizedName("tconstruct.Fletching");
 
         Item[] toolParts = { toolRod, toolShard, pickaxeHead, shovelHead, hatchetHead, binding, toughBinding, toughRod, largePlate, swordBlade, wideGuard, handGuard, crossbar, knifeBlade, fullGuard,
@@ -1596,7 +1599,7 @@ public class TContent implements IFuelHandler
 
         String[] names = new String[] { "Molten Iron", "Molten Gold", "Molten Copper", "Molten Tin", "Molten Aluminum", "Molten Cobalt", "Molten Ardite", "Molten Bronze", "Molten Aluminum Brass",
                 "Molten Manyullyn", "Molten Alumite", "Molten Obsidian", "Molten Steel", "Molten Glass", "Seared Stone", "Molten Emerald", "Blood", "nickel.molten", "lead.molten", "silver.molten",
-                "platinum.molten", "invar.molten", "electrum.molten", "ender" };
+                "platinum.molten", "invar.molten", "electrum.molten" };
         liquidIcons = new LiquidStack[names.length];
         liquidNames = new String[names.length];
         for (int iter = 0; iter < names.length; iter++)

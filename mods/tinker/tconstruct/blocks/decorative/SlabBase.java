@@ -99,4 +99,9 @@ public class SlabBase extends Block
             list.add(new ItemStack(id, 1, iter));
         }
     }
+    
+    public int damageDropped(int meta)
+    {
+        return meta % 8;
+    }
 }

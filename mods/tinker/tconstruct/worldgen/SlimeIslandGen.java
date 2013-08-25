@@ -33,11 +33,11 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
     @Override
     public void generate (Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider) //IWorldGenerator version
     {
-        /*if (PHConstruct.genSlimePools && (world.provider.dimensionId == 0 || PHConstruct.dimensionGenSlime))
-            generateSlimePool(world, random, chunkX * 16, chunkZ * 16);*/
-
-        if (random.nextInt(PHConstruct.islandRarity) == 0)
-            generateIsland(world, random, chunkX * 16, chunkZ * 16);
+        if (world.provider.dimensionId == 0 || world.provider.dimensionId >= 2)
+        {
+            if (random.nextInt(PHConstruct.islandRarity) == 0)
+                generateIsland(world, random, chunkX * 16, chunkZ * 16);
+        }
     }
 
     //Island is biased towards one direction. Quadrants would be more useful
@@ -134,9 +134,9 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
 
         //Decorate
         generateSlimePool(world, rand, xChunk + xRange / 2, yCenter + initialHeight, zChunk + zRange / 2);
-        
+
         PlantGen tallGrass = new PlantGen(TContent.slimeTallGrass.blockID, 0, 128, xRange, 1, zRange, false);
-        tallGrass.generate(world, rand, xChunk, yCenter + initialHeight+1, zChunk);
+        tallGrass.generate(world, rand, xChunk, yCenter + initialHeight + 1, zChunk);
         for (int i = 0; i < 3; i++)
         {
             trees.generate(world, random, xChunk + random.nextInt(xRange), yCenter + initialHeight + 3, zChunk + random.nextInt(zRange));

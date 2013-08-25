@@ -240,7 +240,7 @@ public class LavaTankBlock extends BlockContainer
         return meta;
     }
 
-    public boolean removeBlockByPlayer(World world, EntityPlayer player, int x, int y, int z)
+    public boolean removeBlockByPlayer (World world, EntityPlayer player, int x, int y, int z)
     {
         player.addExhaustion(0.025F);
         int meta = world.getBlockMetadata(x, y, z);
@@ -255,28 +255,29 @@ public class LavaTankBlock extends BlockContainer
             tag.setCompoundTag("Liquid", liquidTag);
             stack.setTagCompound(tag);
         }
-        dropTankBlock(world, x, y, z, stack);
-        
+        if (!player.capabilities.isCreativeMode || player.isSneaking())
+            dropTankBlock(world, x, y, z, stack);
+
         return world.setBlockToAir(x, y, z);
     }
-    
-    protected void dropTankBlock(World world, int x, int y, int z, ItemStack stack)
+
+    protected void dropTankBlock (World world, int x, int y, int z, ItemStack stack)
     {
         if (!world.isRemote && world.getGameRules().getGameRuleBooleanValue("doTileDrops"))
         {
             float f = 0.7F;
-            double d0 = (double)(world.rand.nextFloat() * f) + (double)(1.0F - f) * 0.5D;
-            double d1 = (double)(world.rand.nextFloat() * f) + (double)(1.0F - f) * 0.5D;
-            double d2 = (double)(world.rand.nextFloat() * f) + (double)(1.0F - f) * 0.5D;
-            EntityItem entityitem = new EntityItem(world, (double)x + d0, (double)y + d1, (double)z + d2, stack);
+            double d0 = (double) (world.rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
+            double d1 = (double) (world.rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
+            double d2 = (double) (world.rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
+            EntityItem entityitem = new EntityItem(world, (double) x + d0, (double) y + d1, (double) z + d2, stack);
             entityitem.delayBeforeCanPickup = 10;
             world.spawnEntityInWorld(entityitem);
         }
     }
-    
-    public void harvestBlock(World par1World, EntityPlayer par2EntityPlayer, int par3, int par4, int par5, int par6)
+
+    public void harvestBlock (World par1World, EntityPlayer par2EntityPlayer, int par3, int par4, int par5, int par6)
     {
-        
+
     }
 
     @Override

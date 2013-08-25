@@ -19,7 +19,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class MeatBlock extends Block
 {
     public Icon[] icons;
-    public String[] textureNames = new String[] { "ham_skin", "ham_bone", "fusewood_bark", "fusewood_heart" };
+    public String[] textureNames = new String[] { "ham_skin", "ham_bone" };
 
     public MeatBlock(int id)
     {

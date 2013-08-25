@@ -16,7 +16,7 @@ import mods.tinker.tconstruct.blocks.logic.CraftingStationLogic;
 import mods.tinker.tconstruct.blocks.logic.DrawbridgeLogic;
 import mods.tinker.tconstruct.blocks.logic.DryingRackLogic;
 import mods.tinker.tconstruct.blocks.logic.FrypanLogic;
-import mods.tinker.tconstruct.blocks.logic.GlowstoneAggregator;
+import mods.tinker.tconstruct.blocks.logic.LightAggregator;
 import mods.tinker.tconstruct.blocks.logic.PartCrafterLogic;
 import mods.tinker.tconstruct.blocks.logic.PatternChestLogic;
 import mods.tinker.tconstruct.blocks.logic.SmelteryLogic;
@@ -188,7 +188,7 @@ public class TProxyClient extends TProxyCommon
         if (ID == toolForgeID)
             return new ToolForgeGui(player.inventory, (ToolForgeLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
         if (ID == glowstoneAggregatorID)
-            return new GlowstoneAggregatorGui(player.inventory, (GlowstoneAggregator) world.getBlockTileEntity(x, y, z), world, x, y, z);
+            return new GlowstoneAggregatorGui(player.inventory, (LightAggregator) world.getBlockTileEntity(x, y, z), world, x, y, z);
         if (ID == drawbridgeID)
             return new DrawbridgeGui(player.inventory, (DrawbridgeLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
         if (ID == landmineID)

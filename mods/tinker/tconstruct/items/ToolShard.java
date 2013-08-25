@@ -16,7 +16,7 @@ public class ToolShard extends ToolPart
 
     public ToolShard(int id, String tex)
     {
-        super(id, tex);
+        super(id, tex, "ToolShard");
         this.setHasSubtypes(true);
         this.setMaxDamage(0);
     }

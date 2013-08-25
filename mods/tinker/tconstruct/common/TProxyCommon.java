@@ -128,7 +128,7 @@ public class TProxyCommon implements IGuiHandler
             }
         }
 
-        for (int mat = 0; mat < materialTypes.length; mat++)
+        /*for (int mat = 0; mat < materialTypes.length; mat++)
         {
             for (int type = 0; type < toolMaterialNames.length; type++)
             {
@@ -136,7 +136,7 @@ public class TProxyCommon implements IGuiHandler
                 String visibleName = new StringBuilder().append(toolMaterialNames[type]).append(materialNames[mat]).toString();
                 LanguageRegistry.instance().addStringLocalization(internalName, "en_US", visibleName);
             }
-        }
+        }*/
 
         for (int i = 0; i < shardNames.length; i++)
         {
@@ -168,10 +168,8 @@ public class TProxyCommon implements IGuiHandler
         //LanguageRegistry.instance().addStringLocalization("entity.TConstruct.EdibleSlime.name", "en_US", "Blue Slime");
         //LanguageRegistry.instance().addStringLocalization("entity.TConstruct.MetalSlime.name", "en_US", "Metal Slime");
         //LanguageRegistry.instance().addStringLocalization("item.tconstruct.diary.diary.name", "en_US", "Tinker's Log");
-        LanguageRegistry.instance().addStringLocalization("item.tconstruct.Pattern.blank_pattern.name", "en_US", "Blank Pattern");
-        LanguageRegistry.instance().addStringLocalization("item.tconstruct.Pattern.blank_cast.name", "en_US", "Blank Cast");
         //LanguageRegistry.addName(TContent.blankPattern, "Blank Pattern");
-        LanguageRegistry.addName(TContent.pickaxe, "Pickaxe");
+        /*LanguageRegistry.addName(TContent.pickaxe, "Pickaxe");
         LanguageRegistry.addName(TContent.shovel, "Shovel");
         LanguageRegistry.addName(TContent.hatchet, "Hatchet");
         LanguageRegistry.addName(TContent.broadsword, "Broadsword");
@@ -179,9 +177,9 @@ public class TProxyCommon implements IGuiHandler
         LanguageRegistry.addName(TContent.rapier, "Rapier");
         LanguageRegistry.addName(TContent.frypan, "Frying Pan");
         LanguageRegistry.addName(TContent.battlesign, "Battlesign");
-        LanguageRegistry.addName(TContent.mattock, "Mattock");
+        LanguageRegistry.addName(TContent.mattock, "Mattock");*/
         LanguageRegistry.addName(TContent.potionLauncher, "Potion Launcher");
-        LanguageRegistry.addName(TContent.dagger, "Dagger");
+        /*LanguageRegistry.addName(TContent.dagger, "Dagger");
         LanguageRegistry.addName(TContent.chisel, "Chisel");
         LanguageRegistry.addName(TContent.scythe, "Scythe");
         LanguageRegistry.addName(TContent.lumberaxe, "Lumber Axe");
@@ -189,12 +187,13 @@ public class TProxyCommon implements IGuiHandler
         LanguageRegistry.addName(TContent.excavator, "Excavator");
         LanguageRegistry.addName(TContent.hammer, "Hammer");
         LanguageRegistry.addName(TContent.battleaxe, "Battleaxe");
-        LanguageRegistry.addName(TContent.cutlass, "Cutlass");
-        LanguageRegistry.addName(TContent.aggregator, "Glowstone Aggregator");
-        LanguageRegistry.addName(TContent.lightCrystalBase, "Lightstone Crystal");
+        LanguageRegistry.addName(TContent.cutlass, "Cutlass");*/
+        LanguageRegistry.addName(TContent.aggregator, "Light Aggregator");
+        LanguageRegistry.addName(TContent.lightCrystalBase, "Light Crystal");
         LanguageRegistry.addName(TContent.knapsack, "Knapsack");
-        LanguageRegistry.addName(TContent.shortbow, "Shortbow");
-        LanguageRegistry.addName(TContent.arrow, "Arrow");
+        //LanguageRegistry.addName(TContent.shortbow, "Shortbow");
+        //LanguageRegistry.addName(TContent.arrow, "Arrow");
+        
         LanguageRegistry.addName(TContent.meatBlock, "Hambone");
 
     }

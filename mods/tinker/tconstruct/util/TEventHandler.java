@@ -510,8 +510,10 @@ public class TEventHandler
         Chunk chunk = event.getChunk();
         int worldID = chunk.worldObj.provider.dimensionId;
         ValueCoordTuple coord = new ValueCoordTuple(worldID, chunk.xPosition, chunk.zPosition);
-        CrystalValues crystal = new CrystalValues();
-        Crystallinity.crystallinity.put(coord, crystal.loadFromNBT(event.getData()));
+        CrystalValues theft = new CrystalValues("Theft");
+        Crystallinity.theftValue.put(coord, theft.loadFromNBT(event.getData()));
+        CrystalValues charge = new CrystalValues("Charge");
+        Crystallinity.theftValue.put(coord, charge.loadFromNBT(event.getData()));
     }
 
     @ForgeSubscribe
@@ -520,13 +522,23 @@ public class TEventHandler
         Chunk chunk = event.getChunk();
         int worldID = chunk.worldObj.provider.dimensionId;
         ValueCoordTuple coord = new ValueCoordTuple(worldID, chunk.xPosition, chunk.zPosition);
-        if (Crystallinity.crystallinity.containsKey(coord))
+        if (Crystallinity.theftValue.containsKey(coord))
         {
-            CrystalValues crystal = Crystallinity.crystallinity.get(coord);
+            CrystalValues crystal = Crystallinity.theftValue.get(coord);
             crystal.saveToNBT(event.getData());
             if (!event.getChunk().isChunkLoaded)
             {
-                Crystallinity.crystallinity.remove(coord);
+                Crystallinity.theftValue.remove(coord);
+            }
+        }
+        
+        if (Crystallinity.charge.containsKey(coord))
+        {
+            CrystalValues crystal = Crystallinity.charge.get(coord);
+            crystal.saveToNBT(event.getData());
+            if (!event.getChunk().isChunkLoaded)
+            {
+                Crystallinity.charge.remove(coord);
             }
         }
     }
