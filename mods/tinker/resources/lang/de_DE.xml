@@ -27,6 +27,7 @@
   <entry key="CraftedSoil.BlueSlime.name">Schleimiger Matsch (Blau)</entry>
   <entry key="CraftedSoil.GraveyardSoil.name">Friedhoferde</entry>
   <entry key="CraftedSoil.ConsecratedSoil.name">Gesegnete Erde</entry>
+  <entry key="tile.CastingChannel.name">Gusskanal</entry>
 
   <entry key="MetalOre.NetherSlag.name">Netherstein-Schlacke</entry>
   <entry key="MetalOre.Cobalt.name">Cobalterz</entry>
@@ -125,6 +126,30 @@
   <entry key="item.goldenhead.name">Goldener Kopf</entry>
   <entry key="item.tconstruct.titleicon.name">Erschaffe </entry>
 
+  <entry key="item.InfiTool.Pickaxe.name">Spitzhacke</entry>
+  <entry key="item.InfiTool.Shovel.name">Schaufel</entry>
+  <entry key="item.InfiTool.Axe.name">Beil</entry>
+  <entry key="item.InfiTool.Broadsword.name">Breitschwert</entry>
+  <entry key="item.InfiTool.Longsword.name">Langschwert</entry>
+  <entry key="item.InfiTool.Rapier.name">Rapier</entry>
+  <entry key="item.InfiTool.Frypan.name">Bratpfanne</entry>
+  <entry key="item.InfiTool.Battlesign.name">Kampf</entry>
+  <entry key="item.InfiTool.Dagger.name">Dolch</entry>
+  <entry key="item.InfiTool.Chisel.name">Meißel</entry>
+  <entry key="item.InfiTool.Scythe.name">Sense</entry>
+  <entry key="item.InfiTool.LumberAxe.name">Holzfälleraxt</entry>
+  <entry key="item.InfiTool.Cleaver.name">Hackmesser</entry>
+  <entry key="item.InfiTool.Excavator.name">Exkavator</entry>
+  <entry key="item.InfiTool.Hammer.name">Hammer</entry>
+  <entry key="item.InfiTool.Battleaxe.name">Streitaxt</entry>
+  <entry key="item.InfiTool.Cutlass.name">Entermesser</entry>
+  <entry key="item.InfiTool.Shortbow.name">Kurzbogen</entry>
+  <entry key="item.InfiTool.Arrow.name">Pfeil</entry>
+  <entry key="item.InfiTool.PotionLauncher.name">Trankwerfer</entry>
+  
+  <entry key="item.tconstruct.Pattern.blank_pattern.name">Leere Schablone</entry>
+  <entry key="item.tconstruct.Pattern.blank_cast.name">Leere Gussform</entry>
+  
   <entry key="item.tconstruct.Materials.PaperStack.name">Papierstapel</entry>
   <entry key="item.tconstruct.Materials.SlimeCrystal.name">Schleimkristall</entry>
   <entry key="item.tconstruct.Materials.SearedBrick.name">Versengter Ziegelstein</entry>
@@ -311,6 +336,7 @@
   <entry key="item.tconstruct.bucket.Invar.name">Eimer mit geschmolzenem Invar</entry>
   <entry key="item.tconstruct.bucket.Electrum.name">Eimer mit geschmolzenem Elektrum</entry>
   <entry key="item.tconstruct.bucket.Ender.name">Eimer mit verflüssigtem Ender</entry>
+  <entry key="item.tconstruct.bucket.Slime.name">Eimer mit flüssigem Schleim</entry>
 
   <entry key="item.tconstruct.bowstring.string.name">Bogensehne</entry>
   <entry key="item.tconstruct.bowstring.enchantedfabriI donc.name">Verzauberte Bogensehne</entry>
@@ -357,10 +383,82 @@
   <entry key="entity.TConstruct.MiniGardy.name">Guardeschleim</entry> 
 
   <entry key="key.tarmor">Rüstungs-GUI</entry>
+  <entry key="key.tcapes.reload">Lade Capes neu</entry>
 
   <entry key="death.one.smeltery">%1$s wurde in eine Proteinmasse verwandelt</entry>
   <entry key="death.two.smeltery">%1$s ist mit der Schmelzerei eins geworden</entry>
   <entry key="death.three.smeltery">%1$s wird ein Meilenstein für unsere Revolution sein!</entry>
   <entry key="death.four.smeltery">%1$s dachte, das Schwimmen in heißen Flüssigkeiten wäre eine gute Idee</entry>
+  
+  <entry key="parttype.wood">Holz -</entry>
+  <entry key="parttype.stone">Stein -</entry>
+  <entry key="parttype.iron">Eisen -</entry>
+  <entry key="parttype.flint">Feuterstein -</entry>
+  <entry key="parttype.cactus">Kaktus -</entry>
+  <entry key="parttype.bone">Knochen -</entry>
+  <entry key="parttype.obsidian">Obsidian -</entry>
+  <entry key="parttype.slime">Schleim -</entry>
+  <entry key="parttype.paper">Papier -</entry>
+  <entry key="parttype.netherrack">Netherstein -</entry>
+  <entry key="parttype.cobalt">Cobalt -</entry>
+  <entry key="parttype.ardite">Ardit -</entry>
+  <entry key="parttype.manyullyn">Manyullyn -</entry>
+  <entry key="parttype.copper">Kupfer -</entry>
+  <entry key="parttype.bronze">Bronze -</entry>
+  <entry key="parttype.alumite">Alumit -</entry>
+  <entry key="parttype.steel">Stahl -</entry>
+  <entry key="parttype.blueslime">Schleim -</entry>
+  <entry key="parttype.thaumium">Thaumium -</entry>
+  
+  <entry key="toolpart.ToolRod">Werkzeuggriff</entry>
+  <entry key="toolpart.PickHead">Spitzhackenkopf</entry>
+  <entry key="toolpart.ShovelHead">Schaufelkopf</entry>
+  <entry key="toolpart.AxeHead">Axtkopf</entry>
+  <entry key="toolpart.Binding">Verbindung</entry>
+  <entry key="toolpart.ToughBind">Robuste Verbindung</entry>
+  <entry key="toolpart.ToughRod">Robuster Griff</entry>
+  <entry key="toolpart.LargePlate">Große Platte</entry>
+  <entry key="toolpart.SwordBlade">Swertklinge</entry>
+  <entry key="toolpart.LargeGuard">Großer Schützer</entry>
+  <entry key="toolpart.MediumGuard">Mittelgroßer Schützer</entry>
+  <entry key="toolpart.Crossbar">Querstange</entry>
+  <entry key="toolpart.KnifeBlade">Messerklinge</entry>
+  <entry key="toolpart.FullGuard">Voller Schützer</entry>
+  <entry key="toolpart.FrypanHead">Pfanne</entry>
+  <entry key="toolpart.SignHead">Schildkopf</entry>
+  <entry key="toolpart.ChiselHead">Meißelkopf</entry>
+  <entry key="toolpart.ScytheHead">Sensenkopf</entry>
+  <entry key="toolpart.LumberHead">Breitschwertkopf</entry>
+  <entry key="toolpart.ExcavatorHead">Exkavatorkopf</entry>
+  <entry key="toolpart.LargeSwordBlade">Große Schwerklinge</entry>
+  <entry key="toolpart.HammerHead">Hammerkopf</entry>
+  <entry key="toolpart.Bowstring">Bogensehne</entry>
+  <entry key="toolpart.ArrowHead">Pfeilspitze</entry>
+  <entry key="toolpart.Fletching">Befiederung</entry>
+  
+  <entry key="molten iron">Geschmolzenes Eisen</entry>
+  <entry key="molten gold">Geschmolzenes Gold</entry>
+  <entry key="molten copper">Geschmolzenes Kupfer</entry>
+  <entry key="molten tin">Geschmolzenes Zinn</entry>
+  <entry key="molten aluminum">Geschmolzenes Aluminum</entry>
+  <entry key="molten cobalt">Geschmolzenes Cobalt</entry>
+  <entry key="molten ardite">Geschmolzenes Ardit</entry>
+  <entry key="molten bronze">Geschmolzene Bronze</entry>
+  <entry key="molten aluminum brass">Geschmolzenes Duraluminium</entry>
+  <entry key="molten manyullyn">Geschmolzenes Manyullyn</entry>
+  <entry key="molten alumite">Geschmolzenes Alumit</entry>
+  <entry key="molten obsidian">Geschmolzenes Obsidian</entry>
+  <entry key="molten steel">Geschmolzener Stahl</entry>
+  <entry key="molten glass">Geschmolzenes Glas</entry>
+  <entry key="seared stone">Versengtes Gestein</entry>
+  <entry key="liquified emerald">Verflüssigter Smaragd</entry>
+  <entry key="blood">Blut</entry>
+  <entry key="molten nickel">Geschmolzenes Nickel</entry>
+  <entry key="molten lead">Geschmolzenes Blei</entry>
+  <entry key="molten silver">Geschmolzenes Silber</entry>
+  <entry key="molten platinum">Geschmolzenes Platin</entry>
+  <entry key="molten invar">Geschmolzenes Invar</entry>
+  <entry key="molten electrum">Geschmolzenes Elektrum</entry>
+  <entry key="ender">Flüssiges Ender</entry>
 
 </properties>
