@@ -8,22 +8,23 @@ import net.minecraft.world.World;
 
 import org.lwjgl.opengl.GL11;
 
-import tconstruct.blocks.logic.GlowstoneAggregator;
+import tconstruct.blocks.logic.LightAggregator;
 
 public class GlowstoneAggregatorGui extends GuiContainer
 {
-    public GlowstoneAggregator logic;
+    public LightAggregator logic;
 
-    public GlowstoneAggregatorGui(InventoryPlayer inventoryplayer, GlowstoneAggregator frypan, World world, int x, int y, int z)
+    public GlowstoneAggregatorGui(InventoryPlayer inventoryplayer, LightAggregator aggregator, World world, int x, int y, int z)
     {
-        super(frypan.getGuiContainer(inventoryplayer, world, x, y, z));
-        logic = frypan;
+        super(aggregator.getGuiContainer(inventoryplayer, world, x, y, z));
+        logic = aggregator;
     }
 
     protected void drawGuiContainerForegroundLayer (int par1, int par2)
     {
         //fontRenderer.drawString(StatCollector.translateToLocal("aggregator.glowstone"), 60, 6, 0x404040);
-        fontRenderer.drawString("Glowstone Aggregator", 8, 6, 0x404040);
+        fontRenderer.drawString("Lightstone Aggregator", 8, 6, 0x404040);
+        fontRenderer.drawString("Crystal Value: " + logic.crystalValue, 8, 16, 0x404040);
         fontRenderer.drawString(StatCollector.translateToLocal("container.inventory"), 8, (ySize - 96) + 2, 0x404040);
     }
     

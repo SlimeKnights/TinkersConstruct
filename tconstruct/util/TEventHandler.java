@@ -14,7 +14,6 @@ import net.minecraft.entity.monster.EntitySpider;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.passive.EntityChicken;
-import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -24,8 +23,8 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumMovingObjectType;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
-import net.minecraftforge.event.Event.Result;
 import net.minecraftforge.event.Event;
+import net.minecraftforge.event.Event.Result;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
@@ -40,7 +39,8 @@ import net.minecraftforge.oredict.OreDictionary.OreRegisterEvent;
 import tconstruct.TConstruct;
 import tconstruct.blocks.LiquidMetalFinite;
 import tconstruct.common.TContent;
-import tconstruct.crystal.TheftValueTracker;
+import tconstruct.crystal.CrystalValues;
+import tconstruct.crystal.Crystallinity;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.PatternBuilder;
 import tconstruct.library.crafting.Smeltery;
@@ -480,7 +480,10 @@ public class TEventHandler
         Chunk chunk = event.getChunk();
         int worldID = chunk.worldObj.provider.dimensionId;
         ValueCoordTuple coord = new ValueCoordTuple(worldID, chunk.xPosition, chunk.zPosition);
-        TheftValueTracker.crystallinity.put(coord, event.getData().getInteger("TConstruct.Crystallinity"));
+        CrystalValues theft = new CrystalValues("Theft");
+        Crystallinity.theftValue.put(coord, theft.loadFromNBT(event.getData()));
+        CrystalValues charge = new CrystalValues("Charge");
+        Crystallinity.theftValue.put(coord, charge.loadFromNBT(event.getData()));
     }
 
     @ForgeSubscribe
@@ -489,13 +492,23 @@ public class TEventHandler
         Chunk chunk = event.getChunk();
         int worldID = chunk.worldObj.provider.dimensionId;
         ValueCoordTuple coord = new ValueCoordTuple(worldID, chunk.xPosition, chunk.zPosition);
-        if (TheftValueTracker.crystallinity.containsKey(coord))
+        if (Crystallinity.theftValue.containsKey(coord))
         {
-            int crystal = TheftValueTracker.crystallinity.get(coord);
-            event.getData().setInteger("TConstruct.Crystallinity", crystal);
+            CrystalValues crystal = Crystallinity.theftValue.get(coord);
+            crystal.saveToNBT(event.getData());
             if (!event.getChunk().isChunkLoaded)
             {
-                TheftValueTracker.crystallinity.remove(worldID);
+                Crystallinity.theftValue.remove(coord);
+            }
+        }
+        
+        if (Crystallinity.charge.containsKey(coord))
+        {
+            CrystalValues crystal = Crystallinity.charge.get(coord);
+            crystal.saveToNBT(event.getData());
+            if (!event.getChunk().isChunkLoaded)
+            {
+                Crystallinity.charge.remove(coord);
             }
         }
     }

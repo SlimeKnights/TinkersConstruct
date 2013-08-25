@@ -2,13 +2,6 @@ package tconstruct.blocks;
 
 import java.util.List;
 
-import tconstruct.TConstruct;
-import tconstruct.blocks.logic.GlowstoneAggregator;
-import tconstruct.common.TProxyCommon;
-import tconstruct.crystal.TheftValueTracker;
-import tconstruct.library.TConstructRegistry;
-import tconstruct.library.blocks.InventoryBlock;
-
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -19,6 +12,12 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import tconstruct.TConstruct;
+import tconstruct.blocks.logic.LightAggregator;
+import tconstruct.common.TProxyCommon;
+import tconstruct.crystal.TheftValueTracker;
+import tconstruct.library.TConstructRegistry;
+import tconstruct.library.blocks.InventoryBlock;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -32,7 +31,7 @@ public class Aggregator extends InventoryBlock
         super(id, Material.iron);
         setHardness(2.0f);
         this.setCreativeTab(TConstructRegistry.blockTab);
-        setLightValue(1.0f);
+        //setLightValue(1.0f);
     }
 
     @Override
@@ -58,7 +57,7 @@ public class Aggregator extends InventoryBlock
     {
         if (side == 1)
         {
-            GlowstoneAggregator logic = (GlowstoneAggregator) iblockaccess.getBlockTileEntity(x, y, z);
+            LightAggregator logic = (LightAggregator) iblockaccess.getBlockTileEntity(x, y, z);
             if (logic.getActive())
                 return icons[0];
             else
@@ -83,15 +82,47 @@ public class Aggregator extends InventoryBlock
     public void onBlockPlacedBy (World world, int x, int y, int z, EntityLivingBase entityliving, ItemStack stack)
     {
         super.onBlockPlacedBy(world, x, y, z, entityliving, stack);
-        if (!world.isRemote)
-            TheftValueTracker.updateCrystallinity(world.provider.dimensionId, x, z, 4);
+        /*int range = 9;
+        for (int xPos = -range; xPos <= range; xPos++)
+        {
+            for (int yPos = -range; yPos <= range; yPos++)
+            {
+                for (int zPos = -range; zPos <= range; zPos++)
+                {
+                    if (Math.abs(xPos) + Math.abs(yPos) + Math.abs(zPos) <= range)
+                    {
+                        Block block = Block.blocksList[world.getBlockId(x + xPos, y + yPos, z + zPos)];
+                        if (block == null || block.isAirBlock(world, x + xPos, y + yPos, z + zPos))
+                            world.setBlock(x + xPos, y + yPos, z + zPos, TContent.darkBlock.blockID, 1, 3);
+                    }
+                }
+            }
+        }*/
+        /*if (!world.isRemote)
+            Crystallinity.updateCrystallinity(world.provider.dimensionId, x, z, 4);*/
     }
 
     @Override
     public void breakBlock (World world, int x, int y, int z, int par5, int par6)
     {
         super.breakBlock(world, x, y, z, par5, par6);
-        TheftValueTracker.updateCrystallinity(world.provider.dimensionId, x, z, -4);
+        /*int range = 20;
+        for (int xPos = -range; xPos <= range; xPos++)
+        {
+            for (int yPos = -range; yPos <= range; yPos++)
+            {
+                for (int zPos = -range; zPos <= range; zPos++)
+                {
+                    if (Math.abs(xPos) + Math.abs(yPos) + Math.abs(zPos) <= range)
+                    {
+                        Block block = Block.blocksList[world.getBlockId(x + xPos, y + yPos, z + zPos)];
+                        if (block == TContent.darkBlock || block == TContent.lightCrystalBase)
+                            world.setBlock(x + xPos, y + yPos, z + zPos, 0, 0, 3);
+                    }
+                }
+            }
+        }*/
+        //Crystallinity.updateCrystallinity(world.provider.dimensionId, x, z, -4);
     }
 
     @Override
@@ -107,7 +138,7 @@ public class Aggregator extends InventoryBlock
     @Override
     public TileEntity createTileEntity (World world, int metadata)
     {
-        return new GlowstoneAggregator();
+        return new LightAggregator();
     }
 
     @Override
@@ -128,9 +159,9 @@ public class Aggregator extends InventoryBlock
         return textureNames;
     }
 
-    public void updateCrystalValue (World world, int x, int y, int z)
+    /*public void updateCrystalValue (World world, int x, int y, int z)
     {
         GlowstoneAggregator logic = (GlowstoneAggregator) world.getBlockTileEntity(x, y, z);
         logic.updateCrystalValue();
-    }
+    }*/
 }

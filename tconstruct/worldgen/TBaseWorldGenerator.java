@@ -2,17 +2,17 @@ package tconstruct.worldgen;
 
 import java.util.Random;
 
-import tconstruct.common.TContent;
-import tconstruct.crystal.TheftValueTracker;
-import tconstruct.library.util.ValueCoordTuple;
-import tconstruct.util.PHConstruct;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.feature.WorldGenMinable;
+import tconstruct.common.TContent;
+import tconstruct.crystal.CrystalValues;
+import tconstruct.crystal.Crystallinity;
+import tconstruct.library.util.ValueCoordTuple;
+import tconstruct.util.PHConstruct;
 import cpw.mods.fml.common.IWorldGenerator;
 
 public class TBaseWorldGenerator implements IWorldGenerator
@@ -64,7 +64,8 @@ public class TBaseWorldGenerator implements IWorldGenerator
     void initializeChunkData (int chunkX, int chunkZ, int worldID)
     {
         ValueCoordTuple coord = new ValueCoordTuple(worldID, chunkX, chunkZ);
-        TheftValueTracker.crystallinity.put(coord, 0);
+        Crystallinity.theftValue.put(coord, new CrystalValues("Theft"));
+        Crystallinity.charge.put(coord, new CrystalValues("Charge"));
     }
 
     void generateSurface (Random random, int xChunk, int zChunk, World world)

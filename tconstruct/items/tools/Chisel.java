@@ -30,17 +30,18 @@ public class Chisel extends ToolCore
     @Override
     public ItemStack getContainerItemStack (ItemStack itemStack)
     {
-        //AbilityHelper.damageTool(itemStack, 1, null, false);
-
-        int reinforced = 0;
-        NBTTagCompound tags = itemStack.getTagCompound();
-
-        if (tags.getCompoundTag("InfiTool").hasKey("Unbreaking"))
-            reinforced = tags.getCompoundTag("InfiTool").getInteger("Unbreaking");
-
-        if (random.nextInt(10) < 10 - reinforced)
+        if (itemStack.hasTagCompound())
         {
-            AbilityHelper.damageTool(itemStack, 1, null, false);
+            int reinforced = 0;
+            NBTTagCompound tags = itemStack.getTagCompound();
+
+            if (tags.getCompoundTag("InfiTool").hasKey("Unbreaking"))
+                reinforced = tags.getCompoundTag("InfiTool").getInteger("Unbreaking");
+
+            if (random.nextInt(10) < 10 - reinforced)
+            {
+                AbilityHelper.damageTool(itemStack, 1, null, false);
+            }
         }
         return itemStack;
     }

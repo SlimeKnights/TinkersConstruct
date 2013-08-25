@@ -72,31 +72,4 @@ public class LightCrystalBase extends Block
             this.icons[i] = iconRegister.registerIcon("tinker:" + textureNames[i]);
         }
     }
-
-    @Override
-    public void breakBlock (World world, int x, int y, int z, int par5, int meta)
-    {
-        switch (meta % 5)
-        {
-        case 0:
-        case 4:
-            TheftValueTracker.updateCrystallinity(world.provider.dimensionId, x, z, -10);
-            break;
-        case 1:
-            TheftValueTracker.updateCrystallinity(world.provider.dimensionId, x, z, -20);
-            break;
-        case 2:
-            TheftValueTracker.updateCrystallinity(world.provider.dimensionId, x, z, -35);
-            break;
-        case 3:
-            TheftValueTracker.updateCrystallinity(world.provider.dimensionId, x, z, -60);
-            break;
-        }
-
-        Block block = Block.blocksList[world.getBlockId(x, y - 1, z)];
-        if (block == TContent.aggregator)
-        {
-            ((Aggregator) block).updateCrystalValue(world, x, y - 1, z);
-        }
-    }
 }

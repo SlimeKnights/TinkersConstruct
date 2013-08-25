@@ -34,9 +34,9 @@ public class CrystalBlockRender implements ISimpleBlockRenderingHandler
     {
         if (modelID == model)
         {
-            int metadata = world.getBlockMetadata(x, y, z) % 5;
+            int metadata = world.getBlockMetadata(x, y, z);
 
-            if (metadata != 3)
+            if (metadata < 3) //Bits
             {
                 renderer.setRenderBounds(0.0625F, 0.0F, 0.0625F, 0.25F, 0.0625F, 0.375F);
                 renderer.renderStandardBlock(block, x, y, z);
@@ -45,6 +45,8 @@ public class CrystalBlockRender implements ISimpleBlockRenderingHandler
                 renderer.setRenderBounds(0.5F, 0.0F, 0.8125F, 0.5625F, 0.0625F, 0.875F);
                 renderer.renderStandardBlock(block, x, y, z);
             }
+            
+            //Base
             if (metadata == 0)
             {
                 renderer.setRenderBounds(0.375F, 0.0F, 0.375F, 0.625F, 0.125F, 0.625F);
@@ -78,11 +80,12 @@ public class CrystalBlockRender implements ISimpleBlockRenderingHandler
             }
             else if (metadata == 3)
             {
-                renderer.setRenderBounds(0.25F, 0.0F, 0.25F, 0.75F, 0.75F, 0.75F);
-                renderer.renderStandardBlock(block, x, y, z);
                 renderer.setRenderBounds(0.3125F, 0.75F, 0.3125F, 0.6875F, 0.875F, 0.6875F);
                 renderer.renderStandardBlock(block, x, y, z);
                 renderer.setRenderBounds(0.375F, 0.875F, 0.375F, 0.625F, 0.9325F, 0.625F);
+                renderer.renderStandardBlock(block, x, y, z);
+                
+                renderer.setRenderBounds(0.25F, 0.0F, 0.25F, 0.75F, 0.75F, 0.75F);
                 renderer.renderStandardBlock(block, x, y, z);
 
                 renderer.setRenderBounds(0.125F, 0.0F, 0.5F, 0.375F, 0.375, 0.875F);
@@ -92,22 +95,170 @@ public class CrystalBlockRender implements ISimpleBlockRenderingHandler
                 renderer.setRenderBounds(0.625F, 0.0F, 0.5F, 0.875F, 0.625, 0.875F);
                 renderer.renderStandardBlock(block, x, y, z);
             }
-            else if (metadata == 4)
+            else if (metadata == 4) //Transition
             {
-                /*renderer.setRenderBounds(0.25F, 0.0F, 0.25F, 0.75F, 0.75F, 0.75F);
+                renderer.setRenderBounds(0.25F, 0.0F, 0.25F, 0.75F, 1.0F, 0.75F);
                 renderer.renderStandardBlock(block, x, y, z);
+
+                renderer.setRenderBounds(0.125F, 0.0F, 0.5F, 0.375F, 0.5, 0.875F);
+                renderer.renderStandardBlock(block, x, y, z);
+                renderer.setRenderBounds(0.4325F, 0.0F, 0.0625, 0.625, 1.0, 0.3125F);
+                renderer.renderStandardBlock(block, x, y, z);
+                renderer.setRenderBounds(0.625F, 0.0F, 0.5F, 0.875F, 0.75, 0.875F);
+                renderer.renderStandardBlock(block, x, y, z);
+            }
+            
+            else if (metadata == 5) //Transition
+            {
+                renderer.setRenderBounds(0.25F, 0.0F, 0.25F, 0.75F, 1.0F, 0.75F);
+                renderer.renderStandardBlock(block, x, y, z);
+
+                renderer.setRenderBounds(0.125F, 0.0F, 0.5F, 0.375F, 0.75F, 0.875F);
+                renderer.renderStandardBlock(block, x, y, z);
+                renderer.setRenderBounds(0.4325F, 0.0F, 0.0625, 0.625, 1.0, 0.3125F);
+                renderer.renderStandardBlock(block, x, y, z);
+                renderer.setRenderBounds(0.625F, 0.0F, 0.5F, 0.875F, 1.0, 0.875F);
+                renderer.renderStandardBlock(block, x, y, z);
+            }
+
+            //2nd Layer
+            else if (metadata == 6)
+            {
+                renderer.setRenderBounds(0.3125F, 0.0F, 0.3125F, 0.6875F, 0.25, 0.6875F);
+                renderer.renderStandardBlock(block, x, y, z);
+                renderer.setRenderBounds(0.375F, 0.25, 0.375F, 0.625F, 0.375, 0.625F);
+                renderer.renderStandardBlock(block, x, y, z);
+                renderer.setRenderBounds(0.25, 0.0F, 0.5F, 0.375, 0.1875, 0.75F);
+                renderer.renderStandardBlock(block, x, y, z);
+                renderer.setRenderBounds(0.4325F, 0.0F, 0.1875, 0.625, 0.125, 0.3125F);
+                renderer.renderStandardBlock(block, x, y, z);
+                renderer.setRenderBounds(0.5625F, 0.0F, 0.5F, 0.75, 0.125, 0.75F);
+                renderer.renderStandardBlock(block, x, y, z);
+            }
+            else if (metadata == 7)
+            {
+                renderer.setRenderBounds(0.3125F, 0.0F, 0.3125F, 0.6875F, 0.5F, 0.6875F);
+                renderer.renderStandardBlock(block, x, y, z);
+                renderer.setRenderBounds(0.375F, 0.5F, 0.375F, 0.625F, 0.625F, 0.625F);
+                renderer.renderStandardBlock(block, x, y, z);
+                
+                renderer.setRenderBounds(0.25F, 0.0F, 0.5F, 0.4325F, 0.25F, 0.75F);
+                renderer.renderStandardBlock(block, x, y, z);
+                renderer.setRenderBounds(0.4325F, 0.0F, 0.125F, 0.625F, 0.375F, 0.3125F);
+                renderer.renderStandardBlock(block, x, y, z);
+                renderer.setRenderBounds(0.625F, 0.0F, 0.5F, 0.8125f, 0.375F, 0.75F);
+                renderer.renderStandardBlock(block, x, y, z);
+            }
+            else if (metadata == 8)
+            {
                 renderer.setRenderBounds(0.3125F, 0.75F, 0.3125F, 0.6875F, 0.875F, 0.6875F);
                 renderer.renderStandardBlock(block, x, y, z);
                 renderer.setRenderBounds(0.375F, 0.875F, 0.375F, 0.625F, 0.9325F, 0.625F);
-                renderer.renderStandardBlock(block, x, y, z);*/
+                renderer.renderStandardBlock(block, x, y, z);
+                
+                renderer.setRenderBounds(0.25F, 0.0F, 0.25F, 0.75F, 0.75F, 0.75F);
+                renderer.renderStandardBlock(block, x, y, z);
 
+                renderer.setRenderBounds(0.4325F, 0.0F, 0.0625, 0.625, 0.6875F, 0.3125F);
+                renderer.renderStandardBlock(block, x, y, z);
+                renderer.setRenderBounds(0.625F, 0.0F, 0.5F, 0.8125F, 0.625, 0.8125F);
+                renderer.renderStandardBlock(block, x, y, z);
+            }
+            else if (metadata == 9) //Transition
+            {
+                renderer.setRenderBounds(0.3125F, 0.75F, 0.3125F, 0.6875F, 1.0F, 0.6875F);
+                renderer.renderStandardBlock(block, x, y, z);
+                
+                renderer.setRenderBounds(0.25F, 0.0F, 0.25F, 0.75F, 0.75F, 0.75F);
+                renderer.renderStandardBlock(block, x, y, z);
+
+                renderer.setRenderBounds(0.4325F, 0.0F, 0.0625, 0.625, 0.75F, 0.3125F);
+                renderer.renderStandardBlock(block, x, y, z);
+                renderer.setRenderBounds(0.4325F, 0.75F, 0.125F, 0.625, 1.0F, 0.3125F);
+                renderer.renderStandardBlock(block, x, y, z);
+                renderer.setRenderBounds(0.625F, 0.0F, 0.5F, 0.8125F, 0.625, 0.8125F);
+                renderer.renderStandardBlock(block, x, y, z);
+            }
+            
+            //3rd Layer
+            else if (metadata == 10)
+            {
+                renderer.setRenderBounds(0.375F, 0F, 0.3125F, 0.625F, 0.1875F, 0.625F);
+                renderer.renderStandardBlock(block, x, y, z);
+                renderer.setRenderBounds(0.4325F, 0.1875F, 0.4375F, 0.5625F, 0.25F, 0.5625F);
+                renderer.renderStandardBlock(block, x, y, z);
+                renderer.setRenderBounds(0.4325F, 0F, 0.1875F, 0.5625F, 0.125F, 0.3125F);
+                renderer.renderStandardBlock(block, x, y, z);
+            }
+            else if (metadata == 11)
+            {
+                renderer.setRenderBounds(0.375F, 0F, 0.3125F, 0.625F, 0.4325F, 0.625F);
+                renderer.renderStandardBlock(block, x, y, z);
+                renderer.setRenderBounds(0.4325F, 0.4325F, 0.375F, 0.5625F, 0.5F, 0.5625F);
+                renderer.renderStandardBlock(block, x, y, z);
+                
+                renderer.setRenderBounds(0.4325F, 0F, 0.1875F, 0.625F, 0.3125F, 0.3125F);
+                renderer.renderStandardBlock(block, x, y, z);
+                renderer.setRenderBounds(0.4325F, 0F, 0.4325F, 0.6875F, 0.3125, 0.6875);
+                renderer.renderStandardBlock(block, x, y, z);
+            }
+            else if (metadata == 12)
+            {
+                renderer.setRenderBounds(0.3125F, 0F, 0.3125F, 0.625F, 0.75F, 0.625F);
+                renderer.renderStandardBlock(block, x, y, z);
+                renderer.setRenderBounds(0.375F, 0.75F, 0.375F, 0.5625F, 0.875F, 0.5625F);
+                renderer.renderStandardBlock(block, x, y, z);
+                
+                renderer.setRenderBounds(0.4325F, 0F, 0.1875F, 0.625F, 0.675F, 0.3125F);
+                renderer.renderStandardBlock(block, x, y, z);
+                renderer.setRenderBounds(0.4325F, 0F, 0.4325F, 0.6875F, 0.5625F, 0.6875);
+                renderer.renderStandardBlock(block, x, y, z);
+            }
+            else if (metadata == 13)//Transition
+            {
+                renderer.setRenderBounds(0.3125F, 0F, 0.3125F, 0.625F, 1.0, 0.625F);
+                renderer.renderStandardBlock(block, x, y, z);
+                /*renderer.setRenderBounds(0.375F, 0.75F, 0.375F, 0.5625F, 0.875F, 0.5625F);
+                renderer.renderStandardBlock(block, x, y, z);*/
+                
+                renderer.setRenderBounds(0.4325F, 0F, 0.1875F, 0.625F, 0.875F, 0.3125F);
+                renderer.renderStandardBlock(block, x, y, z);
+                renderer.setRenderBounds(0.4325F, 0F, 0.4325F, 0.6875F, 0.75, 0.6875);
+                renderer.renderStandardBlock(block, x, y, z);
+            }
+            
+            //4th Layer
+            else if (metadata == 14)
+            {
+                renderer.setRenderBounds(0.3125F, 0F, 0.3125F, 0.625F, 0.1875F, 0.625F);
+                renderer.renderStandardBlock(block, x, y, z);
+                renderer.setRenderBounds(0.4375F, 0.1875F, 0.3125F, 0.625F, 0.3125F, 0.5F);
+                renderer.renderStandardBlock(block, x, y, z);
+                renderer.setRenderBounds(0.375F, 0.1875F, 0.375F, 0.5625F, 0.375F, 0.5625F);
+                renderer.renderStandardBlock(block, x, y, z);
+            }
+            else if (metadata == 15)
+            {
+                renderer.setRenderBounds(0.3125F, 0F, 0.3125F, 0.625F, 0.25F, 0.625F);
+                renderer.renderStandardBlock(block, x, y, z);
+                renderer.setRenderBounds(0.4375F, 0.25F, 0.3125F, 0.625F, 0.5F, 0.5F);
+                renderer.renderStandardBlock(block, x, y, z);
+                renderer.setRenderBounds(0.375F, 0.1875F, 0.375F, 0.5625F, 0.6875F, 0.5625F);
+                renderer.renderStandardBlock(block, x, y, z);
+                renderer.setRenderBounds(0.4375F, 0.6875F, 0.4375F, 0.5625F, 0.75F, 0.5625F);
+                renderer.renderStandardBlock(block, x, y, z);
+            }
+            
+            //Unused
+            /*else if (metadata == 4) //Leftover fragments
+            {
                 renderer.setRenderBounds(0.125F, 0.0F, 0.5F, 0.375F, 0.125F, 0.75F);
                 renderer.renderStandardBlock(block, x, y, z);
                 renderer.setRenderBounds(0.4325F, 0.0F, 0.0625, 0.625, 0.25F, 0.3125F);
                 renderer.renderStandardBlock(block, x, y, z);
                 renderer.setRenderBounds(0.625F, 0.0F, 0.5F, 0.75F, 0.1875F, 0.75F);
                 renderer.renderStandardBlock(block, x, y, z);
-            }
+            }*/
         }
         return true;
     }
