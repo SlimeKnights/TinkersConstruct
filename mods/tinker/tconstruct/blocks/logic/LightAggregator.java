@@ -50,7 +50,7 @@ public class LightAggregator extends AggregatorLogic implements IActiveLogic
             if (currentLightLevel > 3)
             {
                 currentTime += currentLightLevel / 3 + 1;
-                if (currentTime >= 1) //180 ticks * max light (15) 540
+                if (currentTime >= 540) //180 ticks * max light (15) 540
                 {
                     currentTime = 0;
                     crystalValue++;

@@ -372,7 +372,8 @@ public class RotatingBase extends Entity implements IEntityAdditionalSpawnData
             {
                 return;
             }
-            AbilityHelper.addToInv(entityplayer, returnStack, true);
+            if (!doNotRetrieve)
+                AbilityHelper.addToInv(entityplayer, returnStack, true);
             worldObj.playSoundAtEntity(this, "random.pop", 0.2F, ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.7F + 1.0F) * 2.0F);
             entityplayer.onItemPickup(this, 1);
             kill();
@@ -410,6 +411,7 @@ public class RotatingBase extends Entity implements IEntityAdditionalSpawnData
     public EntityPlayer owner;
     protected int ticksInGround;
     protected int ticksInAir;
+    public boolean doNotRetrieve;
 
     @Override
     public void writeSpawnData (ByteArrayDataOutput data)
