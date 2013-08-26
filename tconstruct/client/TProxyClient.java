@@ -823,7 +823,7 @@ public class TProxyClient extends TProxyCommon
             }
         }
 
-        String[] bowstringTypes = { "string", "magicfabric" };
+        String[] bowstringTypes = { "string", "magicfabric", "flamestring" };
         for (int bowIter = 0; bowIter < bowstringTypes.length; bowIter++)
         {
             TConstructClientRegistry.addAlternateMaterialRenderMapping(TContent.shortbow, bowIter, "tinker", bowstringTypes[bowIter], true);

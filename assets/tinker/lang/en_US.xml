@@ -277,6 +277,7 @@
   
   <entry key="item.tconstruct.Bowstring.string.name">Bowstring</entry>
   <entry key="item.tconstruct.Bowstring.enchantedfabric.name">Enchanted Bowstring</entry>
+  <entry key="item.tconstruct.Bowstring.flamestring.name">Fiery Bowstring</entry>
   <entry key="item.tconstruct.Fletching.feather.name">Feather Fletching</entry>
   <entry key="item.tconstruct.Fletching.leaf.name">Leaf Fletching</entry>
   <entry key="item.tconstruct.Fletching.slime.name">Slime Fletching</entry>
