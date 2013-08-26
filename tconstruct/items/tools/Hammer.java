@@ -258,7 +258,9 @@ public class Hammer extends HarvestTool
             xRange = 0;
             break;
         }
+        
         NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
+        int toolLevel = tags.getInteger("HarvestLevel");
         for (int xPos = x - xRange; xPos <= x + xRange; xPos++)
         {
             for (int yPos = y - yRange; yPos <= y + yRange; yPos++)
@@ -273,7 +275,7 @@ public class Hammer extends HarvestTool
                         int hlvl = MinecraftForge.getBlockHarvestLevel(localBlock, meta, getHarvestType());
                         float localHardness = localBlock == null ? Float.MAX_VALUE : localBlock.getBlockHardness(world, xPos, yPos, zPos);
 
-                        if (hlvl <= tags.getInteger("HarvestLevel") && localHardness - 1.5 <= blockHardness)
+                        if (hlvl <= toolLevel && localHardness - 1.5 <= blockHardness)
                         {
                             boolean cancelHarvest = false;
                             for (ActiveToolMod mod : TConstructRegistry.activeModifiers)
@@ -288,12 +290,16 @@ public class Hammer extends HarvestTool
                                 {
                                     for (int iter = 0; iter < materials.length; iter++)
                                     {
-                                        if (materials[iter] == localBlock.blockMaterial)
+                                        if (materials[iter] == localBlock.blockMaterial || localBlock == Block.silverfish)
                                         {
                                             if (!player.capabilities.isCreativeMode)
                                             {
+                                                if (localBlock.removeBlockByPlayer(world, player, xPos, yPos, zPos))
+                                                {
+                                                    localBlock.onBlockDestroyedByPlayer(world, xPos, yPos, zPos, localMeta);
+                                                }
                                                 localBlock.harvestBlock(world, player, xPos, yPos, zPos, localMeta);
-                                                localBlock.onBlockHarvested(world, x, y, z, localMeta, player);
+                                                localBlock.onBlockHarvested(world, xPos, yPos, zPos, localMeta, player);
                                                 if (blockHardness > 0f)
                                                     onBlockDestroyed(stack, world, localblockID, xPos, yPos, zPos, player);
                                             }

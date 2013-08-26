@@ -20,7 +20,6 @@ public class ToolCoreRenderer implements IItemRenderer
         switch (type)
         {
         case ENTITY:
-            GL11.glRotatef(180, 0, 1, 0); 
             return true;
         case EQUIPPED:
             GL11.glTranslatef(0.03f, 0F, -0.09375F); 

@@ -1480,6 +1480,7 @@ public class TContent implements IFuelHandler
         Smeltery.addMelting(new ItemStack(blankPattern, 4, 2), metalBlock.blockID, 7, 150, new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 2));
 
         Smeltery.addMelting(new ItemStack(Item.enderPearl, 4), metalBlock.blockID, 10, 500, new FluidStack(moltenEnderFluid, 250));
+        Smeltery.addMelting(new ItemStack(metalBlock, 1, 10), metalBlock.blockID, 10, 500, new FluidStack(moltenEnderFluid, 1000));
 
         //Blocks
         Smeltery.addMelting(Block.blockIron, 0, 600, new FluidStack(moltenIronFluid, TConstruct.ingotLiquidValue * 9));
