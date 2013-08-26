@@ -278,6 +278,7 @@
 
   <entry key="item.tconstruct.Bowstring.string.name">Bogensehne</entry>
   <entry key="item.tconstruct.Bowstring.enchantedfabric.name">Verzauberte Bogensehne</entry>
+  <entry key="item.tconstruct.Bowstring.flamestring.name">Feurige Bogensehne</entry>
   <entry key="item.tconstruct.Fletching.feather.name">Federne Befiederung</entry>
   <entry key="item.tconstruct.Fletching.leaf.name">Blätterne Befiederung</entry>
   <entry key="item.tconstruct.Fletching.slime.name">Schleimige Befiederung</entry>
@@ -357,10 +358,54 @@
   <entry key="entity.TConstruct.Gardeslime.name">Guardeschleim</entry>
 
   <entry key="key.tarmor">Rüstungs-GUI</entry>
+  <entry key="key.tcapes.reload">Lade Capes neu</entry>
 
   <entry key="death.one.smeltery">%1$s wurde in eine Proteinmasse verwandelt</entry>
   <entry key="death.two.smeltery">%1$s ist mit der Schmelzerei eins geworden</entry>
   <entry key="death.three.smeltery">%1$s wird ein Meilenstein für unsere Revolution sein!</entry>
   <entry key="death.four.smeltery">%1$s dachte, das Schwimmen in heißen Flüssigkeiten wäre eine gute Idee</entry>
+  
+  <entry key="parttype.Wood">Holz -</entry>
+  <entry key="parttype.Stone">Stein -</entry>
+  <entry key="parttype.Iron">Eisen -</entry>
+  <entry key="parttype.Flint">Feuterstein -</entry>
+  <entry key="parttype.Cactus">Kaktus -</entry>
+  <entry key="parttype.Bone">Knochen -</entry>
+  <entry key="parttype.Obsidian">Obsidian -</entry>
+  <entry key="parttype.Slime">Schleim -</entry>
+  <entry key="parttype.Paper">Papier -</entry>
+  <entry key="parttype.Cobalt">Cobalt -</entry>
+  <entry key="parttype.Ardite">Ardit -</entry>
+  <entry key="parttype.Manyullyn">Manyullyn -</entry>
+  <entry key="parttype.Copper">Kupfer -</entry>
+  <entry key="parttype.Bronze">Bronze -</entry>
+  <entry key="parttype.Alumite">Alumit -</entry>
+  <entry key="parttype.Steel">Stahl -</entry>
+  <entry key="parttype.BlueSlime">Schleim -</entry>
+  
+  <entry key="molten iron">Geschmolzenes Eisen</entry>
+  <entry key="molten gold">Geschmolzenes Gold</entry>
+  <entry key="molten copper">Geschmolzenes Kupfer</entry>
+  <entry key="molten tin">Geschmolzenes Zinn</entry>
+  <entry key="molten aluminum">Geschmolzenes Aluminum</entry>
+  <entry key="molten cobalt">Geschmolzenes Cobalt</entry>
+  <entry key="molten ardite">Geschmolzenes Ardit</entry>
+  <entry key="molten bronze">Geschmolzene Bronze</entry>
+  <entry key="molten aluminum brass">Geschmolzenes Duraluminium</entry>
+  <entry key="molten manyullyn">Geschmolzenes Manyullyn</entry>
+  <entry key="molten alumite">Geschmolzenes Alumit</entry>
+  <entry key="molten obsidian">Geschmolzenes Obsidian</entry>
+  <entry key="molten steel">Geschmolzener Stahl</entry>
+  <entry key="molten glass">Geschmolzenes Glas</entry>
+  <entry key="seared stone">Versengtes Gestein</entry>
+  <entry key="liquified emerald">Verflüssigter Smaragd</entry>
+  <entry key="blood">Blut</entry>
+  <entry key="molten nickel">Geschmolzenes Nickel</entry>
+  <entry key="molten lead">Geschmolzenes Blei</entry>
+  <entry key="molten silver">Geschmolzenes Silber</entry>
+  <entry key="molten platinum">Geschmolzenes Platin</entry>
+  <entry key="molten invar">Geschmolzenes Invar</entry>
+  <entry key="molten electrum">Geschmolzenes Elektrum</entry>
+  <entry key="ender">Flüssiges Ender</entry>
 
 </properties>
