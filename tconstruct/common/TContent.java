@@ -21,6 +21,7 @@ import tconstruct.landmine.block.BlockLandmine;
 import tconstruct.landmine.item.ItemBlockLandmine;
 import tconstruct.landmine.tileentity.TileEntityLandmine;
 import tconstruct.library.TConstructRegistry;
+import tconstruct.library.armor.EnumArmorPart;
 import tconstruct.library.client.TConstructClientRegistry;
 import tconstruct.library.crafting.*;
 import tconstruct.library.tools.ToolCore;
@@ -255,7 +256,7 @@ public class TContent implements IFuelHandler
     public static ChestGenHooks tinkerHousePatterns;
 
     //Temporary Items, going to be enabled when testing is required
-//    public static Item armorTest = new ArmorStandard(2445, 4, EnumArmorPart.HELMET).setCreativeTab(CreativeTabs.tabAllSearch);
+    public static Item armorTest = new ArmorStandard(2445, 4, EnumArmorPart.HELMET).setCreativeTab(CreativeTabs.tabAllSearch);
     
     public TContent()
     {

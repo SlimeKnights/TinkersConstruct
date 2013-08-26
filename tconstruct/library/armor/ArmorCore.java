@@ -56,7 +56,7 @@ public abstract class ArmorCore extends ItemArmor implements ICustomElectricItem
 		NBTTagCompound tags = armor.getTagCompound();
 		
 		if(tags == null){
-			return new ArmorProperties(0, damage / damageReduceAmount, damageReduceAmount);
+			return new ArmorProperties(0, damage / baseProtection, baseProtection);
 		}
 		
 		NBTTagCompound data = tags.getCompoundTag(SET_NAME);
@@ -66,26 +66,24 @@ public abstract class ArmorCore extends ItemArmor implements ICustomElectricItem
 
 	@Override
 	public int getArmorDisplay(EntityPlayer player, ItemStack armor, int slot) {
-		return armor.getTagCompound() != null && armor.getTagCompound().getCompoundTag(SET_NAME) != null ? armor.getTagCompound().getCompoundTag(SET_NAME).getInteger("maxAbsorb") : this.damageReduceAmount;
+		return armor.getTagCompound() != null && armor.getTagCompound().getCompoundTag(SET_NAME) != null ? armor.getTagCompound().getCompoundTag(SET_NAME).getInteger("maxAbsorb") : this.baseProtection;
 	}
 
 	@Override
 	public void damageArmor(EntityLivingBase entity, ItemStack stack, DamageSource source, int damage, int slot) {
 		NBTTagCompound tags = stack.getTagCompound();
+		NBTTagCompound data;
 		
 		if(tags == null){
 			tags = new NBTTagCompound();
 			stack.setTagCompound(tags);
-		}
-		
-		NBTTagCompound data = tags.getCompoundTag(SET_NAME);
-		
-		if(data == null){
 			data = new NBTTagCompound();
 			tags.setCompoundTag(SET_NAME, data);
-			data.setInteger("damageReduction", damageReduceAmount);
-			data.setInteger("maxAbsorb", damageReduceAmount);
+			data.setInteger("damageReduction", baseProtection);
+			data.setInteger("maxAbsorb", baseProtection);
 		}
+		
+		data = tags.getCompoundTag(SET_NAME);
 		
 		if(tags.hasKey("charge")){
 			int charge = tags.getInteger("charge");
