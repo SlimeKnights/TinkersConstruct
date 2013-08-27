@@ -393,10 +393,6 @@ public class TContent implements IFuelHandler
         GameRegistry.registerTileEntity(DrawbridgeLogic.class, "Drawbridge");
         GameRegistry.registerTileEntity(FirestarterLogic.class, "Firestarter");
 
-        essenceExtractor = new EssenceExtractor(PHConstruct.essenceExtractor).setHardness(12f).setUnlocalizedName("extractor.essence");
-        GameRegistry.registerBlock(essenceExtractor, "extractor.essence");
-        GameRegistry.registerTileEntity(EssenceExtractorLogic.class, "extractor.essence");
-
         //Traps
         landmine = new BlockLandmine(PHConstruct.landmine).setHardness(0.5F).setResistance(0F).setStepSound(Block.soundMetalFootstep).setCreativeTab(TConstructRegistry.blockTab)
                 .setUnlocalizedName("landmine");
@@ -508,6 +504,7 @@ public class TContent implements IFuelHandler
         stainedGlassClearPane = new GlassPaneStained(PHConstruct.stainedGlassClearPane);
         GameRegistry.registerBlock(stainedGlassClearPane, StainedGlassClearPaneItem.class, "GlassPaneClearStained");
         
+        //Crystalline
         aggregator = new Aggregator(PHConstruct.aggregator).setUnlocalizedName("Aggregator");
         aggregator.stepSound = Block.soundMetalFootstep;
         GameRegistry.registerBlock(aggregator, "Aggregator");
@@ -520,6 +517,10 @@ public class TContent implements IFuelHandler
         
         darkBlock = new AntiLight(PHConstruct.darkBlock).setUnlocalizedName("Antilight");
         GameRegistry.registerBlock(darkBlock, "Antilight");
+
+        essenceExtractor = new EssenceExtractor(PHConstruct.essenceExtractor).setHardness(12f).setUnlocalizedName("extractor.essence");
+        GameRegistry.registerBlock(essenceExtractor, "extractor.essence");
+        GameRegistry.registerTileEntity(EssenceExtractorLogic.class, "extractor.essence");
     }
 
     void registerItems ()
