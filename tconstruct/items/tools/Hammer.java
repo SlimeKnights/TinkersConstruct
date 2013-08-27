@@ -371,7 +371,7 @@ public class Hammer extends HarvestTool
         int durability = tags.getInteger("Damage");
 
         float stonebound = tags.getFloat("Shoddy");
-        float bonusLog = (float) Math.log(durability / 72f + 1) * 2 * stonebound;
+        float bonusLog = (float) Math.log(durability / 216f + 1) * 2 * stonebound;
         trueSpeed += bonusLog;
 
         if (hlvl <= tags.getInteger("HarvestLevel"))

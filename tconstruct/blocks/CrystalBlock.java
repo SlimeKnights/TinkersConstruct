@@ -94,7 +94,7 @@ public class CrystalBlock extends BlockContainer
     @Override
     public int getLightValue (IBlockAccess world, int x, int y, int z)
     {
-        if (world.getBlockMetadata(x, y, z) == 0)
+        //if (world.getBlockMetadata(x, y, z) == 0)
         {
             TileEntity logic = world.getBlockTileEntity(x, y, z);
 
@@ -135,6 +135,7 @@ public class CrystalBlock extends BlockContainer
             int value = logic.getCrystalValue();
             tag.setInteger("Value", value);
             Crystallinity.updateTheft(world.provider.dimensionId, x, z, -value, CrystalType.Light);
+            tag.setInteger("Value", 120);
             stack.setTagCompound(tag);
 
             if (logic.growing())
@@ -168,11 +169,11 @@ public class CrystalBlock extends BlockContainer
 
     public static int getCrystalHeight (int crystalValue)
     {
-        if (crystalValue > 440)
+        if (crystalValue >= 440)
             return 4;
-        if (crystalValue > 224)
+        if (crystalValue >= 224)
             return 3;
-        if (crystalValue > 80)
+        if (crystalValue >= 80)
             return 2;
 
         return 1;

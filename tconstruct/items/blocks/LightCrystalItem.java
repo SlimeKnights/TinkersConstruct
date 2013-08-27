@@ -137,11 +137,11 @@ public class LightCrystalItem extends ItemBlock
         {
             return 5;
         }
-        if (crystalValue >= 48)
+        if (crystalValue >= 80)
         {
             return 4;
         }
-        if (crystalValue >= 80)
+        if (crystalValue >= 48)
         {
             return 3;
         }
