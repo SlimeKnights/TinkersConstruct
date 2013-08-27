@@ -8,6 +8,8 @@ import java.util.*;
 
 import javax.swing.ImageIcon;
 
+import cpw.mods.fml.common.Loader;
+
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.event.ForgeSubscribe;
@@ -30,6 +32,9 @@ public class EventCloakRender {
 	
 	@ForgeSubscribe
 	public void onPreRenderSpecials(RenderPlayerEvent.Specials.Pre event){
+		if(Loader.isModLoaded("shadersmod")){
+			return;
+		}
 		if(event.entityPlayer instanceof AbstractClientPlayer){
 			AbstractClientPlayer abstractClientPlayer = (AbstractClientPlayer)event.entityPlayer;
 			
