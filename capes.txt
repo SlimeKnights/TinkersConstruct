@@ -9,7 +9,7 @@ andrejsavikin:https://raw.github.com/mDiyo/TinkersConstruct/master/capes/default
 alexbegt:https://dl.dropboxusercontent.com/u/48633261/cape.png
 DentedLeftFender:https://raw.github.com/mDiyo/TinkersConstruct/master/capes/default_green.png
 Pokefenn:https://raw.github.com/mDiyo/TinkersConstruct/master/capes/default_green.png
-sondrex76:http://i.imgur.com/z0EUfp1.png
+sondrex76:http://i.imgur.com/wEmDyT3.png
 Steelflameblade:http://i.imgur.com/pz1O4pe.png
 elkillo:https://raw.github.com/mDiyo/TinkersConstruct/master/capes/default_green.png
 Habselaar:https://raw.github.com/mDiyo/TinkersConstruct/master/capes/default_green.png
@@ -28,3 +28,5 @@ kendfinger:https://dl.dropboxusercontent.com/u/48633261/cape.png
 sondrex76:http://i.imgur.com/C6buJnL.png
 GameGeek1998:http://i.imgur.com/hiMFLXY.png
 fumoffu616:https://dl.dropboxusercontent.com/s/f70j8xfwax1p0t5/myeah.png
+7X_star:http://i.imgur.com/ebQ4IvF.png
+TheNinjaM:https://raw.github.com/mDiyo/TinkersConstruct/master/capes/default_green.png
