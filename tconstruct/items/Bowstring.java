@@ -2,11 +2,14 @@ package tconstruct.items;
 
 import java.util.List;
 
+import cpw.mods.fml.common.Loader;
+
 import tconstruct.common.TContent;
 import tconstruct.library.util.IToolPart;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.common.MinecraftForge;
 
 public class Bowstring extends CraftingItem implements IToolPart
 {
@@ -30,9 +33,9 @@ public class Bowstring extends CraftingItem implements IToolPart
         return names;
     }
 
-    public static final String[] toolMaterialNames = new String[] { "string", "enchantedfabric" };
+    public static final String[] toolMaterialNames = new String[] { "string", "enchantedfabric", "flamestring" };
 
-    public static final String[] toolTextureNames = new String[] { "string", "magicfabric" };
+    public static final String[] toolTextureNames = new String[] { "string", "magicfabric", "flamestring" };
 
     @Override
     public int getMaterialID (ItemStack stack)
@@ -45,5 +48,7 @@ public class Bowstring extends CraftingItem implements IToolPart
         list.add(new ItemStack(id, 1, 0));
         if (TContent.thaumcraftAvailable)
             list.add(new ItemStack(id, 1, 1));
+        if (Loader.isModLoaded("Natura"))
+        	list.add(new ItemStack(id, 1, 2));
     }
 }
