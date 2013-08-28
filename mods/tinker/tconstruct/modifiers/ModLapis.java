@@ -74,18 +74,18 @@ public class ModLapis extends ToolMod
         {
             if (keyPair[0] >= 450)
                 addEnchantment(tool, Enchantment.looting, 3);
-            else if (keyPair[0] >= 300)
+            else if ((keyPair[0] >= 300) && (getEnchantmentLevel(Enchantment.looting.effectId, tool) < 3)) 
                 addEnchantment(tool, Enchantment.looting, 2);
-            else if (keyPair[0] >= 100)
+            else if ((keyPair[0] >= 100) && (getEnchantmentLevel(Enchantment.looting.effectId, tool) < 2)) 
                 addEnchantment(tool, Enchantment.looting, 1);
         }
         else
         {
             if (keyPair[0] >= 450)
                 addEnchantment(tool, Enchantment.fortune, 3);
-            else if (keyPair[0] >= 300)
+            else if ((keyPair[0] >= 300) && (getEnchantmentLevel(Enchantment.fortune.effectId, tool) < 3)) 
                 addEnchantment(tool, Enchantment.fortune, 2);
-            else if (keyPair[0] >= 100)
+            else if ((keyPair[0] >= 100) && (getEnchantmentLevel(Enchantment.fortune.effectId, tool) < 2)) 
                 addEnchantment(tool, Enchantment.fortune, 1);
         }
 
@@ -112,53 +112,75 @@ public class ModLapis extends ToolMod
         List list = Arrays.asList(toolItem.toolCategories());
         if (list.contains("weapon"))
         {
-            if (keyPair[0] >= 450)
+            if (getEnchantmentLevel(Enchantment.looting.effectId, tool) < 3) 
             {
-                addEnchantment(tool, Enchantment.looting, 3);
-            }
-            else if (keyPair[0] >= 350)
-            {
-                int chance = keyPair[0] - 300;
-                if (random.nextInt(1000 - chance) == 0)
+                if (keyPair[0] >= 450)
+                {
                     addEnchantment(tool, Enchantment.looting, 3);
-            }
-            else if (keyPair[0] >= 125)
-            {
-                int chance = keyPair[0] - 175;
-                if (random.nextInt(600 - chance) == 0)
+                }
+                else if (keyPair[0] >= 350)
+                {
+                    int chance = keyPair[0] - 300;
+                    if (random.nextInt(1000 - chance) == 0)
+                        addEnchantment(tool, Enchantment.looting, 3);
+                }
+                else if (keyPair[0] >= 300)
+                {
                     addEnchantment(tool, Enchantment.looting, 2);
-            }
-            else if (keyPair[0] >= 10)
-            {
-                int chance = keyPair[0] - 25;
-                if (random.nextInt(250 - chance) == 0)
-                    addEnchantment(tool, Enchantment.looting, 1);
+                }
+                else if (keyPair[0] >= 125)
+                {
+                    int chance = keyPair[0] - 175;
+                    if (random.nextInt(600 - chance) == 0)
+                        addEnchantment(tool, Enchantment.looting, 2);
+                }
+                else if (keyPair[0] >= 100)
+                {
+                    addEnchantment(tool,Enchantment.looting,1);
+                }
+                else if (keyPair[0] >= 10)
+                {
+                    int chance = keyPair[0] - 25;
+                    if (random.nextInt(250 - chance) == 0)
+                        addEnchantment(tool, Enchantment.looting, 1);
+                }
             }
         }
 
         if (list.contains("harvest"))
         {
-            if (keyPair[0] >= 450)
+            if (getEnchantmentLevel(Enchantment.fortune.effectId, tool) < 3)
             {
-                addEnchantment(tool, Enchantment.fortune, 3);
-            }
-            else if (keyPair[0] >= 350)
-            {
-                int chance = keyPair[0] - 300;
-                if (random.nextInt(1000 - chance) == 0)
+                if (keyPair[0] >= 450)
+                {
                     addEnchantment(tool, Enchantment.fortune, 3);
-            }
-            else if (keyPair[0] >= 125)
-            {
-                int chance = keyPair[0] - 175;
-                if (random.nextInt(600 - chance) == 0)
+                }
+                else if (keyPair[0] >= 350)
+                {
+                    int chance = keyPair[0] - 300;
+                    if (random.nextInt(1000 - chance) == 0)
+                        addEnchantment(tool, Enchantment.fortune, 3);
+                }
+                else if (keyPair[0] >= 300)
+                {
                     addEnchantment(tool, Enchantment.fortune, 2);
-            }
-            else if (keyPair[0] >= 10)
-            {
-                int chance = keyPair[0] - 25;
-                if (random.nextInt(250 - chance) == 0)
+                }
+                else if (keyPair[0] >= 125)
+                {
+                    int chance = keyPair[0] - 175;
+                    if (random.nextInt(600 - chance) == 0)
+                        addEnchantment(tool, Enchantment.fortune, 2);
+                }
+                else if (keyPair[0] >= 100)
+                {
                     addEnchantment(tool, Enchantment.fortune, 1);
+                }
+                else if (keyPair[0] >= 10)
+                {
+                    int chance = keyPair[0] - 25;
+                    if (random.nextInt(250 - chance) == 0)
+                        addEnchantment(tool, Enchantment.fortune, 1);
+                }
             }
         }
     }
