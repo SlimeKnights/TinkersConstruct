@@ -34,7 +34,11 @@ public class SlimeGrass extends Block
     @Override
     public int damageDropped (int meta)
     {
-        return meta;
+        if (meta == 1) //dirt
+            return 0;
+        
+        else //slime dirt
+            return 5;
     }
 
     @Override
@@ -123,5 +127,13 @@ public class SlimeGrass extends Block
                 }
             }
         }
+    }
+    
+    public int idDropped(int metadata, Random random, int fortune)
+    {
+        if (metadata == 1)
+            return TContent.craftedSoil.blockID;
+        else
+            return Block.dirt.blockID;
     }
 }

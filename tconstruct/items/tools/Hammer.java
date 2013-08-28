@@ -211,7 +211,7 @@ public class Hammer extends HarvestTool
         World world = player.worldObj;
         final int blockID = world.getBlockId(x, y, z);
         final int meta = world.getBlockMetadata(x, y, z);
-        Block block = Block.blocksList[blockID];
+        final Block block = Block.blocksList[blockID];
         if (!stack.hasTagCompound())
             return false;
 
@@ -229,6 +229,9 @@ public class Hammer extends HarvestTool
                 break;
             }
         }
+        
+        if (block == Block.silverfish)
+            validStart = true;
 
         MovingObjectPosition mop = AbilityHelper.raytraceFromEntity(world, player, true, 5.0D);
         if (mop == null || !validStart)
@@ -262,10 +265,10 @@ public class Hammer extends HarvestTool
                     if (!(tags.getBoolean("Broken")))
                     {
                         int localblockID = world.getBlockId(xPos, yPos, zPos);
-                        block = Block.blocksList[localblockID];
+                        Block localBlock = Block.blocksList[localblockID];
                         int localMeta = world.getBlockMetadata(xPos, yPos, zPos);
-                        int hlvl = MinecraftForge.getBlockHarvestLevel(block, meta, getHarvestType());
-                        float localHardness = block == null ? Float.MAX_VALUE : block.getBlockHardness(world, xPos, yPos, zPos);
+                        int hlvl = MinecraftForge.getBlockHarvestLevel(localBlock, meta, getHarvestType());
+                        float localHardness = localBlock == null ? Float.MAX_VALUE : localBlock.getBlockHardness(world, xPos, yPos, zPos);
 
                         if (hlvl <= tags.getInteger("HarvestLevel") && localHardness - 1.5 <= blockHardness)
                         {
@@ -278,16 +281,16 @@ public class Hammer extends HarvestTool
 
                             if (!cancelHarvest)
                             {
-                                if (block != null && !(localHardness < 0))
+                                if (localBlock != null && !(localHardness < 0))
                                 {
                                     for (int iter = 0; iter < materials.length; iter++)
                                     {
-                                        if (materials[iter] == block.blockMaterial)
+                                        if (materials[iter] == localBlock.blockMaterial)
                                         {
                                             if (!player.capabilities.isCreativeMode)
                                             {
-                                                block.harvestBlock(world, player, xPos, yPos, zPos, localMeta);
-                                                block.onBlockHarvested(world, x, y, z, localMeta, player);
+                                                localBlock.harvestBlock(world, player, xPos, yPos, zPos, localMeta);
+                                                localBlock.onBlockHarvested(world, x, y, z, localMeta, player);
                                                 if (blockHardness > 0f)
                                                     onBlockDestroyed(stack, world, localblockID, xPos, yPos, zPos, player);
                                             }
@@ -345,7 +348,7 @@ public class Hammer extends HarvestTool
                 int durability = tags.getInteger("Damage");
 
                 float stonebound = tags.getFloat("Shoddy");
-                float bonusLog = (float) Math.log(durability / 72f + 1) * 2 * stonebound;
+                float bonusLog = (float) Math.log(durability / 216f + 1) * 2 * stonebound;
                 trueSpeed += bonusLog;
 
                 if (hlvl <= tags.getInteger("HarvestLevel"))

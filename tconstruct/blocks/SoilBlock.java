@@ -1,5 +1,6 @@
 package tconstruct.blocks;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -36,6 +37,14 @@ public class SoilBlock extends TConstructBlock
                 }
             }
         }
+    }
+    
+    public float getBlockHardness(World world, int x, int y, int z)
+    {
+        int meta = world.getBlockMetadata(x, y, z);
+        if (meta == 5)
+            return Block.dirt.blockHardness;
+        return this.blockHardness;
     }
 
     /*public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z)

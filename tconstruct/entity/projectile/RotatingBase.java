@@ -4,7 +4,6 @@ import java.util.List;
 
 import tconstruct.library.tools.AbilityHelper;
 
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -342,6 +341,7 @@ public class RotatingBase extends Entity implements IEntityAdditionalSpawnData
         tags.setByte("inTile", (byte) inTile);
         tags.setByte("shake", (byte) arrowShake);
         tags.setByte("onGround", (byte) (onGround ? 1 : 0));
+        tags.setBoolean("Retrieval", doNotRetrieve);
     }
 
     public void readEntityFromNBT (NBTTagCompound tags)
@@ -355,6 +355,7 @@ public class RotatingBase extends Entity implements IEntityAdditionalSpawnData
         inTile = tags.getByte("inTile") & 0xff;
         arrowShake = tags.getByte("shake") & 0xff;
         onGround = tags.getByte("onGround") == 1;
+        doNotRetrieve = tags.getBoolean("Retrieval");
     }
 
     public void onCollideWithPlayer (EntityPlayer entityplayer)
@@ -374,7 +375,8 @@ public class RotatingBase extends Entity implements IEntityAdditionalSpawnData
             {
                 return;
             }
-            AbilityHelper.addToInv(entityplayer, returnStack, true);
+            if (!doNotRetrieve)
+                AbilityHelper.addToInv(entityplayer, returnStack, true);
             worldObj.playSoundAtEntity(this, "random.pop", 0.2F, ((this.rand.nextFloat() - this.rand.nextFloat()) * 0.7F + 1.0F) * 2.0F);
             entityplayer.onItemPickup(this, 1);
             kill();
@@ -412,6 +414,7 @@ public class RotatingBase extends Entity implements IEntityAdditionalSpawnData
     public EntityPlayer owner;
     protected int ticksInGround;
     protected int ticksInAir;
+    public boolean doNotRetrieve;
 
     @Override
     public void writeSpawnData (ByteArrayDataOutput data)

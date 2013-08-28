@@ -75,6 +75,11 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
     public void onUpdate ()
     {
         this.onEntityUpdate();
+        if (returnStack == null || returnStack.stackSize < 1)
+        {
+            this.setDead();
+        }
+        
         if (this.prevRotationPitch == 0.0F && this.prevRotationYaw == 0.0F)
         {
             float f = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionZ * this.motionZ);
@@ -265,13 +270,13 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
                             if (movingobjectposition.entityHit instanceof EntityPlayer)
                             {
                                 EntityPlayer player = (EntityPlayer) movingobjectposition.entityHit;
-                                if (player.inventory.addItemStackToInventory(returnStack))
+                                if (canBePickedUp == 2 || player.inventory.addItemStackToInventory(returnStack))
                                     this.setDead();
                             }
                             else if (movingobjectposition.entityHit instanceof EntityLivingBase)
                             {
                                 EntityLivingBase living = (EntityLivingBase) movingobjectposition.entityHit;
-                                if (addItemStackToInventory(returnStack, living))
+                                if (canBePickedUp == 2 || addItemStackToInventory(returnStack, living))
                                     this.setDead();
                             }
                         }

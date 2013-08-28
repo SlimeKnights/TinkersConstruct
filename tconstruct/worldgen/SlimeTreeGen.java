@@ -15,10 +15,12 @@ public class SlimeTreeGen extends WorldGenerator
     public final int metaWood;
     public final int metaLeaves;
     public final boolean seekHeight;
+    public final boolean notify;
 
     public SlimeTreeGen(boolean notify, int treeHeight, int treeRange, int woodMeta, int leavesMeta)
     {
         super(notify);
+        this.notify = notify;
         this.minTreeHeight = treeHeight;
         this.treeHeightRange = treeRange;
         this.metaWood = woodMeta;
@@ -105,36 +107,36 @@ public class SlimeTreeGen extends WorldGenerator
             placeDiamondLayer(world, xPos, yPos + height - i, zPos, i + 1);
         }
 
-        this.setBlockAndMetadata(world, xPos+4, yPos + height - 3, zPos, 0, 0);
-        this.setBlockAndMetadata(world, xPos-4, yPos + height - 3, zPos, 0, 0);
-        this.setBlockAndMetadata(world, xPos, yPos + height - 3, zPos+4, 0, 0);
-        this.setBlockAndMetadata(world, xPos, yPos + height - 3, zPos-4, 0, 0);
-        this.setBlockAndMetadata(world, xPos+1, yPos + height - 3, zPos+1, 0, 0);
-        this.setBlockAndMetadata(world, xPos+1, yPos + height - 3, zPos-1, 0, 0);
-        this.setBlockAndMetadata(world, xPos-1, yPos + height - 3, zPos+1, 0, 0);
-        this.setBlockAndMetadata(world, xPos-1, yPos + height - 3, zPos-1, 0, 0);
-        
+        this.setBlockAndMetadata(world, xPos + 4, yPos + height - 3, zPos, 0, 0);
+        this.setBlockAndMetadata(world, xPos - 4, yPos + height - 3, zPos, 0, 0);
+        this.setBlockAndMetadata(world, xPos, yPos + height - 3, zPos + 4, 0, 0);
+        this.setBlockAndMetadata(world, xPos, yPos + height - 3, zPos - 4, 0, 0);
+        this.setBlockAndMetadata(world, xPos + 1, yPos + height - 3, zPos + 1, 0, 0);
+        this.setBlockAndMetadata(world, xPos + 1, yPos + height - 3, zPos - 1, 0, 0);
+        this.setBlockAndMetadata(world, xPos - 1, yPos + height - 3, zPos + 1, 0, 0);
+        this.setBlockAndMetadata(world, xPos - 1, yPos + height - 3, zPos - 1, 0, 0);
+
         //Drippers
-        this.setBlockAndMetadata(world, xPos+3, yPos + height - 4, zPos, TContent.slimeLeaves.blockID, this.metaLeaves);
-        this.setBlockAndMetadata(world, xPos-3, yPos + height - 4, zPos, TContent.slimeLeaves.blockID, this.metaLeaves);
-        this.setBlockAndMetadata(world, xPos, yPos + height - 4, zPos-3, TContent.slimeLeaves.blockID, this.metaLeaves);
-        this.setBlockAndMetadata(world, xPos, yPos + height - 4, zPos+3, TContent.slimeLeaves.blockID, this.metaLeaves);
-        this.setBlockAndMetadata(world, xPos+2, yPos + height - 4, zPos+2, TContent.slimeLeaves.blockID, this.metaLeaves);
-        this.setBlockAndMetadata(world, xPos+2, yPos + height - 4, zPos-2, TContent.slimeLeaves.blockID, this.metaLeaves);
-        this.setBlockAndMetadata(world, xPos-2, yPos + height - 4, zPos+2, TContent.slimeLeaves.blockID, this.metaLeaves);
-        this.setBlockAndMetadata(world, xPos-2, yPos + height - 4, zPos-2, TContent.slimeLeaves.blockID, this.metaLeaves);
-        
-        this.setBlockAndMetadata(world, xPos+3, yPos + height - 5, zPos, TContent.slimeLeaves.blockID, this.metaLeaves);
-        this.setBlockAndMetadata(world, xPos-3, yPos + height - 5, zPos, TContent.slimeLeaves.blockID, this.metaLeaves);
-        this.setBlockAndMetadata(world, xPos, yPos + height - 5, zPos-3, TContent.slimeLeaves.blockID, this.metaLeaves);
-        this.setBlockAndMetadata(world, xPos, yPos + height - 5, zPos+3, TContent.slimeLeaves.blockID, this.metaLeaves);
-        this.setBlockAndMetadata(world, xPos+2, yPos + height - 5, zPos+2, TContent.slimeLeaves.blockID, this.metaLeaves);
-        this.setBlockAndMetadata(world, xPos+2, yPos + height - 5, zPos-2, TContent.slimeLeaves.blockID, this.metaLeaves);
-        this.setBlockAndMetadata(world, xPos-2, yPos + height - 5, zPos+2, TContent.slimeLeaves.blockID, this.metaLeaves);
-        this.setBlockAndMetadata(world, xPos-2, yPos + height - 5, zPos-2, TContent.slimeLeaves.blockID, this.metaLeaves);
+        this.setBlockAndMetadata(world, xPos + 3, yPos + height - 4, zPos, TContent.slimeLeaves.blockID, this.metaLeaves);
+        this.setBlockAndMetadata(world, xPos - 3, yPos + height - 4, zPos, TContent.slimeLeaves.blockID, this.metaLeaves);
+        this.setBlockAndMetadata(world, xPos, yPos + height - 4, zPos - 3, TContent.slimeLeaves.blockID, this.metaLeaves);
+        this.setBlockAndMetadata(world, xPos, yPos + height - 4, zPos + 3, TContent.slimeLeaves.blockID, this.metaLeaves);
+        this.setBlockAndMetadata(world, xPos + 2, yPos + height - 4, zPos + 2, TContent.slimeLeaves.blockID, this.metaLeaves);
+        this.setBlockAndMetadata(world, xPos + 2, yPos + height - 4, zPos - 2, TContent.slimeLeaves.blockID, this.metaLeaves);
+        this.setBlockAndMetadata(world, xPos - 2, yPos + height - 4, zPos + 2, TContent.slimeLeaves.blockID, this.metaLeaves);
+        this.setBlockAndMetadata(world, xPos - 2, yPos + height - 4, zPos - 2, TContent.slimeLeaves.blockID, this.metaLeaves);
+
+        this.setBlockAndMetadata(world, xPos + 3, yPos + height - 5, zPos, TContent.slimeLeaves.blockID, this.metaLeaves);
+        this.setBlockAndMetadata(world, xPos - 3, yPos + height - 5, zPos, TContent.slimeLeaves.blockID, this.metaLeaves);
+        this.setBlockAndMetadata(world, xPos, yPos + height - 5, zPos - 3, TContent.slimeLeaves.blockID, this.metaLeaves);
+        this.setBlockAndMetadata(world, xPos, yPos + height - 5, zPos + 3, TContent.slimeLeaves.blockID, this.metaLeaves);
+        this.setBlockAndMetadata(world, xPos + 2, yPos + height - 5, zPos + 2, TContent.slimeLeaves.blockID, this.metaLeaves);
+        this.setBlockAndMetadata(world, xPos + 2, yPos + height - 5, zPos - 2, TContent.slimeLeaves.blockID, this.metaLeaves);
+        this.setBlockAndMetadata(world, xPos - 2, yPos + height - 5, zPos + 2, TContent.slimeLeaves.blockID, this.metaLeaves);
+        this.setBlockAndMetadata(world, xPos - 2, yPos + height - 5, zPos - 2, TContent.slimeLeaves.blockID, this.metaLeaves);
     }
-    
-    void placeDiamondLayer(World world, int xPos, int yPos, int zPos, int range )
+
+    void placeDiamondLayer (World world, int xPos, int yPos, int zPos, int range)
     {
         for (int x = -range; x <= range; x++)
         {
@@ -142,7 +144,7 @@ public class SlimeTreeGen extends WorldGenerator
             {
                 if (Math.abs(x) + Math.abs(z) <= range)
                 {
-                    this.setBlockAndMetadata(world, x+xPos, yPos, z+zPos, TContent.slimeLeaves.blockID, this.metaLeaves);
+                    this.setBlockAndMetadata(world, x + xPos, yPos, z + zPos, TContent.slimeLeaves.blockID, this.metaLeaves);
                 }
             }
         }
@@ -163,4 +165,19 @@ public class SlimeTreeGen extends WorldGenerator
         }
     }
 
+    protected void setBlockAndMetadata (World world, int x, int y, int z, int blockID, int blockMeta)
+    {
+        Block block = Block.blocksList[world.getBlockId(x, y, z)];
+        if (block == null || block.isBlockReplaceable(world, x, y, z))
+        {
+            if (this.notify)
+            {
+                world.setBlock(x, y, z, blockID, blockMeta, 3);
+            }
+            else
+            {
+                world.setBlock(x, y, z, blockID, blockMeta, 2);
+            }
+        }
+    }
 }

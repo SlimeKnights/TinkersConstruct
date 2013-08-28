@@ -820,7 +820,7 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
     public int discharge (ItemStack stack, int amount, int tier, boolean ignoreTransferLimit, boolean simulate)
     {
         NBTTagCompound tags = stack.getTagCompound();
-        if (!tags.hasKey("charge"))
+        if (tags == null || !tags.hasKey("charge"))
             return 0;
 
         if (amount > 0)

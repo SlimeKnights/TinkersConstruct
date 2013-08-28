@@ -145,7 +145,7 @@ public class SmelteryGui extends NewContainerGui
             }
         }
     }
-    
+
     private static final ResourceLocation background = new ResourceLocation("tinker", "textures/gui/smeltery.png");
     private static final ResourceLocation backgroundSide = new ResourceLocation("tinker", "textures/gui/smelteryside.png");
     private static final ResourceLocation terrain = new ResourceLocation("terrain.png");
@@ -184,18 +184,21 @@ public class SmelteryGui extends NewContainerGui
             {
                 int total = logic.getTotalLiquid();
                 int liquidLayers = (total / 20000 + 1) * 20000;
-                int liquidSize = liquid.amount * 52 / liquidLayers;
-                if (liquidSize == 0)
-                    liquidSize = 1;
-                while (liquidSize > 0)
+                if (liquidLayers != 0)
                 {
-                    int size = liquidSize >= 16 ? 16 : liquidSize;
-                    drawLiquidRect(cornerX + basePos, (cornerY + 68) - size - base, renderIndex, 16, size);
-                    drawLiquidRect(cornerX + basePos + 16, (cornerY + 68) - size - base, renderIndex, 16, size);
-                    drawLiquidRect(cornerX + basePos + 32, (cornerY + 68) - size - base, renderIndex, 16, size);
-                    drawLiquidRect(cornerX + basePos + 48, (cornerY + 68) - size - base, renderIndex, 4, size);
-                    liquidSize -= size;
-                    base += size;
+                    int liquidSize = liquid.amount * 52 / liquidLayers;
+                    if (liquidSize == 0)
+                        liquidSize = 1;
+                    while (liquidSize > 0)
+                    {
+                        int size = liquidSize >= 16 ? 16 : liquidSize;
+                        drawLiquidRect(cornerX + basePos, (cornerY + 68) - size - base, renderIndex, 16, size);
+                        drawLiquidRect(cornerX + basePos + 16, (cornerY + 68) - size - base, renderIndex, 16, size);
+                        drawLiquidRect(cornerX + basePos + 32, (cornerY + 68) - size - base, renderIndex, 16, size);
+                        drawLiquidRect(cornerX + basePos + 48, (cornerY + 68) - size - base, renderIndex, 4, size);
+                        liquidSize -= size;
+                        base += size;
+                    }
                 }
             }
         }

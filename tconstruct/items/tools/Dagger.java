@@ -23,12 +23,12 @@ public class Dagger extends Weapon
         if (!world.isRemote)
         {
             DaggerEntity dagger = new DaggerEntity(stack, world, player);
+            if (player.capabilities.isCreativeMode)
+                dagger.doNotRetrieve = true;
             world.spawnEntityInWorld(dagger);
         }
         itemstack.stackSize--;
         return itemstack;
-        /*player.setItemInUse(itemstack, this.getMaxItemUseDuration(itemstack));
-        return itemstack;*/
     }
 
     public ItemStack onEaten (ItemStack itemstack, World world, EntityPlayer player)

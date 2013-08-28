@@ -273,7 +273,7 @@ public class Excavator extends HarvestTool
                 int durability = tags.getInteger("Damage");
 
                 float stonebound = tags.getFloat("Shoddy");
-                float bonusLog = (float) Math.log(durability / 72f + 1) * 2 * stonebound;
+                float bonusLog = (float) Math.log(durability / 216f + 1) * 2 * stonebound;
                 trueSpeed += bonusLog;
 
                 if (hlvl <= tags.getInteger("HarvestLevel"))
@@ -283,18 +283,4 @@ public class Excavator extends HarvestTool
         }
         return super.getStrVsBlock(stack, block, meta);
     }
-    /*@Override
-    public void onUpdate (ItemStack stack, World world, Entity entity, int par4, boolean par5)
-    {
-        super.onUpdate(stack, world, entity, par4, par5);
-        if (entity instanceof EntityPlayer)
-        {
-            EntityPlayer player = (EntityPlayer) entity;
-            ItemStack equipped = player.getCurrentEquippedItem();
-            if (equipped == stack)
-            {
-                player.addPotionEffect(new PotionEffect(Potion.digSlowdown.id, 1, 1));
-            }
-        }
-    }*/
 }
