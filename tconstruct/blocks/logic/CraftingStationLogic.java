@@ -27,7 +27,7 @@ public class CraftingStationLogic extends InventoryLogic
 
     public boolean canDropInventorySlot (int slot)
     {
-        if (slot == 9)
+        if (slot == 9 || slot == 0)
             return false;
         return true;
     }
