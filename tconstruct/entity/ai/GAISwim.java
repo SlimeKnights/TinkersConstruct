@@ -11,9 +11,9 @@ public class GAISwim extends GolemAIBase
         golem.getNavigator().setCanSwim(true);
     }
 
-    public boolean shouldExecute()
+    public boolean shouldExecute ()
     {
-        if(golem.isInWater() || this.golem.handleLavaMovement())
+        if (golem.isInWater() || this.golem.handleLavaMovement())
         {
             return true;
         }
@@ -28,7 +28,7 @@ public class GAISwim extends GolemAIBase
         }
     }*/
 
-    public void updateTask()
+    public void updateTask ()
     {
         if (this.golem.getRNG().nextFloat() < 0.8F)
         {

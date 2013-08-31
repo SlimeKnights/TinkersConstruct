@@ -151,7 +151,7 @@ public class GuiManual extends GuiScreen
             pageRight = null;
         }
     }
-    
+
     private static final ResourceLocation bookRight = new ResourceLocation("tinker", "textures/gui/bookright.png");
     private static final ResourceLocation bookLeft = new ResourceLocation("tinker", "textures/gui/bookleft.png");
 

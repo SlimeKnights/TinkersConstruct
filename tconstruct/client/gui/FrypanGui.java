@@ -25,7 +25,7 @@ public class FrypanGui extends GuiContainer
         fontRenderer.drawString(StatCollector.translateToLocal("crafters.Frypan"), 60, 6, 0x404040);
         fontRenderer.drawString(StatCollector.translateToLocal("container.inventory"), 8, (ySize - 96) + 2, 0x404040);
     }
-    
+
     private static final ResourceLocation background = new ResourceLocation("tinker", "textures/gui/frypan.png");
 
     protected void drawGuiContainerBackgroundLayer (float f, int i, int j)

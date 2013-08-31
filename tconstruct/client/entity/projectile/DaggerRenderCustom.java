@@ -34,20 +34,20 @@ public class DaggerRenderCustom extends Render
     /**
      * Renders the item
      */
-    public void doRenderItem(DaggerEntity dagger, double par2, double par4, double par6, float par8, float par9)
+    public void doRenderItem (DaggerEntity dagger, double par2, double par4, double par6, float par8, float par9)
     {
         random.setSeed(187L);
         ItemStack item = dagger.getEntityItem();
         GL11.glPushMatrix();
-        GL11.glTranslatef((float)par2, (float)par4, (float)par6);
+        GL11.glTranslatef((float) par2, (float) par4, (float) par6);
         GL11.glEnable(GL12.GL_RESCALE_NORMAL);
         GL11.glRotatef(dagger.prevRotationYaw + (dagger.rotationYaw - dagger.prevRotationYaw) * par9 - 90.0F, 0.0F, 1.0F, 0.0F);
         GL11.glRotatef(dagger.prevRotationPitch + (dagger.rotationPitch - dagger.prevRotationPitch) * par9 - 45.0F, 0.0F, 0.0F, 1.0F);
-        
+
         float rotation = dagger.prevRotationPitch + (dagger.rotationPitch - dagger.prevRotationPitch) * par9;
         GL11.glRotatef(dagger.rotationYaw + 90, 0.0F, 0.0F, 1.0F);
         GL11.glRotatef(rotation * 15, 0.0F, 0.0F, 1.0F);
-        
+
         float shake = dagger.arrowShake - par9;
         if (shake > 0.0F)
             GL11.glRotatef(-MathHelper.sin(shake * 3) * shake, 0, 0, 1);
@@ -62,7 +62,7 @@ public class DaggerRenderCustom extends Render
     /**
      * Renders the item's icon or block into the UI at the specified position.
      */
-    public void renderItemIntoGUI(FontRenderer par1FontRenderer, TextureManager par2TextureManager, ItemStack par3ItemStack, int par4, int par5)
+    public void renderItemIntoGUI (FontRenderer par1FontRenderer, TextureManager par2TextureManager, ItemStack par3ItemStack, int par4, int par5)
     {
         renderer.renderItemIntoGUI(par1FontRenderer, par2TextureManager, par3ItemStack, par4, par5);
     }
@@ -70,7 +70,7 @@ public class DaggerRenderCustom extends Render
     /**
      * Render the item's icon or block into the GUI, including the glint effect.
      */
-    public void renderItemAndEffectIntoGUI(FontRenderer par1FontRenderer, TextureManager par2TextureManager, ItemStack par3ItemStack, int par4, int par5)
+    public void renderItemAndEffectIntoGUI (FontRenderer par1FontRenderer, TextureManager par2TextureManager, ItemStack par3ItemStack, int par4, int par5)
     {
         renderer.renderItemIntoGUI(par1FontRenderer, par2TextureManager, par3ItemStack, par4, par5);
     }
@@ -79,7 +79,7 @@ public class DaggerRenderCustom extends Render
      * Renders the item's overlay information. Examples being stack count or
      * damage on top of the item's image at the specified position.
      */
-    public void renderItemOverlayIntoGUI(FontRenderer par1FontRenderer, TextureManager par2TextureManager, ItemStack par3ItemStack, int par4, int par5)
+    public void renderItemOverlayIntoGUI (FontRenderer par1FontRenderer, TextureManager par2TextureManager, ItemStack par3ItemStack, int par4, int par5)
     {
         renderer.renderItemOverlayIntoGUI(par1FontRenderer, par2TextureManager, par3ItemStack, par4, par5);
     }
@@ -93,16 +93,16 @@ public class DaggerRenderCustom extends Render
      * f1). But JAD is pre 1.5 so doesn't do that.
      */
     @Override
-    public void doRender(Entity par1Entity, double par2, double par4, double par6, float par8, float par9)
+    public void doRender (Entity par1Entity, double par2, double par4, double par6, float par8, float par9)
     {
-        this.doRenderItem((DaggerEntity)par1Entity, par2, par4, par6, par8, par9);
+        this.doRenderItem((DaggerEntity) par1Entity, par2, par4, par6, par8, par9);
     }
-    
+
     protected ResourceLocation func_110775_a (Entity par1Entity)
     {
         return this.func_110796_a((DaggerEntity) par1Entity);
     }
-    
+
     protected ResourceLocation func_110796_a (DaggerEntity par1ArrowEntity)
     {
         return this.renderManager.renderEngine.func_130087_a(par1ArrowEntity.getEntityItem().getItemSpriteNumber());

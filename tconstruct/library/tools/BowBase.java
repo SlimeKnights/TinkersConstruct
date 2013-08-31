@@ -231,7 +231,7 @@ public abstract class BowBase extends ToolCore
     @Override
     public boolean requiresMultipleRenderPasses ()
     {
-        return false;
+        return true;
     }
 
     /* Rendering */

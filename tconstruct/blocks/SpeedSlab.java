@@ -23,7 +23,7 @@ public class SpeedSlab extends SlabBase
         this.setCreativeTab(TConstructRegistry.blockTab);
         setHardness(3F);
     }
-    
+
     @Override
     @SideOnly(Side.CLIENT)
     public void registerIcons (IconRegister iconRegister)
@@ -46,7 +46,7 @@ public class SpeedSlab extends SlabBase
             list.add(new ItemStack(id, 1, iter));
         }
     }
-    
+
     @Override
     public void onEntityWalking (World world, int x, int y, int z, Entity entity)
     {

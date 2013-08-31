@@ -5,7 +5,6 @@ import java.util.Random;
 
 import tconstruct.library.TConstructRegistry;
 
-
 import net.minecraft.block.BlockSand;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;

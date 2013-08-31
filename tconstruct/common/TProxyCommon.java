@@ -36,19 +36,20 @@ public class TProxyCommon implements IGuiHandler
     public static int inventoryGui = 100;
     public static int armorGuiID = 101;
     public static int knapsackGuiID = 102;
-    
+
     public static int miniGardyGui = 131;
 
     public static int manualGuiID = -1;
 
     @Override
     public Object getServerGuiElement (int ID, EntityPlayer player, World world, int x, int y, int z)
-    {    	
+    {
         if (ID < 0)
             return null;
-        
-        if (ID == landmineID){
-            return new ContainerLandmine(player, (TileEntityLandmine)world.getBlockTileEntity(x, y, z));
+
+        if (ID == landmineID)
+        {
+            return new ContainerLandmine(player, (TileEntityLandmine) world.getBlockTileEntity(x, y, z));
         }
 
         else if (ID < 100)
@@ -192,7 +193,7 @@ public class TProxyCommon implements IGuiHandler
         LanguageRegistry.addName(TContent.knapsack, "Knapsack");
         //LanguageRegistry.addName(TContent.shortbow, "Shortbow");
         //LanguageRegistry.addName(TContent.arrow, "Arrow");
-        
+
         LanguageRegistry.addName(TContent.meatBlock, "Hambone");
 
     }

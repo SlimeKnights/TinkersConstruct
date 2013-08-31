@@ -21,32 +21,32 @@ public class AntiLight extends Block
     }
 
     @Override
-    public int getLightOpacity(World world, int x, int y, int z)
+    public int getLightOpacity (World world, int x, int y, int z)
     {
         return world.getBlockMetadata(x, y, z);
     }
-    
+
     @Override
-    public boolean isAirBlock(World world, int x, int y, int z)
+    public boolean isAirBlock (World world, int x, int y, int z)
     {
         return true;
     }
-    
+
     @Override
-    public boolean renderAsNormalBlock()
+    public boolean renderAsNormalBlock ()
     {
         return false;
     }
 
     @Override
-    public boolean isOpaqueCube()
+    public boolean isOpaqueCube ()
     {
         return false;
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void registerIcons(IconRegister par1IconRegister)
+    public void registerIcons (IconRegister par1IconRegister)
     {
         this.blockIcon = par1IconRegister.registerIcon("tinker:blank");
     }
@@ -56,19 +56,19 @@ public class AntiLight extends Block
     {
         return null;
     }
-    
-    public boolean canCollideCheck(int par1, boolean par2)
+
+    public boolean canCollideCheck (int par1, boolean par2)
     {
         return false;
     }
-    
-    public boolean shouldSideBeRendered(IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
+
+    public boolean shouldSideBeRendered (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
     {
         return false;
     }
-    
-    public void onBlockExploded(World world, int x, int y, int z, Explosion explosion)
+
+    public void onBlockExploded (World world, int x, int y, int z, Explosion explosion)
     {
-        
+
     }
 }

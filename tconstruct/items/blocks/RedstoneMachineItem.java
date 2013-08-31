@@ -29,7 +29,7 @@ public class RedstoneMachineItem extends ItemBlock
         int pos = MathHelper.clamp_int(itemstack.getItemDamage(), 0, blockType.length - 1);
         return (new StringBuilder()).append("block.").append(blockType[pos]).toString();
     }
-    
+
     @Override
     public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean par4)
     {
@@ -60,8 +60,8 @@ public class RedstoneMachineItem extends ItemBlock
             }
         }
     }
-    
-    String getDirectionString(byte key)
+
+    String getDirectionString (byte key)
     {
         if (key == 0)
             return ("Up");
@@ -69,7 +69,7 @@ public class RedstoneMachineItem extends ItemBlock
             return ("Right");
         if (key == 2)
             return ("Down");
-        
+
         return "Left";
     }
 }

@@ -10,7 +10,6 @@ import org.w3c.dom.NodeList;
 
 import tconstruct.library.client.TConstructClientRegistry;
 
-
 public class ContentsTablePage extends BookPage
 {
     String text;

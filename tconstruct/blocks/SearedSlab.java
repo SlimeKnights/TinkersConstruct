@@ -21,7 +21,7 @@ public class SearedSlab extends SlabBase
         this.setCreativeTab(TConstructRegistry.blockTab);
         setHardness(12F);
     }
-    
+
     @Override
     @SideOnly(Side.CLIENT)
     public void registerIcons (IconRegister iconRegister)
@@ -37,7 +37,7 @@ public class SearedSlab extends SlabBase
             return TContent.smeltery.getIcon(side, 2);
         if (meta <= 3)
             return TContent.smeltery.getIcon(side, meta + 3);
-        
+
         return TContent.smeltery.getIcon(side, meta + 4);
     }
 

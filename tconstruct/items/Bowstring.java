@@ -49,6 +49,6 @@ public class Bowstring extends CraftingItem implements IToolPart
         if (TContent.thaumcraftAvailable)
             list.add(new ItemStack(id, 1, 1));
         if (Loader.isModLoaded("Natura"))
-        	list.add(new ItemStack(id, 1, 2));
+            list.add(new ItemStack(id, 1, 2));
     }
 }

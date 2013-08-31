@@ -10,7 +10,7 @@ import net.minecraft.util.MathHelper;
 
 public class GlassBlockItem extends ItemBlock
 {
-    public static final String blockType[] = { "glass.pure"};//, "glass.soul", "glass.soul.pure" };
+    public static final String blockType[] = { "glass.pure" };//, "glass.soul", "glass.soul.pure" };
 
     public GlassBlockItem(int id)
     {
@@ -59,8 +59,8 @@ public class GlassBlockItem extends ItemBlock
             }
         }
     }
-    
-    String getDirectionString(byte key)
+
+    String getDirectionString (byte key)
     {
         if (key == 0)
             return ("Up");
@@ -68,7 +68,7 @@ public class GlassBlockItem extends ItemBlock
             return ("Right");
         if (key == 2)
             return ("Down");
-        
+
         return "Left";
     }
 }

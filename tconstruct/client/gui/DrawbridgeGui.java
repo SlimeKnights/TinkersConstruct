@@ -32,7 +32,7 @@ public class DrawbridgeGui extends GuiContainer
         fontRenderer.drawString("Drawbridge", 8, 6, 0x404040);
         fontRenderer.drawString(StatCollector.translateToLocal("container.inventory"), 8, (ySize - 96) + 2, 0x404040);
     }
-    
+
     private static final ResourceLocation background = new ResourceLocation("tinker", "textures/gui/drawbridge.png");
 
     protected void drawGuiContainerBackgroundLayer (float f, int i, int j)
@@ -43,7 +43,7 @@ public class DrawbridgeGui extends GuiContainer
         int cornerY = (height - ySize) / 2;
         drawTexturedModalRect(cornerX, cornerY, 0, 0, xSize, ySize);
     }
-    
+
     public void initGui ()
     {
         super.initGui();
@@ -81,7 +81,7 @@ public class DrawbridgeGui extends GuiContainer
             b.enabled = true;
         }
         button.enabled = false;
-        
+
         logic.setPlacementDirection((byte) button.id);
         updateServer((byte) button.id);
     }

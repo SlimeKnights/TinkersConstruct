@@ -39,12 +39,12 @@ public class ArmorExtendedGui extends InventoryEffectRenderer
         int cornerY = (this.height - this.ySize) / 2;
         this.buttonList.clear();
 
-//        InventoryTab tab = new InventoryTab(2, cornerX, cornerY - 28, new ItemStack(Block.workbench), 0);
-//        this.buttonList.add(tab);
-//        tab = new InventoryTab(3, cornerX + 28, cornerY - 28, new ItemStack(Item.plateDiamond), 1);
-//        tab.enabled = false;
-//        this.buttonList.add(tab);
-        
+        //        InventoryTab tab = new InventoryTab(2, cornerX, cornerY - 28, new ItemStack(Block.workbench), 0);
+        //        this.buttonList.add(tab);
+        //        tab = new InventoryTab(3, cornerX + 28, cornerY - 28, new ItemStack(Item.plateDiamond), 1);
+        //        tab.enabled = false;
+        //        this.buttonList.add(tab);
+
         TabRegistry.updateTabValues(cornerX, cornerY, InventoryTabArmorExtended.class);
         TabRegistry.addTabsToList(this.buttonList);
     }
@@ -60,25 +60,25 @@ public class ArmorExtendedGui extends InventoryEffectRenderer
         super.drawScreen(par1, par2, par3);
         this.xSize_lo = (float) par1;
         this.ySize_lo = (float) par2;
-//        if (stats.inventory[2] != null && stats.inventory[2].getItem() == TContent.knapsack)
-//        {
-//            if (this.buttonList.size() < 3)
-//            {
-//                int cornerX = guiLeft;
-//                int cornerY = (this.height - this.ySize) / 2;
-//                InventoryTab tab = new InventoryTab(4, cornerX + 56, cornerY - 28, new ItemStack(TContent.knapsack), 1);
-//                this.buttonList.add(tab);
-//            }
-//        }
-//        else
-//        {
-//            if (this.buttonList.size() >= 3)
-//            {
-//                buttonList.remove(2);
-//            }
-//        }
+        //        if (stats.inventory[2] != null && stats.inventory[2].getItem() == TContent.knapsack)
+        //        {
+        //            if (this.buttonList.size() < 3)
+        //            {
+        //                int cornerX = guiLeft;
+        //                int cornerY = (this.height - this.ySize) / 2;
+        //                InventoryTab tab = new InventoryTab(4, cornerX + 56, cornerY - 28, new ItemStack(TContent.knapsack), 1);
+        //                this.buttonList.add(tab);
+        //            }
+        //        }
+        //        else
+        //        {
+        //            if (this.buttonList.size() >= 3)
+        //            {
+        //                buttonList.remove(2);
+        //            }
+        //        }
     }
-    
+
     private static final ResourceLocation background = new ResourceLocation("tinker", "textures/gui/armorextended.png");
 
     protected void drawGuiContainerBackgroundLayer (float f, int i, int j)

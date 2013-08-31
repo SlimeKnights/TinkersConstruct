@@ -7,7 +7,6 @@ import java.util.Map;
 
 import tconstruct.library.tools.ToolCore;
 
-
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.item.ItemStack;

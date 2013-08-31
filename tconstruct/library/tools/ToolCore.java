@@ -13,7 +13,6 @@ import tconstruct.library.ActiveToolMod;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.ToolBuilder;
 
-
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -129,7 +128,7 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
     @Override
     public boolean requiresMultipleRenderPasses ()
     {
-        return false;
+        return true;
     }
 
     @SideOnly(Side.CLIENT)
@@ -140,10 +139,10 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
     }
 
     @SideOnly(Side.CLIENT)
-	public boolean hasEffect(ItemStack par1ItemStack)
-	{
-		return false;
-	}
+    public boolean hasEffect (ItemStack par1ItemStack)
+    {
+        return false;
+    }
 
     //Override me please!
     public int getPartAmount ()
@@ -896,9 +895,9 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
     {
         return true;
     }
-    
+
     @SideOnly(Side.CLIENT)
-    public boolean hasEffect(ItemStack par1ItemStack, int pass)
+    public boolean hasEffect (ItemStack par1ItemStack, int pass)
     {
         return false;
     }

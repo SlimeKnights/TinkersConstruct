@@ -11,7 +11,6 @@ import org.w3c.dom.NodeList;
 
 import tconstruct.library.client.TConstructClientRegistry;
 
-
 public class ModifierPage extends BookPage
 {
     String type;
@@ -55,6 +54,7 @@ public class ModifierPage extends BookPage
     }
 
     private static final ResourceLocation background = new ResourceLocation("tinker", "textures/gui/bookmodify.png");
+
     public void renderBackgroundLayer (int localWidth, int localHeight)
     {
         manual.getMC().func_110434_K().func_110577_a(background);

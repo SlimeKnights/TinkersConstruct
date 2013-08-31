@@ -6,7 +6,6 @@ import java.util.List;
 
 import tconstruct.library.tools.ToolCore;
 
-
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.ShapelessRecipes;

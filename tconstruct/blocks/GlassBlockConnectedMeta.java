@@ -93,9 +93,10 @@ public class GlassBlockConnectedMeta extends GlassBlockConnected
         return par1;
     }
 
-	@Override
-	public boolean canPlaceTorchOnTop(World world, int x, int y, int z) {
-		return true;
-	}
-    
+    @Override
+    public boolean canPlaceTorchOnTop (World world, int x, int y, int z)
+    {
+        return true;
+    }
+
 }

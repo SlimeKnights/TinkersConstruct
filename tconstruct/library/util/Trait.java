@@ -11,7 +11,7 @@ public class Trait
     protected int[] alleles;
     static Random rand = new Random();
     String traitName;
-    
+
     public Trait(String name, NBTTagCompound tags)
     {
         traitName = name;
@@ -43,8 +43,8 @@ public class Trait
             }
         }
     }
-    
-    public Trait setName(String name)
+
+    public Trait setName (String name)
     {
         this.traitName = name;
         return this;
@@ -64,8 +64,8 @@ public class Trait
 
         return average;
     }
-    
-    public Trait breed(byte[] other, float mutationChance, float mutationVariance)
+
+    public Trait breed (byte[] other, float mutationChance, float mutationVariance)
     {
         int[] newAlleles = breedNumbers(other, mutationChance, mutationVariance);
         Trait trait = new Trait(newAlleles).setName(this.traitName);
@@ -110,14 +110,14 @@ public class Trait
 
         return mutator;
     }
-    
-    public void saveToNBT(NBTTagCompound tags)
+
+    public void saveToNBT (NBTTagCompound tags)
     {
-        tags.setIntArray(traitName+".Alleles", alleles);
+        tags.setIntArray(traitName + ".Alleles", alleles);
     }
-    
-    public void loadFromNBT(NBTTagCompound tags)
+
+    public void loadFromNBT (NBTTagCompound tags)
     {
-        alleles = tags.getIntArray(traitName+".Alleles");
+        alleles = tags.getIntArray(traitName + ".Alleles");
     }
 }

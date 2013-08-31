@@ -11,7 +11,6 @@ import org.w3c.dom.NodeList;
 
 import tconstruct.library.client.TConstructClientRegistry;
 
-
 public class CraftingPage extends BookPage
 {
     String text;
@@ -93,6 +92,7 @@ public class CraftingPage extends BookPage
     }
 
     private static final ResourceLocation background = new ResourceLocation("tinker", "textures/gui/bookcrafting.png");
+
     public void drawBackground (int size, int localWidth, int localHeight)
     {
         manual.getMC().func_110434_K().func_110577_a(background);

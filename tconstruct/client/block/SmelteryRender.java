@@ -148,7 +148,7 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
                         Block liquidBlock = Block.blocksList[blockToRender.itemID];
                         BlockSkinRenderHelper.renderMetadataBlock(liquidBlock, blockToRender.getItemDamage(), posX + i % 3, posY, posZ + i / 3, renderer, world);
                     }
-                    
+
                     /*else //No items, only blocks
                     //Item                        
                     {

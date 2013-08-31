@@ -27,12 +27,12 @@ public class WoolSlab1Item extends ItemBlock
         return meta;
     }
 
-    public String getUnlocalizedName(ItemStack par1ItemStack)
+    public String getUnlocalizedName (ItemStack par1ItemStack)
     {
         int i = MathHelper.clamp_int(par1ItemStack.getItemDamage(), 0, 7);
         return super.getUnlocalizedName() + "." + ItemDye.dyeColorNames[15 - i] + ".slab";
     }
-    
+
     @Override
     public boolean onItemUse (ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
     {

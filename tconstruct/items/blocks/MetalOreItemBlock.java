@@ -37,8 +37,8 @@ public class MetalOreItemBlock extends ItemBlock
             NBTTagCompound liquidTag = stack.getTagCompound().getCompoundTag("Liquid");
             if (liquidTag != null)
             {
-                list.add("Contains "+liquidTag.getString("LiquidName"));
-                list.add(liquidTag.getInteger("Amount")+" mB");
+                list.add("Contains " + liquidTag.getString("LiquidName"));
+                list.add(liquidTag.getInteger("Amount") + " mB");
             }
         }
     }

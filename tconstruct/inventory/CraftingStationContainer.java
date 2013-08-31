@@ -1,6 +1,5 @@
 package tconstruct.inventory;
 
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -31,9 +30,9 @@ public class CraftingStationContainer extends Container
         this.posZ = z;
         craftMatrix = new InventoryCraftingStation(this, 3, 3, logic);
         craftResult = new InventoryCraftingStationResult(logic);
-        
+
         this.addSlotToContainer(new SlotCrafting(inventorplayer.player, this.craftMatrix, this.craftResult, 0, 124, 35));
-        
+
         int row;
         int column;
 
@@ -62,12 +61,12 @@ public class CraftingStationContainer extends Container
         this.onCraftMatrixChanged(this.craftMatrix);
     }
 
-    public void onCraftMatrixChanged(IInventory par1IInventory)
+    public void onCraftMatrixChanged (IInventory par1IInventory)
     {
         this.craftResult.setInventorySlotContents(0, CraftingManager.getInstance().findMatchingRecipe(this.craftMatrix, this.worldObj));
     }
 
-    public void onContainerClosed(EntityPlayer par1EntityPlayer)
+    public void onContainerClosed (EntityPlayer par1EntityPlayer)
     {
         super.onContainerClosed(par1EntityPlayer);
 
@@ -85,15 +84,15 @@ public class CraftingStationContainer extends Container
         }
     }
 
-    public boolean canInteractWith(EntityPlayer par1EntityPlayer)
+    public boolean canInteractWith (EntityPlayer par1EntityPlayer)
     {
-        return par1EntityPlayer.getDistanceSq((double)this.posX + 0.5D, (double)this.posY + 0.5D, (double)this.posZ + 0.5D) <= 64.0D;
+        return par1EntityPlayer.getDistanceSq((double) this.posX + 0.5D, (double) this.posY + 0.5D, (double) this.posZ + 0.5D) <= 64.0D;
     }
 
-    public ItemStack transferStackInSlot(EntityPlayer par1EntityPlayer, int par2)
+    public ItemStack transferStackInSlot (EntityPlayer par1EntityPlayer, int par2)
     {
         ItemStack itemstack = null;
-        Slot slot = (Slot)this.inventorySlots.get(par2);
+        Slot slot = (Slot) this.inventorySlots.get(par2);
 
         if (slot != null && slot.getHasStack())
         {
@@ -130,7 +129,7 @@ public class CraftingStationContainer extends Container
 
             if (itemstack1.stackSize == 0)
             {
-                slot.putStack((ItemStack)null);
+                slot.putStack((ItemStack) null);
             }
             else
             {
@@ -148,7 +147,7 @@ public class CraftingStationContainer extends Container
         return itemstack;
     }
 
-    public boolean func_94530_a(ItemStack par1ItemStack, Slot par2Slot)
+    public boolean func_94530_a (ItemStack par1ItemStack, Slot par2Slot)
     {
         return par2Slot.inventory != this.craftResult && super.func_94530_a(par1ItemStack, par2Slot);
     }

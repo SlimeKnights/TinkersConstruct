@@ -28,7 +28,7 @@ public class CraftingStationGui extends GuiContainer
         fontRenderer.drawString("Crafting", 28, 6, 0x404040);
         fontRenderer.drawString("Inventory", 8, (ySize - 96) + 2, 0x404040);
     }
-    
+
     private static final ResourceLocation background = new ResourceLocation("tinker", "textures/gui/crafting.png");
 
     @Override

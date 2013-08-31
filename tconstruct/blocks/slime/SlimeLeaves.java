@@ -59,7 +59,7 @@ public class SlimeLeaves extends BlockLeaves
 
         for (int i = 0; i < this.fastIcons.length; i++)
         {
-            this.fastIcons[i] = iconRegister.registerIcon("tinker:" + fastLeaves[i] );
+            this.fastIcons[i] = iconRegister.registerIcon("tinker:" + fastLeaves[i]);
             this.fancyIcons[i] = iconRegister.registerIcon("tinker:" + fancyLeaves[i]);
         }
     }
@@ -82,14 +82,13 @@ public class SlimeLeaves extends BlockLeaves
             list.add(new ItemStack(id, 1, iter));
         }
     }
-    
-    /* Drops */
 
+    /* Drops */
 
     /**
      * Returns the ID of the items to drop on destruction.
      */
-    public int idDropped(int par1, Random par2Random, int par3)
+    public int idDropped (int par1, Random par2Random, int par3)
     {
         return TContent.slimeSapling.blockID;
     }
@@ -97,7 +96,7 @@ public class SlimeLeaves extends BlockLeaves
     /**
      * Drops the block items with a specified chance of dropping the specified items
      */
-    public void dropBlockAsItemWithChance(World world, int x, int y, int z, int meta, float chance, int fortune)
+    public void dropBlockAsItemWithChance (World world, int x, int y, int z, int meta, float chance, int fortune)
     {
         if (!world.isRemote)
         {

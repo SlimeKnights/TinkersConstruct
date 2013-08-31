@@ -11,13 +11,13 @@ public class InventoryTabVanilla extends AbstractTab
     }
 
     @Override
-    public void onTabClicked()
+    public void onTabClicked ()
     {
         TabRegistry.openInventoryGui();
     }
 
     @Override
-    public boolean shouldAddToList()
+    public boolean shouldAddToList ()
     {
         return true;
     }

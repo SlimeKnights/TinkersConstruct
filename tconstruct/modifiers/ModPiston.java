@@ -6,7 +6,6 @@ import java.util.List;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.library.tools.ToolMod;
 
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 

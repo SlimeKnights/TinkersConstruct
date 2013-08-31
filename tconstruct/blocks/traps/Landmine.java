@@ -6,7 +6,6 @@ import java.util.Random;
 
 import tconstruct.library.TConstructRegistry;
 
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFence;
 import net.minecraft.block.EnumMobType;

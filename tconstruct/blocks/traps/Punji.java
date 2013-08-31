@@ -77,7 +77,7 @@ public class Punji extends Block
     }
 
     @Override
-    public int quantityDropped(int meta, int fortune, Random random)
+    public int quantityDropped (int meta, int fortune, Random random)
     {
         return meta + 1;
     }
@@ -112,8 +112,8 @@ public class Punji extends Block
     }
 
     @Override
-    @SideOnly(Side.CLIENT)    
-    public boolean shouldSideBeRendered(IBlockAccess world, int x, int y, int z, int side)
+    @SideOnly(Side.CLIENT)
+    public boolean shouldSideBeRendered (IBlockAccess world, int x, int y, int z, int side)
     {
         return true;
     }

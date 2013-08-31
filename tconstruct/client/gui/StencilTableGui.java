@@ -43,7 +43,7 @@ public class StencilTableGui extends GuiContainer
         fontRenderer.drawString(StatCollector.translateToLocal("crafters.PatternShaper"), 50, 6, 0x404040);
         fontRenderer.drawString(StatCollector.translateToLocal("container.inventory"), 8, (ySize - 96) + 2, 0x404040);
     }
-    
+
     private static final ResourceLocation background = new ResourceLocation("tinker", "textures/gui/patternshaper.png");
 
     protected void drawGuiContainerBackgroundLayer (float par1, int par2, int par3)

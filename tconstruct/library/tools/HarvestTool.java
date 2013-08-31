@@ -22,9 +22,9 @@ public abstract class HarvestTool extends ToolCore
     @Override
     public boolean onBlockStartBreak (ItemStack stack, int x, int y, int z, EntityPlayer player)
     {
-        if(!stack.hasTagCompound())
+        if (!stack.hasTagCompound())
             return false;
-        
+
         NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
         World world = player.worldObj;
         int bID = player.worldObj.getBlockId(x, y, z);

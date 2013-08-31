@@ -175,12 +175,12 @@ public class MiniGardyRender extends RenderLiving
     {
         GL11.glTranslatef(0.0F, 0.1875F, 0.0F);
     }
-    
+
     @Override
-    protected ResourceLocation func_110775_a(Entity par1Entity)
+    protected ResourceLocation func_110775_a (Entity par1Entity)
     {
         return texture;
     }
-    
+
     static final ResourceLocation texture = new ResourceLocation("assets/tinker/textures/mob/googirl.png");
 }

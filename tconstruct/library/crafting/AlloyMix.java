@@ -63,7 +63,7 @@ public class AlloyMix
             {
                 FluidStack mixer = (FluidStack) iter.next();
                 //if (mixer.itemID == liquid.itemID && mixer.itemMeta == liquid.itemMeta)
-                if (mixer.isFluidEqual(liquid))                    
+                if (mixer.isFluidEqual(liquid))
                 {
                     int eAmt = low * mixer.amount;
                     liquid.amount -= eAmt;

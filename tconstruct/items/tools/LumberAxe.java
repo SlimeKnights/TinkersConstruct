@@ -137,7 +137,7 @@ public class LumberAxe extends HarvestTool
     {
         if (!stack.hasTagCompound())
             return false;
-        
+
         World world = player.worldObj;
         final int woodID = world.getBlockId(x, y, z);
         final Block wood = Block.blocksList[woodID];

@@ -33,7 +33,7 @@ public class EssenceExtractorLogic extends TileEntityEnchantmentTable
 
     private int essenceAmount;
     static DecimalFormat df = new DecimalFormat("##.##");
-    
+
     /*public EssenceExtractorLogic()
     {
         df.setRoundingMode(RoundingMode.DOWN);
@@ -186,8 +186,8 @@ public class EssenceExtractorLogic extends TileEntityEnchantmentTable
         essenceAmount += amount;
         player.addExperienceLevel(-player.experienceLevel - 1);
     }
-    
-    public int removeEssence()
+
+    public int removeEssence ()
     {
         int amount = this.essenceAmount;
         this.essenceAmount = 0;

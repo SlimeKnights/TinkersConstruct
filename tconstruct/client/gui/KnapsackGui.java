@@ -32,14 +32,14 @@ public class KnapsackGui extends GuiContainer
 
         TabRegistry.updateTabValues(cornerX, cornerY, InventoryTabKnapsack.class);
         TabRegistry.addTabsToList(this.buttonList);
-        
-//        InventoryTab tab = new InventoryTab(2, cornerX, cornerY - 28, new ItemStack(Block.workbench), 0);
-//        this.buttonList.add(tab);
-//        tab = new InventoryTab(3, cornerX + 28, cornerY - 28, new ItemStack(Item.plateDiamond), 1);
-//        this.buttonList.add(tab);
-//        tab = new InventoryTab(4, cornerX + 56, cornerY - 28, new ItemStack(TContent.knapsack), 1);
-//        tab.enabled = false;
-//        this.buttonList.add(tab);
+
+        //        InventoryTab tab = new InventoryTab(2, cornerX, cornerY - 28, new ItemStack(Block.workbench), 0);
+        //        this.buttonList.add(tab);
+        //        tab = new InventoryTab(3, cornerX + 28, cornerY - 28, new ItemStack(Item.plateDiamond), 1);
+        //        this.buttonList.add(tab);
+        //        tab = new InventoryTab(4, cornerX + 56, cornerY - 28, new ItemStack(TContent.knapsack), 1);
+        //        tab.enabled = false;
+        //        this.buttonList.add(tab);
     }
 
     protected void drawGuiContainerForegroundLayer (int par1, int par2)
@@ -47,7 +47,7 @@ public class KnapsackGui extends GuiContainer
         fontRenderer.drawString(StatCollector.translateToLocal("inventory.knapsack"), 8, 6, 0x404040);
         fontRenderer.drawString(StatCollector.translateToLocal("container.inventory"), 8, (ySize - 96) + 4, 0x404040);
     }
-    
+
     private static final ResourceLocation background = new ResourceLocation("tinker", "textures/gui/knapsack.png");
 
     protected void drawGuiContainerBackgroundLayer (float f, int i, int j)

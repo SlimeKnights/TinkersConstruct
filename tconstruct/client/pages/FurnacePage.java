@@ -11,7 +11,6 @@ import org.w3c.dom.NodeList;
 
 import tconstruct.library.client.TConstructClientRegistry;
 
-
 public class FurnacePage extends BookPage
 {
     String text;
@@ -52,6 +51,7 @@ public class FurnacePage extends BookPage
         RenderHelper.disableStandardItemLighting();
         GL11.glDisable(GL12.GL_RESCALE_NORMAL);
     }
+
     private static final ResourceLocation background = new ResourceLocation("tinker", "textures/gui/bookfurnace.png");
 
     public void renderBackgroundLayer (int localWidth, int localHeight)

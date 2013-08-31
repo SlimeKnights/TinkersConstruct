@@ -48,7 +48,7 @@ public class LavaTankLogic extends MultiServantLogic implements IFluidHandler
         }
         return amount;
     }
-    
+
     @Override
     public FluidStack drain (ForgeDirection from, FluidStack resource, boolean doDrain)
     {
@@ -75,7 +75,7 @@ public class LavaTankLogic extends MultiServantLogic implements IFluidHandler
         FluidStack fluid = null;
         if (tank.getFluid() != null)
             fluid = tank.getFluid().copy();
-        return new FluidTankInfo[] { new FluidTankInfo(fluid, tank.getCapacity())};
+        return new FluidTankInfo[] { new FluidTankInfo(fluid, tank.getCapacity()) };
     }
 
     /*@Override

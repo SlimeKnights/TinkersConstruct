@@ -228,7 +228,7 @@ public class RedstoneMachine extends InventoryBlock
 
     boolean activeNearbyRedstone (World world, int x, int y, int z)
     {
-        return activeRedstone(world, x + 1, y, z) || activeRedstone(world, x - 1, y, z) || activeRedstone(world, x, y, z+1) || activeRedstone(world, x, y, z-1);
+        return activeRedstone(world, x + 1, y, z) || activeRedstone(world, x - 1, y, z) || activeRedstone(world, x, y, z + 1) || activeRedstone(world, x, y, z - 1);
     }
 
     boolean activeRedstone (World world, int x, int y, int z)
@@ -236,10 +236,10 @@ public class RedstoneMachine extends InventoryBlock
         Block wire = Block.blocksList[world.getBlockId(x, y, z)];
         if (wire != null && wire.blockID == Block.redstoneWire.blockID)
             return world.getBlockMetadata(x, y, z) > 0;
-                    
+
         return false;
     }
-    
+
     /* Keep inventory */
     @Override
     public boolean removeBlockByPlayer (World world, EntityPlayer player, int x, int y, int z)
@@ -284,7 +284,7 @@ public class RedstoneMachine extends InventoryBlock
 
         return world.setBlockToAir(x, y, z);
     }
-    
+
     protected void dropDrawbridgeLogic (World world, int x, int y, int z, ItemStack stack)
     {
         if (!world.isRemote && world.getGameRules().getGameRuleBooleanValue("doTileDrops"))

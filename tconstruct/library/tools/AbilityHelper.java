@@ -239,7 +239,7 @@ public class AbilityHelper
                                 ((EntityPlayer) player).triggerAchievement(AchievementList.overkill);
                             }
                         }
-                        
+
                         player.func_130011_c(entity);
 
                         if (entity instanceof EntityLivingBase)

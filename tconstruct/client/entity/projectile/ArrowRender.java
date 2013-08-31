@@ -75,7 +75,7 @@ public class ArrowRender extends Render
             {
                 block = Block.blocksList[itemstack.itemID];
             }
-            
+
             if (itemstack.getItemSpriteNumber() == 0 && block != null && RenderBlocks.renderItemIn3d(Block.blocksList[itemstack.itemID].getRenderType()))
             {
                 GL11.glRotatef(f3, 0.0F, 1.0F, 0.0F);

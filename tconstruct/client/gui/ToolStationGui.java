@@ -99,7 +99,8 @@ public class ToolStationGui extends NewContainerGui
         for (int iter = 1; iter < TConstructClientRegistry.toolButtons.size(); iter++)
         {
             ToolGuiElement element = TConstructClientRegistry.toolButtons.get(iter);
-            GuiButtonTool button = new GuiButtonTool(iter, cornerX - 110 + 22 * (iter % 5), cornerY + 22 * (iter / 5), element.buttonIconX, element.buttonIconY, repair.domain, element.texture, element);
+            GuiButtonTool button = new GuiButtonTool(iter, cornerX - 110 + 22 * (iter % 5), cornerY + 22 * (iter / 5), element.buttonIconX, element.buttonIconY, repair.domain, element.texture,
+                    element);
             this.buttonList.add(button);
         }
     }
@@ -418,7 +419,7 @@ public class ToolStationGui extends NewContainerGui
             return String.valueOf(num);
         }
     }
-    
+
     private static final ResourceLocation background = new ResourceLocation("tinker", "textures/gui/toolstation.png");
     private static final ResourceLocation icons = new ResourceLocation("tinker", "textures/gui/icons.png");
     private static final ResourceLocation description = new ResourceLocation("tinker", "textures/gui/description.png");

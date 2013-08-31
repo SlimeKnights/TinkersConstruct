@@ -45,7 +45,7 @@ public class CrystalBlockRender implements ISimpleBlockRenderingHandler
                 renderer.setRenderBounds(0.5F, 0.0F, 0.8125F, 0.5625F, 0.0625F, 0.875F);
                 renderer.renderStandardBlock(block, x, y, z);
             }
-            
+
             //Base
             if (metadata == 0)
             {
@@ -84,7 +84,7 @@ public class CrystalBlockRender implements ISimpleBlockRenderingHandler
                 renderer.renderStandardBlock(block, x, y, z);
                 renderer.setRenderBounds(0.375F, 0.875F, 0.375F, 0.625F, 0.9325F, 0.625F);
                 renderer.renderStandardBlock(block, x, y, z);
-                
+
                 renderer.setRenderBounds(0.25F, 0.0F, 0.25F, 0.75F, 0.75F, 0.75F);
                 renderer.renderStandardBlock(block, x, y, z);
 
@@ -107,7 +107,7 @@ public class CrystalBlockRender implements ISimpleBlockRenderingHandler
                 renderer.setRenderBounds(0.625F, 0.0F, 0.5F, 0.875F, 0.75, 0.875F);
                 renderer.renderStandardBlock(block, x, y, z);
             }
-            
+
             else if (metadata == 5) //Transition
             {
                 renderer.setRenderBounds(0.25F, 0.0F, 0.25F, 0.75F, 1.0F, 0.75F);
@@ -141,7 +141,7 @@ public class CrystalBlockRender implements ISimpleBlockRenderingHandler
                 renderer.renderStandardBlock(block, x, y, z);
                 renderer.setRenderBounds(0.375F, 0.5F, 0.375F, 0.625F, 0.625F, 0.625F);
                 renderer.renderStandardBlock(block, x, y, z);
-                
+
                 renderer.setRenderBounds(0.25F, 0.0F, 0.5F, 0.4325F, 0.25F, 0.75F);
                 renderer.renderStandardBlock(block, x, y, z);
                 renderer.setRenderBounds(0.4325F, 0.0F, 0.125F, 0.625F, 0.375F, 0.3125F);
@@ -155,7 +155,7 @@ public class CrystalBlockRender implements ISimpleBlockRenderingHandler
                 renderer.renderStandardBlock(block, x, y, z);
                 renderer.setRenderBounds(0.375F, 0.875F, 0.375F, 0.625F, 0.9325F, 0.625F);
                 renderer.renderStandardBlock(block, x, y, z);
-                
+
                 renderer.setRenderBounds(0.25F, 0.0F, 0.25F, 0.75F, 0.75F, 0.75F);
                 renderer.renderStandardBlock(block, x, y, z);
 
@@ -168,7 +168,7 @@ public class CrystalBlockRender implements ISimpleBlockRenderingHandler
             {
                 renderer.setRenderBounds(0.3125F, 0.75F, 0.3125F, 0.6875F, 1.0F, 0.6875F);
                 renderer.renderStandardBlock(block, x, y, z);
-                
+
                 renderer.setRenderBounds(0.25F, 0.0F, 0.25F, 0.75F, 0.75F, 0.75F);
                 renderer.renderStandardBlock(block, x, y, z);
 
@@ -179,7 +179,7 @@ public class CrystalBlockRender implements ISimpleBlockRenderingHandler
                 renderer.setRenderBounds(0.625F, 0.0F, 0.5F, 0.8125F, 0.625, 0.8125F);
                 renderer.renderStandardBlock(block, x, y, z);
             }
-            
+
             //3rd Layer
             else if (metadata == 10)
             {
@@ -196,7 +196,7 @@ public class CrystalBlockRender implements ISimpleBlockRenderingHandler
                 renderer.renderStandardBlock(block, x, y, z);
                 renderer.setRenderBounds(0.4325F, 0.4325F, 0.375F, 0.5625F, 0.5F, 0.5625F);
                 renderer.renderStandardBlock(block, x, y, z);
-                
+
                 renderer.setRenderBounds(0.4325F, 0F, 0.1875F, 0.625F, 0.3125F, 0.3125F);
                 renderer.renderStandardBlock(block, x, y, z);
                 renderer.setRenderBounds(0.4325F, 0F, 0.4325F, 0.6875F, 0.3125, 0.6875);
@@ -208,7 +208,7 @@ public class CrystalBlockRender implements ISimpleBlockRenderingHandler
                 renderer.renderStandardBlock(block, x, y, z);
                 renderer.setRenderBounds(0.375F, 0.75F, 0.375F, 0.5625F, 0.875F, 0.5625F);
                 renderer.renderStandardBlock(block, x, y, z);
-                
+
                 renderer.setRenderBounds(0.4325F, 0F, 0.1875F, 0.625F, 0.675F, 0.3125F);
                 renderer.renderStandardBlock(block, x, y, z);
                 renderer.setRenderBounds(0.4325F, 0F, 0.4325F, 0.6875F, 0.5625F, 0.6875);
@@ -220,13 +220,13 @@ public class CrystalBlockRender implements ISimpleBlockRenderingHandler
                 renderer.renderStandardBlock(block, x, y, z);
                 /*renderer.setRenderBounds(0.375F, 0.75F, 0.375F, 0.5625F, 0.875F, 0.5625F);
                 renderer.renderStandardBlock(block, x, y, z);*/
-                
+
                 renderer.setRenderBounds(0.4325F, 0F, 0.1875F, 0.625F, 0.875F, 0.3125F);
                 renderer.renderStandardBlock(block, x, y, z);
                 renderer.setRenderBounds(0.4325F, 0F, 0.4325F, 0.6875F, 0.75, 0.6875);
                 renderer.renderStandardBlock(block, x, y, z);
             }
-            
+
             //4th Layer
             else if (metadata == 14)
             {
@@ -248,7 +248,7 @@ public class CrystalBlockRender implements ISimpleBlockRenderingHandler
                 renderer.setRenderBounds(0.4375F, 0.6875F, 0.4375F, 0.5625F, 0.75F, 0.5625F);
                 renderer.renderStandardBlock(block, x, y, z);
             }
-            
+
             //Unused
             /*else if (metadata == 4) //Leftover fragments
             {

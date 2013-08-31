@@ -4,7 +4,6 @@ import java.util.List;
 
 import tconstruct.library.TConstructRegistry;
 
-
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;

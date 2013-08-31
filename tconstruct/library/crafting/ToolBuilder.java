@@ -12,7 +12,6 @@ import tconstruct.library.tools.ToolMaterial;
 import tconstruct.library.tools.ToolMod;
 import tconstruct.library.util.IToolPart;
 
-
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -111,8 +110,8 @@ public class ToolBuilder
     {
         return buildTool(headStack, handleStack, accessoryStack, null, name);
     }
-    
-    public int getMaterialID(ItemStack stack)
+
+    public int getMaterialID (ItemStack stack)
     {
         if (stack == null)
             return -1;
@@ -123,7 +122,7 @@ public class ToolBuilder
             return 5;
         else if (item instanceof IToolPart)
             return ((IToolPart) item).getMaterialID(stack);
-        
+
         return -1;
     }
 

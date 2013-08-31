@@ -9,7 +9,6 @@ import tconstruct.library.tools.ToolCore;
 import tconstruct.library.tools.ToolMod;
 import tconstruct.library.tools.Weapon;
 
-
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.item.ItemStack;

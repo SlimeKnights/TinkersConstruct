@@ -13,13 +13,13 @@ public class InventoryTabKnapsack extends AbstractTab
     }
 
     @Override
-    public void onTabClicked()
+    public void onTabClicked ()
     {
         TControls.openKnapsackGui();
     }
 
     @Override
-    public boolean shouldAddToList()
+    public boolean shouldAddToList ()
     {
         return TProxyClient.armorExtended.inventory[2] != null && TProxyClient.armorExtended.inventory[2].getItem() == TContent.knapsack;
     }

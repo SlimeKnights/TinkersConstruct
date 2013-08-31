@@ -72,10 +72,11 @@ public class GlassBlockConnected extends Block
 
     public Icon getConnectedBlockTexture (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5, Icon[] icons)
     {
-    	if(PHConstruct.connectedTexturesMode == 0){
-    		return icons[0];
-    	}
-    	
+        if (PHConstruct.connectedTexturesMode == 0)
+        {
+            return icons[0];
+        }
+
         boolean isOpenUp = false, isOpenDown = false, isOpenLeft = false, isOpenRight = false;
 
         switch (par5)
@@ -623,9 +624,10 @@ public class GlassBlockConnected extends Block
         icons[14] = par1IconRegister.registerIcon("tinker:glass/" + folder + "/glass_3_r");
         icons[15] = par1IconRegister.registerIcon("tinker:glass/" + folder + "/glass_4");
     }
-    
-	@Override
-	public boolean canPlaceTorchOnTop(World world, int x, int y, int z) {
-		return true;
-	}
+
+    @Override
+    public boolean canPlaceTorchOnTop (World world, int x, int y, int z)
+    {
+        return true;
+    }
 }

@@ -11,9 +11,9 @@ public class CrystalValues
     int stone;
     int fire;
     int water;
-    
+
     final String valueType;
-    
+
     public CrystalValues(String type)
     {
         valueType = type;
@@ -63,8 +63,8 @@ public class CrystalValues
         }
         return 0;
     }
-    
-    protected void setValue(int[] array)
+
+    protected void setValue (int[] array)
     {
         light = array[0];
         time = array[1];
@@ -73,20 +73,20 @@ public class CrystalValues
         fire = array[4];
         water = array[5];
     }
-    
-    public CrystalValues loadFromNBT(NBTTagCompound tags)
+
+    public CrystalValues loadFromNBT (NBTTagCompound tags)
     {
-        int[] crystalArray = tags.getIntArray("TConstruct.Crystal."+valueType);
+        int[] crystalArray = tags.getIntArray("TConstruct.Crystal." + valueType);
         if (crystalArray != null && crystalArray.length >= 6)
         {
             this.setValue(crystalArray);
         }
         return this;
     }
-    
-    public void saveToNBT(NBTTagCompound tags)
+
+    public void saveToNBT (NBTTagCompound tags)
     {
-        int[] crystalArray = new int[] {light, time, life, stone, fire, water};
+        int[] crystalArray = new int[] { light, time, life, stone, fire, water };
         tags.setIntArray("TConstruct.Crystal.", crystalArray);
     }
 }

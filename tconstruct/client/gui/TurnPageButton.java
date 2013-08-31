@@ -22,7 +22,7 @@ public class TurnPageButton extends GuiButton
         super(par1, par2, par3, 23, 13, "");
         this.nextPage = par4;
     }
-    
+
     private static final ResourceLocation background = new ResourceLocation("tinker", "textures/gui/bookleft.png");
 
     /**

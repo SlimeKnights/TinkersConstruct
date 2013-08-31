@@ -5,7 +5,6 @@ import java.util.List;
 
 import tconstruct.library.tools.ToolCore;
 
-
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

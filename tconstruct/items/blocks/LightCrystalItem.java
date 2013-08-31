@@ -98,27 +98,27 @@ public class LightCrystalItem extends ItemBlock
                 {
                     int localID = world.getBlockId(x, y + 1, z);
                     if (localID != Block.vine.blockID && localID != Block.tallGrass.blockID && localID != Block.deadBush.blockID
-                            && (Block.blocksList[localID] == null || !Block.blocksList[localID].isBlockReplaceable(world, x, y+1, z)))
+                            && (Block.blocksList[localID] == null || !Block.blocksList[localID].isBlockReplaceable(world, x, y + 1, z)))
                     {
-                        placeBlockAt(stack, player, world, x, y+1, z, side, hitX, hitY, hitZ, secondMeta(crystalValue));
+                        placeBlockAt(stack, player, world, x, y + 1, z, side, hitX, hitY, hitZ, secondMeta(crystalValue));
                     }
                 }
                 if (height > 2)
                 {
                     int localID = world.getBlockId(x, y + 2, z);
                     if (localID != Block.vine.blockID && localID != Block.tallGrass.blockID && localID != Block.deadBush.blockID
-                            && (Block.blocksList[localID] == null || !Block.blocksList[localID].isBlockReplaceable(world, x, y+2, z)))
+                            && (Block.blocksList[localID] == null || !Block.blocksList[localID].isBlockReplaceable(world, x, y + 2, z)))
                     {
-                        placeBlockAt(stack, player, world, x, y+2, z, side, hitX, hitY, hitZ, thirdMeta(crystalValue));
+                        placeBlockAt(stack, player, world, x, y + 2, z, side, hitX, hitY, hitZ, thirdMeta(crystalValue));
                     }
                 }
                 if (height > 3)
                 {
                     int localID = world.getBlockId(x, y + 3, z);
                     if (localID != Block.vine.blockID && localID != Block.tallGrass.blockID && localID != Block.deadBush.blockID
-                            && (Block.blocksList[localID] == null || !Block.blocksList[localID].isBlockReplaceable(world, x, y+3, z)))
+                            && (Block.blocksList[localID] == null || !Block.blocksList[localID].isBlockReplaceable(world, x, y + 3, z)))
                     {
-                        placeBlockAt(stack, player, world, x, y+3, z, side, hitX, hitY, hitZ, topMeta(crystalValue));
+                        placeBlockAt(stack, player, world, x, y + 3, z, side, hitX, hitY, hitZ, topMeta(crystalValue));
                     }
                 }
             }

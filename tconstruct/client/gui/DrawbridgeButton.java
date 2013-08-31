@@ -17,12 +17,14 @@ public class DrawbridgeButton extends GuiButton
      */
     int uPos;
     int vPos;
+
     public DrawbridgeButton(int id, int xPos, int yPos, int u, int v, int xSize, int ySize)
     {
         super(id, xPos, yPos, xSize, ySize, "");
         uPos = u;
         vPos = v;
     }
+
     private static final ResourceLocation background = new ResourceLocation("tinker", "textures/gui/drawbridge.png");
 
     /**

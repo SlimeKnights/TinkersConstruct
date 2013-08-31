@@ -25,7 +25,7 @@ public class MiniGardyGui extends GuiContainer
         fontRenderer.drawString(gardy.getEntityName(), 8, 6, 0x404040);
         fontRenderer.drawString(StatCollector.translateToLocal("container.inventory"), 8, (ySize - 96) + 4, 0x404040);
     }
-    
+
     private static final ResourceLocation background = new ResourceLocation("tinker", "textures/gui/googirl.png");
 
     protected void drawGuiContainerBackgroundLayer (float f, int i, int j)

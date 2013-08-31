@@ -8,7 +8,6 @@ import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.ToolBuilder;
 import tconstruct.library.tools.ToolCore;
 
-
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 

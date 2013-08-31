@@ -1,6 +1,5 @@
 package tconstruct.items;
 
-
 public class MaterialItem extends CraftingItem
 {
 

@@ -12,17 +12,17 @@ public class CrystalLogic extends TileEntity implements IActiveLogic
     boolean active;
     boolean growing;
     int crystalValue;
-    
-    public int getCrystalValue()
+
+    public int getCrystalValue ()
     {
         return crystalValue;
     }
-    
-    public void setCrystalValue(int value)
+
+    public void setCrystalValue (int value)
     {
         this.crystalValue = value;
     }
-    
+
     @Override
     public boolean getActive ()
     {
@@ -36,16 +36,16 @@ public class CrystalLogic extends TileEntity implements IActiveLogic
         active = flag;
     }
 
-    public boolean growing()
+    public boolean growing ()
     {
         return growing;
     }
-    
-    public void setGrowth(boolean flag)
+
+    public void setGrowth (boolean flag)
     {
         growing = flag;
     }
-    
+
     @Override
     public void readFromNBT (NBTTagCompound tags)
     {

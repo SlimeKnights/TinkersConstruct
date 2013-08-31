@@ -36,8 +36,9 @@ public class SlimeGrass extends Block
     {
         if (meta == 1) //dirt
             return 0;
-        
-        else //slime dirt
+
+        else
+            //slime dirt
             return 5;
     }
 
@@ -57,6 +58,9 @@ public class SlimeGrass extends Block
     @SideOnly(Side.CLIENT)
     public Icon getIcon (int side, int meta)
     {
+        if (meta >= 2)
+            meta = 0;
+
         if (side == 0)
         {
             return meta % 2 == 1 ? Block.dirt.getIcon(0, 0) : icons[1];
@@ -84,10 +88,10 @@ public class SlimeGrass extends Block
     public boolean canSustainPlant (World world, int x, int y, int z, ForgeDirection direction, IPlantable plant)
     {
         EnumPlantType plantType = plant.getPlantType(world, x, y + 1, z);
-        return plantType == EnumPlantType.Plains && plant.getPlantID(world, x, y+1, z) != Block.tallGrass.blockID;
+        return plantType == EnumPlantType.Plains && plant.getPlantID(world, x, y + 1, z) != Block.tallGrass.blockID;
     }
-    
-    public void onPlantGrow(World world, int x, int y, int z, int sourceX, int sourceY, int sourceZ)
+
+    public void onPlantGrow (World world, int x, int y, int z, int sourceX, int sourceY, int sourceZ)
     {
         world.setBlock(x, y, z, TContent.craftedSoil.blockID, 5, 3);
     }
@@ -128,8 +132,8 @@ public class SlimeGrass extends Block
             }
         }
     }
-    
-    public int idDropped(int metadata, Random random, int fortune)
+
+    public int idDropped (int metadata, Random random, int fortune)
     {
         if (metadata == 1)
             return TContent.craftedSoil.blockID;

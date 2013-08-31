@@ -501,7 +501,7 @@ public class TEventHandler
                 Crystallinity.theftValue.remove(coord);
             }
         }
-        
+
         if (Crystallinity.charge.containsKey(coord))
         {
             CrystalValues crystal = Crystallinity.charge.get(coord);
@@ -512,9 +512,8 @@ public class TEventHandler
             }
         }
     }
-    
-    /* Bonemeal */
 
+    /* Bonemeal */
 
     @ForgeSubscribe
     public void bonemealEvent (BonemealEvent event)
@@ -1437,7 +1436,7 @@ public class TEventHandler
         {
             Smeltery.addMelting(new ItemStack(ore.itemID, 2, ore.getItemDamage()), TContent.metalBlock.blockID, 0, 400, new FluidStack(TContent.moltenShinyFluid, TConstruct.ingotLiquidValue));
         }
-        
+
         ores = OreDictionary.getOres("dustInvar");
         for (ItemStack ore : ores)
         {

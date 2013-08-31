@@ -22,7 +22,7 @@ public abstract class AbstractTab extends GuiButton
     }
 
     @Override
-    public void drawButton(Minecraft mc, int mouseX, int mouseY)
+    public void drawButton (Minecraft mc, int mouseX, int mouseY)
     {
         if (this.drawButton)
         {
@@ -50,7 +50,7 @@ public abstract class AbstractTab extends GuiButton
     }
 
     @Override
-    public boolean mousePressed(Minecraft mc, int mouseX, int mouseY)
+    public boolean mousePressed (Minecraft mc, int mouseX, int mouseY)
     {
         boolean inWindow = this.enabled && this.drawButton && mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height;
 
@@ -62,7 +62,7 @@ public abstract class AbstractTab extends GuiButton
         return inWindow;
     }
 
-    public abstract void onTabClicked();
-    
-    public abstract boolean shouldAddToList();
+    public abstract void onTabClicked ();
+
+    public abstract boolean shouldAddToList ();
 }

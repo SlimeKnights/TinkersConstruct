@@ -186,10 +186,10 @@ public class CrystalGuardianRender extends RenderLiving
     }
 
     @Override
-    protected ResourceLocation func_110775_a(Entity par1Entity)
+    protected ResourceLocation func_110775_a (Entity par1Entity)
     {
         return texture;
     }
-    
+
     static final ResourceLocation texture = new ResourceLocation("assets/tinker/textures/mob/crystalguardamber.png");
 }

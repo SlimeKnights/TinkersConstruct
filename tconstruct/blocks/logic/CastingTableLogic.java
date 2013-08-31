@@ -247,8 +247,7 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
     public FluidStack drain (ForgeDirection from, int maxDrain, boolean doDrain)
     {
         return drain(maxDrain, doDrain);
-    }   
-
+    }
 
     @Override
     public FluidStack drain (ForgeDirection from, FluidStack resource, boolean doDrain)
@@ -272,7 +271,7 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
     @Override
     public FluidTankInfo[] getTankInfo (ForgeDirection from)
     {
-        return new FluidTankInfo[] {getInfo()};
+        return new FluidTankInfo[] { getInfo() };
     }
 
     @Override

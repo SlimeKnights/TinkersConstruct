@@ -12,13 +12,13 @@ public class InventoryTabArmorExtended extends AbstractTab
     }
 
     @Override
-    public void onTabClicked()
+    public void onTabClicked ()
     {
         TControls.openArmorGui();
     }
 
     @Override
-    public boolean shouldAddToList()
+    public boolean shouldAddToList ()
     {
         return true;
     }

@@ -14,7 +14,7 @@ public class StepSoundSlime extends StepSound
     /**
      * Used when a block breaks, EXA: Player break, Shep eating grass, etc..
      */
-    public String getBreakSound()
+    public String getBreakSound ()
     {
         return this.stepSoundName + ".big";
     }
@@ -22,7 +22,7 @@ public class StepSoundSlime extends StepSound
     /**
      * Used when a entity walks over, or otherwise interacts with the block.
      */
-    public String getStepSound()
+    public String getStepSound ()
     {
         return this.stepSoundName + ".small";
     }

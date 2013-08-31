@@ -39,17 +39,16 @@ public class EssenceExtractor extends BlockContainer
     /**
      * If this block doesn't render as an ordinary block it will return False (examples: signs, buttons, stairs, etc)
      */
-    public boolean renderAsNormalBlock()
+    public boolean renderAsNormalBlock ()
     {
         return false;
     }
 
     @SideOnly(Side.CLIENT)
-
     /**
      * A randomly called display update to be able to add particles or other items for display
      */
-    public void randomDisplayTick(World par1World, int par2, int par3, int par4, Random par5Random)
+    public void randomDisplayTick (World par1World, int par2, int par3, int par4, Random par5Random)
     {
         super.randomDisplayTick(par1World, par2, par3, par4, par5Random);
 
@@ -73,7 +72,9 @@ public class EssenceExtractor extends BlockContainer
                                 break;
                             }
 
-                            par1World.spawnParticle("enchantmenttable", (double)par2 + 0.5D, (double)par3 + 2.0D, (double)par4 + 0.5D, (double)((float)(l - par2) + par5Random.nextFloat()) - 0.5D, (double)((float)(j1 - par3) - par5Random.nextFloat() - 1.0F), (double)((float)(i1 - par4) + par5Random.nextFloat()) - 0.5D);
+                            par1World.spawnParticle("enchantmenttable", (double) par2 + 0.5D, (double) par3 + 2.0D, (double) par4 + 0.5D,
+                                    (double) ((float) (l - par2) + par5Random.nextFloat()) - 0.5D, (double) ((float) (j1 - par3) - par5Random.nextFloat() - 1.0F),
+                                    (double) ((float) (i1 - par4) + par5Random.nextFloat()) - 0.5D);
                         }
                     }
                 }
@@ -85,17 +86,16 @@ public class EssenceExtractor extends BlockContainer
      * Is this block (a) opaque and (b) a full 1m cube?  This determines whether or not to render the shared face of two
      * adjacent blocks and also whether the player can attach torches, redstone wire, etc to this block.
      */
-    public boolean isOpaqueCube()
+    public boolean isOpaqueCube ()
     {
         return false;
     }
 
     @SideOnly(Side.CLIENT)
-
     /**
      * From the specified side and block metadata retrieves the blocks texture. Args: side, metadata
      */
-    public Icon getIcon(int par1, int par2)
+    public Icon getIcon (int par1, int par2)
     {
         return par1 == 0 ? this.field_94460_b : (par1 == 1 ? this.field_94461_a : this.blockIcon);
     }
@@ -103,11 +103,11 @@ public class EssenceExtractor extends BlockContainer
     /**
      * Returns a new instance of a block's tile entity class. Called on placing the block.
      */
-    public TileEntity createNewTileEntity(World par1World)
+    public TileEntity createNewTileEntity (World par1World)
     {
         return new EssenceExtractorLogic();
     }
-    
+
     /* Right-click to form a crystal */
 
     @Override
@@ -119,7 +119,7 @@ public class EssenceExtractor extends BlockContainer
         }
         else
         {
-            EssenceExtractorLogic logic = (EssenceExtractorLogic)world.getBlockTileEntity(x, y, z);
+            EssenceExtractorLogic logic = (EssenceExtractorLogic) world.getBlockTileEntity(x, y, z);
             int amount = logic.removeEssence();
             if (amount > 0)
             {
@@ -127,7 +127,7 @@ public class EssenceExtractor extends BlockContainer
                 NBTTagCompound tags = new NBTTagCompound();
                 tags.setInteger("Essence", amount);
                 crystal.setTagCompound(tags);
-                
+
                 EntityItem entityitem = new EntityItem(world, player.posX, player.posY - 1.0D, player.posZ, crystal);
                 world.spawnEntityInWorld(entityitem);
                 if (!(player instanceof FakePlayer))
@@ -139,7 +139,7 @@ public class EssenceExtractor extends BlockContainer
     /**
      * Called upon block activation (right click on the block.)
      */
-    public boolean onBlockActivated(World par1World, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9)
+    public boolean onBlockActivated (World par1World, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9)
     {
         if (par1World.isRemote)
         {
@@ -147,7 +147,7 @@ public class EssenceExtractor extends BlockContainer
         }
         else
         {
-            EssenceExtractorLogic logic = (EssenceExtractorLogic)par1World.getBlockTileEntity(x, y, z);
+            EssenceExtractorLogic logic = (EssenceExtractorLogic) par1World.getBlockTileEntity(x, y, z);
             logic.addEssence(player);
             logic.getEssenceMessage(player);
             return true;
@@ -157,23 +157,22 @@ public class EssenceExtractor extends BlockContainer
     /**
      * Called when the block is placed in the world.
      */
-    public void onBlockPlacedBy(World par1World, int par2, int par3, int par4, EntityLiving par5EntityLiving, ItemStack par6ItemStack)
+    public void onBlockPlacedBy (World par1World, int par2, int par3, int par4, EntityLiving par5EntityLiving, ItemStack par6ItemStack)
     {
         super.onBlockPlacedBy(par1World, par2, par3, par4, par5EntityLiving, par6ItemStack);
 
         if (par6ItemStack.hasDisplayName())
         {
-            ((EssenceExtractorLogic)par1World.getBlockTileEntity(par2, par3, par4)).func_94134_a(par6ItemStack.getDisplayName());
+            ((EssenceExtractorLogic) par1World.getBlockTileEntity(par2, par3, par4)).func_94134_a(par6ItemStack.getDisplayName());
         }
     }
 
     @SideOnly(Side.CLIENT)
-
     /**
      * When this method is called, your block should register all the icons it needs with the given IconRegister. This
      * is the only chance you get to register icons.
      */
-    public void registerIcons(IconRegister par1IconRegister)
+    public void registerIcons (IconRegister par1IconRegister)
     {
         this.blockIcon = par1IconRegister.registerIcon("tinker:extractor_side");
         this.field_94461_a = par1IconRegister.registerIcon("tinker:extractor_top");

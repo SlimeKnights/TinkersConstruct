@@ -81,7 +81,7 @@ public class TPlayerHandler implements IPlayerTracker
                 entityplayer.addChatMessage("Solution 2: Disable Auto-Smelt/Fortune interaction from TConstruct.");
             }
         }
-        
+
         updatePlayerInventory(entityplayer, stats);
     }
 

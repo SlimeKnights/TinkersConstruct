@@ -27,7 +27,7 @@ public class GlowstoneAggregatorGui extends GuiContainer
         fontRenderer.drawString("Crystal Value: " + logic.crystalValue, 8, 16, 0x404040);
         fontRenderer.drawString(StatCollector.translateToLocal("container.inventory"), 8, (ySize - 96) + 2, 0x404040);
     }
-    
+
     private static final ResourceLocation background = new ResourceLocation("tinker", "textures/gui/aggregator.png");
 
     protected void drawGuiContainerBackgroundLayer (float f, int i, int j)

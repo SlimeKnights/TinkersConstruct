@@ -1,6 +1,5 @@
 package tconstruct.client.pages;
 
-
 import org.w3c.dom.Element;
 
 import tconstruct.client.gui.GuiManual;

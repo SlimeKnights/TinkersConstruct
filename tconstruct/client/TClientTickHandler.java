@@ -19,14 +19,14 @@ public class TClientTickHandler implements ITickHandler
     int ticks = 0;
 
     private static final ResourceLocation hearts = new ResourceLocation("tinker", "textures/gui/newhearts.png");
-    
+
     @Override
     public void tickEnd (EnumSet<TickType> type, Object... tickData)
     {
         TContent.oreBerry.setGraphicsLevel(Block.leaves.graphicsLevel);
         TContent.oreBerrySecond.setGraphicsLevel(Block.leaves.graphicsLevel);
         TContent.slimeLeaves.setGraphicsLevel(Block.leaves.graphicsLevel);
-        
+
         /*if (PHConstruct.alphaHunger)
         {
             GuiIngameForge.renderFood = false;

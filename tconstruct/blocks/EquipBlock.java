@@ -89,30 +89,32 @@ public class EquipBlock extends InventoryBlock
             world.spawnParticle("flame", f, f1, f2 + f4, 0.0D, 0.0D, 0.0D);
         }
     }
-    
-    public void onBlockPlacedBy(World par1World, int par2, int par3, int par4, EntityLivingBase par5EntityLivingBase, ItemStack par6ItemStack) {
-    	super.onBlockPlacedBy(par1World, par2, par3, par4, par5EntityLivingBase, par6ItemStack);
-		int i3 = MathHelper.floor_double((par5EntityLivingBase.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
-		
-		int newMeta = 0;
-		
-		switch(i3){
-		case 3:
-			newMeta = 0;
-			break;
-		case 0:
-			newMeta = 3;
-			break;
-		case 1:
-			newMeta = 1;
-			break;
-		case 2:
-			newMeta = 2;
-			break;
-		}
-		par1World.setBlockMetadataWithNotify(par2, par3, par4, newMeta, 2);
+
+    public void onBlockPlacedBy (World par1World, int par2, int par3, int par4, EntityLivingBase par5EntityLivingBase, ItemStack par6ItemStack)
+    {
+        super.onBlockPlacedBy(par1World, par2, par3, par4, par5EntityLivingBase, par6ItemStack);
+        int i3 = MathHelper.floor_double((par5EntityLivingBase.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
+
+        int newMeta = 0;
+
+        switch (i3)
+        {
+        case 3:
+            newMeta = 0;
+            break;
+        case 0:
+            newMeta = 3;
+            break;
+        case 1:
+            newMeta = 1;
+            break;
+        case 2:
+            newMeta = 2;
+            break;
+        }
+        par1World.setBlockMetadataWithNotify(par2, par3, par4, newMeta, 2);
     }
-    
+
     public int getLightValue (IBlockAccess world, int x, int y, int z)
     {
         return !isActive(world, x, y, z) ? 0 : 9;

@@ -5,7 +5,6 @@ import java.util.Random;
 import tconstruct.library.util.IActiveLogic;
 import tconstruct.library.util.IFacingLogic;
 
-
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -144,7 +143,7 @@ public abstract class InventoryBlock extends BlockContainer
 
         if (stack.hasDisplayName())
         {
-            ((InventoryLogic)world.getBlockTileEntity(x, y, z)).setInvName(stack.getDisplayName());
+            ((InventoryLogic) world.getBlockTileEntity(x, y, z)).setInvName(stack.getDisplayName());
         }
     }
 

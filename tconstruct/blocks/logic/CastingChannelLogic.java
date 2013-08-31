@@ -462,7 +462,7 @@ public class CastingChannelLogic extends TileEntity implements IFluidTank, IFlui
             moveLiquidToTanks();
         return filled;
     }
-    
+
     public FluidStack drain (int maxDrain, boolean doDrain)
     {
         if ((this.liquid == null))
@@ -628,6 +628,7 @@ public class CastingChannelLogic extends TileEntity implements IFluidTank, IFlui
     {
         pullingLiquids = flag;
     }
+
     @Override
     public boolean canFill (ForgeDirection from, Fluid fluid)
     {
@@ -643,7 +644,7 @@ public class CastingChannelLogic extends TileEntity implements IFluidTank, IFlui
     @Override
     public FluidTankInfo[] getTankInfo (ForgeDirection from)
     {
-        return new FluidTankInfo[] {getInfo()};
+        return new FluidTankInfo[] { getInfo() };
     }
 
     @Override

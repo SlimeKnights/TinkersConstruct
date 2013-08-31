@@ -36,8 +36,7 @@ public class TControls extends TKeyHandler
 
     public TControls()
     {
-        super(new KeyBinding[] { armorKey, refreshCapes }, new boolean[] { false, false }, getVanillaKeyBindings(),
-                new boolean[] { false, false });
+        super(new KeyBinding[] { armorKey, refreshCapes }, new boolean[] { false, false }, getVanillaKeyBindings(), new boolean[] { false, false });
         //System.out.println("Controls registered");
     }
 
@@ -68,8 +67,9 @@ public class TControls extends TKeyHandler
             {
                 TabRegistry.addTabsToInventory((GuiContainer) mc.currentScreen);
             }
-            if (kb == refreshCapes && mc.currentScreen == null){
-            	EventCloakRender.instance.refreshCapes();
+            if (kb == refreshCapes && mc.currentScreen == null)
+            {
+                EventCloakRender.instance.refreshCapes();
             }
             /*if (kb == jumpKey) //Double jump
             {

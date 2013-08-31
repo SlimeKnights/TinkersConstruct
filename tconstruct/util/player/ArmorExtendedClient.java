@@ -1,6 +1,5 @@
 package tconstruct.util.player;
 
-
 public class ArmorExtendedClient extends ArmorExtended
 {
     /*public void recalculateSkills(EntityPlayer player, TPlayerStats stats)

@@ -11,7 +11,6 @@ import org.w3c.dom.NodeList;
 
 import tconstruct.library.client.TConstructClientRegistry;
 
-
 public class BlockCastPage extends BookPage
 {
     String text;
@@ -58,6 +57,7 @@ public class BlockCastPage extends BookPage
     }
 
     private static final ResourceLocation background = new ResourceLocation("tinker", "textures/gui/booksmeltery.png");
+
     public void renderBackgroundLayer (int localWidth, int localHeight)
     {
         manual.getMC().func_110434_K().func_110577_a(background);

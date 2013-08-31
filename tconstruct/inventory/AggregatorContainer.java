@@ -38,7 +38,7 @@ public class AggregatorContainer extends Container
         }
     }
 
-    public void addCraftingToCrafters(ICrafting par1ICrafting)
+    public void addCraftingToCrafters (ICrafting par1ICrafting)
     {
         super.addCraftingToCrafters(par1ICrafting);
         par1ICrafting.sendProgressBarUpdate(this, 0, logic.crystalValue);

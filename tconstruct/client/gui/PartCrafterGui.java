@@ -147,7 +147,7 @@ public class PartCrafterGui extends NewContainerGui
             return String.valueOf(num);
         }
     }
-    
+
     private static final ResourceLocation background = new ResourceLocation("tinker", "textures/gui/toolparts.png");
     private static final ResourceLocation minichest = new ResourceLocation("tinker", "textures/gui/patternchestmini.png");
     private static final ResourceLocation description = new ResourceLocation("tinker", "textures/gui/description.png");

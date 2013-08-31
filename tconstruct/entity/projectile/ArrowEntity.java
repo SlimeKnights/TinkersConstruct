@@ -81,7 +81,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
         {
             this.setDead();
         }
-        
+
         if (this.prevRotationPitch == 0.0F && this.prevRotationYaw == 0.0F)
         {
             float f = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionZ * this.motionZ);
@@ -240,7 +240,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
                             }
                             entity.setFire(fireAspect);
                         }
-                        
+
                         int drain = toolTags.getInteger("Necrotic") * 2;
                         if (drain > 0 && shootingEntity != null && shootingEntity instanceof EntityLiving)
                             ((EntityLiving) shootingEntity).heal(random.nextInt(drain + 1));

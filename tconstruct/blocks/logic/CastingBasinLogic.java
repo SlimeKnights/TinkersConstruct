@@ -247,8 +247,7 @@ public class CastingBasinLogic extends InventoryLogic implements IFluidTank, IFl
     public FluidStack drain (ForgeDirection from, int maxDrain, boolean doDrain)
     {
         return drain(maxDrain, doDrain);
-    }   
-
+    }
 
     @Override
     public FluidStack drain (ForgeDirection from, FluidStack resource, boolean doDrain)
@@ -272,7 +271,7 @@ public class CastingBasinLogic extends InventoryLogic implements IFluidTank, IFl
     @Override
     public FluidTankInfo[] getTankInfo (ForgeDirection from)
     {
-        return new FluidTankInfo[] {getInfo()};
+        return new FluidTankInfo[] { getInfo() };
     }
 
     @Override
@@ -353,8 +352,8 @@ public class CastingBasinLogic extends InventoryLogic implements IFluidTank, IFl
         {
             this.liquid = FluidStack.loadFluidStackFromNBT(tags.getCompoundTag("Fluid"));
         }
-            //FluidStack fluid = FluidStack.loadFluidStackFromNBT(nbt);
-            //this.liquid = new FluidStack(tags.getInteger("itemID"), tags.getInteger("amount"), tags.getInteger("itemMeta"));
+        //FluidStack fluid = FluidStack.loadFluidStackFromNBT(nbt);
+        //this.liquid = new FluidStack(tags.getInteger("itemID"), tags.getInteger("amount"), tags.getInteger("itemMeta"));
         else
             this.liquid = null;
 

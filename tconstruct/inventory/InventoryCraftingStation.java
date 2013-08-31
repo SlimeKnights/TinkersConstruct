@@ -28,17 +28,17 @@ public class InventoryCraftingStation extends InventoryCrafting
     /**
      * Returns the number of slots in the inventory.
      */
-    public int getSizeInventory()
+    public int getSizeInventory ()
     {
         return 9;
     }
 
-    public ItemStack getStackInSlot(int slot)
+    public ItemStack getStackInSlot (int slot)
     {
-        return slot >= this.getSizeInventory()+1 ? null : logic.getStackInSlot(slot+1);
+        return slot >= this.getSizeInventory() + 1 ? null : logic.getStackInSlot(slot + 1);
     }
 
-    public ItemStack getStackInRowAndColumn(int row, int column)
+    public ItemStack getStackInRowAndColumn (int row, int column)
     {
         if (row >= 0 && row < this.inventoryWidth)
         {
@@ -51,17 +51,17 @@ public class InventoryCraftingStation extends InventoryCrafting
         }
     }
 
-    public String getInvName()
+    public String getInvName ()
     {
         return "container.crafting";
     }
 
-    public boolean isInvNameLocalized()
+    public boolean isInvNameLocalized ()
     {
         return false;
     }
 
-    public ItemStack getStackInSlotOnClosing(int par1)
+    public ItemStack getStackInSlotOnClosing (int par1)
     {
         return null;
     }
@@ -71,9 +71,9 @@ public class InventoryCraftingStation extends InventoryCrafting
      * new stack.
      */
     @Override
-    public ItemStack decrStackSize(int slotID, int par2)
+    public ItemStack decrStackSize (int slotID, int par2)
     {
-        ItemStack stack = logic.getStackInSlot(slotID+1);
+        ItemStack stack = logic.getStackInSlot(slotID + 1);
         if (stack != null)
         {
             ItemStack itemstack;
@@ -82,7 +82,7 @@ public class InventoryCraftingStation extends InventoryCrafting
             {
                 itemstack = stack.copy();
                 stack = null;
-                logic.setInventorySlotContents(slotID+1, null);
+                logic.setInventorySlotContents(slotID + 1, null);
                 this.eventHandler.onCraftMatrixChanged(this);
                 return itemstack;
             }
@@ -108,9 +108,9 @@ public class InventoryCraftingStation extends InventoryCrafting
     /**
      * Sets the given item stack to the specified slot in the inventory (can be crafting or armor sections).
      */
-    public void setInventorySlotContents(int slot, ItemStack itemstack)
+    public void setInventorySlotContents (int slot, ItemStack itemstack)
     {
-        logic.setInventorySlotContents(slot+1, itemstack);
+        logic.setInventorySlotContents(slot + 1, itemstack);
         this.eventHandler.onCraftMatrixChanged(this);
     }
 
@@ -118,7 +118,7 @@ public class InventoryCraftingStation extends InventoryCrafting
      * Returns the maximum stack size for a inventory slot. Seems to always be 64, possibly will be extended. *Isn't
      * this more of a set than a get?*
      */
-    public int getInventoryStackLimit()
+    public int getInventoryStackLimit ()
     {
         return 64;
     }
@@ -126,24 +126,30 @@ public class InventoryCraftingStation extends InventoryCrafting
     /**
      * Called when an the contents of an Inventory change, usually
      */
-    public void onInventoryChanged() {}
+    public void onInventoryChanged ()
+    {
+    }
 
     /**
      * Do not make give this method the name canInteractWith because it clashes with Container
      */
-    public boolean isUseableByPlayer(EntityPlayer par1EntityPlayer)
+    public boolean isUseableByPlayer (EntityPlayer par1EntityPlayer)
     {
         return true;
     }
 
-    public void openChest() {}
+    public void openChest ()
+    {
+    }
 
-    public void closeChest() {}
+    public void closeChest ()
+    {
+    }
 
     /**
      * Returns true if automation is allowed to insert the given stack (ignoring stack size) into the given slot.
      */
-    public boolean isStackValidForSlot(int par1, ItemStack par2ItemStack)
+    public boolean isStackValidForSlot (int par1, ItemStack par2ItemStack)
     {
         return true;
     }

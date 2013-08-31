@@ -101,10 +101,11 @@ public class ToolForgeBlock extends InventoryBlock
     }
 
     @Override
-    public boolean isBlockSolidOnSide(World world, int x, int y, int z, ForgeDirection side){
-    	return side == ForgeDirection.UP;
+    public boolean isBlockSolidOnSide (World world, int x, int y, int z, ForgeDirection side)
+    {
+        return side == ForgeDirection.UP;
     }
-    
+
     @Override
     public int getRenderType ()
     {

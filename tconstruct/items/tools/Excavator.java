@@ -138,7 +138,7 @@ public class Excavator extends HarvestTool
     {
         if (!stack.hasTagCompound())
             return false;
-        
+
         World world = player.worldObj;
         final int blockID = world.getBlockId(x, y, z);
         final int meta = world.getBlockMetadata(x, y, z);

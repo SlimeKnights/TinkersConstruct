@@ -105,7 +105,7 @@ public class LightAggregator extends AggregatorLogic implements IActiveLogic
             {
                 worldObj.setBlockMetadataWithNotify(xCoord, yCoord + 1, zCoord, 1, 3);
                 spawnNegativeAir(1, 1);
-                
+
                 int value = 8;
                 Crystallinity.updateTheft(worldObj.provider.dimensionId, xCoord, zCoord, value, CrystalType.Light);
                 Crystallinity.updateCharge(worldObj.provider.dimensionId, xCoord, zCoord, -value, CrystalType.Light);
@@ -120,7 +120,7 @@ public class LightAggregator extends AggregatorLogic implements IActiveLogic
             {
                 worldObj.setBlockMetadataWithNotify(xCoord, yCoord + 1, zCoord, 2, 3);
                 spawnNegativeAir(2, 1);
-                
+
                 int value = 16;
                 Crystallinity.updateTheft(worldObj.provider.dimensionId, xCoord, zCoord, value, CrystalType.Light);
                 Crystallinity.updateCharge(worldObj.provider.dimensionId, xCoord, zCoord, -value, CrystalType.Light);
@@ -135,7 +135,7 @@ public class LightAggregator extends AggregatorLogic implements IActiveLogic
             {
                 worldObj.setBlockMetadataWithNotify(xCoord, yCoord + 1, zCoord, 3, 3);
                 spawnNegativeAir(3, 1);
-                
+
                 int value = 24;
                 Crystallinity.updateTheft(worldObj.provider.dimensionId, xCoord, zCoord, value, CrystalType.Light);
                 Crystallinity.updateCharge(worldObj.provider.dimensionId, xCoord, zCoord, -value, CrystalType.Light);
@@ -154,7 +154,7 @@ public class LightAggregator extends AggregatorLogic implements IActiveLogic
                     worldObj.setBlockMetadataWithNotify(xCoord, yCoord + 1, zCoord, 4, 3);
                     worldObj.setBlock(xCoord, yCoord + 2, zCoord, TContent.lightCrystalBase.blockID, 6, 3);
                     spawnNegativeAir(5, 1);
-                    
+
                     int value = 32;
                     Crystallinity.updateTheft(worldObj.provider.dimensionId, xCoord, zCoord, value, CrystalType.Light);
                     Crystallinity.updateCharge(worldObj.provider.dimensionId, xCoord, zCoord, -value, CrystalType.Light);
@@ -177,7 +177,7 @@ public class LightAggregator extends AggregatorLogic implements IActiveLogic
                 worldObj.setBlockMetadataWithNotify(xCoord, yCoord + 1, zCoord, 5, 3);
                 worldObj.setBlockMetadataWithNotify(xCoord, yCoord + 2, zCoord, 7, 3);
                 spawnNegativeAir(6, 1);
-                
+
                 int value = 40;
                 Crystallinity.updateTheft(worldObj.provider.dimensionId, xCoord, zCoord, value, CrystalType.Light);
                 Crystallinity.updateCharge(worldObj.provider.dimensionId, xCoord, zCoord, -value, CrystalType.Light);
@@ -192,7 +192,7 @@ public class LightAggregator extends AggregatorLogic implements IActiveLogic
             {
                 worldObj.setBlockMetadataWithNotify(xCoord, yCoord + 2, zCoord, 8, 3);
                 spawnNegativeAir(7, 1);
-                
+
                 int value = 48;
                 Crystallinity.updateTheft(worldObj.provider.dimensionId, xCoord, zCoord, value, CrystalType.Light);
                 Crystallinity.updateCharge(worldObj.provider.dimensionId, xCoord, zCoord, -value, CrystalType.Light);
@@ -211,7 +211,7 @@ public class LightAggregator extends AggregatorLogic implements IActiveLogic
                     worldObj.setBlockMetadataWithNotify(xCoord, yCoord + 2, zCoord, 9, 3);
                     worldObj.setBlock(xCoord, yCoord + 3, zCoord, TContent.lightCrystalBase.blockID, 10, 3);
                     spawnNegativeAir(9, 1);
-                    
+
                     int value = 56;
                     Crystallinity.updateTheft(worldObj.provider.dimensionId, xCoord, zCoord, value, CrystalType.Light);
                     Crystallinity.updateCharge(worldObj.provider.dimensionId, xCoord, zCoord, -value, CrystalType.Light);
@@ -232,7 +232,7 @@ public class LightAggregator extends AggregatorLogic implements IActiveLogic
             {
                 worldObj.setBlockMetadataWithNotify(xCoord, yCoord + 3, zCoord, 11, 3);
                 spawnNegativeAir(10, 1);
-                
+
                 int value = 64;
                 Crystallinity.updateTheft(worldObj.provider.dimensionId, xCoord, zCoord, value, CrystalType.Light);
                 Crystallinity.updateCharge(worldObj.provider.dimensionId, xCoord, zCoord, -value, CrystalType.Light);
@@ -247,7 +247,7 @@ public class LightAggregator extends AggregatorLogic implements IActiveLogic
             {
                 worldObj.setBlockMetadataWithNotify(xCoord, yCoord + 3, zCoord, 12, 3);
                 spawnNegativeAir(11, 1);
-                
+
                 int value = 72;
                 Crystallinity.updateTheft(worldObj.provider.dimensionId, xCoord, zCoord, value, CrystalType.Light);
                 Crystallinity.updateCharge(worldObj.provider.dimensionId, xCoord, zCoord, -value, CrystalType.Light);
@@ -266,7 +266,7 @@ public class LightAggregator extends AggregatorLogic implements IActiveLogic
                     worldObj.setBlockMetadataWithNotify(xCoord, yCoord + 3, zCoord, 13, 3);
                     worldObj.setBlock(xCoord, yCoord + 4, zCoord, TContent.lightCrystalBase.blockID, 14, 3);
                     spawnNegativeAir(13, 1);
-                    
+
                     int value = 80;
                     Crystallinity.updateTheft(worldObj.provider.dimensionId, xCoord, zCoord, value, CrystalType.Light);
                     Crystallinity.updateCharge(worldObj.provider.dimensionId, xCoord, zCoord, -value, CrystalType.Light);
@@ -287,7 +287,7 @@ public class LightAggregator extends AggregatorLogic implements IActiveLogic
             {
                 worldObj.setBlockMetadataWithNotify(xCoord, yCoord + 4, zCoord, 15, 3);
                 spawnNegativeAir(15, 1);
-                
+
                 int value = 88;
                 Crystallinity.updateTheft(worldObj.provider.dimensionId, xCoord, zCoord, value, CrystalType.Light);
                 Crystallinity.updateCharge(worldObj.provider.dimensionId, xCoord, zCoord, -value, CrystalType.Light);

@@ -90,7 +90,7 @@ public class FirestarterLogic extends TileEntity implements IFacingLogic, IActiv
             }
         }
     }
-    
+
     public void updateEntity ()
     {
         if (shouldActivate)

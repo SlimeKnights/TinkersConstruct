@@ -12,6 +12,7 @@ import net.minecraft.util.StatCollector;
 public class ToolPart extends CraftingItem implements IToolPart
 {
     public String partName;
+
     public ToolPart(int id, String textureType, String name)
     {
         super(id, toolMaterialNames, buildTextureNames(textureType), "parts/");
@@ -19,12 +20,12 @@ public class ToolPart extends CraftingItem implements IToolPart
         this.setMaxDamage(0);
         this.partName = name;
     }
-    
+
     @Override
     public String getItemDisplayName (ItemStack par1ItemStack)
     {
         StringBuilder builder = new StringBuilder();
-        builder.append(StatCollector.translateToLocal("parttype."+toolTextureNames[par1ItemStack.getItemDamage()])).append(" ").append(StatCollector.translateToLocal("toolpart."+partName));
+        builder.append(StatCollector.translateToLocal("parttype." + toolTextureNames[par1ItemStack.getItemDamage()])).append(" ").append(StatCollector.translateToLocal("toolpart." + partName));
         return builder.toString();
         /*String s = ("" + StatCollector.translateToLocal("toolpart."+partName)).trim();
         String s1 = toolMaterialNames[par1ItemStack.getItemDamage()];

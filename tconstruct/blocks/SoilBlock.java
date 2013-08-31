@@ -38,8 +38,8 @@ public class SoilBlock extends TConstructBlock
             }
         }
     }
-    
-    public float getBlockHardness(World world, int x, int y, int z)
+
+    public float getBlockHardness (World world, int x, int y, int z)
     {
         int meta = world.getBlockMetadata(x, y, z);
         if (meta == 5)

@@ -84,7 +84,7 @@ public class SmelteryDrainLogic extends MultiServantLogic implements IFluidHandl
             return null;
         }
     }
-    
+
     @Override
     public FluidStack drain (ForgeDirection from, FluidStack resource, boolean doDrain)
     {

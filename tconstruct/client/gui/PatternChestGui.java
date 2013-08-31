@@ -27,9 +27,9 @@ public class PatternChestGui extends GuiContainer
         fontRenderer.drawString(StatCollector.translateToLocal("inventory.PatternChest"), 60, 6, 0x404040);
         fontRenderer.drawString(StatCollector.translateToLocal("container.inventory"), 17, (ySize - 96) + 2, 0x404040);
     }
-    
+
     private static final ResourceLocation background = new ResourceLocation("tinker", "textures/gui/patternchest.png");
-    
+
     protected void drawGuiContainerBackgroundLayer (float f, int i, int j)
     {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);

@@ -23,100 +23,100 @@ public class BarricadeRender implements ISimpleBlockRenderingHandler
         {
             int meta = world.getBlockMetadata(x, y, z);
             int type = meta % 4;
-            
+
             if (meta / 4 == 0)
             {
                 //if (type >= 0)
                 renderer.setRenderBounds(0.125, 0.0, 0.5, 0.375, 1.0, 0.75);
                 renderer.renderStandardBlock(barricade, x, y, z);
-                
+
                 if (type >= 1)
                 {
                     renderer.setRenderBounds(0.625, 0.0, 0.5, 0.875, 1.0, 0.75);
                     renderer.renderStandardBlock(barricade, x, y, z);
                 }
-                
+
                 if (type >= 2)
                 {
                     renderer.setRenderBounds(0.0, 0.125, 0.25, 1.0, 0.375, 0.5);
                     renderer.renderStandardBlock(barricade, x, y, z);
                 }
-                
+
                 if (type >= 3)
                 {
                     renderer.setRenderBounds(0.0, 0.625, 0.25, 1.0, 0.875, 0.5);
                     renderer.renderStandardBlock(barricade, x, y, z);
                 }
             }
-            
+
             if (meta / 4 == 1)
             {
                 //if (type >= 0)
                 renderer.setRenderBounds(0.25, 0.0, 0.125, 0.5, 1.0, 0.375);
                 renderer.renderStandardBlock(barricade, x, y, z);
-                
+
                 if (type >= 1)
                 {
                     renderer.setRenderBounds(0.25, 0.0, 0.625, 0.5, 1.0, 0.875);
                     renderer.renderStandardBlock(barricade, x, y, z);
                 }
-                
+
                 if (type >= 2)
                 {
                     renderer.setRenderBounds(0.5, 0.125, 0.0, 0.75, 0.375, 1.0);
                     renderer.renderStandardBlock(barricade, x, y, z);
                 }
-                
+
                 if (type >= 3)
                 {
                     renderer.setRenderBounds(0.5, 0.625, 0.0, 0.75, 0.875, 1.0);
                     renderer.renderStandardBlock(barricade, x, y, z);
                 }
             }
-            
+
             if (meta / 4 == 2)
             {
                 //if (type >= 0)
                 renderer.setRenderBounds(0.125, 0.0, 0.25, 0.375, 1.0, 0.5);
                 renderer.renderStandardBlock(barricade, x, y, z);
-                
+
                 if (type >= 1)
                 {
                     renderer.setRenderBounds(0.625, 0.0, 0.25, 0.875, 1.0, 0.5);
                     renderer.renderStandardBlock(barricade, x, y, z);
                 }
-                
+
                 if (type >= 2)
                 {
                     renderer.setRenderBounds(0.0, 0.125, 0.5, 1.0, 0.375, 0.75);
                     renderer.renderStandardBlock(barricade, x, y, z);
                 }
-                
+
                 if (type >= 3)
                 {
                     renderer.setRenderBounds(0.0, 0.625, 0.5, 1.0, 0.875, 0.75);
                     renderer.renderStandardBlock(barricade, x, y, z);
                 }
             }
-            
+
             if (meta / 4 == 3)
             {
                 //if (type >= 0)
                 renderer.setRenderBounds(0.5, 0.0, 0.125, 0.75, 1.0, 0.375);
                 renderer.renderStandardBlock(barricade, x, y, z);
-                
+
                 if (type >= 1)
                 {
                     renderer.setRenderBounds(0.5, 0.0, 0.625, 0.75, 1.0, 0.875);
                     renderer.renderStandardBlock(barricade, x, y, z);
                 }
-                
+
                 if (type >= 2)
                 {
                     renderer.setRenderBounds(0.25, 0.125, 0.0, 0.5, 0.375, 1.0);
                     renderer.renderStandardBlock(barricade, x, y, z);
                 }
-                
+
                 if (type >= 3)
                 {
                     renderer.setRenderBounds(0.25, 0.625, 0.0, 0.5, 0.875, 1.0);

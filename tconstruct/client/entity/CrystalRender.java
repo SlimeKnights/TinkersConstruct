@@ -64,10 +64,10 @@ public class CrystalRender extends RenderLiving
         return this.func_77061_b((Crystal) par1EntityLiving, par2, par3);
     }
 
-    protected ResourceLocation func_110775_a(Entity par1Entity)
+    protected ResourceLocation func_110775_a (Entity par1Entity)
     {
         return texture;
     }
-    
+
     static final ResourceLocation texture = new ResourceLocation("assets/tinker/textures/mob/crystalwater.png");
 }

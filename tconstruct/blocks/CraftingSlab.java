@@ -41,13 +41,9 @@ public class CraftingSlab extends InventoryBlock
     @Override
     public String[] getTextureNames ()
     {
-        String[] textureNames = { 
-                "craftingstation_top", "craftingstation_slab_side", "craftingstation_bottom",
-                "toolstation_top", "toolstation_slab_side", "toolstation_bottom",
-                "partbuilder_oak_top", "partbuilder_slab_side", "partbuilder_oak_bottom",
-                "stenciltable_oak_top", "stenciltable_slab_side", "stenciltable_oak_bottom",
-                "patternchest_top", "patternchest_slab_side", "patternchest_bottom",
-                "toolforge_top", "toolforge_slab_side", "toolforge_top" };
+        String[] textureNames = { "craftingstation_top", "craftingstation_slab_side", "craftingstation_bottom", "toolstation_top", "toolstation_slab_side", "toolstation_bottom",
+                "partbuilder_oak_top", "partbuilder_slab_side", "partbuilder_oak_bottom", "stenciltable_oak_top", "stenciltable_slab_side", "stenciltable_oak_bottom", "patternchest_top",
+                "patternchest_slab_side", "patternchest_bottom", "toolforge_top", "toolforge_slab_side", "toolforge_top" };
 
         return textureNames;
     }
@@ -125,7 +121,7 @@ public class CraftingSlab extends InventoryBlock
         {
         case 0:
             return TProxyCommon.craftingStationID;
-        case 1: 
+        case 1:
             return TProxyCommon.toolStationID;
         case 2:
             return TProxyCommon.partBuilderID;
@@ -173,7 +169,7 @@ public class CraftingSlab extends InventoryBlock
         }
         super.onBlockPlacedBy(world, x, y, z, entityliving, stack);
     }
-    
+
     @Override
     public void addCollisionBoxesToList (World world, int x, int y, int z, AxisAlignedBB axisalignedbb, List arraylist, Entity entity)
     {
@@ -193,14 +189,14 @@ public class CraftingSlab extends InventoryBlock
         float maxY = meta == 1 ? 1.0F : 0.5F;
         setBlockBounds(0.0F, minY, 0F, 1.0F, maxY, 1.0F);
     }
-    
+
     public int onBlockPlaced (World par1World, int blockX, int blockY, int blockZ, int side, float clickX, float clickY, float clickZ, int metadata)
     {
         if (side == 1)
             return metadata;
         if (side == 0 || clickY >= 0.5F)
             return metadata | 8;
-        
+
         return metadata;
     }
 

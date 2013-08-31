@@ -33,11 +33,11 @@ public class BarricadeBlock extends Block
     {
         return modelBlock.getIcon(2, modelMeta);
     }
-    
+
     @Override
-    public void registerIcons(IconRegister par1IconRegister)
+    public void registerIcons (IconRegister par1IconRegister)
     {
-        
+
     }
 
     public boolean renderAsNormalBlock ()
@@ -120,8 +120,8 @@ public class BarricadeBlock extends Block
     }
 
     @Override
-    @SideOnly(Side.CLIENT)    
-    public boolean shouldSideBeRendered(IBlockAccess world, int x, int y, int z, int side)
+    @SideOnly(Side.CLIENT)
+    public boolean shouldSideBeRendered (IBlockAccess world, int x, int y, int z, int side)
     {
         return true;
     }

@@ -4,9 +4,6 @@ import java.util.HashMap;
 
 import tconstruct.library.util.ValueCoordTuple;
 
-
-
-
 public class TheftValueTracker
 {
     public static HashMap<ValueCoordTuple, Integer> crystallinity = new HashMap<ValueCoordTuple, Integer>();

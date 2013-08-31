@@ -867,11 +867,12 @@ public class BlockSkinRenderHelper
             var8 = var11;
         }
 
-        return Minecraft.isAmbientOcclusionEnabled() ? renderFakeBlockWithAmbientOcclusion(stillIcon, flowingIcon, x, y, z, var6, var7, var8, renderer, world) : renderFakeBlockWithColorMultiplier(stillIcon, flowingIcon, x, y, z,
-                var6, var7, var8, renderer, world);
+        return Minecraft.isAmbientOcclusionEnabled() ? renderFakeBlockWithAmbientOcclusion(stillIcon, flowingIcon, x, y, z, var6, var7, var8, renderer, world) : renderFakeBlockWithColorMultiplier(
+                stillIcon, flowingIcon, x, y, z, var6, var7, var8, renderer, world);
     }
 
-    static boolean renderFakeBlockWithAmbientOcclusion (Icon stillIcon, Icon flowingIcon, int xPos, int yPos, int zPos, float colorRed, float colorGreen, float colorBlue, RenderBlocks render, IBlockAccess world)
+    static boolean renderFakeBlockWithAmbientOcclusion (Icon stillIcon, Icon flowingIcon, int xPos, int yPos, int zPos, float colorRed, float colorGreen, float colorBlue, RenderBlocks render,
+            IBlockAccess world)
     {
         Block block = Block.stone;
         render.enableAO = true;
@@ -1588,7 +1589,8 @@ public class BlockSkinRenderHelper
         return flag;
     }
 
-    static boolean renderFakeBlockWithColorMultiplier (Icon stillIcon, Icon flowingIcon, int xPos, int yPos, int zPos, float colorRed, float colorGreen, float colorBlue, RenderBlocks render, IBlockAccess world)
+    static boolean renderFakeBlockWithColorMultiplier (Icon stillIcon, Icon flowingIcon, int xPos, int yPos, int zPos, float colorRed, float colorGreen, float colorBlue, RenderBlocks render,
+            IBlockAccess world)
     {
         Block block = Block.stone;
         render.enableAO = false;

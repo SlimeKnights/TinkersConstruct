@@ -146,14 +146,14 @@ public class PHConstruct
         punji = config.getBlock("Punji", 3232).getInt(3232);
         woodCrafter = config.getBlock("Crafting Station", 3233).getInt(3233);
         essenceExtractor = config.getBlock("Essence Extractor", 3234).getInt(3234);
-        
+
         slimePoolBlue = config.getBlock("Liquid Blue Slime", 3235).getInt(3235);
         slimeGel = config.getBlock("Congealed Slime", 3237).getInt(3237);
         slimeGrass = config.getBlock("Slime Grass", 3238).getInt(3238);
         slimeTallGrass = config.getBlock("Slime Tall Grass", 3239).getInt(3239);
         slimeLeaves = config.getBlock("Slime Grass Leaves", 3240).getInt(3240);
         slimeSapling = config.getBlock("Slime Tree Sapling", 3241).getInt(3241);
-        
+
         meatBlock = config.getBlock("Meat Block", 3242).getInt(3242);
         woodCrafterSlab = config.getBlock("Crafting Slab", 3243).getInt(3243);
         woolSlab1 = config.getBlock("Wool Slab 1", 3244).getInt(3244);
@@ -343,7 +343,7 @@ public class PHConstruct
         worldBorderSize = config.get("Ultra Hardcore Changes", "World Border Radius", 1000).getInt(1000);
         freePatterns = config.get("Ultra Hardcore Changes", "Add Patterns to Pattern Chests", false, "Gives all tier 1 patterns when pattern chest is placed").getBoolean(false);
         necroticUHS = config.get("Ultra Hardcore Changes", "Necrotic modifier only heals on hostile mob kills", false).getBoolean(false);
-        
+
         //Slime pools
         islandRarity = config.get("Worldgen", "Slime Island Rarity", 450).getInt(450);
 
@@ -374,7 +374,7 @@ public class PHConstruct
     public static int heldItemBlock;
     public static int woodCrafter;
     public static int woodCrafterSlab;
-    
+
     public static int ores;
     public static int lavaTank;
     public static int smeltery;

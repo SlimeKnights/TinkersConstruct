@@ -22,7 +22,7 @@ public class ToolCoreRenderer implements IItemRenderer
         case ENTITY:
             return true;
         case EQUIPPED:
-            GL11.glTranslatef(0.03f, 0F, -0.09375F); 
+            GL11.glTranslatef(0.03f, 0F, -0.09375F);
         case EQUIPPED_FIRST_PERSON:
         case INVENTORY:
             return true;

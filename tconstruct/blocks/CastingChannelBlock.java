@@ -47,7 +47,7 @@ public class CastingChannelBlock extends BlockContainer
                 tile.setActive(true);
             }
         }
-        
+
         ItemStack stack = player.getCurrentEquippedItem();
         if (stack != null && stack.itemID == this.blockID)
             return false;

@@ -210,7 +210,7 @@ public class Hammer extends HarvestTool
     {
         if (!stack.hasTagCompound())
             return false;
-        
+
         World world = player.worldObj;
         final int blockID = world.getBlockId(x, y, z);
         final int meta = world.getBlockMetadata(x, y, z);
@@ -232,7 +232,7 @@ public class Hammer extends HarvestTool
                 break;
             }
         }
-        
+
         if (block == Block.silverfish)
             validStart = true;
 
@@ -258,7 +258,7 @@ public class Hammer extends HarvestTool
             xRange = 0;
             break;
         }
-        
+
         NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
         int toolLevel = tags.getInteger("HarvestLevel");
         for (int xPos = x - xRange; xPos <= x + xRange; xPos++)
@@ -339,10 +339,10 @@ public class Hammer extends HarvestTool
                 return getblockSpeed(tags, block, meta);
             }
         }
-        
+
         /*if (block == Block.silverfish)
             return getblockSpeed(tags, block, meta);*/
-        
+
         return super.getStrVsBlock(stack, block, meta);
     }
 

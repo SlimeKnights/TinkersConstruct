@@ -173,7 +173,7 @@ public class TProxyClient extends TProxyCommon
 
     public static ArmorExtended armorExtended = new ArmorExtended();
     public static KnapsackInventory knapsack = new KnapsackInventory();
-    
+
     @Override
     public Object getClientGuiElement (int ID, EntityPlayer player, World world, int x, int y, int z)
     {
@@ -629,11 +629,11 @@ public class TProxyClient extends TProxyCommon
         TConstructClientRegistry.registerManualLargeRecipe("smelteryfaucet", new ItemStack(TContent.searedBlock, 1, 1), searedbrick, null, searedbrick, null, searedbrick, null, null, null, null);
         TConstructClientRegistry.registerManualLargeRecipe("smelterybasin", new ItemStack(TContent.searedBlock, 1, 2), searedbrick, null, searedbrick, searedbrick, null, searedbrick, searedbrick,
                 searedbrick, searedbrick);
-        
+
         //Traps
         ItemStack reed = new ItemStack(Item.reed);
         TConstructClientRegistry.registerManualLargeRecipe("punji", new ItemStack(TContent.punji), reed, null, reed, null, reed, null, reed, null, reed);
-        TConstructClientRegistry.registerManualSmallRecipe("barricade", new ItemStack(TContent.barricadeOak), null, log, null, log);        
+        TConstructClientRegistry.registerManualSmallRecipe("barricade", new ItemStack(TContent.barricadeOak), null, log, null, log);
 
         //Machines
         ItemStack alubrassIngot = new ItemStack(TContent.materials, 1, 14);

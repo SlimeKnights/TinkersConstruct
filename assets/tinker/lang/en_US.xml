@@ -175,16 +175,8 @@
   <entry key="item.tconstruct.Materials.AluminumNugget.name">Aluminum Nugget</entry>
   <entry key="item.tconstruct.Materials.EssenceCrystal.name">Fake Essence Crystal</entry>
   <entry key="item.tconstruct.Materials.AluBrassNugget.name">Aluminum Brass Nugget</entry>
-<<<<<<< HEAD:assets/tinker/lang/en_US.xml
-<<<<<<< HEAD:assets/tinker/lang/en_US.xml
   <entry key="item.tconstruct.Materials.SilkyCloth.name">Silky Cloth</entry>
   <entry key="item.tconstruct.Materials.SilkyJewel.name">Silky Jewel</entry>
-=======
->>>>>>> Glass connected textures, experimental Thermal Expansion support, extra configs for Jadedcat:mods/tinker/resources/lang/en_US.xml
-=======
-  <entry key="item.tconstruct.Materials.SilkyCloth.name">Silky Cloth</entry>
-  <entry key="item.tconstruct.Materials.SilkyJewel.name">Silky Jewel</entry>
->>>>>>> Crafting Station Start:mods/tinker/resources/lang/en_US.xml
   <entry key="item.tconstruct.Materials.ObsidianNugget.name">Obsidian Nugget</entry>
   <entry key="item.tconstruct.Materials.CobaltNugget.name">Cobalt Nugget</entry>
   <entry key="item.tconstruct.Materials.ArditeNugget.name">Ardite Nugget</entry>
@@ -192,11 +184,6 @@
   <entry key="item.tconstruct.Materials.BronzeNugget.name">Bronze Nugget</entry>
   <entry key="item.tconstruct.Materials.AlumiteNugget.name">Alumite Nugget</entry>
   <entry key="item.tconstruct.Materials.SteelNugget.name">Steel Nugget</entry>
-<<<<<<< HEAD:assets/tinker/lang/en_US.xml
-  
-  <entry key="item.tconstruct.crystal.essence.name">Essence Crystal</entry>
-=======
->>>>>>> Glass connected textures, experimental Thermal Expansion support, extra configs for Jadedcat:mods/tinker/resources/lang/en_US.xml
   
   <entry key="item.tconstruct.crystal.essence.name">Essence Crystal</entry>
   
@@ -220,25 +207,13 @@
   <entry key="block.drawbridge.name">Drawbridge</entry>
   <entry key="block.firestarter.name">Igniter</entry>
   <entry key="tile.landmine.name">Landmine</entry>
-<<<<<<< HEAD:assets/tinker/lang/en_US.xml
-<<<<<<< HEAD:assets/tinker/lang/en_US.xml
-=======
->>>>>>> Crafting Station Start:mods/tinker/resources/lang/en_US.xml
+  
   <entry key="tile.trap.punji.name">Punji Stick</entry>
   <entry key="tile.trap.barricade.oak.name">Oak Barricade</entry>
   <entry key="tile.trap.barricade.spruce.name">Spruce Barricade</entry>
   <entry key="tile.trap.barricade.birch.name">Birch Barricade</entry>
   <entry key="tile.trap.barricade.jungle.name">Jungle Barricade</entry>
-<<<<<<< HEAD:assets/tinker/lang/en_US.xml
-<<<<<<< HEAD:assets/tinker/lang/en_US.xml
   <entry key="tile.extractor.essence.name">Essence Extractor</entry>
-=======
->>>>>>> Glass connected textures, experimental Thermal Expansion support, extra configs for Jadedcat:mods/tinker/resources/lang/en_US.xml
-=======
->>>>>>> Crafting Station Start:mods/tinker/resources/lang/en_US.xml
-=======
-  <entry key="tile.extractor.essence.name">Essence Extractor</entry>
->>>>>>> Added early essence extractor, liquid ender, updated lang files:mods/tinker/resources/lang/en_US.xml
   
   <entry key="StorageMetals.Cobalt.name">Block of Cobalt</entry>
   <entry key="StorageMetals.Ardite.name">Block of Ardite</entry>
@@ -363,15 +338,11 @@
   <entry key="item.tconstruct.bucket.Invar.name">Molten Invar Bucket</entry>
   <entry key="item.tconstruct.bucket.Electrum.name">Molten Electrum Bucket</entry>
   <entry key="item.tconstruct.bucket.Ender.name">Liquified Ender Bucket</entry>
-<<<<<<< HEAD:assets/tinker/lang/en_US.xml
   <entry key="item.tconstruct.bucket.Slime.name">Liquid Slime Bucket</entry>
-=======
->>>>>>> Slime islands:mods/tinker/resources/lang/en_US.xml
   
   <entry key="item.tconstruct.bowstring.string.name">Bowstring</entry>
   <entry key="item.tconstruct.bowstring.enchantedfabriI donc.name">Enchanted Bowstring</entry>
   
-<<<<<<< HEAD:assets/tinker/lang/en_US.xml
   <entry key="tile.metal.molten.iron.name">Molten Iron</entry>
   <entry key="tile.metal.molten.gold.name">Molten Gold</entry>
   <entry key="tile.metal.molten.copper.name">Molten Copper</entry>
@@ -396,7 +367,7 @@
   <entry key="tile.metal.molten.invar.name">Molten Invar</entry>
   <entry key="tile.metal.molten.Electrum.name">Molten Electrum</entry>
   <entry key="tile.liquid.ender.name">Liquified Ender</entry>
-=======
+  
   <entry key="LiquidMetal.Iron.name">Molten Iron</entry>
   <entry key="LiquidMetal.Gold.name">Molten Gold</entry>
   <entry key="LiquidMetal.Copper.name">Molten Copper</entry>
@@ -421,7 +392,6 @@
   <entry key="LiquidMetal.Invar.name">Molten Invar</entry>
   <entry key="LiquidMetal.Electrum.name">Molten Electrum</entry>
   <entry key="LiquidMetal.Ender.name">Liquified Ender</entry>
->>>>>>> Added early essence extractor, liquid ender, updated lang files:mods/tinker/resources/lang/en_US.xml
   
   <entry key="item.food.apple.diamond.name">Jeweled Apple</entry>
   <entry key="item.tconstruct.strangefood.edibleslime.name">Gelatinous Slime</entry>
@@ -447,25 +417,6 @@
   <entry key="death.three.smeltery">%1$s will be a stepping stone for our revolution!</entry>
   <entry key="death.four.smeltery">%1$s thought swimming in hot liquids was a good idea</entry>
   
-<<<<<<< HEAD:assets/tinker/lang/en_US.xml
-  <entry key="parttype.Wood">Wooden</entry>
-  <entry key="parttype.Stone">Stone</entry>
-  <entry key="parttype.Iron">Iron</entry>
-  <entry key="parttype.Flint">Flint</entry>
-  <entry key="parttype.Cactus">Cactus</entry>
-  <entry key="parttype.Bone">Bone</entry>
-  <entry key="parttype.Obsidian">Obsidian</entry>
-  <entry key="parttype.Slime">Slime</entry>
-  <entry key="parttype.Paper">Paper</entry>
-  <entry key="parttype.Cobalt">Cobalt</entry>
-  <entry key="parttype.Ardite">Ardite</entry>
-  <entry key="parttype.Manyullyn">Manyullyn</entry>
-  <entry key="parttype.Copper">Copper</entry>
-  <entry key="parttype.Bronze">Bronze</entry>
-  <entry key="parttype.Alumite">Alumite</entry>
-  <entry key="parttype.Steel">Steel</entry>
-  <entry key="parttype.BlueSlime">Slime</entry>
-=======
   <entry key="parttype.wood">Wooden</entry>
   <entry key="parttype.stone">Stone</entry>
   <entry key="parttype.iron">Iron</entry>
@@ -511,7 +462,6 @@
   <entry key="toolpart.Bowstring">Bowstring</entry>
   <entry key="toolpart.ArrowHead">Arrowhead</entry>
   <entry key="toolpart.Fletching">Fletching</entry>
->>>>>>> Light Aggregator:mods/tinker/resources/lang/en_US.xml
   
   <entry key="molten iron">Molten Iron</entry>
   <entry key="molten gold">Molten Gold</entry>
@@ -538,8 +488,4 @@
   <entry key="molten shiny">Molten Shiny</entry>
   <entry key="ender">Liquid Ender</entry>
   
-<<<<<<< HEAD:assets/tinker/lang/en_US.xml
 </properties>
-=======
-</properties>
->>>>>>> Light Aggregator:mods/tinker/resources/lang/en_US.xml

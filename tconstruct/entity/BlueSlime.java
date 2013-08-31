@@ -119,8 +119,8 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
             skelton.mountEntity(slime);
         }
     }*/
-    
-    public EntityLivingData func_110161_a(EntityLivingData par1EntityLivingData)
+
+    public EntityLivingData func_110161_a (EntityLivingData par1EntityLivingData)
     {
         Object par1EntityLivingData1 = super.func_110161_a(par1EntityLivingData);
 
@@ -162,7 +162,7 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
             skelton.mountEntity(slime);
         }
 
-        return (EntityLivingData)par1EntityLivingData1;
+        return (EntityLivingData) par1EntityLivingData1;
     }
 
     @Override
@@ -268,16 +268,16 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
         if (size >= 8)
             this.experienceValue = 500;
     }*/
-    
-    public void setSlimeSize(int size)
+
+    public void setSlimeSize (int size)
     {
-        this.dataWatcher.updateObject(16, new Byte((byte)size));
-        this.setSize(0.6F * (float)size, 0.6F * (float)size);
+        this.dataWatcher.updateObject(16, new Byte((byte) size));
+        this.setSize(0.6F * (float) size, 0.6F * (float) size);
         this.setPosition(this.posX, this.posY, this.posZ);
         this.func_110148_a(SharedMonsterAttributes.field_111267_a).func_111128_a(this.getMaxHealth());
         this.setEntityHealth(this.func_110138_aP());
 
-        this.experienceValue = size + 2^(size);
+        this.experienceValue = size + 2 ^ (size);
         if (size >= 8)
             this.experienceValue = 500;
     }
