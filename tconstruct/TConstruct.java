@@ -121,6 +121,7 @@ public class TConstruct
     @EventHandler
     public void postInit (FMLPostInitializationEvent evt)
     {
+    	proxy.postInit();
 		Behavior.registerBuiltInBehaviors();
 		SpecialStackHandler.registerBuiltInStackHandlers();
         content.modIntegration();

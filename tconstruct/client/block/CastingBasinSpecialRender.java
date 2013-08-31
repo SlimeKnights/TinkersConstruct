@@ -11,6 +11,7 @@ import org.lwjgl.opengl.GL11;
 
 import tconstruct.blocks.logic.CastingBasinLogic;
 import tconstruct.entity.FancyEntityItem;
+import tconstruct.library.ItemBlocklike;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;

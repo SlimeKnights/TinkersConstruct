@@ -2,163 +2,57 @@ package tconstruct.client;
 
 import java.io.InputStream;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
-import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.gui.inventory.GuiInventory;
-import net.minecraft.client.model.ModelSlime;
-import net.minecraft.client.particle.EntityAuraFX;
-import net.minecraft.client.particle.EntityBreakingFX;
-import net.minecraft.client.particle.EntityBubbleFX;
-import net.minecraft.client.particle.EntityCloudFX;
-import net.minecraft.client.particle.EntityCritFX;
-import net.minecraft.client.particle.EntityDropParticleFX;
-import net.minecraft.client.particle.EntityEnchantmentTableParticleFX;
-import net.minecraft.client.particle.EntityExplodeFX;
-import net.minecraft.client.particle.EntityFX;
-import net.minecraft.client.particle.EntityFireworkSparkFX;
-import net.minecraft.client.particle.EntityFlameFX;
-import net.minecraft.client.particle.EntityFootStepFX;
-import net.minecraft.client.particle.EntityHeartFX;
-import net.minecraft.client.particle.EntityHugeExplodeFX;
-import net.minecraft.client.particle.EntityLargeExplodeFX;
-import net.minecraft.client.particle.EntityLavaFX;
-import net.minecraft.client.particle.EntityNoteFX;
-import net.minecraft.client.particle.EntityPortalFX;
-import net.minecraft.client.particle.EntityReddustFX;
-import net.minecraft.client.particle.EntitySmokeFX;
-import net.minecraft.client.particle.EntitySnowShovelFX;
-import net.minecraft.client.particle.EntitySpellParticleFX;
-import net.minecraft.client.particle.EntitySplashFX;
-import net.minecraft.client.particle.EntitySuspendFX;
-import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.entity.RenderItem;
-import net.minecraft.client.settings.GameSettings;
-import net.minecraft.client.settings.KeyBinding;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
-import net.minecraftforge.client.MinecraftForgeClient;
-import net.minecraftforge.common.MinecraftForge;
+import javax.xml.parsers.*;
 
 import org.lwjgl.opengl.GL11;
 import org.w3c.dom.Document;
 
+import com.google.common.collect.Lists;
+
+import cpw.mods.fml.client.registry.*;
+import cpw.mods.fml.common.registry.*;
+import cpw.mods.fml.relauncher.Side;
+
 import tconstruct.TConstruct;
-import tconstruct.blocks.logic.CastingBasinLogic;
-import tconstruct.blocks.logic.CastingTableLogic;
-import tconstruct.blocks.logic.DrawbridgeLogic;
-import tconstruct.blocks.logic.DryingRackLogic;
-import tconstruct.blocks.logic.FrypanLogic;
-import tconstruct.blocks.logic.GlowstoneAggregator;
-import tconstruct.blocks.logic.PartCrafterLogic;
-import tconstruct.blocks.logic.PatternChestLogic;
-import tconstruct.blocks.logic.SmelteryLogic;
-import tconstruct.blocks.logic.StencilTableLogic;
-import tconstruct.blocks.logic.ToolForgeLogic;
-import tconstruct.blocks.logic.ToolStationLogic;
-import tconstruct.client.block.BarricadeRender;
-import tconstruct.client.block.CastingBasinSpecialRender;
-import tconstruct.client.block.CastingTableSpecialRenderer;
-import tconstruct.client.block.CrystalBlockRender;
-import tconstruct.client.block.DryingRackRender;
-import tconstruct.client.block.DryingRackSpecialRender;
-import tconstruct.client.block.FrypanRender;
-import tconstruct.client.block.MachineRender;
-import tconstruct.client.block.OreberryRender;
-import tconstruct.client.block.PaneConnectedRender;
-import tconstruct.client.block.PaneRender;
-import tconstruct.client.block.SearedRender;
-import tconstruct.client.block.SmallFontRenderer;
-import tconstruct.client.block.SmelteryRender;
-import tconstruct.client.block.TableForgeRender;
-import tconstruct.client.block.TableRender;
-import tconstruct.client.block.TankRender;
-import tconstruct.client.entity.CartRender;
-import tconstruct.client.entity.CloneHeadModel;
-import tconstruct.client.entity.CrystalGuardianRender;
-import tconstruct.client.entity.CrystalRender;
-import tconstruct.client.entity.FancyItemRender;
-import tconstruct.client.entity.MiniGardyRender;
-import tconstruct.client.entity.SlimeCloneRender;
-import tconstruct.client.entity.SlimeRender;
-import tconstruct.client.entity.projectile.ArrowRender;
-import tconstruct.client.entity.projectile.DaggerRender;
-import tconstruct.client.entity.projectile.LaunchedItemRender;
-import tconstruct.client.gui.ArmorExtendedGui;
-import tconstruct.client.gui.DrawbridgeGui;
-import tconstruct.client.gui.FrypanGui;
-import tconstruct.client.gui.GlowstoneAggregatorGui;
-import tconstruct.client.gui.GuiManual;
-import tconstruct.client.gui.InventoryTab;
-import tconstruct.client.gui.KnapsackGui;
-import tconstruct.client.gui.MiniGardyGui;
-import tconstruct.client.gui.PartCrafterGui;
-import tconstruct.client.gui.PatternChestGui;
-import tconstruct.client.gui.SmelteryGui;
-import tconstruct.client.gui.StencilTableGui;
-import tconstruct.client.gui.ToolForgeGui;
-import tconstruct.client.gui.ToolStationGui;
-import tconstruct.client.pages.BlankPage;
-import tconstruct.client.pages.BlockCastPage;
-import tconstruct.client.pages.BookPage;
-import tconstruct.client.pages.ContentsTablePage;
-import tconstruct.client.pages.CraftingPage;
-import tconstruct.client.pages.FurnacePage;
-import tconstruct.client.pages.MaterialPage;
-import tconstruct.client.pages.ModifierPage;
-import tconstruct.client.pages.PicturePage;
-import tconstruct.client.pages.SectionPage;
-import tconstruct.client.pages.SidebarPage;
-import tconstruct.client.pages.TextPage;
-import tconstruct.client.pages.TitlePage;
-import tconstruct.client.pages.ToolPage;
-import tconstruct.common.TContent;
-import tconstruct.common.TProxyCommon;
-import tconstruct.entity.Automaton;
-import tconstruct.entity.BlueSlime;
-import tconstruct.entity.CartEntity;
-import tconstruct.entity.Crystal;
-import tconstruct.entity.FancyEntityItem;
-import tconstruct.entity.MiniGardy;
-import tconstruct.entity.SlimeClone;
-import tconstruct.entity.projectile.ArrowEntity;
-import tconstruct.entity.projectile.DaggerEntity;
-import tconstruct.entity.projectile.LaunchedPotion;
+import tconstruct.blocks.logic.*;
+import tconstruct.client.armor.RenderArmorCast;
+import tconstruct.client.block.*;
+import tconstruct.client.entity.*;
+import tconstruct.client.entity.projectile.*;
+import tconstruct.client.gui.*;
+import tconstruct.client.pages.*;
+import tconstruct.common.*;
+import tconstruct.entity.*;
+import tconstruct.entity.projectile.*;
 import tconstruct.landmine.client.gui.GuiLandmine;
 import tconstruct.landmine.client.render.RenderLandmine;
 import tconstruct.landmine.inventory.ContainerLandmine;
 import tconstruct.landmine.tileentity.TileEntityLandmine;
 import tconstruct.library.TConstructRegistry;
-import tconstruct.library.client.TConstructClientRegistry;
-import tconstruct.library.client.ToolGuiElement;
+import tconstruct.library.client.*;
 import tconstruct.library.crafting.ToolBuilder;
 import tconstruct.library.tools.ToolCore;
-import tconstruct.util.player.ArmorExtended;
-import tconstruct.util.player.KnapsackInventory;
-import tconstruct.util.player.TPlayerStats;
+import tconstruct.util.player.*;
 
-import com.google.common.collect.Lists;
-
-import cpw.mods.fml.client.registry.ClientRegistry;
-import cpw.mods.fml.client.registry.RenderingRegistry;
-import cpw.mods.fml.common.registry.TickRegistry;
-import cpw.mods.fml.common.registry.VillagerRegistry;
-import cpw.mods.fml.relauncher.Side;
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiScreen;
+import net.minecraft.client.gui.inventory.*;
+import net.minecraft.client.model.ModelSlime;
+import net.minecraft.client.particle.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.entity.RenderItem;
+import net.minecraft.client.settings.*;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.*;
+import net.minecraft.util.*;
+import net.minecraft.world.World;
+import net.minecraftforge.client.MinecraftForgeClient;
+import net.minecraftforge.common.MinecraftForge;
 
 public class TProxyClient extends TProxyCommon
 {
@@ -881,6 +775,10 @@ public class TProxyClient extends TProxyCommon
         this.doSpawnParticle(particle, xPos, yPos, zPos, velX, velY, velZ);
     }
 
+    public void postInit(){
+    	MinecraftForgeClient.registerItemRenderer(TContent.armorPattern.itemID, new RenderArmorCast());
+    }
+    
     public EntityFX doSpawnParticle (String par1Str, double par2, double par4, double par6, double par8, double par10, double par12)
     {
         if (this.mc == null)

@@ -141,6 +141,11 @@
   <entry key="item.tconstruct.Materials.AlumiteNugget.name">Alumite Nugget</entry>
   <entry key="item.tconstruct.Materials.SteelNugget.name">Steel Nugget</entry>
   
+  <entry key="item.tconstruct.ArmorPattern.helmet.name">Helmet Cast</entry>
+  <entry key="item.tconstruct.ArmorPattern.chestplate.name">Chestplate Cast</entry>
+  <entry key="item.tconstruct.ArmorPattern.leggings.name">Leggings Cast</entry>
+  <entry key="item.tconstruct.ArmorPattern.boots.name">Boots Cast</entry>
+  
   <entry key="Smeltery.Controller.name">Smeltery Controller</entry>
   <entry key="Smeltery.Drain.name">Smeltery Drain</entry>
   <entry key="Smeltery.Brick.name">Seared Bricks</entry>

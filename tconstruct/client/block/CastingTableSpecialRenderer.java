@@ -1,19 +1,17 @@
 package tconstruct.client.block;
 
-import net.minecraft.client.renderer.entity.RenderItem;
-import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-
 import org.lwjgl.opengl.GL11;
+
+import cpw.mods.fml.relauncher.*;
 
 import tconstruct.blocks.logic.CastingTableLogic;
 import tconstruct.entity.FancyEntityItem;
+import tconstruct.library.ItemBlocklike;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.client.renderer.entity.*;
+import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.item.*;
+import net.minecraft.tileentity.TileEntity;
 
 /* Special renderer, only used for drawing tools */
 
@@ -60,7 +58,7 @@ public class CastingTableSpecialRenderer extends TileEntitySpecialRenderer
         GL11.glTranslatef(1F, 1.48F, 0.55F);
         GL11.glRotatef(90F, 1, 0F, 0F);
         GL11.glScalef(2F, 2F, 2F);
-        if (stack.getItem() instanceof ItemBlock)
+        if (stack.getItem() instanceof ItemBlock || stack.getItem() instanceof ItemBlocklike)
         {
             GL11.glRotatef(90F, -1, 0F, 0F);
             GL11.glTranslatef(0F, -0.1F, 0.2275F);

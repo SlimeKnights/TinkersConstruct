@@ -53,6 +53,7 @@ public class TContent implements IFuelHandler
     public static Item toolShard;
     public static Item woodPattern;
     public static Item metalPattern;
+    public static Item armorPattern;
 
     public static Item manualBook;
     public static Item buckets;
@@ -675,10 +676,12 @@ public class TContent implements IFuelHandler
         toolShard = new ToolShard(PHConstruct.toolShard, "_chunk").setUnlocalizedName("tconstruct.ToolShard");
         woodPattern = new Pattern(PHConstruct.woodPattern, "WoodPattern", "pattern_", "materials/").setUnlocalizedName("tconstruct.Pattern");
         metalPattern = new MetalPattern(PHConstruct.metalPattern, "MetalPattern", "cast_", "materials/").setUnlocalizedName("tconstruct.MetalPattern");
+        armorPattern = new ArmorPattern(PHConstruct.armorPattern, "ArmorPattern", "armorcast_", "materials/").setUnlocalizedName("tconstruct.ArmorPattern");
 
         TConstructRegistry.addItemToDirectory("blankPattern", blankPattern);
         TConstructRegistry.addItemToDirectory("woodPattern", woodPattern);
         TConstructRegistry.addItemToDirectory("metalPattern", metalPattern);
+        TConstructRegistry.addItemToDirectory("armorPattern", armorPattern);
 
         String[] patternTypes = { "ingot", "toolRod", "pickaxeHead", "shovelHead", "hatchetHead", "swordBlade", "wideGuard", "handGuard", "crossbar", "binding", "frypanHead", "signHead",
                 "knifeBlade", "chiselHead", "toughRod", "toughBinding", "largePlate", "broadAxeHead", "scytheHead", "excavatorHead", "largeBlade", "hammerHead", "fullGuard" };
@@ -690,6 +693,13 @@ public class TContent implements IFuelHandler
         for (int i = 0; i < patternTypes.length; i++)
         {
             TConstructRegistry.addItemStackToDirectory(patternTypes[i] + "Cast", new ItemStack(metalPattern, 1, i));
+        }
+        
+        String[] armorPartTypes = { "helmet", "chestplate", "leggings", "boots" };
+        
+        for (int i = 1; i < armorPartTypes.length; i++)
+        {
+        	TConstructRegistry.addItemStackToDirectory(armorPartTypes[i] + "Cast", new ItemStack(armorPattern, 1, i));
         }
 
         manualBook = new Manual(PHConstruct.manual);

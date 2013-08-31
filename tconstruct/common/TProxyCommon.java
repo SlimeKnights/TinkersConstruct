@@ -211,6 +211,8 @@ public class TProxyCommon implements IGuiHandler
     {
     }
 
+    public void postInit() {}
+    
     public static final String[] shardNames = new String[] { "Wood", "Stone Shard", "Iron Chunk", "Flint Shard", "Cactus Shard", "Bone", "Obsidian Shard", "Netherrack Shard",
             "Slime Crystal Fragment", "Paper", "Cobalt Chunk", "Ardite Chunk", "Manyullyn Chunk", "Copper Chunk", "Bronze Chunk", "Alumite Chunk", "Steel Chunk", "Slime Crystal Fragment" };
 
