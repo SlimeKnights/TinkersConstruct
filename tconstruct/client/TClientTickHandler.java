@@ -26,6 +26,7 @@ public class TClientTickHandler implements ITickHandler
         TContent.oreBerry.setGraphicsLevel(Block.leaves.graphicsLevel);
         TContent.oreBerrySecond.setGraphicsLevel(Block.leaves.graphicsLevel);
         TContent.slimeLeaves.setGraphicsLevel(Block.leaves.graphicsLevel);
+        
 
         /*if (PHConstruct.alphaHunger)
         {
