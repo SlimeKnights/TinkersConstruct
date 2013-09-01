@@ -325,7 +325,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                 {
                     if (currentLiquid + 25 < maxLiquid)
                     {
-                        this.addMoltenMetal(new FluidStack(TContent.moltenEnder.blockID, 25), false);
+                        this.addMoltenMetal(new FluidStack(TContent.moltenEnderFluid, 25), false);
                     }
                 }
             }
