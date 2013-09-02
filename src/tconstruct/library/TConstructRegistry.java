@@ -675,6 +675,8 @@ public class TConstructRegistry
         drawbridgeState[Block.stairsNetherQuartz.blockID] = 3;
         drawbridgeState[Block.railActivator.blockID] = 4;
         drawbridgeState[Block.dropper.blockID] = 3;
+        interchangableBlockMapping[Block.dirt.blockID] = Block.grass.blockID;
+        interchangableBlockMapping[Block.grass.blockID] = Block.dirt.blockID;
     }
 
     static
