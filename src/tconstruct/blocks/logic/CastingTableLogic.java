@@ -359,6 +359,7 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
             this.capacity = tags.getInteger("Capacity");
         else
             this.capacity = updateCapacity();
+        castingDelay = tags.getInteger("castingDelay");
     }
 
     @Override
@@ -379,6 +380,7 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
         }
         tags.setBoolean("Initialized", init);
         tags.setInteger("Capacity", capacity);
+        tags.setInteger("castingDelay", castingDelay);
     }
 
     /* Packets */
