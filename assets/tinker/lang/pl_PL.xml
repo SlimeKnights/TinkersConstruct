@@ -1,0 +1,393 @@
+<?xml version="1.0"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties version = "1.0">
+  <entry key="itemGroup.TConstructTools">Narzędzia TConstruct</entry>
+  <entry key="itemGroup.TConstructMaterials">Materiały TConstruct</entry>
+  <entry key="itemGroup.TConstructBlocks">Bloki TConstruct</entry>
+  
+  <entry key="crafters.ToolStation">Stół do łączenia narzędzi</entry>
+  <entry key="crafters.ToolForge">Kuźnia do łączenia narzędzi</entry>
+  <entry key="crafters.PartBuilder">Stół do tworzenia części</entry>
+  <entry key="crafters.PatternShaper">Stół do odciskania szablonów</entry>
+  <entry key="inventory.PatternChest">Skrzynia na szablony</entry>
+  <entry key="crafters.Smeltery">Formiernia</entry>
+  <entry key="crafters.Frypan">Patelnia</entry>
+  <entry key="inventory.knapsack">Plecak</entry>
+  
+  <entry key="ToolStation.Crafter.name">Łączenie narzędzi</entry>
+  <entry key="ToolStation.Parts.name">Tworzenie części</entry>
+  <entry key="ToolStation.PatternChest.name">Skrzynia na szablony</entry>
+  <entry key="ToolStation.PatternShaper.name">Odciskanie szablonów</entry>
+  <entry key="ToolStation.CastingTable.name">Odlewanie</entry>
+  
+  <entry key="tile.ToolForge.name">Tool Forge</entry>
+  <entry key="tile.CraftingStation.name">Crafting Station</entry>
+  <entry key="tile.Armor.DryingRack.name">Suszarka</entry>
+  <entry key="CraftedSoil.Slime.name">Szlamowate błoto</entry>
+  <entry key="CraftedSoil.Grout.name">Cement</entry>
+  <entry key="CraftedSoil.BlueSlime.name">Szlamowate błoto</entry>
+  <entry key="CraftedSoil.GraveyardSoil.name">Cmenterna gleba</entry>
+  <entry key="CraftedSoil.ConsecratedSoil.name">Zakonna gleba</entry>
+  
+  <entry key="MetalOre.NetherSlag.name">Netherack Slag</entry>
+  <entry key="MetalOre.Cobalt.name">Ruda kobaltu</entry>
+  <entry key="MetalOre.Ardite.name">Ruda ardytu</entry>
+  <entry key="MetalOre.Copper.name">Ruda miedzi</entry>
+  <entry key="MetalOre.Tin.name">Ruda cyny</entry>
+  <entry key="MetalOre.Aluminum.name">Ruda aluminium</entry>
+  <entry key="MetalOre.Slag.name">Stone Slag</entry>
+  
+  <entry key="block.oreberry.iron.name">Krzak żelaznych jagód</entry>
+  <entry key="block.oreberry.gold.name">Krzak złotych jagód</entry>
+  <entry key="block.oreberry.copper.name">Krzak miedzianych jagód</entry>
+  <entry key="block.oreberry.tin.name">Krzak cynowych jagód</entry>
+  <entry key="block.oreberry.aluminum.name">Krzak aluminiowych jagód</entry>
+  <entry key="block.oreberry.essence.name">Krzak esencji</entry>
+  
+  <entry key="block.ore.gravel.iron.name">Żwirowa ruda żelaza</entry>
+  <entry key="block.ore.gravel.gold.name">Żwirowa ruda złota</entry>
+  <entry key="block.ore.gravel.copper.name">Żwirowa ruda miedzi</entry>
+  <entry key="block.ore.gravel.tin.name">Żwirowa ruda cyny</entry>
+  <entry key="block.ore.gravel.aluminum.name">Żwirowa ruda aluminium</entry>
+  <entry key="block.ore.gravel.cobalt.name">Żwirowa ruda kobaltu</entry>
+    
+  <entry key="block.brownstone.rough.name">Surowy brunatny piaskowiec</entry>
+  <entry key="block.brownstone.rough.road.name">Droga z surowego brunatnego piaskowca</entry>
+  <entry key="block.brownstone.smooth.name">Brunatny piaskowiec</entry>
+  <entry key="block.brownstone.smooth.brick.name">Blok cegieł z brunatnego piaskowca</entry>
+  <entry key="block.brownstone.smooth.road.name">Droga z brunatnego piaskowca</entry>
+  <entry key="block.brownstone.smooth.fancy.name">Ozdobny brunatny piaskowiec</entry>
+  <entry key="block.brownstone.smooth.chiseled.name">Rzeźbiony brunatny piaskowiec</entry>
+  
+  <entry key="block.brownstone.rough.slab.name">Płyta z surowego brunatnego piaskowca</entry>
+  <entry key="block.brownstone.rough.road.slab.name">Płyta z drogi z surowego brunatnego piaskowca</entry>
+  <entry key="block.brownstone.smooth.slab.name">Płyta z brunatnego piaskowca</entry>
+  <entry key="block.brownstone.smooth.brick.slab.name">Płyta z bloku cegieł z brunatnego piaskowca</entry>
+  <entry key="block.brownstone.smooth.road.slab.name">Płyta z drogi z brunatnego piaskowca</entry>
+  <entry key="block.brownstone.smooth.fancy.slab.name">Płyta z ozdobnego brunatnego piaskowca</entry>
+  <entry key="block.brownstone.smooth.chiseled.slab.name">Płyta z rzeźbionego brunatnego piaskowca</entry>
+  
+  <entry key="block.brick.obsidian.name">Blok cegieł z obsydianu</entry>
+  <entry key="block.brick.sandstone.name">Blok cegieł z piaskowca</entry>
+  <entry key="block.brick.netherrack.name">Blok cegieł z netherracku</entry>
+  <entry key="block.brick.iron.name">Blok cegieł z żelaza</entry>
+  <entry key="block.brick.gold.name">Blok cegieł ze złota</entry>
+  <entry key="block.brick.diamond.name">Blok cegieł z diamentu</entry>
+  <entry key="block.brick.lapis.name">Blok cegieł z lazurytu</entry>
+  <entry key="block.brick.stone.refined.name">Blok cegieł z polerowanego kamienia</entry>
+  <entry key="block.brick.redstone.name">Blok cegieł z czerwonego kamienia</entry>
+  <entry key="block.brick.bone.name">Blok cegieł z kości</entry>
+  <entry key="block.brick.slime.name">Blok cegieł ze szlamu</entry>
+  <entry key="block.brick.blueslime.name">Blok cegieł ze szlamu</entry>
+  <entry key="block.brick.endstone.name">Blok cegieł z kamienia kresu</entry>
+  <entry key="block.brick.obsidian.ingot.name">Blok cegieł z obsydianu</entry>
+  
+  <entry key="block.fancybrick.obsidian.name">Ozdobna obsydianowy blok cegieł</entry>
+  <entry key="block.fancybrick.sandstone.name">Ozdobny blok cegieł z piaskowca</entry>
+  <entry key="block.fancybrick.netherrack.name">Ozdobny blok cegieł z netherracku</entry>
+  <entry key="block.fancybrick.iron.name">Ozdobny blok cegieł z żelaza</entry>
+  <entry key="block.fancybrick.gold.name">Ozdobny blok cegieł ze złota</entry>
+  <entry key="block.fancybrick.diamond.name">Ozdobny blok cegieł z diamentu</entry>
+  <entry key="block.fancybrick.lapis.name">Ozdobny blok cegieł z lazurytu</entry>
+  <entry key="block.fancybrick.stone.refined.name">Ozdobny blok cegieł z polerowanego kamienia</entry>
+  <entry key="block.fancybrick.redstone.name">Ozdobny blok cegieł z czerwonego kamienia</entry>
+  <entry key="block.fancybrick.bone.name">Ozdobny blok cegieł z kości</entry>
+  <entry key="block.fancybrick.slime.name">Ozdobny blok cegieł ze szlamu</entry>
+  <entry key="block.fancybrick.blueslime.name">Ozdobny blok cegieł ze szlamu</entry>
+  <entry key="block.fancybrick.endstone.name">Ozdobny blok cegieł z kamienia kresu</entry>
+  <entry key="block.fancybrick.obsidian.ingot.name">Ozdobny blok cegieł z obsydianu</entry>
+  <entry key="block.fancybrick.stone.road.name">Kamienna droga</entry>
+  <entry key="block.fancybrick.stone.name">Ozdobny kamienny blok cegieł</entry>
+  
+  <entry key="item.oreberry.iron.name">Żelazne jagody</entry>
+  <entry key="item.oreberry.gold.name">Złote jagody</entry>
+  <entry key="item.oreberry.copper.name">Miedziane jagody</entry>
+  <entry key="item.oreberry.tin.name">Cynowe jagody</entry>
+  <entry key="item.oreberry.aluminum.name">Aluminiowe jagody</entry>
+  <entry key="item.oreberry.essence.name">Jagoda skoncentrowanej esencji</entry>
+  
+  <entry key="item.goldenhead.name">Złota głowa</entry>
+  <entry key="item.tconstruct.titleicon.name">Spawn: </entry>
+  
+  <entry key="item.tconstruct.Materials.PaperStack.name">Stos papieru</entry>
+  <entry key="item.tconstruct.Materials.SlimeCrystal.name">Kryształ szlamu</entry>
+  <entry key="item.tconstruct.Materials.SearedBrick.name">Hartowana cegła</entry>
+  <entry key="item.tconstruct.Materials.CobaltIngot.name">Sztabka kobaltu</entry>
+  <entry key="item.tconstruct.Materials.ArditeIngot.name">Sztabka ardytu</entry>
+  <entry key="item.tconstruct.Materials.ManyullynIngot.name">Sztabka manialanu</entry>
+  <entry key="item.tconstruct.Materials.Mossball.name">Kula mchu</entry>
+  <entry key="item.tconstruct.Materials.LavaCrystal.name">Kryształ lawy</entry>
+  <entry key="item.tconstruct.Materials.NecroticBone.name">Nekrotyczna kość</entry>
+  <entry key="item.tconstruct.Materials.CopperIngot.name">Sztabka miedzit</entry>
+  <entry key="item.tconstruct.Materials.TinIngot.name">Sztabka cyny</entry>
+  <entry key="item.tconstruct.Materials.AluminumIngot.name">Sztabka aluminium</entry>
+  <entry key="item.tconstruct.Materials.RawAluminum.name">Surowe aluminium</entry>
+  <entry key="item.tconstruct.Materials.BronzeIngot.name">Sztabka bronzu</entry>
+  <entry key="item.tconstruct.Materials.AluBrassIngot.name">Sztabka mosiądzu aluminiowego</entry>
+  <entry key="item.tconstruct.Materials.AlumiteIngot.name">Sztabka alumitu</entry>
+  <entry key="item.tconstruct.Materials.SteelIngot.name">Sztabka stali</entry>
+  <entry key="item.tconstruct.Materials.BlueSlimeCrystal.name">Kryształ szlamu</entry>
+  <entry key="item.tconstruct.Materials.ObsidianIngot.name">Sztabka obsydianu</entry>
+  <entry key="item.tconstruct.Materials.IronNugget.name">Samorodek żelaza</entry>
+  <entry key="item.tconstruct.Materials.CopperNugget.name">Samorodek miedzi</entry>
+  <entry key="item.tconstruct.Materials.TinNugget.name">Samorodek cyny</entry>
+  <entry key="item.tconstruct.Materials.AluminumNugget.name">Samorodek aluminium</entry>
+  <entry key="item.tconstruct.Materials.EssenceCrystal.name">Kryształ esencji</entry>
+  <entry key="item.tconstruct.Materials.AluBrassNugget.name">Samorodek mosiądzu aluminiowego</entry>
+  <entry key="item.tconstruct.Materials.ObsidianNugget.name">Samorodek obsydianu</entry>
+  <entry key="item.tconstruct.Materials.CobaltNugget.name">Samorodek kobaltu</entry>
+  <entry key="item.tconstruct.Materials.ArditeNugget.name">Samorodek ardytu</entry>
+  <entry key="item.tconstruct.Materials.ManyullynNugget.name">Samorodek manialinu</entry>
+  <entry key="item.tconstruct.Materials.BronzeNugget.name">Samorodek brązu</entry>
+  <entry key="item.tconstruct.Materials.AlumiteNugget.name">Samorodek alumitu</entry>
+  <entry key="item.tconstruct.Materials.SteelNugget.name">Samorodek stali</entry>
+  
+  <entry key="item.tconstruct.crystal.essence.name">Kryształ esencji</entry>
+  
+  <entry key="Smeltery.Controller.name">Kontroler formierni</entry>
+  <entry key="Smeltery.Drain.name">Odpływ formierni</entry>
+  <entry key="Smeltery.Brick.name">Hartowany blok cegieł</entry>
+  <entry key="Smeltery.Stone.name">Hartowany kamień</entry>
+  <entry key="Smeltery.Cobblestone.name">Hartowany bruk</entry>
+  <entry key="Smeltery.Paver.name">Hartowany chodnik</entry>
+  <entry key="Smeltery.Brick.Cracked.name">Pęknięty hartowany blok cegieł</entry>
+  <entry key="Smeltery.Road.name">Hartowana droga</entry>
+  <entry key="Smeltery.Brick.Fancy.name">Ozdobny hartowany blok cegieł</entry>
+  <entry key="Smeltery.Brick.Square.name">Rzeźbiony hartowany blok cegieł</entry>
+  <entry key="Smeltery.Brick.Creeper.name">Rzeźbiony hartowany blok cegieł</entry>
+  
+  <entry key="LavaTank.Tank.name">Hartowany zbiornik</entry>
+  <entry key="LavaTank.Gague.name">Hartowane szkło</entry>
+  <entry key="LavaTank.Window.name">Hartowane okno</entry>
+  
+  <entry key="block.drawbridge.name">Most zwodzony</entry>
+  <entry key="block.firestarter.name">Zapalnikr</entry>
+  <entry key="tile.landmine.name">Mina lądowa</entry>
+  <entry key="tile.trap.punji.name">Kolce punji</entry>
+  <entry key="tile.trap.barricade.oak.name">Dębowa barykada</entry>
+  <entry key="tile.trap.barricade.spruce.name">Świerkowa barykada</entry>
+  <entry key="tile.trap.barricade.birch.name">Brzozowa barykada</entry>
+  <entry key="tile.trap.barricade.jungle.name">Tropikalna barykada</entry>
+  <entry key="tile.extractor.essence.name">Ekstraktor esencji</entry>
+  
+  <entry key="StorageMetals.Cobalt.name">Blok kobaltu</entry>
+  <entry key="StorageMetals.Ardite.name">Blok ardytu</entry>
+  <entry key="StorageMetals.Manyullyn.name">Blok manialinu</entry>
+  <entry key="StorageMetals.Copper.name">Blok miedzi</entry>
+  <entry key="StorageMetals.Bronze.name">Blok brązu</entry>
+  <entry key="StorageMetals.Tin.name">Blok cyny</entry>
+  <entry key="StorageMetals.Aluminum.name">Blok aluminum</entry>
+  <entry key="StorageMetals.AlBrass.name">Blok mosiądzu aluminiowego</entry>
+  <entry key="StorageMetals.Alumite.name">Blok alumity</entry>
+  <entry key="StorageMetals.Steel.name">Blok stali</entry>
+  <entry key="StorageMetals.Ender.name">Blok kresu</entry>
+  
+  <entry key="tile.decoration.stonetorch.name">Pochodnia</entry>
+  <entry key="tile.CraftingStation.name">Crafting Station</entry>
+  
+  <entry key="block.glass.pure.name">Przejrzyste szkło</entry>
+  <entry key="block.glass.soul.name">Szkło duszy</entry>
+  <entry key="block.glass.soul.pure.name">Przejrzyste szkło duszy</entry>
+  
+  <entry key="block.glass.pure.pane.name">Przejrzysta szyba</entry>
+  <entry key="block.glass.soul.pane.name">Szyba duszy</entry>
+  <entry key="block.glass.soul.pane.pure.name">Przejrzysta szyba duszy</entry>
+  
+  <entry key="block.stainedglass.white.name">Białe barwione szkło</entry>
+  <entry key="block.stainedglass.orange.name">Pomarańczowe barwione szkło</entry>
+  <entry key="block.stainedglass.magenta.name">Karmazynowe barwione szkło</entry>
+  <entry key="block.stainedglass.lightblue.name">Jasnoniebieskie barwione szkło</entry>
+  <entry key="block.stainedglass.yellow.name">Żółte barwione szkło</entry>
+  <entry key="block.stainedglass.lime.name">Jasnozielone barwione szkło</entry>
+  <entry key="block.stainedglass.pink.name">Różowe barwione szkło</entry>
+  <entry key="block.stainedglass.gray.name">Szare barwione szkło</entry>
+  <entry key="block.stainedglass.lightgray.name">Jasnoszare barwione szkło</entry>
+  <entry key="block.stainedglass.cyan.name">Błękitne barwione szkło</entry>
+  <entry key="block.stainedglass.purple.name">Purpurowe barwione szkło</entry>
+  <entry key="block.stainedglass.blue.name">Niebieskie barwione szkło</entry>
+  <entry key="block.stainedglass.brown.name">Brązowe barwione szkło</entry>
+  <entry key="block.stainedglass.green.name">Zielone barwione szkło</entry>
+  <entry key="block.stainedglass.red.name">Czerwone barwione szkło</entry>
+  <entry key="block.stainedglass.black.name">Czarne barwione szkło</entry>
+  
+  <entry key="block.stainedglass.white.pane.name">Biała barwiona szyba</entry>
+  <entry key="block.stainedglass.orange.pane.name">Pomarańczowa barwiona szyba</entry>
+  <entry key="block.stainedglass.magenta.pane.name">Karmazynowa barwiona szyba</entry>
+  <entry key="block.stainedglass.lightblue.pane.name">Jasnoniebieska barwiona szyba</entry>
+  <entry key="block.stainedglass.yellow.pane.name">Żółta barwiona szyba</entry>
+  <entry key="block.stainedglass.lime.pane.name">Jasnozielona barwiona szyba</entry>
+  <entry key="block.stainedglass.pink.pane.name">Różowa barwiona szyba</entry>
+  <entry key="block.stainedglass.gray.pane.name">Szara barwiona szyba</entry>
+  <entry key="block.stainedglass.lightgray.pane.name">Jasnoszara barwiona szyba</entry>
+  <entry key="block.stainedglass.cyan.pane.name">Błęknita barwiona szyba</entry>
+  <entry key="block.stainedglass.purple.pane.name">Purpurowa barwiona szyba</entry>
+  <entry key="block.stainedglass.blue.pane.name">Niebieska barwiona szyba</entry>
+  <entry key="block.stainedglass.brown.pane.name">Brązowa barwiona szyba</entry>
+  <entry key="block.stainedglass.green.pane.name">Zielona barwiona szyba</entry>
+  <entry key="block.stainedglass.red.pane.name">Czerwona barwiona szyba</entry>
+  <entry key="block.stainedglass.black.pane.name">Czarna barwiona szyba</entry>
+  
+  <entry key="block.searedstone.slab.brick.name">Płyta z hartowanej cegły</entry>
+  <entry key="block.searedstone.slab.stone.name">Płyta z hartowanego kamienia</entry>
+  <entry key="block.searedstone.slab.cobble.name">Płyta z hartowanego bruku</entry>
+  <entry key="block.searedstone.slab.paver.name">Płyta z hartowanego chodnika</entry>
+  <entry key="block.searedstone.slab.road.name">Płyta z hartowanej drogi</entry>
+  <entry key="block.searedstone.slab.fancy.name">Ozdobna hartowana płyta</entry>
+  <entry key="block.searedstone.slab.square.name">Rzeźbiona hartowana płyta</entry>
+  <entry key="block.searedstone.slab.creeper.name">Rzeźbiona hartowana płyta</entry>
+  
+  <entry key="block.soil.slab.dirt.name">Płyta z ziemii</entry>
+  <entry key="block.soil.slab.mycelium.name">Płyta z grzybni</entry>
+  <entry key="block.soil.slab.slime.name">Płyta ze szlamowatego błota</entry>
+  <entry key="block.soil.slab.grout.name">Płyta z cementu</entry>
+  <entry key="block.soil.slab.blueslime.name">Płyta ze szlamowatego błota</entry>
+  <entry key="block.soil.slab.graveyardsoil.name">Płyta z cmentarnej gleby</entry>
+  <entry key="block.soil.slab.consecratedsoil.name">Płyta z zakonnej gleby</entry>
+  
+  <entry key="block.slime.soil.blue.name">Niebieska szlamziemia</entry>
+  <entry key="block.slime.leaves.blue.name">Szlamowate liście</entry>
+  <entry key="block.slime.sapling.bluegreen.name">Szlamowata sadzonka</entry>
+  <entry key="block.slime.grass.blue.name">Szlamowata trawa</entry>
+  <entry key="block.slime.grass.dirt.name">Szlamowata trawa</entry>
+  <entry key="block.slime.tallgrass.name">Szlamowata trawa</entry>
+  <entry key="block.slime.congealed.blue.name">Zakrzepły niebieski szlam</entry>
+  <entry key="block.slime.congealed.green.name">Zakrzepły zielony szlam</entry>
+  
+  <entry key="item.tconstruct.storage.knapsack.name">Plecak</entry>  
+  <entry key="item.tconstruct.blankpattern.pattern.name">Pusty szablon</entry>
+  <entry key="item.tconstruct.blankpattern.cast.name">Pusta forma</entry>
+  
+  <entry key="item.tconstruct.Bowstring.string.name">Cięciwa</entry>
+  <entry key="item.tconstruct.Bowstring.enchantedfabric.name">Zaklęta cięciwa</entry>
+  <entry key="item.tconstruct.Fletching.feather.name">Lotka z pierza</entry>
+  <entry key="item.tconstruct.Fletching.leaf.name">Lotka z liścia</entry>
+  <entry key="item.tconstruct.Fletching.slime.name">Lotka ze szlamu</entry>
+  <entry key="item.tconstruct.Fletching.blueslime.name">Lotka ze szlamu</entry>
+  
+  <entry key="item.tconstruct.manual.beginner.name">Materiały i Ty. Część 1</entry>
+  <entry key="item.tconstruct.manual.toolstation.name">Materiały i Ty. Część 2</entry>
+  <entry key="item.tconstruct.manual.smeltery.name">Potężne Wytopy</entry>
+  
+  <entry key="item.tconstruct.bucket.Iron.name">Wiadro z ciekłym żelazem</entry>
+  <entry key="item.tconstruct.bucket.Gold.name">Wiadro z ciekłym złotem</entry>
+  <entry key="item.tconstruct.bucket.Copper.name">Wiadro z ciekłą miedzią</entry>
+  <entry key="item.tconstruct.bucket.Tin.name">Wiadro z ciekłą cyną</entry>
+  <entry key="item.tconstruct.bucket.Aluminum.name">Wiadro z ciekłym aluminium</entry>
+  <entry key="item.tconstruct.bucket.Cobalt.name">Wiadro z ciekłym kobaltem</entry>
+  <entry key="item.tconstruct.bucket.Ardite.name">Wiadro z ciekłym ardytem</entry>
+  <entry key="item.tconstruct.bucket.Bronze.name">Wiadro z ciekłym brązem</entry>
+  <entry key="item.tconstruct.bucket.AluBrass.name">Wiadro z ciekłym mosiędzem aluminiowym</entry>
+  <entry key="item.tconstruct.bucket.Manyullyn.name">Wiadro z ciekłym manialinem</entry>
+  <entry key="item.tconstruct.bucket.Alumite.name">Wiadro z ciekłym alumitem</entry>
+  <entry key="item.tconstruct.bucket.Obsidian.name">Wiadro z ciekłym obsydianem</entry>
+  <entry key="item.tconstruct.bucket.Steel.name">Wiadro z ciekłą stalą</entry>
+  <entry key="item.tconstruct.bucket.Glass.name">Wiadro z ciekłym szkłem</entry>
+  <entry key="item.tconstruct.bucket.Stone.name">Wiadro z hartowanym kamieniem</entry>
+  <entry key="item.tconstruct.bucket.Villager.name">Wiadro z ciekłym szmaragdem</entry>
+  <entry key="item.tconstruct.bucket.Cow.name">Wiadro z krwią</entry>
+  <entry key="item.tconstruct.bucket.Nickel.name">Wiadro z ciekłym niklem</entry>
+  <entry key="item.tconstruct.bucket.Lead.name">Wiadro z ciekłym ołowiem</entry>
+  <entry key="item.tconstruct.bucket.Silver.name">Wiadro z ciekłym srebrem</entry>
+  <entry key="item.tconstruct.bucket.Shiny.name">Wiadro z ciekłym świeciorem</entry>
+  <entry key="item.tconstruct.bucket.Invar.name">Wiadro z ciekłym inwarem</entry>
+  <entry key="item.tconstruct.bucket.Electrum.name">Wiadro z ciekłym elektronem</entry>
+  <entry key="item.tconstruct.bucket.Ender.name">Wiadro z ciekłym kresem</entry>
+  
+  <entry key="item.tconstruct.bowstring.string.name">Cięciwa</entry>
+  <entry key="item.tconstruct.bowstring.enchantedfabric.name">Zaklęta cięciwa</entry>
+  
+  <entry key="tile.metal.molten.iron.name">Ciekłe żelazo</entry>
+  <entry key="tile.metal.molten.gold.name">Ciekłe złoto</entry>
+  <entry key="tile.metal.molten.copper.name">Ciekła miedź</entry>
+  <entry key="tile.metal.molten.tin.name">Ciekła cyna</entry>
+  <entry key="tile.metal.molten.aluminum.name">Ciekłe aluminium</entry>
+  <entry key="tile.metal.molten.cobalt.name">Ciekły kobalt</entry>
+  <entry key="tile.metal.molten.ardite.name">Ciekły ardyt</entry>
+  <entry key="tile.metal.molten.bronze.name">Ciekły brąz</entry>
+  <entry key="tile.metal.molten.alubrass.name">Ciekły mosiądz aluminiowy</entry>
+  <entry key="tile.metal.molten.manyullyn.name">Ciekły manialin</entry>
+  <entry key="tile.metal.molten.alumite.name">Ciekły alumit</entry>
+  <entry key="tile.metal.molten.obsidian.name">Ciekły obsydian</entry>
+  <entry key="tile.metal.molten.steel.name">Ciekła stal</entry>
+  <entry key="tile.metal.molten.glass.name">Ciekłe szkło</entry>
+  <entry key="tile.molten.stone.name">Hartowany kamień</entry>
+  <entry key="tile.molten.emerald.name">Ciekły szmaragd</entry>
+  <entry key="tile.molten.blood.name">Krew</entry>
+  <entry key="tile.metal.molten.nickel.name">Ciekły nikiel</entry>
+  <entry key="tile.metal.molten.lead.name">Ciekły ołów</entry>
+  <entry key="tile.metal.molten.silver.name">Ciekłe srebro</entry>
+  <entry key="tile.metal.molten.shiny.name">Ciekły świecior</entry>
+  <entry key="tile.metal.molten.invar.name">Ciekły inwar</entry>
+  <entry key="tile.metal.molten.electrum.name">Ciekły elektron</entry>
+  <entry key="LiquidMetal.Ender.name">Ciekły kres</entry>
+  
+  <entry key="item.food.apple.diamond.name">Wysadzane klejnotami jabłko</entry>
+  <entry key="item.tconstruct.strangefood.edibleslime.name">Galaretowaty szlam</entry>
+  <entry key="item.tconstruct.canister.empty.name">Pusty kanister</entry>
+  <entry key="item.tconstruct.canister.miniheart.red.name">Miniaturowe czerwone serce</entry>
+  <entry key="item.tconstruct.canister.heart.name">Kanister na serca</entry>
+  <entry key="item.tconstruct.glove.name">Dirtmover Gloves</entry>
+  
+  <entry key="SearedBlock.Table.name">Odlewnia</entry>
+  <entry key="SearedBlock.Faucet.name">Hartowany kran</entry>
+  <entry key="SearedBlock.Basin.name">Basen do odlewów</entry>
+  
+  <entry key="entity.TConstruct.EdibleSlime.name">Niebieski szlam</entry>
+  <entry key="entity.TConstruct.KingSlime.name">Król szlam</entry>
+  <entry key="entity.TConstruct.Gardeslime.name">Szlam ogrodowy</entry> 
+  
+  <entry key="key.tarmor">GUI zbroi</entry>
+  
+  <entry key="death.one.smeltery">%1$s zamienił się w zieloną pożywkę</entry>
+  <entry key="death.two.smeltery">%1$s skondensował się w formierni</entry>
+  <entry key="death.three.smeltery">%1$s będziemy rzucać kaczki o taflę jeziora</entry>
+  <entry key="death.four.smeltery">%1$s sądził, że kąpiel w ciekłych złożach to świetny pomysł</entry>
+  
+  <entry key="death.attack.Landmine">%1$s widział swoje kończyny lecące kilometry dalej</entry>
+  <entry key="death.fell.assist.Landmine">%1$s został skazany na upadek przez minę lądową</entry>
+  <entry key="death.attack.LandmineFireworkExplode">%1$s przeleciał się na fajerwerce</entry>
+  
+  <entry key="parttype.Wood">Drewniana</entry>
+  <entry key="parttype.Stone">Kamienna</entry>
+  <entry key="parttype.Iron">Żelazna</entry>
+  <entry key="parttype.Flint">Krzemienna</entry>
+  <entry key="parttype.Cactus">Kaktusowa</entry>
+  <entry key="parttype.Bone">Kościowa</entry>
+  <entry key="parttype.Obsidian">Obsydianowa</entry>
+  <entry key="parttype.Slime">Szlamowa</entry>
+  <entry key="parttype.Paper">Papierowa</entry>
+  <entry key="parttype.Cobalt">Kobaltowa</entry>
+  <entry key="parttype.Ardite">Ardyrowa</entry>
+  <entry key="parttype.Manyullyn">Manialinowa</entry>
+  <entry key="parttype.Copper">Miedziana</entry>
+  <entry key="parttype.Bronze">Brązowa</entry>
+  <entry key="parttype.Alumite">Alumitowa</entry>
+  <entry key="parttype.Steel">Stalowa</entry>
+  <entry key="parttype.BlueSlime">Szlamowa</entry>
+  
+  <entry key="molten iron">Ciekłe żelazo</entry>
+  <entry key="molten gold">Ciekłe złoto</entry>
+  <entry key="molten copper">Ciekła miedź</entry>
+  <entry key="molten tin">Ciekła cyna</entry>
+  <entry key="molten aluminum">Ciekłe aluminium</entry>
+  <entry key="molten cobalt">Ciekły kobalt</entry>
+  <entry key="molten ardite">Ciekły ardyt</entry>
+  <entry key="molten bronze">Ciekły brąz</entry>
+  <entry key="molten aluminum brass">Ciekły mosiądz aluminiowy</entry>
+  <entry key="molten manyullyn">Ciekły manialin</entry>
+  <entry key="molten alumite">Ciekły alumit</entry>
+  <entry key="molten obsidian">Ciekły obsydian</entry>
+  <entry key="molten steel">Ciekła stal</entry>
+  <entry key="molten glass">Ciekłe szkło</entry>
+  <entry key="seared stone">Hartowany kamień</entry>
+  <entry key="liquified emerald">Ciekły szmaragd</entry>
+  <entry key="blood">Krew</entry>
+  <entry key="molten nickel">Ciekły nikiel</entry>
+  <entry key="molten lead">Ciekły ołów</entry>
+  <entry key="molten silver">Ciekłe srebro</entry>
+  <entry key="molten platinum">Ciekła platyna</entry>
+  <entry key="molten invar">Ciekły inwar</entry>
+  <entry key="molten shiny">Ciekły świecior</entry>
+  <entry key="ender">Ciekły kres</entry>
+  
+</properties>
