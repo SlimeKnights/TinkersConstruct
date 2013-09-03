@@ -32,6 +32,9 @@ TheNinjaM:https://raw.github.com/mDiyo/TinkersConstruct/master/capes/default_gre
 1Enderman10:http://i.imgur.com/SGm6cd0.png
 Lance_Bombardier:http://i.imgur.com/ueHSGf4.png
 Schluck123:http://i.imgur.com/a7QMfjc.png
-redblackdragon3:http://www.requiem-minecraft.fr/wp-content/uploads/2012/07/Cape-ender.png
+redblackdragon3:https://raw.github.com/mDiyo/TinkersConstruct/master/capes/default_red.png
 xXThunderstarXx:http://i.imgur.com/zJgdW3C.png
 tonius11:https://dl.dropboxusercontent.com/s/a05r5c68e91dk2h/endercape.png
+Leilana:http://i.imgur.com/lMXcbre.png
+evaluno2:http://i.imgur.com/YYqlRRp.png
+andypie1010:http://oi41.tinypic.com/mlj9jm.jpg
