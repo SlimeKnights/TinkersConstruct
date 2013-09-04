@@ -1,0 +1,195 @@
+<!-- Originally built on BuildCraft build.xml -->
+<project name="TConstruct" default="main">
+	<property environment="env"/>
+	<!-- Properties -->
+
+	<property name="build.dir" value="build"/>
+	<property name="src.dir" value="src"/>
+	<property name="resources.dir" value="resources"/>
+
+	<property name="download.dir" value="download"/>
+
+	<property name="classes.dir" value="${build.dir}/classes"/>
+	<property name="jar.dir" value="bin"/>
+
+	<property name="forge.dir" value="${build.dir}/forge"/>
+	<property name="mcp.dir" value="${forge.dir}/mcp"/>
+
+	<property name="mcpsrc.dir" value="${mcp.dir}/src"/>
+
+	<property name="mc.version" value="1.6.2"/>
+	<property name="forge.version" value="9.10.0.845"/>
+
+    <property name="version.major" value="0"/>
+    <property name="version.minor" value="0"/>
+
+	<property name="forge.name" value="minecraftforge-src-${mc.version}-${forge.version}.zip"/>
+
+	<available property="forge-exists" file="${download.dir}/${forge.name}"/>
+	<available file=".git" type="dir" property="git.present"/>
+
+	<condition property="out-of-date">
+		<not>
+			<and>
+				<available file="${download.dir}/${forge.name}"/>
+				<available file="${mcpsrc.dir}"/>
+			</and>
+		</not>
+	</condition>
+
+	<mkdir dir="${download.dir}"/>
+
+	<!-- Targets -->
+
+	<!-- Clear build directory -->
+	<target name="clean">
+		<delete dir="${build.dir}"/>
+	</target>
+
+	<!-- Set full version -->
+	<target name="initialize-version" depends="version-provided,version-not-provided,git-revision">
+		<property name="project.version.full" value="${build.number}.${git.revision}"/>
+	</target>
+
+	<!-- Set unknown build number -->
+	<target name="version-not-provided" unless="env.BUILD_NUMBER">
+		<property name="build.number" value="DEV"/>
+	</target>
+
+	<!-- Set build number from environment -->
+	<target name="version-provided" if="env.BUILD_NUMBER">
+		<property name="build.number" value="${env.BUILD_NUMBER}"/>
+	</target>
+
+	<target name="git-revision" if="git.present">
+		<exec executable="git" dir="." outputproperty="git.revision" failifexecutionfails="false" errorproperty="">
+			<arg value="describe"/>
+			<arg value="--tags"/>
+			<arg value="--always"/>
+			<arg value="HEAD"/>
+		</exec>
+		<echo message="Git revision: ${git.revision}"/>
+	</target>
+
+	<!-- Download necessary files -->
+	<target name="download-files" depends="download-forge"/>
+
+	<!-- Download forge (if it doesn't exist) -->
+	<target name="download-forge" unless="forge-exists">
+		<get src="http://files.minecraftforge.net/${forge.name}" dest="${download.dir}" usetimestamp="True"/>
+	</target>
+
+	<!-- Setup mcp and forge -->
+	<target name="setup" depends="download-files" if="out-of-date">
+
+		<delete dir="${forge.dir}" failonerror="false"/>
+
+		<unzip dest="${forge.dir}/.." src="${download.dir}/${forge.name}"/>
+
+		<!-- Fix executable permissions -->
+		<chmod dir="${forge.dir}" perm="ugo+rx" includes="**.sh"/>
+
+        <!-- Copy AT -->
+        <mkdir dir="${forge.dir}/accesstransformers"/>
+        <copy todir="${forge.dir}/accesstransformers" file="TConstruct_AT.cfg"/>
+
+		<!-- Install forge -->
+		<exec dir="${forge.dir}" executable="${forge.dir}/fml/python/python_fml" osfamily="windows">
+			<arg line="install.py --no-assets"/>
+		</exec>
+
+		<exec dir="${forge.dir}" executable="python" osfamily="unix">
+			<arg line="install.py --no-assets"/>
+		</exec>
+
+	</target>
+
+	<target name="copy-src">
+		<!-- Copy sources -->
+		<copy todir="${mcpsrc.dir}/minecraft">
+			<fileset dir="${src.dir}"/>
+			<filterset>
+				<filter token="VERSION" value="${project.version.full}" />
+			</filterset>
+		</copy>
+	</target>
+
+	<target name="compile" depends="initialize-version,setup,copy-src">
+
+		<delete dir="${classes.dir}"/>
+		<mkdir dir="${classes.dir}"/>
+
+		<!-- Recompile -->
+		<exec dir="${mcp.dir}" executable="cmd" osfamily="windows">
+			<arg line="/c recompile.bat"/>
+		</exec>
+
+		<exec dir="${mcp.dir}" executable="sh" osfamily="unix">
+			<arg value="recompile.sh"/>
+		</exec>
+
+		<!-- Check for failure -->
+		<fail message="MCP failed to build">
+			<condition>
+				<resourcecontains resource="${mcp.dir}/logs/client_compile.log" substring="error:"/>
+			</condition>
+		</fail>
+
+	</target>
+
+	<target name="reobf" depends="compile">
+
+		<!-- Reobfuscate -->
+		<exec dir="${mcp.dir}" executable="cmd" osfamily="windows">
+			<arg line="/c reobfuscate.bat"/>
+		</exec>
+
+		<exec dir="${mcp.dir}" executable="sh" osfamily="unix">
+			<arg value="reobfuscate.sh"/>
+		</exec>
+
+		<!-- Copy classes -->
+		<copy todir="${classes.dir}">
+			<fileset dir="${mcp.dir}/reobf/minecraft"/>
+		</copy>
+
+		<!-- Copy resources -->
+		<copy todir="${classes.dir}" outputencoding="UTF-8">
+			<fileset dir="${classes.dir}">
+				<include name="assets/tinker/lang/*"/>
+			</fileset>
+		</copy>
+		<copy file="${resources.dir}/mcmod.info" todir="${classes.dir}" outputencoding="UTF-8">
+			<filterset>
+				<filter token="VERSION" value="${project.version.full}" />
+				<filter token="MCVERSION" value="${mc.version}" />
+			</filterset>
+		</copy>
+		<copy todir="${classes.dir}">
+			<fileset dir="${resources.dir}">
+				<exclude name="mcmod.info"/>
+			</fileset>
+		</copy>
+
+		<!-- Reset src dir to post-forge-install state -->
+		<delete dir="${mcpsrc.dir}/minecraft/tconstruct"/>
+        <delete dir="${mcpsrc.dir}/minecraft/sparrow"/>
+        <delete dir="${mcpsrc.dir}/minecraft/powercrystals"/>
+        <delete dir="${mcpsrc.dir}/minecraft/ic2"/>
+        <delete dir="${mcpsrc.dir}/minecraft/extrabiomes"/>
+
+	</target>
+
+	<!-- Package the compiled files -->
+	<target name="package" depends="reobf">
+
+		<delete dir="${jar.dir}"/>
+		<mkdir dir="${jar.dir}"/>
+		<jar destfile="${jar.dir}/TConstruct-${mc.version}-${project.version.full}.jar" basedir="${classes.dir}"/>
+
+	</target>
+
+	<!-- Default target to run -->
+	<target name="main" depends="package"/>
+
+</project>
