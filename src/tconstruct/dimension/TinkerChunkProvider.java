@@ -6,7 +6,6 @@ import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.NETH
 import java.util.List;
 import java.util.Random;
 
-import mods.natura.dimension.NetheriteChunk;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSand;
 import net.minecraft.entity.EnumCreatureType;
