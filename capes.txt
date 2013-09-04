@@ -38,3 +38,4 @@ tonius11:https://dl.dropboxusercontent.com/s/a05r5c68e91dk2h/endercape.png
 Leilana:http://i.imgur.com/lMXcbre.png
 evaluno2:http://i.imgur.com/YYqlRRp.png
 andypie1010:http://oi41.tinypic.com/mlj9jm.jpg
+hayden_swanick:https://raw.github.com/mDiyo/TinkersConstruct/master/capes/default_orange.png
