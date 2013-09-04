@@ -6,7 +6,6 @@ import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.NETH
 import java.util.List;
 import java.util.Random;
 
-import mods.natura.dimension.NetheriteChunk;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSand;
 import net.minecraft.entity.EnumCreatureType;
@@ -303,7 +302,8 @@ public class TinkerChunkProvider implements IChunkProvider
         this.replaceBlocksForBiome(chunkX, chunkZ, lowerArray);
         this.netherCaveGenerator.generate(this, this.worldObj, chunkX, chunkZ, lowerArray);
         this.genNetherBridge.generate(this, this.worldObj, chunkX, chunkZ, lowerArray);
-        Chunk chunk = new NetheriteChunk(this.worldObj, lowerArray, chunkX, chunkZ);
+		Chunk chunk = new Chunk(this.worldObj, lowerArray, chunkX, chunkZ);       
+		// Chunk chunk = new NetheriteChunk(this.worldObj, lowerArray, chunkX, chunkZ);
         BiomeGenBase[] abiomegenbase = this.worldObj.getWorldChunkManager().loadBlockGeneratorData((BiomeGenBase[]) null, chunkX * 16, chunkZ * 16, 16, 16);
         byte[] abyte1 = chunk.getBiomeArray();
 
