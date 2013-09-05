@@ -410,21 +410,6 @@ public class TEventHandler
                 }
             }
 
-            /*if (!player.worldObj.getGameRules().getGameRuleBooleanValue("keepInventory"))
-            {
-                TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
-                stats.armor.dropItems();
-                stats.knapsack.dropItems();
-            }*/
-        }
-    }
-
-    @ForgeSubscribe
-    public void onLivingDeath(LivingDeathEvent event)
-    {
-        if (event.entityLiving instanceof EntityPlayer)
-        {
-            EntityPlayer player = (EntityPlayer) event.entityLiving;
             if (!player.worldObj.getGameRules().getGameRuleBooleanValue("keepInventory"))
             {
                 TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
@@ -432,6 +417,12 @@ public class TEventHandler
                 stats.knapsack.dropItems();
             }
         }
+    }
+
+    @ForgeSubscribe
+    public void onLivingDeath(LivingDeathEvent event)
+    {
+
     }
 
     void addDrops(LivingDropsEvent event, ItemStack dropStack)
@@ -462,7 +453,7 @@ public class TEventHandler
                 creeper.mountEntity(living.riddenByEntity);
             else
                 creeper.mountEntity(living);
-            
+
             EntityXPOrb orb = new EntityXPOrb(living.worldObj, living.posX, living.posY, living.posZ, random.nextInt(20) + 20);
             orb.mountEntity(creeper);
         }
