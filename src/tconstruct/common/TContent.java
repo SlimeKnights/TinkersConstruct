@@ -30,15 +30,11 @@ import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import tconstruct.TConstruct;
-import tconstruct.blocks.Aggregator;
-import tconstruct.blocks.AntiLight;
 import tconstruct.blocks.CastingChannelBlock;
 import tconstruct.blocks.CraftingSlab;
 import tconstruct.blocks.CraftingStationBlock;
-import tconstruct.blocks.CrystalBlock;
 import tconstruct.blocks.DryingRack;
 import tconstruct.blocks.EquipBlock;
-import tconstruct.blocks.EssenceExtractor;
 import tconstruct.blocks.GlassBlockConnected;
 import tconstruct.blocks.GlassBlockConnectedMeta;
 import tconstruct.blocks.GlassPane;
@@ -68,15 +64,12 @@ import tconstruct.blocks.logic.CastingBasinLogic;
 import tconstruct.blocks.logic.CastingChannelLogic;
 import tconstruct.blocks.logic.CastingTableLogic;
 import tconstruct.blocks.logic.CraftingStationLogic;
-import tconstruct.blocks.logic.CrystalLogic;
 import tconstruct.blocks.logic.DrawbridgeLogic;
 import tconstruct.blocks.logic.DryingRackLogic;
-import tconstruct.blocks.logic.EssenceExtractorLogic;
 import tconstruct.blocks.logic.FaucetLogic;
 import tconstruct.blocks.logic.FirestarterLogic;
 import tconstruct.blocks.logic.FrypanLogic;
 import tconstruct.blocks.logic.LavaTankLogic;
-import tconstruct.blocks.logic.LightAggregator;
 import tconstruct.blocks.logic.MultiServantLogic;
 import tconstruct.blocks.logic.PartBuilderLogic;
 import tconstruct.blocks.logic.PatternChestLogic;
@@ -130,7 +123,6 @@ import tconstruct.items.blocks.GlassBlockItem;
 import tconstruct.items.blocks.GlassPaneItem;
 import tconstruct.items.blocks.GravelOreItem;
 import tconstruct.items.blocks.LavaTankItemBlock;
-import tconstruct.items.blocks.LightCrystalItem;
 import tconstruct.items.blocks.MetalItemBlock;
 import tconstruct.items.blocks.MetalOreItemBlock;
 import tconstruct.items.blocks.MultiBrickFancyItem;
@@ -342,11 +334,8 @@ public class TContent implements IFuelHandler
     public static Block stainedGlassClearMagicSlab;
 
     //Crystalline
-    public static Block aggregator;
-    public static Block lightCrystalBase;
     public static Block essenceExtractor;
     public static Item essenceCrystal;
-    public static Block darkBlock;
 
     //Liquids
     public static Material liquidMetal;
@@ -911,22 +900,6 @@ public class TContent implements IFuelHandler
         GameRegistry.registerBlock(stainedGlassClearPane, StainedGlassClearPaneItem.class, "GlassPaneClearStained");
 
         //Crystalline
-        aggregator = new Aggregator(PHConstruct.aggregator).setUnlocalizedName("Aggregator");
-        aggregator.stepSound = Block.soundMetalFootstep;
-        GameRegistry.registerBlock(aggregator, "Aggregator");
-        GameRegistry.registerTileEntity(LightAggregator.class, "LightAggregator");
-
-        lightCrystalBase = new CrystalBlock(PHConstruct.lightCrystalBase).setUnlocalizedName("Block.Crystal");
-        lightCrystalBase.stepSound = Block.soundGlassFootstep;
-        GameRegistry.registerBlock(lightCrystalBase, LightCrystalItem.class, "Block.Crystal");
-        GameRegistry.registerTileEntity(CrystalLogic.class, "CrystalLogic");
-
-        darkBlock = new AntiLight(PHConstruct.darkBlock).setUnlocalizedName("Antilight");
-        GameRegistry.registerBlock(darkBlock, "Antilight");
-
-        essenceExtractor = new EssenceExtractor(PHConstruct.essenceExtractor).setHardness(12f).setUnlocalizedName("extractor.essence");
-        GameRegistry.registerBlock(essenceExtractor, "extractor.essence");
-        GameRegistry.registerTileEntity(EssenceExtractorLogic.class, "extractor.essence");
     }
 
     void registerItems ()

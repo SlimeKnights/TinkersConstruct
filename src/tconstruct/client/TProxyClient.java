@@ -63,7 +63,6 @@ import tconstruct.blocks.logic.CraftingStationLogic;
 import tconstruct.blocks.logic.DrawbridgeLogic;
 import tconstruct.blocks.logic.DryingRackLogic;
 import tconstruct.blocks.logic.FrypanLogic;
-import tconstruct.blocks.logic.LightAggregator;
 import tconstruct.blocks.logic.PartBuilderLogic;
 import tconstruct.blocks.logic.PatternChestLogic;
 import tconstruct.blocks.logic.SmelteryLogic;
@@ -104,7 +103,6 @@ import tconstruct.client.gui.ArmorExtendedGui;
 import tconstruct.client.gui.CraftingStationGui;
 import tconstruct.client.gui.DrawbridgeGui;
 import tconstruct.client.gui.FrypanGui;
-import tconstruct.client.gui.GlowstoneAggregatorGui;
 import tconstruct.client.gui.GuiManual;
 import tconstruct.client.gui.KnapsackGui;
 import tconstruct.client.gui.MiniGardyGui;
@@ -191,8 +189,6 @@ public class TProxyClient extends TProxyCommon
             return new StencilTableGui(player.inventory, (StencilTableLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
         if (ID == toolForgeID)
             return new ToolForgeGui(player.inventory, (ToolForgeLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
-        if (ID == glowstoneAggregatorID)
-            return new GlowstoneAggregatorGui(player.inventory, (LightAggregator) world.getBlockTileEntity(x, y, z), world, x, y, z);
         if (ID == drawbridgeID)
             return new DrawbridgeGui(player.inventory, (DrawbridgeLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
         if (ID == landmineID)

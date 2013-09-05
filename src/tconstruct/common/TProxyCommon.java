@@ -29,7 +29,7 @@ public class TProxyCommon implements IGuiHandler
     public static int frypanGuiID = 4;
     public static int toolForgeID = 5;
     public static int smelteryGuiID = 7;
-    public static int glowstoneAggregatorID = 8;
+    
     public static int drawbridgeID = 9;
     public static int landmineID = 10;
     public static int craftingStationID = 11;
@@ -188,8 +188,6 @@ public class TProxyCommon implements IGuiHandler
         LanguageRegistry.addName(TContent.hammer, "Hammer");
         LanguageRegistry.addName(TContent.battleaxe, "Battleaxe");
         LanguageRegistry.addName(TContent.cutlass, "Cutlass");*/
-        LanguageRegistry.addName(TContent.aggregator, "Light Aggregator");
-        LanguageRegistry.addName(TContent.lightCrystalBase, "Light Crystal");
         LanguageRegistry.addName(TContent.knapsack, "Knapsack");
         //LanguageRegistry.addName(TContent.shortbow, "Shortbow");
         //LanguageRegistry.addName(TContent.arrow, "Arrow");

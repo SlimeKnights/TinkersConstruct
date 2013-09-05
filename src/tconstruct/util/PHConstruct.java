@@ -129,8 +129,8 @@ public class PHConstruct
         moltenEnder = config.getBlock("Molten Ender", 3218).getInt(3218);
 
         //3221+
-        aggregator = config.getBlock("Aggregator", 3221).getInt(3221);
-        lightCrystalBase = config.getBlock("Light Crystal", 3222).getInt(3222);
+        //3221
+        //3222
         glass = config.getBlock("Clear Glass", 3223).getInt(3223);
         stainedGlass = config.getBlock("Stained Glass", 3224).getInt(3224);
         stainedGlassClear = config.getBlock("Clear Stained Glass", 3225).getInt(3225);
@@ -158,7 +158,7 @@ public class PHConstruct
         woodCrafterSlab = config.getBlock("Crafting Slab", 3243).getInt(3243);
         woolSlab1 = config.getBlock("Wool Slab 1", 3244).getInt(3244);
         woolSlab2 = config.getBlock("Wool Slab 2", 3245).getInt(3245);
-        darkBlock = config.getBlock("Antilight", 3246).getInt(3246);
+        //3246
         castingChannel = config.getBlock("Casting Channel", 3249).getInt(3249);
 
         slimePoolBlue = config.getBlock("Liquid Blue Slime", 3235).getInt(3235);
@@ -410,11 +410,8 @@ public class PHConstruct
     public static int stainedGlassClearPane;
 
     //Crystalline
-    public static int aggregator;
-    public static int lightCrystalBase;
     public static int essenceExtractor;
     public static int essenceCrystal;
-    public static int darkBlock;
 
     //Liquids
     public static int metalFlowing;
