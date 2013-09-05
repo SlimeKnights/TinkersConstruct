@@ -30,7 +30,9 @@ import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import tconstruct.TConstruct;
+import tconstruct.blocks.BlockLandmine;
 import tconstruct.blocks.CastingChannelBlock;
+import tconstruct.blocks.ConveyorBase;
 import tconstruct.blocks.CraftingSlab;
 import tconstruct.blocks.CraftingStationBlock;
 import tconstruct.blocks.DryingRack;
@@ -53,6 +55,7 @@ import tconstruct.blocks.RedstoneMachine;
 import tconstruct.blocks.SearedBlock;
 import tconstruct.blocks.SearedSlab;
 import tconstruct.blocks.SlabBase;
+import tconstruct.blocks.SlimePad;
 import tconstruct.blocks.SmelteryBlock;
 import tconstruct.blocks.SoilBlock;
 import tconstruct.blocks.SpeedBlock;
@@ -78,6 +81,7 @@ import tconstruct.blocks.logic.PatternChestLogic;
 import tconstruct.blocks.logic.SmelteryDrainLogic;
 import tconstruct.blocks.logic.SmelteryLogic;
 import tconstruct.blocks.logic.StencilTableLogic;
+import tconstruct.blocks.logic.TileEntityLandmine;
 import tconstruct.blocks.logic.ToolForgeLogic;
 import tconstruct.blocks.logic.ToolStationLogic;
 import tconstruct.blocks.slime.SlimeFluid;
@@ -124,6 +128,7 @@ import tconstruct.items.blocks.CraftingSlabItemBlock;
 import tconstruct.items.blocks.GlassBlockItem;
 import tconstruct.items.blocks.GlassPaneItem;
 import tconstruct.items.blocks.GravelOreItem;
+import tconstruct.items.blocks.ItemBlockLandmine;
 import tconstruct.items.blocks.LavaTankItemBlock;
 import tconstruct.items.blocks.MetalItemBlock;
 import tconstruct.items.blocks.MetalOreItemBlock;
@@ -169,9 +174,6 @@ import tconstruct.items.tools.Rapier;
 import tconstruct.items.tools.Scythe;
 import tconstruct.items.tools.Shortbow;
 import tconstruct.items.tools.Shovel;
-import tconstruct.landmine.block.BlockLandmine;
-import tconstruct.landmine.item.ItemBlockLandmine;
-import tconstruct.landmine.tileentity.TileEntityLandmine;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.client.TConstructClientRegistry;
 import tconstruct.library.crafting.Detailing;
@@ -403,6 +405,7 @@ public class TContent implements IFuelHandler
     public static SlimeSapling slimeSapling;
 
     public static Block slimeChannel;
+    public static Block slimePad;
 
     //Ores
     public static Block oreSlag;
@@ -848,8 +851,11 @@ public class TContent implements IFuelHandler
         slimeSapling = (SlimeSapling) new SlimeSapling(PHConstruct.slimeSapling).setStepSound(slimeStep).setUnlocalizedName("slime.sapling");
         GameRegistry.registerBlock(slimeSapling, SlimeSaplingItemBlock.class, "slime.sapling");
 
-        /*slimeChannel = new ConveyorBase(PHConstruct.slimeChannel, Material.water).setStepSound(slimeStep).setUnlocalizedName("slime.channel");
-        GameRegistry.registerBlock(slimeChannel, "slime.channel");*/
+        slimeChannel = new ConveyorBase(PHConstruct.slimeChannel, Material.water).setStepSound(slimeStep).setUnlocalizedName("slime.channel");
+        GameRegistry.registerBlock(slimeChannel, "slime.channel");
+        
+        slimePad = new SlimePad(PHConstruct.slimePad, Material.cloth).setStepSound(slimeStep).setUnlocalizedName("slime.pad");
+        GameRegistry.registerBlock(slimePad, "slime.pad");
 
         //Decoration
         stoneTorch = new StoneTorch(PHConstruct.stoneTorch).setUnlocalizedName("decoration.stonetorch");
@@ -1081,7 +1087,7 @@ public class TContent implements IFuelHandler
         TConstructRegistry.addToolMaterial(5, "Bone", 1, 200, 400, 1, 1.0F, 0, 0f, "\u00A7e", "");
         TConstructRegistry.addToolMaterial(6, "Obsidian", 3, 89, 700, 2, 0.8F, 3, 0f, "\u00A7d", "");
         TConstructRegistry.addToolMaterial(7, "Netherrack", 2, 131, 400, 1, 1.2F, 0, 1f, "\u00A74", "Stonebound");
-        TConstructRegistry.addToolMaterial(8, "Slime", PHConstruct.miningLevelIncrease ? 3 : 0, 1500, 150, 0, 2.0F, 0, 0f, "\u00A7a", "");
+        TConstructRegistry.addToolMaterial(8, "Slime", 0, 500, 150, 0, 1.5F, 0, 0f, "\u00A7a", "");
         TConstructRegistry.addToolMaterial(9, "Paper", 0, 30, 200, 0, 0.3F, 0, 0f, "\u00A7f", "Writable");
         TConstructRegistry.addToolMaterial(10, "Cobalt", 4, 800, 1100, 3, 1.75F, 2, 0f, "\u00A73", "");
         TConstructRegistry.addToolMaterial(11, "Ardite", 4, 600, 800, 3, 2.0F, 0, 2f, "\u00A74", "Stonebound");
@@ -1090,7 +1096,7 @@ public class TContent implements IFuelHandler
         TConstructRegistry.addToolMaterial(14, "Bronze", 2, 350, 700, 2, 1.3F, 1, 0f, "\u00A76", "");
         TConstructRegistry.addToolMaterial(15, "Alumite", 4, 550, 800, 3, 1.3F, 2, 0f, "\u00A7d", "");
         TConstructRegistry.addToolMaterial(16, "Steel", 4, 750, 800, 3, 1.3F, 2, 0f, "", "");
-        TConstructRegistry.addToolMaterial(17, "BlueSlime", "Slime ", PHConstruct.miningLevelIncrease ? 1 : 0, 500, 150, 0, 1.5F, 0, 0f, "\u00A7b", "");
+        TConstructRegistry.addToolMaterial(17, "BlueSlime", "Slime ", 0, 1200, 150, 0, 2.0F, 0, 0f, "\u00A7b", "");
 
         TConstructRegistry.addBowMaterial(0, 384, 20, 1.0f); //Wood
         TConstructRegistry.addBowMaterial(1, 10, 80, 0.2f); //Stone
@@ -1862,6 +1868,9 @@ public class TContent implements IFuelHandler
         GameRegistry.addRecipe(new ItemStack(strangeFood, 4, 0), "#", '#', new ItemStack(slimeGel, 1, 0));
         GameRegistry.addRecipe(new ItemStack(slimeGel, 1, 1), "##", "##", '#', Item.slimeBall);
         GameRegistry.addRecipe(new ItemStack(Item.slimeBall, 4, 0), "#", '#', new ItemStack(slimeGel, 1, 1));
+        
+        GameRegistry.addShapelessRecipe(new ItemStack(slimeChannel, 1, 0), new ItemStack(slimeGel, 1, Short.MAX_VALUE), new ItemStack(Item.redstone));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(slimePad, 1, 0), slimeChannel, new ItemStack(slimeGel, 1, Short.MAX_VALUE), "slimeBall"));
 
         //Slab crafters
         GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 6, 0), "bbb", 'b', new ItemStack(Block.workbench));

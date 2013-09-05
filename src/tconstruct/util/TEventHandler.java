@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import net.minecraft.block.Block;
-import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.EntityLivingData;
 import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.monster.EntityGhast;
 import net.minecraft.entity.monster.EntitySkeleton;
@@ -22,7 +25,6 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumMovingObjectType;
 import net.minecraft.world.World;
-import net.minecraft.world.chunk.Chunk;
 import net.minecraftforge.event.Event;
 import net.minecraftforge.event.Event.Result;
 import net.minecraftforge.event.ForgeSubscribe;
@@ -32,15 +34,12 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.event.entity.player.BonemealEvent;
 import net.minecraftforge.event.entity.player.FillBucketEvent;
-import net.minecraftforge.event.world.ChunkDataEvent;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.OreDictionary.OreRegisterEvent;
 import tconstruct.TConstruct;
 import tconstruct.blocks.LiquidMetalFinite;
 import tconstruct.common.TContent;
-import tconstruct.crystal.CrystalValues;
-import tconstruct.crystal.Crystallinity;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.PatternBuilder;
 import tconstruct.library.crafting.Smeltery;
@@ -52,7 +51,6 @@ import tconstruct.library.tools.BowMaterial;
 import tconstruct.library.tools.BowstringMaterial;
 import tconstruct.library.tools.FletchingMaterial;
 import tconstruct.library.tools.ToolCore;
-import tconstruct.library.util.ValueCoordTuple;
 import tconstruct.modifiers.ModAttack;
 import tconstruct.util.player.TPlayerStats;
 
@@ -63,7 +61,7 @@ public class TEventHandler
 
     /* Crafting */
     @ForgeSubscribe
-    public void craftTool (ToolCraftEvent.NormalTool event)
+    public void craftTool(ToolCraftEvent.NormalTool event)
     {
         NBTTagCompound toolTag = event.toolTag.getCompoundTag("InfiTool");
         if (PHConstruct.denyMattock && event.tool == TContent.mattock)
@@ -154,7 +152,7 @@ public class TEventHandler
         }
     }
 
-    private boolean allowCrafting (int head, int handle, int accessory)
+    private boolean allowCrafting(int head, int handle, int accessory)
     {
         int[] nonMetals = { 0, 1, 3, 4, 5, 6, 7, 8, 9, 17 };
         for (int i = 0; i < nonMetals.length; i++)
@@ -166,7 +164,7 @@ public class TEventHandler
     }
 
     @ForgeSubscribe
-    public void craftPart (PartBuilderEvent.NormalPart event)
+    public void craftPart(PartBuilderEvent.NormalPart event)
     {
         if (event.pattern.getItem() == TContent.woodPattern && event.pattern.getItemDamage() == 23)
         {
@@ -187,7 +185,7 @@ public class TEventHandler
         }
     }
 
-    public static ItemStack craftBowString (ItemStack stack)
+    public static ItemStack craftBowString(ItemStack stack)
     {
         if (stack.stackSize < 3)
             return null;
@@ -198,7 +196,7 @@ public class TEventHandler
         return null;
     }
 
-    public static ItemStack craftFletching (ItemStack stack)
+    public static ItemStack craftFletching(ItemStack stack)
     {
         if (matchesLeaves(stack))
         {
@@ -212,7 +210,7 @@ public class TEventHandler
         return null;
     }
 
-    public static boolean matchesLeaves (ItemStack stack)
+    public static boolean matchesLeaves(ItemStack stack)
     {
         if (stack.itemID >= 4096)
             return false;
@@ -228,7 +226,7 @@ public class TEventHandler
 
     /* Damage */
     @ForgeSubscribe
-    public void onHurt (LivingHurtEvent event)
+    public void onHurt(LivingHurtEvent event)
     {
         if (event.entityLiving instanceof EntityPlayer)
         {
@@ -244,7 +242,7 @@ public class TEventHandler
 
     /* Drops */
     @ForgeSubscribe
-    public void onLivingDrop (LivingDropsEvent event)
+    public void onLivingDrop(LivingDropsEvent event)
     {
         if (random.nextInt(500) == 0 && event.entityLiving instanceof IMob && event.entityLiving.dimension == 0)
         {
@@ -422,7 +420,7 @@ public class TEventHandler
     }
 
     @ForgeSubscribe
-    public void onLivingDeath (LivingDeathEvent event)
+    public void onLivingDeath(LivingDeathEvent event)
     {
         if (event.entityLiving instanceof EntityPlayer)
         {
@@ -436,7 +434,7 @@ public class TEventHandler
         }
     }
 
-    void addDrops (LivingDropsEvent event, ItemStack dropStack)
+    void addDrops(LivingDropsEvent event, ItemStack dropStack)
     {
         EntityItem entityitem = new EntityItem(event.entityLiving.worldObj, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, dropStack);
         entityitem.delayBeforeCanPickup = 10;
@@ -453,70 +451,37 @@ public class TEventHandler
     }*/
 
     @ForgeSubscribe
-    public void onLivingSpawn (LivingSpawnEvent.SpecialSpawn event)
+    public void onLivingSpawn(LivingSpawnEvent.SpecialSpawn event)
     {
-        if (event.entityLiving.getClass() == EntitySpider.class && random.nextInt(100) == 0)
+        EntityLivingBase living = (EntityLivingBase) event.entityLiving;
+        if (living.getClass() == EntitySpider.class && random.nextInt(100) == 0)
         {
-            EntityCreeper creeper = new EntityCreeper(event.entityLiving.worldObj);
-            spawnEntity(event.entityLiving.posX, event.entityLiving.posY + 1, event.entityLiving.posZ, creeper, event.entityLiving.worldObj);
-            creeper.mountEntity(event.entityLiving);
+            EntityCreeper creeper = new EntityCreeper(living.worldObj);
+            spawnEntityLiving(living.posX, living.posY + 1, living.posZ, creeper, living.worldObj);
+            if (living.riddenByEntity != null)
+                creeper.mountEntity(living.riddenByEntity);
+            else
+                creeper.mountEntity(living);
+            
+            EntityXPOrb orb = new EntityXPOrb(living.worldObj, living.posX, living.posY, living.posZ, random.nextInt(20) + 20);
+            orb.mountEntity(creeper);
         }
     }
 
-    public static void spawnEntity (double x, double y, double z, Entity entity, World world)
+    public static void spawnEntityLiving(double x, double y, double z, EntityLiving entity, World world)
     {
-        /*if (!world.isRemote)
+        if (!world.isRemote)
         {
             entity.setPosition(x, y, z);
-            ((EntityLiving) entity).initCreature();
+            entity.func_110161_a((EntityLivingData) null);
             world.spawnEntityInWorld(entity);
-        }*/
-    }
-
-    /* Chunks */
-    @ForgeSubscribe
-    public void chunkDataLoad (ChunkDataEvent.Load event)
-    {
-        Chunk chunk = event.getChunk();
-        int worldID = chunk.worldObj.provider.dimensionId;
-        ValueCoordTuple coord = new ValueCoordTuple(worldID, chunk.xPosition, chunk.zPosition);
-        CrystalValues theft = new CrystalValues("Theft");
-        Crystallinity.theftValue.put(coord, theft.loadFromNBT(event.getData()));
-        CrystalValues charge = new CrystalValues("Charge");
-        Crystallinity.theftValue.put(coord, charge.loadFromNBT(event.getData()));
-    }
-
-    @ForgeSubscribe
-    public void chunkDataSave (ChunkDataEvent.Save event)
-    {
-        Chunk chunk = event.getChunk();
-        int worldID = chunk.worldObj.provider.dimensionId;
-        ValueCoordTuple coord = new ValueCoordTuple(worldID, chunk.xPosition, chunk.zPosition);
-        if (Crystallinity.theftValue.containsKey(coord))
-        {
-            CrystalValues crystal = Crystallinity.theftValue.get(coord);
-            crystal.saveToNBT(event.getData());
-            if (!event.getChunk().isChunkLoaded)
-            {
-                Crystallinity.theftValue.remove(coord);
-            }
-        }
-
-        if (Crystallinity.charge.containsKey(coord))
-        {
-            CrystalValues crystal = Crystallinity.charge.get(coord);
-            crystal.saveToNBT(event.getData());
-            if (!event.getChunk().isChunkLoaded)
-            {
-                Crystallinity.charge.remove(coord);
-            }
         }
     }
 
     /* Bonemeal */
 
     @ForgeSubscribe
-    public void bonemealEvent (BonemealEvent event)
+    public void bonemealEvent(BonemealEvent event)
     {
         if (!event.world.isRemote)
         {
@@ -530,7 +495,7 @@ public class TEventHandler
 
     /* Ore Dictionary */
     @ForgeSubscribe
-    public void registerOre (OreRegisterEvent evt)
+    public void registerOre(OreRegisterEvent evt)
     {
         String ingot = evt.Name.toLowerCase();
         if (ingot.contains("ingot"))
@@ -966,7 +931,7 @@ public class TEventHandler
         }*/
     }
 
-    public void unfuxOreDictionary ()
+    public void unfuxOreDictionary()
     {
         ArrayList<ItemStack> ores = OreDictionary.getOres("plankWood");
         for (ItemStack ore : ores)
@@ -1511,7 +1476,7 @@ public class TEventHandler
     }
 
     @ForgeSubscribe
-    public void bucketFill (FillBucketEvent evt)
+    public void bucketFill(FillBucketEvent evt)
     {
         if (evt.current.getItem() == Item.bucketEmpty && evt.target.typeOfHit == EnumMovingObjectType.TILE)
         {

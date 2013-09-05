@@ -10,27 +10,23 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.Icon;
 import net.minecraft.util.MathHelper;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import tconstruct.client.block.SlimeChannelRender;
+import tconstruct.client.block.SlimePadRender;
+import tconstruct.common.TContent;
 import tconstruct.library.TConstructRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class ConveyorBase extends Block
+public class SlimePad extends Block
 {
-    public ConveyorBase(int ID, Material material)
+
+    public SlimePad(int par1, Material par2Material)
     {
-        super(ID, material);
+        super(par1, par2Material);
+        setBlockBounds(0.125F, 0.0F, 0.125F, 0.875F, 0.625F, 0.875F);
         this.setCreativeTab(TConstructRegistry.blockTab);
-        setBlockBounds(0f, 0f, 0f, 1f, 0.5f, 1f);
     }
     
-    public boolean isBlockReplaceable(World world, int x, int y, int z)
-    {
-        return false;
-    }
-
     @Override
     public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z)
     {
@@ -45,7 +41,7 @@ public class ConveyorBase extends Block
             double moveX = 0;
             double moveZ = 0;
             
-            double speed = 0.01;
+            double speed = 0.25;
 
             int meta = world.getBlockMetadata(x, y, z);
             switch (meta % 8)
@@ -80,10 +76,20 @@ public class ConveyorBase extends Block
                 break;
             }
 
-            entity.addVelocity(moveX, 0, moveZ);
+            if (entity instanceof EntityItem)
+            {
+                entity.posY += 1;
+            }
+            entity.addVelocity(moveX, speed*2, moveZ);
+            world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, this.stepSound.getStepSound(), (this.stepSound.getVolume()) / 2.0F, this.stepSound.getPitch() * 0.65F);
         }
     }
     
+    public boolean isBlockReplaceable(World world, int x, int y, int z)
+    {
+        return false;
+    }
+
     @Override
     public void onBlockPlacedBy(World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack)
     {
@@ -92,16 +98,6 @@ public class ConveyorBase extends Block
         world.setBlockMetadataWithNotify(x, y, z, face | meta, 2);
     }
     
-    public boolean shouldSideBeRendered(IBlockAccess world, int x, int y, int z, int side)
-    {
-        if (side == 1)
-            return false;
-        return super.shouldSideBeRendered(world, x, y, z, side);
-    }
-
-    public Icon[] icons;
-
-    /* Rendering */
     @Override
     public boolean renderAsNormalBlock()
     {
@@ -123,27 +119,26 @@ public class ConveyorBase extends Block
     @Override
     public int getRenderType()
     {
-        return SlimeChannelRender.model;
+        return SlimePadRender.model;
     }
 
     @Override
-    public void registerIcons(IconRegister iconRegister)
-    {
-        String[] textureNames = new String[] { "greencurrent", "greencurrent_flow" };
-        this.icons = new Icon[textureNames.length];
-
-        for (int i = 0; i < this.icons.length; ++i)
-        {
-            this.icons[i] = iconRegister.registerIcon("tinker:" + textureNames[i]);
-        }
-    }
+    public void registerIcons(IconRegister iconRegister) {}
 
     @Override
     @SideOnly(Side.CLIENT)
     public Icon getIcon(int side, int meta)
     {
-        if (meta >= 8)
-            return icons[0];
-        return side == 1 ? icons[1] : icons[0];
+        return TContent.slimeGel.getIcon(side, 1);
+    }
+
+    public Icon getFluidIcon(int meta)
+    {
+        return TContent.slimeChannel.getIcon(2, 0);
+    }
+
+    public Icon getNubIcon(int meta)
+    {
+        return TContent.slimeGel.getIcon(0, 0);
     }
 }

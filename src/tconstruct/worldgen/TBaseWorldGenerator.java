@@ -9,9 +9,6 @@ import net.minecraft.world.WorldType;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.feature.WorldGenMinable;
 import tconstruct.common.TContent;
-import tconstruct.crystal.CrystalValues;
-import tconstruct.crystal.Crystallinity;
-import tconstruct.library.util.ValueCoordTuple;
 import tconstruct.util.PHConstruct;
 import cpw.mods.fml.common.IWorldGenerator;
 
@@ -37,8 +34,6 @@ public class TBaseWorldGenerator implements IWorldGenerator
     @Override
     public void generate (Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider)
     {
-        initializeChunkData(chunkX, chunkZ, world.provider.dimensionId);
-
         if (world.provider.isHellWorld)
         {
             generateNether(random, chunkX * 16, chunkZ * 16, world);
@@ -59,13 +54,6 @@ public class TBaseWorldGenerator implements IWorldGenerator
         {
             generateChunkBorder(random, chunkX * 16, chunkZ * 16, world);
         }
-    }
-
-    void initializeChunkData (int chunkX, int chunkZ, int worldID)
-    {
-        ValueCoordTuple coord = new ValueCoordTuple(worldID, chunkX, chunkZ);
-        Crystallinity.theftValue.put(coord, new CrystalValues("Theft"));
-        Crystallinity.charge.put(coord, new CrystalValues("Charge"));
     }
 
     void generateSurface (Random random, int xChunk, int zChunk, World world)

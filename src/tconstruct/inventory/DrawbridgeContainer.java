@@ -1,7 +1,6 @@
 package tconstruct.inventory;
 
 import tconstruct.blocks.logic.DrawbridgeLogic;
-import tconstruct.landmine.inventory.SlotOpaqueBlocksOnly;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;

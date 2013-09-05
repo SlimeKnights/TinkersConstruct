@@ -4,8 +4,6 @@ import net.minecraftforge.common.MinecraftForge;
 import tconstruct.client.event.EventCloakRender;
 import tconstruct.common.TContent;
 import tconstruct.common.TProxyCommon;
-import tconstruct.landmine.logic.behavior.Behavior;
-import tconstruct.landmine.logic.behavior.stackCombo.SpecialStackHandler;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.Detailing;
 import tconstruct.library.crafting.LiquidCasting;
@@ -13,6 +11,8 @@ import tconstruct.library.util.TabTools;
 import tconstruct.util.PHConstruct;
 import tconstruct.util.TCraftingHandler;
 import tconstruct.util.TEventHandler;
+import tconstruct.util.landmine.behavior.Behavior;
+import tconstruct.util.landmine.behavior.stackCombo.SpecialStackHandler;
 import tconstruct.util.player.TPlayerHandler;
 import tconstruct.worldgen.SlimeIslandGen;
 import tconstruct.worldgen.TBaseWorldGenerator;
@@ -40,7 +40,7 @@ import cpw.mods.fml.relauncher.Side;
  * @dependencies: IC2 API, MFR API
  */
 
-@Mod(modid = "TConstruct", name = "TConstruct", version = "1.6.2_1.4.4", dependencies = "required-after:Forge@[7.7.1.687,)")
+@Mod(modid = "TConstruct", name = "TConstruct", version = "1.6.2_1.4.5d1", dependencies = "required-after:Forge@[7.7.1.687,)")
 @NetworkMod(serverSideRequired = false, clientSideRequired = true, channels = { "TConstruct" }, packetHandler = tconstruct.util.network.TPacketHandler.class)
 public class TConstruct
 {

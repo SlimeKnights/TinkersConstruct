@@ -69,7 +69,6 @@ public class PHConstruct
         denyMattock = config.get("Difficulty Changes", "Deny creation of non-metal mattocks", false).getBoolean(false);
         harderBronze = config.get("Difficulty Changes", "Lower bronze output to 2 ingots", false).getBoolean(false);
         stencilTableCrafting = config.get("Difficulty Changes", "Craft Stencil Tables", true).getBoolean(true);
-        miningLevelIncrease = config.get("Difficulty Changes", "Modifiers increase Mining Level", true).getBoolean(true);
         denyMattock = config.get("Difficulty Changes", "Deny creation of non-metal mattocks", false).getBoolean(false);
 
         //1467-1489
@@ -102,7 +101,8 @@ public class PHConstruct
         barricadeBirch = config.getBlock("Birch Barricade", 1483).getInt(1483);
         barricadeJungle = config.getBlock("Jungle Barricade", 1487).getInt(1487);
         
-        slimeChannel =  config.getBlock("Slime Channel", 3190).getInt(3190);
+        slimeChannel = config.getBlock("Slime Channel", 3190).getInt(3190);
+        slimePad = config.getBlock("Slime Pad", 3191).getInt(3191);
 
         //Thermal Expansion
         moltenSilver = config.getBlock("Molten Silver", 3195).getInt(3195);
@@ -452,6 +452,7 @@ public class PHConstruct
     public static int slimeSapling;
     
     public static int slimeChannel;
+    public static int slimePad;
 
     //Decoration
     public static int stoneTorch;
