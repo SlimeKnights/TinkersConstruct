@@ -101,6 +101,8 @@ public class PHConstruct
         barricadeSpruce = config.getBlock("Spruce Barricade", 1482).getInt(1482);
         barricadeBirch = config.getBlock("Birch Barricade", 1483).getInt(1483);
         barricadeJungle = config.getBlock("Jungle Barricade", 1487).getInt(1487);
+        
+        slimeChannel =  config.getBlock("Slime Channel", 3190).getInt(3190);
 
         //Thermal Expansion
         moltenSilver = config.getBlock("Molten Silver", 3195).getInt(3195);
@@ -141,7 +143,6 @@ public class PHConstruct
 
         searedSlab = config.getBlock("Seared Slab", 3230).getInt(3230);
         speedSlab = config.getBlock("Speed Slab", 3231).getInt(3231);
-        //grassSlab = config.getBlock("Grass Slab", 3230).getInt(3230);
 
         punji = config.getBlock("Punji", 3232).getInt(3232);
         woodCrafter = config.getBlock("Crafting Station", 3233).getInt(3233);
@@ -449,6 +450,8 @@ public class PHConstruct
     public static int slimeTallGrass;
     public static int slimeLeaves;
     public static int slimeSapling;
+    
+    public static int slimeChannel;
 
     //Decoration
     public static int stoneTorch;

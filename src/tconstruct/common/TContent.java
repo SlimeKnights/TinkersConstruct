@@ -35,6 +35,7 @@ import tconstruct.blocks.CraftingSlab;
 import tconstruct.blocks.CraftingStationBlock;
 import tconstruct.blocks.DryingRack;
 import tconstruct.blocks.EquipBlock;
+import tconstruct.blocks.EssenceExtractor;
 import tconstruct.blocks.GlassBlockConnected;
 import tconstruct.blocks.GlassBlockConnectedMeta;
 import tconstruct.blocks.GlassPane;
@@ -66,6 +67,7 @@ import tconstruct.blocks.logic.CastingTableLogic;
 import tconstruct.blocks.logic.CraftingStationLogic;
 import tconstruct.blocks.logic.DrawbridgeLogic;
 import tconstruct.blocks.logic.DryingRackLogic;
+import tconstruct.blocks.logic.EssenceExtractorLogic;
 import tconstruct.blocks.logic.FaucetLogic;
 import tconstruct.blocks.logic.FirestarterLogic;
 import tconstruct.blocks.logic.FrypanLogic;
@@ -400,6 +402,8 @@ public class TContent implements IFuelHandler
     public static SlimeLeaves slimeLeaves;
     public static SlimeSapling slimeSapling;
 
+    public static Block slimeChannel;
+
     //Ores
     public static Block oreSlag;
     public static Block oreGravel;
@@ -436,7 +440,7 @@ public class TContent implements IFuelHandler
         addLoot();
     }
 
-    public void createEntities ()
+    public void createEntities()
     {
         EntityRegistry.registerModEntity(FancyEntityItem.class, "Fancy Item", 0, TConstruct.instance, 32, 5, true);
         EntityRegistry.registerModEntity(DaggerEntity.class, "Dagger", 1, TConstruct.instance, 32, 5, true);
@@ -490,7 +494,7 @@ public class TContent implements IFuelHandler
     public static Fluid[] fluids = new Fluid[25];
     public static Block[] fluidBlocks = new Block[25];
 
-    void registerBlocks ()
+    void registerBlocks()
     {
         //Tool Station
         toolStationWood = new ToolStationBlock(PHConstruct.woodStation, Material.wood).setUnlocalizedName("ToolStation");
@@ -844,6 +848,9 @@ public class TContent implements IFuelHandler
         slimeSapling = (SlimeSapling) new SlimeSapling(PHConstruct.slimeSapling).setStepSound(slimeStep).setUnlocalizedName("slime.sapling");
         GameRegistry.registerBlock(slimeSapling, SlimeSaplingItemBlock.class, "slime.sapling");
 
+        /*slimeChannel = new ConveyorBase(PHConstruct.slimeChannel, Material.water).setStepSound(slimeStep).setUnlocalizedName("slime.channel");
+        GameRegistry.registerBlock(slimeChannel, "slime.channel");*/
+
         //Decoration
         stoneTorch = new StoneTorch(PHConstruct.stoneTorch).setUnlocalizedName("decoration.stonetorch");
         GameRegistry.registerBlock(stoneTorch, "decoration.stonetorch");
@@ -900,9 +907,12 @@ public class TContent implements IFuelHandler
         GameRegistry.registerBlock(stainedGlassClearPane, StainedGlassClearPaneItem.class, "GlassPaneClearStained");
 
         //Crystalline
+        essenceExtractor = new EssenceExtractor(PHConstruct.essenceExtractor).setHardness(12f).setUnlocalizedName("extractor.essence");
+        GameRegistry.registerBlock(essenceExtractor, "extractor.essence");
+        GameRegistry.registerTileEntity(EssenceExtractorLogic.class, "extractor.essence");
     }
 
-    void registerItems ()
+    void registerItems()
     {
         titleIcon = new TitleIcon(PHConstruct.uselessItem).setUnlocalizedName("tconstruct.titleicon");
         String[] blanks = new String[] { "blank_pattern", "blank_cast", "blank_cast" };
@@ -1023,7 +1033,7 @@ public class TContent implements IFuelHandler
         essenceCrystal = new EssenceCrystal(PHConstruct.essenceCrystal).setUnlocalizedName("tconstruct.crystal.essence");
         goldHead = new GoldenHead(PHConstruct.goldHead, 4, 1.2F, false).setAlwaysEdible().setPotionEffect(Potion.regeneration.id, 10, 0, 1.0F).setUnlocalizedName("goldenhead");
 
-//        essenceCrystal = new EssenceCrystal(PHConstruct.essenceCrystal).setUnlocalizedName("tconstruct.crystal.essence");
+        //        essenceCrystal = new EssenceCrystal(PHConstruct.essenceCrystal).setUnlocalizedName("tconstruct.crystal.essence");
 
         String[] materialStrings = { "paperStack", "greenSlimeCrystal", "searedBrick", "ingotCobalt", "ingotArdite", "ingotManyullyn", "mossBall", "lavaCrystal", "necroticBone", "ingotCopper",
                 "ingotTin", "ingotAluminum", "rawAluminum", "ingotBronze", "ingotAluminumBrass", "ingotAlumite", "ingotSteel", "blueSlimeCrystal", "ingotObsidian", "nuggetIron", "nuggetCopper",
@@ -1061,7 +1071,7 @@ public class TContent implements IFuelHandler
         //Block.torchWood.setTickRandomly(false);
     }
 
-    void registerMaterials ()
+    void registerMaterials()
     {
         TConstructRegistry.addToolMaterial(0, "Wood", "Wooden ", 0, 59, 200, 0, 1.0F, 0, 0f, "\u00A7e", "");
         TConstructRegistry.addToolMaterial(1, "Stone", 1, 131, 400, 1, 0.5F, 0, 1f, "", "Stonebound");
@@ -1184,7 +1194,7 @@ public class TContent implements IFuelHandler
     public static Item[] patternOutputs;
     public static FluidStack[] liquids;
 
-    void addCraftingRecipes ()
+    void addCraftingRecipes()
     {
         /* Tools */
         patternOutputs = new Item[] { toolRod, pickaxeHead, shovelHead, hatchetHead, swordBlade, wideGuard, handGuard, crossbar, binding, frypanHead, signHead, knifeBlade, chiselHead, toughRod,
@@ -1868,7 +1878,7 @@ public class TContent implements IFuelHandler
         GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 5), "b", 'b', new ItemStack(toolForge, 1, Short.MAX_VALUE));
     }
 
-    void setupToolTabs ()
+    void setupToolTabs()
     {
         TConstructRegistry.materialTab.init(new ItemStack(titleIcon, 1, 255));
         TConstructRegistry.blockTab.init(new ItemStack(toolStationWood));
@@ -1885,7 +1895,7 @@ public class TContent implements IFuelHandler
         TConstructRegistry.toolTab.init(tool);
     }
 
-    public void addLoot ()
+    public void addLoot()
     {
         //Item, min, max, weight
         ChestGenHooks.getInfo(ChestGenHooks.DUNGEON_CHEST).addItem(new WeightedRandomChestContent(new ItemStack(heartCanister, 1, 1), 1, 1, 5));
@@ -1915,7 +1925,7 @@ public class TContent implements IFuelHandler
 
     public static String[] liquidNames;
 
-    public void oreRegistry ()
+    public void oreRegistry()
     {
         OreDictionary.registerOre("oreCobalt", new ItemStack(oreSlag, 1, 1));
         OreDictionary.registerOre("oreArdite", new ItemStack(oreSlag, 1, 2));
@@ -1991,7 +2001,7 @@ public class TContent implements IFuelHandler
 
     public static boolean thaumcraftAvailable;
 
-    public void intermodCommunication ()
+    public void intermodCommunication()
     {
         FMLInterModComms.sendMessage("Thaumcraft", "harvestClickableCrop", new ItemStack(oreBerry, 1, 12));
         FMLInterModComms.sendMessage("Thaumcraft", "harvestClickableCrop", new ItemStack(oreBerry, 1, 13));
@@ -2014,7 +2024,7 @@ public class TContent implements IFuelHandler
 
     private static boolean initRecipes;
 
-    public static void modRecipes ()
+    public static void modRecipes()
     {
         if (!initRecipes)
         {
@@ -2054,7 +2064,7 @@ public class TContent implements IFuelHandler
         }
     }
 
-    public static void addShapedRecipeFirst (List recipeList, ItemStack itemstack, Object... objArray)
+    public static void addShapedRecipeFirst(List recipeList, ItemStack itemstack, Object... objArray)
     {
         String var3 = "";
         int var4 = 0;
@@ -2127,7 +2137,7 @@ public class TContent implements IFuelHandler
         recipeList.add(0, var17);
     }
 
-    public void modIntegration ()
+    public void modIntegration()
     {
         ItemStack ironpick = ToolBuilder.instance.buildTool(new ItemStack(TContent.pickaxeHead, 1, 6), new ItemStack(TContent.toolRod, 1, 2), new ItemStack(TContent.binding, 1, 6), "");
         /* IC2 */
@@ -2264,7 +2274,7 @@ public class TContent implements IFuelHandler
         }
     }
 
-    public static Object getStaticItem (String name, String classPackage)
+    public static Object getStaticItem(String name, String classPackage)
     {
         try
         {
@@ -2283,7 +2293,7 @@ public class TContent implements IFuelHandler
     }
 
     @Override
-    public int getBurnTime (ItemStack fuel)
+    public int getBurnTime(ItemStack fuel)
     {
         if (fuel.itemID == materials.itemID && fuel.getItemDamage() == 7)
             return 26400;
