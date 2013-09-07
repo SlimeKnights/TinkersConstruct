@@ -1,4 +1,4 @@
-Tinkers' Construct - 1.5 
+Tinkers' Construct
 http://www.minecraftforum.net/topic/1659892-tinkers-construct/
 
 Modify all the things, then do it again! 	 
