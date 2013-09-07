@@ -986,8 +986,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     @Override
     public FluidTankInfo getInfo ()
     {
-        //TODO: This
-        return null;
+        return new FluidTankInfo(this);
     }
 
     /* NBT */
