@@ -34,7 +34,7 @@ public class TurnPageButton extends GuiButton
         {
             boolean var4 = par2 >= this.xPosition && par3 >= this.yPosition && par2 < this.xPosition + this.width && par3 < this.yPosition + this.height;
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-            par1Minecraft.func_110434_K().func_110577_a(background);
+            par1Minecraft.getTextureManager().bindTexture(background);
             int var5 = 0;
             int var6 = 192;
 

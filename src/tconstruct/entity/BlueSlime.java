@@ -122,13 +122,13 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
 
     public EntityLivingData func_110161_a (EntityLivingData par1EntityLivingData)
     {
-        Object par1EntityLivingData1 = super.func_110161_a(par1EntityLivingData);
+        Object par1EntityLivingData1 = super.onSpawnWithEgg(par1EntityLivingData);
 
         if (getSlimeSize() == 2 && rand.nextInt(8) == 0)
         {
             EntitySkeleton entityskeleton = new EntitySkeleton(this.worldObj);
             entityskeleton.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
-            entityskeleton.func_110161_a(par1EntityLivingData);
+            entityskeleton.onSpawnWithEgg(par1EntityLivingData);
             this.worldObj.spawnEntityInWorld(entityskeleton);
             entityskeleton.mountEntity(this);
         }
@@ -136,7 +136,7 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
         {
             EntityCreeper creeper = new EntityCreeper(this.worldObj);
             creeper.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
-            creeper.func_110161_a(par1EntityLivingData);
+            creeper.onSpawnWithEgg(par1EntityLivingData);
             this.worldObj.spawnEntityInWorld(creeper);
             creeper.mountEntity(this);
         }
@@ -157,7 +157,7 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
 
             EntitySkeleton skelton = new EntitySkeleton(this.worldObj);
             skelton.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
-            skelton.func_110161_a(par1EntityLivingData);
+            skelton.onSpawnWithEgg(par1EntityLivingData);
             this.worldObj.spawnEntityInWorld(skelton);
             skelton.mountEntity(slime);
         }
@@ -274,22 +274,22 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
         this.dataWatcher.updateObject(16, new Byte((byte) size));
         this.setSize(0.6F * (float) size, 0.6F * (float) size);
         this.setPosition(this.posX, this.posY, this.posZ);
-        this.func_110148_a(SharedMonsterAttributes.field_111267_a).func_111128_a(this.getMaxHealth());
-        this.setEntityHealth(this.func_110138_aP());
+        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setAttribute(this.getMaxHealth());
+        this.setHealth(this.getMaxHealth());
 
         this.experienceValue = size + 2 ^ (size);
         if (size >= 8)
             this.experienceValue = 500;
     }
 
-    public int getMaxHealth ()
+    public float getMaxHealth ()
     {
         int i = this.getSlimeSize();
         if (i == 1)
             return 4;
         if (i == 8)
             return 100;
-        return (int) Math.min(i * i + 8, 49);
+        return (float) Math.min(i * i + 8, 49);
     }
 
     /**
@@ -461,7 +461,7 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
     {
         int size = this.getSlimeSize();
 
-        if (!this.worldObj.isRemote && size > 1 && this.func_110143_aJ() <= 0 && size < 8)
+        if (!this.worldObj.isRemote && size > 1 && this.getHealth() <= 0 && size < 8)
         {
             float f = (-0.5F) * (float) size / 4.0F;
             float f1 = (-0.5F) * (float) size / 4.0F;

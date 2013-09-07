@@ -79,15 +79,15 @@ public class PaneRender implements ISimpleBlockRenderingHandler
         icon = renderblocks.getBlockIconFromSideAndMetadata(pane, 0, meta);
         icon1 = pane.getSideTextureIndex(meta);
 
-        meta = icon.getOriginX();
-        int k1 = icon.getOriginY();
+        meta = icon.getIconWidth();
+        int k1 = icon.getIconHeight();
         double d = (double) icon.getMinU();
         double d1 = (double) icon.getInterpolatedU(8.0D);
         double d2 = (double) icon.getMaxU();
         double d3 = (double) icon.getMinV();
         double d4 = (double) icon.getMaxV();
-        int l1 = icon1.getOriginX();
-        int i2 = icon1.getOriginY();
+        int l1 = icon1.getIconWidth();
+        int i2 = icon1.getIconHeight();
         double d5 = (double) icon1.getInterpolatedU(7.0D);
         double d6 = (double) icon1.getInterpolatedU(9.0D);
         double d7 = (double) icon1.getMinV();

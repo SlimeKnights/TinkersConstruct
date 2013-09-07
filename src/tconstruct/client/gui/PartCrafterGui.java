@@ -156,7 +156,7 @@ public class PartCrafterGui extends NewContainerGui
     {
         // Draw the background
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        this.mc.func_110434_K().func_110577_a(background);
+        this.mc.getTextureManager().bindTexture(background);
         int cornerX = (this.width - this.xSize) / 2;
         int cornerY = (this.height - this.ySize) / 2;
         this.drawTexturedModalRect(cornerX, cornerY, 0, 0, this.xSize, this.ySize);
@@ -184,13 +184,13 @@ public class PartCrafterGui extends NewContainerGui
         if (drawChestPart)
         {
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-            this.mc.func_110434_K().func_110577_a(minichest);
+            this.mc.getTextureManager().bindTexture(minichest);
             this.drawTexturedModalRect(cornerX - 116, cornerY + 11, 0, 0, this.xSize, this.ySize);
         }
 
         // Draw description
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        this.mc.func_110434_K().func_110577_a(description);
+        this.mc.getTextureManager().bindTexture(description);
         cornerX = (this.width + this.xSize) / 2;
         cornerY = (this.height - this.ySize) / 2;
         this.drawTexturedModalRect(cornerX, cornerY, 126, 0, 126, this.ySize);

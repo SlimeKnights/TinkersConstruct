@@ -20,12 +20,12 @@ public class MetalSlime extends BlueSlime
         return super.attackEntityFrom(damageSource, damage);
     }
 
-    public int getMaxHealth ()
+    public float getMaxHealth ()
     {
         int i = this.getSlimeSize();
         if (i == 1)
             return 4;
-        return (int) Math.min(i * i + 20, 100);
+        return (float) Math.min(i * i + 20, 100);
     }
 
     public int getTotalArmorValue ()

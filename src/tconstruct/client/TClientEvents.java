@@ -109,13 +109,13 @@ public class TClientEvents
                 highlight = false;
             }
 
-            AttributeInstance attrMaxHealth = this.mc.thePlayer.func_110148_a(SharedMonsterAttributes.field_111267_a);
-            int health = MathHelper.ceiling_float_int(mc.thePlayer.func_110143_aJ());
+            AttributeInstance attrMaxHealth = this.mc.thePlayer.getEntityAttribute(SharedMonsterAttributes.maxHealth);
+            int health = MathHelper.ceiling_float_int(mc.thePlayer.getHealth());
             int healthLast = MathHelper.ceiling_float_int(mc.thePlayer.prevHealth);
-            float healthMax = (float) attrMaxHealth.func_111126_e();
+            float healthMax = (float) attrMaxHealth.getAttributeValue();
             if (healthMax > 20)
                 healthMax = 20;
-            float absorb = this.mc.thePlayer.func_110139_bj();
+            float absorb = this.mc.thePlayer.getAbsorptionAmount();
 
             int healthRows = MathHelper.ceiling_float_int((healthMax + absorb) / 2.0F / 10.0F);
             int rowHeight = Math.max(10 - (healthRows - 2), 3);
@@ -187,9 +187,9 @@ public class TClientEvents
                 return;
 
             //Extra hearts
-            this.mc.func_110434_K().func_110577_a(hearts);
+            this.mc.getTextureManager().bindTexture(hearts);
 
-            int hp = MathHelper.ceiling_float_int(this.mc.thePlayer.func_110143_aJ());
+            int hp = MathHelper.ceiling_float_int(this.mc.thePlayer.getHealth());
             for (int iter = 0; iter < hp / 20; iter++)
             {
                 int renderHearts = (hp - 20 * (iter + 1)) / 2;
@@ -205,7 +205,7 @@ public class TClientEvents
                 }
             }
 
-            this.mc.func_110434_K().func_110577_a(icons);
+            this.mc.getTextureManager().bindTexture(icons);
             GuiIngameForge.left_height += 10;
             if (absorb > 0)
                 GuiIngameForge.left_height += 10;

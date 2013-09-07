@@ -179,7 +179,7 @@ public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogi
     @Override
     public void onDataPacket (INetworkManager net, Packet132TileEntityData packet)
     {
-        readCustomNBT(packet.customParam1);
+        readCustomNBT(packet.data);
         worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
     }
 

@@ -57,7 +57,7 @@ public class ModifierPage extends BookPage
 
     public void renderBackgroundLayer (int localWidth, int localHeight)
     {
-        manual.getMC().func_110434_K().func_110577_a(background);
+        manual.getMC().getTextureManager().bindTexture(background);
         manual.drawTexturedModalRect(localWidth + 12, localHeight + 32, 0, 0, 154, 78);
     }
 }
