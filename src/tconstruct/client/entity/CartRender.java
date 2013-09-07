@@ -132,7 +132,7 @@ public class CartRender extends Render
         this.renderPullcart((CartEntity) par1Entity, par2, par4, par6, par8, par9);
     }
 
-    protected ResourceLocation func_110775_a (Entity par1Entity)
+    protected ResourceLocation getEntityTexture (Entity par1Entity)
     {
         return texture;
     }

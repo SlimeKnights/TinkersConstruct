@@ -52,7 +52,7 @@ public class ArrowRender extends Render
      */
     public void doRenderItem (ArrowEntity par1ArrowEntity, double par2, double par4, double par6, float par8, float par9)
     {
-        this.func_110777_b(par1ArrowEntity);
+        this.bindEntityTexture(par1ArrowEntity);
         this.random.setSeed(187L);
         ItemStack itemstack = par1ArrowEntity.getEntityItem();
 
@@ -188,7 +188,7 @@ public class ArrowRender extends Render
 
     protected ResourceLocation func_110796_a (ArrowEntity par1ArrowEntity)
     {
-        return this.renderManager.renderEngine.func_130087_a(par1ArrowEntity.getEntityItem().getItemSpriteNumber());
+        return this.renderManager.renderEngine.getResourceLocation(par1ArrowEntity.getEntityItem().getItemSpriteNumber());
     }
 
     /**
@@ -205,9 +205,9 @@ public class ArrowRender extends Render
 
         if (par2Icon == null)
         {
-            TextureManager texturemanager = Minecraft.getMinecraft().func_110434_K();
-            ResourceLocation resourcelocation = texturemanager.func_130087_a(arrow.getEntityItem().getItemSpriteNumber());
-            par2Icon = ((TextureMap) texturemanager.func_110581_b(resourcelocation)).func_110572_b("missingno");
+            TextureManager texturemanager = Minecraft.getMinecraft().getTextureManager();
+            ResourceLocation resourcelocation = texturemanager.getResourceLocation(arrow.getEntityItem().getItemSpriteNumber());
+            par2Icon = ((TextureMap) texturemanager.getTexture(resourcelocation)).getAtlasSprite("missingno");
         }
 
         float f4 = ((Icon) par2Icon).getMinU();
@@ -257,21 +257,21 @@ public class ArrowRender extends Render
 
             if (itemstack.getItemSpriteNumber() == 0)
             {
-                this.func_110776_a(TextureMap.field_110575_b);
+                this.bindTexture(TextureMap.locationBlocksTexture);
             }
             else
             {
-                this.func_110776_a(TextureMap.field_110576_c);
+                this.bindTexture(TextureMap.locationItemsTexture);
             }
 
             GL11.glColor4f(par5, par6, par7, 1.0F);
-            ItemRenderer.renderItemIn2D(tessellator, f5, f6, f4, f7, ((Icon) par2Icon).getOriginX(), ((Icon) par2Icon).getOriginY(), f12);
+            ItemRenderer.renderItemIn2D(tessellator, f5, f6, f4, f7, ((Icon) par2Icon).getIconWidth(), ((Icon) par2Icon).getIconHeight(), f12);
 
             if (itemstack.hasEffect(pass))
             {
                 GL11.glDepthFunc(GL11.GL_EQUAL);
                 GL11.glDisable(GL11.GL_LIGHTING);
-                this.renderManager.renderEngine.func_110577_a(field_110798_h);
+                this.renderManager.renderEngine.bindTexture(field_110798_h);
                 GL11.glEnable(GL11.GL_BLEND);
                 GL11.glBlendFunc(GL11.GL_SRC_COLOR, GL11.GL_ONE);
                 float f13 = 0.76F;
@@ -323,7 +323,7 @@ public class ArrowRender extends Render
         Block block = (k < Block.blocksList.length ? Block.blocksList[k] : null);
         if (par3ItemStack.getItemSpriteNumber() == 0 && block != null && RenderBlocks.renderItemIn3d(Block.blocksList[k].getRenderType()))
         {
-            par2TextureManager.func_110577_a(TextureMap.field_110575_b);
+            par2TextureManager.bindTexture(TextureMap.locationBlocksTexture);
             GL11.glPushMatrix();
             GL11.glTranslatef((float) (par4 - 2), (float) (par5 + 3), -3.0F + this.zLevel);
             GL11.glScalef(10.0F, 10.0F, 10.0F);
@@ -353,7 +353,7 @@ public class ArrowRender extends Render
 
             for (int j1 = 0; j1 < Item.itemsList[k].getRenderPasses(l); ++j1)
             {
-                par2TextureManager.func_110577_a(par3ItemStack.getItemSpriteNumber() == 0 ? TextureMap.field_110575_b : TextureMap.field_110576_c);
+                par2TextureManager.bindTexture(par3ItemStack.getItemSpriteNumber() == 0 ? TextureMap.locationBlocksTexture : TextureMap.locationItemsTexture);
                 Icon icon = Item.itemsList[k].getIcon(par3ItemStack, j1);
                 int k1 = Item.itemsList[k].getColorFromItemStack(par3ItemStack, j1);
                 f1 = (float) (k1 >> 16 & 255) / 255.0F;
@@ -378,12 +378,12 @@ public class ArrowRender extends Render
         else
         {
             GL11.glDisable(GL11.GL_LIGHTING);
-            ResourceLocation resourcelocation = par2TextureManager.func_130087_a(par3ItemStack.getItemSpriteNumber());
-            par2TextureManager.func_110577_a(resourcelocation);
+            ResourceLocation resourcelocation = par2TextureManager.getResourceLocation(par3ItemStack.getItemSpriteNumber());
+            par2TextureManager.bindTexture(resourcelocation);
 
             if (object == null)
             {
-                object = ((TextureMap) Minecraft.getMinecraft().func_110434_K().func_110581_b(resourcelocation)).func_110572_b("missingno");
+                object = ((TextureMap) Minecraft.getMinecraft().getTextureManager().getTexture(resourcelocation)).getAtlasSprite("missingno");
             }
 
             i1 = Item.itemsList[k].getColorFromItemStack(par3ItemStack, 0);
@@ -413,7 +413,7 @@ public class ArrowRender extends Render
         GL11.glDepthFunc(GL11.GL_GREATER);
         GL11.glDisable(GL11.GL_LIGHTING);
         GL11.glDepthMask(false);
-        manager.func_110577_a(field_110798_h);
+        manager.bindTexture(field_110798_h);
         this.zLevel -= 50.0F;
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_DST_COLOR, GL11.GL_DST_COLOR);
@@ -444,7 +444,7 @@ public class ArrowRender extends Render
                 GL11.glDepthFunc(GL11.GL_GREATER);
                 GL11.glDisable(GL11.GL_LIGHTING);
                 GL11.glDepthMask(false);
-                par2TextureManager.func_110577_a(field_110798_h);
+                par2TextureManager.bindTexture(field_110798_h);
                 this.zLevel -= 50.0F;
                 GL11.glEnable(GL11.GL_BLEND);
                 GL11.glBlendFunc(GL11.GL_DST_COLOR, GL11.GL_DST_COLOR);
@@ -566,7 +566,7 @@ public class ArrowRender extends Render
         tessellator.draw();
     }
 
-    protected ResourceLocation func_110775_a (Entity par1Entity)
+    protected ResourceLocation getEntityTexture (Entity par1Entity)
     {
         return this.func_110796_a((ArrowEntity) par1Entity);
     }

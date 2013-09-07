@@ -571,7 +571,7 @@ public class CastingChannelLogic extends TileEntity implements IFluidTank, IFlui
     @Override
     public void onDataPacket (INetworkManager net, Packet132TileEntityData packet)
     {
-        readCustomNBT(packet.customParam1);
+        readCustomNBT(packet.data);
         this.worldObj.markBlockForRenderUpdate(this.xCoord, this.yCoord, this.zCoord);
     }
 

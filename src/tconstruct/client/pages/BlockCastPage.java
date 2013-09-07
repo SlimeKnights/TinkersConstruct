@@ -60,7 +60,7 @@ public class BlockCastPage extends BookPage
 
     public void renderBackgroundLayer (int localWidth, int localHeight)
     {
-        manual.getMC().func_110434_K().func_110577_a(background);
+        manual.getMC().getTextureManager().bindTexture(background);
         manual.drawTexturedModalRect(localWidth, localHeight + 32, 0, 0, 174, 115);
         manual.drawTexturedModalRect(localWidth + 62, localHeight + 105, 2, 118, 45, 45);
     }

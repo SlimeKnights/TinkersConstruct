@@ -95,7 +95,7 @@ public class CraftingPage extends BookPage
 
     public void drawBackground (int size, int localWidth, int localHeight)
     {
-        manual.getMC().func_110434_K().func_110577_a(background);
+        manual.getMC().getTextureManager().bindTexture(background);
         if (size == 2)
             manual.drawTexturedModalRect(localWidth + 8, localHeight + 46, 0, 116, 154, 78);
         if (size == 3)

@@ -36,7 +36,7 @@ public class SlimeRender extends RenderLiving
     public void renderBossHealth (BlueSlime slime)
     {
         if (slime.getSlimeSize() >= 8)
-            BossStatus.func_82824_a(slime, true);
+            BossStatus.setBossStatus(slime, true);
     }
 
     /**
@@ -99,7 +99,7 @@ public class SlimeRender extends RenderLiving
     }
 
     @Override
-    protected ResourceLocation func_110775_a (Entity par1Entity)
+    protected ResourceLocation getEntityTexture (Entity par1Entity)
     {
         return texture;
     }

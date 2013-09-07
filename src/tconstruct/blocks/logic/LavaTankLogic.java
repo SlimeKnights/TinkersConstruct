@@ -158,7 +158,7 @@ public class LavaTankLogic extends MultiServantLogic implements IFluidHandler
     @Override
     public void onDataPacket (INetworkManager net, Packet132TileEntityData packet)
     {
-        readCustomNBT(packet.customParam1);
+        readCustomNBT(packet.data);
         worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
     }
 

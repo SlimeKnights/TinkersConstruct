@@ -464,7 +464,7 @@ public class TEventHandler
         if (!world.isRemote)
         {
             entity.setPosition(x, y, z);
-            entity.func_110161_a((EntityLivingData) null);
+            entity.onSpawnWithEgg((EntityLivingData) null);
             world.spawnEntityInWorld(entity);
         }
     }

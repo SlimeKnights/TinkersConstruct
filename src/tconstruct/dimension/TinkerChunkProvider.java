@@ -547,10 +547,9 @@ public class TinkerChunkProvider implements IChunkProvider
         this.genNetherBridge.generate(this, this.worldObj, par1, par2, (byte[]) null);
     }
 
-    @Override
-    public void func_104112_b ()
-    {
-        // TODO Auto-generated method stub
-
-    }
+	@Override
+	public void saveExtraData() {
+		// TODO Auto-generated method stub
+		
+	}
 }
