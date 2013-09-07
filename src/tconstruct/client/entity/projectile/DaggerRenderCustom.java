@@ -98,13 +98,13 @@ public class DaggerRenderCustom extends Render
         this.doRenderItem((DaggerEntity) par1Entity, par2, par4, par6, par8, par9);
     }
 
-    protected ResourceLocation func_110775_a (Entity par1Entity)
+    protected ResourceLocation getEntityTexture (Entity par1Entity)
     {
         return this.func_110796_a((DaggerEntity) par1Entity);
     }
 
     protected ResourceLocation func_110796_a (DaggerEntity par1ArrowEntity)
     {
-        return this.renderManager.renderEngine.func_130087_a(par1ArrowEntity.getEntityItem().getItemSpriteNumber());
+        return this.renderManager.renderEngine.getResourceLocation(par1ArrowEntity.getEntityItem().getItemSpriteNumber());
     }
 }

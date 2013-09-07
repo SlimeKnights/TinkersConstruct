@@ -113,8 +113,8 @@ public class ToolCoreRenderer implements IItemRenderer
             xMax[i] = icon.getMaxU();
             yMin[i] = icon.getMinV();
             yMax[i] = icon.getMaxV();
-            sheetWidth[i] = icon.getOriginX();
-            sheetHeight[i] = icon.getOriginY();
+            sheetWidth[i] = icon.getIconWidth();
+            sheetHeight[i] = icon.getIconHeight();
             xDiff[i] = xMin[i] - xMax[i];
             yDiff[i] = yMin[i] - yMax[i];
             width[i] = sheetWidth[i] * xDiff[i];

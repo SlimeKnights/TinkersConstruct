@@ -190,7 +190,7 @@ public class FirestarterLogic extends TileEntity implements IFacingLogic, IActiv
     @Override
     public void onDataPacket (INetworkManager net, Packet132TileEntityData packet)
     {
-        readCustomNBT(packet.customParam1);
+        readCustomNBT(packet.data);
         worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
     }
 }

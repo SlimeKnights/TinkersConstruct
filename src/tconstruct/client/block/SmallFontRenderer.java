@@ -107,7 +107,7 @@ public class SmallFontRenderer implements ResourceManagerReloadListener
         this.field_111273_g = par2ResourceLocation;
         this.renderEngine = par3TextureManager;
         this.unicodeFlag = true;
-        par3TextureManager.func_110577_a(this.field_111273_g);
+        par3TextureManager.bindTexture(this.field_111273_g);
 
         for (int i = 0; i < 32; ++i)
         {
@@ -144,7 +144,7 @@ public class SmallFontRenderer implements ResourceManagerReloadListener
         this.readGlyphSizes();
     }
 
-    public void func_110549_a (ResourceManager par1ResourceManager)
+    public void onResourceManagerReload (ResourceManager par1ResourceManager)
     {
         this.func_111272_d();
     }
@@ -155,7 +155,7 @@ public class SmallFontRenderer implements ResourceManagerReloadListener
 
         try
         {
-            bufferedimage = ImageIO.read(Minecraft.getMinecraft().func_110442_L().func_110536_a(this.field_111273_g).func_110527_b());
+            bufferedimage = ImageIO.read(Minecraft.getMinecraft().getResourceManager().getResource(this.field_111273_g).getInputStream());
         }
         catch (IOException ioexception)
         {
@@ -220,7 +220,7 @@ public class SmallFontRenderer implements ResourceManagerReloadListener
     {
         try
         {
-            InputStream inputstream = Minecraft.getMinecraft().func_110442_L().func_110536_a(new ResourceLocation("font/glyph_sizes.bin")).func_110527_b();
+            InputStream inputstream = Minecraft.getMinecraft().getResourceManager().getResource(new ResourceLocation("font/glyph_sizes.bin")).getInputStream();
             inputstream.read(this.glyphWidth);
         }
         catch (IOException ioexception)
@@ -245,7 +245,7 @@ public class SmallFontRenderer implements ResourceManagerReloadListener
         float f = (float) (par1 % 16 * 8);
         float f1 = (float) (par1 / 16 * 8);
         float f2 = par2 ? 1.0F : 0.0F;
-        this.renderEngine.func_110577_a(this.field_111273_g);
+        this.renderEngine.bindTexture(this.field_111273_g);
         float f3 = (float) this.charWidth[par1] - 0.01F;
         GL11.glBegin(GL11.GL_TRIANGLE_STRIP);
         GL11.glTexCoord2f(f / 128.0F, f1 / 128.0F);
@@ -275,7 +275,7 @@ public class SmallFontRenderer implements ResourceManagerReloadListener
      */
     private void loadGlyphTexture (int par1)
     {
-        this.renderEngine.func_110577_a(this.func_111271_a(par1));
+        this.renderEngine.bindTexture(this.func_111271_a(par1));
     }
 
     /**
@@ -1039,4 +1039,5 @@ public class SmallFontRenderer implements ResourceManagerReloadListener
     {
         return this.bidiFlag;
     }
+
 }

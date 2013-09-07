@@ -153,13 +153,13 @@ public class SmelteryGui extends NewContainerGui
     protected void drawGuiContainerBackgroundLayer (float f, int mouseX, int mouseY)
     {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        this.mc.func_110434_K().func_110577_a(background);
+        this.mc.getTextureManager().bindTexture(background);
         int cornerX = (width - xSize) / 2 + 36;
         int cornerY = (height - ySize) / 2;
         drawTexturedModalRect(cornerX + 46, cornerY, 0, 0, 176, ySize);
 
         //Fuel - Lava
-        this.mc.func_110434_K().func_110577_a(TextureMap.field_110575_b);
+        this.mc.getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
         if (logic.fuelGague > 0)
         {
             Icon lavaIcon = Block.lavaStill.getIcon(0, 0);
@@ -206,12 +206,12 @@ public class SmelteryGui extends NewContainerGui
         //Liquid gague
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
-        this.mc.func_110434_K().func_110577_a(background);
+        this.mc.getTextureManager().bindTexture(background);
         drawTexturedModalRect(cornerX + 54, cornerY + 16, 176, 76, 52, 52);
 
         //Side inventory
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        this.mc.func_110434_K().func_110577_a(backgroundSide);
+        this.mc.getTextureManager().bindTexture(backgroundSide);
         if (logic.layers > 0)
         {
             if (logic.layers == 1)

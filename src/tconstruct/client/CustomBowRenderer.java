@@ -72,8 +72,8 @@ public class CustomBowRenderer implements IItemRenderer
             GL11.glPopMatrix();
             return;
         }
-        TextureManager texturemanager = this.mc.func_110434_K();
-        texturemanager.func_110577_a(texturemanager.func_130087_a(stack.getItemSpriteNumber()));
+        TextureManager texturemanager = this.mc.getTextureManager();
+        texturemanager.bindTexture(texturemanager.getResourceLocation(stack.getItemSpriteNumber()));
 
         if (type == ItemRenderType.EQUIPPED_FIRST_PERSON)
         {
@@ -101,7 +101,7 @@ public class CustomBowRenderer implements IItemRenderer
         GL11.glRotatef(50.0F, 0.0F, 1.0F, 0.0F);
         GL11.glRotatef(335.0F, 0.0F, 0.0F, 1.0F);
         GL11.glTranslatef(-0.9375F, -0.0625F, 0.0F);
-        ItemRenderer.renderItemIn2D(tessellator, f1, f2, f, f3, icon.getOriginX(), icon.getOriginY(), 0.0625F);
+        ItemRenderer.renderItemIn2D(tessellator, f1, f2, f, f3, icon.getIconWidth(), icon.getIconHeight(), 0.0625F);
 
         GL11.glDisable(GL12.GL_RESCALE_NORMAL);
 

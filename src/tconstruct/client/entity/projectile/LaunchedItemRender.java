@@ -51,7 +51,7 @@ public class LaunchedItemRender extends Render
             GL11.glTranslatef((float) par2, (float) par4, (float) par6);
             GL11.glEnable(GL12.GL_RESCALE_NORMAL);
             GL11.glScalef(0.5F, 0.5F, 0.5F);
-            this.func_110777_b(par1Entity);
+            this.bindEntityTexture(par1Entity);
             Tessellator tessellator = Tessellator.instance;
 
             if (icon == ItemPotion.func_94589_d("bottle_splash"))
@@ -73,9 +73,9 @@ public class LaunchedItemRender extends Render
         }
     }
 
-    protected ResourceLocation func_110775_a (Entity par1Entity)
+    protected ResourceLocation getEntityTexture (Entity par1Entity)
     {
-        return TextureMap.field_110576_c;
+        return TextureMap.locationItemsTexture;
     }
 
     private void func_77026_a (Tessellator par1Tessellator, Icon par2Icon)
@@ -97,4 +97,5 @@ public class LaunchedItemRender extends Render
         par1Tessellator.addVertexWithUV((double) (0.0F - f5), (double) (f4 - f6), 0.0D, (double) f, (double) f2);
         par1Tessellator.draw();
     }
+
 }

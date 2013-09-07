@@ -11,6 +11,7 @@ public class MetalSlime extends BlueSlime
     {
         super(world);
         //this.texture = "/mods/tinker/textures/mob/slimemetal.png";
+        this.setHealth(getMaxHealthForSize());
     }
 
     public boolean attackEntityFrom (DamageSource damageSource, int damage)
@@ -20,12 +21,13 @@ public class MetalSlime extends BlueSlime
         return super.attackEntityFrom(damageSource, damage);
     }
 
-    public int getMaxHealth ()
+    // Invoked by constructor to set max health dependant on current size
+    private float getMaxHealthForSize ()
     {
         int i = this.getSlimeSize();
         if (i == 1)
             return 4;
-        return (int) Math.min(i * i + 20, 100);
+        return (float) Math.min(i * i + 20, 100);
     }
 
     public int getTotalArmorValue ()

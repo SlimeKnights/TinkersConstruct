@@ -61,7 +61,7 @@ public class ToolStationLogic extends InventoryLogic implements ISidedInventory
         if (this.worldObj != null)
         {
             this.blockMetadata = this.worldObj.getBlockMetadata(this.xCoord, this.yCoord, this.zCoord);
-            this.worldObj.updateTileEntityChunkAndDoNothing(this.xCoord, this.yCoord, this.zCoord, this);
+            this.worldObj.markTileEntityChunkModified(this.xCoord, this.yCoord, this.zCoord, this);
         }
     }
 
