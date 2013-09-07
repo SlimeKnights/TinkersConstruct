@@ -7,6 +7,7 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.StatCollector;
 
 public class LavaTankItemBlock extends ItemBlock
 {
@@ -37,7 +38,7 @@ public class LavaTankItemBlock extends ItemBlock
             NBTTagCompound liquidTag = stack.getTagCompound().getCompoundTag("Fluid");
             if (liquidTag != null)
             {
-                list.add("Contains " + liquidTag.getString("FluidName"));
+                list.add("Contains " + StatCollector.translateToLocal(liquidTag.getString("FluidName")));
                 list.add(liquidTag.getInteger("Amount") + " mB");
             }
         }
