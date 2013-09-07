@@ -1,15 +1,9 @@
 package tconstruct.entity;
 
-import tconstruct.TConstruct;
-import tconstruct.common.TContent;
-import tconstruct.library.TConstructRegistry;
-import tconstruct.library.crafting.ToolBuilder;
-import tconstruct.library.tools.ToolCore;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.SpiderEffectsGroupData;
 import net.minecraft.entity.boss.IBossDisplayData;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.monster.EntitySkeleton;
@@ -19,13 +13,17 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
+import tconstruct.TConstruct;
+import tconstruct.common.TContent;
+import tconstruct.library.TConstructRegistry;
+import tconstruct.library.crafting.ToolBuilder;
+import tconstruct.library.tools.ToolCore;
 
 public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
 {
@@ -53,6 +51,7 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
         this.slimeJumpDelay = this.rand.nextInt(120) + 40;
         this.setSlimeSize(size);
         this.jumpMovementFactor = 0.004F * size + 0.01F;
+        this.setHealth(getMaxHealthForSize());
     }
 
     protected void damageEntity (DamageSource damageSource, int damage)
@@ -282,14 +281,15 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
             this.experienceValue = 500;
     }
 
-    public float getMaxHealth ()
+    // Invoked by constructor to set max health dependant on current size
+    private float getMaxHealthForSize ()
     {
         int i = this.getSlimeSize();
         if (i == 1)
             return 4;
         if (i == 8)
             return 100;
-        return (float) Math.min(i * i + 8, 49);
+        return (float)Math.min(i * i + 8, 49);
     }
 
     /**
