@@ -8,12 +8,12 @@ Turn everything into golems!
 To compile from source: use apache ant(http://ant.apache.org/bindownload.cgi)
 run ant in the tinkers construct directory
 
-for all issue reporting; please include the following:
-Minecraft Version
-TinkersConstruct Version
-Forge Version
-versions of any mods related to the issue
-if there is a crash involved, describe how you got it to crash and the forge crash log
+For all issue reporting; please include the following:
+  * Minecraft Version
+  * TinkersConstruct Version
+  * Forge Version
+  * Versions of any mods related to the issue
+If there is a crash involved, describe how you got it to crash and the forge crash log
 any relevant screenshots are greatly appreciated.
 
 
