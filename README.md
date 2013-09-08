@@ -13,8 +13,8 @@ For all issue reporting; please include the following:
  * TinkersConstruct Version
  * Forge Version
  * Versions of any mods related to the issue
- *If there is a crash involved, describe how you got it to crash and the forge crash log 
- *Any relevant screenshots are greatly appreciated.
+ * If there is a crash involved, describe how you got it to crash and the forge crash log 
+ * Any relevant screenshots are greatly appreciated.
 
 
 Most code is public domain under Creative Commons 0: http://creativecommons.org/publicdomain/zero/1.0/ 	 
