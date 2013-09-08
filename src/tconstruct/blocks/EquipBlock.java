@@ -1,5 +1,12 @@
 package tconstruct.blocks;
 
+import tconstruct.blocks.logic.EquipLogic;
+
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.world.World;
+import tconstruct.library.blocks.InventoryLogic;
+
 import java.util.*;
 
 import cpw.mods.fml.relauncher.*;
@@ -115,6 +122,54 @@ public class EquipBlock extends InventoryBlock
         par1World.setBlockMetadataWithNotify(par2, par3, par4, newMeta, 2);
     }
 
+    @Override
+    public void breakBlock (World par1World, int x, int y, int z, int par5, int meta){
+        TileEntity te = par1World.getBlockTileEntity(x, y, z);
+
+        if (te != null && te instanceof EquipLogic)
+        {
+            EquipLogic logic = (EquipLogic) te;
+            for (int iter = 0; iter < logic.getSizeInventory(); ++iter)
+            {
+                ItemStack stack = iter == 0 ? logic.getEquipmentItem() : logic.getStackInSlot(iter);
+
+                if (stack != null && logic.canDropInventorySlot(iter))
+                {
+                    float jumpX = rand.nextFloat() * 0.8F + 0.1F;
+                    float jumpY = rand.nextFloat() * 0.8F + 0.1F;
+                    float jumpZ = rand.nextFloat() * 0.8F + 0.1F;
+
+                    while (stack.stackSize > 0)
+                    {
+                        int itemSize = rand.nextInt(21) + 10;
+
+                        if (itemSize > stack.stackSize)
+                        {
+                            itemSize = stack.stackSize;
+                        }
+
+                        stack.stackSize -= itemSize;
+                        EntityItem entityitem = new EntityItem(par1World, (double) ((float) x + jumpX), (double) ((float) y + jumpY), (double) ((float) z + jumpZ), new ItemStack(stack.itemID,
+                                itemSize, stack.getItemDamage()));
+
+                        if (stack.hasTagCompound())
+                        {
+                            entityitem.getEntityItem().setTagCompound((NBTTagCompound) stack.getTagCompound().copy());
+                        }
+
+                        float offset = 0.05F;
+                        entityitem.motionX = (double) ((float) rand.nextGaussian() * offset);
+                        entityitem.motionY = (double) ((float) rand.nextGaussian() * offset + 0.2F);
+                        entityitem.motionZ = (double) ((float) rand.nextGaussian() * offset);
+                        par1World.spawnEntityInWorld(entityitem);
+                    }
+                }
+            }
+        }
+
+        super.breakBlock(par1World, x, y, z, par5, meta);
+    }
+    
     public int getLightValue (IBlockAccess world, int x, int y, int z)
     {
         return !isActive(world, x, y, z) ? 0 : 9;
