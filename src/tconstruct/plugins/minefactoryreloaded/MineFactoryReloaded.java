@@ -1,23 +1,21 @@
 package tconstruct.plugins.minefactoryreloaded;
 
+import cpw.mods.fml.common.*;
+import cpw.mods.fml.common.Mod.EventHandler;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.network.NetworkMod;
 import net.minecraft.item.ItemStack;
 import powercrystals.minefactoryreloaded.api.FarmingRegistry;
 import tconstruct.common.TContent;
 import tconstruct.entity.BlueSlime;
 import tconstruct.plugins.minefactoryreloaded.grindables.GrindableStandard;
 import tconstruct.plugins.minefactoryreloaded.harvestables.HarvestableOreBerry;
-import cpw.mods.fml.common.FMLLog;
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.Mod.Init;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.network.NetworkMod;
 
 @Mod(modid = "TConstruct|CompatMineFactoryReloaded", name = "TConstruct Compat: MFR", version = "0.1", dependencies = "after:MineFactoryReloaded;after:TConstruct")
 @NetworkMod(clientSideRequired = false, serverSideRequired = false)
 public class MineFactoryReloaded
 {
-    @Init
+    @EventHandler
     public static void load (FMLInitializationEvent ev)
     {
         if (!Loader.isModLoaded("MineFactoryReloaded"))
