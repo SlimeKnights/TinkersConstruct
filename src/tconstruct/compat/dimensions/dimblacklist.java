@@ -22,6 +22,9 @@ public static void getbaddimensions(){
 public static boolean isDimInBlacklist(int dim){
 	if (dim<0)
 	return false;
+	if(PHConstruct.slimeIslGenDim0Only && dim != 0){
+		return false;
+	}
 	for (int len = 0;len< blacklist.size(); len++){
 		if (blacklist.get(len) == dim)
 				return false;
