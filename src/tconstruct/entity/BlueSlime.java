@@ -171,7 +171,7 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
         return this.height * 0.3;
     }
 
-    protected void jump ()
+    public void jump ()
     {
         this.motionY = 0.05 * getSlimeSize() + 0.37;
 

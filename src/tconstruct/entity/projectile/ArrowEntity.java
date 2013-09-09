@@ -109,6 +109,8 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
 
         if (this.inGround)
         {
+            if (!worldObj.isRemote)
+            {
             int j = this.worldObj.getBlockId(this.xTile, this.yTile, this.zTile);
             int k = this.worldObj.getBlockMetadata(this.xTile, this.yTile, this.zTile);
 
@@ -129,6 +131,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
                 this.motionZ *= (double) (this.rand.nextFloat() * 0.2F);
                 this.ticksInGround = 0;
                 this.ticksInAir = 0;
+            }
             }
         }
         else
@@ -327,7 +330,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
                     this.posZ -= this.motionZ / (double) speed * 0.05000000074505806D;
                     this.playSound("random.bowhit", 1.0F, 1.2F / (this.rand.nextFloat() * 0.2F + 0.9F));
                     this.inGround = true;
-                    this.arrowShake = 7;
+                    this.arrowShake = 0;
                     this.setIsCritical(false);
 
                     if (this.inTile != 0)

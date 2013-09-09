@@ -8,7 +8,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
 import net.minecraft.world.World;
-import tconstruct.entity.MiniGardy;
+import bastion.entity.WoodMinecartEntity;
 
 /*
  * mDiyo's development testing item
@@ -31,12 +31,9 @@ public class XinStick extends Item
     @Override
     public ItemStack onItemRightClick (ItemStack stack, World world, EntityPlayer player)
     {
-        //if (!world.isRemote)
-        //MinecraftServer.getServer().getConfigurationManager().transferPlayerToDimension((EntityPlayerMP) player, -7);
-        //player.travelToDimension(-7);
         //clearInventoryExeptHotbar(player);
-        MiniGardy entity = new MiniGardy(world);
-        entity.setOwner(player);
+        WoodMinecartEntity entity = new WoodMinecartEntity(world);
+        //entity.setOwner(player);
         //entity.setCustomNameTag("Cutie");
         spawnEntity(player.posX, player.posY + 1, player.posZ, entity, world, player);
         /*EntityChicken chicken = new EntityChicken(world);

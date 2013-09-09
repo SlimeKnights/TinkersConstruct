@@ -27,25 +27,15 @@ public class DryingRack extends InventoryBlock
 
     public DryingRack(int id)
     {
-        super(id, Material.rock);
+        super(id, Material.wood);
         this.setCreativeTab(TConstructRegistry.blockTab);
-        setHardness(12);
+        setHardness(2.0f);
         setStepSound(soundMetalFootstep);
     }
 
     @Override
     public TileEntity createTileEntity (World world, int metadata)
     {
-        /*switch (metadata)
-        {
-        case 0:
-        case 1:
-            return new FaucetLogic();
-        case 2:
-            return new CastingBasinLogic();
-        default:
-            return null;
-        }*/
         return new DryingRackLogic();
     }
 

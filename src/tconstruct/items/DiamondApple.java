@@ -14,7 +14,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class DiamondApple extends ItemFood
 {
     public Icon[] icons;
-    public String[] textureNames = new String[] { "apple_diamond" };
+    public String[] textureNames = new String[] { "food/apple_diamond" };
     public String[] itemNames = new String[] { "apple.diamond" };
 
     public DiamondApple(int id)

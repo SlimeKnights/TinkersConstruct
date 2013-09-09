@@ -185,6 +185,13 @@
   <entry key="item.tconstruct.Materials.AlumiteNugget.name">Alumite Nugget</entry>
   <entry key="item.tconstruct.Materials.SteelNugget.name">Steel Nugget</entry>
   
+  <entry key="item.tconstruct.jerky.beef.name">Beef Jerky</entry>
+  <entry key="item.tconstruct.jerky.pig.name">Bacon Jerky</entry>
+  <entry key="item.tconstruct.jerky.chicken.name">Chicken Jerky</entry>
+  <entry key="item.tconstruct.jerky.sheep.name">Mutton Jerky</entry>
+  <entry key="item.tconstruct.jerky.fish.name">Fish Jerky</entry>
+  <entry key="item.tconstruct.jerky.zombie.name">Monster Jerky</entry>
+  
   <entry key="item.tconstruct.crystal.essence.name">Essence Crystal</entry>
   
   <entry key="Smeltery.Controller.name">Smeltery Controller</entry>

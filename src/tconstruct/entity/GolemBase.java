@@ -110,7 +110,7 @@ public class GolemBase extends EntityCreature implements IInventory
         return true;
     }
 
-    protected void updateWanderPath ()
+    public void updateWanderPath ()
     {
         if (!paused)
             super.updateWanderPath();

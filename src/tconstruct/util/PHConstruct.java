@@ -255,6 +255,7 @@ public class PHConstruct
         knapsack = config.getItem("Equipables", "Knapsack", 14112).getInt(14112);
         goldHead = config.getItem("Patterns and Misc", "Golden Head", 14113).getInt(14113);
         essenceCrystal = config.getItem("Patterns and Misc", "Essence Crystal", 14114).getInt(14114);
+        jerky = config.getItem("Patterns and Misc", "Jerky", 14115).getInt(14115);
 
         boolean ic2 = true;
         boolean xycraft = true;
@@ -481,6 +482,7 @@ public class PHConstruct
     //Food
     public static int diamondApple;
     public static int slimefood;
+    public static int jerky;
 
     //Tools
     public static int pickaxe;

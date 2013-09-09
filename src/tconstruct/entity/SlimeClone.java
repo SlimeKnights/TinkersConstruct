@@ -98,7 +98,7 @@ public class SlimeClone extends GolemBase implements IEntityAdditionalSpawnData
         return "mob.slime." + (this.getSlimeSize() > 1 ? "big" : "small");
     }
 
-    protected void jump ()
+    public void jump ()
     {
         this.motionY = 0.05 * getSlimeSize() + 0.37;
 
