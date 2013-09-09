@@ -63,9 +63,8 @@
 
 	<target name="git-revision" if="git.present">
 		<exec executable="git" dir="." outputproperty="git.revision" failifexecutionfails="false" errorproperty="">
-			<arg value="describe"/>
-			<arg value="--tags"/>
-			<arg value="--always"/>
+			<arg value="rev-parse"/>
+			<arg value="--short"/>
 			<arg value="HEAD"/>
 		</exec>
 		<echo message="Git revision: ${git.revision}"/>
