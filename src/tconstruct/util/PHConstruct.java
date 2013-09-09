@@ -356,8 +356,11 @@ public class PHConstruct
         Property conTexMode = config.get("Looks", "Connected Textures Enabled", true);
         conTexMode.comment = "0 = disabled, 1 = enabled, 2 = enabled + ignore stained glass meta";
         connectedTexturesMode = conTexMode.getInt(2);
+        
         //dimension blacklist
         cfgDimBlackList = config.get("DimBlackList", "SlimeIslandDimBlacklist",new int[]{}).getIntList();
+        slimeIslGenDim0Only = config.get("DimBlackList","GenerateSlimeIslandInDim0Only" , false).getBoolean(false);
+        
         /* Save the configuration file */
         config.save();
 
@@ -676,5 +679,6 @@ public class PHConstruct
     public static int connectedTexturesMode;
     public static File cfglocation;
     //dimensionblacklist
+    public static boolean slimeIslGenDim0Only;
     public static int[] cfgDimBlackList;
 }
