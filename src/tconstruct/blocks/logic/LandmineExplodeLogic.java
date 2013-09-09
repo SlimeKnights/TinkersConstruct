@@ -63,7 +63,8 @@ public class LandmineExplodeLogic
 
                 if (b.doesBehaviorPreventRemovalOfBlock(currentStack))
                 {
-                    preventExplode = true;
+                	//TODO Temporarily disabled while fixing a major dupe bug
+//                    preventExplode = true;
                 }
 
                 if (!b.isBehaviorExchangableWithOffensive(currentStack))
