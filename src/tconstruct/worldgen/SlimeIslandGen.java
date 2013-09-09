@@ -10,6 +10,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import tconstruct.common.TContent;
+import tconstruct.compat.dimensions.dimblacklist;
 import tconstruct.util.PHConstruct;
 import cpw.mods.fml.common.IWorldGenerator;
 
@@ -32,7 +33,7 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
     @Override
     public void generate (Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider) //IWorldGenerator version
     {
-        if (world.provider.dimensionId == 0 || world.provider.dimensionId >= 2)
+        if (!dimblacklist.isDimInBlacklist(world.provider.dimensionId))
         {
             if (random.nextInt(PHConstruct.islandRarity) == 0)
                 generateIsland(world, random, chunkX * 16, chunkZ * 16);
