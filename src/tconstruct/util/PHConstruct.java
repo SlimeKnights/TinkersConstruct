@@ -356,7 +356,7 @@ public class PHConstruct
         conTexMode.comment = "0 = disabled, 1 = enabled, 2 = enabled + ignore stained glass meta";
         connectedTexturesMode = conTexMode.getInt(2);
         //dimension blacklist
-        cfgDimBlackList = config.get("DimBlackList", "SlimeIslandDimBlacklist", "").getIntList();
+        cfgDimBlackList = config.get("DimBlackList", "SlimeIslandDimBlacklist",new int[]{}).getIntList();
         /* Save the configuration file */
         config.save();
 
