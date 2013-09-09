@@ -158,13 +158,13 @@ public class GuiManual extends GuiScreen
     public void drawScreen (int par1, int par2, float par3)
     {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        this.mc.func_110434_K().func_110577_a(bookRight);
+        this.mc.getTextureManager().bindTexture(bookRight);
         int localWidth = (this.width) / 2;
         byte localHeight = 8;
         this.drawTexturedModalRect(localWidth, localHeight, 0, 0, this.bookImageWidth, this.bookImageHeight);
 
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        this.mc.func_110434_K().func_110577_a(bookLeft);
+        this.mc.getTextureManager().bindTexture(bookLeft);
         localWidth = localWidth - this.bookImageWidth;
         this.drawTexturedModalRect(localWidth, localHeight, 256 - this.bookImageWidth, 0, this.bookImageWidth, this.bookImageHeight);
 

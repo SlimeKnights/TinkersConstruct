@@ -176,16 +176,16 @@ public class ArmorExtended implements IInventory
                 //System.out.println("healthChange: "+healthChange+" on side "+FMLCommonHandler.instance().getEffectiveSide());
                 if (healthChange != 0)
                 {
-                    AttributeInstance attributeinstance = player.func_110140_aT().func_111151_a(SharedMonsterAttributes.field_111267_a);
+                    AttributeInstance attributeinstance = player.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.maxHealth);
                     try
                     {
-                        attributeinstance.func_111124_b(attributeinstance.func_111127_a(globalID));
+                        attributeinstance.removeModifier(attributeinstance.getModifier(globalID));
                     }
                     catch (Exception e)
                     {
                     }
 
-                    attributeinstance.func_111121_a(new AttributeModifier(globalID, "tconstruct.heartCanister", bonusHP, 0));
+                    attributeinstance.applyModifier(new AttributeModifier(globalID, "tconstruct.heartCanister", bonusHP, 0));
                 }
             }
         }
@@ -202,10 +202,10 @@ public class ArmorExtended implements IInventory
             int healthChange = bonusHP - prevHealth;
             if (healthChange != 0)
             {
-                AttributeInstance attributeinstance = player.func_110140_aT().func_111151_a(SharedMonsterAttributes.field_111267_a);
+                AttributeInstance attributeinstance = player.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.maxHealth);
                 try
                 {
-                    attributeinstance.func_111124_b(attributeinstance.func_111127_a(globalID));
+                    attributeinstance.removeModifier(attributeinstance.getModifier(globalID));
                 }
                 catch (Exception e)
                 {

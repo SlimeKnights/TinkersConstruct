@@ -34,7 +34,7 @@ public class PicturePage extends BookPage
 
     public void renderBackgroundLayer (int localWidth, int localHeight)
     {
-        manual.getMC().func_110434_K().func_110577_a(background);
+        manual.getMC().getTextureManager().bindTexture(background);
         //manual.getMC().renderEngine.bindTexture(location);
         manual.drawTexturedModalRect(localWidth, localHeight + 12, 0, 0, 170, 144);
     }

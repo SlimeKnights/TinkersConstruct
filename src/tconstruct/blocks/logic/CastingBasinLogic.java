@@ -397,7 +397,7 @@ public class CastingBasinLogic extends InventoryLogic implements IFluidTank, IFl
     @Override
     public void onDataPacket (INetworkManager net, Packet132TileEntityData packet)
     {
-        readFromNBT(packet.customParam1);
+        readFromNBT(packet.data);
         worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
     }
 

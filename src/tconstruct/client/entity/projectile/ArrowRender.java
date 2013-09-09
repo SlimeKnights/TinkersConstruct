@@ -52,7 +52,7 @@ public class ArrowRender extends Render
      */
     public void doRenderItem(ArrowEntity par1ArrowEntity, double par2, double par4, double par6, float par8, float par9)
     {
-        this.func_110777_b(par1ArrowEntity);
+        this.bindEntityTexture(par1ArrowEntity);
         this.random.setSeed(187L);
         ItemStack itemstack = par1ArrowEntity.getEntityItem();
 
@@ -165,7 +165,7 @@ public class ArrowRender extends Render
 
     protected ResourceLocation func_110796_a(ArrowEntity par1ArrowEntity)
     {
-        return this.renderManager.renderEngine.func_130087_a(par1ArrowEntity.getEntityItem().getItemSpriteNumber());
+        return this.renderManager.renderEngine.getResourceLocation(par1ArrowEntity.getEntityItem().getItemSpriteNumber());
     }
 
     /**
@@ -182,9 +182,9 @@ public class ArrowRender extends Render
 
         if (par2Icon == null)
         {
-            TextureManager texturemanager = Minecraft.getMinecraft().func_110434_K();
-            ResourceLocation resourcelocation = texturemanager.func_130087_a(arrow.getEntityItem().getItemSpriteNumber());
-            par2Icon = ((TextureMap) texturemanager.func_110581_b(resourcelocation)).func_110572_b("missingno");
+            TextureManager texturemanager = Minecraft.getMinecraft().getTextureManager();
+            ResourceLocation resourcelocation = texturemanager.getResourceLocation(arrow.getEntityItem().getItemSpriteNumber());
+            par2Icon = ((TextureMap) texturemanager.getTexture(resourcelocation)).getAtlasSprite("missingno");
         }
 
         float f4 = ((Icon) par2Icon).getMinU();
@@ -227,21 +227,53 @@ public class ArrowRender extends Render
 
             if (itemstack.getItemSpriteNumber() == 0)
             {
-                this.func_110776_a(TextureMap.field_110575_b);
+                this.bindTexture(TextureMap.locationBlocksTexture);
             }
             else
             {
-                this.func_110776_a(TextureMap.field_110576_c);
+                this.bindTexture(TextureMap.locationItemsTexture);
             }
 
             GL11.glColor4f(par5, par6, par7, 1.0F);
-            ItemRenderer.renderItemIn2D(tessellator, f5, f6, f4, f7, ((Icon) par2Icon).getOriginX(), ((Icon) par2Icon).getOriginY(), f12);
+            
+            ItemRenderer.renderItemIn2D(tessellator, f5, f6, f4, f7, ((Icon) par2Icon).getIconWidth(), ((Icon) par2Icon).getIconHeight(), f12);
+
+            if (itemstack.hasEffect(pass))
+            {
+                GL11.glDepthFunc(GL11.GL_EQUAL);
+                GL11.glDisable(GL11.GL_LIGHTING);
+                this.renderManager.renderEngine.bindTexture(field_110798_h);
+                GL11.glEnable(GL11.GL_BLEND);
+                GL11.glBlendFunc(GL11.GL_SRC_COLOR, GL11.GL_ONE);
+                float f13 = 0.76F;
+                GL11.glColor4f(0.5F * f13, 0.25F * f13, 0.8F * f13, 1.0F);
+                GL11.glMatrixMode(GL11.GL_TEXTURE);
+                GL11.glPushMatrix();
+                float f14 = 0.125F;
+                GL11.glScalef(f14, f14, f14);
+                float f15 = (float) (Minecraft.getSystemTime() % 3000L) / 3000.0F * 8.0F;
+                GL11.glTranslatef(f15, 0.0F, 0.0F);
+                GL11.glRotatef(-50.0F, 0.0F, 0.0F, 1.0F);
+                ItemRenderer.renderItemIn2D(tessellator, 0.0F, 0.0F, 1.0F, 1.0F, 255, 255, f12);
+                GL11.glPopMatrix();
+                GL11.glPushMatrix();
+                GL11.glScalef(f14, f14, f14);
+                f15 = (float) (Minecraft.getSystemTime() % 4873L) / 4873.0F * 8.0F;
+                GL11.glTranslatef(-f15, 0.0F, 0.0F);
+                GL11.glRotatef(10.0F, 0.0F, 0.0F, 1.0F);
+                ItemRenderer.renderItemIn2D(tessellator, 0.0F, 0.0F, 1.0F, 1.0F, 255, 255, f12);
+                GL11.glPopMatrix();
+                GL11.glMatrixMode(GL11.GL_MODELVIEW);
+                GL11.glDisable(GL11.GL_BLEND);
+                GL11.glEnable(GL11.GL_LIGHTING);
+                GL11.glDepthFunc(GL11.GL_LEQUAL);
+            }
         }
 
         GL11.glPopMatrix();
     }
 
-    protected ResourceLocation func_110775_a(Entity par1Entity)
+    protected ResourceLocation getEntityTexture(Entity par1Entity)
     {
         return this.func_110796_a((ArrowEntity) par1Entity);
     }

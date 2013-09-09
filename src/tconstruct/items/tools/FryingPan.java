@@ -41,7 +41,7 @@ public class FryingPan extends Weapon
     @Override
     public boolean onLeftClickEntity (ItemStack stack, EntityPlayer player, Entity mob)
     {
-        if (mob.canAttackWithItem() && !mob.func_85031_j(player) && mob.hurtResistantTime < 14)
+        if (mob.canAttackWithItem() && !mob.hitByEntity(player) && mob.hurtResistantTime < 14)
             AbilityHelper.onLeftClickEntity(stack, player, mob, this);
         return true;
     }

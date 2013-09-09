@@ -67,7 +67,7 @@ public class XinStick extends Item
 
     public static void healPlayer (EntityPlayer player)
     {
-        player.setEntityHealth(50);
+        player.setHealth(50);
     }
 
     public static void spawnItem (double x, double y, double z, ItemStack stack, World world)

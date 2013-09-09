@@ -325,7 +325,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                 {
                     if (currentLiquid + 25 < maxLiquid)
                     {
-                        this.addMoltenMetal(new FluidStack(TContent.moltenEnder.blockID, 25), false);
+                        this.addMoltenMetal(new FluidStack(TContent.moltenEnderFluid, 25), false);
                     }
                 }
             }
@@ -986,8 +986,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     @Override
     public FluidTankInfo getInfo ()
     {
-        //TODO: This
-        return null;
+        return new FluidTankInfo(this);
     }
 
     /* NBT */
@@ -1076,7 +1075,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     @Override
     public void onDataPacket (INetworkManager net, Packet132TileEntityData packet)
     {
-        readFromNBT(packet.customParam1);
+        readFromNBT(packet.data);
         worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
     }
 }

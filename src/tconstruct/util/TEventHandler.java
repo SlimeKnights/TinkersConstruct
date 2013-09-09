@@ -1,8 +1,5 @@
 package tconstruct.util;
 
-import java.util.ArrayList;
-import java.util.Random;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
@@ -10,12 +7,7 @@ import net.minecraft.entity.EntityLivingData;
 import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityXPOrb;
-import net.minecraft.entity.monster.EntityCreeper;
-import net.minecraft.entity.monster.EntityGhast;
-import net.minecraft.entity.monster.EntitySkeleton;
-import net.minecraft.entity.monster.EntitySpider;
-import net.minecraft.entity.monster.EntityZombie;
-import net.minecraft.entity.monster.IMob;
+import net.minecraft.entity.monster.*;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -46,13 +38,12 @@ import tconstruct.library.crafting.Smeltery;
 import tconstruct.library.crafting.ToolBuilder;
 import tconstruct.library.event.PartBuilderEvent;
 import tconstruct.library.event.ToolCraftEvent;
-import tconstruct.library.tools.ArrowMaterial;
-import tconstruct.library.tools.BowMaterial;
-import tconstruct.library.tools.BowstringMaterial;
-import tconstruct.library.tools.FletchingMaterial;
-import tconstruct.library.tools.ToolCore;
+import tconstruct.library.tools.*;
 import tconstruct.modifiers.ModAttack;
 import tconstruct.util.player.TPlayerStats;
+
+import java.util.ArrayList;
+import java.util.Random;
 
 public class TEventHandler
 {
@@ -413,8 +404,11 @@ public class TEventHandler
             if (!player.worldObj.getGameRules().getGameRuleBooleanValue("keepInventory"))
             {
                 TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
-                stats.armor.dropItems();
-                stats.knapsack.dropItems();
+                if (stats != null)
+                {
+                    stats.armor.dropItems();
+                    stats.knapsack.dropItems();
+                }
             }
         }
     }
@@ -464,7 +458,7 @@ public class TEventHandler
         if (!world.isRemote)
         {
             entity.setPosition(x, y, z);
-            entity.func_110161_a((EntityLivingData) null);
+            entity.onSpawnWithEgg((EntityLivingData) null);
             world.spawnEntityInWorld(entity);
         }
     }

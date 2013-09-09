@@ -85,7 +85,7 @@ public class ArmorExtendedGui extends InventoryEffectRenderer
     {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         //mc.renderEngine.bindTexture("/mods/tinker/textures/gui/armorextended.png");
-        this.mc.func_110434_K().func_110577_a(background);
+        this.mc.getTextureManager().bindTexture(background);
         int cornerX = guiLeft;
         int cornerY = (height - ySize) / 2;
         drawTexturedModalRect(cornerX, cornerY, 0, 0, xSize, ySize);

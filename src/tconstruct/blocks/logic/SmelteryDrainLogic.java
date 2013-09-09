@@ -1,5 +1,6 @@
 package tconstruct.blocks.logic;
 
+import tconstruct.library.crafting.AlloyMix;
 import tconstruct.library.util.IFacingLogic;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.nbt.NBTTagCompound;
@@ -22,38 +23,10 @@ public class SmelteryDrainLogic extends MultiServantLogic implements IFluidHandl
         return false;
     }
 
-    /*@Override
-    public FluidStack getLiquid ()
-    {
-    	return null;
-    }
-
-    @Override
-    public int getCapacity ()
-    {
-    	if (!hasMaster)
-    		return 0;
-
-    	SmelteryLogic smeltery = (SmelteryLogic) worldObj.getBlockTileEntity(master.x, master.y, master.z);
-    	return smeltery.getCapacity();
-    }*/
-
-    /*@Override
-    public int fill (FluidStack resource, boolean doFill)
-    {
-    	
-    }*/
-
-    /*@Override
-    public FluidStack drain (int maxDrain, boolean doDrain)
-    {
-    	
-    }*/
-
     @Override
     public int fill (ForgeDirection from, FluidStack resource, boolean doFill)
     {
-        if (hasMaster && resource != null)
+        if (hasValidMaster() && resource != null && canFill(from, resource.getFluid()))
         {
             if (doFill)
             {
@@ -74,7 +47,7 @@ public class SmelteryDrainLogic extends MultiServantLogic implements IFluidHandl
     @Override
     public FluidStack drain (ForgeDirection from, int maxDrain, boolean doDrain)
     {
-        if (hasValidMaster())
+        if (hasValidMaster() && canDrain(from, null))
         {
             SmelteryLogic smeltery = (SmelteryLogic) worldObj.getBlockTileEntity(master.x, master.y, master.z);
             return smeltery.drain(maxDrain, doDrain);
@@ -88,50 +61,44 @@ public class SmelteryDrainLogic extends MultiServantLogic implements IFluidHandl
     @Override
     public FluidStack drain (ForgeDirection from, FluidStack resource, boolean doDrain)
     {
-        // TODO Auto-generated method stub
+    	// TODO Auto-generated method stub
         return null;
     }
 
     @Override
     public boolean canFill (ForgeDirection from, Fluid fluid)
     {
-        return false;
+        return from == getForgeDirection().getOpposite();
     }
 
     @Override
     public boolean canDrain (ForgeDirection from, Fluid fluid)
     {
-        return false;
+    	// Check that the drain is coming from the from the front of the block 
+    	// and that the fluid to be drained is in the smeltery.
+    	boolean containsFluid = fluid == null;
+    	if(fluid!=null){
+    		SmelteryLogic smeltery = (SmelteryLogic) worldObj.getBlockTileEntity(master.x, master.y, master.z);
+    		for (FluidStack fstack : smeltery.moltenMetal){
+    			if(fstack.fluidID == fluid.getID()){
+    				containsFluid = true;
+    				break;
+    			}
+    		}
+    	}
+        return from == getForgeDirection() && containsFluid;
     }
 
     @Override
     public FluidTankInfo[] getTankInfo (ForgeDirection from)
     {
-        return null;
-    }
-
-    /*
-
-    @Override
-    public ILiquidTank[] getTanks (ForgeDirection direction)
-    {
-        if (hasValidMaster())
+    	if (hasValidMaster() && (from==getForgeDirection() || from == getForgeDirection().getOpposite() || from == ForgeDirection.UNKNOWN))
         {
             SmelteryLogic smeltery = (SmelteryLogic) worldObj.getBlockTileEntity(master.x, master.y, master.z);
-            return new ILiquidTank[] { smeltery };
+            return new FluidTankInfo[] { smeltery.getInfo() };
         }
         return null;
     }
-
-    @Override
-    public ILiquidTank getTank (ForgeDirection direction, FluidStack type)
-    {
-        if (hasValidMaster())
-        {
-            return (SmelteryLogic) worldObj.getBlockTileEntity(master.x, master.y, master.z);
-        }
-        return null;
-    }*/
 
     @Override
     public byte getRenderDirection ()
@@ -207,7 +174,7 @@ public class SmelteryDrainLogic extends MultiServantLogic implements IFluidHandl
     @Override
     public void onDataPacket (INetworkManager net, Packet132TileEntityData packet)
     {
-        readFromNBT(packet.customParam1);
+        readFromNBT(packet.data);
         worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
     }
 }

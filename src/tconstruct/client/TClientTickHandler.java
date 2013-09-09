@@ -42,10 +42,10 @@ public class TClientTickHandler implements ITickHandler
         int scaledHeight = scaledresolution.getScaledHeight();
         int xBasePos = scaledWidth / 2 - 91;
         int yBasePos = scaledHeight - 39;
-        this.mc.func_110434_K().func_110577_a(hearts);
+        this.mc.getTextureManager().bindTexture(hearts);
         //this.mc.renderEngine.bindTexture("/mods/tinker/textures/gui/newhearts.png");
 
-        int hp = MathHelper.ceiling_float_int(this.mc.thePlayer.func_110143_aJ());//(int) player.func_110148_a(SharedMonsterAttributes.field_111267_a).func_111125_b();//player.getHealth();
+        int hp = MathHelper.ceiling_float_int(this.mc.thePlayer.getHealth());//(int) player.getEntityAttribute(SharedMonsterAttributes.field_111267_a).func_111125_b();//player.getHealth();
         //System.out.println("hp: "+hp);
         for (int iter = 0; iter < hp / 20; iter++)
         {

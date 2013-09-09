@@ -1,21 +1,36 @@
 [
-{
-  "modid": "TConstruct",
-  "name": "Tinkers' Construct",
-  "description": "A little of this, a little of that, a lot of tinkering, and a lot of tools",
-  "version": "@VERSION@",
-  "mcversion": "@MCVERSION@",
-  "url": "http://www.minecraftforum.net/topic/1659892-tinkers-construct",
-  "updateUrl": "",
-  "authors": [
-    "mDiyo"
-  ],
-  "credits": "mDiyo",
-  "logoFile": "",
-  "screenshots": [
-  ],
-  "parent":"",
-  "dependencies": [
-  ]
-}
+  {
+    "modid": "TConstruct",
+    "name": "Tinkers' Construct",
+    "description": "A little of this, a little of that, a lot of tinkering, and a lot of tools",
+    "version": "@VERSION@",
+    "mcversion": "@MCVERSION@",
+    "url": "http://www.minecraftforum.net/topic/1659892-tinkers-construct",
+    "updateUrl": "",
+    "authors": [
+      "mDiyo", "fuj1n", "ProgWML6", "Sunstrike"
+    ],
+    "credits": "Ecu",
+    "logoFile": "",
+    "screenshots": [],
+    "parent":"",
+    "dependencies": []
+  },
+  {
+    "modid": "TConstruct|CompatMineFactoryReloaded",
+    "name": "TConstruct Compat: MFR",
+    "description": "TConstruct support for Minefactory Reloaded",
+    "version": "@VERSION@",
+    "mcversion": "@MCVERSION@",
+    "url": "http://www.minecraftforum.net/topic/1659892-tinkers-construct",
+    "updateUrl": "",
+    "authors": [],
+    "credits": "",
+    "logoFile": "",
+    "screenshots": [],
+    "parent":"TConstruct",
+    "dependencies": [
+      "TConstruct"
+    ]
+  }
 ]

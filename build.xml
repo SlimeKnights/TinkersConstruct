@@ -18,7 +18,7 @@
 	<property name="mcpsrc.dir" value="${mcp.dir}/src"/>
 
 	<property name="mc.version" value="1.6.2"/>
-	<property name="forge.version" value="9.10.0.845"/>
+	<property name="forge.version" value="9.10.1.858"/>
 
     <property name="version.major" value="0"/>
     <property name="version.minor" value="0"/>
@@ -63,9 +63,8 @@
 
 	<target name="git-revision" if="git.present">
 		<exec executable="git" dir="." outputproperty="git.revision" failifexecutionfails="false" errorproperty="">
-			<arg value="describe"/>
-			<arg value="--tags"/>
-			<arg value="--always"/>
+			<arg value="rev-parse"/>
+			<arg value="--short"/>
 			<arg value="HEAD"/>
 		</exec>
 		<echo message="Git revision: ${git.revision}"/>

@@ -415,7 +415,7 @@ public abstract class NewContainerGui extends GuiScreen
             if (icon != null)
             {
                 GL11.glDisable(GL11.GL_LIGHTING);
-                this.mc.func_110434_K().func_110577_a(TextureMap.field_110576_c);
+                this.mc.getTextureManager().bindTexture(TextureMap.locationItemsTexture);
                 this.drawTexturedModelRectFromIcon(i, j, icon, 16, 16);
                 GL11.glEnable(GL11.GL_LIGHTING);
                 flag1 = true;
