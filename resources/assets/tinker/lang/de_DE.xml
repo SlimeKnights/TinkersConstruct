@@ -185,6 +185,13 @@
   <entry key="item.tconstruct.Materials.AlumiteNugget.name">Alumitklumpen</entry>
   <entry key="item.tconstruct.Materials.SteelNugget.name">Stahlklumpen</entry>
   
+  <entry key="item.tconstruct.jerky.beef.name">Rindfleisch-Charqui</entry>
+  <entry key="item.tconstruct.jerky.pig.name">Schweinefleisch-Charqui</entry>
+  <entry key="item.tconstruct.jerky.chicken.name">Hühnchen-Charqui</entry>
+  <entry key="item.tconstruct.jerky.sheep.name">Hammel-Charqui</entry>
+  <entry key="item.tconstruct.jerky.fish.name">Fisch-Charqui</entry>
+  <entry key="item.tconstruct.jerky.zombie.name">Monster-Charqui</entry>
+  
   <entry key="item.tconstruct.crystal.essence.name">Essenzkristall</entry>
 
   <entry key="Smeltery.Controller.name">Schmelzereikern</entry>
