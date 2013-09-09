@@ -60,18 +60,29 @@ public class TConstruct
         if (Loader.isModLoaded("Natura"))
         {
             System.out.println("[TConstruct] Natura, what are we going to do tomorrow night?");
-            System.out.println("[Natura] TConstruct, we're going to take over the world!");
-            /*System.out.println("[TConstruct] They're Pinky, they're Pinky and");
-            System.out.println("[Natura] the Brain Brain Brain Brain Brain~");*/
+            if (Loader.isModLoaded("ChaoticBastion"))
+            {
+                System.out.println("[Natura] TConstruct, we're going to...");
+                System.out.println("[ChaoticBastion] All your base are belong to us!");
+
+            }
+            else
+                System.out.println("[Natura] TConstruct, we're going to take over the world!");
         }
         else
         {
-            System.out.println("[TConstruct] Preparing to take over the world");
+            if (Loader.isModLoaded("ChaoticBastion"))
+            {
+                System.out.println("[TConstruct] Preparing to...");
+                System.out.println("[ChaoticBastion] I'MA FIRING MY LAZOR!");
+            }
+            else
+                System.out.println("[TConstruct] Preparing to take over the world");
         }
     }
 
     @EventHandler
-    public void preInit (FMLPreInitializationEvent event)
+    public void preInit(FMLPreInitializationEvent event)
     {
         PHConstruct.initProps(event.getModConfigurationDirectory());
         TConstructRegistry.materialTab = new TabTools("TConstructMaterials");
@@ -116,7 +127,7 @@ public class TConstruct
     }
 
     @EventHandler
-    public void init (FMLInitializationEvent event)
+    public void init(FMLInitializationEvent event)
     {
         if (event.getSide() == Side.CLIENT)
         {
@@ -128,7 +139,7 @@ public class TConstruct
     }
 
     @EventHandler
-    public void postInit (FMLPostInitializationEvent evt)
+    public void postInit(FMLPostInitializationEvent evt)
     {
         Behavior.registerBuiltInBehaviors();
         SpecialStackHandler.registerBuiltInStackHandlers();
@@ -138,17 +149,17 @@ public class TConstruct
         content.modRecipes();
     }
 
-    public static LiquidCasting getTableCasting ()
+    public static LiquidCasting getTableCasting()
     {
         return tableCasting;
     }
 
-    public static LiquidCasting getBasinCasting ()
+    public static LiquidCasting getBasinCasting()
     {
         return basinCasting;
     }
 
-    public static Detailing getChiselDetailing ()
+    public static Detailing getChiselDetailing()
     {
         return chiselDetailing;
     }
