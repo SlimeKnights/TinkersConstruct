@@ -33,7 +33,7 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
     @Override
     public void generate (Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider) //IWorldGenerator version
     {
-        if (!dimblacklist.isDimInBlacklist(world.provider.dimensionId))
+        if (dimblacklist.isDimInBlacklist(world.provider.dimensionId))
         {
             if (random.nextInt(PHConstruct.islandRarity) == 0)
                 generateIsland(world, random, chunkX * 16, chunkZ * 16);
