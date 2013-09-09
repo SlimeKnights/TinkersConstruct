@@ -4,6 +4,8 @@ import net.minecraftforge.common.MinecraftForge;
 import tconstruct.client.event.EventCloakRender;
 import tconstruct.common.TContent;
 import tconstruct.common.TProxyCommon;
+import tconstruct.compat.Tforest;
+import tconstruct.compat.dimensions.dimblacklist;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.Detailing;
 import tconstruct.library.crafting.LiquidCasting;
@@ -84,7 +86,8 @@ public class TConstruct
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {
-        PHConstruct.initProps(event.getModConfigurationDirectory());
+        
+    	PHConstruct.initProps(event.getModConfigurationDirectory());
         TConstructRegistry.materialTab = new TabTools("TConstructMaterials");
         TConstructRegistry.toolTab = new TabTools("TConstructTools");
         TConstructRegistry.blockTab = new TabTools("TConstructBlocks");
@@ -147,6 +150,8 @@ public class TConstruct
         TContent.modRecipes();
         content.createEntities();
         content.modRecipes();
+        Tforest.initProps(PHConstruct.cfglocation);
+        dimblacklist.getbaddimensions();
     }
 
     public static LiquidCasting getTableCasting()
