@@ -33,7 +33,7 @@ public class PHConstruct
 
         /* [Forge] Configuration class, used as config method */
         Configuration config = new Configuration(newFile);
-
+        cfglocation = location;
         /* Load the configuration file */
         config.load();
 
@@ -356,7 +356,8 @@ public class PHConstruct
         Property conTexMode = config.get("Looks", "Connected Textures Enabled", true);
         conTexMode.comment = "0 = disabled, 1 = enabled, 2 = enabled + ignore stained glass meta";
         connectedTexturesMode = conTexMode.getInt(2);
-
+        //dimension blacklist
+        cfgDimBlackList = config.get("DimBlackList", "SlimeIslandDimBlacklist",new int[]{}).getIntList();
         /* Save the configuration file */
         config.save();
 
@@ -673,4 +674,7 @@ public class PHConstruct
 
     //Looks
     public static int connectedTexturesMode;
+    public static File cfglocation;
+    //dimensionblacklist
+    public static int[] cfgDimBlackList;
 }
