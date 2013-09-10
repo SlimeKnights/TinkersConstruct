@@ -15,6 +15,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumMovingObjectType;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -226,4 +227,18 @@ public class Chisel extends ToolCore
         return new String[] { "utility" };
     }
 
+	@Override
+	public boolean willAllowOffhandWeapon() {
+		return false;
+	}
+
+	@Override
+	public boolean willAllowShield() {
+		return false;
+	}
+
+	@Override
+	public boolean isOffhandHandDualWeapon() {
+		return false;
+	}
 }
