@@ -3,6 +3,7 @@ package tconstruct.items.tools;
 import tconstruct.common.TContent;
 import tconstruct.library.tools.AbilityHelper;
 import tconstruct.library.tools.Weapon;
+import tconstruct.util.PHConstruct;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -161,4 +162,24 @@ public class Cleaver extends Weapon
         entity.swingProgressInt /= 2;
         return false;
     }*/
+    
+    @Override
+	public boolean willAllowOffhandWeapon() {
+		return false;
+	}
+
+	@Override
+	public boolean willAllowShield() {
+		return PHConstruct.isCleaverTwoHanded;
+	}
+
+	@Override
+	public boolean isOffhandHandDualWeapon() {
+		return false;
+	}
+
+	@Override
+	public boolean sheatheOnBack() {
+		return true;
+	}
 }

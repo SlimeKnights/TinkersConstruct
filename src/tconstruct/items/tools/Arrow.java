@@ -225,4 +225,9 @@ public class Arrow extends ToolCore
             }
         }
     }
+    
+	@Override
+	public boolean isOffhandHandDualWeapon() {
+		return false;
+	}
 }
