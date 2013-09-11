@@ -1143,7 +1143,8 @@ public class TContent implements IFuelHandler
 
         TConstructRegistry.addBowstringMaterial(0, 2, new ItemStack(Item.silk), new ItemStack(bowstring, 1, 0), 1F, 1F, 1f); //String
         TConstructRegistry.addFletchingMaterial(0, 2, new ItemStack(Item.feather), new ItemStack(fletching, 1, 0), 100F, 0F, 0.05F); //Feather
-        TConstructRegistry.addFletchingMaterial(1, 2, new ItemStack(Block.leaves), new ItemStack(fletching, 1, 1), 75F, 0F, 0.2F); //Leaves
+        for (int i = 0; i < 4; i++ )
+            TConstructRegistry.addFletchingMaterial(1, 2, new ItemStack(Block.leaves, 1, i), new ItemStack(fletching, 1, 1), 75F, 0F, 0.2F); //All four vanialla Leaves
         TConstructRegistry.addFletchingMaterial(2, 2, new ItemStack(materials, 1, 1), new ItemStack(fletching, 1, 2), 100F, 0F, 0.12F); //Slime
         TConstructRegistry.addFletchingMaterial(3, 2, new ItemStack(materials, 1, 17), new ItemStack(fletching, 1, 3), 100F, 0F, 0.12F); //BlueSlime
 
