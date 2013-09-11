@@ -68,4 +68,9 @@ public class Pickaxe extends HarvestTool
     {
         return "pickaxe";
     }
+    
+	@Override
+	public boolean isOffhandHandDualWeapon() {
+		return false;
+	}
 }

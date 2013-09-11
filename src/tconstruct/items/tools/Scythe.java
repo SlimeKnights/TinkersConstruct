@@ -218,4 +218,23 @@ public class Scythe extends Weapon
         return true;
     }
 
+    @Override
+	public boolean willAllowOffhandWeapon() {
+		return false;
+	}
+
+	@Override
+	public boolean willAllowShield() {
+		return false;
+	}
+
+	@Override
+	public boolean isOffhandHandDualWeapon() {
+		return false;
+	}
+
+	@Override
+	public boolean sheatheOnBack() {
+		return true;
+	}
 }

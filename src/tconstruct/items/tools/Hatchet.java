@@ -104,4 +104,9 @@ public class Hatchet extends HarvestTool
     {
         return "axe";
     }
+    
+	@Override
+	public boolean isOffhandHandDualWeapon() {
+		return false;
+	}
 }
