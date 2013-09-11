@@ -1636,9 +1636,6 @@ public class TContent implements IFuelHandler
         if (PHConstruct.stencilTableCrafting)
             GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(toolStationWood, 1, 10), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', "plankWood"));
 
-        GameRegistry.addShapelessRecipe(new ItemStack(Item.book, 1, 0), new ItemStack(blankPattern, 1, 0), new ItemStack(blankPattern, 1, 0), new ItemStack(Item.paper, 1, 0), new ItemStack(
-                Item.paper, 1, 0), new ItemStack(Item.paper, 1, 0), new ItemStack(Item.silk, 1, 0));
-
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(blankPattern, 1, 0), "ps", "sp", 'p', "plankWood", 's', "stickWood"));
         GameRegistry.addRecipe(new ItemStack(manualBook), "wp", 'w', new ItemStack(blankPattern, 1, 0), 'p', Item.paper);
         GameRegistry.addShapelessRecipe(new ItemStack(manualBook, 2, 0), new ItemStack(manualBook, 1, 0), Item.book);
