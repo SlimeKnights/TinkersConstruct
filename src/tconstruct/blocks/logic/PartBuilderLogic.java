@@ -61,6 +61,8 @@ public class PartBuilderLogic extends InventoryLogic implements ISidedInventory
             if (!craftedTop && inventory[0] != null)
             {
                 int value = PatternBuilder.instance.getPartValue(inventory[2]);
+                if (value == 0) /* hack to plug up future dups */
+                    value = 2;
                 IPattern item = (IPattern) inventory[0].getItem();
                 int cost = item != null ? item.getPatternCost(inventory[0]) : 0;
                 if (value > 0 && cost > 0)
