@@ -399,4 +399,24 @@ public class Hammer extends HarvestTool
     {
         return new String[] { "weapon", "harvest", "melee", "bludgeoning" };
     }
+    
+    @Override
+	public boolean willAllowOffhandWeapon() {
+		return false;
+	}
+
+	@Override
+	public boolean willAllowShield() {
+		return false;
+	}
+
+	@Override
+	public boolean isOffhandHandDualWeapon() {
+		return false;
+	}
+
+	@Override
+	public boolean sheatheOnBack() {
+		return true;
+	}
 }

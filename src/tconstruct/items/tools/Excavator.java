@@ -293,4 +293,24 @@ public class Excavator extends HarvestTool
         }
         return super.getStrVsBlock(stack, block, meta);
     }
+    
+    @Override
+	public boolean willAllowOffhandWeapon() {
+		return false;
+	}
+
+	@Override
+	public boolean willAllowShield() {
+		return false;
+	}
+
+	@Override
+	public boolean isOffhandHandDualWeapon() {
+		return false;
+	}
+
+	@Override
+	public boolean sheatheOnBack() {
+		return true;
+	}
 }
