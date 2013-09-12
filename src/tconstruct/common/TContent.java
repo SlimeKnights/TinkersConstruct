@@ -93,6 +93,7 @@ import tconstruct.blocks.slime.SlimeTallGrass;
 import tconstruct.blocks.traps.BarricadeBlock;
 import tconstruct.blocks.traps.Punji;
 import tconstruct.client.StepSoundSlime;
+import tconstruct.compat.mystcraft.MystImcHandler;
 import tconstruct.entity.Automaton;
 import tconstruct.entity.BlueSlime;
 import tconstruct.entity.Crystal;
@@ -2030,7 +2031,7 @@ public class TContent implements IFuelHandler
         FMLInterModComms.sendMessage("Thaumcraft", "harvestClickableCrop", new ItemStack(oreBerry, 1, 15));
         FMLInterModComms.sendMessage("Thaumcraft", "harvestClickableCrop", new ItemStack(oreBerrySecond, 1, 12));
         FMLInterModComms.sendMessage("Thaumcraft", "harvestClickableCrop", new ItemStack(oreBerrySecond, 1, 13));
-
+        MystImcHandler.blacklistFluids(); 
         /* FORESTRY
          * Edit these strings to change what items are added to the backpacks
          * Format info: "[backpack ID]@[item ID].[metadata or *]:[next item]" and so on
