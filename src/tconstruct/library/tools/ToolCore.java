@@ -618,7 +618,7 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
     public boolean onLeftClickEntity (ItemStack stack, EntityPlayer player, Entity entity)
     {
         AbilityHelper.onLeftClickEntity(stack, player, entity, this, 0);
-        return true;
+        return false;
     }
 
     @Override

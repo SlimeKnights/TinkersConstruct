@@ -141,9 +141,4 @@ public class Longsword extends Weapon
     {
         return "longsword";
     }
-    
-	@Override
-	public boolean isOffhandHandDualWeapon() {
-		return false;
-	}
 }

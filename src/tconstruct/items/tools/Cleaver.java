@@ -3,6 +3,7 @@ package tconstruct.items.tools;
 import tconstruct.common.TContent;
 import tconstruct.library.tools.AbilityHelper;
 import tconstruct.library.tools.Weapon;
+import tconstruct.util.PHConstruct;
 import mods.battlegear2.api.weapons.OffhandAttackEvent;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -171,7 +172,7 @@ public class Cleaver extends Weapon
 
 	@Override
 	public boolean willAllowShield() {
-		return false;
+		return PHConstruct.isCleaverTwoHanded;
 	}
 
 	@Override
