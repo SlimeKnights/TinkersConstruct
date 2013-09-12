@@ -2,12 +2,7 @@ package tconstruct.items.tools;
 
 import tconstruct.common.TContent;
 import tconstruct.library.tools.Weapon;
-import mods.battlegear2.api.OffhandAttackEvent;
-import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.EntityDamageSource;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 
 public class Broadsword extends Weapon
 {
