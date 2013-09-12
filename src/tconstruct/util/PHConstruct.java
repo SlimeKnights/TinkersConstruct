@@ -361,6 +361,9 @@ public class PHConstruct
         cfgDimBlackList = config.get("DimBlackList", "SlimeIslandDimBlacklist",new int[]{}).getIntList();
         slimeIslGenDim0Only = config.get("DimBlackList","GenerateSlimeIslandInDim0Only" , false).getBoolean(false);
         
+        //Addon stuff
+        isCleaverTwoHanded = config.get("Battlegear", "Can Cleavers have shields", true).getBoolean(true);
+        
         /* Save the configuration file */
         config.save();
 
@@ -681,4 +684,7 @@ public class PHConstruct
     //dimensionblacklist
     public static boolean slimeIslGenDim0Only;
     public static int[] cfgDimBlackList;
+    
+    //Addon stuff
+    public static boolean isCleaverTwoHanded;
 }
