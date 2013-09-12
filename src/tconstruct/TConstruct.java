@@ -4,6 +4,7 @@ import net.minecraftforge.common.MinecraftForge;
 import tconstruct.client.event.EventCloakRender;
 import tconstruct.common.TContent;
 import tconstruct.common.TProxyCommon;
+import tconstruct.compat.BOP;
 import tconstruct.compat.Tforest;
 import tconstruct.compat.dimensions.dimblacklist;
 import tconstruct.library.TConstructRegistry;
@@ -151,6 +152,7 @@ public class TConstruct
         content.createEntities();
         content.modRecipes();
         Tforest.initProps(PHConstruct.cfglocation);
+        BOP.initProps(PHConstruct.cfglocation);
         dimblacklist.getbaddimensions();
     }
 

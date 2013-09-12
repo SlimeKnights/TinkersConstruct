@@ -145,7 +145,9 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
 
     public void generateSlimePool (World world, Random rand, int x, int y, int z)
     {
-        this.generate(world, rand, x, y, z);
+        if(dimblacklist.isDimPoolOnly(world.provider.dimensionId)){
+    	this.generate(world, rand, x, y, z);
+        }
     }
 
     public boolean generate (World world, Random rand, int x, int y, int z) //WorldGenerator version

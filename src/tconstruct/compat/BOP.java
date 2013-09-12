@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import net.minecraftforge.common.Configuration;
 
-public class Tforest {
+public class BOP {
 	public static void initProps (File location)
     {
         /* Here we will set up the config file for the mod 
@@ -16,7 +16,7 @@ public class Tforest {
         //file.mkdir();
         //File newFile = new File(TConstruct.proxy.getLocation() + "/config/TinkersWorkshop.txt");
         
-		File newFile = new File(location + "/TwilightForest.cfg");
+		File newFile = new File(location + "/biomesoplenty/ids.cfg");
 		if( newFile.exists()){
         
         /* [Forge] Configuration class, used as config method */
@@ -25,11 +25,11 @@ public class Tforest {
         /* Load the configuration file */
         config.load();
 
-        tfdimid = config.get("Dimension", "DimensionID", true).getInt();
+        pldimid = config.get("dimension settings", "Promised Land Dimension ID", true).getInt();
     }
 	else {
-		tfdimid = -100;
+		pldimid = -100;
 	}
     }
-	public static int tfdimid;
+	public static int pldimid;
 }
