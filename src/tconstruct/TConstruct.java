@@ -4,6 +4,7 @@ import net.minecraftforge.common.MinecraftForge;
 import tconstruct.client.event.EventCloakRender;
 import tconstruct.common.TContent;
 import tconstruct.common.TProxyCommon;
+import tconstruct.compat.BOP;
 import tconstruct.compat.Tforest;
 import tconstruct.compat.dimensions.dimblacklist;
 import tconstruct.library.TConstructRegistry;
@@ -138,6 +139,9 @@ public class TConstruct
         }
 
         content.intermodCommunication();
+        Tforest.initProps(PHConstruct.cfglocation);
+        BOP.initProps(PHConstruct.cfglocation);
+        dimblacklist.getbaddimensions();
         GameRegistry.registerWorldGenerator(new SlimeIslandGen(TContent.slimePool.blockID, 0));
     }
 
@@ -150,9 +154,7 @@ public class TConstruct
         TContent.modRecipes();
         content.createEntities();
         content.modRecipes();
-        Tforest.initProps(PHConstruct.cfglocation);
-        dimblacklist.getbaddimensions();
-    }
+   }
 
     public static LiquidCasting getTableCasting()
     {
