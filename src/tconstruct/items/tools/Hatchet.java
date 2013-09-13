@@ -3,6 +3,7 @@ package tconstruct.items.tools;
 import tconstruct.common.TContent;
 import tconstruct.library.tools.AbilityHelper;
 import tconstruct.library.tools.HarvestTool;
+import tconstruct.util.PHConstruct;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
@@ -107,6 +108,6 @@ public class Hatchet extends HarvestTool
     
 	@Override
 	public boolean isOffhandHandDualWeapon() {
-		return false;
+		return PHConstruct.isHatchetWeapon;
 	}
 }

@@ -46,7 +46,7 @@ public class PHConstruct
         beginnerBook = config.get("Difficulty Changes", "Spawn beginner book", true).getBoolean(true);
         alphaRegen = config.get("Alpha Behavior", "Regenerate HP from food", false).getBoolean(false);
         alphaHunger = config.get("Alpha Behavior", "Remove hunger", false).getBoolean(false);
-
+        
         superfunWorld = config.get("Superfun", "All the world is Superfun", false).getBoolean(false);
 
         enableTWood = config.get("Difficulty Changes", "Enable mod wooden tools", true).getBoolean(true);
@@ -363,6 +363,7 @@ public class PHConstruct
         
         //Addon stuff
         isCleaverTwoHanded = config.get("Battlegear", "Can Cleavers have shields", true).getBoolean(true);
+        isHatchetWeapon = config.get("Battlegear", "Are Hatches also weapons", true).getBoolean(true);
         
         /* Save the configuration file */
         config.save();
@@ -687,4 +688,5 @@ public class PHConstruct
     
     //Addon stuff
     public static boolean isCleaverTwoHanded;
+	public static boolean isHatchetWeapon;
 }
