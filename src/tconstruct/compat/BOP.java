@@ -25,7 +25,8 @@ public class BOP {
         /* Load the configuration file */
         config.load();
 
-        pldimid = config.get("dimension settings", "Promised Land Dimension ID", true).getInt();
+        pldimid = config.get("dimension settings", "Promised Land Dimension ID", -200).getInt();
+        System.out.println("[TConstruct]PL Dim ID: " + pldimid);
     }
 	else {
 		pldimid = -100;

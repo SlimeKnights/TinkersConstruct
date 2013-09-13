@@ -32,16 +32,18 @@ public static boolean isDimInBlacklist(int dim){
 	for (int len = 0;len< blacklist.size(); len++){
 		if (blacklist.get(len) == dim)
 				return false;
+				//System.out.println("[TConstruct]diminblist +" + blacklist.get(len));
 	} 
 	return true;
 	
 }
-public static boolean isDimPoolOnly(int dim){
+public static boolean isDimNoPool(int dim){
 		for (int len = 0;len< nopool.size(); len++){
 			if (nopool.get(len) == dim)
-					return false;
+				//System.out.println("[TConstruct]DimNoPool "+ nopool.get(len));
+					return true;
 		} 
-		return true;
+		return false;
 		
 }
 }

@@ -25,7 +25,8 @@ public class Tforest {
         /* Load the configuration file */
         config.load();
 
-        tfdimid = config.get("Dimension", "DimensionID", true).getInt();
+        tfdimid = config.get("dimension", "dimensionID", -100).getInt();
+        System.out.println("[TConstruct]TF Dim ID: " + tfdimid);
     }
 	else {
 		tfdimid = -100;

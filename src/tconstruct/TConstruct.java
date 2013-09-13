@@ -139,6 +139,9 @@ public class TConstruct
         }
 
         content.intermodCommunication();
+        Tforest.initProps(PHConstruct.cfglocation);
+        BOP.initProps(PHConstruct.cfglocation);
+        dimblacklist.getbaddimensions();
         GameRegistry.registerWorldGenerator(new SlimeIslandGen(TContent.slimePool.blockID, 0));
     }
 
@@ -151,10 +154,7 @@ public class TConstruct
         TContent.modRecipes();
         content.createEntities();
         content.modRecipes();
-        Tforest.initProps(PHConstruct.cfglocation);
-        BOP.initProps(PHConstruct.cfglocation);
-        dimblacklist.getbaddimensions();
-    }
+   }
 
     public static LiquidCasting getTableCasting()
     {
