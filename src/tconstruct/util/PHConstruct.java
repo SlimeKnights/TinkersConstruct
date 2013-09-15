@@ -1,9 +1,10 @@
 package tconstruct.util;
 
+import net.minecraftforge.common.Configuration;
+import net.minecraftforge.common.Property;
+
 import java.io.File;
 import java.io.IOException;
-
-import net.minecraftforge.common.*;
 
 public class PHConstruct
 {
@@ -360,6 +361,9 @@ public class PHConstruct
         //dimension blacklist
         cfgDimBlackList = config.get("DimBlackList", "SlimeIslandDimBlacklist",new int[]{}).getIntList();
         slimeIslGenDim0Only = config.get("DimBlackList","GenerateSlimeIslandInDim0Only" , false).getBoolean(false);
+
+        //Experimental functionality
+        throwableSmeltery = config.get("Experimental", "Items can be thrown into smelteries", true).getBoolean(true);
         
         //Addon stuff
         isCleaverTwoHanded = config.get("Battlegear", "Can Cleavers have shields", true).getBoolean(true);
@@ -685,6 +689,9 @@ public class PHConstruct
     //dimensionblacklist
     public static boolean slimeIslGenDim0Only;
     public static int[] cfgDimBlackList;
+
+    //Experimental functionality
+    public static boolean throwableSmeltery;
     
     //Addon stuff
     public static boolean isCleaverTwoHanded;

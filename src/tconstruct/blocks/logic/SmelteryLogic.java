@@ -1,19 +1,6 @@
 package tconstruct.blocks.logic;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
-import tconstruct.common.TContent;
-import tconstruct.inventory.SmelteryContainer;
-import tconstruct.library.blocks.InventoryLogic;
-import tconstruct.library.crafting.Smeltery;
-import tconstruct.library.util.CoordTuple;
-import tconstruct.library.util.IActiveLogic;
-import tconstruct.library.util.IFacingLogic;
-import tconstruct.library.util.IMasterLogic;
-import tconstruct.util.SmelteryDamageSource;
-
+import cpw.mods.fml.common.network.PacketDispatcher;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -38,6 +25,20 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 import net.minecraftforge.fluids.IFluidTank;
+import tconstruct.common.TContent;
+import tconstruct.inventory.SmelteryContainer;
+import tconstruct.library.blocks.InventoryLogic;
+import tconstruct.library.crafting.Smeltery;
+import tconstruct.library.util.CoordTuple;
+import tconstruct.library.util.IActiveLogic;
+import tconstruct.library.util.IFacingLogic;
+import tconstruct.library.util.IMasterLogic;
+import tconstruct.util.PHConstruct;
+import tconstruct.util.SmelteryDamageSource;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 /* Simple class for storing items in the block
  */
@@ -341,39 +342,48 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                     }*/
                 }
             }
-            /*boolean itemAdded = false;
-            if (o instanceof EntityItem)
+            else if (PHConstruct.throwableSmeltery && o instanceof EntityItem)
             {
-                EntityItem item = (EntityItem) o;
-                item.age = 0;
-                int position = 0;
-                boolean canContinue = true;
-                do
-                {
-                    if (inventory[position] == null)
-                    {
-                        ItemStack stack = item.getEntityItem();
-                        if (stack.stackSize > 0)
-                        {
-                            itemAdded = true;
-                            this.setInventorySlotContents(position, stack.copy());
-                            stack.stackSize--;
-                            this.onInventoryChanged();
-                            //worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-                        }
-                        if (stack.stackSize < 1)
-                        {
-                            canContinue = false;
-                            item.attackEntityFrom(DamageSource.magic, 1000);
-                        }
-                    }
-                    position++;
-                    if (position == inventory.length)
-                        canContinue = false;
-                } while (canContinue);
+                handleItemEntity((EntityItem) o);
             }
-            if (itemAdded)
-                this.needsUpdate = true;*/
+        }
+    }
+
+    private void handleItemEntity(EntityItem item)
+    {
+        // Clients like to play merry hell with this and cause breakage (we update their inv on syncs)
+        if (worldObj.isRemote) return;
+
+        item.age = 0;
+        ItemStack istack = item.getEntityItem();
+        if (istack.stackSize <= 0) return;
+
+        int maxSlot = this.getSizeInventory();
+        boolean itemDestroyed = false;
+        boolean itemAdded = false;
+
+        for (int i = 0; i < maxSlot; i++)
+        {
+            ItemStack stack = this.getStackInSlot(i);
+            if (stack == null && istack.stackSize > 0)
+            {
+                this.setInventorySlotContents(i, new ItemStack(istack.getItem(), 1));
+                istack.stackSize -= 1;
+                itemAdded = true;
+                if (istack.stackSize <= 0)
+                {
+                    item.setDead();
+                    itemDestroyed = true;
+                    break;
+                }
+            }
+        }
+
+        if (!itemDestroyed)
+            item.setEntityItemStack(istack);
+        if (itemAdded) {
+            this.needsUpdate = true;
+            PacketDispatcher.sendPacketToAllInDimension(getDescriptionPacket(), worldObj.provider.dimensionId);
         }
     }
 
@@ -626,6 +636,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     public void onInventoryChanged ()
     {
         updateTemperatures();
+        updateEntity();
         super.onInventoryChanged();
         needsUpdate = true;
         //worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
@@ -1076,6 +1087,8 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     public void onDataPacket (INetworkManager net, Packet132TileEntityData packet)
     {
         readFromNBT(packet.data);
+        onInventoryChanged();
         worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+        this.needsUpdate = true;
     }
 }
