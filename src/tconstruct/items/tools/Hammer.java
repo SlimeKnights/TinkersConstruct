@@ -406,11 +406,6 @@ public class Hammer extends HarvestTool
 	}
 
 	@Override
-	public boolean willAllowShield() {
-		return false;
-	}
-
-	@Override
 	public boolean isOffhandHandDualWeapon() {
 		return false;
 	}

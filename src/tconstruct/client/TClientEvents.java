@@ -25,6 +25,7 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import tconstruct.TConstruct;
 import tconstruct.blocks.LiquidMetalFinite;
+import tconstruct.blocks.slime.SlimeFluid;
 import tconstruct.client.armor.WingModel;
 import tconstruct.common.TContent;
 import tconstruct.util.player.TPlayerStats;
@@ -67,16 +68,13 @@ public class TClientEvents
     {
         for (int i = 0; i < TContent.fluids.length; i++)
         {
-            if (TContent.fluidBlocks[i] instanceof LiquidMetalFinite)
-            {
-                LiquidMetalFinite block = (LiquidMetalFinite) TContent.fluidBlocks[i];
-                TContent.fluids[i].setIcons(block.stillIcon, block.flowIcon);
-            }
-            Fluid lava = FluidRegistry.getFluid("lava");
-            lava.setIcons(Block.lavaStill.getIcon(0, 0), Block.lavaStill.getIcon(2, 0));
-            Fluid lavawater = FluidRegistry.getFluid("water");
-            lava.setIcons(Block.waterStill.getIcon(0, 0), Block.waterStill.getIcon(2, 0));
+            TContent.fluids[i].setIcons(TContent.fluidBlocks[i].getIcon(0, 0), TContent.fluidBlocks[i].getIcon(2, 0));
         }
+        
+        Fluid lava = FluidRegistry.getFluid("lava");
+        lava.setIcons(Block.lavaStill.getIcon(0, 0), Block.lavaStill.getIcon(2, 0));
+        Fluid lavawater = FluidRegistry.getFluid("water");
+        lava.setIcons(Block.waterStill.getIcon(0, 0), Block.waterStill.getIcon(2, 0));
     }
 
     private static final ResourceLocation hearts = new ResourceLocation("tinker", "textures/gui/newhearts.png");
