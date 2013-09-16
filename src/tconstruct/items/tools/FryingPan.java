@@ -43,7 +43,7 @@ public class FryingPan extends Weapon
     {
         if (mob.canAttackWithItem() && !mob.hitByEntity(player) && mob.hurtResistantTime < 14)
             AbilityHelper.onLeftClickEntity(stack, player, mob, this);
-        return true;
+        return false;
     }
 
     @Override

@@ -1,8 +1,14 @@
 package tconstruct.util;
 
+import net.minecraftforge.common.Configuration;
+import net.minecraftforge.common.Property;
+
 import java.io.File;
 import java.io.IOException;
+<<<<<<< HEAD
 import net.minecraftforge.common.*;
+=======
+>>>>>>> e3b92c88575c45d0b03c70a15a22327a4517537b
 
 public class PHConstruct
 {
@@ -45,7 +51,7 @@ public class PHConstruct
         beginnerBook = config.get("Difficulty Changes", "Spawn beginner book", true).getBoolean(true);
         alphaRegen = config.get("Alpha Behavior", "Regenerate HP from food", false).getBoolean(false);
         alphaHunger = config.get("Alpha Behavior", "Remove hunger", false).getBoolean(false);
-
+        
         superfunWorld = config.get("Superfun", "All the world is Superfun", false).getBoolean(false);
 
         enableTWood = config.get("Difficulty Changes", "Enable mod wooden tools", true).getBoolean(true);
@@ -359,9 +365,17 @@ public class PHConstruct
         //dimension blacklist
         cfgDimBlackList = config.get("DimBlackList", "SlimeIslandDimBlacklist",new int[]{}).getIntList();
         slimeIslGenDim0Only = config.get("DimBlackList","GenerateSlimeIslandInDim0Only" , false).getBoolean(false);
+<<<<<<< HEAD
         slimeIslGenDim0 = config.get("DimBlackList", "slimeIslGenDim0", true).getBoolean(true);
+=======
+
+        //Experimental functionality
+        throwableSmeltery = config.get("Experimental", "Items can be thrown into smelteries", true).getBoolean(true);
+        
+>>>>>>> e3b92c88575c45d0b03c70a15a22327a4517537b
         //Addon stuff
         isCleaverTwoHanded = config.get("Battlegear", "Can Cleavers have shields", true).getBoolean(true);
+        isHatchetWeapon = config.get("Battlegear", "Are Hatches also weapons", true).getBoolean(true);
         
         /* Save the configuration file */
         config.save();
@@ -683,8 +697,15 @@ public class PHConstruct
     //dimensionblacklist
     public static boolean slimeIslGenDim0Only;
     public static int[] cfgDimBlackList;
+<<<<<<< HEAD
     public static boolean slimeIslGenDim0;
+=======
+
+    //Experimental functionality
+    public static boolean throwableSmeltery;
+>>>>>>> e3b92c88575c45d0b03c70a15a22327a4517537b
     
     //Addon stuff
     public static boolean isCleaverTwoHanded;
+	public static boolean isHatchetWeapon;
 }
