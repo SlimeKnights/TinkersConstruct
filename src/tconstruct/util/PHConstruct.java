@@ -2,7 +2,6 @@ package tconstruct.util;
 
 import java.io.File;
 import java.io.IOException;
-
 import net.minecraftforge.common.*;
 
 public class PHConstruct
@@ -360,7 +359,7 @@ public class PHConstruct
         //dimension blacklist
         cfgDimBlackList = config.get("DimBlackList", "SlimeIslandDimBlacklist",new int[]{}).getIntList();
         slimeIslGenDim0Only = config.get("DimBlackList","GenerateSlimeIslandInDim0Only" , false).getBoolean(false);
-        
+        slimeIslGenDim0 = config.get("DimBlackList", "slimeIslGenDim0", true).getBoolean(true);
         //Addon stuff
         isCleaverTwoHanded = config.get("Battlegear", "Can Cleavers have shields", true).getBoolean(true);
         
@@ -684,6 +683,7 @@ public class PHConstruct
     //dimensionblacklist
     public static boolean slimeIslGenDim0Only;
     public static int[] cfgDimBlackList;
+    public static boolean slimeIslGenDim0;
     
     //Addon stuff
     public static boolean isCleaverTwoHanded;
