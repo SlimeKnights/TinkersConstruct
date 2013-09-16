@@ -5,7 +5,6 @@ import net.minecraftforge.common.Property;
 import java.io.File;
 import java.io.IOException;
 
-
 public class PHConstruct
 {
 
@@ -695,6 +694,7 @@ public class PHConstruct
 
     //Experimental functionality
     public static boolean throwableSmeltery;
+    
     
     //Addon stuff
     public static boolean isCleaverTwoHanded;
