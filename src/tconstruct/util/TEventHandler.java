@@ -498,6 +498,11 @@ public class TEventHandler
         {
             PatternBuilder.instance.registerMaterial(evt.Ore, 2, "Wood");
         }
+        
+        else if (evt.Name == "stickWood" || evt.Name ==  "slabWood")
+        {
+            PatternBuilder.instance.registerMaterial(evt.Ore, 1, "Wood");
+        }
 
         else if (evt.Name == "crystalQuartz")
         {
@@ -922,6 +927,18 @@ public class TEventHandler
         for (ItemStack ore : ores)
         {
             PatternBuilder.instance.registerMaterial(ore, 2, "Wood");
+        }
+
+        ores = OreDictionary.getOres("stickWood");
+        for (ItemStack ore : ores)
+        {
+            PatternBuilder.instance.registerMaterial(ore, 1, "Wood");
+        }
+
+        ores = OreDictionary.getOres("slabWood");
+        for (ItemStack ore : ores)
+        {
+            PatternBuilder.instance.registerMaterial(ore, 1, "Wood");
         }
 
         ores = OreDictionary.getOres("ingotCopper");
