@@ -26,24 +26,24 @@ public class GlassPaneConnected extends GlassBlockConnected {
 	@Override
 	public int getRenderType() {
 		return PaneConnectedRender.model;
-//		return 0;
+		// return 0;
 	}
-	
+
 	@Override
-	public Icon getBlockTexture(IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5){
-		if(par5 == 0 || par5 == 1){
+	public Icon getBlockTexture(IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5) {
+		if (par5 == 0 || par5 == 1) {
 			return getSideTextureIndex();
-		}else{
+		} else {
 			return super.getBlockTexture(par1IBlockAccess, par2, par3, par4, par5);
 		}
 	}
 
 	@Override
 	public Icon getConnectedBlockTexture(IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5, Icon[] icons) {
-		if(par5 == 0 || par5 == 1){
+		if (par5 == 0 || par5 == 1) {
 			return getSideTextureIndex();
 		}
-		
+
 		if (PHConstruct.connectedTexturesMode == 0) {
 			return icons[0];
 		}
@@ -440,6 +440,17 @@ public class GlassPaneConnected extends GlassBlockConnected {
 
 	public boolean canPaneConnectTo(IBlockAccess access, int x, int y, int z, ForgeDirection dir) {
 		return canThisPaneConnectToThisBlockID(access.getBlockId(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ)) || access.isBlockSolidOnSide(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ, dir.getOpposite(), false);
+	}
+
+	@Override
+	public boolean shouldSideBeRendered(IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5) {
+		int i1 = par1IBlockAccess.getBlockId(par2, par3, par4);
+		if(par5 == 0 || par5 == 1){
+			return i1 == this.blockID ? false : super.shouldSideBeRendered(par1IBlockAccess, par2, par3, par4, par5);
+		}else{
+			return true;
+		}
+//		return true;
 	}
 
 }

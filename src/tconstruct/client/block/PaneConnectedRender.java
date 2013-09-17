@@ -44,6 +44,8 @@ public class PaneConnectedRender implements ISimpleBlockRenderingHandler {
 //			renderer.renderStandardBlock(block, x, y, z);
 		}
 		
+//		renderer.setOverrideBlockTexture(sideTexture);
+		
 		if(flag){
 			renderer.setRenderBounds(0.45D, 0D, 0.45D, 1D, 1D, 0.55D);
 			renderer.renderStandardBlock(block, x, y, z);
