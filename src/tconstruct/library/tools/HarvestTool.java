@@ -75,7 +75,7 @@ public abstract class HarvestTool extends ToolCore
         }
         if (MinecraftForge.getBlockHarvestLevel(block, meta, getHarvestType()) > 0)
         {
-            return calculateStrength(tags, block, meta); //
+            return calculateStrength(tags, block, meta); //No issue if the harvest level is too low
         }
         return super.getStrVsBlock(stack, block, meta);
     }
