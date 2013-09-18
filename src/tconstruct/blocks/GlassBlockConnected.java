@@ -17,7 +17,7 @@ import net.minecraft.world.World;
 
 public class GlassBlockConnected extends Block
 {
-    private Icon[] icons = new Icon[16];
+    protected Icon[] icons = new Icon[16];
     private boolean shouldRenderSelectionBox = true;
     protected String folder;
     private int renderPass;
