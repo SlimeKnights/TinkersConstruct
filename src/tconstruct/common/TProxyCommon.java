@@ -1,16 +1,16 @@
 package tconstruct.common;
 
+import bastion.entity.friendly.GardeSlime;
+import bastion.inventory.MiniGardyContainer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import tconstruct.TConstruct;
 import tconstruct.blocks.logic.TileEntityLandmine;
-import tconstruct.entity.MiniGardy;
 import tconstruct.inventory.ArmorExtendedContainer;
 import tconstruct.inventory.ContainerLandmine;
 import tconstruct.inventory.KnapsackContainer;
-import tconstruct.inventory.MiniGardyContainer;
 import tconstruct.library.blocks.InventoryLogic;
 import tconstruct.util.player.TPlayerStats;
 import cpw.mods.fml.common.network.IGuiHandler;
@@ -37,7 +37,6 @@ public class TProxyCommon implements IGuiHandler
     public static int armorGuiID = 101;
     public static int knapsackGuiID = 102;
 
-    public static int miniGardyGui = 131;
 
     public static int manualGuiID = -1;
 
@@ -76,18 +75,6 @@ public class TProxyCommon implements IGuiHandler
             {
                 TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
                 return new KnapsackContainer(player.inventory, stats.knapsack);
-            }
-            if (ID == miniGardyGui)
-            {
-                for (Object o : world.loadedEntityList)
-                {
-                    Entity entity = (Entity) o;
-                    if (entity.entityId == x)
-                    {
-                        return new MiniGardyContainer(player.inventory, (MiniGardy) entity);
-                    }
-                }
-                return null;
             }
         }
         return null;

@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import bastion.entity.friendly.Automaton;
+import bastion.entity.friendly.GardeSlime;
+import bastion.entity.friendly.SlimeClone;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.block.StepSound;
@@ -94,12 +98,9 @@ import tconstruct.blocks.traps.BarricadeBlock;
 import tconstruct.blocks.traps.Punji;
 import tconstruct.client.StepSoundSlime;
 import tconstruct.compat.mystcraft.MystImcHandler;
-import tconstruct.entity.Automaton;
 import tconstruct.entity.BlueSlime;
 import tconstruct.entity.Crystal;
 import tconstruct.entity.FancyEntityItem;
-import tconstruct.entity.MiniGardy;
-import tconstruct.entity.SlimeClone;
 import tconstruct.entity.projectile.ArrowEntity;
 import tconstruct.entity.projectile.DaggerEntity;
 import tconstruct.entity.projectile.LaunchedPotion;
@@ -458,7 +459,6 @@ public class TContent implements IFuelHandler
         EntityRegistry.registerModEntity(SlimeClone.class, "SlimeClone", 10, TConstruct.instance, 32, 3, true);
         EntityRegistry.registerModEntity(Automaton.class, "Automaton", 11, TConstruct.instance, 64, 3, true);
         EntityRegistry.registerModEntity(BlueSlime.class, "EdibleSlime", 12, TConstruct.instance, 64, 5, true);
-        EntityRegistry.registerModEntity(MiniGardy.class, "MiniGardy", 13, TConstruct.instance, 64, 3, true);
         //EntityRegistry.registerModEntity(MetalSlime.class, "MetalSlime", 13, TConstruct.instance, 64, 5, true);
 
         /*BiomeGenBase[] plains = BiomeDictionary.getBiomesForType(BiomeDictionary.Type.PLAINS);

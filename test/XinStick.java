@@ -8,7 +8,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
 import net.minecraft.world.World;
-import bastion.entity.WoodMinecartEntity;
+import bastion.entity.friendly.GardeSlime;
 
 /*
  * mDiyo's development testing item
@@ -32,8 +32,8 @@ public class XinStick extends Item
     public ItemStack onItemRightClick (ItemStack stack, World world, EntityPlayer player)
     {
         //clearInventoryExeptHotbar(player);
-        WoodMinecartEntity entity = new WoodMinecartEntity(world);
-        //entity.setOwner(player);
+        GardeSlime entity = new GardeSlime(world);
+        entity.setLeader(player);
         //entity.setCustomNameTag("Cutie");
         spawnEntity(player.posX, player.posY + 1, player.posZ, entity, world, player);
         /*EntityChicken chicken = new EntityChicken(world);

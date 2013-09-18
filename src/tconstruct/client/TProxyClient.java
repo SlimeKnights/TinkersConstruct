@@ -92,12 +92,8 @@ import tconstruct.client.block.TableForgeRender;
 import tconstruct.client.block.TableRender;
 import tconstruct.client.block.TankRender;
 import tconstruct.client.entity.CartRender;
-import tconstruct.client.entity.CloneHeadModel;
-import tconstruct.client.entity.CrystalGuardianRender;
 import tconstruct.client.entity.CrystalRender;
 import tconstruct.client.entity.FancyItemRender;
-import tconstruct.client.entity.MiniGardyRender;
-import tconstruct.client.entity.SlimeCloneRender;
 import tconstruct.client.entity.SlimeRender;
 import tconstruct.client.entity.projectile.ArrowRenderCustom;
 import tconstruct.client.entity.projectile.DaggerRenderCustom;
@@ -109,7 +105,6 @@ import tconstruct.client.gui.FrypanGui;
 import tconstruct.client.gui.GuiLandmine;
 import tconstruct.client.gui.GuiManual;
 import tconstruct.client.gui.KnapsackGui;
-import tconstruct.client.gui.MiniGardyGui;
 import tconstruct.client.gui.PartCrafterGui;
 import tconstruct.client.gui.PatternChestGui;
 import tconstruct.client.gui.SmelteryGui;
@@ -136,13 +131,10 @@ import tconstruct.client.tabs.InventoryTabVanilla;
 import tconstruct.client.tabs.TabRegistry;
 import tconstruct.common.TContent;
 import tconstruct.common.TProxyCommon;
-import tconstruct.entity.Automaton;
 import tconstruct.entity.BlueSlime;
 import tconstruct.entity.CartEntity;
 import tconstruct.entity.Crystal;
 import tconstruct.entity.FancyEntityItem;
-import tconstruct.entity.MiniGardy;
-import tconstruct.entity.SlimeClone;
 import tconstruct.entity.projectile.ArrowEntity;
 import tconstruct.entity.projectile.DaggerEntity;
 import tconstruct.entity.projectile.LaunchedPotion;
@@ -154,6 +146,9 @@ import tconstruct.library.crafting.ToolBuilder;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.util.player.ArmorExtended;
 import tconstruct.util.player.KnapsackInventory;
+
+import bastion.client.model.CloneHeadModel;
+import bastion.inventory.MiniGardyGui;
 
 import com.google.common.collect.Lists;
 
@@ -217,18 +212,6 @@ public class TProxyClient extends TProxyCommon
         {
             TProxyClient.knapsack.init(Minecraft.getMinecraft().thePlayer);
             return new KnapsackGui(player.inventory, TProxyClient.knapsack);
-        }
-        if (ID == miniGardyGui)
-        {
-            for (Object o : world.loadedEntityList)
-            {
-                Entity entity = (Entity) o;
-                if (entity.entityId == x)
-                {
-                    return new MiniGardyGui(player.inventory, (MiniGardy) entity);
-                }
-            }
-            return null;
         }
         return null;
     }
@@ -353,12 +336,9 @@ public class TProxyClient extends TProxyCommon
         // Entities
         RenderingRegistry.registerEntityRenderingHandler(FancyEntityItem.class, new FancyItemRender());
         RenderingRegistry.registerEntityRenderingHandler(BlueSlime.class, new SlimeRender(new ModelSlime(16), new ModelSlime(0), 0.25F));
-        RenderingRegistry.registerEntityRenderingHandler(SlimeClone.class, new SlimeCloneRender(new CloneHeadModel(0), new CloneHeadModel(1f), 0.25F));
 
         RenderingRegistry.registerEntityRenderingHandler(CartEntity.class, new CartRender());
         RenderingRegistry.registerEntityRenderingHandler(Crystal.class, new CrystalRender());
-        RenderingRegistry.registerEntityRenderingHandler(MiniGardy.class, new MiniGardyRender());
-        RenderingRegistry.registerEntityRenderingHandler(Automaton.class, new CrystalGuardianRender());
         RenderingRegistry.registerEntityRenderingHandler(LaunchedPotion.class, new LaunchedItemRender(Item.potion, 16384));
         RenderingRegistry.registerEntityRenderingHandler(DaggerEntity.class, new DaggerRenderCustom());
         RenderingRegistry.registerEntityRenderingHandler(ArrowEntity.class, new ArrowRenderCustom());
