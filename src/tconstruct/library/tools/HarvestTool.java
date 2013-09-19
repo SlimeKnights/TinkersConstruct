@@ -70,39 +70,48 @@ public abstract class HarvestTool extends ToolCore
         {
             if (materials[i] == block.blockMaterial)
             {
-                float mineSpeed = tags.getInteger("MiningSpeed");
-                int heads = 1;
-                if (tags.hasKey("MiningSpeed2"))
-                {
-                    mineSpeed += tags.getInteger("MiningSpeed2");
-                    heads++;
-                }
-
-                if (tags.hasKey("MiningSpeedHandle"))
-                {
-                    mineSpeed += tags.getInteger("MiningSpeedHandle");
-                    heads++;
-                }
-
-                if (tags.hasKey("MiningSpeedExtra"))
-                {
-                    mineSpeed += tags.getInteger("MiningSpeedExtra");
-                    heads++;
-                }
-                float trueSpeed = mineSpeed / (heads * 100f);
-                int hlvl = MinecraftForge.getBlockHarvestLevel(block, meta, getHarvestType());
-                int durability = tags.getInteger("Damage");
-
-                float stonebound = tags.getFloat("Shoddy");
-                float bonusLog = (float) Math.log(durability / 72f + 1) * 2 * stonebound;
-                trueSpeed += bonusLog;
-
-                if (hlvl <= tags.getInteger("HarvestLevel"))
-                    return trueSpeed;
-                return 0.1f;
+                return calculateStrength(tags, block, meta);
             }
         }
+        if (MinecraftForge.getBlockHarvestLevel(block, meta, getHarvestType()) > 0)
+        {
+            return calculateStrength(tags, block, meta); //No issue if the harvest level is too low
+        }
         return super.getStrVsBlock(stack, block, meta);
+    }
+    
+    float calculateStrength(NBTTagCompound tags, Block block, int meta)
+    {
+        float mineSpeed = tags.getInteger("MiningSpeed");
+        int heads = 1;
+        if (tags.hasKey("MiningSpeed2"))
+        {
+            mineSpeed += tags.getInteger("MiningSpeed2");
+            heads++;
+        }
+
+        if (tags.hasKey("MiningSpeedHandle"))
+        {
+            mineSpeed += tags.getInteger("MiningSpeedHandle");
+            heads++;
+        }
+
+        if (tags.hasKey("MiningSpeedExtra"))
+        {
+            mineSpeed += tags.getInteger("MiningSpeedExtra");
+            heads++;
+        }
+        float trueSpeed = mineSpeed / (heads * 100f);
+        int hlvl = MinecraftForge.getBlockHarvestLevel(block, meta, getHarvestType());
+        int durability = tags.getInteger("Damage");
+
+        float stonebound = tags.getFloat("Shoddy");
+        float bonusLog = (float) Math.log(durability / 72f + 1) * 2 * stonebound;
+        trueSpeed += bonusLog;
+
+        if (hlvl <= tags.getInteger("HarvestLevel"))
+            return trueSpeed;
+        return 0.1f;
     }
 
     public boolean canHarvestBlock (Block block)
