@@ -117,10 +117,13 @@ public class SmelteryGui extends NewContainerGui
             {
                 int total = logic.getTotalLiquid();
                 int liquidLayers = (total / 20000 + 1) * 20000;
-                liquidSize = liquid.amount * 52 / liquidLayers;
-                if (liquidSize == 0)
-                    liquidSize = 1;
-                base += liquidSize;
+                if (liquidLayers > 0)
+                {
+                    liquidSize = liquid.amount * 52 / liquidLayers;
+                    if (liquidSize == 0)
+                        liquidSize = 1;
+                    base += liquidSize;
+                }
             }
 
             int leftX = cornerX + basePos;
