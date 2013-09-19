@@ -680,9 +680,11 @@ public class TContent implements IFuelHandler
 
         slimeChannel = new ConveyorBase(PHConstruct.slimeChannel, Material.water).setStepSound(slimeStep).setUnlocalizedName("slime.channel");
         GameRegistry.registerBlock(slimeChannel, "slime.channel");
+        TConstructRegistry.drawbridgeState[slimeChannel.blockID] = 1;
         
         slimePad = new SlimePad(PHConstruct.slimePad, Material.cloth).setStepSound(slimeStep).setUnlocalizedName("slime.pad");
         GameRegistry.registerBlock(slimePad, "slime.pad");
+        TConstructRegistry.drawbridgeState[slimePad.blockID] = 1;
 
         //Decoration
         stoneTorch = new StoneTorch(PHConstruct.stoneTorch).setUnlocalizedName("decoration.stonetorch");
