@@ -38,7 +38,6 @@ import net.minecraftforge.event.entity.player.UseHoeEvent;
 import tconstruct.library.ActiveToolMod;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.util.PiercingEntityDamage;
-import tconstruct.util.PHConstruct;
 
 public class AbilityHelper
 {
