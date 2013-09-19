@@ -957,9 +957,12 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     @Override
     public int fill (FluidStack resource, boolean doFill)
     {
-        if (resource != null && resource.amount + currentLiquid < maxLiquid)
+        if (resource != null && currentLiquid < maxLiquid)//resource.amount + currentLiquid < maxLiquid)
         {
+            if (resource.amount + currentLiquid > maxLiquid)
+                resource.amount = maxLiquid - currentLiquid;
             int amount = resource.amount;
+            
             if (doFill)
             {
                 if (addMoltenMetal(resource, false))

@@ -248,6 +248,7 @@ public class LavaTankBlock extends BlockContainer
         }
     }
 
+    @Override
     public boolean removeBlockByPlayer (World world, EntityPlayer player, int x, int y, int z)
     {
         player.addExhaustion(0.025F);
