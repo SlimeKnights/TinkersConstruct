@@ -61,7 +61,7 @@ public class SmelteryDrainLogic extends MultiServantLogic implements IFluidHandl
     @Override
     public FluidStack drain (ForgeDirection from, FluidStack resource, boolean doDrain)
     {
-    	// TODO Auto-generated method stub
+        // TODO Auto-generated method stub
         return null;
     }
 
@@ -74,28 +74,32 @@ public class SmelteryDrainLogic extends MultiServantLogic implements IFluidHandl
     @Override
     public boolean canDrain (ForgeDirection from, Fluid fluid)
     {
-    	// Check that the drain is coming from the from the front of the block 
-    	// and that the fluid to be drained is in the smeltery.
-    	boolean containsFluid = fluid == null;
-    	if(fluid!=null){
-    		SmelteryLogic smeltery = (SmelteryLogic) worldObj.getBlockTileEntity(master.x, master.y, master.z);
-    		for (FluidStack fstack : smeltery.moltenMetal){
-    			if(fstack.fluidID == fluid.getID()){
-    				containsFluid = true;
-    				break;
-    			}
-    		}
-    	}
+        // Check that the drain is coming from the from the front of the block 
+        // and that the fluid to be drained is in the smeltery.
+        boolean containsFluid = fluid == null;
+        if (fluid != null)
+        {
+            SmelteryLogic smeltery = (SmelteryLogic) worldObj.getBlockTileEntity(master.x, master.y, master.z);
+            for (FluidStack fstack : smeltery.moltenMetal)
+            {
+                if (fstack.fluidID == fluid.getID())
+                {
+                    containsFluid = true;
+                    break;
+                }
+            }
+        }
         return from == getForgeDirection() && containsFluid;
     }
 
     @Override
     public FluidTankInfo[] getTankInfo (ForgeDirection from)
     {
-    	if (hasValidMaster() && (from==getForgeDirection() || from == getForgeDirection().getOpposite() || from == ForgeDirection.UNKNOWN))
+        if (hasValidMaster() && (from == getForgeDirection() || from == getForgeDirection().getOpposite() || from == ForgeDirection.UNKNOWN))
         {
             SmelteryLogic smeltery = (SmelteryLogic) worldObj.getBlockTileEntity(master.x, master.y, master.z);
-            return new FluidTankInfo[] { smeltery.getInfo() };
+            return smeltery.getMultiTankInfo();
+            //return new FluidTankInfo[] { smeltery.getInfo() };
         }
         return null;
     }

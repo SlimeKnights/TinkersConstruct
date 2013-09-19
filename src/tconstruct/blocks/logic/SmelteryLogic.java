@@ -999,6 +999,18 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     {
         return new FluidTankInfo(this);
     }
+    
+    public FluidTankInfo[] getMultiTankInfo()
+    {
+        FluidTankInfo[] info = new FluidTankInfo[moltenMetal.size() + 1];
+        for (int i = 0; i < moltenMetal.size(); i++)
+        {
+            FluidStack fluid = moltenMetal.get(i);
+            info[i] = new FluidTankInfo(fluid.copy(), fluid.amount);
+        }
+        info[moltenMetal.size()] = new FluidTankInfo(null, maxLiquid - currentLiquid);
+        return info;
+    }
 
     /* NBT */
 
