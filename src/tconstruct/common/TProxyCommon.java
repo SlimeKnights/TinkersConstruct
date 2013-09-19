@@ -1,7 +1,5 @@
 package tconstruct.common;
 
-import bastion.entity.friendly.GardeSlime;
-import bastion.inventory.MiniGardyContainer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;

@@ -147,9 +147,6 @@ import tconstruct.library.tools.ToolCore;
 import tconstruct.util.player.ArmorExtended;
 import tconstruct.util.player.KnapsackInventory;
 
-import bastion.client.model.CloneHeadModel;
-import bastion.inventory.MiniGardyGui;
-
 import com.google.common.collect.Lists;
 
 import cpw.mods.fml.client.registry.ClientRegistry;
