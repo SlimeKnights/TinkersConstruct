@@ -4,11 +4,17 @@ import java.util.List;
 import java.util.Random;
 
 import net.minecraft.world.gen.structure.ComponentVillageStartPiece;
+import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraft.world.gen.structure.StructureVillagePieceWeight;
 import cpw.mods.fml.common.registry.VillagerRegistry.IVillageCreationHandler;
 
 public class VillageToolStationHandler implements IVillageCreationHandler
 {
+    public VillageToolStationHandler()
+    {
+        MapGenStructureIO.func_143036_a(new ComponentToolWorkshop());
+    }
+    
     @Override
     public StructureVillagePieceWeight getVillagePieceWeight (Random random, int i)
     {

@@ -11,12 +11,15 @@ import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.structure.ComponentVillage;
 import net.minecraft.world.gen.structure.ComponentVillageStartPiece;
+import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraft.world.gen.structure.StructureBoundingBox;
 import net.minecraft.world.gen.structure.StructureComponent;
 
 public class ComponentToolWorkshop extends ComponentVillage
 {
     private int averageGroundLevel = -1;
+    
+    public ComponentToolWorkshop() {}
 
     public ComponentToolWorkshop(ComponentVillageStartPiece par1ComponentVillageStartPiece, int par2, Random par3Random, StructureBoundingBox par4StructureBoundingBox, int par5)
     {
