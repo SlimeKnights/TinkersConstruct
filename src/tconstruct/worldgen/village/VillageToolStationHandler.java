@@ -3,6 +3,7 @@ package tconstruct.worldgen.village;
 import java.util.List;
 import java.util.Random;
 
+import net.minecraft.world.gen.structure.ComponentVillageHouse1;
 import net.minecraft.world.gen.structure.ComponentVillageStartPiece;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraft.world.gen.structure.StructureVillagePieceWeight;
@@ -12,7 +13,7 @@ public class VillageToolStationHandler implements IVillageCreationHandler
 {
     public VillageToolStationHandler()
     {
-        MapGenStructureIO.func_143036_a(new ComponentToolWorkshop());
+        MapGenStructureIO.func_143031_a(ComponentToolWorkshop.class, "TConstruct:ToolWorkshopStructure");
     }
     
     @Override

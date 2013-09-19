@@ -12,7 +12,7 @@ public class VillageSmelteryHandler implements IVillageCreationHandler
 {
     public VillageSmelteryHandler()
     {
-        MapGenStructureIO.func_143036_a(new ComponentSmeltery());
+        MapGenStructureIO.func_143031_a(ComponentSmeltery.class, "TConstruct:SmelteryStructure");
     }
 
     @Override
