@@ -1,4 +1,4 @@
-package tconstruct.library.tools;
+package tconstruct.items.tools;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -8,6 +8,8 @@ import java.util.Map;
 import tconstruct.common.TContent;
 import tconstruct.entity.projectile.ArrowEntity;
 import tconstruct.library.crafting.ToolBuilder;
+import tconstruct.library.tools.AbilityHelper;
+import tconstruct.library.tools.ToolCore;
 
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.enchantment.Enchantment;
