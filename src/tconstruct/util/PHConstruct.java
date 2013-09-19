@@ -1,9 +1,11 @@
 package tconstruct.util;
 
-import net.minecraftforge.common.Configuration;
-import net.minecraftforge.common.Property;
 import java.io.File;
 import java.io.IOException;
+
+import net.minecraftforge.common.Configuration;
+import net.minecraftforge.common.Property;
+import tconstruct.library.tools.AbilityHelper;
 
 public class PHConstruct
 {
@@ -344,7 +346,7 @@ public class PHConstruct
         worldBorder = config.get("Ultra Hardcore Changes", "Add World Border", false).getBoolean(false);
         worldBorderSize = config.get("Ultra Hardcore Changes", "World Border Radius", 1000).getInt(1000);
         freePatterns = config.get("Ultra Hardcore Changes", "Add Patterns to Pattern Chests", false, "Gives all tier 1 patterns when pattern chest is placed").getBoolean(false);
-        necroticUHS = config.get("Ultra Hardcore Changes", "Necrotic modifier only heals on hostile mob kills", false).getBoolean(false);
+        AbilityHelper.necroticUHS = config.get("Ultra Hardcore Changes", "Necrotic modifier only heals on hostile mob kills", false).getBoolean(false);
 
         //Slime pools
         islandRarity = config.get("Worldgen", "Slime Island Rarity", 450).getInt(450);
@@ -673,7 +675,6 @@ public class PHConstruct
     public static int worldBorderSize;
     public static boolean freePatterns;
     public static int goldHead;
-    public static boolean necroticUHS;
 
     //Superfun
     public static boolean superfunWorld;

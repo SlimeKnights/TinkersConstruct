@@ -43,6 +43,7 @@ import tconstruct.util.PHConstruct;
 public class AbilityHelper
 {
     public static Random random = new Random();
+    public static boolean necroticUHS;
 
     /* Normal interactions */
     public static boolean onBlockChanged (ItemStack stack, World world, int bID, int x, int y, int z, EntityLivingBase player, Random random)
@@ -206,7 +207,7 @@ public class AbilityHelper
                         }
                         //damageTool(stack, 1, player, false);
                         tool.onEntityDamaged(player.worldObj, player, entity);
-                        if (!PHConstruct.necroticUHS || (entity instanceof IMob && entity instanceof EntityLivingBase && ((EntityLivingBase) entity).getHealth() <= 0))
+                        if (!necroticUHS || (entity instanceof IMob && entity instanceof EntityLivingBase && ((EntityLivingBase) entity).getHealth() <= 0))
                         {
                             int drain = toolTags.getInteger("Necrotic") * 2;
                             if (drain > 0)
