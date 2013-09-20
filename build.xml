@@ -190,8 +190,8 @@
 
     <!-- Package API -->
     <target name="pack-api" depends="initialize-version">
-        <mkdir dir="${jar.dir}"/>
-        <zip destfile="${jar.dir}/TConstruct-${mc.version}-${project.version.full}-API.jar">
+        <mkdir dir="${jar.dir}/api"/>
+        <zip destfile="${jar.dir}/api/TConstruct-${mc.version}-${project.version.full}-API.jar">
             <fileset dir="${src.dir}" includes="tconstruct/library/*"/>
         </zip>
     </target>
