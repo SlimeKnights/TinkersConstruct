@@ -180,14 +180,16 @@
 	</target>
 
 	<!-- Package the compiled files -->
-	<target name="package" depends="reobf">
-
-		<delete dir="${jar.dir}"/>
-		<mkdir dir="${jar.dir}"/>
+	<target name="package" depends="reobf,api-jar">		
 		<jar destfile="${jar.dir}/TConstruct-${mc.version}-${project.version.full}.jar" basedir="${classes.dir}"/>
 
 	</target>
-
+	<target name="api-jar">
+		<delete dir="${jar.dir}"/>
+		<mkdir dir="${jar.dir}"/>
+		<mkdir dir="${jar.dir}/api"/>
+		<jar destfile="${jar.dir}/api/TConstruct-${mc.version}-${project.version.full}-api.jar" basedir="${src.dir}/tconstruct/library/*"/>
+	</target>
 	<!-- Default target to run -->
 	<target name="main" depends="package"/>
 
