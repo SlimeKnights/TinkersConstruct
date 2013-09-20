@@ -303,7 +303,7 @@ public class TProxyClient extends TProxyCommon
     {
         Minecraft mc = Minecraft.getMinecraft();
         MinecraftForge.EVENT_BUS.register(new TClientEvents());
-        smallFontRenderer = new SmallFontRenderer(mc.gameSettings, new ResourceLocation("assets/textures/font/ascii.png"), mc.renderEngine, false);
+        smallFontRenderer = new SmallFontRenderer(mc.gameSettings, new ResourceLocation("textures/font/ascii.png"), mc.renderEngine, false);
         RenderingRegistry.registerBlockHandler(new TableRender());
         RenderingRegistry.registerBlockHandler(new TableForgeRender());
         RenderingRegistry.registerBlockHandler(new FrypanRender());
