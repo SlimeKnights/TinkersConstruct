@@ -24,7 +24,10 @@ public class LiquidMetalFinite extends BlockFluidFinite
         this.texture = texture;
         this.setCreativeTab(TConstructRegistry.blockTab);
     }
-
+    @Override
+    public int getRenderBlockPass(){
+    	return 0;
+    }
     @Override
     public void registerIcons (IconRegister iconRegister)
     {
