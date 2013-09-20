@@ -17,8 +17,8 @@
 
 	<property name="mcpsrc.dir" value="${mcp.dir}/src"/>
 
-	<property name="mc.version" value="1.6.3"/>
-	<property name="forge.version" value="9.11.0.875"/>
+	<property name="mc.version" value="1.6.4"/>
+	<property name="forge.version" value="9.11.0.880"/>
 
     <property name="version.major" value="0"/>
     <property name="version.minor" value="0"/>
@@ -190,8 +190,8 @@
 
     <!-- Package API -->
     <target name="pack-api" depends="initialize-version">
-        <mkdir dir="${jar.dir}"/>
-        <zip destfile="${jar.dir}/TConstruct-${mc.version}-${project.version.full}-API.jar">
+        <mkdir dir="${jar.dir}/api"/>
+        <zip destfile="${jar.dir}/api/TConstruct-${mc.version}-${project.version.full}-API.jar">
             <fileset dir="${src.dir}" includes="tconstruct/library/*"/>
         </zip>
     </target>
