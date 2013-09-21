@@ -307,39 +307,42 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         List list = worldObj.getEntitiesWithinAABB(Entity.class, box);
         for (Object o : list)
         {
-            if (o instanceof EntityVillager)
+            if (moltenMetal.size() >= 1)
             {
-                EntityVillager villager = (EntityVillager) o;
-                if (villager.attackEntityFrom(new SmelteryDamageSource(), 1))
+                if (o instanceof EntityVillager)
                 {
-                    if (currentLiquid + 8 < maxLiquid)
+                    EntityVillager villager = (EntityVillager) o;
+                    if (villager.attackEntityFrom(new SmelteryDamageSource(), 1))
                     {
-                        int amount = villager.isChild() ? 1 : 8;
-                        this.addMoltenMetal(new FluidStack(TContent.moltenEmeraldFluid, amount), false);
+                        if (currentLiquid + 8 < maxLiquid)
+                        {
+                            int amount = villager.isChild() ? 1 : 8;
+                            this.addMoltenMetal(new FluidStack(TContent.moltenEmeraldFluid, amount), false);
+                        }
                     }
                 }
-            }
-            else if (o instanceof EntityEnderman)
-            {
-                EntityEnderman villager = (EntityEnderman) o;
-                if (villager.attackEntityFrom(new SmelteryDamageSource(), 1))
+                else if (o instanceof EntityEnderman)
                 {
-                    if (currentLiquid + 25 < maxLiquid)
+                    EntityEnderman villager = (EntityEnderman) o;
+                    if (villager.attackEntityFrom(new SmelteryDamageSource(), 1))
                     {
-                        this.addMoltenMetal(new FluidStack(TContent.moltenEnderFluid, 25), false);
+                        if (currentLiquid + 25 < maxLiquid)
+                        {
+                            this.addMoltenMetal(new FluidStack(TContent.moltenEnderFluid, 25), false);
+                        }
                     }
                 }
-            }
-            else if (o instanceof EntityLiving)
-            {
-                EntityLiving living = (EntityLiving) o;
-                if (living.attackEntityFrom(new SmelteryDamageSource(), 1))
+                else if (o instanceof EntityLiving)
                 {
-                    /*if (currentLiquid + 8 < maxLiquid)
+                    EntityLiving living = (EntityLiving) o;
+                    if (living.attackEntityFrom(new SmelteryDamageSource(), 1))
                     {
-                        int amount = living.isChild() ? 2 : 8;
-                        this.addMoltenMetal(new FluidStack(TContent.liquidMetalStill.blockID, amount, 16), false);
-                    }*/
+                        /*if (currentLiquid + 8 < maxLiquid)
+                        {
+                            int amount = living.isChild() ? 1 : 8;
+                            this.addMoltenMetal(new FluidStack(TContent.bloodFluid, amount), false);
+                        }*/
+                    }
                 }
             }
             else if (PHConstruct.throwableSmeltery && o instanceof EntityItem)
@@ -349,14 +352,16 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         }
     }
 
-    private void handleItemEntity(EntityItem item)
+    private void handleItemEntity (EntityItem item)
     {
         // Clients like to play merry hell with this and cause breakage (we update their inv on syncs)
-        if (worldObj.isRemote) return;
+        if (worldObj.isRemote)
+            return;
 
         item.age = 0;
         ItemStack istack = item.getEntityItem();
-        if (istack.stackSize <= 0) return;
+        if (istack == null || istack.stackSize <= 0) //Probably most definitely not necessary
+            return;
 
         int maxSlot = this.getSizeInventory();
         boolean itemDestroyed = false;
@@ -367,8 +372,8 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
             ItemStack stack = this.getStackInSlot(i);
             if (stack == null && istack.stackSize > 0)
             {
-                this.setInventorySlotContents(i, new ItemStack(istack.getItem(), 1));
-                istack.stackSize -= 1;
+                ItemStack copy = istack.splitStack(1);
+                this.setInventorySlotContents(i, copy);
                 itemAdded = true;
                 if (istack.stackSize <= 0)
                 {
@@ -381,7 +386,8 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 
         if (!itemDestroyed)
             item.setEntityItemStack(istack);
-        if (itemAdded) {
+        if (itemAdded)
+        {
             this.needsUpdate = true;
             PacketDispatcher.sendPacketToAllInDimension(getDescriptionPacket(), worldObj.provider.dimensionId);
         }
@@ -928,29 +934,36 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
             return null;
 
         FluidStack liquid = moltenMetal.get(0);
-        if (liquid.amount - maxDrain <= 0)
+        if (liquid != null)
         {
-            FluidStack liq = liquid.copy();
-            if (doDrain)
+            if (liquid.amount - maxDrain <= 0)
             {
-                //liquid = null;
-                moltenMetal.remove(liquid);
-                worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-                currentLiquid = 0;
-                needsUpdate = true;
+                FluidStack liq = liquid.copy();
+                if (doDrain)
+                {
+                    //liquid = null;
+                    moltenMetal.remove(liquid);
+                    worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+                    currentLiquid = 0;
+                    needsUpdate = true;
+                }
+                return liq;
             }
-            return liq;
+            else
+            {
+                if (doDrain)
+                {
+                    liquid.amount -= maxDrain;
+                    worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+                    currentLiquid -= maxDrain;
+                    needsUpdate = true;
+                }
+                return new FluidStack(liquid.fluidID, maxDrain, liquid.tag);
+            }
         }
         else
         {
-            if (doDrain)
-            {
-                liquid.amount -= maxDrain;
-                worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-                currentLiquid -= maxDrain;
-                needsUpdate = true;
-            }
-            return new FluidStack(liquid.fluidID, maxDrain, liquid.tag);
+            return new FluidStack(0, 0);
         }
     }
 
@@ -962,7 +975,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
             if (resource.amount + currentLiquid > maxLiquid)
                 resource.amount = maxLiquid - currentLiquid;
             int amount = resource.amount;
-            
+
             if (doFill)
             {
                 if (addMoltenMetal(resource, false))
@@ -1002,8 +1015,8 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     {
         return new FluidTankInfo(this);
     }
-    
-    public FluidTankInfo[] getMultiTankInfo()
+
+    public FluidTankInfo[] getMultiTankInfo ()
     {
         FluidTankInfo[] info = new FluidTankInfo[moltenMetal.size() + 1];
         for (int i = 0; i < moltenMetal.size(); i++)

@@ -1,36 +1,27 @@
 package tconstruct.client;
 
+import cpw.mods.fml.relauncher.*;
 import java.util.Random;
-
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.audio.SoundPool;
+import net.minecraft.client.audio.SoundManager;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeInstance;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.potion.*;
+import net.minecraft.util.*;
 import net.minecraftforge.client.GuiIngameForge;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.client.event.*;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
-import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.client.event.sound.SoundLoadEvent;
 import net.minecraftforge.event.ForgeSubscribe;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.*;
 import tconstruct.TConstruct;
-import tconstruct.blocks.LiquidMetalFinite;
-import tconstruct.blocks.slime.SlimeFluid;
 import tconstruct.client.armor.WingModel;
 import tconstruct.common.TContent;
 import tconstruct.util.player.TPlayerStats;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class TClientEvents
@@ -49,10 +40,10 @@ public class TClientEvents
             initSounds = true;
             try
             {
-                SoundPool soundpool = event.manager.soundPoolSounds;
-                soundpool.addSound("tinker:frypan_hit.ogg");
-                soundpool.addSound("tinker:little_saw.ogg");
-                soundpool.addSound("tinker:launcher_clank.ogg");
+                SoundManager soundmanager = event.manager;
+                soundmanager.addSound("tinker:frypan_hit.ogg");
+                soundmanager.addSound("tinker:little_saw.ogg");
+                soundmanager.addSound("tinker:launcher_clank.ogg");
                 System.out.println("[TConstruct] Successfully loaded sounds.");
             }
             catch (Exception e)
