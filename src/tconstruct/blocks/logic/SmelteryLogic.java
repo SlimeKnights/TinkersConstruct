@@ -302,47 +302,47 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 
     void detectEntities ()
     {
-        if (moltenMetal.size() < 1)
-            return;
-        
         AxisAlignedBB box = AxisAlignedBB.getAABBPool().getAABB(centerPos.x, centerPos.y, centerPos.z, centerPos.x + 1.0D, centerPos.y + 1.0D, centerPos.z + 1.0D).expand(1.0D, 0.0D, 1.0D);
 
         List list = worldObj.getEntitiesWithinAABB(Entity.class, box);
         for (Object o : list)
         {
-            if (o instanceof EntityVillager)
+            if (moltenMetal.size() >= 1)
             {
-                EntityVillager villager = (EntityVillager) o;
-                if (villager.attackEntityFrom(new SmelteryDamageSource(), 1))
+                if (o instanceof EntityVillager)
                 {
-                    if (currentLiquid + 8 < maxLiquid)
+                    EntityVillager villager = (EntityVillager) o;
+                    if (villager.attackEntityFrom(new SmelteryDamageSource(), 1))
                     {
-                        int amount = villager.isChild() ? 1 : 8;
-                        this.addMoltenMetal(new FluidStack(TContent.moltenEmeraldFluid, amount), false);
+                        if (currentLiquid + 8 < maxLiquid)
+                        {
+                            int amount = villager.isChild() ? 1 : 8;
+                            this.addMoltenMetal(new FluidStack(TContent.moltenEmeraldFluid, amount), false);
+                        }
                     }
                 }
-            }
-            else if (o instanceof EntityEnderman)
-            {
-                EntityEnderman villager = (EntityEnderman) o;
-                if (villager.attackEntityFrom(new SmelteryDamageSource(), 1))
+                else if (o instanceof EntityEnderman)
                 {
-                    if (currentLiquid + 25 < maxLiquid)
+                    EntityEnderman villager = (EntityEnderman) o;
+                    if (villager.attackEntityFrom(new SmelteryDamageSource(), 1))
                     {
-                        this.addMoltenMetal(new FluidStack(TContent.moltenEnderFluid, 25), false);
+                        if (currentLiquid + 25 < maxLiquid)
+                        {
+                            this.addMoltenMetal(new FluidStack(TContent.moltenEnderFluid, 25), false);
+                        }
                     }
                 }
-            }
-            else if (o instanceof EntityLiving)
-            {
-                EntityLiving living = (EntityLiving) o;
-                if (living.attackEntityFrom(new SmelteryDamageSource(), 1))
+                else if (o instanceof EntityLiving)
                 {
-                    /*if (currentLiquid + 8 < maxLiquid)
+                    EntityLiving living = (EntityLiving) o;
+                    if (living.attackEntityFrom(new SmelteryDamageSource(), 1))
                     {
-                        int amount = living.isChild() ? 2 : 8;
-                        this.addMoltenMetal(new FluidStack(TContent.liquidMetalStill.blockID, amount, 16), false);
-                    }*/
+                        /*if (currentLiquid + 8 < maxLiquid)
+                        {
+                            int amount = living.isChild() ? 2 : 8;
+                            this.addMoltenMetal(new FluidStack(TContent.liquidMetalStill.blockID, amount, 16), false);
+                        }*/
+                    }
                 }
             }
             else if (PHConstruct.throwableSmeltery && o instanceof EntityItem)
