@@ -360,7 +360,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 
         item.age = 0;
         ItemStack istack = item.getEntityItem();
-        if (istack == null || istack.stackSize <= 0)
+        if (istack == null || istack.stackSize <= 0) //Probably most definitely not necessary
             return;
 
         int maxSlot = this.getSizeInventory();
