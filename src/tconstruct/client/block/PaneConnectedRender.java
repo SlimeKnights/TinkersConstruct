@@ -25,6 +25,9 @@ public class PaneConnectedRender implements ISimpleBlockRenderingHandler {
 
 	@Override
 	public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer) {
+		boolean temp = renderer.renderAllFaces;
+		renderer.renderAllFaces = true;
+		
 		GlassPaneConnected pane = (GlassPaneConnected)block;
 		
 		boolean flag = pane.canPaneConnectTo(world, x, y, z, EAST);
@@ -69,6 +72,8 @@ public class PaneConnectedRender implements ISimpleBlockRenderingHandler {
 		
 		
 		renderer.clearOverrideBlockTexture();
+		
+		renderer.renderAllFaces = false;
 		return true;
 	}
 
