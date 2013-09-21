@@ -339,8 +339,8 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                     {
                         /*if (currentLiquid + 8 < maxLiquid)
                         {
-                            int amount = living.isChild() ? 2 : 8;
-                            this.addMoltenMetal(new FluidStack(TContent.liquidMetalStill.blockID, amount, 16), false);
+                            int amount = living.isChild() ? 1 : 8;
+                            this.addMoltenMetal(new FluidStack(TContent.bloodFluid, amount), false);
                         }*/
                     }
                 }
