@@ -32,7 +32,7 @@ public class GlassPaneConnected extends GlassBlockConnected {
 	@Override
 	public Icon getBlockTexture(IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5) {
 		if (par5 == 0 || par5 == 1) {
-			return getSideTextureIndex();
+			return par1IBlockAccess.getBlockId(par2, par3 - 1, par4) == this.blockID && par5 == 0 ? icons[15] : par1IBlockAccess.getBlockId(par2, par3 + 1, par4) == this.blockID && par5 == 1 ? icons[15] : getSideTextureIndex();
 		} else {
 			return super.getBlockTexture(par1IBlockAccess, par2, par3, par4, par5);
 		}
@@ -444,11 +444,11 @@ public class GlassPaneConnected extends GlassBlockConnected {
 
 	@Override
 	public boolean shouldSideBeRendered(IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5) {
-		if(par5 == 0 || par5 == 1){
-			return par1IBlockAccess.getBlockId(par2, par3, par4) != this.blockID;
-		}else{
-			return true;
-		}
-//		return true;
+//		if(par5 == 0 || par5 == 1){
+//			return par1IBlockAccess.getBlockId(par2, par3, par4) != this.blockID;
+//		}else{
+//			return true;
+//		}
+		return true;
 	}
 }
