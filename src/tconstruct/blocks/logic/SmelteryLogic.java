@@ -302,6 +302,9 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 
     void detectEntities ()
     {
+        if (moltenMetal.size() < 1)
+            return;
+        
         AxisAlignedBB box = AxisAlignedBB.getAABBPool().getAABB(centerPos.x, centerPos.y, centerPos.z, centerPos.x + 1.0D, centerPos.y + 1.0D, centerPos.z + 1.0D).expand(1.0D, 0.0D, 1.0D);
 
         List list = worldObj.getEntitiesWithinAABB(Entity.class, box);
