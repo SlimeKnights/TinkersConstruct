@@ -69,7 +69,7 @@ public class RedstoneMachine extends InventoryBlock
             if (logic != null && logic instanceof DrawbridgeLogic)
             {
                 ItemStack stack = ((DrawbridgeLogic) logic).getStackInSlot(1);
-                if (stack != null && stack.itemID < 4096 && Block.blocksList[stack.itemID] != null)
+                if (stack != null && stack.itemID < 4096 && Block.blocksList[stack.itemID] != null && stack.itemID != this.blockID)
                     return Block.blocksList[stack.itemID].colorMultiplier(world, x, y, z);
             }
         }
