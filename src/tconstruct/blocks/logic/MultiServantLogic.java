@@ -1,13 +1,13 @@
 package tconstruct.blocks.logic;
 
-import tconstruct.library.util.CoordTuple;
-import tconstruct.library.util.IMasterLogic;
-import tconstruct.library.util.IServantLogic;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.tileentity.TileEntity;
+import tconstruct.library.util.CoordTuple;
+import tconstruct.library.util.IMasterLogic;
+import tconstruct.library.util.IServantLogic;
 
 public class MultiServantLogic extends TileEntity implements IServantLogic
 {
@@ -36,6 +36,12 @@ public class MultiServantLogic extends TileEntity implements IServantLogic
         }
     }
 
+    @Override
+    public boolean canBeMaster (IMasterLogic logic, int x, int y, int z)
+    {
+        return true;
+    }
+
     public CoordTuple getMasterPosition ()
     {
         return master;
@@ -57,7 +63,7 @@ public class MultiServantLogic extends TileEntity implements IServantLogic
         masterMeat = 0;
     }
 
-    public boolean verifyMaster (int x, int y, int z)
+    public boolean verifyMaster (IMasterLogic logic, int x, int y, int z)
     {
         if (master.equalCoords(x, y, z) && worldObj.getBlockId(x, y, z) == masterID && worldObj.getBlockMetadata(x, y, z) == masterMeat)
             return true;

@@ -203,8 +203,6 @@ public class Hammer extends HarvestTool
         return emptyIcon;
     }
 
-    ArrayList<int[]> coords = new ArrayList<int[]>();
-
     @Override
     public boolean onBlockStartBreak (ItemStack stack, int x, int y, int z, EntityPlayer player)
     {

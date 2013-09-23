@@ -532,7 +532,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         }
     }
 
-    void updateFuelGague ()
+    void updateFuelGague () //TODO: Call this method when the GUI is opened
     {
         if (activeLavaTank == null || useTime > 0)
             return;
@@ -900,7 +900,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                 MultiServantLogic servant = (MultiServantLogic) te;
                 if (servant.hasValidMaster())
                 {
-                    if (servant.verifyMaster(this.xCoord, this.yCoord, this.zCoord))
+                    if (servant.verifyMaster(this, this.xCoord, this.yCoord, this.zCoord))
                         tempBricks++;
                 }
                 else if (servant.setMaster(this.xCoord, this.yCoord, this.zCoord))

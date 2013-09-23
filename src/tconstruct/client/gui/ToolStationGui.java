@@ -216,6 +216,7 @@ public class ToolStationGui extends NewContainerGui
             int attack = (int) (tags.getInteger("Attack"));
             float stoneboundDamage = (float) Math.log(durability / 72f + 1) * -2 * stonebound;
             attack += stoneboundDamage;
+            attack *= tool.getDamageModifier();
             if (attack < 1)
                 attack = 1;
 

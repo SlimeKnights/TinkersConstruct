@@ -113,14 +113,13 @@ public abstract class InventoryBlock extends BlockContainer
 
     /* Placement */
 
+    int side = -1;
+
+    //This class does not have an actual block placed in the world
+    @Override
     public int onBlockPlaced (World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int meta)
     {
-        TileEntity logic = world.getBlockTileEntity(x, y, z);
-        if (logic instanceof IFacingLogic)
-        {
-            IFacingLogic direction = (IFacingLogic) logic;
-            direction.setDirection(side);
-        }
+        this.side = side;
         return meta;
     }
 
@@ -131,6 +130,11 @@ public abstract class InventoryBlock extends BlockContainer
         if (logic instanceof IFacingLogic)
         {
             IFacingLogic direction = (IFacingLogic) logic;
+            if (side != -1)
+            {
+                direction.setDirection(side);
+                side = -1;
+            }
             if (entityliving == null)
             {
                 direction.setDirection(0F, 0F, null);
