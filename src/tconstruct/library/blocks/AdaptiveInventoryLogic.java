@@ -8,7 +8,6 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import tconstruct.common.TContent;
 import tconstruct.library.util.CoordTuple;
 import tconstruct.library.util.IFacingLogic;
 import tconstruct.library.util.IMasterLogic;
@@ -250,7 +249,7 @@ public abstract class AdaptiveInventoryLogic extends InventoryLogic implements I
                 if (!blockCoords.contains(coord))
                 {
                     int blockID = worldObj.getBlockId(x + xPos, y, z + zPos);
-                    if (blockID == TContent.smeltery.blockID) //Needs different checking
+                    if (blockID == Block.stoneBrick.blockID) //TContent.smeltery.blockID, Needs different checking
                     {
                         bricks++;
                         blockCoords.add(coord);
