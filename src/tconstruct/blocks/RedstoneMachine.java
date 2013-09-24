@@ -1,7 +1,7 @@
 package tconstruct.blocks;
 
+import cpw.mods.fml.relauncher.*;
 import java.util.List;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -12,21 +12,15 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
 import net.minecraft.util.Icon;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
+import net.minecraft.world.*;
 import net.minecraftforge.common.ForgeDirection;
 import tconstruct.TConstruct;
-import tconstruct.blocks.logic.DrawbridgeLogic;
-import tconstruct.blocks.logic.FirestarterLogic;
+import tconstruct.blocks.logic.*;
 import tconstruct.client.block.MachineRender;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.blocks.InventoryBlock;
-import tconstruct.library.util.IActiveLogic;
-import tconstruct.library.util.IFacingLogic;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import tconstruct.library.util.*;
 
 public class RedstoneMachine extends InventoryBlock
 {
@@ -86,6 +80,8 @@ public class RedstoneMachine extends InventoryBlock
             return new DrawbridgeLogic();
         case 1:
             return new FirestarterLogic();
+//        case 2:
+//        	return new AdvancedDrawbridgeLogic();
         default:
             return null;
         }
