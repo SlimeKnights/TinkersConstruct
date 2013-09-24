@@ -68,8 +68,8 @@ public class SmelteryDrainLogic extends MultiServantLogic implements IFluidHandl
     @Override
     public boolean canFill (ForgeDirection from, Fluid fluid)
     {
-        //return true;
-        return from == getForgeDirection();//.getOpposite();
+        return true;
+        //return from == getForgeDirection();//.getOpposite();
     }
 
     @Override
@@ -90,7 +90,8 @@ public class SmelteryDrainLogic extends MultiServantLogic implements IFluidHandl
                 }
             }
         }
-        return from == getForgeDirection().getOpposite() && containsFluid;
+        //return from == getForgeDirection().getOpposite() && containsFluid;
+        return containsFluid;
     }
 
     @Override
