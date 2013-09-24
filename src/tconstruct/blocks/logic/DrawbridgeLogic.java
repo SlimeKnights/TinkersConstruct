@@ -1,5 +1,7 @@
 package tconstruct.blocks.logic;
 
+import tconstruct.library.blocks.IDrawbridgeLogicBase;
+
 import net.minecraft.nbt.NBTTagCompound;
 
 import net.minecraft.block.Block;
@@ -19,7 +21,7 @@ import tconstruct.library.blocks.InventoryLogic;
 import tconstruct.library.util.*;
 import tconstruct.util.player.FakePlayerLogic;
 
-public class DrawbridgeLogic extends InventoryLogic implements IFacingLogic, IActiveLogic
+public class DrawbridgeLogic extends InventoryLogic implements IFacingLogic, IActiveLogic, IDrawbridgeLogicBase
 {
     boolean active;
     boolean working;

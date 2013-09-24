@@ -1,5 +1,7 @@
 package tconstruct.inventory;
 
+import tconstruct.library.blocks.IDrawbridgeLogicBase;
+
 import tconstruct.blocks.logic.DrawbridgeLogic;
 import tconstruct.library.TConstructRegistry;
 import net.minecraft.entity.player.EntityPlayer;
@@ -9,9 +11,9 @@ import net.minecraft.item.ItemStack;
 
 public class DrawbridgeSlot extends SlotBlocksOnly
 {
-    DrawbridgeLogic logic;
+    IDrawbridgeLogicBase logic;
 
-    public DrawbridgeSlot(IInventory iinventory, int par2, int par3, int par4, DrawbridgeLogic logic)
+    public DrawbridgeSlot(IInventory iinventory, int par2, int par3, int par4, IDrawbridgeLogicBase logic)
     {
         super(iinventory, par2, par3, par4);
         this.logic = logic;

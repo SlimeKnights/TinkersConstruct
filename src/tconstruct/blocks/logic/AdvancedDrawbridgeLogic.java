@@ -12,16 +12,17 @@
 //import net.minecraft.util.MathHelper;
 //import net.minecraft.world.World;
 //import net.minecraftforge.common.ForgeDirection;
-//import tconstruct.inventory.DrawbridgeContainer;
+//import tconstruct.inventory.AdvancedDrawbridgeContainer;
 //import tconstruct.library.TConstructRegistry;
-//import tconstruct.library.blocks.ExpandableInventoryLogic;
+//import tconstruct.library.blocks.*;
 //import tconstruct.library.util.*;
 //import tconstruct.util.player.FakePlayerLogic;
 //
-//public class AdvancedDrawbridgeLogic extends ExpandableInventoryLogic implements IFacingLogic, IActiveLogic {
+//public class AdvancedDrawbridgeLogic extends ExpandableInventoryLogic implements IFacingLogic, IActiveLogic, IDrawbridgeLogicBase {
 //	boolean active;
 //	boolean working;
 //	int ticks;
+//	public int selSlot = 0;
 //	byte extension;
 //	byte direction;
 //	byte placementDirection = 4;
@@ -176,7 +177,7 @@
 //
 //	@Override
 //	public Container getGuiContainer(InventoryPlayer inventoryplayer, World world, int x, int y, int z) {
-//		return new DrawbridgeContainer(inventoryplayer, this);
+//		return new AdvancedDrawbridgeContainer(inventoryplayer, this);
 //	}
 //
 //	@Override
