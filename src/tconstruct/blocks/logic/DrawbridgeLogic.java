@@ -455,6 +455,9 @@ public class DrawbridgeLogic extends InventoryLogic implements IFacingLogic, IAc
         if(bufferInv != null){
         	bufferStack = ItemStack.loadItemStackFromNBT(bufferInv);
         }
+        if(bufferStack == null && inventory[0] != null){
+        	bufferStack = inventory[0];
+        }
         
         readCustomNBT(tags);
     }
