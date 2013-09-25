@@ -460,16 +460,22 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
             {
                 FluidStack l = moltenMetal.get(i);
                 //if (l.itemID == liquid.itemID && l.itemMeta == liquid.itemMeta)
-                if (l.isFluidEqual(liquid))
-                {
-                    l.amount += liquid.amount;
-                    added = true;
+                if (l != null){
+                    if (l.isFluidEqual(liquid))
+                    {
+                          l.amount += liquid.amount;
+                          added = true;
+                    }
+                    if (l.amount <= 0)
+                    {
+                       moltenMetal.remove(l);
+                       i--;
+                      }
+                } else {
+                	 moltenMetal.remove(i);
+                     i--;
                 }
-                if (l.amount <= 0)
-                {
-                    moltenMetal.remove(l);
-                    i--;
-                }
+              
             }
             if (!added)
             {
@@ -1094,9 +1100,12 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         NBTTagList taglist = new NBTTagList();
         for (FluidStack liquid : moltenMetal)
         {
-            NBTTagCompound nbt = new NBTTagCompound();
-            liquid.writeToNBT(nbt);
-            taglist.appendTag(nbt);
+        	if (liquid != null){
+        		NBTTagCompound nbt = new NBTTagCompound();
+                liquid.writeToNBT(nbt);
+                taglist.appendTag(nbt);
+        	}
+            
         }
 
         tags.setTag("Liquids", taglist);
