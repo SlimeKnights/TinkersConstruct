@@ -1,6 +1,6 @@
 package tconstruct.library.blocks;
 
-import java.util.ArrayList;
+import java.util.*;
 import net.minecraft.entity.player.*;
 import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
@@ -13,7 +13,7 @@ public abstract class ExpandableInventoryLogic extends InventoryLogic implements
 		super(0);
 	}
 
-	protected ArrayList<ItemStack> inventory;
+	protected ArrayList<ItemStack> inventory = new ArrayList<ItemStack>();
 	protected String invName;
 
 	@Override
@@ -151,6 +151,15 @@ public abstract class ExpandableInventoryLogic extends InventoryLogic implements
 		return this.invName != null && this.invName.length() > 0;
 	}
 
+	public void cleanInventory(){
+		Iterator<ItemStack> i1 = inventory.iterator();
+		while(i1.hasNext()){
+			if(i1.next() == null){
+				i1.remove();
+			}
+		}
+	}
+	
 	@Override
 	public boolean isItemValidForSlot(int slot, ItemStack itemstack) {
 		if (slot < getSizeInventory()) {

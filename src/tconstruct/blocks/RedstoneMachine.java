@@ -35,15 +35,25 @@ public class RedstoneMachine extends InventoryBlock
     @Override
     public int getLightValue (IBlockAccess world, int x, int y, int z)
     {
-        if (world.getBlockMetadata(x, y, z) == 0)
+        if (world.getBlockMetadata(x, y, z) == 0 || world.getBlockMetadata(x, y, z) == 2)
         {
             TileEntity logic = world.getBlockTileEntity(x, y, z);
-
+            
             if (logic != null && logic instanceof DrawbridgeLogic)
             {
                 if (((DrawbridgeLogic) logic).getStackInSlot(1) != null)
                 {
                     ItemStack stack = ((DrawbridgeLogic) logic).getStackInSlot(1);
+                    if (stack.itemID < 4096 && Block.blocksList[stack.itemID] != null)
+                        return lightValue[stack.itemID];
+                }
+            }
+            
+            if (logic != null && logic instanceof AdvancedDrawbridgeLogic)
+            {
+                if (((AdvancedDrawbridgeLogic) logic).camoInventory.getCamoStack() != null)
+                {
+                    ItemStack stack = ((AdvancedDrawbridgeLogic) logic).camoInventory.getCamoStack();
                     if (stack.itemID < 4096 && Block.blocksList[stack.itemID] != null)
                         return lightValue[stack.itemID];
                 }
@@ -80,8 +90,8 @@ public class RedstoneMachine extends InventoryBlock
             return new DrawbridgeLogic();
         case 1:
             return new FirestarterLogic();
-//        case 2:
-//        	return new AdvancedDrawbridgeLogic();
+        case 2:
+        	return new AdvancedDrawbridgeLogic();
         default:
             return null;
         }
@@ -95,6 +105,8 @@ public class RedstoneMachine extends InventoryBlock
         {
         case 0:
             return TConstruct.proxy.drawbridgeID;
+        case 2:
+        	return TConstruct.proxy.advDrawbridgeID;
         }
         return null;
     }
@@ -153,6 +165,26 @@ public class RedstoneMachine extends InventoryBlock
         {
             DrawbridgeLogic drawbridge = (DrawbridgeLogic) logic;
             ItemStack stack = drawbridge.getStackInSlot(1);
+            if (stack != null && stack.itemID < 4096)
+            {
+                Block block = Block.blocksList[stack.itemID];
+                if (block != null && block.renderAsNormalBlock())
+                    return block.getIcon(side, stack.getItemDamage());
+            }
+            if (side == direction)
+            {
+                return icons[getTextureIndex(side) + 3];
+            }
+            else
+            {
+                return icons[getTextureIndex(side)];
+            }
+        }
+        
+        if (meta == 2)
+        {
+            AdvancedDrawbridgeLogic drawbridge = (AdvancedDrawbridgeLogic) logic;
+            ItemStack stack = drawbridge.camoInventory.getCamoStack();
             if (stack != null && stack.itemID < 4096)
             {
                 Block block = Block.blocksList[stack.itemID];

@@ -406,6 +406,7 @@ public class TContent implements IFuelHandler
         GameRegistry.registerBlock(redstoneMachine, RedstoneMachineItem.class, "Redstone.Machine");
         GameRegistry.registerTileEntity(DrawbridgeLogic.class, "Drawbridge");
         GameRegistry.registerTileEntity(FirestarterLogic.class, "Firestarter");
+        GameRegistry.registerTileEntity(AdvancedDrawbridgeLogic.class, "AdvDrawbridge");
 
         //Traps
         landmine = new BlockLandmine(PHConstruct.landmine).setHardness(0.5F).setResistance(0F).setStepSound(Block.soundMetalFootstep).setCreativeTab(CreativeTabs.tabRedstone)

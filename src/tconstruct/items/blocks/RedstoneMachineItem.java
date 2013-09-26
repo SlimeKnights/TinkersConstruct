@@ -10,7 +10,7 @@ import net.minecraft.util.MathHelper;
 
 public class RedstoneMachineItem extends ItemBlock
 {
-    public static final String blockType[] = { "drawbridge", "firestarter" };
+    public static final String blockType[] = { "drawbridge", "firestarter", "advdrawbridge" };
 
     public RedstoneMachineItem(int id)
     {
