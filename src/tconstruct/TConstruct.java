@@ -47,7 +47,7 @@ import cpw.mods.fml.relauncher.Side;
  * @dependencies: IC2 API, MFR API
  */
 
-@Mod(modid = "TConstruct", name = "TConstruct", version = "1.6.4_1.4.6d1", dependencies = "required-after:Forge@[9.11.0.880,)")
+@Mod(modid = "TConstruct", name = "TConstruct", version = "1.6.4_1.4.6d1", dependencies = "required-after:Forge@[8.9,)")
 @NetworkMod(serverSideRequired = false, clientSideRequired = true, channels = { "TConstruct" }, packetHandler = tconstruct.util.network.TPacketHandler.class)
 public class TConstruct
 {
@@ -138,9 +138,7 @@ public class TConstruct
 
             }
         }
-
-        /*DimensionManager.registerProviderType(-7, TinkerWorldProvider.class, true);
-        DimensionManager.registerDimension(-7, -7);*/
+        
         playerTracker = new TPlayerHandler();
         GameRegistry.registerPlayerTracker(playerTracker);
         MinecraftForge.EVENT_BUS.register(playerTracker);
