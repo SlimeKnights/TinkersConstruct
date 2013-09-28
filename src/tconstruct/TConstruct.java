@@ -1,5 +1,7 @@
 package tconstruct;
 
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraftforge.common.MinecraftForge;
 import tconstruct.client.event.EventCloakRender;
 import tconstruct.common.TContent;
@@ -20,6 +22,8 @@ import tconstruct.util.player.TPlayerHandler;
 import tconstruct.worldgen.SlimeIslandGen;
 import tconstruct.worldgen.TBaseWorldGenerator;
 import tconstruct.worldgen.TerrainGenEventHandler;
+import tconstruct.worldgen.village.ComponentSmeltery;
+import tconstruct.worldgen.village.ComponentToolWorkshop;
 import tconstruct.worldgen.village.TVillageTrades;
 import tconstruct.worldgen.village.VillageSmelteryHandler;
 import tconstruct.worldgen.village.VillageToolStationHandler;
@@ -85,10 +89,10 @@ public class TConstruct
     }
 
     @EventHandler
-    public void preInit(FMLPreInitializationEvent event)
+    public void preInit (FMLPreInitializationEvent event)
     {
-        
-    	PHConstruct.initProps(event.getModConfigurationDirectory());
+
+        PHConstruct.initProps(event.getModConfigurationDirectory());
         TConstructRegistry.materialTab = new TabTools("TConstructMaterials");
         TConstructRegistry.toolTab = new TabTools("TConstructTools");
         TConstructRegistry.blockTab = new TabTools("TConstructBlocks");
@@ -121,6 +125,18 @@ public class TConstruct
         {
             VillagerRegistry.instance().registerVillageCreationHandler(new VillageToolStationHandler());
             VillagerRegistry.instance().registerVillageCreationHandler(new VillageSmelteryHandler());
+            try
+            {
+                if (MinecraftServer.getServer().getMinecraftVersion().equals("1.6.4"))
+                {
+                    MapGenStructureIO.func_143031_a(ComponentToolWorkshop.class, "TConstruct:ToolWorkshopStructure");
+                    MapGenStructureIO.func_143031_a(ComponentSmeltery.class, "TConstruct:SmelteryStructure");
+                }
+            }
+            catch (Throwable e)
+            {
+
+            }
         }
 
         /*DimensionManager.registerProviderType(-7, TinkerWorldProvider.class, true);
@@ -131,7 +147,7 @@ public class TConstruct
     }
 
     @EventHandler
-    public void init(FMLInitializationEvent event)
+    public void init (FMLInitializationEvent event)
     {
         if (event.getSide() == Side.CLIENT)
         {
@@ -146,7 +162,7 @@ public class TConstruct
     }
 
     @EventHandler
-    public void postInit(FMLPostInitializationEvent evt)
+    public void postInit (FMLPostInitializationEvent evt)
     {
         Behavior.registerBuiltInBehaviors();
         SpecialStackHandler.registerBuiltInStackHandlers();
@@ -154,19 +170,19 @@ public class TConstruct
         TContent.modRecipes();
         content.createEntities();
         content.modRecipes();
-   }
+    }
 
-    public static LiquidCasting getTableCasting()
+    public static LiquidCasting getTableCasting ()
     {
         return tableCasting;
     }
 
-    public static LiquidCasting getBasinCasting()
+    public static LiquidCasting getBasinCasting ()
     {
         return basinCasting;
     }
 
-    public static Detailing getChiselDetailing()
+    public static Detailing getChiselDetailing ()
     {
         return chiselDetailing;
     }

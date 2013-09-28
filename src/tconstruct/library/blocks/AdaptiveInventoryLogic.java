@@ -8,6 +8,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import tconstruct.library.util.CoordTuple;
 import tconstruct.library.util.IFacingLogic;
 import tconstruct.library.util.IMasterLogic;
@@ -151,7 +152,7 @@ public abstract class AdaptiveInventoryLogic extends InventoryLogic implements I
         airBlocks = 0;
         blockCoords.clear();
         airCoords.clear();
-        boolean valid = false;
+        boolean validAir = false;
         //Check for air space in front of and behind the structure
         byte dir = getRenderDirection();
         switch (getRenderDirection())
@@ -159,17 +160,18 @@ public abstract class AdaptiveInventoryLogic extends InventoryLogic implements I
         case 2: // +z
         case 3: // -z
             if (checkAir(xCoord, yCoord, zCoord - 1) && checkAir(xCoord, yCoord, zCoord + 1))
-                valid = true;
+                validAir = true;
             break;
         case 4: // +x
         case 5: // -x
             if (checkAir(xCoord - 1, yCoord, zCoord) && checkAir(xCoord + 1, yCoord, zCoord))
-                valid = true;
+                validAir = true;
             break;
         }
 
         //Check for at least two connected blocks
-
+        boolean validBlocks = false;
+        
         //Recurse the structure
         int xPos = 0, zPos = 0;
         if (dir == 2)
@@ -226,8 +228,9 @@ public abstract class AdaptiveInventoryLogic extends InventoryLogic implements I
         if (!block.hasTileEntity(worldObj.getBlockMetadata(x, y, z)))
             return false;
 
-        if (worldObj.getBlockTileEntity(x, y, z) instanceof IServantLogic)
-            return true;
+        TileEntity be = worldObj.getBlockTileEntity(x, y, z);
+        if (be instanceof IServantLogic)
+            return ((IServantLogic)be).canBeMaster(this, x, y, z);
 
         return false;
     }
