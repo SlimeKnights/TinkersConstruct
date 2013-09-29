@@ -9,6 +9,7 @@ import tconstruct.library.blocks.AdaptiveInventoryLogic;
 
 public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic
 {
+    byte direction;
 
     @Override
     public byte getRenderDirection ()
@@ -19,7 +20,6 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic
     @Override
     public ForgeDirection getForgeDirection ()
     {
-        // TODO Auto-generated method stub
         return null;
     }
 
@@ -27,7 +27,6 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic
     @Deprecated
     public void setDirection (int side)
     {
-        // TODO Auto-generated method stub
         
     }
 
@@ -35,29 +34,25 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic
     @Deprecated
     public void setDirection (float yaw, float pitch, EntityLivingBase player)
     {
-        // TODO Auto-generated method stub
         
     }
 
     @Override
     protected boolean isValidBlock (int x, int y, int z)
     {
-        // TODO Auto-generated method stub
         return false;
     }
 
     @Override
     public Container getGuiContainer (InventoryPlayer inventoryplayer, World world, int x, int y, int z)
     {
-        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    protected String getDefaultName ()
+    public String getDefaultName ()
     {
-        // TODO Auto-generated method stub
-        return null;
+        return "crafters.Smeltery";
     }
 
 }
