@@ -1841,6 +1841,7 @@ public class TContent implements IFuelHandler
         //Vanilla stuff
         OreDictionary.registerOre("slimeball", new ItemStack(Item.slimeBall));
         OreDictionary.registerOre("slimeball", new ItemStack(strangeFood, 1, 0));
+        OreDictionary.registerOre("glass", new ItemStack(clearGlass));
         RecipeRemover.removeShapedRecipe(new ItemStack(Block.pistonStickyBase));
         RecipeRemover.removeShapedRecipe(new ItemStack(Item.magmaCream));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Block.pistonStickyBase), "slimeball", Block.pistonBase));
