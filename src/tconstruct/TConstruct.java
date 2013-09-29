@@ -1,6 +1,6 @@
 package tconstruct;
 
-import net.minecraft.server.MinecraftServer;
+import net.minecraft.crash.CallableMinecraftVersion;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraftforge.common.MinecraftForge;
 import tconstruct.client.event.EventCloakRender;
@@ -39,6 +39,7 @@ import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.VillagerRegistry;
+import cpw.mods.fml.common.versioning.ComparableVersion;
 import cpw.mods.fml.relauncher.Side;
 
 /** TConstruct, the tool mod.
@@ -127,7 +128,11 @@ public class TConstruct
             VillagerRegistry.instance().registerVillageCreationHandler(new VillageSmelteryHandler());
             try
             {
-                if (MinecraftServer.getServer().getMinecraftVersion().equals("1.6.4"))
+                //if (MinecraftServer.getServer().getMinecraftVersion().equals("1.6.4"))
+                /*ComparableVersion cv = new ComparableVersion(new CallableMinecraftVersion(null).minecraftVersion());
+                ComparableVersion compare = new ComparableVersion("1.6.4");
+                if (compare.compareTo(cv) > 0)*/ //<-- Probably not right
+                if (new CallableMinecraftVersion(null).minecraftVersion().equals("1.6.4"))
                 {
                     MapGenStructureIO.func_143031_a(ComponentToolWorkshop.class, "TConstruct:ToolWorkshopStructure");
                     MapGenStructureIO.func_143031_a(ComponentSmeltery.class, "TConstruct:SmelteryStructure");
@@ -138,7 +143,7 @@ public class TConstruct
 
             }
         }
-        
+
         playerTracker = new TPlayerHandler();
         GameRegistry.registerPlayerTracker(playerTracker);
         MinecraftForge.EVENT_BUS.register(playerTracker);

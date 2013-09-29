@@ -173,10 +173,9 @@ public abstract class AdaptiveInventoryLogic extends InventoryLogic implements I
             break;
         }
 
-        //Check for at least two connected blocks
+        //Recurse the structure
         boolean validBlocks = false;
 
-        //Recurse the structure
         int xPos = 0, zPos = 0;
         if (dir == 2)
             xPos = 1;
@@ -309,9 +308,8 @@ public abstract class AdaptiveInventoryLogic extends InventoryLogic implements I
             {
                 if (checkAir(x + offset[0], y, z + offset[1]))
                 {
-                    airBlocks++;
                     airCoords.add(coord);
-                    //worldObj.setBlock(x + offset[0], y, z + offset[1], Block.leaves.blockID);
+                    addAirBlock(coord.x, y, coord.z);
                     floodTest(x + offset[0], y, z + offset[1]);
                 }
                 else if (!blockCoords.contains(coord) && checkServant(x + offset[0], y, z + offset[1]))
@@ -337,8 +335,10 @@ public abstract class AdaptiveInventoryLogic extends InventoryLogic implements I
             {
                 coord = (CoordTuple) i.next();
                 if (checkAir(coord.x, y, coord.z))
+                {
                     airCoords.add(new CoordTuple(coord.x, y, coord.z));
-
+                    addAirBlock(coord.x, y, coord.z);
+                }
                 else
                 {
                     valid = false;
@@ -389,28 +389,13 @@ public abstract class AdaptiveInventoryLogic extends InventoryLogic implements I
 
     public void recurseStructureUp (int y)
     {
-        Iterator i = tempAirCoords.iterator();
+        Iterator i = tempBlockCoords.iterator();
         CoordTuple coord = (CoordTuple) i.next();
-        if (checkAir(coord.x, y, coord.z))
+        if (checkServant(coord.x, y, coord.z))
         {
             boolean valid = true;
 
-            //Air blocks
-            while (i.hasNext())
-            {
-                coord = (CoordTuple) i.next();
-                if (checkAir(coord.x, y, coord.z))
-                    airCoords.add(new CoordTuple(coord.x, y, coord.z));
-
-                else
-                {
-                    valid = false;
-                    break;
-                }
-            }
-
             //Bricks
-            i = tempBlockCoords.iterator();
             while (i.hasNext())
             {
                 coord = (CoordTuple) i.next();
@@ -424,9 +409,35 @@ public abstract class AdaptiveInventoryLogic extends InventoryLogic implements I
                 }
             }
 
+            //Air blocks
+            if (valid)
+            {
+                i = tempAirCoords.iterator();
+                while (i.hasNext())
+                {
+                    coord = (CoordTuple) i.next();
+                    if (checkAir(coord.x, y, coord.z))
+                    {
+                        airCoords.add(new CoordTuple(coord.x, y, coord.z));
+                        addAirBlock(coord.x, y, coord.z);
+                    }
+                    else
+                    {
+                        valid = false;
+                        break;
+                    }
+                }
+            }
+
             if (valid)
                 recurseStructureUp(y + 1);
         }
+    }
+    
+    protected void addAirBlock(int x, int y, int z)
+    {
+        airBlocks++;
+        //worldObj.setBlock(x + offset[0], y, z + offset[1], Block.leaves.blockID);
     }
 
     public void cleanup ()
