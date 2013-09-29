@@ -79,4 +79,11 @@ public class TowerFurnaceLogic extends AdaptiveInventoryLogic implements IActive
         return null;
     }
 
+    @Override
+    protected boolean isValidBlock (int x, int y, int z)
+    {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
 }

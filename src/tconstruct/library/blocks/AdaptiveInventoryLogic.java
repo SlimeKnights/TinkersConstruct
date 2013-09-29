@@ -2,6 +2,7 @@ package tconstruct.library.blocks;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Random;
 
 import net.minecraft.block.Block;
@@ -17,7 +18,7 @@ import tconstruct.library.util.IServantLogic;
 public abstract class AdaptiveInventoryLogic extends InventoryLogic implements IFacingLogic, IMasterLogic
 {
     Random random = new Random();
-    protected boolean validStructure;
+    protected boolean completeStructure;
     protected int inventorySize;
     protected boolean needsUpdate;
     protected int tick = 0;
@@ -141,6 +142,9 @@ public abstract class AdaptiveInventoryLogic extends InventoryLogic implements I
 
     int bricks = 0;
     int airBlocks = 0;
+    HashSet<CoordTuple> tempBlockCoords = new HashSet<CoordTuple>();
+    HashSet<CoordTuple> tempAirCoords = new HashSet<CoordTuple>();
+
     HashSet<CoordTuple> blockCoords = new HashSet<CoordTuple>();
     HashSet<CoordTuple> airCoords = new HashSet<CoordTuple>();
     ArrayList<int[]> validAirCoords = new ArrayList<int[]>();
@@ -171,7 +175,7 @@ public abstract class AdaptiveInventoryLogic extends InventoryLogic implements I
 
         //Check for at least two connected blocks
         boolean validBlocks = false;
-        
+
         //Recurse the structure
         int xPos = 0, zPos = 0;
         if (dir == 2)
@@ -184,7 +188,7 @@ public abstract class AdaptiveInventoryLogic extends InventoryLogic implements I
             zPos = 1;
 
         returnStone = new CoordTuple(xCoord - xPos, yCoord, zCoord - zPos);
-        if (recurseLayer(xCoord + xPos, yCoord, zCoord + zPos))
+        if (initialRecurseLayer(xCoord + xPos, yCoord, zCoord + zPos))
         {
             xPos = 0;
             zPos = 0;
@@ -203,11 +207,38 @@ public abstract class AdaptiveInventoryLogic extends InventoryLogic implements I
                 xPos = -1;
                 break;
             }
-            boolean air = floodTest(xCoord + xPos, yCoord, zCoord + zPos);
-            System.out.println("Air blocks: " + airBlocks);
+            if (!worldObj.isRemote)
+                System.out.println("Bricks in recursion: " + blockCoords.size());
+            blockCoords.clear();
+            bricks = 0;
+
+            //Does the actual adding of blocks in the ring
+            boolean sealed = floodTest(xCoord + xPos, yCoord, zCoord + zPos);
+            if (!worldObj.isRemote)
+            {
+                System.out.println("Air in ring: " + airBlocks);
+                System.out.println("Bricks in ring: " + bricks);
+            }
+
+            if (sealed)
+            {
+                tempAirCoords = new HashSet<CoordTuple>(airCoords);
+                tempBlockCoords = new HashSet<CoordTuple>(blockCoords);
+
+                if (recurseStructureDown(yCoord - 1))
+                {
+                    completeStructure = true;
+                    recurseStructureUp(yCoord + 1);
+
+                    if (!worldObj.isRemote)
+                    {
+                        System.out.println("Air in structure: " + airCoords.size());
+                        System.out.println("Bricks in structure: " + blockCoords.size());
+                    }
+                }
+            }
         }
 
-        System.out.println("Bricks: " + blockCoords.size());
     }
 
     protected boolean checkAir (int x, int y, int z)
@@ -230,12 +261,12 @@ public abstract class AdaptiveInventoryLogic extends InventoryLogic implements I
 
         TileEntity be = worldObj.getBlockTileEntity(x, y, z);
         if (be instanceof IServantLogic)
-            return ((IServantLogic)be).canBeMaster(this, x, y, z);
+            return ((IServantLogic) be).setPotentialMaster(this, x, y, z);
 
         return false;
     }
 
-    protected boolean recurseLayer (int x, int y, int z)
+    protected boolean initialRecurseLayer (int x, int y, int z)
     {
         if (bricks >= 4095)
             return false;
@@ -251,12 +282,11 @@ public abstract class AdaptiveInventoryLogic extends InventoryLogic implements I
                 CoordTuple coord = new CoordTuple(x + xPos, y, z + zPos);
                 if (!blockCoords.contains(coord))
                 {
-                    int blockID = worldObj.getBlockId(x + xPos, y, z + zPos);
-                    if (blockID == Block.stoneBrick.blockID) //TContent.smeltery.blockID, Needs different checking
+                    if (isValidBlock(x + xPos, y, z + zPos))
                     {
                         bricks++;
                         blockCoords.add(coord);
-                        return recurseLayer(x + xPos, y, z + zPos);
+                        return initialRecurseLayer(x + xPos, y, z + zPos);
                     }
                 }
             }
@@ -265,11 +295,13 @@ public abstract class AdaptiveInventoryLogic extends InventoryLogic implements I
         return false;
     }
 
+    protected abstract boolean isValidBlock (int x, int y, int z);
+
     protected boolean floodTest (int x, int y, int z)
     {
         if (airBlocks >= 4095)
             return false;
-        
+
         for (int[] offset : validAirCoords)
         {
             CoordTuple coord = new CoordTuple(x + offset[0], y, z + offset[1]);
@@ -282,16 +314,126 @@ public abstract class AdaptiveInventoryLogic extends InventoryLogic implements I
                     //worldObj.setBlock(x + offset[0], y, z + offset[1], Block.leaves.blockID);
                     floodTest(x + offset[0], y, z + offset[1]);
                 }
+                else if (!blockCoords.contains(coord) && checkServant(x + offset[0], y, z + offset[1]))
+                {
+                    bricks++;
+                    blockCoords.add(coord);
+                }
             }
         }
         return true;
     }
-    
-    public void cleanup()
+
+    public boolean recurseStructureDown (int y)
+    {
+        Iterator i = tempAirCoords.iterator();
+        CoordTuple coord = (CoordTuple) i.next();
+        if (checkAir(coord.x, y, coord.z))
+        {
+            boolean valid = true;
+
+            //Air blocks
+            while (i.hasNext())
+            {
+                coord = (CoordTuple) i.next();
+                if (checkAir(coord.x, y, coord.z))
+                    airCoords.add(new CoordTuple(coord.x, y, coord.z));
+
+                else
+                {
+                    valid = false;
+                    break;
+                }
+            }
+
+            //Bricks
+            i = tempBlockCoords.iterator();
+            while (i.hasNext())
+            {
+                coord = (CoordTuple) i.next();
+                if (checkServant(coord.x, y, coord.z))
+                    blockCoords.add(new CoordTuple(coord.x, y, coord.z));
+
+                else
+                {
+                    valid = false;
+                    break;
+                }
+            }
+
+            if (valid)
+                return recurseStructureDown(y - 1);
+        }
+        else if (checkServant(coord.x, y, coord.z))
+        {
+            //Bottom floor. All blocks, please vacate the elevator
+            boolean valid = true;
+            while (i.hasNext())
+            {
+                coord = (CoordTuple) i.next();
+
+                if (checkServant(coord.x, y, coord.z))
+                    blockCoords.add(new CoordTuple(coord.x, y, coord.z));
+
+                else
+                {
+                    valid = false;
+                    break;
+                }
+            }
+            return valid;
+        }
+
+        return false;
+    }
+
+    public void recurseStructureUp (int y)
+    {
+        Iterator i = tempAirCoords.iterator();
+        CoordTuple coord = (CoordTuple) i.next();
+        if (checkAir(coord.x, y, coord.z))
+        {
+            boolean valid = true;
+
+            //Air blocks
+            while (i.hasNext())
+            {
+                coord = (CoordTuple) i.next();
+                if (checkAir(coord.x, y, coord.z))
+                    airCoords.add(new CoordTuple(coord.x, y, coord.z));
+
+                else
+                {
+                    valid = false;
+                    break;
+                }
+            }
+
+            //Bricks
+            i = tempBlockCoords.iterator();
+            while (i.hasNext())
+            {
+                coord = (CoordTuple) i.next();
+                if (checkServant(coord.x, y, coord.z))
+                    blockCoords.add(new CoordTuple(coord.x, y, coord.z));
+
+                else
+                {
+                    valid = false;
+                    break;
+                }
+            }
+
+            if (valid)
+                recurseStructureUp(y + 1);
+        }
+    }
+
+    public void cleanup ()
     {
         for (CoordTuple coord : airCoords)
         {
-            worldObj.setBlockToAir(coord.x, coord.y, coord.z);            
+            worldObj.setBlockToAir(coord.x, coord.y, coord.z);
         }
     }
 
