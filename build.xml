@@ -151,7 +151,10 @@
 		<copy todir="${classes.dir}">
 			<fileset dir="${mcp.dir}/reobf/minecraft"/>
 		</copy>
-
+		
+		<!-- remove ic2 api to prevent crashes because of old api versions -->
+		<delete dir="${classes.dir}/ic2"/>
+		
 		<!-- Copy resources -->
 		<copy todir="${classes.dir}" outputencoding="UTF-8">
 			<fileset dir="${classes.dir}">

@@ -7,7 +7,7 @@ Vexatos:https://dl.dropboxusercontent.com/u/57704711/Dokumente/Speziell/Minecraf
 pillbox:https://raw.github.com/mDiyo/TinkersConstruct/master/capes/default_orange.png
 Hysting:https://raw.github.com/mDiyo/TinkersConstruct/master/capes/default_blue.png
 Xythyl:https://raw.github.com/mDiyo/TinkersConstruct/master/capes/default_blue.png
-andrejsavikin:https://dl.dropboxusercontent.com/s/i6gra1pc6gxawwz/capeTCLogo.png
+andrejsavikin:https://raw.github.com/mDiyo/TinkersConstruct/master/capes/default_blue.png
 alexbegt:https://dl.dropboxusercontent.com/u/48633261/cape.png
 DentedLeftFender:https://raw.github.com/mDiyo/TinkersConstruct/master/capes/default_green.png
 Pokefenn:https://dl.dropboxusercontent.com/s/etrersgka8n7g3s/vineCape.png
@@ -46,5 +46,6 @@ the_j485:https://dl.dropboxusercontent.com/s/etrersgka8n7g3s/vineCape.png
 dgdas12:https://dl.dropboxusercontent.com/s/etrersgka8n7g3s/vineCape.png
 SatanicSanta:https://dl.dropboxusercontent.com/s/etrersgka8n7g3s/vineCape.png
 GPuzzle:https://dl.dropboxusercontent.com/s/etrersgka8n7g3s/vineCape.png
-ajloveslily14:https://dl.dropboxusercontent.com/s/8yl77gjf4cygnzo/cape.png
+ajloveslily14:https://raw.github.com/mDiyo/TinkersConstruct/master/capes/default_blue.png
 multisofteis:http://i.imgur.com/AgGBsX8.png
+----------------------------------------FINALISED - ONLY ALLOW REMOVAL OF CAPES----------------------------------------
