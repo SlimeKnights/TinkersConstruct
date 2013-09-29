@@ -13,13 +13,16 @@ import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
+import net.minecraftforge.fluids.FluidStack;
 import tconstruct.TConstruct;
 import tconstruct.blocks.logic.DrawbridgeLogic;
+import tconstruct.blocks.logic.SmelteryLogic;
 import tconstruct.blocks.logic.ToolForgeLogic;
 import tconstruct.blocks.logic.ToolStationLogic;
 import tconstruct.library.blocks.InventoryLogic;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.IPacketHandler;
+import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.common.network.Player;
 import cpw.mods.fml.relauncher.Side;
 
@@ -137,12 +140,49 @@ public class TPacketHandler implements IPacketHandler
                     ((DrawbridgeLogic) te).setPlacementDirection(direction);
                 }
             }
-
+            
             else if (packetID == 10) //Double jump
             {
                 //String user = inputStream.readUTF();
                 //EntityPlayer player = TConstruct.playerTracker.getEntityPlayer(user);
                 player.fallDistance = 0;
+            }
+            
+            else if (packetID == 11) //Smeltery
+            {
+            	int dimension = inputStream.readInt();
+            	World world = DimensionManager.getWorld(dimension);
+            	int x = inputStream.readInt();
+            	int y = inputStream.readInt();
+            	int z = inputStream.readInt();
+            	
+            	boolean isShiftPressed = inputStream.readBoolean();
+            	int fluidID = inputStream.readInt();
+            	
+            	TileEntity te = world.getBlockTileEntity(x, y, z);
+            	
+            	if (te instanceof SmelteryLogic)
+            	{
+            		FluidStack temp = null;
+            		
+            		for(FluidStack liquid : ((SmelteryLogic) te).moltenMetal)
+            		{
+            			if (liquid.fluidID == fluidID)
+            			{
+            				temp = liquid;
+            			}
+            		}
+            		
+            		if (temp != null)
+            		{
+            			((SmelteryLogic) te).moltenMetal.remove(temp);
+            			if (isShiftPressed)
+            				((SmelteryLogic) te).moltenMetal.add(temp);
+            			else 
+            				((SmelteryLogic) te).moltenMetal.add(0, temp);
+            		}
+            		PacketDispatcher.sendPacketToAllInDimension(te.getDescriptionPacket(), dimension);
+            	}
             }
         }
         catch (IOException e)
