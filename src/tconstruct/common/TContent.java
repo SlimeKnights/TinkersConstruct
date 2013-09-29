@@ -1841,6 +1841,8 @@ public class TContent implements IFuelHandler
 
         BlockDispenser.dispenseBehaviorRegistry.putObject(titleIcon, new TDispenserBehaviorSpawnEgg());
 
+        BlockDispenser.dispenseBehaviorRegistry.putObject(arrow, new TDispenserBehaviorArrow());
+
         //Vanilla stuff
         OreDictionary.registerOre("slimeball", new ItemStack(Item.slimeBall));
         OreDictionary.registerOre("slimeball", new ItemStack(strangeFood, 1, 0));
