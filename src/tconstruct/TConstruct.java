@@ -105,9 +105,7 @@ public class TConstruct
         content = new TContent();
 
         events = new TEventHandler();
-        events.unfuxOreDictionary();
         MinecraftForge.EVENT_BUS.register(events);
-        content.oreRegistry();
 
         proxy.registerRenderer();
         proxy.registerTickHandler();
@@ -157,6 +155,7 @@ public class TConstruct
             MinecraftForge.EVENT_BUS.register(new EventCloakRender());
         }
 
+        content.oreRegistry();
         content.intermodCommunication();
         Tforest.initProps(PHConstruct.cfglocation);
         BOP.initProps(PHConstruct.cfglocation);
@@ -167,6 +166,7 @@ public class TConstruct
     @EventHandler
     public void postInit (FMLPostInitializationEvent evt)
     {
+        events.unfuxOreDictionary();
         Behavior.registerBuiltInBehaviors();
         SpecialStackHandler.registerBuiltInStackHandlers();
         content.modIntegration();
