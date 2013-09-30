@@ -13,11 +13,6 @@ import tconstruct.library.util.IMasterLogic;
 public class TowerFurnaceLogic extends AdaptiveInventoryLogic implements IActiveLogic, IFacingLogic, IMasterLogic
 {
 
-    public TowerFurnaceLogic()
-    {
-        super();
-    }
-
     @Override
     public void notifyChange (int x, int y, int z)
     {
@@ -40,6 +35,7 @@ public class TowerFurnaceLogic extends AdaptiveInventoryLogic implements IActive
     }
 
     @Override
+    @Deprecated
     public void setDirection (int side)
     {
         // TODO Auto-generated method stub
@@ -47,6 +43,7 @@ public class TowerFurnaceLogic extends AdaptiveInventoryLogic implements IActive
     }
 
     @Override
+    @Deprecated
     public void setDirection (float yaw, float pitch, EntityLivingBase player)
     {
         // TODO Auto-generated method stub
@@ -68,22 +65,24 @@ public class TowerFurnaceLogic extends AdaptiveInventoryLogic implements IActive
     }
 
     @Override
+    public void setNeedsUpdate ()
+    {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
     public Container getGuiContainer (InventoryPlayer inventoryplayer, World world, int x, int y, int z)
     {
+        // TODO Auto-generated method stub
         return null;
     }
 
     @Override
     protected String getDefaultName ()
     {
-        return null;
-    }
-
-    @Override
-    protected boolean isValidBlock (int x, int y, int z)
-    {
         // TODO Auto-generated method stub
-        return false;
+        return null;
     }
 
 }

@@ -41,11 +41,11 @@ public class SmelteryBlock extends InventoryBlock
 
     /* Rendering */
 
-    @Override
+    /*@Override
     public int getRenderType ()
     {
         return SmelteryRender.smelteryModel;
-    }
+    }*/
 
     @Override
     public String[] getTextureNames ()
