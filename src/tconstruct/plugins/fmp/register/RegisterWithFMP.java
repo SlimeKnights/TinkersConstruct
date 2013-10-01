@@ -6,19 +6,18 @@ import codechicken.microblock.MicroMaterialRegistry;
 
 public class RegisterWithFMP
 {
+    //For blocks with metadata values only
     public static void registerBlock (Block block, int metastart, int metaend)
     {
-        // meta = number 0->15
         for (int meta = metastart; meta <= metaend; meta++)
         {
-        String identifier = new String(block.getUnlocalizedName());
-        MicroMaterialRegistry.registerMaterial(new BlockMicroMaterial(block, meta), identifier + meta);
+            String identifier = new String(block.getUnlocalizedName());
+            MicroMaterialRegistry.registerMaterial(new BlockMicroMaterial(block, meta), identifier + meta);
         }
     }
-
+    //For blocks without metadata values only.
     public static void registerBlock (Block block)
     {
-        String identifier = new String(block.getUnlocalizedName());
         BlockMicroMaterial.createAndRegister(block);
     }
 }
