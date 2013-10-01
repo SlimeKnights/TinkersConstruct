@@ -24,7 +24,28 @@
     "mcversion": "@MCVERSION@",
     "url": "http://www.minecraftforum.net/topic/1659892-tinkers-construct",
     "updateUrl": "",
-    "authors": [],
+    "authors": [
+      "mDiyo", "fuj1n", "ProgWML6", "Sunstrike"
+    ],
+    "credits": "",
+    "logoFile": "",
+    "screenshots": [],
+    "parent":"TConstruct",
+    "dependencies": [
+      "TConstruct"
+    ]
+  }
+   {
+    "modid": "TConstruct|CompatForgeMultiPart",
+    "name": "TConstruct Compat: FMP",
+    "description": "TConstruct support for forgemultipart",
+    "version": "@VERSION@",
+    "mcversion": "@MCVERSION@",
+    "url": "http://www.minecraftforum.net/topic/1659892-tinkers-construct",
+    "updateUrl": "",
+    "authors": [
+      "mDiyo", "fuj1n", "ProgWML6", "Sunstrike"
+    ],
     "credits": "",
     "logoFile": "",
     "screenshots": [],
