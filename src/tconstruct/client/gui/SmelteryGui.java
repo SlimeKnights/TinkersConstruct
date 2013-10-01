@@ -1,5 +1,7 @@
 package tconstruct.client.gui;
 
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -9,6 +11,7 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.Icon;
 import net.minecraft.util.ResourceLocation;
@@ -24,6 +27,7 @@ import org.lwjgl.opengl.GL12;
 import tconstruct.blocks.logic.SmelteryLogic;
 import tconstruct.inventory.ActiveContainer;
 import tconstruct.inventory.SmelteryContainer;
+import cpw.mods.fml.common.network.PacketDispatcher;
 
 public class SmelteryGui extends NewContainerGui
 {
@@ -108,6 +112,7 @@ public class SmelteryGui extends NewContainerGui
         int base = 0;
         int cornerX = (width - xSize) / 2 + 36;
         int cornerY = (height - ySize) / 2;
+        
         for (FluidStack liquid : logic.moltenMetal)
         {
             int basePos = 54;
@@ -133,9 +138,9 @@ public class SmelteryGui extends NewContainerGui
             if (mouseX >= leftX && mouseX <= leftX + sizeX && mouseY >= topY && mouseY < topY + sizeY)
             {
                 drawFluidStackTooltip(liquid, mouseX - cornerX + 36, mouseY - cornerY);
+                
             }
         }
-
         if (logic.fuelGague > 0)
         {
             int leftX = cornerX + 117;
@@ -413,5 +418,73 @@ public class SmelteryGui extends NewContainerGui
         tessellator.addVertexWithUV((double) (startU + endU), (double) (startV + 0), (double) this.zLevel, (double) par3Icon.getMaxU(), (double) par3Icon.getMinV());//Top right
         tessellator.addVertexWithUV((double) (startU + 0), (double) (startV + 0), (double) this.zLevel, (double) par3Icon.getMinU(), (double) par3Icon.getMinV()); //Top left
         tessellator.draw();
+    }
+    
+    @Override
+    public void mouseClicked(int mouseX, int mouseY, int mouseButton)
+    {
+    	super.mouseClicked(mouseX, mouseY, mouseButton);
+    	
+    	int base = 0;
+        int cornerX = (width - xSize) / 2 + 36;
+        int cornerY = (height - ySize) / 2;
+        int fluidToBeBroughtUp = -1;
+        
+        for (FluidStack liquid : logic.moltenMetal)
+        {
+            int basePos = 54;
+            int initialLiquidSize = 0;
+            int liquidSize = 0;//liquid.amount * 52 / liquidLayers;
+            if (logic.getCapacity() > 0)
+            {
+                int total = logic.getTotalLiquid();
+                int liquidLayers = (total / 20000 + 1) * 20000;
+                if (liquidLayers > 0)
+                {
+                    liquidSize = liquid.amount * 52 / liquidLayers;
+                    if (liquidSize == 0)
+                        liquidSize = 1;
+                    base += liquidSize;
+                }
+            }
+
+            int leftX = cornerX + basePos;
+            int topY = (cornerY + 68) - base;
+            int sizeX = 52;
+            int sizeY = liquidSize;
+            if (mouseX >= leftX && mouseX <= leftX + sizeX && mouseY >= topY && mouseY < topY + sizeY)
+            {
+                fluidToBeBroughtUp = liquid.fluidID;
+                	
+                Packet250CustomPayload packet = new Packet250CustomPayload();
+                	
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                DataOutputStream dos = new DataOutputStream(bos);
+                	
+                try
+                {
+            		dos.write(11);
+            		
+            		dos.writeInt(logic.worldObj.provider.dimensionId);
+            		dos.writeInt(logic.xCoord);
+            		dos.writeInt(logic.yCoord);
+            		dos.writeInt(logic.zCoord);
+            		
+            		dos.writeBoolean(this.isShiftKeyDown());
+            		
+            		dos.writeInt(fluidToBeBroughtUp);
+            	}
+            	catch (Exception e)
+            	{
+            		e.printStackTrace();
+            	}
+            	
+            	packet.channel = "TConstruct";
+            	packet.data = bos.toByteArray();
+            	packet.length = bos.size();
+            	
+            	PacketDispatcher.sendPacketToServer(packet);
+            }
+        }
     }
 }

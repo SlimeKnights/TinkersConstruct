@@ -36,12 +36,6 @@ public class MultiServantLogic extends TileEntity implements IServantLogic
         }
     }
 
-    @Override
-    public boolean canBeMaster (IMasterLogic logic, int x, int y, int z)
-    {
-        return true;
-    }
-
     public CoordTuple getMasterPosition ()
     {
         return master;
@@ -69,6 +63,13 @@ public class MultiServantLogic extends TileEntity implements IServantLogic
             return true;
         else
             return false;
+    }
+
+    @Override
+    public boolean setPotentialMaster (IMasterLogic master, int x, int y, int z)
+    {
+        // TODO Auto-generated method stub
+        return true;
     }
 
     public boolean setMaster (int x, int y, int z)

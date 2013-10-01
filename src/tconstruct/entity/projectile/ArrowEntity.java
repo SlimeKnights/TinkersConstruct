@@ -52,6 +52,15 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
         this.baseDamage = toolTag.getInteger("Attack");
     }
 
+    public ArrowEntity(World world, double x, double y, double z, ItemStack stack)
+    {
+        super(world, x, y, z);
+        this.returnStack = stack;
+        NBTTagCompound toolTag = stack.getTagCompound().getCompoundTag("InfiTool");
+        this.mass = toolTag.getFloat("Mass");
+        this.baseDamage = toolTag.getInteger("Attack");
+    }
+
     @Override
     public void onCollideWithPlayer (EntityPlayer par1EntityPlayer)
     {

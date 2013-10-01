@@ -1178,6 +1178,7 @@ public class TContent implements IFuelHandler
         tableCasting.addCastingRecipe(new ItemStack(materials, 1, 15), new FluidStack(moltenAlumiteFluid, TConstruct.ingotLiquidValue), ingotcast, 80); //alumite
         tableCasting.addCastingRecipe(new ItemStack(materials, 1, 18), new FluidStack(moltenObsidianFluid, TConstruct.ingotLiquidValue), ingotcast, 80); //obsidian
         tableCasting.addCastingRecipe(new ItemStack(materials, 1, 16), new FluidStack(moltenSteelFluid, TConstruct.ingotLiquidValue), ingotcast, 80); //steel
+        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 2), new FluidStack(moltenStoneFluid, TConstruct.ingotLiquidValue), ingotcast, 80); //steel
 
         //Buckets
         ItemStack bucket = new ItemStack(Item.bucketEmpty);
@@ -1566,8 +1567,12 @@ public class TContent implements IFuelHandler
             GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Block.cloth, 8, i), pattern, 'm', dyeTypes[15 - i], '#', new ItemStack(Block.cloth, 1, Short.MAX_VALUE)));
             GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(stainedGlassClear, 8, i), pattern, 'm', dyeTypes[15 - i], '#', clearGlass));
             GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(stainedGlassClear, 1, i), dyeTypes[15 - i], clearGlass));
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(stainedGlassClear, 8, i), pattern, 'm', dyeTypes[15 - i], '#', new ItemStack(stainedGlassClear, 1, Short.MAX_VALUE)));
+            GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(stainedGlassClear, 1, i), dyeTypes[15 - i], new ItemStack(stainedGlassClear, 1, Short.MAX_VALUE)));
             GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(stainedGlassClearPane, 8, i), pattern, 'm', dyeTypes[15 - i], '#', glassPane));
             GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(stainedGlassClearPane, 1, i), dyeTypes[15 - i], glassPane));
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(stainedGlassClearPane, 8, i), pattern, 'm', dyeTypes[15 - i], '#', new ItemStack(stainedGlassClearPane, 1, Short.MAX_VALUE)));
+            GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(stainedGlassClearPane, 1, i), dyeTypes[15 - i], new ItemStack(stainedGlassClearPane, 1, Short.MAX_VALUE)));
         }
 
         //Glass
@@ -1837,9 +1842,12 @@ public class TContent implements IFuelHandler
 
         BlockDispenser.dispenseBehaviorRegistry.putObject(titleIcon, new TDispenserBehaviorSpawnEgg());
 
+        BlockDispenser.dispenseBehaviorRegistry.putObject(arrow, new TDispenserBehaviorArrow());
+
         //Vanilla stuff
         OreDictionary.registerOre("slimeball", new ItemStack(Item.slimeBall));
         OreDictionary.registerOre("slimeball", new ItemStack(strangeFood, 1, 0));
+        OreDictionary.registerOre("glass", new ItemStack(clearGlass));
         RecipeRemover.removeShapedRecipe(new ItemStack(Block.pistonStickyBase));
         RecipeRemover.removeShapedRecipe(new ItemStack(Item.magmaCream));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Block.pistonStickyBase), "slimeball", Block.pistonBase));

@@ -67,7 +67,7 @@ public class GlassBlockConnected extends Block
     @Override
     public Icon getBlockTexture (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
     {
-        return getConnectedBlockTexture(par1IBlockAccess, par2, par3, par4, par5, icons);
+        return par1IBlockAccess.getBlockMetadata(par2, par3, par4) == 15 ? icons[0] : getConnectedBlockTexture(par1IBlockAccess, par2, par3, par4, par5, icons);
     }
 
     public Icon getConnectedBlockTexture (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5, Icon[] icons)
