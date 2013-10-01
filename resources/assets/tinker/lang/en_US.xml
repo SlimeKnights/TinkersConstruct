@@ -146,6 +146,7 @@
   <entry key="item.InfiTool.Shortbow.name">Shortbow</entry>
   <entry key="item.InfiTool.Arrow.name">Arrow</entry>
   <entry key="item.InfiTool.PotionLauncher.name">Potion Launcher</entry>
+  <entry key="item.InfiTool.Mattock.name">Mattock</entry>
   
   <entry key="item.tconstruct.Pattern.blank_pattern.name">Blank Pattern</entry>
   <entry key="item.tconstruct.Pattern.blank_cast.name">Blank Cast</entry>
