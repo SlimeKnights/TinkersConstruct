@@ -19,8 +19,9 @@
 
 	<property name="mc.version" value="1.6.4"/>
 	<property name="forge.version" value="9.11.0.880"/>
-	
+
 	<!-- FMP stuff - copied from projectred w/ CB's permission -->
+	<property name="build.dependencies.file" value="${build.dir}/dependencies.properties" />
 	<property name="ccl.version" value="1.0.0.36" />
 	<property name="fmp.version" value="1.0.0.182" />
 	<property name="ccl.name" value="CodeChickenLib-dev-${mc.version}-${ccl.version}.jar" />
@@ -71,6 +72,11 @@
 		<echo message="Installing CodeChickenLib" />
 		<copy file="${download.dir}/${ccl.name}" todir="${mcp.dir}/lib" />
 
+		<echo message="Updating build.dependencies" />
+		<propertyfile file="${build.dependencies.file}">
+			<entry key="ccl" value="${ccl.version}" />
+			<entry key="ccl.name" value="${ccl.name}" />
+		</propertyfile>
 	</target>
 	<target name="install-fmp" depends="setup,download-fmp" unless="fmp-installed">
 		<echo message="Deleting old ForgeMultipart" />
@@ -79,6 +85,11 @@
 		<echo message="Installing ForgeMultipart" />
 		<copy file="${download.dir}/${fmp.name}" todir="${mcp.dir}/lib" />
 
+		<echo message="Updating build.dependencies" />
+		<propertyfile file="${build.dependencies.file}">
+			<entry key="fmp" value="${fmp.version}" />
+			<entry key="fmp.name" value="${fmp.name}" />
+		</propertyfile>
 	</target>
 	<target name="install-deps" depends="install-ccl,install-fmp" />
 
@@ -197,7 +208,7 @@
 		<copy todir="${classes.dir}">
 			<fileset dir="${mcp.dir}/reobf/minecraft"/>
 		</copy>
-		
+
 		<!-- Copy resources -->
 		<copy todir="${classes.dir}" outputencoding="UTF-8">
 			<fileset dir="${classes.dir}">
