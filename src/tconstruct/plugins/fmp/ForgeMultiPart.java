@@ -27,16 +27,12 @@ public class ForgeMultiPart
             FMLLog.fine("ForgeMultipart detected. Registering TConstruct decorative blocks with FMP.");
             //register blocks without metadata here
             RegisterWithFMP.registerBlock(TContent.clearGlass);
-            RegisterWithFMP.registerBlock(TContent.searedBlock);
             //register blocks w/ metadata here
-            for (int x = 0; x <= 15; x++)
-            {
-                RegisterWithFMP.registerBlock(TContent.stainedGlassClear, x);
-                RegisterWithFMP.registerBlock(TContent.multiBrick, x);
-                RegisterWithFMP.registerBlock(TContent.metalBlock, x);
-                RegisterWithFMP.registerBlock(TContent.multiBrickFancy, x);
+            RegisterWithFMP.registerBlock(TContent.stainedGlassClear, 0, 15);
+            RegisterWithFMP.registerBlock(TContent.multiBrick, 0,13);
+            RegisterWithFMP.registerBlock(TContent.metalBlock, 0, 10);
+            RegisterWithFMP.registerBlock(TContent.multiBrickFancy, 0, 15);
 
-            }
 
         }
         catch (Exception e)
