@@ -258,11 +258,16 @@ public class LavaTankBlock extends BlockContainer
         FluidStack liquid = logic.tank.getFluid();
         if (liquid != null)
         {
-            NBTTagCompound tag = new NBTTagCompound();
-            NBTTagCompound liquidTag = new NBTTagCompound();
-            liquid.writeToNBT(liquidTag);
-            tag.setCompoundTag("Fluid", liquidTag);
-            stack.setTagCompound(tag);
+            Object fluid = liquid.getFluid();
+            if (fluid != null) 
+            {
+            	NBTTagCompound tag = new NBTTagCompound();
+                NBTTagCompound liquidTag = new NBTTagCompound();
+                liquid.writeToNBT(liquidTag);
+                tag.setCompoundTag("Fluid", liquidTag);
+                stack.setTagCompound(tag);
+            }
+        	
         }
         if (!player.capabilities.isCreativeMode || player.isSneaking())
             dropTankBlock(world, x, y, z, stack);
