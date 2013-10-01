@@ -39,7 +39,7 @@ public class DryingRackLogic extends InventoryLogic
     @Override
     public void updateEntity ()
     {
-        if (maxTime > 0 && currentTime < maxTime)
+        if (!worldObj.isRemote && maxTime > 0 && currentTime < maxTime)
         {
             currentTime++;
             if (currentTime >= maxTime)
@@ -79,16 +79,16 @@ public class DryingRackLogic extends InventoryLogic
     @Override
     public void readFromNBT (NBTTagCompound tags)
     {
-        tags.setInteger("Time", currentTime);
-        tags.setInteger("MaxTime", maxTime);
+        currentTime = tags.getInteger("Time");
+        maxTime = tags.getInteger("MaxTime");
         readCustomNBT(tags);
     }
 
     @Override
     public void writeToNBT (NBTTagCompound tags)
     {
-        currentTime = tags.getInteger("Time");
-        maxTime = tags.getInteger("MaxTime");
+        tags.setInteger("Time", currentTime);
+        tags.setInteger("MaxTime", maxTime);
         writeCustomNBT(tags);
     }
 
