@@ -18,7 +18,6 @@ public class RegisterWithFMP
     //For blocks without metadata values only.
     public static void registerBlock (Block block)
     {
-        new String(block.getUnlocalizedName());
         BlockMicroMaterial.createAndRegister(block);
     }
 }
