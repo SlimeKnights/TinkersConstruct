@@ -27,9 +27,6 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import tconstruct.library.ActiveToolMod;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.ToolBuilder;
-import appeng.api.IAEItemStack;
-import appeng.api.me.items.IAEChargeableItem;
-import appeng.api.me.items.IStorageCell;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
