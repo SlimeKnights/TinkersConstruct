@@ -7,7 +7,7 @@ import static net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate.Ev
 import java.util.Random;
 
 import tconstruct.common.TContent;
-import tconstruct.util.PHConstruct;
+import tconstruct.util.config.PHConstruct;
 
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;

@@ -12,7 +12,7 @@ import tconstruct.common.TContent;
 import tconstruct.library.crafting.ToolBuilder;
 import tconstruct.library.tools.AbilityHelper;
 import tconstruct.library.tools.DualHarvestTool;
-import tconstruct.util.PHConstruct;
+import tconstruct.util.config.PHConstruct;
 
 public class Mattock extends DualHarvestTool
 {

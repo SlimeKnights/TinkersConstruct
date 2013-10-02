@@ -8,5 +8,5 @@ public interface IMasterLogic
      * @param y Servant Y
      * @param z Servant Z
      */
-    public void notifyChange (int x, int y, int z);
+    public void notifyChange (IServantLogic servant, int x, int y, int z);
 }

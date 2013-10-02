@@ -1,6 +1,9 @@
 package tconstruct.blocks.logic;
 
-import cpw.mods.fml.common.network.PacketDispatcher;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -33,12 +36,10 @@ import tconstruct.library.util.CoordTuple;
 import tconstruct.library.util.IActiveLogic;
 import tconstruct.library.util.IFacingLogic;
 import tconstruct.library.util.IMasterLogic;
-import tconstruct.util.PHConstruct;
+import tconstruct.library.util.IServantLogic;
 import tconstruct.util.SmelteryDamageSource;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import tconstruct.util.config.PHConstruct;
+import cpw.mods.fml.common.network.PacketDispatcher;
 
 /* Simple class for storing items in the block
  */
@@ -651,7 +652,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 
     /* Multiblock */
     @Override
-    public void notifyChange (int x, int y, int z)
+    public void notifyChange (IServantLogic servant, int x, int y, int z)
     {
         checkValidPlacement();
     }

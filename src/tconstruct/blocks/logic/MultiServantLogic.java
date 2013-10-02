@@ -5,6 +5,7 @@ import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 import tconstruct.library.util.CoordTuple;
 import tconstruct.library.util.IMasterLogic;
 import tconstruct.library.util.IServantLogic;
@@ -66,12 +67,13 @@ public class MultiServantLogic extends TileEntity implements IServantLogic
     }
 
     @Override
-    public boolean setPotentialMaster (IMasterLogic master, int x, int y, int z)
+    public boolean setPotentialMaster (IMasterLogic master, World world, int x, int y, int z)
     {
         // TODO Auto-generated method stub
         return true;
     }
 
+    @Deprecated
     public boolean setMaster (int x, int y, int z)
     {
         if (!hasMaster || worldObj.getBlockId(master.x, master.y, master.z) != masterID || (worldObj.getBlockMetadata(master.x, master.y, master.z) != masterMeat))
@@ -90,7 +92,7 @@ public class MultiServantLogic extends TileEntity implements IServantLogic
         if (hasValidMaster())
         {
             IMasterLogic logic = (IMasterLogic) worldObj.getBlockTileEntity(master.x, master.y, master.z);
-            logic.notifyChange(xCoord, yCoord, zCoord);
+            logic.notifyChange(this, xCoord, yCoord, zCoord);
         }
     }
 
@@ -149,5 +151,19 @@ public class MultiServantLogic extends TileEntity implements IServantLogic
     {
         readCustomNBT(packet.data);
         worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+    }
+
+    @Override
+    public boolean verifyMaster (IMasterLogic master, World world, int x, int y, int z)
+    {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    @Override
+    public void invalidateMaster (IMasterLogic master, World world, int x, int y, int z)
+    {
+        hasMaster = false;
+        master = null;
     }
 }

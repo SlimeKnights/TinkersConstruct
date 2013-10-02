@@ -3,7 +3,7 @@ package tconstruct.items.tools;
 import tconstruct.common.TContent;
 import tconstruct.library.tools.AbilityHelper;
 import tconstruct.library.tools.HarvestTool;
-import tconstruct.util.PHConstruct;
+import tconstruct.util.config.PHConstruct;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;

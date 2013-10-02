@@ -1,5 +1,6 @@
 package tconstruct.library.blocks;
 
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -183,5 +184,15 @@ public abstract class InventoryLogic extends TileEntity implements IInventory
                 return true;
         }
         return false;
+    }
+    
+    public void placeBlock (EntityLivingBase entity, ItemStack stack)
+    {
+        
+    }
+    
+    public void removeBlock()
+    {
+        
     }
 }

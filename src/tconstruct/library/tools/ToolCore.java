@@ -9,17 +9,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import tconstruct.library.ActiveToolMod;
-import tconstruct.library.TConstructRegistry;
-import tconstruct.library.crafting.ToolBuilder;
-
 import mods.battlegear2.api.weapons.IBattlegearWeapon;
 import mods.battlegear2.api.weapons.OffhandAttackEvent;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -29,6 +24,12 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import tconstruct.library.ActiveToolMod;
+import tconstruct.library.TConstructRegistry;
+import tconstruct.library.crafting.ToolBuilder;
+import appeng.api.IAEItemStack;
+import appeng.api.me.items.IAEChargeableItem;
+import appeng.api.me.items.IStorageCell;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -58,7 +59,7 @@ import cpw.mods.fml.relauncher.SideOnly;
  * @see ToolMod
  */
 
-public abstract class ToolCore extends Item implements ICustomElectricItem, IBoxable, IBattlegearWeapon
+public abstract class ToolCore extends Item implements ICustomElectricItem, IBoxable, IBattlegearWeapon, IStorageCell, IAEChargeableItem
 {
     protected Random random = new Random();
     protected int damageVsEntity;
@@ -731,6 +732,74 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
         return used;
     }
 
+    /* Vanilla overrides */
+    public boolean isItemTool (ItemStack par1ItemStack)
+    {
+        return false;
+    }
+
+    @Override
+    public boolean getIsRepairable (ItemStack par1ItemStack, ItemStack par2ItemStack)
+    {
+        return false;
+    }
+
+    public boolean isRepairable ()
+    {
+        return false;
+    }
+
+    public int getItemEnchantability ()
+    {
+        return 0;
+    }
+
+    public boolean isFull3D ()
+    {
+        return true;
+    }
+
+    @SideOnly(Side.CLIENT)
+    public boolean hasEffect (ItemStack par1ItemStack, int pass)
+    {
+        return false;
+    }
+
+    /* Proper stack damage */
+    public int getItemMaxDamageFromStack (ItemStack stack)
+    {
+        NBTTagCompound tags = stack.getTagCompound();
+        if (tags == null)
+        {
+            return 0;
+        }
+
+        if (tags.hasKey("charge"))
+        {
+            int charge = tags.getInteger("charge");
+            if (charge > 0)
+                return this.getMaxCharge(stack);
+        }
+        return tags.getCompoundTag("InfiTool").getInteger("TotalDurability");
+    }
+
+    public int getItemDamageFromStackForDisplay (ItemStack stack)
+    {
+        NBTTagCompound tags = stack.getTagCompound();
+        if (tags == null)
+        {
+            return 0;
+        }
+
+        if (tags.hasKey("charge"))
+        {
+            int charge = tags.getInteger("charge");
+            if (charge > 0)
+                return getMaxCharge(stack) - charge;
+        }
+        return tags.getCompoundTag("InfiTool").getInteger("Damage");
+    }
+
     /* IC2 Support
      * Every tool can be an electric tool if you modify it right
      */
@@ -743,11 +812,12 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
     @Override
     public boolean canProvideEnergy (ItemStack stack)
     {
-        NBTTagCompound tags = stack.getTagCompound();
+        return false;
+        /*NBTTagCompound tags = stack.getTagCompound();
         if (!tags.hasKey("charge"))
             return false;
 
-        return true;
+        return true;*/
     }
 
     @Override
@@ -872,115 +942,104 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
         return false;
     }
 
-    //Vanilla overrides
-    public boolean isItemTool (ItemStack par1ItemStack)
+    /* Battlegear support, IBattlegearWeapon */
+
+    @Override
+    public boolean willAllowOffhandWeapon ()
+    {
+        return true;
+    }
+
+    @Override
+    public boolean willAllowShield ()
+    {
+        return true;
+    }
+
+    @Override
+    public boolean isOffhandHandDualWeapon ()
+    {
+        return true;
+    }
+
+    @Override
+    public boolean sheatheOnBack ()
     {
         return false;
     }
 
     @Override
-    public boolean getIsRepairable (ItemStack par1ItemStack, ItemStack par2ItemStack)
-    {
-        return false;
-    }
-
-    public boolean isRepairable ()
-    {
-        return false;
-    }
-
-    public int getItemEnchantability ()
-    {
-        return 0;
-    }
-
-    public boolean isFull3D ()
+    public boolean offhandAttackEntity (OffhandAttackEvent event, ItemStack mainhandItem, ItemStack offhandItem)
     {
         return true;
     }
 
-    @SideOnly(Side.CLIENT)
-    public boolean hasEffect (ItemStack par1ItemStack, int pass)
+    @Override
+    public boolean offhandClickAir (PlayerInteractEvent event, ItemStack mainhandItem, ItemStack offhandItem)
+    {
+        return true;
+    }
+
+    @Override
+    public boolean offhandClickBlock (PlayerInteractEvent event, ItemStack mainhandItem, ItemStack offhandItem)
+    {
+        return true;
+    }
+
+    @Override
+    public void performPassiveEffects (Side effectiveSide, ItemStack mainhandItem, ItemStack offhandItem)
+    {
+    }
+
+    /* Applied Energistics support, IAEChargableItem */
+    @Override
+    public float addEnergy (ItemStack target, float energy)
+    {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public boolean isChargeable (ItemStack it)
+    {
+        // TODO Auto-generated method stub
+        return false;
+    }
+
+    /* Applied Energistics support, IStorageCell */
+    @Override
+    public int getBytes (ItemStack cellItem)
+    {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public int BytePerType (ItemStack cellItem)
+    {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public int getTotalTypes (ItemStack cellItem)
+    {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public boolean isBlackListed (ItemStack cellItem, IAEItemStack requsetedAddition)
     {
         return false;
     }
 
-    /* Proper stack damage */
-    public int getItemMaxDamageFromStack (ItemStack stack)
+    @Override
+    public boolean storableInStorageCell ()
     {
-        NBTTagCompound tags = stack.getTagCompound();
-        if (tags == null)
-        {
-            return 0;
-        }
-
-        if (tags.hasKey("charge"))
-        {
-            int charge = tags.getInteger("charge");
-            if (charge > 0)
-                return this.getMaxCharge(stack);
-        }
-        return tags.getCompoundTag("InfiTool").getInteger("TotalDurability");
+        // TODO Auto-generated method stub
+        return false;
     }
 
-    public int getItemDamageFromStackForDisplay (ItemStack stack)
-    {
-        NBTTagCompound tags = stack.getTagCompound();
-        if (tags == null)
-        {
-            return 0;
-        }
-
-        if (tags.hasKey("charge"))
-        {
-            int charge = tags.getInteger("charge");
-            if (charge > 0)
-                return getMaxCharge(stack) - charge;
-        }
-        return tags.getCompoundTag("InfiTool").getInteger("Damage");
-    }
-
-
-	@Override
-	public boolean willAllowOffhandWeapon() {
-		return true;
-	}
-
-	@Override
-	public boolean willAllowShield() {
-		return true;
-	}
-
-	@Override
-	public boolean isOffhandHandDualWeapon() {
-		return true;
-	}
-
-	@Override
-	public boolean sheatheOnBack() {
-		return false;
-	}
-
-	@Override
-	public boolean offhandAttackEntity(OffhandAttackEvent event,
-			ItemStack mainhandItem, ItemStack offhandItem) {
-		return true;
-	}
-
-	@Override
-	public boolean offhandClickAir(PlayerInteractEvent event,
-			ItemStack mainhandItem, ItemStack offhandItem) {
-		return true;
-	}
-
-	@Override
-	public boolean offhandClickBlock(PlayerInteractEvent event,
-			ItemStack mainhandItem, ItemStack offhandItem) {
-		return true;
-	}
-
-	@Override
-	public void performPassiveEffects(Side effectiveSide,
-			ItemStack mainhandItem, ItemStack offhandItem) {		
-	}
+    //Start new methods!
 }

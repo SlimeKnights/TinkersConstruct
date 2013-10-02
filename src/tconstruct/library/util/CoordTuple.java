@@ -1,6 +1,6 @@
 package tconstruct.library.util;
 
-public class CoordTuple
+public class CoordTuple implements Comparable
 {
     public final int x;
     public final int y;
@@ -50,5 +50,27 @@ public class CoordTuple
     public String toString ()
     {
         return "X: " + x + ", Y: " + y + ", Z: " + z;
+    }
+
+    @Override
+    public int compareTo (Object o)
+    {
+        if (o == null)
+            throw new NullPointerException("Object cannot be null");
+        
+        CoordTuple coord = (CoordTuple) o; 
+        if (coord.equals(this))
+            return 0;
+        
+        if (coord.y != y)
+            return y - coord.y;
+        
+        if (coord.x != x)
+            return x - coord.x;
+        
+        if (coord.z != z)
+            return z - coord.z;
+        
+        return 0;
     }
 }

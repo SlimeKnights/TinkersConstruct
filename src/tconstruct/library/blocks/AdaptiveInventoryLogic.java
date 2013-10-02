@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -29,7 +30,6 @@ public abstract class AdaptiveInventoryLogic extends InventoryLogic implements I
     {
         if (size != inventorySize || forceAdjust)
         {
-            setNeedsUpdate();
             inventorySize = size;
 
             ItemStack[] tempInv = inventory;
@@ -102,8 +102,6 @@ public abstract class AdaptiveInventoryLogic extends InventoryLogic implements I
             }
         }
     }
-    
-    public abstract void setNeedsUpdate();
 
     public int getTossDirection ()
     {

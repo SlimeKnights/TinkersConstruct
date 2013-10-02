@@ -24,7 +24,6 @@ import tconstruct.blocks.logic.*;
 import tconstruct.blocks.slime.*;
 import tconstruct.blocks.traps.*;
 import tconstruct.client.StepSoundSlime;
-import tconstruct.compat.mystcraft.MystImcHandler;
 import tconstruct.entity.*;
 import tconstruct.entity.projectile.*;
 import tconstruct.items.*;
@@ -38,6 +37,8 @@ import tconstruct.library.tools.ToolCore;
 import tconstruct.library.util.IPattern;
 import tconstruct.modifiers.*;
 import tconstruct.util.*;
+import tconstruct.util.config.MystImcHandler;
+import tconstruct.util.config.PHConstruct;
 
 public class TContent implements IFuelHandler
 {
@@ -383,6 +384,7 @@ public class TContent implements IFuelHandler
         smeltery = new SmelteryBlock(PHConstruct.smeltery).setUnlocalizedName("Smeltery");
         GameRegistry.registerBlock(smeltery, SmelteryItemBlock.class, "Smeltery");
         GameRegistry.registerTileEntity(SmelteryLogic.class, "TConstruct.Smeltery");
+        //GameRegistry.registerTileEntity(AdaptiveSmelteryLogic.class, "TConstruct.Smeltery");
         GameRegistry.registerTileEntity(SmelteryDrainLogic.class, "TConstruct.SmelteryDrain");
         GameRegistry.registerTileEntity(MultiServantLogic.class, "TConstruct.Servants");
 

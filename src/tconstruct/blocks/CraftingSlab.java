@@ -25,7 +25,7 @@ import tconstruct.common.TContent;
 import tconstruct.common.TProxyCommon;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.blocks.InventoryBlock;
-import tconstruct.util.PHConstruct;
+import tconstruct.util.config.PHConstruct;
 
 public class CraftingSlab extends InventoryBlock
 {

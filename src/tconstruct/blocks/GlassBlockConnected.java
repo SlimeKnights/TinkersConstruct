@@ -1,7 +1,7 @@
 package tconstruct.blocks;
 
 import tconstruct.library.TConstructRegistry;
-import tconstruct.util.PHConstruct;
+import tconstruct.util.config.PHConstruct;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;

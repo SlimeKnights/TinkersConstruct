@@ -3,7 +3,7 @@ package tconstruct.items.tools;
 import tconstruct.common.TContent;
 import tconstruct.library.tools.AbilityHelper;
 import tconstruct.library.tools.Weapon;
-import tconstruct.util.PHConstruct;
+import tconstruct.util.config.PHConstruct;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;

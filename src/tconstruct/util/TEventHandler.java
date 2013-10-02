@@ -40,6 +40,7 @@ import tconstruct.library.event.PartBuilderEvent;
 import tconstruct.library.event.ToolCraftEvent;
 import tconstruct.library.tools.*;
 import tconstruct.modifiers.ModAttack;
+import tconstruct.util.config.PHConstruct;
 import tconstruct.util.player.TPlayerStats;
 
 import java.util.ArrayList;

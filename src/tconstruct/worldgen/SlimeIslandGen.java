@@ -10,8 +10,8 @@ import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import tconstruct.common.TContent;
-import tconstruct.compat.dimensions.dimblacklist;
-import tconstruct.util.PHConstruct;
+import tconstruct.util.config.DimensionBlacklist;
+import tconstruct.util.config.PHConstruct;
 import cpw.mods.fml.common.IWorldGenerator;
 
 public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
@@ -33,7 +33,7 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
     @Override
     public void generate (Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider) //IWorldGenerator version
     {
-        if (dimblacklist.isDimInBlacklist(world.provider.dimensionId))
+        if (DimensionBlacklist.isDimInBlacklist(world.provider.dimensionId))
         {
             if (random.nextInt(PHConstruct.islandRarity) == 0)
                 generateIsland(world, random, chunkX * 16, chunkZ * 16);
@@ -133,7 +133,7 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
         }
 
         //Decorate
-        if(!dimblacklist.isDimNoPool(world.provider.dimensionId)){
+        if(!DimensionBlacklist.isDimNoPool(world.provider.dimensionId)){
         generateSlimePool(world, rand, xChunk + xRange / 2, yCenter + initialHeight, zChunk + zRange / 2);
         }
         PlantGen tallGrass = new PlantGen(TContent.slimeTallGrass.blockID, 0, 128, xRange, 1, zRange, false);

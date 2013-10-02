@@ -16,7 +16,7 @@ import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.event.entity.player.PlayerDropsEvent;
 import tconstruct.common.TContent;
 import tconstruct.library.tools.AbilityHelper;
-import tconstruct.util.PHConstruct;
+import tconstruct.util.config.PHConstruct;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.IPlayerTracker;
 import cpw.mods.fml.common.Loader;

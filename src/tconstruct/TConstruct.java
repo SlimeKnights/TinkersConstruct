@@ -6,16 +6,16 @@ import net.minecraftforge.common.MinecraftForge;
 import tconstruct.client.event.EventCloakRender;
 import tconstruct.common.TContent;
 import tconstruct.common.TProxyCommon;
-import tconstruct.compat.BOP;
-import tconstruct.compat.Tforest;
-import tconstruct.compat.dimensions.dimblacklist;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.Detailing;
 import tconstruct.library.crafting.LiquidCasting;
 import tconstruct.library.util.TabTools;
-import tconstruct.util.PHConstruct;
 import tconstruct.util.TCraftingHandler;
 import tconstruct.util.TEventHandler;
+import tconstruct.util.config.BOPConfig;
+import tconstruct.util.config.DimensionBlacklist;
+import tconstruct.util.config.PHConstruct;
+import tconstruct.util.config.TwilightForestConfig;
 import tconstruct.util.landmine.behavior.Behavior;
 import tconstruct.util.landmine.behavior.stackCombo.SpecialStackHandler;
 import tconstruct.util.player.TPlayerHandler;
@@ -131,7 +131,7 @@ public class TConstruct
                 //if (MinecraftServer.getServer().getMinecraftVersion().equals("1.6.4"))
                 /*ComparableVersion cv = new ComparableVersion(new CallableMinecraftVersion(null).minecraftVersion());
                 ComparableVersion compare = new ComparableVersion("1.6.4");
-                if (compare.compareTo(cv) > 0)*/ //<-- Probably not right
+                if (compare.compareTo(cv) > 0)*///<-- Probably not right
                 if (new CallableMinecraftVersion(null).minecraftVersion().equals("1.6.4"))
                 {
                     MapGenStructureIO.func_143031_a(ComponentToolWorkshop.class, "TConstruct:ToolWorkshopStructure");
@@ -158,9 +158,9 @@ public class TConstruct
         }
 
         content.intermodCommunication();
-        Tforest.initProps(PHConstruct.cfglocation);
-        BOP.initProps(PHConstruct.cfglocation);
-        dimblacklist.getbaddimensions();
+        TwilightForestConfig.initProps(PHConstruct.cfglocation);
+        BOPConfig.initProps(PHConstruct.cfglocation);
+        DimensionBlacklist.getbaddimensions();
         GameRegistry.registerWorldGenerator(new SlimeIslandGen(TContent.slimePool.blockID, 0));
     }
 

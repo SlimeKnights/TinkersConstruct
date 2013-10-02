@@ -3,6 +3,15 @@ package tconstruct.blocks;
 import java.util.List;
 import java.util.Random;
 
+import net.minecraft.block.material.Material;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.Icon;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
 import tconstruct.TConstruct;
 import tconstruct.blocks.logic.MultiServantLogic;
 import tconstruct.blocks.logic.SmelteryDrainLogic;
@@ -13,17 +22,6 @@ import tconstruct.library.blocks.InventoryBlock;
 import tconstruct.library.util.IFacingLogic;
 import tconstruct.library.util.IMasterLogic;
 import tconstruct.library.util.IServantLogic;
-
-import net.minecraft.block.material.Material;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Icon;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
 
 public class SmelteryBlock extends InventoryBlock
 {
@@ -41,11 +39,11 @@ public class SmelteryBlock extends InventoryBlock
 
     /* Rendering */
 
-    /*@Override
+    @Override
     public int getRenderType ()
     {
         return SmelteryRender.smelteryModel;
-    }*/
+    }
 
     @Override
     public String[] getTextureNames ()
@@ -186,15 +184,6 @@ public class SmelteryBlock extends InventoryBlock
         return !isActive(world, x, y, z) ? 0 : 9;
     }
 
-    //@Override
-    /*public void getSubBlocks (int id, CreativeTabs tab, List list)
-    {
-    	for (int iter = 0; iter < 9; iter++)
-    	{
-    		list.add(new ItemStack(id, 1, iter));
-    	}
-    }*/
-
     @Override
     public Object getModInstance ()
     {
@@ -233,7 +222,7 @@ public class SmelteryBlock extends InventoryBlock
         }
         return new MultiServantLogic();
     }
-
+    
     @Override
     public void onBlockPlacedBy (World world, int x, int y, int z, EntityLivingBase entityliving, ItemStack stack)
     {
@@ -274,7 +263,7 @@ public class SmelteryBlock extends InventoryBlock
         }
         else if (logic instanceof IMasterLogic)
         {
-            ((IMasterLogic) logic).notifyChange(x, y, z);
+            ((IMasterLogic) logic).notifyChange(null, x, y, z);
         }
     }
 }

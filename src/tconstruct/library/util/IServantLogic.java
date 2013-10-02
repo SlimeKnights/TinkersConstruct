@@ -1,5 +1,7 @@
 package tconstruct.library.util;
 
+import net.minecraft.world.World;
+
 public interface IServantLogic
 {
     public CoordTuple getMasterPosition ();
@@ -16,7 +18,7 @@ public interface IServantLogic
      * @return whether the servant can be tied to this master
      */
     
-    public boolean setPotentialMaster(IMasterLogic master, int x, int y, int z);
+    public boolean setPotentialMaster(IMasterLogic master, World world, int xMaster, int yMaster, int zMaster);
     
     /** Used to set and verify that this is the block's master
      * 
@@ -27,9 +29,15 @@ public interface IServantLogic
      * @return Is this block tied to this master?
      */
 
-    public boolean verifyMaster (IMasterLogic master, int x, int y, int z);
-
-    /* Deprecated in favor of setPotentialMaster and verifyMaster */
-    @Deprecated
-    public boolean setMaster (int x, int y, int z);
+    public boolean verifyMaster (IMasterLogic master, World world, int xMaster, int yMaster, int zMaster);
+    
+    /** Exactly what it says on the tin
+     * 
+     * @param master
+     * @param x xCoord of master
+     * @param y yCoord of master
+     * @param z zCoord of master
+     */
+    
+    public void invalidateMaster(IMasterLogic master, World world, int xMaster, int yMaster, int zMaster);
 }

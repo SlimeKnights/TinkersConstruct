@@ -3,23 +3,51 @@ package tconstruct.library.component;
 import java.util.ArrayList;
 
 import tconstruct.library.crafting.Smeltery;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidTank;
 
 public class MultiFluidTank extends LogicComponent implements IFluidTank
 {
-    public ArrayList<FluidStack> moltenMetal = new ArrayList<FluidStack>();
-    int maxLiquid;
-    int currentLiquid;
-    
+    public ArrayList<FluidStack> fluidlist = new ArrayList<FluidStack>();
+    protected int maxLiquid;
+    protected int currentLiquid;
+
+    public MultiFluidTank()
+    {
+    }
+
+    public MultiFluidTank(int max)
+    {
+        maxLiquid = max;
+    }
+
+    public void setCapacity (int i)
+    {
+        maxLiquid = i;
+    }
+
+    @Override
+    public int getCapacity ()
+    {
+        return maxLiquid;
+    }
+
+    @Override
+    public int getFluidAmount ()
+    {
+        return currentLiquid;
+    }
+
     @Override
     public FluidStack drain (int maxDrain, boolean doDrain)
     {
-        if (moltenMetal.size() == 0)
+        if (fluidlist.size() == 0)
             return null;
 
-        FluidStack liquid = moltenMetal.get(0);
+        FluidStack liquid = fluidlist.get(0);
         if (liquid != null)
         {
             if (liquid.amount - maxDrain <= 0)
@@ -27,7 +55,7 @@ public class MultiFluidTank extends LogicComponent implements IFluidTank
                 FluidStack liq = liquid.copy();
                 if (doDrain)
                 {
-                    moltenMetal.remove(liquid);
+                    fluidlist.remove(liquid);
                     currentLiquid = 0;
                 }
                 return liq;
@@ -61,7 +89,7 @@ public class MultiFluidTank extends LogicComponent implements IFluidTank
             {
                 if (addFluidToTank(resource, false))
                 {
-                    ArrayList alloys = Smeltery.mixMetals(moltenMetal);
+                    ArrayList alloys = Smeltery.mixMetals(fluidlist);
                     for (int al = 0; al < alloys.size(); al++)
                     {
                         FluidStack liquid = (FluidStack) alloys.get(al);
@@ -75,11 +103,11 @@ public class MultiFluidTank extends LogicComponent implements IFluidTank
             return 0;
     }
 
-    boolean addFluidToTank (FluidStack liquid, boolean first)
+    public boolean addFluidToTank (FluidStack liquid, boolean first)
     {
-        if (moltenMetal.size() == 0)
+        if (fluidlist.size() == 0)
         {
-            moltenMetal.add(liquid.copy());
+            fluidlist.add(liquid.copy());
             currentLiquid += liquid.amount;
             return true;
         }
@@ -90,9 +118,9 @@ public class MultiFluidTank extends LogicComponent implements IFluidTank
 
             currentLiquid += liquid.amount;
             boolean added = false;
-            for (int i = 0; i < moltenMetal.size(); i++)
+            for (int i = 0; i < fluidlist.size(); i++)
             {
-                FluidStack l = moltenMetal.get(i);
+                FluidStack l = fluidlist.get(i);
                 if (l.isFluidEqual(liquid))
                 {
                     l.amount += liquid.amount;
@@ -100,16 +128,16 @@ public class MultiFluidTank extends LogicComponent implements IFluidTank
                 }
                 if (l.amount <= 0)
                 {
-                    moltenMetal.remove(l);
+                    fluidlist.remove(l);
                     i--;
                 }
             }
             if (!added)
             {
                 if (first)
-                    moltenMetal.add(0, liquid.copy());
+                    fluidlist.add(0, liquid.copy());
                 else
-                    moltenMetal.add(liquid.copy());
+                    fluidlist.add(liquid.copy());
             }
             return true;
         }
@@ -118,9 +146,9 @@ public class MultiFluidTank extends LogicComponent implements IFluidTank
     @Override
     public FluidStack getFluid ()
     {
-        if (moltenMetal.size() == 0)
+        if (fluidlist.size() == 0)
             return null;
-        return moltenMetal.get(0);
+        return fluidlist.get(0);
     }
 
     @Override
@@ -131,26 +159,41 @@ public class MultiFluidTank extends LogicComponent implements IFluidTank
 
     public FluidTankInfo[] getMultiTankInfo ()
     {
-        FluidTankInfo[] info = new FluidTankInfo[moltenMetal.size() + 1];
-        for (int i = 0; i < moltenMetal.size(); i++)
+        FluidTankInfo[] info = new FluidTankInfo[fluidlist.size() + 1];
+        for (int i = 0; i < fluidlist.size(); i++)
         {
-            FluidStack fluid = moltenMetal.get(i);
+            FluidStack fluid = fluidlist.get(i);
             info[i] = new FluidTankInfo(fluid.copy(), fluid.amount);
         }
-        info[moltenMetal.size()] = new FluidTankInfo(null, maxLiquid - currentLiquid);
+        info[fluidlist.size()] = new FluidTankInfo(null, maxLiquid - currentLiquid);
         return info;
     }
 
     @Override
-    public int getFluidAmount ()
+    public void readFromNBT (NBTTagCompound tags)
     {
-        return currentLiquid;
+        NBTTagList liquidTag = tags.getTagList("Liquids");
+        fluidlist.clear();
+
+        for (int iter = 0; iter < liquidTag.tagCount(); iter++)
+        {
+            NBTTagCompound nbt = (NBTTagCompound) liquidTag.tagAt(iter);
+            FluidStack fluid = FluidStack.loadFluidStackFromNBT(nbt);
+            fluidlist.add(fluid);
+        }
     }
 
     @Override
-    public int getCapacity ()
+    public void writeToNBT (NBTTagCompound tags)
     {
-        return maxLiquid;
-    }
+        NBTTagList taglist = new NBTTagList();
+        for (FluidStack liquid : fluidlist)
+        {
+            NBTTagCompound nbt = new NBTTagCompound();
+            liquid.writeToNBT(nbt);
+            taglist.appendTag(nbt);
+        }
 
+        tags.setTag("Liquids", taglist);
+    }
 }

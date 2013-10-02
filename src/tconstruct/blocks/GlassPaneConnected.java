@@ -1,6 +1,6 @@
 package tconstruct.blocks;
 
-import tconstruct.util.PHConstruct;
+import tconstruct.util.config.PHConstruct;
 
 import java.util.List;
 
