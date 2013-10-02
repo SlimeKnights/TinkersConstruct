@@ -9,6 +9,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import appeng.api.IAEItemStack;
+import appeng.api.me.items.IAEChargeableItem;
+import appeng.api.me.items.IStorageCell;
 import mods.battlegear2.api.weapons.IBattlegearWeapon;
 import mods.battlegear2.api.weapons.OffhandAttackEvent;
 import net.minecraft.block.Block;
@@ -56,7 +59,7 @@ import cpw.mods.fml.relauncher.SideOnly;
  * @see ToolMod
  */
 
-public abstract class ToolCore extends Item implements ICustomElectricItem, IBoxable, IBattlegearWeapon//, IStorageCell, IAEChargeableItem
+public abstract class ToolCore extends Item implements ICustomElectricItem, IBoxable, IBattlegearWeapon, IStorageCell, IAEChargeableItem
 {
     protected Random random = new Random();
     protected int damageVsEntity;
@@ -989,7 +992,7 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
     }
 
     /* Applied Energistics support, IAEChargableItem */
-    /*@Override
+    @Override
     public float addEnergy (ItemStack target, float energy)
     {
         // TODO Auto-generated method stub
@@ -1001,10 +1004,10 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
     {
         // TODO Auto-generated method stub
         return false;
-    }*/
+    }
 
     /* Applied Energistics support, IStorageCell */
-    /*@Override
+    @Override
     public int getBytes (ItemStack cellItem)
     {
         // TODO Auto-generated method stub
@@ -1036,5 +1039,5 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
     {
         // TODO Auto-generated method stub
         return false;
-    }*/
+    }
 }
