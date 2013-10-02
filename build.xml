@@ -20,6 +20,26 @@
 	<property name="mc.version" value="1.6.4"/>
 	<property name="forge.version" value="9.11.0.880"/>
 
+	<!-- FMP stuff - copied from projectred w/ CB's permission -->
+	<property name="build.dependencies.file" value="${build.dir}/dependencies.properties" />
+	<property name="ccl.version" value="1.0.0.36" />
+	<property name="fmp.version" value="1.0.0.182" />
+	<property name="ccl.name" value="CodeChickenLib-dev-${mc.version}-${ccl.version}.jar" />
+	<property name="fmp.name" value="ForgeMultipart-dev-${mc.version}-${fmp.version}.jar" />
+	<available property="fmp-downloaded" file="${download.dir}/${fmp.name}" />
+	<available property="ccl-downloaded" file="${download.dir}/${ccl.name}" />
+	<condition property="ccl-installed">
+		<and>
+			<isset property="forge-installed" />
+			<equals arg1="${build.dependencies.ccl}" arg2="${ccl.version}" />
+		</and>
+	</condition>
+	<condition property="fmp-installed">
+		<and>
+			<isset property="forge-installed" />
+			<equals arg1="${build.dependencies.fmp}" arg2="${fmp.version}" />
+		</and>
+	</condition>
     <property name="version.major" value="0"/>
     <property name="version.minor" value="0"/>
 
@@ -41,6 +61,43 @@
 
 	<!-- Targets -->
 
+	<!-- Targets FMP stuff from ProjectRed w/ CB's Permission -->
+	<target name="download-ccl" unless="ccl-downloaded">
+		<get src="http://files.minecraftforge.net/CodeChickenLib/${ccl.name}" dest="${download.dir}" usetimestamp="true" />
+	</target>
+	<target name="install-ccl" depends="setup,download-ccl" unless="ccl-installed">
+		<echo message="Deleting old CodeChickenLib" />
+		<delete file="${mcp.dir}/lib/${build.dependencies.ccl.name}" />
+
+		<echo message="Installing CodeChickenLib" />
+		<copy file="${download.dir}/${ccl.name}" todir="${mcp.dir}/lib" />
+
+		<echo message="Updating build.dependencies" />
+		<propertyfile file="${build.dependencies.file}">
+			<entry key="ccl" value="${ccl.version}" />
+			<entry key="ccl.name" value="${ccl.name}" />
+		</propertyfile>
+	</target>
+	<target name="install-fmp" depends="setup,download-fmp" unless="fmp-installed">
+		<echo message="Deleting old ForgeMultipart" />
+		<delete file="${mcp.dir}/lib/${build.dependencies.fmp.name}" />
+
+		<echo message="Installing ForgeMultipart" />
+		<copy file="${download.dir}/${fmp.name}" todir="${mcp.dir}/lib" />
+
+		<echo message="Updating build.dependencies" />
+		<propertyfile file="${build.dependencies.file}">
+			<entry key="fmp" value="${fmp.version}" />
+			<entry key="fmp.name" value="${fmp.name}" />
+		</propertyfile>
+	</target>
+	<target name="install-deps" depends="install-ccl,install-fmp" />
+
+	
+	<target name="download-fmp" unless="fmp-downloaded">
+		<get src="http://files.minecraftforge.net/ForgeMultipart/${fmp.name}" dest="${download.dir}" usetimestamp="true" />
+	</target>
+	
 	<!-- Clear build directory -->
 	<target name="clean">
 		<delete dir="${build.dir}"/>
@@ -113,7 +170,7 @@
 		</copy>
 	</target>
 
-	<target name="compile" depends="initialize-version,setup,copy-src">
+	<target name="compile" depends="initialize-version,install-deps,setup,copy-src">
 
 		<delete dir="${classes.dir}"/>
 		<mkdir dir="${classes.dir}"/>
@@ -151,7 +208,7 @@
 		<copy todir="${classes.dir}">
 			<fileset dir="${mcp.dir}/reobf/minecraft"/>
 		</copy>
-		
+
 		<!-- Copy resources -->
 		<copy todir="${classes.dir}" outputencoding="UTF-8">
 			<fileset dir="${classes.dir}">
@@ -176,7 +233,7 @@
         <delete dir="${mcpsrc.dir}/minecraft/sparrow"/>
         <delete dir="${mcpsrc.dir}/minecraft/powercrystals"/>
         <delete dir="${mcpsrc.dir}/minecraft/ic2"/>
-
+		<delete dir="${mcpsrc.dir}/minecraft/codechicken"/>
 	</target>
 
 	<!-- Package the compiled files -->
