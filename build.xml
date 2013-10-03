@@ -234,6 +234,7 @@
         <delete dir="${mcpsrc.dir}/minecraft/powercrystals"/>
         <delete dir="${mcpsrc.dir}/minecraft/ic2"/>
 		<delete dir="${mcpsrc.dir}/minecraft/codechicken"/>
+		<delete dir="${mcpsrc.dir}/minecraft/appeng"/>
 	</target>
 
 	<!-- Package the compiled files -->
