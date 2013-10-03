@@ -170,6 +170,25 @@
 		</copy>
 	</target>
 
+	<target name="copy-assets" >
+		<copy todir="${classes.dir}" outputencoding="UTF-8">
+			<fileset dir="${classes.dir}">
+				<include name="assets/tinker/lang/*"/>
+			</fileset>
+		</copy>
+		<copy file="${resources.dir}/mcmod.info" todir="${classes.dir}" outputencoding="UTF-8">
+			<filterset>
+				<filter token="VERSION" value="${project.version.full}" />
+				<filter token="MCVERSION" value="${mc.version}" />
+			</filterset>
+		</copy>
+		<copy todir="${classes.dir}">
+			<fileset dir="${resources.dir}">
+				<exclude name="mcmod.info"/>
+			</fileset>
+		</copy>
+	</target>
+	
 	<target name="compile" depends="initialize-version,install-deps,setup,copy-src">
 
 		<delete dir="${classes.dir}"/>
@@ -193,7 +212,7 @@
 
 	</target>
 
-	<target name="reobf" depends="compile">
+	<target name="reobf" depends="compile,copy-assets">
 
 		<!-- Reobfuscate -->
 		<exec dir="${mcp.dir}" executable="cmd" osfamily="windows">
@@ -205,27 +224,10 @@
 		</exec>
 
 		<!-- Copy classes -->
-		<copy todir="${classes.dir}">
+		<copy todir="${classes.dir}/main">
 			<fileset dir="${mcp.dir}/reobf/minecraft"/>
 		</copy>
 
-		<!-- Copy resources -->
-		<copy todir="${classes.dir}" outputencoding="UTF-8">
-			<fileset dir="${classes.dir}">
-				<include name="assets/tinker/lang/*"/>
-			</fileset>
-		</copy>
-		<copy file="${resources.dir}/mcmod.info" todir="${classes.dir}" outputencoding="UTF-8">
-			<filterset>
-				<filter token="VERSION" value="${project.version.full}" />
-				<filter token="MCVERSION" value="${mc.version}" />
-			</filterset>
-		</copy>
-		<copy todir="${classes.dir}">
-			<fileset dir="${resources.dir}">
-				<exclude name="mcmod.info"/>
-			</fileset>
-		</copy>
 
 		<!-- Reset src dir to post-forge-install state -->
 		<delete dir="${mcpsrc.dir}/minecraft/tconstruct"/>
@@ -241,8 +243,10 @@
 
 		<delete dir="${jar.dir}"/>
 		<mkdir dir="${jar.dir}"/>
-		<jar destfile="${jar.dir}/TConstruct-${mc.version}-${project.version.full}.jar" basedir="${classes.dir}"/>
-
+		<jar destfile="${jar.dir}/dev/TConstruct-${mc.version}-${project.version.full}.jar"> 
+			<fileset dir="${classes.dir}/main"/>
+			<fileset dir="${classes.dir}/assets"/>
+		</jar>
 	</target>
 
     <!-- Package API -->
@@ -252,8 +256,45 @@
             <fileset dir="${src.dir}" includes="tconstruct/library/*"/>
         </zip>
     </target>
+	<!--Package Un Obfuscated dev build for modders who need more access-->
+	<target name="pack-dev" depends="initialize-version,compile,copy-assets">
+		<delete dir="${classes.dir}/dev"/>
+		<mkdir dir="${classes.dir}/dev"/>
+		
+		<!-- Copy classes -->
+		<copy todir="${classes.dir}/main/ic2">
+			<fileset dir="${mcp.dir}/bin/minecraft/ic2"/>
+		</copy>
+		<copy todir="${classes.dir}/main/appeng">
+			<fileset dir="${mcp.dir}/bin/minecraft/appeng"/>
+		</copy>
+		<copy todir="${classes.dir}/main/appeng">
+			<fileset dir="${mcp.dir}/bin/minecraft/biomesoplenty"/>
+		</copy>
+		<copy todir="${classes.dir}/main/mods">
+			<fileset dir="${mcp.dir}/bin/minecraft/mods"/>
+		</copy>
+		<copy todir="${classes.dir}/main/tconstruct">
+			<fileset dir="${mcp.dir}/bin/minecraft/tconstruct"/>
+		</copy>
+		<copy todir="${classes.dir}/main/powercrystals">
+			<fileset dir="${mcp.dir}/bin/minecraft/powercrystals"/>
+		</copy>
+		
+        <mkdir dir="${jar.dir}/dev"/>
 
+        <jar destfile="${jar.dir}/dev/TConstruct-${mc.version}-${project.version.full}-DEV.jar"> 
+			<fileset dir="${classes.dir}/dev"/>
+			<fileset dir="${classes.dir}/assets"/>
+		</jar>
+    </target>
 	<!-- Default target to run -->
 	<target name="main" depends="package"/>
-
+	<!-- Target for use on Jenkins/Bamboo/ local test releases-->
+	<target name="ci" depends="superclean,main,pack-dev,pack-api"/>
+	<!-- removes forge/ old jars for builds-->
+	<target name = "superclean">
+		<delete dir="${build.dir},${jar.dir}"/>
+		<delete dir="${jar.dir}"/>
+	</target>
 </project>
