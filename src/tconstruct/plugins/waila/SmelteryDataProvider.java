@@ -5,11 +5,11 @@ import mcp.mobius.waila.api.IWailaDataAccessor;
 import mcp.mobius.waila.api.IWailaDataProvider;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
-import tconstruct.blocks.logic.CastingChannelLogic;
+import tconstruct.blocks.logic.SmelteryLogic;
 
 import java.util.List;
 
-public class CastingChannelDataProvider implements IWailaDataProvider {
+public class SmelteryDataProvider implements IWailaDataProvider {
 
     @Override
     public ItemStack getWailaStack(IWailaDataAccessor accessor, IWailaConfigHandler config) {
@@ -23,14 +23,20 @@ public class CastingChannelDataProvider implements IWailaDataProvider {
 
     @Override
     public List<String> getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config) {
-        if (accessor.getTileEntity() instanceof CastingChannelLogic) {
-            CastingChannelLogic te = (CastingChannelLogic)accessor.getTileEntity();
-            if (te.liquid != null && te.liquid.amount > 0) {
-                FluidStack fs = te.liquid;
-                currenttip.add("Liquid: " + Waila.fluidNameHelper(fs));
-                currenttip.add("Amount: " + fs.amount + "/" + te.getCapacity());
+        if (accessor.getTileEntity() instanceof SmelteryLogic) {
+            SmelteryLogic te = (SmelteryLogic)accessor.getTileEntity();
+            if (te.validStructure) {
+                List<FluidStack> fls = te.moltenMetal;
+                if (fls.size() <= 0) {
+                    currenttip.add("§oEmpty"); // "§o" == Italics
+                } else {
+                    for (int i = 0; i < fls.size(); i++) {
+                        FluidStack st = fls.get(i);
+                        currenttip.add(Waila.fluidNameHelper(st) + " (" + st.amount + "mB)");
+                    }
+                }
             } else {
-                currenttip.add("§oEmpty"); // "§o" == Italics
+                currenttip.add("§oInvalid structure");
             }
         }
 

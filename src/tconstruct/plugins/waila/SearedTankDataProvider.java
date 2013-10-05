@@ -27,7 +27,7 @@ public class SearedTankDataProvider implements IWailaDataProvider {
             LavaTankLogic te = (LavaTankLogic)accessor.getTileEntity();
             if (te.containsFluid()) {
                 FluidStack fs = te.tank.getFluid();
-                currenttip.add("Liquid: " + fs.getFluid().getLocalizedName());
+                currenttip.add("Liquid: " + Waila.fluidNameHelper(fs));
                 currenttip.add("Amount: " + fs.amount + "/" + te.tank.getCapacity());
             } else {
                 currenttip.add("§oEmpty"); // "§o" == Italics
