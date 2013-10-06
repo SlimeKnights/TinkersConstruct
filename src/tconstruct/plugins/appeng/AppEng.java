@@ -42,15 +42,8 @@ public class AppEng {
         "TileEntityLandmine",
         "ToolForgeLogic",
         "ToolStationLogic",
-        "TowerFurnaceLogic"
-    );
-
-    private static List<String> spatialIOLibBlocks = Arrays.asList(
-            "AdaptiveInventoryLogic",
-            "ExpandableInventoryLogic",
-            "IDrawbridgeLogicBase",
-            "InventoryBlock",
-            "InventoryLogic"
+        "TowerFurnaceLogic",
+        "MultiServantLogic"
     );
 
     @EventHandler
@@ -72,10 +65,6 @@ public class AppEng {
     private static void registerForSpatialIO() {
         for (int i = 0; i < spatialIOLogics.size(); i++) {
             FMLInterModComms.sendMessage("AppliedEnergistics", "movabletile", "tconstruct.blocks.logic." + spatialIOLogics.get(i));
-        }
-
-        for (int i = 0; i < spatialIOLibBlocks.size(); i++) {
-            FMLInterModComms.sendMessage("AppliedEnergistics", "movabletile", "tconstruct.library.blocks." + spatialIOLibBlocks.get(i));
         }
     }
 
