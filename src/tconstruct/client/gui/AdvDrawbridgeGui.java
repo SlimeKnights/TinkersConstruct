@@ -2,6 +2,7 @@ package tconstruct.client.gui;
 
 import cpw.mods.fml.common.network.PacketDispatcher;
 import java.io.*;
+import java.util.Iterator;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -14,7 +15,9 @@ import tconstruct.blocks.logic.AdvancedDrawbridgeLogic;
 public class AdvDrawbridgeGui extends GuiContainer
 {
     public AdvancedDrawbridgeLogic logic;
-
+    
+    public boolean isGuiExpanded = false;
+    
     public AdvDrawbridgeGui(InventoryPlayer inventoryplayer, AdvancedDrawbridgeLogic frypan, World world, int x, int y, int z)
     {
         super(frypan.getGuiContainer(inventoryplayer, world, x, y, z));
@@ -23,12 +26,11 @@ public class AdvDrawbridgeGui extends GuiContainer
 
     protected void drawGuiContainerForegroundLayer (int par1, int par2)
     {
-        //fontRenderer.drawString(StatCollector.translateToLocal("aggregator.glowstone"), 60, 6, 0x404040);
-        fontRenderer.drawString("Drawbridge", 8, 6, 0x404040);
+        fontRenderer.drawString("Advanced Drawbridge", 8, 6, 0x404040);
         fontRenderer.drawString(StatCollector.translateToLocal("container.inventory"), 8, (ySize - 96) + 2, 0x404040);
     }
 
-    private static final ResourceLocation background = new ResourceLocation("tinker", "textures/gui/drawbridge.png");
+    private static final ResourceLocation background = new ResourceLocation("tinker", "textures/gui/drawbridgeAdvanced.png");
 
     protected void drawGuiContainerBackgroundLayer (float f, int i, int j)
     {
@@ -37,6 +39,12 @@ public class AdvDrawbridgeGui extends GuiContainer
         int cornerX = (width - xSize) / 2;
         int cornerY = (height - ySize) / 2;
         drawTexturedModalRect(cornerX, cornerY, 0, 0, xSize, ySize);
+        if(!isGuiExpanded){
+        	drawTexturedModalRect(cornerX + 34, cornerY + 35, 238, 0, 18, 18);
+        }else{
+        	drawTexturedModalRect(cornerX - 7, cornerY + 29, 0, 167, 10, 40);
+        	drawTexturedModalRect(cornerX + 173, cornerY + 29, 10, 167, 10, 40);
+        }
     }
 
     public void initGui ()
@@ -67,12 +75,27 @@ public class AdvDrawbridgeGui extends GuiContainer
             button.enabled = false;
         this.buttonList.add(button);
         
-        this.buttonList.add(new SlotButton(5, this.width / 2 - 13, this.height / 2 - 52, 26, 26, ""));
+        this.buttonList.add(new AdvDrawbridgeButton(5, this.width / 2 - 13, this.height / 2 - 52, this.width / 2 + 58, this.height / 2 - 79, 26, 26, "Inv"));
     }
 
+    public void setExpanded(boolean flag){
+    	this.isGuiExpanded = flag;
+    	
+    	Iterator<GuiButton> i1 = this.buttonList.iterator();
+    	while(i1.hasNext()){
+    		GuiButton b = i1.next();
+    		if(b instanceof AdvDrawbridgeButton){
+    			((AdvDrawbridgeButton)b).isGuiExpanded = flag;
+    		} else {
+    			b.drawButton = !flag;
+    		}
+    	}
+    }
+    
     protected void actionPerformed (GuiButton button)
     {
     	if(button.id == 5){
+    		setExpanded(!isGuiExpanded);
     		return;
     	}
     	
