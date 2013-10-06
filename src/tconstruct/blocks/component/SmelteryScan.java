@@ -1,7 +1,6 @@
 package tconstruct.blocks.component;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import net.minecraft.block.Block;
 import net.minecraft.tileentity.TileEntity;
@@ -48,13 +47,24 @@ public class SmelteryScan extends TankLayerScan
         return false;
     }
     
-    protected void addAirBlock (int x, int y, int z)
+    protected void finalizeStructure ()
+    {
+        super.finalizeStructure();
+        for (CoordTuple coord : airCoords)
+        {
+            world.setBlock(coord.x, coord.y, coord.z, TContent.tankAir.blockID);
+            IServantLogic servant = (IServantLogic) world.getBlockTileEntity(coord.x, coord.y, coord.z);
+            servant.verifyMaster(imaster, world, master.xCoord, master.yCoord, master.zCoord);
+        }
+    }
+    
+    /*protected void addAirBlock (int x, int y, int z)
     {
         super.addAirBlock(x, y, z);
         world.setBlock(x, y, z, Block.glass.blockID);
-    }
+    }*/
     
-    public void cleanup()
+    /*public void cleanup()
     {
         System.out.println("Structure cleanup activated. Air blocks: "+airCoords.size());
         super.cleanup();
@@ -66,5 +76,5 @@ public class SmelteryScan extends TankLayerScan
             CoordTuple coord = (CoordTuple) i.next();
             world.setBlockToAir(coord.x, coord.y, coord.z);
         }
-    }
+    }*/
 }

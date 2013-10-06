@@ -184,6 +184,32 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
             updateAirBlocks(slot, itemstack);
         }
     }
+    
+    @Override
+    public ItemStack decrStackSize (int slot, int quantity)
+    {
+        if (inventory[slot] != null)
+        {
+            if (inventory[slot].stackSize <= quantity)
+            {
+                ItemStack stack = inventory[slot];
+                inventory[slot] = null;
+                return stack;
+            }
+            ItemStack split = inventory[slot].splitStack(quantity);
+            if (inventory[slot].stackSize == 0)
+            {
+                inventory[slot] = null;
+            }
+
+            updateAirBlocks(slot, inventory[slot]);
+            return split;
+        }
+        else
+        {
+            return null;
+        }
+    }
 
     void updateAirBlocks (int slot, ItemStack itemstack)
     {

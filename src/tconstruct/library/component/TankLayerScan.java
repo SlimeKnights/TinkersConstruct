@@ -130,7 +130,7 @@ public class TankLayerScan extends LogicComponent
                 {
                     completeStructure = true;
                     recurseStructureUp(master.yCoord + 1);
-                    sortStructure();
+                    finalizeStructure();
 
                     if (!world.isRemote && debug)
                     {
@@ -151,15 +151,9 @@ public class TankLayerScan extends LogicComponent
         }
     }
 
-    void sortStructure ()
+    protected void finalizeStructure ()
     {
         Collections.sort(airCoords, new CoordTupleSort());
-        if (!world.isRemote)
-        {
-            System.out.println("Sorted coords:");
-            for (CoordTuple coord : airCoords)
-                System.out.println(coord.toString());
-        }
     }
 
     public boolean isComplete ()
