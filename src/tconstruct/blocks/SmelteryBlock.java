@@ -216,7 +216,7 @@ public class SmelteryBlock extends InventoryBlock
         switch (metadata)
         {
         case 0:
-            return new AdaptiveSmelteryLogic();
+            return new SmelteryLogic();
         case 1:
             return new SmelteryDrainLogic();
         case 3:
