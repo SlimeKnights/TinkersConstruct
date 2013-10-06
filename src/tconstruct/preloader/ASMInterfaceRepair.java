@@ -105,7 +105,7 @@ public class ASMInterfaceRepair implements IClassTransformer  {
 
         @Override
         public void visitTypeVariable(String className) {
-            if ( isInternal( className ) || isBlacklisted( className ) ) return;
+            if ( isInternal( className ) && !isBlacklisted( className ) ) return;
             isAvailable = isAvailable && asmTransformer.isClassAvailable( className );
             log( className + " is " + ( isAvailable ? "available" : "not available" ) );
         }
@@ -140,7 +140,7 @@ public class ASMInterfaceRepair implements IClassTransformer  {
         {
             String inf = i.next();
 
-            if ( isInternal( inf ) || isBlacklisted( inf ) )
+            if ( isInternal( inf ) && !isBlacklisted( inf ) )
                 continue;
 
             boolean isAvailable = isClassAvailable( inf );
