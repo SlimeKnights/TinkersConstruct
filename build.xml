@@ -24,22 +24,26 @@
 	<property name="build.dependencies.file" value="${build.dir}/dependencies.properties" />
 	<property name="ccl.version" value="1.0.0.36" />
 	<property name="fmp.version" value="1.0.0.182" />
+
 	<property name="ccl.name" value="CodeChickenLib-dev-${mc.version}-${ccl.version}.jar" />
 	<property name="fmp.name" value="ForgeMultipart-dev-${mc.version}-${fmp.version}.jar" />
 	<available property="fmp-downloaded" file="${download.dir}/${fmp.name}" />
 	<available property="ccl-downloaded" file="${download.dir}/${ccl.name}" />
+
 	<condition property="ccl-installed">
 		<and>
 			<isset property="forge-installed" />
 			<equals arg1="${build.dependencies.ccl}" arg2="${ccl.version}" />
 		</and>
 	</condition>
+
 	<condition property="fmp-installed">
 		<and>
 			<isset property="forge-installed" />
 			<equals arg1="${build.dependencies.fmp}" arg2="${fmp.version}" />
 		</and>
 	</condition>
+
     <property name="version.major" value="0"/>
     <property name="version.minor" value="0"/>
 
@@ -65,6 +69,7 @@
 	<target name="download-ccl" unless="ccl-downloaded">
 		<get src="http://files.minecraftforge.net/CodeChickenLib/${ccl.name}" dest="${download.dir}" usetimestamp="true" />
 	</target>
+
 	<target name="install-ccl" depends="setup,download-ccl" unless="ccl-installed">
 		<echo message="Deleting old CodeChickenLib" />
 		<delete file="${mcp.dir}/lib/${build.dependencies.ccl.name}" />
@@ -78,6 +83,7 @@
 			<entry key="ccl.name" value="${ccl.name}" />
 		</propertyfile>
 	</target>
+
 	<target name="install-fmp" depends="setup,download-fmp" unless="fmp-installed">
 		<echo message="Deleting old ForgeMultipart" />
 		<delete file="${mcp.dir}/lib/${build.dependencies.fmp.name}" />
@@ -91,8 +97,8 @@
 			<entry key="fmp.name" value="${fmp.name}" />
 		</propertyfile>
 	</target>
-	<target name="install-deps" depends="install-ccl,install-fmp" />
 
+	<target name="install-deps" depends="install-ccl,install-fmp" />
 	
 	<target name="download-fmp" unless="fmp-downloaded">
 		<get src="http://files.minecraftforge.net/ForgeMultipart/${fmp.name}" dest="${download.dir}" usetimestamp="true" />
@@ -205,8 +211,9 @@
 		</exec>
 
 		<!-- Copy classes -->
-		<copy todir="${classes.dir}">
-			<fileset dir="${mcp.dir}/reobf/minecraft"/>
+        <mkdir dir="${classes.dir}/tconstruct"/>
+		<copy todir="${classes.dir}/tconstruct">
+			<fileset dir="${mcp.dir}/reobf/minecraft/tconstruct"/>
 		</copy>
 
 		<!-- Copy resources -->
@@ -224,6 +231,7 @@
 		<copy todir="${classes.dir}">
 			<fileset dir="${resources.dir}">
 				<exclude name="mcmod.info"/>
+                <exclude name="PreloaderManifest.mf"/>
 			</fileset>
 		</copy>
 
@@ -242,7 +250,7 @@
 
 		<delete dir="${jar.dir}"/>
 		<mkdir dir="${jar.dir}"/>
-		<jar destfile="${jar.dir}/TConstruct-${mc.version}-${project.version.full}.jar" basedir="${classes.dir}"/>
+		<jar destfile="${jar.dir}/TConstruct-${mc.version}-${project.version.full}.jar" basedir="${classes.dir}" manifest="${resources.dir}/PreloaderManifest.mf"/>
 
 	</target>
 

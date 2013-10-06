@@ -17,6 +17,23 @@
     "dependencies": []
   },
   {
+    "modid": "TConstruct-Preloader",
+    "name": "Tinkers Corestruct",
+    "description": "Preloader for Tinkers Construct",
+    "version": "0.0.1",
+    "mcversion": "@MCVERSION@",
+    "url": "https://github.com/mDiyo/TinkersConstruct/tree/master/src/tconstruct/preloader",
+    "updateUrl": "",
+    "authors": [
+      "AlgorithmX2", "Sunstrike"
+    ],
+    "credits": "",
+    "logoFile": "",
+    "screenshots": [],
+    "parent":"",
+    "dependencies": []
+  },
+  {
     "modid": "TConstruct|CompatMineFactoryReloaded",
     "name": "TConstruct Compat: MFR",
     "description": "TConstruct support for Minefactory Reloaded",
@@ -34,8 +51,8 @@
     "dependencies": [
       "TConstruct"
     ]
-  }
-   {
+  },
+  {
     "modid": "TConstruct|CompatForgeMultiPart",
     "name": "TConstruct Compat: FMP",
     "description": "TConstruct support for forgemultipart",

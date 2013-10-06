@@ -175,6 +175,7 @@ public class PHConstruct
         woodCrafterSlab = config.getBlock("Crafting Slab", 3243).getInt(3243);
         woolSlab1 = config.getBlock("Wool Slab 1", 3244).getInt(3244);
         woolSlab2 = config.getBlock("Wool Slab 2", 3245).getInt(3245);
+        airTank = config.getBlock("Air Tank", 3246).getInt(3246);
         castingChannel = config.getBlock("Casting Channel", 3249).getInt(3249);
 
         manual = config.getItem("Patterns and Misc", "Tinker's Manual", 14018).getInt(14018);
@@ -397,6 +398,8 @@ public class PHConstruct
     public static int smeltery;
     public static int searedTable;
     public static int castingChannel;
+    public static int airTank;
+    
     public static int craftedSoil;
     public static int oreSlag;
     public static int oreGravel;
