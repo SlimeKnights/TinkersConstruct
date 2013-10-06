@@ -58,6 +58,11 @@ public class ASMInterfaceRepair implements IClassTransformer  {
                 || path.startsWith( "net/minecraft/" );
     }
 
+    private boolean isBlacklisted( String path )
+    {
+        return path.startsWith( "tconstruct/plugins/minefactoryreloaded/" );
+    }
+
     private boolean isClassAvailable( String inf )
     {
         if ( APIInterfaces.containsKey( inf ) )
@@ -100,7 +105,7 @@ public class ASMInterfaceRepair implements IClassTransformer  {
 
         @Override
         public void visitTypeVariable(String className) {
-            if ( isInternal( className ) ) return;
+            if ( isInternal( className ) || isBlacklisted( className ) ) return;
             isAvailable = isAvailable && asmTransformer.isClassAvailable( className );
             log( className + " is " + ( isAvailable ? "available" : "not available" ) );
         }
@@ -135,7 +140,7 @@ public class ASMInterfaceRepair implements IClassTransformer  {
         {
             String inf = i.next();
 
-            if ( isInternal( inf ) )
+            if ( isInternal( inf ) || isBlacklisted( inf ) )
                 continue;
 
             boolean isAvailable = isClassAvailable( inf );
