@@ -25,7 +25,7 @@ public class ASMInterfaceRepair implements IClassTransformer  {
     @Override
     public byte[] transform(String name, String transformedName, byte[] bytes)
     {
-        if ( name.startsWith( "tconstruct." ) && ! name.startsWith( "tconstruct.preloader" ) )
+        if ( name.startsWith( "tconstruct." ) && ! name.startsWith( "tconstruct.preloader." ) && !isBlacklisted(name) )
         {
             ClassReader cr = new ClassReader(bytes);
             ClassNode cn = new ClassNode();
@@ -58,9 +58,10 @@ public class ASMInterfaceRepair implements IClassTransformer  {
                 || path.startsWith( "net/minecraft/" );
     }
 
+    // Used in transform() above.
     private boolean isBlacklisted( String path )
     {
-        return path.startsWith( "tconstruct/plugins/minefactoryreloaded/" );
+        return path.startsWith( "tconstruct.plugins.minefactoryreloaded." );
     }
 
     private boolean isClassAvailable( String inf )
@@ -105,7 +106,7 @@ public class ASMInterfaceRepair implements IClassTransformer  {
 
         @Override
         public void visitTypeVariable(String className) {
-            if ( isInternal( className ) && !isBlacklisted( className ) ) return;
+            if ( isInternal( className ) ) return;
             isAvailable = isAvailable && asmTransformer.isClassAvailable( className );
             log( className + " is " + ( isAvailable ? "available" : "not available" ) );
         }
@@ -140,7 +141,7 @@ public class ASMInterfaceRepair implements IClassTransformer  {
         {
             String inf = i.next();
 
-            if ( isInternal( inf ) && !isBlacklisted( inf ) )
+            if ( isInternal( inf ) )
                 continue;
 
             boolean isAvailable = isClassAvailable( inf );
