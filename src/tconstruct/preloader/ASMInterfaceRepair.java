@@ -12,6 +12,7 @@ import org.objectweb.asm.signature.SignatureReader;
 import org.objectweb.asm.signature.SignatureVisitor;
 import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.MethodNode;
+import tconstruct.preloader.helpers.PropertyManager;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -110,7 +111,7 @@ public class ASMInterfaceRepair implements IClassTransformer  {
     {
         boolean changed = false;
 
-        //log( "Examining " + cn.name );
+        log( "Examining " + cn.name );
 
         Iterator<MethodNode> mn = cn.methods.iterator();
         while ( mn.hasNext() )
@@ -151,7 +152,9 @@ public class ASMInterfaceRepair implements IClassTransformer  {
     }
 
     private void log(String string) {
-        //TConstructLoaderContainer.logger.info( string );
+        if (PropertyManager.asmInterfaceRepair_verboseLog) {
+            TConstructLoaderContainer.logger.info( string );
+        }
     }
 
 }
