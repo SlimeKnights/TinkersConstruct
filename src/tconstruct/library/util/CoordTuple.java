@@ -62,15 +62,6 @@ public class CoordTuple implements Comparable
         if (coord.equals(this))
             return 0;
         
-        if (coord.y != y)
-            return y - coord.y;
-        
-        if (coord.x != x)
-            return x - coord.x;
-        
-        if (coord.z != z)
-            return z - coord.z;
-        
-        return 0;
+        return (x - coord.x) + (y - coord.y) + (z - coord.z);
     }
 }

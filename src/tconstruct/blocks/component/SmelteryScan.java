@@ -51,13 +51,15 @@ public class SmelteryScan extends TankLayerScan
     protected void addAirBlock (int x, int y, int z)
     {
         super.addAirBlock(x, y, z);
-        world.setBlock(x, y, z, Block.leaves.blockID);
+        world.setBlock(x, y, z, Block.glass.blockID);
     }
     
     public void cleanup()
     {
         System.out.println("Structure cleanup activated. Air blocks: "+airCoords.size());
         super.cleanup();
+        
+        //Temporary
         Iterator i = airCoords.iterator();
         while (i.hasNext())
         {

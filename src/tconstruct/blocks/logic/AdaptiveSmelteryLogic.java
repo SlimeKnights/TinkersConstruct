@@ -22,6 +22,7 @@ import tconstruct.library.blocks.AdaptiveInventoryLogic;
 import tconstruct.library.component.IComponentHolder;
 import tconstruct.library.component.LogicComponent;
 import tconstruct.library.component.MultiFluidTank;
+import tconstruct.library.util.CoordTuple;
 import tconstruct.library.util.IActiveLogic;
 import tconstruct.library.util.IMasterLogic;
 import tconstruct.library.util.IServantLogic;
@@ -41,28 +42,36 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
         if (tick % 4 == 0)
             smeltery.heatItems();
 
-        if (tick % 20 == 0)
+        if (tick % 20 == 0 && structure.isComplete())
+        {
+            smeltery.update();
+        }
+
+        if (tick >= 60)
         {
             if (!structure.isComplete())
             {
                 structure.checkValidStructure();
                 if (structure.isComplete())
                 {
-                    smeltery.adjustSize(structure.getAirSize(), true);
-                    multitank.setCapacity(structure.getAirSize() * (TConstruct.ingotLiquidValue * 18));
+                    validateSmeltery();
                 }
             }
-            else
-            {
-                smeltery.update();
-            }
-        }
-
-        if (tick == 60)
-        {
             tick = 0;
         }
     }
+
+    @Override
+    public List<LogicComponent> getComponents ()
+    {
+        ArrayList<LogicComponent> ret = new ArrayList<LogicComponent>(3);
+        ret.add(structure);
+        ret.add(multitank);
+        ret.add(smeltery);
+        return ret;
+    }
+    
+    /* Structure */
 
     @Override
     public void setWorldObj (World world)
@@ -71,6 +80,37 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
         structure.setWorld(world);
         smeltery.setWorld(world);
     }
+
+    @Override
+    public void notifyChange (IServantLogic servant, int x, int y, int z)
+    {
+
+    }
+
+    @Override
+    public void placeBlock (EntityLivingBase entity, ItemStack itemstack)
+    {
+        structure.checkValidStructure();
+        if (structure.isComplete())
+        {
+            validateSmeltery();
+        }
+    }
+    
+    void validateSmeltery()
+    {
+        adjustInventory(structure.getAirSize(), true);
+        smeltery.adjustSize(structure.getAirSize(), true);
+        multitank.setCapacity(structure.getAirSize() * (TConstruct.ingotLiquidValue * 18));        
+    }
+
+    @Override
+    public void removeBlock ()
+    {
+        structure.cleanup();
+    }
+    
+    /* Direction */
 
     @Override
     public byte getRenderDirection ()
@@ -125,6 +165,30 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
     {
 
     }
+    
+    /* Inventory */
+    
+    @Override
+    public int getInventoryStackLimit ()
+    {
+        return 1;
+    }
+    
+    @Override
+    public void setInventorySlotContents (int slot, ItemStack itemstack)
+    {
+        inventory[slot] = itemstack;
+        if (itemstack != null && itemstack.stackSize > getInventoryStackLimit())
+        {
+            itemstack.stackSize = getInventoryStackLimit();
+            updateAirBlocks(slot, itemstack);
+        }
+    }
+
+    void updateAirBlocks (int slot, ItemStack itemstack)
+    {
+        //CoordTuple coord = structure.airCoords.;
+    }
 
     @Override
     public Container getGuiContainer (InventoryPlayer inventoryplayer, World world, int x, int y, int z)
@@ -137,58 +201,18 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
     {
         return "crafters.Smeltery";
     }
-
-    @Override
-    public List<LogicComponent> getComponents ()
-    {
-        ArrayList<LogicComponent> ret = new ArrayList<LogicComponent>(3);
-        ret.add(structure);
-        ret.add(multitank);
-        ret.add(smeltery);
-        return ret;
-    }
-
-    @Override
-    public void notifyChange (IServantLogic servant, int x, int y, int z)
-    {
-
-    }
-
-    @Override
-    public void placeBlock (EntityLivingBase entity, ItemStack itemstack)
-    {
-        structure.checkValidStructure();
-        if (structure.isComplete())
-        {
-            smeltery.adjustSize(structure.getAirSize(), true);
-            multitank.setCapacity(structure.getAirSize() * (TConstruct.ingotLiquidValue * 18));
-        }
-    }
-
-    @Override
-    public void removeBlock ()
-    {
-        structure.cleanup();
-    }
+    
+    /* Network */
 
     @Override
     public void readFromNBT (NBTTagCompound tags)
     {
         super.readFromNBT(tags);
+        readNetworkNBT(tags);
 
         structure.readFromNBT(tags);
         multitank.readFromNBT(tags);
         smeltery.readFromNBT(tags);
-    }
-
-    @Override
-    public void writeToNBT (NBTTagCompound tags)
-    {
-        super.writeToNBT(tags);
-
-        structure.writeToNBT(tags);
-        multitank.writeToNBT(tags);
-        smeltery.writeToNBT(tags);
     }
 
     public void readNetworkNBT (NBTTagCompound tags)
@@ -198,6 +222,17 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
         structure.readNetworkNBT(tags);
         multitank.readNetworkNBT(tags);
         smeltery.readNetworkNBT(tags);
+    }
+
+    @Override
+    public void writeToNBT (NBTTagCompound tags)
+    {
+        super.writeToNBT(tags);
+        writeNetworkNBT(tags);
+
+        structure.writeToNBT(tags);
+        multitank.writeToNBT(tags);
+        smeltery.writeToNBT(tags);
     }
 
     public void writeNetworkNBT (NBTTagCompound tags)

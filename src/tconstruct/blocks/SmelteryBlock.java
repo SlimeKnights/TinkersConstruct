@@ -13,6 +13,7 @@ import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import tconstruct.TConstruct;
+import tconstruct.blocks.logic.AdaptiveSmelteryLogic;
 import tconstruct.blocks.logic.MultiServantLogic;
 import tconstruct.blocks.logic.SmelteryDrainLogic;
 import tconstruct.blocks.logic.SmelteryLogic;
@@ -138,7 +139,8 @@ public class SmelteryBlock extends InventoryBlock
     @Override
     public Integer getGui (World world, int x, int y, int z, EntityPlayer entityplayer)
     {
-        return TConstruct.proxy.smelteryGuiID;
+        return -1;
+        //return TConstruct.proxy.smelteryGuiID;
     }
 
     public void randomDisplayTick (World world, int x, int y, int z, Random random)
@@ -214,7 +216,7 @@ public class SmelteryBlock extends InventoryBlock
         switch (metadata)
         {
         case 0:
-            return new SmelteryLogic();
+            return new AdaptiveSmelteryLogic();
         case 1:
             return new SmelteryDrainLogic();
         case 3:

@@ -128,10 +128,6 @@ public class TConstruct
             VillagerRegistry.instance().registerVillageCreationHandler(new VillageSmelteryHandler());
             try
             {
-                //if (MinecraftServer.getServer().getMinecraftVersion().equals("1.6.4"))
-                /*ComparableVersion cv = new ComparableVersion(new CallableMinecraftVersion(null).minecraftVersion());
-                ComparableVersion compare = new ComparableVersion("1.6.4");
-                if (compare.compareTo(cv) > 0)*///<-- Probably not right
                 if (new CallableMinecraftVersion(null).minecraftVersion().equals("1.6.4"))
                 {
                     MapGenStructureIO.func_143031_a(ComponentToolWorkshop.class, "TConstruct:ToolWorkshopStructure");

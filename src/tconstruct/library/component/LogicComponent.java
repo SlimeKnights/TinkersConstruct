@@ -14,12 +14,7 @@ public class LogicComponent
     
     public void readFromNBT (NBTTagCompound tags)
     {
-        
-    }
-    
-    public void writeToNBT (NBTTagCompound tags)
-    {
-        
+        readNetworkNBT(tags);
     }
 
     public void readNetworkNBT (NBTTagCompound tags)
@@ -27,8 +22,13 @@ public class LogicComponent
         
     }
     
+    public void writeToNBT (NBTTagCompound tags)
+    {
+        writeNetworkNBT(tags);
+    }
+    
     public void writeNetworkNBT (NBTTagCompound tags)
     {
         
-    }    
+    }
 }

@@ -444,7 +444,8 @@ public class TContent implements IFuelHandler
         liquidMetal = new MaterialLiquid(MapColor.tntColor);
 
         moltenIronFluid = new Fluid("fluid.iron.molten");
-        FluidRegistry.registerFluid(moltenIronFluid);
+        if (!FluidRegistry.registerFluid(moltenIronFluid))
+            moltenIronFluid = FluidRegistry.getFluid("fluid.iron.molten");
         moltenIron = new LiquidMetalFinite(PHConstruct.moltenIron, moltenIronFluid, "liquid_iron").setUnlocalizedName("metal.molten.iron");
         GameRegistry.registerBlock(moltenIron, "metal.molten.iron");
         moltenIronFluid.setBlockID(moltenIron).setLuminosity(12).setDensity(3000).setViscosity(6000);
