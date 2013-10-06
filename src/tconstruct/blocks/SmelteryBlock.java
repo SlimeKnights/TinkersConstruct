@@ -40,11 +40,11 @@ public class SmelteryBlock extends InventoryBlock
 
     /* Rendering */
 
-    /*@Override
+    @Override
     public int getRenderType ()
     {
         return SmelteryRender.smelteryModel;
-    }*/
+    }
 
     @Override
     public String[] getTextureNames ()
@@ -216,7 +216,7 @@ public class SmelteryBlock extends InventoryBlock
         switch (metadata)
         {
         case 0:
-            return new AdaptiveSmelteryLogic();
+            return new SmelteryLogic();
         case 1:
             return new SmelteryDrainLogic();
         case 3:
@@ -225,7 +225,7 @@ public class SmelteryBlock extends InventoryBlock
         return new MultiServantLogic();
     }
     
-    /*@Override
+    @Override
     public void onBlockPlacedBy (World world, int x, int y, int z, EntityLivingBase entityliving, ItemStack stack)
     {
         super.onBlockPlacedBy(world, x, y, z, entityliving, stack);
@@ -243,7 +243,7 @@ public class SmelteryBlock extends InventoryBlock
     public void breakBlock (World world, int x, int y, int z, int par5, int par6) //Don't drop inventory
     {
         world.removeBlockTileEntity(x, y, z);
-    }*/
+    }
 
     @Override
     public void getSubBlocks (int id, CreativeTabs tab, List list)
