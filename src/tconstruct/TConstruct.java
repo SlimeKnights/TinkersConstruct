@@ -48,7 +48,7 @@ import cpw.mods.fml.relauncher.Side;
  * @dependencies: IC2 API, MFR API
  */
 
-@Mod(modid = "TConstruct", name = "TConstruct", version = "1.6.4_1.4.7d", dependencies = "required-after:Forge@[8.9,)")
+@Mod(modid = "TConstruct", name = "TConstruct", version = "1.6.X_1.4.7", dependencies = "required-after:Forge@[8.9,)")
 @NetworkMod(serverSideRequired = false, clientSideRequired = true, channels = { "TConstruct" }, packetHandler = tconstruct.util.network.TPacketHandler.class)
 public class TConstruct
 {
