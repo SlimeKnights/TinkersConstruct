@@ -37,8 +37,7 @@ import tconstruct.library.tools.ToolCore;
 import tconstruct.library.util.IPattern;
 import tconstruct.modifiers.*;
 import tconstruct.util.*;
-import tconstruct.util.config.MystImcHandler;
-import tconstruct.util.config.PHConstruct;
+import tconstruct.util.config.*;
 
 public class TContent implements IFuelHandler
 {
@@ -2006,19 +2005,19 @@ public class TContent implements IFuelHandler
         /* IC2 */
 
         //ItemStack reBattery = ic2.api.item.Items.getItem("reBattery");
-        Object reBattery = getStaticItem("reBattery", "ic2.api.item.Items");
+        Object reBattery = getStaticItem("reBattery", "ic2.core.Ic2Items");
         if (reBattery != null)
         {
             modE.batteries.add((ItemStack) reBattery);
         }
         //ItemStack chargedReBattery = ic2.api.item.Items.getItem("chargedReBattery");
-        Object chargedReBattery = getStaticItem("chargedReBattery", "ic2.api.item.Items");
+        Object chargedReBattery = getStaticItem("chargedReBattery", "ic2.core.Ic2Items");
         if (chargedReBattery != null)
         {
             modE.batteries.add((ItemStack) chargedReBattery);
         }
         //ItemStack electronicCircuit = ic2.api.item.Items.getItem("electronicCircuit");
-        Object electronicCircuit = getStaticItem("electronicCircuit", "ic2.api.item.Items");
+        Object electronicCircuit = getStaticItem("electronicCircuit", "ic2.core.Ic2Items");
         if (electronicCircuit != null)
             modE.circuits.add((ItemStack) electronicCircuit);
 
@@ -2156,7 +2155,7 @@ public class TContent implements IFuelHandler
         }
         catch (Exception e)
         {
-            //System.out.println("[TConstruct] Could not find " + name);
+            System.out.println("[TConstruct] Could not find " + name);
             return null;
         }
     }
