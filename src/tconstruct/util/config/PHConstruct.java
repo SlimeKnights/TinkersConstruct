@@ -350,9 +350,6 @@ public class PHConstruct
         AbilityHelper.necroticUHS = config.get("Ultra Hardcore Changes", "Necrotic modifier only heals on hostile mob kills", false).getBoolean(false);
 
         //Slime pools
-        islandRarity = config.get("Worldgen", "Slime Island Rarity", 450).getInt(450);
-
-        //Slime pools
         islandRarity = config.get("Worldgen", "Slime Island Rarity", 1450).getInt(1450);
 
         //Looks
