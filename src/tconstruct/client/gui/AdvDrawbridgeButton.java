@@ -7,7 +7,7 @@ import org.lwjgl.opengl.GL11;
 
 import net.minecraft.client.gui.GuiButton;
 
-public class SlotButton extends GuiButton {
+public class AdvDrawbridgeButton extends GuiButton {
 	protected static final ResourceLocation buttonTextures = new ResourceLocation("tinker:textures/gui/slotButton.png");
 
 	/** Button width in pixels */
@@ -21,7 +21,16 @@ public class SlotButton extends GuiButton {
 
 	/** The y position of this control. */
 	public int yPosition;
-
+	
+	/** The x position of this control when the GUI is expanded. */
+	public int xPositionExp;
+	
+	/** The x position of this control when the GUI is expanded. */
+	public int yPositionExp;
+	
+	/** Is the GUI expanded. */
+	public boolean isGuiExpanded = false;
+	
 	/** The string displayed on this control. */
 	public String displayString;
 
@@ -35,12 +44,12 @@ public class SlotButton extends GuiButton {
 	public boolean drawButton;
 	protected boolean field_82253_i;
 
-	public SlotButton(int par1, int par2, int par3, String par4Str) {
-		this(par1, par2, par3, 200, 20, par4Str);
+	public AdvDrawbridgeButton(int par1, int par2, int par3, int par4, int par5, String par6Str) {
+		this(par1, par2, par3, par4, par5, 200, 20, par6Str);
 	}
 
-	public SlotButton(int par1, int par2, int par3, int par4, int par5, String par6Str) {
-		super(par1, par2, par3, par4, par5, par6Str);
+	public AdvDrawbridgeButton(int par1, int par2, int par3, int par4, int par5, int par6, int par7, String par8Str) {
+		super(par1, par2, par3, par6, par7, par8Str);
 		this.width = 200;
 		this.height = 20;
 		this.enabled = true;
@@ -48,9 +57,11 @@ public class SlotButton extends GuiButton {
 		this.id = par1;
 		this.xPosition = par2;
 		this.yPosition = par3;
-		this.width = par4;
-		this.height = par5;
-		this.displayString = par6Str;
+		this.xPositionExp = par4;
+		this.yPositionExp = par5;
+		this.width = par6;
+		this.height = par7;
+		this.displayString = par8Str;
 	}
 
 	/**
@@ -77,10 +88,14 @@ public class SlotButton extends GuiButton {
 			FontRenderer fontrenderer = par1Minecraft.fontRenderer;
 			par1Minecraft.getTextureManager().bindTexture(buttonTextures);
 			GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-			this.field_82253_i = par2 >= this.xPosition && par3 >= this.yPosition && par2 < this.xPosition + this.width && par3 < this.yPosition + this.height;
+			
+			int xPosition = isGuiExpanded ? this.xPositionExp : this.xPosition;
+			int yPosition = isGuiExpanded ? this.yPositionExp : this.yPosition;
+			
+			this.field_82253_i = par2 >= xPosition && par3 >= yPosition && par2 < xPosition + this.width && par3 < yPosition + this.height;
 			int k = this.getHoverState(this.field_82253_i);
-			this.drawTexturedModalRect(this.xPosition, this.yPosition, 0, 46 + k * 26, this.width / 2, this.height);
-			this.drawTexturedModalRect(this.xPosition + this.width / 2, this.yPosition, 200 - this.width / 2, 46 + k * 26, this.width / 2, this.height);
+			this.drawTexturedModalRect(xPosition, yPosition, 0, 46 + k * 26, this.width / 2, this.height);
+			this.drawTexturedModalRect(xPosition + this.width / 2, yPosition, 200 - this.width / 2, 46 + k * 26, this.width / 2, this.height);
 			this.mouseDragged(par1Minecraft, par2, par3);
 			int l = 14737632;
 
@@ -90,7 +105,7 @@ public class SlotButton extends GuiButton {
 				l = 16777120;
 			}
 
-			this.drawCenteredString(fontrenderer, this.displayString, this.xPosition + this.width / 2, this.yPosition + (this.height - 8) / 2, l);
+			this.drawCenteredString(fontrenderer, this.displayString, xPosition + this.width / 2, yPosition + (this.height - 8) / 2, l);
 		}
 	}
 
@@ -113,7 +128,10 @@ public class SlotButton extends GuiButton {
 	 * MouseListener.mousePressed(MouseEvent e).
 	 */
 	public boolean mousePressed(Minecraft par1Minecraft, int par2, int par3) {
-		return this.enabled && this.drawButton && par2 >= this.xPosition && par3 >= this.yPosition && par2 < this.xPosition + this.width && par3 < this.yPosition + this.height;
+		int xPosition = isGuiExpanded ? this.xPositionExp : this.xPosition;
+		int yPosition = isGuiExpanded ? this.yPositionExp : this.yPosition;
+		
+		return this.enabled && this.drawButton && par2 >= xPosition && par3 >= yPosition && par2 < xPosition + this.width && par3 < yPosition + this.height;
 	}
 
 	public boolean func_82252_a() {

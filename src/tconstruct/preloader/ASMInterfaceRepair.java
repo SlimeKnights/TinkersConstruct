@@ -12,6 +12,7 @@ import org.objectweb.asm.signature.SignatureReader;
 import org.objectweb.asm.signature.SignatureVisitor;
 import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.MethodNode;
+import tconstruct.preloader.helpers.PropertyManager;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -24,7 +25,7 @@ public class ASMInterfaceRepair implements IClassTransformer  {
     @Override
     public byte[] transform(String name, String transformedName, byte[] bytes)
     {
-        if ( name.startsWith( "tconstruct." ) && ! name.startsWith( "tconstruct.preloader" ) )
+        if ( name.startsWith( "tconstruct." ) && ! name.startsWith( "tconstruct.preloader." ) && !isBlacklisted(name) )
         {
             ClassReader cr = new ClassReader(bytes);
             ClassNode cn = new ClassNode();
@@ -55,6 +56,12 @@ public class ASMInterfaceRepair implements IClassTransformer  {
                 || path.startsWith( "com/google/" )
                 || path.startsWith( "net/minecraftforge/" )
                 || path.startsWith( "net/minecraft/" );
+    }
+
+    // Used in transform() above.
+    private boolean isBlacklisted( String path )
+    {
+        return path.startsWith( "tconstruct.plugins.minefactoryreloaded." );
     }
 
     private boolean isClassAvailable( String inf )
@@ -110,7 +117,7 @@ public class ASMInterfaceRepair implements IClassTransformer  {
     {
         boolean changed = false;
 
-        //log( "Examining " + cn.name );
+        log( "Examining " + cn.name );
 
         Iterator<MethodNode> mn = cn.methods.iterator();
         while ( mn.hasNext() )
@@ -151,7 +158,9 @@ public class ASMInterfaceRepair implements IClassTransformer  {
     }
 
     private void log(String string) {
-        //TConstructLoaderContainer.logger.info( string );
+        if (PropertyManager.asmInterfaceRepair_verboseLog) {
+            TConstructLoaderContainer.logger.info( string );
+        }
     }
 
 }

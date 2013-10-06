@@ -66,13 +66,18 @@ public class RedstoneMachine extends InventoryBlock
     @SideOnly(Side.CLIENT)
     public int colorMultiplier (IBlockAccess world, int x, int y, int z)
     {
-        if (world.getBlockMetadata(x, y, z) == 0)
+        if (world.getBlockMetadata(x, y, z) == 0 && world.getBlockMetadata(x, y, z) == 2)
         {
             TileEntity logic = world.getBlockTileEntity(x, y, z);
 
             if (logic != null && logic instanceof DrawbridgeLogic)
             {
                 ItemStack stack = ((DrawbridgeLogic) logic).getStackInSlot(1);
+                if (stack != null && stack.itemID < 4096 && Block.blocksList[stack.itemID] != null && stack.itemID != this.blockID)
+                    return Block.blocksList[stack.itemID].colorMultiplier(world, x, y, z);
+            }else if (logic != null && logic instanceof AdvancedDrawbridgeLogic)
+            {
+                ItemStack stack = ((AdvancedDrawbridgeLogic) logic).camoInventory.getCamoStack();
                 if (stack != null && stack.itemID < 4096 && Block.blocksList[stack.itemID] != null && stack.itemID != this.blockID)
                     return Block.blocksList[stack.itemID].colorMultiplier(world, x, y, z);
             }
@@ -143,7 +148,7 @@ public class RedstoneMachine extends InventoryBlock
     @Override
     public Icon getIcon (int side, int meta)
     {
-        if (meta == 0)
+        if (meta == 0 || meta == 2)
         {
             if (side == 5)
                 return icons[5];
