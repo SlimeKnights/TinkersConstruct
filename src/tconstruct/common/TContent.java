@@ -275,7 +275,7 @@ public class TContent implements IFuelHandler
         addLoot();
     }
 
-    public void createEntities()
+    public void createEntities ()
     {
         EntityRegistry.registerModEntity(FancyEntityItem.class, "Fancy Item", 0, TConstruct.instance, 32, 5, true);
         EntityRegistry.registerModEntity(DaggerEntity.class, "Dagger", 1, TConstruct.instance, 32, 5, true);
@@ -326,7 +326,7 @@ public class TContent implements IFuelHandler
     public static Fluid[] fluids = new Fluid[25];
     public static Block[] fluidBlocks = new Block[25];
 
-    void registerBlocks()
+    void registerBlocks ()
     {
         //Tool Station
         toolStationWood = new ToolStationBlock(PHConstruct.woodStation, Material.wood).setUnlocalizedName("ToolStation");
@@ -403,7 +403,7 @@ public class TContent implements IFuelHandler
         castingChannel = (new CastingChannelBlock(PHConstruct.castingChannel)).setUnlocalizedName("CastingChannel");
         GameRegistry.registerBlock(castingChannel, CastingChannelItem.class, "CastingChannel");
         GameRegistry.registerTileEntity(CastingChannelLogic.class, "CastingChannel");
-        
+
         tankAir = new TankAirBlock(PHConstruct.airTank, Material.air).setUnlocalizedName("tconstruct.tank.air");
         GameRegistry.registerBlock(tankAir, "TankAir");
         GameRegistry.registerTileEntity(TankAirLogic.class, "tconstruct.tank.air");
@@ -690,7 +690,7 @@ public class TContent implements IFuelHandler
         slimeChannel = new ConveyorBase(PHConstruct.slimeChannel, Material.water).setStepSound(slimeStep).setUnlocalizedName("slime.channel");
         GameRegistry.registerBlock(slimeChannel, "slime.channel");
         TConstructRegistry.drawbridgeState[slimeChannel.blockID] = 1;
-        
+
         slimePad = new SlimePad(PHConstruct.slimePad, Material.cloth).setStepSound(slimeStep).setUnlocalizedName("slime.pad");
         GameRegistry.registerBlock(slimePad, "slime.pad");
         TConstructRegistry.drawbridgeState[slimePad.blockID] = 1;
@@ -756,7 +756,7 @@ public class TContent implements IFuelHandler
         GameRegistry.registerTileEntity(EssenceExtractorLogic.class, "extractor.essence");
     }
 
-    void registerItems()
+    void registerItems ()
     {
         titleIcon = new TitleIcon(PHConstruct.uselessItem).setUnlocalizedName("tconstruct.titleicon");
         String[] blanks = new String[] { "blank_pattern", "blank_cast", "blank_cast" };
@@ -865,7 +865,7 @@ public class TContent implements IFuelHandler
         diamondApple = new DiamondApple(PHConstruct.diamondApple).setUnlocalizedName("tconstruct.apple.diamond");
         strangeFood = new StrangeFood(PHConstruct.slimefood).setUnlocalizedName("tconstruct.strangefood");
         oreBerries = new OreBerries(PHConstruct.oreChunks).setUnlocalizedName("oreberry");
-        
+
         jerky = new Jerky(PHConstruct.jerky, Loader.isModLoaded("HungerOverhaul")).setUnlocalizedName("tconstruct.jerky");
 
         //Wearables
@@ -917,7 +917,7 @@ public class TContent implements IFuelHandler
         //Block.torchWood.setTickRandomly(false);
     }
 
-    void registerMaterials()
+    void registerMaterials ()
     {
         TConstructRegistry.addToolMaterial(0, "Wood", "Wooden ", 0, 59, 200, 0, 1.0F, 0, 0f, "\u00A7e", "");
         TConstructRegistry.addToolMaterial(1, "Stone", 1, 131, 400, 1, 0.5F, 0, 1f, "", "Stonebound");
@@ -979,7 +979,7 @@ public class TContent implements IFuelHandler
 
         TConstructRegistry.addBowstringMaterial(0, 2, new ItemStack(Item.silk), new ItemStack(bowstring, 1, 0), 1F, 1F, 1f); //String
         TConstructRegistry.addFletchingMaterial(0, 2, new ItemStack(Item.feather), new ItemStack(fletching, 1, 0), 100F, 0F, 0.05F); //Feather
-        for (int i = 0; i < 4; i++ )
+        for (int i = 0; i < 4; i++)
             TConstructRegistry.addFletchingMaterial(1, 2, new ItemStack(Block.leaves, 1, i), new ItemStack(fletching, 1, 1), 75F, 0F, 0.2F); //All four vanialla Leaves
         TConstructRegistry.addFletchingMaterial(2, 2, new ItemStack(materials, 1, 1), new ItemStack(fletching, 1, 2), 100F, 0F, 0.12F); //Slime
         TConstructRegistry.addFletchingMaterial(3, 2, new ItemStack(materials, 1, 17), new ItemStack(fletching, 1, 3), 100F, 0F, 0.12F); //BlueSlime
@@ -1041,7 +1041,7 @@ public class TContent implements IFuelHandler
     public static Item[] patternOutputs;
     public static FluidStack[] liquids;
 
-    void addCraftingRecipes()
+    void addCraftingRecipes ()
     {
         /* Tools */
         patternOutputs = new Item[] { toolRod, pickaxeHead, shovelHead, hatchetHead, swordBlade, wideGuard, handGuard, crossbar, binding, frypanHead, signHead, knifeBlade, chiselHead, toughRod,
@@ -1669,7 +1669,7 @@ public class TContent implements IFuelHandler
         //DryingRackRecipes.addDryingRecipe(Item.muttonRaw, 20 * 60 * 5, new ItemStack(jerky, 1, 3));
         DryingRackRecipes.addDryingRecipe(Item.fishRaw, 20 * 60 * 5, new ItemStack(jerky, 1, 4));
         DryingRackRecipes.addDryingRecipe(Item.rottenFlesh, 20 * 60 * 5, new ItemStack(jerky, 1, 5));
-        
+
         //DryingRackRecipes.addDryingRecipe(new ItemStack(jerky, 1, 5), 20 * 60 * 10, Item.leather);
 
         //Slabs
@@ -1718,7 +1718,7 @@ public class TContent implements IFuelHandler
         GameRegistry.addRecipe(new ItemStack(strangeFood, 4, 0), "#", '#', new ItemStack(slimeGel, 1, 0));
         GameRegistry.addRecipe(new ItemStack(slimeGel, 1, 1), "##", "##", '#', Item.slimeBall);
         GameRegistry.addRecipe(new ItemStack(Item.slimeBall, 4, 0), "#", '#', new ItemStack(slimeGel, 1, 1));
-        
+
         GameRegistry.addShapelessRecipe(new ItemStack(slimeChannel, 1, 0), new ItemStack(slimeGel, 1, Short.MAX_VALUE), new ItemStack(Item.redstone));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(slimePad, 1, 0), slimeChannel, new ItemStack(slimeGel, 1, Short.MAX_VALUE), "slimeBall"));
 
@@ -1737,7 +1737,7 @@ public class TContent implements IFuelHandler
         GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 5), "b", 'b', new ItemStack(toolForge, 1, Short.MAX_VALUE));
     }
 
-    void setupToolTabs()
+    void setupToolTabs ()
     {
         TConstructRegistry.materialTab.init(new ItemStack(titleIcon, 1, 255));
         TConstructRegistry.blockTab.init(new ItemStack(toolStationWood));
@@ -1754,7 +1754,7 @@ public class TContent implements IFuelHandler
         TConstructRegistry.toolTab.init(tool);
     }
 
-    public void addLoot()
+    public void addLoot ()
     {
         //Item, min, max, weight
         ChestGenHooks.getInfo(ChestGenHooks.DUNGEON_CHEST).addItem(new WeightedRandomChestContent(new ItemStack(heartCanister, 1, 1), 1, 1, 5));
@@ -1784,7 +1784,7 @@ public class TContent implements IFuelHandler
 
     public static String[] liquidNames;
 
-    public void oreRegistry()
+    public void oreRegistry ()
     {
         OreDictionary.registerOre("oreCobalt", new ItemStack(oreSlag, 1, 1));
         OreDictionary.registerOre("oreArdite", new ItemStack(oreSlag, 1, 2));
@@ -1864,7 +1864,7 @@ public class TContent implements IFuelHandler
 
     public static boolean thaumcraftAvailable;
 
-    public void intermodCommunication()
+    public void intermodCommunication ()
     {
         FMLInterModComms.sendMessage("Thaumcraft", "harvestClickableCrop", new ItemStack(oreBerry, 1, 12));
         FMLInterModComms.sendMessage("Thaumcraft", "harvestClickableCrop", new ItemStack(oreBerry, 1, 13));
@@ -1872,7 +1872,7 @@ public class TContent implements IFuelHandler
         FMLInterModComms.sendMessage("Thaumcraft", "harvestClickableCrop", new ItemStack(oreBerry, 1, 15));
         FMLInterModComms.sendMessage("Thaumcraft", "harvestClickableCrop", new ItemStack(oreBerrySecond, 1, 12));
         FMLInterModComms.sendMessage("Thaumcraft", "harvestClickableCrop", new ItemStack(oreBerrySecond, 1, 13));
-        MystImcHandler.blacklistFluids(); 
+        MystImcHandler.blacklistFluids();
         /* FORESTRY
          * Edit these strings to change what items are added to the backpacks
          * Format info: "[backpack ID]@[item ID].[metadata or *]:[next item]" and so on
@@ -1887,7 +1887,7 @@ public class TContent implements IFuelHandler
 
     private static boolean initRecipes;
 
-    public static void modRecipes()
+    public static void modRecipes ()
     {
         if (!initRecipes)
         {
@@ -1927,7 +1927,7 @@ public class TContent implements IFuelHandler
         }
     }
 
-    public static void addShapedRecipeFirst(List recipeList, ItemStack itemstack, Object... objArray)
+    public static void addShapedRecipeFirst (List recipeList, ItemStack itemstack, Object... objArray)
     {
         String var3 = "";
         int var4 = 0;
@@ -2000,24 +2000,30 @@ public class TContent implements IFuelHandler
         recipeList.add(0, var17);
     }
 
-    public void modIntegration()
+    public void modIntegration ()
     {
         ItemStack ironpick = ToolBuilder.instance.buildTool(new ItemStack(TContent.pickaxeHead, 1, 6), new ItemStack(TContent.toolRod, 1, 2), new ItemStack(TContent.binding, 1, 6), "");
         /* IC2 */
-        ItemStack reBattery = ic2.api.item.Items.getItem("reBattery");
+
+        //ItemStack reBattery = ic2.api.item.Items.getItem("reBattery");
+        Object reBattery = getStaticItem("reBattery", "ic2.api.item.Items");
         if (reBattery != null)
-            modE.batteries.add(reBattery);
-        ItemStack chargedReBattery = ic2.api.item.Items.getItem("chargedReBattery");
+        {
+            modE.batteries.add((ItemStack) reBattery);
+        }
+        //ItemStack chargedReBattery = ic2.api.item.Items.getItem("chargedReBattery");
+        Object chargedReBattery = getStaticItem("chargedReBattery", "ic2.api.item.Items");
         if (chargedReBattery != null)
         {
-            modE.batteries.add(chargedReBattery);
+            modE.batteries.add((ItemStack) chargedReBattery);
         }
-        ItemStack electronicCircuit = ic2.api.item.Items.getItem("electronicCircuit");
+        //ItemStack electronicCircuit = ic2.api.item.Items.getItem("electronicCircuit");
+        Object electronicCircuit = getStaticItem("electronicCircuit", "ic2.api.item.Items");
         if (electronicCircuit != null)
-            modE.circuits.add(electronicCircuit);
+            modE.circuits.add((ItemStack) electronicCircuit);
 
         if (chargedReBattery != null && electronicCircuit != null)
-            TConstructClientRegistry.registerManualModifier("electricmod", ironpick.copy(), chargedReBattery, electronicCircuit);
+            TConstructClientRegistry.registerManualModifier("electricmod", ironpick.copy(), (ItemStack) chargedReBattery, (ItemStack) electronicCircuit);
 
         /* Thaumcraft */
         Object obj = getStaticItem("itemResource", "thaumcraft.common.Config");
@@ -2137,7 +2143,7 @@ public class TContent implements IFuelHandler
         }
     }
 
-    public static Object getStaticItem(String name, String classPackage)
+    public static Object getStaticItem (String name, String classPackage)
     {
         try
         {
@@ -2156,7 +2162,7 @@ public class TContent implements IFuelHandler
     }
 
     @Override
-    public int getBurnTime(ItemStack fuel)
+    public int getBurnTime (ItemStack fuel)
     {
         if (fuel.itemID == materials.itemID && fuel.getItemDamage() == 7)
             return 26400;
