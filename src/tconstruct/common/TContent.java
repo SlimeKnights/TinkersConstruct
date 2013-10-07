@@ -2025,7 +2025,7 @@ public class TContent implements IFuelHandler
             TConstructClientRegistry.registerManualModifier("electricmod", ironpick.copy(), (ItemStack) chargedReBattery, (ItemStack) electronicCircuit);
 
         /* Thaumcraft */
-        Object obj = getStaticItem("itemResource", "thaumcraft.common.Config");
+        Object obj = getStaticItem("itemResource", "thaumcraft.common.config.ConfigItems");
         if (obj != null)
         {
             System.out.println("[TConstruct] Thaumcraft detected. Adding thaumium tools.");
