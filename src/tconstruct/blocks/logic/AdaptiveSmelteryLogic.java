@@ -1,7 +1,10 @@
 package tconstruct.blocks.logic;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -11,13 +14,16 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.Packet132TileEntityData;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.fluids.FluidStack;
 import tconstruct.TConstruct;
 import tconstruct.blocks.component.SmelteryComponent;
 import tconstruct.blocks.component.SmelteryScan;
 import tconstruct.common.TContent;
+import tconstruct.inventory.AdaptiveSmelteryContainer;
 import tconstruct.library.blocks.AdaptiveInventoryLogic;
 import tconstruct.library.component.IComponentHolder;
 import tconstruct.library.component.LogicComponent;
@@ -30,6 +36,7 @@ import tconstruct.library.util.IServantLogic;
 public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IActiveLogic, IMasterLogic, IComponentHolder
 {
     byte direction;
+    boolean updateFluids = false;
     SmelteryScan structure = new SmelteryScan(this, TContent.smeltery, TContent.lavaTank);
     MultiFluidTank multitank = new MultiFluidTank();
     SmelteryComponent smeltery = new SmelteryComponent(this, structure, multitank, 800);
@@ -42,9 +49,16 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
         if (tick % 4 == 0)
             smeltery.heatItems();
 
-        if (tick % 20 == 0 && structure.isComplete())
+        if (tick % 20 == 0)
         {
-            smeltery.update();
+            if (structure.isComplete())
+                smeltery.update();
+
+            if (updateFluids)
+            {
+                distributeFluids();
+                updateFluids = false;
+            }
         }
 
         if (tick >= 60)
@@ -61,6 +75,11 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
         }
     }
 
+    public void setUpdateFluids ()
+    {
+        updateFluids = true;
+    }
+
     @Override
     public List<LogicComponent> getComponents ()
     {
@@ -70,7 +89,7 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
         ret.add(smeltery);
         return ret;
     }
-    
+
     /* Structure */
 
     @Override
@@ -84,7 +103,7 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
     @Override
     public void notifyChange (IServantLogic servant, int x, int y, int z)
     {
-
+        //Re-check structure here
     }
 
     @Override
@@ -96,12 +115,13 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
             validateSmeltery();
         }
     }
-    
-    void validateSmeltery()
+
+    void validateSmeltery ()
     {
         adjustInventory(structure.getAirSize(), true);
         smeltery.adjustSize(structure.getAirSize(), true);
-        multitank.setCapacity(structure.getAirSize() * (TConstruct.ingotLiquidValue * 18));        
+        multitank.setCapacity(structure.getAirSize() * (TConstruct.ingotLiquidValue * 18));
+        smeltery.setActiveLavaTank(structure.lavaTanks.get(0));
     }
 
     @Override
@@ -109,7 +129,7 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
     {
         structure.cleanup();
     }
-    
+
     /* Direction */
 
     @Override
@@ -165,15 +185,15 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
     {
 
     }
-    
+
     /* Inventory */
-    
+
     @Override
     public int getInventoryStackLimit ()
     {
         return 1;
     }
-    
+
     @Override
     public void setInventorySlotContents (int slot, ItemStack itemstack)
     {
@@ -181,10 +201,10 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
         if (itemstack != null && itemstack.stackSize > getInventoryStackLimit())
         {
             itemstack.stackSize = getInventoryStackLimit();
-            updateAirBlocks(slot, itemstack);
         }
+        updateWorldBlock(slot, itemstack);
     }
-    
+
     @Override
     public ItemStack decrStackSize (int slot, int quantity)
     {
@@ -194,6 +214,7 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
             {
                 ItemStack stack = inventory[slot];
                 inventory[slot] = null;
+                updateWorldBlock(slot, inventory[slot]);
                 return stack;
             }
             ItemStack split = inventory[slot].splitStack(quantity);
@@ -202,24 +223,196 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
                 inventory[slot] = null;
             }
 
-            updateAirBlocks(slot, inventory[slot]);
+            updateWorldBlock(slot, inventory[slot]);
             return split;
         }
         else
         {
             return null;
         }
+    } 
+    
+    @Override
+    public void onInventoryChanged ()
+    {
+        smeltery.updateTemperatures();
+        super.onInventoryChanged();
     }
 
-    void updateAirBlocks (int slot, ItemStack itemstack)
+    void updateWorldBlock (int slot, ItemStack itemstack)
     {
-        //CoordTuple coord = structure.airCoords.;
+        CoordTuple air = structure.getAirByIndex(slot);
+        if (air != null)
+        {
+            TileEntity te = worldObj.getBlockTileEntity(air.x, air.y, air.z);
+            if (te != null && te instanceof TankAirLogic)
+            {
+                ((TankAirLogic) te).setInventorySlotContents(0, itemstack);
+            }
+        }
     }
+
+    static final int pixelLayer = 162;
+
+    //Do the Monster Mash~
+    public void distributeFluids ()
+    {
+        //Calculate liquids in each block
+        int size = structure.getAirLayerSize();
+        HashMap<CoordTuple, LiquidDataInstance> blocks = new HashMap<CoordTuple, LiquidDataInstance>();
+
+        for (FluidStack fluid : multitank.fluidlist)
+        {
+            //Base calculations per liquid
+            LiquidData data = new LiquidData(fluid.amount, size);
+            int baseY = structure.airCoords.get(0).y;
+            int layerSize = structure.getAirLayerSize();
+
+            //Calculate where to distribute liquids
+            for (int i = 0; i < structure.airCoords.size(); i++)
+            {
+                LiquidDataInstance instance;
+                CoordTuple coord = structure.airCoords.get(i);
+                int height = 16 * (baseY - coord.y);
+                int position = i % layerSize;
+
+                if (!blocks.containsKey(coord))
+                {
+                    instance = new LiquidDataInstance();
+                    blocks.put(coord, instance);
+                }
+                else
+                {
+                    instance = blocks.get(coord);
+                }
+
+                if (instance.openLayers() > 0)
+                {
+                    if (position > data.blocksWithExtra)
+                    {
+                        //Calculate open layers
+                        int open = data.layers - height + 1;
+                        if (open > instance.openLayers())
+                            open = instance.openLayers();
+
+                        //Copy fluid
+                        FluidStack newFluid = fluid.copy();
+                        newFluid.amount = pixelLayer * open;
+                        instance.addFluid(open, newFluid);
+
+                        //Subtract from total
+                        data.totalAmount -= newFluid.amount;
+                        if (data.totalAmount < 0)
+                            continue;
+                    }
+                    else if (position == data.blocksWithExtra && data.leftovers > 0)
+                    {
+                        //Calculate open layers
+                        int open = data.layers - height + 1;
+                        boolean full = false;
+                        if (open > instance.openLayers())
+                        {
+                            open = instance.openLayers();
+                            full = true;
+                        }
+
+                        //Copy fluid
+                        FluidStack newFluid = fluid.copy();
+                        newFluid.amount = pixelLayer * open;
+                        if (!full)
+                            newFluid.amount += data.leftovers;
+                        instance.addFluid(open, newFluid);
+
+                        //Subtract from total
+                        data.totalAmount -= newFluid.amount;
+                        if (data.totalAmount < 0)
+                            continue;
+                    }
+                    else
+                    {
+                        //Calculate open layers
+                        int open = data.layers - height;
+                        if (open > instance.openLayers())
+                            open = instance.openLayers();
+
+                        //Copy fluid
+                        FluidStack newFluid = fluid.copy();
+                        newFluid.amount = pixelLayer * open;
+                        instance.addFluid(open, newFluid);
+
+                        //Subtract from total
+                        data.totalAmount -= newFluid.amount;
+                        if (data.totalAmount < 0)
+                            continue;
+                    }
+                }
+            }
+        }
+
+        //Distribute liquids to each block
+        Iterator iter = blocks.entrySet().iterator();
+        while (iter.hasNext())
+        {
+            Map.Entry pairs = (Map.Entry) iter.next();
+            CoordTuple coord = (CoordTuple) pairs.getKey();
+            TileEntity te = worldObj.getBlockTileEntity(coord.x, coord.y, coord.z);
+            if (te instanceof TankAirLogic)
+            {
+                ((TankAirLogic) te).overrideFluids(((LiquidDataInstance) pairs.getValue()).fluids);
+            }
+        }
+    }
+
+    class LiquidData
+    {
+        public int totalAmount;
+        public int layers;
+        public int leftovers;
+        public int blocksWithExtra;
+
+        LiquidData(int amount, int blocks)
+        {
+            totalAmount = amount;
+            int layerAmount = pixelLayer * blocks;
+            layers = amount / layerAmount;
+            leftovers = amount % pixelLayer;
+            blocksWithExtra = (amount % layerAmount) / pixelLayer;
+        }
+    }
+
+    class LiquidDataInstance
+    {
+        public ArrayList<FluidStack> fluids = new ArrayList<FluidStack>();
+        int layers = 0;
+
+        public int openLayers ()
+        {
+            return 16 - layers;
+        }
+
+        public void addFluid (int l, FluidStack fluid)
+        {
+            layers += l;
+            fluids.add(fluid);
+        }
+    }
+
+    /* Gui */
 
     @Override
     public Container getGuiContainer (InventoryPlayer inventoryplayer, World world, int x, int y, int z)
     {
-        return null;
+        return new AdaptiveSmelteryContainer(inventoryplayer, this);
+    }
+
+    public int getTempForSlot (int slot)
+    {
+        return smeltery.activeTemps[slot];
+    }
+
+    public int getMeltingPointForSlot (int slot)
+    {
+        return smeltery.meltingTemps[slot];
     }
 
     @Override
@@ -227,8 +420,8 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
     {
         return "crafters.Smeltery";
     }
-    
-    /* Network */
+
+    /* NBT */
 
     @Override
     public void readFromNBT (NBTTagCompound tags)
@@ -244,6 +437,8 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
     public void readNetworkNBT (NBTTagCompound tags)
     {
         direction = tags.getByte("Direction");
+        inventory = new ItemStack[tags.getInteger("InvSize")];
+        System.out.println("Inventory size: " + inventory.length);
 
         structure.readNetworkNBT(tags);
         multitank.readNetworkNBT(tags);
@@ -264,6 +459,7 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
     public void writeNetworkNBT (NBTTagCompound tags)
     {
         tags.setByte("Direction", direction);
+        tags.setInteger("InvSize", inventory.length);
 
         structure.writeNetworkNBT(tags);
         multitank.writeNetworkNBT(tags);

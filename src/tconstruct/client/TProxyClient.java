@@ -65,7 +65,7 @@ public class TProxyClient extends TProxyCommon
         if (ID == frypanGuiID)
             return new FrypanGui(player.inventory, (FrypanLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
         if (ID == smelteryGuiID)
-            return new SmelteryGui(player.inventory, (SmelteryLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
+            return new AdaptiveSmelteryGui(player.inventory, (AdaptiveSmelteryLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
         if (ID == stencilTableID)
             return new StencilTableGui(player.inventory, (StencilTableLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
         if (ID == toolForgeID)
@@ -197,8 +197,8 @@ public class TProxyClient extends TProxyCommon
         RenderingRegistry.registerBlockHandler(new TableRender());
         RenderingRegistry.registerBlockHandler(new TableForgeRender());
         RenderingRegistry.registerBlockHandler(new FrypanRender());
-        RenderingRegistry.registerBlockHandler(new SmelteryRender());
         RenderingRegistry.registerBlockHandler(new TankRender());
+        RenderingRegistry.registerBlockHandler(new TankAirRender());
         RenderingRegistry.registerBlockHandler(new SearedRender());
         RenderingRegistry.registerBlockHandler(new OreberryRender());
         RenderingRegistry.registerBlockHandler(new BarricadeRender());

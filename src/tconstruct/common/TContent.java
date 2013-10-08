@@ -383,8 +383,7 @@ public class TContent implements IFuelHandler
         //Smeltery
         smeltery = new SmelteryBlock(PHConstruct.smeltery).setUnlocalizedName("Smeltery");
         GameRegistry.registerBlock(smeltery, SmelteryItemBlock.class, "Smeltery");
-        GameRegistry.registerTileEntity(SmelteryLogic.class, "TConstruct.Smeltery");
-        //GameRegistry.registerTileEntity(AdaptiveSmelteryLogic.class, "TConstruct.Smeltery");
+        GameRegistry.registerTileEntity(AdaptiveSmelteryLogic.class, "TConstruct.Smeltery");
         GameRegistry.registerTileEntity(SmelteryDrainLogic.class, "TConstruct.SmelteryDrain");
         GameRegistry.registerTileEntity(MultiServantLogic.class, "TConstruct.Servants");
 

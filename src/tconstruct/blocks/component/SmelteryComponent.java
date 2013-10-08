@@ -3,14 +3,14 @@ package tconstruct.blocks.component;
 import java.util.ArrayList;
 
 import net.minecraft.block.Block;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
+import tconstruct.blocks.logic.AdaptiveSmelteryLogic;
 import tconstruct.library.component.LogicComponent;
 import tconstruct.library.component.MultiFluidTank;
 import tconstruct.library.crafting.Smeltery;
@@ -18,7 +18,7 @@ import tconstruct.library.util.CoordTuple;
 
 public class SmelteryComponent extends LogicComponent
 {
-    final IInventory master;
+    final AdaptiveSmelteryLogic master;
     final SmelteryScan structure;
     final MultiFluidTank multitank;
     int maxTemp;
@@ -33,7 +33,7 @@ public class SmelteryComponent extends LogicComponent
 
     CoordTuple activeLavaTank;
 
-    public SmelteryComponent(IInventory inventory, SmelteryScan structure, MultiFluidTank multitank, int maxTemp)
+    public SmelteryComponent(AdaptiveSmelteryLogic inventory, SmelteryScan structure, MultiFluidTank multitank, int maxTemp)
     {
         master = inventory;
         this.structure = structure;
@@ -74,6 +74,16 @@ public class SmelteryComponent extends LogicComponent
         }
     }
 
+    public void updateTemperatures ()
+    {
+        inUse = true;
+        for (int i = 0; i < meltingTemps.length; i++)
+        {
+            meltingTemps[i] = Smeltery.instance.getLiquifyTemperature(master.getStackInSlot(i));
+            System.out.println("New temp: " + meltingTemps[i]);
+        }
+    }
+
     public void heatItems ()
     {
         if (fuelTicks > 0)
@@ -84,7 +94,7 @@ public class SmelteryComponent extends LogicComponent
                 fuelTicks--;
                 if (fuelTicks <= 0)
                     break;
-                
+
                 ItemStack slot = master.getStackInSlot(i);
                 if (meltingTemps[i] > 20 && slot != null)
                 {
@@ -109,10 +119,10 @@ public class SmelteryComponent extends LogicComponent
                                     multitank.addFluidToTank(liquid, true);
                                 }
                                 master.onInventoryChanged();
+                                master.setUpdateFluids();
                             }
                         }
                     }
-
                 }
 
                 else
@@ -178,7 +188,7 @@ public class SmelteryComponent extends LogicComponent
                         if (newliquid != null && newliquid.getFluid().getBlockID() == Block.lavaStill.blockID && newliquid.amount > 0)
                         {
                             foundTank = true;
-                            activeLavaTank = possibleTank;
+                            setActiveLavaTank(possibleTank);
                             iter = structure.lavaTanks.size();
 
                             FluidTankInfo[] info = ((IFluidHandler) tankContainer).getTankInfo(ForgeDirection.DOWN);
@@ -202,6 +212,11 @@ public class SmelteryComponent extends LogicComponent
                 }
             }
         }
+    }
+
+    public void setActiveLavaTank (CoordTuple coord)
+    {
+        activeLavaTank = coord;
     }
 
     private int drainFuelAmount ()
@@ -230,5 +245,23 @@ public class SmelteryComponent extends LogicComponent
     public int getMeltingPointForSlot (int slot)
     {
         return meltingTemps[slot];
+    }
+
+    /* NBT */
+    public void readNetworkNBT (NBTTagCompound tags)
+    {
+        activeTemps = tags.getIntArray("Temperature");
+        meltingTemps = tags.getIntArray("Melting");
+        int[] tank = tags.getIntArray("LavaTank");
+        if (tank != null)
+            activeLavaTank = new CoordTuple(tank[0], tank[1], tank[2]);
+    }
+
+    public void writeNetworkNBT (NBTTagCompound tags)
+    {
+        tags.setIntArray("Temperature", activeTemps);
+        tags.setIntArray("Melting", meltingTemps);
+        if (activeLavaTank != null)
+            tags.setIntArray("LavaTank", new int[] { activeLavaTank.x, activeLavaTank.y, activeLavaTank.z });
     }
 }

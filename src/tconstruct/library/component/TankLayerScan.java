@@ -30,12 +30,12 @@ public class TankLayerScan extends LogicComponent
     protected HashSet<CoordTuple> layerBlockCoords = new HashSet<CoordTuple>();
     protected HashSet<CoordTuple> layerAirCoords = new HashSet<CoordTuple>();
 
-    protected ArrayList<CoordTuple> blockCoords = new ArrayList<CoordTuple>();
-    protected ArrayList<CoordTuple> airCoords = new ArrayList<CoordTuple>();
+    public ArrayList<CoordTuple> blockCoords = new ArrayList<CoordTuple>();
+    public ArrayList<CoordTuple> airCoords = new ArrayList<CoordTuple>();
     protected ArrayList<int[]> validAirCoords = new ArrayList<int[]>();
     protected CoordTuple returnStone;
 
-    private boolean debug = true;
+    private boolean debug = false;
 
     public TankLayerScan(TileEntity te, Block... ids)
     {
@@ -140,15 +140,6 @@ public class TankLayerScan extends LogicComponent
                 }
             }
         }
-
-        if (completeStructure)
-        {
-
-        }
-        else
-        {
-
-        }
     }
 
     protected void finalizeStructure ()
@@ -161,9 +152,22 @@ public class TankLayerScan extends LogicComponent
         return completeStructure;
     }
 
+    public int getAirLayerSize ()
+    {
+        return layerAirCoords.size();
+    }
+
     public int getAirSize ()
     {
         return airBlocks;
+    }
+
+    public CoordTuple getAirByIndex (int index)
+    {
+        if (index >= airCoords.size() || index < 0)
+            return null;
+
+        return airCoords.get(index);
     }
 
     private byte getDirection ()
@@ -400,9 +404,7 @@ public class TankLayerScan extends LogicComponent
             TileEntity te = world.getBlockTileEntity(coord.x, coord.y, coord.z);
             if (te != null && te instanceof IServantLogic)
             {
-                IServantLogic servant = (IServantLogic) te;
-                if (servant != null)
-                    servant.invalidateMaster(imaster, world, master.xCoord, master.yCoord, master.zCoord);
+                ((IServantLogic) te).invalidateMaster(imaster, world, master.xCoord, master.yCoord, master.zCoord);
             }
         }
     }
@@ -448,7 +450,7 @@ public class TankLayerScan extends LogicComponent
                 airCoords.add(new CoordTuple(coord[0], coord[1], coord[2]));
             }
         }
-        
+
         super.readFromNBT(tags);
     }
 
@@ -480,12 +482,12 @@ public class TankLayerScan extends LogicComponent
             air.appendTag(new NBTTagIntArray("coord", new int[] { coord.x, coord.y, coord.z }));
         }
         tags.setTag("Air", air);
-        
+
         super.writeToNBT(tags);
     }
-    
+
     public void writeNetworkNBT (NBTTagCompound tags)
     {
-        tags.setBoolean("Complete", completeStructure);        
+        tags.setBoolean("Complete", completeStructure);
     }
 }

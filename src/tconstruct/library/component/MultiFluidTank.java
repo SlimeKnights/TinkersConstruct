@@ -168,9 +168,11 @@ public class MultiFluidTank extends LogicComponent implements IFluidTank
         info[fluidlist.size()] = new FluidTankInfo(null, maxLiquid - currentLiquid);
         return info;
     }
+    
+    /* Sync liquids */
 
     @Override
-    public void readFromNBT (NBTTagCompound tags)
+    public void readNetworkNBT (NBTTagCompound tags)
     {
         NBTTagList liquidTag = tags.getTagList("Liquids");
         fluidlist.clear();
@@ -184,7 +186,7 @@ public class MultiFluidTank extends LogicComponent implements IFluidTank
     }
 
     @Override
-    public void writeToNBT (NBTTagCompound tags)
+    public void writeNetworkNBT (NBTTagCompound tags)
     {
         NBTTagList taglist = new NBTTagList();
         for (FluidStack liquid : fluidlist)
