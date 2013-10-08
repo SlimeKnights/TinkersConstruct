@@ -405,7 +405,7 @@ public class TContent implements IFuelHandler
         GameRegistry.registerBlock(castingChannel, CastingChannelItem.class, "CastingChannel");
         GameRegistry.registerTileEntity(CastingChannelLogic.class, "CastingChannel");
 
-        tankAir = new TankAirBlock(PHConstruct.airTank, Material.air).setUnlocalizedName("tconstruct.tank.air");
+        tankAir = new TankAirBlock(PHConstruct.airTank, Material.air).setBlockUnbreakable().setUnlocalizedName("tconstruct.tank.air");
         GameRegistry.registerBlock(tankAir, "TankAir");
         GameRegistry.registerTileEntity(TankAirLogic.class, "tconstruct.tank.air");
 
