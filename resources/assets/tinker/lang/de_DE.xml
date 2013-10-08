@@ -186,6 +186,11 @@
   <entry key="item.tconstruct.Materials.AlumiteNugget.name">Alumitklumpen</entry>
   <entry key="item.tconstruct.Materials.SteelNugget.name">Stahlklumpen</entry>
   
+  <entry key="item.tconstruct.ArmorPattern.helmet.name">Helmgussform</entry>
+  <entry key="item.tconstruct.ArmorPattern.chestplate.name">Brustpanzergussform</entry>
+  <entry key="item.tconstruct.ArmorPattern.leggings.name">Beinschutzgussform</entry>
+  <entry key="item.tconstruct.ArmorPattern.boots.name">Stiefelgussform</entry>
+  
   <entry key="item.tconstruct.jerky.beef.name">Rindfleisch-Charqui</entry>
   <entry key="item.tconstruct.jerky.pig.name">Schweinefleisch-Charqui</entry>
   <entry key="item.tconstruct.jerky.chicken.name">Hühnchen-Charqui</entry>
