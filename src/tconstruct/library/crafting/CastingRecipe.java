@@ -2,6 +2,7 @@ package tconstruct.library.crafting;
 
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
+import tconstruct.library.client.FluidRenderProperties;
 
 public class CastingRecipe
 {
@@ -10,14 +11,16 @@ public class CastingRecipe
     public ItemStack cast;
     public boolean consumeCast;
     public int coolTime;
+    public FluidRenderProperties fluidRenderProperties;
 
-    public CastingRecipe(ItemStack replacement, FluidStack metal, ItemStack cast, boolean consume, int delay)
+    public CastingRecipe(ItemStack replacement, FluidStack metal, ItemStack cast, boolean consume, int delay, FluidRenderProperties props)
     {
         castingMetal = metal;
         this.cast = cast;
         output = replacement;
         consumeCast = consume;
         coolTime = delay;
+        fluidRenderProperties = props;
     }
 
     public boolean matches (FluidStack metal, ItemStack inputCast)

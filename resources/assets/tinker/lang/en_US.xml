@@ -186,6 +186,11 @@
   <entry key="item.tconstruct.Materials.AlumiteNugget.name">Alumite Nugget</entry>
   <entry key="item.tconstruct.Materials.SteelNugget.name">Steel Nugget</entry>
   
+  <entry key="item.tconstruct.ArmorPattern.helmet.name">Helmet Cast</entry>
+  <entry key="item.tconstruct.ArmorPattern.chestplate.name">Chestplate Cast</entry>
+  <entry key="item.tconstruct.ArmorPattern.leggings.name">Leggings Cast</entry>
+  <entry key="item.tconstruct.ArmorPattern.boots.name">Boots Cast</entry>
+  
   <entry key="item.tconstruct.jerky.beef.name">Beef Jerky</entry>
   <entry key="item.tconstruct.jerky.pig.name">Bacon Jerky</entry>
   <entry key="item.tconstruct.jerky.chicken.name">Chicken Jerky</entry>

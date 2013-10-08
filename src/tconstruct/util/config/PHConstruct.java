@@ -185,6 +185,7 @@ public class PHConstruct
         toolShard = config.getItem("Patterns and Misc", "Tool Shard", 14022).getInt(14022);
         woodPattern = config.getItem("Patterns and Misc", "Wood Pattern", 14023).getInt(14023);
         metalPattern = config.getItem("Patterns and Misc", "Metal Pattern", 14024).getInt(14024);
+        armorPattern = config.getItem("Patterns and Misc", "Armor Pattern", 14025).getInt(14025);
 
         pickaxeHead = config.getItem("Tool Parts", "Pickaxe Head", 14026).getInt(14026);
         shovelHead = config.getItem("Tool Parts", "Shovel Head", 14027).getInt(14027);
@@ -488,6 +489,7 @@ public class PHConstruct
     public static int toolShard;
     public static int woodPattern;
     public static int metalPattern;
+    public static int armorPattern;
 
     public static int manual;
     public static int buckets;

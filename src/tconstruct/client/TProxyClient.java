@@ -27,6 +27,7 @@ import org.lwjgl.opengl.GL11;
 import org.w3c.dom.Document;
 import tconstruct.TConstruct;
 import tconstruct.blocks.logic.*;
+import tconstruct.client.armor.RenderArmorCast;
 import tconstruct.client.block.*;
 import tconstruct.client.entity.*;
 import tconstruct.client.entity.projectile.*;
@@ -939,4 +940,10 @@ public class TProxyClient extends TProxyCommon
             return null;
         }
     }
+    
+    @Override
+	public void postInit() {
+		MinecraftForgeClient.registerItemRenderer(TContent.armorPattern.itemID, new RenderArmorCast());
+	}
+    
 }
