@@ -24,7 +24,7 @@ public class TProxyCommon implements IGuiHandler
     public static int frypanGuiID = 4;
     public static int toolForgeID = 5;
     public static int smelteryGuiID = 7;
-
+    
     public static int drawbridgeID = 9;
     public static int landmineID = 10;
     public static int craftingStationID = 11;
@@ -32,6 +32,7 @@ public class TProxyCommon implements IGuiHandler
     public static int inventoryGui = 100;
     public static int armorGuiID = 101;
     public static int knapsackGuiID = 102;
+
 
     public static int manualGuiID = -1;
 
@@ -96,7 +97,7 @@ public class TProxyCommon implements IGuiHandler
     {
 
         String langDir = "/assets/tinker/lang/";
-        String[] langFiles = { "en_US.xml", "de_DE.xml", "it_IT.xml", "pl_Pl.xml", "ru_RU.xml", "zh_CN.xml" };
+        String[] langFiles = { "en_US.xml", "de_DE.xml","pl_Pl.xml", "ru_RU.xml", "zh_CN.xml" };
 
         for (String langFile : langFiles)
         {
