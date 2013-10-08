@@ -1,6 +1,7 @@
 package tconstruct.blocks.component;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import net.minecraft.block.Block;
 import net.minecraft.tileentity.TileEntity;
@@ -24,7 +25,7 @@ public class SmelteryScan extends TankLayerScan
         lavaTanks.clear();
         super.checkValidStructure();
     }
-    
+
     @Override
     protected boolean checkServant (int x, int y, int z)
     {
@@ -46,24 +47,38 @@ public class SmelteryScan extends TankLayerScan
 
         return false;
     }
-    
+
     protected void finalizeStructure ()
     {
         super.finalizeStructure();
-        for (CoordTuple coord : airCoords)
+        if (lavaTanks.size() < 1)
+            completeStructure = false;
+        else
         {
-            world.setBlock(coord.x, coord.y, coord.z, TContent.tankAir.blockID);
-            IServantLogic servant = (IServantLogic) world.getBlockTileEntity(coord.x, coord.y, coord.z);
-            servant.verifyMaster(imaster, world, master.xCoord, master.yCoord, master.zCoord);
+            for (CoordTuple coord : airCoords)
+            {
+                world.setBlock(coord.x, coord.y, coord.z, TContent.tankAir.blockID);
+                IServantLogic servant = (IServantLogic) world.getBlockTileEntity(coord.x, coord.y, coord.z);
+                servant.verifyMaster(imaster, world, master.xCoord, master.yCoord, master.zCoord);
+            }
         }
     }
-    
-    /*protected void addAirBlock (int x, int y, int z)
+
+    @Override
+    public void cleanup ()
     {
-        super.addAirBlock(x, y, z);
-        world.setBlock(x, y, z, Block.glass.blockID);
-    }*/
-    
+        super.cleanup();
+        Iterator i = airCoords.iterator();
+        while (i.hasNext())
+        {
+            CoordTuple coord = (CoordTuple) i.next();
+            TileEntity te = world.getBlockTileEntity(coord.x, coord.y, coord.z);
+            if (te != null && te instanceof IServantLogic)
+            {
+                ((IServantLogic) te).invalidateMaster(imaster, world, master.xCoord, master.yCoord, master.zCoord);
+            }
+        }
+    }
     /*public void cleanup()
     {
         System.out.println("Structure cleanup activated. Air blocks: "+airCoords.size());

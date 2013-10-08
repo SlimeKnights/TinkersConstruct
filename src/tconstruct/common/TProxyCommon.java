@@ -1,18 +1,15 @@
 package tconstruct.common;
 
-import net.minecraft.entity.Entity;
+import cpw.mods.fml.common.network.IGuiHandler;
+import cpw.mods.fml.common.registry.LanguageRegistry;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import tconstruct.TConstruct;
 import tconstruct.blocks.logic.TileEntityLandmine;
-import tconstruct.inventory.ArmorExtendedContainer;
-import tconstruct.inventory.ContainerLandmine;
-import tconstruct.inventory.KnapsackContainer;
+import tconstruct.inventory.*;
 import tconstruct.library.blocks.InventoryLogic;
 import tconstruct.util.player.TPlayerStats;
-import cpw.mods.fml.common.network.IGuiHandler;
-import cpw.mods.fml.common.registry.LanguageRegistry;
 
 /**
  * Common proxy class for InfiTools
@@ -221,4 +218,8 @@ public class TProxyCommon implements IGuiHandler
     public static final String[] patternNames = new String[] { "Ingot", "Tool Rod", "Pickaxe Head", "Shovel Head", "Axe Head", "Sword Blade", "Wide Guard", "Hand Guard", "Crossbar", "Tool Binding",
             "Pan", "Board", "Knife Blade", "Chisel Head", "Tough Tool Rod", "Tough Binding", "Large Plate", "Broad Axe Head", "Scythe Head", "Broad Shovel Head", "Large Blade", "Hammer Head",
             "Full Guard", "Bowstring", "Fletching", "Arrowhead" };
+    
+    public void postInit(){
+    	
+    }
 }

@@ -1,5 +1,11 @@
 package tconstruct.util;
 
+import tconstruct.blocks.TankAirBlock;
+
+import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
+
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
@@ -1554,4 +1560,15 @@ public class TEventHandler
         }
     }
 
+    //Player interact event - prevent breaking of tank air blocks in creative
+    @ForgeSubscribe
+    public void playerInteract(PlayerInteractEvent event){
+    	if(event.action == Action.LEFT_CLICK_BLOCK){
+    		Block block = Block.blocksList[event.entity.worldObj.getBlockId(event.x, event.y, event.z)];
+    		if(block instanceof TankAirBlock){
+    			event.setCanceled(true);
+    		}
+    	}
+    }
+    
 }
