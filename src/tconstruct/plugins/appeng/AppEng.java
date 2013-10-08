@@ -18,6 +18,7 @@ public class AppEng {
 
     public static Logger logger = Logger.getLogger("TConstruct AE");
     private static List<String> spatialIOLogics = Arrays.asList(
+        "AdaptiveSmelteryLogic",
         "AdvancedDrawbridgeLogic",
         "AqueductLogic",
         "CastingBasinLogic",
