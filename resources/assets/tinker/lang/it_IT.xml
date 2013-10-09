@@ -2,7 +2,7 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties version = "1.0">
   <entry key="itemGroup.TConstructTools">TConstruct Attrezzi</entry>
-  <entry key="itemGroup.TConstructMaterials">TConstruct Materiale</entry>
+  <entry key="itemGroup.TConstructMaterials">TConstruct Materiali</entry>
   <entry key="itemGroup.TConstructBlocks">TConstruct Blocchi</entry>
   
   <entry key="crafters.ToolStation">Tavolo degli Attrezzi</entry>
@@ -34,15 +34,15 @@
   <entry key="MetalOre.Ardite.name">Ardite Grezzo</entry>
   <entry key="MetalOre.Copper.name">Rame Grezzo</entry>
   <entry key="MetalOre.Tin.name">Stagno Grezzo</entry>
-  <entry key="MetalOre.Aluminum.name">Alluminio Ore</entry>
-  <entry key="MetalOre.Slag.name">Scorie di Piestra</entry>
+  <entry key="MetalOre.Aluminum.name">Alluminio Grezzo</entry>
+  <entry key="MetalOre.Slag.name">Scorie di Pietra</entry>
   
   <entry key="block.oreberry.iron.name">Cespuglio di Baccagrezza di Ferro</entry>
   <entry key="block.oreberry.gold.name">Cespuglio di Baccagrezza d'Oro</entry>
   <entry key="block.oreberry.copper.name">Cespuglio di Baccagrezza di Rame</entry>
   <entry key="block.oreberry.tin.name">Cespuglio di Baccagrezza di Stagno</entry>
   <entry key="block.oreberry.aluminum.name">Cespuglio di Baccagrezza di Alluminio</entry>
-  <entry key="block.oreberry.essence.name">Cespuglio di Bacca di Essenza/entry>
+  <entry key="block.oreberry.essence.name">Cespuglio di Bacca di Essenza</entry>
   
   <entry key="block.ore.gravel.iron.name">Ferro Ghiaioso</entry>
   <entry key="block.ore.gravel.gold.name">Oro Ghiaioso</entry>
@@ -54,7 +54,7 @@
   <entry key="block.brownstone.rough.name">Brownstone Ruvida</entry>
   <entry key="block.brownstone.rough.road.name">Strada di Brownstone</entry>
   <entry key="block.brownstone.smooth.name">Brownstone</entry>
-  <entry key="block.brownstone.smooth.brick.name">Mattoni di Brownstone/entry>
+  <entry key="block.brownstone.smooth.brick.name">Mattoni di Brownstone</entry>
   <entry key="block.brownstone.smooth.road.name">Strada di Brownstone</entry>
   <entry key="block.brownstone.smooth.fancy.name">Brownstone Decorativo</entry>
   <entry key="block.brownstone.smooth.chiseled.name">Brownstone Cesellato</entry>
@@ -121,7 +121,7 @@
   <entry key="item.oreberry.copper.name">Baccagrezza di Rame</entry>
   <entry key="item.oreberry.tin.name">Baccagrezza di Stagno</entry>
   <entry key="item.oreberry.aluminum.name">Baccagrezza di Alluminio</entry>
-  <entry key="item.oreberry.essence.name">Bacca Concentratas di Essenza</entry>
+  <entry key="item.oreberry.essence.name">Bacca Concentrata di Essenza</entry>
   
   <entry key="item.goldenhead.name">Testa d'Oro</entry>
   <entry key="item.tconstruct.titleicon.name">Spawn </entry>
@@ -133,7 +133,7 @@
   <entry key="item.InfiTool.Longsword.name">Spada Lunga</entry>
   <entry key="item.InfiTool.Rapier.name">Stocco</entry>
   <entry key="item.InfiTool.Frypan.name">Padella</entry>
-  <entry key="item.InfiTool.Battlesign.name">Insigne</entry>
+  <entry key="item.InfiTool.Battlesign.name">Insigna da Guerra</entry>
   <entry key="item.InfiTool.Dagger.name">Daga</entry>
   <entry key="item.InfiTool.Chisel.name">Cesello</entry>
   <entry key="item.InfiTool.Scythe.name">Falce</entry>
@@ -146,7 +146,7 @@
   <entry key="item.InfiTool.Shortbow.name">Arco Corto</entry>
   <entry key="item.InfiTool.Arrow.name">Freccia</entry>
   <entry key="item.InfiTool.PotionLauncher.name">Lanciatore di Pozzioni</entry>
-  <entry key="item.InfiTool.Mattock.name">Zappak</entry>
+  <entry key="item.InfiTool.Mattock.name">Zappa</entry>
   
   <entry key="item.tconstruct.Pattern.blank_pattern.name">Modello</entry>
   <entry key="item.tconstruct.Pattern.blank_cast.name">Stampo</entry>
@@ -167,16 +167,16 @@
   <entry key="item.tconstruct.Materials.BronzeIngot.name">Lingotto di Bronzo</entry>
   <entry key="item.tconstruct.Materials.AluBrassIngot.name">Lingotto di Ottone</entry>
   <entry key="item.tconstruct.Materials.AlumiteIngot.name">Lingotto di Alumite</entry>
-  <entry key="item.tconstruct.Materials.SteelIngot.name">Lingotto di Acciaio</entry>
+  <entry key="item.tconstruct.Materials.SteelIngot.name">Lingotto d'Acciaio</entry>
   <entry key="item.tconstruct.Materials.BlueSlimeCrystal.name">Cristallo di Slime</entry>
   <entry key="item.tconstruct.Materials.ObsidianIngot.name">Lingotto di Ossidiana</entry>
   <entry key="item.tconstruct.Materials.IronNugget.name">Pepita di Ferro</entry>
   <entry key="item.tconstruct.Materials.CopperNugget.name">Pepita di Rame</entry>
   <entry key="item.tconstruct.Materials.TinNugget.name">Pepita di Stagno</entry>
   <entry key="item.tconstruct.Materials.AluminumNugget.name">Pepita di Alluminio</entry>
-  <entry key="item.tconstruct.Materials.EssenceCrystal.name">Cristallo Falso di Essenza</entry>
+  <entry key="item.tconstruct.Materials.EssenceCrystal.name">Cristallo Falsa di Essenza</entry>
   <entry key="item.tconstruct.Materials.AluBrassNugget.name">Pepita di Ottone</entry>
-  <entry key="item.tconstruct.Materials.SilkyCloth.name">Stoffa Vellutato</entry>
+  <entry key="item.tconstruct.Materials.SilkyCloth.name">Stoffa Vellutata</entry>
   <entry key="item.tconstruct.Materials.SilkyJewel.name">Gioiello Vellutato</entry>
   <entry key="item.tconstruct.Materials.ObsidianNugget.name">Pepita di Ossidiana</entry>
   <entry key="item.tconstruct.Materials.CobaltNugget.name">Pepita di Cobalto</entry>
@@ -184,16 +184,21 @@
   <entry key="item.tconstruct.Materials.ManyullynNugget.name">Pepita di Manyullyn</entry>
   <entry key="item.tconstruct.Materials.BronzeNugget.name">Pepita di Bronzo</entry>
   <entry key="item.tconstruct.Materials.AlumiteNugget.name">Pepita di Alumite</entry>
-  <entry key="item.tconstruct.Materials.SteelNugget.name">Pepita di Acciaio</entry>
+  <entry key="item.tconstruct.Materials.SteelNugget.name">Pepita d'Acciaio</entry>
   
-  <entry key="item.tconstruct.jerky.beef.name">Bisteccha Essicata</entry>
+  <entry key="item.tconstruct.ArmorPattern.helmet.name">Stampo di Elmo</entry>
+  <entry key="item.tconstruct.ArmorPattern.chestplate.name">Stampo di Corazza</entry>
+  <entry key="item.tconstruct.ArmorPattern.leggings.name">Stampo di Gambali</entry>
+  <entry key="item.tconstruct.ArmorPattern.boots.name">Stampo di Stivali</entry>
+  
+<entry key="item.tconstruct.jerky.beef.name">Bisteccha Essicata</entry>
   <entry key="item.tconstruct.jerky.pig.name">Pancetta Essicata</entry>
   <entry key="item.tconstruct.jerky.chicken.name">Pollo Essicato</entry>
   <entry key="item.tconstruct.jerky.sheep.name">Montone Essicato</entry>
   <entry key="item.tconstruct.jerky.fish.name">Pesce Essicato</entry>
   <entry key="item.tconstruct.jerky.zombie.name">Carne Marcia Essicata</entry>
   
-  <entry key="item.tconstruct.crystal.essence.name">Cristallo d'Essenza</entry>
+  <entry key="item.tconstruct.crystal.essence.name">Cristallo di Essenza</entry>
   
   <entry key="Smeltery.Controller.name">Pannello di Controllo della Fonderia</entry>
   <entry key="Smeltery.Drain.name">Scarico della Fonderia</entry>
@@ -209,11 +214,11 @@
   <entry key="Smeltery.Channel.name">Canale della Fonderia</entry>
   
   <entry key="LavaTank.Tank.name">Serbatoio della Fonderia/entry>
-  <entry key="LavaTank.Gague.name">Vetro Bruciato</entry>
-  <entry key="LavaTank.Window.name">Finestra Bruciata</entry>
+  <entry key="LavaTank.Gague.name">Vetro di Mattoni Bruciati</entry>
+  <entry key="LavaTank.Window.name">Finestra di Mattoni Bruciati</entry>
   
   <entry key="block.drawbridge.name">Ponte Mobile</entry>
-  <entry key="block.firestarter.name">Accenditore</entry>
+  <entry key="block.firestarter.name">Accendino</entry>
   <entry key="tile.landmine.name">Mina</entry>
   
   <entry key="tile.trap.punji.name">Bastone Punji</entry>
@@ -232,7 +237,7 @@
   <entry key="StorageMetals.Aluminum.name">Blocco di Alluminio</entry>
   <entry key="StorageMetals.AlBrass.name">Blocco di Ottone</entry>
   <entry key="StorageMetals.Alumite.name">Blocco di Alumite</entry>
-  <entry key="StorageMetals.Steel.name">Blocco di Acciaio</entry>
+  <entry key="StorageMetals.Steel.name">Blocco d'Acciaio</entry>
   <entry key="StorageMetals.Ender.name">Blocco di Ender Solido</entry>
   
   <entry key="tile.decoration.stonetorch.name">Torcia</entry>
@@ -404,7 +409,7 @@
   <entry key="item.food.apple.diamond.name">Mela Diamantata</entry>
   <entry key="item.tconstruct.strangefood.edibleslime.name">Slime Gelatinoso</entry>
   <entry key="item.tconstruct.canister.empty.name">Contenitore Vuoto</entry>
-  <entry key="item.tconstruct.canister.miniheart.red.name">Cuore Rosso Miniaturizzata</entry>
+  <entry key="item.tconstruct.canister.miniheart.red.name">Cuore Rosso Miniaturizzato</entry>
   <entry key="item.tconstruct.canister.heart.name">Contenitore di Cuori</entry>
   <entry key="item.tconstruct.glove.name">Guanti dello Scavatore</entry>
   
@@ -417,13 +422,13 @@
   <entry key="entity.TConstruct.Gardeslime.name">Slime Guardiani</entry> 
   <entry key="entity.TConstruct.MiniGardy.name">Slime Guardiani</entry> 
   
-  <entry key="key.tarmor">Gui Armatura</entry>
-  <entry key="key.tcapes.reload">Reload Mantelli</entry>
+  <entry key="key.tarmor">Gui dell'Armatura</entry>
+  <entry key="key.tcapes.reload">Ricarica Mantelli</entry>
   
-  <entry key="death.one.smeltery">%1$s è trasformato in Soylent Verde</entry>
-  <entry key="death.two.smeltery">%1$s é fuso con la Fonderia</entry>
+  <entry key="death.one.smeltery">%1$s è trasformato in una massa di proteine</entry>
+  <entry key="death.two.smeltery">%1$s è fuso nella la Fonderia</entry>
   <entry key="death.three.smeltery">%1$s sarà una pietra miliare per la nostra rivoluzione!</entry>
-  <entry key="death.four.smeltery">%1$s pensò che nuotare in metalli fusi foss una buona idea</entry>
+  <entry key="death.four.smeltery">%1$s pensò che nuotare in liquidi bollenti fosse una buona idea</entry>
   
   <entry key="parttype.wood">di Legno</entry>
   <entry key="parttype.stone">di Pietra</entry>
@@ -441,9 +446,9 @@
   <entry key="parttype.copper">di Rame</entry>
   <entry key="parttype.bronze">di Bronzo</entry>
   <entry key="parttype.alumite">di Alumite</entry>
-  <entry key="parttype.steel">di Acciaio</entry>
+  <entry key="parttype.steel">d'Acciaio</entry>
   <entry key="parttype.blueslime">di Slime</entry>
-  <entry key="parttype.thaumium">di Thaumium</entry>
+  <entry key="parttype.thaumium">di Taumium</entry>
   
   <entry key="toolpart.ToolRod">Manico</entry>
   <entry key="toolpart.PickHead">Testa di Piccone</entry>
@@ -452,7 +457,7 @@
   <entry key="toolpart.Binding">Legatura</entry>
   <entry key="toolpart.ToughBind">Legatura Resistente</entry>
   <entry key="toolpart.ToughRod">Manico Resistente</entry>
-  <entry key="toolpart.LargePlate">Grande Piastra</entry>
+  <entry key="toolpart.LargePlate">Piastra Grande</entry>
   <entry key="toolpart.SwordBlade">Lama di Spada</entry>
   <entry key="toolpart.LargeGuard">Guardia Larga</entry>
   <entry key="toolpart.MediumGuard">Guardia Media</entry>
@@ -469,32 +474,32 @@
   <entry key="toolpart.LargeSwordBlade">Grande Lama di Spada</entry>
   <entry key="toolpart.HammerHead">Testa di Martello</entry>
   <entry key="toolpart.Bowstring">Corda d'Arco</entry>
-  <entry key="toolpart.ArrowHead">Testa di Frecci</entry>
+  <entry key="toolpart.ArrowHead">Testa di Freccia</entry>
   <entry key="toolpart.Fletching">Impennaggio</entry>
   
-  <entry key="molten iron">Ferro Fuso</entry>
-  <entry key="molten gold">MOro Fuso</entry>
-  <entry key="molten copper">Rame Fuso</entry>
-  <entry key="molten tin">Stagno Fuso</entry>
-  <entry key="molten aluminum">Alluminio Fuso</entry>
-  <entry key="molten cobalt">Cobalto Fuso</entry>
-  <entry key="molten ardite">Ardite Fusa</entry>
-  <entry key="molten bronze">Bronzo Fuso</entry>
-  <entry key="molten aluminum brass">Ottone Fuso</entry>
-  <entry key="molten manyullyn">Manyullyn Fuso</entry>
-  <entry key="molten alumite">Alumite Fusa</entry>
-  <entry key="molten obsidian">Ossidiana Fusa</entry>
-  <entry key="molten steel">Acciaio Fuso</entry>
-  <entry key="molten glass">Vetro Fuso</entry>
-  <entry key="seared stone">Pietra Bruciata Fusa</entry>
-  <entry key="liquified emerald">Smeraldo Liquefatto</entry>
-  <entry key="blood">Sangue</entry>
-  <entry key="molten nickel">Nichel Fuso</entry>
-  <entry key="molten lead">Piombo Fuso</entry>
-  <entry key="molten silver">Argento Fuso</entry>
-  <entry key="molten platinum">Platino Fuso</entry>
-  <entry key="molten invar">Invaro Fuso</entry>
-  <entry key="molten shiny">Platino Fuso</entry>
-  <entry key="ender">Ender Liquido</entry>
+  <entry key="fluid.iron.molten">Ferro Fuso</entry>
+  <entry key="fluid.gold.molten">Oro Fuso</entry>
+  <entry key="fluid.copper.molten">Rame Fuso</entry>
+  <entry key="fluid.tin.molten">Stagno Fuso</entry>
+  <entry key="fluid.aluminum.molten">Alluminio Fuso</entry>
+  <entry key="fluid.cobalt.molten">Cobalto Fuso</entry>
+  <entry key="fluid.ardite.molten">Ardite Fusa</entry>
+  <entry key="fluid.bronze.molten">Bronzo Fuso</entry>
+  <entry key="fluid.aluminumbrass.molten">Ottone Fuso</entry>
+  <entry key="fluid.manyullyn.molten">Manyullyn Fuso</entry>
+  <entry key="fluid.alumite.molten">Alumite Fusa</entry>
+  <entry key="fluid.obsidian.molten">Ossidiana Fusa</entry>
+  <entry key="fluid.steel.molten">Acciaio Fuso</entry>
+  <entry key="fluid.glass.molten">Vetro Fuso</entry>
+  <entry key="fluid.stone.seared">Pietra Bruciata Fusa</entry>
+  <entry key="fluid.emerald.liquid">Smeraldo Liquefatto</entry>
+  <entry key="fluid.blood">Sangue</entry>
+  <entry key="fluid.nickel.molten">Nichel Fuso</entry>
+  <entry key="fluid.lead.molten">Piombo Fuso</entry>
+  <entry key="fluid.silver.molten">Argento Fuso</entry>
+  <entry key="fluid.platinum.molten">Platino Fuso</entry>
+  <entry key="fluid.invar">Invaro Fuso</entry>
+  <entry key="fluid.shiny">Platino Fuso</entry> ---- Elettro?
+  <entry key="fluid.ender">Ender Liquido</entry>
   
 </properties>
