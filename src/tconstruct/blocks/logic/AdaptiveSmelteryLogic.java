@@ -245,7 +245,7 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
 
     void updateWorldBlock (int slot, ItemStack itemstack)
     {
-        CoordTuple air = structure.airCoords.get(slot);//structure.getAirByIndex(slot);
+        CoordTuple air = structure.getAirByIndex(slot);
         if (air != null)
         {
             TileEntity te = worldObj.getBlockTileEntity(air.x, air.y, air.z);
@@ -424,87 +424,6 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
     {
         return "crafters.Smeltery";
     }
-    
-    /*@Override
-    public int fill (ForgeDirection from, FluidStack resource, boolean doFill)
-    {
-        if (hasValidMaster() && resource != null && canFill(from, resource.getFluid()))
-        {
-            if (doFill)
-            {
-                AdaptiveSmelteryLogic smeltery = (AdaptiveSmelteryLogic) worldObj.getBlockTileEntity(master.x, master.y, master.z);
-                return smeltery.fill(resource, doFill);
-            }
-            else
-            {
-                return resource.amount;
-            }
-        }
-        else
-        {
-        }
-        return 0;
-    }
-
-    @Override
-    public FluidStack drain (ForgeDirection from, int maxDrain, boolean doDrain)
-    {
-        if (hasValidMaster() && canDrain(from, null))
-        {
-            AdaptiveSmelteryLogic smeltery = (AdaptiveSmelteryLogic) worldObj.getBlockTileEntity(master.x, master.y, master.z);
-            return smeltery.drain(maxDrain, doDrain);
-        }
-        else
-        {
-            return null;
-        }
-    }
-
-    @Override
-    public FluidStack drain (ForgeDirection from, FluidStack resource, boolean doDrain)
-    {
-        return null;
-    }
-
-    @Override
-    public boolean canFill (ForgeDirection from, Fluid fluid)
-    {
-        return true;
-    }
-
-    @Override
-    public boolean canDrain (ForgeDirection from, Fluid fluid)
-    {
-        // Check that the drain is coming from the from the front of the block 
-        // and that the fluid to be drained is in the smeltery.
-        boolean containsFluid = fluid == null;
-        if (fluid != null)
-        {
-            AdaptiveSmelteryLogic smeltery = (AdaptiveSmelteryLogic) worldObj.getBlockTileEntity(master.x, master.y, master.z);
-            for (FluidStack fstack : smeltery.moltenMetal)
-            {
-                if (fstack.fluidID == fluid.getID())
-                {
-                    containsFluid = true;
-                    break;
-                }
-            }
-        }
-        //return from == getForgeDirection().getOpposite() && containsFluid;
-        return containsFluid;
-    }
-
-    @Override
-    public FluidTankInfo[] getTankInfo (ForgeDirection from)
-    {
-        if (hasValidMaster() && (from == getForgeDirection() || from == getForgeDirection().getOpposite() || from == ForgeDirection.UNKNOWN))
-        {
-            AdaptiveSmelteryLogic smeltery = (AdaptiveSmelteryLogic) worldObj.getBlockTileEntity(master.x, master.y, master.z);
-            return smeltery.getMultiTankInfo();
-            //return new FluidTankInfo[] { smeltery.getInfo() };
-        }
-        return null;
-    }*/
     
     /* Fluids */
 

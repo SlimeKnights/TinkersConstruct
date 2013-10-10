@@ -100,7 +100,7 @@ public class SmelteryComponent extends LogicComponent
                     hasUse = true;
                     if (activeTemps[i] < maxTemp && activeTemps[i] < meltingTemps[i])
                     {
-                        activeTemps[i] += 10;
+                        activeTemps[i] += 1;
                     }
                     else if (activeTemps[i] >= meltingTemps[i] && !world.isRemote)
                     {

@@ -36,7 +36,7 @@ public class TankLayerScan extends LogicComponent
     protected ArrayList<int[]> validAirCoords = new ArrayList<int[]>();
     protected CoordTuple returnStone;
 
-    private boolean debug = true;
+    private boolean debug = false;
 
     public TankLayerScan(TileEntity te, Block... ids)
     {

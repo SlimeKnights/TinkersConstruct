@@ -12,8 +12,10 @@ import net.minecraft.util.Icon;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTankInfo;
 
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
@@ -106,23 +108,30 @@ public class AdaptiveSmelteryGui extends NewContainerGui
         int base = 0;
         int cornerX = (width - xSize) / 2 + 36;
         int cornerY = (height - ySize) / 2;
-        
-        /*for (FluidStack liquid : logic.moltenMetal)
+        FluidTankInfo[] info = logic.getTankInfo(ForgeDirection.UNKNOWN);
+
+        int capacity = 0;
+
+        for (int i = 0; i < info.length - 1; i++)
         {
+            FluidStack liquid = info[i].fluid;
+            if (liquid != null)
+                capacity += info[i].capacity;
+        }
+
+        for (int i = 0; i < info.length - 1; i++)
+        {
+            FluidStack liquid = info[i].fluid;
             int basePos = 54;
             int initialLiquidSize = 0;
-            int liquidSize = 0;//liquid.amount * 52 / liquidLayers;
-            if (logic.getCapacity() > 0)
+            int liquidSize = 0;
+            if (capacity > 0)
             {
-                int total = logic.getTotalLiquid();
-                int liquidLayers = (total / 20000 + 1) * 20000;
-                if (liquidLayers > 0)
-                {
-                    liquidSize = liquid.amount * 52 / liquidLayers;
-                    if (liquidSize == 0)
-                        liquidSize = 1;
-                    base += liquidSize;
-                }
+                liquidSize = liquid.amount * 52 / capacity;
+                if (liquidSize == 0)
+                    liquidSize = 1;
+                base += liquidSize;
+
             }
 
             int leftX = cornerX + basePos;
@@ -132,10 +141,10 @@ public class AdaptiveSmelteryGui extends NewContainerGui
             if (mouseX >= leftX && mouseX <= leftX + sizeX && mouseY >= topY && mouseY < topY + sizeY)
             {
                 drawFluidStackTooltip(liquid, mouseX - cornerX + 36, mouseY - cornerY);
-                
+
             }
         }
-        if (logic.fuelGague > 0)
+        /*if (logic.fuelGague > 0)
         {
             int leftX = cornerX + 117;
             int topY = (cornerY + 68) - logic.getScaledFuelGague(52);
@@ -176,34 +185,41 @@ public class AdaptiveSmelteryGui extends NewContainerGui
             }
         }*/
 
-        //Liquids - molten metal
-        /*int base = 0;
-        for (FluidStack liquid : logic.moltenMetal)
+        FluidTankInfo[] info = logic.getTankInfo(ForgeDirection.UNKNOWN);
+        int capacity = 0;
+
+        for (int i = 0; i < info.length - 1; i++)
         {
+            FluidStack liquid = info[i].fluid;
+            if (liquid != null)
+                capacity += info[i].capacity;
+        }
+
+        //Liquids - molten metal
+        int base = 0;
+        for (int i = 0; i < info.length - 1; i++)
+        {
+            FluidStack liquid = info[i].fluid;
             Icon renderIndex = liquid.getFluid().getStillIcon();
             int basePos = 54;
-            if (logic.getCapacity() > 0)
+            if (capacity > 0)
             {
-                int total = logic.getTotalLiquid();
-                int liquidLayers = (total / 20000 + 1) * 20000;
-                if (liquidLayers > 0)
+                int liquidSize = liquid.amount * 52 / capacity;
+                if (liquidSize == 0)
+                    liquidSize = 1;
+                while (liquidSize > 0)
                 {
-                    int liquidSize = liquid.amount * 52 / liquidLayers;
-                    if (liquidSize == 0)
-                        liquidSize = 1;
-                    while (liquidSize > 0)
-                    {
-                        int size = liquidSize >= 16 ? 16 : liquidSize;
-                        drawLiquidRect(cornerX + basePos, (cornerY + 68) - size - base, renderIndex, 16, size);
-                        drawLiquidRect(cornerX + basePos + 16, (cornerY + 68) - size - base, renderIndex, 16, size);
-                        drawLiquidRect(cornerX + basePos + 32, (cornerY + 68) - size - base, renderIndex, 16, size);
-                        drawLiquidRect(cornerX + basePos + 48, (cornerY + 68) - size - base, renderIndex, 4, size);
-                        liquidSize -= size;
-                        base += size;
-                    }
+                    int size = liquidSize >= 16 ? 16 : liquidSize;
+                    drawLiquidRect(cornerX + basePos, (cornerY + 68) - size - base, renderIndex, 16, size);
+                    drawLiquidRect(cornerX + basePos + 16, (cornerY + 68) - size - base, renderIndex, 16, size);
+                    drawLiquidRect(cornerX + basePos + 32, (cornerY + 68) - size - base, renderIndex, 16, size);
+                    drawLiquidRect(cornerX + basePos + 48, (cornerY + 68) - size - base, renderIndex, 4, size);
+                    liquidSize -= size;
+                    base += size;
+
                 }
             }
-        }*/
+        }
 
         //Liquid gague
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
@@ -413,7 +429,7 @@ public class AdaptiveSmelteryGui extends NewContainerGui
         tessellator.addVertexWithUV((double) (startU + 0), (double) (startV + 0), (double) this.zLevel, (double) par3Icon.getMinU(), (double) par3Icon.getMinV()); //Top left
         tessellator.draw();
     }
-    
+
     /*@Override
     public void mouseClicked(int mouseX, int mouseY, int mouseButton)
     {
