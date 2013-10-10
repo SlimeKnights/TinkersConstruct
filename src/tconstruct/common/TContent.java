@@ -1,5 +1,7 @@
 package tconstruct.common;
 
+import net.minecraftforge.common.EnumHelper;
+
 import cpw.mods.fml.common.*;
 import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.registry.*;
@@ -264,6 +266,12 @@ public class TContent implements IFuelHandler
     public static ChestGenHooks tinkerHouseChest;
     public static ChestGenHooks tinkerHousePatterns;
 
+    //Armor - basic
+    public static Item helmetWood;
+    public static Item chestplateWood;
+    public static Item leggingsWood;
+    public static Item bootsWood;
+    public static EnumArmorMaterial materialWood;
     //Temporary items
     //public static Item armorTest = new ArmorStandard(2445, 4, EnumArmorPart.HELMET).setCreativeTab(CreativeTabs.tabAllSearch);
     
@@ -885,7 +893,14 @@ public class TContent implements IFuelHandler
         //Crystalline
         essenceCrystal = new EssenceCrystal(PHConstruct.essenceCrystal).setUnlocalizedName("tconstruct.crystal.essence");
         goldHead = new GoldenHead(PHConstruct.goldHead, 4, 1.2F, false).setAlwaysEdible().setPotionEffect(Potion.regeneration.id, 10, 0, 1.0F).setUnlocalizedName("goldenhead");
-
+        
+        LiquidCasting basinCasting = TConstruct.getBasinCasting();
+        materialWood = EnumHelper.addArmorMaterial("WOOD", 2, new int[] {1, 2, 2, 1}, 3);
+        helmetWood = new ArmorBasic(PHConstruct.woodHelmet, materialWood, 0, "wood").setUnlocalizedName("tconstruct.helmetWood");
+        chestplateWood = new ArmorBasic(PHConstruct.woodChestplate, materialWood, 1, "wood").setUnlocalizedName("tconstruct.chestplateWood");
+        leggingsWood = new ArmorBasic(PHConstruct.woodPants, materialWood, 2, "wood").setUnlocalizedName("tconstruct.leggingsWood");
+        bootsWood = new ArmorBasic(PHConstruct.woodBoots, materialWood, 3, "wood").setUnlocalizedName("tconstruct.bootsWood");
+        
         //        essenceCrystal = new EssenceCrystal(PHConstruct.essenceCrystal).setUnlocalizedName("tconstruct.crystal.essence");
 
         String[] materialStrings = { "paperStack", "greenSlimeCrystal", "searedBrick", "ingotCobalt", "ingotArdite", "ingotManyullyn", "mossBall", "lavaCrystal", "necroticBone", "ingotCopper",
@@ -1270,6 +1285,16 @@ public class TContent implements IFuelHandler
         basinCasting.addCastingRecipe(new ItemStack(Block.whiteStone), new FluidStack(moltenEnderFluid, 25), new ItemStack(Block.obsidian), true, 100); //endstone
         basinCasting.addCastingRecipe(new ItemStack(metalBlock.blockID, 1, 10), new FluidStack(moltenEnderFluid, 1000), null, true, 100); //ender
 
+		//Armor casts
+		basinCasting.addCastingRecipe(new ItemStack(armorPattern, 1, 0), new FluidStack(moltenAlubrassFluid, TConstruct.ingotLiquidValue * 10), new ItemStack(helmetWood), 50);
+		basinCasting.addCastingRecipe(new ItemStack(armorPattern, 1, 0), new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 10), new ItemStack(helmetWood), 50);
+		basinCasting.addCastingRecipe(new ItemStack(armorPattern, 1, 1), new FluidStack(moltenAlubrassFluid, TConstruct.ingotLiquidValue * 10), new ItemStack(chestplateWood), 50);
+		basinCasting.addCastingRecipe(new ItemStack(armorPattern, 1, 1), new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 10), new ItemStack(chestplateWood), 50);
+		basinCasting.addCastingRecipe(new ItemStack(armorPattern, 1, 2), new FluidStack(moltenAlubrassFluid, TConstruct.ingotLiquidValue * 10), new ItemStack(leggingsWood), 50);
+		basinCasting.addCastingRecipe(new ItemStack(armorPattern, 1, 2), new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 10), new ItemStack(leggingsWood), 50);
+		basinCasting.addCastingRecipe(new ItemStack(armorPattern, 1, 3), new FluidStack(moltenAlubrassFluid, TConstruct.ingotLiquidValue * 10), new ItemStack(bootsWood), 50);
+		basinCasting.addCastingRecipe(new ItemStack(armorPattern, 1, 3), new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 10), new ItemStack(bootsWood), 50);
+        
         //TODO TEST
 //        basinCasting.addCastingRecipe(new ItemStack(armorTest), new FluidStack(moltenIronFluid, TConstruct.ingotLiquidValue * 24), new ItemStack(armorPattern, 1, 0), false, 100, new FluidRenderProperties(0.5F, 0.575F, 0.15F, 0.85F, 0.15F, 0.85F));
         
@@ -1731,7 +1756,7 @@ public class TContent implements IFuelHandler
 
         GameRegistry.addShapelessRecipe(new ItemStack(slimeChannel, 1, 0), new ItemStack(slimeGel, 1, Short.MAX_VALUE), new ItemStack(Item.redstone));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(slimePad, 1, 0), slimeChannel, new ItemStack(slimeGel, 1, Short.MAX_VALUE), "slimeBall"));
-
+        
         //Slab crafters
         GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 6, 0), "bbb", 'b', new ItemStack(Block.workbench));
         GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 1), "b", 'b', new ItemStack(toolStationWood, 1, 0));

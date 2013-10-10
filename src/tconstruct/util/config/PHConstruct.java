@@ -250,11 +250,11 @@ public class PHConstruct
         oreChunks = config.getItem("Patterns and Misc", "Ore Chunks", 14104).getInt(14104);
 
         heartCanister = config.getItem("Equipables", "Heart Canister", 14105).getInt(14105);
-        heavyHelmet = config.getItem("Equipables", "Heavy Helmet", 14106).getInt(14106);
         diamondApple = config.getItem("Patterns and Misc", "Jeweled Apple", 14107).getInt(14107);
-        heavyChestplate = config.getItem("Equipables", "Heavy Chestplate", 14108).getInt(14108);
-        heavyPants = config.getItem("Equipables", "Heavy Pants", 14109).getInt(14109);
-        heavyBoots = config.getItem("Equipables", "Heavy Boots", 14110).getInt(14110);
+        woodHelmet = config.getItem("Equipables", "Wooden Helmet", 14106).getInt(14106);
+        woodChestplate = config.getItem("Equipables", "Wooden Chestplate", 14108).getInt(14108);
+        woodPants = config.getItem("Equipables", "Wooden Pants", 14109).getInt(14109);
+        woodBoots = config.getItem("Equipables", "Wooden Boots", 14110).getInt(14110);
         glove = config.getItem("Equipables", "Gloves", 14111).getInt(14111);
         knapsack = config.getItem("Equipables", "Knapsack", 14112).getInt(14112);
         goldHead = config.getItem("Patterns and Misc", "Golden Head", 14113).getInt(14113);
@@ -563,10 +563,10 @@ public class PHConstruct
     public static int fletching;
 
     //Wearables
-    public static int heavyHelmet;
-    public static int heavyChestplate;
-    public static int heavyPants;
-    public static int heavyBoots;
+    public static int woodHelmet;
+    public static int woodChestplate;
+    public static int woodPants;
+    public static int woodBoots;
     public static int glove;
     public static int knapsack;
 
