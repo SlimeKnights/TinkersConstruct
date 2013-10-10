@@ -90,4 +90,10 @@ public class TankAirBlock extends BlockContainer
     {
         return false;
     }
+    
+    @Override
+    public boolean isAirBlock(World world, int x, int y, int z)
+    {
+        return true;
+    }
 }

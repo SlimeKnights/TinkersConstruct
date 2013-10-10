@@ -125,6 +125,7 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
         smeltery.adjustSize(structure.getAirSize(), true);
         multitank.setCapacity(structure.getAirSize() * (TConstruct.ingotLiquidValue * 18));
         smeltery.setActiveLavaTank(structure.lavaTanks.get(0));
+        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
     }
 
     @Override
@@ -244,7 +245,7 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
 
     void updateWorldBlock (int slot, ItemStack itemstack)
     {
-        CoordTuple air = structure.getAirByIndex(slot);
+        CoordTuple air = structure.airCoords.get(slot);//structure.getAirByIndex(slot);
         if (air != null)
         {
             TileEntity te = worldObj.getBlockTileEntity(air.x, air.y, air.z);
@@ -276,7 +277,7 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
             {
                 LiquidDataInstance instance;
                 CoordTuple coord = structure.airCoords.get(i);
-                int height = 16 * (baseY - coord.y);
+                int height = 16 * (coord.y - baseY);
                 int position = i % layerSize;
 
                 if (!blocks.containsKey(coord))
@@ -306,7 +307,7 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
                         //Subtract from total
                         data.totalAmount -= newFluid.amount;
                         if (data.totalAmount < 0)
-                            continue;
+                            break;
                     }
                     else if (position == data.blocksWithExtra && data.leftovers > 0)
                     {
@@ -329,7 +330,7 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
                         //Subtract from total
                         data.totalAmount -= newFluid.amount;
                         if (data.totalAmount < 0)
-                            continue;
+                            break;
                     }
                     else
                     {
@@ -346,7 +347,7 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
                         //Subtract from total
                         data.totalAmount -= newFluid.amount;
                         if (data.totalAmount < 0)
-                            continue;
+                            break;
                     }
                 }
             }
