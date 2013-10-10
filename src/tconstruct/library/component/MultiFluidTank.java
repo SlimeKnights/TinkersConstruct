@@ -151,8 +151,8 @@ public class MultiFluidTank extends LogicComponent implements IFluidTank
             return null;
         return fluidlist.get(0);
     }
-    
-    public List<FluidStack> getAllFluids()
+
+    public List<FluidStack> getAllFluids ()
     {
         return fluidlist;
     }
@@ -174,7 +174,7 @@ public class MultiFluidTank extends LogicComponent implements IFluidTank
         info[fluidlist.size()] = new FluidTankInfo(null, maxLiquid - currentLiquid);
         return info;
     }
-    
+
     /* Sync liquids */
 
     @Override
@@ -187,7 +187,8 @@ public class MultiFluidTank extends LogicComponent implements IFluidTank
         {
             NBTTagCompound nbt = (NBTTagCompound) liquidTag.tagAt(iter);
             FluidStack fluid = FluidStack.loadFluidStackFromNBT(nbt);
-            fluidlist.add(fluid);
+            if (fluid != null)
+                fluidlist.add(fluid);
         }
     }
 
