@@ -80,7 +80,6 @@ public class SmelteryComponent extends LogicComponent
         for (int i = 0; i < meltingTemps.length; i++)
         {
             meltingTemps[i] = Smeltery.instance.getLiquifyTemperature(master.getStackInSlot(i));
-            System.out.println("New temp: " + meltingTemps[i]);
         }
     }
 
@@ -101,7 +100,7 @@ public class SmelteryComponent extends LogicComponent
                     hasUse = true;
                     if (activeTemps[i] < maxTemp && activeTemps[i] < meltingTemps[i])
                     {
-                        activeTemps[i] += 1;
+                        activeTemps[i] += 10;
                     }
                     else if (activeTemps[i] >= meltingTemps[i] && !world.isRemote)
                     {
@@ -134,7 +133,7 @@ public class SmelteryComponent extends LogicComponent
 
     void updateFuelGague ()
     {
-        if (activeLavaTank == null || fuelTicks > 0)
+        if (activeLavaTank == null || fuelTicks > 0 || structure.lavaTanks.size() < 1)
             return;
 
         if (!world.blockExists(activeLavaTank.x, activeLavaTank.y, activeLavaTank.z))
@@ -252,8 +251,9 @@ public class SmelteryComponent extends LogicComponent
     {
         activeTemps = tags.getIntArray("Temperature");
         meltingTemps = tags.getIntArray("Melting");
+        fuelAmount = tags.getInteger("Fuel");
         int[] tank = tags.getIntArray("LavaTank");
-        if (tank != null)
+        if (tank.length > 0)
             activeLavaTank = new CoordTuple(tank[0], tank[1], tank[2]);
     }
 
@@ -261,6 +261,7 @@ public class SmelteryComponent extends LogicComponent
     {
         tags.setIntArray("Temperature", activeTemps);
         tags.setIntArray("Melting", meltingTemps);
+        tags.setInteger("Fuel", fuelAmount);
         if (activeLavaTank != null)
             tags.setIntArray("LavaTank", new int[] { activeLavaTank.x, activeLavaTank.y, activeLavaTank.z });
     }

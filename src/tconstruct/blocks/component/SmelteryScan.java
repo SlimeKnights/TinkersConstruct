@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 import net.minecraft.block.Block;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagIntArray;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import tconstruct.common.TContent;
 import tconstruct.library.component.TankLayerScan;
@@ -79,17 +82,36 @@ public class SmelteryScan extends TankLayerScan
             }
         }
     }
-    /*public void cleanup()
+    
+    @Override
+    public void readFromNBT (NBTTagCompound tags)
     {
-        System.out.println("Structure cleanup activated. Air blocks: "+airCoords.size());
-        super.cleanup();
+        super.readFromNBT(tags);
         
-        //Temporary
-        Iterator i = airCoords.iterator();
-        while (i.hasNext())
+        NBTTagList tanks = tags.getTagList("Tanks");
+        if (tanks != null)
         {
-            CoordTuple coord = (CoordTuple) i.next();
-            world.setBlockToAir(coord.x, coord.y, coord.z);
+            lavaTanks.clear();
+
+            for (int i = 0; i < tanks.tagCount(); ++i)
+            {
+                NBTTagIntArray tag = (NBTTagIntArray) tanks.tagAt(i);
+                int[] coord = tag.intArray;
+                layerAirCoords.add(new CoordTuple(coord[0], coord[1], coord[2]));
+            }
         }
-    }*/
+    }
+    
+    @Override
+    public void writeToNBT (NBTTagCompound tags)
+    {
+        super.writeToNBT(tags);
+
+        NBTTagList tanks = new NBTTagList();
+        for (CoordTuple coord : lavaTanks)
+        {
+            tanks.appendTag(new NBTTagIntArray("coord", new int[] { coord.x, coord.y, coord.z }));
+        }
+        tags.setTag("Tanks", tanks);
+    }
 }

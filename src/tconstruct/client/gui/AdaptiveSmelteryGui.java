@@ -1,17 +1,12 @@
 package tconstruct.client.gui;
 
-import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.Icon;
 import net.minecraft.util.ResourceLocation;
@@ -26,8 +21,7 @@ import org.lwjgl.opengl.GL12;
 
 import tconstruct.blocks.logic.AdaptiveSmelteryLogic;
 import tconstruct.inventory.ActiveContainer;
-import tconstruct.inventory.SmelteryContainer;
-import cpw.mods.fml.common.network.PacketDispatcher;
+import tconstruct.inventory.AdaptiveSmelteryContainer;
 
 public class AdaptiveSmelteryGui extends NewContainerGui
 {
@@ -97,7 +91,7 @@ public class AdaptiveSmelteryGui extends NewContainerGui
                     this.currentScroll = 1.0F;
                 }
 
-                int s = ((SmelteryContainer) this.container).scrollTo(this.currentScroll);
+                int s = ((AdaptiveSmelteryContainer) this.container).scrollTo(this.currentScroll);
                 if (s != -1)
                     slotPos = s;
             }

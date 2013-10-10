@@ -1,13 +1,14 @@
 package tconstruct.library.component;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import tconstruct.library.crafting.Smeltery;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidTank;
+import tconstruct.library.crafting.Smeltery;
 
 public class MultiFluidTank extends LogicComponent implements IFluidTank
 {
@@ -149,6 +150,11 @@ public class MultiFluidTank extends LogicComponent implements IFluidTank
         if (fluidlist.size() == 0)
             return null;
         return fluidlist.get(0);
+    }
+    
+    public List<FluidStack> getAllFluids()
+    {
+        return fluidlist;
     }
 
     @Override

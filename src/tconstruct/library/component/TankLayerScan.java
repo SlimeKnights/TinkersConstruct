@@ -10,6 +10,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagIntArray;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
+import tconstruct.common.TContent;
 import tconstruct.library.util.CoordTuple;
 import tconstruct.library.util.CoordTupleSort;
 import tconstruct.library.util.IFacingLogic;
@@ -145,6 +146,13 @@ public class TankLayerScan extends LogicComponent
     protected void finalizeStructure ()
     {
         Collections.sort(airCoords, new CoordTupleSort());
+
+        for (CoordTuple coord : blockCoords)
+        {
+            TileEntity servant = world.getBlockTileEntity(coord.x, coord.y, coord.z);
+            if (servant instanceof IServantLogic)
+                ((IServantLogic) servant).verifyMaster(imaster, world, master.xCoord, master.yCoord, master.zCoord);
+        }
     }
 
     public boolean isComplete ()

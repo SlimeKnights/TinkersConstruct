@@ -18,7 +18,10 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTankInfo;
+import net.minecraftforge.fluids.IFluidHandler;
 import tconstruct.TConstruct;
 import tconstruct.blocks.component.SmelteryComponent;
 import tconstruct.blocks.component.SmelteryScan;
@@ -33,7 +36,7 @@ import tconstruct.library.util.IActiveLogic;
 import tconstruct.library.util.IMasterLogic;
 import tconstruct.library.util.IServantLogic;
 
-public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IActiveLogic, IMasterLogic, IComponentHolder
+public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IActiveLogic, IMasterLogic, IComponentHolder, IFluidHandler
 {
     byte direction;
     boolean updateFluids = false;
@@ -420,6 +423,130 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
     {
         return "crafters.Smeltery";
     }
+    
+    /*@Override
+    public int fill (ForgeDirection from, FluidStack resource, boolean doFill)
+    {
+        if (hasValidMaster() && resource != null && canFill(from, resource.getFluid()))
+        {
+            if (doFill)
+            {
+                AdaptiveSmelteryLogic smeltery = (AdaptiveSmelteryLogic) worldObj.getBlockTileEntity(master.x, master.y, master.z);
+                return smeltery.fill(resource, doFill);
+            }
+            else
+            {
+                return resource.amount;
+            }
+        }
+        else
+        {
+        }
+        return 0;
+    }
+
+    @Override
+    public FluidStack drain (ForgeDirection from, int maxDrain, boolean doDrain)
+    {
+        if (hasValidMaster() && canDrain(from, null))
+        {
+            AdaptiveSmelteryLogic smeltery = (AdaptiveSmelteryLogic) worldObj.getBlockTileEntity(master.x, master.y, master.z);
+            return smeltery.drain(maxDrain, doDrain);
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+    @Override
+    public FluidStack drain (ForgeDirection from, FluidStack resource, boolean doDrain)
+    {
+        return null;
+    }
+
+    @Override
+    public boolean canFill (ForgeDirection from, Fluid fluid)
+    {
+        return true;
+    }
+
+    @Override
+    public boolean canDrain (ForgeDirection from, Fluid fluid)
+    {
+        // Check that the drain is coming from the from the front of the block 
+        // and that the fluid to be drained is in the smeltery.
+        boolean containsFluid = fluid == null;
+        if (fluid != null)
+        {
+            AdaptiveSmelteryLogic smeltery = (AdaptiveSmelteryLogic) worldObj.getBlockTileEntity(master.x, master.y, master.z);
+            for (FluidStack fstack : smeltery.moltenMetal)
+            {
+                if (fstack.fluidID == fluid.getID())
+                {
+                    containsFluid = true;
+                    break;
+                }
+            }
+        }
+        //return from == getForgeDirection().getOpposite() && containsFluid;
+        return containsFluid;
+    }
+
+    @Override
+    public FluidTankInfo[] getTankInfo (ForgeDirection from)
+    {
+        if (hasValidMaster() && (from == getForgeDirection() || from == getForgeDirection().getOpposite() || from == ForgeDirection.UNKNOWN))
+        {
+            AdaptiveSmelteryLogic smeltery = (AdaptiveSmelteryLogic) worldObj.getBlockTileEntity(master.x, master.y, master.z);
+            return smeltery.getMultiTankInfo();
+            //return new FluidTankInfo[] { smeltery.getInfo() };
+        }
+        return null;
+    }*/
+    
+    /* Fluids */
+
+    @Override
+    public int fill (ForgeDirection from, FluidStack resource, boolean doFill)
+    {
+        return multitank.fill(resource, doFill);
+    }
+
+    @Override
+    public FluidStack drain (ForgeDirection from, FluidStack resource, boolean doDrain)
+    {
+        return multitank.drain(resource.amount, doDrain);
+    }
+
+    @Override
+    public FluidStack drain (ForgeDirection from, int maxDrain, boolean doDrain)
+    {
+        return multitank.drain(maxDrain, doDrain);
+    }
+
+    @Override
+    public boolean canFill (ForgeDirection from, Fluid fluid)
+    {
+        return false;
+    }
+
+    @Override
+    public boolean canDrain (ForgeDirection from, Fluid fluid)
+    {
+        return false;
+    }
+
+    @Override
+    public FluidTankInfo[] getTankInfo (ForgeDirection from)
+    {
+        return multitank.getMultiTankInfo();
+    }
+
+    public int getFillState ()
+    {
+        return 1;
+    }
 
     /* NBT */
 
@@ -438,7 +565,6 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
     {
         direction = tags.getByte("Direction");
         inventory = new ItemStack[tags.getInteger("InvSize")];
-        System.out.println("Inventory size: " + inventory.length);
 
         structure.readNetworkNBT(tags);
         multitank.readNetworkNBT(tags);

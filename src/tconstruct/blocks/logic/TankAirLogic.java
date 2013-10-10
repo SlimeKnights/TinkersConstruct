@@ -60,7 +60,7 @@ public class TankAirLogic extends InventoryLogic implements IServantLogic, ISide
         {
             itemstack.stackSize = getInventoryStackLimit();
             worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, itemstack == null ? 0 : itemstack.getItemDamage(), 3);
-            //worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+            worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
         }
     }
 
