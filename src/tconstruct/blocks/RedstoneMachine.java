@@ -1,7 +1,8 @@
 package tconstruct.blocks;
 
-import cpw.mods.fml.relauncher.*;
+import java.util.ArrayList;
 import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -13,14 +14,21 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
-import net.minecraft.world.*;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 import tconstruct.TConstruct;
-import tconstruct.blocks.logic.*;
+import tconstruct.blocks.logic.AdvancedDrawbridgeLogic;
+import tconstruct.blocks.logic.DrawbridgeLogic;
+import tconstruct.blocks.logic.FirestarterLogic;
 import tconstruct.client.block.MachineRender;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.blocks.InventoryBlock;
-import tconstruct.library.util.*;
+import tconstruct.library.util.CoordTuple;
+import tconstruct.library.util.IActiveLogic;
+import tconstruct.library.util.IFacingLogic;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class RedstoneMachine extends InventoryBlock
 {
@@ -38,7 +46,7 @@ public class RedstoneMachine extends InventoryBlock
         if (world.getBlockMetadata(x, y, z) == 0 || world.getBlockMetadata(x, y, z) == 2)
         {
             TileEntity logic = world.getBlockTileEntity(x, y, z);
-            
+
             if (logic != null && logic instanceof DrawbridgeLogic)
             {
                 if (((DrawbridgeLogic) logic).getStackInSlot(1) != null)
@@ -48,7 +56,7 @@ public class RedstoneMachine extends InventoryBlock
                         return lightValue[stack.itemID];
                 }
             }
-            
+
             if (logic != null && logic instanceof AdvancedDrawbridgeLogic)
             {
                 if (((AdvancedDrawbridgeLogic) logic).camoInventory.getCamoStack() != null)
@@ -66,13 +74,19 @@ public class RedstoneMachine extends InventoryBlock
     @SideOnly(Side.CLIENT)
     public int colorMultiplier (IBlockAccess world, int x, int y, int z)
     {
-        if (world.getBlockMetadata(x, y, z) == 0)
+        if (world.getBlockMetadata(x, y, z) == 0 && world.getBlockMetadata(x, y, z) == 2)
         {
             TileEntity logic = world.getBlockTileEntity(x, y, z);
 
             if (logic != null && logic instanceof DrawbridgeLogic)
             {
                 ItemStack stack = ((DrawbridgeLogic) logic).getStackInSlot(1);
+                if (stack != null && stack.itemID < 4096 && Block.blocksList[stack.itemID] != null && stack.itemID != this.blockID)
+                    return Block.blocksList[stack.itemID].colorMultiplier(world, x, y, z);
+            }
+            else if (logic != null && logic instanceof AdvancedDrawbridgeLogic)
+            {
+                ItemStack stack = ((AdvancedDrawbridgeLogic) logic).camoInventory.getCamoStack();
                 if (stack != null && stack.itemID < 4096 && Block.blocksList[stack.itemID] != null && stack.itemID != this.blockID)
                     return Block.blocksList[stack.itemID].colorMultiplier(world, x, y, z);
             }
@@ -91,7 +105,7 @@ public class RedstoneMachine extends InventoryBlock
         case 1:
             return new FirestarterLogic();
         case 2:
-        	return new AdvancedDrawbridgeLogic();
+            return new AdvancedDrawbridgeLogic();
         default:
             return null;
         }
@@ -106,7 +120,7 @@ public class RedstoneMachine extends InventoryBlock
         case 0:
             return TConstruct.proxy.drawbridgeID;
         case 2:
-        	return TConstruct.proxy.advDrawbridgeID;
+            return TConstruct.proxy.advDrawbridgeID;
         }
         return null;
     }
@@ -143,7 +157,7 @@ public class RedstoneMachine extends InventoryBlock
     @Override
     public Icon getIcon (int side, int meta)
     {
-        if (meta == 0)
+        if (meta == 0 || meta == 2)
         {
             if (side == 5)
                 return icons[5];
@@ -180,7 +194,7 @@ public class RedstoneMachine extends InventoryBlock
                 return icons[getTextureIndex(side)];
             }
         }
-        
+
         if (meta == 2)
         {
             AdvancedDrawbridgeLogic drawbridge = (AdvancedDrawbridgeLogic) logic;
@@ -251,12 +265,35 @@ public class RedstoneMachine extends InventoryBlock
     public void onNeighborBlockChange (World world, int x, int y, int z, int neighborBlockID)
     {
         IActiveLogic logic = (IActiveLogic) world.getBlockTileEntity(x, y, z);
-        logic.setActive(world.isBlockIndirectlyGettingPowered(x, y, z) || activeNearbyRedstone(world, x, y, z));
+        IFacingLogic facing = (IFacingLogic) logic;
+        int direction = facing.getRenderDirection();
+        boolean active = false;
+        for (int i = 0; i < 6; i++)
+        {
+            if (direction == i)
+                continue;
+            
+            CoordTuple coord = directions.get(i);
+            if (this.getIndirectPowerLevelTo(world, x + coord.x, y + coord.y, z + coord.z, i) > 0 || activeRedstone(world, coord.x, y + coord.y, z + coord.z))
+            {
+                active = true;
+                break;
+            }
+        }
+        logic.setActive(active);
     }
 
-    boolean activeNearbyRedstone (World world, int x, int y, int z)
+    public int getIndirectPowerLevelTo (World world, int x, int y, int z, int side)
     {
-        return activeRedstone(world, x + 1, y, z) || activeRedstone(world, x - 1, y, z) || activeRedstone(world, x, y, z + 1) || activeRedstone(world, x, y, z - 1);
+        if (world.isBlockNormalCube(x, y, z))
+        {
+            return world.getBlockPowerInput(x, y, z);
+        }
+        else
+        {
+            int i1 = world.getBlockId(x, y, z);
+            return i1 == 0 ? 0 : Block.blocksList[i1].isProvidingWeakPower(world, x, y, z, side);
+        }
     }
 
     boolean activeRedstone (World world, int x, int y, int z)
@@ -367,5 +404,17 @@ public class RedstoneMachine extends InventoryBlock
     public boolean canConnectRedstone (IBlockAccess world, int x, int y, int z, int side)
     {
         return true;
+    }
+
+    static ArrayList<CoordTuple> directions = new ArrayList<CoordTuple>(6);
+
+    static
+    {
+        directions.add(new CoordTuple(0, -1, 0));
+        directions.add(new CoordTuple(0, 1, 0));
+        directions.add(new CoordTuple(0, 0, -1));
+        directions.add(new CoordTuple(0, 0, 1));
+        directions.add(new CoordTuple(-1, 0, 0));
+        directions.add(new CoordTuple(1, 0, 0));
     }
 }

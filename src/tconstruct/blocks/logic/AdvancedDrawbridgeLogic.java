@@ -22,7 +22,7 @@ import tconstruct.library.blocks.*;
 import tconstruct.library.util.*;
 import tconstruct.util.player.FakePlayerLogic;
 
-public class AdvancedDrawbridgeLogic extends ExpandableInventoryLogic implements IFacingLogic, IActiveLogic, IDrawbridgeLogicBase {
+public class AdvancedDrawbridgeLogic extends InventoryLogic implements IFacingLogic, IActiveLogic, IDrawbridgeLogicBase {
 	boolean active;
 	boolean working;
 	int ticks;
@@ -32,10 +32,14 @@ public class AdvancedDrawbridgeLogic extends ExpandableInventoryLogic implements
 	byte placementDirection = 4;
 	FakePlayerLogic fakePlayer;
 
-	ArrayList<ItemStack> bufferStacks = new ArrayList<ItemStack>();
+	ItemStack[] bufferStacks = new ItemStack[getSizeInventory()];
 
 	public InvCamo camoInventory = new InvCamo();
 
+	public AdvancedDrawbridgeLogic() {
+		super(16);
+	}
+	
 	@Override
 	public void setWorldObj(World par1World) {
 		this.worldObj = par1World;
@@ -181,18 +185,18 @@ public class AdvancedDrawbridgeLogic extends ExpandableInventoryLogic implements
 		return placementDirection;
 	}
 
+    @Override
+    public ItemStack getStackInSlot (int slot){
+        return slot < inventory.length ? inventory[slot] : null;
+    }
+	
 	public ItemStack getStackInBufferSlot(int slot) {
-		return slot < bufferStacks.size() ? bufferStacks.get(slot) : null;
+		return slot < bufferStacks.length ? bufferStacks[slot] : null;
 	}
 
 	public void setBufferSlotContents(int slot, ItemStack itemstack) {
-		if (slot < bufferStacks.size()) {
-			bufferStacks.set(slot, itemstack);
-		} else if (slot == bufferStacks.size()) {
-			bufferStacks.add(itemstack);
-		} else if (slot < getMaxSize()) {
-			bufferStacks.ensureCapacity(slot);
-			bufferStacks.set(slot, itemstack);
+		if (slot < bufferStacks.length) {
+			bufferStacks[slot] = itemstack;
 		} else {
 			return;
 		}
@@ -256,9 +260,9 @@ public class AdvancedDrawbridgeLogic extends ExpandableInventoryLogic implements
 						Block block = Block.blocksList[worldObj.getBlockId(xPos, yPos, zPos)];
 						if (block == null || block.isAirBlock(worldObj, xPos, yPos, zPos) || block.isBlockReplaceable(worldObj, xPos, yPos, zPos)) {
 							// tryExtend(worldObj, xPos, yPos, zPos, direction);
-							int blockToItem = TConstructRegistry.blockToItemMapping[getStackInBufferSlot(extension).itemID];
+							int blockToItem = getStackInBufferSlot(extension) != null ? TConstructRegistry.blockToItemMapping[getStackInBufferSlot(extension).itemID] : 0;
 							if (blockToItem == 0) {
-								if (getStackInSlot(extension).itemID >= 4096 || Block.blocksList[getStackInSlot(extension).itemID] == null)
+								if (getStackInSlot(extension) == null || getStackInSlot(extension).itemID >= 4096 || Block.blocksList[getStackInSlot(extension).itemID] == null)
 									return;
 								Block placeBlock = Block.blocksList[getStackInBufferSlot(extension).itemID];
 								placeBlockAt(getStackInBufferSlot(extension), fakePlayer, worldObj, xPos, yPos, zPos, direction, 0, 0, 0, getStackInBufferSlot(extension).getItemDamage(), placeBlock);
@@ -405,7 +409,6 @@ public class AdvancedDrawbridgeLogic extends ExpandableInventoryLogic implements
 		}
 
 		readBufferFromNBT(tags);
-
 		readCustomNBT(tags);
 	}
 
@@ -423,18 +426,17 @@ public class AdvancedDrawbridgeLogic extends ExpandableInventoryLogic implements
 		}
 
 		writeBufferToNBT(tags);
-
 		writeCustomNBT(tags);
 	}
 
 	public void readBufferFromNBT(NBTTagCompound tags) {
 		NBTTagList nbttaglist = tags.getTagList("Buffer");
-		bufferStacks = new ArrayList<ItemStack>();
-		bufferStacks.ensureCapacity(nbttaglist.tagCount() > getMaxSize() ? getMaxSize() : nbttaglist.tagCount());
+		bufferStacks = new ItemStack[getSizeInventory()];
+//		bufferStacks.ensureCapacity(nbttaglist.tagCount() > getSizeInventory() ? getSizeInventory() : nbttaglist.tagCount());
 		for (int iter = 0; iter < nbttaglist.tagCount(); iter++) {
 			NBTTagCompound tagList = (NBTTagCompound) nbttaglist.tagAt(iter);
 			byte slotID = tagList.getByte("Slot");
-			if (slotID >= 0 && slotID < bufferStacks.size()) {
+			if (slotID >= 0 && slotID < bufferStacks.length) {
 				setBufferSlotContents(slotID, ItemStack.loadItemStackFromNBT(tagList));
 			}
 		}
@@ -442,7 +444,7 @@ public class AdvancedDrawbridgeLogic extends ExpandableInventoryLogic implements
 
 	public void writeBufferToNBT(NBTTagCompound tags) {
 		NBTTagList nbttaglist = new NBTTagList();
-		for (int iter = 0; iter < bufferStacks.size(); iter++) {
+		for (int iter = 0; iter < bufferStacks.length; iter++) {
 			if (getStackInBufferSlot(iter) != null) {
 				NBTTagCompound tagList = new NBTTagCompound();
 				tagList.setByte("Slot", (byte) iter);
@@ -485,19 +487,19 @@ public class AdvancedDrawbridgeLogic extends ExpandableInventoryLogic implements
 	@Override
 	public void onInventoryChanged() {
 		super.onInventoryChanged();
-		for (int i = 0; i < getMaxSize(); i++) {
+		for (int i = 0; i < getSizeInventory(); i++) {
 			if (getStackInSlot(i) != null) {
-				setBufferSlotContents(i, getStackInSlot(0).copy());
+				setBufferSlotContents(i, getStackInSlot(i).copy());
 				getStackInBufferSlot(i).stackSize = 1;
 			}
 		}
 		this.worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 	}
 
-	@Override
-	public int getMaxSize() {
-		return 16;
-	}
+//	@Override
+//	public int getMaxSize() {
+//		return 16;
+//	}
 
 	@Override
 	public int getInventoryStackLimit() {

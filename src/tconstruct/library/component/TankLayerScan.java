@@ -1,12 +1,18 @@
 package tconstruct.library.component;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
-import java.util.TreeSet;
+import java.util.HashSet;
 
 import net.minecraft.block.Block;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagIntArray;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
+import tconstruct.common.TContent;
 import tconstruct.library.util.CoordTuple;
+import tconstruct.library.util.CoordTupleSort;
 import tconstruct.library.util.IFacingLogic;
 import tconstruct.library.util.IMasterLogic;
 import tconstruct.library.util.IServantLogic;
@@ -16,19 +22,20 @@ public class TankLayerScan extends LogicComponent
     protected TileEntity master;
     protected IMasterLogic imaster;
     protected Block[] scanBlocks;
+    protected CoordTuple masterCoord;
 
     protected boolean completeStructure;
 
     protected int bricks = 0;
     protected int airBlocks = 0;
-    protected TreeSet<CoordTuple> tempBlockCoords = new TreeSet<CoordTuple>();
-    protected TreeSet<CoordTuple> tempAirCoords = new TreeSet<CoordTuple>();
+    protected HashSet<CoordTuple> layerBlockCoords = new HashSet<CoordTuple>();
+    protected HashSet<CoordTuple> layerAirCoords = new HashSet<CoordTuple>();
 
-    public TreeSet<CoordTuple> blockCoords = new TreeSet<CoordTuple>();
-    public TreeSet<CoordTuple> airCoords = new TreeSet<CoordTuple>();
+    public ArrayList<CoordTuple> blockCoords = new ArrayList<CoordTuple>();
+    public ArrayList<CoordTuple> airCoords = new ArrayList<CoordTuple>();
     protected ArrayList<int[]> validAirCoords = new ArrayList<int[]>();
     protected CoordTuple returnStone;
-    
+
     private boolean debug = false;
 
     public TankLayerScan(TileEntity te, Block... ids)
@@ -37,6 +44,7 @@ public class TankLayerScan extends LogicComponent
         master = te;
         imaster = (IMasterLogic) te;
         scanBlocks = ids;
+        masterCoord = new CoordTuple(te.xCoord, te.yCoord, te.zCoord);
         validAirCoords.add(new int[] { 1, 0 });
         validAirCoords.add(new int[] { -1, 0 });
         validAirCoords.add(new int[] { 0, 1 });
@@ -114,13 +122,16 @@ public class TankLayerScan extends LogicComponent
 
             if (sealed)
             {
-                tempAirCoords = new TreeSet<CoordTuple>(airCoords);
-                tempBlockCoords = new TreeSet<CoordTuple>(blockCoords);
+                blockCoords.add(new CoordTuple(master.xCoord, master.yCoord, master.zCoord)); //Don't forget me!
+                layerAirCoords = new HashSet<CoordTuple>(airCoords);
+                layerBlockCoords = new HashSet<CoordTuple>(blockCoords);
 
-                if (recurseStructureDown(master.yCoord - 1))
+                int lowY = recurseStructureDown(master.yCoord - 1);
+                if (lowY != -1)
                 {
                     completeStructure = true;
                     recurseStructureUp(master.yCoord + 1);
+                    finalizeStructure();
 
                     if (!world.isRemote && debug)
                     {
@@ -130,14 +141,17 @@ public class TankLayerScan extends LogicComponent
                 }
             }
         }
-        
-        if (completeStructure)
+    }
+
+    protected void finalizeStructure ()
+    {
+        Collections.sort(airCoords, new CoordTupleSort());
+
+        for (CoordTuple coord : blockCoords)
         {
-            
-        }
-        else
-        {
-            
+            TileEntity servant = world.getBlockTileEntity(coord.x, coord.y, coord.z);
+            if (servant instanceof IServantLogic)
+                ((IServantLogic) servant).verifyMaster(imaster, world, master.xCoord, master.yCoord, master.zCoord);
         }
     }
 
@@ -145,10 +159,23 @@ public class TankLayerScan extends LogicComponent
     {
         return completeStructure;
     }
-    
-    public int getAirSize()
+
+    public int getAirLayerSize ()
+    {
+        return layerAirCoords.size();
+    }
+
+    public int getAirSize ()
     {
         return airBlocks;
+    }
+
+    public CoordTuple getAirByIndex (int index)
+    {
+        if (index >= airCoords.size() || index < 0)
+            return null;
+
+        return airCoords.get(index);
     }
 
     private byte getDirection ()
@@ -161,7 +188,7 @@ public class TankLayerScan extends LogicComponent
     protected boolean checkAir (int x, int y, int z)
     {
         Block block = Block.blocksList[world.getBlockId(x, y, z)];
-        if (block == null || block.isAirBlock(world, x, y, z))
+        if (block == null || block.isAirBlock(world, x, y, z))// || block == Block.glass)
             return true;
 
         return false;
@@ -251,15 +278,16 @@ public class TankLayerScan extends LogicComponent
         return true;
     }
 
-    public boolean recurseStructureDown (int y)
+    public int recurseStructureDown (int y)
     {
-        Iterator i = tempAirCoords.iterator();
+        Iterator i = layerAirCoords.iterator();
         if (i.hasNext())
         {
             CoordTuple coord = (CoordTuple) i.next();
             if (checkAir(coord.x, y, coord.z))
             {
                 boolean valid = true;
+                addAirBlock(coord.x, y, coord.z); //Don't skip first one
 
                 //Air blocks
                 while (i.hasNext())
@@ -277,7 +305,7 @@ public class TankLayerScan extends LogicComponent
                 }
 
                 //Bricks
-                i = tempBlockCoords.iterator();
+                i = layerBlockCoords.iterator();
                 while (i.hasNext())
                 {
                     coord = (CoordTuple) i.next();
@@ -311,16 +339,17 @@ public class TankLayerScan extends LogicComponent
                         break;
                     }
                 }
-                return valid;
+                if (valid)
+                    return y + 1;
             }
         }
 
-        return false;
+        return -1;
     }
 
     public void recurseStructureUp (int y)
     {
-        Iterator i = tempBlockCoords.iterator();
+        Iterator i = layerBlockCoords.iterator();
         if (i.hasNext())
         {
             CoordTuple coord = (CoordTuple) i.next();
@@ -345,7 +374,7 @@ public class TankLayerScan extends LogicComponent
                 //Air blocks
                 if (valid)
                 {
-                    i = tempAirCoords.iterator();
+                    i = layerAirCoords.iterator();
                     while (i.hasNext())
                     {
                         coord = (CoordTuple) i.next();
@@ -380,9 +409,92 @@ public class TankLayerScan extends LogicComponent
         while (i.hasNext())
         {
             CoordTuple coord = (CoordTuple) i.next();
-            IServantLogic servant = (IServantLogic) world.getBlockTileEntity(coord.x, coord.y, coord.z);
-            if (servant != null)
-                servant.invalidateMaster(imaster, world, master.xCoord, master.yCoord, master.zCoord);
+            TileEntity te = world.getBlockTileEntity(coord.x, coord.y, coord.z);
+            if (te != null && te instanceof IServantLogic)
+            {
+                ((IServantLogic) te).invalidateMaster(imaster, world, master.xCoord, master.yCoord, master.zCoord);
+            }
         }
+    }
+
+    /* @Override
+     public void readFromNBT (NBTTagCompound tags)
+     {
+         super.readFromNBT(tags);
+     }*/
+
+    public void readNetworkNBT (NBTTagCompound tags)
+    {
+        completeStructure = tags.getBoolean("Complete");
+        NBTTagList layerAir = tags.getTagList("AirLayer");
+        if (layerAir != null)
+        {
+            layerAirCoords.clear();
+
+            for (int i = 0; i < layerAir.tagCount(); ++i)
+            {
+                NBTTagIntArray tag = (NBTTagIntArray) layerAir.tagAt(i);
+                int[] coord = tag.intArray;
+                layerAirCoords.add(new CoordTuple(coord[0], coord[1], coord[2]));
+            }
+        }
+
+        NBTTagList blocks = tags.getTagList("AirLayer");
+        if (blocks != null)
+        {
+            blockCoords.clear();
+
+            for (int i = 0; i < blocks.tagCount(); ++i)
+            {
+                NBTTagIntArray tag = (NBTTagIntArray) blocks.tagAt(i);
+                int[] coord = tag.intArray;
+                blockCoords.add(new CoordTuple(coord[0], coord[1], coord[2]));
+            }
+        }
+
+        NBTTagList air = tags.getTagList("AirLayer");
+        if (air != null)
+        {
+            airCoords.clear();
+
+            for (int i = 0; i < air.tagCount(); ++i)
+            {
+                NBTTagIntArray tag = (NBTTagIntArray) air.tagAt(i);
+                int[] coord = tag.intArray;
+                airCoords.add(new CoordTuple(coord[0], coord[1], coord[2]));
+            }
+        }
+
+    }
+
+    /*@Override
+    public void writeToNBT (NBTTagCompound tags)
+    {
+        super.writeToNBT(tags);
+    }*/
+
+    public void writeNetworkNBT (NBTTagCompound tags)
+    {
+        tags.setBoolean("Complete", completeStructure);
+        NBTTagList layerAir = new NBTTagList();
+        for (CoordTuple coord : layerAirCoords)
+        {
+            layerAir.appendTag(new NBTTagIntArray("coord", new int[] { coord.x, coord.y, coord.z }));
+        }
+        tags.setTag("AirLayer", layerAir);
+
+        NBTTagList blocks = new NBTTagList();
+        for (CoordTuple coord : blockCoords)
+        {
+            blocks.appendTag(new NBTTagIntArray("coord", new int[] { coord.x, coord.y, coord.z }));
+        }
+        tags.setTag("Blocks", blocks);
+
+        NBTTagList air = new NBTTagList();
+        for (CoordTuple coord : airCoords)
+        {
+            air.appendTag(new NBTTagIntArray("coord", new int[] { coord.x, coord.y, coord.z }));
+        }
+        tags.setTag("Air", air);
     }
 }

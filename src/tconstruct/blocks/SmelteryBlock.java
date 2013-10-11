@@ -13,6 +13,7 @@ import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import tconstruct.TConstruct;
+import tconstruct.blocks.logic.AdaptiveSmelteryLogic;
 import tconstruct.blocks.logic.MultiServantLogic;
 import tconstruct.blocks.logic.SmelteryDrainLogic;
 import tconstruct.blocks.logic.SmelteryLogic;
@@ -39,11 +40,11 @@ public class SmelteryBlock extends InventoryBlock
 
     /* Rendering */
 
-    @Override
+    /*@Override
     public int getRenderType ()
     {
         return SmelteryRender.smelteryModel;
-    }
+    }*/
 
     @Override
     public String[] getTextureNames ()
@@ -138,6 +139,7 @@ public class SmelteryBlock extends InventoryBlock
     @Override
     public Integer getGui (World world, int x, int y, int z, EntityPlayer entityplayer)
     {
+        //return -1;
         return TConstruct.proxy.smelteryGuiID;
     }
 
@@ -203,6 +205,7 @@ public class SmelteryBlock extends InventoryBlock
         }
         else
         {
+            world.markBlockForUpdate(x, y, z);
             player.openGui(getModInstance(), integer, world, x, y, z);
             return true;
         }
@@ -214,7 +217,7 @@ public class SmelteryBlock extends InventoryBlock
         switch (metadata)
         {
         case 0:
-            return new SmelteryLogic();
+            return new AdaptiveSmelteryLogic();
         case 1:
             return new SmelteryDrainLogic();
         case 3:
@@ -223,7 +226,7 @@ public class SmelteryBlock extends InventoryBlock
         return new MultiServantLogic();
     }
     
-    @Override
+    /*@Override
     public void onBlockPlacedBy (World world, int x, int y, int z, EntityLivingBase entityliving, ItemStack stack)
     {
         super.onBlockPlacedBy(world, x, y, z, entityliving, stack);
@@ -241,7 +244,7 @@ public class SmelteryBlock extends InventoryBlock
     public void breakBlock (World world, int x, int y, int z, int par5, int par6) //Don't drop inventory
     {
         world.removeBlockTileEntity(x, y, z);
-    }
+    }*/
 
     @Override
     public void getSubBlocks (int id, CreativeTabs tab, List list)

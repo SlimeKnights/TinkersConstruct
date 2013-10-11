@@ -1,13 +1,14 @@
 package tconstruct.library.component;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import tconstruct.library.crafting.Smeltery;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidTank;
+import tconstruct.library.crafting.Smeltery;
 
 public class MultiFluidTank extends LogicComponent implements IFluidTank
 {
@@ -151,6 +152,11 @@ public class MultiFluidTank extends LogicComponent implements IFluidTank
         return fluidlist.get(0);
     }
 
+    public List<FluidStack> getAllFluids ()
+    {
+        return fluidlist;
+    }
+
     @Override
     public FluidTankInfo getInfo ()
     {
@@ -169,8 +175,10 @@ public class MultiFluidTank extends LogicComponent implements IFluidTank
         return info;
     }
 
+    /* Sync liquids */
+
     @Override
-    public void readFromNBT (NBTTagCompound tags)
+    public void readNetworkNBT (NBTTagCompound tags)
     {
         NBTTagList liquidTag = tags.getTagList("Liquids");
         fluidlist.clear();
@@ -179,12 +187,13 @@ public class MultiFluidTank extends LogicComponent implements IFluidTank
         {
             NBTTagCompound nbt = (NBTTagCompound) liquidTag.tagAt(iter);
             FluidStack fluid = FluidStack.loadFluidStackFromNBT(nbt);
-            fluidlist.add(fluid);
+            if (fluid != null)
+                fluidlist.add(fluid);
         }
     }
 
     @Override
-    public void writeToNBT (NBTTagCompound tags)
+    public void writeNetworkNBT (NBTTagCompound tags)
     {
         NBTTagList taglist = new NBTTagList();
         for (FluidStack liquid : fluidlist)

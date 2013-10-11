@@ -1,9 +1,17 @@
 package tconstruct.blocks.logic;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
+import net.minecraft.inventory.ISidedInventory;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.network.INetworkManager;
+import net.minecraft.network.packet.Packet;
+import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 import tconstruct.TConstruct;
@@ -13,7 +21,7 @@ import tconstruct.library.util.CoordTuple;
 import tconstruct.library.util.IMasterLogic;
 import tconstruct.library.util.IServantLogic;
 
-public class TankAirLogic extends InventoryLogic implements IServantLogic
+public class TankAirLogic extends InventoryLogic implements IServantLogic, ISidedInventory
 {
     TankAirComponent multitank = new TankAirComponent(TConstruct.ingotLiquidValue * 18);
     CoordTuple master;
@@ -26,6 +34,34 @@ public class TankAirLogic extends InventoryLogic implements IServantLogic
     public void overrideFluids(ArrayList<FluidStack> fluids)
     {
         multitank.overrideFluids(fluids);
+        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+    }
+    
+    public boolean hasItem()
+    {
+        return inventory[0] != null;
+    }
+    
+    public boolean hasFluids()
+    {
+        return multitank.fluidlist.size() > 0;
+    }
+
+    public List<FluidStack> getFluids ()
+    {
+        return multitank.fluidlist;
+    }
+    
+    @Override
+    public void setInventorySlotContents (int slot, ItemStack itemstack)
+    {
+        inventory[slot] = itemstack;
+        if (itemstack != null && itemstack.stackSize > getInventoryStackLimit())
+        {
+            itemstack.stackSize = getInventoryStackLimit();
+            worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, itemstack == null ? 0 : itemstack.getItemDamage(), 3);
+            worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+        }
     }
 
     @Override
@@ -72,5 +108,80 @@ public class TankAirLogic extends InventoryLogic implements IServantLogic
     public void invalidateMaster (IMasterLogic master, World world, int xMaster, int yMaster, int zMaster)
     {
         world.setBlockToAir(xCoord, yCoord, zCoord);
+    }
+
+    @Override
+    public int[] getAccessibleSlotsFromSide (int var1)
+    {
+        return new int[0];
+    }
+
+    @Override
+    public boolean canInsertItem (int i, ItemStack itemstack, int j)
+    {
+        return false;
+    }
+
+    @Override
+    public boolean canExtractItem (int i, ItemStack itemstack, int j)
+    {
+        return false;
+    }
+    
+    @Override
+    public boolean canUpdate()
+    {
+        return false;
+    }
+    
+    //Keep TE regardless of metadata
+    public boolean shouldRefresh(int oldID, int newID, int oldMeta, int newMeta, World world, int x, int y, int z)
+    {
+        return oldID != newID;
+    }
+    
+    /* NBT */
+    
+    @Override
+    public void readFromNBT (NBTTagCompound tags)
+    {
+        super.superReadFromNBT(tags);
+        readNetworkNBT(tags);
+        multitank.readFromNBT(tags);
+    }
+
+    public void readNetworkNBT (NBTTagCompound tags)
+    {
+        multitank.readNetworkNBT(tags);
+        super.readInventoryFromNBT(tags);
+    }
+
+    @Override
+    public void writeToNBT (NBTTagCompound tags)
+    {
+        super.superWriteToNBT(tags);
+        writeNetworkNBT(tags);
+        multitank.writeToNBT(tags);
+    }
+
+    public void writeNetworkNBT (NBTTagCompound tags)
+    {
+        multitank.writeNetworkNBT(tags);
+        super.writeInventoryToNBT(tags);
+    }
+
+    @Override
+    public void onDataPacket (INetworkManager net, Packet132TileEntityData packet)
+    {
+        readNetworkNBT(packet.data);
+        worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+    }
+
+    @Override
+    public Packet getDescriptionPacket ()
+    {
+        NBTTagCompound tag = new NBTTagCompound();
+        writeNetworkNBT(tag);
+        return new Packet132TileEntityData(xCoord, yCoord, zCoord, 1, tag);
     }
 }

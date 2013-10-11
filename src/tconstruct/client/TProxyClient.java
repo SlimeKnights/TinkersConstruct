@@ -27,6 +27,7 @@ import org.lwjgl.opengl.GL11;
 import org.w3c.dom.Document;
 import tconstruct.TConstruct;
 import tconstruct.blocks.logic.*;
+import tconstruct.client.armor.RenderArmorCast;
 import tconstruct.client.block.*;
 import tconstruct.client.entity.*;
 import tconstruct.client.entity.projectile.*;
@@ -65,7 +66,7 @@ public class TProxyClient extends TProxyCommon
         if (ID == frypanGuiID)
             return new FrypanGui(player.inventory, (FrypanLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
         if (ID == smelteryGuiID)
-            return new SmelteryGui(player.inventory, (SmelteryLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
+            return new AdaptiveSmelteryGui(player.inventory, (AdaptiveSmelteryLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
         if (ID == stencilTableID)
             return new StencilTableGui(player.inventory, (StencilTableLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
         if (ID == toolForgeID)
@@ -197,8 +198,8 @@ public class TProxyClient extends TProxyCommon
         RenderingRegistry.registerBlockHandler(new TableRender());
         RenderingRegistry.registerBlockHandler(new TableForgeRender());
         RenderingRegistry.registerBlockHandler(new FrypanRender());
-        RenderingRegistry.registerBlockHandler(new SmelteryRender());
         RenderingRegistry.registerBlockHandler(new TankRender());
+        RenderingRegistry.registerBlockHandler(new TankAirRender());
         RenderingRegistry.registerBlockHandler(new SearedRender());
         RenderingRegistry.registerBlockHandler(new OreberryRender());
         RenderingRegistry.registerBlockHandler(new BarricadeRender());
@@ -656,12 +657,12 @@ public class TProxyClient extends TProxyCommon
 
     void addToolButton (int slotType, int xButton, int yButton, int[] xIcons, int[] yIcons, String title, String body)
     {
-        TConstructClientRegistry.addToolButton(new ToolGuiElement(slotType, xButton, yButton, xIcons, yIcons, "tinker", title, "tinker", "textures/gui/icons.png"));
+        TConstructClientRegistry.addToolButton(new ToolGuiElement(slotType, xButton, yButton, xIcons, yIcons, title, body, "tinker", "textures/gui/icons.png"));
     }
 
     void addTierTwoButton (int slotType, int xButton, int yButton, int[] xIcons, int[] yIcons, String title, String body)
     {
-        TConstructClientRegistry.addTierTwoButton(new ToolGuiElement(slotType, xButton, yButton, xIcons, yIcons, "tinker", title, "tinker", "textures/gui/icons.png"));
+        TConstructClientRegistry.addTierTwoButton(new ToolGuiElement(slotType, xButton, yButton, xIcons, yIcons, title, body, "tinker", "textures/gui/icons.png"));
     }
 
     void addRenderMappings ()
@@ -939,4 +940,10 @@ public class TProxyClient extends TProxyCommon
             return null;
         }
     }
+    
+    @Override
+	public void postInit() {
+		MinecraftForgeClient.registerItemRenderer(TContent.armorPattern.itemID, new RenderArmorCast());
+	}
+    
 }

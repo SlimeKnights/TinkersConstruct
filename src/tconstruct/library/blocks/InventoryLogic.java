@@ -109,6 +109,12 @@ public abstract class InventoryLogic extends TileEntity implements IInventory
     public void readFromNBT (NBTTagCompound tags)
     {
         super.readFromNBT(tags);
+        readInventoryFromNBT(tags);
+    }
+    
+    public void readInventoryFromNBT (NBTTagCompound tags)
+    {
+        super.readFromNBT(tags);
         this.invName = tags.getString("InvName");
         NBTTagList nbttaglist = tags.getTagList("Items");
         inventory = new ItemStack[getSizeInventory()];
@@ -127,6 +133,11 @@ public abstract class InventoryLogic extends TileEntity implements IInventory
     public void writeToNBT (NBTTagCompound tags)
     {
         super.writeToNBT(tags);
+        writeInventoryToNBT(tags);
+    }
+    
+    public void writeInventoryToNBT (NBTTagCompound tags)
+    {
         if (invName != null)
             tags.setString("InvName", invName);
         NBTTagList nbttaglist = new NBTTagList();
@@ -143,7 +154,18 @@ public abstract class InventoryLogic extends TileEntity implements IInventory
 
         tags.setTag("Items", nbttaglist);
     }
-
+    
+    //Added for blocks that need to sync inventory
+    public void superReadFromNBT (NBTTagCompound tags)
+    {
+        super.readFromNBT(tags);
+    }
+    
+    public void superWriteToNBT (NBTTagCompound tags)
+    {
+        super.writeToNBT(tags);
+    }
+    
     /* Default implementations of hardly used methods */
     public ItemStack getStackInSlotOnClosing (int slot)
     {

@@ -1,11 +1,11 @@
 package tconstruct.blocks.logic;
 
-import java.text.DecimalFormat;
-import java.util.Random;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntityEnchantmentTable;
+
+import java.text.DecimalFormat;
+import java.util.Random;
 
 public class EssenceExtractorLogic extends TileEntityEnchantmentTable
 {
@@ -31,7 +31,7 @@ public class EssenceExtractorLogic extends TileEntityEnchantmentTable
     private static Random rand = new Random();
     private String field_94136_s;
 
-    private int essenceAmount;
+    public int essenceAmount;
     static DecimalFormat df = new DecimalFormat("##.##");
 
     /*public EssenceExtractorLogic()

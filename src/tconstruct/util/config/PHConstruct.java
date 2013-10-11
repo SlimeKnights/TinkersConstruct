@@ -175,6 +175,7 @@ public class PHConstruct
         woodCrafterSlab = config.getBlock("Crafting Slab", 3243).getInt(3243);
         woolSlab1 = config.getBlock("Wool Slab 1", 3244).getInt(3244);
         woolSlab2 = config.getBlock("Wool Slab 2", 3245).getInt(3245);
+        airTank = config.getBlock("Air Tank", 3246).getInt(3246);
         castingChannel = config.getBlock("Casting Channel", 3249).getInt(3249);
 
         manual = config.getItem("Patterns and Misc", "Tinker's Manual", 14018).getInt(14018);
@@ -184,6 +185,7 @@ public class PHConstruct
         toolShard = config.getItem("Patterns and Misc", "Tool Shard", 14022).getInt(14022);
         woodPattern = config.getItem("Patterns and Misc", "Wood Pattern", 14023).getInt(14023);
         metalPattern = config.getItem("Patterns and Misc", "Metal Pattern", 14024).getInt(14024);
+        armorPattern = config.getItem("Patterns and Misc", "Armor Pattern", 14025).getInt(14025);
 
         pickaxeHead = config.getItem("Tool Parts", "Pickaxe Head", 14026).getInt(14026);
         shovelHead = config.getItem("Tool Parts", "Shovel Head", 14027).getInt(14027);
@@ -248,11 +250,11 @@ public class PHConstruct
         oreChunks = config.getItem("Patterns and Misc", "Ore Chunks", 14104).getInt(14104);
 
         heartCanister = config.getItem("Equipables", "Heart Canister", 14105).getInt(14105);
-        heavyHelmet = config.getItem("Equipables", "Heavy Helmet", 14106).getInt(14106);
         diamondApple = config.getItem("Patterns and Misc", "Jeweled Apple", 14107).getInt(14107);
-        heavyChestplate = config.getItem("Equipables", "Heavy Chestplate", 14108).getInt(14108);
-        heavyPants = config.getItem("Equipables", "Heavy Pants", 14109).getInt(14109);
-        heavyBoots = config.getItem("Equipables", "Heavy Boots", 14110).getInt(14110);
+        woodHelmet = config.getItem("Equipables", "Wooden Helmet", 14106).getInt(14106);
+        woodChestplate = config.getItem("Equipables", "Wooden Chestplate", 14108).getInt(14108);
+        woodPants = config.getItem("Equipables", "Wooden Pants", 14109).getInt(14109);
+        woodBoots = config.getItem("Equipables", "Wooden Boots", 14110).getInt(14110);
         glove = config.getItem("Equipables", "Gloves", 14111).getInt(14111);
         knapsack = config.getItem("Equipables", "Knapsack", 14112).getInt(14112);
         goldHead = config.getItem("Patterns and Misc", "Golden Head", 14113).getInt(14113);
@@ -349,9 +351,6 @@ public class PHConstruct
         AbilityHelper.necroticUHS = config.get("Ultra Hardcore Changes", "Necrotic modifier only heals on hostile mob kills", false).getBoolean(false);
 
         //Slime pools
-        islandRarity = config.get("Worldgen", "Slime Island Rarity", 450).getInt(450);
-
-        //Slime pools
         islandRarity = config.get("Worldgen", "Slime Island Rarity", 1450).getInt(1450);
 
         //Looks
@@ -397,6 +396,8 @@ public class PHConstruct
     public static int smeltery;
     public static int searedTable;
     public static int castingChannel;
+    public static int airTank;
+    
     public static int craftedSoil;
     public static int oreSlag;
     public static int oreGravel;
@@ -488,6 +489,7 @@ public class PHConstruct
     public static int toolShard;
     public static int woodPattern;
     public static int metalPattern;
+    public static int armorPattern;
 
     public static int manual;
     public static int buckets;
@@ -561,10 +563,10 @@ public class PHConstruct
     public static int fletching;
 
     //Wearables
-    public static int heavyHelmet;
-    public static int heavyChestplate;
-    public static int heavyPants;
-    public static int heavyBoots;
+    public static int woodHelmet;
+    public static int woodChestplate;
+    public static int woodPants;
+    public static int woodBoots;
     public static int glove;
     public static int knapsack;
 

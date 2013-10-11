@@ -29,6 +29,7 @@ public class MultiServantLogic extends TileEntity implements IServantLogic
 
         if (worldObj.getBlockId(master.x, master.y, master.z) == masterID && worldObj.getBlockMetadata(master.x, master.y, master.z) == masterMeat)
             return true;
+        
         else
         {
             hasMaster = false;
@@ -58,19 +59,13 @@ public class MultiServantLogic extends TileEntity implements IServantLogic
         masterMeat = 0;
     }
 
+    @Deprecated
     public boolean verifyMaster (IMasterLogic logic, int x, int y, int z)
     {
         if (master.equalCoords(x, y, z) && worldObj.getBlockId(x, y, z) == masterID && worldObj.getBlockMetadata(x, y, z) == masterMeat)
             return true;
         else
             return false;
-    }
-
-    @Override
-    public boolean setPotentialMaster (IMasterLogic master, World world, int x, int y, int z)
-    {
-        // TODO Auto-generated method stub
-        return true;
     }
 
     @Deprecated
@@ -85,6 +80,33 @@ public class MultiServantLogic extends TileEntity implements IServantLogic
         {
             return false;
         }
+    }
+
+    @Override
+    public boolean setPotentialMaster (IMasterLogic master, World world, int x, int y, int z)
+    {
+        return !hasMaster;
+    }
+
+    @Override
+    public boolean verifyMaster (IMasterLogic logic, World world, int x, int y, int z)
+    {
+        if (hasMaster)
+        {
+            return hasValidMaster();
+        }
+        else
+        {
+            overrideMaster(x, y, z);
+            return true;
+        }
+    }
+
+    @Override
+    public void invalidateMaster (IMasterLogic master, World world, int x, int y, int z)
+    {
+        hasMaster = false;
+        master = null;
     }
 
     public void notifyMasterOfChange ()
@@ -151,19 +173,5 @@ public class MultiServantLogic extends TileEntity implements IServantLogic
     {
         readCustomNBT(packet.data);
         worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
-    }
-
-    @Override
-    public boolean verifyMaster (IMasterLogic master, World world, int x, int y, int z)
-    {
-        // TODO Auto-generated method stub
-        return false;
-    }
-
-    @Override
-    public void invalidateMaster (IMasterLogic master, World world, int x, int y, int z)
-    {
-        hasMaster = false;
-        master = null;
     }
 }
