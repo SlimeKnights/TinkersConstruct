@@ -140,6 +140,7 @@ public class TContent implements IFuelHandler
 
     //Decoration
     public static Block stoneTorch;
+    public static Block stoneLadder;
     public static Block multiBrick;
     public static Block multiBrickFancy;
 
@@ -707,6 +708,8 @@ public class TContent implements IFuelHandler
         //Decoration
         stoneTorch = new StoneTorch(PHConstruct.stoneTorch).setUnlocalizedName("decoration.stonetorch");
         GameRegistry.registerBlock(stoneTorch, "decoration.stonetorch");
+        stoneLadder = new StoneLadder(PHConstruct.stoneLadder).setUnlocalizedName("decoration.stoneladder");
+        GameRegistry.registerBlock(stoneLadder, "decoration.stoneladder");
 
         multiBrick = new MultiBrick(PHConstruct.multiBrick).setUnlocalizedName("Decoration.Brick");
         GameRegistry.registerBlock(multiBrick, MultiBrickItem.class, "decoration.multibrick");
