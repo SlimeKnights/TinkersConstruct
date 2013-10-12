@@ -1,7 +1,6 @@
 package ic2.api.item;
 
 import net.minecraft.item.ItemStack;
-import tconstruct.TConstruct;
 
 /**
  * Provides access to IC2 blocks and items.
@@ -35,7 +34,7 @@ public final class Items {
 				return null;
 			}
 		} catch (Exception e) {
-			TConstruct.logger.warning("IC2 API: Call getItem failed for " + name);
+            System.out.println("IC2 API: Call getItem failed for " + name);
 
 			return null;
 		}
