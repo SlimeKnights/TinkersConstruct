@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.Property;
+import tconstruct.TConstruct;
 import tconstruct.library.tools.AbilityHelper;
 
 public class PHConstruct
@@ -29,8 +30,8 @@ public class PHConstruct
         }
         catch (IOException e)
         {
-            System.out.println("Could not create configuration file for TConstruct. Reason:");
-            System.out.println(e);
+            TConstruct.logger.severe("Could not create configuration file for TConstruct. Reason:");
+            TConstruct.logger.severe(e.getLocalizedMessage());
         }
 
         /* [Forge] Configuration class, used as config method */

@@ -60,7 +60,7 @@ public class ModRepair extends ToolMod
             materialValue = PatternBuilder.instance.getPartValue(input[1]);
 
         int increase = (int) (50 + (dur * 0.4f * materialValue));
-        //System.out.println("Increase: "+increase);
+        //TConstruct.logger.info("Increase: "+increase);
 
         int modifiers = tags.getInteger("Modifiers");
         float mods = 1.0f;

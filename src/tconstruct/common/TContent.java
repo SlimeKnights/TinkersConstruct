@@ -2068,7 +2068,7 @@ public class TContent implements IFuelHandler
         Object obj = getStaticItem("itemResource", "thaumcraft.common.config.ConfigItems");
         if (obj != null)
         {
-            System.out.println("[TConstruct] Thaumcraft detected. Adding thaumium tools.");
+            TConstruct.logger.info("Thaumcraft detected. Adding thaumium tools.");
             thaumcraftAvailable = true;
             TConstructClientRegistry.addMaterialRenderMapping(31, "tinker", "thaumium", true);
             TConstructRegistry.addToolMaterial(31, "Thaumium", 3, 400, 700, 2, 1.3F, 0, 0f, "\u00A75", "Thaumic");
@@ -2085,7 +2085,7 @@ public class TContent implements IFuelHandler
         }
         else
         {
-            System.out.println("[TConstruct] Thaumcraft not detected.");
+            TConstruct.logger.warning("Thaumcraft not detected.");
         }
 
         if (Loader.isModLoaded("Natura"))
@@ -2195,7 +2195,7 @@ public class TContent implements IFuelHandler
         }
         catch (Exception e)
         {
-            System.out.println("[TConstruct] Could not find " + name);
+            TConstruct.logger.warning("Could not find " + name);
             return null;
         }
     }

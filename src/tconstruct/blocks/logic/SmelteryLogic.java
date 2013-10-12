@@ -455,7 +455,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                 return false;
 
             currentLiquid += liquid.amount;
-            //System.out.println("Current liquid: "+currentLiquid);
+            //TConstruct.logger.info("Current liquid: "+currentLiquid);
             boolean added = false;
             for (int i = 0; i < moltenMetal.size(); i++)
             {
@@ -585,11 +585,11 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                     TileEntity newTankContainer = worldObj.getBlockTileEntity(possibleTank.x, possibleTank.y, possibleTank.z);
                     if (newTankContainer instanceof IFluidHandler)
                     {
-                        //System.out.println("Tank: "+possibleTank.toString());
+                        //TConstruct.logger.info("Tank: "+possibleTank.toString());
                         FluidStack newliquid = ((IFluidHandler) newTankContainer).drain(ForgeDirection.UNKNOWN, 150, false);
                         if (newliquid != null && newliquid.getFluid().getBlockID() == Block.lavaStill.blockID && newliquid.amount > 0)
                         {
-                            //System.out.println("Tank: "+possibleTank.toString());
+                            //TConstruct.logger.info("Tank: "+possibleTank.toString());
                             foundTank = true;
                             activeLavaTank = possibleTank;
                             iter = lavaTanks.size();
@@ -616,7 +616,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                     if (iter >= lavaTanks.size())
                         foundTank = true;
                 }
-                //System.out.println("Searching for tank, size: "+lavaTanks.size());
+                //TConstruct.logger.info("Searching for tank, size: "+lavaTanks.size());
             }
         }
     }

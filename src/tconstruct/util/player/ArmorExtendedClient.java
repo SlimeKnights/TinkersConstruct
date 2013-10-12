@@ -4,7 +4,7 @@ public class ArmorExtendedClient extends ArmorExtended
 {
     /*public void recalculateSkills(EntityPlayer player, TPlayerStats stats)
     {
-    	System.out.println("Client skills");
+    	TConstruct.logger.info("Client skills");
     	if (inventory[1] != null && inventory[1].getItem() == TContent.glove)
     	{
     		if (TProxyClient.skillList.size() < 1)

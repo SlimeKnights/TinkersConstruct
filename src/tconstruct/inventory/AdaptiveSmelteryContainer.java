@@ -55,7 +55,7 @@ public class AdaptiveSmelteryContainer extends ActiveContainer
         if (invRow != slotRow)
         {
             slotRow = invRow;
-            //System.out.println(invRow);
+            //TConstruct.logger.info(invRow);
             int basePos = invRow * 3;
             for (int iter = 0; iter < activeInventorySlots.size(); iter++)
             {
@@ -135,7 +135,7 @@ public class AdaptiveSmelteryContainer extends ActiveContainer
     @Override
     protected boolean mergeItemStack (ItemStack inputStack, int startSlot, int endSlot, boolean flag)
     {
-        //System.out.println("Merge");
+        //TConstruct.logger.info("Merge");
         boolean merged = false;
         int slotPos = startSlot;
 
@@ -149,7 +149,7 @@ public class AdaptiveSmelteryContainer extends ActiveContainer
 
         /*if (inputStack.isStackable() && startSlot >= logic.getSizeInventory())
         {
-            System.out.println("Rawr!");
+            TConstruct.logger.info("Rawr!");
             while (inputStack.stackSize > 0 && (!flag && slotPos < endSlot || flag && slotPos >= startSlot))
             {
                 slot = (Slot) this.inventorySlots.get(slotPos);

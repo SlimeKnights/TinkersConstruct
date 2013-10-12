@@ -50,7 +50,7 @@ public class ArmorExtended implements IInventory
     {
         if (inventory[slot] != null)
         {
-            //System.out.println("Took something from slot " + slot);
+            //TConstruct.logger.info("Took something from slot " + slot);
             if (inventory[slot].stackSize <= quantity)
             {
                 ItemStack stack = inventory[slot];
@@ -83,7 +83,7 @@ public class ArmorExtended implements IInventory
     public void setInventorySlotContents (int slot, ItemStack itemstack)
     {
         inventory[slot] = itemstack;
-        //System.out.println("Changed slot " + slot + " on side " + FMLCommonHandler.instance().getEffectiveSide());
+        //TConstruct.logger.info("Changed slot " + slot + " on side " + FMLCommonHandler.instance().getEffectiveSide());
         if (itemstack != null && itemstack.stackSize > getInventoryStackLimit())
         {
             itemstack.stackSize = getInventoryStackLimit();
@@ -159,7 +159,7 @@ public class ArmorExtended implements IInventory
         {
             ItemStack stack = inventory[6];
             int meta = stack.getItemDamage();
-            //System.out.println("Calculating HP on side " + FMLCommonHandler.instance().getEffectiveSide());
+            //TConstruct.logger.info("Calculating HP on side " + FMLCommonHandler.instance().getEffectiveSide());
             if (meta == 2)
             {
                 int prevHealth = stats.bonusHealth;
@@ -173,7 +173,7 @@ public class ArmorExtended implements IInventory
                     stats.bonusHealth = bonusHP;
 
                 int healthChange = bonusHP - prevHealth;
-                //System.out.println("healthChange: "+healthChange+" on side "+FMLCommonHandler.instance().getEffectiveSide());
+                //TConstruct.logger.info("healthChange: "+healthChange+" on side "+FMLCommonHandler.instance().getEffectiveSide());
                 if (healthChange != 0)
                 {
                     AttributeInstance attributeinstance = player.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.maxHealth);

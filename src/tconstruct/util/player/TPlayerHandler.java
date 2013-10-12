@@ -33,7 +33,7 @@ public class TPlayerHandler implements IPlayerTracker
     @Override
     public void onPlayerLogin (EntityPlayer entityplayer)
     {
-        //System.out.println("Player: "+entityplayer);
+        //TConstruct.logger.info("Player: "+entityplayer);
         //Lookup player
         NBTTagCompound tags = entityplayer.getEntityData();
         if (!tags.hasKey("TConstruct"))
@@ -189,7 +189,7 @@ public class TPlayerHandler implements IPlayerTracker
     			stats.prevOnGround = player.onGround;
     			//if ()
     				
-    			//System.out.println("Fall: "+player.fallDistance);
+    			//TConstruct.logger.info("Fall: "+player.fallDistance);
     		}
     	}
     }*/
@@ -211,7 +211,7 @@ public class TPlayerHandler implements IPlayerTracker
     public TPlayerStats getPlayerStats (String username)
     {
         TPlayerStats stats = playerStats.get(username);
-        //System.out.println("Stats: "+stats);
+        //TConstruct.logger.info("Stats: "+stats);
         if (stats == null)
         {
             stats = new TPlayerStats();
@@ -243,7 +243,7 @@ public class TPlayerHandler implements IPlayerTracker
 
     public static void setEntitySize (float width, float height, Entity entity)
     {
-        //System.out.println("Size: " + height);
+        //TConstruct.logger.info("Size: " + height);
         if (width != entity.width || height != entity.height)
         {
             entity.width = width;

@@ -46,7 +46,7 @@ public class TClientTickHandler implements ITickHandler
         //this.mc.renderEngine.bindTexture("/mods/tinker/textures/gui/newhearts.png");
 
         int hp = MathHelper.ceiling_float_int(this.mc.thePlayer.getHealth());//(int) player.getEntityAttribute(SharedMonsterAttributes.field_111267_a).func_111125_b();//player.getHealth();
-        //System.out.println("hp: "+hp);
+        //TConstruct.logger.info("hp: "+hp);
         for (int iter = 0; iter < hp / 20; iter++)
         {
             int renderHearts = (hp - 20*(iter+1)) / 2;
