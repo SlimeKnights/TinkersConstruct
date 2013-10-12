@@ -258,6 +258,9 @@ public class DrawbridgeLogic extends InventoryLogic implements IFacingLogic, IAc
                         int yPos = yCoord;
                         int zPos = zCoord;
 
+                        bufferStack = inventory[0].copy();
+                        bufferStack.stackSize = 1;
+                        
                         switch (direction)
                         {
                         case 0:

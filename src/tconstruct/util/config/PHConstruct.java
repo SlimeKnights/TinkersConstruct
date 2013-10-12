@@ -88,6 +88,7 @@ public class PHConstruct
         multiBrick = config.getBlock("Multi Brick", 1481).getInt(1481);
 
         stoneTorch = config.getBlock("Stone Torch", 1484).getInt(1484);
+        stoneLadder = config.getBlock("Stone Ladder", 1479).getInt(1479);
         oreBerry = config.getBlock("Ore Berry One", 1485).getInt(1485);
         oreBerrySecond = config.getBlock("Ore Berry Two", 1486).getInt(1486);
 
@@ -473,6 +474,7 @@ public class PHConstruct
 
     //Decoration
     public static int stoneTorch;
+    public static int stoneLadder;
     public static int multiBrick;
     public static int multiBrickFancy;
     public static int redstoneBallRepeater;
