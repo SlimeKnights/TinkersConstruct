@@ -10,6 +10,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagIntArray;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
+import tconstruct.TConstruct;
 import tconstruct.common.TContent;
 import tconstruct.library.util.CoordTuple;
 import tconstruct.library.util.CoordTupleSort;
@@ -108,7 +109,7 @@ public class TankLayerScan extends LogicComponent
                 break;
             }
             if (!world.isRemote && debug)
-                System.out.println("Bricks in recursion: " + blockCoords.size());
+                TConstruct.logger.info("Bricks in recursion: " + blockCoords.size());
             blockCoords.clear();
             bricks = 0;
 
@@ -116,8 +117,8 @@ public class TankLayerScan extends LogicComponent
             boolean sealed = floodTest(master.xCoord + xPos, master.yCoord, master.zCoord + zPos);
             if (!world.isRemote && debug)
             {
-                System.out.println("Air in ring: " + airBlocks);
-                System.out.println("Bricks in ring: " + bricks);
+                TConstruct.logger.info("Air in ring: " + airBlocks);
+                TConstruct.logger.info("Bricks in ring: " + bricks);
             }
 
             if (sealed)
@@ -135,8 +136,8 @@ public class TankLayerScan extends LogicComponent
 
                     if (!world.isRemote && debug)
                     {
-                        System.out.println("Air in structure: " + airCoords.size());
-                        System.out.println("Bricks in structure: " + blockCoords.size());
+                        TConstruct.logger.info("Air in structure: " + airCoords.size());
+                        TConstruct.logger.info("Bricks in structure: " + blockCoords.size());
                     }
                 }
             }

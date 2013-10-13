@@ -8,6 +8,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
+import tconstruct.TConstruct;
 import tconstruct.common.TContent;
 import tconstruct.library.crafting.ToolBuilder;
 import tconstruct.library.tools.AbilityHelper;
@@ -119,8 +120,8 @@ public class Mattock extends DualHarvestTool
             ItemStack tool = ToolBuilder.instance.buildTool(new ItemStack(getHeadItem(), 1, id), new ItemStack(getHandleItem(), 1, id), accessoryStack, extraStack, name + getToolName());
             if (tool == null)
             {
-                System.out.println("Creative builder failed tool for " + name + this.getToolName());
-                System.out.println("Make sure you do not have item ID conflicts");
+                TConstruct.logger.warning("Creative builder failed tool for " + name + this.getToolName());
+                TConstruct.logger.warning("Make sure you do not have item ID conflicts");
             }
             else
             {

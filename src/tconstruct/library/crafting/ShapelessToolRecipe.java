@@ -40,7 +40,7 @@ public class ShapelessToolRecipe extends ShapelessRecipes
                     {
                         ItemStack itemstack1 = (ItemStack) iterator.next();
 
-                        //System.out.println("Rawr! "+itemstack1.getItemDamage());
+                        //TConstruct.logger.info("Rawr! "+itemstack1.getItemDamage());
                         if (itemstack.itemID == itemstack1.itemID && (itemstack1.getItemDamage() == Short.MAX_VALUE || itemstack.getItemDamage() == itemstack1.getItemDamage()))
                         {
                             if (itemstack.getItem() instanceof ToolCore)

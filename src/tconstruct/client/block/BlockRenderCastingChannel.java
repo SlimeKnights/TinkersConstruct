@@ -158,7 +158,7 @@ public class BlockRenderCastingChannel implements ISimpleBlockRenderingHandler
                 float liquidAmount = tile.liquid.amount / 288f * 0.125f;
                 renderer.setRenderBounds(0.375D, startY, 0.375D, 0.625D, 0.5 + liquidAmount, 0.625D); //Center
                 renderLiquidPart(world, x, y, z, block, renderer, tile);
-                //System.out.println(tile.recentlyFilledDelay);
+                //TConstruct.logger.info(tile.recentlyFilledDelay);
 
                 if (tile.hasTankConnected(ForgeDirection.NORTH))
                 {

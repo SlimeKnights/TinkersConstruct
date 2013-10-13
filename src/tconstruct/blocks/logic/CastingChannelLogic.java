@@ -121,7 +121,7 @@ public class CastingChannelLogic extends TileEntity implements IFluidTank, IFlui
         HashMap tankMap = this.getOutputs();
         if (tankMap.size() <= 0)
         {
-            //System.out.println("Nope, no connections to go to");
+            //TConstruct.logger.info("Nope, no connections to go to");
             return;
         }
         boolean yFilled = false;
@@ -211,7 +211,7 @@ public class CastingChannelLogic extends TileEntity implements IFluidTank, IFlui
         HashMap tankMap = this.getOutputs();
         if (tankMap.size() <= 0)
         {
-            //System.out.println("Nope, no connections to go to");
+            //TConstruct.logger.info("Nope, no connections to go to");
             return;
         }
         boolean yFilled = false;

@@ -34,7 +34,7 @@ public final class Items {
 				return null;
 			}
 		} catch (Exception e) {
-			System.out.println("IC2 API: Call getItem failed for "+name);
+            System.out.println("IC2 API: Call getItem failed for " + name);
 
 			return null;
 		}

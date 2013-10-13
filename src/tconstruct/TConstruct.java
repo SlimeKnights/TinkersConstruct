@@ -23,6 +23,8 @@ import tconstruct.util.player.TPlayerHandler;
 import tconstruct.worldgen.*;
 import tconstruct.worldgen.village.*;
 
+import java.util.logging.Logger;
+
 /** TConstruct, the tool mod.
  * Craft your tools with style, then modify until the original is gone!
  * @author: mDiyo
@@ -37,6 +39,9 @@ public class TConstruct
     public static final int ingotLiquidValue = 144;
     public static final int liquidUpdateAmount = 6;
 
+    // Shared mod logger
+    public static final Logger logger = Logger.getLogger("TConstruct");
+
     /* Instance of this mod, used for grabbing prototype fields */
     @Instance("TConstruct")
     public static TConstruct instance;
@@ -46,27 +51,28 @@ public class TConstruct
 
     public TConstruct()
     {
+        logger.setParent(FMLCommonHandler.instance().getFMLLogger());
         if (Loader.isModLoaded("Natura"))
         {
-            System.out.println("[TConstruct] Natura, what are we going to do tomorrow night?");
+            TConstruct.logger.info("[TConstruct] Natura, what are we going to do tomorrow night?");
             if (Loader.isModLoaded("ChaoticBastion"))
             {
-                System.out.println("[Natura] TConstruct, we're going to...");
-                System.out.println("[ChaoticBastion] All your base are belong to us!");
+                TConstruct.logger.info("[Natura] TConstruct, we're going to...");
+                TConstruct.logger.info("[ChaoticBastion] All your base are belong to us!");
 
             }
             else
-                System.out.println("[Natura] TConstruct, we're going to take over the world!");
+                TConstruct.logger.info("[Natura] TConstruct, we're going to take over the world!");
         }
         else
         {
             if (Loader.isModLoaded("ChaoticBastion"))
             {
-                System.out.println("[TConstruct] Preparing to...");
-                System.out.println("[ChaoticBastion] I'MA FIRING MY LAZOR!");
+                TConstruct.logger.info("[TConstruct] Preparing to...");
+                TConstruct.logger.info("[ChaoticBastion] I'MA FIRING MY LAZOR!");
             }
             else
-                System.out.println("[TConstruct] Preparing to take over the world");
+                TConstruct.logger.info("[TConstruct] Preparing to take over the world");
         }
     }
 

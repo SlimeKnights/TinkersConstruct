@@ -2,6 +2,7 @@ package tconstruct.items.tools;
 
 import java.util.List;
 
+import tconstruct.TConstruct;
 import tconstruct.common.TContent;
 import tconstruct.library.crafting.ToolBuilder;
 import tconstruct.library.tools.ToolCore;
@@ -104,8 +105,8 @@ public class Arrow extends ToolCore
         ItemStack tool = ToolBuilder.instance.buildTool(new ItemStack(getHeadItem(), 1, 3), new ItemStack(getHandleItem(), 1, 0), accessoryStack, extraStack, "");
         if (tool == null)
         {
-            System.out.println("Creative builder failed tool for Vanilla style" + this.getToolName());
-            System.out.println("Make sure you do not have item ID conflicts");
+            TConstruct.logger.warning("Creative builder failed tool for Vanilla style" + this.getToolName());
+            TConstruct.logger.warning("Make sure you do not have item ID conflicts");
         }
         else
         {
@@ -124,8 +125,8 @@ public class Arrow extends ToolCore
 
         if (tool == null)
         {
-            System.out.println("Creative builder failed tool for Vanilla style" + this.getToolName());
-            System.out.println("Make sure you do not have item ID conflicts");
+            TConstruct.logger.warning("Creative builder failed tool for Vanilla style" + this.getToolName());
+            TConstruct.logger.warning("Make sure you do not have item ID conflicts");
         }
         else
         {
@@ -146,8 +147,8 @@ public class Arrow extends ToolCore
         ItemStack tool = ToolBuilder.instance.buildTool(new ItemStack(getHeadItem(), 1, id), new ItemStack(getHandleItem(), 1, id), accessoryStack, extraStack, name + getToolName());
         if (tool == null)
         {
-            System.out.println("Creative builder failed tool for " + name + this.getToolName());
-            System.out.println("Make sure you do not have item ID conflicts");
+            TConstruct.logger.warning("Creative builder failed tool for " + name + this.getToolName());
+            TConstruct.logger.warning("Make sure you do not have item ID conflicts");
         }
         else
         {

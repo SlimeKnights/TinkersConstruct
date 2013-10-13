@@ -438,7 +438,7 @@ public class TEventHandler
     {
     	if (event.entity instanceof EntityXPOrb)
     	{
-    		System.out.println("Entity: " + event.entity);
+    		TConstruct.logger.info("Entity: " + event.entity);
     	}
     }*/
 
