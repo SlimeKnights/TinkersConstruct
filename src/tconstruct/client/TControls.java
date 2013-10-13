@@ -37,7 +37,7 @@ public class TControls extends TKeyHandler
     public TControls()
     {
         super(new KeyBinding[] { armorKey, refreshCapes }, new boolean[] { false, false }, getVanillaKeyBindings(), new boolean[] { false, false });
-        //System.out.println("Controls registered");
+        //TConstruct.logger.info("Controls registered");
     }
 
     private static KeyBinding[] getVanillaKeyBindings ()

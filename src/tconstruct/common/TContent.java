@@ -140,6 +140,7 @@ public class TContent implements IFuelHandler
 
     //Decoration
     public static Block stoneTorch;
+    public static Block stoneLadder;
     public static Block multiBrick;
     public static Block multiBrickFancy;
 
@@ -707,6 +708,8 @@ public class TContent implements IFuelHandler
         //Decoration
         stoneTorch = new StoneTorch(PHConstruct.stoneTorch).setUnlocalizedName("decoration.stonetorch");
         GameRegistry.registerBlock(stoneTorch, "decoration.stonetorch");
+        stoneLadder = new StoneLadder(PHConstruct.stoneLadder).setUnlocalizedName("decoration.stoneladder");
+        GameRegistry.registerBlock(stoneLadder, "decoration.stoneladder");
 
         multiBrick = new MultiBrick(PHConstruct.multiBrick).setUnlocalizedName("Decoration.Brick");
         GameRegistry.registerBlock(multiBrick, MultiBrickItem.class, "decoration.multibrick");
@@ -1645,6 +1648,7 @@ public class TContent implements IFuelHandler
 
         GameRegistry.addRecipe(new ItemStack(Block.pumpkinLantern, 1, 0), "p", "s", 'p', new ItemStack(Block.pumpkin), 'w', new ItemStack(stoneTorch));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(stoneTorch, 4), "p", "w", 'p', new ItemStack(Item.coal, 1, Short.MAX_VALUE), 'w', "stoneRod"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(stoneLadder, 3), "w w", "www", "w w", 'w', "stoneRod"));
         GameRegistry.addRecipe(new ItemStack(toolRod, 4, 1), "c", "c", 'c', new ItemStack(Block.stone));
         GameRegistry.addRecipe(new ItemStack(toolRod, 2, 1), "c", "c", 'c', new ItemStack(Block.cobblestone));
 
@@ -2064,7 +2068,7 @@ public class TContent implements IFuelHandler
         Object obj = getStaticItem("itemResource", "thaumcraft.common.config.ConfigItems");
         if (obj != null)
         {
-            System.out.println("[TConstruct] Thaumcraft detected. Adding thaumium tools.");
+            TConstruct.logger.info("Thaumcraft detected. Adding thaumium tools.");
             thaumcraftAvailable = true;
             TConstructClientRegistry.addMaterialRenderMapping(31, "tinker", "thaumium", true);
             TConstructRegistry.addToolMaterial(31, "Thaumium", 3, 400, 700, 2, 1.3F, 0, 0f, "\u00A75", "Thaumic");
@@ -2081,7 +2085,7 @@ public class TContent implements IFuelHandler
         }
         else
         {
-            System.out.println("[TConstruct] Thaumcraft not detected.");
+            TConstruct.logger.warning("Thaumcraft not detected.");
         }
 
         if (Loader.isModLoaded("Natura"))
@@ -2191,7 +2195,7 @@ public class TContent implements IFuelHandler
         }
         catch (Exception e)
         {
-            System.out.println("[TConstruct] Could not find " + name);
+            TConstruct.logger.warning("Could not find " + name);
             return null;
         }
     }

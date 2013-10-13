@@ -3,6 +3,7 @@ package tconstruct.util.config;
 import java.io.File;
 import java.io.IOException;
 import net.minecraftforge.common.Configuration;
+import tconstruct.TConstruct;
 
 public class TwilightForestConfig
 {
@@ -16,7 +17,7 @@ public class TwilightForestConfig
             config.load();
 
             twilightForestDimensionID = config.get("dimension", "dimensionID", -100).getInt();
-            System.out.println("[TConstruct]TF Dim ID: " + twilightForestDimensionID);
+            TConstruct.logger.info("TF Dim ID: " + twilightForestDimensionID);
         }
         else
         {

@@ -3,6 +3,7 @@ package tconstruct.util.config;
 import java.io.File;
 import java.io.IOException;
 import net.minecraftforge.common.Configuration;
+import tconstruct.TConstruct;
 
 public class BOPConfig
 {
@@ -25,7 +26,7 @@ public class BOPConfig
             config.load();
 
             promisedLandDimensionID = config.get("dimension settings", "Promised Land Dimension ID", -200).getInt();
-            System.out.println("[TConstruct]PL Dim ID: " + promisedLandDimensionID);
+            TConstruct.logger.info("PL Dim ID: " + promisedLandDimensionID);
         }
         else
         {

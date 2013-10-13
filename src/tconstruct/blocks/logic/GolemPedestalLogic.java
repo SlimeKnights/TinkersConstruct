@@ -9,6 +9,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.src.ModLoader;
 import net.minecraft.tileentity.TileEntity;
+import tconstruct.TConstruct;
 
 public class GolemPedestalLogic extends TileEntity implements IInventory
 {
@@ -190,7 +191,7 @@ public class GolemPedestalLogic extends TileEntity implements IInventory
 
     public boolean subtractSoul (int i)
     {
-        System.out.println("SUBTRACT WHY");
+        TConstruct.logger.info("SUBTRACT WHY");
         if (supply == null || supply.itemID >= 512 || cost[supply.itemID] == 0)
         {
             worldObj.playSoundAtEntity(ModLoader.getMinecraftInstance().thePlayer, "mob.blaze.death", 1.0F, 0.5F);
@@ -200,7 +201,7 @@ public class GolemPedestalLogic extends TileEntity implements IInventory
         int j = cost[supply.itemID];
         int k = souls[supply.itemID];
         int l = (supply.stackSize / j) * k;
-        System.out.println((new StringBuilder()).append("Subtracting amt").append(i).append(" s").append(k).append(" c").append(j).append(" ss").append(supply.stackSize).append(" id")
+        TConstruct.logger.info((new StringBuilder()).append("Subtracting amt").append(i).append(" s").append(k).append(" c").append(j).append(" ss").append(supply.stackSize).append(" id")
                 .append(supply.itemID).append(" sa").append(l).append(" calc").append(Math.ceil((double) i / (double) k)).toString());
         if (l < i)
         {

@@ -4,6 +4,7 @@ import java.util.EnumSet;
 
 import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.TickType;
+import tconstruct.TConstruct;
 
 public class TimeTicker implements ITickHandler
 {
@@ -15,7 +16,7 @@ public class TimeTicker implements ITickHandler
     @Override
     public void tickStart (EnumSet<TickType> type, Object... tickData)
     {
-        System.out.println("Tick");
+        TConstruct.logger.info("Tick");
         time++;
         tickParts = (int) (time % 20);
         seconds = (int) (time / 20);

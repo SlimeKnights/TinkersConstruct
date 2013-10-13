@@ -44,11 +44,11 @@ public class TClientEvents
                 soundmanager.addSound("tinker:frypan_hit.ogg");
                 soundmanager.addSound("tinker:little_saw.ogg");
                 soundmanager.addSound("tinker:launcher_clank.ogg");
-                System.out.println("[TConstruct] Successfully loaded sounds.");
+                TConstruct.logger.info("Successfully loaded sounds.");
             }
             catch (Exception e)
             {
-                System.err.println("[TConstruct] Failed to register one or more sounds");
+                TConstruct.logger.warning("Failed to register one or more sounds");
             }
         }
     }

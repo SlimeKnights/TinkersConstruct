@@ -238,6 +238,7 @@ StorageMetals.Steel.name=Block of Steel
 StorageMetals.Ender.name=Block of Solid Ender
 
 tile.decoration.stonetorch.name=Torch
+tile.decoration.stoneladder.name=Ladder
 tile.CraftingStation.name=Crafting Station
 
 block.glass.pure.name=Clear Glass

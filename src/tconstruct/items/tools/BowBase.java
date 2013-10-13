@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import tconstruct.TConstruct;
 import tconstruct.common.TContent;
 import tconstruct.entity.projectile.ArrowEntity;
 import tconstruct.library.crafting.ToolBuilder;
@@ -770,8 +771,8 @@ public abstract class BowBase extends ToolCore
         ItemStack tool = ToolBuilder.instance.buildTool(new ItemStack(getHeadItem(), 1, id), new ItemStack(getHandleItem(), 1, 0), accessoryStack, extraStack, name + getToolName());
         if (tool == null)
         {
-            System.out.println("Creative builder failed tool for " + name + this.getToolName());
-            System.out.println("Make sure you do not have item ID conflicts");
+            TConstruct.logger.warning("Creative builder failed tool for " + name + this.getToolName());
+            TConstruct.logger.warning("Make sure you do not have item ID conflicts");
         }
         else
         {
