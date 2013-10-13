@@ -238,6 +238,7 @@ StorageMetals.Steel.name=Stahlblock
 StorageMetals.Ender.name=Block Soliden Enders
 
 tile.decoration.stonetorch.name=Fackel
+tile.decoration.stoneladder.name=Leiter
 tile.CraftingStation.name=Handwerksstation
 
 block.glass.pure.name=Klares Glas
