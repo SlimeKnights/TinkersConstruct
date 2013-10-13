@@ -78,7 +78,7 @@ public class TProxyClient extends TProxyCommon
         if (ID == craftingStationID)
             return new CraftingStationGui(player.inventory, (CraftingStationLogic) world.getBlockTileEntity(x, y, z), x, y, z);
         if (ID == advDrawbridgeID)
-        	return new AdvDrawbridgeGui(player.inventory, (AdvancedDrawbridgeLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
+        	return new AdvDrawbridgeGui(player, (AdvancedDrawbridgeLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
 
         if (ID == manualGuiID)
         {

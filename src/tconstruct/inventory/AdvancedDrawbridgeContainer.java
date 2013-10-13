@@ -1,11 +1,13 @@
 package tconstruct.inventory;
 
-import tconstruct.client.gui.AdvDrawbridgeGui;
+import net.minecraft.entity.player.EntityPlayer;
 
+import java.util.Iterator;
 import net.minecraft.entity.player.*;
 import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
-import tconstruct.blocks.logic.*;
+import tconstruct.blocks.logic.AdvancedDrawbridgeLogic;
+import tconstruct.client.gui.AdvDrawbridgeGui;
 
 public class AdvancedDrawbridgeContainer extends Container {
 	public AdvancedDrawbridgeLogic logic;
@@ -26,7 +28,7 @@ public class AdvancedDrawbridgeContainer extends Container {
 	public AdvancedDrawbridgeContainer(InventoryPlayer inventoryplayer, AdvancedDrawbridgeLogic logic, AdvDrawbridgeGui gui) {
 		this.logic = logic;
 		this.gui = gui;
-		
+
 		addContainerSlots(logic);
 		bindPlayerInventory(inventoryplayer);
 		updateContainerSlots();
@@ -46,9 +48,12 @@ public class AdvancedDrawbridgeContainer extends Container {
 
 	public void addContainerSlots(AdvancedDrawbridgeLogic logic) {
 		this.addSlotToContainer(new SlotOpaqueBlocksOnly(logic.camoInventory, 0, 35, 36));
-		
-		for(int i = 0; i < logic.getSizeInventory(); i++){
-			this.addSlotToContainer(new DrawbridgeSlot(logic, i, -2 + 18 * i, 40, logic));
+
+		for (int i = 0; i < logic.getSizeInventory(); i++) {
+			int ind = (int) (Math.floor(i / 8) * 8);
+			int x = i < 8 ? 10 + 20 * i : 10 + 20 * (i - 8);
+			int y = 35 + (int) Math.floor(i / 8) * 18 + (i < 8 ? 0 : 1);
+			this.addSlotToContainer(new DrawbridgeSlot(logic, i, x, y, logic));
 		}
 	}
 
@@ -85,8 +90,45 @@ public class AdvancedDrawbridgeContainer extends Container {
 	}
 
 	public void updateContainerSlots() {
-		if (gui == null || gui.isGuiExpanded) {
-
+		if (gui == null) {
+			return;
+		} else if (gui.isGuiExpanded) {
+			Iterator<Slot> i1 = inventorySlots.iterator();
+			int index = 0;
+			while (i1.hasNext()) {
+				Slot sl = i1.next();
+				if (index == 0) {
+					sl.xDisplayPosition = -1000;
+					sl.yDisplayPosition = -1000;
+				} else if (sl instanceof DrawbridgeSlot) {
+					sl.xDisplayPosition = (index - 1) < 8 ? 10 + 20 * (index - 1) : 10 + 20 * ((index - 1) - 8);
+					sl.yDisplayPosition = 35 + (int) Math.floor((index - 1) / 8) * 18 + ((index - 1) < 8 ? 0 : 1);
+				}
+				index++;
+			}
+		} else {
+			Iterator<Slot> i1 = inventorySlots.iterator();
+			int index = 0;
+			while (i1.hasNext()) {
+				Slot sl = i1.next();
+				if (index == 0) {
+					sl.xDisplayPosition = 35;
+					sl.yDisplayPosition = 36;
+				} else if (sl instanceof DrawbridgeSlot) {
+					sl.xDisplayPosition = -1000;
+					sl.yDisplayPosition = -1000;
+				}
+				index++;
+			}
+		}
+	}
+	
+	@Override
+    public ItemStack slotClick(int par1, int par2, int par3, EntityPlayer par4EntityPlayer){
+		if(gui != null && gui.containerNeglectMouse){
+			return null;
+		}else{
+			return super.slotClick(par1, par2, par3, par4EntityPlayer);
 		}
 	}
 }
