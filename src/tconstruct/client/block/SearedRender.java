@@ -173,7 +173,7 @@ public class SearedRender implements ISimpleBlockRenderingHandler
                 	ItemStack it = logic.getStackInSlot(0);
                 	if(it != null){
                 		CastingRecipe rec = TConstruct.tableCasting.getCastingRecipe(logic.liquid, it);
-                		if(rec != null){
+                		if(rec != null && rec.fluidRenderProperties != null){
                 			minHeight = rec.fluidRenderProperties.minHeight;
                 			maxHeight = rec.fluidRenderProperties.maxHeight;
                 			
@@ -388,7 +388,7 @@ public class SearedRender implements ISimpleBlockRenderingHandler
                 	ItemStack it = logic.getStackInSlot(0);
                 	if(it != null){
                 		CastingRecipe rec = TConstruct.basinCasting.getCastingRecipe(logic.liquid, it);
-                		if(rec != null){
+                		if(rec != null && rec.fluidRenderProperties != null){
                 			minHeight = rec.fluidRenderProperties.minHeight;
                 			maxHeight = rec.fluidRenderProperties.maxHeight;
                 			
