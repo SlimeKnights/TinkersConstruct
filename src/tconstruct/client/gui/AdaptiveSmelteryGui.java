@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.Icon;
@@ -21,6 +23,7 @@ import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
+import tconstruct.blocks.component.SmelteryComponent;
 import tconstruct.blocks.logic.AdaptiveSmelteryLogic;
 import tconstruct.inventory.ActiveContainer;
 import tconstruct.inventory.AdaptiveSmelteryContainer;
@@ -34,14 +37,15 @@ public class AdaptiveSmelteryGui extends NewContainerGui
     float currentScroll = 0.0F;
     int slotPos = 0;
     int prevSlotPos = 0;
-
+    private SmelteryComponent scomp;
     public AdaptiveSmelteryGui(InventoryPlayer inventoryplayer, AdaptiveSmelteryLogic smeltery, World world, int x, int y, int z)
     {
         super((ActiveContainer) smeltery.getGuiContainer(inventoryplayer, world, x, y, z));
         logic = smeltery;
         username = inventoryplayer.player.username;
         xSize = 248;
-        //smeltery.updateFuelDisplay();
+        scomp = logic.getSmeltery();
+        scomp.update();
     }
 
     public void drawScreen (int mouseX, int mouseY, float par3)
@@ -144,17 +148,17 @@ public class AdaptiveSmelteryGui extends NewContainerGui
 
             }
         }
-        /*if (logic.fuelGague > 0)
+        if (scomp.fuelGague > 0)
         {
             int leftX = cornerX + 117;
-            int topY = (cornerY + 68) - logic.getScaledFuelGague(52);
+            int topY = (cornerY + 68) - scomp.getScaledFuelGague(52);
             int sizeX = 12;
-            int sizeY = logic.getScaledFuelGague(52);
+            int sizeY = scomp.getScaledFuelGague(52);
             if (mouseX >= leftX && mouseX <= leftX + sizeX && mouseY >= topY && mouseY < topY + sizeY)
             {
-                drawFluidStackTooltip(new FluidStack(-37, logic.fuelAmount), mouseX - cornerX + 36, mouseY - cornerY);
+                drawFluidStackTooltip(new FluidStack(-37, scomp.fuelAmount), mouseX - cornerX + 36, mouseY - cornerY);
             }
-        }*/
+        }
     }
 
     private static final ResourceLocation background = new ResourceLocation("tinker", "textures/gui/smeltery.png");
@@ -170,11 +174,11 @@ public class AdaptiveSmelteryGui extends NewContainerGui
         drawTexturedModalRect(cornerX + 46, cornerY, 0, 0, 176, ySize);
 
         //Fuel - Lava
-        /*this.mc.getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
-        if (logic.fuelGague > 0)
+        this.mc.getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
+        if (scomp.fuelGague > 0)
         {
             Icon lavaIcon = Block.lavaStill.getIcon(0, 0);
-            int fuel = logic.getScaledFuelGague(52);
+            int fuel = scomp.getScaledFuelGague(52);
             int count = 0;
             while (fuel > 0)
             {
@@ -183,7 +187,7 @@ public class AdaptiveSmelteryGui extends NewContainerGui
                 drawLiquidRect(cornerX + 117, (cornerY + 68) - size - 16 * count, lavaIcon, 12, size);
                 count++;
             }
-        }*/
+        }
 
         FluidTankInfo[] info = logic.getTankInfo(ForgeDirection.UNKNOWN);
         int capacity = 0;
