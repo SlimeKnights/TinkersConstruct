@@ -238,6 +238,7 @@ StorageMetals.Steel.name=Blocco d'Acciaio
 StorageMetals.Ender.name=Blocco di Ender Solido
 
 tile.decoration.stonetorch.name=Torcia
+tile.decoration.stoneladder.name=Scala a Pioli
 tile.CraftingStation.name=Tavolo da Lavoro
 
 block.glass.pure.name=Vetro Chiaro
