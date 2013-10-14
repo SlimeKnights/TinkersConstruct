@@ -1,5 +1,7 @@
 package tconstruct.client.gui;
 
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -9,6 +11,7 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.Icon;
 import net.minecraft.util.ResourceLocation;
@@ -23,10 +26,12 @@ import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
+import cpw.mods.fml.common.network.PacketDispatcher;
 import tconstruct.blocks.component.SmelteryComponent;
 import tconstruct.blocks.logic.AdaptiveSmelteryLogic;
 import tconstruct.inventory.ActiveContainer;
 import tconstruct.inventory.AdaptiveSmelteryContainer;
+import tconstruct.library.component.MultiFluidTank;
 
 public class AdaptiveSmelteryGui extends NewContainerGui
 {
@@ -38,6 +43,7 @@ public class AdaptiveSmelteryGui extends NewContainerGui
     int slotPos = 0;
     int prevSlotPos = 0;
     private SmelteryComponent scomp;
+    private MultiFluidTank multitank;
     public AdaptiveSmelteryGui(InventoryPlayer inventoryplayer, AdaptiveSmelteryLogic smeltery, World world, int x, int y, int z)
     {
         super((ActiveContainer) smeltery.getGuiContainer(inventoryplayer, world, x, y, z));
@@ -45,7 +51,9 @@ public class AdaptiveSmelteryGui extends NewContainerGui
         username = inventoryplayer.player.username;
         xSize = 248;
         scomp = logic.getSmeltery();
+        multitank = logic.getMultiTank();
         scomp.update();
+        
     }
 
     public void drawScreen (int mouseX, int mouseY, float par3)
@@ -444,14 +452,14 @@ public class AdaptiveSmelteryGui extends NewContainerGui
         int cornerY = (height - ySize) / 2;
         int fluidToBeBroughtUp = -1;
         
-        for (FluidStack liquid : logic.moltenMetal)
+        for (FluidStack liquid : multitank.getAllFluids())
         {
             int basePos = 54;
             int initialLiquidSize = 0;
             int liquidSize = 0;//liquid.amount * 52 / liquidLayers;
-            if (logic.getCapacity() > 0)
+            if (multitank.getCapacity() > 0)
             {
-                int total = logic.getTotalLiquid();
+                int total = multitank.getFluidAmount();
                 int liquidLayers = (total / 20000 + 1) * 20000;
                 if (liquidLayers > 0)
                 {

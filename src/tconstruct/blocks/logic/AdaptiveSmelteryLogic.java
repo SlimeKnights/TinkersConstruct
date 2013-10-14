@@ -46,6 +46,11 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
 
     int tick = 0;
 
+    public MultiFluidTank getMultiTank ()
+    {
+        return multitank;
+    }
+
     public SmelteryComponent getSmeltery ()
     {
         return smeltery;
