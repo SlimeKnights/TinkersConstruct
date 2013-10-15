@@ -11,7 +11,6 @@ import net.minecraft.nbt.NBTTagIntArray;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import tconstruct.TConstruct;
-import tconstruct.common.TContent;
 import tconstruct.library.util.CoordTuple;
 import tconstruct.library.util.CoordTupleSort;
 import tconstruct.library.util.IFacingLogic;
@@ -37,7 +36,8 @@ public class TankLayerScan extends LogicComponent
     protected ArrayList<int[]> validAirCoords = new ArrayList<int[]>();
     protected CoordTuple returnStone;
 
-    private boolean debug = false;
+    private static boolean debug = false;
+    private static final int MAX_LAYER_RECURSION_DEPTH = 3500;
 
     public TankLayerScan(TileEntity te, Block... ids)
     {
@@ -256,7 +256,7 @@ public class TankLayerScan extends LogicComponent
 
     protected boolean floodTest (int x, int y, int z)
     {
-        if (airBlocks > 4000)
+        if (airBlocks > MAX_LAYER_RECURSION_DEPTH)
             return false;
 
         for (int[] offset : validAirCoords)
