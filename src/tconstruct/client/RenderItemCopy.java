@@ -349,7 +349,7 @@ public class RenderItemCopy extends Render
     {
         int k = par3ItemStack.itemID;
         int l = par3ItemStack.getItemDamage();
-        Object object = pa3ItemStack.getItem() == null ? par3ItemStack.getIconIndex() : null;
+        Object object = pa3ItemStack.getItem() == null ? null : par3ItemStack.getIconIndex() ;
         float f;
         int i1;
         float f1;
