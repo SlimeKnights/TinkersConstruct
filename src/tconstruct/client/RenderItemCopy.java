@@ -349,12 +349,12 @@ public class RenderItemCopy extends Render
     {
         int k = par3ItemStack.itemID;
         int l = par3ItemStack.getItemDamage();
-        Object object = par3ItemStack.getIconIndex();
+        Object object = pa3ItemStack.getItem() == null ? null : par3ItemStack.getIconIndex() ;
         float f;
         int i1;
         float f1;
         float f2;
-
+        
         Block block = (k < Block.blocksList.length ? Block.blocksList[k] : null);
         if (par3ItemStack.getItemSpriteNumber() == 0 && block != null && RenderBlocks.renderItemIn3d(Block.blocksList[k].getRenderType()))
         {
