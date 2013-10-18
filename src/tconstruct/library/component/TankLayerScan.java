@@ -215,7 +215,7 @@ public class TankLayerScan extends LogicComponent
 
     protected boolean initialRecurseLayer (int x, int y, int z)
     {
-        if (bricks > 4000)
+        if (bricks > MAX_LAYER_RECURSION_DEPTH)
             return false;
 
         CoordTuple keystone = new CoordTuple(x, y, z);
