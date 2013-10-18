@@ -240,6 +240,11 @@ item.tconstruct.ArmorPattern.chestplate.name=Chestplate Cast
 item.tconstruct.ArmorPattern.leggings.name=Leggings Cast
 item.tconstruct.ArmorPattern.boots.name=Boots Cast
 
+item.tconstruct.helmetWood.name=Wooden Helmet
+item.tconstruct.chestplateWood.name=Wooden Chestplate
+item.tconstruct.leggingsWood.name=Wooden Leggings
+item.tconstruct.bootsWood.name=Wooden Boots
+
 item.tconstruct.jerky.beef.name=Beef Jerky
 item.tconstruct.jerky.pig.name=Bacon Jerky
 item.tconstruct.jerky.chicken.name=Chicken Jerky
