@@ -10,6 +10,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagIntArray;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.classloading.FMLForgePlugin;
 import scala.compat.Platform$;
 import tconstruct.TConstruct;
 import tconstruct.library.util.CoordTuple;
@@ -37,7 +38,7 @@ public class TankLayerScan extends LogicComponent
     protected ArrayList<int[]> validAirCoords = new ArrayList<int[]>();
     protected CoordTuple returnStone;
 
-    private static boolean debug = false;
+    private static boolean debug = System.getenv("DBG_MANTLE_TankLayerScan") != null;
     private static int MAX_LAYER_RECURSION_DEPTH = System.getProperty("os.arch").equals("amd64") ? 4000 : 2000; // Recursion causes overflows on 32-bit, so reduce if not 64-bit
 
     public TankLayerScan(TileEntity te, Block... ids)
@@ -51,7 +52,11 @@ public class TankLayerScan extends LogicComponent
         validAirCoords.add(new int[] { -1, 0 });
         validAirCoords.add(new int[] { 0, 1 });
         validAirCoords.add(new int[] { 0, -1 });
-        //TConstruct.logger.info("Using recursion size " + MAX_LAYER_RECURSION_DEPTH + " on JVM arch " + System.getProperty("os.arch"));
+        if (debug)
+        {
+            TConstruct.logger.info("In debug mode: " + this);
+            TConstruct.logger.info("Using recursion size " + MAX_LAYER_RECURSION_DEPTH + " on JVM arch " + System.getProperty("os.arch"));
+        }
     }
 
     public void checkValidStructure ()
@@ -146,6 +151,7 @@ public class TankLayerScan extends LogicComponent
         }
     }
 
+    @SuppressWarnings({"unchecked"})
     protected void finalizeStructure ()
     {
         Collections.sort(airCoords, new CoordTupleSort());
