@@ -40,6 +40,7 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
 {
     byte direction;
     boolean updateFluids = false;
+    boolean updateAir = false;
     SmelteryScan structure = new SmelteryScan(this, TContent.smeltery, TContent.lavaTank);
     MultiFluidTank multitank = new MultiFluidTank();
     SmelteryComponent smeltery = new SmelteryComponent(this, structure, multitank, 800);
@@ -71,6 +72,12 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
             {
                 distributeFluids();
                 updateFluids = false;
+            }
+
+            if (updateAir)
+            {
+                updateAir();
+                updateAir = false;
             }
         }
 
@@ -217,6 +224,7 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
             itemstack.stackSize = getInventoryStackLimit();
         }
         updateWorldBlock(slot, itemstack);
+        updateAir = true;
     }
 
     @Override
@@ -250,6 +258,7 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
     public void onInventoryChanged ()
     {
         smeltery.updateTemperatures();
+        updateAir = true;
         super.onInventoryChanged();
     }
 
@@ -375,6 +384,12 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
                 ((TankAirLogic) te).overrideFluids(((LiquidDataInstance) pairs.getValue()).fluids);
             }
         }
+    }
+
+    public void updateAir()
+    {
+        for (CoordTuple loc : structure.airCoords)
+            worldObj.markBlockForUpdate(loc.x, loc.y, loc.z);
     }
 
     class LiquidData
