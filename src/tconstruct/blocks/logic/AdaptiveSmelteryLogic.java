@@ -473,7 +473,7 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
     @Override
     public void readFromNBT (NBTTagCompound tags)
     {
-        super.readFromNBT(tags);
+        super.superReadFromNBT(tags);
         readNetworkNBT(tags);
 
         structure.readFromNBT(tags);
@@ -485,6 +485,7 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
     {
         direction = tags.getByte("Direction");
         inventory = new ItemStack[tags.getInteger("InvSize")];
+        super.readInventoryFromNBT(tags);
 
         structure.readNetworkNBT(tags);
         multitank.readNetworkNBT(tags);
@@ -494,7 +495,7 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
     @Override
     public void writeToNBT (NBTTagCompound tags)
     {
-        super.writeToNBT(tags);
+        super.superWriteToNBT(tags);
         writeNetworkNBT(tags);
 
         structure.writeToNBT(tags);
@@ -506,6 +507,7 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
     {
         tags.setByte("Direction", direction);
         tags.setInteger("InvSize", inventory.length);
+        super.writeInventoryToNBT(tags);
 
         structure.writeNetworkNBT(tags);
         multitank.writeNetworkNBT(tags);
