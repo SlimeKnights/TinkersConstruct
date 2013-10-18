@@ -46,6 +46,16 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
 
     int tick = 0;
 
+    public MultiFluidTank getMultiTank ()
+    {
+        return multitank;
+    }
+
+    public SmelteryComponent getSmeltery ()
+    {
+        return smeltery;
+    }
+
     public void updateEntity ()
     {
         tick++;
@@ -234,8 +244,8 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
         {
             return null;
         }
-    } 
-    
+    }
+
     @Override
     public void onInventoryChanged ()
     {
@@ -424,7 +434,7 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
     {
         return "crafters.Smeltery";
     }
-    
+
     /* Fluids */
 
     @Override

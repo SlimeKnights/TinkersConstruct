@@ -196,7 +196,7 @@ public class ToolBuilder
             }
         }
 
-        //System.out.println("Valid: "+item);
+        //TConstruct.logger.info("Valid: "+item);
 
         if (item == null)
             return null;

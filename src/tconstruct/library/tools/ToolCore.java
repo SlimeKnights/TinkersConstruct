@@ -9,6 +9,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import appeng.api.IAEItemStack;
+import appeng.api.me.items.IAEChargeableItem;
+import appeng.api.me.items.IStorageCell;
 import mods.battlegear2.api.weapons.IBattlegearWeapon;
 import mods.battlegear2.api.weapons.OffhandAttackEvent;
 import net.minecraft.block.Block;
@@ -24,6 +27,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import tconstruct.TConstruct;
 import tconstruct.library.ActiveToolMod;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.ToolBuilder;
@@ -56,7 +60,7 @@ import cpw.mods.fml.relauncher.SideOnly;
  * @see ToolMod
  */
 
-public abstract class ToolCore extends Item implements ICustomElectricItem, IBoxable, IBattlegearWeapon//, IStorageCell, IAEChargeableItem
+public abstract class ToolCore extends Item implements ICustomElectricItem, IBoxable, IBattlegearWeapon, IStorageCell, IAEChargeableItem
 {
     protected Random random = new Random();
     protected int damageVsEntity;
@@ -537,8 +541,8 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
         ItemStack tool = ToolBuilder.instance.buildTool(new ItemStack(getHeadItem(), 1, id), new ItemStack(getHandleItem(), 1, id), accessoryStack, extraStack, name + getToolName());
         if (tool == null)
         {
-            System.out.println("Creative builder failed tool for " + name + this.getToolName());
-            System.out.println("Make sure you do not have item ID conflicts");
+            TConstruct.logger.warning("Creative builder failed tool for " + name + this.getToolName());
+            TConstruct.logger.warning("Make sure you do not have item ID conflicts");
         }
         else
         {
@@ -989,7 +993,7 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
     }
 
     /* Applied Energistics support, IAEChargableItem */
-    /*@Override
+    @Override
     public float addEnergy (ItemStack target, float energy)
     {
         // TODO Auto-generated method stub
@@ -1001,10 +1005,10 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
     {
         // TODO Auto-generated method stub
         return false;
-    }*/
+    }
 
     /* Applied Energistics support, IStorageCell */
-    /*@Override
+    @Override
     public int getBytes (ItemStack cellItem)
     {
         // TODO Auto-generated method stub
@@ -1036,5 +1040,5 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
     {
         // TODO Auto-generated method stub
         return false;
-    }*/
+    }
 }

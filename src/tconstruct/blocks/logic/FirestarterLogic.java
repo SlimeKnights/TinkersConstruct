@@ -1,5 +1,6 @@
 package tconstruct.blocks.logic;
 
+import tconstruct.TConstruct;
 import tconstruct.library.tools.AbilityHelper;
 import tconstruct.library.util.IActiveLogic;
 import tconstruct.library.util.IFacingLogic;
@@ -70,7 +71,7 @@ public class FirestarterLogic extends TileEntity implements IFacingLogic, IActiv
         Block block = Block.blocksList[worldObj.getBlockId(xPos, yPos, zPos)];
         if (active)
         {
-            System.out.println("Setting fire");
+            TConstruct.logger.info("Setting fire");
             if (block == null || block.isAirBlock(worldObj, xPos, yPos, zPos))
             {
                 worldObj.playSoundEffect((double) xPos + 0.5D, (double) yPos + 0.5D, (double) zPos + 0.5D, "fire.ignite", 1.0F, AbilityHelper.random.nextFloat() * 0.4F + 0.8F);
@@ -79,7 +80,7 @@ public class FirestarterLogic extends TileEntity implements IFacingLogic, IActiv
         }
         else
         {
-            //System.out.println("Stopping fire "+putOut);
+            //TConstruct.logger.info("Stopping fire "+putOut);
             if (block == Block.fire)
             {
                 //worldObj.playSoundEffect((double) xPos + 0.5D, (double) yPos + 0.5D, (double) zPos + 0.5D, "random.fizz", 1.0F, AbilityHelper.random.nextFloat() * 0.4F + 0.8F);

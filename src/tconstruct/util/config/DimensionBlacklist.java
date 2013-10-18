@@ -42,7 +42,7 @@ public class DimensionBlacklist
         {
             if (blacklist.get(len) == dim)
                 return false;
-            //System.out.println("[TConstruct]diminblist +" + blacklist.get(len));
+            //TConstruct.logger.info("diminblist +" + blacklist.get(len));
         }
         return true;
 
@@ -53,7 +53,7 @@ public class DimensionBlacklist
         for (int len = 0; len < nopool.size(); len++)
         {
             if (nopool.get(len) == dim)
-                //System.out.println("[TConstruct]DimNoPool "+ nopool.get(len));
+                //TConstruct.logger.info("DimNoPool "+ nopool.get(len));
                 return true;
         }
         return false;

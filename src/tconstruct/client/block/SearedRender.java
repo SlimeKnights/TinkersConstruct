@@ -159,156 +159,159 @@ public class SearedRender implements ISimpleBlockRenderingHandler
                 renderer.setRenderBounds(0.6875, 0.0F, 0.6875, 1.0F, 0.625F, 1.0F);
                 renderer.renderStandardBlock(block, x, y, z);
 
-                CastingTableLogic logic = (CastingTableLogic) world.getBlockTileEntity(x, y, z);
-                if (logic.liquid != null)
-                {
-                	float minHeight = 0.9375F;
-                	float maxHeight = 1F;
-                	
-                	float minX = 0.0625F;
-                	float maxX = 0.9375F;
-                	float minZ = 0.0625F;
-                	float maxZ = 0.9375F;
-                	
-                	ItemStack it = logic.getStackInSlot(0);
-                	if(it != null){
-                		CastingRecipe rec = TConstruct.tableCasting.getCastingRecipe(logic.liquid, it);
-                		if(rec != null){
-                			minHeight = rec.fluidRenderProperties.minHeight;
-                			maxHeight = rec.fluidRenderProperties.maxHeight;
-                			
-                			minX = rec.fluidRenderProperties.minX;
-                			maxX = rec.fluidRenderProperties.maxX;
-                			minZ = rec.fluidRenderProperties.minZ;
-                			maxZ = rec.fluidRenderProperties.maxZ;
-                		}
-                	}
-                	
-                    float height = logic.getLiquidAmount() / (logic.getCapacity() * 1.03F) / 16F;
-                    renderer.setRenderBounds(minX, minHeight, minZ, maxX, minHeight + height, maxZ);
+                if (world.getBlockTileEntity(x, y, z) instanceof CastingTableLogic) {
+                    CastingTableLogic logic = (CastingTableLogic) world.getBlockTileEntity(x, y, z);
+                    if (logic.liquid != null)
+                    {
+                    	float minHeight = 0.9375F;
+                    	float maxHeight = 1F;
 
-                    Fluid fluid = logic.liquid.getFluid();
-                    BlockSkinRenderHelper.renderLiquidBlock(fluid.getStillIcon(), fluid.getFlowingIcon(), x, y, z, renderer, world);
-                    /*if (logic.liquid.fluidID < 4096) //Block
-                    {
-                        Block liquidBlock = Block.blocksList[logic.liquid.fluidID];
-                        if (liquidBlock != null)
+                    	float minX = 0.0625F;
+                    	float maxX = 0.9375F;
+                    	float minZ = 0.0625F;
+                    	float maxZ = 0.9375F;
+
+                    	ItemStack it = logic.getStackInSlot(0);
+                    	if(it != null){
+                    		CastingRecipe rec = TConstruct.tableCasting.getCastingRecipe(logic.liquid, it);
+                    		if(rec != null && rec.fluidRenderProperties != null){
+                    			minHeight = rec.fluidRenderProperties.minHeight;
+                    			maxHeight = rec.fluidRenderProperties.maxHeight;
+
+                    			minX = rec.fluidRenderProperties.minX;
+                    			maxX = rec.fluidRenderProperties.maxX;
+                    			minZ = rec.fluidRenderProperties.minZ;
+                    			maxZ = rec.fluidRenderProperties.maxZ;
+                    		}
+                    	}
+
+                        float height = logic.getLiquidAmount() / (logic.getCapacity() * 1.03F) / 16F;
+                        renderer.setRenderBounds(minX, minHeight, minZ, maxX, minHeight + height, maxZ);
+
+                        Fluid fluid = logic.liquid.getFluid();
+                        BlockSkinRenderHelper.renderLiquidBlock(fluid.getStillIcon(), fluid.getFlowingIcon(), x, y, z, renderer, world);
+                        /*if (logic.liquid.fluidID < 4096) //Block
                         {
-                            //ForgeHooksClient.bindTexture(liquidBlock.getTextureFile(), 0);
-                            BlockSkinRenderHelper.renderMetadataBlock(liquidBlock, 0, x, y, z, renderer, world);
+                            Block liquidBlock = Block.blocksList[logic.liquid.fluidID];
+                            if (liquidBlock != null)
+                            {
+                                //ForgeHooksClient.bindTexture(liquidBlock.getTextureFile(), 0);
+                                BlockSkinRenderHelper.renderMetadataBlock(liquidBlock, 0, x, y, z, renderer, world);
+                            }
                         }
+                        else
+                        //Item
+                        {
+                            Item liquidItem = Item.itemsList[logic.liquid.fluidID];
+                            if (liquidItem != null)
+                            {
+                                //ForgeHooksClient.bindTexture(liquidItem.getTextureFile(), 0);
+                                BlockSkinRenderHelper.renderFakeBlock(liquidItem.getIconFromDamage(0), x, y, z, renderer, world);
+                            }
+                        }*/
                     }
-                    else
-                    //Item
-                    {
-                        Item liquidItem = Item.itemsList[logic.liquid.fluidID];
-                        if (liquidItem != null)
-                        {
-                            //ForgeHooksClient.bindTexture(liquidItem.getTextureFile(), 0);
-                            BlockSkinRenderHelper.renderFakeBlock(liquidItem.getIconFromDamage(0), x, y, z, renderer, world);
-                        }
-                    }*/
                 }
             }
             else if (metadata == 1)
             {
-                FaucetLogic logic = (FaucetLogic) world.getBlockTileEntity(x, y, z);
-                float xMin = 0.375F, zMin = 0.375F, xMax = 0.625F, zMax = 0.625F;
-                switch (logic.getRenderDirection())
-                {
-                case 2:
-                    renderer.setRenderBounds(0.25, 0.25, 0.625, 0.75, 0.375, 1);
-                    renderer.renderStandardBlock(block, x, y, z);
-                    renderer.setRenderBounds(0.25, 0.375, 0.625, 0.375, 0.625, 1);
-                    renderer.renderStandardBlock(block, x, y, z);
-                    renderer.setRenderBounds(0.625, 0.375, 0.625, 0.75, 0.625, 1);
-                    renderer.renderStandardBlock(block, x, y, z);
-                    renderer.setRenderBounds(0.375, 0.375, 0.625, 0.625, 0.625, 1);
-                    zMin = 0.5F;
-                    //zMin = 0.625F;
-                    break;
-                case 3:
-                    renderer.setRenderBounds(0.25, 0.25, 0, 0.75, 0.375, 0.375);
-                    renderer.renderStandardBlock(block, x, y, z);
-                    renderer.setRenderBounds(0.25, 0.375, 0, 0.375, 0.625, 0.375);
-                    renderer.renderStandardBlock(block, x, y, z);
-                    renderer.setRenderBounds(0.625, 0.375, 0, 0.75, 0.625, 0.375);
-                    renderer.renderStandardBlock(block, x, y, z);
-                    renderer.setRenderBounds(0.375, 0.375, 0, 0.625, 0.625, 0.375);
-                    zMax = 0.5F;
-                    break;
-                case 4:
-                    renderer.setRenderBounds(0.625, 0.25, 0.25, 1, 0.375, 0.75);
-                    renderer.renderStandardBlock(block, x, y, z);
-                    renderer.setRenderBounds(0.625, 0.375, 0.25, 1, 0.625, 0.375);
-                    renderer.renderStandardBlock(block, x, y, z);
-                    renderer.setRenderBounds(0.625, 0.375, 0.625, 1, 0.625, 0.75);
-                    renderer.renderStandardBlock(block, x, y, z);
-                    renderer.setRenderBounds(0.625, 0.375, 0.375, 1, 0.625, 0.625);
-                    xMin = 0.5F;
-                    break;
-                case 5:
-                    renderer.setRenderBounds(0, 0.25, 0.25, 0.375, 0.375, 0.75);
-                    renderer.renderStandardBlock(block, x, y, z);
-                    renderer.setRenderBounds(0, 0.375, 0.25, 0.375, 0.625, 0.375);
-                    renderer.renderStandardBlock(block, x, y, z);
-                    renderer.setRenderBounds(0, 0.375, 0.625, 0.375, 0.625, 0.75);
-                    renderer.renderStandardBlock(block, x, y, z);
-                    renderer.setRenderBounds(0, 0.375, 0.375, 0.375, 0.625, 0.625);
-                    xMax = 0.5F;
-                    break;
-                }
-
-                float yMin = 0F;
-                int uID = world.getBlockId(x, y - 1, z);
-                int uMeta = world.getBlockMetadata(x, y - 1, z);
-                if (uID == TContent.searedBlock.blockID && uMeta == 0)
-                {
-                    yMin = -0.125F;
-                }
-                else if (uID == TContent.searedBlock.blockID && uMeta == 2)
-                {
-                    yMin = -0.75F;
-                }
-                else if (uID == TContent.lavaTank.blockID)
-                {
-                    yMin = -1F;
-                }
-                else if (uID == TContent.castingChannel.blockID)
-                {
-                    yMin = -0.5F;
-                }
-
-                if (logic.liquid != null)
-                {
-                    Fluid fluid = logic.liquid.getFluid();
-                    renderer.setRenderBounds(xMin, yMin, zMin, xMax, 0.625, zMax);
-                    BlockSkinRenderHelper.renderLiquidBlock(fluid.getStillIcon(), fluid.getFlowingIcon(), x, y, z, renderer, world);
-                    /*if (fluid.canBePlacedInWorld())
+                if (world.getBlockTileEntity(x, y, z) instanceof FaucetLogic) {
+                    FaucetLogic logic = (FaucetLogic) world.getBlockTileEntity(x, y, z);
+                    float xMin = 0.375F, zMin = 0.375F, xMax = 0.625F, zMax = 0.625F;
+                    switch (logic.getRenderDirection())
                     {
-                        Block liquidBlock = Block.blocksList[blockToRender.itemID];
-                        BlockSkinRenderHelper.renderMetadataBlock(liquidBlock, 0, x, y, z, renderer, world);
-                        renderer.setRenderBounds(xMin, yMin, zMin, xMax, 0.625, zMax);
-                        BlockSkinRenderHelper.renderMetadataBlock(liquidBlock, 0, x, y, z, renderer, world);
-                    }*/
-                    /*ItemStack blockToRender = new ItemStack(logic.liquid.fluidID, 1, logic.liquid.itemMeta);
-                    if (blockToRender.itemID < 4096) //Block
-                    {
-                        
+                    case 2:
+                        renderer.setRenderBounds(0.25, 0.25, 0.625, 0.75, 0.375, 1);
+                        renderer.renderStandardBlock(block, x, y, z);
+                        renderer.setRenderBounds(0.25, 0.375, 0.625, 0.375, 0.625, 1);
+                        renderer.renderStandardBlock(block, x, y, z);
+                        renderer.setRenderBounds(0.625, 0.375, 0.625, 0.75, 0.625, 1);
+                        renderer.renderStandardBlock(block, x, y, z);
+                        renderer.setRenderBounds(0.375, 0.375, 0.625, 0.625, 0.625, 1);
+                        zMin = 0.5F;
+                        //zMin = 0.625F;
+                        break;
+                    case 3:
+                        renderer.setRenderBounds(0.25, 0.25, 0, 0.75, 0.375, 0.375);
+                        renderer.renderStandardBlock(block, x, y, z);
+                        renderer.setRenderBounds(0.25, 0.375, 0, 0.375, 0.625, 0.375);
+                        renderer.renderStandardBlock(block, x, y, z);
+                        renderer.setRenderBounds(0.625, 0.375, 0, 0.75, 0.625, 0.375);
+                        renderer.renderStandardBlock(block, x, y, z);
+                        renderer.setRenderBounds(0.375, 0.375, 0, 0.625, 0.625, 0.375);
+                        zMax = 0.5F;
+                        break;
+                    case 4:
+                        renderer.setRenderBounds(0.625, 0.25, 0.25, 1, 0.375, 0.75);
+                        renderer.renderStandardBlock(block, x, y, z);
+                        renderer.setRenderBounds(0.625, 0.375, 0.25, 1, 0.625, 0.375);
+                        renderer.renderStandardBlock(block, x, y, z);
+                        renderer.setRenderBounds(0.625, 0.375, 0.625, 1, 0.625, 0.75);
+                        renderer.renderStandardBlock(block, x, y, z);
+                        renderer.setRenderBounds(0.625, 0.375, 0.375, 1, 0.625, 0.625);
+                        xMin = 0.5F;
+                        break;
+                    case 5:
+                        renderer.setRenderBounds(0, 0.25, 0.25, 0.375, 0.375, 0.75);
+                        renderer.renderStandardBlock(block, x, y, z);
+                        renderer.setRenderBounds(0, 0.375, 0.25, 0.375, 0.625, 0.375);
+                        renderer.renderStandardBlock(block, x, y, z);
+                        renderer.setRenderBounds(0, 0.375, 0.625, 0.375, 0.625, 0.75);
+                        renderer.renderStandardBlock(block, x, y, z);
+                        renderer.setRenderBounds(0, 0.375, 0.375, 0.375, 0.625, 0.625);
+                        xMax = 0.5F;
+                        break;
                     }
-                    else
-                    //Item
-                    {
-                        Item liquidItem = Item.itemsList[blockToRender.itemID];
-                        //ForgeHooksClient.bindTexture(liquidItem.getTextureFile(), 0);
-                        int meta = blockToRender.getItemDamage();
-                        BlockSkinRenderHelper.renderFakeBlock(liquidItem.getIconFromDamage(meta), x, y, z, renderer, world);
-                        renderer.setRenderBounds(xMin, yMin, zMin, xMax, 0.625, zMax);
-                        BlockSkinRenderHelper.renderFakeBlock(liquidItem.getIconFromDamage(meta), x, y, z, renderer, world);
-                    }*/
-                    //renderer.renderStandardBlock(block, x, y, z);
-                }
 
+                    float yMin = 0F;
+                    int uID = world.getBlockId(x, y - 1, z);
+                    int uMeta = world.getBlockMetadata(x, y - 1, z);
+                    if (uID == TContent.searedBlock.blockID && uMeta == 0)
+                    {
+                        yMin = -0.125F;
+                    }
+                    else if (uID == TContent.searedBlock.blockID && uMeta == 2)
+                    {
+                        yMin = -0.75F;
+                    }
+                    else if (uID == TContent.lavaTank.blockID)
+                    {
+                        yMin = -1F;
+                    }
+                    else if (uID == TContent.castingChannel.blockID)
+                    {
+                        yMin = -0.5F;
+                    }
+
+                    if (logic.liquid != null)
+                    {
+                        Fluid fluid = logic.liquid.getFluid();
+                        renderer.setRenderBounds(xMin, yMin, zMin, xMax, 0.625, zMax);
+                        BlockSkinRenderHelper.renderLiquidBlock(fluid.getStillIcon(), fluid.getFlowingIcon(), x, y, z, renderer, world);
+                        /*if (fluid.canBePlacedInWorld())
+                        {
+                            Block liquidBlock = Block.blocksList[blockToRender.itemID];
+                            BlockSkinRenderHelper.renderMetadataBlock(liquidBlock, 0, x, y, z, renderer, world);
+                            renderer.setRenderBounds(xMin, yMin, zMin, xMax, 0.625, zMax);
+                            BlockSkinRenderHelper.renderMetadataBlock(liquidBlock, 0, x, y, z, renderer, world);
+                        }*/
+                        /*ItemStack blockToRender = new ItemStack(logic.liquid.fluidID, 1, logic.liquid.itemMeta);
+                        if (blockToRender.itemID < 4096) //Block
+                        {
+
+                        }
+                        else
+                        //Item
+                        {
+                            Item liquidItem = Item.itemsList[blockToRender.itemID];
+                            //ForgeHooksClient.bindTexture(liquidItem.getTextureFile(), 0);
+                            int meta = blockToRender.getItemDamage();
+                            BlockSkinRenderHelper.renderFakeBlock(liquidItem.getIconFromDamage(meta), x, y, z, renderer, world);
+                            renderer.setRenderBounds(xMin, yMin, zMin, xMax, 0.625, zMax);
+                            BlockSkinRenderHelper.renderFakeBlock(liquidItem.getIconFromDamage(meta), x, y, z, renderer, world);
+                        }*/
+                        //renderer.renderStandardBlock(block, x, y, z);
+                    }
+                }
             }
             else if (metadata == 2)
             {
@@ -374,54 +377,56 @@ public class SearedRender implements ISimpleBlockRenderingHandler
                 renderer.renderStandardBlock(block, x, y, z);
 
                 //Liquids
-                CastingBasinLogic logic = (CastingBasinLogic) world.getBlockTileEntity(x, y, z);
-                if (logic.liquid != null)
-                {
-                	float minHeight = 0.25F;
-                	float maxHeight = 0.95F;
-                	
-                	float minX = 0.0625F;
-                	float maxX = 0.9375F;
-                	float minZ = 0.0625F;
-                	float maxZ = 0.9375F;
-                	
-                	ItemStack it = logic.getStackInSlot(0);
-                	if(it != null){
-                		CastingRecipe rec = TConstruct.basinCasting.getCastingRecipe(logic.liquid, it);
-                		if(rec != null){
-                			minHeight = rec.fluidRenderProperties.minHeight;
-                			maxHeight = rec.fluidRenderProperties.maxHeight;
-                			
-                			minX = rec.fluidRenderProperties.minX;
-                			maxX = rec.fluidRenderProperties.maxX;
-                			minZ = rec.fluidRenderProperties.minZ;
-                			maxZ = rec.fluidRenderProperties.maxZ;
-                		}
-                	}
-                    float height = (logic.getLiquidAmount() / (logic.getCapacity() * 1.05F) * 0.6875F) / maxHeight;
-                    renderer.setRenderBounds(minX, minHeight, minZ, maxX, minHeight + height, maxZ);
+                if (world.getBlockTileEntity(x, y, z) instanceof CastingBasinLogic) {
+                    CastingBasinLogic logic = (CastingBasinLogic) world.getBlockTileEntity(x, y, z);
+                    if (logic.liquid != null)
+                    {
+                    	float minHeight = 0.25F;
+                    	float maxHeight = 0.95F;
 
-                    Fluid fluid = logic.liquid.getFluid();
-                    BlockSkinRenderHelper.renderLiquidBlock(fluid.getStillIcon(), fluid.getFlowingIcon(), x, y, z, renderer, world);
-                    /*if (logic.liquid.itemID < 4096) //Block
-                    {
-                        Block liquidBlock = Block.blocksList[logic.liquid.itemID];
-                        if (liquidBlock != null)
+                    	float minX = 0.0625F;
+                    	float maxX = 0.9375F;
+                    	float minZ = 0.0625F;
+                    	float maxZ = 0.9375F;
+
+                    	ItemStack it = logic.getStackInSlot(0);
+                    	if(it != null){
+                    		CastingRecipe rec = TConstruct.basinCasting.getCastingRecipe(logic.liquid, it);
+                    		if(rec != null && rec.fluidRenderProperties != null){
+                    			minHeight = rec.fluidRenderProperties.minHeight;
+                    			maxHeight = rec.fluidRenderProperties.maxHeight;
+
+                    			minX = rec.fluidRenderProperties.minX;
+                    			maxX = rec.fluidRenderProperties.maxX;
+                    			minZ = rec.fluidRenderProperties.minZ;
+                    			maxZ = rec.fluidRenderProperties.maxZ;
+                    		}
+                    	}
+                        float height = (logic.getLiquidAmount() / (logic.getCapacity() * 1.05F) * 0.6875F) / maxHeight;
+                        renderer.setRenderBounds(minX, minHeight, minZ, maxX, minHeight + height, maxZ);
+
+                        Fluid fluid = logic.liquid.getFluid();
+                        BlockSkinRenderHelper.renderLiquidBlock(fluid.getStillIcon(), fluid.getFlowingIcon(), x, y, z, renderer, world);
+                        /*if (logic.liquid.itemID < 4096) //Block
                         {
-                            //ForgeHooksClient.bindTexture(liquidBlock.getTextureFile(), 0);
-                            BlockSkinRenderHelper.renderMetadataBlock(liquidBlock, logic.liquid.itemMeta, x, y, z, renderer, world);
+                            Block liquidBlock = Block.blocksList[logic.liquid.itemID];
+                            if (liquidBlock != null)
+                            {
+                                //ForgeHooksClient.bindTexture(liquidBlock.getTextureFile(), 0);
+                                BlockSkinRenderHelper.renderMetadataBlock(liquidBlock, logic.liquid.itemMeta, x, y, z, renderer, world);
+                            }
                         }
+                        else
+                        //Item
+                        {
+                            Item liquidItem = Item.itemsList[logic.liquid.itemID];
+                            if (liquidItem != null)
+                            {
+                                //ForgeHooksClient.bindTexture(liquidItem.getTextureFile(), 0);
+                                BlockSkinRenderHelper.renderFakeBlock(liquidItem.getIconFromDamage(logic.liquid.itemMeta), x, y, z, renderer, world);
+                            }
+                        }*/
                     }
-                    else
-                    //Item
-                    {
-                        Item liquidItem = Item.itemsList[logic.liquid.itemID];
-                        if (liquidItem != null)
-                        {
-                            //ForgeHooksClient.bindTexture(liquidItem.getTextureFile(), 0);
-                            BlockSkinRenderHelper.renderFakeBlock(liquidItem.getIconFromDamage(logic.liquid.itemMeta), x, y, z, renderer, world);
-                        }
-                    }*/
                 }
             }
             else

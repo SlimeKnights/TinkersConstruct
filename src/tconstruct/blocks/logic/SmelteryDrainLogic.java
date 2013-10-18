@@ -1,5 +1,6 @@
 package tconstruct.blocks.logic;
 
+import tconstruct.TConstruct;
 import tconstruct.library.crafting.AlloyMix;
 import tconstruct.library.util.IFacingLogic;
 import tconstruct.library.util.IMasterLogic;
@@ -28,7 +29,7 @@ public class SmelteryDrainLogic extends MultiServantLogic implements IFluidHandl
     @Override
     public boolean setPotentialMaster (IMasterLogic master, World world, int x, int y, int z)
     {
-        System.out.println("Master: "+master);
+       // TConstruct.logger.info("Master: "+master);
         return (master instanceof AdaptiveSmelteryLogic || master instanceof SmelteryDrainLogic) && !hasMaster;
     }
 
@@ -46,11 +47,11 @@ public class SmelteryDrainLogic extends MultiServantLogic implements IFluidHandl
     @Override
     public FluidStack drain (ForgeDirection from, int maxDrain, boolean doDrain)
     {
-        System.out.println("Attempting drain "+hasValidMaster());
+       // TConstruct.logger.info("Attempting drain " + hasValidMaster());
         if (hasValidMaster() && canDrain(from, null))
         {
             AdaptiveSmelteryLogic smeltery = (AdaptiveSmelteryLogic) worldObj.getBlockTileEntity(master.x, master.y, master.z);
-            System.out.println("Found master");
+          //  TConstruct.logger.info("Found master");
             return smeltery.drain(from, maxDrain, doDrain);
         }
         return null;

@@ -469,7 +469,7 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
 
     void moveTowardsEntity (Entity entity)
     {
-        //System.out.println("Moving towards entity");
+        //TConstruct.logger.info("Moving towards entity");
         /*double distX = this.posX - entity.posX;
         double distZ = this.posZ - entity.posZ;
         //posY = posY + 0.1;

@@ -204,7 +204,7 @@ public class AdvancedDrawbridgeLogic extends InventoryLogic implements IFacingLo
 			itemstack.stackSize = getInventoryStackLimit();
 		}
 	}
-
+	
 	@Override
 	public Container getGuiContainer(InventoryPlayer inventoryplayer, World world, int x, int y, int z) {
 		return new AdvancedDrawbridgeContainer(inventoryplayer, this);
@@ -519,14 +519,21 @@ public class AdvancedDrawbridgeLogic extends InventoryLogic implements IFacingLo
 		@Override
 		public void setInventorySlotContents(int slot, ItemStack content) {
 			super.setInventorySlotContents(slot, content);
-			if (slot == 0)
+			if (slot == 0 && worldObj != null)
 				worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 		}
 
 		@Override
 		public void onInventoryChanged() {
 			super.onInventoryChanged();
-			worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+			if(worldObj != null){
+				worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+			}
+		}
+		
+		@Override
+		public int getInventoryStackLimit(){
+			return 1;
 		}
 	}
 }

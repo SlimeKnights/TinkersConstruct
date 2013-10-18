@@ -246,6 +246,14 @@ public class SmelteryComponent extends LogicComponent
         return meltingTemps[slot];
     }
 
+    public int getScaledFuelGague (int scale)
+    {
+        int ret = (fuelGague * scale) / 52;
+        if (ret < 1)
+            ret = 1;
+        return ret;
+    }
+    
     /* NBT */
     public void readNetworkNBT (NBTTagCompound tags)
     {

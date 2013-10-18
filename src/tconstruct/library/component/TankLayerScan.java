@@ -10,7 +10,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagIntArray;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
-import tconstruct.common.TContent;
+import scala.compat.Platform$;
+import tconstruct.TConstruct;
 import tconstruct.library.util.CoordTuple;
 import tconstruct.library.util.CoordTupleSort;
 import tconstruct.library.util.IFacingLogic;
@@ -36,7 +37,8 @@ public class TankLayerScan extends LogicComponent
     protected ArrayList<int[]> validAirCoords = new ArrayList<int[]>();
     protected CoordTuple returnStone;
 
-    private boolean debug = false;
+    private static boolean debug = false;
+    private static int MAX_LAYER_RECURSION_DEPTH = System.getProperty("os.arch").equals("amd64") ? 4000 : 2000; // Recursion causes overflows on 32-bit, so reduce if not 64-bit
 
     public TankLayerScan(TileEntity te, Block... ids)
     {
@@ -49,6 +51,7 @@ public class TankLayerScan extends LogicComponent
         validAirCoords.add(new int[] { -1, 0 });
         validAirCoords.add(new int[] { 0, 1 });
         validAirCoords.add(new int[] { 0, -1 });
+        //TConstruct.logger.info("Using recursion size " + MAX_LAYER_RECURSION_DEPTH + " on JVM arch " + System.getProperty("os.arch"));
     }
 
     public void checkValidStructure ()
@@ -108,7 +111,7 @@ public class TankLayerScan extends LogicComponent
                 break;
             }
             if (!world.isRemote && debug)
-                System.out.println("Bricks in recursion: " + blockCoords.size());
+                TConstruct.logger.info("Bricks in recursion: " + blockCoords.size());
             blockCoords.clear();
             bricks = 0;
 
@@ -116,8 +119,8 @@ public class TankLayerScan extends LogicComponent
             boolean sealed = floodTest(master.xCoord + xPos, master.yCoord, master.zCoord + zPos);
             if (!world.isRemote && debug)
             {
-                System.out.println("Air in ring: " + airBlocks);
-                System.out.println("Bricks in ring: " + bricks);
+                TConstruct.logger.info("Air in ring: " + airBlocks);
+                TConstruct.logger.info("Bricks in ring: " + bricks);
             }
 
             if (sealed)
@@ -135,8 +138,8 @@ public class TankLayerScan extends LogicComponent
 
                     if (!world.isRemote && debug)
                     {
-                        System.out.println("Air in structure: " + airCoords.size());
-                        System.out.println("Bricks in structure: " + blockCoords.size());
+                        TConstruct.logger.info("Air in structure: " + airCoords.size());
+                        TConstruct.logger.info("Bricks in structure: " + blockCoords.size());
                     }
                 }
             }
@@ -255,7 +258,7 @@ public class TankLayerScan extends LogicComponent
 
     protected boolean floodTest (int x, int y, int z)
     {
-        if (airBlocks > 4000)
+        if (airBlocks > MAX_LAYER_RECURSION_DEPTH)
             return false;
 
         for (int[] offset : validAirCoords)

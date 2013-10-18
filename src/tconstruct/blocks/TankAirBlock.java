@@ -58,7 +58,7 @@ public class TankAirBlock extends BlockContainer
     public AxisAlignedBB getCollisionBoundingBoxFromPool (World world, int x, int y, int z)
     {
         TankAirLogic tank = (TankAirLogic) world.getBlockTileEntity(x, y, z);
-        if (tank.hasItem())
+        if (tank != null && tank.hasItem())
             return super.getCollisionBoundingBoxFromPool(world, x, y, z);
 
         return null;

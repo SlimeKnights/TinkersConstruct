@@ -55,9 +55,8 @@ public class TPacketHandler implements IPacketHandler
         }
         catch (Exception e)
         {
-            System.out.println("Failed at reading client packet for TConstruct.");
+            TConstruct.logger.warning("Failed at reading client packet for TConstruct.");
             e.printStackTrace();
-            return;
         }
     }
 
@@ -187,9 +186,8 @@ public class TPacketHandler implements IPacketHandler
         }
         catch (IOException e)
         {
-            System.out.println("Failed at reading server packet for TConstruct.");
+            TConstruct.logger.warning("Failed at reading server packet for TConstruct.");
             e.printStackTrace();
-            return;
         }
     }
 
