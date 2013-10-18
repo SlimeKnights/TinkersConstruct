@@ -448,7 +448,7 @@ public class TankLayerScan extends LogicComponent
             }
         }
 
-        NBTTagList blocks = tags.getTagList("AirLayer");
+        NBTTagList blocks = tags.getTagList("Blocks");
         if (blocks != null)
         {
             blockCoords.clear();
@@ -461,7 +461,7 @@ public class TankLayerScan extends LogicComponent
             }
         }
 
-        NBTTagList air = tags.getTagList("AirLayer");
+        NBTTagList air = tags.getTagList("Air");
         if (air != null)
         {
             airCoords.clear();
