@@ -13,6 +13,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.classloading.FMLForgePlugin;
 import scala.compat.Platform$;
 import tconstruct.TConstruct;
+import tconstruct.common.TContent;
 import tconstruct.library.util.CoordTuple;
 import tconstruct.library.util.CoordTupleSort;
 import tconstruct.library.util.IFacingLogic;
@@ -197,7 +198,7 @@ public class TankLayerScan extends LogicComponent
     protected boolean checkAir (int x, int y, int z)
     {
         Block block = Block.blocksList[world.getBlockId(x, y, z)];
-        if (block == null || block.isAirBlock(world, x, y, z))// || block == Block.glass)
+        if (block == null || block.isAirBlock(world, x, y, z))// || block == TContent.tankAir)
             return true;
 
         return false;
