@@ -185,7 +185,9 @@ public class SearedRender implements ISimpleBlockRenderingHandler
                     		}
                     	}
 
-                        float height = logic.getLiquidAmount() / (logic.getCapacity() * 1.03F) / 16F;
+                    	float percent = (float)logic.getLiquidAmount() / (float)logic.getCapacity();
+                    	float height = percent * (maxHeight - minHeight);
+                        //float height = logic.getLiquidAmount() / (logic.getCapacity() * 1.03F) / 16F;
                         renderer.setRenderBounds(minX, minHeight, minZ, maxX, minHeight + height, maxZ);
 
                         Fluid fluid = logic.liquid.getFluid();
@@ -402,7 +404,10 @@ public class SearedRender implements ISimpleBlockRenderingHandler
                     			maxZ = rec.fluidRenderProperties.maxZ;
                     		}
                     	}
-                        float height = (logic.getLiquidAmount() / (logic.getCapacity() * 1.05F) * 0.6875F) / maxHeight;
+                    	float percent = (float)logic.getLiquidAmount() / (float)logic.getCapacity();
+                    	float height = percent * (maxHeight - minHeight);
+                    	
+                        //float height = (logic.getLiquidAmount() / (logic.getCapacity() * 1.05F) * 0.6875F) / maxHeight;
                         renderer.setRenderBounds(minX, minHeight, minZ, maxX, minHeight + height, maxZ);
 
                         Fluid fluid = logic.liquid.getFluid();

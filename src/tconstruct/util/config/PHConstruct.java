@@ -383,6 +383,7 @@ public class PHConstruct
             Configuration gtConfig = new Configuration(gtDyn);
             gtConfig.load();
             gregtech = gtConfig.get("smelting", "tile.anvil.slightlyDamaged", false).getBoolean(false);
+            TConstruct.logger.severe("Gelatinous iceberg dead ahead! Entering Greggy waters! Abandon hope all ye who enter here! (No, seriously, we don't support GT. Don't report any issues. Thanks.)");
         }
     }
 

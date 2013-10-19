@@ -10,7 +10,7 @@
     "authors": [
       "mDiyo", "fuj1n", "ProgWML6", "Sunstrike"
     ],
-    "credits": "Ecu",
+    "credits": "Slime Knights, EcuTruin",
     "logoFile": "",
     "screenshots": [],
     "parent":"",
@@ -22,12 +22,12 @@
     "description": "Preloader for Tinkers Construct",
     "version": "0.0.1",
     "mcversion": "@MCVERSION@",
-    "url": "https://github.com/mDiyo/TinkersConstruct/tree/master/src/tconstruct/preloader",
+    "url": "https://github.com/SlimeKnights/TinkersConstruct/tree/master/src/tconstruct/preloader",
     "updateUrl": "",
     "authors": [
-      "AlgorithmX2", "Sunstrike"
+      "Sunstrike", "Slime Knights"
     ],
-    "credits": "",
+    "credits": "AlgorithmX2 (ASMInterfaceRepair)",
     "logoFile": "",
     "screenshots": [],
     "parent":"",
@@ -44,7 +44,7 @@
     "authors": [
       "mDiyo", "fuj1n", "ProgWML6", "Sunstrike"
     ],
-    "credits": "",
+    "credits": "Slime Knights",
     "logoFile": "",
     "screenshots": [],
     "parent":"TConstruct",
@@ -63,7 +63,7 @@
     "authors": [
       "mDiyo", "fuj1n", "ProgWML6", "Sunstrike"
     ],
-    "credits": "",
+    "credits": "Slime Knights",
     "logoFile": "",
     "screenshots": [],
     "parent":"TConstruct",

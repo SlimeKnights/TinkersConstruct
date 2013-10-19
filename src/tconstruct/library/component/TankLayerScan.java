@@ -1,24 +1,11 @@
 package tconstruct.library.component;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.HashSet;
-
+import java.util.*;
 import net.minecraft.block.Block;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagIntArray;
-import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.*;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.classloading.FMLForgePlugin;
-import scala.compat.Platform$;
 import tconstruct.TConstruct;
-import tconstruct.common.TContent;
-import tconstruct.library.util.CoordTuple;
-import tconstruct.library.util.CoordTupleSort;
-import tconstruct.library.util.IFacingLogic;
-import tconstruct.library.util.IMasterLogic;
-import tconstruct.library.util.IServantLogic;
+import tconstruct.library.util.*;
 
 public class TankLayerScan extends LogicComponent
 {
@@ -449,7 +436,7 @@ public class TankLayerScan extends LogicComponent
             }
         }
 
-        NBTTagList blocks = tags.getTagList("AirLayer");
+        NBTTagList blocks = tags.getTagList("Blocks");
         if (blocks != null)
         {
             blockCoords.clear();
@@ -462,7 +449,7 @@ public class TankLayerScan extends LogicComponent
             }
         }
 
-        NBTTagList air = tags.getTagList("AirLayer");
+        NBTTagList air = tags.getTagList("Air");
         if (air != null)
         {
             airCoords.clear();
