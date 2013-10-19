@@ -28,6 +28,15 @@ public class SmelteryScan extends TankLayerScan
         lavaTanks.clear();
         super.checkValidStructure();
     }
+    
+    protected boolean checkAir (int x, int y, int z)
+    {
+        Block block = Block.blocksList[world.getBlockId(x, y, z)];
+        if (block == null || block.isAirBlock(world, x, y, z) || block == TContent.tankAir)
+            return true;
+
+        return false;
+    }
 
     @Override
     protected boolean checkServant (int x, int y, int z)

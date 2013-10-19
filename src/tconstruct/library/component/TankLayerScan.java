@@ -185,7 +185,7 @@ public class TankLayerScan extends LogicComponent
     protected boolean checkAir (int x, int y, int z)
     {
         Block block = Block.blocksList[world.getBlockId(x, y, z)];
-        if (block == null || block.isAirBlock(world, x, y, z))// || block == Block.glass)
+        if (block == null || block.isAirBlock(world, x, y, z))// || block == TContent.tankAir)
             return true;
 
         return false;
