@@ -6,11 +6,11 @@ import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
-import powercrystals.minefactoryreloaded.api.FarmingRegistry;
+import powercrystals.minefactoryreloaded.api.FactoryRegistry;
 import tconstruct.common.TContent;
 import tconstruct.plugins.minefactoryreloaded.harvestables.HarvestableOreBerry;
 
-@Mod(modid = "TConstruct|CompatMineFactoryReloaded", name = "TConstruct Compat: MFR", version = "0.1", dependencies = "after:MineFactoryReloaded;after:TConstruct")
+@Mod(modid = "TConstruct|CompatMineFactoryReloaded", name = "TConstruct Compat: MFR", version = "0.2", dependencies = "after:MineFactoryReloaded;after:TConstruct")
 @NetworkMod(clientSideRequired = false, serverSideRequired = false)
 public class MineFactoryReloaded
 {
@@ -26,8 +26,8 @@ public class MineFactoryReloaded
         {
             FMLLog.fine("MineFactoryReloaded detected. Registering TConstruct farmables/grindables with MFR's Farming Registry.");
 
-            FarmingRegistry.registerHarvestable(new HarvestableOreBerry(TContent.oreBerry.blockID, TContent.oreBerries.itemID, 0));
-            FarmingRegistry.registerHarvestable(new HarvestableOreBerry(TContent.oreBerrySecond.blockID, TContent.oreBerries.itemID, 4));
+            FactoryRegistry.registerHarvestable(new HarvestableOreBerry(TContent.oreBerry.blockID, TContent.oreBerries.itemID, 0));
+            FactoryRegistry.registerHarvestable(new HarvestableOreBerry(TContent.oreBerrySecond.blockID, TContent.oreBerries.itemID, 4));
 
             /*
              * Perhaps TC ores should be registered as drops from the MFR Laser Drill here, but I don't know which things would be suitable for that.

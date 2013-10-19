@@ -1,1 +1,0 @@
-The ghost of mods past. May they rest in peace and update in explosions.
