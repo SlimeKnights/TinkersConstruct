@@ -1,5 +1,7 @@
 package tconstruct.common;
 
+import net.minecraftforge.oredict.ShapedOreRecipe;
+
 import net.minecraftforge.common.EnumHelper;
 
 import cpw.mods.fml.common.*;
@@ -414,7 +416,7 @@ public class TContent implements IFuelHandler
         GameRegistry.registerBlock(castingChannel, CastingChannelItem.class, "CastingChannel");
         GameRegistry.registerTileEntity(CastingChannelLogic.class, "CastingChannel");
 
-        tankAir = new TankAirBlock(PHConstruct.airTank, Material.air).setBlockUnbreakable().setUnlocalizedName("tconstruct.tank.air");
+        tankAir = new TankAirBlock(PHConstruct.airTank, Material.leaves).setBlockUnbreakable().setUnlocalizedName("tconstruct.tank.air");
         GameRegistry.registerBlock(tankAir, "TankAir");
         GameRegistry.registerTileEntity(TankAirLogic.class, "tconstruct.tank.air");
 
@@ -1545,6 +1547,11 @@ public class TContent implements IFuelHandler
         GameRegistry.addRecipe(new ItemStack(materials, 1, 25), "sss", "sns", "sss", 'n', new ItemStack(Item.goldNugget), 's', new ItemStack(Item.silk));
         GameRegistry.addRecipe(new ItemStack(materials, 1, 26), " c ", "cec", " c ", 'c', new ItemStack(materials, 1, 25), 'e', new ItemStack(Item.emerald)); //Silky Jewel
 
+        GameRegistry.addRecipe(new ShapedOreRecipe(helmetWood, new Object[]{"www", "w w", 'w', "logWood"}));
+        GameRegistry.addRecipe(new ShapedOreRecipe(chestplateWood, new Object[]{"w w", "www", "www", 'w', "logWood"}));
+        GameRegistry.addRecipe(new ShapedOreRecipe(leggingsWood, new Object[]{"www", "w w", "w w", 'w', "logWood"}));
+        GameRegistry.addRecipe(new ShapedOreRecipe(bootsWood, new Object[]{"w w", "w w", 'w', "logWood"}));
+        
         //FurnaceRecipes.smelting().addSmelting(oreSlag.blockID, 1, new ItemStack(materials, 1, 3), 3f);
         //FurnaceRecipes.smelting().addSmelting(oreSlag.blockID, 2, new ItemStack(materials, 1, 4), 3f);
         FurnaceRecipes.smelting().addSmelting(oreSlag.blockID, 3, new ItemStack(materials, 1, 9), 0.5f);
