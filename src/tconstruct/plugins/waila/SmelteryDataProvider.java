@@ -32,7 +32,7 @@ public class SmelteryDataProvider implements IWailaDataProvider {
                 } else {
                     for (int i = 0; i < fls.size(); i++) {
                         FluidStack st = fls.get(i);
-                        currenttip.add(Waila.fluidNameHelper(st) + " (" + st.amount + "mB)");
+                        currenttip.add(WailaRegistrar.fluidNameHelper(st) + " (" + st.amount + "mB)");
                     }
                 }
             } else {

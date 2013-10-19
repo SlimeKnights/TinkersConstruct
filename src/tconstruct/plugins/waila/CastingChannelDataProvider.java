@@ -27,7 +27,7 @@ public class CastingChannelDataProvider implements IWailaDataProvider {
             CastingChannelLogic te = (CastingChannelLogic)accessor.getTileEntity();
             if (te.liquid != null && te.liquid.amount > 0) {
                 FluidStack fs = te.liquid;
-                currenttip.add("Liquid: " + Waila.fluidNameHelper(fs));
+                currenttip.add("Liquid: " + WailaRegistrar.fluidNameHelper(fs));
                 currenttip.add("Amount: " + fs.amount + "/" + te.getCapacity());
             } else {
                 currenttip.add("§oEmpty"); // "§o" == Italics
