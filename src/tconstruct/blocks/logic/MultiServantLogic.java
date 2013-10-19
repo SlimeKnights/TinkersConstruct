@@ -120,7 +120,7 @@ public class MultiServantLogic extends TileEntity implements IServantLogic
 
     public void readCustomNBT (NBTTagCompound tags)
     {
-        hasMaster = tags.getBoolean("HasMaster");
+        hasMaster = tags.getBoolean("TiedToMaster");
         if (hasMaster)
         {
             int xCenter = tags.getInteger("xCenter");
@@ -134,7 +134,7 @@ public class MultiServantLogic extends TileEntity implements IServantLogic
 
     public void writeCustomNBT (NBTTagCompound tags)
     {
-        tags.setBoolean("HasMaster", hasMaster);
+        tags.setBoolean("TiedToMaster", hasMaster);
         if (hasMaster)
         {
             tags.setInteger("xCenter", master.x);
