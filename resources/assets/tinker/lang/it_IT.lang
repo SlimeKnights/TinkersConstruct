@@ -235,6 +235,11 @@ item.tconstruct.Materials.BronzeNugget.name=Pepita di Bronzo
 item.tconstruct.Materials.AlumiteNugget.name=Pepita di Alumite
 item.tconstruct.Materials.SteelNugget.name=Pepita d'Acciaio
 
+item.tconstruct.helmetWood.name=Elmo di Legno
+item.tconstruct.chestplateWood.name=Corazza di Legno
+item.tconstruct.leggingsWood.name=Gambali di Legno
+item.tconstruct.bootsWood.name=Stivali di Legno
+
 item.tconstruct.ArmorPattern.helmet.name=Stampo di Elmo
 item.tconstruct.ArmorPattern.chestplate.name=Stampo di Corazza
 item.tconstruct.ArmorPattern.leggings.name=Stampo di Gambali
