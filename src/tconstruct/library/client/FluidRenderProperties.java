@@ -40,7 +40,7 @@ public class FluidRenderProperties {
 	public static enum Applications {
 		TABLE(0.9375F, 1F, 0.0625F, 0.9375F, 0.0625F, 0.9375F), BASIN(0.25F, 0.95F, 0.0625F, 0.9375F, 0.0625F, 0.9375F);
 
-		float minHeight, maxHeight, minX, maxX, minZ, maxZ;
+		public float minHeight, maxHeight, minX, maxX, minZ, maxZ;
 
 		Applications(float minHeight, float maxHeight, float minX, float maxX, float minZ, float maxZ) {
 			this.minHeight = minHeight;
