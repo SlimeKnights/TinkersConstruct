@@ -25,7 +25,7 @@ public class ASMInterfaceRepair implements IClassTransformer  {
     @Override
     public byte[] transform(String name, String transformedName, byte[] bytes)
     {
-        if ( name.startsWith( "tconstruct." ) && ! name.startsWith( "tconstruct.preloader." ))// && !isBlacklisted(name) )
+        if ( name.startsWith( "tconstruct." ) && !isBlacklisted(name) )
         {
             ClassReader cr = new ClassReader(bytes);
             ClassNode cn = new ClassNode();
@@ -59,10 +59,11 @@ public class ASMInterfaceRepair implements IClassTransformer  {
     }
 
     // Used in transform() above.
-    /*private boolean isBlacklisted( String path )
+    private boolean isBlacklisted( String path )
     {
-        return path.startsWith( "tconstruct.plugins.minefactoryreloaded." );
-    }*/
+        return path.startsWith( "tconstruct.plugins." )
+                || path.startsWith("tconstruct.preloader.");
+    }
 
     private boolean isClassAvailable( String inf )
     {
