@@ -1282,8 +1282,8 @@ public class TContent implements IFuelHandler
 
                 for (int iterTwo = 0; iterTwo < liquids.length; iterTwo++)
                 {
-                    ItemStack metalCast = new ItemStack(patternOutputs[iter], 1, liquidDamage[iterTwo]);
-                    tableCasting.addCastingRecipe(metalCast, new FluidStack(liquids[iterTwo].getFluid(), ((IPattern) metalPattern).getPatternCost(metalCast) * TConstruct.ingotLiquidValue / 2), cast,
+                    ItemStack outputItem = new ItemStack(patternOutputs[iter], 1, liquidDamage[iterTwo]);
+                    tableCasting.addCastingRecipe(outputItem, new FluidStack(liquids[iterTwo].getFluid(), ((IPattern) metalPattern).getPatternCost(cast) * TConstruct.ingotLiquidValue / 2), cast,
                             50);
                 }
             }
