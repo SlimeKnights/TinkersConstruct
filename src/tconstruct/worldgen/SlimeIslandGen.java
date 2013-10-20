@@ -133,8 +133,9 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
         }
 
         //Decorate
-        if(!DimensionBlacklist.isDimNoPool(world.provider.dimensionId)){
-        generateSlimePool(world, rand, xChunk + xRange / 2, yCenter + initialHeight, zChunk + zRange / 2);
+        if (!DimensionBlacklist.isDimNoPool(world.provider.dimensionId))
+        {
+            generateSlimePool(world, rand, xChunk + xRange / 2, yCenter + initialHeight, zChunk + zRange / 2);
         }
         PlantGen tallGrass = new PlantGen(TContent.slimeTallGrass.blockID, 0, 128, xRange, 1, zRange, false);
         tallGrass.generate(world, rand, xChunk, yCenter + initialHeight + 1, zChunk);
@@ -146,8 +147,8 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
 
     public void generateSlimePool (World world, Random rand, int x, int y, int z)
     {
-    	this.generate(world, rand, x, y, z);
-        
+        this.generate(world, rand, x, y, z);
+
     }
 
     public boolean generate (World world, Random rand, int x, int y, int z) //WorldGenerator version
