@@ -240,6 +240,11 @@ item.tconstruct.ArmorPattern.chestplate.name=Brustpanzergussform
 item.tconstruct.ArmorPattern.leggings.name=Beinschutzgussform
 item.tconstruct.ArmorPattern.boots.name=Stiefelgussform
 
+item.tconstruct.helmetWood.name=Holzhelm
+item.tconstruct.chestplateWood.name=Holzbrustpanzer
+item.tconstruct.leggingsWood.name=Holzbeinschutz
+item.tconstruct.bootsWood.name=Holzstiefel
+
 item.tconstruct.jerky.beef.name=Rindfleisch-Charqui
 item.tconstruct.jerky.pig.name=Schweinefleisch-Charqui
 item.tconstruct.jerky.chicken.name=Hühnchen-Charqui
