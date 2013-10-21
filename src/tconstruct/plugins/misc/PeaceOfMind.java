@@ -25,6 +25,7 @@ public class PeaceOfMind
                     ann.setAccessible(true);
                     com.google.common.eventbus.EventBus googlebus = (com.google.common.eventbus.EventBus) ann.get(mod);
                     googlebus.unregister(mod);
+                    MinecraftForge.EVENT_BUS.unregister(mod);
                     
                     Class clazz = Class.forName("gregtechmod.common.GT_OreDictHandler");
                     MinecraftForge.EVENT_BUS.unregister(clazz);
