@@ -13,10 +13,13 @@ public class PeaceOfMind
 {
     public PeaceOfMind()
     {
+        System.out.println("Debug mod IDs go!");
         for (ModContainer o : Loader.instance().getModList())
         {
+            System.out.println("Mod ID: "+o.getModId());
             if (o.getModId().equals("GregTech-Addon"))
             {
+                System.out.println("GregTech detected, attempting to unregister");
                 try
                 {
                     ModContainer mod = o;
@@ -28,6 +31,7 @@ public class PeaceOfMind
                 catch (Exception e)
                 {
                     System.err.println("Cannot unregister GregTech");
+                    e.printStackTrace();
                 }
             }
         }
