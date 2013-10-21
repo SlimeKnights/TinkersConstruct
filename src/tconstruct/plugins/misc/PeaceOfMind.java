@@ -2,7 +2,6 @@ package tconstruct.plugins.misc;
 
 import java.lang.reflect.Field;
 
-import net.minecraftforge.event.EventBus;
 import cpw.mods.fml.common.FMLModContainer;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
@@ -25,7 +24,7 @@ public class PeaceOfMind
                     ModContainer mod = o;
                     Field ann = FMLModContainer.class.getDeclaredField("eventBus");
                     ann.setAccessible(true);
-                    EventBus bus = (EventBus) ann.get(mod);
+                    com.google.common.eventbus.EventBus bus = (com.google.common.eventbus.EventBus) ann.get(mod);
                     bus.unregister(mod);
                 }
                 catch (Exception e)
