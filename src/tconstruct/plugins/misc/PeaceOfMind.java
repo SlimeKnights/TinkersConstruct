@@ -11,28 +11,20 @@ import cpw.mods.fml.common.ModContainer;
 @Mod(modid = "TConstruct|PeaceOfMind", name = "TConstruct|PeaceOfMind", version = "1.0")
 public class PeaceOfMind
 {
+    public static boolean completeShutdown = false;
+
     public PeaceOfMind()
     {
-        /** Explicit permission: http://forum.industrial-craft.net/index.php?page=Thread&postID=121457#post121457 */
+        /** Explicit permission: http://forum.industrial-craft.net/index.php?page=Thread&postID=121457#post121457 
+         * Fixes Ore Dictionary debug spam
+         */
 
         try
         {
-            Class clazz = Class.forName("gregtechmod.GT_Mod");
-            
+            Class ores = Class.forName("gregtechmod.common.GT_OreDictHandler");
+
             try
             {
-                Field ice = clazz.getDeclaredField("mDoNotInit");
-                ice.setBoolean(clazz, true);
-            }
-            catch (Exception e)
-            {
-                System.err.println("Could not set init to false");
-                e.printStackTrace();
-            }
-            
-            try
-            {
-                Class ores = Class.forName("gregtechmod.common.GT_OreDictHandler");
                 Field ice = ores.getDeclaredField("instance");
                 MinecraftForge.EVENT_BUS.unregister(ice);
             }
@@ -44,27 +36,7 @@ public class PeaceOfMind
         }
         catch (Exception e)
         {
-            
-        }
-        
-        for (ModContainer o : Loader.instance().getModList())
-        {
-            if (o.getModId().toLowerCase().contains("gregtech"))
-            {
-                try
-                {
-                    ModContainer mod = o;
-                    Field ann = FMLModContainer.class.getDeclaredField("eventBus");
-                    ann.setAccessible(true);
-                    com.google.common.eventbus.EventBus googlebus = (com.google.common.eventbus.EventBus) ann.get(mod);
-                    googlebus.unregister(mod);
-                }
-                catch (Exception e)
-                {
-                    System.err.println("Cannot unregister GregTech");
-                    e.printStackTrace();
-                }
-            }
+            //GT not here
         }
     }
 }
