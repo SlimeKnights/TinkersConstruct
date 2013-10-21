@@ -2,6 +2,7 @@ package tconstruct.plugins.misc;
 
 import java.lang.reflect.Field;
 
+import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.common.FMLModContainer;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
@@ -12,20 +13,21 @@ public class PeaceOfMind
 {
     public PeaceOfMind()
     {
-        System.out.println("Debug mod IDs go!");
         for (ModContainer o : Loader.instance().getModList())
         {
-            System.out.println("Mod ID: "+o.getModId());
             if (o.getModId().toLowerCase().contains("gregtech"))
             {
-                System.out.println("GregTech detected, attempting to unregister");
                 try
                 {
+                    /** Explicit permission: http://forum.industrial-craft.net/index.php?page=Thread&postID=121457#post121457 */
                     ModContainer mod = o;
                     Field ann = FMLModContainer.class.getDeclaredField("eventBus");
                     ann.setAccessible(true);
-                    com.google.common.eventbus.EventBus bus = (com.google.common.eventbus.EventBus) ann.get(mod);
-                    bus.unregister(mod);
+                    com.google.common.eventbus.EventBus googlebus = (com.google.common.eventbus.EventBus) ann.get(mod);
+                    googlebus.unregister(mod);
+                    
+                    Class clazz = Class.forName("gregtechmod.common.GT_OreDictHandler");
+                    MinecraftForge.EVENT_BUS.unregister(clazz);
                 }
                 catch (Exception e)
                 {
