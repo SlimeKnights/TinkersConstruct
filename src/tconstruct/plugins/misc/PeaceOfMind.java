@@ -13,13 +13,13 @@ public class PeaceOfMind
 {
     public PeaceOfMind()
     {
-        //System.out.println("Debug mod IDs go!");
+        System.out.println("Debug mod IDs go!");
         for (ModContainer o : Loader.instance().getModList())
         {
-            //System.out.println("Mod ID: "+o.getModId());
+            System.out.println("Mod ID: "+o.getModId());
             if (o.getModId().toLowerCase().contains("gregtech"))
             {
-                //System.out.println("GregTech detected, attempting to unregister");
+                System.out.println("GregTech detected, attempting to unregister");
                 try
                 {
                     ModContainer mod = o;
