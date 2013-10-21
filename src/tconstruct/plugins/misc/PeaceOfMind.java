@@ -26,7 +26,8 @@ public class PeaceOfMind
             try
             {
                 Field ice = ores.getDeclaredField("instance");
-                MinecraftForge.EVENT_BUS.unregister(ice);
+                Object o = ice.get(this);
+                MinecraftForge.EVENT_BUS.unregister(o);
             }
             catch (Exception e)
             {
