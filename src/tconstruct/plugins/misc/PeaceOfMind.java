@@ -8,18 +8,18 @@ import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.ModContainer;
 
-@Mod(modid = "TConstruct|PeaceOfMind", name = "TConstruct|PeaceOfMind", version = "1.0", dependencies = "after:GregTech-Addon")
+@Mod(modid = "TConstruct|PeaceOfMind", name = "TConstruct|PeaceOfMind", version = "1.0")
 public class PeaceOfMind
 {
     public PeaceOfMind()
     {
-        System.out.println("Debug mod IDs go!");
+        //System.out.println("Debug mod IDs go!");
         for (ModContainer o : Loader.instance().getModList())
         {
-            System.out.println("Mod ID: "+o.getModId());
-            if (o.getModId().equals("GregTech-Addon"))
+            //System.out.println("Mod ID: "+o.getModId());
+            if (o.getModId().toLowerCase().contains("gregtech"))
             {
-                System.out.println("GregTech detected, attempting to unregister");
+                //System.out.println("GregTech detected, attempting to unregister");
                 try
                 {
                     ModContainer mod = o;
