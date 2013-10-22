@@ -76,13 +76,7 @@ public class TConstruct
                 TConstruct.logger.info("[TConstruct] Preparing to take over the world");
         }
 
-        if (Loader.isModLoaded("gregtech_addon")) {
-            List<String> modIds = new ArrayList<String>();
-            modIds.add("gregtech_addon");
-
-            ICrashCallable callable = new CallableUnsuppConfig(modIds);
-            FMLCommonHandler.instance().registerCrashCallable(callable);
-        }
+        EnvironmentChecks.verifyEnvironmentSanity();
     }
 
     @EventHandler
