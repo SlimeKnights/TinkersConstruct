@@ -8,7 +8,7 @@ import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.ModContainer;
 
-@Mod(modid = "TConstruct|PeaceOfMind", name = "TConstruct|PeaceOfMind", version = "1.0")
+@Mod(modid = "TConstruct|PeaceOfMind", name = "TConstruct|PeaceOfMind", version = "1.0", dependencies = "after:TConstruct;after:gregtech_addon") // After TCon so any crashes are marked properly in callable
 public class PeaceOfMind
 {
     public static boolean completeShutdown = false;

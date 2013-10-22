@@ -23,12 +23,13 @@ import tconstruct.util.player.TPlayerHandler;
 import tconstruct.worldgen.*;
 import tconstruct.worldgen.village.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 /** TConstruct, the tool mod.
  * Craft your tools with style, then modify until the original is gone!
- * @author: mDiyo
- * @dependencies: IC2 API, MFR API
+ * @author mDiyo
  */
 
 @Mod(modid = "TConstruct", name = "TConstruct", version = "1.6.X_1.5.0d", dependencies = "required-after:Forge@[8.9,)")
@@ -73,6 +74,14 @@ public class TConstruct
             }
             else
                 TConstruct.logger.info("[TConstruct] Preparing to take over the world");
+        }
+
+        if (Loader.isModLoaded("gregtech_addon")) {
+            List<String> modIds = new ArrayList<String>();
+            modIds.add("gregtech_addon");
+
+            ICrashCallable callable = new CallableUnsuppConfig(modIds);
+            FMLCommonHandler.instance().registerCrashCallable(callable);
         }
     }
 
