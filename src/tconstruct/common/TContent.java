@@ -722,7 +722,7 @@ public class TContent implements IFuelHandler
         slimeTallGrass = new SlimeTallGrass(PHConstruct.slimeTallGrass).setStepSound(Block.soundGrassFootstep).setUnlocalizedName("slime.grass.tall");
         GameRegistry.registerBlock(slimeTallGrass, SlimeTallGrassItem.class, "slime.grass.tall");
 
-        slimeLeaves = (SlimeLeaves) new SlimeLeaves(PHConstruct.slimeLeaves).setStepSound(slimeStep).setUnlocalizedName("slime.leaves");
+        slimeLeaves = (SlimeLeaves) new SlimeLeaves(PHConstruct.slimeLeaves).setStepSound(slimeStep).setLightOpacity(0).setUnlocalizedName("slime.leaves");
         GameRegistry.registerBlock(slimeLeaves, SlimeLeavesItemBlock.class, "slime.leaves");
 
         slimeSapling = (SlimeSapling) new SlimeSapling(PHConstruct.slimeSapling).setStepSound(slimeStep).setUnlocalizedName("slime.sapling");
