@@ -369,7 +369,7 @@ public class TContent implements IFuelHandler
         GameRegistry.registerBlock(heldItemBlock, "HeldItemBlock");
         GameRegistry.registerTileEntity(FrypanLogic.class, "FrypanLogic");
 
-        craftedSoil = new SoilBlock(PHConstruct.craftedSoil).setUnlocalizedName("TConstruct.Soil");
+        craftedSoil = new SoilBlock(PHConstruct.craftedSoil).setLightOpacity(0).setUnlocalizedName("TConstruct.Soil");
         craftedSoil.stepSound = Block.soundGravelFootstep;
         GameRegistry.registerBlock(craftedSoil, CraftedSoilItemBlock.class, "CraftedSoil");
 
