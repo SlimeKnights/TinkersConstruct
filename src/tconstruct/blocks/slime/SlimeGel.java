@@ -76,6 +76,6 @@ public class SlimeGel extends TConstructBlock
     
     public boolean isOpaqueCube()
     {
-        return false;
+        return true;
     }
 }

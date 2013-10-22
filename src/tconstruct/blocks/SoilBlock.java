@@ -49,7 +49,7 @@ public class SoilBlock extends TConstructBlock
     
     public boolean isOpaqueCube()
     {
-        return false;
+        return true;
     }
 
     /*public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z)
