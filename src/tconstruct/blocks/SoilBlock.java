@@ -46,11 +46,6 @@ public class SoilBlock extends TConstructBlock
             return Block.dirt.blockHardness;
         return this.blockHardness;
     }
-    
-    public boolean isOpaqueCube()
-    {
-        return false;
-    }
 
     /*public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z)
     {
