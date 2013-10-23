@@ -1,5 +1,6 @@
 package tconstruct.client;
 
+import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.relauncher.*;
 import java.util.Random;
 import net.minecraft.block.Block;
@@ -79,7 +80,7 @@ public class TClientEvents
     @ForgeSubscribe
     public void renderHealthbar (RenderGameOverlayEvent.Pre event)
     {
-        if (event.type == ElementType.HEALTH)
+        if (event.type == ElementType.HEALTH && !Loader.isModLoaded("tukmc_Vz")) // Loader check to avoid conflicting with a GUI mod (thanks Vazkii!)
         {
             event.setCanceled(true);
             updateCounter++;

@@ -23,12 +23,13 @@ import tconstruct.util.player.TPlayerHandler;
 import tconstruct.worldgen.*;
 import tconstruct.worldgen.village.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 /** TConstruct, the tool mod.
  * Craft your tools with style, then modify until the original is gone!
- * @author: mDiyo
- * @dependencies: IC2 API, MFR API
+ * @author mDiyo
  */
 
 @Mod(modid = "TConstruct", name = "TConstruct", version = "1.6.X_1.5.0d", dependencies = "required-after:Forge@[8.9,)")
@@ -74,6 +75,8 @@ public class TConstruct
             else
                 TConstruct.logger.info("[TConstruct] Preparing to take over the world");
         }
+
+        EnvironmentChecks.verifyEnvironmentSanity();
     }
 
     @EventHandler
@@ -108,9 +111,12 @@ public class TConstruct
         GameRegistry.registerCraftingHandler(new TCraftingHandler());
         NetworkRegistry.instance().registerGuiHandler(instance, proxy);
 
-        VillagerRegistry.instance().registerVillageTradeHandler(78943, new TVillageTrades());
         if (PHConstruct.addToVillages)
         {
+			// adds to the villager spawner egg
+			VillagerRegistry.instance().registerVillagerId(78943);
+			// moved down, not needed if 'addToVillages' is false
+			VillagerRegistry.instance().registerVillageTradeHandler(78943, new TVillageTrades());
             VillagerRegistry.instance().registerVillageCreationHandler(new VillageToolStationHandler());
             VillagerRegistry.instance().registerVillageCreationHandler(new VillageSmelteryHandler());
             try

@@ -35,7 +35,9 @@ public class TankAirRender implements ISimpleBlockRenderingHandler
                 if (item.getItem() instanceof ItemBlock)
                 {
                     Block inv = Block.blocksList[item.itemID];
+                    renderer.setOverrideBlockTexture(inv.getIcon(1, item.getItemDamage()));
                     renderer.renderBlockByRenderType(inv, x, y, z);
+                    renderer.clearOverrideBlockTexture();
                 }
             }
             else if (logic.hasFluids())

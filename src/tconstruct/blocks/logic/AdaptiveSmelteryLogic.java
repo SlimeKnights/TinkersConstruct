@@ -509,7 +509,7 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
     public void readNetworkNBT (NBTTagCompound tags)
     {
         direction = tags.getByte("Direction");
-        inventory = new ItemStack[tags.getInteger("InvSize")];
+        adjustInventory(tags.getInteger("InvSize"), false);
         super.readInventoryFromNBT(tags);
 
         structure.readNetworkNBT(tags);

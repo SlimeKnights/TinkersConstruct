@@ -97,8 +97,8 @@ public class TankAirLogic extends InventoryLogic implements IServantLogic, ISide
     @Override
     public boolean verifyMaster (IMasterLogic logic, World world, int xMaster, int yMaster, int zMaster)
     {
-        if (master != null)
-            return false;
+        /*if (master != null) //Is this even needed?
+            return false;*/
 
         master = new CoordTuple(xMaster, yMaster, zMaster);
         return true;
