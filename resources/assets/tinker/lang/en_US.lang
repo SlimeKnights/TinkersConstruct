@@ -96,6 +96,8 @@ block.fancybrick.obsidian.ingot.name=Fancy Obsidian Brick
 block.fancybrick.stone.road.name=Stone Road
 block.fancybrick.stone.name=Fancy Stone Brick
 
+block.rail.wood=Wooden Rail
+
 tile.cloth.white.slab.name=Wool Slab
 tile.cloth.orange.slab.name=Orange Wool Slab
 tile.cloth.magenta.slab.name=Magenta Wool Slab

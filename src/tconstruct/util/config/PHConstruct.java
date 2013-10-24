@@ -179,6 +179,7 @@ public class PHConstruct
         woolSlab2 = config.getBlock("Wool Slab 2", 3245).getInt(3245);
         airTank = config.getBlock("Air Tank", 3246).getInt(3246);
         castingChannel = config.getBlock("Casting Channel", 3249).getInt(3249);
+        woodenRail = config.getBlock("Wooden Rail", 3250).getInt(3250);
 
         manual = config.getItem("Patterns and Misc", "Tinker's Manual", 14018).getInt(14018);
         blankPattern = config.getItem("Patterns and Misc", "Blank Patterns", 14019).getInt(14019);
@@ -408,6 +409,8 @@ public class PHConstruct
 
     public static int redstoneMachine;
     public static int dryingRack;
+
+    public static int woodenRail;
 
     //Crops
     public static int oreBerry;

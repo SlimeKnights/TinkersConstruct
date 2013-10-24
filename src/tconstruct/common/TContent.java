@@ -269,6 +269,9 @@ public class TContent implements IFuelHandler
     public static Item heartCanister;
     public static Item goldHead;
 
+    //Rail-related
+    public static Block woodenRail;
+
     //Chest hooks
     public static ChestGenHooks tinkerHouseChest;
     public static ChestGenHooks tinkerHousePatterns;
@@ -797,6 +800,10 @@ public class TContent implements IFuelHandler
         essenceExtractor = new EssenceExtractor(PHConstruct.essenceExtractor).setHardness(12f).setUnlocalizedName("extractor.essence");
         GameRegistry.registerBlock(essenceExtractor, "extractor.essence");
         GameRegistry.registerTileEntity(EssenceExtractorLogic.class, "extractor.essence");
+
+        //Rail
+        woodenRail = new WoodRail(PHConstruct.woodenRail).setStepSound(Block.soundWoodFootstep).setCreativeTab(TConstructRegistry.blockTab).setUnlocalizedName("rail.wood");
+        GameRegistry.registerBlock(woodenRail, "rail.wood");
     }
 
     void registerItems ()
