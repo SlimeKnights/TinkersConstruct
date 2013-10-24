@@ -15,11 +15,20 @@ public class EnvironmentChecks {
      * Checks for conflicting stuff in environment; adds callable to any crash logs if so.
      */
     public static void verifyEnvironmentSanity() {
+        boolean supportedEnv = true;
+
         if (Loader.isModLoaded("gregtech_addon")) {
             List<String> modIds = new ArrayList<String>();
             modIds.add("gregtech_addon");
 
             ICrashCallable callable = new CallableUnsuppConfig(modIds);
+            FMLCommonHandler.instance().registerCrashCallable(callable);
+
+            supportedEnv = false;
+        }
+
+        if (supportedEnv) {
+            ICrashCallable callable = new CallableSuppConfig();
             FMLCommonHandler.instance().registerCrashCallable(callable);
         }
     }
