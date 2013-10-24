@@ -54,18 +54,15 @@ public class AppEng {
 
         if (!Loader.isModLoaded("AppliedEnergistics")) {
             logger.warning("Applied Energistics missing - TConstruct Compat: AE not loading.");
-            return;
-        } try {
+        } else {
             logger.info("Applied Energistics detected. Registering for Spatial IO.");
             registerForSpatialIO();
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
     private static void registerForSpatialIO() {
-        for (int i = 0; i < spatialIOLogics.size(); i++) {
-            FMLInterModComms.sendMessage("AppliedEnergistics", "movabletile", "tconstruct.blocks.logic." + spatialIOLogics.get(i));
+        for (String s : spatialIOLogics) {
+            FMLInterModComms.sendMessage("AppliedEnergistics", "movabletile", "tconstruct.blocks.logic." + s);
         }
     }
 
