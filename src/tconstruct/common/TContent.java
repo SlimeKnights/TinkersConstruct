@@ -1521,7 +1521,10 @@ public class TContent implements IFuelHandler
 
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(redstoneMachine, 1, 1), "aca", "#d#", "#r#", '#', "ingotBronze", 'a', "ingotAluminumBrass", 'c', new ItemStack(largePlate, 1, 7), 'r',
                 new ItemStack(Item.redstone), 'd', new ItemStack(Item.flintAndSteel))); //Igniter
-
+        
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(redstoneMachine, 1, 2), " c ", "rdr", " a ", 'a', "ingotAluminumBrass", 'c', new ItemStack(blankPattern, 1, 1), 'r', new ItemStack(Item.redstone), 'd', new ItemStack(redstoneMachine, 1, 0)));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(redstoneMachine, 1, 2), " c ", "rdr", " a ", 'a', "ingotAluminumBrass", 'c', new ItemStack(blankPattern, 1, 2), 'r', new ItemStack(Item.redstone), 'd', new ItemStack(redstoneMachine, 1, 0)));
+        
         /* Crafting */
         GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 0), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', Block.workbench);
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(toolStationWood, 1, 0), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', "crafterWood"));

@@ -255,7 +255,7 @@ public class RedstoneMachine extends InventoryBlock
     @Override
     public void getSubBlocks (int id, CreativeTabs tab, List list)
     {
-        for (int iter = 0; iter < 2; iter++)
+        for (int iter = 0; iter < 3; iter++)
         {
             list.add(new ItemStack(id, 1, iter));
         }

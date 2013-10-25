@@ -260,18 +260,18 @@ public class AdvancedDrawbridgeLogic extends InventoryLogic implements IFacingLo
 						Block block = Block.blocksList[worldObj.getBlockId(xPos, yPos, zPos)];
 						if (block == null || block.isAirBlock(worldObj, xPos, yPos, zPos) || block.isBlockReplaceable(worldObj, xPos, yPos, zPos)) {
 							// tryExtend(worldObj, xPos, yPos, zPos, direction);
-							int blockToItem = getStackInBufferSlot(extension) != null ? TConstructRegistry.blockToItemMapping[getStackInBufferSlot(extension).itemID] : 0;
+							int blockToItem = getStackInBufferSlot(extension - 1) != null ? TConstructRegistry.blockToItemMapping[getStackInBufferSlot(extension - 1).itemID] : 0;
 							if (blockToItem == 0) {
-								if (getStackInSlot(extension) == null || getStackInSlot(extension).itemID >= 4096 || Block.blocksList[getStackInSlot(extension).itemID] == null)
+								if (getStackInSlot(extension - 1) == null || getStackInSlot(extension - 1).itemID >= 4096 || Block.blocksList[getStackInSlot(extension - 1).itemID] == null)
 									return;
-								Block placeBlock = Block.blocksList[getStackInBufferSlot(extension).itemID];
-								placeBlockAt(getStackInSlot(extension), fakePlayer, worldObj, xPos, yPos, zPos, direction, 0, 0, 0, getStackInSlot(extension).getItemDamage(), placeBlock);
+								Block placeBlock = Block.blocksList[getStackInBufferSlot(extension - 1).itemID];
+								placeBlockAt(getStackInSlot(extension - 1), fakePlayer, worldObj, xPos, yPos, zPos, direction, 0, 0, 0, getStackInSlot(extension - 1).getItemDamage(), placeBlock);
 							} else {
 								Block placeBlock = Block.blocksList[blockToItem];
-								placeBlockAt(getStackInSlot(extension), fakePlayer, worldObj, xPos, yPos, zPos, direction, 0, 0, 0, getStackInSlot(extension).getItemDamage(), placeBlock);
+								placeBlockAt(getStackInSlot(extension - 1), fakePlayer, worldObj, xPos, yPos, zPos, direction, 0, 0, 0, getStackInSlot(extension - 1).getItemDamage(), placeBlock);
 							}
 							worldObj.playSoundEffect((double) xPos + 0.5D, (double) yPos + 0.5D, (double) zPos + 0.5D, "tile.piston.out", 0.25F, worldObj.rand.nextFloat() * 0.25F + 0.6F);
-							decrStackSize(extension, 1);
+							decrStackSize(extension - 1, 1);
 						} else {
 							extension--;
 							working = false;
@@ -311,13 +311,13 @@ public class AdvancedDrawbridgeLogic extends InventoryLogic implements IFacingLo
 						Block block = Block.blocksList[worldObj.getBlockId(xPos, yPos, zPos)];
 						if (block != null) {
 							int meta = worldObj.getBlockMetadata(xPos, yPos, zPos);
-							if (getStackInBufferSlot(extension) != null && validBlock(extension, block) && validMetadata(extension, block.blockID, meta)) {
+							if (getStackInBufferSlot(extension - 1) != null && validBlock(extension - 1, block) && validMetadata(extension - 1, block.blockID, meta)) {
 								worldObj.playSoundEffect((double) xPos + 0.5D, (double) yPos + 0.5D, (double) zPos + 0.5D, "tile.piston.in", 0.25F, worldObj.rand.nextFloat() * 0.15F + 0.6F);
 								if (worldObj.setBlock(xPos, yPos, zPos, 0))
-									if (getStackInSlot(extension) == null) {
-										setInventorySlotContents(extension, getStackInBufferSlot(extension).copy());
+									if (getStackInSlot(extension - 1) == null) {
+										setInventorySlotContents(extension - 1, getStackInBufferSlot(extension - 1).copy());
 									} else {
-										getStackInSlot(extension).stackSize++;
+										getStackInSlot(extension - 1).stackSize++;
 									}
 							} else {
 								working = false;
