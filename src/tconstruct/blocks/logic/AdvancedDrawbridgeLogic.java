@@ -265,13 +265,13 @@ public class AdvancedDrawbridgeLogic extends InventoryLogic implements IFacingLo
 								if (getStackInSlot(extension) == null || getStackInSlot(extension).itemID >= 4096 || Block.blocksList[getStackInSlot(extension).itemID] == null)
 									return;
 								Block placeBlock = Block.blocksList[getStackInBufferSlot(extension).itemID];
-								placeBlockAt(getStackInBufferSlot(extension), fakePlayer, worldObj, xPos, yPos, zPos, direction, 0, 0, 0, getStackInBufferSlot(extension).getItemDamage(), placeBlock);
+								placeBlockAt(getStackInSlot(extension), fakePlayer, worldObj, xPos, yPos, zPos, direction, 0, 0, 0, getStackInSlot(extension).getItemDamage(), placeBlock);
 							} else {
 								Block placeBlock = Block.blocksList[blockToItem];
-								placeBlockAt(getStackInBufferSlot(extension), fakePlayer, worldObj, xPos, yPos, zPos, direction, 0, 0, 0, getStackInBufferSlot(extension).getItemDamage(), placeBlock);
+								placeBlockAt(getStackInSlot(extension), fakePlayer, worldObj, xPos, yPos, zPos, direction, 0, 0, 0, getStackInSlot(extension).getItemDamage(), placeBlock);
 							}
 							worldObj.playSoundEffect((double) xPos + 0.5D, (double) yPos + 0.5D, (double) zPos + 0.5D, "tile.piston.out", 0.25F, worldObj.rand.nextFloat() * 0.25F + 0.6F);
-							decrStackSize(0, 1);
+							decrStackSize(extension, 1);
 						} else {
 							extension--;
 							working = false;

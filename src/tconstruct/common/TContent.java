@@ -1,13 +1,5 @@
 package tconstruct.common;
 
-import tconstruct.library.client.FluidRenderProperties;
-
-import tconstruct.library.client.FluidRenderProperties.Applications;
-
-import net.minecraftforge.oredict.ShapedOreRecipe;
-
-import net.minecraftforge.common.EnumHelper;
-
 import cpw.mods.fml.common.*;
 import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.registry.*;
@@ -38,7 +30,9 @@ import tconstruct.items.armor.*;
 import tconstruct.items.blocks.*;
 import tconstruct.items.tools.*;
 import tconstruct.library.TConstructRegistry;
-import tconstruct.library.client.TConstructClientRegistry;
+import tconstruct.library.armor.EnumArmorPart;
+import tconstruct.library.client.*;
+import tconstruct.library.client.FluidRenderProperties.Applications;
 import tconstruct.library.crafting.*;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.library.util.IPattern;
@@ -1337,9 +1331,6 @@ public class TContent implements IFuelHandler
 		basinCasting.addCastingRecipe(new ItemStack(armorPattern, 1, 3), new FluidStack(moltenAlubrassFluid, TConstruct.ingotLiquidValue * 10), new ItemStack(bootsWood), 50, new FluidRenderProperties(Applications.BASIN.minHeight, 0.65F, Applications.BASIN));
 		basinCasting.addCastingRecipe(new ItemStack(armorPattern, 1, 3), new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 10), new ItemStack(bootsWood), 50, new FluidRenderProperties(Applications.BASIN.minHeight, 0.65F, Applications.BASIN));
         
-        //TODO TEST
-        //        basinCasting.addCastingRecipe(new ItemStack(armorTest), new FluidStack(moltenIronFluid, TConstruct.ingotLiquidValue * 24), new ItemStack(armorPattern, 1, 0), false, 100, new FluidRenderProperties(0.5F, 0.575F, 0.15F, 0.85F, 0.15F, 0.85F));
-
         //Ore
         Smeltery.addMelting(Block.oreIron, 0, 600, new FluidStack(moltenIronFluid, TConstruct.ingotLiquidValue * 2));
         Smeltery.addMelting(Block.oreGold, 0, 400, new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 2));
