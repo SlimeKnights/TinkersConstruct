@@ -3,8 +3,10 @@ package tconstruct.common;
 import cpw.mods.fml.common.*;
 import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.registry.*;
+
 import java.lang.reflect.Field;
 import java.util.*;
+
 import net.minecraft.block.*;
 import net.minecraft.block.material.*;
 import net.minecraft.creativetab.CreativeTabs;
@@ -1321,16 +1323,24 @@ public class TContent implements IFuelHandler
         basinCasting.addCastingRecipe(new ItemStack(Block.whiteStone), new FluidStack(moltenEnderFluid, 25), new ItemStack(Block.obsidian), true, 100); //endstone
         basinCasting.addCastingRecipe(new ItemStack(metalBlock.blockID, 1, 10), new FluidStack(moltenEnderFluid, 1000), null, true, 100); //ender
 
-		//Armor casts
-		basinCasting.addCastingRecipe(new ItemStack(armorPattern, 1, 0), new FluidStack(moltenAlubrassFluid, TConstruct.ingotLiquidValue * 10), new ItemStack(helmetWood), 50, new FluidRenderProperties(Applications.BASIN.minHeight, 0.65F, Applications.BASIN));
-		basinCasting.addCastingRecipe(new ItemStack(armorPattern, 1, 0), new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 10), new ItemStack(helmetWood), 50, new FluidRenderProperties(Applications.BASIN.minHeight, 0.65F, Applications.BASIN));
-		basinCasting.addCastingRecipe(new ItemStack(armorPattern, 1, 1), new FluidStack(moltenAlubrassFluid, TConstruct.ingotLiquidValue * 10), new ItemStack(chestplateWood), 50, new FluidRenderProperties(Applications.BASIN.minHeight, 0.65F, Applications.BASIN));
-		basinCasting.addCastingRecipe(new ItemStack(armorPattern, 1, 1), new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 10), new ItemStack(chestplateWood), 50, new FluidRenderProperties(Applications.BASIN.minHeight, 0.65F, Applications.BASIN));
-		basinCasting.addCastingRecipe(new ItemStack(armorPattern, 1, 2), new FluidStack(moltenAlubrassFluid, TConstruct.ingotLiquidValue * 10), new ItemStack(leggingsWood), 50, new FluidRenderProperties(Applications.BASIN.minHeight, 0.65F, Applications.BASIN));
-		basinCasting.addCastingRecipe(new ItemStack(armorPattern, 1, 2), new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 10), new ItemStack(leggingsWood), 50, new FluidRenderProperties(Applications.BASIN.minHeight, 0.65F, Applications.BASIN));
-		basinCasting.addCastingRecipe(new ItemStack(armorPattern, 1, 3), new FluidStack(moltenAlubrassFluid, TConstruct.ingotLiquidValue * 10), new ItemStack(bootsWood), 50, new FluidRenderProperties(Applications.BASIN.minHeight, 0.65F, Applications.BASIN));
-		basinCasting.addCastingRecipe(new ItemStack(armorPattern, 1, 3), new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 10), new ItemStack(bootsWood), 50, new FluidRenderProperties(Applications.BASIN.minHeight, 0.65F, Applications.BASIN));
-        
+        //Armor casts
+        basinCasting.addCastingRecipe(new ItemStack(armorPattern, 1, 0), new FluidStack(moltenAlubrassFluid, TConstruct.ingotLiquidValue * 10), new ItemStack(helmetWood), 50,
+                new FluidRenderProperties(Applications.BASIN.minHeight, 0.65F, Applications.BASIN));
+        basinCasting.addCastingRecipe(new ItemStack(armorPattern, 1, 0), new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 10), new ItemStack(helmetWood), 50, new FluidRenderProperties(
+                Applications.BASIN.minHeight, 0.65F, Applications.BASIN));
+        basinCasting.addCastingRecipe(new ItemStack(armorPattern, 1, 1), new FluidStack(moltenAlubrassFluid, TConstruct.ingotLiquidValue * 10), new ItemStack(chestplateWood), 50,
+                new FluidRenderProperties(Applications.BASIN.minHeight, 0.65F, Applications.BASIN));
+        basinCasting.addCastingRecipe(new ItemStack(armorPattern, 1, 1), new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 10), new ItemStack(chestplateWood), 50,
+                new FluidRenderProperties(Applications.BASIN.minHeight, 0.65F, Applications.BASIN));
+        basinCasting.addCastingRecipe(new ItemStack(armorPattern, 1, 2), new FluidStack(moltenAlubrassFluid, TConstruct.ingotLiquidValue * 10), new ItemStack(leggingsWood), 50,
+                new FluidRenderProperties(Applications.BASIN.minHeight, 0.65F, Applications.BASIN));
+        basinCasting.addCastingRecipe(new ItemStack(armorPattern, 1, 2), new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 10), new ItemStack(leggingsWood), 50, new FluidRenderProperties(
+                Applications.BASIN.minHeight, 0.65F, Applications.BASIN));
+        basinCasting.addCastingRecipe(new ItemStack(armorPattern, 1, 3), new FluidStack(moltenAlubrassFluid, TConstruct.ingotLiquidValue * 10), new ItemStack(bootsWood), 50,
+                new FluidRenderProperties(Applications.BASIN.minHeight, 0.65F, Applications.BASIN));
+        basinCasting.addCastingRecipe(new ItemStack(armorPattern, 1, 3), new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 10), new ItemStack(bootsWood), 50, new FluidRenderProperties(
+                Applications.BASIN.minHeight, 0.65F, Applications.BASIN));
+
         //Ore
         Smeltery.addMelting(Block.oreIron, 0, 600, new FluidStack(moltenIronFluid, TConstruct.ingotLiquidValue * 2));
         Smeltery.addMelting(Block.oreGold, 0, 400, new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 2));
@@ -1521,10 +1531,12 @@ public class TContent implements IFuelHandler
 
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(redstoneMachine, 1, 1), "aca", "#d#", "#r#", '#', "ingotBronze", 'a', "ingotAluminumBrass", 'c', new ItemStack(largePlate, 1, 7), 'r',
                 new ItemStack(Item.redstone), 'd', new ItemStack(Item.flintAndSteel))); //Igniter
-        
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(redstoneMachine, 1, 2), " c ", "rdr", " a ", 'a', "ingotAluminumBrass", 'c', new ItemStack(blankPattern, 1, 1), 'r', new ItemStack(Item.redstone), 'd', new ItemStack(redstoneMachine, 1, 0)));
-		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(redstoneMachine, 1, 2), " c ", "rdr", " a ", 'a', "ingotAluminumBrass", 'c', new ItemStack(blankPattern, 1, 2), 'r', new ItemStack(Item.redstone), 'd', new ItemStack(redstoneMachine, 1, 0)));
-        
+
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(redstoneMachine, 1, 2), " c ", "rdr", " a ", 'a', "ingotAluminumBrass", 'c', new ItemStack(blankPattern, 1, 1), 'r', new ItemStack(
+                Item.redstone), 'd', new ItemStack(redstoneMachine, 1, 0)));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(redstoneMachine, 1, 2), " c ", "rdr", " a ", 'a', "ingotAluminumBrass", 'c', new ItemStack(blankPattern, 1, 2), 'r', new ItemStack(
+                Item.redstone), 'd', new ItemStack(redstoneMachine, 1, 0)));
+
         /* Crafting */
         GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 0), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', Block.workbench);
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(toolStationWood, 1, 0), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', "crafterWood"));
@@ -1578,11 +1590,11 @@ public class TContent implements IFuelHandler
         GameRegistry.addRecipe(new ItemStack(materials, 1, 25), "sss", "sns", "sss", 'n', new ItemStack(Item.goldNugget), 's', new ItemStack(Item.silk));
         GameRegistry.addRecipe(new ItemStack(materials, 1, 26), " c ", "cec", " c ", 'c', new ItemStack(materials, 1, 25), 'e', new ItemStack(Item.emerald)); //Silky Jewel
 
-        GameRegistry.addRecipe(new ShapedOreRecipe(helmetWood, new Object[]{"www", "w w", 'w', "logWood"}));
-        GameRegistry.addRecipe(new ShapedOreRecipe(chestplateWood, new Object[]{"w w", "www", "www", 'w', "logWood"}));
-        GameRegistry.addRecipe(new ShapedOreRecipe(leggingsWood, new Object[]{"www", "w w", "w w", 'w', "logWood"}));
-        GameRegistry.addRecipe(new ShapedOreRecipe(bootsWood, new Object[]{"w w", "w w", 'w', "logWood"}));
-        
+        GameRegistry.addRecipe(new ShapedOreRecipe(helmetWood, new Object[] { "www", "w w", 'w', "logWood" }));
+        GameRegistry.addRecipe(new ShapedOreRecipe(chestplateWood, new Object[] { "w w", "www", "www", 'w', "logWood" }));
+        GameRegistry.addRecipe(new ShapedOreRecipe(leggingsWood, new Object[] { "www", "w w", "w w", 'w', "logWood" }));
+        GameRegistry.addRecipe(new ShapedOreRecipe(bootsWood, new Object[] { "w w", "w w", 'w', "logWood" }));
+
         //FurnaceRecipes.smelting().addSmelting(oreSlag.blockID, 1, new ItemStack(materials, 1, 3), 3f);
         //FurnaceRecipes.smelting().addSmelting(oreSlag.blockID, 2, new ItemStack(materials, 1, 4), 3f);
         FurnaceRecipes.smelting().addSmelting(oreSlag.blockID, 3, new ItemStack(materials, 1, 9), 0.5f);
@@ -1943,23 +1955,34 @@ public class TContent implements IFuelHandler
 
     public void intermodCommunication ()
     {
-        FMLInterModComms.sendMessage("Thaumcraft", "harvestClickableCrop", new ItemStack(oreBerry, 1, 12));
-        FMLInterModComms.sendMessage("Thaumcraft", "harvestClickableCrop", new ItemStack(oreBerry, 1, 13));
-        FMLInterModComms.sendMessage("Thaumcraft", "harvestClickableCrop", new ItemStack(oreBerry, 1, 14));
-        FMLInterModComms.sendMessage("Thaumcraft", "harvestClickableCrop", new ItemStack(oreBerry, 1, 15));
-        FMLInterModComms.sendMessage("Thaumcraft", "harvestClickableCrop", new ItemStack(oreBerrySecond, 1, 12));
-        FMLInterModComms.sendMessage("Thaumcraft", "harvestClickableCrop", new ItemStack(oreBerrySecond, 1, 13));
-        MystImcHandler.blacklistFluids();
+        if (Loader.isModLoaded("Thaumcraft"))
+        {
+            FMLInterModComms.sendMessage("Thaumcraft", "harvestClickableCrop", new ItemStack(oreBerry, 1, 12));
+            FMLInterModComms.sendMessage("Thaumcraft", "harvestClickableCrop", new ItemStack(oreBerry, 1, 13));
+            FMLInterModComms.sendMessage("Thaumcraft", "harvestClickableCrop", new ItemStack(oreBerry, 1, 14));
+            FMLInterModComms.sendMessage("Thaumcraft", "harvestClickableCrop", new ItemStack(oreBerry, 1, 15));
+            FMLInterModComms.sendMessage("Thaumcraft", "harvestClickableCrop", new ItemStack(oreBerrySecond, 1, 12));
+            FMLInterModComms.sendMessage("Thaumcraft", "harvestClickableCrop", new ItemStack(oreBerrySecond, 1, 13));
+        }
+        if (Loader.isModLoaded("Mystcraft"))
+        {
+            MystImcHandler.blacklistFluids();
+        }
+        if (Loader.isModLoaded("BuildCraft|Transport"))
+        {
+            BCImcHandler.registerFacades();
+        }
         /* FORESTRY
          * Edit these strings to change what items are added to the backpacks
          * Format info: "[backpack ID]@[item ID].[metadata or *]:[next item]" and so on
          * Avaliable backpack IDs: forester, miner, digger, hunter, adventurer, builder
          * May add more backpack items later - Spyboticsguy 
          */
-
-        String builderItems = "builder@" + String.valueOf(stoneTorch.blockID) + ":*";
-
-        FMLInterModComms.sendMessage("Forestry", "add-backpack-items", builderItems);
+        if (Loader.isModLoaded("Forestry"))
+        {
+            String builderItems = "builder@" + String.valueOf(stoneTorch.blockID) + ":*";
+            FMLInterModComms.sendMessage("Forestry", "add-backpack-items", builderItems);
+        }
     }
 
     private static boolean initRecipes;
