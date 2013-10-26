@@ -91,25 +91,6 @@
     ]
   },
   {
-    "modid": "TConstruct|CompatAE",
-    "name": "TConstruct Compat: AE",
-    "description": "TConstruct support for AppliedEnergistics Spatial IO",
-    "version": "@VERSION@",
-    "mcversion": "@MCVERSION@",
-    "url": "http://www.minecraftforum.net/topic/1659892-tinkers-construct",
-    "updateUrl": "",
-    "authors": [
-      "mDiyo", "fuj1n", "ProgWML6", "Sunstrike"
-    ],
-    "credits": "Slime Knights",
-    "logoFile": "",
-    "screenshots": [],
-    "parent":"TConstruct",
-    "dependencies": [
-      "TConstruct"
-    ]
-  },
-  {
     "modid": "TConstruct|CompatWaila",
     "name": "TConstruct Compat: Waila",
     "description": "TConstruct support for Waila",

@@ -1983,6 +1983,10 @@ public class TContent implements IFuelHandler
             String builderItems = "builder@" + String.valueOf(stoneTorch.blockID) + ":*";
             FMLInterModComms.sendMessage("Forestry", "add-backpack-items", builderItems);
         }
+        if (!Loader.isModLoaded("AppliedEnergistics"))
+        {
+            AEImcHandler.registerForSpatialIO();
+        }
     }
 
     private static boolean initRecipes;
