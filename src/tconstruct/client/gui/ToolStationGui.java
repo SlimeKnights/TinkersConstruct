@@ -400,7 +400,7 @@ public class ToolStationGui extends NewContainerGui
         fontRenderer.drawSplitString(body, xSize + 8, 24, 115, 0xffffff);
     }
 
-    String getHarvestLevelName (int num)
+    protected String getHarvestLevelName (int num)
     {
         switch (num)
         {
