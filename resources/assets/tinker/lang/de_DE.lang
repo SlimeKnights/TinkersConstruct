@@ -96,6 +96,8 @@ block.fancybrick.obsidian.ingot.name=Schöner Obsidianziegel
 block.fancybrick.stone.road.name=Steinstraße
 block.fancybrick.stone.name=Schöner Steinziegel
 
+block.rail.wood=Hölzerne Schiene
+
 tile.cloth.white.slab.name=Wollstufe
 tile.cloth.orange.slab.name=Orange Wollstufe
 tile.cloth.magenta.slab.name=Magenta Wollstufe
@@ -273,6 +275,7 @@ LavaTank.Window.name=Versengtes Fenster
 
 block.drawbridge.name=Zugbrücke
 block.firestarter.name=Entzünder
+block.advdrawbridge.name=Fortgeschrittene Zugbrücke
 tile.landmine.name=Landmine
 
 tile.trap.punji.name=Punji-Stab
