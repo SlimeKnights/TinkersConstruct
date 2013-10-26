@@ -2,6 +2,7 @@ package appeng.api.me.tiles;
 
 import appeng.api.IItemList;
 
+@Deprecated
 public interface IStorageAware {
 	
 	/**

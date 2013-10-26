@@ -5,7 +5,8 @@ public enum PowerUnits implements IConfigEnum<PowerUnits> {
 	AE,
 	MJ,
 	EU,
-	UE;
+	UE,
+	WA;
 
 	@Override
 	public IConfigEnum[] getValues() {

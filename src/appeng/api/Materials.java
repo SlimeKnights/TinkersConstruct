@@ -42,6 +42,10 @@ public class Materials
     public static ItemStack matFluxDust;
     public static ItemStack matFluxCrystal;
 	public static ItemStack matFluxPearl;
+
+	public static ItemStack matSpatialStorageCell;
+	public static ItemStack matSpatialStorageBlock;
+	public static ItemStack matSpatialStorageCluster;
 	
     // World gen...
     public static ItemStack matQuartz;

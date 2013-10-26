@@ -27,6 +27,10 @@ public class Items
     public static ItemStack itemCell4k;
     public static ItemStack itemCell16k;
 	public static ItemStack itemCell64k;
+
+	public static ItemStack itemSpatialCell2;
+	public static ItemStack itemSpatialCell16;
+	public static ItemStack itemSpatialCell128;
 	
     public static ItemStack itemEncodedAsemblerPattern;
 	public static ItemStack toolWirelessTerminal;

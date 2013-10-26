@@ -11,7 +11,9 @@ import appeng.api.TileRef;
 import appeng.api.exceptions.AppEngTileMissingException;
 import appeng.api.me.tiles.IGridMachine;
 import appeng.api.me.tiles.IGridTileEntity;
-import appeng.api.me.tiles.IPushable;
+import appeng.api.me.tiles.ITilePushable;
+import appeng.api.networkevents.MENetworkEvent;
+import appeng.api.networkevents.MENetworkPowerStorage;
 
 /**
  * Lets you access network related features. You will mostly care about "getCellArray()" which returns the IMEInventory for the entire network...
@@ -137,7 +139,7 @@ public interface IGridInterface
 	 * @param allowCrafting
 	 * @return
 	 */
-	ICraftRequest pushRequest( ItemStack willAdd, IPushable out, boolean allowCrafting );
+	ICraftRequest pushRequest( ItemStack willAdd, ITilePushable out, boolean allowCrafting );
 	
 	/**
 	 * is the grid valid?
@@ -167,7 +169,7 @@ public interface IGridInterface
 	 * @param req
 	 * @return
 	 */
-	public IAssemblerPattern getPatternFor(ItemStack req);
+	public ICraftingPattern getPatternFor(ItemStack req);
 
 	/**
 	 * Inform the network that power costs have changed.
@@ -213,7 +215,27 @@ public interface IGridInterface
 	 */
 	void signalEnergyTransfer(IGridTileEntity a, IGridTileEntity b, float amt);
 
+	/**
+	 * posts an event into the network, blocks with the event listeners on them will receive them.
+	 * @param ev
+	 * @return 
+	 */
+	public MENetworkEvent postEvent( MENetworkEvent ev );
+	
 	@Override
 	public boolean equals(Object obj);
-
+	
+	/**
+	 * total amount of power available
+	 * @return
+	 */
+	public double getAvailablePower();
+	
+	/**
+	 * Returns if the system can provide this much power, returns the amount of power the system can provide.
+	 * @param powerRequired
+	 * @return
+	 */
+	public float canUsePower( float powerRequired );
+	
 }

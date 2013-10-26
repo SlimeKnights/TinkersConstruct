@@ -1041,4 +1041,11 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
         // TODO Auto-generated method stub
         return false;
     }
+
+    @Override
+    public boolean isStorageCell (ItemStack i)
+    {
+        // TODO Auto-generated method stub
+        return false;
+    }
 }

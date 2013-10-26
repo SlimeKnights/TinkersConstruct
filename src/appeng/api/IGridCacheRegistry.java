@@ -12,7 +12,7 @@ public interface IGridCacheRegistry {
 	 * @param cl
 	 * @return cache id ( can be used later to ask the grid for you cache. )
 	 */
-	int registerGridCache( Class<IGridCache> cl );
+	int registerGridCache( Class<? extends IGridCache> cl );
 	
 	/**
 	 * requests a new instance of a grid cache for use, used internally

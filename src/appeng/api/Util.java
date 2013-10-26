@@ -4,7 +4,8 @@ import java.lang.reflect.InvocationTargetException;
 
 import cpw.mods.fml.relauncher.ReflectionHelper;
 import net.minecraft.item.ItemStack;
-import appeng.api.me.util.IAssemblerPattern;
+import appeng.api.me.util.ICraftingPattern;
+import appeng.api.me.util.ICraftingPatternMAC;
 import appeng.api.me.util.IMEInventory;
 import appeng.api.me.util.IMEInventoryHandler;
 import appeng.api.me.util.IMEInventoryUtil;
@@ -13,7 +14,7 @@ import appeng.api.me.util.IMEInventoryUtil;
  * Returns useful stuff of various sorts to access internal features and stuff, the meat of the important stuff is accessed here...
  * 
  * Available IMCs:
- * "AppliedEnergistics", "add-grindable", "itemid,meta,itemid,meta,effort"
+ * "AppliedEnergistics", "add-grindable", "itemid,meta,itemid,meta,rotations" - AE uses the standard 8 for ores, 4 for ingots.
  * "AppliedEnergistics", "blacklist-cell" "itemid[,meta]"
  * "AppliedEnergistics", "blacklist-transitionplane" "itemid[,meta]"
  * "AppliedEnergistics", "whitelist-transitionplane" "itemid[,meta]"
@@ -170,7 +171,7 @@ public class Util
     }
     
     /** Gets the IAssemblerPattern of the Assembly Pattern. */
-    public static IAssemblerPattern getAssemblerPattern(ItemStack i)
+    public static ICraftingPatternMAC getAssemblerPattern(ItemStack i)
     {
     	if ( api == null ) return null;
     	return api.getAssemblerPattern( i );

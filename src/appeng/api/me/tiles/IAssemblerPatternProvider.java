@@ -1,11 +1,11 @@
 package appeng.api.me.tiles;
 
-import appeng.api.me.util.IAssemblerPattern;
+import appeng.api.me.util.ICraftingPattern;
 
 /**
  * Both useless and incredibly useful, maybe...
  */
 public interface IAssemblerPatternProvider
 {
-    public IAssemblerPattern provideAssemblerPattern();
+    public ICraftingPattern provideAssemblerPattern();
 }

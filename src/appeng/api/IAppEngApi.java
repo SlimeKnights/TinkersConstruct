@@ -1,13 +1,17 @@
 package appeng.api;
 
 import appeng.api.me.items.IMemoryCard;
+import appeng.api.me.items.ISpatialStorage;
 import appeng.api.me.tiles.IColoredMETile;
-import appeng.api.me.util.IAssemblerPattern;
+import appeng.api.me.util.ICraftingPattern;
+import appeng.api.me.util.ICraftingPatternMAC;
 import appeng.api.me.util.IMEInventory;
 import appeng.api.me.util.IMEInventoryUtil;
+import appeng.api.movable.IMovableRegistry;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
 public interface IAppEngApi {
@@ -22,6 +26,12 @@ public interface IAppEngApi {
 	 * @return if the block was painted, or not you can use this to damage your item if you want.
 	 */
 	boolean paintBlock(World world, int x, int y, int z, int color);
+	
+	/**
+	 * Use the movable registry to white list your tiles.
+	 * @param c
+	 */
+	IMovableRegistry getMovableRegistry();
 	
 	/**
 	 * Add new Grid Caches for use during run time, only use during loading phase.
@@ -136,7 +146,7 @@ public interface IAppEngApi {
 	 * @param i
 	 * @return
 	 */
-	IAssemblerPattern getAssemblerPattern(ItemStack i);
+	ICraftingPatternMAC getAssemblerPattern(ItemStack i);
 
 	/**
 	 * allows you to check if an item is an assembler pattern.
@@ -158,4 +168,11 @@ public interface IAppEngApi {
 	 */
 	IMemoryCard getMemoryCardHandler();
 
+	/**
+	 * returns the ISpatialStorage for the ItemStack, if it can get from form its item ( or from AE )
+	 * @param is
+	 * @return
+	 */
+	ISpatialStorage getSpatialStorageForItem( ItemStack is );
+	
 }

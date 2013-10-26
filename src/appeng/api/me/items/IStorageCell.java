@@ -45,4 +45,11 @@ public interface IStorageCell
 	 * @return
 	 */
 	boolean storableInStorageCell();
+
+	/**
+	 * rv14 - allows an item to selectivly enable or disable its status as a storage cell.
+	 * @param i
+	 * @return
+	 */
+	boolean isStorageCell( ItemStack i );
 }

@@ -6,7 +6,7 @@ import net.minecraft.item.ItemStack;
  * An IPushable should return what dosn't fit, so that the crafting request cannot complete,
  *  stalling the action and saving your resources.
  */
-public interface IPushable
+public interface ITilePushable
 {
 	/**
 	 * is this pushable busy?
