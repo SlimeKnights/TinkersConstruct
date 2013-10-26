@@ -19,7 +19,6 @@ public class ForgeMultiPart
         if (!Loader.isModLoaded("ForgeMultipart"))
         {
             FMLLog.warning("Forgemultipart missing - TConstruct Compat: FMP not loading.");
-
             return;
         }
         try
@@ -30,7 +29,8 @@ public class ForgeMultiPart
             RegisterWithFMP.registerBlock(TContent.multiBrick, 0, 13);
             RegisterWithFMP.registerBlock(TContent.metalBlock, 0, 10);
             RegisterWithFMP.registerBlock(TContent.multiBrickFancy, 0, 15);
-
+            RegisterWithFMP.registerBlock(TContent.smeltery, 2, 2);
+            RegisterWithFMP.registerBlock(TContent.smeltery, 4, 10);
         }
         catch (Exception e)
         {
