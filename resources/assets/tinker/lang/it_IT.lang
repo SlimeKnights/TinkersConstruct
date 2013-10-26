@@ -96,6 +96,8 @@ block.fancybrick.obsidian.ingot.name=Mattoni di Ossidiana Decorativi
 block.fancybrick.stone.road.name=Strada di Pietra
 block.fancybrick.stone.name=Mattoni di Pieatra Decorativi
 
+block.rail.wood=Rotelle di Legno
+
 tile.cloth.white.slab.name=Lastra di Lana
 tile.cloth.orange.slab.name=Lastra di Lana Arancione
 tile.cloth.magenta.slab.name=Lastra di Lana Magenta
@@ -273,6 +275,7 @@ LavaTank.Window.name=Finestra di Mattoni Bruciati
 
 block.drawbridge.name=Ponte Mobile
 block.firestarter.name=Accendino
+block.advdrawbridge.name=Ponte Mobile Avanzato
 tile.landmine.name=Mina
 
 tile.trap.punji.name=Bastone Punji
@@ -503,7 +506,7 @@ parttype.bronze=di Bronzo
 parttype.alumite=di Alumite
 parttype.steel=d'Acciaio
 parttype.blueslime=di Slime
-parttype.thaumium=di Taumium
+parttype.thaumium=di Taumio
 
 toolpart.ToolRod=Manico %%material
 toolpart.PickHead=Testa di Piccone %%material
