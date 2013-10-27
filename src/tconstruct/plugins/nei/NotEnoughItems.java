@@ -16,13 +16,13 @@ public class NotEnoughItems
     {
         if (!Loader.isModLoaded("NotEnoughItems"))
         {
-            FMLLog.warning("Forgemultipart missing - TConstruct Compat: FMP not loading.");
+            FMLLog.warning("NotEnoughItems missing - TConstruct Compat: NEI not loading.");
 
             return;
         }
         try
         {
-            FMLLog.fine("ForgeMultipart detected. Registering TConstruct decorative blocks with FMP.");
+            FMLLog.fine("NotEnoughItems detected. Registering TConstruct NEI plugin.");
             NEICompat.registerNEICompat();
 
         }
