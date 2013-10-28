@@ -536,7 +536,7 @@ toolpart.LargeSwordBlade=Grande Lama di Spada %%material
 toolpart.HammerHead=Testa di Martello %%material
 toolpart.Bowstring=Corda d'Arco %%material
 toolpart.ArrowHead=Testa di Freccia %%material
-toolpart.Fletching=Impennaggio%%material
+toolpart.Fletching=Impennaggio %%material
 
 fluid.iron.molten=Ferro Fuso
 fluid.gold.molten=Oro Fuso
