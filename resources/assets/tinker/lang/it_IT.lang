@@ -96,7 +96,7 @@ block.fancybrick.obsidian.ingot.name=Mattoni di Ossidiana Decorativi
 block.fancybrick.stone.road.name=Strada di Pietra
 block.fancybrick.stone.name=Mattoni di Pieatra Decorativi
 
-block.rail.wood=Rotelle di Legno
+tile.rail.wood.name=Rotelle di Legno
 
 tile.cloth.white.slab.name=Lastra di Lana
 tile.cloth.orange.slab.name=Lastra di Lana Arancione
