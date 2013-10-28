@@ -488,6 +488,9 @@ death.two.smeltery=%1$s è fuso nella la Fonderia
 death.three.smeltery=%1$s sarà una pietra miliare per la nostra rivoluzione!
 death.four.smeltery=%1$s pensò che nuotare in liquidi bollenti fosse una buona idea
 
+death.attack.Landmine=Le gambe di %1$s sono state spazzate via da una mina
+death.attack.FireworkExplode=%1$s è stato fatto a pezzi da un fuoco d'artificio
+
 parttype.wood=di Legno
 parttype.stone=di Pietra
 parttype.iron=di Ferro
