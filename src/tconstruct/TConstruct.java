@@ -113,10 +113,10 @@ public class TConstruct
 
         if (PHConstruct.addToVillages)
         {
-			// adds to the villager spawner egg
-			VillagerRegistry.instance().registerVillagerId(78943);
-			// moved down, not needed if 'addToVillages' is false
-			VillagerRegistry.instance().registerVillageTradeHandler(78943, new TVillageTrades());
+            // adds to the villager spawner egg
+            VillagerRegistry.instance().registerVillagerId(78943);
+            // moved down, not needed if 'addToVillages' is false
+            VillagerRegistry.instance().registerVillageTradeHandler(78943, new TVillageTrades());
             VillagerRegistry.instance().registerVillageCreationHandler(new VillageToolStationHandler());
             VillagerRegistry.instance().registerVillageCreationHandler(new VillageSmelteryHandler());
             try
