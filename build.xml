@@ -28,7 +28,7 @@
 
 	<property name="ccl.name" value="CodeChickenLib-dev-${mc.version}-${ccl.version}.jar" />
 	<property name="fmp.name" value="ForgeMultipart-dev-${mc.version}-${fmp.version}.jar" />
-	<property name="nei.name" value="NotEnoughItems-dev ${nei.version}.jar" />
+	<property name="nei.name" value="NotEnoughItems-dev%20${nei.version}.jar" />
 	<available property="fmp-downloaded" file="${download.dir}/${fmp.name}" />
 	<available property="ccl-downloaded" file="${download.dir}/${ccl.name}" />
 	<available property="nei-downloaded" file="${download.dir}/${nei.name}" />
@@ -164,7 +164,7 @@
 	</target>
 
 	<!-- Download necessary files -->
-	<target name="download-files" depends="download-forge"/>
+	<target name="download-files" depends="download-forge,download-ccl,download-fmp,download-nei"/>
 
 	<!-- Download forge (if it doesn't exist) -->
 	<target name="download-forge" unless="forge-exists">
