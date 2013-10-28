@@ -45,6 +45,8 @@ public class SmelteryComponent extends LogicComponent
     {
         /*if (useTime > 0 && inUse)
             useTime -= 3;*/
+        if (activeTemps.length == 0)
+            inUse = false;
 
         updateFuelGague();
     }
@@ -151,7 +153,7 @@ public class SmelteryComponent extends LogicComponent
             return;
         }
 
-        if (tankContainer instanceof IFluidHandler)
+        if (tankContainer instanceof IFluidHandler && inUse)
         {
             FluidStack liquid = ((IFluidHandler) tankContainer).drain(ForgeDirection.DOWN, drainFuelAmount(), false);
             if (liquid != null && liquid.getFluid().getBlockID() == Block.lavaStill.blockID)
@@ -220,6 +222,9 @@ public class SmelteryComponent extends LogicComponent
 
     private int drainFuelAmount ()
     {
+        if (activeTemps.length == 0)
+            return 0;
+
         int amount = activeTemps.length / 3;
         if (amount < 150)
             amount = 150;
