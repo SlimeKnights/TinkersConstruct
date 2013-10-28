@@ -130,7 +130,7 @@
 	</target>
 	
 	<target name="download-nei" unless="nei-downloaded">
-		<get src="http://www.chickenbones.craftsaddle.org/Files/New_Versions/${mc.version}/${nei.name}" usetimestamp="true" />
+		<get src="http://www.chickenbones.craftsaddle.org/Files/New_Versions/${mc.version}/${nei.name}" dest="${download.dir}" usetimestamp="true" />
 	</target>
 
 
