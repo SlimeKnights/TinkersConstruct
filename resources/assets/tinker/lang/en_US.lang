@@ -488,6 +488,9 @@ death.two.smeltery=%1$s has fused with the Smeltery
 death.three.smeltery=%1$s will be a stepping stone for our revolution!
 death.four.smeltery=%1$s thought swimming in hot liquids was a good idea
 
+death.attack.Landmine=%1$s watched their legs get blown off by a landmine
+death.attack.FireworkExplode=%1$s was torn apart by a wild firework explosion
+
 parttype.wood=Wooden
 parttype.stone=Stone
 parttype.iron=Iron

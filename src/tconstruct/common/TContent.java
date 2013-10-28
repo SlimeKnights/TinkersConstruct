@@ -3,10 +3,8 @@ package tconstruct.common;
 import cpw.mods.fml.common.*;
 import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.registry.*;
-
 import java.lang.reflect.Field;
 import java.util.*;
-
 import net.minecraft.block.*;
 import net.minecraft.block.material.*;
 import net.minecraft.creativetab.CreativeTabs;
@@ -26,13 +24,13 @@ import tconstruct.blocks.slime.*;
 import tconstruct.blocks.traps.*;
 import tconstruct.client.StepSoundSlime;
 import tconstruct.entity.*;
+import tconstruct.entity.item.EntityLandmineFirework;
 import tconstruct.entity.projectile.*;
 import tconstruct.items.*;
 import tconstruct.items.armor.*;
 import tconstruct.items.blocks.*;
 import tconstruct.items.tools.*;
 import tconstruct.library.TConstructRegistry;
-import tconstruct.library.armor.EnumArmorPart;
 import tconstruct.library.client.*;
 import tconstruct.library.client.FluidRenderProperties.Applications;
 import tconstruct.library.crafting.*;
@@ -299,6 +297,7 @@ public class TContent implements IFuelHandler
         EntityRegistry.registerModEntity(Crystal.class, "Crystal", 2, TConstruct.instance, 32, 3, true);
         EntityRegistry.registerModEntity(LaunchedPotion.class, "Launched Potion", 3, TConstruct.instance, 32, 3, true);
         EntityRegistry.registerModEntity(ArrowEntity.class, "Arrow", 4, TConstruct.instance, 32, 5, true);
+        EntityRegistry.registerModEntity(EntityLandmineFirework.class, "LandmineFirework", 5, TConstruct.instance, 32, 5, true);
         //EntityRegistry.registerModEntity(CartEntity.class, "Small Wagon", 1, TConstruct.instance, 32, 5, true);
 
         EntityRegistry.registerModEntity(BlueSlime.class, "EdibleSlime", 12, TConstruct.instance, 64, 5, true);

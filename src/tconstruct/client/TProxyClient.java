@@ -14,7 +14,7 @@ import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.model.ModelSlime;
 import net.minecraft.client.particle.*;
 import net.minecraft.client.renderer.*;
-import net.minecraft.client.renderer.entity.RenderItem;
+import net.minecraft.client.renderer.entity.*;
 import net.minecraft.client.settings.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.*;
@@ -36,6 +36,7 @@ import tconstruct.client.pages.*;
 import tconstruct.client.tabs.*;
 import tconstruct.common.*;
 import tconstruct.entity.*;
+import tconstruct.entity.item.EntityLandmineFirework;
 import tconstruct.entity.projectile.*;
 import tconstruct.inventory.ContainerLandmine;
 import tconstruct.library.TConstructRegistry;
@@ -230,6 +231,7 @@ public class TProxyClient extends TProxyCommon
         RenderingRegistry.registerEntityRenderingHandler(LaunchedPotion.class, new LaunchedItemRender(Item.potion, 16384));
         RenderingRegistry.registerEntityRenderingHandler(DaggerEntity.class, new DaggerRenderCustom());
         RenderingRegistry.registerEntityRenderingHandler(ArrowEntity.class, new ArrowRenderCustom());
+        RenderingRegistry.registerEntityRenderingHandler(EntityLandmineFirework.class, new RenderSnowball(Item.firework));
         // RenderingRegistry.registerEntityRenderingHandler(net.minecraft.entity.player.EntityPlayer.class,
         // new PlayerArmorRender()); // <-- Works, woo!
 

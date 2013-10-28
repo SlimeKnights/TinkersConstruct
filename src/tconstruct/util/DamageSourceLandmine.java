@@ -1,4 +1,4 @@
-package tconstruct.util.network;
+package tconstruct.util;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ChatMessageComponent;
