@@ -1,5 +1,9 @@
 package tconstruct.common;
 
+import cpw.mods.fml.common.*;
+import cpw.mods.fml.common.event.FMLInterModComms;
+import cpw.mods.fml.common.registry.*;
+
 import java.lang.reflect.Field;
 import java.util.*;
 
@@ -37,9 +41,6 @@ import tconstruct.library.util.IPattern;
 import tconstruct.modifiers.*;
 import tconstruct.util.*;
 import tconstruct.util.config.*;
-import cpw.mods.fml.common.*;
-import cpw.mods.fml.common.event.FMLInterModComms;
-import cpw.mods.fml.common.registry.*;
 
 public class TContent implements IFuelHandler
 {
@@ -1499,30 +1500,17 @@ public class TContent implements IFuelHandler
         chiseling.addDetailing(smeltery, 8, smeltery, 9, chisel);
         chiseling.addDetailing(smeltery, 9, smeltery, 10, chisel);
 
-        GameRegistry.addRecipe(new ItemStack(toolForge, 1, 0), "bbb", "msm", "m m", 'b', new ItemStack(smeltery, 1, 2), 's', new ItemStack(toolStationWood, 1, 0), 'm', Block.blockIron);
-        GameRegistry.addRecipe(new ItemStack(toolForge, 1, 1), "bbb", "msm", "m m", 'b', new ItemStack(smeltery, 1, 2), 's', new ItemStack(toolStationWood, 1, 0), 'm', Block.blockGold);
-        GameRegistry.addRecipe(new ItemStack(toolForge, 1, 2), "bbb", "msm", "m m", 'b', new ItemStack(smeltery, 1, 2), 's', new ItemStack(toolStationWood, 1, 0), 'm', Block.blockDiamond);
-        GameRegistry.addRecipe(new ItemStack(toolForge, 1, 3), "bbb", "msm", "m m", 'b', new ItemStack(smeltery, 1, 2), 's', new ItemStack(toolStationWood, 1, 0), 'm', Block.blockEmerald);
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(toolForge, 1, 4), "bbb", "msm", "m m", 'b', new ItemStack(smeltery, 1, 2), 's', new ItemStack(toolStationWood, 1, 0), 'm',
-                "blockCobalt"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(toolForge, 1, 5), "bbb", "msm", "m m", 'b', new ItemStack(smeltery, 1, 2), 's', new ItemStack(toolStationWood, 1, 0), 'm',
-                "blockArdite"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(toolForge, 1, 6), "bbb", "msm", "m m", 'b', new ItemStack(smeltery, 1, 2), 's', new ItemStack(toolStationWood, 1, 0), 'm',
-                "blockManyullyn"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(toolForge, 1, 7), "bbb", "msm", "m m", 'b', new ItemStack(smeltery, 1, 2), 's', new ItemStack(toolStationWood, 1, 0), 'm',
-                "blockCopper"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(toolForge, 1, 8), "bbb", "msm", "m m", 'b', new ItemStack(smeltery, 1, 2), 's', new ItemStack(toolStationWood, 1, 0), 'm',
-                "blockBronze"));
-        GameRegistry
-                .addRecipe(new ShapedOreRecipe(new ItemStack(toolForge, 1, 9), "bbb", "msm", "m m", 'b', new ItemStack(smeltery, 1, 2), 's', new ItemStack(toolStationWood, 1, 0), 'm', "blockTin"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(toolForge, 1, 10), "bbb", "msm", "m m", 'b', new ItemStack(smeltery, 1, 2), 's', new ItemStack(toolStationWood, 1, 0), 'm',
-                "blockNaturalAluminum"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(toolForge, 1, 11), "bbb", "msm", "m m", 'b', new ItemStack(smeltery, 1, 2), 's', new ItemStack(toolStationWood, 1, 0), 'm',
-                "blockAluminumBrass"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(toolForge, 1, 12), "bbb", "msm", "m m", 'b', new ItemStack(smeltery, 1, 2), 's', new ItemStack(toolStationWood, 1, 0), 'm',
-                "blockAlumite"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(toolForge, 1, 13), "bbb", "msm", "m m", 'b', new ItemStack(smeltery, 1, 2), 's', new ItemStack(toolStationWood, 1, 0), 'm',
-                "blockSteel"));
+        Object[] toolForgeBlocks = { Block.blockIron, Block.blockGold, Block.blockDiamond, Block.blockEmerald, "blockCobalt", "blockArdite", "blockManyullyn", "blockCopper", "blockBronze",
+                "blockTin", "blockNaturalAluminum", "blockAluminumBrass", "blockAlumite", "blockSteel" };
+
+        for (int sc = 0; sc < toolForgeBlocks.length; sc++)
+        {
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(toolForge, 1, sc), "bbb", "msm", "m m", 'b', new ItemStack(smeltery, 1, 2), 's', new ItemStack(toolStationWood, 1, 0), 'm',
+                    toolForgeBlocks[sc]));
+            // adding slab version recipe
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(craftingSlabWood, 1, 5), "bbb", "msm", "m m", 'b', new ItemStack(smeltery, 1, 2), 's', new ItemStack(craftingSlabWood, 1, 1), 'm',
+                    toolForgeBlocks[sc]));
+        }
 
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(redstoneMachine, 1, 0), "aca", "#d#", "#r#", '#', "ingotBronze", 'a', "ingotAluminumBrass", 'c', new ItemStack(blankPattern, 1, 1),
                 'r', new ItemStack(Item.redstone), 'd', new ItemStack(Block.dispenser))); //Drawbridge
@@ -1540,7 +1528,6 @@ public class TContent implements IFuelHandler
         /* Crafting */
         GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 0), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', Block.workbench);
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(toolStationWood, 1, 0), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', "crafterWood"));
-        GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 1), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(Block.wood, 1, 0));
         GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 2), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(Block.wood, 1, 1));
         GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 3), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(Block.wood, 1, 2));
         GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 4), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(Block.wood, 1, 3));
@@ -1784,7 +1771,6 @@ public class TContent implements IFuelHandler
 
         //Traps
         GameRegistry.addRecipe(new ItemStack(punji, 5, 0), "b b", " b ", "b b", 'b', new ItemStack(Item.reed));
-        GameRegistry.addRecipe(new ItemStack(barricadeOak, 1, 0), "b", "b", 'b', new ItemStack(Block.wood, 1, 0));
         GameRegistry.addRecipe(new ItemStack(barricadeSpruce, 1, 0), "b", "b", 'b', new ItemStack(Block.wood, 1, 1));
         GameRegistry.addRecipe(new ItemStack(barricadeBirch, 1, 0), "b", "b", 'b', new ItemStack(Block.wood, 1, 2));
         GameRegistry.addRecipe(new ItemStack(barricadeJungle, 1, 0), "b", "b", 'b', new ItemStack(Block.wood, 1, 3));
@@ -1795,6 +1781,7 @@ public class TContent implements IFuelHandler
 
         //Slab crafters
         GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 6, 0), "bbb", 'b', new ItemStack(Block.workbench));
+        GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 0), "b", 'b', new ItemStack(craftingStationWood, 1, 0));
         GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 1), "b", 'b', new ItemStack(toolStationWood, 1, 0));
         GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 2), "b", 'b', new ItemStack(toolStationWood, 1, 1));
         GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 2), "b", 'b', new ItemStack(toolStationWood, 1, 2));
@@ -1817,20 +1804,6 @@ public class TContent implements IFuelHandler
 
         GameRegistry.addShapelessRecipe(new ItemStack(slimeChannel, 1, 0), new ItemStack(slimeGel, 1, Short.MAX_VALUE), new ItemStack(Item.redstone));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(slimePad, 1, 0), slimeChannel, new ItemStack(slimeGel, 1, Short.MAX_VALUE), "slimeBall"));
-
-        //Slab crafters
-        GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 6, 0), "bbb", 'b', new ItemStack(Block.workbench));
-        GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 1), "b", 'b', new ItemStack(toolStationWood, 1, 0));
-        GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 2), "b", 'b', new ItemStack(toolStationWood, 1, 1));
-        GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 2), "b", 'b', new ItemStack(toolStationWood, 1, 2));
-        GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 2), "b", 'b', new ItemStack(toolStationWood, 1, 3));
-        GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 2), "b", 'b', new ItemStack(toolStationWood, 1, 4));
-        GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 4), "b", 'b', new ItemStack(toolStationWood, 1, 5));
-        GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 3), "b", 'b', new ItemStack(toolStationWood, 1, 10));
-        GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 3), "b", 'b', new ItemStack(toolStationWood, 1, 11));
-        GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 3), "b", 'b', new ItemStack(toolStationWood, 1, 12));
-        GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 3), "b", 'b', new ItemStack(toolStationWood, 1, 13));
-        GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 5), "b", 'b', new ItemStack(toolForge, 1, Short.MAX_VALUE));
     }
 
     void setupToolTabs ()
