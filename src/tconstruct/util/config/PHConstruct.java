@@ -365,10 +365,8 @@ public class PHConstruct
         cfgDimBlackList = config.get("DimBlackList", "SlimeIslandDimBlacklist", new int[] {}).getIntList();
         slimeIslGenDim0Only = config.get("DimBlackList", "GenerateSlimeIslandInDim0Only", false).getBoolean(false);
         slimeIslGenDim0 = config.get("DimBlackList", "slimeIslGenDim0", true).getBoolean(true);
-<<<<<<< HEAD
         genIslandsFlat = config.get("DimBlacklist", "genIslandsFlat", false).getBoolean(false);
-=======
->>>>>>> a60fabcd9234f22a17190deceeece12190b00c72
+
 
         //Experimental functionality
         throwableSmeltery = config.get("Experimental", "Items can be thrown into smelteries", true).getBoolean(true);
