@@ -35,7 +35,8 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
     @Override
     public void generate (Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider) //IWorldGenerator version
     {
-        if  (chunkGenerator instanceof ChunkProviderFlat || world.provider.terrainType == WorldType.FLAT) {
+        //dim 0 only?
+        if  ((chunkGenerator instanceof ChunkProviderFlat || world.provider.terrainType == WorldType.FLAT) && PHConstruct.genIslandsFlat) {
             return;
         }
         
