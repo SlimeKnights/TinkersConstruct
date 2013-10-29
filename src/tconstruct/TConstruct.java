@@ -32,7 +32,7 @@ import java.util.logging.Logger;
  * @author mDiyo
  */
 
-@Mod(modid = "TConstruct", name = "TConstruct", version = "1.6.X_1.5.0d", dependencies = "required-after:Forge@[8.9,)")
+@Mod(modid = "TConstruct", name = "TConstruct", version = "1.6.X_1.5.0d", dependencies = "required-after:Forge@[8.9,);after:Mantle-Core;after:Mantle-Router;after:ThermalExpansion")
 @NetworkMod(serverSideRequired = false, clientSideRequired = true, channels = { "TConstruct" }, packetHandler = tconstruct.util.network.TPacketHandler.class)
 public class TConstruct
 {
@@ -56,24 +56,12 @@ public class TConstruct
         if (Loader.isModLoaded("Natura"))
         {
             TConstruct.logger.info("[TConstruct] Natura, what are we going to do tomorrow night?");
-            if (Loader.isModLoaded("ChaoticBastion"))
-            {
-                TConstruct.logger.info("[Natura] TConstruct, we're going to...");
-                TConstruct.logger.info("[ChaoticBastion] All your base are belong to us!");
-
-            }
-            else
-                TConstruct.logger.info("[Natura] TConstruct, we're going to take over the world!");
+            TConstruct.logger.info("[Natura] TConstruct, we're going to take over the world!");
         }
         else
         {
-            if (Loader.isModLoaded("ChaoticBastion"))
-            {
-                TConstruct.logger.info("[TConstruct] Preparing to...");
-                TConstruct.logger.info("[ChaoticBastion] I'MA FIRING MY LAZOR!");
-            }
-            else
-                TConstruct.logger.info("[TConstruct] Preparing to take over the world");
+
+            TConstruct.logger.info("[TConstruct] Preparing to take over the world");
         }
 
         EnvironmentChecks.verifyEnvironmentSanity();
@@ -156,7 +144,7 @@ public class TConstruct
     @EventHandler
     public void postInit (FMLPostInitializationEvent evt)
     {
-    	proxy.postInit();
+        proxy.postInit();
         Behavior.registerBuiltInBehaviors();
         SpecialStackHandler.registerBuiltInStackHandlers();
         content.modIntegration();
