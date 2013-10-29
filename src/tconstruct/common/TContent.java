@@ -1769,6 +1769,18 @@ public class TContent implements IFuelHandler
         GameRegistry.addRecipe(new ItemStack(searedSlab, 6, 6), "bbb", 'b', new ItemStack(smeltery, 1, 10));
         GameRegistry.addRecipe(new ItemStack(searedSlab, 6, 7), "bbb", 'b', new ItemStack(smeltery, 1, 11));
 
+        // Wool Slabs
+        for (int sc = 0; sc <= 7; sc++)
+        {
+            GameRegistry.addRecipe(new ItemStack(woolSlab1, 6, sc), "www", 'w', new ItemStack(Block.cloth, 1, sc));
+            GameRegistry.addRecipe(new ItemStack(woolSlab2, 6, sc), "www", 'w', new ItemStack(Block.cloth, 1, sc + 8));
+
+            GameRegistry.addShapelessRecipe(new ItemStack(Block.cloth, 1, sc), new ItemStack(woolSlab1, 1, sc), new ItemStack(woolSlab1, 1, sc));
+            GameRegistry.addShapelessRecipe(new ItemStack(Block.cloth, 1, sc + 8), new ItemStack(woolSlab2, 1, sc), new ItemStack(woolSlab2, 1, sc));
+        }
+        GameRegistry.addRecipe(new ItemStack(woolSlab1, 6, 0), "www", 'w', new ItemStack(Block.cloth, 1, Short.MAX_VALUE));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Block.cloth, 1, 0), "slabCloth", "slabCloth"));
+
         //Traps
         GameRegistry.addRecipe(new ItemStack(punji, 5, 0), "b b", " b ", "b b", 'b', new ItemStack(Item.reed));
         GameRegistry.addRecipe(new ItemStack(barricadeSpruce, 1, 0), "b", "b", 'b', new ItemStack(Block.wood, 1, 1));
@@ -1903,6 +1915,9 @@ public class TContent implements IFuelHandler
         OreDictionary.registerOre("nuggetBronze", new ItemStack(materials, 1, 31));
         OreDictionary.registerOre("nuggetAlumite", new ItemStack(materials, 1, 32));
         OreDictionary.registerOre("nuggetSteel", new ItemStack(materials, 1, 33));
+
+        OreDictionary.registerOre("slabCloth", new ItemStack(woolSlab1, 1, Short.MAX_VALUE));
+        OreDictionary.registerOre("slabCloth", new ItemStack(woolSlab2, 1, Short.MAX_VALUE));
 
         String[] matNames = { "wood", "stone", "iron", "flint", "cactus", "bone", "obsidian", "netherrack", "slime", "paper", "cobalt", "ardite", "manyullyn", "copper", "bronze", "alumite", "steel",
                 "blueslime" };
