@@ -1,10 +1,8 @@
 package tconstruct.util.config;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 
-import net.minecraftforge.common.Configuration;
-import net.minecraftforge.common.Property;
+import net.minecraftforge.common.*;
 import tconstruct.TConstruct;
 import tconstruct.library.tools.AbilityHelper;
 
@@ -49,7 +47,7 @@ public class PHConstruct
         beginnerBook = config.get("Difficulty Changes", "Spawn beginner book", true).getBoolean(true);
         alphaRegen = config.get("Alpha Behavior", "Regenerate HP from food", false).getBoolean(false);
         alphaHunger = config.get("Alpha Behavior", "Remove hunger", false).getBoolean(false);
-        
+
         superfunWorld = config.get("Superfun", "All the world is Superfun", false).getBoolean(false);
 
         enableTWood = config.get("Difficulty Changes", "Enable mod wooden tools", true).getBoolean(true);
@@ -69,9 +67,6 @@ public class PHConstruct
         harderBronze = config.get("Difficulty Changes", "Lower bronze output to 2 ingots", false).getBoolean(false);
         stencilTableCrafting = config.get("Difficulty Changes", "Craft Stencil Tables", true).getBoolean(true);
         miningLevelIncrease = config.get("Difficulty Changes", "Modifiers increase Mining Level", true).getBoolean(true);
-        denyMattock = config.get("Difficulty Changes", "Deny creation of non-metal mattocks", false).getBoolean(false);
-        harderBronze = config.get("Difficulty Changes", "Lower bronze output to 2 ingots", false).getBoolean(false);
-        stencilTableCrafting = config.get("Difficulty Changes", "Craft Stencil Tables", true).getBoolean(true);
         denyMattock = config.get("Difficulty Changes", "Deny creation of non-metal mattocks", false).getBoolean(false);
 
         //1467-1489
@@ -104,7 +99,7 @@ public class PHConstruct
         barricadeSpruce = config.getBlock("Spruce Barricade", 1482).getInt(1482);
         barricadeBirch = config.getBlock("Birch Barricade", 1483).getInt(1483);
         barricadeJungle = config.getBlock("Jungle Barricade", 1487).getInt(1487);
-        
+
         slimeChannel = config.getBlock("Slime Channel", 3190).getInt(3190);
         slimePad = config.getBlock("Slime Pad", 3191).getInt(3191);
 
@@ -165,20 +160,7 @@ public class PHConstruct
         woolSlab2 = config.getBlock("Wool Slab 2", 3245).getInt(3245);
         //3246
         castingChannel = config.getBlock("Casting Channel", 3249).getInt(3249);
-
-        slimePoolBlue = config.getBlock("Liquid Blue Slime", 3235).getInt(3235);
-        slimeGel = config.getBlock("Congealed Slime", 3237).getInt(3237);
-        slimeGrass = config.getBlock("Slime Grass", 3238).getInt(3238);
-        slimeTallGrass = config.getBlock("Slime Tall Grass", 3239).getInt(3239);
-        slimeLeaves = config.getBlock("Slime Grass Leaves", 3240).getInt(3240);
-        slimeSapling = config.getBlock("Slime Tree Sapling", 3241).getInt(3241);
-
-        meatBlock = config.getBlock("Meat Block", 3242).getInt(3242);
-        woodCrafterSlab = config.getBlock("Crafting Slab", 3243).getInt(3243);
-        woolSlab1 = config.getBlock("Wool Slab 1", 3244).getInt(3244);
-        woolSlab2 = config.getBlock("Wool Slab 2", 3245).getInt(3245);
         airTank = config.getBlock("Air Tank", 3246).getInt(3246);
-        castingChannel = config.getBlock("Casting Channel", 3249).getInt(3249);
         woodenRail = config.getBlock("Wooden Rail", 3250).getInt(3250);
 
         manual = config.getItem("Patterns and Misc", "Tinker's Manual", 14018).getInt(14018);
@@ -360,20 +342,19 @@ public class PHConstruct
         Property conTexMode = config.get("Looks", "Connected Textures Enabled", true);
         conTexMode.comment = "0 = disabled, 1 = enabled, 2 = enabled + ignore stained glass meta";
         connectedTexturesMode = conTexMode.getInt(2);
-        
-        //dimension blacklist
-        cfgDimBlackList = config.get("DimBlackList", "SlimeIslandDimBlacklist",new int[]{}).getIntList();
-        slimeIslGenDim0Only = config.get("DimBlackList","GenerateSlimeIslandInDim0Only" , false).getBoolean(false);
-        slimeIslGenDim0 = config.get("DimBlackList", "slimeIslGenDim0", true).getBoolean(true);
 
+        //dimension blacklist
+        cfgDimBlackList = config.get("DimBlackList", "SlimeIslandDimBlacklist", new int[] {}).getIntList();
+        slimeIslGenDim0Only = config.get("DimBlackList", "GenerateSlimeIslandInDim0Only", false).getBoolean(false);
+        slimeIslGenDim0 = config.get("DimBlackList", "slimeIslGenDim0", true).getBoolean(true);
 
         //Experimental functionality
         throwableSmeltery = config.get("Experimental", "Items can be thrown into smelteries", true).getBoolean(true);
-        
+
         //Addon stuff
         isCleaverTwoHanded = config.get("Battlegear", "Can Cleavers have shields", true).getBoolean(true);
         isHatchetWeapon = config.get("Battlegear", "Are Hatches also weapons", true).getBoolean(true);
-        
+
         /* Save the configuration file */
         config.save();
 
@@ -384,7 +365,8 @@ public class PHConstruct
             Configuration gtConfig = new Configuration(gtDyn);
             gtConfig.load();
             gregtech = gtConfig.get("smelting", "tile.anvil.slightlyDamaged", false).getBoolean(false);
-            TConstruct.logger.severe("Gelatinous iceberg dead ahead! Entering Greggy waters! Abandon hope all ye who enter here! (No, seriously, we don't support GT. Don't report any issues. Thanks.)");
+            TConstruct.logger
+                    .severe("Gelatinous iceberg dead ahead! Entering Greggy waters! Abandon hope all ye who enter here! (No, seriously, we don't support GT. Don't report any issues. Thanks.)");
         }
     }
 
@@ -401,7 +383,7 @@ public class PHConstruct
     public static int searedTable;
     public static int castingChannel;
     public static int airTank;
-    
+
     public static int craftedSoil;
     public static int oreSlag;
     public static int oreGravel;
@@ -473,7 +455,7 @@ public class PHConstruct
     public static int slimeTallGrass;
     public static int slimeLeaves;
     public static int slimeSapling;
-    
+
     public static int slimeChannel;
     public static int slimePad;
 
@@ -704,9 +686,8 @@ public class PHConstruct
 
     //Experimental functionality
     public static boolean throwableSmeltery;
-    
-    
+
     //Addon stuff
     public static boolean isCleaverTwoHanded;
-	public static boolean isHatchetWeapon;
+    public static boolean isHatchetWeapon;
 }
