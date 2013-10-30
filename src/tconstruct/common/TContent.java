@@ -1251,6 +1251,7 @@ public class TContent implements IFuelHandler
 
         //Buckets
         ItemStack bucket = new ItemStack(Item.bucketEmpty);
+
         tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 0), new FluidStack(moltenIronFluid, FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10); //Iron
         tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 1), new FluidStack(moltenGoldFluid, FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10); //gold
         tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 2), new FluidStack(moltenCopperFluid, FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10); //copper
@@ -1472,20 +1473,11 @@ public class TContent implements IFuelHandler
         chiseling.addDetailing(Block.whiteStone, 0, multiBrick, 12, chisel);
         chiseling.addDetailing(materials, 18, multiBrick, 13, chisel);
 
-        chiseling.addDetailing(multiBrick, 0, multiBrickFancy, 0, chisel);
-        chiseling.addDetailing(multiBrick, 1, multiBrickFancy, 1, chisel);
-        chiseling.addDetailing(multiBrick, 2, multiBrickFancy, 2, chisel);
-        chiseling.addDetailing(multiBrick, 3, multiBrickFancy, 3, chisel);
-        chiseling.addDetailing(multiBrick, 4, multiBrickFancy, 4, chisel);
-        chiseling.addDetailing(multiBrick, 5, multiBrickFancy, 5, chisel);
-        chiseling.addDetailing(multiBrick, 6, multiBrickFancy, 6, chisel);
-        chiseling.addDetailing(multiBrick, 7, multiBrickFancy, 7, chisel);
-        chiseling.addDetailing(multiBrick, 8, multiBrickFancy, 8, chisel);
-        chiseling.addDetailing(multiBrick, 9, multiBrickFancy, 9, chisel);
-        chiseling.addDetailing(multiBrick, 10, multiBrickFancy, 10, chisel);
-        chiseling.addDetailing(multiBrick, 11, multiBrickFancy, 11, chisel);
-        chiseling.addDetailing(multiBrick, 12, multiBrickFancy, 12, chisel);
-        chiseling.addDetailing(multiBrick, 13, multiBrickFancy, 13, chisel);
+        // adding multiBrick / multiBrickFanxy meta 0-13 to list
+        for (int sc = 0; sc < 14; sc++)
+        {
+            chiseling.addDetailing(multiBrick, sc, multiBrickFancy, sc, chisel);
+        }
 
         chiseling.addDetailing(Block.stoneBrick, 0, multiBrickFancy, 15, chisel);
         chiseling.addDetailing(multiBrickFancy, 15, multiBrickFancy, 14, chisel);
