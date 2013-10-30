@@ -1657,13 +1657,9 @@ public class TContent implements IFuelHandler
         GameRegistry.addRecipe(new ItemStack(smeltery, 1, 1), "b b", "b b", "b b", 'b', searedBrick); //Drain
         GameRegistry.addRecipe(new ItemStack(smeltery, 1, 2), "bb", "bb", 'b', searedBrick); //Bricks
 
-        GameRegistry.addRecipe(new ItemStack(lavaTank, 1, 0), "bbb", "bgb", "bbb", 'b', searedBrick, 'g', Block.glass); //Tank
-        GameRegistry.addRecipe(new ItemStack(lavaTank, 1, 1), "bgb", "ggg", "bgb", 'b', searedBrick, 'g', Block.glass); //Glass
-        GameRegistry.addRecipe(new ItemStack(lavaTank, 1, 2), "bgb", "bgb", "bgb", 'b', searedBrick, 'g', Block.glass); //Window
-
-        GameRegistry.addRecipe(new ItemStack(lavaTank, 1, 0), "bbb", "bgb", "bbb", 'b', searedBrick, 'g', clearGlass); //Tank
-        GameRegistry.addRecipe(new ItemStack(lavaTank, 1, 1), "bgb", "ggg", "bgb", 'b', searedBrick, 'g', clearGlass); //Glass
-        GameRegistry.addRecipe(new ItemStack(lavaTank, 1, 2), "bgb", "bgb", "bgb", 'b', searedBrick, 'g', clearGlass); //Window
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(lavaTank, 1, 0), "bbb", "bgb", "bbb", 'b', searedBrick, 'g', "glass")); //Tank
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(lavaTank, 1, 1), "bgb", "ggg", "bgb", 'b', searedBrick, 'g', "glass")); //Glass
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(lavaTank, 1, 2), "bgb", "bgb", "bgb", 'b', searedBrick, 'g', "glass")); //Window
 
         GameRegistry.addRecipe(new ItemStack(searedBlock, 1, 0), "bbb", "b b", "b b", 'b', searedBrick); //Table
         GameRegistry.addRecipe(new ItemStack(searedBlock, 1, 1), "b b", " b ", 'b', searedBrick); //Faucet
@@ -1922,6 +1918,7 @@ public class TContent implements IFuelHandler
         OreDictionary.registerOre("slimeball", new ItemStack(Item.slimeBall));
         OreDictionary.registerOre("slimeball", new ItemStack(strangeFood, 1, 0));
         OreDictionary.registerOre("glass", new ItemStack(clearGlass));
+        OreDictionary.registerOre("glass", new ItemStack(Block.glass));
         RecipeRemover.removeShapedRecipe(new ItemStack(Block.pistonStickyBase));
         RecipeRemover.removeShapedRecipe(new ItemStack(Item.magmaCream));
         RecipeRemover.removeShapedRecipe(new ItemStack(Item.leash));
