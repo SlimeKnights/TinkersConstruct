@@ -1258,10 +1258,7 @@ public class TContent implements IFuelHandler
 
         //Buckets
         ItemStack bucket = new ItemStack(Item.bucketEmpty);
-        Fluid[] fluids = new Fluid[] { moltenIronFluid, moltenGoldFluid, moltenCopperFluid, moltenTinFluid, moltenAluminumFluid, moltenCobaltFluid, moltenArditeFluid, moltenBronzeFluid,
-                moltenAlubrassFluid, moltenManyullynFluid, moltenAlumiteFluid, moltenObsidianFluid, moltenSteelFluid, moltenGlassFluid, moltenStoneFluid, moltenEmeraldFluid };
-
-        for (int sc = 0; sc < 16; sc++)
+        for (int sc = 0; sc < 25; sc++)
         {
             tableCasting.addCastingRecipe(new ItemStack(buckets, 1, sc), new FluidStack(fluids[sc], FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10);
         }
@@ -1358,14 +1355,18 @@ public class TContent implements IFuelHandler
 
         Smeltery.addMelting(new ItemStack(Item.enderPearl, 4), metalBlock.blockID, 10, 500, new FluidStack(moltenEnderFluid, 250));
         Smeltery.addMelting(new ItemStack(metalBlock, 1, 10), metalBlock.blockID, 10, 500, new FluidStack(moltenEnderFluid, 1000));
+        Smeltery.addMelting(new ItemStack(Item.snowball, 1, 0), 75, new FluidStack(FluidRegistry.getFluid("water"), 125));
 
         //Blocks
         Smeltery.addMelting(Block.blockIron, 0, 600, new FluidStack(moltenIronFluid, TConstruct.ingotLiquidValue * 9));
         Smeltery.addMelting(Block.blockGold, 0, 400, new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 9));
         Smeltery.addMelting(Block.obsidian, 0, 800, new FluidStack(moltenObsidianFluid, TConstruct.ingotLiquidValue * 2));
         Smeltery.addMelting(Block.ice, 0, 75, new FluidStack(FluidRegistry.getFluid("water"), 1000));
+        Smeltery.addMelting(Block.blockSnow, 0, 75, new FluidStack(FluidRegistry.getFluid("water"), 500));
+        Smeltery.addMelting(Block.snow, 0, 75, new FluidStack(FluidRegistry.getFluid("water"), 250));
         Smeltery.addMelting(Block.sand, 0, 625, new FluidStack(moltenGlassFluid, FluidContainerRegistry.BUCKET_VOLUME));
         Smeltery.addMelting(Block.glass, 0, 625, new FluidStack(moltenGlassFluid, FluidContainerRegistry.BUCKET_VOLUME));
+        Smeltery.addMelting(Block.thinGlass, 0, 625, new FluidStack(moltenGlassFluid, 250));
         Smeltery.addMelting(Block.stone, 0, 800, new FluidStack(moltenStoneFluid, TConstruct.ingotLiquidValue / 18));
         Smeltery.addMelting(Block.cobblestone, 0, 800, new FluidStack(moltenStoneFluid, TConstruct.ingotLiquidValue / 18));
 
@@ -1655,8 +1656,9 @@ public class TContent implements IFuelHandler
 
         //Glass
         GameRegistry.addRecipe(new ItemStack(Item.glassBottle, 3), new Object[] { "# #", " # ", '#', clearGlass });
-        GameRegistry.addRecipe(new ItemStack(Block.daylightSensor), new Object[] { "GGG", "QQQ", "WWW", 'G', Block.glass, 'Q', Item.netherQuartz, 'W', Block.woodSingleSlab });
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Block.daylightSensor), new Object[] { "GGG", "QQQ", "WWW", 'G', "glass", 'Q', Item.netherQuartz, 'W', "slabWood" }));
         GameRegistry.addRecipe(new ItemStack(Block.beacon, 1), new Object[] { "GGG", "GSG", "OOO", 'G', clearGlass, 'S', Item.netherStar, 'O', Block.obsidian });
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(glassPane, 16, 0), "GGG", "GGG", 'G', clearGlass));
 
         //Smeltery
         ItemStack searedBrick = new ItemStack(materials, 1, 2);
