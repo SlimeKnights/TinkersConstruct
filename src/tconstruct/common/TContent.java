@@ -1251,23 +1251,13 @@ public class TContent implements IFuelHandler
 
         //Buckets
         ItemStack bucket = new ItemStack(Item.bucketEmpty);
+        Fluid[] fluids = new Fluid[] { moltenIronFluid, moltenGoldFluid, moltenCopperFluid, moltenTinFluid, moltenAluminumFluid, moltenCobaltFluid, moltenArditeFluid, moltenBronzeFluid,
+                moltenAlubrassFluid, moltenManyullynFluid, moltenAlumiteFluid, moltenObsidianFluid, moltenSteelFluid, moltenGlassFluid, moltenStoneFluid, moltenEmeraldFluid };
 
-        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 0), new FluidStack(moltenIronFluid, FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10); //Iron
-        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 1), new FluidStack(moltenGoldFluid, FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10); //gold
-        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 2), new FluidStack(moltenCopperFluid, FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10); //copper
-        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 3), new FluidStack(moltenTinFluid, FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10); //tin
-        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 4), new FluidStack(moltenAluminumFluid, FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10); //aluminum
-        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 5), new FluidStack(moltenCobaltFluid, FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10); //cobalt
-        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 6), new FluidStack(moltenArditeFluid, FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10); //ardite
-        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 7), new FluidStack(moltenBronzeFluid, FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10); //bronze
-        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 8), new FluidStack(moltenAlubrassFluid, FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10); //alubrass
-        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 9), new FluidStack(moltenManyullynFluid, FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10); //manyullyn
-        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 10), new FluidStack(moltenAlumiteFluid, FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10); //alumite
-        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 11), new FluidStack(moltenObsidianFluid, FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10);// obsidian
-        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 12), new FluidStack(moltenSteelFluid, FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10); //steel
-        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 13), new FluidStack(moltenGlassFluid, FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10); //glass
-        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 14), new FluidStack(moltenStoneFluid, FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10); //seared stone
-        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 15), new FluidStack(moltenEmeraldFluid, FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10); //emerald
+        for (int sc = 0; sc < 16; sc++)
+        {
+            tableCasting.addCastingRecipe(new ItemStack(buckets, 1, sc), new FluidStack(fluids[sc], FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10);
+        }
 
         tableCasting.addCastingRecipe(new ItemStack(glassPane), new FluidStack(moltenGlassFluid, 250), null, 80);
 
