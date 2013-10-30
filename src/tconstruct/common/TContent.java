@@ -697,6 +697,8 @@ public class TContent implements IFuelHandler
         {
             moltenEnder = new LiquidMetalFinite(PHConstruct.moltenEnder, moltenEnderFluid, "liquid_ender").setUnlocalizedName("liquid.ender");
             GameRegistry.registerBlock(moltenEnder, "liquid.ender");
+            moltenEnderFluid.setBlockID(moltenEnder).setDensity(3000).setViscosity(6000);
+            FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(moltenEnderFluid, 1000), new ItemStack(buckets, 1, 23), new ItemStack(Item.bucketEmpty)));
         }
         else
         {
@@ -704,8 +706,6 @@ public class TContent implements IFuelHandler
         }
         fluids[23] = moltenEnderFluid;
         fluidBlocks[23] = moltenEnder;
-        moltenEnderFluid.setBlockID(moltenEnder).setDensity(3000).setViscosity(6000);
-        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(moltenEnderFluid, 1000), new ItemStack(buckets, 1, 23), new ItemStack(Item.bucketEmpty)));
 
         //Slime
         slimeStep = new StepSoundSlime("mob.slime", 1.0f, 1.0f);
