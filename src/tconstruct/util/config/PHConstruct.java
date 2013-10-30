@@ -362,11 +362,10 @@ public class PHConstruct
         connectedTexturesMode = conTexMode.getInt(2);
 
         //dimension blacklist
-        cfgDimBlackList = config.get("DimBlackList", "SlimeIslandDimBlacklist", new int[] {}).getIntList();
-        slimeIslGenDim0Only = config.get("DimBlackList", "GenerateSlimeIslandInDim0Only", false).getBoolean(false);
-        slimeIslGenDim0 = config.get("DimBlackList", "slimeIslGenDim0", true).getBoolean(true);
-        genIslandsFlat = config.get("DimBlacklist", "genIslandsFlat", false).getBoolean(false);
-
+        cfgDimBlackList = config.get("DimBlackList", "SlimeIslandDimBlacklist", new int[] {},"Add dimension ID's to prevent slime islands from generating in them").getIntList();
+        slimeIslGenDim0Only = config.get("DimBlackList", "GenerateSlimeIslandInDim0Only", false,"True: slime islands wont generate in any ages other than overworld(if enabled); False: will generate in all non-blackisted ages").getBoolean(false);
+        slimeIslGenDim0 = config.get("DimBlackList", "slimeIslGenDim0", true,"True: slime islands generate in overworld; False they do not generate").getBoolean(true);
+        genIslandsFlat = config.get("DimBlacklist", "genIslandsFlat", false, "Generate slime islands in flat worlds").getBoolean(false);
 
         //Experimental functionality
         throwableSmeltery = config.get("Experimental", "Items can be thrown into smelteries", true).getBoolean(true);
