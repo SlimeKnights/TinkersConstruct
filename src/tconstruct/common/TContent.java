@@ -1251,22 +1251,13 @@ public class TContent implements IFuelHandler
 
         //Buckets
         ItemStack bucket = new ItemStack(Item.bucketEmpty);
-        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 0), new FluidStack(moltenIronFluid, FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10); //Iron
-        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 1), new FluidStack(moltenGoldFluid, FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10); //gold
-        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 2), new FluidStack(moltenCopperFluid, FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10); //copper
-        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 3), new FluidStack(moltenTinFluid, FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10); //tin
-        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 4), new FluidStack(moltenAluminumFluid, FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10); //aluminum
-        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 5), new FluidStack(moltenCobaltFluid, FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10); //cobalt
-        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 6), new FluidStack(moltenArditeFluid, FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10); //ardite
-        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 7), new FluidStack(moltenBronzeFluid, FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10); //bronze
-        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 8), new FluidStack(moltenAlubrassFluid, FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10); //alubrass
-        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 9), new FluidStack(moltenManyullynFluid, FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10); //manyullyn
-        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 10), new FluidStack(moltenAlumiteFluid, FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10); //alumite
-        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 11), new FluidStack(moltenObsidianFluid, FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10);// obsidian
-        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 12), new FluidStack(moltenSteelFluid, FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10); //steel
-        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 13), new FluidStack(moltenGlassFluid, FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10); //glass
-        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 14), new FluidStack(moltenStoneFluid, FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10); //seared stone
-        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 15), new FluidStack(moltenEmeraldFluid, FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10); //emerald
+        Fluid[] fluids = new Fluid[] { moltenIronFluid, moltenGoldFluid, moltenCopperFluid, moltenTinFluid, moltenAluminumFluid, moltenCobaltFluid, moltenArditeFluid, moltenBronzeFluid,
+                moltenAlubrassFluid, moltenManyullynFluid, moltenAlumiteFluid, moltenObsidianFluid, moltenSteelFluid, moltenGlassFluid, moltenStoneFluid, moltenEmeraldFluid };
+
+        for (int sc = 0; sc < 16; sc++)
+        {
+            tableCasting.addCastingRecipe(new ItemStack(buckets, 1, sc), new FluidStack(fluids[sc], FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10);
+        }
 
         tableCasting.addCastingRecipe(new ItemStack(glassPane), new FluidStack(moltenGlassFluid, 250), null, 80);
 
@@ -1472,20 +1463,11 @@ public class TContent implements IFuelHandler
         chiseling.addDetailing(Block.whiteStone, 0, multiBrick, 12, chisel);
         chiseling.addDetailing(materials, 18, multiBrick, 13, chisel);
 
-        chiseling.addDetailing(multiBrick, 0, multiBrickFancy, 0, chisel);
-        chiseling.addDetailing(multiBrick, 1, multiBrickFancy, 1, chisel);
-        chiseling.addDetailing(multiBrick, 2, multiBrickFancy, 2, chisel);
-        chiseling.addDetailing(multiBrick, 3, multiBrickFancy, 3, chisel);
-        chiseling.addDetailing(multiBrick, 4, multiBrickFancy, 4, chisel);
-        chiseling.addDetailing(multiBrick, 5, multiBrickFancy, 5, chisel);
-        chiseling.addDetailing(multiBrick, 6, multiBrickFancy, 6, chisel);
-        chiseling.addDetailing(multiBrick, 7, multiBrickFancy, 7, chisel);
-        chiseling.addDetailing(multiBrick, 8, multiBrickFancy, 8, chisel);
-        chiseling.addDetailing(multiBrick, 9, multiBrickFancy, 9, chisel);
-        chiseling.addDetailing(multiBrick, 10, multiBrickFancy, 10, chisel);
-        chiseling.addDetailing(multiBrick, 11, multiBrickFancy, 11, chisel);
-        chiseling.addDetailing(multiBrick, 12, multiBrickFancy, 12, chisel);
-        chiseling.addDetailing(multiBrick, 13, multiBrickFancy, 13, chisel);
+        // adding multiBrick / multiBrickFanxy meta 0-13 to list
+        for (int sc = 0; sc < 14; sc++)
+        {
+            chiseling.addDetailing(multiBrick, sc, multiBrickFancy, sc, chisel);
+        }
 
         chiseling.addDetailing(Block.stoneBrick, 0, multiBrickFancy, 15, chisel);
         chiseling.addDetailing(multiBrickFancy, 15, multiBrickFancy, 14, chisel);
@@ -1675,13 +1657,9 @@ public class TContent implements IFuelHandler
         GameRegistry.addRecipe(new ItemStack(smeltery, 1, 1), "b b", "b b", "b b", 'b', searedBrick); //Drain
         GameRegistry.addRecipe(new ItemStack(smeltery, 1, 2), "bb", "bb", 'b', searedBrick); //Bricks
 
-        GameRegistry.addRecipe(new ItemStack(lavaTank, 1, 0), "bbb", "bgb", "bbb", 'b', searedBrick, 'g', Block.glass); //Tank
-        GameRegistry.addRecipe(new ItemStack(lavaTank, 1, 1), "bgb", "ggg", "bgb", 'b', searedBrick, 'g', Block.glass); //Glass
-        GameRegistry.addRecipe(new ItemStack(lavaTank, 1, 2), "bgb", "bgb", "bgb", 'b', searedBrick, 'g', Block.glass); //Window
-
-        GameRegistry.addRecipe(new ItemStack(lavaTank, 1, 0), "bbb", "bgb", "bbb", 'b', searedBrick, 'g', clearGlass); //Tank
-        GameRegistry.addRecipe(new ItemStack(lavaTank, 1, 1), "bgb", "ggg", "bgb", 'b', searedBrick, 'g', clearGlass); //Glass
-        GameRegistry.addRecipe(new ItemStack(lavaTank, 1, 2), "bgb", "bgb", "bgb", 'b', searedBrick, 'g', clearGlass); //Window
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(lavaTank, 1, 0), "bbb", "bgb", "bbb", 'b', searedBrick, 'g', "glass")); //Tank
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(lavaTank, 1, 1), "bgb", "ggg", "bgb", 'b', searedBrick, 'g', "glass")); //Glass
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(lavaTank, 1, 2), "bgb", "bgb", "bgb", 'b', searedBrick, 'g', "glass")); //Window
 
         GameRegistry.addRecipe(new ItemStack(searedBlock, 1, 0), "bbb", "b b", "b b", 'b', searedBrick); //Table
         GameRegistry.addRecipe(new ItemStack(searedBlock, 1, 1), "b b", " b ", 'b', searedBrick); //Faucet
@@ -1940,6 +1918,7 @@ public class TContent implements IFuelHandler
         OreDictionary.registerOre("slimeball", new ItemStack(Item.slimeBall));
         OreDictionary.registerOre("slimeball", new ItemStack(strangeFood, 1, 0));
         OreDictionary.registerOre("glass", new ItemStack(clearGlass));
+        OreDictionary.registerOre("glass", new ItemStack(Block.glass));
         RecipeRemover.removeShapedRecipe(new ItemStack(Block.pistonStickyBase));
         RecipeRemover.removeShapedRecipe(new ItemStack(Item.magmaCream));
         RecipeRemover.removeShapedRecipe(new ItemStack(Item.leash));
