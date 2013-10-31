@@ -437,7 +437,7 @@ tile.metal.molten.lead.name=Geschmolzenes Blei
 tile.metal.molten.shiny.name=Geschmolzenes Platin
 tile.metal.molten.invar.name=Geschmolzenes Invar
 tile.metal.molten.Electrum.name=Geschmolzenes Elektrum
-tile.liquid.ender.name=Verflüssigtes Ender
+tile.fluid.ender.name=Verflüssigtes Ender
 
 LiquidMetal.Iron.name=Geschmolzenes Eisen
 LiquidMetal.Gold.name=Geschmolzenes Gold

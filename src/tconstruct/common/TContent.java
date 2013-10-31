@@ -691,18 +691,22 @@ public class TContent implements IFuelHandler
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(moltenElectrumFluid, 1000), new ItemStack(buckets, 1, 22), new ItemStack(Item.bucketEmpty)));
 
         moltenEnderFluid = new Fluid("ender");
-        if (!FluidRegistry.registerFluid(moltenEnderFluid))
-            moltenEnderFluid = FluidRegistry.getFluid("ender");
-        if (GameRegistry.findBlock("ThermalExpansion", "liquid.ender") == null)
+        if (GameRegistry.findBlock("ThermalExpansion", "fluid.ender") == null )
         {
-            moltenEnder = new LiquidMetalFinite(PHConstruct.moltenEnder, moltenEnderFluid, "liquid_ender").setUnlocalizedName("liquid.ender");
-            GameRegistry.registerBlock(moltenEnder, "liquid.ender");
-            moltenEnderFluid.setBlockID(moltenEnder).setDensity(3000).setViscosity(6000);
-            FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(moltenEnderFluid, 1000), new ItemStack(buckets, 1, 23), new ItemStack(Item.bucketEmpty)));
+            moltenEnder = new LiquidMetalFinite(PHConstruct.moltenEnder, moltenEnderFluid, "liquid_ender").setUnlocalizedName("fluid.ender");
+            if (FluidRegistry.registerFluid(moltenEnderFluid))
+            {
+                //TConstruct.logger.info("Registering Molten Ender Stuff.");
+                GameRegistry.registerBlock(moltenEnder, "fluid.ender");
+                moltenEnderFluid.setBlockID(moltenEnder).setDensity(3000).setViscosity(6000);
+                FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(moltenEnderFluid, 1000), new ItemStack(buckets, 1, 23), new ItemStack(Item.bucketEmpty)));
+            }
         }
         else
         {
-            moltenEnder = GameRegistry.findBlock("ThermalExpansion", "liquid.ender");
+            
+            moltenEnderFluid = FluidRegistry.getFluid("ender");
+            moltenEnder = GameRegistry.findBlock("ThermalExpansion", "fluid.ender");
         }
         fluids[23] = moltenEnderFluid;
         fluidBlocks[23] = moltenEnder;

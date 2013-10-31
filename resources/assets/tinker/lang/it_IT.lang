@@ -437,7 +437,7 @@ tile.metal.molten.lead.name=Piombo Fuso
 tile.metal.molten.shiny.name=Platino Fuso
 tile.metal.molten.invar.name=Invaro Fuso
 tile.metal.molten.Electrum.name=Elettro Fuso
-tile.liquid.ender.name=Ender Liquefatto
+tile.fluid.ender.name=Ender Liquefatto
 
 LiquidMetal.Iron.name=Ferro Fuso
 LiquidMetal.Gold.name=Oro Fuso
