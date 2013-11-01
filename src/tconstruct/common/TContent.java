@@ -691,7 +691,7 @@ public class TContent implements IFuelHandler
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(moltenElectrumFluid, 1000), new ItemStack(buckets, 1, 22), new ItemStack(Item.bucketEmpty)));
 
         moltenEnderFluid = new Fluid("ender");
-        if (GameRegistry.findBlock("ThermalExpansion", "fluid.ender") == null )
+        if (GameRegistry.findBlock("ThermalExpansion", "fluid.ender") == null)
         {
             moltenEnder = new LiquidMetalFinite(PHConstruct.moltenEnder, moltenEnderFluid, "liquid_ender").setUnlocalizedName("fluid.ender");
             if (FluidRegistry.registerFluid(moltenEnderFluid))
@@ -704,7 +704,7 @@ public class TContent implements IFuelHandler
         }
         else
         {
-            
+
             moltenEnderFluid = FluidRegistry.getFluid("ender");
             moltenEnder = GameRegistry.findBlock("ThermalExpansion", "fluid.ender");
         }
@@ -1286,8 +1286,7 @@ public class TContent implements IFuelHandler
                 for (int iterTwo = 0; iterTwo < liquids.length; iterTwo++)
                 {
                     ItemStack metalCast = new ItemStack(patternOutputs[iter], 1, liquidDamage[iterTwo]);
-                    tableCasting.addCastingRecipe(metalCast, new FluidStack(liquids[iterTwo].getFluid(), ((IPattern) metalPattern).getPatternCost(metalCast) * TConstruct.ingotLiquidValue / 2), cast,
-                            50);
+                    tableCasting.addCastingRecipe(metalCast, new FluidStack(liquids[iterTwo].getFluid(), ((IPattern) metalPattern).getPatternCost(cast) * TConstruct.ingotLiquidValue / 2), cast, 50);
                 }
             }
         }
