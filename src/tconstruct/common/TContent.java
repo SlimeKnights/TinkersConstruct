@@ -1273,6 +1273,8 @@ public class TContent implements IFuelHandler
                 new FluidStack(moltenManyullynFluid, 1), new FluidStack(moltenBronzeFluid, 1), new FluidStack(moltenAlumiteFluid, 1), new FluidStack(moltenObsidianFluid, 1),
                 new FluidStack(moltenSteelFluid, 1) };
         int[] liquidDamage = new int[] { 2, 13, 10, 11, 12, 14, 15, 6, 16 };
+        int fluidAmount = 0;
+        Fluid fs = null;
 
         for (int iter = 0; iter < patternOutputs.length; iter++)
         {
@@ -1285,8 +1287,11 @@ public class TContent implements IFuelHandler
 
                 for (int iterTwo = 0; iterTwo < liquids.length; iterTwo++)
                 {
+                    fs = liquids[iterTwo].getFluid();
+                    fluidAmount = ((IPattern) metalPattern).getPatternCost(cast) * TConstruct.ingotLiquidValue / 2;
                     ItemStack metalCast = new ItemStack(patternOutputs[iter], 1, liquidDamage[iterTwo]);
-                    tableCasting.addCastingRecipe(metalCast, new FluidStack(liquids[iterTwo].getFluid(), ((IPattern) metalPattern).getPatternCost(cast) * TConstruct.ingotLiquidValue / 2), cast, 50);
+                    tableCasting.addCastingRecipe(metalCast, new FluidStack(fs, fluidAmount), cast, 50);
+                    Smeltery.addMelting(metalCast, FluidType.getTemperatureByFluid(fs), new FluidStack(fs, fluidAmount));
                 }
             }
         }
