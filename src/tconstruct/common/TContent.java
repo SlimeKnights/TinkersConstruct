@@ -1737,11 +1737,10 @@ public class TContent implements IFuelHandler
         {
             GameRegistry.addRecipe(new ItemStack(goldHead), surround, '#', new ItemStack(Item.goldNugget), 'm', new ItemStack(Item.skull, 1, 3));
             GameRegistry.addRecipe(new ItemStack(Item.appleGold), surround, '#', new ItemStack(oreBerries, 1, 1), 'm', new ItemStack(Item.appleRed));
-            GameRegistry.addRecipe(new ItemStack(Item.goldenCarrot), surround, '#', new ItemStack(oreBerries, 1, 1), 'm', new ItemStack(Item.appleRed));
-            GameRegistry.addRecipe(new ItemStack(goldHead), surround, '#', new ItemStack(oreBerries, 1, 1), 'm', new ItemStack(Item.appleRed));
+            GameRegistry.addRecipe(new ItemStack(Item.goldenCarrot), surround, '#', new ItemStack(oreBerries, 1, 1), 'm', new ItemStack(Item.carrot));
+            GameRegistry.addRecipe(new ItemStack(goldHead), surround, '#', new ItemStack(oreBerries, 1, 1), 'm', new ItemStack(Item.skull, 1, 3));
             tableCasting.addCastingRecipe(new ItemStack(Item.appleGold, 1), new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue / 9 * 8), new ItemStack(Item.appleRed), true, 50);
         }
-        tableCasting.addCastingRecipe(new ItemStack(Item.appleGold, 1, 1), new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 8 * 9), new ItemStack(Item.appleRed), true, 50);
 
         //Drying rack
         DryingRackRecipes.addDryingRecipe(Item.beefRaw, 20 * 60 * 5, new ItemStack(jerky, 1, 0));
