@@ -151,7 +151,7 @@ public class TConstruct
         Behavior.registerBuiltInBehaviors();
         SpecialStackHandler.registerBuiltInStackHandlers();
         content.modIntegration();
-        TContent.modRecipes();
+        content.addOreDictionarySmelteryRecipes();
         content.createEntities();
         content.modRecipes();
     }

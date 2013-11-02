@@ -2269,4 +2269,38 @@ public class TContent implements IFuelHandler
             return 800;
         return 0;
     }
+
+    public void addOreDictionarySmelteryRecipes ()
+    {
+        List<FluidType> exceptions = Arrays.asList(new FluidType[] { FluidType.Water, FluidType.Stone, FluidType.Ender, FluidType.Glass, FluidType.Obsidian });
+        for (FluidType ft : FluidType.values())
+        {
+            if (exceptions.contains(ft))
+                continue;
+
+            // Nuggets
+            Smeltery.addDictionaryMelting("nugget" + ft.toString(), ft, -100, TConstruct.nuggetLiquidValue);
+            // Ingots, Dust
+            registerPatternMaterial("ingot" + ft.toString(), 2, ft.toString());
+            Smeltery.addDictionaryMelting("ingot" + ft.toString(), ft, -50, TConstruct.ingotLiquidValue);
+            Smeltery.addDictionaryMelting("dust" + ft.toString(), ft, -75, TConstruct.ingotLiquidValue);
+            // Factorization support
+            Smeltery.addDictionaryMelting("crystalline" + ft.toString(), ft, -50, TConstruct.ingotLiquidValue);
+
+            // Ores
+            Smeltery.addDictionaryMelting("ore" + ft.toString(), ft, 0, TConstruct.oreLiquidValue);
+            // NetherOres support
+            Smeltery.addDictionaryMelting("oreNether" + ft.toString(), ft, 75, TConstruct.oreLiquidValue * 2);
+            // Blocks
+            Smeltery.addDictionaryMelting("block" + ft.toString(), ft, 100, TConstruct.blockLiquidValue);
+        }
+    }
+
+    private void registerPatternMaterial (String oreName, int value, String materialName)
+    {
+        for (ItemStack ore : OreDictionary.getOres(oreName))
+        {
+            PatternBuilder.instance.registerMaterial(ore, value, materialName);
+        }
+    }
 }
