@@ -7,6 +7,9 @@ import cpw.mods.fml.common.event.*;
 import cpw.mods.fml.common.network.*;
 import cpw.mods.fml.common.registry.*;
 import cpw.mods.fml.relauncher.Side;
+
+import java.util.logging.Logger;
+
 import net.minecraft.crash.CallableMinecraftVersion;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraftforge.common.MinecraftForge;
@@ -23,10 +26,6 @@ import tconstruct.util.player.TPlayerHandler;
 import tconstruct.worldgen.*;
 import tconstruct.worldgen.village.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Logger;
-
 /** TConstruct, the tool mod.
  * Craft your tools with style, then modify until the original is gone!
  * @author mDiyo
@@ -38,6 +37,10 @@ public class TConstruct
 {
     /** The value of one ingot in millibuckets */
     public static final int ingotLiquidValue = 144;
+    public static final int oreLiquidValue = ingotLiquidValue * 2;
+    public static final int blockLiquidValue = ingotLiquidValue * 9;
+    public static final int nuggetLiquidValue = ingotLiquidValue / 9;
+
     public static final int liquidUpdateAmount = 6;
 
     // Shared mod logger

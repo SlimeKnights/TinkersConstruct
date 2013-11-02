@@ -1,23 +1,21 @@
 package tconstruct.library.crafting;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.oredict.OreDictionary;
 
 /** Melting and hacking, churn and burn */
 public class Smeltery
 {
     public static Smeltery instance = new Smeltery();
 
-    private HashMap<List<Integer>, FluidStack> smeltingList = new HashMap<List<Integer>, FluidStack>();
-    private HashMap<List<Integer>, Integer> temperatureList = new HashMap<List<Integer>, Integer>();
-    private HashMap<List<Integer>, ItemStack> renderIndex = new HashMap<List<Integer>, ItemStack>();
-    private ArrayList<AlloyMix> alloys = new ArrayList<AlloyMix>();
+    private final HashMap<List<Integer>, FluidStack> smeltingList = new HashMap<List<Integer>, FluidStack>();
+    private final HashMap<List<Integer>, Integer> temperatureList = new HashMap<List<Integer>, Integer>();
+    private final HashMap<List<Integer>, ItemStack> renderIndex = new HashMap<List<Integer>, ItemStack>();
+    private final ArrayList<AlloyMix> alloys = new ArrayList<AlloyMix>();
 
     /** Adds mappings between an itemstack and an output liquid
      * Example: Smeltery.addMelting(Block.oreIron, 0, 600, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 0));
@@ -114,7 +112,7 @@ public class Smeltery
         if (item == null)
             return null;
 
-        FluidStack stack = (FluidStack) instance.smeltingList.get(Arrays.asList(item.itemID, item.getItemDamage()));
+        FluidStack stack = instance.smeltingList.get(Arrays.asList(item.itemID, item.getItemDamage()));
         if (stack == null)
             return null;
         return stack.copy();
@@ -127,7 +125,7 @@ public class Smeltery
      */
     public static FluidStack getSmelteryResult (int blockID, int metadata)
     {
-        FluidStack stack = (FluidStack) instance.smeltingList.get(Arrays.asList(blockID, metadata));
+        FluidStack stack = instance.smeltingList.get(Arrays.asList(blockID, metadata));
         if (stack == null)
             return null;
         return stack.copy();
@@ -168,5 +166,40 @@ public class Smeltery
     public static ArrayList<AlloyMix> getAlloyList ()
     {
         return instance.alloys;
+    }
+
+    /**
+     * Adds a mapping between FluidType and ItemStack
+     * 
+     * @author samtrion
+     * 
+     * @param type Type of Fluid
+     * @param input The item to liquify
+     * @param temperatureDifference Difference between FluidType BaseTemperature
+     * @param fluidAmount Amount of Fluid
+     */
+    public static void addMelting (FluidType type, ItemStack input, int temperatureDifference, int fluidAmount)
+    {
+        int temp = type.baseTemperature + temperatureDifference;
+        if (temp <= 20)
+            temp = type.baseTemperature;
+
+        addMelting(input, type.renderBlockID, type.renderMeta, type.baseTemperature + temperatureDifference, new FluidStack(type.fluid, fluidAmount));
+    }
+
+    /**
+     * Adds all Items to the Smeltery based on the oreDictionary Name
+     * 
+     * @author samtrion
+     * 
+     * @param oreName oreDictionary name e.g. oreIron
+     * @param type Type of Fluid
+     * @param temperatureDifference Difference between FluidType BaseTemperature
+     * @param fluidAmount Amount of Fluid
+     */
+    public static void addDictionaryMelting (String oreName, FluidType type, int temperatureDifference, int fluidAmount)
+    {
+        for (ItemStack is : OreDictionary.getOres(oreName))
+            addMelting(type, is, temperatureDifference, fluidAmount);
     }
 }
