@@ -46,6 +46,7 @@ public class TankAirRender implements ISimpleBlockRenderingHandler
                 for (FluidStack fluidstack : logic.getFluids())
                 {
                     Fluid fluid = fluidstack.getFluid();
+                    //System.out.println("Base: "+getBaseAmount(base)+", Height: "+getHeightAmount(base, fluidstack.amount)+", fluid amount: "+fluidstack.amount);
                     renderer.setRenderBounds(0.0, getBaseAmount(base), 0.0, 1.0, getHeightAmount(base, fluidstack.amount), 1.0);
                     if (fluid.canBePlacedInWorld())
                         BlockSkinRenderHelper.renderMetadataBlock(Block.blocksList[fluid.getBlockID()], 0, x, y, z, renderer, world);
@@ -57,7 +58,7 @@ public class TankAirRender implements ISimpleBlockRenderingHandler
         }
         return true;
     }
-    
+
     private double getBaseAmount (int base)
     {
         return base / capacity;

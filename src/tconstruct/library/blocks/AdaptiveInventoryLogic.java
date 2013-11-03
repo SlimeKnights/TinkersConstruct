@@ -1,20 +1,12 @@
 package tconstruct.library.blocks;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Random;
 
-import net.minecraft.block.Block;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
-import tconstruct.library.util.CoordTuple;
 import tconstruct.library.util.IFacingLogic;
-import tconstruct.library.util.IMasterLogic;
-import tconstruct.library.util.IServantLogic;
+import cpw.mods.fml.common.FMLCommonHandler;
 
 public abstract class AdaptiveInventoryLogic extends InventoryLogic implements IFacingLogic
 {

@@ -178,6 +178,7 @@ public class PHConstruct
         woolSlab1 = config.getBlock("Wool Slab 1", 3244).getInt(3244);
         woolSlab2 = config.getBlock("Wool Slab 2", 3245).getInt(3245);
         airTank = config.getBlock("Air Tank", 3246).getInt(3246);
+        slimeExplosive = config.getBlock("SDX", 3247).getInt(3247);
         castingChannel = config.getBlock("Casting Channel", 3249).getInt(3249);
         woodenRail = config.getBlock("Wooden Rail", 3250).getInt(3250);
 
@@ -424,6 +425,7 @@ public class PHConstruct
     public static int barricadeSpruce;
     public static int barricadeBirch;
     public static int barricadeJungle;
+    public static int slimeExplosive;
 
     //InfiBlocks
     public static int speedBlock;

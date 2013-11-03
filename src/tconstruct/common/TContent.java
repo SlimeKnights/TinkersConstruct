@@ -22,7 +22,7 @@ import tconstruct.blocks.slime.*;
 import tconstruct.blocks.traps.*;
 import tconstruct.client.StepSoundSlime;
 import tconstruct.entity.*;
-import tconstruct.entity.item.EntityLandmineFirework;
+import tconstruct.entity.item.*;
 import tconstruct.entity.projectile.*;
 import tconstruct.items.*;
 import tconstruct.items.armor.*;
@@ -159,6 +159,7 @@ public class TContent implements IFuelHandler
     public static Block barricadeSpruce;
     public static Block barricadeBirch;
     public static Block barricadeJungle;
+    public static Block slimeExplosive;
 
     //InfiBlocks
     public static Block speedBlock;
@@ -299,6 +300,7 @@ public class TContent implements IFuelHandler
         EntityRegistry.registerModEntity(LaunchedPotion.class, "Launched Potion", 3, TConstruct.instance, 32, 3, true);
         EntityRegistry.registerModEntity(ArrowEntity.class, "Arrow", 4, TConstruct.instance, 32, 5, true);
         EntityRegistry.registerModEntity(EntityLandmineFirework.class, "LandmineFirework", 5, TConstruct.instance, 32, 5, true);
+        EntityRegistry.registerModEntity(ExplosivePrimed.class, "SlimeExplosive", 6, TConstruct.instance, 32, 5, true);
         //EntityRegistry.registerModEntity(CartEntity.class, "Small Wagon", 1, TConstruct.instance, 32, 5, true);
 
         EntityRegistry.registerModEntity(BlueSlime.class, "EdibleSlime", 12, TConstruct.instance, 64, 5, true);
@@ -354,7 +356,7 @@ public class TContent implements IFuelHandler
         GameRegistry.registerTileEntity(StencilTableLogic.class, "PatternShaper");
 
         toolForge = new ToolForgeBlock(PHConstruct.toolForge, Material.iron).setUnlocalizedName("ToolForge");
-        GameRegistry.registerBlock(toolForge, ToolForgeItemBlock.class, "ToolForgeBlock");
+        GameRegistry.registerBlock(toolForge, MetadataItemBlock.class, "ToolForgeBlock");
         GameRegistry.registerTileEntity(ToolForgeLogic.class, "ToolForge");
 
         craftingStationWood = new CraftingStationBlock(PHConstruct.woodCrafter, Material.wood).setUnlocalizedName("CraftingStation");
@@ -451,6 +453,9 @@ public class TContent implements IFuelHandler
 
         barricadeJungle = new BarricadeBlock(PHConstruct.barricadeJungle, Block.wood, 3).setUnlocalizedName("trap.barricade.jungle");
         GameRegistry.registerBlock(barricadeJungle, BarricadeItem.class, "trap.barricade.jungle");
+        
+        slimeExplosive = new SlimeExplosive(PHConstruct.slimeExplosive).setHardness(0.0F).setStepSound(Block.soundGrassFootstep).setUnlocalizedName("explosive.slime");
+        GameRegistry.registerBlock(slimeExplosive, MetadataItemBlock.class, "explosive.slime");
 
         dryingRack = new DryingRack(PHConstruct.dryingRack).setUnlocalizedName("Armor.DryingRack");
         GameRegistry.registerBlock(dryingRack, "Armor.DryingRack");
@@ -1789,6 +1794,11 @@ public class TContent implements IFuelHandler
         GameRegistry.addRecipe(new ItemStack(barricadeBirch, 1, 0), "b", "b", 'b', new ItemStack(Block.wood, 1, 2));
         GameRegistry.addRecipe(new ItemStack(barricadeJungle, 1, 0), "b", "b", 'b', new ItemStack(Block.wood, 1, 3));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(barricadeOak, 1, 0), "b", "b", 'b', "logWood"));
+        
+        GameRegistry.addShapelessRecipe(new ItemStack(slimeExplosive, 1, 0), Item.slimeBall, Block.tnt);
+        GameRegistry.addShapelessRecipe(new ItemStack(slimeExplosive, 1, 2), strangeFood, Block.tnt);
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(slimeExplosive, 1, 0), "slimeball", Block.tnt));
+        //slimeExplosive
 
         GameRegistry.addRecipe(new ItemStack(craftingStationWood, 1, 0), "b", 'b', new ItemStack(Block.workbench));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(craftingStationWood, 1, 0), "b", 'b', "crafterWood"));

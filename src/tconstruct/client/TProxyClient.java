@@ -26,17 +26,20 @@ import net.minecraftforge.fluids.RenderBlockFluid;
 import org.lwjgl.opengl.GL11;
 import org.w3c.dom.Document;
 import tconstruct.TConstruct;
+import tconstruct.blocks.SlimeExplosive;
 import tconstruct.blocks.logic.*;
 import tconstruct.client.armor.RenderArmorCast;
 import tconstruct.client.block.*;
 import tconstruct.client.entity.*;
+import tconstruct.client.entity.item.ExplosiveRender;
 import tconstruct.client.entity.projectile.*;
 import tconstruct.client.gui.*;
 import tconstruct.client.pages.*;
 import tconstruct.client.tabs.*;
 import tconstruct.common.*;
 import tconstruct.entity.*;
-import tconstruct.entity.item.EntityLandmineFirework;
+import tconstruct.entity.item.*;
+import tconstruct.entity.item.*;
 import tconstruct.entity.projectile.*;
 import tconstruct.inventory.ContainerLandmine;
 import tconstruct.library.TConstructRegistry;
@@ -232,6 +235,7 @@ public class TProxyClient extends TProxyCommon
         RenderingRegistry.registerEntityRenderingHandler(DaggerEntity.class, new DaggerRenderCustom());
         RenderingRegistry.registerEntityRenderingHandler(ArrowEntity.class, new ArrowRenderCustom());
         RenderingRegistry.registerEntityRenderingHandler(EntityLandmineFirework.class, new RenderSnowball(Item.firework));
+        RenderingRegistry.registerEntityRenderingHandler(ExplosivePrimed.class, new ExplosiveRender());
         // RenderingRegistry.registerEntityRenderingHandler(net.minecraft.entity.player.EntityPlayer.class,
         // new PlayerArmorRender()); // <-- Works, woo!
 
