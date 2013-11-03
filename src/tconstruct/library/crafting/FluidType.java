@@ -53,7 +53,9 @@ public enum FluidType
     /** Stone Smelting **/
     Stone(Block.stone.blockID, 0, 800, TContent.moltenStoneFluid),
     /** Emerald Smelting **/
-    Emerald(Block.oreEmerald.blockID, 0, 575, TContent.moltenEmeraldFluid);
+    Emerald(Block.oreEmerald.blockID, 0, 575, TContent.moltenEmeraldFluid),
+    /** Slime Smelting **/
+    Slime(TContent.slimeGel.blockID, 0, 250, TContent.blueSlimeFluid);
 
     public final int renderBlockID;
     public final int renderMeta;

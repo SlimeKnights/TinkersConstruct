@@ -1444,7 +1444,7 @@ public class TContent implements IFuelHandler
         patternOutputs = new Item[] { toolRod, pickaxeHead, shovelHead, hatchetHead, swordBlade, wideGuard, handGuard, crossbar, binding, frypanHead, signHead, knifeBlade, chiselHead, toughRod,
                 toughBinding, largePlate, broadAxeHead, scytheBlade, excavatorHead, largeSwordBlade, hammerHead, fullGuard, null, null, arrowhead };
 
-        int[] nonMetals = { 0, 1, 3, 4, 5, 6, 7, 8, 9, 17 };
+        int[] nonMetals = { 0, 1, 3, 4, 5, 6, 7, 8, 9 };
 
         if (PHConstruct.craftMetalTools)
         {
@@ -1589,8 +1589,8 @@ public class TContent implements IFuelHandler
         // Metal toolpart casting
         liquids = new FluidStack[] { new FluidStack(moltenIronFluid, 1), new FluidStack(moltenCopperFluid, 1), new FluidStack(moltenCobaltFluid, 1), new FluidStack(moltenArditeFluid, 1),
                 new FluidStack(moltenManyullynFluid, 1), new FluidStack(moltenBronzeFluid, 1), new FluidStack(moltenAlumiteFluid, 1), new FluidStack(moltenObsidianFluid, 1),
-                new FluidStack(moltenSteelFluid, 1) };
-        int[] liquidDamage = new int[] { 2, 13, 10, 11, 12, 14, 15, 6, 16 };
+                new FluidStack(moltenSteelFluid, 1), new FluidStack(blueSlimeFluid, 1) };
+        int[] liquidDamage = new int[] { 2, 13, 10, 11, 12, 14, 15, 6, 16, 17 };
         int fluidAmount = 0;
         Fluid fs = null;
 
@@ -1666,6 +1666,8 @@ public class TContent implements IFuelHandler
         basinCasting.addCastingRecipe(new ItemStack(Block.whiteStone), new FluidStack(moltenEnderFluid, 25), new ItemStack(Block.obsidian), true, 100); //endstone
         basinCasting.addCastingRecipe(new ItemStack(metalBlock.blockID, 1, 10), new FluidStack(moltenEnderFluid, FluidContainerRegistry.BUCKET_VOLUME), null, true, 100); //ender
 
+        basinCasting.addCastingRecipe(new ItemStack(slimeGel, 1, 0), new FluidStack(blueSlimeFluid, FluidContainerRegistry.BUCKET_VOLUME), null, true, 100);
+
         //Armor casts
         FluidRenderProperties frp = new FluidRenderProperties(Applications.BASIN.minHeight, 0.65F, Applications.BASIN);
         FluidStack aluFlu = new FluidStack(moltenAlubrassFluid, TConstruct.ingotLiquidValue * 10);
@@ -1706,6 +1708,11 @@ public class TContent implements IFuelHandler
         Smeltery.addMelting(FluidType.Iron, new ItemStack(Item.doorIron), 0, TConstruct.ingotLiquidValue * 6);
         Smeltery.addMelting(FluidType.Iron, new ItemStack(Item.cauldron), 0, TConstruct.ingotLiquidValue * 7);
         Smeltery.addMelting(FluidType.Iron, new ItemStack(Item.shears), 0, TConstruct.oreLiquidValue);
+
+        Smeltery.addMelting(FluidType.Slime, new ItemStack(slimeGel, 1, 0), 0, TConstruct.ingotLiquidValue * 4);
+        Smeltery.addMelting(FluidType.Slime, new ItemStack(strangeFood, 1, 0), 0, TConstruct.ingotLiquidValue);
+        Smeltery.addMelting(FluidType.Slime, new ItemStack(multiBrick, 1, 11), 0, TConstruct.ingotLiquidValue);
+        Smeltery.addMelting(FluidType.Slime, new ItemStack(multiBrickFancy, 1, 11), 0, TConstruct.ingotLiquidValue);
 
         //Blocks
         Smeltery.addMelting(FluidType.Obsidian, new ItemStack(Block.obsidian), 0, TConstruct.oreLiquidValue);

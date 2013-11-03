@@ -438,6 +438,7 @@ tile.metal.molten.shiny.name=Geschmolzenes Platin
 tile.metal.molten.invar.name=Geschmolzenes Invar
 tile.metal.molten.Electrum.name=Geschmolzenes Elektrum
 tile.fluid.ender.name=Verflüssigtes Ender
+tile.liquid.slime.name=Verflüssigter Schleim
 
 LiquidMetal.Iron.name=Geschmolzenes Eisen
 LiquidMetal.Gold.name=Geschmolzenes Gold
@@ -562,3 +563,4 @@ fluid.platinum.molten=Geschmolzenes Platin
 fluid.invar=Geschmolzenes Invar
 fluid.electrum=Geschmolzenes Elektrum
 fluid.ender=Flüssiges Ender
+fluid.slime.blue=Flüssiger blauer Schleim
