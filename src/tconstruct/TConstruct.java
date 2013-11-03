@@ -86,7 +86,6 @@ public class TConstruct
         content = new TContent();
 
         events = new TEventHandler();
-        events.unfuxOreDictionary();
         MinecraftForge.EVENT_BUS.register(events);
         content.oreRegistry();
 
