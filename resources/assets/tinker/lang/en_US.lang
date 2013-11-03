@@ -439,6 +439,7 @@ tile.metal.molten.shiny.name=Molten Shiny
 tile.metal.molten.invar.name=Molten Invar
 tile.metal.molten.Electrum.name=Molten Electrum
 tile.fluid.ender.name=Liquified Ender
+tile.liquid.slime.name=Liquified Slime
 
 LiquidMetal.Iron.name=Molten Iron
 LiquidMetal.Gold.name=Molten Gold
@@ -563,3 +564,4 @@ fluid.platinum.molten=Molten Platinum
 fluid.invar=Molten Invar
 fluid.shiny=Molten Shiny
 fluid.ender=Liquid Ender
+fluid.slime.blue=Liquid Blueslime
