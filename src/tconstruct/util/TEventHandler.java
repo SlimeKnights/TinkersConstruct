@@ -19,7 +19,6 @@ import net.minecraftforge.event.Event.Result;
 import net.minecraftforge.event.entity.living.*;
 import net.minecraftforge.event.entity.player.*;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
-import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.oredict.OreDictionary.OreRegisterEvent;
 import tconstruct.TConstruct;
 import tconstruct.blocks.*;
@@ -469,11 +468,6 @@ public class TEventHandler
     @ForgeSubscribe
     public void registerOre (OreRegisterEvent evt)
     {
-        if (evt.Name.toLowerCase().contains("ingot"))
-        {
-            TConstruct.tableCasting.addCastingRecipe(new ItemStack(TContent.metalPattern, 1, 0), new FluidStack(TContent.moltenAlubrassFluid, TConstruct.ingotLiquidValue), evt.Ore, false, 50);
-            TConstruct.tableCasting.addCastingRecipe(new ItemStack(TContent.metalPattern, 1, 0), new FluidStack(TContent.moltenGoldFluid, TConstruct.ingotLiquidValue * 2), evt.Ore, false, 50);
-        }
         if (evt.Name == "battery")
             TConstruct.content.modE.batteries.add(evt.Ore);
 

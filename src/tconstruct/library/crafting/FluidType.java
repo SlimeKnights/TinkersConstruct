@@ -9,19 +9,19 @@ public enum FluidType
     /** Vanilla Water Smelting **/
     Water(Block.snow.blockID, 0, 20, FluidRegistry.getFluid("water")),
     /** Iron Smelting **/
-    Iron(Block.blockIron.blockID, 0, 600, TContent.moltenIronFluid),
+    Iron(Block.oreIron.blockID, 0, 600, TContent.moltenIronFluid),
     /** Gold  Smelting **/
-    Gold(Block.blockGold.blockID, 0, 400, TContent.moltenGoldFluid),
+    Gold(Block.oreGold.blockID, 0, 400, TContent.moltenGoldFluid),
     /** Tin  Smelting **/
-    Tin(TContent.metalBlock.blockID, 5, 400, TContent.moltenTinFluid),
+    Tin(TContent.oreSlag.blockID, 4, 400, TContent.moltenTinFluid),
     /** Copper  Smelting **/
-    Copper(TContent.metalBlock.blockID, 3, 550, TContent.moltenCopperFluid),
+    Copper(TContent.oreSlag.blockID, 3, 550, TContent.moltenCopperFluid),
     /** Aluminum Smelting **/
-    Aluminum(TContent.metalBlock.blockID, 6, 350, TContent.moltenAluminumFluid), NaturalAluminum(TContent.metalBlock.blockID, 6, 350, TContent.moltenAluminumFluid),
+    Aluminum(TContent.oreSlag.blockID, 5, 350, TContent.moltenAluminumFluid), NaturalAluminum(TContent.metalBlock.blockID, 6, 350, TContent.moltenAluminumFluid),
     /** Cobalt Smelting **/
-    Cobalt(TContent.metalBlock.blockID, 0, 650, TContent.moltenCobaltFluid),
+    Cobalt(TContent.oreSlag.blockID, 1, 650, TContent.moltenCobaltFluid),
     /** Ardite Smelting **/
-    Ardite(TContent.metalBlock.blockID, 1, 650, TContent.moltenArditeFluid),
+    Ardite(TContent.oreSlag.blockID, 2, 650, TContent.moltenArditeFluid),
     /** AluminumBrass Smelting **/
     AluminumBrass(TContent.metalBlock.blockID, 7, 350, TContent.moltenAlubrassFluid),
     /** Alumite Smelting **/
@@ -55,10 +55,10 @@ public enum FluidType
     /** Emerald Smelting **/
     Emerald(Block.oreEmerald.blockID, 0, 575, TContent.moltenEmeraldFluid);
 
-    final int renderBlockID;
-    final int renderMeta;
-    final int baseTemperature;
-    final Fluid fluid;
+    public final int renderBlockID;
+    public final int renderMeta;
+    public final int baseTemperature;
+    public final Fluid fluid;
 
     FluidType(int blockID, int meta, int baseTemperature, Fluid fluid)
     {

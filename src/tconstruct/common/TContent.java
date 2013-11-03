@@ -1574,20 +1574,7 @@ public class TContent implements IFuelHandler
         tableCasting.addCastingRecipe(new ItemStack(blankPattern, 1, 2), new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 2), 80);
 
         //Ingots
-        tableCasting.addCastingRecipe(new ItemStack(Item.ingotIron), new FluidStack(moltenIronFluid, TConstruct.ingotLiquidValue), ingotcast, 80); //Iron
-        tableCasting.addCastingRecipe(new ItemStack(Item.ingotGold), new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue), ingotcast, 80); //gold
-        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 9), new FluidStack(moltenCopperFluid, TConstruct.ingotLiquidValue), ingotcast, 80); //copper
-        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 10), new FluidStack(moltenTinFluid, TConstruct.ingotLiquidValue), ingotcast, 80); //tin
-        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 11), new FluidStack(moltenAluminumFluid, TConstruct.ingotLiquidValue), ingotcast, 80); //aluminum
-        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 3), new FluidStack(moltenCobaltFluid, TConstruct.ingotLiquidValue), ingotcast, 80); //cobalt
-        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 4), new FluidStack(moltenArditeFluid, TConstruct.ingotLiquidValue), ingotcast, 80); //ardite
-        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 13), new FluidStack(moltenBronzeFluid, TConstruct.ingotLiquidValue), ingotcast, 80); //bronze
-        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 14), new FluidStack(moltenAlubrassFluid, TConstruct.ingotLiquidValue), ingotcast, 80); //albrass
-        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 5), new FluidStack(moltenManyullynFluid, TConstruct.ingotLiquidValue), ingotcast, 80); //manyullyn
-        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 15), new FluidStack(moltenAlumiteFluid, TConstruct.ingotLiquidValue), ingotcast, 80); //alumite
-        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 18), new FluidStack(moltenObsidianFluid, TConstruct.ingotLiquidValue), ingotcast, 80); //obsidian
-        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 16), new FluidStack(moltenSteelFluid, TConstruct.ingotLiquidValue), ingotcast, 80); //steel
-        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 2), new FluidStack(moltenStoneFluid, TConstruct.ingotLiquidValue), ingotcast, 80); //steel
+        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 2), new FluidStack(moltenStoneFluid, TConstruct.ingotLiquidValue), ingotcast, 80); //stone
 
         //Buckets
         ItemStack bucket = new ItemStack(Item.bucketEmpty);
@@ -1627,7 +1614,7 @@ public class TContent implements IFuelHandler
             }
         }
 
-        ItemStack[] ingotShapes = { new ItemStack(Item.ingotIron), new ItemStack(Item.ingotGold), new ItemStack(Item.brick), new ItemStack(Item.netherrackBrick), new ItemStack(materials, 1, 2) };
+        ItemStack[] ingotShapes = { new ItemStack(Item.brick), new ItemStack(Item.netherrackBrick), new ItemStack(materials, 1, 2) };
         for (int i = 0; i < ingotShapes.length; i++)
         {
             tableCasting.addCastingRecipe(ingotcast, new FluidStack(moltenAlubrassFluid, TConstruct.ingotLiquidValue), ingotShapes[i], false, 50);
@@ -1913,6 +1900,7 @@ public class TContent implements IFuelHandler
         OreDictionary.registerOre("ingotSteel", new ItemStack(materials, 1, 16));
         OreDictionary.registerOre("ingotIron", new ItemStack(Item.ingotIron));
         OreDictionary.registerOre("ingotGold", new ItemStack(Item.ingotGold));
+        OreDictionary.registerOre("ingotObsidian", new ItemStack(materials, 1, 18));
 
         OreDictionary.registerOre("blockCobalt", new ItemStack(metalBlock, 1, 0));
         OreDictionary.registerOre("blockArdite", new ItemStack(metalBlock, 1, 1));
@@ -2296,7 +2284,7 @@ public class TContent implements IFuelHandler
 
     public void addOreDictionarySmelteryRecipes ()
     {
-        List<FluidType> exceptions = Arrays.asList(new FluidType[] { FluidType.Water, FluidType.Stone, FluidType.Ender, FluidType.Glass, FluidType.Obsidian });
+        List<FluidType> exceptions = Arrays.asList(new FluidType[] { FluidType.Water, FluidType.Stone, FluidType.Ender, FluidType.Glass });
         for (FluidType ft : FluidType.values())
         {
             if (exceptions.contains(ft))
@@ -2305,6 +2293,7 @@ public class TContent implements IFuelHandler
             // Nuggets
             Smeltery.addDictionaryMelting("nugget" + ft.toString(), ft, -100, TConstruct.nuggetLiquidValue);
             // Ingots, Dust
+            registerIngotCasting(ft);
             Smeltery.addDictionaryMelting("ingot" + ft.toString(), ft, -50, TConstruct.ingotLiquidValue);
             Smeltery.addDictionaryMelting("dust" + ft.toString(), ft, -75, TConstruct.ingotLiquidValue);
             // Factorization support
@@ -2328,7 +2317,6 @@ public class TContent implements IFuelHandler
         registerPatternMaterial("ingotManyullyn", 2, "Manyullyn");
         registerPatternMaterial("ingotAlumite", 2, "Alumite");
         registerPatternMaterial("ingotSteel", 2, "Steel");
-
     }
 
     private void registerPatternMaterial (String oreName, int value, String materialName)
@@ -2337,5 +2325,18 @@ public class TContent implements IFuelHandler
         {
             PatternBuilder.instance.registerMaterial(ore, value, materialName);
         }
+    }
+
+    private void registerIngotCasting (FluidType ft)
+    {
+        ItemStack pattern = new ItemStack(TContent.metalPattern, 1, 0);
+        LiquidCasting tableCasting = TConstructRegistry.instance.getTableCasting();
+        for (ItemStack ore : OreDictionary.getOres("ingot" + ft.toString()))
+        {
+            tableCasting.addCastingRecipe(pattern, new FluidStack(TContent.moltenAlubrassFluid, TConstruct.ingotLiquidValue), ore, false, 50);
+            tableCasting.addCastingRecipe(pattern, new FluidStack(TContent.moltenGoldFluid, TConstruct.oreLiquidValue), ore, false, 50);
+            tableCasting.addCastingRecipe(ore, new FluidStack(ft.fluid, TConstruct.ingotLiquidValue), pattern, 80);
+        }
+
     }
 }

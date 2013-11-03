@@ -39,6 +39,7 @@ public class TConstruct
     public static final int ingotLiquidValue = 144;
     public static final int oreLiquidValue = ingotLiquidValue * 2;
     public static final int blockLiquidValue = ingotLiquidValue * 9;
+    public static final int chunkLiquidValue = ingotLiquidValue / 2;
     public static final int nuggetLiquidValue = ingotLiquidValue / 9;
 
     public static final int liquidUpdateAmount = 6;
