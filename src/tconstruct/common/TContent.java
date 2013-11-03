@@ -1898,8 +1898,8 @@ public class TContent implements IFuelHandler
         OreDictionary.registerOre("ingotAluminumBrass", new ItemStack(materials, 1, 14));
         OreDictionary.registerOre("ingotAlumite", new ItemStack(materials, 1, 15));
         OreDictionary.registerOre("ingotSteel", new ItemStack(materials, 1, 16));
-        OreDictionary.registerOre("ingotIron", new ItemStack(Item.ingotIron));
-        OreDictionary.registerOre("ingotGold", new ItemStack(Item.ingotGold));
+        ensureOreIsRegistered("ingotIron", new ItemStack(Item.ingotIron));
+        ensureOreIsRegistered("ingotGold", new ItemStack(Item.ingotGold));
         OreDictionary.registerOre("ingotObsidian", new ItemStack(materials, 1, 18));
 
         OreDictionary.registerOre("blockCobalt", new ItemStack(metalBlock, 1, 0));
@@ -1912,8 +1912,8 @@ public class TContent implements IFuelHandler
         OreDictionary.registerOre("blockAluminumBrass", new ItemStack(metalBlock, 1, 7));
         OreDictionary.registerOre("blockAlumite", new ItemStack(metalBlock, 1, 8));
         OreDictionary.registerOre("blockSteel", new ItemStack(metalBlock, 1, 9));
-        OreDictionary.registerOre("blockIron", new ItemStack(Block.blockIron));
-        OreDictionary.registerOre("blockGold", new ItemStack(Block.blockGold));
+        ensureOreIsRegistered("blockIron", new ItemStack(Block.blockIron));
+        ensureOreIsRegistered("blockGold", new ItemStack(Block.blockGold));
 
         OreDictionary.registerOre("nuggetIron", new ItemStack(materials, 1, 19));
         OreDictionary.registerOre("nuggetIron", new ItemStack(oreBerries, 1, 0));
@@ -1932,13 +1932,13 @@ public class TContent implements IFuelHandler
         OreDictionary.registerOre("nuggetAlumite", new ItemStack(materials, 1, 32));
         OreDictionary.registerOre("nuggetSteel", new ItemStack(materials, 1, 33));
         OreDictionary.registerOre("nuggetGold", new ItemStack(oreBerries, 1, 1));
-        OreDictionary.registerOre("nuggetGold", new ItemStack(Item.goldNugget));
+        ensureOreIsRegistered("nuggetGold", new ItemStack(Item.goldNugget));
 
         OreDictionary.registerOre("slabCloth", new ItemStack(woolSlab1, 1, Short.MAX_VALUE));
         OreDictionary.registerOre("slabCloth", new ItemStack(woolSlab2, 1, Short.MAX_VALUE));
 
-        OreDictionary.registerOre("stoneMossy", new ItemStack(Block.stoneBrick, 1, 1));
-        OreDictionary.registerOre("stoneMossy", new ItemStack(Block.cobblestoneMossy));
+        ensureOreIsRegistered("stoneMossy", new ItemStack(Block.stoneBrick, 1, 1));
+        ensureOreIsRegistered("stoneMossy", new ItemStack(Block.cobblestoneMossy));
 
         String[] matNames = { "wood", "stone", "iron", "flint", "cactus", "bone", "obsidian", "netherrack", "slime", "paper", "cobalt", "ardite", "manyullyn", "copper", "bronze", "alumite", "steel",
                 "blueslime" };
@@ -1968,6 +1968,15 @@ public class TContent implements IFuelHandler
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Block.pistonStickyBase), "slimeball", Block.pistonBase));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Item.magmaCream), "slimeball", Item.blazePowder));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Item.leash, 2), "ss ", "sS ", "  s", 's', Item.silk, 'S', "slimeball"));
+    }
+
+    private void ensureOreIsRegistered (String oreName, ItemStack is)
+    {
+        int oreId = OreDictionary.getOreID(oreName);
+        if (oreId == -1)
+        {
+            OreDictionary.registerOre(oreName, is);
+        }
     }
 
     public static boolean thaumcraftAvailable;
@@ -2333,9 +2342,9 @@ public class TContent implements IFuelHandler
         LiquidCasting tableCasting = TConstructRegistry.instance.getTableCasting();
         for (ItemStack ore : OreDictionary.getOres("ingot" + ft.toString()))
         {
-            tableCasting.addCastingRecipe(pattern, new FluidStack(TContent.moltenAlubrassFluid, TConstruct.ingotLiquidValue), ore, false, 50);
-            tableCasting.addCastingRecipe(pattern, new FluidStack(TContent.moltenGoldFluid, TConstruct.oreLiquidValue), ore, false, 50);
-            tableCasting.addCastingRecipe(ore, new FluidStack(ft.fluid, TConstruct.ingotLiquidValue), pattern, 80);
+            tableCasting.addCastingRecipe(pattern, new FluidStack(TContent.moltenAlubrassFluid, TConstruct.ingotLiquidValue), new ItemStack(ore.itemID, 1, ore.getItemDamage()), false, 50);
+            tableCasting.addCastingRecipe(pattern, new FluidStack(TContent.moltenGoldFluid, TConstruct.oreLiquidValue), new ItemStack(ore.itemID, 1, ore.getItemDamage()), false, 50);
+            tableCasting.addCastingRecipe(new ItemStack(ore.itemID, 1, ore.getItemDamage()), new FluidStack(ft.fluid, TConstruct.ingotLiquidValue), pattern, 80);
         }
 
     }
