@@ -1326,28 +1326,22 @@ public class TContent implements IFuelHandler
                 Block.pressurePlateStone));
 
         //Ultra hardcore recipes
+        Object goldType = null;
+        RecipeRemover.removeShapedRecipe(new ItemStack(Item.appleGold));
+        RecipeRemover.removeShapedRecipe(new ItemStack(Item.goldenCarrot));
+        RecipeRemover.removeShapedRecipe(new ItemStack(Item.speckledMelon));
         if (PHConstruct.goldAppleRecipe)
         {
-            RecipeRemover.removeShapedRecipe(new ItemStack(Item.appleGold));
-            RecipeRemover.removeShapedRecipe(new ItemStack(Item.goldenCarrot));
-            RecipeRemover.removeShapelessRecipe(new ItemStack(Item.speckledMelon));
-
-            GameRegistry.addRecipe(new ItemStack(Item.appleGold), patSurround, '#', new ItemStack(Item.ingotGold), 'm', new ItemStack(Item.appleRed));
-            GameRegistry.addRecipe(new ItemStack(Item.goldenCarrot), patSurround, '#', new ItemStack(Item.ingotGold), 'm', new ItemStack(Item.carrot));
-            GameRegistry.addRecipe(new ItemStack(goldHead), patSurround, '#', new ItemStack(Item.ingotGold), 'm', new ItemStack(Item.skull, 1, 3));
-            GameRegistry.addShapelessRecipe(new ItemStack(Item.speckledMelon), new ItemStack(Block.blockGold), new ItemStack(Item.melon));
-            TConstructRegistry.instance.getTableCasting().addCastingRecipe(new ItemStack(Item.appleGold, 1), new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 8),
-                    new ItemStack(Item.appleRed), true, 50);
+            goldType = new ItemStack(Item.ingotGold);
         }
         else
         {
-            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(goldHead), patSurround, '#', "nuggetGold", 'm', new ItemStack(Item.skull, 1, 3)));
-            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Item.appleGold), patSurround, '#', "nuggetGold", 'm', new ItemStack(Item.appleRed)));
-            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Item.goldenCarrot), patSurround, '#', "nuggetGold", 'm', new ItemStack(Item.carrot)));
-            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Item.speckledMelon), patSurround, '#', "nuggetGold", new ItemStack(Item.melon)));
-            TConstructRegistry.instance.getTableCasting().addCastingRecipe(new ItemStack(Item.appleGold, 1), new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue / 9 * 8),
-                    new ItemStack(Item.appleRed), true, 50);
+            goldType = "nuggetGold";
         }
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(goldHead), patSurround, '#', goldType, 'm', new ItemStack(Item.skull, 1, 3)));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Item.appleGold), patSurround, '#', goldType, 'm', new ItemStack(Item.appleRed)));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Item.goldenCarrot), patSurround, '#', goldType, 'm', new ItemStack(Item.carrot)));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Item.speckledMelon), patSurround, '#', goldType, 'm', new ItemStack(Item.melon)));
 
         // Slab Smeltery Components Recipes
         for (int i = 0; i < 7; i++)
@@ -1602,8 +1596,10 @@ public class TContent implements IFuelHandler
             tableCasting.addCastingRecipe(new ItemStack(buckets, 1, sc), new FluidStack(fluids[sc], FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10);
         }
 
+        // Clear glass pane casting
         tableCasting.addCastingRecipe(new ItemStack(glassPane), new FluidStack(moltenGlassFluid, 250), null, 80);
 
+        // Metal toolpart casting
         liquids = new FluidStack[] { new FluidStack(moltenIronFluid, 1), new FluidStack(moltenCopperFluid, 1), new FluidStack(moltenCobaltFluid, 1), new FluidStack(moltenArditeFluid, 1),
                 new FluidStack(moltenManyullynFluid, 1), new FluidStack(moltenBronzeFluid, 1), new FluidStack(moltenAlumiteFluid, 1), new FluidStack(moltenObsidianFluid, 1),
                 new FluidStack(moltenSteelFluid, 1) };
@@ -1634,13 +1630,27 @@ public class TContent implements IFuelHandler
         ItemStack[] ingotShapes = { new ItemStack(Item.ingotIron), new ItemStack(Item.ingotGold), new ItemStack(Item.brick), new ItemStack(Item.netherrackBrick), new ItemStack(materials, 1, 2) };
         for (int i = 0; i < ingotShapes.length; i++)
         {
-            tableCasting.addCastingRecipe(new ItemStack(TContent.metalPattern, 1, 0), new FluidStack(moltenAlubrassFluid, TConstruct.ingotLiquidValue), ingotShapes[i], false, 50);
-            tableCasting.addCastingRecipe(new ItemStack(TContent.metalPattern, 1, 0), new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 2), ingotShapes[i], false, 50);
+            tableCasting.addCastingRecipe(ingotcast, new FluidStack(moltenAlubrassFluid, TConstruct.ingotLiquidValue), ingotShapes[i], false, 50);
+            tableCasting.addCastingRecipe(ingotcast, new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 2), ingotShapes[i], false, 50);
         }
 
         ItemStack fullguardCast = new ItemStack(metalPattern, 1, 22);
         tableCasting.addCastingRecipe(fullguardCast, new FluidStack(moltenAlubrassFluid, TConstruct.ingotLiquidValue), new ItemStack(fullGuard, 1, Short.MAX_VALUE), false, 50);
         tableCasting.addCastingRecipe(fullguardCast, new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 2), new ItemStack(fullGuard, 1, Short.MAX_VALUE), false, 50);
+
+        FluidStack goldAmount = null;
+        if (PHConstruct.goldAppleRecipe)
+        {
+            goldAmount = new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 8);
+        }
+        else
+        {
+            goldAmount = new FluidStack(moltenGoldFluid, TConstruct.nuggetLiquidValue * 8);
+        }
+        tableCasting.addCastingRecipe(new ItemStack(Item.appleGold, 1), goldAmount, new ItemStack(Item.appleRed), true, 50);
+        tableCasting.addCastingRecipe(new ItemStack(Item.goldenCarrot, 1), goldAmount, new ItemStack(Item.carrot), true, 50);
+        tableCasting.addCastingRecipe(new ItemStack(Item.speckledMelon, 1), goldAmount, new ItemStack(Item.melon), true, 50);
+        tableCasting.addCastingRecipe(new ItemStack(goldHead), goldAmount, new ItemStack(Item.skull, 1, 3), true, 50);
     }
 
     private void addRecipesForBasinCasting ()
