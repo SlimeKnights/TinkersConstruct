@@ -17,7 +17,7 @@ public enum FluidType
     /** Copper  Smelting **/
     Copper(TContent.oreSlag.blockID, 3, 550, TContent.moltenCopperFluid),
     /** Aluminum Smelting **/
-    Aluminum(TContent.oreSlag.blockID, 5, 350, TContent.moltenAluminumFluid), NaturalAluminum(TContent.metalBlock.blockID, 6, 350, TContent.moltenAluminumFluid),
+    Aluminum(TContent.oreSlag.blockID, 5, 350, TContent.moltenAluminumFluid), NaturalAluminum(TContent.oreSlag.blockID, 5, 350, TContent.moltenAluminumFluid),
     /** Cobalt Smelting **/
     Cobalt(TContent.oreSlag.blockID, 1, 650, TContent.moltenCobaltFluid),
     /** Ardite Smelting **/
