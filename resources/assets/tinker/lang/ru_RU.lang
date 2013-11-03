@@ -335,7 +335,7 @@ tile.metal.molten.lead.name=Расплавленный свинец
 tile.metal.molten.shiny.name=Расплавленный блеск
 tile.metal.molten.invar.name=Расплавленный инвар
 tile.metal.molten.Electrum.name=Расплавленный электрум
-tile.liquid.ender.name=Сжиженный эндер
+tile.fluid.ender.name=Сжиженный эндер
 
 item.food.apple.diamond.name=Драгоценное яблоко
 item.tconstruct.strangefood.edibleslime.name=Желатиновая слизь

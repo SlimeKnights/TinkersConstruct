@@ -49,7 +49,7 @@ public class PHConstruct
         beginnerBook = config.get("Difficulty Changes", "Spawn beginner book", true).getBoolean(true);
         alphaRegen = config.get("Alpha Behavior", "Regenerate HP from food", false).getBoolean(false);
         alphaHunger = config.get("Alpha Behavior", "Remove hunger", false).getBoolean(false);
-        
+
         superfunWorld = config.get("Superfun", "All the world is Superfun", false).getBoolean(false);
 
         enableTWood = config.get("Difficulty Changes", "Enable mod wooden tools", true).getBoolean(true);
@@ -104,7 +104,7 @@ public class PHConstruct
         barricadeSpruce = config.getBlock("Spruce Barricade", 1482).getInt(1482);
         barricadeBirch = config.getBlock("Birch Barricade", 1483).getInt(1483);
         barricadeJungle = config.getBlock("Jungle Barricade", 1487).getInt(1487);
-        
+
         slimeChannel = config.getBlock("Slime Channel", 3190).getInt(3190);
         slimePad = config.getBlock("Slime Pad", 3191).getInt(3191);
 
@@ -361,20 +361,20 @@ public class PHConstruct
         Property conTexMode = config.get("Looks", "Connected Textures Enabled", true);
         conTexMode.comment = "0 = disabled, 1 = enabled, 2 = enabled + ignore stained glass meta";
         connectedTexturesMode = conTexMode.getInt(2);
-        
-        //dimension blacklist
-        cfgDimBlackList = config.get("DimBlackList", "SlimeIslandDimBlacklist",new int[]{}).getIntList();
-        slimeIslGenDim0Only = config.get("DimBlackList","GenerateSlimeIslandInDim0Only" , false).getBoolean(false);
-        slimeIslGenDim0 = config.get("DimBlackList", "slimeIslGenDim0", true).getBoolean(true);
 
+        //dimension blacklist
+        cfgDimBlackList = config.get("DimBlackList", "SlimeIslandDimBlacklist", new int[] {},"Add dimension ID's to prevent slime islands from generating in them").getIntList();
+        slimeIslGenDim0Only = config.get("DimBlackList", "GenerateSlimeIslandInDim0Only", false,"True: slime islands wont generate in any ages other than overworld(if enabled); False: will generate in all non-blackisted ages").getBoolean(false);
+        slimeIslGenDim0 = config.get("DimBlackList", "slimeIslGenDim0", true,"True: slime islands generate in overworld; False they do not generate").getBoolean(true);
+        genIslandsFlat = config.get("DimBlacklist", "genIslandsFlat", false, "Generate slime islands in flat worlds").getBoolean(false);
 
         //Experimental functionality
         throwableSmeltery = config.get("Experimental", "Items can be thrown into smelteries", true).getBoolean(true);
-        
+
         //Addon stuff
         isCleaverTwoHanded = config.get("Battlegear", "Can Cleavers have shields", true).getBoolean(true);
         isHatchetWeapon = config.get("Battlegear", "Are Hatches also weapons", true).getBoolean(true);
-        
+
         /* Save the configuration file */
         config.save();
 
@@ -385,7 +385,6 @@ public class PHConstruct
             Configuration gtConfig = new Configuration(gtDyn);
             gtConfig.load();
             gregtech = gtConfig.get("smelting", "tile.anvil.slightlyDamaged", false).getBoolean(false);
-            TConstruct.logger.severe("Gelatinous iceberg dead ahead! Entering Greggy waters! Abandon hope all ye who enter here! (No, seriously, we don't support GT. Don't report any issues. Thanks.)");
         }
     }
 
@@ -402,7 +401,7 @@ public class PHConstruct
     public static int searedTable;
     public static int castingChannel;
     public static int airTank;
-    
+
     public static int craftedSoil;
     public static int oreSlag;
     public static int oreGravel;
@@ -475,7 +474,7 @@ public class PHConstruct
     public static int slimeTallGrass;
     public static int slimeLeaves;
     public static int slimeSapling;
-    
+
     public static int slimeChannel;
     public static int slimePad;
 
@@ -703,12 +702,12 @@ public class PHConstruct
     public static boolean slimeIslGenDim0Only;
     public static int[] cfgDimBlackList;
     public static boolean slimeIslGenDim0;
+    public static boolean genIslandsFlat;
 
     //Experimental functionality
     public static boolean throwableSmeltery;
-    
-    
+
     //Addon stuff
     public static boolean isCleaverTwoHanded;
-	public static boolean isHatchetWeapon;
+    public static boolean isHatchetWeapon;
 }
