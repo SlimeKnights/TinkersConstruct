@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="resources"/>
+	<classpathentry kind="src" path="spritesheets"/>
+	<classpathentry kind="lib" path="TCore_dummy.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Minecraft"/>
+	<classpathentry kind="lib" path="/Minecraft/lib/CodeChickenCore-dev 0.9.0.7.jar"/>
+	<classpathentry kind="lib" path="/Minecraft/lib/ForgeMultipart-dev-1.6.4-1.0.0.182.jar"/>
+	<classpathentry kind="lib" path="/Minecraft/lib/NotEnoughItems-dev 1.6.1.5_d1.jar"/>
+	<classpathentry kind="lib" path="/Minecraft/jars/libraries/com/google/guava/guava/14.0/guava-14.0.jar" sourcepath="/Minecraft/jars/libraries/com/google/guava/guava/14.0/guava-14.0-sources.jar"/>
+	<classpathentry kind="lib" path="/Minecraft/jars/libraries/net/minecraft/launchwrapper/1.8/launchwrapper-1.8.jar"/>
+	<classpathentry kind="lib" path="/Minecraft/jars/libraries/org/lwjgl/lwjgl/lwjgl/2.9.0/lwjgl-2.9.0.jar" sourcepath="/Minecraft/jars/libraries/org/lwjgl/lwjgl/lwjgl/2.9.0/lwjgl-2.9.0-sources.jar"/>
+	<classpathentry kind="lib" path="/Minecraft/jars/libraries/org/ow2/asm/asm-debug-all/4.1/asm-debug-all-4.1.jar" sourcepath="/Minecraft/jars/libraries/org/ow2/asm/asm-debug-all/4.1/asm-debug-all-4.1-sources.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

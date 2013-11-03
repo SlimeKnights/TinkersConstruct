@@ -284,6 +284,7 @@ tile.trap.barricade.spruce.name=Spruce Barricade
 tile.trap.barricade.birch.name=Birch Barricade
 tile.trap.barricade.jungle.name=Jungle Barricade
 tile.extractor.essence.name=Essence Extractor
+tile.explosive.slime.name=SDX
 
 StorageMetals.Cobalt.name=Block of Cobalt
 StorageMetals.Ardite.name=Block of Ardite
