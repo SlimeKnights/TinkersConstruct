@@ -2204,77 +2204,65 @@ public class TContent implements IFuelHandler
         ArrayList<ItemStack> ores = OreDictionary.getOres("ingotNickel");
         if (ores.size() > 0)
         {
-            ItemStack ingot = ores.get(0);
-            tableCasting.addCastingRecipe(ingot, new FluidStack(moltenNickelFluid, TConstruct.ingotLiquidValue), ingotcast, 80);
+            tableCasting.addCastingRecipe(ores.get(0), new FluidStack(moltenNickelFluid, TConstruct.ingotLiquidValue), ingotcast, 80);
         }
         ores = OreDictionary.getOres("ingotLead");
         if (ores.size() > 0)
         {
-            ItemStack ingot = ores.get(0);
-            tableCasting.addCastingRecipe(ingot, new FluidStack(moltenLeadFluid, TConstruct.ingotLiquidValue), ingotcast, 80);
+            tableCasting.addCastingRecipe(ores.get(0), new FluidStack(moltenLeadFluid, TConstruct.ingotLiquidValue), ingotcast, 80);
         }
         ores = OreDictionary.getOres("ingotSilver");
         if (ores.size() > 0)
         {
-            ItemStack ingot = ores.get(0);
-            tableCasting.addCastingRecipe(ingot, new FluidStack(moltenSilverFluid, TConstruct.ingotLiquidValue), ingotcast, 80);
+            tableCasting.addCastingRecipe(ores.get(0), new FluidStack(moltenSilverFluid, TConstruct.ingotLiquidValue), ingotcast, 80);
         }
         ores = OreDictionary.getOres("ingotPlatinum");
         if (ores.size() > 0)
         {
-            ItemStack ingot = ores.get(0);
-            tableCasting.addCastingRecipe(ingot, new FluidStack(moltenShinyFluid, TConstruct.ingotLiquidValue), ingotcast, 80);
+            tableCasting.addCastingRecipe(ores.get(0), new FluidStack(moltenShinyFluid, TConstruct.ingotLiquidValue), ingotcast, 80);
         }
         ores = OreDictionary.getOres("ingotInvar");
         if (ores.size() > 0)
         {
-            ItemStack ingot = ores.get(0);
-            tableCasting.addCastingRecipe(ingot, new FluidStack(moltenInvarFluid, TConstruct.ingotLiquidValue), ingotcast, 80);
+            tableCasting.addCastingRecipe(ores.get(0), new FluidStack(moltenInvarFluid, TConstruct.ingotLiquidValue), ingotcast, 80);
             Smeltery.addAlloyMixing(new FluidStack(moltenInvarFluid, 24), new FluidStack(moltenIronFluid, 16), new FluidStack(moltenNickelFluid, 8)); //Invar
         }
         ores = OreDictionary.getOres("ingotElectrum");
         if (ores.size() > 0)
         {
-            ItemStack ingot = ores.get(0);
-            tableCasting.addCastingRecipe(ingot, new FluidStack(moltenElectrumFluid, TConstruct.ingotLiquidValue), ingotcast, 80);
+            tableCasting.addCastingRecipe(ores.get(0), new FluidStack(moltenElectrumFluid, TConstruct.ingotLiquidValue), ingotcast, 80);
             Smeltery.addAlloyMixing(new FluidStack(moltenElectrumFluid, 16), new FluidStack(moltenGoldFluid, 8), new FluidStack(moltenSilverFluid, 8)); //Electrum
         }
 
         ores = OreDictionary.getOres("blockNickel");
         if (ores.size() > 0)
         {
-            ItemStack ingot = ores.get(0);
-            basinCasting.addCastingRecipe(ingot, new FluidStack(moltenNickelFluid, TConstruct.ingotLiquidValue * 9), null, 100);
+            basinCasting.addCastingRecipe(ores.get(0), new FluidStack(moltenNickelFluid, TConstruct.blockLiquidValue), null, 100);
         }
         ores = OreDictionary.getOres("blockLead");
         if (ores.size() > 0)
         {
-            ItemStack ingot = ores.get(0);
-            basinCasting.addCastingRecipe(ingot, new FluidStack(moltenLeadFluid, TConstruct.ingotLiquidValue * 9), null, 100);
+            basinCasting.addCastingRecipe(ores.get(0), new FluidStack(moltenLeadFluid, TConstruct.blockLiquidValue), null, 100);
         }
         ores = OreDictionary.getOres("blockSilver");
         if (ores.size() > 0)
         {
-            ItemStack ingot = ores.get(0);
-            basinCasting.addCastingRecipe(ingot, new FluidStack(moltenSilverFluid, TConstruct.ingotLiquidValue * 9), null, 100);
+            basinCasting.addCastingRecipe(ores.get(0), new FluidStack(moltenSilverFluid, TConstruct.blockLiquidValue), null, 100);
         }
         ores = OreDictionary.getOres("blockPlatinum");
         if (ores.size() > 0)
         {
-            ItemStack ingot = ores.get(0);
-            basinCasting.addCastingRecipe(ingot, new FluidStack(moltenShinyFluid, TConstruct.ingotLiquidValue * 9), null, 100);
+            basinCasting.addCastingRecipe(ores.get(0), new FluidStack(moltenShinyFluid, TConstruct.blockLiquidValue), null, 100);
         }
         ores = OreDictionary.getOres("blockInvar");
         if (ores.size() > 0)
         {
-            ItemStack ingot = ores.get(0);
-            basinCasting.addCastingRecipe(ingot, new FluidStack(moltenInvarFluid, TConstruct.ingotLiquidValue * 9), null, 100);
+            basinCasting.addCastingRecipe(ores.get(0), new FluidStack(moltenInvarFluid, TConstruct.blockLiquidValue), null, 100);
         }
         ores = OreDictionary.getOres("blockElectrum");
         if (ores.size() > 0)
         {
-            ItemStack ingot = ores.get(0);
-            basinCasting.addCastingRecipe(ingot, new FluidStack(moltenElectrumFluid, TConstruct.ingotLiquidValue * 9), null, 100);
+            basinCasting.addCastingRecipe(ores.get(0), new FluidStack(moltenElectrumFluid, TConstruct.blockLiquidValue), null, 100);
         }
     }
 
