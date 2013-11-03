@@ -284,7 +284,6 @@ tile.trap.barricade.spruce.name=Spruce Barricade
 tile.trap.barricade.birch.name=Birch Barricade
 tile.trap.barricade.jungle.name=Jungle Barricade
 tile.extractor.essence.name=Essence Extractor
-tile.explosive.slime.name=SDX
 
 StorageMetals.Cobalt.name=Block of Cobalt
 StorageMetals.Ardite.name=Block of Ardite
@@ -439,6 +438,7 @@ tile.metal.molten.shiny.name=Molten Shiny
 tile.metal.molten.invar.name=Molten Invar
 tile.metal.molten.Electrum.name=Molten Electrum
 tile.fluid.ender.name=Liquified Ender
+tile.liquid.slime.name=Liquified Slime
 
 LiquidMetal.Iron.name=Molten Iron
 LiquidMetal.Gold.name=Molten Gold
@@ -563,3 +563,4 @@ fluid.platinum.molten=Molten Platinum
 fluid.invar=Molten Invar
 fluid.shiny=Molten Shiny
 fluid.ender=Liquid Ender
+fluid.slime.blue=Liquid Blueslime
