@@ -2,12 +2,11 @@ package tconstruct.items;
 
 import java.util.List;
 
-import tconstruct.common.TContent;
-import tconstruct.library.util.IToolPart;
-
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
+import tconstruct.common.TContent;
+import tconstruct.library.util.IToolPart;
 
 public class ToolPart extends CraftingItem implements IToolPart
 {
@@ -29,7 +28,7 @@ public class ToolPart extends CraftingItem implements IToolPart
         name = name.replaceAll("%%material", material);
 
         return name;
-    	
+
         /*StringBuilder builder = new StringBuilder();
         builder.append(StatCollector.translateToLocal("parttype." + toolTextureNames[par1ItemStack.getItemDamage()])).append(" ").append(StatCollector.translateToLocal("toolpart." + partName));
         return builder.toString();
@@ -64,9 +63,10 @@ public class ToolPart extends CraftingItem implements IToolPart
     public static final String[] toolTextureNames = new String[] { "wood", "stone", "iron", "flint", "cactus", "bone", "obsidian", "netherrack", "slime", "paper", "cobalt", "ardite", "manyullyn",
             "copper", "bronze", "alumite", "steel", "blueslime", "", "", "", "", "", "", "", "", "", "", "", "", "", "thaumium" };
 
+    @Override
     public void getSubItems (int id, CreativeTabs tab, List list)
     {
-        for (int i = 0; i < 17; i++)
+        for (int i = 0; i < 18; i++)
             list.add(new ItemStack(id, 1, i));
 
         if (TContent.thaumcraftAvailable)

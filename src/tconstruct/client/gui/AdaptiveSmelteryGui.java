@@ -509,4 +509,11 @@ public class AdaptiveSmelteryGui extends NewContainerGui
             }
         }
     }*/
+    
+    @Override
+    public void onGuiClosed ()
+    {
+        super.onGuiClosed();
+        logic.worldObj.markBlockForUpdate(logic.xCoord, logic.yCoord, logic.zCoord);
+    }
 }
