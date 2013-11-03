@@ -1700,7 +1700,12 @@ public class TContent implements IFuelHandler
         Smeltery.addMelting(FluidType.Iron, new ItemStack(Item.compass, 1, 0), 0, TConstruct.ingotLiquidValue * 4);
         Smeltery.addMelting(FluidType.Iron, new ItemStack(Item.bucketEmpty), 0, TConstruct.ingotLiquidValue * 3);
         Smeltery.addMelting(FluidType.Iron, new ItemStack(Item.minecartEmpty), 0, TConstruct.ingotLiquidValue * 5);
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(Item.minecartCrate), 0, TConstruct.ingotLiquidValue * 5);
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(Item.minecartPowered), 0, TConstruct.ingotLiquidValue * 5);
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(Item.minecartHopper), 50, TConstruct.ingotLiquidValue * 10);
         Smeltery.addMelting(FluidType.Iron, new ItemStack(Item.doorIron), 0, TConstruct.ingotLiquidValue * 6);
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(Item.cauldron), 0, TConstruct.ingotLiquidValue * 7);
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(Item.shears), 0, TConstruct.oreLiquidValue);
 
         //Blocks
         Smeltery.addMelting(FluidType.Obsidian, new ItemStack(Block.obsidian), 0, TConstruct.oreLiquidValue);
@@ -1733,6 +1738,7 @@ public class TContent implements IFuelHandler
         Smeltery.addMelting(FluidType.Iron, new ItemStack(Block.anvil, 1, 0), 200, TConstruct.ingotLiquidValue * 31);
         Smeltery.addMelting(FluidType.Iron, new ItemStack(Block.anvil, 1, 1), 200, TConstruct.ingotLiquidValue * 31);
         Smeltery.addMelting(FluidType.Iron, new ItemStack(Block.anvil, 1, 2), 200, TConstruct.ingotLiquidValue * 31);
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(Block.hopperBlock), 0, TConstruct.ingotLiquidValue * 5);
 
         Smeltery.addMelting(FluidType.Iron, new ItemStack(multiBrickFancy, 1, 4), 0, TConstruct.ingotLiquidValue);
         Smeltery.addMelting(FluidType.Gold, new ItemStack(multiBrickFancy, 1, 5), 0, TConstruct.ingotLiquidValue);
@@ -1982,7 +1988,7 @@ public class TContent implements IFuelHandler
 
     private void ensureOreIsRegistered (String oreName, ItemStack is)
     {
-        int oreId = OreDictionary.getOreID(oreName);
+        int oreId = OreDictionary.getOreID(is);
         if (oreId == -1)
         {
             OreDictionary.registerOre(oreName, is);
