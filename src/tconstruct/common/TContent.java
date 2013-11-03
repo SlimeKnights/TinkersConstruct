@@ -1656,43 +1656,37 @@ public class TContent implements IFuelHandler
     private void addRecipesForBasinCasting ()
     {
         LiquidCasting basinCasting = TConstructRegistry.getBasinCasting();
-        basinCasting.addCastingRecipe(new ItemStack(Block.blockIron), new FluidStack(moltenIronFluid, TConstruct.ingotLiquidValue * 9), null, true, 100); //Iron
-        basinCasting.addCastingRecipe(new ItemStack(Block.blockGold), new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 9), null, true, 100); //gold
-        basinCasting.addCastingRecipe(new ItemStack(metalBlock, 1, 3), new FluidStack(moltenCopperFluid, TConstruct.ingotLiquidValue * 9), null, true, 100); //copper
-        basinCasting.addCastingRecipe(new ItemStack(metalBlock, 1, 5), new FluidStack(moltenTinFluid, TConstruct.ingotLiquidValue * 9), null, true, 100); //tin
-        basinCasting.addCastingRecipe(new ItemStack(metalBlock, 1, 6), new FluidStack(moltenAluminumFluid, TConstruct.ingotLiquidValue * 9), null, true, 100); //aluminum
-        basinCasting.addCastingRecipe(new ItemStack(metalBlock, 1, 0), new FluidStack(moltenCobaltFluid, TConstruct.ingotLiquidValue * 9), null, true, 100); //cobalt
-        basinCasting.addCastingRecipe(new ItemStack(metalBlock, 1, 1), new FluidStack(moltenArditeFluid, TConstruct.ingotLiquidValue * 9), null, true, 100); //ardite
-        basinCasting.addCastingRecipe(new ItemStack(metalBlock, 1, 4), new FluidStack(moltenBronzeFluid, TConstruct.ingotLiquidValue * 9), null, true, 100); //bronze
-        basinCasting.addCastingRecipe(new ItemStack(metalBlock, 1, 7), new FluidStack(moltenAlubrassFluid, TConstruct.ingotLiquidValue * 9), null, true, 100); //albrass
-        basinCasting.addCastingRecipe(new ItemStack(metalBlock, 1, 2), new FluidStack(moltenManyullynFluid, TConstruct.ingotLiquidValue * 9), null, true, 100); //manyullyn
-        basinCasting.addCastingRecipe(new ItemStack(metalBlock, 1, 8), new FluidStack(moltenAlumiteFluid, TConstruct.ingotLiquidValue * 9), null, true, 100); //alumite
-        basinCasting.addCastingRecipe(new ItemStack(Block.obsidian), new FluidStack(moltenObsidianFluid, TConstruct.ingotLiquidValue * 2), null, true, 100);// obsidian
-        basinCasting.addCastingRecipe(new ItemStack(metalBlock, 1, 9), new FluidStack(moltenSteelFluid, TConstruct.ingotLiquidValue * 9), null, true, 100); //steel
+        // Block Casting
+        basinCasting.addCastingRecipe(new ItemStack(Block.blockIron), new FluidStack(moltenIronFluid, TConstruct.blockLiquidValue), null, true, 100); //Iron
+        basinCasting.addCastingRecipe(new ItemStack(Block.blockGold), new FluidStack(moltenGoldFluid, TConstruct.blockLiquidValue), null, true, 100); //gold
+        basinCasting.addCastingRecipe(new ItemStack(metalBlock, 1, 3), new FluidStack(moltenCopperFluid, TConstruct.blockLiquidValue), null, true, 100); //copper
+        basinCasting.addCastingRecipe(new ItemStack(metalBlock, 1, 5), new FluidStack(moltenTinFluid, TConstruct.blockLiquidValue), null, true, 100); //tin
+        basinCasting.addCastingRecipe(new ItemStack(metalBlock, 1, 6), new FluidStack(moltenAluminumFluid, TConstruct.blockLiquidValue), null, true, 100); //aluminum
+        basinCasting.addCastingRecipe(new ItemStack(metalBlock, 1, 0), new FluidStack(moltenCobaltFluid, TConstruct.blockLiquidValue), null, true, 100); //cobalt
+        basinCasting.addCastingRecipe(new ItemStack(metalBlock, 1, 1), new FluidStack(moltenArditeFluid, TConstruct.blockLiquidValue), null, true, 100); //ardite
+        basinCasting.addCastingRecipe(new ItemStack(metalBlock, 1, 4), new FluidStack(moltenBronzeFluid, TConstruct.blockLiquidValue), null, true, 100); //bronze
+        basinCasting.addCastingRecipe(new ItemStack(metalBlock, 1, 7), new FluidStack(moltenAlubrassFluid, TConstruct.blockLiquidValue), null, true, 100); //albrass
+        basinCasting.addCastingRecipe(new ItemStack(metalBlock, 1, 2), new FluidStack(moltenManyullynFluid, TConstruct.blockLiquidValue), null, true, 100); //manyullyn
+        basinCasting.addCastingRecipe(new ItemStack(metalBlock, 1, 8), new FluidStack(moltenAlumiteFluid, TConstruct.blockLiquidValue), null, true, 100); //alumite
+        basinCasting.addCastingRecipe(new ItemStack(Block.obsidian), new FluidStack(moltenObsidianFluid, TConstruct.oreLiquidValue), null, true, 100);// obsidian
+        basinCasting.addCastingRecipe(new ItemStack(metalBlock, 1, 9), new FluidStack(moltenSteelFluid, TConstruct.blockLiquidValue), null, true, 100); //steel
         basinCasting.addCastingRecipe(new ItemStack(clearGlass, 1, 0), new FluidStack(moltenGlassFluid, FluidContainerRegistry.BUCKET_VOLUME), null, true, 100); //glass
         basinCasting.addCastingRecipe(new ItemStack(smeltery, 1, 4), new FluidStack(moltenStoneFluid, TConstruct.ingotLiquidValue), null, true, 100); //seared stone
 
-        basinCasting.addCastingRecipe(new ItemStack(speedBlock, 1, 0), new FluidStack(moltenTinFluid, TConstruct.ingotLiquidValue / 9), new ItemStack(Block.gravel), true, 100); //brownstone
+        basinCasting.addCastingRecipe(new ItemStack(speedBlock, 1, 0), new FluidStack(moltenTinFluid, TConstruct.nuggetLiquidValue), new ItemStack(Block.gravel), true, 100); //brownstone
         basinCasting.addCastingRecipe(new ItemStack(Block.whiteStone), new FluidStack(moltenEnderFluid, 25), new ItemStack(Block.obsidian), true, 100); //endstone
-        basinCasting.addCastingRecipe(new ItemStack(metalBlock.blockID, 1, 10), new FluidStack(moltenEnderFluid, 1000), null, true, 100); //ender
+        basinCasting.addCastingRecipe(new ItemStack(metalBlock.blockID, 1, 10), new FluidStack(moltenEnderFluid, FluidContainerRegistry.BUCKET_VOLUME), null, true, 100); //ender
 
         //Armor casts
-        basinCasting.addCastingRecipe(new ItemStack(armorPattern, 1, 0), new FluidStack(moltenAlubrassFluid, TConstruct.ingotLiquidValue * 10), new ItemStack(helmetWood), 50,
-                new FluidRenderProperties(Applications.BASIN.minHeight, 0.65F, Applications.BASIN));
-        basinCasting.addCastingRecipe(new ItemStack(armorPattern, 1, 0), new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 10), new ItemStack(helmetWood), 50, new FluidRenderProperties(
-                Applications.BASIN.minHeight, 0.65F, Applications.BASIN));
-        basinCasting.addCastingRecipe(new ItemStack(armorPattern, 1, 1), new FluidStack(moltenAlubrassFluid, TConstruct.ingotLiquidValue * 10), new ItemStack(chestplateWood), 50,
-                new FluidRenderProperties(Applications.BASIN.minHeight, 0.65F, Applications.BASIN));
-        basinCasting.addCastingRecipe(new ItemStack(armorPattern, 1, 1), new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 10), new ItemStack(chestplateWood), 50,
-                new FluidRenderProperties(Applications.BASIN.minHeight, 0.65F, Applications.BASIN));
-        basinCasting.addCastingRecipe(new ItemStack(armorPattern, 1, 2), new FluidStack(moltenAlubrassFluid, TConstruct.ingotLiquidValue * 10), new ItemStack(leggingsWood), 50,
-                new FluidRenderProperties(Applications.BASIN.minHeight, 0.65F, Applications.BASIN));
-        basinCasting.addCastingRecipe(new ItemStack(armorPattern, 1, 2), new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 10), new ItemStack(leggingsWood), 50, new FluidRenderProperties(
-                Applications.BASIN.minHeight, 0.65F, Applications.BASIN));
-        basinCasting.addCastingRecipe(new ItemStack(armorPattern, 1, 3), new FluidStack(moltenAlubrassFluid, TConstruct.ingotLiquidValue * 10), new ItemStack(bootsWood), 50,
-                new FluidRenderProperties(Applications.BASIN.minHeight, 0.65F, Applications.BASIN));
-        basinCasting.addCastingRecipe(new ItemStack(armorPattern, 1, 3), new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 10), new ItemStack(bootsWood), 50, new FluidRenderProperties(
-                Applications.BASIN.minHeight, 0.65F, Applications.BASIN));
+        FluidRenderProperties frp = new FluidRenderProperties(Applications.BASIN.minHeight, 0.65F, Applications.BASIN);
+        FluidStack aluFlu = new FluidStack(moltenAlubrassFluid, TConstruct.ingotLiquidValue * 10);
+        FluidStack gloFlu = new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 10);
+        ItemStack[] armor = { new ItemStack(helmetWood), new ItemStack(chestplateWood), new ItemStack(leggingsWood), new ItemStack(bootsWood) };
+        for (int sc = 0; sc < armor.length; sc++)
+        {
+            basinCasting.addCastingRecipe(new ItemStack(armorPattern, 1, sc), aluFlu, armor[sc], 50, frp);
+            basinCasting.addCastingRecipe(new ItemStack(armorPattern, 1, sc), gloFlu, armor[sc], 50, frp);
+        }
     }
 
     private void addRecipesForSmeltery ()
