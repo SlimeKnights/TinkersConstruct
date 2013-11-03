@@ -1135,6 +1135,7 @@ public class TContent implements IFuelHandler
         Object[] toolForgeBlocks = { "blockIron", "blockGold", Block.blockDiamond, Block.blockEmerald, "blockCobalt", "blockArdite", "blockManyullyn", "blockCopper", "blockBronze", "blockTin",
                 "blockNaturalAluminum", "blockAluminumBrass", "blockAlumite", "blockSteel" };
 
+        // ToolForge Recipes (Metal Version)
         for (int sc = 0; sc < toolForgeBlocks.length; sc++)
         {
             GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(toolForge, 1, sc), "bbb", "msm", "m m", 'b', new ItemStack(smeltery, 1, 2), 's', new ItemStack(toolStationWood, 1, 0), 'm',
@@ -1144,72 +1145,76 @@ public class TContent implements IFuelHandler
                     toolForgeBlocks[sc]));
         }
 
+        // Drawbridge Recipes
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(redstoneMachine, 1, 0), "aca", "#d#", "#r#", '#', "ingotBronze", 'a', "ingotAluminumBrass", 'c', new ItemStack(blankPattern, 1, 1),
-                'r', new ItemStack(Item.redstone), 'd', new ItemStack(Block.dispenser))); //Drawbridge
+                'r', new ItemStack(Item.redstone), 'd', new ItemStack(Block.dispenser)));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(redstoneMachine, 1, 0), "aca", "#d#", "#r#", '#', "ingotBronze", 'a', "ingotAluminumBrass", 'c', new ItemStack(blankPattern, 1, 2),
                 'r', new ItemStack(Item.redstone), 'd', new ItemStack(Block.dispenser)));
 
+        // Igniter Recipes
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(redstoneMachine, 1, 1), "aca", "#d#", "#r#", '#', "ingotBronze", 'a', "ingotAluminumBrass", 'c', new ItemStack(largePlate, 1, 7), 'r',
-                new ItemStack(Item.redstone), 'd', new ItemStack(Item.flintAndSteel))); //Igniter
+                new ItemStack(Item.redstone), 'd', new ItemStack(Item.flintAndSteel)));
 
+        // Advanced Drawbridge Recipes
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(redstoneMachine, 1, 2), " c ", "rdr", " a ", 'a', "ingotAluminumBrass", 'c', new ItemStack(blankPattern, 1, 1), 'r', new ItemStack(
                 Item.redstone), 'd', new ItemStack(redstoneMachine, 1, 0)));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(redstoneMachine, 1, 2), " c ", "rdr", " a ", 'a', "ingotAluminumBrass", 'c', new ItemStack(blankPattern, 1, 2), 'r', new ItemStack(
                 Item.redstone), 'd', new ItemStack(redstoneMachine, 1, 0)));
 
-        /* Crafting */
+        // ToolStation Recipes (Wooden Version)
         GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 0), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', Block.workbench);
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(toolStationWood, 1, 0), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', "crafterWood"));
         GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 2), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(Block.wood, 1, 1));
         GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 3), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(Block.wood, 1, 2));
         GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 4), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(Block.wood, 1, 3));
         GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 5), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', Block.chest);
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(toolStationWood, 1, 1), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', "logWood"));
         if (PHConstruct.stencilTableCrafting)
         {
             GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 10), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(Block.planks, 1, 0));
             GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 11), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(Block.planks, 1, 1));
             GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 12), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(Block.planks, 1, 2));
             GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 13), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(Block.planks, 1, 3));
-        }
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(toolStationWood, 1, 1), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', "logWood"));
-        if (PHConstruct.stencilTableCrafting)
             GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(toolStationWood, 1, 10), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', "plankWood"));
-
+        }
+        // Blank Pattern Recipe
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(blankPattern, 1, 0), "ps", "sp", 'p', "plankWood", 's', "stickWood"));
+        // Manual Book Recipes
         GameRegistry.addRecipe(new ItemStack(manualBook), "wp", 'w', new ItemStack(blankPattern, 1, 0), 'p', Item.paper);
         GameRegistry.addShapelessRecipe(new ItemStack(manualBook, 2, 0), new ItemStack(manualBook, 1, 0), Item.book);
         GameRegistry.addShapelessRecipe(new ItemStack(manualBook, 1, 1), new ItemStack(manualBook, 1, 0));
         GameRegistry.addShapelessRecipe(new ItemStack(manualBook, 2, 1), new ItemStack(manualBook, 1, 1), Item.book);
         GameRegistry.addShapelessRecipe(new ItemStack(manualBook, 1, 2), new ItemStack(manualBook, 1, 1));
         GameRegistry.addShapelessRecipe(new ItemStack(manualBook, 2, 2), new ItemStack(manualBook, 1, 2), Item.book);
-
-        GameRegistry.addShapelessRecipe(new ItemStack(Item.book), Item.paper, Item.paper, Item.paper, Item.silk, blankPattern, blankPattern);//Vanilla books
-
-        GameRegistry.addRecipe(new ItemStack(materials, 1, 0), "pp", "pp", 'p', Item.paper); //Paper stack
-        OreDictionary.registerOre("stoneMossy", new ItemStack(Block.stoneBrick, 1, 1));
-        OreDictionary.registerOre("stoneMossy", new ItemStack(Block.cobblestoneMossy));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(materials, 1, 6), "ppp", "ppp", "ppp", 'p', "stoneMossy")); //Moss ball
-        GameRegistry.addRecipe(new ItemStack(materials, 1, 6), patBlock, '#', new ItemStack(Block.stoneBrick, 1, 1)); //Moss ball
-        GameRegistry.addRecipe(new ItemStack(materials, 1, 7), "xcx", "cbc", "xcx", 'b', Item.bucketLava, 'c', Item.fireballCharge, 'x', Item.blazeRod); //Auto-smelt
-        GameRegistry.addRecipe(new ItemStack(materials, 1, 7), "xcx", "cbc", "xcx", 'b', Item.bucketLava, 'x', Item.fireballCharge, 'c', Item.blazeRod); //Auto-smelt
-
-        GameRegistry.addShapelessRecipe(new ItemStack(craftedSoil, 1, 0), Item.slimeBall, Item.slimeBall, Item.slimeBall, Item.slimeBall, Block.sand, Block.dirt); //Slimy sand
-        GameRegistry.addShapelessRecipe(new ItemStack(craftedSoil, 1, 2), strangeFood, strangeFood, strangeFood, strangeFood, Block.sand, Block.dirt); //Slimy sand
-        GameRegistry.addShapelessRecipe(new ItemStack(craftedSoil, 2, 1), Item.clay, Block.sand, Block.gravel); //Grout
-        GameRegistry.addShapelessRecipe(new ItemStack(craftedSoil, 8, 1), Block.blockClay, Block.sand, Block.gravel, Block.sand, Block.gravel, Block.sand, Block.gravel, Block.sand, Block.gravel); //Grout
-        GameRegistry.addShapelessRecipe(new ItemStack(craftedSoil, 1, 3), Block.dirt, Item.rottenFlesh, new ItemStack(Item.dyePowder, 1, 15)); //Graveyard Soil
-        //GameRegistry.addRecipe(new ItemStack(oreSlag, 1, 0), "pp", "pp", 'p', new ItemStack(materials, 1, 2)); //Seared brick block
-
-        GameRegistry.addRecipe(new ItemStack(materials, 1, 25), patSurround, 'm', new ItemStack(materials, 1, 24), '#', new ItemStack(Item.silk)); //Silky Cloth
-        GameRegistry.addRecipe(new ItemStack(materials, 1, 25), patSurround, 'm', new ItemStack(Item.goldNugget), '#', new ItemStack(Item.silk));
-        GameRegistry.addRecipe(new ItemStack(materials, 1, 26), " c ", "cec", " c ", 'c', new ItemStack(materials, 1, 25), 'e', new ItemStack(Item.emerald)); //Silky Jewel
-
+        // alternativ Vanilla Book Recipe
+        GameRegistry.addShapelessRecipe(new ItemStack(Item.book), Item.paper, Item.paper, Item.paper, Item.silk, blankPattern, blankPattern);
+        // Paperstack Recipe
+        GameRegistry.addRecipe(new ItemStack(materials, 1, 0), "pp", "pp", 'p', Item.paper);
+        // Mossball Recipe
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(materials, 1, 6), patBlock, '#', "stoneMossy"));
+        // LavaCrystal Recipes -Auto-smelt
+        GameRegistry.addRecipe(new ItemStack(materials, 1, 7), "xcx", "cbc", "xcx", 'b', Item.bucketLava, 'c', Item.fireballCharge, 'x', Item.blazeRod);
+        GameRegistry.addRecipe(new ItemStack(materials, 1, 7), "xcx", "cbc", "xcx", 'b', Item.bucketLava, 'x', Item.fireballCharge, 'c', Item.blazeRod);
+        // Slimy sand Recipes
+        GameRegistry.addShapelessRecipe(new ItemStack(craftedSoil, 1, 0), Item.slimeBall, Item.slimeBall, Item.slimeBall, Item.slimeBall, Block.sand, Block.dirt);
+        GameRegistry.addShapelessRecipe(new ItemStack(craftedSoil, 1, 2), strangeFood, strangeFood, strangeFood, strangeFood, Block.sand, Block.dirt);
+        // Grout Recipes
+        GameRegistry.addShapelessRecipe(new ItemStack(craftedSoil, 2, 1), Item.clay, Block.sand, Block.gravel);
+        GameRegistry.addRecipe(new ItemStack(craftedSoil, 8, 1), "sgs", "gcg", "sgs", 'c', new ItemStack(Block.stainedClay, 1, Short.MAX_VALUE), 's', Block.sand, 'g', Block.gravel);
+        GameRegistry.addRecipe(new ItemStack(craftedSoil, 8, 1), "sgs", "gcg", "sgs", 'c', new ItemStack(Block.blockClay, 1, Short.MAX_VALUE), 's', Block.sand, 'g', Block.gravel);
+        // Graveyard Soil Recipes
+        GameRegistry.addShapelessRecipe(new ItemStack(craftedSoil, 1, 3), Block.dirt, Item.rottenFlesh, new ItemStack(Item.dyePowder, 1, 15));
+        // Silky Cloth Recipes
+        GameRegistry.addRecipe(new ItemStack(materials, 1, 25), patSurround, 'm', new ItemStack(materials, 1, 24), '#', new ItemStack(Item.silk));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(materials, 1, 25), patSurround, 'm', "nuggetGold", '#', new ItemStack(Item.silk)));
+        // Silky Jewel Recipes
+        GameRegistry.addRecipe(new ItemStack(materials, 1, 26), " c ", "cec", " c ", 'c', new ItemStack(materials, 1, 25), 'e', new ItemStack(Item.emerald));
+        // Wooden Armor Recipes
         GameRegistry.addRecipe(new ShapedOreRecipe(helmetWood, new Object[] { "www", "w w", 'w', "logWood" }));
         GameRegistry.addRecipe(new ShapedOreRecipe(chestplateWood, new Object[] { "w w", "www", "www", 'w', "logWood" }));
         GameRegistry.addRecipe(new ShapedOreRecipe(leggingsWood, new Object[] { "www", "w w", "w w", 'w', "logWood" }));
         GameRegistry.addRecipe(new ShapedOreRecipe(bootsWood, new Object[] { "w w", "w w", 'w', "logWood" }));
-
-        //Metal conversion
+        // Metal conversion Recipes
         GameRegistry.addRecipe(new ItemStack(materials, 9, 9), "m", 'm', new ItemStack(metalBlock, 1, 3)); //Copper
         GameRegistry.addRecipe(new ItemStack(materials, 9, 10), "m", 'm', new ItemStack(metalBlock, 1, 5)); //Tin
         GameRegistry.addRecipe(new ItemStack(materials, 9, 12), "m", 'm', new ItemStack(metalBlock, 1, 6)); //Aluminum
@@ -1247,7 +1252,7 @@ public class TContent implements IFuelHandler
         GameRegistry.addRecipe(new ItemStack(materials, 9, 32), "m", 'm', new ItemStack(materials, 1, 15)); //Alumite
         GameRegistry.addRecipe(new ItemStack(materials, 9, 33), "m", 'm', new ItemStack(materials, 1, 16)); //Steel 
 
-        //Dyes
+        // stained Glass Recipes
         String[] dyeTypes = { "dyeBlack", "dyeRed", "dyeGreen", "dyeBrown", "dyeBlue", "dyePurple", "dyeCyan", "dyeLightGray", "dyeGray", "dyePink", "dyeLime", "dyeYellow", "dyeLightBlue",
                 "dyeMagenta", "dyeOrange", "dyeWhite" };
         String color = "";
@@ -1265,52 +1270,52 @@ public class TContent implements IFuelHandler
             GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(stainedGlassClearPane, 1, i), color, new ItemStack(stainedGlassClearPane, 1, Short.MAX_VALUE)));
         }
 
-        //Glass
+        // Glass Recipes
         GameRegistry.addRecipe(new ItemStack(Item.glassBottle, 3), new Object[] { "# #", " # ", '#', clearGlass });
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Block.daylightSensor), new Object[] { "GGG", "QQQ", "WWW", 'G', "glass", 'Q', Item.netherQuartz, 'W', "slabWood" }));
         GameRegistry.addRecipe(new ItemStack(Block.beacon, 1), new Object[] { "GGG", "GSG", "OOO", 'G', clearGlass, 'S', Item.netherStar, 'O', Block.obsidian });
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(glassPane, 16, 0), "GGG", "GGG", 'G', clearGlass));
 
-        //Smeltery
+        // Smeltery Components Recipes
         ItemStack searedBrick = new ItemStack(materials, 1, 2);
         GameRegistry.addRecipe(new ItemStack(smeltery, 1, 0), "bbb", "b b", "bbb", 'b', searedBrick); //Controller
         GameRegistry.addRecipe(new ItemStack(smeltery, 1, 1), "b b", "b b", "b b", 'b', searedBrick); //Drain
         GameRegistry.addRecipe(new ItemStack(smeltery, 1, 2), "bb", "bb", 'b', searedBrick); //Bricks
-
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(lavaTank, 1, 0), "bbb", "bgb", "bbb", 'b', searedBrick, 'g', "glass")); //Tank
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(lavaTank, 1, 0), patSurround, '#', searedBrick, 'm', "glass")); //Tank
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(lavaTank, 1, 1), "bgb", "ggg", "bgb", 'b', searedBrick, 'g', "glass")); //Glass
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(lavaTank, 1, 2), "bgb", "bgb", "bgb", 'b', searedBrick, 'g', "glass")); //Window
-
         GameRegistry.addRecipe(new ItemStack(searedBlock, 1, 0), "bbb", "b b", "b b", 'b', searedBrick); //Table
         GameRegistry.addRecipe(new ItemStack(searedBlock, 1, 1), "b b", " b ", 'b', searedBrick); //Faucet
         GameRegistry.addRecipe(new ItemStack(searedBlock, 1, 2), "b b", "b b", "bbb", 'b', searedBrick); //Basin
-
         GameRegistry.addRecipe(new ItemStack(castingChannel, 4, 0), "b b", "bbb", 'b', searedBrick); //Channel
 
+        // Jack o'Latern Recipe - Stone Torch
         GameRegistry.addRecipe(new ItemStack(Block.pumpkinLantern, 1, 0), "p", "s", 'p', new ItemStack(Block.pumpkin), 'w', new ItemStack(stoneTorch));
+        // Stone Torch Recipe
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(stoneTorch, 4), "p", "w", 'p', new ItemStack(Item.coal, 1, Short.MAX_VALUE), 'w', "stoneRod"));
+        // Stone Ladder Recipe
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(stoneLadder, 3), "w w", "www", "w w", 'w', "stoneRod"));
+        // Wooden Rail Recipe
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(woodenRail, 4, 0), "b b", "bxb", "b b", 'b', "plankWood", 'x', "stickWood"));
+        // Stonesticks Recipes
         GameRegistry.addRecipe(new ItemStack(toolRod, 4, 1), "c", "c", 'c', new ItemStack(Block.stone));
         GameRegistry.addRecipe(new ItemStack(toolRod, 2, 1), "c", "c", 'c', new ItemStack(Block.cobblestone));
-
+        // 
         ItemStack aluBrass = new ItemStack(materials, 1, 14);
+        // Clock Recipe - Vanilla alternativ
         GameRegistry.addRecipe(new ItemStack(Item.pocketSundial), " i ", "iri", " i ", 'i', aluBrass, 'r', new ItemStack(Item.redstone));
+        // Gold Pressure Plate -  Vanilla alternativ
         GameRegistry.addRecipe(new ItemStack(Block.pressurePlateGold), "ii", 'i', aluBrass);
-
-        ItemStack necroticBone = new ItemStack(materials, 1, 8);
-
         //Accessories
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(heartCanister, 1, 0), "##", "##", '#', "ingotNaturalAluminum"));
         GameRegistry.addRecipe(new ItemStack(diamondApple), " d ", "d#d", " d ", 'd', new ItemStack(Item.diamond), '#', new ItemStack(Item.appleRed));
-        GameRegistry.addShapelessRecipe(new ItemStack(heartCanister, 1, 2), new ItemStack(diamondApple), necroticBone, new ItemStack(heartCanister, 1, 0), new ItemStack(heartCanister, 1, 1));
-        GameRegistry.addRecipe(new ItemStack(knapsack, 1, 0), "###", "rmr", "###", '#', new ItemStack(Item.leather), 'r', new ItemStack(toughRod, 1, 2), 'm', new ItemStack(Item.ingotGold));
-        GameRegistry.addRecipe(new ItemStack(knapsack, 1, 0), "###", "rmr", "###", '#', new ItemStack(Item.leather), 'r', new ItemStack(toughRod, 1, 2), 'm', new ItemStack(materials, 1, 14));
-
-        //Armor
+        GameRegistry.addShapelessRecipe(new ItemStack(heartCanister, 1, 2), new ItemStack(diamondApple), new ItemStack(materials, 1, 8), new ItemStack(heartCanister, 1, 0), new ItemStack(
+                heartCanister, 1, 1));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(knapsack, 1, 0), "###", "rmr", "###", '#', new ItemStack(Item.leather), 'r', new ItemStack(toughRod, 1, 2), 'm', "ingotGold"));
+        GameRegistry.addRecipe(new ItemStack(knapsack, 1, 0), "###", "rmr", "###", '#', new ItemStack(Item.leather), 'r', new ItemStack(toughRod, 1, 2), 'm', aluBrass);
+        // Drying Rack Recipes
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(dryingRack, 1, 0), "bbb", 'b', "slabWood"));
-
-        //Landmine
+        //Landmine Recipes
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(landmine, 1, 0), "mcm", "rpr", 'm', "plankWood", 'c', new ItemStack(blankPattern, 1, 1), 'r', Item.redstone, 'p',
                 Block.pressurePlateStone));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(landmine, 1, 1), "mcm", "rpr", 'm', Block.stone, 'c', new ItemStack(blankPattern, 1, 1), 'r', Item.redstone, 'p',
@@ -1319,6 +1324,7 @@ public class TContent implements IFuelHandler
                 Block.pressurePlateStone));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(landmine, 1, 3), "mcm", "rpr", 'm', Item.redstoneRepeater, 'c', new ItemStack(blankPattern, 1, 1), 'r', Item.redstone, 'p',
                 Block.pressurePlateStone));
+
         //Ultra hardcore recipes
         if (PHConstruct.goldAppleRecipe)
         {
@@ -1335,14 +1341,15 @@ public class TContent implements IFuelHandler
         }
         else
         {
-            GameRegistry.addRecipe(new ItemStack(goldHead), patSurround, '#', new ItemStack(Item.goldNugget), 'm', new ItemStack(Item.skull, 1, 3));
-            GameRegistry.addRecipe(new ItemStack(Item.appleGold), patSurround, '#', new ItemStack(oreBerries, 1, 1), 'm', new ItemStack(Item.appleRed));
-            GameRegistry.addRecipe(new ItemStack(Item.goldenCarrot), patSurround, '#', new ItemStack(oreBerries, 1, 1), 'm', new ItemStack(Item.carrot));
-            GameRegistry.addRecipe(new ItemStack(goldHead), patSurround, '#', new ItemStack(oreBerries, 1, 1), 'm', new ItemStack(Item.skull, 1, 3));
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(goldHead), patSurround, '#', "nuggetGold", 'm', new ItemStack(Item.skull, 1, 3)));
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Item.appleGold), patSurround, '#', "nuggetGold", 'm', new ItemStack(Item.appleRed)));
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Item.goldenCarrot), patSurround, '#', "nuggetGold", 'm', new ItemStack(Item.carrot)));
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Item.speckledMelon), patSurround, '#', "nuggetGold", new ItemStack(Item.melon)));
             TConstructRegistry.instance.getTableCasting().addCastingRecipe(new ItemStack(Item.appleGold, 1), new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue / 9 * 8),
                     new ItemStack(Item.appleRed), true, 50);
         }
-        //Slabs
+
+        // Slab Smeltery Components Recipes
         for (int i = 0; i < 7; i++)
         {
             GameRegistry.addRecipe(new ItemStack(speedSlab, 6, i), "bbb", 'b', new ItemStack(speedBlock, 1, i));
@@ -1356,7 +1363,7 @@ public class TContent implements IFuelHandler
         GameRegistry.addRecipe(new ItemStack(searedSlab, 6, 6), "bbb", 'b', new ItemStack(smeltery, 1, 10));
         GameRegistry.addRecipe(new ItemStack(searedSlab, 6, 7), "bbb", 'b', new ItemStack(smeltery, 1, 11));
 
-        // Wool Slabs
+        // Wool Slab Recipes
         for (int sc = 0; sc <= 7; sc++)
         {
             GameRegistry.addRecipe(new ItemStack(woolSlab1, 6, sc), "www", 'w', new ItemStack(Block.cloth, 1, sc));
@@ -1367,17 +1374,15 @@ public class TContent implements IFuelHandler
         }
         GameRegistry.addRecipe(new ItemStack(woolSlab1, 6, 0), "www", 'w', new ItemStack(Block.cloth, 1, Short.MAX_VALUE));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Block.cloth, 1, 0), "slabCloth", "slabCloth"));
-
-        //Traps
+        //Trap Recipes
         GameRegistry.addRecipe(new ItemStack(punji, 5, 0), "b b", " b ", "b b", 'b', new ItemStack(Item.reed));
         GameRegistry.addRecipe(new ItemStack(barricadeSpruce, 1, 0), "b", "b", 'b', new ItemStack(Block.wood, 1, 1));
         GameRegistry.addRecipe(new ItemStack(barricadeBirch, 1, 0), "b", "b", 'b', new ItemStack(Block.wood, 1, 2));
         GameRegistry.addRecipe(new ItemStack(barricadeJungle, 1, 0), "b", "b", 'b', new ItemStack(Block.wood, 1, 3));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(barricadeOak, 1, 0), "b", "b", 'b', "logWood"));
-
+        // Advanced WorkBench Recipes
         GameRegistry.addRecipe(new ItemStack(craftingStationWood, 1, 0), "b", 'b', new ItemStack(Block.workbench));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(craftingStationWood, 1, 0), "b", 'b', "crafterWood"));
-
         //Slab crafters
         GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 6, 0), "bbb", 'b', new ItemStack(Block.workbench));
         GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 0), "b", 'b', new ItemStack(craftingStationWood, 1, 0));
@@ -1392,10 +1397,9 @@ public class TContent implements IFuelHandler
         GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 3), "b", 'b', new ItemStack(toolStationWood, 1, 12));
         GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 3), "b", 'b', new ItemStack(toolStationWood, 1, 13));
         GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 5), "b", 'b', new ItemStack(toolForge, 1, Short.MAX_VALUE));
-
+        // EssenceExtractor Recipe
         GameRegistry.addRecipe(new ItemStack(essenceExtractor, 1, 0), " b ", "eme", "mmm", 'b', Item.book, 'e', Item.emerald, 'm', Block.whiteStone);
-
-        //Slime
+        //Slime Recipes
         GameRegistry.addRecipe(new ItemStack(slimeGel, 1, 0), "##", "##", '#', strangeFood);
         GameRegistry.addRecipe(new ItemStack(strangeFood, 4, 0), "#", '#', new ItemStack(slimeGel, 1, 0));
         GameRegistry.addRecipe(new ItemStack(slimeGel, 1, 1), "##", "##", '#', Item.slimeBall);
@@ -1940,11 +1944,17 @@ public class TContent implements IFuelHandler
         OreDictionary.registerOre("blockAluminumBrass", new ItemStack(metalBlock, 1, 7));
         OreDictionary.registerOre("blockAlumite", new ItemStack(metalBlock, 1, 8));
         OreDictionary.registerOre("blockSteel", new ItemStack(metalBlock, 1, 9));
+        OreDictionary.registerOre("blockIron", new ItemStack(Block.blockIron));
+        OreDictionary.registerOre("blockGold", new ItemStack(Block.blockGold));
 
         OreDictionary.registerOre("nuggetIron", new ItemStack(materials, 1, 19));
+        OreDictionary.registerOre("nuggetIron", new ItemStack(oreBerries, 1, 0));
         OreDictionary.registerOre("nuggetCopper", new ItemStack(materials, 1, 20));
+        OreDictionary.registerOre("nuggetCopper", new ItemStack(oreBerries, 1, 2));
         OreDictionary.registerOre("nuggetTin", new ItemStack(materials, 1, 21));
+        OreDictionary.registerOre("nuggetTin", new ItemStack(oreBerries, 1, 3));
         OreDictionary.registerOre("nuggetNaturalAluminum", new ItemStack(materials, 1, 22));
+        OreDictionary.registerOre("nuggetNaturalAluminum", new ItemStack(oreBerries, 1, 4));
         OreDictionary.registerOre("nuggetAluminumBrass", new ItemStack(materials, 1, 24));
         OreDictionary.registerOre("nuggetObsidian", new ItemStack(materials, 1, 27));
         OreDictionary.registerOre("nuggetCobalt", new ItemStack(materials, 1, 28));
@@ -1953,9 +1963,14 @@ public class TContent implements IFuelHandler
         OreDictionary.registerOre("nuggetBronze", new ItemStack(materials, 1, 31));
         OreDictionary.registerOre("nuggetAlumite", new ItemStack(materials, 1, 32));
         OreDictionary.registerOre("nuggetSteel", new ItemStack(materials, 1, 33));
+        OreDictionary.registerOre("nuggetGold", new ItemStack(oreBerries, 1, 1));
+        OreDictionary.registerOre("nuggetGold", new ItemStack(Item.goldNugget));
 
         OreDictionary.registerOre("slabCloth", new ItemStack(woolSlab1, 1, Short.MAX_VALUE));
         OreDictionary.registerOre("slabCloth", new ItemStack(woolSlab2, 1, Short.MAX_VALUE));
+
+        OreDictionary.registerOre("stoneMossy", new ItemStack(Block.stoneBrick, 1, 1));
+        OreDictionary.registerOre("stoneMossy", new ItemStack(Block.cobblestoneMossy));
 
         String[] matNames = { "wood", "stone", "iron", "flint", "cactus", "bone", "obsidian", "netherrack", "slime", "paper", "cobalt", "ardite", "manyullyn", "copper", "bronze", "alumite", "steel",
                 "blueslime" };
