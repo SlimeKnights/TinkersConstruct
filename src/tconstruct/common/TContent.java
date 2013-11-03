@@ -1625,6 +1625,7 @@ public class TContent implements IFuelHandler
         tableCasting.addCastingRecipe(fullguardCast, new FluidStack(moltenAlubrassFluid, TConstruct.ingotLiquidValue), new ItemStack(fullGuard, 1, Short.MAX_VALUE), false, 50);
         tableCasting.addCastingRecipe(fullguardCast, new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 2), new ItemStack(fullGuard, 1, Short.MAX_VALUE), false, 50);
 
+        // Golden Food Stuff
         FluidStack goldAmount = null;
         if (PHConstruct.goldAppleRecipe)
         {
@@ -1659,6 +1660,7 @@ public class TContent implements IFuelHandler
         basinCasting.addCastingRecipe(new ItemStack(metalBlock, 1, 9), new FluidStack(moltenSteelFluid, TConstruct.blockLiquidValue), null, true, 100); //steel
         basinCasting.addCastingRecipe(new ItemStack(clearGlass, 1, 0), new FluidStack(moltenGlassFluid, FluidContainerRegistry.BUCKET_VOLUME), null, true, 100); //glass
         basinCasting.addCastingRecipe(new ItemStack(smeltery, 1, 4), new FluidStack(moltenStoneFluid, TConstruct.ingotLiquidValue), null, true, 100); //seared stone
+        basinCasting.addCastingRecipe(new ItemStack(smeltery, 1, 5), new FluidStack(moltenStoneFluid, TConstruct.chunkLiquidValue), new ItemStack(Block.cobblestone), true, 100);
 
         basinCasting.addCastingRecipe(new ItemStack(speedBlock, 1, 0), new FluidStack(moltenTinFluid, TConstruct.nuggetLiquidValue), new ItemStack(Block.gravel), true, 100); //brownstone
         basinCasting.addCastingRecipe(new ItemStack(Block.whiteStone), new FluidStack(moltenEnderFluid, 25), new ItemStack(Block.obsidian), true, 100); //endstone
@@ -1707,6 +1709,7 @@ public class TContent implements IFuelHandler
         Smeltery.addMelting(FluidType.Water, new ItemStack(Block.snow), 0, 75);
         Smeltery.addMelting(FluidType.Stone, new ItemStack(Block.stone), 0, TConstruct.nuggetLiquidValue);
         Smeltery.addMelting(FluidType.Stone, new ItemStack(Block.cobblestone), 0, TConstruct.nuggetLiquidValue / 2);
+        Smeltery.addMelting(FluidType.Stone, new ItemStack(craftedSoil, 1, 1), -75, TConstruct.ingotLiquidValue);
 
         Smeltery.addMelting(FluidType.Glass, new ItemStack(Block.sand), 0, FluidContainerRegistry.BUCKET_VOLUME);
         Smeltery.addMelting(FluidType.Glass, new ItemStack(Block.glass), 0, FluidContainerRegistry.BUCKET_VOLUME);
@@ -1730,6 +1733,13 @@ public class TContent implements IFuelHandler
         Smeltery.addMelting(FluidType.Iron, new ItemStack(Block.anvil, 1, 0), 200, TConstruct.ingotLiquidValue * 31);
         Smeltery.addMelting(FluidType.Iron, new ItemStack(Block.anvil, 1, 1), 200, TConstruct.ingotLiquidValue * 31);
         Smeltery.addMelting(FluidType.Iron, new ItemStack(Block.anvil, 1, 2), 200, TConstruct.ingotLiquidValue * 31);
+
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(multiBrickFancy, 1, 4), 0, TConstruct.ingotLiquidValue);
+        Smeltery.addMelting(FluidType.Gold, new ItemStack(multiBrickFancy, 1, 5), 0, TConstruct.ingotLiquidValue);
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(multiBrick, 1, 4), 0, TConstruct.ingotLiquidValue);
+        Smeltery.addMelting(FluidType.Gold, new ItemStack(multiBrick, 1, 5), 0, TConstruct.ingotLiquidValue);
+        Smeltery.addMelting(FluidType.Obsidian, new ItemStack(multiBrickFancy, 1, 0), 0, TConstruct.oreLiquidValue);
+        Smeltery.addMelting(FluidType.Obsidian, new ItemStack(multiBrick, 1, 0), 0, TConstruct.oreLiquidValue);
 
         //Vanilla Armor
         Smeltery.addMelting(FluidType.Iron, new ItemStack(Item.helmetIron, 1, 0), 50, TConstruct.ingotLiquidValue * 5);
