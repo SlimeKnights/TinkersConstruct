@@ -2338,6 +2338,7 @@ public class TContent implements IFuelHandler
             // Ingots, Dust
             registerIngotCasting(ft);
             Smeltery.addDictionaryMelting("ingot" + ft.toString(), ft, -50, TConstruct.ingotLiquidValue);
+            registerPatternMaterial("ingot" + ft.toString(), 2, ft.toString());
             Smeltery.addDictionaryMelting("dust" + ft.toString(), ft, -75, TConstruct.ingotLiquidValue);
             // Factorization support
             Smeltery.addDictionaryMelting("crystalline" + ft.toString(), ft, -50, TConstruct.ingotLiquidValue);
@@ -2348,18 +2349,12 @@ public class TContent implements IFuelHandler
             Smeltery.addDictionaryMelting("oreNether" + ft.toString(), ft, 75, TConstruct.oreLiquidValue * 2);
             // Blocks
             Smeltery.addDictionaryMelting("block" + ft.toString(), ft, 100, TConstruct.blockLiquidValue);
+            registerPatternMaterial("block" + ft.toString(), 18, ft.toString());
         }
 
         registerPatternMaterial("plankWood", 2, "Wood");
         registerPatternMaterial("stickWood", 1, "Wood");
         registerPatternMaterial("slabWood", 1, "Wood");
-        registerPatternMaterial("ingotCopper", 2, "Copper");
-        registerPatternMaterial("ingotBronze", 2, "Bronze");
-        registerPatternMaterial("ingotCobalt", 2, "Cobalt");
-        registerPatternMaterial("ingotArdite", 2, "Ardite");
-        registerPatternMaterial("ingotManyullyn", 2, "Manyullyn");
-        registerPatternMaterial("ingotAlumite", 2, "Alumite");
-        registerPatternMaterial("ingotSteel", 2, "Steel");
     }
 
     private void registerPatternMaterial (String oreName, int value, String materialName)
