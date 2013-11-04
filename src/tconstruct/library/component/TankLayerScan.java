@@ -139,7 +139,7 @@ public class TankLayerScan extends LogicComponent
         }
     }
 
-    @SuppressWarnings({"unchecked"})
+    @SuppressWarnings({ "unchecked" })
     protected void finalizeStructure ()
     {
         Collections.sort(airCoords, new CoordTupleSort());
@@ -414,15 +414,10 @@ public class TankLayerScan extends LogicComponent
         }
     }
 
-    /* @Override
-     public void readFromNBT (NBTTagCompound tags)
-     {
-         super.readFromNBT(tags);
-     }*/
-
-    public void readNetworkNBT (NBTTagCompound tags)
+    @Override
+    public void readFromNBT (NBTTagCompound tags)
     {
-        completeStructure = tags.getBoolean("Complete");
+        super.readFromNBT(tags);
         NBTTagList layerAir = tags.getTagList("AirLayer");
         if (layerAir != null)
         {
@@ -461,18 +456,17 @@ public class TankLayerScan extends LogicComponent
                 airCoords.add(new CoordTuple(coord[0], coord[1], coord[2]));
             }
         }
-
     }
 
-    /*@Override
+    public void readNetworkNBT (NBTTagCompound tags)
+    {
+        completeStructure = tags.getBoolean("Complete");
+    }
+
+    @Override
     public void writeToNBT (NBTTagCompound tags)
     {
         super.writeToNBT(tags);
-    }*/
-
-    public void writeNetworkNBT (NBTTagCompound tags)
-    {
-        tags.setBoolean("Complete", completeStructure);
         NBTTagList layerAir = new NBTTagList();
         for (CoordTuple coord : layerAirCoords)
         {
@@ -493,5 +487,10 @@ public class TankLayerScan extends LogicComponent
             air.appendTag(new NBTTagIntArray("coord", new int[] { coord.x, coord.y, coord.z }));
         }
         tags.setTag("Air", air);
+    }
+
+    public void writeNetworkNBT (NBTTagCompound tags)
+    {
+        tags.setBoolean("Complete", completeStructure);
     }
 }

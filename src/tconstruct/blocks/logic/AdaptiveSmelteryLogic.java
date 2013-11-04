@@ -63,39 +63,42 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
         if (tick % 4 == 0)
             smeltery.heatItems();
 
-        if (tick % 20 == 0)
+        if (!worldObj.isRemote)
         {
-            if (structure.isComplete())
-                smeltery.update();
-
-            if (updateFluids)
+            if (tick % 20 == 0)
             {
-                distributeFluids();
-                updateFluids = false;
-            }
-
-            if (updateAir)
-            {
-                updateAir();
-                updateAir = false;
-            }
-        }
-
-        if (tick >= 60)
-        {
-            if (!structure.isComplete())
-            {
-                structure.checkValidStructure();
                 if (structure.isComplete())
+                    smeltery.update();
+
+                if (updateFluids)
                 {
-                    validateSmeltery();
+                    distributeFluids();
+                    updateFluids = false;
+                }
+
+                if (updateAir)
+                {
+                    updateAir();
+                    updateAir = false;
                 }
             }
-            tick = 0;
+
+            if (tick >= 60)
+            {
+                if (!structure.isComplete())
+                {
+                    structure.checkValidStructure();
+                    if (structure.isComplete())
+                    {
+                        validateSmeltery();
+                    }
+                }
+                tick = 0;
+            }
+
+            if (airUpdates.size() > 0)
+                updateFluidBlocks();
         }
-        
-        if (airUpdates.size() > 0)
-            updateFluidBlocks();
     }
 
     public void setUpdateFluids ()
@@ -383,8 +386,8 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
 
         //Distribute liquids to each block
     }
-    
-    protected void updateFluidBlocks()
+
+    protected void updateFluidBlocks ()
     {
         Iterator iter = airUpdates.entrySet().iterator();
         byte count = 0;
