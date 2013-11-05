@@ -25,6 +25,8 @@ CraftedSoil.BlueSlime.name=黏滑蓝泥泞
 CraftedSoil.GraveyardSoil.name=黄泉土
 CraftedSoil.ConsecratedSoil.name=神圣土
 tile.CastingChannel.name=浇注道
+tile.slime.channel.name=史莱姆通道
+tile.slime.pad.name=弹跳板
 
 MetalOre.NetherSlag.name=下界岩碎渣
 MetalOre.Cobalt.name=钴矿石
@@ -96,6 +98,8 @@ block.fancybrick.obsidian.ingot.name=平滑黑曜石锭砖
 block.fancybrick.stone.road.name=铺路石
 block.fancybrick.stone.name=平滑石砖
 
+tile.rail.wood.name=木轨
+
 tile.cloth.white.slab.name=羊毛台阶
 tile.cloth.orange.slab.name=橙色羊毛台阶
 tile.cloth.magenta.slab.name=品红色羊毛台阶
@@ -113,12 +117,12 @@ tile.cloth.green.slab.name=绿色羊毛台阶
 tile.cloth.red.slab.name=红色羊毛台阶
 tile.cloth.black.slab.name=黑色羊毛台阶
 
-lock.oreberry.iron.name=铁矿莓丛
-block.oreberry.gold.name=金矿莓丛
-block.oreberry.copper.name=铜矿莓丛
-block.oreberry.tin.name=锡矿莓丛
-block.oreberry.aluminum.name=铝矿莓丛
-block.oreberry.essence.name=精华莓丛
+item.oreberry.iron.name=铁矿莓
+item.oreberry.gold.name=金矿莓
+item.oreberry.copper.name=锡矿莓
+item.oreberry.tin.name=锡矿莓
+item.oreberry.aluminum.name=铝矿莓
+item.oreberry.essence.name=精华莓
 
 item.goldenhead.name=黄金头颅
 item.tconstruct.titleicon.name=生成 
@@ -143,14 +147,67 @@ item.InfiTool.Cutlass.name=弯刀
 item.InfiTool.Shortbow.name=短弓
 item.InfiTool.Arrow.name=箭矢
 item.InfiTool.PotionLauncher.name=毒镖发射器
+item.InfiTool.Mattock.name=鹤嘴锄
 
 item.tconstruct.Pattern.blank_pattern.name=空白模具
+item.tconstruct.Pattern.rod.name=手柄模具
+item.tconstruct.Pattern.pickaxe.name=镐头模具
+item.tconstruct.Pattern.shovel.name=铲头模具
+item.tconstruct.Pattern.axe.name=斧刃模具
+item.tconstruct.Pattern.swordblade.name=剑刃模具
+item.tconstruct.Pattern.largeguard.name=大型护手模具
+item.tconstruct.Pattern.mediumguard.name=中型护手模具
+item.tconstruct.Pattern.crossbar.name=十字柄模具
+item.tconstruct.Pattern.binding.name=绑定结模具
+item.tconstruct.Pattern.frypan.name=盘模具
+item.tconstruct.Pattern.sign.name=牌板模具
+item.tconstruct.Pattern.knifeblade.name=刀刃模具
+item.tconstruct.Pattern.chisel.name=凿刃模具
+item.tconstruct.Pattern.largerod.name=坚韧手柄模具
+item.tconstruct.Pattern.toughbinding.name=坚韧绑定结模具
+item.tconstruct.Pattern.largeplate.name=大板模具
+item.tconstruct.Pattern.broadaxe.name=宽斧刃模具
+item.tconstruct.Pattern.scythe.name=镰刀刀刃模具
+item.tconstruct.Pattern.excavator.name=挖掘工具刃部模具
+item.tconstruct.Pattern.largeblade.name=大剑刃模具
+item.tconstruct.Pattern.hammerhead.name=锤子头模具
+item.tconstruct.Pattern.fullguard.name=宽护手模具
+item.tconstruct.Pattern.bowstring.name=弓弦模具
+item.tconstruct.Pattern.fletching.name=箭羽模具
+item.tconstruct.Pattern.arrowhead.name=箭头模具
+
 item.tconstruct.Pattern.blank_cast.name=空白铸形
+item.tconstruct.MetalPattern.rod.name=手柄铸形
+item.tconstruct.MetalPattern.pickaxe.name=镐头铸形
+item.tconstruct.MetalPattern.shovel.name=铲头铸形
+item.tconstruct.MetalPattern.axe.name=斧刃铸形
+item.tconstruct.MetalPattern.swordblade.name=剑刃铸形
+item.tconstruct.MetalPattern.largeguard.name=大型护手铸形
+item.tconstruct.MetalPattern.mediumguard.name=中型护手铸形
+item.tconstruct.MetalPattern.crossbar.name=十字柄铸形
+item.tconstruct.MetalPattern.binding.name=绑定结铸形
+item.tconstruct.MetalPattern.frypan.name=盘铸形
+item.tconstruct.MetalPattern.sign.name=牌板铸形
+item.tconstruct.MetalPattern.knifeblade.name=刀刃铸形
+item.tconstruct.MetalPattern.chisel.name=凿刃铸形
+item.tconstruct.MetalPattern.largerod.name=坚韧手柄铸形
+item.tconstruct.MetalPattern.toughbinding.name=坚韧绑定结铸形
+item.tconstruct.MetalPattern.largeplate.name=大板铸形
+item.tconstruct.MetalPattern.broadaxe.name=宽斧刃铸形
+item.tconstruct.MetalPattern.scythe.name=镰刀刀刃铸形
+item.tconstruct.MetalPattern.excavator.name=挖掘工具刃部铸形
+item.tconstruct.MetalPattern.largeblade.name=大剑刃铸形
+item.tconstruct.MetalPattern.hammerhead.name=锤子头铸形
+item.tconstruct.MetalPattern.fullguard.name=宽护手铸形
+item.tconstruct.MetalPattern.bowstring.name=弓弦铸形
+item.tconstruct.MetalPattern.fletching.name=箭羽铸形
+item.tconstruct.MetalPattern.arrowhead.name=箭头铸形
+item.tconstruct.MetalPattern.ingot.name=锭铸形
 
 item.tconstruct.Materials.PaperStack.name=纸叠
 item.tconstruct.Materials.SlimeCrystal.name=粘液球水晶
 item.tconstruct.Materials.SearedBrick.name=焦黑砖
-item.tconstruct.Materials.CobaltIngot.name=钴锭t
+item.tconstruct.Materials.CobaltIngot.name=钴锭
 item.tconstruct.Materials.ArditeIngot.name=阿迪特锭
 item.tconstruct.Materials.ManyullynIngot.name=玛玉灵锭
 item.tconstruct.Materials.Mossball.name=苔藓球
@@ -182,6 +239,23 @@ item.tconstruct.Materials.BronzeNugget.name=青铜粒
 item.tconstruct.Materials.AlumiteNugget.name=耐酸铝粒
 item.tconstruct.Materials.SteelNugget.name=钢粒
 
+item.tconstruct.ArmorPattern.helmet.name=头盔铸形
+item.tconstruct.ArmorPattern.chestplate.name=胸甲铸形
+item.tconstruct.ArmorPattern.leggings.name=护腿铸形
+item.tconstruct.ArmorPattern.boots.name=靴子铸形
+
+item.tconstruct.helmetWood.name=木头盔
+item.tconstruct.chestplateWood.name=木胸甲
+item.tconstruct.leggingsWood.name=木护腿
+item.tconstruct.bootsWood.name=木靴子
+
+item.tconstruct.jerky.beef.name=牛肉干
+item.tconstruct.jerky.pig.name=猪肉干
+item.tconstruct.jerky.chicken.name=鸡肉干
+item.tconstruct.jerky.sheep.name=羊肉干
+item.tconstruct.jerky.fish.name=鱼干
+item.tconstruct.jerky.zombie.name=怪物肉干
+
 item.tconstruct.crystal.essence.name=精华水晶
 
 Smeltery.Controller.name=冶炼厂填料仓
@@ -203,6 +277,7 @@ LavaTank.Window.name=冶炼炉视窗
 
 block.drawbridge.name=造桥器
 block.firestarter.name=点火器
+block.advdrawbridge.name=高级造桥器
 tile.landmine.name=地雷
 
 tile.trap.punji.name=铁蒺藜
@@ -211,6 +286,7 @@ tile.trap.barricade.spruce.name=云杉篱笆
 tile.trap.barricade.birch.name=白桦篱笆
 tile.trap.barricade.jungle.name=丛林篱笆
 tile.extractor.essence.name=精华萃取机
+tile.explosive.slime.name=SDX粘性炸药
 
 StorageMetals.Cobalt.name=钴方块
 StorageMetals.Ardite.name=阿迪特方块
@@ -225,6 +301,7 @@ StorageMetals.Steel.name=钢方块
 StorageMetals.Ender.name=末影块
 
 tile.decoration.stonetorch.name=石柄火把
+tile.decoration.stoneladder.name=石头梯子
 tile.CraftingStation.name=合成站
 
 block.glass.pure.name=澄澈玻璃
@@ -364,6 +441,7 @@ tile.metal.molten.Shiny.name=液态铂
 tile.metal.molten.Invar.name=液态因瓦合金
 tile.metal.molten.Electrum.name=液态琥珀金
 tile.metal.molten.Ender.name=液态末影珍珠
+tile.liquid.slime.name=液态史莱姆
 
 LiquidMetal.Iron.name=液态铁
 LiquidMetal.Gold.name=液态金
@@ -403,8 +481,8 @@ SearedBlock.Basin.name=铸造盆
 
 entity.TConstruct.EdibleSlime.name=蓝色史莱姆
 entity.TConstruct.KingSlime.name=史莱姆王
-entity.TConstruct.Gardeslime.name=Gardeslime 
-entity.TConstruct.MiniGardy.name=史莱姆护卫 
+entity.TConstruct.Gardeslime.name=史莱姆护卫
+entity.TConstruct.MiniGardy.name=迷你史莱姆护卫 
 
 key.tarmor=装备界面
 key.tcapes.reload=重载披风
@@ -413,6 +491,9 @@ death.one.smeltery=%1$s被加工成了"绿色食品"!
 death.two.smeltery=%1$s被冶炼炉融化了!
 death.three.smeltery=%1$s将成为我们革命的垫脚石!
 death.four.smeltery=%1$s认为在炽热的液体中游泳是个不错的注意!
+
+death.attack.Landmine=%1$s眼睁睁看着他们的腿被地雷炸飞! 
+death.attack.FireworkExplode=%1$s在意外的烟火爆炸中炸得四分五裂!
 
 parttype.wood=木
 parttype.stone=石
@@ -434,31 +515,32 @@ parttype.steel=钢
 parttype.blueslime=史莱姆
 parttype.thaumium=神秘
 
-toolpart.ToolRod=手柄
-toolpart.PickHead=镐头
-toolpart.ShovelHead=铲头
-toolpart.AxeHead=斧刃
-toolpart.Binding=绑定结
-toolpart.ToughBind=坚韧绑定结
-toolpart.ToughRod=坚韧手柄
-toolpart.LargePlate=大板
-toolpart.SwordBlade=剑刃
-toolpart.LargeGuard=大型护手
-toolpart.MediumGuard=中型护手
-toolpart.Crossbar=十字柄
-toolpart.KnifeBlade=刀刃
-toolpart.FullGuard=宽护手
-toolpart.FrypanHead=盘
-toolpart.SignHead=牌板
-toolpart.ChiselHead=凿刃
-toolpart.ScytheHead=镰刀刀刃
-toolpart.LumberHead=宽斧刃
-toolpart.ExcavatorHead=挖掘工具刃部
-toolpart.LargeSwordBlade=大剑r刃
-toolpart.HammerHead=锤子头
-toolpart.Bowstring=弓弦
-toolpart.ArrowHead=箭头
-toolpart.Fletching=箭羽
+toolpart.ToolRod=%%手柄
+toolpart.PickHead=%%镐头
+toolpart.ShovelHead=%%铲头
+toolpart.AxeHead=%%斧刃
+toolpart.Binding=%%绑定结
+toolpart.ToughBind=%%坚韧绑定结
+toolpart.ToughRod=%%坚韧手柄
+toolpart.LargePlate=%%大板
+toolpart.SwordBlade=%%剑刃
+toolpart.LargeGuard=%%大型护手
+toolpart.MediumGuard=%%中型护手
+toolpart.Crossbar=%%十字柄
+toolpart.KnifeBlade=%%刀刃
+toolpart.FullGuard=%%宽护手
+toolpart.FrypanHead=%%盘
+toolpart.SignHead=%%牌板
+toolpart.ChiselHead=%%凿刃
+toolpart.ScytheHead=%%镰刀刀刃
+toolpart.LumberHead=%%宽斧刃
+toolpart.ExcavatorHead=%%挖掘工具刃部
+toolpart.ToolShard=%%碎片
+toolpart.LargeSwordBlade=%%大剑刃
+toolpart.HammerHead=%%锤子头
+toolpart.Bowstring=%%弓弦
+toolpart.ArrowHead=%%箭头
+toolpart.Fletching=%%箭羽
 
 fluid.iron.molten=液态铁
 fluid.gold.molten=液态金
@@ -484,3 +566,4 @@ fluid.platinum.molten=液态铂
 fluid.invar=液态因瓦合金
 fluid.shiny=液态琥珀金
 fluid.ender=液态末影珍珠
+fluid.slime.blue=液态史莱姆
