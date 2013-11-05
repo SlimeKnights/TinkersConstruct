@@ -1,16 +1,15 @@
 package tconstruct.items;
 
-import java.util.List;
+import cpw.mods.fml.relauncher.*;
 
-import tconstruct.library.TConstructRegistry;
-import tconstruct.library.crafting.PatternBuilder.MaterialSet;
-import tconstruct.library.util.IPattern;
+import java.util.List;
 
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import tconstruct.library.TConstructRegistry;
+import tconstruct.library.crafting.PatternBuilder.MaterialSet;
+import tconstruct.library.util.IPattern;
 
 public class Pattern extends CraftingItem implements IPattern
 {
@@ -34,6 +33,7 @@ public class Pattern extends CraftingItem implements IPattern
     private static final String[] patternName = new String[] { "ingot", "rod", "pickaxe", "shovel", "axe", "swordblade", "largeguard", "mediumguard", "crossbar", "binding", "frypan", "sign",
             "knifeblade", "chisel", "largerod", "toughbinding", "largeplate", "broadaxe", "scythe", "excavator", "largeblade", "hammerhead", "fullguard", "bowstring", "fletching", "arrowhead" };
 
+    @Override
     public void getSubItems (int id, CreativeTabs tab, List list)
     {
         for (int i = 1; i < patternName.length; i++)
@@ -43,11 +43,15 @@ public class Pattern extends CraftingItem implements IPattern
         }
     }
 
+    @Override
     public ItemStack getContainerItemStack (ItemStack stack)
     {
+        if (stack.stackSize <= 0)
+            return null;
         return stack;
     }
 
+    @Override
     public boolean doesContainerItemLeaveCraftingGrid (ItemStack stack)
     {
         return false;
