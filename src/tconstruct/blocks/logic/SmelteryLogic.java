@@ -1062,7 +1062,8 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         {
             NBTTagCompound nbt = (NBTTagCompound) liquidTag.tagAt(iter);
             FluidStack fluid = FluidStack.loadFluidStackFromNBT(nbt);
-            moltenMetal.add(fluid);
+            if (fluid != null)
+                moltenMetal.add(fluid);
         }
         //adjustLayers(layers, true);
         //checkValidPlacement();

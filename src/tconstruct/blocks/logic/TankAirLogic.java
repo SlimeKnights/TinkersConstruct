@@ -33,8 +33,8 @@ public class TankAirLogic extends InventoryLogic implements IServantLogic, ISide
     
     public void overrideFluids(ArrayList<FluidStack> fluids)
     {
-        multitank.overrideFluids(fluids);
-        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+        /*multitank.overrideFluids(fluids);
+        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);*/
     }
     
     public boolean hasItem()
@@ -55,13 +55,13 @@ public class TankAirLogic extends InventoryLogic implements IServantLogic, ISide
     @Override
     public void setInventorySlotContents (int slot, ItemStack itemstack)
     {
-        inventory[slot] = itemstack;
+        /*inventory[slot] = itemstack;
         if (itemstack != null && itemstack.stackSize > getInventoryStackLimit())
         {
             itemstack.stackSize = getInventoryStackLimit();
             worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, itemstack.getItemDamage(), 3);
             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-        }
+        }*/
     }
 
     @Override

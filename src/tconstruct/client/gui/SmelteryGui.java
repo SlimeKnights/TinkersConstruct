@@ -281,12 +281,23 @@ public class SmelteryGui extends NewContainerGui
         }
         else
         {
-            String name = StatCollector.translateToLocal(FluidRegistry.getFluidName(liquid));
+            String name = StatCollector.translateToLocal("fluid."+FluidRegistry.getFluidName(liquid));
             list.add("\u00A7f" + name);
-            if (name.equals("liquified emerald"))
+            if (name.equals("Liquified Emerald"))
             {
                 float emeralds = liquid.amount / 320f;
                 list.add("Emeralds: " + emeralds);
+            }
+            else if (name.equals("Molten Glass"))
+            {
+                int ingots = liquid.amount / 1000;
+                if (ingots > 0)
+                    list.add("Blocks: " + ingots);
+                int mB = liquid.amount % 144;
+                if (mB > 0)
+                {
+                    list.add("mB: " + mB);
+                }
             }
             else if (name.contains("Molten"))
             {
@@ -307,17 +318,6 @@ public class SmelteryGui extends NewContainerGui
             else if (name.equals("Seared Stone"))
             {
                 int ingots = liquid.amount / 144;
-                if (ingots > 0)
-                    list.add("Blocks: " + ingots);
-                int mB = liquid.amount % 144;
-                if (mB > 0)
-                {
-                    list.add("mB: " + mB);
-                }
-            }
-            else if (name.equals("Molten Glass"))
-            {
-                int ingots = liquid.amount / 1000;
                 if (ingots > 0)
                     list.add("Blocks: " + ingots);
                 int mB = liquid.amount % 144;

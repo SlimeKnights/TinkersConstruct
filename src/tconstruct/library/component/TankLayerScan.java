@@ -18,6 +18,7 @@ public class TankLayerScan extends LogicComponent
 
     protected int bricks = 0;
     protected int airBlocks = 0;
+    protected int structureTop = 0;
     protected HashSet<CoordTuple> layerBlockCoords = new HashSet<CoordTuple>();
     protected HashSet<CoordTuple> layerAirCoords = new HashSet<CoordTuple>();
 
@@ -126,7 +127,7 @@ public class TankLayerScan extends LogicComponent
                 if (lowY != -1)
                 {
                     completeStructure = true;
-                    recurseStructureUp(master.yCoord + 1);
+                    structureTop = recurseStructureUp(master.yCoord + 1);
                     finalizeStructure();
 
                     if (!world.isRemote && debug)
@@ -139,9 +140,10 @@ public class TankLayerScan extends LogicComponent
         }
     }
 
-    @SuppressWarnings({ "unchecked" })
+    //@SuppressWarnings({ "unchecked" })
     protected void finalizeStructure ()
     {
+        Collections.sort(blockCoords, new CoordTupleSort());
         Collections.sort(airCoords, new CoordTupleSort());
 
         for (CoordTuple coord : blockCoords)
@@ -344,7 +346,7 @@ public class TankLayerScan extends LogicComponent
         return -1;
     }
 
-    public void recurseStructureUp (int y)
+    public int recurseStructureUp (int y)
     {
         Iterator i = layerBlockCoords.iterator();
         if (i.hasNext())
@@ -391,12 +393,81 @@ public class TankLayerScan extends LogicComponent
                     recurseStructureUp(y + 1);
             }
         }
+        return y - 1;
     }
 
     protected void addAirBlock (int x, int y, int z)
     {
         airBlocks++;
         airCoords.add(new CoordTuple(x, y, z));
+    }
+
+    /* Checking for valid structures */
+
+    public void recheckStructure ()
+    {
+        System.out.println("Rechecking structure");
+        int height = -1;
+        for (CoordTuple coord : blockCoords)
+        {
+            TileEntity servant = world.getBlockTileEntity(coord.x, coord.y, coord.z);
+            boolean canPass = false;
+            if (servant instanceof IServantLogic)
+            {
+                canPass = ((IServantLogic) servant).verifyMaster(imaster, world, master.xCoord, master.yCoord, master.zCoord);
+                if (canPass)
+                    continue;
+            }
+            if (!canPass)
+            {
+                System.out.println("Coord: "+coord);
+                height = coord.y;
+                break;
+            }
+        }
+
+        if (height != -1)
+        {
+            if (height <= master.yCoord)
+                invalidateStructure();
+            else
+                invalidateBlocksAbove(height);
+        }
+        else
+        {
+            if (structureTop == 0) //Workaround for missing data
+            {
+                for (CoordTuple coord : blockCoords)
+                    structureTop = coord.y;
+            }
+            structureTop = recurseStructureUp(structureTop + 1);
+            finalizeStructure();
+        }
+    }
+
+    protected void invalidateStructure ()
+    {
+        completeStructure = false;
+        for (CoordTuple coord : blockCoords)
+        {
+            TileEntity servant = world.getBlockTileEntity(coord.x, coord.y, coord.z);
+            if (servant instanceof IServantLogic)
+                ((IServantLogic) servant).invalidateMaster(imaster, world, master.xCoord, master.yCoord, master.zCoord);
+        }
+        master.worldObj.markBlockForUpdate(master.xCoord, master.yCoord, master.zCoord);
+    }
+
+    protected void invalidateBlocksAbove (int height)
+    {
+        for (CoordTuple coord : blockCoords)
+        {
+            if (coord.y < height)
+                continue;
+
+            TileEntity servant = world.getBlockTileEntity(coord.x, coord.y, coord.z);
+            if (servant instanceof IServantLogic)
+                ((IServantLogic) servant).invalidateMaster(imaster, world, master.xCoord, master.yCoord, master.zCoord);
+        }
     }
 
     /** Do any necessary cleanup here. Remove air blocks, invalidate servants, etc */
@@ -414,6 +485,7 @@ public class TankLayerScan extends LogicComponent
         }
     }
 
+    /* NBT */
     @Override
     public void readFromNBT (NBTTagCompound tags)
     {
@@ -456,6 +528,7 @@ public class TankLayerScan extends LogicComponent
                 airCoords.add(new CoordTuple(coord[0], coord[1], coord[2]));
             }
         }
+        structureTop = tags.getInteger("structureTop");
     }
 
     public void readNetworkNBT (NBTTagCompound tags)
@@ -487,6 +560,7 @@ public class TankLayerScan extends LogicComponent
             air.appendTag(new NBTTagIntArray("coord", new int[] { coord.x, coord.y, coord.z }));
         }
         tags.setTag("Air", air);
+        tags.setInteger("structureTop", structureTop);
     }
 
     public void writeNetworkNBT (NBTTagCompound tags)

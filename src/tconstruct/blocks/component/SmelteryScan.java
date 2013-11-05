@@ -28,7 +28,7 @@ public class SmelteryScan extends TankLayerScan
         lavaTanks.clear();
         super.checkValidStructure();
     }
-    
+
     protected boolean checkAir (int x, int y, int z)
     {
         Block block = Block.blocksList[world.getBlockId(x, y, z)];
@@ -60,6 +60,7 @@ public class SmelteryScan extends TankLayerScan
         return false;
     }
 
+    @Override
     protected void finalizeStructure ()
     {
         super.finalizeStructure();
@@ -69,10 +70,39 @@ public class SmelteryScan extends TankLayerScan
         {
             for (CoordTuple coord : airCoords)
             {
-                world.setBlock(coord.x, coord.y, coord.z, TContent.tankAir.blockID);
-                IServantLogic servant = (IServantLogic) world.getBlockTileEntity(coord.x, coord.y, coord.z);
-                servant.verifyMaster(imaster, world, master.xCoord, master.yCoord, master.zCoord);
+                if (world.getBlockId(coord.x, coord.y, coord.z) != TContent.tankAir.blockID)
+                {
+                    world.setBlock(coord.x, coord.y, coord.z, TContent.tankAir.blockID);
+                    IServantLogic servant = (IServantLogic) world.getBlockTileEntity(coord.x, coord.y, coord.z);
+                    servant.verifyMaster(imaster, world, master.xCoord, master.yCoord, master.zCoord);
+                }
             }
+        }
+    }
+
+    @Override
+    protected void invalidateStructure ()
+    {
+        super.invalidateStructure();
+        for (CoordTuple coord : airCoords)
+        {
+            TileEntity servant = world.getBlockTileEntity(coord.x, coord.y, coord.z);
+            if (servant instanceof IServantLogic)
+                ((IServantLogic) servant).invalidateMaster(imaster, world, master.xCoord, master.yCoord, master.zCoord);
+        }
+    }
+
+    @Override
+    protected void invalidateBlocksAbove (int height)
+    {
+        for (CoordTuple coord : airCoords)
+        {
+            if (coord.y < height)
+                continue;
+
+            TileEntity servant = world.getBlockTileEntity(coord.x, coord.y, coord.z);
+            if (servant instanceof IServantLogic)
+                ((IServantLogic) servant).invalidateMaster(imaster, world, master.xCoord, master.yCoord, master.zCoord);
         }
     }
 
@@ -91,12 +121,13 @@ public class SmelteryScan extends TankLayerScan
             }
         }
     }
-    
+
+    //Sync lava tanks for fuel values
     @Override
-    public void readFromNBT (NBTTagCompound tags)
+    public void readNetworkNBT (NBTTagCompound tags)
     {
-        super.readFromNBT(tags);
-        
+        super.readNetworkNBT(tags);
+
         NBTTagList tanks = tags.getTagList("Tanks");
         if (tanks != null)
         {
@@ -110,11 +141,11 @@ public class SmelteryScan extends TankLayerScan
             }
         }
     }
-    
+
     @Override
-    public void writeToNBT (NBTTagCompound tags)
+    public void writeNetworkNBT (NBTTagCompound tags)
     {
-        super.writeToNBT(tags);
+        super.writeNetworkNBT(tags);
 
         NBTTagList tanks = new NBTTagList();
         for (CoordTuple coord : lavaTanks)

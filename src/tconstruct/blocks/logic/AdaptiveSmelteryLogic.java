@@ -40,6 +40,7 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
 {
     byte direction;
     boolean updateFluids = false;
+    boolean recheckStructure = false;
     boolean updateAir = false;
     SmelteryScan structure = new SmelteryScan(this, TContent.smeltery, TContent.lavaTank);
     MultiFluidTank multitank = new MultiFluidTank();
@@ -80,6 +81,12 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
                 {
                     updateAir();
                     updateAir = false;
+                }
+                
+                if (recheckStructure)
+                {
+                    structure.recheckStructure();
+                    recheckStructure = false;
                 }
             }
 
@@ -129,7 +136,11 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
     @Override
     public void notifyChange (IServantLogic servant, int x, int y, int z)
     {
-        //Re-check structure here
+        if (!worldObj.isRemote)
+        {
+            //System.out.println("Notifying of change from "+new CoordTuple(x, y, z));
+            recheckStructure = true;
+        }
     }
 
     @Override

@@ -15,6 +15,7 @@ import net.minecraft.world.World;
 import tconstruct.TConstruct;
 import tconstruct.blocks.logic.AdaptiveSmelteryLogic;
 import tconstruct.blocks.logic.MultiServantLogic;
+import tconstruct.blocks.logic.AdaptiveDrainLogic;
 import tconstruct.blocks.logic.SmelteryDrainLogic;
 import tconstruct.blocks.logic.SmelteryLogic;
 import tconstruct.client.block.SmelteryRender;
@@ -23,6 +24,7 @@ import tconstruct.library.blocks.InventoryBlock;
 import tconstruct.library.util.IFacingLogic;
 import tconstruct.library.util.IMasterLogic;
 import tconstruct.library.util.IServantLogic;
+import tconstruct.util.config.PHConstruct;
 
 public class SmelteryBlock extends InventoryBlock
 {
@@ -40,11 +42,11 @@ public class SmelteryBlock extends InventoryBlock
 
     /* Rendering */
 
-    /*@Override
+    @Override
     public int getRenderType ()
     {
-        return SmelteryRender.smelteryModel;
-    }*/
+        return PHConstruct.newSmeltery ? 0 : SmelteryRender.smelteryModel;
+    }
 
     @Override
     public String[] getTextureNames ()
@@ -217,20 +219,27 @@ public class SmelteryBlock extends InventoryBlock
         switch (metadata)
         {
         case 0:
-            return new AdaptiveSmelteryLogic();
+            if (PHConstruct.newSmeltery)
+                return new AdaptiveSmelteryLogic();
+            else
+                return new SmelteryLogic();
+
         case 1:
-            return new SmelteryDrainLogic();
+            if (PHConstruct.newSmeltery)
+                return new AdaptiveDrainLogic();
+            else
+                return new SmelteryDrainLogic();
         case 3:
             return null; //Furnace
         }
         return new MultiServantLogic();
     }
-    
-    /*@Override
+
+    @Override
     public void onBlockPlacedBy (World world, int x, int y, int z, EntityLivingBase entityliving, ItemStack stack)
     {
         super.onBlockPlacedBy(world, x, y, z, entityliving, stack);
-        if (world.getBlockMetadata(x, y, z) == 0)
+        if (world.getBlockMetadata(x, y, z) == 0 && PHConstruct.newSmeltery)
             onBlockPlacedElsewhere(world, x, y, z, entityliving);
     }
 
@@ -240,7 +249,7 @@ public class SmelteryBlock extends InventoryBlock
         logic.checkValidPlacement();
     }
 
-    @Override
+    /*@Override
     public void breakBlock (World world, int x, int y, int z, int par5, int par6) //Don't drop inventory
     {
         world.removeBlockTileEntity(x, y, z);
@@ -257,8 +266,10 @@ public class SmelteryBlock extends InventoryBlock
     }
 
     /* Updating */
+    @Override
     public void onNeighborBlockChange (World world, int x, int y, int z, int nBlockID)
     {
+        //System.out.println("Neighbor changed");
         TileEntity logic = world.getBlockTileEntity(x, y, z);
         if (logic instanceof IServantLogic)
         {
@@ -268,5 +279,16 @@ public class SmelteryBlock extends InventoryBlock
         {
             ((IMasterLogic) logic).notifyChange(null, x, y, z);
         }
+    }
+
+    @Override
+    public void breakBlock (World world, int x, int y, int z, int blockID, int meta)
+    {
+        TileEntity logic = world.getBlockTileEntity(x, y, z);
+        if (logic instanceof IServantLogic)
+        {
+            ((IServantLogic) logic).notifyMasterOfChange();
+        }
+        super.breakBlock(world, x, y, z, blockID, meta);
     }
 }

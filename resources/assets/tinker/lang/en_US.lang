@@ -25,6 +25,8 @@ CraftedSoil.BlueSlime.name=Slimy Mud
 CraftedSoil.GraveyardSoil.name=Graveyard Soil
 CraftedSoil.ConsecratedSoil.name=Consecrated Soil
 tile.CastingChannel.name=Casting Channel
+tile.slime.channel.name=Slime Channel
+tile.slime.pad.name=Bounce Pad
 
 MetalOre.NetherSlag.name=Netherack Slag
 MetalOre.Cobalt.name=Cobalt Ore

@@ -46,6 +46,7 @@ import tconstruct.library.TConstructRegistry;
 import tconstruct.library.client.*;
 import tconstruct.library.crafting.ToolBuilder;
 import tconstruct.library.tools.ToolCore;
+import tconstruct.util.config.PHConstruct;
 import tconstruct.util.player.*;
 
 public class TProxyClient extends TProxyCommon
@@ -70,7 +71,12 @@ public class TProxyClient extends TProxyCommon
         if (ID == frypanGuiID)
             return new FrypanGui(player.inventory, (FrypanLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
         if (ID == smelteryGuiID)
-            return new AdaptiveSmelteryGui(player.inventory, (AdaptiveSmelteryLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
+        {
+            if (PHConstruct.newSmeltery)
+                return new AdaptiveSmelteryGui(player.inventory, (AdaptiveSmelteryLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
+            else
+                return new SmelteryGui(player.inventory, (SmelteryLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
+        }
         if (ID == stencilTableID)
             return new StencilTableGui(player.inventory, (StencilTableLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
         if (ID == toolForgeID)
@@ -82,7 +88,7 @@ public class TProxyClient extends TProxyCommon
         if (ID == craftingStationID)
             return new CraftingStationGui(player.inventory, (CraftingStationLogic) world.getBlockTileEntity(x, y, z), x, y, z);
         if (ID == advDrawbridgeID)
-        	return new AdvDrawbridgeGui(player, (AdvancedDrawbridgeLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
+            return new AdvDrawbridgeGui(player, (AdvancedDrawbridgeLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
 
         if (ID == manualGuiID)
         {
@@ -217,6 +223,8 @@ public class TProxyClient extends TProxyCommon
         RenderingRegistry.registerBlockHandler(new BlockRenderCastingChannel());
         RenderingRegistry.registerBlockHandler(new SlimeChannelRender());
         RenderingRegistry.registerBlockHandler(new SlimePadRender());
+        if (!PHConstruct.newSmeltery)
+            RenderingRegistry.registerBlockHandler(new SmelteryRender());
 
         // Special Renderers
         ClientRegistry.bindTileEntitySpecialRenderer(CastingTableLogic.class, new CastingTableSpecialRenderer());
@@ -946,10 +954,11 @@ public class TProxyClient extends TProxyCommon
             return null;
         }
     }
-    
+
     @Override
-	public void postInit() {
-		MinecraftForgeClient.registerItemRenderer(TContent.armorPattern.itemID, new RenderArmorCast());
-	}
-    
+    public void postInit ()
+    {
+        MinecraftForgeClient.registerItemRenderer(TContent.armorPattern.itemID, new RenderArmorCast());
+    }
+
 }

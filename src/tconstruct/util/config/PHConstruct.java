@@ -370,6 +370,7 @@ public class PHConstruct
 
         //Experimental functionality
         throwableSmeltery = config.get("Experimental", "Items can be thrown into smelteries", true).getBoolean(true);
+        newSmeltery = config.get("Experimental", "Use new adaptive Smeltery code", false, "Warning: Very buggy").getBoolean(false);
 
         //Addon stuff
         isCleaverTwoHanded = config.get("Battlegear", "Can Cleavers have shields", true).getBoolean(true);
@@ -706,6 +707,7 @@ public class PHConstruct
 
     //Experimental functionality
     public static boolean throwableSmeltery;
+    public static boolean newSmeltery;
 
     //Addon stuff
     public static boolean isCleaverTwoHanded;
