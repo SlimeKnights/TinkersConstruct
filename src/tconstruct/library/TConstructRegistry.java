@@ -189,8 +189,7 @@ public class TConstructRegistry
 
     /** Registers a tool to its crafting parts.
      * If an output is registered multiple times the parts are added to the recipe's input list
-     * Valid part amounts are 1, 2, and 4. Part counts of 1 and 2 assume a Tool Rod as a handle.
-     * Null items are valid as placeholders. ex: Hatchet
+     * Valid part amounts are 2, 3, and 4.
      * 
      * @see ToolBuidler
      * @param output The ToolCore to craft
@@ -199,7 +198,7 @@ public class TConstructRegistry
     public static void addToolRecipe (ToolCore output, Item... parts)
     {
         ToolBuilder tb = ToolBuilder.instance;
-        if (parts.length < 1 || parts.length > 4 || parts.length == 3)
+        if (parts.length < 2 || parts.length > 4)
             logger.warning("Wrong amount of items to craft into a tool");
 
         tb.addToolRecipe(output, parts);
