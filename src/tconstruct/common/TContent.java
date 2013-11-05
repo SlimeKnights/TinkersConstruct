@@ -1175,7 +1175,6 @@ public class TContent implements IFuelHandler
                 Item.redstone), 'd', new ItemStack(redstoneMachine, 1, 0)));
 
         // ToolStation Recipes (Wooden Version)
-        GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 0), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', Block.workbench);
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(toolStationWood, 1, 0), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', "crafterWood"));
         GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 2), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(Block.wood, 1, 1));
         GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 3), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(Block.wood, 1, 2));
@@ -1305,7 +1304,7 @@ public class TContent implements IFuelHandler
         GameRegistry.addRecipe(new ItemStack(castingChannel, 4, 0), "b b", "bbb", 'b', searedBrick); //Channel
 
         // Jack o'Latern Recipe - Stone Torch
-        GameRegistry.addRecipe(new ItemStack(Block.pumpkinLantern, 1, 0), "p", "s", 'p', new ItemStack(Block.pumpkin), 'w', new ItemStack(stoneTorch));
+        GameRegistry.addRecipe(new ItemStack(Block.pumpkinLantern, 1, 0), "p", "s", 'p', new ItemStack(Block.pumpkin), 's', new ItemStack(stoneTorch));
         // Stone Torch Recipe
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(stoneTorch, 4), "p", "w", 'p', new ItemStack(Item.coal, 1, Short.MAX_VALUE), 'w', "stoneRod"));
         // Stone Ladder Recipe
@@ -1390,10 +1389,9 @@ public class TContent implements IFuelHandler
         GameRegistry.addRecipe(new ItemStack(barricadeJungle, 1, 0), "b", "b", 'b', new ItemStack(Block.wood, 1, 3));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(barricadeOak, 1, 0), "b", "b", 'b', "logWood"));
         // Advanced WorkBench Recipes
-        GameRegistry.addRecipe(new ItemStack(craftingStationWood, 1, 0), "b", 'b', new ItemStack(Block.workbench));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(craftingStationWood, 1, 0), "b", 'b', "crafterWood"));
         //Slab crafters
-        GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 6, 0), "bbb", 'b', new ItemStack(Block.workbench));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(craftingSlabWood, 6, 0), "bbb", 'b', "crafterWood"));
         GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 0), "b", 'b', new ItemStack(craftingStationWood, 1, 0));
         GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 1), "b", 'b', new ItemStack(toolStationWood, 1, 0));
         GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 2), "b", 'b', new ItemStack(toolStationWood, 1, 1));
@@ -1982,6 +1980,8 @@ public class TContent implements IFuelHandler
         ensureOreIsRegistered("stoneMossy", new ItemStack(Block.stoneBrick, 1, 1));
         ensureOreIsRegistered("stoneMossy", new ItemStack(Block.cobblestoneMossy));
 
+        ensureOreIsRegistered("crafterWood", new ItemStack(Block.workbench, 1));
+
         String[] matNames = { "wood", "stone", "iron", "flint", "cactus", "bone", "obsidian", "netherrack", "slime", "paper", "cobalt", "ardite", "manyullyn", "copper", "bronze", "alumite", "steel",
                 "blueslime" };
         for (int i = 0; i < matNames.length; i++)
@@ -2346,6 +2346,7 @@ public class TContent implements IFuelHandler
             // Ingots, Dust
             registerIngotCasting(ft);
             Smeltery.addDictionaryMelting("ingot" + ft.toString(), ft, -50, TConstruct.ingotLiquidValue);
+            registerPatternMaterial("ingot" + ft.toString(), 2, ft.toString());
             Smeltery.addDictionaryMelting("dust" + ft.toString(), ft, -75, TConstruct.ingotLiquidValue);
             // Factorization support
             Smeltery.addDictionaryMelting("crystalline" + ft.toString(), ft, -50, TConstruct.ingotLiquidValue);
@@ -2356,18 +2357,12 @@ public class TContent implements IFuelHandler
             Smeltery.addDictionaryMelting("oreNether" + ft.toString(), ft, 75, TConstruct.oreLiquidValue * 2);
             // Blocks
             Smeltery.addDictionaryMelting("block" + ft.toString(), ft, 100, TConstruct.blockLiquidValue);
+            registerPatternMaterial("block" + ft.toString(), 18, ft.toString());
         }
 
         registerPatternMaterial("plankWood", 2, "Wood");
         registerPatternMaterial("stickWood", 1, "Wood");
         registerPatternMaterial("slabWood", 1, "Wood");
-        registerPatternMaterial("ingotCopper", 2, "Copper");
-        registerPatternMaterial("ingotBronze", 2, "Bronze");
-        registerPatternMaterial("ingotCobalt", 2, "Cobalt");
-        registerPatternMaterial("ingotArdite", 2, "Ardite");
-        registerPatternMaterial("ingotManyullyn", 2, "Manyullyn");
-        registerPatternMaterial("ingotAlumite", 2, "Alumite");
-        registerPatternMaterial("ingotSteel", 2, "Steel");
     }
 
     private void registerPatternMaterial (String oreName, int value, String materialName)
