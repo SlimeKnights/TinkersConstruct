@@ -70,7 +70,7 @@ public class ToolBuilder
             recipe.addHeadItem(head);
             recipe.addHandleItem(handle);
             recipe.addAccessoryItem(accessory);
-            recipe.addExtraItem(accessory);
+            recipe.addExtraItem(extra);
         }
         else
         {
