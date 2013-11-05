@@ -151,7 +151,7 @@ public class TankAirLogic extends InventoryLogic implements IServantLogic, ISide
     @Override
     public void readFromNBT (NBTTagCompound tags)
     {
-        super.superReadFromNBT(tags);
+        super.readFromNBT(tags);
         readNetworkNBT(tags);
         multitank.readFromNBT(tags);
     }
@@ -165,7 +165,7 @@ public class TankAirLogic extends InventoryLogic implements IServantLogic, ISide
     @Override
     public void writeToNBT (NBTTagCompound tags)
     {
-        super.superWriteToNBT(tags);
+        super.writeToNBT(tags);
         writeNetworkNBT(tags);
         multitank.writeToNBT(tags);
     }
