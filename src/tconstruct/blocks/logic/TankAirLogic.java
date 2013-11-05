@@ -128,10 +128,16 @@ public class TankAirLogic extends InventoryLogic implements IServantLogic, ISide
         return false;
     }
     
-    @Override
+    /*@Override
     public boolean canUpdate()
     {
         return false;
+    }*/
+    
+    //DELETE
+    public void updateEntity ()
+    {
+        worldObj.setBlockToAir(xCoord, yCoord, zCoord);
     }
     
     //Keep TE regardless of metadata
@@ -145,7 +151,7 @@ public class TankAirLogic extends InventoryLogic implements IServantLogic, ISide
     @Override
     public void readFromNBT (NBTTagCompound tags)
     {
-        super.superReadFromNBT(tags);
+        super.readFromNBT(tags);
         readNetworkNBT(tags);
         multitank.readFromNBT(tags);
     }
@@ -159,7 +165,7 @@ public class TankAirLogic extends InventoryLogic implements IServantLogic, ISide
     @Override
     public void writeToNBT (NBTTagCompound tags)
     {
-        super.superWriteToNBT(tags);
+        super.writeToNBT(tags);
         writeNetworkNBT(tags);
         multitank.writeToNBT(tags);
     }

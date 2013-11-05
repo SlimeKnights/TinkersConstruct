@@ -155,8 +155,8 @@ public abstract class InventoryLogic extends TileEntity implements IInventory
         tags.setTag("Items", nbttaglist);
     }
     
-    //Added for blocks that need to sync inventory
-    public void superReadFromNBT (NBTTagCompound tags)
+    /* Cause of the heisenbug. Do not uncomment! */
+    /*public void superReadFromNBT (NBTTagCompound tags)
     {
         super.readFromNBT(tags);
     }
@@ -164,7 +164,7 @@ public abstract class InventoryLogic extends TileEntity implements IInventory
     public void superWriteToNBT (NBTTagCompound tags)
     {
         super.writeToNBT(tags);
-    }
+    }*/
     
     /* Default implementations of hardly used methods */
     public ItemStack getStackInSlotOnClosing (int slot)

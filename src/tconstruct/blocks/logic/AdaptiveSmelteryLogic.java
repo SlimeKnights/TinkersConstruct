@@ -528,7 +528,7 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
     @Override
     public void readFromNBT (NBTTagCompound tags)
     {
-        super.superReadFromNBT(tags);
+        super.readFromNBT(tags);
         readNetworkNBT(tags);
 
         structure.readFromNBT(tags);
@@ -550,7 +550,7 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
     @Override
     public void writeToNBT (NBTTagCompound tags)
     {
-        super.superWriteToNBT(tags);
+        super.writeToNBT(tags);
         writeNetworkNBT(tags);
 
         structure.writeToNBT(tags);

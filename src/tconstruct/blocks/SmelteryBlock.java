@@ -239,7 +239,7 @@ public class SmelteryBlock extends InventoryBlock
     public void onBlockPlacedBy (World world, int x, int y, int z, EntityLivingBase entityliving, ItemStack stack)
     {
         super.onBlockPlacedBy(world, x, y, z, entityliving, stack);
-        if (world.getBlockMetadata(x, y, z) == 0 && PHConstruct.newSmeltery)
+        if (world.getBlockMetadata(x, y, z) == 0 && !PHConstruct.newSmeltery)
             onBlockPlacedElsewhere(world, x, y, z, entityliving);
     }
 
