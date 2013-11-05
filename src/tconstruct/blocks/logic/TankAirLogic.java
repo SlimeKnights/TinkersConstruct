@@ -128,10 +128,16 @@ public class TankAirLogic extends InventoryLogic implements IServantLogic, ISide
         return false;
     }
     
-    @Override
+    /*@Override
     public boolean canUpdate()
     {
         return false;
+    }*/
+    
+    //DELETE
+    public void updateEntity ()
+    {
+        worldObj.setBlockToAir(xCoord, yCoord, zCoord);
     }
     
     //Keep TE regardless of metadata
