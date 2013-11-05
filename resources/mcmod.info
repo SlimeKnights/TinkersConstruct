@@ -10,7 +10,7 @@
     "authors": [
       "mDiyo", "fuj1n", "ProgWML6", "Sunstrike"
     ],
-    "credits": "Slime Knights, EcuTruin",
+    "credits": "Slime Knights, Samtrion",
     "logoFile": "",
     "screenshots": [],
     "parent":"",
@@ -57,25 +57,6 @@
     "name": "TConstruct Compat: FMP",
     "description": "TConstruct support for forgemultipart",
     "version": "@VERSION@",
-    "mcversion": "@MCVERSION@",
-    "url": "http://www.minecraftforum.net/topic/1659892-tinkers-construct",
-    "updateUrl": "",
-    "authors": [
-      "mDiyo", "fuj1n", "ProgWML6", "Sunstrike"
-    ],
-    "credits": "Slime Knights",
-    "logoFile": "",
-    "screenshots": [],
-    "parent":"TConstruct",
-    "dependencies": [
-      "TConstruct"
-    ]
-  },
-  {
-    "modid": "TConstruct|PeaceOfMind",
-    "name": "TConstruct|PeaceOfMind",
-    "description": "",
-    "version": "1.0",
     "mcversion": "@MCVERSION@",
     "url": "http://www.minecraftforum.net/topic/1659892-tinkers-construct",
     "updateUrl": "",
