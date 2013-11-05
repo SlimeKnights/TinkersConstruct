@@ -505,9 +505,9 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
 
             NBTTagCompound tags = toolStack.getTagCompound().getCompoundTag("InfiTool");
             tags.setInteger("Attack", 3 + tool.getDamageVsEntity(null));
-            tags.setInteger("TotalDurability", 1500);
-            tags.setInteger("BaseDurability", 1500);
-            tags.setInteger("MiningSpeed", 800);
+            tags.setInteger("TotalDurability", 2500);
+            tags.setInteger("BaseDurability", 2500);
+            tags.setInteger("MiningSpeed", 1400);
 
             this.entityDropItem(toolStack, 0f);
             if (rand.nextInt(5) == 0)

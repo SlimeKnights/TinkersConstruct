@@ -1461,7 +1461,7 @@ public class TContent implements IFuelHandler
         patternOutputs = new Item[] { toolRod, pickaxeHead, shovelHead, hatchetHead, swordBlade, wideGuard, handGuard, crossbar, binding, frypanHead, signHead, knifeBlade, chiselHead, toughRod,
                 toughBinding, largePlate, broadAxeHead, scytheBlade, excavatorHead, largeSwordBlade, hammerHead, fullGuard, null, null, arrowhead };
 
-        int[] nonMetals = { 0, 1, 3, 4, 5, 6, 7, 8, 9 };
+        int[] nonMetals = { 0, 1, 3, 4, 5, 6, 7, 8, 9, 17 };
 
         if (PHConstruct.craftMetalTools)
         {
@@ -2335,7 +2335,7 @@ public class TContent implements IFuelHandler
 
     public void addOreDictionarySmelteryRecipes ()
     {
-        List<FluidType> exceptions = Arrays.asList(new FluidType[] { FluidType.Water, FluidType.Stone, FluidType.Ender, FluidType.Glass });
+        List<FluidType> exceptions = Arrays.asList(new FluidType[] { FluidType.Water, FluidType.Stone, FluidType.Ender, FluidType.Glass, FluidType.Slime });
         for (FluidType ft : FluidType.values())
         {
             if (exceptions.contains(ft))
