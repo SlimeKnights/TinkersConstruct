@@ -33,7 +33,8 @@ public class SmelteryBlock extends InventoryBlock
     public SmelteryBlock(int id)
     {
         super(id, Material.rock);
-        setHardness(12F);
+        setHardness(3F);
+        setResistance(20F);
         setStepSound(soundMetalFootstep);
         rand = new Random();
         this.setCreativeTab(TConstructRegistry.blockTab);
