@@ -51,7 +51,7 @@ public enum FluidType
     /** Ender Smelting **/
     Ender(TContent.metalBlock.blockID, 10, 500, TContent.moltenEnderFluid, false),
     /** Glass Smelting **/
-    Glass(Block.glass.blockID, 0, 625, TContent.moltenGlassFluid, false),
+    Glass(Block.sand.blockID, 0, 625, TContent.moltenGlassFluid, false),
     /** Stone Smelting **/
     Stone(Block.stone.blockID, 0, 800, TContent.moltenStoneFluid, true),
     /** Emerald Smelting **/

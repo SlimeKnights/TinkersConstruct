@@ -1,36 +1,23 @@
 package tconstruct.client.gui;
 
-import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.network.packet.Packet250CustomPayload;
-import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.Icon;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTankInfo;
+import net.minecraftforge.fluids.*;
 
 import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
+import org.lwjgl.opengl.*;
 
-import cpw.mods.fml.common.network.PacketDispatcher;
+import tconstruct.TConstruct;
 import tconstruct.blocks.component.SmelteryComponent;
 import tconstruct.blocks.logic.AdaptiveSmelteryLogic;
-import tconstruct.inventory.ActiveContainer;
-import tconstruct.inventory.AdaptiveSmelteryContainer;
+import tconstruct.inventory.*;
 import tconstruct.library.component.MultiFluidTank;
 
 public class AdaptiveSmelteryGui extends NewContainerGui
@@ -42,8 +29,9 @@ public class AdaptiveSmelteryGui extends NewContainerGui
     float currentScroll = 0.0F;
     int slotPos = 0;
     int prevSlotPos = 0;
-    private SmelteryComponent scomp;
-    private MultiFluidTank multitank;
+    private final SmelteryComponent scomp;
+    private final MultiFluidTank multitank;
+
     public AdaptiveSmelteryGui(InventoryPlayer inventoryplayer, AdaptiveSmelteryLogic smeltery, World world, int x, int y, int z)
     {
         super((ActiveContainer) smeltery.getGuiContainer(inventoryplayer, world, x, y, z));
@@ -53,9 +41,10 @@ public class AdaptiveSmelteryGui extends NewContainerGui
         scomp = logic.getSmeltery();
         multitank = logic.getMultiTank();
         scomp.update();
-        
+
     }
 
+    @Override
     public void drawScreen (int mouseX, int mouseY, float par3)
     {
         super.drawScreen(mouseX, mouseY, par3);
@@ -93,7 +82,7 @@ public class AdaptiveSmelteryGui extends NewContainerGui
 
             if (this.isScrolling)
             {
-                this.currentScroll = ((float) (mouseY - yScroll) - 7.5F) / ((float) (scrollHeight - yScroll) - 15.0F);
+                this.currentScroll = (mouseY - yScroll - 7.5F) / (scrollHeight - yScroll - 15.0F);
 
                 if (this.currentScroll < 0.0F)
                 {
@@ -112,6 +101,7 @@ public class AdaptiveSmelteryGui extends NewContainerGui
         }
     }
 
+    @Override
     protected void drawGuiContainerForegroundLayer (int mouseX, int mouseY)
     {
         fontRenderer.drawString(StatCollector.translateToLocal("crafters.Smeltery"), 86, 5, 0x404040);
@@ -173,6 +163,7 @@ public class AdaptiveSmelteryGui extends NewContainerGui
     private static final ResourceLocation backgroundSide = new ResourceLocation("tinker", "textures/gui/smelteryside.png");
     private static final ResourceLocation terrain = new ResourceLocation("terrain.png");
 
+    @Override
     protected void drawGuiContainerBackgroundLayer (float f, int mouseX, int mouseY)
     {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
@@ -297,9 +288,7 @@ public class AdaptiveSmelteryGui extends NewContainerGui
         if (liquid.fluidID == -37)
         {
             list.add("\u00A7fFuel");
-            int mB = liquid.amount;
-            if (mB > 0)
-                list.add("mB: " + mB);
+            list.add("mB: " + liquid.amount);
         }
         else
         {
@@ -307,51 +296,48 @@ public class AdaptiveSmelteryGui extends NewContainerGui
             list.add("\u00A7f" + name);
             if (name.equals("liquified emerald"))
             {
-                float emeralds = liquid.amount / 320f;
-                list.add("Emeralds: " + emeralds);
+                list.add("Emeralds: " + liquid.amount / 320f);
             }
             else if (name.contains("Molten"))
             {
-                int ingots = liquid.amount / 144;
+                int ingots = liquid.amount / TConstruct.ingotLiquidValue;
                 if (ingots > 0)
                     list.add("Ingots: " + ingots);
-                int mB = liquid.amount % 144;
+                int mB = liquid.amount % TConstruct.ingotLiquidValue;
                 if (mB > 0)
                 {
-                    if (mB % 72 == 0)
-                        list.add("Chunks: " + liquid.amount % 144 / 72);
-                    else if (mB % 16 == 0)
-                        list.add("Nuggets: " + liquid.amount % 144 / 16);
-                    else
-                        list.add("mB: " + mB);
+                    int nuggets = mB / TConstruct.nuggetLiquidValue;
+                    int junk = (mB % TConstruct.nuggetLiquidValue);
+                    if (nuggets > 0)
+                        list.add("Nuggets: " + nuggets);
+                    if (junk > 0)
+                        list.add("mB: " + junk);
                 }
             }
             else if (name.equals("Seared Stone"))
             {
-                int ingots = liquid.amount / 144;
+                int ingots = liquid.amount / TConstruct.ingotLiquidValue;
                 if (ingots > 0)
                     list.add("Blocks: " + ingots);
-                int mB = liquid.amount % 144;
+                int mB = liquid.amount % TConstruct.ingotLiquidValue;
                 if (mB > 0)
-                {
                     list.add("mB: " + mB);
-                }
             }
             else if (name.equals("Molten Glass"))
             {
-                int ingots = liquid.amount / 1000;
-                if (ingots > 0)
-                    list.add("Blocks: " + ingots);
-                int mB = liquid.amount % 144;
+                int blocks = liquid.amount / 1000;
+                if (blocks > 0)
+                    list.add("Blocks: " + blocks);
+                int panels = (liquid.amount % 1000) / 250;
+                if (panels > 0)
+                    list.add("Panels: " + panels);
+                int mB = (liquid.amount % 1000) % 250;
                 if (mB > 0)
-                {
                     list.add("mB: " + mB);
-                }
             }
             else
             {
-                int mB = liquid.amount;
-                list.add("mB: " + mB);
+                list.add("mB: " + liquid.amount);
             }
         }
         return list;
@@ -435,10 +421,10 @@ public class AdaptiveSmelteryGui extends NewContainerGui
     {
         Tessellator tessellator = Tessellator.instance;
         tessellator.startDrawingQuads();
-        tessellator.addVertexWithUV((double) (startU + 0), (double) (startV + endV), (double) this.zLevel, (double) par3Icon.getMinU(), (double) par3Icon.getMaxV());//Bottom left
-        tessellator.addVertexWithUV((double) (startU + endU), (double) (startV + endV), (double) this.zLevel, (double) par3Icon.getMaxU(), (double) par3Icon.getMaxV());//Bottom right
-        tessellator.addVertexWithUV((double) (startU + endU), (double) (startV + 0), (double) this.zLevel, (double) par3Icon.getMaxU(), (double) par3Icon.getMinV());//Top right
-        tessellator.addVertexWithUV((double) (startU + 0), (double) (startV + 0), (double) this.zLevel, (double) par3Icon.getMinU(), (double) par3Icon.getMinV()); //Top left
+        tessellator.addVertexWithUV(startU + 0, startV + endV, this.zLevel, par3Icon.getMinU(), par3Icon.getMaxV());//Bottom left
+        tessellator.addVertexWithUV(startU + endU, startV + endV, this.zLevel, par3Icon.getMaxU(), par3Icon.getMaxV());//Bottom right
+        tessellator.addVertexWithUV(startU + endU, startV + 0, this.zLevel, par3Icon.getMaxU(), par3Icon.getMinV());//Top right
+        tessellator.addVertexWithUV(startU + 0, startV + 0, this.zLevel, par3Icon.getMinU(), par3Icon.getMinV()); //Top left
         tessellator.draw();
     }
 
@@ -509,7 +495,7 @@ public class AdaptiveSmelteryGui extends NewContainerGui
             }
         }
     }*/
-    
+
     @Override
     public void onGuiClosed ()
     {
