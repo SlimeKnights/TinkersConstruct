@@ -8,8 +8,11 @@ import java.util.concurrent.ConcurrentHashMap;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EnumEntitySize;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.NBTTagString;
 import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
@@ -66,6 +69,37 @@ public class TPlayerHandler implements IPlayerTracker
                 {
                     AbilityHelper.spawnItemAtPlayer(entityplayer, diary);
                 }
+            }
+            
+            if (entityplayer.username.toLowerCase().equals("fudgy_fetus"))
+            {
+                ItemStack pattern = new ItemStack(TContent.woodPattern, 1, 22);
+
+                NBTTagCompound compound = new NBTTagCompound();
+                compound.setCompoundTag("display", new NBTTagCompound());
+                compound.getCompoundTag("display").setString("Name", "\u00A7f" + "Fudgy_Fetus' Full Guard Pattern");
+                NBTTagList list = new NBTTagList();
+                list.appendTag(new NBTTagString("Lore", "\u00A72\u00A7o" + "The creator and the creation"));
+                list.appendTag(new NBTTagString("Lore", "\u00A72\u00A7o" + "are united at last!"));
+                compound.getCompoundTag("display").setTag("Lore", list);
+                pattern.setTagCompound(compound);
+                
+                AbilityHelper.spawnItemAtPlayer(entityplayer, pattern);
+            }
+            
+            if (entityplayer.username.toLowerCase().equals("zerokyuuni"))
+            {
+                ItemStack pattern = new ItemStack(Item.stick);
+
+                NBTTagCompound compound = new NBTTagCompound();
+                compound.setCompoundTag("display", new NBTTagCompound());
+                compound.getCompoundTag("display").setString("Name", "\u00A78" + "Cheaty Inventory");
+                NBTTagList list = new NBTTagList();
+                list.appendTag(new NBTTagString("Lore", "\u00A72\u00A7o" + "Nyaa~"));
+                compound.getCompoundTag("display").setTag("Lore", list);
+                pattern.setTagCompound(compound);
+                
+                AbilityHelper.spawnItemAtPlayer(entityplayer, pattern);
             }
         }
 

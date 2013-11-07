@@ -31,7 +31,7 @@ import tconstruct.worldgen.village.*;
  * @author mDiyo
  */
 
-@Mod(modid = "TConstruct", name = "TConstruct", version = "1.6.X_1.5.0d", dependencies = "required-after:Forge@[8.9,);after:Mantle-Core;after:Mantle-Router;after:ThermalExpansion")
+@Mod(modid = "TConstruct", name = "TConstruct", version = "1.6.X_1.5.1d", dependencies = "required-after:Forge@[8.9,);after:Mantle-Core;after:Mantle-Router;after:ThermalExpansion")
 @NetworkMod(serverSideRequired = false, clientSideRequired = true, channels = { "TConstruct" }, packetHandler = tconstruct.util.network.TPacketHandler.class)
 public class TConstruct
 {
