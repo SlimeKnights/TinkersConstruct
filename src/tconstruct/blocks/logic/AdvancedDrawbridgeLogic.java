@@ -5,7 +5,11 @@ import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.nbt.NBTTagList;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import net.minecraft.block.Block;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.*;
 import net.minecraft.inventory.Container;
@@ -13,6 +17,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.*;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.Facing;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
@@ -32,6 +38,8 @@ public class AdvancedDrawbridgeLogic extends InventoryLogic implements IFacingLo
 	byte placementDirection = 4;
 	FakePlayerLogic fakePlayer;
 
+    private List pushedObjects = new ArrayList();
+    
 	ItemStack[] bufferStacks = new ItemStack[getSizeInventory()];
 
 	public InvCamo camoInventory = new InvCamo();
@@ -272,6 +280,26 @@ public class AdvancedDrawbridgeLogic extends InventoryLogic implements IFacingLo
 							}
 							worldObj.playSoundEffect((double) xPos + 0.5D, (double) yPos + 0.5D, (double) zPos + 0.5D, "tile.piston.out", 0.25F, worldObj.rand.nextFloat() * 0.25F + 0.6F);
 							decrStackSize(extension - 1, 1);
+							
+                            AxisAlignedBB axisalignedbb = Block.blocksList[worldObj.getBlockId(xPos, yPos, zPos)].getCollisionBoundingBoxFromPool(worldObj, xPos, yPos, zPos);
+
+                            if (axisalignedbb != null)
+                            {
+                            	List list = worldObj.getEntitiesWithinAABBExcludingEntity((Entity)null, axisalignedbb);
+                            	if (!list.isEmpty())
+	                            {
+	                                this.pushedObjects.addAll(list);
+	                                Iterator iterator = this.pushedObjects.iterator();
+	
+	                                while (iterator.hasNext())
+	                                {
+	                                    Entity entity = (Entity)iterator.next();
+	                                    entity.moveEntity(Facing.offsetsXForSide[this.direction], Facing.offsetsYForSide[this.direction], Facing.offsetsZForSide[this.direction]);
+	                                }
+	
+	                                this.pushedObjects.clear();
+	                            }
+	                        }
 						} else {
 							extension--;
 							working = false;

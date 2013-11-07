@@ -1,17 +1,24 @@
 package tconstruct.blocks.logic;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 import tconstruct.library.blocks.IDrawbridgeLogicBase;
 
 import net.minecraft.nbt.NBTTagCompound;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.*;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.*;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.*;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.Facing;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
@@ -32,6 +39,8 @@ public class DrawbridgeLogic extends InventoryLogic implements IFacingLogic, IAc
     FakePlayerLogic fakePlayer;
     
     ItemStack bufferStack = null;
+
+    private List pushedObjects = new ArrayList();
 
     public DrawbridgeLogic()
     {
@@ -302,6 +311,26 @@ public class DrawbridgeLogic extends InventoryLogic implements IFacingLogic, IAc
                             }
                             worldObj.playSoundEffect((double) xPos + 0.5D, (double) yPos + 0.5D, (double) zPos + 0.5D, "tile.piston.out", 0.25F, worldObj.rand.nextFloat() * 0.25F + 0.6F);
                             decrStackSize(0, 1);
+                            
+                            AxisAlignedBB axisalignedbb = Block.blocksList[bufferStack.itemID].getCollisionBoundingBoxFromPool(worldObj, xPos, yPos, zPos);
+
+                            if (axisalignedbb != null)
+                            {
+                            	List list = worldObj.getEntitiesWithinAABBExcludingEntity((Entity)null, axisalignedbb);
+                            	if (!list.isEmpty())
+	                            {
+	                                this.pushedObjects.addAll(list);
+	                                Iterator iterator = this.pushedObjects.iterator();
+	
+	                                while (iterator.hasNext())
+	                                {
+	                                    Entity entity = (Entity)iterator.next();
+	                                    entity.moveEntity(Facing.offsetsXForSide[this.direction], Facing.offsetsYForSide[this.direction], Facing.offsetsZForSide[this.direction]);
+	                                }
+	
+	                                this.pushedObjects.clear();
+	                            }
+	                        }
                         }
                         else
                         {
