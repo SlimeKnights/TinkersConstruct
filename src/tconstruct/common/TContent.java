@@ -1176,6 +1176,8 @@ public class TContent implements IFuelHandler
 
         // ToolStation Recipes (Wooden Version)
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(toolStationWood, 1, 0), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', "crafterWood"));
+        GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 0), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(craftingStationWood, 1, 0));
+        GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 0), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(craftingSlabWood, 1, 0));
         GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 2), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(Block.wood, 1, 1));
         GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 3), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(Block.wood, 1, 2));
         GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 4), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(Block.wood, 1, 3));
@@ -1708,7 +1710,28 @@ public class TContent implements IFuelHandler
         Smeltery.addAlloyMixing(new FluidStack(moltenManyullynFluid, 16), new FluidStack(moltenCobaltFluid, 32), new FluidStack(moltenArditeFluid, 32)); //Manyullyn
         Smeltery.addAlloyMixing(new FluidStack(moltenAlumiteFluid, 48), new FluidStack(moltenAluminumFluid, 80), new FluidStack(moltenIronFluid, 32), new FluidStack(moltenObsidianFluid, 32)); //Alumite
 
-        //Items
+        // Stone parts
+        for (int sc = 0; sc < patternOutputs.length; sc++)
+        {
+            if (patternOutputs[sc] != null)
+            {
+                Smeltery.addMelting(FluidType.Stone, new ItemStack(patternOutputs[sc], 1, 1), 1, (8 * ((IPattern) woodPattern).getPatternCost(new ItemStack(woodPattern, 1, sc + 1))) / 2);
+            }
+        }
+
+        // Chunks
+        Smeltery.addMelting(FluidType.Stone, new ItemStack(toolShard, 1, 1), 0, 4);
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(toolShard, 1, 2), 0, TConstruct.chunkLiquidValue);
+        Smeltery.addMelting(FluidType.Obsidian, new ItemStack(toolShard, 1, 6), 0, TConstruct.chunkLiquidValue);
+        Smeltery.addMelting(FluidType.Cobalt, new ItemStack(toolShard, 1, 10), 0, TConstruct.chunkLiquidValue);
+        Smeltery.addMelting(FluidType.Ardite, new ItemStack(toolShard, 1, 11), 0, TConstruct.chunkLiquidValue);
+        Smeltery.addMelting(FluidType.Manyullyn, new ItemStack(toolShard, 1, 12), 0, TConstruct.chunkLiquidValue);
+        Smeltery.addMelting(FluidType.Copper, new ItemStack(toolShard, 1, 13), 0, TConstruct.chunkLiquidValue);
+        Smeltery.addMelting(FluidType.Bronze, new ItemStack(toolShard, 1, 14), 0, TConstruct.chunkLiquidValue);
+        Smeltery.addMelting(FluidType.Alumite, new ItemStack(toolShard, 1, 15), 0, TConstruct.chunkLiquidValue);
+        Smeltery.addMelting(FluidType.Steel, new ItemStack(toolShard, 1, 16), 0, TConstruct.chunkLiquidValue);
+
+        // Items
         Smeltery.addMelting(FluidType.AluminumBrass, new ItemStack(blankPattern, 4, 1), -50, TConstruct.ingotLiquidValue);
         Smeltery.addMelting(FluidType.Gold, new ItemStack(blankPattern, 4, 1), -50, TConstruct.ingotLiquidValue);
 
@@ -1747,7 +1770,7 @@ public class TContent implements IFuelHandler
         Smeltery.addMelting(FluidType.Glass, new ItemStack(glassPane), 0, 250);
         for (int i = 0; i < 16; i++)
         {
-            Smeltery.addMelting(FluidType.Glass, new ItemStack(stainedGlassClear, 1, i), 0, 250);
+            Smeltery.addMelting(FluidType.Glass, new ItemStack(stainedGlassClear, 1, i), 0, FluidContainerRegistry.BUCKET_VOLUME);
             Smeltery.addMelting(FluidType.Glass, new ItemStack(stainedGlassClearPane, 1, i), 0, 250);
         }
         Smeltery.addMelting(FluidType.Iron, new ItemStack(Block.fenceIron), 0, TConstruct.ingotLiquidValue * 6 / 16);
