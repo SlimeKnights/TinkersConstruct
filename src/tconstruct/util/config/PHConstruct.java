@@ -47,9 +47,7 @@ public class PHConstruct
         keepHunger = config.get("Difficulty Changes", "Keep hunger on death", true).getBoolean(true);
         keepLevels = config.get("Difficulty Changes", "Keep levels on death", true).getBoolean(true);
         beginnerBook = config.get("Difficulty Changes", "Spawn beginner book", true).getBoolean(true);
-        alphaRegen = config.get("Alpha Behavior", "Regenerate HP from food", false).getBoolean(false);
-        alphaHunger = config.get("Alpha Behavior", "Remove hunger", false).getBoolean(false);
-
+        
         superfunWorld = config.get("Superfun", "All the world is Superfun", false).getBoolean(false);
 
         enableTWood = config.get("Difficulty Changes", "Enable mod wooden tools", true).getBoolean(true);
