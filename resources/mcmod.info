@@ -8,7 +8,7 @@
     "url": "http://www.minecraftforum.net/topic/1659892-tinkers-construct",
     "updateUrl": "",
     "authors": [
-      "mDiyo", "fuj1n", "ProgWML6", "Sunstrike"
+      "mDiyo", "fuj1n", "ProgWML6", "Sunstrike", "Pillbox"
     ],
     "credits": "Slime Knights, Samtrion",
     "logoFile": "",
@@ -42,7 +42,7 @@
     "url": "http://www.minecraftforum.net/topic/1659892-tinkers-construct",
     "updateUrl": "",
     "authors": [
-      "mDiyo", "fuj1n", "ProgWML6", "Sunstrike"
+      "mDiyo", "fuj1n", "ProgWML6", "Sunstrike", "Pillbox"
     ],
     "credits": "Slime Knights",
     "logoFile": "",
@@ -61,7 +61,7 @@
     "url": "http://www.minecraftforum.net/topic/1659892-tinkers-construct",
     "updateUrl": "",
     "authors": [
-      "mDiyo", "fuj1n", "ProgWML6", "Sunstrike"
+      "mDiyo", "fuj1n", "ProgWML6", "Sunstrike", "Pillbox"
     ],
     "credits": "Slime Knights",
     "logoFile": "",
@@ -80,9 +80,9 @@
     "url": "http://www.minecraftforum.net/topic/1659892-tinkers-construct",
     "updateUrl": "",
     "authors": [
-      "mDiyo", "fuj1n", "ProgWML6", "Sunstrike"
+      "mDiyo", "fuj1n", "ProgWML6", "Sunstrike", "Pillbox"
     ],
-    "credits": "Slime Knights",
+    "credits": "Slime Knights", "Samtrion",
     "logoFile": "",
     "screenshots": [],
     "parent":"TConstruct",

@@ -1595,7 +1595,7 @@ public class TContent implements IFuelHandler
 
         //Buckets
         ItemStack bucket = new ItemStack(Item.bucketEmpty);
-        for (int sc = 0; sc < 25; sc++)
+        for (int sc = 0; sc < 24; sc++)
         {
             tableCasting.addCastingRecipe(new ItemStack(buckets, 1, sc), new FluidStack(fluids[sc], FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10);
         }
@@ -1606,8 +1606,8 @@ public class TContent implements IFuelHandler
         // Metal toolpart casting
         liquids = new FluidStack[] { new FluidStack(moltenIronFluid, 1), new FluidStack(moltenCopperFluid, 1), new FluidStack(moltenCobaltFluid, 1), new FluidStack(moltenArditeFluid, 1),
                 new FluidStack(moltenManyullynFluid, 1), new FluidStack(moltenBronzeFluid, 1), new FluidStack(moltenAlumiteFluid, 1), new FluidStack(moltenObsidianFluid, 1),
-                new FluidStack(moltenSteelFluid, 1), new FluidStack(blueSlimeFluid, 1) };
-        int[] liquidDamage = new int[] { 2, 13, 10, 11, 12, 14, 15, 6, 16, 17 };
+                new FluidStack(moltenSteelFluid, 1) };
+        int[] liquidDamage = new int[] { 2, 13, 10, 11, 12, 14, 15, 6, 16 };
         int fluidAmount = 0;
         Fluid fs = null;
 
@@ -1683,7 +1683,7 @@ public class TContent implements IFuelHandler
         basinCasting.addCastingRecipe(new ItemStack(Block.whiteStone), new FluidStack(moltenEnderFluid, TConstruct.chunkLiquidValue), new ItemStack(Block.obsidian), true, 100); //endstone
         basinCasting.addCastingRecipe(new ItemStack(metalBlock.blockID, 1, 10), new FluidStack(moltenEnderFluid, TConstruct.blockLiquidValue), null, true, 100); //ender
 
-        basinCasting.addCastingRecipe(new ItemStack(slimeGel, 1, 0), new FluidStack(blueSlimeFluid, FluidContainerRegistry.BUCKET_VOLUME), null, true, 100);
+        // basinCasting.addCastingRecipe(new ItemStack(slimeGel, 1, 0), new FluidStack(blueSlimeFluid, FluidContainerRegistry.BUCKET_VOLUME), null, true, 100);
 
         //Armor casts
         FluidRenderProperties frp = new FluidRenderProperties(Applications.BASIN.minHeight, 0.65F, Applications.BASIN);
@@ -1726,10 +1726,10 @@ public class TContent implements IFuelHandler
         Smeltery.addMelting(FluidType.Iron, new ItemStack(Item.cauldron), 0, TConstruct.ingotLiquidValue * 7);
         Smeltery.addMelting(FluidType.Iron, new ItemStack(Item.shears), 0, TConstruct.oreLiquidValue);
 
-        Smeltery.addMelting(FluidType.Slime, new ItemStack(slimeGel, 1, 0), 0, TConstruct.ingotLiquidValue * 4);
-        Smeltery.addMelting(FluidType.Slime, new ItemStack(strangeFood, 1, 0), 0, TConstruct.ingotLiquidValue);
-        Smeltery.addMelting(FluidType.Slime, new ItemStack(multiBrick, 1, 11), 0, TConstruct.ingotLiquidValue);
-        Smeltery.addMelting(FluidType.Slime, new ItemStack(multiBrickFancy, 1, 11), 0, TConstruct.ingotLiquidValue);
+        // Smeltery.addMelting(FluidType.Slime, new ItemStack(slimeGel, 1, 0), 0, TConstruct.ingotLiquidValue * 4);
+        // Smeltery.addMelting(FluidType.Slime, new ItemStack(strangeFood, 1, 0), 0, TConstruct.ingotLiquidValue);
+        // Smeltery.addMelting(FluidType.Slime, new ItemStack(multiBrick, 1, 11), 0, TConstruct.ingotLiquidValue);
+        // Smeltery.addMelting(FluidType.Slime, new ItemStack(multiBrickFancy, 1, 11), 0, TConstruct.ingotLiquidValue);
 
         //Blocks
         Smeltery.addMelting(FluidType.Obsidian, new ItemStack(Block.obsidian), 0, TConstruct.oreLiquidValue);
@@ -2346,7 +2346,6 @@ public class TContent implements IFuelHandler
             // Ingots, Dust
             registerIngotCasting(ft);
             Smeltery.addDictionaryMelting("ingot" + ft.toString(), ft, -50, TConstruct.ingotLiquidValue);
-            registerPatternMaterial("ingot" + ft.toString(), 2, ft.toString());
             Smeltery.addDictionaryMelting("dust" + ft.toString(), ft, -75, TConstruct.ingotLiquidValue);
             // Factorization support
             Smeltery.addDictionaryMelting("crystalline" + ft.toString(), ft, -50, TConstruct.ingotLiquidValue);
@@ -2357,7 +2356,11 @@ public class TContent implements IFuelHandler
             Smeltery.addDictionaryMelting("oreNether" + ft.toString(), ft, 75, TConstruct.oreLiquidValue * 2);
             // Blocks
             Smeltery.addDictionaryMelting("block" + ft.toString(), ft, 100, TConstruct.blockLiquidValue);
-            registerPatternMaterial("block" + ft.toString(), 18, ft.toString());
+            if (ft.isToolpart)
+            {
+                registerPatternMaterial("ingot" + ft.toString(), 2, ft.toString());
+                registerPatternMaterial("block" + ft.toString(), 18, ft.toString());
+            }
         }
 
         registerPatternMaterial("plankWood", 2, "Wood");
