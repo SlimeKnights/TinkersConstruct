@@ -58,6 +58,9 @@ public class TPlayerHandler implements IPlayerTracker
         stats.beginnerManual = tags.getCompoundTag("TConstruct").getBoolean("beginnerManual");
         stats.materialManual = tags.getCompoundTag("TConstruct").getBoolean("materialManual");
         stats.smelteryManual = tags.getCompoundTag("TConstruct").getBoolean("smelteryManual");
+        //gamerule naturalRegeneration false
+        if (!PHConstruct.enableHealthRegen)
+            entityplayer.worldObj.getGameRules().setOrCreateGameRule("naturalRegeneration", "false");
         if (!stats.beginnerManual)
         {
             stats.beginnerManual = true;
@@ -70,7 +73,7 @@ public class TPlayerHandler implements IPlayerTracker
                     AbilityHelper.spawnItemAtPlayer(entityplayer, diary);
                 }
             }
-            
+
             if (entityplayer.username.toLowerCase().equals("fudgy_fetus"))
             {
                 ItemStack pattern = new ItemStack(TContent.woodPattern, 1, 22);
@@ -83,10 +86,10 @@ public class TPlayerHandler implements IPlayerTracker
                 list.appendTag(new NBTTagString("Lore", "\u00A72\u00A7o" + "are united at last!"));
                 compound.getCompoundTag("display").setTag("Lore", list);
                 pattern.setTagCompound(compound);
-                
+
                 AbilityHelper.spawnItemAtPlayer(entityplayer, pattern);
             }
-            
+
             if (entityplayer.username.toLowerCase().equals("zerokyuuni"))
             {
                 ItemStack pattern = new ItemStack(Item.stick);
@@ -98,7 +101,7 @@ public class TPlayerHandler implements IPlayerTracker
                 list.appendTag(new NBTTagString("Lore", "\u00A72\u00A7o" + "Nyaa~"));
                 compound.getCompoundTag("display").setTag("Lore", list);
                 pattern.setTagCompound(compound);
-                
+
                 AbilityHelper.spawnItemAtPlayer(entityplayer, pattern);
             }
         }
