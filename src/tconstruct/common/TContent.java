@@ -714,11 +714,14 @@ public class TContent implements IFuelHandler
         if (!FluidRegistry.registerFluid(moltenEnderFluid))
         {
             moltenEnderFluid = FluidRegistry.getFluid("ender");
-            moltenEnder = new TConstructFluid(PHConstruct.moltenEnder, moltenEnderFluid, Material.water, "liquid_ender").setUnlocalizedName("fluid.ender");
-            GameRegistry.registerBlock(moltenEnder, "fluid.ender");
+            moltenEnder = GameRegistry.findBlock("ThermalExpansion", "fluid.ender");
+            if (moltenEnder == null)
+                TConstruct.logger.info("Molten ender block missing!");
         }
         else
         {
+            moltenEnder = new TConstructFluid(PHConstruct.moltenEnder, moltenEnderFluid, Material.water, "liquid_ender").setUnlocalizedName("fluid.ender");
+            GameRegistry.registerBlock(moltenEnder, "fluid.ender");
             moltenEnderFluid.setBlockID(moltenEnder).setDensity(3000).setViscosity(6000);
             FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(moltenEnderFluid, 1000), new ItemStack(buckets, 1, 23), new ItemStack(Item.bucketEmpty)));
         }
