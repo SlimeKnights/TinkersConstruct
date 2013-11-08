@@ -303,11 +303,11 @@ public class SignalTerminal extends Block implements ITileEntityProvider
         return 0;
     }
 
-    @Override
+    /*@Override
     public boolean shouldCheckWeakPower (World world, int x, int y, int z, int side)
     {
         return true;
-    }
+    }*/
 
     /**
      * Can this block provide power. Only wire currently seems to have this change based on its state.
