@@ -714,7 +714,7 @@ public class TContent implements IFuelHandler
         if (!FluidRegistry.registerFluid(moltenEnderFluid))
         {
             moltenEnderFluid = FluidRegistry.getFluid("ender");
-            moltenEnder = GameRegistry.findBlock("ThermalExpansion", "fluid.ender");
+            moltenEnder = Block.blocksList[moltenEnderFluid.getBlockID()];
             if (moltenEnder == null)
                 TConstruct.logger.info("Molten ender block missing!");
         }
