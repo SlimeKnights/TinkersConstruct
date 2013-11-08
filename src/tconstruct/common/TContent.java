@@ -711,12 +711,13 @@ public class TContent implements IFuelHandler
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(moltenElectrumFluid, 1000), new ItemStack(buckets, 1, 22), new ItemStack(Item.bucketEmpty)));
 
         moltenEnderFluid = new Fluid("ender");
-        boolean registerEnder = FluidRegistry.registerFluid(moltenEnderFluid);
-        if (!registerEnder)
+        if (!FluidRegistry.registerFluid(moltenEnderFluid))
+        {
             moltenEnderFluid = FluidRegistry.getFluid("ender");
-        moltenEnder = new TConstructFluid(PHConstruct.moltenEnder, moltenEnderFluid, Material.water, "liquid_ender").setUnlocalizedName("fluid.ender");
-        GameRegistry.registerBlock(moltenEnder, "fluid.ender");
-        if (registerEnder)
+            moltenEnder = new TConstructFluid(PHConstruct.moltenEnder, moltenEnderFluid, Material.water, "liquid_ender").setUnlocalizedName("fluid.ender");
+            GameRegistry.registerBlock(moltenEnder, "fluid.ender");
+        }
+        else
         {
             moltenEnderFluid.setBlockID(moltenEnder).setDensity(3000).setViscosity(6000);
             FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(moltenEnderFluid, 1000), new ItemStack(buckets, 1, 23), new ItemStack(Item.bucketEmpty)));
