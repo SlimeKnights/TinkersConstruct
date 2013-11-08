@@ -5,7 +5,7 @@ import cpw.mods.fml.common.event.FMLInterModComms;
 import net.minecraft.nbt.NBTTagCompound;
 import tconstruct.common.TContent;
 public class MystImcHandler {
-public static String[] FluidBlackList = new String[]{"moltenInvar", "moltenElectrum", "moltenBronze","moltenAluminumBrass","moltenManyullyn","MoltenAlumite", "moltenCobalt","moltenArdite"};// = new String[]();
+public static String[] FluidBlackList = new String[]{"moltenInvar", "moltenElectrum", "moltenBronze","moltenAluminumBrass","moltenManyullyn","MoltenAlumite", "moltenCobalt","moltenArdite", "ender"};// = new String[]();
 
 	public static void blacklistFluids(){
 		for(String nm: FluidBlackList){
