@@ -711,26 +711,15 @@ public class TContent implements IFuelHandler
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(moltenElectrumFluid, 1000), new ItemStack(buckets, 1, 22), new ItemStack(Item.bucketEmpty)));
 
         moltenEnderFluid = new Fluid("ender");
-        if (GameRegistry.findBlock("ThermalExpansion", "fluid.ender") == null)
+        boolean registerEnder = FluidRegistry.registerFluid(moltenEnderFluid);
+        if (!registerEnder)
+            moltenElectrumFluid = FluidRegistry.getFluid("ender");
+        moltenEnder = new TConstructFluid(PHConstruct.moltenEnder, moltenEnderFluid, Material.water, "liquid_ender").setUnlocalizedName("fluid.ender");
+        GameRegistry.registerBlock(moltenEnder, "fluid.ender");
+        if (!registerEnder)
         {
-            if (FluidRegistry.registerFluid(moltenEnderFluid))
-            {
-                moltenEnder = new TConstructFluid(PHConstruct.moltenEnder, moltenEnderFluid, Material.water, "liquid_ender").setUnlocalizedName("fluid.ender");
-                GameRegistry.registerBlock(moltenEnder, "fluid.ender");
-                moltenEnderFluid.setBlockID(moltenEnder).setDensity(3000).setViscosity(6000);
-                FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(moltenEnderFluid, 1000), new ItemStack(buckets, 1, 23), new ItemStack(Item.bucketEmpty)));
-            }
-            else
-            {
-                moltenEnderFluid = FluidRegistry.getFluid("ender");
-                moltenEnder = new TConstructFluid(PHConstruct.moltenEnder, moltenEnderFluid, Material.water, "liquid_ender").setUnlocalizedName("fluid.ender");
-            }
-        }
-        else
-        {
-
-            moltenEnderFluid = FluidRegistry.getFluid("ender");
-            moltenEnder = GameRegistry.findBlock("ThermalExpansion", "fluid.ender");
+            moltenEnderFluid.setBlockID(moltenEnder).setDensity(3000).setViscosity(6000);
+            FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(moltenEnderFluid, 1000), new ItemStack(buckets, 1, 23), new ItemStack(Item.bucketEmpty)));
         }
         fluids[23] = moltenEnderFluid;
         fluidBlocks[23] = moltenEnder;
