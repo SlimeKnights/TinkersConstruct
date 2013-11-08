@@ -1,15 +1,13 @@
 package tconstruct.blocks;
 
-import tconstruct.library.TConstructRegistry;
-import tconstruct.util.config.PHConstruct;
-
+import java.util.ArrayList;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.Icon;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
+import net.minecraft.util.*;
+import net.minecraft.world.*;
+import tconstruct.library.TConstructRegistry;
+import tconstruct.util.config.PHConstruct;
 
 /** @author fuj1n
  * 
@@ -30,6 +28,11 @@ public class GlassBlockConnected extends Block
         renderPass = hasAlpha ? 1 : 0;
         setHardness(0.3F);
         this.setCreativeTab(TConstructRegistry.blockTab);
+    }
+    
+    //For FMP support
+    public Icon[] getIcons(){
+    	return icons;
     }
 
     @Override
