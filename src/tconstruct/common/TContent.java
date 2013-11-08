@@ -713,7 +713,7 @@ public class TContent implements IFuelHandler
         moltenEnderFluid = new Fluid("ender");
         boolean registerEnder = FluidRegistry.registerFluid(moltenEnderFluid);
         if (!registerEnder)
-            moltenElectrumFluid = FluidRegistry.getFluid("ender");
+            moltenEnderFluid = FluidRegistry.getFluid("ender");
         moltenEnder = new TConstructFluid(PHConstruct.moltenEnder, moltenEnderFluid, Material.water, "liquid_ender").setUnlocalizedName("fluid.ender");
         GameRegistry.registerBlock(moltenEnder, "fluid.ender");
         if (!registerEnder)
