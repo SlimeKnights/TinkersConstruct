@@ -512,7 +512,8 @@ public class TEventHandler
                     {
                         if (TContent.fluidBlocks[id] instanceof LiquidMetalFinite)
                         {
-                            int quanta = 0;
+                            evt.world.setBlockToAir(hitX, hitY, hitZ);
+                            /*int quanta = 0;
                             for (int posX = -1; posX <= 1; posX++)
                             {
                                 for (int posZ = -1; posZ <= 1; posZ++)
@@ -546,7 +547,7 @@ public class TEventHandler
                                         }
                                     }
                                 }
-                            }
+                            }*/
                         }
                         else
                         {

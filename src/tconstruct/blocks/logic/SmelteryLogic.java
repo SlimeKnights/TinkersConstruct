@@ -6,11 +6,11 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.passive.EntityVillager;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
@@ -333,16 +333,16 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                         }
                     }
                 }
-                else if (o instanceof EntityLiving)
+                else if (o instanceof EntityLivingBase)
                 {
-                    EntityLiving living = (EntityLiving) o;
+                    EntityLivingBase living = (EntityLivingBase) o;
                     if (living.attackEntityFrom(new SmelteryDamageSource(), 1))
                     {
-                        /*if (currentLiquid + 8 < maxLiquid)
+                        if (currentLiquid + 8 < maxLiquid)
                         {
-                            int amount = living.isChild() ? 1 : 8;
+                            int amount = (living.isChild() || living instanceof EntityPlayer) ? 1 : 8;
                             this.addMoltenMetal(new FluidStack(TContent.bloodFluid, amount), false);
-                        }*/
+                        }
                     }
                 }
             }

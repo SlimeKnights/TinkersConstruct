@@ -138,7 +138,7 @@ public class FilledBucket extends ItemBucket
         else
         {
             int id = 0;
-            int metadata = 7;
+            int metadata = 0;
             if (type == 24)
                 metadata = 0;
             world.setBlock(clickX, clickY, clickZ, TContent.fluidBlocks[type].blockID, metadata, 3); //TODO: Merge liquids

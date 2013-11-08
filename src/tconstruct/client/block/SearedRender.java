@@ -159,64 +159,49 @@ public class SearedRender implements ISimpleBlockRenderingHandler
                 renderer.setRenderBounds(0.6875, 0.0F, 0.6875, 1.0F, 0.625F, 1.0F);
                 renderer.renderStandardBlock(block, x, y, z);
 
-                if (world.getBlockTileEntity(x, y, z) instanceof CastingTableLogic) {
+                if (world.getBlockTileEntity(x, y, z) instanceof CastingTableLogic)
+                {
                     CastingTableLogic logic = (CastingTableLogic) world.getBlockTileEntity(x, y, z);
                     if (logic.liquid != null)
                     {
-                    	float minHeight = 0.9375F;
-                    	float maxHeight = 1F;
+                        float minHeight = 0.9375F;
+                        float maxHeight = 1F;
 
-                    	float minX = 0.0625F;
-                    	float maxX = 0.9375F;
-                    	float minZ = 0.0625F;
-                    	float maxZ = 0.9375F;
+                        float minX = 0.0625F;
+                        float maxX = 0.9375F;
+                        float minZ = 0.0625F;
+                        float maxZ = 0.9375F;
 
-                    	ItemStack it = logic.getStackInSlot(0);
-                    	if(it != null){
-                    		CastingRecipe rec = TConstruct.tableCasting.getCastingRecipe(logic.liquid, it);
-                    		if(rec != null && rec.fluidRenderProperties != null){
-                    			minHeight = rec.fluidRenderProperties.minHeight;
-                    			maxHeight = rec.fluidRenderProperties.maxHeight;
+                        ItemStack it = logic.getStackInSlot(0);
+                        if (it != null)
+                        {
+                            CastingRecipe rec = TConstruct.tableCasting.getCastingRecipe(logic.liquid, it);
+                            if (rec != null && rec.fluidRenderProperties != null)
+                            {
+                                minHeight = rec.fluidRenderProperties.minHeight;
+                                maxHeight = rec.fluidRenderProperties.maxHeight;
 
-                    			minX = rec.fluidRenderProperties.minX;
-                    			maxX = rec.fluidRenderProperties.maxX;
-                    			minZ = rec.fluidRenderProperties.minZ;
-                    			maxZ = rec.fluidRenderProperties.maxZ;
-                    		}
-                    	}
+                                minX = rec.fluidRenderProperties.minX;
+                                maxX = rec.fluidRenderProperties.maxX;
+                                minZ = rec.fluidRenderProperties.minZ;
+                                maxZ = rec.fluidRenderProperties.maxZ;
+                            }
+                        }
 
-                    	float percent = (float)logic.getLiquidAmount() / (float)logic.getCapacity();
-                    	float height = percent * (maxHeight - minHeight);
+                        float percent = (float) logic.getLiquidAmount() / (float) logic.getCapacity();
+                        float height = percent * (maxHeight - minHeight);
                         //float height = logic.getLiquidAmount() / (logic.getCapacity() * 1.03F) / 16F;
                         renderer.setRenderBounds(minX, minHeight, minZ, maxX, minHeight + height, maxZ);
 
                         Fluid fluid = logic.liquid.getFluid();
                         BlockSkinRenderHelper.renderLiquidBlock(fluid.getStillIcon(), fluid.getFlowingIcon(), x, y, z, renderer, world);
-                        /*if (logic.liquid.fluidID < 4096) //Block
-                        {
-                            Block liquidBlock = Block.blocksList[logic.liquid.fluidID];
-                            if (liquidBlock != null)
-                            {
-                                //ForgeHooksClient.bindTexture(liquidBlock.getTextureFile(), 0);
-                                BlockSkinRenderHelper.renderMetadataBlock(liquidBlock, 0, x, y, z, renderer, world);
-                            }
-                        }
-                        else
-                        //Item
-                        {
-                            Item liquidItem = Item.itemsList[logic.liquid.fluidID];
-                            if (liquidItem != null)
-                            {
-                                //ForgeHooksClient.bindTexture(liquidItem.getTextureFile(), 0);
-                                BlockSkinRenderHelper.renderFakeBlock(liquidItem.getIconFromDamage(0), x, y, z, renderer, world);
-                            }
-                        }*/
                     }
                 }
             }
             else if (metadata == 1)
             {
-                if (world.getBlockTileEntity(x, y, z) instanceof FaucetLogic) {
+                if (world.getBlockTileEntity(x, y, z) instanceof FaucetLogic)
+                {
                     FaucetLogic logic = (FaucetLogic) world.getBlockTileEntity(x, y, z);
                     float xMin = 0.375F, zMin = 0.375F, xMax = 0.625F, zMax = 0.625F;
                     switch (logic.getRenderDirection())
@@ -289,29 +274,29 @@ public class SearedRender implements ISimpleBlockRenderingHandler
                         Fluid fluid = logic.liquid.getFluid();
                         renderer.setRenderBounds(xMin, yMin, zMin, xMax, 0.625, zMax);
                         BlockSkinRenderHelper.renderLiquidBlock(fluid.getStillIcon(), fluid.getFlowingIcon(), x, y, z, renderer, world);
-                        /*if (fluid.canBePlacedInWorld())
-                        {
-                            Block liquidBlock = Block.blocksList[blockToRender.itemID];
-                            BlockSkinRenderHelper.renderMetadataBlock(liquidBlock, 0, x, y, z, renderer, world);
-                            renderer.setRenderBounds(xMin, yMin, zMin, xMax, 0.625, zMax);
-                            BlockSkinRenderHelper.renderMetadataBlock(liquidBlock, 0, x, y, z, renderer, world);
-                        }*/
-                        /*ItemStack blockToRender = new ItemStack(logic.liquid.fluidID, 1, logic.liquid.itemMeta);
-                        if (blockToRender.itemID < 4096) //Block
-                        {
 
-                        }
-                        else
-                        //Item
+                        //float xMin = 0.375F, zMin = 0.375F, xMax = 0.625F, zMax = 0.625F;
+                        switch (logic.getRenderDirection())
                         {
-                            Item liquidItem = Item.itemsList[blockToRender.itemID];
-                            //ForgeHooksClient.bindTexture(liquidItem.getTextureFile(), 0);
-                            int meta = blockToRender.getItemDamage();
-                            BlockSkinRenderHelper.renderFakeBlock(liquidItem.getIconFromDamage(meta), x, y, z, renderer, world);
-                            renderer.setRenderBounds(xMin, yMin, zMin, xMax, 0.625, zMax);
-                            BlockSkinRenderHelper.renderFakeBlock(liquidItem.getIconFromDamage(meta), x, y, z, renderer, world);
-                        }*/
-                        //renderer.renderStandardBlock(block, x, y, z);
+                        case 3:
+                            zMin = 0.0F;
+                            zMax = 0.375F;
+                            break;
+                        case 2:
+                            zMin = 0.625F;
+                            zMax = 1.0F;
+                            break;
+                        case 5:
+                            xMin = 0.0F;
+                            xMax = 0.375F;
+                            break;
+                        case 4:
+                            xMin = 0.625F;
+                            xMax = 1.0F;
+                            break;
+                        }
+                        renderer.setRenderBounds(xMin, 0.5F, zMin, xMax, 0.625F, zMax);
+                        BlockSkinRenderHelper.renderLiquidBlock(fluid.getStillIcon(), fluid.getFlowingIcon(), x, y, z, renderer, world);
                     }
                 }
             }
@@ -379,58 +364,42 @@ public class SearedRender implements ISimpleBlockRenderingHandler
                 renderer.renderStandardBlock(block, x, y, z);
 
                 //Liquids
-                if (world.getBlockTileEntity(x, y, z) instanceof CastingBasinLogic) {
+                if (world.getBlockTileEntity(x, y, z) instanceof CastingBasinLogic)
+                {
                     CastingBasinLogic logic = (CastingBasinLogic) world.getBlockTileEntity(x, y, z);
                     if (logic.liquid != null)
                     {
-                    	float minHeight = 0.25F;
-                    	float maxHeight = 0.95F;
+                        float minHeight = 0.25F;
+                        float maxHeight = 0.95F;
 
-                    	float minX = 0.0625F;
-                    	float maxX = 0.9375F;
-                    	float minZ = 0.0625F;
-                    	float maxZ = 0.9375F;
+                        float minX = 0.0625F;
+                        float maxX = 0.9375F;
+                        float minZ = 0.0625F;
+                        float maxZ = 0.9375F;
 
-                    	ItemStack it = logic.getStackInSlot(0);
-                    	if(it != null){
-                    		CastingRecipe rec = TConstruct.basinCasting.getCastingRecipe(logic.liquid, it);
-                    		if(rec != null && rec.fluidRenderProperties != null){
-                    			minHeight = rec.fluidRenderProperties.minHeight;
-                    			maxHeight = rec.fluidRenderProperties.maxHeight;
+                        ItemStack it = logic.getStackInSlot(0);
+                        if (it != null)
+                        {
+                            CastingRecipe rec = TConstruct.basinCasting.getCastingRecipe(logic.liquid, it);
+                            if (rec != null && rec.fluidRenderProperties != null)
+                            {
+                                minHeight = rec.fluidRenderProperties.minHeight;
+                                maxHeight = rec.fluidRenderProperties.maxHeight;
 
-                    			minX = rec.fluidRenderProperties.minX;
-                    			maxX = rec.fluidRenderProperties.maxX;
-                    			minZ = rec.fluidRenderProperties.minZ;
-                    			maxZ = rec.fluidRenderProperties.maxZ;
-                    		}
-                    	}
-                    	float percent = (float)logic.getLiquidAmount() / (float)logic.getCapacity();
-                    	float height = percent * (maxHeight - minHeight);
-                    	
+                                minX = rec.fluidRenderProperties.minX;
+                                maxX = rec.fluidRenderProperties.maxX;
+                                minZ = rec.fluidRenderProperties.minZ;
+                                maxZ = rec.fluidRenderProperties.maxZ;
+                            }
+                        }
+                        float percent = (float) logic.getLiquidAmount() / (float) logic.getCapacity();
+                        float height = percent * (maxHeight - minHeight);
+
                         //float height = (logic.getLiquidAmount() / (logic.getCapacity() * 1.05F) * 0.6875F) / maxHeight;
                         renderer.setRenderBounds(minX, minHeight, minZ, maxX, minHeight + height, maxZ);
 
                         Fluid fluid = logic.liquid.getFluid();
                         BlockSkinRenderHelper.renderLiquidBlock(fluid.getStillIcon(), fluid.getFlowingIcon(), x, y, z, renderer, world);
-                        /*if (logic.liquid.itemID < 4096) //Block
-                        {
-                            Block liquidBlock = Block.blocksList[logic.liquid.itemID];
-                            if (liquidBlock != null)
-                            {
-                                //ForgeHooksClient.bindTexture(liquidBlock.getTextureFile(), 0);
-                                BlockSkinRenderHelper.renderMetadataBlock(liquidBlock, logic.liquid.itemMeta, x, y, z, renderer, world);
-                            }
-                        }
-                        else
-                        //Item
-                        {
-                            Item liquidItem = Item.itemsList[logic.liquid.itemID];
-                            if (liquidItem != null)
-                            {
-                                //ForgeHooksClient.bindTexture(liquidItem.getTextureFile(), 0);
-                                BlockSkinRenderHelper.renderFakeBlock(liquidItem.getIconFromDamage(logic.liquid.itemMeta), x, y, z, renderer, world);
-                            }
-                        }*/
                     }
                 }
             }

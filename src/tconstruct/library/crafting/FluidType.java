@@ -9,25 +9,25 @@ public enum FluidType
     /** Vanilla Water Smelting **/
     Water(Block.snow.blockID, 0, 20, FluidRegistry.getFluid("water"), false),
     /** Iron Smelting **/
-    Iron(Block.oreIron.blockID, 0, 600, TContent.moltenIronFluid, true),
+    Iron(Block.blockIron.blockID, 0, 600, TContent.moltenIronFluid, true),
     /** Gold  Smelting **/
-    Gold(Block.oreGold.blockID, 0, 400, TContent.moltenGoldFluid, false),
+    Gold(Block.blockGold.blockID, 0, 400, TContent.moltenGoldFluid, false),
     /** Tin  Smelting **/
-    Tin(TContent.oreSlag.blockID, 4, 400, TContent.moltenTinFluid, false),
+    Tin(TContent.metalBlock.blockID, 5, 400, TContent.moltenTinFluid, false),
     /** Copper  Smelting **/
-    Copper(TContent.oreSlag.blockID, 3, 550, TContent.moltenCopperFluid, true),
+    Copper(TContent.metalBlock.blockID, 3, 550, TContent.moltenCopperFluid, true),
     /** Aluminum Smelting **/
-    Aluminum(TContent.oreSlag.blockID, 5, 350, TContent.moltenAluminumFluid, false),
+    Aluminum(TContent.metalBlock.blockID, 6, 350, TContent.moltenAluminumFluid, false),
     /** Natural Aluminum Smelting **/
-    NaturalAluminum(TContent.oreSlag.blockID, 5, 350, TContent.moltenAluminumFluid, false),
+    NaturalAluminum(TContent.oreSlag.blockID, 6, 350, TContent.moltenAluminumFluid, false),
     /** Cobalt Smelting **/
-    Cobalt(TContent.oreSlag.blockID, 1, 650, TContent.moltenCobaltFluid, true),
+    Cobalt(TContent.metalBlock.blockID, 0, 650, TContent.moltenCobaltFluid, true),
     /** Ardite Smelting **/
-    Ardite(TContent.oreSlag.blockID, 2, 650, TContent.moltenArditeFluid, true),
+    Ardite(TContent.metalBlock.blockID, 1, 650, TContent.moltenArditeFluid, true),
     /** AluminumBrass Smelting **/
     AluminumBrass(TContent.metalBlock.blockID, 7, 350, TContent.moltenAlubrassFluid, false),
     /** Alumite Smelting **/
-    Alumite(TContent.metalBlock.blockID, 0, 800, TContent.moltenAlumiteFluid, true),
+    Alumite(TContent.metalBlock.blockID, 8, 800, TContent.moltenAlumiteFluid, true),
     /** Manyullyn Smelting **/
     Manyullyn(TContent.metalBlock.blockID, 2, 750, TContent.moltenManyullynFluid, true),
     /** Bronze Smelting **/
