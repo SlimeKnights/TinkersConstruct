@@ -2,6 +2,8 @@ package tconstruct.common;
 
 import cpw.mods.fml.common.network.IGuiHandler;
 import cpw.mods.fml.common.registry.LanguageRegistry;
+import cpw.mods.fml.common.registry.TickRegistry;
+import cpw.mods.fml.relauncher.Side;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -9,6 +11,7 @@ import tconstruct.TConstruct;
 import tconstruct.blocks.logic.TileEntityLandmine;
 import tconstruct.inventory.*;
 import tconstruct.library.blocks.InventoryLogic;
+import tconstruct.library.multiblock.MultiblockServerTickHandler;
 import tconstruct.util.player.TPlayerStats;
 
 /**
@@ -85,6 +88,7 @@ public class TProxyCommon implements IGuiHandler
     public void registerTickHandler ()
     {
         //TickRegistry.registerTickHandler(new TimeTicker(), Side.SERVER);
+    	TickRegistry.registerScheduledTickHandler(new MultiblockServerTickHandler(), Side.SERVER);
     }
 
     /* Registers any rendering code. Does nothing server-side */
