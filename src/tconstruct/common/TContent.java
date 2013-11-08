@@ -44,6 +44,7 @@ import tconstruct.util.config.*;
 
 public class TContent implements IFuelHandler
 {
+    public static boolean supressMissingToolLogs = false;
     //Patterns and other materials
     public static Item blankPattern;
     public static Item materials;

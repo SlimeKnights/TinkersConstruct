@@ -28,6 +28,7 @@ import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import tconstruct.TConstruct;
+import tconstruct.common.TContent;
 import tconstruct.library.ActiveToolMod;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.ToolBuilder;
@@ -541,8 +542,11 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
         ItemStack tool = ToolBuilder.instance.buildTool(new ItemStack(getHeadItem(), 1, id), new ItemStack(getHandleItem(), 1, id), accessoryStack, extraStack, name + getToolName());
         if (tool == null)
         {
-            TConstruct.logger.warning("Creative builder failed tool for " + name + this.getToolName());
-            TConstruct.logger.warning("Make sure you do not have item ID conflicts");
+            if (!TContent.supressMissingToolLogs)
+            {
+                TConstruct.logger.warning("Creative builder failed tool for " + name + this.getToolName());
+                TConstruct.logger.warning("Make sure you do not have item ID conflicts");
+            }
         }
         else
         {
