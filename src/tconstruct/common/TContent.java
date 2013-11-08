@@ -279,6 +279,13 @@ public class TContent implements IFuelHandler
     public static Item leggingsWood;
     public static Item bootsWood;
     public static EnumArmorMaterial materialWood;
+    
+    //Signal & Logic
+    public static Block signalBus;
+    public static Block signalTerminal;
+    
+    public static Item spoolWire;
+    public static Item lengthWire;
 
     //Temporary items
     //public static Item armorTest = new ArmorStandard(2445, 4, EnumArmorPart.HELMET).setCreativeTab(CreativeTabs.tabAllSearch);
@@ -825,6 +832,16 @@ public class TContent implements IFuelHandler
         //Rail
         woodenRail = new WoodRail(PHConstruct.woodenRail).setStepSound(Block.soundWoodFootstep).setCreativeTab(TConstructRegistry.blockTab).setUnlocalizedName("rail.wood");
         GameRegistry.registerBlock(woodenRail, "rail.wood");
+        
+        //Signal & Logic
+        signalBus = (new SignalBus(PHConstruct.signalBus)).setUnlocalizedName("tconstruct.signalbus");
+        GameRegistry.registerBlock(signalBus, SignalBusItem.class, "SignalBus");
+        GameRegistry.registerTileEntity(SignalBusLogic.class, "SignalBus");
+        
+        signalTerminal = (new SignalTerminal(PHConstruct.signalTerminal)).setUnlocalizedName("tconstruct.signalterminal");
+        GameRegistry.registerBlock(signalTerminal, SignalTerminalItem.class, "SignalTerminal");
+        GameRegistry.registerTileEntity(SignalTerminalLogic.class, "SignalTerminal");
+
     }
 
     void registerItems ()
@@ -964,6 +981,9 @@ public class TContent implements IFuelHandler
         leggingsWood = new ArmorBasic(PHConstruct.woodPants, materialWood, 2, "wood").setUnlocalizedName("tconstruct.leggingsWood");
         bootsWood = new ArmorBasic(PHConstruct.woodBoots, materialWood, 3, "wood").setUnlocalizedName("tconstruct.bootsWood");
 
+        spoolWire = new SpoolOfWire(PHConstruct.spoolWire).setUnlocalizedName("spoolwire");
+        lengthWire = new LengthWire(PHConstruct.lengthWire).setUnlocalizedName("lengthwire");
+        
         //        essenceCrystal = new EssenceCrystal(PHConstruct.essenceCrystal).setUnlocalizedName("tconstruct.crystal.essence");
 
         String[] materialStrings = { "paperStack", "greenSlimeCrystal", "searedBrick", "ingotCobalt", "ingotArdite", "ingotManyullyn", "mossBall", "lavaCrystal", "necroticBone", "ingotCopper",
@@ -989,7 +1009,10 @@ public class TContent implements IFuelHandler
         TConstructRegistry.addItemStackToDirectory("canisterEmpty", new ItemStack(heartCanister, 1, 0));
         TConstructRegistry.addItemStackToDirectory("miniRedHeart", new ItemStack(heartCanister, 1, 1));
         TConstructRegistry.addItemStackToDirectory("canisterRedHeart", new ItemStack(heartCanister, 1, 2));
-
+        
+        TConstructRegistry.addItemStackToDirectory("spoolWire", new ItemStack(spoolWire, 1, 0));
+        TConstructRegistry.addItemStackToDirectory("lengthWire", new ItemStack(lengthWire, 1, 0));
+        
         //Vanilla stack sizes
         Item.doorWood.setMaxStackSize(16);
         Item.doorIron.setMaxStackSize(16);
@@ -1341,6 +1364,13 @@ public class TContent implements IFuelHandler
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(landmine, 1, 3), "mcm", "rpr", 'm', Item.redstoneRepeater, 'c', new ItemStack(blankPattern, 1, 1), 'r', Item.redstone, 'p',
                 Block.pressurePlateStone));
 
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(signalBus.blockID, 1, 0), "www", "sss", 'w', lengthWire, 's', new ItemStack(Block.stoneSingleSlab, 1, OreDictionary.WILDCARD_VALUE)));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(signalTerminal.blockID, 1, 0), "b", "g", "b", 'b', new ItemStack(signalBus.blockID, 1, 0), 'g', new ItemStack(Block.glass, 1, OreDictionary.WILDCARD_VALUE)));
+
+        GameRegistry.addRecipe(new ItemStack(lengthWire, 8), "a", "a", 'a', aluBrass);
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(spoolWire, 1, 256 - 8), "www", "wrw", "www", 'w', lengthWire, 'r', "stoneRod"));
+        GameRegistry.addRecipe(new SpoolRepairRecipe(new ItemStack(spoolWire, 1, 256), new ItemStack(lengthWire, 1)));
+
         //Ultra hardcore recipes
         Object goldType = null;
         RecipeRemover.removeShapedRecipe(new ItemStack(Item.appleGold));
@@ -1463,7 +1493,7 @@ public class TContent implements IFuelHandler
         patternOutputs = new Item[] { toolRod, pickaxeHead, shovelHead, hatchetHead, swordBlade, wideGuard, handGuard, crossbar, binding, frypanHead, signHead, knifeBlade, chiselHead, toughRod,
                 toughBinding, largePlate, broadAxeHead, scytheBlade, excavatorHead, largeSwordBlade, hammerHead, fullGuard, null, null, arrowhead };
 
-        int[] nonMetals = { 0, 1, 3, 4, 5, 6, 7, 8, 9, 17 };
+        int[] nonMetals = { 0, 1, 3, 4, 5, 6, 7, 8, 9 };
 
         if (PHConstruct.craftMetalTools)
         {
@@ -1597,6 +1627,7 @@ public class TContent implements IFuelHandler
 
         //Buckets
         ItemStack bucket = new ItemStack(Item.bucketEmpty);
+
         for (int sc = 0; sc < 24; sc++)
         {
             tableCasting.addCastingRecipe(new ItemStack(buckets, 1, sc), new FluidStack(fluids[sc], FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10);
@@ -1732,6 +1763,7 @@ public class TContent implements IFuelHandler
         Smeltery.addMelting(FluidType.Steel, new ItemStack(toolShard, 1, 16), 0, TConstruct.chunkLiquidValue);
 
         // Items
+
         Smeltery.addMelting(FluidType.AluminumBrass, new ItemStack(blankPattern, 4, 1), -50, TConstruct.ingotLiquidValue);
         Smeltery.addMelting(FluidType.Gold, new ItemStack(blankPattern, 4, 1), -50, TConstruct.ingotLiquidValue);
 
@@ -2002,7 +2034,7 @@ public class TContent implements IFuelHandler
 
         ensureOreIsRegistered("stoneMossy", new ItemStack(Block.stoneBrick, 1, 1));
         ensureOreIsRegistered("stoneMossy", new ItemStack(Block.cobblestoneMossy));
-
+        
         ensureOreIsRegistered("crafterWood", new ItemStack(Block.workbench, 1));
 
         String[] matNames = { "wood", "stone", "iron", "flint", "cactus", "bone", "obsidian", "netherrack", "slime", "paper", "cobalt", "ardite", "manyullyn", "copper", "bronze", "alumite", "steel",

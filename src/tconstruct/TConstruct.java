@@ -13,10 +13,13 @@ import java.util.logging.Logger;
 import net.minecraft.crash.CallableMinecraftVersion;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraftforge.common.MinecraftForge;
+import tconstruct.blocks.SignalBus;
+import tconstruct.client.SignalTetherWorldOverlayRenderer;
 import tconstruct.client.event.EventCloakRender;
 import tconstruct.common.*;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.*;
+import tconstruct.library.multiblock.MultiblockEventHandler;
 import tconstruct.library.util.TabTools;
 import tconstruct.util.*;
 import tconstruct.util.config.*;
@@ -95,6 +98,8 @@ public class TConstruct
         proxy.addNames();
         proxy.readManuals();
         proxy.registerKeys();
+        
+        MinecraftForge.EVENT_BUS.register(new MultiblockEventHandler());
 
         GameRegistry.registerWorldGenerator(new TBaseWorldGenerator());
         MinecraftForge.TERRAIN_GEN_BUS.register(new TerrainGenEventHandler());
@@ -135,6 +140,8 @@ public class TConstruct
         if (event.getSide() == Side.CLIENT)
         {
             MinecraftForge.EVENT_BUS.register(new EventCloakRender());
+            MinecraftForge.EVENT_BUS.register(TConstruct.instance.content.signalBus);
+            MinecraftForge.EVENT_BUS.register(new SignalTetherWorldOverlayRenderer());
         }
 
         content.intermodCommunication();

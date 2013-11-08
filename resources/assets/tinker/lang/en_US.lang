@@ -100,6 +100,9 @@ block.fancybrick.stone.name=Fancy Stone Brick
 
 tile.rail.wood.name=Wooden Rail
 
+tile.signalbus.name=Signal Bus
+tile.signalterminal.name=Signal Terminal
+
 tile.cloth.white.slab.name=Wool Slab
 tile.cloth.orange.slab.name=Orange Wool Slab
 tile.cloth.magenta.slab.name=Magenta Wool Slab
@@ -125,7 +128,10 @@ item.oreberry.aluminum.name=Aluminum Oreberry
 item.oreberry.essence.name=Concentrated Essence Berry
 
 item.goldenhead.name=Golden Head
-item.tconstruct.titleicon.name=Spawn 
+item.tconstruct.titleicon.name=Spawn
+
+item.spoolwire.name=Spool of Wire
+item.lengthwire.name=Length of Wire
 
 item.InfiTool.Pickaxe.name=Pickaxe
 item.InfiTool.Shovel.name=Shovel

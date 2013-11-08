@@ -13,6 +13,13 @@ public class CoordTuple implements Comparable
         z = posZ;
     }
 
+    public CoordTuple(CoordTuple tuple)
+    {
+        x = tuple.x;
+        y = tuple.y;
+        z = tuple.z;
+    }
+
     public boolean equalCoords (int posX, int posY, int posZ)
     {
         if (this.x == posX && this.y == posY && this.z == posZ)
@@ -57,11 +64,34 @@ public class CoordTuple implements Comparable
     {
         if (o == null)
             throw new NullPointerException("Object cannot be null");
-        
-        CoordTuple coord = (CoordTuple) o; 
-        if (coord.equals(this))
-            return 0;
-        
-        return (x - coord.x) + (y - coord.y) + (z - coord.z);
+
+        CoordTuple coord = (CoordTuple) o;
+
+        if (x < coord.x)
+        {
+            return -1;
+        }
+        if (x > coord.x)
+        {
+            return 1;
+        }
+        if (y < coord.y)
+        {
+            return -1;
+        }
+        if (y > coord.y)
+        {
+            return 1;
+        }
+        if (z < coord.z)
+        {
+            return -1;
+        }
+        if (z > coord.z)
+        {
+            return 1;
+        }
+
+        return 0;
     }
 }

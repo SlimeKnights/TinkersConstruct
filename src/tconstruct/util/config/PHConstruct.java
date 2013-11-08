@@ -47,7 +47,6 @@ public class PHConstruct
         keepHunger = config.get("Difficulty Changes", "Keep hunger on death", true).getBoolean(true);
         keepLevels = config.get("Difficulty Changes", "Keep levels on death", true).getBoolean(true);
         beginnerBook = config.get("Difficulty Changes", "Spawn beginner book", true).getBoolean(true);
-        
         superfunWorld = config.get("Superfun", "All the world is Superfun", false).getBoolean(false);
 
         enableTWood = config.get("Difficulty Changes", "Enable mod wooden tools", true).getBoolean(true);
@@ -179,6 +178,8 @@ public class PHConstruct
         slimeExplosive = config.getBlock("SDX", 3247).getInt(3247);
         castingChannel = config.getBlock("Casting Channel", 3249).getInt(3249);
         woodenRail = config.getBlock("Wooden Rail", 3250).getInt(3250);
+        signalBus = config.getBlock("Signal Bus", 3251).getInt(3251);
+        signalTerminal = config.getBlock("Signal Terminal", 3252).getInt(3252);
 
         manual = config.getItem("Patterns and Misc", "Tinker's Manual", 14018).getInt(14018);
         blankPattern = config.getItem("Patterns and Misc", "Blank Patterns", 14019).getInt(14019);
@@ -263,6 +264,9 @@ public class PHConstruct
         essenceCrystal = config.getItem("Patterns and Misc", "Essence Crystal", 14114).getInt(14114);
         jerky = config.getItem("Patterns and Misc", "Jerky", 14115).getInt(14115);
 
+        spoolWire = config.getItem("Logic", "SpoolWire", 14120).getInt(14120);
+        lengthWire = config.getItem("Logic", "LengthWire", 14121).getInt(14121);
+        
         boolean ic2 = true;
         boolean xycraft = true;
         try
@@ -410,6 +414,9 @@ public class PHConstruct
     public static int dryingRack;
 
     public static int woodenRail;
+    
+    public static int signalBus;
+    public static int signalTerminal;
 
     //Crops
     public static int oreBerry;
@@ -578,6 +585,9 @@ public class PHConstruct
     public static int knapsack;
 
     public static int heartCanister;
+    
+    public static int spoolWire;
+    public static int lengthWire;
 
     //Ore values
     public static boolean generateCopper;
