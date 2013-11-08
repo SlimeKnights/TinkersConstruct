@@ -477,11 +477,6 @@ public class SignalBusLogic extends MultiblockBaseLogic implements IActiveLogic,
         return new SignalBusMasterLogic(this.worldObj);
     }
 
-    public String debugString ()
-    {
-        return "Connected: " + transceivers.size();
-    }
-
     public byte[] getLocalSignals ()
     {
         return localHighSignals;

@@ -77,20 +77,6 @@ public class SignalBus extends Block implements ITileEntityProvider {
         this.setStepSound(soundMetalFootstep);
         setCreativeTab(TConstructRegistry.blockTab);
 	}
-	
-	@Override
-	public boolean onBlockActivated(World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9) {
-		if (par1World.isRemote) { return false; } 
-		TileEntity te = par1World.getBlockTileEntity(par2, par3, par4);
-		if (te != null && te instanceof SignalBusLogic) {
-			TConstruct.logger.info(((SignalBusLogic)te).debugString());
-			if (((SignalBusLogic)te).getMultiblockMaster() != null) {
-				TConstruct.logger.info((((SignalBusLogic)te).getMultiblockMaster().debugString()));
-			}
-		}
-		
-		return false;
-	}
 
 	@Override
 	public void onNeighborTileChange(World world, int x, int y, int z, int tileX, int tileY, int tileZ) {

@@ -392,9 +392,4 @@ public abstract class MultiblockMasterBaseLogic
     public abstract void formatDescriptionPacket (NBTTagCompound data);
 
     public abstract void decodeDescriptionPacket (NBTTagCompound data);
-
-    public String debugString ()
-    {
-        return "refCoords: [" + referenceCoord.x + "," + referenceCoord.y + "," + referenceCoord.z + "]";
-    }
 }

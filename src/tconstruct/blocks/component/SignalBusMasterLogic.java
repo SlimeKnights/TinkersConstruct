@@ -224,29 +224,6 @@ public class SignalBusMasterLogic extends MultiblockMasterBaseLogic
         // Nothing important at the moment
     }
 
-    @Override
-    public String debugString ()
-    {
-        String fromSuper = super.debugString();
-
-        if (worldObj.isRemote)
-        {
-            return fromSuper;
-        }
-
-        String tstring = "Tethered Buses: " + tetheredBuses.size() + "\n Signals: [";
-        for (int n = 0; n < 16; n++)
-        {
-            tstring += n + ":" + masterSignals[n];
-
-            if (n != 15)
-                tstring += ", ";
-        }
-        tstring += "]";
-
-        return fromSuper + "\n" + tstring;
-    }
-
     public void forceUpdate ()
     {
         forceUpdate = true;

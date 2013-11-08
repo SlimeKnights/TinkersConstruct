@@ -172,19 +172,6 @@ public class SignalTerminal extends Block implements ITileEntityProvider
     }
 
     /**
-     * checks to see if you can place this block can be placed on that side of a block: BlockLever overrides
-     */
-    public boolean canPlaceBlockOnSide (World world, int x, int y, int z, int side)
-    {
-        ForgeDirection dir = ForgeDirection.getOrientation(side);
-        return true || (dir == ForgeDirection.NORTH && world.isBlockSolidOnSide(x, y, z + 1, ForgeDirection.NORTH))
-                || (dir == ForgeDirection.SOUTH && world.isBlockSolidOnSide(x, y, z - 1, ForgeDirection.SOUTH))
-                || (dir == ForgeDirection.WEST && world.isBlockSolidOnSide(x + 1, y, z, ForgeDirection.WEST))
-                || (dir == ForgeDirection.EAST && world.isBlockSolidOnSide(x - 1, y, z, ForgeDirection.EAST)) || (dir == ForgeDirection.UP && world.isBlockSolidOnSide(x, y - 1, z, ForgeDirection.UP))
-                || (dir == ForgeDirection.DOWN && world.isBlockSolidOnSide(x, y + 1, z, ForgeDirection.DOWN));
-    }
-
-    /**
      * Checks to see if its valid to put this block at the specified coordinates. Args: world, x, y, z
      */
     public boolean canPlaceBlockAt (World world, int x, int y, int z)
@@ -437,18 +424,14 @@ public class SignalTerminal extends Block implements ITileEntityProvider
     @Override
     public boolean onBlockActivated (World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9)
     {
-        int meta = par1World.getBlockMetadata(par2, par3, par4);
         TileEntity te = par1World.getBlockTileEntity(par2, par3, par4);
 
         if (!par1World.isRemote)
         {
             if (te != null && te instanceof SignalTerminalLogic)
             {
-                //                ((SignalTerminalLogic) te).nextChannel();
                 if (!par1World.isRemote)
                 {
-                    //                    par1World.scheduleBlockUpdate(par2, par3, par4, this.blockID, 1);
-                    //                    par1World.markBlockForRenderUpdate(par2, par3, par4);
                     par1World.markBlockForUpdate(par2, par3, par4);
                 }
                 int boxHit = closestClicked(par5EntityPlayer, 3.0F, (SignalTerminalLogic) te, getBoxes((SignalTerminalLogic) te));
@@ -477,15 +460,6 @@ public class SignalTerminal extends Block implements ITileEntityProvider
                 }
             }
         }
-
-        if (te instanceof SignalTerminalLogic)
-        {
-            TConstruct.logger.info(((SignalTerminalLogic) te).debugString());
-        }
-
-        TConstruct.logger.info("meta: " + meta);
-
-        //this.setBlockBoundsBasedOnState(par1World, par2, par3, par4);
 
         return false;
     }

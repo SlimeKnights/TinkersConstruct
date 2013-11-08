@@ -335,26 +335,6 @@ public class SignalTerminalLogic extends TileEntity implements ISignalTransceive
         return connectedSides.clone();
     }
 
-    public String debugString ()
-    {
-        String tstr = "";
-
-        if (!worldObj.isRemote)
-        {
-            byte tbyte = (byte) 0;
-            for (int n = 0; n < 6; n++)
-            {
-                if (connectedSides[n] != -1)
-                {
-                    tbyte &= (1 << n);
-                }
-            }
-            tstr += "Sides: " + tbyte + "\n";
-        }
-
-        return tstr;
-    }
-
     /* Packets */
     @Override
     public Packet getDescriptionPacket ()
