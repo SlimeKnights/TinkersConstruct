@@ -10,7 +10,7 @@ import tconstruct.library.tools.ToolCore;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
-/* IC2 support */
+/* TE3 support */
 
 public class ModFlux extends ModBoolean
 {
@@ -75,7 +75,7 @@ public class ModFlux extends ModBoolean
             tags.setInteger(key, 1);
             addModifierTip(tool, "\u00a7eFlux");
             ToolCore toolcore = (ToolCore) tool.getItem();
-            tool.setItemDamage(1 + (toolcore.getMaxCharge(tool) - charge) * (tool.getMaxDamage() - 1) / toolcore.getMaxCharge(tool));
+            tool.setItemDamage(1 + (toolcore.getMaxEnergyStored(tool) - charge) * (tool.getMaxDamage() - 1) / toolcore.getMaxEnergyStored(tool));
         }
     }
 
