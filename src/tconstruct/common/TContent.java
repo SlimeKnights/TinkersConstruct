@@ -2438,7 +2438,7 @@ public class TContent implements IFuelHandler
         //Compressed materials
         for (int i = 1; i <= 8; i++)
         {
-            Smeltery.addDictionaryMelting("compressedCobblestone"+i+"x", FluidType.Stone, 0, TConstruct.oreLiquidValue / 18 * (9^i));
+            Smeltery.addDictionaryMelting("compressedCobblestone"+i+"x", FluidType.Stone, 0, TConstruct.ingotLiquidValue / 18 * (9^i));
         }
         Smeltery.addDictionaryMelting("compressedSand1x", FluidType.Glass, 175, FluidContainerRegistry.BUCKET_VOLUME*9);
 
