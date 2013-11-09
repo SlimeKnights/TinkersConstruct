@@ -6,7 +6,10 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 import tconstruct.blocks.TConstructBlock;
@@ -48,6 +51,10 @@ public class SlimeGel extends TConstructBlock
                 world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, var9.stepSound.getStepSound(), (var9.stepSound.getVolume()) / 2.0F, var9.stepSound.getPitch() * 0.65F);
             }
             entity.motionY *= -1.2F;
+            if (entity instanceof EntityLivingBase)
+            {
+                ((EntityLivingBase) entity).addPotionEffect(new PotionEffect(Potion.jump.id, 1, 4));
+            }
         }
         entity.fallDistance = 0;
     }

@@ -5,6 +5,9 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
@@ -39,12 +42,32 @@ public class SoilBlock extends TConstructBlock
         }
     }
 
+    public void onEntityCollidedWithBlock (World world, int x, int y, int z, Entity entity)
+    {
+        int meta = world.getBlockMetadata(x, y, z);
+        if (meta < 3)
+        {
+            entity.motionX *= 0.4;
+            entity.motionZ *= 0.4;
+            if (meta != 1 && entity instanceof EntityLivingBase)
+            {
+                ((EntityLivingBase) entity).addPotionEffect(new PotionEffect(Potion.weakness.id, 1));
+                ((EntityLivingBase) entity).addPotionEffect(new PotionEffect(Potion.jump.id, 1, 1));
+            }
+        }
+    }
+
     public float getBlockHardness (World world, int x, int y, int z)
     {
         int meta = world.getBlockMetadata(x, y, z);
         if (meta == 5)
             return Block.dirt.blockHardness;
         return this.blockHardness;
+    }
+    
+    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z)
+    {
+        return Block.slowSand.getCollisionBoundingBoxFromPool(world, x, y, z);
     }
 
     /*public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z)

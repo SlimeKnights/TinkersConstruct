@@ -104,6 +104,8 @@ public class PHConstruct
 
         slimeChannel = config.getBlock("Slime Channel", 3190).getInt(3190);
         slimePad = config.getBlock("Slime Pad", 3191).getInt(3191);
+        
+        furnaceSlab = config.getBlock("Furnace Slab", 3192).getInt(3192);
 
         //Thermal Expansion
         moltenSilver = config.getBlock("Molten Silver", 3195).getInt(3195);
@@ -131,9 +133,10 @@ public class PHConstruct
         blood = config.getBlock("Liquid Cow", 3217).getInt(3217);
         moltenEnder = config.getBlock("Molten Ender", 3218).getInt(3218);
 
-        //3221+
-        //3221
-        //3222
+        
+        
+        signalBus = config.getBlock("Signal Bus", 3221).getInt(3221);
+        signalTerminal = config.getBlock("Signal Terminal", 3222).getInt(3222);
         glass = config.getBlock("Clear Glass", 3223).getInt(3223);
         stainedGlass = config.getBlock("Stained Glass", 3224).getInt(3224);
         stainedGlassClear = config.getBlock("Clear Stained Glass", 3225).getInt(3225);
@@ -178,8 +181,7 @@ public class PHConstruct
         slimeExplosive = config.getBlock("SDX", 3247).getInt(3247);
         castingChannel = config.getBlock("Casting Channel", 3249).getInt(3249);
         woodenRail = config.getBlock("Wooden Rail", 3250).getInt(3250);
-        signalBus = config.getBlock("Signal Bus", 3251).getInt(3251);
-        signalTerminal = config.getBlock("Signal Terminal", 3252).getInt(3252);
+        //3251+ belongs to Natura. Go backwards!
 
         manual = config.getItem("Patterns and Misc", "Tinker's Manual", 14018).getInt(14018);
         blankPattern = config.getItem("Patterns and Misc", "Blank Patterns", 14019).getInt(14019);
@@ -397,6 +399,7 @@ public class PHConstruct
     public static int heldItemBlock;
     public static int woodCrafter;
     public static int woodCrafterSlab;
+    public static int furnaceSlab;
 
     public static int ores;
     public static int lavaTank;

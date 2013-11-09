@@ -26,8 +26,9 @@ public class TProxyCommon implements IGuiHandler
     public static int stencilTableID = 3;
     public static int frypanGuiID = 4;
     public static int toolForgeID = 5;
-    public static int smelteryGuiID = 7;
     
+    public static int smelteryGuiID = 7;
+    public static int furnaceID = 8;
     public static int drawbridgeID = 9;
     public static int landmineID = 10;
     public static int craftingStationID = 11;
