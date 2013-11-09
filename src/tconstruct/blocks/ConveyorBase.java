@@ -82,6 +82,11 @@ public class ConveyorBase extends Block
 
             entity.addVelocity(moveX, 0, moveZ);
         }
+        
+        if (entity instanceof EntityItem)
+        {
+            ((EntityItem)entity).age = 0;
+        }
     }
     
     @Override
