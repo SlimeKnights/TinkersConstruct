@@ -34,6 +34,16 @@ public class EnvironmentChecks {
             modIds.add("optifine");
         }
 
+        try {
+            Class cl = Class.forName("org.bukkit.Bukkit");
+            if (cl != null) {
+                TConstruct.logger.severe("[Environment Checks] Bukkit implementation detected. This may be crashy. Bukkit implementations include Craftbukkit and MCPC+.");
+                modIds.add("bukkit");
+            }
+        } catch (Exception ex) {
+            // No Bukkit in environment.
+        }
+
         if (modIds.size() == 0) {
             ICrashCallable callable = new CallableSuppConfig();
             FMLCommonHandler.instance().registerCrashCallable(callable);
