@@ -524,7 +524,7 @@ public class SignalBus extends Block implements ITileEntityProvider {
     {
         super.onNeighborBlockChange(par1World, par2, par3, par4, par5);
         
-        if (par5 == this.blockID)
+        if (par5 == this.blockID || par1World.isRemote)
         {
             return;
         }

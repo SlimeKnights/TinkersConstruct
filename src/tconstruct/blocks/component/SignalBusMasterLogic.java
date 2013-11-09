@@ -18,6 +18,7 @@ import tconstruct.library.util.CoordTuple;
 public class SignalBusMasterLogic extends MultiblockMasterBaseLogic
 {
     private boolean forceUpdate = false;
+    private boolean forceSouthboundUpdates = false;
     private boolean signalUpdate = false;
     private byte[] masterSignals = new byte[16];
     private CoordTuple[] signalProviderCoords = new CoordTuple[16];
@@ -56,7 +57,7 @@ public class SignalBusMasterLogic extends MultiblockMasterBaseLogic
             calcSignals(signals);
         }
 
-        if (!Arrays.equals(oldSignals, masterSignals))
+        if (forceSouthboundUpdates || !Arrays.equals(oldSignals, masterSignals))
         {
             // Send updates to SignalBuses
             for (CoordTuple coord : tetheredBuses.keySet())
@@ -120,11 +121,15 @@ public class SignalBusMasterLogic extends MultiblockMasterBaseLogic
 
         ((SignalBusMasterLogic) newMaster).calcSignals(masterSignals);
 
-        if (!Arrays.equals(oldSignals, ((SignalBusMasterLogic) newMaster).getSignals()))
-        {
-            ((SignalBusMasterLogic) newMaster).forceUpdate();
-        }
+        ((SignalBusMasterLogic) newMaster).forceUpdate();
 
+
+    }
+
+    @Override
+    public void endMerging ()
+    {
+        forceSouthboundUpdates = true;
     }
 
     protected void calcSignals (byte[] signals)
