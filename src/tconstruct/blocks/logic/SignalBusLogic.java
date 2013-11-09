@@ -680,8 +680,10 @@ public class SignalBusLogic extends MultiblockBaseLogic implements IActiveLogic,
     
     public void notifyBreak ()
     {
+        CoordTuple[] scan = new CoordTuple[transceivers.keySet().size()];
+        scan = transceivers.keySet().toArray(scan);
         TileEntity te;
-        for (CoordTuple coord : transceivers.keySet())
+        for (CoordTuple coord : scan)
         {
             te = worldObj.getBlockTileEntity(coord.x, coord.y, coord.z);
             if (te instanceof ISignalTransceiver)
