@@ -23,6 +23,7 @@ public abstract class MultiblockBaseLogic extends TileEntity implements IMultibl
     private boolean saveMultiblockData;
     private NBTTagCompound cachedMultiblockData;
     private boolean doUpdate;
+    private boolean pendingDestroy = false;
 
     public MultiblockBaseLogic()
     {
@@ -114,7 +115,7 @@ public abstract class MultiblockBaseLogic extends TileEntity implements IMultibl
     @Override
     public boolean isVisited ()
     {
-        return this.visited != kUnvisited;
+        return (this.visited != kUnvisited || pendingDestroy);
     }
 
     @Override
@@ -160,6 +161,11 @@ public abstract class MultiblockBaseLogic extends TileEntity implements IMultibl
     @Override
     public void onBlockAdded (World world, int x, int y, int z)
     {
+        if (pendingDestroy)
+        {
+            return;
+        }
+        
         IMultiblockMember[] neighbors = getNeighboringMembers();
 
         List<MultiblockMasterBaseLogic> masters = new LinkedList<MultiblockMasterBaseLogic>();
@@ -226,7 +232,7 @@ public abstract class MultiblockBaseLogic extends TileEntity implements IMultibl
     @Override
     public void onOrphaned ()
     {
-        if (this.isConnected())
+        if (this.isConnected() || pendingDestroy)
         {
             // Turns out, we're not an orphan after all
             return;
@@ -384,6 +390,13 @@ public abstract class MultiblockBaseLogic extends TileEntity implements IMultibl
             this.master.detachBlock(this, chunkUnloading);
             this.master = null;
         }
+    }
+    
+    protected void destroySelf ()
+    {
+        pendingDestroy = true;
+//        this.detachSelf(false);
+        this.getMultiblockMaster().scheduleRemoveAndRevisit(this);
     }
 
     protected CoordTuple[] getNeighborCoords ()

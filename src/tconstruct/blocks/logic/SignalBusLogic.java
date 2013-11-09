@@ -43,6 +43,7 @@ public class SignalBusLogic extends MultiblockBaseLogic implements IActiveLogic,
     private Map<CoordTuple, byte[]> transceivers = new HashMap<CoordTuple, byte[]>();
     private byte[] localHighSignals = new byte[16];
     private byte[] cachedReceivedSignals = new byte[16];
+    private int cachedConnectableCount = 0;
 
     private boolean southboundSignalsChanged = false;
     private boolean northboundSignalsChanged = false;
@@ -92,7 +93,7 @@ public class SignalBusLogic extends MultiblockBaseLogic implements IActiveLogic,
                 tY += ForgeDirection.VALID_DIRECTIONS[i].offsetY;
                 tZ += ForgeDirection.VALID_DIRECTIONS[i].offsetZ;
                 te = worldObj.getBlockTileEntity(tX, tY, tZ);
-                if (te instanceof IMultiblockMember && ((IMultiblockMember) te).isCompatible((Object) this))
+                if (te instanceof IMultiblockMember && ((IMultiblockMember) te).isCompatible((Object) this) && ((IMultiblockMember) te).willConnect(getCoordInWorld()))
                 {
                     corners.add((IMultiblockMember) te);
                 }
@@ -146,9 +147,14 @@ public class SignalBusLogic extends MultiblockBaseLogic implements IActiveLogic,
         
         if (forceCheck)
         {
+            int connectableCount = this.getNeighboringMembers().length;
             forceCheck = false;
-            super.onBlockAdded(worldObj, xCoord, yCoord, zCoord);
-            this.getMultiblockMaster().revisitBlocks();
+            if (connectableCount != cachedConnectableCount)
+            {
+                cachedConnectableCount = connectableCount;
+                super.onBlockAdded(worldObj, xCoord, yCoord, zCoord);
+//                this.getMultiblockMaster().revisitBlocks();
+            }
         }
 
         if (northboundSignalsChanged)
@@ -504,7 +510,10 @@ public class SignalBusLogic extends MultiblockBaseLogic implements IActiveLogic,
     public void addPlacedSide (int side)
     {
         placedSides[side] = true;
-        forceCheck = true;
+        if (!worldObj.isRemote)
+        {
+            forceCheck = true;
+        }
     }
 
     public boolean[] getRenderCorners (ForgeDirection fromFace)
@@ -568,7 +577,7 @@ public class SignalBusLogic extends MultiblockBaseLogic implements IActiveLogic,
 
             for (j = 0; j < 6; ++j)
             {
-                if (placedSides[j] || j == i || j == i || j == iDir.getOpposite().ordinal())
+                if (placedSides[j] || j == i || j == iDir.getOpposite().ordinal())
                 {
                     continue;
                 }
@@ -585,7 +594,7 @@ public class SignalBusLogic extends MultiblockBaseLogic implements IActiveLogic,
                 {
                     continue;
                 }
-                if (xCoord + iDir.offsetX + jDir.offsetX == coord.x && yCoord + iDir.offsetY + jDir.offsetY == coord.y && xCoord + iDir.offsetZ + jDir.offsetZ == coord.z)
+                if (xCoord + iDir.offsetX + jDir.offsetX == coord.x && yCoord + iDir.offsetY + jDir.offsetY == coord.y && zCoord + iDir.offsetZ + jDir.offsetZ == coord.z)
                 {
                     te = worldObj.getBlockTileEntity(xCoord + iDir.offsetX + jDir.offsetX, yCoord + iDir.offsetY + jDir.offsetY, zCoord + iDir.offsetZ + jDir.offsetZ);
                     if (te instanceof ISignalBusConnectable && ((ISignalBusConnectable)te).connectableOnCorner(iDir.getOpposite(), jDir.getOpposite()))
@@ -625,7 +634,7 @@ public class SignalBusLogic extends MultiblockBaseLogic implements IActiveLogic,
                 {
                     continue;
                 }
-                coord = new CoordTuple(xCoord + iDir.offsetX + jDir.offsetX, yCoord + iDir.offsetY + jDir.offsetY, zCoord + iDir.offsetZ + jDir.offsetZ);
+                cornerCoords.add(new CoordTuple(xCoord + iDir.offsetX + jDir.offsetX, yCoord + iDir.offsetY + jDir.offsetY, zCoord + iDir.offsetZ + jDir.offsetZ));
             }
         }
 
@@ -680,6 +689,22 @@ public class SignalBusLogic extends MultiblockBaseLogic implements IActiveLogic,
                 ((ISignalTransceiver) te).doUnregister(true);
             }
         }
-        this.detachSelf(false);
+        this.destroySelf();
+    }
+
+    public boolean canPlaceOnSide (int side)
+    {
+        for (int i = 0; i < 6; ++i)
+        {
+            if (i == side || i == ForgeDirection.OPPOSITES[side])
+            {
+                continue;
+            }
+            if (placedSides[i])
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }

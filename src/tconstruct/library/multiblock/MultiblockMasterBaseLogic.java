@@ -10,6 +10,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatMessageComponent;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeChunkManager.ForceChunkEvent;
 
 import tconstruct.library.util.CoordTuple;
 
@@ -17,10 +18,12 @@ public abstract class MultiblockMasterBaseLogic
 {
     protected World worldObj;
     protected Set<CoordTuple> connectedBlocks;
+    protected LinkedList<CoordTuple> pendingRemovalBlocks;
     protected CoordTuple referenceCoord;
     protected CoordTuple minimumCoord;
     protected CoordTuple maximumCoord;
     protected boolean forceRecheck;
+    protected boolean forceRevisit;
     protected boolean chunksHaveLoaded;
     protected boolean doUpdates;
 
@@ -28,6 +31,7 @@ public abstract class MultiblockMasterBaseLogic
     {
         worldObj = world;
         connectedBlocks = new CopyOnWriteArraySet<CoordTuple>();
+        pendingRemovalBlocks = new LinkedList<CoordTuple>();
         referenceCoord = null;
 
         minimumCoord = new CoordTuple(0, 0, 0);
@@ -219,7 +223,10 @@ public abstract class MultiblockMasterBaseLogic
         if (referenceCoord != null)
         {
             TileEntity te = this.worldObj.getBlockTileEntity(referenceCoord.x, referenceCoord.y, referenceCoord.z);
-            ((IMultiblockMember) te).forfeitMultiblockSaveDelegate();
+            if (te instanceof IMultiblockMember)
+            {
+                ((IMultiblockMember) te).forfeitMultiblockSaveDelegate();
+            }
             this.referenceCoord = null;
         }
 
@@ -237,6 +244,58 @@ public abstract class MultiblockMasterBaseLogic
 
     public final void doMultiblockTick ()
     {
+        if (forceRevisit)
+        {
+            CoordTuple deadCoords;
+            
+            forceRevisit = false;
+            while (!pendingRemovalBlocks.isEmpty())
+            {
+                deadCoords = pendingRemovalBlocks.removeFirst();
+                if (connectedBlocks.contains(deadCoords))
+                {
+                    if (referenceCoord.equals(deadCoords))
+                    {
+                        referenceCoord = null;
+                    }
+                    connectedBlocks.remove(deadCoords);   
+                }
+            }
+            if (referenceCoord == null)
+            {
+                if (!this.connectedBlocks.isEmpty())
+                {
+                    for (CoordTuple tcoord : connectedBlocks)
+                    {
+                        TileEntity te = this.worldObj.getBlockTileEntity(tcoord.x, tcoord.y, tcoord.z);
+                        if (!(te instanceof IMultiblockMember))
+                        {
+                            continue;
+                        }
+
+                        if (referenceCoord == null)
+                        {
+                            referenceCoord = tcoord;
+                        }
+                        else if (tcoord.compareTo(referenceCoord) < 0)
+                        {
+                            referenceCoord = tcoord;
+                        }
+                    }
+                }
+
+                if (referenceCoord != null)
+                {
+                    TileEntity te = this.worldObj.getBlockTileEntity(referenceCoord.x, referenceCoord.y, referenceCoord.z);
+                    ((IMultiblockMember) te).becomeMultiblockSaveDelegate();
+                }
+            }
+            
+            this.revisitBlocks();
+            
+            forceRecheck = true;
+        }
+        
         if (this.connectedBlocks.isEmpty())
         {
             MultiblockRegistry.unregister(this);
@@ -289,7 +348,7 @@ public abstract class MultiblockMasterBaseLogic
             }
 
             te = this.worldObj.getBlockTileEntity(coord.x, coord.y, coord.z);
-            if (te == null)
+            if (!(te instanceof IMultiblockMember))
             {
                 continue;
             } // this happens during chunk unload; ignore it
@@ -392,4 +451,10 @@ public abstract class MultiblockMasterBaseLogic
     public abstract void formatDescriptionPacket (NBTTagCompound data);
 
     public abstract void decodeDescriptionPacket (NBTTagCompound data);
+
+    public void scheduleRemoveAndRevisit (IMultiblockMember remove)
+    {
+        forceRevisit = true;
+        pendingRemovalBlocks.add(remove.getCoordInWorld());
+    }
 }
