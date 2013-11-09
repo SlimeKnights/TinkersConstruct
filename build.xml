@@ -274,6 +274,7 @@
 		<delete dir="${mcpsrc.dir}/minecraft/codechicken"/>
 		<delete dir="${mcpsrc.dir}/minecraft/mcp"/>
 		<delete dir="${mcpsrc.dir}/minecraft/appeng"/>
+		<delete dir="${mcpsrc.dir}/minecraft/cofh/"/>
 		
 	</target>
 
