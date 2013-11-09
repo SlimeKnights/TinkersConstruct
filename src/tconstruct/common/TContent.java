@@ -2363,6 +2363,18 @@ public class TContent implements IFuelHandler
         {
             basinCasting.addCastingRecipe(ores.get(0), new FluidStack(moltenElectrumFluid, TConstruct.blockLiquidValue), null, 100);
         }
+        
+        /* Extra Utilities */
+        ores = OreDictionary.getOres("compressedGravel1x");
+        if (ores.size() > 0)
+        {
+            basinCasting.addCastingRecipe(new ItemStack(speedBlock, 9), new FluidStack(moltenElectrumFluid, TConstruct.blockLiquidValue), ores.get(0), 100);
+        }
+        ores = OreDictionary.getOres("compressedGravel2x"); //Higher won't save properly
+        if (ores.size() > 0)
+        {
+            basinCasting.addCastingRecipe(new ItemStack(speedBlock, 81), new FluidStack(moltenElectrumFluid, TConstruct.blockLiquidValue*9), ores.get(0), 100);
+        }
     }
 
     public static Object getStaticItem (String name, String classPackage)
@@ -2422,10 +2434,18 @@ public class TContent implements IFuelHandler
                 registerPatternMaterial("block" + ft.toString(), 18, ft.toString());
             }
         }
+        
+        //Compressed materials
+        for (int i = 1; i <= 8; i++)
+        {
+            Smeltery.addDictionaryMelting("compressedCobblestone"+i+"x", FluidType.Stone, 0, TConstruct.oreLiquidValue / 18 * (9^i));
+        }
+        Smeltery.addDictionaryMelting("compressedSand1x", FluidType.Glass, 175, FluidContainerRegistry.BUCKET_VOLUME*9);
 
         registerPatternMaterial("plankWood", 2, "Wood");
         registerPatternMaterial("stickWood", 1, "Wood");
         registerPatternMaterial("slabWood", 1, "Wood");
+        registerPatternMaterial("compressedCobblestone1x", 18, "Stone");
     }
 
     private void registerPatternMaterial (String oreName, int value, String materialName)
