@@ -380,7 +380,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, ICu
                     color = "\u00a76";
             }
 
-            String charge = new StringBuilder().append(color).append(tags.getInteger("charge")).append("/").append(getMaxCharge(stack)).append(" EU").toString();
+            String charge = new StringBuilder().append(color).append(tags.getInteger("energy")).append("/").append(getMaxEnergyStored(stack)).append(" RF").toString();
             list.add(charge);
         }
         if (tags.hasKey("InfiTool"))
