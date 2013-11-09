@@ -1,5 +1,12 @@
 package tconstruct.blocks;
 
+import static net.minecraftforge.common.ForgeDirection.DOWN;
+import static net.minecraftforge.common.ForgeDirection.EAST;
+import static net.minecraftforge.common.ForgeDirection.NORTH;
+import static net.minecraftforge.common.ForgeDirection.SOUTH;
+import static net.minecraftforge.common.ForgeDirection.UP;
+import static net.minecraftforge.common.ForgeDirection.WEST;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -89,6 +96,48 @@ public class SignalBus extends Block implements ITileEntityProvider {
 	}
 
 	@Override
+    public void onNeighborBlockChange (World world, int x, int y, int z, int blockID)
+    {
+	    if (blockID == this.blockID)
+	    {
+	        return;
+	    }
+	    super.onNeighborBlockChange(world, x, y, z, blockID);
+	    
+	    TileEntity te = world.getBlockTileEntity(x, y, z);
+	    if (te instanceof SignalBusLogic)
+	    {
+	        ItemStack tempStack;
+	        float jumpX, jumpY, jumpZ;
+	        Random rand = new Random();
+	        
+	        int dropBus = ((SignalBusLogic)te).checkUnsupportedSides();
+            if (dropBus > 0)
+            {
+                if (((SignalBusLogic)te).checkShouldDestroy())
+                {
+                    world.setBlockToAir(x, y, z);
+                }
+
+                tempStack = new ItemStack(TConstruct.instance.content.signalBus.blockID, dropBus, 0);
+                jumpX = rand.nextFloat() * 0.8F + 0.1F;
+                jumpY = rand.nextFloat() * 0.8F + 0.1F;
+                jumpZ = rand.nextFloat() * 0.8F + 0.1F;
+
+                EntityItem entityitem = new EntityItem(world, (double) ((float) x + jumpX), (double) ((float) y + jumpY), (double) ((float) z + jumpZ), tempStack);
+
+                float offset = 0.05F;
+                entityitem.motionX = (double) ((float) rand.nextGaussian() * offset);
+                entityitem.motionY = (double) ((float) rand.nextGaussian() * offset + 0.2F);
+                entityitem.motionZ = (double) ((float) rand.nextGaussian() * offset);
+                world.spawnEntityInWorld(entityitem);
+                
+                world.markBlockForUpdate(x, y, z);
+            }
+	    }
+    }
+
+    @Override
 	public void onBlockAdded(World world, int x, int y, int z) {
 		TileEntity te = world.getBlockTileEntity(x, y, z);
 		if (te != null && te instanceof SignalBusLogic) {
@@ -114,28 +163,6 @@ public class SignalBus extends Block implements ITileEntityProvider {
             this.icons[i] = iconRegister.registerIcon("tinker:" + textureNames[i]);
         }
     }
-
-//    @Override
-//    public void setBlockBoundsBasedOnState (IBlockAccess world, int x, int y, int z)
-//    {
-//        SignalBusLogic tile = (SignalBusLogic) world.getBlockTileEntity(x, y, z);
-//        if (!(tile instanceof SignalBusLogic)) return;
-//        float minX = 0.375F;
-//        float maxX = 0.625F;
-//        float minZ = 0.375F;
-//        float maxZ = 0.625F;
-//        if (tile.isConnected(ForgeDirection.DOWN, ForgeDirection.NORTH))
-//            minZ = 0F;
-//        if (tile.isConnected(ForgeDirection.DOWN, ForgeDirection.SOUTH))
-//            maxZ = 1F;
-//        if (tile.isConnected(ForgeDirection.DOWN, ForgeDirection.WEST))
-//            minX = 0F;
-//        if (tile.isConnected(ForgeDirection.DOWN, ForgeDirection.EAST))
-//            maxX = 1F;
-//
-//        //this.setBlockBounds(minX, 0.0F, minZ, maxX, 0.2F, maxZ);
-//        this.setBlockBounds(0, 0, 0, 1, 1, 1);
-//    }
 
     @Override
     public boolean renderAsNormalBlock ()
@@ -426,35 +453,6 @@ public class SignalBus extends Block implements ITileEntityProvider {
         }
         return closest;
     }
-    @SideOnly(Side.CLIENT)
-    @ForgeSubscribe 
-    public void onBlockHighlight (DrawBlockHighlightEvent event)
-    {
-        return;
-//        if (event.target.typeOfHit == EnumMovingObjectType.TILE && event.player.worldObj.getBlockId(event.target.blockX, event.target.blockY, event.target.blockZ) == this.blockID)
-//        {
-//            TileEntity te = event.player.worldObj.getBlockTileEntity(event.target.blockX, event.target.blockY, event.target.blockZ);
-//            if (!(te instanceof SignalBusLogic))
-//            {
-//                return;
-//            }
-//            AxisAlignedBB[] boxes = getBoxes((SignalBusLogic)te);
-//            double reach = Minecraft.getMinecraft().playerController.getBlockReachDistance();
-//            int hitbox = closestClicked(event.player, reach, (SignalBusLogic)te, boxes);
-//            
-//            if (hitbox > 0 && hitbox < HITBOXES)
-//            {
-//                float f1 = 0.002F;
-//                double d0 = event.player.lastTickPosX + (event.player.posX - event.player.lastTickPosX) * (double)event.partialTicks;
-//                double d1 = event.player.lastTickPosY + (event.player.posY - event.player.lastTickPosY) * (double)event.partialTicks;
-//                double d2 = event.player.lastTickPosZ + (event.player.posZ - event.player.lastTickPosZ) * (double)event.partialTicks;
-//                drawOutlinedBoundingBox(boxes[hitbox].expand((double)f1, (double)f1, (double)f1).getOffsetBoundingBox(-d0, -d1, -d2));
-//
-//            }
-//            event.setCanceled(true);
-//        }
-        
-    }
 
     /**
      * Draws lines for the edges of the bounding box.
@@ -520,22 +518,6 @@ public class SignalBus extends Block implements ITileEntityProvider {
     }
 
     @Override
-    public void onNeighborBlockChange (World par1World, int par2, int par3, int par4, int par5)
-    {
-        super.onNeighborBlockChange(par1World, par2, par3, par4, par5);
-        
-        if (par5 == this.blockID || par1World.isRemote)
-        {
-            return;
-        }
-        TileEntity te = par1World.getBlockTileEntity(par2, par3, par4);
-        if (te instanceof SignalBusLogic)
-        {
-            ((SignalBusLogic)te).forceNeighborCheck();
-        }
-    }
-
-    @Override
     public void breakBlock (World world, int x, int y, int z, int id, int meta)
     {
         int dropBus, dropWire = 0;
@@ -582,6 +564,46 @@ public class SignalBus extends Block implements ITileEntityProvider {
         }
 
         super.breakBlock(world, x, y, z, id, meta);
+    }
+    
+    /**
+     * checks to see if you can place this block can be placed on that side of a block: BlockLever overrides
+     */
+    @Override
+    public boolean canPlaceBlockOnSide(World par1World, int par2, int par3, int par4, int par5)
+    {
+        ForgeDirection dir = ForgeDirection.getOrientation(par5);
+        return (dir == DOWN  && par1World.isBlockSolidOnSide(par2, par3 + 1, par4, DOWN )) ||
+               (dir == UP    && par1World.isBlockSolidOnSide(par2, par3 - 1, par4, UP   )) ||
+               (dir == NORTH && par1World.isBlockSolidOnSide(par2, par3, par4 + 1, NORTH)) ||
+               (dir == SOUTH && par1World.isBlockSolidOnSide(par2, par3, par4 - 1, SOUTH)) ||
+               (dir == WEST  && par1World.isBlockSolidOnSide(par2 + 1, par3, par4, WEST )) ||
+               (dir == EAST  && par1World.isBlockSolidOnSide(par2 - 1, par3, par4, EAST ));
+    }
+
+    /**
+     * Checks to see if its valid to put this block at the specified coordinates. Args: world, x, y, z
+     */
+    @Override
+    public boolean canPlaceBlockAt(World par1World, int par2, int par3, int par4)
+    {
+        return par1World.isBlockSolidOnSide(par2 - 1, par3, par4, EAST ) ||
+               par1World.isBlockSolidOnSide(par2 + 1, par3, par4, WEST ) ||
+               par1World.isBlockSolidOnSide(par2, par3, par4 - 1, SOUTH) ||
+               par1World.isBlockSolidOnSide(par2, par3, par4 + 1, NORTH) ||
+               par1World.isBlockSolidOnSide(par2, par3 - 1, par4, UP   ) ||
+               par1World.isBlockSolidOnSide(par2, par3 + 1, par4, DOWN );
+    }
+
+    @Override
+    public boolean canBlockStay (World par1World, int par2, int par3, int par4)
+    {
+        return par1World.isBlockSolidOnSide(par2 - 1, par3, par4, EAST ) ||
+                par1World.isBlockSolidOnSide(par2 + 1, par3, par4, WEST ) ||
+                par1World.isBlockSolidOnSide(par2, par3, par4 - 1, SOUTH) ||
+                par1World.isBlockSolidOnSide(par2, par3, par4 + 1, NORTH) ||
+                par1World.isBlockSolidOnSide(par2, par3 - 1, par4, UP   ) ||
+                par1World.isBlockSolidOnSide(par2, par3 + 1, par4, DOWN );
     }
 
 }

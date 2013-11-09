@@ -140,7 +140,6 @@ public class TConstruct
         if (event.getSide() == Side.CLIENT)
         {
             MinecraftForge.EVENT_BUS.register(new EventCloakRender());
-            MinecraftForge.EVENT_BUS.register(TConstruct.instance.content.signalBus);
             MinecraftForge.EVENT_BUS.register(new SignalTetherWorldOverlayRenderer());
         }
 
