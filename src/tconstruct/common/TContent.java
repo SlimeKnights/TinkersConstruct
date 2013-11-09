@@ -1183,6 +1183,8 @@ public class TContent implements IFuelHandler
             GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 13), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(Block.planks, 1, 3));
             GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(toolStationWood, 1, 10), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', "plankWood"));
         }
+        GameRegistry.addRecipe(new ItemStack(furnaceSlab, 1, 0), "###", "# #", "###", '#', new ItemStack(Block.stoneSingleSlab, 1, 3));
+        
         // Blank Pattern Recipe
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(blankPattern, 1, 0), "ps", "sp", 'p', "plankWood", 's', "stickWood"));
         // Manual Book Recipes
