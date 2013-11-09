@@ -691,4 +691,20 @@ public class SignalBusLogic extends MultiblockBaseLogic implements IActiveLogic,
         }
         this.destroySelf();
     }
+
+    public boolean canPlaceOnSide (int side)
+    {
+        for (int i = 0; i < 6; ++i)
+        {
+            if (i == side || i == ForgeDirection.OPPOSITES[side])
+            {
+                continue;
+            }
+            if (placedSides[i])
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 }

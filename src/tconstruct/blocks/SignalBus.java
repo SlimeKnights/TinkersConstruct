@@ -62,7 +62,7 @@ public class SignalBus extends Block implements ITileEntityProvider {
         public static double cable_corner_min = cable_high_offset - 1;
         public static double cable_corner_max = cable_low_height + 1;
         
-        public static double zfight = 0.0000001D;
+        public static double zfight = 0.00001D;
     }
     
     public static int HITBOXES = 6;

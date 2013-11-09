@@ -159,7 +159,7 @@ public class SignalBusItem extends ItemBlock
                 return false;
             }
 
-            return true;
+            return ((SignalBusLogic)te).canPlaceOnSide(ForgeDirection.OPPOSITES[side]);
         }
 
         return false;
