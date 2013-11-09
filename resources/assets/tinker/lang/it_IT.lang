@@ -25,7 +25,9 @@ CraftedSoil.BlueSlime.name=Fango Viscido
 CraftedSoil.GraveyardSoil.name=Terra del Cimitero
 CraftedSoil.ConsecratedSoil.name=Terra Consacrata
 tile.CastingChannel.name=Canale della Fonderia
-
+tile.slime.channel.name=Canale per Slime
+tile.slime.pad.name=Cuscino Rimbalzante
+ 
 MetalOre.NetherSlag.name=Scorie di Netherrack
 MetalOre.Cobalt.name=Cobalto Grezzo
 MetalOre.Ardite.name=Ardite Grezzo
@@ -98,6 +100,9 @@ block.fancybrick.stone.name=Mattoni di Pieatra Decorativi
 
 tile.rail.wood.name=Rotelle di Legno
 
+tile.signalbus.name=Bus per Segnale
+tile.signalterminal.name=Terminale per Segnale
+
 tile.cloth.white.slab.name=Lastra di Lana
 tile.cloth.orange.slab.name=Lastra di Lana Arancione
 tile.cloth.magenta.slab.name=Lastra di Lana Magenta
@@ -123,7 +128,10 @@ item.oreberry.aluminum.name=Baccagrezza di Alluminio
 item.oreberry.essence.name=Bacca Concentrata di Essenza
 
 item.goldenhead.name=Testa d'Oro
-item.tconstruct.titleicon.name=Spawn 
+item.tconstruct.titleicon.name=Spawn
+
+item.spoolwire.name=Rotolo di Cavi
+item.lengthwire.name=Lunghezza di Cavi
 
 item.InfiTool.Pickaxe.name=Piccone
 item.InfiTool.Shovel.name=Pala
@@ -439,6 +447,7 @@ tile.metal.molten.shiny.name=Platino Fuso
 tile.metal.molten.invar.name=Invaro Fuso
 tile.metal.molten.Electrum.name=Elettro Fuso
 tile.fluid.ender.name=Ender Liquefatto
+tile.liquid.slime.name=Slime Liquefatto
 
 LiquidMetal.Iron.name=Ferro Fuso
 LiquidMetal.Gold.name=Oro Fuso
@@ -563,3 +572,4 @@ fluid.platinum.molten=Platino Fuso
 fluid.invar=Invaro Fuso
 fluid.shiny=Platino Fuso
 fluid.ender=Ender Liquido
+fluid.slime.blue=Slime Blu Liquido
