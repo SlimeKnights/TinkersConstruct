@@ -10,7 +10,7 @@ import tconstruct.common.TContent;
 public class MystImcHandler
 {
     private static String[] FluidBlackList = new String[] { "invar.molten", "electrum.molten", "bronze.molten", "aluminumbrass.molten", "manyullyn.molten", "alumite.molten", "cobalt.molten",
-            "moltenArdite", "ender", "steel.molten" };// = new String[]();
+            "moltenArdite", "ender", "steel.molten", "platinum.molten"};// = new String[]();
     private static ArrayList<String> additionalFluids = new ArrayList<String>();
 
     public static void addFluidToBlacklist (String fluidName)
