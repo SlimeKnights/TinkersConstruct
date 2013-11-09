@@ -254,6 +254,7 @@ public class TContent implements IFuelHandler
 
     //Tool modifiers
     public static ModElectric modE;
+    public static ModFlux modF;
     public static ModLapis modL;
 
     //Wearables
@@ -1532,6 +1533,9 @@ public class TContent implements IFuelHandler
 
         modE = new ModElectric();
         tb.registerToolMod(modE);
+        modF = new ModFlux();
+        tb.registerToolMod(modF);
+
 
         ItemStack redstoneItem = new ItemStack(Item.redstone);
         ItemStack redstoneBlock = new ItemStack(Block.blockRedstone);
@@ -2222,8 +2226,19 @@ public class TContent implements IFuelHandler
     public void modIntegration ()
     {
         ItemStack ironpick = ToolBuilder.instance.buildTool(new ItemStack(TContent.pickaxeHead, 1, 6), new ItemStack(TContent.toolRod, 1, 2), new ItemStack(TContent.binding, 1, 6), "");
+        /*TE3 Flux*/
+        ItemStack batHardened =  GameRegistry.findItemStack("ThermalExpansion", "batteryHardened", 1);
+        if (batHardened != null)
+        {
+            modF.batteries.add(batHardened);
+        }
+        ItemStack basicCell =  GameRegistry.findItemStack("ThermalExpansion", "cellBasic", 1);
+        if (basicCell != null)
+        {
+            modF.batteries.add(basicCell);
+        }
         /* IC2 */
-
+        
         //ItemStack reBattery = ic2.api.item.Items.getItem("reBattery");
         Object reBattery = getStaticItem("reBattery", "ic2.core.Ic2Items");
         if (reBattery != null)
@@ -2284,7 +2299,7 @@ public class TContent implements IFuelHandler
         LiquidCasting tableCasting = TConstructRegistry.instance.getTableCasting();
         LiquidCasting basinCasting = TConstructRegistry.instance.getBasinCasting();
 
-        /* Thermal Expansion */
+        /* Thermal Expansion 3 Metals */
         ArrayList<ItemStack> ores = OreDictionary.getOres("ingotNickel");
         if (ores.size() > 0)
         {

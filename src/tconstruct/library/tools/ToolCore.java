@@ -9,6 +9,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import cofh.api.energy.IEnergyContainerItem;
+import cofh.util.MathHelper;
+
 import appeng.api.IAEItemStack;
 import appeng.api.me.items.IAEChargeableItem;
 import appeng.api.me.items.IStorageCell;
@@ -61,8 +64,13 @@ import cpw.mods.fml.relauncher.SideOnly;
  * @see ToolMod
  */
 
-public abstract class ToolCore extends Item implements ICustomElectricItem, IBoxable, IBattlegearWeapon, IStorageCell, IAEChargeableItem
+public abstract class ToolCore extends Item implements IEnergyContainerItem, ICustomElectricItem, IBoxable, IBattlegearWeapon, IStorageCell, IAEChargeableItem
 {
+   //TE power constants -- TODO grab these from the 
+    protected int capacity = 80000;
+    protected int maxReceive = 75;
+    protected int maxExtract = 75;
+    
     protected Random random = new Random();
     protected int damageVsEntity;
     public static Icon blankSprite;
@@ -348,6 +356,25 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
                 if (power <= this.getMaxCharge(stack) / 3)
                     color = "\u00a74";
                 else if (power > this.getMaxCharge(stack) * 2 / 3)
+                    color = "\u00a72";
+                else
+                    color = "\u00a76";
+            }
+
+            String charge = new StringBuilder().append(color).append(tags.getInteger("charge")).append("/").append(getMaxCharge(stack)).append(" EU").toString();
+            list.add(charge);
+        }
+        if (tags.hasKey("Energy"))
+        {
+            String color = "";
+            //double joules = this.getJoules(stack);
+            int power = tags.getInteger("Energy");
+
+            if (power != 0)
+            {
+                if (power <= this.getMaxEnergyStored(stack) / 3)
+                    color = "\u00a74";
+                else if (power > this.getMaxEnergyStored(stack) * 2 / 3)
                     color = "\u00a72";
                 else
                     color = "\u00a76";
@@ -912,25 +939,20 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
             {
                 amount = getTransferLimit(stack);
             }
-
             int charge = tags.getInteger("charge");
 
             if (amount > charge)
             {
                 amount = charge;
             }
-
             charge -= amount;
-
             if (!simulate)
             {
                 tags.setInteger("charge", charge);
                 stack.setItemDamage(1 + (getMaxCharge(stack) - charge) * (stack.getMaxDamage() - 1) / getMaxCharge(stack));
             }
-
             return amount;
         }
-
         else
             return 0;
     }
@@ -1000,14 +1022,12 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
     @Override
     public float addEnergy (ItemStack target, float energy)
     {
-        // TODO Auto-generated method stub
         return 0;
     }
 
     @Override
     public boolean isChargeable (ItemStack it)
     {
-        // TODO Auto-generated method stub
         return false;
     }
 
@@ -1015,21 +1035,18 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
     @Override
     public int getBytes (ItemStack cellItem)
     {
-        // TODO Auto-generated method stub
         return 0;
     }
 
     @Override
     public int BytePerType (ItemStack cellItem)
     {
-        // TODO Auto-generated method stub
         return 0;
     }
 
     @Override
     public int getTotalTypes (ItemStack cellItem)
     {
-        // TODO Auto-generated method stub
         return 0;
     }
 
@@ -1042,14 +1059,82 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
     @Override
     public boolean storableInStorageCell ()
     {
-        // TODO Auto-generated method stub
         return false;
     }
 
     @Override
     public boolean isStorageCell (ItemStack i)
     {
-        // TODO Auto-generated method stub
         return false;
     }
+
+    //TE support section -- from COFH core API reference section
+    public void setMaxTransfer (int maxTransfer)
+    {
+        setMaxReceive(maxTransfer);
+        setMaxExtract(maxTransfer);
+    }
+
+    public void setMaxReceive (int maxReceive)
+    {
+        this.maxReceive = maxReceive;
+    }
+
+    public void setMaxExtract (int maxExtract)
+    {
+        this.maxExtract = maxExtract;
+    }
+
+    /* IEnergyContainerItem */
+    @Override
+    public int receiveEnergy (ItemStack container, int maxReceive, boolean simulate)
+    {
+        NBTTagCompound tags = container.getTagCompound();
+        if (tags == null || !tags.hasKey("Energy"))
+            return 0;
+        int energy = tags.getInteger("Energy");
+        int energyReceived = MathHelper.minI(capacity - energy, MathHelper.minI(this.maxReceive, maxReceive));
+        if (!simulate)
+        {
+            energy += energyReceived;
+            tags.setInteger("Energy", energy);
+        }
+        return energyReceived;
+    }
+
+    @Override
+    public int extractEnergy (ItemStack container, int maxExtract, boolean simulate)
+    {
+        NBTTagCompound tags = container.getTagCompound();
+        if (tags == null || !tags.hasKey("Energy"))
+        {
+            return 0;
+        }
+        int energy = tags.getInteger("Energy");
+        int energyExtracted = MathHelper.minI(energy, MathHelper.minI(this.maxExtract, maxExtract));
+        if (!simulate)
+        {
+            energy -= energyExtracted;
+            tags.setInteger("Energy", energy);
+        }
+        return energyExtracted;
+    }
+
+    @Override
+    public int getEnergyStored (ItemStack container)
+    {
+        NBTTagCompound tags = container.getTagCompound();
+        if (tags == null || !tags.hasKey("Energy"))
+        {
+            return 0;
+        }
+        return tags.getInteger("Energy");
+    }
+
+    @Override
+    public int getMaxEnergyStored (ItemStack container)
+    {
+        return capacity;
+    }
+    //end of TE support section
 }

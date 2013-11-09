@@ -228,7 +228,7 @@ public class TProxyClient extends TProxyCommon
         RenderingRegistry.registerBlockHandler(new SlimePadRender());
         RenderingRegistry.registerBlockHandler(new SignalBusRender());
         RenderingRegistry.registerBlockHandler(new SignalTerminalRender());
-        
+
         if (!PHConstruct.newSmeltery)
             RenderingRegistry.registerBlockHandler(new SmelteryRender());
 
@@ -535,6 +535,8 @@ public class TProxyClient extends TProxyCommon
         TConstructClientRegistry.registerManualModifier("smitemod", ironlongsword.copy(), new ItemStack(TContent.craftedSoil, 1, 4));
 
         TConstructClientRegistry.registerManualModifier("electricmod", ironpick.copy(), new ItemStack(Block.dirt), new ItemStack(Block.dirt));
+        TConstructClientRegistry.registerManualModifier("fluxmod", ironpick.copy(), new ItemStack(Block.dirt), new ItemStack(Block.dirt));
+
         TConstructClientRegistry.registerManualModifier("tier1free", ironpick.copy(), new ItemStack(Item.diamond), new ItemStack(Block.blockGold));
         TConstructClientRegistry.registerManualModifier("tier2free", ironpick.copy(), new ItemStack(Item.netherStar));
 
@@ -691,8 +693,8 @@ public class TProxyClient extends TProxyCommon
                 "blueslime" };
         // String[] modPartTypes = { "thaumium" };
         String[] effectTypes = { "diamond", "emerald", "redstone", "piston", "moss", "ice", "lava", "blaze", "necrotic", "electric", "lapis", "quartz", "silk", "beheading", "smite", "spider",
-                "reinforced" };
-        int[] universalEffects = { 0, 1, 4, 9, 16 };
+                "reinforced", "flux" };
+        int[] universalEffects = { 0, 1, 4, 9, 16, 17 };
         int[] weaponEffects = { 3, 5, 7, 13, 14, 15 };
         int[] harvestEffects = { 2 };
         int[] nonUtility = { 6, 8, 10, 11, 12 };
