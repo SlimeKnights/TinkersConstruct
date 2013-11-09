@@ -707,4 +707,42 @@ public class SignalBusLogic extends MultiblockBaseLogic implements IActiveLogic,
         }
         return false;
     }
+
+    public int checkUnsupportedSides ()
+    {
+        int dropCount = 0;
+        ForgeDirection iDir, sDir;
+        for (int i = 0; i < 6; ++i)
+        {
+            if (!placedSides[i])
+            {
+                continue;
+            }
+            iDir = ForgeDirection.VALID_DIRECTIONS[i];
+            sDir = ForgeDirection.VALID_DIRECTIONS[i].getOpposite();
+            if (sDir == ForgeDirection.NORTH || sDir == ForgeDirection.SOUTH)
+            {
+                sDir = sDir.getOpposite();
+            }
+            if (!worldObj.isBlockSolidOnSide(xCoord + iDir.offsetX, yCoord + iDir.offsetY, zCoord + iDir.offsetZ, iDir.getOpposite()))
+            {
+                placedSides[i] = false;
+                ++dropCount;
+            }
+        }
+        
+        return dropCount;
+    }
+
+    public boolean checkShouldDestroy ()
+    {
+        for (int i = 0; i < 6; ++i)
+        {
+            if (placedSides[i])
+            {
+                return false;
+            }
+        }
+        return true;
+    }
 }

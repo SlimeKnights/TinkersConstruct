@@ -220,6 +220,14 @@ public class SignalTerminal extends Block implements ITileEntityProvider
         return;
     }
 
+    @Override
+    public boolean canBlockStay (World world, int x, int y, int z)
+    {
+        return world.isBlockSolidOnSide(x - 1, y, z, ForgeDirection.EAST) || world.isBlockSolidOnSide(x + 1, y, z, ForgeDirection.WEST) || world.isBlockSolidOnSide(x, y, z - 1, ForgeDirection.SOUTH)
+                || world.isBlockSolidOnSide(x, y, z + 1, ForgeDirection.NORTH) || world.isBlockSolidOnSide(x, y - 1, z, ForgeDirection.UP)
+                || world.isBlockSolidOnSide(x, y + 1, z, ForgeDirection.DOWN);
+    }
+
     public void addCollisionBoxesToList (World world, int x, int y, int z, AxisAlignedBB collisionTest, List collisionBoxList, Entity entity)
     {
         TileEntity te = world.getBlockTileEntity(x, y, z);
@@ -290,12 +298,6 @@ public class SignalTerminal extends Block implements ITileEntityProvider
         return 0;
     }
 
-    /*@Override
-    public boolean shouldCheckWeakPower (World world, int x, int y, int z, int side)
-    {
-        return true;
-    }*/
-
     /**
      * Can this block provide power. Only wire currently seems to have this change based on its state.
      */
@@ -314,10 +316,6 @@ public class SignalTerminal extends Block implements ITileEntityProvider
     public void onNeighborBlockChange (World world, int x, int y, int z, int neighborID)
     {
         super.onNeighborBlockChange(world, x, y, z, neighborID);
-
-        //        if (neighborID == blockID) {
-        //            return;
-        //        }
 
         TileEntity te = world.getBlockTileEntity(x, y, z);
         if (te instanceof SignalTerminalLogic)

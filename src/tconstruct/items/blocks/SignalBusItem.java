@@ -2,10 +2,12 @@ package tconstruct.items.blocks;
 
 import java.util.List;
 
+import tconstruct.TConstruct;
 import tconstruct.blocks.logic.SignalBusLogic;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -123,37 +125,54 @@ public class SignalBusItem extends ItemBlock
 
     private boolean _canPlaceItemBlockOnSide (World world, int x, int y, int z, int side)
     {
-        int tmpX = x;
-        int tmpY = y;
-        int tmpZ = z;
+        int blockID = world.getBlockId(x, y, z);
 
-        switch (side)
+        if (blockID == Block.snow.blockID && (world.getBlockMetadata(x, y, z) & 7) < 1)
         {
-        case 0:
-            tmpY += -1;
-            break;
-        case 1:
-            tmpY += 1;
-            break;
-        case 2:
-            tmpZ += -1;
-            break;
-        case 3:
-            tmpZ += 1;
-            break;
-        case 4:
-            tmpX += -1;
-            break;
-        case 5:
-            tmpX += 1;
-            break;
-        default:
-            break;
+            side = 1;
+        }
+        else if (blockID != Block.vine.blockID && blockID != Block.tallGrass.blockID && blockID != Block.deadBush.blockID
+                && (Block.blocksList[blockID] == null || !Block.blocksList[blockID].isBlockReplaceable(world, x, y, z)))
+        {
+            if (side == 0)
+            {
+                --y;
+            }
+
+            if (side == 1)
+            {
+                ++y;
+            }
+
+            if (side == 2)
+            {
+                --z;
+            }
+
+            if (side == 3)
+            {
+                ++z;
+            }
+
+            if (side == 4)
+            {
+                --x;
+            }
+
+            if (side == 5)
+            {
+                ++x;
+            }
         }
 
-        if (world.getBlockId(tmpX, tmpY, tmpZ) == this.getBlockID())
+        if (!TConstruct.instance.content.signalBus.canPlaceBlockOnSide(world, x, y, z, side))
         {
-            TileEntity te = world.getBlockTileEntity(tmpX, tmpY, tmpZ);
+            return false;
+        }
+
+        if (world.getBlockId(x, y, z) == this.getBlockID())
+        {
+            TileEntity te = world.getBlockTileEntity(x, y, z);
             if (te == null || !(te instanceof SignalBusLogic))
             {
                 return false;
