@@ -77,7 +77,7 @@ public class SignalTerminalLogic extends TileEntity implements ISignalTransceive
             if (isRegistered)
             {
                 doUpdate = true;
-                
+
             }
             else
             {
@@ -162,7 +162,7 @@ public class SignalTerminalLogic extends TileEntity implements ISignalTransceive
             pendingSide = -1;
             forceUpdateSide = true;
         }
-        
+
         if (worldObj.isRemote)
         {
             return;
@@ -552,7 +552,8 @@ public class SignalTerminalLogic extends TileEntity implements ISignalTransceive
                             {
                                 continue;
                             }
-                            temp = worldObj.getIndirectPowerLevelTo(xCoord + offset[0] + Facing.offsetsXForSide[j], yCoord + offset[1] + Facing.offsetsYForSide[j], zCoord + offset[2] + Facing.offsetsZForSide[j], j);
+                            temp = worldObj.getIndirectPowerLevelTo(xCoord + offset[0] + Facing.offsetsXForSide[j], yCoord + offset[1] + Facing.offsetsYForSide[j], zCoord + offset[2]
+                                    + Facing.offsetsZForSide[j], j);
 
                             if (temp > power)
                             {
@@ -578,8 +579,8 @@ public class SignalTerminalLogic extends TileEntity implements ISignalTransceive
                 }
                 else
                 {
-                                        tempStrength = worldObj.getIndirectPowerLevelTo(xCoord + offset[0], yCoord + offset[1], zCoord + offset[2], oSide);
-//                    tempStrength = worldObj.getStrongestIndirectPower(xCoord + offset[0], yCoord + offset[1], zCoord + offset[2]);
+                    tempStrength = worldObj.getIndirectPowerLevelTo(xCoord + offset[0], yCoord + offset[1], zCoord + offset[2], oSide);
+                    //                    tempStrength = worldObj.getStrongestIndirectPower(xCoord + offset[0], yCoord + offset[1], zCoord + offset[2]);
                 }
 
                 //                if (tempStrength > 0 && tempStrength < receivingSides[i]){
@@ -617,20 +618,19 @@ public class SignalTerminalLogic extends TileEntity implements ISignalTransceive
     public int doUnregister (boolean reHoming)
     {
         int dropWire = 0;
-        
+
         if (signalBus != null)
         {
             TileEntity te = worldObj.getBlockTileEntity(signalBus.x, signalBus.y, signalBus.z);
             dropWire = Math.abs(xCoord - signalBus.x) + Math.abs(yCoord - signalBus.y) + Math.abs(zCoord - signalBus.z);
             if (te instanceof SignalBusLogic)
             {
-                ((SignalBusLogic)te).unregisterTerminal(worldObj, xCoord, yCoord, zCoord);
+                ((SignalBusLogic) te).unregisterTerminal(worldObj, xCoord, yCoord, zCoord);
             }
         }
         // Remove signalBus coords
         signalBus = null;
 
-        
         // Calculate new local received signals and provide them to local connections
         receiveSignalUpdate(getReceivedSignals());
 
@@ -654,10 +654,10 @@ public class SignalTerminalLogic extends TileEntity implements ISignalTransceive
                 ++count;
             }
         }
-        
+
         return count;
     }
-    
+
     public int getDroppedWire ()
     {
         int calcWire = 0;
@@ -666,7 +666,7 @@ public class SignalTerminalLogic extends TileEntity implements ISignalTransceive
             calcWire += Math.abs(signalBus.x - xCoord);
             calcWire += Math.abs(signalBus.y - yCoord);
             calcWire += Math.abs(signalBus.z - zCoord);
-            
+
             return calcWire;
         }
         return 0;

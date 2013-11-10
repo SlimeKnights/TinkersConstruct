@@ -22,25 +22,31 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.logging.Logger;
 
-public class TConstructLoaderContainer extends DummyModContainer implements IFMLLoadingPlugin {
+public class TConstructLoaderContainer extends DummyModContainer implements IFMLLoadingPlugin
+{
 
-    private final String[] asmTransformers = new String[]{"tconstruct.preloader.ASMInterfaceRepair"};
+    private final String[] asmTransformers = new String[] { "tconstruct.preloader.ASMInterfaceRepair" };
     private final ModMetadata md = new ModMetadata();
 
     public static Logger logger = Logger.getLogger("TCon-Preloader");
 
-    public TConstructLoaderContainer() {
+    public TConstructLoaderContainer()
+    {
         logger.setParent(FMLLog.getLogger());
         logger.info("Scalpel. Suction. Lumber axe. CLEAR! *zap*");
         logger.info("Constructing preloader (Modules: " + Arrays.toString(asmTransformers) + ")");
-        try {
+        try
+        {
             PropertyManager.getOrCreateProps();
-        } catch (PropAccessException ex) {
+        }
+        catch (PropAccessException ex)
+        {
             logger.severe("Could not get or create properties file! Assuming defaults.");
             logger.severe(Arrays.toString(ex.getStackTrace()));
         }
 
-        if (PropertyManager.asmInterfaceRepair_verboseLog) {
+        if (PropertyManager.asmInterfaceRepair_verboseLog)
+        {
             logger.warning("ASM Interface Repair is set to be verbose, this is NOT GOOD FOR SERVERS, as it will spam the logs!");
             logger.warning("The debug mode is for debug use only. Turn it off unless instructed otherwise by a TCon developer!");
             logger.warning("To reset advanced settings to default, delete the '" + PropertyManager.propFileName + "' file from the config folder.");
@@ -55,71 +61,86 @@ public class TConstructLoaderContainer extends DummyModContainer implements IFML
     }
 
     @ForgeSubscribe
-    public void preInit(FMLPreInitializationEvent evt) {
+    public void preInit (FMLPreInitializationEvent evt)
+    {
 
     }
 
     @ForgeSubscribe
-    public void init(FMLInitializationEvent evt) {
+    public void init (FMLInitializationEvent evt)
+    {
 
     }
 
     @ForgeSubscribe
-    public void postInit(FMLPostInitializationEvent evt) {
+    public void postInit (FMLPostInitializationEvent evt)
+    {
 
     }
 
     @Override
-    public String getModId() {
+    public String getModId ()
+    {
         return "TConstruct-Preloader";
     }
 
     @Override
-    public String getName() {
+    public String getName ()
+    {
         return "Tinkers Corestruct";
     }
 
     @Override
-    public String getVersion() {
+    public String getVersion ()
+    {
         return "0.0.1";
     }
 
     @Override
-    public String getDisplayVersion() {
+    public String getDisplayVersion ()
+    {
         return getVersion();
     }
 
     @Override
-    public ModMetadata getMetadata() {
+    public ModMetadata getMetadata ()
+    {
         return md;
     }
 
     @Override
-    public boolean registerBus(EventBus bus, LoadController controller) {
+    public boolean registerBus (EventBus bus, LoadController controller)
+    {
         bus.register(this);
         return true;
     }
 
     @Override
-    public String[] getLibraryRequestClass() {
+    public String[] getLibraryRequestClass ()
+    {
         return null;
     }
 
     @Override
-    public String[] getASMTransformerClass() {
+    public String[] getASMTransformerClass ()
+    {
         return asmTransformers;
     }
 
     @Override
-    public String getModContainerClass() {
+    public String getModContainerClass ()
+    {
         return "tconstruct.preloader.TConstructLoaderContainer";
     }
 
     @Override
-    public String getSetupClass() {
+    public String getSetupClass ()
+    {
         return null;
     }
 
     @Override
-    public void injectData(Map<String, Object> data) {}
+    public void injectData (Map<String, Object> data)
+    {
+    }
 }

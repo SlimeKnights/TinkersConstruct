@@ -4,5 +4,5 @@ import java.util.List;
 
 public interface IComponentHolder
 {
-    public List<LogicComponent> getComponents();
+    public List<LogicComponent> getComponents ();
 }

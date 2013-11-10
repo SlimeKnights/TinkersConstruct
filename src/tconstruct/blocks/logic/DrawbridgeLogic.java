@@ -30,14 +30,14 @@ public class DrawbridgeLogic extends InventoryLogic implements IFacingLogic, IAc
     byte direction;
     byte placementDirection = 4;
     FakePlayerLogic fakePlayer;
-    
+
     ItemStack bufferStack = null;
 
     public DrawbridgeLogic()
     {
         super(2);
     }
-    
+
     @Override
     public void setWorldObj (World par1World)
     {
@@ -260,7 +260,7 @@ public class DrawbridgeLogic extends InventoryLogic implements IFacingLogic, IAc
 
                         bufferStack = inventory[0].copy();
                         bufferStack.stackSize = 1;
-                        
+
                         switch (direction)
                         {
                         case 0:
@@ -354,10 +354,13 @@ public class DrawbridgeLogic extends InventoryLogic implements IFacingLogic, IAc
                             {
                                 worldObj.playSoundEffect((double) xPos + 0.5D, (double) yPos + 0.5D, (double) zPos + 0.5D, "tile.piston.in", 0.25F, worldObj.rand.nextFloat() * 0.15F + 0.6F);
                                 if (worldObj.setBlock(xPos, yPos, zPos, 0))
-                                    if(inventory[0] == null){
-                                    	inventory[0] = bufferStack.copy();
-                                    }else{
-                                    	inventory[0].stackSize++;
+                                    if (inventory[0] == null)
+                                    {
+                                        inventory[0] = bufferStack.copy();
+                                    }
+                                    else
+                                    {
+                                        inventory[0].stackSize++;
                                     }
                             }
                             else
@@ -455,15 +458,17 @@ public class DrawbridgeLogic extends InventoryLogic implements IFacingLogic, IAc
         active = tags.getBoolean("Active");
         working = tags.getBoolean("Working");
         extension = tags.getByte("Extension");
-        
+
         NBTTagCompound bufferInv = (NBTTagCompound) tags.getTag("BufferInv");
-        if(bufferInv != null){
-        	bufferStack = ItemStack.loadItemStackFromNBT(bufferInv);
+        if (bufferInv != null)
+        {
+            bufferStack = ItemStack.loadItemStackFromNBT(bufferInv);
         }
-        if(bufferStack == null && inventory[0] != null){
-        	bufferStack = inventory[0];
+        if (bufferStack == null && inventory[0] != null)
+        {
+            bufferStack = inventory[0];
         }
-        
+
         readCustomNBT(tags);
     }
 
@@ -474,13 +479,14 @@ public class DrawbridgeLogic extends InventoryLogic implements IFacingLogic, IAc
         tags.setBoolean("Active", active);
         tags.setBoolean("Working", working);
         tags.setByte("Extension", extension);
-        
-        if(bufferStack != null){
-	        NBTTagCompound bufferInv = new NBTTagCompound();
-	        bufferStack.writeToNBT(bufferInv);
-	        tags.setTag("BufferInv", bufferInv);
+
+        if (bufferStack != null)
+        {
+            NBTTagCompound bufferInv = new NBTTagCompound();
+            bufferStack.writeToNBT(bufferInv);
+            tags.setTag("BufferInv", bufferInv);
         }
-        
+
         writeCustomNBT(tags);
     }
 
@@ -521,9 +527,10 @@ public class DrawbridgeLogic extends InventoryLogic implements IFacingLogic, IAc
     public void onInventoryChanged ()
     {
         super.onInventoryChanged();
-        if(getStackInSlot(0) != null){
-        	bufferStack = getStackInSlot(0).copy();
-        	bufferStack.stackSize = 1;
+        if (getStackInSlot(0) != null)
+        {
+            bufferStack = getStackInSlot(0).copy();
+            bufferStack.stackSize = 1;
         }
         this.worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
     }

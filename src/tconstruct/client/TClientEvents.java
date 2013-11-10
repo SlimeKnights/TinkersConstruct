@@ -62,7 +62,7 @@ public class TClientEvents
         {
             TContent.fluids[i].setIcons(TContent.fluidBlocks[i].getIcon(0, 0), TContent.fluidBlocks[i].getIcon(2, 0));
         }
-        
+
         Fluid lava = FluidRegistry.getFluid("lava");
         lava.setIcons(Block.lavaStill.getIcon(0, 0), Block.lavaStill.getIcon(2, 0));
         Fluid lavawater = FluidRegistry.getFluid("water");

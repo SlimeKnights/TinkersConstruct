@@ -400,24 +400,28 @@ public class LumberAxe extends HarvestTool
     {
         return 1;
     }
-    
+
     @Override
-	public boolean willAllowOffhandWeapon() {
-		return false;
-	}
+    public boolean willAllowOffhandWeapon ()
+    {
+        return false;
+    }
 
-	@Override
-	public boolean willAllowShield() {
-		return false;
-	}
+    @Override
+    public boolean willAllowShield ()
+    {
+        return false;
+    }
 
-	@Override
-	public boolean isOffhandHandDualWeapon() {
-		return false;
-	}
+    @Override
+    public boolean isOffhandHandDualWeapon ()
+    {
+        return false;
+    }
 
-	@Override
-	public boolean sheatheOnBack() {
-		return true;
-	}
+    @Override
+    public boolean sheatheOnBack ()
+    {
+        return true;
+    }
 }

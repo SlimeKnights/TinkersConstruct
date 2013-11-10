@@ -272,7 +272,7 @@ public class RedstoneMachine extends InventoryBlock
         {
             if (direction == i)
                 continue;
-            
+
             CoordTuple coord = directions.get(i);
             if (this.getIndirectPowerLevelTo(world, x + coord.x, y + coord.y, z + coord.z, i) > 0 || activeRedstone(world, coord.x, y + coord.y, z + coord.z))
             {

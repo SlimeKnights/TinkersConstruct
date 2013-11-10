@@ -30,19 +30,19 @@ public class TankAirLogic extends InventoryLogic implements IServantLogic, ISide
     {
         super(1);
     }
-    
-    public void overrideFluids(ArrayList<FluidStack> fluids)
+
+    public void overrideFluids (ArrayList<FluidStack> fluids)
     {
         /*multitank.overrideFluids(fluids);
         worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);*/
     }
-    
-    public boolean hasItem()
+
+    public boolean hasItem ()
     {
         return inventory[0] != null;
     }
-    
-    public boolean hasFluids()
+
+    public boolean hasFluids ()
     {
         return multitank.fluidlist.size() > 0;
     }
@@ -51,7 +51,7 @@ public class TankAirLogic extends InventoryLogic implements IServantLogic, ISide
     {
         return multitank.fluidlist;
     }
-    
+
     @Override
     public void setInventorySlotContents (int slot, ItemStack itemstack)
     {
@@ -127,27 +127,27 @@ public class TankAirLogic extends InventoryLogic implements IServantLogic, ISide
     {
         return false;
     }
-    
+
     /*@Override
     public boolean canUpdate()
     {
         return false;
     }*/
-    
+
     //DELETE
     public void updateEntity ()
     {
         worldObj.setBlockToAir(xCoord, yCoord, zCoord);
     }
-    
+
     //Keep TE regardless of metadata
-    public boolean shouldRefresh(int oldID, int newID, int oldMeta, int newMeta, World world, int x, int y, int z)
+    public boolean shouldRefresh (int oldID, int newID, int oldMeta, int newMeta, World world, int x, int y, int z)
     {
         return oldID != newID;
     }
-    
+
     /* NBT */
-    
+
     @Override
     public void readFromNBT (NBTTagCompound tags)
     {

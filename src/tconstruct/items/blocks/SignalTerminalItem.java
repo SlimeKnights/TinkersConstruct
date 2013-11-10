@@ -119,13 +119,13 @@ public class SignalTerminalItem extends ItemBlock
 
         ((SignalTerminalLogic) te).addPendingSide(tside);
         ((SignalTerminalLogic) te).connectPending();
-        
+
         stack.stackTagCompound = null;
 
         --stack.stackSize;
-        
+
         world.markBlockForRenderUpdate(x, y, z);
-        
+
         return true;
 
     }

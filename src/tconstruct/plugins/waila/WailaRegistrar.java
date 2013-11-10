@@ -10,7 +10,8 @@ import tconstruct.blocks.logic.CastingChannelLogic;
 
 public class WailaRegistrar
 {
-    public static void wailaCallback(IWailaRegistrar registrar) {
+    public static void wailaCallback (IWailaRegistrar registrar)
+    {
         Waila.logger.info("Got registrar: " + registrar);
 
         // Tanks
@@ -22,7 +23,8 @@ public class WailaRegistrar
         registrar.registerBodyProvider(new SmelteryDataProvider(), SmelteryBlock.class);
     }
 
-    public static String fluidNameHelper(FluidStack f) {
+    public static String fluidNameHelper (FluidStack f)
+    {
         return StatCollector.translateToLocal(FluidRegistry.getFluidName(f));
     }
 

@@ -420,7 +420,7 @@ public class TankLayerScan extends LogicComponent
             }
             if (!canPass)
             {
-                System.out.println("Coord: "+coord);
+                System.out.println("Coord: " + coord);
                 height = coord.y;
                 break;
             }

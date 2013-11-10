@@ -123,7 +123,6 @@ public class SignalBusMasterLogic extends MultiblockMasterBaseLogic
 
         ((SignalBusMasterLogic) newMaster).forceUpdate();
 
-
     }
 
     @Override

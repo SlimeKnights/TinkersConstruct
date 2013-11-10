@@ -8,12 +8,12 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.network.NetworkMod;
 
-
 import java.util.logging.Logger;
 
 @Mod(modid = "TConstruct|CompatWaila", name = "TConstruct Compat: Waila", version = "0.0.1", dependencies = "after:Waila;required-after:TConstruct")
 @NetworkMod(clientSideRequired = false, serverSideRequired = false)
-public class Waila {
+public class Waila
+{
 
     public static Logger logger = Logger.getLogger("TConstruct Waila");
 
@@ -22,17 +22,21 @@ public class Waila {
     {
         logger.setParent(FMLCommonHandler.instance().getFMLLogger());
 
-        if (!Loader.isModLoaded("Waila")) {
+        if (!Loader.isModLoaded("Waila"))
+        {
             logger.warning("Waila missing - TConstruct Compat: Waila not loading.");
             return;
-        } try {
+        }
+        try
+        {
             logger.info("Waila detected. Registering TConstruct tank blocks with Waila registry.");
-            
-        FMLInterModComms.sendMessage("Waila", "register", "tconstruct.plugins.waila.WailaRegistrar.wailaCallback");
-        } catch (Exception e) {
+
+            FMLInterModComms.sendMessage("Waila", "register", "tconstruct.plugins.waila.WailaRegistrar.wailaCallback");
+        }
+        catch (Exception e)
+        {
             e.printStackTrace();
         }
     }
 
-    
 }

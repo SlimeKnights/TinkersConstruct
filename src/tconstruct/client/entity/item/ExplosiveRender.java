@@ -25,15 +25,15 @@ public class ExplosiveRender extends Render
         this.shadowSize = 0.5F;
     }
 
-    public void renderPrimedTNT(ExplosivePrimed par1EntityTNTPrimed, double par2, double par4, double par6, float par8, float par9)
+    public void renderPrimedTNT (ExplosivePrimed par1EntityTNTPrimed, double par2, double par4, double par6, float par8, float par9)
     {
         GL11.glPushMatrix();
-        GL11.glTranslatef((float)par2, (float)par4, (float)par6);
+        GL11.glTranslatef((float) par2, (float) par4, (float) par6);
         float f2;
 
-        if ((float)par1EntityTNTPrimed.fuse - par9 + 1.0F < 10.0F)
+        if ((float) par1EntityTNTPrimed.fuse - par9 + 1.0F < 10.0F)
         {
-            f2 = 1.0F - ((float)par1EntityTNTPrimed.fuse - par9 + 1.0F) / 10.0F;
+            f2 = 1.0F - ((float) par1EntityTNTPrimed.fuse - par9 + 1.0F) / 10.0F;
 
             if (f2 < 0.0F)
             {
@@ -51,7 +51,7 @@ public class ExplosiveRender extends Render
             GL11.glScalef(f3, f3, f3);
         }
 
-        f2 = (1.0F - ((float)par1EntityTNTPrimed.fuse - par9 + 1.0F) / 100.0F) * 0.8F;
+        f2 = (1.0F - ((float) par1EntityTNTPrimed.fuse - par9 + 1.0F) / 100.0F) * 0.8F;
         this.bindEntityTexture(par1EntityTNTPrimed);
         this.blockRenderer.renderBlockAsItem(TContent.slimeExplosive, 0, par1EntityTNTPrimed.getBrightness(par9));
 
@@ -72,7 +72,7 @@ public class ExplosiveRender extends Render
         GL11.glPopMatrix();
     }
 
-    protected ResourceLocation func_110808_a(ExplosivePrimed par1EntityTNTPrimed)
+    protected ResourceLocation func_110808_a (ExplosivePrimed par1EntityTNTPrimed)
     {
         return TextureMap.locationBlocksTexture;
     }
@@ -80,9 +80,9 @@ public class ExplosiveRender extends Render
     /**
      * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
      */
-    protected ResourceLocation getEntityTexture(Entity par1Entity)
+    protected ResourceLocation getEntityTexture (Entity par1Entity)
     {
-        return this.func_110808_a((ExplosivePrimed)par1Entity);
+        return this.func_110808_a((ExplosivePrimed) par1Entity);
     }
 
     /**
@@ -91,8 +91,8 @@ public class ExplosiveRender extends Render
      * (Render<T extends Entity) and this method has signature public void doRender(T entity, double d, double d1,
      * double d2, float f, float f1). But JAD is pre 1.5 so doesn't do that.
      */
-    public void doRender(Entity par1Entity, double par2, double par4, double par6, float par8, float par9)
+    public void doRender (Entity par1Entity, double par2, double par4, double par6, float par8, float par9)
     {
-        this.renderPrimedTNT((ExplosivePrimed)par1Entity, par2, par4, par6, par8, par9);
+        this.renderPrimedTNT((ExplosivePrimed) par1Entity, par2, par4, par6, par8, par9);
     }
 }

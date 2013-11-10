@@ -12,6 +12,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class TerraformerItem extends ItemBlock
 {
     static String blockType[] = { "freezer", "fumer", "waver", "leecher", "grower", "nether", "lighter", "crystal" };
+
     //static String[] textureNames = { "crystal_machine_top", "terrafreezer", "terrafumer", "terrawaver", "terraleecher", "terragrower", "terranether", "terralighter", "terracrystal" };
 
     public TerraformerItem(int id)

@@ -215,7 +215,7 @@ public class FurnaceLogic extends InventoryLogic implements IActiveLogic, IFacin
                 {
                     return 150;
                 }
-                
+
                 if (block == Block.wood)
                 {
                     return 1200;
@@ -232,14 +232,22 @@ public class FurnaceLogic extends InventoryLogic implements IActiveLogic, IFacin
                 }
             }
 
-            if (item instanceof ItemTool && ((ItemTool) item).getToolMaterialName().equals("WOOD")) return 200;
-            if (item instanceof ItemSword && ((ItemSword) item).getToolMaterialName().equals("WOOD")) return 200;
-            if (item instanceof ItemHoe && ((ItemHoe) item).getMaterialName().equals("WOOD")) return 200;
-            if (i == Item.stick.itemID) return 100;
-            if (i == Item.coal.itemID) return 1600;
-            if (i == Item.bucketLava.itemID) return 20000;
-            if (i == Block.sapling.blockID) return 100;
-            if (i == Item.blazeRod.itemID) return 2400;
+            if (item instanceof ItemTool && ((ItemTool) item).getToolMaterialName().equals("WOOD"))
+                return 200;
+            if (item instanceof ItemSword && ((ItemSword) item).getToolMaterialName().equals("WOOD"))
+                return 200;
+            if (item instanceof ItemHoe && ((ItemHoe) item).getMaterialName().equals("WOOD"))
+                return 200;
+            if (i == Item.stick.itemID)
+                return 100;
+            if (i == Item.coal.itemID)
+                return 1600;
+            if (i == Item.bucketLava.itemID)
+                return 20000;
+            if (i == Block.sapling.blockID)
+                return 100;
+            if (i == Item.blazeRod.itemID)
+                return 2400;
             return GameRegistry.getFuelValue(stack);
         }
     }

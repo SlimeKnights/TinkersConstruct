@@ -36,18 +36,21 @@ public class CraftingStationLogic extends InventoryLogic implements ISidedInvent
         return true;
     }
 
-	@Override
-	public int[] getAccessibleSlotsFromSide(int var1) {
-		return new int[] {1, 2, 3, 4, 5, 6, 7, 8, 9};
-	}
+    @Override
+    public int[] getAccessibleSlotsFromSide (int var1)
+    {
+        return new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+    }
 
-	@Override
-	public boolean canInsertItem(int i, ItemStack itemstack, int j) {
-		return i != 0;
-	}
+    @Override
+    public boolean canInsertItem (int i, ItemStack itemstack, int j)
+    {
+        return i != 0;
+    }
 
-	@Override
-	public boolean canExtractItem(int i, ItemStack itemstack, int j) {
-		return i != 0;
-	}
+    @Override
+    public boolean canExtractItem (int i, ItemStack itemstack, int j)
+    {
+        return i != 0;
+    }
 }

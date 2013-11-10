@@ -521,36 +521,37 @@ public class BlockLandmine extends BlockContainer
         return par1World.isBlockIndirectlyGettingPowered(par2, par3, par4) ? 1 : 0;
     }
 
-    protected AxisAlignedBB getSensitiveAABB(World par1World, int par2, int par3, int par4){
+    protected AxisAlignedBB getSensitiveAABB (World par1World, int par2, int par3, int par4)
+    {
         float f = 0.125F;
-//        return AxisAlignedBB.getAABBPool().getAABB((double)((float)par1 + f), (double)par2, (double)((float)par3 + f), (double)((float)(par1 + 1) - f), (double)par2 + 0.25D, (double)((float)(par3 + 1) - f));
-    	
+        //        return AxisAlignedBB.getAABBPool().getAABB((double)((float)par1 + f), (double)par2, (double)((float)par3 + f), (double)((float)(par1 + 1) - f), (double)par2 + 0.25D, (double)((float)(par3 + 1) - f));
+
         int l = par1World.getBlockMetadata(par2, par3, par4);
         int i1 = l & 7;
         boolean flag = (l & 8) > 0;
 
         float minX = par2 + f, minY = par3, minZ = par4 + f, maxX = par2 + 1 - f, maxY = par3 + 0.25F, maxZ = par4 + 1 - f;
-        
+
         ForgeDirection dir = Helper.convertMetaToForgeOrientation(i1);
         switch (dir)
         {
         case DOWN:
             break;
         case UP:
-        	minY = par3 + 0.75F;
-        	maxY = par3 + 1;
+            minY = par3 + 0.75F;
+            maxY = par3 + 1;
             break;
         default:
-        	minX = par2;
-        	minY = par3;
-        	minZ = par4;
-        	maxX = par2 + 1;
-        	maxY = par3 + 1;
-        	maxZ = par4 + 1;
+            minX = par2;
+            minY = par3;
+            minZ = par4;
+            maxX = par2 + 1;
+            maxY = par3 + 1;
+            maxZ = par4 + 1;
         }
-    	return AxisAlignedBB.getAABBPool().getAABB(minX, minY, minZ, maxX, maxY, maxZ);
+        return AxisAlignedBB.getAABBPool().getAABB(minX, minY, minZ, maxX, maxY, maxZ);
     }
-    
+
     public Entity getMineTriggerer (World par1World, int par2, int par3, int par4)
     {
 

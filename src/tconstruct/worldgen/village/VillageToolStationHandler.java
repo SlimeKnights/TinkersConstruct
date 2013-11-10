@@ -10,7 +10,7 @@ import net.minecraft.world.gen.structure.StructureVillagePieceWeight;
 import cpw.mods.fml.common.registry.VillagerRegistry.IVillageCreationHandler;
 
 public class VillageToolStationHandler implements IVillageCreationHandler
-{    
+{
     @Override
     public StructureVillagePieceWeight getVillagePieceWeight (Random random, int i)
     {

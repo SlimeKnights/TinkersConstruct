@@ -101,10 +101,10 @@ public class PHConstruct
         barricadeSpruce = config.getBlock("Spruce Barricade", 1482).getInt(1482);
         barricadeBirch = config.getBlock("Birch Barricade", 1483).getInt(1483);
         barricadeJungle = config.getBlock("Jungle Barricade", 1487).getInt(1487);
-        
+
         slimeChannel = config.getBlock("Slime Channel", 3190).getInt(3190);
         slimePad = config.getBlock("Slime Pad", 3191).getInt(3191);
-        
+
         furnaceSlab = config.getBlock("Furnace Slab", 3192).getInt(3192);
 
         //Thermal Expansion
@@ -134,7 +134,7 @@ public class PHConstruct
         moltenEnder = config.getBlock("Molten Ender", 3218).getInt(3218);
 
         terraformer = config.getBlock("Terraformer", 3219).getInt(3219);
-        
+
         signalBus = config.getBlock("Signal Bus", 3221).getInt(3221);
         signalTerminal = config.getBlock("Signal Terminal", 3222).getInt(3222);
         glass = config.getBlock("Clear Glass", 3223).getInt(3223);
@@ -268,7 +268,7 @@ public class PHConstruct
 
         spoolWire = config.getItem("Logic", "SpoolWire", 14120).getInt(14120);
         lengthWire = config.getItem("Logic", "LengthWire", 14121).getInt(14121);
-        
+
         boolean ic2 = true;
         boolean xycraft = true;
         try
@@ -367,9 +367,10 @@ public class PHConstruct
         connectedTexturesMode = conTexMode.getInt(2);
 
         //dimension blacklist
-        cfgDimBlackList = config.get("DimBlackList", "SlimeIslandDimBlacklist", new int[] {},"Add dimension ID's to prevent slime islands from generating in them").getIntList();
-        slimeIslGenDim0Only = config.get("DimBlackList", "GenerateSlimeIslandInDim0Only", false,"True: slime islands wont generate in any ages other than overworld(if enabled); False: will generate in all non-blackisted ages").getBoolean(false);
-        slimeIslGenDim0 = config.get("DimBlackList", "slimeIslGenDim0", true,"True: slime islands generate in overworld; False they do not generate").getBoolean(true);
+        cfgDimBlackList = config.get("DimBlackList", "SlimeIslandDimBlacklist", new int[] {}, "Add dimension ID's to prevent slime islands from generating in them").getIntList();
+        slimeIslGenDim0Only = config.get("DimBlackList", "GenerateSlimeIslandInDim0Only", false,
+                "True: slime islands wont generate in any ages other than overworld(if enabled); False: will generate in all non-blackisted ages").getBoolean(false);
+        slimeIslGenDim0 = config.get("DimBlackList", "slimeIslGenDim0", true, "True: slime islands generate in overworld; False they do not generate").getBoolean(true);
         genIslandsFlat = config.get("DimBlacklist", "genIslandsFlat", false, "Generate slime islands in flat worlds").getBoolean(false);
 
         //Experimental functionality
@@ -417,7 +418,7 @@ public class PHConstruct
     public static int dryingRack;
 
     public static int woodenRail;
-    
+
     public static int signalBus;
     public static int signalTerminal;
 
@@ -589,7 +590,7 @@ public class PHConstruct
     public static int knapsack;
 
     public static int heartCanister;
-    
+
     public static int spoolWire;
     public static int lengthWire;
 

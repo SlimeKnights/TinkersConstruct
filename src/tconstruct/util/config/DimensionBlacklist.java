@@ -2,7 +2,6 @@ package tconstruct.util.config;
 
 import java.util.ArrayList;
 
-
 public class DimensionBlacklist
 {
     public static ArrayList<Integer> blacklist = new ArrayList<Integer>();

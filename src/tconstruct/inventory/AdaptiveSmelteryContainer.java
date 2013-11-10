@@ -84,10 +84,10 @@ public class AdaptiveSmelteryContainer extends ActiveContainer
         int rowPos = (int) (total * scrollPos);
         return updateRows(rowPos);
     }
-    
+
     public void updateProgressBar (int id, int value)
     {
-        
+
     }
 
     @Override

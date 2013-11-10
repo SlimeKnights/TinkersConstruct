@@ -64,8 +64,8 @@ public class SoilBlock extends TConstructBlock
             return Block.dirt.blockHardness;
         return this.blockHardness;
     }
-    
-    public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int x, int y, int z)
+
+    public AxisAlignedBB getCollisionBoundingBoxFromPool (World world, int x, int y, int z)
     {
         return Block.slowSand.getCollisionBoundingBoxFromPool(world, x, y, z);
     }

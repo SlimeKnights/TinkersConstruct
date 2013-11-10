@@ -5,7 +5,8 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ChatMessageComponent;
 
-public class DamageSourceFireworkExplode extends DamageSource{
+public class DamageSourceFireworkExplode extends DamageSource
+{
 
     public DamageSourceFireworkExplode(String s)
     {
@@ -17,5 +18,5 @@ public class DamageSourceFireworkExplode extends DamageSource{
     {
         return super.getDeathMessage(par1EntityLivingBase);
     }
-	
+
 }

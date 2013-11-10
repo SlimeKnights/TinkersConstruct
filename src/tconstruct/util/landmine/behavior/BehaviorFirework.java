@@ -19,12 +19,13 @@ public class BehaviorFirework extends Behavior
     @Override
     public void executeLogic (World par1World, int par2, int par3, int par4, ItemStack par5ItemStack, Entity triggerer, boolean willBlockBeRemoved)
     {
-    	EnumFacing facing = getFacing(par1World, par2, par3, par4);
-    	
+        EnumFacing facing = getFacing(par1World, par2, par3, par4);
+
         for (int i = 0; i < par5ItemStack.stackSize; i++)
         {
-        	//TODO entity registration and stuffs
-            EntityLandmineFirework entityfireworkrocket = new EntityLandmineFirework(par1World, (double) par2, (double) par3, (double) par4, par5ItemStack, facing.ordinal()).setRider(i == 0 ? triggerer : null);
+            //TODO entity registration and stuffs
+            EntityLandmineFirework entityfireworkrocket = new EntityLandmineFirework(par1World, (double) par2, (double) par3, (double) par4, par5ItemStack, facing.ordinal())
+                    .setRider(i == 0 ? triggerer : null);
             par1World.spawnEntityInWorld(entityfireworkrocket);
 
             boolean shouldRun = true;

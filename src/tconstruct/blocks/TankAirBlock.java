@@ -66,8 +66,8 @@ public class TankAirBlock extends BlockContainer
 
         return null;
     }
-    
-    public MovingObjectPosition collisionRayTrace(World world, int x, int y, int z, Vec3 par5Vec3, Vec3 par6Vec3)
+
+    public MovingObjectPosition collisionRayTrace (World world, int x, int y, int z, Vec3 par5Vec3, Vec3 par6Vec3)
     {
         TankAirLogic tank = (TankAirLogic) world.getBlockTileEntity(x, y, z);
         if (tank.hasItem())
@@ -89,17 +89,17 @@ public class TankAirBlock extends BlockContainer
     }
 
     @Override
-    public boolean canHarvestBlock(EntityPlayer player, int meta)
+    public boolean canHarvestBlock (EntityPlayer player, int meta)
     {
         return false;
     }
-    
+
     @Override
-    public boolean isAirBlock(World world, int x, int y, int z)
+    public boolean isAirBlock (World world, int x, int y, int z)
     {
         return false;
     }
-    
+
     @Override
     public void getSubBlocks (int id, CreativeTabs tab, List list)
     {

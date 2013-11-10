@@ -182,7 +182,7 @@ public class MeatBlock extends Block
     {
         return true;
     }
-    
+
     public boolean isBeaconBase (World worldObj, int x, int y, int z, int beaconX, int beaconY, int beaconZ)
     {
         return true;

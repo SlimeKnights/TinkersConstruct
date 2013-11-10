@@ -19,7 +19,6 @@ public class LengthWire extends Item
     public String folder = "logic/";
     public Icon[] icons;
 
-
     public LengthWire(int id)
     {
         super(id);
@@ -27,7 +26,6 @@ public class LengthWire extends Item
         this.maxStackSize = 64;
         this.setHasSubtypes(false);
     }
-
 
     @SideOnly(Side.CLIENT)
     public Icon getIconFromDamage (int meta)

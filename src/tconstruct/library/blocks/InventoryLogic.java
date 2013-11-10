@@ -111,7 +111,7 @@ public abstract class InventoryLogic extends TileEntity implements IInventory
         super.readFromNBT(tags);
         readInventoryFromNBT(tags);
     }
-    
+
     public void readInventoryFromNBT (NBTTagCompound tags)
     {
         super.readFromNBT(tags);
@@ -135,7 +135,7 @@ public abstract class InventoryLogic extends TileEntity implements IInventory
         super.writeToNBT(tags);
         writeInventoryToNBT(tags);
     }
-    
+
     public void writeInventoryToNBT (NBTTagCompound tags)
     {
         if (invName != null)
@@ -154,7 +154,7 @@ public abstract class InventoryLogic extends TileEntity implements IInventory
 
         tags.setTag("Items", nbttaglist);
     }
-    
+
     /* Cause of the heisenbug. Do not uncomment! */
     /*public void superReadFromNBT (NBTTagCompound tags)
     {
@@ -165,7 +165,7 @@ public abstract class InventoryLogic extends TileEntity implements IInventory
     {
         super.writeToNBT(tags);
     }*/
-    
+
     /* Default implementations of hardly used methods */
     public ItemStack getStackInSlotOnClosing (int slot)
     {
@@ -207,14 +207,14 @@ public abstract class InventoryLogic extends TileEntity implements IInventory
         }
         return false;
     }
-    
+
     public void placeBlock (EntityLivingBase entity, ItemStack stack)
     {
-        
+
     }
-    
-    public void removeBlock()
+
+    public void removeBlock ()
     {
-        
+
     }
 }

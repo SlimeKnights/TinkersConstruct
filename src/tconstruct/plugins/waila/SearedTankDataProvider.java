@@ -9,27 +9,35 @@ import tconstruct.blocks.logic.LavaTankLogic;
 
 import java.util.List;
 
-public class SearedTankDataProvider implements IWailaDataProvider {
+public class SearedTankDataProvider implements IWailaDataProvider
+{
 
     @Override
-    public ItemStack getWailaStack(IWailaDataAccessor accessor, IWailaConfigHandler config) {
+    public ItemStack getWailaStack (IWailaDataAccessor accessor, IWailaConfigHandler config)
+    {
         return null;
     }
 
     @Override
-    public List<String> getWailaHead(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config) {
+    public List<String> getWailaHead (ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config)
+    {
         return currenttip;
     }
 
     @Override
-    public List<String> getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config) {
-        if (accessor.getTileEntity() instanceof LavaTankLogic) {
-            LavaTankLogic te = (LavaTankLogic)accessor.getTileEntity();
-            if (te.containsFluid()) {
+    public List<String> getWailaBody (ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config)
+    {
+        if (accessor.getTileEntity() instanceof LavaTankLogic)
+        {
+            LavaTankLogic te = (LavaTankLogic) accessor.getTileEntity();
+            if (te.containsFluid())
+            {
                 FluidStack fs = te.tank.getFluid();
                 currenttip.add("Liquid: " + WailaRegistrar.fluidNameHelper(fs));
                 currenttip.add("Amount: " + fs.amount + "/" + te.tank.getCapacity());
-            } else {
+            }
+            else
+            {
                 currenttip.add("§oEmpty"); // "§o" == Italics
             }
         }

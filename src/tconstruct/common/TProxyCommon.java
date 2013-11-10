@@ -26,7 +26,7 @@ public class TProxyCommon implements IGuiHandler
     public static int stencilTableID = 3;
     public static int frypanGuiID = 4;
     public static int toolForgeID = 5;
-    
+
     public static int smelteryGuiID = 7;
     public static int furnaceID = 8;
     public static int drawbridgeID = 9;
@@ -36,7 +36,6 @@ public class TProxyCommon implements IGuiHandler
     public static int inventoryGui = 100;
     public static int armorGuiID = 101;
     public static int knapsackGuiID = 102;
-
 
     public static int manualGuiID = -1;
 
@@ -89,7 +88,7 @@ public class TProxyCommon implements IGuiHandler
     public void registerTickHandler ()
     {
         //TickRegistry.registerTickHandler(new TimeTicker(), Side.SERVER);
-    	TickRegistry.registerScheduledTickHandler(new MultiblockServerTickHandler(), Side.SERVER);
+        TickRegistry.registerScheduledTickHandler(new MultiblockServerTickHandler(), Side.SERVER);
     }
 
     /* Registers any rendering code. Does nothing server-side */
@@ -122,8 +121,9 @@ public class TProxyCommon implements IGuiHandler
 
     public static final String[] patterns = new String[] { "ingot", "rod", "pickaxe", "shovel", "axe", "swordblade", "largeguard", "mediumguard", "crossbar", "binding", "frypan", "sign",
             "knifeblade", "chisel", "largerod", "toughbinding", "largeplate", "broadaxe", "scythe", "excavator", "largeblade", "hammerhead", "fullguard", "bowstring", "fletching", "arrowhead" };
-    
-    public void postInit(){
-    	
+
+    public void postInit ()
+    {
+
     }
 }

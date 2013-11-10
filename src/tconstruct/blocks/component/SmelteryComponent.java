@@ -258,7 +258,7 @@ public class SmelteryComponent extends LogicComponent
             ret = 1;
         return ret;
     }
-    
+
     /* NBT */
     public void readNetworkNBT (NBTTagCompound tags)
     {

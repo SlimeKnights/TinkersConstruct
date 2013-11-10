@@ -17,12 +17,13 @@ public class RegisterWithFMP
             MicroMaterialRegistry.registerMaterial(new BlockMicroMaterial(block, meta), identifier + meta);
         }
     }
+
     //For blocks without metadata values only.
     public static void registerBlock (Block block)
     {
         BlockMicroMaterial.createAndRegister(block);
     }
-    
+
     //For blocks with metadata values and special MicroMaterial only
     public static void registerBlock (Block block, int metastart, int metaend, IMicroMaterial material)
     {
@@ -32,6 +33,7 @@ public class RegisterWithFMP
             MicroMaterialRegistry.registerMaterial(material, identifier + meta);
         }
     }
+
     //For blocks without metadata values and special MicroMaterial only.
     public static void registerBlock (Block block, IMicroMaterial material)
     {

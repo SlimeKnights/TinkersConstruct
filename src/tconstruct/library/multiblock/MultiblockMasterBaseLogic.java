@@ -247,7 +247,7 @@ public abstract class MultiblockMasterBaseLogic
         if (forceRevisit)
         {
             CoordTuple deadCoords;
-            
+
             forceRevisit = false;
             while (!pendingRemovalBlocks.isEmpty())
             {
@@ -258,7 +258,7 @@ public abstract class MultiblockMasterBaseLogic
                     {
                         referenceCoord = null;
                     }
-                    connectedBlocks.remove(deadCoords);   
+                    connectedBlocks.remove(deadCoords);
                 }
             }
             if (referenceCoord == null)
@@ -290,12 +290,12 @@ public abstract class MultiblockMasterBaseLogic
                     ((IMultiblockMember) te).becomeMultiblockSaveDelegate();
                 }
             }
-            
+
             this.revisitBlocks();
-            
+
             forceRecheck = true;
         }
-        
+
         if (this.connectedBlocks.isEmpty())
         {
             MultiblockRegistry.unregister(this);

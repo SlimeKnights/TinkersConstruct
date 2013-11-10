@@ -234,7 +234,7 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
             return 4;
         if (i == 8)
             return 100;
-        return (float)Math.min(i * i + 8, 49);
+        return (float) Math.min(i * i + 8, 49);
     }
 
     /**

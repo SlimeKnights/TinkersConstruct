@@ -342,7 +342,7 @@ public class TContent implements IFuelHandler
 
         craftingSlabWood = new CraftingSlab(PHConstruct.woodCrafterSlab, Material.wood).setUnlocalizedName("CraftingSlab");
         GameRegistry.registerBlock(craftingSlabWood, CraftingSlabItemBlock.class, "CraftingSlab");
-        
+
         furnaceSlab = new FurnaceSlab(PHConstruct.furnaceSlab, Material.rock).setUnlocalizedName("FurnaceSlab");
         GameRegistry.registerBlock(furnaceSlab, "FurnaceSlab");
         GameRegistry.registerTileEntity(FurnaceLogic.class, "TConstruct.Furnace");
@@ -798,7 +798,7 @@ public class TContent implements IFuelHandler
         essenceExtractor = new EssenceExtractor(PHConstruct.essenceExtractor).setHardness(12f).setUnlocalizedName("extractor.essence");
         GameRegistry.registerBlock(essenceExtractor, "extractor.essence");
         GameRegistry.registerTileEntity(EssenceExtractorLogic.class, "extractor.essence");
-        
+
         terraformer = new Terraformer(PHConstruct.terraformer).setHardness(50f).setUnlocalizedName("terraformer");
         GameRegistry.registerBlock(terraformer, TerraformerItem.class, "terraformer");
         GameRegistry.registerTileEntity(TerraformerLogic.class, "TerraFreezer");
@@ -1189,7 +1189,7 @@ public class TContent implements IFuelHandler
             GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(toolStationWood, 1, 10), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', "plankWood"));
         }
         GameRegistry.addRecipe(new ItemStack(furnaceSlab, 1, 0), "###", "# #", "###", '#', new ItemStack(Block.stoneSingleSlab, 1, 3));
-        
+
         // Blank Pattern Recipe
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(blankPattern, 1, 0), "ps", "sp", 'p', "plankWood", 's', "stickWood"));
         // Manual Book Recipes
@@ -1512,7 +1512,6 @@ public class TContent implements IFuelHandler
         tb.registerToolMod(modE);
         modF = new ModFlux();
         tb.registerToolMod(modF);
-
 
         ItemStack redstoneItem = new ItemStack(Item.redstone);
         ItemStack redstoneBlock = new ItemStack(Block.blockRedstone);
@@ -2204,18 +2203,18 @@ public class TContent implements IFuelHandler
     {
         ItemStack ironpick = ToolBuilder.instance.buildTool(new ItemStack(TContent.pickaxeHead, 1, 6), new ItemStack(TContent.toolRod, 1, 2), new ItemStack(TContent.binding, 1, 6), "");
         /*TE3 Flux*/
-        ItemStack batHardened =  GameRegistry.findItemStack("ThermalExpansion", "batteryHardened", 1);
+        ItemStack batHardened = GameRegistry.findItemStack("ThermalExpansion", "batteryHardened", 1);
         if (batHardened != null)
         {
             modF.batteries.add(batHardened);
         }
-        ItemStack basicCell =  GameRegistry.findItemStack("ThermalExpansion", "cellBasic", 1);
+        ItemStack basicCell = GameRegistry.findItemStack("ThermalExpansion", "cellBasic", 1);
         if (basicCell != null)
         {
             modF.batteries.add(basicCell);
         }
         /* IC2 */
-        
+
         //ItemStack reBattery = ic2.api.item.Items.getItem("reBattery");
         Object reBattery = getStaticItem("reBattery", "ic2.core.Ic2Items");
         if (reBattery != null)
@@ -2340,7 +2339,7 @@ public class TContent implements IFuelHandler
         {
             basinCasting.addCastingRecipe(ores.get(0), new FluidStack(moltenElectrumFluid, TConstruct.blockLiquidValue), null, 100);
         }
-        
+
         /* Extra Utilities */
         ores = OreDictionary.getOres("compressedGravel1x");
         if (ores.size() > 0)
@@ -2350,7 +2349,7 @@ public class TContent implements IFuelHandler
         ores = OreDictionary.getOres("compressedGravel2x"); //Higher won't save properly
         if (ores.size() > 0)
         {
-            basinCasting.addCastingRecipe(new ItemStack(speedBlock, 81), new FluidStack(moltenElectrumFluid, TConstruct.blockLiquidValue*9), ores.get(0), 100);
+            basinCasting.addCastingRecipe(new ItemStack(speedBlock, 81), new FluidStack(moltenElectrumFluid, TConstruct.blockLiquidValue * 9), ores.get(0), 100);
         }
     }
 
@@ -2411,13 +2410,13 @@ public class TContent implements IFuelHandler
                 registerPatternMaterial("block" + ft.toString(), 18, ft.toString());
             }
         }
-        
+
         //Compressed materials
         for (int i = 1; i <= 8; i++)
         {
-            Smeltery.addDictionaryMelting("compressedCobblestone"+i+"x", FluidType.Stone, 0, TConstruct.ingotLiquidValue / 18 * (9^i));
+            Smeltery.addDictionaryMelting("compressedCobblestone" + i + "x", FluidType.Stone, 0, TConstruct.ingotLiquidValue / 18 * (9 ^ i));
         }
-        Smeltery.addDictionaryMelting("compressedSand1x", FluidType.Glass, 175, FluidContainerRegistry.BUCKET_VOLUME*9);
+        Smeltery.addDictionaryMelting("compressedSand1x", FluidType.Glass, 175, FluidContainerRegistry.BUCKET_VOLUME * 9);
 
         registerPatternMaterial("plankWood", 2, "Wood");
         registerPatternMaterial("stickWood", 1, "Wood");

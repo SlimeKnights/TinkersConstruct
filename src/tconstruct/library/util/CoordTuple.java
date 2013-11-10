@@ -12,7 +12,7 @@ public class CoordTuple implements Comparable
         y = posY;
         z = posZ;
     }
-    
+
     public CoordTuple(double posX, double posY, double posZ)
     {
         x = (int) Math.floor(posX);

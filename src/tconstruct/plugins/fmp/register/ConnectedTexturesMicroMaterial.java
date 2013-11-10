@@ -11,29 +11,34 @@ import net.minecraft.world.IBlockAccess;
 import tconstruct.blocks.GlassBlockConnected;
 import tconstruct.util.config.PHConstruct;
 
-public class ConnectedTexturesMicroMaterial extends BlockMicroMaterial {
+public class ConnectedTexturesMicroMaterial extends BlockMicroMaterial
+{
 
-	public GlassBlockConnected b;
+    public GlassBlockConnected b;
 
-	MultiIconTransformation icont = null;
+    MultiIconTransformation icont = null;
 
-	public ConnectedTexturesMicroMaterial(GlassBlockConnected block, int meta) {
-		super(block, meta);
-		b = block;
-	}
-	
-	@Override
-	public void loadIcons() {
-		icont = new MultiIconTransformation(b.getIcons());
-	}
+    public ConnectedTexturesMicroMaterial(GlassBlockConnected block, int meta)
+    {
+        super(block, meta);
+        b = block;
+    }
 
-	@Override
-	public void renderMicroFace(Vertex5[] verts, int side, Vector3 pos, LightMatrix lightMatrix, IMicroMaterialRender part) {
-		renderMicroFace(verts, side, pos, lightMatrix, getColour(part), icont);
-	}
-	
-	public int determineTextre(IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5){
-		if (PHConstruct.connectedTexturesMode == 0)
+    @Override
+    public void loadIcons ()
+    {
+        icont = new MultiIconTransformation(b.getIcons());
+    }
+
+    @Override
+    public void renderMicroFace (Vertex5[] verts, int side, Vector3 pos, LightMatrix lightMatrix, IMicroMaterialRender part)
+    {
+        renderMicroFace(verts, side, pos, lightMatrix, getColour(part), icont);
+    }
+
+    public int determineTextre (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
+    {
+        if (PHConstruct.connectedTexturesMode == 0)
         {
             return 0;
         }
@@ -537,37 +542,43 @@ public class ConnectedTexturesMicroMaterial extends BlockMicroMaterial {
         }
 
         return 0;
-	}
+    }
 
-	public void renderMicroFace(Vertex5[] verts, int side, Vector3 pos, LightMatrix lightMatrix, int colour, IUVTransformation uvt) {
-		UV uv = new UV();
-		Tessellator t = Tessellator.instance;
-		int i = 0;
-		while (i < 4) {
-			if (CCRenderState.useNormals()) {
-				Vector3 n = Rotation.axes[side % 6];
-				t.setNormal((float) n.x, (float) n.y, (float) n.z);
-			}
-			Vertex5 vert = verts[i];
-			if (lightMatrix != null) {
-				LC lc = LC.computeO(vert.vec, side);
-				if (CCRenderState.useModelColours())
-					lightMatrix.setColour(t, lc, colour);
-				lightMatrix.setBrightness(t, lc);
-			} else {
-				if (CCRenderState.useModelColours())
-					CCRenderState.vertexColour(colour);
-			}
-			
-//			((MultiIconTransformation)uvt).setIconIndex(null, determineTextre(Minecraft.getMinecraft().theWorld, (int)pos.x, (int)pos.y, (int)pos.z, side));
-			
-			uvt.transform(uv.set(vert.uv));
-			t.addVertexWithUV(vert.vec.x + pos.x, vert.vec.y + pos.y, vert.vec.z + pos.z, uv.u, uv.v);
-			i += 1;
-		}
-	}
-	
-	public static void createAndRegister(GlassBlockConnected block)
+    public void renderMicroFace (Vertex5[] verts, int side, Vector3 pos, LightMatrix lightMatrix, int colour, IUVTransformation uvt)
+    {
+        UV uv = new UV();
+        Tessellator t = Tessellator.instance;
+        int i = 0;
+        while (i < 4)
+        {
+            if (CCRenderState.useNormals())
+            {
+                Vector3 n = Rotation.axes[side % 6];
+                t.setNormal((float) n.x, (float) n.y, (float) n.z);
+            }
+            Vertex5 vert = verts[i];
+            if (lightMatrix != null)
+            {
+                LC lc = LC.computeO(vert.vec, side);
+                if (CCRenderState.useModelColours())
+                    lightMatrix.setColour(t, lc, colour);
+                lightMatrix.setBrightness(t, lc);
+            }
+            else
+            {
+                if (CCRenderState.useModelColours())
+                    CCRenderState.vertexColour(colour);
+            }
+
+            //			((MultiIconTransformation)uvt).setIconIndex(null, determineTextre(Minecraft.getMinecraft().theWorld, (int)pos.x, (int)pos.y, (int)pos.z, side));
+
+            uvt.transform(uv.set(vert.uv));
+            t.addVertexWithUV(vert.vec.x + pos.x, vert.vec.y + pos.y, vert.vec.z + pos.z, uv.u, uv.v);
+            i += 1;
+        }
+    }
+
+    public static void createAndRegister (GlassBlockConnected block)
     {
         MicroMaterialRegistry.registerMaterial(new ConnectedTexturesMicroMaterial(block, 0), block.getUnlocalizedName());
     }

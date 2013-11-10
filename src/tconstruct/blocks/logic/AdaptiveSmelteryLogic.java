@@ -82,7 +82,7 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
                     updateAir();
                     updateAir = false;
                 }
-                
+
                 if (recheckStructure)
                 {
                     structure.recheckStructure();

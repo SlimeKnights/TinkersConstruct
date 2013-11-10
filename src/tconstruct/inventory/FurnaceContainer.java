@@ -42,7 +42,7 @@ public class FurnaceContainer extends Container
         }
     }
 
-    public void addCraftingToCrafters(ICrafting par1ICrafting)
+    public void addCraftingToCrafters (ICrafting par1ICrafting)
     {
         super.addCraftingToCrafters(par1ICrafting);
         par1ICrafting.sendProgressBarUpdate(this, 0, this.furnace.progress);
@@ -53,13 +53,13 @@ public class FurnaceContainer extends Container
     /**
      * Looks for changes made in the container, sends them to every listener.
      */
-    public void detectAndSendChanges()
+    public void detectAndSendChanges ()
     {
         super.detectAndSendChanges();
 
         for (int i = 0; i < this.crafters.size(); ++i)
         {
-            ICrafting icrafting = (ICrafting)this.crafters.get(i);
+            ICrafting icrafting = (ICrafting) this.crafters.get(i);
 
             if (this.lastCookTime != this.furnace.progress)
             {
@@ -83,7 +83,7 @@ public class FurnaceContainer extends Container
     }
 
     @SideOnly(Side.CLIENT)
-    public void updateProgressBar(int par1, int par2)
+    public void updateProgressBar (int par1, int par2)
     {
         if (par1 == 0)
         {
@@ -101,7 +101,7 @@ public class FurnaceContainer extends Container
         }
     }
 
-    public boolean canInteractWith(EntityPlayer par1EntityPlayer)
+    public boolean canInteractWith (EntityPlayer par1EntityPlayer)
     {
         return this.furnace.isUseableByPlayer(par1EntityPlayer);
     }
@@ -109,10 +109,10 @@ public class FurnaceContainer extends Container
     /**
      * Called when a player shift-clicks on a slot. You must override this or you will crash when someone does that.
      */
-    public ItemStack transferStackInSlot(EntityPlayer par1EntityPlayer, int par2)
+    public ItemStack transferStackInSlot (EntityPlayer par1EntityPlayer, int par2)
     {
         ItemStack itemstack = null;
-        Slot slot = (Slot)this.inventorySlots.get(par2);
+        Slot slot = (Slot) this.inventorySlots.get(par2);
 
         if (slot != null && slot.getHasStack())
         {
@@ -163,7 +163,7 @@ public class FurnaceContainer extends Container
 
             if (itemstack1.stackSize == 0)
             {
-                slot.putStack((ItemStack)null);
+                slot.putStack((ItemStack) null);
             }
             else
             {

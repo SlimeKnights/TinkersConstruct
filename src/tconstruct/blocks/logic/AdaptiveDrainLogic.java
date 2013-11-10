@@ -29,7 +29,7 @@ public class AdaptiveDrainLogic extends MultiServantLogic implements IFluidHandl
     @Override
     public boolean setPotentialMaster (IMasterLogic master, World world, int x, int y, int z)
     {
-       // TConstruct.logger.info("Master: "+master);
+        // TConstruct.logger.info("Master: "+master);
         return (master instanceof AdaptiveSmelteryLogic || master instanceof AdaptiveDrainLogic) && !hasMaster;
     }
 
@@ -47,11 +47,11 @@ public class AdaptiveDrainLogic extends MultiServantLogic implements IFluidHandl
     @Override
     public FluidStack drain (ForgeDirection from, int maxDrain, boolean doDrain)
     {
-       // TConstruct.logger.info("Attempting drain " + hasValidMaster());
+        // TConstruct.logger.info("Attempting drain " + hasValidMaster());
         if (hasValidMaster() && canDrain(from, null))
         {
             AdaptiveSmelteryLogic smeltery = (AdaptiveSmelteryLogic) worldObj.getBlockTileEntity(master.x, master.y, master.z);
-          //  TConstruct.logger.info("Found master");
+            //  TConstruct.logger.info("Found master");
             return smeltery.drain(from, maxDrain, doDrain);
         }
         return null;

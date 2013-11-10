@@ -105,9 +105,10 @@ public class Hatchet extends HarvestTool
     {
         return "axe";
     }
-    
-	@Override
-	public boolean isOffhandHandDualWeapon() {
-		return PHConstruct.isHatchetWeapon;
-	}
+
+    @Override
+    public boolean isOffhandHandDualWeapon ()
+    {
+        return PHConstruct.isHatchetWeapon;
+    }
 }

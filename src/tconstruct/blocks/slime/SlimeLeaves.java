@@ -82,9 +82,9 @@ public class SlimeLeaves extends BlockLeaves
             list.add(new ItemStack(id, 1, iter));
         }
     }
-    
+
     @Override
-    public boolean isLeaves(World world, int x, int y, int z)
+    public boolean isLeaves (World world, int x, int y, int z)
     {
         return true;
     }

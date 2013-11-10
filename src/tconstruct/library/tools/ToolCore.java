@@ -66,11 +66,11 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public abstract class ToolCore extends Item implements IEnergyContainerItem, ICustomElectricItem, IBoxable, IBattlegearWeapon, IStorageCell, IAEChargeableItem
 {
-   //TE power constants -- TODO grab these from the 
+    //TE power constants -- TODO grab these from the 
     protected int capacity = 80000;
     protected int maxReceive = 75;
     protected int maxExtract = 75;
-    
+
     protected Random random = new Random();
     protected int damageVsEntity;
     public static Icon blankSprite;

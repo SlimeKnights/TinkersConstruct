@@ -17,7 +17,7 @@ public class SlimeChannelRender implements ISimpleBlockRenderingHandler
     public static int model = RenderingRegistry.getNextAvailableRenderId();
 
     @Override
-    public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer)
+    public void renderInventoryBlock (Block block, int metadata, int modelID, RenderBlocks renderer)
     {
         if (modelID == model)
         {
@@ -26,7 +26,7 @@ public class SlimeChannelRender implements ISimpleBlockRenderingHandler
     }
 
     @Override
-    public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelID, RenderBlocks renderer)
+    public boolean renderWorldBlock (IBlockAccess world, int x, int y, int z, Block block, int modelID, RenderBlocks renderer)
     {
         if (modelID == model)
         {
@@ -35,20 +35,20 @@ public class SlimeChannelRender implements ISimpleBlockRenderingHandler
         }
         return true;
     }
-    
+
     static final float LIGHT_Y_NEG = 0.5F;
     static final float LIGHT_Y_POS = 1.0F;
     static final float LIGHT_XZ_NEG = 0.8F;
     static final float LIGHT_XZ_POS = 0.6F;
 
-    public boolean renderRotatedBlock(Block block, int x, int y, int z, IBlockAccess world, RenderBlocks renderer)
+    public boolean renderRotatedBlock (Block block, int x, int y, int z, IBlockAccess world, RenderBlocks renderer)
     {
         if (true)
         {
             Tessellator tessellator = Tessellator.instance;
             int bMeta = world.getBlockMetadata(x, y, z);
             Icon iconStill = block.getIcon(1, bMeta);
-            float flowDir = (float) (bMeta / 8f * 2*Math.PI); //Tau, radians
+            float flowDir = (float) (bMeta / 8f * 2 * Math.PI); //Tau, radians
 
             double u1, u2, u3, u4, v1, v2, v3, v4;
 
@@ -106,13 +106,13 @@ public class SlimeChannelRender implements ISimpleBlockRenderingHandler
     }
 
     @Override
-    public boolean shouldRender3DInInventory()
+    public boolean shouldRender3DInInventory ()
     {
         return true;
     }
 
     @Override
-    public int getRenderId()
+    public int getRenderId ()
     {
         return model;
     }

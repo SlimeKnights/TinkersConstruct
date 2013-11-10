@@ -50,7 +50,7 @@ public class TConstructBlock extends Block
     {
         return meta < icons.length ? icons[meta] : icons[0];
     }
-    
+
     @SideOnly(Side.CLIENT)
     public int getSideTextureIndex (int side)
     {

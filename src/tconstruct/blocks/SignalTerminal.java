@@ -477,8 +477,6 @@ public class SignalTerminal extends Block implements ITileEntityProvider
             ((SignalTerminalLogic) te).connectPending();
         }
     }
-    
-    
 
     @Override
     public ArrayList<ItemStack> getBlockDropped (World world, int x, int y, int z, int metadata, int fortune)
@@ -493,13 +491,13 @@ public class SignalTerminal extends Block implements ITileEntityProvider
         float jumpX, jumpY, jumpZ;
         ItemStack tempStack;
         Random rand = new Random();
-        
+
         TileEntity te = world.getBlockTileEntity(x, y, z);
         if (te instanceof SignalTerminalLogic)
         {
             dropTerm = ((SignalTerminalLogic) te).getDroppedTerminals();
             dropWire = ((SignalTerminalLogic) te).getDroppedWire();
-            
+
             if (dropTerm > 0)
             {
                 tempStack = new ItemStack(TConstruct.instance.content.signalTerminal.blockID, dropTerm, 0);

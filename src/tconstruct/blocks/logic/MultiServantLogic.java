@@ -29,7 +29,7 @@ public class MultiServantLogic extends TileEntity implements IServantLogic
 
         if (worldObj.getBlockId(master.x, master.y, master.z) == masterID && worldObj.getBlockMetadata(master.x, master.y, master.z) == masterMeat)
             return true;
-        
+
         else
         {
             hasMaster = false;

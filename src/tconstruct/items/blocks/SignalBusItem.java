@@ -38,7 +38,6 @@ public class SignalBusItem extends ItemBlock
         int pos = MathHelper.clamp_int(itemstack.getItemDamage(), 0, blockType.length - 1);
         return (new StringBuilder()).append("tile.").append(blockType[pos]).toString();
     }
-    
 
     @Override
     @SideOnly(Side.CLIENT)
@@ -93,7 +92,7 @@ public class SignalBusItem extends ItemBlock
             tside = side;
             break;
         }
-        
+
         NBTTagCompound data = new NBTTagCompound();
         stack.stackTagCompound = data;
         data.setInteger("connectedSide", tside);
@@ -112,13 +111,13 @@ public class SignalBusItem extends ItemBlock
         TileEntity te = world.getBlockTileEntity(tmpX, tmpY, tmpZ);
 
         ((SignalBusLogic) te).addPlacedSide(tside);
-        
+
         stack.stackTagCompound = null;
-        
+
         --stack.stackSize;
-        
+
         world.markBlockForRenderUpdate(x, y, z);
-        
+
         return true;
 
     }
@@ -178,7 +177,7 @@ public class SignalBusItem extends ItemBlock
                 return false;
             }
 
-            return ((SignalBusLogic)te).canPlaceOnSide(ForgeDirection.OPPOSITES[side]);
+            return ((SignalBusLogic) te).canPlaceOnSide(ForgeDirection.OPPOSITES[side]);
         }
 
         return false;

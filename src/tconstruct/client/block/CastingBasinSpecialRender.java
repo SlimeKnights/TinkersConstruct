@@ -53,12 +53,14 @@ public class CastingBasinSpecialRender extends TileEntitySpecialRenderer
         {
             GL11.glScalef(1.6F, 1.6F, 1.6F);
             GL11.glTranslatef(0F, 0.045F, 0.0f);
-		} else if (!(stack.getItem() instanceof ItemBlocklike)) {
-			GL11.glRotatef(90F, 1F, 0F, 0F);
-			GL11.glRotatef(90F, 0F, 0F, 1F);
-			GL11.glScalef(0.75F, 0.75F, 0.75F);
-			GL11.glTranslatef(0F, -0.235F, -0.36F);
-		}
+        }
+        else if (!(stack.getItem() instanceof ItemBlocklike))
+        {
+            GL11.glRotatef(90F, 1F, 0F, 0F);
+            GL11.glRotatef(90F, 0F, 0F, 1F);
+            GL11.glScalef(0.75F, 0.75F, 0.75F);
+            GL11.glTranslatef(0F, -0.235F, -0.36F);
+        }
 
         RenderItem.renderInFrame = true;
         RenderManager.instance.renderEntityWithPosYaw(entityitem, 0.0D, 0.0D, 0.0D, 0.0F, 0.0F);

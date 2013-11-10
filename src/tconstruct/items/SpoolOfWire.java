@@ -56,7 +56,7 @@ public class SpoolOfWire extends Item
     {
         return "item." + unlocalizedName;
     }
-    
+
     @Override
     public boolean onItemUse (ItemStack itemstack, EntityPlayer player, World world, int x, int y, int z, int par7, float par8, float par9, float par10)
     {
@@ -87,7 +87,7 @@ public class SpoolOfWire extends Item
 
                 int calc = Math.abs(targetX - x) + Math.abs(targetY - y) + Math.abs(targetZ - z);
                 if ((itemstack.getMaxDamage() - itemstack.getItemDamage()) < calc)
-                {                    
+                {
                     return false;
                 }
                 if (targetDim == world.provider.dimensionId && calc < 16)

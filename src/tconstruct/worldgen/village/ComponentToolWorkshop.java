@@ -18,8 +18,10 @@ import net.minecraft.world.gen.structure.StructureComponent;
 public class ComponentToolWorkshop extends ComponentVillage
 {
     private int averageGroundLevel = -1;
-    
-    public ComponentToolWorkshop() {}
+
+    public ComponentToolWorkshop()
+    {
+    }
 
     public ComponentToolWorkshop(ComponentVillageStartPiece par1ComponentVillageStartPiece, int par2, Random par3Random, StructureBoundingBox par4StructureBoundingBox, int par5)
     {

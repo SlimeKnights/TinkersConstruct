@@ -7,13 +7,16 @@ import tconstruct.library.component.MultiFluidTank;
 
 public class TankAirComponent extends MultiFluidTank
 {
-    public TankAirComponent() {}
+    public TankAirComponent()
+    {
+    }
+
     public TankAirComponent(int i)
     {
         super(i);
     }
-    
-    public void overrideFluids(ArrayList<FluidStack> fluids)
+
+    public void overrideFluids (ArrayList<FluidStack> fluids)
     {
         fluidlist = fluids;
     }

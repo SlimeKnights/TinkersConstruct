@@ -123,7 +123,8 @@ public class EquipBlock extends InventoryBlock
     }
 
     @Override
-    public void breakBlock (World par1World, int x, int y, int z, int par5, int meta){
+    public void breakBlock (World par1World, int x, int y, int z, int par5, int meta)
+    {
         TileEntity te = par1World.getBlockTileEntity(x, y, z);
 
         if (te != null && te instanceof EquipLogic)
@@ -169,7 +170,7 @@ public class EquipBlock extends InventoryBlock
 
         super.breakBlock(par1World, x, y, z, par5, meta);
     }
-    
+
     public int getLightValue (IBlockAccess world, int x, int y, int z)
     {
         return !isActive(world, x, y, z) ? 0 : 9;

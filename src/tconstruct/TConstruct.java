@@ -98,7 +98,7 @@ public class TConstruct
         proxy.addNames();
         proxy.readManuals();
         proxy.registerKeys();
-        
+
         MinecraftForge.EVENT_BUS.register(new MultiblockEventHandler());
 
         GameRegistry.registerWorldGenerator(new TBaseWorldGenerator());

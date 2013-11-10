@@ -29,10 +29,11 @@ public class GlassBlockConnected extends Block
         setHardness(0.3F);
         this.setCreativeTab(TConstructRegistry.blockTab);
     }
-    
+
     //For FMP support
-    public Icon[] getIcons(){
-    	return icons;
+    public Icon[] getIcons ()
+    {
+        return icons;
     }
 
     @Override
