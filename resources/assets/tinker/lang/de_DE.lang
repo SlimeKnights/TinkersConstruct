@@ -16,6 +16,7 @@ ToolStation.Parts.name=Basteltisch
 ToolStation.PatternChest.name=Schablonenkiste
 ToolStation.PatternShaper.name=Schablonenstanzer
 ToolStation.CastingTable.name=Gusstisch
+tile.FurnaceSlab.name=Stufenofen
 
 tile.ToolForge.name=Werkzeugesse
 tile.Armor.DryingRack.name=Trockenregal
@@ -25,6 +26,8 @@ CraftedSoil.BlueSlime.name=Schleimiger Matsch (Blau)
 CraftedSoil.GraveyardSoil.name=Friedhoferde
 CraftedSoil.ConsecratedSoil.name=Gesegnete Erde
 tile.CastingChannel.name=Gusskanal
+tile.slime.channel.name=Schleimkanal
+tile.slime.pad.name=Sprungfläche
 
 MetalOre.NetherSlag.name=Netherstein-Schlacke
 MetalOre.Cobalt.name=Cobalterz
@@ -98,6 +101,9 @@ block.fancybrick.stone.name=Schöner Steinziegel
 
 tile.rail.wood.name=Hölzerne Schiene
 
+tile.signalbus.name=Signalbus
+tile.signalterminal.name=Signal-Terminal
+
 tile.cloth.white.slab.name=Wollstufe
 tile.cloth.orange.slab.name=Orange Wollstufe
 tile.cloth.magenta.slab.name=Magenta Wollstufe
@@ -124,6 +130,9 @@ item.oreberry.essence.name=Konzentrierte Essenzbeere
 
 item.goldenhead.name=Goldener Kopf
 item.tconstruct.titleicon.name=Erschaffe 
+
+item.spoolwire.name=Kabelrolle
+item.lengthwire.name=Kabelbahn
 
 item.InfiTool.Pickaxe.name=Spitzhacke
 item.InfiTool.Shovel.name=Schaufel
@@ -284,6 +293,14 @@ tile.trap.barricade.spruce.name=Fichten-Barrikade
 tile.trap.barricade.birch.name=Birken-Barrikade
 tile.trap.barricade.jungle.name=Tropen-Barrikade
 tile.extractor.essence.name=Essenz-Extraktor
+tile.terraformer.freezer.name=Terrafrierer
+tile.terraformer.fumer.name=Terragaser
+tile.terraformer.waver.name=Terraweller
+tile.terraformer.leecher.name=Terrasauger
+tile.terraformer.grower.name=Terrapflanzer
+tile.terraformer.nether.name=Terranether
+tile.terraformer.lighter.name=Terraleuchter
+tile.terraformer.crystal.name=Terrakristall
 
 StorageMetals.Cobalt.name=Cobaltblock
 StorageMetals.Ardite.name=Arditblock
