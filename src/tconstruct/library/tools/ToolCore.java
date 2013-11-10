@@ -811,9 +811,9 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, ICu
             if (charge > 0)
                 return this.getMaxCharge(stack);
         }
-        if (tags.hasKey("energy"))
+        if (tags.hasKey("Energy"))
         {
-            int energy = tags.getInteger("energy");
+            int energy = tags.getInteger("Energy");
             if (energy > 0)
                 return this.getMaxEnergyStored(stack);
         }
@@ -834,9 +834,9 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, ICu
             if (charge > 0)
                 return getMaxCharge(stack) - charge;
         }
-        if (tags.hasKey("energy"))
+        if (tags.hasKey("Energy"))
         {
-            int energy = tags.getInteger("energy");
+            int energy = tags.getInteger("Energy");
             if (energy > 0)
                 return getMaxEnergyStored(stack) - energy;
         }
