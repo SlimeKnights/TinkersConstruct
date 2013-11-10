@@ -16,6 +16,7 @@ ToolStation.Parts.name=Costruttore di Parti
 ToolStation.PatternChest.name=Cassa di Modelli
 ToolStation.PatternShaper.name=Tavolo di Modelli
 ToolStation.CastingTable.name=Tavolo della Fonderia
+tile.FurnaceSlab.name=Lastra di Fornace
 
 tile.ToolForge.name=Forgia degli Attrezzi
 tile.Armor.DryingRack.name=Stendino
@@ -100,8 +101,8 @@ block.fancybrick.stone.name=Mattoni di Pieatra Decorativi
 
 tile.rail.wood.name=Rotelle di Legno
 
-tile.signalbus.name=Bus per Segnale
-tile.signalterminal.name=Terminale per Segnale
+tile.signalbus.name=Signal Bus
+tile.signalterminal.name=Signal Bus
 
 tile.cloth.white.slab.name=Lastra di Lana
 tile.cloth.orange.slab.name=Lastra di Lana Arancione
@@ -292,6 +293,14 @@ tile.trap.barricade.spruce.name=Barricata di Abete
 tile.trap.barricade.birch.name=Barricata di Betulla
 tile.trap.barricade.jungle.name=Barricata di Legno della Giungla
 tile.extractor.essence.name=Estrattore di Essenza
+tile.terraformer.freezer.name=Terrafreezer
+tile.terraformer.fumer.name=Terrafumer
+tile.terraformer.waver.name=Terrawaver
+tile.terraformer.leecher.name=Terraleecher
+tile.terraformer.grower.name=Terragrower
+tile.terraformer.nether.name=Terranether
+tile.terraformer.lighter.name=Terralighter
+tile.terraformer.crystal.name=Terracrystal
 tile.explosive.slime.name=SDX
 
 StorageMetals.Cobalt.name=Blocco di Cobalto
