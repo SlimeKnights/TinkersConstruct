@@ -100,6 +100,9 @@ block.fancybrick.stone.name=平滑石砖
 
 tile.rail.wood.name=木轨
 
+tile.signalbus.name=信号总线
+tile.signalterminal.name=信号终端
+
 tile.cloth.white.slab.name=羊毛台阶
 tile.cloth.orange.slab.name=橙色羊毛台阶
 tile.cloth.magenta.slab.name=品红色羊毛台阶
@@ -125,7 +128,10 @@ item.oreberry.aluminum.name=铝矿莓
 item.oreberry.essence.name=精华莓
 
 item.goldenhead.name=黄金头颅
-item.tconstruct.titleicon.name=生成 
+item.tconstruct.titleicon.name=生成
+
+item.spoolwire.name=线轴
+item.lengthwire.name=线长
 
 item.InfiTool.Pickaxe.name=镐
 item.InfiTool.Shovel.name=铲
