@@ -179,6 +179,7 @@ public class TContent implements IFuelHandler
     //Crystalline
     public static Block essenceExtractor;
     public static Item essenceCrystal;
+    public static Block terraformer;
 
     //Liquids
     public static Material liquidMetal;
@@ -797,6 +798,10 @@ public class TContent implements IFuelHandler
         essenceExtractor = new EssenceExtractor(PHConstruct.essenceExtractor).setHardness(12f).setUnlocalizedName("extractor.essence");
         GameRegistry.registerBlock(essenceExtractor, "extractor.essence");
         GameRegistry.registerTileEntity(EssenceExtractorLogic.class, "extractor.essence");
+        
+        terraformer = new Terraformer(PHConstruct.terraformer).setHardness(50f).setUnlocalizedName("terraformer");
+        GameRegistry.registerBlock(terraformer, TerraformerItem.class, "terraformer");
+        GameRegistry.registerTileEntity(TerraformerLogic.class, "TerraFreezer");
 
         //Rail
         woodenRail = new WoodRail(PHConstruct.woodenRail).setStepSound(Block.soundWoodFootstep).setCreativeTab(TConstructRegistry.blockTab).setUnlocalizedName("rail.wood");

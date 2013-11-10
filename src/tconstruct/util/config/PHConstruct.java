@@ -101,7 +101,7 @@ public class PHConstruct
         barricadeSpruce = config.getBlock("Spruce Barricade", 1482).getInt(1482);
         barricadeBirch = config.getBlock("Birch Barricade", 1483).getInt(1483);
         barricadeJungle = config.getBlock("Jungle Barricade", 1487).getInt(1487);
-
+        
         slimeChannel = config.getBlock("Slime Channel", 3190).getInt(3190);
         slimePad = config.getBlock("Slime Pad", 3191).getInt(3191);
         
@@ -133,7 +133,7 @@ public class PHConstruct
         blood = config.getBlock("Liquid Cow", 3217).getInt(3217);
         moltenEnder = config.getBlock("Molten Ender", 3218).getInt(3218);
 
-        
+        terraformer = config.getBlock("Terraformer", 3219).getInt(3219);
         
         signalBus = config.getBlock("Signal Bus", 3221).getInt(3221);
         signalTerminal = config.getBlock("Signal Terminal", 3222).getInt(3222);
@@ -446,6 +446,7 @@ public class PHConstruct
     //Crystalline
     public static int essenceExtractor;
     public static int essenceCrystal;
+    public static int terraformer;
 
     //Liquids
     public static int metalFlowing;

@@ -293,6 +293,14 @@ tile.trap.barricade.spruce.name=Spruce Barricade
 tile.trap.barricade.birch.name=Birch Barricade
 tile.trap.barricade.jungle.name=Jungle Barricade
 tile.extractor.essence.name=Essence Extractor
+tile.terraformer.freezer.name=Terrafreezer
+tile.terraformer.fumer.name=Terrafumer
+tile.terraformer.waver.name=Terrawaver
+tile.terraformer.leecher.name=Terraleecher
+tile.terraformer.grower.name=Terragrower
+tile.terraformer.nether.name=Terranether
+tile.terraformer.lighter.name=Terralighter
+tile.terraformer.crystal.name=Terracrystal
 tile.explosive.slime.name=SDX
 
 StorageMetals.Cobalt.name=Block of Cobalt
