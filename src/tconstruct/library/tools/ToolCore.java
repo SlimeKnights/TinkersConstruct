@@ -572,7 +572,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, ICu
                 fld = clazz.getField("supressMissingToolLogs");
                 supress = fld.getBoolean(fld);
             }
-            catch (ClassNotFoundException | NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e)
+            catch (Exception e)
             {
                 TConstructRegistry.logger.severe("TConstruct Library could not find parts of TContent");
                 e.printStackTrace();
