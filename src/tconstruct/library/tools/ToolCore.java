@@ -367,21 +367,20 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, ICu
         if (tags.hasKey("Energy"))
         {
             String color = "";
-            //double joules = this.getJoules(stack);
-            int power = tags.getInteger("Energy");
+            int RF = tags.getInteger("Energy");
 
-            if (power != 0)
+            if (RF != 0)
             {
-                if (power <= this.getMaxEnergyStored(stack) / 3)
+                if (RF <= this.getMaxEnergyStored(stack) / 3)
                     color = "\u00a74";
-                else if (power > this.getMaxEnergyStored(stack) * 2 / 3)
+                else if (RF > this.getMaxEnergyStored(stack) * 2 / 3)
                     color = "\u00a72";
                 else
                     color = "\u00a76";
             }
 
-            String charge = new StringBuilder().append(color).append(tags.getInteger("energy")).append("/").append(getMaxEnergyStored(stack)).append(" RF").toString();
-            list.add(charge);
+            String energy = new StringBuilder().append(color).append(tags.getInteger("energy")).append("/").append(getMaxEnergyStored(stack)).append(" RF").toString();
+            list.add(energy);
         }
         if (tags.hasKey("InfiTool"))
         {
@@ -812,6 +811,12 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, ICu
             if (charge > 0)
                 return this.getMaxCharge(stack);
         }
+        if (tags.hasKey("Energy"))
+        {
+            int energy = tags.getInteger("Energy");
+            if (energy > 0)
+                return this.getMaxEnergyStored(stack);
+        }
         return tags.getCompoundTag("InfiTool").getInteger("TotalDurability");
     }
 
@@ -828,6 +833,12 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, ICu
             int charge = tags.getInteger("charge");
             if (charge > 0)
                 return getMaxCharge(stack) - charge;
+        }
+        if (tags.hasKey("Energy"))
+        {
+            int energy = tags.getInteger("Energy");
+            if (energy > 0)
+                return getMaxEnergyStored(stack) - energy;
         }
         return tags.getCompoundTag("InfiTool").getInteger("Damage");
     }
