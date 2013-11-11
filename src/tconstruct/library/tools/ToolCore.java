@@ -3,6 +3,7 @@ package tconstruct.library.tools;
 import ic2.api.item.IBoxable;
 import ic2.api.item.ICustomElectricItem;
 
+import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -29,7 +30,6 @@ import tconstruct.library.ActiveToolMod;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.ToolBuilder;
 import tconstruct.library.util.MathUtils;
-import cofh.api.energy.IEnergyContainerItem;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -563,9 +563,23 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, ICu
         ItemStack tool = ToolBuilder.instance.buildTool(new ItemStack(getHeadItem(), 1, id), new ItemStack(getHandleItem(), 1, id), accessoryStack, extraStack, name + getToolName());
         if (tool == null)
         {
-            
-            System.err.println("Creative builder failed tool for " + name + this.getToolName());
-            System.err.println("Make sure you do not have item ID conflicts");
+            Class clazz;
+            Field fld;
+            boolean supress = false;
+            try
+            {
+                clazz = Class.forName("tconstruct.common.TContent");
+                fld = clazz.getField("supressMissingToolLogs");
+                supress = fld.getBoolean(fld);
+            }
+            catch (ClassNotFoundException | NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e)
+            {
+                TConstructRegistry.logger.severe("TConstruct Library could not find parts of TContent");
+                e.printStackTrace();
+            }
+            if (!supress)
+                TConstructRegistry.logger.severe("Creative builder failed tool for " + name + this.getToolName());
+            TConstructRegistry.logger.severe("Make sure you do not have item ID conflicts");
         }
         else
         {

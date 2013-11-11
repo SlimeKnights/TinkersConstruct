@@ -125,8 +125,11 @@ public class Arrow extends ToolCore
 
         if (tool == null)
         {
-            TConstruct.logger.warning("Creative builder failed tool for Vanilla style" + this.getToolName());
-            TConstruct.logger.warning("Make sure you do not have item ID conflicts");
+            if (!TContent.supressMissingToolLogs)
+            {
+                TConstruct.logger.warning("Creative builder failed tool for Vanilla style" + this.getToolName());
+                TConstruct.logger.warning("Make sure you do not have item ID conflicts");
+            }
         }
         else
         {
