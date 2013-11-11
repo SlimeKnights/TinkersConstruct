@@ -101,9 +101,6 @@ block.fancybrick.stone.name=Mattoni di Pieatra Decorativi
 
 tile.rail.wood.name=Rotelle di Legno
 
-tile.signalbus.name=Signal Bus
-tile.signalterminal.name=Signal Bus
-
 tile.cloth.white.slab.name=Lastra di Lana
 tile.cloth.orange.slab.name=Lastra di Lana Arancione
 tile.cloth.magenta.slab.name=Lastra di Lana Magenta
@@ -130,9 +127,6 @@ item.oreberry.essence.name=Bacca Concentrata di Essenza
 
 item.goldenhead.name=Testa d'Oro
 item.tconstruct.titleicon.name=Spawn
-
-item.spoolwire.name=Rotolo di Cavi
-item.lengthwire.name=Lunghezza di Cavi
 
 item.InfiTool.Pickaxe.name=Piccone
 item.InfiTool.Shovel.name=Pala

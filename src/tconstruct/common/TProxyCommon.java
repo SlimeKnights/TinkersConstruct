@@ -11,7 +11,6 @@ import tconstruct.TConstruct;
 import tconstruct.blocks.logic.TileEntityLandmine;
 import tconstruct.inventory.*;
 import tconstruct.library.blocks.InventoryLogic;
-import tconstruct.library.multiblock.MultiblockServerTickHandler;
 import tconstruct.util.player.TPlayerStats;
 
 /**
@@ -88,7 +87,6 @@ public class TProxyCommon implements IGuiHandler
     public void registerTickHandler ()
     {
         //TickRegistry.registerTickHandler(new TimeTicker(), Side.SERVER);
-        TickRegistry.registerScheduledTickHandler(new MultiblockServerTickHandler(), Side.SERVER);
     }
 
     /* Registers any rendering code. Does nothing server-side */
