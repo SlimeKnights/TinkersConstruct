@@ -9,16 +9,17 @@ import appeng.api.me.util.IMEInventoryHandler;
  * 
  * Remember to trigger the appropriate storage update vents, when your getCellArray Changes. * 
  */
-public interface ICellContainer {
-	
-	/**
-	 * Inventory of the tile for use with ME, should always return an valid list, never NULL.
-	 */
-	List<IMEInventoryHandler> getCellArray();
-	
-	/**
-	 * the storage's priority.
-	 */
-	int getPriority();
-	
+public interface ICellContainer
+{
+
+    /**
+     * Inventory of the tile for use with ME, should always return an valid list, never NULL.
+     */
+    List<IMEInventoryHandler> getCellArray ();
+
+    /**
+     * the storage's priority.
+     */
+    int getPriority ();
+
 }

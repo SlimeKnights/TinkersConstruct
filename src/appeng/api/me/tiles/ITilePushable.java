@@ -8,23 +8,23 @@ import net.minecraft.item.ItemStack;
  */
 public interface ITilePushable
 {
-	/**
-	 * is this pushable busy?
-	 * @return
-	 */
-	boolean isBusy();
-	
-	/**
-	 * Attempt to send an item.
-	 * @param out
-	 * @return
-	 */
-	ItemStack pushItem( ItemStack out );
-	
-	/**
-	 * Test if a push is possible.
-	 * @param out
-	 * @return
-	 */
-	boolean canPushItem(ItemStack out);
+    /**
+     * is this pushable busy?
+     * @return
+     */
+    boolean isBusy ();
+
+    /**
+     * Attempt to send an item.
+     * @param out
+     * @return
+     */
+    ItemStack pushItem (ItemStack out);
+
+    /**
+     * Test if a push is possible.
+     * @param out
+     * @return
+     */
+    boolean canPushItem (ItemStack out);
 }

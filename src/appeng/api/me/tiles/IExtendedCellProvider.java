@@ -7,7 +7,7 @@ import appeng.api.me.util.IMEInventoryHandler;
  */
 public interface IExtendedCellProvider extends ICellProvider
 {
-	
-    public IMEInventoryHandler provideCell( String Filter );
-    
+
+    public IMEInventoryHandler provideCell (String Filter);
+
 }

@@ -5,6 +5,6 @@ import appeng.api.me.tiles.IConfigureableTile;
 
 public interface IConfigManager extends IConfigureableTile
 {
-	
-	IConfigEnum getSetting( String sName );
+
+    IConfigEnum getSetting (String sName);
 }

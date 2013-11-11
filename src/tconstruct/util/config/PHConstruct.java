@@ -18,9 +18,6 @@ public class PHConstruct
          * Second: Create the actual config file
          * Note: Configs are a pain, but absolutely necessary for every mod.
          */
-        //File file = new File(TConstruct.proxy.getLocation() + "/config");
-        //file.mkdir();
-        //File newFile = new File(TConstruct.proxy.getLocation() + "/config/TinkersWorkshop.txt");
         File newFile = new File(location + "/TinkersWorkshop.txt");
 
         /* Some basic debugging will go a long way */
@@ -133,7 +130,6 @@ public class PHConstruct
         blood = config.getBlock("Liquid Cow", 3217).getInt(3217);
         moltenEnder = config.getBlock("Molten Ender", 3218).getInt(3218);
 
-        terraformer = config.getBlock("Terraformer", 3219).getInt(3219);
 
         signalBus = config.getBlock("Signal Bus", 3221).getInt(3221);
         signalTerminal = config.getBlock("Signal Terminal", 3222).getInt(3222);
@@ -150,7 +146,6 @@ public class PHConstruct
 
         punji = config.getBlock("Punji", 3232).getInt(3232);
         woodCrafter = config.getBlock("Crafting Station", 3233).getInt(3233);
-        essenceExtractor = config.getBlock("Essence Extractor", 3234).getInt(3234);
 
         slimePoolBlue = config.getBlock("Liquid Blue Slime", 3235).getInt(3235);
         slimeGel = config.getBlock("Congealed Slime", 3237).getInt(3237);
@@ -263,7 +258,6 @@ public class PHConstruct
         glove = config.getItem("Equipables", "Gloves", 14111).getInt(14111);
         knapsack = config.getItem("Equipables", "Knapsack", 14112).getInt(14112);
         goldHead = config.getItem("Patterns and Misc", "Golden Head", 14113).getInt(14113);
-        essenceCrystal = config.getItem("Patterns and Misc", "Essence Crystal", 14114).getInt(14114);
         jerky = config.getItem("Patterns and Misc", "Jerky", 14115).getInt(14115);
 
         spoolWire = config.getItem("Logic", "SpoolWire", 14120).getInt(14120);
@@ -443,11 +437,6 @@ public class PHConstruct
     public static int stainedGlass;
     public static int stainedGlassClear;
     public static int stainedGlassClearPane;
-
-    //Crystalline
-    public static int essenceExtractor;
-    public static int essenceCrystal;
-    public static int terraformer;
 
     //Liquids
     public static int metalFlowing;
