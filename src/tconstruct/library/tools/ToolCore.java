@@ -568,7 +568,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, ICu
             boolean supress = false;
             try
             {
-                clazz = Class.forName("tconstruct.common.TContent");
+                clazz = Class.forName(tconstruct.common.TContent.class.getName());
                 fld = clazz.getField("supressMissingToolLogs");
                 supress = fld.getBoolean(fld);
             }
