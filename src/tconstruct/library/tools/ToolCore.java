@@ -10,9 +10,6 @@ import java.util.Map;
 import java.util.Random;
 
 import cofh.api.energy.IEnergyContainerItem;
-import appeng.api.IAEItemStack;
-import appeng.api.me.items.IAEChargeableItem;
-import appeng.api.me.items.IStorageCell;
 import mods.battlegear2.api.weapons.IBattlegearWeapon;
 import mods.battlegear2.api.weapons.OffhandAttackEvent;
 import net.minecraft.block.Block;
@@ -33,7 +30,6 @@ import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.ToolBuilder;
 import tconstruct.library.util.MathUtils;
 import cofh.api.energy.IEnergyContainerItem;
-import cofh.util.MathHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -567,6 +563,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, ICu
         ItemStack tool = ToolBuilder.instance.buildTool(new ItemStack(getHeadItem(), 1, id), new ItemStack(getHandleItem(), 1, id), accessoryStack, extraStack, name + getToolName());
         if (tool == null)
         {
+            
             System.err.println("Creative builder failed tool for " + name + this.getToolName());
             System.err.println("Make sure you do not have item ID conflicts");
         }
@@ -1095,7 +1092,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, ICu
     @Override
     public int getMaxEnergyStored (ItemStack container)
     {
-        NBTTagCompound tags =container.getTagCompound();
+        NBTTagCompound tags = container.getTagCompound();
         if (tags == null || !tags.hasKey("Energy"))
             return 0;
         return capacity;
