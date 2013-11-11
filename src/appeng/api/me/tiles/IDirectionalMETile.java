@@ -10,11 +10,11 @@ import net.minecraftforge.common.ForgeDirection;
  */
 public interface IDirectionalMETile
 {
-	
-	/**
-	 * return true if this tile can connect in a specific direction.
-	 * @param dir
-	 * @return true, if it can connect.
-	 */
-	boolean canConnect( ForgeDirection dir );
+
+    /**
+     * return true if this tile can connect in a specific direction.
+     * @param dir
+     * @return true, if it can connect.
+     */
+    boolean canConnect (ForgeDirection dir);
 }

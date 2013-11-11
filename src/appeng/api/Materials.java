@@ -10,26 +10,26 @@ import net.minecraft.item.ItemStack;
  */
 public class Materials
 {
-	// Tech 1
+    // Tech 1
     public static ItemStack matWoodenGear;
-	public static ItemStack matIronNugget;
+    public static ItemStack matIronNugget;
     public static ItemStack matCrank;
 
     // Grinder...
-	public static ItemStack matQuartzDustNether;
+    public static ItemStack matQuartzDustNether;
     public static ItemStack matQuartzDust;
     public static ItemStack matIronDust;
     public static ItemStack matGoldDust;
     public static ItemStack matFlour;
-    
+
     // Tech 3
     public static ItemStack matSilicon;
-	public static ItemStack matProcessorBasicUncooked;
-	public static ItemStack matProcessorAdvancedUncooked;
-	public static ItemStack matProcessorBasic;
-	public static ItemStack matProcessorAdvanced;
-	
-	// ME Construction...
+    public static ItemStack matProcessorBasicUncooked;
+    public static ItemStack matProcessorAdvancedUncooked;
+    public static ItemStack matProcessorBasic;
+    public static ItemStack matProcessorAdvanced;
+
+    // ME Construction...
     public static ItemStack matConversionMatrix;
     public static ItemStack matStorageCell;
     public static ItemStack matStorageBlock;
@@ -38,25 +38,25 @@ public class Materials
     public static ItemStack matStorageCellHouseing;
     public static ItemStack matStorageCellHouseingFuzzy;
     public static ItemStack matBlankPattern;
-	public static ItemStack matStorageSegment;
+    public static ItemStack matStorageSegment;
     public static ItemStack matFluxDust;
     public static ItemStack matFluxCrystal;
-	public static ItemStack matFluxPearl;
+    public static ItemStack matFluxPearl;
 
-	public static ItemStack matSpatialStorageCell;
-	public static ItemStack matSpatialStorageBlock;
-	public static ItemStack matSpatialStorageCluster;
-	
+    public static ItemStack matSpatialStorageCell;
+    public static ItemStack matSpatialStorageBlock;
+    public static ItemStack matSpatialStorageCluster;
+
     // World gen...
     public static ItemStack matQuartz;
-    
+
     // Other items, such as upgrades.
     public static ItemStack matWirelessBooster;
-	public static ItemStack matMatterBall;
-	public static ItemStack matSingularity;
-	public static ItemStack matEnderPearlDust;
-	public static ItemStack matQuantumEntangledSingularity;
-    
+    public static ItemStack matMatterBall;
+    public static ItemStack matSingularity;
+    public static ItemStack matEnderPearlDust;
+    public static ItemStack matQuantumEntangledSingularity;
+
     // TEST ITEMS!
-	public static ItemStack testItem;
+    public static ItemStack testItem;
 }

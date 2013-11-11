@@ -7,5 +7,5 @@ import appeng.api.DimentionalCoord;
  */
 public interface IGridTeleport
 {
-	DimentionalCoord[] findRemoteSide();
+    DimentionalCoord[] findRemoteSide ();
 }

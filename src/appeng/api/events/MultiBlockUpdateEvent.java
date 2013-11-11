@@ -8,15 +8,17 @@ import appeng.api.me.tiles.IGridTileEntity;
 /**
  * Used by the MAC to trigger updates in its structure.
  */
-public class MultiBlockUpdateEvent extends AEWorldEvent {
-	
-	public WorldCoord coord;
-	public IGridTileEntity te;
-	
-	public MultiBlockUpdateEvent( IGridTileEntity _te, World world, WorldCoord wc ) {
-		super(world);
-		coord = wc;
-		te = _te;
-	}
-	
+public class MultiBlockUpdateEvent extends AEWorldEvent
+{
+
+    public WorldCoord coord;
+    public IGridTileEntity te;
+
+    public MultiBlockUpdateEvent(IGridTileEntity _te, World world, WorldCoord wc)
+    {
+        super(world);
+        coord = wc;
+        te = _te;
+    }
+
 }

@@ -176,11 +176,6 @@ public class TContent implements IFuelHandler
     public static Block stainedGlassMagicSlab;
     public static Block stainedGlassClearMagicSlab;
 
-    //Crystalline
-    public static Block essenceExtractor;
-    public static Item essenceCrystal;
-    public static Block terraformer;
-
     //Liquids
     public static Material liquidMetal;
 
@@ -794,15 +789,6 @@ public class TContent implements IFuelHandler
         stainedGlassClearPane = new GlassPaneStained(PHConstruct.stainedGlassClearPane);
         GameRegistry.registerBlock(stainedGlassClearPane, StainedGlassClearPaneItem.class, "GlassPaneClearStained");
 
-        //Crystalline
-        essenceExtractor = new EssenceExtractor(PHConstruct.essenceExtractor).setHardness(12f).setUnlocalizedName("extractor.essence");
-        GameRegistry.registerBlock(essenceExtractor, "extractor.essence");
-        GameRegistry.registerTileEntity(EssenceExtractorLogic.class, "extractor.essence");
-
-        terraformer = new Terraformer(PHConstruct.terraformer).setHardness(50f).setUnlocalizedName("terraformer");
-        GameRegistry.registerBlock(terraformer, TerraformerItem.class, "terraformer");
-        GameRegistry.registerTileEntity(TerraformerLogic.class, "TerraFreezer");
-
         //Rail
         woodenRail = new WoodRail(PHConstruct.woodenRail).setStepSound(Block.soundWoodFootstep).setCreativeTab(TConstructRegistry.blockTab).setUnlocalizedName("rail.wood");
         GameRegistry.registerBlock(woodenRail, "rail.wood");
@@ -943,9 +929,6 @@ public class TContent implements IFuelHandler
         //heavyBoots = new TArmorBase(PHConstruct.heavyBoots, 3).setUnlocalizedName("tconstruct.HeavyBoots");
         //glove = new Glove(PHConstruct.glove).setUnlocalizedName("tconstruct.Glove");
         knapsack = new Knapsack(PHConstruct.knapsack).setUnlocalizedName("tconstruct.storage");
-
-        //Crystalline
-        essenceCrystal = new EssenceCrystal(PHConstruct.essenceCrystal).setUnlocalizedName("tconstruct.crystal.essence");
         goldHead = new GoldenHead(PHConstruct.goldHead, 4, 1.2F, false).setAlwaysEdible().setPotionEffect(Potion.regeneration.id, 10, 0, 1.0F).setUnlocalizedName("goldenhead");
 
         LiquidCasting basinCasting = TConstruct.getBasinCasting();
@@ -1399,7 +1382,6 @@ public class TContent implements IFuelHandler
         GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 3), "b", 'b', new ItemStack(toolStationWood, 1, 13));
         GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 5), "b", 'b', new ItemStack(toolForge, 1, Short.MAX_VALUE));
         // EssenceExtractor Recipe
-        GameRegistry.addRecipe(new ItemStack(essenceExtractor, 1, 0), " b ", "eme", "mmm", 'b', Item.book, 'e', Item.emerald, 'm', Block.whiteStone);
         //Slime Recipes
         GameRegistry.addRecipe(new ItemStack(slimeGel, 1, 0), "##", "##", '#', strangeFood);
         GameRegistry.addRecipe(new ItemStack(strangeFood, 4, 0), "#", '#', new ItemStack(slimeGel, 1, 0));

@@ -7,5 +7,5 @@ import appeng.api.me.util.ICraftingPattern;
  */
 public interface IAssemblerPatternProvider
 {
-    public ICraftingPattern provideAssemblerPattern();
+    public ICraftingPattern provideAssemblerPattern ();
 }

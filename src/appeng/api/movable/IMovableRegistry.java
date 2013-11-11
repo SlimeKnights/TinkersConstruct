@@ -31,52 +31,52 @@ import net.minecraft.tileentity.TileEntity;
  * If you need a build of deobf build of AE for testing, do not hesitate to ask.
  * 
  */
-public interface IMovableRegistry {
+public interface IMovableRegistry
+{
 
-	
-	/**
-	 * White list your tile entity with the registry.
-	 * 
-	 * You can also use the ICM, 
-	 * FMLInterModComms.sendMessage( "AppliedEnergistics", "movabletile", "appeng.common.AppEngTile" );
-	 * 
-	 * If you tile is handled with IMovableHandler or IMovableTile you do not need to white list it.
-	 * 
-	 */
-	void whiteListTileEntity( Class<? extends TileEntity> c );
-	
-	/**
-	 * returns true if the tile has accepted your request to move it.
-	 * @param te
-	 * @return
-	 */
-	boolean askToMove( TileEntity te );
-	
-	/**
-	 * tells the tile you are done moving it.
-	 * @param te
-	 */
-	void doneMoveing( TileEntity te );
-	
-	/**
-	 * add a new handler movable handler.
-	 * @param han
-	 */
-	void addHandler( IMovableHandler han );
-	
-	/**
-	 * handlers are used to perform movement, this allows you to override AE's internal version.
-	 * 
-	 * only valid after askToMove(...) = true
-	 * @param te
-	 * @return
-	 */
-	IMovableHandler getHandler(TileEntity te);
+    /**
+     * White list your tile entity with the registry.
+     * 
+     * You can also use the ICM, 
+     * FMLInterModComms.sendMessage( "AppliedEnergistics", "movabletile", "appeng.common.AppEngTile" );
+     * 
+     * If you tile is handled with IMovableHandler or IMovableTile you do not need to white list it.
+     * 
+     */
+    void whiteListTileEntity (Class<? extends TileEntity> c);
 
-	/**
-	 * returns a copy of the default handler
-	 * @return
-	 */
-	IMovableHandler getDefaultHandler();
-	
+    /**
+     * returns true if the tile has accepted your request to move it.
+     * @param te
+     * @return
+     */
+    boolean askToMove (TileEntity te);
+
+    /**
+     * tells the tile you are done moving it.
+     * @param te
+     */
+    void doneMoveing (TileEntity te);
+
+    /**
+     * add a new handler movable handler.
+     * @param han
+     */
+    void addHandler (IMovableHandler han);
+
+    /**
+     * handlers are used to perform movement, this allows you to override AE's internal version.
+     * 
+     * only valid after askToMove(...) = true
+     * @param te
+     * @return
+     */
+    IMovableHandler getHandler (TileEntity te);
+
+    /**
+     * returns a copy of the default handler
+     * @return
+     */
+    IMovableHandler getDefaultHandler ();
+
 }

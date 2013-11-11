@@ -1,18 +1,20 @@
 package appeng.api.config;
 
+public enum ItemFlow implements IConfigEnum<ItemFlow>
+{
 
-public enum ItemFlow implements IConfigEnum<ItemFlow> {
-	
-	READ, WRITE, READ_WRITE;
-	
-	@Override
-	public IConfigEnum[] getValues() {
-		return values();
-	}
+    READ, WRITE, READ_WRITE;
 
-	@Override
-	public String getName() {
-		return "ItemFlow";
-	}
-	
+    @Override
+    public IConfigEnum[] getValues ()
+    {
+        return values();
+    }
+
+    @Override
+    public String getName ()
+    {
+        return "ItemFlow";
+    }
+
 }

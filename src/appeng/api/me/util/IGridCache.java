@@ -11,36 +11,37 @@ import net.minecraft.nbt.NBTTagCompound;
  * Register this with Util.getAppEngApi().registerGridCache( MyGridCache.class );
  * 
  */
-public interface IGridCache {
-	
-	/**
-	 * Called each time a network is reset ( changed ), the grid will persist your classes instance, but call this method.
-	 * @param grid
-	 */
-	void reset( IGridInterface grid );
-	
-	/**
-	 * Called each tick for the controller, allows you to have active network wide behaviors.
-	 * @param grid
-	 */
-	void onUpdateTick( IGridInterface grid );
-	
-	/**
-	 * used to uniquely identify your cache when saving/loading
-	 * @return
-	 */
-	String getCacheName();
-	
-	/**
-	 * Save your caches state if necessary, if no saving is required, return null.
-	 * @return
-	 */
-	NBTTagCompound savetoNBTData();
-	
-	/**
-	 * Load save cache data, this is called when a controller is loaded with previously saved data if there was no data, data will be an empty tag.
-	 * @param data
-	 */
-	void loadfromNBTData( NBTTagCompound data );
-	
+public interface IGridCache
+{
+
+    /**
+     * Called each time a network is reset ( changed ), the grid will persist your classes instance, but call this method.
+     * @param grid
+     */
+    void reset (IGridInterface grid);
+
+    /**
+     * Called each tick for the controller, allows you to have active network wide behaviors.
+     * @param grid
+     */
+    void onUpdateTick (IGridInterface grid);
+
+    /**
+     * used to uniquely identify your cache when saving/loading
+     * @return
+     */
+    String getCacheName ();
+
+    /**
+     * Save your caches state if necessary, if no saving is required, return null.
+     * @return
+     */
+    NBTTagCompound savetoNBTData ();
+
+    /**
+     * Load save cache data, this is called when a controller is loaded with previously saved data if there was no data, data will be an empty tag.
+     * @param data
+     */
+    void loadfromNBTData (NBTTagCompound data);
+
 }

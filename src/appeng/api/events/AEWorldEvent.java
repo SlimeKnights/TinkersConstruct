@@ -8,10 +8,10 @@ import net.minecraftforge.event.Event;
  */
 public class AEWorldEvent extends Event
 {
-	final public World world;
-	
-	public AEWorldEvent( World w )
-	{
-		world = w;
-	}
+    final public World world;
+
+    public AEWorldEvent(World w)
+    {
+        world = w;
+    }
 }
