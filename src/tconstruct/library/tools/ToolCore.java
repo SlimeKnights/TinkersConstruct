@@ -9,12 +9,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import cofh.api.energy.IEnergyContainerItem;
-import cofh.util.MathHelper;
-
-import appeng.api.IAEItemStack;
-import appeng.api.me.items.IAEChargeableItem;
-import appeng.api.me.items.IStorageCell;
 import mods.battlegear2.api.weapons.IBattlegearWeapon;
 import mods.battlegear2.api.weapons.OffhandAttackEvent;
 import net.minecraft.block.Block;
@@ -30,11 +24,11 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import tconstruct.TConstruct;
-import tconstruct.common.TContent;
 import tconstruct.library.ActiveToolMod;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.ToolBuilder;
+import cofh.api.energy.IEnergyContainerItem;
+import cofh.util.MathHelper;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -64,7 +58,7 @@ import cpw.mods.fml.relauncher.SideOnly;
  * @see ToolMod
  */
 
-public abstract class ToolCore extends Item implements IEnergyContainerItem, ICustomElectricItem, IBoxable, IBattlegearWeapon, IStorageCell, IAEChargeableItem
+public abstract class ToolCore extends Item implements IEnergyContainerItem, ICustomElectricItem, IBoxable, IBattlegearWeapon
 {
     //TE power constants -- TODO grab these from the 
     protected int capacity = 80000;
@@ -568,11 +562,8 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, ICu
         ItemStack tool = ToolBuilder.instance.buildTool(new ItemStack(getHeadItem(), 1, id), new ItemStack(getHandleItem(), 1, id), accessoryStack, extraStack, name + getToolName());
         if (tool == null)
         {
-            if (!TContent.supressMissingToolLogs)
-            {
-                TConstruct.logger.warning("Creative builder failed tool for " + name + this.getToolName());
-                TConstruct.logger.warning("Make sure you do not have item ID conflicts");
-            }
+            System.err.println("Creative builder failed tool for " + name + this.getToolName());
+            System.err.println("Make sure you do not have item ID conflicts");
         }
         else
         {
@@ -1027,56 +1018,6 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, ICu
     @Override
     public void performPassiveEffects (Side effectiveSide, ItemStack mainhandItem, ItemStack offhandItem)
     {
-    }
-
-    /* Applied Energistics support, IAEChargableItem */
-    @Override
-    public float addEnergy (ItemStack target, float energy)
-    {
-        return 0;
-    }
-
-    @Override
-    public boolean isChargeable (ItemStack it)
-    {
-        return false;
-    }
-
-    /* Applied Energistics support, IStorageCell */
-    @Override
-    public int getBytes (ItemStack cellItem)
-    {
-        return 0;
-    }
-
-    @Override
-    public int BytePerType (ItemStack cellItem)
-    {
-        return 0;
-    }
-
-    @Override
-    public int getTotalTypes (ItemStack cellItem)
-    {
-        return 0;
-    }
-
-    @Override
-    public boolean isBlackListed (ItemStack cellItem, IAEItemStack requsetedAddition)
-    {
-        return false;
-    }
-
-    @Override
-    public boolean storableInStorageCell ()
-    {
-        return false;
-    }
-
-    @Override
-    public boolean isStorageCell (ItemStack i)
-    {
-        return false;
     }
 
     //TE support section -- from COFH core API reference section

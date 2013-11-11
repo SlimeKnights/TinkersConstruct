@@ -771,12 +771,8 @@ public abstract class BowBase extends ToolCore
         ItemStack tool = ToolBuilder.instance.buildTool(new ItemStack(getHeadItem(), 1, id), new ItemStack(getHandleItem(), 1, 0), accessoryStack, extraStack, name + getToolName());
         if (tool == null)
         {
-            if (!TContent.supressMissingToolLogs)
-            {
-                TConstruct.logger.warning("Creative builder failed tool for " + name + this.getToolName());
-                TConstruct.logger.warning("Make sure you do not have item ID conflicts");
-
-            }
+            TConstruct.logger.warning("Creative builder failed tool for " + name + this.getToolName());
+            TConstruct.logger.warning("Make sure you do not have item ID conflicts");
         }
         else
         {

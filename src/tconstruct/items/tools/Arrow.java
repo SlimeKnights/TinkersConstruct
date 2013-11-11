@@ -105,11 +105,8 @@ public class Arrow extends ToolCore
         ItemStack tool = ToolBuilder.instance.buildTool(new ItemStack(getHeadItem(), 1, 3), new ItemStack(getHandleItem(), 1, 0), accessoryStack, extraStack, "");
         if (tool == null)
         {
-            if (!TContent.supressMissingToolLogs)
-            {
-                TConstruct.logger.warning("Creative builder failed tool for Vanilla style" + this.getToolName());
-                TConstruct.logger.warning("Make sure you do not have item ID conflicts");
-            }
+            TConstruct.logger.warning("Creative builder failed tool for Vanilla style" + this.getToolName());
+            TConstruct.logger.warning("Make sure you do not have item ID conflicts");
         }
         else
         {
