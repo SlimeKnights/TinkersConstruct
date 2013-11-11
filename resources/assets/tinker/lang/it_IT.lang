@@ -26,8 +26,8 @@ CraftedSoil.BlueSlime.name=Fango Viscido
 CraftedSoil.GraveyardSoil.name=Terra del Cimitero
 CraftedSoil.ConsecratedSoil.name=Terra Consacrata
 tile.CastingChannel.name=Canale della Fonderia
-tile.slime.channel.name=Canale per Slime
-tile.slime.pad.name=Cuscino Rimbalzante
+tile.slime.channel.name=Canale di Slime
+tile.slime.pad.name=Blocco Rimbalzante
  
 MetalOre.NetherSlag.name=Scorie di Netherrack
 MetalOre.Cobalt.name=Cobalto Grezzo
