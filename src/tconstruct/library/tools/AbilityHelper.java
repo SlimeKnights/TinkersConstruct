@@ -389,54 +389,83 @@ public class AbilityHelper
 
     public static boolean damageElectricTool (ItemStack stack, NBTTagCompound tags, Entity entity)
     {
-        if (!tags.hasKey("charge"))
-            return false;
-
-        NBTTagCompound toolTag = stack.getTagCompound().getCompoundTag("InfiTool");
-        int charge = tags.getInteger("charge");
-
-        int durability = toolTag.getInteger("Damage");
-        float shoddy = toolTag.getFloat("Shoddy");
-
-        float mineSpeed = toolTag.getInteger("MiningSpeed");
-        int heads = 1;
-        if (toolTag.hasKey("MiningSpeed2"))
+        if (tags.hasKey("charge") || tags.hasKey("Energy"))
         {
-            mineSpeed += toolTag.getInteger("MiningSpeed2");
-            heads++;
-        }
 
-        if (toolTag.hasKey("MiningSpeedHandle"))
-        {
-            mineSpeed += toolTag.getInteger("MiningSpeedHandle");
-            heads++;
-        }
+            NBTTagCompound toolTag = stack.getTagCompound().getCompoundTag("InfiTool");
+            int charge = -1;
+            int energy = -1;
+            if (tags.hasKey("charge"))
+            {
+                charge = tags.getInteger("charge");
+            }
+            if (tags.hasKey("Energy"))
+            {
+                energy = tags.getInteger("Energy");
+            }
+            int durability = toolTag.getInteger("Damage");
+            float shoddy = toolTag.getFloat("Shoddy");
 
-        if (toolTag.hasKey("MiningSpeedExtra"))
-        {
-            mineSpeed += toolTag.getInteger("MiningSpeedExtra");
-            heads++;
-        }
-        float trueSpeed = mineSpeed / (heads * 100f);
-        float stonebound = toolTag.getFloat("Shoddy");
-        float bonusLog = (float) Math.log(durability / 72f + 1) * 2 * stonebound;
-        trueSpeed += bonusLog;
-        trueSpeed *= 6;
+            float mineSpeed = toolTag.getInteger("MiningSpeed");
+            int heads = 1;
+            if (toolTag.hasKey("MiningSpeed2"))
+            {
+                mineSpeed += toolTag.getInteger("MiningSpeed2");
+                heads++;
+            }
 
-        if (charge < trueSpeed)
-        {
+            if (toolTag.hasKey("MiningSpeedHandle"))
+            {
+                mineSpeed += toolTag.getInteger("MiningSpeedHandle");
+                heads++;
+            }
+
+            if (toolTag.hasKey("MiningSpeedExtra"))
+            {
+                mineSpeed += toolTag.getInteger("MiningSpeedExtra");
+                heads++;
+            }
+            float trueSpeed = mineSpeed / (heads * 100f);
+            float stonebound = toolTag.getFloat("Shoddy");
+            float bonusLog = (float) Math.log(durability / 72f + 1) * 2 * stonebound;
+            trueSpeed += bonusLog;
+            trueSpeed *= 6;
             if (charge > 0)
-                tags.setInteger("charge", 0);
+            {
+                if (charge < trueSpeed)
+                {
+                    if (charge > 0)
+                        tags.setInteger("charge", 0);
+                    return false;
+                }
+
+                charge -= trueSpeed;
+                ToolCore tool = (ToolCore) stack.getItem();
+                stack.setItemDamage(1 + (tool.getMaxCharge(stack) - charge) * (stack.getMaxDamage() - 1) / tool.getMaxCharge(stack));
+                tags.setInteger("charge", charge);
+                if (entity instanceof EntityPlayer)
+                    chargeFromArmor(stack, (EntityPlayer) entity);
+            }
+            if (energy > 0)
+            {
+                if (energy < trueSpeed)
+                {
+                    if (energy > 0)
+                        tags.setInteger("Energy", 0);
+                    return false;
+                }
+
+                energy -= trueSpeed;
+                ToolCore tool = (ToolCore) stack.getItem();
+                stack.setItemDamage(1 + (tool.getMaxEnergyStored(stack) - energy) * (stack.getMaxDamage() - 1) / tool.getMaxEnergyStored(stack));
+                tags.setInteger("Energy", energy);
+            }
+            return true;
+        }
+        else
+        {
             return false;
         }
-
-        charge -= trueSpeed;
-        ToolCore tool = (ToolCore) stack.getItem();
-        stack.setItemDamage(1 + (tool.getMaxCharge(stack) - charge) * (stack.getMaxDamage() - 1) / tool.getMaxCharge(stack));
-        tags.setInteger("charge", charge);
-        if (entity instanceof EntityPlayer)
-            chargeFromArmor(stack, (EntityPlayer) entity);
-        return true;
     }
 
     static void chargeFromArmor (ItemStack stack, EntityPlayer player)

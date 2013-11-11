@@ -26,8 +26,8 @@ CraftedSoil.BlueSlime.name=Fango Viscido
 CraftedSoil.GraveyardSoil.name=Terra del Cimitero
 CraftedSoil.ConsecratedSoil.name=Terra Consacrata
 tile.CastingChannel.name=Canale della Fonderia
-tile.slime.channel.name=Canale per Slime
-tile.slime.pad.name=Cuscino Rimbalzante
+tile.slime.channel.name=Canale di Slime
+tile.slime.pad.name=Blocco Rimbalzante
  
 MetalOre.NetherSlag.name=Scorie di Netherrack
 MetalOre.Cobalt.name=Cobalto Grezzo
@@ -257,8 +257,6 @@ item.tconstruct.jerky.sheep.name=Montone Essicato
 item.tconstruct.jerky.fish.name=Pesce Essicato
 item.tconstruct.jerky.zombie.name=Carne Marcia Essicata
 
-item.tconstruct.crystal.essence.name=Cristallo di Essenza
-
 Smeltery.Controller.name=Pannello di Controllo della Fonderia
 Smeltery.Drain.name=Scarico della Fonderia
 Smeltery.Brick.name=Mattoni Bruciati
@@ -286,15 +284,6 @@ tile.trap.barricade.oak.name=Barricata di Quercia
 tile.trap.barricade.spruce.name=Barricata di Abete
 tile.trap.barricade.birch.name=Barricata di Betulla
 tile.trap.barricade.jungle.name=Barricata di Legno della Giungla
-tile.extractor.essence.name=Estrattore di Essenza
-tile.terraformer.freezer.name=Terrafreezer
-tile.terraformer.fumer.name=Terrafumer
-tile.terraformer.waver.name=Terrawaver
-tile.terraformer.leecher.name=Terraleecher
-tile.terraformer.grower.name=Terragrower
-tile.terraformer.nether.name=Terranether
-tile.terraformer.lighter.name=Terralighter
-tile.terraformer.crystal.name=Terracrystal
 tile.explosive.slime.name=SDX
 
 StorageMetals.Cobalt.name=Blocco di Cobalto
