@@ -754,7 +754,7 @@ public class TContent implements IFuelHandler
         GameRegistry.registerBlock(oreBerrySecond, OreberryBushSecondItem.class, "ore.berries.two");
 
         String[] oreTypes = new String[] { "nether_slag", "nether_cobalt", "nether_ardite", "ore_copper", "ore_tin", "ore_aluminum", "ore_slag" };
-        oreSlag = new MetalOre(PHConstruct.oreSlag, Material.iron, 10.0F, oreTypes).setUnlocalizedName("tconstruct.stoneore");
+        oreSlag = new MetalOre(PHConstruct.oreSlag, Material.rock, 10.0F, oreTypes).setUnlocalizedName("tconstruct.stoneore");
         GameRegistry.registerBlock(oreSlag, MetalOreItemBlock.class, "SearedBrick");
         MinecraftForge.setBlockHarvestLevel(oreSlag, 1, "pickaxe", 4);
         MinecraftForge.setBlockHarvestLevel(oreSlag, 2, "pickaxe", 4);
