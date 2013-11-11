@@ -263,8 +263,6 @@ item.tconstruct.jerky.sheep.name=Mutton Jerky
 item.tconstruct.jerky.fish.name=Fish Jerky
 item.tconstruct.jerky.zombie.name=Monster Jerky
 
-item.tconstruct.crystal.essence.name=Essence Crystal
-
 Smeltery.Controller.name=Smeltery Controller
 Smeltery.Drain.name=Smeltery Drain
 Smeltery.Brick.name=Seared Bricks
@@ -292,15 +290,6 @@ tile.trap.barricade.oak.name=Oak Barricade
 tile.trap.barricade.spruce.name=Spruce Barricade
 tile.trap.barricade.birch.name=Birch Barricade
 tile.trap.barricade.jungle.name=Jungle Barricade
-tile.extractor.essence.name=Essence Extractor
-tile.terraformer.freezer.name=Terrafreezer
-tile.terraformer.fumer.name=Terrafumer
-tile.terraformer.waver.name=Terrawaver
-tile.terraformer.leecher.name=Terraleecher
-tile.terraformer.grower.name=Terragrower
-tile.terraformer.nether.name=Terranether
-tile.terraformer.lighter.name=Terralighter
-tile.terraformer.crystal.name=Terracrystal
 tile.explosive.slime.name=SDX
 
 StorageMetals.Cobalt.name=Block of Cobalt
