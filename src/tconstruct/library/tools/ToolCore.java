@@ -10,8 +10,6 @@ import java.util.Map;
 import java.util.Random;
 
 import cofh.api.energy.IEnergyContainerItem;
-import cofh.util.MathHelper;
-
 import appeng.api.IAEItemStack;
 import appeng.api.me.items.IAEChargeableItem;
 import appeng.api.me.items.IStorageCell;
@@ -35,6 +33,7 @@ import tconstruct.common.TContent;
 import tconstruct.library.ActiveToolMod;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.ToolBuilder;
+import tconstruct.library.util.MathUtils;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -379,7 +378,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, ICu
                     color = "\u00a76";
             }
 
-            String energy = new StringBuilder().append(color).append(tags.getInteger("energy")).append("/").append(getMaxEnergyStored(stack)).append(" RF").toString();
+            String energy = new StringBuilder().append(color).append(tags.getInteger("Energy")).append("/").append(getMaxEnergyStored(stack)).append(" RF").toString();
             list.add(energy);
         }
         if (tags.hasKey("InfiTool"))
@@ -1104,11 +1103,13 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, ICu
         if (tags == null || !tags.hasKey("Energy"))
             return 0;
         int energy = tags.getInteger("Energy");
-        int energyReceived = MathHelper.minI(capacity - energy, MathHelper.minI(this.maxReceive, maxReceive));
+        int energyReceived = MathUtils.minInt(capacity - energy, MathUtils.minInt(this.maxReceive, maxReceive));
         if (!simulate)
         {
             energy += energyReceived;
             tags.setInteger("Energy", energy);
+            container.setItemDamage(1 + (getMaxEnergyStored(container) - energy) * (container.getMaxDamage() - 2) / getMaxEnergyStored(container));
+
         }
         return energyReceived;
     }
@@ -1122,11 +1123,13 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, ICu
             return 0;
         }
         int energy = tags.getInteger("Energy");
-        int energyExtracted = MathHelper.minI(energy, MathHelper.minI(this.maxExtract, maxExtract));
+        int energyExtracted = MathUtils.minInt(energy, MathUtils.minInt(this.maxExtract, maxExtract));
         if (!simulate)
         {
             energy -= energyExtracted;
             tags.setInteger("Energy", energy);
+            container.setItemDamage(1 + (getMaxEnergyStored(container) - energy) * (container.getMaxDamage() - 1) / getMaxEnergyStored(container));
+
         }
         return energyExtracted;
     }
@@ -1145,6 +1148,9 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, ICu
     @Override
     public int getMaxEnergyStored (ItemStack container)
     {
+        NBTTagCompound tags =container.getTagCompound();
+        if (tags == null || !tags.hasKey("Energy"))
+            return 0;
         return capacity;
     }
     //end of TE support section

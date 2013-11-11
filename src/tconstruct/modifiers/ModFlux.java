@@ -1,7 +1,6 @@
 package tconstruct.modifiers;
 
 import cofh.api.energy.IEnergyContainerItem;
-import cofh.util.MathHelper;
 
 import java.util.ArrayList;
 
