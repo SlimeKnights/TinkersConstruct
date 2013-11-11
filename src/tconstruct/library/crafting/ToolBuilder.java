@@ -129,7 +129,7 @@ public class ToolBuilder
     public ItemStack buildTool (ItemStack headStack, ItemStack handleStack, ItemStack accessoryStack, ItemStack extraStack, String name)
     {
         if (headStack != null && headStack.getItem() instanceof ToolCore)
-            return modifyTool(headStack, handleStack, accessoryStack, extraStack);
+            return modifyTool(headStack, handleStack, accessoryStack, extraStack, name);
 
         if (headStack == null || handleStack == null) //Nothing to build without these. All tools need at least two parts!
             return null;
@@ -356,7 +356,7 @@ public class ToolBuilder
         return tool;
     }
 
-    public ItemStack modifyTool (ItemStack input, ItemStack topSlot, ItemStack bottomSlot, ItemStack extraStack)
+    public ItemStack modifyTool (ItemStack input, ItemStack topSlot, ItemStack bottomSlot, ItemStack extraStack, String name)
     {
         if (extraStack != null)
             return null;
@@ -378,6 +378,13 @@ public class ToolBuilder
                 mod.addMatchingEffect(tool);
                 mod.modify(slots, tool);
             }
+        }
+        
+        tags = tool.getTagCompound();
+        if (name != null && !name.equals("") && !tags.hasKey("display"))
+        {
+            tags.setCompoundTag("display", new NBTTagCompound());
+            tags.getCompoundTag("display").setString("Name", "\u00A7f" + name);
         }
 
         if (built)
