@@ -716,7 +716,13 @@ public class TProxyClient extends TProxyCommon
         {
             for (int i = 0; i < effectTypes.length; i++)
             {
-                TConstructClientRegistry.addEffectRenderMapping(tool, i, "tinker", effectTypes[i], true);
+                //TODO force the flux modifier to use electric textures for now
+                if (i == 17)
+                {
+                    TConstructClientRegistry.addEffectRenderMapping(tool, i, "tinker", effectTypes[9], true);
+                }
+                else
+                    TConstructClientRegistry.addEffectRenderMapping(tool, i, "tinker", effectTypes[i], true);
             }
         }
 
