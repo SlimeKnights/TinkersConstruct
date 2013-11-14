@@ -3,12 +3,13 @@ package tconstruct.client;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.util.EnumSet;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.network.packet.Packet250CustomPayload;
-
+import net.minecraft.potion.Potion;
 import tconstruct.client.event.EventCloakRender;
 import tconstruct.client.tabs.TabRegistry;
 import cpw.mods.fml.common.TickType;
@@ -73,8 +74,12 @@ public class TControls extends TKeyHandler
             }
             /*if (kb == jumpKey) //Double jump
             {
+                if (mc.thePlayer.capabilities.isCreativeMode)
+                    return;
+
             	if (jumping && !doubleJump)
             	{
+                    System.out.println("Jump!");
             		//if (player == null)
             			//player = mc.thePlayer;
 

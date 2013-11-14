@@ -91,10 +91,10 @@ public class TConstruct
         content.oreRegistry();
 
         proxy.registerRenderer();
-        proxy.registerTickHandler();
         proxy.addNames();
         proxy.readManuals();
         proxy.registerKeys();
+        proxy.registerTickHandler();
         
         GameRegistry.registerWorldGenerator(new TBaseWorldGenerator());
         MinecraftForge.TERRAIN_GEN_BUS.register(new TerrainGenEventHandler());

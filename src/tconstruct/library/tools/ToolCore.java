@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-import cofh.api.energy.IEnergyContainerItem;
 import mods.battlegear2.api.weapons.IBattlegearWeapon;
 import mods.battlegear2.api.weapons.OffhandAttackEvent;
 import net.minecraft.block.Block;
@@ -21,6 +20,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemPotion;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.Icon;
@@ -30,6 +30,7 @@ import tconstruct.library.ActiveToolMod;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.ToolBuilder;
 import tconstruct.library.util.MathUtils;
+import cofh.api.energy.IEnergyContainerItem;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -703,46 +704,6 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, ICu
         /*if (world.isRemote)
             return true;*/
 
-        int posX = x;
-        int posY = y;
-        int posZ = z;
-        int playerPosX = (int) Math.floor(player.posX);
-        int playerPosY = (int) Math.floor(player.posY);
-        int playerPosZ = (int) Math.floor(player.posZ);
-        if (side == 0)
-        {
-            --posY;
-        }
-
-        if (side == 1)
-        {
-            ++posY;
-        }
-
-        if (side == 2)
-        {
-            --posZ;
-        }
-
-        if (side == 3)
-        {
-            ++posZ;
-        }
-
-        if (side == 4)
-        {
-            --posX;
-        }
-
-        if (side == 5)
-        {
-            ++posX;
-        }
-        if (posX == playerPosX && (posY == playerPosY || posY == playerPosY + 1 || posY == playerPosY - 1) && posZ == playerPosZ)
-        {
-            return false;
-        }
-
         boolean used = false;
         int hotbarSlot = player.inventory.currentItem;
         int itemSlot = hotbarSlot == 0 ? 8 : hotbarSlot + 1;
@@ -751,13 +712,57 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, ICu
         if (hotbarSlot < 8)
         {
             nearbyStack = player.inventory.getStackInSlot(itemSlot);
-            if (nearbyStack != null && nearbyStack.getItem() instanceof ItemBlock)
+            if (nearbyStack != null)
             {
-                used = nearbyStack.getItem().onItemUse(nearbyStack, player, world, x, y, z, side, clickX, clickY, clickZ);
-                if (nearbyStack.stackSize < 1)
+                Item item = nearbyStack.getItem();
+                if (item instanceof ItemBlock)
                 {
-                    nearbyStack = null;
-                    player.inventory.setInventorySlotContents(itemSlot, null);
+                    int posX = x;
+                    int posY = y;
+                    int posZ = z;
+                    int playerPosX = (int) Math.floor(player.posX);
+                    int playerPosY = (int) Math.floor(player.posY);
+                    int playerPosZ = (int) Math.floor(player.posZ);
+                    if (side == 0)
+                    {
+                        --posY;
+                    }
+
+                    if (side == 1)
+                    {
+                        ++posY;
+                    }
+
+                    if (side == 2)
+                    {
+                        --posZ;
+                    }
+
+                    if (side == 3)
+                    {
+                        ++posZ;
+                    }
+
+                    if (side == 4)
+                    {
+                        --posX;
+                    }
+
+                    if (side == 5)
+                    {
+                        ++posX;
+                    }
+                    if (posX == playerPosX && (posY == playerPosY || posY == playerPosY + 1 || posY == playerPosY - 1) && posZ == playerPosZ)
+                    {
+                        return false;
+                    }
+
+                    used = item.onItemUse(nearbyStack, player, world, x, y, z, side, clickX, clickY, clickZ);
+                    if (nearbyStack.stackSize < 1)
+                    {
+                        nearbyStack = null;
+                        player.inventory.setInventorySlotContents(itemSlot, null);
+                    }
                 }
             }
         }
@@ -768,6 +773,33 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, ICu
             ((EntityPlayerMP)player).playerNetServerHandler.sendPacketToPlayer(packet);
         }*/
         return used;
+    }
+
+    public ItemStack onItemRightClick (ItemStack stack, World world, EntityPlayer player)
+    {
+        boolean used = false;
+        int hotbarSlot = player.inventory.currentItem;
+        int itemSlot = hotbarSlot == 0 ? 8 : hotbarSlot + 1;
+        ItemStack nearbyStack = null;
+
+        if (hotbarSlot < 8)
+        {
+            nearbyStack = player.inventory.getStackInSlot(itemSlot);
+            if (nearbyStack != null)
+            {
+                Item item = nearbyStack.getItem();
+                if (item instanceof ItemPotion && ((ItemPotion) item).isSplash(nearbyStack.getItemDamage()))
+                {
+                    nearbyStack = item.onItemRightClick(nearbyStack, world, player);
+                    if (nearbyStack.stackSize < 1)
+                    {
+                        nearbyStack = null;
+                        player.inventory.setInventorySlotContents(itemSlot, null);
+                    }
+                }
+            }
+        }
+        return stack;
     }
 
     /* Vanilla overrides */
