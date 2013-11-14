@@ -281,6 +281,7 @@ tile.trap.barricade.oak.name=Eichen-Barrikade
 tile.trap.barricade.spruce.name=Fichten-Barrikade
 tile.trap.barricade.birch.name=Birken-Barrikade
 tile.trap.barricade.jungle.name=Tropen-Barrikade
+tile.explosive.slime.name=SDX
 
 StorageMetals.Cobalt.name=Cobaltblock
 StorageMetals.Ardite.name=Arditblock
@@ -433,7 +434,7 @@ tile.metal.molten.silver.name=Geschmolzenes Silber
 tile.metal.molten.lead.name=Geschmolzenes Blei
 tile.metal.molten.shiny.name=Geschmolzenes Platin
 tile.metal.molten.invar.name=Geschmolzenes Invar
-tile.metal.molten.Electrum.name=Geschmolzenes Elektrum
+tile.metal.molten.electrum.name=Geschmolzenes Elektrum
 tile.fluid.ender.name=Verflüssigtes Ender
 tile.liquid.slime.name=Verflüssigter Schleim
 
@@ -559,5 +560,6 @@ fluid.silver.molten=Geschmolzenes Silber
 fluid.platinum.molten=Geschmolzenes Platin
 fluid.invar=Geschmolzenes Invar
 fluid.electrum=Geschmolzenes Elektrum
+fluid.shiny=Geschmolzenes Shiny
 fluid.ender=Flüssiges Ender
 fluid.slime.blue=Flüssiger Blauschleim
