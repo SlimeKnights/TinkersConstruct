@@ -274,9 +274,6 @@ LavaTank.Tank.name=Versengter Tank
 LavaTank.Gague.name=Versengtes Glas
 LavaTank.Window.name=Versengtes Fenster
 
-block.drawbridge.name=Zugbrücke
-block.firestarter.name=Entzünder
-block.advdrawbridge.name=Fortgeschrittene Zugbrücke
 tile.landmine.name=Landmine
 
 tile.trap.punji.name=Punji-Stab

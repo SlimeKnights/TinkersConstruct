@@ -281,9 +281,6 @@ LavaTank.Tank.name=冶炼槽
 LavaTank.Gague.name=冶炼炉玻璃
 LavaTank.Window.name=冶炼炉视窗
 
-block.drawbridge.name=造桥器
-block.firestarter.name=点火器
-block.advdrawbridge.name=高级造桥器
 tile.landmine.name=地雷
 
 tile.trap.punji.name=铁蒺藜

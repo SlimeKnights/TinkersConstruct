@@ -274,9 +274,6 @@ LavaTank.Tank.name=Seared Tank
 LavaTank.Gague.name=Seared Glass
 LavaTank.Window.name=Seared Window
 
-block.drawbridge.name=Drawbridge
-block.firestarter.name=Igniter
-block.advdrawbridge.name=Advanced Drawbridge
 tile.landmine.name=Landmine
 
 tile.trap.punji.name=Punji Stick

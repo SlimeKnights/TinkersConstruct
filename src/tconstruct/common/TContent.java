@@ -141,7 +141,6 @@ public class TContent implements IFuelHandler
     public static Block metalBlock;
     public static Block tankAir;
 
-    public static Block redstoneMachine;
     public static Block dryingRack;
 
     //Decoration
@@ -411,13 +410,6 @@ public class TContent implements IFuelHandler
         tankAir = new TankAirBlock(PHConstruct.airTank, Material.leaves).setBlockUnbreakable().setUnlocalizedName("tconstruct.tank.air");
         GameRegistry.registerBlock(tankAir, "TankAir");
         GameRegistry.registerTileEntity(TankAirLogic.class, "tconstruct.tank.air");
-
-        //Redstone machines
-        redstoneMachine = new RedstoneMachine(PHConstruct.redstoneMachine).setUnlocalizedName("Redstone.Machine");
-        GameRegistry.registerBlock(redstoneMachine, RedstoneMachineItem.class, "Redstone.Machine");
-        GameRegistry.registerTileEntity(DrawbridgeLogic.class, "Drawbridge");
-        GameRegistry.registerTileEntity(FirestarterLogic.class, "Firestarter");
-        GameRegistry.registerTileEntity(AdvancedDrawbridgeLogic.class, "AdvDrawbridge");
 
         //Traps
         landmine = new BlockLandmine(PHConstruct.landmine).setHardness(0.5F).setResistance(0F).setStepSound(Block.soundMetalFootstep).setCreativeTab(CreativeTabs.tabRedstone)
@@ -1124,22 +1116,6 @@ public class TContent implements IFuelHandler
             GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(craftingSlabWood, 1, 5), "bbb", "msm", "m m", 'b', new ItemStack(smeltery, 1, 2), 's', new ItemStack(craftingSlabWood, 1, 1), 'm',
                     toolForgeBlocks[sc]));
         }
-
-        // Drawbridge Recipes
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(redstoneMachine, 1, 0), "aca", "#d#", "#r#", '#', "ingotBronze", 'a', "ingotAluminumBrass", 'c', new ItemStack(blankPattern, 1, 1),
-                'r', new ItemStack(Item.redstone), 'd', new ItemStack(Block.dispenser)));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(redstoneMachine, 1, 0), "aca", "#d#", "#r#", '#', "ingotBronze", 'a', "ingotAluminumBrass", 'c', new ItemStack(blankPattern, 1, 2),
-                'r', new ItemStack(Item.redstone), 'd', new ItemStack(Block.dispenser)));
-
-        // Igniter Recipes
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(redstoneMachine, 1, 1), "aca", "#d#", "#r#", '#', "ingotBronze", 'a', "ingotAluminumBrass", 'c', new ItemStack(largePlate, 1, 7), 'r',
-                new ItemStack(Item.redstone), 'd', new ItemStack(Item.flintAndSteel)));
-
-        // Advanced Drawbridge Recipes
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(redstoneMachine, 1, 2), " c ", "rdr", " a ", 'a', "ingotAluminumBrass", 'c', new ItemStack(blankPattern, 1, 1), 'r', new ItemStack(
-                Item.redstone), 'd', new ItemStack(redstoneMachine, 1, 0)));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(redstoneMachine, 1, 2), " c ", "rdr", " a ", 'a', "ingotAluminumBrass", 'c', new ItemStack(blankPattern, 1, 2), 'r', new ItemStack(
-                Item.redstone), 'd', new ItemStack(redstoneMachine, 1, 0)));
 
         // ToolStation Recipes (Wooden Version)
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(toolStationWood, 1, 0), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', "crafterWood"));

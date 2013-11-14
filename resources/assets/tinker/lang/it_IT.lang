@@ -274,9 +274,6 @@ LavaTank.Tank.name=Serbatoio della Fonderia/entry>
 LavaTank.Gague.name=Vetro di Mattoni Bruciati
 LavaTank.Window.name=Finestra di Mattoni Bruciati
 
-block.drawbridge.name=Ponte Mobile
-block.firestarter.name=Accendino
-block.advdrawbridge.name=Ponte Mobile Avanzato
 tile.landmine.name=Mina
 
 tile.trap.punji.name=Bastone Punji

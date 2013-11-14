@@ -15,7 +15,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.fluids.FluidStack;
 import tconstruct.TConstruct;
-import tconstruct.blocks.logic.DrawbridgeLogic;
 import tconstruct.blocks.logic.SmelteryLogic;
 import tconstruct.blocks.logic.ToolForgeLogic;
 import tconstruct.blocks.logic.ToolStationLogic;
@@ -121,22 +120,6 @@ public class TPacketHandler implements IPacketHandler
                 case 2:
                     player.openGui(TConstruct.instance, TConstruct.proxy.knapsackGuiID, player.worldObj, (int) player.posX, (int) player.posY, (int) player.posZ);
                     break;
-                }
-            }
-
-            else if (packetID == 5) //Drawbridge
-            {
-                int dimension = inputStream.readInt();
-                World world = DimensionManager.getWorld(dimension);
-                int x = inputStream.readInt();
-                int y = inputStream.readInt();
-                int z = inputStream.readInt();
-                TileEntity te = world.getBlockTileEntity(x, y, z);
-
-                byte direction = inputStream.readByte();
-                if (te instanceof DrawbridgeLogic)
-                {
-                    ((DrawbridgeLogic) te).setPlacementDirection(direction);
                 }
             }
 

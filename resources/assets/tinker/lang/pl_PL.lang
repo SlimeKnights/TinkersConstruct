@@ -157,8 +157,6 @@ LavaTank.Tank.name=Hartowany zbiornik
 LavaTank.Gague.name=Hartowane szkło
 LavaTank.Window.name=Hartowane okno
 
-block.drawbridge.name=Most zwodzony
-block.firestarter.name=Zapalnikr
 tile.landmine.name=Mina lądowa
 tile.trap.punji.name=Kolce punji
 tile.trap.barricade.oak.name=Dębowa barykada

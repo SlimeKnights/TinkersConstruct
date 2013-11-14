@@ -175,8 +175,6 @@ LavaTank.Tank.name=Обожжённый резервуар
 LavaTank.Gague.name=Обожжённое стекло
 LavaTank.Window.name=Обожжённое окно
 
-block.drawbridge.name=Разводной мост
-block.firestarter.name=Воспламенитель
 tile.landmine.name=Фугас
 tile.trap.punji.name=Колышек
 tile.trap.barricade.oak.name=Баррикада из дуба

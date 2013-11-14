@@ -131,12 +131,12 @@ public class PHConstruct
         moltenEnder = config.getBlock("Molten Ender", 3218).getInt(3218);
 
 
-        signalBus = config.getBlock("Signal Bus", 3221).getInt(3221);
-        signalTerminal = config.getBlock("Signal Terminal", 3222).getInt(3222);
+//        signalBus = config.getBlock("Signal Bus", 3221).getInt(3221);
+//        signalTerminal = config.getBlock("Signal Terminal", 3222).getInt(3222);
         glass = config.getBlock("Clear Glass", 3223).getInt(3223);
         stainedGlass = config.getBlock("Stained Glass", 3224).getInt(3224);
         stainedGlassClear = config.getBlock("Clear Stained Glass", 3225).getInt(3225);
-        redstoneMachine = config.getBlock("Redstone Machines", 3226).getInt(3226);
+//        redstoneMachine = config.getBlock("Redstone Machines", 3226).getInt(3226); // Migrated to TMechworks
         dryingRack = config.getBlock("Drying Rack", 3227).getInt(3227);
         glassPane = config.getBlock("Glass Pane", 3228).getInt(3228);
         stainedGlassClearPane = config.getBlock("Clear Stained Glass Pane", 3229).getInt(3229);
@@ -260,8 +260,8 @@ public class PHConstruct
         goldHead = config.getItem("Patterns and Misc", "Golden Head", 14113).getInt(14113);
         jerky = config.getItem("Patterns and Misc", "Jerky", 14115).getInt(14115);
 
-        spoolWire = config.getItem("Logic", "SpoolWire", 14120).getInt(14120);
-        lengthWire = config.getItem("Logic", "LengthWire", 14121).getInt(14121);
+//        spoolWire = config.getItem("Logic", "SpoolWire", 14120).getInt(14120);
+//        lengthWire = config.getItem("Logic", "LengthWire", 14121).getInt(14121);
 
         boolean ic2 = true;
         boolean xycraft = true;
@@ -413,8 +413,8 @@ public class PHConstruct
 
     public static int woodenRail;
 
-    public static int signalBus;
-    public static int signalTerminal;
+//    public static int signalBus;
+//    public static int signalTerminal;
 
     //Crops
     public static int oreBerry;
@@ -580,8 +580,8 @@ public class PHConstruct
 
     public static int heartCanister;
 
-    public static int spoolWire;
-    public static int lengthWire;
+//    public static int spoolWire;
+//    public static int lengthWire;
 
     //Ore values
     public static boolean generateCopper;

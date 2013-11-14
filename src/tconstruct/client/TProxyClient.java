@@ -81,14 +81,12 @@ public class TProxyClient extends TProxyCommon
             return new StencilTableGui(player.inventory, (StencilTableLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
         if (ID == toolForgeID)
             return new ToolForgeGui(player.inventory, (ToolForgeLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
-        if (ID == drawbridgeID)
-            return new DrawbridgeGui(player.inventory, (DrawbridgeLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
+
         if (ID == landmineID)
             return new GuiLandmine(new ContainerLandmine(player, (TileEntityLandmine) world.getBlockTileEntity(x, y, z)));
         if (ID == craftingStationID)
             return new CraftingStationGui(player.inventory, (CraftingStationLogic) world.getBlockTileEntity(x, y, z), x, y, z);
-        if (ID == advDrawbridgeID)
-            return new AdvDrawbridgeGui(player, (AdvancedDrawbridgeLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
+
         if (ID == furnaceID)
             return new FurnaceGui(player.inventory, (FurnaceLogic) world.getBlockTileEntity(x, y, z));
 
@@ -215,7 +213,6 @@ public class TProxyClient extends TProxyCommon
         RenderingRegistry.registerBlockHandler(new SearedRender());
         RenderingRegistry.registerBlockHandler(new OreberryRender());
         RenderingRegistry.registerBlockHandler(new BarricadeRender());
-        RenderingRegistry.registerBlockHandler(new MachineRender());
         RenderingRegistry.registerBlockHandler(new DryingRackRender());
         RenderingRegistry.registerBlockHandler(new PaneRender());
         RenderingRegistry.registerBlockHandler(new PaneConnectedRender());
@@ -502,11 +499,6 @@ public class TProxyClient extends TProxyCommon
         ItemStack bronzeIngot = new ItemStack(TContent.materials, 1, 13);
         ItemStack blankCast = new ItemStack(TContent.blankPattern, 1, 1);
         ItemStack redstone = new ItemStack(Item.redstone);
-
-        TConstructClientRegistry.registerManualLargeRecipe("drawbridge", new ItemStack(TContent.redstoneMachine, 1, 0), alubrassIngot, blankCast, alubrassIngot, bronzeIngot, new ItemStack(
-                Block.dispenser), bronzeIngot, bronzeIngot, redstone, bronzeIngot);
-        TConstructClientRegistry.registerManualLargeRecipe("igniter", new ItemStack(TContent.redstoneMachine, 1, 1), alubrassIngot, new ItemStack(TContent.largePlate, 1, 7), alubrassIngot,
-                bronzeIngot, new ItemStack(Item.flintAndSteel), bronzeIngot, bronzeIngot, redstone, bronzeIngot);
 
         // Modifier recipes
         ItemStack ironpick = ToolBuilder.instance.buildTool(new ItemStack(TContent.pickaxeHead, 1, 6), new ItemStack(TContent.toolRod, 1, 2), new ItemStack(TContent.binding, 1, 6), "");

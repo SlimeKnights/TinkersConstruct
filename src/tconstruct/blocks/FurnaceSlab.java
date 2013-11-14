@@ -10,8 +10,6 @@ import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import tconstruct.TConstruct;
-import tconstruct.blocks.logic.AdvancedDrawbridgeLogic;
-import tconstruct.blocks.logic.DrawbridgeLogic;
 import tconstruct.blocks.logic.FurnaceLogic;
 import tconstruct.common.TProxyCommon;
 import tconstruct.library.TConstructRegistry;
