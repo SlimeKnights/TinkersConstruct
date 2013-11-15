@@ -275,9 +275,14 @@
     <target name="pack-dev" depends="initialize-version">
         <mkdir dir="${build.dir}/devpack"/>
 
+        <!-- Copy classes -->
+        <copy todir="${build.dir}/devpack/tconstruct">
+            <fileset dir="${mcp.dir}/bin/minecraft/tconstruct"/>
+        </copy>
+
         <!-- Copy resources -->
-        <copy todir="${classes.dir}" outputencoding="UTF-8">
-            <fileset dir="${build.dir}/devpack">
+        <copy todir="${build.dir}/devpack" outputencoding="UTF-8">
+            <fileset dir="${resources.dir}">
                 <include name="assets/tinker/lang/*"/>
             </fileset>
         </copy>
