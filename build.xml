@@ -286,9 +286,18 @@
 		<jar destfile="${jar.dir}/TConstruct-${mc.version}-${project.version.full}.jar" basedir="${classes.dir}" manifest="${resources.dir}/PreloaderManifest.mf"/>
 
 	</target>
-
-    <!-- Package API -->
-    <target name="pack-api" depends="initialize-version">
+	<!-- Package Dev Jar-->
+	<target name="pack-dev" depends="initialize-version">
+        <mkdir dir="${mcp.dir}/"/>
+        <jar destfile="${jar.dir}/dev/TConstruct-${mc.version}-${project.version.full}-Dev_deobf.jar" manifest="${resources.dir}/PreloaderManifest.mf">
+            <fileset dir="${mcp.dir}/bin/minecraft" includes="tconstruct/*"/>
+			<fileset dir="${resources.dir}" includes="mcmod.info"/>
+			<fileset dir="${resources.dir}" includes="assets/*"/>
+			
+        </jar>
+    </target>
+	<!-- Package API -->
+    <target name="pack-api" depends="initialize-version,pack-dev">
         <mkdir dir="${jar.dir}/api"/>
         <zip destfile="${jar.dir}/api/TConstruct-${mc.version}-${project.version.full}-API.jar">
             <fileset dir="${src.dir}" includes="tconstruct/library/*"/>
