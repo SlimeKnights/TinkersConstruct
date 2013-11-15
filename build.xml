@@ -6,7 +6,6 @@
 	<property name="build.dir" value="build"/>
 	<property name="src.dir" value="src"/>
 	<property name="resources.dir" value="resources"/>
-    <property name="mantle.src.dir" value="Mantle/src"/>
 
 	<property name="download.dir" value="download"/>
 
@@ -201,7 +200,6 @@
 		<!-- Copy sources -->
 		<copy todir="${mcpsrc.dir}/minecraft">
 			<fileset dir="${src.dir}"/>
-            <fileset dir="${mantle.src.dir}"/>
 			<filterset>
 				<filter token="VERSION" value="${project.version.full}" />
 			</filterset>
@@ -269,7 +267,6 @@
 
 		<!-- Reset src dir to post-forge-install state -->
 		<delete dir="${mcpsrc.dir}/minecraft/tconstruct"/>
-        <delete dir="${mcpsrc.dir}/minecraft/mantle"/>
 		<delete dir="${mcpsrc.dir}/minecraft/mods/battlegear2"/>
         <delete dir="${mcpsrc.dir}/minecraft/sparrow"/>
         <delete dir="${mcpsrc.dir}/minecraft/powercrystals"/>
