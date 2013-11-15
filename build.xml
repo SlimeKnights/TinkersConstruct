@@ -241,7 +241,7 @@
 		</exec>
 
 		<!-- Copy classes -->
-        <mkdir dir="${classes.dir}/tconstruct"/>
+        	<mkdir dir="${classes.dir}/tconstruct"/>
 		<copy todir="${classes.dir}/tconstruct">
 			<fileset dir="${mcp.dir}/reobf/minecraft/tconstruct"/>
 		</copy>
@@ -286,10 +286,11 @@
 		<jar destfile="${jar.dir}/TConstruct-${mc.version}-${project.version.full}.jar" basedir="${classes.dir}" manifest="${resources.dir}/PreloaderManifest.mf"/>
 
 	</target>
-	<!-- Package Dev Jar-->
-	<target name="pack-dev" depends="initialize-version">
-        <mkdir dir="${mcp.dir}/"/>
-        <jar destfile="${jar.dir}/dev/TConstruct-${mc.version}-${project.version.full}-Dev_deobf.jar" manifest="${resources.dir}/PreloaderManifest.mf">
+	
+    <!-- Package deobf jar-->
+    <target name="pack-dev" depends="initialize-version">
+        <mkdir dir="${jar.dir}/dev"/>
+        <jar destfile="${jar.dir}/dev/TConstruct-${mc.version}-${project.version.full}-Deobf.jar" manifest="${resources.dir}/PreloaderManifest.mf">
             <fileset dir="${mcp.dir}/bin/minecraft" includes="tconstruct/*"/>
 			<fileset dir="${resources.dir}" includes="mcmod.info"/>
 			<fileset dir="${resources.dir}" includes="assets/*"/>
