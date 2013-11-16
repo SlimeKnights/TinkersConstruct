@@ -1,41 +1,38 @@
 package tconstruct.plugins.fmp;
 
+import tconstruct.TConstruct;
 import tconstruct.common.TContent;
+import tconstruct.plugins.ICompatPlugin;
 import tconstruct.plugins.fmp.register.RegisterWithFMP;
-import cpw.mods.fml.common.FMLLog;
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.Mod.EventHandler;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.network.NetworkMod;
 
-@Mod(modid = "TConstruct|ForgeMuliPart", name = "TConstruct Compat: FMP", version = "0.1", dependencies = "after:ForgeMultipart;after:TConstruct")
-@NetworkMod(clientSideRequired = false, serverSideRequired = false)
-public class ForgeMultiPart
+public class ForgeMultiPart implements ICompatPlugin
 {
-    @EventHandler
-    public static void load (FMLInitializationEvent ev)
+    @Override
+    public String getModId() {
+        return "ForgeMultipart";
+    }
+
+    @Override
+    public void preInit() {
+        // Nothing
+    }
+
+    @Override
+    public void init()
     {
-        if (!Loader.isModLoaded("ForgeMultipart"))
-        {
-            FMLLog.warning("Forgemultipart missing - TConstruct Compat: FMP not loading.");
-            return;
-        }
-        try
-        {
-            FMLLog.fine("ForgeMultipart detected. Registering TConstruct decorative blocks with FMP.");
-            RegisterWithFMP.registerBlock(TContent.clearGlass);
-            RegisterWithFMP.registerBlock(TContent.stainedGlassClear, 0, 15);
-            RegisterWithFMP.registerBlock(TContent.multiBrick, 0, 13);
-            RegisterWithFMP.registerBlock(TContent.metalBlock, 0, 10);
-            RegisterWithFMP.registerBlock(TContent.multiBrickFancy, 0, 15);
-            RegisterWithFMP.registerBlock(TContent.smeltery, 2, 2);
-            RegisterWithFMP.registerBlock(TContent.smeltery, 4, 10);
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
+        TConstruct.logger.info("ForgeMultipart detected. Registering TConstruct decorative blocks with FMP.");
+        RegisterWithFMP.registerBlock(TContent.clearGlass);
+        RegisterWithFMP.registerBlock(TContent.stainedGlassClear, 0, 15);
+        RegisterWithFMP.registerBlock(TContent.multiBrick, 0, 13);
+        RegisterWithFMP.registerBlock(TContent.metalBlock, 0, 10);
+        RegisterWithFMP.registerBlock(TContent.multiBrickFancy, 0, 15);
+        RegisterWithFMP.registerBlock(TContent.smeltery, 2, 2);
+        RegisterWithFMP.registerBlock(TContent.smeltery, 4, 10);
+    }
+
+    @Override
+    public void postInit() {
+        // Nothing
     }
 
 }

@@ -1,36 +1,29 @@
 package tconstruct.plugins.nei;
 
-import cpw.mods.fml.common.*;
-import cpw.mods.fml.common.Mod.EventHandler;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.network.NetworkMod;
+import tconstruct.TConstruct;
+import tconstruct.plugins.ICompatPlugin;
 
-@Mod(modid = "TConstruct|NotEnoughItems", name = "TConstruct Compat: NEI", version = "0.1", dependencies = "after:NotEnoughItems;after:TConstruct")
-@NetworkMod(clientSideRequired = false, serverSideRequired = false)
-public class NotEnoughItems
+public class NotEnoughItems implements ICompatPlugin
 {
-    @EventHandler
-    public static void load (FMLInitializationEvent ev)
-    {
-        if (ev.getSide().isServer())
-            return;
+    @Override
+    public String getModId() {
+        return "NotEnoughItems";
+    }
 
-        if (!Loader.isModLoaded("NotEnoughItems"))
-        {
-            FMLLog.warning("NotEnoughItems missing - TConstruct Compat: NEI not loading.");
+    @Override
+    public void preInit() {
+        // Nothing
+    }
 
-            return;
-        }
-        try
-        {
-            FMLLog.fine("NotEnoughItems detected. Registering TConstruct NEI plugin.");
-            NEICompat.registerNEICompat();
+    @Override
+    public void init() {
+        TConstruct.logger.info("NotEnoughItems detected. Registering TConstruct NEI plugin.");
+        NEICompat.registerNEICompat();
+    }
 
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
+    @Override
+    public void postInit() {
+        // Nothing
     }
 
 }
