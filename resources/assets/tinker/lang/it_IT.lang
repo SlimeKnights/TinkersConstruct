@@ -245,10 +245,10 @@ item.tconstruct.chestplateWood.name=Corazza di Legno
 item.tconstruct.leggingsWood.name=Gambali di Legno
 item.tconstruct.bootsWood.name=Stivali di Legno
 
-item.tconstruct.ArmorPattern.helmet.name=Stampo di Elmo
-item.tconstruct.ArmorPattern.chestplate.name=Stampo di Corazza
-item.tconstruct.ArmorPattern.leggings.name=Stampo di Gambali
-item.tconstruct.ArmorPattern.boots.name=Stampo di Stivali
+item.tconstruct.ArmorPattern.helmet.name=Stampo per Elmo
+item.tconstruct.ArmorPattern.chestplate.name=Stampo per Corazza
+item.tconstruct.ArmorPattern.leggings.name=Stampo per Gambali
+item.tconstruct.ArmorPattern.boots.name=Stampo per Stivali
 
 item.tconstruct.jerky.beef.name=Bisteccha Essicata
 item.tconstruct.jerky.pig.name=Pancetta Essicata
@@ -270,7 +270,7 @@ Smeltery.Brick.Square.name=Mattoni Bruciati Cesellati
 Smeltery.Brick.Creeper.name=Mattoni Bruciati Cesellati
 Smeltery.Channel.name=Canale della Fonderia
 
-LavaTank.Tank.name=Serbatoio della Fonderia/entry>
+LavaTank.Tank.name=Serbatoio della Fonderia
 LavaTank.Gague.name=Vetro di Mattoni Bruciati
 LavaTank.Window.name=Finestra di Mattoni Bruciati
 
@@ -434,7 +434,7 @@ tile.metal.molten.silver.name=Argento Fuso
 tile.metal.molten.lead.name=Piombo Fuso
 tile.metal.molten.shiny.name=Platino Fuso
 tile.metal.molten.invar.name=Invaro Fuso
-tile.metal.molten.Electrum.name=Elettro Fuso
+tile.metal.molten.electrum.name=Elettro Fuso
 tile.fluid.ender.name=Ender Liquefatto
 tile.liquid.slime.name=Slime Liquefatto
 
@@ -559,6 +559,7 @@ fluid.lead.molten=Piombo Fuso
 fluid.silver.molten=Argento Fuso
 fluid.platinum.molten=Platino Fuso
 fluid.invar=Invaro Fuso
+fluid.electrum.molten=Elettro Fuso
 fluid.shiny=Platino Fuso
 fluid.ender=Ender Liquido
 fluid.slime.blue=Slime Blu Liquido
