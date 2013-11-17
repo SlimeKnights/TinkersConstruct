@@ -1,5 +1,7 @@
 package tconstruct.util;
 
+import tconstruct.achievements.TAchievements;
+
 import tconstruct.TConstruct;
 import tconstruct.common.TContent;
 import tconstruct.library.tools.AbilityHelper;
@@ -16,9 +18,9 @@ public class TCraftingHandler implements ICraftingHandler
     @Override
     public void onCrafting (EntityPlayer player, ItemStack item, IInventory craftMatrix)
     {
+    	int itemID = item.getItem().itemID;
         if (!player.worldObj.isRemote)
         {
-            int itemID = item.getItem().itemID;
             if (itemID == TContent.toolStationWood.blockID)
             {
                 TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);

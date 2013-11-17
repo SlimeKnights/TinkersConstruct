@@ -1,12 +1,13 @@
 package tconstruct.common;
 
+import net.minecraft.item.ItemStack;
+import tconstruct.library.crafting.ToolBuilder;
+
 import cpw.mods.fml.common.*;
 import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.registry.*;
-
 import java.lang.reflect.Field;
 import java.util.*;
-
 import net.minecraft.block.*;
 import net.minecraft.block.material.*;
 import net.minecraft.creativetab.CreativeTabs;
@@ -14,12 +15,14 @@ import net.minecraft.item.*;
 import net.minecraft.item.crafting.*;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
+import net.minecraft.stats.Achievement;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraftforge.common.*;
 import net.minecraftforge.fluids.*;
 import net.minecraftforge.fluids.FluidContainerRegistry.FluidContainerData;
 import net.minecraftforge.oredict.*;
 import tconstruct.TConstruct;
+import tconstruct.achievements.TAchievements;
 import tconstruct.blocks.*;
 import tconstruct.blocks.logic.*;
 import tconstruct.blocks.slime.*;
@@ -298,6 +301,9 @@ public class TContent implements IFuelHandler
         addCraftingRecipes();
         setupToolTabs();
         addLoot();
+        if(PHConstruct.achievementsEnabled){
+        	addAchievements();
+        }
     }
 
     public void createEntities ()
@@ -2393,5 +2399,13 @@ public class TContent implements IFuelHandler
             tableCasting.addCastingRecipe(new ItemStack(ore.itemID, 1, ore.getItemDamage()), new FluidStack(ft.fluid, TConstruct.ingotLiquidValue), pattern, 80);
         }
 
+    }
+    
+    public void addAchievements(){
+    	HashMap<String, Achievement> achievements = TAchievements.achievements;
+    	
+    	achievements.put("tconstruct.beginner", new Achievement(2001, "tconstruct.beginner", 0, 0, manualBook, null).setIndependent().registerAchievement());
+    	achievements.put("tconstruct.pattern", new Achievement(2002, "tconstruct.pattern", 2, 1, blankPattern, achievements.get("tconstruct.beginner")).registerAchievement());
+    	achievements.put("tconstruct.tinkerer", new Achievement(2003, "tconstruct.tinkerer", 2, 2, new ItemStack(titleIcon, 1, 4096), achievements.get("tconstruct.pattern")).registerAchievement());
     }
 }

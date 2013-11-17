@@ -1,5 +1,11 @@
 package tconstruct.items;
 
+import tconstruct.common.TContent;
+
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.world.World;
+import tconstruct.achievements.TAchievements;
+
 import java.util.List;
 
 import tconstruct.library.TConstructRegistry;
@@ -62,5 +68,14 @@ public class CraftingItem extends Item
         for (int i = 0; i < unlocalizedNames.length; i++)
             if (!(textureNames[i].equals("")))
                 list.add(new ItemStack(id, 1, i));
+    }
+    
+    
+    @Override
+    public void onCreated(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) 
+    {
+    	if(par1ItemStack.itemID == TContent.blankPattern.itemID){
+    		par3EntityPlayer.addStat(TAchievements.achievements.get("tconstruct.pattern"), 1);
+    	}
     }
 }

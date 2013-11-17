@@ -1,14 +1,13 @@
 package tconstruct.inventory;
 
 import java.util.Random;
-
-import tconstruct.library.tools.ToolCore;
-
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.Slot;
+import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.common.MinecraftForge;
+import tconstruct.library.event.ToolCraftedEvent;
+import tconstruct.library.tools.ToolCore;
 
 public class SlotTool extends Slot
 {
@@ -65,6 +64,7 @@ public class SlotTool extends Slot
             if (!player.worldObj.isRemote && full)
                 player.worldObj.playSoundEffect(player.posX, player.posY, player.posZ, "tinker:little_saw", 1.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F);
             //player.worldObj.playAuxSFX(1021, (int)player.posX, (int)player.posY, (int)player.posZ, 0);
+            MinecraftForge.EVENT_BUS.post(new ToolCraftedEvent(player, stack));
         }
     }
 }

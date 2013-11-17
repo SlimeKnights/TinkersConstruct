@@ -562,3 +562,12 @@ fluid.invar=Molten Invar
 fluid.electrum.molten=Molten Electrum
 fluid.ender=Liquid Ender
 fluid.slime.blue=Liquid Blueslime
+
+tconstruct.achievementPage.name=TConstruct
+achievement.tconstruct.beginner=Learner Tinkerer
+achievement.tconstruct.pattern=Stencil Worker
+achievement.tconstruct.tinkerer=Tinkerer
+
+achievement.tconstruct.beginner.desc=Open the "Materials and You" manual
+achievement.tconstruct.pattern.desc=Craft your first blank pattern
+achievement.tconstruct.tinkerer.desc=Create your first tool

@@ -1,5 +1,7 @@
 package tconstruct.items;
 
+import tconstruct.achievements.TAchievements;
+
 import java.util.List;
 
 import tconstruct.TConstruct;
@@ -24,6 +26,7 @@ public class Manual extends CraftingItem
     @Override
     public ItemStack onItemRightClick (ItemStack stack, World world, EntityPlayer player)
     {
+    	player.addStat(TAchievements.achievements.get("tconstruct.beginner"), 1);
         player.openGui(TConstruct.instance, TConstruct.proxy.manualGuiID, world, 0, 0, 0);
         /*Side side = FMLCommonHandler.instance().getEffectiveSide();
         if (side.isClient())
