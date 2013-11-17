@@ -49,7 +49,7 @@ public class TContent implements IFuelHandler
 {
     // Supresses console spam when iguana's tweaks remove stuff
     public static boolean supressMissingToolLogs = false;
-    
+
     //Patterns and other materials
     public static Item blankPattern;
     public static Item materials;
@@ -1648,12 +1648,17 @@ public class TContent implements IFuelHandler
     {
         //Alloys Smelting
         if (PHConstruct.harderBronze)
-            Smeltery.addAlloyMixing(new FluidStack(moltenBronzeFluid, 16), new FluidStack(moltenCopperFluid, 24), new FluidStack(moltenTinFluid, 8)); //Bronze
+            Smeltery.addAlloyMixing(new FluidStack(moltenBronzeFluid, TConstruct.ingotLiquidValue * 2), new FluidStack(moltenCopperFluid, TConstruct.ingotLiquidValue * 3), new FluidStack(
+                    moltenTinFluid, TConstruct.ingotLiquidValue)); //Bronze
         else
-            Smeltery.addAlloyMixing(new FluidStack(moltenBronzeFluid, 24), new FluidStack(moltenCopperFluid, 24), new FluidStack(moltenTinFluid, 8)); //Bronze
-        Smeltery.addAlloyMixing(new FluidStack(moltenAlubrassFluid, 32), new FluidStack(moltenAluminumFluid, 24), new FluidStack(moltenCopperFluid, 8)); //Aluminum Brass
-        Smeltery.addAlloyMixing(new FluidStack(moltenManyullynFluid, 16), new FluidStack(moltenCobaltFluid, 32), new FluidStack(moltenArditeFluid, 32)); //Manyullyn
-        Smeltery.addAlloyMixing(new FluidStack(moltenAlumiteFluid, 48), new FluidStack(moltenAluminumFluid, 80), new FluidStack(moltenIronFluid, 32), new FluidStack(moltenObsidianFluid, 32)); //Alumite
+            Smeltery.addAlloyMixing(new FluidStack(moltenBronzeFluid, TConstruct.ingotLiquidValue * 3), new FluidStack(moltenCopperFluid, TConstruct.ingotLiquidValue * 3), new FluidStack(
+                    moltenTinFluid, TConstruct.ingotLiquidValue)); //Bronze
+        Smeltery.addAlloyMixing(new FluidStack(moltenAlubrassFluid, TConstruct.ingotLiquidValue * 4), new FluidStack(moltenAluminumFluid, TConstruct.ingotLiquidValue * 3), new FluidStack(
+                moltenCopperFluid, TConstruct.ingotLiquidValue * 1)); //Aluminum Brass
+        Smeltery.addAlloyMixing(new FluidStack(moltenManyullynFluid, TConstruct.ingotLiquidValue), new FluidStack(moltenCobaltFluid, TConstruct.ingotLiquidValue * 2), new FluidStack(
+                moltenArditeFluid, TConstruct.ingotLiquidValue * 2)); //Manyullyn
+        Smeltery.addAlloyMixing(new FluidStack(moltenAlumiteFluid, TConstruct.ingotLiquidValue * 3), new FluidStack(moltenAluminumFluid, TConstruct.ingotLiquidValue * 5), new FluidStack(
+                moltenIronFluid, TConstruct.ingotLiquidValue * 2), new FluidStack(moltenObsidianFluid, TConstruct.ingotLiquidValue * 2)); //Alumite
 
         // Stone parts
         for (int sc = 0; sc < patternOutputs.length; sc++)
@@ -2159,7 +2164,7 @@ public class TContent implements IFuelHandler
     {
         ItemStack ironpick = ToolBuilder.instance.buildTool(new ItemStack(TContent.pickaxeHead, 1, 6), new ItemStack(TContent.toolRod, 1, 2), new ItemStack(TContent.binding, 1, 6), "");
         /*TE3 Flux*/
-        ItemStack batHardened = GameRegistry.findItemStack("ThermalExpansion", "batteryHardened", 1);
+        ItemStack batHardened = GameRegistry.findItemStack("ThermalExpansion", "capacitorHardened", 1);
         if (batHardened != null)
         {
             modF.batteries.add(batHardened);

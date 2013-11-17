@@ -63,7 +63,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public abstract class ToolCore extends Item implements IEnergyContainerItem, ICustomElectricItem, IBoxable, IBattlegearWeapon
 {
     //TE power constants -- TODO grab these from the 
-    protected int capacity = 80000;
+    protected int capacity = 400000;
     protected int maxReceive = 75;
     protected int maxExtract = 75;
 
@@ -1134,7 +1134,6 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, ICu
         }
         return tags.getInteger("Energy");
     }
-
     @Override
     public int getMaxEnergyStored (ItemStack container)
     {
