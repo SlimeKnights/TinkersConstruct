@@ -43,10 +43,6 @@ public class ModFlux extends ModBoolean
 
             for (ItemStack stack : batteries)
             {
-                if (stack.itemID == input[0].itemID && input[0].getItem() instanceof IEnergyContainerItem)
-                {
-                    battery = true;
-                }
                 if (stack.itemID == input[1].itemID && input[1].getItem() instanceof IEnergyContainerItem)
                 {
                     battery = true;
