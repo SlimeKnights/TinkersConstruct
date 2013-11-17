@@ -42,6 +42,7 @@ public class TCraftingHandler implements ICraftingHandler
                     tags.setBoolean("smelteryManual", true);
                     AbilityHelper.spawnItemAtPlayer(player, new ItemStack(TContent.manualBook, 1, 2));
                 }
+                player.addStat(TAchievements.achievements.get("tconstruct.smelteryMaker"), 1);
             }
         }
     }

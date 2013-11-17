@@ -568,8 +568,16 @@ achievement.tconstruct.beginner=Learning to Tinker
 achievement.tconstruct.pattern=Stencil Worker
 achievement.tconstruct.tinkerer=Tinkerer
 achievement.tconstruct.proTinkerer=Pro Tinkerer
+achievement.tconstruct.smelteryMaker=Smeltery Creator
+achievement.tconstruct.preparedFight=Prepared to Fight
+achievement.tconstruct.enemySlayer=Enemy Slayer
+achievement.tconstruct.convenientDuo=Convenient Duo(NYI)
 
 achievement.tconstruct.beginner.desc=Open the "Materials and You" manual
 achievement.tconstruct.pattern.desc=Craft your first blank pattern
 achievement.tconstruct.tinkerer.desc=Create your first tool
 achievement.tconstruct.proTinkerer.desc=Craft your first tier 2 tool
+achievement.tconstruct.smelteryMaker.desc=Craft a smeltery component
+achievement.tconstruct.preparedFight.desc=Create your first weapon
+achievement.tconstruct.enemySlayer.desc=Slay an enemy
+achievement.tconstruct.convenientDuo=Kill an enemy with a frying pan, and then cook their meat in it
