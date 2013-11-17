@@ -46,7 +46,7 @@ public class TContent implements IFuelHandler
 {
     // Supresses console spam when iguana's tweaks remove stuff
     public static boolean supressMissingToolLogs = false;
-    
+
     //Patterns and other materials
     public static Item blankPattern;
     public static Item materials;
@@ -1176,6 +1176,18 @@ public class TContent implements IFuelHandler
         GameRegistry.addRecipe(new ShapedOreRecipe(leggingsWood, new Object[] { "www", "w w", "w w", 'w', "logWood" }));
         GameRegistry.addRecipe(new ShapedOreRecipe(bootsWood, new Object[] { "w w", "w w", 'w', "logWood" }));
         // Metal conversion Recipes
+        GameRegistry.addRecipe(new ItemStack(metalBlock, 1, 3), patBlock, '#', new ItemStack(materials, 1, 9)); // Copper
+        GameRegistry.addRecipe(new ItemStack(metalBlock, 1, 5), patBlock, '#', new ItemStack(materials, 1, 10)); // Tin
+        GameRegistry.addRecipe(new ItemStack(metalBlock, 1, 6), patBlock, '#', new ItemStack(materials, 1, 11)); // Aluminum
+        GameRegistry.addRecipe(new ItemStack(metalBlock, 1, 6), patBlock, '#', new ItemStack(materials, 1, 12)); // Aluminum
+        GameRegistry.addRecipe(new ItemStack(metalBlock, 1, 4), patBlock, '#', new ItemStack(materials, 1, 13)); // Bronze
+        GameRegistry.addRecipe(new ItemStack(metalBlock, 1, 7), patBlock, '#', new ItemStack(materials, 1, 14)); // AluBrass
+        GameRegistry.addRecipe(new ItemStack(metalBlock, 1, 0), patBlock, '#', new ItemStack(materials, 1, 3)); // Cobalt
+        GameRegistry.addRecipe(new ItemStack(metalBlock, 1, 1), patBlock, '#', new ItemStack(materials, 1, 4)); // Ardite
+        GameRegistry.addRecipe(new ItemStack(metalBlock, 1, 2), patBlock, '#', new ItemStack(materials, 1, 5)); // Manyullyn
+        GameRegistry.addRecipe(new ItemStack(metalBlock, 1, 8), patBlock, '#', new ItemStack(materials, 1, 15)); // Alumite
+        GameRegistry.addRecipe(new ItemStack(metalBlock, 1, 9), patBlock, '#', new ItemStack(materials, 1, 16)); // Steel
+
         GameRegistry.addRecipe(new ItemStack(materials, 9, 9), "m", 'm', new ItemStack(metalBlock, 1, 3)); //Copper
         GameRegistry.addRecipe(new ItemStack(materials, 9, 10), "m", 'm', new ItemStack(metalBlock, 1, 5)); //Tin
         GameRegistry.addRecipe(new ItemStack(materials, 9, 12), "m", 'm', new ItemStack(metalBlock, 1, 6)); //Aluminum
@@ -1190,7 +1202,7 @@ public class TContent implements IFuelHandler
         GameRegistry.addRecipe(new ItemStack(Item.ingotIron), patBlock, '#', new ItemStack(materials, 1, 19)); //Iron
         GameRegistry.addRecipe(new ItemStack(materials, 1, 9), patBlock, '#', new ItemStack(materials, 1, 20)); //Copper
         GameRegistry.addRecipe(new ItemStack(materials, 1, 10), patBlock, '#', new ItemStack(materials, 1, 21)); //Tin
-        GameRegistry.addRecipe(new ItemStack(materials, 1, 12), patBlock, '#', new ItemStack(materials, 1, 22)); //Aluminum
+        GameRegistry.addRecipe(new ItemStack(materials, 1, 11), patBlock, '#', new ItemStack(materials, 1, 22)); //Aluminum
         GameRegistry.addRecipe(new ItemStack(materials, 1, 14), patBlock, '#', new ItemStack(materials, 1, 24)); //Aluminum Brass
         GameRegistry.addRecipe(new ItemStack(materials, 1, 18), patBlock, '#', new ItemStack(materials, 1, 27)); //Obsidian
         GameRegistry.addRecipe(new ItemStack(materials, 1, 3), patBlock, '#', new ItemStack(materials, 1, 28)); //Cobalt
@@ -1203,6 +1215,7 @@ public class TContent implements IFuelHandler
         GameRegistry.addRecipe(new ItemStack(materials, 9, 19), "m", 'm', new ItemStack(Item.ingotIron)); //Iron
         GameRegistry.addRecipe(new ItemStack(materials, 9, 20), "m", 'm', new ItemStack(materials, 1, 9)); //Copper
         GameRegistry.addRecipe(new ItemStack(materials, 9, 21), "m", 'm', new ItemStack(materials, 1, 10)); //Tin
+        GameRegistry.addRecipe(new ItemStack(materials, 9, 22), "m", 'm', new ItemStack(materials, 1, 11)); //Aluminum
         GameRegistry.addRecipe(new ItemStack(materials, 9, 22), "m", 'm', new ItemStack(materials, 1, 12)); //Aluminum
         GameRegistry.addRecipe(new ItemStack(materials, 9, 24), "m", 'm', new ItemStack(materials, 1, 14)); //Aluminum Brass
         GameRegistry.addRecipe(new ItemStack(materials, 9, 27), "m", 'm', new ItemStack(materials, 1, 18)); //Obsidian
@@ -1629,12 +1642,17 @@ public class TContent implements IFuelHandler
     {
         //Alloys Smelting
         if (PHConstruct.harderBronze)
-            Smeltery.addAlloyMixing(new FluidStack(moltenBronzeFluid, 16), new FluidStack(moltenCopperFluid, 24), new FluidStack(moltenTinFluid, 8)); //Bronze
+            Smeltery.addAlloyMixing(new FluidStack(moltenBronzeFluid, TConstruct.ingotLiquidValue * 2), new FluidStack(moltenCopperFluid, TConstruct.ingotLiquidValue * 3), new FluidStack(
+                    moltenTinFluid, TConstruct.ingotLiquidValue)); //Bronze
         else
-            Smeltery.addAlloyMixing(new FluidStack(moltenBronzeFluid, 24), new FluidStack(moltenCopperFluid, 24), new FluidStack(moltenTinFluid, 8)); //Bronze
-        Smeltery.addAlloyMixing(new FluidStack(moltenAlubrassFluid, 32), new FluidStack(moltenAluminumFluid, 24), new FluidStack(moltenCopperFluid, 8)); //Aluminum Brass
-        Smeltery.addAlloyMixing(new FluidStack(moltenManyullynFluid, 16), new FluidStack(moltenCobaltFluid, 32), new FluidStack(moltenArditeFluid, 32)); //Manyullyn
-        Smeltery.addAlloyMixing(new FluidStack(moltenAlumiteFluid, 48), new FluidStack(moltenAluminumFluid, 80), new FluidStack(moltenIronFluid, 32), new FluidStack(moltenObsidianFluid, 32)); //Alumite
+            Smeltery.addAlloyMixing(new FluidStack(moltenBronzeFluid, TConstruct.ingotLiquidValue * 3), new FluidStack(moltenCopperFluid, TConstruct.ingotLiquidValue * 3), new FluidStack(
+                    moltenTinFluid, TConstruct.ingotLiquidValue)); //Bronze
+        Smeltery.addAlloyMixing(new FluidStack(moltenAlubrassFluid, TConstruct.ingotLiquidValue * 4), new FluidStack(moltenAluminumFluid, TConstruct.ingotLiquidValue * 3), new FluidStack(
+                moltenCopperFluid, TConstruct.ingotLiquidValue * 1)); //Aluminum Brass
+        Smeltery.addAlloyMixing(new FluidStack(moltenManyullynFluid, TConstruct.ingotLiquidValue), new FluidStack(moltenCobaltFluid, TConstruct.ingotLiquidValue * 2), new FluidStack(
+                moltenArditeFluid, TConstruct.ingotLiquidValue * 2)); //Manyullyn
+        Smeltery.addAlloyMixing(new FluidStack(moltenAlumiteFluid, TConstruct.ingotLiquidValue * 3), new FluidStack(moltenAluminumFluid, TConstruct.ingotLiquidValue * 5), new FluidStack(
+                moltenIronFluid, TConstruct.ingotLiquidValue * 2), new FluidStack(moltenObsidianFluid, TConstruct.ingotLiquidValue * 2)); //Alumite
 
         // Stone parts
         for (int sc = 0; sc < patternOutputs.length; sc++)
