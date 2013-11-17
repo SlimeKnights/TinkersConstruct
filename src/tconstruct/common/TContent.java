@@ -2412,5 +2412,6 @@ public class TContent implements IFuelHandler
     	achievements.put("tconstruct.beginner", new Achievement(2001, "tconstruct.beginner", 0, 0, manualBook, null).setIndependent().registerAchievement());
     	achievements.put("tconstruct.pattern", new Achievement(2002, "tconstruct.pattern", 2, 1, blankPattern, achievements.get("tconstruct.beginner")).registerAchievement());
     	achievements.put("tconstruct.tinkerer", new Achievement(2003, "tconstruct.tinkerer", 2, 2, new ItemStack(titleIcon, 1, 4096), achievements.get("tconstruct.pattern")).registerAchievement());
+    	achievements.put("tconstruct.proTinkerer", new Achievement(2004, "tconstruct.proTinkerer", 4, 3, new ItemStack(titleIcon, 1, 4097), achievements.get("tconstruct.tinkerer")).setSpecial().registerAchievement());
     }
 }
