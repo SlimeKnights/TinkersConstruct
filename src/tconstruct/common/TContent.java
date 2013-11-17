@@ -2140,7 +2140,7 @@ public class TContent implements IFuelHandler
     {
         ItemStack ironpick = ToolBuilder.instance.buildTool(new ItemStack(TContent.pickaxeHead, 1, 6), new ItemStack(TContent.toolRod, 1, 2), new ItemStack(TContent.binding, 1, 6), "");
         /*TE3 Flux*/
-        ItemStack batHardened = GameRegistry.findItemStack("ThermalExpansion", "batteryHardened", 1);
+        ItemStack batHardened = GameRegistry.findItemStack("ThermalExpansion", "capacitorHardened", 1);
         if (batHardened != null)
         {
             modF.batteries.add(batHardened);

@@ -24,23 +24,38 @@ public class ModFlux extends ModBoolean
     @Override
     public boolean matches (ItemStack[] input, ItemStack tool)
     {
-        if (input[0] == null || input[1] == null)
-            return false;
-
         boolean battery = false;
 
-        for (ItemStack stack : batteries)
+        if (input[0] != null)
         {
-            if (stack.itemID == input[0].itemID && input[0].getItem() instanceof IEnergyContainerItem)
+            for (ItemStack stack : batteries)
             {
-                battery = true;
+                if (stack.itemID == input[0].itemID && input[0].getItem() instanceof IEnergyContainerItem)
+                {
+                    battery = true;
+                }
             }
-            if (stack.itemID == input[1].itemID && input[1].getItem() instanceof IEnergyContainerItem)
+            return battery && canModify(tool, input);
+        }
+
+        if (input[1] != null)
+        {
+
+            for (ItemStack stack : batteries)
             {
-                battery = true;
+                if (stack.itemID == input[0].itemID && input[0].getItem() instanceof IEnergyContainerItem)
+                {
+                    battery = true;
+                }
+                if (stack.itemID == input[1].itemID && input[1].getItem() instanceof IEnergyContainerItem)
+                {
+                    battery = true;
+                }
+                return battery && canModify(tool, input);
             }
         }
-        return battery && canModify(tool, input);
+
+        return false;
     }
 
     /*@Override
