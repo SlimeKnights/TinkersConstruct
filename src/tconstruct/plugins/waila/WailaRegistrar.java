@@ -4,6 +4,7 @@ import mcp.mobius.waila.api.IWailaRegistrar;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
+import tconstruct.TConstruct;
 import tconstruct.blocks.LavaTankBlock;
 import tconstruct.blocks.SmelteryBlock;
 import tconstruct.blocks.logic.CastingChannelLogic;
@@ -12,7 +13,7 @@ public class WailaRegistrar
 {
     public static void wailaCallback (IWailaRegistrar registrar)
     {
-        Waila.logger.info("Got registrar: " + registrar);
+        TConstruct.logger.info("[Waila-Compat] Got registrar: " + registrar);
 
         // Tanks
         registrar.registerBodyProvider(new SearedTankDataProvider(), LavaTankBlock.class);

@@ -18,6 +18,7 @@ import tconstruct.common.*;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.*;
 import tconstruct.library.util.TabTools;
+import tconstruct.plugins.PluginController;
 import tconstruct.util.*;
 import tconstruct.util.config.*;
 import tconstruct.util.landmine.behavior.Behavior;
@@ -69,6 +70,8 @@ public class TConstruct
         }
 
         EnvironmentChecks.verifyEnvironmentSanity();
+
+        PluginController.getController().registerBuiltins();
     }
 
     @EventHandler
@@ -127,6 +130,8 @@ public class TConstruct
         playerTracker = new TPlayerHandler();
         GameRegistry.registerPlayerTracker(playerTracker);
         MinecraftForge.EVENT_BUS.register(playerTracker);
+
+        PluginController.getController().preInit();
     }
 
     @EventHandler
@@ -142,6 +147,8 @@ public class TConstruct
         BOPConfig.initProps(PHConstruct.cfglocation);
         DimensionBlacklist.getbaddimensions();
         GameRegistry.registerWorldGenerator(new SlimeIslandGen(TContent.slimePool.blockID, 0));
+
+        PluginController.getController().init();
     }
 
     @EventHandler
@@ -154,6 +161,8 @@ public class TConstruct
         content.addOreDictionarySmelteryRecipes();
         content.createEntities();
         content.modRecipes();
+
+        PluginController.getController().postInit();
     }
 
     public static LiquidCasting getTableCasting ()
