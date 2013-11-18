@@ -66,7 +66,6 @@ public class PHConstruct
         denyMattock = config.get("Difficulty Changes", "Deny creation of non-metal mattocks", false).getBoolean(false);
 		
 		ingotsPerOre = config.get("Smeltery Output Modification", "Ingots per ore", 2, "Number of ingots returned from smelting ores in the smeltery").getInt(2);
-		ingotsPerOreNetherOreMod = config.get("Smeltery Output Modification", "Ingots per ore nether ore mod", 4, "Number of ingots returned from smelting ores from the Nether Ore Mod in the smeltery").getInt(4);
 		ingotsBronzeAlloy = config.get("Smeltery Output Modification", "Bronze ingot return", 4, "Number of ingots returned from smelting Bronze in the smeltery").getInt(4);
 		ingotsAluminumBrassAlloy = config.get("Smeltery Output Modification", "Aluminum Brass ingot return", 4, "Number of ingots returned from smelting Aluminum Brass in the smeltery").getInt(4);
 		ingotsAlumiteAlloy = config.get("Smeltery Output Modification", "Alumite ingot return", 3, "Number of ingots returned from smelting Alumite in the smeltery").getInt(3);
@@ -687,7 +686,6 @@ public class PHConstruct
 
 	//Smeltery Output Modification
 	public static int ingotsPerOre;
-	public static int ingotsPerOreNetherOreMod;
 	public static int ingotsBronzeAlloy;
 	public static int ingotsAluminumBrassAlloy;
 	public static int ingotsAlumiteAlloy;

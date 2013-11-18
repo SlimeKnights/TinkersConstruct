@@ -2362,7 +2362,7 @@ public class TContent implements IFuelHandler
 			Smeltery.addDictionaryMelting("ore" + ft.toString(), ft, 0, TConstruct.ingotLiquidValue * PHConstruct.ingotsPerOre);
 				
             // NetherOres support
-			Smeltery.addDictionaryMelting("oreNether" + ft.toString(), ft, 75, TConstruct.ingotLiquidValue * PHConstruct.ingotsPerOreNetherOreMod);
+			Smeltery.addDictionaryMelting("oreNether" + ft.toString(), ft, 75, TConstruct.ingotLiquidValue * PHConstruct.ingotsPerOre * 2);
 				
             // Blocks
             Smeltery.addDictionaryMelting("block" + ft.toString(), ft, 100, TConstruct.blockLiquidValue);
