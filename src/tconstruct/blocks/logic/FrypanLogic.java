@@ -287,7 +287,7 @@ public class FrypanLogic extends EquipLogic implements IActiveLogic
     @Override
     public Container getGuiContainer (InventoryPlayer inventoryplayer, World world, int x, int y, int z)
     {
-        return new FrypanContainer(inventoryplayer, this);
+        return new FrypanContainer(inventoryplayer.player, this);
     }
 
     /*@Override
