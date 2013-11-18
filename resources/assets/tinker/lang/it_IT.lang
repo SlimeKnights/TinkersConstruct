@@ -5,16 +5,16 @@ itemGroup.TConstructBlocks=TConstruct Blocchi
 crafters.ToolStation=Tavolo degli Attrezzi
 crafters.ToolForge=Forgia degli Attrezzi
 crafters.PartBuilder=Costruttore di Parti
-crafters.PatternShaper=Tavolo di Modelli
-inventory.PatternChest=Cassa di Modelli
+crafters.PatternShaper=Tavolo dei Modelli
+inventory.PatternChest=Cassa dei Modelli
 crafters.Smeltery=Fonderia
 crafters.Frypan=Padella
 inventory.knapsack=Zaino
 
 ToolStation.Crafter.name=Tavolo degli Attrezzi
 ToolStation.Parts.name=Costruttore di Parti
-ToolStation.PatternChest.name=Cassa di Modelli
-ToolStation.PatternShaper.name=Tavolo di Modelli
+ToolStation.PatternChest.name=Cassa dei Modelli
+ToolStation.PatternShaper.name=Tavolo dei Modelli
 ToolStation.CastingTable.name=Tavolo della Fonderia
 tile.FurnaceSlab.name=Lastra di Fornace
 
@@ -135,7 +135,7 @@ item.InfiTool.Broadsword.name=Spadone
 item.InfiTool.Longsword.name=Spada Lunga
 item.InfiTool.Rapier.name=Stocco
 item.InfiTool.Frypan.name=Padella
-item.InfiTool.Battlesign.name=Insigna da Guerra
+item.InfiTool.Battlesign.name=Insegna da Guerra
 item.InfiTool.Dagger.name=Daga
 item.InfiTool.Chisel.name=Cesello
 item.InfiTool.Scythe.name=Falce
@@ -147,7 +147,7 @@ item.InfiTool.Battleaxe.name=Ascia da Combattimento
 item.InfiTool.Cutlass.name=Sciabola
 item.InfiTool.Shortbow.name=Arco Corto
 item.InfiTool.Arrow.name=Freccia
-item.InfiTool.PotionLauncher.name=Lanciatore di Pozzioni
+item.InfiTool.PotionLauncher.name=Lanciatore di Pozioni
 item.InfiTool.Mattock.name=Zappa
 
 item.tconstruct.Pattern.blank_pattern.name=Modello
@@ -351,14 +351,14 @@ block.searedstone.slab.square.name=Lastra di Mattoni Cesellati Bruciati
 block.searedstone.slab.creeper.name=Lastra di Mattoni Cesellati Bruciati
 
 block.soil.slab.dirt.name=Lastra di Terra
-block.soil.slab.mycelium.name=Lastra di Micelio Piena
+block.soil.slab.mycelium.name=Lastra di Micelio
 block.soil.slab.slime.name=Lastra di Fango Viscido
 block.soil.slab.grout.name=Lastra di Malta
 block.soil.slab.blueslime.name=Lastra di Fango Viscido
 block.soil.slab.graveyardsoil.name=Lastra di Terra del Cimitero
 block.soil.slab.consecratedsoil.name=Lastra di Terra Consacrata
 
-block.slime.soil.blue.name=Terraviscida Blu
+block.slime.soil.blue.name=Terra Viscida Blu
 block.slime.leaves.blue.name=Foglie Viscide
 block.slime.sapling.bluegreen.name=Alberello Viscido
 block.slime.grass.blue.name=Erba Viscida
@@ -557,9 +557,28 @@ fluid.blood=Sangue
 fluid.nickel.molten=Nichel Fuso
 fluid.lead.molten=Piombo Fuso
 fluid.silver.molten=Argento Fuso
-fluid.platinum.molten=Platino Fuso
+fluid.shiny=Platino Fuso
 fluid.invar=Invaro Fuso
 fluid.electrum.molten=Elettro Fuso
-fluid.shiny=Platino Fuso
 fluid.ender=Ender Liquido
 fluid.slime.blue=Slime Blu Liquido
+
+
+tconstruct.achievementPage.name=TConstruct
+achievement.tconstruct.beginner=Imparare a Armeggiare
+achievement.tconstruct.pattern=Costruttore di Modelli
+achievement.tconstruct.tinkerer=Armeggiatore
+achievement.tconstruct.proTinkerer=Armeggiatore Pro
+achievement.tconstruct.smelteryMaker=Creatore di una Fonderia
+achievement.tconstruct.preparedFight=Preparato a Combattere
+achievement.tconstruct.enemySlayer=Uccisore di Nemici
+achievement.tconstruct.convenientDuo=Duo Conveniente
+
+achievement.tconstruct.beginner.desc=Apri il tuo manuale "Materiali e Tu"
+achievement.tconstruct.pattern.desc=Crea il tuo primo modello
+achievement.tconstruct.tinkerer.desc=Crea il tuo primo attrezzo
+achievement.tconstruct.proTinkerer.desc=Crea il tuo primo attrezzo di livello 2
+achievement.tconstruct.smelteryMaker.desc=Crea un componente della fonderia
+achievement.tconstruct.preparedFight.desc=Crea la tua prima arma
+achievement.tconstruct.enemySlayer.desc=Uccidi un nemico
+achievement.tconstruct.convenientDuo=Uccidi un nemico con una padella, e cuoci la sua carne in questa

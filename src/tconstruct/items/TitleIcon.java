@@ -26,7 +26,10 @@ public class TitleIcon extends Item
     int[] primaryColor = { 0x66BBE8, 0x66BBE8 };
     int[] secondaryColor = { 0x1567BF, 0xFFEC6E };
     String[] mobNames = { "TConstruct.EdibleSlime", "TConstruct.KingSlime" };
-
+    
+    String[] achievementIconNames = new String[] {"tinkerer", "preparedFight", "proTinkerer", "enemySlayer"};
+    Icon[] achievementIcons = new Icon[achievementIconNames.length];
+    
     public TitleIcon(int par1)
     {
         super(par1);
@@ -39,6 +42,9 @@ public class TitleIcon extends Item
         ToolCore.blankSprite = iconRegister.registerIcon("tinker:blanksprite");
         TProxyClient.metalBall = iconRegister.registerIcon("tinker:metalball");
         itemIcon = iconRegister.registerIcon("tinker:tparts");
+        for(int i = 0; i < achievementIcons.length; i++){
+        	achievementIcons[i] = iconRegister.registerIcon("tinker:achievementIcons/" + (i < achievementIconNames.length ? achievementIconNames[i] : ""));
+        }
     }
 
     @SideOnly(Side.CLIENT)
@@ -52,7 +58,23 @@ public class TitleIcon extends Item
     {
         if (par1 == 255)
             return itemIcon;
+        if (par1 >= 4096){
+        	return getIconFromDamage(par1);
+        }
         return Item.monsterPlacer.getIconFromDamageForRenderPass(par1, par2);
+    }
+    
+    @SideOnly(Side.CLIENT)
+    public Icon getIconFromDamage (int par1)
+    {
+    	if(par1 >= 4096){
+	    	int index = par1 - 4096;
+	    	if(index < achievementIcons.length){
+	    		return achievementIcons[index];
+	    	}
+    	}
+    	//Not returning null to prevent crashes
+    	return itemIcon;
     }
 
     @Override
@@ -82,6 +104,8 @@ public class TitleIcon extends Item
         int damage = stack.getItemDamage();
         if (damage == 255)
             return 0xffffff;
+        if (damage >= 4096)
+        	return 0xffffff;
         return pass == 0 ? primaryColor[damage] : secondaryColor[damage];
     }
 

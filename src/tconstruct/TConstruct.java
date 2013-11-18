@@ -1,5 +1,7 @@
 package tconstruct;
 
+import tconstruct.achievements.TAchievements;
+
 import cpw.mods.fml.common.*;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -7,9 +9,7 @@ import cpw.mods.fml.common.event.*;
 import cpw.mods.fml.common.network.*;
 import cpw.mods.fml.common.registry.*;
 import cpw.mods.fml.relauncher.Side;
-
 import java.util.logging.Logger;
-
 import net.minecraft.crash.CallableMinecraftVersion;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraftforge.common.MinecraftForge;
@@ -91,6 +91,7 @@ public class TConstruct
 
         events = new TEventHandler();
         MinecraftForge.EVENT_BUS.register(events);
+        MinecraftForge.EVENT_BUS.register(new TEventHandlerAchievement());
         content.oreRegistry();
 
         proxy.registerRenderer();
@@ -149,6 +150,10 @@ public class TConstruct
         GameRegistry.registerWorldGenerator(new SlimeIslandGen(TContent.slimePool.blockID, 0));
 
         PluginController.getController().init();
+        
+        if(PHConstruct.achievementsEnabled){
+        	TAchievements.init();
+        }
     }
 
     @EventHandler

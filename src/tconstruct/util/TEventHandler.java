@@ -1,5 +1,7 @@
 package tconstruct.util;
 
+import tconstruct.achievements.TAchievements;
+
 import java.util.Random;
 
 import net.minecraft.block.Block;
@@ -402,7 +404,13 @@ public class TEventHandler
     @ForgeSubscribe
     public void onLivingDeath (LivingDeathEvent event)
     {
-
+    	Entity cause = event.source.getSourceOfDamage();
+    	if(cause != null && cause instanceof EntityPlayer){
+    		EntityPlayer murderer = (EntityPlayer)cause;
+    		if(murderer.getHeldItem().getItem() instanceof Weapon){
+    			murderer.addStat(TAchievements.achievements.get("tconstruct.enemySlayer"), 1);
+    		}
+    	}
     }
 
     void addDrops (LivingDropsEvent event, ItemStack dropStack)

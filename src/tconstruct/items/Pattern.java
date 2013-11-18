@@ -1,9 +1,7 @@
 package tconstruct.items;
 
 import cpw.mods.fml.relauncher.*;
-
 import java.util.List;
-
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
