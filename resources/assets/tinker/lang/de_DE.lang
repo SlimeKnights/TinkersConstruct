@@ -557,9 +557,28 @@ fluid.blood=Blut
 fluid.nickel.molten=Geschmolzenes Nickel
 fluid.lead.molten=Geschmolzenes Blei
 fluid.silver.molten=Geschmolzenes Silber
-fluid.platinum.molten=Geschmolzenes Platin
+fluid.shiny=Geschmolzenes Schimmerndes Metall
 fluid.invar=Geschmolzenes Invar
 fluid.electrum=Geschmolzenes Elektrum
-fluid.shiny=Geschmolzenes Shiny
 fluid.ender=Flüssiges Ender
 fluid.slime.blue=Flüssiger Blauschleim
+
+
+tconstruct.achievementPage.name=TConstruct
+achievement.tconstruct.beginner=Lernen zu Basteln
+achievement.tconstruct.pattern=Schablonenarbeiter
+achievement.tconstruct.tinkerer=Bastler
+achievement.tconstruct.proTinkerer=Profibastler
+achievement.tconstruct.smelteryMaker=Schmelzereibauer
+achievement.tconstruct.preparedFight=Bereit zum Kampf
+achievement.tconstruct.enemySlayer=Feindesschlächter
+achievement.tconstruct.dualConvenience=Zweifache Annehmlichkeit
+
+achievement.tconstruct.beginner.desc=Öffne das "Materialien und DU" Handbuch
+achievement.tconstruct.pattern.desc=Baue deine erste Leere Schablone
+achievement.tconstruct.tinkerer.desc=Baue dein erstes Werkzeug
+achievement.tconstruct.proTinkerer.desc=Baue dein erstes Stufe-2-Werkzeug
+achievement.tconstruct.smelteryMaker.desc=Baue eine Schmelzereikomponente
+achievement.tconstruct.preparedFight.desc=Kreiere deine erste Waffe
+achievement.tconstruct.enemySlayer.desc=Schlachte ein Monster ab
+achievement.tconstruct.dualConvenience.desc=Kill a mob with a frying pan, and then cook their meat in it
