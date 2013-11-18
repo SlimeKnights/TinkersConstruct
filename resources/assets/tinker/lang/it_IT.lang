@@ -572,7 +572,7 @@ achievement.tconstruct.proTinkerer=Armeggiatore Pro
 achievement.tconstruct.smelteryMaker=Creatore di una Fonderia
 achievement.tconstruct.preparedFight=Preparato a Combattere
 achievement.tconstruct.enemySlayer=Uccisore di Nemici
-achievement.tconstruct.convenientDuo=Duo Conveniente
+achievement.tconstruct.dualConvenience=Duo Conveniente
 
 achievement.tconstruct.beginner.desc=Apri il tuo manuale "Materiali e Tu"
 achievement.tconstruct.pattern.desc=Crea il tuo primo modello
@@ -580,5 +580,5 @@ achievement.tconstruct.tinkerer.desc=Crea il tuo primo attrezzo
 achievement.tconstruct.proTinkerer.desc=Crea il tuo primo attrezzo di livello 2
 achievement.tconstruct.smelteryMaker.desc=Crea un componente della fonderia
 achievement.tconstruct.preparedFight.desc=Crea la tua prima arma
-achievement.tconstruct.enemySlayer.desc=Uccidi un nemico
-achievement.tconstruct.convenientDuo=Uccidi un nemico con una padella, e cuoci la sua carne in questa
+achievement.tconstruct.enemySlayer.desc=Uccidi un mob
+achievement.tconstruct.convenientDuo=Uccidi un mob con una padella, e cuoci la sua carne in questa
