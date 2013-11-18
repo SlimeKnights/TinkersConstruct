@@ -1646,34 +1646,15 @@ public class TContent implements IFuelHandler
 
     private void addRecipesForSmeltery ()
     {
-        //Alloys Smelting
-		if (PHConstruct.vanillaSmelting)
-		{
-			Smeltery.addAlloyMixing(new FluidStack(moltenBronzeFluid, TConstruct.ingotLiquidValue * 4), new FluidStack(moltenCopperFluid, TConstruct.ingotLiquidValue * 3), new FluidStack(
-						moltenTinFluid, TConstruct.ingotLiquidValue)); //Bronze			
-			Smeltery.addAlloyMixing(new FluidStack(moltenAlubrassFluid, TConstruct.ingotLiquidValue * 4), new FluidStack(moltenAluminumFluid, TConstruct.ingotLiquidValue * 3), new FluidStack(
-					moltenCopperFluid, TConstruct.ingotLiquidValue * 1)); //Aluminum Brass
-			Smeltery.addAlloyMixing(new FluidStack(moltenManyullynFluid, TConstruct.ingotLiquidValue * 2), new FluidStack(moltenCobaltFluid, TConstruct.ingotLiquidValue), new FluidStack(
-					moltenArditeFluid, TConstruct.ingotLiquidValue)); //Manyullyn
-			Smeltery.addAlloyMixing(new FluidStack(moltenAlumiteFluid, TConstruct.ingotLiquidValue * 6), new FluidStack(moltenAluminumFluid, TConstruct.ingotLiquidValue * 5), new FluidStack(
-					moltenIronFluid, TConstruct.ingotLiquidValue * 2), new FluidStack(moltenObsidianFluid, TConstruct.ingotLiquidValue * 2)); //Alumite
-		}
-		else 
-		{
-			if (PHConstruct.harderBronze)
-				Smeltery.addAlloyMixing(new FluidStack(moltenBronzeFluid, TConstruct.ingotLiquidValue * 2), new FluidStack(moltenCopperFluid, TConstruct.ingotLiquidValue * 3), new FluidStack(
-						moltenTinFluid, TConstruct.ingotLiquidValue)); //Bronze
-			else
-				Smeltery.addAlloyMixing(new FluidStack(moltenBronzeFluid, TConstruct.ingotLiquidValue * 4), new FluidStack(moltenCopperFluid, TConstruct.ingotLiquidValue * 3), new FluidStack(
-						moltenTinFluid, TConstruct.ingotLiquidValue)); //Bronze
-						
-			Smeltery.addAlloyMixing(new FluidStack(moltenAlubrassFluid, TConstruct.ingotLiquidValue * 4), new FluidStack(moltenAluminumFluid, TConstruct.ingotLiquidValue * 3), new FluidStack(
-					moltenCopperFluid, TConstruct.ingotLiquidValue * 1)); //Aluminum Brass
-			Smeltery.addAlloyMixing(new FluidStack(moltenManyullynFluid, TConstruct.ingotLiquidValue), new FluidStack(moltenCobaltFluid, TConstruct.ingotLiquidValue * 2), new FluidStack(
-					moltenArditeFluid, TConstruct.ingotLiquidValue * 2)); //Manyullyn
-			Smeltery.addAlloyMixing(new FluidStack(moltenAlumiteFluid, TConstruct.ingotLiquidValue * 3), new FluidStack(moltenAluminumFluid, TConstruct.ingotLiquidValue * 5), new FluidStack(
-					moltenIronFluid, TConstruct.ingotLiquidValue * 2), new FluidStack(moltenObsidianFluid, TConstruct.ingotLiquidValue * 2)); //Alumite
-		}
+        //Alloy Smelting
+		Smeltery.addAlloyMixing(new FluidStack(moltenBronzeFluid, TConstruct.ingotLiquidValue * PHConstruct.ingotsBronzeAlloy), new FluidStack(moltenCopperFluid, TConstruct.ingotLiquidValue * 3), new FluidStack(
+				moltenTinFluid, TConstruct.ingotLiquidValue)); //Bronze			
+		Smeltery.addAlloyMixing(new FluidStack(moltenAlubrassFluid, TConstruct.ingotLiquidValue * PHConstruct.ingotsAluminumBrassAlloy), new FluidStack(moltenAluminumFluid, TConstruct.ingotLiquidValue * 3), new FluidStack(
+				moltenCopperFluid, TConstruct.ingotLiquidValue * 1)); //Aluminum Brass
+		Smeltery.addAlloyMixing(new FluidStack(moltenAlumiteFluid, TConstruct.ingotLiquidValue * PHConstruct.ingotsAlumiteAlloy), new FluidStack(moltenAluminumFluid, TConstruct.ingotLiquidValue * 5), new FluidStack(
+				moltenIronFluid, TConstruct.ingotLiquidValue * 2), new FluidStack(moltenObsidianFluid, TConstruct.ingotLiquidValue * 2)); //Alumite
+		Smeltery.addAlloyMixing(new FluidStack(moltenManyullynFluid, TConstruct.ingotLiquidValue * PHConstruct.ingotsManyullynAlloy), new FluidStack(moltenCobaltFluid, TConstruct.ingotLiquidValue), new FluidStack(
+				moltenArditeFluid, TConstruct.ingotLiquidValue)); //Manyullyn
 
         // Stone parts
         for (int sc = 0; sc < patternOutputs.length; sc++)
@@ -2378,16 +2359,10 @@ public class TContent implements IFuelHandler
             Smeltery.addDictionaryMelting("crystalline" + ft.toString(), ft, -50, TConstruct.ingotLiquidValue);
 
             // Ores
-			if (PHConstruct.vanillaSmelting)
-				Smeltery.addDictionaryMelting("ore" + ft.toString(), ft, 0, TConstruct.ingotLiquidValue);
-			else
-				Smeltery.addDictionaryMelting("ore" + ft.toString(), ft, 0, TConstruct.oreLiquidValue);
+			Smeltery.addDictionaryMelting("ore" + ft.toString(), ft, 0, TConstruct.ingotLiquidValue * PHConstruct.ingotsPerOre);
 				
             // NetherOres support
-			if (PHConstruct.vanillaSmelting)
-				Smeltery.addDictionaryMelting("oreNether" + ft.toString(), ft, 75, TConstruct.oreLiquidValue);
-			else
-				Smeltery.addDictionaryMelting("oreNether" + ft.toString(), ft, 75, TConstruct.oreLiquidValue * 2);
+			Smeltery.addDictionaryMelting("oreNether" + ft.toString(), ft, 75, TConstruct.ingotLiquidValue * PHConstruct.ingotsPerOreNetherOreMod);
 				
             // Blocks
             Smeltery.addDictionaryMelting("block" + ft.toString(), ft, 100, TConstruct.blockLiquidValue);

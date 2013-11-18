@@ -40,11 +40,12 @@ public class PHConstruct
         /* Define the mod's IDs. 
          * Avoid values below 4096 for items and in the 250-450 range for blocks
          */
+		 
+		superfunWorld = config.get("Superfun", "All the world is Superfun", false).getBoolean(false);
 
         keepHunger = config.get("Difficulty Changes", "Keep hunger on death", true).getBoolean(true);
         keepLevels = config.get("Difficulty Changes", "Keep levels on death", true).getBoolean(true);
         beginnerBook = config.get("Difficulty Changes", "Spawn beginner book", true).getBoolean(true);
-        superfunWorld = config.get("Superfun", "All the world is Superfun", false).getBoolean(false);
 
         enableTWood = config.get("Difficulty Changes", "Enable mod wooden tools", true).getBoolean(true);
         enableTStone = config.get("Difficulty Changes", "Enable mod stone tools", true).getBoolean(true);
@@ -60,15 +61,17 @@ public class PHConstruct
         vanillaMetalBlocks = config.get("Difficulty Changes", "Craft vanilla metal blocks", true).getBoolean(true);
         lavaFortuneInteraction = config.get("Difficulty Changes", "Enable Auto-Smelt and Fortune interaction", true).getBoolean(true);
         removeVanillaToolRecipes = config.get("Difficulty Changes", "Remove Vanilla Tool Recipes", false).getBoolean(false);
-        harderBronze = config.get("Difficulty Changes", "Lower bronze output to 2 ingots", false).getBoolean(false);
         stencilTableCrafting = config.get("Difficulty Changes", "Craft Stencil Tables", true).getBoolean(true);
         miningLevelIncrease = config.get("Difficulty Changes", "Modifiers increase Mining Level", true).getBoolean(true);
         denyMattock = config.get("Difficulty Changes", "Deny creation of non-metal mattocks", false).getBoolean(false);
-		vanillaSmelting = config.get("Difficulty Changes", "Vanilla furnace smeltery ingot output", false, "If true ingot output lowered to 1 per ore. Could be used in accordance with mods which limit early game ore doubling.").getBoolean(false);
-//        harderBronze = config.get("Difficulty Changes", "Lower bronze output to 2 ingots", false).getBoolean(false);
-//       stencilTableCrafting = config.get("Difficulty Changes", "Craft Stencil Tables", true).getBoolean(true);
-//        denyMattock = config.get("Difficulty Changes", "Deny creation of non-metal mattocks", false).getBoolean(false);
-
+		
+		ingotsPerOre = config.get("Smeltery Output Modification", "Ingots per ore", 2, "Number of ingots returned from smelting ores in the smeltery").getInt(2);
+		ingotsPerOreNetherOreMod = config.get("Smeltery Output Modification", "Ingots per ore nether ore mod", 4, "Number of ingots returned from smelting ores from the Nether Ore Mod in the smeltery").getInt(4);
+		ingotsBronzeAlloy = config.get("Smeltery Output Modification", "Bronze ingot return", 4, "Number of ingots returned from smelting Bronze in the smeltery").getInt(4);
+		ingotsAluminumBrassAlloy = config.get("Smeltery Output Modification", "Aluminum Brass ingot return", 4, "Number of ingots returned from smelting Aluminum Brass in the smeltery").getInt(4);
+		ingotsAlumiteAlloy = config.get("Smeltery Output Modification", "Alumite ingot return", 3, "Number of ingots returned from smelting Alumite in the smeltery").getInt(3);
+		ingotsManyullynAlloy = config.get("Smeltery Output Modification", "Manyullyn ingot return", 1, "Number of ingots returned from smelting Manyullyn in the smeltery").getInt(1);
+		
         //1467-1489
         woodStation = config.getBlock("Wood Tool Station", 1471).getInt(1471);
         heldItemBlock = config.getBlock("Held Item Block", 1472).getInt(1472);
@@ -678,11 +681,17 @@ public class PHConstruct
     public static boolean craftMetalTools;
     public static boolean vanillaMetalBlocks;
     public static boolean removeVanillaToolRecipes;
-    public static boolean harderBronze;
-	public static boolean vanillaSmelting;
     public static boolean stencilTableCrafting;
     public static boolean miningLevelIncrease;
     public static boolean denyMattock;
+
+	//Smeltery Output Modification
+	public static int ingotsPerOre;
+	public static int ingotsPerOreNetherOreMod;
+	public static int ingotsBronzeAlloy;
+	public static int ingotsAluminumBrassAlloy;
+	public static int ingotsAlumiteAlloy;
+	public static int ingotsManyullynAlloy;
 
     //Ultra Hardcore modifiers
     public static boolean enableHealthRegen;
