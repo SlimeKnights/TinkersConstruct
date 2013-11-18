@@ -2415,8 +2415,9 @@ public class TContent implements IFuelHandler
     	achievements.put("tconstruct.pattern", new Achievement(2002, "tconstruct.pattern", 2, 1, blankPattern, achievements.get("tconstruct.beginner")).registerAchievement());
     	achievements.put("tconstruct.tinkerer", new Achievement(2003, "tconstruct.tinkerer", 2, 2, new ItemStack(titleIcon, 1, 4096), achievements.get("tconstruct.pattern")).registerAchievement());
     	achievements.put("tconstruct.preparedFight", new Achievement(2004, "tconstruct.preparedFight", 1, 3, new ItemStack(titleIcon, 1, 4097), achievements.get("tconstruct.tinkerer")).registerAchievement());
-    	achievements.put("tconstruct.proTinkerer", new Achievement(2005, "tconstruct.proTinkerer", 4, 3, new ItemStack(titleIcon, 1, 4098), achievements.get("tconstruct.tinkerer")).setSpecial().registerAchievement());
+    	achievements.put("tconstruct.proTinkerer", new Achievement(2005, "tconstruct.proTinkerer", 4, 4, new ItemStack(titleIcon, 1, 4098), achievements.get("tconstruct.tinkerer")).setSpecial().registerAchievement());
     	achievements.put("tconstruct.smelteryMaker", new Achievement(2006, "tconstruct.smelteryMaker", -2, -1, smeltery, achievements.get("tconstruct.beginner")).registerAchievement());
     	achievements.put("tconstruct.enemySlayer", new Achievement(2007, "tconstruct.enemySlayer", 0, 5, new ItemStack(titleIcon, 1, 4099), achievements.get("tconstruct.preparedFight")).registerAchievement());
+    	achievements.put("tconstruct.dualConvenience", new Achievement(2008, "tconstruct.dualConvenience", 0, 7, new ItemStack(titleIcon, 1, 4100), achievements.get("tconstruct.enemySlayer")).setSpecial().registerAchievement());
     }
 }

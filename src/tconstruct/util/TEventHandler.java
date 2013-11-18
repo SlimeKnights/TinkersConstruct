@@ -1,9 +1,8 @@
 package tconstruct.util;
 
-import tconstruct.achievements.TAchievements;
+import net.minecraft.item.crafting.FurnaceRecipes;
 
 import java.util.Random;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.*;
 import net.minecraft.entity.boss.EntityWither;
@@ -23,8 +22,10 @@ import net.minecraftforge.event.entity.player.*;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 import net.minecraftforge.oredict.OreDictionary.OreRegisterEvent;
 import tconstruct.TConstruct;
+import tconstruct.achievements.TAchievements;
 import tconstruct.blocks.*;
 import tconstruct.common.TContent;
+import tconstruct.items.tools.FryingPan;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.ToolBuilder;
 import tconstruct.library.event.*;
@@ -223,6 +224,23 @@ public class TEventHandler
     @ForgeSubscribe
     public void onLivingDrop (LivingDropsEvent event)
     {
+    	if(event.source.getEntity() != null && event.source.getEntity() instanceof EntityPlayer){
+    		EntityPlayer player = (EntityPlayer)event.source.getEntity();
+    		if(player.getHeldItem() != null && player.getHeldItem().getItem() instanceof FryingPan){
+    			for(int i = 0; i < event.drops.size(); i++){
+    				ItemStack is = event.drops.get(i).getEntityItem();
+    				if(FurnaceRecipes.smelting().getSmeltingResult(is) != null && FurnaceRecipes.smelting().getSmeltingResult(is).getItem() instanceof ItemFood){
+    					NBTTagCompound stackCompound = is.getTagCompound();
+    					if(stackCompound == null){
+    						stackCompound = new NBTTagCompound();
+    					}
+    					stackCompound.setBoolean("frypanKill", true);
+    					is.setTagCompound(stackCompound);
+    				}
+    			}
+    		}
+    	}
+    	
         if (random.nextInt(500) == 0 && event.entityLiving instanceof IMob && event.entityLiving.dimension == 0)
         {
             ItemStack dropStack = new ItemStack(TContent.heartCanister, 1, 1);
