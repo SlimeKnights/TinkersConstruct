@@ -64,9 +64,10 @@ public class PHConstruct
         stencilTableCrafting = config.get("Difficulty Changes", "Craft Stencil Tables", true).getBoolean(true);
         miningLevelIncrease = config.get("Difficulty Changes", "Modifiers increase Mining Level", true).getBoolean(true);
         denyMattock = config.get("Difficulty Changes", "Deny creation of non-metal mattocks", false).getBoolean(false);
-        harderBronze = config.get("Difficulty Changes", "Lower bronze output to 2 ingots", false).getBoolean(false);
-        stencilTableCrafting = config.get("Difficulty Changes", "Craft Stencil Tables", true).getBoolean(true);
-        denyMattock = config.get("Difficulty Changes", "Deny creation of non-metal mattocks", false).getBoolean(false);
+		vanillaSmelting = config.get("Difficulty Changes", "Vanilla furnace smeltery ingot output", false, "If true ingot output lowered to 1 per ore. Could be used in accordance with mods which limit early game ore doubling.").getBoolean(false);
+//        harderBronze = config.get("Difficulty Changes", "Lower bronze output to 2 ingots", false).getBoolean(false);
+//       stencilTableCrafting = config.get("Difficulty Changes", "Craft Stencil Tables", true).getBoolean(true);
+//        denyMattock = config.get("Difficulty Changes", "Deny creation of non-metal mattocks", false).getBoolean(false);
 
         //1467-1489
         woodStation = config.getBlock("Wood Tool Station", 1471).getInt(1471);
@@ -678,6 +679,7 @@ public class PHConstruct
     public static boolean vanillaMetalBlocks;
     public static boolean removeVanillaToolRecipes;
     public static boolean harderBronze;
+	public static boolean vanillaSmelting;
     public static boolean stencilTableCrafting;
     public static boolean miningLevelIncrease;
     public static boolean denyMattock;
