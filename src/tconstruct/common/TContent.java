@@ -1646,19 +1646,15 @@ public class TContent implements IFuelHandler
 
     private void addRecipesForSmeltery ()
     {
-        //Alloys Smelting
-        if (PHConstruct.harderBronze)
-            Smeltery.addAlloyMixing(new FluidStack(moltenBronzeFluid, TConstruct.ingotLiquidValue * 2), new FluidStack(moltenCopperFluid, TConstruct.ingotLiquidValue * 3), new FluidStack(
-                    moltenTinFluid, TConstruct.ingotLiquidValue)); //Bronze
-        else
-            Smeltery.addAlloyMixing(new FluidStack(moltenBronzeFluid, TConstruct.ingotLiquidValue * 3), new FluidStack(moltenCopperFluid, TConstruct.ingotLiquidValue * 3), new FluidStack(
-                    moltenTinFluid, TConstruct.ingotLiquidValue)); //Bronze
-        Smeltery.addAlloyMixing(new FluidStack(moltenAlubrassFluid, TConstruct.ingotLiquidValue * 4), new FluidStack(moltenAluminumFluid, TConstruct.ingotLiquidValue * 3), new FluidStack(
-                moltenCopperFluid, TConstruct.ingotLiquidValue * 1)); //Aluminum Brass
-        Smeltery.addAlloyMixing(new FluidStack(moltenManyullynFluid, TConstruct.ingotLiquidValue), new FluidStack(moltenCobaltFluid, TConstruct.ingotLiquidValue * 2), new FluidStack(
-                moltenArditeFluid, TConstruct.ingotLiquidValue * 2)); //Manyullyn
-        Smeltery.addAlloyMixing(new FluidStack(moltenAlumiteFluid, TConstruct.ingotLiquidValue * 3), new FluidStack(moltenAluminumFluid, TConstruct.ingotLiquidValue * 5), new FluidStack(
-                moltenIronFluid, TConstruct.ingotLiquidValue * 2), new FluidStack(moltenObsidianFluid, TConstruct.ingotLiquidValue * 2)); //Alumite
+        //Alloy Smelting
+		Smeltery.addAlloyMixing(new FluidStack(moltenBronzeFluid, TConstruct.ingotLiquidValue * PHConstruct.ingotsBronzeAlloy), new FluidStack(moltenCopperFluid, TConstruct.ingotLiquidValue * 3), new FluidStack(
+				moltenTinFluid, TConstruct.ingotLiquidValue)); //Bronze			
+		Smeltery.addAlloyMixing(new FluidStack(moltenAlubrassFluid, TConstruct.ingotLiquidValue * PHConstruct.ingotsAluminumBrassAlloy), new FluidStack(moltenAluminumFluid, TConstruct.ingotLiquidValue * 3), new FluidStack(
+				moltenCopperFluid, TConstruct.ingotLiquidValue * 1)); //Aluminum Brass
+		Smeltery.addAlloyMixing(new FluidStack(moltenAlumiteFluid, TConstruct.ingotLiquidValue * PHConstruct.ingotsAlumiteAlloy), new FluidStack(moltenAluminumFluid, TConstruct.ingotLiquidValue * 5), new FluidStack(
+				moltenIronFluid, TConstruct.ingotLiquidValue * 2), new FluidStack(moltenObsidianFluid, TConstruct.ingotLiquidValue * 2)); //Alumite
+		Smeltery.addAlloyMixing(new FluidStack(moltenManyullynFluid, TConstruct.ingotLiquidValue * PHConstruct.ingotsManyullynAlloy), new FluidStack(moltenCobaltFluid, TConstruct.ingotLiquidValue), new FluidStack(
+				moltenArditeFluid, TConstruct.ingotLiquidValue)); //Manyullyn
 
         // Stone parts
         for (int sc = 0; sc < patternOutputs.length; sc++)
@@ -1698,7 +1694,7 @@ public class TContent implements IFuelHandler
         Smeltery.addMelting(FluidType.Iron, new ItemStack(Item.minecartHopper), 50, TConstruct.ingotLiquidValue * 10);
         Smeltery.addMelting(FluidType.Iron, new ItemStack(Item.doorIron), 0, TConstruct.ingotLiquidValue * 6);
         Smeltery.addMelting(FluidType.Iron, new ItemStack(Item.cauldron), 0, TConstruct.ingotLiquidValue * 7);
-        Smeltery.addMelting(FluidType.Iron, new ItemStack(Item.shears), 0, TConstruct.oreLiquidValue);
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(Item.shears), 0, TConstruct.ingotLiquidValue * 2);
 
         // Smeltery.addMelting(FluidType.Slime, new ItemStack(slimeGel, 1, 0), 0, TConstruct.ingotLiquidValue * 4);
         // Smeltery.addMelting(FluidType.Slime, new ItemStack(strangeFood, 1, 0), 0, TConstruct.ingotLiquidValue);
@@ -1707,10 +1703,11 @@ public class TContent implements IFuelHandler
 
         //Blocks melt at themselves!
         //Ore
-        Smeltery.addMelting(Block.oreIron, 0, 600, new FluidStack(moltenIronFluid, TConstruct.ingotLiquidValue * 2));
-        Smeltery.addMelting(Block.oreGold, 0, 400, new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 2));
-        Smeltery.addMelting(oreGravel, 0, 600, new FluidStack(moltenIronFluid, TConstruct.ingotLiquidValue * 2));
-        Smeltery.addMelting(oreGravel, 1, 400, new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 2));
+		
+		// Smeltery.addMelting(Block.oreIron, 0, 600, new FluidStack(moltenIronFluid, TConstruct.ingotLiquidValue * 2));
+		// Smeltery.addMelting(Block.oreGold, 0, 400, new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 2));
+		// Smeltery.addMelting(oreGravel, 0, 600, new FluidStack(moltenIronFluid, TConstruct.ingotLiquidValue * 2));
+		// Smeltery.addMelting(oreGravel, 1, 400, new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 2));
 
         //Blocks
         Smeltery.addMelting(Block.blockIron, 0, 600, new FluidStack(moltenIronFluid, TConstruct.ingotLiquidValue * 9));
@@ -2352,19 +2349,24 @@ public class TContent implements IFuelHandler
 
             // Nuggets
             Smeltery.addDictionaryMelting("nugget" + ft.toString(), ft, -100, TConstruct.nuggetLiquidValue);
+			
             // Ingots, Dust
             registerIngotCasting(ft);
             Smeltery.addDictionaryMelting("ingot" + ft.toString(), ft, -50, TConstruct.ingotLiquidValue);
             Smeltery.addDictionaryMelting("dust" + ft.toString(), ft, -75, TConstruct.ingotLiquidValue);
+			
             // Factorization support
             Smeltery.addDictionaryMelting("crystalline" + ft.toString(), ft, -50, TConstruct.ingotLiquidValue);
 
             // Ores
-            Smeltery.addDictionaryMelting("ore" + ft.toString(), ft, 0, TConstruct.oreLiquidValue);
+			Smeltery.addDictionaryMelting("ore" + ft.toString(), ft, 0, TConstruct.ingotLiquidValue * PHConstruct.ingotsPerOre);
+				
             // NetherOres support
-            Smeltery.addDictionaryMelting("oreNether" + ft.toString(), ft, 75, TConstruct.oreLiquidValue * 2);
+			Smeltery.addDictionaryMelting("oreNether" + ft.toString(), ft, 75, TConstruct.ingotLiquidValue * PHConstruct.ingotsPerOre * 2);
+				
             // Blocks
             Smeltery.addDictionaryMelting("block" + ft.toString(), ft, 100, TConstruct.blockLiquidValue);
+			
             if (ft.isToolpart)
             {
                 registerPatternMaterial("ingot" + ft.toString(), 2, ft.toString());
