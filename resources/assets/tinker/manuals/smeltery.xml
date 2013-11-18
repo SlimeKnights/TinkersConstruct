@@ -210,6 +210,14 @@ Part casts must be created by pouring metal around existing parts, like a pickax
 </page>
 
 <page type="crafting">
+<text>Casting Channel</text>
+<recipe>
+ <name>castingchannel</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="crafting">
 <text>Casting Table</text>
 <recipe>
  <name>smelterytable</name>
@@ -243,22 +251,6 @@ Part casts must be created by pouring metal around existing parts, like a pickax
 <page type="blockcast">
 <text>Endstone</text>
 <recipe>endstone</recipe>
-</page>
-
-<page type="crafting">
-<text>Drawbridge</text>
-<recipe>
- <name>drawbridge</name>
- <size>three</size>
-</recipe>
-</page>
-
-<page type="crafting">
-<text>Igniter</text>
-<recipe>
- <name>igniter</name>
- <size>three</size>
-</recipe>
 </page>
 
 </book>
