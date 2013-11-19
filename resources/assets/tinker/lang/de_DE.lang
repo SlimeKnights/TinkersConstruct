@@ -563,7 +563,6 @@ fluid.electrum=Geschmolzenes Elektrum
 fluid.ender=Flüssiges Ender
 fluid.slime.blue=Flüssiger Blauschleim
 
-
 tconstruct.achievementPage.name=TConstruct
 achievement.tconstruct.beginner=Lernen zu Basteln
 achievement.tconstruct.pattern=Schablonenarbeiter
@@ -582,3 +581,5 @@ achievement.tconstruct.smelteryMaker.desc=Baue eine Schmelzereikomponente
 achievement.tconstruct.preparedFight.desc=Kreiere deine erste Waffe
 achievement.tconstruct.enemySlayer.desc=Schlachte ein Monster ab
 achievement.tconstruct.dualConvenience.desc=Töte ein Tier mit einer Bratpfanne und koche dann dein Fleisch mit ihr
+
+searedtank.tooltip=Behält alle Flüssigkeit in ihm, wenn abgebaut
