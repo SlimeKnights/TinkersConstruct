@@ -42,5 +42,9 @@ public class LavaTankItemBlock extends ItemBlock
                 list.add(liquidTag.getInteger("Amount") + " mB");
             }
         }
+        else
+        {
+            list.add(StatCollector.translateToLocal("searedtank.tooltip"));
+        }
     }
 }
