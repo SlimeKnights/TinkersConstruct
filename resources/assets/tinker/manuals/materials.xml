@@ -360,7 +360,7 @@ Class: Broad Melee Weapon</text>
 <icon>scytheicon</icon>
 <item>
  <text>Scythe Head</text>
- <icon>excavatorhead</icon>
+ <icon>scythehead</icon>
 </item>
 <item>
  <text>Tough Rod</text>
