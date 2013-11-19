@@ -653,7 +653,7 @@ public class TContent implements IFuelHandler
             moltenShinyFluid = FluidRegistry.getFluid("platinum.molten");
         moltenShiny = new TConstructFluid(PHConstruct.moltenShiny, moltenShinyFluid, Material.lava, "liquid_shiny").setUnlocalizedName("metal.molten.shiny");
         GameRegistry.registerBlock(moltenShiny, "metal.molten.shiny");
-        fluids[20] = moltenLeadFluid;
+        fluids[20] = moltenShinyFluid;
         fluidBlocks[20] = moltenShiny;
         moltenShinyFluid.setBlockID(moltenShiny).setDensity(3000).setViscosity(6000).setTemperature(1300);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(moltenShinyFluid, 1000), new ItemStack(buckets, 1, 20), new ItemStack(Item.bucketEmpty)));
