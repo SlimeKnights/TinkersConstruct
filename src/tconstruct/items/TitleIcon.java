@@ -27,7 +27,7 @@ public class TitleIcon extends Item
     int[] secondaryColor = { 0x1567BF, 0xFFEC6E };
     String[] mobNames = { "TConstruct.EdibleSlime", "TConstruct.KingSlime" };
     
-    String[] achievementIconNames = new String[] {"tinkerer", "preparedFight", "proTinkerer", "enemySlayer"};
+    String[] achievementIconNames = new String[] {"tinkerer", "preparedFight", "proTinkerer", "enemySlayer", "dualConvenience"};
     Icon[] achievementIcons = new Icon[achievementIconNames.length];
     
     public TitleIcon(int par1)
