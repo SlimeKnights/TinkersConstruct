@@ -581,3 +581,5 @@ achievement.tconstruct.smelteryMaker.desc=Craft a smeltery component
 achievement.tconstruct.preparedFight.desc=Create your first weapon
 achievement.tconstruct.enemySlayer.desc=Slay a mob
 achievement.tconstruct.dualConvenience.desc=Kill a mob with a frying pan, and then cook their meat in it
+
+searedtank.tooltip=Keeps any fluids it has when harvested
