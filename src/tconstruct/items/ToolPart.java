@@ -58,15 +58,15 @@ public class ToolPart extends CraftingItem implements IToolPart
     }
 
     public static final String[] toolMaterialNames = new String[] { "Wood", "Stone", "Iron", "Flint", "Cactus", "Bone", "Obsidian", "Netherrack", "Slime", "Paper", "Cobalt", "Ardite", "Manyullyn",
-            "Copper", "Bronze", "Alumite", "Steel", "Blue Slime", "", "", "", "", "", "", "", "", "", "", "", "", "", "Thaumium" };
+            "Copper", "Bronze", "Alumite", "Steel", "Blue Slime", "Pig Iron", "", "", "", "", "", "", "", "", "", "", "", "", "Thaumium" };
 
     public static final String[] toolTextureNames = new String[] { "wood", "stone", "iron", "flint", "cactus", "bone", "obsidian", "netherrack", "slime", "paper", "cobalt", "ardite", "manyullyn",
-            "copper", "bronze", "alumite", "steel", "blueslime", "", "", "", "", "", "", "", "", "", "", "", "", "", "thaumium" };
+            "copper", "bronze", "alumite", "steel", "blueslime", "pigiron", "", "", "", "", "", "", "", "", "", "", "", "", "thaumium" };
 
     @Override
     public void getSubItems (int id, CreativeTabs tab, List list)
     {
-        for (int i = 0; i < 18; i++)
+        for (int i = 0; i < 19; i++)
             list.add(new ItemStack(id, 1, i));
 
         if (TContent.thaumcraftAvailable)

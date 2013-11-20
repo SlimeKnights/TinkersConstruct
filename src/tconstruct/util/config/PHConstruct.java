@@ -70,6 +70,7 @@ public class PHConstruct
 		ingotsAluminumBrassAlloy = config.get("Smeltery Output Modification", "Aluminum Brass ingot return", 4, "Number of ingots returned from smelting Aluminum Brass in the smeltery").getInt(4);
 		ingotsAlumiteAlloy = config.get("Smeltery Output Modification", "Alumite ingot return", 3, "Number of ingots returned from smelting Alumite in the smeltery").getInt(3);
 		ingotsManyullynAlloy = config.get("Smeltery Output Modification", "Manyullyn ingot return", 1, "Number of ingots returned from smelting Manyullyn in the smeltery").getInt(1);
+		ingotsPigironAlloy = config.get("Smeltery Output Modification", "Pig Iron ingot return", 1, "Number of ingots returned from smelting Pig Iron in the smeltery").getInt(1);
 		
         //1467-1489
         woodStation = config.getBlock("Wood Tool Station", 1471).getInt(1471);
@@ -690,6 +691,7 @@ public class PHConstruct
 	public static int ingotsAluminumBrassAlloy;
 	public static int ingotsAlumiteAlloy;
 	public static int ingotsManyullynAlloy;
+    public static int ingotsPigironAlloy;
 
     //Ultra Hardcore modifiers
     public static boolean enableHealthRegen;

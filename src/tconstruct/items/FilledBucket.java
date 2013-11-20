@@ -139,7 +139,7 @@ public class FilledBucket extends ItemBucket
         {
             int id = 0;
             int metadata = 0;
-            if (type == 24)
+            if (type == 25)
                 metadata = 0;
             world.setBlock(clickX, clickY, clickZ, TContent.fluidBlocks[type].blockID, metadata, 3); //TODO: Merge liquids
 
@@ -180,8 +180,8 @@ public class FilledBucket extends ItemBucket
     }
 
     public static final String[] materialNames = new String[] { "Iron", "Gold", "Copper", "Tin", "Aluminum", "Cobalt", "Ardite", "Bronze", "AluBrass", "Manyullyn", "Alumite", "Obsidian", "Steel",
-            "Glass", "Stone", "Villager", "Cow", "Nickel", "Lead", "Silver", "Shiny", "Invar", "Electrum", "Ender", "Slime" };
+            "Glass", "Stone", "Villager", "Cow", "Nickel", "Lead", "Silver", "Shiny", "Invar", "Electrum", "Ender", "Slime", "PigIron" };
 
     public static final String[] textureNames = new String[] { "iron", "gold", "copper", "tin", "aluminum", "cobalt", "ardite", "bronze", "alubrass", "manyullyn", "alumite", "obsidian", "steel",
-            "glass", "stone", "emerald", "blood", "nickel", "lead", "silver", "shiny", "invar", "electrum", "ender", "slime" };
+            "glass", "stone", "emerald", "blood", "nickel", "lead", "silver", "shiny", "invar", "electrum", "ender", "slime", "pigiron" };
 }

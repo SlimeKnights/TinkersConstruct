@@ -1,35 +1,61 @@
 package tconstruct.util;
 
-import net.minecraft.item.crafting.FurnaceRecipes;
-
 import java.util.Random;
+
 import net.minecraft.block.Block;
-import net.minecraft.entity.*;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.EntityLivingData;
 import net.minecraft.entity.boss.EntityWither;
-import net.minecraft.entity.item.*;
-import net.minecraft.entity.monster.*;
+import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.item.EntityXPOrb;
+import net.minecraft.entity.monster.EntityCreeper;
+import net.minecraft.entity.monster.EntityGhast;
+import net.minecraft.entity.monster.EntitySkeleton;
+import net.minecraft.entity.monster.EntitySpider;
+import net.minecraft.entity.monster.EntityZombie;
+import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.*;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemFood;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.potion.*;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumMovingObjectType;
+import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
-import net.minecraftforge.event.*;
+import net.minecraftforge.event.Event;
 import net.minecraftforge.event.Event.Result;
-import net.minecraftforge.event.entity.living.*;
-import net.minecraftforge.event.entity.player.*;
+import net.minecraftforge.event.ForgeSubscribe;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
+import net.minecraftforge.event.entity.living.LivingDropsEvent;
+import net.minecraftforge.event.entity.living.LivingHurtEvent;
+import net.minecraftforge.event.entity.living.LivingSpawnEvent;
+import net.minecraftforge.event.entity.player.BonemealEvent;
+import net.minecraftforge.event.entity.player.FillBucketEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 import net.minecraftforge.oredict.OreDictionary.OreRegisterEvent;
 import tconstruct.TConstruct;
 import tconstruct.achievements.TAchievements;
-import tconstruct.blocks.*;
+import tconstruct.blocks.LiquidMetalFinite;
+import tconstruct.blocks.TankAirBlock;
 import tconstruct.common.TContent;
 import tconstruct.items.tools.FryingPan;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.ToolBuilder;
-import tconstruct.library.event.*;
-import tconstruct.library.tools.*;
+import tconstruct.library.event.PartBuilderEvent;
+import tconstruct.library.event.ToolCraftEvent;
+import tconstruct.library.tools.ArrowMaterial;
+import tconstruct.library.tools.BowMaterial;
+import tconstruct.library.tools.BowstringMaterial;
+import tconstruct.library.tools.FletchingMaterial;
+import tconstruct.library.tools.ToolCore;
+import tconstruct.library.tools.Weapon;
 import tconstruct.modifiers.ModAttack;
 import tconstruct.util.config.PHConstruct;
 import tconstruct.util.player.TPlayerStats;
@@ -224,23 +250,31 @@ public class TEventHandler
     @ForgeSubscribe
     public void onLivingDrop (LivingDropsEvent event)
     {
-    	if(event.source.getEntity() != null && event.source.getEntity() instanceof EntityPlayer){
-    		EntityPlayer player = (EntityPlayer)event.source.getEntity();
-    		if(player.getHeldItem() != null && player.getHeldItem().getItem() instanceof FryingPan){
-    			for(int i = 0; i < event.drops.size(); i++){
-    				ItemStack is = event.drops.get(i).getEntityItem();
-    				if(FurnaceRecipes.smelting().getSmeltingResult(is) != null && FurnaceRecipes.smelting().getSmeltingResult(is).getItem() instanceof ItemFood){
-    					NBTTagCompound stackCompound = is.getTagCompound();
-    					if(stackCompound == null){
-    						stackCompound = new NBTTagCompound();
-    					}
-    					stackCompound.setBoolean("frypanKill", true);
-    					is.setTagCompound(stackCompound);
-    				}
-    			}
-    		}
-    	}
-    	
+        if (event.entityLiving == null)
+            return;
+        
+        if (event.source.getEntity() != null && event.source.getEntity() instanceof EntityPlayer)
+        {
+            EntityPlayer player = (EntityPlayer) event.source.getEntity();
+            if (player.getHeldItem() != null && player.getHeldItem().getItem() instanceof FryingPan)
+            {
+                for (int i = 0; i < event.drops.size(); i++)
+                {
+                    ItemStack is = event.drops.get(i).getEntityItem();
+                    if (FurnaceRecipes.smelting().getSmeltingResult(is) != null && FurnaceRecipes.smelting().getSmeltingResult(is).getItem() instanceof ItemFood)
+                    {
+                        NBTTagCompound stackCompound = is.getTagCompound();
+                        if (stackCompound == null)
+                        {
+                            stackCompound = new NBTTagCompound();
+                        }
+                        stackCompound.setBoolean("frypanKill", true);
+                        is.setTagCompound(stackCompound);
+                    }
+                }
+            }
+        }
+
         if (random.nextInt(500) == 0 && event.entityLiving instanceof IMob && event.entityLiving.dimension == 0)
         {
             ItemStack dropStack = new ItemStack(TContent.heartCanister, 1, 1);
@@ -407,7 +441,8 @@ public class TEventHandler
                 }
             }
 
-            if (!player.worldObj.getGameRules().getGameRuleBooleanValue("keepInventory"))
+            GameRules rules = player.worldObj.getGameRules(); //Player is null if this crashes
+            if (rules == null || !rules.getGameRuleBooleanValue("keepInventory"))
             {
                 TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
                 if (stats != null)
@@ -422,13 +457,15 @@ public class TEventHandler
     @ForgeSubscribe
     public void onLivingDeath (LivingDeathEvent event)
     {
-    	Entity cause = event.source.getSourceOfDamage();
-    	if(cause != null && cause instanceof EntityPlayer){
-    		EntityPlayer murderer = (EntityPlayer)cause;
-    		if(murderer.getHeldItem().getItem() instanceof Weapon){
-    			murderer.addStat(TAchievements.achievements.get("tconstruct.enemySlayer"), 1);
-    		}
-    	}
+        Entity cause = event.source.getSourceOfDamage();
+        if (cause != null && cause instanceof EntityPlayer)
+        {
+            EntityPlayer murderer = (EntityPlayer) cause;
+            if (murderer.getHeldItem().getItem() instanceof Weapon)
+            {
+                murderer.addStat(TAchievements.achievements.get("tconstruct.enemySlayer"), 1);
+            }
+        }
     }
 
     void addDrops (LivingDropsEvent event, ItemStack dropStack)

@@ -486,7 +486,8 @@ public class TProxyClient extends TProxyCommon
         TConstructClientRegistry.registerManualLargeRecipe("smelterytable", new ItemStack(TContent.searedBlock, 1, 0), searedbrick, searedbrick, searedbrick, searedbrick, null, searedbrick,
                 searedbrick, null, searedbrick);
         TConstructClientRegistry.registerManualLargeRecipe("smelteryfaucet", new ItemStack(TContent.searedBlock, 1, 1), searedbrick, null, searedbrick, null, searedbrick, null, null, null, null);
-        TConstructClientRegistry.registerManualLargeRecipe("castingchannel", new ItemStack(TContent.castingChannel), null, null, null, searedbrick, null, searedbrick, searedbrick, searedbrick, searedbrick);
+        TConstructClientRegistry.registerManualLargeRecipe("castingchannel", new ItemStack(TContent.castingChannel), null, null, null, searedbrick, null, searedbrick, searedbrick, searedbrick,
+                searedbrick);
         TConstructClientRegistry.registerManualLargeRecipe("smelterybasin", new ItemStack(TContent.searedBlock, 1, 2), searedbrick, null, searedbrick, searedbrick, null, searedbrick, searedbrick,
                 searedbrick, searedbrick);
 
@@ -680,8 +681,7 @@ public class TProxyClient extends TProxyCommon
     void addRenderMappings ()
     {
         String[] partTypes = { "wood", "stone", "iron", "flint", "cactus", "bone", "obsidian", "netherrack", "slime", "paper", "cobalt", "ardite", "manyullyn", "copper", "bronze", "alumite", "steel",
-                "blueslime" };
-        // String[] modPartTypes = { "thaumium" };
+                "blueslime", "pigiron" };
         String[] effectTypes = { "diamond", "emerald", "redstone", "piston", "moss", "ice", "lava", "blaze", "necrotic", "electric", "lapis", "quartz", "silk", "beheading", "smite", "spider",
                 "reinforced", "flux" };
         int[] universalEffects = { 0, 1, 4, 9, 16, 17 };
@@ -694,23 +694,11 @@ public class TProxyClient extends TProxyCommon
             TConstructClientRegistry.addMaterialRenderMapping(partIter, "tinker", partTypes[partIter], true);
         }
 
-        /*
-         * for (int iter = 0; iter < modPartTypes.length; iter++) {
-         * TConstructClientRegistry.addMaterialRenderMapping(31 + iter,
-         * "tinker", modPartTypes[iter], true); }
-         */
-
         for (ToolCore tool : TConstructRegistry.getToolMapping())
         {
             for (int i = 0; i < effectTypes.length; i++)
             {
-                //TODO force the flux modifier to use electric textures for now
-                /*if (i == 17)
-                {
-                    TConstructClientRegistry.addEffectRenderMapping(tool, i, "tinker", effectTypes[9], true);
-                }
-                else*/
-                    TConstructClientRegistry.addEffectRenderMapping(tool, i, "tinker", effectTypes[i], true);
+                TConstructClientRegistry.addEffectRenderMapping(tool, i, "tinker", effectTypes[i], true);
             }
         }
 

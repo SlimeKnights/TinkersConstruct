@@ -9,6 +9,8 @@ import net.minecraft.client.audio.SoundManager;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeInstance;
 import net.minecraft.potion.*;
@@ -55,12 +57,32 @@ public class TClientEvents
     }
 
     /* Liquids */
+
+    Icon[] stillIcons = new Icon[1];
+    Icon[] flowIcons = new Icon[1];
+
+    @ForgeSubscribe
+    public void preStitch (TextureStitchEvent.Pre event)
+    {
+        TextureMap register = event.map;
+        if (register.textureType == 0)
+        {
+            stillIcons[0] = register.registerIcon("tinker:liquid_pigiron");
+            flowIcons[0] = register.registerIcon("tinker:liquid_pigiron");
+            System.out.println("Icons: "+stillIcons[0]+" "+flowIcons[0]);
+        }
+    }
+
     @ForgeSubscribe
     public void postStitch (TextureStitchEvent.Post event)
     {
-        for (int i = 0; i < TContent.fluids.length; i++)
+        if (event.map.textureType == 0)
         {
-            TContent.fluids[i].setIcons(TContent.fluidBlocks[i].getIcon(0, 0), TContent.fluidBlocks[i].getIcon(2, 0));
+            for (int i = 0; i < TContent.fluidBlocks.length; i++)
+            {
+                TContent.fluids[i].setIcons(TContent.fluidBlocks[i].getIcon(0, 0), TContent.fluidBlocks[i].getIcon(2, 0));
+            }
+            TContent.pigIronFluid.setIcons(stillIcons[0], flowIcons[0]);
         }
     }
 

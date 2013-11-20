@@ -318,7 +318,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                         if (currentLiquid + 8 < maxLiquid)
                         {
                             int amount = villager.isChild() ? 1 : 8;
-                            this.addMoltenMetal(new FluidStack(TContent.moltenEmeraldFluid, amount), false);
+                            this.fill(new FluidStack(TContent.moltenEmeraldFluid, amount), true);
                         }
                     }
                 }
@@ -329,7 +329,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                     {
                         if (currentLiquid + 25 < maxLiquid)
                         {
-                            this.addMoltenMetal(new FluidStack(TContent.moltenEnderFluid, 25), false);
+                            this.fill(new FluidStack(TContent.moltenEnderFluid, 25), true);
                         }
                     }
                 }
@@ -341,7 +341,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                         if (currentLiquid + 8 < maxLiquid)
                         {
                             int amount = (living.isChild() || living instanceof EntityPlayer) ? 1 : 8;
-                            this.addMoltenMetal(new FluidStack(TContent.bloodFluid, amount), false);
+                            this.fill(new FluidStack(TContent.bloodFluid, amount), true);
                         }
                     }
                 }

@@ -239,6 +239,8 @@ item.tconstruct.Materials.ManyullynNugget.name=Manyullyn Nugget
 item.tconstruct.Materials.BronzeNugget.name=Bronze Nugget
 item.tconstruct.Materials.AlumiteNugget.name=Alumite Nugget
 item.tconstruct.Materials.SteelNugget.name=Steel Nugget
+item.tconstruct.Materials.PigIronIngot.name=Pig Iron Ingot
+item.tconstruct.Materials.PigIronNugget.name=Pig Iron Platter
 
 item.tconstruct.ArmorPattern.helmet.name=Helmet Cast
 item.tconstruct.ArmorPattern.chestplate.name=Chestplate Cast
@@ -408,6 +410,7 @@ item.tconstruct.bucket.Invar.name=Molten Invar Bucket
 item.tconstruct.bucket.Electrum.name=Molten Electrum Bucket
 item.tconstruct.bucket.Ender.name=Liquified Ender Bucket
 item.tconstruct.bucket.Slime.name=Liquid Slime Bucket
+item.tconstruct.bucket.PigIron.name=Molten Pig Iron Bucket
 
 item.tconstruct.bowstring.string.name=Bowstring
 item.tconstruct.bowstring.enchantedfabriI donc.name=Enchanted Bowstring
@@ -509,6 +512,7 @@ parttype.alumite=Alumite
 parttype.steel=Steel
 parttype.blueslime=Slime
 parttype.thaumium=Thaumium
+parttype.pigiron=Pig Iron
 
 toolpart.ToolRod=%%material Tool Rod
 toolpart.PickHead=%%material Pickaxe Head
@@ -562,6 +566,7 @@ fluid.invar=Molten Invar
 fluid.electrum.molten=Molten Electrum
 fluid.ender=Liquid Ender
 fluid.slime.blue=Liquid Blueslime
+fluid.pigiron.molten=Pig Iron
 
 tconstruct.achievementPage.name=TConstruct
 achievement.tconstruct.beginner=Learning to Tinker

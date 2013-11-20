@@ -208,6 +208,7 @@ public class TContent implements IFuelHandler
     public static Fluid moltenElectrumFluid;
     public static Fluid moltenEnderFluid;
     public static Fluid blueSlimeFluid;
+    public static Fluid pigIronFluid;
 
     public static Block moltenIron;
     public static Block moltenGold;
@@ -301,8 +302,9 @@ public class TContent implements IFuelHandler
         addCraftingRecipes();
         setupToolTabs();
         addLoot();
-        if(PHConstruct.achievementsEnabled){
-        	addAchievements();
+        if (PHConstruct.achievementsEnabled)
+        {
+            addAchievements();
         }
     }
 
@@ -321,7 +323,7 @@ public class TContent implements IFuelHandler
         //EntityRegistry.registerModEntity(MetalSlime.class, "MetalSlime", 13, TConstruct.instance, 64, 5, true);
     }
 
-    public static Fluid[] fluids = new Fluid[25];
+    public static Fluid[] fluids = new Fluid[26];
     public static Block[] fluidBlocks = new Block[25];
 
     void registerBlocks ()
@@ -709,6 +711,13 @@ public class TContent implements IFuelHandler
         blueSlimeFluid.setBlockID(slimePool);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(blueSlimeFluid, 1000), new ItemStack(buckets, 1, 24), new ItemStack(Item.bucketEmpty)));
 
+        pigIronFluid = new Fluid("pigiron.molten");
+        if (!FluidRegistry.registerFluid(pigIronFluid))
+            pigIronFluid = FluidRegistry.getFluid("pigiron.molten");
+        else
+            pigIronFluid.setDensity(3000).setViscosity(6000).setTemperature(1300);
+        fluids[25] = pigIronFluid;
+
         slimeGel = new SlimeGel(PHConstruct.slimeGel).setStepSound(slimeStep).setLightOpacity(0).setUnlocalizedName("slime.gel");
         GameRegistry.registerBlock(slimeGel, SlimeGelItemBlock.class, "slime.gel");
 
@@ -934,7 +943,7 @@ public class TContent implements IFuelHandler
         String[] materialStrings = { "paperStack", "greenSlimeCrystal", "searedBrick", "ingotCobalt", "ingotArdite", "ingotManyullyn", "mossBall", "lavaCrystal", "necroticBone", "ingotCopper",
                 "ingotTin", "ingotAluminum", "rawAluminum", "ingotBronze", "ingotAluminumBrass", "ingotAlumite", "ingotSteel", "blueSlimeCrystal", "ingotObsidian", "nuggetIron", "nuggetCopper",
                 "nuggetTin", "nuggetAluminum", "nuggetSilver", "nuggetAluminumBrass", "silkyCloth", "silkyJewel", "nuggetObsidian", "nuggetCobalt", "nuggetArdite", "nuggetManyullyn", "nuggetBronze",
-                "nuggetAlumite", "nuggetSteel" };
+                "nuggetAlumite", "nuggetSteel", "ingotPigIron", "nuggetPigIron" };
 
         for (int i = 0; i < materialStrings.length; i++)
         {
@@ -987,6 +996,7 @@ public class TContent implements IFuelHandler
         TConstructRegistry.addToolMaterial(15, "Alumite", 4, 550, 800, 3, 1.3F, 2, 0f, "\u00A7d", "");
         TConstructRegistry.addToolMaterial(16, "Steel", 4, 750, 800, 3, 1.3F, 2, 0f, "", "");
         TConstructRegistry.addToolMaterial(17, "BlueSlime", "Slime ", 0, 1200, 150, 0, 2.0F, 0, 0f, "\u00A7b", "");
+        TConstructRegistry.addToolMaterial(18, "PigIron", "Pig Iron ", 3, 500, 600, 2, 1.6F, 1, 0f, "\u00A7c", "Tasty");
 
         TConstructRegistry.addBowMaterial(0, 384, 20, 1.0f); //Wood
         TConstructRegistry.addBowMaterial(1, 10, 80, 0.2f); //Stone
@@ -1006,6 +1016,7 @@ public class TContent implements IFuelHandler
         TConstructRegistry.addBowMaterial(15, 768, 40, 1.2f); //Alumite
         TConstructRegistry.addBowMaterial(16, 768, 40, 1.2f); //Steel
         TConstructRegistry.addBowMaterial(17, 576, 20, 1.2f); //Blue Slime
+        TConstructRegistry.addBowMaterial(18, 384, 20, 1.2f); //Slime
 
         //Material ID, mass, fragility
         TConstructRegistry.addArrowMaterial(0, 0.69F, 1.0F, 100F); //Wood
@@ -1026,6 +1037,7 @@ public class TContent implements IFuelHandler
         TConstructRegistry.addArrowMaterial(15, 4.7F, 0.25F, 100F); //Alumite
         TConstructRegistry.addArrowMaterial(16, 7.6F, 0.25F, 100F); //Steel
         TConstructRegistry.addArrowMaterial(17, 0.42F, 0.0F, 100F); //Blue Slime
+        TConstructRegistry.addArrowMaterial(18, 6.8F, 0.5F, 100F); //Iron
 
         TConstructRegistry.addBowstringMaterial(0, 2, new ItemStack(Item.silk), new ItemStack(bowstring, 1, 0), 1F, 1F, 1f); //String
         TConstructRegistry.addFletchingMaterial(0, 2, new ItemStack(Item.feather), new ItemStack(fletching, 1, 0), 100F, 0F, 0.05F); //Feather
@@ -1546,6 +1558,7 @@ public class TContent implements IFuelHandler
         {
             tableCasting.addCastingRecipe(new ItemStack(buckets, 1, sc), new FluidStack(fluids[sc], FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10);
         }
+        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 25), new FluidStack(fluids[25], FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10);
 
         // Clear glass pane casting
         tableCasting.addCastingRecipe(new ItemStack(glassPane), new FluidStack(moltenGlassFluid, 250), null, 80);
@@ -1553,8 +1566,8 @@ public class TContent implements IFuelHandler
         // Metal toolpart casting
         liquids = new FluidStack[] { new FluidStack(moltenIronFluid, 1), new FluidStack(moltenCopperFluid, 1), new FluidStack(moltenCobaltFluid, 1), new FluidStack(moltenArditeFluid, 1),
                 new FluidStack(moltenManyullynFluid, 1), new FluidStack(moltenBronzeFluid, 1), new FluidStack(moltenAlumiteFluid, 1), new FluidStack(moltenObsidianFluid, 1),
-                new FluidStack(moltenSteelFluid, 1) };
-        int[] liquidDamage = new int[] { 2, 13, 10, 11, 12, 14, 15, 6, 16 };
+                new FluidStack(moltenSteelFluid, 1), new FluidStack(pigIronFluid, 1) };
+        int[] liquidDamage = new int[] { 2, 13, 10, 11, 12, 14, 15, 6, 16, 18 }; //ItemStack damage value
         int fluidAmount = 0;
         Fluid fs = null;
 
@@ -1647,14 +1660,16 @@ public class TContent implements IFuelHandler
     private void addRecipesForSmeltery ()
     {
         //Alloy Smelting
-		Smeltery.addAlloyMixing(new FluidStack(moltenBronzeFluid, TConstruct.ingotLiquidValue * PHConstruct.ingotsBronzeAlloy), new FluidStack(moltenCopperFluid, TConstruct.ingotLiquidValue * 3), new FluidStack(
-				moltenTinFluid, TConstruct.ingotLiquidValue)); //Bronze			
-		Smeltery.addAlloyMixing(new FluidStack(moltenAlubrassFluid, TConstruct.ingotLiquidValue * PHConstruct.ingotsAluminumBrassAlloy), new FluidStack(moltenAluminumFluid, TConstruct.ingotLiquidValue * 3), new FluidStack(
-				moltenCopperFluid, TConstruct.ingotLiquidValue * 1)); //Aluminum Brass
-		Smeltery.addAlloyMixing(new FluidStack(moltenAlumiteFluid, TConstruct.ingotLiquidValue * PHConstruct.ingotsAlumiteAlloy), new FluidStack(moltenAluminumFluid, TConstruct.ingotLiquidValue * 5), new FluidStack(
-				moltenIronFluid, TConstruct.ingotLiquidValue * 2), new FluidStack(moltenObsidianFluid, TConstruct.ingotLiquidValue * 2)); //Alumite
-		Smeltery.addAlloyMixing(new FluidStack(moltenManyullynFluid, TConstruct.ingotLiquidValue * PHConstruct.ingotsManyullynAlloy), new FluidStack(moltenCobaltFluid, TConstruct.ingotLiquidValue), new FluidStack(
-				moltenArditeFluid, TConstruct.ingotLiquidValue)); //Manyullyn
+        Smeltery.addAlloyMixing(new FluidStack(moltenBronzeFluid, TConstruct.ingotLiquidValue * PHConstruct.ingotsBronzeAlloy), new FluidStack(moltenCopperFluid, TConstruct.ingotLiquidValue * 3),
+                new FluidStack(moltenTinFluid, TConstruct.ingotLiquidValue)); //Bronze			
+        Smeltery.addAlloyMixing(new FluidStack(moltenAlubrassFluid, TConstruct.ingotLiquidValue * PHConstruct.ingotsAluminumBrassAlloy), new FluidStack(moltenAluminumFluid,
+                TConstruct.ingotLiquidValue * 3), new FluidStack(moltenCopperFluid, TConstruct.ingotLiquidValue * 1)); //Aluminum Brass
+        Smeltery.addAlloyMixing(new FluidStack(moltenAlumiteFluid, TConstruct.ingotLiquidValue * PHConstruct.ingotsAlumiteAlloy), new FluidStack(moltenAluminumFluid, TConstruct.ingotLiquidValue * 5),
+                new FluidStack(moltenIronFluid, TConstruct.ingotLiquidValue * 2), new FluidStack(moltenObsidianFluid, TConstruct.ingotLiquidValue * 2)); //Alumite
+        Smeltery.addAlloyMixing(new FluidStack(moltenManyullynFluid, TConstruct.ingotLiquidValue * PHConstruct.ingotsManyullynAlloy), new FluidStack(moltenCobaltFluid, TConstruct.ingotLiquidValue),
+                new FluidStack(moltenArditeFluid, TConstruct.ingotLiquidValue)); //Manyullyn
+        Smeltery.addAlloyMixing(new FluidStack(pigIronFluid, TConstruct.ingotLiquidValue * PHConstruct.ingotsPigironAlloy), new FluidStack(moltenIronFluid, TConstruct.ingotLiquidValue),
+                new FluidStack(bloodFluid, 400)); //Pigiron 
 
         // Stone parts
         for (int sc = 0; sc < patternOutputs.length; sc++)
@@ -1696,18 +1711,12 @@ public class TContent implements IFuelHandler
         Smeltery.addMelting(FluidType.Iron, new ItemStack(Item.cauldron), 0, TConstruct.ingotLiquidValue * 7);
         Smeltery.addMelting(FluidType.Iron, new ItemStack(Item.shears), 0, TConstruct.ingotLiquidValue * 2);
 
-        // Smeltery.addMelting(FluidType.Slime, new ItemStack(slimeGel, 1, 0), 0, TConstruct.ingotLiquidValue * 4);
-        // Smeltery.addMelting(FluidType.Slime, new ItemStack(strangeFood, 1, 0), 0, TConstruct.ingotLiquidValue);
-        // Smeltery.addMelting(FluidType.Slime, new ItemStack(multiBrick, 1, 11), 0, TConstruct.ingotLiquidValue);
-        // Smeltery.addMelting(FluidType.Slime, new ItemStack(multiBrickFancy, 1, 11), 0, TConstruct.ingotLiquidValue);
-
-        //Blocks melt at themselves!
+        //Blocks melt as themselves!
         //Ore
-		
-		// Smeltery.addMelting(Block.oreIron, 0, 600, new FluidStack(moltenIronFluid, TConstruct.ingotLiquidValue * 2));
-		// Smeltery.addMelting(Block.oreGold, 0, 400, new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 2));
-		// Smeltery.addMelting(oreGravel, 0, 600, new FluidStack(moltenIronFluid, TConstruct.ingotLiquidValue * 2));
-		// Smeltery.addMelting(oreGravel, 1, 400, new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 2));
+        Smeltery.addMelting(Block.oreIron, 0, 600, new FluidStack(moltenIronFluid, TConstruct.ingotLiquidValue * 2));
+        Smeltery.addMelting(Block.oreGold, 0, 400, new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 2));
+        Smeltery.addMelting(oreGravel, 0, 600, new FluidStack(moltenIronFluid, TConstruct.ingotLiquidValue * 2));
+        Smeltery.addMelting(oreGravel, 1, 400, new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 2));
 
         //Blocks
         Smeltery.addMelting(Block.blockIron, 0, 600, new FluidStack(moltenIronFluid, TConstruct.ingotLiquidValue * 9));
@@ -1924,6 +1933,7 @@ public class TContent implements IFuelHandler
         ensureOreIsRegistered("ingotIron", new ItemStack(Item.ingotIron));
         ensureOreIsRegistered("ingotGold", new ItemStack(Item.ingotGold));
         OreDictionary.registerOre("ingotObsidian", new ItemStack(materials, 1, 18));
+        OreDictionary.registerOre("ingotPigIron", new ItemStack(materials, 1, 34));
 
         OreDictionary.registerOre("blockCobalt", new ItemStack(metalBlock, 1, 0));
         OreDictionary.registerOre("blockArdite", new ItemStack(metalBlock, 1, 1));
@@ -1956,6 +1966,7 @@ public class TContent implements IFuelHandler
         OreDictionary.registerOre("nuggetSteel", new ItemStack(materials, 1, 33));
         OreDictionary.registerOre("nuggetGold", new ItemStack(oreBerries, 1, 1));
         ensureOreIsRegistered("nuggetGold", new ItemStack(Item.goldNugget));
+        OreDictionary.registerOre("nuggetPigIron", new ItemStack(materials, 1, 35));
 
         OreDictionary.registerOre("slabCloth", new ItemStack(woolSlab1, 1, Short.MAX_VALUE));
         OreDictionary.registerOre("slabCloth", new ItemStack(woolSlab2, 1, Short.MAX_VALUE));
@@ -2349,24 +2360,24 @@ public class TContent implements IFuelHandler
 
             // Nuggets
             Smeltery.addDictionaryMelting("nugget" + ft.toString(), ft, -100, TConstruct.nuggetLiquidValue);
-			
+
             // Ingots, Dust
             registerIngotCasting(ft);
             Smeltery.addDictionaryMelting("ingot" + ft.toString(), ft, -50, TConstruct.ingotLiquidValue);
             Smeltery.addDictionaryMelting("dust" + ft.toString(), ft, -75, TConstruct.ingotLiquidValue);
-			
+
             // Factorization support
             Smeltery.addDictionaryMelting("crystalline" + ft.toString(), ft, -50, TConstruct.ingotLiquidValue);
 
             // Ores
-			Smeltery.addDictionaryMelting("ore" + ft.toString(), ft, 0, TConstruct.ingotLiquidValue * PHConstruct.ingotsPerOre);
-				
+            Smeltery.addDictionaryMelting("ore" + ft.toString(), ft, 0, TConstruct.ingotLiquidValue * PHConstruct.ingotsPerOre);
+
             // NetherOres support
-			Smeltery.addDictionaryMelting("oreNether" + ft.toString(), ft, 75, TConstruct.ingotLiquidValue * PHConstruct.ingotsPerOre * 2);
-				
+            Smeltery.addDictionaryMelting("oreNether" + ft.toString(), ft, 75, TConstruct.ingotLiquidValue * PHConstruct.ingotsPerOre * 2);
+
             // Blocks
             Smeltery.addDictionaryMelting("block" + ft.toString(), ft, 100, TConstruct.blockLiquidValue);
-			
+
             if (ft.isToolpart)
             {
                 registerPatternMaterial("ingot" + ft.toString(), 2, ft.toString());
@@ -2407,17 +2418,22 @@ public class TContent implements IFuelHandler
         }
 
     }
-    
-    public void addAchievements(){
-    	HashMap<String, Achievement> achievements = TAchievements.achievements;
-    	
-    	achievements.put("tconstruct.beginner", new Achievement(2001, "tconstruct.beginner", 0, 0, manualBook, null).setIndependent().registerAchievement());
-    	achievements.put("tconstruct.pattern", new Achievement(2002, "tconstruct.pattern", 2, 1, blankPattern, achievements.get("tconstruct.beginner")).registerAchievement());
-    	achievements.put("tconstruct.tinkerer", new Achievement(2003, "tconstruct.tinkerer", 2, 2, new ItemStack(titleIcon, 1, 4096), achievements.get("tconstruct.pattern")).registerAchievement());
-    	achievements.put("tconstruct.preparedFight", new Achievement(2004, "tconstruct.preparedFight", 1, 3, new ItemStack(titleIcon, 1, 4097), achievements.get("tconstruct.tinkerer")).registerAchievement());
-    	achievements.put("tconstruct.proTinkerer", new Achievement(2005, "tconstruct.proTinkerer", 4, 4, new ItemStack(titleIcon, 1, 4098), achievements.get("tconstruct.tinkerer")).setSpecial().registerAchievement());
-    	achievements.put("tconstruct.smelteryMaker", new Achievement(2006, "tconstruct.smelteryMaker", -2, -1, smeltery, achievements.get("tconstruct.beginner")).registerAchievement());
-    	achievements.put("tconstruct.enemySlayer", new Achievement(2007, "tconstruct.enemySlayer", 0, 5, new ItemStack(titleIcon, 1, 4099), achievements.get("tconstruct.preparedFight")).registerAchievement());
-    	achievements.put("tconstruct.dualConvenience", new Achievement(2008, "tconstruct.dualConvenience", 0, 7, new ItemStack(titleIcon, 1, 4100), achievements.get("tconstruct.enemySlayer")).setSpecial().registerAchievement());
+
+    public void addAchievements ()
+    {
+        HashMap<String, Achievement> achievements = TAchievements.achievements;
+
+        achievements.put("tconstruct.beginner", new Achievement(2001, "tconstruct.beginner", 0, 0, manualBook, null).setIndependent().registerAchievement());
+        achievements.put("tconstruct.pattern", new Achievement(2002, "tconstruct.pattern", 2, 1, blankPattern, achievements.get("tconstruct.beginner")).registerAchievement());
+        achievements.put("tconstruct.tinkerer", new Achievement(2003, "tconstruct.tinkerer", 2, 2, new ItemStack(titleIcon, 1, 4096), achievements.get("tconstruct.pattern")).registerAchievement());
+        achievements.put("tconstruct.preparedFight",
+                new Achievement(2004, "tconstruct.preparedFight", 1, 3, new ItemStack(titleIcon, 1, 4097), achievements.get("tconstruct.tinkerer")).registerAchievement());
+        achievements.put("tconstruct.proTinkerer", new Achievement(2005, "tconstruct.proTinkerer", 4, 4, new ItemStack(titleIcon, 1, 4098), achievements.get("tconstruct.tinkerer")).setSpecial()
+                .registerAchievement());
+        achievements.put("tconstruct.smelteryMaker", new Achievement(2006, "tconstruct.smelteryMaker", -2, -1, smeltery, achievements.get("tconstruct.beginner")).registerAchievement());
+        achievements.put("tconstruct.enemySlayer",
+                new Achievement(2007, "tconstruct.enemySlayer", 0, 5, new ItemStack(titleIcon, 1, 4099), achievements.get("tconstruct.preparedFight")).registerAchievement());
+        achievements.put("tconstruct.dualConvenience", new Achievement(2008, "tconstruct.dualConvenience", 0, 7, new ItemStack(titleIcon, 1, 4100), achievements.get("tconstruct.enemySlayer"))
+                .setSpecial().registerAchievement());
     }
 }
