@@ -1187,7 +1187,7 @@ public class TContent implements IFuelHandler
         // Silky Jewel Recipes
         GameRegistry.addRecipe(new ItemStack(materials, 1, 26), " c ", "cec", " c ", 'c', new ItemStack(materials, 1, 25), 'e', new ItemStack(Item.emerald));
         // Ender Stuff
-        GameRegistry.addRecipe(new ItemStack(Item.enderPearl, 9), "m", 'm', new ItemStack(metalBlock.blockID, 1, 10));
+        GameRegistry.addRecipe(new ItemStack(Item.enderPearl, 4), "m", 'm', new ItemStack(metalBlock.blockID, 1, 10));
         // Wooden Armor Recipes
         GameRegistry.addRecipe(new ShapedOreRecipe(helmetWood, new Object[] { "www", "w w", 'w', "logWood" }));
         GameRegistry.addRecipe(new ShapedOreRecipe(chestplateWood, new Object[] { "w w", "www", "www", 'w', "logWood" }));
@@ -1641,7 +1641,7 @@ public class TContent implements IFuelHandler
 
         basinCasting.addCastingRecipe(new ItemStack(speedBlock, 1, 0), new FluidStack(moltenTinFluid, TConstruct.nuggetLiquidValue), new ItemStack(Block.gravel), true, 100); //brownstone
         basinCasting.addCastingRecipe(new ItemStack(Block.whiteStone), new FluidStack(moltenEnderFluid, TConstruct.chunkLiquidValue), new ItemStack(Block.obsidian), true, 100); //endstone
-        basinCasting.addCastingRecipe(new ItemStack(metalBlock.blockID, 1, 10), new FluidStack(moltenEnderFluid, TConstruct.blockLiquidValue), null, true, 100); //ender
+        basinCasting.addCastingRecipe(new ItemStack(metalBlock.blockID, 1, 10), new FluidStack(moltenEnderFluid, 1000), null, true, 100); //ender
 
         // basinCasting.addCastingRecipe(new ItemStack(slimeGel, 1, 0), new FluidStack(blueSlimeFluid, FluidContainerRegistry.BUCKET_VOLUME), null, true, 100);
 
