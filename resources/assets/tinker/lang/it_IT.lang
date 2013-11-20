@@ -3,7 +3,7 @@ itemGroup.TConstructMaterials=TConstruct Materiali
 itemGroup.TConstructBlocks=TConstruct Blocchi
 
 crafters.ToolStation=Tavolo degli Attrezzi
-crafters.ToolForge=Forgia degli Attrezzi
+crafters.ToolForge=Forgia
 crafters.PartBuilder=Costruttore di Parti
 crafters.PatternShaper=Tavolo dei Modelli
 inventory.PatternChest=Cassa dei Modelli
@@ -239,6 +239,8 @@ item.tconstruct.Materials.ManyullynNugget.name=Pepita di Manyullyn
 item.tconstruct.Materials.BronzeNugget.name=Pepita di Bronzo
 item.tconstruct.Materials.AlumiteNugget.name=Pepita di Alumite
 item.tconstruct.Materials.SteelNugget.name=Pepita d'Acciaio
+item.tconstruct.Materials.PigIronIngot.name=Lingotto di Ferro Suino
+item.tconstruct.Materials.PigIronNugget.name=Piatto di Ferro Suino
 
 item.tconstruct.helmetWood.name=Elmo di Legno
 item.tconstruct.chestplateWood.name=Corazza di Legno
@@ -408,6 +410,7 @@ item.tconstruct.bucket.Invar.name=Secchio di Invaro Fuso
 item.tconstruct.bucket.Electrum.name=Secchio di Elettro Fuso
 item.tconstruct.bucket.Ender.name=Secchio di Ender Liquefatto
 item.tconstruct.bucket.Slime.name=Secchio di Slime Liquido
+item.tconstruct.bucket.PigIron.name==Secchio di Ferro Suino Fuso
 
 item.tconstruct.bowstring.string.name=Corda d'Arco
 item.tconstruct.bowstring.enchantedfabriI donc.name=Corda d'Arco Incantato
@@ -509,6 +512,7 @@ parttype.alumite=di Alumite
 parttype.steel=d'Acciaio
 parttype.blueslime=di Slime
 parttype.thaumium=di Taumio
+parttype.pigiron=di Ferro Suino
 
 toolpart.ToolRod=Manico %%material
 toolpart.PickHead=Testa di Piccone %%material
@@ -562,7 +566,7 @@ fluid.invar=Invaro Fuso
 fluid.electrum.molten=Elettro Fuso
 fluid.ender=Ender Liquido
 fluid.slime.blue=Slime Blu Liquido
-
+fluid.pigiron.molten=Ferro Suino Fuso
 
 tconstruct.achievementPage.name=TConstruct
 achievement.tconstruct.beginner=Imparare a Armeggiare
