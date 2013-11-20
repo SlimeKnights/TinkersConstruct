@@ -461,7 +461,8 @@ public class TEventHandler
         if (cause != null && cause instanceof EntityPlayer)
         {
             EntityPlayer murderer = (EntityPlayer) cause;
-            if (murderer.getHeldItem().getItem() instanceof Weapon)
+            ItemStack stack = murderer.getHeldItem();
+            if (stack != null && stack.getItem() instanceof Weapon)
             {
                 murderer.addStat(TAchievements.achievements.get("tconstruct.enemySlayer"), 1);
             }
