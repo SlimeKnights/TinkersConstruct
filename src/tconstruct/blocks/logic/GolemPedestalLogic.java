@@ -1,13 +1,13 @@
 package tconstruct.blocks.logic;
 
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.src.ModLoader;
 import net.minecraft.tileentity.TileEntity;
 import tconstruct.TConstruct;
 
@@ -194,8 +194,8 @@ public class GolemPedestalLogic extends TileEntity implements IInventory
         TConstruct.logger.info("SUBTRACT WHY");
         if (supply == null || supply.itemID >= 512 || cost[supply.itemID] == 0)
         {
-            worldObj.playSoundAtEntity(ModLoader.getMinecraftInstance().thePlayer, "mob.blaze.death", 1.0F, 0.5F);
-            ModLoader.getMinecraftInstance().thePlayer.addChatMessage("I require more souls...");
+            worldObj.playSoundAtEntity(Minecraft.getMinecraft().thePlayer, "mob.blaze.death", 1.0F, 0.5F);
+            Minecraft.getMinecraft().thePlayer.addChatMessage("I require more souls...");
             return false;
         }
         int j = cost[supply.itemID];
@@ -205,8 +205,8 @@ public class GolemPedestalLogic extends TileEntity implements IInventory
                 .append(supply.itemID).append(" sa").append(l).append(" calc").append(Math.ceil((double) i / (double) k)).toString());
         if (l < i)
         {
-            worldObj.playSoundAtEntity(ModLoader.getMinecraftInstance().thePlayer, "mob.blaze.death", 1.0F, 0.5F);
-            ModLoader.getMinecraftInstance().thePlayer.addChatMessage("I need more souls...");
+            worldObj.playSoundAtEntity(Minecraft.getMinecraft().thePlayer, "mob.blaze.death", 1.0F, 0.5F);
+            Minecraft.getMinecraft().thePlayer.addChatMessage("I need more souls...");
             return false;
         }
         supply.stackSize -= Math.ceil((double) i / (double) k) * (double) j;
