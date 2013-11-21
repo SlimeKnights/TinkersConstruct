@@ -18,6 +18,7 @@ import net.minecraft.world.World;
 import tconstruct.client.TProxyClient;
 import tconstruct.entity.BlueSlime;
 import tconstruct.library.tools.ToolCore;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -26,10 +27,10 @@ public class TitleIcon extends Item
     int[] primaryColor = { 0x66BBE8, 0x66BBE8 };
     int[] secondaryColor = { 0x1567BF, 0xFFEC6E };
     String[] mobNames = { "TConstruct.EdibleSlime", "TConstruct.KingSlime" };
-    
-    String[] achievementIconNames = new String[] {"tinkerer", "preparedFight", "proTinkerer", "enemySlayer", "dualConvenience"};
+
+    String[] achievementIconNames = new String[] { "tinkerer", "preparedFight", "proTinkerer", "enemySlayer", "dualConvenience" };
     Icon[] achievementIcons = new Icon[achievementIconNames.length];
-    
+
     public TitleIcon(int par1)
     {
         super(par1);
@@ -42,8 +43,9 @@ public class TitleIcon extends Item
         ToolCore.blankSprite = iconRegister.registerIcon("tinker:blanksprite");
         TProxyClient.metalBall = iconRegister.registerIcon("tinker:metalball");
         itemIcon = iconRegister.registerIcon("tinker:tparts");
-        for(int i = 0; i < achievementIcons.length; i++){
-        	achievementIcons[i] = iconRegister.registerIcon("tinker:achievementIcons/" + (i < achievementIconNames.length ? achievementIconNames[i] : ""));
+        for (int i = 0; i < achievementIcons.length; i++)
+        {
+            achievementIcons[i] = iconRegister.registerIcon("tinker:achievementIcons/" + (i < achievementIconNames.length ? achievementIconNames[i] : ""));
         }
     }
 
@@ -58,23 +60,26 @@ public class TitleIcon extends Item
     {
         if (par1 == 255)
             return itemIcon;
-        if (par1 >= 4096){
-        	return getIconFromDamage(par1);
+        if (par1 >= 4096)
+        {
+            return getIconFromDamage(par1);
         }
         return Item.monsterPlacer.getIconFromDamageForRenderPass(par1, par2);
     }
-    
+
     @SideOnly(Side.CLIENT)
     public Icon getIconFromDamage (int par1)
     {
-    	if(par1 >= 4096){
-	    	int index = par1 - 4096;
-	    	if(index < achievementIcons.length){
-	    		return achievementIcons[index];
-	    	}
-    	}
-    	//Not returning null to prevent crashes
-    	return itemIcon;
+        if (par1 >= 4096)
+        {
+            int index = par1 - 4096;
+            if (index < achievementIcons.length)
+            {
+                return achievementIcons[index];
+            }
+        }
+        //Not returning null to prevent crashes
+        return itemIcon;
     }
 
     @Override
@@ -105,7 +110,7 @@ public class TitleIcon extends Item
         if (damage == 255)
             return 0xffffff;
         if (damage >= 4096)
-        	return 0xffffff;
+            return 0xffffff;
         return pass == 0 ? primaryColor[damage] : secondaryColor[damage];
     }
 
@@ -186,7 +191,8 @@ public class TitleIcon extends Item
         if (!world.isRemote)
         {
             entity.setPosition(x, y, z);
-            entity.setAngles(player.cameraYaw, player.cameraYaw);
+            if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT)
+                entity.setAngles(player.cameraYaw, player.cameraYaw);
             ((EntityLiving) entity).onSpawnWithEgg((EntityLivingData) null);
             world.spawnEntityInWorld(entity);
         }
