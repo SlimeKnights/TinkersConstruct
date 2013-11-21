@@ -1,4 +1,4 @@
-/build/
+#ant stuff
 /bin/
 /download/
 #Remove OS generated garbage
@@ -10,3 +10,6 @@
 Icon?
 ehthumbs.db
 Thumbs.db
+#gradle stuff
+/.gradle
+/build/
