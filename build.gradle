@@ -1,0 +1,72 @@
+/*
+ * Tinkers Construct
+ * Master build file
+ * 
+ * Authors: Sunstrike
+ * Based on the work of AbrarSyed in ForgeEssentials
+ */
+
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            name = 'ForgeFS'
+            url = 'http://files.minecraftforge.net/maven'
+        }
+    }
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:1.0-SNAPSHOT'
+    }
+}
+
+apply plugin: 'forge'
+
+minecraft {
+    version = '1.6.4-9.11.1.964'
+    assetDir = 'run/assets'
+}
+
+allprojects {
+    sourceCompatibility = '1.7'
+    targetCompatibility = '1.7'
+}
+
+subprojects {
+    apply plugin: 'java'
+
+    afterEvaluate {
+        jar {
+            manifest {
+                attributes 'FMLCorePlugin': 'tconstruct.preloader.TConstructLoaderContainer'
+                attributes 'FMLCorePluginContainsFMLMod': 'true'
+            }
+        }
+
+        rootProject.tasks.reobf {
+            reobf(tasks.jar) { spec ->
+                spec.classpath = sourceSets.main.compileClasspath
+            }
+        }
+    }
+
+    repositories {
+        maven {
+            name 'ForgeFS'
+            url 'http://files.minecraftforge.net/maven'
+        }
+        maven {
+            name 'MinecraftS3'
+            url 'http://s3.amazonaws.com/Minecraft.Download/libraries'
+        }
+
+        mavenCentral()
+    }
+
+    jar {
+        destinationDir = new File(rootProject.getBuildDir(), 'libs')
+    }
+
+    dependencies {
+        compile rootProject
+    }
+}
