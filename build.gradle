@@ -2,7 +2,7 @@
  * Tinkers Construct
  * Master build file
  * 
- * Authors: Sunstrike
+ * Authors: Sunstrike, ProgWML6
  * Based on the work of AbrarSyed in ForgeEssentials
  */
 
@@ -13,9 +13,18 @@ buildscript {
             name = 'ForgeFS'
             url = 'http://files.minecraftforge.net/maven'
         }
-    }
+        ivy {
+             artifactPattern "http://files.minecraftforge.net/[module]/[module]-dev-[revision].[ext]"
+        }
+		ivy {
+             artifactPattern "http://www.chickenbones.craftsaddle.org/Files/New_Versions/1.6.4/[module]-dev%20[revision].[ext]"
+        }
+	}
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:1.0-SNAPSHOT'
+		classpath name: 'ForgeMultipart', version: '1.6.4-1.0.0.211', type: 'jar'
+		classpath name: 'CodeChickenLib', version: '1.6.4-1.0.0.44', type: 'jar'
+		classpath name: 'NotEnoughItems', version: '1.6.1.5_d1', type: 'jar'
     }
 }
 
@@ -68,5 +77,12 @@ subprojects {
 
     dependencies {
         compile rootProject
+    }
+	sourceSets {
+         main {
+             resources {
+                 srcDir 'resources'
+             }
+         }
     }
 }
