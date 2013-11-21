@@ -173,7 +173,7 @@
 
         <!-- Copy AT -->
         <mkdir dir="${forge.dir}/accesstransformers"/>
-        <copy todir="${forge.dir}/accesstransformers" file="TConstruct_AT.cfg"/>
+        <copy todir="${forge.dir}/accesstransformers" file="resources/TConstruct_AT.cfg"/>
 
         <!-- Install forge -->
         <exec dir="${forge.dir}" executable="${forge.dir}/fml/python/python_fml" osfamily="windows">
