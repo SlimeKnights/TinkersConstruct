@@ -19,20 +19,38 @@ buildscript {
     }
 }
 
+repositories {
+	ivy {
+		name 'Forge FS legacy'
+		artifactPattern "http://files.minecraftforge.net/[module]/[module]-dev-[revision].[ext]"
+	}
+	ivy {
+		name 'CB FS'
+		artifactPattern "http://www.chickenbones.craftsaddle.org/Files/New_Versions/1.6.4/[module]-dev%20[revision].[ext]"
+	}
+	maven {
+          name 'ForgeFS'
+          url 'http://files.minecraftforge.net/maven'
+     }
+     maven {
+          name 'MinecraftS3'
+          url 'http://s3.amazonaws.com/Minecraft.Download/libraries'
+     }
+}
+
+
 apply plugin: 'forge'
+
+dependencies {
+     compile name: 'ForgeMultipart', version: '1.6.4-1.0.0.211', ext: 'jar'
+     compile name: 'CodeChickenLib', version: '1.6.4-1.0.0.44', ext: 'jar'
+     compile name: 'NotEnoughItems', version: '1.6.1.5_d1', type: 'jar'
+
+}
 
 minecraft {
     version = '1.6.4-9.11.1.964'
     assetDir = 'run/assets'
-}
-
-repositories {
-	ivy {
-		artifactPattern "http://files.minecraftforge.net/[module]/[module]-dev-[revision].[ext]"
-	}
-	ivy {
-		artifactPattern "http://www.chickenbones.craftsaddle.org/Files/New_Versions/1.6.4/[module]-dev%20[revision].[ext]"
-	}
 }
 
 sourceCompatibility = '1.6'
@@ -46,11 +64,6 @@ sourceSets {
 	}
 }
 
-dependencies {
-	compile name: 'ForgeMultipart', version: '1.6.4-1.0.0.211'
-	compile name: 'CodeChickenLib', version: '1.6.4-1.0.0.44'
-	compile name: 'NotEnoughItems', version: '1.6.1.5_d1'
-}
 
 jar {
 	manifest {
@@ -58,3 +71,13 @@ jar {
         attributes 'FMLCorePluginContainsFMLMod': 'true'
 	}
 }
+// because the normal output has been made to be obfuscated
+task deobfJar(type: Jar) {
+        from sourceSets.main.output
+        appendix = 'deobf'
+}
+artifacts {
+        archives deobfJar
+
+}
+
