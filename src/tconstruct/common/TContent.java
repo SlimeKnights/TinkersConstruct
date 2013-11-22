@@ -1643,7 +1643,7 @@ public class TContent implements IFuelHandler
         basinCasting.addCastingRecipe(new ItemStack(clearGlass, 1, 0), new FluidStack(moltenGlassFluid, FluidContainerRegistry.BUCKET_VOLUME), null, true, 100); //glass
         basinCasting.addCastingRecipe(new ItemStack(smeltery, 1, 4), new FluidStack(moltenStoneFluid, TConstruct.ingotLiquidValue), null, true, 100); //seared stone
         basinCasting.addCastingRecipe(new ItemStack(smeltery, 1, 5), new FluidStack(moltenStoneFluid, TConstruct.chunkLiquidValue), new ItemStack(Block.cobblestone), true, 100);
-        basinCasting.addCastingRecipe(new ItemStack(Block.blockEmerald), new FluidStack(moltenEmeraldFluid, 800*9), new ItemStack(Block.cobblestone), true, 100); //emerald
+        basinCasting.addCastingRecipe(new ItemStack(Block.blockEmerald), new FluidStack(moltenEmeraldFluid, 640*9), null, true, 100); //emerald
         basinCasting.addCastingRecipe(new ItemStack(speedBlock, 1, 0), new FluidStack(moltenTinFluid, TConstruct.nuggetLiquidValue), new ItemStack(Block.gravel), true, 100); //brownstone
         basinCasting.addCastingRecipe(new ItemStack(Block.whiteStone), new FluidStack(moltenEnderFluid, TConstruct.chunkLiquidValue), new ItemStack(Block.obsidian), true, 100); //endstone
         basinCasting.addCastingRecipe(new ItemStack(metalBlock.blockID, 1, 10), new FluidStack(moltenEnderFluid, 1000), null, true, 100); //ender
@@ -1674,7 +1674,7 @@ public class TContent implements IFuelHandler
         Smeltery.addAlloyMixing(new FluidStack(moltenManyullynFluid, TConstruct.ingotLiquidValue * PHConstruct.ingotsManyullynAlloy), new FluidStack(moltenCobaltFluid, TConstruct.ingotLiquidValue),
                 new FluidStack(moltenArditeFluid, TConstruct.ingotLiquidValue)); //Manyullyn
         Smeltery.addAlloyMixing(new FluidStack(pigIronFluid, TConstruct.ingotLiquidValue * PHConstruct.ingotsPigironAlloy), new FluidStack(moltenIronFluid, TConstruct.ingotLiquidValue),
-                new FluidStack(moltenEmeraldFluid, 160), new FluidStack(bloodFluid, 80)); //Pigiron 
+                new FluidStack(moltenEmeraldFluid, 640), new FluidStack(bloodFluid, 80)); //Pigiron 
 
         // Stone parts
         for (int sc = 0; sc < patternOutputs.length; sc++)
@@ -1736,7 +1736,7 @@ public class TContent implements IFuelHandler
         Smeltery.addMelting(Block.thinGlass, 0, 625, new FluidStack(moltenGlassFluid, 250));
         Smeltery.addMelting(Block.stone, 0, 800, new FluidStack(moltenStoneFluid, TConstruct.ingotLiquidValue / 18));
         Smeltery.addMelting(Block.cobblestone, 0, 800, new FluidStack(moltenStoneFluid, TConstruct.ingotLiquidValue / 18));
-        Smeltery.addMelting(Block.blockEmerald, 0, 800, new FluidStack(moltenEmeraldFluid, 800*9));
+        Smeltery.addMelting(Block.blockEmerald, 0, 800, new FluidStack(moltenEmeraldFluid, 640*9));
 
         Smeltery.addMelting(clearGlass, 0, 500, new FluidStack(moltenGlassFluid, 1000));
         Smeltery.addMelting(glassPane, 0, 350, new FluidStack(moltenGlassFluid, 250));
