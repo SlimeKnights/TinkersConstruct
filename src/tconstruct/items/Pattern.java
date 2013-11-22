@@ -5,6 +5,7 @@ import java.util.List;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.PatternBuilder.MaterialSet;
 import tconstruct.library.util.IPattern;
@@ -69,9 +70,9 @@ public class Pattern extends CraftingItem implements IPattern
         if (cost > 0)
         {
             if (cost - (int) cost < 0.1)
-                list.add("Material Cost: " + (int) cost);
+                list.add(StatCollector.translateToLocal("pattern1.tooltip") + (int) cost);
             else
-                list.add("Material Cost: " + cost);
+                list.add(StatCollector.translateToLocal("pattern2.tooltip") + cost);
         }
     }
 

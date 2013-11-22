@@ -8,6 +8,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.StatCollector;
 
 public class CraftedSoilItemBlock extends ItemBlock
 {
@@ -40,10 +41,10 @@ public class CraftedSoilItemBlock extends ItemBlock
         switch (stack.getItemDamage())
         {
         case 3:
-            list.add("Heals Undead");
+            list.add(StatCollector.translateToLocal("craftedsoil1.tooltip"));
             break;
         case 4:
-            list.add("Harmful to Undead");
+            list.add(StatCollector.translateToLocal("craftedsoil2.tooltip"));
             break;
         }
     }
