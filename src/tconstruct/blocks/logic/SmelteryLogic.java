@@ -9,6 +9,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityEnderman;
+import net.minecraft.entity.monster.EntityIronGolem;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -313,11 +314,11 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                 if (o instanceof EntityVillager)
                 {
                     EntityVillager villager = (EntityVillager) o;
-                    if (villager.attackEntityFrom(new SmelteryDamageSource(), 1))
+                    if (villager.attackEntityFrom(new SmelteryDamageSource(), 5))
                     {
-                        if (currentLiquid + 8 < maxLiquid)
+                        if (currentLiquid + 40 < maxLiquid)
                         {
-                            int amount = villager.isChild() ? 1 : 8;
+                            int amount = villager.isChild() ? 5 : 40;
                             this.fill(new FluidStack(TContent.moltenEmeraldFluid, amount), true);
                         }
                     }
@@ -325,22 +326,33 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                 else if (o instanceof EntityEnderman)
                 {
                     EntityEnderman villager = (EntityEnderman) o;
-                    if (villager.attackEntityFrom(new SmelteryDamageSource(), 1))
+                    if (villager.attackEntityFrom(new SmelteryDamageSource(), 5))
                     {
-                        if (currentLiquid + 25 < maxLiquid)
+                        if (currentLiquid + 125 < maxLiquid)
                         {
-                            this.fill(new FluidStack(TContent.moltenEnderFluid, 25), true);
+                            this.fill(new FluidStack(TContent.moltenEnderFluid, 125), true);
+                        }
+                    }
+                }
+                else if (o instanceof EntityIronGolem)
+                {
+                    EntityIronGolem golem = (EntityIronGolem) o;
+                    if (golem.attackEntityFrom(new SmelteryDamageSource(), 5))
+                    {
+                        if (currentLiquid + 40 < maxLiquid)
+                        {
+                            this.fill(new FluidStack(TContent.moltenIronFluid, 40), true);
                         }
                     }
                 }
                 else if (o instanceof EntityLivingBase)
                 {
                     EntityLivingBase living = (EntityLivingBase) o;
-                    if (living.attackEntityFrom(new SmelteryDamageSource(), 1))
+                    if (living.attackEntityFrom(new SmelteryDamageSource(), 5))
                     {
-                        if (currentLiquid + 8 < maxLiquid)
+                        if (currentLiquid + 40 < maxLiquid)
                         {
-                            int amount = (living.isChild() || living instanceof EntityPlayer) ? 1 : 8;
+                            int amount = (living.isChild() || living instanceof EntityPlayer) ? 5 : 40;
                             this.fill(new FluidStack(TContent.bloodFluid, amount), true);
                         }
                     }

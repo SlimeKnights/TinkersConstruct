@@ -42,13 +42,6 @@ public class EnvironmentChecks
             modIds.add("optifine");
         }
 
-        // Removed for now. Message delivered.
-        /*if (Loader.isModLoaded("DragonAPI"))
-        {
-            TConstruct.logger.severe("[Environment Checks] DragonAPI detected. Currently this just logs a warning, however if Reika continues his plan to implement DRM-like");
-            TConstruct.logger.severe("[Environment Checks] code in his mod then it may become marked as fully unsupported. This is just a warning at this stage.");
-        }*/
-
         try
         {
             Class cl = Class.forName("org.bukkit.Bukkit");

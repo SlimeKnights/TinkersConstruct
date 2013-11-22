@@ -204,6 +204,7 @@ item.tconstruct.MetalPattern.bowstring.name=Bowstring Cast
 item.tconstruct.MetalPattern.fletching.name=Fletching Cast
 item.tconstruct.MetalPattern.arrowhead.name=Arrowhead Cast
 item.tconstruct.MetalPattern.ingot.name=Ingot Cast
+item.tconstruct.MetalPattern.gem.name=Gem Cast
 
 item.tconstruct.Materials.PaperStack.name=Paper Stack
 item.tconstruct.Materials.SlimeCrystal.name=Slime Crystal
