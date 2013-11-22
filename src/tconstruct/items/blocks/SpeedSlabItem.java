@@ -34,8 +34,8 @@ public class SpeedSlabItem extends ItemBlock
     {
         int metadata = stack.getItemDamage() % 8;
         if (metadata == 1 || metadata == 4)
-            list.add("You run pretty fast on it");
+            list.add(StatCollector.translateToLocal("speedblock.slab1.tooltip"));
         else
-            list.add("You run a bit faster on it");
+            list.add(StatCollector.translateToLocal("speedblock.slab2.tooltip"));
     }
 }
