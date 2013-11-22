@@ -204,6 +204,7 @@ item.tconstruct.MetalPattern.bowstring.name=Stampo per Corda d'Arco
 item.tconstruct.MetalPattern.fletching.name=Stampo per Testa di Freccia
 item.tconstruct.MetalPattern.arrowhead.name=Stampo per Impennaggio
 item.tconstruct.MetalPattern.ingot.name=Stampo per Lingotti
+item.tconstruct.MetalPattern.gem.name=Stampo per Gemma
 
 item.tconstruct.Materials.PaperStack.name=Pila di Carta
 item.tconstruct.Materials.SlimeCrystal.name=Cristallo di Slime
