@@ -7,6 +7,7 @@ import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import net.minecraft.util.StatCollector;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -27,22 +28,22 @@ public class OreBerries extends CraftingItem
         switch (stack.getItemDamage())
         {
         case 0:
-            list.add("Sweet Irony");
+            list.add(StatCollector.translateToLocal("oreberries1.tooltip");
             break;
         case 1:
-            list.add("Pure Luster");
+            list.add(StatCollector.translateToLocal("oreberries2.tooltip");
             break;
         case 2:
-            list.add("Tastes like metal");
+            list.add(StatCollector.translateToLocal("oreberries3.tooltip");
             break;
         case 3:
-            list.add("Tin Man");
+            list.add(StatCollector.translateToLocal("oreberries4.tooltip");
             break;
         case 4:
-            list.add("White Chocolate");
+            list.add(StatCollector.translateToLocal("oreberries5.tooltip");
             break;
         case 5:
-            list.add("Tastes like Creeper");
+            list.add(StatCollector.translateToLocal("oreberries6.tooltip");
             break;
         }
     }
