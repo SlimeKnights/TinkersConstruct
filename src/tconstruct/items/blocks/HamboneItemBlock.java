@@ -39,8 +39,8 @@ public class HamboneItemBlock extends ItemBlock
     @SideOnly(Side.CLIENT)
     public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean par4)
     {
-        list.add(StatCollector.translateToLocal("metalblock1.tooltip"));
-        list.add(StatCollector.translateToLocal("metalblock2.tooltip"));
+        list.add(StatCollector.translateToLocal("hambone1.tooltip"));
+        list.add(StatCollector.translateToLocal("hambone2.tooltip"));
     }
 
     /** Number of ticks to run while 'EnumAction'ing until result. */
