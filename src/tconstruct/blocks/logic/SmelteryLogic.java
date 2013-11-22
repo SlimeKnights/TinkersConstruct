@@ -964,7 +964,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
             }
             else
             {
-                if (doDrain)
+                if (doDrain && maxDrain > 0)
                 {
                     liquid.amount -= maxDrain;
                     worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
@@ -989,7 +989,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                 resource.amount = maxLiquid - currentLiquid;
             int amount = resource.amount;
 
-            if (doFill)
+            if (amount > 0 && doFill)
             {
                 if (addMoltenMetal(resource, false))
                 {
