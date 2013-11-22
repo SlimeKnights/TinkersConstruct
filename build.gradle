@@ -1,9 +1,9 @@
-/*
+*
  * Tinkers Construct
  * Master build file
  * 
  * Authors: Sunstrike, ProgWML6
- * Based on the work of AbrarSyed in ForgeEssentials
+ * Help from AbrarSyed
  */
 
 buildscript {
@@ -13,18 +13,9 @@ buildscript {
             name = 'ForgeFS'
             url = 'http://files.minecraftforge.net/maven'
         }
-        ivy {
-             artifactPattern "http://files.minecraftforge.net/[module]/[module]-dev-[revision].[ext]"
-        }
-		ivy {
-             artifactPattern "http://www.chickenbones.craftsaddle.org/Files/New_Versions/1.6.4/[module]-dev%20[revision].[ext]"
-        }
 	}
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:1.0-SNAPSHOT'
-		classpath name: 'ForgeMultipart', version: '1.6.4-1.0.0.211', type: 'jar'
-		classpath name: 'CodeChickenLib', version: '1.6.4-1.0.0.44', type: 'jar'
-		classpath name: 'NotEnoughItems', version: '1.6.1.5_d1', type: 'jar'
     }
 }
 
@@ -35,54 +26,35 @@ minecraft {
     assetDir = 'run/assets'
 }
 
-allprojects {
-    sourceCompatibility = '1.6'
-    targetCompatibility = '1.6'
+repositories {
+	ivy {
+		artifactPattern "http://files.minecraftforge.net/[module]/[module]-dev-[revision].[ext]"
+	}
+	ivy {
+		artifactPattern "http://www.chickenbones.craftsaddle.org/Files/New_Versions/1.6.4/[module]-dev%20[revision].[ext]"
+	}
 }
 
-subprojects {
-    apply plugin: 'java'
+sourceCompatibility = '1.6'
+targetCompatibility = '1.6'
 
-    afterEvaluate {
-        jar {
-            manifest {
-                attributes 'FMLCorePlugin': 'tconstruct.preloader.TConstructLoaderContainer'
-                attributes 'FMLCorePluginContainsFMLMod': 'true'
-            }
-        }
+sourceSets {
+	main {
+		resources {
+			srcDir 'resources'
+		}
+	}
+}
 
-        rootProject.tasks.reobf {
-            reobf(tasks.jar) { spec ->
-                spec.classpath = sourceSets.main.compileClasspath
-            }
-        }
-    }
+dependencies {
+	compile name: 'ForgeMultipart', version: '1.6.4-1.0.0.211'
+	compile name: 'CodeChickenLib', version: '1.6.4-1.0.0.44'
+	compile name: 'NotEnoughItems', version: '1.6.1.5_d1'
+}
 
-    repositories {
-        maven {
-            name 'ForgeFS'
-            url 'http://files.minecraftforge.net/maven'
-        }
-        maven {
-            name 'MinecraftS3'
-            url 'http://s3.amazonaws.com/Minecraft.Download/libraries'
-        }
-
-        mavenCentral()
-    }
-
-    jar {
-        destinationDir = new File(rootProject.getBuildDir(), 'libs')
-    }
-
-    dependencies {
-        compile rootProject
-    }
-	sourceSets {
-         main {
-             resources {
-                 srcDir 'resources'
-             }
-         }
-    }
+jar {
+	manifest {
+		attributes 'FMLCorePlugin': 'tconstruct.preloader.TConstructLoaderContainer'
+        attributes 'FMLCorePluginContainsFMLMod': 'true'
+	}
 }
