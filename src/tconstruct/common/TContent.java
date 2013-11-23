@@ -613,7 +613,7 @@ public class TContent implements IFuelHandler
         bloodFluid = new Fluid("blood");
         if (!FluidRegistry.registerFluid(bloodFluid))
             bloodFluid = FluidRegistry.getFluid("blood");
-        blood = new TConstructFluid(PHConstruct.blood, bloodFluid, Material.water, "liquid_cow").setUnlocalizedName("liquid.blood");
+        blood = new BloodBlock(PHConstruct.blood, bloodFluid, Material.water, "liquid_cow").setUnlocalizedName("liquid.blood");
         GameRegistry.registerBlock(blood, "liquid.blood");
         fluids[16] = bloodFluid;
         fluidBlocks[16] = blood;
@@ -815,9 +815,9 @@ public class TContent implements IFuelHandler
         materials = new MaterialItem(PHConstruct.materials).setUnlocalizedName("tconstruct.Materials");
         toolRod = new ToolPart(PHConstruct.toolRod, "_rod", "ToolRod").setUnlocalizedName("tconstruct.ToolRod");
         toolShard = new ToolShard(PHConstruct.toolShard, "_chunk").setUnlocalizedName("tconstruct.ToolShard");
-        woodPattern = new Pattern(PHConstruct.woodPattern, "WoodPattern", "pattern_", "materials/").setUnlocalizedName("tconstruct.Pattern");
-        metalPattern = new MetalPattern(PHConstruct.metalPattern, "MetalPattern", "cast_", "materials/").setUnlocalizedName("tconstruct.MetalPattern");
-        armorPattern = new ArmorPattern(PHConstruct.armorPattern, "ArmorPattern", "armorcast_", "materials/").setUnlocalizedName("tconstruct.ArmorPattern");
+        woodPattern = new Pattern(PHConstruct.woodPattern, "pattern_", "materials/").setUnlocalizedName("tconstruct.Pattern");
+        metalPattern = new MetalPattern(PHConstruct.metalPattern, "cast_", "materials/").setUnlocalizedName("tconstruct.MetalPattern");
+        armorPattern = new ArmorPattern(PHConstruct.armorPattern, "armorcast_", "materials/").setUnlocalizedName("tconstruct.ArmorPattern");
         GameRegistry.registerItem(materials, "materials");
         GameRegistry.registerItem(woodPattern, "woodPattern");
         GameRegistry.registerItem(metalPattern, "metalPattern");
@@ -1021,7 +1021,7 @@ public class TContent implements IFuelHandler
         TConstructRegistry.addToolMaterial(15, "Alumite", 4, 550, 800, 3, 1.3F, 2, 0f, "\u00A7d", "");
         TConstructRegistry.addToolMaterial(16, "Steel", 4, 750, 800, 3, 1.3F, 2, 0f, "", "");
         TConstructRegistry.addToolMaterial(17, "BlueSlime", "Slime ", 0, 1200, 150, 0, 2.0F, 0, 0f, "\u00A7b", "");
-        TConstructRegistry.addToolMaterial(18, "PigIron", "Pig Iron ", 3, 150, 600, 2, 1.1F, 1, 0f, "\u00A7c", "Tasty");
+        TConstructRegistry.addToolMaterial(18, "PigIron", "Pig Iron ", 3, 250, 600, 2, 1.3F, 1, 0f, "\u00A7c", "Tasty");
 
         TConstructRegistry.addBowMaterial(0, 384, 20, 1.0f); //Wood
         TConstructRegistry.addBowMaterial(1, 10, 80, 0.2f); //Stone
@@ -1368,7 +1368,6 @@ public class TContent implements IFuelHandler
             GameRegistry.addShapelessRecipe(new ItemStack(Block.cloth, 1, sc), new ItemStack(woolSlab1, 1, sc), new ItemStack(woolSlab1, 1, sc));
             GameRegistry.addShapelessRecipe(new ItemStack(Block.cloth, 1, sc + 8), new ItemStack(woolSlab2, 1, sc), new ItemStack(woolSlab2, 1, sc));
         }
-        GameRegistry.addRecipe(new ItemStack(woolSlab1, 6, 0), "www", 'w', new ItemStack(Block.cloth, 1, Short.MAX_VALUE));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Block.cloth, 1, 0), "slabCloth", "slabCloth"));
         //Trap Recipes
         GameRegistry.addRecipe(new ItemStack(punji, 5, 0), "b b", " b ", "b b", 'b', new ItemStack(Item.reed));
@@ -1440,7 +1439,7 @@ public class TContent implements IFuelHandler
     {
         /* Tools */
         patternOutputs = new Item[] { toolRod, pickaxeHead, shovelHead, hatchetHead, swordBlade, wideGuard, handGuard, crossbar, binding, frypanHead, signHead, knifeBlade, chiselHead, toughRod,
-                toughBinding, largePlate, broadAxeHead, scytheBlade, excavatorHead, largeSwordBlade, hammerHead, fullGuard, null, null, arrowhead };
+                toughBinding, largePlate, broadAxeHead, scytheBlade, excavatorHead, largeSwordBlade, hammerHead, fullGuard, null, null, arrowhead, null };
 
         int[] nonMetals = { 0, 1, 3, 4, 5, 6, 7, 8, 9, 17 };
 
@@ -1568,13 +1567,19 @@ public class TContent implements IFuelHandler
     {
         /* Smeltery */
         ItemStack ingotcast = new ItemStack(metalPattern, 1, 0);
+        ItemStack gemcast = new ItemStack(metalPattern, 1, 26);
         LiquidCasting tableCasting = TConstructRegistry.instance.getTableCasting();
         //Blank
         tableCasting.addCastingRecipe(new ItemStack(blankPattern, 1, 1), new FluidStack(moltenAlubrassFluid, TConstruct.ingotLiquidValue), 80);
         tableCasting.addCastingRecipe(new ItemStack(blankPattern, 1, 2), new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 2), 80);
+        tableCasting.addCastingRecipe(gemcast, new FluidStack(moltenAlubrassFluid, TConstruct.ingotLiquidValue), new ItemStack(Item.emerald), 80);
+        tableCasting.addCastingRecipe(gemcast, new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 2), new ItemStack(Item.emerald), 80);
 
         //Ingots
         tableCasting.addCastingRecipe(new ItemStack(materials, 1, 2), new FluidStack(moltenStoneFluid, TConstruct.ingotLiquidValue), ingotcast, 80); //stone
+        
+        //Gems
+        tableCasting.addCastingRecipe(new ItemStack(Item.emerald), new FluidStack(moltenEmeraldFluid, 640), gemcast, 80);
 
         //Buckets
         ItemStack bucket = new ItemStack(Item.bucketEmpty);
@@ -1663,7 +1668,7 @@ public class TContent implements IFuelHandler
         basinCasting.addCastingRecipe(new ItemStack(clearGlass, 1, 0), new FluidStack(moltenGlassFluid, FluidContainerRegistry.BUCKET_VOLUME), null, true, 100); //glass
         basinCasting.addCastingRecipe(new ItemStack(smeltery, 1, 4), new FluidStack(moltenStoneFluid, TConstruct.ingotLiquidValue), null, true, 100); //seared stone
         basinCasting.addCastingRecipe(new ItemStack(smeltery, 1, 5), new FluidStack(moltenStoneFluid, TConstruct.chunkLiquidValue), new ItemStack(Block.cobblestone), true, 100);
-
+        basinCasting.addCastingRecipe(new ItemStack(Block.blockEmerald), new FluidStack(moltenEmeraldFluid, 640*9), null, true, 100); //emerald
         basinCasting.addCastingRecipe(new ItemStack(speedBlock, 1, 0), new FluidStack(moltenTinFluid, TConstruct.nuggetLiquidValue), new ItemStack(Block.gravel), true, 100); //brownstone
         basinCasting.addCastingRecipe(new ItemStack(Block.whiteStone), new FluidStack(moltenEnderFluid, TConstruct.chunkLiquidValue), new ItemStack(Block.obsidian), true, 100); //endstone
         basinCasting.addCastingRecipe(new ItemStack(metalBlock.blockID, 1, 10), new FluidStack(moltenEnderFluid, 1000), null, true, 100); //ender
@@ -1694,7 +1699,7 @@ public class TContent implements IFuelHandler
         Smeltery.addAlloyMixing(new FluidStack(moltenManyullynFluid, TConstruct.ingotLiquidValue * PHConstruct.ingotsManyullynAlloy), new FluidStack(moltenCobaltFluid, TConstruct.ingotLiquidValue),
                 new FluidStack(moltenArditeFluid, TConstruct.ingotLiquidValue)); //Manyullyn
         Smeltery.addAlloyMixing(new FluidStack(pigIronFluid, TConstruct.ingotLiquidValue * PHConstruct.ingotsPigironAlloy), new FluidStack(moltenIronFluid, TConstruct.ingotLiquidValue),
-                new FluidStack(bloodFluid, 400)); //Pigiron 
+                new FluidStack(moltenEmeraldFluid, 640), new FluidStack(bloodFluid, 80)); //Pigiron 
 
         // Stone parts
         for (int sc = 0; sc < patternOutputs.length; sc++)
@@ -1735,6 +1740,7 @@ public class TContent implements IFuelHandler
         Smeltery.addMelting(FluidType.Iron, new ItemStack(Item.doorIron), 0, TConstruct.ingotLiquidValue * 6);
         Smeltery.addMelting(FluidType.Iron, new ItemStack(Item.cauldron), 0, TConstruct.ingotLiquidValue * 7);
         Smeltery.addMelting(FluidType.Iron, new ItemStack(Item.shears), 0, TConstruct.ingotLiquidValue * 2);
+        Smeltery.addMelting(FluidType.Emerald, new ItemStack(Item.emerald), -50, 800);
 
         //Blocks melt as themselves!
         //Ore
@@ -1755,6 +1761,7 @@ public class TContent implements IFuelHandler
         Smeltery.addMelting(Block.thinGlass, 0, 625, new FluidStack(moltenGlassFluid, 250));
         Smeltery.addMelting(Block.stone, 0, 800, new FluidStack(moltenStoneFluid, TConstruct.ingotLiquidValue / 18));
         Smeltery.addMelting(Block.cobblestone, 0, 800, new FluidStack(moltenStoneFluid, TConstruct.ingotLiquidValue / 18));
+        Smeltery.addMelting(Block.blockEmerald, 0, 800, new FluidStack(moltenEmeraldFluid, 640*9));
 
         Smeltery.addMelting(clearGlass, 0, 500, new FluidStack(moltenGlassFluid, 1000));
         Smeltery.addMelting(glassPane, 0, 350, new FluidStack(moltenGlassFluid, 250));
@@ -2000,6 +2007,8 @@ public class TContent implements IFuelHandler
         ensureOreIsRegistered("stoneMossy", new ItemStack(Block.cobblestoneMossy));
 
         ensureOreIsRegistered("crafterWood", new ItemStack(Block.workbench, 1));
+
+        OreDictionary.registerOre("torchStone", new ItemStack(stoneTorch));        
 
         String[] matNames = { "wood", "stone", "iron", "flint", "cactus", "bone", "obsidian", "netherrack", "slime", "paper", "cobalt", "ardite", "manyullyn", "copper", "bronze", "alumite", "steel",
                 "blueslime" };

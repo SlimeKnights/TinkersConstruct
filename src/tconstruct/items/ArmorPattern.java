@@ -16,7 +16,7 @@ public class ArmorPattern extends CraftingItem implements ItemBlocklike
 
     private Icon baseIcon;
 
-    public ArmorPattern(int id, String partType, String patternType, String folder)
+    public ArmorPattern(int id, String patternType, String folder)
     {
         super(id, patternName, getPatternNames(patternType), folder);
         this.setHasSubtypes(true);

@@ -281,7 +281,7 @@ public class SmelteryGui extends NewContainerGui
             list.add("\u00A7f" + name);
             if (name.equals("Liquified Emerald"))
             {
-                list.add("Emeralds: " + liquid.amount / 320f);
+                list.add("Emeralds: " + liquid.amount / 640f);
             }
             else if (name.equals("Molten Glass"))
             {

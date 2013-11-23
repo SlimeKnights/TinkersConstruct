@@ -8,9 +8,9 @@ import net.minecraft.item.ItemStack;
 public class MetalPattern extends Pattern
 {
 
-    public MetalPattern(int id, String partType, String patternType, String folder)
+    public MetalPattern(int id, String patternType, String folder)
     {
-        super(id, partType, patternType, folder);
+        super(id, patternName, getPatternNames(patternType), folder);
     }
 
     protected static String[] getPatternNames (String partType)
@@ -19,11 +19,13 @@ public class MetalPattern extends Pattern
         for (int i = 0; i < patternName.length; i++)
             if (!(patternName[i].equals("")))
                 names[i] = partType + patternName[i];
+            else
+                names[i] = "";
         return names;
     }
 
     private static final String[] patternName = new String[] { "ingot", "rod", "pickaxe", "shovel", "axe", "swordblade", "largeguard", "mediumguard", "crossbar", "binding", "frypan", "sign",
-            "knifeblade", "chisel", "largerod", "toughbinding", "largeplate", "broadaxe", "scythe", "excavator", "largeblade", "hammerhead", "fullguard", "", "", "arrowhead" };
+            "knifeblade", "chisel", "largerod", "toughbinding", "largeplate", "broadaxe", "scythe", "excavator", "largeblade", "hammerhead", "fullguard", "", "", "arrowhead", "gem" };
 
     public void getSubItems (int id, CreativeTabs tab, List list)
     {
