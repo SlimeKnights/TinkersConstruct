@@ -53,7 +53,7 @@ public class SlimeGel extends TConstructBlock
             entity.motionY *= -1.2F;
             if (entity instanceof EntityLivingBase)
             {
-                ((EntityLivingBase) entity).addPotionEffect(new PotionEffect(Potion.jump.id, 1, 4));
+                ((EntityLivingBase) entity).addPotionEffect(new PotionEffect(Potion.jump.id, 1, 2));
             }
         }
         entity.fallDistance = 0;

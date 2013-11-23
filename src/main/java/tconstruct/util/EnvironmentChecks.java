@@ -19,6 +19,7 @@ public class EnvironmentChecks
 
     /**
      * Checks for conflicting stuff in environment; adds callable to any crash logs if so.
+     * Note: This code adds additional data to crashlogs. It does not trigger any crashes.
      */
     public static void verifyEnvironmentSanity ()
     {
@@ -31,6 +32,8 @@ public class EnvironmentChecks
             TConstruct.logger.severe("[Environment Checks]                     For this reason, the TCon dev team urge you to seek your tedium fix from someone else, as Greg disobeys");
             TConstruct.logger.severe("[Environment Checks]                     the basic tenets of good modders conduct. We log this message rather than sabotage. We'd hope he'd do the same.");
             TConstruct.logger.severe("[Environment Checks]                     In the meantime, we recommend not playing anything but IC2 alongside Gregtech. ~ Sunstrike");
+            TConstruct.logger.severe("[Environment Checks] GT Appendum I: And now he's going after Forge Mod Loader too...");
+            TConstruct.logger.severe("[Environment Checks]                http://forum.industrial-craft.net/index.php?page=Thread&postID=138551#post138551 ~ SlimeKnights");
             modIds.add("gregtech_addon");
         }
 
@@ -38,12 +41,6 @@ public class EnvironmentChecks
         {
             TConstruct.logger.severe("[Environment Checks] Optifine detected. This is a Bad Thing(tm) and can crash Minecraft due to an Optifine bug during TCon armor renders!");
             modIds.add("optifine");
-        }
-
-        if (Loader.isModLoaded("DragonAPI"))
-        {
-            TConstruct.logger.severe("[Environment Checks] DragonAPI detected. Currently this just logs a warning, however if Reika continues his plan to implement DRM-like");
-            TConstruct.logger.severe("[Environment Checks] code in his mod then it may become marked as fully unsupported. This is just a warning at this stage.");
         }
 
         try

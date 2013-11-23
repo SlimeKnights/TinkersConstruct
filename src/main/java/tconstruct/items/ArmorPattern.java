@@ -16,7 +16,7 @@ public class ArmorPattern extends CraftingItem implements ItemBlocklike
 
     private Icon baseIcon;
 
-    public ArmorPattern(int id, String partType, String patternType, String folder)
+    public ArmorPattern(int id, String patternType, String folder)
     {
         super(id, patternName, getPatternNames(patternType), folder);
         this.setHasSubtypes(true);
@@ -50,10 +50,10 @@ public class ArmorPattern extends CraftingItem implements ItemBlocklike
 
     public void getSubItems (int id, CreativeTabs tab, List list)
     {
-        for (int i = 0; i < patternName.length; i++)
+        /*for (int i = 0; i < patternName.length; i++)
         {
             list.add(new ItemStack(id, 1, i));
-        }
+        }*/
     }
 
 }

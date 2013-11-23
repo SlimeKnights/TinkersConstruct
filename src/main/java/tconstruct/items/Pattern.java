@@ -11,9 +11,14 @@ import tconstruct.library.util.IPattern;
 
 public class Pattern extends CraftingItem implements IPattern
 {
-    public Pattern(int id, String partType, String patternType, String folder)
+    public Pattern(int id, String patternType, String folder)
     {
-        super(id, patternName, getPatternNames(patternType), folder);
+        this(id, patternName, getPatternNames(patternType), folder);
+    }
+    
+    public Pattern(int id, String[] names, String[] patternTypes, String folder)
+    {
+        super(id, names, patternTypes, folder);
         this.setHasSubtypes(true);
         this.setMaxDamage(0);
         this.setContainerItem(this);
