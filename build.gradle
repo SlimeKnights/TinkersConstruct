@@ -52,9 +52,13 @@ minecraft {
     version = '1.6.4-9.11.1.964'
     assetDir = 'run/assets'
 }
-
-sourceCompatibility = '1.6'
-targetCompatibility = '1.6'
+// sets version to the slimeKnights version format
+task buildInfo {
+    def cmd = "git rev-parse --short HEAD"
+    def proc = cmd.execute()
+    ext.revision = proc.text.trim()
+}
+version = "${minecraft.version}-${System.getenv().BUILD_NUMBER}.${project.buildInfo.revision}"
 
 sourceSets {
 	main {
@@ -62,6 +66,22 @@ sourceSets {
 			srcDir 'resources'
 		}
 	}
+}
+processResources
+{
+        // replace stuff in text files, not binary ones.
+    from(sourceSets.main.resources.srcDirs) {
+        include '**/*.info'
+                // replace version and MCVersion
+                // forge version is also accessible via project.minecraftforgeVersion
+                // it contains the full minecraft version, including buildNumber
+        expand 'version':project.version, 'mcversion':project.minecraft.version
+    }
+        
+        // copy everything else, thats not text
+    from(sourceSets.main.resources.srcDirs) {
+        exclude '**/*.info'
+    }
 }
 
 
