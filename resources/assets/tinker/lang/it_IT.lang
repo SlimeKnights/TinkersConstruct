@@ -118,6 +118,9 @@ tile.cloth.green.slab.name=Lastra di Lana Verde
 tile.cloth.red.slab.name=Lastra di Lana Rossa
 tile.cloth.black.slab.name=Lastra di Lana Nera
 
+tile.GlueBlock.name=Blocco di Colla
+tile.liquid.glue.name=Colla
+
 item.oreberry.iron.name=Baccagrezza di Ferro
 item.oreberry.gold.name=Baccagrezza d'Oro
 item.oreberry.copper.name=Baccagrezza di Rame
@@ -241,6 +244,7 @@ item.tconstruct.Materials.AlumiteNugget.name=Pepita di Alumite
 item.tconstruct.Materials.SteelNugget.name=Pepita d'Acciaio
 item.tconstruct.Materials.PigIronIngot.name=Lingotto di Ferro Suino
 item.tconstruct.Materials.PigIronNugget.name=Piatto di Ferro Suino
+item.tconstruct.Materials.GlueIngot.name=Lingotto di Colla
 
 item.tconstruct.helmetWood.name=Elmo di Legno
 item.tconstruct.chestplateWood.name=Corazza di Legno
@@ -411,6 +415,7 @@ item.tconstruct.bucket.Electrum.name=Secchio di Elettro Fuso
 item.tconstruct.bucket.Ender.name=Secchio di Ender Liquefatto
 item.tconstruct.bucket.Slime.name=Secchio di Slime Liquido
 item.tconstruct.bucket.PigIron.name==Secchio di Ferro Suino Fuso
+item.tconstruct.bucket.Glue.name=Secchio di Colla Appiccicosa
 
 item.tconstruct.bowstring.string.name=Corda d'Arco
 item.tconstruct.bowstring.enchantedfabriI donc.name=Corda d'Arco Incantato
