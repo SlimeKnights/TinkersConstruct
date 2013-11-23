@@ -807,8 +807,10 @@ public class TContent implements IFuelHandler
     void registerItems ()
     {
         titleIcon = new TitleIcon(PHConstruct.uselessItem).setUnlocalizedName("tconstruct.titleicon");
+        GameRegistry.registerItem(titleIcon, "titleIcon");
         String[] blanks = new String[] { "blank_pattern", "blank_cast", "blank_cast" };
         blankPattern = new CraftingItem(PHConstruct.blankPattern, blanks, blanks, "materials/").setUnlocalizedName("tconstruct.Pattern");
+        GameRegistry.registerItem(blankPattern, "blankPattern");
 
         materials = new MaterialItem(PHConstruct.materials).setUnlocalizedName("tconstruct.Materials");
         toolRod = new ToolPart(PHConstruct.toolRod, "_rod", "ToolRod").setUnlocalizedName("tconstruct.ToolRod");
@@ -816,6 +818,10 @@ public class TContent implements IFuelHandler
         woodPattern = new Pattern(PHConstruct.woodPattern, "WoodPattern", "pattern_", "materials/").setUnlocalizedName("tconstruct.Pattern");
         metalPattern = new MetalPattern(PHConstruct.metalPattern, "MetalPattern", "cast_", "materials/").setUnlocalizedName("tconstruct.MetalPattern");
         armorPattern = new ArmorPattern(PHConstruct.armorPattern, "ArmorPattern", "armorcast_", "materials/").setUnlocalizedName("tconstruct.ArmorPattern");
+        GameRegistry.registerItem(materials, "materials");
+        GameRegistry.registerItem(woodPattern, "woodPattern");
+        GameRegistry.registerItem(metalPattern, "metalPattern");
+        GameRegistry.registerItem(armorPattern, "armorPattern");
 
         TConstructRegistry.addItemToDirectory("blankPattern", blankPattern);
         TConstructRegistry.addItemToDirectory("woodPattern", woodPattern);
@@ -840,7 +846,9 @@ public class TContent implements IFuelHandler
         }
 
         manualBook = new Manual(PHConstruct.manual);
+        GameRegistry.registerItem(manualBook, "manualBook");
         buckets = new FilledBucket(PHConstruct.buckets);
+        GameRegistry.registerItem(buckets, "buckets");
 
         pickaxe = new Pickaxe(PHConstruct.pickaxe);
         shovel = new Shovel(PHConstruct.shovel);
@@ -866,16 +874,18 @@ public class TContent implements IFuelHandler
         shortbow = new Shortbow(PHConstruct.shortbow);
         arrow = new Arrow(PHConstruct.arrow);
 
-        Item[] tools = { pickaxe, shovel, hatchet, broadsword, longsword, rapier, cutlass, frypan, battlesign, mattock, chisel, lumberaxe, cleaver, scythe, excavator, hammer, battleaxe };
-        String[] toolStrings = { "pickaxe", "shovel", "hatchet", "broadsword", "longsword", "rapier", "cutlass", "frypan", "battlesign", "mattock", "chisel", "lumberaxe", "cleaver", "scythe",
-                "excavator", "hammer", "battleaxe" };
+        Item[] tools = { pickaxe, shovel, hatchet, broadsword, longsword, rapier, dagger, cutlass, frypan, battlesign, mattock, chisel, lumberaxe, cleaver, scythe, excavator, hammer, battleaxe, shortbow, arrow };
+        String[] toolStrings = { "pickaxe", "shovel", "hatchet", "broadsword", "longsword", "rapier", "dagger", "cutlass", "frypan", "battlesign", "mattock", "chisel", "lumberaxe", "cleaver", "scythe",
+                "excavator", "hammer", "battleaxe", "shortbow", "arrow" };
 
         for (int i = 0; i < tools.length; i++)
         {
+            GameRegistry.registerItem(tools[i], toolStrings[i]); // 1.7 compat
             TConstructRegistry.addItemToDirectory(toolStrings[i], tools[i]);
         }
 
         potionLauncher = new PotionLauncher(PHConstruct.potionLauncher).setUnlocalizedName("tconstruct.PotionLauncher");
+        GameRegistry.registerItem(potionLauncher, "potionLauncher");
 
         pickaxeHead = new ToolPart(PHConstruct.pickaxeHead, "_pickaxe_head", "PickHead").setUnlocalizedName("tconstruct.PickaxeHead");
         shovelHead = new ToolPart(PHConstruct.shovelHead, "_shovel_head", "ShovelHead").setUnlocalizedName("tconstruct.ShovelHead");
@@ -914,14 +924,19 @@ public class TContent implements IFuelHandler
 
         for (int i = 0; i < toolParts.length; i++)
         {
+            GameRegistry.registerItem(toolParts[i], toolPartStrings[i]); // 1.7 compat
             TConstructRegistry.addItemToDirectory(toolPartStrings[i], toolParts[i]);
         }
 
         diamondApple = new DiamondApple(PHConstruct.diamondApple).setUnlocalizedName("tconstruct.apple.diamond");
         strangeFood = new StrangeFood(PHConstruct.slimefood).setUnlocalizedName("tconstruct.strangefood");
         oreBerries = new OreBerries(PHConstruct.oreChunks).setUnlocalizedName("oreberry");
+        GameRegistry.registerItem(diamondApple, "diamondApple");
+        GameRegistry.registerItem(strangeFood, "strangeFood");
+        GameRegistry.registerItem(oreBerries, "oreBerries");
 
         jerky = new Jerky(PHConstruct.jerky, Loader.isModLoaded("HungerOverhaul")).setUnlocalizedName("tconstruct.jerky");
+        GameRegistry.registerItem(jerky, "jerky");
 
         //Wearables
         //heavyHelmet = new TArmorBase(PHConstruct.heavyHelmet, 0).setUnlocalizedName("tconstruct.HeavyHelmet");
@@ -930,6 +945,12 @@ public class TContent implements IFuelHandler
         //glove = new Glove(PHConstruct.glove).setUnlocalizedName("tconstruct.Glove");
         knapsack = new Knapsack(PHConstruct.knapsack).setUnlocalizedName("tconstruct.storage");
         goldHead = new GoldenHead(PHConstruct.goldHead, 4, 1.2F, false).setAlwaysEdible().setPotionEffect(Potion.regeneration.id, 10, 0, 1.0F).setUnlocalizedName("goldenhead");
+        //GameRegistry.registerItem(heavyHelmet, "heavyHelmet");
+        GameRegistry.registerItem(heartCanister, "heartCanister");
+        //GameRegistry.registerItem(heavyBoots, "heavyBoots");
+        //GameRegistry.registerItem(glove, "glove");
+        GameRegistry.registerItem(knapsack, "knapsack");
+        GameRegistry.registerItem(goldHead, "goldHead");
 
         LiquidCasting basinCasting = TConstruct.getBasinCasting();
         materialWood = EnumHelper.addArmorMaterial("WOOD", 2, new int[] { 1, 2, 2, 1 }, 3);
@@ -937,6 +958,10 @@ public class TContent implements IFuelHandler
         chestplateWood = new ArmorBasic(PHConstruct.woodChestplate, materialWood, 1, "wood").setUnlocalizedName("tconstruct.chestplateWood");
         leggingsWood = new ArmorBasic(PHConstruct.woodPants, materialWood, 2, "wood").setUnlocalizedName("tconstruct.leggingsWood");
         bootsWood = new ArmorBasic(PHConstruct.woodBoots, materialWood, 3, "wood").setUnlocalizedName("tconstruct.bootsWood");
+        GameRegistry.registerItem(helmetWood, "helmetWood");
+        GameRegistry.registerItem(chestplateWood, "chestplateWood");
+        GameRegistry.registerItem(leggingsWood, "leggingsWood");
+        GameRegistry.registerItem(bootsWood, "bootsWood");
 
         //        essenceCrystal = new EssenceCrystal(PHConstruct.essenceCrystal).setUnlocalizedName("tconstruct.crystal.essence");
 
