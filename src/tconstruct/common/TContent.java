@@ -1597,6 +1597,7 @@ public class TContent implements IFuelHandler
 
         //Ingots
         tableCasting.addCastingRecipe(new ItemStack(materials, 1, 2), new FluidStack(moltenStoneFluid, TConstruct.ingotLiquidValue), ingotcast, 80); //stone
+        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 36), new FluidStack(glueFluid, TConstruct.ingotLiquidValue), ingotcast, 50);
         
         //Gems
         tableCasting.addCastingRecipe(new ItemStack(Item.emerald), new FluidStack(moltenEmeraldFluid, 640), gemcast, 80);
@@ -1747,6 +1748,7 @@ public class TContent implements IFuelHandler
 
         Smeltery.addMelting(FluidType.AluminumBrass, new ItemStack(blankPattern, 4, 1), -50, TConstruct.ingotLiquidValue);
         Smeltery.addMelting(FluidType.Gold, new ItemStack(blankPattern, 4, 2), -50, TConstruct.ingotLiquidValue);
+        Smeltery.addMelting(FluidType.Glue, new ItemStack(materials, 1, 36), 0, TConstruct.ingotLiquidValue);
 
         Smeltery.addMelting(FluidType.Ender, new ItemStack(Item.enderPearl, 4), 0, 250);
         Smeltery.addMelting(metalBlock, 10, 50, new FluidStack(moltenEnderFluid, 1000));
@@ -1988,6 +1990,7 @@ public class TContent implements IFuelHandler
         ensureOreIsRegistered("ingotGold", new ItemStack(Item.ingotGold));
         OreDictionary.registerOre("ingotObsidian", new ItemStack(materials, 1, 18));
         OreDictionary.registerOre("ingotPigIron", new ItemStack(materials, 1, 34));
+        OreDictionary.registerOre("ingotRubber", new ItemStack(materials, 1, 36));
 
         OreDictionary.registerOre("blockCobalt", new ItemStack(metalBlock, 1, 0));
         OreDictionary.registerOre("blockArdite", new ItemStack(metalBlock, 1, 1));
