@@ -118,6 +118,8 @@ tile.cloth.green.slab.name=Green Wool Slab
 tile.cloth.red.slab.name=Red Wool Slab
 tile.cloth.black.slab.name=Black Wool Slab
 
+tile.GlueBlock.name=Glue Block
+
 item.oreberry.iron.name=Iron Oreberry
 item.oreberry.gold.name=Gold Oreberry
 item.oreberry.copper.name=Copper Oreberry

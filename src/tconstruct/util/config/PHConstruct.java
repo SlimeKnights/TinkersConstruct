@@ -162,7 +162,7 @@ public class PHConstruct
         woodCrafterSlab = config.getBlock("Crafting Slab", 3243).getInt(3243);
         woolSlab1 = config.getBlock("Wool Slab 1", 3244).getInt(3244);
         woolSlab2 = config.getBlock("Wool Slab 2", 3245).getInt(3245);
-        //3246
+        glueBlock = config.getBlock("Glue Block", 3256).getInt(3256);
         castingChannel = config.getBlock("Casting Channel", 3249).getInt(3249);
 
         slimePoolBlue = config.getBlock("Liquid Blue Slime", 3235).getInt(3235);
@@ -374,6 +374,7 @@ public class PHConstruct
         //Experimental functionality
         throwableSmeltery = config.get("Experimental", "Items can be thrown into smelteries", true).getBoolean(true);
         newSmeltery = config.get("Experimental", "Use new adaptive Smeltery code", false, "Warning: Very buggy").getBoolean(false);
+        meltableHorses = config.get("Experimental", "Allow horses to be melted down for glue", true).getBoolean(true);
 
         //Addon stuff
         isCleaverTwoHanded = config.get("Battlegear", "Can Cleavers have shields", true).getBoolean(true);
@@ -496,6 +497,7 @@ public class PHConstruct
     public static int meatBlock;
     public static int woolSlab1;
     public static int woolSlab2;
+    public static int glueBlock;
 
     //Patterns and misc
     public static int blankPattern;
@@ -724,6 +726,7 @@ public class PHConstruct
     //Experimental functionality
     public static boolean throwableSmeltery;
     public static boolean newSmeltery;
+    public static boolean meltableHorses;
 
     //Addon stuff
     public static boolean isCleaverTwoHanded;

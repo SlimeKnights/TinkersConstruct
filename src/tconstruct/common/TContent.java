@@ -158,6 +158,7 @@ public class TContent implements IFuelHandler
     public static Block meatBlock;
     public static Block woolSlab1;
     public static Block woolSlab2;
+    public static Block glueBlock;
 
     //Traps
     public static Block landmine;
@@ -377,6 +378,10 @@ public class TContent implements IFuelHandler
         OreDictionary.registerOre("hambone", new ItemStack(meatBlock));
         LanguageRegistry.addName(meatBlock, "Hambone");
         GameRegistry.addRecipe(new ItemStack(meatBlock), "mmm", "mbm", "mmm", 'b', new ItemStack(Item.bone), 'm', new ItemStack(Item.porkRaw));
+
+        glueBlock = new GlueBlock(PHConstruct.glueBlock).setUnlocalizedName("GlueBlock").setCreativeTab(TConstructRegistry.blockTab);
+        GameRegistry.registerBlock(glueBlock, "GlueBlock");
+        OreDictionary.registerOre("blockRubber", new ItemStack(glueBlock));
 
         woolSlab1 = new SlabBase(PHConstruct.woolSlab1, Material.cloth, Block.cloth, 0, 8).setUnlocalizedName("cloth");
         woolSlab1.setStepSound(Block.soundClothFootstep).setCreativeTab(CreativeTabs.tabDecorations);
