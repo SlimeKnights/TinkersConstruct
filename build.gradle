@@ -94,10 +94,16 @@ jar {
 // because the normal output has been made to be obfuscated
 task deobfJar(type: Jar) {
         from sourceSets.main.output
-        appendix = 'deobf'
+        classifier = 'deobf'
+}
+task libJar(type: Jar) {
+    from(sourceSets.main.java) {
+	     include "tconstruct/library/*"
+	}
+	classifier = 'lib'
 }
 artifacts {
         archives deobfJar
-
+		archives libJar
 }
 
