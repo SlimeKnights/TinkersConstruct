@@ -248,6 +248,10 @@ public class TContent implements IFuelHandler
     public static Block slimeChannel;
     public static Block slimePad;
 
+    //Glue
+    public static Fluid glueFluid;
+    public static Block glueFluidBlock;
+
     //Ores
     public static Block oreSlag;
     public static Block oreGravel;
@@ -324,8 +328,8 @@ public class TContent implements IFuelHandler
         //EntityRegistry.registerModEntity(MetalSlime.class, "MetalSlime", 13, TConstruct.instance, 64, 5, true);
     }
 
-    public static Fluid[] fluids = new Fluid[26];
-    public static Block[] fluidBlocks = new Block[25];
+    public static Fluid[] fluids = new Fluid[27];
+    public static Block[] fluidBlocks = new Block[26];
 
     void registerBlocks ()
     {
@@ -716,12 +720,23 @@ public class TContent implements IFuelHandler
         blueSlimeFluid.setBlockID(slimePool);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(blueSlimeFluid, 1000), new ItemStack(buckets, 1, 24), new ItemStack(Item.bucketEmpty)));
 
+        //Glue
+        glueFluid = new Fluid("glue").setDensity(6000).setViscosity(6000).setTemperature(200);
+        if (!FluidRegistry.registerFluid(glueFluid))
+            glueFluid = FluidRegistry.getFluid("glue");
+        glueFluidBlock = new GlueFluid(PHConstruct.glueFluidBlock, glueFluid, Material.water).setCreativeTab(TConstructRegistry.blockTab).setStepSound(slimeStep).setUnlocalizedName("liquid.glue");
+        GameRegistry.registerBlock(glueFluidBlock, "liquid.glue");
+        fluids[25] = glueFluid;
+        fluidBlocks[25] = glueFluidBlock;
+        glueFluid.setBlockID(glueFluidBlock);
+        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(glueFluid, 1000), new ItemStack(buckets, 1, 26), new ItemStack(Item.bucketEmpty)));
+
         pigIronFluid = new Fluid("pigiron.molten");
         if (!FluidRegistry.registerFluid(pigIronFluid))
             pigIronFluid = FluidRegistry.getFluid("pigiron.molten");
         else
             pigIronFluid.setDensity(3000).setViscosity(6000).setTemperature(1300);
-        fluids[25] = pigIronFluid;
+        fluids[26] = pigIronFluid;
 
         slimeGel = new SlimeGel(PHConstruct.slimeGel).setStepSound(slimeStep).setLightOpacity(0).setUnlocalizedName("slime.gel");
         GameRegistry.registerBlock(slimeGel, SlimeGelItemBlock.class, "slime.gel");
@@ -1593,7 +1608,7 @@ public class TContent implements IFuelHandler
         {
             tableCasting.addCastingRecipe(new ItemStack(buckets, 1, sc), new FluidStack(fluids[sc], FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10);
         }
-        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 25), new FluidStack(fluids[25], FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10);
+        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 26), new FluidStack(fluids[26], FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10);
 
         // Clear glass pane casting
         tableCasting.addCastingRecipe(new ItemStack(glassPane), new FluidStack(moltenGlassFluid, 250), null, 80);
@@ -1677,6 +1692,7 @@ public class TContent implements IFuelHandler
         basinCasting.addCastingRecipe(new ItemStack(speedBlock, 1, 0), new FluidStack(moltenTinFluid, TConstruct.nuggetLiquidValue), new ItemStack(Block.gravel), true, 100); //brownstone
         basinCasting.addCastingRecipe(new ItemStack(Block.whiteStone), new FluidStack(moltenEnderFluid, TConstruct.chunkLiquidValue), new ItemStack(Block.obsidian), true, 100); //endstone
         basinCasting.addCastingRecipe(new ItemStack(metalBlock.blockID, 1, 10), new FluidStack(moltenEnderFluid, 1000), null, true, 100); //ender
+        basinCasting.addCastingRecipe(new ItemStack(glueBlock), new FluidStack(glueFluid, TConstruct.blockLiquidValue), null, true, 100); //glue
 
         // basinCasting.addCastingRecipe(new ItemStack(slimeGel, 1, 0), new FluidStack(blueSlimeFluid, FluidContainerRegistry.BUCKET_VOLUME), null, true, 100);
 
@@ -1767,6 +1783,7 @@ public class TContent implements IFuelHandler
         Smeltery.addMelting(Block.stone, 0, 800, new FluidStack(moltenStoneFluid, TConstruct.ingotLiquidValue / 18));
         Smeltery.addMelting(Block.cobblestone, 0, 800, new FluidStack(moltenStoneFluid, TConstruct.ingotLiquidValue / 18));
         Smeltery.addMelting(Block.blockEmerald, 0, 800, new FluidStack(moltenEmeraldFluid, 640*9));
+        Smeltery.addMelting(glueBlock, 0, 250, new FluidStack(glueFluid, TConstruct.blockLiquidValue));
 
         Smeltery.addMelting(clearGlass, 0, 500, new FluidStack(moltenGlassFluid, 1000));
         Smeltery.addMelting(glassPane, 0, 350, new FluidStack(moltenGlassFluid, 250));

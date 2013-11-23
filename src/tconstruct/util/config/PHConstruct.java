@@ -163,6 +163,7 @@ public class PHConstruct
         woolSlab1 = config.getBlock("Wool Slab 1", 3244).getInt(3244);
         woolSlab2 = config.getBlock("Wool Slab 2", 3245).getInt(3245);
         glueBlock = config.getBlock("Glue Block", 3256).getInt(3256);
+        glueFluidBlock = config.getBlock("Glue Fluid Block", 3257).getInt(3257);
         castingChannel = config.getBlock("Casting Channel", 3249).getInt(3249);
 
         slimePoolBlue = config.getBlock("Liquid Blue Slime", 3235).getInt(3235);
@@ -486,6 +487,10 @@ public class PHConstruct
     public static int slimeChannel;
     public static int slimePad;
 
+    // Glue
+    public static int glueFluidBlock;
+    public static int glueBlock;
+
     //Decoration
     public static int stoneTorch;
     public static int stoneLadder;
@@ -497,7 +502,6 @@ public class PHConstruct
     public static int meatBlock;
     public static int woolSlab1;
     public static int woolSlab2;
-    public static int glueBlock;
 
     //Patterns and misc
     public static int blankPattern;
@@ -717,6 +721,7 @@ public class PHConstruct
     //Looks
     public static int connectedTexturesMode;
     public static File cfglocation;
+
     //dimensionblacklist
     public static boolean slimeIslGenDim0Only;
     public static int[] cfgDimBlackList;
