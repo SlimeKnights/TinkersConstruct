@@ -119,6 +119,7 @@ tile.cloth.red.slab.name=Плита из красной шерсти
 tile.cloth.black.slab.name=Плита из чёрной шерсти
 
 tile.GlueBlock.name=Блок клея
+tile.liquid.glue.name=Клей
 
 item.oreberry.iron.name=Кусочки железа
 item.oreberry.gold.name=Кусочки золота
@@ -222,6 +223,7 @@ item.tconstruct.Materials.AlumiteNugget.name=Алюмитовый самород
 item.tconstruct.Materials.SteelNugget.name=Кусочек стали
 item.tconstruct.Materials.PigIronIngot.name=Чугунный слиток
 item.tconstruct.Materials.PigIronNugget.name=Чугунная тарелка
+item.tconstruct.Materials.GlueIngot.name=Слиток клея
 
 item.tconstruct.ArmorPattern.helmet.name=Слепок шлема
 item.tconstruct.ArmorPattern.chestplate.name=Слепок кирасы
