@@ -119,6 +119,7 @@ tile.cloth.red.slab.name=Red Wool Slab
 tile.cloth.black.slab.name=Black Wool Slab
 
 tile.GlueBlock.name=Glue Block
+tile.liquid.glue.name=Glue
 
 item.oreberry.iron.name=Iron Oreberry
 item.oreberry.gold.name=Gold Oreberry
@@ -244,6 +245,7 @@ item.tconstruct.Materials.AlumiteNugget.name=Alumite Nugget
 item.tconstruct.Materials.SteelNugget.name=Steel Nugget
 item.tconstruct.Materials.PigIronIngot.name=Pig Iron Ingot
 item.tconstruct.Materials.PigIronNugget.name=Pig Iron Platter
+item.tconstruct.Materials.GlueIngot.name=Glue Ingot
 
 item.tconstruct.ArmorPattern.helmet.name=Helmet Cast
 item.tconstruct.ArmorPattern.chestplate.name=Chestplate Cast
