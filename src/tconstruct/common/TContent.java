@@ -1,5 +1,6 @@
 package tconstruct.common;
 
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import tconstruct.library.crafting.ToolBuilder;
 
@@ -57,7 +58,7 @@ public class TContent implements IFuelHandler
     public static Item toolShard;
     public static Item woodPattern;
     public static Item metalPattern;
-    public static Item armorPattern;
+    //public static Item armorPattern;
 
     public static Item manualBook;
     public static Item buckets;
@@ -846,7 +847,7 @@ public class TContent implements IFuelHandler
         TConstructRegistry.addItemToDirectory("blankPattern", blankPattern);
         TConstructRegistry.addItemToDirectory("woodPattern", woodPattern);
         TConstructRegistry.addItemToDirectory("metalPattern", metalPattern);
-        TConstructRegistry.addItemToDirectory("armorPattern", armorPattern);
+        //TConstructRegistry.addItemToDirectory("armorPattern", armorPattern);
 
         String[] patternTypes = { "ingot", "toolRod", "pickaxeHead", "shovelHead", "hatchetHead", "swordBlade", "wideGuard", "handGuard", "crossbar", "binding", "frypanHead", "signHead",
                 "knifeBlade", "chiselHead", "toughRod", "toughBinding", "largePlate", "broadAxeHead", "scytheHead", "excavatorHead", "largeBlade", "hammerHead", "fullGuard" };
@@ -859,11 +860,11 @@ public class TContent implements IFuelHandler
         {
             TConstructRegistry.addItemStackToDirectory(patternTypes[i] + "Cast", new ItemStack(metalPattern, 1, i));
         }
-        String[] armorPartTypes = { "helmet", "chestplate", "leggings", "boots" };
+        /*String[] armorPartTypes = { "helmet", "chestplate", "leggings", "boots" };
         for (int i = 1; i < armorPartTypes.length; i++)
         {
             TConstructRegistry.addItemStackToDirectory(armorPartTypes[i] + "Cast", new ItemStack(armorPattern, 1, i));
-        }
+        }*/
 
         manualBook = new Manual(PHConstruct.manual);
         GameRegistry.registerItem(manualBook, "manualBook");
@@ -988,7 +989,7 @@ public class TContent implements IFuelHandler
         String[] materialStrings = { "paperStack", "greenSlimeCrystal", "searedBrick", "ingotCobalt", "ingotArdite", "ingotManyullyn", "mossBall", "lavaCrystal", "necroticBone", "ingotCopper",
                 "ingotTin", "ingotAluminum", "rawAluminum", "ingotBronze", "ingotAluminumBrass", "ingotAlumite", "ingotSteel", "blueSlimeCrystal", "ingotObsidian", "nuggetIron", "nuggetCopper",
                 "nuggetTin", "nuggetAluminum", "nuggetSilver", "nuggetAluminumBrass", "silkyCloth", "silkyJewel", "nuggetObsidian", "nuggetCobalt", "nuggetArdite", "nuggetManyullyn", "nuggetBronze",
-                "nuggetAlumite", "nuggetSteel", "ingotPigIron", "nuggetPigIron" };
+                "nuggetAlumite", "nuggetSteel", "ingotPigIron", "nuggetPigIron", "ingotGlue" };
 
         for (int i = 0; i < materialStrings.length; i++)
         {
@@ -1698,7 +1699,7 @@ public class TContent implements IFuelHandler
         // basinCasting.addCastingRecipe(new ItemStack(slimeGel, 1, 0), new FluidStack(blueSlimeFluid, FluidContainerRegistry.BUCKET_VOLUME), null, true, 100);
 
         //Armor casts
-        FluidRenderProperties frp = new FluidRenderProperties(Applications.BASIN.minHeight, 0.65F, Applications.BASIN);
+        /*FluidRenderProperties frp = new FluidRenderProperties(Applications.BASIN.minHeight, 0.65F, Applications.BASIN);
         FluidStack aluFlu = new FluidStack(moltenAlubrassFluid, TConstruct.ingotLiquidValue * 10);
         FluidStack gloFlu = new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 10);
         ItemStack[] armor = { new ItemStack(helmetWood), new ItemStack(chestplateWood), new ItemStack(leggingsWood), new ItemStack(bootsWood) };
@@ -1706,7 +1707,7 @@ public class TContent implements IFuelHandler
         {
             basinCasting.addCastingRecipe(new ItemStack(armorPattern, 1, sc), aluFlu, armor[sc], 50, frp);
             basinCasting.addCastingRecipe(new ItemStack(armorPattern, 1, sc), gloFlu, armor[sc], 50, frp);
-        }
+        }*/
     }
 
     private void addRecipesForSmeltery ()
@@ -2055,6 +2056,7 @@ public class TContent implements IFuelHandler
         //Vanilla stuff
         OreDictionary.registerOre("slimeball", new ItemStack(Item.slimeBall));
         OreDictionary.registerOre("slimeball", new ItemStack(strangeFood, 1, 0));
+        OreDictionary.registerOre("slimeball", new ItemStack(materials, 1, 36));
         OreDictionary.registerOre("glass", new ItemStack(clearGlass));
         OreDictionary.registerOre("glass", new ItemStack(Block.glass));
         RecipeRemover.removeShapedRecipe(new ItemStack(Block.pistonStickyBase));
