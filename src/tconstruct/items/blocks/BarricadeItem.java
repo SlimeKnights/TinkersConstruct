@@ -10,6 +10,7 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+import net.minecraft.util.StatCollector;
 
 public class BarricadeItem extends ItemBlock
 {
@@ -25,7 +26,7 @@ public class BarricadeItem extends ItemBlock
     @SideOnly(Side.CLIENT)
     public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean par4)
     {
-        list.add("Stacks up to 4 times");
+        list.add(StatCollector.translateToLocal("barricade.tooltip"));
     }
 
     public boolean onItemUse (ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)

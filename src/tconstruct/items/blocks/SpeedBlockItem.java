@@ -6,6 +6,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.StatCollector;
 
 public class SpeedBlockItem extends ItemBlock
 {
@@ -34,8 +35,8 @@ public class SpeedBlockItem extends ItemBlock
     {
         int metadata = stack.getItemDamage();
         if (metadata == 1 || metadata == 4)
-            list.add("You run pretty fast on it");
+            list.add(StatCollector.translateToLocal("speedblock1.tooltip"));
         else
-            list.add("You run a bit faster on it");
+            list.add(StatCollector.translateToLocal("speedblock2.tooltip"));
     }
 }

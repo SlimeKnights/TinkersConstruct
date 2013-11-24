@@ -10,6 +10,7 @@ import tconstruct.util.player.TPlayerStats;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import net.minecraft.util.StatCollector;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -55,15 +56,15 @@ public class HeartCanister extends CraftingItem
         switch (stack.getItemDamage())
         {
         case 0:
-            list.add("Crafting Item");
+            list.add(StatCollector.translateToLocal("hearthcanister1.tooltip")");
             break;
         case 1:
-            list.add("Crafting Item");
-            list.add("Part of low-level Heart Canisters");
+            list.add(StatCollector.translateToLocal("hearthcanister2.tooltip"));
+            list.add(StatCollector.translateToLocal("hearthcanister3.tooltip"));
             break;
         case 2:
-            list.add("Accessory");
-            list.add("Permanent health increase");
+            list.add(StatCollector.translateToLocal("hearthcanister4.tooltip"));
+            list.add(StatCollector.translateToLocal("hearthcanister5.tooltip"));
             break;
         }
     }

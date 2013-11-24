@@ -7,6 +7,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import net.minecraft.util.StatCollector;
 import tconstruct.blocks.logic.TileEntityLandmine;
 import tconstruct.common.TContent;
 
@@ -32,16 +33,16 @@ public class ItemBlockLandmine extends ItemBlock
         switch (par1ItemStack.getItemDamage())
         {
         case 0:
-            interaction = "everything";
+            interaction = StatCollector.translateToLocal("landmine1.tooltip");
             break;
         case 1:
-            interaction = "mobs, players and redstone";
+            interaction = StatCollector.translateToLocal("landmine2.tooltip");
             break;
         case 2:
-            interaction = "players and redstone";
+            interaction = StatCollector.translateToLocal("landmine3.tooltip");
             break;
         default:
-            interaction = "redstone only";
+            interaction = StatCollector.translateToLocal("landmine4.tooltip");
             break;
         }
 

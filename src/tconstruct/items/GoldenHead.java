@@ -11,6 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
+import net.minecraft.util.StatCollector;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -74,7 +75,7 @@ public class GoldenHead extends ItemFood
     @SideOnly(Side.CLIENT)
     public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean par4)
     {
-        list.add("\u00a75\u00a7oSome say consuming the head of a");
-        list.add("\u00a75\u00a7ofallen foe strengthens the blood");
+        list.add(StatCollector.translateToLocal("goldenhead1.tooltip"));
+        list.add(StatCollector.translateToLocal("goldenhead2.tooltip"));
     }
 }

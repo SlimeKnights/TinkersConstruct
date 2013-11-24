@@ -6,6 +6,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.StatCollector;
 
 public class MetalItemBlock extends ItemBlock
 {
@@ -32,6 +33,6 @@ public class MetalItemBlock extends ItemBlock
     @Override
     public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean par4)
     {
-        list.add("Usable for Beacon bases");
+        list.add(StatCollector.translateToLocal("metalblock.tooltip"));
     }
 }
