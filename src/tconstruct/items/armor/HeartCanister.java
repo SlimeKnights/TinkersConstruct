@@ -56,7 +56,7 @@ public class HeartCanister extends CraftingItem
         switch (stack.getItemDamage())
         {
         case 0:
-            list.add(StatCollector.translateToLocal("hearthcanister1.tooltip")");
+            list.add(StatCollector.translateToLocal("hearthcanister1.tooltip"));
             break;
         case 1:
             list.add(StatCollector.translateToLocal("hearthcanister2.tooltip"));

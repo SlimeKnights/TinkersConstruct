@@ -28,22 +28,22 @@ public class OreBerries extends CraftingItem
         switch (stack.getItemDamage())
         {
         case 0:
-            list.add(StatCollector.translateToLocal("oreberries1.tooltip");
+            list.add(StatCollector.translateToLocal("oreberries1.tooltip"));
             break;
         case 1:
-            list.add(StatCollector.translateToLocal("oreberries2.tooltip");
+            list.add(StatCollector.translateToLocal("oreberries2.tooltip"));
             break;
         case 2:
-            list.add(StatCollector.translateToLocal("oreberries3.tooltip");
+            list.add(StatCollector.translateToLocal("oreberries3.tooltip"));
             break;
         case 3:
-            list.add(StatCollector.translateToLocal("oreberries4.tooltip");
+            list.add(StatCollector.translateToLocal("oreberries4.tooltip"));
             break;
         case 4:
-            list.add(StatCollector.translateToLocal("oreberries5.tooltip");
+            list.add(StatCollector.translateToLocal("oreberries5.tooltip"));
             break;
         case 5:
-            list.add(StatCollector.translateToLocal("oreberries6.tooltip");
+            list.add(StatCollector.translateToLocal("oreberries6.tooltip"));
             break;
         }
     }
