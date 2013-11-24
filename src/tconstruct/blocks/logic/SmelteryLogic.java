@@ -661,6 +661,12 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         //worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
         //worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
     }
+    
+    /*@Override
+    public void setInventorySlotContents (int slot, ItemStack itemstack)
+    {
+        inventory[slot] = itemstack != null ? itemstack.splitStack(1) : null; //May include unintended side effects. Possible fix for max stack size of 1?
+    }*/
 
     /* Multiblock */
     @Override

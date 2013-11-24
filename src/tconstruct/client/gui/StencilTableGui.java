@@ -93,7 +93,7 @@ public class StencilTableGui extends GuiContainer
                 if (button.id == 0)
                 {
                     patternIndex++;
-                    if (patternIndex == 21)
+                    if (patternIndex == 21 || patternIndex == 26)
                         patternIndex++;
                     if (patternIndex >= TContent.patternOutputs.length)
                         patternIndex = 0;
@@ -101,7 +101,7 @@ public class StencilTableGui extends GuiContainer
                 else if (button.id == 1)
                 {
                     patternIndex--;
-                    if (patternIndex == 21)
+                    if (patternIndex == 21 || patternIndex == 26)
                         patternIndex--;
                     if (patternIndex < 0)
                         patternIndex = TContent.patternOutputs.length - 1;
