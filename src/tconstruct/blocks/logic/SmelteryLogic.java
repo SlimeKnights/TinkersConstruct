@@ -10,6 +10,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.monster.EntityIronGolem;
+import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -342,6 +343,17 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                         if (currentLiquid + 40 < maxLiquid)
                         {
                             this.fill(new FluidStack(TContent.moltenIronFluid, 40), true);
+                        }
+                    }
+                }
+                else if (o instanceof EntityHorse)
+                {
+                    EntityHorse horse = (EntityHorse) o;
+                    if (PHConstruct.meltableHorses && horse.attackEntityFrom(new SmelteryDamageSource(), 5))
+                    {
+                        if (currentLiquid + 200 < maxLiquid)
+                        {
+                            this.fill(new FluidStack(TContent.glueFluid, 200), true);
                         }
                     }
                 }

@@ -59,7 +59,9 @@ public enum FluidType
     /** Slime Smelting **/
     Slime(TContent.slimeGel.blockID, 0, 250, TContent.blueSlimeFluid, false),
     /** Pigiron Smelting **/
-    PigIron(TContent.meatBlock.blockID, 0, 610, TContent.pigIronFluid, true);
+    PigIron(TContent.meatBlock.blockID, 0, 610, TContent.pigIronFluid, true),
+    /** Glue Smelting **/
+    Glue(TContent.glueBlock.blockID, 0, 125, TContent.glueFluid, false);
 
     public final int renderBlockID;
     public final int renderMeta;

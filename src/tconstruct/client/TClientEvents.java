@@ -58,8 +58,8 @@ public class TClientEvents
 
     /* Liquids */
 
-    Icon[] stillIcons = new Icon[1];
-    Icon[] flowIcons = new Icon[1];
+    Icon[] stillIcons = new Icon[2];
+    Icon[] flowIcons = new Icon[2];
 
     @ForgeSubscribe
     public void preStitch (TextureStitchEvent.Pre event)

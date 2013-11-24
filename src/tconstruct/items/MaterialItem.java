@@ -24,12 +24,12 @@ public class MaterialItem extends CraftingItem
     static String[] materialNames = new String[] { "PaperStack", "SlimeCrystal", "SearedBrick", "CobaltIngot", "ArditeIngot", "ManyullynIngot", "Mossball", "LavaCrystal", "NecroticBone",
             "CopperIngot", "TinIngot", "", "RawAluminum", "BronzeIngot", "AluBrassIngot", "AlumiteIngot", "SteelIngot", "BlueSlimeCrystal", "ObsidianIngot", "IronNugget", "CopperNugget", "TinNugget",
             "AluminumNugget", "EssenceCrystal", "AluBrassNugget", "SilkyCloth", "SilkyJewel", "ObsidianNugget", "CobaltNugget", "ArditeNugget", "ManyullynNugget", "BronzeNugget", "AlumiteNugget",
-            "SteelNugget", "PigIronIngot", "PigIronNugget" };
+            "SteelNugget", "PigIronIngot", "PigIronNugget", "GlueIngot" };
 
     static String[] craftingTextures = new String[] { "paperstack", "slimecrystal", "searedbrick", "cobaltingot", "arditeingot", "manyullyningot", "mossball", "lavacrystal", "necroticbone",
             "copperingot", "tiningot", "aluminumingot", "aluminumraw", "bronzeingot", "alubrassingot", "alumiteingot", "steelingot", "blueslimecrystal", "obsidianingot", "nugget_iron",
             "nugget_copper", "nugget_tin", "nugget_aluminum", "", "nugget_alubrass", "silkycloth", "silkyjewel", "nugget_obsidian", "nugget_cobalt", "nugget_ardite", "nugget_manyullyn",
-            "nugget_bronze", "nugget_alumite", "nugget_steel", "pigironingot", "nugget_pigiron" };
+            "nugget_bronze", "nugget_alumite", "nugget_steel", "pigironingot", "nugget_pigiron", "glueingot" };
 
     /*@Override
     @SideOnly(Side.CLIENT)
