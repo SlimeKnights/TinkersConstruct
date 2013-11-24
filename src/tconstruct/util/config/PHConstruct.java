@@ -133,7 +133,9 @@ public class PHConstruct
         moltenEmerald = config.getBlock("Molten Emerald", 3216).getInt(3216);
         blood = config.getBlock("Liquid Cow", 3217).getInt(3217);
         moltenEnder = config.getBlock("Molten Ender", 3218).getInt(3218);
-
+        
+        glueBlock = config.getBlock("Glue Block", 3219).getInt(3219);
+        glueFluidBlock = config.getBlock("Glue Fluid Block", 3220).getInt(3220);
 
 //        signalBus = config.getBlock("Signal Bus", 3221).getInt(3221);
 //        signalTerminal = config.getBlock("Signal Terminal", 3222).getInt(3222);
@@ -162,8 +164,6 @@ public class PHConstruct
         woodCrafterSlab = config.getBlock("Crafting Slab", 3243).getInt(3243);
         woolSlab1 = config.getBlock("Wool Slab 1", 3244).getInt(3244);
         woolSlab2 = config.getBlock("Wool Slab 2", 3245).getInt(3245);
-        glueBlock = config.getBlock("Glue Block", 3256).getInt(3256);
-        glueFluidBlock = config.getBlock("Glue Fluid Block", 3257).getInt(3257);
         castingChannel = config.getBlock("Casting Channel", 3249).getInt(3249);
 
         slimePoolBlue = config.getBlock("Liquid Blue Slime", 3235).getInt(3235);
