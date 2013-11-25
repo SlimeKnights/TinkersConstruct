@@ -895,9 +895,10 @@ public class TContent implements IFuelHandler
         shortbow = new Shortbow(PHConstruct.shortbow);
         arrow = new Arrow(PHConstruct.arrow);
 
-        Item[] tools = { pickaxe, shovel, hatchet, broadsword, longsword, rapier, dagger, cutlass, frypan, battlesign, mattock, chisel, lumberaxe, cleaver, scythe, excavator, hammer, battleaxe, shortbow, arrow };
-        String[] toolStrings = { "pickaxe", "shovel", "hatchet", "broadsword", "longsword", "rapier", "dagger", "cutlass", "frypan", "battlesign", "mattock", "chisel", "lumberaxe", "cleaver", "scythe",
-                "excavator", "hammer", "battleaxe", "shortbow", "arrow" };
+        Item[] tools = { pickaxe, shovel, hatchet, broadsword, longsword, rapier, dagger, cutlass, frypan, battlesign, mattock, chisel, lumberaxe, cleaver, scythe, excavator, hammer, battleaxe,
+                shortbow, arrow };
+        String[] toolStrings = { "pickaxe", "shovel", "hatchet", "broadsword", "longsword", "rapier", "dagger", "cutlass", "frypan", "battlesign", "mattock", "chisel", "lumberaxe", "cleaver",
+                "scythe", "excavator", "hammer", "battleaxe", "shortbow", "arrow" };
 
         for (int i = 0; i < tools.length; i++)
         {
@@ -1598,8 +1599,8 @@ public class TContent implements IFuelHandler
         tableCasting.addCastingRecipe(gemcast, new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 2), new ItemStack(Item.emerald), 80);
 
         //Ingots
-        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 2), new FluidStack(moltenStoneFluid, TConstruct.ingotLiquidValue), ingotcast, 80); //stone
-        
+        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 2), new FluidStack(moltenStoneFluid, TConstruct.ingotLiquidValue / 4), ingotcast, 80); //stone
+
         //Misc
         tableCasting.addCastingRecipe(new ItemStack(Item.emerald), new FluidStack(moltenEmeraldFluid, 640), gemcast, 80);
         tableCasting.addCastingRecipe(new ItemStack(materials, 1, 36), new FluidStack(glueFluid, TConstruct.ingotLiquidValue), null, 50);
@@ -1691,7 +1692,7 @@ public class TContent implements IFuelHandler
         basinCasting.addCastingRecipe(new ItemStack(clearGlass, 1, 0), new FluidStack(moltenGlassFluid, FluidContainerRegistry.BUCKET_VOLUME), null, true, 100); //glass
         basinCasting.addCastingRecipe(new ItemStack(smeltery, 1, 4), new FluidStack(moltenStoneFluid, TConstruct.ingotLiquidValue), null, true, 100); //seared stone
         basinCasting.addCastingRecipe(new ItemStack(smeltery, 1, 5), new FluidStack(moltenStoneFluid, TConstruct.chunkLiquidValue), new ItemStack(Block.cobblestone), true, 100);
-        basinCasting.addCastingRecipe(new ItemStack(Block.blockEmerald), new FluidStack(moltenEmeraldFluid, 640*9), null, true, 100); //emerald
+        basinCasting.addCastingRecipe(new ItemStack(Block.blockEmerald), new FluidStack(moltenEmeraldFluid, 640 * 9), null, true, 100); //emerald
         basinCasting.addCastingRecipe(new ItemStack(speedBlock, 1, 0), new FluidStack(moltenTinFluid, TConstruct.nuggetLiquidValue), new ItemStack(Block.gravel), true, 100); //brownstone
         basinCasting.addCastingRecipe(new ItemStack(Block.whiteStone), new FluidStack(moltenEnderFluid, TConstruct.chunkLiquidValue), new ItemStack(Block.obsidian), true, 100); //endstone
         basinCasting.addCastingRecipe(new ItemStack(metalBlock.blockID, 1, 10), new FluidStack(moltenEnderFluid, 1000), null, true, 100); //ender
@@ -1749,7 +1750,7 @@ public class TContent implements IFuelHandler
         // Items
 
         Smeltery.addMelting(FluidType.AluminumBrass, new ItemStack(blankPattern, 4, 1), -50, TConstruct.ingotLiquidValue);
-        Smeltery.addMelting(FluidType.Gold, new ItemStack(blankPattern, 4, 2), -50, TConstruct.ingotLiquidValue*2);
+        Smeltery.addMelting(FluidType.Gold, new ItemStack(blankPattern, 4, 2), -50, TConstruct.ingotLiquidValue * 2);
         Smeltery.addMelting(FluidType.Glue, new ItemStack(materials, 1, 36), 0, TConstruct.ingotLiquidValue);
 
         Smeltery.addMelting(FluidType.Ender, new ItemStack(Item.enderPearl, 4), 0, 250);
@@ -1786,7 +1787,7 @@ public class TContent implements IFuelHandler
         Smeltery.addMelting(Block.thinGlass, 0, 625, new FluidStack(moltenGlassFluid, 250));
         Smeltery.addMelting(Block.stone, 0, 800, new FluidStack(moltenStoneFluid, TConstruct.ingotLiquidValue / 18));
         Smeltery.addMelting(Block.cobblestone, 0, 800, new FluidStack(moltenStoneFluid, TConstruct.ingotLiquidValue / 18));
-        Smeltery.addMelting(Block.blockEmerald, 0, 800, new FluidStack(moltenEmeraldFluid, 640*9));
+        Smeltery.addMelting(Block.blockEmerald, 0, 800, new FluidStack(moltenEmeraldFluid, 640 * 9));
         Smeltery.addMelting(glueBlock, 0, 250, new FluidStack(glueFluid, TConstruct.blockLiquidValue));
 
         Smeltery.addMelting(clearGlass, 0, 500, new FluidStack(moltenGlassFluid, 1000));
@@ -2035,7 +2036,7 @@ public class TContent implements IFuelHandler
 
         ensureOreIsRegistered("crafterWood", new ItemStack(Block.workbench, 1));
 
-        OreDictionary.registerOre("torchStone", new ItemStack(stoneTorch));        
+        OreDictionary.registerOre("torchStone", new ItemStack(stoneTorch));
 
         String[] matNames = { "wood", "stone", "iron", "flint", "cactus", "bone", "obsidian", "netherrack", "slime", "paper", "cobalt", "ardite", "manyullyn", "copper", "bronze", "alumite", "steel",
                 "blueslime" };
@@ -2382,7 +2383,7 @@ public class TContent implements IFuelHandler
         {
             basinCasting.addCastingRecipe(new ItemStack(speedBlock, 81), new FluidStack(moltenElectrumFluid, TConstruct.blockLiquidValue * 9), ores.get(0), 100);
         }
-        
+
         /* Rubber */
         ores = OreDictionary.getOres("itemRubber");
         if (ores.size() > 0)
