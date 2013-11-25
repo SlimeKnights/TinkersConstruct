@@ -13,6 +13,6 @@ public class mfrRegistering
         FactoryRegistry.registerHarvestable(new HarvestableOreBerry(TContent.oreBerry.blockID, TContent.oreBerries.itemID, 0));
         FactoryRegistry.registerHarvestable(new HarvestableOreBerry(TContent.oreBerrySecond.blockID, TContent.oreBerries.itemID, 4));
         FactoryRegistry.registerGrindable(new GrindableHorse());
-        FactoryRegistry.registerLiquidDrinkHandler(TContent.bloodFluid.getName(), new Drinkables);
+        FactoryRegistry.registerLiquidDrinkHandler(TContent.bloodFluid.getName(), new Drinkables());
     }
 }
