@@ -12,17 +12,17 @@ import net.minecraft.item.ItemStack;
  */
 public interface ISafariNetHandler
 {
-    /**
-     * @return The class of mob that this handler applies to.
-     */
-    public Class<?> validFor ();
-
-    /**
-     * @param safariNetStack The Safari Net that is requesting information.
-     * @param player The player holding the Safari Net.
-     * @param infoList The current list of information strings. Add yours to this.
-     * @param advancedTooltips True if the advanced tooltips option is on.
-     */
-    @SuppressWarnings("rawtypes")
-    public void addInformation (ItemStack safariNetStack, EntityPlayer player, List infoList, boolean advancedTooltips);
+	/**
+	 * @return The class of mob that this handler applies to.
+	 */
+	public Class<?> validFor();
+	
+	/**
+	 * @param safariNetStack The Safari Net that is requesting information.
+	 * @param player The player holding the Safari Net.
+	 * @param infoList The current list of information strings. Add yours to this.
+	 * @param advancedTooltips True if the advanced tooltips option is on.
+	 */
+	@SuppressWarnings("rawtypes")
+	public void addInformation(ItemStack safariNetStack, EntityPlayer player, List infoList, boolean advancedTooltips);
 }

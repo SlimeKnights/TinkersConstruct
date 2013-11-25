@@ -20,10 +20,17 @@ public abstract class InventoryLogic extends TileEntity implements IInventory
 {
     protected ItemStack[] inventory;
     protected String invName;
+    protected int stackSizeLimit;
 
     public InventoryLogic(int invSize)
     {
+        this(invSize, 64);
+    }
+
+    public InventoryLogic(int invSize, int maxStackSize)
+    {
         inventory = new ItemStack[invSize];
+        stackSizeLimit = maxStackSize;
     }
 
     /* Inventory management */
@@ -48,7 +55,7 @@ public abstract class InventoryLogic extends TileEntity implements IInventory
     @Override
     public int getInventoryStackLimit ()
     {
-        return 64;
+        return stackSizeLimit;
     }
 
     public boolean canDropInventorySlot (int slot)

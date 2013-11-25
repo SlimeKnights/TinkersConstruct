@@ -13,16 +13,16 @@ import net.minecraft.world.World;
  */
 public interface IFactoryRanchable
 {
-    /**
-     * @return The entity being ranched. Must be a subtype of EntityLivingBase.
-     */
-    public Class<?> getRanchableEntity ();
-
-    /**
-     * @param world The world this entity is in.
-     * @param entity The entity instance being ranched.
-     * @param rancher The rancher instance doing the ranching. Used to access the Rancher's inventory when milking cows, for example.
-     * @return A list of drops.
-     */
-    public List<RanchedItem> ranch (World world, EntityLivingBase entity, IInventory rancher);
+	/**
+	 * @return The entity being ranched. Must be a subtype of EntityLivingBase.
+	 */
+	public Class<?> getRanchableEntity();
+	
+	/**
+	 * @param world The world this entity is in.
+	 * @param entity The entity instance being ranched.
+	 * @param rancher The rancher instance doing the ranching. Used to access the Rancher's inventory when milking cows, for example.
+	 * @return A list of drops.
+	 */
+	public List<RanchedItem> ranch(World world, EntityLivingBase entity, IInventory rancher);
 }

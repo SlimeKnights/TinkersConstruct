@@ -12,5 +12,5 @@ import net.minecraft.item.ItemStack;
  */
 public interface IToolHammerAdvanced
 {
-    public boolean isActive (ItemStack stack);
+	public boolean isActive(ItemStack stack);
 }

@@ -1,6 +1,6 @@
 package powercrystals.minefactoryreloaded.api.rednet;
 
-public interface IRedNetNoConnection
+public interface IRedNetDecorative
 {
-	
+
 }
