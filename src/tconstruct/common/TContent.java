@@ -1749,7 +1749,7 @@ public class TContent implements IFuelHandler
         // Items
 
         Smeltery.addMelting(FluidType.AluminumBrass, new ItemStack(blankPattern, 4, 1), -50, TConstruct.ingotLiquidValue);
-        Smeltery.addMelting(FluidType.Gold, new ItemStack(blankPattern, 4, 2), -50, TConstruct.ingotLiquidValue);
+        Smeltery.addMelting(FluidType.Gold, new ItemStack(blankPattern, 4, 2), -50, TConstruct.ingotLiquidValue*2);
         Smeltery.addMelting(FluidType.Glue, new ItemStack(materials, 1, 36), 0, TConstruct.ingotLiquidValue);
 
         Smeltery.addMelting(FluidType.Ender, new ItemStack(Item.enderPearl, 4), 0, 250);
