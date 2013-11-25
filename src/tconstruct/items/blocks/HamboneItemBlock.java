@@ -11,6 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+import net.minecraft.util.StatCollector;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -38,8 +39,8 @@ public class HamboneItemBlock extends ItemBlock
     @SideOnly(Side.CLIENT)
     public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean par4)
     {
-        list.add("\u00A74Hambone!");
-        list.add("Usable for Beacon bases");
+        list.add(StatCollector.translateToLocal("hambone1.tooltip"));
+        list.add(StatCollector.translateToLocal("hambone2.tooltip"));
     }
 
     /** Number of ticks to run while 'EnumAction'ing until result. */

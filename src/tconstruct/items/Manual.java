@@ -9,6 +9,7 @@ import tconstruct.TConstruct;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import net.minecraft.util.StatCollector;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -40,13 +41,13 @@ public class Manual extends CraftingItem
         switch (stack.getItemDamage())
         {
         case 0:
-            list.add("\u00a7oBy: Skyla");
+            list.add(StatCollector.translateToLocal("manual1.tooltip"));
             break;
         case 1:
-            list.add("\u00a7oBy: Skyla");
+            list.add(StatCollector.translateToLocal("manual2.tooltip"));
             break;
         case 2:
-            list.add("\u00a7oBy: Thruul M'gon");
+            list.add(StatCollector.translateToLocal("manual3.tooltip"));
             break;
         }
     }

@@ -3,7 +3,7 @@ package tconstruct.items.armor;
 import java.util.List;
 
 import tconstruct.items.CraftingItem;
-
+import net.minecraft.util.StatCollector;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import cpw.mods.fml.relauncher.Side;
@@ -25,7 +25,7 @@ public class Knapsack extends CraftingItem
         switch (stack.getItemDamage())
         {
         case 0:
-            list.add("A Knapsack to hold your things.");
+            list.add(StatCollector.translateToLocal("knapsack.tooltip"));
             break;
         }
     }
