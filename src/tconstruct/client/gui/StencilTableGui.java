@@ -101,10 +101,10 @@ public class StencilTableGui extends GuiContainer
                 else if (button.id == 1)
                 {
                     patternIndex--;
-                    if (patternIndex == 21 || patternIndex == 26)
-                        patternIndex--;
                     if (patternIndex < 0)
                         patternIndex = TContent.patternOutputs.length - 1;
+                    if (patternIndex == 21 || patternIndex == 26)
+                        patternIndex--;
                 }
                 ItemStack stack = new ItemStack(TContent.woodPattern, 1, patternIndex + 1);
                 logic.setInventorySlotContents(1, stack);

@@ -245,7 +245,7 @@ item.tconstruct.Materials.AlumiteNugget.name=Alumite Nugget
 item.tconstruct.Materials.SteelNugget.name=Steel Nugget
 item.tconstruct.Materials.PigIronIngot.name=Pig Iron Ingot
 item.tconstruct.Materials.PigIronNugget.name=Pig Iron Platter
-item.tconstruct.Materials.GlueIngot.name=Glue Ingot
+item.tconstruct.Materials.GlueBall.name=Ball of Glue
 
 item.tconstruct.ArmorPattern.helmet.name=Helmet Cast
 item.tconstruct.ArmorPattern.chestplate.name=Chestplate Cast

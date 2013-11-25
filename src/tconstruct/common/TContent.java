@@ -1599,10 +1599,10 @@ public class TContent implements IFuelHandler
 
         //Ingots
         tableCasting.addCastingRecipe(new ItemStack(materials, 1, 2), new FluidStack(moltenStoneFluid, TConstruct.ingotLiquidValue), ingotcast, 80); //stone
-        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 36), new FluidStack(glueFluid, TConstruct.ingotLiquidValue), ingotcast, 50);
         
-        //Gems
+        //Misc
         tableCasting.addCastingRecipe(new ItemStack(Item.emerald), new FluidStack(moltenEmeraldFluid, 640), gemcast, 80);
+        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 36), new FluidStack(glueFluid, TConstruct.ingotLiquidValue), null, 50);
 
         //Buckets
         ItemStack bucket = new ItemStack(Item.bucketEmpty);
@@ -1992,7 +1992,7 @@ public class TContent implements IFuelHandler
         ensureOreIsRegistered("ingotGold", new ItemStack(Item.ingotGold));
         OreDictionary.registerOre("ingotObsidian", new ItemStack(materials, 1, 18));
         OreDictionary.registerOre("ingotPigIron", new ItemStack(materials, 1, 34));
-        OreDictionary.registerOre("ingotRubber", new ItemStack(materials, 1, 36));
+        OreDictionary.registerOre("itemRawRubber", new ItemStack(materials, 1, 36));
 
         OreDictionary.registerOre("blockCobalt", new ItemStack(metalBlock, 1, 0));
         OreDictionary.registerOre("blockArdite", new ItemStack(metalBlock, 1, 1));
@@ -2382,6 +2382,14 @@ public class TContent implements IFuelHandler
         {
             basinCasting.addCastingRecipe(new ItemStack(speedBlock, 81), new FluidStack(moltenElectrumFluid, TConstruct.blockLiquidValue * 9), ores.get(0), 100);
         }
+        
+        /* Rubber */
+        ores = OreDictionary.getOres("itemRubber");
+        if (ores.size() > 0)
+        {
+            FurnaceRecipes.smelting().addSmelting(materials.itemID, 36, ores.get(0), 0.2f);
+        }
+        //new ItemStack(materials, 1, 36)
     }
 
     public static Object getStaticItem (String name, String classPackage)
@@ -2407,8 +2415,6 @@ public class TContent implements IFuelHandler
     {
         if (fuel.itemID == materials.itemID && fuel.getItemDamage() == 7)
             return 26400;
-        if (fuel.itemID == woodPattern.itemID)
-            return 800;
         return 0;
     }
 
