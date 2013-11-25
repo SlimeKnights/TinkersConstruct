@@ -1,8 +1,5 @@
 package tconstruct.library.tools;
 
-import ic2.api.item.ICustomElectricItem;
-import ic2.api.item.IElectricItem;
-
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
@@ -389,16 +386,11 @@ public class AbilityHelper
 
     public static boolean damageElectricTool (ItemStack stack, NBTTagCompound tags, Entity entity)
     {
-        if (tags.hasKey("charge") || tags.hasKey("Energy"))
+        if (tags.hasKey("Energy"))
         {
 
             NBTTagCompound toolTag = stack.getTagCompound().getCompoundTag("InfiTool");
-            int charge = -1;
             int energy = -1;
-            if (tags.hasKey("charge"))
-            {
-                charge = tags.getInteger("charge");
-            }
             if (tags.hasKey("Energy"))
             {
                 energy = tags.getInteger("Energy");
@@ -430,22 +422,6 @@ public class AbilityHelper
             float bonusLog = (float) Math.log(durability / 72f + 1) * 2 * stonebound;
             trueSpeed += bonusLog;
             trueSpeed *= 6;
-            if (charge > 0)
-            {
-                if (charge < trueSpeed)
-                {
-                    if (charge > 0)
-                        tags.setInteger("charge", 0);
-                    return false;
-                }
-
-                charge -= trueSpeed;
-                ToolCore tool = (ToolCore) stack.getItem();
-                stack.setItemDamage(1 + (tool.getMaxCharge(stack) - charge) * (stack.getMaxDamage() - 1) / tool.getMaxCharge(stack));
-                tags.setInteger("charge", charge);
-                if (entity instanceof EntityPlayer)
-                    chargeFromArmor(stack, (EntityPlayer) entity);
-            }
             if (energy > 0)
             {
                 if (energy < trueSpeed)
@@ -466,98 +442,6 @@ public class AbilityHelper
         {
             return false;
         }
-    }
-
-    static void chargeFromArmor (ItemStack stack, EntityPlayer player)
-    {
-        boolean inContainer = false;
-
-        for (int armorIter = 0; armorIter < 4; ++armorIter)
-        {
-            ItemStack armor = player.inventory.armorInventory[armorIter];
-
-            if (armor != null && armor.getItem() instanceof IElectricItem)
-            {
-                IElectricItem electricArmor = (IElectricItem) armor.getItem();
-                ToolCore tool = (ToolCore) stack.getItem();
-
-                if (electricArmor.canProvideEnergy(stack) && electricArmor.getTier(stack) >= ((IElectricItem) stack.getItem()).getTier(stack))
-                {
-                    int chargeAmount = tool.charge(stack, Integer.MAX_VALUE, Integer.MAX_VALUE, true, true);
-                    chargeAmount = discharge(armor, chargeAmount, Integer.MAX_VALUE, true, false);
-
-                    if (chargeAmount > 0)
-                    {
-                        tool.charge(stack, chargeAmount, Integer.MAX_VALUE, true, false);
-                        inContainer = true;
-                    }
-                }
-            }
-        }
-
-        if (inContainer)
-        {
-            player.openContainer.detectAndSendChanges();
-        }
-    }
-
-    public static int discharge (ItemStack stack, int amount, int tier, boolean ignoreTransferLimit, boolean simulate)
-    {
-        IElectricItem ielectricitem = (IElectricItem) stack.getItem();
-
-        if (ielectricitem instanceof ICustomElectricItem)
-        {
-            return ((ICustomElectricItem) ielectricitem).discharge(stack, amount, tier, ignoreTransferLimit, simulate);
-        }
-        else if (amount >= 0 && stack.stackSize <= 1 && ielectricitem.getTier(stack) <= tier)
-        {
-            if (amount > ielectricitem.getTransferLimit(stack) && !ignoreTransferLimit)
-            {
-                amount = ielectricitem.getTransferLimit(stack);
-            }
-
-            NBTTagCompound tags = stack.getTagCompound();
-            int charge = tags.getInteger("charge");
-
-            if (amount > charge)
-            {
-                amount = charge;
-            }
-
-            charge -= amount;
-
-            if (!simulate)
-            {
-                tags.setInteger("charge", charge);
-                stack.itemID = charge > 0 ? ielectricitem.getChargedItemId(stack) : ielectricitem.getEmptyItemId(stack);
-
-                if (stack.getItem() instanceof IElectricItem)
-                {
-                    ielectricitem = (IElectricItem) stack.getItem();
-
-                    if (stack.getMaxDamage() > 2)
-                    {
-                        if (stack.getItemDamage() + 1 < stack.getMaxDamage())
-                            stack.setItemDamage(1 + (ielectricitem.getMaxCharge(stack) - charge) * (stack.getMaxDamage() - 2) / ielectricitem.getMaxCharge(stack));
-                    }
-                    else
-                    {
-                        stack.setItemDamage(0);
-                    }
-                }
-                else
-                {
-                    stack.setItemDamage(0);
-                }
-            }
-
-            return amount;
-        }
-        else
-        {
-            return 0;
-        }
-
     }
 
     public static void breakTool (ItemStack stack, NBTTagCompound tags, Entity entity)

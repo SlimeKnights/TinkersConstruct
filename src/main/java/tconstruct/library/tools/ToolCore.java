@@ -1,8 +1,5 @@
 package tconstruct.library.tools;
 
-import ic2.api.item.IBoxable;
-import ic2.api.item.ICustomElectricItem;
-
 import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -60,9 +57,9 @@ import cpw.mods.fml.relauncher.SideOnly;
  * @see ToolMod
  */
 
-public abstract class ToolCore extends Item implements IEnergyContainerItem, ICustomElectricItem, IBoxable, IBattlegearWeapon
+public abstract class ToolCore extends Item implements IEnergyContainerItem, IBattlegearWeapon
 {
-    //TE power constants -- TODO grab these from the 
+    //TE power constants -- TODO grab these from the items added
     protected int capacity = 400000;
     protected int maxReceive = 75;
     protected int maxExtract = 75;
@@ -341,25 +338,6 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, ICu
             return;
 
         NBTTagCompound tags = stack.getTagCompound();
-        if (tags.hasKey("charge"))
-        {
-            String color = "";
-            //double joules = this.getJoules(stack);
-            int power = tags.getInteger("charge");
-
-            if (power != 0)
-            {
-                if (power <= this.getMaxCharge(stack) / 3)
-                    color = "\u00a74";
-                else if (power > this.getMaxCharge(stack) * 2 / 3)
-                    color = "\u00a72";
-                else
-                    color = "\u00a76";
-            }
-
-            String charge = new StringBuilder().append(color).append(tags.getInteger("charge")).append("/").append(getMaxCharge(stack)).append(" EU").toString();
-            list.add(charge);
-        }
         if (tags.hasKey("Energy"))
         {
             String color = "";
@@ -843,13 +821,6 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, ICu
         {
             return 0;
         }
-
-        if (tags.hasKey("charge"))
-        {
-            int charge = tags.getInteger("charge");
-            if (charge > 0)
-                return this.getMaxCharge(stack);
-        }
         if (tags.hasKey("Energy"))
         {
             int energy = tags.getInteger("Energy");
@@ -866,13 +837,6 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, ICu
         {
             return 0;
         }
-
-        if (tags.hasKey("charge"))
-        {
-            int charge = tags.getInteger("charge");
-            if (charge > 0)
-                return getMaxCharge(stack) - charge;
-        }
         if (tags.hasKey("Energy"))
         {
             int energy = tags.getInteger("Energy");
@@ -882,142 +846,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, ICu
         return tags.getCompoundTag("InfiTool").getInteger("Damage");
     }
 
-    /* IC2 Support
-     * Every tool can be an electric tool if you modify it right
-     */
-    @Override
-    public boolean canBeStoredInToolbox (ItemStack stack)
-    {
-        return true;
-    }
 
-    @Override
-    public boolean canProvideEnergy (ItemStack stack)
-    {
-        return false;
-        /*NBTTagCompound tags = stack.getTagCompound();
-        if (!tags.hasKey("charge"))
-            return false;
-
-        return true;*/
-    }
-
-    @Override
-    public int getChargedItemId (ItemStack stack)
-    {
-        return this.itemID;
-    }
-
-    @Override
-    public int getEmptyItemId (ItemStack stack)
-    {
-        return this.itemID;
-    }
-
-    @Override
-    public int getMaxCharge (ItemStack stack)
-    {
-        NBTTagCompound tags = stack.getTagCompound();
-        if (!tags.hasKey("charge"))
-            return 0;
-
-        return 10000;
-    }
-
-    @Override
-    public int getTier (ItemStack itemStack)
-    {
-        return 0;
-    }
-
-    @Override
-    public int getTransferLimit (ItemStack stack)
-    {
-        NBTTagCompound tags = stack.getTagCompound();
-        if (!tags.hasKey("charge"))
-            return 0;
-
-        return 32;
-    }
-
-    @Override
-    public int charge (ItemStack stack, int amount, int tier, boolean ignoreTransferLimit, boolean simulate)
-    {
-        NBTTagCompound tags = stack.getTagCompound();
-        if (!tags.hasKey("charge"))
-            return 0;
-
-        if (amount > 0)
-        {
-            if (amount > getTransferLimit(stack) && !ignoreTransferLimit)
-            {
-                amount = getTransferLimit(stack);
-            }
-
-            int charge = tags.getInteger("charge");
-
-            if (amount > getMaxCharge(stack) - charge)
-            {
-                amount = getMaxCharge(stack) - charge;
-            }
-
-            charge += amount;
-
-            if (!simulate)
-            {
-                tags.setInteger("charge", charge);
-                stack.setItemDamage(1 + (getMaxCharge(stack) - charge) * (stack.getMaxDamage() - 2) / getMaxCharge(stack));
-            }
-
-            return amount;
-        }
-
-        else
-            return 0;
-    }
-
-    @Override
-    public int discharge (ItemStack stack, int amount, int tier, boolean ignoreTransferLimit, boolean simulate)
-    {
-        NBTTagCompound tags = stack.getTagCompound();
-        if (tags == null || !tags.hasKey("charge"))
-            return 0;
-
-        if (amount > 0)
-        {
-            if (amount > getTransferLimit(stack) && !ignoreTransferLimit)
-            {
-                amount = getTransferLimit(stack);
-            }
-            int charge = tags.getInteger("charge");
-
-            if (amount > charge)
-            {
-                amount = charge;
-            }
-            charge -= amount;
-            if (!simulate)
-            {
-                tags.setInteger("charge", charge);
-                stack.setItemDamage(1 + (getMaxCharge(stack) - charge) * (stack.getMaxDamage() - 1) / getMaxCharge(stack));
-            }
-            return amount;
-        }
-        else
-            return 0;
-    }
-
-    @Override
-    public boolean canShowChargeToolTip (ItemStack itemStack)
-    {
-        return false;
-    }
-
-    @Override
-    public boolean canUse (ItemStack itemStack, int amount)
-    {
-        return false;
-    }
 
     /* Battlegear support, IBattlegearWeapon */
 

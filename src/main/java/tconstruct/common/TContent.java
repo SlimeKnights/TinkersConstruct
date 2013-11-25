@@ -261,7 +261,6 @@ public class TContent implements IFuelHandler
     public static Item oreBerries;
 
     //Tool modifiers
-    public static ModElectric modE;
     public static ModFlux modF;
     public static ModLapis modL;
 
@@ -1523,8 +1522,6 @@ public class TContent implements IFuelHandler
         tb.registerToolMod(new ModDurability(new ItemStack[] { diamond }, 0, 500, 0f, 3, "Diamond", "\u00a7bDurability +500", "\u00a7b"));
         tb.registerToolMod(new ModDurability(new ItemStack[] { new ItemStack(Item.emerald) }, 1, 0, 0.5f, 2, "Emerald", "\u00a72Durability +50%", "\u00a72"));
 
-        modE = new ModElectric();
-        tb.registerToolMod(modE);
         modF = new ModFlux();
         tb.registerToolMod(modF);
 
@@ -2246,27 +2243,6 @@ public class TContent implements IFuelHandler
         {
             modF.batteries.add(basicCell);
         }
-        /* IC2 */
-
-        //ItemStack reBattery = ic2.api.item.Items.getItem("reBattery");
-        Object reBattery = getStaticItem("reBattery", "ic2.core.Ic2Items");
-        if (reBattery != null)
-        {
-            modE.batteries.add((ItemStack) reBattery);
-        }
-        //ItemStack chargedReBattery = ic2.api.item.Items.getItem("chargedReBattery");
-        Object chargedReBattery = getStaticItem("chargedReBattery", "ic2.core.Ic2Items");
-        if (chargedReBattery != null)
-        {
-            modE.batteries.add((ItemStack) chargedReBattery);
-        }
-        //ItemStack electronicCircuit = ic2.api.item.Items.getItem("electronicCircuit");
-        Object electronicCircuit = getStaticItem("electronicCircuit", "ic2.core.Ic2Items");
-        if (electronicCircuit != null)
-            modE.circuits.add((ItemStack) electronicCircuit);
-
-        if (chargedReBattery != null && electronicCircuit != null)
-            TConstructClientRegistry.registerManualModifier("electricmod", ironpick.copy(), (ItemStack) chargedReBattery, (ItemStack) electronicCircuit);
 
         /* Thaumcraft */
         Object obj = getStaticItem("itemResource", "thaumcraft.common.config.ConfigItems");

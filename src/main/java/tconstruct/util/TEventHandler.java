@@ -532,13 +532,8 @@ public class TEventHandler
     @ForgeSubscribe
     public void registerOre (OreRegisterEvent evt)
     {
-        if (evt.Name == "battery")
-            TConstruct.content.modE.batteries.add(evt.Ore);
-
-        else if (evt.Name == "basicCircuit")
-            TConstruct.content.modE.circuits.add(evt.Ore);
-
-        else if (evt.Name == "crystalQuartz")
+      
+        if (evt.Name == "crystalQuartz")
         {
             ToolBuilder.instance.registerToolMod(new ModAttack("Quartz", new ItemStack[] { evt.Ore }, 11, 2));
         }

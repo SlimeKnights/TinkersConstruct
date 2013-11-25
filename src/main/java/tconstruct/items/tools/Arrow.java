@@ -174,24 +174,24 @@ public class Arrow extends ToolCore
             return;
 
         NBTTagCompound tags = stack.getTagCompound();
-        if (tags.hasKey("charge"))
+        if (tags.hasKey("Energy"))
         {
             String color = "";
             //double joules = this.getJoules(stack);
-            int power = tags.getInteger("charge");
+            int power = tags.getInteger("Energy");
 
             if (power != 0)
             {
-                if (power <= this.getMaxCharge(stack) / 3)
+                if (power <= this.getMaxEnergyStored(stack) / 3)
                     color = "\u00a74";
-                else if (power > this.getMaxCharge(stack) * 2 / 3)
+                else if (power > this.getMaxEnergyStored(stack) * 2 / 3)
                     color = "\u00a72";
                 else
                     color = "\u00a76";
             }
 
-            String charge = new StringBuilder().append(color).append(tags.getInteger("charge")).append("/").append(getMaxCharge(stack)).append(" EU").toString();
-            list.add(charge);
+            String energy = new StringBuilder().append(color).append(tags.getInteger("Energy")).append("/").append(getMaxEnergyStored(stack)).append(" RF").toString();
+            list.add(energy);
         }
         if (tags.hasKey("InfiTool"))
         {
