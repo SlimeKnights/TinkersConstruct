@@ -19,7 +19,7 @@ public class StrangeFood extends SpecialFood
     @SideOnly(Side.CLIENT)
     public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean par4)
     {
-        list.add(StatCollector.translateToLocal("strangefood1.tooltip"));
-        list.add(StatCollector.translateToLocal("strangefood2.tooltip"));
+        list.add("\u00a7b\u00a7o"+StatCollector.translateToLocal("strangefood1.tooltip"));
+        list.add("\u00a7b\u00a7o"+StatCollector.translateToLocal("strangefood2.tooltip"));
     }
 }

@@ -1211,6 +1211,7 @@ public class TContent implements IFuelHandler
         GameRegistry.addShapelessRecipe(new ItemStack(manualBook, 2, 1), new ItemStack(manualBook, 1, 1), Item.book);
         GameRegistry.addShapelessRecipe(new ItemStack(manualBook, 1, 2), new ItemStack(manualBook, 1, 1));
         GameRegistry.addShapelessRecipe(new ItemStack(manualBook, 2, 2), new ItemStack(manualBook, 1, 2), Item.book);
+        GameRegistry.addShapelessRecipe(new ItemStack(manualBook, 1, 3), new ItemStack(manualBook, 1, 2));
         // alternativ Vanilla Book Recipe
         GameRegistry.addShapelessRecipe(new ItemStack(Item.book), Item.paper, Item.paper, Item.paper, Item.silk, blankPattern, blankPattern);
         // Paperstack Recipe
@@ -1234,8 +1235,6 @@ public class TContent implements IFuelHandler
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(materials, 1, 25), patSurround, 'm', "nuggetGold", '#', new ItemStack(Item.silk)));
         // Silky Jewel Recipes
         GameRegistry.addRecipe(new ItemStack(materials, 1, 26), " c ", "cec", " c ", 'c', new ItemStack(materials, 1, 25), 'e', new ItemStack(Item.emerald));
-        // Ender Stuff
-        GameRegistry.addRecipe(new ItemStack(Item.enderPearl, 4), "m", 'm', new ItemStack(metalBlock.blockID, 1, 10));
         // Wooden Armor Recipes
         GameRegistry.addRecipe(new ShapedOreRecipe(helmetWood, new Object[] { "www", "w w", 'w', "logWood" }));
         GameRegistry.addRecipe(new ShapedOreRecipe(chestplateWood, new Object[] { "w w", "www", "www", 'w', "logWood" }));
@@ -1426,7 +1425,7 @@ public class TContent implements IFuelHandler
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(slimeExplosive, 1, 0), "slimeball", Block.tnt));
 
         GameRegistry.addShapelessRecipe(new ItemStack(slimeChannel, 1, 0), new ItemStack(slimeGel, 1, Short.MAX_VALUE), new ItemStack(Item.redstone));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(slimePad, 1, 0), slimeChannel, new ItemStack(slimeGel, 1, Short.MAX_VALUE), "slimeBall"));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(slimePad, 1, 0), slimeChannel, "slimeBall"));
     }
 
     private void addRecipesForFurnace ()
