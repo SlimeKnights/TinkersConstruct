@@ -337,6 +337,8 @@ public class TProxyClient extends TProxyCommon
         TConstructClientRegistry.registerManualIcon("arditeingot", new ItemStack(TContent.materials, 1, 4));
         TConstructClientRegistry.registerManualIcon("copperingot", new ItemStack(TContent.materials, 1, 9));
         TConstructClientRegistry.registerManualIcon("steelingot", new ItemStack(TContent.materials, 1, 16));
+		TConstructClientRegistry.registerManualIcon("pigironingot", new ItemStack(TContent.materials, 1, 34));
+
 
         // Tool parts
         TConstructClientRegistry.registerManualIcon("pickhead", new ItemStack(TContent.pickaxeHead, 1, 2));
@@ -368,6 +370,12 @@ public class TProxyClient extends TProxyCommon
         TConstructClientRegistry.registerManualIcon("bowstring", new ItemStack(TContent.bowstring, 1, 0));
         TConstructClientRegistry.registerManualIcon("arrowhead", new ItemStack(TContent.arrowhead, 1, 2));
         TConstructClientRegistry.registerManualIcon("fletching", new ItemStack(TContent.fletching, 1, 0));
+		
+        TConstructClientRegistry.registerManualIcon("bloodbucket", new ItemStack(TContent.buckets, 1, 16));
+        TConstructClientRegistry.registerManualIcon("emeraldbucket", new ItemStack(TContent.buckets, 1, 15));
+        TConstructClientRegistry.registerManualIcon("gluebucket", new ItemStack(TContent.buckets, 1, 25));
+        TConstructClientRegistry.registerManualIcon("slimebucket", new ItemStack(TContent.buckets, 1, 24));
+        TConstructClientRegistry.registerManualIcon("enderbucket", new ItemStack(TContent.buckets, 1, 23));
 
         // ToolIcons
         TConstructClientRegistry.registerManualIcon("pickicon",
@@ -412,6 +420,7 @@ public class TProxyClient extends TProxyCommon
 
         ItemStack stick = new ItemStack(Item.stick, 1, 0);
         ItemStack plank = new ItemStack(Block.planks, 1, 0);
+		ItemStack plankSlab = new ItemStack(Block.woodSingleSlab, 1, 0);
         ItemStack workbench = new ItemStack(Block.workbench, 1, 0);
         ItemStack chest = new ItemStack(Block.chest, 1, 0);
         ItemStack log = new ItemStack(Block.wood, 1, 0);
@@ -451,6 +460,8 @@ public class TProxyClient extends TProxyCommon
         TConstructClientRegistry.registerManualSmallRecipe("partcrafter", new ItemStack(TContent.toolStationWood, 1, 1), null, pattern, null, log);
         TConstructClientRegistry.registerManualSmallRecipe("patternchest", new ItemStack(TContent.toolStationWood, 1, 5), null, pattern, null, chest);
         TConstructClientRegistry.registerManualSmallRecipe("stenciltable", new ItemStack(TContent.toolStationWood, 1, 10), null, pattern, null, plank);
+        TConstructClientRegistry.registerManualSmallRecipe("slimechannel", new ItemStack(TContent.slimeChannel, 1, 0), new ItemStack(TContent.slimeGel, 1, 0), new ItemStack(Item.redstone), null, null);
+        TConstructClientRegistry.registerManualSmallRecipe("bouncepad", new ItemStack(TContent.slimePad, 1, 0), new ItemStack(TContent.slimeChannel), new ItemStack(Item.slimeBall), null, null);
         TConstructClientRegistry.registerManualLargeRecipe("toolforge", new ItemStack(TContent.toolForge, 1, 0), searedbrickBlock, searedbrickBlock, searedbrickBlock, ironblock, new ItemStack(
                 TContent.toolStationWood, 1, 0), ironblock, ironblock, null, ironblock);
 
@@ -473,7 +484,10 @@ public class TProxyClient extends TProxyCommon
         TConstructClientRegistry.registerManualSmallRecipe("searedbricks", new ItemStack(TContent.smeltery, 1, 2), searedbrick, searedbrick, searedbrick, searedbrick);
         TConstructClientRegistry.registerManualLargeRecipe("smelterycontroller", new ItemStack(TContent.smeltery, 1, 0), searedbrick, searedbrick, searedbrick, searedbrick, null, searedbrick,
                 searedbrick, searedbrick, searedbrick);
-        TConstructClientRegistry.registerManualLargeRecipe("smelterydrain", new ItemStack(TContent.smeltery, 1, 1), searedbrick, null, searedbrick, searedbrick, null, searedbrick, searedbrick, null,
+        TConstructClientRegistry.registerManualLargeRecipe("dryingrack", new ItemStack(TContent.dryingRack, 1, 0), null, null, null, plankSlab, plankSlab, plankSlab, null, null,
+                null);
+
+		TConstructClientRegistry.registerManualLargeRecipe("smelterydrain", new ItemStack(TContent.smeltery, 1, 1), searedbrick, null, searedbrick, searedbrick, null, searedbrick, searedbrick, null,
                 searedbrick);
 
         TConstructClientRegistry.registerManualLargeRecipe("smelterytank1", new ItemStack(TContent.lavaTank, 1, 0), searedbrick, searedbrick, searedbrick, searedbrick, glass, searedbrick,
@@ -535,6 +549,7 @@ public class TProxyClient extends TProxyCommon
         TConstructClientRegistry.registerManualSmeltery("clearglass", new ItemStack(TContent.clearGlass), new ItemStack(TContent.moltenGlass, 1), null);
         TConstructClientRegistry.registerManualSmeltery("searedstone", new ItemStack(TContent.smeltery, 1, 4), new ItemStack(TContent.moltenStone, 1), null);
         TConstructClientRegistry.registerManualSmeltery("endstone", new ItemStack(Block.whiteStone), new ItemStack(TContent.moltenEnder, 1), new ItemStack(Block.obsidian));
+        TConstructClientRegistry.registerManualSmeltery("glueball", new ItemStack(TContent.materials, 1, 36), new ItemStack(TContent.glueFluidBlock, 1), null);
 
     }
 

@@ -15,8 +15,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class Manual extends CraftingItem
 {
-    static String[] name = new String[] { "beginner", "toolstation", "smeltery" };
-    static String[] textureName = new String[] { "tinkerbook_diary", "tinkerbook_toolstation", "tinkerbook_smeltery" };
+    static String[] name = new String[] { "beginner", "toolstation", "smeltery", "diary" };
+    static String[] textureName = new String[] { "tinkerbook_diary", "tinkerbook_toolstation", "tinkerbook_smeltery", "tinkerbook_blue" };
 
     public Manual(int id)
     {
@@ -41,13 +41,13 @@ public class Manual extends CraftingItem
         switch (stack.getItemDamage())
         {
         case 0:
-            list.add(StatCollector.translateToLocal("manual1.tooltip"));
+            list.add("\u00a7o"+StatCollector.translateToLocal("manual1.tooltip"));
             break;
         case 1:
-            list.add(StatCollector.translateToLocal("manual2.tooltip"));
+            list.add("\u00a7o"+StatCollector.translateToLocal("manual2.tooltip"));
             break;
         case 2:
-            list.add(StatCollector.translateToLocal("manual3.tooltip"));
+            list.add("\u00a7o"+StatCollector.translateToLocal("manual3.tooltip"));
             break;
         }
     }

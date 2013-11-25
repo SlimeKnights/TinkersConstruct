@@ -673,11 +673,25 @@ Class: Ranged Projectile Launcher</text>
 <page type="materialstats">
 <title>Steel</title>
 <icon>steelsword</icon>
-<text>An Iron alloy. The method for obtaining this is unknown. Enemy chainmail seems to be made of it.
+<text>An Iron alloy. The method for obtaining this is unknown.
 - Requires the Smeltery</text>
 <material>
  <main>steelingot</main>
 </material>
+</page>
+
+<page type="materialstats">
+<title>Pig Iron</title>
+<icon>pigironsword</icon>
+<toolmaterial>PigIron</toolmaterial>
+<text>An Iron alloy. It seems to be made of blood, iron, and emeralds.
+- Requires the Smeltery</text>
+<material>
+ <main>pigironingot</main>
+</material>
+</page>
+
+<page type="blank">
 </page>
 
 <page type="sectionpage">

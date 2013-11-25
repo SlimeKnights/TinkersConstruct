@@ -8,16 +8,16 @@ package powercrystals.minefactoryreloaded.api;
  */
 public enum FertilizerType
 {
-    /**
-     * The fertilizer will fertilize grass.
-     */
-    Grass,
-    /**
-     * The fertilizer will grow a plant.
-     */
-    GrowPlant,
-    /**
-     * The fertilizer will grow magical crops.
-     */
-    GrowMagicalCrop,
+	/**
+	 * The fertilizer will fertilize grass.
+	 */
+	Grass,
+	/**
+	 * The fertilizer will grow a plant.
+	 */
+	GrowPlant,
+	/**
+	 * The fertilizer will grow magical crops.
+	 */
+	GrowMagicalCrop,
 }
