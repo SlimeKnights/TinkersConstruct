@@ -38,13 +38,13 @@ public class LavaTankItemBlock extends ItemBlock
             NBTTagCompound liquidTag = stack.getTagCompound().getCompoundTag("Fluid");
             if (liquidTag != null)
             {
-                list.add("Contains " + StatCollector.translateToLocal(liquidTag.getString("FluidName")));
+                list.add(StatCollector.translateToLocal("searedtank1.tooltip") + StatCollector.translateToLocal(liquidTag.getString("FluidName")));
                 list.add(liquidTag.getInteger("Amount") + " mB");
             }
         }
         else
         {
-            list.add(StatCollector.translateToLocal("searedtank.tooltip"));
+            list.add(StatCollector.translateToLocal("searedtank2.tooltip"));
         }
     }
 }

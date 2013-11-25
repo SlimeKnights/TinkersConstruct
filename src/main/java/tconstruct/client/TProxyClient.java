@@ -950,7 +950,7 @@ public class TProxyClient extends TProxyCommon
     @Override
     public void postInit ()
     {
-        MinecraftForgeClient.registerItemRenderer(TContent.armorPattern.itemID, new RenderArmorCast());
+        //MinecraftForgeClient.registerItemRenderer(TContent.armorPattern.itemID, new RenderArmorCast());
     }
 
 }

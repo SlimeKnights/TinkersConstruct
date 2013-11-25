@@ -21,7 +21,7 @@ public class DryingRackLogic extends InventoryLogic
 
     public DryingRackLogic()
     {
-        super(1);
+        super(1, 1);
     }
 
     @Override

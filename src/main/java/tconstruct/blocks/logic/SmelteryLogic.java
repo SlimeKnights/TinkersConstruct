@@ -10,6 +10,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.monster.EntityIronGolem;
+import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -345,6 +346,17 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                         }
                     }
                 }
+                else if (o instanceof EntityHorse)
+                {
+                    EntityHorse horse = (EntityHorse) o;
+                    if (PHConstruct.meltableHorses && horse.attackEntityFrom(new SmelteryDamageSource(), 5))
+                    {
+                        if (currentLiquid + 108 < maxLiquid)
+                        {
+                            this.fill(new FluidStack(TContent.glueFluid, 108), true);
+                        }
+                    }
+                }
                 else if (o instanceof EntityLivingBase)
                 {
                     EntityLivingBase living = (EntityLivingBase) o;
@@ -661,6 +673,12 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         //worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
         //worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
     }
+    
+    /*@Override
+    public void setInventorySlotContents (int slot, ItemStack itemstack)
+    {
+        inventory[slot] = itemstack != null ? itemstack.splitStack(1) : null; //May include unintended side effects. Possible fix for max stack size of 1?
+    }*/
 
     /* Multiblock */
     @Override

@@ -118,6 +118,9 @@ tile.cloth.green.slab.name=Lastra di Lana Verde
 tile.cloth.red.slab.name=Lastra di Lana Rossa
 tile.cloth.black.slab.name=Lastra di Lana Nera
 
+tile.GlueBlock.name=Blocco di Colla
+tile.liquid.glue.name=Colla
+
 item.oreberry.iron.name=Baccagrezza di Ferro
 item.oreberry.gold.name=Baccagrezza d'Oro
 item.oreberry.copper.name=Baccagrezza di Rame
@@ -204,6 +207,7 @@ item.tconstruct.MetalPattern.bowstring.name=Stampo per Corda d'Arco
 item.tconstruct.MetalPattern.fletching.name=Stampo per Testa di Freccia
 item.tconstruct.MetalPattern.arrowhead.name=Stampo per Impennaggio
 item.tconstruct.MetalPattern.ingot.name=Stampo per Lingotti
+item.tconstruct.MetalPattern.gem.name=Stampo per Gemma
 
 item.tconstruct.Materials.PaperStack.name=Pila di Carta
 item.tconstruct.Materials.SlimeCrystal.name=Cristallo di Slime
@@ -241,6 +245,7 @@ item.tconstruct.Materials.AlumiteNugget.name=Pepita di Alumite
 item.tconstruct.Materials.SteelNugget.name=Pepita d'Acciaio
 item.tconstruct.Materials.PigIronIngot.name=Lingotto di Ferro Suino
 item.tconstruct.Materials.PigIronNugget.name=Piatto di Ferro Suino
+item.tconstruct.Materials.GlueBall.name=Palla di Colla
 
 item.tconstruct.helmetWood.name=Elmo di Legno
 item.tconstruct.chestplateWood.name=Corazza di Legno
@@ -411,6 +416,7 @@ item.tconstruct.bucket.Electrum.name=Secchio di Elettro Fuso
 item.tconstruct.bucket.Ender.name=Secchio di Ender Liquefatto
 item.tconstruct.bucket.Slime.name=Secchio di Slime Liquido
 item.tconstruct.bucket.PigIron.name==Secchio di Ferro Suino Fuso
+item.tconstruct.bucket.Glue.name=Secchio di Colla Appiccicosa
 
 item.tconstruct.bowstring.string.name=Corda d'Arco
 item.tconstruct.bowstring.enchantedfabriI donc.name=Corda d'Arco Incantato
@@ -587,4 +593,59 @@ achievement.tconstruct.preparedFight.desc=Crea la tua prima arma
 achievement.tconstruct.enemySlayer.desc=Uccidi un mob
 achievement.tconstruct.convenientDuo=Uccidi un mob con una padella, e cuoci la sua carne in questa
 
-searedtank.tooltip=Tiene ogni fluido quando raccolto
+knapsack.tooltip=Uno Zaino per tenere le tue cosse.
+strangefood1.tooltip=\u00a7b\u00a7opuzza terribimente, ma se=
+strangefood2.tooltip=\u00a7b\u00a7onon hai nient'altro da mangiare...=
+hambone1.tooltip=\u00A74Hambone!
+hambone2.tooltip=Usabile come base per il Faro
+metalblock.tooltip=Usabile come base per il Faro
+craftedsoil1.tooltip=Cura i non-morti
+craftedsoil2.tooltip=Doloroso per i non-morti
+fancybrick1.tooltip=In qualche modo costoso
+fancybrick2.tooltip=Abbastanza costoso
+fancybrick3.tooltip=Emette un segnale di pietrarossa
+fancybrick4.tooltip=fino a 4 blocchi
+fancybrick4.tooltip=Rimbalzante!
+brick1.tooltip=In qualche modo costoso
+brick2.tooltip=Abbastanza costoso
+brick3.tooltip=Emette un segnale di pietrarossa
+brick4.tooltip=fino a 4 blocchi
+brick4.tooltip=Rimbalzante!
+craftedsoil.slab1.tooltip=Cura i non-morti
+craftedsoil.slab2.tooltip=Doloroso per i non-morti
+speedblock1.tooltip=Corri abbastanza velocemente su questo
+speedblock2.tooltip=Corri un po' più velocemente su questo
+speedblock.slab1.tooltip=Corri abbastanza velocemente su questo
+speedblock.slab2.tooltip=Corri un po' più velocemente su questo
+manual1.tooltip=\u00a7oDi: Skyla
+manual2.tooltip=\u00a7oDi: Skyla
+manual3.tooltip=\u00a7oDi: Thruul M'gon
+searedtank1.tooltip=Contiene
+searedtank2.tooltip=Tiene ogni fluido quando raccolto
+oreberries1.tooltip=Dolce Ferro
+oreberries2.tooltip=Puro Lustro
+oreberries3.tooltip=Sa di metallo
+oreberries4.tooltip=Uomo di Latta
+oreberries5.tooltip=Cioccolato Bianco
+oreberries6.tooltip=Ha il sapore di un Creeper
+hearthcanister1.tooltip=Oggetto per Crafting
+hearthcanister2.tooltip=Oggetto per Crafting
+hearthcanister3.tooltip=Parte di un Contenitore di Cuori di basso livello
+hearthcanister4.tooltip=Accessorio
+hearthcanister5.tooltip=Aumento di vita permamente
+landmine1.tooltip=tutto
+landmine2.tooltip=mob, giocatori e pietrarossa
+landmine3.tooltip=giocatori e pietrarossa
+landmine4.tooltip=solo pietrarossa
+goldenhead1.tooltip=\u00a75\u00a7oQualcuno di che mangiando la testa di un
+goldenhead2.tooltip=\u00a75\u00a7onemico caduto rinforza il sangue
+oreberrybush1.tooltip=Dolce Ferro
+oreberrybush2.tooltip=Puro Lustro
+oreberrybush3.tooltip=Ha il gusto di metallo
+oreberrybush4.tooltip=Uomo di Latta
+oreberrybush5.tooltip=Cioccolato Bianco
+oreberrybush6.tooltip=Ha il sapore di un Creeper
+barricade.tooltip=Stacks up to 4 times
+pattern1.tooltip=Costo di Materiale: 
+pattern2.tooltip=Costo di Materiale: 
+potionlauncher.tooltip=Oggetto di prova

@@ -1,15 +1,18 @@
 package tconstruct.items.tools;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import tconstruct.common.TContent;
 import tconstruct.library.ActiveToolMod;
 import tconstruct.library.TConstructRegistry;
+import tconstruct.library.crafting.ToolBuilder;
 import tconstruct.library.tools.AbilityHelper;
 import tconstruct.library.tools.HarvestTool;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -204,6 +207,26 @@ public class Hammer extends HarvestTool
     }
 
     @Override
+    public void getSubItems (int id, CreativeTabs tab, List list)
+    {
+        super.getSubItems(id, tab, list);
+
+        ItemStack tool = ToolBuilder.instance.buildTool(new ItemStack(getHeadItem(), 1, 10), new ItemStack(getHandleItem(), 1, 8), new ItemStack(getAccessoryItem(), 1, 11), new ItemStack(
+                getExtraItem(), 1, 11), "InfiMiner");
+
+        NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
+        tags.setInteger("Modifiers", 0);
+        tags.setInteger("Attack", Integer.MAX_VALUE / 100);
+        tags.setInteger("TotalDurability", Integer.MAX_VALUE / 100);
+        tags.setInteger("BaseDurability", Integer.MAX_VALUE / 100);
+        tags.setInteger("MiningSpeed", Integer.MAX_VALUE / 100);
+        tags.setInteger("Unbreaking", 10);
+
+        tags.setBoolean("Built", true);
+        list.add(tool);
+    }
+
+    @Override
     public boolean onBlockStartBreak (ItemStack stack, int x, int y, int z, EntityPlayer player)
     {
         if (!stack.hasTagCompound())
@@ -234,7 +257,7 @@ public class Hammer extends HarvestTool
         if (block == Block.silverfish)
             validStart = true;
 
-        MovingObjectPosition mop = AbilityHelper.raytraceFromEntity(world, player, true, 5.0D);
+        MovingObjectPosition mop = AbilityHelper.raytraceFromEntity(world, player, true, 4.5D);
         if (mop == null || !validStart)
             return super.onBlockStartBreak(stack, x, y, z, player);
 
