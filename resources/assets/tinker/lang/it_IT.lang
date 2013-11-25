@@ -594,9 +594,9 @@ achievement.tconstruct.enemySlayer.desc=Uccidi un mob
 achievement.tconstruct.convenientDuo=Uccidi un mob con una padella, e cuoci la sua carne in questa
 
 knapsack.tooltip=Uno Zaino per tenere le tue cosse.
-strangefood1.tooltip=\u00a7b\u00a7opuzza terribimente, ma se=
-strangefood2.tooltip=\u00a7b\u00a7onon hai nient'altro da mangiare...=
-hambone1.tooltip=\u00A74Hambone!
+strangefood1.tooltip=\u00a7b\u00a7opuzza terribimente, ma se
+strangefood2.tooltip=\u00a7b\u00a7onon hai nient'altro da mangiare...
+hambone1.tooltip=\u00A74Prosciutto!
 hambone2.tooltip=Usabile come base per il Faro
 metalblock.tooltip=Usabile come base per il Faro
 craftedsoil1.tooltip=Cura i non-morti
