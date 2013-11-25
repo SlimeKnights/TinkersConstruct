@@ -415,7 +415,7 @@ item.tconstruct.bucket.Invar.name=Secchio di Invaro Fuso
 item.tconstruct.bucket.Electrum.name=Secchio di Elettro Fuso
 item.tconstruct.bucket.Ender.name=Secchio di Ender Liquefatto
 item.tconstruct.bucket.Slime.name=Secchio di Slime Liquido
-item.tconstruct.bucket.PigIron.name==Secchio di Ferro Suino Fuso
+item.tconstruct.bucket.PigIron.name=Secchio di Ferro Suino Fuso
 item.tconstruct.bucket.Glue.name=Secchio di Colla Appiccicosa
 
 item.tconstruct.bowstring.string.name=Corda d'Arco
