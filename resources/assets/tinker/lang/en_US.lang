@@ -637,6 +637,7 @@ landmine1.tooltip=everything
 landmine2.tooltip=mobs, players and redstone
 landmine3.tooltip=players and redstone
 landmine4.tooltip=redstone only
+landmine5.tooltip=Interacts with: 
 goldenhead1.tooltip=\u00a75\u00a7oSome say consuming the head of a
 goldenhead2.tooltip=\u00a75\u00a7ofallen foe strengthens the blood
 oreberrybush1.tooltip=Sweet Irony
