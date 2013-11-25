@@ -351,9 +351,9 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                     EntityHorse horse = (EntityHorse) o;
                     if (PHConstruct.meltableHorses && horse.attackEntityFrom(new SmelteryDamageSource(), 5))
                     {
-                        if (currentLiquid + 200 < maxLiquid)
+                        if (currentLiquid + 108 < maxLiquid)
                         {
-                            this.fill(new FluidStack(TContent.glueFluid, 200), true);
+                            this.fill(new FluidStack(TContent.glueFluid, 108), true);
                         }
                     }
                 }

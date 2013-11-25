@@ -25,7 +25,7 @@ public class GrindableHorse implements IFactoryGrindable
     {
         List<MobDrop> drops = new ArrayList<MobDrop>();
 
-        drops.add(new MobDrop(10, new ItemStack(TContent.materials, random.nextInt(6) + 3, 36)));
+        drops.add(new MobDrop(10, new ItemStack(TContent.materials, random.nextInt(4) + 1, 36)));
 
         return drops;
     }
