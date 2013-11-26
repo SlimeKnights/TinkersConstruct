@@ -574,6 +574,7 @@ fluid.electrum.molten=Elettro Fuso
 fluid.ender=Ender Liquido
 fluid.slime.blue=Slime Blu Liquido
 fluid.pigiron.molten=Ferro Suino Fuso
+fluid.glue=Colla
 
 tconstruct.achievementPage.name=TConstruct
 achievement.tconstruct.beginner=Imparare a Armeggiare
