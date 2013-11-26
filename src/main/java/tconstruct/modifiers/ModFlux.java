@@ -18,7 +18,7 @@ public class ModFlux extends ModBoolean
 
     public ModFlux()
     {
-        super(new ItemStack[0], 17, "Flux", "\u00a7e", "");
+        super(new ItemStack[0], 9, "Flux", "\u00a7e", "");
     }
 
     @Override
