@@ -1007,12 +1007,49 @@ Effects:
 - Available from IndustrialCraft 2
 
 Type: Single-use
-Stackable: No</text>
+Stackable: No
+Note: this modifier will be removed in Minecraft 1.7</text>
 </page>
 
 <page type="modifier">
 <tooltype>tool</tooltype>
 <recipe>electricmod</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Flux</title>
+<text>Adding a Hardened Flux Capacitor or Leadstone Energy Cell gives a tool energy. The tool still functions properly when the Cell/Capacitor has no charge.
+
+Effects:
+- Allows the tool to be charged with Redstone Flux
+- Uses energy instead of durability while charged
+- Available from Thermal Expansion 3
+
+Type: Single-use
+Stackable: No</text>
+</page>
+
+<page type="modifier">
+<tooltype>tool</tooltype>
+<recipe>fluxmod</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Flux</title>
+<text>Adding a Hardened Flux Capacitor or Leadstone Energy Cell gives a tool energy. The tool still functions properly when the Cell/Capacitor has no charge.
+
+Effects:
+- Allows the tool to be charged with Redstone Flux
+- Uses energy instead of durability while charged
+- Available from Thermal Expansion 3
+
+Type: Single-use
+Stackable: No</text>
+</page>
+
+<page type="modifier">
+<tooltype>tool</tooltype>
+<recipe>fluxmod2</recipe>
 </page>
 
 <page type="sectionpage">

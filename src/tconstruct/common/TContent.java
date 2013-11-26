@@ -2260,6 +2260,11 @@ public class TContent implements IFuelHandler
         {
             modF.batteries.add(basicCell);
         }
+		if (batHardened != null)
+            TConstructClientRegistry.registerManualModifier("fluxmod", ironpick.copy(), (ItemStack) batHardened);
+		if (basicCell != null)
+            TConstructClientRegistry.registerManualModifier("fluxmod2", ironpick.copy(), (ItemStack) basicCell);
+
         /* IC2 */
 
         //ItemStack reBattery = ic2.api.item.Items.getItem("reBattery");
