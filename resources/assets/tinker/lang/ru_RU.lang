@@ -223,7 +223,7 @@ item.tconstruct.Materials.AlumiteNugget.name=Алюмитовый самород
 item.tconstruct.Materials.SteelNugget.name=Кусочек стали
 item.tconstruct.Materials.PigIronIngot.name=Чугунный слиток
 item.tconstruct.Materials.PigIronNugget.name=Чугунная тарелка
-item.tconstruct.Materials.GlueIngot.name=Слиток клея
+item.tconstruct.Materials.GlueBall.name=Шарик клея
 
 item.tconstruct.ArmorPattern.helmet.name=Слепок шлема
 item.tconstruct.ArmorPattern.chestplate.name=Слепок кирасы
@@ -524,8 +524,8 @@ achievement.tconstruct.enemySlayer.desc=Убейте моба
 achievement.tconstruct.dualConvenience.desc=Убейте моба сковородой, а затем приготовьте его мясо на ней
 
 knapsack.tooltip=Ранец для хранения ваших вещей.
-strangefood1.tooltip=Пахнет ужасно, но если вам=
-strangefood2.tooltip=oбольше нечего поесть...=
+strangefood1.tooltip=Пахнет ужасно, но если вам
+strangefood2.tooltip=больше нечего поесть...
 hambone1.tooltip=Hambone!
 hambone2.tooltip=Подходит для основания маяка
 metalblock.tooltip=Подходит для основания маяка
