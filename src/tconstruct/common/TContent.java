@@ -1768,7 +1768,7 @@ public class TContent implements IFuelHandler
         Smeltery.addMelting(FluidType.Iron, new ItemStack(Item.doorIron), 0, TConstruct.ingotLiquidValue * 6);
         Smeltery.addMelting(FluidType.Iron, new ItemStack(Item.cauldron), 0, TConstruct.ingotLiquidValue * 7);
         Smeltery.addMelting(FluidType.Iron, new ItemStack(Item.shears), 0, TConstruct.ingotLiquidValue * 2);
-        Smeltery.addMelting(FluidType.Emerald, new ItemStack(Item.emerald), -50, 800);
+        Smeltery.addMelting(FluidType.Emerald, new ItemStack(Item.emerald), -50, 640);
 
         //Blocks melt as themselves!
         //Ore
