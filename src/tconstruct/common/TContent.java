@@ -1185,6 +1185,7 @@ public class TContent implements IFuelHandler
 
         // ToolStation Recipes (Wooden Version)
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(toolStationWood, 1, 0), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', "crafterWood"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(toolStationWood, 1, 0), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', "craftingTableWood"));
         GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 0), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(craftingStationWood, 1, 0));
         GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 0), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(craftingSlabWood, 1, 0));
         GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 2), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(Block.wood, 1, 1));
@@ -1402,8 +1403,10 @@ public class TContent implements IFuelHandler
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(barricadeOak, 1, 0), "b", "b", 'b', "logWood"));
         // Advanced WorkBench Recipes
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(craftingStationWood, 1, 0), "b", 'b', "crafterWood"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(craftingStationWood, 1, 0), "b", 'b', "craftingTableWood"));
         //Slab crafters
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(craftingSlabWood, 6, 0), "bbb", 'b', "crafterWood"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(craftingSlabWood, 6, 0), "bbb", 'b', "craftingTableWood"));
         GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 0), "b", 'b', new ItemStack(craftingStationWood, 1, 0));
         GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 1), "b", 'b', new ItemStack(toolStationWood, 1, 0));
         GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 2), "b", 'b', new ItemStack(toolStationWood, 1, 1));
@@ -2045,7 +2048,8 @@ public class TContent implements IFuelHandler
         ensureOreIsRegistered("stoneMossy", new ItemStack(Block.stoneBrick, 1, 1));
         ensureOreIsRegistered("stoneMossy", new ItemStack(Block.cobblestoneMossy));
 
-        ensureOreIsRegistered("crafterWood", new ItemStack(Block.workbench, 1));
+        OreDictionary.registerOre("crafterWood", new ItemStack(Block.workbench, 1));
+        OreDictionary.registerOre("craftingTableWood", new ItemStack(Block.workbench, 1));
 
         OreDictionary.registerOre("torchStone", new ItemStack(stoneTorch));
 
