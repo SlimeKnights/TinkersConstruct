@@ -998,13 +998,13 @@ Stackable: Yes</text>
 </page>
 
 <page type="sectionpage">
-<title>Electric</title>
-<text>Adding a battery and a circuit to a tool gives it an electric field. The tool still functions properly when the battery has no charge.
+<title>Flux</title>
+<text>Adding a Hardened Flux Capacitor or Leadstone Energy Cell gives a tool energy. The tool still functions properly when the Cell/Capacitor has no charge.
 
 Effects:
-- Allows the tool to be charged with electricity
+- Allows the tool to be charged with Redstone Flux
 - Uses energy instead of durability while charged
-- Available from IndustrialCraft 2
+- Available from Thermal Expansion 3
 
 Type: Single-use
 Stackable: No</text>
@@ -1012,7 +1012,25 @@ Stackable: No</text>
 
 <page type="modifier">
 <tooltype>tool</tooltype>
-<recipe>electricmod</recipe>
+<recipe>fluxmod</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Flux</title>
+<text>Adding a Hardened Flux Capacitor or Leadstone Energy Cell gives a tool energy. The tool still functions properly when the Cell/Capacitor has no charge.
+
+Effects:
+- Allows the tool to be charged with Redstone Flux
+- Uses energy instead of durability while charged
+- Available from Thermal Expansion 3
+
+Type: Single-use
+Stackable: No</text>
+</page>
+
+<page type="modifier">
+<tooltype>tool</tooltype>
+<recipe>fluxmod2</recipe>
 </page>
 
 <page type="sectionpage">

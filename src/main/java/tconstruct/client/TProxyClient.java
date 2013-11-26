@@ -540,7 +540,8 @@ public class TProxyClient extends TProxyCommon
         TConstructClientRegistry.registerManualModifier("spidermod", ironlongsword.copy(), new ItemStack(Item.fermentedSpiderEye));
         TConstructClientRegistry.registerManualModifier("smitemod", ironlongsword.copy(), new ItemStack(TContent.craftedSoil, 1, 4));
 
-        TConstructClientRegistry.registerManualModifier("fluxmod", ironpick.copy(), new ItemStack(Block.dirt), new ItemStack(Block.dirt));
+        TConstructClientRegistry.registerManualModifier("fluxmod", ironpick.copy(), new ItemStack(Block.dirt));
+		TConstructClientRegistry.registerManualModifier("fluxmod2", ironpick.copy(), new ItemStack(Block.dirt));
 
         TConstructClientRegistry.registerManualModifier("tier1free", ironpick.copy(), new ItemStack(Item.diamond), new ItemStack(Block.blockGold));
         TConstructClientRegistry.registerManualModifier("tier2free", ironpick.copy(), new ItemStack(Item.netherStar));
