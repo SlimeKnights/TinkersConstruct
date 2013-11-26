@@ -451,8 +451,7 @@ public class TProxyClient extends TProxyCommon
         ItemStack consecratedsoil = new ItemStack(TContent.craftedSoil, 1, 4);
 
         // TConstruct recipes
-        TConstructClientRegistry.registerManualLargeRecipe("alternatebook", new ItemStack(Item.book), paper, paper, paper, string, pattern, pattern null, null, null,
-                searedbrick, searedbrick);
+        TConstructClientRegistry.registerManualLargeRecipe("alternatebook", new ItemStack(Item.book), paper, paper, paper, string, pattern, pattern, null, null, null);
         TConstructClientRegistry.registerManualSmallRecipe("patternbook1", new ItemStack(TContent.manualBook, 1, 0), new ItemStack(Item.paper), pattern, null, null);
         TConstructClientRegistry.registerManualSmallRecipe("patternbook2", new ItemStack(TContent.manualBook, 1, 1), new ItemStack(TContent.manualBook, 1, 0), null, null, null);
         TConstructClientRegistry.registerManualSmallRecipe("patternbook3", new ItemStack(TContent.manualBook, 1, 2), new ItemStack(TContent.manualBook, 1, 1), null, null, null);
