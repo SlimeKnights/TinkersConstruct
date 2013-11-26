@@ -503,6 +503,7 @@ fluid.electrum.molten=Расплавленный электрум
 fluid.ender=Жидкость Края
 fluid.slime.blue=Жидкая синяя слизь
 fluid.pigiron.molten=Чугун
+fluid.glue=Клей
 
 tconstruct.achievementPage.name=TConstruct
 achievement.tconstruct.beginner=Learning to Tinker
