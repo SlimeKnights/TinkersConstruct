@@ -13,6 +13,7 @@ import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.*;
+import net.minecraft.util.StatCollector;
 
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.*;
@@ -272,7 +273,7 @@ public class SmelteryGui extends NewContainerGui
         ArrayList list = new ArrayList();
         if (liquid.fluidID == -37)
         {
-            list.add("\u00A7fFuel");
+            list.add("\u00A7f"+(StatCollector.translateToLocal("gui.smeltery1"));
             list.add("mB: " + liquid.amount);
         }
         else
