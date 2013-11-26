@@ -1170,7 +1170,7 @@ public class TContent implements IFuelHandler
         String[] patSurround = { "###", "#m#", "###" };
 
         Object[] toolForgeBlocks = { "blockIron", "blockGold", Block.blockDiamond, Block.blockEmerald, "blockCobalt", "blockArdite", "blockManyullyn", "blockCopper", "blockBronze", "blockTin",
-                "blockNaturalAluminum", "blockAluminumBrass", "blockAlumite", "blockSteel" };
+                "blockAluminum", "blockAluminumBrass", "blockAlumite", "blockSteel" };
 
         // ToolForge Recipes (Metal Version)
         for (int sc = 0; sc < toolForgeBlocks.length; sc++)
@@ -1251,7 +1251,8 @@ public class TContent implements IFuelHandler
         GameRegistry.addRecipe(new ItemStack(metalBlock, 1, 2), patBlock, '#', new ItemStack(materials, 1, 5)); // Manyullyn
         GameRegistry.addRecipe(new ItemStack(metalBlock, 1, 8), patBlock, '#', new ItemStack(materials, 1, 15)); // Alumite
         GameRegistry.addRecipe(new ItemStack(metalBlock, 1, 9), patBlock, '#', new ItemStack(materials, 1, 16)); // Steel
-
+        GameRegistry.addRecipe(new ItemStack(metalBlock, 1, 11), patBlock, '#', new ItemStack(materials, 1, 12)); //Aluminum raw -> ingot
+		
         GameRegistry.addRecipe(new ItemStack(materials, 9, 9), "m", 'm', new ItemStack(metalBlock, 1, 3)); //Copper
         GameRegistry.addRecipe(new ItemStack(materials, 9, 10), "m", 'm', new ItemStack(metalBlock, 1, 5)); //Tin
         GameRegistry.addRecipe(new ItemStack(materials, 9, 12), "m", 'm', new ItemStack(metalBlock, 1, 6)); //Aluminum
@@ -1345,6 +1346,8 @@ public class TContent implements IFuelHandler
         // Gold Pressure Plate -  Vanilla alternativ
         GameRegistry.addRecipe(new ItemStack(Block.pressurePlateGold), "ii", 'i', aluBrass);
         //Accessories
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(heartCanister, 1, 0), "##", "##", '#', "ingotAluminum"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(heartCanister, 1, 0), "##", "##", '#', "ingotAluminium"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(heartCanister, 1, 0), "##", "##", '#', "ingotNaturalAluminum"));
         GameRegistry.addRecipe(new ItemStack(diamondApple), " d ", "d#d", " d ", 'd', new ItemStack(Item.diamond), '#', new ItemStack(Item.appleRed));
         GameRegistry.addShapelessRecipe(new ItemStack(heartCanister, 1, 2), new ItemStack(diamondApple), new ItemStack(materials, 1, 8), new ItemStack(heartCanister, 1, 0), new ItemStack(
@@ -1438,7 +1441,7 @@ public class TContent implements IFuelHandler
         //FurnaceRecipes.smelting().addSmelting(oreSlag.blockID, 2, new ItemStack(materials, 1, 4), 3f);
         FurnaceRecipes.smelting().addSmelting(oreSlag.blockID, 3, new ItemStack(materials, 1, 9), 0.5f);
         FurnaceRecipes.smelting().addSmelting(oreSlag.blockID, 4, new ItemStack(materials, 1, 10), 0.5f);
-        FurnaceRecipes.smelting().addSmelting(oreSlag.blockID, 5, new ItemStack(materials, 1, 12), 0.5f);
+        FurnaceRecipes.smelting().addSmelting(oreSlag.blockID, 5, new ItemStack(materials, 1, 11), 0.5f);
 
         FurnaceRecipes.smelting().addSmelting(oreBerries.itemID, 0, new ItemStack(materials, 1, 19), 0.2f);
         FurnaceRecipes.smelting().addSmelting(oreBerries.itemID, 1, new ItemStack(Item.goldNugget), 0.2f);
@@ -1762,7 +1765,7 @@ public class TContent implements IFuelHandler
         Smeltery.addMelting(FluidType.Iron, new ItemStack(Item.doorIron), 0, TConstruct.ingotLiquidValue * 6);
         Smeltery.addMelting(FluidType.Iron, new ItemStack(Item.cauldron), 0, TConstruct.ingotLiquidValue * 7);
         Smeltery.addMelting(FluidType.Iron, new ItemStack(Item.shears), 0, TConstruct.ingotLiquidValue * 2);
-        Smeltery.addMelting(FluidType.Emerald, new ItemStack(Item.emerald), -50, 800);
+        Smeltery.addMelting(FluidType.Emerald, new ItemStack(Item.emerald), -50, 640);
 
         //Blocks melt as themselves!
         //Ore
@@ -1966,24 +1969,27 @@ public class TContent implements IFuelHandler
         OreDictionary.registerOre("oreArdite", new ItemStack(oreSlag, 1, 2));
         OreDictionary.registerOre("oreCopper", new ItemStack(oreSlag, 1, 3));
         OreDictionary.registerOre("oreTin", new ItemStack(oreSlag, 1, 4));
-        OreDictionary.registerOre("oreNaturalAluminum", new ItemStack(oreSlag, 1, 5));
+        OreDictionary.registerOre("oreAluminum", new ItemStack(oreSlag, 1, 5));
+        OreDictionary.registerOre("oreAluminium", new ItemStack(oreSlag, 1, 5));
 
         OreDictionary.registerOre("oreIron", new ItemStack(oreGravel, 1, 0));
         OreDictionary.registerOre("oreGold", new ItemStack(oreGravel, 1, 1));
         OreDictionary.registerOre("oreCobalt", new ItemStack(oreGravel, 1, 5));
         OreDictionary.registerOre("oreCopper", new ItemStack(oreGravel, 1, 2));
         OreDictionary.registerOre("oreTin", new ItemStack(oreGravel, 1, 3));
-        OreDictionary.registerOre("oreNaturalAluminum", new ItemStack(oreGravel, 1, 4));
+        OreDictionary.registerOre("oreAluminum", new ItemStack(oreGravel, 1, 4));
+        OreDictionary.registerOre("oreAluminium", new ItemStack(oreGravel, 1, 4));
 
         OreDictionary.registerOre("ingotCobalt", new ItemStack(materials, 1, 3));
         OreDictionary.registerOre("ingotArdite", new ItemStack(materials, 1, 4));
         OreDictionary.registerOre("ingotManyullyn", new ItemStack(materials, 1, 5));
         OreDictionary.registerOre("ingotCopper", new ItemStack(materials, 1, 9));
         OreDictionary.registerOre("ingotTin", new ItemStack(materials, 1, 10));
-        OreDictionary.registerOre("ingotNaturalAluminum", new ItemStack(materials, 1, 11));
-        OreDictionary.registerOre("naturalAluminum", new ItemStack(materials, 1, 12));
+        OreDictionary.registerOre("ingotAluminum", new ItemStack(materials, 1, 11));
+        OreDictionary.registerOre("ingotAluminium", new ItemStack(materials, 1, 11));
         OreDictionary.registerOre("ingotBronze", new ItemStack(materials, 1, 13));
         OreDictionary.registerOre("ingotAluminumBrass", new ItemStack(materials, 1, 14));
+        OreDictionary.registerOre("ingotAluminiumBrass", new ItemStack(materials, 1, 14));
         OreDictionary.registerOre("ingotAlumite", new ItemStack(materials, 1, 15));
         OreDictionary.registerOre("ingotSteel", new ItemStack(materials, 1, 16));
         ensureOreIsRegistered("ingotIron", new ItemStack(Item.ingotIron));
@@ -1998,8 +2004,10 @@ public class TContent implements IFuelHandler
         OreDictionary.registerOre("blockCopper", new ItemStack(metalBlock, 1, 3));
         OreDictionary.registerOre("blockBronze", new ItemStack(metalBlock, 1, 4));
         OreDictionary.registerOre("blockTin", new ItemStack(metalBlock, 1, 5));
-        OreDictionary.registerOre("blockNaturalAluminum", new ItemStack(metalBlock, 1, 6));
+        OreDictionary.registerOre("blockAluminum", new ItemStack(metalBlock, 1, 6));
+        OreDictionary.registerOre("blockAluminium", new ItemStack(metalBlock, 1, 6));
         OreDictionary.registerOre("blockAluminumBrass", new ItemStack(metalBlock, 1, 7));
+        OreDictionary.registerOre("blockAluminiumBrass", new ItemStack(metalBlock, 1, 7));
         OreDictionary.registerOre("blockAlumite", new ItemStack(metalBlock, 1, 8));
         OreDictionary.registerOre("blockSteel", new ItemStack(metalBlock, 1, 9));
         ensureOreIsRegistered("blockIron", new ItemStack(Block.blockIron));
@@ -2011,9 +2019,12 @@ public class TContent implements IFuelHandler
         OreDictionary.registerOre("nuggetCopper", new ItemStack(oreBerries, 1, 2));
         OreDictionary.registerOre("nuggetTin", new ItemStack(materials, 1, 21));
         OreDictionary.registerOre("nuggetTin", new ItemStack(oreBerries, 1, 3));
-        OreDictionary.registerOre("nuggetNaturalAluminum", new ItemStack(materials, 1, 22));
-        OreDictionary.registerOre("nuggetNaturalAluminum", new ItemStack(oreBerries, 1, 4));
+        OreDictionary.registerOre("nuggetAluminum", new ItemStack(materials, 1, 22));
+        OreDictionary.registerOre("nuggetAluminum", new ItemStack(oreBerries, 1, 4));
+        OreDictionary.registerOre("nuggetAluminium", new ItemStack(materials, 1, 22));
+        OreDictionary.registerOre("nuggetAluminium", new ItemStack(oreBerries, 1, 4));
         OreDictionary.registerOre("nuggetAluminumBrass", new ItemStack(materials, 1, 24));
+        OreDictionary.registerOre("nuggetAluminiumBrass", new ItemStack(materials, 1, 24));
         OreDictionary.registerOre("nuggetObsidian", new ItemStack(materials, 1, 27));
         OreDictionary.registerOre("nuggetCobalt", new ItemStack(materials, 1, 28));
         OreDictionary.registerOre("nuggetArdite", new ItemStack(materials, 1, 29));
