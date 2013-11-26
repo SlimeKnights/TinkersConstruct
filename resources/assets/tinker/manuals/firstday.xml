@@ -188,6 +188,14 @@ Note: The Smeltery is required to process all metals, including iron.</text>
 </page>
 
 <page type="crafting">
+<text>Book</text>
+<recipe>
+ <name>alternatebook</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="crafting">
 <text>Materials and You: v1</text>
 <recipe>
  <name>patternbook1</name>
