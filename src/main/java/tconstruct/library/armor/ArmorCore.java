@@ -1,0 +1,279 @@
+package tconstruct.library.armor;
+
+import tconstruct.library.util.MathUtils;
+import net.minecraft.block.BlockDispenser;
+import net.minecraft.dispenser.IBehaviorDispenseItem;
+import net.minecraft.entity.*;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.*;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.DamageSource;
+import net.minecraft.world.World;
+import net.minecraftforge.common.ISpecialArmor;
+import cofh.api.energy.IEnergyContainerItem;
+
+/**
+ * NBTTags
+ * Main tag - InfiArmor
+ */
+public abstract class ArmorCore extends ItemArmor implements IEnergyContainerItem, ISpecialArmor
+{
+
+    public static final String SET_NAME = "InfiArmor";
+    public final EnumArmorPart armorPart;
+    private static final IBehaviorDispenseItem dispenserBehavior = new BehaviorDispenseArmorCopy();
+    public final int baseProtection;
+
+    //TE power constants -- TODO grab these from the items added
+    protected int capacity = 400000;
+    protected int maxReceive = 75;
+    protected int maxExtract = 75;
+
+    public ArmorCore(int par1, int baseProtection, EnumArmorPart part)
+    {
+        super(par1, EnumArmorMaterial.CHAIN, 0, 0);
+        this.maxStackSize = 1;
+        this.setMaxDamage(100);
+        this.setUnlocalizedName(SET_NAME);
+        this.armorPart = part;
+        this.baseProtection = baseProtection;
+        BlockDispenser.dispenseBehaviorRegistry.putObject(this, dispenserBehavior);
+    }
+
+    public String getArmorName ()
+    {
+        return this.getClass().getSimpleName();
+    }
+
+    public ItemStack onItemRightClick (ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer)
+    {
+        int i = EntityLiving.getArmorPosition(par1ItemStack) - 1;
+        ItemStack itemstack1 = par3EntityPlayer.getCurrentArmor(i);
+
+        if (itemstack1 == null)
+        {
+            par3EntityPlayer.setCurrentItemOrArmor(i + 1, par1ItemStack.copy()); //Forge: Vanilla bug fix associated with fixed setCurrentItemOrArmor indexs for players.
+            par1ItemStack.stackSize = 0;
+        }
+
+        return par1ItemStack;
+    }
+
+    //ISpecialArmor overrides
+    @Override
+    public ArmorProperties getProperties (EntityLivingBase player, ItemStack armor, DamageSource source, double damage, int slot)
+    {
+        NBTTagCompound tags = armor.getTagCompound();
+
+        if (tags == null)
+        {
+            return new ArmorProperties(0, damage / baseProtection, baseProtection);
+        }
+
+        NBTTagCompound data = tags.getCompoundTag(SET_NAME);
+
+        return new ArmorProperties(0, data.getInteger("damageReduction") / damage, data.getInteger("maxAbsorb"));
+    }
+
+    @Override
+    public int getArmorDisplay (EntityPlayer player, ItemStack armor, int slot)
+    {
+        return armor.getTagCompound() != null && armor.getTagCompound().getCompoundTag(SET_NAME) != null ? armor.getTagCompound().getCompoundTag(SET_NAME).getInteger("maxAbsorb")
+                : this.baseProtection;
+    }
+
+    @Override
+    public void damageArmor (EntityLivingBase entity, ItemStack stack, DamageSource source, int damage, int slot)
+    {
+        NBTTagCompound tags = stack.getTagCompound();
+        NBTTagCompound data;
+
+        if (tags == null)
+        {
+            tags = new NBTTagCompound();
+            stack.setTagCompound(tags);
+            data = new NBTTagCompound();
+            tags.setCompoundTag(SET_NAME, data);
+            data.setInteger("damageReduction", baseProtection);
+            data.setInteger("maxAbsorb", baseProtection);
+        }
+
+        data = tags.getCompoundTag(SET_NAME);
+
+        if (tags.hasKey("Energy"))
+        {
+            int energy = tags.getInteger("Energy");
+            if (energy > damage)
+            {
+                energy -= damage;
+                tags.setInteger("Energy", energy);
+                return;
+            }
+            else
+            {
+                damage -= energy;
+                tags.setInteger("Energy", 0);
+                int dmg = data.getInteger("Damage");
+                dmg += damage;
+                data.setInteger("Damage", dmg);
+            }
+
+        }
+        else
+        {
+            int dmg = data.getInteger("Damage");
+            dmg += damage;
+            data.setInteger("Damage", dmg);
+        }
+    }
+
+    //TE support section -- from COFH core API reference section
+    public void setMaxTransfer (int maxTransfer)
+    {
+        setMaxReceive(maxTransfer);
+        setMaxExtract(maxTransfer);
+    }
+
+    public void setMaxReceive (int maxReceive)
+    {
+        this.maxReceive = maxReceive;
+    }
+
+    public void setMaxExtract (int maxExtract)
+    {
+        this.maxExtract = maxExtract;
+    }
+
+    /* IEnergyContainerItem */
+    @Override
+    public int receiveEnergy (ItemStack container, int maxReceive, boolean simulate)
+    {
+        NBTTagCompound tags = container.getTagCompound();
+        if (tags == null || !tags.hasKey("Energy"))
+            return 0;
+        int energy = tags.getInteger("Energy");
+        int energyReceived = MathUtils.minInt(capacity - energy, MathUtils.minInt(this.maxReceive, maxReceive));
+        if (!simulate)
+        {
+            energy += energyReceived;
+            tags.setInteger("Energy", energy);
+            container.setItemDamage(1 + (getMaxEnergyStored(container) - energy) * (container.getMaxDamage() - 2) / getMaxEnergyStored(container));
+
+        }
+        return energyReceived;
+    }
+
+    @Override
+    public int extractEnergy (ItemStack container, int maxExtract, boolean simulate)
+    {
+        NBTTagCompound tags = container.getTagCompound();
+        if (tags == null || !tags.hasKey("Energy"))
+        {
+            return 0;
+        }
+        int energy = tags.getInteger("Energy");
+        int energyExtracted = MathUtils.minInt(energy, MathUtils.minInt(this.maxExtract, maxExtract));
+        if (!simulate)
+        {
+            energy -= energyExtracted;
+            tags.setInteger("Energy", energy);
+            container.setItemDamage(1 + (getMaxEnergyStored(container) - energy) * (container.getMaxDamage() - 1) / getMaxEnergyStored(container));
+
+        }
+        return energyExtracted;
+    }
+
+    @Override
+    public int getEnergyStored (ItemStack container)
+    {
+        NBTTagCompound tags = container.getTagCompound();
+        if (tags == null || !tags.hasKey("Energy"))
+        {
+            return 0;
+        }
+        return tags.getInteger("Energy");
+    }
+    @Override
+    public int getMaxEnergyStored (ItemStack container)
+    {
+        NBTTagCompound tags = container.getTagCompound();
+        if (tags == null || !tags.hasKey("Energy"))
+            return 0;
+        return capacity;
+    }
+    //end of TE support section
+
+    // Vanilla overrides
+    public boolean isItemTool (ItemStack par1ItemStack)
+    {
+        return false;
+    }
+
+    @Override
+    public boolean getIsRepairable (ItemStack par1ItemStack, ItemStack par2ItemStack)
+    {
+        return false;
+    }
+
+    public boolean isRepairable ()
+    {
+        return false;
+    }
+
+    public int getItemEnchantability ()
+    {
+        return 0;
+    }
+
+    public boolean isFull3D ()
+    {
+        return true;
+    }
+
+    public boolean isValidArmor (ItemStack stack, int armorType, Entity entity)
+    {
+        return this.armorPart.getPartId() == armorType;
+    }
+
+    /* Proper stack damage */
+    public int getItemMaxDamageFromStack (ItemStack stack)
+    {
+        NBTTagCompound tags = stack.getTagCompound();
+        if (tags == null)
+        {
+            return 0;
+        }
+
+        if (tags.hasKey("Energy"))
+        {
+            int energy = tags.getInteger("Energy");
+            if (energy > 0)
+            {
+                return this.getMaxEnergyStored(stack);
+            }
+        }
+
+        return tags.getCompoundTag(SET_NAME).getInteger("TotalDurability");
+    }
+
+    public int getItemMaxDamageFromStackForDisplay (ItemStack stack)
+    {
+        NBTTagCompound tags = stack.getTagCompound();
+        if (tags == null)
+        {
+            return 0;
+        }
+
+        if (tags.hasKey("Energy"))
+        {
+            int energy = tags.getInteger("Energy");
+            if (energy > 0)
+            {
+                return this.getMaxEnergyStored(stack) - energy;
+            }
+        }
+
+        return tags.getCompoundTag(SET_NAME).getInteger("Damage");
+    }
+
+}

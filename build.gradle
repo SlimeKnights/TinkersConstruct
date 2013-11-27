@@ -1,0 +1,109 @@
+/*
+ * Tinkers Construct
+ * Master build file
+ * 
+ * Authors: Sunstrike, ProgWML6
+ * Help from AbrarSyed
+ */
+
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            name = 'ForgeFS'
+            url = 'http://files.minecraftforge.net/maven'
+        }
+	}
+    dependencies {
+        classpath 'net.minecraftforge.gradle:ForgeGradle:1.0-SNAPSHOT'
+    }
+}
+
+repositories {
+	ivy {
+		name 'Forge FS legacy'
+		artifactPattern "http://files.minecraftforge.net/[module]/[module]-dev-[revision].[ext]"
+	}
+	ivy {
+		name 'CB FS'
+		artifactPattern "http://www.chickenbones.craftsaddle.org/Files/New_Versions/1.6.4/[module]-dev%20[revision].[ext]"
+	}
+	maven {
+          name 'ForgeFS'
+          url 'http://files.minecraftforge.net/maven'
+     }
+     maven {
+          name 'MinecraftS3'
+          url 'http://s3.amazonaws.com/Minecraft.Download/libraries'
+     }
+}
+
+
+apply plugin: 'forge'
+
+dependencies {
+     compile name: 'ForgeMultipart', version: '1.6.4-1.0.0.211', ext: 'jar'
+     compile name: 'CodeChickenLib', version: '1.6.4-1.0.0.44', ext: 'jar'
+     compile name: 'NotEnoughItems', version: '1.6.1.5_d1', type: 'jar'
+
+}
+
+minecraft {
+    version = '1.6.4-9.11.1.964'
+    assetDir = 'run/assets'
+}
+// sets version to the slimeKnights version format
+task buildInfo {
+    def cmd = "git rev-parse --short HEAD"
+    def proc = cmd.execute()
+    ext.revision = proc.text.trim()
+}
+version = "${minecraft.version}-${System.getenv().BUILD_NUMBER}.${project.buildInfo.revision}"
+
+sourceSets {
+	main {
+		resources {
+			srcDir 'resources'
+		}
+	}
+}
+processResources
+{
+        // replace stuff in text files, not binary ones.
+    from(sourceSets.main.resources.srcDirs) {
+        include '**/*.info'
+                // replace version and MCVersion
+                // forge version is also accessible via project.minecraftforgeVersion
+                // it contains the full minecraft version, including buildNumber
+        expand 'version':project.version, 'mcversion':project.minecraft.version
+    }
+        
+        // copy everything else, thats not text
+    from(sourceSets.main.resources.srcDirs) {
+        exclude '**/*.info'
+    }
+}
+
+
+jar {
+	manifest {
+		attributes 'FMLCorePlugin': 'tconstruct.preloader.TConstructLoaderContainer'
+        attributes 'FMLCorePluginContainsFMLMod': 'true'
+	}
+}
+// because the normal output has been made to be obfuscated
+task deobfJar(type: Jar) {
+        from sourceSets.main.output
+        classifier = 'deobf'
+}
+task libJar(type: Jar) {
+    from(sourceSets.main.java) {
+	     include "tconstruct/library/*"
+	}
+	classifier = 'lib'
+}
+artifacts {
+        archives deobfJar
+		archives libJar
+}
+
