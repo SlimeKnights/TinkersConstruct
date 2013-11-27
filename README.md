@@ -1,5 +1,7 @@
 #[Tinkers' Construct](http://www.minecraftforum.net/topic/1659892-tinkers-construct/)
 
+#Version 1.5.x for Minecraft 1.6.x is now FINAL.
+
 Modify all the things, then do it again! 	 
 Melt down any metals you find. 	 
 Turn everything into golems!
