@@ -337,7 +337,7 @@ public class TProxyClient extends TProxyCommon
         TConstructClientRegistry.registerManualIcon("arditeingot", new ItemStack(TContent.materials, 1, 4));
         TConstructClientRegistry.registerManualIcon("copperingot", new ItemStack(TContent.materials, 1, 9));
         TConstructClientRegistry.registerManualIcon("steelingot", new ItemStack(TContent.materials, 1, 16));
-        TConstructClientRegistry.registerManualIcon("pigironingot", new ItemStack(TContent.materials, 1, 34));
+		TConstructClientRegistry.registerManualIcon("pigironingot", new ItemStack(TContent.materials, 1, 34));
 
 
         // Tool parts
@@ -370,7 +370,7 @@ public class TProxyClient extends TProxyCommon
         TConstructClientRegistry.registerManualIcon("bowstring", new ItemStack(TContent.bowstring, 1, 0));
         TConstructClientRegistry.registerManualIcon("arrowhead", new ItemStack(TContent.arrowhead, 1, 2));
         TConstructClientRegistry.registerManualIcon("fletching", new ItemStack(TContent.fletching, 1, 0));
-        
+		
         TConstructClientRegistry.registerManualIcon("bloodbucket", new ItemStack(TContent.buckets, 1, 16));
         TConstructClientRegistry.registerManualIcon("emeraldbucket", new ItemStack(TContent.buckets, 1, 15));
         TConstructClientRegistry.registerManualIcon("gluebucket", new ItemStack(TContent.buckets, 1, 25));
@@ -420,7 +420,7 @@ public class TProxyClient extends TProxyCommon
 
         ItemStack stick = new ItemStack(Item.stick, 1, 0);
         ItemStack plank = new ItemStack(Block.planks, 1, 0);
-        ItemStack plankSlab = new ItemStack(Block.woodSingleSlab, 1, 0);
+		ItemStack plankSlab = new ItemStack(Block.woodSingleSlab, 1, 0);
         ItemStack workbench = new ItemStack(Block.workbench, 1, 0);
         ItemStack chest = new ItemStack(Block.chest, 1, 0);
         ItemStack log = new ItemStack(Block.wood, 1, 0);
@@ -452,7 +452,7 @@ public class TProxyClient extends TProxyCommon
         ItemStack consecratedsoil = new ItemStack(TContent.craftedSoil, 1, 4);
 
         // TConstruct recipes
-        TConstructClientRegistry.registerManualLargeRecipe("alternatebook", new ItemStack(Item.book), paper, paper, paper, string, pattern, pattern, null, null, null);
+		TConstructClientRegistry.registerManualLargeRecipe("alternatebook", new ItemStack(Item.book), paper, paper, paper, string, pattern, pattern, null, null, null);
         TConstructClientRegistry.registerManualSmallRecipe("patternbook1", new ItemStack(TContent.manualBook, 1, 0), new ItemStack(Item.paper), pattern, null, null);
         TConstructClientRegistry.registerManualSmallRecipe("patternbook2", new ItemStack(TContent.manualBook, 1, 1), new ItemStack(TContent.manualBook, 1, 0), null, null, null);
         TConstructClientRegistry.registerManualSmallRecipe("patternbook3", new ItemStack(TContent.manualBook, 1, 2), new ItemStack(TContent.manualBook, 1, 1), null, null, null);

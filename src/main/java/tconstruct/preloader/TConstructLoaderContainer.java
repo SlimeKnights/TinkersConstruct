@@ -25,7 +25,7 @@ import java.util.logging.Logger;
 public class TConstructLoaderContainer extends DummyModContainer implements IFMLLoadingPlugin
 {
 
-    private final String[] asmTransformers = new String[] { "tconstruct.preloader.AccessTransformers", "tconstruct.preloader.ASMInterfaceRepair" };
+    private final String[] asmTransformers = new String[] { "tconstruct.preloader.ASMInterfaceRepair" };
     private final ModMetadata md = new ModMetadata();
 
     public static Logger logger = Logger.getLogger("TCon-Preloader");

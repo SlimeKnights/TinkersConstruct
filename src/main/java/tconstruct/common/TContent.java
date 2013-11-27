@@ -1347,7 +1347,7 @@ public class TContent implements IFuelHandler
         // Gold Pressure Plate -  Vanilla alternativ
         GameRegistry.addRecipe(new ItemStack(Block.pressurePlateGold), "ii", 'i', aluBrass);
         //Accessories
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(heartCanister, 1, 0), "##", "##", '#', "ingotAluminum"));
+		GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(heartCanister, 1, 0), "##", "##", '#', "ingotAluminum"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(heartCanister, 1, 0), "##", "##", '#', "ingotAluminium"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(heartCanister, 1, 0), "##", "##", '#', "ingotNaturalAluminum"));
         GameRegistry.addRecipe(new ItemStack(diamondApple), " d ", "d#d", " d ", 'd', new ItemStack(Item.diamond), '#', new ItemStack(Item.appleRed));
@@ -1405,8 +1405,7 @@ public class TContent implements IFuelHandler
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(craftingStationWood, 1, 0), "b", 'b', "craftingTableWood"));
         //Slab crafters
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(craftingSlabWood, 6, 0), "bbb", 'b', "crafterWood"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(craftingSlabWood, 6, 0), "bbb", 'b', "craftingTableWood"));
-        GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 0), "b", 'b', new ItemStack(craftingStationWood, 1, 0));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(craftingSlabWood, 6, 0), "bbb", 'b', "craftingTableWood"));        GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 0), "b", 'b', new ItemStack(craftingStationWood, 1, 0));
         GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 1), "b", 'b', new ItemStack(toolStationWood, 1, 0));
         GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 2), "b", 'b', new ItemStack(toolStationWood, 1, 1));
         GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 2), "b", 'b', new ItemStack(toolStationWood, 1, 2));
