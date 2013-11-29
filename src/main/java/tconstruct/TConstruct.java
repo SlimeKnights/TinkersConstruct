@@ -78,7 +78,7 @@ public class TConstruct
     public void preInit (FMLPreInitializationEvent event)
     {
 
-        PHConstruct.initProps(event.getModConfigurationDirectory());
+        PHConstruct.initProps(event.getSuggestedConfigurationFile());
         TConstructRegistry.materialTab = new TabTools("TConstructMaterials");
         TConstructRegistry.toolTab = new TabTools("TConstructTools");
         TConstructRegistry.blockTab = new TabTools("TConstructBlocks");

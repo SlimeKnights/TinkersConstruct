@@ -3,6 +3,7 @@ package tconstruct.util.config;
 import java.io.File;
 import java.io.IOException;
 
+import cpw.mods.fml.common.Loader;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.Property;
 import tconstruct.TConstruct;
@@ -11,29 +12,11 @@ import tconstruct.library.tools.AbilityHelper;
 public class PHConstruct
 {
 
-    public static void initProps (File location)
+    public static void initProps (File confFile)
     {
-        /* Here we will set up the config file for the mod 
-         * First: Create a folder inside the config folder
-         * Second: Create the actual config file
-         * Note: Configs are a pain, but absolutely necessary for every mod.
-         */
-        File newFile = new File(location + "/TinkersWorkshop.txt");
-
-        /* Some basic debugging will go a long way */
-        try
-        {
-            newFile.createNewFile();
-        }
-        catch (IOException e)
-        {
-            TConstruct.logger.severe("Could not create configuration file for TConstruct. Reason:");
-            TConstruct.logger.severe(e.getLocalizedMessage());
-        }
 
         /* [Forge] Configuration class, used as config method */
-        Configuration config = new Configuration(newFile);
-        cfglocation = location;
+        Configuration config = new Configuration(confFile);
         /* Load the configuration file */
         config.load();
 
@@ -387,6 +370,7 @@ public class PHConstruct
         /* Save the configuration file */
         config.save();
 
+        String location = Loader.instance().getConfigDir().toString();
         File gt = new File(location + "/GregTech");
         if (gt.exists())
         {
