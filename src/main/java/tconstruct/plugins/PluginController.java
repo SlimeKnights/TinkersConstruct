@@ -53,29 +53,35 @@ public class PluginController
         boolean shouldLoad = conf.get("Plugins", plugin.getModId(), true).getBoolean(true);
         conf.save();
 
-        if (shouldLoad && Loader.isModLoaded(plugin.getModId()))
-        {
-            TConstruct.logger.info("[PluginController] Registering compat plugin for " + plugin.getModId());
-            plugins.add(plugin);
+        if (shouldLoad)
+            loadPlugin(plugin);
+    }
 
-            switch (currPhase) // Play catch-up if plugin is registered late
-            {
-                case DONE:
-                case POSTINIT:
-                    plugin.preInit();
-                    plugin.init();
-                    plugin.postInit();
-                    break;
-                case INIT:
-                    plugin.preInit();
-                    plugin.init();
-                    break;
-                case PREINIT:
-                    plugin.preInit();
-                    break;
-                default:
-                    break;
-            }
+    // This does the actual plugin loading if mod is present; needed to allow force-enabling.
+    private void loadPlugin(ICompatPlugin plugin)
+    {
+        if (!Loader.isModLoaded(plugin.getModId())) return;
+
+        TConstruct.logger.info("[PluginController] Registering compat plugin for " + plugin.getModId());
+        plugins.add(plugin);
+
+        switch (currPhase) // Play catch-up if plugin is registered late
+        {
+            case DONE:
+            case POSTINIT:
+                plugin.preInit();
+                plugin.init();
+                plugin.postInit();
+                break;
+            case INIT:
+                plugin.preInit();
+                plugin.init();
+                break;
+            case PREINIT:
+                plugin.preInit();
+                break;
+            default:
+                break;
         }
     }
 
@@ -100,11 +106,13 @@ public class PluginController
 
     public void registerBuiltins()
     {
+        // Mystcraft is pushed in through the backdoor so it can't be disabled.
+        loadPlugin(new Mystcraft());
+
         registerPlugin(new AppEng());
         registerPlugin(new BuildcraftTransport());
         registerPlugin(new ForgeMultiPart());
         registerPlugin(new MineFactoryReloaded());
-        registerPlugin(new Mystcraft());
         registerPlugin(new NotEnoughItems());
         registerPlugin(new Thaumcraft());
         registerPlugin(new Waila());
