@@ -3,16 +3,17 @@ package tconstruct.plugins;
 import cpw.mods.fml.common.Loader;
 import net.minecraftforge.common.Configuration;
 import tconstruct.TConstruct;
+import tconstruct.plugins.appeng.AppEng;
+import tconstruct.plugins.buildcraft.BuildcraftTransport;
 import tconstruct.plugins.fmp.ForgeMultiPart;
 import tconstruct.plugins.minefactoryreloaded.MineFactoryReloaded;
+import tconstruct.plugins.mystcraft.Mystcraft;
 import tconstruct.plugins.nei.NotEnoughItems;
+import tconstruct.plugins.thaumcraft.Thaumcraft;
 import tconstruct.plugins.waila.Waila;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class PluginController
 {
@@ -23,7 +24,7 @@ public class PluginController
 
     private static PluginController instance;
     private Configuration conf = null;
-    private Map<ICompatPlugin, Boolean> plugins = new HashMap<ICompatPlugin, Boolean>();
+    private List<ICompatPlugin> plugins = new LinkedList<ICompatPlugin>();
     private Phase currPhase = Phase.PRELAUNCH;
 
     private PluginController() {
@@ -48,21 +49,14 @@ public class PluginController
      */
     public void registerPlugin(ICompatPlugin plugin)
     {
-        if (Loader.isModLoaded(plugin.getModId()))
+        conf.load();
+        boolean shouldLoad = conf.get("Plugins", plugin.getModId(), true).getBoolean(true);
+        conf.save();
+
+        if (shouldLoad && Loader.isModLoaded(plugin.getModId()))
         {
-            TConstruct.logger.info("[PluginController] Attempting registration of compat plugin for " + plugin.getModId());
-            plugins.put(plugin, true);
-
-            conf.load();
-            boolean shouldLoad = conf.get("Plugins", plugin.getModId(), true).getBoolean(true);
-            plugins.put(plugin, shouldLoad);
-            conf.save();
-
-            if (!shouldLoad)
-            {
-                TConstruct.logger.info("[PluginController] Aborting registration of compat plugin for " + plugin.getModId() + "; disabled in configuration.");
-                return;
-            }
+            TConstruct.logger.info("[PluginController] Registering compat plugin for " + plugin.getModId());
+            plugins.add(plugin);
 
             switch (currPhase) // Play catch-up if plugin is registered late
             {
@@ -88,36 +82,31 @@ public class PluginController
     public void preInit()
     {
         currPhase = Phase.PREINIT;
-        for (Map.Entry<ICompatPlugin, Boolean> entry : plugins.entrySet()){
-            if (entry.getValue())
-                entry.getKey().preInit();
-        }
+        for (ICompatPlugin pl : plugins) pl.preInit();
     }
 
     public void init()
     {
         currPhase = Phase.INIT;
-        for (Map.Entry<ICompatPlugin, Boolean> entry : plugins.entrySet()){
-            if (entry.getValue())
-                entry.getKey().init();
-        }
+        for (ICompatPlugin pl : plugins) pl.init();
     }
 
     public void postInit()
     {
         currPhase = Phase.POSTINIT;
-        for (Map.Entry<ICompatPlugin, Boolean> entry : plugins.entrySet()){
-            if (entry.getValue())
-                entry.getKey().postInit();
-        }
+        for (ICompatPlugin pl : plugins) pl.postInit();
         currPhase = Phase.DONE;
     }
 
     public void registerBuiltins()
     {
+        registerPlugin(new AppEng());
+        registerPlugin(new BuildcraftTransport());
         registerPlugin(new ForgeMultiPart());
         registerPlugin(new MineFactoryReloaded());
+        registerPlugin(new Mystcraft());
         registerPlugin(new NotEnoughItems());
+        registerPlugin(new Thaumcraft());
         registerPlugin(new Waila());
     }
 
