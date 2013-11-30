@@ -58,7 +58,7 @@ task buildInfo {
     def proc = cmd.execute()
     ext.revision = proc.text.trim()
 }
-version = "${minecraft.version}-${System.getenv().BUILD_NUMBER}.${project.buildInfo.revision}"
+version = "${minecraft.version}-${System.getenv().BUILD_NUMBER}-${project.buildInfo.revision}"
 
 sourceSets {
 	main {
