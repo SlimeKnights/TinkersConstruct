@@ -10,7 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import powercrystals.minefactoryreloaded.api.IFactoryGrindable;
 import powercrystals.minefactoryreloaded.api.MobDrop;
-import tconstruct.common.TContent;
+import tconstruct.common.TRepo;
 
 public class GrindableHorse implements IFactoryGrindable
 {
@@ -25,7 +25,7 @@ public class GrindableHorse implements IFactoryGrindable
     {
         List<MobDrop> drops = new ArrayList<MobDrop>();
 
-        drops.add(new MobDrop(10, new ItemStack(TContent.materials, random.nextInt(4) + 1, 36)));
+        drops.add(new MobDrop(10, new ItemStack(TRepo.materials, random.nextInt(4) + 1, 36)));
 
         return drops;
     }

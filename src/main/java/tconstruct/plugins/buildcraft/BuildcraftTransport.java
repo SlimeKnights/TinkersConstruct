@@ -2,7 +2,7 @@ package tconstruct.plugins.buildcraft;
 
 import cpw.mods.fml.common.event.FMLInterModComms;
 import tconstruct.TConstruct;
-import tconstruct.common.TContent;
+import tconstruct.common.TRepo;
 import tconstruct.plugins.ICompatPlugin;
 
 public class BuildcraftTransport implements ICompatPlugin {
@@ -21,42 +21,42 @@ public class BuildcraftTransport implements ICompatPlugin {
     public void init() {
         TConstruct.logger.info("[BC|Transport] Registering facades.");
         // Smeltery Blocks
-        addFacade(TContent.smeltery.blockID, 2);
+        addFacade(TRepo.smeltery.blockID, 2);
         for (int sc = 4; sc < 11; sc++)
         {
-            addFacade(TContent.smeltery.blockID, sc);
+            addFacade(TRepo.smeltery.blockID, sc);
         }
         // Multi Brick + Fancy
         for (int sc = 0; sc < 13; sc++)
         {
-            addFacade(TContent.multiBrick.blockID, sc);
+            addFacade(TRepo.multiBrick.blockID, sc);
         }
         for (int sc = 0; sc < 16; sc++)
         {
-            addFacade(TContent.multiBrickFancy.blockID, sc);
+            addFacade(TRepo.multiBrickFancy.blockID, sc);
         }
         // Special Soil
         for (int sc = 0; sc < 6; sc++)
         {
-            addFacade(TContent.craftedSoil.blockID, sc);
+            addFacade(TRepo.craftedSoil.blockID, sc);
         }
         // Metal Storage
         for (int sc = 0; sc < 11; sc++)
         {
-            addFacade(TContent.metalBlock.blockID, sc);
+            addFacade(TRepo.metalBlock.blockID, sc);
         }
         // Speed Block
         for (int sc = 0; sc < 7; sc++)
         {
-            addFacade(TContent.speedBlock.blockID, sc);
+            addFacade(TRepo.speedBlock.blockID, sc);
         }
         // Hambone
-        addFacade(TContent.meatBlock.blockID, 4);
-        addFacade(TContent.meatBlock.blockID, 8);
+        addFacade(TRepo.meatBlock.blockID, 4);
+        addFacade(TRepo.meatBlock.blockID, 8);
 
         // Slime Gel
-        addFacade(TContent.slimeGel.blockID, 0);
-        addFacade(TContent.slimeGel.blockID, 1);
+        addFacade(TRepo.slimeGel.blockID, 0);
+        addFacade(TRepo.slimeGel.blockID, 1);
     }
 
     @Override
