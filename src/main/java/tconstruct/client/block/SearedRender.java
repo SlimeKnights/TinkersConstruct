@@ -9,7 +9,7 @@ import net.minecraftforge.fluids.Fluid;
 import tconstruct.TConstruct;
 import tconstruct.blocks.logic.*;
 import tconstruct.client.TProxyClient;
-import tconstruct.common.TContent;
+import tconstruct.common.TRepo;
 import tconstruct.library.crafting.CastingRecipe;
 
 public class SearedRender implements ISimpleBlockRenderingHandler
@@ -252,19 +252,19 @@ public class SearedRender implements ISimpleBlockRenderingHandler
                     float yMin = 0F;
                     int uID = world.getBlockId(x, y - 1, z);
                     int uMeta = world.getBlockMetadata(x, y - 1, z);
-                    if (uID == TContent.searedBlock.blockID && uMeta == 0)
+                    if (uID == TRepo.searedBlock.blockID && uMeta == 0)
                     {
                         yMin = -0.125F;
                     }
-                    else if (uID == TContent.searedBlock.blockID && uMeta == 2)
+                    else if (uID == TRepo.searedBlock.blockID && uMeta == 2)
                     {
                         yMin = -0.75F;
                     }
-                    else if (uID == TContent.lavaTank.blockID)
+                    else if (uID == TRepo.lavaTank.blockID)
                     {
                         yMin = -1F;
                     }
-                    else if (uID == TContent.castingChannel.blockID)
+                    else if (uID == TRepo.castingChannel.blockID)
                     {
                         yMin = -0.5F;
                     }

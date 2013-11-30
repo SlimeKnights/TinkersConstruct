@@ -3,8 +3,8 @@ package tconstruct.blocks;
 import java.util.List;
 
 import tconstruct.common.TContent;
+import tconstruct.common.TRepo;
 import tconstruct.library.TConstructRegistry;
-
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -34,11 +34,11 @@ public class SearedSlab extends SlabBase
     {
         meta = meta % 8;
         if (meta == 0)
-            return TContent.smeltery.getIcon(side, 2);
+            return TRepo.smeltery.getIcon(side, 2);
         if (meta <= 3)
-            return TContent.smeltery.getIcon(side, meta + 3);
+            return TRepo.smeltery.getIcon(side, meta + 3);
 
-        return TContent.smeltery.getIcon(side, meta + 4);
+        return TRepo.smeltery.getIcon(side, meta + 4);
     }
 
     @Override

@@ -5,7 +5,7 @@ import java.util.List;
 import net.minecraftforge.fluids.BlockFluidFinite;
 import tconstruct.TConstruct;
 import tconstruct.blocks.logic.LiquidTextureLogic;
-import tconstruct.common.TContent;
+import tconstruct.common.TRepo;
 
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -27,7 +27,7 @@ public class FilledBucket extends ItemBucket
     public FilledBucket(int id)
     {
         super(id, 0);
-        //setTextureFile(TContent.craftingTexture);
+        //setTextureFile(TRepo.craftingTexture);
         //setIconIndex(224);
         setUnlocalizedName("tconstruct.bucket");
         setContainerItem(Item.bucketEmpty);
@@ -141,10 +141,10 @@ public class FilledBucket extends ItemBucket
         {
             try {
                 int metadata = 0;
-                if (TContent.fluidBlocks[type] instanceof BlockFluidFinite)
+                if (TRepo.fluidBlocks[type] instanceof BlockFluidFinite)
                     metadata = 7;
 
-                world.setBlock(clickX, clickY, clickZ, TContent.fluidBlocks[type].blockID, metadata, 3); //TODO: Merge liquids
+                world.setBlock(clickX, clickY, clickZ, TRepo.fluidBlocks[type].blockID, metadata, 3); //TODO: Merge liquids
             } catch (ArrayIndexOutOfBoundsException ex) {
                 TConstruct.logger.warning("AIOBE occured when placing bucket into world; " + ex);
                 return false;

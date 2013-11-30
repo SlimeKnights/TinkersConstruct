@@ -10,7 +10,7 @@ import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
-import tconstruct.common.TContent;
+import tconstruct.common.TRepo;
 import tconstruct.entity.item.ExplosivePrimed;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -53,7 +53,7 @@ public class ExplosiveRender extends Render
 
         f2 = (1.0F - ((float) par1EntityTNTPrimed.fuse - par9 + 1.0F) / 100.0F) * 0.8F;
         this.bindEntityTexture(par1EntityTNTPrimed);
-        this.blockRenderer.renderBlockAsItem(TContent.slimeExplosive, 0, par1EntityTNTPrimed.getBrightness(par9));
+        this.blockRenderer.renderBlockAsItem(TRepo.slimeExplosive, 0, par1EntityTNTPrimed.getBrightness(par9));
 
         if (par1EntityTNTPrimed.fuse / 5 % 2 == 0)
         {

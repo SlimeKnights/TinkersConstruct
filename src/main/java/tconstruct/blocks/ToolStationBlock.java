@@ -9,10 +9,10 @@ import tconstruct.blocks.logic.StencilTableLogic;
 import tconstruct.blocks.logic.ToolStationLogic;
 import tconstruct.client.block.TableRender;
 import tconstruct.common.TContent;
+import tconstruct.common.TRepo;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.blocks.InventoryBlock;
 import tconstruct.util.config.PHConstruct;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
@@ -204,9 +204,9 @@ public class ToolStationBlock extends InventoryBlock
                 PatternChestLogic logic = (PatternChestLogic) world.getBlockTileEntity(x, y, z);
                 for (int i = 1; i <= 13; i++)
                 {
-                    logic.setInventorySlotContents(i - 1, new ItemStack(TContent.woodPattern, 1, i));
+                    logic.setInventorySlotContents(i - 1, new ItemStack(TRepo.woodPattern, 1, i));
                 }
-                logic.setInventorySlotContents(13, new ItemStack(TContent.woodPattern, 1, 22));
+                logic.setInventorySlotContents(13, new ItemStack(TRepo.woodPattern, 1, 22));
             }
         }
         super.onBlockPlacedBy(world, x, y, z, par5EntityLiving, par6ItemStack);

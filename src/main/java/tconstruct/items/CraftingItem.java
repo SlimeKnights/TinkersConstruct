@@ -1,6 +1,6 @@
 package tconstruct.items;
 
-import tconstruct.common.TContent;
+import tconstruct.common.TRepo;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
@@ -74,7 +74,7 @@ public class CraftingItem extends Item
     @Override
     public void onCreated(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) 
     {
-    	if(par1ItemStack.itemID == TContent.blankPattern.itemID){
+    	if(par1ItemStack.itemID == TRepo.blankPattern.itemID){
     		par3EntityPlayer.addStat(TAchievements.achievements.get("tconstruct.pattern"), 1);
     	}
     }

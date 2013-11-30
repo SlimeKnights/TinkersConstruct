@@ -2,66 +2,66 @@ package tconstruct.library.crafting;
 
 import net.minecraft.block.Block;
 import net.minecraftforge.fluids.*;
-import tconstruct.common.TContent;
+import tconstruct.common.TRepo;
 
 public enum FluidType
 {
     /** Vanilla Water Smelting **/
     Water(Block.snow.blockID, 0, 20, FluidRegistry.getFluid("water"), false),
     /** Iron Smelting **/
-    Iron(Block.blockIron.blockID, 0, 600, TContent.moltenIronFluid, true),
+    Iron(Block.blockIron.blockID, 0, 600, TRepo.moltenIronFluid, true),
     /** Gold  Smelting **/
-    Gold(Block.blockGold.blockID, 0, 400, TContent.moltenGoldFluid, false),
+    Gold(Block.blockGold.blockID, 0, 400, TRepo.moltenGoldFluid, false),
     /** Tin  Smelting **/
-    Tin(TContent.metalBlock.blockID, 5, 400, TContent.moltenTinFluid, false),
+    Tin(TRepo.metalBlock.blockID, 5, 400, TRepo.moltenTinFluid, false),
     /** Copper  Smelting **/
-    Copper(TContent.metalBlock.blockID, 3, 550, TContent.moltenCopperFluid, true),
+    Copper(TRepo.metalBlock.blockID, 3, 550, TRepo.moltenCopperFluid, true),
     /** Aluminum Smelting **/
-    Aluminum(TContent.metalBlock.blockID, 6, 350, TContent.moltenAluminumFluid, false),
+    Aluminum(TRepo.metalBlock.blockID, 6, 350, TRepo.moltenAluminumFluid, false),
     /** Natural Aluminum Smelting **/
-    NaturalAluminum(TContent.oreSlag.blockID, 6, 350, TContent.moltenAluminumFluid, false),
+    NaturalAluminum(TRepo.oreSlag.blockID, 6, 350, TRepo.moltenAluminumFluid, false),
     /** Cobalt Smelting **/
-    Cobalt(TContent.metalBlock.blockID, 0, 650, TContent.moltenCobaltFluid, true),
+    Cobalt(TRepo.metalBlock.blockID, 0, 650, TRepo.moltenCobaltFluid, true),
     /** Ardite Smelting **/
-    Ardite(TContent.metalBlock.blockID, 1, 650, TContent.moltenArditeFluid, true),
+    Ardite(TRepo.metalBlock.blockID, 1, 650, TRepo.moltenArditeFluid, true),
     /** AluminumBrass Smelting **/
-    AluminumBrass(TContent.metalBlock.blockID, 7, 350, TContent.moltenAlubrassFluid, false),
+    AluminumBrass(TRepo.metalBlock.blockID, 7, 350, TRepo.moltenAlubrassFluid, false),
     /** Alumite Smelting **/
-    Alumite(TContent.metalBlock.blockID, 8, 800, TContent.moltenAlumiteFluid, true),
+    Alumite(TRepo.metalBlock.blockID, 8, 800, TRepo.moltenAlumiteFluid, true),
     /** Manyullyn Smelting **/
-    Manyullyn(TContent.metalBlock.blockID, 2, 750, TContent.moltenManyullynFluid, true),
+    Manyullyn(TRepo.metalBlock.blockID, 2, 750, TRepo.moltenManyullynFluid, true),
     /** Bronze Smelting **/
-    Bronze(TContent.metalBlock.blockID, 4, 500, TContent.moltenBronzeFluid, true),
+    Bronze(TRepo.metalBlock.blockID, 4, 500, TRepo.moltenBronzeFluid, true),
     /** Steel Smelting **/
-    Steel(TContent.metalBlock.blockID, 9, 700, TContent.moltenSteelFluid, true),
+    Steel(TRepo.metalBlock.blockID, 9, 700, TRepo.moltenSteelFluid, true),
     /** Nickel Smelting **/
-    Nickel(TContent.metalBlock.blockID, 0, 400, TContent.moltenNickelFluid, false),
+    Nickel(TRepo.metalBlock.blockID, 0, 400, TRepo.moltenNickelFluid, false),
     /** Lead Smelting **/
-    Lead(TContent.metalBlock.blockID, 0, 400, TContent.moltenLeadFluid, false),
+    Lead(TRepo.metalBlock.blockID, 0, 400, TRepo.moltenLeadFluid, false),
     /** Silver Smelting **/
-    Silver(TContent.metalBlock.blockID, 0, 400, TContent.moltenSilverFluid, false),
+    Silver(TRepo.metalBlock.blockID, 0, 400, TRepo.moltenSilverFluid, false),
     /** Platinum Smelting **/
-    Platinum(TContent.metalBlock.blockID, 0, 400, TContent.moltenShinyFluid, false),
+    Platinum(TRepo.metalBlock.blockID, 0, 400, TRepo.moltenShinyFluid, false),
     /** Invar Smelting **/
-    Invar(TContent.metalBlock.blockID, 0, 400, TContent.moltenInvarFluid, false),
+    Invar(TRepo.metalBlock.blockID, 0, 400, TRepo.moltenInvarFluid, false),
     /** Electrum Smelting **/
-    Electrum(TContent.metalBlock.blockID, 0, 400, TContent.moltenElectrumFluid, false),
+    Electrum(TRepo.metalBlock.blockID, 0, 400, TRepo.moltenElectrumFluid, false),
     /** Obsidian Smelting **/
-    Obsidian(Block.obsidian.blockID, 0, 750, TContent.moltenObsidianFluid, true),
+    Obsidian(Block.obsidian.blockID, 0, 750, TRepo.moltenObsidianFluid, true),
     /** Ender Smelting **/
-    Ender(TContent.metalBlock.blockID, 10, 500, TContent.moltenEnderFluid, false),
+    Ender(TRepo.metalBlock.blockID, 10, 500, TRepo.moltenEnderFluid, false),
     /** Glass Smelting **/
-    Glass(Block.sand.blockID, 0, 625, TContent.moltenGlassFluid, false),
+    Glass(Block.sand.blockID, 0, 625, TRepo.moltenGlassFluid, false),
     /** Stone Smelting **/
-    Stone(Block.stone.blockID, 0, 800, TContent.moltenStoneFluid, true),
+    Stone(Block.stone.blockID, 0, 800, TRepo.moltenStoneFluid, true),
     /** Emerald Smelting **/
-    Emerald(Block.oreEmerald.blockID, 0, 575, TContent.moltenEmeraldFluid, false),
+    Emerald(Block.oreEmerald.blockID, 0, 575, TRepo.moltenEmeraldFluid, false),
     /** Slime Smelting **/
-    Slime(TContent.slimeGel.blockID, 0, 250, TContent.blueSlimeFluid, false),
+    Slime(TRepo.slimeGel.blockID, 0, 250, TRepo.blueSlimeFluid, false),
     /** Pigiron Smelting **/
-    PigIron(TContent.meatBlock.blockID, 0, 610, TContent.pigIronFluid, true),
+    PigIron(TRepo.meatBlock.blockID, 0, 610, TRepo.pigIronFluid, true),
     /** Glue Smelting **/
-    Glue(TContent.glueBlock.blockID, 0, 125, TContent.glueFluid, false);
+    Glue(TRepo.glueBlock.blockID, 0, 125, TRepo.glueFluid, false);
 
     public final int renderBlockID;
     public final int renderMeta;

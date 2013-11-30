@@ -1,6 +1,6 @@
 package tconstruct.items.tools;
 
-import tconstruct.common.TContent;
+import tconstruct.common.TRepo;
 import tconstruct.entity.projectile.DaggerEntity;
 import tconstruct.library.tools.Weapon;
 import net.minecraft.entity.player.EntityPlayer;
@@ -97,12 +97,12 @@ public class Dagger extends Weapon
     @Override
     public Item getHeadItem ()
     {
-        return TContent.knifeBlade;
+        return TRepo.knifeBlade;
     }
 
     @Override
     public Item getAccessoryItem ()
     {
-        return TContent.crossbar;
+        return TRepo.crossbar;
     }
 }

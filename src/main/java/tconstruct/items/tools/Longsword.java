@@ -1,6 +1,6 @@
 package tconstruct.items.tools;
 
-import tconstruct.common.TContent;
+import tconstruct.common.TRepo;
 import tconstruct.library.tools.Weapon;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.Entity;
@@ -102,13 +102,13 @@ public class Longsword extends Weapon
     @Override
     public Item getHeadItem ()
     {
-        return TContent.swordBlade;
+        return TRepo.swordBlade;
     }
 
     @Override
     public Item getAccessoryItem ()
     {
-        return TContent.handGuard;
+        return TRepo.handGuard;
     }
 
     @Override

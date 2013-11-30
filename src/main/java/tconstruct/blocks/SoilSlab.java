@@ -11,6 +11,7 @@ import net.minecraft.util.Icon;
 import net.minecraft.world.ColorizerGrass;
 import net.minecraft.world.IBlockAccess;
 import tconstruct.common.TContent;
+import tconstruct.common.TRepo;
 import tconstruct.library.TConstructRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -43,7 +44,7 @@ public class SoilSlab extends SlabBase
         case 2:
             return Block.mycelium.getIcon(1, 0);
         default:
-            return TContent.craftedSoil.getIcon(side, meta - 3);
+            return TRepo.craftedSoil.getIcon(side, meta - 3);
         }
     }
 

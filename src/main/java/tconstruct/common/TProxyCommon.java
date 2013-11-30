@@ -28,10 +28,10 @@ public class TProxyCommon implements IGuiHandler
 
     public static int smelteryGuiID = 7;
     public static int furnaceID = 8;
-//    public static int drawbridgeID = 9;  // Moved to TMechworks
+    //    public static int drawbridgeID = 9;  // Moved to TMechworks
     public static int landmineID = 10;
     public static int craftingStationID = 11;
-//    public static int advDrawbridgeID = 12;  // Moved to TMechworks
+    //    public static int advDrawbridgeID = 12;  // Moved to TMechworks
     public static int inventoryGui = 100;
     public static int armorGuiID = 101;
     public static int knapsackGuiID = 102;
@@ -99,10 +99,10 @@ public class TProxyCommon implements IGuiHandler
     {
         // As of 1.6.x, this is now handled by Minecraft itself for the most part.
 
-        LanguageRegistry.addName(TContent.potionLauncher, "Potion Launcher");
-        LanguageRegistry.addName(TContent.knapsack, "Knapsack");
+        LanguageRegistry.addName(TRepo.potionLauncher, "Potion Launcher");
+        LanguageRegistry.addName(TRepo.knapsack, "Knapsack");
 
-        LanguageRegistry.addName(TContent.meatBlock, "Hambone");
+        LanguageRegistry.addName(TRepo.meatBlock, "Hambone");
     }
 
     public void readManuals ()

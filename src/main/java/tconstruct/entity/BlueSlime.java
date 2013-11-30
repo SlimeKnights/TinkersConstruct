@@ -21,6 +21,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 import tconstruct.TConstruct;
 import tconstruct.common.TContent;
+import tconstruct.common.TRepo;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.ToolBuilder;
 import tconstruct.library.tools.ToolCore;
@@ -452,7 +453,7 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
             this.entityDropItem(toolStack, 0f);
             if (rand.nextInt(5) == 0)
             {
-                ItemStack dropStack = new ItemStack(TContent.heartCanister, 1, 1);
+                ItemStack dropStack = new ItemStack(TRepo.heartCanister, 1, 1);
                 this.entityDropItem(dropStack, 0f);
             }
         }
@@ -520,7 +521,7 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
      */
     protected int getDropItemId ()
     {
-        return TContent.strangeFood.itemID;
+        return TRepo.strangeFood.itemID;
     }
 
     /**

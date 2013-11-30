@@ -11,7 +11,7 @@ import net.minecraft.world.WorldType;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.ChunkProviderFlat;
 import net.minecraft.world.gen.feature.WorldGenerator;
-import tconstruct.common.TContent;
+import tconstruct.common.TRepo;
 import tconstruct.util.config.DimensionBlacklist;
 import tconstruct.util.config.PHConstruct;
 import cpw.mods.fml.common.IWorldGenerator;
@@ -22,8 +22,8 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
     private int gelMeta;
     int randomness = 2;
     Random random = new Random();
-    int baseID = TContent.craftedSoil.blockID;//Block.dirt.blockID;
-    int topID = TContent.slimeGrass.blockID;
+    int baseID = TRepo.craftedSoil.blockID;//Block.dirt.blockID;
+    int topID = TRepo.slimeGrass.blockID;
     SlimeTreeGen trees = new SlimeTreeGen(false, 5, 4, 1, 0);
 
     public SlimeIslandGen(int id, int meta)
@@ -145,7 +145,7 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
         {
             generateSlimePool(world, rand, xChunk + xRange / 2, yCenter + initialHeight, zChunk + zRange / 2);
         }
-        PlantGen tallGrass = new PlantGen(TContent.slimeTallGrass.blockID, 0, 128, xRange, 1, zRange, false);
+        PlantGen tallGrass = new PlantGen(TRepo.slimeTallGrass.blockID, 0, 128, xRange, 1, zRange, false);
         tallGrass.generate(world, rand, xChunk, yCenter + initialHeight + 1, zChunk);
         for (int i = 0; i < 3; i++)
         {
@@ -287,7 +287,7 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
                         if (var33 && (yPos < 4 || rand.nextInt(2) != 0) && world.getBlockMaterial(x + xPos, y + yPos, z + zPos).isSolid()
                                 && world.getBlockMaterial(x + xPos, y + yPos + 1, z + zPos) != Material.water)
                         {
-                            world.setBlock(x + xPos, y + yPos, z + zPos, TContent.slimeGel.blockID, gelMeta, 2);
+                            world.setBlock(x + xPos, y + yPos, z + zPos, TRepo.slimeGel.blockID, gelMeta, 2);
                         }
                     }
                 }

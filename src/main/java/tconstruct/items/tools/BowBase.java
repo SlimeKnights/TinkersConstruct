@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import tconstruct.TConstruct;
-import tconstruct.common.TContent;
+import tconstruct.common.TRepo;
 import tconstruct.entity.projectile.ArrowEntity;
 import tconstruct.library.crafting.ToolBuilder;
 import tconstruct.library.tools.AbilityHelper;
@@ -63,7 +63,7 @@ public abstract class BowBase extends ToolCore
         time = event.charge;
 
         boolean creative = player.capabilities.isCreativeMode || EnchantmentHelper.getEnchantmentLevel(Enchantment.infinity.effectId, stack) > 0;
-        int slotID = getInventorySlotContainItem(TContent.arrow.itemID, player.inventory);
+        int slotID = getInventorySlotContainItem(TRepo.arrow.itemID, player.inventory);
         int arrowID = getInventorySlotContainItem(Item.arrow.itemID, player.inventory);
         int arrowState = 0;
         ItemStack tinkerArrow = null;
@@ -149,7 +149,7 @@ public abstract class BowBase extends ToolCore
                 //if (tinkerArrow != null)
                 if (slotID != -1 && (arrowID == -1 || slotID < arrowID))
                 {
-                    player.inventory.consumeInventoryItem(TContent.arrow.itemID);
+                    player.inventory.consumeInventoryItem(TRepo.arrow.itemID);
                 }
                 else
                 {
@@ -215,7 +215,7 @@ public abstract class BowBase extends ToolCore
                     return event.result;
                 }
 
-                if (player.capabilities.isCreativeMode || player.inventory.hasItem(Item.arrow.itemID) || player.inventory.hasItem(TContent.arrow.itemID))
+                if (player.capabilities.isCreativeMode || player.inventory.hasItem(Item.arrow.itemID) || player.inventory.hasItem(TRepo.arrow.itemID))
                 {
                     player.setItemInUse(stack, this.getMaxItemUseDuration(stack));
                 }
@@ -771,7 +771,7 @@ public abstract class BowBase extends ToolCore
         ItemStack tool = ToolBuilder.instance.buildTool(new ItemStack(getHeadItem(), 1, id), new ItemStack(getHandleItem(), 1, 0), accessoryStack, extraStack, name + getToolName());
         if (tool == null)
         {
-            if (!TContent.supressMissingToolLogs)
+            if (!TRepo.supressMissingToolLogs)
             {
                 TConstruct.logger.warning("Creative builder failed tool for " + name + this.getToolName());
                 TConstruct.logger.warning("Make sure you do not have item ID conflicts");

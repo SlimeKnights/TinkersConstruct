@@ -44,7 +44,7 @@ import tconstruct.TConstruct;
 import tconstruct.achievements.TAchievements;
 import tconstruct.blocks.LiquidMetalFinite;
 import tconstruct.blocks.TankAirBlock;
-import tconstruct.common.TContent;
+import tconstruct.common.TRepo;
 import tconstruct.items.tools.FryingPan;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.ToolBuilder;
@@ -70,7 +70,7 @@ public class TEventHandler
     public void craftTool (ToolCraftEvent.NormalTool event)
     {
         NBTTagCompound toolTag = event.toolTag.getCompoundTag("InfiTool");
-        if (PHConstruct.denyMattock && event.tool == TContent.mattock)
+        if (PHConstruct.denyMattock && event.tool == TRepo.mattock)
         {
             int head = toolTag.getInteger("Head");
             int handle = toolTag.getInteger("Handle");
@@ -106,7 +106,7 @@ public class TEventHandler
             toolTag.setInteger("Modifiers", modifiers);
         }
 
-        if (event.tool == TContent.shortbow)
+        if (event.tool == TRepo.shortbow)
         {
             BowMaterial top = TConstructRegistry.getBowMaterial(toolTag.getInteger("Head"));
             BowMaterial bottom = TConstructRegistry.getBowMaterial(toolTag.getInteger("Accessory"));
@@ -134,7 +134,7 @@ public class TEventHandler
             }
         }
 
-        if (event.tool == TContent.arrow)
+        if (event.tool == TRepo.arrow)
         {
             ArrowMaterial head = TConstructRegistry.getArrowMaterial(toolTag.getInteger("Head"));
             ArrowMaterial shaft = TConstructRegistry.getArrowMaterial(toolTag.getInteger("Handle"));
@@ -172,7 +172,7 @@ public class TEventHandler
     @ForgeSubscribe
     public void craftPart (PartBuilderEvent.NormalPart event)
     {
-        if (event.pattern.getItem() == TContent.woodPattern && event.pattern.getItemDamage() == 23)
+        if (event.pattern.getItem() == TRepo.woodPattern && event.pattern.getItemDamage() == 23)
         {
             ItemStack result = craftBowString(event.material);
             if (result != null)
@@ -181,7 +181,7 @@ public class TEventHandler
             }
         }
 
-        if (event.pattern.getItem() == TContent.woodPattern && event.pattern.getItemDamage() == 24)
+        if (event.pattern.getItem() == TRepo.woodPattern && event.pattern.getItemDamage() == 24)
         {
             ItemStack result = craftFletching(event.material);
             if (result != null)
@@ -239,7 +239,7 @@ public class TEventHandler
             EntityPlayer player = (EntityPlayer) event.entityLiving;
             //Cutlass
             ItemStack stack = player.getCurrentEquippedItem();
-            if (stack != null && stack.getItem() == TContent.cutlass && player.isUsingItem())
+            if (stack != null && stack.getItem() == TRepo.cutlass && player.isUsingItem())
             {
                 player.addPotionEffect(new PotionEffect(Potion.moveSpeed.id, 3 * 20, 1));
             }
@@ -277,7 +277,7 @@ public class TEventHandler
 
         if (random.nextInt(500) == 0 && event.entityLiving instanceof IMob && event.entityLiving.dimension == 0)
         {
-            ItemStack dropStack = new ItemStack(TContent.heartCanister, 1, 1);
+            ItemStack dropStack = new ItemStack(TRepo.heartCanister, 1, 1);
             EntityItem entityitem = new EntityItem(event.entityLiving.worldObj, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, dropStack);
             entityitem.delayBeforeCanPickup = 10;
             event.drops.add(entityitem);
@@ -285,7 +285,7 @@ public class TEventHandler
 
         if (event.entityLiving instanceof EntityWither && random.nextInt(5) == 0)
         {
-            ItemStack dropStack = new ItemStack(TContent.heartCanister, 1, 1);
+            ItemStack dropStack = new ItemStack(TRepo.heartCanister, 1, 1);
             EntityItem entityitem = new EntityItem(event.entityLiving.worldObj, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, dropStack);
             entityitem.delayBeforeCanPickup = 10;
             event.drops.add(entityitem);
@@ -329,7 +329,7 @@ public class TEventHandler
                     if (stack != null && stack.hasTagCompound() && stack.getItem() instanceof ToolCore)
                     {
                         int beheading = stack.getTagCompound().getCompoundTag("InfiTool").getInteger("Beheading");
-                        if (stack.getItem() == TContent.cleaver)
+                        if (stack.getItem() == TRepo.cleaver)
                             beheading += 2;
                         if (beheading > 0 && random.nextInt(100) < beheading * 10)
                         {
@@ -339,7 +339,7 @@ public class TEventHandler
                 }
                 if (enemy.getSkeletonType() == 1 && random.nextInt(Math.max(1, 5 - event.lootingLevel)) == 0)
                 {
-                    addDrops(event, new ItemStack(TContent.materials, 1, 8));
+                    addDrops(event, new ItemStack(TRepo.materials, 1, 8));
                 }
             }
 
@@ -355,14 +355,14 @@ public class TEventHandler
                     if (stack != null && stack.hasTagCompound() && stack.getItem() instanceof ToolCore)
                     {
                         int beheading = stack.getTagCompound().getCompoundTag("InfiTool").getInteger("Beheading");
-                        if (stack.getItem() == TContent.cleaver)
+                        if (stack.getItem() == TRepo.cleaver)
                             beheading += 2;
                         if (beheading > 0 && random.nextInt(100) < beheading * 10)
                         {
                             addDrops(event, new ItemStack(Item.skull.itemID, 1, 2));
                         }
                     }
-                    /*if (stack.getItem() == TContent.breakerBlade && random.nextInt(100) < 10) //Swap out for real beheading
+                    /*if (stack.getItem() == TRepo.breakerBlade && random.nextInt(100) < 10) //Swap out for real beheading
                     {
                         addDrops(event, new ItemStack(Item.skull.itemID, 1, 2));
                     }*/
@@ -380,7 +380,7 @@ public class TEventHandler
                     if (stack != null && stack.hasTagCompound() && stack.getItem() instanceof ToolCore)
                     {
                         int beheading = stack.getTagCompound().getCompoundTag("InfiTool").getInteger("Beheading");
-                        if (stack.getItem() == TContent.cleaver)
+                        if (stack.getItem() == TRepo.cleaver)
                             beheading += 2;
                         if (beheading > 0 && random.nextInt(100) < beheading * 5)
                         {
@@ -429,7 +429,7 @@ public class TEventHandler
                 if (stack != null && stack.hasTagCompound() && stack.getItem() instanceof ToolCore)
                 {
                     int beheading = stack.getTagCompound().getCompoundTag("InfiTool").getInteger("Beheading");
-                    if (stack.getItem() == TContent.cleaver)
+                    if (stack.getItem() == TRepo.cleaver)
                         beheading += 2;
                     if (beheading > 0 && random.nextInt(100) < beheading * 50)
                     {
@@ -520,9 +520,9 @@ public class TEventHandler
     {
         if (!event.world.isRemote)
         {
-            if (event.ID == TContent.slimeSapling.blockID)
+            if (event.ID == TRepo.slimeSapling.blockID)
             {
-                if (TContent.slimeSapling.boneFertilize(event.world, event.X, event.Y, event.Z, event.world.rand, event.entityPlayer))
+                if (TRepo.slimeSapling.boneFertilize(event.world, event.X, event.Y, event.Z, event.world.rand, event.entityPlayer))
                     event.setResult(Event.Result.ALLOW);
             }
         }
@@ -559,9 +559,9 @@ public class TEventHandler
             }
 
             int bID = evt.world.getBlockId(hitX, hitY, hitZ);
-            for (int id = 0; id < TContent.fluidBlocks.length; id++)
+            for (int id = 0; id < TRepo.fluidBlocks.length; id++)
             {
-                if (bID == TContent.fluidBlocks[id].blockID)
+                if (bID == TRepo.fluidBlocks[id].blockID)
                 {
                     if (evt.entityPlayer.capabilities.isCreativeMode)
                     {
@@ -569,7 +569,7 @@ public class TEventHandler
                     }
                     else
                     {
-                        if (TContent.fluidBlocks[id] instanceof LiquidMetalFinite)
+                        if (TRepo.fluidBlocks[id] instanceof LiquidMetalFinite)
                         {
                             evt.world.setBlockToAir(hitX, hitY, hitZ);
                             /*int quanta = 0;
@@ -614,7 +614,7 @@ public class TEventHandler
                         }
 
                         evt.setResult(Result.ALLOW);
-                        evt.result = new ItemStack(TContent.buckets, 1, id);
+                        evt.result = new ItemStack(TRepo.buckets, 1, id);
                     }
                 }
             }

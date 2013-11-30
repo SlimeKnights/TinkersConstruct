@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-import tconstruct.common.TContent;
+import tconstruct.common.TRepo;
 import tconstruct.library.ActiveToolMod;
 import tconstruct.library.tools.AbilityHelper;
 import tconstruct.library.tools.ToolCore;
@@ -55,7 +55,7 @@ public class TActiveOmniMod extends ActiveToolMod
     {
         if (entity instanceof EntityPlayer && ((EntityPlayer) entity).capabilities.isCreativeMode)
             return false;
-        TContent.modL.midStreamModify(stack, tool);
+        TRepo.modL.midStreamModify(stack, tool);
 
         NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
         World world = entity.worldObj;
@@ -151,7 +151,7 @@ public class TActiveOmniMod extends ActiveToolMod
     @Override
     public int baseAttackDamage (int earlyModDamage, int damage, ToolCore tool, NBTTagCompound tags, NBTTagCompound toolTags, ItemStack stack, EntityLivingBase player, Entity entity)
     {
-        TContent.modL.midStreamModify(stack, tool);
+        TRepo.modL.midStreamModify(stack, tool);
         return 0;
     }
 
@@ -164,7 +164,7 @@ public class TActiveOmniMod extends ActiveToolMod
             EnumCreatureAttribute attribute = ((EntityLivingBase) entity).getCreatureAttribute();
             if (attribute == EnumCreatureAttribute.UNDEAD)
             {
-                if (tool == TContent.hammer)
+                if (tool == TRepo.hammer)
                 {
                     int level = 2;
                     bonus += random.nextInt(level * 2 + 1) + level * 2;
@@ -203,7 +203,7 @@ public class TActiveOmniMod extends ActiveToolMod
 
     public boolean doesCriticalHit (ToolCore tool, NBTTagCompound tags, NBTTagCompound toolTags, ItemStack stack, EntityLivingBase player, Entity entity)
     {
-        if (tool == TContent.cutlass && random.nextInt(10) == 0)
+        if (tool == TRepo.cutlass && random.nextInt(10) == 0)
             return true;
         return false;
     }

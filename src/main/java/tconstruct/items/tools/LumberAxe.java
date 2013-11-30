@@ -1,6 +1,6 @@
 package tconstruct.items.tools;
 
-import tconstruct.common.TContent;
+import tconstruct.common.TRepo;
 import tconstruct.library.ActiveToolMod;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.tools.AbilityHelper;
@@ -323,25 +323,25 @@ public class LumberAxe extends HarvestTool
     @Override
     public Item getHeadItem ()
     {
-        return TContent.broadAxeHead;
+        return TRepo.broadAxeHead;
     }
 
     @Override
     public Item getHandleItem ()
     {
-        return TContent.toughRod;
+        return TRepo.toughRod;
     }
 
     @Override
     public Item getAccessoryItem ()
     {
-        return TContent.largePlate;
+        return TRepo.largePlate;
     }
 
     @Override
     public Item getExtraItem ()
     {
-        return TContent.toughBinding;
+        return TRepo.toughBinding;
     }
 
     @SideOnly(Side.CLIENT)

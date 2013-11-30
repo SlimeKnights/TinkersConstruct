@@ -3,7 +3,7 @@ package tconstruct.items.tools;
 import java.util.ArrayList;
 import java.util.List;
 
-import tconstruct.common.TContent;
+import tconstruct.common.TRepo;
 import tconstruct.library.ActiveToolMod;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.ToolBuilder;
@@ -72,25 +72,25 @@ public class Hammer extends HarvestTool
     @Override
     public Item getHeadItem ()
     {
-        return TContent.hammerHead;
+        return TRepo.hammerHead;
     }
 
     @Override
     public Item getHandleItem ()
     {
-        return TContent.toughRod;
+        return TRepo.toughRod;
     }
 
     @Override
     public Item getAccessoryItem ()
     {
-        return TContent.largePlate;
+        return TRepo.largePlate;
     }
 
     @Override
     public Item getExtraItem ()
     {
-        return TContent.largePlate;
+        return TRepo.largePlate;
     }
 
     public float getDurabilityModifier ()

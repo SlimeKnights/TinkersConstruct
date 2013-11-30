@@ -19,6 +19,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import tconstruct.client.block.PunjiRender;
 import tconstruct.common.TContent;
+import tconstruct.common.TRepo;
 import tconstruct.library.TConstructRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -59,7 +60,7 @@ public class Punji extends Block
         if (meta < 4)
         {
             ItemStack stack = player.getCurrentEquippedItem();
-            if (stack != null && stack.itemID == TContent.punji.blockID)
+            if (stack != null && stack.itemID == TRepo.punji.blockID)
             {
                 world.setBlockMetadataWithNotify(x, y, z, meta + 1, 3);
                 world.playSoundEffect((double) ((float) x + 0.5F), (double) ((float) y + 0.5F), (double) ((float) z + 0.5F), this.stepSound.getPlaceSound(),

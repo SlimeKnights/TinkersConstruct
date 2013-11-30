@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 import tconstruct.TConstruct;
-import tconstruct.common.TContent;
+import tconstruct.common.TRepo;
 
 import net.minecraft.block.Block;
 import net.minecraft.world.World;
@@ -64,13 +64,13 @@ public class ComponentSmeltery extends ComponentVillage
         this.fillWithBlocks(world, sbb, 8, 0, 1, 8, 0, 5, Block.stoneBrick.blockID, Block.stoneBrick.blockID, false);
         this.fillWithBlocks(world, sbb, 0, 1, 0, 9, 3, 7, 0, 0, false);
 
-        this.fillWithMetaBlocks(world, sbb, 2, 0, 1, 6, 2, 5, TContent.smeltery.blockID, 2, TContent.smeltery.blockID, 2, false); //Basin
+        this.fillWithMetaBlocks(world, sbb, 2, 0, 1, 6, 2, 5, TRepo.smeltery.blockID, 2, TRepo.smeltery.blockID, 2, false); //Basin
         this.fillWithBlocks(world, sbb, 3, 1, 2, 5, 2, 4, 0, 0, false);
 
-        this.placeBlockAtCurrentPosition(world, TContent.searedBlock.blockID, 0, 1, 1, 2, sbb);
-        this.placeBlockAtCurrentPosition(world, TContent.searedBlock.blockID, 2, 1, 1, 4, sbb);
-        this.placeBlockAtCurrentPosition(world, TContent.searedBlock.blockID, 0, 7, 1, 2, sbb);
-        this.placeBlockAtCurrentPosition(world, TContent.searedBlock.blockID, 2, 7, 1, 4, sbb);
+        this.placeBlockAtCurrentPosition(world, TRepo.searedBlock.blockID, 0, 1, 1, 2, sbb);
+        this.placeBlockAtCurrentPosition(world, TRepo.searedBlock.blockID, 2, 1, 1, 4, sbb);
+        this.placeBlockAtCurrentPosition(world, TRepo.searedBlock.blockID, 0, 7, 1, 2, sbb);
+        this.placeBlockAtCurrentPosition(world, TRepo.searedBlock.blockID, 2, 7, 1, 4, sbb);
 
         for (int l = 1; l < 6; ++l)
         {

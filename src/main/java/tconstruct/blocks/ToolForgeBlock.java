@@ -10,9 +10,9 @@ import tconstruct.blocks.logic.ToolForgeLogic;
 import tconstruct.client.block.TableForgeRender;
 import tconstruct.common.TContent;
 import tconstruct.common.TProxyCommon;
+import tconstruct.common.TRepo;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.blocks.InventoryBlock;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFarmland;
 import net.minecraft.block.BlockHalfSlab;
@@ -81,7 +81,7 @@ public class ToolForgeBlock extends InventoryBlock
             case 3:
                 return Block.blockEmerald.getIcon(side, 0);
             default:
-                return TContent.metalBlock.getIcon(side, meta - 4);
+                return TRepo.metalBlock.getIcon(side, meta - 4);
             }
         }
 

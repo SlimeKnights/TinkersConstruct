@@ -9,7 +9,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
-import tconstruct.common.TContent;
+import tconstruct.common.TRepo;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -54,19 +54,19 @@ public class Shortbow extends BowBase
     @Override
     public Item getHeadItem ()
     {
-        return TContent.toolRod;
+        return TRepo.toolRod;
     }
 
     @Override
     public Item getHandleItem ()
     {
-        return TContent.bowstring;
+        return TRepo.bowstring;
     }
 
     @Override
     public Item getAccessoryItem ()
     {
-        return TContent.toolRod;
+        return TRepo.toolRod;
     }
 
     @Override

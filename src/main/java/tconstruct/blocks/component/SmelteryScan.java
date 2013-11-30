@@ -9,6 +9,7 @@ import net.minecraft.nbt.NBTTagIntArray;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
 import tconstruct.common.TContent;
+import tconstruct.common.TRepo;
 import tconstruct.library.component.TankLayerScan;
 import tconstruct.library.util.CoordTuple;
 import tconstruct.library.util.IServantLogic;
@@ -32,7 +33,7 @@ public class SmelteryScan extends TankLayerScan
     protected boolean checkAir (int x, int y, int z)
     {
         Block block = Block.blocksList[world.getBlockId(x, y, z)];
-        if (block == null || block.isAirBlock(world, x, y, z) || block == TContent.tankAir)
+        if (block == null || block.isAirBlock(world, x, y, z) || block == TRepo.tankAir)
             return true;
 
         return false;
@@ -52,7 +53,7 @@ public class SmelteryScan extends TankLayerScan
         if (be instanceof IServantLogic)
         {
             boolean ret = ((IServantLogic) be).setPotentialMaster(this.imaster, this.world, x, y, z);
-            if (ret && block == TContent.lavaTank)
+            if (ret && block == TRepo.lavaTank)
                 lavaTanks.add(new CoordTuple(x, y, z));
             return ret;
         }
@@ -70,9 +71,9 @@ public class SmelteryScan extends TankLayerScan
         {
             for (CoordTuple coord : airCoords)
             {
-                if (world.getBlockId(coord.x, coord.y, coord.z) != TContent.tankAir.blockID)
+                if (world.getBlockId(coord.x, coord.y, coord.z) != TRepo.tankAir.blockID)
                 {
-                    world.setBlock(coord.x, coord.y, coord.z, TContent.tankAir.blockID);
+                    world.setBlock(coord.x, coord.y, coord.z, TRepo.tankAir.blockID);
                     IServantLogic servant = (IServantLogic) world.getBlockTileEntity(coord.x, coord.y, coord.z);
                     servant.verifyMaster(imaster, world, master.xCoord, master.yCoord, master.zCoord);
                 }

@@ -2,7 +2,7 @@ package tconstruct.items.tools;
 
 import java.util.List;
 
-import tconstruct.common.TContent;
+import tconstruct.common.TRepo;
 import tconstruct.library.tools.Weapon;
 
 import net.minecraft.creativetab.CreativeTabs;
@@ -19,13 +19,13 @@ public class Cutlass extends Weapon
     @Override
     public Item getHeadItem ()
     {
-        return TContent.swordBlade;
+        return TRepo.swordBlade;
     }
 
     @Override
     public Item getAccessoryItem ()
     {
-        return TContent.fullGuard;
+        return TRepo.fullGuard;
     }
 
     @Override

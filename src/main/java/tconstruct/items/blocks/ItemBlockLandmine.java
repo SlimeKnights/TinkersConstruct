@@ -9,7 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraft.util.StatCollector;
 import tconstruct.blocks.logic.TileEntityLandmine;
-import tconstruct.common.TContent;
+import tconstruct.common.TRepo;
 
 /**
  * 
@@ -58,25 +58,25 @@ public class ItemBlockLandmine extends ItemBlock
     @Override
     public boolean placeBlockAt (ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int metadata)
     {
-        if (!world.setBlock(x, y, z, TContent.landmine.blockID, metadata, 3))
+        if (!world.setBlock(x, y, z, TRepo.landmine.blockID, metadata, 3))
         {
             return false;
         }
 
-        if (world.getBlockId(x, y, z) == TContent.landmine.blockID)
+        if (world.getBlockId(x, y, z) == TRepo.landmine.blockID)
         {
-            TContent.landmine.onBlockPlacedBy(world, x, y, z, player, stack);
+            TRepo.landmine.onBlockPlacedBy(world, x, y, z, player, stack);
 
             TileEntityLandmine te = (TileEntityLandmine) world.getBlockTileEntity(x, y, z);
             if (te == null)
             {
-                te = (TileEntityLandmine) TContent.landmine.createTileEntity(world, metadata);
+                te = (TileEntityLandmine) TRepo.landmine.createTileEntity(world, metadata);
             }
 
             te.triggerType = stack.getItemDamage();
             world.setBlockTileEntity(x, y, z, te);
 
-            TContent.landmine.onPostBlockPlaced(world, x, y, z, metadata);
+            TRepo.landmine.onPostBlockPlaced(world, x, y, z, metadata);
         }
 
         return true;

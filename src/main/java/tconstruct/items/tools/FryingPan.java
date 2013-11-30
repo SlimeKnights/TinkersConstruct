@@ -3,7 +3,7 @@ package tconstruct.items.tools;
 import java.util.List;
 
 import tconstruct.blocks.logic.EquipLogic;
-import tconstruct.common.TContent;
+import tconstruct.common.TRepo;
 import tconstruct.library.crafting.ToolBuilder;
 import tconstruct.library.tools.AbilityHelper;
 import tconstruct.library.tools.Weapon;
@@ -121,14 +121,14 @@ public class FryingPan extends Weapon
             {
                 return false;
             }
-            else if (!TContent.heldItemBlock.canPlaceBlockAt(world, x, y, z))
+            else if (!TRepo.heldItemBlock.canPlaceBlockAt(world, x, y, z))
             {
                 return false;
             }
             else
             {
-                world.setBlock(x, y, z, TContent.heldItemBlock.blockID, 0, 3);
-                TContent.heldItemBlock.onBlockPlacedBy(world, x, y, z, player, stack);
+                world.setBlock(x, y, z, TRepo.heldItemBlock.blockID, 0, 3);
+                TRepo.heldItemBlock.onBlockPlacedBy(world, x, y, z, player, stack);
                 world.playSoundEffect(x, y, z, "tinker:frypan_hit", 1.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 0.65F);
 
                 EquipLogic logic = (EquipLogic) world.getBlockTileEntity(x, y, z);
@@ -143,7 +143,7 @@ public class FryingPan extends Weapon
     @Override
     public Item getHeadItem ()
     {
-        return TContent.frypanHead;
+        return TRepo.frypanHead;
     }
 
     @Override

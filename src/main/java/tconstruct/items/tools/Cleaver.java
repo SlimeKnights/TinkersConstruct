@@ -1,6 +1,6 @@
 package tconstruct.items.tools;
 
-import tconstruct.common.TContent;
+import tconstruct.common.TRepo;
 import tconstruct.library.tools.AbilityHelper;
 import tconstruct.library.tools.Weapon;
 import tconstruct.util.config.PHConstruct;
@@ -25,25 +25,25 @@ public class Cleaver extends Weapon
     @Override
     public Item getHeadItem ()
     {
-        return TContent.largeSwordBlade;
+        return TRepo.largeSwordBlade;
     }
 
     @Override
     public Item getHandleItem ()
     {
-        return TContent.toughRod;
+        return TRepo.toughRod;
     }
 
     @Override
     public Item getAccessoryItem ()
     {
-        return TContent.largePlate;
+        return TRepo.largePlate;
     }
 
     @Override
     public Item getExtraItem ()
     {
-        return TContent.toughRod;
+        return TRepo.toughRod;
     }
 
     @Override

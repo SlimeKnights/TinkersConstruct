@@ -9,7 +9,7 @@ import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.item.ItemStack;
 import net.minecraft.village.MerchantRecipe;
 import net.minecraft.village.MerchantRecipeList;
-import tconstruct.common.TContent;
+import tconstruct.common.TRepo;
 import cpw.mods.fml.common.registry.VillagerRegistry.IVillageTradeHandler;
 
 public class TVillageTrades implements IVillageTradeHandler
@@ -28,18 +28,18 @@ public class TVillageTrades implements IVillageTradeHandler
         allowedIngredients.add(new ItemStack(Block.pistonStickyBase, 64));
 
         // tconstruct blocks
-        allowedIngredients.add(new ItemStack(TContent.barricadeBirch, 64));
-        allowedIngredients.add(new ItemStack(TContent.barricadeJungle, 64));
-        allowedIngredients.add(new ItemStack(TContent.barricadeOak, 64));
-        allowedIngredients.add(new ItemStack(TContent.barricadeSpruce, 64));
-        allowedIngredients.add(new ItemStack(TContent.punji, 64));
-        allowedIngredients.add(new ItemStack(TContent.toolStationWood, 3, 0));
-        allowedIngredients.add(new ItemStack(TContent.toolStationWood, 3, 1));
-        allowedIngredients.add(new ItemStack(TContent.toolStationWood, 3, 5));
-        allowedIngredients.add(new ItemStack(TContent.toolStationWood, 3, 10));
+        allowedIngredients.add(new ItemStack(TRepo.barricadeBirch, 64));
+        allowedIngredients.add(new ItemStack(TRepo.barricadeJungle, 64));
+        allowedIngredients.add(new ItemStack(TRepo.barricadeOak, 64));
+        allowedIngredients.add(new ItemStack(TRepo.barricadeSpruce, 64));
+        allowedIngredients.add(new ItemStack(TRepo.punji, 64));
+        allowedIngredients.add(new ItemStack(TRepo.toolStationWood, 3, 0));
+        allowedIngredients.add(new ItemStack(TRepo.toolStationWood, 3, 1));
+        allowedIngredients.add(new ItemStack(TRepo.toolStationWood, 3, 5));
+        allowedIngredients.add(new ItemStack(TRepo.toolStationWood, 3, 10));
         for (int sc = 0; sc < 4; sc++)
         {
-            allowedIngredients.add(new ItemStack(TContent.landmine, 64, sc));
+            allowedIngredients.add(new ItemStack(TRepo.landmine, 64, sc));
         }
     }
 
@@ -65,14 +65,14 @@ public class TVillageTrades implements IVillageTradeHandler
                 {
                     ingredient2 = null;
                 }
-                result = new ItemStack(TContent.oreBerry, calcStackSize(ingredient, ingredient2), sc);
+                result = new ItemStack(TRepo.oreBerry, calcStackSize(ingredient, ingredient2), sc);
                 // adds iron, gold, copper & tin orebushes to the recipe list
                 recipeList.addToListWithCheck(new MerchantRecipe(ingredient, ingredient2, result));
 
                 if (sc == 8)
                 {
                     // adds alumine orebush to the recipe list
-                    result = new ItemStack(TContent.oreBerrySecond, calcStackSize(ingredient, ingredient2), sc);
+                    result = new ItemStack(TRepo.oreBerrySecond, calcStackSize(ingredient, ingredient2), sc);
                     recipeList.addToListWithCheck(new MerchantRecipe(ingredient, ingredient2, result));
                 }
             }

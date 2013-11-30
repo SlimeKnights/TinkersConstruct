@@ -13,6 +13,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import tconstruct.client.block.SlimePadRender;
 import tconstruct.common.TContent;
+import tconstruct.common.TRepo;
 import tconstruct.library.TConstructRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -131,16 +132,16 @@ public class SlimePad extends Block
     @SideOnly(Side.CLIENT)
     public Icon getIcon (int side, int meta)
     {
-        return TContent.slimeGel.getIcon(side, 1);
+        return TRepo.slimeGel.getIcon(side, 1);
     }
 
     public Icon getFluidIcon (int meta)
     {
-        return TContent.slimeChannel.getIcon(2, 0);
+        return TRepo.slimeChannel.getIcon(2, 0);
     }
 
     public Icon getNubIcon (int meta)
     {
-        return TContent.slimeGel.getIcon(0, 0);
+        return TRepo.slimeGel.getIcon(0, 0);
     }
 }

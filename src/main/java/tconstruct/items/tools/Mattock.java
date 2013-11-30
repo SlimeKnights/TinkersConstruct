@@ -9,7 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import tconstruct.TConstruct;
-import tconstruct.common.TContent;
+import tconstruct.common.TRepo;
 import tconstruct.library.crafting.ToolBuilder;
 import tconstruct.library.tools.AbilityHelper;
 import tconstruct.library.tools.DualHarvestTool;
@@ -53,13 +53,13 @@ public class Mattock extends DualHarvestTool
     @Override
     public Item getHeadItem ()
     {
-        return TContent.hatchetHead;
+        return TRepo.hatchetHead;
     }
 
     @Override
     public Item getAccessoryItem ()
     {
-        return TContent.shovelHead;
+        return TRepo.shovelHead;
     }
 
     public int durabilityTypeAccessory ()
@@ -120,7 +120,7 @@ public class Mattock extends DualHarvestTool
             ItemStack tool = ToolBuilder.instance.buildTool(new ItemStack(getHeadItem(), 1, id), new ItemStack(getHandleItem(), 1, id), accessoryStack, extraStack, name + getToolName());
             if (tool == null)
             {
-                if (!TContent.supressMissingToolLogs)
+                if (!TRepo.supressMissingToolLogs)
                 {
                     TConstruct.logger.warning("Creative builder failed tool for " + name + this.getToolName());
                     TConstruct.logger.warning("Make sure you do not have item ID conflicts");

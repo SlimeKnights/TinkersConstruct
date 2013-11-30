@@ -1,6 +1,7 @@
 package tconstruct.blocks.logic;
 
 import tconstruct.common.TContent;
+import tconstruct.common.TRepo;
 import tconstruct.inventory.PatternShaperContainer;
 import tconstruct.library.blocks.InventoryLogic;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -45,10 +46,10 @@ public class StencilTableLogic extends InventoryLogic implements ISidedInventory
     public void setInventorySlotContents (int slot, ItemStack itemstack)
     {
         super.setInventorySlotContents(slot, itemstack);
-        if (slot == 0 && itemstack != null && itemstack.getItem() == TContent.blankPattern)//instanceof tconstruct.items.Pattern)
+        if (slot == 0 && itemstack != null && itemstack.getItem() == TRepo.blankPattern)//instanceof tconstruct.items.Pattern)
         {
             if (itemstack.getItemDamage() == 0)
-                setInventorySlotContents(1, new ItemStack(TContent.woodPattern, 1, 1));
+                setInventorySlotContents(1, new ItemStack(TRepo.woodPattern, 1, 1));
             /*else if (itemstack.getItemDamage() == 1)
                 setInventorySlotContents(1, new ItemStack(TContent.metalPattern, 1, 0));*/
         }

@@ -1,6 +1,6 @@
 package tconstruct.items.tools;
 
-import tconstruct.common.TContent;
+import tconstruct.common.TRepo;
 import tconstruct.library.tools.AbilityHelper;
 import tconstruct.library.tools.HarvestTool;
 import tconstruct.util.config.PHConstruct;
@@ -48,7 +48,7 @@ public class Hatchet extends HarvestTool
     @Override
     public Item getHeadItem ()
     {
-        return TContent.hatchetHead;
+        return TRepo.hatchetHead;
     }
 
     @Override

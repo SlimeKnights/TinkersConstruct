@@ -4,7 +4,7 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Icon;
 import net.minecraft.util.MathHelper;
-import tconstruct.common.TContent;
+import tconstruct.common.TRepo;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -28,7 +28,7 @@ public class SlimeTallGrassItem extends ItemBlock
     public Icon getIconFromDamage (int meta)
     {
         int arr = MathHelper.clamp_int(meta, 0, blockType.length);
-        return TContent.slimeTallGrass.getIcon(0, arr);
+        return TRepo.slimeTallGrass.getIcon(0, arr);
     }
 
     public String getUnlocalizedName (ItemStack itemstack)

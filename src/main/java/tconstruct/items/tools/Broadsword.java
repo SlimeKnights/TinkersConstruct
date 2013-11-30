@@ -1,6 +1,6 @@
 package tconstruct.items.tools;
 
-import tconstruct.common.TContent;
+import tconstruct.common.TRepo;
 import tconstruct.library.tools.Weapon;
 import net.minecraft.item.Item;
 
@@ -15,13 +15,13 @@ public class Broadsword extends Weapon
     @Override
     public Item getHeadItem ()
     {
-        return TContent.swordBlade;
+        return TRepo.swordBlade;
     }
 
     @Override
     public Item getAccessoryItem ()
     {
-        return TContent.wideGuard;
+        return TRepo.wideGuard;
     }
 
     public float getDurabilityModifier ()

@@ -16,8 +16,8 @@ import org.lwjgl.opengl.GL11;
 
 import tconstruct.blocks.logic.StencilTableLogic;
 import tconstruct.common.TContent;
+import tconstruct.common.TRepo;
 import tconstruct.inventory.PatternShaperContainer;
-
 import cpw.mods.fml.common.network.PacketDispatcher;
 
 public class StencilTableGui extends GuiContainer
@@ -85,7 +85,7 @@ public class StencilTableGui extends GuiContainer
     protected void actionPerformed (GuiButton button)
     {
         ItemStack pattern = logic.getStackInSlot(0);
-        if (pattern != null && pattern.getItem() == TContent.blankPattern)
+        if (pattern != null && pattern.getItem() == TRepo.blankPattern)
         {
             int meta = pattern.getItemDamage();
             if (meta == 0)
@@ -106,13 +106,13 @@ public class StencilTableGui extends GuiContainer
                     if (patternIndex == 21)
                         patternIndex--;
                 }
-                ItemStack stack = new ItemStack(TContent.woodPattern, 1, patternIndex + 1);
+                ItemStack stack = new ItemStack(TRepo.woodPattern, 1, patternIndex + 1);
                 logic.setInventorySlotContents(1, stack);
                 updateServer(stack);
             }
             /*else if (meta == 1 || meta == 2)
             {
-                ItemStack stack = new ItemStack(TContent.metalPattern, 1, 0);
+                ItemStack stack = new ItemStack(TRepo.metalPattern, 1, 0);
                 logic.setInventorySlotContents(1, stack);
                 updateServer(stack);
             }*/

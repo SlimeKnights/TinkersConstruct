@@ -11,6 +11,7 @@ import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import tconstruct.common.TContent;
+import tconstruct.common.TRepo;
 import tconstruct.library.TConstructRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -96,7 +97,7 @@ public class SlimeLeaves extends BlockLeaves
      */
     public int idDropped (int par1, Random par2Random, int par3)
     {
-        return TContent.slimeSapling.blockID;
+        return TRepo.slimeSapling.blockID;
     }
 
     /**
@@ -143,7 +144,7 @@ public class SlimeLeaves extends BlockLeaves
 
             if ((meta & 3) == 0 && world.rand.nextInt(dropChance) == 0)
             {
-                this.dropBlockAsItem_do(world, x, y, z, new ItemStack(TContent.strangeFood, 1, 0));
+                this.dropBlockAsItem_do(world, x, y, z, new ItemStack(TRepo.strangeFood, 1, 0));
             }
         }
     }

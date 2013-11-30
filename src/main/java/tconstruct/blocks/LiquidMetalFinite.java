@@ -10,6 +10,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.BlockFluidFinite;
 import net.minecraftforge.fluids.Fluid;
 import tconstruct.common.TContent;
+import tconstruct.common.TRepo;
 import tconstruct.library.TConstructRegistry;
 
 public class LiquidMetalFinite extends BlockFluidFinite
@@ -20,7 +21,7 @@ public class LiquidMetalFinite extends BlockFluidFinite
 
     public LiquidMetalFinite(int id, Fluid fluid, String texture)
     {
-        super(id, fluid, TContent.liquidMetal);
+        super(id, fluid, TRepo.liquidMetal);
         this.texture = texture;
         this.setCreativeTab(TConstructRegistry.blockTab);
     }

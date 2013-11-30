@@ -2,7 +2,9 @@ package tconstruct.client;
 
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.relauncher.*;
+
 import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.SoundManager;
@@ -24,6 +26,7 @@ import net.minecraftforge.fluids.*;
 import tconstruct.TConstruct;
 import tconstruct.client.armor.WingModel;
 import tconstruct.common.TContent;
+import tconstruct.common.TRepo;
 import tconstruct.util.player.TPlayerStats;
 
 @SideOnly(Side.CLIENT)
@@ -77,11 +80,11 @@ public class TClientEvents
     {
         if (event.map.textureType == 0)
         {
-            for (int i = 0; i < TContent.fluidBlocks.length; i++)
+            for (int i = 0; i < TRepo.fluidBlocks.length; i++)
             {
-                TContent.fluids[i].setIcons(TContent.fluidBlocks[i].getIcon(0, 0), TContent.fluidBlocks[i].getIcon(2, 0));
+                TRepo.fluids[i].setIcons(TRepo.fluidBlocks[i].getIcon(0, 0), TRepo.fluidBlocks[i].getIcon(2, 0));
             }
-            TContent.pigIronFluid.setIcons(stillIcons[0], flowIcons[0]);
+            TRepo.pigIronFluid.setIcons(stillIcons[0], flowIcons[0]);
         }
     }
 
@@ -216,7 +219,7 @@ public class TClientEvents
                 GuiIngameForge.left_height += 10;
                 if (absorb > 0)
                     GuiIngameForge.left_height += 10;
-                
+
                 event.setCanceled(true);
             }
         }

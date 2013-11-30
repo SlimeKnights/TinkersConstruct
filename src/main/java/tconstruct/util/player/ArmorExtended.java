@@ -13,7 +13,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.MathHelper;
 import tconstruct.TConstruct;
-import tconstruct.common.TContent;
+import tconstruct.common.TRepo;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 
@@ -128,7 +128,7 @@ public class ArmorExtended implements IInventory
 
     /*public void recalculateSkills(EntityPlayer player, TPlayerStats stats)
     {
-    	if (inventory[1] != null && inventory[1].getItem() == TContent.glove)
+    	if (inventory[1] != null && inventory[1].getItem() == TRepo.glove)
     	{
     		if (stats.skillList.size() < 1)
     		{
@@ -155,7 +155,7 @@ public class ArmorExtended implements IInventory
     {
         Side side = FMLCommonHandler.instance().getEffectiveSide();
 
-        if (inventory[6] != null && inventory[6].getItem() == TContent.heartCanister)
+        if (inventory[6] != null && inventory[6].getItem() == TRepo.heartCanister)
         {
             ItemStack stack = inventory[6];
             int meta = stack.getItemDamage();

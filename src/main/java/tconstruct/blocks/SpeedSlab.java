@@ -3,8 +3,8 @@ package tconstruct.blocks;
 import java.util.List;
 
 import tconstruct.common.TContent;
+import tconstruct.common.TRepo;
 import tconstruct.library.TConstructRegistry;
-
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -35,7 +35,7 @@ public class SpeedSlab extends SlabBase
     public Icon getIcon (int side, int meta)
     {
         meta = meta % 8;
-        return TContent.speedBlock.getIcon(side, meta);
+        return TRepo.speedBlock.getIcon(side, meta);
     }
 
     @Override

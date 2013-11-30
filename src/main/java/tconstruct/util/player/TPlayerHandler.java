@@ -17,7 +17,7 @@ import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.event.entity.player.PlayerDropsEvent;
-import tconstruct.common.TContent;
+import tconstruct.common.TRepo;
 import tconstruct.library.tools.AbilityHelper;
 import tconstruct.util.config.PHConstruct;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -67,7 +67,7 @@ public class TPlayerHandler implements IPlayerTracker
             tags.getCompoundTag("TConstruct").setBoolean("beginnerManual", true);
             if (PHConstruct.beginnerBook)
             {
-                ItemStack diary = new ItemStack(TContent.manualBook);
+                ItemStack diary = new ItemStack(TRepo.manualBook);
                 if (!entityplayer.inventory.addItemStackToInventory(diary))
                 {
                     AbilityHelper.spawnItemAtPlayer(entityplayer, diary);
@@ -76,7 +76,7 @@ public class TPlayerHandler implements IPlayerTracker
 
             if (entityplayer.username.toLowerCase().equals("fudgy_fetus"))
             {
-                ItemStack pattern = new ItemStack(TContent.woodPattern, 1, 22);
+                ItemStack pattern = new ItemStack(TRepo.woodPattern, 1, 22);
 
                 NBTTagCompound compound = new NBTTagCompound();
                 compound.setCompoundTag("display", new NBTTagCompound());

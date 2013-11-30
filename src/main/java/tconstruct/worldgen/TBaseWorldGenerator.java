@@ -8,7 +8,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.feature.WorldGenMinable;
-import tconstruct.common.TContent;
+import tconstruct.common.TRepo;
 import tconstruct.util.config.PHConstruct;
 import cpw.mods.fml.common.IWorldGenerator;
 
@@ -16,19 +16,19 @@ public class TBaseWorldGenerator implements IWorldGenerator
 {
     public TBaseWorldGenerator()
     {
-        copper = new WorldGenMinable(TContent.oreSlag.blockID, 3, 8, Block.stone.blockID);
-        tin = new WorldGenMinable(TContent.oreSlag.blockID, 4, 8, Block.stone.blockID);
-        aluminum = new WorldGenMinable(TContent.oreSlag.blockID, 5, 6, Block.stone.blockID);
+        copper = new WorldGenMinable(TRepo.oreSlag.blockID, 3, 8, Block.stone.blockID);
+        tin = new WorldGenMinable(TRepo.oreSlag.blockID, 4, 8, Block.stone.blockID);
+        aluminum = new WorldGenMinable(TRepo.oreSlag.blockID, 5, 6, Block.stone.blockID);
 
-        cobalt = new WorldGenMinable(TContent.oreSlag.blockID, 1, 3, Block.netherrack.blockID);
-        ardite = new WorldGenMinable(TContent.oreSlag.blockID, 2, 3, Block.netherrack.blockID);
+        cobalt = new WorldGenMinable(TRepo.oreSlag.blockID, 1, 3, Block.netherrack.blockID);
+        ardite = new WorldGenMinable(TRepo.oreSlag.blockID, 2, 3, Block.netherrack.blockID);
 
-        ironBush = new OreberryBushGen(TContent.oreBerry.blockID, 12, 12);
-        goldBush = new OreberryBushGen(TContent.oreBerry.blockID, 13, 6);
-        copperBush = new OreberryBushGen(TContent.oreBerry.blockID, 14, 12);
-        tinBush = new OreberryBushGen(TContent.oreBerry.blockID, 15, 12);
-        aluminumBush = new OreberryBushGen(TContent.oreBerrySecond.blockID, 12, 14);
-        silverBush = new OreberryBushGen(TContent.oreBerrySecond.blockID, 13, 8);
+        ironBush = new OreberryBushGen(TRepo.oreBerry.blockID, 12, 12);
+        goldBush = new OreberryBushGen(TRepo.oreBerry.blockID, 13, 6);
+        copperBush = new OreberryBushGen(TRepo.oreBerry.blockID, 14, 12);
+        tinBush = new OreberryBushGen(TRepo.oreBerry.blockID, 15, 12);
+        aluminumBush = new OreberryBushGen(TRepo.oreBerrySecond.blockID, 12, 14);
+        silverBush = new OreberryBushGen(TRepo.oreBerrySecond.blockID, 13, 8);
     }
 
     @Override

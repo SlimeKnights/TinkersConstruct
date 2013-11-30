@@ -3,7 +3,7 @@ package tconstruct.items.tools;
 import java.util.List;
 
 import tconstruct.TConstruct;
-import tconstruct.common.TContent;
+import tconstruct.common.TRepo;
 import tconstruct.library.crafting.ToolBuilder;
 import tconstruct.library.tools.ToolCore;
 
@@ -73,13 +73,13 @@ public class Arrow extends ToolCore
     @Override
     public Item getHeadItem ()
     {
-        return TContent.arrowhead;
+        return TRepo.arrowhead;
     }
 
     @Override
     public Item getAccessoryItem ()
     {
-        return TContent.fletching;
+        return TRepo.fletching;
     }
 
     @Override
@@ -125,7 +125,7 @@ public class Arrow extends ToolCore
 
         if (tool == null)
         {
-            if (!TContent.supressMissingToolLogs)
+            if (!TRepo.supressMissingToolLogs)
             {
                 TConstruct.logger.warning("Creative builder failed tool for Vanilla style" + this.getToolName());
                 TConstruct.logger.warning("Make sure you do not have item ID conflicts");

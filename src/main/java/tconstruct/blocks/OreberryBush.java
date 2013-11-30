@@ -5,9 +5,9 @@ import java.util.Random;
 
 import tconstruct.client.block.OreberryRender;
 import tconstruct.common.TContent;
+import tconstruct.common.TRepo;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.tools.AbilityHelper;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLeavesBase;
 import net.minecraft.block.material.Material;
@@ -187,7 +187,7 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
             if (meta >= 12)
             {
                 world.setBlock(x, y, z, blockID, meta - 4, 3);
-                AbilityHelper.spawnItemAtPlayer(player, new ItemStack(TContent.oreBerries, 1, meta % 4 + itemMeat));
+                AbilityHelper.spawnItemAtPlayer(player, new ItemStack(TRepo.oreBerries, 1, meta % 4 + itemMeat));
             }
         }
     }
@@ -206,7 +206,7 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
                 return true;
 
             world.setBlock(x, y, z, blockID, meta - 4, 3);
-            AbilityHelper.spawnItemAtPlayer(player, new ItemStack(TContent.oreBerries, random.nextInt(3) + 1, meta % 4 + itemMeat));
+            AbilityHelper.spawnItemAtPlayer(player, new ItemStack(TRepo.oreBerries, random.nextInt(3) + 1, meta % 4 + itemMeat));
             return true;
         }
 

@@ -31,6 +31,7 @@ import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 import net.minecraftforge.fluids.IFluidTank;
 import tconstruct.common.TContent;
+import tconstruct.common.TRepo;
 import tconstruct.inventory.SmelteryContainer;
 import tconstruct.library.blocks.InventoryLogic;
 import tconstruct.library.crafting.Smeltery;
@@ -320,7 +321,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                         if (currentLiquid + 40 < maxLiquid)
                         {
                             int amount = villager.isChild() ? 5 : 40;
-                            this.fill(new FluidStack(TContent.moltenEmeraldFluid, amount), true);
+                            this.fill(new FluidStack(TRepo.moltenEmeraldFluid, amount), true);
                         }
                     }
                 }
@@ -331,7 +332,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                     {
                         if (currentLiquid + 125 < maxLiquid)
                         {
-                            this.fill(new FluidStack(TContent.moltenEnderFluid, 125), true);
+                            this.fill(new FluidStack(TRepo.moltenEnderFluid, 125), true);
                         }
                     }
                 }
@@ -342,7 +343,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                     {
                         if (currentLiquid + 40 < maxLiquid)
                         {
-                            this.fill(new FluidStack(TContent.moltenIronFluid, 40), true);
+                            this.fill(new FluidStack(TRepo.moltenIronFluid, 40), true);
                         }
                     }
                 }
@@ -353,7 +354,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                     {
                         if (currentLiquid + 108 < maxLiquid)
                         {
-                            this.fill(new FluidStack(TContent.glueFluid, 108), true);
+                            this.fill(new FluidStack(TRepo.glueFluid, 108), true);
                         }
                     }
                 }
@@ -365,7 +366,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                         if (currentLiquid + 40 < maxLiquid)
                         {
                             int amount = (living.isChild() || living instanceof EntityPlayer) ? 5 : 40;
-                            this.fill(new FluidStack(TContent.bloodFluid, amount), true);
+                            this.fill(new FluidStack(TRepo.bloodFluid, amount), true);
                         }
                     }
                 }
@@ -673,7 +674,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         //worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
         //worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
     }
-    
+
     /*@Override
     public void setInventorySlotContents (int slot, ItemStack itemstack)
     {
@@ -864,7 +865,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                 Block block = Block.blocksList[blockID];
                 if (block != null && !block.isAirBlock(worldObj, xPos, y, zPos))
                 {
-                    if (blockID == TContent.smeltery.blockID)
+                    if (blockID == TRepo.smeltery.blockID)
                         return validateBottom(x, y, z, count);
                     else
                         return count;
@@ -899,7 +900,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         {
             for (int zPos = z - 1; zPos <= z + 1; zPos++)
             {
-                if (worldObj.getBlockId(xPos, y, zPos) == TContent.smeltery.blockID && (worldObj.getBlockMetadata(xPos, y, zPos) >= 2))
+                if (worldObj.getBlockId(xPos, y, zPos) == TRepo.smeltery.blockID && (worldObj.getBlockMetadata(xPos, y, zPos) >= 2))
                     bottomBricks++;
             }
         }
@@ -919,7 +920,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     {
         int tempBricks = 0;
         int blockID = worldObj.getBlockId(x, y, z);
-        if (blockID == TContent.smeltery.blockID || blockID == TContent.lavaTank.blockID)
+        if (blockID == TRepo.smeltery.blockID || blockID == TRepo.lavaTank.blockID)
         {
             TileEntity te = worldObj.getBlockTileEntity(x, y, z);
             if (te == this)

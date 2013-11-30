@@ -1,6 +1,6 @@
 package tconstruct.items.tools;
 
-import tconstruct.common.TContent;
+import tconstruct.common.TRepo;
 import tconstruct.library.tools.Weapon;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
@@ -73,13 +73,13 @@ public class Rapier extends Weapon
     @Override
     public Item getHeadItem ()
     {
-        return TContent.swordBlade;
+        return TRepo.swordBlade;
     }
 
     @Override
     public Item getAccessoryItem ()
     {
-        return TContent.crossbar;
+        return TRepo.crossbar;
     }
 
     @Override

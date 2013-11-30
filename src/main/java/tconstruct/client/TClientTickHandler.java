@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.ResourceLocation;
 import tconstruct.TConstruct;
 import tconstruct.common.TContent;
+import tconstruct.common.TRepo;
 import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.TickType;
 
@@ -19,9 +20,9 @@ public class TClientTickHandler implements ITickHandler
     @Override
     public void tickEnd (EnumSet<TickType> type, Object... tickData)
     {
-        TContent.oreBerry.setGraphicsLevel(Block.leaves.graphicsLevel);
-        TContent.oreBerrySecond.setGraphicsLevel(Block.leaves.graphicsLevel);
-        TContent.slimeLeaves.setGraphicsLevel(Block.leaves.graphicsLevel);
+        TRepo.oreBerry.setGraphicsLevel(Block.leaves.graphicsLevel);
+        TRepo.oreBerrySecond.setGraphicsLevel(Block.leaves.graphicsLevel);
+        TRepo.slimeLeaves.setGraphicsLevel(Block.leaves.graphicsLevel);
         /*if (mc.thePlayer != null && !mc.thePlayer.isAirBorne)
             controlInstance.landOnGround();*/
     }

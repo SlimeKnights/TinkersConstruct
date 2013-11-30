@@ -13,6 +13,7 @@ import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import tconstruct.common.TContent;
+import tconstruct.common.TRepo;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.worldgen.SlimeTreeGen;
 import cpw.mods.fml.relauncher.Side;
@@ -47,7 +48,7 @@ public class SlimeSapling extends BlockSapling
 
     public boolean canThisPlantGrowOnThisBlockID (int id)
     {
-        return id == Block.grass.blockID || id == Block.dirt.blockID || id == TContent.slimeGrass.blockID || id == TContent.craftedSoil.blockID;
+        return id == Block.grass.blockID || id == Block.dirt.blockID || id == TRepo.slimeGrass.blockID || id == TRepo.craftedSoil.blockID;
     }
 
     public void updateTick (World world, int x, int y, int z, Random random)

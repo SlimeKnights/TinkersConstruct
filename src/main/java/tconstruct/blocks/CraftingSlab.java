@@ -21,6 +21,7 @@ import tconstruct.blocks.logic.ToolForgeLogic;
 import tconstruct.blocks.logic.ToolStationLogic;
 import tconstruct.common.TContent;
 import tconstruct.common.TProxyCommon;
+import tconstruct.common.TRepo;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.blocks.InventorySlab;
 import tconstruct.util.config.PHConstruct;
@@ -142,9 +143,9 @@ public class CraftingSlab extends InventorySlab
                 PatternChestLogic logic = (PatternChestLogic) world.getBlockTileEntity(x, y, z);
                 for (int i = 1; i <= 13; i++)
                 {
-                    logic.setInventorySlotContents(i - 1, new ItemStack(TContent.woodPattern, 1, i));
+                    logic.setInventorySlotContents(i - 1, new ItemStack(TRepo.woodPattern, 1, i));
                 }
-                logic.setInventorySlotContents(13, new ItemStack(TContent.woodPattern, 1, 22));
+                logic.setInventorySlotContents(13, new ItemStack(TRepo.woodPattern, 1, 22));
             }
         }
         super.onBlockPlacedBy(world, x, y, z, entityliving, stack);

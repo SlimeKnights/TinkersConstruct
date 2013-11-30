@@ -26,6 +26,7 @@ import tconstruct.TConstruct;
 import tconstruct.blocks.component.SmelteryComponent;
 import tconstruct.blocks.component.SmelteryScan;
 import tconstruct.common.TContent;
+import tconstruct.common.TRepo;
 import tconstruct.inventory.AdaptiveSmelteryContainer;
 import tconstruct.library.blocks.AdaptiveInventoryLogic;
 import tconstruct.library.component.IComponentHolder;
@@ -42,7 +43,7 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
     boolean updateFluids = false;
     boolean recheckStructure = false;
     boolean updateAir = false;
-    SmelteryScan structure = new SmelteryScan(this, TContent.smeltery, TContent.lavaTank);
+    SmelteryScan structure = new SmelteryScan(this, TRepo.smeltery, TRepo.lavaTank);
     MultiFluidTank multitank = new MultiFluidTank();
     SmelteryComponent smeltery = new SmelteryComponent(this, structure, multitank, 800);
     HashMap<CoordTuple, LiquidDataInstance> airUpdates = new HashMap<CoordTuple, LiquidDataInstance>();

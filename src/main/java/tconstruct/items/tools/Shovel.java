@@ -1,6 +1,6 @@
 package tconstruct.items.tools;
 
-import tconstruct.common.TContent;
+import tconstruct.common.TRepo;
 import tconstruct.library.tools.HarvestTool;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
@@ -32,7 +32,7 @@ public class Shovel extends HarvestTool
     @Override
     public Item getHeadItem ()
     {
-        return TContent.shovelHead;
+        return TRepo.shovelHead;
     }
 
     @Override

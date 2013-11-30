@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 import tconstruct.blocks.logic.PatternChestLogic;
-import tconstruct.common.TContent;
+import tconstruct.common.TRepo;
 
 import net.minecraft.block.Block;
 import net.minecraft.util.WeightedRandomChestContent;
@@ -121,16 +121,16 @@ public class ComponentToolWorkshop extends ComponentVillage
         this.placeBlockAtCurrentPosition(world, Block.ladder.blockID, i, 3, 3, 5, sbb);
         this.placeBlockAtCurrentPosition(world, Block.ladder.blockID, i, 3, 4, 5, sbb);
 
-        this.placeBlockAtCurrentPosition(world, TContent.toolStationWood.blockID, 0, 1, 1, 1, sbb); //Inside
-        this.generateStructurePatternChestContents(world, sbb, random, 1, 1, 2, TContent.tinkerHousePatterns.getItems(random), TContent.tinkerHousePatterns.getCount(random));
-        //this.placeBlockAtCurrentPosition(world, TContent.toolStationWood.blockID, 5, 1, 1, 2, sbb);
-        this.placeBlockAtCurrentPosition(world, TContent.toolStationWood.blockID, 1, 1, 1, 3, sbb);
+        this.placeBlockAtCurrentPosition(world, TRepo.toolStationWood.blockID, 0, 1, 1, 1, sbb); //Inside
+        this.generateStructurePatternChestContents(world, sbb, random, 1, 1, 2, TRepo.tinkerHousePatterns.getItems(random), TRepo.tinkerHousePatterns.getCount(random));
+        //this.placeBlockAtCurrentPosition(world, TRepo.toolStationWood.blockID, 5, 1, 1, 2, sbb);
+        this.placeBlockAtCurrentPosition(world, TRepo.toolStationWood.blockID, 1, 1, 1, 3, sbb);
         this.placeBlockAtCurrentPosition(world, Block.workbench.blockID, 0, 1, 1, 4, sbb);
-        this.placeBlockAtCurrentPosition(world, TContent.toolStationWood.blockID, 10, 1, 1, 5, sbb);
+        this.placeBlockAtCurrentPosition(world, TRepo.toolStationWood.blockID, 10, 1, 1, 5, sbb);
 
         //ChestGenHooks info = ChestGenHooks.getInfo("TinkerHouse");
 
-        this.generateStructureChestContents(world, sbb, random, 4, 1, 5, TContent.tinkerHouseChest.getItems(random), TContent.tinkerHouseChest.getCount(random));
+        this.generateStructureChestContents(world, sbb, random, 4, 1, 5, TRepo.tinkerHouseChest.getItems(random), TRepo.tinkerHouseChest.getCount(random));
         //this.placeBlockAtCurrentPosition(world, Block.chest.blockID, i, 4, 1, 5, sbb);
         i = this.getMetadataWithOffset(Block.pistonBase.blockID, 3);
         this.placeBlockAtCurrentPosition(world, Block.pistonBase.blockID, i, 5, 1, 5, sbb);
@@ -157,7 +157,7 @@ public class ComponentToolWorkshop extends ComponentVillage
 
         if (par2StructureBoundingBox.isVecInside(posX, posY, posZ) && world.getBlockId(posX, posY, posZ) != Block.chest.blockID)
         {
-            world.setBlock(posX, posY, posZ, TContent.toolStationWood.blockID, 5, 2);
+            world.setBlock(posX, posY, posZ, TRepo.toolStationWood.blockID, 5, 2);
             PatternChestLogic logic = (PatternChestLogic) world.getBlockTileEntity(posX, posY, posZ);
 
             if (logic != null)

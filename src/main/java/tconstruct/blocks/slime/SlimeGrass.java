@@ -14,6 +14,7 @@ import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.common.IPlantable;
 import tconstruct.common.TContent;
+import tconstruct.common.TRepo;
 import tconstruct.library.TConstructRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -93,7 +94,7 @@ public class SlimeGrass extends Block
 
     public void onPlantGrow (World world, int x, int y, int z, int sourceX, int sourceY, int sourceZ)
     {
-        world.setBlock(x, y, z, TContent.craftedSoil.blockID, 5, 3);
+        world.setBlock(x, y, z, TRepo.craftedSoil.blockID, 5, 3);
     }
 
     public void updateTick (World par1World, int par2, int par3, int par4, Random par5Random)
@@ -102,7 +103,7 @@ public class SlimeGrass extends Block
         {
             if (par1World.getBlockLightValue(par2, par3 + 1, par4) < 4 && par1World.getBlockLightOpacity(par2, par3 + 1, par4) > 2)
             {
-                par1World.setBlock(par2, par3, par4, TContent.craftedSoil.blockID, 5, 3);
+                par1World.setBlock(par2, par3, par4, TRepo.craftedSoil.blockID, 5, 3);
             }
             else if (par1World.getBlockLightValue(par2, par3 + 1, par4) >= 9)
             {
@@ -122,7 +123,7 @@ public class SlimeGrass extends Block
                             return;
                         }
                         int blockMeta = par1World.getBlockMetadata(posX, posY, posZ);
-                        if (blockID == TContent.craftedSoil.blockID)
+                        if (blockID == TRepo.craftedSoil.blockID)
                         {
                             if (blockMeta == 5)
                                 par1World.setBlock(posX, posY, posZ, this.blockID, 0, 3);
@@ -136,7 +137,7 @@ public class SlimeGrass extends Block
     public int idDropped (int metadata, Random random, int fortune)
     {
         if (metadata == 1)
-            return TContent.craftedSoil.blockID;
+            return TRepo.craftedSoil.blockID;
         else
             return Block.dirt.blockID;
     }

@@ -2,7 +2,7 @@ package tconstruct.items.tools;
 
 import java.util.List;
 
-import tconstruct.common.TContent;
+import tconstruct.common.TRepo;
 import tconstruct.library.ActiveToolMod;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.tools.AbilityHelper;
@@ -45,25 +45,25 @@ public class Scythe extends Weapon
     @Override
     public Item getHeadItem ()
     {
-        return TContent.scytheBlade;
+        return TRepo.scytheBlade;
     }
 
     @Override
     public Item getHandleItem ()
     {
-        return TContent.toughRod;
+        return TRepo.toughRod;
     }
 
     @Override
     public Item getAccessoryItem ()
     {
-        return TContent.toughBinding;
+        return TRepo.toughBinding;
     }
 
     @Override
     public Item getExtraItem ()
     {
-        return TContent.toughRod;
+        return TRepo.toughRod;
     }
 
     @SideOnly(Side.CLIENT)

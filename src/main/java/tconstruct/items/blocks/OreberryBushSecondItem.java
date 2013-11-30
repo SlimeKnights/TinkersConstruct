@@ -2,7 +2,7 @@ package tconstruct.items.blocks;
 
 import java.util.List;
 
-import tconstruct.common.TContent;
+import tconstruct.common.TRepo;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
@@ -48,7 +48,7 @@ public class OreberryBushSecondItem extends ItemBlock
         {
             Block block = Block.blocksList[world.getBlockId(x, y, z)];
 
-            if (block != null && block.canSustainPlant(world, x, y, z, ForgeDirection.UP, (IPlantable) TContent.oreBerrySecond) && world.isAirBlock(x, y + 1, z))
+            if (block != null && block.canSustainPlant(world, x, y, z, ForgeDirection.UP, (IPlantable) TRepo.oreBerrySecond) && world.isAirBlock(x, y + 1, z))
             {
                 world.setBlock(x, y + 1, z, blockID, stack.getItemDamage() % 4, 3);
                 if (!player.capabilities.isCreativeMode)
