@@ -28,12 +28,6 @@ public class EnvironmentChecks
         if (Loader.isModLoaded("gregtech_addon"))
         {
             TConstruct.logger.severe("[Environment Checks] Gelatinous iceberg dead ahead! Entering Greggy waters! Abandon hope all ye who enter here! (No, seriously, we don't support GT. Don't report any issues. Thanks.)");
-            TConstruct.logger.severe("[Environment Checks] A NOTE TO THE USER: Gregtech has been known to crash the game with Metallurgy and for certain specific 'banished' players.");
-            TConstruct.logger.severe("[Environment Checks]                     For this reason, the TCon dev team urge you to seek your tedium fix from someone else, as Greg disobeys");
-            TConstruct.logger.severe("[Environment Checks]                     the basic tenets of good modders conduct. We log this message rather than sabotage. We'd hope he'd do the same.");
-            TConstruct.logger.severe("[Environment Checks]                     In the meantime, we recommend not playing anything but IC2 alongside Gregtech. ~ Sunstrike");
-            TConstruct.logger.severe("[Environment Checks] GT Appendum I: And now he's going after Forge Mod Loader too...");
-            TConstruct.logger.severe("[Environment Checks]                http://forum.industrial-craft.net/index.php?page=Thread&postID=138551#post138551 ~ SlimeKnights");
             modIds.add("gregtech_addon");
         }
 

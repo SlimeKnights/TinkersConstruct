@@ -14,3 +14,10 @@ Thumbs.db
 /.gradle
 /build/
 /run/
+#IDEA files from Gradle
+.idea/
+/*.iml
+/*.ipr
+/*.iws
+#Vim backups
+*~
