@@ -57,6 +57,7 @@ minecraft {
 task buildInfo {
     def cmd = "git rev-parse --short HEAD"
     def proc = cmd.execute()
+    proc.waitFor()
     if (proc.exitValue() == 0) {
         ext.revision = proc.text.trim()
     } else {
