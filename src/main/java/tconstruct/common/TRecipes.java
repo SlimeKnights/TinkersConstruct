@@ -52,8 +52,6 @@ public class TRecipes
         GameRegistry.registerBlock(TRepo.craftingSlabWood, CraftingSlabItemBlock.class, "CraftingSlab");
         GameRegistry.registerBlock(TRepo.furnaceSlab, "FurnaceSlab");
         GameRegistry.registerTileEntity(FurnaceLogic.class, "TConstruct.Furnace");
-        GameRegistry.registerBlock(TRepo.furnaceSlab, "FurnaceSlab");
-        GameRegistry.registerTileEntity(FurnaceLogic.class, "TConstruct.Furnace");
 
         GameRegistry.registerBlock(TRepo.heldItemBlock, "HeldItemBlock");
         GameRegistry.registerTileEntity(FrypanLogic.class, "FrypanLogic");
