@@ -52,13 +52,24 @@ minecraft {
     version = '1.6.4-9.11.1.964'
     assetDir = 'run/assets'
 }
+
 // sets version to the slimeKnights version format
 task buildInfo {
     def cmd = "git rev-parse --short HEAD"
     def proc = cmd.execute()
-    ext.revision = proc.text.trim()
+    if (proc.exitValue() == 0) {
+        ext.revision = proc.text.trim()
+    } else {
+        ext.revision = "GITBORK"
+    }
+
+    if (System.getenv().BUILD_NUMBER != null) {
+        ext.buildNum = System.getenv().BUILD_NUMBER
+    } else {
+        ext.buildNum = "DEV"
+    }
 }
-version = "${minecraft.version}-${System.getenv().BUILD_NUMBER}-${project.buildInfo.revision}"
+version = "${minecraft.version}-${project.buildInfo.buildNum}.${project.buildInfo.revision}"
 
 sourceSets {
 	main {
