@@ -3,7 +3,7 @@ package tconstruct.items;
 import java.util.List;
 
 import tconstruct.common.TContent;
-
+import tconstruct.common.TRepo;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
@@ -63,7 +63,7 @@ public class ToolShard extends ToolPart
         for (int i = 10; i < 19; i++)
             list.add(new ItemStack(id, 1, i));
 
-        if (TContent.thaumcraftAvailable)
+        if (TRepo.thaumcraftAvailable)
             list.add(new ItemStack(id, 1, 31));
     }
 }

@@ -95,14 +95,14 @@ public class StencilTableGui extends GuiContainer
                     patternIndex++;
                     if (patternIndex == 21)
                         patternIndex++;
-                    if (patternIndex >= TContent.patternOutputs.length - 1)
+                    if (patternIndex >= TRepo.patternOutputs.length - 1)
                         patternIndex = 0;
                 }
                 else if (button.id == 1)
                 {
                     patternIndex--;
                     if (patternIndex < 0)
-                        patternIndex = TContent.patternOutputs.length - 2;
+                        patternIndex = TRepo.patternOutputs.length - 2;
                     if (patternIndex == 21)
                         patternIndex--;
                 }

@@ -6,6 +6,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import tconstruct.common.TContent;
+import tconstruct.common.TRepo;
 import tconstruct.library.util.IToolPart;
 
 public class ToolPart extends CraftingItem implements IToolPart
@@ -69,7 +70,7 @@ public class ToolPart extends CraftingItem implements IToolPart
         for (int i = 0; i < 19; i++)
             list.add(new ItemStack(id, 1, i));
 
-        if (TContent.thaumcraftAvailable)
+        if (TRepo.thaumcraftAvailable)
             list.add(new ItemStack(id, 1, 31));
     }
 

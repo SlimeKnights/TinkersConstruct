@@ -3,10 +3,9 @@ package tconstruct.items;
 import java.util.List;
 
 import cpw.mods.fml.common.Loader;
-
 import tconstruct.common.TContent;
+import tconstruct.common.TRepo;
 import tconstruct.library.util.IToolPart;
-
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
@@ -46,7 +45,7 @@ public class Bowstring extends CraftingItem implements IToolPart
     public void getSubItems (int id, CreativeTabs tab, List list)
     {
         list.add(new ItemStack(id, 1, 0));
-        if (TContent.thaumcraftAvailable)
+        if (TRepo.thaumcraftAvailable)
             list.add(new ItemStack(id, 1, 1));
         if (Loader.isModLoaded("Natura"))
             list.add(new ItemStack(id, 1, 2));
