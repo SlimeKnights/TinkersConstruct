@@ -6,6 +6,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Properties;
 
 /**
@@ -24,6 +27,8 @@ public class PropertyManager
 
     public static final String propFileName = "TConPreloader.cfg";
 
+    private static String[] vars = new String[]{"preloaderContainer_verboseLog", "asmInterfaceRepair_verboseLog"};
+    public static boolean preloaderContainer_verboseLog = false;
     public static boolean asmInterfaceRepair_verboseLog = false;
 
     /**
@@ -44,6 +49,13 @@ public class PropertyManager
                 TConstructLoaderContainer.logger.info("Found a properties file. Attempting load...");
                 props.load(new FileInputStream(fp));
 
+                for (String var : vars)
+                {
+                    if (!props.containsKey(var))
+                        throw new NullPointerException();
+                }
+
+                preloaderContainer_verboseLog = props.getProperty("preloaderContainer_verboseLog", "false").equalsIgnoreCase("true");
                 asmInterfaceRepair_verboseLog = props.getProperty("asmInterfaceRepair_verboseLog", "false").equalsIgnoreCase("true");
 
                 TConstructLoaderContainer.logger.info("Loaded properties successfully. Using specified settings.");
@@ -52,34 +64,47 @@ public class PropertyManager
             {
                 throw new PropAccessException();
             }
+            catch (NullPointerException ex) {
+                TConstructLoaderContainer.logger.warning("Preloader config structure has changed; attempting to recreate.");
+                attemptCreate(fp, props);
+            }
         }
         else
         {
-            // Attempt creation
-            try
-            {
-                if (fp.createNewFile())
-                {
-                    TConstructLoaderContainer.logger.info("Creating new properties file, as none found...");
-
-                    props.setProperty("asmInterfaceRepair_verboseLog", "false");
-
-                    props.store(new FileOutputStream(fp), null);
-                    TConstructLoaderContainer.logger.info("Created properties file; using defaults this run.");
-                }
-                else
-                {
-                    throw new PropAccessException();
-                }
-            }
-            catch (IOException ex)
-            {
-                ex.printStackTrace();
-                throw new PropAccessException();
-            }
+            TConstructLoaderContainer.logger.info("Preloader config not found. Attempting to make a new one.");
+            attemptCreate(fp, props);
         }
 
         return false;
+    }
+
+    private static void attemptCreate(File fp, Properties props) throws PropAccessException {
+        // Attempt (re)creation
+        try
+        {
+            if (fp.exists())
+                fp.delete();
+            
+            if (fp.createNewFile())
+            {
+                TConstructLoaderContainer.logger.info("Creating new properties file, as none found...");
+
+                props.setProperty("asmInterfaceRepair_verboseLog", "false");
+                props.setProperty("preloaderContainer_verboseLog", "false");
+
+                props.store(new FileOutputStream(fp), null);
+                TConstructLoaderContainer.logger.info("Created properties file; using defaults this run.");
+            }
+            else
+            {
+                throw new PropAccessException();
+            }
+        }
+        catch (IOException ex)
+        {
+            ex.printStackTrace();
+            throw new PropAccessException();
+        }
     }
 
     public static class PropAccessException extends Exception
