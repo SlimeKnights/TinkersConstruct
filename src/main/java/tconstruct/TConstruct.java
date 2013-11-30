@@ -144,9 +144,7 @@ public class TConstruct
             MinecraftForge.EVENT_BUS.register(new EventCloakRender());
         }
 
-        TwilightForestConfig.initProps(PHConstruct.cfglocation);
-        BOPConfig.initProps(PHConstruct.cfglocation);
-        DimensionBlacklist.getbaddimensions();
+        DimensionBlacklist.getBadBimensions();
         GameRegistry.registerWorldGenerator(new SlimeIslandGen(TRepo.slimePool.blockID, 0));
 
         PluginController.getController().init();
