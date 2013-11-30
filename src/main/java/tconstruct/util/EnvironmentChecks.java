@@ -51,6 +51,20 @@ public class EnvironmentChecks
             // No Bukkit in environment.
         }
 
+        try
+        {
+            Class cl = Class.forName("magic.launcher.Launcher");
+            if (cl != null)
+            {
+                TConstruct.logger.severe("[Environment Checks] Magic Launcher detected. We recommend using anything else. Vanilla's launcher works fine, as do others.");
+                modIds.add("magic_launcher");
+            }
+        }
+        catch (Exception ex)
+        {
+            // No derpy Magic Launcher in environment.
+        }
+
         if (modIds.size() == 0)
         {
             ICrashCallable callable = new CallableSuppConfig();
