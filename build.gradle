@@ -41,15 +41,25 @@ repositories {
 
 apply plugin: 'forge'
 
+// define the properties file
+ext.configFile = file "build.properties"
+
+configFile.withReader {
+    // read config.  it shall from now on be referenced as simply config or as project.config
+    def prop = new Properties()
+    prop.load(it)
+    project.ext.config = new ConfigSlurper().parse prop
+}
+
 dependencies {
-     compile name: 'ForgeMultipart', version: '1.6.4-1.0.0.211', ext: 'jar'
-     compile name: 'CodeChickenLib', version: '1.6.4-1.0.0.44', ext: 'jar'
-     compile name: 'NotEnoughItems', version: '1.6.1.5_d1', type: 'jar'
+     compile name: 'ForgeMultipart', version: "${config.minecraft_version}-${config.FMP_version}", ext: 'jar'
+     compile name: 'CodeChickenLib', version: "${config.minecraft_version}-${config.CCLIB_version}", ext: 'jar'
+     compile name: 'NotEnoughItems', version: "${config.NEI_version}", type: 'jar'
 
 }
 
 minecraft {
-    version = '1.6.4-9.11.1.964'
+    version = config.minecraft_version + "-" + config.forge_version
     assetDir = 'run/assets'
 }
 
@@ -84,10 +94,9 @@ processResources
         // replace stuff in text files, not binary ones.
     from(sourceSets.main.resources.srcDirs) {
         include '**/*.info'
+		
                 // replace version and MCVersion
-                // forge version is also accessible via project.minecraftforgeVersion
-                // it contains the full minecraft version, including buildNumber
-        expand 'version':project.version, 'mcversion':project.minecraft.version
+      expand 'version':project.version, 'mcversion':project.minecraft.version
     }
         
         // copy everything else, thats not text
