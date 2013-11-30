@@ -13,6 +13,7 @@ import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.ChestGenHooks;
 import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidStack;
 
 public class TRepo
 {
@@ -260,6 +261,12 @@ public class TRepo
 
     public static Fluid[] fluids = new Fluid[27];
     public static Block[] fluidBlocks = new Block[26];
+    
+    //recipe stuff
+    public static boolean thaumcraftAvailable;
+    public static boolean initRecipes;
+    public static Item[] patternOutputs;
+    public static FluidStack[] liquids;
 
 
 }

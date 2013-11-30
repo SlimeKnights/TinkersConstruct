@@ -92,7 +92,7 @@ public class TConstruct
         events = new TEventHandler();
         MinecraftForge.EVENT_BUS.register(events);
         MinecraftForge.EVENT_BUS.register(new TEventHandlerAchievement());
-        content.oreRegistry();
+        TRecipes.oreRegistry();
 
         proxy.registerRenderer();
         proxy.addNames();
@@ -161,10 +161,10 @@ public class TConstruct
         proxy.postInit();
         Behavior.registerBuiltInBehaviors();
         SpecialStackHandler.registerBuiltInStackHandlers();
-        content.modIntegration();
-        content.addOreDictionarySmelteryRecipes();
+        TRecipes.modIntegration();
+        TRecipes.addOreDictionarySmelteryRecipes();
         content.createEntities();
-        content.modRecipes();
+        TRecipes.modRecipes();
 
         PluginController.getController().postInit();
     }
