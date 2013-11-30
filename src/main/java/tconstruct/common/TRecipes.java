@@ -21,85 +21,13 @@ import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 import tconstruct.TConstruct;
-import tconstruct.blocks.logic.AdaptiveDrainLogic;
-import tconstruct.blocks.logic.AdaptiveSmelteryLogic;
-import tconstruct.blocks.logic.CastingBasinLogic;
-import tconstruct.blocks.logic.CastingChannelLogic;
-import tconstruct.blocks.logic.CastingTableLogic;
-import tconstruct.blocks.logic.CraftingStationLogic;
-import tconstruct.blocks.logic.DryingRackLogic;
-import tconstruct.blocks.logic.FaucetLogic;
-import tconstruct.blocks.logic.FrypanLogic;
-import tconstruct.blocks.logic.FurnaceLogic;
-import tconstruct.blocks.logic.LavaTankLogic;
-import tconstruct.blocks.logic.MultiServantLogic;
-import tconstruct.blocks.logic.PartBuilderLogic;
-import tconstruct.blocks.logic.PatternChestLogic;
-import tconstruct.blocks.logic.SmelteryDrainLogic;
-import tconstruct.blocks.logic.SmelteryLogic;
-import tconstruct.blocks.logic.StencilTableLogic;
-import tconstruct.blocks.logic.TankAirLogic;
-import tconstruct.blocks.logic.TileEntityLandmine;
-import tconstruct.blocks.logic.ToolForgeLogic;
-import tconstruct.blocks.logic.ToolStationLogic;
-import tconstruct.items.blocks.BarricadeItem;
-import tconstruct.items.blocks.CastingChannelItem;
-import tconstruct.items.blocks.CraftedSoilItemBlock;
-import tconstruct.items.blocks.CraftingSlabItemBlock;
-import tconstruct.items.blocks.GlassBlockItem;
-import tconstruct.items.blocks.GlassPaneItem;
-import tconstruct.items.blocks.GravelOreItem;
-import tconstruct.items.blocks.HamboneItemBlock;
-import tconstruct.items.blocks.ItemBlockLandmine;
-import tconstruct.items.blocks.LavaTankItemBlock;
-import tconstruct.items.blocks.MetadataItemBlock;
-import tconstruct.items.blocks.MetalItemBlock;
-import tconstruct.items.blocks.MetalOreItemBlock;
-import tconstruct.items.blocks.MultiBrickFancyItem;
-import tconstruct.items.blocks.MultiBrickItem;
-import tconstruct.items.blocks.OreberryBushItem;
-import tconstruct.items.blocks.OreberryBushSecondItem;
-import tconstruct.items.blocks.SearedSlabItem;
-import tconstruct.items.blocks.SearedTableItemBlock;
-import tconstruct.items.blocks.SlimeGelItemBlock;
-import tconstruct.items.blocks.SlimeGrassItemBlock;
-import tconstruct.items.blocks.SlimeLeavesItemBlock;
-import tconstruct.items.blocks.SlimeSaplingItemBlock;
-import tconstruct.items.blocks.SlimeTallGrassItem;
-import tconstruct.items.blocks.SmelteryItemBlock;
-import tconstruct.items.blocks.SpeedBlockItem;
-import tconstruct.items.blocks.SpeedSlabItem;
-import tconstruct.items.blocks.StainedGlassClearItem;
-import tconstruct.items.blocks.StainedGlassClearPaneItem;
-import tconstruct.items.blocks.ToolStationItemBlock;
-import tconstruct.items.blocks.WoolSlab1Item;
-import tconstruct.items.blocks.WoolSlab2Item;
+import tconstruct.blocks.logic.*;
+import tconstruct.items.blocks.*;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.client.TConstructClientRegistry;
-import tconstruct.library.crafting.Detailing;
-import tconstruct.library.crafting.DryingRackRecipes;
-import tconstruct.library.crafting.FluidType;
-import tconstruct.library.crafting.LiquidCasting;
-import tconstruct.library.crafting.PatternBuilder;
-import tconstruct.library.crafting.Smeltery;
-import tconstruct.library.crafting.ToolBuilder;
+import tconstruct.library.crafting.*;
 import tconstruct.library.util.IPattern;
-import tconstruct.modifiers.ModAntiSpider;
-import tconstruct.modifiers.ModAttack;
-import tconstruct.modifiers.ModAutoSmelt;
-import tconstruct.modifiers.ModBlaze;
-import tconstruct.modifiers.ModButtertouch;
-import tconstruct.modifiers.ModDurability;
-import tconstruct.modifiers.ModExtraModifier;
-import tconstruct.modifiers.ModFlux;
-import tconstruct.modifiers.ModInteger;
-import tconstruct.modifiers.ModLapis;
-import tconstruct.modifiers.ModPiston;
-import tconstruct.modifiers.ModRedstone;
-import tconstruct.modifiers.ModReinforced;
-import tconstruct.modifiers.ModRepair;
-import tconstruct.modifiers.ModSmite;
-import tconstruct.modifiers.TActiveOmniMod;
+import tconstruct.modifiers.*;
 import tconstruct.util.RecipeRemover;
 import tconstruct.util.TDispenserBehaviorArrow;
 import tconstruct.util.TDispenserBehaviorSpawnEgg;
@@ -274,6 +202,7 @@ public class TRecipes
         registerPatternMaterial("slabWood", 1, "Wood");
         registerPatternMaterial("compressedCobblestone1x", 18, "Stone");
     }
+
     protected static void addRecipesForToolBuilder ()
     {
         ToolBuilder tb = ToolBuilder.instance;
@@ -367,6 +296,7 @@ public class TRecipes
 
         TConstructRegistry.registerActiveToolMod(new TActiveOmniMod());
     }
+
     protected static void addPartMapping ()
     {
         /* Tools */
@@ -400,7 +330,6 @@ public class TRecipes
         }
     }
 
- 
     protected static void addRecipesForTableCasting ()
     {
         /* Smeltery */
@@ -487,7 +416,6 @@ public class TRecipes
         tableCasting.addCastingRecipe(new ItemStack(TRepo.goldHead), goldAmount, new ItemStack(Item.skull, 1, 3), true, 50);
     }
 
-    
     protected static void addRecipesForFurnace ()
     {
         FurnaceRecipes.smelting().addSmelting(TRepo.craftedSoil.blockID, 3, new ItemStack(TRepo.craftedSoil, 1, 4), 0.2f); //Concecrated Soil
@@ -1105,7 +1033,7 @@ public class TRecipes
         }
 
     }
-    
+
     protected static void addRecipesForBasinCasting ()
     {
         LiquidCasting basinCasting = TConstructRegistry.getBasinCasting();
@@ -1165,7 +1093,8 @@ public class TRecipes
         {
             if (TRepo.patternOutputs[sc] != null)
             {
-                Smeltery.addMelting(FluidType.Stone, new ItemStack(TRepo.patternOutputs[sc], 1, 1), 1, (8 * ((IPattern) TRepo.woodPattern).getPatternCost(new ItemStack(TRepo.woodPattern, 1, sc + 1))) / 2);
+                Smeltery.addMelting(FluidType.Stone, new ItemStack(TRepo.patternOutputs[sc], 1, 1), 1,
+                        (8 * ((IPattern) TRepo.woodPattern).getPatternCost(new ItemStack(TRepo.woodPattern, 1, sc + 1))) / 2);
             }
         }
 
@@ -1289,6 +1218,7 @@ public class TRecipes
         Smeltery.addMelting(FluidType.Gold, new ItemStack(Item.pickaxeGold, 1, 0), 0, TConstruct.ingotLiquidValue * 3);
         Smeltery.addMelting(FluidType.Gold, new ItemStack(Item.axeGold, 1, 0), 0, TConstruct.ingotLiquidValue * 3);
     }
+
     public static void modIntegration ()
     {
         ItemStack ironpick = ToolBuilder.instance.buildTool(new ItemStack(TRepo.pickaxeHead, 1, 6), new ItemStack(TRepo.toolRod, 1, 2), new ItemStack(TRepo.binding, 1, 6), "");
@@ -1433,6 +1363,7 @@ public class TRecipes
         }
         //new ItemStack(TRepo.materials, 1, 36)
     }
+
     public static Object getStaticItem (String name, String classPackage)
     {
         try

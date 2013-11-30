@@ -810,10 +810,6 @@ public class TContent implements IFuelHandler
         TRecipes.addRecipesForDryingRack();
     }
 
- 
-
-
-   
     void setupToolTabs ()
     {
         TConstructRegistry.materialTab.init(new ItemStack(TRepo.titleIcon, 1, 255));
@@ -860,7 +856,7 @@ public class TContent implements IFuelHandler
         TRepo.tinkerHousePatterns.addItem(new WeightedRandomChestContent(new ItemStack(TRepo.woodPattern, 1, 22), 1, 3, 40));
     }
 
-    public static String[] liquidNames;  
+    public static String[] liquidNames;
 
     @Override
     public int getBurnTime (ItemStack fuel)

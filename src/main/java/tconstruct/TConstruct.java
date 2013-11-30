@@ -32,7 +32,8 @@ import tconstruct.worldgen.village.*;
  * @author mDiyo
  */
 
-@Mod(modid = "TConstruct", name = "TConstruct", version = "1.6.X_2.0a", dependencies = "required-after:Forge@[8.9,);after:ForgeMultipart;after:MineFactoryReloaded;after:NotEnoughItems;after:Waila;after:ThermalExpansion")
+@Mod(modid = "TConstruct", name = "TConstruct", version = "1.6.X_2.0a",
+        dependencies = "required-after:Forge@[8.9,);after:ForgeMultipart;after:MineFactoryReloaded;after:NotEnoughItems;after:Waila;after:ThermalExpansion")
 @NetworkMod(serverSideRequired = false, clientSideRequired = true, channels = { "TConstruct" }, packetHandler = tconstruct.util.network.TPacketHandler.class)
 public class TConstruct
 {
@@ -99,7 +100,7 @@ public class TConstruct
         proxy.readManuals();
         proxy.registerKeys();
         proxy.registerTickHandler();
-        
+
         GameRegistry.registerWorldGenerator(new TBaseWorldGenerator());
         MinecraftForge.TERRAIN_GEN_BUS.register(new TerrainGenEventHandler());
         GameRegistry.registerFuelHandler(content);
@@ -149,9 +150,10 @@ public class TConstruct
         GameRegistry.registerWorldGenerator(new SlimeIslandGen(TRepo.slimePool.blockID, 0));
 
         PluginController.getController().init();
-        
-        if(PHConstruct.achievementsEnabled){
-        	TAchievements.init();
+
+        if (PHConstruct.achievementsEnabled)
+        {
+            TAchievements.init();
         }
     }
 
