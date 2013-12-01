@@ -19,7 +19,7 @@ public class ModAttack extends ToolMod
     public ModAttack(String type, ItemStack[] items, int effect, int inc)
     {
         super(items, effect, "ModAttack");
-        tooltipName = "\u00a7fSharpness";
+        tooltipName = "\u00a7f"+(StatCollector.translateToLocal("modifier.attack")";
         guiType = type;
         increase = inc;
     }
