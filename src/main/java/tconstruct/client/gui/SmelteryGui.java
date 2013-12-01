@@ -273,7 +273,7 @@ public class SmelteryGui extends NewContainerGui
         ArrayList list = new ArrayList();
         if (liquid.fluidID == -37)
         {
-            list.add("\u00A7f"+(StatCollector.translateToLocal("gui.smeltery1"));
+            list.add("\u00A7f"+StatCollector.translateToLocal("gui.smeltery1"));
             list.add("mB: " + liquid.amount);
         }
         else
