@@ -14,7 +14,7 @@ public class ModAntiSpider extends ToolMod
     public ModAntiSpider(String type, ItemStack[] items, int effect, int inc)
     {
         super(items, effect, "ModAntiSpider");
-        tooltipName = "\u00a72Bane of Arthropods";
+        tooltipName = "\u00a72"+(StatCollector.translateToLocal("modifier.antispider");
         guiType = type;
         increase = inc;
     }
