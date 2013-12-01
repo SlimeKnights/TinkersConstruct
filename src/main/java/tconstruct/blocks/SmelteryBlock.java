@@ -21,7 +21,7 @@ import tconstruct.blocks.logic.SmelteryLogic;
 import tconstruct.client.block.SmelteryRender;
 import tconstruct.library.TConstructRegistry;
 import mantle.blocks.abstracts.InventoryBlock;
-import tconstruct.library.util.IFacingLogic;
+import mantle.blocks.iface.IFacingLogic;
 import tconstruct.library.util.IMasterLogic;
 import tconstruct.library.util.IServantLogic;
 import tconstruct.util.config.PHConstruct;

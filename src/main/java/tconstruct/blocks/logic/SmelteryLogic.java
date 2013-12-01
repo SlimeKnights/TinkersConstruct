@@ -37,7 +37,7 @@ import mantle.blocks.abstracts.InventoryLogic;
 import tconstruct.library.crafting.Smeltery;
 import tconstruct.library.util.CoordTuple;
 import tconstruct.library.util.IActiveLogic;
-import tconstruct.library.util.IFacingLogic;
+import mantle.blocks.iface.IFacingLogic;
 import tconstruct.library.util.IMasterLogic;
 import tconstruct.library.util.IServantLogic;
 import tconstruct.util.SmelteryDamageSource;

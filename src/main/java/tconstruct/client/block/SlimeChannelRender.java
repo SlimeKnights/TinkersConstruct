@@ -1,14 +1,12 @@
 package tconstruct.client.block;
 
 import tconstruct.client.TProxyClient;
-import tconstruct.library.util.IFacingLogic;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.Icon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
-import net.minecraftforge.fluids.BlockFluidBase;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 

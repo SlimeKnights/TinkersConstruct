@@ -1,7 +1,6 @@
 package tconstruct.blocks.logic;
 
-import tconstruct.library.crafting.AlloyMix;
-import tconstruct.library.util.IFacingLogic;
+import mantle.blocks.iface.IFacingLogic;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.INetworkManager;

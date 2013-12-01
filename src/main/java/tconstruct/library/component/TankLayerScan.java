@@ -6,6 +6,7 @@ import net.minecraft.nbt.*;
 import net.minecraft.tileentity.TileEntity;
 import tconstruct.TConstruct;
 import tconstruct.library.util.*;
+import mantle.blocks.iface.IFacingLogic;
 
 public class TankLayerScan extends LogicComponent
 {
