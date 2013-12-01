@@ -6,6 +6,7 @@ import tconstruct.library.client.ToolGuiElement;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.world.World;
+import net.minecraft.util.StatCollector;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -84,8 +85,8 @@ public class ToolForgeGui extends ToolStationGui
         setSlotType(0);
         iconX = new int[] { 0, 1, 2, 13 };
         iconY = new int[] { 13, 13, 13, 13 };
-        title = "\u00A7nRepair and Modification";
-        body = "The main way to repair or change your tools. Place a tool and a material on the left to get started.";
+        title = "\u00A7n"+(StatCollector.translateToLocal("gui.toolforge1");
+        body = (StatCollector.translateToLocal("gui.toolforge2");
     }
 
     void setSlotType (int type)
