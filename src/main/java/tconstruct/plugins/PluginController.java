@@ -6,6 +6,7 @@ import tconstruct.TConstruct;
 import tconstruct.plugins.appeng.AppEng;
 import tconstruct.plugins.buildcraft.BuildcraftTransport;
 import tconstruct.plugins.fmp.ForgeMultiPart;
+import tconstruct.plugins.ic2.IC2;
 import tconstruct.plugins.minefactoryreloaded.MineFactoryReloaded;
 import tconstruct.plugins.mystcraft.Mystcraft;
 import tconstruct.plugins.nei.NotEnoughItems;
@@ -112,6 +113,7 @@ public class PluginController
         registerPlugin(new AppEng());
         registerPlugin(new BuildcraftTransport());
         registerPlugin(new ForgeMultiPart());
+        registerPlugin(new IC2());
         registerPlugin(new MineFactoryReloaded());
         registerPlugin(new NotEnoughItems());
         registerPlugin(new Thaumcraft());
