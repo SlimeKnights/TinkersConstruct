@@ -4,7 +4,7 @@ import tconstruct.TConstruct;
 import tconstruct.blocks.logic.GolemCoreLogic;
 import tconstruct.client.block.GolemCoreRender;
 import tconstruct.library.TConstructRegistry;
-import tconstruct.library.blocks.InventoryBlock;
+import mantle.blocks.abstracts.InventoryBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;

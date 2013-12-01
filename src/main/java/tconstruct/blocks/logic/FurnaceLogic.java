@@ -20,7 +20,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 import tconstruct.inventory.FurnaceContainer;
-import tconstruct.library.blocks.InventoryLogic;
+import mantle.blocks.abstracts.InventoryLogic;
 import tconstruct.library.util.IActiveLogic;
 import tconstruct.library.util.IFacingLogic;
 import cpw.mods.fml.common.registry.GameRegistry;

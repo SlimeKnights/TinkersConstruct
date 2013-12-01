@@ -1,7 +1,7 @@
 package tconstruct.blocks.logic;
 
 import tconstruct.TConstruct;
-import tconstruct.library.blocks.InventoryLogic;
+import mantle.blocks.abstracts.InventoryLogic;
 import tconstruct.library.crafting.CastingRecipe;
 import tconstruct.library.util.IPattern;
 import net.minecraft.entity.player.InventoryPlayer;

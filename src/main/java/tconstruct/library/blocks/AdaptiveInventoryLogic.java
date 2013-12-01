@@ -6,7 +6,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import tconstruct.library.util.IFacingLogic;
-import cpw.mods.fml.common.FMLCommonHandler;
+import mantle.blocks.abstracts.InventoryLogic;
 
 public abstract class AdaptiveInventoryLogic extends InventoryLogic implements IFacingLogic
 {

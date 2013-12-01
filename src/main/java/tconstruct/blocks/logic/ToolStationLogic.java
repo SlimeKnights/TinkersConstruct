@@ -1,7 +1,7 @@
 package tconstruct.blocks.logic;
 
 import tconstruct.inventory.ToolStationContainer;
-import tconstruct.library.blocks.InventoryLogic;
+import mantle.blocks.abstracts.InventoryLogic;
 import tconstruct.library.crafting.ToolBuilder;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;

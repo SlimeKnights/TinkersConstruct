@@ -6,7 +6,7 @@ import tconstruct.TConstruct;
 import tconstruct.blocks.logic.DryingRackLogic;
 import tconstruct.client.block.DryingRackRender;
 import tconstruct.library.TConstructRegistry;
-import tconstruct.library.blocks.InventoryBlock;
+import mantle.blocks.abstracts.InventoryBlock;
 import tconstruct.library.tools.AbilityHelper;
 
 import net.minecraft.block.Block;

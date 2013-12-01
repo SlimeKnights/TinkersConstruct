@@ -20,7 +20,7 @@ import tconstruct.blocks.logic.SmelteryDrainLogic;
 import tconstruct.blocks.logic.SmelteryLogic;
 import tconstruct.client.block.SmelteryRender;
 import tconstruct.library.TConstructRegistry;
-import tconstruct.library.blocks.InventoryBlock;
+import mantle.blocks.abstracts.InventoryBlock;
 import tconstruct.library.util.IFacingLogic;
 import tconstruct.library.util.IMasterLogic;
 import tconstruct.library.util.IServantLogic;

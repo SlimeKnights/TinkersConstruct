@@ -19,11 +19,10 @@ import tconstruct.blocks.logic.PatternChestLogic;
 import tconstruct.blocks.logic.StencilTableLogic;
 import tconstruct.blocks.logic.ToolForgeLogic;
 import tconstruct.blocks.logic.ToolStationLogic;
-import tconstruct.common.TContent;
 import tconstruct.common.TProxyCommon;
 import tconstruct.common.TRepo;
 import tconstruct.library.TConstructRegistry;
-import tconstruct.library.blocks.InventorySlab;
+import mantle.blocks.abstracts.InventorySlab;
 import tconstruct.util.config.PHConstruct;
 
 public class CraftingSlab extends InventorySlab

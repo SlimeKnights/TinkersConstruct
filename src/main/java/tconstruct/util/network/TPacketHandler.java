@@ -18,7 +18,7 @@ import tconstruct.TConstruct;
 import tconstruct.blocks.logic.SmelteryLogic;
 import tconstruct.blocks.logic.ToolForgeLogic;
 import tconstruct.blocks.logic.ToolStationLogic;
-import tconstruct.library.blocks.InventoryLogic;
+import mantle.blocks.abstracts.InventoryLogic;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.IPacketHandler;
 import cpw.mods.fml.common.network.PacketDispatcher;

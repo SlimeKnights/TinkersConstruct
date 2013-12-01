@@ -1,10 +1,8 @@
 package tconstruct.blocks;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
@@ -13,7 +11,7 @@ import tconstruct.TConstruct;
 import tconstruct.blocks.logic.FurnaceLogic;
 import tconstruct.common.TProxyCommon;
 import tconstruct.library.TConstructRegistry;
-import tconstruct.library.blocks.InventorySlab;
+import mantle.blocks.abstracts.InventorySlab;
 import tconstruct.library.util.IActiveLogic;
 import tconstruct.library.util.IFacingLogic;
 

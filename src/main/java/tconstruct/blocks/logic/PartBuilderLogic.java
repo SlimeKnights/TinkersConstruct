@@ -2,7 +2,7 @@ package tconstruct.blocks.logic;
 
 import tconstruct.inventory.PartCrafterChestContainer;
 import tconstruct.inventory.PartCrafterContainer;
-import tconstruct.library.blocks.InventoryLogic;
+import mantle.blocks.abstracts.InventoryLogic;
 import tconstruct.library.crafting.PatternBuilder;
 import tconstruct.library.util.IPattern;
 import net.minecraft.entity.player.InventoryPlayer;

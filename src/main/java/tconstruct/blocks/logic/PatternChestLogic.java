@@ -1,7 +1,7 @@
 package tconstruct.blocks.logic;
 
 import tconstruct.inventory.PatternChestContainer;
-import tconstruct.library.blocks.InventoryLogic;
+import mantle.blocks.abstracts.InventoryLogic;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.world.World;

@@ -8,7 +8,7 @@ import tconstruct.blocks.logic.CastingTableLogic;
 import tconstruct.blocks.logic.FaucetLogic;
 import tconstruct.client.block.SearedRender;
 import tconstruct.library.TConstructRegistry;
-import tconstruct.library.blocks.InventoryBlock;
+import mantle.blocks.abstracts.InventoryBlock;
 import tconstruct.library.tools.AbilityHelper;
 
 import net.minecraft.block.material.Material;

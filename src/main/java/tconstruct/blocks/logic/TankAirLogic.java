@@ -16,7 +16,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 import tconstruct.TConstruct;
 import tconstruct.blocks.component.TankAirComponent;
-import tconstruct.library.blocks.InventoryLogic;
+import mantle.blocks.abstracts.InventoryLogic;
 import tconstruct.library.util.CoordTuple;
 import tconstruct.library.util.IMasterLogic;
 import tconstruct.library.util.IServantLogic;
@@ -71,7 +71,7 @@ public class TankAirLogic extends InventoryLogic implements IServantLogic, ISide
     }
 
     @Override
-    protected String getDefaultName ()
+    public String getDefaultName ()
     {
         return null; //Not a gui block
     }

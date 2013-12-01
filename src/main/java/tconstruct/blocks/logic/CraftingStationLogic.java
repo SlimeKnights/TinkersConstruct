@@ -8,7 +8,7 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.world.World;
 import tconstruct.inventory.CraftingStationContainer;
-import tconstruct.library.blocks.InventoryLogic;
+import mantle.blocks.abstracts.InventoryLogic;
 
 public class CraftingStationLogic extends InventoryLogic implements ISidedInventory
 {

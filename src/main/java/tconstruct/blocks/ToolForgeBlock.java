@@ -1,24 +1,15 @@
 package tconstruct.blocks;
 
-import static net.minecraftforge.common.ForgeDirection.DOWN;
-import static net.minecraftforge.common.ForgeDirection.UP;
-
 import java.util.List;
 
 import tconstruct.TConstruct;
 import tconstruct.blocks.logic.ToolForgeLogic;
 import tconstruct.client.block.TableForgeRender;
-import tconstruct.common.TContent;
 import tconstruct.common.TProxyCommon;
 import tconstruct.common.TRepo;
 import tconstruct.library.TConstructRegistry;
-import tconstruct.library.blocks.InventoryBlock;
+import mantle.blocks.abstracts.InventoryBlock;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockFarmland;
-import net.minecraft.block.BlockHalfSlab;
-import net.minecraft.block.BlockHopper;
-import net.minecraft.block.BlockPoweredOre;
-import net.minecraft.block.BlockStairs;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;

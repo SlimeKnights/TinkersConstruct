@@ -5,7 +5,6 @@ import tconstruct.blocks.logic.EquipLogic;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
-import tconstruct.library.blocks.InventoryLogic;
 
 import java.util.*;
 
@@ -14,7 +13,7 @@ import cpw.mods.fml.relauncher.*;
 import tconstruct.TConstruct;
 import tconstruct.blocks.logic.FrypanLogic;
 import tconstruct.client.block.FrypanRender;
-import tconstruct.library.blocks.InventoryBlock;
+import mantle.blocks.abstracts.InventoryBlock;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;

@@ -16,7 +16,7 @@ import tconstruct.blocks.logic.CraftingStationLogic;
 import tconstruct.client.block.TableRender;
 import tconstruct.common.TProxyCommon;
 import tconstruct.library.TConstructRegistry;
-import tconstruct.library.blocks.InventoryBlock;
+import mantle.blocks.abstracts.InventoryBlock;
 
 public class CraftingStationBlock extends InventoryBlock
 {

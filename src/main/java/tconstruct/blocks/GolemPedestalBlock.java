@@ -3,7 +3,7 @@ package tconstruct.blocks;
 import java.util.Random;
 
 import tconstruct.blocks.logic.GolemPedestalLogic;
-import tconstruct.library.blocks.InventoryBlock;
+import mantle.blocks.abstracts.InventoryBlock;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.item.EntityItem;

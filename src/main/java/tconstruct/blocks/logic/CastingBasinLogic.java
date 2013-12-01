@@ -1,7 +1,7 @@
 package tconstruct.blocks.logic;
 
 import tconstruct.TConstruct;
-import tconstruct.library.blocks.InventoryLogic;
+import mantle.blocks.abstracts.InventoryLogic;
 import tconstruct.library.crafting.CastingRecipe;
 import tconstruct.library.util.IPattern;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -49,7 +49,7 @@ public class CastingBasinLogic extends InventoryLogic implements IFluidTank, IFl
     }
 
     @Override
-    protected String getDefaultName () //Still not a gui block
+    public String getDefaultName () //Still not a gui block
     {
         return null;
     }

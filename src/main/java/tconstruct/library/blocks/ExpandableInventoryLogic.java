@@ -6,6 +6,7 @@ import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.*;
 import net.minecraft.world.World;
+import mantle.blocks.abstracts.InventoryLogic;
 
 public abstract class ExpandableInventoryLogic extends InventoryLogic implements IInventory
 {

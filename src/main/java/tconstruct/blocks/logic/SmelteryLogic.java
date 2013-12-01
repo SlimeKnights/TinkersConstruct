@@ -33,7 +33,7 @@ import net.minecraftforge.fluids.IFluidTank;
 import tconstruct.common.TContent;
 import tconstruct.common.TRepo;
 import tconstruct.inventory.SmelteryContainer;
-import tconstruct.library.blocks.InventoryLogic;
+import mantle.blocks.abstracts.InventoryLogic;
 import tconstruct.library.crafting.Smeltery;
 import tconstruct.library.util.CoordTuple;
 import tconstruct.library.util.IActiveLogic;

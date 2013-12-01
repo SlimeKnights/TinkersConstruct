@@ -1,6 +1,6 @@
 package tconstruct.blocks.logic;
 
-import tconstruct.library.blocks.InventoryLogic;
+import mantle.blocks.abstracts.InventoryLogic;
 import net.minecraft.item.ItemStack;
 
 /* Slots

@@ -1,6 +1,6 @@
 package tconstruct.blocks.logic;
 
-import tconstruct.library.blocks.InventoryLogic;
+import mantle.blocks.abstracts.InventoryLogic;
 import tconstruct.library.crafting.DryingRackRecipes;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -31,7 +31,7 @@ public class DryingRackLogic extends InventoryLogic
     }
 
     @Override
-    protected String getDefaultName ()
+    public String getDefaultName ()
     {
         return "";
     }
