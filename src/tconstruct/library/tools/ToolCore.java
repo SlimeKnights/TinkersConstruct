@@ -3,15 +3,12 @@ package tconstruct.library.tools;
 import ic2.api.item.IBoxable;
 import ic2.api.item.ICustomElectricItem;
 
+import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-
-import tconstruct.library.ActiveToolMod;
-import tconstruct.library.TConstructRegistry;
-import tconstruct.library.crafting.ToolBuilder;
 
 import mods.battlegear2.api.weapons.IBattlegearWeapon;
 import mods.battlegear2.api.weapons.OffhandAttackEvent;
@@ -19,16 +16,21 @@ import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemPotion;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.Icon;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import tconstruct.library.ActiveToolMod;
+import tconstruct.library.TConstructRegistry;
+import tconstruct.library.crafting.ToolBuilder;
+import tconstruct.library.util.MathUtils;
+import cofh.api.energy.IEnergyContainerItem;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -58,8 +60,13 @@ import cpw.mods.fml.relauncher.SideOnly;
  * @see ToolMod
  */
 
-public abstract class ToolCore extends Item implements ICustomElectricItem, IBoxable, IBattlegearWeapon
+public abstract class ToolCore extends Item implements IEnergyContainerItem, ICustomElectricItem, IBoxable, IBattlegearWeapon
 {
+    //TE power constants -- TODO grab these from the 
+    protected int capacity = 400000;
+    protected int maxReceive = 75;
+    protected int maxExtract = 75;
+
     protected Random random = new Random();
     protected int damageVsEntity;
     public static Icon blankSprite;
@@ -353,6 +360,24 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
             String charge = new StringBuilder().append(color).append(tags.getInteger("charge")).append("/").append(getMaxCharge(stack)).append(" EU").toString();
             list.add(charge);
         }
+        if (tags.hasKey("Energy"))
+        {
+            String color = "";
+            int RF = tags.getInteger("Energy");
+
+            if (RF != 0)
+            {
+                if (RF <= this.getMaxEnergyStored(stack) / 3)
+                    color = "\u00a74";
+                else if (RF > this.getMaxEnergyStored(stack) * 2 / 3)
+                    color = "\u00a72";
+                else
+                    color = "\u00a76";
+            }
+
+            String energy = new StringBuilder().append(color).append(tags.getInteger("Energy")).append("/").append(getMaxEnergyStored(stack)).append(" RF").toString();
+            list.add(energy);
+        }
         if (tags.hasKey("InfiTool"))
         {
             boolean broken = tags.getCompoundTag("InfiTool").getBoolean("Broken");
@@ -539,8 +564,23 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
         ItemStack tool = ToolBuilder.instance.buildTool(new ItemStack(getHeadItem(), 1, id), new ItemStack(getHandleItem(), 1, id), accessoryStack, extraStack, name + getToolName());
         if (tool == null)
         {
-            System.out.println("Creative builder failed tool for " + name + this.getToolName());
-            System.out.println("Make sure you do not have item ID conflicts");
+            Class clazz;
+            Field fld;
+            boolean supress = false;
+            try
+            {
+                clazz = Class.forName(tconstruct.common.TContent.class.getName());
+                fld = clazz.getField("supressMissingToolLogs");
+                supress = fld.getBoolean(fld);
+            }
+            catch (Exception e)
+            {
+                TConstructRegistry.logger.severe("TConstruct Library could not find parts of TContent");
+                e.printStackTrace();
+            }
+            if (!supress)
+                TConstructRegistry.logger.severe("Creative builder failed tool for " + name + this.getToolName());
+            TConstructRegistry.logger.severe("Make sure you do not have item ID conflicts");
         }
         else
         {
@@ -664,46 +704,6 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
         /*if (world.isRemote)
             return true;*/
 
-        int posX = x;
-        int posY = y;
-        int posZ = z;
-        int playerPosX = (int) Math.floor(player.posX);
-        int playerPosY = (int) Math.floor(player.posY);
-        int playerPosZ = (int) Math.floor(player.posZ);
-        if (side == 0)
-        {
-            --posY;
-        }
-
-        if (side == 1)
-        {
-            ++posY;
-        }
-
-        if (side == 2)
-        {
-            --posZ;
-        }
-
-        if (side == 3)
-        {
-            ++posZ;
-        }
-
-        if (side == 4)
-        {
-            --posX;
-        }
-
-        if (side == 5)
-        {
-            ++posX;
-        }
-        if (posX == playerPosX && (posY == playerPosY || posY == playerPosY + 1 || posY == playerPosY - 1) && posZ == playerPosZ)
-        {
-            return false;
-        }
-
         boolean used = false;
         int hotbarSlot = player.inventory.currentItem;
         int itemSlot = hotbarSlot == 0 ? 8 : hotbarSlot + 1;
@@ -712,13 +712,57 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
         if (hotbarSlot < 8)
         {
             nearbyStack = player.inventory.getStackInSlot(itemSlot);
-            if (nearbyStack != null && nearbyStack.getItem() instanceof ItemBlock)
+            if (nearbyStack != null)
             {
-                used = nearbyStack.getItem().onItemUse(nearbyStack, player, world, x, y, z, side, clickX, clickY, clickZ);
-                if (nearbyStack.stackSize < 1)
+                Item item = nearbyStack.getItem();
+                if (item instanceof ItemBlock)
                 {
-                    nearbyStack = null;
-                    player.inventory.setInventorySlotContents(itemSlot, null);
+                    int posX = x;
+                    int posY = y;
+                    int posZ = z;
+                    int playerPosX = (int) Math.floor(player.posX);
+                    int playerPosY = (int) Math.floor(player.posY);
+                    int playerPosZ = (int) Math.floor(player.posZ);
+                    if (side == 0)
+                    {
+                        --posY;
+                    }
+
+                    if (side == 1)
+                    {
+                        ++posY;
+                    }
+
+                    if (side == 2)
+                    {
+                        --posZ;
+                    }
+
+                    if (side == 3)
+                    {
+                        ++posZ;
+                    }
+
+                    if (side == 4)
+                    {
+                        --posX;
+                    }
+
+                    if (side == 5)
+                    {
+                        ++posX;
+                    }
+                    if (posX == playerPosX && (posY == playerPosY || posY == playerPosY + 1 || posY == playerPosY - 1) && posZ == playerPosZ)
+                    {
+                        return false;
+                    }
+
+                    used = item.onItemUse(nearbyStack, player, world, x, y, z, side, clickX, clickY, clickZ);
+                    if (nearbyStack.stackSize < 1)
+                    {
+                        nearbyStack = null;
+                        player.inventory.setInventorySlotContents(itemSlot, null);
+                    }
                 }
             }
         }
@@ -729,6 +773,113 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
             ((EntityPlayerMP)player).playerNetServerHandler.sendPacketToPlayer(packet);
         }*/
         return used;
+    }
+
+    public ItemStack onItemRightClick (ItemStack stack, World world, EntityPlayer player)
+    {
+        boolean used = false;
+        int hotbarSlot = player.inventory.currentItem;
+        int itemSlot = hotbarSlot == 0 ? 8 : hotbarSlot + 1;
+        ItemStack nearbyStack = null;
+
+        if (hotbarSlot < 8)
+        {
+            nearbyStack = player.inventory.getStackInSlot(itemSlot);
+            if (nearbyStack != null)
+            {
+                Item item = nearbyStack.getItem();
+                if (item instanceof ItemPotion && ((ItemPotion) item).isSplash(nearbyStack.getItemDamage()))
+                {
+                    nearbyStack = item.onItemRightClick(nearbyStack, world, player);
+                    if (nearbyStack.stackSize < 1)
+                    {
+                        nearbyStack = null;
+                        player.inventory.setInventorySlotContents(itemSlot, null);
+                    }
+                }
+            }
+        }
+        return stack;
+    }
+
+    /* Vanilla overrides */
+    public boolean isItemTool (ItemStack par1ItemStack)
+    {
+        return false;
+    }
+
+    @Override
+    public boolean getIsRepairable (ItemStack par1ItemStack, ItemStack par2ItemStack)
+    {
+        return false;
+    }
+
+    public boolean isRepairable ()
+    {
+        return false;
+    }
+
+    public int getItemEnchantability ()
+    {
+        return 0;
+    }
+
+    public boolean isFull3D ()
+    {
+        return true;
+    }
+
+    @SideOnly(Side.CLIENT)
+    public boolean hasEffect (ItemStack par1ItemStack, int pass)
+    {
+        return false;
+    }
+
+    /* Proper stack damage */
+    public int getItemMaxDamageFromStack (ItemStack stack)
+    {
+        NBTTagCompound tags = stack.getTagCompound();
+        if (tags == null)
+        {
+            return 0;
+        }
+
+        if (tags.hasKey("charge"))
+        {
+            int charge = tags.getInteger("charge");
+            if (charge > 0)
+                return this.getMaxCharge(stack);
+        }
+        if (tags.hasKey("Energy"))
+        {
+            int energy = tags.getInteger("Energy");
+            if (energy > 0)
+                return this.getMaxEnergyStored(stack);
+        }
+        return tags.getCompoundTag("InfiTool").getInteger("TotalDurability");
+    }
+
+    public int getItemDamageFromStackForDisplay (ItemStack stack)
+    {
+        NBTTagCompound tags = stack.getTagCompound();
+        if (tags == null)
+        {
+            return 0;
+        }
+
+        if (tags.hasKey("charge"))
+        {
+            int charge = tags.getInteger("charge");
+            if (charge > 0)
+                return getMaxCharge(stack) - charge;
+        }
+        if (tags.hasKey("Energy"))
+        {
+            int energy = tags.getInteger("Energy");
+            if (energy > 0)
+                return getMaxEnergyStored(stack) - energy;
+        }
+        return tags.getCompoundTag("InfiTool").getInteger("Damage");
     }
 
     /* IC2 Support
@@ -743,11 +894,12 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
     @Override
     public boolean canProvideEnergy (ItemStack stack)
     {
-        NBTTagCompound tags = stack.getTagCompound();
+        return false;
+        /*NBTTagCompound tags = stack.getTagCompound();
         if (!tags.hasKey("charge"))
             return false;
 
-        return true;
+        return true;*/
     }
 
     @Override
@@ -837,25 +989,20 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
             {
                 amount = getTransferLimit(stack);
             }
-
             int charge = tags.getInteger("charge");
 
             if (amount > charge)
             {
                 amount = charge;
             }
-
             charge -= amount;
-
             if (!simulate)
             {
                 tags.setInteger("charge", charge);
                 stack.setItemDamage(1 + (getMaxCharge(stack) - charge) * (stack.getMaxDamage() - 1) / getMaxCharge(stack));
             }
-
             return amount;
         }
-
         else
             return 0;
     }
@@ -872,115 +1019,128 @@ public abstract class ToolCore extends Item implements ICustomElectricItem, IBox
         return false;
     }
 
-    //Vanilla overrides
-    public boolean isItemTool (ItemStack par1ItemStack)
+    /* Battlegear support, IBattlegearWeapon */
+
+    @Override
+    public boolean willAllowOffhandWeapon ()
+    {
+        return true;
+    }
+
+    @Override
+    public boolean willAllowShield ()
+    {
+        return true;
+    }
+
+    @Override
+    public boolean isOffhandHandDualWeapon ()
+    {
+        return true;
+    }
+
+    @Override
+    public boolean sheatheOnBack ()
     {
         return false;
     }
 
     @Override
-    public boolean getIsRepairable (ItemStack par1ItemStack, ItemStack par2ItemStack)
-    {
-        return false;
-    }
-
-    public boolean isRepairable ()
-    {
-        return false;
-    }
-
-    public int getItemEnchantability ()
-    {
-        return 0;
-    }
-
-    public boolean isFull3D ()
+    public boolean offhandAttackEntity (OffhandAttackEvent event, ItemStack mainhandItem, ItemStack offhandItem)
     {
         return true;
     }
 
-    @SideOnly(Side.CLIENT)
-    public boolean hasEffect (ItemStack par1ItemStack, int pass)
+    @Override
+    public boolean offhandClickAir (PlayerInteractEvent event, ItemStack mainhandItem, ItemStack offhandItem)
     {
-        return false;
+        return true;
     }
 
-    /* Proper stack damage */
-    public int getItemMaxDamageFromStack (ItemStack stack)
+    @Override
+    public boolean offhandClickBlock (PlayerInteractEvent event, ItemStack mainhandItem, ItemStack offhandItem)
     {
-        NBTTagCompound tags = stack.getTagCompound();
-        if (tags == null)
+        return true;
+    }
+
+    @Override
+    public void performPassiveEffects (Side effectiveSide, ItemStack mainhandItem, ItemStack offhandItem)
+    {
+    }
+
+    //TE support section -- from COFH core API reference section
+    public void setMaxTransfer (int maxTransfer)
+    {
+        setMaxReceive(maxTransfer);
+        setMaxExtract(maxTransfer);
+    }
+
+    public void setMaxReceive (int maxReceive)
+    {
+        this.maxReceive = maxReceive;
+    }
+
+    public void setMaxExtract (int maxExtract)
+    {
+        this.maxExtract = maxExtract;
+    }
+
+    /* IEnergyContainerItem */
+    @Override
+    public int receiveEnergy (ItemStack container, int maxReceive, boolean simulate)
+    {
+        NBTTagCompound tags = container.getTagCompound();
+        if (tags == null || !tags.hasKey("Energy"))
+            return 0;
+        int energy = tags.getInteger("Energy");
+        int energyReceived = MathUtils.minInt(capacity - energy, MathUtils.minInt(this.maxReceive, maxReceive));
+        if (!simulate)
+        {
+            energy += energyReceived;
+            tags.setInteger("Energy", energy);
+            container.setItemDamage(1 + (getMaxEnergyStored(container) - energy) * (container.getMaxDamage() - 2) / getMaxEnergyStored(container));
+
+        }
+        return energyReceived;
+    }
+
+    @Override
+    public int extractEnergy (ItemStack container, int maxExtract, boolean simulate)
+    {
+        NBTTagCompound tags = container.getTagCompound();
+        if (tags == null || !tags.hasKey("Energy"))
         {
             return 0;
         }
-
-        if (tags.hasKey("charge"))
+        int energy = tags.getInteger("Energy");
+        int energyExtracted = MathUtils.minInt(energy, MathUtils.minInt(this.maxExtract, maxExtract));
+        if (!simulate)
         {
-            int charge = tags.getInteger("charge");
-            if (charge > 0)
-                return this.getMaxCharge(stack);
+            energy -= energyExtracted;
+            tags.setInteger("Energy", energy);
+            container.setItemDamage(1 + (getMaxEnergyStored(container) - energy) * (container.getMaxDamage() - 1) / getMaxEnergyStored(container));
+
         }
-        return tags.getCompoundTag("InfiTool").getInteger("TotalDurability");
+        return energyExtracted;
     }
 
-    public int getItemDamageFromStackForDisplay (ItemStack stack)
+    @Override
+    public int getEnergyStored (ItemStack container)
     {
-        NBTTagCompound tags = stack.getTagCompound();
-        if (tags == null)
+        NBTTagCompound tags = container.getTagCompound();
+        if (tags == null || !tags.hasKey("Energy"))
         {
             return 0;
         }
-
-        if (tags.hasKey("charge"))
-        {
-            int charge = tags.getInteger("charge");
-            if (charge > 0)
-                return getMaxCharge(stack) - charge;
-        }
-        return tags.getCompoundTag("InfiTool").getInteger("Damage");
+        return tags.getInteger("Energy");
     }
-
-
-	@Override
-	public boolean willAllowOffhandWeapon() {
-		return true;
-	}
-
-	@Override
-	public boolean willAllowShield() {
-		return true;
-	}
-
-	@Override
-	public boolean isOffhandHandDualWeapon() {
-		return true;
-	}
-
-	@Override
-	public boolean sheatheOnBack() {
-		return false;
-	}
-
-	@Override
-	public boolean offhandAttackEntity(OffhandAttackEvent event,
-			ItemStack mainhandItem, ItemStack offhandItem) {
-		return true;
-	}
-
-	@Override
-	public boolean offhandClickAir(PlayerInteractEvent event,
-			ItemStack mainhandItem, ItemStack offhandItem) {
-		return true;
-	}
-
-	@Override
-	public boolean offhandClickBlock(PlayerInteractEvent event,
-			ItemStack mainhandItem, ItemStack offhandItem) {
-		return true;
-	}
-
-	@Override
-	public void performPassiveEffects(Side effectiveSide,
-			ItemStack mainhandItem, ItemStack offhandItem) {		
-	}
+    @Override
+    public int getMaxEnergyStored (ItemStack container)
+    {
+        NBTTagCompound tags = container.getTagCompound();
+        if (tags == null || !tags.hasKey("Energy"))
+            return 0;
+        return capacity;
+    }
+    //end of TE support section
 }

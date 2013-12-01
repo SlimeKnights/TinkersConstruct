@@ -1,13 +1,12 @@
 package tconstruct.util.landmine.behavior;
 
-import java.util.List;
+import net.minecraft.util.EnumFacing;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.item.EntityFireworkRocket;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import tconstruct.entity.item.EntityLandmineFirework;
 
 /**
  * 
@@ -20,9 +19,13 @@ public class BehaviorFirework extends Behavior
     @Override
     public void executeLogic (World par1World, int par2, int par3, int par4, ItemStack par5ItemStack, Entity triggerer, boolean willBlockBeRemoved)
     {
+        EnumFacing facing = getFacing(par1World, par2, par3, par4);
+
         for (int i = 0; i < par5ItemStack.stackSize; i++)
         {
-            EntityFireworkRocket entityfireworkrocket = new EntityFireworkRocket(par1World, (double) par2, (double) par3, (double) par4, par5ItemStack);
+            //TODO entity registration and stuffs
+            EntityLandmineFirework entityfireworkrocket = new EntityLandmineFirework(par1World, (double) par2, (double) par3, (double) par4, par5ItemStack, facing.ordinal())
+                    .setRider(i == 0 ? triggerer : null);
             par1World.spawnEntityInWorld(entityfireworkrocket);
 
             boolean shouldRun = true;

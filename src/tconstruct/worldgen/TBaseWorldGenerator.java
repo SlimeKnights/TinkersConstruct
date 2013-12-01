@@ -9,7 +9,7 @@ import net.minecraft.world.WorldType;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.feature.WorldGenMinable;
 import tconstruct.common.TContent;
-import tconstruct.util.PHConstruct;
+import tconstruct.util.config.PHConstruct;
 import cpw.mods.fml.common.IWorldGenerator;
 
 public class TBaseWorldGenerator implements IWorldGenerator
@@ -117,7 +117,7 @@ public class TBaseWorldGenerator implements IWorldGenerator
                 if (yPos != -1)
                 {
                     /*CoordTuple coord = new CoordTuple(xPos, yPos, zPos);
-                    System.out.println("Iron: "+coord.toString());*/
+                    TConstruct.logger.info("Iron: "+coord.toString());*/
                     ironBush.generate(world, random, xPos, yPos, zPos);
                 }
             }
@@ -133,7 +133,7 @@ public class TBaseWorldGenerator implements IWorldGenerator
                 if (yPos != -1)
                 {
                     /*CoordTuple coord = new CoordTuple(xPos, yPos, zPos);
-                    System.out.println("Gold: "+coord.toString());*/
+                    TConstruct.logger.info("Gold: "+coord.toString());*/
                     goldBush.generate(world, random, xPos, yPos, zPos);
                 }
             }
@@ -149,7 +149,7 @@ public class TBaseWorldGenerator implements IWorldGenerator
                 if (yPos != -1)
                 {
                     /*CoordTuple coord = new CoordTuple(xPos, yPos, zPos);
-                    System.out.println("Copper: "+coord.toString());*/
+                    TConstruct.logger.info("Copper: "+coord.toString());*/
                     copperBush.generate(world, random, xPos, yPos, zPos);
                 }
             }
@@ -165,7 +165,7 @@ public class TBaseWorldGenerator implements IWorldGenerator
                 if (yPos != -1)
                 {
                     /*CoordTuple coord = new CoordTuple(xPos, yPos, zPos);
-                    System.out.println("Tin: "+coord.toString());*/
+                    TConstruct.logger.info("Tin: "+coord.toString());*/
                     tinBush.generate(world, random, xPos, yPos, zPos);
                 }
             }
@@ -181,7 +181,7 @@ public class TBaseWorldGenerator implements IWorldGenerator
                 if (yPos != -1)
                 {
                     /*CoordTuple coord = new CoordTuple(xPos, yPos, zPos);
-                    System.out.println("Aluminum: "+coord.toString());*/
+                    TConstruct.logger.info("Aluminum: "+coord.toString());*/
                     aluminumBush.generate(world, random, xPos, yPos, zPos);
                 }
             }
@@ -197,7 +197,7 @@ public class TBaseWorldGenerator implements IWorldGenerator
                 if (yPos != -1)
                 {
                     /*CoordTuple coord = new CoordTuple(xPos, yPos, zPos);
-                    System.out.println("Silver: "+coord.toString());*/
+                    TConstruct.logger.info("Silver: "+coord.toString());*/
                     silverBush.generate(world, random, xPos, yPos, zPos);
                 }
             }

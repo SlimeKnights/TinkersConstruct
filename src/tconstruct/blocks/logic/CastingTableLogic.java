@@ -88,7 +88,7 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
             ret = TConstruct.tableCasting.getCastingAmount(this.liquid, inv);
         }
 
-        System.out.println("Ret: " + ret);
+        TConstruct.logger.info("Ret: " + ret);
         return ret;
     }
 
@@ -304,7 +304,7 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
     {
         if (castingDelay > 0)
         {
-            //System.out.println("Casting");
+            //TConstruct.logger.info("Casting");
             castingDelay--;
             if (castingDelay == 0)
                 castLiquid();

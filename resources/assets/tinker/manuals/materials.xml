@@ -360,7 +360,7 @@ Class: Broad Melee Weapon</text>
 <icon>scytheicon</icon>
 <item>
  <text>Scythe Head</text>
- <icon>excavatorhead</icon>
+ <icon>scythehead</icon>
 </item>
 <item>
  <text>Tough Rod</text>
@@ -673,11 +673,25 @@ Class: Ranged Projectile Launcher</text>
 <page type="materialstats">
 <title>Steel</title>
 <icon>steelsword</icon>
-<text>An Iron alloy. The method for obtaining this is unknown. Enemy chainmail seems to be made of it.
+<text>An Iron alloy. The method for obtaining this is unknown.
 - Requires the Smeltery</text>
 <material>
  <main>steelingot</main>
 </material>
+</page>
+
+<page type="materialstats">
+<title>Pig Iron</title>
+<icon>pigironsword</icon>
+<toolmaterial>PigIron</toolmaterial>
+<text>An Iron alloy. It seems to be made of blood, iron, and emeralds.
+- Requires the Smeltery</text>
+<material>
+ <main>pigironingot</main>
+</material>
+</page>
+
+<page type="blank">
 </page>
 
 <page type="sectionpage">
@@ -993,12 +1007,49 @@ Effects:
 - Available from IndustrialCraft 2
 
 Type: Single-use
-Stackable: No</text>
+Stackable: No
+Note: this modifier will be removed in Minecraft 1.7</text>
 </page>
 
 <page type="modifier">
 <tooltype>tool</tooltype>
 <recipe>electricmod</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Flux</title>
+<text>Adding a Hardened Flux Capacitor or Leadstone Energy Cell gives a tool energy. The tool still functions properly when the Cell/Capacitor has no charge.
+
+Effects:
+- Allows the tool to be charged with Redstone Flux
+- Uses energy instead of durability while charged
+- Available from Thermal Expansion 3
+
+Type: Single-use
+Stackable: No</text>
+</page>
+
+<page type="modifier">
+<tooltype>tool</tooltype>
+<recipe>fluxmod</recipe>
+</page>
+
+<page type="sectionpage">
+<title>Flux</title>
+<text>Adding a Hardened Flux Capacitor or Leadstone Energy Cell gives a tool energy. The tool still functions properly when the Cell/Capacitor has no charge.
+
+Effects:
+- Allows the tool to be charged with Redstone Flux
+- Uses energy instead of durability while charged
+- Available from Thermal Expansion 3
+
+Type: Single-use
+Stackable: No</text>
+</page>
+
+<page type="modifier">
+<tooltype>tool</tooltype>
+<recipe>fluxmod2</recipe>
 </page>
 
 <page type="sectionpage">

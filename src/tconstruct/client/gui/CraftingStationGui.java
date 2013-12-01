@@ -18,7 +18,7 @@ public class CraftingStationGui extends GuiContainer
 
     /*public void onGuiClosed ()
     {
-        System.out.println("Gui Closed");
+        TConstruct.logger.info("Gui Closed");
         super.onGuiClosed();
     }*/
 

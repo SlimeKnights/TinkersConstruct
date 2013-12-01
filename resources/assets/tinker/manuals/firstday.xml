@@ -37,19 +37,6 @@ You can then shape a material in a part builder with the pattern, then combine p
 Together these make the Tool Workshop. It is recommended you keep all of these nearby when using any of them.</text>
 </page>
 
-<page type="text">
-<text>Oreberry Bushes
-
-Sometime in your travels you will happen upon the bush known as the Oreberry. They grow underground in dark areas, and require close to complete darkness to produce anything. 
-
-The berries can be melted down into nuggets and ingots, making them an invaluable source of metals.</text>
-</page>
-
-<page type="picture">
-<text>Oreberries in their natural environment</text>
-<location>tinker:manuals/oreberries.png</location>
-</page>
-
 <page type="crafting">
 <text>Blank Pattern</text>
 <recipe>
@@ -95,6 +82,49 @@ The berries can be melted down into nuggets and ingots, making them an invaluabl
 <recipe>
  <name>toolforge</name>
  <size>three</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Drying Rack</text>
+<recipe>
+ <name>dryingrack</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="text">
+<text>Oreberry Bushes
+
+Sometime in your travels you will happen upon the bush known as the Oreberry. They grow underground in dark areas, and require close to complete darkness to produce anything. 
+
+The berries can be melted down into nuggets and ingots, making them an invaluable source of metals.</text>
+</page>
+
+<page type="picture">
+<text>Oreberries in their natural environment</text>
+<location>tinker:manuals/oreberries.png</location>
+</page>
+
+<page type="text">
+<text>Slime Channels
+
+Slime channels are useful for moving items or entities around. They are used as a sort of easily placeable water and can be paired with bounce pads for best effect.</text>
+</page>
+
+<page type="crafting">
+<text>Slime Channel</text>
+<recipe>
+ <name>slimechannel</name>
+ <size>two</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Bounce Pad</text>
+<recipe>
+ <name>bouncepad</name>
+ <size>two</size>
 </recipe>
 </page>
 
@@ -155,6 +185,14 @@ Note: The Smeltery is required to process all metals, including iron.</text>
 
 <page type="text">
 <text>If you ever find yourself without this book, a new one is simple to make. Other books can be made from this one as well.</text>
+</page>
+
+<page type="crafting">
+<text>Book</text>
+<recipe>
+ <name>alternatebook</name>
+ <size>three</size>
+</recipe>
 </page>
 
 <page type="crafting">

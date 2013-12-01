@@ -33,22 +33,26 @@ public abstract class EquipLogic extends InventoryLogic
     }
 
     @Override
-    public void setInventorySlotContents(int slot, ItemStack stack){
-    	if(slot == 0){
-    		return;
-    	}else{
-    		super.setInventorySlotContents(slot, stack);
-    	}
+    public void setInventorySlotContents (int slot, ItemStack stack)
+    {
+        if (slot == 0)
+        {
+            return;
+        }
+        else
+        {
+            super.setInventorySlotContents(slot, stack);
+        }
     }
-    
+
     @Override
-    public ItemStack getStackInSlot(int slot)
+    public ItemStack getStackInSlot (int slot)
     {
         return slot != 0 ? inventory[slot] : null;
     }
-    
-    public boolean isStackInSlot(int slot)
+
+    public boolean isStackInSlot (int slot)
     {
-    	return slot != 0 ? inventory[slot] != null : false;
+        return slot != 0 ? inventory[slot] != null : false;
     }
 }

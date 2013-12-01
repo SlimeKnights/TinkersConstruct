@@ -42,7 +42,7 @@ public class CastingChannelBlock extends BlockContainer
             {
                 //int amount = 0;
                 //if (tile.getFluid() != null)
-                    //amount = tile.getLiquidAmount();
+                //amount = tile.getLiquidAmount();
                 //player.addChatMessage("LiquidAmount: " + amount);
                 tile.setActive(true);
             }

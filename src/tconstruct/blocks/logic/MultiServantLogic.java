@@ -5,6 +5,7 @@ import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.World;
 import tconstruct.library.util.CoordTuple;
 import tconstruct.library.util.IMasterLogic;
 import tconstruct.library.util.IServantLogic;
@@ -28,18 +29,13 @@ public class MultiServantLogic extends TileEntity implements IServantLogic
 
         if (worldObj.getBlockId(master.x, master.y, master.z) == masterID && worldObj.getBlockMetadata(master.x, master.y, master.z) == masterMeat)
             return true;
+
         else
         {
             hasMaster = false;
             master = null;
             return false;
         }
-    }
-
-    @Override
-    public boolean canBeMaster (IMasterLogic logic, int x, int y, int z)
-    {
-        return true;
     }
 
     public CoordTuple getMasterPosition ()
@@ -63,6 +59,7 @@ public class MultiServantLogic extends TileEntity implements IServantLogic
         masterMeat = 0;
     }
 
+    @Deprecated
     public boolean verifyMaster (IMasterLogic logic, int x, int y, int z)
     {
         if (master.equalCoords(x, y, z) && worldObj.getBlockId(x, y, z) == masterID && worldObj.getBlockMetadata(x, y, z) == masterMeat)
@@ -71,6 +68,7 @@ public class MultiServantLogic extends TileEntity implements IServantLogic
             return false;
     }
 
+    @Deprecated
     public boolean setMaster (int x, int y, int z)
     {
         if (!hasMaster || worldObj.getBlockId(master.x, master.y, master.z) != masterID || (worldObj.getBlockMetadata(master.x, master.y, master.z) != masterMeat))
@@ -84,18 +82,45 @@ public class MultiServantLogic extends TileEntity implements IServantLogic
         }
     }
 
+    @Override
+    public boolean setPotentialMaster (IMasterLogic master, World world, int x, int y, int z)
+    {
+        return !hasMaster;
+    }
+
+    @Override
+    public boolean verifyMaster (IMasterLogic logic, World world, int x, int y, int z)
+    {
+        if (hasMaster)
+        {
+            return hasValidMaster();
+        }
+        else
+        {
+            overrideMaster(x, y, z);
+            return true;
+        }
+    }
+
+    @Override
+    public void invalidateMaster (IMasterLogic master, World world, int x, int y, int z)
+    {
+        hasMaster = false;
+        master = null;
+    }
+
     public void notifyMasterOfChange ()
     {
         if (hasValidMaster())
         {
             IMasterLogic logic = (IMasterLogic) worldObj.getBlockTileEntity(master.x, master.y, master.z);
-            logic.notifyChange(xCoord, yCoord, zCoord);
+            logic.notifyChange(this, xCoord, yCoord, zCoord);
         }
     }
 
     public void readCustomNBT (NBTTagCompound tags)
     {
-        hasMaster = tags.getBoolean("HasMaster");
+        hasMaster = tags.getBoolean("TiedToMaster");
         if (hasMaster)
         {
             int xCenter = tags.getInteger("xCenter");
@@ -109,7 +134,7 @@ public class MultiServantLogic extends TileEntity implements IServantLogic
 
     public void writeCustomNBT (NBTTagCompound tags)
     {
-        tags.setBoolean("HasMaster", hasMaster);
+        tags.setBoolean("TiedToMaster", hasMaster);
         if (hasMaster)
         {
             tags.setInteger("xCenter", master.x);

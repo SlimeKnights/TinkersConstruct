@@ -1,55 +1,52 @@
 package tconstruct;
 
+import tconstruct.achievements.TAchievements;
+
+import cpw.mods.fml.common.*;
+import cpw.mods.fml.common.Mod.EventHandler;
+import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.event.*;
+import cpw.mods.fml.common.network.*;
+import cpw.mods.fml.common.registry.*;
+import cpw.mods.fml.relauncher.Side;
+import java.util.logging.Logger;
+import net.minecraft.crash.CallableMinecraftVersion;
+import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraftforge.common.MinecraftForge;
 import tconstruct.client.event.EventCloakRender;
-import tconstruct.common.TContent;
-import tconstruct.common.TProxyCommon;
-import tconstruct.compat.BOP;
-import tconstruct.compat.Tforest;
-import tconstruct.compat.dimensions.dimblacklist;
+import tconstruct.common.*;
 import tconstruct.library.TConstructRegistry;
-import tconstruct.library.crafting.Detailing;
-import tconstruct.library.crafting.LiquidCasting;
+import tconstruct.library.crafting.*;
 import tconstruct.library.util.TabTools;
-import tconstruct.util.PHConstruct;
-import tconstruct.util.TCraftingHandler;
-import tconstruct.util.TEventHandler;
+import tconstruct.plugins.PluginController;
+import tconstruct.util.*;
+import tconstruct.util.config.*;
 import tconstruct.util.landmine.behavior.Behavior;
 import tconstruct.util.landmine.behavior.stackCombo.SpecialStackHandler;
 import tconstruct.util.player.TPlayerHandler;
-import tconstruct.worldgen.SlimeIslandGen;
-import tconstruct.worldgen.TBaseWorldGenerator;
-import tconstruct.worldgen.TerrainGenEventHandler;
-import tconstruct.worldgen.village.TVillageTrades;
-import tconstruct.worldgen.village.VillageSmelteryHandler;
-import tconstruct.worldgen.village.VillageToolStationHandler;
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.Mod.EventHandler;
-import cpw.mods.fml.common.Mod.Instance;
-import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.network.NetworkMod;
-import cpw.mods.fml.common.network.NetworkRegistry;
-import cpw.mods.fml.common.registry.GameRegistry;
-import cpw.mods.fml.common.registry.VillagerRegistry;
-import cpw.mods.fml.relauncher.Side;
+import tconstruct.worldgen.*;
+import tconstruct.worldgen.village.*;
 
 /** TConstruct, the tool mod.
  * Craft your tools with style, then modify until the original is gone!
- * @author: mDiyo
- * @dependencies: IC2 API, MFR API
+ * @author mDiyo
  */
 
-@Mod(modid = "TConstruct", name = "TConstruct", version = "1.6.4_1.4.6d1", dependencies = "required-after:Forge@[9.11.0.880,)")
+@Mod(modid = "TConstruct", name = "TConstruct", version = "1.6.X_1.5.1", dependencies = "required-after:Forge@[8.9,);after:ForgeMultipart;after:MineFactoryReloaded;after:NotEnoughItems;after:Waila;after:ThermalExpansion")
 @NetworkMod(serverSideRequired = false, clientSideRequired = true, channels = { "TConstruct" }, packetHandler = tconstruct.util.network.TPacketHandler.class)
 public class TConstruct
 {
     /** The value of one ingot in millibuckets */
     public static final int ingotLiquidValue = 144;
+    public static final int oreLiquidValue = ingotLiquidValue * 2;
+    public static final int blockLiquidValue = ingotLiquidValue * 9;
+    public static final int chunkLiquidValue = ingotLiquidValue / 2;
+    public static final int nuggetLiquidValue = ingotLiquidValue / 9;
+
     public static final int liquidUpdateAmount = 6;
+
+    // Shared mod logger
+    public static final Logger logger = Logger.getLogger("TConstruct");
 
     /* Instance of this mod, used for grabbing prototype fields */
     @Instance("TConstruct")
@@ -60,35 +57,28 @@ public class TConstruct
 
     public TConstruct()
     {
+        logger.setParent(FMLCommonHandler.instance().getFMLLogger());
         if (Loader.isModLoaded("Natura"))
         {
-            System.out.println("[TConstruct] Natura, what are we going to do tomorrow night?");
-            if (Loader.isModLoaded("ChaoticBastion"))
-            {
-                System.out.println("[Natura] TConstruct, we're going to...");
-                System.out.println("[ChaoticBastion] All your base are belong to us!");
-
-            }
-            else
-                System.out.println("[Natura] TConstruct, we're going to take over the world!");
+            TConstruct.logger.info("[TConstruct] Natura, what are we going to do tomorrow night?");
+            TConstruct.logger.info("[Natura] TConstruct, we're going to take over the world!");
         }
         else
         {
-            if (Loader.isModLoaded("ChaoticBastion"))
-            {
-                System.out.println("[TConstruct] Preparing to...");
-                System.out.println("[ChaoticBastion] I'MA FIRING MY LAZOR!");
-            }
-            else
-                System.out.println("[TConstruct] Preparing to take over the world");
+
+            TConstruct.logger.info("[TConstruct] Preparing to take over the world");
         }
+
+        EnvironmentChecks.verifyEnvironmentSanity();
+
+        PluginController.getController().registerBuiltins();
     }
 
     @EventHandler
-    public void preInit(FMLPreInitializationEvent event)
+    public void preInit (FMLPreInitializationEvent event)
     {
-        
-    	PHConstruct.initProps(event.getModConfigurationDirectory());
+
+        PHConstruct.initProps(event.getModConfigurationDirectory());
         TConstructRegistry.materialTab = new TabTools("TConstructMaterials");
         TConstructRegistry.toolTab = new TabTools("TConstructTools");
         TConstructRegistry.blockTab = new TabTools("TConstructBlocks");
@@ -100,38 +90,53 @@ public class TConstruct
         content = new TContent();
 
         events = new TEventHandler();
-        events.unfuxOreDictionary();
         MinecraftForge.EVENT_BUS.register(events);
+        MinecraftForge.EVENT_BUS.register(new TEventHandlerAchievement());
         content.oreRegistry();
 
         proxy.registerRenderer();
-        proxy.registerTickHandler();
         proxy.addNames();
         proxy.readManuals();
         proxy.registerKeys();
-
+        proxy.registerTickHandler();
+        
         GameRegistry.registerWorldGenerator(new TBaseWorldGenerator());
         MinecraftForge.TERRAIN_GEN_BUS.register(new TerrainGenEventHandler());
         GameRegistry.registerFuelHandler(content);
         GameRegistry.registerCraftingHandler(new TCraftingHandler());
         NetworkRegistry.instance().registerGuiHandler(instance, proxy);
 
-        VillagerRegistry.instance().registerVillageTradeHandler(78943, new TVillageTrades());
         if (PHConstruct.addToVillages)
         {
+            // adds to the villager spawner egg
+            VillagerRegistry.instance().registerVillagerId(78943);
+            // moved down, not needed if 'addToVillages' is false
+            VillagerRegistry.instance().registerVillageTradeHandler(78943, new TVillageTrades());
             VillagerRegistry.instance().registerVillageCreationHandler(new VillageToolStationHandler());
             VillagerRegistry.instance().registerVillageCreationHandler(new VillageSmelteryHandler());
+            try
+            {
+                if (new CallableMinecraftVersion(null).minecraftVersion().equals("1.6.4"))
+                {
+                    MapGenStructureIO.func_143031_a(ComponentToolWorkshop.class, "TConstruct:ToolWorkshopStructure");
+                    MapGenStructureIO.func_143031_a(ComponentSmeltery.class, "TConstruct:SmelteryStructure");
+                }
+            }
+            catch (Throwable e)
+            {
+
+            }
         }
 
-        /*DimensionManager.registerProviderType(-7, TinkerWorldProvider.class, true);
-        DimensionManager.registerDimension(-7, -7);*/
         playerTracker = new TPlayerHandler();
         GameRegistry.registerPlayerTracker(playerTracker);
         MinecraftForge.EVENT_BUS.register(playerTracker);
+
+        PluginController.getController().preInit();
     }
 
     @EventHandler
-    public void init(FMLInitializationEvent event)
+    public void init (FMLInitializationEvent event)
     {
         if (event.getSide() == Side.CLIENT)
         {
@@ -139,34 +144,43 @@ public class TConstruct
         }
 
         content.intermodCommunication();
-        Tforest.initProps(PHConstruct.cfglocation);
-        BOP.initProps(PHConstruct.cfglocation);
-        dimblacklist.getbaddimensions();
+        TwilightForestConfig.initProps(PHConstruct.cfglocation);
+        BOPConfig.initProps(PHConstruct.cfglocation);
+        DimensionBlacklist.getbaddimensions();
         GameRegistry.registerWorldGenerator(new SlimeIslandGen(TContent.slimePool.blockID, 0));
+
+        PluginController.getController().init();
+        
+        if(PHConstruct.achievementsEnabled){
+        	TAchievements.init();
+        }
     }
 
     @EventHandler
-    public void postInit(FMLPostInitializationEvent evt)
+    public void postInit (FMLPostInitializationEvent evt)
     {
+        proxy.postInit();
         Behavior.registerBuiltInBehaviors();
         SpecialStackHandler.registerBuiltInStackHandlers();
         content.modIntegration();
-        TContent.modRecipes();
+        content.addOreDictionarySmelteryRecipes();
         content.createEntities();
         content.modRecipes();
-   }
 
-    public static LiquidCasting getTableCasting()
+        PluginController.getController().postInit();
+    }
+
+    public static LiquidCasting getTableCasting ()
     {
         return tableCasting;
     }
 
-    public static LiquidCasting getBasinCasting()
+    public static LiquidCasting getBasinCasting ()
     {
         return basinCasting;
     }
 
-    public static Detailing getChiselDetailing()
+    public static Detailing getChiselDetailing ()
     {
         return chiselDetailing;
     }

@@ -11,11 +11,6 @@ import cpw.mods.fml.common.registry.VillagerRegistry.IVillageCreationHandler;
 
 public class VillageToolStationHandler implements IVillageCreationHandler
 {
-    public VillageToolStationHandler()
-    {
-        MapGenStructureIO.func_143031_a(ComponentToolWorkshop.class, "TConstruct:ToolWorkshopStructure");
-    }
-    
     @Override
     public StructureVillagePieceWeight getVillagePieceWeight (Random random, int i)
     {

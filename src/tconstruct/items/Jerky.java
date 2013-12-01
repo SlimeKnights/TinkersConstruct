@@ -23,7 +23,7 @@ public class Jerky extends SpecialFood
 
     @SideOnly(Side.CLIENT)
     @Override
-    public void registerIcons(IconRegister iconRegister)
+    public void registerIcons (IconRegister iconRegister)
     {
         this.icons = new Icon[iconNames.length];
 
@@ -32,7 +32,6 @@ public class Jerky extends SpecialFood
             this.icons[i] = iconRegister.registerIcon("tinker:food/jerky_" + iconNames[i]);
         }
     }
-
 
     public String getUnlocalizedName (ItemStack stack)
     {

@@ -8,7 +8,7 @@ import tconstruct.common.TContent;
 import tconstruct.library.ActiveToolMod;
 import tconstruct.library.tools.AbilityHelper;
 import tconstruct.library.tools.ToolCore;
-import tconstruct.util.PHConstruct;
+import tconstruct.util.config.PHConstruct;
 
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;

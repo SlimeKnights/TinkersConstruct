@@ -1,9 +1,10 @@
 package tconstruct.util.landmine.behavior;
 
+import tconstruct.util.DamageSourceLandmine;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import tconstruct.util.network.DamageSourceLandmine;
 
 public class BehaviorDefault extends Behavior
 {

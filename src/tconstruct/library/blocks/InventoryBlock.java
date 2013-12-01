@@ -63,13 +63,14 @@ public abstract class InventoryBlock extends BlockContainer
     /* Inventory */
 
     @Override
-    public void breakBlock (World par1World, int x, int y, int z, int par5, int meta)
+    public void breakBlock (World par1World, int x, int y, int z, int blockID, int meta)
     {
         TileEntity te = par1World.getBlockTileEntity(x, y, z);
 
         if (te != null && te instanceof InventoryLogic)
         {
             InventoryLogic logic = (InventoryLogic) te;
+            logic.removeBlock();
             for (int iter = 0; iter < logic.getSizeInventory(); ++iter)
             {
                 ItemStack stack = logic.getStackInSlot(iter);
@@ -108,7 +109,7 @@ public abstract class InventoryBlock extends BlockContainer
             }
         }
 
-        super.breakBlock(par1World, x, y, z, par5, meta);
+        super.breakBlock(par1World, x, y, z, blockID, meta);
     }
 
     /* Placement */
@@ -145,9 +146,14 @@ public abstract class InventoryBlock extends BlockContainer
             }
         }
 
-        if (stack.hasDisplayName())
+        if (logic instanceof InventoryLogic)
         {
-            ((InventoryLogic) world.getBlockTileEntity(x, y, z)).setInvName(stack.getDisplayName());
+            InventoryLogic inv = (InventoryLogic) logic;
+            inv.placeBlock(entityliving, stack);
+            if (stack.hasDisplayName())
+            {
+                inv.setInvName(stack.getDisplayName());
+            }
         }
     }
 

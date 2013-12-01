@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Logger;
 
 import tconstruct.library.crafting.Detailing;
 import tconstruct.library.crafting.LiquidCasting;
@@ -30,6 +31,8 @@ import net.minecraft.item.ItemStack;
 public class TConstructRegistry
 {
     public static TConstructRegistry instance = new TConstructRegistry();
+
+    public static Logger logger = Logger.getLogger("TCon-API");
 
     /* Creative tabs */
     public static TabTools toolTab;
@@ -67,7 +70,7 @@ public class TConstructRegistry
     {
         Item add = itemDirectory.get(name);
         if (add != null)
-            System.out.println("[TCon API] " + name + " is already present in the Item directory");
+            logger.warning(name + " is already present in the Item directory");
 
         itemDirectory.put(name, itemstack);
     }
@@ -82,7 +85,7 @@ public class TConstructRegistry
     {
         Item ret = itemDirectory.get(name);
         if (ret == null)
-            System.out.println("[TCon API] Could not find " + name + " in the Item directory");
+            logger.warning("Could not find " + name + " in the Item directory");
 
         return ret;
     }
@@ -113,7 +116,7 @@ public class TConstructRegistry
     {
         ItemStack add = itemstackDirectory.get(name);
         if (add != null)
-            System.out.println("[TCon API] " + name + " is already present in the ItemStack directory");
+            logger.warning(name + " is already present in the ItemStack directory");
 
         itemstackDirectory.put(name, itemstack);
     }
@@ -128,7 +131,7 @@ public class TConstructRegistry
     {
         ItemStack ret = itemstackDirectory.get(name);
         if (ret == null)
-            System.out.println("[TCon API] Could not find " + name + " in the ItemStack directory");
+            logger.warning("Could not find " + name + " in the ItemStack directory");
 
         return ret;
     }
@@ -186,8 +189,7 @@ public class TConstructRegistry
 
     /** Registers a tool to its crafting parts.
      * If an output is registered multiple times the parts are added to the recipe's input list
-     * Valid part amounts are 1, 2, and 4. Part counts of 1 and 2 assume a Tool Rod as a handle.
-     * Null items are valid as placeholders. ex: Hatchet
+     * Valid part amounts are 2, 3, and 4.
      * 
      * @see ToolBuidler
      * @param output The ToolCore to craft
@@ -196,8 +198,8 @@ public class TConstructRegistry
     public static void addToolRecipe (ToolCore output, Item... parts)
     {
         ToolBuilder tb = ToolBuilder.instance;
-        if (parts.length < 1 || parts.length > 4 || parts.length == 3)
-            System.out.println("[TCon API] Wrong amount of items to craft into a tool");
+        if (parts.length < 2 || parts.length > 4)
+            logger.warning("Wrong amount of items to craft into a tool");
 
         tb.addToolRecipe(output, parts);
     }
@@ -446,7 +448,7 @@ public class TConstructRegistry
         }
         catch (Exception e)
         {
-            System.out.println("[TCon API] Could not find casting table recipes.");
+            logger.warning("Could not find casting table recipes.");
             return null;
         }
     }
@@ -467,7 +469,7 @@ public class TConstructRegistry
         }
         catch (Exception e)
         {
-            System.out.println("[TCon API] Could not find casting basin recipes.");
+            logger.warning("Could not find casting basin recipes.");
             return null;
         }
     }
@@ -488,7 +490,7 @@ public class TConstructRegistry
         }
         catch (Exception e)
         {
-            System.out.println("[TCon API] Could not find chisel detailing recipes.");
+            logger.warning("Could not find chisel detailing recipes.");
             return null;
         }
     }

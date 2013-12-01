@@ -14,7 +14,7 @@ public class SlimePadRender implements ISimpleBlockRenderingHandler
     public static int model = RenderingRegistry.getNextAvailableRenderId();
 
     @Override
-    public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer)
+    public void renderInventoryBlock (Block block, int metadata, int modelID, RenderBlocks renderer)
     {
         if (modelID == model)
         {
@@ -23,7 +23,7 @@ public class SlimePadRender implements ISimpleBlockRenderingHandler
     }
 
     @Override
-    public boolean renderWorldBlock(IBlockAccess world, int x, int y, int z, Block block, int modelID, RenderBlocks renderer)
+    public boolean renderWorldBlock (IBlockAccess world, int x, int y, int z, Block block, int modelID, RenderBlocks renderer)
     {
         if (modelID == model)
         {
@@ -39,31 +39,39 @@ public class SlimePadRender implements ISimpleBlockRenderingHandler
         return true;
     }
 
-    float[] size(int meta)
+    float[] size (int meta)
     {
         //xMin, zMin, xMax, zMax
         switch (meta)
         {
-        case 0: return new float[] {0.375f, 0.6875f, 0.625f, 0.9375f};
-        case 1: return new float[] {0.0625f, 0.6875f, 0.3125f, 0.9375f};
-        case 2: return new float[] {0.0625f, 0.375f, 0.3125f, 0.625f};
-        case 3: return new float[] {0.0625f, 0.0625f, 0.3125f, 0.3125f};
-        case 4: return new float[] {0.375f, 0.0625f, 0.625f, 0.3125f};
-        case 5: return new float[] {0.6875f, 0.0625f, 0.9375f, 0.3125f};
-        case 6: return new float[] {0.6875f, 0.375f, 0.9375f, 0.625f};
-        case 7: return new float[] {0.6875f, 0.6875f, 0.9375f, 0.9375f};
+        case 0:
+            return new float[] { 0.375f, 0.6875f, 0.625f, 0.9375f };
+        case 1:
+            return new float[] { 0.0625f, 0.6875f, 0.3125f, 0.9375f };
+        case 2:
+            return new float[] { 0.0625f, 0.375f, 0.3125f, 0.625f };
+        case 3:
+            return new float[] { 0.0625f, 0.0625f, 0.3125f, 0.3125f };
+        case 4:
+            return new float[] { 0.375f, 0.0625f, 0.625f, 0.3125f };
+        case 5:
+            return new float[] { 0.6875f, 0.0625f, 0.9375f, 0.3125f };
+        case 6:
+            return new float[] { 0.6875f, 0.375f, 0.9375f, 0.625f };
+        case 7:
+            return new float[] { 0.6875f, 0.6875f, 0.9375f, 0.9375f };
         }
-        return new float[] { 0.375f, 0.375f, 0.625f, 0.625f};
+        return new float[] { 0.375f, 0.375f, 0.625f, 0.625f };
     }
 
     @Override
-    public boolean shouldRender3DInInventory()
+    public boolean shouldRender3DInInventory ()
     {
         return true;
     }
 
     @Override
-    public int getRenderId()
+    public int getRenderId ()
     {
         return model;
     }

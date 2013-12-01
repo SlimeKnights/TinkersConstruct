@@ -1,15 +1,12 @@
 package tconstruct.client.event;
 
+import cpw.mods.fml.common.Loader;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.*;
 import java.util.*;
-
 import javax.swing.ImageIcon;
-
-import cpw.mods.fml.common.Loader;
-
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.event.ForgeSubscribe;
@@ -17,7 +14,7 @@ import net.minecraftforge.event.ForgeSubscribe;
 public class EventCloakRender
 {
 
-    private final String serverLocation = "https://raw.github.com/mDiyo/TinkersConstruct/master/capes.txt";
+    private final String serverLocation = "https://raw.github.com/SlimeKnights/TinkersConstruct/master/capes.txt";
     private final int timeout = 1000;
 
     private static final Graphics TEST_GRAPHICS = new BufferedImage(128, 128, BufferedImage.TYPE_INT_RGB).getGraphics();
@@ -77,16 +74,19 @@ public class EventCloakRender
             int linetracker = 1;
             while ((str = br.readLine()) != null)
             {
-                if (str.contains(":"))
+                if (!str.startsWith("--"))
                 {
-                    String nick = str.substring(0, str.indexOf(":"));
-                    String link = str.substring(str.indexOf(":") + 1);
-                    new Thread(new CloakPreload(link)).start();
-                    cloaks.put(nick, link);
-                }
-                else
-                {
-                    System.err.println("[TinkersConstruct] [skins.txt] Syntax error on line " + linetracker + ": " + str);
+                    if (str.contains(":"))
+                    {
+                        String nick = str.substring(0, str.indexOf(":"));
+                        String link = str.substring(str.indexOf(":") + 1);
+                        new Thread(new CloakPreload(link)).start();
+                        cloaks.put(nick, link);
+                    }
+                    else
+                    {
+                        System.err.println("[TinkersConstruct] [skins.txt] Syntax error on line " + linetracker + ": " + str);
+                    }
                 }
                 linetracker++;
             }

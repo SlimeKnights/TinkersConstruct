@@ -7,11 +7,13 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldType;
 import net.minecraft.world.chunk.IChunkProvider;
+import net.minecraft.world.gen.ChunkProviderFlat;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import tconstruct.common.TContent;
-import tconstruct.compat.dimensions.dimblacklist;
-import tconstruct.util.PHConstruct;
+import tconstruct.util.config.DimensionBlacklist;
+import tconstruct.util.config.PHConstruct;
 import cpw.mods.fml.common.IWorldGenerator;
 
 public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
@@ -33,7 +35,13 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
     @Override
     public void generate (Random random, int chunkX, int chunkZ, World world, IChunkProvider chunkGenerator, IChunkProvider chunkProvider) //IWorldGenerator version
     {
-        if (dimblacklist.isDimInBlacklist(world.provider.dimensionId))
+        //dim 0 only?
+        if ((chunkGenerator instanceof ChunkProviderFlat || world.provider.terrainType == WorldType.FLAT) && PHConstruct.genIslandsFlat)
+        {
+            return;
+        }
+
+        if (DimensionBlacklist.isDimInBlacklist(world.provider.dimensionId))
         {
             if (random.nextInt(PHConstruct.islandRarity) == 0)
                 generateIsland(world, random, chunkX * 16, chunkZ * 16);
@@ -44,7 +52,7 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
     public void generateIsland (World world, Random rand, int xChunk, int zChunk)
     {
         int xRange = random.nextInt(13) + 20;
-        int yCenter = 100 + random.nextInt(41);
+        int yCenter = 50 + world.getHeightValue(xChunk, zChunk) + random.nextInt(50);
         int zRange = random.nextInt(13) + 20;
         int height = 12;
         int initialHeight = height;
@@ -133,8 +141,9 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
         }
 
         //Decorate
-        if(!dimblacklist.isDimNoPool(world.provider.dimensionId)){
-        generateSlimePool(world, rand, xChunk + xRange / 2, yCenter + initialHeight, zChunk + zRange / 2);
+        if (!DimensionBlacklist.isDimNoPool(world.provider.dimensionId))
+        {
+            generateSlimePool(world, rand, xChunk + xRange / 2, yCenter + initialHeight, zChunk + zRange / 2);
         }
         PlantGen tallGrass = new PlantGen(TContent.slimeTallGrass.blockID, 0, 128, xRange, 1, zRange, false);
         tallGrass.generate(world, rand, xChunk, yCenter + initialHeight + 1, zChunk);
@@ -146,8 +155,8 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
 
     public void generateSlimePool (World world, Random rand, int x, int y, int z)
     {
-    	this.generate(world, rand, x, y, z);
-        
+        this.generate(world, rand, x, y, z);
+
     }
 
     public boolean generate (World world, Random rand, int x, int y, int z) //WorldGenerator version

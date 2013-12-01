@@ -3,6 +3,7 @@ package tconstruct.worldgen.village;
 import java.util.List;
 import java.util.Random;
 
+import tconstruct.TConstruct;
 import tconstruct.common.TContent;
 
 import net.minecraft.block.Block;
@@ -16,8 +17,10 @@ import net.minecraft.world.gen.structure.StructureComponent;
 public class ComponentSmeltery extends ComponentVillage
 {
     private int averageGroundLevel = -1;
-    
-    public ComponentSmeltery() {}
+
+    public ComponentSmeltery()
+    {
+    }
 
     public ComponentSmeltery(ComponentVillageStartPiece par1ComponentVillageStartPiece, int par2, Random par3Random, StructureBoundingBox par4StructureBoundingBox, int par5)
     {
@@ -91,7 +94,7 @@ public class ComponentSmeltery extends ComponentVillage
 
     int remapDirection (int direction)
     {
-        System.out.println("Direction: " + direction);
+        TConstruct.logger.info("Direction: " + direction);
         switch (direction)
         {
         case 0:
@@ -103,7 +106,7 @@ public class ComponentSmeltery extends ComponentVillage
         case 3:
             return 0;
         }
-        System.out.println("This shouldn't happen");
+        TConstruct.logger.severe("This shouldn't happen (remapDirection in tconstruct.worldgen.village.ComponentSmeltery)");
         return -1;
     }
 

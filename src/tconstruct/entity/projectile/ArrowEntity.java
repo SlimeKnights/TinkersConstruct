@@ -52,6 +52,15 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
         this.baseDamage = toolTag.getInteger("Attack");
     }
 
+    public ArrowEntity(World world, double x, double y, double z, ItemStack stack)
+    {
+        super(world, x, y, z);
+        this.returnStack = stack;
+        NBTTagCompound toolTag = stack.getTagCompound().getCompoundTag("InfiTool");
+        this.mass = toolTag.getFloat("Mass");
+        this.baseDamage = toolTag.getInteger("Attack");
+    }
+
     @Override
     public void onCollideWithPlayer (EntityPlayer par1EntityPlayer)
     {
@@ -111,27 +120,27 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
         {
             if (!worldObj.isRemote)
             {
-            int j = this.worldObj.getBlockId(this.xTile, this.yTile, this.zTile);
-            int k = this.worldObj.getBlockMetadata(this.xTile, this.yTile, this.zTile);
+                int j = this.worldObj.getBlockId(this.xTile, this.yTile, this.zTile);
+                int k = this.worldObj.getBlockMetadata(this.xTile, this.yTile, this.zTile);
 
-            if (j == this.inTile && k == this.inData)
-            {
-                ++this.ticksInGround;
-
-                if (this.ticksInGround == 120000)
+                if (j == this.inTile && k == this.inData)
                 {
-                    this.setDead();
+                    ++this.ticksInGround;
+
+                    if (this.ticksInGround == 120000)
+                    {
+                        this.setDead();
+                    }
                 }
-            }
-            else
-            {
-                this.inGround = false;
-                this.motionX *= (double) (this.rand.nextFloat() * 0.2F);
-                this.motionY *= (double) (this.rand.nextFloat() * 0.2F);
-                this.motionZ *= (double) (this.rand.nextFloat() * 0.2F);
-                this.ticksInGround = 0;
-                this.ticksInAir = 0;
-            }
+                else
+                {
+                    this.inGround = false;
+                    this.motionX *= (double) (this.rand.nextFloat() * 0.2F);
+                    this.motionY *= (double) (this.rand.nextFloat() * 0.2F);
+                    this.motionZ *= (double) (this.rand.nextFloat() * 0.2F);
+                    this.ticksInGround = 0;
+                    this.ticksInAir = 0;
+                }
             }
         }
         else

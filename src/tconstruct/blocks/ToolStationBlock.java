@@ -11,7 +11,7 @@ import tconstruct.client.block.TableRender;
 import tconstruct.common.TContent;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.blocks.InventoryBlock;
-import tconstruct.util.PHConstruct;
+import tconstruct.util.config.PHConstruct;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;

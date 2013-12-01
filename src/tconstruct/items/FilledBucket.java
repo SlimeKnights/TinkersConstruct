@@ -2,6 +2,8 @@ package tconstruct.items;
 
 import java.util.List;
 
+import net.minecraftforge.fluids.BlockFluidFinite;
+import tconstruct.TConstruct;
 import tconstruct.blocks.logic.LiquidTextureLogic;
 import tconstruct.common.TContent;
 
@@ -137,11 +139,16 @@ public class FilledBucket extends ItemBucket
         }
         else
         {
-            int id = 0;
-            int metadata = 7;
-            if (type == 24)
-                metadata = 0;
-            world.setBlock(clickX, clickY, clickZ, TContent.fluidBlocks[type].blockID, metadata, 3); //TODO: Merge liquids
+            try {
+                int metadata = 0;
+                if (TContent.fluidBlocks[type] instanceof BlockFluidFinite)
+                    metadata = 7;
+
+                world.setBlock(clickX, clickY, clickZ, TContent.fluidBlocks[type].blockID, metadata, 3); //TODO: Merge liquids
+            } catch (ArrayIndexOutOfBoundsException ex) {
+                TConstruct.logger.warning("AIOBE occured when placing bucket into world; " + ex);
+                return false;
+            }
 
             return true;
         }
@@ -180,8 +187,8 @@ public class FilledBucket extends ItemBucket
     }
 
     public static final String[] materialNames = new String[] { "Iron", "Gold", "Copper", "Tin", "Aluminum", "Cobalt", "Ardite", "Bronze", "AluBrass", "Manyullyn", "Alumite", "Obsidian", "Steel",
-            "Glass", "Stone", "Villager", "Cow", "Nickel", "Lead", "Silver", "Shiny", "Invar", "Electrum", "Ender", "Slime" };
+            "Glass", "Stone", "Villager", "Cow", "Nickel", "Lead", "Silver", "Shiny", "Invar", "Electrum", "Ender", "Slime", "Glue", "PigIron" };
 
     public static final String[] textureNames = new String[] { "iron", "gold", "copper", "tin", "aluminum", "cobalt", "ardite", "bronze", "alubrass", "manyullyn", "alumite", "obsidian", "steel",
-            "glass", "stone", "emerald", "blood", "nickel", "lead", "silver", "shiny", "invar", "electrum", "ender", "slime" };
+            "glass", "stone", "emerald", "blood", "nickel", "lead", "silver", "shiny", "invar", "electrum", "ender", "slime", "glue", "pigiron" };
 }
