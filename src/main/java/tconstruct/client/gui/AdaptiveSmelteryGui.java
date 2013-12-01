@@ -10,6 +10,7 @@ import net.minecraft.util.*;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.fluids.*;
+import net.minecraft.util.StatCollector;
 
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.*;
@@ -287,7 +288,7 @@ public class AdaptiveSmelteryGui extends NewContainerGui
         ArrayList list = new ArrayList();
         if (liquid.fluidID == -37)
         {
-            list.add("\u00A7fFuel");
+            list.add("\u00A7f"+(StatCollector.translateToLocal("gui.smeltery1"));
             list.add("mB: " + liquid.amount);
         }
         else
@@ -431,9 +432,9 @@ public class AdaptiveSmelteryGui extends NewContainerGui
     /*@Override
     public void mouseClicked(int mouseX, int mouseY, int mouseButton)
     {
-    	super.mouseClicked(mouseX, mouseY, mouseButton);
-    	
-    	int base = 0;
+            super.mouseClicked(mouseX, mouseY, mouseButton);
+            
+            int base = 0;
         int cornerX = (width - xSize) / 2 + 36;
         int cornerY = (height - ySize) / 2;
         int fluidToBeBroughtUp = -1;
@@ -463,35 +464,35 @@ public class AdaptiveSmelteryGui extends NewContainerGui
             if (mouseX >= leftX && mouseX <= leftX + sizeX && mouseY >= topY && mouseY < topY + sizeY)
             {
                 fluidToBeBroughtUp = liquid.fluidID;
-                	
+                        
                 Packet250CustomPayload packet = new Packet250CustomPayload();
-                	
+                        
                 ByteArrayOutputStream bos = new ByteArrayOutputStream();
                 DataOutputStream dos = new DataOutputStream(bos);
-                	
+                        
                 try
                 {
-            		dos.write(11);
-            		
-            		dos.writeInt(logic.worldObj.provider.dimensionId);
-            		dos.writeInt(logic.xCoord);
-            		dos.writeInt(logic.yCoord);
-            		dos.writeInt(logic.zCoord);
-            		
-            		dos.writeBoolean(this.isShiftKeyDown());
-            		
-            		dos.writeInt(fluidToBeBroughtUp);
-            	}
-            	catch (Exception e)
-            	{
-            		e.printStackTrace();
-            	}
-            	
-            	packet.channel = "TConstruct";
-            	packet.data = bos.toByteArray();
-            	packet.length = bos.size();
-            	
-            	PacketDispatcher.sendPacketToServer(packet);
+                            dos.write(11);
+                            
+                            dos.writeInt(logic.worldObj.provider.dimensionId);
+                            dos.writeInt(logic.xCoord);
+                            dos.writeInt(logic.yCoord);
+                            dos.writeInt(logic.zCoord);
+                            
+                            dos.writeBoolean(this.isShiftKeyDown());
+                            
+                            dos.writeInt(fluidToBeBroughtUp);
+                    }
+                    catch (Exception e)
+                    {
+                            e.printStackTrace();
+                    }
+                    
+                    packet.channel = "TConstruct";
+                    packet.data = bos.toByteArray();
+                    packet.length = bos.size();
+                    
+                    PacketDispatcher.sendPacketToServer(packet);
             }
         }
     }*/
