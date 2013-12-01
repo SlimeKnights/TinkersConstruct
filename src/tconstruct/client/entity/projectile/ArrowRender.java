@@ -50,7 +50,7 @@ public class ArrowRender extends Render
     /**
      * Renders the item
      */
-    public void doRenderItem(ArrowEntity par1ArrowEntity, double par2, double par4, double par6, float par8, float par9)
+    public void doRenderItem (ArrowEntity par1ArrowEntity, double par2, double par4, double par6, float par8, float par9)
     {
         this.bindEntityTexture(par1ArrowEntity);
         this.random.setSeed(187L);
@@ -163,7 +163,7 @@ public class ArrowRender extends Render
         }
     }
 
-    protected ResourceLocation func_110796_a(ArrowEntity par1ArrowEntity)
+    protected ResourceLocation func_110796_a (ArrowEntity par1ArrowEntity)
     {
         return this.renderManager.renderEngine.getResourceLocation(par1ArrowEntity.getEntityItem().getItemSpriteNumber());
     }
@@ -171,12 +171,12 @@ public class ArrowRender extends Render
     /**
      * Renders a dropped item
      */
-    private void renderDroppedItem(ArrowEntity par1ArrowEntity, Icon par2Icon, int par3, float par4, float par5, float par6, float par7)
+    private void renderDroppedItem (ArrowEntity par1ArrowEntity, Icon par2Icon, int par3, float par4, float par5, float par6, float par7)
     {
         renderDroppedItem(par1ArrowEntity, par2Icon, par3, par4, par5, par6, par7, 0);
     }
 
-    private void renderDroppedItem(ArrowEntity arrow, Icon par2Icon, int par3, float par4, float par5, float par6, float par7, int pass)
+    private void renderDroppedItem (ArrowEntity arrow, Icon par2Icon, int par3, float par4, float par5, float par6, float par7, int pass)
     {
         Tessellator tessellator = Tessellator.instance;
 
@@ -235,7 +235,7 @@ public class ArrowRender extends Render
             }
 
             GL11.glColor4f(par5, par6, par7, 1.0F);
-            
+
             ItemRenderer.renderItemIn2D(tessellator, f5, f6, f4, f7, ((Icon) par2Icon).getIconWidth(), ((Icon) par2Icon).getIconHeight(), f12);
 
             if (itemstack.hasEffect(pass))
@@ -273,7 +273,7 @@ public class ArrowRender extends Render
         GL11.glPopMatrix();
     }
 
-    protected ResourceLocation getEntityTexture(Entity par1Entity)
+    protected ResourceLocation getEntityTexture (Entity par1Entity)
     {
         return this.func_110796_a((ArrowEntity) par1Entity);
     }
@@ -284,7 +284,7 @@ public class ArrowRender extends Render
      * (Render<T extends Entity) and this method has signature public void doRender(T entity, double d, double d1,
      * double d2, float f, float f1). But JAD is pre 1.5 so doesn't do that.
      */
-    public void doRender(Entity par1Entity, double par2, double par4, double par6, float par8, float par9)
+    public void doRender (Entity par1Entity, double par2, double par4, double par6, float par8, float par9)
     {
         this.doRenderItem((ArrowEntity) par1Entity, par2, par4, par6, par8, par9);
     }
@@ -293,7 +293,7 @@ public class ArrowRender extends Render
      * Items should spread out when rendered in 3d?
      * @return
      */
-    public boolean shouldSpreadItems()
+    public boolean shouldSpreadItems ()
     {
         return false;
     }
@@ -302,7 +302,7 @@ public class ArrowRender extends Render
      * Items should have a bob effect
      * @return
      */
-    public boolean shouldBob()
+    public boolean shouldBob ()
     {
         return false;
     }

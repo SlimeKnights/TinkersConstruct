@@ -12,6 +12,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.common.IPlantable;
+import net.minecraft.util.StatCollector;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -80,10 +81,10 @@ public class OreberryBushSecondItem extends ItemBlock
         switch (stack.getItemDamage() % 4)
         {
         case 0:
-            list.add("White Chocolate");
+            list.add(StatCollector.translateToLocal("oreberrybush5.tooltip"));
             break;
         case 1:
-            list.add("Tastes like Creeper");
+            list.add(StatCollector.translateToLocal("oreberrybush6.tooltip"));
             break;
         }
     }

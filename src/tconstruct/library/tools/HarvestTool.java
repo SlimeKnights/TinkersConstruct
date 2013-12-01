@@ -79,8 +79,8 @@ public abstract class HarvestTool extends ToolCore
         }
         return super.getStrVsBlock(stack, block, meta);
     }
-    
-    float calculateStrength(NBTTagCompound tags, Block block, int meta)
+
+    float calculateStrength (NBTTagCompound tags, Block block, int meta)
     {
         float mineSpeed = tags.getInteger("MiningSpeed");
         int heads = 1;

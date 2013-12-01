@@ -14,6 +14,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 import net.minecraftforge.fluids.IFluidTank;
+import tconstruct.TConstruct;
 import tconstruct.library.util.IActiveLogic;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -24,8 +25,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class CastingChannelLogic extends TileEntity implements IFluidTank, IFluidHandler, IActiveLogic
 {
-    public final static int fillMax = 288;
-    public final static int outputMax = 48;
+    public final static int fillMax = TConstruct.ingotLiquidValue*5;
+    public final static int outputMax = TConstruct.ingotLiquidValue;
     public FluidStack liquid;
     public ForgeDirection lastProvider;
     private int ticks = 0;
@@ -121,7 +122,7 @@ public class CastingChannelLogic extends TileEntity implements IFluidTank, IFlui
         HashMap tankMap = this.getOutputs();
         if (tankMap.size() <= 0)
         {
-            //System.out.println("Nope, no connections to go to");
+            //TConstruct.logger.info("Nope, no connections to go to");
             return;
         }
         boolean yFilled = false;
@@ -211,7 +212,7 @@ public class CastingChannelLogic extends TileEntity implements IFluidTank, IFlui
         HashMap tankMap = this.getOutputs();
         if (tankMap.size() <= 0)
         {
-            //System.out.println("Nope, no connections to go to");
+            //TConstruct.logger.info("Nope, no connections to go to");
             return;
         }
         boolean yFilled = false;

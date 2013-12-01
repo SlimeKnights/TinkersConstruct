@@ -1,22 +1,25 @@
 package tconstruct.items;
 
+import cpw.mods.fml.relauncher.*;
 import java.util.List;
-
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.PatternBuilder.MaterialSet;
 import tconstruct.library.util.IPattern;
 
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-
 public class Pattern extends CraftingItem implements IPattern
 {
-    public Pattern(int id, String partType, String patternType, String folder)
+    public Pattern(int id, String patternType, String folder)
     {
-        super(id, patternName, getPatternNames(patternType), folder);
+        this(id, patternName, getPatternNames(patternType), folder);
+    }
+    
+    public Pattern(int id, String[] names, String[] patternTypes, String folder)
+    {
+        super(id, names, patternTypes, folder);
         this.setHasSubtypes(true);
         this.setMaxDamage(0);
         this.setContainerItem(this);
@@ -34,6 +37,7 @@ public class Pattern extends CraftingItem implements IPattern
     private static final String[] patternName = new String[] { "ingot", "rod", "pickaxe", "shovel", "axe", "swordblade", "largeguard", "mediumguard", "crossbar", "binding", "frypan", "sign",
             "knifeblade", "chisel", "largerod", "toughbinding", "largeplate", "broadaxe", "scythe", "excavator", "largeblade", "hammerhead", "fullguard", "bowstring", "fletching", "arrowhead" };
 
+    @Override
     public void getSubItems (int id, CreativeTabs tab, List list)
     {
         for (int i = 1; i < patternName.length; i++)
@@ -43,11 +47,15 @@ public class Pattern extends CraftingItem implements IPattern
         }
     }
 
+    @Override
     public ItemStack getContainerItemStack (ItemStack stack)
     {
+        if (stack.stackSize <= 0)
+            return null;
         return stack;
     }
 
+    @Override
     public boolean doesContainerItemLeaveCraftingGrid (ItemStack stack)
     {
         return false;
@@ -62,9 +70,9 @@ public class Pattern extends CraftingItem implements IPattern
         if (cost > 0)
         {
             if (cost - (int) cost < 0.1)
-                list.add("Material Cost: " + (int) cost);
+                list.add(StatCollector.translateToLocal("pattern1.tooltip") + (int) cost);
             else
-                list.add("Material Cost: " + cost);
+                list.add(StatCollector.translateToLocal("pattern2.tooltip") + cost);
         }
     }
 

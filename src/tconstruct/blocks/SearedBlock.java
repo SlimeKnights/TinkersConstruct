@@ -28,7 +28,8 @@ public class SearedBlock extends InventoryBlock
     {
         super(id, Material.rock);
         this.setCreativeTab(TConstructRegistry.blockTab);
-        setHardness(12);
+        setHardness(3F);
+        setResistance(20F);
         setStepSound(soundMetalFootstep);
     }
 

@@ -51,6 +51,17 @@ public class TConstructBlock extends Block
         return meta < icons.length ? icons[meta] : icons[0];
     }
 
+    @SideOnly(Side.CLIENT)
+    public int getSideTextureIndex (int side)
+    {
+        if (side == 0)
+            return 2;
+        if (side == 1)
+            return 0;
+
+        return 1;
+    }
+
     @Override
     public void getSubBlocks (int id, CreativeTabs tab, List list)
     {

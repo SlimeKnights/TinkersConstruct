@@ -1,5 +1,6 @@
 package tconstruct.library.blocks;
 
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -19,10 +20,17 @@ public abstract class InventoryLogic extends TileEntity implements IInventory
 {
     protected ItemStack[] inventory;
     protected String invName;
+    protected int stackSizeLimit;
 
     public InventoryLogic(int invSize)
     {
+        this(invSize, 64);
+    }
+
+    public InventoryLogic(int invSize, int maxStackSize)
+    {
         inventory = new ItemStack[invSize];
+        stackSizeLimit = maxStackSize;
     }
 
     /* Inventory management */
@@ -47,7 +55,7 @@ public abstract class InventoryLogic extends TileEntity implements IInventory
     @Override
     public int getInventoryStackLimit ()
     {
-        return 64;
+        return stackSizeLimit;
     }
 
     public boolean canDropInventorySlot (int slot)
@@ -108,6 +116,12 @@ public abstract class InventoryLogic extends TileEntity implements IInventory
     public void readFromNBT (NBTTagCompound tags)
     {
         super.readFromNBT(tags);
+        readInventoryFromNBT(tags);
+    }
+
+    public void readInventoryFromNBT (NBTTagCompound tags)
+    {
+        super.readFromNBT(tags);
         this.invName = tags.getString("InvName");
         NBTTagList nbttaglist = tags.getTagList("Items");
         inventory = new ItemStack[getSizeInventory()];
@@ -126,6 +140,11 @@ public abstract class InventoryLogic extends TileEntity implements IInventory
     public void writeToNBT (NBTTagCompound tags)
     {
         super.writeToNBT(tags);
+        writeInventoryToNBT(tags);
+    }
+
+    public void writeInventoryToNBT (NBTTagCompound tags)
+    {
         if (invName != null)
             tags.setString("InvName", invName);
         NBTTagList nbttaglist = new NBTTagList();
@@ -142,6 +161,17 @@ public abstract class InventoryLogic extends TileEntity implements IInventory
 
         tags.setTag("Items", nbttaglist);
     }
+
+    /* Cause of the heisenbug. Do not uncomment! */
+    /*public void superReadFromNBT (NBTTagCompound tags)
+    {
+        super.readFromNBT(tags);
+    }
+    
+    public void superWriteToNBT (NBTTagCompound tags)
+    {
+        super.writeToNBT(tags);
+    }*/
 
     /* Default implementations of hardly used methods */
     public ItemStack getStackInSlotOnClosing (int slot)
@@ -183,5 +213,15 @@ public abstract class InventoryLogic extends TileEntity implements IInventory
                 return true;
         }
         return false;
+    }
+
+    public void placeBlock (EntityLivingBase entity, ItemStack stack)
+    {
+
+    }
+
+    public void removeBlock ()
+    {
+
     }
 }

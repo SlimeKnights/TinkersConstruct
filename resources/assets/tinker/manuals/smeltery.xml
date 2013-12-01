@@ -48,6 +48,10 @@ The main structure for melting metals is called the Smeltery. It is larger than 
 <page type="text">
 <text>When working with the Smeltery, there are a few things to keep in mind:
 
+* The Smeltery functions as a large liquid tank. It is capable of melting metals and mixing various things.
+
+* Drains function as input/output for the tank. If you need to get liquids back into the structure, simply pour them into a drain.
+
 * Ores naturally have more material than processed versions, such as ingots. The Smeltery will preserve the full value of the ores - roughly twice as much as a regular furnace would provide.
 
 * Mixing two or more metals in the Smeltery may result in an alloy. The process happens automatically.
@@ -126,6 +130,34 @@ Other liquid removal objects will work, but are frowned upon. An example picture
 <item>
  <text>Alumite, made from Aluminum(5), Iron(2), and Obsidian(2)</text>
  <icon>alumiteingot</icon>
+</item>
+<item>
+ <text>Pig Iron, made from Iron(1), Blood(1), and Emeralds(1)</text>
+ <icon>pigironingot</icon>
+</item>
+</page>
+
+<page type="sidebar">
+<text>There exist a few liquids that are gained through strange means. Currently known liquids are:</text>
+<item>
+ <text>Blood, damaging entities in the Smeltery</text>
+ <icon>bloodbucket</icon>
+</item>
+<item>
+ <text>Liquified Emeralds, melting down emeralds or villagers</text>
+ <icon>emeraldbucket</icon>
+</item>
+<item>
+ <text>Glue, melting down horses in the Smeltery</text>
+ <icon>gluebucket</icon>
+</item>
+<item>
+ <text>Slime, found on slime islands. It functions as a spawner</text>
+ <icon>slimebucket</icon>
+</item>
+<item>
+ <text>Ender, either melting down ender pearls or endermen</text>
+ <icon>enderbucket</icon>
 </item>
 </page>
 
@@ -210,6 +242,14 @@ Part casts must be created by pouring metal around existing parts, like a pickax
 </page>
 
 <page type="crafting">
+<text>Casting Channel</text>
+<recipe>
+ <name>castingchannel</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="crafting">
 <text>Casting Table</text>
 <recipe>
  <name>smelterytable</name>
@@ -245,20 +285,10 @@ Part casts must be created by pouring metal around existing parts, like a pickax
 <recipe>endstone</recipe>
 </page>
 
-<page type="crafting">
-<text>Drawbridge</text>
-<recipe>
- <name>drawbridge</name>
- <size>three</size>
-</recipe>
+<page type="blockcast">
+<text>Glueball</text>
+<recipe>glueball</recipe>
 </page>
 
-<page type="crafting">
-<text>Igniter</text>
-<recipe>
- <name>igniter</name>
- <size>three</size>
-</recipe>
-</page>
 
 </book>

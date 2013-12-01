@@ -1,5 +1,8 @@
 package tconstruct.inventory;
 
+import net.minecraftforge.common.MinecraftForge;
+import tconstruct.library.event.ToolCraftedEvent;
+
 import java.util.Random;
 
 import tconstruct.library.tools.ToolCore;
@@ -32,6 +35,7 @@ public class SlotToolForge extends SlotTool
             inventory.decrStackSize(1, amount);
             if (!player.worldObj.isRemote && full)
                 player.worldObj.playAuxSFX(1021, (int) player.posX, (int) player.posY, (int) player.posZ, 0);
+            MinecraftForge.EVENT_BUS.post(new ToolCraftedEvent(this.inventory, player, stack));
         }
     }
 }

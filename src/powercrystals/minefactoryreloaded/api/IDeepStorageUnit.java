@@ -15,9 +15,9 @@ public interface IDeepStorageUnit
 	void setStoredItemCount(int amount);
 	
 	/**
-	 * Sets the type of the stored item and initializes the number of stored items to count. Will overwrite any existing stored items.
+	 * Sets the type of the stored item and initializes the number of stored items to amount. Will overwrite any existing stored items.
 	 */
-	void setStoredItemType(int itemID, int meta, int Count);
+	void setStoredItemType(ItemStack type, int amount);
 	
 	/**
 	 * @return The maximum number of items the DSU can hold.

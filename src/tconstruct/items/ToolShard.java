@@ -60,7 +60,7 @@ public class ToolShard extends ToolPart
             list.add(new ItemStack(id, 1, i));
         for (int i = 6; i < 9; i++)
             list.add(new ItemStack(id, 1, i));
-        for (int i = 10; i < 17; i++)
+        for (int i = 10; i < 19; i++)
             list.add(new ItemStack(id, 1, i));
 
         if (TContent.thaumcraftAvailable)

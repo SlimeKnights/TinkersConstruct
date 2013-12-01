@@ -206,7 +206,7 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
                 return true;
 
             world.setBlock(x, y, z, blockID, meta - 4, 3);
-            AbilityHelper.spawnItemAtPlayer(player, new ItemStack(TContent.oreBerries, 1, meta % 4 + itemMeat));
+            AbilityHelper.spawnItemAtPlayer(player, new ItemStack(TContent.oreBerries, random.nextInt(3) + 1, meta % 4 + itemMeat));
             return true;
         }
 

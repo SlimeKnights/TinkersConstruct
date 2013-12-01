@@ -83,6 +83,12 @@ public class SlimeLeaves extends BlockLeaves
         }
     }
 
+    @Override
+    public boolean isLeaves (World world, int x, int y, int z)
+    {
+        return true;
+    }
+
     /* Drops */
 
     /**

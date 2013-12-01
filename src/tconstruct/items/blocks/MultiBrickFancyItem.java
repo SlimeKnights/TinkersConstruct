@@ -6,6 +6,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
+import net.minecraft.util.StatCollector;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -40,18 +41,18 @@ public class MultiBrickFancyItem extends ItemBlock
         {
         case 5:
         case 6:
-            list.add("Somewhat expensive");
+            list.add(StatCollector.translateToLocal("fancybrick1.tooltip"));
             break;
         case 7:
-            list.add("Quite expensive");
+            list.add(StatCollector.translateToLocal("fancybrick2.tooltip"));
             break;
         case 8:
-            list.add("Emits Redstone signal up to");
-            list.add("4 blocks away");
+            list.add(StatCollector.translateToLocal("fancybrick3.tooltip"));
+            list.add(StatCollector.translateToLocal("fancybrick4.tooltip"));
             break;
         case 10:
         case 11:
-            list.add("Bouncy!");
+            list.add(StatCollector.translateToLocal("fancybrick5.tooltip"));
             break;
         }
     }

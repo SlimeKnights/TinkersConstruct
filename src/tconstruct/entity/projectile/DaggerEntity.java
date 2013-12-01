@@ -22,7 +22,7 @@ public class DaggerEntity extends RotatingBase
     public DaggerEntity(ItemStack itemstack, World world, EntityPlayer entityplayer)
     {
         super(world, entityplayer, 0.75F, 0.8F);
-        //System.out.println("Stack: "+itemstack);
+        //TConstruct.logger.info("Stack: "+itemstack);
         returnStackSlot = entityplayer.inventory.currentItem;
         returnStack = itemstack;
     }

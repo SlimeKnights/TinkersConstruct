@@ -1,159 +1,53 @@
 package tconstruct.client;
 
+import com.google.common.collect.Lists;
+import cpw.mods.fml.client.registry.*;
+import cpw.mods.fml.common.registry.*;
+import cpw.mods.fml.relauncher.Side;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
+import java.util.*;
+import javax.xml.parsers.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.model.ModelSlime;
-import net.minecraft.client.particle.EntityAuraFX;
-import net.minecraft.client.particle.EntityBreakingFX;
-import net.minecraft.client.particle.EntityBubbleFX;
-import net.minecraft.client.particle.EntityCloudFX;
-import net.minecraft.client.particle.EntityCritFX;
-import net.minecraft.client.particle.EntityDropParticleFX;
-import net.minecraft.client.particle.EntityEnchantmentTableParticleFX;
-import net.minecraft.client.particle.EntityExplodeFX;
-import net.minecraft.client.particle.EntityFX;
-import net.minecraft.client.particle.EntityFireworkSparkFX;
-import net.minecraft.client.particle.EntityFlameFX;
-import net.minecraft.client.particle.EntityFootStepFX;
-import net.minecraft.client.particle.EntityHeartFX;
-import net.minecraft.client.particle.EntityHugeExplodeFX;
-import net.minecraft.client.particle.EntityLargeExplodeFX;
-import net.minecraft.client.particle.EntityLavaFX;
-import net.minecraft.client.particle.EntityNoteFX;
-import net.minecraft.client.particle.EntityPortalFX;
-import net.minecraft.client.particle.EntityReddustFX;
-import net.minecraft.client.particle.EntitySmokeFX;
-import net.minecraft.client.particle.EntitySnowShovelFX;
-import net.minecraft.client.particle.EntitySpellParticleFX;
-import net.minecraft.client.particle.EntitySplashFX;
-import net.minecraft.client.particle.EntitySuspendFX;
-import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.entity.RenderItem;
-import net.minecraft.client.settings.GameSettings;
-import net.minecraft.client.settings.KeyBinding;
-import net.minecraft.entity.Entity;
+import net.minecraft.client.particle.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.entity.*;
+import net.minecraft.client.settings.*;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.item.*;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.RenderBlockFluid;
-
 import org.lwjgl.opengl.GL11;
 import org.w3c.dom.Document;
-
 import tconstruct.TConstruct;
-import tconstruct.blocks.logic.CastingBasinLogic;
-import tconstruct.blocks.logic.CastingTableLogic;
-import tconstruct.blocks.logic.CraftingStationLogic;
-import tconstruct.blocks.logic.DrawbridgeLogic;
-import tconstruct.blocks.logic.DryingRackLogic;
-import tconstruct.blocks.logic.FrypanLogic;
-import tconstruct.blocks.logic.PartBuilderLogic;
-import tconstruct.blocks.logic.PatternChestLogic;
-import tconstruct.blocks.logic.SmelteryLogic;
-import tconstruct.blocks.logic.StencilTableLogic;
-import tconstruct.blocks.logic.TileEntityLandmine;
-import tconstruct.blocks.logic.ToolForgeLogic;
-import tconstruct.blocks.logic.ToolStationLogic;
-import tconstruct.client.block.BarricadeRender;
-import tconstruct.client.block.BlockRenderCastingChannel;
-import tconstruct.client.block.CastingBasinSpecialRender;
-import tconstruct.client.block.CastingTableSpecialRenderer;
-import tconstruct.client.block.DryingRackRender;
-import tconstruct.client.block.DryingRackSpecialRender;
-import tconstruct.client.block.FrypanRender;
-import tconstruct.client.block.MachineRender;
-import tconstruct.client.block.OreberryRender;
-import tconstruct.client.block.PaneConnectedRender;
-import tconstruct.client.block.PaneRender;
-import tconstruct.client.block.PunjiRender;
-import tconstruct.client.block.RenderLandmine;
-import tconstruct.client.block.SearedRender;
-import tconstruct.client.block.SlimeChannelRender;
-import tconstruct.client.block.SlimePadRender;
-import tconstruct.client.block.SmallFontRenderer;
-import tconstruct.client.block.SmelteryRender;
-import tconstruct.client.block.TableForgeRender;
-import tconstruct.client.block.TableRender;
-import tconstruct.client.block.TankRender;
-import tconstruct.client.entity.CartRender;
-import tconstruct.client.entity.CrystalRender;
-import tconstruct.client.entity.FancyItemRender;
-import tconstruct.client.entity.SlimeRender;
-import tconstruct.client.entity.projectile.ArrowRenderCustom;
-import tconstruct.client.entity.projectile.DaggerRenderCustom;
-import tconstruct.client.entity.projectile.LaunchedItemRender;
-import tconstruct.client.gui.ArmorExtendedGui;
-import tconstruct.client.gui.CraftingStationGui;
-import tconstruct.client.gui.DrawbridgeGui;
-import tconstruct.client.gui.FrypanGui;
-import tconstruct.client.gui.GuiLandmine;
-import tconstruct.client.gui.GuiManual;
-import tconstruct.client.gui.KnapsackGui;
-import tconstruct.client.gui.PartCrafterGui;
-import tconstruct.client.gui.PatternChestGui;
-import tconstruct.client.gui.SmelteryGui;
-import tconstruct.client.gui.StencilTableGui;
-import tconstruct.client.gui.ToolForgeGui;
-import tconstruct.client.gui.ToolStationGui;
-import tconstruct.client.pages.BlankPage;
-import tconstruct.client.pages.BlockCastPage;
-import tconstruct.client.pages.BookPage;
-import tconstruct.client.pages.ContentsTablePage;
-import tconstruct.client.pages.CraftingPage;
-import tconstruct.client.pages.FurnacePage;
-import tconstruct.client.pages.MaterialPage;
-import tconstruct.client.pages.ModifierPage;
-import tconstruct.client.pages.PicturePage;
-import tconstruct.client.pages.SectionPage;
-import tconstruct.client.pages.SidebarPage;
-import tconstruct.client.pages.TextPage;
-import tconstruct.client.pages.TitlePage;
-import tconstruct.client.pages.ToolPage;
-import tconstruct.client.tabs.InventoryTabArmorExtended;
-import tconstruct.client.tabs.InventoryTabKnapsack;
-import tconstruct.client.tabs.InventoryTabVanilla;
-import tconstruct.client.tabs.TabRegistry;
-import tconstruct.common.TContent;
-import tconstruct.common.TProxyCommon;
-import tconstruct.entity.BlueSlime;
-import tconstruct.entity.CartEntity;
-import tconstruct.entity.Crystal;
-import tconstruct.entity.FancyEntityItem;
-import tconstruct.entity.projectile.ArrowEntity;
-import tconstruct.entity.projectile.DaggerEntity;
-import tconstruct.entity.projectile.LaunchedPotion;
+import tconstruct.blocks.SlimeExplosive;
+import tconstruct.blocks.logic.*;
+import tconstruct.client.armor.RenderArmorCast;
+import tconstruct.client.block.*;
+import tconstruct.client.entity.*;
+import tconstruct.client.entity.item.ExplosiveRender;
+import tconstruct.client.entity.projectile.*;
+import tconstruct.client.gui.*;
+import tconstruct.client.pages.*;
+import tconstruct.client.tabs.*;
+import tconstruct.common.*;
+import tconstruct.entity.*;
+import tconstruct.entity.item.*;
+import tconstruct.entity.item.*;
+import tconstruct.entity.projectile.*;
 import tconstruct.inventory.ContainerLandmine;
 import tconstruct.library.TConstructRegistry;
-import tconstruct.library.client.TConstructClientRegistry;
-import tconstruct.library.client.ToolGuiElement;
+import tconstruct.library.client.*;
 import tconstruct.library.crafting.ToolBuilder;
 import tconstruct.library.tools.ToolCore;
-import tconstruct.util.player.ArmorExtended;
-import tconstruct.util.player.KnapsackInventory;
-
-import com.google.common.collect.Lists;
-
-import cpw.mods.fml.client.registry.ClientRegistry;
-import cpw.mods.fml.client.registry.RenderingRegistry;
-import cpw.mods.fml.common.registry.TickRegistry;
-import cpw.mods.fml.common.registry.VillagerRegistry;
-import cpw.mods.fml.relauncher.Side;
+import tconstruct.util.config.PHConstruct;
+import tconstruct.util.player.*;
 
 public class TProxyClient extends TProxyCommon
 {
@@ -177,17 +71,24 @@ public class TProxyClient extends TProxyCommon
         if (ID == frypanGuiID)
             return new FrypanGui(player.inventory, (FrypanLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
         if (ID == smelteryGuiID)
-            return new SmelteryGui(player.inventory, (SmelteryLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
+        {
+            if (PHConstruct.newSmeltery)
+                return new AdaptiveSmelteryGui(player.inventory, (AdaptiveSmelteryLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
+            else
+                return new SmelteryGui(player.inventory, (SmelteryLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
+        }
         if (ID == stencilTableID)
             return new StencilTableGui(player.inventory, (StencilTableLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
         if (ID == toolForgeID)
             return new ToolForgeGui(player.inventory, (ToolForgeLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
-        if (ID == drawbridgeID)
-            return new DrawbridgeGui(player.inventory, (DrawbridgeLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
+
         if (ID == landmineID)
             return new GuiLandmine(new ContainerLandmine(player, (TileEntityLandmine) world.getBlockTileEntity(x, y, z)));
         if (ID == craftingStationID)
             return new CraftingStationGui(player.inventory, (CraftingStationLogic) world.getBlockTileEntity(x, y, z), x, y, z);
+
+        if (ID == furnaceID)
+            return new FurnaceGui(player.inventory, (FurnaceLogic) world.getBlockTileEntity(x, y, z));
 
         if (ID == manualGuiID)
         {
@@ -307,12 +208,11 @@ public class TProxyClient extends TProxyCommon
         RenderingRegistry.registerBlockHandler(new TableRender());
         RenderingRegistry.registerBlockHandler(new TableForgeRender());
         RenderingRegistry.registerBlockHandler(new FrypanRender());
-        RenderingRegistry.registerBlockHandler(new SmelteryRender());
         RenderingRegistry.registerBlockHandler(new TankRender());
+        RenderingRegistry.registerBlockHandler(new TankAirRender());
         RenderingRegistry.registerBlockHandler(new SearedRender());
         RenderingRegistry.registerBlockHandler(new OreberryRender());
         RenderingRegistry.registerBlockHandler(new BarricadeRender());
-        RenderingRegistry.registerBlockHandler(new MachineRender());
         RenderingRegistry.registerBlockHandler(new DryingRackRender());
         RenderingRegistry.registerBlockHandler(new PaneRender());
         RenderingRegistry.registerBlockHandler(new PaneConnectedRender());
@@ -322,6 +222,9 @@ public class TProxyClient extends TProxyCommon
         RenderingRegistry.registerBlockHandler(new BlockRenderCastingChannel());
         RenderingRegistry.registerBlockHandler(new SlimeChannelRender());
         RenderingRegistry.registerBlockHandler(new SlimePadRender());
+
+        if (!PHConstruct.newSmeltery)
+            RenderingRegistry.registerBlockHandler(new SmelteryRender());
 
         // Special Renderers
         ClientRegistry.bindTileEntitySpecialRenderer(CastingTableLogic.class, new CastingTableSpecialRenderer());
@@ -339,6 +242,8 @@ public class TProxyClient extends TProxyCommon
         RenderingRegistry.registerEntityRenderingHandler(LaunchedPotion.class, new LaunchedItemRender(Item.potion, 16384));
         RenderingRegistry.registerEntityRenderingHandler(DaggerEntity.class, new DaggerRenderCustom());
         RenderingRegistry.registerEntityRenderingHandler(ArrowEntity.class, new ArrowRenderCustom());
+        RenderingRegistry.registerEntityRenderingHandler(EntityLandmineFirework.class, new RenderSnowball(Item.firework));
+        RenderingRegistry.registerEntityRenderingHandler(ExplosivePrimed.class, new ExplosiveRender());
         // RenderingRegistry.registerEntityRenderingHandler(net.minecraft.entity.player.EntityPlayer.class,
         // new PlayerArmorRender()); // <-- Works, woo!
 
@@ -432,6 +337,7 @@ public class TProxyClient extends TProxyCommon
         TConstructClientRegistry.registerManualIcon("arditeingot", new ItemStack(TContent.materials, 1, 4));
         TConstructClientRegistry.registerManualIcon("copperingot", new ItemStack(TContent.materials, 1, 9));
         TConstructClientRegistry.registerManualIcon("steelingot", new ItemStack(TContent.materials, 1, 16));
+        TConstructClientRegistry.registerManualIcon("pigironingot", new ItemStack(TContent.materials, 1, 34));
 
         // Tool parts
         TConstructClientRegistry.registerManualIcon("pickhead", new ItemStack(TContent.pickaxeHead, 1, 2));
@@ -463,6 +369,12 @@ public class TProxyClient extends TProxyCommon
         TConstructClientRegistry.registerManualIcon("bowstring", new ItemStack(TContent.bowstring, 1, 0));
         TConstructClientRegistry.registerManualIcon("arrowhead", new ItemStack(TContent.arrowhead, 1, 2));
         TConstructClientRegistry.registerManualIcon("fletching", new ItemStack(TContent.fletching, 1, 0));
+        
+        TConstructClientRegistry.registerManualIcon("bloodbucket", new ItemStack(TContent.buckets, 1, 16));
+        TConstructClientRegistry.registerManualIcon("emeraldbucket", new ItemStack(TContent.buckets, 1, 15));
+        TConstructClientRegistry.registerManualIcon("gluebucket", new ItemStack(TContent.buckets, 1, 25));
+        TConstructClientRegistry.registerManualIcon("slimebucket", new ItemStack(TContent.buckets, 1, 24));
+        TConstructClientRegistry.registerManualIcon("enderbucket", new ItemStack(TContent.buckets, 1, 23));
 
         // ToolIcons
         TConstructClientRegistry.registerManualIcon("pickicon",
@@ -507,6 +419,7 @@ public class TProxyClient extends TProxyCommon
 
         ItemStack stick = new ItemStack(Item.stick, 1, 0);
         ItemStack plank = new ItemStack(Block.planks, 1, 0);
+        ItemStack plankSlab = new ItemStack(Block.woodSingleSlab, 1, 0);
         ItemStack workbench = new ItemStack(Block.workbench, 1, 0);
         ItemStack chest = new ItemStack(Block.chest, 1, 0);
         ItemStack log = new ItemStack(Block.wood, 1, 0);
@@ -538,6 +451,7 @@ public class TProxyClient extends TProxyCommon
         ItemStack consecratedsoil = new ItemStack(TContent.craftedSoil, 1, 4);
 
         // TConstruct recipes
+        TConstructClientRegistry.registerManualLargeRecipe("alternatebook", new ItemStack(Item.book), paper, paper, paper, string, pattern, pattern, null, null, null);
         TConstructClientRegistry.registerManualSmallRecipe("patternbook1", new ItemStack(TContent.manualBook, 1, 0), new ItemStack(Item.paper), pattern, null, null);
         TConstructClientRegistry.registerManualSmallRecipe("patternbook2", new ItemStack(TContent.manualBook, 1, 1), new ItemStack(TContent.manualBook, 1, 0), null, null, null);
         TConstructClientRegistry.registerManualSmallRecipe("patternbook3", new ItemStack(TContent.manualBook, 1, 2), new ItemStack(TContent.manualBook, 1, 1), null, null, null);
@@ -546,6 +460,8 @@ public class TProxyClient extends TProxyCommon
         TConstructClientRegistry.registerManualSmallRecipe("partcrafter", new ItemStack(TContent.toolStationWood, 1, 1), null, pattern, null, log);
         TConstructClientRegistry.registerManualSmallRecipe("patternchest", new ItemStack(TContent.toolStationWood, 1, 5), null, pattern, null, chest);
         TConstructClientRegistry.registerManualSmallRecipe("stenciltable", new ItemStack(TContent.toolStationWood, 1, 10), null, pattern, null, plank);
+        TConstructClientRegistry.registerManualSmallRecipe("slimechannel", new ItemStack(TContent.slimeChannel, 1, 0), new ItemStack(TContent.slimeGel, 1, 0), new ItemStack(Item.redstone), null, null);
+        TConstructClientRegistry.registerManualSmallRecipe("bouncepad", new ItemStack(TContent.slimePad, 1, 0), new ItemStack(TContent.slimeChannel), new ItemStack(Item.slimeBall), null, null);
         TConstructClientRegistry.registerManualLargeRecipe("toolforge", new ItemStack(TContent.toolForge, 1, 0), searedbrickBlock, searedbrickBlock, searedbrickBlock, ironblock, new ItemStack(
                 TContent.toolStationWood, 1, 0), ironblock, ironblock, null, ironblock);
 
@@ -568,6 +484,8 @@ public class TProxyClient extends TProxyCommon
         TConstructClientRegistry.registerManualSmallRecipe("searedbricks", new ItemStack(TContent.smeltery, 1, 2), searedbrick, searedbrick, searedbrick, searedbrick);
         TConstructClientRegistry.registerManualLargeRecipe("smelterycontroller", new ItemStack(TContent.smeltery, 1, 0), searedbrick, searedbrick, searedbrick, searedbrick, null, searedbrick,
                 searedbrick, searedbrick, searedbrick);
+        TConstructClientRegistry.registerManualLargeRecipe("dryingrack", new ItemStack(TContent.dryingRack, 1, 0), null, null, null, plankSlab, plankSlab, plankSlab, null, null,
+                null);
         TConstructClientRegistry.registerManualLargeRecipe("smelterydrain", new ItemStack(TContent.smeltery, 1, 1), searedbrick, null, searedbrick, searedbrick, null, searedbrick, searedbrick, null,
                 searedbrick);
 
@@ -581,6 +499,8 @@ public class TProxyClient extends TProxyCommon
         TConstructClientRegistry.registerManualLargeRecipe("smelterytable", new ItemStack(TContent.searedBlock, 1, 0), searedbrick, searedbrick, searedbrick, searedbrick, null, searedbrick,
                 searedbrick, null, searedbrick);
         TConstructClientRegistry.registerManualLargeRecipe("smelteryfaucet", new ItemStack(TContent.searedBlock, 1, 1), searedbrick, null, searedbrick, null, searedbrick, null, null, null, null);
+        TConstructClientRegistry.registerManualLargeRecipe("castingchannel", new ItemStack(TContent.castingChannel), null, null, null, searedbrick, null, searedbrick, searedbrick, searedbrick,
+                searedbrick);
         TConstructClientRegistry.registerManualLargeRecipe("smelterybasin", new ItemStack(TContent.searedBlock, 1, 2), searedbrick, null, searedbrick, searedbrick, null, searedbrick, searedbrick,
                 searedbrick, searedbrick);
 
@@ -594,11 +514,6 @@ public class TProxyClient extends TProxyCommon
         ItemStack bronzeIngot = new ItemStack(TContent.materials, 1, 13);
         ItemStack blankCast = new ItemStack(TContent.blankPattern, 1, 1);
         ItemStack redstone = new ItemStack(Item.redstone);
-
-        TConstructClientRegistry.registerManualLargeRecipe("drawbridge", new ItemStack(TContent.redstoneMachine, 1, 0), alubrassIngot, blankCast, alubrassIngot, bronzeIngot, new ItemStack(
-                Block.dispenser), bronzeIngot, bronzeIngot, redstone, bronzeIngot);
-        TConstructClientRegistry.registerManualLargeRecipe("igniter", new ItemStack(TContent.redstoneMachine, 1, 1), alubrassIngot, new ItemStack(TContent.largePlate, 1, 7), alubrassIngot,
-                bronzeIngot, new ItemStack(Item.flintAndSteel), bronzeIngot, bronzeIngot, redstone, bronzeIngot);
 
         // Modifier recipes
         ItemStack ironpick = ToolBuilder.instance.buildTool(new ItemStack(TContent.pickaxeHead, 1, 6), new ItemStack(TContent.toolRod, 1, 2), new ItemStack(TContent.binding, 1, 6), "");
@@ -624,6 +539,9 @@ public class TProxyClient extends TProxyCommon
         TConstructClientRegistry.registerManualModifier("smitemod", ironlongsword.copy(), new ItemStack(TContent.craftedSoil, 1, 4));
 
         TConstructClientRegistry.registerManualModifier("electricmod", ironpick.copy(), new ItemStack(Block.dirt), new ItemStack(Block.dirt));
+        TConstructClientRegistry.registerManualModifier("fluxmod", ironpick.copy(), new ItemStack(Block.dirt));
+		TConstructClientRegistry.registerManualModifier("fluxmod2", ironpick.copy(), new ItemStack(Block.dirt));
+
         TConstructClientRegistry.registerManualModifier("tier1free", ironpick.copy(), new ItemStack(Item.diamond), new ItemStack(Block.blockGold));
         TConstructClientRegistry.registerManualModifier("tier2free", ironpick.copy(), new ItemStack(Item.netherStar));
 
@@ -631,6 +549,7 @@ public class TProxyClient extends TProxyCommon
         TConstructClientRegistry.registerManualSmeltery("clearglass", new ItemStack(TContent.clearGlass), new ItemStack(TContent.moltenGlass, 1), null);
         TConstructClientRegistry.registerManualSmeltery("searedstone", new ItemStack(TContent.smeltery, 1, 4), new ItemStack(TContent.moltenStone, 1), null);
         TConstructClientRegistry.registerManualSmeltery("endstone", new ItemStack(Block.whiteStone), new ItemStack(TContent.moltenEnder, 1), new ItemStack(Block.obsidian));
+        TConstructClientRegistry.registerManualSmeltery("glueball", new ItemStack(TContent.materials, 1, 36), new ItemStack(TContent.glueFluidBlock, 1), null);
 
     }
 
@@ -766,22 +685,21 @@ public class TProxyClient extends TProxyCommon
 
     void addToolButton (int slotType, int xButton, int yButton, int[] xIcons, int[] yIcons, String title, String body)
     {
-        TConstructClientRegistry.addToolButton(new ToolGuiElement(slotType, xButton, yButton, xIcons, yIcons, "tinker", title, "tinker", "textures/gui/icons.png"));
+        TConstructClientRegistry.addToolButton(new ToolGuiElement(slotType, xButton, yButton, xIcons, yIcons, title, body, "tinker", "textures/gui/icons.png"));
     }
 
     void addTierTwoButton (int slotType, int xButton, int yButton, int[] xIcons, int[] yIcons, String title, String body)
     {
-        TConstructClientRegistry.addTierTwoButton(new ToolGuiElement(slotType, xButton, yButton, xIcons, yIcons, "tinker", title, "tinker", "textures/gui/icons.png"));
+        TConstructClientRegistry.addTierTwoButton(new ToolGuiElement(slotType, xButton, yButton, xIcons, yIcons, title, body, "tinker", "textures/gui/icons.png"));
     }
 
     void addRenderMappings ()
     {
         String[] partTypes = { "wood", "stone", "iron", "flint", "cactus", "bone", "obsidian", "netherrack", "slime", "paper", "cobalt", "ardite", "manyullyn", "copper", "bronze", "alumite", "steel",
-                "blueslime" };
-        // String[] modPartTypes = { "thaumium" };
+                "blueslime", "pigiron" };
         String[] effectTypes = { "diamond", "emerald", "redstone", "piston", "moss", "ice", "lava", "blaze", "necrotic", "electric", "lapis", "quartz", "silk", "beheading", "smite", "spider",
-                "reinforced" };
-        int[] universalEffects = { 0, 1, 4, 9, 16 };
+                "reinforced", "flux" };
+        int[] universalEffects = { 0, 1, 4, 9, 16, 17 };
         int[] weaponEffects = { 3, 5, 7, 13, 14, 15 };
         int[] harvestEffects = { 2 };
         int[] nonUtility = { 6, 8, 10, 11, 12 };
@@ -790,12 +708,6 @@ public class TProxyClient extends TProxyCommon
         {
             TConstructClientRegistry.addMaterialRenderMapping(partIter, "tinker", partTypes[partIter], true);
         }
-
-        /*
-         * for (int iter = 0; iter < modPartTypes.length; iter++) {
-         * TConstructClientRegistry.addMaterialRenderMapping(31 + iter,
-         * "tinker", modPartTypes[iter], true); }
-         */
 
         for (ToolCore tool : TConstructRegistry.getToolMapping())
         {
@@ -1049,4 +961,11 @@ public class TProxyClient extends TProxyCommon
             return null;
         }
     }
+
+    @Override
+    public void postInit ()
+    {
+        //MinecraftForgeClient.registerItemRenderer(TContent.armorPattern.itemID, new RenderArmorCast());
+    }
+
 }

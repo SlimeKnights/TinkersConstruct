@@ -1,6 +1,6 @@
 package tconstruct.worldgen;
 
-import tconstruct.util.PHConstruct;
+import tconstruct.util.config.PHConstruct;
 import net.minecraft.world.WorldProvider;
 
 public class OverworldProvider extends WorldProvider

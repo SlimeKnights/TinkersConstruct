@@ -27,7 +27,7 @@ public class FryingPan extends Weapon
     public FryingPan(int itemID)
     {
         super(itemID, 2);
-        this.setUnlocalizedName("InfiTool.FryingPan");
+        this.setUnlocalizedName("InfiTool.FryPan");
     }
 
     @Override

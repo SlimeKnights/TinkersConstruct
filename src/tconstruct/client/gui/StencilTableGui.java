@@ -70,8 +70,8 @@ public class StencilTableGui extends GuiContainer
         GuiButtonTool repairButton = new GuiButtonTool(0, cornerX - 110, cornerY, repair.buttonIconX, repair.buttonIconY, repair.texture); // Repair
         repairButton.enabled = false;
         this.buttonList.add(repairButton);*/
-        this.buttonList.add(new GuiButton(0, cornerX - 120, cornerY, 120, 20, "Next Pattern"));
-        this.buttonList.add(new GuiButton(1, cornerX - 120, cornerY + 20, 120, 20, "Previous Pattern"));
+        this.buttonList.add(new GuiButton(0, cornerX - 120, cornerY, 120, 20, (StatCollector.translateToLocal("gui.stenciltable1")));
+        this.buttonList.add(new GuiButton(1, cornerX - 120, cornerY + 20, 120, 20, (StatCollector.translateToLocal("gui.stenciltable1")));
 
         //for (int iter = 0; iter < TConstructContent.patternOutputs.length; iter++)
         //{
@@ -95,16 +95,16 @@ public class StencilTableGui extends GuiContainer
                     patternIndex++;
                     if (patternIndex == 21)
                         patternIndex++;
-                    if (patternIndex >= TContent.patternOutputs.length)
+                    if (patternIndex >= TContent.patternOutputs.length - 1)
                         patternIndex = 0;
                 }
                 else if (button.id == 1)
                 {
                     patternIndex--;
+                    if (patternIndex < 0)
+                        patternIndex = TContent.patternOutputs.length - 2;
                     if (patternIndex == 21)
                         patternIndex--;
-                    if (patternIndex < 0)
-                        patternIndex = TContent.patternOutputs.length - 1;
                 }
                 ItemStack stack = new ItemStack(TContent.woodPattern, 1, patternIndex + 1);
                 logic.setInventorySlotContents(1, stack);

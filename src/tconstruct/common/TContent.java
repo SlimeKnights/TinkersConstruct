@@ -1,10 +1,13 @@
 package tconstruct.common;
 
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import tconstruct.library.crafting.ToolBuilder;
+
 import cpw.mods.fml.common.*;
 import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.registry.*;
 import java.lang.reflect.Field;
-
 import java.util.*;
 import net.minecraft.block.*;
 import net.minecraft.block.material.*;
@@ -13,34 +16,41 @@ import net.minecraft.item.*;
 import net.minecraft.item.crafting.*;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
+import net.minecraft.stats.Achievement;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraftforge.common.*;
 import net.minecraftforge.fluids.*;
 import net.minecraftforge.fluids.FluidContainerRegistry.FluidContainerData;
 import net.minecraftforge.oredict.*;
 import tconstruct.TConstruct;
+import tconstruct.achievements.TAchievements;
 import tconstruct.blocks.*;
 import tconstruct.blocks.logic.*;
 import tconstruct.blocks.slime.*;
 import tconstruct.blocks.traps.*;
 import tconstruct.client.StepSoundSlime;
-import tconstruct.compat.mystcraft.MystImcHandler;
 import tconstruct.entity.*;
+import tconstruct.entity.item.*;
 import tconstruct.entity.projectile.*;
 import tconstruct.items.*;
 import tconstruct.items.armor.*;
 import tconstruct.items.blocks.*;
 import tconstruct.items.tools.*;
 import tconstruct.library.TConstructRegistry;
-import tconstruct.library.client.TConstructClientRegistry;
+import tconstruct.library.client.*;
+import tconstruct.library.client.FluidRenderProperties.Applications;
 import tconstruct.library.crafting.*;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.library.util.IPattern;
 import tconstruct.modifiers.*;
 import tconstruct.util.*;
+import tconstruct.util.config.*;
 
 public class TContent implements IFuelHandler
 {
+    // Supresses console spam when iguana's tweaks remove stuff
+    public static boolean supressMissingToolLogs = false;
+
     //Patterns and other materials
     public static Item blankPattern;
     public static Item materials;
@@ -48,6 +58,7 @@ public class TContent implements IFuelHandler
     public static Item toolShard;
     public static Item woodPattern;
     public static Item metalPattern;
+    //public static Item armorPattern;
 
     public static Item manualBook;
     public static Item buckets;
@@ -122,6 +133,7 @@ public class TContent implements IFuelHandler
     public static Block toolForge;
     public static Block craftingStationWood;
     public static Block craftingSlabWood;
+    public static Block furnaceSlab;
 
     public static Block heldItemBlock;
     public static Block craftedSoil;
@@ -131,12 +143,13 @@ public class TContent implements IFuelHandler
     public static Block searedBlock;
     public static Block castingChannel;
     public static Block metalBlock;
+    public static Block tankAir;
 
-    public static Block redstoneMachine;
     public static Block dryingRack;
 
     //Decoration
     public static Block stoneTorch;
+    public static Block stoneLadder;
     public static Block multiBrick;
     public static Block multiBrickFancy;
 
@@ -146,6 +159,7 @@ public class TContent implements IFuelHandler
     public static Block meatBlock;
     public static Block woolSlab1;
     public static Block woolSlab2;
+    public static Block glueBlock;
 
     //Traps
     public static Block landmine;
@@ -154,6 +168,7 @@ public class TContent implements IFuelHandler
     public static Block barricadeSpruce;
     public static Block barricadeBirch;
     public static Block barricadeJungle;
+    public static Block slimeExplosive;
 
     //InfiBlocks
     public static Block speedBlock;
@@ -166,10 +181,6 @@ public class TContent implements IFuelHandler
     public static Block glassMagicSlab;
     public static Block stainedGlassMagicSlab;
     public static Block stainedGlassClearMagicSlab;
-
-    //Crystalline
-    public static Block essenceExtractor;
-    public static Item essenceCrystal;
 
     //Liquids
     public static Material liquidMetal;
@@ -199,6 +210,7 @@ public class TContent implements IFuelHandler
     public static Fluid moltenElectrumFluid;
     public static Fluid moltenEnderFluid;
     public static Fluid blueSlimeFluid;
+    public static Fluid pigIronFluid;
 
     public static Block moltenIron;
     public static Block moltenGold;
@@ -237,6 +249,10 @@ public class TContent implements IFuelHandler
     public static Block slimeChannel;
     public static Block slimePad;
 
+    //Glue
+    public static Fluid glueFluid;
+    public static Block glueFluidBlock;
+
     //Ores
     public static Block oreSlag;
     public static Block oreGravel;
@@ -246,6 +262,7 @@ public class TContent implements IFuelHandler
 
     //Tool modifiers
     public static ModElectric modE;
+    public static ModFlux modF;
     public static ModLapis modL;
 
     //Wearables
@@ -259,9 +276,29 @@ public class TContent implements IFuelHandler
     public static Item heartCanister;
     public static Item goldHead;
 
+    //Rail-related
+    public static Block woodenRail;
+
     //Chest hooks
     public static ChestGenHooks tinkerHouseChest;
     public static ChestGenHooks tinkerHousePatterns;
+
+    //Armor - basic
+    public static Item helmetWood;
+    public static Item chestplateWood;
+    public static Item leggingsWood;
+    public static Item bootsWood;
+    public static EnumArmorMaterial materialWood;
+
+    //Signal & Logic
+    public static Block signalBus;
+    public static Block signalTerminal;
+
+    public static Item spoolWire;
+    public static Item lengthWire;
+
+    //Temporary items
+    //public static Item armorTest = new ArmorStandard(2445, 4, EnumArmorPart.HELMET).setCreativeTab(CreativeTabs.tabAllSearch);
 
     public TContent()
     {
@@ -271,60 +308,31 @@ public class TContent implements IFuelHandler
         addCraftingRecipes();
         setupToolTabs();
         addLoot();
+        if (PHConstruct.achievementsEnabled)
+        {
+            addAchievements();
+        }
     }
 
-    public void createEntities()
+    public void createEntities ()
     {
         EntityRegistry.registerModEntity(FancyEntityItem.class, "Fancy Item", 0, TConstruct.instance, 32, 5, true);
         EntityRegistry.registerModEntity(DaggerEntity.class, "Dagger", 1, TConstruct.instance, 32, 5, true);
         EntityRegistry.registerModEntity(Crystal.class, "Crystal", 2, TConstruct.instance, 32, 3, true);
         EntityRegistry.registerModEntity(LaunchedPotion.class, "Launched Potion", 3, TConstruct.instance, 32, 3, true);
         EntityRegistry.registerModEntity(ArrowEntity.class, "Arrow", 4, TConstruct.instance, 32, 5, true);
+        EntityRegistry.registerModEntity(EntityLandmineFirework.class, "LandmineFirework", 5, TConstruct.instance, 32, 5, true);
+        EntityRegistry.registerModEntity(ExplosivePrimed.class, "SlimeExplosive", 6, TConstruct.instance, 32, 5, true);
         //EntityRegistry.registerModEntity(CartEntity.class, "Small Wagon", 1, TConstruct.instance, 32, 5, true);
 
         EntityRegistry.registerModEntity(BlueSlime.class, "EdibleSlime", 12, TConstruct.instance, 64, 5, true);
         //EntityRegistry.registerModEntity(MetalSlime.class, "MetalSlime", 13, TConstruct.instance, 64, 5, true);
-
-        /*BiomeGenBase[] plains = BiomeDictionary.getBiomesForType(BiomeDictionary.Type.PLAINS);
-        BiomeGenBase[] mountain = BiomeDictionary.getBiomesForType(BiomeDictionary.Type.MOUNTAIN);
-        BiomeGenBase[] hills = BiomeDictionary.getBiomesForType(BiomeDictionary.Type.HILLS);
-        BiomeGenBase[] swamp = BiomeDictionary.getBiomesForType(BiomeDictionary.Type.SWAMP);
-        BiomeGenBase[] desert = BiomeDictionary.getBiomesForType(BiomeDictionary.Type.DESERT);
-        BiomeGenBase[] frozen = BiomeDictionary.getBiomesForType(BiomeDictionary.Type.FROZEN);
-        BiomeGenBase[] jungle = BiomeDictionary.getBiomesForType(BiomeDictionary.Type.JUNGLE);
-        BiomeGenBase[] wasteland = BiomeDictionary.getBiomesForType(BiomeDictionary.Type.WASTELAND);
-
-        BiomeGenBase[] nether = BiomeDictionary.getBiomesForType(BiomeDictionary.Type.NETHER);*/
-
-        /*if (PHConstruct.blueSlime)
-        {
-            EntityRegistry.addSpawn(BlueSlime.class, PHConstruct.blueSlimeWeight, 4, 4, EnumCreatureType.monster, plains);
-            EntityRegistry.addSpawn(BlueSlime.class, PHConstruct.blueSlimeWeight, 4, 4, EnumCreatureType.monster, mountain);
-            EntityRegistry.addSpawn(BlueSlime.class, PHConstruct.blueSlimeWeight, 4, 4, EnumCreatureType.monster, hills);
-            EntityRegistry.addSpawn(BlueSlime.class, PHConstruct.blueSlimeWeight, 4, 4, EnumCreatureType.monster, swamp);
-            EntityRegistry.addSpawn(BlueSlime.class, PHConstruct.blueSlimeWeight, 4, 4, EnumCreatureType.monster, desert);
-            EntityRegistry.addSpawn(BlueSlime.class, PHConstruct.blueSlimeWeight, 4, 4, EnumCreatureType.monster, frozen);
-            EntityRegistry.addSpawn(BlueSlime.class, PHConstruct.blueSlimeWeight, 4, 4, EnumCreatureType.monster, jungle);
-            EntityRegistry.addSpawn(BlueSlime.class, PHConstruct.blueSlimeWeight, 4, 4, EnumCreatureType.monster, wasteland);
-        }
-
-        try
-        {
-            Class.forName("extrabiomes.api.BiomeManager");
-            Collection<BiomeGenBase> ebxlCollection = BiomeManager.getBiomes();
-            BiomeGenBase[] ebxlBiomes = (BiomeGenBase[]) ebxlCollection.toArray();
-            EntityRegistry.addSpawn(BlueSlime.class, PHConstruct.blueSlimeWeight, 4, 4, EnumCreatureType.monster, ebxlBiomes);
-        }
-        catch (Exception e)
-        {
-
-        }*/
     }
 
-    public static Fluid[] fluids = new Fluid[25];
-    public static Block[] fluidBlocks = new Block[25];
+    public static Fluid[] fluids = new Fluid[27];
+    public static Block[] fluidBlocks = new Block[26];
 
-    void registerBlocks()
+    void registerBlocks ()
     {
         //Tool Station
         toolStationWood = new ToolStationBlock(PHConstruct.woodStation, Material.wood).setUnlocalizedName("ToolStation");
@@ -335,7 +343,7 @@ public class TContent implements IFuelHandler
         GameRegistry.registerTileEntity(StencilTableLogic.class, "PatternShaper");
 
         toolForge = new ToolForgeBlock(PHConstruct.toolForge, Material.iron).setUnlocalizedName("ToolForge");
-        GameRegistry.registerBlock(toolForge, ToolForgeItemBlock.class, "ToolForgeBlock");
+        GameRegistry.registerBlock(toolForge, MetadataItemBlock.class, "ToolForgeBlock");
         GameRegistry.registerTileEntity(ToolForgeLogic.class, "ToolForge");
 
         craftingStationWood = new CraftingStationBlock(PHConstruct.woodCrafter, Material.wood).setUnlocalizedName("CraftingStation");
@@ -345,11 +353,15 @@ public class TContent implements IFuelHandler
         craftingSlabWood = new CraftingSlab(PHConstruct.woodCrafterSlab, Material.wood).setUnlocalizedName("CraftingSlab");
         GameRegistry.registerBlock(craftingSlabWood, CraftingSlabItemBlock.class, "CraftingSlab");
 
+        furnaceSlab = new FurnaceSlab(PHConstruct.furnaceSlab, Material.rock).setUnlocalizedName("FurnaceSlab");
+        GameRegistry.registerBlock(furnaceSlab, "FurnaceSlab");
+        GameRegistry.registerTileEntity(FurnaceLogic.class, "TConstruct.Furnace");
+
         heldItemBlock = new EquipBlock(PHConstruct.heldItemBlock, Material.wood).setUnlocalizedName("Frypan");
         GameRegistry.registerBlock(heldItemBlock, "HeldItemBlock");
         GameRegistry.registerTileEntity(FrypanLogic.class, "FrypanLogic");
 
-        craftedSoil = new SoilBlock(PHConstruct.craftedSoil).setUnlocalizedName("TConstruct.Soil");
+        craftedSoil = new SoilBlock(PHConstruct.craftedSoil).setLightOpacity(0).setUnlocalizedName("TConstruct.Soil");
         craftedSoil.stepSound = Block.soundGravelFootstep;
         GameRegistry.registerBlock(craftedSoil, CraftedSoilItemBlock.class, "CraftedSoil");
 
@@ -366,11 +378,15 @@ public class TContent implements IFuelHandler
         GameRegistry.registerBlock(metalBlock, MetalItemBlock.class, "MetalBlock");
 
         meatBlock = new MeatBlock(PHConstruct.meatBlock).setUnlocalizedName("tconstruct.meatblock");
-        GameRegistry.registerBlock(meatBlock, "MeatBlock");
+        GameRegistry.registerBlock(meatBlock, HamboneItemBlock.class, "MeatBlock");
 
         OreDictionary.registerOre("hambone", new ItemStack(meatBlock));
         LanguageRegistry.addName(meatBlock, "Hambone");
         GameRegistry.addRecipe(new ItemStack(meatBlock), "mmm", "mbm", "mmm", 'b', new ItemStack(Item.bone), 'm', new ItemStack(Item.porkRaw));
+
+        glueBlock = new GlueBlock(PHConstruct.glueBlock).setUnlocalizedName("GlueBlock").setCreativeTab(TConstructRegistry.blockTab);
+        GameRegistry.registerBlock(glueBlock, "GlueBlock");
+        OreDictionary.registerOre("blockRubber", new ItemStack(glueBlock));
 
         woolSlab1 = new SlabBase(PHConstruct.woolSlab1, Material.cloth, Block.cloth, 0, 8).setUnlocalizedName("cloth");
         woolSlab1.setStepSound(Block.soundClothFootstep).setCreativeTab(CreativeTabs.tabDecorations);
@@ -382,8 +398,16 @@ public class TContent implements IFuelHandler
         //Smeltery
         smeltery = new SmelteryBlock(PHConstruct.smeltery).setUnlocalizedName("Smeltery");
         GameRegistry.registerBlock(smeltery, SmelteryItemBlock.class, "Smeltery");
-        GameRegistry.registerTileEntity(SmelteryLogic.class, "TConstruct.Smeltery");
-        GameRegistry.registerTileEntity(SmelteryDrainLogic.class, "TConstruct.SmelteryDrain");
+        if (PHConstruct.newSmeltery)
+        {
+            GameRegistry.registerTileEntity(AdaptiveSmelteryLogic.class, "TConstruct.Smeltery");
+            GameRegistry.registerTileEntity(AdaptiveDrainLogic.class, "TConstruct.SmelteryDrain");
+        }
+        else
+        {
+            GameRegistry.registerTileEntity(SmelteryLogic.class, "TConstruct.Smeltery");
+            GameRegistry.registerTileEntity(SmelteryDrainLogic.class, "TConstruct.SmelteryDrain");
+        }
         GameRegistry.registerTileEntity(MultiServantLogic.class, "TConstruct.Servants");
 
         lavaTank = new LavaTankBlock(PHConstruct.lavaTank).setUnlocalizedName("LavaTank");
@@ -401,11 +425,9 @@ public class TContent implements IFuelHandler
         GameRegistry.registerBlock(castingChannel, CastingChannelItem.class, "CastingChannel");
         GameRegistry.registerTileEntity(CastingChannelLogic.class, "CastingChannel");
 
-        //Redstone machines
-        redstoneMachine = new RedstoneMachine(PHConstruct.redstoneMachine).setUnlocalizedName("Redstone.Machine");
-        GameRegistry.registerBlock(redstoneMachine, RedstoneMachineItem.class, "Redstone.Machine");
-        GameRegistry.registerTileEntity(DrawbridgeLogic.class, "Drawbridge");
-        GameRegistry.registerTileEntity(FirestarterLogic.class, "Firestarter");
+        tankAir = new TankAirBlock(PHConstruct.airTank, Material.leaves).setBlockUnbreakable().setUnlocalizedName("tconstruct.tank.air");
+        GameRegistry.registerBlock(tankAir, "TankAir");
+        GameRegistry.registerTileEntity(TankAirLogic.class, "tconstruct.tank.air");
 
         //Traps
         landmine = new BlockLandmine(PHConstruct.landmine).setHardness(0.5F).setResistance(0F).setStepSound(Block.soundMetalFootstep).setCreativeTab(CreativeTabs.tabRedstone)
@@ -428,6 +450,9 @@ public class TContent implements IFuelHandler
         barricadeJungle = new BarricadeBlock(PHConstruct.barricadeJungle, Block.wood, 3).setUnlocalizedName("trap.barricade.jungle");
         GameRegistry.registerBlock(barricadeJungle, BarricadeItem.class, "trap.barricade.jungle");
 
+        slimeExplosive = new SlimeExplosive(PHConstruct.slimeExplosive).setHardness(0.0F).setStepSound(Block.soundGrassFootstep).setUnlocalizedName("explosive.slime");
+        GameRegistry.registerBlock(slimeExplosive, MetadataItemBlock.class, "explosive.slime");
+
         dryingRack = new DryingRack(PHConstruct.dryingRack).setUnlocalizedName("Armor.DryingRack");
         GameRegistry.registerBlock(dryingRack, "Armor.DryingRack");
         GameRegistry.registerTileEntity(DryingRackLogic.class, "Armor.DryingRack");
@@ -435,244 +460,295 @@ public class TContent implements IFuelHandler
         //Liquids
         liquidMetal = new MaterialLiquid(MapColor.tntColor);
 
-        moltenIronFluid = new Fluid("Molten Iron");
-        FluidRegistry.registerFluid(moltenIronFluid);
-        moltenIron = new LiquidMetalFinite(PHConstruct.moltenIron, moltenIronFluid, "liquid_iron").setUnlocalizedName("metal.molten.iron");
+        moltenIronFluid = new Fluid("iron.molten");
+        if (!FluidRegistry.registerFluid(moltenIronFluid))
+            moltenIronFluid = FluidRegistry.getFluid("iron.molten");
+        moltenIron = new TConstructFluid(PHConstruct.moltenIron, moltenIronFluid, Material.lava, "liquid_iron").setUnlocalizedName("metal.molten.iron");
         GameRegistry.registerBlock(moltenIron, "metal.molten.iron");
-        moltenIronFluid.setBlockID(moltenIron).setLuminosity(12).setDensity(3000).setViscosity(6000);
         fluids[0] = moltenIronFluid;
         fluidBlocks[0] = moltenIron;
+        moltenIronFluid.setBlockID(moltenIron).setLuminosity(12).setDensity(3000).setViscosity(6000).setTemperature(1300);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(moltenIronFluid, 1000), new ItemStack(buckets, 1, 0), new ItemStack(Item.bucketEmpty)));
 
-        moltenGoldFluid = new Fluid("Molten Gold");
-        FluidRegistry.registerFluid(moltenGoldFluid);
-        moltenGold = new LiquidMetalFinite(PHConstruct.moltenGold, moltenGoldFluid, "liquid_gold").setUnlocalizedName("metal.molten.gold");
+        moltenGoldFluid = new Fluid("gold.molten");
+        if (!FluidRegistry.registerFluid(moltenGoldFluid))
+            moltenGoldFluid = FluidRegistry.getFluid("gold.molten");
+        moltenGold = new TConstructFluid(PHConstruct.moltenGold, moltenGoldFluid, Material.lava, "liquid_gold").setUnlocalizedName("metal.molten.gold");
         GameRegistry.registerBlock(moltenGold, "metal.molten.gold");
-        moltenGoldFluid.setBlockID(moltenGold).setLuminosity(12).setDensity(3000).setViscosity(6000);
         fluids[1] = moltenGoldFluid;
         fluidBlocks[1] = moltenGold;
+        moltenGoldFluid.setBlockID(moltenGold).setLuminosity(12).setDensity(3000).setViscosity(6000).setTemperature(1300);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(moltenGoldFluid, 1000), new ItemStack(buckets, 1, 1), new ItemStack(Item.bucketEmpty)));
 
-        moltenCopperFluid = new Fluid("Molten Copper");
-        FluidRegistry.registerFluid(moltenCopperFluid);
-        moltenCopper = new LiquidMetalFinite(PHConstruct.moltenCopper, moltenCopperFluid, "liquid_copper").setUnlocalizedName("metal.molten.copper");
+        moltenCopperFluid = new Fluid("copper.molten");
+        if (!FluidRegistry.registerFluid(moltenCopperFluid))
+            moltenCopperFluid = FluidRegistry.getFluid("copper.molten");
+        moltenCopper = new TConstructFluid(PHConstruct.moltenCopper, moltenCopperFluid, Material.lava, "liquid_copper").setUnlocalizedName("metal.molten.copper");
         GameRegistry.registerBlock(moltenCopper, "metal.molten.copper");
-        moltenCopperFluid.setBlockID(moltenCopper).setLuminosity(12).setDensity(3000).setViscosity(6000);
         fluids[2] = moltenCopperFluid;
         fluidBlocks[2] = moltenCopper;
+        moltenCopperFluid.setBlockID(moltenCopper).setLuminosity(12).setDensity(3000).setViscosity(6000).setTemperature(1300);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(moltenCopperFluid, 1000), new ItemStack(buckets, 1, 2), new ItemStack(Item.bucketEmpty)));
 
-        moltenTinFluid = new Fluid("Molten Tin");
-        FluidRegistry.registerFluid(moltenTinFluid);
-        moltenTin = new LiquidMetalFinite(PHConstruct.moltenTin, moltenTinFluid, "liquid_tin").setUnlocalizedName("metal.molten.tin");
+        moltenTinFluid = new Fluid("tin.molten");
+        if (!FluidRegistry.registerFluid(moltenTinFluid))
+            moltenTinFluid = FluidRegistry.getFluid("tin.molten");
+        moltenTin = new TConstructFluid(PHConstruct.moltenTin, moltenTinFluid, Material.lava, "liquid_tin").setUnlocalizedName("metal.molten.tin");
         GameRegistry.registerBlock(moltenTin, "metal.molten.tin");
-        moltenTinFluid.setBlockID(moltenTin).setLuminosity(12).setDensity(3000).setViscosity(6000);
         fluids[3] = moltenTinFluid;
         fluidBlocks[3] = moltenTin;
+        moltenTinFluid.setBlockID(moltenTin).setLuminosity(12).setDensity(3000).setViscosity(6000).setTemperature(1300);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(moltenTinFluid, 1000), new ItemStack(buckets, 1, 3), new ItemStack(Item.bucketEmpty)));
 
-        moltenAluminumFluid = new Fluid("Molten Aluminum");
-        FluidRegistry.registerFluid(moltenAluminumFluid);
-        moltenAluminum = new LiquidMetalFinite(PHConstruct.moltenAluminum, moltenAluminumFluid, "liquid_aluminum").setUnlocalizedName("metal.molten.aluminum");
+        moltenAluminumFluid = new Fluid("aluminum.molten");
+        if (!FluidRegistry.registerFluid(moltenAluminumFluid))
+            moltenAluminumFluid = FluidRegistry.getFluid("aluminum.molten");
+        moltenAluminum = new TConstructFluid(PHConstruct.moltenAluminum, moltenAluminumFluid, Material.lava, "liquid_aluminum").setUnlocalizedName("metal.molten.aluminum");
         GameRegistry.registerBlock(moltenAluminum, "metal.molten.aluminum");
-        moltenAluminumFluid.setBlockID(moltenAluminum).setLuminosity(12).setDensity(3000).setViscosity(6000);
         fluids[4] = moltenAluminumFluid;
         fluidBlocks[4] = moltenAluminum;
+        moltenAluminumFluid.setBlockID(moltenAluminum).setLuminosity(12).setDensity(3000).setViscosity(6000).setTemperature(1300);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(moltenAluminumFluid, 1000), new ItemStack(buckets, 1, 4), new ItemStack(Item.bucketEmpty)));
 
-        moltenCobaltFluid = new Fluid("Molten Cobalt");
-        FluidRegistry.registerFluid(moltenCobaltFluid);
-        moltenCobalt = new LiquidMetalFinite(PHConstruct.moltenCobalt, moltenCobaltFluid, "liquid_cobalt").setUnlocalizedName("metal.molten.cobalt");
+        moltenCobaltFluid = new Fluid("cobalt.molten");
+        if (!FluidRegistry.registerFluid(moltenCobaltFluid))
+            moltenCobaltFluid = FluidRegistry.getFluid("cobalt.molten");
+        moltenCobalt = new TConstructFluid(PHConstruct.moltenCobalt, moltenCobaltFluid, Material.lava, "liquid_cobalt").setUnlocalizedName("metal.molten.cobalt");
         GameRegistry.registerBlock(moltenCobalt, "metal.molten.cobalt");
-        moltenCobaltFluid.setBlockID(moltenCobalt).setLuminosity(12).setDensity(3000).setViscosity(6000);
         fluids[5] = moltenCobaltFluid;
         fluidBlocks[5] = moltenCobalt;
+        moltenCobaltFluid.setBlockID(moltenCobalt).setLuminosity(12).setDensity(3000).setViscosity(6000).setTemperature(1300);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(moltenCobaltFluid, 1000), new ItemStack(buckets, 1, 5), new ItemStack(Item.bucketEmpty)));
 
-        moltenArditeFluid = new Fluid("Molten Ardite");
-        FluidRegistry.registerFluid(moltenArditeFluid);
-        moltenArdite = new LiquidMetalFinite(PHConstruct.moltenArdite, moltenArditeFluid, "liquid_ardite").setUnlocalizedName("metal.molten.ardite");
+        moltenArditeFluid = new Fluid("ardite.molten");
+        if (!FluidRegistry.registerFluid(moltenArditeFluid))
+            moltenArditeFluid = FluidRegistry.getFluid("ardite.molten");
+        moltenArdite = new TConstructFluid(PHConstruct.moltenArdite, moltenArditeFluid, Material.lava, "liquid_ardite").setUnlocalizedName("metal.molten.ardite");
         GameRegistry.registerBlock(moltenArdite, "metal.molten.ardite");
-        moltenArditeFluid.setBlockID(moltenArdite).setLuminosity(12).setDensity(3000).setViscosity(6000);
         fluids[6] = moltenArditeFluid;
         fluidBlocks[6] = moltenArdite;
+        moltenArditeFluid.setBlockID(moltenArdite).setLuminosity(12).setDensity(3000).setViscosity(6000).setTemperature(1300);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(moltenArditeFluid, 1000), new ItemStack(buckets, 1, 6), new ItemStack(Item.bucketEmpty)));
 
-        moltenBronzeFluid = new Fluid("Molten Bronze");
-        FluidRegistry.registerFluid(moltenBronzeFluid);
-        moltenBronze = new LiquidMetalFinite(PHConstruct.moltenBronze, moltenBronzeFluid, "liquid_bronze").setUnlocalizedName("metal.molten.bronze");
+        moltenBronzeFluid = new Fluid("bronze.molten");
+        if (!FluidRegistry.registerFluid(moltenBronzeFluid))
+            moltenBronzeFluid = FluidRegistry.getFluid("bronze.molten");
+        moltenBronze = new TConstructFluid(PHConstruct.moltenBronze, moltenBronzeFluid, Material.lava, "liquid_bronze").setUnlocalizedName("metal.molten.bronze");
         GameRegistry.registerBlock(moltenBronze, "metal.molten.bronze");
-        moltenBronzeFluid.setBlockID(moltenBronze).setLuminosity(12).setDensity(3000).setViscosity(6000);
         fluids[7] = moltenBronzeFluid;
         fluidBlocks[7] = moltenBronze;
+        moltenBronzeFluid.setBlockID(moltenBronze).setLuminosity(12).setDensity(3000).setViscosity(6000).setTemperature(1300);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(moltenBronzeFluid, 1000), new ItemStack(buckets, 1, 7), new ItemStack(Item.bucketEmpty)));
 
-        moltenAlubrassFluid = new Fluid("Molten Aluminum Brass");
-        FluidRegistry.registerFluid(moltenAlubrassFluid);
-        moltenAlubrass = new LiquidMetalFinite(PHConstruct.moltenAlubrass, moltenAlubrassFluid, "liquid_alubrass").setUnlocalizedName("metal.molten.alubrass");
+        moltenAlubrassFluid = new Fluid("aluminumbrass.molten");
+        if (!FluidRegistry.registerFluid(moltenAlubrassFluid))
+            moltenAlubrassFluid = FluidRegistry.getFluid("aluminumbrass.molten");
+        moltenAlubrass = new TConstructFluid(PHConstruct.moltenAlubrass, moltenAlubrassFluid, Material.lava, "liquid_alubrass").setUnlocalizedName("metal.molten.alubrass");
         GameRegistry.registerBlock(moltenAlubrass, "metal.molten.alubrass");
-        moltenAlubrassFluid.setBlockID(moltenAlubrass).setLuminosity(12).setDensity(3000).setViscosity(6000);
         fluids[8] = moltenAlubrassFluid;
         fluidBlocks[8] = moltenAlubrass;
+        moltenAlubrassFluid.setBlockID(moltenAlubrass).setLuminosity(12).setDensity(3000).setViscosity(6000).setTemperature(1300);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(moltenAlubrassFluid, 1000), new ItemStack(buckets, 1, 8), new ItemStack(Item.bucketEmpty)));
 
-        moltenManyullynFluid = new Fluid("Molten Manyullyn");
-        FluidRegistry.registerFluid(moltenManyullynFluid);
-        moltenManyullyn = new LiquidMetalFinite(PHConstruct.moltenManyullyn, moltenManyullynFluid, "liquid_manyullyn").setUnlocalizedName("metal.molten.manyullyn");
+        moltenManyullynFluid = new Fluid("manyullyn.molten");
+        if (!FluidRegistry.registerFluid(moltenManyullynFluid))
+            moltenManyullynFluid = FluidRegistry.getFluid("manyullyn.molten");
+        moltenManyullyn = new TConstructFluid(PHConstruct.moltenManyullyn, moltenManyullynFluid, Material.lava, "liquid_manyullyn").setUnlocalizedName("metal.molten.manyullyn");
         GameRegistry.registerBlock(moltenManyullyn, "metal.molten.manyullyn");
-        moltenManyullynFluid.setBlockID(moltenManyullyn).setLuminosity(12).setDensity(3000).setViscosity(6000);
         fluids[9] = moltenManyullynFluid;
         fluidBlocks[9] = moltenManyullyn;
+        moltenManyullynFluid.setBlockID(moltenManyullyn).setLuminosity(12).setDensity(3000).setViscosity(6000).setTemperature(1300);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(moltenManyullynFluid, 1000), new ItemStack(buckets, 1, 9), new ItemStack(Item.bucketEmpty)));
 
-        moltenAlumiteFluid = new Fluid("Molten Alumite");
-        FluidRegistry.registerFluid(moltenAlumiteFluid);
-        moltenAlumite = new LiquidMetalFinite(PHConstruct.moltenAlumite, moltenAlumiteFluid, "liquid_alumite").setUnlocalizedName("metal.molten.alumite");
+        moltenAlumiteFluid = new Fluid("alumite.molten");
+        if (!FluidRegistry.registerFluid(moltenAlumiteFluid))
+            moltenAlumiteFluid = FluidRegistry.getFluid("alumite.molten");
+        moltenAlumite = new TConstructFluid(PHConstruct.moltenAlumite, moltenAlumiteFluid, Material.lava, "liquid_alumite").setUnlocalizedName("metal.molten.alumite");
         GameRegistry.registerBlock(moltenAlumite, "metal.molten.alumite");
-        moltenAlumiteFluid.setBlockID(moltenAlumite).setLuminosity(12).setDensity(3000).setViscosity(6000);
         fluids[10] = moltenAlumiteFluid;
         fluidBlocks[10] = moltenAlumite;
+        moltenAlumiteFluid.setBlockID(moltenAlumite).setLuminosity(12).setDensity(3000).setViscosity(6000).setTemperature(1300);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(moltenAlumiteFluid, 1000), new ItemStack(buckets, 1, 10), new ItemStack(Item.bucketEmpty)));
 
-        moltenObsidianFluid = new Fluid("Molten Obsidian");
-        FluidRegistry.registerFluid(moltenObsidianFluid);
-        moltenObsidian = new LiquidMetalFinite(PHConstruct.moltenObsidian, moltenObsidianFluid, "liquid_obsidian").setUnlocalizedName("metal.molten.obsidian");
+        moltenObsidianFluid = new Fluid("obsidian.molten");
+        if (!FluidRegistry.registerFluid(moltenObsidianFluid))
+            moltenObsidianFluid = FluidRegistry.getFluid("obsidian.molten");
+        moltenObsidian = new TConstructFluid(PHConstruct.moltenObsidian, moltenObsidianFluid, Material.lava, "liquid_obsidian").setUnlocalizedName("metal.molten.obsidian");
         GameRegistry.registerBlock(moltenObsidian, "metal.molten.obsidian");
-        moltenObsidianFluid.setBlockID(moltenObsidian).setLuminosity(12).setDensity(3000).setViscosity(6000);
         fluids[11] = moltenObsidianFluid;
         fluidBlocks[11] = moltenObsidian;
+        moltenObsidianFluid.setBlockID(moltenObsidian).setLuminosity(12).setDensity(3000).setViscosity(6000).setTemperature(1300);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(moltenObsidianFluid, 1000), new ItemStack(buckets, 1, 11), new ItemStack(Item.bucketEmpty)));
 
-        moltenSteelFluid = new Fluid("Molten Steel");
-        FluidRegistry.registerFluid(moltenSteelFluid);
-        moltenSteel = new LiquidMetalFinite(PHConstruct.moltenSteel, moltenSteelFluid, "liquid_steel").setUnlocalizedName("metal.molten.steel");
+        moltenSteelFluid = new Fluid("steel.molten");
+        if (!FluidRegistry.registerFluid(moltenSteelFluid))
+            moltenSteelFluid = FluidRegistry.getFluid("steel.molten");
+        moltenSteel = new TConstructFluid(PHConstruct.moltenSteel, moltenSteelFluid, Material.lava, "liquid_steel").setUnlocalizedName("metal.molten.steel");
         GameRegistry.registerBlock(moltenSteel, "metal.molten.steel");
-        moltenSteelFluid.setBlockID(moltenSteel).setLuminosity(12).setDensity(3000).setViscosity(6000);
         fluids[12] = moltenSteelFluid;
         fluidBlocks[12] = moltenSteel;
+        moltenSteelFluid.setBlockID(moltenSteel).setLuminosity(12).setDensity(3000).setViscosity(6000).setTemperature(1300);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(moltenSteelFluid, 1000), new ItemStack(buckets, 1, 12), new ItemStack(Item.bucketEmpty)));
 
-        moltenGlassFluid = new Fluid("Molten Glass");
-        FluidRegistry.registerFluid(moltenGlassFluid);
-        moltenGlass = new LiquidMetalFinite(PHConstruct.moltenGlass, moltenGlassFluid, "liquid_glass").setUnlocalizedName("metal.molten.glass");
+        moltenGlassFluid = new Fluid("glass.molten");
+        if (!FluidRegistry.registerFluid(moltenGlassFluid))
+            moltenGlassFluid = FluidRegistry.getFluid("glass.molten");
+        moltenGlass = new TConstructFluid(PHConstruct.moltenGlass, moltenGlassFluid, Material.lava, "liquid_glass", true).setUnlocalizedName("metal.molten.glass");
         GameRegistry.registerBlock(moltenGlass, "metal.molten.glass");
-        moltenGlassFluid.setBlockID(moltenGlass).setLuminosity(12).setDensity(3000).setViscosity(6000);
         fluids[13] = moltenGlassFluid;
         fluidBlocks[13] = moltenGlass;
+        moltenGlassFluid.setBlockID(moltenGlass).setLuminosity(12).setDensity(3000).setViscosity(6000).setTemperature(1300);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(moltenGlassFluid, 1000), new ItemStack(buckets, 1, 13), new ItemStack(Item.bucketEmpty)));
 
-        moltenStoneFluid = new Fluid("Seared Stone");
-        FluidRegistry.registerFluid(moltenStoneFluid);
-        moltenStone = new LiquidMetalFinite(PHConstruct.moltenStone, moltenStoneFluid, "liquid_stone").setUnlocalizedName("molten.stone");
+        moltenStoneFluid = new Fluid("stone.seared");
+        if (!FluidRegistry.registerFluid(moltenStoneFluid))
+            moltenStoneFluid = FluidRegistry.getFluid("stone.seared");
+        moltenStone = new TConstructFluid(PHConstruct.moltenStone, moltenStoneFluid, Material.lava, "liquid_stone").setUnlocalizedName("molten.stone");
         GameRegistry.registerBlock(moltenStone, "molten.stone");
-        moltenStoneFluid.setBlockID(moltenStone).setLuminosity(12).setDensity(3000).setViscosity(6000);
         fluids[14] = moltenStoneFluid;
         fluidBlocks[14] = moltenStone;
+        moltenStoneFluid.setBlockID(moltenStone).setLuminosity(12).setDensity(3000).setViscosity(6000).setTemperature(1300);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(moltenStoneFluid, 1000), new ItemStack(buckets, 1, 14), new ItemStack(Item.bucketEmpty)));
 
-        moltenEmeraldFluid = new Fluid("Liquified Emerald");
-        FluidRegistry.registerFluid(moltenEmeraldFluid);
-        moltenEmerald = new LiquidMetalFinite(PHConstruct.moltenEmerald, moltenEmeraldFluid, "liquid_villager").setUnlocalizedName("molten.emerald");
+        moltenEmeraldFluid = new Fluid("emerald.liquid");
+        if (!FluidRegistry.registerFluid(moltenEmeraldFluid))
+            moltenEmeraldFluid = FluidRegistry.getFluid("emerald.liquid");
+        moltenEmerald = new TConstructFluid(PHConstruct.moltenEmerald, moltenEmeraldFluid, Material.water, "liquid_villager").setUnlocalizedName("molten.emerald");
         GameRegistry.registerBlock(moltenEmerald, "molten.emerald");
-        moltenEmeraldFluid.setBlockID(moltenEmerald).setDensity(3000).setViscosity(6000);
         fluids[15] = moltenEmeraldFluid;
         fluidBlocks[15] = moltenEmerald;
+        moltenEmeraldFluid.setBlockID(moltenEmerald).setDensity(3000).setViscosity(6000).setTemperature(1300);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(moltenEmeraldFluid, 1000), new ItemStack(buckets, 1, 15), new ItemStack(Item.bucketEmpty)));
 
-        bloodFluid = new Fluid("Blood");
-        FluidRegistry.registerFluid(bloodFluid);
-        blood = new LiquidMetalFinite(PHConstruct.blood, bloodFluid, "liquid_cow").setUnlocalizedName("liquid.blood");
+        bloodFluid = new Fluid("blood");
+        if (!FluidRegistry.registerFluid(bloodFluid))
+            bloodFluid = FluidRegistry.getFluid("blood");
+        blood = new BloodBlock(PHConstruct.blood, bloodFluid, Material.water, "liquid_cow").setUnlocalizedName("liquid.blood");
         GameRegistry.registerBlock(blood, "liquid.blood");
-        bloodFluid.setBlockID(blood).setDensity(3000).setViscosity(6000);
         fluids[16] = bloodFluid;
         fluidBlocks[16] = blood;
+        bloodFluid.setBlockID(blood).setDensity(3000).setViscosity(6000).setTemperature(1300);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(bloodFluid, 1000), new ItemStack(buckets, 1, 16), new ItemStack(Item.bucketEmpty)));
 
         moltenNickelFluid = new Fluid("nickel.molten");
-        FluidRegistry.registerFluid(moltenNickelFluid);
-        moltenNickel = new LiquidMetalFinite(PHConstruct.moltenNickel, moltenNickelFluid, "liquid_ferrous").setUnlocalizedName("metal.molten.nickel");
+        if (!FluidRegistry.registerFluid(moltenNickelFluid))
+            moltenNickelFluid = FluidRegistry.getFluid("nickel.molten");
+        moltenNickel = new TConstructFluid(PHConstruct.moltenNickel, moltenNickelFluid, Material.lava, "liquid_ferrous").setUnlocalizedName("metal.molten.nickel");
         GameRegistry.registerBlock(moltenNickel, "metal.molten.nickel");
-        moltenNickelFluid.setBlockID(moltenNickel).setDensity(3000).setViscosity(6000);
         fluids[17] = moltenNickelFluid;
         fluidBlocks[17] = moltenNickel;
+        moltenNickelFluid.setBlockID(moltenNickel).setDensity(3000).setViscosity(6000).setTemperature(1300);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(moltenNickelFluid, 1000), new ItemStack(buckets, 1, 17), new ItemStack(Item.bucketEmpty)));
 
         moltenLeadFluid = new Fluid("lead.molten");
-        FluidRegistry.registerFluid(moltenLeadFluid);
-        moltenLead = new LiquidMetalFinite(PHConstruct.moltenLead, moltenLeadFluid, "liquid_lead").setUnlocalizedName("metal.molten.lead");
+        if (!FluidRegistry.registerFluid(moltenLeadFluid))
+            moltenLeadFluid = FluidRegistry.getFluid("lead.molten");
+        moltenLead = new TConstructFluid(PHConstruct.moltenLead, moltenLeadFluid, Material.lava, "liquid_lead").setUnlocalizedName("metal.molten.lead");
         GameRegistry.registerBlock(moltenLead, "metal.molten.lead");
-        moltenLeadFluid.setBlockID(moltenLead).setDensity(3000).setViscosity(6000);
         fluids[18] = moltenLeadFluid;
         fluidBlocks[18] = moltenLead;
+        moltenLeadFluid.setBlockID(moltenLead).setDensity(3000).setViscosity(6000).setTemperature(1300);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(moltenLeadFluid, 1000), new ItemStack(buckets, 1, 18), new ItemStack(Item.bucketEmpty)));
 
         moltenSilverFluid = new Fluid("silver.molten");
-        FluidRegistry.registerFluid(moltenSilverFluid);
-        moltenSilver = new LiquidMetalFinite(PHConstruct.moltenSilver, moltenSilverFluid, "liquid_silver").setUnlocalizedName("metal.molten.silver");
+        if (!FluidRegistry.registerFluid(moltenSilverFluid))
+            moltenSilverFluid = FluidRegistry.getFluid("silver.molten");
+        moltenSilver = new TConstructFluid(PHConstruct.moltenSilver, moltenSilverFluid, Material.lava, "liquid_silver").setUnlocalizedName("metal.molten.silver");
         GameRegistry.registerBlock(moltenSilver, "metal.molten.silver");
-        moltenSilverFluid.setBlockID(moltenSilver).setDensity(3000).setViscosity(6000);
         fluids[19] = moltenSilverFluid;
         fluidBlocks[19] = moltenSilver;
+        moltenSilverFluid.setBlockID(moltenSilver).setDensity(3000).setViscosity(6000).setTemperature(1300);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(moltenSilverFluid, 1000), new ItemStack(buckets, 1, 19), new ItemStack(Item.bucketEmpty)));
 
         moltenShinyFluid = new Fluid("platinum.molten");
-        FluidRegistry.registerFluid(moltenShinyFluid);
-        moltenShiny = new LiquidMetalFinite(PHConstruct.moltenShiny, moltenShinyFluid, "liquid_shiny").setUnlocalizedName("metal.molten.shiny");
+        if (!FluidRegistry.registerFluid(moltenShinyFluid))
+            moltenShinyFluid = FluidRegistry.getFluid("platinum.molten");
+        moltenShiny = new TConstructFluid(PHConstruct.moltenShiny, moltenShinyFluid, Material.lava, "liquid_shiny").setUnlocalizedName("metal.molten.shiny");
         GameRegistry.registerBlock(moltenShiny, "metal.molten.shiny");
-        moltenShinyFluid.setBlockID(moltenShiny).setDensity(3000).setViscosity(6000);
-        fluids[20] = moltenLeadFluid;
+        fluids[20] = moltenShinyFluid;
         fluidBlocks[20] = moltenShiny;
+        moltenShinyFluid.setBlockID(moltenShiny).setDensity(3000).setViscosity(6000).setTemperature(1300);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(moltenShinyFluid, 1000), new ItemStack(buckets, 1, 20), new ItemStack(Item.bucketEmpty)));
 
         moltenInvarFluid = new Fluid("invar.molten");
-        FluidRegistry.registerFluid(moltenInvarFluid);
-        moltenInvar = new LiquidMetalFinite(PHConstruct.moltenInvar, moltenInvarFluid, "liquid_invar").setUnlocalizedName("metal.molten.invar");
+        if (!FluidRegistry.registerFluid(moltenInvarFluid))
+            moltenInvarFluid = FluidRegistry.getFluid("invar.molten");
+        moltenInvar = new TConstructFluid(PHConstruct.moltenInvar, moltenInvarFluid, Material.lava, "liquid_invar").setUnlocalizedName("metal.molten.invar");
         GameRegistry.registerBlock(moltenInvar, "metal.molten.invar");
-        moltenInvarFluid.setBlockID(moltenInvar).setDensity(3000).setViscosity(6000);
         fluids[21] = moltenInvarFluid;
         fluidBlocks[21] = moltenInvar;
+        moltenInvarFluid.setBlockID(moltenInvar).setDensity(3000).setViscosity(6000).setTemperature(1300);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(moltenInvarFluid, 1000), new ItemStack(buckets, 1, 21), new ItemStack(Item.bucketEmpty)));
 
         moltenElectrumFluid = new Fluid("electrum.molten");
-        FluidRegistry.registerFluid(moltenElectrumFluid);
-        moltenElectrum = new LiquidMetalFinite(PHConstruct.moltenElectrum, moltenElectrumFluid, "liquid_electrum").setUnlocalizedName("metal.molten.electrum");
+        if (!FluidRegistry.registerFluid(moltenElectrumFluid))
+            moltenElectrumFluid = FluidRegistry.getFluid("electrum.molten");
+        moltenElectrum = new TConstructFluid(PHConstruct.moltenElectrum, moltenElectrumFluid, Material.lava, "liquid_electrum").setUnlocalizedName("metal.molten.electrum");
         GameRegistry.registerBlock(moltenElectrum, "metal.molten.electrum");
-        moltenElectrumFluid.setBlockID(moltenElectrum).setDensity(3000).setViscosity(6000);
         fluids[22] = moltenElectrumFluid;
         fluidBlocks[22] = moltenElectrum;
+        moltenElectrumFluid.setBlockID(moltenElectrum).setDensity(3000).setViscosity(6000).setTemperature(1300);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(moltenElectrumFluid, 1000), new ItemStack(buckets, 1, 22), new ItemStack(Item.bucketEmpty)));
 
         moltenEnderFluid = new Fluid("ender");
-        FluidRegistry.registerFluid(moltenEnderFluid);
-        moltenEnder = new LiquidMetalFinite(PHConstruct.moltenEnder, moltenEnderFluid, "liquid_ender").setUnlocalizedName("liquid.ender");
-        GameRegistry.registerBlock(moltenEnder, "liquid.ender");
-        moltenEnderFluid.setBlockID(moltenEnder).setDensity(3000).setViscosity(6000);
+        if (!FluidRegistry.registerFluid(moltenEnderFluid))
+        {
+            moltenEnderFluid = FluidRegistry.getFluid("ender");
+            moltenEnder = Block.blocksList[moltenEnderFluid.getBlockID()];
+            if (moltenEnder == null)
+                TConstruct.logger.info("Molten ender block missing!");
+        }
+        else
+        {
+            moltenEnder = new TConstructFluid(PHConstruct.moltenEnder, moltenEnderFluid, Material.water, "liquid_ender").setUnlocalizedName("fluid.ender");
+            GameRegistry.registerBlock(moltenEnder, "fluid.ender");
+            moltenEnderFluid.setBlockID(moltenEnder).setDensity(3000).setViscosity(6000);
+            FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(moltenEnderFluid, 1000), new ItemStack(buckets, 1, 23), new ItemStack(Item.bucketEmpty)));
+        }
         fluids[23] = moltenEnderFluid;
         fluidBlocks[23] = moltenEnder;
-        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(moltenEnderFluid, 1000), new ItemStack(buckets, 1, 23), new ItemStack(Item.bucketEmpty)));
 
         //Slime
         slimeStep = new StepSoundSlime("mob.slime", 1.0f, 1.0f);
 
         blueSlimeFluid = new Fluid("slime.blue");
-        FluidRegistry.registerFluid(blueSlimeFluid);
+        if (!FluidRegistry.registerFluid(blueSlimeFluid))
+            blueSlimeFluid = FluidRegistry.getFluid("slime.blue");
         slimePool = new SlimeFluid(PHConstruct.slimePoolBlue, blueSlimeFluid, Material.water).setCreativeTab(TConstructRegistry.blockTab).setStepSound(slimeStep).setUnlocalizedName("liquid.slime");
         GameRegistry.registerBlock(slimePool, "liquid.slime");
-        blueSlimeFluid.setBlockID(slimePool);
         fluids[24] = blueSlimeFluid;
         fluidBlocks[24] = slimePool;
+        blueSlimeFluid.setBlockID(slimePool);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(blueSlimeFluid, 1000), new ItemStack(buckets, 1, 24), new ItemStack(Item.bucketEmpty)));
 
-        slimeGel = new SlimeGel(PHConstruct.slimeGel).setStepSound(slimeStep).setUnlocalizedName("slime.gel");
+        //Glue
+        glueFluid = new Fluid("glue").setDensity(6000).setViscosity(6000).setTemperature(200);
+        if (!FluidRegistry.registerFluid(glueFluid))
+            glueFluid = FluidRegistry.getFluid("glue");
+        glueFluidBlock = new GlueFluid(PHConstruct.glueFluidBlock, glueFluid, Material.water).setCreativeTab(TConstructRegistry.blockTab).setStepSound(slimeStep).setUnlocalizedName("liquid.glue");
+        GameRegistry.registerBlock(glueFluidBlock, "liquid.glue");
+        fluids[25] = glueFluid;
+        fluidBlocks[25] = glueFluidBlock;
+        glueFluid.setBlockID(glueFluidBlock);
+        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(glueFluid, 1000), new ItemStack(buckets, 1, 26), new ItemStack(Item.bucketEmpty)));
+
+        pigIronFluid = new Fluid("pigiron.molten");
+        if (!FluidRegistry.registerFluid(pigIronFluid))
+            pigIronFluid = FluidRegistry.getFluid("pigiron.molten");
+        else
+            pigIronFluid.setDensity(3000).setViscosity(6000).setTemperature(1300);
+        fluids[26] = pigIronFluid;
+
+        slimeGel = new SlimeGel(PHConstruct.slimeGel).setStepSound(slimeStep).setLightOpacity(0).setUnlocalizedName("slime.gel");
         GameRegistry.registerBlock(slimeGel, SlimeGelItemBlock.class, "slime.gel");
 
-        slimeGrass = new SlimeGrass(PHConstruct.slimeGrass).setStepSound(Block.soundGrassFootstep).setUnlocalizedName("slime.grass");
+        slimeGrass = new SlimeGrass(PHConstruct.slimeGrass).setStepSound(Block.soundGrassFootstep).setLightOpacity(0).setUnlocalizedName("slime.grass");
         GameRegistry.registerBlock(slimeGrass, SlimeGrassItemBlock.class, "slime.grass");
 
         slimeTallGrass = new SlimeTallGrass(PHConstruct.slimeTallGrass).setStepSound(Block.soundGrassFootstep).setUnlocalizedName("slime.grass.tall");
         GameRegistry.registerBlock(slimeTallGrass, SlimeTallGrassItem.class, "slime.grass.tall");
 
-        slimeLeaves = (SlimeLeaves) new SlimeLeaves(PHConstruct.slimeLeaves).setStepSound(slimeStep).setUnlocalizedName("slime.leaves");
+        slimeLeaves = (SlimeLeaves) new SlimeLeaves(PHConstruct.slimeLeaves).setStepSound(slimeStep).setLightOpacity(0).setUnlocalizedName("slime.leaves");
         GameRegistry.registerBlock(slimeLeaves, SlimeLeavesItemBlock.class, "slime.leaves");
 
         slimeSapling = (SlimeSapling) new SlimeSapling(PHConstruct.slimeSapling).setStepSound(slimeStep).setUnlocalizedName("slime.sapling");
@@ -681,7 +757,7 @@ public class TContent implements IFuelHandler
         slimeChannel = new ConveyorBase(PHConstruct.slimeChannel, Material.water).setStepSound(slimeStep).setUnlocalizedName("slime.channel");
         GameRegistry.registerBlock(slimeChannel, "slime.channel");
         TConstructRegistry.drawbridgeState[slimeChannel.blockID] = 1;
-        
+
         slimePad = new SlimePad(PHConstruct.slimePad, Material.cloth).setStepSound(slimeStep).setUnlocalizedName("slime.pad");
         GameRegistry.registerBlock(slimePad, "slime.pad");
         TConstructRegistry.drawbridgeState[slimePad.blockID] = 1;
@@ -689,6 +765,8 @@ public class TContent implements IFuelHandler
         //Decoration
         stoneTorch = new StoneTorch(PHConstruct.stoneTorch).setUnlocalizedName("decoration.stonetorch");
         GameRegistry.registerBlock(stoneTorch, "decoration.stonetorch");
+        stoneLadder = new StoneLadder(PHConstruct.stoneLadder).setUnlocalizedName("decoration.stoneladder");
+        GameRegistry.registerBlock(stoneLadder, "decoration.stoneladder");
 
         multiBrick = new MultiBrick(PHConstruct.multiBrick).setUnlocalizedName("Decoration.Brick");
         GameRegistry.registerBlock(multiBrick, MultiBrickItem.class, "decoration.multibrick");
@@ -704,7 +782,7 @@ public class TContent implements IFuelHandler
         GameRegistry.registerBlock(oreBerrySecond, OreberryBushSecondItem.class, "ore.berries.two");
 
         String[] oreTypes = new String[] { "nether_slag", "nether_cobalt", "nether_ardite", "ore_copper", "ore_tin", "ore_aluminum", "ore_slag" };
-        oreSlag = new MetalOre(PHConstruct.oreSlag, Material.iron, 10.0F, oreTypes).setUnlocalizedName("tconstruct.stoneore");
+        oreSlag = new MetalOre(PHConstruct.oreSlag, Material.rock, 10.0F, oreTypes).setUnlocalizedName("tconstruct.stoneore");
         GameRegistry.registerBlock(oreSlag, MetalOreItemBlock.class, "SearedBrick");
         MinecraftForge.setBlockHarvestLevel(oreSlag, 1, "pickaxe", 4);
         MinecraftForge.setBlockHarvestLevel(oreSlag, 2, "pickaxe", 4);
@@ -741,27 +819,35 @@ public class TContent implements IFuelHandler
         stainedGlassClearPane = new GlassPaneStained(PHConstruct.stainedGlassClearPane);
         GameRegistry.registerBlock(stainedGlassClearPane, StainedGlassClearPaneItem.class, "GlassPaneClearStained");
 
-        //Crystalline
-        essenceExtractor = new EssenceExtractor(PHConstruct.essenceExtractor).setHardness(12f).setUnlocalizedName("extractor.essence");
-        GameRegistry.registerBlock(essenceExtractor, "extractor.essence");
-        GameRegistry.registerTileEntity(EssenceExtractorLogic.class, "extractor.essence");
+        //Rail
+        woodenRail = new WoodRail(PHConstruct.woodenRail).setStepSound(Block.soundWoodFootstep).setCreativeTab(TConstructRegistry.blockTab).setUnlocalizedName("rail.wood");
+        GameRegistry.registerBlock(woodenRail, "rail.wood");
+
     }
 
-    void registerItems()
+    void registerItems ()
     {
         titleIcon = new TitleIcon(PHConstruct.uselessItem).setUnlocalizedName("tconstruct.titleicon");
+        GameRegistry.registerItem(titleIcon, "titleIcon");
         String[] blanks = new String[] { "blank_pattern", "blank_cast", "blank_cast" };
         blankPattern = new CraftingItem(PHConstruct.blankPattern, blanks, blanks, "materials/").setUnlocalizedName("tconstruct.Pattern");
+        GameRegistry.registerItem(blankPattern, "blankPattern");
 
         materials = new MaterialItem(PHConstruct.materials).setUnlocalizedName("tconstruct.Materials");
         toolRod = new ToolPart(PHConstruct.toolRod, "_rod", "ToolRod").setUnlocalizedName("tconstruct.ToolRod");
         toolShard = new ToolShard(PHConstruct.toolShard, "_chunk").setUnlocalizedName("tconstruct.ToolShard");
-        woodPattern = new Pattern(PHConstruct.woodPattern, "WoodPattern", "pattern_", "materials/").setUnlocalizedName("tconstruct.Pattern");
-        metalPattern = new MetalPattern(PHConstruct.metalPattern, "MetalPattern", "cast_", "materials/").setUnlocalizedName("tconstruct.MetalPattern");
+        woodPattern = new Pattern(PHConstruct.woodPattern, "pattern_", "materials/").setUnlocalizedName("tconstruct.Pattern");
+        metalPattern = new MetalPattern(PHConstruct.metalPattern, "cast_", "materials/").setUnlocalizedName("tconstruct.MetalPattern");
+        //armorPattern = new ArmorPattern(PHConstruct.armorPattern, "armorcast_", "materials/").setUnlocalizedName("tconstruct.ArmorPattern");
+        GameRegistry.registerItem(materials, "materials");
+        GameRegistry.registerItem(woodPattern, "woodPattern");
+        GameRegistry.registerItem(metalPattern, "metalPattern");
+        //GameRegistry.registerItem(armorPattern, "armorPattern");
 
         TConstructRegistry.addItemToDirectory("blankPattern", blankPattern);
         TConstructRegistry.addItemToDirectory("woodPattern", woodPattern);
         TConstructRegistry.addItemToDirectory("metalPattern", metalPattern);
+        //TConstructRegistry.addItemToDirectory("armorPattern", armorPattern);
 
         String[] patternTypes = { "ingot", "toolRod", "pickaxeHead", "shovelHead", "hatchetHead", "swordBlade", "wideGuard", "handGuard", "crossbar", "binding", "frypanHead", "signHead",
                 "knifeBlade", "chiselHead", "toughRod", "toughBinding", "largePlate", "broadAxeHead", "scytheHead", "excavatorHead", "largeBlade", "hammerHead", "fullGuard" };
@@ -774,9 +860,16 @@ public class TContent implements IFuelHandler
         {
             TConstructRegistry.addItemStackToDirectory(patternTypes[i] + "Cast", new ItemStack(metalPattern, 1, i));
         }
+        /*String[] armorPartTypes = { "helmet", "chestplate", "leggings", "boots" };
+        for (int i = 1; i < armorPartTypes.length; i++)
+        {
+            TConstructRegistry.addItemStackToDirectory(armorPartTypes[i] + "Cast", new ItemStack(armorPattern, 1, i));
+        }*/
 
         manualBook = new Manual(PHConstruct.manual);
+        GameRegistry.registerItem(manualBook, "manualBook");
         buckets = new FilledBucket(PHConstruct.buckets);
+        GameRegistry.registerItem(buckets, "buckets");
 
         pickaxe = new Pickaxe(PHConstruct.pickaxe);
         shovel = new Shovel(PHConstruct.shovel);
@@ -802,16 +895,19 @@ public class TContent implements IFuelHandler
         shortbow = new Shortbow(PHConstruct.shortbow);
         arrow = new Arrow(PHConstruct.arrow);
 
-        Item[] tools = { pickaxe, shovel, hatchet, broadsword, longsword, rapier, cutlass, frypan, battlesign, mattock, chisel, lumberaxe, cleaver, scythe, excavator, hammer, battleaxe };
-        String[] toolStrings = { "pickaxe", "shovel", "hatchet", "broadsword", "longsword", "rapier", "cutlass", "frypan", "battlesign", "mattock", "chisel", "lumberaxe", "cleaver", "scythe",
-                "excavator", "hammer", "battleaxe" };
+        Item[] tools = { pickaxe, shovel, hatchet, broadsword, longsword, rapier, dagger, cutlass, frypan, battlesign, mattock, chisel, lumberaxe, cleaver, scythe, excavator, hammer, battleaxe,
+                shortbow, arrow };
+        String[] toolStrings = { "pickaxe", "shovel", "hatchet", "broadsword", "longsword", "rapier", "dagger", "cutlass", "frypan", "battlesign", "mattock", "chisel", "lumberaxe", "cleaver",
+                "scythe", "excavator", "hammer", "battleaxe", "shortbow", "arrow" };
 
         for (int i = 0; i < tools.length; i++)
         {
+            GameRegistry.registerItem(tools[i], toolStrings[i]); // 1.7 compat
             TConstructRegistry.addItemToDirectory(toolStrings[i], tools[i]);
         }
 
         potionLauncher = new PotionLauncher(PHConstruct.potionLauncher).setUnlocalizedName("tconstruct.PotionLauncher");
+        GameRegistry.registerItem(potionLauncher, "potionLauncher");
 
         pickaxeHead = new ToolPart(PHConstruct.pickaxeHead, "_pickaxe_head", "PickHead").setUnlocalizedName("tconstruct.PickaxeHead");
         shovelHead = new ToolPart(PHConstruct.shovelHead, "_shovel_head", "ShovelHead").setUnlocalizedName("tconstruct.ShovelHead");
@@ -850,14 +946,19 @@ public class TContent implements IFuelHandler
 
         for (int i = 0; i < toolParts.length; i++)
         {
+            GameRegistry.registerItem(toolParts[i], toolPartStrings[i]); // 1.7 compat
             TConstructRegistry.addItemToDirectory(toolPartStrings[i], toolParts[i]);
         }
 
         diamondApple = new DiamondApple(PHConstruct.diamondApple).setUnlocalizedName("tconstruct.apple.diamond");
         strangeFood = new StrangeFood(PHConstruct.slimefood).setUnlocalizedName("tconstruct.strangefood");
         oreBerries = new OreBerries(PHConstruct.oreChunks).setUnlocalizedName("oreberry");
-        
+        GameRegistry.registerItem(diamondApple, "diamondApple");
+        GameRegistry.registerItem(strangeFood, "strangeFood");
+        GameRegistry.registerItem(oreBerries, "oreBerries");
+
         jerky = new Jerky(PHConstruct.jerky, Loader.isModLoaded("HungerOverhaul")).setUnlocalizedName("tconstruct.jerky");
+        GameRegistry.registerItem(jerky, "jerky");
 
         //Wearables
         //heavyHelmet = new TArmorBase(PHConstruct.heavyHelmet, 0).setUnlocalizedName("tconstruct.HeavyHelmet");
@@ -865,17 +966,31 @@ public class TContent implements IFuelHandler
         //heavyBoots = new TArmorBase(PHConstruct.heavyBoots, 3).setUnlocalizedName("tconstruct.HeavyBoots");
         //glove = new Glove(PHConstruct.glove).setUnlocalizedName("tconstruct.Glove");
         knapsack = new Knapsack(PHConstruct.knapsack).setUnlocalizedName("tconstruct.storage");
-
-        //Crystalline
-        essenceCrystal = new EssenceCrystal(PHConstruct.essenceCrystal).setUnlocalizedName("tconstruct.crystal.essence");
         goldHead = new GoldenHead(PHConstruct.goldHead, 4, 1.2F, false).setAlwaysEdible().setPotionEffect(Potion.regeneration.id, 10, 0, 1.0F).setUnlocalizedName("goldenhead");
+        //GameRegistry.registerItem(heavyHelmet, "heavyHelmet");
+        GameRegistry.registerItem(heartCanister, "heartCanister");
+        //GameRegistry.registerItem(heavyBoots, "heavyBoots");
+        //GameRegistry.registerItem(glove, "glove");
+        GameRegistry.registerItem(knapsack, "knapsack");
+        GameRegistry.registerItem(goldHead, "goldHead");
+
+        LiquidCasting basinCasting = TConstruct.getBasinCasting();
+        materialWood = EnumHelper.addArmorMaterial("WOOD", 2, new int[] { 1, 2, 2, 1 }, 3);
+        helmetWood = new ArmorBasic(PHConstruct.woodHelmet, materialWood, 0, "wood").setUnlocalizedName("tconstruct.helmetWood");
+        chestplateWood = new ArmorBasic(PHConstruct.woodChestplate, materialWood, 1, "wood").setUnlocalizedName("tconstruct.chestplateWood");
+        leggingsWood = new ArmorBasic(PHConstruct.woodPants, materialWood, 2, "wood").setUnlocalizedName("tconstruct.leggingsWood");
+        bootsWood = new ArmorBasic(PHConstruct.woodBoots, materialWood, 3, "wood").setUnlocalizedName("tconstruct.bootsWood");
+        GameRegistry.registerItem(helmetWood, "helmetWood");
+        GameRegistry.registerItem(chestplateWood, "chestplateWood");
+        GameRegistry.registerItem(leggingsWood, "leggingsWood");
+        GameRegistry.registerItem(bootsWood, "bootsWood");
 
         //        essenceCrystal = new EssenceCrystal(PHConstruct.essenceCrystal).setUnlocalizedName("tconstruct.crystal.essence");
 
         String[] materialStrings = { "paperStack", "greenSlimeCrystal", "searedBrick", "ingotCobalt", "ingotArdite", "ingotManyullyn", "mossBall", "lavaCrystal", "necroticBone", "ingotCopper",
                 "ingotTin", "ingotAluminum", "rawAluminum", "ingotBronze", "ingotAluminumBrass", "ingotAlumite", "ingotSteel", "blueSlimeCrystal", "ingotObsidian", "nuggetIron", "nuggetCopper",
                 "nuggetTin", "nuggetAluminum", "nuggetSilver", "nuggetAluminumBrass", "silkyCloth", "silkyJewel", "nuggetObsidian", "nuggetCobalt", "nuggetArdite", "nuggetManyullyn", "nuggetBronze",
-                "nuggetAlumite", "nuggetSteel" };
+                "nuggetAlumite", "nuggetSteel", "ingotPigIron", "nuggetPigIron", "glueball" };
 
         for (int i = 0; i < materialStrings.length; i++)
         {
@@ -908,7 +1023,7 @@ public class TContent implements IFuelHandler
         //Block.torchWood.setTickRandomly(false);
     }
 
-    void registerMaterials()
+    void registerMaterials ()
     {
         TConstructRegistry.addToolMaterial(0, "Wood", "Wooden ", 0, 59, 200, 0, 1.0F, 0, 0f, "\u00A7e", "");
         TConstructRegistry.addToolMaterial(1, "Stone", 1, 131, 400, 1, 0.5F, 0, 1f, "", "Stonebound");
@@ -928,6 +1043,7 @@ public class TContent implements IFuelHandler
         TConstructRegistry.addToolMaterial(15, "Alumite", 4, 550, 800, 3, 1.3F, 2, 0f, "\u00A7d", "");
         TConstructRegistry.addToolMaterial(16, "Steel", 4, 750, 800, 3, 1.3F, 2, 0f, "", "");
         TConstructRegistry.addToolMaterial(17, "BlueSlime", "Slime ", 0, 1200, 150, 0, 2.0F, 0, 0f, "\u00A7b", "");
+        TConstructRegistry.addToolMaterial(18, "PigIron", "Pig Iron ", 3, 250, 600, 2, 1.3F, 1, 0f, "\u00A7c", "Tasty");
 
         TConstructRegistry.addBowMaterial(0, 384, 20, 1.0f); //Wood
         TConstructRegistry.addBowMaterial(1, 10, 80, 0.2f); //Stone
@@ -947,6 +1063,7 @@ public class TContent implements IFuelHandler
         TConstructRegistry.addBowMaterial(15, 768, 40, 1.2f); //Alumite
         TConstructRegistry.addBowMaterial(16, 768, 40, 1.2f); //Steel
         TConstructRegistry.addBowMaterial(17, 576, 20, 1.2f); //Blue Slime
+        TConstructRegistry.addBowMaterial(18, 384, 20, 1.2f); //Slime
 
         //Material ID, mass, fragility
         TConstructRegistry.addArrowMaterial(0, 0.69F, 1.0F, 100F); //Wood
@@ -967,10 +1084,11 @@ public class TContent implements IFuelHandler
         TConstructRegistry.addArrowMaterial(15, 4.7F, 0.25F, 100F); //Alumite
         TConstructRegistry.addArrowMaterial(16, 7.6F, 0.25F, 100F); //Steel
         TConstructRegistry.addArrowMaterial(17, 0.42F, 0.0F, 100F); //Blue Slime
+        TConstructRegistry.addArrowMaterial(18, 6.8F, 0.5F, 100F); //Iron
 
         TConstructRegistry.addBowstringMaterial(0, 2, new ItemStack(Item.silk), new ItemStack(bowstring, 1, 0), 1F, 1F, 1f); //String
         TConstructRegistry.addFletchingMaterial(0, 2, new ItemStack(Item.feather), new ItemStack(fletching, 1, 0), 100F, 0F, 0.05F); //Feather
-        for (int i = 0; i < 4; i++ )
+        for (int i = 0; i < 4; i++)
             TConstructRegistry.addFletchingMaterial(1, 2, new ItemStack(Block.leaves, 1, i), new ItemStack(fletching, 1, 1), 75F, 0F, 0.2F); //All four vanialla Leaves
         TConstructRegistry.addFletchingMaterial(2, 2, new ItemStack(materials, 1, 1), new ItemStack(fletching, 1, 2), 100F, 0F, 0.12F); //Slime
         TConstructRegistry.addFletchingMaterial(3, 2, new ItemStack(materials, 1, 17), new ItemStack(fletching, 1, 3), 100F, 0F, 0.12F); //BlueSlime
@@ -1025,6 +1143,7 @@ public class TContent implements IFuelHandler
             pb.registerFullMaterial(new ItemStack(materials, 1, 17), 2, "BlueSlime", new ItemStack(toolShard, 1, 17), new ItemStack(toolRod, 1, 17), 17);
         else
             pb.registerMaterialSet("BlueSlime", new ItemStack(TContent.toolShard, 1, 17), new ItemStack(TContent.toolRod, 1, 17), 17);
+        pb.registerFullMaterial(new ItemStack(materials, 1, 34), 2, "PigIron", new ItemStack(toolShard, 1, 18), new ItemStack(toolRod, 1, 18), 18);
 
         pb.addToolPattern((IPattern) woodPattern);
     }
@@ -1032,11 +1151,323 @@ public class TContent implements IFuelHandler
     public static Item[] patternOutputs;
     public static FluidStack[] liquids;
 
-    void addCraftingRecipes()
+    void addCraftingRecipes ()
+    {
+        addPartMapping();
+
+        addRecipesForToolBuilder();
+        addRecipesForTableCasting();
+        addRecipesForBasinCasting();
+        addRecipesForSmeltery();
+        addRecipesForChisel();
+        addRecipesForFurnace();
+        addRecipesForCraftingTable();
+        addRecipesForDryingRack();
+    }
+
+    private void addRecipesForCraftingTable ()
+    {
+        String[] patBlock = { "###", "###", "###" };
+        String[] patSurround = { "###", "#m#", "###" };
+
+        Object[] toolForgeBlocks = { "blockIron", "blockGold", Block.blockDiamond, Block.blockEmerald, "blockCobalt", "blockArdite", "blockManyullyn", "blockCopper", "blockBronze", "blockTin",
+                "blockAluminum", "blockAluminumBrass", "blockAlumite", "blockSteel" };
+
+        // ToolForge Recipes (Metal Version)
+        for (int sc = 0; sc < toolForgeBlocks.length; sc++)
+        {
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(toolForge, 1, sc), "bbb", "msm", "m m", 'b', new ItemStack(smeltery, 1, 2), 's', new ItemStack(toolStationWood, 1, 0), 'm',
+                    toolForgeBlocks[sc]));
+            // adding slab version recipe
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(craftingSlabWood, 1, 5), "bbb", "msm", "m m", 'b', new ItemStack(smeltery, 1, 2), 's', new ItemStack(craftingSlabWood, 1, 1), 'm',
+                    toolForgeBlocks[sc]));
+        }
+
+        // ToolStation Recipes (Wooden Version)
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(toolStationWood, 1, 0), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', "crafterWood"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(toolStationWood, 1, 0), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', "craftingTableWood"));
+        GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 0), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(craftingStationWood, 1, 0));
+        GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 0), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(craftingSlabWood, 1, 0));
+        GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 2), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(Block.wood, 1, 1));
+        GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 3), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(Block.wood, 1, 2));
+        GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 4), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(Block.wood, 1, 3));
+        GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 5), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', Block.chest);
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(toolStationWood, 1, 1), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', "logWood"));
+        if (PHConstruct.stencilTableCrafting)
+        {
+            GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 10), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(Block.planks, 1, 0));
+            GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 11), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(Block.planks, 1, 1));
+            GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 12), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(Block.planks, 1, 2));
+            GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 13), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(Block.planks, 1, 3));
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(toolStationWood, 1, 10), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', "plankWood"));
+        }
+        GameRegistry.addRecipe(new ItemStack(furnaceSlab, 1, 0), "###", "# #", "###", '#', new ItemStack(Block.stoneSingleSlab, 1, 3));
+
+        // Blank Pattern Recipe
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(blankPattern, 1, 0), "ps", "sp", 'p', "plankWood", 's', "stickWood"));
+        // Manual Book Recipes
+        GameRegistry.addRecipe(new ItemStack(manualBook), "wp", 'w', new ItemStack(blankPattern, 1, 0), 'p', Item.paper);
+        GameRegistry.addShapelessRecipe(new ItemStack(manualBook, 2, 0), new ItemStack(manualBook, 1, 0), Item.book);
+        GameRegistry.addShapelessRecipe(new ItemStack(manualBook, 1, 1), new ItemStack(manualBook, 1, 0));
+        GameRegistry.addShapelessRecipe(new ItemStack(manualBook, 2, 1), new ItemStack(manualBook, 1, 1), Item.book);
+        GameRegistry.addShapelessRecipe(new ItemStack(manualBook, 1, 2), new ItemStack(manualBook, 1, 1));
+        GameRegistry.addShapelessRecipe(new ItemStack(manualBook, 2, 2), new ItemStack(manualBook, 1, 2), Item.book);
+        GameRegistry.addShapelessRecipe(new ItemStack(manualBook, 1, 3), new ItemStack(manualBook, 1, 2));
+        // alternativ Vanilla Book Recipe
+        GameRegistry.addShapelessRecipe(new ItemStack(Item.book), Item.paper, Item.paper, Item.paper, Item.silk, blankPattern, blankPattern);
+        // Paperstack Recipe
+        GameRegistry.addRecipe(new ItemStack(materials, 1, 0), "pp", "pp", 'p', Item.paper);
+        // Mossball Recipe
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(materials, 1, 6), patBlock, '#', "stoneMossy"));
+        // LavaCrystal Recipes -Auto-smelt
+        GameRegistry.addRecipe(new ItemStack(materials, 1, 7), "xcx", "cbc", "xcx", 'b', Item.bucketLava, 'c', Item.fireballCharge, 'x', Item.blazeRod);
+        GameRegistry.addRecipe(new ItemStack(materials, 1, 7), "xcx", "cbc", "xcx", 'b', Item.bucketLava, 'x', Item.fireballCharge, 'c', Item.blazeRod);
+        // Slimy sand Recipes
+        GameRegistry.addShapelessRecipe(new ItemStack(craftedSoil, 1, 0), Item.slimeBall, Item.slimeBall, Item.slimeBall, Item.slimeBall, Block.sand, Block.dirt);
+        GameRegistry.addShapelessRecipe(new ItemStack(craftedSoil, 1, 2), strangeFood, strangeFood, strangeFood, strangeFood, Block.sand, Block.dirt);
+        // Grout Recipes
+        GameRegistry.addShapelessRecipe(new ItemStack(craftedSoil, 2, 1), Item.clay, Block.sand, Block.gravel);
+        GameRegistry.addRecipe(new ItemStack(craftedSoil, 8, 1), "sgs", "gcg", "sgs", 'c', new ItemStack(Block.stainedClay, 1, Short.MAX_VALUE), 's', Block.sand, 'g', Block.gravel);
+        GameRegistry.addRecipe(new ItemStack(craftedSoil, 8, 1), "sgs", "gcg", "sgs", 'c', new ItemStack(Block.blockClay, 1, Short.MAX_VALUE), 's', Block.sand, 'g', Block.gravel);
+        // Graveyard Soil Recipes
+        GameRegistry.addShapelessRecipe(new ItemStack(craftedSoil, 1, 3), Block.dirt, Item.rottenFlesh, new ItemStack(Item.dyePowder, 1, 15));
+        // Silky Cloth Recipes
+        GameRegistry.addRecipe(new ItemStack(materials, 1, 25), patSurround, 'm', new ItemStack(materials, 1, 24), '#', new ItemStack(Item.silk));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(materials, 1, 25), patSurround, 'm', "nuggetGold", '#', new ItemStack(Item.silk)));
+        // Silky Jewel Recipes
+        GameRegistry.addRecipe(new ItemStack(materials, 1, 26), " c ", "cec", " c ", 'c', new ItemStack(materials, 1, 25), 'e', new ItemStack(Item.emerald));
+        // Wooden Armor Recipes
+        GameRegistry.addRecipe(new ShapedOreRecipe(helmetWood, new Object[] { "www", "w w", 'w', "logWood" }));
+        GameRegistry.addRecipe(new ShapedOreRecipe(chestplateWood, new Object[] { "w w", "www", "www", 'w', "logWood" }));
+        GameRegistry.addRecipe(new ShapedOreRecipe(leggingsWood, new Object[] { "www", "w w", "w w", 'w', "logWood" }));
+        GameRegistry.addRecipe(new ShapedOreRecipe(bootsWood, new Object[] { "w w", "w w", 'w', "logWood" }));
+        // Metal conversion Recipes
+        GameRegistry.addRecipe(new ItemStack(metalBlock, 1, 3), patBlock, '#', new ItemStack(materials, 1, 9)); // Copper
+        GameRegistry.addRecipe(new ItemStack(metalBlock, 1, 5), patBlock, '#', new ItemStack(materials, 1, 10)); // Tin
+        GameRegistry.addRecipe(new ItemStack(metalBlock, 1, 6), patBlock, '#', new ItemStack(materials, 1, 11)); // Aluminum
+        GameRegistry.addRecipe(new ItemStack(metalBlock, 1, 6), patBlock, '#', new ItemStack(materials, 1, 12)); // Aluminum
+        GameRegistry.addRecipe(new ItemStack(metalBlock, 1, 4), patBlock, '#', new ItemStack(materials, 1, 13)); // Bronze
+        GameRegistry.addRecipe(new ItemStack(metalBlock, 1, 7), patBlock, '#', new ItemStack(materials, 1, 14)); // AluBrass
+        GameRegistry.addRecipe(new ItemStack(metalBlock, 1, 0), patBlock, '#', new ItemStack(materials, 1, 3)); // Cobalt
+        GameRegistry.addRecipe(new ItemStack(metalBlock, 1, 1), patBlock, '#', new ItemStack(materials, 1, 4)); // Ardite
+        GameRegistry.addRecipe(new ItemStack(metalBlock, 1, 2), patBlock, '#', new ItemStack(materials, 1, 5)); // Manyullyn
+        GameRegistry.addRecipe(new ItemStack(metalBlock, 1, 8), patBlock, '#', new ItemStack(materials, 1, 15)); // Alumite
+        GameRegistry.addRecipe(new ItemStack(metalBlock, 1, 9), patBlock, '#', new ItemStack(materials, 1, 16)); // Steel
+        GameRegistry.addRecipe(new ItemStack(metalBlock, 1, 11), patBlock, '#', new ItemStack(materials, 1, 12)); //Aluminum raw -> ingot
+
+        GameRegistry.addRecipe(new ItemStack(materials, 9, 9), "m", 'm', new ItemStack(metalBlock, 1, 3)); //Copper
+        GameRegistry.addRecipe(new ItemStack(materials, 9, 10), "m", 'm', new ItemStack(metalBlock, 1, 5)); //Tin
+        GameRegistry.addRecipe(new ItemStack(materials, 9, 12), "m", 'm', new ItemStack(metalBlock, 1, 6)); //Aluminum
+        GameRegistry.addRecipe(new ItemStack(materials, 9, 13), "m", 'm', new ItemStack(metalBlock, 1, 4)); //Bronze
+        GameRegistry.addRecipe(new ItemStack(materials, 9, 14), "m", 'm', new ItemStack(metalBlock, 1, 7)); //AluBrass
+        GameRegistry.addRecipe(new ItemStack(materials, 9, 3), "m", 'm', new ItemStack(metalBlock, 1, 0)); //Cobalt
+        GameRegistry.addRecipe(new ItemStack(materials, 9, 4), "m", 'm', new ItemStack(metalBlock, 1, 1)); //Ardite
+        GameRegistry.addRecipe(new ItemStack(materials, 9, 5), "m", 'm', new ItemStack(metalBlock, 1, 2)); //Manyullyn
+        GameRegistry.addRecipe(new ItemStack(materials, 9, 15), "m", 'm', new ItemStack(metalBlock, 1, 8)); //Alumite
+        GameRegistry.addRecipe(new ItemStack(materials, 9, 16), "m", 'm', new ItemStack(metalBlock, 1, 9)); //Steel
+
+        GameRegistry.addRecipe(new ItemStack(Item.ingotIron), patBlock, '#', new ItemStack(materials, 1, 19)); //Iron
+        GameRegistry.addRecipe(new ItemStack(materials, 1, 9), patBlock, '#', new ItemStack(materials, 1, 20)); //Copper
+        GameRegistry.addRecipe(new ItemStack(materials, 1, 10), patBlock, '#', new ItemStack(materials, 1, 21)); //Tin
+        GameRegistry.addRecipe(new ItemStack(materials, 1, 11), patBlock, '#', new ItemStack(materials, 1, 22)); //Aluminum
+        GameRegistry.addRecipe(new ItemStack(materials, 1, 14), patBlock, '#', new ItemStack(materials, 1, 24)); //Aluminum Brass
+        GameRegistry.addRecipe(new ItemStack(materials, 1, 18), patBlock, '#', new ItemStack(materials, 1, 27)); //Obsidian
+        GameRegistry.addRecipe(new ItemStack(materials, 1, 3), patBlock, '#', new ItemStack(materials, 1, 28)); //Cobalt
+        GameRegistry.addRecipe(new ItemStack(materials, 1, 4), patBlock, '#', new ItemStack(materials, 1, 29)); //Ardite
+        GameRegistry.addRecipe(new ItemStack(materials, 1, 5), patBlock, '#', new ItemStack(materials, 1, 30)); //Manyullyn
+        GameRegistry.addRecipe(new ItemStack(materials, 1, 13), patBlock, '#', new ItemStack(materials, 1, 31)); //Bronze
+        GameRegistry.addRecipe(new ItemStack(materials, 1, 15), patBlock, '#', new ItemStack(materials, 1, 32)); //Alumite
+        GameRegistry.addRecipe(new ItemStack(materials, 1, 16), patBlock, '#', new ItemStack(materials, 1, 33)); //Steel    
+
+        GameRegistry.addRecipe(new ItemStack(materials, 9, 19), "m", 'm', new ItemStack(Item.ingotIron)); //Iron
+        GameRegistry.addRecipe(new ItemStack(materials, 9, 20), "m", 'm', new ItemStack(materials, 1, 9)); //Copper
+        GameRegistry.addRecipe(new ItemStack(materials, 9, 21), "m", 'm', new ItemStack(materials, 1, 10)); //Tin
+        GameRegistry.addRecipe(new ItemStack(materials, 9, 22), "m", 'm', new ItemStack(materials, 1, 11)); //Aluminum
+        GameRegistry.addRecipe(new ItemStack(materials, 9, 22), "m", 'm', new ItemStack(materials, 1, 12)); //Aluminum
+        GameRegistry.addRecipe(new ItemStack(materials, 9, 24), "m", 'm', new ItemStack(materials, 1, 14)); //Aluminum Brass
+        GameRegistry.addRecipe(new ItemStack(materials, 9, 27), "m", 'm', new ItemStack(materials, 1, 18)); //Obsidian
+        GameRegistry.addRecipe(new ItemStack(materials, 9, 28), "m", 'm', new ItemStack(materials, 1, 3)); //Cobalt
+        GameRegistry.addRecipe(new ItemStack(materials, 9, 29), "m", 'm', new ItemStack(materials, 1, 4)); //Ardite
+        GameRegistry.addRecipe(new ItemStack(materials, 9, 30), "m", 'm', new ItemStack(materials, 1, 5)); //Manyullyn
+        GameRegistry.addRecipe(new ItemStack(materials, 9, 31), "m", 'm', new ItemStack(materials, 1, 13)); //Bronze
+        GameRegistry.addRecipe(new ItemStack(materials, 9, 32), "m", 'm', new ItemStack(materials, 1, 15)); //Alumite
+        GameRegistry.addRecipe(new ItemStack(materials, 9, 33), "m", 'm', new ItemStack(materials, 1, 16)); //Steel 
+
+        // stained Glass Recipes
+        String[] dyeTypes = { "dyeBlack", "dyeRed", "dyeGreen", "dyeBrown", "dyeBlue", "dyePurple", "dyeCyan", "dyeLightGray", "dyeGray", "dyePink", "dyeLime", "dyeYellow", "dyeLightBlue",
+                "dyeMagenta", "dyeOrange", "dyeWhite" };
+        String color = "";
+        for (int i = 0; i < 16; i++)
+        {
+            color = dyeTypes[15 - i];
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Block.cloth, 8, i), patSurround, 'm', color, '#', new ItemStack(Block.cloth, 1, Short.MAX_VALUE)));
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(stainedGlassClear, 8, i), patSurround, 'm', color, '#', clearGlass));
+            GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(stainedGlassClear, 1, i), color, clearGlass));
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(stainedGlassClear, 8, i), patSurround, 'm', color, '#', new ItemStack(stainedGlassClear, 1, Short.MAX_VALUE)));
+            GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(stainedGlassClear, 1, i), color, new ItemStack(stainedGlassClear, 1, Short.MAX_VALUE)));
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(stainedGlassClearPane, 8, i), patSurround, 'm', color, '#', glassPane));
+            GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(stainedGlassClearPane, 1, i), color, glassPane));
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(stainedGlassClearPane, 8, i), patSurround, 'm', color, '#', new ItemStack(stainedGlassClearPane, 1, Short.MAX_VALUE)));
+            GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(stainedGlassClearPane, 1, i), color, new ItemStack(stainedGlassClearPane, 1, Short.MAX_VALUE)));
+        }
+
+        // Glass Recipes
+        GameRegistry.addRecipe(new ItemStack(Item.glassBottle, 3), new Object[] { "# #", " # ", '#', clearGlass });
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Block.daylightSensor), new Object[] { "GGG", "QQQ", "WWW", 'G', "glass", 'Q', Item.netherQuartz, 'W', "slabWood" }));
+        GameRegistry.addRecipe(new ItemStack(Block.beacon, 1), new Object[] { "GGG", "GSG", "OOO", 'G', clearGlass, 'S', Item.netherStar, 'O', Block.obsidian });
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(glassPane, 16, 0), "GGG", "GGG", 'G', clearGlass));
+
+        // Smeltery Components Recipes
+        ItemStack searedBrick = new ItemStack(materials, 1, 2);
+        GameRegistry.addRecipe(new ItemStack(smeltery, 1, 0), "bbb", "b b", "bbb", 'b', searedBrick); //Controller
+        GameRegistry.addRecipe(new ItemStack(smeltery, 1, 1), "b b", "b b", "b b", 'b', searedBrick); //Drain
+        GameRegistry.addRecipe(new ItemStack(smeltery, 1, 2), "bb", "bb", 'b', searedBrick); //Bricks
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(lavaTank, 1, 0), patSurround, '#', searedBrick, 'm', "glass")); //Tank
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(lavaTank, 1, 1), "bgb", "ggg", "bgb", 'b', searedBrick, 'g', "glass")); //Glass
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(lavaTank, 1, 2), "bgb", "bgb", "bgb", 'b', searedBrick, 'g', "glass")); //Window
+        GameRegistry.addRecipe(new ItemStack(searedBlock, 1, 0), "bbb", "b b", "b b", 'b', searedBrick); //Table
+        GameRegistry.addRecipe(new ItemStack(searedBlock, 1, 1), "b b", " b ", 'b', searedBrick); //Faucet
+        GameRegistry.addRecipe(new ItemStack(searedBlock, 1, 2), "b b", "b b", "bbb", 'b', searedBrick); //Basin
+        GameRegistry.addRecipe(new ItemStack(castingChannel, 4, 0), "b b", "bbb", 'b', searedBrick); //Channel
+
+        // Jack o'Latern Recipe - Stone Torch
+        GameRegistry.addRecipe(new ItemStack(Block.pumpkinLantern, 1, 0), "p", "s", 'p', new ItemStack(Block.pumpkin), 's', new ItemStack(stoneTorch));
+        // Stone Torch Recipe
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(stoneTorch, 4), "p", "w", 'p', new ItemStack(Item.coal, 1, Short.MAX_VALUE), 'w', "stoneRod"));
+        // Stone Ladder Recipe
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(stoneLadder, 3), "w w", "www", "w w", 'w', "stoneRod"));
+        // Wooden Rail Recipe
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(woodenRail, 4, 0), "b b", "bxb", "b b", 'b', "plankWood", 'x', "stickWood"));
+        // Stonesticks Recipes
+        GameRegistry.addRecipe(new ItemStack(toolRod, 4, 1), "c", "c", 'c', new ItemStack(Block.stone));
+        GameRegistry.addRecipe(new ItemStack(toolRod, 2, 1), "c", "c", 'c', new ItemStack(Block.cobblestone));
+        // 
+        ItemStack aluBrass = new ItemStack(materials, 1, 14);
+        // Clock Recipe - Vanilla alternativ
+        GameRegistry.addRecipe(new ItemStack(Item.pocketSundial), " i ", "iri", " i ", 'i', aluBrass, 'r', new ItemStack(Item.redstone));
+        // Gold Pressure Plate -  Vanilla alternativ
+        GameRegistry.addRecipe(new ItemStack(Block.pressurePlateGold), "ii", 'i', aluBrass);
+        //Accessories
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(heartCanister, 1, 0), "##", "##", '#', "ingotAluminum"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(heartCanister, 1, 0), "##", "##", '#', "ingotAluminium"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(heartCanister, 1, 0), "##", "##", '#', "ingotNaturalAluminum"));
+        GameRegistry.addRecipe(new ItemStack(diamondApple), " d ", "d#d", " d ", 'd', new ItemStack(Item.diamond), '#', new ItemStack(Item.appleRed));
+        GameRegistry.addShapelessRecipe(new ItemStack(heartCanister, 1, 2), new ItemStack(diamondApple), new ItemStack(materials, 1, 8), new ItemStack(heartCanister, 1, 0), new ItemStack(
+                heartCanister, 1, 1));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(knapsack, 1, 0), "###", "rmr", "###", '#', new ItemStack(Item.leather), 'r', new ItemStack(toughRod, 1, 2), 'm', "ingotGold"));
+        GameRegistry.addRecipe(new ItemStack(knapsack, 1, 0), "###", "rmr", "###", '#', new ItemStack(Item.leather), 'r', new ItemStack(toughRod, 1, 2), 'm', aluBrass);
+        // Drying Rack Recipes
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(dryingRack, 1, 0), "bbb", 'b', "slabWood"));
+        //Landmine Recipes
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(landmine, 1, 0), "mcm", "rpr", 'm', "plankWood", 'c', new ItemStack(blankPattern, 1, 1), 'r', Item.redstone, 'p',
+                Block.pressurePlateStone));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(landmine, 1, 1), "mcm", "rpr", 'm', Block.stone, 'c', new ItemStack(blankPattern, 1, 1), 'r', Item.redstone, 'p',
+                Block.pressurePlateStone));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(landmine, 1, 2), "mcm", "rpr", 'm', Block.obsidian, 'c', new ItemStack(blankPattern, 1, 1), 'r', Item.redstone, 'p',
+                Block.pressurePlateStone));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(landmine, 1, 3), "mcm", "rpr", 'm', Item.redstoneRepeater, 'c', new ItemStack(blankPattern, 1, 1), 'r', Item.redstone, 'p',
+                Block.pressurePlateStone));
+
+        //Ultra hardcore recipes
+        GameRegistry.addRecipe(new ItemStack(goldHead), patSurround, '#', new ItemStack(Item.ingotGold), 'm', new ItemStack(Item.skull, 1, 3));
+
+        // Slab Smeltery Components Recipes
+        for (int i = 0; i < 7; i++)
+        {
+            GameRegistry.addRecipe(new ItemStack(speedSlab, 6, i), "bbb", 'b', new ItemStack(speedBlock, 1, i));
+        }
+        GameRegistry.addRecipe(new ItemStack(searedSlab, 6, 0), "bbb", 'b', new ItemStack(smeltery, 1, 2));
+        GameRegistry.addRecipe(new ItemStack(searedSlab, 6, 1), "bbb", 'b', new ItemStack(smeltery, 1, 4));
+        GameRegistry.addRecipe(new ItemStack(searedSlab, 6, 2), "bbb", 'b', new ItemStack(smeltery, 1, 5));
+        GameRegistry.addRecipe(new ItemStack(searedSlab, 6, 3), "bbb", 'b', new ItemStack(smeltery, 1, 6));
+        GameRegistry.addRecipe(new ItemStack(searedSlab, 6, 4), "bbb", 'b', new ItemStack(smeltery, 1, 8));
+        GameRegistry.addRecipe(new ItemStack(searedSlab, 6, 5), "bbb", 'b', new ItemStack(smeltery, 1, 9));
+        GameRegistry.addRecipe(new ItemStack(searedSlab, 6, 6), "bbb", 'b', new ItemStack(smeltery, 1, 10));
+        GameRegistry.addRecipe(new ItemStack(searedSlab, 6, 7), "bbb", 'b', new ItemStack(smeltery, 1, 11));
+
+        // Wool Slab Recipes
+        for (int sc = 0; sc <= 7; sc++)
+        {
+            GameRegistry.addRecipe(new ItemStack(woolSlab1, 6, sc), "www", 'w', new ItemStack(Block.cloth, 1, sc));
+            GameRegistry.addRecipe(new ItemStack(woolSlab2, 6, sc), "www", 'w', new ItemStack(Block.cloth, 1, sc + 8));
+
+            GameRegistry.addShapelessRecipe(new ItemStack(Block.cloth, 1, sc), new ItemStack(woolSlab1, 1, sc), new ItemStack(woolSlab1, 1, sc));
+            GameRegistry.addShapelessRecipe(new ItemStack(Block.cloth, 1, sc + 8), new ItemStack(woolSlab2, 1, sc), new ItemStack(woolSlab2, 1, sc));
+        }
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Block.cloth, 1, 0), "slabCloth", "slabCloth"));
+        //Trap Recipes
+        GameRegistry.addRecipe(new ItemStack(punji, 5, 0), "b b", " b ", "b b", 'b', new ItemStack(Item.reed));
+        GameRegistry.addRecipe(new ItemStack(barricadeSpruce, 1, 0), "b", "b", 'b', new ItemStack(Block.wood, 1, 1));
+        GameRegistry.addRecipe(new ItemStack(barricadeBirch, 1, 0), "b", "b", 'b', new ItemStack(Block.wood, 1, 2));
+        GameRegistry.addRecipe(new ItemStack(barricadeJungle, 1, 0), "b", "b", 'b', new ItemStack(Block.wood, 1, 3));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(barricadeOak, 1, 0), "b", "b", 'b', "logWood"));
+        // Advanced WorkBench Recipes
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(craftingStationWood, 1, 0), "b", 'b', "crafterWood"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(craftingStationWood, 1, 0), "b", 'b', "craftingTableWood"));
+        //Slab crafters
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(craftingSlabWood, 6, 0), "bbb", 'b', "crafterWood"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(craftingSlabWood, 6, 0), "bbb", 'b', "craftingTableWood"));
+        GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 0), "b", 'b', new ItemStack(craftingStationWood, 1, 0));
+        GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 1), "b", 'b', new ItemStack(toolStationWood, 1, 0));
+        GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 2), "b", 'b', new ItemStack(toolStationWood, 1, 1));
+        GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 2), "b", 'b', new ItemStack(toolStationWood, 1, 2));
+        GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 2), "b", 'b', new ItemStack(toolStationWood, 1, 3));
+        GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 2), "b", 'b', new ItemStack(toolStationWood, 1, 4));
+        GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 4), "b", 'b', new ItemStack(toolStationWood, 1, 5));
+        GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 3), "b", 'b', new ItemStack(toolStationWood, 1, 10));
+        GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 3), "b", 'b', new ItemStack(toolStationWood, 1, 11));
+        GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 3), "b", 'b', new ItemStack(toolStationWood, 1, 12));
+        GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 3), "b", 'b', new ItemStack(toolStationWood, 1, 13));
+        GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 5), "b", 'b', new ItemStack(toolForge, 1, Short.MAX_VALUE));
+        // EssenceExtractor Recipe
+        //Slime Recipes
+        GameRegistry.addRecipe(new ItemStack(slimeGel, 1, 0), "##", "##", '#', strangeFood);
+        GameRegistry.addRecipe(new ItemStack(strangeFood, 4, 0), "#", '#', new ItemStack(slimeGel, 1, 0));
+        GameRegistry.addRecipe(new ItemStack(slimeGel, 1, 1), "##", "##", '#', Item.slimeBall);
+        GameRegistry.addRecipe(new ItemStack(Item.slimeBall, 4, 0), "#", '#', new ItemStack(slimeGel, 1, 1));
+        //slimeExplosive
+        GameRegistry.addShapelessRecipe(new ItemStack(slimeExplosive, 1, 0), Item.slimeBall, Block.tnt);
+        GameRegistry.addShapelessRecipe(new ItemStack(slimeExplosive, 1, 2), strangeFood, Block.tnt);
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(slimeExplosive, 1, 0), "slimeball", Block.tnt));
+
+        GameRegistry.addShapelessRecipe(new ItemStack(slimeChannel, 1, 0), new ItemStack(slimeGel, 1, Short.MAX_VALUE), new ItemStack(Item.redstone));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(slimePad, 1, 0), slimeChannel, "slimeBall"));
+    }
+
+    private void addRecipesForFurnace ()
+    {
+        FurnaceRecipes.smelting().addSmelting(craftedSoil.blockID, 3, new ItemStack(craftedSoil, 1, 4), 0.2f); //Concecrated Soil
+
+        FurnaceRecipes.smelting().addSmelting(craftedSoil.blockID, 0, new ItemStack(materials, 1, 1), 2f); //Slime
+        FurnaceRecipes.smelting().addSmelting(craftedSoil.blockID, 1, new ItemStack(materials, 1, 2), 2f); //Seared brick item
+        FurnaceRecipes.smelting().addSmelting(craftedSoil.blockID, 2, new ItemStack(materials, 1, 17), 2f); //Blue Slime
+        //FurnaceRecipes.smelting().addSmelting(oreSlag.blockID, 1, new ItemStack(materials, 1, 3), 3f);
+        //FurnaceRecipes.smelting().addSmelting(oreSlag.blockID, 2, new ItemStack(materials, 1, 4), 3f);
+        FurnaceRecipes.smelting().addSmelting(oreSlag.blockID, 3, new ItemStack(materials, 1, 9), 0.5f);
+        FurnaceRecipes.smelting().addSmelting(oreSlag.blockID, 4, new ItemStack(materials, 1, 10), 0.5f);
+        FurnaceRecipes.smelting().addSmelting(oreSlag.blockID, 5, new ItemStack(materials, 1, 11), 0.5f);
+
+        FurnaceRecipes.smelting().addSmelting(oreBerries.itemID, 0, new ItemStack(materials, 1, 19), 0.2f);
+        FurnaceRecipes.smelting().addSmelting(oreBerries.itemID, 1, new ItemStack(Item.goldNugget), 0.2f);
+        FurnaceRecipes.smelting().addSmelting(oreBerries.itemID, 2, new ItemStack(materials, 1, 20), 0.2f);
+        FurnaceRecipes.smelting().addSmelting(oreBerries.itemID, 3, new ItemStack(materials, 1, 21), 0.2f);
+        FurnaceRecipes.smelting().addSmelting(oreBerries.itemID, 4, new ItemStack(materials, 1, 22), 0.2f);
+        //FurnaceRecipes.smelting().addSmelting(oreBerries.itemID, 5, new ItemStack(materials, 1, 23), 0.2f);
+
+        FurnaceRecipes.smelting().addSmelting(oreGravel.blockID, 0, new ItemStack(Item.ingotIron), 0.2f);
+        FurnaceRecipes.smelting().addSmelting(oreGravel.blockID, 1, new ItemStack(Item.ingotGold), 0.2f);
+        FurnaceRecipes.smelting().addSmelting(oreGravel.blockID, 2, new ItemStack(materials, 1, 9), 0.2f);
+        FurnaceRecipes.smelting().addSmelting(oreGravel.blockID, 3, new ItemStack(materials, 1, 10), 0.2f);
+        FurnaceRecipes.smelting().addSmelting(oreGravel.blockID, 4, new ItemStack(materials, 1, 12), 0.2f);
+
+        FurnaceRecipes.smelting().addSmelting(speedBlock.blockID, 0, new ItemStack(speedBlock, 1, 2), 0.2f);
+    }
+
+    private void addPartMapping ()
     {
         /* Tools */
         patternOutputs = new Item[] { toolRod, pickaxeHead, shovelHead, hatchetHead, swordBlade, wideGuard, handGuard, crossbar, binding, frypanHead, signHead, knifeBlade, chiselHead, toughRod,
-                toughBinding, largePlate, broadAxeHead, scytheBlade, excavatorHead, largeSwordBlade, hammerHead, fullGuard, null, null, arrowhead };
+                toughBinding, largePlate, broadAxeHead, scytheBlade, excavatorHead, largeSwordBlade, hammerHead, fullGuard, null, null, arrowhead, null };
 
         int[] nonMetals = { 0, 1, 3, 4, 5, 6, 7, 8, 9, 17 };
 
@@ -1062,7 +1493,10 @@ public class TContent implements IFuelHandler
                 }
             }
         }
+    }
 
+    private void addRecipesForToolBuilder ()
+    {
         ToolBuilder tb = ToolBuilder.instance;
         tb.addNormalToolRecipe(pickaxe, pickaxeHead, toolRod, binding);
         tb.addNormalToolRecipe(broadsword, swordBlade, toolRod, wideGuard);
@@ -1096,6 +1530,8 @@ public class TContent implements IFuelHandler
 
         modE = new ModElectric();
         tb.registerToolMod(modE);
+        modF = new ModFlux();
+        tb.registerToolMod(modF);
 
         ItemStack redstoneItem = new ItemStack(Item.redstone);
         ItemStack redstoneBlock = new ItemStack(Block.blockRedstone);
@@ -1153,56 +1589,46 @@ public class TContent implements IFuelHandler
         tb.registerToolMod(new ModReinforced(new ItemStack[] { obsidianPlate }, 16, 1));
 
         TConstructRegistry.registerActiveToolMod(new TActiveOmniMod());
+    }
 
+    private void addRecipesForTableCasting ()
+    {
         /* Smeltery */
         ItemStack ingotcast = new ItemStack(metalPattern, 1, 0);
-        ItemStack jewelCast = new ItemStack(metalPattern, 1, 23);
-
+        ItemStack gemcast = new ItemStack(metalPattern, 1, 26);
         LiquidCasting tableCasting = TConstructRegistry.instance.getTableCasting();
         //Blank
         tableCasting.addCastingRecipe(new ItemStack(blankPattern, 1, 1), new FluidStack(moltenAlubrassFluid, TConstruct.ingotLiquidValue), 80);
         tableCasting.addCastingRecipe(new ItemStack(blankPattern, 1, 2), new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 2), 80);
+        tableCasting.addCastingRecipe(gemcast, new FluidStack(moltenAlubrassFluid, TConstruct.ingotLiquidValue), new ItemStack(Item.emerald), 80);
+        tableCasting.addCastingRecipe(gemcast, new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 2), new ItemStack(Item.emerald), 80);
 
         //Ingots
-        tableCasting.addCastingRecipe(new ItemStack(Item.ingotIron), new FluidStack(moltenIronFluid, TConstruct.ingotLiquidValue), ingotcast, 80); //Iron
-        tableCasting.addCastingRecipe(new ItemStack(Item.ingotGold), new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue), ingotcast, 80); //gold
-        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 9), new FluidStack(moltenCopperFluid, TConstruct.ingotLiquidValue), ingotcast, 80); //copper
-        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 10), new FluidStack(moltenTinFluid, TConstruct.ingotLiquidValue), ingotcast, 80); //tin
-        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 11), new FluidStack(moltenAluminumFluid, TConstruct.ingotLiquidValue), ingotcast, 80); //aluminum
-        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 3), new FluidStack(moltenCobaltFluid, TConstruct.ingotLiquidValue), ingotcast, 80); //cobalt
-        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 4), new FluidStack(moltenArditeFluid, TConstruct.ingotLiquidValue), ingotcast, 80); //ardite
-        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 13), new FluidStack(moltenBronzeFluid, TConstruct.ingotLiquidValue), ingotcast, 80); //bronze
-        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 14), new FluidStack(moltenAlubrassFluid, TConstruct.ingotLiquidValue), ingotcast, 80); //albrass
-        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 5), new FluidStack(moltenManyullynFluid, TConstruct.ingotLiquidValue), ingotcast, 80); //manyullyn
-        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 15), new FluidStack(moltenAlumiteFluid, TConstruct.ingotLiquidValue), ingotcast, 80); //alumite
-        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 18), new FluidStack(moltenObsidianFluid, TConstruct.ingotLiquidValue), ingotcast, 80); //obsidian
-        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 16), new FluidStack(moltenSteelFluid, TConstruct.ingotLiquidValue), ingotcast, 80); //steel
+        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 2), new FluidStack(moltenStoneFluid, TConstruct.ingotLiquidValue / 4), ingotcast, 80); //stone
+
+        //Misc
+        tableCasting.addCastingRecipe(new ItemStack(Item.emerald), new FluidStack(moltenEmeraldFluid, 640), gemcast, 80);
+        tableCasting.addCastingRecipe(new ItemStack(materials, 1, 36), new FluidStack(glueFluid, TConstruct.ingotLiquidValue), null, 50);
 
         //Buckets
         ItemStack bucket = new ItemStack(Item.bucketEmpty);
-        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 0), new FluidStack(moltenIronFluid, FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10); //Iron
-        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 1), new FluidStack(moltenGoldFluid, FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10); //gold
-        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 2), new FluidStack(moltenCopperFluid, FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10); //copper
-        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 3), new FluidStack(moltenTinFluid, FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10); //tin
-        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 4), new FluidStack(moltenAluminumFluid, FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10); //aluminum
-        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 5), new FluidStack(moltenCobaltFluid, FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10); //cobalt
-        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 6), new FluidStack(moltenArditeFluid, FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10); //ardite
-        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 7), new FluidStack(moltenBronzeFluid, FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10); //bronze
-        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 8), new FluidStack(moltenAlubrassFluid, FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10); //alubrass
-        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 9), new FluidStack(moltenManyullynFluid, FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10); //manyullyn
-        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 10), new FluidStack(moltenAlumiteFluid, FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10); //alumite
-        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 11), new FluidStack(moltenObsidianFluid, FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10);// obsidian
-        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 12), new FluidStack(moltenSteelFluid, FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10); //steel
-        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 13), new FluidStack(moltenGlassFluid, FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10); //glass
-        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 14), new FluidStack(moltenStoneFluid, FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10); //seared stone
-        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 15), new FluidStack(moltenEmeraldFluid, FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10); //emerald
 
+        for (int sc = 0; sc < 24; sc++)
+        {
+            tableCasting.addCastingRecipe(new ItemStack(buckets, 1, sc), new FluidStack(fluids[sc], FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10);
+        }
+        tableCasting.addCastingRecipe(new ItemStack(buckets, 1, 26), new FluidStack(fluids[26], FluidContainerRegistry.BUCKET_VOLUME), bucket, true, 10);
+
+        // Clear glass pane casting
         tableCasting.addCastingRecipe(new ItemStack(glassPane), new FluidStack(moltenGlassFluid, 250), null, 80);
 
+        // Metal toolpart casting
         liquids = new FluidStack[] { new FluidStack(moltenIronFluid, 1), new FluidStack(moltenCopperFluid, 1), new FluidStack(moltenCobaltFluid, 1), new FluidStack(moltenArditeFluid, 1),
                 new FluidStack(moltenManyullynFluid, 1), new FluidStack(moltenBronzeFluid, 1), new FluidStack(moltenAlumiteFluid, 1), new FluidStack(moltenObsidianFluid, 1),
-                new FluidStack(moltenSteelFluid, 1) };
-        int[] liquidDamage = new int[] { 2, 13, 10, 11, 12, 14, 15, 6, 16 };
+                new FluidStack(moltenSteelFluid, 1), new FluidStack(pigIronFluid, 1) };
+        int[] liquidDamage = new int[] { 2, 13, 10, 11, 12, 14, 15, 6, 16, 18 }; //ItemStack damage value
+        int fluidAmount = 0;
+        Fluid fs = null;
 
         for (int iter = 0; iter < patternOutputs.length; iter++)
         {
@@ -1215,72 +1641,160 @@ public class TContent implements IFuelHandler
 
                 for (int iterTwo = 0; iterTwo < liquids.length; iterTwo++)
                 {
+                    fs = liquids[iterTwo].getFluid();
+                    fluidAmount = ((IPattern) metalPattern).getPatternCost(cast) * TConstruct.ingotLiquidValue / 2;
                     ItemStack metalCast = new ItemStack(patternOutputs[iter], 1, liquidDamage[iterTwo]);
-                    tableCasting.addCastingRecipe(metalCast, new FluidStack(liquids[iterTwo].getFluid(), ((IPattern) metalPattern).getPatternCost(metalCast) * TConstruct.ingotLiquidValue / 2), cast,
-                            50);
+                    tableCasting.addCastingRecipe(metalCast, new FluidStack(fs, fluidAmount), cast, 50);
+                    Smeltery.addMelting(FluidType.getFluidType(fs), metalCast, 0, fluidAmount);
                 }
             }
         }
 
-        ItemStack[] ingotShapes = { new ItemStack(Item.ingotIron), new ItemStack(Item.ingotGold), new ItemStack(Item.brick), new ItemStack(Item.netherrackBrick), new ItemStack(materials, 1, 2) };
+        ItemStack[] ingotShapes = { new ItemStack(Item.brick), new ItemStack(Item.netherrackBrick), new ItemStack(materials, 1, 2) };
         for (int i = 0; i < ingotShapes.length; i++)
         {
-            TConstruct.tableCasting.addCastingRecipe(new ItemStack(TContent.metalPattern, 1, 0), new FluidStack(moltenAlubrassFluid, TConstruct.ingotLiquidValue), ingotShapes[i], false, 50);
-            TConstruct.tableCasting.addCastingRecipe(new ItemStack(TContent.metalPattern, 1, 0), new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 2), ingotShapes[i], false, 50);
+            tableCasting.addCastingRecipe(ingotcast, new FluidStack(moltenAlubrassFluid, TConstruct.ingotLiquidValue), ingotShapes[i], false, 50);
+            tableCasting.addCastingRecipe(ingotcast, new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 2), ingotShapes[i], false, 50);
         }
 
         ItemStack fullguardCast = new ItemStack(metalPattern, 1, 22);
         tableCasting.addCastingRecipe(fullguardCast, new FluidStack(moltenAlubrassFluid, TConstruct.ingotLiquidValue), new ItemStack(fullGuard, 1, Short.MAX_VALUE), false, 50);
         tableCasting.addCastingRecipe(fullguardCast, new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 2), new ItemStack(fullGuard, 1, Short.MAX_VALUE), false, 50);
+
+        // Golden Food Stuff
+        FluidStack goldAmount = null;
+        if (PHConstruct.goldAppleRecipe)
+        {
+            goldAmount = new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 8);
+        }
+        else
+        {
+            goldAmount = new FluidStack(moltenGoldFluid, TConstruct.nuggetLiquidValue * 8);
+        }
+        tableCasting.addCastingRecipe(new ItemStack(Item.appleGold, 1), goldAmount, new ItemStack(Item.appleRed), true, 50);
+        tableCasting.addCastingRecipe(new ItemStack(Item.goldenCarrot, 1), goldAmount, new ItemStack(Item.carrot), true, 50);
+        tableCasting.addCastingRecipe(new ItemStack(Item.speckledMelon, 1), goldAmount, new ItemStack(Item.melon), true, 50);
+        tableCasting.addCastingRecipe(new ItemStack(goldHead), goldAmount, new ItemStack(Item.skull, 1, 3), true, 50);
+    }
+
+    private void addRecipesForBasinCasting ()
+    {
         LiquidCasting basinCasting = TConstructRegistry.getBasinCasting();
-        basinCasting.addCastingRecipe(new ItemStack(Block.blockIron), new FluidStack(moltenIronFluid, TConstruct.ingotLiquidValue * 9), null, true, 100); //Iron
-        basinCasting.addCastingRecipe(new ItemStack(Block.blockGold), new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 9), null, true, 100); //gold
-        basinCasting.addCastingRecipe(new ItemStack(metalBlock, 1, 3), new FluidStack(moltenCopperFluid, TConstruct.ingotLiquidValue * 9), null, true, 100); //copper
-        basinCasting.addCastingRecipe(new ItemStack(metalBlock, 1, 5), new FluidStack(moltenTinFluid, TConstruct.ingotLiquidValue * 9), null, true, 100); //tin
-        basinCasting.addCastingRecipe(new ItemStack(metalBlock, 1, 6), new FluidStack(moltenAluminumFluid, TConstruct.ingotLiquidValue * 9), null, true, 100); //aluminum
-        basinCasting.addCastingRecipe(new ItemStack(metalBlock, 1, 0), new FluidStack(moltenCobaltFluid, TConstruct.ingotLiquidValue * 9), null, true, 100); //cobalt
-        basinCasting.addCastingRecipe(new ItemStack(metalBlock, 1, 1), new FluidStack(moltenArditeFluid, TConstruct.ingotLiquidValue * 9), null, true, 100); //ardite
-        basinCasting.addCastingRecipe(new ItemStack(metalBlock, 1, 4), new FluidStack(moltenBronzeFluid, TConstruct.ingotLiquidValue * 9), null, true, 100); //bronze
-        basinCasting.addCastingRecipe(new ItemStack(metalBlock, 1, 7), new FluidStack(moltenAlubrassFluid, TConstruct.ingotLiquidValue * 9), null, true, 100); //albrass
-        basinCasting.addCastingRecipe(new ItemStack(metalBlock, 1, 2), new FluidStack(moltenManyullynFluid, TConstruct.ingotLiquidValue * 9), null, true, 100); //manyullyn
-        basinCasting.addCastingRecipe(new ItemStack(metalBlock, 1, 8), new FluidStack(moltenAlumiteFluid, TConstruct.ingotLiquidValue * 9), null, true, 100); //alumite
-        basinCasting.addCastingRecipe(new ItemStack(Block.obsidian), new FluidStack(moltenObsidianFluid, TConstruct.ingotLiquidValue * 2), null, true, 100);// obsidian
-        basinCasting.addCastingRecipe(new ItemStack(metalBlock, 1, 9), new FluidStack(moltenSteelFluid, TConstruct.ingotLiquidValue * 9), null, true, 100); //steel
+        // Block Casting
+        basinCasting.addCastingRecipe(new ItemStack(Block.blockIron), new FluidStack(moltenIronFluid, TConstruct.blockLiquidValue), null, true, 100); //Iron
+        basinCasting.addCastingRecipe(new ItemStack(Block.blockGold), new FluidStack(moltenGoldFluid, TConstruct.blockLiquidValue), null, true, 100); //gold
+        basinCasting.addCastingRecipe(new ItemStack(metalBlock, 1, 3), new FluidStack(moltenCopperFluid, TConstruct.blockLiquidValue), null, true, 100); //copper
+        basinCasting.addCastingRecipe(new ItemStack(metalBlock, 1, 5), new FluidStack(moltenTinFluid, TConstruct.blockLiquidValue), null, true, 100); //tin
+        basinCasting.addCastingRecipe(new ItemStack(metalBlock, 1, 6), new FluidStack(moltenAluminumFluid, TConstruct.blockLiquidValue), null, true, 100); //aluminum
+        basinCasting.addCastingRecipe(new ItemStack(metalBlock, 1, 0), new FluidStack(moltenCobaltFluid, TConstruct.blockLiquidValue), null, true, 100); //cobalt
+        basinCasting.addCastingRecipe(new ItemStack(metalBlock, 1, 1), new FluidStack(moltenArditeFluid, TConstruct.blockLiquidValue), null, true, 100); //ardite
+        basinCasting.addCastingRecipe(new ItemStack(metalBlock, 1, 4), new FluidStack(moltenBronzeFluid, TConstruct.blockLiquidValue), null, true, 100); //bronze
+        basinCasting.addCastingRecipe(new ItemStack(metalBlock, 1, 7), new FluidStack(moltenAlubrassFluid, TConstruct.blockLiquidValue), null, true, 100); //albrass
+        basinCasting.addCastingRecipe(new ItemStack(metalBlock, 1, 2), new FluidStack(moltenManyullynFluid, TConstruct.blockLiquidValue), null, true, 100); //manyullyn
+        basinCasting.addCastingRecipe(new ItemStack(metalBlock, 1, 8), new FluidStack(moltenAlumiteFluid, TConstruct.blockLiquidValue), null, true, 100); //alumite
+        basinCasting.addCastingRecipe(new ItemStack(Block.obsidian), new FluidStack(moltenObsidianFluid, TConstruct.oreLiquidValue), null, true, 100);// obsidian
+        basinCasting.addCastingRecipe(new ItemStack(metalBlock, 1, 9), new FluidStack(moltenSteelFluid, TConstruct.blockLiquidValue), null, true, 100); //steel
         basinCasting.addCastingRecipe(new ItemStack(clearGlass, 1, 0), new FluidStack(moltenGlassFluid, FluidContainerRegistry.BUCKET_VOLUME), null, true, 100); //glass
         basinCasting.addCastingRecipe(new ItemStack(smeltery, 1, 4), new FluidStack(moltenStoneFluid, TConstruct.ingotLiquidValue), null, true, 100); //seared stone
-
-        basinCasting.addCastingRecipe(new ItemStack(speedBlock, 1, 0), new FluidStack(moltenTinFluid, TConstruct.ingotLiquidValue / 9), new ItemStack(Block.gravel), true, 100); //brownstone
-        basinCasting.addCastingRecipe(new ItemStack(Block.whiteStone), new FluidStack(moltenEnderFluid, 25), new ItemStack(Block.obsidian), true, 100); //endstone
+        basinCasting.addCastingRecipe(new ItemStack(smeltery, 1, 5), new FluidStack(moltenStoneFluid, TConstruct.chunkLiquidValue), new ItemStack(Block.cobblestone), true, 100);
+        basinCasting.addCastingRecipe(new ItemStack(Block.blockEmerald), new FluidStack(moltenEmeraldFluid, 640 * 9), null, true, 100); //emerald
+        basinCasting.addCastingRecipe(new ItemStack(speedBlock, 1, 0), new FluidStack(moltenTinFluid, TConstruct.nuggetLiquidValue), new ItemStack(Block.gravel), true, 100); //brownstone
+        basinCasting.addCastingRecipe(new ItemStack(Block.whiteStone), new FluidStack(moltenEnderFluid, TConstruct.chunkLiquidValue), new ItemStack(Block.obsidian), true, 100); //endstone
         basinCasting.addCastingRecipe(new ItemStack(metalBlock.blockID, 1, 10), new FluidStack(moltenEnderFluid, 1000), null, true, 100); //ender
+        basinCasting.addCastingRecipe(new ItemStack(glueBlock), new FluidStack(glueFluid, TConstruct.blockLiquidValue), null, true, 100); //glue
 
+        // basinCasting.addCastingRecipe(new ItemStack(slimeGel, 1, 0), new FluidStack(blueSlimeFluid, FluidContainerRegistry.BUCKET_VOLUME), null, true, 100);
+
+        //Armor casts
+        /*FluidRenderProperties frp = new FluidRenderProperties(Applications.BASIN.minHeight, 0.65F, Applications.BASIN);
+        FluidStack aluFlu = new FluidStack(moltenAlubrassFluid, TConstruct.ingotLiquidValue * 10);
+        FluidStack gloFlu = new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 10);
+        ItemStack[] armor = { new ItemStack(helmetWood), new ItemStack(chestplateWood), new ItemStack(leggingsWood), new ItemStack(bootsWood) };
+        for (int sc = 0; sc < armor.length; sc++)
+        {
+            basinCasting.addCastingRecipe(new ItemStack(armorPattern, 1, sc), aluFlu, armor[sc], 50, frp);
+            basinCasting.addCastingRecipe(new ItemStack(armorPattern, 1, sc), gloFlu, armor[sc], 50, frp);
+        }*/
+    }
+
+    private void addRecipesForSmeltery ()
+    {
+        //Alloy Smelting
+        Smeltery.addAlloyMixing(new FluidStack(moltenBronzeFluid, TConstruct.ingotLiquidValue * PHConstruct.ingotsBronzeAlloy), new FluidStack(moltenCopperFluid, TConstruct.ingotLiquidValue * 3),
+                new FluidStack(moltenTinFluid, TConstruct.ingotLiquidValue)); //Bronze			
+        Smeltery.addAlloyMixing(new FluidStack(moltenAlubrassFluid, TConstruct.ingotLiquidValue * PHConstruct.ingotsAluminumBrassAlloy), new FluidStack(moltenAluminumFluid,
+                TConstruct.ingotLiquidValue * 3), new FluidStack(moltenCopperFluid, TConstruct.ingotLiquidValue * 1)); //Aluminum Brass
+        Smeltery.addAlloyMixing(new FluidStack(moltenAlumiteFluid, TConstruct.ingotLiquidValue * PHConstruct.ingotsAlumiteAlloy), new FluidStack(moltenAluminumFluid, TConstruct.ingotLiquidValue * 5),
+                new FluidStack(moltenIronFluid, TConstruct.ingotLiquidValue * 2), new FluidStack(moltenObsidianFluid, TConstruct.ingotLiquidValue * 2)); //Alumite
+        Smeltery.addAlloyMixing(new FluidStack(moltenManyullynFluid, TConstruct.ingotLiquidValue * PHConstruct.ingotsManyullynAlloy), new FluidStack(moltenCobaltFluid, TConstruct.ingotLiquidValue),
+                new FluidStack(moltenArditeFluid, TConstruct.ingotLiquidValue)); //Manyullyn
+        Smeltery.addAlloyMixing(new FluidStack(pigIronFluid, TConstruct.ingotLiquidValue * PHConstruct.ingotsPigironAlloy), new FluidStack(moltenIronFluid, TConstruct.ingotLiquidValue),
+                new FluidStack(moltenEmeraldFluid, 640), new FluidStack(bloodFluid, 80)); //Pigiron 
+
+        // Stone parts
+        for (int sc = 0; sc < patternOutputs.length; sc++)
+        {
+            if (patternOutputs[sc] != null)
+            {
+                Smeltery.addMelting(FluidType.Stone, new ItemStack(patternOutputs[sc], 1, 1), 1, (8 * ((IPattern) woodPattern).getPatternCost(new ItemStack(woodPattern, 1, sc + 1))) / 2);
+            }
+        }
+
+        // Chunks
+        Smeltery.addMelting(FluidType.Stone, new ItemStack(toolShard, 1, 1), 0, 4);
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(toolShard, 1, 2), 0, TConstruct.chunkLiquidValue);
+        Smeltery.addMelting(FluidType.Obsidian, new ItemStack(toolShard, 1, 6), 0, TConstruct.chunkLiquidValue);
+        Smeltery.addMelting(FluidType.Cobalt, new ItemStack(toolShard, 1, 10), 0, TConstruct.chunkLiquidValue);
+        Smeltery.addMelting(FluidType.Ardite, new ItemStack(toolShard, 1, 11), 0, TConstruct.chunkLiquidValue);
+        Smeltery.addMelting(FluidType.Manyullyn, new ItemStack(toolShard, 1, 12), 0, TConstruct.chunkLiquidValue);
+        Smeltery.addMelting(FluidType.Copper, new ItemStack(toolShard, 1, 13), 0, TConstruct.chunkLiquidValue);
+        Smeltery.addMelting(FluidType.Bronze, new ItemStack(toolShard, 1, 14), 0, TConstruct.chunkLiquidValue);
+        Smeltery.addMelting(FluidType.Alumite, new ItemStack(toolShard, 1, 15), 0, TConstruct.chunkLiquidValue);
+        Smeltery.addMelting(FluidType.Steel, new ItemStack(toolShard, 1, 16), 0, TConstruct.chunkLiquidValue);
+
+        // Items
+
+        Smeltery.addMelting(FluidType.AluminumBrass, new ItemStack(blankPattern, 4, 1), -50, TConstruct.ingotLiquidValue);
+        Smeltery.addMelting(FluidType.Gold, new ItemStack(blankPattern, 4, 2), -50, TConstruct.ingotLiquidValue * 2);
+        Smeltery.addMelting(FluidType.Glue, new ItemStack(materials, 1, 36), 0, TConstruct.ingotLiquidValue);
+
+        Smeltery.addMelting(FluidType.Ender, new ItemStack(Item.enderPearl, 4), 0, 250);
+        Smeltery.addMelting(metalBlock, 10, 50, new FluidStack(moltenEnderFluid, 1000));
+        Smeltery.addMelting(FluidType.Water, new ItemStack(Item.snowball, 1, 0), 0, 125);
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(Item.flintAndSteel, 1, 0), 0, TConstruct.ingotLiquidValue);
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(Item.compass, 1, 0), 0, TConstruct.ingotLiquidValue * 4);
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(Item.bucketEmpty), 0, TConstruct.ingotLiquidValue * 3);
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(Item.minecartEmpty), 0, TConstruct.ingotLiquidValue * 5);
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(Item.minecartCrate), 0, TConstruct.ingotLiquidValue * 5);
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(Item.minecartPowered), 0, TConstruct.ingotLiquidValue * 5);
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(Item.minecartHopper), 50, TConstruct.ingotLiquidValue * 10);
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(Item.doorIron), 0, TConstruct.ingotLiquidValue * 6);
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(Item.cauldron), 0, TConstruct.ingotLiquidValue * 7);
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(Item.shears), 0, TConstruct.ingotLiquidValue * 2);
+        Smeltery.addMelting(FluidType.Emerald, new ItemStack(Item.emerald), -50, 640);
+
+        //Blocks melt as themselves!
         //Ore
         Smeltery.addMelting(Block.oreIron, 0, 600, new FluidStack(moltenIronFluid, TConstruct.ingotLiquidValue * 2));
         Smeltery.addMelting(Block.oreGold, 0, 400, new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 2));
         Smeltery.addMelting(oreGravel, 0, 600, new FluidStack(moltenIronFluid, TConstruct.ingotLiquidValue * 2));
         Smeltery.addMelting(oreGravel, 1, 400, new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 2));
 
-        //Items
-        Smeltery.addMelting(new ItemStack(Item.ingotIron, 4), Block.blockIron.blockID, 0, 500, new FluidStack(moltenIronFluid, TConstruct.ingotLiquidValue));
-        Smeltery.addMelting(new ItemStack(Item.ingotGold, 4), Block.blockGold.blockID, 0, 300, new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue));
-        Smeltery.addMelting(new ItemStack(Item.goldNugget, 4), Block.blockGold.blockID, 0, 150, new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue / 9));
-
-        Smeltery.addMelting(new ItemStack(materials, 1, 18), Block.obsidian.blockID, 0, 750, new FluidStack(moltenObsidianFluid, TConstruct.ingotLiquidValue)); //Obsidian ingot
-
-        Smeltery.addMelting(new ItemStack(blankPattern, 4, 1), metalBlock.blockID, 7, 150, new FluidStack(moltenAlubrassFluid, TConstruct.ingotLiquidValue));
-        Smeltery.addMelting(new ItemStack(blankPattern, 4, 2), metalBlock.blockID, 7, 150, new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 2));
-
-        Smeltery.addMelting(new ItemStack(Item.enderPearl, 4), metalBlock.blockID, 10, 500, new FluidStack(moltenEnderFluid, 250));
-        Smeltery.addMelting(new ItemStack(metalBlock, 1, 10), metalBlock.blockID, 10, 500, new FluidStack(moltenEnderFluid, 1000));
-
         //Blocks
         Smeltery.addMelting(Block.blockIron, 0, 600, new FluidStack(moltenIronFluid, TConstruct.ingotLiquidValue * 9));
         Smeltery.addMelting(Block.blockGold, 0, 400, new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 9));
         Smeltery.addMelting(Block.obsidian, 0, 800, new FluidStack(moltenObsidianFluid, TConstruct.ingotLiquidValue * 2));
         Smeltery.addMelting(Block.ice, 0, 75, new FluidStack(FluidRegistry.getFluid("water"), 1000));
+        Smeltery.addMelting(Block.blockSnow, 0, 75, new FluidStack(FluidRegistry.getFluid("water"), 500));
+        Smeltery.addMelting(Block.snow, 0, 75, new FluidStack(FluidRegistry.getFluid("water"), 250));
         Smeltery.addMelting(Block.sand, 0, 625, new FluidStack(moltenGlassFluid, FluidContainerRegistry.BUCKET_VOLUME));
         Smeltery.addMelting(Block.glass, 0, 625, new FluidStack(moltenGlassFluid, FluidContainerRegistry.BUCKET_VOLUME));
+        Smeltery.addMelting(Block.thinGlass, 0, 625, new FluidStack(moltenGlassFluid, 250));
         Smeltery.addMelting(Block.stone, 0, 800, new FluidStack(moltenStoneFluid, TConstruct.ingotLiquidValue / 18));
         Smeltery.addMelting(Block.cobblestone, 0, 800, new FluidStack(moltenStoneFluid, TConstruct.ingotLiquidValue / 18));
+        Smeltery.addMelting(Block.blockEmerald, 0, 800, new FluidStack(moltenEmeraldFluid, 640 * 9));
+        Smeltery.addMelting(glueBlock, 0, 250, new FluidStack(glueFluid, TConstruct.blockLiquidValue));
+        Smeltery.addMelting(craftedSoil, 1, 600, new FluidStack(moltenStoneFluid, TConstruct.ingotLiquidValue / 4));
 
         Smeltery.addMelting(clearGlass, 0, 500, new FluidStack(moltenGlassFluid, 1000));
         Smeltery.addMelting(glassPane, 0, 350, new FluidStack(moltenGlassFluid, 250));
@@ -1291,72 +1805,77 @@ public class TContent implements IFuelHandler
             Smeltery.addMelting(stainedGlassClearPane, i, 350, new FluidStack(moltenGlassFluid, 250));
         }
 
-        //Alloys
-        if (PHConstruct.harderBronze)
-            Smeltery.addAlloyMixing(new FluidStack(moltenBronzeFluid, 16), new FluidStack(moltenCopperFluid, 24), new FluidStack(moltenTinFluid, 8)); //Bronze
-        else
-            Smeltery.addAlloyMixing(new FluidStack(moltenBronzeFluid, 24), new FluidStack(moltenCopperFluid, 24), new FluidStack(moltenTinFluid, 8)); //Bronze
-        Smeltery.addAlloyMixing(new FluidStack(moltenAlubrassFluid, 16), new FluidStack(moltenAluminumFluid, 24), new FluidStack(moltenCopperFluid, 8)); //Aluminum Brass
-        Smeltery.addAlloyMixing(new FluidStack(moltenManyullynFluid, 16), new FluidStack(moltenCobaltFluid, 32), new FluidStack(moltenArditeFluid, 32)); //Manyullyn
-        Smeltery.addAlloyMixing(new FluidStack(moltenAlumiteFluid, 48), new FluidStack(moltenAluminumFluid, 80), new FluidStack(moltenIronFluid, 32), new FluidStack(moltenObsidianFluid, 32)); //Alumite
-
-        //Oreberries
-        Smeltery.addMelting(new ItemStack(oreBerries, 4, 0), Block.blockIron.blockID, 0, 100, new FluidStack(moltenIronFluid, TConstruct.ingotLiquidValue / 9)); //Iron
-        Smeltery.addMelting(new ItemStack(oreBerries, 4, 1), Block.blockGold.blockID, 0, 100, new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue / 9)); //Gold
-        Smeltery.addMelting(new ItemStack(oreBerries, 4, 2), metalBlock.blockID, 3, 100, new FluidStack(moltenCopperFluid, TConstruct.ingotLiquidValue / 9)); //Copper
-        Smeltery.addMelting(new ItemStack(oreBerries, 4, 3), metalBlock.blockID, 5, 100, new FluidStack(moltenTinFluid, TConstruct.ingotLiquidValue / 9)); //Tin
-        Smeltery.addMelting(new ItemStack(oreBerries, 4, 4), metalBlock.blockID, 6, 100, new FluidStack(moltenAluminumFluid, TConstruct.ingotLiquidValue / 9)); //Aluminum
-
-        //Vanilla Armor
-        Smeltery.addMelting(new ItemStack(Item.helmetIron, 1, 0), Block.blockIron.blockID, 0, 600, new FluidStack(moltenIronFluid, TConstruct.ingotLiquidValue * 5));
-        Smeltery.addMelting(new ItemStack(Item.plateIron, 1, 0), Block.blockIron.blockID, 0, 600, new FluidStack(moltenIronFluid, TConstruct.ingotLiquidValue * 8));
-        Smeltery.addMelting(new ItemStack(Item.legsIron, 1, 0), Block.blockIron.blockID, 0, 600, new FluidStack(moltenIronFluid, TConstruct.ingotLiquidValue * 7));
-        Smeltery.addMelting(new ItemStack(Item.bootsIron, 1, 0), Block.blockIron.blockID, 0, 600, new FluidStack(moltenIronFluid, TConstruct.ingotLiquidValue * 4));
-
-        Smeltery.addMelting(new ItemStack(Item.helmetGold, 1, 0), Block.blockGold.blockID, 0, 350, new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 5));
-        Smeltery.addMelting(new ItemStack(Item.plateGold, 1, 0), Block.blockGold.blockID, 0, 350, new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 8));
-        Smeltery.addMelting(new ItemStack(Item.legsGold, 1, 0), Block.blockGold.blockID, 0, 350, new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 7));
-        Smeltery.addMelting(new ItemStack(Item.bootsGold, 1, 0), Block.blockGold.blockID, 0, 350, new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 4));
-
-        Smeltery.addMelting(new ItemStack(Item.helmetChain, 1, 0), this.metalBlock.blockID, 9, 700, new FluidStack(moltenSteelFluid, TConstruct.ingotLiquidValue));
-        Smeltery.addMelting(new ItemStack(Item.plateChain, 1, 0), this.metalBlock.blockID, 9, 700, new FluidStack(moltenSteelFluid, TConstruct.ingotLiquidValue * 2));
-        Smeltery.addMelting(new ItemStack(Item.legsChain, 1, 0), this.metalBlock.blockID, 9, 700, new FluidStack(moltenSteelFluid, TConstruct.ingotLiquidValue * 2));
-        Smeltery.addMelting(new ItemStack(Item.bootsChain, 1, 0), this.metalBlock.blockID, 9, 700, new FluidStack(moltenSteelFluid, TConstruct.ingotLiquidValue));
-
-        //Vanilla tools
-        Smeltery.addMelting(new ItemStack(Item.hoeIron, 1, 0), Block.blockIron.blockID, 0, 600, new FluidStack(moltenIronFluid, TConstruct.ingotLiquidValue * 2));
-        Smeltery.addMelting(new ItemStack(Item.swordIron, 1, 0), Block.blockIron.blockID, 0, 600, new FluidStack(moltenIronFluid, TConstruct.ingotLiquidValue * 2));
-        Smeltery.addMelting(new ItemStack(Item.shovelIron, 1, 0), Block.blockIron.blockID, 0, 600, new FluidStack(moltenIronFluid, TConstruct.ingotLiquidValue * 1));
-        Smeltery.addMelting(new ItemStack(Item.pickaxeIron, 1, 0), Block.blockIron.blockID, 0, 600, new FluidStack(moltenIronFluid, TConstruct.ingotLiquidValue * 3));
-        Smeltery.addMelting(new ItemStack(Item.axeIron, 1, 0), Block.blockIron.blockID, 0, 600, new FluidStack(moltenIronFluid, TConstruct.ingotLiquidValue * 3));
-
-        Smeltery.addMelting(new ItemStack(Item.hoeGold, 1, 0), Block.blockGold.blockID, 0, 350, new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 2));
-        Smeltery.addMelting(new ItemStack(Item.swordGold, 1, 0), Block.blockGold.blockID, 0, 350, new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 2));
-        Smeltery.addMelting(new ItemStack(Item.shovelGold, 1, 0), Block.blockGold.blockID, 0, 350, new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 1));
-        Smeltery.addMelting(new ItemStack(Item.pickaxeGold, 1, 0), Block.blockGold.blockID, 0, 350, new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 3));
-        Smeltery.addMelting(new ItemStack(Item.axeGold, 1, 0), Block.blockGold.blockID, 0, 350, new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 3));
-
-        //Vanilla items
-        Smeltery.addMelting(new ItemStack(Item.flintAndSteel, 1, 0), Block.blockIron.blockID, 0, 600, new FluidStack(moltenIronFluid, TConstruct.ingotLiquidValue));
-        Smeltery.addMelting(new ItemStack(Item.compass, 1, 0), Block.blockIron.blockID, 0, 600, new FluidStack(moltenIronFluid, TConstruct.ingotLiquidValue * 4));
+        //Bricks
+        Smeltery.addMelting(multiBrick, 4, 600, new FluidStack(moltenIronFluid, TConstruct.ingotLiquidValue));
+        Smeltery.addMelting(multiBrickFancy, 4, 600, new FluidStack(moltenIronFluid, TConstruct.ingotLiquidValue));
+        Smeltery.addMelting(multiBrick, 5, 400, new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue));
+        Smeltery.addMelting(multiBrickFancy, 5, 400, new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue));
+        Smeltery.addMelting(multiBrick, 0, 800, new FluidStack(moltenObsidianFluid, TConstruct.ingotLiquidValue * 2));
+        Smeltery.addMelting(multiBrickFancy, 0, 800, new FluidStack(moltenObsidianFluid, TConstruct.ingotLiquidValue * 2));
 
         //Vanilla blocks
-        Smeltery.addMelting(new ItemStack(Item.bucketEmpty), Block.blockIron.blockID, 0, 600, new FluidStack(moltenIronFluid, TConstruct.ingotLiquidValue * 3));
-        Smeltery.addMelting(new ItemStack(Item.minecartEmpty), Block.blockIron.blockID, 8, 600, new FluidStack(moltenIronFluid, TConstruct.ingotLiquidValue * 5));
-        Smeltery.addMelting(new ItemStack(Item.doorIron), Block.blockIron.blockID, 8, 600, new FluidStack(moltenIronFluid, TConstruct.ingotLiquidValue * 6));
-        Smeltery.addMelting(new ItemStack(Block.fenceIron), Block.blockIron.blockID, 8, 600, new FluidStack(moltenIronFluid, TConstruct.ingotLiquidValue * 6 / 16));
-        Smeltery.addMelting(new ItemStack(Block.pressurePlateIron), Block.blockIron.blockID, 0, 600, new FluidStack(moltenIronFluid, TConstruct.ingotLiquidValue * 2));
-        Smeltery.addMelting(new ItemStack(Block.pressurePlateGold, 4), Block.blockGold.blockID, 0, 600, new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 2));
-        Smeltery.addMelting(new ItemStack(Block.rail), Block.blockIron.blockID, 8, 600, new FluidStack(moltenIronFluid, TConstruct.ingotLiquidValue * 6 / 16));
-        Smeltery.addMelting(new ItemStack(Block.railPowered), Block.blockGold.blockID, 8, 350, new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue));
-        Smeltery.addMelting(new ItemStack(Block.railDetector), Block.blockIron.blockID, 8, 600, new FluidStack(moltenIronFluid, TConstruct.ingotLiquidValue));
-        Smeltery.addMelting(new ItemStack(Block.railActivator), Block.blockIron.blockID, 8, 600, new FluidStack(moltenIronFluid, TConstruct.ingotLiquidValue));
-        Smeltery.addMelting(new ItemStack(Block.enchantmentTable), Block.obsidian.blockID, 0, 750, new FluidStack(moltenObsidianFluid, TConstruct.ingotLiquidValue * 4));
-        Smeltery.addMelting(new ItemStack(Block.cauldron), Block.blockIron.blockID, 8, 600, new FluidStack(moltenIronFluid, TConstruct.ingotLiquidValue * 7));
-        Smeltery.addMelting(new ItemStack(Block.anvil, 1, 0), Block.blockIron.blockID, 8, 800, new FluidStack(moltenIronFluid, TConstruct.ingotLiquidValue * 31));
-        Smeltery.addMelting(new ItemStack(Block.anvil, 1, 1), Block.blockIron.blockID, 8, 800, new FluidStack(moltenIronFluid, TConstruct.ingotLiquidValue * 31));
-        Smeltery.addMelting(new ItemStack(Block.anvil, 1, 2), Block.blockIron.blockID, 8, 800, new FluidStack(moltenIronFluid, TConstruct.ingotLiquidValue * 31));
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(Block.fenceIron), 0, TConstruct.ingotLiquidValue * 6 / 16);
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(Block.pressurePlateIron), 0, TConstruct.oreLiquidValue);
+        Smeltery.addMelting(FluidType.Gold, new ItemStack(Block.pressurePlateGold, 4), 0, TConstruct.oreLiquidValue);
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(Block.rail), 0, TConstruct.ingotLiquidValue * 6 / 16);
+        Smeltery.addMelting(FluidType.Gold, new ItemStack(Block.railPowered), 0, TConstruct.ingotLiquidValue);
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(Block.railDetector), 0, TConstruct.ingotLiquidValue);
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(Block.railActivator), 0, TConstruct.ingotLiquidValue);
+        Smeltery.addMelting(FluidType.Obsidian, new ItemStack(Block.enchantmentTable), 0, TConstruct.ingotLiquidValue * 4);
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(Block.cauldron), 0, TConstruct.ingotLiquidValue * 7);
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(Block.anvil, 1, 0), 200, TConstruct.ingotLiquidValue * 31);
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(Block.anvil, 1, 1), 200, TConstruct.ingotLiquidValue * 31);
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(Block.anvil, 1, 2), 200, TConstruct.ingotLiquidValue * 31);
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(Block.hopperBlock), 0, TConstruct.ingotLiquidValue * 5);
 
+        //Vanilla Armor
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(Item.helmetIron, 1, 0), 50, TConstruct.ingotLiquidValue * 5);
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(Item.plateIron, 1, 0), 50, TConstruct.ingotLiquidValue * 8);
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(Item.legsIron, 1, 0), 50, TConstruct.ingotLiquidValue * 7);
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(Item.bootsIron, 1, 0), 50, TConstruct.ingotLiquidValue * 4);
+
+        Smeltery.addMelting(FluidType.Gold, new ItemStack(Item.helmetGold, 1, 0), 50, TConstruct.ingotLiquidValue * 5);
+        Smeltery.addMelting(FluidType.Gold, new ItemStack(Item.plateGold, 1, 0), 50, TConstruct.ingotLiquidValue * 8);
+        Smeltery.addMelting(FluidType.Gold, new ItemStack(Item.legsGold, 1, 0), 50, TConstruct.ingotLiquidValue * 7);
+        Smeltery.addMelting(FluidType.Gold, new ItemStack(Item.bootsGold, 1, 0), 50, TConstruct.ingotLiquidValue * 4);
+
+        Smeltery.addMelting(FluidType.Steel, new ItemStack(Item.helmetChain, 1, 0), 25, TConstruct.ingotLiquidValue);
+        Smeltery.addMelting(FluidType.Steel, new ItemStack(Item.plateChain, 1, 0), 50, TConstruct.oreLiquidValue);
+        Smeltery.addMelting(FluidType.Steel, new ItemStack(Item.legsChain, 1, 0), 50, TConstruct.oreLiquidValue);
+        Smeltery.addMelting(FluidType.Steel, new ItemStack(Item.bootsChain, 1, 0), 25, TConstruct.ingotLiquidValue);
+
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(Item.horseArmorIron, 1), 100, TConstruct.ingotLiquidValue * 8);
+        Smeltery.addMelting(FluidType.Gold, new ItemStack(Item.horseArmorGold, 1), 100, TConstruct.ingotLiquidValue * 8);
+
+        //Vanilla tools
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(Item.hoeIron, 1, 0), 0, TConstruct.oreLiquidValue);
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(Item.swordIron, 1, 0), 0, TConstruct.oreLiquidValue);
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(Item.shovelIron, 1, 0), 0, TConstruct.ingotLiquidValue);
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(Item.pickaxeIron, 1, 0), 0, TConstruct.ingotLiquidValue * 3);
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(Item.axeIron, 1, 0), 0, TConstruct.ingotLiquidValue * 3);
+
+        Smeltery.addMelting(FluidType.Gold, new ItemStack(Item.hoeGold, 1, 0), 0, TConstruct.oreLiquidValue);
+        Smeltery.addMelting(FluidType.Gold, new ItemStack(Item.swordGold, 1, 0), 0, TConstruct.oreLiquidValue);
+        Smeltery.addMelting(FluidType.Gold, new ItemStack(Item.shovelGold, 1, 0), 0, TConstruct.ingotLiquidValue);
+        Smeltery.addMelting(FluidType.Gold, new ItemStack(Item.pickaxeGold, 1, 0), 0, TConstruct.ingotLiquidValue * 3);
+        Smeltery.addMelting(FluidType.Gold, new ItemStack(Item.axeGold, 1, 0), 0, TConstruct.ingotLiquidValue * 3);
+    }
+
+    private void addRecipesForDryingRack ()
+    {
+        //Drying rack
+        DryingRackRecipes.addDryingRecipe(Item.beefRaw, 20 * 60 * 5, new ItemStack(jerky, 1, 0));
+        DryingRackRecipes.addDryingRecipe(Item.chickenRaw, 20 * 60 * 5, new ItemStack(jerky, 1, 1));
+        DryingRackRecipes.addDryingRecipe(Item.porkRaw, 20 * 60 * 5, new ItemStack(jerky, 1, 2));
+        //DryingRackRecipes.addDryingRecipe(Item.muttonRaw, 20 * 60 * 5, new ItemStack(jerky, 1, 3));
+        DryingRackRecipes.addDryingRecipe(Item.fishRaw, 20 * 60 * 5, new ItemStack(jerky, 1, 4));
+        DryingRackRecipes.addDryingRecipe(Item.rottenFlesh, 20 * 60 * 5, new ItemStack(jerky, 1, 5));
+
+        //DryingRackRecipes.addDryingRecipe(new ItemStack(jerky, 1, 5), 20 * 60 * 10, Item.leather);
+    }
+
+    private void addRecipesForChisel ()
+    {
         /* Detailing */
         Detailing chiseling = TConstructRegistry.getChiselDetailing();
         chiseling.addDetailing(Block.stone, 0, Block.stoneBrick, 0, chisel);
@@ -1383,20 +1902,11 @@ public class TContent implements IFuelHandler
         chiseling.addDetailing(Block.whiteStone, 0, multiBrick, 12, chisel);
         chiseling.addDetailing(materials, 18, multiBrick, 13, chisel);
 
-        chiseling.addDetailing(multiBrick, 0, multiBrickFancy, 0, chisel);
-        chiseling.addDetailing(multiBrick, 1, multiBrickFancy, 1, chisel);
-        chiseling.addDetailing(multiBrick, 2, multiBrickFancy, 2, chisel);
-        chiseling.addDetailing(multiBrick, 3, multiBrickFancy, 3, chisel);
-        chiseling.addDetailing(multiBrick, 4, multiBrickFancy, 4, chisel);
-        chiseling.addDetailing(multiBrick, 5, multiBrickFancy, 5, chisel);
-        chiseling.addDetailing(multiBrick, 6, multiBrickFancy, 6, chisel);
-        chiseling.addDetailing(multiBrick, 7, multiBrickFancy, 7, chisel);
-        chiseling.addDetailing(multiBrick, 8, multiBrickFancy, 8, chisel);
-        chiseling.addDetailing(multiBrick, 9, multiBrickFancy, 9, chisel);
-        chiseling.addDetailing(multiBrick, 10, multiBrickFancy, 10, chisel);
-        chiseling.addDetailing(multiBrick, 11, multiBrickFancy, 11, chisel);
-        chiseling.addDetailing(multiBrick, 12, multiBrickFancy, 12, chisel);
-        chiseling.addDetailing(multiBrick, 13, multiBrickFancy, 13, chisel);
+        // adding multiBrick / multiBrickFanxy meta 0-13 to list
+        for (int sc = 0; sc < 14; sc++)
+        {
+            chiseling.addDetailing(multiBrick, sc, multiBrickFancy, sc, chisel);
+        }
 
         chiseling.addDetailing(Block.stoneBrick, 0, multiBrickFancy, 15, chisel);
         chiseling.addDetailing(multiBrickFancy, 15, multiBrickFancy, 14, chisel);
@@ -1410,320 +1920,9 @@ public class TContent implements IFuelHandler
         chiseling.addDetailing(smeltery, 2, smeltery, 8, chisel);
         chiseling.addDetailing(smeltery, 8, smeltery, 9, chisel);
         chiseling.addDetailing(smeltery, 9, smeltery, 10, chisel);
-
-        GameRegistry.addRecipe(new ItemStack(toolForge, 1, 0), "bbb", "msm", "m m", 'b', new ItemStack(smeltery, 1, 2), 's', new ItemStack(toolStationWood, 1, 0), 'm', Block.blockIron);
-        GameRegistry.addRecipe(new ItemStack(toolForge, 1, 1), "bbb", "msm", "m m", 'b', new ItemStack(smeltery, 1, 2), 's', new ItemStack(toolStationWood, 1, 0), 'm', Block.blockGold);
-        GameRegistry.addRecipe(new ItemStack(toolForge, 1, 2), "bbb", "msm", "m m", 'b', new ItemStack(smeltery, 1, 2), 's', new ItemStack(toolStationWood, 1, 0), 'm', Block.blockDiamond);
-        GameRegistry.addRecipe(new ItemStack(toolForge, 1, 3), "bbb", "msm", "m m", 'b', new ItemStack(smeltery, 1, 2), 's', new ItemStack(toolStationWood, 1, 0), 'm', Block.blockEmerald);
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(toolForge, 1, 4), "bbb", "msm", "m m", 'b', new ItemStack(smeltery, 1, 2), 's', new ItemStack(toolStationWood, 1, 0), 'm',
-                "blockCobalt"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(toolForge, 1, 5), "bbb", "msm", "m m", 'b', new ItemStack(smeltery, 1, 2), 's', new ItemStack(toolStationWood, 1, 0), 'm',
-                "blockArdite"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(toolForge, 1, 6), "bbb", "msm", "m m", 'b', new ItemStack(smeltery, 1, 2), 's', new ItemStack(toolStationWood, 1, 0), 'm',
-                "blockManyullyn"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(toolForge, 1, 7), "bbb", "msm", "m m", 'b', new ItemStack(smeltery, 1, 2), 's', new ItemStack(toolStationWood, 1, 0), 'm',
-                "blockCopper"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(toolForge, 1, 8), "bbb", "msm", "m m", 'b', new ItemStack(smeltery, 1, 2), 's', new ItemStack(toolStationWood, 1, 0), 'm',
-                "blockBronze"));
-        GameRegistry
-                .addRecipe(new ShapedOreRecipe(new ItemStack(toolForge, 1, 9), "bbb", "msm", "m m", 'b', new ItemStack(smeltery, 1, 2), 's', new ItemStack(toolStationWood, 1, 0), 'm', "blockTin"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(toolForge, 1, 10), "bbb", "msm", "m m", 'b', new ItemStack(smeltery, 1, 2), 's', new ItemStack(toolStationWood, 1, 0), 'm',
-                "blockNaturalAluminum"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(toolForge, 1, 11), "bbb", "msm", "m m", 'b', new ItemStack(smeltery, 1, 2), 's', new ItemStack(toolStationWood, 1, 0), 'm',
-                "blockAluminumBrass"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(toolForge, 1, 12), "bbb", "msm", "m m", 'b', new ItemStack(smeltery, 1, 2), 's', new ItemStack(toolStationWood, 1, 0), 'm',
-                "blockAlumite"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(toolForge, 1, 13), "bbb", "msm", "m m", 'b', new ItemStack(smeltery, 1, 2), 's', new ItemStack(toolStationWood, 1, 0), 'm',
-                "blockSteel"));
-
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(redstoneMachine, 1, 0), "aca", "#d#", "#r#", '#', "ingotBronze", 'a', "ingotAluminumBrass", 'c', new ItemStack(blankPattern, 1, 1),
-                'r', new ItemStack(Item.redstone), 'd', new ItemStack(Block.dispenser))); //Drawbridge
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(redstoneMachine, 1, 0), "aca", "#d#", "#r#", '#', "ingotBronze", 'a', "ingotAluminumBrass", 'c', new ItemStack(blankPattern, 1, 2),
-                'r', new ItemStack(Item.redstone), 'd', new ItemStack(Block.dispenser)));
-
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(redstoneMachine, 1, 1), "aca", "#d#", "#r#", '#', "ingotBronze", 'a', "ingotAluminumBrass", 'c', new ItemStack(largePlate, 1, 7), 'r',
-                new ItemStack(Item.redstone), 'd', new ItemStack(Item.flintAndSteel))); //Igniter
-
-        /* Crafting */
-        GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 0), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', Block.workbench);
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(toolStationWood, 1, 0), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', "crafterWood"));
-        GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 1), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(Block.wood, 1, 0));
-        GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 2), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(Block.wood, 1, 1));
-        GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 3), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(Block.wood, 1, 2));
-        GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 4), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(Block.wood, 1, 3));
-        GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 5), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', Block.chest);
-        if (PHConstruct.stencilTableCrafting)
-        {
-            GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 10), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(Block.planks, 1, 0));
-            GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 11), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(Block.planks, 1, 1));
-            GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 12), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(Block.planks, 1, 2));
-            GameRegistry.addRecipe(new ItemStack(toolStationWood, 1, 13), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', new ItemStack(Block.planks, 1, 3));
-        }
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(toolStationWood, 1, 1), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', "logWood"));
-        if (PHConstruct.stencilTableCrafting)
-            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(toolStationWood, 1, 10), "p", "w", 'p', new ItemStack(blankPattern, 1, 0), 'w', "plankWood"));
-
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(blankPattern, 1, 0), "ps", "sp", 'p', "plankWood", 's', "stickWood"));
-        GameRegistry.addRecipe(new ItemStack(manualBook), "wp", 'w', new ItemStack(blankPattern, 1, 0), 'p', Item.paper);
-        GameRegistry.addShapelessRecipe(new ItemStack(manualBook, 2, 0), new ItemStack(manualBook, 1, 0), Item.book);
-        GameRegistry.addShapelessRecipe(new ItemStack(manualBook, 1, 1), new ItemStack(manualBook, 1, 0));
-        GameRegistry.addShapelessRecipe(new ItemStack(manualBook, 2, 1), new ItemStack(manualBook, 1, 1), Item.book);
-        GameRegistry.addShapelessRecipe(new ItemStack(manualBook, 1, 2), new ItemStack(manualBook, 1, 1));
-        GameRegistry.addShapelessRecipe(new ItemStack(manualBook, 2, 2), new ItemStack(manualBook, 1, 2), Item.book);
-
-        GameRegistry.addShapelessRecipe(new ItemStack(Item.book), Item.paper, Item.paper, Item.paper, Item.silk, blankPattern, blankPattern);//Vanilla books
-
-        GameRegistry.addRecipe(new ItemStack(materials, 1, 0), "pp", "pp", 'p', Item.paper); //Paper stack
-        OreDictionary.registerOre("mossystone", new ItemStack(Block.stoneBrick, 1, 1));
-        OreDictionary.registerOre("mossystone", new ItemStack(Block.cobblestoneMossy));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(materials, 1, 6), "ppp", "ppp", "ppp", 'p', "mossystone")); //Moss ball
-        GameRegistry.addRecipe(new ItemStack(materials, 1, 6), "ppp", "ppp", "ppp", 'p', new ItemStack(Block.stoneBrick, 1, 1)); //Moss ball
-        GameRegistry.addRecipe(new ItemStack(materials, 1, 7), "xcx", "cbc", "xcx", 'b', Item.bucketLava, 'c', Item.fireballCharge, 'x', Item.blazeRod); //Auto-smelt
-        GameRegistry.addRecipe(new ItemStack(materials, 1, 7), "xcx", "cbc", "xcx", 'b', Item.bucketLava, 'x', Item.fireballCharge, 'c', Item.blazeRod); //Auto-smelt
-
-        GameRegistry.addShapelessRecipe(new ItemStack(craftedSoil, 1, 0), Item.slimeBall, Item.slimeBall, Item.slimeBall, Item.slimeBall, Block.sand, Block.dirt); //Slimy sand
-        GameRegistry.addShapelessRecipe(new ItemStack(craftedSoil, 1, 2), strangeFood, strangeFood, strangeFood, strangeFood, Block.sand, Block.dirt); //Slimy sand
-        GameRegistry.addShapelessRecipe(new ItemStack(craftedSoil, 2, 1), Item.clay, Block.sand, Block.gravel); //Grout
-        GameRegistry.addShapelessRecipe(new ItemStack(craftedSoil, 8, 1), Block.blockClay, Block.sand, Block.gravel, Block.sand, Block.gravel, Block.sand, Block.gravel, Block.sand, Block.gravel); //Grout
-        GameRegistry.addShapelessRecipe(new ItemStack(craftedSoil, 1, 3), Block.dirt, Item.rottenFlesh, new ItemStack(Item.dyePowder, 1, 15)); //Graveyard Soil
-        FurnaceRecipes.smelting().addSmelting(craftedSoil.blockID, 3, new ItemStack(craftedSoil, 1, 4), 0.2f); //Concecrated Soil
-
-        FurnaceRecipes.smelting().addSmelting(craftedSoil.blockID, 0, new ItemStack(materials, 1, 1), 2f); //Slime
-        FurnaceRecipes.smelting().addSmelting(craftedSoil.blockID, 1, new ItemStack(materials, 1, 2), 2f); //Seared brick item
-        FurnaceRecipes.smelting().addSmelting(craftedSoil.blockID, 2, new ItemStack(materials, 1, 17), 2f); //Blue Slime
-        //GameRegistry.addRecipe(new ItemStack(oreSlag, 1, 0), "pp", "pp", 'p', new ItemStack(materials, 1, 2)); //Seared brick block
-
-        GameRegistry.addRecipe(new ItemStack(materials, 1, 25), "sss", "sns", "sss", 'n', new ItemStack(materials, 1, 24), 's', new ItemStack(Item.silk)); //Silky Cloth
-        GameRegistry.addRecipe(new ItemStack(materials, 1, 25), "sss", "sns", "sss", 'n', new ItemStack(Item.goldNugget), 's', new ItemStack(Item.silk));
-        GameRegistry.addRecipe(new ItemStack(materials, 1, 26), " c ", "cec", " c ", 'c', new ItemStack(materials, 1, 25), 'e', new ItemStack(Item.emerald)); //Silky Jewel
-
-        //FurnaceRecipes.smelting().addSmelting(oreSlag.blockID, 1, new ItemStack(materials, 1, 3), 3f);
-        //FurnaceRecipes.smelting().addSmelting(oreSlag.blockID, 2, new ItemStack(materials, 1, 4), 3f);
-        FurnaceRecipes.smelting().addSmelting(oreSlag.blockID, 3, new ItemStack(materials, 1, 9), 0.5f);
-        FurnaceRecipes.smelting().addSmelting(oreSlag.blockID, 4, new ItemStack(materials, 1, 10), 0.5f);
-        FurnaceRecipes.smelting().addSmelting(oreSlag.blockID, 5, new ItemStack(materials, 1, 12), 0.5f);
-
-        FurnaceRecipes.smelting().addSmelting(oreBerries.itemID, 0, new ItemStack(materials, 1, 19), 0.2f);
-        FurnaceRecipes.smelting().addSmelting(oreBerries.itemID, 1, new ItemStack(Item.goldNugget), 0.2f);
-        FurnaceRecipes.smelting().addSmelting(oreBerries.itemID, 2, new ItemStack(materials, 1, 20), 0.2f);
-        FurnaceRecipes.smelting().addSmelting(oreBerries.itemID, 3, new ItemStack(materials, 1, 21), 0.2f);
-        FurnaceRecipes.smelting().addSmelting(oreBerries.itemID, 4, new ItemStack(materials, 1, 22), 0.2f);
-        //FurnaceRecipes.smelting().addSmelting(oreBerries.itemID, 5, new ItemStack(materials, 1, 23), 0.2f);
-
-        FurnaceRecipes.smelting().addSmelting(oreGravel.blockID, 0, new ItemStack(Item.ingotIron), 0.2f);
-        FurnaceRecipes.smelting().addSmelting(oreGravel.blockID, 1, new ItemStack(Item.ingotGold), 0.2f);
-        FurnaceRecipes.smelting().addSmelting(oreGravel.blockID, 2, new ItemStack(materials, 1, 9), 0.2f);
-        FurnaceRecipes.smelting().addSmelting(oreGravel.blockID, 3, new ItemStack(materials, 1, 10), 0.2f);
-        FurnaceRecipes.smelting().addSmelting(oreGravel.blockID, 4, new ItemStack(materials, 1, 12), 0.2f);
-
-        FurnaceRecipes.smelting().addSmelting(speedBlock.blockID, 0, new ItemStack(speedBlock, 1, 2), 0.2f);
-
-        //Metal conversion
-        GameRegistry.addRecipe(new ItemStack(materials, 9, 9), "m", 'm', new ItemStack(metalBlock, 1, 3)); //Copper
-        GameRegistry.addRecipe(new ItemStack(materials, 9, 10), "m", 'm', new ItemStack(metalBlock, 1, 5)); //Tin
-        GameRegistry.addRecipe(new ItemStack(materials, 9, 12), "m", 'm', new ItemStack(metalBlock, 1, 6)); //Aluminum
-        GameRegistry.addRecipe(new ItemStack(materials, 9, 13), "m", 'm', new ItemStack(metalBlock, 1, 4)); //Bronze
-        GameRegistry.addRecipe(new ItemStack(materials, 9, 14), "m", 'm', new ItemStack(metalBlock, 1, 7)); //AluBrass
-        GameRegistry.addRecipe(new ItemStack(materials, 9, 3), "m", 'm', new ItemStack(metalBlock, 1, 0)); //Cobalt
-        GameRegistry.addRecipe(new ItemStack(materials, 9, 4), "m", 'm', new ItemStack(metalBlock, 1, 1)); //Ardite
-        GameRegistry.addRecipe(new ItemStack(materials, 9, 5), "m", 'm', new ItemStack(metalBlock, 1, 2)); //Manyullyn
-        GameRegistry.addRecipe(new ItemStack(materials, 9, 15), "m", 'm', new ItemStack(metalBlock, 1, 8)); //Alumite
-        GameRegistry.addRecipe(new ItemStack(materials, 9, 16), "m", 'm', new ItemStack(metalBlock, 1, 9)); //Steel
-
-        GameRegistry.addRecipe(new ItemStack(Item.ingotIron), "mmm", "mmm", "mmm", 'm', new ItemStack(materials, 1, 19)); //Iron
-        GameRegistry.addRecipe(new ItemStack(materials, 1, 9), "mmm", "mmm", "mmm", 'm', new ItemStack(materials, 1, 20)); //Copper
-        GameRegistry.addRecipe(new ItemStack(materials, 1, 10), "mmm", "mmm", "mmm", 'm', new ItemStack(materials, 1, 21)); //Tin
-        GameRegistry.addRecipe(new ItemStack(materials, 1, 12), "mmm", "mmm", "mmm", 'm', new ItemStack(materials, 1, 22)); //Aluminum
-        GameRegistry.addRecipe(new ItemStack(materials, 1, 14), "mmm", "mmm", "mmm", 'm', new ItemStack(materials, 1, 24)); //Aluminum Brass
-        GameRegistry.addRecipe(new ItemStack(materials, 1, 18), "mmm", "mmm", "mmm", 'm', new ItemStack(materials, 1, 27)); //Obsidian
-        GameRegistry.addRecipe(new ItemStack(materials, 1, 3), "mmm", "mmm", "mmm", 'm', new ItemStack(materials, 1, 28)); //Cobalt
-        GameRegistry.addRecipe(new ItemStack(materials, 1, 4), "mmm", "mmm", "mmm", 'm', new ItemStack(materials, 1, 29)); //Ardite
-        GameRegistry.addRecipe(new ItemStack(materials, 1, 5), "mmm", "mmm", "mmm", 'm', new ItemStack(materials, 1, 30)); //Manyullyn
-        GameRegistry.addRecipe(new ItemStack(materials, 1, 13), "mmm", "mmm", "mmm", 'm', new ItemStack(materials, 1, 31)); //Bronze
-        GameRegistry.addRecipe(new ItemStack(materials, 1, 15), "mmm", "mmm", "mmm", 'm', new ItemStack(materials, 1, 32)); //Alumite
-        GameRegistry.addRecipe(new ItemStack(materials, 1, 16), "mmm", "mmm", "mmm", 'm', new ItemStack(materials, 1, 33)); //Steel    
-
-        GameRegistry.addRecipe(new ItemStack(materials, 9, 19), "m", 'm', new ItemStack(Item.ingotIron)); //Iron
-        GameRegistry.addRecipe(new ItemStack(materials, 9, 20), "m", 'm', new ItemStack(materials, 1, 9)); //Copper
-        GameRegistry.addRecipe(new ItemStack(materials, 9, 21), "m", 'm', new ItemStack(materials, 1, 10)); //Tin
-        GameRegistry.addRecipe(new ItemStack(materials, 9, 22), "m", 'm', new ItemStack(materials, 1, 12)); //Aluminum
-        GameRegistry.addRecipe(new ItemStack(materials, 9, 24), "m", 'm', new ItemStack(materials, 1, 14)); //Aluminum Brass
-        GameRegistry.addRecipe(new ItemStack(materials, 9, 27), "m", 'm', new ItemStack(materials, 1, 18)); //Obsidian
-        GameRegistry.addRecipe(new ItemStack(materials, 9, 28), "m", 'm', new ItemStack(materials, 1, 3)); //Cobalt
-        GameRegistry.addRecipe(new ItemStack(materials, 9, 29), "m", 'm', new ItemStack(materials, 1, 4)); //Ardite
-        GameRegistry.addRecipe(new ItemStack(materials, 9, 30), "m", 'm', new ItemStack(materials, 1, 5)); //Manyullyn
-        GameRegistry.addRecipe(new ItemStack(materials, 9, 31), "m", 'm', new ItemStack(materials, 1, 13)); //Bronze
-        GameRegistry.addRecipe(new ItemStack(materials, 9, 32), "m", 'm', new ItemStack(materials, 1, 15)); //Alumite
-        GameRegistry.addRecipe(new ItemStack(materials, 9, 33), "m", 'm', new ItemStack(materials, 1, 16)); //Steel 
-
-        //Dyes
-        String[] pattern = { "###", "#m#", "###" };
-        String[] dyeTypes = { "dyeBlack", "dyeRed", "dyeGreen", "dyeBrown", "dyeBlue", "dyePurple", "dyeCyan", "dyeLightGray", "dyeGray", "dyePink", "dyeLime", "dyeYellow", "dyeLightBlue",
-                "dyeMagenta", "dyeOrange", "dyeWhite" };
-        for (int i = 0; i < 16; i++)
-        {
-            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Block.cloth, 8, i), pattern, 'm', dyeTypes[15 - i], '#', new ItemStack(Block.cloth, 1, Short.MAX_VALUE)));
-            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(stainedGlassClear, 8, i), pattern, 'm', dyeTypes[15 - i], '#', clearGlass));
-            GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(stainedGlassClear, 1, i), dyeTypes[15 - i], clearGlass));
-            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(stainedGlassClearPane, 8, i), pattern, 'm', dyeTypes[15 - i], '#', glassPane));
-            GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(stainedGlassClearPane, 1, i), dyeTypes[15 - i], glassPane));
-        }
-
-        //Glass
-        GameRegistry.addRecipe(new ItemStack(Item.glassBottle, 3), new Object[] { "# #", " # ", '#', clearGlass });
-        GameRegistry.addRecipe(new ItemStack(Block.daylightSensor), new Object[] { "GGG", "QQQ", "WWW", 'G', Block.glass, 'Q', Item.netherQuartz, 'W', Block.woodSingleSlab });
-        GameRegistry.addRecipe(new ItemStack(Block.beacon, 1), new Object[] { "GGG", "GSG", "OOO", 'G', clearGlass, 'S', Item.netherStar, 'O', Block.obsidian });
-
-        //Smeltery
-        ItemStack searedBrick = new ItemStack(materials, 1, 2);
-        GameRegistry.addRecipe(new ItemStack(smeltery, 1, 0), "bbb", "b b", "bbb", 'b', searedBrick); //Controller
-        GameRegistry.addRecipe(new ItemStack(smeltery, 1, 1), "b b", "b b", "b b", 'b', searedBrick); //Drain
-        GameRegistry.addRecipe(new ItemStack(smeltery, 1, 2), "bb", "bb", 'b', searedBrick); //Bricks
-
-        GameRegistry.addRecipe(new ItemStack(lavaTank, 1, 0), "bbb", "bgb", "bbb", 'b', searedBrick, 'g', Block.glass); //Tank
-        GameRegistry.addRecipe(new ItemStack(lavaTank, 1, 1), "bgb", "ggg", "bgb", 'b', searedBrick, 'g', Block.glass); //Glass
-        GameRegistry.addRecipe(new ItemStack(lavaTank, 1, 2), "bgb", "bgb", "bgb", 'b', searedBrick, 'g', Block.glass); //Window
-
-        GameRegistry.addRecipe(new ItemStack(lavaTank, 1, 0), "bbb", "bgb", "bbb", 'b', searedBrick, 'g', clearGlass); //Tank
-        GameRegistry.addRecipe(new ItemStack(lavaTank, 1, 1), "bgb", "ggg", "bgb", 'b', searedBrick, 'g', clearGlass); //Glass
-        GameRegistry.addRecipe(new ItemStack(lavaTank, 1, 2), "bgb", "bgb", "bgb", 'b', searedBrick, 'g', clearGlass); //Window
-
-        GameRegistry.addRecipe(new ItemStack(searedBlock, 1, 0), "bbb", "b b", "b b", 'b', searedBrick); //Table
-        GameRegistry.addRecipe(new ItemStack(searedBlock, 1, 1), "b b", " b ", 'b', searedBrick); //Faucet
-        GameRegistry.addRecipe(new ItemStack(searedBlock, 1, 2), "b b", "b b", "bbb", 'b', searedBrick); //Basin
-
-        GameRegistry.addRecipe(new ItemStack(castingChannel, 4, 0), "b b", "bbb", 'b', searedBrick); //Channel
-
-        GameRegistry.addRecipe(new ItemStack(Block.pumpkinLantern, 1, 0), "p", "s", 'p', new ItemStack(Block.pumpkin), 'w', new ItemStack(stoneTorch));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(stoneTorch, 4), "p", "w", 'p', new ItemStack(Item.coal, 1, Short.MAX_VALUE), 'w', "stoneRod"));
-        GameRegistry.addRecipe(new ItemStack(toolRod, 4, 1), "c", "c", 'c', new ItemStack(Block.stone));
-        GameRegistry.addRecipe(new ItemStack(toolRod, 2, 1), "c", "c", 'c', new ItemStack(Block.cobblestone));
-
-        ItemStack aluBrass = new ItemStack(materials, 1, 14);
-        GameRegistry.addRecipe(new ItemStack(Item.pocketSundial), " i ", "iri", " i ", 'i', aluBrass, 'r', new ItemStack(Item.redstone));
-        GameRegistry.addRecipe(new ItemStack(Block.pressurePlateGold), "ii", 'i', aluBrass);
-
-        ItemStack necroticBone = new ItemStack(materials, 1, 8);
-
-        //Accessories
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(heartCanister, 1, 0), "##", "##", '#', "ingotNaturalAluminum"));
-        GameRegistry.addRecipe(new ItemStack(diamondApple), " d ", "d#d", " d ", 'd', new ItemStack(Item.diamond), '#', new ItemStack(Item.appleRed));
-        GameRegistry.addShapelessRecipe(new ItemStack(heartCanister, 1, 2), new ItemStack(diamondApple), necroticBone, new ItemStack(heartCanister, 1, 0), new ItemStack(heartCanister, 1, 1));
-        GameRegistry.addRecipe(new ItemStack(knapsack, 1, 0), "###", "rmr", "###", '#', new ItemStack(Item.leather), 'r', new ItemStack(toughRod, 1, 2), 'm', new ItemStack(Item.ingotGold));
-        GameRegistry.addRecipe(new ItemStack(knapsack, 1, 0), "###", "rmr", "###", '#', new ItemStack(Item.leather), 'r', new ItemStack(toughRod, 1, 2), 'm', new ItemStack(materials, 1, 14));
-
-        //Armor
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(dryingRack, 1, 0), "bbb", 'b', "slabWood"));
-
-        //Landmine
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(landmine, 1, 0), "mcm", "rpr", 'm', "plankWood", 'c', new ItemStack(blankPattern, 1, 1), 'r', Item.redstone, 'p',
-                Block.pressurePlateStone));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(landmine, 1, 1), "mcm", "rpr", 'm', Block.stone, 'c', new ItemStack(blankPattern, 1, 1), 'r', Item.redstone, 'p',
-                Block.pressurePlateStone));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(landmine, 1, 2), "mcm", "rpr", 'm', Block.obsidian, 'c', new ItemStack(blankPattern, 1, 1), 'r', Item.redstone, 'p',
-                Block.pressurePlateStone));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(landmine, 1, 3), "mcm", "rpr", 'm', Item.redstoneRepeater, 'c', new ItemStack(blankPattern, 1, 1), 'r', Item.redstone, 'p',
-                Block.pressurePlateStone));
-        //Ultra hardcore recipes
-        String[] surround = { "###", "#m#", "###" };
-        if (PHConstruct.goldAppleRecipe)
-        {
-            RecipeRemover.removeShapedRecipe(new ItemStack(Item.appleGold));
-            RecipeRemover.removeShapedRecipe(new ItemStack(Item.goldenCarrot));
-            RecipeRemover.removeShapelessRecipe(new ItemStack(Item.speckledMelon));
-
-            GameRegistry.addRecipe(new ItemStack(Item.appleGold), surround, '#', new ItemStack(Item.ingotGold), 'm', new ItemStack(Item.appleRed));
-            GameRegistry.addRecipe(new ItemStack(Item.goldenCarrot), surround, '#', new ItemStack(Item.ingotGold), 'm', new ItemStack(Item.carrot));
-            GameRegistry.addRecipe(new ItemStack(goldHead), surround, '#', new ItemStack(Item.ingotGold), 'm', new ItemStack(Item.skull, 1, 3));
-            GameRegistry.addShapelessRecipe(new ItemStack(Item.speckledMelon), new ItemStack(Block.blockGold), new ItemStack(Item.melon));
-            tableCasting.addCastingRecipe(new ItemStack(Item.appleGold, 1), new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 8), new ItemStack(Item.appleRed), true, 50);
-        }
-        else
-        {
-            GameRegistry.addRecipe(new ItemStack(goldHead), surround, '#', new ItemStack(Item.goldNugget), 'm', new ItemStack(Item.skull, 1, 3));
-            GameRegistry.addRecipe(new ItemStack(Item.appleGold), surround, '#', new ItemStack(oreBerries, 1, 1), 'm', new ItemStack(Item.appleRed));
-            GameRegistry.addRecipe(new ItemStack(Item.goldenCarrot), surround, '#', new ItemStack(oreBerries, 1, 1), 'm', new ItemStack(Item.appleRed));
-            GameRegistry.addRecipe(new ItemStack(goldHead), surround, '#', new ItemStack(oreBerries, 1, 1), 'm', new ItemStack(Item.appleRed));
-            tableCasting.addCastingRecipe(new ItemStack(Item.appleGold, 1), new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue / 9 * 8), new ItemStack(Item.appleRed), true, 50);
-        }
-        tableCasting.addCastingRecipe(new ItemStack(Item.appleGold, 1, 1), new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue * 8 * 9), new ItemStack(Item.appleRed), true, 50);
-
-        //Drying rack
-        DryingRackRecipes.addDryingRecipe(Item.beefRaw, 20 * 60 * 5, new ItemStack(jerky, 1, 0));
-        DryingRackRecipes.addDryingRecipe(Item.chickenRaw, 20 * 60 * 5, new ItemStack(jerky, 1, 1));
-        DryingRackRecipes.addDryingRecipe(Item.porkRaw, 20 * 60 * 5, new ItemStack(jerky, 1, 2));
-        //DryingRackRecipes.addDryingRecipe(Item.muttonRaw, 20 * 60 * 5, new ItemStack(jerky, 1, 3));
-        DryingRackRecipes.addDryingRecipe(Item.fishRaw, 20 * 60 * 5, new ItemStack(jerky, 1, 4));
-        DryingRackRecipes.addDryingRecipe(Item.rottenFlesh, 20 * 60 * 5, new ItemStack(jerky, 1, 5));
-        
-        //DryingRackRecipes.addDryingRecipe(new ItemStack(jerky, 1, 5), 20 * 60 * 10, Item.leather);
-
-        //Slabs
-        for (int i = 0; i < 7; i++)
-        {
-            GameRegistry.addRecipe(new ItemStack(speedSlab, 6, i), "bbb", 'b', new ItemStack(speedBlock, 1, i));
-        }
-        GameRegistry.addRecipe(new ItemStack(searedSlab, 6, 0), "bbb", 'b', new ItemStack(smeltery, 1, 2));
-        GameRegistry.addRecipe(new ItemStack(searedSlab, 6, 1), "bbb", 'b', new ItemStack(smeltery, 1, 4));
-        GameRegistry.addRecipe(new ItemStack(searedSlab, 6, 2), "bbb", 'b', new ItemStack(smeltery, 1, 5));
-        GameRegistry.addRecipe(new ItemStack(searedSlab, 6, 3), "bbb", 'b', new ItemStack(smeltery, 1, 6));
-        GameRegistry.addRecipe(new ItemStack(searedSlab, 6, 4), "bbb", 'b', new ItemStack(smeltery, 1, 8));
-        GameRegistry.addRecipe(new ItemStack(searedSlab, 6, 5), "bbb", 'b', new ItemStack(smeltery, 1, 9));
-        GameRegistry.addRecipe(new ItemStack(searedSlab, 6, 6), "bbb", 'b', new ItemStack(smeltery, 1, 10));
-        GameRegistry.addRecipe(new ItemStack(searedSlab, 6, 7), "bbb", 'b', new ItemStack(smeltery, 1, 11));
-
-        //Traps
-        GameRegistry.addRecipe(new ItemStack(punji, 5, 0), "b b", " b ", "b b", 'b', new ItemStack(Item.reed));
-        GameRegistry.addRecipe(new ItemStack(barricadeOak, 1, 0), "b", "b", 'b', new ItemStack(Block.wood, 1, 0));
-        GameRegistry.addRecipe(new ItemStack(barricadeSpruce, 1, 0), "b", "b", 'b', new ItemStack(Block.wood, 1, 1));
-        GameRegistry.addRecipe(new ItemStack(barricadeBirch, 1, 0), "b", "b", 'b', new ItemStack(Block.wood, 1, 2));
-        GameRegistry.addRecipe(new ItemStack(barricadeJungle, 1, 0), "b", "b", 'b', new ItemStack(Block.wood, 1, 3));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(barricadeOak, 1, 0), "b", "b", 'b', "logWood"));
-
-        GameRegistry.addRecipe(new ItemStack(craftingStationWood, 1, 0), "b", 'b', new ItemStack(Block.workbench));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(craftingStationWood, 1, 0), "b", 'b', "crafterWood"));
-
-        //Slab crafters
-        GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 6, 0), "bbb", 'b', new ItemStack(Block.workbench));
-        GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 1), "b", 'b', new ItemStack(toolStationWood, 1, 0));
-        GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 2), "b", 'b', new ItemStack(toolStationWood, 1, 1));
-        GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 2), "b", 'b', new ItemStack(toolStationWood, 1, 2));
-        GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 2), "b", 'b', new ItemStack(toolStationWood, 1, 3));
-        GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 2), "b", 'b', new ItemStack(toolStationWood, 1, 4));
-        GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 4), "b", 'b', new ItemStack(toolStationWood, 1, 5));
-        GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 3), "b", 'b', new ItemStack(toolStationWood, 1, 10));
-        GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 3), "b", 'b', new ItemStack(toolStationWood, 1, 11));
-        GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 3), "b", 'b', new ItemStack(toolStationWood, 1, 12));
-        GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 3), "b", 'b', new ItemStack(toolStationWood, 1, 13));
-        GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 5), "b", 'b', new ItemStack(toolForge, 1, Short.MAX_VALUE));
-
-        GameRegistry.addRecipe(new ItemStack(essenceExtractor, 1, 0), " b ", "eme", "mmm", 'b', Item.book, 'e', Item.emerald, 'm', Block.whiteStone);
-
-        //Slime
-        GameRegistry.addRecipe(new ItemStack(slimeGel, 1, 0), "##", "##", '#', strangeFood);
-        GameRegistry.addRecipe(new ItemStack(strangeFood, 4, 0), "#", '#', new ItemStack(slimeGel, 1, 0));
-        GameRegistry.addRecipe(new ItemStack(slimeGel, 1, 1), "##", "##", '#', Item.slimeBall);
-        GameRegistry.addRecipe(new ItemStack(Item.slimeBall, 4, 0), "#", '#', new ItemStack(slimeGel, 1, 1));
-        
-        GameRegistry.addShapelessRecipe(new ItemStack(slimeChannel, 1, 0), new ItemStack(slimeGel, 1, Short.MAX_VALUE), new ItemStack(Item.redstone));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(slimePad, 1, 0), slimeChannel, new ItemStack(slimeGel, 1, Short.MAX_VALUE), "slimeBall"));
-
-        //Slab crafters
-        GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 6, 0), "bbb", 'b', new ItemStack(Block.workbench));
-        GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 1), "b", 'b', new ItemStack(toolStationWood, 1, 0));
-        GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 2), "b", 'b', new ItemStack(toolStationWood, 1, 1));
-        GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 2), "b", 'b', new ItemStack(toolStationWood, 1, 2));
-        GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 2), "b", 'b', new ItemStack(toolStationWood, 1, 3));
-        GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 2), "b", 'b', new ItemStack(toolStationWood, 1, 4));
-        GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 4), "b", 'b', new ItemStack(toolStationWood, 1, 5));
-        GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 3), "b", 'b', new ItemStack(toolStationWood, 1, 10));
-        GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 3), "b", 'b', new ItemStack(toolStationWood, 1, 11));
-        GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 3), "b", 'b', new ItemStack(toolStationWood, 1, 12));
-        GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 3), "b", 'b', new ItemStack(toolStationWood, 1, 13));
-        GameRegistry.addRecipe(new ItemStack(craftingSlabWood, 1, 5), "b", 'b', new ItemStack(toolForge, 1, Short.MAX_VALUE));
     }
 
-    void setupToolTabs()
+    void setupToolTabs ()
     {
         TConstructRegistry.materialTab.init(new ItemStack(titleIcon, 1, 255));
         TConstructRegistry.blockTab.init(new ItemStack(toolStationWood));
@@ -1740,7 +1939,7 @@ public class TContent implements IFuelHandler
         TConstructRegistry.toolTab.init(tool);
     }
 
-    public void addLoot()
+    public void addLoot ()
     {
         //Item, min, max, weight
         ChestGenHooks.getInfo(ChestGenHooks.DUNGEON_CHEST).addItem(new WeightedRandomChestContent(new ItemStack(heartCanister, 1, 1), 1, 1, 5));
@@ -1770,32 +1969,40 @@ public class TContent implements IFuelHandler
 
     public static String[] liquidNames;
 
-    public void oreRegistry()
+    public void oreRegistry ()
     {
         OreDictionary.registerOre("oreCobalt", new ItemStack(oreSlag, 1, 1));
         OreDictionary.registerOre("oreArdite", new ItemStack(oreSlag, 1, 2));
         OreDictionary.registerOre("oreCopper", new ItemStack(oreSlag, 1, 3));
         OreDictionary.registerOre("oreTin", new ItemStack(oreSlag, 1, 4));
-        OreDictionary.registerOre("oreNaturalAluminum", new ItemStack(oreSlag, 1, 5));
+        OreDictionary.registerOre("oreAluminum", new ItemStack(oreSlag, 1, 5));
+        OreDictionary.registerOre("oreAluminium", new ItemStack(oreSlag, 1, 5));
 
         OreDictionary.registerOre("oreIron", new ItemStack(oreGravel, 1, 0));
         OreDictionary.registerOre("oreGold", new ItemStack(oreGravel, 1, 1));
         OreDictionary.registerOre("oreCobalt", new ItemStack(oreGravel, 1, 5));
         OreDictionary.registerOre("oreCopper", new ItemStack(oreGravel, 1, 2));
         OreDictionary.registerOre("oreTin", new ItemStack(oreGravel, 1, 3));
-        OreDictionary.registerOre("oreNaturalAluminum", new ItemStack(oreGravel, 1, 4));
+        OreDictionary.registerOre("oreAluminum", new ItemStack(oreGravel, 1, 4));
+        OreDictionary.registerOre("oreAluminium", new ItemStack(oreGravel, 1, 4));
 
         OreDictionary.registerOre("ingotCobalt", new ItemStack(materials, 1, 3));
         OreDictionary.registerOre("ingotArdite", new ItemStack(materials, 1, 4));
         OreDictionary.registerOre("ingotManyullyn", new ItemStack(materials, 1, 5));
         OreDictionary.registerOre("ingotCopper", new ItemStack(materials, 1, 9));
         OreDictionary.registerOre("ingotTin", new ItemStack(materials, 1, 10));
-        OreDictionary.registerOre("ingotNaturalAluminum", new ItemStack(materials, 1, 11));
-        OreDictionary.registerOre("naturalAluminum", new ItemStack(materials, 1, 12));
+        OreDictionary.registerOre("ingotAluminum", new ItemStack(materials, 1, 11));
+        OreDictionary.registerOre("ingotAluminium", new ItemStack(materials, 1, 11));
         OreDictionary.registerOre("ingotBronze", new ItemStack(materials, 1, 13));
         OreDictionary.registerOre("ingotAluminumBrass", new ItemStack(materials, 1, 14));
+        OreDictionary.registerOre("ingotAluminiumBrass", new ItemStack(materials, 1, 14));
         OreDictionary.registerOre("ingotAlumite", new ItemStack(materials, 1, 15));
         OreDictionary.registerOre("ingotSteel", new ItemStack(materials, 1, 16));
+        ensureOreIsRegistered("ingotIron", new ItemStack(Item.ingotIron));
+        ensureOreIsRegistered("ingotGold", new ItemStack(Item.ingotGold));
+        OreDictionary.registerOre("ingotObsidian", new ItemStack(materials, 1, 18));
+        OreDictionary.registerOre("ingotPigIron", new ItemStack(materials, 1, 34));
+        OreDictionary.registerOre("itemRawRubber", new ItemStack(materials, 1, 36));
 
         OreDictionary.registerOre("blockCobalt", new ItemStack(metalBlock, 1, 0));
         OreDictionary.registerOre("blockArdite", new ItemStack(metalBlock, 1, 1));
@@ -1803,16 +2010,27 @@ public class TContent implements IFuelHandler
         OreDictionary.registerOre("blockCopper", new ItemStack(metalBlock, 1, 3));
         OreDictionary.registerOre("blockBronze", new ItemStack(metalBlock, 1, 4));
         OreDictionary.registerOre("blockTin", new ItemStack(metalBlock, 1, 5));
-        OreDictionary.registerOre("blockNaturalAluminum", new ItemStack(metalBlock, 1, 6));
+        OreDictionary.registerOre("blockAluminum", new ItemStack(metalBlock, 1, 6));
+        OreDictionary.registerOre("blockAluminium", new ItemStack(metalBlock, 1, 6));
         OreDictionary.registerOre("blockAluminumBrass", new ItemStack(metalBlock, 1, 7));
+        OreDictionary.registerOre("blockAluminiumBrass", new ItemStack(metalBlock, 1, 7));
         OreDictionary.registerOre("blockAlumite", new ItemStack(metalBlock, 1, 8));
         OreDictionary.registerOre("blockSteel", new ItemStack(metalBlock, 1, 9));
+        ensureOreIsRegistered("blockIron", new ItemStack(Block.blockIron));
+        ensureOreIsRegistered("blockGold", new ItemStack(Block.blockGold));
 
         OreDictionary.registerOre("nuggetIron", new ItemStack(materials, 1, 19));
+        OreDictionary.registerOre("nuggetIron", new ItemStack(oreBerries, 1, 0));
         OreDictionary.registerOre("nuggetCopper", new ItemStack(materials, 1, 20));
+        OreDictionary.registerOre("nuggetCopper", new ItemStack(oreBerries, 1, 2));
         OreDictionary.registerOre("nuggetTin", new ItemStack(materials, 1, 21));
-        OreDictionary.registerOre("nuggetNaturalAluminum", new ItemStack(materials, 1, 22));
+        OreDictionary.registerOre("nuggetTin", new ItemStack(oreBerries, 1, 3));
+        OreDictionary.registerOre("nuggetAluminum", new ItemStack(materials, 1, 22));
+        OreDictionary.registerOre("nuggetAluminum", new ItemStack(oreBerries, 1, 4));
+        OreDictionary.registerOre("nuggetAluminium", new ItemStack(materials, 1, 22));
+        OreDictionary.registerOre("nuggetAluminium", new ItemStack(oreBerries, 1, 4));
         OreDictionary.registerOre("nuggetAluminumBrass", new ItemStack(materials, 1, 24));
+        OreDictionary.registerOre("nuggetAluminiumBrass", new ItemStack(materials, 1, 24));
         OreDictionary.registerOre("nuggetObsidian", new ItemStack(materials, 1, 27));
         OreDictionary.registerOre("nuggetCobalt", new ItemStack(materials, 1, 28));
         OreDictionary.registerOre("nuggetArdite", new ItemStack(materials, 1, 29));
@@ -1820,6 +2038,20 @@ public class TContent implements IFuelHandler
         OreDictionary.registerOre("nuggetBronze", new ItemStack(materials, 1, 31));
         OreDictionary.registerOre("nuggetAlumite", new ItemStack(materials, 1, 32));
         OreDictionary.registerOre("nuggetSteel", new ItemStack(materials, 1, 33));
+        OreDictionary.registerOre("nuggetGold", new ItemStack(oreBerries, 1, 1));
+        ensureOreIsRegistered("nuggetGold", new ItemStack(Item.goldNugget));
+        OreDictionary.registerOre("nuggetPigIron", new ItemStack(materials, 1, 35));
+
+        OreDictionary.registerOre("slabCloth", new ItemStack(woolSlab1, 1, Short.MAX_VALUE));
+        OreDictionary.registerOre("slabCloth", new ItemStack(woolSlab2, 1, Short.MAX_VALUE));
+
+        ensureOreIsRegistered("stoneMossy", new ItemStack(Block.stoneBrick, 1, 1));
+        ensureOreIsRegistered("stoneMossy", new ItemStack(Block.cobblestoneMossy));
+
+        OreDictionary.registerOre("crafterWood", new ItemStack(Block.workbench, 1));
+        OreDictionary.registerOre("craftingTableWood", new ItemStack(Block.workbench, 1));
+
+        OreDictionary.registerOre("torchStone", new ItemStack(stoneTorch));
 
         String[] matNames = { "wood", "stone", "iron", "flint", "cactus", "bone", "obsidian", "netherrack", "slime", "paper", "cobalt", "ardite", "manyullyn", "copper", "bronze", "alumite", "steel",
                 "blueslime" };
@@ -1836,41 +2068,72 @@ public class TContent implements IFuelHandler
 
         BlockDispenser.dispenseBehaviorRegistry.putObject(titleIcon, new TDispenserBehaviorSpawnEgg());
 
+        BlockDispenser.dispenseBehaviorRegistry.putObject(arrow, new TDispenserBehaviorArrow());
+
         //Vanilla stuff
         OreDictionary.registerOre("slimeball", new ItemStack(Item.slimeBall));
         OreDictionary.registerOre("slimeball", new ItemStack(strangeFood, 1, 0));
+        OreDictionary.registerOre("slimeball", new ItemStack(materials, 1, 36));
+        OreDictionary.registerOre("glass", new ItemStack(clearGlass));
+        OreDictionary.registerOre("glass", new ItemStack(Block.glass));
         RecipeRemover.removeShapedRecipe(new ItemStack(Block.pistonStickyBase));
         RecipeRemover.removeShapedRecipe(new ItemStack(Item.magmaCream));
+        RecipeRemover.removeShapedRecipe(new ItemStack(Item.leash));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Block.pistonStickyBase), "slimeball", Block.pistonBase));
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Item.magmaCream), "slimeball", Item.blazePowder));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Item.leash, 2), "ss ", "sS ", "  s", 's', Item.silk, 'S', "slimeball"));
+    }
+
+    private void ensureOreIsRegistered (String oreName, ItemStack is)
+    {
+        int oreId = OreDictionary.getOreID(is);
+        if (oreId == -1)
+        {
+            OreDictionary.registerOre(oreName, is);
+        }
     }
 
     public static boolean thaumcraftAvailable;
 
-    public void intermodCommunication()
+    public void intermodCommunication ()
     {
-        FMLInterModComms.sendMessage("Thaumcraft", "harvestClickableCrop", new ItemStack(oreBerry, 1, 12));
-        FMLInterModComms.sendMessage("Thaumcraft", "harvestClickableCrop", new ItemStack(oreBerry, 1, 13));
-        FMLInterModComms.sendMessage("Thaumcraft", "harvestClickableCrop", new ItemStack(oreBerry, 1, 14));
-        FMLInterModComms.sendMessage("Thaumcraft", "harvestClickableCrop", new ItemStack(oreBerry, 1, 15));
-        FMLInterModComms.sendMessage("Thaumcraft", "harvestClickableCrop", new ItemStack(oreBerrySecond, 1, 12));
-        FMLInterModComms.sendMessage("Thaumcraft", "harvestClickableCrop", new ItemStack(oreBerrySecond, 1, 13));
-        MystImcHandler.blacklistFluids(); 
+        if (Loader.isModLoaded("Thaumcraft"))
+        {
+            FMLInterModComms.sendMessage("Thaumcraft", "harvestClickableCrop", new ItemStack(oreBerry, 1, 12));
+            FMLInterModComms.sendMessage("Thaumcraft", "harvestClickableCrop", new ItemStack(oreBerry, 1, 13));
+            FMLInterModComms.sendMessage("Thaumcraft", "harvestClickableCrop", new ItemStack(oreBerry, 1, 14));
+            FMLInterModComms.sendMessage("Thaumcraft", "harvestClickableCrop", new ItemStack(oreBerry, 1, 15));
+            FMLInterModComms.sendMessage("Thaumcraft", "harvestClickableCrop", new ItemStack(oreBerrySecond, 1, 12));
+            FMLInterModComms.sendMessage("Thaumcraft", "harvestClickableCrop", new ItemStack(oreBerrySecond, 1, 13));
+        }
+        if (Loader.isModLoaded("Mystcraft"))
+        {
+            MystImcHandler.blacklistFluids();
+        }
+        if (Loader.isModLoaded("BuildCraft|Transport"))
+        {
+            BCImcHandler.registerFacades();
+        }
         /* FORESTRY
          * Edit these strings to change what items are added to the backpacks
          * Format info: "[backpack ID]@[item ID].[metadata or *]:[next item]" and so on
          * Avaliable backpack IDs: forester, miner, digger, hunter, adventurer, builder
          * May add more backpack items later - Spyboticsguy 
          */
-
-        String builderItems = "builder@" + String.valueOf(stoneTorch.blockID) + ":*";
-
-        FMLInterModComms.sendMessage("Forestry", "add-backpack-items", builderItems);
+        if (Loader.isModLoaded("Forestry"))
+        {
+            String builderItems = "builder@" + String.valueOf(stoneTorch.blockID) + ":*";
+            FMLInterModComms.sendMessage("Forestry", "add-backpack-items", builderItems);
+        }
+        if (!Loader.isModLoaded("AppliedEnergistics"))
+        {
+            AEImcHandler.registerForSpatialIO();
+        }
     }
 
     private static boolean initRecipes;
 
-    public static void modRecipes()
+    public static void modRecipes ()
     {
         if (!initRecipes)
         {
@@ -1910,7 +2173,7 @@ public class TContent implements IFuelHandler
         }
     }
 
-    public static void addShapedRecipeFirst(List recipeList, ItemStack itemstack, Object... objArray)
+    public static void addShapedRecipeFirst (List recipeList, ItemStack itemstack, Object... objArray)
     {
         String var3 = "";
         int var4 = 0;
@@ -1919,7 +2182,7 @@ public class TContent implements IFuelHandler
 
         if (objArray[var4] instanceof String[])
         {
-            String[] var7 = (String[]) ((String[]) objArray[var4++]);
+            String[] var7 = ((String[]) objArray[var4++]);
 
             for (int var8 = 0; var8 < var7.length; ++var8)
             {
@@ -1983,30 +2246,52 @@ public class TContent implements IFuelHandler
         recipeList.add(0, var17);
     }
 
-    public void modIntegration()
+    public void modIntegration ()
     {
         ItemStack ironpick = ToolBuilder.instance.buildTool(new ItemStack(TContent.pickaxeHead, 1, 6), new ItemStack(TContent.toolRod, 1, 2), new ItemStack(TContent.binding, 1, 6), "");
+        /*TE3 Flux*/
+        ItemStack batHardened = GameRegistry.findItemStack("ThermalExpansion", "capacitorHardened", 1);
+        if (batHardened != null)
+        {
+            modF.batteries.add(batHardened);
+        }
+        ItemStack basicCell = GameRegistry.findItemStack("ThermalExpansion", "cellBasic", 1);
+        if (basicCell != null)
+        {
+            modF.batteries.add(basicCell);
+        }
+		if (batHardened != null)
+            TConstructClientRegistry.registerManualModifier("fluxmod", ironpick.copy(), (ItemStack) batHardened);
+		if (basicCell != null)
+            TConstructClientRegistry.registerManualModifier("fluxmod2", ironpick.copy(), (ItemStack) basicCell);
+
         /* IC2 */
-        ItemStack reBattery = ic2.api.item.Items.getItem("reBattery");
+
+        //ItemStack reBattery = ic2.api.item.Items.getItem("reBattery");
+        Object reBattery = getStaticItem("reBattery", "ic2.core.Ic2Items");
         if (reBattery != null)
-            modE.batteries.add(reBattery);
-        ItemStack chargedReBattery = ic2.api.item.Items.getItem("chargedReBattery");
+        {
+            modE.batteries.add((ItemStack) reBattery);
+        }
+        //ItemStack chargedReBattery = ic2.api.item.Items.getItem("chargedReBattery");
+        Object chargedReBattery = getStaticItem("chargedReBattery", "ic2.core.Ic2Items");
         if (chargedReBattery != null)
         {
-            modE.batteries.add(chargedReBattery);
+            modE.batteries.add((ItemStack) chargedReBattery);
         }
-        ItemStack electronicCircuit = ic2.api.item.Items.getItem("electronicCircuit");
+        //ItemStack electronicCircuit = ic2.api.item.Items.getItem("electronicCircuit");
+        Object electronicCircuit = getStaticItem("electronicCircuit", "ic2.core.Ic2Items");
         if (electronicCircuit != null)
-            modE.circuits.add(electronicCircuit);
+            modE.circuits.add((ItemStack) electronicCircuit);
 
         if (chargedReBattery != null && electronicCircuit != null)
-            TConstructClientRegistry.registerManualModifier("electricmod", ironpick.copy(), chargedReBattery, electronicCircuit);
+            TConstructClientRegistry.registerManualModifier("electricmod", ironpick.copy(), (ItemStack) chargedReBattery, (ItemStack) electronicCircuit);
 
         /* Thaumcraft */
-        Object obj = getStaticItem("itemResource", "thaumcraft.common.Config");
+        Object obj = getStaticItem("itemResource", "thaumcraft.common.config.ConfigItems");
         if (obj != null)
         {
-            System.out.println("[TConstruct] Thaumcraft detected. Adding thaumium tools.");
+            TConstruct.logger.info("Thaumcraft detected. Adding thaumium tools.");
             thaumcraftAvailable = true;
             TConstructClientRegistry.addMaterialRenderMapping(31, "tinker", "thaumium", true);
             TConstructRegistry.addToolMaterial(31, "Thaumium", 3, 400, 700, 2, 1.3F, 0, 0f, "\u00A75", "Thaumic");
@@ -2023,7 +2308,7 @@ public class TContent implements IFuelHandler
         }
         else
         {
-            System.out.println("[TConstruct] Thaumcraft not detected.");
+            TConstruct.logger.warning("Thaumcraft not detected.");
         }
 
         if (Loader.isModLoaded("Natura"))
@@ -2042,85 +2327,93 @@ public class TContent implements IFuelHandler
         LiquidCasting tableCasting = TConstructRegistry.instance.getTableCasting();
         LiquidCasting basinCasting = TConstructRegistry.instance.getBasinCasting();
 
-        /* Thermal Expansion */
+        /* Thermal Expansion 3 Metals */
         ArrayList<ItemStack> ores = OreDictionary.getOres("ingotNickel");
         if (ores.size() > 0)
         {
-            ItemStack ingot = ores.get(0);
-            tableCasting.addCastingRecipe(ingot, new FluidStack(moltenNickelFluid, TConstruct.ingotLiquidValue), ingotcast, 80);
+            tableCasting.addCastingRecipe(ores.get(0), new FluidStack(moltenNickelFluid, TConstruct.ingotLiquidValue), ingotcast, 80);
         }
         ores = OreDictionary.getOres("ingotLead");
         if (ores.size() > 0)
         {
-            ItemStack ingot = ores.get(0);
-            tableCasting.addCastingRecipe(ingot, new FluidStack(moltenLeadFluid, TConstruct.ingotLiquidValue), ingotcast, 80);
+            tableCasting.addCastingRecipe(ores.get(0), new FluidStack(moltenLeadFluid, TConstruct.ingotLiquidValue), ingotcast, 80);
         }
         ores = OreDictionary.getOres("ingotSilver");
         if (ores.size() > 0)
         {
-            ItemStack ingot = ores.get(0);
-            tableCasting.addCastingRecipe(ingot, new FluidStack(moltenSilverFluid, TConstruct.ingotLiquidValue), ingotcast, 80);
+            tableCasting.addCastingRecipe(ores.get(0), new FluidStack(moltenSilverFluid, TConstruct.ingotLiquidValue), ingotcast, 80);
         }
         ores = OreDictionary.getOres("ingotPlatinum");
         if (ores.size() > 0)
         {
-            ItemStack ingot = ores.get(0);
-            tableCasting.addCastingRecipe(ingot, new FluidStack(moltenShinyFluid, TConstruct.ingotLiquidValue), ingotcast, 80);
+            tableCasting.addCastingRecipe(ores.get(0), new FluidStack(moltenShinyFluid, TConstruct.ingotLiquidValue), ingotcast, 80);
         }
         ores = OreDictionary.getOres("ingotInvar");
         if (ores.size() > 0)
         {
-            ItemStack ingot = ores.get(0);
-            tableCasting.addCastingRecipe(ingot, new FluidStack(moltenInvarFluid, TConstruct.ingotLiquidValue), ingotcast, 80);
+            tableCasting.addCastingRecipe(ores.get(0), new FluidStack(moltenInvarFluid, TConstruct.ingotLiquidValue), ingotcast, 80);
             Smeltery.addAlloyMixing(new FluidStack(moltenInvarFluid, 24), new FluidStack(moltenIronFluid, 16), new FluidStack(moltenNickelFluid, 8)); //Invar
         }
         ores = OreDictionary.getOres("ingotElectrum");
         if (ores.size() > 0)
         {
-            ItemStack ingot = ores.get(0);
-            tableCasting.addCastingRecipe(ingot, new FluidStack(moltenElectrumFluid, TConstruct.ingotLiquidValue), ingotcast, 80);
+            tableCasting.addCastingRecipe(ores.get(0), new FluidStack(moltenElectrumFluid, TConstruct.ingotLiquidValue), ingotcast, 80);
             Smeltery.addAlloyMixing(new FluidStack(moltenElectrumFluid, 16), new FluidStack(moltenGoldFluid, 8), new FluidStack(moltenSilverFluid, 8)); //Electrum
         }
 
         ores = OreDictionary.getOres("blockNickel");
         if (ores.size() > 0)
         {
-            ItemStack ingot = ores.get(0);
-            basinCasting.addCastingRecipe(ingot, new FluidStack(moltenNickelFluid, TConstruct.ingotLiquidValue * 9), null, 100);
+            basinCasting.addCastingRecipe(ores.get(0), new FluidStack(moltenNickelFluid, TConstruct.blockLiquidValue), null, 100);
         }
         ores = OreDictionary.getOres("blockLead");
         if (ores.size() > 0)
         {
-            ItemStack ingot = ores.get(0);
-            basinCasting.addCastingRecipe(ingot, new FluidStack(moltenLeadFluid, TConstruct.ingotLiquidValue * 9), null, 100);
+            basinCasting.addCastingRecipe(ores.get(0), new FluidStack(moltenLeadFluid, TConstruct.blockLiquidValue), null, 100);
         }
         ores = OreDictionary.getOres("blockSilver");
         if (ores.size() > 0)
         {
-            ItemStack ingot = ores.get(0);
-            basinCasting.addCastingRecipe(ingot, new FluidStack(moltenSilverFluid, TConstruct.ingotLiquidValue * 9), null, 100);
+            basinCasting.addCastingRecipe(ores.get(0), new FluidStack(moltenSilverFluid, TConstruct.blockLiquidValue), null, 100);
         }
         ores = OreDictionary.getOres("blockPlatinum");
         if (ores.size() > 0)
         {
-            ItemStack ingot = ores.get(0);
-            basinCasting.addCastingRecipe(ingot, new FluidStack(moltenShinyFluid, TConstruct.ingotLiquidValue * 9), null, 100);
+            basinCasting.addCastingRecipe(ores.get(0), new FluidStack(moltenShinyFluid, TConstruct.blockLiquidValue), null, 100);
         }
         ores = OreDictionary.getOres("blockInvar");
         if (ores.size() > 0)
         {
-            ItemStack ingot = ores.get(0);
-            basinCasting.addCastingRecipe(ingot, new FluidStack(moltenInvarFluid, TConstruct.ingotLiquidValue * 9), null, 100);
+            basinCasting.addCastingRecipe(ores.get(0), new FluidStack(moltenInvarFluid, TConstruct.blockLiquidValue), null, 100);
         }
         ores = OreDictionary.getOres("blockElectrum");
         if (ores.size() > 0)
         {
-            ItemStack ingot = ores.get(0);
-            basinCasting.addCastingRecipe(ingot, new FluidStack(moltenElectrumFluid, TConstruct.ingotLiquidValue * 9), null, 100);
+            basinCasting.addCastingRecipe(ores.get(0), new FluidStack(moltenElectrumFluid, TConstruct.blockLiquidValue), null, 100);
         }
+
+        /* Extra Utilities */
+        ores = OreDictionary.getOres("compressedGravel1x");
+        if (ores.size() > 0)
+        {
+            basinCasting.addCastingRecipe(new ItemStack(speedBlock, 9), new FluidStack(moltenElectrumFluid, TConstruct.blockLiquidValue), ores.get(0), 100);
+        }
+        ores = OreDictionary.getOres("compressedGravel2x"); //Higher won't save properly
+        if (ores.size() > 0)
+        {
+            basinCasting.addCastingRecipe(new ItemStack(speedBlock, 81), new FluidStack(moltenElectrumFluid, TConstruct.blockLiquidValue * 9), ores.get(0), 100);
+        }
+
+        /* Rubber */
+        ores = OreDictionary.getOres("itemRubber");
+        if (ores.size() > 0)
+        {
+            FurnaceRecipes.smelting().addSmelting(materials.itemID, 36, ores.get(0), 0.2f);
+        }
+        //new ItemStack(materials, 1, 36)
     }
 
-    public static Object getStaticItem(String name, String classPackage)
+    public static Object getStaticItem (String name, String classPackage)
     {
         try
         {
@@ -2133,16 +2426,103 @@ public class TContent implements IFuelHandler
         }
         catch (Exception e)
         {
-            //System.out.println("[TConstruct] Could not find " + name);
+            TConstruct.logger.warning("Could not find " + name);
             return null;
         }
     }
 
     @Override
-    public int getBurnTime(ItemStack fuel)
+    public int getBurnTime (ItemStack fuel)
     {
         if (fuel.itemID == materials.itemID && fuel.getItemDamage() == 7)
             return 26400;
         return 0;
+    }
+
+    public void addOreDictionarySmelteryRecipes ()
+    {
+        List<FluidType> exceptions = Arrays.asList(new FluidType[] { FluidType.Water, FluidType.Stone, FluidType.Ender, FluidType.Glass, FluidType.Slime });
+        for (FluidType ft : FluidType.values())
+        {
+            if (exceptions.contains(ft))
+                continue;
+
+            // Nuggets
+            Smeltery.addDictionaryMelting("nugget" + ft.toString(), ft, -100, TConstruct.nuggetLiquidValue);
+
+            // Ingots, Dust
+            registerIngotCasting(ft);
+            Smeltery.addDictionaryMelting("ingot" + ft.toString(), ft, -50, TConstruct.ingotLiquidValue);
+            Smeltery.addDictionaryMelting("dust" + ft.toString(), ft, -75, TConstruct.ingotLiquidValue);
+
+            // Factorization support
+            Smeltery.addDictionaryMelting("crystalline" + ft.toString(), ft, -50, TConstruct.ingotLiquidValue);
+
+            // Ores
+            Smeltery.addDictionaryMelting("ore" + ft.toString(), ft, 0, TConstruct.ingotLiquidValue * PHConstruct.ingotsPerOre);
+
+            // NetherOres support
+            Smeltery.addDictionaryMelting("oreNether" + ft.toString(), ft, 75, TConstruct.ingotLiquidValue * PHConstruct.ingotsPerOre * 2);
+
+            // Blocks
+            Smeltery.addDictionaryMelting("block" + ft.toString(), ft, 100, TConstruct.blockLiquidValue);
+
+            if (ft.isToolpart)
+            {
+                registerPatternMaterial("ingot" + ft.toString(), 2, ft.toString());
+                registerPatternMaterial("block" + ft.toString(), 18, ft.toString());
+            }
+        }
+
+        //Compressed materials
+        for (int i = 1; i <= 8; i++)
+        {
+            Smeltery.addDictionaryMelting("compressedCobblestone" + i + "x", FluidType.Stone, 0, TConstruct.ingotLiquidValue / 18 * (9 ^ i));
+        }
+        Smeltery.addDictionaryMelting("compressedSand1x", FluidType.Glass, 175, FluidContainerRegistry.BUCKET_VOLUME * 9);
+
+        registerPatternMaterial("plankWood", 2, "Wood");
+        registerPatternMaterial("stickWood", 1, "Wood");
+        registerPatternMaterial("slabWood", 1, "Wood");
+        registerPatternMaterial("compressedCobblestone1x", 18, "Stone");
+    }
+
+    private void registerPatternMaterial (String oreName, int value, String materialName)
+    {
+        for (ItemStack ore : OreDictionary.getOres(oreName))
+        {
+            PatternBuilder.instance.registerMaterial(ore, value, materialName);
+        }
+    }
+
+    private void registerIngotCasting (FluidType ft)
+    {
+        ItemStack pattern = new ItemStack(TContent.metalPattern, 1, 0);
+        LiquidCasting tableCasting = TConstructRegistry.instance.getTableCasting();
+        for (ItemStack ore : OreDictionary.getOres("ingot" + ft.toString()))
+        {
+            tableCasting.addCastingRecipe(pattern, new FluidStack(TContent.moltenAlubrassFluid, TConstruct.ingotLiquidValue), new ItemStack(ore.itemID, 1, ore.getItemDamage()), false, 50);
+            tableCasting.addCastingRecipe(pattern, new FluidStack(TContent.moltenGoldFluid, TConstruct.oreLiquidValue), new ItemStack(ore.itemID, 1, ore.getItemDamage()), false, 50);
+            tableCasting.addCastingRecipe(new ItemStack(ore.itemID, 1, ore.getItemDamage()), new FluidStack(ft.fluid, TConstruct.ingotLiquidValue), pattern, 80);
+        }
+
+    }
+
+    public void addAchievements ()
+    {
+        HashMap<String, Achievement> achievements = TAchievements.achievements;
+
+        achievements.put("tconstruct.beginner", new Achievement(2741, "tconstruct.beginner", 0, 0, manualBook, null).setIndependent().registerAchievement());
+        achievements.put("tconstruct.pattern", new Achievement(2742, "tconstruct.pattern", 2, 1, blankPattern, achievements.get("tconstruct.beginner")).registerAchievement());
+        achievements.put("tconstruct.tinkerer", new Achievement(2743, "tconstruct.tinkerer", 2, 2, new ItemStack(titleIcon, 1, 4096), achievements.get("tconstruct.pattern")).registerAchievement());
+        achievements.put("tconstruct.preparedFight",
+                new Achievement(2744, "tconstruct.preparedFight", 1, 3, new ItemStack(titleIcon, 1, 4097), achievements.get("tconstruct.tinkerer")).registerAchievement());
+        achievements.put("tconstruct.proTinkerer", new Achievement(2745, "tconstruct.proTinkerer", 4, 4, new ItemStack(titleIcon, 1, 4098), achievements.get("tconstruct.tinkerer")).setSpecial()
+                .registerAchievement());
+        achievements.put("tconstruct.smelteryMaker", new Achievement(2746, "tconstruct.smelteryMaker", -2, -1, smeltery, achievements.get("tconstruct.beginner")).registerAchievement());
+        achievements.put("tconstruct.enemySlayer",
+                new Achievement(2747, "tconstruct.enemySlayer", 0, 5, new ItemStack(titleIcon, 1, 4099), achievements.get("tconstruct.preparedFight")).registerAchievement());
+        achievements.put("tconstruct.dualConvenience", new Achievement(2748, "tconstruct.dualConvenience", 0, 7, new ItemStack(titleIcon, 1, 4100), achievements.get("tconstruct.enemySlayer"))
+                .setSpecial().registerAchievement());
     }
 }

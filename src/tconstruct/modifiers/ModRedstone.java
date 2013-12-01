@@ -85,11 +85,16 @@ public class ModRedstone extends ToolMod
         miningSpeed += (increase * 8);
         tags.setInteger("MiningSpeed", miningSpeed);
 
-        if (tags.hasKey("MiningSpeed2"))
+        String[] type = { "MiningSpeed2", "MiningSpeedHandle", "MiningSpeedExtra" };
+
+        for (int i = 0; i < 3; i++)
         {
-            int miningSpeed2 = tags.getInteger("MiningSpeed2");
-            miningSpeed2 += (increase * 8);
-            tags.setInteger("MiningSpeed2", miningSpeed2);
+            if (tags.hasKey(type[i]))
+            {
+                int speed = tags.getInteger(type[i]);
+                speed += (increase * 8);
+                tags.setInteger(type[i], speed);
+            }
         }
 
         if (tags.hasKey("DrawSpeed"))

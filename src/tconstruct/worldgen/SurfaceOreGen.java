@@ -2,7 +2,7 @@ package tconstruct.worldgen;
 
 import java.util.Random;
 
-import tconstruct.util.PHConstruct;
+import tconstruct.util.config.PHConstruct;
 
 import net.minecraft.block.Block;
 import net.minecraft.util.MathHelper;

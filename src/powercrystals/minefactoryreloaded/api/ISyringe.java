@@ -1,6 +1,6 @@
 package powercrystals.minefactoryreloaded.api;
 
-import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
@@ -18,7 +18,7 @@ public interface ISyringe
 	 * @param syringe The syringe ItemStack.
 	 * @return True if the entity can be injected by this syringe.
 	 */
-	public boolean canInject(World world, EntityLiving entity, ItemStack syringe);
+	public boolean canInject(World world, EntityLivingBase entity, ItemStack syringe);
 	
 	/**
 	 * Called to perform an injection.
@@ -27,5 +27,5 @@ public interface ISyringe
 	 * @param syringe The syringe ItemStack.
 	 * @return True if injection was successful.
 	 */
-	public boolean inject(World world, EntityLiving entity, ItemStack syringe);
+	public boolean inject(World world, EntityLivingBase entity, ItemStack syringe);
 }

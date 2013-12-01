@@ -56,7 +56,7 @@ public class RenderLandmine implements ISimpleBlockRenderingHandler
 
         ForgeDirection dir = Helper.convertMetaToForgeOrientation(i1);
 
-        //System.out.println(i1 + " for " + dir);
+        //TConstruct.logger.info(i1 + " for " + dir);
 
         switch (dir)
         {

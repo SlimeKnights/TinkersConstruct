@@ -1,12 +1,9 @@
 package tconstruct.inventory;
 
-import tconstruct.blocks.logic.FrypanLogic;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.ICrafting;
-import net.minecraft.inventory.Slot;
+import net.minecraft.entity.player.*;
+import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
+import tconstruct.blocks.logic.FrypanLogic;
 
 public class FrypanContainer extends Container
 {
@@ -15,13 +12,14 @@ public class FrypanContainer extends Container
     public int fuel = 0;
     public int fuelGague = 0;
 
-    public FrypanContainer(InventoryPlayer inventoryplayer, FrypanLogic frypan)
+    public FrypanContainer(EntityPlayer player, FrypanLogic frypan)
     {
+    	InventoryPlayer inventoryplayer = player.inventory;
         logic = frypan;
         this.addSlotToContainer(new Slot(frypan, 1, 26, 45));
         for (int y = 0; y < 2; y++)
             for (int x = 0; x < 4; x++)
-                this.addSlotToContainer(new Slot(frypan, 2 + x + y * 4, 70 + x * 18, 27 + y * 18));
+                this.addSlotToContainer(new SlotFrypan(frypan, 2 + x + y * 4, 70 + x * 18, 27 + y * 18, player));
 
         /* Player inventory */
         for (int column = 0; column < 3; column++)

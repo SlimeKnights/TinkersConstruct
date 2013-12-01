@@ -56,7 +56,6 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
 
     protected void damageEntity (DamageSource damageSource, int damage)
     {
-        //Minecraft.getMinecraft().getLogAgent().logInfo("Damage: "+damage);
         if (damageSource.damageType.equals("arrow"))
             damage = damage / 2;
         super.damageEntity(damageSource, damage);
@@ -76,48 +75,6 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
 
         return StatCollector.translateToLocal("entity." + s + ".name");
     }
-
-    /*@Override
-    public void initCreature ()
-    {
-        if (getSlimeSize() == 2 && rand.nextInt(8) == 0)
-        {
-            EntitySkeleton entityskeleton = new EntitySkeleton(this.worldObj);
-            entityskeleton.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
-            //entityskeleton.initCreature();
-            this.worldObj.spawnEntityInWorld(entityskeleton);
-            entityskeleton.mountEntity(this);
-        }
-        if (getSlimeSize() == 4 && rand.nextInt(12) == 0)
-        {
-            EntityCreeper creeper = new EntityCreeper(this.worldObj);
-            creeper.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
-            //creeper.initCreature();
-            this.worldObj.spawnEntityInWorld(creeper);
-            creeper.mountEntity(this);
-        }
-        if (getSlimeSize() == 8)
-        {
-            for (int i = 0; i < 5; i++)
-            {
-                BlueSlime slime = new BlueSlime(this.worldObj);
-                slime.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
-                //slime.initCreature();
-                this.worldObj.spawnEntityInWorld(slime);
-            }
-
-            BlueSlime slime = new BlueSlime(this.worldObj);
-            slime.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
-            slime.setSlimeSize(2);
-            this.worldObj.spawnEntityInWorld(slime);
-
-            EntitySkeleton skelton = new EntitySkeleton(this.worldObj);
-            skelton.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
-            //skelton.initCreature();
-            this.worldObj.spawnEntityInWorld(skelton);
-            skelton.mountEntity(slime);
-        }
-    }*/
 
     public EntityLivingData func_110161_a (EntityLivingData par1EntityLivingData)
     {
@@ -254,19 +211,7 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
     {
         super.entityInit();
         this.dataWatcher.addObject(16, new Byte((byte) 1));
-        //this.dataWatcher.addObject(17, new Integer(100));
     }
-
-    /*public void setSlimeSize (int size)
-    {
-        this.dataWatcher.updateObject(16, new Byte((byte) size));
-        this.setSize(0.6F * size, 0.6F * size);
-        this.setPosition(this.posX, this.posY, this.posZ);
-        this.setEntityHealth(this.getMaxHealth());
-        this.experienceValue = size + 2;
-        if (size >= 8)
-            this.experienceValue = 500;
-    }*/
 
     public void setSlimeSize (int size)
     {
@@ -289,7 +234,7 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
             return 4;
         if (i == 8)
             return 100;
-        return (float)Math.min(i * i + 8, 49);
+        return (float) Math.min(i * i + 8, 49);
     }
 
     /**
@@ -336,11 +281,6 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
         {
             this.isDead = true;
         }
-
-        /*if (!this.worldObj.isRemote)
-        {
-            this.dataWatcher.updateObject(17, Integer.valueOf(this.health));
-        }*/
 
         this.sizeFactor += (this.sizeOffset - this.sizeFactor) * 0.5F;
         this.sizeHeight = this.sizeFactor;
@@ -505,9 +445,9 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
 
             NBTTagCompound tags = toolStack.getTagCompound().getCompoundTag("InfiTool");
             tags.setInteger("Attack", 3 + tool.getDamageVsEntity(null));
-            tags.setInteger("TotalDurability", 1500);
-            tags.setInteger("BaseDurability", 1500);
-            tags.setInteger("MiningSpeed", 800);
+            tags.setInteger("TotalDurability", 2500);
+            tags.setInteger("BaseDurability", 2500);
+            tags.setInteger("MiningSpeed", 1400);
 
             this.entityDropItem(toolStack, 0f);
             if (rand.nextInt(5) == 0)

@@ -33,7 +33,8 @@ public class LavaTankBlock extends BlockContainer
     public LavaTankBlock(int id)
     {
         super(id, Material.rock);
-        setHardness(12);
+        setHardness(3F);
+        setResistance(20F);
         setCreativeTab(TConstructRegistry.blockTab);
         setUnlocalizedName("TConstruct.LavaTank");
         setStepSound(Block.soundGlassFootstep);
