@@ -10,6 +10,7 @@ import javax.swing.ImageIcon;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.event.ForgeSubscribe;
+import tconstruct.util.EnvironmentChecks;
 
 public class EventCloakRender
 {
@@ -32,7 +33,7 @@ public class EventCloakRender
     @ForgeSubscribe
     public void onPreRenderSpecials (RenderPlayerEvent.Specials.Pre event)
     {
-        if (Loader.isModLoaded("shadersmod"))
+        if (Loader.isModLoaded("shadersmod") || EnvironmentChecks.hasOptifine)
         {
             return;
         }

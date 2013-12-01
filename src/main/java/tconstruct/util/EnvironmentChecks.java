@@ -13,6 +13,9 @@ import java.util.List;
 public class EnvironmentChecks
 {
 
+    // Used for aborting cloak renders with Optifine present (it misbehaves)
+    public static boolean hasOptifine = false;
+
     private EnvironmentChecks()
     {
     } // Singleton
@@ -33,8 +36,9 @@ public class EnvironmentChecks
 
         if (FMLCommonHandler.instance().getSide() == Side.CLIENT && FMLClientHandler.instance().hasOptifine() || Loader.isModLoaded("optifine"))
         {
-            TConstruct.logger.severe("[Environment Checks] Optifine detected. This is a Bad Thing(tm) and can crash Minecraft due to an Optifine bug during TCon armor renders!");
+            TConstruct.logger.severe("[Environment Checks] Optifine detected. This is a Bad Thing(tm) and can crash Minecraft due to an Optifine bug during TCon armor renders! Capes also disabled.");
             modIds.add("optifine");
+            hasOptifine = true;
         }
 
         try
