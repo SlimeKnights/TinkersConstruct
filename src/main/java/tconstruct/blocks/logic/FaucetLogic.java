@@ -1,8 +1,8 @@
 package tconstruct.blocks.logic;
 
 import tconstruct.TConstruct;
-import tconstruct.library.util.IActiveLogic;
-import mantle.blocks.iface.IFacingLogic;;
+import mantle.blocks.iface.IActiveLogic;
+import mantle.blocks.iface.IFacingLogic;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.INetworkManager;

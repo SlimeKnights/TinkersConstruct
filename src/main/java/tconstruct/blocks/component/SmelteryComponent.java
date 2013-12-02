@@ -2,6 +2,7 @@ package tconstruct.blocks.component;
 
 import java.util.ArrayList;
 
+import mantle.world.CoordTuple;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -14,7 +15,6 @@ import tconstruct.blocks.logic.AdaptiveSmelteryLogic;
 import tconstruct.library.component.LogicComponent;
 import tconstruct.library.component.MultiFluidTank;
 import tconstruct.library.crafting.Smeltery;
-import tconstruct.library.util.CoordTuple;
 
 public class SmelteryComponent extends LogicComponent
 {
@@ -138,14 +138,14 @@ public class SmelteryComponent extends LogicComponent
         if (activeLavaTank == null || fuelTicks > 0 || structure.lavaTanks.size() < 1)
             return;
 
-        if (!world.blockExists(activeLavaTank.x, activeLavaTank.y, activeLavaTank.z))
+        if (!world.blockExists(activeLavaTank.x(), activeLavaTank.y(), activeLavaTank.z()))
         {
             fuelAmount = 0;
             fuelGague = 0;
             return;
         }
 
-        TileEntity tankContainer = world.getBlockTileEntity(activeLavaTank.x, activeLavaTank.y, activeLavaTank.z);
+        TileEntity tankContainer = world.getBlockTileEntity(activeLavaTank.x(), activeLavaTank.y(), activeLavaTank.z());
         if (tankContainer == null)
         {
             fuelAmount = 0;
@@ -182,7 +182,7 @@ public class SmelteryComponent extends LogicComponent
                 while (!foundTank)
                 {
                     CoordTuple possibleTank = structure.lavaTanks.get(iter);
-                    TileEntity newTankContainer = world.getBlockTileEntity(possibleTank.x, possibleTank.y, possibleTank.z);
+                    TileEntity newTankContainer = world.getBlockTileEntity(possibleTank.x(), possibleTank.y(), possibleTank.z());
                     if (newTankContainer instanceof IFluidHandler)
                     {
                         FluidStack newliquid = ((IFluidHandler) newTankContainer).drain(ForgeDirection.UNKNOWN, drainFuelAmount(), false);
@@ -276,6 +276,6 @@ public class SmelteryComponent extends LogicComponent
         tags.setIntArray("Melting", meltingTemps);
         tags.setInteger("Fuel", fuelAmount);
         if (activeLavaTank != null)
-            tags.setIntArray("LavaTank", new int[] { activeLavaTank.x, activeLavaTank.y, activeLavaTank.z });
+            tags.setIntArray("LavaTank", new int[] { activeLavaTank.x(), activeLavaTank.y(), activeLavaTank.z() });
     }
 }

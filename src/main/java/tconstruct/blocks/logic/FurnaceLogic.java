@@ -21,7 +21,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 import tconstruct.inventory.FurnaceContainer;
 import mantle.blocks.abstracts.InventoryLogic;
-import tconstruct.library.util.IActiveLogic;
+import mantle.blocks.iface.IActiveLogic;
 import mantle.blocks.iface.IFacingLogic;
 import cpw.mods.fml.common.registry.GameRegistry;
 

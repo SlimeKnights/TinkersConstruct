@@ -3,6 +3,7 @@ package tconstruct.blocks.component;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import mantle.world.CoordTuple;
 import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagIntArray;
@@ -11,7 +12,6 @@ import net.minecraft.tileentity.TileEntity;
 import tconstruct.common.TContent;
 import tconstruct.common.TRepo;
 import tconstruct.library.component.TankLayerScan;
-import tconstruct.library.util.CoordTuple;
 import tconstruct.library.util.IServantLogic;
 
 public class SmelteryScan extends TankLayerScan
@@ -71,10 +71,10 @@ public class SmelteryScan extends TankLayerScan
         {
             for (CoordTuple coord : airCoords)
             {
-                if (world.getBlockId(coord.x, coord.y, coord.z) != TRepo.tankAir.blockID)
+                if (world.getBlockId(coord.x(), coord.y(), coord.z()) != TRepo.tankAir.blockID)
                 {
-                    world.setBlock(coord.x, coord.y, coord.z, TRepo.tankAir.blockID);
-                    IServantLogic servant = (IServantLogic) world.getBlockTileEntity(coord.x, coord.y, coord.z);
+                    world.setBlock(coord.x(), coord.y(), coord.z(), TRepo.tankAir.blockID);
+                    IServantLogic servant = (IServantLogic) world.getBlockTileEntity(coord.x(), coord.y(), coord.z());
                     servant.verifyMaster(imaster, world, master.xCoord, master.yCoord, master.zCoord);
                 }
             }
@@ -87,7 +87,7 @@ public class SmelteryScan extends TankLayerScan
         super.invalidateStructure();
         for (CoordTuple coord : airCoords)
         {
-            TileEntity servant = world.getBlockTileEntity(coord.x, coord.y, coord.z);
+            TileEntity servant = world.getBlockTileEntity(coord.x(), coord.y(), coord.z());
             if (servant instanceof IServantLogic)
                 ((IServantLogic) servant).invalidateMaster(imaster, world, master.xCoord, master.yCoord, master.zCoord);
         }
@@ -98,10 +98,10 @@ public class SmelteryScan extends TankLayerScan
     {
         for (CoordTuple coord : airCoords)
         {
-            if (coord.y < height)
+            if (coord.y() < height)
                 continue;
 
-            TileEntity servant = world.getBlockTileEntity(coord.x, coord.y, coord.z);
+            TileEntity servant = world.getBlockTileEntity(coord.x(), coord.y(), coord.z());
             if (servant instanceof IServantLogic)
                 ((IServantLogic) servant).invalidateMaster(imaster, world, master.xCoord, master.yCoord, master.zCoord);
         }
@@ -115,7 +115,7 @@ public class SmelteryScan extends TankLayerScan
         while (i.hasNext())
         {
             CoordTuple coord = (CoordTuple) i.next();
-            TileEntity te = world.getBlockTileEntity(coord.x, coord.y, coord.z);
+            TileEntity te = world.getBlockTileEntity(coord.x(), coord.y(), coord.z());
             if (te != null && te instanceof IServantLogic)
             {
                 ((IServantLogic) te).invalidateMaster(imaster, world, master.xCoord, master.yCoord, master.zCoord);
@@ -151,7 +151,7 @@ public class SmelteryScan extends TankLayerScan
         NBTTagList tanks = new NBTTagList();
         for (CoordTuple coord : lavaTanks)
         {
-            tanks.appendTag(new NBTTagIntArray("coord", new int[] { coord.x, coord.y, coord.z }));
+            tanks.appendTag(new NBTTagIntArray("coord", new int[] { coord.x(), coord.y(), coord.z() }));
         }
         tags.setTag("Tanks", tanks);
     }

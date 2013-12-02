@@ -12,7 +12,7 @@ import tconstruct.blocks.logic.FurnaceLogic;
 import tconstruct.common.TProxyCommon;
 import tconstruct.library.TConstructRegistry;
 import mantle.blocks.abstracts.InventorySlab;
-import tconstruct.library.util.IActiveLogic;
+import mantle.blocks.iface.IActiveLogic;
 import mantle.blocks.iface.IFacingLogic;
 
 public class FurnaceSlab extends InventorySlab

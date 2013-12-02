@@ -17,7 +17,7 @@ import net.minecraftforge.fluids.FluidStack;
 import tconstruct.TConstruct;
 import tconstruct.blocks.component.TankAirComponent;
 import mantle.blocks.abstracts.InventoryLogic;
-import tconstruct.library.util.CoordTuple;
+import mantle.world.CoordTuple;
 import tconstruct.library.util.IMasterLogic;
 import tconstruct.library.util.IServantLogic;
 

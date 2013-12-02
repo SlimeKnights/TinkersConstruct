@@ -1,5 +1,6 @@
 package tconstruct.library.util;
 
+import mantle.world.CoordTuple;
 import net.minecraft.world.World;
 
 public interface IServantLogic

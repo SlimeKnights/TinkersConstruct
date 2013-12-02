@@ -1,7 +1,7 @@
 package tconstruct.blocks.logic;
 
 import tconstruct.inventory.FrypanContainer;
-import tconstruct.library.util.IActiveLogic;
+import mantle.blocks.iface.IActiveLogic;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.InventoryPlayer;

@@ -1,12 +1,12 @@
 package tconstruct.blocks.logic;
 
+import mantle.world.CoordTuple;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.INetworkManager;
 import net.minecraft.network.packet.Packet;
 import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import tconstruct.library.util.CoordTuple;
 import tconstruct.library.util.IMasterLogic;
 import tconstruct.library.util.IServantLogic;
 
@@ -27,7 +27,7 @@ public class MultiServantLogic extends TileEntity implements IServantLogic
         if (!hasMaster)
             return false;
 
-        if (worldObj.getBlockId(master.x, master.y, master.z) == masterID && worldObj.getBlockMetadata(master.x, master.y, master.z) == masterMeat)
+        if (worldObj.getBlockId(master.x(), master.y(), master.z()) == masterID && worldObj.getBlockMetadata(master.x(), master.y(), master.z()) == masterMeat)
             return true;
 
         else
@@ -71,7 +71,7 @@ public class MultiServantLogic extends TileEntity implements IServantLogic
     @Deprecated
     public boolean setMaster (int x, int y, int z)
     {
-        if (!hasMaster || worldObj.getBlockId(master.x, master.y, master.z) != masterID || (worldObj.getBlockMetadata(master.x, master.y, master.z) != masterMeat))
+        if (!hasMaster || worldObj.getBlockId(master.x(), master.y(), master.z()) != masterID || (worldObj.getBlockMetadata(master.x(), master.y(), master.z()) != masterMeat))
         {
             overrideMaster(x, y, z);
             return true;
@@ -113,7 +113,7 @@ public class MultiServantLogic extends TileEntity implements IServantLogic
     {
         if (hasValidMaster())
         {
-            IMasterLogic logic = (IMasterLogic) worldObj.getBlockTileEntity(master.x, master.y, master.z);
+            IMasterLogic logic = (IMasterLogic) worldObj.getBlockTileEntity(master.x(), master.y(), master.z());
             logic.notifyChange(this, xCoord, yCoord, zCoord);
         }
     }
@@ -137,9 +137,9 @@ public class MultiServantLogic extends TileEntity implements IServantLogic
         tags.setBoolean("TiedToMaster", hasMaster);
         if (hasMaster)
         {
-            tags.setInteger("xCenter", master.x);
-            tags.setInteger("yCenter", master.y);
-            tags.setInteger("zCenter", master.z);
+            tags.setInteger("xCenter", master.x());
+            tags.setInteger("yCenter", master.y());
+            tags.setInteger("zCenter", master.z());
             tags.setShort("MasterID", masterID);
             tags.setByte("masterMeat", masterMeat);
         }
