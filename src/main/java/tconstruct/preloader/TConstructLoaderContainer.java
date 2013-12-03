@@ -146,4 +146,9 @@ public class TConstructLoaderContainer extends DummyModContainer implements IFML
     public void injectData (Map<String, Object> data)
     {
     }
+
+    @Deprecated
+    public String[] getLibraryRequestClass() {
+        return new String[0];
+    }
 }
