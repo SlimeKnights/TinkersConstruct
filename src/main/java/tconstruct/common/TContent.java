@@ -368,8 +368,6 @@ public class TContent implements IFuelHandler
             TRepo.pigIronFluid.setDensity(3000).setViscosity(6000).setTemperature(1300);
         TRepo.fluids = new Fluid[]{TRepo.moltenIronFluid, TRepo.moltenGoldFluid, TRepo.moltenCopperFluid, TRepo.moltenTinFluid, TRepo.moltenAluminumFluid, TRepo.moltenCobaltFluid, TRepo.moltenArditeFluid, TRepo.moltenBronzeFluid, TRepo.moltenAlubrassFluid, TRepo.moltenManyullynFluid, TRepo.moltenAlumiteFluid, TRepo.moltenObsidianFluid, TRepo.moltenSteelFluid, TRepo.moltenGlassFluid, TRepo.moltenStoneFluid, TRepo.moltenEmeraldFluid, TRepo.bloodFluid, TRepo.moltenNickelFluid, TRepo.moltenLeadFluid, TRepo.moltenSilverFluid, TRepo.moltenShinyFluid, TRepo.moltenInvarFluid, TRepo.moltenElectrumFluid, TRepo.moltenEnderFluid, TRepo.blueSlimeFluid, TRepo.glueFluid, TRepo.pigIronFluid};
         TRepo.fluidBlocks = new Block[]{TRepo.moltenIron, TRepo.moltenGold, TRepo.moltenCopper, TRepo.moltenTin, TRepo.moltenAluminum, TRepo.moltenCobalt, TRepo.moltenArdite, TRepo.moltenBronze, TRepo.moltenAlubrass, TRepo.moltenManyullyn, TRepo.moltenAlumite, TRepo.moltenObsidian, TRepo.moltenSteel, TRepo.moltenGlass, TRepo.moltenStone, TRepo.moltenEmerald, TRepo.blood, TRepo.moltenNickel, TRepo.moltenLead, TRepo.moltenSilver, TRepo.moltenShiny, TRepo.moltenInvar, TRepo.moltenElectrum, TRepo.moltenEnder, TRepo.slimePool, TRepo.glueFluidBlock};
-
-        
         //Slime Islands
         TRepo.slimeGel = new SlimeGel(PHConstruct.slimeGel).setStepSound(TRepo.slimeStep).setLightOpacity(0).setUnlocalizedName("slime.gel");
         TRepo.slimeGrass = new SlimeGrass(PHConstruct.slimeGrass).setStepSound(Block.soundGrassFootstep).setLightOpacity(0).setUnlocalizedName("slime.grass");
