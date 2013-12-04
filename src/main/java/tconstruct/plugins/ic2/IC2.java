@@ -62,10 +62,11 @@ public class IC2 implements ICompatPlugin {
 
         // Alloy Mixing
         // 1mB Anything + 1mB UU = 2mB UU
+        /* Maybe a bit *too* trolly
         for (Map.Entry<String, Fluid> ent : FluidRegistry.getRegisteredFluids().entrySet()) {
             if (ent.getValue() != fluidUUM)
                 Smeltery.addAlloyMixing(new FluidStack(fluidUUM, 2), new FluidStack(fluidUUM, 1), new FluidStack(ent.getValue(), 1));
-        }
+        }*/
     }
 
     @Override
