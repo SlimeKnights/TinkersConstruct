@@ -2,6 +2,7 @@ package tconstruct.common;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import tconstruct.library.armor.EnumArmorPart;
 import tconstruct.library.crafting.ToolBuilder;
 
 import cpw.mods.fml.common.*;
@@ -266,10 +267,6 @@ public class TContent implements IFuelHandler
     public static ModLapis modL;
 
     //Wearables
-    public static Item heavyHelmet;
-    public static Item heavyChestplate;
-    public static Item heavyPants;
-    public static Item heavyBoots;
     public static Item glove;
     public static Item knapsack;
 
@@ -289,13 +286,12 @@ public class TContent implements IFuelHandler
     public static Item leggingsWood;
     public static Item bootsWood;
     public static EnumArmorMaterial materialWood;
-
-    //Signal & Logic
-    public static Block signalBus;
-    public static Block signalTerminal;
-
-    public static Item spoolWire;
-    public static Item lengthWire;
+    
+    //Armor - exosuit
+    public static Item exoGoggles;
+    public static Item exoChest;
+    public static Item exoPants;
+    public static Item exoShoes;
 
     //Temporary items
     //public static Item armorTest = new ArmorStandard(2445, 4, EnumArmorPart.HELMET).setCreativeTab(CreativeTabs.tabAllSearch);
@@ -961,16 +957,10 @@ public class TContent implements IFuelHandler
         GameRegistry.registerItem(jerky, "jerky");
 
         //Wearables
-        //heavyHelmet = new TArmorBase(PHConstruct.heavyHelmet, 0).setUnlocalizedName("tconstruct.HeavyHelmet");
         heartCanister = new HeartCanister(PHConstruct.heartCanister).setUnlocalizedName("tconstruct.canister");
-        //heavyBoots = new TArmorBase(PHConstruct.heavyBoots, 3).setUnlocalizedName("tconstruct.HeavyBoots");
-        //glove = new Glove(PHConstruct.glove).setUnlocalizedName("tconstruct.Glove");
         knapsack = new Knapsack(PHConstruct.knapsack).setUnlocalizedName("tconstruct.storage");
         goldHead = new GoldenHead(PHConstruct.goldHead, 4, 1.2F, false).setAlwaysEdible().setPotionEffect(Potion.regeneration.id, 10, 0, 1.0F).setUnlocalizedName("goldenhead");
-        //GameRegistry.registerItem(heavyHelmet, "heavyHelmet");
         GameRegistry.registerItem(heartCanister, "heartCanister");
-        //GameRegistry.registerItem(heavyBoots, "heavyBoots");
-        //GameRegistry.registerItem(glove, "glove");
         GameRegistry.registerItem(knapsack, "knapsack");
         GameRegistry.registerItem(goldHead, "goldHead");
 
@@ -985,7 +975,10 @@ public class TContent implements IFuelHandler
         GameRegistry.registerItem(leggingsWood, "leggingsWood");
         GameRegistry.registerItem(bootsWood, "bootsWood");
 
-        //        essenceCrystal = new EssenceCrystal(PHConstruct.essenceCrystal).setUnlocalizedName("tconstruct.crystal.essence");
+        exoGoggles = new ExoArmor(PHConstruct.exoGoggles, EnumArmorPart.HELMET, "exosuit").setUnlocalizedName("tconstruct.exoGoggles");
+        exoChest = new ExoArmor(PHConstruct.exoChest, EnumArmorPart.CHESTPLATE, "exosuit").setUnlocalizedName("tconstruct.exoChest");
+        exoPants = new ExoArmor(PHConstruct.exoPants, EnumArmorPart.LEGGINGS, "exosuit").setUnlocalizedName("tconstruct.exoPants");
+        exoShoes = new ExoArmor(PHConstruct.exoShoes, EnumArmorPart.BOOTS, "exosuit").setUnlocalizedName("tconstruct.exoShoes");
 
         String[] materialStrings = { "paperStack", "greenSlimeCrystal", "searedBrick", "ingotCobalt", "ingotArdite", "ingotManyullyn", "mossBall", "lavaCrystal", "necroticBone", "ingotCopper",
                 "ingotTin", "ingotAluminum", "rawAluminum", "ingotBronze", "ingotAluminumBrass", "ingotAlumite", "ingotSteel", "blueSlimeCrystal", "ingotObsidian", "nuggetIron", "nuggetCopper",
@@ -1241,6 +1234,11 @@ public class TContent implements IFuelHandler
         GameRegistry.addRecipe(new ShapedOreRecipe(chestplateWood, new Object[] { "w w", "www", "www", 'w', "logWood" }));
         GameRegistry.addRecipe(new ShapedOreRecipe(leggingsWood, new Object[] { "www", "w w", "w w", 'w', "logWood" }));
         GameRegistry.addRecipe(new ShapedOreRecipe(bootsWood, new Object[] { "w w", "w w", 'w', "logWood" }));
+        //Exosuit recipes, bronze = 14
+        /*exoGoggles = new ExoArmor(PHConstruct.exoGoggles, EnumArmorPart.HELMET, "exosuit").setUnlocalizedName("tconstruct.exoGoggles");
+        exoChest = new ExoArmor(PHConstruct.exoChest, EnumArmorPart.CHESTPLATE, "exosuit").setUnlocalizedName("tconstruct.exoChest");
+        exoPants = new ExoArmor(PHConstruct.exoPants, EnumArmorPart.LEGGINGS, "exosuit").setUnlocalizedName("tconstruct.exoPants");
+        exoShoes = new ExoArmor(PHConstruct.exoShoes, EnumArmorPart.BOOTS, "exosuit").setUnlocalizedName("tconstruct.exoShoes");*/
         // Metal conversion Recipes
         GameRegistry.addRecipe(new ItemStack(metalBlock, 1, 3), patBlock, '#', new ItemStack(materials, 1, 9)); // Copper
         GameRegistry.addRecipe(new ItemStack(metalBlock, 1, 5), patBlock, '#', new ItemStack(materials, 1, 10)); // Tin

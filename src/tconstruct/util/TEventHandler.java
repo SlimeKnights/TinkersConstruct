@@ -234,6 +234,7 @@ public class TEventHandler
     @ForgeSubscribe
     public void onHurt (LivingHurtEvent event)
     {
+        //System.out.println("Damage: "+event.ammount);
         if (event.entityLiving instanceof EntityPlayer)
         {
             EntityPlayer player = (EntityPlayer) event.entityLiving;

@@ -12,6 +12,7 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.EnchantmentThorns;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.monster.EntityGhast;
@@ -77,7 +78,9 @@ public class AbilityHelper
             {
                 NBTTagCompound tags = stack.getTagCompound();
                 NBTTagCompound toolTags = stack.getTagCompound().getCompoundTag("InfiTool");
-                int damage = toolTags.getInteger("Attack") + baseDamage;
+                float attribute = (float) player.getEntityAttribute(SharedMonsterAttributes.attackDamage).getAttributeValue();
+                int damage = toolTags.getInteger("Attack") + baseDamage + 1;
+                damage *= attribute;
                 boolean broken = toolTags.getBoolean("Broken");
 
                 int durability = tags.getCompoundTag("InfiTool").getInteger("Damage");

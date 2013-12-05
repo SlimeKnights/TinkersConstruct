@@ -1,6 +1,5 @@
 package tconstruct.library.armor;
 
-import ic2.api.item.*;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.dispenser.IBehaviorDispenseItem;
 import net.minecraft.entity.*;
@@ -11,24 +10,18 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor;
 
-/**
- * NBTTags
- * Main tag - InfiArmor
- */
-public abstract class ArmorCore extends ItemArmor implements ICustomElectricItem, IBoxable, ISpecialArmor
+public abstract class ArmorCore extends ItemArmor implements ISpecialArmor
 {
-
-    public static final String SET_NAME = "InfiArmor";
+    public static final String SET_NAME = "TinkerArmor";
     public final EnumArmorPart armorPart;
     private static final IBehaviorDispenseItem dispenserBehavior = new BehaviorDispenseArmorCopy();
     public final int baseProtection;
 
-    public ArmorCore(int par1, int baseProtection, EnumArmorPart part)
+    public ArmorCore(int id, int baseProtection, EnumArmorPart part)
     {
-        super(par1, EnumArmorMaterial.CHAIN, 0, 0);
+        super(id, EnumArmorMaterial.CHAIN, 0, part.getPartId());
         this.maxStackSize = 1;
         this.setMaxDamage(100);
-        this.setUnlocalizedName(SET_NAME);
         this.armorPart = part;
         this.baseProtection = baseProtection;
         BlockDispenser.dispenseBehaviorRegistry.putObject(this, dispenserBehavior);
@@ -93,170 +86,9 @@ public abstract class ArmorCore extends ItemArmor implements ICustomElectricItem
         }
 
         data = tags.getCompoundTag(SET_NAME);
-
-        if (tags.hasKey("charge"))
-        {
-            int charge = tags.getInteger("charge");
-            if (charge > damage)
-            {
-                charge -= damage;
-                tags.setInteger("charge", charge);
-                return;
-            }
-            else
-            {
-                damage -= charge;
-                tags.setInteger("charge", 0);
-                int dmg = data.getInteger("Damage");
-                dmg += damage;
-                data.setInteger("Damage", dmg);
-            }
-
-        }
-        else
-        {
-            int dmg = data.getInteger("Damage");
-            dmg += damage;
-            data.setInteger("Damage", dmg);
-        }
-    }
-
-    /*
-     * IC2 API support
-     */
-
-    @Override
-    public boolean canBeStoredInToolbox (ItemStack stack)
-    {
-        return true;
-    }
-
-    @Override
-    public boolean canProvideEnergy (ItemStack stack)
-    {
-        NBTTagCompound tags = stack.getTagCompound();
-
-        return tags.hasKey("charge");
-    }
-
-    @Override
-    public int getChargedItemId (ItemStack stack)
-    {
-        return this.itemID;
-    }
-
-    @Override
-    public int getEmptyItemId (ItemStack stack)
-    {
-        return this.itemID;
-    }
-
-    @Override
-    public int getMaxCharge (ItemStack stack)
-    {
-        NBTTagCompound tags = stack.getTagCompound();
-        return tags.hasKey("charge") ? 10000 : 0;
-    }
-
-    @Override
-    public int getTier (ItemStack stack)
-    {
-        return 0;
-    }
-
-    @Override
-    public int getTransferLimit (ItemStack stack)
-    {
-        NBTTagCompound tags = stack.getTagCompound();
-
-        return tags.hasKey("charge") ? 32 : 0;
-    }
-
-    @Override
-    public int charge (ItemStack stack, int amount, int tier, boolean ignoreTransferLimit, boolean simulate)
-    {
-        NBTTagCompound tags = stack.getTagCompound();
-        if (!tags.hasKey("charge"))
-        {
-            return 0;
-        }
-
-        if (amount > 0)
-        {
-            if (amount > getTransferLimit(stack) && !ignoreTransferLimit)
-            {
-                amount = getTransferLimit(stack);
-            }
-
-            int charge = tags.getInteger("charge");
-
-            if (amount > getMaxCharge(stack))
-            {
-                amount = getMaxCharge(stack);
-            }
-
-            charge += amount;
-
-            if (!simulate)
-            {
-                tags.setInteger("charge", charge);
-                stack.setItemDamage(1 + (getMaxCharge(stack) - charge) * (stack.getMaxDamage() - 2) / getMaxCharge(stack));
-            }
-            return amount;
-        }
-
-        else
-            return 0;
-    }
-
-    @Override
-    public int discharge (ItemStack stack, int amount, int tier, boolean ignoreTransferLimit, boolean simulate)
-    {
-        NBTTagCompound tags = stack.getTagCompound();
-        if (!tags.hasKey("charge"))
-        {
-            return 0;
-        }
-
-        if (amount > 0)
-        {
-            if (amount > getTransferLimit(stack))
-            {
-                amount = getTransferLimit(stack);
-            }
-
-            int charge = tags.getInteger("charge");
-
-            if (amount > charge)
-            {
-                amount = charge;
-            }
-
-            charge -= amount;
-
-            if (!simulate)
-            {
-                tags.setInteger("charge", charge);
-                stack.setItemDamage(1 + (getMaxCharge(stack) - charge) * (stack.getMaxDamage() - 1) / getMaxCharge(stack));
-            }
-
-            return charge;
-        }
-
-        else
-            return 0;
-    }
-
-    @Override
-    public boolean canUse (ItemStack stack, int amount)
-    {
-        return false;
-    }
-
-    @Override
-    public boolean canShowChargeToolTip (ItemStack stack)
-    {
-        return false;
+        int dmg = data.getInteger("Damage");
+        dmg += damage;
+        data.setInteger("Damage", dmg);
     }
 
     // Vanilla overrides
@@ -300,15 +132,6 @@ public abstract class ArmorCore extends ItemArmor implements ICustomElectricItem
             return 0;
         }
 
-        if (tags.hasKey("charge"))
-        {
-            int charge = tags.getInteger("charge");
-            if (charge > 0)
-            {
-                return this.getMaxCharge(stack);
-            }
-        }
-
         return tags.getCompoundTag(SET_NAME).getInteger("TotalDurability");
     }
 
@@ -318,15 +141,6 @@ public abstract class ArmorCore extends ItemArmor implements ICustomElectricItem
         if (tags == null)
         {
             return 0;
-        }
-
-        if (tags.hasKey("charge"))
-        {
-            int charge = tags.getInteger("charge");
-            if (charge > 0)
-            {
-                return this.getMaxCharge(stack) - charge;
-            }
         }
 
         return tags.getCompoundTag(SET_NAME).getInteger("Damage");

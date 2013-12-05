@@ -13,6 +13,7 @@ import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeInstance;
+import net.minecraft.item.Item;
 import net.minecraft.potion.*;
 import net.minecraft.util.*;
 import net.minecraftforge.client.GuiIngameForge;
@@ -236,6 +237,35 @@ public class TClientEvents
     }
 
     double zLevel = 0;
+
+    @ForgeSubscribe
+    public void getFOV(FOVUpdateEvent event)
+    {
+        float f = 1.0F;
+
+        if (event.entity.capabilities.isFlying)
+        {
+            f *= 1.1F;
+        }
+
+        if (event.entity.isUsingItem() && event.entity.getItemInUse().itemID == Item.bow.itemID)
+        {
+            int i = event.entity.getItemInUseDuration();
+            float f1 = (float) i / 20.0F;
+
+            if (f1 > 1.0F)
+            {
+                f1 = 1.0F;
+            }
+            else
+            {
+                f1 *= f1;
+            }
+
+            f *= 1.0F - f1 * 0.15F;
+        }
+        event.newfov = f;
+    }
 
     /* Armor */
     ModelBiped model = new ModelBiped(5f);
