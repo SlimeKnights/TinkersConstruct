@@ -257,7 +257,12 @@ public class TRepo
     public static Item leggingsWood;
     public static Item bootsWood;
     public static EnumArmorMaterial materialWood;
-    
+
+    //Armor - exosuit
+    public static Item exoGoggles;
+    public static Item exoChest;
+    public static Item exoPants;
+    public static Item exoShoes;
 
     public static Fluid[] fluids = new Fluid[27];
     public static Block[] fluidBlocks = new Block[26];

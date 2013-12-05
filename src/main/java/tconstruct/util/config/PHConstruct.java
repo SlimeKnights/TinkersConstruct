@@ -248,8 +248,10 @@ public class PHConstruct
         goldHead = config.getItem("Patterns and Misc", "Golden Head", 14113).getInt(14113);
         jerky = config.getItem("Patterns and Misc", "Jerky", 14115).getInt(14115);
 
-//        spoolWire = config.getItem("Logic", "SpoolWire", 14120).getInt(14120);
-//        lengthWire = config.getItem("Logic", "LengthWire", 14121).getInt(14121);
+        exoGoggles = config.getItem("Equipables", "Exo-Goggles", 14116).getInt(14116);
+        exoChest = config.getItem("Equipables", "Exo-Chestpiece", 14117).getInt(14117);
+        exoPants = config.getItem("Equipables", "Exo-Legs", 14118).getInt(14118);
+        exoShoes = config.getItem("Equipables", "Exo-Boots", 14119).getInt(14119);
 
         boolean ic2 = true;
         boolean xycraft = true;
@@ -405,9 +407,6 @@ public class PHConstruct
     public static int dryingRack;
 
     public static int woodenRail;
-
-//    public static int signalBus;
-//    public static int signalTerminal;
 
     //Crops
     public static int oreBerry;
@@ -576,9 +575,11 @@ public class PHConstruct
     public static int knapsack;
 
     public static int heartCanister;
-
-//    public static int spoolWire;
-//    public static int lengthWire;
+    
+    public static int exoGoggles;
+    public static int exoChest;
+    public static int exoPants;
+    public static int exoShoes;
 
     //Ore values
     public static boolean generateCopper;

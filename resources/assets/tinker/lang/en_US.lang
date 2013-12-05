@@ -257,6 +257,11 @@ item.tconstruct.chestplateWood.name=Wooden Chestplate
 item.tconstruct.leggingsWood.name=Wooden Leggings
 item.tconstruct.bootsWood.name=Wooden Boots
 
+item.tconstruct.exoGoggles.name=Exo-Goggles
+item.tconstruct.exoChest.name=Exo-Chest
+item.tconstruct.exoPants.name=Exo-Legs
+item.tconstruct.exoShoes.name=Exo-Shoes
+
 item.tconstruct.jerky.beef.name=Beef Jerky
 item.tconstruct.jerky.pig.name=Bacon Jerky
 item.tconstruct.jerky.chicken.name=Chicken Jerky

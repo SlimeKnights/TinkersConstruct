@@ -2,6 +2,7 @@ package tconstruct.common;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import tconstruct.library.armor.EnumArmorPart;
 import tconstruct.library.crafting.ToolBuilder;
 
 import cpw.mods.fml.common.*;
@@ -583,7 +584,10 @@ public class TContent implements IFuelHandler
         GameRegistry.registerItem(TRepo.leggingsWood, "leggingsWood");
         GameRegistry.registerItem(TRepo.bootsWood, "bootsWood");
 
-        //        essenceCrystal = new EssenceCrystal(PHConstruct.essenceCrystal).setUnlocalizedName("tconstruct.crystal.essence");
+        TRepo.exoGoggles = new ExoArmor(PHConstruct.exoGoggles, EnumArmorPart.HELMET, "exosuit").setUnlocalizedName("tconstruct.exoGoggles");
+        TRepo.exoChest = new ExoArmor(PHConstruct.exoChest, EnumArmorPart.CHESTPLATE, "exosuit").setUnlocalizedName("tconstruct.exoChest");
+        TRepo.exoPants = new ExoArmor(PHConstruct.exoPants, EnumArmorPart.LEGGINGS, "exosuit").setUnlocalizedName("tconstruct.exoPants");
+        TRepo.exoShoes = new ExoArmor(PHConstruct.exoShoes, EnumArmorPart.BOOTS, "exosuit").setUnlocalizedName("tconstruct.exoShoes");
 
         String[] materialStrings = { "paperStack", "greenSlimeCrystal", "searedBrick", "ingotCobalt", "ingotArdite", "ingotManyullyn", "mossBall", "lavaCrystal", "necroticBone", "ingotCopper",
                 "ingotTin", "ingotAluminum", "rawAluminum", "ingotBronze", "ingotAluminumBrass", "ingotAlumite", "ingotSteel", "blueSlimeCrystal", "ingotObsidian", "nuggetIron", "nuggetCopper",

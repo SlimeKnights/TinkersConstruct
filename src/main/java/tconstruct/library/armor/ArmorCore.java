@@ -19,7 +19,7 @@ import cofh.api.energy.IEnergyContainerItem;
 public abstract class ArmorCore extends ItemArmor implements IEnergyContainerItem, ISpecialArmor
 {
 
-    public static final String SET_NAME = "InfiArmor";
+    public static final String SET_NAME = "TinkerArmor";
     public final EnumArmorPart armorPart;
     private static final IBehaviorDispenseItem dispenserBehavior = new BehaviorDispenseArmorCopy();
     public final int baseProtection;
@@ -31,7 +31,7 @@ public abstract class ArmorCore extends ItemArmor implements IEnergyContainerIte
 
     public ArmorCore(int par1, int baseProtection, EnumArmorPart part)
     {
-        super(par1, EnumArmorMaterial.CHAIN, 0, 0);
+        super(par1, EnumArmorMaterial.CHAIN, 0, part.getPartId());
         this.maxStackSize = 1;
         this.setMaxDamage(100);
         this.setUnlocalizedName(SET_NAME);
