@@ -44,7 +44,6 @@ repositories {
 
 
 apply plugin: 'forge'
-
 // define the properties file
 ext.configFile = file "build.properties"
 
@@ -53,6 +52,21 @@ configFile.withReader {
     def prop = new Properties()
     prop.load(it)
     project.ext.config = new ConfigSlurper().parse prop
+}
+ext.artifact_version_override = 'NotUsed'
+//gitignored config file -- if this has the entry for override it will override the version for local builds
+//create a file called version.properties with the line artifact_version_override=NotUsed
+//replace not used w/ version #'s for manual local overrides
+ext.configFile2 = file "version.properties"
+if (configFile2.exists()){
+	configFile2.withReader {
+    	def prop2 = new Properties()
+    	prop2.load(it)
+    	ext.GIVersionFL = new ConfigSlurper().parse prop2
+		if (GIVersionFL != null){
+			project.artifact_version_override = GIVersionFL.artifact_version_override
+		}
+	}
 }
 
 dependencies {
@@ -63,12 +77,7 @@ dependencies {
 
 }
 
-minecraft {
-    version = config.minecraft_version + "-" + config.forge_version
-    assetDir = 'run/assets'
-}
-
-// sets version to the slimeKnights version format
+// sets version to the slimeKnights default version format
 task buildInfo {
     def cmd = "git rev-parse --short HEAD"
     def proc = cmd.execute()
@@ -85,7 +94,24 @@ task buildInfo {
         ext.buildNum = "DEV"
     }
 }
-version = "${minecraft.version}-${project.buildInfo.buildNum}.${project.buildInfo.revision}"
+ext.artifact_version = 'NFG'
+if (System.getenv().ARTIFACT_VERSION == null && artifact_version_override == 'NotUsed') {
+    artifact_version = "${project.buildInfo.buildNum}.${project.buildInfo.revision}"
+}
+if (System.getenv().ARTIFACT_VERSION != null && artifact_version_override == 'NotUsed') {
+    artifact_version = "${system.getenv().ARTIFACT_VERSION}"
+}
+if (artifact_version_override != 'NotUsed') {
+    artifact_version = "${artifact_version_override}"
+}
+version = "${config.minecraft_version}-${artifact_version}"
+
+minecraft {
+    version = config.minecraft_version + "-" + config.forge_version
+    assetDir = 'run/assets'
+    replace '${version}', project.version
+}
+
 
 sourceSets {
 	main {
@@ -99,9 +125,8 @@ processResources
         // replace stuff in text files, not binary ones.
     from(sourceSets.main.resources.srcDirs) {
         include '**/*.info'
-		
                 // replace version and MCVersion
-      expand 'version':project.version, 'mcversion':project.minecraft.version
+        expand 'version':artifact_version,'MCversion':config.minecraft_version
     }
         
         // copy everything else, thats not text
@@ -109,7 +134,6 @@ processResources
         exclude '**/*.info'
     }
 }
-
 
 jar {
 	manifest {

@@ -32,7 +32,7 @@ import tconstruct.worldgen.village.*;
  * @author mDiyo
  */
 
-@Mod(modid = "TConstruct", name = "TConstruct", version = "1.6.X_2.0a",
+@Mod(modid = "TConstruct", name = "TConstruct", version = "${version}",
         dependencies = "required-after:Forge@[8.9,);required-after:Mantle;after:ForgeMultipart;after:MineFactoryReloaded;after:NotEnoughItems;after:Waila;after:ThermalExpansion")
 @NetworkMod(serverSideRequired = false, clientSideRequired = true, channels = { "TConstruct" }, packetHandler = tconstruct.util.network.TPacketHandler.class)
 public class TConstruct

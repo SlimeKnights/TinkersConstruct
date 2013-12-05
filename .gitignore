@@ -21,3 +21,5 @@ Thumbs.db
 /*.iws
 #Vim backups
 *~
+#manual version override
+version.properties
