@@ -285,7 +285,7 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
         CoordTuple air = structure.getAirByIndex(slot);
         if (air != null)
         {
-            TileEntity te = worldObj.getBlockTileEntity(air.x(), air.y(), air.z());
+            TileEntity te = worldObj.getBlockTileEntity(air.x, air.y, air.z);
             if (te != null && te instanceof TankAirLogic)
             {
                 ((TankAirLogic) te).setInventorySlotContents(0, itemstack);
@@ -306,7 +306,7 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
         {
             //Base calculations per liquid
             LiquidData data = new LiquidData(fluid.amount, size);
-            int baseY = structure.airCoords.get(0).y();
+            int baseY = structure.airCoords.get(0).y;
             int layerSize = structure.getAirLayerSize();
 
             //Calculate where to distribute liquids
@@ -314,7 +314,7 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
             {
                 LiquidDataInstance instance;
                 CoordTuple coord = structure.airCoords.get(i);
-                int height = 16 * (coord.y() - baseY);
+                int height = 16 * (coord.y - baseY);
                 int position = i % layerSize;
 
                 if (!airUpdates.containsKey(coord))
@@ -407,7 +407,7 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
         {
             Map.Entry pairs = (Map.Entry) iter.next();
             CoordTuple coord = (CoordTuple) pairs.getKey();
-            TileEntity te = worldObj.getBlockTileEntity(coord.x(), coord.y(), coord.z());
+            TileEntity te = worldObj.getBlockTileEntity(coord.x, coord.y, coord.z);
             if (te instanceof TankAirLogic)
             {
                 ((TankAirLogic) te).overrideFluids(((LiquidDataInstance) pairs.getValue()).fluids);
@@ -420,7 +420,7 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
     public void updateAir ()
     {
         for (CoordTuple loc : structure.airCoords)
-            worldObj.markBlockForUpdate(loc.x(), loc.y(), loc.z());
+            worldObj.markBlockForUpdate(loc.x, loc.y, loc.z);
     }
 
     class LiquidData

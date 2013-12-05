@@ -36,7 +36,7 @@ public class AdaptiveDrainLogic extends MultiServantLogic implements IFluidHandl
     {
         if (hasValidMaster() && canDrain(from, null))
         {
-            AdaptiveSmelteryLogic smeltery = (AdaptiveSmelteryLogic) worldObj.getBlockTileEntity(master.x(), master.y(), master.z());
+            AdaptiveSmelteryLogic smeltery = (AdaptiveSmelteryLogic) worldObj.getBlockTileEntity(master.x, master.y, master.z);
             return smeltery.fill(from, resource, doFill);
         }
         return 0;
@@ -48,7 +48,7 @@ public class AdaptiveDrainLogic extends MultiServantLogic implements IFluidHandl
         // TConstruct.logger.info("Attempting drain " + hasValidMaster());
         if (hasValidMaster() && canDrain(from, null))
         {
-            AdaptiveSmelteryLogic smeltery = (AdaptiveSmelteryLogic) worldObj.getBlockTileEntity(master.x(), master.y(), master.z());
+            AdaptiveSmelteryLogic smeltery = (AdaptiveSmelteryLogic) worldObj.getBlockTileEntity(master.x, master.y, master.z);
             //  TConstruct.logger.info("Found master");
             return smeltery.drain(from, maxDrain, doDrain);
         }
@@ -60,7 +60,7 @@ public class AdaptiveDrainLogic extends MultiServantLogic implements IFluidHandl
     {
         if (hasValidMaster() && canDrain(from, null))
         {
-            AdaptiveSmelteryLogic smeltery = (AdaptiveSmelteryLogic) worldObj.getBlockTileEntity(master.x(), master.y(), master.z());
+            AdaptiveSmelteryLogic smeltery = (AdaptiveSmelteryLogic) worldObj.getBlockTileEntity(master.x, master.y, master.z);
             return smeltery.drain(from, resource, doDrain);
         }
         return null;
@@ -71,7 +71,7 @@ public class AdaptiveDrainLogic extends MultiServantLogic implements IFluidHandl
     {
         if (hasValidMaster())
         {
-            AdaptiveSmelteryLogic smeltery = (AdaptiveSmelteryLogic) worldObj.getBlockTileEntity(master.x(), master.y(), master.z());
+            AdaptiveSmelteryLogic smeltery = (AdaptiveSmelteryLogic) worldObj.getBlockTileEntity(master.x, master.y, master.z);
             return smeltery.getFillState() < 2;
         }
         return false;
@@ -82,7 +82,7 @@ public class AdaptiveDrainLogic extends MultiServantLogic implements IFluidHandl
     {
         if (hasValidMaster())
         {
-            AdaptiveSmelteryLogic smeltery = (AdaptiveSmelteryLogic) worldObj.getBlockTileEntity(master.x(), master.y(), master.z());
+            AdaptiveSmelteryLogic smeltery = (AdaptiveSmelteryLogic) worldObj.getBlockTileEntity(master.x, master.y, master.z);
             return smeltery.getFillState() > 0;
         }
         return false;
@@ -93,7 +93,7 @@ public class AdaptiveDrainLogic extends MultiServantLogic implements IFluidHandl
     {
         if (hasValidMaster() && (from == getForgeDirection() || from == getForgeDirection().getOpposite() || from == ForgeDirection.UNKNOWN))
         {
-            AdaptiveSmelteryLogic smeltery = (AdaptiveSmelteryLogic) worldObj.getBlockTileEntity(master.x(), master.y(), master.z());
+            AdaptiveSmelteryLogic smeltery = (AdaptiveSmelteryLogic) worldObj.getBlockTileEntity(master.x, master.y, master.z);
             return smeltery.getTankInfo(ForgeDirection.UNKNOWN);
         }
         return null;

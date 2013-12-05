@@ -306,7 +306,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 
     void detectEntities ()
     {
-        AxisAlignedBB box = AxisAlignedBB.getAABBPool().getAABB(centerPos.x(), centerPos.y(), centerPos.z(), centerPos.x() + 1.0D, centerPos.y() + 1.0D, centerPos.z() + 1.0D).expand(1.0D, 0.0D, 1.0D);
+        AxisAlignedBB box = AxisAlignedBB.getAABBPool().getAABB(centerPos.x, centerPos.y, centerPos.z, centerPos.x + 1.0D, centerPos.y + 1.0D, centerPos.z + 1.0D).expand(1.0D, 0.0D, 1.0D);
 
         List list = worldObj.getEntitiesWithinAABB(Entity.class, box);
         for (Object o : list)
@@ -522,14 +522,14 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         if (activeLavaTank == null || useTime > 0)
             return;
 
-        if (!worldObj.blockExists(activeLavaTank.x(), activeLavaTank.y(), activeLavaTank.z()))
+        if (!worldObj.blockExists(activeLavaTank.x, activeLavaTank.y, activeLavaTank.z))
         {
             fuelAmount = 0;
             fuelGague = 0;
             return;
         }
 
-        TileEntity tankContainer = worldObj.getBlockTileEntity(activeLavaTank.x(), activeLavaTank.y(), activeLavaTank.z());
+        TileEntity tankContainer = worldObj.getBlockTileEntity(activeLavaTank.x, activeLavaTank.y, activeLavaTank.z);
         if (tankContainer == null)
         {
             fuelAmount = 0;
@@ -563,14 +563,14 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         if (activeLavaTank == null || useTime > 0)
             return;
 
-        if (!worldObj.blockExists(activeLavaTank.x(), activeLavaTank.y(), activeLavaTank.z()))
+        if (!worldObj.blockExists(activeLavaTank.x, activeLavaTank.y, activeLavaTank.z))
         {
             fuelAmount = 0;
             fuelGague = 0;
             return;
         }
 
-        TileEntity tankContainer = worldObj.getBlockTileEntity(activeLavaTank.x(), activeLavaTank.y(), activeLavaTank.z());
+        TileEntity tankContainer = worldObj.getBlockTileEntity(activeLavaTank.x, activeLavaTank.y, activeLavaTank.z);
         if (tankContainer == null)
         {
             fuelAmount = 0;
@@ -607,7 +607,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                 while (!foundTank)
                 {
                     CoordTuple possibleTank = lavaTanks.get(iter);
-                    TileEntity newTankContainer = worldObj.getBlockTileEntity(possibleTank.x(), possibleTank.y(), possibleTank.z());
+                    TileEntity newTankContainer = worldObj.getBlockTileEntity(possibleTank.x, possibleTank.y, possibleTank.z);
                     if (newTankContainer instanceof IFluidHandler)
                     {
                         //TConstruct.logger.info("Tank: "+possibleTank.toString());
@@ -1113,7 +1113,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         if (centerPos == null)
             center = new int[] { xCoord, yCoord, zCoord };
         else
-            center = new int[] { centerPos.x(), centerPos.y(), centerPos.z() };
+            center = new int[] { centerPos.x, centerPos.y, centerPos.z };
         tags.setIntArray("CenterPos", center);
 
         tags.setByte("Direction", direction);

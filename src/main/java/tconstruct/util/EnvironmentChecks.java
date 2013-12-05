@@ -5,10 +5,11 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.ICrashCallable;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.relauncher.Side;
-import tconstruct.TConstruct;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import tconstruct.TConstruct;
 
 public class EnvironmentChecks
 {
