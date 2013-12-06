@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import tconstruct.TConstruct;
+import mantle.crash.CallableSuppConfig;
+import mantle.crash.CallableUnsuppConfig;
 
 public class EnvironmentChecks
 {
@@ -35,49 +37,24 @@ public class EnvironmentChecks
             modIds.add("gregtech_addon");
         }
 
+        // We keep this despite Mantle reporting it because we explicitly need Optifine marking for cloaks.
         if (FMLCommonHandler.instance().getSide() == Side.CLIENT && FMLClientHandler.instance().hasOptifine() || Loader.isModLoaded("optifine"))
         {
-            TConstruct.logger.severe("[Environment Checks] Optifine detected. This is a Bad Thing(tm) and can crash Minecraft due to an Optifine bug during TCon armor renders! Capes also disabled.");
-            modIds.add("optifine");
+            TConstruct.logger.severe("[Environment Checks] Optifine detected. This is a Bad Thing(tm) and can crash Minecraft due to an Optifine bug during TCon armor renders! Capes have been disabled.");
+            //modIds.add("optifine");
             hasOptifine = true;
         }
 
-        try
-        {
-            Class cl = Class.forName("org.bukkit.Bukkit");
-            if (cl != null)
-            {
-                TConstruct.logger.severe("[Environment Checks] Bukkit implementation detected. This may be crashy. Bukkit implementations include Craftbukkit and MCPC+.");
-                modIds.add("bukkit");
-            }
-        }
-        catch (Exception ex)
-        {
-            // No Bukkit in environment.
-        }
-
-        try
-        {
-            Class cl = Class.forName("magic.launcher.Launcher");
-            if (cl != null)
-            {
-                TConstruct.logger.severe("[Environment Checks] Magic Launcher detected. We recommend using anything else. Vanilla's launcher works fine, as do others.");
-                modIds.add("magic_launcher");
-            }
-        }
-        catch (Exception ex)
-        {
-            // No derpy Magic Launcher in environment.
-        }
+        // Bukkit/Magic Launcher are caught by Mantle, so we no longer check for those.
 
         if (modIds.size() == 0)
         {
-            ICrashCallable callable = new CallableSuppConfig();
+            ICrashCallable callable = new CallableSuppConfig("TConstruct");
             FMLCommonHandler.instance().registerCrashCallable(callable);
         }
         else
         {
-            ICrashCallable callable = new CallableUnsuppConfig(modIds);
+            ICrashCallable callable = new CallableUnsuppConfig("TConstruct", modIds);
             FMLCommonHandler.instance().registerCrashCallable(callable);
         }
     }
