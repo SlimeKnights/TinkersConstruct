@@ -1,10 +1,8 @@
 package tconstruct.util;
 
-import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.ICrashCallable;
 import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.relauncher.Side;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,9 +13,6 @@ import mantle.crash.CallableUnsuppConfig;
 
 public class EnvironmentChecks
 {
-
-    // Used for aborting cloak renders with Optifine present (it misbehaves)
-    public static boolean hasOptifine = false;
 
     private EnvironmentChecks()
     {
@@ -37,15 +32,7 @@ public class EnvironmentChecks
             modIds.add("gregtech_addon");
         }
 
-        // We keep this despite Mantle reporting it because we explicitly need Optifine marking for cloaks.
-        if (FMLCommonHandler.instance().getSide() == Side.CLIENT && FMLClientHandler.instance().hasOptifine() || Loader.isModLoaded("optifine"))
-        {
-            TConstruct.logger.severe("[Environment Checks] Optifine detected. This is a Bad Thing(tm) and can crash Minecraft due to an Optifine bug during TCon armor renders! Capes have been disabled.");
-            //modIds.add("optifine");
-            hasOptifine = true;
-        }
-
-        // Bukkit/Magic Launcher are caught by Mantle, so we no longer check for those.
+        // Bukkit/Magic Launcher/Optifine are caught by Mantle, so we no longer check for those.
 
         if (modIds.size() == 0)
         {

@@ -10,7 +10,7 @@ import javax.swing.ImageIcon;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.event.ForgeSubscribe;
-import tconstruct.util.EnvironmentChecks;
+import mantle.lib.environment.EnvironmentChecks;
 
 public class EventCloakRender
 {
