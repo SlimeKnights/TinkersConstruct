@@ -3,7 +3,7 @@ package tconstruct.plugins.minefactoryreloaded;
 import powercrystals.minefactoryreloaded.api.FactoryRegistry;
 import tconstruct.common.TRepo;
 
-public class MFRRegistering
+public class MFRRegister
 {
     public static void registerWithMFR ()
     {
