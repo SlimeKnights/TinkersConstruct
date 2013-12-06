@@ -1051,6 +1051,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, ICu
         return true;
     }
 
+	@Override
     public boolean offhandClickBlock (PlayerInteractEvent event, ItemStack mainhandItem, ItemStack offhandItem)
     {
         return true;
