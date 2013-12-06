@@ -3,14 +3,9 @@ package tconstruct.plugins;
 import cpw.mods.fml.common.Loader;
 import net.minecraftforge.common.Configuration;
 import tconstruct.TConstruct;
-import tconstruct.plugins.appeng.AppEng;
-import tconstruct.plugins.buildcraft.BuildcraftTransport;
 import tconstruct.plugins.fmp.ForgeMultiPart;
 import tconstruct.plugins.ic2.IC2;
 import tconstruct.plugins.minefactoryreloaded.MineFactoryReloaded;
-import tconstruct.plugins.mystcraft.Mystcraft;
-import tconstruct.plugins.nei.NotEnoughItems;
-import tconstruct.plugins.thaumcraft.Thaumcraft;
 import tconstruct.plugins.waila.Waila;
 
 import java.io.File;

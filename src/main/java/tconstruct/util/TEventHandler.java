@@ -56,7 +56,7 @@ import tconstruct.library.tools.BowstringMaterial;
 import tconstruct.library.tools.FletchingMaterial;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.library.tools.Weapon;
-import tconstruct.modifiers.ModAttack;
+import tconstruct.modifiers.tools.ModAttack;
 import tconstruct.util.config.PHConstruct;
 import tconstruct.util.player.TPlayerStats;
 

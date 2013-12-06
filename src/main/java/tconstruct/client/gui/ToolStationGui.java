@@ -166,8 +166,6 @@ public class ToolStationGui extends NewContainerGui
             drawToolStats();
         else
             drawToolInformation();
-
-        //this.fontRenderer.drawString("Namebox active: "+active, this.xSize / 2 - 18, -10, 0xffffff);
     }
 
     void drawToolStats ()

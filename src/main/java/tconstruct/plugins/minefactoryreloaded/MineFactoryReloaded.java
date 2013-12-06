@@ -19,7 +19,7 @@ public class MineFactoryReloaded implements ICompatPlugin
     public void init()
     {
         TConstruct.logger.info("MineFactoryReloaded detected. Registering TConstruct farmables/grindables with MFR's Farming Registry.");
-        mfrRegistering.registerWithMFR();
+        MFRRegistering.registerWithMFR();
         /*
          * Perhaps TC ores should be registered as drops from the MFR Laser Drill here, but I don't know which things would be suitable for that.
          * Syntax: FarmingRegistry.registerLaserOre(int weight, ItemStack droppedStack));

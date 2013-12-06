@@ -43,7 +43,7 @@ import tconstruct.library.client.FluidRenderProperties.Applications;
 import tconstruct.library.crafting.*;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.library.util.IPattern;
-import tconstruct.modifiers.*;
+import tconstruct.modifiers.tools.*;
 import tconstruct.util.*;
 import tconstruct.util.config.*;
 

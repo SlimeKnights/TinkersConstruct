@@ -5,18 +5,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import tconstruct.library.TConstructRegistry;
-import tconstruct.library.event.ToolCraftEvent;
-import tconstruct.library.tools.ToolCore;
-import tconstruct.library.tools.ToolMaterial;
-import tconstruct.library.tools.ToolMod;
-import tconstruct.library.util.IToolPart;
-
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.Event.Result;
+import tconstruct.library.TConstructRegistry;
+import tconstruct.library.armor.ArmorCore;
+import tconstruct.library.armor.ArmorMod;
+import tconstruct.library.event.ToolCraftEvent;
+import tconstruct.library.tools.ToolCore;
+import tconstruct.library.tools.ToolMaterial;
+import tconstruct.library.tools.ToolMod;
+import tconstruct.library.util.IToolPart;
 
 public class ToolBuilder
 {
@@ -26,6 +27,7 @@ public class ToolBuilder
     public List<ToolRecipe> combos = new ArrayList<ToolRecipe>();
     public HashMap<String, String> modifiers = new HashMap<String, String>();
     public List<ToolMod> toolMods = new ArrayList<ToolMod>();
+    public List<ArmorMod> armorMods = new ArrayList<ArmorMod>();
 
     /* Build tools */
     public static void addNormalToolRecipe (ToolCore output, Item head, Item handle)
@@ -128,8 +130,13 @@ public class ToolBuilder
 
     public ItemStack buildTool (ItemStack headStack, ItemStack handleStack, ItemStack accessoryStack, ItemStack extraStack, String name)
     {
-        if (headStack != null && headStack.getItem() instanceof ToolCore)
-            return modifyTool(headStack, handleStack, accessoryStack, extraStack, name);
+        if (headStack != null)
+        {
+            if (headStack.getItem() instanceof ToolCore)
+                return modifyTool(headStack, handleStack, accessoryStack, extraStack, name);
+            else if (headStack.getItem() instanceof ArmorCore)
+                return modifyArmor(headStack, new ItemStack[] { handleStack, accessoryStack, extraStack }, name);
+        }
 
         if (headStack == null || handleStack == null) //Nothing to build without these. All tools need at least two parts!
             return null;
@@ -356,6 +363,42 @@ public class ToolBuilder
         return tool;
     }
 
+    public ItemStack modifyTool (ItemStack input, ItemStack[] modifiers, String name)
+    {
+        return null;
+    }
+
+    public ItemStack modifyArmor (ItemStack input, ItemStack[] slots, String name)
+    {
+        ItemStack armor = input.copy();
+        NBTTagCompound tags = armor.getTagCompound().getCompoundTag("TinkerArmor");
+        tags.removeTag("Built");
+
+        boolean built = false;
+        for (ArmorMod mod : armorMods)
+        {
+            if (mod.matches(slots, armor))
+            {
+                built = true;
+                mod.addMatchingEffect(armor);
+                mod.modify(slots, armor);
+            }
+        }
+
+        tags = armor.getTagCompound();
+        if (name != null && !name.equals("") && !tags.hasKey("display"))
+        {
+            tags.setCompoundTag("display", new NBTTagCompound());
+            tags.getCompoundTag("display").setString("Name", "\u00A7f" + name);
+        }
+
+        if (built)
+            return armor;
+        else
+            return null;
+    }
+
+    @Deprecated
     public ItemStack modifyTool (ItemStack input, ItemStack topSlot, ItemStack bottomSlot, ItemStack extraStack, String name)
     {
         if (extraStack != null)
@@ -379,7 +422,7 @@ public class ToolBuilder
                 mod.modify(slots, tool);
             }
         }
-        
+
         tags = tool.getTagCompound();
         if (name != null && !name.equals("") && !tags.hasKey("display"))
         {

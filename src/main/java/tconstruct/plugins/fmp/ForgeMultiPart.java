@@ -3,7 +3,6 @@ package tconstruct.plugins.fmp;
 import tconstruct.TConstruct;
 import tconstruct.common.TRepo;
 import tconstruct.plugins.ICompatPlugin;
-import tconstruct.plugins.fmp.register.RegisterWithFMP;
 
 public class ForgeMultiPart implements ICompatPlugin
 {

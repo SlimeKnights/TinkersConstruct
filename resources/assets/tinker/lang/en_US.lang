@@ -4,8 +4,10 @@ itemGroup.TConstructBlocks=TConstruct Blocks
 
 crafters.ToolStation=Tool Station
 crafters.ToolForge=Tool Forge
+crafters.TinkerTable=Tinker Table
 crafters.PartBuilder=Part Builder
 crafters.PatternShaper=Stencil Table
+crafters.CraftingStation=Crafting Station
 inventory.PatternChest=Pattern Chest
 crafters.Smeltery=Smeltery
 crafters.Frypan=Frying Pan
@@ -19,6 +21,7 @@ ToolStation.CastingTable.name=Casting Table
 tile.FurnaceSlab.name=Slab Furnace
 
 tile.ToolForge.name=Tool Forge
+tile.TinkerTable.name=Tinker Table
 tile.Armor.DryingRack.name=Drying Rack
 CraftedSoil.Slime.name=Slimy Mud
 CraftedSoil.Grout.name=Grout

@@ -2,12 +2,6 @@ package tconstruct.blocks;
 
 import java.util.List;
 
-import tconstruct.TConstruct;
-import tconstruct.blocks.logic.ToolForgeLogic;
-import tconstruct.client.block.TableForgeRender;
-import tconstruct.common.TProxyCommon;
-import tconstruct.common.TRepo;
-import tconstruct.library.TConstructRegistry;
 import mantle.blocks.abstracts.InventoryBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -20,9 +14,16 @@ import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
+import tconstruct.TConstruct;
+import tconstruct.blocks.logic.ToolForgeLogic;
+import tconstruct.client.block.TableForgeRender;
+import tconstruct.common.TProxyCommon;
+import tconstruct.common.TRepo;
+import tconstruct.library.TConstructRegistry;
 
 public class ToolForgeBlock extends InventoryBlock
 {
+
     public ToolForgeBlock(int id, Material material)
     {
         super(id, material);
@@ -30,8 +31,6 @@ public class ToolForgeBlock extends InventoryBlock
         this.setHardness(2f);
         this.setStepSound(Block.soundWoodFootstep);
     }
-
-    //Block.hasComparatorInputOverride and Block.getComparatorInputOverride
 
     String[] textureNames = { "toolforge_iron", "toolforge_gold", "toolforge_diamond", "toolforge_emerald", "toolforge_cobalt", "toolforge_ardite", "toolforge_manyullyn", "toolforge_copper",
             "toolforge_bronze", "toolforge_tin", "toolforge_aluminum", "toolforge_alubrass", "toolforge_alumite", "toolforge_steel" };
@@ -112,7 +111,6 @@ public class ToolForgeBlock extends InventoryBlock
     @Override
     public TileEntity createTileEntity (World world, int metadata)
     {
-
         return new ToolForgeLogic();
     }
 
@@ -121,7 +119,6 @@ public class ToolForgeBlock extends InventoryBlock
     {
         int md = world.getBlockMetadata(x, y, z);
         return TProxyCommon.toolForgeID;
-        //return -1;
     }
 
     @Override

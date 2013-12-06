@@ -12,7 +12,7 @@ import net.minecraft.world.World;
 /* Simple class for storing items in the block
  */
 
-public class ToolForgeLogic extends ToolStationLogic implements ISidedInventory
+public class ToolForgeLogic extends ToolStationLogic
 {
     ItemStack previousTool;
     String toolName;

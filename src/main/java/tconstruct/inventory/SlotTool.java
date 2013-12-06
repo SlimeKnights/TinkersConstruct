@@ -63,7 +63,6 @@ public class SlotTool extends Slot
             inventory.decrStackSize(1, amount);
             if (!player.worldObj.isRemote && full)
                 player.worldObj.playSoundEffect(player.posX, player.posY, player.posZ, "tinker:little_saw", 1.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 1.0F);
-            //player.worldObj.playAuxSFX(1021, (int)player.posX, (int)player.posY, (int)player.posZ, 0);
             MinecraftForge.EVENT_BUS.post(new ToolCraftedEvent(this.inventory, player, stack));
         }
     }

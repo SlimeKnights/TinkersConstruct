@@ -27,7 +27,7 @@ import tconstruct.library.TConstructRegistry;
 import tconstruct.library.client.TConstructClientRegistry;
 import tconstruct.library.crafting.*;
 import tconstruct.library.util.IPattern;
-import tconstruct.modifiers.*;
+import tconstruct.modifiers.tools.*;
 import tconstruct.util.RecipeRemover;
 import tconstruct.util.TDispenserBehaviorArrow;
 import tconstruct.util.TDispenserBehaviorSpawnEgg;
@@ -173,10 +173,10 @@ public class TRecipes
             Smeltery.addDictionaryMelting("crystalline" + ft.toString(), ft, -50, TConstruct.ingotLiquidValue);
 
             // Ores
-            Smeltery.addDictionaryMelting("ore" + ft.toString(), ft, 0, TConstruct.ingotLiquidValue * PHConstruct.ingotsPerOre);
+            Smeltery.addDictionaryMelting("ore" + ft.toString(), ft, 0, (int) (TConstruct.ingotLiquidValue * PHConstruct.ingotsPerOre));
 
             // NetherOres support
-            Smeltery.addDictionaryMelting("oreNether" + ft.toString(), ft, 75, TConstruct.ingotLiquidValue * PHConstruct.ingotsPerOre * 2);
+            Smeltery.addDictionaryMelting("oreNether" + ft.toString(), ft, 75, (int) (TConstruct.ingotLiquidValue * PHConstruct.ingotsPerOre * 2));
 
             // Blocks
             Smeltery.addDictionaryMelting("block" + ft.toString(), ft, 100, TConstruct.blockLiquidValue);
@@ -1075,15 +1075,15 @@ public class TRecipes
     protected static void addRecipesForSmeltery ()
     {
         //Alloy Smelting
-        Smeltery.addAlloyMixing(new FluidStack(TRepo.moltenBronzeFluid, TConstruct.ingotLiquidValue * PHConstruct.ingotsBronzeAlloy), new FluidStack(TRepo.moltenCopperFluid,
+        Smeltery.addAlloyMixing(new FluidStack(TRepo.moltenBronzeFluid, (int) (TConstruct.ingotLiquidValue * PHConstruct.ingotsBronzeAlloy)), new FluidStack(TRepo.moltenCopperFluid,
                 TConstruct.ingotLiquidValue * 3), new FluidStack(TRepo.moltenTinFluid, TConstruct.ingotLiquidValue)); //Bronze          
-        Smeltery.addAlloyMixing(new FluidStack(TRepo.moltenAlubrassFluid, TConstruct.ingotLiquidValue * PHConstruct.ingotsAluminumBrassAlloy), new FluidStack(TRepo.moltenAluminumFluid,
+        Smeltery.addAlloyMixing(new FluidStack(TRepo.moltenAlubrassFluid, (int) (TConstruct.ingotLiquidValue * PHConstruct.ingotsAluminumBrassAlloy)), new FluidStack(TRepo.moltenAluminumFluid,
                 TConstruct.ingotLiquidValue * 3), new FluidStack(TRepo.moltenCopperFluid, TConstruct.ingotLiquidValue * 1)); //Aluminum Brass
-        Smeltery.addAlloyMixing(new FluidStack(TRepo.moltenAlumiteFluid, TConstruct.ingotLiquidValue * PHConstruct.ingotsAlumiteAlloy), new FluidStack(TRepo.moltenAluminumFluid,
+        Smeltery.addAlloyMixing(new FluidStack(TRepo.moltenAlumiteFluid, (int) (TConstruct.ingotLiquidValue * PHConstruct.ingotsAlumiteAlloy)), new FluidStack(TRepo.moltenAluminumFluid,
                 TConstruct.ingotLiquidValue * 5), new FluidStack(TRepo.moltenIronFluid, TConstruct.ingotLiquidValue * 2), new FluidStack(TRepo.moltenObsidianFluid, TConstruct.ingotLiquidValue * 2)); //Alumite
-        Smeltery.addAlloyMixing(new FluidStack(TRepo.moltenManyullynFluid, TConstruct.ingotLiquidValue * PHConstruct.ingotsManyullynAlloy), new FluidStack(TRepo.moltenCobaltFluid,
+        Smeltery.addAlloyMixing(new FluidStack(TRepo.moltenManyullynFluid, (int) (TConstruct.ingotLiquidValue * PHConstruct.ingotsManyullynAlloy)), new FluidStack(TRepo.moltenCobaltFluid,
                 TConstruct.ingotLiquidValue), new FluidStack(TRepo.moltenArditeFluid, TConstruct.ingotLiquidValue)); //Manyullyn
-        Smeltery.addAlloyMixing(new FluidStack(TRepo.pigIronFluid, TConstruct.ingotLiquidValue * PHConstruct.ingotsPigironAlloy), new FluidStack(TRepo.moltenIronFluid, TConstruct.ingotLiquidValue),
+        Smeltery.addAlloyMixing(new FluidStack(TRepo.pigIronFluid, (int) (TConstruct.ingotLiquidValue * PHConstruct.ingotsPigironAlloy)), new FluidStack(TRepo.moltenIronFluid, TConstruct.ingotLiquidValue),
                 new FluidStack(TRepo.moltenEmeraldFluid, 640), new FluidStack(TRepo.bloodFluid, 80)); //Pigiron 
 
         // Stone parts

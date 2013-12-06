@@ -58,6 +58,27 @@ public class CraftingStationContainer extends Container
             this.addSlotToContainer(new Slot(inventorplayer, column, 8 + column * 18, 142));
         }
 
+        //Side inventory
+        if (logic.chest != null)
+        {
+            IInventory chest = logic.chest.get();
+            IInventory doubleChest = logic.doubleChest == null ? null : logic.doubleChest.get();
+            int count = 0;
+            for (column = 0; column < 9; column++)
+            {
+                for (row = 0; row < 6; row++)
+                {
+                    int value = count < 27 ? count : count - 27;
+                    this.addSlotToContainer(new Slot(count < 27 ? chest : doubleChest, value, -108 + row * 18, 19 + column * 18));
+                    count++;
+                    if (count >= 27 && doubleChest == null)
+                        break;
+                }
+                if (count >= 27 && doubleChest == null)
+                    break;
+            }
+        }
+
         this.onCraftMatrixChanged(this.craftMatrix);
     }
 

@@ -18,7 +18,7 @@ public class Cleaver extends Weapon
 {
     public Cleaver(int itemID)
     {
-        super(itemID, 4);
+        super(itemID, 6);
         this.setUnlocalizedName("InfiTool.Cleaver");
     }
 
@@ -73,7 +73,7 @@ public class Cleaver extends Weapon
     @Override
     public float getDamageModifier ()
     {
-        return 1.25f;
+        return 1.4f;
     }
 
     @SideOnly(Side.CLIENT)

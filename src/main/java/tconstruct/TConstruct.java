@@ -61,13 +61,12 @@ public class TConstruct
         logger.setParent(FMLCommonHandler.instance().getFMLLogger());
         if (Loader.isModLoaded("Natura"))
         {
-            TConstruct.logger.info("[TConstruct] Natura, what are we going to do tomorrow night?");
-            TConstruct.logger.info("[Natura] TConstruct, we're going to take over the world!");
+            System.out.println("[TConstruct] Natura, what are we going to do tomorrow night?");
+            System.out.println("[Natura] TConstruct, we're going to take over the world!");
         }
         else
         {
-
-            TConstruct.logger.info("[TConstruct] Preparing to take over the world");
+            System.out.println("[TConstruct] Preparing to take over the world");
         }
 
         EnvironmentChecks.verifyEnvironmentSanity();
