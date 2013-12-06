@@ -8,20 +8,20 @@ import net.minecraft.nbt.NBTTagCompound;
 public interface IDyable {
 
     /**
-     * Return whether the specified armor ItemStack has a color.
+     * Return whether the specified ItemStack has a color.
      */
     public boolean hasColor(ItemStack par1ItemStack);
 
 
     /**
-     * Return the color for the specified armor ItemStack.
+     * Return the color for the specified ItemStack.
      */
     public int getColor(ItemStack par1ItemStack);
 
     public void setColor(ItemStack dyable, int rgb);
 
     /**
-     * Remove the color from the specified armor ItemStack.
+     * Remove the color from the specified ItemStack.
      */
     public void removeColor(ItemStack par1ItemStack);
 

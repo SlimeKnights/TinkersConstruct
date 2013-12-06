@@ -4,6 +4,7 @@ import tconstruct.common.TContent;
 import tconstruct.library.tools.AbilityHelper;
 import tconstruct.library.tools.Weapon;
 import tconstruct.util.config.PHConstruct;
+import mods.battlegear2.items.ItemShield;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -164,25 +165,30 @@ public class Cleaver extends Weapon
     }*/
 
     @Override
-    public boolean willAllowOffhandWeapon ()
+    public boolean allowOffhand(ItemStack mainhand, ItemStack offhand)
+    {
+    	try
+    	{
+    		if ((PHConstruct.isCleaverTwoHanded) && (offhand.getItem() instanceof ItemShield))
+    		{
+    			return true;
+    		}
+    		else return false;
+    	}
+    	catch (Exception e)
+    	{
+    		return false;
+    	}
+    }
+
+    @Override
+    public boolean isOffhandHandDual(ItemStack off)
     {
         return false;
     }
 
     @Override
-    public boolean willAllowShield ()
-    {
-        return PHConstruct.isCleaverTwoHanded;
-    }
-
-    @Override
-    public boolean isOffhandHandDualWeapon ()
-    {
-        return false;
-    }
-
-    @Override
-    public boolean sheatheOnBack ()
+    public boolean sheatheOnBack(ItemStack item)
     {
         return true;
     }

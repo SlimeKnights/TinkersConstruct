@@ -10,6 +10,7 @@ import tconstruct.library.crafting.ToolBuilder;
 import tconstruct.library.tools.AbilityHelper;
 import tconstruct.library.tools.HarvestTool;
 
+import mods.battlegear2.items.ItemShield;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
@@ -422,19 +423,30 @@ public class Hammer extends HarvestTool
     }
 
     @Override
-    public boolean willAllowOffhandWeapon ()
+    public boolean allowOffhand(ItemStack mainhand, ItemStack offhand)
+    {
+    	try
+    	{
+    		if (offhand.getItem() instanceof ItemShield)
+    		{
+    			return true;
+    		}
+    		else return false;
+    	}
+    	catch (Exception e)
+    	{
+    		return false;
+    	}
+    }
+
+    @Override
+    public boolean isOffhandHandDual(ItemStack off)
     {
         return false;
     }
 
     @Override
-    public boolean isOffhandHandDualWeapon ()
-    {
-        return false;
-    }
-
-    @Override
-    public boolean sheatheOnBack ()
+    public boolean sheatheOnBack(ItemStack item)
     {
         return true;
     }
