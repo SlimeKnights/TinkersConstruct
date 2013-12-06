@@ -227,19 +227,13 @@ public class Chisel extends ToolCore
     }
 
     @Override
-    public boolean willAllowOffhandWeapon ()
+    public boolean allowOffhand(ItemStack mainhand, ItemStack offhand)
     {
         return false;
     }
 
     @Override
-    public boolean willAllowShield ()
-    {
-        return false;
-    }
-
-    @Override
-    public boolean isOffhandHandDualWeapon ()
+    public boolean isOffhandHandDual(ItemStack off)
     {
         return false;
     }

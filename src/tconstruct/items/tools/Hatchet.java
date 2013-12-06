@@ -107,7 +107,7 @@ public class Hatchet extends HarvestTool
     }
 
     @Override
-    public boolean isOffhandHandDualWeapon ()
+    public boolean isOffhandHandDual(ItemStack off)
     {
         return PHConstruct.isHatchetWeapon;
     }

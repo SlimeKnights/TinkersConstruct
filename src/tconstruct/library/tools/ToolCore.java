@@ -1022,25 +1022,19 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, ICu
     /* Battlegear support, IBattlegearWeapon */
 
     @Override
-    public boolean willAllowOffhandWeapon ()
+    public boolean allowOffhand(ItemStack mainhand, ItemStack offhand)
     {
         return true;
     }
 
     @Override
-    public boolean willAllowShield ()
+    public boolean isOffhandHandDual(ItemStack off)
     {
         return true;
     }
 
     @Override
-    public boolean isOffhandHandDualWeapon ()
-    {
-        return true;
-    }
-
-    @Override
-    public boolean sheatheOnBack ()
+    public boolean sheatheOnBack(ItemStack item)
     {
         return false;
     }
@@ -1057,7 +1051,6 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, ICu
         return true;
     }
 
-    @Override
     public boolean offhandClickBlock (PlayerInteractEvent event, ItemStack mainhandItem, ItemStack offhandItem)
     {
         return true;

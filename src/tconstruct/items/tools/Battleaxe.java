@@ -302,20 +302,20 @@ public class Battleaxe extends HarvestTool
     }
 
     @Override
-    public boolean willAllowOffhandWeapon ()
+    public boolean allowOffhand(ItemStack mainhand, ItemStack offhand)
     {
         return false;
     }
 
     @Override
-    public boolean willAllowShield ()
+    public boolean isOffhandHandDual(ItemStack off)
     {
         return false;
     }
-
+    
     @Override
-    public boolean isOffhandHandDualWeapon ()
+    public boolean sheatheOnBack(ItemStack item)
     {
-        return false;
+        return true;
     }
 }

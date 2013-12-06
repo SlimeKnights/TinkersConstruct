@@ -4,6 +4,7 @@ import tconstruct.common.TContent;
 import tconstruct.library.tools.HarvestTool;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 
 public class Pickaxe extends HarvestTool
 {
@@ -70,7 +71,7 @@ public class Pickaxe extends HarvestTool
     }
 
     @Override
-    public boolean isOffhandHandDualWeapon ()
+    public boolean isOffhandHandDual(ItemStack off)
     {
         return false;
     }
