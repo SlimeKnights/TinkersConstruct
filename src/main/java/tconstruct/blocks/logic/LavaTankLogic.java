@@ -1,5 +1,6 @@
 package tconstruct.blocks.logic;
 
+import mantle.blocks.iface.MultiServantLogic;
 import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.INetworkManager;

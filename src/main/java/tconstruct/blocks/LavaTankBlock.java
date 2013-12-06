@@ -24,7 +24,7 @@ import net.minecraftforge.fluids.FluidTankInfo;
 import tconstruct.blocks.logic.LavaTankLogic;
 import tconstruct.client.block.TankRender;
 import tconstruct.library.TConstructRegistry;
-import tconstruct.library.util.IServantLogic;
+import mantle.blocks.iface.IServantLogic;
 
 public class LavaTankBlock extends BlockContainer
 {

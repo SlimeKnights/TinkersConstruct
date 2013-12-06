@@ -3,6 +3,7 @@ package tconstruct.blocks.component;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import mantle.blocks.iface.IServantLogic;
 import mantle.world.CoordTuple;
 import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
@@ -12,7 +13,6 @@ import net.minecraft.tileentity.TileEntity;
 import tconstruct.common.TContent;
 import tconstruct.common.TRepo;
 import tconstruct.library.component.TankLayerScan;
-import tconstruct.library.util.IServantLogic;
 
 public class SmelteryScan extends TankLayerScan
 {

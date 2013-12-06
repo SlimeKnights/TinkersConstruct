@@ -1,7 +1,8 @@
 package tconstruct.blocks.logic;
 
 import mantle.blocks.iface.IFacingLogic;
-import tconstruct.library.util.IMasterLogic;
+import mantle.blocks.iface.IMasterLogic;
+import mantle.blocks.iface.MultiServantLogic;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.INetworkManager;
@@ -28,7 +29,7 @@ public class AdaptiveDrainLogic extends MultiServantLogic implements IFluidHandl
     public boolean setPotentialMaster (IMasterLogic master, World world, int x, int y, int z)
     {
         // TConstruct.logger.info("Master: "+master);
-        return (master instanceof AdaptiveSmelteryLogic || master instanceof AdaptiveDrainLogic) && !hasMaster;
+        return (master instanceof AdaptiveSmelteryLogic || master instanceof AdaptiveDrainLogic) && !hasValidMaster();
     }
 
     @Override
@@ -36,7 +37,7 @@ public class AdaptiveDrainLogic extends MultiServantLogic implements IFluidHandl
     {
         if (hasValidMaster() && canDrain(from, null))
         {
-            AdaptiveSmelteryLogic smeltery = (AdaptiveSmelteryLogic) worldObj.getBlockTileEntity(master.x, master.y, master.z);
+            AdaptiveSmelteryLogic smeltery = (AdaptiveSmelteryLogic) worldObj.getBlockTileEntity(getMasterPosition().x, getMasterPosition().y, getMasterPosition().z);
             return smeltery.fill(from, resource, doFill);
         }
         return 0;
@@ -48,7 +49,7 @@ public class AdaptiveDrainLogic extends MultiServantLogic implements IFluidHandl
         // TConstruct.logger.info("Attempting drain " + hasValidMaster());
         if (hasValidMaster() && canDrain(from, null))
         {
-            AdaptiveSmelteryLogic smeltery = (AdaptiveSmelteryLogic) worldObj.getBlockTileEntity(master.x, master.y, master.z);
+            AdaptiveSmelteryLogic smeltery = (AdaptiveSmelteryLogic) worldObj.getBlockTileEntity(getMasterPosition().x, getMasterPosition().y, getMasterPosition().z);
             //  TConstruct.logger.info("Found master");
             return smeltery.drain(from, maxDrain, doDrain);
         }
@@ -60,7 +61,7 @@ public class AdaptiveDrainLogic extends MultiServantLogic implements IFluidHandl
     {
         if (hasValidMaster() && canDrain(from, null))
         {
-            AdaptiveSmelteryLogic smeltery = (AdaptiveSmelteryLogic) worldObj.getBlockTileEntity(master.x, master.y, master.z);
+            AdaptiveSmelteryLogic smeltery = (AdaptiveSmelteryLogic) worldObj.getBlockTileEntity(getMasterPosition().x, getMasterPosition().y, getMasterPosition().z);
             return smeltery.drain(from, resource, doDrain);
         }
         return null;
@@ -71,7 +72,7 @@ public class AdaptiveDrainLogic extends MultiServantLogic implements IFluidHandl
     {
         if (hasValidMaster())
         {
-            AdaptiveSmelteryLogic smeltery = (AdaptiveSmelteryLogic) worldObj.getBlockTileEntity(master.x, master.y, master.z);
+            AdaptiveSmelteryLogic smeltery = (AdaptiveSmelteryLogic) worldObj.getBlockTileEntity(getMasterPosition().x, getMasterPosition().y, getMasterPosition().z);
             return smeltery.getFillState() < 2;
         }
         return false;
@@ -82,7 +83,7 @@ public class AdaptiveDrainLogic extends MultiServantLogic implements IFluidHandl
     {
         if (hasValidMaster())
         {
-            AdaptiveSmelteryLogic smeltery = (AdaptiveSmelteryLogic) worldObj.getBlockTileEntity(master.x, master.y, master.z);
+            AdaptiveSmelteryLogic smeltery = (AdaptiveSmelteryLogic) worldObj.getBlockTileEntity(getMasterPosition().x, getMasterPosition().y, getMasterPosition().z);
             return smeltery.getFillState() > 0;
         }
         return false;
@@ -93,7 +94,7 @@ public class AdaptiveDrainLogic extends MultiServantLogic implements IFluidHandl
     {
         if (hasValidMaster() && (from == getForgeDirection() || from == getForgeDirection().getOpposite() || from == ForgeDirection.UNKNOWN))
         {
-            AdaptiveSmelteryLogic smeltery = (AdaptiveSmelteryLogic) worldObj.getBlockTileEntity(master.x, master.y, master.z);
+            AdaptiveSmelteryLogic smeltery = (AdaptiveSmelteryLogic) worldObj.getBlockTileEntity(getMasterPosition().x, getMasterPosition().y, getMasterPosition().z);
             return smeltery.getTankInfo(ForgeDirection.UNKNOWN);
         }
         return null;

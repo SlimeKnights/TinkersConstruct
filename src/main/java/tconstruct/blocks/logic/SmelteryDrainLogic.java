@@ -1,6 +1,7 @@
 package tconstruct.blocks.logic;
 
 import mantle.blocks.iface.IFacingLogic;
+import mantle.blocks.iface.MultiServantLogic;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.INetworkManager;
@@ -29,7 +30,7 @@ public class SmelteryDrainLogic extends MultiServantLogic implements IFluidHandl
         {
             if (doFill)
             {
-                SmelteryLogic smeltery = (SmelteryLogic) worldObj.getBlockTileEntity(master.x, master.y, master.z);
+                SmelteryLogic smeltery = (SmelteryLogic) worldObj.getBlockTileEntity(getMasterPosition().x, getMasterPosition().y, getMasterPosition().z);
                 return smeltery.fill(resource, doFill);
             }
             else
@@ -48,7 +49,7 @@ public class SmelteryDrainLogic extends MultiServantLogic implements IFluidHandl
     {
         if (hasValidMaster() && canDrain(from, null))
         {
-            SmelteryLogic smeltery = (SmelteryLogic) worldObj.getBlockTileEntity(master.x, master.y, master.z);
+            SmelteryLogic smeltery = (SmelteryLogic) worldObj.getBlockTileEntity(getMasterPosition().x, getMasterPosition().y, getMasterPosition().z);
             return smeltery.drain(maxDrain, doDrain);
         }
         else
@@ -79,7 +80,7 @@ public class SmelteryDrainLogic extends MultiServantLogic implements IFluidHandl
         boolean containsFluid = fluid == null;
         if (fluid != null)
         {
-            SmelteryLogic smeltery = (SmelteryLogic) worldObj.getBlockTileEntity(master.x, master.y, master.z);
+            SmelteryLogic smeltery = (SmelteryLogic) worldObj.getBlockTileEntity(getMasterPosition().x, getMasterPosition().y, getMasterPosition().z);
             for (FluidStack fstack : smeltery.moltenMetal)
             {
                 if (fstack.fluidID == fluid.getID())
@@ -98,7 +99,7 @@ public class SmelteryDrainLogic extends MultiServantLogic implements IFluidHandl
     {
         if (hasValidMaster() && (from == getForgeDirection() || from == getForgeDirection().getOpposite() || from == ForgeDirection.UNKNOWN))
         {
-            SmelteryLogic smeltery = (SmelteryLogic) worldObj.getBlockTileEntity(master.x, master.y, master.z);
+            SmelteryLogic smeltery = (SmelteryLogic) worldObj.getBlockTileEntity(getMasterPosition().x, getMasterPosition().y, getMasterPosition().z);
             return smeltery.getMultiTankInfo();
             //return new FluidTankInfo[] { smeltery.getInfo() };
         }

@@ -18,8 +18,8 @@ import tconstruct.TConstruct;
 import tconstruct.blocks.component.TankAirComponent;
 import mantle.blocks.abstracts.InventoryLogic;
 import mantle.world.CoordTuple;
-import tconstruct.library.util.IMasterLogic;
-import tconstruct.library.util.IServantLogic;
+import mantle.blocks.iface.IMasterLogic;
+import mantle.blocks.iface.IServantLogic;
 
 public class TankAirLogic extends InventoryLogic implements IServantLogic, ISidedInventory
 {

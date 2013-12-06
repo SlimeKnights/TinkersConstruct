@@ -28,14 +28,14 @@ import tconstruct.blocks.component.SmelteryScan;
 import tconstruct.common.TContent;
 import tconstruct.common.TRepo;
 import tconstruct.inventory.AdaptiveSmelteryContainer;
-import tconstruct.library.blocks.AdaptiveInventoryLogic;
+import mantle.blocks.abstracts.AdaptiveInventoryLogic;
 import tconstruct.library.component.IComponentHolder;
 import tconstruct.library.component.LogicComponent;
 import tconstruct.library.component.MultiFluidTank;
 import mantle.blocks.iface.IActiveLogic;
 import mantle.world.CoordTuple;
-import tconstruct.library.util.IMasterLogic;
-import tconstruct.library.util.IServantLogic;
+import mantle.blocks.iface.IMasterLogic;
+import mantle.blocks.iface.IServantLogic;
 
 public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IActiveLogic, IMasterLogic, IComponentHolder, IFluidHandler
 {
