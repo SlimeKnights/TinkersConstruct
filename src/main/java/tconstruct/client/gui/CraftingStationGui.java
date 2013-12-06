@@ -343,7 +343,7 @@ public class CraftingStationGui extends GuiContainer
             if (logic.doubleChest == null)
                 this.drawTexturedModalRect(cornerX - 116, cornerY, 0, 0, 121, this.ySize);
             else
-                this.drawTexturedModalRect(cornerX - 116, cornerY, 125, 0, 121, this.ySize + 21);
+                this.drawTexturedModalRect(cornerX - 116, cornerY, 125, 0, 122, this.ySize + 21);
         }
 
         // Draw description
