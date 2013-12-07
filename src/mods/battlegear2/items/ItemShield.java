@@ -1,3 +1,5 @@
 package mods.battlegear2.items;
 
-public class ItemShield {}
+import net.minecraft.item.Item;
+
+public class ItemShield extends Item {}
