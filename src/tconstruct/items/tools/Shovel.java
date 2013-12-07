@@ -4,6 +4,7 @@ import tconstruct.common.TContent;
 import tconstruct.library.tools.HarvestTool;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -91,7 +92,7 @@ public class Shovel extends HarvestTool
     }
 
     @Override
-    public boolean isOffhandHandDualWeapon ()
+    public boolean isOffhandHandDual(ItemStack off)
     {
         return false;
     }
