@@ -422,16 +422,16 @@ public class AbilityHelper
             float bonusLog = (float) Math.log(durability / 72f + 1) * 2 * stonebound;
             trueSpeed += bonusLog;
             trueSpeed *= 6;
-            if (energy > 0)
+            if (energy != -1)
             {
-                if (energy < trueSpeed)
+                if (energy < trueSpeed * 2)
                 {
                     if (energy > 0)
                         tags.setInteger("Energy", 0);
                     return false;
                 }
 
-                energy -= trueSpeed;
+                energy -= trueSpeed * 2;
                 ToolCore tool = (ToolCore) stack.getItem();
                 stack.setItemDamage(1 + (tool.getMaxEnergyStored(stack) - energy) * (stack.getMaxDamage() - 1) / tool.getMaxEnergyStored(stack));
                 tags.setInteger("Energy", energy);
