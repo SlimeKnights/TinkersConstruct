@@ -181,6 +181,7 @@ public class Cleaver extends Weapon
     	}
     }
 
+    //1.6.4 start
     @Override
     public boolean isOffhandHandDual(ItemStack off)
     {
@@ -192,4 +193,27 @@ public class Cleaver extends Weapon
     {
         return true;
     }
+    //1.6.4 end
+    
+    //1.6.2 start
+    @Override
+	public boolean willAllowOffhandWeapon() {
+    	return false;
+	}
+
+	@Override
+	public boolean willAllowShield() {
+		return PHConstruct.isCleaverTwoHanded;
+	}
+
+	@Override
+	public boolean isOffhandHandDualWeapon() {
+		return false;
+	}
+
+	@Override
+	public boolean sheatheOnBack() {
+		return true;
+	}
+	//1.6.2 end
 }
