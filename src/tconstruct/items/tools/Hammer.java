@@ -422,7 +422,8 @@ public class Hammer extends HarvestTool
         return new String[] { "weapon", "harvest", "melee", "bludgeoning" };
     }
 
-    @Override
+	//1.6.4 start
+	@Override
     public boolean allowOffhand(ItemStack mainhand, ItemStack offhand)
     {
     	try
@@ -450,4 +451,22 @@ public class Hammer extends HarvestTool
     {
         return true;
     }
+    //1.6.4 end
+    
+    //1.6.2 start
+    @Override
+	public boolean willAllowOffhandWeapon() {
+		return false;
+	}
+
+	@Override
+	public boolean isOffhandHandDualWeapon() {
+		return false;
+	}
+
+	@Override
+	public boolean sheatheOnBack() {
+		return true;
+	}
+	//1.6.2 end
 }
