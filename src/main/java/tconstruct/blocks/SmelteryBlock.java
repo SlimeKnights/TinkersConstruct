@@ -23,7 +23,7 @@ import mantle.blocks.abstracts.InventoryBlock;
 import mantle.blocks.iface.IFacingLogic;
 import mantle.blocks.iface.IMasterLogic;
 import mantle.blocks.iface.IServantLogic;
-import mantle.blocks.iface.MultiServantLogic;
+import mantle.blocks.abstracts.MultiServantLogic;
 import tconstruct.util.config.PHConstruct;
 
 public class SmelteryBlock extends InventoryBlock

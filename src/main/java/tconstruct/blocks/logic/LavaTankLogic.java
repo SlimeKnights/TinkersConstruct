@@ -1,6 +1,6 @@
 package tconstruct.blocks.logic;
 
-import mantle.blocks.iface.MultiServantLogic;
+import mantle.blocks.abstracts.MultiServantLogic;
 import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.INetworkManager;
@@ -13,7 +13,6 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
-import net.minecraftforge.fluids.IFluidTank;
 
 public class LavaTankLogic extends MultiServantLogic implements IFluidHandler
 {

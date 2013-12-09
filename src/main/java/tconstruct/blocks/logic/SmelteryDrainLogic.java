@@ -1,7 +1,7 @@
 package tconstruct.blocks.logic;
 
 import mantle.blocks.iface.IFacingLogic;
-import mantle.blocks.iface.MultiServantLogic;
+import mantle.blocks.abstracts.MultiServantLogic;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.INetworkManager;
