@@ -1152,4 +1152,11 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
         this.needsUpdate = true;
     }
+
+    @Override
+    public void sendDebugToPlayer(EntityPlayer player) {
+        super.sendDebugToPlayer(player);
+        player.addChatMessage("[SmelteryLogic] layers: " + layers + ", liquid: " + currentLiquid + "/" + maxLiquid + ", direction: " + direction);
+        player.addChatMessage("[SmelteryLogic] inUse: " + inUse + ", tick: " + tick);
+    }
 }
