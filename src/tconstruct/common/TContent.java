@@ -252,6 +252,7 @@ public class TContent implements IFuelHandler
 
     public static Block slimeChannel;
     public static Block slimePad;
+    public static Block bloodChannel;
 
     //Glue
     public static Fluid glueFluid;
@@ -758,11 +759,15 @@ public class TContent implements IFuelHandler
         slimeSapling = (SlimeSapling) new SlimeSapling(PHConstruct.slimeSapling).setStepSound(slimeStep).setUnlocalizedName("slime.sapling");
         GameRegistry.registerBlock(slimeSapling, SlimeSaplingItemBlock.class, "slime.sapling");
 
-        slimeChannel = new ConveyorBase(PHConstruct.slimeChannel, Material.water).setStepSound(slimeStep).setUnlocalizedName("slime.channel");
+        slimeChannel = new ConveyorBase(PHConstruct.slimeChannel, Material.water, "greencurrent").setHardness(0.3f).setStepSound(slimeStep).setUnlocalizedName("slime.channel");
         GameRegistry.registerBlock(slimeChannel, "slime.channel");
         TConstructRegistry.drawbridgeState[slimeChannel.blockID] = 1;
 
-        slimePad = new SlimePad(PHConstruct.slimePad, Material.cloth).setStepSound(slimeStep).setUnlocalizedName("slime.pad");
+        bloodChannel = new ConveyorBase(PHConstruct.bloodChannel, Material.water, "liquid_cow").setHardness(0.3f).setStepSound(slimeStep).setUnlocalizedName("blood.channel");
+        GameRegistry.registerBlock(bloodChannel, "blood.channel");
+        TConstructRegistry.drawbridgeState[slimeChannel.blockID] = 1;
+
+        slimePad = new SlimePad(PHConstruct.slimePad, Material.cloth).setStepSound(slimeStep).setHardness(0.3f).setUnlocalizedName("slime.pad");
         GameRegistry.registerBlock(slimePad, "slime.pad");
         TConstructRegistry.drawbridgeState[slimePad.blockID] = 1;
 
@@ -1450,7 +1455,10 @@ public class TContent implements IFuelHandler
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(slimeExplosive, 1, 0), "slimeball", Block.tnt));
 
         GameRegistry.addShapelessRecipe(new ItemStack(slimeChannel, 1, 0), new ItemStack(slimeGel, 1, Short.MAX_VALUE), new ItemStack(Item.redstone));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(slimePad, 1, 0), slimeChannel, "slimeBall"));
+        GameRegistry.addShapelessRecipe(new ItemStack(bloodChannel, 1, 0), new ItemStack(strangeFood, 1, 1), new ItemStack(strangeFood, 1, 1), new ItemStack(strangeFood, 1, 1), new ItemStack(
+                strangeFood, 1, 1), new ItemStack(Item.redstone));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(slimeChannel, 1, 0), "slimeball", "slimeball", "slimeball", "slimeball", new ItemStack(Item.redstone)));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(slimePad, 1, 0), slimeChannel, "slimeball"));
     }
 
     private void addRecipesForFurnace ()
@@ -1629,6 +1637,7 @@ public class TContent implements IFuelHandler
         //Misc
         tableCasting.addCastingRecipe(new ItemStack(Item.emerald), new FluidStack(moltenEmeraldFluid, 640), gemcast, 80);
         tableCasting.addCastingRecipe(new ItemStack(materials, 1, 36), new FluidStack(glueFluid, TConstruct.ingotLiquidValue), null, 50);
+        tableCasting.addCastingRecipe(new ItemStack(strangeFood, 1, 1), new FluidStack(bloodFluid, 160), null, 50);
 
         //Buckets
         ItemStack bucket = new ItemStack(Item.bucketEmpty);
@@ -1890,6 +1899,8 @@ public class TContent implements IFuelHandler
         //DryingRackRecipes.addDryingRecipe(Item.muttonRaw, 20 * 60 * 5, new ItemStack(jerky, 1, 3));
         DryingRackRecipes.addDryingRecipe(Item.fishRaw, 20 * 60 * 5, new ItemStack(jerky, 1, 4));
         DryingRackRecipes.addDryingRecipe(Item.rottenFlesh, 20 * 60 * 5, new ItemStack(jerky, 1, 5));
+        DryingRackRecipes.addDryingRecipe(new ItemStack(strangeFood, 1, 0), 20 * 60 * 5, new ItemStack(jerky, 1, 6));
+        DryingRackRecipes.addDryingRecipe(new ItemStack(strangeFood, 1, 1), 20 * 60 * 5, new ItemStack(jerky, 1, 7));
 
         //DryingRackRecipes.addDryingRecipe(new ItemStack(jerky, 1, 5), 20 * 60 * 10, Item.leather);
     }
@@ -2093,6 +2104,7 @@ public class TContent implements IFuelHandler
         //Vanilla stuff
         OreDictionary.registerOre("slimeball", new ItemStack(Item.slimeBall));
         OreDictionary.registerOre("slimeball", new ItemStack(strangeFood, 1, 0));
+        OreDictionary.registerOre("slimeball", new ItemStack(strangeFood, 1, 1));
         OreDictionary.registerOre("slimeball", new ItemStack(materials, 1, 36));
         OreDictionary.registerOre("glass", new ItemStack(clearGlass));
         OreDictionary.registerOre("glass", new ItemStack(Block.glass));
@@ -2274,7 +2286,7 @@ public class TContent implements IFuelHandler
         Block heatSand = GameRegistry.findBlock("Natura", "heatsand");
         if (taintedSoil != null && heatSand != null)
             GameRegistry.addShapelessRecipe(new ItemStack(craftedSoil, 2, 6), Item.netherStalkSeeds, taintedSoil, heatSand);
-        
+
         /*TE3 Flux*/
         ItemStack batHardened = GameRegistry.findItemStack("ThermalExpansion", "capacitorHardened", 1);
         if (batHardened != null)

@@ -19,11 +19,13 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class ConveyorBase extends Block
 {
-    public ConveyorBase(int ID, Material material)
+    String textureName;
+    public ConveyorBase(int ID, Material material, String name)
     {
         super(ID, material);
         this.setCreativeTab(TConstructRegistry.blockTab);
         setBlockBounds(0f, 0f, 0f, 1f, 0.5f, 1f);
+        textureName = name;
     }
 
     public boolean isBlockReplaceable (World world, int x, int y, int z)
@@ -134,7 +136,7 @@ public class ConveyorBase extends Block
     @Override
     public void registerIcons (IconRegister iconRegister)
     {
-        String[] textureNames = new String[] { "greencurrent", "greencurrent_flow" };
+        String[] textureNames = new String[] { textureName, textureName+"_flow" };
         this.icons = new Icon[textureNames.length];
 
         for (int i = 0; i < this.icons.length; ++i)
