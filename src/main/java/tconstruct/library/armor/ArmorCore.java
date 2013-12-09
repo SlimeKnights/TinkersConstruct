@@ -1,6 +1,5 @@
 package tconstruct.library.armor;
 
-import tconstruct.library.util.MathUtils;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.dispenser.IBehaviorDispenseItem;
 import net.minecraft.entity.*;
@@ -152,7 +151,7 @@ public abstract class ArmorCore extends ItemArmor implements IEnergyContainerIte
         if (tags == null || !tags.hasKey("Energy"))
             return 0;
         int energy = tags.getInteger("Energy");
-        int energyReceived = MathUtils.minInt(capacity - energy, MathUtils.minInt(this.maxReceive, maxReceive));
+        int energyReceived = Math.min(capacity - energy, Math.min(this.maxReceive, maxReceive));
         if (!simulate)
         {
             energy += energyReceived;
@@ -172,7 +171,7 @@ public abstract class ArmorCore extends ItemArmor implements IEnergyContainerIte
             return 0;
         }
         int energy = tags.getInteger("Energy");
-        int energyExtracted = MathUtils.minInt(energy, MathUtils.minInt(this.maxExtract, maxExtract));
+        int energyExtracted = Math.min(energy, Math.min(this.maxExtract, maxExtract));
         if (!simulate)
         {
             energy -= energyExtracted;
