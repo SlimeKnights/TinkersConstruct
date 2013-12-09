@@ -276,7 +276,7 @@ public class TEventHandler
             }
         }
 
-        if (random.nextInt(500) == 0 && event.entityLiving instanceof IMob && event.entityLiving.dimension == 0)
+        if (random.nextInt(500) == 0 && event.entityLiving instanceof IMob)
         {
             ItemStack dropStack = new ItemStack(TContent.heartCanister, 1, 1);
             EntityItem entityitem = new EntityItem(event.entityLiving.worldObj, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, dropStack);

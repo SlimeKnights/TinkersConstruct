@@ -765,7 +765,7 @@ public class TContent implements IFuelHandler
 
         bloodChannel = new ConveyorBase(PHConstruct.bloodChannel, Material.water, "liquid_cow").setHardness(0.3f).setStepSound(slimeStep).setUnlocalizedName("blood.channel");
         GameRegistry.registerBlock(bloodChannel, "blood.channel");
-        TConstructRegistry.drawbridgeState[slimeChannel.blockID] = 1;
+        TConstructRegistry.drawbridgeState[bloodChannel.blockID] = 1;
 
         slimePad = new SlimePad(PHConstruct.slimePad, Material.cloth).setStepSound(slimeStep).setHardness(0.3f).setUnlocalizedName("slime.pad");
         GameRegistry.registerBlock(slimePad, "slime.pad");
@@ -1375,6 +1375,7 @@ public class TContent implements IFuelHandler
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(heartCanister, 1, 0), "##", "##", '#', "ingotAluminum"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(heartCanister, 1, 0), "##", "##", '#', "ingotAluminium"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(heartCanister, 1, 0), "##", "##", '#', "ingotNaturalAluminum"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(heartCanister, 1, 0), "##", "##", '#', "ingotTin"));
         GameRegistry.addRecipe(new ItemStack(diamondApple), " d ", "d#d", " d ", 'd', new ItemStack(Item.diamond), '#', new ItemStack(Item.appleRed));
         GameRegistry.addShapelessRecipe(new ItemStack(heartCanister, 1, 2), new ItemStack(diamondApple), new ItemStack(materials, 1, 8), new ItemStack(heartCanister, 1, 0), new ItemStack(
                 heartCanister, 1, 1));
