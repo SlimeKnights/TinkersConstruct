@@ -1,5 +1,6 @@
 package tconstruct.blocks;
 
+import mantle.blocks.MantleBlock;
 import tconstruct.blocks.logic.GolemCoreLogic;
 import tconstruct.common.TContent;
 import net.minecraft.block.Block;
@@ -12,7 +13,7 @@ import net.minecraft.util.Icon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
-public class GolemHeadBlock extends Block
+public class GolemHeadBlock extends MantleBlock
 {
     /*public static int headSideTex = ModLoader.addOverride("/terrain.png", "/GGE/golemheadside.png");
     public static int headTopTex = ModLoader.addOverride("/terrain.png", "/GGE/golemheadtop&bottom.png");

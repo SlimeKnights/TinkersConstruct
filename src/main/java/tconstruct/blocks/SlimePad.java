@@ -1,5 +1,6 @@
 package tconstruct.blocks;
 
+import mantle.blocks.MantleBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -18,7 +19,7 @@ import tconstruct.library.TConstructRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class SlimePad extends Block
+public class SlimePad extends MantleBlock
 {
 
     public SlimePad(int par1, Material par2Material)

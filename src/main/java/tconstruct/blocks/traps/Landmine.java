@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
+import mantle.blocks.MantleBlock;
 import tconstruct.library.TConstructRegistry;
 
 import net.minecraft.block.Block;
@@ -19,7 +20,7 @@ import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class Landmine extends Block
+public class Landmine extends MantleBlock
 {
     /** The mob type that can trigger this pressure plate. */
     private EnumMobType triggerMobType;

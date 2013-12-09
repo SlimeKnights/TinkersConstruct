@@ -3,6 +3,7 @@ package tconstruct.blocks.slime;
 import java.util.List;
 import java.util.Random;
 
+import mantle.blocks.MantleBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -19,7 +20,7 @@ import tconstruct.library.TConstructRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class SlimeGrass extends Block
+public class SlimeGrass extends MantleBlock
 {
     public String[] textureNames = { "slimegrass_green_top", "slimedirt_blue", "slimegrass_green_blue_side", "slimegrass_green_dirt_side" };//green, purple
     public Icon[] icons;

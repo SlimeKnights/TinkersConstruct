@@ -1,5 +1,6 @@
 package tconstruct.blocks.traps;
 
+import mantle.blocks.MantleBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -15,7 +16,7 @@ import tconstruct.library.TConstructRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class BarricadeBlock extends Block
+public class BarricadeBlock extends MantleBlock
 {
     Block modelBlock;
     int modelMeta;

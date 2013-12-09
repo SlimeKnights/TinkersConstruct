@@ -1,6 +1,8 @@
 package tconstruct.blocks;
 
 import java.util.ArrayList;
+
+import mantle.blocks.MantleBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -13,7 +15,7 @@ import tconstruct.util.config.PHConstruct;
  * 
  */
 
-public class GlassBlockConnected extends Block
+public class GlassBlockConnected extends MantleBlock
 {
     protected Icon[] icons = new Icon[16];
     private boolean shouldRenderSelectionBox = true;

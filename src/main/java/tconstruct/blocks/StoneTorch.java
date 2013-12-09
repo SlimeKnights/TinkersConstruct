@@ -7,6 +7,7 @@ import static net.minecraftforge.common.ForgeDirection.WEST;
 
 import java.util.Random;
 
+import mantle.blocks.MantleBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
@@ -18,7 +19,7 @@ import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class StoneTorch extends Block
+public class StoneTorch extends MantleBlock
 {
     public StoneTorch(int id)
     {

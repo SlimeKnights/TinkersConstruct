@@ -2,6 +2,7 @@ package tconstruct.blocks;
 
 import java.util.List;
 
+import mantle.blocks.MantleBlock;
 import tconstruct.library.TConstructRegistry;
 
 import net.minecraft.block.Block;
@@ -13,7 +14,7 @@ import net.minecraft.util.Icon;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class TConstructBlock extends Block
+public class TConstructBlock extends MantleBlock
 {
     public String[] textureNames;
     public Icon[] icons;
