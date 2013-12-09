@@ -102,6 +102,10 @@ public class PHConstruct
         barricadeSpruce = config.getBlock("Spruce Barricade", 1482).getInt(1482);
         barricadeBirch = config.getBlock("Birch Barricade", 1483).getInt(1483);
         barricadeJungle = config.getBlock("Jungle Barricade", 1487).getInt(1487);
+        
+        lavaTankNether = config.getBlock("Nether Lava Tank", 3187).getInt(3187);
+        smelteryNether = config.getBlock("Nether Smeltery", 3188).getInt(3188);
+        searedTableNether = config.getBlock("Nether Seared Block", 3189).getInt(3189);
 
         slimeChannel = config.getBlock("Slime Channel", 3190).getInt(3190);
         slimePad = config.getBlock("Slime Pad", 3191).getInt(3191);
@@ -411,6 +415,9 @@ public class PHConstruct
     public static int lavaTank;
     public static int smeltery;
     public static int searedTable;
+    public static int lavaTankNether;
+    public static int smelteryNether;
+    public static int searedTableNether;
     public static int castingChannel;
     public static int airTank;
 

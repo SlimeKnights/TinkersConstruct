@@ -12,7 +12,7 @@ import net.minecraft.util.StatCollector;
 
 public class CraftedSoilItemBlock extends ItemBlock
 {
-    public static final String blockType[] = { "Slime", "Grout", "BlueSlime", "GraveyardSoil", "ConsecratedSoil", "blue", "dirt" };
+    public static final String blockType[] = { "Slime", "Grout", "BlueSlime", "GraveyardSoil", "ConsecratedSoil", "blue", "dirt", "Grout" };
 
     public CraftedSoilItemBlock(int id)
     {

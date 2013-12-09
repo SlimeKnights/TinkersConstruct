@@ -864,7 +864,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                 Block block = Block.blocksList[blockID];
                 if (block != null && !block.isAirBlock(worldObj, xPos, y, zPos))
                 {
-                    if (blockID == TContent.smeltery.blockID)
+                    if (validBlockID(blockID))
                         return validateBottom(x, y, z, count);
                     else
                         return count;
@@ -899,7 +899,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         {
             for (int zPos = z - 1; zPos <= z + 1; zPos++)
             {
-                if (worldObj.getBlockId(xPos, y, zPos) == TContent.smeltery.blockID && (worldObj.getBlockMetadata(xPos, y, zPos) >= 2))
+                if (validBlockID(worldObj.getBlockId(xPos, y, zPos)) && (worldObj.getBlockMetadata(xPos, y, zPos) >= 2))
                     bottomBricks++;
             }
         }
@@ -919,7 +919,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     {
         int tempBricks = 0;
         int blockID = worldObj.getBlockId(x, y, z);
-        if (blockID == TContent.smeltery.blockID || blockID == TContent.lavaTank.blockID)
+        if (validBlockID(blockID) || validTankID(blockID))
         {
             TileEntity te = worldObj.getBlockTileEntity(x, y, z);
             if (te == this)
@@ -946,6 +946,16 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
             }
         }
         return tempBricks;
+    }
+    
+    boolean validBlockID(int blockID)
+    {
+        return blockID == TContent.smeltery.blockID || blockID == TContent.smelteryNether.blockID;
+    }
+    
+    boolean validTankID(int blockID)
+    {
+        return blockID == TContent.lavaTank.blockID || blockID == TContent.lavaTankNether.blockID;
     }
 
     public int getCapacity ()

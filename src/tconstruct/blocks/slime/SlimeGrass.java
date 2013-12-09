@@ -136,8 +136,8 @@ public class SlimeGrass extends Block
     public int idDropped (int metadata, Random random, int fortune)
     {
         if (metadata == 1)
-            return TContent.craftedSoil.blockID;
-        else
             return Block.dirt.blockID;
+        else
+            return TContent.craftedSoil.blockID;
     }
 }

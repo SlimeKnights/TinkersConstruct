@@ -13,7 +13,7 @@ import net.minecraft.world.World;
 
 public class SoilBlock extends TConstructBlock
 {
-    static String[] soilTypes = new String[] { "slimesand", "grout", "slimesandblue", "graveyardsoil", "consecratedsoil", "slimedirt_blue" };
+    static String[] soilTypes = new String[] { "slimesand", "grout", "slimesandblue", "graveyardsoil", "consecratedsoil", "slimedirt_blue", "nether_grout" };
 
     public SoilBlock(int id)
     {

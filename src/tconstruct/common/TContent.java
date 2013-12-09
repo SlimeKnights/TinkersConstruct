@@ -143,6 +143,9 @@ public class TContent implements IFuelHandler
     public static Block lavaTank;
     public static Block searedBlock;
     public static Block castingChannel;
+    public static Block smelteryNether;
+    public static Block lavaTankNether;
+    public static Block searedBlockNether;
     public static Block metalBlock;
     public static Block tankAir;
 
@@ -286,7 +289,7 @@ public class TContent implements IFuelHandler
     public static Item leggingsWood;
     public static Item bootsWood;
     public static EnumArmorMaterial materialWood;
-    
+
     //Armor - exosuit
     public static Item exoGoggles;
     public static Item exoChest;
@@ -393,7 +396,9 @@ public class TContent implements IFuelHandler
 
         //Smeltery
         smeltery = new SmelteryBlock(PHConstruct.smeltery).setUnlocalizedName("Smeltery");
+        smelteryNether = new SmelteryBlock(PHConstruct.smelteryNether, "nether").setUnlocalizedName("Smeltery");
         GameRegistry.registerBlock(smeltery, SmelteryItemBlock.class, "Smeltery");
+        GameRegistry.registerBlock(smelteryNether, SmelteryItemBlock.class, "SmelteryNether");
         if (PHConstruct.newSmeltery)
         {
             GameRegistry.registerTileEntity(AdaptiveSmelteryLogic.class, "TConstruct.Smeltery");
@@ -406,13 +411,16 @@ public class TContent implements IFuelHandler
         }
         GameRegistry.registerTileEntity(MultiServantLogic.class, "TConstruct.Servants");
 
-        lavaTank = new LavaTankBlock(PHConstruct.lavaTank).setUnlocalizedName("LavaTank");
-        lavaTank.setStepSound(Block.soundGlassFootstep);
+        lavaTank = new LavaTankBlock(PHConstruct.lavaTank).setStepSound(Block.soundGlassFootstep).setUnlocalizedName("LavaTank");
+        lavaTankNether = new LavaTankBlock(PHConstruct.lavaTankNether, "nether").setStepSound(Block.soundGlassFootstep).setUnlocalizedName("LavaTank");
         GameRegistry.registerBlock(lavaTank, LavaTankItemBlock.class, "LavaTank");
+        GameRegistry.registerBlock(lavaTankNether, LavaTankItemBlock.class, "LavaTankNether");
         GameRegistry.registerTileEntity(LavaTankLogic.class, "TConstruct.LavaTank");
 
         searedBlock = new SearedBlock(PHConstruct.searedTable).setUnlocalizedName("SearedBlock");
+        searedBlockNether = new SearedBlock(PHConstruct.searedTableNether, "nether").setUnlocalizedName("SearedBlock");
         GameRegistry.registerBlock(searedBlock, SearedTableItemBlock.class, "SearedBlock");
+        GameRegistry.registerBlock(searedBlockNether, SearedTableItemBlock.class, "SearedBlockNether");
         GameRegistry.registerTileEntity(CastingTableLogic.class, "CastingTable");
         GameRegistry.registerTileEntity(FaucetLogic.class, "Faucet");
         GameRegistry.registerTileEntity(CastingBasinLogic.class, "CastingBasin");
@@ -1220,8 +1228,9 @@ public class TContent implements IFuelHandler
         GameRegistry.addShapelessRecipe(new ItemStack(craftedSoil, 1, 2), strangeFood, strangeFood, strangeFood, strangeFood, Block.sand, Block.dirt);
         // Grout Recipes
         GameRegistry.addShapelessRecipe(new ItemStack(craftedSoil, 2, 1), Item.clay, Block.sand, Block.gravel);
-        GameRegistry.addRecipe(new ItemStack(craftedSoil, 8, 1), "sgs", "gcg", "sgs", 'c', new ItemStack(Block.stainedClay, 1, Short.MAX_VALUE), 's', Block.sand, 'g', Block.gravel);
-        GameRegistry.addRecipe(new ItemStack(craftedSoil, 8, 1), "sgs", "gcg", "sgs", 'c', new ItemStack(Block.blockClay, 1, Short.MAX_VALUE), 's', Block.sand, 'g', Block.gravel);
+        GameRegistry.addShapelessRecipe(new ItemStack(craftedSoil, 8, 1), new ItemStack(Block.blockClay, 1, Short.MAX_VALUE), Block.sand, Block.sand, Block.sand, Block.sand, Block.gravel,
+                Block.gravel, Block.gravel, Block.gravel);
+        GameRegistry.addShapelessRecipe(new ItemStack(craftedSoil, 2, 6), Item.netherStalkSeeds, Block.slowSand, Block.gravel);
         // Graveyard Soil Recipes
         GameRegistry.addShapelessRecipe(new ItemStack(craftedSoil, 1, 3), Block.dirt, Item.rottenFlesh, new ItemStack(Item.dyePowder, 1, 15));
         // Silky Cloth Recipes
@@ -1326,6 +1335,18 @@ public class TContent implements IFuelHandler
         GameRegistry.addRecipe(new ItemStack(searedBlock, 1, 0), "bbb", "b b", "b b", 'b', searedBrick); //Table
         GameRegistry.addRecipe(new ItemStack(searedBlock, 1, 1), "b b", " b ", 'b', searedBrick); //Faucet
         GameRegistry.addRecipe(new ItemStack(searedBlock, 1, 2), "b b", "b b", "bbb", 'b', searedBrick); //Basin
+        GameRegistry.addRecipe(new ItemStack(castingChannel, 4, 0), "b b", "bbb", 'b', searedBrick); //Channel
+
+        searedBrick = new ItemStack(materials, 1, 37);
+        GameRegistry.addRecipe(new ItemStack(smelteryNether, 1, 0), "bbb", "b b", "bbb", 'b', searedBrick); //Controller
+        GameRegistry.addRecipe(new ItemStack(smelteryNether, 1, 1), "b b", "b b", "b b", 'b', searedBrick); //Drain
+        GameRegistry.addRecipe(new ItemStack(smelteryNether, 1, 2), "bb", "bb", 'b', searedBrick); //Bricks
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(lavaTankNether, 1, 0), patSurround, '#', searedBrick, 'm', "glass")); //Tank
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(lavaTankNether, 1, 1), "bgb", "ggg", "bgb", 'b', searedBrick, 'g', "glass")); //Glass
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(lavaTankNether, 1, 2), "bgb", "bgb", "bgb", 'b', searedBrick, 'g', "glass")); //Window
+        GameRegistry.addRecipe(new ItemStack(searedBlockNether, 1, 0), "bbb", "b b", "b b", 'b', searedBrick); //Table
+        GameRegistry.addRecipe(new ItemStack(searedBlockNether, 1, 1), "b b", " b ", 'b', searedBrick); //Faucet
+        GameRegistry.addRecipe(new ItemStack(searedBlockNether, 1, 2), "b b", "b b", "bbb", 'b', searedBrick); //Basin
         GameRegistry.addRecipe(new ItemStack(castingChannel, 4, 0), "b b", "bbb", 'b', searedBrick); //Channel
 
         // Jack o'Latern Recipe - Stone Torch
@@ -1439,11 +1460,12 @@ public class TContent implements IFuelHandler
         FurnaceRecipes.smelting().addSmelting(craftedSoil.blockID, 0, new ItemStack(materials, 1, 1), 2f); //Slime
         FurnaceRecipes.smelting().addSmelting(craftedSoil.blockID, 1, new ItemStack(materials, 1, 2), 2f); //Seared brick item
         FurnaceRecipes.smelting().addSmelting(craftedSoil.blockID, 2, new ItemStack(materials, 1, 17), 2f); //Blue Slime
+        FurnaceRecipes.smelting().addSmelting(craftedSoil.blockID, 6, new ItemStack(materials, 1, 37), 2f); //Nether seared brick
         //FurnaceRecipes.smelting().addSmelting(oreSlag.blockID, 1, new ItemStack(materials, 1, 3), 3f);
         //FurnaceRecipes.smelting().addSmelting(oreSlag.blockID, 2, new ItemStack(materials, 1, 4), 3f);
         FurnaceRecipes.smelting().addSmelting(oreSlag.blockID, 3, new ItemStack(materials, 1, 9), 0.5f);
         FurnaceRecipes.smelting().addSmelting(oreSlag.blockID, 4, new ItemStack(materials, 1, 10), 0.5f);
-        FurnaceRecipes.smelting().addSmelting(oreSlag.blockID, 5, new ItemStack(materials, 1, 11), 0.5f);
+        FurnaceRecipes.smelting().addSmelting(oreSlag.blockID, 5, new ItemStack(materials, 1, 12), 0.5f);
 
         FurnaceRecipes.smelting().addSmelting(oreBerries.itemID, 0, new ItemStack(materials, 1, 19), 0.2f);
         FurnaceRecipes.smelting().addSmelting(oreBerries.itemID, 1, new ItemStack(Item.goldNugget), 0.2f);
@@ -1648,7 +1670,7 @@ public class TContent implements IFuelHandler
             }
         }
 
-        ItemStack[] ingotShapes = { new ItemStack(Item.brick), new ItemStack(Item.netherrackBrick), new ItemStack(materials, 1, 2) };
+        ItemStack[] ingotShapes = { new ItemStack(Item.brick), new ItemStack(Item.netherrackBrick), new ItemStack(materials, 1, 2), new ItemStack(materials, 1, 37) };
         for (int i = 0; i < ingotShapes.length; i++)
         {
             tableCasting.addCastingRecipe(ingotcast, new FluidStack(moltenAlubrassFluid, TConstruct.ingotLiquidValue), ingotShapes[i], false, 50);
@@ -2247,6 +2269,12 @@ public class TContent implements IFuelHandler
     public void modIntegration ()
     {
         ItemStack ironpick = ToolBuilder.instance.buildTool(new ItemStack(TContent.pickaxeHead, 1, 6), new ItemStack(TContent.toolRod, 1, 2), new ItemStack(TContent.binding, 1, 6), "");
+        /* Natura */
+        Block taintedSoil = GameRegistry.findBlock("Natura", "soil.tainted");
+        Block heatSand = GameRegistry.findBlock("Natura", "heatsand");
+        if (taintedSoil != null && heatSand != null)
+            GameRegistry.addShapelessRecipe(new ItemStack(craftedSoil, 2, 6), Item.netherStalkSeeds, taintedSoil, heatSand);
+        
         /*TE3 Flux*/
         ItemStack batHardened = GameRegistry.findItemStack("ThermalExpansion", "capacitorHardened", 1);
         if (batHardened != null)
@@ -2258,9 +2286,9 @@ public class TContent implements IFuelHandler
         {
             modF.batteries.add(basicCell);
         }
-		if (batHardened != null)
+        if (batHardened != null)
             TConstructClientRegistry.registerManualModifier("fluxmod", ironpick.copy(), (ItemStack) batHardened);
-		if (basicCell != null)
+        if (basicCell != null)
             TConstructClientRegistry.registerManualModifier("fluxmod2", ironpick.copy(), (ItemStack) basicCell);
 
         /* IC2 */
@@ -2408,7 +2436,6 @@ public class TContent implements IFuelHandler
         {
             FurnaceRecipes.smelting().addSmelting(materials.itemID, 36, ores.get(0), 0.2f);
         }
-        //new ItemStack(materials, 1, 36)
     }
 
     public static Object getStaticItem (String name, String classPackage)
