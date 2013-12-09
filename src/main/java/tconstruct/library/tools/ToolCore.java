@@ -26,7 +26,6 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import tconstruct.library.ActiveToolMod;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.ToolBuilder;
-import tconstruct.library.util.MathUtils;
 import cofh.api.energy.IEnergyContainerItem;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -922,7 +921,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IBa
         if (tags == null || !tags.hasKey("Energy"))
             return 0;
         int energy = tags.getInteger("Energy");
-        int energyReceived = MathUtils.minInt(capacity - energy, MathUtils.minInt(this.maxReceive, maxReceive));
+        int energyReceived = Math.min(capacity - energy, Math.min(this.maxReceive, maxReceive));
         if (!simulate)
         {
             energy += energyReceived;
@@ -942,7 +941,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IBa
             return 0;
         }
         int energy = tags.getInteger("Energy");
-        int energyExtracted = MathUtils.minInt(energy, MathUtils.minInt(this.maxExtract, maxExtract));
+        int energyExtracted = Math.min(energy, Math.min(this.maxExtract, maxExtract));
         if (!simulate)
         {
             energy -= energyExtracted;
