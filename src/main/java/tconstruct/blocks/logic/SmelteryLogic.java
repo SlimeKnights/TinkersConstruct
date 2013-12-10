@@ -1,9 +1,8 @@
 package tconstruct.blocks.logic;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
+import mantle.debug.DebugData;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -30,6 +29,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 import net.minecraftforge.fluids.IFluidTank;
+import org.apache.commons.lang3.ArrayUtils;
 import tconstruct.common.TRepo;
 import tconstruct.inventory.SmelteryContainer;
 import mantle.blocks.abstracts.InventoryLogic;
@@ -1153,10 +1153,12 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         this.needsUpdate = true;
     }
 
+    // IDebuggable
     @Override
-    public void sendDebugToPlayer(EntityPlayer player) {
-        super.sendDebugToPlayer(player);
-        player.addChatMessage("[SmelteryLogic] layers: " + layers + ", liquid: " + currentLiquid + "/" + maxLiquid + ", direction: " + direction);
-        player.addChatMessage("[SmelteryLogic] inUse: " + inUse + ", tick: " + tick);
+    public DebugData getDebugInfo(EntityPlayer player) {
+        List<String> str = new ArrayList<String>(Arrays.asList(super.getDebugInfo(player).strings));
+        str.add("layers: " + layers + ", liquid: " + currentLiquid + "/" + maxLiquid + ", direction: " + direction);
+        str.add("inUse: " + inUse + ", tick: " + tick);
+        return new DebugData(player, getClass(), str.toArray(new String[str.size()]));
     }
 }
