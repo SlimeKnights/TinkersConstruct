@@ -13,71 +13,68 @@ buildscript {
             name = 'ForgeFS'
             url = 'http://files.minecraftforge.net/maven'
         }
-	}
+    }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:1.0-SNAPSHOT'
     }
 }
 
 repositories {
-	ivy {
-		name 'Forge FS legacy'
-		artifactPattern "http://files.minecraftforge.net/[module]/[module]-dev-[revision].[ext]"
-	}
-	ivy {
-		name 'CB FS'
-		artifactPattern "http://www.chickenbones.craftsaddle.org/Files/New_Versions/1.6.4/[module]-dev%20[revision].[ext]"
-	}
-	maven {
-	      name 'SlimeKnights Maven FS'
-          url 'http://aeon.sunstrike.io'
-	}
-	maven {
-          name 'ForgeFS'
-          url 'http://files.minecraftforge.net/maven'
-     }
-     maven {
-          name 'MinecraftS3'
-          url 'http://s3.amazonaws.com/Minecraft.Download/libraries'
+    ivy {
+        name 'Forge FS legacy'
+        artifactPattern "http://files.minecraftforge.net/[module]/[module]-dev-[revision].[ext]"
+    }
+    ivy {
+        name 'CB FS'
+        artifactPattern "http://www.chickenbones.craftsaddle.org/Files/New_Versions/1.6.4/[module]-dev%20[revision].[ext]"
+    }
+    maven {
+        name 'SlimeKnights Maven FS'
+        url 'http://aeon.sunstrike.io'
+    }
+    maven {
+        name 'ForgeFS'
+        url 'http://files.minecraftforge.net/maven'
      }
 }
 
-
+// Load ForgeGradle
 apply plugin: 'forge'
-// define the properties file
+
+// Define properties file
 ext.configFile = file "build.properties"
 
 configFile.withReader {
-    // read config.  it shall from now on be referenced as simply config or as project.config
+    // Load config.  It shall from now be referenced as simply config or project.config
     def prop = new Properties()
     prop.load(it)
     project.ext.config = new ConfigSlurper().parse prop
 }
+
 ext.artifact_version_override = 'NotUsed'
 //gitignored config file -- if this has the entry for override it will override the version for local builds
 //create a file called version.properties with the line artifact_version_override=NotUsed
 //replace not used w/ version #'s for manual local overrides
 ext.configFile2 = file "version.properties"
 if (configFile2.exists()){
-	configFile2.withReader {
-    	def prop2 = new Properties()
-    	prop2.load(it)
-    	ext.GIVersionFL = new ConfigSlurper().parse prop2
-		if (GIVersionFL != null){
-			project.artifact_version_override = GIVersionFL.artifact_version_override
-		}
-	}
+    configFile2.withReader {
+        def prop2 = new Properties()
+        prop2.load(it)
+        ext.GIVersionFL = new ConfigSlurper().parse prop2
+        if (GIVersionFL != null){
+            project.artifact_version_override = GIVersionFL.artifact_version_override
+        }
+    }
 }
 
 dependencies {
-     compile "mantle:Mantle:${config.mantle_version}:dev"
-     compile name: 'ForgeMultipart', version: "${config.minecraft_version}-${config.FMP_version}", ext: 'jar'
-     compile name: 'CodeChickenLib', version: "${config.minecraft_version}-${config.CCLIB_version}", ext: 'jar'
-     compile name: 'NotEnoughItems', version: "${config.NEI_version}", type: 'jar'
-
+    compile "mantle:Mantle:${config.mantle_version}:dev"
+    compile name: 'ForgeMultipart', version: "${config.minecraft_version}-${config.FMP_version}", ext: 'jar'
+    compile name: 'CodeChickenLib', version: "${config.minecraft_version}-${config.CCLIB_version}", ext: 'jar'
+    compile name: 'NotEnoughItems', version: "${config.NEI_version}", type: 'jar'
 }
 
-// sets version to the slimeKnights default version format
+// Finds and sets version data
 task buildInfo {
     def cmd = "git rev-parse --short HEAD"
     def proc = cmd.execute()
@@ -114,46 +111,51 @@ minecraft {
 
 
 sourceSets {
-	main {
-		resources {
-			srcDir 'resources'
-		}
-	}
+    main {
+        resources {
+            srcDir 'resources'
+        }
+    }
 }
 processResources
 {
-        // replace stuff in text files, not binary ones.
+    // Replace stuff in text files, not binaries.
     from(sourceSets.main.resources.srcDirs) {
         include '**/*.info'
-                // replace version and MCVersion
+        // Replace version and MCversion
         expand 'version':artifact_version,'MCversion':config.minecraft_version
     }
         
-        // copy everything else, thats not text
+    // Copy everything else that's not text
     from(sourceSets.main.resources.srcDirs) {
         exclude '**/*.info'
     }
 }
 
+// Add Coremod Manifest
 jar {
-	manifest {
-		attributes 'FMLCorePlugin': 'tconstruct.preloader.TConstructLoaderContainer'
+    manifest {
+        attributes 'FMLCorePlugin': 'tconstruct.preloader.TConstructLoaderContainer'
         attributes 'FMLCorePluginContainsFMLMod': 'true'
-	}
+    }
 }
-// because the normal output has been made to be obfuscated
+
+// Create deobf dev jars
 task deobfJar(type: Jar) {
-        from sourceSets.main.output
-        classifier = 'deobf'
+    from sourceSets.main.output
+    classifier = 'deobf'
 }
+
+// Create API library jar
 task libJar(type: Jar) {
     from(sourceSets.main.java) {
-	     include "tconstruct/library/*"
-	}
-	classifier = 'lib'
+        include "tconstruct/library/*"
+    }
+    classifier = 'lib'
 }
+
 artifacts {
-        archives deobfJar
-		archives libJar
+    archives deobfJar
+    archives libJar
 }
 
