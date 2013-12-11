@@ -4,8 +4,10 @@ itemGroup.TConstructBlocks=TConstruct Blöcke
 
 crafters.ToolStation=Werkzeugstation
 crafters.ToolForge=Werkzeugesse
-crafters.PartBuilder=Basteltisch
+crafters.TinkerTable=Basteltisch
+crafters.PartBuilder=Werkzeugteilbauer
 crafters.PatternShaper=Schablonenstanzer
+crafters.CraftingStation=Werkstation
 inventory.PatternChest=Schablonenkiste
 crafters.Smeltery=Schmelzerei
 crafters.Frypan=Bratpfanne
@@ -19,6 +21,7 @@ ToolStation.CastingTable.name=Gusstisch
 tile.FurnaceSlab.name=Stufenofen
 
 tile.ToolForge.name=Werkzeugesse
+tile.TinkerTable.name=Basteltisch
 tile.Armor.DryingRack.name=Trockenregal
 CraftedSoil.Slime.name=Schleimiger Matsch
 CraftedSoil.Grout.name=Mörtel
@@ -256,6 +259,11 @@ item.tconstruct.helmetWood.name=Holzhelm
 item.tconstruct.chestplateWood.name=Holzbrustpanzer
 item.tconstruct.leggingsWood.name=Holzbeinschutz
 item.tconstruct.bootsWood.name=Holzstiefel
+
+item.tconstruct.exoGoggles.name=Exo-Brille
+item.tconstruct.exoChest.name=Exo-Brustteil
+item.tconstruct.exoPants.name=Exo-Beine
+item.tconstruct.exoShoes.name=Exo-Schuhe
 
 item.tconstruct.jerky.beef.name=Rindfleisch-Charqui
 item.tconstruct.jerky.pig.name=Schweinefleisch-Charqui
