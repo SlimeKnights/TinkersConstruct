@@ -44,11 +44,9 @@ public abstract class ToolModTypeFilter extends ToolMod//boobs.java
             for (Object check : stacks)
             {
                 ItemStack stack = (ItemStack) check;
-                System.out.println("First stack: "+stack);
-                System.out.println("Second stack: "+inputStack);
                 if (stack.getItemDamage() == Short.MAX_VALUE)
                 {
-                    if (inputStack.isItemEqual(stack))
+                    if (this.areItemsEquivalent(inputStack, stack))
                         match = true;
                 }
                 else
@@ -58,40 +56,45 @@ public abstract class ToolModTypeFilter extends ToolMod//boobs.java
                 }
             }
             if (!match)
-            {
-                System.out.println("Not a match");
                 return false;
-            }
+            
             minimumMatch = true;
         }
-        System.out.println("Object: " + minimumMatch);
         return minimumMatch;
     }
 
     public int matchingAmount (ItemStack[] input)
     {
         int amount = 0;
-        for (ItemStack i : input)
+        for (ItemStack inputStack : input)
         {
-            if (i == null)
+            if (inputStack == null)
                 continue;
             else
             {
                 for (int iter = 0; iter < stacks.size(); iter++)
                 {
-                    ItemStack check = (ItemStack) stacks.get(iter);
-                    if (ItemStack.areItemStacksEqual(i, check))
-                        amount += increase.get(iter);
+                    ItemStack stack = (ItemStack) stacks.get(iter);
+                    if (stack.getItemDamage() == Short.MAX_VALUE)
+                    {
+                        if (this.areItemsEquivalent(inputStack, stack))
+                            amount += increase.get(iter);
+                    }
+                    else
+                    {
+                        if (this.areItemStacksEquivalent(inputStack, stack))
+                            amount += increase.get(iter);
+                    }
                 }
             }
         }
         return amount;
     }
 
-    /** Adds a new itemstack to the list of increases
+    /** Adds a new itemstack to the list for increases
      * 
      * @param stack ItemStack to compare against
-     * @param increase Amount to increase
+     * @param amount Amount to increase
      */
     public void addStackToMatchList (ItemStack stack, int amount)
     {
