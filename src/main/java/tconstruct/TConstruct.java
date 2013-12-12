@@ -33,7 +33,7 @@ import tconstruct.worldgen.village.*;
  */
 
 @Mod(modid = "TConstruct", name = "TConstruct", version = "${version}",
-        dependencies = "required-after:Forge@[8.9,);required-after:Mantle;after:ForgeMultipart;after:MineFactoryReloaded;after:NotEnoughItems;after:Waila;after:ThermalExpansion")
+        dependencies = "required-after:Forge@[9.11,);required-after:Mantle;after:ForgeMultipart;after:MineFactoryReloaded;after:NotEnoughItems;after:Waila;after:ThermalExpansion")
 @NetworkMod(serverSideRequired = false, clientSideRequired = true, channels = { "TConstruct" }, packetHandler = tconstruct.util.network.TPacketHandler.class)
 public class TConstruct
 {
@@ -116,11 +116,11 @@ public class TConstruct
             VillagerRegistry.instance().registerVillageCreationHandler(new VillageSmelteryHandler());
             try
             {
-                if (new CallableMinecraftVersion(null).minecraftVersion().equals("1.6.4"))
-                {
+               // if (new CallableMinecraftVersion(null).minecraftVersion().equals("1.6.4"))
+               // {
                     MapGenStructureIO.func_143031_a(ComponentToolWorkshop.class, "TConstruct:ToolWorkshopStructure");
                     MapGenStructureIO.func_143031_a(ComponentSmeltery.class, "TConstruct:SmelteryStructure");
-                }
+               // }
             }
             catch (Throwable e)
             {

@@ -1409,7 +1409,7 @@ public class TRecipes
         }
         catch (Exception e)
         {
-            TConstruct.logger.warning("Could not find " + name);
+            TConstruct.logger.warning("Could not find " + name + "from " + classPackage);
             return null;
         }
     }
