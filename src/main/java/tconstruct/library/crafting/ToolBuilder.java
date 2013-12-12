@@ -144,12 +144,6 @@ public class ToolBuilder
         ToolCore item;
         boolean validMaterials = true;
         int head = -1, handle = -1, accessory = -1, extra = -1;
-        /*if (headStack.getItem() instanceof IToolPart)
-        {
-            head = ((IToolPart) headStack.getItem()).getMaterialID(headStack);
-        }
-        else
-            validMaterials = false;*/
         head = getMaterialID(headStack);
         if (head == -1)
             validMaterials = false;
@@ -157,14 +151,6 @@ public class ToolBuilder
         handle = getMaterialID(handleStack);
         if (handle == -1)
             validMaterials = false;
-        /*if (handleItem == Item.stick)
-            handle = 0;
-        else if (handleItem == Item.bone)
-            handle = 5;
-        else if (handleItem instanceof IToolPart)
-            handle = ((IToolPart) handleItem).getMaterialID(handleStack);
-        else
-            validMaterials = false;*/
 
         if (!validMaterials)
             return null;
@@ -363,9 +349,34 @@ public class ToolBuilder
         return tool;
     }
 
-    public ItemStack modifyTool (ItemStack input, ItemStack[] modifiers, String name)
+    public ItemStack modifyTool (ItemStack input, ItemStack[] slots, String name)
     {
-        return null;
+        ItemStack tool = input.copy();
+        NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
+        tags.removeTag("Built");
+
+        boolean built = false;
+        for (ToolMod mod : toolMods)
+        {
+            if (mod.matches(slots, tool))
+            {
+                built = true;
+                mod.addMatchingEffect(tool);
+                mod.modify(slots, tool);
+            }
+        }
+
+        tags = tool.getTagCompound();
+        if (name != null && !name.equals("") && !tags.hasKey("display"))
+        {
+            tags.setCompoundTag("display", new NBTTagCompound());
+            tags.getCompoundTag("display").setString("Name", "\u00A7f" + name);
+        }
+
+        if (built)
+            return tool;
+        else
+            return null;
     }
 
     public ItemStack modifyArmor (ItemStack input, ItemStack[] slots, String name)

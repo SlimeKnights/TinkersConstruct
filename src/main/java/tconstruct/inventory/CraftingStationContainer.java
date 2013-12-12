@@ -11,12 +11,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.world.World;
 import tconstruct.blocks.logic.CraftingStationLogic;
+import tconstruct.library.crafting.ToolBuilder;
+import tconstruct.library.tools.ToolCore;
 
 public class CraftingStationContainer extends Container
 {
     /** The crafting matrix inventory (3x3). */
     public InventoryCrafting craftMatrix;// = new InventoryCrafting(this, 3, 3);
     public IInventory craftResult;// = new InventoryCraftResult();
+    private CraftingStationLogic logic;
     private World worldObj;
     private int posX;
     private int posY;
@@ -28,6 +31,7 @@ public class CraftingStationContainer extends Container
         this.posX = x;
         this.posY = y;
         this.posZ = z;
+        this.logic = logic;
         craftMatrix = new InventoryCraftingStation(this, 3, 3, logic);
         craftResult = new InventoryCraftingStationResult(logic);
 
@@ -84,7 +88,34 @@ public class CraftingStationContainer extends Container
 
     public void onCraftMatrixChanged (IInventory par1IInventory)
     {
-        this.craftResult.setInventorySlotContents(0, CraftingManager.getInstance().findMatchingRecipe(this.craftMatrix, this.worldObj));
+        ItemStack tool = modifyTool();
+        if (tool != null)
+            this.craftResult.setInventorySlotContents(0, tool);
+        else
+            this.craftResult.setInventorySlotContents(0, CraftingManager.getInstance().findMatchingRecipe(this.craftMatrix, this.worldObj));
+    }
+    
+
+
+    public ItemStack modifyTool ()
+    {
+        ItemStack input = craftResult.getStackInSlot(5);
+        if (input != null)
+        {
+            if (input.getItem() instanceof ToolCore)
+            {
+                ItemStack[] slots = new ItemStack[8];
+                for (int i = 0; i < 0; i++)
+                {
+                    slots[i] = craftResult.getStackInSlot(i + 1);
+                    slots[i + 4] = craftResult.getStackInSlot(i + 6);
+                }
+                ItemStack output = ToolBuilder.instance.modifyTool(input, slots, "");
+                if (output != null)
+                    return output;
+            }
+        }
+        return null;
     }
 
     public void onContainerClosed (EntityPlayer par1EntityPlayer)

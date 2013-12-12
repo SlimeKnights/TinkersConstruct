@@ -3,25 +3,23 @@ package tconstruct.blocks.logic;
 import java.lang.ref.WeakReference;
 
 import mantle.blocks.abstracts.InventoryLogic;
-import mantle.world.CoordTuple;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.world.World;
 import tconstruct.inventory.CraftingStationContainer;
+import tconstruct.library.crafting.ToolBuilder;
+import tconstruct.library.tools.ToolCore;
 
 public class CraftingStationLogic extends InventoryLogic implements ISidedInventory
 {
-    /*public boolean chest;
-    public boolean doubleChest;
-    public boolean patternChest;
-    public boolean nearbyFurnace;*/
-    
+
     public WeakReference<IInventory> chest;
     public WeakReference<IInventory> doubleChest;
     public WeakReference<IInventory> patternChest;
@@ -37,7 +35,6 @@ public class CraftingStationLogic extends InventoryLogic implements ISidedInvent
     @Override
     public Container getGuiContainer (InventoryPlayer inventoryplayer, World world, int x, int y, int z)
     {
-        //System.out.println("Getting container on side: "+FMLCommonHandler.instance().getEffectiveSide());
         chest = null;
         doubleChest = null;
         patternChest = null;
@@ -47,7 +44,7 @@ public class CraftingStationLogic extends InventoryLogic implements ISidedInvent
         {
             for (int xPos = x - 1; xPos <= x + 1; xPos++)
             {
-                for (int zPos = z - 1; zPos <= x + 1; zPos++)
+                for (int zPos = z - 1; zPos <= z + 1; zPos++)
                 {
                     TileEntity tile = world.getBlockTileEntity(xPos, yPos, zPos);
                     if (chest == null && tile instanceof TileEntityChest)
@@ -72,9 +69,6 @@ public class CraftingStationLogic extends InventoryLogic implements ISidedInvent
 
     void checkForChest (World world, int x, int y, int z)
     {
-        if (doubleChest != null)
-            return;
-        
         TileEntity tile = world.getBlockTileEntity(x, y, z);
         if (tile instanceof TileEntityChest)
             doubleChest = new WeakReference(tile);
@@ -96,7 +90,7 @@ public class CraftingStationLogic extends InventoryLogic implements ISidedInvent
     @Override
     public int[] getAccessibleSlotsFromSide (int var1)
     {
-        return new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
+        return new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 };
     }
 
     @Override

@@ -44,7 +44,7 @@ public class SpecialFood extends ItemFood
     @SideOnly(Side.CLIENT)
     public Icon getIconFromDamage (int meta)
     {
-        return icons[meta];
+        return icons[0];
     }
 
     @SideOnly(Side.CLIENT)

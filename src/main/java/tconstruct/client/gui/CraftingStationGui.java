@@ -312,6 +312,7 @@ public class CraftingStationGui extends GuiContainer
     private static final ResourceLocation icons = new ResourceLocation("tinker", "textures/gui/icons.png");
     private static final ResourceLocation chest = new ResourceLocation("tinker", "textures/gui/chestside.png");
 
+    @Override
     protected void drawGuiContainerBackgroundLayer (float par1, int par2, int par3)
     {
         // Draw the background

@@ -57,6 +57,7 @@ public class ToolStationLogic extends InventoryLogic implements ISidedInventory
 
     public void onInventoryChanged ()
     {
+        System.out.println("Changed");
         buildTool(toolName);
         if (this.worldObj != null)
         {
