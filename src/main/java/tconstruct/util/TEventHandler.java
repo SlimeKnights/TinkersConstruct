@@ -63,7 +63,6 @@ import tconstruct.util.player.TPlayerStats;
 public class TEventHandler
 {
     Random random = new Random();
-    private Object evt;
 
     /* Crafting */
     @ForgeSubscribe
@@ -535,12 +534,12 @@ public class TEventHandler
 
         if (evt.Name == "crystalQuartz")
         {
-            ToolBuilder.instance.registerToolMod(new ModAttack("Quartz", new ItemStack[] { evt.Ore }, 11, 2));
+            TRepo.modAttack.addStackToMatchList(evt.Ore, 2);
         }
 
         else if (evt.Name == "crystalCerusQuartz")
         {
-            ToolBuilder.instance.registerToolMod(new ModAttack("Quartz", new ItemStack[] { evt.Ore }, 11, 24));
+            TRepo.modAttack.addStackToMatchList(evt.Ore, 24);
         }
     }
 

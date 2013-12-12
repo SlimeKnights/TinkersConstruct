@@ -19,8 +19,7 @@ import tconstruct.library.tools.ToolCore;
 
 public class CraftingStationLogic extends InventoryLogic implements ISidedInventory
 {
-
-    public WeakReference<IInventory> chest;
+    public WeakReference<IInventory> chest; //TODO: These are prototypes
     public WeakReference<IInventory> doubleChest;
     public WeakReference<IInventory> patternChest;
     public WeakReference<IInventory> furnace;

@@ -7,6 +7,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraft.inventory.SlotCrafting;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.world.World;
@@ -94,21 +95,20 @@ public class CraftingStationContainer extends Container
         else
             this.craftResult.setInventorySlotContents(0, CraftingManager.getInstance().findMatchingRecipe(this.craftMatrix, this.worldObj));
     }
-    
-
 
     public ItemStack modifyTool ()
     {
-        ItemStack input = craftResult.getStackInSlot(5);
+        ItemStack input = craftMatrix.getStackInSlot(4);
         if (input != null)
         {
-            if (input.getItem() instanceof ToolCore)
+            Item item = input.getItem();
+            if (item instanceof ToolCore)
             {
                 ItemStack[] slots = new ItemStack[8];
-                for (int i = 0; i < 0; i++)
+                for (int i = 0; i < 4; i++)
                 {
-                    slots[i] = craftResult.getStackInSlot(i + 1);
-                    slots[i + 4] = craftResult.getStackInSlot(i + 6);
+                    slots[i] = craftMatrix.getStackInSlot(i);
+                    slots[i + 4] = craftMatrix.getStackInSlot(i + 5);
                 }
                 ItemStack output = ToolBuilder.instance.modifyTool(input, slots, "");
                 if (output != null)

@@ -239,8 +239,8 @@ public class TRecipes
         tb.registerToolMod(new ModDurability(new ItemStack[] { diamond }, 0, 500, 0f, 3, "Diamond", "\u00a7bDurability +500", "\u00a7b"));
         tb.registerToolMod(new ModDurability(new ItemStack[] { new ItemStack(Item.emerald) }, 1, 0, 0.5f, 2, "Emerald", "\u00a72Durability +50%", "\u00a72"));
 
-        TRepo.modF = new ModFlux();
-        tb.registerToolMod(TRepo.modF);
+        TRepo.modFlux = new ModFlux();
+        tb.registerToolMod(TRepo.modFlux);
 
         ItemStack redstoneItem = new ItemStack(Item.redstone);
         ItemStack redstoneBlock = new ItemStack(Block.blockRedstone);
@@ -252,8 +252,8 @@ public class TRecipes
 
         ItemStack lapisItem = new ItemStack(Item.dyePowder, 1, 4);
         ItemStack lapisBlock = new ItemStack(Block.blockLapis);
-        TRepo.modL = new ModLapis(new ItemStack[] { lapisItem }, 10, 1);
-        tb.registerToolMod(TRepo.modL);
+        TRepo.modLapis = new ModLapis(new ItemStack[] { lapisItem }, 10, 1);
+        tb.registerToolMod(TRepo.modLapis);
         tb.registerToolMod(new ModLapis(new ItemStack[] { lapisItem, lapisItem }, 10, 2));
         tb.registerToolMod(new ModLapis(new ItemStack[] { lapisBlock }, 10, 9));
         tb.registerToolMod(new ModLapis(new ItemStack[] { lapisItem, lapisBlock }, 10, 10));
@@ -266,13 +266,13 @@ public class TRecipes
         tb.registerToolMod(new ModAutoSmelt(new ItemStack[] { new ItemStack(TRepo.materials, 1, 7) }, 6, "Lava", "\u00a74", "Auto-Smelt"));
         tb.registerToolMod(new ModInteger(new ItemStack[] { new ItemStack(TRepo.materials, 1, 8) }, 8, "Necrotic", 1, "\u00a78", "Life Steal"));
 
-        ItemStack quartzItem = new ItemStack(Item.netherQuartz);
-        ItemStack quartzBlock = new ItemStack(Block.blockNetherQuartz, 1, Short.MAX_VALUE);
-        tb.registerToolMod(new ModAttack("Quartz", new ItemStack[] { quartzItem }, 11, 1));
+        TRepo.modAttack = new ModAttack("Quartz", 11, new ItemStack[] { new ItemStack(Item.netherQuartz), new ItemStack(Block.blockNetherQuartz, 1, Short.MAX_VALUE) }, new int[] { 1, 4 });
+        tb.registerToolMod(TRepo.modAttack);
+        /*tb.registerToolMod(new ModAttack("Quartz", new ItemStack[] { new ItemStack(Item.netherQuartz), new ItemStack(Block.blockNetherQuartz, 1, Short.MAX_VALUE) }, 11, 1));
         tb.registerToolMod(new ModAttack("Quartz", new ItemStack[] { quartzItem, quartzItem }, 11, 2));
         tb.registerToolMod(new ModAttack("Quartz", new ItemStack[] { quartzBlock }, 11, 4));
         tb.registerToolMod(new ModAttack("Quartz", new ItemStack[] { quartzItem, quartzBlock }, 11, 5));
-        tb.registerToolMod(new ModAttack("Quartz", new ItemStack[] { quartzBlock, quartzBlock }, 11, 8));
+        tb.registerToolMod(new ModAttack("Quartz", new ItemStack[] { quartzBlock, quartzBlock }, 11, 8));*/
 
         tb.registerToolMod(new ModExtraModifier(new ItemStack[] { diamond, new ItemStack(Block.blockGold) }, "Tier1Free"));
         tb.registerToolMod(new ModExtraModifier(new ItemStack[] { new ItemStack(Item.netherStar) }, "Tier2Free"));
@@ -1259,12 +1259,12 @@ public class TRecipes
         ItemStack batHardened = GameRegistry.findItemStack("ThermalExpansion", "capacitorHardened", 1);
         if (batHardened != null)
         {
-            TRepo.modF.batteries.add(batHardened);
+            TRepo.modFlux.batteries.add(batHardened);
         }
         ItemStack basicCell = GameRegistry.findItemStack("ThermalExpansion", "cellBasic", 1);
         if (basicCell != null)
         {
-            TRepo.modF.batteries.add(basicCell);
+            TRepo.modFlux.batteries.add(basicCell);
         }
         if (batHardened != null)
             TConstructClientRegistry.registerManualModifier("fluxmod", ironpick.copy(), (ItemStack) batHardened);

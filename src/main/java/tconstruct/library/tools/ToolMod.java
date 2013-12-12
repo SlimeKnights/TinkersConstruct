@@ -70,8 +70,8 @@ public abstract class ToolMod
 
         return list.isEmpty();
     }
-    
-    protected String getTagName()
+
+    protected String getTagName ()
     {
         return "InfiTool";
     }
@@ -210,5 +210,14 @@ public abstract class ToolMod
     public boolean validType (ToolCore tool)
     {
         return true;
+    }
+    
+    protected boolean areItemStacksEquivalent (ItemStack stack1, ItemStack stack2) 
+    {
+        if (stack1.itemID != stack2.itemID)
+            return false;
+        if (stack1.getItemDamage() != stack2.getItemDamage())
+            return false;
+        return ItemStack.areItemStackTagsEqual(stack1, stack2);
     }
 }

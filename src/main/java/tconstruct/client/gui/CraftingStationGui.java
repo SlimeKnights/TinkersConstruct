@@ -49,10 +49,10 @@ public class CraftingStationGui extends GuiContainer
 
         if (logic.tinkerTable)
         {
-            /*if (logic.isStackInSlot(0))
+            if (logic.isStackInSlot(0))
                 drawToolStats();
-            else*/
-            drawToolInformation();
+            else
+                drawToolInformation();
         }
     }
 

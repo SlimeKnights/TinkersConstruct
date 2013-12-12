@@ -70,7 +70,7 @@ public class TConstruct
         }
 
         EnvironmentChecks.verifyEnvironmentSanity();
-
+        MinecraftForge.EVENT_BUS.register(events = new TEventHandler());
         PluginController.getController().registerBuiltins();
     }
 
@@ -89,8 +89,6 @@ public class TConstruct
 
         content = new TContent();
 
-        events = new TEventHandler();
-        MinecraftForge.EVENT_BUS.register(events);
         MinecraftForge.EVENT_BUS.register(new TEventHandlerAchievement());
         TRecipes.oreRegistry();
 

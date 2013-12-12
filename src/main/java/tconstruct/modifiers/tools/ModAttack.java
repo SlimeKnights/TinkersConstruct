@@ -3,25 +3,21 @@ package tconstruct.modifiers.tools;
 import java.util.Arrays;
 import java.util.List;
 
-import tconstruct.library.tools.ToolCore;
-import tconstruct.library.tools.ToolMod;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import tconstruct.library.tools.ToolCore;
 
-public class ModAttack extends ToolMod
+public class ModAttack extends ToolModTypeFilter
 {
     String tooltipName;
-    int increase;
     int max = 72;
     String guiType;
 
-    public ModAttack(String type, ItemStack[] items, int effect, int inc)
+    public ModAttack(String type, int effect, ItemStack[] items, int[] value)
     {
-        super(items, effect, "ModAttack");
+        super(effect, "ModAttack", items, value);
         tooltipName = "\u00a7fSharpness";
         guiType = type;
-        increase = inc;
     }
 
     @Override
@@ -36,14 +32,13 @@ public class ModAttack extends ToolMod
             return tags.getInteger("Modifiers") > 0;
 
         int keyPair[] = tags.getIntArray(key);
-        if (keyPair[0] + increase <= keyPair[1])
+        if (keyPair[0] + matchingAmount(input) <= keyPair[1])
             return true;
 
         else if (keyPair[0] == keyPair[1])
             return tags.getInteger("Modifiers") > 0;
 
-        else
-            return false;
+        return false;
     }
 
     @Override
@@ -58,6 +53,7 @@ public class ModAttack extends ToolMod
                 amount = 36;
 
             int[] keyPair = tags.getIntArray(key);
+            int increase = matchingAmount(input);
 
             int leftToBoost = amount - (keyPair[0] % amount);
             if (increase >= leftToBoost)
@@ -90,6 +86,7 @@ public class ModAttack extends ToolMod
             int modifiers = tags.getInteger("Modifiers");
             modifiers -= 1;
             tags.setInteger("Modifiers", modifiers);
+            int increase = matchingAmount(input);
             String modName = "\u00a7f" + guiType + " (" + increase + "/" + max + ")";
             int tooltipIndex = addToolTip(tool, tooltipName, modName);
             int[] keyPair = new int[] { increase, max, tooltipIndex };
@@ -112,8 +109,6 @@ public class ModAttack extends ToolMod
     public boolean validType (ToolCore tool)
     {
         return true;
-        /*List list = Arrays.asList(tool.toolCategories());
-        return list.contains("melee") || list.contains("harvest") || list.contains("ammo");*/
     }
 
     public boolean nerfType (ToolCore tool)
