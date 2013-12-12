@@ -229,7 +229,6 @@ public class TRecipes
         tb.addNormalToolRecipe(TRepo.hammer, TRepo.hammerHead, TRepo.toughRod, TRepo.largePlate, TRepo.largePlate);
         tb.addNormalToolRecipe(TRepo.battleaxe, TRepo.broadAxeHead, TRepo.toughRod, TRepo.broadAxeHead, TRepo.toughBinding);
 
-        //tb.addNormalToolRecipe(TRepo.shortbow, TRepo.toolRod, TRepo.bowstring, TRepo.toolRod);
         BowRecipe recipe = new BowRecipe(TRepo.toolRod, TRepo.bowstring, TRepo.toolRod, TRepo.shortbow);
         tb.addCustomToolRecipe(recipe);
         tb.addNormalToolRecipe(TRepo.arrow, TRepo.arrowhead, TRepo.toolRod, TRepo.fletching);
@@ -244,55 +243,39 @@ public class TRecipes
 
         ItemStack redstoneItem = new ItemStack(Item.redstone);
         ItemStack redstoneBlock = new ItemStack(Block.blockRedstone);
-        tb.registerToolMod(new ModRedstone(new ItemStack[] { redstoneItem }, 2, 1));
-        tb.registerToolMod(new ModRedstone(new ItemStack[] { redstoneItem, redstoneItem }, 2, 2));
-        tb.registerToolMod(new ModRedstone(new ItemStack[] { redstoneBlock }, 2, 9));
-        tb.registerToolMod(new ModRedstone(new ItemStack[] { redstoneItem, redstoneBlock }, 2, 10));
-        tb.registerToolMod(new ModRedstone(new ItemStack[] { redstoneBlock, redstoneBlock }, 2, 18));
+        tb.registerToolMod(new ModRedstone(2, new ItemStack[] { redstoneItem, redstoneBlock }, new int[] { 1, 9 }));
 
         ItemStack lapisItem = new ItemStack(Item.dyePowder, 1, 4);
         ItemStack lapisBlock = new ItemStack(Block.blockLapis);
-        TRepo.modLapis = new ModLapis(new ItemStack[] { lapisItem }, 10, 1);
+        TRepo.modLapis = new ModLapis(10, new ItemStack[] { lapisItem, lapisBlock }, new int[] { 1, 9 });
         tb.registerToolMod(TRepo.modLapis);
-        tb.registerToolMod(new ModLapis(new ItemStack[] { lapisItem, lapisItem }, 10, 2));
-        tb.registerToolMod(new ModLapis(new ItemStack[] { lapisBlock }, 10, 9));
-        tb.registerToolMod(new ModLapis(new ItemStack[] { lapisItem, lapisBlock }, 10, 10));
-        tb.registerToolMod(new ModLapis(new ItemStack[] { lapisBlock, lapisBlock }, 10, 18));
 
         tb.registerToolMod(new ModInteger(new ItemStack[] { new ItemStack(TRepo.materials, 1, 6) }, 4, "Moss", 3, "\u00a72", "Auto-Repair"));
         ItemStack blazePowder = new ItemStack(Item.blazePowder);
-        tb.registerToolMod(new ModBlaze(new ItemStack[] { blazePowder }, 7, 1));
-        tb.registerToolMod(new ModBlaze(new ItemStack[] { blazePowder, blazePowder }, 7, 2));
+        tb.registerToolMod(new ModBlaze(7, new ItemStack[] { blazePowder }, new int[] { 1 }));
         tb.registerToolMod(new ModAutoSmelt(new ItemStack[] { new ItemStack(TRepo.materials, 1, 7) }, 6, "Lava", "\u00a74", "Auto-Smelt"));
         tb.registerToolMod(new ModInteger(new ItemStack[] { new ItemStack(TRepo.materials, 1, 8) }, 8, "Necrotic", 1, "\u00a78", "Life Steal"));
 
         TRepo.modAttack = new ModAttack("Quartz", 11, new ItemStack[] { new ItemStack(Item.netherQuartz), new ItemStack(Block.blockNetherQuartz, 1, Short.MAX_VALUE) }, new int[] { 1, 4 });
         tb.registerToolMod(TRepo.modAttack);
-        /*tb.registerToolMod(new ModAttack("Quartz", new ItemStack[] { new ItemStack(Item.netherQuartz), new ItemStack(Block.blockNetherQuartz, 1, Short.MAX_VALUE) }, 11, 1));
-        tb.registerToolMod(new ModAttack("Quartz", new ItemStack[] { quartzItem, quartzItem }, 11, 2));
-        tb.registerToolMod(new ModAttack("Quartz", new ItemStack[] { quartzBlock }, 11, 4));
-        tb.registerToolMod(new ModAttack("Quartz", new ItemStack[] { quartzItem, quartzBlock }, 11, 5));
-        tb.registerToolMod(new ModAttack("Quartz", new ItemStack[] { quartzBlock, quartzBlock }, 11, 8));*/
 
         tb.registerToolMod(new ModExtraModifier(new ItemStack[] { diamond, new ItemStack(Block.blockGold) }, "Tier1Free"));
+        tb.registerToolMod(new ModExtraModifier(new ItemStack[] { new ItemStack(Block.blockDiamond), new ItemStack(Item.appleGold, 1, 1) }, "Tier1.5Free"));
         tb.registerToolMod(new ModExtraModifier(new ItemStack[] { new ItemStack(Item.netherStar) }, "Tier2Free"));
 
         ItemStack silkyJewel = new ItemStack(TRepo.materials, 1, 26);
         tb.registerToolMod(new ModButtertouch(new ItemStack[] { silkyJewel }, 12));
 
         ItemStack piston = new ItemStack(Block.pistonBase);
-        tb.registerToolMod(new ModPiston(new ItemStack[] { piston }, 3, 1));
-        tb.registerToolMod(new ModPiston(new ItemStack[] { piston, piston }, 3, 2));
+        tb.registerToolMod(new ModPiston(3, new ItemStack[] { piston }, new int[] { 1 }));
 
         tb.registerToolMod(new ModInteger(new ItemStack[] { new ItemStack(Block.obsidian), new ItemStack(Item.enderPearl) }, 13, "Beheading", 1, "\u00a7d", "Beheading"));
 
         ItemStack holySoil = new ItemStack(TRepo.craftedSoil, 1, 4);
-        tb.registerToolMod(new ModSmite("Smite", new ItemStack[] { holySoil }, 14, 1));
-        tb.registerToolMod(new ModSmite("Smite", new ItemStack[] { holySoil, holySoil }, 14, 2));
+        tb.registerToolMod(new ModSmite("Smite", 14, new ItemStack[] { holySoil }, new int[] { 1 }));
 
         ItemStack spidereyeball = new ItemStack(Item.fermentedSpiderEye);
-        tb.registerToolMod(new ModAntiSpider("Anti-Spider", new ItemStack[] { spidereyeball }, 15, 1));
-        tb.registerToolMod(new ModAntiSpider("Anti-Spider", new ItemStack[] { spidereyeball, spidereyeball }, 15, 2));
+        tb.registerToolMod(new ModAntiSpider("Anti-Spider", 15, new ItemStack[] { spidereyeball }, new int[] { 1 }));
 
         ItemStack obsidianPlate = new ItemStack(TRepo.largePlate, 1, 6);
         tb.registerToolMod(new ModReinforced(new ItemStack[] { obsidianPlate }, 16, 1));

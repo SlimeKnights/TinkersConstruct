@@ -4,19 +4,17 @@ import tconstruct.library.tools.ToolMod;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
-public class ModAntiSpider extends ToolMod
+public class ModAntiSpider extends ToolModTypeFilter
 {
     String tooltipName;
-    int increase;
     int max = 4;
     String guiType;
 
-    public ModAntiSpider(String type, ItemStack[] items, int effect, int inc)
+    public ModAntiSpider(String type, int effect, ItemStack[] items, int[] values)
     {
-        super(items, effect, "ModAntiSpider");
+        super(effect, "ModAntiSpider", items, values);
         tooltipName = "\u00a72Bane of Arthropods";
         guiType = type;
-        increase = inc;
     }
 
     @Override
@@ -27,7 +25,7 @@ public class ModAntiSpider extends ToolMod
             return tags.getInteger("Modifiers") > 0;
 
         int keyPair[] = tags.getIntArray(key);
-        if (keyPair[0] + increase <= keyPair[1])
+        if (keyPair[0] + matchingAmount(input) <= keyPair[1])
             return true;
 
         else if (keyPair[0] == keyPair[1])
@@ -41,6 +39,7 @@ public class ModAntiSpider extends ToolMod
     public void modify (ItemStack[] input, ItemStack tool)
     {
         NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
+        int increase = matchingAmount(input);
         if (tags.hasKey(key))
         {
             int[] keyPair = tags.getIntArray(key);

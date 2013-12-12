@@ -9,18 +9,15 @@ import tconstruct.library.tools.ToolMod;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
-public class ModPiston extends ToolMod
+public class ModPiston extends ToolModTypeFilter
 {
     String tooltipName;
-    int increase;
-    int max;
+    int max = 10;
 
-    public ModPiston(ItemStack[] items, int effect, int inc)
+    public ModPiston(int effect, ItemStack[] items, int[] values)
     {
-        super(items, effect, "Piston");
+        super(effect, "Piston", items, values);
         tooltipName = "\u00a77Knockback";
-        increase = inc;
-        max = 10;
     }
 
     @Override
@@ -35,7 +32,7 @@ public class ModPiston extends ToolMod
             return tags.getInteger("Modifiers") > 0;
 
         int keyPair[] = tags.getIntArray(key);
-        if (keyPair[0] + increase <= keyPair[1])
+        if (keyPair[0] + matchingAmount(input) <= keyPair[1])
             return true;
 
         else if (keyPair[0] == keyPair[1])
@@ -49,6 +46,7 @@ public class ModPiston extends ToolMod
     public void modify (ItemStack[] input, ItemStack tool)
     {
         NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
+        int increase = matchingAmount(input);
         if (tags.hasKey(key))
         {
             int[] keyPair = tags.getIntArray(key);

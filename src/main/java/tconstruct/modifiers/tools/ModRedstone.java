@@ -9,18 +9,15 @@ import tconstruct.library.tools.ToolMod;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
-public class ModRedstone extends ToolMod
+public class ModRedstone extends ToolModTypeFilter
 {
     String tooltipName;
-    int increase;
-    int max;
+    int max = 50;
 
-    public ModRedstone(ItemStack[] items, int effect, int inc)
+    public ModRedstone(int effect, ItemStack[] items, int[] values)
     {
-        super(items, effect, "Redstone");
+        super(effect, "Redstone", items, values);
         tooltipName = "\u00a74Haste";
-        increase = inc;
-        max = 50;
     }
 
     @Override
@@ -35,7 +32,7 @@ public class ModRedstone extends ToolMod
             return tags.getInteger("Modifiers") > 0;
 
         int keyPair[] = tags.getIntArray(key);
-        if (keyPair[0] + increase <= keyPair[1])
+        if (keyPair[0] + matchingAmount(input) <= keyPair[1])
             return true;
 
         else if (keyPair[0] == keyPair[1])
@@ -50,6 +47,7 @@ public class ModRedstone extends ToolMod
     {
         NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
         int[] keyPair;
+        int increase = matchingAmount(input);
         if (tags.hasKey(key))
         {
             keyPair = tags.getIntArray(key);

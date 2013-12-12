@@ -3,23 +3,19 @@ package tconstruct.modifiers.tools;
 import java.util.Arrays;
 import java.util.List;
 
-import tconstruct.library.tools.ToolCore;
-import tconstruct.library.tools.ToolMod;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import tconstruct.library.tools.ToolCore;
 
-public class ModBlaze extends ToolMod
+public class ModBlaze extends ToolModTypeFilter
 {
     String tooltipName;
-    int increase;
     int max;
 
-    public ModBlaze(ItemStack[] items, int effect, int inc)
+    public ModBlaze(int effect, ItemStack[] items, int[] values)
     {
-        super(items, effect, "Blaze");
+        super(effect, "Blaze", items, values);
         tooltipName = "\u00a76Fiery";
-        increase = inc;
         max = 25;
     }
 
@@ -35,7 +31,7 @@ public class ModBlaze extends ToolMod
             return tags.getInteger("Modifiers") > 0;
 
         int keyPair[] = tags.getIntArray(key);
-        if (keyPair[0] + increase <= keyPair[1])
+        if (keyPair[0] + matchingAmount(input) <= keyPair[1])
             return true;
 
         else if (keyPair[0] == keyPair[1])
@@ -49,6 +45,7 @@ public class ModBlaze extends ToolMod
     public void modify (ItemStack[] input, ItemStack tool)
     {
         NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
+        int increase = matchingAmount(input);
         if (tags.hasKey(key))
         {
             int[] keyPair = tags.getIntArray(key);
