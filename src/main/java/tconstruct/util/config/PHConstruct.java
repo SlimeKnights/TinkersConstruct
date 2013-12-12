@@ -23,8 +23,8 @@ public class PHConstruct
         /* Define the mod's IDs. 
          * Avoid values below 4096 for items and in the 250-450 range for blocks
          */
-		 
-		superfunWorld = config.get("Superfun", "All the world is Superfun", false).getBoolean(false);
+
+        superfunWorld = config.get("Superfun", "All the world is Superfun", false).getBoolean(false);
 
         keepHunger = config.get("Difficulty Changes", "Keep hunger on death", true).getBoolean(true);
         keepLevels = config.get("Difficulty Changes", "Keep levels on death", true).getBoolean(true);
@@ -47,14 +47,14 @@ public class PHConstruct
         stencilTableCrafting = config.get("Difficulty Changes", "Craft Stencil Tables", true).getBoolean(true);
         miningLevelIncrease = config.get("Difficulty Changes", "Modifiers increase Mining Level", true).getBoolean(true);
         denyMattock = config.get("Difficulty Changes", "Deny creation of non-metal mattocks", false).getBoolean(false);
-		
-		ingotsPerOre = config.get("Smeltery Output Modification", "Ingots per ore", 2, "Number of ingots returned from smelting ores in the smeltery").getDouble(2);
-		ingotsBronzeAlloy = config.get("Smeltery Output Modification", "Bronze ingot return", 3, "Number of ingots returned from smelting Bronze in the smeltery").getDouble(3);
-		ingotsAluminumBrassAlloy = config.get("Smeltery Output Modification", "Aluminum Brass ingot return", 4, "Number of ingots returned from smelting Aluminum Brass in the smeltery").getDouble(4);
-		ingotsAlumiteAlloy = config.get("Smeltery Output Modification", "Alumite ingot return", 3, "Number of ingots returned from smelting Alumite in the smeltery").getDouble(3);
-		ingotsManyullynAlloy = config.get("Smeltery Output Modification", "Manyullyn ingot return", 1, "Number of ingots returned from smelting Manyullyn in the smeltery").getDouble(1);
-		ingotsPigironAlloy = config.get("Smeltery Output Modification", "Pig Iron ingot return", 1, "Number of ingots returned from smelting Pig Iron in the smeltery").getDouble(1);
-		
+
+        ingotsPerOre = config.get("Smeltery Output Modification", "Ingots per ore", 2, "Number of ingots returned from smelting ores in the smeltery").getDouble(2);
+        ingotsBronzeAlloy = config.get("Smeltery Output Modification", "Bronze ingot return", 3, "Number of ingots returned from smelting Bronze in the smeltery").getDouble(3);
+        ingotsAluminumBrassAlloy = config.get("Smeltery Output Modification", "Aluminum Brass ingot return", 4, "Number of ingots returned from smelting Aluminum Brass in the smeltery").getDouble(4);
+        ingotsAlumiteAlloy = config.get("Smeltery Output Modification", "Alumite ingot return", 3, "Number of ingots returned from smelting Alumite in the smeltery").getDouble(3);
+        ingotsManyullynAlloy = config.get("Smeltery Output Modification", "Manyullyn ingot return", 1, "Number of ingots returned from smelting Manyullyn in the smeltery").getDouble(1);
+        ingotsPigironAlloy = config.get("Smeltery Output Modification", "Pig Iron ingot return", 1, "Number of ingots returned from smelting Pig Iron in the smeltery").getDouble(1);
+
         //1467-1489
         woodStation = config.getBlock("Wood Tool Station", 1471).getInt(1471);
         heldItemBlock = config.getBlock("Held Item Block", 1472).getInt(1472);
@@ -86,6 +86,11 @@ public class PHConstruct
         barricadeBirch = config.getBlock("Birch Barricade", 1483).getInt(1483);
         barricadeJungle = config.getBlock("Jungle Barricade", 1487).getInt(1487);
 
+        lavaTankNether = config.getBlock("Nether Lava Tank", 3186).getInt(3186);
+        smelteryNether = config.getBlock("Nether Smeltery", 3187).getInt(3187);
+        searedTableNether = config.getBlock("Nether Seared Block", 3188).getInt(3188);
+
+        bloodChannel = config.getBlock("Blood Channel", 3189).getInt(3189);
         slimeChannel = config.getBlock("Slime Channel", 3190).getInt(3190);
         slimePad = config.getBlock("Slime Pad", 3191).getInt(3191);
 
@@ -116,16 +121,16 @@ public class PHConstruct
         moltenEmerald = config.getBlock("Molten Emerald", 3216).getInt(3216);
         blood = config.getBlock("Liquid Cow", 3217).getInt(3217);
         moltenEnder = config.getBlock("Molten Ender", 3218).getInt(3218);
-        
+
         glueBlock = config.getBlock("Glue Block", 3219).getInt(3219);
         glueFluidBlock = config.getBlock("Glue Fluid Block", 3220).getInt(3220);
 
-//        signalBus = config.getBlock("Signal Bus", 3221).getInt(3221);
-//        signalTerminal = config.getBlock("Signal Terminal", 3222).getInt(3222);
+        //        signalBus = config.getBlock("Signal Bus", 3221).getInt(3221);
+        //        signalTerminal = config.getBlock("Signal Terminal", 3222).getInt(3222);
         glass = config.getBlock("Clear Glass", 3223).getInt(3223);
         stainedGlass = config.getBlock("Stained Glass", 3224).getInt(3224);
         stainedGlassClear = config.getBlock("Clear Stained Glass", 3225).getInt(3225);
-//        redstoneMachine = config.getBlock("Redstone Machines", 3226).getInt(3226); // Migrated to TMechworks
+        //        redstoneMachine = config.getBlock("Redstone Machines", 3226).getInt(3226); // Migrated to TMechworks
         dryingRack = config.getBlock("Drying Rack", 3227).getInt(3227);
         glassPane = config.getBlock("Glass Pane", 3228).getInt(3228);
         stainedGlassClearPane = config.getBlock("Clear Stained Glass Pane", 3229).getInt(3229);
@@ -368,7 +373,7 @@ public class PHConstruct
 
         //Achievement Properties
         achievementsEnabled = config.get("Achievement Properties", "AchievementsEnabled", true).getBoolean(true);
-        
+
         /* Save the configuration file */
         config.save();
 
@@ -395,6 +400,9 @@ public class PHConstruct
     public static int lavaTank;
     public static int smeltery;
     public static int searedTable;
+    public static int lavaTankNether;
+    public static int smelteryNether;
+    public static int searedTableNether;
     public static int castingChannel;
     public static int airTank;
 
@@ -469,6 +477,7 @@ public class PHConstruct
 
     public static int slimeChannel;
     public static int slimePad;
+    public static int bloodChannel;
 
     // Glue
     public static int glueFluidBlock;
@@ -575,7 +584,7 @@ public class PHConstruct
     public static int knapsack;
 
     public static int heartCanister;
-    
+
     public static int exoGoggles;
     public static int exoChest;
     public static int exoPants;
@@ -676,12 +685,12 @@ public class PHConstruct
     public static boolean miningLevelIncrease;
     public static boolean denyMattock;
 
-	//Smeltery Output Modification
-	public static double ingotsPerOre;
-	public static double ingotsBronzeAlloy;
-	public static double ingotsAluminumBrassAlloy;
-	public static double ingotsAlumiteAlloy;
-	public static double ingotsManyullynAlloy;
+    //Smeltery Output Modification
+    public static double ingotsPerOre;
+    public static double ingotsBronzeAlloy;
+    public static double ingotsAluminumBrassAlloy;
+    public static double ingotsAlumiteAlloy;
+    public static double ingotsManyullynAlloy;
     public static double ingotsPigironAlloy;
 
     //Ultra Hardcore modifiers
@@ -721,7 +730,7 @@ public class PHConstruct
     //Addon stuff
     public static boolean isCleaverTwoHanded;
     public static boolean isHatchetWeapon;
-    
+
     //Achievement options
     public static boolean achievementsEnabled;
 }

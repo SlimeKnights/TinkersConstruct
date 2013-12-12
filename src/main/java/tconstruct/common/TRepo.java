@@ -113,6 +113,9 @@ public class TRepo
     public static Block castingChannel;
     public static Block metalBlock;
     public static Block tankAir;
+    public static Block smelteryNether;
+    public static Block lavaTankNether;
+    public static Block searedBlockNether;
 
     public static Block dryingRack;
 
@@ -217,6 +220,7 @@ public class TRepo
 
     public static Block slimeChannel;
     public static Block slimePad;
+    public static Block bloodChannel;
 
     //Glue
     public static Fluid glueFluid;

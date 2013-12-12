@@ -20,11 +20,14 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class ConveyorBase extends MantleBlock
 {
-    public ConveyorBase(int ID, Material material)
+    String texturename;
+
+    public ConveyorBase(int ID, Material material, String name)
     {
         super(ID, material);
         this.setCreativeTab(TConstructRegistry.blockTab);
         setBlockBounds(0f, 0f, 0f, 1f, 0.5f, 1f);
+        texturename = name;
     }
 
     public boolean isBlockReplaceable (World world, int x, int y, int z)
@@ -135,7 +138,7 @@ public class ConveyorBase extends MantleBlock
     @Override
     public void registerIcons (IconRegister iconRegister)
     {
-        String[] textureNames = new String[] { "greencurrent", "greencurrent_flow" };
+        String[] textureNames = new String[] { texturename, texturename + "_flow" };
         this.icons = new Icon[textureNames.length];
 
         for (int i = 0; i < this.icons.length; ++i)

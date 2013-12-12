@@ -116,6 +116,7 @@ public class TContent implements IFuelHandler
 
         //Smeltery
         TRepo.smeltery = new SmelteryBlock(PHConstruct.smeltery).setUnlocalizedName("Smeltery");
+        TRepo.smelteryNether = new SmelteryBlock(PHConstruct.smelteryNether, "nether").setUnlocalizedName("Smeltery");
         TRepo.lavaTank = new LavaTankBlock(PHConstruct.lavaTank).setUnlocalizedName("LavaTank");
         TRepo.lavaTank.setStepSound(Block.soundGlassFootstep);
 
@@ -375,8 +376,10 @@ public class TContent implements IFuelHandler
         TRepo.slimeTallGrass = new SlimeTallGrass(PHConstruct.slimeTallGrass).setStepSound(Block.soundGrassFootstep).setUnlocalizedName("slime.grass.tall");
         TRepo.slimeLeaves = (SlimeLeaves) new SlimeLeaves(PHConstruct.slimeLeaves).setStepSound(TRepo.slimeStep).setLightOpacity(0).setUnlocalizedName("slime.leaves");
         TRepo.slimeSapling = (SlimeSapling) new SlimeSapling(PHConstruct.slimeSapling).setStepSound(TRepo.slimeStep).setUnlocalizedName("slime.sapling");
-        TRepo.slimeChannel = new ConveyorBase(PHConstruct.slimeChannel, Material.water).setStepSound(TRepo.slimeStep).setUnlocalizedName("slime.channel");
-        TRepo.slimePad = new SlimePad(PHConstruct.slimePad, Material.cloth).setStepSound(TRepo.slimeStep).setUnlocalizedName("slime.pad");
+        TRepo.slimeChannel = new ConveyorBase(PHConstruct.slimeChannel, Material.water, "greencurrent").setHardness(0.3f).setStepSound(TRepo.slimeStep).setUnlocalizedName("slime.channel");
+        TRepo.bloodChannel = new ConveyorBase(PHConstruct.bloodChannel, Material.water, "liquid_cow").setHardness(0.3f).setStepSound(TRepo.slimeStep).setUnlocalizedName("blood.channel");
+        TRepo.slimePad = new SlimePad(PHConstruct.slimePad, Material.cloth).setStepSound(TRepo.slimeStep).setHardness(0.3f).setUnlocalizedName("slime.pad");
+        
 
         //Decoration
         TRepo.stoneTorch = new StoneTorch(PHConstruct.stoneTorch).setUnlocalizedName("decoration.stonetorch");

@@ -252,7 +252,7 @@ public class TEventHandler
     {
         if (event.entityLiving == null)
             return;
-        
+
         if (event.source.getEntity() != null && event.source.getEntity() instanceof EntityPlayer)
         {
             EntityPlayer player = (EntityPlayer) event.source.getEntity();
@@ -275,7 +275,7 @@ public class TEventHandler
             }
         }
 
-        if (random.nextInt(500) == 0 && event.entityLiving instanceof IMob && event.entityLiving.dimension == 0)
+        if (random.nextInt(500) == 0 && event.entityLiving instanceof IMob)
         {
             ItemStack dropStack = new ItemStack(TRepo.heartCanister, 1, 1);
             EntityItem entityitem = new EntityItem(event.entityLiving.worldObj, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, dropStack);
@@ -532,7 +532,7 @@ public class TEventHandler
     @ForgeSubscribe
     public void registerOre (OreRegisterEvent evt)
     {
-      
+
         if (evt.Name == "crystalQuartz")
         {
             ToolBuilder.instance.registerToolMod(new ModAttack("Quartz", new ItemStack[] { evt.Ore }, 11, 2));

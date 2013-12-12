@@ -138,8 +138,8 @@ public class SlimeGrass extends MantleBlock
     public int idDropped (int metadata, Random random, int fortune)
     {
         if (metadata == 1)
-            return TRepo.craftedSoil.blockID;
-        else
             return Block.dirt.blockID;
+        else
+            return TRepo.craftedSoil.blockID;
     }
 }

@@ -31,6 +31,8 @@ CraftedSoil.ConsecratedSoil.name=Consecrated Soil
 tile.CastingChannel.name=Casting Channel
 tile.slime.channel.name=Slime Channel
 tile.slime.pad.name=Bounce Pad
+tile.blood.channel.name=Blood Channel
+
 
 MetalOre.NetherSlag.name=Netherack Slag
 MetalOre.Cobalt.name=Cobalt Ore
@@ -271,6 +273,8 @@ item.tconstruct.jerky.chicken.name=Chicken Jerky
 item.tconstruct.jerky.sheep.name=Mutton Jerky
 item.tconstruct.jerky.fish.name=Fish Jerky
 item.tconstruct.jerky.zombie.name=Monster Jerky
+item.tconstruct.jerky.blueslime.name=Gelatinous Slime Drop
+item.tconstruct.jerky.blood.name=Coagulated Blood Drop
 
 Smeltery.Controller.name=Smeltery Controller
 Smeltery.Drain.name=Smeltery Drain
@@ -483,6 +487,7 @@ LiquidMetal.Ender.name=Liquified Ender
 
 item.food.apple.diamond.name=Jeweled Apple
 item.tconstruct.strangefood.edibleslime.name=Gelatinous Slime
+item.tconstruct.strangefood.edibleblood.name=Coagulated Blood
 item.tconstruct.canister.empty.name=Empty Canister
 item.tconstruct.canister.miniheart.red.name=Miniature Red Heart
 item.tconstruct.canister.heart.name=Heart Canister
@@ -606,6 +611,10 @@ achievement.tconstruct.dualConvenience.desc=Kill a mob with a frying pan, and th
 knapsack.tooltip=A Knapsack to hold your things.
 strangefood1.tooltip=It smells terrible, but if you
 strangefood2.tooltip=have nothing else to eat...
+strangefood3.tooltip=It seems edible, but somehow
+strangefood4.tooltip=it's just not appealing.
+strangefood5.tooltip=Stretchy food!
+strangefood6.tooltip=One vampiric appetizer
 hambone1.tooltip=Hambone!
 hambone2.tooltip=Usable for Beacon bases
 metalblock.tooltip=Usable for Beacon bases

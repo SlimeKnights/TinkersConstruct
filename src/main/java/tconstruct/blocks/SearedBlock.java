@@ -33,6 +33,12 @@ public class SearedBlock extends InventoryBlock
         setStepSound(soundMetalFootstep);
     }
 
+    public SearedBlock(int id, String texture)
+    {
+        this(id);
+        this.texturePrefix = texture;
+    }
+
     @Override
     public TileEntity createTileEntity (World world, int metadata)
     {
@@ -181,10 +187,16 @@ public class SearedBlock extends InventoryBlock
         return SearedRender.searedModel;
     }
 
+    String texturePrefix = "";
+
     @Override
     public String[] getTextureNames ()
     {
         String[] textureNames = { "castingtable_top", "castingtable_side", "castingtable_bottom", "faucet", "blockcast_top", "blockcast_side", "blockcast_bottom" };
+
+        if (!texturePrefix.equals(""))
+            for (int i = 0; i < textureNames.length; i++)
+                textureNames[i] = texturePrefix + "_" + textureNames[i];
 
         return textureNames;
     }

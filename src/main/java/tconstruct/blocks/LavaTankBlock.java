@@ -29,6 +29,7 @@ import mantle.blocks.iface.IServantLogic;
 public class LavaTankBlock extends BlockContainer
 {
     public Icon[] icons;
+    String texturePrefix = "";
 
     public LavaTankBlock(int id)
     {
@@ -40,9 +41,19 @@ public class LavaTankBlock extends BlockContainer
         setStepSound(Block.soundGlassFootstep);
     }
 
+    public LavaTankBlock(int id, String prefix)
+    {
+        this(id);
+        texturePrefix = prefix;
+    }
+
     public String[] getTextureNames ()
     {
         String[] textureNames = { "lavatank_side", "lavatank_top", "searedgague_top", "searedgague_side", "searedgague_bottom", "searedwindow_top", "searedwindow_side", "searedwindow_bottom" };
+
+        if (!texturePrefix.equals(""))
+            for (int i = 0; i < textureNames.length; i++)
+                textureNames[i] = texturePrefix + "_" + textureNames[i];
 
         return textureNames;
     }

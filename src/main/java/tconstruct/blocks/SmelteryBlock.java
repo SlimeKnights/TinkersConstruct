@@ -29,6 +29,7 @@ import tconstruct.util.config.PHConstruct;
 public class SmelteryBlock extends InventoryBlock
 {
     Random rand;
+    String texturePrefix = "";
 
     public SmelteryBlock(int id)
     {
@@ -39,6 +40,12 @@ public class SmelteryBlock extends InventoryBlock
         rand = new Random();
         this.setCreativeTab(TConstructRegistry.blockTab);
         this.setUnlocalizedName("tconstruct.Smeltery");
+    }
+
+    public SmelteryBlock(int id, String prefix)
+    {
+        this(id);
+        texturePrefix = prefix;
     }
 
     /* Rendering */
@@ -54,6 +61,10 @@ public class SmelteryBlock extends InventoryBlock
     {
         String[] textureNames = { "smeltery_side", "smeltery_inactive", "smeltery_active", "drain_side", "drain_out", "drain_basin", "searedbrick", "searedstone", "searedcobble", "searedpaver",
                 "searedbrickcracked", "searedroad", "searedbrickfancy", "searedbricksquare", "searedcreeper" };
+
+        if (!texturePrefix.equals(""))
+            for (int i = 0; i < textureNames.length; i++)
+                textureNames[i] = texturePrefix + "_" + textureNames[i];
 
         return textureNames;
     }

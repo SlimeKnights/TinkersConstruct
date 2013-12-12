@@ -75,6 +75,7 @@ public class TRecipes
 
         //Smeltery stuff
         GameRegistry.registerBlock(TRepo.smeltery, SmelteryItemBlock.class, "Smeltery");
+        GameRegistry.registerBlock(TRepo.smelteryNether, SmelteryItemBlock.class, "SmelteryNether");
         if (PHConstruct.newSmeltery)
         {
             GameRegistry.registerTileEntity(AdaptiveSmelteryLogic.class, "TConstruct.Smeltery");
@@ -121,8 +122,10 @@ public class TRecipes
         GameRegistry.registerBlock(TRepo.slimeLeaves, SlimeLeavesItemBlock.class, "slime.leaves");
         GameRegistry.registerBlock(TRepo.slimeSapling, SlimeSaplingItemBlock.class, "slime.sapling");
         GameRegistry.registerBlock(TRepo.slimeChannel, "slime.channel");
+        GameRegistry.registerBlock(TRepo.bloodChannel, "blood.channel");
         GameRegistry.registerBlock(TRepo.slimePad, "slime.pad");
         TConstructRegistry.drawbridgeState[TRepo.slimePad.blockID] = 1;
+        TConstructRegistry.drawbridgeState[TRepo.bloodChannel.blockID] = 1;
 
         //Decoration
         GameRegistry.registerBlock(TRepo.stoneTorch, "decoration.stonetorch");
@@ -346,6 +349,7 @@ public class TRecipes
         //Misc
         tableCasting.addCastingRecipe(new ItemStack(Item.emerald), new FluidStack(TRepo.moltenEmeraldFluid, 640), gemcast, 80);
         tableCasting.addCastingRecipe(new ItemStack(TRepo.materials, 1, 36), new FluidStack(TRepo.glueFluid, TConstruct.ingotLiquidValue), null, 50);
+        tableCasting.addCastingRecipe(new ItemStack(TRepo.strangeFood, 1, 1), new FluidStack(TRepo.bloodFluid, 160), null, 50);
 
         //Buckets
         ItemStack bucket = new ItemStack(Item.bucketEmpty);
@@ -387,7 +391,7 @@ public class TRecipes
             }
         }
 
-        ItemStack[] ingotShapes = { new ItemStack(Item.brick), new ItemStack(Item.netherrackBrick), new ItemStack(TRepo.materials, 1, 2) };
+        ItemStack[] ingotShapes = { new ItemStack(Item.brick), new ItemStack(Item.netherrackBrick), new ItemStack(TRepo.materials, 1, 2), new ItemStack(TRepo.materials, 1, 37) };
         for (int i = 0; i < ingotShapes.length; i++)
         {
             tableCasting.addCastingRecipe(ingotcast, new FluidStack(TRepo.moltenAlubrassFluid, TConstruct.ingotLiquidValue), ingotShapes[i], false, 50);
@@ -421,11 +425,13 @@ public class TRecipes
         FurnaceRecipes.smelting().addSmelting(TRepo.craftedSoil.blockID, 0, new ItemStack(TRepo.materials, 1, 1), 2f); //Slime
         FurnaceRecipes.smelting().addSmelting(TRepo.craftedSoil.blockID, 1, new ItemStack(TRepo.materials, 1, 2), 2f); //Seared brick item
         FurnaceRecipes.smelting().addSmelting(TRepo.craftedSoil.blockID, 2, new ItemStack(TRepo.materials, 1, 17), 2f); //Blue Slime
+        FurnaceRecipes.smelting().addSmelting(TRepo.craftedSoil.blockID, 6, new ItemStack(TRepo.materials, 1, 37), 2f); //Nether seared brick
+
         //FurnaceRecipes.smelting().addSmelting(TRepo.oreSlag.blockID, 1, new ItemStack(TRepo.materials, 1, 3), 3f);
         //FurnaceRecipes.smelting().addSmelting(TRepo.oreSlag.blockID, 2, new ItemStack(TRepo.materials, 1, 4), 3f);
         FurnaceRecipes.smelting().addSmelting(TRepo.oreSlag.blockID, 3, new ItemStack(TRepo.materials, 1, 9), 0.5f);
         FurnaceRecipes.smelting().addSmelting(TRepo.oreSlag.blockID, 4, new ItemStack(TRepo.materials, 1, 10), 0.5f);
-        FurnaceRecipes.smelting().addSmelting(TRepo.oreSlag.blockID, 5, new ItemStack(TRepo.materials, 1, 11), 0.5f);
+        FurnaceRecipes.smelting().addSmelting(TRepo.oreSlag.blockID, 5, new ItemStack(TRepo.materials, 1, 12), 0.5f);
 
         FurnaceRecipes.smelting().addSmelting(TRepo.oreBerries.itemID, 0, new ItemStack(TRepo.materials, 1, 19), 0.2f);
         FurnaceRecipes.smelting().addSmelting(TRepo.oreBerries.itemID, 1, new ItemStack(Item.goldNugget), 0.2f);
@@ -505,8 +511,9 @@ public class TRecipes
         GameRegistry.addShapelessRecipe(new ItemStack(TRepo.craftedSoil, 1, 2), TRepo.strangeFood, TRepo.strangeFood, TRepo.strangeFood, TRepo.strangeFood, Block.sand, Block.dirt);
         // Grout Recipes
         GameRegistry.addShapelessRecipe(new ItemStack(TRepo.craftedSoil, 2, 1), Item.clay, Block.sand, Block.gravel);
-        GameRegistry.addRecipe(new ItemStack(TRepo.craftedSoil, 8, 1), "sgs", "gcg", "sgs", 'c', new ItemStack(Block.stainedClay, 1, Short.MAX_VALUE), 's', Block.sand, 'g', Block.gravel);
-        GameRegistry.addRecipe(new ItemStack(TRepo.craftedSoil, 8, 1), "sgs", "gcg", "sgs", 'c', new ItemStack(Block.blockClay, 1, Short.MAX_VALUE), 's', Block.sand, 'g', Block.gravel);
+        GameRegistry.addShapelessRecipe(new ItemStack(TRepo.craftedSoil, 8, 1), new ItemStack(Block.blockClay, 1, Short.MAX_VALUE), Block.sand, Block.sand, Block.sand, Block.sand, Block.gravel,
+                Block.gravel, Block.gravel, Block.gravel);
+        GameRegistry.addShapelessRecipe(new ItemStack(TRepo.craftedSoil, 2, 6), Item.netherStalkSeeds, Block.slowSand, Block.gravel);
         // Graveyard Soil Recipes
         GameRegistry.addShapelessRecipe(new ItemStack(TRepo.craftedSoil, 1, 3), Block.dirt, Item.rottenFlesh, new ItemStack(Item.dyePowder, 1, 15));
         // Silky Cloth Recipes
@@ -608,6 +615,18 @@ public class TRecipes
         GameRegistry.addRecipe(new ItemStack(TRepo.searedBlock, 1, 2), "b b", "b b", "bbb", 'b', searedBrick); //Basin
         GameRegistry.addRecipe(new ItemStack(TRepo.castingChannel, 4, 0), "b b", "bbb", 'b', searedBrick); //Channel
 
+        searedBrick = new ItemStack(TRepo.materials, 1, 37);
+        GameRegistry.addRecipe(new ItemStack(TRepo.smelteryNether, 1, 0), "bbb", "b b", "bbb", 'b', searedBrick); //Controller
+        GameRegistry.addRecipe(new ItemStack(TRepo.smelteryNether, 1, 1), "b b", "b b", "b b", 'b', searedBrick); //Drain
+        GameRegistry.addRecipe(new ItemStack(TRepo.smelteryNether, 1, 2), "bb", "bb", 'b', searedBrick); //Bricks
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TRepo.lavaTankNether, 1, 0), patSurround, '#', searedBrick, 'm', "glass")); //Tank
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TRepo.lavaTankNether, 1, 1), "bgb", "ggg", "bgb", 'b', searedBrick, 'g', "glass")); //Glass
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TRepo.lavaTankNether, 1, 2), "bgb", "bgb", "bgb", 'b', searedBrick, 'g', "glass")); //Window
+        GameRegistry.addRecipe(new ItemStack(TRepo.searedBlockNether, 1, 0), "bbb", "b b", "b b", 'b', searedBrick); //Table
+        GameRegistry.addRecipe(new ItemStack(TRepo.searedBlockNether, 1, 1), "b b", " b ", 'b', searedBrick); //Faucet
+        GameRegistry.addRecipe(new ItemStack(TRepo.searedBlockNether, 1, 2), "b b", "b b", "bbb", 'b', searedBrick); //Basin
+        GameRegistry.addRecipe(new ItemStack(TRepo.castingChannel, 4, 0), "b b", "bbb", 'b', searedBrick); //Channel
+
         // Jack o'Latern Recipe - Stone Torch
         GameRegistry.addRecipe(new ItemStack(Block.pumpkinLantern, 1, 0), "p", "s", 'p', new ItemStack(Block.pumpkin), 's', new ItemStack(TRepo.stoneTorch));
         // Stone Torch Recipe
@@ -629,6 +648,8 @@ public class TRecipes
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TRepo.heartCanister, 1, 0), "##", "##", '#', "ingotAluminum"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TRepo.heartCanister, 1, 0), "##", "##", '#', "ingotAluminium"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TRepo.heartCanister, 1, 0), "##", "##", '#', "ingotNaturalAluminum"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TRepo.heartCanister, 1, 0), " # ", "#B#", " # ", '#', "ingotTin", 'B', Item.bone));
+
         GameRegistry.addRecipe(new ItemStack(TRepo.diamondApple), " d ", "d#d", " d ", 'd', new ItemStack(Item.diamond), '#', new ItemStack(Item.appleRed));
         GameRegistry.addShapelessRecipe(new ItemStack(TRepo.heartCanister, 1, 2), new ItemStack(TRepo.diamondApple), new ItemStack(TRepo.materials, 1, 8), new ItemStack(TRepo.heartCanister, 1, 0),
                 new ItemStack(TRepo.heartCanister, 1, 1));
@@ -710,7 +731,10 @@ public class TRecipes
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TRepo.slimeExplosive, 1, 0), "slimeball", Block.tnt));
 
         GameRegistry.addShapelessRecipe(new ItemStack(TRepo.slimeChannel, 1, 0), new ItemStack(TRepo.slimeGel, 1, Short.MAX_VALUE), new ItemStack(Item.redstone));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TRepo.slimePad, 1, 0), TRepo.slimeChannel, "slimeBall"));
+        GameRegistry.addShapelessRecipe(new ItemStack(TRepo.bloodChannel, 1, 0), new ItemStack(TRepo.strangeFood, 1, 1), new ItemStack(TRepo.strangeFood, 1, 1),
+                new ItemStack(TRepo.strangeFood, 1, 1), new ItemStack(TRepo.strangeFood, 1, 1), new ItemStack(Item.redstone));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TRepo.slimeChannel, 1, 0), "slimeball", "slimeball", "slimeball", "slimeball", new ItemStack(Item.redstone)));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TRepo.slimePad, 1, 0), TRepo.slimeChannel, "slimeball"));
     }
 
     protected static void addRecipesForDryingRack ()
@@ -722,6 +746,8 @@ public class TRecipes
         //DryingRackRecipes.addDryingRecipe(Item.muttonRaw, 20 * 60 * 5, new ItemStack(TRepo.jerky, 1, 3));
         DryingRackRecipes.addDryingRecipe(Item.fishRaw, 20 * 60 * 5, new ItemStack(TRepo.jerky, 1, 4));
         DryingRackRecipes.addDryingRecipe(Item.rottenFlesh, 20 * 60 * 5, new ItemStack(TRepo.jerky, 1, 5));
+        DryingRackRecipes.addDryingRecipe(new ItemStack(TRepo.strangeFood, 1, 0), 20 * 60 * 5, new ItemStack(TRepo.jerky, 1, 6));
+        DryingRackRecipes.addDryingRecipe(new ItemStack(TRepo.strangeFood, 1, 1), 20 * 60 * 5, new ItemStack(TRepo.jerky, 1, 7));
 
         //DryingRackRecipes.addDryingRecipe(new ItemStack(TRepo.jerky, 1, 5), 20 * 60 * 10, Item.leather);
     }
@@ -878,6 +904,7 @@ public class TRecipes
         //Vanilla stuff
         OreDictionary.registerOre("slimeball", new ItemStack(Item.slimeBall));
         OreDictionary.registerOre("slimeball", new ItemStack(TRepo.strangeFood, 1, 0));
+        OreDictionary.registerOre("slimeball", new ItemStack(TRepo.strangeFood, 1, 1));
         OreDictionary.registerOre("slimeball", new ItemStack(TRepo.materials, 1, 36));
         OreDictionary.registerOre("glass", new ItemStack(TRepo.clearGlass));
         OreDictionary.registerOre("glass", new ItemStack(Block.glass));
@@ -1083,8 +1110,8 @@ public class TRecipes
                 TConstruct.ingotLiquidValue * 5), new FluidStack(TRepo.moltenIronFluid, TConstruct.ingotLiquidValue * 2), new FluidStack(TRepo.moltenObsidianFluid, TConstruct.ingotLiquidValue * 2)); //Alumite
         Smeltery.addAlloyMixing(new FluidStack(TRepo.moltenManyullynFluid, (int) (TConstruct.ingotLiquidValue * PHConstruct.ingotsManyullynAlloy)), new FluidStack(TRepo.moltenCobaltFluid,
                 TConstruct.ingotLiquidValue), new FluidStack(TRepo.moltenArditeFluid, TConstruct.ingotLiquidValue)); //Manyullyn
-        Smeltery.addAlloyMixing(new FluidStack(TRepo.pigIronFluid, (int) (TConstruct.ingotLiquidValue * PHConstruct.ingotsPigironAlloy)), new FluidStack(TRepo.moltenIronFluid, TConstruct.ingotLiquidValue),
-                new FluidStack(TRepo.moltenEmeraldFluid, 640), new FluidStack(TRepo.bloodFluid, 80)); //Pigiron 
+        Smeltery.addAlloyMixing(new FluidStack(TRepo.pigIronFluid, (int) (TConstruct.ingotLiquidValue * PHConstruct.ingotsPigironAlloy)), new FluidStack(TRepo.moltenIronFluid,
+                TConstruct.ingotLiquidValue), new FluidStack(TRepo.moltenEmeraldFluid, 640), new FluidStack(TRepo.bloodFluid, 80)); //Pigiron 
 
         // Stone parts
         for (int sc = 0; sc < TRepo.patternOutputs.length; sc++)
@@ -1219,6 +1246,12 @@ public class TRecipes
 
     public static void modIntegration ()
     {
+        /* Natura */
+        Block taintedSoil = GameRegistry.findBlock("Natura", "soil.tainted");
+        Block heatSand = GameRegistry.findBlock("Natura", "heatsand");
+        if (taintedSoil != null && heatSand != null)
+            GameRegistry.addShapelessRecipe(new ItemStack(TRepo.craftedSoil, 2, 6), Item.netherStalkSeeds, taintedSoil, heatSand);
+
         ItemStack ironpick = ToolBuilder.instance.buildTool(new ItemStack(TRepo.pickaxeHead, 1, 6), new ItemStack(TRepo.toolRod, 1, 2), new ItemStack(TRepo.binding, 1, 6), "");
         /*TE3 Flux*/
         ItemStack batHardened = GameRegistry.findItemStack("ThermalExpansion", "capacitorHardened", 1);
@@ -1359,7 +1392,6 @@ public class TRecipes
         {
             FurnaceRecipes.smelting().addSmelting(TRepo.materials.itemID, 36, ores.get(0), 0.2f);
         }
-        //new ItemStack(TRepo.materials, 1, 36)
     }
 
     public static Object getStaticItem (String name, String classPackage)
