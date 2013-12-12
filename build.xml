@@ -39,7 +39,7 @@
     <property name="build.dependencies.file" value="${build.dir}/dependencies.properties" />
     <property name="ccl.version" value="1.0.0.36" />
     <property name="fmp.version" value="1.0.0.182" />
-    <property name="nei.version" value="1.6.1.5_d1" />
+    <property name="nei.version" value="1.6.1.7" />
 
     <property name="ccl.name" value="CodeChickenLib-dev-${mc.version}-${ccl.version}.jar" />
     <property name="fmp.name" value="ForgeMultipart-dev-${mc.version}-${fmp.version}.jar" />
