@@ -88,9 +88,11 @@ public class TRecipes
         }
         GameRegistry.registerTileEntity(MultiServantLogic.class, "TConstruct.Servants");
         GameRegistry.registerBlock(TRepo.lavaTank, LavaTankItemBlock.class, "LavaTank");
+        GameRegistry.registerBlock(TRepo.lavaTankNether, LavaTankItemBlock.class, "LavaTankNether");
         GameRegistry.registerTileEntity(LavaTankLogic.class, "TConstruct.LavaTank");
 
         GameRegistry.registerBlock(TRepo.searedBlock, SearedTableItemBlock.class, "SearedBlock");
+        GameRegistry.registerBlock(TRepo.searedBlockNether, SearedTableItemBlock.class, "SearedBlockNether");
         GameRegistry.registerTileEntity(CastingTableLogic.class, "CastingTable");
         GameRegistry.registerTileEntity(FaucetLogic.class, "Faucet");
         GameRegistry.registerTileEntity(CastingBasinLogic.class, "CastingBasin");

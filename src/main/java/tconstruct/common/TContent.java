@@ -119,8 +119,10 @@ public class TContent implements IFuelHandler
         TRepo.smelteryNether = new SmelteryBlock(PHConstruct.smelteryNether, "nether").setUnlocalizedName("Smeltery");
         TRepo.lavaTank = new LavaTankBlock(PHConstruct.lavaTank).setUnlocalizedName("LavaTank");
         TRepo.lavaTank.setStepSound(Block.soundGlassFootstep);
+        TRepo.lavaTankNether = new LavaTankBlock(PHConstruct.lavaTankNether, "nether").setStepSound(Block.soundGlassFootstep).setUnlocalizedName("LavaTank");
 
         TRepo.searedBlock = new SearedBlock(PHConstruct.searedTable).setUnlocalizedName("SearedBlock");
+        TRepo.searedBlockNether = new SearedBlock(PHConstruct.searedTableNether, "nether").setUnlocalizedName("SearedBlock");
 
         TRepo.castingChannel = (new CastingChannelBlock(PHConstruct.castingChannel)).setUnlocalizedName("CastingChannel");
 
