@@ -162,7 +162,7 @@ public class TRecipes
 
     }
 
-    public static void addOreDictionarySmelteryRecipes ()
+    public void addOreDictionarySmelteryRecipes ()
     {
         List<FluidType> exceptions = Arrays.asList(new FluidType[] { FluidType.Water, FluidType.Stone, FluidType.Ender, FluidType.Glass, FluidType.Slime });
         for (FluidType ft : FluidType.values())
@@ -791,7 +791,7 @@ public class TRecipes
         chiseling.addDetailing(TRepo.smeltery, 9, TRepo.smeltery, 10, TRepo.chisel);
     }
 
-    public static void oreRegistry ()
+    public void oreRegistry ()
     {
         OreDictionary.registerOre("oreCobalt", new ItemStack(TRepo.oreSlag, 1, 1));
         OreDictionary.registerOre("oreArdite", new ItemStack(TRepo.oreSlag, 1, 2));
@@ -916,7 +916,7 @@ public class TRecipes
         }
     }
 
-    public static void addShapedRecipeFirst (List recipeList, ItemStack itemstack, Object... objArray)
+    public void addShapedRecipeFirst (List recipeList, ItemStack itemstack, Object... objArray)
     {
         String var3 = "";
         int var4 = 0;
@@ -989,7 +989,7 @@ public class TRecipes
         recipeList.add(0, var17);
     }
 
-    public static void modRecipes ()
+    public void modRecipes ()
     {
         if (!TRepo.initRecipes)
         {
@@ -1235,7 +1235,7 @@ public class TRecipes
         Smeltery.addMelting(FluidType.Gold, new ItemStack(Item.axeGold, 1, 0), 0, TConstruct.ingotLiquidValue * 3);
     }
 
-    public static void modIntegration ()
+    public void modIntegration ()
     {
         /* Natura */
         Block taintedSoil = GameRegistry.findBlock("Natura", "soil.tainted");
@@ -1385,7 +1385,7 @@ public class TRecipes
         }
     }
 
-    public static Object getStaticItem (String name, String classPackage)
+    public Object getStaticItem (String name, String classPackage)
     {
         try
         {

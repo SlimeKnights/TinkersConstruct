@@ -70,11 +70,11 @@ public class TConstruct
         {
             System.out.println("[TConstruct] Preparing to take over the world");
         }
-        
-        System.out.println("[UUID] Armor Speed: "+UUID.randomUUID());
-        System.out.println("[UUID] Armor Attack: "+UUID.randomUUID());
-        System.out.println("[UUID] Armor Health: "+UUID.randomUUID());
-        System.out.println("[UUID] Armor Knockback: "+UUID.randomUUID());
+
+        logger.info("[UUID] Armor Speed: " + UUID.randomUUID());
+        logger.info("[UUID] Armor Attack: " + UUID.randomUUID());
+        logger.info("[UUID] Armor Health: " + UUID.randomUUID());
+        logger.info("[UUID] Armor Knockback: " + UUID.randomUUID());
 
         EnvironmentChecks.verifyEnvironmentSanity();
         MinecraftForge.EVENT_BUS.register(events = new TEventHandler());
@@ -97,7 +97,7 @@ public class TConstruct
         content = new TContent();
 
         MinecraftForge.EVENT_BUS.register(new TEventHandlerAchievement());
-        TRecipes.oreRegistry();
+        recipes.oreRegistry();
 
         proxy.registerRenderer();
         proxy.addNames();
@@ -121,15 +121,15 @@ public class TConstruct
             VillagerRegistry.instance().registerVillageCreationHandler(new VillageSmelteryHandler());
             try
             {
-               // if (new CallableMinecraftVersion(null).minecraftVersion().equals("1.6.4"))
-               // {
-                    MapGenStructureIO.func_143031_a(ComponentToolWorkshop.class, "TConstruct:ToolWorkshopStructure");
-                    MapGenStructureIO.func_143031_a(ComponentSmeltery.class, "TConstruct:SmelteryStructure");
-               // }
+                // if (new CallableMinecraftVersion(null).minecraftVersion().equals("1.6.4"))
+                // {
+                MapGenStructureIO.func_143031_a(ComponentToolWorkshop.class, "TConstruct:ToolWorkshopStructure");
+                MapGenStructureIO.func_143031_a(ComponentSmeltery.class, "TConstruct:SmelteryStructure");
+                // }
             }
             catch (Throwable e)
             {
-
+                logger.severe("Error registering TConstruct Structures with Vanilla Minecraft: this is expected in versions earlier than 1.6.4");
             }
         }
 
@@ -165,10 +165,10 @@ public class TConstruct
         proxy.postInit();
         Behavior.registerBuiltInBehaviors();
         SpecialStackHandler.registerBuiltInStackHandlers();
-        TRecipes.modIntegration();
-        TRecipes.addOreDictionarySmelteryRecipes();
+        recipes.modIntegration();
+        recipes.addOreDictionarySmelteryRecipes();
         content.createEntities();
-        TRecipes.modRecipes();
+        recipes.modRecipes();
 
         PluginController.getController().postInit();
     }
@@ -189,6 +189,7 @@ public class TConstruct
     }
 
     public static TContent content;
+    public static TRecipes recipes;
     public static TEventHandler events;
     public static TPlayerHandler playerTracker;
     public static LiquidCasting tableCasting;
