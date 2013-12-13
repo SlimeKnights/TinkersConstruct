@@ -1,19 +1,21 @@
-package tconstruct.modifiers.tools;
+package tconstruct.modifiers.armor;
 
 import java.util.ArrayList;
+import java.util.EnumSet;
 import java.util.List;
 
 import net.minecraft.item.ItemStack;
-import tconstruct.library.tools.ToolMod;
+import tconstruct.library.armor.ArmorMod;
+import tconstruct.library.armor.EnumArmorPart;
 
-public abstract class ToolModTypeFilter extends ToolMod
+public abstract class ArmorModTypeFilter extends ArmorMod
 {
     public final List<Integer> increase;
 
-    public ToolModTypeFilter(int effect, String dataKey, ItemStack[] items, int[] values)
+    public ArmorModTypeFilter(int effect, String dataKey, EnumSet<EnumArmorPart> armorTypes, ItemStack[] items, int[] values)
     {
-        super(items, effect, dataKey);
-        assert items.length == values.length : "Itemstacks and their values for tool modifiers must be the same length";
+        super(effect, dataKey, armorTypes, items);
+        assert items.length == values.length : "Itemstacks and their values for armor modifiers must be the same length";
         this.increase = new ArrayList<Integer>();
         for (int i = 0; i < values.length; i++)
         {

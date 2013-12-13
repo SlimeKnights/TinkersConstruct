@@ -3,6 +3,7 @@ package tconstruct.common;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
 
@@ -24,9 +25,12 @@ import tconstruct.TConstruct;
 import tconstruct.blocks.logic.*;
 import tconstruct.items.blocks.*;
 import tconstruct.library.TConstructRegistry;
+import tconstruct.library.armor.ArmorMod;
+import tconstruct.library.armor.EnumArmorPart;
 import tconstruct.library.client.TConstructClientRegistry;
 import tconstruct.library.crafting.*;
 import tconstruct.library.util.IPattern;
+import tconstruct.modifiers.armor.AModMoveSpeed;
 import tconstruct.modifiers.tools.*;
 import tconstruct.util.RecipeRemover;
 import tconstruct.util.TDispenserBehaviorArrow;
@@ -241,9 +245,11 @@ public class TRecipes
         TRepo.modFlux = new ModFlux();
         tb.registerToolMod(TRepo.modFlux);
 
+        EnumSet<EnumArmorPart> allArmors = EnumSet.of(EnumArmorPart.HELMET, EnumArmorPart.CHEST, EnumArmorPart.PANTS, EnumArmorPart.SHOES);
         ItemStack redstoneItem = new ItemStack(Item.redstone);
         ItemStack redstoneBlock = new ItemStack(Block.blockRedstone);
         tb.registerToolMod(new ModRedstone(2, new ItemStack[] { redstoneItem, redstoneBlock }, new int[] { 1, 9 }));
+        tb.registerArmorMod(new AModMoveSpeed(2, allArmors, new ItemStack[] { redstoneItem, redstoneBlock }, new int[] { 1, 9 }, false));
 
         ItemStack lapisItem = new ItemStack(Item.dyePowder, 1, 4);
         ItemStack lapisBlock = new ItemStack(Block.blockLapis);

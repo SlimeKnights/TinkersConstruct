@@ -9,6 +9,8 @@ import cpw.mods.fml.common.event.*;
 import cpw.mods.fml.common.network.*;
 import cpw.mods.fml.common.registry.*;
 import cpw.mods.fml.relauncher.Side;
+
+import java.util.UUID;
 import java.util.logging.Logger;
 import net.minecraft.crash.CallableMinecraftVersion;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
@@ -68,6 +70,11 @@ public class TConstruct
         {
             System.out.println("[TConstruct] Preparing to take over the world");
         }
+        
+        System.out.println("[UUID] Armor Speed: "+UUID.randomUUID());
+        System.out.println("[UUID] Armor Attack: "+UUID.randomUUID());
+        System.out.println("[UUID] Armor Health: "+UUID.randomUUID());
+        System.out.println("[UUID] Armor Knockback: "+UUID.randomUUID());
 
         EnvironmentChecks.verifyEnvironmentSanity();
         MinecraftForge.EVENT_BUS.register(events = new TEventHandler());

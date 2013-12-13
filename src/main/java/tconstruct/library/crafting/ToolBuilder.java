@@ -493,6 +493,15 @@ public class ToolBuilder
 
     public static void registerToolMod (ToolMod mod)
     {
+        if (mod == null)
+            throw new NullPointerException("Tool modifier cannot be null.");
         instance.toolMods.add(mod);
+    }
+    
+    public static void registerArmorMod(ArmorMod mod)
+    {
+        if (mod == null)
+            throw new NullPointerException("Armor modifier cannot be null.");
+        instance.armorMods.add(mod);
     }
 }

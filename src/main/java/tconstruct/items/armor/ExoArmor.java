@@ -49,12 +49,16 @@ public class ExoArmor extends ArmorCore
         NBTTagCompound baseTag = new NBTTagCompound();
         NBTTagList list = new NBTTagList();
         
-        list.appendTag(getAttributeTag("generic.attackDamage", "ExoAttack", 10.0, true, knockback));
-        list.appendTag(getAttributeTag("generic.movementSpeed", "ExoSpeed", 1.5, false, speed));
-        list.appendTag(getAttributeTag("generic.maxHealth", "ExoHealth", 10.0, true, health));
-        list.appendTag(getAttributeTag("generic.knockbackResistance", "ExoKnockback", 0.5, false, knockback));
+        //list.appendTag(getAttributeTag("generic.attackDamage", "ExoAttack", 10.0, true, knockback));
+        //list.appendTag(getAttributeTag("generic.movementSpeed", "ExoSpeed", 1.5, false, speed));
+        //list.appendTag(getAttributeTag("generic.maxHealth", "ExoHealth", 10.0, true, health));
+        //list.appendTag(getAttributeTag("generic.knockbackResistance", "ExoKnockback", 0.5, false, knockback));
+        //baseTag.setTag("AttributeModifiers", list);
         
-        baseTag.setTag("AttributeModifiers", list);
+        NBTTagCompound armorTag = new NBTTagCompound();
+        armorTag.setInteger("Modifiers", 30);
+        baseTag.setTag(SET_NAME, armorTag);
+        
         armor.setTagCompound(baseTag);
         par3List.add(armor);
     }

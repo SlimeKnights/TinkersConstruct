@@ -17,6 +17,7 @@ import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
 
 import tconstruct.blocks.logic.CraftingStationLogic;
+import tconstruct.library.armor.ArmorCore;
 import tconstruct.library.tools.ToolCore;
 
 public class CraftingStationGui extends GuiContainer
@@ -66,6 +67,26 @@ public class CraftingStationGui extends GuiContainer
             this.drawCenteredString(fontRenderer, "\u00A7n" + tool.getToolName(), xSize + 63, 8, 0xffffff);
 
             drawModularToolStats(stack, tool, tags);
+        }
+        else if (stack.getItem() instanceof ArmorCore)
+        {
+            ArmorCore armor = (ArmorCore) stack.getItem();
+            NBTTagCompound tags = stack.getTagCompound().getCompoundTag("TinkerArmor");
+            this.drawCenteredString(fontRenderer, "\u00A7n" + armor.getClass().getSimpleName(), xSize + 63, 8, 0xffffff);
+
+            drawModularArmorStats(stack, armor, tags);
+        }
+    }
+
+    void drawModularArmorStats (ItemStack stack, ArmorCore tool, NBTTagCompound tags)
+    {
+        int modifiers = tags.getInteger("Modifiers");
+        int base = 24;
+        int offset = 0;
+        if (modifiers > 0)
+        {
+            fontRenderer.drawString(StatCollector.translateToLocal("gui.toolstation18") + tags.getInteger("Modifiers"), xSize + 8, base + offset * 10, 0xffffff);
+            offset++;
         }
     }
 
