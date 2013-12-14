@@ -1,5 +1,7 @@
 package tconstruct.client.pages;
 
+import mantle.client.pages.BookPage;
+import mantle.lib.client.MantleClientRegistry;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -25,7 +27,7 @@ public class BlockCastPage extends BookPage
 
         nodes = element.getElementsByTagName("recipe");
         if (nodes != null)
-            icons = TConstructClientRegistry.getRecipeIcons(nodes.item(0).getTextContent());
+            icons = MantleClientRegistry.getRecipeIcons(nodes.item(0).getTextContent());
     }
 
     @Override

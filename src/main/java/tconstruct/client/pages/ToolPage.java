@@ -1,5 +1,7 @@
 package tconstruct.client.pages;
 
+import mantle.client.pages.BookPage;
+import mantle.lib.client.MantleClientRegistry;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.item.ItemStack;
 
@@ -31,7 +33,7 @@ public class ToolPage extends BookPage
         {
             NodeList children = nodes.item(i).getChildNodes();
             iconText[i + 2] = children.item(1).getTextContent();
-            icons[i + 1] = TConstructClientRegistry.getManualIcon(children.item(3).getTextContent());
+            icons[i + 1] = MantleClientRegistry.getManualIcon(children.item(3).getTextContent());
         }
 
         nodes = element.getElementsByTagName("text");
@@ -43,7 +45,7 @@ public class ToolPage extends BookPage
 
         nodes = element.getElementsByTagName("icon");
         if (nodes != null)
-            icons[0] = TConstructClientRegistry.getManualIcon(nodes.item(0).getTextContent());
+            icons[0] = MantleClientRegistry.getManualIcon(nodes.item(0).getTextContent());
     }
 
     @Override

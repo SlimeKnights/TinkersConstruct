@@ -1,5 +1,7 @@
 package tconstruct.client.pages;
 
+import mantle.client.pages.BookPage;
+import mantle.lib.client.MantleClientRegistry;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -25,7 +27,7 @@ public class ModifierPage extends BookPage
 
         nodes = element.getElementsByTagName("recipe");
         if (nodes != null)
-            icons = TConstructClientRegistry.getRecipeIcons(nodes.item(0).getTextContent());
+            icons = MantleClientRegistry.getRecipeIcons(nodes.item(0).getTextContent());
     }
 
     @Override
@@ -36,9 +38,9 @@ public class ModifierPage extends BookPage
         GL11.glEnable(GL12.GL_RESCALE_NORMAL);
         RenderHelper.enableGUIStandardItemLighting();
 
-        ItemStack toolstack = TConstructClientRegistry.getManualIcon("ironpick");
+        ItemStack toolstack = MantleClientRegistry.getManualIcon("ironpick");
         if (type.equals("weapon"))
-            toolstack = TConstructClientRegistry.getManualIcon("ironlongsword");
+            toolstack = MantleClientRegistry.getManualIcon("ironlongsword");
 
         manual.renderitem.zLevel = 100;
         manual.renderitem.renderItemAndEffectIntoGUI(manual.fonts, manual.getMC().renderEngine, toolstack, (localWidth + 54) / 2, (localHeight + 54) / 2);

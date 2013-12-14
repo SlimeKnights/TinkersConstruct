@@ -1,5 +1,7 @@
 package tconstruct.client.pages;
 
+import mantle.client.pages.BookPage;
+import mantle.lib.client.MantleClientRegistry;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.item.ItemStack;
 
@@ -36,7 +38,7 @@ public class MaterialPage extends BookPage
 
         nodes = element.getElementsByTagName("icon");
         if (nodes != null)
-            icons[0] = TConstructClientRegistry.getManualIcon(nodes.item(0).getTextContent());
+            icons[0] = MantleClientRegistry.getManualIcon(nodes.item(0).getTextContent());
 
         nodes = element.getElementsByTagName("toolmaterial");
         if (nodes != null && nodes.getLength() > 0)
@@ -46,7 +48,7 @@ public class MaterialPage extends BookPage
 
         nodes = element.getElementsByTagName("material").item(0).getChildNodes();
 
-        icons[1] = TConstructClientRegistry.getManualIcon(nodes.item(1).getTextContent());
+        icons[1] = MantleClientRegistry.getManualIcon(nodes.item(1).getTextContent());
         icons[2] = PatternBuilder.instance.getShardFromSet(material.name());
         icons[3] = PatternBuilder.instance.getRodFromSet(material.name());
     }
