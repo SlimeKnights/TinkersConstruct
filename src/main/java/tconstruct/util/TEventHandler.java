@@ -1,5 +1,9 @@
 package tconstruct.util;
 
+import tconstruct.util.player.ArmorExtended;
+
+import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
+
 import java.util.Random;
 
 import net.minecraft.block.Block;
@@ -620,6 +624,25 @@ public class TEventHandler
         }
     }
 
+    @ForgeSubscribe
+    public void livingUpdate (LivingUpdateEvent event)
+    {
+    	if(event.entityLiving instanceof EntityPlayer){
+    		EntityPlayer player = (EntityPlayer) event.entityLiving;
+            TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
+            
+            if(stats != null){
+            	ArmorExtended armor = stats.armor;
+            	for(int i = 0; i < armor.getSizeInventory(); i++){
+            		if(armor.getStackInSlot(i) != null){
+            			armor.getStackInSlot(i).getItem().onUpdate(armor.getStackInSlot(i), player.worldObj, player, i, false);
+            			armor.getStackInSlot(i).getItem().onArmorTickUpdate(player.worldObj, player, armor.getStackInSlot(i));
+            		}
+            	}
+            }
+    	}
+    }
+    
     //Player interact event - prevent breaking of tank air blocks in creative
     @ForgeSubscribe
     public void playerInteract (PlayerInteractEvent event)

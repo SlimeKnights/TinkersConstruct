@@ -89,6 +89,7 @@ public class TConstruct
         basinCasting = new LiquidCasting();
         chiselDetailing = new Detailing();
 
+        recipes = new TRecipes();
         content = new TContent();
 
         MinecraftForge.EVENT_BUS.register(new TEventHandlerAchievement());

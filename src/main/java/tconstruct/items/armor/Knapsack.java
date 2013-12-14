@@ -1,5 +1,11 @@
 package tconstruct.items.armor;
 
+import tconstruct.TConstruct;
+import tconstruct.util.player.*;
+
+import net.minecraft.entity.Entity;
+import net.minecraft.world.World;
+
 import java.util.List;
 
 import tconstruct.items.CraftingItem;
@@ -28,6 +34,21 @@ public class Knapsack extends CraftingItem
             list.add(StatCollector.translateToLocal("knapsack.tooltip"));
             break;
         }
+    }
+    
+    @Override
+    public void onArmorTickUpdate(World world, EntityPlayer player, ItemStack itemStack)
+    {
+		TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
+		KnapsackInventory inv = stats.knapsack;
+		
+		if (stats != null && inv != null) {
+			for(int i = 0; i < inv.getSizeInventory(); i++){
+				if(inv.getStackInSlot(i) != null){
+					inv.getStackInSlot(i).getItem().onUpdate(inv.getStackInSlot(i), player.worldObj, player, i, false);
+				}
+			}
+		}
     }
 
 }
