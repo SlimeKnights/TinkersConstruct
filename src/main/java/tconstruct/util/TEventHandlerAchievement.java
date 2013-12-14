@@ -1,5 +1,7 @@
 package tconstruct.util;
 
+import tconstruct.library.event.SmelteryEvent;
+
 import net.minecraftforge.common.FakePlayer;
 import net.minecraftforge.event.ForgeSubscribe;
 import tconstruct.achievements.TAchievements;
@@ -20,6 +22,15 @@ public class TEventHandlerAchievement {
 			
 			if(event.inventory != null && event.inventory instanceof ToolForgeLogic && event.tool.getItem() instanceof ToolCore && ((ToolCore)event.tool.getItem()).durabilityTypeExtra() != 0){
 				event.player.addStat(TAchievements.achievements.get("tconstruct.proTinkerer"), 1);
+			}
+		}
+	}
+	
+	@ForgeSubscribe
+	public void onItemPlacedIntoCasting(SmelteryEvent.ItemInsertedIntoCasting event){
+		if(event.player != null && event.item != null){
+			if(event.item.getItem() instanceof ToolCore){
+				event.player.addStat(TAchievements.achievements.get("tconstruct.doingItWrong"), 1);
 			}
 		}
 	}

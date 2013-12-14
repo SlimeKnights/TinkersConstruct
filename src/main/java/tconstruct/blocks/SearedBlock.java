@@ -1,25 +1,21 @@
 package tconstruct.blocks;
 
 import java.util.List;
-
-import tconstruct.TConstruct;
-import tconstruct.blocks.logic.CastingBasinLogic;
-import tconstruct.blocks.logic.CastingTableLogic;
-import tconstruct.blocks.logic.FaucetLogic;
-import tconstruct.client.block.SearedRender;
-import tconstruct.library.TConstructRegistry;
 import mantle.blocks.abstracts.InventoryBlock;
-import tconstruct.library.tools.AbilityHelper;
-
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.Icon;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
+import net.minecraft.util.*;
+import net.minecraft.world.*;
+import net.minecraftforge.common.MinecraftForge;
+import tconstruct.TConstruct;
+import tconstruct.blocks.logic.*;
+import tconstruct.client.block.SearedRender;
+import tconstruct.library.TConstructRegistry;
+import tconstruct.library.event.SmelteryEvent;
+import tconstruct.library.tools.AbilityHelper;
 
 public class SearedBlock extends InventoryBlock
 {
@@ -112,17 +108,20 @@ public class SearedBlock extends InventoryBlock
                 ItemStack stack = player.getCurrentEquippedItem();
                 stack = player.inventory.decrStackSize(player.inventory.currentItem, 1);
                 logic.setInventorySlotContents(0, stack);
+                MinecraftForge.EVENT_BUS.post(new SmelteryEvent.ItemInsertedIntoCasting(logic, x, y, z, stack, player));
             }
             else
             {
                 if (logic.isStackInSlot(1))
                 {
+                    MinecraftForge.EVENT_BUS.post(new SmelteryEvent.ItemRemovedFromCasting(logic, x, y, z, logic.getStackInSlot(1), player));
                     ItemStack stack = logic.decrStackSize(1, 1);
                     if (stack != null)
                         addItemToInventory(player, world, x, y, z, stack);
                 }
                 else if (logic.isStackInSlot(0))
                 {
+                    MinecraftForge.EVENT_BUS.post(new SmelteryEvent.ItemRemovedFromCasting(logic, x, y, z, logic.getStackInSlot(0), player));
                     ItemStack stack = logic.decrStackSize(0, 1);
                     if (stack != null)
                         addItemToInventory(player, world, x, y, z, stack);
@@ -147,17 +146,20 @@ public class SearedBlock extends InventoryBlock
                 ItemStack stack = player.getCurrentEquippedItem();
                 stack = player.inventory.decrStackSize(player.inventory.currentItem, 1);
                 logic.setInventorySlotContents(0, stack);
+                MinecraftForge.EVENT_BUS.post(new SmelteryEvent.ItemInsertedIntoCasting(logic, x, y, z, stack, player));
             }
             else
             {
                 if (logic.isStackInSlot(1))
                 {
+                    MinecraftForge.EVENT_BUS.post(new SmelteryEvent.ItemRemovedFromCasting(logic, x, y, z, logic.getStackInSlot(1), player));
                     ItemStack stack = logic.decrStackSize(1, 1);
                     if (stack != null)
                         addItemToInventory(player, world, x, y, z, stack);
                 }
                 else if (logic.isStackInSlot(0))
                 {
+                	MinecraftForge.EVENT_BUS.post(new SmelteryEvent.ItemRemovedFromCasting(logic, x, y, z, logic.getStackInSlot(0), player));
                     ItemStack stack = logic.decrStackSize(0, 1);
                     if (stack != null)
                         addItemToInventory(player, world, x, y, z, stack);

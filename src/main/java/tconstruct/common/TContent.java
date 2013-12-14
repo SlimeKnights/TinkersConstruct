@@ -841,5 +841,6 @@ public class TContent implements IFuelHandler
                 new Achievement(2747, "tconstruct.enemySlayer", 0, 5, new ItemStack(TRepo.titleIcon, 1, 4099), achievements.get("tconstruct.preparedFight")).registerAchievement());
         achievements.put("tconstruct.dualConvenience", new Achievement(2748, "tconstruct.dualConvenience", 0, 7, new ItemStack(TRepo.titleIcon, 1, 4100), achievements.get("tconstruct.enemySlayer"))
                 .setSpecial().registerAchievement());
+        achievements.put("tconstruct.doingItWrong", new Achievement(2749, "tconstruct.doingItWrong", -2, -3, new ItemStack(TRepo.manualBook, 1, 2), achievements.get("tconstruct.smelteryMaker")).registerAchievement());
     }
 }
