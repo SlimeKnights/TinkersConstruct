@@ -71,11 +71,6 @@ public class TConstruct
             System.out.println("[TConstruct] Preparing to take over the world");
         }
 
-        logger.info("[UUID] Armor Speed: " + UUID.randomUUID());
-        logger.info("[UUID] Armor Attack: " + UUID.randomUUID());
-        logger.info("[UUID] Armor Health: " + UUID.randomUUID());
-        logger.info("[UUID] Armor Knockback: " + UUID.randomUUID());
-
         EnvironmentChecks.verifyEnvironmentSanity();
         MinecraftForge.EVENT_BUS.register(events = new TEventHandler());
         PluginController.getController().registerBuiltins();
