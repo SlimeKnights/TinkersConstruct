@@ -12,6 +12,7 @@ import java.util.*;
 import javax.xml.parsers.*;
 
 import mantle.client.MProxyClient;
+import mantle.client.block.SmallFontRenderer;
 import mantle.client.gui.GuiManual;
 import mantle.lib.client.MantleClientRegistry;
 import net.minecraft.block.Block;
@@ -47,7 +48,6 @@ import tconstruct.client.pages.*;
 import tconstruct.client.tabs.*;
 import tconstruct.common.*;
 import tconstruct.entity.*;
-import tconstruct.entity.item.*;
 import tconstruct.entity.item.*;
 import tconstruct.entity.projectile.*;
 import tconstruct.inventory.ContainerLandmine;
@@ -558,7 +558,6 @@ public class TProxyClient extends TProxyCommon
 
     }
 
-   
     void initManualPages ()
     {
         MProxyClient.registerManualPage("materialstats", MaterialPage.class);
