@@ -3,9 +3,9 @@ package tconstruct.worldgen.village;
 import java.util.List;
 import java.util.Random;
 
+import tconstruct.blocks.logic.CraftingStationLogic;
 import tconstruct.blocks.logic.PatternChestLogic;
 import tconstruct.common.TRepo;
-
 import net.minecraft.block.Block;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraft.world.World;
@@ -125,7 +125,8 @@ public class ComponentToolWorkshop extends ComponentVillage
         this.generateStructurePatternChestContents(world, sbb, random, 1, 1, 2, TRepo.tinkerHousePatterns.getItems(random), TRepo.tinkerHousePatterns.getCount(random));
         //this.placeBlockAtCurrentPosition(world, TRepo.toolStationWood.blockID, 5, 1, 1, 2, sbb);
         this.placeBlockAtCurrentPosition(world, TRepo.toolStationWood.blockID, 1, 1, 1, 3, sbb);
-        this.placeBlockAtCurrentPosition(world, Block.workbench.blockID, 0, 1, 1, 4, sbb);
+        this.generateStructureCraftingStationContents(world, sbb, random, 1, 1, 4, TRepo.tinkerHouseChest.getItems(random), TRepo.tinkerHouseChest.getCount(random));
+       // this.placeBlockAtCurrentPosition(world, TRepo.craftingStationWood.blockID, 0, 1, 1, 4, sbb);
         this.placeBlockAtCurrentPosition(world, TRepo.toolStationWood.blockID, 10, 1, 1, 5, sbb);
 
         //ChestGenHooks info = ChestGenHooks.getInfo("TinkerHouse");
@@ -148,6 +149,30 @@ public class ComponentToolWorkshop extends ComponentVillage
         return true;
     }
 
+    protected boolean generateStructureCraftingStationContents (World world, StructureBoundingBox par2StructureBoundingBox, Random random, int x, int y, int z, WeightedRandomChestContent[] content,
+            int par8)
+    {
+        int posX = this.getXWithOffset(x, z);
+        int posY = this.getYWithOffset(y);
+        int posZ = this.getZWithOffset(x, z);
+
+        if (par2StructureBoundingBox.isVecInside(posX, posY, posZ) && world.getBlockId(posX, posY, posZ) != Block.chest.blockID)
+        {
+            world.setBlock(posX, posY, posZ, TRepo.craftingStationWood.blockID, 5, 2);
+            CraftingStationLogic logic = (CraftingStationLogic) world.getBlockTileEntity(posX, posY, posZ);
+
+            if (logic != null)
+            {
+                WeightedRandomChestContent.generateChestContents(random, content, logic, par8);
+            }
+
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
     protected boolean generateStructurePatternChestContents (World world, StructureBoundingBox par2StructureBoundingBox, Random random, int x, int y, int z, WeightedRandomChestContent[] content,
             int par8)
     {
