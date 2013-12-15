@@ -98,11 +98,6 @@ public class TProxyClient extends TProxyCommon
         if (ID == furnaceID)
             return new FurnaceGui(player.inventory, (FurnaceLogic) world.getBlockTileEntity(x, y, z));
 
-        if (ID == manualGuiID)
-        {
-            ItemStack stack = player.getCurrentEquippedItem();
-            return new GuiManual(stack, TProxyClient.getManualFromStack(stack));
-        }
         if (ID == inventoryGui)
         {
             GuiInventory inventory = new GuiInventory(player);

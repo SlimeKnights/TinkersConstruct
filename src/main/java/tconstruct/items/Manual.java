@@ -28,7 +28,7 @@ public class Manual extends CraftingItem
     public ItemStack onItemRightClick (ItemStack stack, World world, EntityPlayer player)
     {
     	player.addStat(TAchievements.achievements.get("tconstruct.beginner"), 1);
-        player.openGui(TConstruct.instance, TConstruct.proxy.manualGuiID, world, 0, 0, 0);
+        player.openGui(TConstruct.instance, mantle.client.MProxyClient.manualGuiID, world, 0, 0, 0);
         /*Side side = FMLCommonHandler.instance().getEffectiveSide();
         if (side.isClient())
         	FMLClientHandler.instance().displayGuiScreen(player, new GuiManual(player.getCurrentEquippedItem(), getManualFromStack(stack)));*/
