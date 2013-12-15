@@ -579,8 +579,10 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, ICu
                 e.printStackTrace();
             }
             if (!supress)
+            {
                 TConstructRegistry.logger.severe("Creative builder failed tool for " + name + this.getToolName());
-            TConstructRegistry.logger.severe("Make sure you do not have item ID conflicts");
+                TConstructRegistry.logger.severe("Make sure you do not have item ID conflicts");
+            }
         }
         else
         {
