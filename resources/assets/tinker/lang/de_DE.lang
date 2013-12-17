@@ -597,6 +597,7 @@ achievement.tconstruct.smelteryMaker=Schmelzereibauer
 achievement.tconstruct.preparedFight=Bereit zum Kampf
 achievement.tconstruct.enemySlayer=Feindesschlächter
 achievement.tconstruct.dualConvenience=Zweifache Annehmlichkeit
+achievement.tconstruct.doingItWrong=Wie man es nicht macht
 
 achievement.tconstruct.beginner.desc=Öffne das "Materialien und DU" Handbuch
 achievement.tconstruct.pattern.desc=Baue deine erste Leere Schablone
@@ -606,6 +607,7 @@ achievement.tconstruct.smelteryMaker.desc=Baue eine Schmelzereikomponente
 achievement.tconstruct.preparedFight.desc=Kreiere deine erste Waffe
 achievement.tconstruct.enemySlayer.desc=Schlachte ein Monster ab
 achievement.tconstruct.dualConvenience.desc=Töte ein Tier mit einer Bratpfanne und koche dann dein Fleisch mit ihr
+achievement.tconstruct.doingItWrong.desc=Du machst alles falsch!
 
 knapsack.tooltip=Ein Rucksack, um deine Sachen aufzubewahren
 strangefood1.tooltip=Es riecht schrecklich, aber wenn du
