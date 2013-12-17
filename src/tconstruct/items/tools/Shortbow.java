@@ -96,7 +96,7 @@ public class Shortbow extends BowBase
     @SideOnly(Side.CLIENT)
     public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean par4)
     {
-        if (!stack.hasTagCompound())
+       if (!stack.hasTagCompound())
             return;
 
         NBTTagCompound tags = stack.getTagCompound();
@@ -118,6 +118,24 @@ public class Shortbow extends BowBase
 
             String charge = new StringBuilder().append(color).append(tags.getInteger("charge")).append("/").append(getMaxCharge(stack)).append(" EU").toString();
             list.add(charge);
+        }
+        if (tags.hasKey("Energy"))
+        {
+            String color = "";
+            int RF = tags.getInteger("Energy");
+
+            if (RF != 0)
+            {
+                if (RF <= this.getMaxEnergyStored(stack) / 3)
+                    color = "\u00a74";
+                else if (RF > this.getMaxEnergyStored(stack) * 2 / 3)
+                    color = "\u00a72";
+                else
+                    color = "\u00a76";
+            }
+
+            String energy = new StringBuilder().append(color).append(tags.getInteger("Energy")).append("/").append(getMaxEnergyStored(stack)).append(" RF").toString();
+            list.add(energy);
         }
         if (tags.hasKey("InfiTool"))
         {
