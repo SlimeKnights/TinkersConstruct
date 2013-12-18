@@ -598,6 +598,7 @@ achievement.tconstruct.preparedFight=Prepared to Fight
 achievement.tconstruct.enemySlayer=Enemy Slayer
 achievement.tconstruct.dualConvenience=Dual Convenience
 achievement.tconstruct.doingItWrong=Doing it wrong
+achievement.tconstruct.betterCrafting=Better Crafting
 
 achievement.tconstruct.beginner.desc=Open the "Materials and You" manual
 achievement.tconstruct.pattern.desc=Craft your first blank pattern
@@ -608,6 +609,7 @@ achievement.tconstruct.preparedFight.desc=Create your first weapon
 achievement.tconstruct.enemySlayer.desc=Slay a mob
 achievement.tconstruct.dualConvenience.desc=Kill a mob with a frying pan, and then cook their meat in it
 achievement.tconstruct.doingItWrong.desc=You are doing it wrong!
+achievement.tconstruct.betterCrafting.desc=Craft a Crafting Station by placing a Crafting Table by itself into the crafting grid
 
 knapsack.tooltip=A Knapsack to hold your things.
 strangefood1.tooltip=It smells terrible, but if you

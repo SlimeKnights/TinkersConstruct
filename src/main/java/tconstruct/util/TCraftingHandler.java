@@ -44,6 +44,10 @@ public class TCraftingHandler implements ICraftingHandler
                 }
                 player.addStat(TAchievements.achievements.get("tconstruct.smelteryMaker"), 1);
             }
+            
+            if (itemID == TRepo.craftingStationWood.blockID){
+            	player.addStat(TAchievements.achievements.get("tconstruct.betterCrafting"), 1);
+            }
         }
     }
 
