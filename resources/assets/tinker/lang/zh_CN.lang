@@ -599,6 +599,7 @@ achievement.tconstruct.preparedFight=准备战斗
 achievement.tconstruct.enemySlayer=杀敌
 achievement.tconstruct.dualConvenience=双重便利
 achievement.tconstruct.doingItWrong=你错了
+achievement.tconstruct.betterCrafting=更好地合成
 
 achievement.tconstruct.beginner.desc=翻开《匠魂宝典Ⅰ》
 achievement.tconstruct.pattern.desc=合成出第一块模具
@@ -609,6 +610,7 @@ achievement.tconstruct.preparedFight.desc=打造出第一柄武器
 achievement.tconstruct.enemySlayer.desc=杀死生物
 achievement.tconstruct.dualConvenience.desc=使用煎锅杀死生物后烹煮它们的肉
 achievement.tconstruct.doingItWrong.desc=你正在做错事
+achievement.tconstruct.betterCrafting.desc=将工作台自身放入合成网格中以制做合成站
 
 knapsack.tooltip=装东西用的背包.
 strangefood1.tooltip=闻起来糟透了,但是万一
