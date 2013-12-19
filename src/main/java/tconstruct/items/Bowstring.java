@@ -3,18 +3,18 @@ package tconstruct.items;
 import java.util.List;
 
 import cpw.mods.fml.common.Loader;
-import tconstruct.common.TContent;
 import tconstruct.common.TRepo;
+import tconstruct.library.TConstructRegistry;
 import tconstruct.library.util.IToolPart;
+import mantle.items.abstracts.CraftingItem;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.MinecraftForge;
 
 public class Bowstring extends CraftingItem implements IToolPart
 {
     public Bowstring(int id)
     {
-        super(id, toolMaterialNames, buildTextureNames("_bowstring"), "parts/");
+        super(id, toolMaterialNames, buildTextureNames("_bowstring"), "parts/", "tinker", TConstructRegistry.materialTab);
         this.setHasSubtypes(true);
         this.setMaxDamage(0);
     }

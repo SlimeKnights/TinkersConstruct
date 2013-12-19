@@ -2,11 +2,13 @@ package tconstruct.items;
 
 import java.util.List;
 
+import mantle.items.abstracts.CraftingItem;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import tconstruct.common.TContent;
 import tconstruct.common.TRepo;
+import tconstruct.library.TConstructRegistry;
 import tconstruct.library.util.IToolPart;
 
 public class ToolPart extends CraftingItem implements IToolPart
@@ -15,7 +17,7 @@ public class ToolPart extends CraftingItem implements IToolPart
 
     public ToolPart(int id, String textureType, String name)
     {
-        super(id, toolMaterialNames, buildTextureNames(textureType), "parts/");
+        super(id, toolMaterialNames, buildTextureNames(textureType), "parts/", "tinker", TConstructRegistry.materialTab);
         this.setHasSubtypes(true);
         this.setMaxDamage(0);
         this.partName = name;

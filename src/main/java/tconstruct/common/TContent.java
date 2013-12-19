@@ -1,15 +1,17 @@
 package tconstruct.common;
 
+import mantle.items.abstracts.CraftingItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import tconstruct.library.armor.EnumArmorPart;
 import tconstruct.library.crafting.ToolBuilder;
-
 import cpw.mods.fml.common.*;
 import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.registry.*;
+
 import java.lang.reflect.Field;
 import java.util.*;
+
 import net.minecraft.block.*;
 import net.minecraft.block.material.*;
 import net.minecraft.creativetab.CreativeTabs;
@@ -370,8 +372,13 @@ public class TContent implements IFuelHandler
             TRepo.pigIronFluid = FluidRegistry.getFluid("pigiron.molten");
         else
             TRepo.pigIronFluid.setDensity(3000).setViscosity(6000).setTemperature(1300);
-        TRepo.fluids = new Fluid[]{TRepo.moltenIronFluid, TRepo.moltenGoldFluid, TRepo.moltenCopperFluid, TRepo.moltenTinFluid, TRepo.moltenAluminumFluid, TRepo.moltenCobaltFluid, TRepo.moltenArditeFluid, TRepo.moltenBronzeFluid, TRepo.moltenAlubrassFluid, TRepo.moltenManyullynFluid, TRepo.moltenAlumiteFluid, TRepo.moltenObsidianFluid, TRepo.moltenSteelFluid, TRepo.moltenGlassFluid, TRepo.moltenStoneFluid, TRepo.moltenEmeraldFluid, TRepo.bloodFluid, TRepo.moltenNickelFluid, TRepo.moltenLeadFluid, TRepo.moltenSilverFluid, TRepo.moltenShinyFluid, TRepo.moltenInvarFluid, TRepo.moltenElectrumFluid, TRepo.moltenEnderFluid, TRepo.blueSlimeFluid, TRepo.glueFluid, TRepo.pigIronFluid};
-        TRepo.fluidBlocks = new Block[]{TRepo.moltenIron, TRepo.moltenGold, TRepo.moltenCopper, TRepo.moltenTin, TRepo.moltenAluminum, TRepo.moltenCobalt, TRepo.moltenArdite, TRepo.moltenBronze, TRepo.moltenAlubrass, TRepo.moltenManyullyn, TRepo.moltenAlumite, TRepo.moltenObsidian, TRepo.moltenSteel, TRepo.moltenGlass, TRepo.moltenStone, TRepo.moltenEmerald, TRepo.blood, TRepo.moltenNickel, TRepo.moltenLead, TRepo.moltenSilver, TRepo.moltenShiny, TRepo.moltenInvar, TRepo.moltenElectrum, TRepo.moltenEnder, TRepo.slimePool, TRepo.glueFluidBlock};
+        TRepo.fluids = new Fluid[] { TRepo.moltenIronFluid, TRepo.moltenGoldFluid, TRepo.moltenCopperFluid, TRepo.moltenTinFluid, TRepo.moltenAluminumFluid, TRepo.moltenCobaltFluid,
+                TRepo.moltenArditeFluid, TRepo.moltenBronzeFluid, TRepo.moltenAlubrassFluid, TRepo.moltenManyullynFluid, TRepo.moltenAlumiteFluid, TRepo.moltenObsidianFluid, TRepo.moltenSteelFluid,
+                TRepo.moltenGlassFluid, TRepo.moltenStoneFluid, TRepo.moltenEmeraldFluid, TRepo.bloodFluid, TRepo.moltenNickelFluid, TRepo.moltenLeadFluid, TRepo.moltenSilverFluid,
+                TRepo.moltenShinyFluid, TRepo.moltenInvarFluid, TRepo.moltenElectrumFluid, TRepo.moltenEnderFluid, TRepo.blueSlimeFluid, TRepo.glueFluid, TRepo.pigIronFluid };
+        TRepo.fluidBlocks = new Block[] { TRepo.moltenIron, TRepo.moltenGold, TRepo.moltenCopper, TRepo.moltenTin, TRepo.moltenAluminum, TRepo.moltenCobalt, TRepo.moltenArdite, TRepo.moltenBronze,
+                TRepo.moltenAlubrass, TRepo.moltenManyullyn, TRepo.moltenAlumite, TRepo.moltenObsidian, TRepo.moltenSteel, TRepo.moltenGlass, TRepo.moltenStone, TRepo.moltenEmerald, TRepo.blood,
+                TRepo.moltenNickel, TRepo.moltenLead, TRepo.moltenSilver, TRepo.moltenShiny, TRepo.moltenInvar, TRepo.moltenElectrum, TRepo.moltenEnder, TRepo.slimePool, TRepo.glueFluidBlock };
         //Slime Islands
         TRepo.slimeGel = new SlimeGel(PHConstruct.slimeGel).setStepSound(TRepo.slimeStep).setLightOpacity(0).setUnlocalizedName("slime.gel");
         TRepo.slimeGrass = new SlimeGrass(PHConstruct.slimeGrass).setStepSound(Block.soundGrassFootstep).setLightOpacity(0).setUnlocalizedName("slime.grass");
@@ -381,7 +388,6 @@ public class TContent implements IFuelHandler
         TRepo.slimeChannel = new ConveyorBase(PHConstruct.slimeChannel, Material.water, "greencurrent").setHardness(0.3f).setStepSound(TRepo.slimeStep).setUnlocalizedName("slime.channel");
         TRepo.bloodChannel = new ConveyorBase(PHConstruct.bloodChannel, Material.water, "liquid_cow").setHardness(0.3f).setStepSound(TRepo.slimeStep).setUnlocalizedName("blood.channel");
         TRepo.slimePad = new SlimePad(PHConstruct.slimePad, Material.cloth).setStepSound(TRepo.slimeStep).setHardness(0.3f).setUnlocalizedName("slime.pad");
-        
 
         //Decoration
         TRepo.stoneTorch = new StoneTorch(PHConstruct.stoneTorch).setUnlocalizedName("decoration.stonetorch");
@@ -433,7 +439,7 @@ public class TContent implements IFuelHandler
         TRepo.titleIcon = new TitleIcon(PHConstruct.uselessItem).setUnlocalizedName("tconstruct.titleicon");
         GameRegistry.registerItem(TRepo.titleIcon, "titleIcon");
         String[] blanks = new String[] { "blank_pattern", "blank_cast", "blank_cast" };
-        TRepo.blankPattern = new CraftingItem(PHConstruct.blankPattern, blanks, blanks, "materials/").setUnlocalizedName("tconstruct.Pattern");
+        TRepo.blankPattern = new CraftingItem(PHConstruct.blankPattern, blanks, blanks, "materials/", "tinker", TConstructRegistry.materialTab).setUnlocalizedName("tconstruct.Pattern");
         GameRegistry.registerItem(TRepo.blankPattern, "blankPattern");
 
         TRepo.materials = new MaterialItem(PHConstruct.materials).setUnlocalizedName("tconstruct.Materials");
@@ -830,13 +836,20 @@ public class TContent implements IFuelHandler
 
         achievements.put("tconstruct.beginner", new Achievement(2741, "tconstruct.beginner", 0, 0, TRepo.manualBook, null).setIndependent().registerAchievement());
         achievements.put("tconstruct.pattern", new Achievement(2742, "tconstruct.pattern", 2, 1, TRepo.blankPattern, achievements.get("tconstruct.beginner")).registerAchievement());
-        achievements.put("tconstruct.tinkerer", new Achievement(2743, "tconstruct.tinkerer", 2, 2, new ItemStack(TRepo.titleIcon, 1, 4096), achievements.get("tconstruct.pattern")).registerAchievement());
-        achievements.put("tconstruct.preparedFight", new Achievement(2744, "tconstruct.preparedFight", 1, 3, new ItemStack(TRepo.titleIcon, 1, 4097), achievements.get("tconstruct.tinkerer")).registerAchievement());
-        achievements.put("tconstruct.proTinkerer", new Achievement(2745, "tconstruct.proTinkerer", 4, 4, new ItemStack(TRepo.titleIcon, 1, 4098), achievements.get("tconstruct.tinkerer")).setSpecial().registerAchievement());
+        achievements.put("tconstruct.tinkerer",
+                new Achievement(2743, "tconstruct.tinkerer", 2, 2, new ItemStack(TRepo.titleIcon, 1, 4096), achievements.get("tconstruct.pattern")).registerAchievement());
+        achievements.put("tconstruct.preparedFight",
+                new Achievement(2744, "tconstruct.preparedFight", 1, 3, new ItemStack(TRepo.titleIcon, 1, 4097), achievements.get("tconstruct.tinkerer")).registerAchievement());
+        achievements.put("tconstruct.proTinkerer", new Achievement(2745, "tconstruct.proTinkerer", 4, 4, new ItemStack(TRepo.titleIcon, 1, 4098), achievements.get("tconstruct.tinkerer")).setSpecial()
+                .registerAchievement());
         achievements.put("tconstruct.smelteryMaker", new Achievement(2746, "tconstruct.smelteryMaker", -2, -1, TRepo.smeltery, achievements.get("tconstruct.beginner")).registerAchievement());
-        achievements.put("tconstruct.enemySlayer", new Achievement(2747, "tconstruct.enemySlayer", 0, 5, new ItemStack(TRepo.titleIcon, 1, 4099), achievements.get("tconstruct.preparedFight")).registerAchievement());
-        achievements.put("tconstruct.dualConvenience", new Achievement(2748, "tconstruct.dualConvenience", 0, 7, new ItemStack(TRepo.titleIcon, 1, 4100), achievements.get("tconstruct.enemySlayer")).setSpecial().registerAchievement());
-        achievements.put("tconstruct.doingItWrong", new Achievement(2749, "tconstruct.doingItWrong", -2, -3, new ItemStack(TRepo.manualBook, 1, 2), achievements.get("tconstruct.smelteryMaker")).registerAchievement());
-        achievements.put("tconstruct.betterCrafting", new Achievement(2750, "tconstruct.betterCrafting", -2, 2, TRepo.craftingStationWood, achievements.get("tconstruct.beginner")).registerAchievement());
+        achievements.put("tconstruct.enemySlayer",
+                new Achievement(2747, "tconstruct.enemySlayer", 0, 5, new ItemStack(TRepo.titleIcon, 1, 4099), achievements.get("tconstruct.preparedFight")).registerAchievement());
+        achievements.put("tconstruct.dualConvenience", new Achievement(2748, "tconstruct.dualConvenience", 0, 7, new ItemStack(TRepo.titleIcon, 1, 4100), achievements.get("tconstruct.enemySlayer"))
+                .setSpecial().registerAchievement());
+        achievements.put("tconstruct.doingItWrong",
+                new Achievement(2749, "tconstruct.doingItWrong", -2, -3, new ItemStack(TRepo.manualBook, 1, 2), achievements.get("tconstruct.smelteryMaker")).registerAchievement());
+        achievements.put("tconstruct.betterCrafting",
+                new Achievement(2750, "tconstruct.betterCrafting", -2, 2, TRepo.craftingStationWood, achievements.get("tconstruct.beginner")).registerAchievement());
     }
 }

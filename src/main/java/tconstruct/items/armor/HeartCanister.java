@@ -3,10 +3,10 @@ package tconstruct.items.armor;
 import java.util.List;
 
 import tconstruct.TConstruct;
-import tconstruct.items.CraftingItem;
+import tconstruct.library.TConstructRegistry;
 import tconstruct.util.player.ArmorExtended;
 import tconstruct.util.player.TPlayerStats;
-
+import mantle.items.abstracts.CraftingItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -19,7 +19,7 @@ public class HeartCanister extends CraftingItem
 
     public HeartCanister(int id)
     {
-        super(id, new String[] { "empty", "miniheart.red", "heart" }, new String[] { "canister_empty", "miniheart_red", "canister_heart" }, "");
+        super(id, new String[] { "empty", "miniheart.red", "heart" }, new String[] { "canister_empty", "miniheart_red", "canister_heart" }, "", "tinker", TConstructRegistry.materialTab );
         this.setMaxStackSize(10);
     }
 

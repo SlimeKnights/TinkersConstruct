@@ -2,6 +2,8 @@ package tconstruct.items;
 
 import java.util.List;
 
+import tconstruct.library.TConstructRegistry;
+import mantle.items.abstracts.CraftingItem;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.player.EntityPlayer;
@@ -18,7 +20,7 @@ public class OreBerries extends CraftingItem
 
     public OreBerries(int id)
     {
-        super(id, names, tex, "oreberries/");
+        super(id, names, tex, "oreberries/", "tinker", TConstructRegistry.materialTab);
     }
 
     @Override

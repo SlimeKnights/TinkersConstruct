@@ -1,14 +1,14 @@
 package tconstruct.items.armor;
 
 import tconstruct.TConstruct;
+import tconstruct.library.TConstructRegistry;
 import tconstruct.util.player.*;
-
+import mantle.items.abstracts.CraftingItem;
 import net.minecraft.entity.Entity;
 import net.minecraft.world.World;
 
 import java.util.List;
 
-import tconstruct.items.CraftingItem;
 import net.minecraft.util.StatCollector;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -20,7 +20,7 @@ public class Knapsack extends CraftingItem
 
     public Knapsack(int id)
     {
-        super(id, new String[] { "knapsack" }, new String[] { "knapsack" }, "armor/");
+        super(id, new String[] { "knapsack" }, new String[] { "knapsack" }, "armor/", "tinker", TConstructRegistry.materialTab);
         this.setMaxStackSize(10);
     }
 
@@ -35,20 +35,23 @@ public class Knapsack extends CraftingItem
             break;
         }
     }
-    
+
     @Override
-    public void onArmorTickUpdate(World world, EntityPlayer player, ItemStack itemStack)
+    public void onArmorTickUpdate (World world, EntityPlayer player, ItemStack itemStack)
     {
-		TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
-		KnapsackInventory inv = stats.knapsack;
-		
-		if (stats != null && inv != null) {
-			for(int i = 0; i < inv.getSizeInventory(); i++){
-				if(inv.getStackInSlot(i) != null){
-					inv.getStackInSlot(i).getItem().onUpdate(inv.getStackInSlot(i), player.worldObj, player, i, false);
-				}
-			}
-		}
+        TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
+        KnapsackInventory inv = stats.knapsack;
+
+        if (stats != null && inv != null)
+        {
+            for (int i = 0; i < inv.getSizeInventory(); i++)
+            {
+                if (inv.getStackInSlot(i) != null)
+                {
+                    inv.getStackInSlot(i).getItem().onUpdate(inv.getStackInSlot(i), player.worldObj, player, i, false);
+                }
+            }
+        }
     }
 
 }
