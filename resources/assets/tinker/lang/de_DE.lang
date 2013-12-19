@@ -315,7 +315,7 @@ StorageMetals.Ender.name=Block Soliden Enders
 
 tile.decoration.stonetorch.name=Fackel
 tile.decoration.stoneladder.name=Leiter
-tile.CraftingStation.name=Handwerksstation
+tile.CraftingStation.name=Werkstation
 
 block.glass.pure.name=Klares Glas
 block.glass.soul.name=Seelenglas
@@ -598,6 +598,7 @@ achievement.tconstruct.preparedFight=Bereit zum Kampf
 achievement.tconstruct.enemySlayer=Feindesschlächter
 achievement.tconstruct.dualConvenience=Zweifache Annehmlichkeit
 achievement.tconstruct.doingItWrong=Wie man es nicht macht
+achievement.tconstruct.betterCrafting=Besser Bauen
 
 achievement.tconstruct.beginner.desc=Öffne das "Materialien und DU" Handbuch
 achievement.tconstruct.pattern.desc=Baue deine erste Leere Schablone
@@ -608,6 +609,7 @@ achievement.tconstruct.preparedFight.desc=Kreiere deine erste Waffe
 achievement.tconstruct.enemySlayer.desc=Schlachte ein Monster ab
 achievement.tconstruct.dualConvenience.desc=Töte ein Tier mit einer Bratpfanne und koche dann dein Fleisch mit ihr
 achievement.tconstruct.doingItWrong.desc=Du machst alles falsch!
+achievement.tconstruct.betterCrafting.desc=Baue eine Werkstation, indem du eine Werkbank allein in einem Handwerksfenster platzierst
 
 knapsack.tooltip=Ein Rucksack, um deine Sachen aufzubewahren
 strangefood1.tooltip=Es riecht schrecklich, aber wenn du
