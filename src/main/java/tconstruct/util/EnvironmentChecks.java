@@ -34,7 +34,7 @@ public class EnvironmentChecks
     {
         List<String> modIds = new ArrayList<String>();
 
-        //if (Loader.isModLoaded("gregtech_addon"))
+        if (Loader.isModLoaded("gregtech_addon"))
         {
             TConstruct.logger.severe("Tinkers' Construct and GregTech are incompatible for the following reasons:");
             TConstruct.logger.severe(modCompatDetails("GregTech", true));
