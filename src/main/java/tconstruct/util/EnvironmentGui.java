@@ -36,8 +36,8 @@ public class EnvironmentGui extends GuiScreen
     {
         Keyboard.enableRepeatEvents(true);
         this.buttonList.clear();
-        this.buttonList.add(new GuiButton(0, this.width / 2 - 175, this.height / 4 + 96 + 24, 350, 20, I18n.getString("I accept responsibility for all bugs and crashes in this modpack.")));
-        this.buttonList.add(new GuiButton(1, this.width / 2 - 150, this.height / 4 + 120 + 24, 300, 20, I18n.getString("I will remove incompatible mods. (Exits Minecraft)")));
+        this.buttonList.add(new GuiButton(0, this.width / 2 - 175, this.height / 4 + 96 + 24, 350, 20, I18n.getString("I accept responsibility for all cross-mod bugs in this modpack.")));
+        this.buttonList.add(new GuiButton(1, this.width / 2 - 175, this.height / 4 + 120 + 24, 350, 20, I18n.getString("I do not want to run these mods together. (Exits Minecraft)")));
     }
 
     /**
@@ -76,11 +76,11 @@ public class EnvironmentGui extends GuiScreen
         builder.setLength(0);
         this.drawDefaultBackground();
         String mod = mods.get(count);
-        this.drawCenteredString(this.fontRenderer, I18n.getString("Tinkers' Construct and "+mod+" are not compatible"), this.width / 2, 20, 0xFFFFFF);
+        this.drawCenteredString(this.fontRenderer, I18n.getString("Tinkers' Construct is not compatible with "+mod), this.width / 2, 20, 0xFFFFFF);
         this.drawCenteredString(this.fontRenderer, I18n.getString("The following reasons are given:"), this.width / 2, 32, 0xFFFFFF);
         fontRenderer.drawSplitString(I18n.getString(EnvironmentChecks.modCompatDetails(mod, false)), 20, 52, 400, 0xffffff);
 
-        this.drawCenteredString(this.fontRenderer, I18n.getString("Choose one."), this.width / 2, 165, 0xFFFFFF);
+        this.drawCenteredString(this.fontRenderer, I18n.getString("The Tinkers' Construct team will not accept bug reports with this mod installed."), this.width / 2, 165, 0xFFFFFF);
         super.drawScreen(par1, par2, par3);
     }
 }

@@ -66,11 +66,14 @@ public class EnvironmentChecks
         String n = consoleFormat ? System.getProperty("line.separator") : "\n";
         if (type.equals("GregTech"))
         {
-            return  "- GregTech is an \"IndustrialCraft 2 addon\". People do not expect a total conversion meta-mod that alters every other mod when they install it the first time." + n
+            return "- GregTech is a meta-mod that changes how a lot of mods interact with the base game and with each other." + n
+                    + "- The mod makes broad assumptions and changes to how the ore dictionary works" + n 
+                    + "- The author is not a positive member of the modding community";
+            /*return  "- GregTech is an \"IndustrialCraft 2 addon\". People do not expect a total conversion meta-mod that alters every other mod when they install it the first time." + n
                     + "- The ore dictionary's purpose is interchangable items and mod compatibility. It is not a tool to bend people to your will." + n 
                     + "- GregTech actively breaks mods with \"invalid ore dictionary entries\"." + n
                     + "- The mod has a blacklist that can corrupt worlds of people on it." + n
-                    + "- The author blames any problems introduced by his mod on others. See \"NotMyFaultException\" for intentional crashes.";
+                    + "- The author blames any problems introduced by his mod on others. See \"NotMyFaultException\" for intentional crashes.";*/
         }
         return "";
     }
