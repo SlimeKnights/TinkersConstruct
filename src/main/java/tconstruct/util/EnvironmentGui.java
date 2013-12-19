@@ -80,7 +80,8 @@ public class EnvironmentGui extends GuiScreen
         this.drawCenteredString(this.fontRenderer, I18n.getString("The following reasons are given:"), this.width / 2, 32, 0xFFFFFF);
         fontRenderer.drawSplitString(I18n.getString(EnvironmentChecks.modCompatDetails(mod, false)), 20, 52, 400, 0xffffff);
 
-        this.drawCenteredString(this.fontRenderer, I18n.getString("The Tinkers' Construct team will not accept bug reports with this mod installed."), this.width / 2, 165, 0xFFFFFF);
+        this.drawCenteredString(this.fontRenderer, I18n.getString("The Tinkers' Construct team will not accept bug reports with this mod installed."), this.width / 2, 153, 0xFFFFFF);
+        this.drawCenteredString(this.fontRenderer, I18n.getString("We apologize for any inconvenience this may cause you."), this.width / 2, 165, 0xFFFFFF);
         super.drawScreen(par1, par2, par3);
     }
 }

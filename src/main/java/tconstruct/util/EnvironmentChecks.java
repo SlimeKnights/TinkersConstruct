@@ -67,7 +67,8 @@ public class EnvironmentChecks
         if (type.equals("GregTech"))
         {
             return "- GregTech is a meta-mod that changes how a lot of mods interact with the base game and with each other." + n
-                    + "- The mod makes broad assumptions and changes to how the ore dictionary works";
+                    + "- The mod restructures the registration of various ores within the Ore Dictionary. This may alter or break the original design intention of various other mods." + n
+                    + "- This mod alters various fundamental recipes from vanilla Minecraft.";
         }
         return "";
     }
