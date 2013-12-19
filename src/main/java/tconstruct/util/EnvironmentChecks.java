@@ -34,7 +34,7 @@ public class EnvironmentChecks
     {
         List<String> modIds = new ArrayList<String>();
 
-        if (Loader.isModLoaded("gregtech_addon"))
+        //if (Loader.isModLoaded("gregtech_addon"))
         {
             TConstruct.logger.severe("Tinkers' Construct and GregTech are incompatible for the following reasons:");
             TConstruct.logger.severe(modCompatDetails("GregTech", true));
@@ -70,7 +70,7 @@ public class EnvironmentChecks
                     + "- The ore dictionary's purpose is interchangable items and mod compatibility. It is not a tool to bend people to your will." + n 
                     + "- GregTech actively breaks mods with \"invalid ore dictionary entries\"." + n
                     + "- The mod has a blacklist that can corrupt worlds of people on it." + n
-                    + "- The author blames any problems introduced by his mod on others. See \"NotMyFaultException\" for intentional crashes.)";
+                    + "- The author blames any problems introduced by his mod on others. See \"NotMyFaultException\" for intentional crashes.";
         }
         return "";
     }
