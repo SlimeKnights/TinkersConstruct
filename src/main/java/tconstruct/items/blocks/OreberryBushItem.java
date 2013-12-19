@@ -3,12 +3,10 @@ package tconstruct.items.blocks;
 import java.util.List;
 
 import tconstruct.common.TRepo;
-
+import mantle.blocks.abstracts.MultiItemBlock;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 import net.minecraftforge.common.IPlantable;
@@ -16,13 +14,14 @@ import net.minecraft.util.StatCollector;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class OreberryBushItem extends ItemBlock
+public class OreberryBushItem extends MultiItemBlock
 {
     public int blockID;
+    public static final String blockTypes[] = { "iron", "gold", "copper", "tin", "iron", "gold", "copper", "tin", "iron", "gold", "copper", "tin", "iron", "gold", "copper", "tin" };
 
     public OreberryBushItem(int id)
     {
-        super(id);
+        super(id, "block.oreberry", blockTypes);
         blockID = id + 256;
         setHasSubtypes(true);
     }
@@ -59,16 +58,6 @@ public class OreberryBushItem extends ItemBlock
         else
             return false;
     }
-
-    /* Block name in inventory */
-    @Override
-    public String getUnlocalizedName (ItemStack itemstack)
-    {
-        int pos = MathHelper.clamp_int(itemstack.getItemDamage(), 0, blockType.length - 1);
-        return (new StringBuilder()).append("block.oreberry.").append(blockType[pos]).toString();
-    }
-
-    public static final String blockType[] = { "iron", "gold", "copper", "tin", "iron", "gold", "copper", "tin", "iron", "gold", "copper", "tin", "iron", "gold", "copper", "tin" };
 
     @Override
     @SideOnly(Side.CLIENT)

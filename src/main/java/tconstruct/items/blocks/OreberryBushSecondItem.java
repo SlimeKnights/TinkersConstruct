@@ -3,7 +3,7 @@ package tconstruct.items.blocks;
 import java.util.List;
 
 import tconstruct.common.TRepo;
-
+import mantle.blocks.abstracts.MultiItemBlock;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
@@ -16,13 +16,14 @@ import net.minecraft.util.StatCollector;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class OreberryBushSecondItem extends ItemBlock
+public class OreberryBushSecondItem extends MultiItemBlock
 {
     public int blockID;
+    public static final String blockTypes[] = { "aluminum", "essence", "", "", "aluminum", "essence", "", "", "aluminum", "essence", "", "", "aluminum", "essence", "", "" };
 
     public OreberryBushSecondItem(int id)
     {
-        super(id);
+        super(id, "block.oreberry", blockTypes);
         blockID = id + 256;
         setHasSubtypes(true);
     }
@@ -63,16 +64,6 @@ public class OreberryBushSecondItem extends ItemBlock
         else
             return false;
     }
-
-    /* Block name in inventory */
-    @Override
-    public String getUnlocalizedName (ItemStack itemstack)
-    {
-        int pos = MathHelper.clamp_int(itemstack.getItemDamage(), 0, blockType.length - 1);
-        return (new StringBuilder()).append("block.oreberry.").append(blockType[pos]).toString();
-    }
-
-    public static final String blockType[] = { "aluminum", "essence", "", "", "aluminum", "essence", "", "", "aluminum", "essence", "", "", "aluminum", "essence", "", "" };
 
     @Override
     @SideOnly(Side.CLIENT)

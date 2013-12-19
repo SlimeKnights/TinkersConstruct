@@ -2,6 +2,7 @@ package tconstruct.items.blocks;
 
 import java.util.List;
 
+import mantle.blocks.abstracts.MultiItemBlock;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -10,27 +11,16 @@ import net.minecraft.util.StatCollector;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class MultiBrickItem extends ItemBlock
+public class MultiBrickItem extends MultiItemBlock
 {
-    static String blockType[] = { "obsidian", "sandstone", "netherrack", "stone.refined", "iron", "gold", "lapis", "diamond", "redstone", "bone", "slime", "blueslime", "endstone", "obsidian.ingot",
+    static String blockTypes[] = { "obsidian", "sandstone", "netherrack", "stone.refined", "iron", "gold", "lapis", "diamond", "redstone", "bone", "slime", "blueslime", "endstone", "obsidian.ingot",
             "stone.road", "stone.refined.road" };
 
     public MultiBrickItem(int id)
     {
-        super(id);
+        super(id, "block.brick", blockTypes);
         setMaxDamage(0);
         setHasSubtypes(true);
-    }
-
-    public int getMetadata (int meta)
-    {
-        return meta;
-    }
-
-    public String getUnlocalizedName (ItemStack itemstack)
-    {
-        int pos = MathHelper.clamp_int(itemstack.getItemDamage(), 0, blockType.length - 1);
-        return (new StringBuilder()).append("block.brick.").append(blockType[pos]).toString();
     }
 
     @Override

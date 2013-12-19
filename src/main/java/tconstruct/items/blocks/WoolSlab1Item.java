@@ -1,36 +1,25 @@
 package tconstruct.items.blocks;
 
+import mantle.blocks.abstracts.MultiItemBlock;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
-public class WoolSlab1Item extends ItemBlock
+public class WoolSlab1Item extends MultiItemBlock
 {
     int blockID;
     Block block;
 
     public WoolSlab1Item(int id)
     {
-        super(id);
+        super(id, "", "slab", ItemDye.dyeColorNames);
+        this.setSpecialIndex(7, 15);
         this.blockID = id + 256;
         this.block = Block.blocksList[id + 256];
         setMaxDamage(0);
         setHasSubtypes(true);
-    }
-
-    public int getMetadata (int meta)
-    {
-        return meta;
-    }
-
-    public String getUnlocalizedName (ItemStack par1ItemStack)
-    {
-        int i = MathHelper.clamp_int(par1ItemStack.getItemDamage(), 0, 7);
-        return super.getUnlocalizedName() + "." + ItemDye.dyeColorNames[15 - i] + ".slab";
     }
 
     @Override
