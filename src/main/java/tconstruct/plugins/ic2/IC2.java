@@ -41,7 +41,7 @@ public class IC2 implements ICompatPlugin {
         //ItemStack ingotCast = new ItemStack(TRepo.metalPattern, 1, 0);
         //ItemStack gemCast = new ItemStack(TRepo.metalPattern, 1, 26);
         //FluidStack fluidStack = new FluidStack(fluidUUM, 1);
-        FluidStack fluidStackBlock = new FluidStack(fluidUUM, 9);
+        FluidStack fluidStackBlock = new FluidStack(fluidUUM, 4500);
         //LiquidCasting tableCasting = TConstructRegistry.getTableCasting();
         LiquidCasting basinCasting = TConstructRegistry.getBasinCasting();
 
