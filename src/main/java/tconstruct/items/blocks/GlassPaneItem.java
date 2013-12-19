@@ -1,28 +1,16 @@
 package tconstruct.items.blocks;
 
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.MathHelper;
+import mantle.blocks.abstracts.MultiItemBlock;
 
-public class GlassPaneItem extends ItemBlock
+public class GlassPaneItem extends MultiItemBlock
 {
-    public static final String blockType[] = { "glass.pure", "glass.soul", "glass.soul.pure" };
+    public static final String blockTypes[] = { "pure.pane", "soul.pane", "soul.pure.pane" };
 
     public GlassPaneItem(int id)
     {
-        super(id);
+        super(id, "block.glass", blockTypes);
         setMaxDamage(0);
         setHasSubtypes(true);
     }
 
-    public int getMetadata (int meta)
-    {
-        return meta;
-    }
-
-    public String getUnlocalizedName (ItemStack itemstack)
-    {
-        int pos = MathHelper.clamp_int(itemstack.getItemDamage(), 0, blockType.length - 1);
-        return (new StringBuilder()).append("block.").append(blockType[pos]).append(".pane").toString();
-    }
 }

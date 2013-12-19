@@ -2,32 +2,20 @@ package tconstruct.items.blocks;
 
 import java.util.List;
 
+import mantle.blocks.abstracts.MultiItemBlock;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.MathHelper;
 
-public class GlassBlockItem extends ItemBlock
+public class GlassBlockItem extends MultiItemBlock
 {
-    public static final String blockType[] = { "glass.pure" };//, "glass.soul", "glass.soul.pure" };
+    public static final String blockTypes[] = { "pure" };//, "soul", "soul.pure" };
 
     public GlassBlockItem(int id)
     {
-        super(id);
+        super(id, "block.glass", blockTypes);
         setMaxDamage(0);
         setHasSubtypes(true);
-    }
-
-    public int getMetadata (int meta)
-    {
-        return meta;
-    }
-
-    public String getUnlocalizedName (ItemStack itemstack)
-    {
-        int pos = MathHelper.clamp_int(itemstack.getItemDamage(), 0, blockType.length - 1);
-        return (new StringBuilder()).append("block.").append(blockType[pos]).toString();
     }
 
     public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean par4)

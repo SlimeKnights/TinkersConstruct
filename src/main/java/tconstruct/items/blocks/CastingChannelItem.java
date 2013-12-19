@@ -1,33 +1,16 @@
 package tconstruct.items.blocks;
 
-import java.util.List;
+import mantle.blocks.abstracts.MultiItemBlock;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.MathHelper;
-
-public class CastingChannelItem extends ItemBlock
+public class CastingChannelItem extends MultiItemBlock
 {
-    public static final String blockType[] = { "Channel" };
+    public static final String blockTypes[] = { "Channel" };
 
     public CastingChannelItem(int id)
     {
-        super(id);
+        super(id, "Smeltery", blockTypes);
         setMaxDamage(0);
         setHasSubtypes(true);
     }
 
-    public int getMetadata (int meta)
-    {
-        return meta;
-    }
-
-    public String getUnlocalizedName (ItemStack itemstack)
-    {
-        int pos = MathHelper.clamp_int(itemstack.getItemDamage(), 0, blockType.length - 1);
-        return (new StringBuilder()).append("Smeltery.").append(blockType[pos]).toString();
-    }
 }
