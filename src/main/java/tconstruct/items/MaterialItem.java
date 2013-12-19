@@ -1,11 +1,14 @@
 package tconstruct.items;
 
+import tconstruct.library.TConstructRegistry;
+import mantle.items.abstracts.CraftingItem;
+
 public class MaterialItem extends CraftingItem
 {
 
     public MaterialItem(int id)
     {
-        super(id, materialNames, getTextures(), "materials/");
+        super(id, materialNames, getTextures(), "materials/", "tinker", TConstructRegistry.materialTab);
     }
 
     private static String[] getTextures ()
@@ -21,11 +24,10 @@ public class MaterialItem extends CraftingItem
         return names;
     }
 
-
     static String[] materialNames = new String[] { "PaperStack", "SlimeCrystal", "SearedBrick", "CobaltIngot", "ArditeIngot", "ManyullynIngot", "Mossball", "LavaCrystal", "NecroticBone",
-            "CopperIngot", "TinIngot", "AluminumIngot", "RawAluminum", "BronzeIngot", "AluBrassIngot", "AlumiteIngot", "SteelIngot", "BlueSlimeCrystal", "ObsidianIngot", "IronNugget", "CopperNugget", "TinNugget",
-            "AluminumNugget", "EssenceCrystal", "AluBrassNugget", "SilkyCloth", "SilkyJewel", "ObsidianNugget", "CobaltNugget", "ArditeNugget", "ManyullynNugget", "BronzeNugget", "AlumiteNugget",
-            "SteelNugget", "PigIronIngot", "PigIronNugget", "GlueBall", "SearedBrick" };
+            "CopperIngot", "TinIngot", "AluminumIngot", "RawAluminum", "BronzeIngot", "AluBrassIngot", "AlumiteIngot", "SteelIngot", "BlueSlimeCrystal", "ObsidianIngot", "IronNugget", "CopperNugget",
+            "TinNugget", "AluminumNugget", "EssenceCrystal", "AluBrassNugget", "SilkyCloth", "SilkyJewel", "ObsidianNugget", "CobaltNugget", "ArditeNugget", "ManyullynNugget", "BronzeNugget",
+            "AlumiteNugget", "SteelNugget", "PigIronIngot", "PigIronNugget", "GlueBall", "SearedBrick" };
 
     static String[] craftingTextures = new String[] { "paperstack", "slimecrystal", "searedbrick", "cobaltingot", "arditeingot", "manyullyningot", "mossball", "lavacrystal", "necroticbone",
             "copperingot", "tiningot", "aluminumingot", "aluminumraw", "bronzeingot", "alubrassingot", "alumiteingot", "steelingot", "blueslimecrystal", "obsidianingot", "nugget_iron",

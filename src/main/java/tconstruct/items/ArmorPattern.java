@@ -3,9 +3,9 @@ package tconstruct.items;
 import java.util.List;
 
 import cpw.mods.fml.relauncher.*;
-
 import tconstruct.library.ItemBlocklike;
-
+import tconstruct.library.TConstructRegistry;
+import mantle.items.abstracts.CraftingItem;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
@@ -18,7 +18,7 @@ public class ArmorPattern extends CraftingItem implements ItemBlocklike
 
     public ArmorPattern(int id, String patternType, String folder)
     {
-        super(id, patternName, getPatternNames(patternType), folder);
+        super(id, patternName, getPatternNames(patternType), folder, "tinker", TConstructRegistry.materialTab);
         this.setHasSubtypes(true);
         this.setMaxDamage(0);
         this.setContainerItem(this);

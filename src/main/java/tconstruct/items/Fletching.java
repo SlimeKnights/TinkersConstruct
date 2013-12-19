@@ -1,13 +1,15 @@
 package tconstruct.items;
 
+import tconstruct.library.TConstructRegistry;
 import tconstruct.library.util.IToolPart;
+import mantle.items.abstracts.CraftingItem;
 import net.minecraft.item.ItemStack;
 
 public class Fletching extends CraftingItem implements IToolPart
 {
     public Fletching(int id)
     {
-        super(id, toolMaterialNames, buildTextureNames("_fletching"), "parts/");
+        super(id, toolMaterialNames, buildTextureNames("_fletching"), "parts/", "tinker", TConstructRegistry.materialTab);
         this.setHasSubtypes(true);
         this.setMaxDamage(0);
     }

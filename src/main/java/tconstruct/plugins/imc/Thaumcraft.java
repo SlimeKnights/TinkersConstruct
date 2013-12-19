@@ -1,9 +1,10 @@
-package tconstruct.plugins;
+package tconstruct.plugins.imc;
 
 import cpw.mods.fml.common.event.FMLInterModComms;
 import net.minecraft.item.ItemStack;
 import tconstruct.TConstruct;
 import tconstruct.common.TRepo;
+import tconstruct.plugins.ICompatPlugin;
 
 public class Thaumcraft implements ICompatPlugin {
 

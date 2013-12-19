@@ -1,4 +1,4 @@
-package tconstruct.plugins;
+package tconstruct.plugins.nei;
 
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.common.FMLCommonHandler;

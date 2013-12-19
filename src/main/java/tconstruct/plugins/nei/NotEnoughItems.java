@@ -1,6 +1,7 @@
-package tconstruct.plugins;
+package tconstruct.plugins.nei;
 
 import tconstruct.TConstruct;
+import tconstruct.plugins.ICompatPlugin;
 
 public class NotEnoughItems implements ICompatPlugin
 {

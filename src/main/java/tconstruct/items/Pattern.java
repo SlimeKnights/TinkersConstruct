@@ -1,7 +1,10 @@
 package tconstruct.items;
 
 import cpw.mods.fml.relauncher.*;
+
 import java.util.List;
+
+import mantle.items.abstracts.CraftingItem;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -16,10 +19,10 @@ public class Pattern extends CraftingItem implements IPattern
     {
         this(id, patternName, getPatternNames(patternType), folder);
     }
-    
+
     public Pattern(int id, String[] names, String[] patternTypes, String folder)
     {
-        super(id, names, patternTypes, folder);
+        super(id, names, patternTypes, folder, "tinker", TConstructRegistry.materialTab);
         this.setHasSubtypes(true);
         this.setMaxDamage(0);
         this.setContainerItem(this);

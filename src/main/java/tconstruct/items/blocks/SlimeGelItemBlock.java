@@ -1,33 +1,16 @@
 package tconstruct.items.blocks;
 
-import java.util.List;
+import mantle.blocks.abstracts.MultiItemBlock;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.MathHelper;
-
-public class SlimeGelItemBlock extends ItemBlock
+public class SlimeGelItemBlock extends MultiItemBlock
 {
-    public static final String blockType[] = { "blue", "green", "purple", "magma", "yellow", "red", "metal" };
+    public static final String blockTypes[] = { "blue", "green", "purple", "magma", "yellow", "red", "metal" };
 
     public SlimeGelItemBlock(int id)
     {
-        super(id);
+        super(id, "block.slime.congealed", blockTypes);
         setMaxDamage(0);
         setHasSubtypes(true);
     }
 
-    public int getMetadata (int meta)
-    {
-        return meta;
-    }
-
-    public String getUnlocalizedName (ItemStack itemstack)
-    {
-        int pos = MathHelper.clamp_int(itemstack.getItemDamage(), 0, blockType.length - 1);
-        return (new StringBuilder()).append("block.slime.congealed.").append(blockType[pos]).toString();
-    }
 }

@@ -1,30 +1,16 @@
 package tconstruct.items.blocks;
 
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.MathHelper;
+import mantle.blocks.abstracts.MultiItemBlock;
 
-public class ToolStationItemBlock extends ItemBlock
+public class ToolStationItemBlock extends MultiItemBlock
 {
-    public static final String blockType[] = { "Crafter", "Parts", "Parts", "Parts", "Parts", "PatternChest", "PatternChest", "PatternChest", "PatternChest", "PatternChest", "PatternShaper",
+    public static final String blockTypes[] = { "Crafter", "Parts", "Parts", "Parts", "Parts", "PatternChest", "PatternChest", "PatternChest", "PatternChest", "PatternChest", "PatternShaper",
             "PatternShaper", "PatternShaper", "PatternShaper", "CastingTable" };
 
     public ToolStationItemBlock(int id)
     {
-        super(id);
+        super(id, "ToolStation", blockTypes);
         setMaxDamage(0);
         setHasSubtypes(true);
-    }
-
-    public int getMetadata (int meta)
-    {
-        return meta;
-    }
-
-    @Override
-    public String getUnlocalizedName (ItemStack itemstack)
-    {
-        int pos = MathHelper.clamp_int(itemstack.getItemDamage(), 0, blockType.length - 1);
-        return (new StringBuilder()).append("ToolStation.").append(blockType[pos]).toString();
     }
 }

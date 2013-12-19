@@ -1,8 +1,9 @@
-package tconstruct.plugins;
+package tconstruct.plugins.imc;
 
 import cpw.mods.fml.common.event.FMLInterModComms;
 import tconstruct.TConstruct;
 import tconstruct.common.TRepo;
+import tconstruct.plugins.ICompatPlugin;
 
 public class BuildcraftTransport implements ICompatPlugin {
 

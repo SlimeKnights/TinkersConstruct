@@ -2,33 +2,23 @@ package tconstruct.items.blocks;
 
 import java.util.List;
 
+import mantle.blocks.abstracts.MultiItemBlock;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.StatCollector;
 
-public class SpeedBlockItem extends ItemBlock
+public class SpeedBlockItem extends MultiItemBlock
 {
-    public static final String blockType[] = { "brownstone.rough", "brownstone.rough.road", "brownstone.smooth", "brownstone.smooth.brick", "brownstone.smooth.road", "brownstone.smooth.fancy",
+    public static final String blockTypes[] = { "brownstone.rough", "brownstone.rough.road", "brownstone.smooth", "brownstone.smooth.brick", "brownstone.smooth.road", "brownstone.smooth.fancy",
             "brownstone.smooth.chiseled" };
 
     public SpeedBlockItem(int id)
     {
-        super(id);
+        super(id, "block", blockTypes);
         setMaxDamage(0);
         setHasSubtypes(true);
-    }
-
-    public int getMetadata (int meta)
-    {
-        return meta;
-    }
-
-    public String getUnlocalizedName (ItemStack itemstack)
-    {
-        int pos = MathHelper.clamp_int(itemstack.getItemDamage(), 0, blockType.length - 1);
-        return (new StringBuilder()).append("block.").append(blockType[pos]).toString();
     }
 
     public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean par4)

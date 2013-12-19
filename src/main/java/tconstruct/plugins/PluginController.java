@@ -5,7 +5,12 @@ import net.minecraftforge.common.Configuration;
 import tconstruct.TConstruct;
 import tconstruct.plugins.fmp.ForgeMultiPart;
 import tconstruct.plugins.ic2.IC2;
+import tconstruct.plugins.imc.AppEng;
+import tconstruct.plugins.imc.BuildcraftTransport;
+import tconstruct.plugins.imc.Mystcraft;
+import tconstruct.plugins.imc.Thaumcraft;
 import tconstruct.plugins.minefactoryreloaded.MineFactoryReloaded;
+import tconstruct.plugins.nei.NotEnoughItems;
 import tconstruct.plugins.waila.Waila;
 
 import java.io.File;

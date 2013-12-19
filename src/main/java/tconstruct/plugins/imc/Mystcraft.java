@@ -1,8 +1,9 @@
-package tconstruct.plugins;
+package tconstruct.plugins.imc;
 
 import cpw.mods.fml.common.event.FMLInterModComms;
 import net.minecraft.nbt.NBTTagCompound;
 import tconstruct.TConstruct;
+import tconstruct.plugins.ICompatPlugin;
 
 public class Mystcraft implements ICompatPlugin {
 

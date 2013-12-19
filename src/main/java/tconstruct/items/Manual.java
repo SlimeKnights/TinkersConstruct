@@ -1,11 +1,12 @@
 package tconstruct.items;
 
 import tconstruct.achievements.TAchievements;
+import tconstruct.library.TConstructRegistry;
 
 import java.util.List;
 
 import tconstruct.TConstruct;
-
+import mantle.items.abstracts.CraftingItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -20,14 +21,14 @@ public class Manual extends CraftingItem
 
     public Manual(int id)
     {
-        super(id, name, textureName, "");
+        super(id, name, textureName, "", "tinker", TConstructRegistry.materialTab);
         setUnlocalizedName("tconstruct.manual");
     }
 
     @Override
     public ItemStack onItemRightClick (ItemStack stack, World world, EntityPlayer player)
     {
-    	player.addStat(TAchievements.achievements.get("tconstruct.beginner"), 1);
+        player.addStat(TAchievements.achievements.get("tconstruct.beginner"), 1);
         player.openGui(TConstruct.instance, mantle.client.MProxyClient.manualGuiID, world, 0, 0, 0);
         /*Side side = FMLCommonHandler.instance().getEffectiveSide();
         if (side.isClient())
@@ -41,13 +42,13 @@ public class Manual extends CraftingItem
         switch (stack.getItemDamage())
         {
         case 0:
-            list.add("\u00a7o"+StatCollector.translateToLocal("manual1.tooltip"));
+            list.add("\u00a7o" + StatCollector.translateToLocal("manual1.tooltip"));
             break;
         case 1:
-            list.add("\u00a7o"+StatCollector.translateToLocal("manual2.tooltip"));
+            list.add("\u00a7o" + StatCollector.translateToLocal("manual2.tooltip"));
             break;
         case 2:
-            list.add("\u00a7o"+StatCollector.translateToLocal("manual3.tooltip"));
+            list.add("\u00a7o" + StatCollector.translateToLocal("manual3.tooltip"));
             break;
         }
     }
