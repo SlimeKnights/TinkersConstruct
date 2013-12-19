@@ -1,5 +1,7 @@
 #[Tinkers' Construct](http://www.minecraftforum.net/topic/1659892-tinkers-construct/)
 
+Currently preparing for 1.7. Nothing in master is final; check the 1.6.4 branch for that.
+
 Modify all the things, then do it again!
 Melt down any metals you find. 	 
 Turn everything into golems!
