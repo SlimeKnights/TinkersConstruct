@@ -1,7 +1,8 @@
-package tconstruct.plugins;
+package tconstruct.plugins.imc;
 
 import cpw.mods.fml.common.event.FMLInterModComms;
 import tconstruct.TConstruct;
+import tconstruct.plugins.ICompatPlugin;
 
 import java.util.Arrays;
 import java.util.List;
