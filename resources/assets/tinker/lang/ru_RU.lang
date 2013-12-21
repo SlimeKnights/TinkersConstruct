@@ -4,7 +4,7 @@ itemGroup.TConstructBlocks=TConstruct: Блоки
 
 crafters.ToolStation=Инструментальная станция
 crafters.ToolForge=Инструментальная кузница
-crafters.TinkerTable=Tinker Table
+crafters.TinkerTable=Стол по лужению
 crafters.PartBuilder=Создатель деталей
 crafters.PatternShaper=Трафаретный стол
 crafters.CraftingStation=Станция создания
@@ -21,7 +21,7 @@ ToolStation.CastingTable.name=Литейный стол
 tile.FurnaceSlab.name=Плита печки
 
 tile.ToolForge.name=Инструментальная кузница
-tile.TinkerTable.name=Tinker Table
+tile.TinkerTable.name=Стол по лужению
 tile.Armor.DryingRack.name=Штатив для сушки
 CraftedSoil.Slime.name=Слизистая грязь
 CraftedSoil.Grout.name=Осадок
@@ -225,8 +225,8 @@ item.tconstruct.Materials.ManyullynNugget.name=Мануллиновый само
 item.tconstruct.Materials.BronzeNugget.name=Бронзовый самородок
 item.tconstruct.Materials.AlumiteNugget.name=Алюмитовый самородок
 item.tconstruct.Materials.SteelNugget.name=Кусочек стали
-item.tconstruct.Materials.PigIronIngot.name=Чугунный слиток
-item.tconstruct.Materials.PigIronNugget.name=Чугунная тарелка
+item.tconstruct.Materials.PigIronIngot.name=Слиток свиного железа
+item.tconstruct.Materials.PigIronNugget.name=Тарелка свиного железа
 item.tconstruct.Materials.GlueBall.name=Шарик клея
 
 item.tconstruct.ArmorPattern.helmet.name=Слепок шлема
@@ -404,7 +404,7 @@ item.tconstruct.bucket.Invar.name=Ведро расплавленного инв
 item.tconstruct.bucket.Electrum.name=Ведро расплавленного электрума
 item.tconstruct.bucket.Ender.name=Ведро жидкости Края
 item.tconstruct.bucket.Slime.name=Ведро жидкой слизи
-item.tconstruct.bucket.PigIron.name=Ведро расплавленного чугуна
+item.tconstruct.bucket.PigIron.name=Ведро расплавленного свиного железа
 item.tconstruct.bucket.Glue.name=Ведро липкого клея
 
 item.tconstruct.bowstring.string.name=Тетива
@@ -514,19 +514,20 @@ fluid.invar=Расплавленный инвар
 fluid.electrum.molten=Расплавленный электрум
 fluid.ender=Жидкость Края
 fluid.slime.blue=Жидкая синяя слизь
-fluid.pigiron.molten=Чугун
+fluid.pigiron.molten=Свиное железо
 fluid.glue=Клей
 
 tconstruct.achievementPage.name=TConstruct
-achievement.tconstruct.beginner=Learning to Tinker
+achievement.tconstruct.beginner=Учимся лужению
 achievement.tconstruct.pattern=Работник по трафарету
-achievement.tconstruct.tinkerer=Tinkerer
-achievement.tconstruct.proTinkerer=Pro Tinkerer
+achievement.tconstruct.tinkerer=Лудильщик
+achievement.tconstruct.proTinkerer=Профессиональный лудильщик
 achievement.tconstruct.smelteryMaker=Создатель плавильни
 achievement.tconstruct.preparedFight=К бою готов
 achievement.tconstruct.enemySlayer=Убийца врагов
 achievement.tconstruct.dualConvenience=Двойное удобство
-achievement.tconstruct.doingItWrong=Сделай это неправильно
+achievement.tconstruct.doingItWrong=Сделайте это неправильно
+achievement.tconstruct.betterCrafting=Создание получше
 
 achievement.tconstruct.beginner.desc=Откройте руководство "Материалы и Вы"
 achievement.tconstruct.pattern.desc=Создайте свой первый пустой шаблон
@@ -537,6 +538,7 @@ achievement.tconstruct.preparedFight.desc=Создайте своё первое
 achievement.tconstruct.enemySlayer.desc=Убейте моба
 achievement.tconstruct.dualConvenience.desc=Убейте моба сковородой, а затем приготовьте его мясо на ней
 achievement.tconstruct.doingItWrong.desc=Вы сделали это неправильно!
+achievement.tconstruct.betterCrafting.desc=Создайте станцию создания путём размещения верстака в сетку создания
 
 knapsack.tooltip=Ранец для хранения ваших вещей.
 strangefood1.tooltip=Пахнет ужасно, но если вам
