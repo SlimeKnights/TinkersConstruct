@@ -11,7 +11,7 @@ public class SlotCanister extends Slot
     public SlotCanister(IInventory par2IInventory, int par3, int par4, int par5)
     {
         super(par2IInventory, par3, par4, par5);
-        this.parent = container;
+        //this.parent = container;
     }
 
     /**
