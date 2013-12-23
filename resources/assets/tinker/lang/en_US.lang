@@ -287,6 +287,7 @@ Smeltery.Brick.Fancy.name=Fancy Seared Bricks
 Smeltery.Brick.Square.name=Chiseled Seared Bricks
 Smeltery.Brick.Creeper.name=Chiseled Seared Bricks
 Smeltery.Channel.name=Casting Channel
+block.slime.soil.dirt.name=Slime Soil
 
 LavaTank.Tank.name=Seared Tank
 LavaTank.Gague.name=Seared Glass
@@ -581,7 +582,7 @@ fluid.nickel.molten=Molten Nickel
 fluid.lead.molten=Molten Lead
 fluid.silver.molten=Molten Silver
 fluid.shiny=Molten Shiny
-fluid.invar=Molten Invar
+fluid.invar.molten=Molten Invar
 fluid.electrum.molten=Molten Electrum
 fluid.ender=Liquid Ender
 fluid.slime.blue=Liquid Blueslime
