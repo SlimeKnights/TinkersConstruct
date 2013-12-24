@@ -27,7 +27,7 @@ public class CastingChannelDataProvider implements IWailaDataProvider
     @Override
     public List<String> getWailaBody (ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config)
     {
-        if (accessor.getTileEntity() instanceof CastingChannelLogic)
+        if (accessor.getTileEntity() instanceof CastingChannelLogic && config.getConfig("tcon.castingchannel", true))
         {
             CastingChannelLogic te = (CastingChannelLogic) accessor.getTileEntity();
             if (te.liquid != null && te.liquid.amount > 0)

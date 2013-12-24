@@ -17,6 +17,14 @@ public class WailaRegistrar
     {
         TConstruct.logger.info("[Waila-Compat] Got registrar: " + registrar);
 
+        // Configs
+        registrar.addConfig("Tinkers' Construct", "tcon.searedtank", "Seared Tank");
+        registrar.addConfig("Tinkers' Construct", "tcon.castingchannel", "Casting Channel");
+        //registrar.addConfig("Tinkers' Construct", "tcon.essenceetractor", "Essence Extractor");
+        registrar.addConfig("Tinkers' Construct", "tcon.basin", "Casting Basin");
+        registrar.addConfig("Tinkers' Construct", "tcon.table", "Casting Table");
+        registrar.addConfig("Tinkers' Construct", "tcon.smeltery", "Smeltery status");
+
         // Tanks
         registrar.registerBodyProvider(new SearedTankDataProvider(), LavaTankBlock.class);
         registrar.registerBodyProvider(new CastingChannelDataProvider(), CastingChannelLogic.class);

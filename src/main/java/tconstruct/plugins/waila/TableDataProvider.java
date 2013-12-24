@@ -4,7 +4,6 @@ import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 import mcp.mobius.waila.api.IWailaDataProvider;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.ForgeDirection;
 import tconstruct.blocks.logic.CastingTableLogic;
 
 import java.util.List;
@@ -28,7 +27,7 @@ public class TableDataProvider implements IWailaDataProvider {
 
     @Override
     public List<String> getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config) {
-        if (accessor.getTileEntity() instanceof CastingTableLogic)
+        if (accessor.getTileEntity() instanceof CastingTableLogic && config.getConfig("tcon.table", true))
         {
             CastingTableLogic te = (CastingTableLogic)accessor.getTileEntity();
             if (te.getStackInSlot(1) != null)

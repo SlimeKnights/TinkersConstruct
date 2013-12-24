@@ -27,7 +27,7 @@ public class SmelteryDataProvider implements IWailaDataProvider
     @Override
     public List<String> getWailaBody (ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config)
     {
-        if (accessor.getTileEntity() instanceof SmelteryLogic)
+        if (accessor.getTileEntity() instanceof SmelteryLogic && config.getConfig("tcon.smeltery", true))
         {
             SmelteryLogic te = (SmelteryLogic) accessor.getTileEntity();
             if (te.validStructure)

@@ -27,7 +27,7 @@ public class SearedTankDataProvider implements IWailaDataProvider
     @Override
     public List<String> getWailaBody (ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config)
     {
-        if (accessor.getTileEntity() instanceof LavaTankLogic)
+        if (accessor.getTileEntity() instanceof LavaTankLogic && config.getConfig("tcon.searedtank", true))
         {
             LavaTankLogic te = (LavaTankLogic) accessor.getTileEntity();
             if (te.containsFluid())
