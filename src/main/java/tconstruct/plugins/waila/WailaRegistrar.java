@@ -9,6 +9,7 @@ import tconstruct.blocks.LavaTankBlock;
 import tconstruct.blocks.SmelteryBlock;
 import tconstruct.blocks.logic.CastingBasinLogic;
 import tconstruct.blocks.logic.CastingChannelLogic;
+import tconstruct.blocks.logic.CastingTableLogic;
 
 public class WailaRegistrar
 {
@@ -20,7 +21,10 @@ public class WailaRegistrar
         registrar.registerBodyProvider(new SearedTankDataProvider(), LavaTankBlock.class);
         registrar.registerBodyProvider(new CastingChannelDataProvider(), CastingChannelLogic.class);
         //registrar.registerBodyProvider(new EssenceExtractorDataProvider(), EssenceExtractor.class);
+
+        // Casting systems
         registrar.registerBodyProvider(new BasinDataProvider(), CastingBasinLogic.class);
+        registrar.registerBodyProvider(new TableDataProvider(), CastingTableLogic.class);
 
         // Smeltery
         registrar.registerBodyProvider(new SmelteryDataProvider(), SmelteryBlock.class);
