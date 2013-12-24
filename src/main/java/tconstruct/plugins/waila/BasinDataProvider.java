@@ -38,7 +38,11 @@ public class BasinDataProvider implements IWailaDataProvider {
             }
             else
             {
-                currenttip.add("§oEmpty"); // "§o" == Italics
+                if (te.getStackInSlot(0) != null) {
+                    currenttip.add("Contains: " + te.getStackInSlot(0).getDisplayName());
+                } else {
+                    currenttip.add("§oEmpty"); // "§o" == Italics
+                }
             }
         }
         return currenttip;
