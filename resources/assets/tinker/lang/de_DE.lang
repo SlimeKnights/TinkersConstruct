@@ -287,6 +287,7 @@ Smeltery.Brick.Fancy.name=Versengter schöner Ziegel
 Smeltery.Brick.Square.name=Versengter ziselierter Ziegel
 Smeltery.Brick.Creeper.name=Versengter ziselierter Ziegel
 Smeltery.Channel.name=Gusskanal
+block.slime.soil.dirt.name=Schleimerde
 
 LavaTank.Tank.name=Versengter Tank
 LavaTank.Gague.name=Versengtes Glas
@@ -581,7 +582,7 @@ fluid.nickel.molten=Geschmolzenes Nickel
 fluid.lead.molten=Geschmolzenes Blei
 fluid.silver.molten=Geschmolzenes Silber
 fluid.shiny=Geschmolzenes Schimmerndes Metall
-fluid.invar=Geschmolzenes Invar
+fluid.invar.molten=Geschmolzenes Invar
 fluid.electrum=Geschmolzenes Elektrum
 fluid.ender=Flüssiges Ender
 fluid.slime.blue=Flüssiger Blauschleim
