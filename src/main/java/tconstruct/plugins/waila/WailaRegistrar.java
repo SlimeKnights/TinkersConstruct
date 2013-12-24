@@ -7,6 +7,7 @@ import net.minecraftforge.fluids.FluidStack;
 import tconstruct.TConstruct;
 import tconstruct.blocks.LavaTankBlock;
 import tconstruct.blocks.SmelteryBlock;
+import tconstruct.blocks.logic.CastingBasinLogic;
 import tconstruct.blocks.logic.CastingChannelLogic;
 
 public class WailaRegistrar
@@ -19,6 +20,7 @@ public class WailaRegistrar
         registrar.registerBodyProvider(new SearedTankDataProvider(), LavaTankBlock.class);
         registrar.registerBodyProvider(new CastingChannelDataProvider(), CastingChannelLogic.class);
         //registrar.registerBodyProvider(new EssenceExtractorDataProvider(), EssenceExtractor.class);
+        registrar.registerBodyProvider(new BasinDataProvider(), CastingBasinLogic.class);
 
         // Smeltery
         registrar.registerBodyProvider(new SmelteryDataProvider(), SmelteryBlock.class);
