@@ -116,11 +116,11 @@ Other liquid removal objects will work, but are frowned upon. An example picture
 <page type="sidebar">
 <text>Alloys are made when two or more metals are mixed in precise proportions. Currently known alloys are:</text>
 <item>
- <text>Tinker's Alloy, made from Copper(3) and Tin(1)</text>
+ <text>Bronze, made from Copper(3) and Tin(1)</text>
  <icon>bronzeingot</icon>
 </item>
 <item>
- <text>Tinker's Alloy, made from Aluminum(3) and Copper(1)</text>
+ <text>Aluminum Brass, made from Aluminum(3) and Copper(1)</text>
  <icon>alubrassingot</icon>
 </item>
 <item>
