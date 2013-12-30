@@ -1219,8 +1219,10 @@ public class TContent implements IFuelHandler
         GameRegistry.addShapelessRecipe(new ItemStack(manualBook, 1, 2), new ItemStack(manualBook, 1, 1));
         GameRegistry.addShapelessRecipe(new ItemStack(manualBook, 2, 2), new ItemStack(manualBook, 1, 2), Item.book);
         GameRegistry.addShapelessRecipe(new ItemStack(manualBook, 1, 3), new ItemStack(manualBook, 1, 2));
-        // alternativ Vanilla Book Recipe
+        // alternative Vanilla Book Recipe
         GameRegistry.addShapelessRecipe(new ItemStack(Item.book), Item.paper, Item.paper, Item.paper, Item.silk, blankPattern, blankPattern);
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Item.nameTag), "P~ ", "~O ", "  ~", '~', Item.silk, 'P', Item.paper, 'O', "slimeball" ));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(slimeExplosive, 1, 0), "slimeball", Block.tnt));
         // Paperstack Recipe
         GameRegistry.addRecipe(new ItemStack(materials, 1, 0), "pp", "pp", 'p', Item.paper);
         // Mossball Recipe
