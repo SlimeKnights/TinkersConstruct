@@ -4,10 +4,10 @@ import java.util.List;
 import java.util.Random;
 
 import tconstruct.items.blocks.ItemBlockLandmine;
-
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.projectile.EntitySmallFireball;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
@@ -46,7 +46,7 @@ public class BehaviorFirecharge extends Behavior
                     if ((par1World.getBlockId(i, par3, j) == 0 || (Block.blocksList[par1World.getBlockId(i, par3, j)] != null && Block.blocksList[par1World.getBlockId(i, par3, j)].isBlockReplaceable(
                             par1World, i, par3, j))) && ItemBlockLandmine.getRandom().nextInt(5) == 0 && Block.fire.canPlaceBlockAt(par1World, i, par3, j))
                     {
-                        par1World.setBlock(i, par3, j, Block.fire.blockID);
+                        par1World.setBlock(i, par3, j, Blocks.fire.blockID);
                     }
                 }
             }

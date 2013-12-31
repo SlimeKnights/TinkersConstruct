@@ -4,11 +4,11 @@ import java.util.Iterator;
 import java.util.List;
 
 import tconstruct.items.blocks.ItemBlockLandmine;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityPotion;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemPotion;
 import net.minecraft.item.ItemStack;
@@ -46,13 +46,13 @@ public class BehaviorPotion extends Behavior
         {
             if (triggerer instanceof EntityPlayer)
             {
-                Item.potion.onEaten(par5ItemStack, par1World, (EntityPlayer) triggerer);
+                Items.potion.onEaten(par5ItemStack, par1World, (EntityPlayer) triggerer);
             }
             else if (triggerer instanceof EntityLivingBase)
             {
                 if (!par1World.isRemote)
                 {
-                    List list = Item.potion.getEffects(par5ItemStack);
+                    List list = Items.potion.getEffects(par5ItemStack);
 
                     if (list != null)
                     {

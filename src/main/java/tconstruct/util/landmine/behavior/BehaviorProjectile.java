@@ -6,6 +6,7 @@ import net.minecraft.entity.IProjectile;
 import net.minecraft.entity.item.EntityEnderPearl;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.entity.projectile.EntitySnowball;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
@@ -26,16 +27,16 @@ public class BehaviorProjectile extends Behavior
 
         EnumFacing enumfacing = getFacing(par1World, par2, par3, par4);
 
-        if (par5ItemStack.itemID == Item.arrow.itemID)
+        if (par5ItemStack.itemID == Items.arrow.itemID)
         {
             entity = new EntityArrow(par1World, par2, par3, par4);
             ((EntityArrow) entity).canBePickedUp = 1;
         }
-        else if (par5ItemStack.itemID == Item.snowball.itemID)
+        else if (par5ItemStack.itemID == Items.snowball.itemID)
         {
             entity = new EntitySnowball(par1World, par2, par3, par4);
         }
-        else if (par5ItemStack.itemID == Item.enderPearl.itemID)
+        else if (par5ItemStack.itemID == Items.ender_pearl.itemID)
         {
             if (triggerer instanceof EntityLivingBase)
             {

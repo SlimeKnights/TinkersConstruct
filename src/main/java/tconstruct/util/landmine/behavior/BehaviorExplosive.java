@@ -6,6 +6,8 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityTNTPrimed;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -22,11 +24,11 @@ public class BehaviorExplosive extends Behavior
     public void executeLogic (World par1World, int par2, int par3, int par4, ItemStack par5ItemStack, Entity triggerer, boolean willBlockBeRemoved)
     {
         float explodeStrenght = 0;
-        if (par5ItemStack.itemID == Block.tnt.blockID)
+        if (par5ItemStack.itemID == Blocks.tnt.blockID)
         {
             explodeStrenght = 4.0F * par5ItemStack.stackSize;
         }
-        else if (par5ItemStack.itemID == Item.gunpowder.itemID)
+        else if (par5ItemStack.itemID == Items.gunpowder.itemID)
         {
             explodeStrenght = 0.8F * par5ItemStack.stackSize;
         }
@@ -38,11 +40,11 @@ public class BehaviorExplosive extends Behavior
     public void getInformation (ItemStack par1ItemStack, List par2List)
     {
         String str = "UNDEFINED";
-        if (par1ItemStack.itemID == Block.tnt.blockID)
+        if (par1ItemStack.itemID == Blocks.tnt.blockID)
         {
             str = "medium";
         }
-        else if (par1ItemStack.itemID == Item.gunpowder.itemID)
+        else if (par1ItemStack.itemID == Items.gunpowder.itemID)
         {
             str = "small";
         }

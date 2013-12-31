@@ -8,6 +8,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityFireball;
 import net.minecraft.entity.projectile.EntityLargeFireball;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
@@ -24,10 +25,10 @@ public class SpecialStackHandlerRocketFireball extends SpecialStackHandler
             return;
         }
 
-        if (this.arrayContainsEqualStack(stacks, new ItemStack(Item.firework)) && this.arrayContainsEqualStack(stacks, new ItemStack(Item.fireballCharge)))
+        if (this.arrayContainsEqualStack(stacks, new ItemStack(Items.fireworks)) && this.arrayContainsEqualStack(stacks, new ItemStack(Items.fire_charge)))
         {
-            int index0 = this.arrayIndexOfStack(stacks, new ItemStack(Item.firework));
-            int index1 = this.arrayIndexOfStack(stacks, new ItemStack(Item.fireballCharge));
+            int index0 = this.arrayIndexOfStack(stacks, new ItemStack(Items.fireworks));
+            int index1 = this.arrayIndexOfStack(stacks, new ItemStack(Items.fire_charge));
             EnumFacing face = getFacing(par1World, par2, par3, par4);
 
             while (stacks.get(index0).stackSize > 0 && stacks.get(index1).stackSize > 0)
@@ -62,9 +63,9 @@ public class SpecialStackHandlerRocketFireball extends SpecialStackHandler
                     }
                 }
 
-                this.removeItemFromInventory(par1World, par2, par3, par4, new ItemStack(Item.firework, 1));
+                this.removeItemFromInventory(par1World, par2, par3, par4, new ItemStack(Items.fireworks, 1));
                 stacks.get(index0).stackSize--;
-                this.removeItemFromInventory(par1World, par2, par3, par4, new ItemStack(Item.fireballCharge, 1));
+                this.removeItemFromInventory(par1World, par2, par3, par4, new ItemStack(Items.fire_charge, 1));
                 stacks.get(index1).stackSize--;
             }
         }

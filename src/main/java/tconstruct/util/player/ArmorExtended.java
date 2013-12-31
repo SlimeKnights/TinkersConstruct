@@ -4,8 +4,8 @@ import java.util.UUID;
 import java.lang.ref.WeakReference;
 
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.attributes.AttributeInstance;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -176,7 +176,7 @@ public class ArmorExtended implements IInventory
                 //TConstruct.logger.info("healthChange: "+healthChange+" on side "+FMLCommonHandler.instance().getEffectiveSide());
                 if (healthChange != 0)
                 {
-                    AttributeInstance attributeinstance = player.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.maxHealth);
+                    IAttributeInstance attributeinstance = player.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.maxHealth);
                     try
                     {
                         attributeinstance.removeModifier(attributeinstance.getModifier(globalID));
@@ -202,7 +202,7 @@ public class ArmorExtended implements IInventory
             int healthChange = bonusHP - prevHealth;
             if (healthChange != 0)
             {
-                AttributeInstance attributeinstance = player.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.maxHealth);
+                IAttributeInstance attributeinstance = player.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.maxHealth);
                 try
                 {
                     attributeinstance.removeModifier(attributeinstance.getModifier(globalID));

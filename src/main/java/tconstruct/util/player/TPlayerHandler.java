@@ -6,8 +6,9 @@ import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EnumEntitySize;
+import net.minecraft.entity.Entity.EnumEntitySize;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -41,7 +42,7 @@ public class TPlayerHandler implements IPlayerTracker
         NBTTagCompound tags = entityplayer.getEntityData();
         if (!tags.hasKey("TConstruct"))
         {
-            tags.setCompoundTag("TConstruct", new NBTTagCompound());
+            tags.setTag("TConstruct", new NBTTagCompound());
         }
         TPlayerStats stats = new TPlayerStats();
         stats.player = new WeakReference<EntityPlayer>(entityplayer);
@@ -79,7 +80,7 @@ public class TPlayerHandler implements IPlayerTracker
                 ItemStack pattern = new ItemStack(TRepo.woodPattern, 1, 22);
 
                 NBTTagCompound compound = new NBTTagCompound();
-                compound.setCompoundTag("display", new NBTTagCompound());
+                compound.setTag("display", new NBTTagCompound());
                 compound.getCompoundTag("display").setString("Name", "\u00A7f" + "Fudgy_Fetus' Full Guard Pattern");
                 NBTTagList list = new NBTTagList();
                 list.appendTag(new NBTTagString("Lore", "\u00A72\u00A7o" + "The creator and the creation"));
@@ -92,10 +93,10 @@ public class TPlayerHandler implements IPlayerTracker
 
             if (entityplayer.username.toLowerCase().equals("zerokyuuni"))
             {
-                ItemStack pattern = new ItemStack(Item.stick);
+                ItemStack pattern = new ItemStack(Items.stick);
 
                 NBTTagCompound compound = new NBTTagCompound();
-                compound.setCompoundTag("display", new NBTTagCompound());
+                compound.setTag("display", new NBTTagCompound());
                 compound.getCompoundTag("display").setString("Name", "\u00A78" + "Cheaty Inventory");
                 NBTTagList list = new NBTTagList();
                 list.appendTag(new NBTTagString("Lore", "\u00A72\u00A7o" + "Nyaa~"));
@@ -189,7 +190,7 @@ public class TPlayerHandler implements IPlayerTracker
         tTag.setBoolean("beginnerManual", stats.beginnerManual);
         tTag.setBoolean("materialManual", stats.materialManual);
         tTag.setBoolean("smelteryManual", stats.smelteryManual);
-        tags.setCompoundTag("TConstruct", tTag);
+        tags.setTag("TConstruct", tTag);
 
         Side side = FMLCommonHandler.instance().getEffectiveSide();
         if (side == Side.CLIENT)

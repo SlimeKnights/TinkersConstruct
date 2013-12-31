@@ -6,16 +6,17 @@ import java.util.Iterator;
 import java.util.List;
 
 import tconstruct.util.landmine.Helper;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.entity.Entity;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 
 /**
  * 
@@ -44,19 +45,19 @@ public abstract class Behavior
     {
         defaultBehavior = new BehaviorDefault();
 
-        addBehavior(new ItemStack(Item.stick), dummy);
-        addBehavior(new ItemStack(Item.redstone), utilityMode);
-        addBehavior(new ItemStack(Block.torchWood), blockThrow);
-        addBehavior(new ItemStack(Item.gunpowder), explosive);
-        addBehavior(new ItemStack(Block.tnt), explosive);
-        addBehavior(new ItemStack(Item.firework), firework);
-        addBehavior(new ItemStack(Item.potion), potion);
-        addBehavior(new ItemStack(Item.fireballCharge), fireball);
-        addBehavior(new ItemStack(Item.monsterPlacer), spawn);
-        addBehavior(new ItemStack(Item.arrow), shoot);
-        addBehavior(new ItemStack(Item.snowball), shoot);
-        addBehavior(new ItemStack(Item.enderPearl), shoot);
-        addBehavior(new ItemStack(Item.shears), shear);
+        addBehavior(new ItemStack(Items.stick), dummy);
+        addBehavior(new ItemStack(Items.redstone), utilityMode);
+        addBehavior(new ItemStack(Blocks.torch), blockThrow);
+        addBehavior(new ItemStack(Items.gunpowder), explosive);
+        addBehavior(new ItemStack(Blocks.tnt), explosive);
+        addBehavior(new ItemStack(Items.firework), firework);
+        addBehavior(new ItemStack(Items.potion), potion);
+        addBehavior(new ItemStack(Items.fireballCharge), fireball);
+        addBehavior(new ItemStack(Items.monsterPlacer), spawn);
+        addBehavior(new ItemStack(Items.arrow), shoot);
+        addBehavior(new ItemStack(Items.snowball), shoot);
+        addBehavior(new ItemStack(Items.ender_pearl), shoot);
+        addBehavior(new ItemStack(Items.shears), shear);
 
         //Make sure the part below this comment is executed last(to avoid conflicts)
         for (int i = 1; i < Block.blocksList.length; i++)
