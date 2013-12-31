@@ -7,15 +7,16 @@ import tconstruct.blocks.logic.CraftingStationLogic;
 import tconstruct.blocks.logic.PatternChestLogic;
 import tconstruct.common.TRepo;
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraft.world.World;
-import net.minecraft.world.gen.structure.ComponentVillage;
-import net.minecraft.world.gen.structure.ComponentVillageStartPiece;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
+import net.minecraft.world.gen.structure.MapGenVillage;
 import net.minecraft.world.gen.structure.StructureBoundingBox;
 import net.minecraft.world.gen.structure.StructureComponent;
+import net.minecraft.world.gen.structure.StructureVillagePieces;
 
-public class ComponentToolWorkshop extends ComponentVillage
+public class ComponentToolWorkshop extends MapGenVillage
 {
     private int averageGroundLevel = -1;
 
@@ -23,9 +24,9 @@ public class ComponentToolWorkshop extends ComponentVillage
     {
     }
 
-    public ComponentToolWorkshop(ComponentVillageStartPiece par1ComponentVillageStartPiece, int par2, Random par3Random, StructureBoundingBox par4StructureBoundingBox, int par5)
+    public ComponentToolWorkshop(StructureVillagePieces par1ComponentVillageStartPiece, int par2, Random par3Random, StructureBoundingBox par4StructureBoundingBox, int par5)
     {
-        super(par1ComponentVillageStartPiece, par2);
+        super();
         this.coordBaseMode = par5;
         this.boundingBox = par4StructureBoundingBox;
     }
@@ -141,7 +142,7 @@ public class ComponentToolWorkshop extends ComponentVillage
             for (int i1 = 0; i1 < 9; ++i1)
             {
                 this.clearCurrentPositionBlocksUpwards(world, i1, 9, l, sbb);
-                this.fillCurrentPositionBlocksDownwards(world, Block.cobblestone.blockID, 0, i1, -1, l, sbb);
+                this.fillCurrentPositionBlocksDownwards(world, Blocks.cobblestone.blockID, 0, i1, -1, l, sbb);
             }
         }
         this.spawnVillagers(world, sbb, 3, 1, 3, 1);

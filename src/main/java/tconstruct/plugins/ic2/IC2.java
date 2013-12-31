@@ -1,6 +1,7 @@
 package tconstruct.plugins.ic2;
 
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
@@ -53,7 +54,7 @@ public class IC2 implements ICompatPlugin {
         //basinCasting.addCastingRecipe(new ItemStack(Block.blockIron), fluidStackBlock, null, true, 50); // Iron convenience
         // Dirt <-> Diamonds
         //basinCasting.addCastingRecipe(new ItemStack(Block.dirt), new FluidStack(fluidUUM, 500), new ItemStack(Block.blockDiamond), true, 50);
-        basinCasting.addCastingRecipe(new ItemStack(Block.blockDiamond), fluidStackBlock, new ItemStack(Block.dirt), true, 50);
+        basinCasting.addCastingRecipe(new ItemStack(Blocks.diamond_block), fluidStackBlock, new ItemStack(Blocks.dirt), true, 50);
         // RS cycle
         //basinCasting.addCastingRecipe(new ItemStack(Block.blockRedstone), fluidStack, new ItemStack(Item.redstone), true, 50);
         //basinCasting.addCastingRecipe(new ItemStack(Block.hardenedClay, 14, 1), fluidStack, new ItemStack(Block.blockRedstone), true, 50);

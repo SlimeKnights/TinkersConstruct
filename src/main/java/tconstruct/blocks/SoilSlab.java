@@ -6,6 +6,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.ColorizerGrass;
@@ -28,7 +29,7 @@ public class SoilSlab extends SlabBase
     @SideOnly(Side.CLIENT)
     public void registerIcons (IIconRegister iconRegister)
     {
-        this.blockIcon = iconRegister.registerIcon("tinker:grass_top");
+        this.field_149761_L = iconRegister.registerIcon("tinker:grass_top");
     }
 
     @Override
@@ -38,11 +39,11 @@ public class SoilSlab extends SlabBase
         switch (meta % 8)
         {
         case 0:
-            return this.blockIcon;//Block.grass.getIcon(1, 0);
+            return this.field_149761_L;//Block.grass.getIcon(1, 0);
         case 1:
-            return Block.dirt.getIcon(side, 0);
+            return Blocks.dirt.getIcon(side, 0);
         case 2:
-            return Block.mycelium.getIcon(1, 0);
+            return Blocks.mycelium.getIcon(1, 0);
         default:
             return TRepo.craftedSoil.getIcon(side, meta - 3);
         }

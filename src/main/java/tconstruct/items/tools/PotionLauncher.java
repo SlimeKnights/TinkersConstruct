@@ -3,7 +3,7 @@ package tconstruct.items.tools;
 import java.util.List;
 
 import tconstruct.entity.projectile.LaunchedPotion;
-
+import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
@@ -104,7 +104,7 @@ public class PotionLauncher extends Item
     }
 
     @SideOnly(Side.CLIENT)
-    public Icon getIconFromDamage (int meta)
+    public IIcon getIconFromDamage (int meta)
     {
         return icons[0];
     }

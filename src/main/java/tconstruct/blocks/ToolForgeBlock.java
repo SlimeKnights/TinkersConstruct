@@ -8,11 +8,13 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 import tconstruct.TConstruct;
 import tconstruct.blocks.logic.ToolForgeLogic;
 import tconstruct.client.block.TableForgeRender;
@@ -62,13 +64,13 @@ public class ToolForgeBlock extends InventoryBlock
             switch (meta)
             {
             case 0:
-                return Block.blockIron.getIcon(side, 0);
+                return Blocks.iron_block.getIcon(side, 0);
             case 1:
-                return Block.blockGold.getIcon(side, 0);
+                return Blocks.gold_block.getIcon(side, 0);
             case 2:
-                return Block.blockDiamond.getIcon(side, 0);
+                return Blocks.diamond_block.getIcon(side, 0);
             case 3:
-                return Block.blockEmerald.getIcon(side, 0);
+                return Blocks.emerald_block.getIcon(side, 0);
             default:
                 return TRepo.metalBlock.getIcon(side, meta - 4);
             }
@@ -127,11 +129,11 @@ public class ToolForgeBlock extends InventoryBlock
     }
 
     @Override
-    public void getSubBlocks (int id, CreativeTabs tab, List list)
+    public void getSubBlocks (Block b, CreativeTabs tab, List list)
     {
         for (int iter = 0; iter < textureNames.length; iter++)
         {
-            list.add(new ItemStack(id, 1, iter));
+            list.add(new ItemStack(b, 1, iter));
         }
     }
 }

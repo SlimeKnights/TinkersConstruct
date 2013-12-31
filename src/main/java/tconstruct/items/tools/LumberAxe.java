@@ -308,7 +308,8 @@ public class LumberAxe extends HarvestTool
                                     world.setBlockToAir(xPos, yPos, zPos);
                                     if (!player.capabilities.isCreativeMode)
                                     {
-                                        block.harvestBlock(world, player, xPos, yPos, zPos, meta);
+                                        //TODO harvestBlock
+                                        block.func_149636_a(world, player, xPos, yPos, zPos, meta);
                                         onBlockDestroyed(stack, world, localblockID, xPos, yPos, zPos, player);
                                     }
                                 }

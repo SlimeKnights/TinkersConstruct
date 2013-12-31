@@ -95,7 +95,7 @@ public class CastingChannelBlock extends BlockContainer
     @Override
     public void registerIcons (IIconRegister iconRegister)
     {
-        this.blockIcon = iconRegister.registerIcon("tinker:searedstone");
+        this.field_149761_L = iconRegister.registerIcon("tinker:searedstone");
     }
 
     @Override

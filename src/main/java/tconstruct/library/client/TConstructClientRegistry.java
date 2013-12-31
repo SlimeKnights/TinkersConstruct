@@ -7,6 +7,7 @@ import java.util.Map;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.ToolBuilder;
 import tconstruct.library.tools.ToolCore;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
@@ -16,7 +17,7 @@ public class TConstructClientRegistry
     public static ArrayList<ToolGuiElement> tierTwoButtons = new ArrayList<ToolGuiElement>();
     public static Map<String, ItemStack> manualIcons = new HashMap<String, ItemStack>();
     public static Map<String, ItemStack[]> recipeIcons = new HashMap<String, ItemStack[]>();
-    public static ItemStack defaultStack = new ItemStack(Item.ingotIron);
+    public static ItemStack defaultStack = new ItemStack(Items.iron_ingot);
 
     public static void addMaterialRenderMapping (int materialID, String domain, String renderName, boolean useDefaultFolder)
     {

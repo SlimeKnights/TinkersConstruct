@@ -4,6 +4,7 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.chunk.IChunkProvider;
@@ -16,19 +17,19 @@ public class TBaseWorldGenerator implements IWorldGenerator
 {
     public TBaseWorldGenerator()
     {
-        copper = new WorldGenMinable(TRepo.oreSlag.blockID, 3, 8, Block.stone.blockID);
-        tin = new WorldGenMinable(TRepo.oreSlag.blockID, 4, 8, Block.stone.blockID);
-        aluminum = new WorldGenMinable(TRepo.oreSlag.blockID, 5, 6, Block.stone.blockID);
+        copper = new WorldGenMinable(TRepo.oreSlag, 3, 8, Block.stone);
+        tin = new WorldGenMinable(TRepo.oreSlag, 4, 8, Block.stone);
+        aluminum = new WorldGenMinable(TRepo.oreSlag, 5, 6, Block.stone);
 
-        cobalt = new WorldGenMinable(TRepo.oreSlag.blockID, 1, 3, Block.netherrack.blockID);
-        ardite = new WorldGenMinable(TRepo.oreSlag.blockID, 2, 3, Block.netherrack.blockID);
+        cobalt = new WorldGenMinable(TRepo.oreSlag, 1, 3, Block.netherrack);
+        ardite = new WorldGenMinable(TRepo.oreSlag, 2, 3, Block.netherrack);
 
-        ironBush = new OreberryBushGen(TRepo.oreBerry.blockID, 12, 12);
-        goldBush = new OreberryBushGen(TRepo.oreBerry.blockID, 13, 6);
-        copperBush = new OreberryBushGen(TRepo.oreBerry.blockID, 14, 12);
-        tinBush = new OreberryBushGen(TRepo.oreBerry.blockID, 15, 12);
-        aluminumBush = new OreberryBushGen(TRepo.oreBerrySecond.blockID, 12, 14);
-        silverBush = new OreberryBushGen(TRepo.oreBerrySecond.blockID, 13, 8);
+        ironBush = new OreberryBushGen(TRepo.oreBerry, 12, 12);
+        goldBush = new OreberryBushGen(TRepo.oreBerry, 13, 6);
+        copperBush = new OreberryBushGen(TRepo.oreBerry, 14, 12);
+        tinBush = new OreberryBushGen(TRepo.oreBerry, 15, 12);
+        aluminumBush = new OreberryBushGen(TRepo.oreBerrySecond, 12, 14);
+        silverBush = new OreberryBushGen(TRepo.oreBerrySecond, 13, 8);
     }
 
     @Override
@@ -262,7 +263,7 @@ public class TBaseWorldGenerator implements IWorldGenerator
     {
         /*for (int x = 0; x < 16; x++)
             for (int z = 0; z < 16; z++)
-                world.setBlock(x+chunkX, 192, z+chunkZ, Block.glowStone.blockID);*/
+                world.setBlock(x+chunkX, 192, z+chunkZ, Block.glowStone);*/
 
         for (int x = 0; x < 16; x++)
         {
@@ -275,15 +276,15 @@ public class TBaseWorldGenerator implements IWorldGenerator
                     if (block != null)
                     {
                         if (block.blockMaterial == Material.leaves)
-                            world.setBlock(x + chunkX, y, z + chunkZ, Block.lavaStill.blockID, 0, 0);
+                            world.setBlock(x + chunkX, y, z + chunkZ, Block.lavaStill, 0, 0);
                         if (block.blockMaterial == Material.wood)
-                            world.setBlock(x + chunkX, y, z + chunkZ, Block.netherrack.blockID, 0, 0);
-                        if (block.blockID == Block.stone.blockID)
-                            world.setBlock(x + chunkX, y, z + chunkZ, Block.whiteStone.blockID, 0, 0);
+                            world.setBlock(x + chunkX, y, z + chunkZ, Block.netherrack, 0, 0);
+                        if (block == Blocks.stone)
+                            world.setBlock(x + chunkX, y, z + chunkZ, Block.whiteStone, 0, 0);
                         if (y > 40 && (block.blockMaterial == Material.ground || block.blockMaterial == Material.grass))
-                            world.setBlock(x + chunkX, y, z + chunkZ, Block.slowSand.blockID, 0, 0);
+                            world.setBlock(x + chunkX, y, z + chunkZ, Block.slowSand, 0, 0);
                         if (block.blockMaterial == Material.sand)
-                            world.setBlock(x + chunkX, y, z + chunkZ, Block.silverfish.blockID, 0, 0);
+                            world.setBlock(x + chunkX, y, z + chunkZ, Block.silverfish, 0, 0);
                     }
                 }
             }
@@ -300,7 +301,7 @@ public class TBaseWorldGenerator implements IWorldGenerator
                 {
                     for (int y = 0; y < 256; y++)
                     {
-                        world.setBlock(x + chunkX, y, z + chunkZ, Block.bedrock.blockID, 0, 0);
+                        world.setBlock(x + chunkX, y, z + chunkZ, Blocks.bedrock, 0, 0);
                     }
                 }
             }

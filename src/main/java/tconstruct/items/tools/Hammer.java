@@ -9,15 +9,15 @@ import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.ToolBuilder;
 import tconstruct.library.tools.AbilityHelper;
 import tconstruct.library.tools.HarvestTool;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
@@ -26,9 +26,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class Hammer extends HarvestTool
 {
-    public Hammer(int itemID)
+    public Hammer()
     {
-        super(itemID, 2);
+        super(2);
         this.setUnlocalizedName("InfiTool.Hammer");
     }
 
@@ -131,7 +131,7 @@ public class Hammer extends HarvestTool
     }
 
     @Override
-    public Icon getIcon (ItemStack stack, int renderPass)
+    public IIcon getIcon (ItemStack stack, int renderPass)
     {
         NBTTagCompound tags = stack.getTagCompound();
 
@@ -254,7 +254,7 @@ public class Hammer extends HarvestTool
             }
         }
 
-        if (block == Block.silverfish)
+        if (block == Blocks.silverfish)
             validStart = true;
 
         MovingObjectPosition mop = AbilityHelper.raytraceFromEntity(world, player, true, 4.5D);

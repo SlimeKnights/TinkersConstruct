@@ -25,6 +25,8 @@ import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.entity.*;
 import net.minecraft.client.settings.*;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.*;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
@@ -242,10 +244,10 @@ public class TProxyClient extends TProxyCommon
 
         RenderingRegistry.registerEntityRenderingHandler(CartEntity.class, new CartRender());
         RenderingRegistry.registerEntityRenderingHandler(Crystal.class, new CrystalRender());
-        RenderingRegistry.registerEntityRenderingHandler(LaunchedPotion.class, new LaunchedItemRender(Item.potion, 16384));
+        RenderingRegistry.registerEntityRenderingHandler(LaunchedPotion.class, new LaunchedItemRender(Items.potion, 16384));
         RenderingRegistry.registerEntityRenderingHandler(DaggerEntity.class, new DaggerRenderCustom());
         RenderingRegistry.registerEntityRenderingHandler(ArrowEntity.class, new ArrowRenderCustom());
-        RenderingRegistry.registerEntityRenderingHandler(EntityLandmineFirework.class, new RenderSnowball(Item.firework));
+        RenderingRegistry.registerEntityRenderingHandler(EntityLandmineFirework.class, new RenderSnowball(Items.firework));
         RenderingRegistry.registerEntityRenderingHandler(ExplosivePrimed.class, new ExplosiveRender());
         // RenderingRegistry.registerEntityRenderingHandler(net.minecraft.entity.player.EntityPlayer.class,
         // new PlayerArmorRender()); // <-- Works, woo!
@@ -316,23 +318,23 @@ public class TProxyClient extends TProxyCommon
         MantleClientRegistry.registerManualIcon("partcrafter", new ItemStack(TRepo.toolStationWood, 1, 1));
         MantleClientRegistry.registerManualIcon("patternchest", new ItemStack(TRepo.toolStationWood, 1, 5));
         MantleClientRegistry.registerManualIcon("stenciltable", new ItemStack(TRepo.toolStationWood, 1, 10));
-        MantleClientRegistry.registerManualIcon("torch", new ItemStack(Block.torchWood));
-        MantleClientRegistry.registerManualIcon("sapling", new ItemStack(Block.sapling));
-        MantleClientRegistry.registerManualIcon("workbench", new ItemStack(Block.workbench));
-        MantleClientRegistry.registerManualIcon("coal", new ItemStack(Item.coal));
+        MantleClientRegistry.registerManualIcon("torch", new ItemStack(Blocks.torch));
+        MantleClientRegistry.registerManualIcon("sapling", new ItemStack(Blocks.sapling));
+        MantleClientRegistry.registerManualIcon("workbench", new ItemStack(Blocks.crafting_table));
+        MantleClientRegistry.registerManualIcon("coal", new ItemStack(Items.coal));
 
         MantleClientRegistry.registerManualIcon("obsidianingot", new ItemStack(TRepo.materials, 1, 18));
         MantleClientRegistry.registerManualIcon("lavacrystal", new ItemStack(TRepo.materials, 1, 7));
 
         // Tool Materials
-        MantleClientRegistry.registerManualIcon("woodplanks", new ItemStack(Block.planks));
-        MantleClientRegistry.registerManualIcon("stoneblock", new ItemStack(Block.stone));
-        MantleClientRegistry.registerManualIcon("ironingot", new ItemStack(Item.ingotIron));
-        MantleClientRegistry.registerManualIcon("flint", new ItemStack(Item.flint));
-        MantleClientRegistry.registerManualIcon("cactus", new ItemStack(Block.cactus));
-        MantleClientRegistry.registerManualIcon("bone", new ItemStack(Item.bone));
-        MantleClientRegistry.registerManualIcon("obsidian", new ItemStack(Block.obsidian));
-        MantleClientRegistry.registerManualIcon("netherrack", new ItemStack(Block.netherrack));
+        MantleClientRegistry.registerManualIcon("woodplanks", new ItemStack(Blocks.planks));
+        MantleClientRegistry.registerManualIcon("stoneblock", new ItemStack(Blocks.stone));
+        MantleClientRegistry.registerManualIcon("ironingot", new ItemStack(Items.iron_ingot));
+        MantleClientRegistry.registerManualIcon("flint", new ItemStack(Items.flint));
+        MantleClientRegistry.registerManualIcon("cactus", new ItemStack(Blocks.cactus));
+        MantleClientRegistry.registerManualIcon("bone", new ItemStack(Items.bone));
+        MantleClientRegistry.registerManualIcon("obsidian", new ItemStack(Blocks.obsidian));
+        MantleClientRegistry.registerManualIcon("netherrack", new ItemStack(Blocks.netherrack));
         MantleClientRegistry.registerManualIcon("blueslimecrystal", new ItemStack(TRepo.materials, 1, 17));
         MantleClientRegistry.registerManualIcon("slimecrystal", new ItemStack(TRepo.materials, 1, 1));
         MantleClientRegistry.registerManualIcon("paperstack", new ItemStack(TRepo.materials, 1, 0));
@@ -420,33 +422,33 @@ public class TProxyClient extends TProxyCommon
     {
         ItemStack pattern = new ItemStack(TRepo.blankPattern, 1, 0);
 
-        ItemStack stick = new ItemStack(Item.stick, 1, 0);
-        ItemStack plank = new ItemStack(Block.planks, 1, 0);
-        ItemStack plankSlab = new ItemStack(Block.woodSingleSlab, 1, 0);
-        ItemStack workbench = new ItemStack(Block.workbench, 1, 0);
-        ItemStack chest = new ItemStack(Block.chest, 1, 0);
-        ItemStack log = new ItemStack(Block.wood, 1, 0);
-        ItemStack mossycobble = new ItemStack(Block.cobblestoneMossy);
-        ItemStack netherrack = new ItemStack(Block.netherrack);
+        ItemStack stick = new ItemStack(Items.stick, 1, 0);
+        ItemStack plank = new ItemStack(Blocks.planks, 1, 0);
+        ItemStack plankSlab = new ItemStack(Blocks.woodSingleSlab, 1, 0);
+        ItemStack workbench = new ItemStack(Blocks.crafting_table, 1, 0);
+        ItemStack chest = new ItemStack(Blocks.chest, 1, 0);
+        ItemStack log = new ItemStack(Blocks.log, 1, 0);
+        ItemStack mossycobble = new ItemStack(Blocks.mossy_cobblestone);
+        ItemStack netherrack = new ItemStack(Blocks.netherrack);
 
-        ItemStack dirt = new ItemStack(Block.dirt, 1, 0);
-        ItemStack sand = new ItemStack(Block.sand, 1, 0);
-        ItemStack gravel = new ItemStack(Block.gravel, 1, 0);
-        ItemStack clay = new ItemStack(Item.clay, 1, 0);
-        ItemStack glass = new ItemStack(Block.glass, 1, 0);
-        ItemStack ironblock = new ItemStack(Block.blockIron, 1, 0);
+        ItemStack dirt = new ItemStack(Blocks.dirt, 1, 0);
+        ItemStack sand = new ItemStack(Blocks.sand, 1, 0);
+        ItemStack gravel = new ItemStack(Blocks.gravel, 1, 0);
+        ItemStack clay = new ItemStack(Items.clay_ball, 1, 0);
+        ItemStack glass = new ItemStack(Blocks.glass, 1, 0);
+        ItemStack ironblock = new ItemStack(Blocks.iron_block, 1, 0);
 
         ItemStack grout = new ItemStack(TRepo.craftedSoil, 2, 1);
         ItemStack searedbrick = new ItemStack(TRepo.materials, 1, 2);
         ItemStack searedbrickBlock = new ItemStack(TRepo.smeltery, 1, 2);
 
-        ItemStack coal = new ItemStack(Item.coal);
-        ItemStack paper = new ItemStack(Item.paper);
-        ItemStack slimeball = new ItemStack(Item.slimeBall);
+        ItemStack coal = new ItemStack(Items.coal);
+        ItemStack paper = new ItemStack(Items.paper);
+        ItemStack slimeball = new ItemStack(Items.slime_ball);
         ItemStack slimyMud = new ItemStack(TRepo.craftedSoil);
-        ItemStack blazerod = new ItemStack(Item.blazeRod);
-        ItemStack firecharge = new ItemStack(Item.fireballCharge);
-        ItemStack string = new ItemStack(Item.silk);
+        ItemStack blazerod = new ItemStack(Items.blaze_rod);
+        ItemStack firecharge = new ItemStack(Items.fire_charge);
+        ItemStack string = new ItemStack(Items.string);
 
         ItemStack silkyCloth = new ItemStack(TRepo.materials, 1, 25);
 
@@ -454,8 +456,8 @@ public class TProxyClient extends TProxyCommon
         ItemStack consecratedsoil = new ItemStack(TRepo.craftedSoil, 1, 4);
 
         // TConstruct recipes
-        MantleClientRegistry.registerManualLargeRecipe("alternatebook", new ItemStack(Item.book), paper, paper, paper, string, pattern, pattern, null, null, null);
-        MantleClientRegistry.registerManualSmallRecipe("patternbook1", new ItemStack(TRepo.manualBook, 1, 0), new ItemStack(Item.paper), pattern, null, null);
+        MantleClientRegistry.registerManualLargeRecipe("alternatebook", new ItemStack(Items.book), paper, paper, paper, string, pattern, pattern, null, null, null);
+        MantleClientRegistry.registerManualSmallRecipe("patternbook1", new ItemStack(TRepo.manualBook, 1, 0), new ItemStack(Items.paper), pattern, null, null);
         MantleClientRegistry.registerManualSmallRecipe("patternbook2", new ItemStack(TRepo.manualBook, 1, 1), new ItemStack(TRepo.manualBook, 1, 0), null, null, null);
         MantleClientRegistry.registerManualSmallRecipe("patternbook3", new ItemStack(TRepo.manualBook, 1, 2), new ItemStack(TRepo.manualBook, 1, 1), null, null, null);
         MantleClientRegistry.registerManualSmallRecipe("blankpattern", pattern, plank, stick, stick, plank);
@@ -463,8 +465,8 @@ public class TProxyClient extends TProxyCommon
         MantleClientRegistry.registerManualSmallRecipe("partcrafter", new ItemStack(TRepo.toolStationWood, 1, 1), null, pattern, null, log);
         MantleClientRegistry.registerManualSmallRecipe("patternchest", new ItemStack(TRepo.toolStationWood, 1, 5), null, pattern, null, chest);
         MantleClientRegistry.registerManualSmallRecipe("stenciltable", new ItemStack(TRepo.toolStationWood, 1, 10), null, pattern, null, plank);
-        MantleClientRegistry.registerManualSmallRecipe("slimechannel", new ItemStack(TRepo.slimeChannel, 1, 0), new ItemStack(TRepo.slimeGel, 1, 0), new ItemStack(Item.redstone), null, null);
-        MantleClientRegistry.registerManualSmallRecipe("bouncepad", new ItemStack(TRepo.slimePad, 1, 0), new ItemStack(TRepo.slimeChannel), new ItemStack(Item.slimeBall), null, null);
+        MantleClientRegistry.registerManualSmallRecipe("slimechannel", new ItemStack(TRepo.slimeChannel, 1, 0), new ItemStack(TRepo.slimeGel, 1, 0), new ItemStack(Items.redstone), null, null);
+        MantleClientRegistry.registerManualSmallRecipe("bouncepad", new ItemStack(TRepo.slimePad, 1, 0), new ItemStack(TRepo.slimeChannel), new ItemStack(Items.slime_ball), null, null);
         MantleClientRegistry.registerManualLargeRecipe("toolforge", new ItemStack(TRepo.toolForge, 1, 0), searedbrickBlock, searedbrickBlock, searedbrickBlock, ironblock, new ItemStack(
                 TRepo.toolStationWood, 1, 0), ironblock, ironblock, null, ironblock);
 
@@ -473,13 +475,13 @@ public class TProxyClient extends TProxyCommon
         MantleClientRegistry.registerManualSmallRecipe("paperstack", new ItemStack(TRepo.materials, 1, 0), paper, paper, paper, paper);
         MantleClientRegistry.registerManualLargeRecipe("mossball", new ItemStack(TRepo.materials, 1, 6), mossycobble, mossycobble, mossycobble, mossycobble, mossycobble, mossycobble, mossycobble,
                 mossycobble, mossycobble);
-        MantleClientRegistry.registerManualLargeRecipe("lavacrystal", new ItemStack(TRepo.materials, 1, 7), blazerod, firecharge, blazerod, firecharge, new ItemStack(Item.bucketLava), firecharge,
+        MantleClientRegistry.registerManualLargeRecipe("lavacrystal", new ItemStack(TRepo.materials, 1, 7), blazerod, firecharge, blazerod, firecharge, new ItemStack(Items.lava_bucket), firecharge,
                 blazerod, firecharge, blazerod);
         MantleClientRegistry.registerManualLargeRecipe("silkycloth", silkyCloth, string, string, string, string, new ItemStack(TRepo.materials, 1, 24), string, string, string, string);
-        MantleClientRegistry.registerManualLargeRecipe("silkyjewel", new ItemStack(TRepo.materials, 1, 26), null, silkyCloth, null, silkyCloth, new ItemStack(Item.emerald), silkyCloth, null,
+        MantleClientRegistry.registerManualLargeRecipe("silkyjewel", new ItemStack(TRepo.materials, 1, 26), null, silkyCloth, null, silkyCloth, new ItemStack(Items.emerald), silkyCloth, null,
                 silkyCloth, null);
 
-        MantleClientRegistry.registerManualSmallRecipe("graveyardsoil", graveyardsoil, new ItemStack(Block.dirt), new ItemStack(Item.rottenFlesh), new ItemStack(Item.dyePowder, 1, 15), null);
+        MantleClientRegistry.registerManualSmallRecipe("graveyardsoil", graveyardsoil, new ItemStack(Blocks.dirt), new ItemStack(Items.rotten_flesh), new ItemStack(Items.dyePowder, 1, 15), null);
         MantleClientRegistry.registerManualFurnaceRecipe("consecratedsoil", consecratedsoil, graveyardsoil);
 
         MantleClientRegistry.registerManualSmallRecipe("grout", grout, sand, gravel, null, clay);
@@ -514,7 +516,7 @@ public class TProxyClient extends TProxyCommon
         ItemStack alubrassIngot = new ItemStack(TRepo.materials, 1, 14);
         ItemStack bronzeIngot = new ItemStack(TRepo.materials, 1, 13);
         ItemStack blankCast = new ItemStack(TRepo.blankPattern, 1, 1);
-        ItemStack redstone = new ItemStack(Item.redstone);
+        ItemStack redstone = new ItemStack(Items.redstone);
 
         // Modifier recipes
         ItemStack ironpick = ToolBuilder.instance.buildTool(new ItemStack(TRepo.pickaxeHead, 1, 6), new ItemStack(TRepo.toolRod, 1, 2), new ItemStack(TRepo.binding, 1, 6), "");
@@ -522,33 +524,33 @@ public class TProxyClient extends TProxyCommon
         ItemStack ironlongsword = ToolBuilder.instance.buildTool(new ItemStack(TRepo.swordBlade, 1, 6), new ItemStack(TRepo.toolRod, 1, 2), new ItemStack(TRepo.handGuard, 1, 10), "");
         MantleClientRegistry.registerManualIcon("ironlongsword", ironlongsword);
 
-        TConstructClientRegistry.registerManualModifier("diamondmod", ironpick.copy(), new ItemStack(Item.diamond));
-        TConstructClientRegistry.registerManualModifier("emeraldmod", ironpick.copy(), new ItemStack(Item.emerald));
-        TConstructClientRegistry.registerManualModifier("redstonemod", ironpick.copy(), new ItemStack(Item.redstone), new ItemStack(Block.blockRedstone));
+        TConstructClientRegistry.registerManualModifier("diamondmod", ironpick.copy(), new ItemStack(Items.diamond));
+        TConstructClientRegistry.registerManualModifier("emeraldmod", ironpick.copy(), new ItemStack(Items.emerald));
+        TConstructClientRegistry.registerManualModifier("redstonemod", ironpick.copy(), new ItemStack(Items.redstone), new ItemStack(Blocks.redstone_block));
         TConstructClientRegistry.registerManualModifier("lavacrystalmod", ironpick.copy(), new ItemStack(TRepo.materials, 1, 7));
-        TConstructClientRegistry.registerManualModifier("lapismod", ironpick.copy(), new ItemStack(Item.dyePowder, 1, 4), new ItemStack(Block.blockLapis));
+        TConstructClientRegistry.registerManualModifier("lapismod", ironpick.copy(), new ItemStack(Items.dyePowder, 1, 4), new ItemStack(Blocks.lapis_block));
         TConstructClientRegistry.registerManualModifier("mossmod", ironpick.copy(), new ItemStack(TRepo.materials, 1, 6));
-        TConstructClientRegistry.registerManualModifier("quartzmod", ironlongsword.copy(), new ItemStack(Item.netherQuartz), new ItemStack(Block.blockNetherQuartz));
-        TConstructClientRegistry.registerManualModifier("blazemod", ironlongsword.copy(), new ItemStack(Item.blazePowder));
+        TConstructClientRegistry.registerManualModifier("quartzmod", ironlongsword.copy(), new ItemStack(Items.quartz), new ItemStack(Blocks.quartz_block));
+        TConstructClientRegistry.registerManualModifier("blazemod", ironlongsword.copy(), new ItemStack(Items.blaze_powder));
         TConstructClientRegistry.registerManualModifier("necroticmod", ironlongsword.copy(), new ItemStack(TRepo.materials, 1, 8));
         TConstructClientRegistry.registerManualModifier("silkymod", ironpick.copy(), new ItemStack(TRepo.materials, 1, 26));
         TConstructClientRegistry.registerManualModifier("reinforcedmod", ironpick.copy(), new ItemStack(TRepo.largePlate, 1, 6));
 
-        TConstructClientRegistry.registerManualModifier("pistonmod", ironlongsword.copy(), new ItemStack(Block.pistonBase));
-        TConstructClientRegistry.registerManualModifier("beheadingmod", ironlongsword.copy(), new ItemStack(Item.enderPearl), new ItemStack(Block.obsidian));
-        TConstructClientRegistry.registerManualModifier("spidermod", ironlongsword.copy(), new ItemStack(Item.fermentedSpiderEye));
+        TConstructClientRegistry.registerManualModifier("pistonmod", ironlongsword.copy(), new ItemStack(Blocks.piston));
+        TConstructClientRegistry.registerManualModifier("beheadingmod", ironlongsword.copy(), new ItemStack(Items.ender_pearl), new ItemStack(Blocks.obsidian));
+        TConstructClientRegistry.registerManualModifier("spidermod", ironlongsword.copy(), new ItemStack(Items.fermented_spider_eye));
         TConstructClientRegistry.registerManualModifier("smitemod", ironlongsword.copy(), new ItemStack(TRepo.craftedSoil, 1, 4));
 
-        TConstructClientRegistry.registerManualModifier("fluxmod", ironpick.copy(), new ItemStack(Block.dirt));
-        TConstructClientRegistry.registerManualModifier("fluxmod2", ironpick.copy(), new ItemStack(Block.dirt));
+        TConstructClientRegistry.registerManualModifier("fluxmod", ironpick.copy(), new ItemStack(Blocks.dirt));
+        TConstructClientRegistry.registerManualModifier("fluxmod2", ironpick.copy(), new ItemStack(Blocks.dirt));
 
-        TConstructClientRegistry.registerManualModifier("tier1free", ironpick.copy(), new ItemStack(Item.diamond), new ItemStack(Block.blockGold));
-        TConstructClientRegistry.registerManualModifier("tier2free", ironpick.copy(), new ItemStack(Item.netherStar));
+        TConstructClientRegistry.registerManualModifier("tier1free", ironpick.copy(), new ItemStack(Items.diamond), new ItemStack(Blocks.gold_block));
+        TConstructClientRegistry.registerManualModifier("tier2free", ironpick.copy(), new ItemStack(Items.nether_star));
 
-        TConstructClientRegistry.registerManualSmeltery("brownstone", new ItemStack(TRepo.speedBlock), new ItemStack(TRepo.moltenTin, 1), new ItemStack(Block.gravel));
+        TConstructClientRegistry.registerManualSmeltery("brownstone", new ItemStack(TRepo.speedBlock), new ItemStack(TRepo.moltenTin, 1), new ItemStack(Blocks.gravel));
         TConstructClientRegistry.registerManualSmeltery("clearglass", new ItemStack(TRepo.clearGlass), new ItemStack(TRepo.moltenGlass, 1), null);
         TConstructClientRegistry.registerManualSmeltery("searedstone", new ItemStack(TRepo.smeltery, 1, 4), new ItemStack(TRepo.moltenStone, 1), null);
-        TConstructClientRegistry.registerManualSmeltery("endstone", new ItemStack(Block.whiteStone), new ItemStack(TRepo.moltenEnder, 1), new ItemStack(Block.obsidian));
+        TConstructClientRegistry.registerManualSmeltery("endstone", new ItemStack(Blocks.end_stone), new ItemStack(TRepo.moltenEnder, 1), new ItemStack(Blocks.obsidian));
         TConstructClientRegistry.registerManualSmeltery("glueball", new ItemStack(TRepo.materials, 1, 36), new ItemStack(TRepo.glueFluidBlock, 1), null);
 
     }
@@ -890,7 +892,7 @@ public class TProxyClient extends TProxyCommon
                     }
                     else if (par1Str.equals("snowballpoof"))
                     {
-                        entityfx = new EntityBreakingFX(mc.theWorld, par2, par4, par6, Item.snowball);
+                        entityfx = new EntityBreakingFX(mc.theWorld, par2, par4, par6, Items.snowball);
                     }
                     else if (par1Str.equals("dripWater"))
                     {

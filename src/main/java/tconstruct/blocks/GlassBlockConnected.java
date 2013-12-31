@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import mantle.blocks.MantleBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.*;
 import net.minecraft.world.*;
 import tconstruct.library.TConstructRegistry;
@@ -17,7 +17,7 @@ import tconstruct.util.config.PHConstruct;
 
 public class GlassBlockConnected extends MantleBlock
 {
-    protected Icon[] icons = new Icon[16];
+    protected IIcon[] icons = new IIcon[16];
     private boolean shouldRenderSelectionBox = true;
     protected String folder;
     private int renderPass;
@@ -33,7 +33,7 @@ public class GlassBlockConnected extends MantleBlock
     }
 
     //For FMP support
-    public Icon[] getIcons ()
+    public IIcon[] getIcons ()
     {
         return icons;
     }
@@ -71,12 +71,12 @@ public class GlassBlockConnected extends MantleBlock
     }
 
     @Override
-    public Icon getBlockTexture (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
+    public IIcon getBlockTexture (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
     {
         return par1IBlockAccess.getBlockMetadata(par2, par3, par4) == 15 ? icons[0] : getConnectedBlockTexture(par1IBlockAccess, par2, par3, par4, par5, icons);
     }
 
-    public Icon getConnectedBlockTexture (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5, Icon[] icons)
+    public IIcon getConnectedBlockTexture (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5, Icon[] icons)
     {
         if (PHConstruct.connectedTexturesMode == 0)
         {
@@ -592,7 +592,7 @@ public class GlassBlockConnected extends MantleBlock
     }
 
     @Override
-    public Icon getIcon (int par1, int par2)
+    public IIcon getIcon (int par1, int par2)
     {
         return icons[0];
     }
@@ -611,7 +611,7 @@ public class GlassBlockConnected extends MantleBlock
     }
 
     @Override
-    public void registerIcons (IconRegister par1IconRegister)
+    public void registerIcons (IIconRegister par1IconRegister)
     {
         icons[0] = par1IconRegister.registerIcon("tinker:glass/" + folder + "/glass");
         icons[1] = par1IconRegister.registerIcon("tinker:glass/" + folder + "/glass_1_d");

@@ -5,16 +5,15 @@ import java.util.Random;
 
 import tconstruct.TConstruct;
 import tconstruct.common.TRepo;
-
 import net.minecraft.block.Block;
 import net.minecraft.world.World;
-import net.minecraft.world.gen.structure.ComponentVillage;
-import net.minecraft.world.gen.structure.ComponentVillageStartPiece;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
+import net.minecraft.world.gen.structure.MapGenVillage;
 import net.minecraft.world.gen.structure.StructureBoundingBox;
 import net.minecraft.world.gen.structure.StructureComponent;
+import net.minecraft.world.gen.structure.StructureVillagePieces;
 
-public class ComponentSmeltery extends ComponentVillage
+public class ComponentSmeltery extends MapGenVillage
 {
     private int averageGroundLevel = -1;
 
@@ -22,9 +21,9 @@ public class ComponentSmeltery extends ComponentVillage
     {
     }
 
-    public ComponentSmeltery(ComponentVillageStartPiece par1ComponentVillageStartPiece, int par2, Random par3Random, StructureBoundingBox par4StructureBoundingBox, int par5)
+    public ComponentSmeltery(StructureVillagePieces par1ComponentVillageStartPiece, int par2, Random par3Random, StructureBoundingBox par4StructureBoundingBox, int par5)
     {
-        super(par1ComponentVillageStartPiece, par2);
+        super();
         this.coordBaseMode = par5;
         this.boundingBox = par4StructureBoundingBox;
     }

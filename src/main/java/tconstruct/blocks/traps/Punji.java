@@ -106,7 +106,7 @@ public class Punji extends MantleBlock
     @SideOnly(Side.CLIENT)
     public void registerIcons (IIconRegister iconRegister)
     {
-        this.blockIcon = iconRegister.registerIcon("tinker:punji");
+        this.field_149761_L = iconRegister.registerIcon("tinker:punji");
     }
 
     @Override
