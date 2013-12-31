@@ -10,6 +10,7 @@ import net.minecraft.block.StepSound;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraftforge.common.ChestGenHooks;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
@@ -260,7 +261,7 @@ public class TRepo
     public static Item chestplateWood;
     public static Item leggingsWood;
     public static Item bootsWood;
-    public static EnumArmorMaterial materialWood;
+    public static ArmorMaterial materialWood;
 
     //Armor - exosuit
     public static Item exoGoggles;

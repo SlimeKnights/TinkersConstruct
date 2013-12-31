@@ -8,9 +8,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class BattleSign extends Weapon
 {
-    public BattleSign(int itemID)
+    public BattleSign()
     {
-        super(itemID, 1);
+        super(1);
         this.setUnlocalizedName("InfiTool.Battlesign");
     }
 

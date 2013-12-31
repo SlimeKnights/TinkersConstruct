@@ -17,9 +17,9 @@ import tconstruct.util.config.PHConstruct;
 
 public class Mattock extends DualHarvestTool
 {
-    public Mattock(int itemID)
+    public Mattock()
     {
-        super(itemID, 3);
+        super(3);
         this.setUnlocalizedName("InfiTool.Mattock");
     }
 

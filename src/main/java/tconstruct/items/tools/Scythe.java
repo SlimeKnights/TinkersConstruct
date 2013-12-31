@@ -22,9 +22,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class Scythe extends Weapon
 {
-    public Scythe(int itemID)
+    public Scythe()
     {
-        super(itemID, 4);
+        super(4);
         this.setUnlocalizedName("InfiTool.Scythe");
     }
 

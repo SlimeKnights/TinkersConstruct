@@ -19,9 +19,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class Excavator extends HarvestTool
 {
-    public Excavator(int itemID)
+    public Excavator()
     {
-        super(itemID, 2);
+        super(2);
         this.setUnlocalizedName("InfiTool.Excavator");
     }
 

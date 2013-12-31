@@ -14,9 +14,9 @@ import net.minecraftforge.common.MinecraftForge;
 
 public abstract class DualHarvestTool extends HarvestTool
 {
-    public DualHarvestTool(int itemID, int baseDamage)
+    public DualHarvestTool(int baseDamage)
     {
-        super(itemID, baseDamage);
+        super(baseDamage);
     }
 
     @Override

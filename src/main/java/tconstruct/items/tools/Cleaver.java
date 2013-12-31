@@ -16,9 +16,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class Cleaver extends Weapon
 {
-    public Cleaver(int itemID)
+    public Cleaver()
     {
-        super(itemID, 6);
+        super(6);
         this.setUnlocalizedName("InfiTool.Cleaver");
     }
 

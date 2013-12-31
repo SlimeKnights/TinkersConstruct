@@ -6,9 +6,9 @@ import net.minecraft.item.Item;
 
 public class Broadsword extends Weapon
 {
-    public Broadsword(int itemID)
+    public Broadsword()
     {
-        super(itemID, 4);
+        super(4);
         this.setUnlocalizedName("InfiTool.Broadsword");
     }
 

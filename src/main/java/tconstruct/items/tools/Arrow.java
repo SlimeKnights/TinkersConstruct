@@ -19,9 +19,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class Arrow extends ToolCore
 {
 
-    public Arrow(int id)
+    public Arrow()
     {
-        super(id, 3);
+        super(3);
         this.setUnlocalizedName("InfiTool.Arrow");
         this.setMaxStackSize(64);
         this.setMaxDamage(0);

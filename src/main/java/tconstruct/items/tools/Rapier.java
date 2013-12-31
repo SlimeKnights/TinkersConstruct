@@ -13,9 +13,9 @@ import net.minecraft.world.World;
 
 public class Rapier extends Weapon
 {
-    public Rapier(int itemID)
+    public Rapier()
     {
-        super(itemID, 2);
+        super(2);
         this.setUnlocalizedName("InfiTool.Rapier");
     }
 

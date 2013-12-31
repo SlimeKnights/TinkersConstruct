@@ -15,9 +15,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class Hatchet extends HarvestTool
 {
-    public Hatchet(int itemID)
+    public Hatchet()
     {
-        super(itemID, 3);
+        super(3);
         this.setUnlocalizedName("InfiTool.Axe");
     }
 

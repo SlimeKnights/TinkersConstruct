@@ -9,9 +9,9 @@ public class ArmorBasic extends ItemArmor
 
     public String textureName;
 
-    public ArmorBasic(int par1, EnumArmorMaterial par2EnumArmorMaterial, int par3, String textureName)
+    public ArmorBasic(ArmorMaterial par2EnumArmorMaterial, int par3, String textureName)
     {
-        super(par1, par2EnumArmorMaterial, 0, par3);
+        super(par2EnumArmorMaterial, 0, par3);
         this.textureName = textureName;
     }
 

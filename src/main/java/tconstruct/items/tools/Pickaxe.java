@@ -7,9 +7,9 @@ import net.minecraft.item.Item;
 
 public class Pickaxe extends HarvestTool
 {
-    public Pickaxe(int itemID)
+    public Pickaxe()
     {
-        super(itemID, 1);
+        super(1);
         this.setUnlocalizedName("InfiTool.Pickaxe");
     }
 

@@ -1,6 +1,7 @@
 package tconstruct.library.crafting;
 
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraftforge.fluids.*;
 import tconstruct.common.TRepo;
 
@@ -11,7 +12,7 @@ public enum FluidType
     /** Iron Smelting **/
     Iron(Block.blockIron.blockID, 0, 600, TRepo.moltenIronFluid, true),
     /** Gold  Smelting **/
-    Gold(Block.blockGold.blockID, 0, 400, TRepo.moltenGoldFluid, false),
+    Gold(Blocks.glold_block.blockID, 0, 400, TRepo.moltenGoldFluid, false),
     /** Tin  Smelting **/
     Tin(TRepo.metalBlock.blockID, 5, 400, TRepo.moltenTinFluid, false),
     /** Copper  Smelting **/

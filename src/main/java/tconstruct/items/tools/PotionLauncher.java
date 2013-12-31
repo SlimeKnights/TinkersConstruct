@@ -44,7 +44,7 @@ public class PotionLauncher extends Item
 
             NBTTagCompound potionTag = new NBTTagCompound();
             potion.writeToNBT(potionTag);
-            tags.setCompoundTag("LoadedPotion", potionTag);
+            tags.setTag("LoadedPotion", potionTag);
             tags.setBoolean("Loaded", true);
 
             if (!player.capabilities.isCreativeMode)
@@ -115,7 +115,7 @@ public class PotionLauncher extends Item
         ItemStack stack = new ItemStack(b, 1, 0);
         NBTTagCompound compound = new NBTTagCompound();
         NBTTagCompound tags = new NBTTagCompound();
-        compound.setCompoundTag("InfiTool", tags);
+        compound.setTag("InfiTool", tags);
 
         tags.setBoolean("Loaded", false);
 

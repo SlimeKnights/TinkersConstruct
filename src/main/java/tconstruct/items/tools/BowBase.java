@@ -11,13 +11,13 @@ import tconstruct.entity.projectile.ArrowEntity;
 import tconstruct.library.crafting.ToolBuilder;
 import tconstruct.library.tools.AbilityHelper;
 import tconstruct.library.tools.ToolCore;
-
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
+import net.minecraft.init.Items;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -32,9 +32,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public abstract class BowBase extends ToolCore
 {
-    public BowBase(int itemID)
+    public BowBase()
     {
-        super(itemID, 0);
+        super(0);
     }
 
     public int durabilityTypeAccessory ()
@@ -64,7 +64,7 @@ public abstract class BowBase extends ToolCore
 
         boolean creative = player.capabilities.isCreativeMode || EnchantmentHelper.getEnchantmentLevel(Enchantment.infinity.effectId, stack) > 0;
         int slotID = getInventorySlotContainItem(TRepo.arrow, player.inventory);
-        int arrowID = getInventorySlotContainItem(Item.arrow, player.inventory);
+        int arrowID = getInventorySlotContainItem(Items.arrow, player.inventory);
         int arrowState = 0;
         ItemStack tinkerArrow = null;
         if (slotID != -1)
@@ -153,7 +153,7 @@ public abstract class BowBase extends ToolCore
                 }
                 else
                 {
-                    player.inventory.consumeInventoryItem(Item.arrow);
+                    player.inventory.consumeInventoryItem(Items.arrow);
                 }
             }
 

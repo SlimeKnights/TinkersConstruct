@@ -9,9 +9,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class Shovel extends HarvestTool
 {
-    public Shovel(int itemID)
+    public Shovel()
     {
-        super(itemID, 2);
+        super(2);
         this.setUnlocalizedName("InfiTool.Shovel");
     }
 

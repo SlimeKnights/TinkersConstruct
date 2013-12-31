@@ -1,7 +1,6 @@
 package tconstruct.util;
 
 import tconstruct.util.player.ArmorExtended;
-
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 
 import java.util.Random;
@@ -22,6 +21,7 @@ import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
@@ -550,7 +550,7 @@ public class TEventHandler
     @ForgeSubscribe
     public void bucketFill (FillBucketEvent evt)
     {
-        if (evt.current.getItem() == Item.bucketEmpty && evt.target.typeOfHit == EnumMovingObjectType.TILE)
+        if (evt.current.getItem() == Items.bucket && evt.target.typeOfHit == EnumMovingObjectType.TILE)
         {
             int hitX = evt.target.blockX;
             int hitY = evt.target.blockY;

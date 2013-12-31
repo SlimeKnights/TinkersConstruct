@@ -5,11 +5,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.common.event.*;
+import cpw.mods.fml.common.eventhandler.Event.Result;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.armor.ArmorCore;
 import tconstruct.library.armor.ArmorMod;
@@ -118,9 +120,9 @@ public class ToolBuilder
         if (stack == null)
             return -1;
         Item item = stack.getItem();
-        if (item == Item.stick)
+        if (item == Items.stick)
             return 0;
-        else if (item == Item.bone)
+        else if (item == Items.bone)
             return 5;
         else if (item instanceof IToolPart)
             return ((IToolPart) item).getMaterialID(stack);
@@ -266,7 +268,7 @@ public class ToolBuilder
         ItemStack tool = new ItemStack(item);
         NBTTagCompound compound = new NBTTagCompound();
 
-        compound.setCompoundTag("InfiTool", new NBTTagCompound());
+        compound.setTag("InfiTool", new NBTTagCompound());
         compound.getCompoundTag("InfiTool").setInteger("Head", head);
         compound.getCompoundTag("InfiTool").setInteger("RenderHead", head);
 
@@ -326,7 +328,7 @@ public class ToolBuilder
 
         if (name != null && !name.equals(""))
         {
-            compound.setCompoundTag("display", new NBTTagCompound());
+            compound.setTag("display", new NBTTagCompound());
             compound.getCompoundTag("display").setString("Name", "\u00A7f" + name);
         }
 
@@ -369,7 +371,7 @@ public class ToolBuilder
         tags = tool.getTagCompound();
         if (name != null && !name.equals("") && !tags.hasKey("display"))
         {
-            tags.setCompoundTag("display", new NBTTagCompound());
+            tags.setTag("display", new NBTTagCompound());
             tags.getCompoundTag("display").setString("Name", "\u00A7f" + name);
         }
 
@@ -399,7 +401,7 @@ public class ToolBuilder
         tags = armor.getTagCompound();
         if (name != null && !name.equals("") && !tags.hasKey("display"))
         {
-            tags.setCompoundTag("display", new NBTTagCompound());
+            tags.setTag("display", new NBTTagCompound());
             tags.getCompoundTag("display").setString("Name", "\u00A7f" + name);
         }
 
@@ -437,7 +439,7 @@ public class ToolBuilder
         tags = tool.getTagCompound();
         if (name != null && !name.equals("") && !tags.hasKey("display"))
         {
-            tags.setCompoundTag("display", new NBTTagCompound());
+            tags.setTag("display", new NBTTagCompound());
             tags.getCompoundTag("display").setString("Name", "\u00A7f" + name);
         }
 

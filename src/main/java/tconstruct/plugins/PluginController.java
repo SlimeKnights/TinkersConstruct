@@ -1,7 +1,7 @@
 package tconstruct.plugins;
 
 import cpw.mods.fml.common.Loader;
-import net.minecraftforge.common.Configuration;
+import net.minecraftforge.common.config.Configuration;
 import tconstruct.TConstruct;
 import tconstruct.plugins.ic2.IC2;
 import tconstruct.plugins.imc.AppEng;

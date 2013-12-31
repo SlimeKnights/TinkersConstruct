@@ -12,17 +12,17 @@ import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.EnumMovingObjectType;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class Chisel extends ToolCore
 {
-    public Chisel(int id)
+    public Chisel()
     {
-        super(id, 0);
+        super(0);
         this.setUnlocalizedName("InfiTool.Chisel");
         this.setContainerItem(this);
     }
@@ -89,7 +89,7 @@ public class Chisel extends ToolCore
             {
                 return itemstack;
             }
-            if (movingobjectposition.typeOfHit == EnumMovingObjectType.TILE)
+            if (movingobjectposition.typeOfHit == MovingObjectType.TILE)
             {
                 int x = movingobjectposition.blockX;
                 int y = movingobjectposition.blockY;

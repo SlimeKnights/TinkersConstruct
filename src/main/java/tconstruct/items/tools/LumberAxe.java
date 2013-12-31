@@ -19,9 +19,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class LumberAxe extends HarvestTool
 {
-    public LumberAxe(int itemID)
+    public LumberAxe()
     {
-        super(itemID, 0);
+        super(0);
         this.setUnlocalizedName("InfiTool.LumberAxe");
     }
 

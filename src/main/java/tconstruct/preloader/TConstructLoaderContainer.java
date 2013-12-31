@@ -6,6 +6,7 @@ package tconstruct.preloader;
  */
 
 import com.google.common.eventbus.EventBus;
+
 import cpw.mods.fml.common.DummyModContainer;
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.LoadController;
@@ -14,7 +15,6 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
-import net.minecraftforge.event.ForgeSubscribe;
 import tconstruct.preloader.helpers.PropertyManager;
 import tconstruct.preloader.helpers.PropertyManager.PropAccessException;
 
@@ -68,24 +68,6 @@ public class TConstructLoaderContainer extends DummyModContainer implements IFML
         md.name = getName();
         md.authorList = Arrays.asList("AlgorithmX2", "Sunstrike");
     }
-
-    /*@ForgeSubscribe
-    public void preInit (FMLPreInitializationEvent evt)
-    {
-
-    }
-
-    @ForgeSubscribe
-    public void init (FMLInitializationEvent evt)
-    {
-
-    }
-
-    @ForgeSubscribe
-    public void postInit (FMLPostInitializationEvent evt)
-    {
-
-    }*/
 
     @Override
     public String getModId ()
@@ -147,8 +129,10 @@ public class TConstructLoaderContainer extends DummyModContainer implements IFML
     {
     }
 
-    @Deprecated
-    public String[] getLibraryRequestClass() {
-        return new String[0];
+    //TODO IMPLEMENT THIS
+    @Override
+    public String getAccessTransformerClass ()
+    {
+        return null;
     }
 }

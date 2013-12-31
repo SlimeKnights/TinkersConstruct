@@ -1,5 +1,6 @@
 package tconstruct.plugins.imc;
 
+import net.minecraft.block.Block;
 import cpw.mods.fml.common.event.FMLInterModComms;
 import tconstruct.TConstruct;
 import tconstruct.common.TRepo;
@@ -21,42 +22,42 @@ public class BuildcraftTransport implements ICompatPlugin {
     public void init() {
         TConstruct.logger.info("[BC|Transport] Registering facades.");
         // Smeltery Blocks
-        addFacade(TRepo.smeltery.blockID, 2);
+        addFacade(TRepo.smeltery, 2);
         for (int sc = 4; sc < 11; sc++)
         {
-            addFacade(TRepo.smeltery.blockID, sc);
+            addFacade(TRepo.smeltery, sc);
         }
         // Multi Brick + Fancy
         for (int sc = 0; sc < 13; sc++)
         {
-            addFacade(TRepo.multiBrick.blockID, sc);
+            addFacade(TRepo.multiBrick, sc);
         }
         for (int sc = 0; sc < 16; sc++)
         {
-            addFacade(TRepo.multiBrickFancy.blockID, sc);
+            addFacade(TRepo.multiBrickFancy, sc);
         }
         // Special Soil
         for (int sc = 0; sc < 6; sc++)
         {
-            addFacade(TRepo.craftedSoil.blockID, sc);
+            addFacade(TRepo.craftedSoil, sc);
         }
         // Metal Storage
         for (int sc = 0; sc < 11; sc++)
         {
-            addFacade(TRepo.metalBlock.blockID, sc);
+            addFacade(TRepo.metalBlock, sc);
         }
         // Speed Block
         for (int sc = 0; sc < 7; sc++)
         {
-            addFacade(TRepo.speedBlock.blockID, sc);
+            addFacade(TRepo.speedBlock, sc);
         }
         // Hambone
-        addFacade(TRepo.meatBlock.blockID, 4);
-        addFacade(TRepo.meatBlock.blockID, 8);
+        addFacade(TRepo.meatBlock, 4);
+        addFacade(TRepo.meatBlock, 8);
 
         // Slime Gel
-        addFacade(TRepo.slimeGel.blockID, 0);
-        addFacade(TRepo.slimeGel.blockID, 1);
+        addFacade(TRepo.slimeGel, 0);
+        addFacade(TRepo.slimeGel, 1);
     }
 
     @Override
@@ -64,9 +65,9 @@ public class BuildcraftTransport implements ICompatPlugin {
 
     }
 
-    private void addFacade (int blockId, int meta)
+    private void addFacade (Block b, int meta)
     {
-        FMLInterModComms.sendMessage("BuildCraft|Transport", "add-facade", String.format("%d@%d", blockId, meta));
+        FMLInterModComms.sendMessage("BuildCraft|Transport", "add-facade", String.format("%d@%d", "REPLACE W/ UNLOCALIZED NAME", meta));
     }
 
 }

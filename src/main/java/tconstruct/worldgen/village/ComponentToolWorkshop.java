@@ -61,27 +61,27 @@ public class ComponentToolWorkshop extends MapGenVillage
          * maxZ, int placeBlockId, int replaceBlockId, boolean alwaysreplace)
          */
 
-        this.fillWithBlocks(world, sbb, 0, 0, 0, 6, 0, 6, Block.cobblestone.blockID, Block.cobblestone.blockID, false); //Base
-        this.fillWithBlocks(world, sbb, 0, 5, 0, 6, 5, 6, Block.fence.blockID, Block.fence.blockID, false);
-        this.fillWithBlocks(world, sbb, 1, 0, 1, 5, 0, 5, Block.planks.blockID, Block.planks.blockID, false);
-        this.fillWithBlocks(world, sbb, 2, 0, 2, 4, 0, 4, Block.cloth.blockID, Block.cloth.blockID, false);
+        this.fillWithBlocks(world, sbb, 0, 0, 0, 6, 0, 6, Blocks.cobblestone.blockID, Blocks.cobblestone.blockID, false); //Base
+        this.fillWithBlocks(world, sbb, 0, 5, 0, 6, 5, 6, Blocks.fence.blockID, Blocks.fence.blockID, false);
+        this.fillWithBlocks(world, sbb, 1, 0, 1, 5, 0, 5, Blocks.planks.blockID, Blocks.planks.blockID, false);
+        this.fillWithBlocks(world, sbb, 2, 0, 2, 4, 0, 4, Blocks.wool.blockID, Blocks.cloth.blockID, false);
 
         //this.fillWithBlocks(world, sbb, 0, 5, 0, 6, 5, 6, Block.wood.blockID, Block.wood.blockID, false);
 
-        this.fillWithBlocks(world, sbb, 0, 1, 0, 0, 4, 0, Block.wood.blockID, Block.wood.blockID, false); //Edges
-        this.fillWithBlocks(world, sbb, 0, 1, 6, 0, 4, 6, Block.wood.blockID, Block.wood.blockID, false);
-        this.fillWithBlocks(world, sbb, 6, 1, 0, 6, 4, 0, Block.wood.blockID, Block.wood.blockID, false);
-        this.fillWithBlocks(world, sbb, 6, 1, 6, 6, 4, 6, Block.wood.blockID, Block.wood.blockID, false);
+        this.fillWithBlocks(world, sbb, 0, 1, 0, 0, 4, 0, Blocks.log, Blocks.log, false); //Edges
+        this.fillWithBlocks(world, sbb, 0, 1, 6, 0, 4, 6, Blocks.log, Blocks.log, false);
+        this.fillWithBlocks(world, sbb, 6, 1, 0, 6, 4, 0, Blocks.log, Blocks.log, false);
+        this.fillWithBlocks(world, sbb, 6, 1, 6, 6, 4, 6, Blocks.log, Blocks.log, false);
 
-        this.fillWithBlocks(world, sbb, 0, 1, 1, 0, 1, 5, Block.planks.blockID, Block.planks.blockID, false); //Walls
-        this.fillWithBlocks(world, sbb, 1, 1, 0, 5, 1, 0, Block.planks.blockID, Block.planks.blockID, false);
-        this.fillWithBlocks(world, sbb, 6, 1, 1, 6, 1, 5, Block.planks.blockID, Block.planks.blockID, false);
-        this.fillWithBlocks(world, sbb, 1, 1, 6, 5, 1, 6, Block.planks.blockID, Block.planks.blockID, false);
+        this.fillWithBlocks(world, sbb, 0, 1, 1, 0, 1, 5, Blocks.planks, Blocks.planks, false); //Walls
+        this.fillWithBlocks(world, sbb, 1, 1, 0, 5, 1, 0, Blocks.planks, Blocks.planks, false);
+        this.fillWithBlocks(world, sbb, 6, 1, 1, 6, 1, 5, Blocks.planks, Blocks.planks, false);
+        this.fillWithBlocks(world, sbb, 1, 1, 6, 5, 1, 6, Blocks.planks, Blocks.planks, false);
 
-        this.fillWithBlocks(world, sbb, 0, 3, 1, 0, 3, 5, Block.planks.blockID, Block.planks.blockID, false);
-        this.fillWithBlocks(world, sbb, 1, 3, 0, 5, 3, 0, Block.planks.blockID, Block.planks.blockID, false);
-        this.fillWithBlocks(world, sbb, 6, 3, 1, 6, 3, 5, Block.planks.blockID, Block.planks.blockID, false);
-        this.fillWithBlocks(world, sbb, 1, 3, 6, 5, 3, 6, Block.planks.blockID, Block.planks.blockID, false);
+        this.fillWithBlocks(world, sbb, 0, 3, 1, 0, 3, 5, Blocks.planks, Blocks.planks, false);
+        this.fillWithBlocks(world, sbb, 1, 3, 0, 5, 3, 0, Blocks.planks, Blocks.planks, false);
+        this.fillWithBlocks(world, sbb, 6, 3, 1, 6, 3, 5, Blocks.planks, Blocks.planks, false);
+        this.fillWithBlocks(world, sbb, 1, 3, 6, 5, 3, 6, Blocks.planks, Blocks.planks, false);
 
         this.fillWithBlocks(world, sbb, 0, 4, 1, 0, 4, 5, Block.wood.blockID, Block.wood.blockID, false);
         this.fillWithBlocks(world, sbb, 1, 4, 0, 5, 4, 0, Block.wood.blockID, Block.wood.blockID, false);
@@ -89,38 +89,38 @@ public class ComponentToolWorkshop extends MapGenVillage
         this.fillWithBlocks(world, sbb, 1, 4, 6, 5, 4, 6, Block.wood.blockID, Block.wood.blockID, false);
 
         this.fillWithBlocks(world, sbb, 1, 1, 1, 5, 5, 5, 0, 0, false);
-        this.fillWithBlocks(world, sbb, 1, 4, 1, 5, 4, 5, Block.planks.blockID, Block.planks.blockID, false);
+        this.fillWithBlocks(world, sbb, 1, 4, 1, 5, 4, 5, Blocks.planks, Blocks.planks, false);
 
         //world, blockID, metadata, x, y, z, bounds
-        this.placeBlockAtCurrentPosition(world, Block.thinGlass.blockID, 0, 1, 2, 0, sbb);//Glass and door
-        this.placeBlockAtCurrentPosition(world, Block.planks.blockID, 0, 2, 2, 0, sbb);
+        this.placeBlockAtCurrentPosition(world, Blocks.glass_pane, 0, 1, 2, 0, sbb);//Glass and door
+        this.placeBlockAtCurrentPosition(world, Blocks.planks, 0, 2, 2, 0, sbb);
         this.placeDoorAtCurrentPosition(world, sbb, random, 3, 1, 0, this.getMetadataWithOffset(Block.doorWood.blockID, 1));
-        this.placeBlockAtCurrentPosition(world, Block.planks.blockID, 0, 4, 2, 0, sbb);
-        this.placeBlockAtCurrentPosition(world, Block.thinGlass.blockID, 0, 5, 2, 0, sbb);
+        this.placeBlockAtCurrentPosition(world, Blocks.planks, 0, 4, 2, 0, sbb);
+        this.placeBlockAtCurrentPosition(world, Blocks.glass_pane, 0, 5, 2, 0, sbb);
 
-        this.placeBlockAtCurrentPosition(world, Block.thinGlass.blockID, 0, 1, 2, 6, sbb);
-        this.placeBlockAtCurrentPosition(world, Block.thinGlass.blockID, 0, 2, 2, 6, sbb);
-        this.placeBlockAtCurrentPosition(world, Block.planks.blockID, 0, 3, 2, 6, sbb);
-        this.placeBlockAtCurrentPosition(world, Block.thinGlass.blockID, 0, 4, 2, 6, sbb);
-        this.placeBlockAtCurrentPosition(world, Block.thinGlass.blockID, 0, 5, 2, 6, sbb);
+        this.placeBlockAtCurrentPosition(world, Blocks.glass_pane, 0, 1, 2, 6, sbb);
+        this.placeBlockAtCurrentPosition(world, Blocks.glass_pane, 0, 2, 2, 6, sbb);
+        this.placeBlockAtCurrentPosition(world, Blocks.planks, 0, 3, 2, 6, sbb);
+        this.placeBlockAtCurrentPosition(world, Blocks.glass_pane, 0, 4, 2, 6, sbb);
+        this.placeBlockAtCurrentPosition(world, Blocks.glass_pane, 0, 5, 2, 6, sbb);
 
-        this.placeBlockAtCurrentPosition(world, Block.thinGlass.blockID, 0, 0, 2, 1, sbb);
-        this.placeBlockAtCurrentPosition(world, Block.thinGlass.blockID, 0, 0, 2, 2, sbb);
-        this.placeBlockAtCurrentPosition(world, Block.planks.blockID, 0, 0, 2, 3, sbb);
-        this.placeBlockAtCurrentPosition(world, Block.thinGlass.blockID, 0, 0, 2, 4, sbb);
-        this.placeBlockAtCurrentPosition(world, Block.thinGlass.blockID, 0, 0, 2, 5, sbb);
+        this.placeBlockAtCurrentPosition(world, Blocks.glass_pane, 0, 0, 2, 1, sbb);
+        this.placeBlockAtCurrentPosition(world, Blocks.glass_pane, 0, 0, 2, 2, sbb);
+        this.placeBlockAtCurrentPosition(world, Blocks.planks, 0, 0, 2, 3, sbb);
+        this.placeBlockAtCurrentPosition(world, Blocks.glass_pane, 0, 0, 2, 4, sbb);
+        this.placeBlockAtCurrentPosition(world, Blocks.glass_pane, 0, 0, 2, 5, sbb);
 
-        this.placeBlockAtCurrentPosition(world, Block.thinGlass.blockID, 0, 6, 2, 1, sbb);
-        this.placeBlockAtCurrentPosition(world, Block.thinGlass.blockID, 0, 6, 2, 2, sbb);
-        this.placeBlockAtCurrentPosition(world, Block.planks.blockID, 0, 6, 2, 3, sbb);
-        this.placeBlockAtCurrentPosition(world, Block.thinGlass.blockID, 0, 6, 2, 4, sbb);
-        this.placeBlockAtCurrentPosition(world, Block.thinGlass.blockID, 0, 6, 2, 5, sbb);
+        this.placeBlockAtCurrentPosition(world, Blocks.glass_pane, 0, 6, 2, 1, sbb);
+        this.placeBlockAtCurrentPosition(world, Blocks.glass_pane, 0, 6, 2, 2, sbb);
+        this.placeBlockAtCurrentPosition(world, Blocks.planks, 0, 6, 2, 3, sbb);
+        this.placeBlockAtCurrentPosition(world, Blocks.glass_pane, 0, 6, 2, 4, sbb);
+        this.placeBlockAtCurrentPosition(world, Blocks.glass_pane, 0, 6, 2, 5, sbb);
 
-        int i = this.getMetadataWithOffset(Block.ladder.blockID, 3); //Ladders
-        this.placeBlockAtCurrentPosition(world, Block.ladder.blockID, i, 3, 1, 5, sbb);
-        this.placeBlockAtCurrentPosition(world, Block.ladder.blockID, i, 3, 2, 5, sbb);
-        this.placeBlockAtCurrentPosition(world, Block.ladder.blockID, i, 3, 3, 5, sbb);
-        this.placeBlockAtCurrentPosition(world, Block.ladder.blockID, i, 3, 4, 5, sbb);
+        int i = this.getMetadataWithOffset(Blocks.ladder, 3); //Ladders
+        this.placeBlockAtCurrentPosition(world, Blocks.ladder, i, 3, 1, 5, sbb);
+        this.placeBlockAtCurrentPosition(world, Blocks.ladder, i, 3, 2, 5, sbb);
+        this.placeBlockAtCurrentPosition(world, Blocks.ladder, i, 3, 3, 5, sbb);
+        this.placeBlockAtCurrentPosition(world, Blocks.ladder, i, 3, 4, 5, sbb);
 
         this.placeBlockAtCurrentPosition(world, TRepo.toolStationWood.blockID, 0, 1, 1, 1, sbb); //Inside
         this.generateStructurePatternChestContents(world, sbb, random, 1, 1, 2, TRepo.tinkerHousePatterns.getItems(random), TRepo.tinkerHousePatterns.getCount(random));
@@ -134,15 +134,15 @@ public class ComponentToolWorkshop extends MapGenVillage
 
         this.generateStructureChestContents(world, sbb, random, 4, 1, 5, TRepo.tinkerHouseChest.getItems(random), TRepo.tinkerHouseChest.getCount(random));
         //this.placeBlockAtCurrentPosition(world, Block.chest.blockID, i, 4, 1, 5, sbb);
-        i = this.getMetadataWithOffset(Block.pistonBase.blockID, 3);
-        this.placeBlockAtCurrentPosition(world, Block.pistonBase.blockID, i, 5, 1, 5, sbb);
+        i = this.getMetadataWithOffset(Blocks.piston, 3);
+        this.placeBlockAtCurrentPosition(world, Blocks.piston, i, 5, 1, 5, sbb);
 
         for (int l = 0; l < 6; ++l)
         {
             for (int i1 = 0; i1 < 9; ++i1)
             {
                 this.clearCurrentPositionBlocksUpwards(world, i1, 9, l, sbb);
-                this.fillCurrentPositionBlocksDownwards(world, Blocks.cobblestone.blockID, 0, i1, -1, l, sbb);
+                this.fillCurrentPositionBlocksDownwards(world, Blocks.cobblestone, 0, i1, -1, l, sbb);
             }
         }
         this.spawnVillagers(world, sbb, 3, 1, 3, 1);
@@ -181,7 +181,7 @@ public class ComponentToolWorkshop extends MapGenVillage
         int posY = this.getYWithOffset(y);
         int posZ = this.getZWithOffset(x, z);
 
-        if (par2StructureBoundingBox.isVecInside(posX, posY, posZ) && world.getBlockId(posX, posY, posZ) != Block.chest.blockID)
+        if (par2StructureBoundingBox.isVecInside(posX, posY, posZ) && world.getBlockId(posX, posY, posZ) != Blocks.chest.blockID)
         {
             world.setBlock(posX, posY, posZ, TRepo.toolStationWood.blockID, 5, 2);
             PatternChestLogic logic = (PatternChestLogic) world.getBlockTileEntity(posX, posY, posZ);

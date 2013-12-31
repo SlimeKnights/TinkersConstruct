@@ -6,13 +6,14 @@ import java.util.Random;
 import mantle.blocks.MantleBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.common.IPlantable;
 import tconstruct.common.TContent;
 import tconstruct.common.TRepo;
@@ -23,11 +24,11 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class SlimeGrass extends MantleBlock
 {
     public String[] textureNames = { "slimegrass_green_top", "slimedirt_blue", "slimegrass_green_blue_side", "slimegrass_green_dirt_side" };//green, purple
-    public Icon[] icons;
+    public IIcon[] icons;
 
-    public SlimeGrass(int id)
+    public SlimeGrass()
     {
-        super(id, Material.grass);
+        super(Material.grass);
         setHardness(0.6f);
         this.setTickRandomly(true);
         this.setCreativeTab(TConstructRegistry.blockTab);
@@ -46,9 +47,9 @@ public class SlimeGrass extends MantleBlock
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void registerIcons (IconRegister iconRegister)
+    public void registerIcons (IIconRegister iconRegister)
     {
-        this.icons = new Icon[textureNames.length];
+        this.icons = new IIcon[textureNames.length];
 
         for (int i = 0; i < this.icons.length; ++i)
         {
@@ -58,7 +59,7 @@ public class SlimeGrass extends MantleBlock
 
     @Override
     @SideOnly(Side.CLIENT)
-    public Icon getIcon (int side, int meta)
+    public IIcon getIcon (int side, int meta)
     {
         if (meta >= 2)
             meta = 0;
@@ -78,11 +79,11 @@ public class SlimeGrass extends MantleBlock
     }
 
     @Override
-    public void getSubBlocks (int id, CreativeTabs tab, List list)
+    public void getSubBlocks (Block b, CreativeTabs tab, List list)
     {
         for (int iter = 0; iter < 1; iter++)
         {
-            list.add(new ItemStack(id, 1, iter));
+            list.add(new ItemStack(b, 1, iter));
         }
     }
 
@@ -118,7 +119,7 @@ public class SlimeGrass extends MantleBlock
                     if (par1World.getBlockLightValue(posX, posY + 1, posZ) >= 4 && par1World.getBlockLightOpacity(posX, posY + 1, posZ) <= 2)
                     {
                         int blockID = par1World.getBlockId(posX, posY, posZ);
-                        if (blockID == Block.dirt.blockID)
+                        if (blockID == Blocks.dirt.blockID)
                         {
                             par1World.setBlock(posX, posY, posZ, this.blockID, 1, 3);
                             return;
@@ -138,7 +139,7 @@ public class SlimeGrass extends MantleBlock
     public int idDropped (int metadata, Random random, int fortune)
     {
         if (metadata == 1)
-            return Block.dirt.blockID;
+            return Blocks.dirt.blockID;
         else
             return TRepo.craftedSoil.blockID;
     }

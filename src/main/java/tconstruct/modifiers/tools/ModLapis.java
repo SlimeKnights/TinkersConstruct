@@ -165,7 +165,7 @@ public class ModLapis extends ToolModTypeFilter
 
     public void addEnchantment (ItemStack tool, Enchantment enchant, int level)
     {
-        NBTTagList tags = new NBTTagList("ench");
+        NBTTagList tags = new NBTTagList();
         Map enchantMap = EnchantmentHelper.getEnchantments(tool);
         Iterator iterator = enchantMap.keySet().iterator();
         int index;

@@ -11,9 +11,9 @@ import net.minecraft.world.World;
 
 public class Dagger extends Weapon
 {
-    public Dagger(int id)
+    public Dagger()
     {
-        super(id, 1);
+        super(1);
         this.setUnlocalizedName("InfiTool.Dagger");
     }
 

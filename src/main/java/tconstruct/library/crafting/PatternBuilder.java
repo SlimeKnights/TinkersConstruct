@@ -5,16 +5,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import cpw.mods.fml.common.eventhandler.Event.Result;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.event.PartBuilderEvent;
 import tconstruct.library.tools.CustomMaterial;
 import tconstruct.library.util.IPattern;
-
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.Event.Result;
 
 public class PatternBuilder
 {

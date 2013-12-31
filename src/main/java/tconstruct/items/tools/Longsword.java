@@ -15,9 +15,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class Longsword extends Weapon
 {
-    public Longsword(int itemID)
+    public Longsword()
     {
-        super(itemID, 4);
+        super(4);
         this.setUnlocalizedName("InfiTool.Longsword");
     }
 

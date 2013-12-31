@@ -11,10 +11,11 @@ import net.minecraft.client.audio.SoundManager;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeInstance;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.potion.*;
 import net.minecraft.util.*;
@@ -63,8 +64,8 @@ public class TClientEvents
 
     /* Liquids */
 
-    Icon[] stillIcons = new Icon[2];
-    Icon[] flowIcons = new Icon[2];
+    IIcon[] stillIcons = new IIcon[2];
+    IIcon[] flowIcons = new IIcon[2];
 
     @ForgeSubscribe
     public void preStitch (TextureStitchEvent.Pre event)
@@ -252,7 +253,7 @@ public class TClientEvents
             f *= 1.1F;
         }
 
-        if (event.entity.isUsingItem() && event.entity.getItemInUse().itemID == Item.bow.itemID)
+        if (event.entity.isUsingItem() && event.entity.getItemInUse().itemID == Items.bow.itemID)
         {
             int i = event.entity.getItemInUseDuration();
             float f1 = (float) i / 20.0F;

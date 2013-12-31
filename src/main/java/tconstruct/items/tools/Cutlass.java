@@ -1,18 +1,15 @@
 package tconstruct.items.tools;
 
-import java.util.List;
-
 import tconstruct.common.TRepo;
 import tconstruct.library.tools.Weapon;
 
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 
 public class Cutlass extends Weapon
 {
     public Cutlass(int itemID)
     {
-        super(itemID, 4);
+        super(4);
         this.setUnlocalizedName("InfiTool.Cutlass");
     }
 

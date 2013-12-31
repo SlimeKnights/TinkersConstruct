@@ -1,5 +1,6 @@
 package tconstruct.common;
 
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import tconstruct.library.crafting.ToolRecipe;
 import tconstruct.library.tools.ToolCore;
@@ -28,7 +29,7 @@ public class BowRecipe extends ToolRecipe
         {
             if (part == input)
                 return true;
-            if (toolRod != null && part == toolRod && (input == Item.stick || input == Item.bone))
+            if (toolRod != null && part == toolRod && (input == Items.stick || input == Items.bone))
                 return true;
         }
         return false;

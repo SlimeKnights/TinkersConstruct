@@ -556,7 +556,7 @@ public class TConstructRegistry
         drawbridgeState[Blocks.mushroomRed] = 1;
         drawbridgeState[Blocks.gold_block] = 1;
         drawbridgeState[Blocks.iron_block] = 1;
-        drawbridgeState[Blocks.brick] = 1;
+        drawbridgeState[Blocks.brick_block] = 1;
         drawbridgeState[Blocks.tnt] = 1;
         drawbridgeState[Blocks.bookShelf] = 1;
         drawbridgeState[Blocks.cobblestoneMossy] = 1;

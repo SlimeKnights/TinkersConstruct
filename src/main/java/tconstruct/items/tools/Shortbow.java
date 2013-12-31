@@ -15,9 +15,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class Shortbow extends BowBase
 {
-    public Shortbow(int itemID)
+    public Shortbow()
     {
-        super(itemID);
+        super();
         this.setUnlocalizedName("InfiTool.Shortbow");
     }
 

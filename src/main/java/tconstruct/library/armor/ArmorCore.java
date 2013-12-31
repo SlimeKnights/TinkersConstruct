@@ -28,9 +28,9 @@ public abstract class ArmorCore extends ItemArmor implements IEnergyContainerIte
     protected int maxReceive = 75;
     protected int maxExtract = 75;
 
-    public ArmorCore(int par1, int baseProtection, EnumArmorPart part)
+    public ArmorCore(int baseProtection, EnumArmorPart part)
     {
-        super(par1, EnumArmorMaterial.CHAIN, 0, part.getPartId());
+        super(ArmorMaterial.CHAIN, 0, part.getPartId());
         this.maxStackSize = 1;
         this.setMaxDamage(100);
         this.setUnlocalizedName(SET_NAME);

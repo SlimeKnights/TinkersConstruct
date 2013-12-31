@@ -34,7 +34,7 @@ public class Mystcraft implements ICompatPlugin {
     private void sendFluidBlacklist (String FluidName)
     {
         NBTTagCompound NBTMsg = new NBTTagCompound();
-        NBTMsg.setCompoundTag("fluidsymbol", new NBTTagCompound());
+        NBTMsg.setTag("fluidsymbol", new NBTTagCompound());
         NBTMsg.getCompoundTag("fluidsymbol").setFloat("rarity", 0.0F);
         NBTMsg.getCompoundTag("fluidsymbol").setFloat("grammarweight", 0.0F);
         NBTMsg.getCompoundTag("fluidsymbol").setFloat("instabilityPerBlock", 10000F);// renders creative symbol useless

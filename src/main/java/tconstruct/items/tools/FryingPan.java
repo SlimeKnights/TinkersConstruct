@@ -24,9 +24,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class FryingPan extends Weapon
 {
-    public FryingPan(int itemID)
+    public FryingPan()
     {
-        super(itemID, 2);
+        super(2);
         this.setUnlocalizedName("InfiTool.FryPan");
     }
 
