@@ -19,9 +19,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class SlimeGel extends TConstructBlock
 {
-    public SlimeGel(int id)
+    public SlimeGel()
     {
-        super(id, Material.sponge, 0.5f, new String[] { "slimeblock_blue", "slimeblock_green", "slimeblock_purple" });
+        super(Material.sponge, 0.5f, new String[] { "slimeblock_blue", "slimeblock_green", "slimeblock_purple" });
         setCreativeTab(TConstructRegistry.blockTab);
     }
 

@@ -22,9 +22,9 @@ public class SlimeLeaves extends BlockLeaves
     private static final String[] fastLeaves = new String[] { "slimeleaves_blue_fast" };
     private static final String[] fancyLeaves = new String[] { "slimeleaves_blue_fancy" };
     @SideOnly(Side.CLIENT)
-    private Icon[] fastIcons;
+    private IIcon[] fastIcons;
     @SideOnly(Side.CLIENT)
-    private Icon[] fancyIcons;
+    private IIcon[] fancyIcons;
 
     public SlimeLeaves()
     {
@@ -66,7 +66,7 @@ public class SlimeLeaves extends BlockLeaves
         }
     }
 
-    public Icon getIcon (int side, int meta)
+    public IIcon getIcon (int side, int meta)
     {
         int tex = meta % 4;
 
