@@ -842,7 +842,7 @@ public class RenderLiquid
         return flag;
     }
 
-    public static boolean renderFakeBlock (Icon texture, int x, int y, int z, RenderBlocks renderer, IBlockAccess world)
+    public static boolean renderFakeBlock (IIcon texture, int x, int y, int z, RenderBlocks renderer, IBlockAccess world)
     {
         Block block = Block.stone;
         int var5 = block.colorMultiplier(world, x, y, z);
@@ -864,7 +864,7 @@ public class RenderLiquid
                 var6, var7, var8, renderer, world);
     }
 
-    static boolean renderFakeBlockWithAmbientOcclusion (Icon texture, int xPos, int yPos, int zPos, float colorRed, float colorGreen, float colorBlue, RenderBlocks render, IBlockAccess world)
+    static boolean renderFakeBlockWithAmbientOcclusion (IIcon texture, int xPos, int yPos, int zPos, float colorRed, float colorGreen, float colorBlue, RenderBlocks render, IBlockAccess world)
     {
         Block block = Block.stone;
         render.enableAO = true;

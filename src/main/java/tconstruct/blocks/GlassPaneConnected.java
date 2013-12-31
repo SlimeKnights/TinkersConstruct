@@ -662,7 +662,7 @@ public class GlassPaneConnected extends GlassBlockConnected
         this.setBlockBounds(f, 0.0F, f2, f1, 1.0F, f3);
     }
 
-    public Icon getSideTextureIndex ()
+    public IIcon getSideTextureIndex ()
     {
         return this.theIcon;
     }

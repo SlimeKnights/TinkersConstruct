@@ -14,9 +14,9 @@ import net.minecraftforge.common.MinecraftForge;
 
 public abstract class HarvestTool extends ToolCore
 {
-    public HarvestTool(int itemID, int baseDamage)
+    public HarvestTool(int baseDamage)
     {
-        super(itemID, baseDamage);
+        super(baseDamage);
     }
 
     @Override

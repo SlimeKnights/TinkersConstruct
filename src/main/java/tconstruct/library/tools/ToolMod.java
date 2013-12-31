@@ -53,7 +53,7 @@ public abstract class ToolMod
                 {
                     ItemStack removeStack = (ItemStack) iterate.next();
 
-                    if (craftingStack.itemID == removeStack.itemID && (removeStack.getItemDamage() == Short.MAX_VALUE || craftingStack.getItemDamage() == removeStack.getItemDamage()))
+                    if (craftingStack.getItem() == removeStack.getItem() && (removeStack.getItemDamage() == Short.MAX_VALUE || craftingStack.getItemDamage() == removeStack.getItemDamage()))
                     {
                         canCraft = true;
                         list.remove(removeStack);
@@ -214,14 +214,14 @@ public abstract class ToolMod
 
     public boolean areItemsEquivalent (ItemStack stack1, ItemStack stack2)
     {
-        if (stack1.itemID != stack2.itemID)
+        if (stack1.getItem() != stack2.getItem())
             return false;
         return ItemStack.areItemStackTagsEqual(stack1, stack2);
     }
 
     public boolean areItemStacksEquivalent (ItemStack stack1, ItemStack stack2)
     {
-        if (stack1.itemID != stack2.itemID)
+        if (stack1.getItem() != stack2.getItem())
             return false;
         if (stack1.getItemDamage() != stack2.getItemDamage())
             return false;

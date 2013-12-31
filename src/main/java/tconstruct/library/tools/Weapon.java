@@ -14,9 +14,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 public abstract class Weapon extends ToolCore
 {
 
-    public Weapon(int itemID, int baseDamage)
+    public Weapon(int baseDamage)
     {
-        super(itemID, baseDamage);
+        super(baseDamage);
     }
 
     protected float baseSpeed ()

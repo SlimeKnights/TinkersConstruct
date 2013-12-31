@@ -849,7 +849,7 @@ public class BlockSkinRenderHelper
         return flag;
     }
 
-    public static boolean renderLiquidBlock (Icon stillIcon, Icon flowingIcon, int x, int y, int z, RenderBlocks renderer, IBlockAccess world)
+    public static boolean renderLiquidBlock (IIcon stillIcon, IIcon flowingIcon, int x, int y, int z, RenderBlocks renderer, IBlockAccess world)
     {
         Block block = Block.stone;
         int var5 = block.colorMultiplier(world, x, y, z);
@@ -871,7 +871,7 @@ public class BlockSkinRenderHelper
                 stillIcon, flowingIcon, x, y, z, var6, var7, var8, renderer, world);
     }
 
-    static boolean renderFakeBlockWithAmbientOcclusion (Icon stillIcon, Icon flowingIcon, int xPos, int yPos, int zPos, float colorRed, float colorGreen, float colorBlue, RenderBlocks render,
+    static boolean renderFakeBlockWithAmbientOcclusion (IIcon stillIcon, IIcon flowingIcon, int xPos, int yPos, int zPos, float colorRed, float colorGreen, float colorBlue, RenderBlocks render,
             IBlockAccess world)
     {
         Block block = Block.stone;
@@ -1589,7 +1589,7 @@ public class BlockSkinRenderHelper
         return flag;
     }
 
-    static boolean renderFakeBlockWithColorMultiplier (Icon stillIcon, Icon flowingIcon, int xPos, int yPos, int zPos, float colorRed, float colorGreen, float colorBlue, RenderBlocks render,
+    static boolean renderFakeBlockWithColorMultiplier (IIcon stillIcon, IIcon flowingIcon, int xPos, int yPos, int zPos, float colorRed, float colorGreen, float colorBlue, RenderBlocks render,
             IBlockAccess world)
     {
         Block block = Block.stone;

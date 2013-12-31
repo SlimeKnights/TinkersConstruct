@@ -5,7 +5,7 @@ import java.util.Random;
 import mantle.blocks.MantleBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -24,9 +24,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class Punji extends MantleBlock
 {
 
-    public Punji(int id)
+    public Punji()
     {
-        super(id, Material.plants);
+        super(Material.plants);
         this.setBlockBounds(0.125f, 0, 0.125f, 0.875f, 0.375f, 0.875f);
         this.setStepSound(Block.soundGrassFootstep);
         this.setCreativeTab(TConstructRegistry.blockTab);
@@ -104,7 +104,7 @@ public class Punji extends MantleBlock
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void registerIcons (IconRegister iconRegister)
+    public void registerIcons (IIconRegister iconRegister)
     {
         this.blockIcon = iconRegister.registerIcon("tinker:punji");
     }

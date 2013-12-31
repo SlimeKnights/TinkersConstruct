@@ -12,7 +12,7 @@ import tconstruct.library.crafting.ToolBuilder;
 import tconstruct.library.tools.AbilityHelper;
 import tconstruct.library.tools.ToolCore;
 
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
@@ -22,7 +22,7 @@ import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.ArrowLooseEvent;
@@ -63,8 +63,8 @@ public abstract class BowBase extends ToolCore
         time = event.charge;
 
         boolean creative = player.capabilities.isCreativeMode || EnchantmentHelper.getEnchantmentLevel(Enchantment.infinity.effectId, stack) > 0;
-        int slotID = getInventorySlotContainItem(TRepo.arrow.itemID, player.inventory);
-        int arrowID = getInventorySlotContainItem(Item.arrow.itemID, player.inventory);
+        int slotID = getInventorySlotContainItem(TRepo.arrow, player.inventory);
+        int arrowID = getInventorySlotContainItem(Item.arrow, player.inventory);
         int arrowState = 0;
         ItemStack tinkerArrow = null;
         if (slotID != -1)
@@ -149,11 +149,11 @@ public abstract class BowBase extends ToolCore
                 //if (tinkerArrow != null)
                 if (slotID != -1 && (arrowID == -1 || slotID < arrowID))
                 {
-                    player.inventory.consumeInventoryItem(TRepo.arrow.itemID);
+                    player.inventory.consumeInventoryItem(TRepo.arrow);
                 }
                 else
                 {
-                    player.inventory.consumeInventoryItem(Item.arrow.itemID);
+                    player.inventory.consumeInventoryItem(Item.arrow);
                 }
             }
 
@@ -164,7 +164,7 @@ public abstract class BowBase extends ToolCore
         }
     }
 
-    int getInventorySlotContainItem (int itemID, InventoryPlayer inventory)
+    int getInventorySlotContainItem (Item item, InventoryPlayer inventory)
     {
         for (int j = 0; j < inventory.mainInventory.length; ++j)
         {
@@ -239,7 +239,7 @@ public abstract class BowBase extends ToolCore
 
     /* Rendering */
     @Override
-    public void registerIcons (IconRegister iconRegister)
+    public void registerIcons (IIconRegister iconRegister)
     {
         super.registerIcons(iconRegister);
         headIcons1.clear();
@@ -383,7 +383,7 @@ public abstract class BowBase extends ToolCore
         registerArrows(iconRegister);
     }
 
-    void registerArrows (IconRegister iconRegister)
+    void registerArrows (IIconRegister iconRegister)
     {
         arrow1 = iconRegister.registerIcon("tinker:" + getDefaultFolder() + "/arrow_1");
         arrow2 = iconRegister.registerIcon("tinker:" + getDefaultFolder() + "/arrow_2");
@@ -391,7 +391,7 @@ public abstract class BowBase extends ToolCore
     }
 
     @Override
-    public Icon getIcon (ItemStack stack, int renderPass)
+    public IIcon getIcon (ItemStack stack, int renderPass)
     {
         NBTTagCompound tags = stack.getTagCompound();
 
@@ -486,30 +486,30 @@ public abstract class BowBase extends ToolCore
         handleStrings.put(index, location[2]);
     }
 
-    public Icon arrow1;
-    public Icon arrow2;
-    public Icon arrow3;
+    public IIcon arrow1;
+    public IIcon arrow2;
+    public IIcon arrow3;
 
-    public HashMap<Integer, Icon> headIcons1 = new HashMap<Integer, Icon>();
-    public HashMap<Integer, Icon> handleIcons1 = new HashMap<Integer, Icon>();
-    public HashMap<Integer, Icon> accessoryIcons1 = new HashMap<Integer, Icon>();
-    public HashMap<Integer, Icon> extraIcons1 = new HashMap<Integer, Icon>();
-    public HashMap<Integer, Icon> effectIcons1 = new HashMap<Integer, Icon>();
+    public HashMap<Integer, IIcon> headIcons1 = new HashMap<Integer, IIcon>();
+    public HashMap<Integer, IIcon> handleIcons1 = new HashMap<Integer, IIcon>();
+    public HashMap<Integer, IIcon> accessoryIcons1 = new HashMap<Integer, IIcon>();
+    public HashMap<Integer, IIcon> extraIcons1 = new HashMap<Integer, IIcon>();
+    public HashMap<Integer, IIcon> effectIcons1 = new HashMap<Integer, IIcon>();
 
-    public HashMap<Integer, Icon> headIcons2 = new HashMap<Integer, Icon>();
-    public HashMap<Integer, Icon> handleIcons2 = new HashMap<Integer, Icon>();
-    public HashMap<Integer, Icon> accessoryIcons2 = new HashMap<Integer, Icon>();
-    public HashMap<Integer, Icon> extraIcons2 = new HashMap<Integer, Icon>();
-    public HashMap<Integer, Icon> effectIcons2 = new HashMap<Integer, Icon>();
+    public HashMap<Integer, IIcon> headIcons2 = new HashMap<Integer, IIcon>();
+    public HashMap<Integer, IIcon> handleIcons2 = new HashMap<Integer, IIcon>();
+    public HashMap<Integer, IIcon> accessoryIcons2 = new HashMap<Integer, IIcon>();
+    public HashMap<Integer, IIcon> extraIcons2 = new HashMap<Integer, IIcon>();
+    public HashMap<Integer, IIcon> effectIcons2 = new HashMap<Integer, IIcon>();
 
-    public HashMap<Integer, Icon> headIcons3 = new HashMap<Integer, Icon>();
-    public HashMap<Integer, Icon> handleIcons3 = new HashMap<Integer, Icon>();
-    public HashMap<Integer, Icon> accessoryIcons3 = new HashMap<Integer, Icon>();
-    public HashMap<Integer, Icon> extraIcons3 = new HashMap<Integer, Icon>();
-    public HashMap<Integer, Icon> effectIcons3 = new HashMap<Integer, Icon>();
+    public HashMap<Integer, IIcon> headIcons3 = new HashMap<Integer, IIcon>();
+    public HashMap<Integer, IIcon> handleIcons3 = new HashMap<Integer, IIcon>();
+    public HashMap<Integer, IIcon> accessoryIcons3 = new HashMap<Integer, IIcon>();
+    public HashMap<Integer, IIcon> extraIcons3 = new HashMap<Integer, IIcon>();
+    public HashMap<Integer, IIcon> effectIcons3 = new HashMap<Integer, IIcon>();
 
     @Override
-    public Icon getIcon (ItemStack stack, int renderPass, EntityPlayer player, ItemStack usingItem, int useRemaining)
+    public IIcon getIcon (ItemStack stack, int renderPass, EntityPlayer player, ItemStack usingItem, int useRemaining)
     {
         int useTime = stack.getMaxItemUseDuration() - useRemaining;
         if (!stack.hasTagCompound())
@@ -530,7 +530,7 @@ public abstract class BowBase extends ToolCore
         return getIcon1(stack, renderPass);
     }
 
-    public Icon getIcon1 (ItemStack stack, int renderPass)
+    public IIcon getIcon1 (ItemStack stack, int renderPass)
     {
         NBTTagCompound tags = stack.getTagCompound();
 
@@ -607,7 +607,7 @@ public abstract class BowBase extends ToolCore
         return emptyIcon;
     }
 
-    public Icon getIcon2 (ItemStack stack, int renderPass)
+    public IIcon getIcon2 (ItemStack stack, int renderPass)
     {
         NBTTagCompound tags = stack.getTagCompound();
 
@@ -684,7 +684,7 @@ public abstract class BowBase extends ToolCore
         return emptyIcon;
     }
 
-    public Icon getIcon3 (ItemStack stack, int renderPass)
+    public IIcon getIcon3 (ItemStack stack, int renderPass)
     {
         NBTTagCompound tags = stack.getTagCompound();
 

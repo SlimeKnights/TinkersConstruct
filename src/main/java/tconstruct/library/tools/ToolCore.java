@@ -10,7 +10,7 @@ import java.util.Random;
 import mods.battlegear2.api.weapons.IBattlegearWeapon;
 import mods.battlegear2.api.weapons.OffhandAttackEvent;
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -20,7 +20,7 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemPotion;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import tconstruct.library.ActiveToolMod;
@@ -65,12 +65,12 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IBa
 
     protected Random random = new Random();
     protected int damageVsEntity;
-    public static Icon blankSprite;
-    public static Icon emptyIcon;
+    public static IIcon blankSprite;
+    public static IIcon emptyIcon;
 
-    public ToolCore(int id, int baseDamage)
+    public ToolCore( int baseDamage)
     {
-        super(id);
+        super();
         this.maxStackSize = 1;
         this.setMaxDamage(100);
         this.setUnlocalizedName("InfiTool");
@@ -115,12 +115,12 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IBa
 
     /* Rendering */
 
-    public HashMap<Integer, Icon> headIcons = new HashMap<Integer, Icon>();
-    public HashMap<Integer, Icon> brokenIcons = new HashMap<Integer, Icon>();
-    public HashMap<Integer, Icon> handleIcons = new HashMap<Integer, Icon>();
-    public HashMap<Integer, Icon> accessoryIcons = new HashMap<Integer, Icon>();
-    public HashMap<Integer, Icon> effectIcons = new HashMap<Integer, Icon>();
-    public HashMap<Integer, Icon> extraIcons = new HashMap<Integer, Icon>();
+    public HashMap<Integer, IIcon> headIcons = new HashMap<Integer, IIcon>();
+    public HashMap<Integer, IIcon> brokenIcons = new HashMap<Integer, IIcon>();
+    public HashMap<Integer, IIcon> handleIcons = new HashMap<Integer, IIcon>();
+    public HashMap<Integer, IIcon> accessoryIcons = new HashMap<Integer, IIcon>();
+    public HashMap<Integer, IIcon> effectIcons = new HashMap<Integer, IIcon>();
+    public HashMap<Integer, IIcon> extraIcons = new HashMap<Integer, IIcon>();
 
     //Not liking this
     public HashMap<Integer, String> headStrings = new HashMap<Integer, String>();
@@ -184,7 +184,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IBa
     }
 
     @Override
-    public void registerIcons (IconRegister iconRegister)
+    public void registerIcons (IIconRegister iconRegister)
     {
         headIcons.clear();
         brokenIcons.clear();
@@ -245,14 +245,14 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IBa
 
     @Override
     @SideOnly(Side.CLIENT)
-    public Icon getIconFromDamage (int meta)
+    public IIcon getIconFromDamage (int meta)
     {
         return blankSprite;
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public Icon getIcon (ItemStack stack, int renderPass)
+    public IIcon getIcon (ItemStack stack, int renderPass)
     {
         NBTTagCompound tags = stack.getTagCompound();
 
