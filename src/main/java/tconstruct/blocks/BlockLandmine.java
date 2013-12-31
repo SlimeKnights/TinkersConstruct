@@ -1,12 +1,5 @@
 package tconstruct.blocks;
 
-import static net.minecraftforge.common.ForgeDirection.DOWN;
-import static net.minecraftforge.common.ForgeDirection.EAST;
-import static net.minecraftforge.common.ForgeDirection.NORTH;
-import static net.minecraftforge.common.ForgeDirection.SOUTH;
-import static net.minecraftforge.common.ForgeDirection.UP;
-import static net.minecraftforge.common.ForgeDirection.WEST;
-
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
@@ -15,7 +8,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.EnumMobType;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -26,12 +19,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
 import tconstruct.TConstruct;
 import tconstruct.blocks.logic.LandmineExplodeLogic;
 import tconstruct.blocks.logic.TileEntityLandmine;
@@ -127,7 +119,7 @@ public class BlockLandmine extends BlockContainer
     }
 
     @Override
-    public void registerIcons (IconRegister par1IconRegister)
+    public void registerIcons (IIconRegister par1IconRegister)
     {
         this.blockIcon = par1IconRegister.registerIcon("tinker:Landmine");
     }

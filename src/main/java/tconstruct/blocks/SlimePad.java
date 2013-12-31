@@ -3,13 +3,13 @@ package tconstruct.blocks;
 import mantle.blocks.MantleBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import tconstruct.client.block.SlimePadRender;
@@ -22,9 +22,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class SlimePad extends MantleBlock
 {
 
-    public SlimePad(int par1, Material par2Material)
+    public SlimePad(Material par2Material)
     {
-        super(par1, par2Material);
+        super(par2Material);
         setBlockBounds(0.125F, 0.0F, 0.125F, 0.875F, 0.625F, 0.875F);
         this.setCreativeTab(TConstructRegistry.blockTab);
     }
@@ -131,17 +131,17 @@ public class SlimePad extends MantleBlock
 
     @Override
     @SideOnly(Side.CLIENT)
-    public Icon getIcon (int side, int meta)
+    public IIcon getIcon (int side, int meta)
     {
         return TRepo.slimeGel.getIcon(side, 1);
     }
 
-    public Icon getFluidIcon (int meta)
+    public IIcon getFluidIcon (int meta)
     {
         return TRepo.slimeChannel.getIcon(2, 0);
     }
 
-    public Icon getNubIcon (int meta)
+    public IIcon getNubIcon (int meta)
     {
         return TRepo.slimeGel.getIcon(0, 0);
     }

@@ -20,16 +20,16 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public class ToolStationBlock extends InventoryBlock
 {
     public ToolStationBlock(int id, Material material)
     {
-        super(id, material);
+        super(material);
         this.setCreativeTab(TConstructRegistry.blockTab);
         this.setHardness(2f);
         this.setStepSound(Block.soundWoodFootstep);
@@ -51,7 +51,7 @@ public class ToolStationBlock extends InventoryBlock
     }
 
     @Override
-    public Icon getIcon (int side, int meta)
+    public IIcon getIcon (int side, int meta)
     {
         if (meta <= 4)
         {
@@ -179,16 +179,16 @@ public class ToolStationBlock extends InventoryBlock
     }
 
     @Override
-    public void getSubBlocks (int id, CreativeTabs tab, List list)
+    public void getSubBlocks (Block b, CreativeTabs tab, List list)
     {
         for (int iter = 0; iter < 6; iter++)
         {
-            list.add(new ItemStack(id, 1, iter));
+            list.add(new ItemStack(b, 1, iter));
         }
 
         for (int iter = 10; iter < 14; iter++)
         {
-            list.add(new ItemStack(id, 1, iter));
+            list.add(new ItemStack(b, 1, iter));
         }
     }
 

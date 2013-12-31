@@ -7,18 +7,18 @@ import java.util.List;
 import tconstruct.client.block.PaneConnectedRender;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public class GlassPaneConnected extends GlassBlockConnected
 {
 
-    private Icon theIcon;
+    private IIcon theIcon;
 
     public GlassPaneConnected(int par1, String location, boolean hasAlpha)
     {
@@ -47,7 +47,7 @@ public class GlassPaneConnected extends GlassBlockConnected
     }
 
     @Override
-    public Icon getConnectedBlockTexture (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5, Icon[] icons)
+    public IIcon getConnectedBlockTexture (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5, Icon[] icons)
     {
         if (par5 == 0 || par5 == 1)
         {
@@ -672,7 +672,7 @@ public class GlassPaneConnected extends GlassBlockConnected
         return Block.opaqueCubeLookup[par1] || par1 == this.blockID || par1 == Block.glass.blockID;
     }
 
-    public void registerIcons (IconRegister par1IconRegister)
+    public void registerIcons (IIconRegister par1IconRegister)
     {
         super.registerIcons(par1IconRegister);
         this.theIcon = par1IconRegister.registerIcon("tinker:glass/" + folder + "/glass_side");

@@ -1,10 +1,10 @@
 package tconstruct.blocks;
 
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import tconstruct.TConstruct;
@@ -18,9 +18,9 @@ import mantle.blocks.iface.IFacingLogic;
 public class FurnaceSlab extends InventorySlab
 {
 
-    public FurnaceSlab(int id, Material material)
+    public FurnaceSlab(Material material)
     {
-        super(id, material);
+        super(material);
         this.setCreativeTab(TConstructRegistry.blockTab);
         this.setHardness(3.5f);
     }

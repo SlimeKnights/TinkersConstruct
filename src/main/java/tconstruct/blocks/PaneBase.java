@@ -7,12 +7,12 @@ import tconstruct.client.block.PaneRender;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPane;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
@@ -22,12 +22,12 @@ public class PaneBase extends Block
 {
     public String[] textureNames;
     public String folder;
-    public Icon[] icons;
-    public Icon[] sideIcons;
+    public IIcon[] icons;
+    public IIcon[] sideIcons;
 
-    public PaneBase(int id, Material material, String folder, String[] blockTextures)
+    public PaneBase(Material material, String folder, String[] blockTextures)
     {
-        super(id, material);
+        super(material);
         textureNames = blockTextures;
         this.folder = folder;
     }
@@ -38,17 +38,17 @@ public class PaneBase extends Block
         return Block.opaqueCubeLookup[blockID] || block instanceof PaneBase || block instanceof BlockPane || blockID == Block.glass.blockID;
     }
 
-    public Icon getSideTextureIndex (int meta)
+    public IIcon getSideTextureIndex (int meta)
     {
         return sideIcons[meta];
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void registerIcons (IconRegister iconRegister)
+    public void registerIcons (IIconRegister iconRegister)
     {
-        this.icons = new Icon[textureNames.length];
-        this.sideIcons = new Icon[textureNames.length];
+        this.icons = new IIcon[textureNames.length];
+        this.sideIcons = new IIcon[textureNames.length];
 
         for (int i = 0; i < this.icons.length; ++i)
         {
@@ -59,17 +59,17 @@ public class PaneBase extends Block
 
     @Override
     @SideOnly(Side.CLIENT)
-    public Icon getIcon (int side, int meta)
+    public IIcon getIcon (int side, int meta)
     {
         return icons[meta];
     }
 
     @Override
-    public void getSubBlocks (int id, CreativeTabs tab, List list)
+    public void getSubBlocks (Block b, CreativeTabs tab, List list)
     {
         for (int iter = 0; iter < textureNames.length; iter++)
         {
-            list.add(new ItemStack(id, 1, iter));
+            list.add(new ItemStack(b, 1, iter));
         }
     }
 

@@ -2,7 +2,8 @@ package tconstruct.items;
 
 import java.util.List;
 
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.block.Block;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
@@ -17,9 +18,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class GoldenHead extends ItemFood
 {
-    public GoldenHead(int par1, int par2, float par3, boolean par4)
+    public GoldenHead(int par2, float par3, boolean par4)
     {
-        super(par1, par2, par3, par4);
+        super(par2, par3, par4);
         this.setHasSubtypes(true);
     }
 
@@ -59,14 +60,14 @@ public class GoldenHead extends ItemFood
     /**
      * returns a list of items with the same ID, but different meta (eg: dye returns 16 items)
      */
-    public void getSubItems (int par1, CreativeTabs par2CreativeTabs, List par3List)
+    public void getSubItems (Block b, CreativeTabs par2CreativeTabs, List par3List)
     {
-        par3List.add(new ItemStack(par1, 1, 0));
+        par3List.add(new ItemStack(b, 1, 0));
     }
 
     @SideOnly(Side.CLIENT)
     @Override
-    public void registerIcons (IconRegister iconRegister)
+    public void registerIcons (IIconRegister iconRegister)
     {
         this.itemIcon = iconRegister.registerIcon("tinker:skull_char_gold");
     }

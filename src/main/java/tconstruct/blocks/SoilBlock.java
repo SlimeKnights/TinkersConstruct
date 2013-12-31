@@ -15,16 +15,15 @@ public class SoilBlock extends TConstructBlock
 {
     static String[] soilTypes = new String[] { "slimesand", "grout", "slimesandblue", "graveyardsoil", "consecratedsoil", "slimedirt_blue", "nether_grout" };
 
-    public SoilBlock(int id)
+    public SoilBlock()
     {
-        super(id, Material.ground, 3.0F, soilTypes);
+        super(Material.ground, 3.0F, soilTypes);
     }
 
     @Override
     public void onEntityWalking (World world, int x, int y, int z, Entity entity)
     {
         if (entity instanceof EntityLivingBase)
-        {
             EntityLivingBase living = ((EntityLivingBase) entity);
             if (living.getCreatureAttribute() == EnumCreatureAttribute.UNDEAD)
             {

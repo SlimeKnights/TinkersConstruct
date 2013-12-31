@@ -5,15 +5,14 @@ import java.util.List;
 import mantle.blocks.abstracts.InventoryBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
 import tconstruct.TConstruct;
 import tconstruct.blocks.logic.ToolForgeLogic;
 import tconstruct.client.block.TableForgeRender;
@@ -24,9 +23,9 @@ import tconstruct.library.TConstructRegistry;
 public class ToolForgeBlock extends InventoryBlock
 {
 
-    public ToolForgeBlock(int id, Material material)
+    public ToolForgeBlock(Material material)
     {
-        super(id, material);
+        super(material);
         this.setCreativeTab(TConstructRegistry.blockTab);
         this.setHardness(2f);
         this.setStepSound(Block.soundWoodFootstep);
@@ -42,17 +41,17 @@ public class ToolForgeBlock extends InventoryBlock
         return textureNames;
     }
 
-    Icon textureTop;
+    IIcon textureTop;
 
     @Override
-    public void registerIcons (IconRegister iconRegister)
+    public void registerIcons (IIconRegister iconRegister)
     {
         super.registerIcons(iconRegister);
         textureTop = iconRegister.registerIcon("tinker:toolforge_top");
     }
 
     @Override
-    public Icon getIcon (int side, int meta)
+    public IIcon getIcon (int side, int meta)
     {
         if (side == 1)
         {

@@ -5,28 +5,28 @@ import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBaseRailLogic;
 import net.minecraft.block.BlockRailBase;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.item.EntityMinecart;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
 public class WoodRail extends BlockRailBase
 {
     @SideOnly(Side.CLIENT)
-    private Icon theIcon;
+    private IIcon theIcon;
 
-    public WoodRail(int par1)
+    public WoodRail()
     {
-        super(par1, false);
+        super(false);
     }
 
     @SideOnly(Side.CLIENT)
     /**
      * From the specified side and block metadata retrieves the blocks texture. Args: side, metadata
      */
-    public Icon getIcon (int par1, int par2)
+    public IIcon getIcon (int par1, int par2)
     {
-        return par2 >= 6 ? this.theIcon : this.blockIcon;
+        return par2 >= 6 ? this.theIcon : this.field_149761_L;
     }
 
     @SideOnly(Side.CLIENT)
@@ -34,9 +34,9 @@ public class WoodRail extends BlockRailBase
      * When this method is called, your block should register all the icons it needs with the given IconRegister. This
      * is the only chance you get to register icons.
      */
-    public void registerIcons (IconRegister par1IconRegister)
+    public void registerIcons (IIconRegister par1IconRegister)
     {
-        this.blockIcon = par1IconRegister.registerIcon("tinker:woodrail");
+        this.field_149761_L = par1IconRegister.registerIcon("tinker:woodrail");
         this.theIcon = par1IconRegister.registerIcon("tinker:woodrail_turn");
     }
 

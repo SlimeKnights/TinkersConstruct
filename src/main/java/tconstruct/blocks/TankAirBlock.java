@@ -4,7 +4,7 @@ import java.util.List;
 
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -24,7 +24,7 @@ public class TankAirBlock extends BlockContainer
 
     public TankAirBlock(int id, Material material)
     {
-        super(id, material);
+        super(material);
     }
 
     @Override
@@ -40,7 +40,7 @@ public class TankAirBlock extends BlockContainer
     }
 
     @SideOnly(Side.CLIENT)
-    public void registerIcons (IconRegister par1IconRegister)
+    public void registerIcons (IIconRegister par1IconRegister)
     {
 
     }

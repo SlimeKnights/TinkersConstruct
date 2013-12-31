@@ -4,7 +4,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraftforge.client.IItemRenderer;
 
 import org.lwjgl.opengl.GL11;
@@ -54,7 +54,7 @@ public class ToolCoreRenderer implements IItemRenderer
 
         int iconParts = toolIcons;//tool.getRenderPasses(item.getItemDamage());
 
-        Icon[] tempParts = new Icon[iconParts];
+        IIcon[] tempParts = new IIcon[iconParts];
         label:
         {
             if (!isInventory && ent instanceof EntityPlayer)
@@ -70,14 +70,14 @@ public class ToolCoreRenderer implements IItemRenderer
                 }
             }
             for (int i = iconParts; i-- > 0;)
-                tempParts[i] = tool.getIcon(item, i);
+                tempParts[i] = tool.getIIcon(item, i);
         }
 
         int count = 0;
-        Icon[] parts = new Icon[iconParts];
+        IIcon[] parts = new IIcon[iconParts];
         for (int i = 0; i < iconParts; ++i)
         {
-            Icon part = tempParts[i];
+            IIcon part = tempParts[i];
             if (part == null)// || part == ToolCore.blankSprite | part == ToolCore.emptyIcon)
                 ++count;
             else
@@ -109,7 +109,7 @@ public class ToolCoreRenderer implements IItemRenderer
         float[] ySub = new float[iconParts];
         for (int i = 0; i < iconParts; ++i)
         {
-            Icon icon = parts[i];
+            IIcon icon = parts[i];
             xMin[i] = icon.getMinU();
             xMax[i] = icon.getMaxU();
             yMin[i] = icon.getMinV();

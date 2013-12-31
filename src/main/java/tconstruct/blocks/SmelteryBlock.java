@@ -3,6 +3,7 @@ package tconstruct.blocks;
 import java.util.List;
 import java.util.Random;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
@@ -31,9 +32,9 @@ public class SmelteryBlock extends InventoryBlock
     Random rand;
     String texturePrefix = "";
 
-    public SmelteryBlock(int id)
+    public SmelteryBlock()
     {
-        super(id, Material.rock);
+        super(Material.rock);
         setHardness(3F);
         setResistance(20F);
         setStepSound(soundMetalFootstep);
@@ -42,9 +43,9 @@ public class SmelteryBlock extends InventoryBlock
         this.setUnlocalizedName("tconstruct.Smeltery");
     }
 
-    public SmelteryBlock(int id, String prefix)
+    public SmelteryBlock(String prefix)
     {
-        this(id);
+        this();
         texturePrefix = prefix;
     }
 
@@ -69,7 +70,7 @@ public class SmelteryBlock extends InventoryBlock
         return textureNames;
     }
 
-    public Icon getIcon (int side, int meta)
+    public IIcon getIcon (int side, int meta)
     {
         if (meta < 2)
         {
@@ -89,7 +90,7 @@ public class SmelteryBlock extends InventoryBlock
         return icons[3 + meta];
     }
 
-    public Icon getBlockTexture (IBlockAccess world, int x, int y, int z, int side)
+    public IIcon getBlockTexture (IBlockAccess world, int x, int y, int z, int side)
     {
         TileEntity logic = world.getBlockTileEntity(x, y, z);
         short direction = (logic instanceof IFacingLogic) ? ((IFacingLogic) logic).getRenderDirection() : 0;
@@ -268,12 +269,12 @@ public class SmelteryBlock extends InventoryBlock
     }*/
 
     @Override
-    public void getSubBlocks (int id, CreativeTabs tab, List list)
+    public void getSubBlocks (Block b, CreativeTabs tab, List list)
     {
         for (int iter = 0; iter < 12; iter++)
         {
             if (iter != 3)
-                list.add(new ItemStack(id, 1, iter));
+                list.add(new ItemStack(b, 1, iter));
         }
     }
 

@@ -4,10 +4,10 @@ import java.util.List;
 import java.util.Random;
 
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.BlockFluidClassic;
 import net.minecraftforge.fluids.Fluid;
@@ -17,8 +17,8 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class SlimeFluid extends BlockFluidClassic
 {
-    Icon stillIcon;
-    Icon flowIcon;
+    IIcon stillIcon;
+    IIcon flowIcon;
 
     public SlimeFluid(int id, Fluid fluid, Material material)
     {
@@ -27,7 +27,7 @@ public class SlimeFluid extends BlockFluidClassic
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void registerIcons (IconRegister iconRegister)
+    public void registerIcons (IIconRegister iconRegister)
     {
         stillIcon = iconRegister.registerIcon("tinker:slime_blue");
         flowIcon = iconRegister.registerIcon("tinker:slime_blue_flow");
@@ -35,7 +35,7 @@ public class SlimeFluid extends BlockFluidClassic
 
     @Override
     @SideOnly(Side.CLIENT)
-    public Icon getIcon (int side, int meta)
+    public IIcon getIcon (int side, int meta)
     {
         if (side == 0 || side == 1)
             return stillIcon;

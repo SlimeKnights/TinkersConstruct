@@ -3,6 +3,7 @@ package tconstruct.items;
 import java.util.List;
 
 import mantle.items.abstracts.CraftingItem;
+import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
@@ -15,9 +16,9 @@ public class ToolPart extends CraftingItem implements IToolPart
 {
     public String partName;
 
-    public ToolPart(int id, String textureType, String name)
+    public ToolPart(String textureType, String name)
     {
-        super(id, toolMaterialNames, buildTextureNames(textureType), "parts/", "tinker", TConstructRegistry.materialTab);
+        super(toolMaterialNames, buildTextureNames(textureType), "parts/", "tinker", TConstructRegistry.materialTab);
         this.setHasSubtypes(true);
         this.setMaxDamage(0);
         this.partName = name;
@@ -67,13 +68,13 @@ public class ToolPart extends CraftingItem implements IToolPart
             "copper", "bronze", "alumite", "steel", "blueslime", "pigiron", "", "", "", "", "", "", "", "", "", "", "", "", "thaumium" };
 
     @Override
-    public void getSubItems (int id, CreativeTabs tab, List list)
+    public void getSubItems (Block b, CreativeTabs tab, List list)
     {
         for (int i = 0; i < 19; i++)
-            list.add(new ItemStack(id, 1, i));
+            list.add(new ItemStack(b, 1, i));
 
         if (TRepo.thaumcraftAvailable)
-            list.add(new ItemStack(id, 1, 31));
+            list.add(new ItemStack(b, 1, 31));
     }
 
     @Override

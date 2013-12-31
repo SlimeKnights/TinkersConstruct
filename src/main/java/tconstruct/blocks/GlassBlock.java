@@ -2,18 +2,18 @@ package tconstruct.blocks;
 
 import cpw.mods.fml.relauncher.*;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.*;
 
 public class GlassBlock extends TConstructBlock
 {
     static String blockTextures[] = { "glass_clear", "soulglass", "soulglass_clear" };
 
-    public GlassBlock(int id)
+    public GlassBlock()
     {
-        super(id, Material.glass, 3f, blockTextures);
+        super(Material.glass, 3f, blockTextures);
     }
 
     public boolean isOpaqueCube ()
@@ -63,9 +63,9 @@ public class GlassBlock extends TConstructBlock
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void registerIcons (IconRegister iconRegister)
+    public void registerIcons (IIconRegister iconRegister)
     {
-        this.icons = new Icon[textureNames.length];
+        this.icons = new IIcon[textureNames.length];
 
         for (int i = 0; i < this.icons.length; ++i)
         {

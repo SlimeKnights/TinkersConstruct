@@ -5,7 +5,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 
 /**
@@ -1574,7 +1574,7 @@ public class RenderLiquid
         return flag;
     }
 
-    static boolean renderFakeBlockWithColorMultiplier (Icon texture, int xPos, int yPos, int zPos, float colorRed, float colorGreen, float colorBlue, RenderBlocks render, IBlockAccess world)
+    static boolean renderFakeBlockWithColorMultiplier (IIcon texture, int xPos, int yPos, int zPos, float colorRed, float colorGreen, float colorBlue, RenderBlocks render, IBlockAccess world)
     {
         Block block = Block.stone;
         render.enableAO = false;

@@ -1,7 +1,7 @@
 package tconstruct.util.config;
 
 import cpw.mods.fml.common.Loader;
-import net.minecraftforge.common.Configuration;
+import net.minecraftforge.common.config.Configuration;
 import tconstruct.TConstruct;
 
 import java.io.File;

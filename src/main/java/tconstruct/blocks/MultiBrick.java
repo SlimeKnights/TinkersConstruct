@@ -2,10 +2,10 @@ package tconstruct.blocks;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
@@ -147,9 +147,9 @@ public class MultiBrick extends TConstructBlock
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void registerIcons (IconRegister iconRegister)
+    public void registerIcons (IIconRegister iconRegister)
     {
-        this.icons = new Icon[textureNames.length];
+        this.icons = new IIcon[textureNames.length];
 
         for (int i = 0; i < this.icons.length; ++i)
         {

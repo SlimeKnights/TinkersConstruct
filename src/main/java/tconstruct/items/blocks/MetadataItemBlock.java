@@ -1,12 +1,13 @@
 package tconstruct.items.blocks;
 
+import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
 
 public class MetadataItemBlock extends ItemBlock
 {
-    public MetadataItemBlock(int id)
+    public MetadataItemBlock(Block b)
     {
-        super(id);
+        super(b);
         setMaxDamage(0);
         setHasSubtypes(true);
     }

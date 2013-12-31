@@ -3,11 +3,12 @@ package tconstruct.blocks.slime;
 import java.util.List;
 import java.util.Random;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockLeaves;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import tconstruct.common.TContent;
@@ -25,9 +26,9 @@ public class SlimeLeaves extends BlockLeaves
     @SideOnly(Side.CLIENT)
     private Icon[] fancyIcons;
 
-    public SlimeLeaves(int id)
+    public SlimeLeaves()
     {
-        super(id);
+        super();
         setCreativeTab(TConstructRegistry.blockTab);
         setLightOpacity(1);
         this.setHardness(0.3f);
@@ -53,10 +54,10 @@ public class SlimeLeaves extends BlockLeaves
 
     @SideOnly(Side.CLIENT)
     @Override
-    public void registerIcons (IconRegister iconRegister)
+    public void registerIcons (IIconRegister iconRegister)
     {
-        this.fastIcons = new Icon[fastLeaves.length];
-        this.fancyIcons = new Icon[fancyLeaves.length];
+        this.fastIcons = new IIcon[fastLeaves.length];
+        this.fancyIcons = new IIcon[fancyLeaves.length];
 
         for (int i = 0; i < this.fastIcons.length; i++)
         {
@@ -76,11 +77,11 @@ public class SlimeLeaves extends BlockLeaves
     }
 
     @Override
-    public void getSubBlocks (int id, CreativeTabs tab, List list)
+    public void getSubBlocks (Block b, CreativeTabs tab, List list)
     {
         for (int iter = 0; iter < fastIcons.length; iter++)
         {
-            list.add(new ItemStack(id, 1, iter));
+            list.add(new ItemStack(b, 1, iter));
         }
     }
 

@@ -4,10 +4,10 @@ import java.util.List;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.ColorizerGrass;
 import net.minecraft.world.IBlockAccess;
 import tconstruct.common.TContent;
@@ -18,22 +18,22 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class SoilSlab extends SlabBase
 {
-    public SoilSlab(int id)
+    public SoilSlab()
     {
-        super(id, Material.ground);
+        super(Material.ground);
         this.setCreativeTab(TConstructRegistry.blockTab);
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void registerIcons (IconRegister iconRegister)
+    public void registerIcons (IIconRegister iconRegister)
     {
         this.blockIcon = iconRegister.registerIcon("tinker:grass_top");
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public Icon getIcon (int side, int meta)
+    public IIcon getIcon (int side, int meta)
     {
         switch (meta % 8)
         {
@@ -49,11 +49,11 @@ public class SoilSlab extends SlabBase
     }
 
     @Override
-    public void getSubBlocks (int id, CreativeTabs tab, List list)
+    public void getSubBlocks (Block b, CreativeTabs tab, List list)
     {
         for (int iter = 0; iter < 8; iter++)
         {
-            list.add(new ItemStack(id, 1, iter));
+            list.add(new ItemStack(b, 1, iter));
         }
     }
 

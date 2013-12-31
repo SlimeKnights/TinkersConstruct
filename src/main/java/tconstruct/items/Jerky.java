@@ -2,12 +2,12 @@ package tconstruct.items;
 
 import java.util.List;
 
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
@@ -30,9 +30,9 @@ public class Jerky extends SpecialFood
 
     @SideOnly(Side.CLIENT)
     @Override
-    public void registerIcons (IconRegister iconRegister)
+    public void registerIcons (IIconRegister iconRegister)
     {
-        this.icons = new Icon[iconNames.length];
+        this.icons = new IIcon[iconNames.length];
 
         for (int i = 0; i < this.icons.length; ++i)
         {

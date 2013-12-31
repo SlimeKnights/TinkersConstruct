@@ -3,13 +3,13 @@ package tconstruct.blocks;
 import mantle.blocks.MantleBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -22,9 +22,9 @@ public class ConveyorBase extends MantleBlock
 {
     String texturename;
 
-    public ConveyorBase(int ID, Material material, String name)
+    public ConveyorBase(Material material, String name)
     {
-        super(ID, material);
+        super(material);
         this.setCreativeTab(TConstructRegistry.blockTab);
         setBlockBounds(0f, 0f, 0f, 1f, 0.5f, 1f);
         texturename = name;
@@ -136,10 +136,10 @@ public class ConveyorBase extends MantleBlock
     }
 
     @Override
-    public void registerIcons (IconRegister iconRegister)
+    public void registerIcons (IIconRegister iconRegister)
     {
         String[] textureNames = new String[] { texturename, texturename + "_flow" };
-        this.icons = new Icon[textureNames.length];
+        this.icons = new IIcon[textureNames.length];
 
         for (int i = 0; i < this.icons.length; ++i)
         {
@@ -149,7 +149,7 @@ public class ConveyorBase extends MantleBlock
 
     @Override
     @SideOnly(Side.CLIENT)
-    public Icon getIcon (int side, int meta)
+    public IIcon getIcon (int side, int meta)
     {
         if (meta >= 8)
             return icons[0];

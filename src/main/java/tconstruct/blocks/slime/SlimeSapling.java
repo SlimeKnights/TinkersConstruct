@@ -5,11 +5,11 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSapling;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import tconstruct.common.TContent;
@@ -21,12 +21,12 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class SlimeSapling extends BlockSapling
 {
-    public Icon[] icons;
+    public IIcon[] icons;
     public String[] textureNames = new String[] { "blue" };
 
-    public SlimeSapling(int id)
+    public SlimeSapling()
     {
-        super(id);
+        super();
         float f = 0.4F;
         setBlockBounds(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, f * 2.0F, 0.5F + f);
         this.setHardness(0.0F);
@@ -36,9 +36,9 @@ public class SlimeSapling extends BlockSapling
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void registerIcons (IconRegister iconRegister)
+    public void registerIcons (IIconRegister iconRegister)
     {
-        this.icons = new Icon[textureNames.length];
+        this.icons = new IIcon[textureNames.length];
 
         for (int i = 0; i < this.icons.length; ++i)
         {
@@ -71,7 +71,7 @@ public class SlimeSapling extends BlockSapling
 
     @Override
     @SideOnly(Side.CLIENT)
-    public Icon getIcon (int side, int meta)
+    public IIcon getIcon (int side, int meta)
     {
         return icons[meta % 8];
     }
@@ -120,9 +120,9 @@ public class SlimeSapling extends BlockSapling
 
     @SideOnly(Side.CLIENT)
     @Override
-    public void getSubBlocks (int par1, CreativeTabs par2CreativeTabs, List par3List)
+    public void getSubBlocks (Block b, CreativeTabs par2CreativeTabs, List par3List)
     {
         for (int i = 0; i < 1; i++)
-            par3List.add(new ItemStack(par1, 1, i));
+            par3List.add(new ItemStack(b, 1, i));
     }
 }

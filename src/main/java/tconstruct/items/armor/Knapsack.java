@@ -20,7 +20,7 @@ public class Knapsack extends CraftingItem
 
     public Knapsack(int id)
     {
-        super(id, new String[] { "knapsack" }, new String[] { "knapsack" }, "armor/", "tinker", TConstructRegistry.materialTab);
+        super(new String[] { "knapsack" }, new String[] { "knapsack" }, "armor/", "tinker", TConstructRegistry.materialTab);
         this.setMaxStackSize(10);
     }
 

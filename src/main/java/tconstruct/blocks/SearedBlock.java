@@ -1,7 +1,9 @@
 package tconstruct.blocks;
 
 import java.util.List;
+
 import mantle.blocks.abstracts.InventoryBlock;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -20,18 +22,18 @@ import tconstruct.library.tools.AbilityHelper;
 public class SearedBlock extends InventoryBlock
 {
 
-    public SearedBlock(int id)
+    public SearedBlock()
     {
-        super(id, Material.rock);
+        super(Material.rock);
         this.setCreativeTab(TConstructRegistry.blockTab);
         setHardness(3F);
         setResistance(20F);
         setStepSound(soundMetalFootstep);
     }
 
-    public SearedBlock(int id, String texture)
+    public SearedBlock(String texture)
     {
-        this(id);
+        this();
         this.texturePrefix = texture;
     }
 
@@ -243,11 +245,11 @@ public class SearedBlock extends InventoryBlock
     }
 
     @Override
-    public void getSubBlocks (int id, CreativeTabs tab, List list)
+    public void getSubBlocks (Block b, CreativeTabs tab, List list)
     {
         for (int iter = 0; iter < 3; iter++)
         {
-            list.add(new ItemStack(id, 1, iter));
+            list.add(new ItemStack(b, 1, iter));
         }
     }
 

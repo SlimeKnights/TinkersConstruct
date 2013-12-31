@@ -1,8 +1,8 @@
 package tconstruct.blocks;
 
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
-import net.minecraft.util.Icon;
+import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -12,9 +12,9 @@ public class GlassBlockStained extends TConstructBlock
     static String blockTextures[] = { "white", "orange", "magenta", "lightblue", "yellow", "lime", "pink", "gray", "lightgray", "cyan", "purple", "blue", "brown", "green", "red", "black" };
     String textureName;
 
-    public GlassBlockStained(int id, String tex)
+    public GlassBlockStained(String tex)
     {
-        super(id, Material.glass, 3f, blockTextures);
+        super(Material.glass, 3f, blockTextures);
         this.textureName = tex;
     }
 

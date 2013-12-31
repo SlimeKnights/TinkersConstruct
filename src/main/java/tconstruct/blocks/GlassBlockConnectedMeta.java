@@ -4,10 +4,10 @@ import java.util.List;
 
 import tconstruct.util.config.PHConstruct;
 
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
@@ -18,18 +18,18 @@ import net.minecraft.world.World;
 public class GlassBlockConnectedMeta extends GlassBlockConnected
 {
     public String[] textures;
-    public Icon[][] icons;
+    public IIcon[][] icons;
     boolean ignoreMetaForConnectedGlass = PHConstruct.connectedTexturesMode == 2;
 
     public GlassBlockConnectedMeta(int par1, String location, boolean hasAlpha, String... textures)
     {
         super(par1, location, hasAlpha);
         this.textures = textures;
-        this.icons = new Icon[textures.length][16];
+        this.icons = new IIcon[textures.length][16];
     }
 
     @Override
-    public Icon getBlockTexture (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
+    public IIcon getBlockTexture (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
     {
         int meta = par1IBlockAccess.getBlockMetadata(par2, par3, par4);
         if (meta < icons.length)
@@ -64,7 +64,7 @@ public class GlassBlockConnectedMeta extends GlassBlockConnected
     }
 
     @Override
-    public void registerIcons (IconRegister par1IconRegister)
+    public void registerIcons (IIconRegister par1IconRegister)
     {
         for (int i = 0; i < textures.length; i++)
         {

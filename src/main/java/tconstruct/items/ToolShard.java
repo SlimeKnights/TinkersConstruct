@@ -4,19 +4,20 @@ import java.util.List;
 
 import tconstruct.common.TContent;
 import tconstruct.common.TRepo;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.block.Block;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class ToolShard extends ToolPart
 {
 
-    public ToolShard(int id, String tex)
+    public ToolShard(String tex)
     {
-        super(id, tex, "ToolShard");
+        super(tex, "ToolShard");
         this.setHasSubtypes(true);
         this.setMaxDamage(0);
     }
@@ -33,9 +34,9 @@ public class ToolShard extends ToolPart
     }
 
     @SideOnly(Side.CLIENT)
-    public void registerIcons (IconRegister iconRegister)
+    public void registerIcons (IIconRegister iconRegister)
     {
-        this.icons = new Icon[textureNames.length];
+        this.icons = new IIcon[textureNames.length];
 
         for (int i = 0; i < 5; ++i)
         {
@@ -54,16 +55,16 @@ public class ToolShard extends ToolPart
         }
     }
 
-    public void getSubItems (int id, CreativeTabs tab, List list)
+    public void getSubItems (Block b, CreativeTabs tab, List list)
     {
         for (int i = 1; i < 5; i++)
-            list.add(new ItemStack(id, 1, i));
+            list.add(new ItemStack(b, 1, i));
         for (int i = 6; i < 9; i++)
-            list.add(new ItemStack(id, 1, i));
+            list.add(new ItemStack(b, 1, i));
         for (int i = 10; i < 19; i++)
-            list.add(new ItemStack(id, 1, i));
+            list.add(new ItemStack(b, 1, i));
 
         if (TRepo.thaumcraftAvailable)
-            list.add(new ItemStack(id, 1, 31));
+            list.add(new ItemStack(b, 1, 31));
     }
 }

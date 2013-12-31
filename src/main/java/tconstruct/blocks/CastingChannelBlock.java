@@ -2,13 +2,13 @@ package tconstruct.blocks;
 
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 import tconstruct.blocks.logic.CastingChannelLogic;
 import tconstruct.client.block.BlockRenderCastingChannel;
 import tconstruct.library.TConstructRegistry;
@@ -93,7 +93,7 @@ public class CastingChannelBlock extends BlockContainer
     }
 
     @Override
-    public void registerIcons (IconRegister iconRegister)
+    public void registerIcons (IIconRegister iconRegister)
     {
         this.blockIcon = iconRegister.registerIcon("tinker:searedstone");
     }

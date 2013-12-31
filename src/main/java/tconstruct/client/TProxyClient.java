@@ -61,7 +61,7 @@ import tconstruct.util.player.*;
 public class TProxyClient extends TProxyCommon
 {
     public static SmallFontRenderer smallFontRenderer;
-    public static Icon metalBall;
+    public static IIcon metalBall;
     public static Minecraft mc;
     public static RenderItem itemRenderer = new RenderItem();
 
@@ -123,27 +123,27 @@ public class TProxyClient extends TProxyCommon
         GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
         tessellator.startDrawingQuads();
         tessellator.setNormal(0.0F, -1F, 0.0F);
-        renderblocks.renderFaceYNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(0, meta));
+        renderblocks.renderFaceYNeg(block, 0.0D, 0.0D, 0.0D, block.getIIcon(0, meta));
         tessellator.draw();
         tessellator.startDrawingQuads();
         tessellator.setNormal(0.0F, 1.0F, 0.0F);
-        renderblocks.renderFaceYPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(1, meta));
+        renderblocks.renderFaceYPos(block, 0.0D, 0.0D, 0.0D, block.getIIcon(1, meta));
         tessellator.draw();
         tessellator.startDrawingQuads();
         tessellator.setNormal(0.0F, 0.0F, -1F);
-        renderblocks.renderFaceZNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(2, meta));
+        renderblocks.renderFaceZNeg(block, 0.0D, 0.0D, 0.0D, block.getIIcon(2, meta));
         tessellator.draw();
         tessellator.startDrawingQuads();
         tessellator.setNormal(0.0F, 0.0F, 1.0F);
-        renderblocks.renderFaceZPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(3, meta));
+        renderblocks.renderFaceZPos(block, 0.0D, 0.0D, 0.0D, block.getIIcon(3, meta));
         tessellator.draw();
         tessellator.startDrawingQuads();
         tessellator.setNormal(-1F, 0.0F, 0.0F);
-        renderblocks.renderFaceXNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(4, meta));
+        renderblocks.renderFaceXNeg(block, 0.0D, 0.0D, 0.0D, block.getIIcon(4, meta));
         tessellator.draw();
         tessellator.startDrawingQuads();
         tessellator.setNormal(1.0F, 0.0F, 0.0F);
-        renderblocks.renderFaceXPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(5, meta));
+        renderblocks.renderFaceXPos(block, 0.0D, 0.0D, 0.0D, block.getIIcon(5, meta));
         tessellator.draw();
         GL11.glTranslatef(0.5F, 0.5F, 0.5F);
     }
@@ -157,27 +157,27 @@ public class TProxyClient extends TProxyCommon
         GL11.glRotatef(60, 1, 0, 0);
         tessellator.startDrawingQuads();
         tessellator.setNormal(0.0F, -1F, 0.0F);
-        renderblocks.renderFaceYNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(0, meta));
+        renderblocks.renderFaceYNeg(block, 0.0D, 0.0D, 0.0D, block.getIIcon(0, meta));
         tessellator.draw();
         tessellator.startDrawingQuads();
         tessellator.setNormal(0.0F, 1.0F, 0.0F);
-        renderblocks.renderFaceYPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(1, meta));
+        renderblocks.renderFaceYPos(block, 0.0D, 0.0D, 0.0D, block.getIIcon(1, meta));
         tessellator.draw();
         tessellator.startDrawingQuads();
         tessellator.setNormal(0.0F, 0.0F, -1F);
-        renderblocks.renderFaceZNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(2, meta));
+        renderblocks.renderFaceZNeg(block, 0.0D, 0.0D, 0.0D, block.getIIcon(2, meta));
         tessellator.draw();
         tessellator.startDrawingQuads();
         tessellator.setNormal(0.0F, 0.0F, 1.0F);
-        renderblocks.renderFaceZPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(3, meta));
+        renderblocks.renderFaceZPos(block, 0.0D, 0.0D, 0.0D, block.getIIcon(3, meta));
         tessellator.draw();
         tessellator.startDrawingQuads();
         tessellator.setNormal(-1F, 0.0F, 0.0F);
-        renderblocks.renderFaceXNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(4, meta));
+        renderblocks.renderFaceXNeg(block, 0.0D, 0.0D, 0.0D, block.getIIcon(4, meta));
         tessellator.draw();
         tessellator.startDrawingQuads();
         tessellator.setNormal(1.0F, 0.0F, 0.0F);
-        renderblocks.renderFaceXPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(5, meta));
+        renderblocks.renderFaceXPos(block, 0.0D, 0.0D, 0.0D, block.getIIcon(5, meta));
         tessellator.draw();
         GL11.glTranslatef(0.5F, 0.5F, 0.5F);
     }
@@ -250,12 +250,12 @@ public class TProxyClient extends TProxyCommon
         // RenderingRegistry.registerEntityRenderingHandler(net.minecraft.entity.player.EntityPlayer.class,
         // new PlayerArmorRender()); // <-- Works, woo!
 
-        MinecraftForgeClient.registerItemRenderer(TRepo.shortbow.itemID, new CustomBowRenderer());
+        MinecraftForgeClient.registerItemRenderer(TRepo.shortbow, new CustomBowRenderer());
         VillagerRegistry.instance().registerVillagerSkin(78943, new ResourceLocation("tinker", "textures/mob/villagertools.png"));
 
         ToolCoreRenderer renderer = new ToolCoreRenderer();
-        MinecraftForgeClient.registerItemRenderer(TRepo.arrow.itemID, renderer);
-        MinecraftForgeClient.registerItemRenderer(TRepo.dagger.itemID, renderer);
+        MinecraftForgeClient.registerItemRenderer(TRepo.arrow, renderer);
+        MinecraftForgeClient.registerItemRenderer(TRepo.dagger, renderer);
 
         addRenderMappings();
         addToolButtons();

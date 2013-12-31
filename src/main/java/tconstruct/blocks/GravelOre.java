@@ -4,19 +4,19 @@ import java.util.List;
 import java.util.Random;
 
 import tconstruct.library.TConstructRegistry;
-
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockSand;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
 public class GravelOre extends BlockSand
 {
     public String[] textureNames = new String[] { "iron", "gold", "copper", "tin", "aluminum", "cobalt" };
-    public Icon[] icons;
+    public IIcon[] icons;
 
     public GravelOre(int id)
     {
@@ -25,9 +25,9 @@ public class GravelOre extends BlockSand
         this.setStepSound(soundGravelFootstep);
     }
 
-    public void registerIcons (IconRegister iconRegister)
+    public void registerIcons (IIconRegister iconRegister)
     {
-        this.icons = new Icon[textureNames.length];
+        this.icons = new IIcon[textureNames.length];
 
         for (int i = 0; i < this.icons.length; ++i)
         {
@@ -36,7 +36,7 @@ public class GravelOre extends BlockSand
     }
 
     @Override
-    public Icon getIcon (int side, int meta)
+    public IIcon getIcon (int side, int meta)
     {
         return icons[meta];
     }
@@ -66,11 +66,11 @@ public class GravelOre extends BlockSand
     }
 
     @Override
-    public void getSubBlocks (int id, CreativeTabs tab, List list)
+    public void getSubBlocks (Block b, CreativeTabs tab, List list)
     {
         for (int iter = 0; iter < 6; iter++)
         {
-            list.add(new ItemStack(id, 1, iter));
+            list.add(new ItemStack(b, 1, iter));
         }
     }
 }

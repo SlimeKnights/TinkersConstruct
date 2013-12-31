@@ -1,25 +1,25 @@
 package tconstruct.items;
 
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class DiamondApple extends ItemFood
 {
-    public Icon[] icons;
+    public IIcon[] icons;
     public String[] textureNames = new String[] { "food/apple_diamond" };
     public String[] itemNames = new String[] { "apple.diamond" };
 
-    public DiamondApple(int id)
+    public DiamondApple()
     {
-        super(id, 4, 2.0F, false);
+        super(4, 2.0F, false);
         setHasSubtypes(true);
         setMaxDamage(0);
         this.setAlwaysEdible();
@@ -56,16 +56,16 @@ public class DiamondApple extends ItemFood
 
     @SideOnly(Side.CLIENT)
     @Override
-    public Icon getIconFromDamage (int meta)
+    public IIcon getIconFromDamage (int meta)
     {
         return icons[meta];
     }
 
     @SideOnly(Side.CLIENT)
     @Override
-    public void registerIcons (IconRegister iconRegister)
+    public void registerIcons (IIconRegister iconRegister)
     {
-        this.icons = new Icon[textureNames.length];
+        this.icons = new IIcon[textureNames.length];
 
         for (int i = 0; i < this.icons.length; ++i)
         {

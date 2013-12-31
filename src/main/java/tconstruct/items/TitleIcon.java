@@ -3,7 +3,7 @@ package tconstruct.items;
 import java.util.List;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -12,7 +12,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Facing;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import tconstruct.client.TProxyClient;
@@ -29,16 +29,16 @@ public class TitleIcon extends Item
     String[] mobNames = { "TConstruct.EdibleSlime", "TConstruct.KingSlime" };
 
     String[] achievementIconNames = new String[] { "tinkerer", "preparedFight", "proTinkerer", "enemySlayer", "dualConvenience" };
-    Icon[] achievementIcons = new Icon[achievementIconNames.length];
+    IIcon[] achievementIcons = new IIcon[achievementIconNames.length];
 
-    public TitleIcon(int par1)
+    public TitleIcon()
     {
-        super(par1);
+        super();
         this.setCreativeTab(CreativeTabs.tabMisc);
     }
 
     @Override
-    public void registerIcons (IconRegister iconRegister)
+    public void registerIcons (IIconRegister iconRegister)
     {
         ToolCore.blankSprite = iconRegister.registerIcon("tinker:blanksprite");
         TProxyClient.metalBall = iconRegister.registerIcon("tinker:metalball");
@@ -56,7 +56,7 @@ public class TitleIcon extends Item
     }
 
     @SideOnly(Side.CLIENT)
-    public Icon getIconFromDamageForRenderPass (int par1, int par2)
+    public IIcon getIconFromDamageForRenderPass (int par1, int par2)
     {
         if (par1 == 255)
             return itemIcon;
@@ -97,10 +97,10 @@ public class TitleIcon extends Item
     }
 
     @Override
-    public void getSubItems (int id, CreativeTabs tab, List list)
+    public void getSubItems (Block b, CreativeTabs tab, List list)
     {
         for (int i = 0; i < mobNames.length; i++)
-            list.add(new ItemStack(id, 1, i));
+            list.add(new ItemStack(b, 1, i));
     }
 
     @SideOnly(Side.CLIENT)

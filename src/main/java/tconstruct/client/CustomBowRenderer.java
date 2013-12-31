@@ -11,7 +11,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraftforge.client.IItemRenderer;
 
 import org.lwjgl.opengl.GL11;
@@ -53,7 +53,7 @@ public class CustomBowRenderer implements IItemRenderer
             block = Block.blocksList[stack.itemID];
         }
 
-        Icon icon = null; //living.getItemIcon(stack, renderPass);
+        IIcon icon = null; //living.getItemIcon(stack, renderPass);
         if (living instanceof EntityPlayer)
         {
             EntityPlayer player = (EntityPlayer) living;

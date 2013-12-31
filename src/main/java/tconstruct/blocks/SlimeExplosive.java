@@ -2,6 +2,7 @@ package tconstruct.blocks;
 
 import java.util.List;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -11,7 +12,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 import tconstruct.entity.item.ExplosivePrimed;
@@ -21,9 +22,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class SlimeExplosive extends TConstructBlock
 {
 
-    public SlimeExplosive(int id)
+    public SlimeExplosive()
     {
-        super(id, Material.tnt, 0f, getTextureNames());
+        super(Material.tnt, 0f, getTextureNames());
     }
 
     static String[] getTextureNames ()
@@ -41,17 +42,17 @@ public class SlimeExplosive extends TConstructBlock
 
     @Override
     @SideOnly(Side.CLIENT)
-    public Icon getIcon (int side, int meta)
+    public IIcon getIcon (int side, int meta)
     {
         return icons[(meta / 2) * 3 + getSideTextureIndex(side)];
     }
 
     @Override
-    public void getSubBlocks (int id, CreativeTabs tab, List list)
+    public void getSubBlocks (Block b, CreativeTabs tab, List list)
     {
         for (int iter = 0; iter < 2; iter++)
         {
-            list.add(new ItemStack(id, 1, iter * 2));
+            list.add(new ItemStack(b, 1, iter * 2));
         }
     }
 

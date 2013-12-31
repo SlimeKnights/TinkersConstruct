@@ -2,9 +2,9 @@ package tconstruct.blocks;
 
 import net.minecraft.block.BlockLadder;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 
 public class StoneLadder extends BlockLadder
 {
@@ -15,21 +15,21 @@ public class StoneLadder extends BlockLadder
     private Icon icon;
 
     // Use the normally protected constructor
-    public StoneLadder(int id)
+    public StoneLadder()
     {
-        super(id);
+        super();
         this.setUnlocalizedName("decoration.stoneladder");
         this.setCreativeTab(CreativeTabs.tabDecorations);
     }
 
     @Override
-    public void registerIcons (IconRegister register)
+    public void registerIcons (IIconRegister register)
     {
         icon = register.registerIcon("tinker:ladder_stone");
     }
 
     @Override
-    public Icon getIcon (int meta, int side)
+    public IIcon getIcon (int meta, int side)
     {
         return icon;
     }

@@ -7,23 +7,23 @@ import tconstruct.library.TConstructRegistry;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 public class TConstructBlock extends MantleBlock
 {
     public String[] textureNames;
-    public Icon[] icons;
+    public IIcon[] icons;
 
-    public TConstructBlock(int id, Material material, float hardness, String[] tex)
+    public TConstructBlock( Material material, float hardness, String[] tex)
     {
-        super(id, material);
+        super( material);
         setHardness(hardness);
-        this.setCreativeTab(TConstructRegistry.blockTab);
+        this.func_149647_a(TConstructRegistry.blockTab);
         textureNames = tex;
     }
 
@@ -35,9 +35,9 @@ public class TConstructBlock extends MantleBlock
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void registerIcons (IconRegister iconRegister)
+    public void func_149651_a (IIconRegister iconRegister)
     {
-        this.icons = new Icon[textureNames.length];
+        this.icons = new IIcon[textureNames.length];
 
         for (int i = 0; i < this.icons.length; ++i)
         {
@@ -47,7 +47,7 @@ public class TConstructBlock extends MantleBlock
 
     @Override
     @SideOnly(Side.CLIENT)
-    public Icon getIcon (int side, int meta)
+    public IIcon func_149691_a (int side, int meta)
     {
         return meta < icons.length ? icons[meta] : icons[0];
     }
@@ -64,11 +64,11 @@ public class TConstructBlock extends MantleBlock
     }
 
     @Override
-    public void getSubBlocks (int id, CreativeTabs tab, List list)
+    public void getSubBlocks (Block block, CreativeTabs tab, List list)
     {
         for (int iter = 0; iter < icons.length; iter++)
         {
-            list.add(new ItemStack(id, 1, iter));
+            list.add(new ItemStack(block, 1, iter));
         }
     }
 }

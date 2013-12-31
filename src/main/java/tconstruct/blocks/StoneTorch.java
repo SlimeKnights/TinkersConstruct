@@ -1,16 +1,16 @@
 package tconstruct.blocks;
 
-import static net.minecraftforge.common.ForgeDirection.EAST;
-import static net.minecraftforge.common.ForgeDirection.NORTH;
-import static net.minecraftforge.common.ForgeDirection.SOUTH;
-import static net.minecraftforge.common.ForgeDirection.WEST;
+import static net.minecraftforge.common.util.ForgeDirection.EAST;
+import static net.minecraftforge.common.util.ForgeDirection.NORTH;
+import static net.minecraftforge.common.util.ForgeDirection.SOUTH;
+import static net.minecraftforge.common.util.ForgeDirection.WEST;
 
 import java.util.Random;
 
 import mantle.blocks.MantleBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MovingObjectPosition;
@@ -23,7 +23,7 @@ public class StoneTorch extends MantleBlock
 {
     public StoneTorch(int id)
     {
-        super(id, Material.circuits);
+        super(Material.circuits);
         this.setCreativeTab(CreativeTabs.tabDecorations);
         setLightValue(0.9375F);
     }
@@ -148,9 +148,9 @@ public class StoneTorch extends MantleBlock
     }
 
     @SideOnly(Side.CLIENT)
-    public void registerIcons (IconRegister par1IconRegister)
+    public void registerIcons (IIconRegister par1IconRegister)
     {
-        this.blockIcon = par1IconRegister.registerIcon("tinker:torch_stone");
+        this.field_149761_L = par1IconRegister.registerIcon("tinker:torch_stone");
     }
 
     /**

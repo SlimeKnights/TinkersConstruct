@@ -4,7 +4,7 @@ import java.util.List;
 
 import tconstruct.entity.projectile.LaunchedPotion;
 
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -13,7 +13,7 @@ import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
@@ -22,12 +22,12 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class PotionLauncher extends Item
 {
     @SideOnly(Side.CLIENT)
-    private Icon[] icons;
+    private IIcon[] icons;
     public static final String[] textureNames = new String[] { "potionlauncher" };
 
-    public PotionLauncher(int par1)
+    public PotionLauncher()
     {
-        super(par1);
+        super();
         this.maxStackSize = 1;
         this.setCreativeTab(CreativeTabs.tabCombat);
         this.setMaxDamage(3);
@@ -93,9 +93,9 @@ public class PotionLauncher extends Item
     }
 
     @SideOnly(Side.CLIENT)
-    public void registerIcons (IconRegister par1IconRegister)
+    public void registerIcons (IIconRegister par1IconRegister)
     {
-        this.icons = new Icon[textureNames.length];
+        this.icons = new IIcon[textureNames.length];
 
         for (int i = 0; i < this.icons.length; ++i)
         {
@@ -110,9 +110,9 @@ public class PotionLauncher extends Item
     }
 
     @Override
-    public void getSubItems (int id, CreativeTabs tabs, List list)
+    public void getSubItems (Block b, CreativeTabs tabs, List list)
     {
-        ItemStack stack = new ItemStack(id, 1, 0);
+        ItemStack stack = new ItemStack(b, 1, 0);
         NBTTagCompound compound = new NBTTagCompound();
         NBTTagCompound tags = new NBTTagCompound();
         compound.setCompoundTag("InfiTool", tags);

@@ -4,8 +4,8 @@ import java.io.File;
 import java.io.IOException;
 
 import cpw.mods.fml.common.Loader;
-import net.minecraftforge.common.Configuration;
-import net.minecraftforge.common.Property;
+import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.common.config.Property;
 import tconstruct.TConstruct;
 import tconstruct.library.tools.AbilityHelper;
 

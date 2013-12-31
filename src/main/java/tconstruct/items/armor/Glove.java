@@ -1,19 +1,19 @@
 package tconstruct.items.armor;
 
 import tconstruct.library.TConstructRegistry;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.item.Item;
 
 public class Glove extends Item
 {
-    public Glove(int par1)
+    public Glove()
     {
-        super(par1);
+        super();
         this.setCreativeTab(TConstructRegistry.materialTab);
     }
 
     @Override
-    public void registerIcons (IconRegister iconRegister)
+    public void registerIcons (IIconRegister iconRegister)
     {
         itemIcon = iconRegister.registerIcon("tinker:armor/dirthand");
     }

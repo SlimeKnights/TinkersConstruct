@@ -1,7 +1,7 @@
 package tconstruct.items.armor;
 
 import net.minecraft.client.model.ModelBiped;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -9,7 +9,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -17,7 +17,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class TArmorBase extends ItemArmor
 //implements ISpecialArmor
 {
-    Icon[] icons;
+    IIcon[] icons;
     String[] iconNames = { "wood_boots" };
 
     //static Minecraft mc = Minecraft.getMinecraft();
@@ -84,16 +84,16 @@ public class TArmorBase extends ItemArmor
 
     @SideOnly(Side.CLIENT)
     @Override
-    public Icon getIconFromDamage (int meta)
+    public IIcon getIconFromDamage (int meta)
     {
         return icons[0];
     }
 
     @SideOnly(Side.CLIENT)
     @Override
-    public void registerIcons (IconRegister iconRegister)
+    public void registerIcons (IIconRegister iconRegister)
     {
-        this.icons = new Icon[iconNames.length];
+        this.icons = new IIcon[iconNames.length];
 
         for (int i = 0; i < this.icons.length; ++i)
         {

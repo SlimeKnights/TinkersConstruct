@@ -6,19 +6,20 @@ import cpw.mods.fml.relauncher.*;
 import tconstruct.library.ItemBlocklike;
 import tconstruct.library.TConstructRegistry;
 import mantle.items.abstracts.CraftingItem;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.block.Block;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 
 public class ArmorPattern extends CraftingItem implements ItemBlocklike
 {
 
-    private Icon baseIcon;
+    private IIcon baseIcon;
 
     public ArmorPattern(int id, String patternType, String folder)
     {
-        super(id, patternName, getPatternNames(patternType), folder, "tinker", TConstructRegistry.materialTab);
+        super( patternName, getPatternNames(patternType), folder, "tinker", TConstructRegistry.materialTab);
         this.setHasSubtypes(true);
         this.setMaxDamage(0);
         this.setContainerItem(this);
@@ -33,14 +34,14 @@ public class ArmorPattern extends CraftingItem implements ItemBlocklike
         return names;
     }
 
-    public Icon getBaseIcon ()
+    public IIcon getBaseIcon ()
     {
         return baseIcon;
     }
 
     @SideOnly(Side.CLIENT)
     @Override
-    public void registerIcons (IconRegister iconRegister)
+    public void registerIcons (IIconRegister iconRegister)
     {
         super.registerIcons(iconRegister);
         baseIcon = iconRegister.registerIcon("tinker:" + folder + "armor_cast");
@@ -48,11 +49,11 @@ public class ArmorPattern extends CraftingItem implements ItemBlocklike
 
     private static final String[] patternName = new String[] { "helmet", "chestplate", "leggings", "boots" };
 
-    public void getSubItems (int id, CreativeTabs tab, List list)
+    public void getSubItems (Block block, CreativeTabs tab, List list)
     {
         for (int i = 0; i < patternName.length; i++)
         {
-            list.add(new ItemStack(id, 1, i));
+            list.add(new ItemStack(block, 1, i));
         }
     }
 

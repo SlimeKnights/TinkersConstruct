@@ -48,7 +48,7 @@ public class EquipBlock extends InventoryBlock
     }
 
     @SideOnly(Side.CLIENT)
-    public void registerIcons (IconRegister par1IconRegister)
+    public void registerIcons (IIconRegister par1IconRegister)
     {
         //this.blockIcon = par1iconRegister.registerIcon(Block.blockIron.getUnlocalizedName());
     }

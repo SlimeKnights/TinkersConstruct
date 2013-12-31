@@ -5,12 +5,12 @@ import java.util.List;
 import mantle.blocks.MantleBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import tconstruct.library.TConstructRegistry;
@@ -23,15 +23,15 @@ public class SlabBase extends MantleBlock
     int startingMeta;
     int totalSize;
 
-    public SlabBase(int id, Material material)
+    public SlabBase(Material material)
     {
-        super(id, material);
+        super(material);
         this.setCreativeTab(TConstructRegistry.blockTab);
     }
 
-    public SlabBase(int id, Material material, Block model, int meta, int totalSize)
+    public SlabBase(Material material, Block model, int meta, int totalSize)
     {
-        super(id, material);
+        super(material);
         this.setCreativeTab(TConstructRegistry.blockTab);
         this.modelBlock = model;
         this.startingMeta = meta;
@@ -80,24 +80,24 @@ public class SlabBase extends MantleBlock
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void registerIcons (IconRegister iconRegister)
+    public void registerIcons (IIconRegister iconRegister)
     {
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public Icon getIcon (int side, int meta)
+    public IIcon getIcon (int side, int meta)
     {
         meta = meta % 8 + startingMeta;
         return modelBlock.getIcon(side, meta);
     }
 
     @Override
-    public void getSubBlocks (int id, CreativeTabs tab, List list)
+    public void getSubBlocks (Block b, CreativeTabs tab, List list)
     {
         for (int iter = 0; iter < totalSize; iter++)
         {
-            list.add(new ItemStack(id, 1, iter));
+            list.add(new ItemStack(b, 1, iter));
         }
     }
 

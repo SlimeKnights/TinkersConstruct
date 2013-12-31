@@ -3,11 +3,11 @@ package tconstruct.blocks.traps;
 import mantle.blocks.MantleBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -21,9 +21,9 @@ public class BarricadeBlock extends MantleBlock
     Block modelBlock;
     int modelMeta;
 
-    public BarricadeBlock(int blockID, Block model, int meta)
+    public BarricadeBlock( Block model, int meta)
     {
-        super(blockID, Material.wood);
+        super(Material.wood);
         this.modelBlock = model;
         this.modelMeta = meta;
         setHardness(4.0F);
@@ -36,7 +36,7 @@ public class BarricadeBlock extends MantleBlock
     }
 
     @Override
-    public void registerIcons (IconRegister par1IconRegister)
+    public void registerIcons (IIconRegister par1IconRegister)
     {
 
     }

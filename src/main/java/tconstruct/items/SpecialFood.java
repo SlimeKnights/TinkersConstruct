@@ -2,12 +2,13 @@ package tconstruct.items;
 
 import java.util.List;
 
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.block.Block;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
@@ -21,9 +22,9 @@ public class SpecialFood extends ItemFood
     String[] iconNames;
     Icon[] icons;
 
-    public SpecialFood(int id, int[] hunger, float[] saturation, String[] textureNames, String[] iconNames)
+    public SpecialFood(int[] hunger, float[] saturation, String[] textureNames, String[] iconNames)
     {
-        super(id, 0, 0, false);
+        super(0, 0, false);
         this.hunger = hunger;
         this.saturation = saturation;
         this.unlocalizedNames = textureNames;
@@ -42,16 +43,16 @@ public class SpecialFood extends ItemFood
     }
 
     @SideOnly(Side.CLIENT)
-    public Icon getIconFromDamage (int meta)
+    public IIcon getIconFromDamage (int meta)
     {
-        return icons[0];
+        return iicons[0];
     }
 
     @SideOnly(Side.CLIENT)
     @Override
-    public void registerIcons (IconRegister iconRegister)
+    public void registerIcons (IIconRegister iconRegister)
     {
-        this.icons = new Icon[iconNames.length];
+        this.icons = new IIcon[iconNames.length];
 
         for (int i = 0; i < this.icons.length; ++i)
         {
@@ -65,9 +66,9 @@ public class SpecialFood extends ItemFood
         return getUnlocalizedName() + "." + unlocalizedNames[arr];
     }
 
-    public void getSubItems (int id, CreativeTabs tab, List list)
+    public void getSubItems (Block b, CreativeTabs tab, List list)
     {
         for (int i = 0; i < unlocalizedNames.length; i++)
-            list.add(new ItemStack(id, 1, i));
+            list.add(new ItemStack(b, 1, i));
     }
 }

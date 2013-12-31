@@ -10,9 +10,9 @@ public class TMetalBlock extends TConstructBlock
     static String[] metalTypes = new String[] { "compressed_cobalt", "compressed_ardite", "compressed_manyullyn", "compressed_copper", "compressed_bronze", "compressed_tin", "compressed_aluminum",
             "compressed_alubrass", "compressed_alumite", "compressed_steel", "compressed_ender" };
 
-    public TMetalBlock(int id, Material material, float hardness)
+    public TMetalBlock(Material material, float hardness)
     {
-        super(id, material, hardness, metalTypes);
+        super(material, hardness, metalTypes);
         this.setStepSound(Block.soundMetalFootstep);
     }
 

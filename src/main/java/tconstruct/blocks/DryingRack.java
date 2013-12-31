@@ -17,7 +17,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -25,9 +25,9 @@ import net.minecraft.world.World;
 public class DryingRack extends InventoryBlock
 {
 
-    public DryingRack(int id)
+    public DryingRack()
     {
-        super(id, Material.wood);
+        super(Material.wood);
         this.setCreativeTab(TConstructRegistry.blockTab);
         setHardness(2.0f);
         setStepSound(soundMetalFootstep);
@@ -222,7 +222,7 @@ public class DryingRack extends InventoryBlock
     }
 
     @Override
-    public Icon getIcon (int side, int meta)
+    public IIcon getIcon (int side, int meta)
     {
         return Block.planks.getIcon(side, 0);
     }

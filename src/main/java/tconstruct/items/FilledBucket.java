@@ -6,15 +6,15 @@ import net.minecraftforge.fluids.BlockFluidFinite;
 import tconstruct.TConstruct;
 import tconstruct.blocks.logic.LiquidTextureLogic;
 import tconstruct.common.TRepo;
-
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.block.Block;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBucket;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumMovingObjectType;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
@@ -24,9 +24,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class FilledBucket extends ItemBucket
 {
 
-    public FilledBucket(int id)
+    public FilledBucket(Block b)
     {
-        super(id, 0);
+        super(b);
         //setTextureFile(TRepo.craftingTexture);
         //setIconIndex(224);
         setUnlocalizedName("tconstruct.bucket");
@@ -155,24 +155,24 @@ public class FilledBucket extends ItemBucket
     }
 
     @Override
-    public void getSubItems (int id, CreativeTabs tab, List list)
+    public void getSubItems (Block b, CreativeTabs tab, List list)
     {
         for (int i = 0; i < icons.length; i++)
-            list.add(new ItemStack(id, 1, i));
+            list.add(new ItemStack(b, 1, i));
     }
 
-    public Icon[] icons;
+    public IIcon[] icons;
 
     @SideOnly(Side.CLIENT)
-    public Icon getIconFromDamage (int meta)
+    public IIcon getIconFromDamage (int meta)
     {
         return icons[meta];
     }
 
     @SideOnly(Side.CLIENT)
-    public void registerIcons (IconRegister iconRegister)
+    public void registerIcons (IIconRegister iconRegister)
     {
-        this.icons = new Icon[textureNames.length];
+        this.icons = new IIcon[textureNames.length];
 
         for (int i = 0; i < this.icons.length; ++i)
         {
