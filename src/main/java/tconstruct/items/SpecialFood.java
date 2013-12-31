@@ -20,7 +20,7 @@ public class SpecialFood extends ItemFood
     float[] saturation;
     String[] unlocalizedNames;
     String[] iconNames;
-    Icon[] icons;
+    IIcon[] icons;
 
     public SpecialFood(int[] hunger, float[] saturation, String[] textureNames, String[] iconNames)
     {
@@ -45,7 +45,7 @@ public class SpecialFood extends ItemFood
     @SideOnly(Side.CLIENT)
     public IIcon getIconFromDamage (int meta)
     {
-        return iicons[0];
+        return icons[0];
     }
 
     @SideOnly(Side.CLIENT)

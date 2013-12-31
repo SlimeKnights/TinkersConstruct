@@ -2,6 +2,7 @@ package tconstruct.items.blocks;
 
 import java.util.List;
 
+import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
@@ -18,9 +19,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class HamboneItemBlock extends ItemBlock
 {
-    public HamboneItemBlock(int id)
+    public HamboneItemBlock(Block b)
     {
-        super(id);
+        super(b);
         itemUseDuration = 32;
         if (Loader.isModLoaded("HungerOverhaul"))
         {

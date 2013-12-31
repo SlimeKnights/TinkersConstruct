@@ -8,7 +8,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import tconstruct.TConstruct;
@@ -22,7 +22,7 @@ public class CraftingStationBlock extends InventoryBlock
 {
     public CraftingStationBlock(int id, Material material)
     {
-        super(id, material);
+        super(material);
         this.setCreativeTab(TConstructRegistry.blockTab);
         this.setHardness(2f);
         this.setStepSound(Block.soundWoodFootstep);
@@ -40,7 +40,7 @@ public class CraftingStationBlock extends InventoryBlock
     }
 
     @Override
-    public Icon getIcon (int side, int meta)
+    public IIcon getIcon (int side, int meta)
     {
         return icons[meta * 3 + getTextureIndex(side)];
     }
@@ -104,11 +104,11 @@ public class CraftingStationBlock extends InventoryBlock
     }
 
     @Override
-    public void getSubBlocks (int id, CreativeTabs tab, List list)
+    public void getSubBlocks (Block b, CreativeTabs tab, List list)
     {
         for (int iter = 0; iter < 1; iter++)
         {
-            list.add(new ItemStack(id, 1, iter));
+            list.add(new ItemStack(b, 1, iter));
         }
     }
 }

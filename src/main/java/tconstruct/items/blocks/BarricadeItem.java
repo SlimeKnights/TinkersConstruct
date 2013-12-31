@@ -6,6 +6,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
@@ -16,10 +17,9 @@ public class BarricadeItem extends ItemBlock
 {
     private int bID;
 
-    public BarricadeItem(int id)
+    public BarricadeItem(Block b)
     {
-        super(id);
-        this.bID = id + 256;
+        super(b);
     }
 
     @Override
@@ -31,13 +31,13 @@ public class BarricadeItem extends ItemBlock
 
     public boolean onItemUse (ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
     {
-        int i1 = world.getBlockId(x, y, z);
+        Block i1 = world.getBlock(x, y, z);
 
-        if (i1 == Block.snow.blockID && (world.getBlockMetadata(x, y, z) & 7) < 1)
+        if (i1 == Blocks.snow && (world.getBlockMetadata(x, y, z) & 7) < 1)
         {
             side = 1;
         }
-        else if (i1 != Block.vine.blockID && i1 != Block.tallGrass.blockID && i1 != Block.deadBush.blockID
+        else if (i1 != Blocks.vine && i1 != Blocks.tallgrass && i1 != Blocks.deadbush
                 && (Block.blocksList[i1] == null || !Block.blocksList[i1].isBlockReplaceable(world, x, y, z)))
         {
             if (side == 0)

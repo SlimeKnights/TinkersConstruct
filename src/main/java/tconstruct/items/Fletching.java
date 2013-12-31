@@ -7,9 +7,9 @@ import net.minecraft.item.ItemStack;
 
 public class Fletching extends CraftingItem implements IToolPart
 {
-    public Fletching(int id)
+    public Fletching()
     {
-        super(id, toolMaterialNames, buildTextureNames("_fletching"), "parts/", "tinker", TConstructRegistry.materialTab);
+        super(toolMaterialNames, buildTextureNames("_fletching"), "parts/", "tinker", TConstructRegistry.materialTab);
         this.setHasSubtypes(true);
         this.setMaxDamage(0);
     }

@@ -17,9 +17,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class HeartCanister extends CraftingItem
 {
 
-    public HeartCanister(int id)
+    public HeartCanister()
     {
-        super(id, new String[] { "empty", "miniheart.red", "heart" }, new String[] { "canister_empty", "miniheart_red", "canister_heart" }, "", "tinker", TConstructRegistry.materialTab );
+        super(new String[] { "empty", "miniheart.red", "heart" }, new String[] { "canister_empty", "miniheart_red", "canister_heart" }, "", "tinker", TConstructRegistry.materialTab );
         this.setMaxStackSize(10);
     }
 

@@ -13,9 +13,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class StrangeFood extends SpecialFood
 {
-    public StrangeFood(int id)
+    public StrangeFood()
     {
-        super(id, new int[] { 2, 2 }, new float[] { 1f, 1f }, new String[] { "edibleslime", "edibleblood" }, new String[] { "food/edibleslime", "food/edibleblood" });
+        super(new int[] { 2, 2 }, new float[] { 1f, 1f }, new String[] { "edibleslime", "edibleblood" }, new String[] { "food/edibleslime", "food/edibleblood" });
     }
     
     @Override

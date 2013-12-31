@@ -18,9 +18,9 @@ public class OreBerries extends CraftingItem
     static String[] names = new String[] { "iron", "gold", "copper", "tin", "aluminum", "essence" };
     static String[] tex = new String[] { "oreberry_iron", "oreberry_gold", "oreberry_copper", "oreberry_tin", "oreberry_aluminum", "oreberry_essence" };
 
-    public OreBerries(int id)
+    public OreBerries()
     {
-        super(id, names, tex, "oreberries/", "tinker", TConstructRegistry.materialTab);
+        super(names, tex, "oreberries/", "tinker", TConstructRegistry.materialTab);
     }
 
     @Override

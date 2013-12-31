@@ -7,14 +7,15 @@ import tconstruct.common.TRepo;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.util.IToolPart;
 import mantle.items.abstracts.CraftingItem;
+import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 
 public class Bowstring extends CraftingItem implements IToolPart
 {
-    public Bowstring(int id)
+    public Bowstring()
     {
-        super(id, toolMaterialNames, buildTextureNames("_bowstring"), "parts/", "tinker", TConstructRegistry.materialTab);
+        super(toolMaterialNames, buildTextureNames("_bowstring"), "parts/", "tinker", TConstructRegistry.materialTab);
         this.setHasSubtypes(true);
         this.setMaxDamage(0);
     }
@@ -42,12 +43,12 @@ public class Bowstring extends CraftingItem implements IToolPart
         return stack.getItemDamage();
     }
 
-    public void getSubItems (int id, CreativeTabs tab, List list)
+    public void getSubItems (Block b, CreativeTabs tab, List list)
     {
-        list.add(new ItemStack(id, 1, 0));
+        list.add(new ItemStack(b, 1, 0));
         if (TRepo.thaumcraftAvailable)
-            list.add(new ItemStack(id, 1, 1));
+            list.add(new ItemStack(b, 1, 1));
         if (Loader.isModLoaded("Natura"))
-            list.add(new ItemStack(id, 1, 2));
+            list.add(new ItemStack(b, 1, 2));
     }
 }

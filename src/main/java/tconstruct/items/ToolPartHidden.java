@@ -7,9 +7,9 @@ import net.minecraft.creativetab.CreativeTabs;
 public class ToolPartHidden extends ToolPart
 {
 
-    public ToolPartHidden(int id, String textureType, String name)
+    public ToolPartHidden(String textureType, String name)
     {
-        super(id, textureType, name);
+        super(textureType, name);
     }
 
     public void getSubItems (int id, CreativeTabs tab, List list)

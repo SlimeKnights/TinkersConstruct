@@ -30,7 +30,7 @@ public class BarricadeBlock extends MantleBlock
         this.setCreativeTab(TConstructRegistry.blockTab);
     }
 
-    public Icon getIcon (int side, int meta)
+    public IIcon getIcon (int side, int meta)
     {
         return modelBlock.getIcon(2, modelMeta);
     }

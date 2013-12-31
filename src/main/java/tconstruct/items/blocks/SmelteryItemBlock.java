@@ -5,6 +5,7 @@ import java.util.List;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import mantle.blocks.abstracts.MultiItemBlock;
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
@@ -13,9 +14,9 @@ public class SmelteryItemBlock extends MultiItemBlock
 {
     public static final String blockTypes[] = { "Controller", "Drain", "Brick", "Furnace", "Stone", "Cobblestone", "Paver", "Brick.Cracked", "Road", "Brick.Fancy", "Brick.Square" };
 
-    public SmelteryItemBlock(int id)
+    public SmelteryItemBlock(Block b)
     {
-        super(id, "Smeltery", blockTypes);
+        super(b, "Smeltery", blockTypes);
         setMaxDamage(0);
         setHasSubtypes(true);
     }

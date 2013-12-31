@@ -5,7 +5,8 @@ import java.util.UUID;
 
 import com.google.common.collect.Multimap;
 
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.block.Block;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -31,7 +32,7 @@ public class ExoArmor extends ArmorCore
     }
     
     @Override
-    public void registerIcons (IconRegister par1IconRegister)
+    public void registerIcons (IIconRegister par1IconRegister)
     {
         this.itemIcon = par1IconRegister.registerIcon("tinker:armor/" + textureName + "_"
                 + (this.armorType == 0 ? "helmet" : this.armorType == 1 ? "chestplate" : this.armorType == 2 ? "leggings" : this.armorType == 3 ? "boots" : "helmet"));
@@ -43,9 +44,9 @@ public class ExoArmor extends ArmorCore
         return "tinker:textures/armor/" + textureName + "_" + layer + ".png";
     }
     
-    public void getSubItems (int par1, CreativeTabs par2CreativeTabs, List par3List)
+    public void getSubItems (Block b, CreativeTabs par2CreativeTabs, List par3List)
     {
-        ItemStack armor = new ItemStack(par1, 1, 0);
+        ItemStack armor = new ItemStack(b, 1, 0);
         NBTTagCompound baseTag = new NBTTagCompound();
         NBTTagList list = new NBTTagList();
         

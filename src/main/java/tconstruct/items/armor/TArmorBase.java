@@ -23,9 +23,9 @@ public class TArmorBase extends ItemArmor
     //static Minecraft mc = Minecraft.getMinecraft();
     //private ModelBiped modelArmor;
 
-    public TArmorBase(int id, int armorSlot)
+    public TArmorBase(int armorSlot)
     {
-        super(id, EnumArmorMaterial.CLOTH, 0, armorSlot);
+        super(EnumArmorMaterial.CLOTH, 0, armorSlot);
         this.maxStackSize = 1;
         this.setMaxDamage(100);
         setNoRepair();

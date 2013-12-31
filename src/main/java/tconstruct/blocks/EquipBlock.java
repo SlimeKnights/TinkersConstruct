@@ -1,7 +1,6 @@
 package tconstruct.blocks;
 
 import tconstruct.blocks.logic.EquipLogic;
-
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
@@ -9,17 +8,16 @@ import net.minecraft.world.World;
 import java.util.*;
 
 import cpw.mods.fml.relauncher.*;
-
 import tconstruct.TConstruct;
 import tconstruct.blocks.logic.FrypanLogic;
 import tconstruct.client.block.FrypanRender;
 import mantle.blocks.abstracts.InventoryBlock;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.*;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
@@ -28,9 +26,9 @@ import net.minecraft.world.*;
 public class EquipBlock extends InventoryBlock
 {
 
-    public EquipBlock(int id, Material material)
+    public EquipBlock(Material material)
     {
-        super(id, material);
+        super(material);
         this.setHardness(0.3f);
         this.setBlockBounds(0, 0, 0, 1, 0.25f, 1);
         //this.setCreativeTab(ToolConstruct.materialTab);
@@ -42,9 +40,9 @@ public class EquipBlock extends InventoryBlock
         return new String[] { "toolstation_top" };
     }
 
-    public Icon getIcon (int side, int meta)
+    public IIcon getIcon (int side, int meta)
     {
-        return Block.blockIron.getIcon(side, meta);
+        return Blocks.iron_block.getIcon(side, meta);
     }
 
     @SideOnly(Side.CLIENT)

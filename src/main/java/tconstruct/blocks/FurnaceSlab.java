@@ -57,12 +57,12 @@ public class FurnaceSlab extends InventorySlab
     }
 
     @Override
-    public Icon getIcon (int side, int meta)
+    public IIcon getIcon (int side, int meta)
     {
         return icons[(meta % 8) * 3 + getTextureIndex(side)];
     }
 
-    public Icon getBlockTexture (IBlockAccess world, int x, int y, int z, int side)
+    public IIcon getBlockTexture (IBlockAccess world, int x, int y, int z, int side)
     {
         TileEntity logic = world.getBlockTileEntity(x, y, z);
         short direction = (logic instanceof IFacingLogic) ? ((IFacingLogic) logic).getRenderDirection() : 0;
@@ -97,10 +97,10 @@ public class FurnaceSlab extends InventorySlab
     }
 
     @Override
-    public void registerIcons (IconRegister iconRegister)
+    public void registerIcons (IIconRegister iconRegister)
     {
         String[] textureNames = getTextureNames();
-        this.icons = new Icon[textureNames.length];
+        this.icons = new IIcon[textureNames.length];
 
         for (int i = 0; i < this.icons.length; ++i)
         {

@@ -3,6 +3,7 @@ package tconstruct.items.blocks;
 import java.util.List;
 
 import mantle.blocks.abstracts.MultiItemBlock;
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -11,9 +12,9 @@ public class GlassBlockItem extends MultiItemBlock
 {
     public static final String blockTypes[] = { "pure" };//, "soul", "soul.pure" };
 
-    public GlassBlockItem(int id)
+    public GlassBlockItem(Block b)
     {
-        super(id, "block.glass", blockTypes);
+        super(b, "block.glass", blockTypes);
         setMaxDamage(0);
         setHasSubtypes(true);
     }

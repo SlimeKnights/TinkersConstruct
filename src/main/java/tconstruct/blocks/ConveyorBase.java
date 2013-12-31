@@ -108,7 +108,7 @@ public class ConveyorBase extends MantleBlock
         return super.shouldSideBeRendered(world, x, y, z, side);
     }
 
-    public Icon[] icons;
+    public IIcon[] icons;
 
     /* Rendering */
     @Override

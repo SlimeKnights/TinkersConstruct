@@ -10,6 +10,7 @@ import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBucket;
 import net.minecraft.item.ItemStack;
@@ -30,7 +31,7 @@ public class FilledBucket extends ItemBucket
         //setTextureFile(TRepo.craftingTexture);
         //setIconIndex(224);
         setUnlocalizedName("tconstruct.bucket");
-        setContainerItem(Item.bucketEmpty);
+        setContainerItem(Items.bucket);
         this.setHasSubtypes(true);
     }
 
@@ -123,7 +124,7 @@ public class FilledBucket extends ItemBucket
 
                 if (this.tryPlaceContainedLiquid(world, clickX, clickY, clickZ, stack.getItemDamage()) && !player.capabilities.isCreativeMode)
                 {
-                    return new ItemStack(Item.bucketEmpty);
+                    return new ItemStack(Items.bucket);
                 }
             }
 
@@ -144,7 +145,7 @@ public class FilledBucket extends ItemBucket
                 if (TRepo.fluidBlocks[type] instanceof BlockFluidFinite)
                     metadata = 7;
 
-                world.setBlock(clickX, clickY, clickZ, TRepo.fluidBlocks[type].blockID, metadata, 3); //TODO: Merge liquids
+                world.setBlock(clickX, clickY, clickZ, TRepo.fluidBlocks[type], metadata, 3); //TODO: Merge liquids
             } catch (ArrayIndexOutOfBoundsException ex) {
                 TConstruct.logger.warning("AIOBE occured when placing bucket into world; " + ex);
                 return false;

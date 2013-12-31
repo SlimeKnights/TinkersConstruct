@@ -42,9 +42,9 @@ public class BlockLandmine extends BlockContainer
     // Should explode when broken instead of dropping items(may not actually work
     boolean explodeOnBroken = false;
 
-    public BlockLandmine(int par1)
+    public BlockLandmine()
     {
-        super(par1, Material.tnt);
+        super(Material.tnt);
         this.setTickRandomly(true);
         this.setBlockBounds(0.0625F, 0.0F, 0.0625F, 1.0F - 0.0625F, 0.0625F, 1.0F - 0.0625F);
     }

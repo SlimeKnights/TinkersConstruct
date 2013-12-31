@@ -3,6 +3,7 @@ package tconstruct.items.blocks;
 import java.util.List;
 
 import mantle.blocks.abstracts.MultiItemBlock;
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
@@ -12,9 +13,9 @@ public class SpeedSlabItem extends MultiItemBlock
     public static final String blockTypes[] = { "brownstone.rough", "brownstone.rough.road", "brownstone.smooth", "brownstone.smooth.brick", "brownstone.smooth.road",
             "brownstone.smooth.fancy", "brownstone.smooth.chiseled" };
 
-    public SpeedSlabItem(int id)
+    public SpeedSlabItem(Block b)
     {
-        super(id, "block", "slab", blockTypes);
+        super(b, "block", "slab", blockTypes);
         setMaxDamage(0);
         setHasSubtypes(true);
     }

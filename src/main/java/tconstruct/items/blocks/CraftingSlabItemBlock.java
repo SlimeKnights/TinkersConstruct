@@ -1,6 +1,7 @@
 package tconstruct.items.blocks;
 
 import mantle.blocks.abstracts.MultiItemBlock;
+import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 
@@ -8,9 +9,9 @@ public class CraftingSlabItemBlock extends MultiItemBlock
 {
     public static final String blockTypes[] = { "tile.CraftingStation", "Crafter", "Parts", "PatternShaper", "PatternChest", "tile.ToolForge" };
 
-    public CraftingSlabItemBlock(int id)
+    public CraftingSlabItemBlock(Block b)
     {
-        super(id, "ToolStation", blockTypes);
+        super(b, "ToolStation", blockTypes);
         setMaxDamage(0);
         setHasSubtypes(true);
     }

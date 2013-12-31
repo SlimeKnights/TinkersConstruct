@@ -6,9 +6,9 @@ import mantle.items.abstracts.CraftingItem;
 public class MaterialItem extends CraftingItem
 {
 
-    public MaterialItem(int id)
+    public MaterialItem()
     {
-        super(id, materialNames, getTextures(), "materials/", "tinker", TConstructRegistry.materialTab);
+        super(materialNames, getTextures(), "materials/", "tinker", TConstructRegistry.materialTab);
     }
 
     private static String[] getTextures ()

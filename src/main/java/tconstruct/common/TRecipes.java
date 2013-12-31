@@ -733,11 +733,11 @@ public class TRecipes
     protected static void addRecipesForDryingRack ()
     {
         //Drying rack
-        DryingRackRecipes.addDryingRecipe(Items.beefRaw, 20 * 60 * 5, new ItemStack(TRepo.jerky, 1, 0));
-        DryingRackRecipes.addDryingRecipe(Items.chickenRaw, 20 * 60 * 5, new ItemStack(TRepo.jerky, 1, 1));
-        DryingRackRecipes.addDryingRecipe(Items.porkRaw, 20 * 60 * 5, new ItemStack(TRepo.jerky, 1, 2));
+        DryingRackRecipes.addDryingRecipe(Items.beef, 20 * 60 * 5, new ItemStack(TRepo.jerky, 1, 0));
+        DryingRackRecipes.addDryingRecipe(Items.chicken, 20 * 60 * 5, new ItemStack(TRepo.jerky, 1, 1));
+        DryingRackRecipes.addDryingRecipe(Items.porkchop, 20 * 60 * 5, new ItemStack(TRepo.jerky, 1, 2));
         //DryingRackRecipes.addDryingRecipe(Item.muttonRaw, 20 * 60 * 5, new ItemStack(TRepo.jerky, 1, 3));
-        DryingRackRecipes.addDryingRecipe(Items.fishRaw, 20 * 60 * 5, new ItemStack(TRepo.jerky, 1, 4));
+        DryingRackRecipes.addDryingRecipe(Items.fish, 20 * 60 * 5, new ItemStack(TRepo.jerky, 1, 4));
         DryingRackRecipes.addDryingRecipe(Items.rotten_flesh, 20 * 60 * 5, new ItemStack(TRepo.jerky, 1, 5));
         DryingRackRecipes.addDryingRecipe(new ItemStack(TRepo.strangeFood, 1, 0), 20 * 60 * 5, new ItemStack(TRepo.jerky, 1, 6));
         DryingRackRecipes.addDryingRecipe(new ItemStack(TRepo.strangeFood, 1, 1), 20 * 60 * 5, new ItemStack(TRepo.jerky, 1, 7));

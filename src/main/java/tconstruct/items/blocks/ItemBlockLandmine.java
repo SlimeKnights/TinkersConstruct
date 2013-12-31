@@ -3,6 +3,7 @@ package tconstruct.items.blocks;
 import java.util.List;
 import java.util.Random;
 
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -19,9 +20,9 @@ import tconstruct.common.TRepo;
 public class ItemBlockLandmine extends ItemBlock
 {
 
-    public ItemBlockLandmine(int par1)
+    public ItemBlockLandmine(Block b)
     {
-        super(par1);
+        super(b);
         this.setHasSubtypes(true);
     }
 

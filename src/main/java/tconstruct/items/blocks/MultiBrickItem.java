@@ -3,6 +3,7 @@ package tconstruct.items.blocks;
 import java.util.List;
 
 import mantle.blocks.abstracts.MultiItemBlock;
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -16,9 +17,9 @@ public class MultiBrickItem extends MultiItemBlock
     static String blockTypes[] = { "obsidian", "sandstone", "netherrack", "stone.refined", "iron", "gold", "lapis", "diamond", "redstone", "bone", "slime", "blueslime", "endstone", "obsidian.ingot",
             "stone.road", "stone.refined.road" };
 
-    public MultiBrickItem(int id)
+    public MultiBrickItem(Block b)
     {
-        super(id, "block.brick", blockTypes);
+        super(b, "block.brick", blockTypes);
         setMaxDamage(0);
         setHasSubtypes(true);
     }

@@ -27,9 +27,9 @@ import tconstruct.util.config.PHConstruct;
 
 public class CraftingSlab extends InventorySlab
 {
-    public CraftingSlab(int id, Material material)
+    public CraftingSlab(Material material)
     {
-        super(id, material);
+        super(material);
         this.setCreativeTab(TConstructRegistry.blockTab);
         this.setHardness(2f);
         this.setStepSound(Block.soundWoodFootstep);
@@ -47,7 +47,7 @@ public class CraftingSlab extends InventorySlab
     }
 
     @Override
-    public Icon getIcon (int side, int meta)
+    public IIcon getIcon (int side, int meta)
     {
         return icons[(meta % 8) * 3 + getTextureIndex(side)];
     }
@@ -123,11 +123,11 @@ public class CraftingSlab extends InventorySlab
     }
 
     @Override
-    public void getSubBlocks (int id, CreativeTabs tab, List list)
+    public void getSubBlocks (Block b, CreativeTabs tab, List list)
     {
         for (int iter = 0; iter < 6; iter++)
         {
-            list.add(new ItemStack(id, 1, iter));
+            list.add(new ItemStack(b, 1, iter));
         }
     }
 

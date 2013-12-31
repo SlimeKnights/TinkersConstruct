@@ -11,7 +11,7 @@ import tconstruct.library.tools.AbilityHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLeavesBase;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
@@ -19,11 +19,11 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.common.IPlantable;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -31,16 +31,16 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class OreberryBush extends BlockLeavesBase implements IPlantable
 {
     Random random;
-    public Icon[] fastIcons;
-    public Icon[] fancyIcons;
+    public IIcon[] fastIcons;
+    public IIcon[] fancyIcons;
     public String[] textureNames;
     public String[] oreTypes;
     public int itemMeat;
     private int subitems;
 
-    public OreberryBush(int id, String[] textureNames, int meta, int sub, String[] oreTypes)
+    public OreberryBush(String[] textureNames, int meta, int sub, String[] oreTypes)
     {
-        super(id, Material.leaves, false);
+        super(Material.leaves, false);
         this.textureNames = textureNames;
         this.itemMeat = meta;
         this.subitems = sub;
@@ -56,10 +56,10 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
 
     @SideOnly(Side.CLIENT)
     @Override
-    public void registerIcons (IconRegister iconRegister)
+    public void registerIcons (IIconRegister iconRegister)
     {
-        this.fastIcons = new Icon[textureNames.length];
-        this.fancyIcons = new Icon[textureNames.length];
+        this.fastIcons = new IIcon[textureNames.length];
+        this.fancyIcons = new IIcon[textureNames.length];
 
         for (int i = 0; i < this.fastIcons.length; i++)
         {
@@ -72,7 +72,7 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
     }
 
     @Override
-    public Icon getIcon (int side, int metadata)
+    public IIcon getIcon (int side, int metadata)
     {
         if (graphicsLevel)
         {
@@ -315,11 +315,11 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
      */
     @SideOnly(Side.CLIENT)
     @Override
-    public void getSubBlocks (int par1, CreativeTabs par2CreativeTabs, List par3List)
+    public void getSubBlocks (Block b, CreativeTabs par2CreativeTabs, List par3List)
     {
         for (int var4 = 8; var4 < 8 + subitems; ++var4)
         {
-            par3List.add(new ItemStack(par1, 1, var4));
+            par3List.add(new ItemStack(b, 1, var4));
         }
     }
 

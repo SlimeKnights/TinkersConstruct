@@ -3,6 +3,7 @@ package tconstruct.items.blocks;
 import mantle.blocks.abstracts.MultiItemBlock;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -12,9 +13,9 @@ public class WoolSlab1Item extends MultiItemBlock
     int blockID;
     Block block;
 
-    public WoolSlab1Item(int id)
+    public WoolSlab1Item(Block b)
     {
-        super(id, "", "slab", ItemDye.dyeColorNames);
+        super(b, "", "slab", ItemDye.dyeColorNames);
         this.setSpecialIndex(7, 15);
         this.blockID = id + 256;
         this.block = Block.blocksList[id + 256];
@@ -32,7 +33,7 @@ public class WoolSlab1Item extends MultiItemBlock
 
         if ((side == 1 && flag || side == 0 && !flag) && id == this.blockID && trueMeta == stack.getItemDamage())
         {
-            if (world.setBlock(x, y, z, Block.cloth.blockID, trueMeta, 3))
+            if (world.setBlock(x, y, z, Blocks.wool.blockID, trueMeta, 3))
             {
                 world.playSoundEffect((double) ((float) x + 0.5F), (double) ((float) y + 0.5F), (double) ((float) z + 0.5F), this.block.stepSound.getPlaceSound(),
                         (this.block.stepSound.getVolume() + 1.0F) / 2.0F, this.block.stepSound.getPitch() * 0.8F);

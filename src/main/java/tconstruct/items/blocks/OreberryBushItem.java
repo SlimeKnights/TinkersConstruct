@@ -8,7 +8,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.common.IPlantable;
 import net.minecraft.util.StatCollector;
 import cpw.mods.fml.relauncher.Side;
@@ -19,10 +19,9 @@ public class OreberryBushItem extends MultiItemBlock
     public int blockID;
     public static final String blockTypes[] = { "iron", "gold", "copper", "tin", "iron", "gold", "copper", "tin", "iron", "gold", "copper", "tin", "iron", "gold", "copper", "tin" };
 
-    public OreberryBushItem(int id)
+    public OreberryBushItem(Block b)
     {
-        super(id, "block.oreberry", blockTypes);
-        blockID = id + 256;
+        super(b, "block.oreberry", blockTypes);
         setHasSubtypes(true);
     }
 

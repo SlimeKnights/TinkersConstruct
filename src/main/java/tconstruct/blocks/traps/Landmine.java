@@ -6,17 +6,17 @@ import java.util.Random;
 
 import mantle.blocks.MantleBlock;
 import tconstruct.library.TConstructRegistry;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFence;
 import net.minecraft.block.EnumMobType;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
@@ -25,9 +25,9 @@ public class Landmine extends MantleBlock
     /** The mob type that can trigger this pressure plate. */
     private EnumMobType triggerMobType;
 
-    public Landmine(int par1, EnumMobType par3EnumMobType, Material par4Material)
+    public Landmine(EnumMobType par3EnumMobType, Material par4Material)
     {
-        super(par1, par4Material);
+        super(par4Material);
         this.triggerMobType = EnumMobType.mobs;
         this.setCreativeTab(TConstructRegistry.blockTab);
         this.setTickRandomly(true);
@@ -35,22 +35,22 @@ public class Landmine extends MantleBlock
         this.setBlockBounds(var5, 0.0F, var5, 1.0F - var5, 0.03125F, 1.0F - var5);
     }
 
-    public Icon getBlockTexture (IBlockAccess world, int x, int y, int z, int side)
+    public IIcon getBlockTexture (IBlockAccess world, int x, int y, int z, int side)
     {
         Block block = Block.blocksList[world.getBlockId(x, y - 1, z)];
         if (block != null)
         {
             return block.getBlockTexture(world, x, y - 1, z, side);
         }
-        return Block.sponge.getIcon(side, world.getBlockMetadata(x, y, z));
+        return Blocks.sponge.getIcon(side, world.getBlockMetadata(x, y, z));
     }
 
-    public Icon getIcon (int side, int meta)
+    public IIcon getIcon (int side, int meta)
     {
-        return Block.sponge.getIcon(1, meta);
+        return Blocks.sponge.getIcon(1, meta);
     }
 
-    public void registerIcons (IconRegister par1IconRegister)
+    public void registerIcons (IIconRegister par1IconRegister)
     {
 
     }

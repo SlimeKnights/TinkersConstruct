@@ -5,6 +5,7 @@ import java.util.List;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import mantle.blocks.abstracts.MultiItemBlock;
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
@@ -14,9 +15,9 @@ public class CraftedSoilItemBlock extends MultiItemBlock
 {
     public static final String blockTypes[] = { "Slime", "Grout", "BlueSlime", "GraveyardSoil", "ConsecratedSoil", "blue", "dirt", "Grout" };
 
-    public CraftedSoilItemBlock(int id)
+    public CraftedSoilItemBlock(Block b)
     {
-        super(id, "CraftedSoil", blockTypes);
+        super(b, "CraftedSoil", blockTypes);
         setMaxDamage(0);
         setHasSubtypes(true);
     }

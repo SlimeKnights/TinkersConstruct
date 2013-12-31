@@ -4,6 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
@@ -17,9 +18,9 @@ public class MultiBrickFancy extends TConstructBlock
             "fancybrick_diamond", "fancybrick_redstone", "fancybrick_bone", "fancybrick_slime", "fancybrick_blueslime", "fancybrick_endstone", "fancybrick_obsidian_ingot", "fancybrick_stone",
             "road_stone" };
 
-    public MultiBrickFancy(int id)
+    public MultiBrickFancy()
     {
-        super(id, Material.rock, 3f, blockTextures);
+        super(material.rock, 3f, blockTextures);
     }
 
     @Override
@@ -29,21 +30,21 @@ public class MultiBrickFancy extends TConstructBlock
         switch (meta)
         {
         case 0:
-            return Block.obsidian.getBlockHardness(world, x, y, z);
+            return Blocks.obsidian.getBlockHardness(world, x, y, z);
         case 1:
-            return Block.sandStone.getBlockHardness(world, x, y, z);
+            return Blocks.sandstone.getBlockHardness(world, x, y, z);
         case 2:
-            return Block.netherrack.getBlockHardness(world, x, y, z);
+            return Blocks.netherrack.getBlockHardness(world, x, y, z);
         case 4:
-            return Block.blockIron.getBlockHardness(world, x, y, z);
+            return Blocks.iron_block.getBlockHardness(world, x, y, z);
         case 5:
-            return Block.blockGold.getBlockHardness(world, x, y, z);
+            return Blocks.gold_block.getBlockHardness(world, x, y, z);
         case 6:
-            return Block.blockLapis.getBlockHardness(world, x, y, z);
+            return Blocks.lapis_block.getBlockHardness(world, x, y, z);
         case 7:
-            return Block.blockDiamond.getBlockHardness(world, x, y, z);
+            return Blocks.diamond_block.getBlockHardness(world, x, y, z);
         case 8:
-            return Block.blockRedstone.getBlockHardness(world, x, y, z);
+            return Blocks.redstone_block.getBlockHardness(world, x, y, z);
         case 9:
             return 1.0F;
         case 10:
@@ -51,13 +52,13 @@ public class MultiBrickFancy extends TConstructBlock
         case 11:
             return 1.5F;
         case 12:
-            return Block.whiteStone.getBlockHardness(world, x, y, z);
+            return Blocks.end_stone.getBlockHardness(world, x, y, z);
         case 13:
-            return Block.obsidian.getBlockHardness(world, x, y, z);
+            return Blocks.obsidian.getBlockHardness(world, x, y, z);
         case 3:
         case 14:
         case 15:
-            return Block.stone.getBlockHardness(world, x, y, z);
+            return Blocks.stone.getBlockHardness(world, x, y, z);
         default:
             return blockHardness;
         }
@@ -69,21 +70,21 @@ public class MultiBrickFancy extends TConstructBlock
         switch (meta)
         {
         case 0:
-            return Block.obsidian.getExplosionResistance(entity);
+            return Blocks.obsidian.getExplosionResistance(entity, world, meta, meta, meta, explosionZ, explosionZ, explosionZ);
         case 1:
-            return Block.sandStone.getExplosionResistance(entity);
+            return Blocks.sandstone.getExplosionResistance(entity, world, meta, meta, meta, explosionZ, explosionZ, explosionZ);
         case 2:
-            return Block.netherrack.getExplosionResistance(entity);
+            return Blocks.netherrack.getExplosionResistance(entity, world, meta, meta, meta, explosionZ, explosionZ, explosionZ);
         case 4:
-            return Block.blockIron.getExplosionResistance(entity);
+            return Blocks.iron_block.getExplosionResistance(entity, world, meta, meta, meta, explosionZ, explosionZ, explosionZ);
         case 5:
-            return Block.blockGold.getExplosionResistance(entity);
+            return Blocks.gold_block.getExplosionResistance(entity, world, meta, meta, meta, explosionZ, explosionZ, explosionZ);
         case 6:
-            return Block.blockLapis.getExplosionResistance(entity);
+            return Blocks.lapis_block.getExplosionResistance(entity, world, meta, meta, meta, explosionZ, explosionZ, explosionZ);
         case 7:
-            return Block.blockDiamond.getExplosionResistance(entity);
+            return Blocks.diamond_block.getExplosionResistance(entity, world, meta, meta, meta, explosionZ, explosionZ, explosionZ);
         case 8:
-            return Block.blockRedstone.getExplosionResistance(entity);
+            return Blocks.redstone_block.getExplosionResistance(entity, world, meta, meta, meta, explosionZ, explosionZ, explosionZ);
         case 9:
             return 1.0F;
         case 10:
@@ -91,15 +92,15 @@ public class MultiBrickFancy extends TConstructBlock
         case 11:
             return 1.5F;
         case 12:
-            return Block.whiteStone.getExplosionResistance(entity);
+            return Blocks.end_stone.getExplosionResistance(entity, world, meta, meta, meta, explosionZ, explosionZ, explosionZ);
         case 13:
-            return Block.obsidian.getExplosionResistance(entity);
+            return Blocks.obsidian.getExplosionResistance(entity, world, meta, meta, meta, explosionZ, explosionZ, explosionZ);
         case 3:
         case 14:
         case 15:
-            return Block.stone.getExplosionResistance(entity);
+            return Blocks.stone.getExplosionResistance(entity, world, meta, meta, meta, explosionZ, explosionZ, explosionZ);
         default:
-            return getExplosionResistance(entity);
+            return getExplosionResistance(entity, world, meta, meta, meta, explosionZ, explosionZ, explosionZ);
         }
     }
 
@@ -152,9 +153,9 @@ public class MultiBrickFancy extends TConstructBlock
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void registerIcons (IconRegister iconRegister)
+    public void registerIcons (IIconRegister iconRegister)
     {
-        this.icons = new Icon[textureNames.length];
+        this.icons = new IIcon[textureNames.length];
 
         for (int i = 0; i < this.icons.length; ++i)
         {

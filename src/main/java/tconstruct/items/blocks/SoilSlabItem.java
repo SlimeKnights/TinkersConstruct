@@ -3,6 +3,7 @@ package tconstruct.items.blocks;
 import java.util.List;
 
 import mantle.blocks.abstracts.MultiItemBlock;
+import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
@@ -13,9 +14,9 @@ public class SoilSlabItem extends MultiItemBlock
 {
     public static final String blockTypes[] = { "grass", "dirt", "mycelium", "slime", "grout", "blueslime", "graveyardsoil", "consecratedsoil" };
 
-    public SoilSlabItem(int id)
+    public SoilSlabItem(Block b)
     {
-        super(id, "block.soil.slab", blockTypes );
+        super(b, "block.soil.slab", blockTypes );
         setMaxDamage(0);
         setHasSubtypes(true);
     }

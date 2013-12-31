@@ -18,9 +18,9 @@ public class GravelOre extends BlockSand
     public String[] textureNames = new String[] { "iron", "gold", "copper", "tin", "aluminum", "cobalt" };
     public IIcon[] icons;
 
-    public GravelOre(int id)
+    public GravelOre()
     {
-        super(id, Material.craftedSnow);
+        super(Material.craftedSnow);
         this.setCreativeTab(TConstructRegistry.blockTab);
         this.setStepSound(soundGravelFootstep);
     }

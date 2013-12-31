@@ -5,8 +5,10 @@ import cpw.mods.fml.relauncher.*;
 import java.util.List;
 
 import mantle.items.abstracts.CraftingItem;
+import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import tconstruct.library.TConstructRegistry;
@@ -17,12 +19,12 @@ public class Pattern extends CraftingItem implements IPattern
 {
     public Pattern(int id, String patternType, String folder)
     {
-        this(id, patternName, getPatternNames(patternType), folder);
+        this(patternName, getPatternNames(patternType), folder);
     }
 
-    public Pattern(int id, String[] names, String[] patternTypes, String folder)
+    public Pattern(String[] names, String[] patternTypes, String folder)
     {
-        super(id, names, patternTypes, folder, "tinker", TConstructRegistry.materialTab);
+        super(names, patternTypes, folder, "tinker", TConstructRegistry.materialTab);
         this.setHasSubtypes(true);
         this.setMaxDamage(0);
         this.setContainerItem(this);
@@ -41,12 +43,12 @@ public class Pattern extends CraftingItem implements IPattern
             "knifeblade", "chisel", "largerod", "toughbinding", "largeplate", "broadaxe", "scythe", "excavator", "largeblade", "hammerhead", "fullguard", "bowstring", "fletching", "arrowhead" };
 
     @Override
-    public void getSubItems (int id, CreativeTabs tab, List list)
+    public void getSubItems (Block b, CreativeTabs tab, List list)
     {
         for (int i = 1; i < patternName.length; i++)
         {
             //if (i != 23)
-            list.add(new ItemStack(id, 1, i));
+            list.add(new ItemStack(b, 1, i));
         }
     }
 
@@ -145,6 +147,6 @@ public class Pattern extends CraftingItem implements IPattern
     @Override
     public ItemStack getPatternOutput (ItemStack stack, ItemStack input, MaterialSet set)
     {
-        return TConstructRegistry.getPartMapping(this.itemID, stack.getItemDamage(), set.materialID);
+        return TConstructRegistry.getPartMapping((Item)this, stack.getItemDamage(), set.materialID);
     }
 }

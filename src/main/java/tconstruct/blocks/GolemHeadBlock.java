@@ -5,11 +5,11 @@ import tconstruct.blocks.logic.GolemCoreLogic;
 import tconstruct.common.TContent;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 
@@ -19,19 +19,19 @@ public class GolemHeadBlock extends MantleBlock
     public static int headTopTex = ModLoader.addOverride("/terrain.png", "/GGE/golemheadtop&bottom.png");
     public static int face;*/
 
-    public GolemHeadBlock(int id)
+    public GolemHeadBlock()
     {
-        super(id, Material.ground);
+        super(Material.ground);
         //setTickRandomly(true);
     }
 
-    public Icon[] icons;
+    public IIcon[] icons;
     public String[] textureNames = new String[] { "golemhead_face", "golemhead_side", "golemhead_top" };
 
     @Override
-    public void registerIcons (IconRegister iconRegister)
+    public void registerIcons (IIconRegister iconRegister)
     {
-        this.icons = new Icon[textureNames.length];
+        this.icons = new IIcon[textureNames.length];
 
         for (int i = 0; i < this.icons.length; ++i)
         {

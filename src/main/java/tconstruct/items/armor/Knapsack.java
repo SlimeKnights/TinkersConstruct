@@ -18,7 +18,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class Knapsack extends CraftingItem
 {
 
-    public Knapsack(int id)
+    public Knapsack()
     {
         super(new String[] { "knapsack" }, new String[] { "knapsack" }, "armor/", "tinker", TConstructRegistry.materialTab);
         this.setMaxStackSize(10);

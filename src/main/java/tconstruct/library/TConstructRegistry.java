@@ -158,9 +158,9 @@ public class TConstructRegistry
         patternPartMapping.put(Arrays.asList(woodPattern, patternMeta, materialID), output);
     }
 
-    public static ItemStack getPartMapping (int itemID, int metadata, int materialID)
+    public static ItemStack getPartMapping (Item item, int metadata, int materialID)
     {
-        ItemStack stack = patternPartMapping.get(Arrays.asList(itemID, metadata, materialID));
+        ItemStack stack = patternPartMapping.get(Arrays.asList(item, metadata, materialID));
         if (stack != null)
             return stack.copy();
         return null;
