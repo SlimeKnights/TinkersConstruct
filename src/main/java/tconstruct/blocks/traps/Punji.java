@@ -30,7 +30,7 @@ public class Punji extends MantleBlock
         this.setBlockBounds(0.125f, 0, 0.125f, 0.875f, 0.375f, 0.875f);
         this.setStepSound(Block.soundGrassFootstep);
         this.setCreativeTab(TConstructRegistry.blockTab);
-        this.setHardness(3.0f);
+        this.func_149711_c(3.0f);
     }
 
     @Override

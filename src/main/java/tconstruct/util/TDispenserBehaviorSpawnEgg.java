@@ -15,7 +15,7 @@ public class TDispenserBehaviorSpawnEgg extends BehaviorDefaultDispenseItem
      */
     public ItemStack dispenseStack (IBlockSource par1IBlockSource, ItemStack par2ItemStack)
     {
-        EnumFacing enumfacing = BlockDispenser.getFacing(par1IBlockSource.getBlockMetadata());
+        EnumFacing enumfacing = BlockDispenser.func_149937_b(par1IBlockSource.getBlockMetadata());
         double d0 = par1IBlockSource.getX() + (double) enumfacing.getFrontOffsetX();
         double d1 = (double) ((float) par1IBlockSource.getYInt() + 0.2F);
         double d2 = par1IBlockSource.getZ() + (double) enumfacing.getFrontOffsetZ();

@@ -5,6 +5,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 
@@ -851,7 +852,7 @@ public class BlockSkinRenderHelper
 
     public static boolean renderLiquidBlock (IIcon stillIcon, IIcon flowingIcon, int x, int y, int z, RenderBlocks renderer, IBlockAccess world)
     {
-        Block block = Block.stone;
+        Block block = Blocks.stone;
         int var5 = block.colorMultiplier(world, x, y, z);
         float var6 = (float) (var5 >> 16 & 255) / 255.0F;
         float var7 = (float) (var5 >> 8 & 255) / 255.0F;
@@ -874,7 +875,7 @@ public class BlockSkinRenderHelper
     static boolean renderFakeBlockWithAmbientOcclusion (IIcon stillIcon, IIcon flowingIcon, int xPos, int yPos, int zPos, float colorRed, float colorGreen, float colorBlue, RenderBlocks render,
             IBlockAccess world)
     {
-        Block block = Block.stone;
+        Block block = Blocks.stone;
         render.enableAO = true;
         boolean flag = false;
         float f3 = 0.0F;
@@ -1592,7 +1593,7 @@ public class BlockSkinRenderHelper
     static boolean renderFakeBlockWithColorMultiplier (IIcon stillIcon, IIcon flowingIcon, int xPos, int yPos, int zPos, float colorRed, float colorGreen, float colorBlue, RenderBlocks render,
             IBlockAccess world)
     {
-        Block block = Block.stone;
+        Block block = Blocks.stone;
         render.enableAO = false;
         Tessellator tessellator = Tessellator.instance;
         boolean flag = false;

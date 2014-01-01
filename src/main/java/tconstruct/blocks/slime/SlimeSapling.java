@@ -8,6 +8,7 @@ import net.minecraft.block.BlockSapling;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
@@ -29,7 +30,7 @@ public class SlimeSapling extends BlockSapling
         super();
         float f = 0.4F;
         setBlockBounds(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, f * 2.0F, 0.5F + f);
-        this.setHardness(0.0F);
+        this.func_149711_c(0.0F);
         this.setStepSound(Block.soundGrassFootstep);
         this.setCreativeTab(TConstructRegistry.blockTab);
     }
@@ -48,7 +49,7 @@ public class SlimeSapling extends BlockSapling
 
     public boolean canThisPlantGrowOnThisBlockID (int id)
     {
-        return id == Block.grass.blockID || id == Block.dirt.blockID || id == TRepo.slimeGrass.blockID || id == TRepo.craftedSoil.blockID;
+        return id == Blocks.grass.blockID || id == Blocks.dirt.blockID || id == TRepo.slimeGrass.blockID || id == TRepo.craftedSoil.blockID;
     }
 
     public void updateTick (World world, int x, int y, int z, Random random)

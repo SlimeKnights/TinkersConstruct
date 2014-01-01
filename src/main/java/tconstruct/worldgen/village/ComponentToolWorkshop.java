@@ -61,12 +61,12 @@ public class ComponentToolWorkshop extends MapGenVillage
          * maxZ, int placeBlockId, int replaceBlockId, boolean alwaysreplace)
          */
 
-        this.fillWithBlocks(world, sbb, 0, 0, 0, 6, 0, 6, Blocks.cobblestone.blockID, Blocks.cobblestone.blockID, false); //Base
-        this.fillWithBlocks(world, sbb, 0, 5, 0, 6, 5, 6, Blocks.fence.blockID, Blocks.fence.blockID, false);
-        this.fillWithBlocks(world, sbb, 1, 0, 1, 5, 0, 5, Blocks.planks.blockID, Blocks.planks.blockID, false);
-        this.fillWithBlocks(world, sbb, 2, 0, 2, 4, 0, 4, Blocks.wool.blockID, Blocks.cloth.blockID, false);
+        this.fillWithBlocks(world, sbb, 0, 0, 0, 6, 0, 6, Blocks.cobblestone, Blocks.cobblestone, false); //Base
+        this.fillWithBlocks(world, sbb, 0, 5, 0, 6, 5, 6, Blocks.fence, Blocks.fence, false);
+        this.fillWithBlocks(world, sbb, 1, 0, 1, 5, 0, 5, Blocks.planks, Blocks.planks, false);
+        this.fillWithBlocks(world, sbb, 2, 0, 2, 4, 0, 4, Blocks.wool, Blocks.wool, false);
 
-        //this.fillWithBlocks(world, sbb, 0, 5, 0, 6, 5, 6, Block.wood.blockID, Block.wood.blockID, false);
+        //this.fillWithBlocks(world, sbb, 0, 5, 0, 6, 5, 6, Blocks.log, Blocks.log, false);
 
         this.fillWithBlocks(world, sbb, 0, 1, 0, 0, 4, 0, Blocks.log, Blocks.log, false); //Edges
         this.fillWithBlocks(world, sbb, 0, 1, 6, 0, 4, 6, Blocks.log, Blocks.log, false);
@@ -83,10 +83,10 @@ public class ComponentToolWorkshop extends MapGenVillage
         this.fillWithBlocks(world, sbb, 6, 3, 1, 6, 3, 5, Blocks.planks, Blocks.planks, false);
         this.fillWithBlocks(world, sbb, 1, 3, 6, 5, 3, 6, Blocks.planks, Blocks.planks, false);
 
-        this.fillWithBlocks(world, sbb, 0, 4, 1, 0, 4, 5, Block.wood.blockID, Block.wood.blockID, false);
-        this.fillWithBlocks(world, sbb, 1, 4, 0, 5, 4, 0, Block.wood.blockID, Block.wood.blockID, false);
-        this.fillWithBlocks(world, sbb, 6, 4, 1, 6, 4, 5, Block.wood.blockID, Block.wood.blockID, false);
-        this.fillWithBlocks(world, sbb, 1, 4, 6, 5, 4, 6, Block.wood.blockID, Block.wood.blockID, false);
+        this.fillWithBlocks(world, sbb, 0, 4, 1, 0, 4, 5, Blocks.log, Blocks.log, false);
+        this.fillWithBlocks(world, sbb, 1, 4, 0, 5, 4, 0, Blocks.log, Blocks.log, false);
+        this.fillWithBlocks(world, sbb, 6, 4, 1, 6, 4, 5, Blocks.log, Blocks.log, false);
+        this.fillWithBlocks(world, sbb, 1, 4, 6, 5, 4, 6, Blocks.log, Blocks.log, false);
 
         this.fillWithBlocks(world, sbb, 1, 1, 1, 5, 5, 5, 0, 0, false);
         this.fillWithBlocks(world, sbb, 1, 4, 1, 5, 4, 5, Blocks.planks, Blocks.planks, false);
@@ -94,7 +94,7 @@ public class ComponentToolWorkshop extends MapGenVillage
         //world, blockID, metadata, x, y, z, bounds
         this.placeBlockAtCurrentPosition(world, Blocks.glass_pane, 0, 1, 2, 0, sbb);//Glass and door
         this.placeBlockAtCurrentPosition(world, Blocks.planks, 0, 2, 2, 0, sbb);
-        this.placeDoorAtCurrentPosition(world, sbb, random, 3, 1, 0, this.getMetadataWithOffset(Block.doorWood.blockID, 1));
+        this.placeDoorAtCurrentPosition(world, sbb, random, 3, 1, 0, this.getMetadataWithOffset(Blocks.wooden_door, 1));
         this.placeBlockAtCurrentPosition(world, Blocks.planks, 0, 4, 2, 0, sbb);
         this.placeBlockAtCurrentPosition(world, Blocks.glass_pane, 0, 5, 2, 0, sbb);
 
@@ -122,18 +122,18 @@ public class ComponentToolWorkshop extends MapGenVillage
         this.placeBlockAtCurrentPosition(world, Blocks.ladder, i, 3, 3, 5, sbb);
         this.placeBlockAtCurrentPosition(world, Blocks.ladder, i, 3, 4, 5, sbb);
 
-        this.placeBlockAtCurrentPosition(world, TRepo.toolStationWood.blockID, 0, 1, 1, 1, sbb); //Inside
+        this.placeBlockAtCurrentPosition(world, TRepo.toolStationWood, 0, 1, 1, 1, sbb); //Inside
         this.generateStructurePatternChestContents(world, sbb, random, 1, 1, 2, TRepo.tinkerHousePatterns.getItems(random), TRepo.tinkerHousePatterns.getCount(random));
-        //this.placeBlockAtCurrentPosition(world, TRepo.toolStationWood.blockID, 5, 1, 1, 2, sbb);
-        this.placeBlockAtCurrentPosition(world, TRepo.toolStationWood.blockID, 1, 1, 1, 3, sbb);
+        //this.placeBlockAtCurrentPosition(world, TRepo.toolStationWood, 5, 1, 1, 2, sbb);
+        this.placeBlockAtCurrentPosition(world, TRepo.toolStationWood, 1, 1, 1, 3, sbb);
         this.generateStructureCraftingStationContents(world, sbb, random, 1, 1, 4, TRepo.tinkerHouseChest.getItems(random), TRepo.tinkerHouseChest.getCount(random));
-       // this.placeBlockAtCurrentPosition(world, TRepo.craftingStationWood.blockID, 0, 1, 1, 4, sbb);
-        this.placeBlockAtCurrentPosition(world, TRepo.toolStationWood.blockID, 10, 1, 1, 5, sbb);
+       // this.placeBlockAtCurrentPosition(world, TRepo.craftingStationWood, 0, 1, 1, 4, sbb);
+        this.placeBlockAtCurrentPosition(world, TRepo.toolStationWood, 10, 1, 1, 5, sbb);
 
         //ChestGenHooks info = ChestGenHooks.getInfo("TinkerHouse");
 
         this.generateStructureChestContents(world, sbb, random, 4, 1, 5, TRepo.tinkerHouseChest.getItems(random), TRepo.tinkerHouseChest.getCount(random));
-        //this.placeBlockAtCurrentPosition(world, Block.chest.blockID, i, 4, 1, 5, sbb);
+        //this.placeBlockAtCurrentPosition(world, Block.chest, i, 4, 1, 5, sbb);
         i = this.getMetadataWithOffset(Blocks.piston, 3);
         this.placeBlockAtCurrentPosition(world, Blocks.piston, i, 5, 1, 5, sbb);
 
@@ -157,9 +157,9 @@ public class ComponentToolWorkshop extends MapGenVillage
         int posY = this.getYWithOffset(y);
         int posZ = this.getZWithOffset(x, z);
 
-        if (par2StructureBoundingBox.isVecInside(posX, posY, posZ) && world.getBlockId(posX, posY, posZ) != Block.chest.blockID)
+        if (par2StructureBoundingBox.isVecInside(posX, posY, posZ) && world.getBlockId(posX, posY, posZ) != Blocks.chest.blockID)
         {
-            world.setBlock(posX, posY, posZ, TRepo.craftingStationWood.blockID, 5, 2);
+            world.setBlock(posX, posY, posZ, TRepo.craftingStationWood, 5, 2);
             CraftingStationLogic logic = (CraftingStationLogic) world.getBlockTileEntity(posX, posY, posZ);
 
             if (logic != null)
@@ -183,7 +183,7 @@ public class ComponentToolWorkshop extends MapGenVillage
 
         if (par2StructureBoundingBox.isVecInside(posX, posY, posZ) && world.getBlockId(posX, posY, posZ) != Blocks.chest.blockID)
         {
-            world.setBlock(posX, posY, posZ, TRepo.toolStationWood.blockID, 5, 2);
+            world.setBlock(posX, posY, posZ, TRepo.toolStationWood, 5, 2);
             PatternChestLogic logic = (PatternChestLogic) world.getBlockTileEntity(posX, posY, posZ);
 
             if (logic != null)

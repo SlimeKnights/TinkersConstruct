@@ -11,7 +11,7 @@ public class ModPotion extends ToolMod
 
     public ModPotion(ItemStack[] items, int effect, String dataKey)
     {
-        super(new ItemStack[] { new ItemStack(Items.potion, 1, Short.MAX_VALUE) }, 0, "");
+        super(new ItemStack[] { new ItemStack(Items.potionitem, 1, Short.MAX_VALUE) }, 0, "");
     }
 
     protected boolean canModify (ItemStack tool, ItemStack[] input)

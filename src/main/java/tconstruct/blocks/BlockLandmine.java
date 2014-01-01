@@ -24,12 +24,14 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 import tconstruct.TConstruct;
 import tconstruct.blocks.logic.LandmineExplodeLogic;
 import tconstruct.blocks.logic.TileEntityLandmine;
 import tconstruct.client.block.RenderLandmine;
 import tconstruct.common.TProxyCommon;
 import tconstruct.util.landmine.Helper;
+import static net.minecraftforge.common.util.ForgeDirection.*;
 
 /**
  * 

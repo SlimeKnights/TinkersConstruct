@@ -5,6 +5,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EnumCreatureAttribute;
+import net.minecraft.init.Blocks;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.AxisAlignedBB;
@@ -60,13 +61,13 @@ public class SoilBlock extends TConstructBlock
     {
         int meta = world.getBlockMetadata(x, y, z);
         if (meta == 5)
-            return Block.dirt.blockHardness;
+            return Blocks.dirt.blockHardness;
         return this.blockHardness;
     }
 
     public AxisAlignedBB getCollisionBoundingBoxFromPool (World world, int x, int y, int z)
     {
-        return Block.slowSand.getCollisionBoundingBoxFromPool(world, x, y, z);
+        return Blocks.soul_sand.getCollisionBoundingBoxFromPool(world, x, y, z);
     }
 
     /*public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z)

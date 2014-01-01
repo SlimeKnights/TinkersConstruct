@@ -9,6 +9,7 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityIronGolem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -972,7 +973,7 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
         {
             ItemStack var2 = player.inventory.getCurrentItem();
 
-            if (var2 != null && var2.itemID == Item.coal.itemID)
+            if (var2 != null && var2.itemID == Items.coal.itemID)
             {
                 if (--var2.stackSize == 0)
                 {

@@ -3,6 +3,7 @@ package tconstruct.worldgen;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
@@ -15,7 +16,7 @@ public class OreberryBushGen extends WorldGenerator
 
     public OreberryBushGen(Block block, int meta, int chance)
     {
-        this(block.blockID, meta, chance, Block.stone.blockID, Block.grass.blockID, Block.dirt.blockID, Block.waterStill.blockID, Block.sand.blockID, Block.gravel.blockID, Block.snow.blockID);
+        this(meta, chance, Blocks.stone, Blocks.grass, Blocks.dirt, Blocks.water, Blocks.sand, Blocks.gravel, Blocks.snow);
     }
 
     public OreberryBushGen(int blockID, int meta, int chance, int... target)
@@ -93,14 +94,14 @@ public class OreberryBushGen extends WorldGenerator
 
         Block block = Block.blocksList[world.getBlockId(x, y, z)];
         if (block == null || (block != Block.endPortalFrame && !Block.opaqueCubeLookup[world.getBlockId(x, y, z)]))
-            world.setBlock(x, y, z, this.blockID, metadata, 2);
+            world.setBlock(x, y, z, this, metadata, 2);
         else
         {
             for (int iter = 0; iter < replaceBlocks.length; iter++)
             {
                 if (block.isGenMineableReplaceable(world, x, y, z, replaceBlocks[iter]))
                 {
-                    world.setBlock(x, y, z, this.blockID, metadata, 2);
+                    world.setBlock(x, y, z, this, metadata, 2);
                     break;
                 }
             }

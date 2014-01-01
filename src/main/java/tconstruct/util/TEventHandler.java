@@ -6,6 +6,7 @@ import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import java.util.Random;
 
 import cpw.mods.fml.common.eventhandler.Event.Result;
+import cpw.mods.fml.common.eventhandler.Event;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -32,6 +33,7 @@ import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
@@ -549,7 +551,7 @@ public class TEventHandler
     @SubscribeEvent
     public void bucketFill (FillBucketEvent evt)
     {
-        if (evt.current.getItem() == Items.bucket && evt.target.typeOfHit == EnumMovingObjectType.TILE)
+        if (evt.current.getItem() == Items.bucket && evt.target.typeOfHit == MovingObjectType.TILE)
         {
             int hitX = evt.target.blockX;
             int hitY = evt.target.blockY;

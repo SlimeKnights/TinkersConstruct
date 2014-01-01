@@ -1,6 +1,8 @@
 package tconstruct.common;
 
 import mantle.items.abstracts.CraftingItem;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import tconstruct.library.armor.EnumArmorPart;
@@ -111,9 +113,9 @@ public class TContent implements IFuelHandler
         TRepo.meatBlock = new MeatBlock(PHConstruct.meatBlock).setUnlocalizedName("tconstruct.meatblock");
         TRepo.glueBlock = new GlueBlock(PHConstruct.glueBlock).setUnlocalizedName("GlueBlock").setCreativeTab(TConstructRegistry.blockTab);
 
-        TRepo.woolSlab1 = new SlabBase(PHConstruct.woolSlab1, Material.cloth, Block.cloth, 0, 8).setUnlocalizedName("cloth");
+        TRepo.woolSlab1 = new SlabBase(PHConstruct.woolSlab1, Material.cloth, Blocks.wool, 0, 8).setUnlocalizedName("cloth");
         TRepo.woolSlab1.setStepSound(Block.soundClothFootstep).setCreativeTab(CreativeTabs.tabDecorations);
-        TRepo.woolSlab2 = new SlabBase(PHConstruct.woolSlab2, Material.cloth, Block.cloth, 8, 8).setUnlocalizedName("cloth");
+        TRepo.woolSlab2 = new SlabBase(PHConstruct.woolSlab2, Material.cloth, Blocks.wool, 8, 8).setUnlocalizedName("cloth");
         TRepo.woolSlab2.setStepSound(Block.soundClothFootstep).setCreativeTab(CreativeTabs.tabDecorations);
 
         //Smeltery
@@ -134,10 +136,10 @@ public class TContent implements IFuelHandler
         TRepo.landmine = new BlockLandmine(PHConstruct.landmine).setHardness(0.5F).setResistance(0F).setStepSound(Block.soundMetalFootstep).setCreativeTab(CreativeTabs.tabRedstone)
                 .setUnlocalizedName("landmine");
         TRepo.punji = new Punji(PHConstruct.punji).setUnlocalizedName("trap.punji");
-        TRepo.barricadeOak = new BarricadeBlock(PHConstruct.barricadeOak, Block.wood, 0).setUnlocalizedName("trap.barricade.oak");
-        TRepo.barricadeSpruce = new BarricadeBlock(PHConstruct.barricadeSpruce, Block.wood, 1).setUnlocalizedName("trap.barricade.spruce");
-        TRepo.barricadeBirch = new BarricadeBlock(PHConstruct.barricadeBirch, Block.wood, 2).setUnlocalizedName("trap.barricade.birch");
-        TRepo.barricadeJungle = new BarricadeBlock(PHConstruct.barricadeJungle, Block.wood, 3).setUnlocalizedName("trap.barricade.jungle");
+        TRepo.barricadeOak = new BarricadeBlock(PHConstruct.barricadeOak, Blocks.log, 0).setUnlocalizedName("trap.barricade.oak");
+        TRepo.barricadeSpruce = new BarricadeBlock(PHConstruct.barricadeSpruce, Blocks.log, 1).setUnlocalizedName("trap.barricade.spruce");
+        TRepo.barricadeBirch = new BarricadeBlock(PHConstruct.barricadeBirch, Blocks.log, 2).setUnlocalizedName("trap.barricade.birch");
+        TRepo.barricadeJungle = new BarricadeBlock(PHConstruct.barricadeJungle, Blocks.log, 3).setUnlocalizedName("trap.barricade.jungle");
         TRepo.slimeExplosive = new SlimeExplosive(PHConstruct.slimeExplosive).setHardness(0.0F).setStepSound(Block.soundGrassFootstep).setUnlocalizedName("explosive.slime");
 
         TRepo.dryingRack = new DryingRack(PHConstruct.dryingRack).setUnlocalizedName("Armor.DryingRack");
@@ -151,7 +153,7 @@ public class TContent implements IFuelHandler
         TRepo.moltenIron = new TConstructFluid(PHConstruct.moltenIron, TRepo.moltenIronFluid, Material.lava, "liquid_iron").setUnlocalizedName("fluid.molten.iron");
         GameRegistry.registerBlock(TRepo.moltenIron, "fluid.molten.iron");
         TRepo.moltenIronFluid.setBlockID(TRepo.moltenIron).setLuminosity(12).setDensity(3000).setViscosity(6000).setTemperature(1300);
-        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TRepo.moltenIronFluid, 1000), new ItemStack(TRepo.buckets, 1, 0), new ItemStack(Item.bucketEmpty)));
+        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TRepo.moltenIronFluid, 1000), new ItemStack(TRepo.buckets, 1, 0), new ItemStack(Items.bucket)));
 
         TRepo.moltenGoldFluid = new Fluid("gold.molten");
         if (!FluidRegistry.registerFluid(TRepo.moltenGoldFluid))
@@ -159,7 +161,7 @@ public class TContent implements IFuelHandler
         TRepo.moltenGold = new TConstructFluid(PHConstruct.moltenGold, TRepo.moltenGoldFluid, Material.lava, "liquid_gold").setUnlocalizedName("fluid.molten.gold");
         GameRegistry.registerBlock(TRepo.moltenGold, "fluid.molten.gold");
         TRepo.moltenGoldFluid.setBlockID(TRepo.moltenGold).setLuminosity(12).setDensity(3000).setViscosity(6000).setTemperature(1300);
-        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TRepo.moltenGoldFluid, 1000), new ItemStack(TRepo.buckets, 1, 1), new ItemStack(Item.bucketEmpty)));
+        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TRepo.moltenGoldFluid, 1000), new ItemStack(TRepo.buckets, 1, 1), new ItemStack(Items.bucket)));
 
         TRepo.moltenCopperFluid = new Fluid("copper.molten");
         if (!FluidRegistry.registerFluid(TRepo.moltenCopperFluid))
@@ -167,7 +169,7 @@ public class TContent implements IFuelHandler
         TRepo.moltenCopper = new TConstructFluid(PHConstruct.moltenCopper, TRepo.moltenCopperFluid, Material.lava, "liquid_copper").setUnlocalizedName("fluid.molten.copper");
         GameRegistry.registerBlock(TRepo.moltenCopper, "fluid.molten.copper");
         TRepo.moltenCopperFluid.setBlockID(TRepo.moltenCopper).setLuminosity(12).setDensity(3000).setViscosity(6000).setTemperature(1300);
-        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TRepo.moltenCopperFluid, 1000), new ItemStack(TRepo.buckets, 1, 2), new ItemStack(Item.bucketEmpty)));
+        FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TRepo.moltenCopperFluid, 1000), new ItemStack(TRepo.buckets, 1, 2), new ItemStack(Items.bucket)));
 
         TRepo.moltenTinFluid = new Fluid("tin.molten");
         if (!FluidRegistry.registerFluid(TRepo.moltenTinFluid))

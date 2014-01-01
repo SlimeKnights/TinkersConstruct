@@ -8,27 +8,27 @@ import java.util.Random;
 
 import tconstruct.common.TRepo;
 import tconstruct.util.config.PHConstruct;
-
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
-import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.terraingen.DecorateBiomeEvent.Decorate;
 
 import com.google.common.collect.ImmutableCollection;
 import com.google.common.collect.ImmutableList;
 
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+
 public class TerrainGenEventHandler
 {
-    private final SurfaceOreGen ironSurface = new SurfaceOreGen(TRepo.oreGravel.blockID, 0, 12, true);
-    private final SurfaceOreGen goldSurface = new SurfaceOreGen(TRepo.oreGravel.blockID, 1, 20, true);
-    private final SurfaceOreGen copperSurface = new SurfaceOreGen(TRepo.oreGravel.blockID, 2, 12, true);
-    private final SurfaceOreGen tinSurface = new SurfaceOreGen(TRepo.oreGravel.blockID, 3, 12, true);
-    private final SurfaceOreGen aluminumSurface = new SurfaceOreGen(TRepo.oreGravel.blockID, 4, 12, true);
-    private final SurfaceOreGen cobaltSurface = new SurfaceOreGen(TRepo.oreGravel.blockID, 5, 30, true);
+    private final SurfaceOreGen ironSurface = new SurfaceOreGen(TRepo.oreGravel, 0, 12, true);
+    private final SurfaceOreGen goldSurface = new SurfaceOreGen(TRepo.oreGravel, 1, 20, true);
+    private final SurfaceOreGen copperSurface = new SurfaceOreGen(TRepo.oreGravel, 2, 12, true);
+    private final SurfaceOreGen tinSurface = new SurfaceOreGen(TRepo.oreGravel, 3, 12, true);
+    private final SurfaceOreGen aluminumSurface = new SurfaceOreGen(TRepo.oreGravel, 4, 12, true);
+    private final SurfaceOreGen cobaltSurface = new SurfaceOreGen(TRepo.oreGravel, 5, 30, true);
 
     private static ImmutableCollection<BiomeGenBase> EXTRA_ORE_BIOMES = ImmutableList.of(extremeHills, extremeHillsEdge);
 
-    @ForgeSubscribe
+    @SubscribeEvent
     public void onDecorateEvent (Decorate e)
     {
         // Trigger just before sand pass one--which comes just after vanilla ore generation.

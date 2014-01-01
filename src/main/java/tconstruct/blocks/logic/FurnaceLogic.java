@@ -4,6 +4,8 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -211,12 +213,12 @@ public class FurnaceLogic extends InventoryLogic implements IActiveLogic, IFacin
             {
                 Block block = Block.blocksList[i];
 
-                if (block == Block.woodSingleSlab)
+                if (block == Blocks.wooden_slab)
                 {
                     return 150;
                 }
 
-                if (block == Block.wood)
+                if (block == Blocks.log)
                 {
                     return 1200;
                 }
@@ -226,7 +228,7 @@ public class FurnaceLogic extends InventoryLogic implements IActiveLogic, IFacin
                     return 300;
                 }
 
-                if (block == Block.coalBlock)
+                if (block == Blocks.coal_block)
                 {
                     return 16000;
                 }
@@ -238,15 +240,15 @@ public class FurnaceLogic extends InventoryLogic implements IActiveLogic, IFacin
                 return 200;
             if (item instanceof ItemHoe && ((ItemHoe) item).getMaterialName().equals("WOOD"))
                 return 200;
-            if (i == Item.stick.itemID)
+            if (i == Items.stick.itemID)
                 return 100;
-            if (i == Item.coal.itemID)
+            if (i == Items.coal.itemID)
                 return 1600;
-            if (i == Item.bucketLava.itemID)
+            if (i == Items.bucketLava.itemID)
                 return 20000;
-            if (i == Block.sapling.blockID)
+            if (i == Blocks.sapling.blockID)
                 return 100;
-            if (i == Item.blazeRod.itemID)
+            if (i == Items.blaze_rod.itemID)
                 return 2400;
             return GameRegistry.getFuelValue(stack);
         }

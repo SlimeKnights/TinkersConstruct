@@ -25,9 +25,9 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class Battleaxe extends HarvestTool
 {
-    public Battleaxe(int itemID)
+    public Battleaxe()
     {
-        super(itemID, 4);
+        super(4);
         this.setUnlocalizedName("InfiTool.Battleaxe");
     }
 

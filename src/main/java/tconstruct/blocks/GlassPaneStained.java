@@ -10,7 +10,8 @@ public class GlassPaneStained extends PaneBase
     public GlassPaneStained(int id)
     {
         super(id, Material.glass, "glass/", assembleBlockTextures());
-        this.setHardness(0.3F);
+        //TODO setHardness
+        this.func_149711_c(0.3F);
         this.setStepSound(soundGlassFootstep);
         this.setUnlocalizedName("tconstruct.glasspanestained");
         this.setCreativeTab(TConstructRegistry.blockTab);

@@ -26,7 +26,7 @@ public class BarricadeBlock extends MantleBlock
         super(Material.wood);
         this.modelBlock = model;
         this.modelMeta = meta;
-        setHardness(4.0F);
+        func_149711_c(4.0F);
         this.setCreativeTab(TConstructRegistry.blockTab);
     }
 

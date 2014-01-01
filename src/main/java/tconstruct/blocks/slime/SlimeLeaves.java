@@ -31,7 +31,7 @@ public class SlimeLeaves extends BlockLeaves
         super();
         setCreativeTab(TConstructRegistry.blockTab);
         setLightOpacity(1);
-        this.setHardness(0.3f);
+        this.func_149711_c(0.3f);
     }
 
     @SideOnly(Side.CLIENT)

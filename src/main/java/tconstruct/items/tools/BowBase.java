@@ -215,7 +215,7 @@ public abstract class BowBase extends ToolCore
                     return event.result;
                 }
 
-                if (player.capabilities.isCreativeMode || player.inventory.hasItem(Item.arrow.itemID) || player.inventory.hasItem(TRepo.arrow.itemID))
+                if (player.capabilities.isCreativeMode || player.inventory.hasItemStack(new ItemStack(Items.arrow)) || player.inventory.hasItemStack(new ItemStack(TRepo.arrow)))
                 {
                     player.setItemInUse(stack, this.getMaxItemUseDuration(stack));
                 }

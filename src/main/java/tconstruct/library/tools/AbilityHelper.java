@@ -17,6 +17,7 @@ import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -497,13 +498,13 @@ public class AbilityHelper
             int bID = world.getBlockId(x, y, z);
             int bIDabove = world.getBlockId(x, y + 1, z);
 
-            if ((side == 0 || bIDabove != 0 || bID != Block.grass.blockID) && bID != Block.dirt.blockID)
+            if ((side == 0 || bIDabove != 0 || bID != Blocks.grass.blockID) && bID != Blocks.dirt.blockID)
             {
                 return false;
             }
             else
             {
-                Block block = Block.tilledField;
+                Block block = Blocks.tilledField;
                 world.playSoundEffect((double) ((float) x + 0.5F), (double) ((float) y + 0.5F), (double) ((float) z + 0.5F), block.stepSound.getStepSound(),
                         (block.stepSound.getVolume() + 1.0F) / 2.0F, block.stepSound.getPitch() * 0.8F);
 

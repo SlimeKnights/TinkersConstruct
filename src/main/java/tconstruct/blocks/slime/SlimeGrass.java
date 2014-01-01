@@ -29,7 +29,7 @@ public class SlimeGrass extends MantleBlock
     public SlimeGrass()
     {
         super(Material.grass);
-        setHardness(0.6f);
+        func_149711_c(0.6f);
         this.setTickRandomly(true);
         this.setCreativeTab(TConstructRegistry.blockTab);
     }
@@ -66,7 +66,7 @@ public class SlimeGrass extends MantleBlock
 
         if (side == 0)
         {
-            return meta % 2 == 1 ? Block.dirt.getIcon(0, 0) : icons[1];
+            return meta % 2 == 1 ? Blocks.dirt.getIcon(0, 0) : icons[1];
         }
         else if (side == 1)
         {

@@ -15,8 +15,10 @@ public class TDispenserBehaviorArrow extends BehaviorDefaultDispenseItem
     public ItemStack dispenseStack (IBlockSource dispenser, ItemStack stack)
     {
         World world = dispenser.getWorld();
-        IPosition iposition = BlockDispenser.getIPositionFromBlockSource(dispenser);
-        EnumFacing enumfacing = BlockDispenser.getFacing(dispenser.getBlockMetadata());
+        //TODO getIPositionFromBlockSource
+        IPosition iposition = BlockDispenser.func_149939_a(dispenser);
+        //TODO getFacing
+        EnumFacing enumfacing = BlockDispenser.func_149937_b(dispenser.getBlockMetadata());
 
         ItemStack arrowItem = stack.splitStack(1);
 

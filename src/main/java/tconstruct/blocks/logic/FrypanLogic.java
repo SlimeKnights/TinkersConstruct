@@ -5,6 +5,8 @@ import mantle.blocks.iface.IActiveLogic;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -237,7 +239,7 @@ public class FrypanLogic extends EquipLogic implements IActiveLogic
                     return 150;
                 }
 
-                if (block == Block.wood)
+                if (block == Blocks.log)
                 {
                     return 2400;
                 }
@@ -253,15 +255,15 @@ public class FrypanLogic extends EquipLogic implements IActiveLogic
                 return 200;
             if (item instanceof ItemHoe && ((ItemHoe) item).getMaterialName().equals("WOOD"))
                 return 200;
-            if (itemID == Item.stick.itemID)
+            if (itemID == Items.stick.itemID)
                 return 100;
-            if (itemID == Item.coal.itemID)
+            if (itemID == Items.coal.itemID)
                 return 800;
-            if (itemID == Item.bucketLava.itemID)
+            if (itemID == Items.lava_bucket.itemID)
                 return 20000;
-            if (itemID == Block.sapling.blockID)
+            if (itemID == Blocks.sapling.blockID)
                 return 100;
-            if (itemID == Item.blazeRod.itemID)
+            if (itemID == Items.blaze_rod.itemID)
                 return 2400;
             return GameRegistry.getFuelValue(stack);
         }

@@ -3,8 +3,8 @@ package tconstruct.worldgen;
 import java.util.Random;
 
 import tconstruct.util.config.PHConstruct;
-
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
@@ -22,7 +22,7 @@ public class SurfaceOreGen extends WorldGenerator
 
     public SurfaceOreGen(int id, int meta, int number, boolean changeSize)
     {
-        this(id, meta, number, changeSize, Block.stone.blockID, Block.grass.blockID, Block.dirt.blockID, Block.waterStill.blockID, Block.sand.blockID, Block.gravel.blockID, Block.snow.blockID);
+        this(id, meta, number, changeSize, Blocks.stone, (Block) Blocks.grass, Blocks.dirt, Blocks.water, Blocks.sand, Blocks.gravel, Blocks.snow);
     }
 
     public SurfaceOreGen(int id, int meta, int number, boolean changeSize, int... target)
@@ -38,7 +38,7 @@ public class SurfaceOreGen extends WorldGenerator
     {
         int returnHeight = -1;
         int blockID = world.getBlockId(x, y - 1, z);
-        if (!Block.opaqueCubeLookup[world.getBlockId(x, y, z)] && (blockID == Block.dirt.blockID || blockID == Block.grass.blockID))
+        if (!Block.opaqueCubeLookup[world.getBlockId(x, y, z)] && (blockID == Blocks.dirt.blockID || blockID == Blocks.grass.blockID))
         {
             return y;
         }
@@ -50,7 +50,7 @@ public class SurfaceOreGen extends WorldGenerator
                 break;
             }
             int bID = world.getBlockId(x, height, z);
-            if (bID == Block.dirt.blockID || bID == Block.grass.blockID)
+            if (bID == Blocks.dirt.blockID || bID == Blocks.grass.blockID)
             {
                 if (!Block.opaqueCubeLookup[world.getBlockId(x, height + 1, z)])
                 {

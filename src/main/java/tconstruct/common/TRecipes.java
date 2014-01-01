@@ -345,7 +345,7 @@ public class TRecipes
         tableCasting.addCastingRecipe(new ItemStack(TRepo.strangeFood, 1, 1), new FluidStack(TRepo.bloodFluid, 160), null, 50);
 
         //Buckets
-        ItemStack bucket = new ItemStack(Items.bucketEmpty);
+        ItemStack bucket = new ItemStack(Items.bucket);
 
         for (int sc = 0; sc < 24; sc++)
         {
@@ -433,8 +433,8 @@ public class TRecipes
         FurnaceRecipes.smelting().addSmelting(TRepo.oreBerries, 4, new ItemStack(TRepo.materials, 1, 22), 0.2f);
         //FurnaceRecipes.smelting().addSmelting(TRepo.oreBerries, 5, new ItemStack(TRepo.materials, 1, 23), 0.2f);
 
-        FurnaceRecipes.smelting().addSmelting(TRepo.oreGravel, 0, new ItemStack(Items.ingotIron), 0.2f);
-        FurnaceRecipes.smelting().addSmelting(TRepo.oreGravel, 1, new ItemStack(Items.ingotGold), 0.2f);
+        FurnaceRecipes.smelting().addSmelting(TRepo.oreGravel, 0, new ItemStack(Items.iron_ingot), 0.2f);
+        FurnaceRecipes.smelting().addSmelting(TRepo.oreGravel, 1, new ItemStack(Items.gold_ingot), 0.2f);
         FurnaceRecipes.smelting().addSmelting(TRepo.oreGravel, 2, new ItemStack(TRepo.materials, 1, 9), 0.2f);
         FurnaceRecipes.smelting().addSmelting(TRepo.oreGravel, 3, new ItemStack(TRepo.materials, 1, 10), 0.2f);
         FurnaceRecipes.smelting().addSmelting(TRepo.oreGravel, 4, new ItemStack(TRepo.materials, 1, 12), 0.2f);
@@ -497,8 +497,8 @@ public class TRecipes
         // Mossball Recipe
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TRepo.materials, 1, 6), patBlock, '#', "stoneMossy"));
         // LavaCrystal Recipes -Auto-smelt
-        GameRegistry.addRecipe(new ItemStack(TRepo.materials, 1, 7), "xcx", "cbc", "xcx", 'b', Items.lava_bucket, 'c', Items.fireballCharge, 'x', Items.blaze_rod);
-        GameRegistry.addRecipe(new ItemStack(TRepo.materials, 1, 7), "xcx", "cbc", "xcx", 'b', Items.lava_bucket, 'x', Items.fireballCharge, 'c', Items.blaze_rod);
+        GameRegistry.addRecipe(new ItemStack(TRepo.materials, 1, 7), "xcx", "cbc", "xcx", 'b', Items.lava_bucket, 'c', Items.fire_charge, 'x', Items.blaze_rod);
+        GameRegistry.addRecipe(new ItemStack(TRepo.materials, 1, 7), "xcx", "cbc", "xcx", 'b', Items.lava_bucket, 'x', Items.fire_charge, 'c', Items.blaze_rod);
         // Slimy sand Recipes
         GameRegistry.addShapelessRecipe(new ItemStack(TRepo.craftedSoil, 1, 0), Items.slime_ball, Items.slime_ball, Items.slime_ball, Items.slime_ball, Blocks.sand, Blocks.dirt);
         GameRegistry.addShapelessRecipe(new ItemStack(TRepo.craftedSoil, 1, 2), TRepo.strangeFood, TRepo.strangeFood, TRepo.strangeFood, TRepo.strangeFood, Blocks.sand, Blocks.dirt);
@@ -544,7 +544,7 @@ public class TRecipes
         GameRegistry.addRecipe(new ItemStack(TRepo.materials, 9, 15), "m", 'm', new ItemStack(TRepo.metalBlock, 1, 8)); //Alumite
         GameRegistry.addRecipe(new ItemStack(TRepo.materials, 9, 16), "m", 'm', new ItemStack(TRepo.metalBlock, 1, 9)); //Steel
 
-        GameRegistry.addRecipe(new ItemStack(Items.ingotIron), patBlock, '#', new ItemStack(TRepo.materials, 1, 19)); //Iron
+        GameRegistry.addRecipe(new ItemStack(Items.iron_ingot), patBlock, '#', new ItemStack(TRepo.materials, 1, 19)); //Iron
         GameRegistry.addRecipe(new ItemStack(TRepo.materials, 1, 9), patBlock, '#', new ItemStack(TRepo.materials, 1, 20)); //Copper
         GameRegistry.addRecipe(new ItemStack(TRepo.materials, 1, 10), patBlock, '#', new ItemStack(TRepo.materials, 1, 21)); //Tin
         GameRegistry.addRecipe(new ItemStack(TRepo.materials, 1, 11), patBlock, '#', new ItemStack(TRepo.materials, 1, 22)); //Aluminum
@@ -557,7 +557,7 @@ public class TRecipes
         GameRegistry.addRecipe(new ItemStack(TRepo.materials, 1, 15), patBlock, '#', new ItemStack(TRepo.materials, 1, 32)); //Alumite
         GameRegistry.addRecipe(new ItemStack(TRepo.materials, 1, 16), patBlock, '#', new ItemStack(TRepo.materials, 1, 33)); //Steel    
 
-        GameRegistry.addRecipe(new ItemStack(TRepo.materials, 9, 19), "m", 'm', new ItemStack(Items.ingotIron)); //Iron
+        GameRegistry.addRecipe(new ItemStack(TRepo.materials, 9, 19), "m", 'm', new ItemStack(Items.iron_ingot)); //Iron
         GameRegistry.addRecipe(new ItemStack(TRepo.materials, 9, 20), "m", 'm', new ItemStack(TRepo.materials, 1, 9)); //Copper
         GameRegistry.addRecipe(new ItemStack(TRepo.materials, 9, 21), "m", 'm', new ItemStack(TRepo.materials, 1, 10)); //Tin
         GameRegistry.addRecipe(new ItemStack(TRepo.materials, 9, 22), "m", 'm', new ItemStack(TRepo.materials, 1, 11)); //Aluminum
@@ -578,7 +578,7 @@ public class TRecipes
         for (int i = 0; i < 16; i++)
         {
             color = dyeTypes[15 - i];
-            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Block.cloth, 8, i), patSurround, 'm', color, '#', new ItemStack(Block.cloth, 1, Short.MAX_VALUE)));
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Blocks.wool, 8, i), patSurround, 'm', color, '#', new ItemStack(Blocks.wool, 1, Short.MAX_VALUE)));
             GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TRepo.stainedGlassClear, 8, i), patSurround, 'm', color, '#', TRepo.clearGlass));
             GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TRepo.stainedGlassClear, 1, i), color, TRepo.clearGlass));
             GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TRepo.stainedGlassClear, 8, i), patSurround, 'm', color, '#', new ItemStack(TRepo.stainedGlassClear, 1, Short.MAX_VALUE)));
@@ -636,7 +636,7 @@ public class TRecipes
         // Clock Recipe - Vanilla alternativ
         GameRegistry.addRecipe(new ItemStack(Items.pocketSundial), " i ", "iri", " i ", 'i', aluBrass, 'r', new ItemStack(Items.redstone));
         // Gold Pressure Plate -  Vanilla alternativ
-        GameRegistry.addRecipe(new ItemStack(Block.pressurePlateGold), "ii", 'i', aluBrass);
+        GameRegistry.addRecipe(new ItemStack(Blocks.pressurePlateGold), "ii", 'i', aluBrass);
         //Accessories
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TRepo.heartCanister, 1, 0), "##", "##", '#', "ingotAluminum"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TRepo.heartCanister, 1, 0), "##", "##", '#', "ingotAluminium"));
@@ -662,7 +662,7 @@ public class TRecipes
                 'p', Blocks.stone_pressure_plate));
 
         //Ultra hardcore recipes
-        GameRegistry.addRecipe(new ItemStack(TRepo.goldHead), patSurround, '#', new ItemStack(Items.ingotGold), 'm', new ItemStack(Items.skull, 1, 3));
+        GameRegistry.addRecipe(new ItemStack(TRepo.goldHead), patSurround, '#', new ItemStack(Items.gold_ingot), 'm', new ItemStack(Items.skull, 1, 3));
 
         // Slab Smeltery Components Recipes
         for (int i = 0; i < 7; i++)
@@ -681,18 +681,18 @@ public class TRecipes
         // Wool Slab Recipes
         for (int sc = 0; sc <= 7; sc++)
         {
-            GameRegistry.addRecipe(new ItemStack(TRepo.woolSlab1, 6, sc), "www", 'w', new ItemStack(Block.cloth, 1, sc));
-            GameRegistry.addRecipe(new ItemStack(TRepo.woolSlab2, 6, sc), "www", 'w', new ItemStack(Block.cloth, 1, sc + 8));
+            GameRegistry.addRecipe(new ItemStack(TRepo.woolSlab1, 6, sc), "www", 'w', new ItemStack(Blocks.wool, 1, sc));
+            GameRegistry.addRecipe(new ItemStack(TRepo.woolSlab2, 6, sc), "www", 'w', new ItemStack(Blocks.wool, 1, sc + 8));
 
-            GameRegistry.addShapelessRecipe(new ItemStack(Block.cloth, 1, sc), new ItemStack(TRepo.woolSlab1, 1, sc), new ItemStack(TRepo.woolSlab1, 1, sc));
-            GameRegistry.addShapelessRecipe(new ItemStack(Block.cloth, 1, sc + 8), new ItemStack(TRepo.woolSlab2, 1, sc), new ItemStack(TRepo.woolSlab2, 1, sc));
+            GameRegistry.addShapelessRecipe(new ItemStack(Blocks.wool, 1, sc), new ItemStack(TRepo.woolSlab1, 1, sc), new ItemStack(TRepo.woolSlab1, 1, sc));
+            GameRegistry.addShapelessRecipe(new ItemStack(Blocks.wool, 1, sc + 8), new ItemStack(TRepo.woolSlab2, 1, sc), new ItemStack(TRepo.woolSlab2, 1, sc));
         }
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Block.cloth, 1, 0), "slabCloth", "slabCloth"));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Blocks.wool, 1, 0), "slabCloth", "slabCloth"));
         //Trap Recipes
-        GameRegistry.addRecipe(new ItemStack(TRepo.punji, 5, 0), "b b", " b ", "b b", 'b', new ItemStack(Items.reed));
-        GameRegistry.addRecipe(new ItemStack(TRepo.barricadeSpruce, 1, 0), "b", "b", 'b', new ItemStack(Block.wood, 1, 1));
-        GameRegistry.addRecipe(new ItemStack(TRepo.barricadeBirch, 1, 0), "b", "b", 'b', new ItemStack(Block.wood, 1, 2));
-        GameRegistry.addRecipe(new ItemStack(TRepo.barricadeJungle, 1, 0), "b", "b", 'b', new ItemStack(Block.wood, 1, 3));
+        GameRegistry.addRecipe(new ItemStack(TRepo.punji, 5, 0), "b b", " b ", "b b", 'b', new ItemStack(Items.reeds));
+        GameRegistry.addRecipe(new ItemStack(TRepo.barricadeSpruce, 1, 0), "b", "b", 'b', new ItemStack(Blocks.log, 1, 1));
+        GameRegistry.addRecipe(new ItemStack(TRepo.barricadeBirch, 1, 0), "b", "b", 'b', new ItemStack(Blocks.log, 1, 2));
+        GameRegistry.addRecipe(new ItemStack(TRepo.barricadeJungle, 1, 0), "b", "b", 'b', new ItemStack(Blocks.log, 1, 3));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TRepo.barricadeOak, 1, 0), "b", "b", 'b', "logWood"));
         // Advanced WorkBench Recipes
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TRepo.craftingStationWood, 1, 0), "b", 'b', "crafterWood"));
@@ -716,12 +716,12 @@ public class TRecipes
         //Slime Recipes
         GameRegistry.addRecipe(new ItemStack(TRepo.slimeGel, 1, 0), "##", "##", '#', TRepo.strangeFood);
         GameRegistry.addRecipe(new ItemStack(TRepo.strangeFood, 4, 0), "#", '#', new ItemStack(TRepo.slimeGel, 1, 0));
-        GameRegistry.addRecipe(new ItemStack(TRepo.slimeGel, 1, 1), "##", "##", '#', Item.slimeBall);
-        GameRegistry.addRecipe(new ItemStack(Items.slimeBall, 4, 0), "#", '#', new ItemStack(TRepo.slimeGel, 1, 1));
+        GameRegistry.addRecipe(new ItemStack(TRepo.slimeGel, 1, 1), "##", "##", '#', Items.slime_ball);
+        GameRegistry.addRecipe(new ItemStack(Items.slime_ball, 4, 0), "#", '#', new ItemStack(TRepo.slimeGel, 1, 1));
         //slimeExplosive
-        GameRegistry.addShapelessRecipe(new ItemStack(TRepo.slimeExplosive, 1, 0), Item.slimeBall, Block.tnt);
-        GameRegistry.addShapelessRecipe(new ItemStack(TRepo.slimeExplosive, 1, 2), TRepo.strangeFood, Block.tnt);
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TRepo.slimeExplosive, 1, 0), "slimeball", Block.tnt));
+        GameRegistry.addShapelessRecipe(new ItemStack(TRepo.slimeExplosive, 1, 0), Items.slime_ball, Blocks.tnt);
+        GameRegistry.addShapelessRecipe(new ItemStack(TRepo.slimeExplosive, 1, 2), TRepo.strangeFood, Blocks.tnt);
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(TRepo.slimeExplosive, 1, 0), "slimeball", Blocks.tnt));
 
         GameRegistry.addShapelessRecipe(new ItemStack(TRepo.slimeChannel, 1, 0), new ItemStack(TRepo.slimeGel, 1, Short.MAX_VALUE), new ItemStack(Items.redstone));
         GameRegistry.addShapelessRecipe(new ItemStack(TRepo.bloodChannel, 1, 0), new ItemStack(TRepo.strangeFood, 1, 1), new ItemStack(TRepo.strangeFood, 1, 1),
@@ -895,18 +895,18 @@ public class TRecipes
         BlockDispenser.dispenseBehaviorRegistry.putObject(TRepo.arrow, new TDispenserBehaviorArrow());
 
         //Vanilla stuff
-        OreDictionary.registerOre("slimeball", new ItemStack(Items.slimeBall));
+        OreDictionary.registerOre("slimeball", new ItemStack(Items.slime_ball));
         OreDictionary.registerOre("slimeball", new ItemStack(TRepo.strangeFood, 1, 0));
         OreDictionary.registerOre("slimeball", new ItemStack(TRepo.strangeFood, 1, 1));
         OreDictionary.registerOre("slimeball", new ItemStack(TRepo.materials, 1, 36));
         OreDictionary.registerOre("glass", new ItemStack(TRepo.clearGlass));
-        OreDictionary.registerOre("glass", new ItemStack(Block.glass));
-        RecipeRemover.removeShapedRecipe(new ItemStack(Block.pistonStickyBase));
-        RecipeRemover.removeShapedRecipe(new ItemStack(Items.magmaCream));
-        RecipeRemover.removeShapedRecipe(new ItemStack(Items.leash));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Block.pistonStickyBase), "slimeball", Block.pistonBase));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.magmaCream), "slimeball", Item.blazePowder));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Items.leash, 2), "ss ", "sS ", "  s", 's', Item.silk, 'S', "slimeball"));
+        OreDictionary.registerOre("glass", new ItemStack(Blocks.glass));
+        RecipeRemover.removeShapedRecipe(new ItemStack(Blocks.sticky_piston));
+        RecipeRemover.removeShapedRecipe(new ItemStack(Items.magma_cream));
+        RecipeRemover.removeShapedRecipe(new ItemStack(Items.lead));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Blocks.sticky_piston), "slimeball", Blocks.piston));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(Items.magma_cream), "slimeball", Items.blaze_powder));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Items.lead, 2), "ss ", "sS ", "  s", 's', Items.string, 'S', "slimeball"));
     }
 
     private static void ensureOreIsRegistered (String oreName, ItemStack is)
@@ -1045,9 +1045,9 @@ public class TRecipes
         LiquidCasting tableCasting = TConstructRegistry.instance.getTableCasting();
         for (ItemStack ore : OreDictionary.getOres("ingot" + ft.toString()))
         {
-            tableCasting.addCastingRecipe(pattern, new FluidStack(TRepo.moltenAlubrassFluid, TConstruct.ingotLiquidValue), new ItemStack(ore, 1, ore.getItemDamage()), false, 50);
-            tableCasting.addCastingRecipe(pattern, new FluidStack(TRepo.moltenGoldFluid, TConstruct.oreLiquidValue), new ItemStack(ore, 1, ore.getItemDamage()), false, 50);
-            tableCasting.addCastingRecipe(new ItemStack(ore, 1, ore.getItemDamage()), new FluidStack(ft.fluid, TConstruct.ingotLiquidValue), pattern, 80);
+            tableCasting.addCastingRecipe(pattern, new FluidStack(TRepo.moltenAlubrassFluid, TConstruct.ingotLiquidValue), new ItemStack(ore.getItem(), 1, ore.getItemDamage()), false, 50);
+            tableCasting.addCastingRecipe(pattern, new FluidStack(TRepo.moltenGoldFluid, TConstruct.oreLiquidValue), new ItemStack(ore.getItem(), 1, ore.getItemDamage()), false, 50);
+            tableCasting.addCastingRecipe(new ItemStack(ore.getItem(), 1, ore.getItemDamage()), new FluidStack(ft.fluid, TConstruct.ingotLiquidValue), pattern, 80);
         }
 
     }
@@ -1071,10 +1071,10 @@ public class TRecipes
         basinCasting.addCastingRecipe(new ItemStack(TRepo.metalBlock, 1, 9), new FluidStack(TRepo.moltenSteelFluid, TConstruct.blockLiquidValue), null, true, 100); //steel
         basinCasting.addCastingRecipe(new ItemStack(TRepo.clearGlass, 1, 0), new FluidStack(TRepo.moltenGlassFluid, FluidContainerRegistry.BUCKET_VOLUME), null, true, 100); //glass
         basinCasting.addCastingRecipe(new ItemStack(TRepo.smeltery, 1, 4), new FluidStack(TRepo.moltenStoneFluid, TConstruct.ingotLiquidValue), null, true, 100); //seared stone
-        basinCasting.addCastingRecipe(new ItemStack(TRepo.smeltery, 1, 5), new FluidStack(TRepo.moltenStoneFluid, TConstruct.chunkLiquidValue), new ItemStack(Block.cobblestone), true, 100);
+        basinCasting.addCastingRecipe(new ItemStack(TRepo.smeltery, 1, 5), new FluidStack(TRepo.moltenStoneFluid, TConstruct.chunkLiquidValue), new ItemStack(Blocks.cobblestone), true, 100);
         basinCasting.addCastingRecipe(new ItemStack(Blocks.emerald_block), new FluidStack(TRepo.moltenEmeraldFluid, 640 * 9), null, true, 100); //emerald
-        basinCasting.addCastingRecipe(new ItemStack(TRepo.speedBlock, 1, 0), new FluidStack(TRepo.moltenTinFluid, TConstruct.nuggetLiquidValue), new ItemStack(Block.gravel), true, 100); //brownstone
-        basinCasting.addCastingRecipe(new ItemStack(Blocks.end_stone), new FluidStack(TRepo.moltenEnderFluid, TConstruct.chunkLiquidValue), new ItemStack(Block.obsidian), true, 100); //endstone
+        basinCasting.addCastingRecipe(new ItemStack(TRepo.speedBlock, 1, 0), new FluidStack(TRepo.moltenTinFluid, TConstruct.nuggetLiquidValue), new ItemStack(Blocks.gravel), true, 100); //brownstone
+        basinCasting.addCastingRecipe(new ItemStack(Blocks.end_stone), new FluidStack(TRepo.moltenEnderFluid, TConstruct.chunkLiquidValue), new ItemStack(Blocks.obsidian), true, 100); //endstone
         basinCasting.addCastingRecipe(new ItemStack(TRepo.metalBlock, 1, 10), new FluidStack(TRepo.moltenEnderFluid, 1000), null, true, 100); //ender
         basinCasting.addCastingRecipe(new ItemStack(TRepo.glueBlock), new FluidStack(TRepo.glueFluid, TConstruct.blockLiquidValue), null, true, 100); //glue
 
@@ -1134,41 +1134,41 @@ public class TRecipes
         Smeltery.addMelting(FluidType.Gold, new ItemStack(TRepo.blankPattern, 4, 2), -50, TConstruct.ingotLiquidValue * 2);
         Smeltery.addMelting(FluidType.Glue, new ItemStack(TRepo.materials, 1, 36), 0, TConstruct.ingotLiquidValue);
 
-        Smeltery.addMelting(FluidType.Ender, new ItemStack(Items.enderPearl, 4), 0, 250);
+        Smeltery.addMelting(FluidType.Ender, new ItemStack(Items.ender_pearl, 4), 0, 250);
         Smeltery.addMelting(TRepo.metalBlock, 10, 50, new FluidStack(TRepo.moltenEnderFluid, 1000));
         Smeltery.addMelting(FluidType.Water, new ItemStack(Items.snowball, 1, 0), 0, 125);
-        Smeltery.addMelting(FluidType.Iron, new ItemStack(Items.flintAndSteel, 1, 0), 0, TConstruct.ingotLiquidValue);
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(Items.flint_and_steel, 1, 0), 0, TConstruct.ingotLiquidValue);
         Smeltery.addMelting(FluidType.Iron, new ItemStack(Items.compass, 1, 0), 0, TConstruct.ingotLiquidValue * 4);
-        Smeltery.addMelting(FluidType.Iron, new ItemStack(Items.bucketEmpty), 0, TConstruct.ingotLiquidValue * 3);
-        Smeltery.addMelting(FluidType.Iron, new ItemStack(Items.minecartEmpty), 0, TConstruct.ingotLiquidValue * 5);
-        Smeltery.addMelting(FluidType.Iron, new ItemStack(Items.minecartCrate), 0, TConstruct.ingotLiquidValue * 5);
-        Smeltery.addMelting(FluidType.Iron, new ItemStack(Items.minecartPowered), 0, TConstruct.ingotLiquidValue * 5);
-        Smeltery.addMelting(FluidType.Iron, new ItemStack(Items.minecartHopper), 50, TConstruct.ingotLiquidValue * 10);
-        Smeltery.addMelting(FluidType.Iron, new ItemStack(Items.doorIron), 0, TConstruct.ingotLiquidValue * 6);
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(Items.bucket), 0, TConstruct.ingotLiquidValue * 3);
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(Items.minecart), 0, TConstruct.ingotLiquidValue * 5);
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(Items.chest_minecart), 0, TConstruct.ingotLiquidValue * 5);
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(Items.powered_minecart), 0, TConstruct.ingotLiquidValue * 5);
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(Items.hopper_minecart), 50, TConstruct.ingotLiquidValue * 10);
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(Items.iron_door), 0, TConstruct.ingotLiquidValue * 6);
         Smeltery.addMelting(FluidType.Iron, new ItemStack(Items.cauldron), 0, TConstruct.ingotLiquidValue * 7);
         Smeltery.addMelting(FluidType.Iron, new ItemStack(Items.shears), 0, TConstruct.ingotLiquidValue * 2);
         Smeltery.addMelting(FluidType.Emerald, new ItemStack(Items.emerald), -50, 640);
 
         //Blocks melt as themselves!
         //Ore
-        Smeltery.addMelting(Block.oreIron, 0, 600, new FluidStack(TRepo.moltenIronFluid, TConstruct.ingotLiquidValue * 2));
-        Smeltery.addMelting(Block.oreGold, 0, 400, new FluidStack(TRepo.moltenGoldFluid, TConstruct.ingotLiquidValue * 2));
+        Smeltery.addMelting(Blocks.iron_ore, 0, 600, new FluidStack(TRepo.moltenIronFluid, TConstruct.ingotLiquidValue * 2));
+        Smeltery.addMelting(Blocks.gold_ore, 0, 400, new FluidStack(TRepo.moltenGoldFluid, TConstruct.ingotLiquidValue * 2));
         Smeltery.addMelting(TRepo.oreGravel, 0, 600, new FluidStack(TRepo.moltenIronFluid, TConstruct.ingotLiquidValue * 2));
         Smeltery.addMelting(TRepo.oreGravel, 1, 400, new FluidStack(TRepo.moltenGoldFluid, TConstruct.ingotLiquidValue * 2));
 
         //Blocks
-        Smeltery.addMelting(Block.blockIron, 0, 600, new FluidStack(TRepo.moltenIronFluid, TConstruct.ingotLiquidValue * 9));
-        Smeltery.addMelting(Block.blockGold, 0, 400, new FluidStack(TRepo.moltenGoldFluid, TConstruct.ingotLiquidValue * 9));
-        Smeltery.addMelting(Block.obsidian, 0, 800, new FluidStack(TRepo.moltenObsidianFluid, TConstruct.ingotLiquidValue * 2));
-        Smeltery.addMelting(Block.ice, 0, 75, new FluidStack(FluidRegistry.getFluid("water"), 1000));
-        Smeltery.addMelting(Block.blockSnow, 0, 75, new FluidStack(FluidRegistry.getFluid("water"), 500));
-        Smeltery.addMelting(Block.snow, 0, 75, new FluidStack(FluidRegistry.getFluid("water"), 250));
-        Smeltery.addMelting(Block.sand, 0, 625, new FluidStack(TRepo.moltenGlassFluid, FluidContainerRegistry.BUCKET_VOLUME));
-        Smeltery.addMelting(Block.glass, 0, 625, new FluidStack(TRepo.moltenGlassFluid, FluidContainerRegistry.BUCKET_VOLUME));
-        Smeltery.addMelting(Block.thinGlass, 0, 625, new FluidStack(TRepo.moltenGlassFluid, 250));
-        Smeltery.addMelting(Block.stone, 0, 800, new FluidStack(TRepo.moltenStoneFluid, TConstruct.ingotLiquidValue / 18));
-        Smeltery.addMelting(Block.cobblestone, 0, 800, new FluidStack(TRepo.moltenStoneFluid, TConstruct.ingotLiquidValue / 18));
-        Smeltery.addMelting(Block.blockEmerald, 0, 800, new FluidStack(TRepo.moltenEmeraldFluid, 640 * 9));
+        Smeltery.addMelting(Blocks.iron_block, 0, 600, new FluidStack(TRepo.moltenIronFluid, TConstruct.ingotLiquidValue * 9));
+        Smeltery.addMelting(Blocks.gold_block, 0, 400, new FluidStack(TRepo.moltenGoldFluid, TConstruct.ingotLiquidValue * 9));
+        Smeltery.addMelting(Blocks.obsidian, 0, 800, new FluidStack(TRepo.moltenObsidianFluid, TConstruct.ingotLiquidValue * 2));
+        Smeltery.addMelting(Blocks.ice, 0, 75, new FluidStack(FluidRegistry.getFluid("water"), 1000));
+        Smeltery.addMelting(Blocks.snow, 0, 75, new FluidStack(FluidRegistry.getFluid("water"), 500));
+        Smeltery.addMelting(Blocks.snow_layer, 0, 75, new FluidStack(FluidRegistry.getFluid("water"), 250));
+        Smeltery.addMelting(Blocks.sand, 0, 625, new FluidStack(TRepo.moltenGlassFluid, FluidContainerRegistry.BUCKET_VOLUME));
+        Smeltery.addMelting(Blocks.glass, 0, 625, new FluidStack(TRepo.moltenGlassFluid, FluidContainerRegistry.BUCKET_VOLUME));
+        Smeltery.addMelting(Blocks.glass_pane, 0, 625, new FluidStack(TRepo.moltenGlassFluid, 250));
+        Smeltery.addMelting(Blocks.stone, 0, 800, new FluidStack(TRepo.moltenStoneFluid, TConstruct.ingotLiquidValue / 18));
+        Smeltery.addMelting(Blocks.cobblestone, 0, 800, new FluidStack(TRepo.moltenStoneFluid, TConstruct.ingotLiquidValue / 18));
+        Smeltery.addMelting(Blocks.emerald_block, 0, 800, new FluidStack(TRepo.moltenEmeraldFluid, 640 * 9));
         Smeltery.addMelting(TRepo.glueBlock, 0, 250, new FluidStack(TRepo.glueFluid, TConstruct.blockLiquidValue));
         Smeltery.addMelting(TRepo.craftedSoil, 1, 600, new FluidStack(TRepo.moltenStoneFluid, TConstruct.ingotLiquidValue / 4));
 
@@ -1190,51 +1190,51 @@ public class TRecipes
         Smeltery.addMelting(TRepo.multiBrickFancy, 0, 800, new FluidStack(TRepo.moltenObsidianFluid, TConstruct.ingotLiquidValue * 2));
 
         //Vanilla blocks
-        Smeltery.addMelting(FluidType.Iron, new ItemStack(Block.fenceIron), 0, TConstruct.ingotLiquidValue * 6 / 16);
-        Smeltery.addMelting(FluidType.Iron, new ItemStack(Block.pressurePlateIron), 0, TConstruct.oreLiquidValue);
-        Smeltery.addMelting(FluidType.Gold, new ItemStack(Block.pressurePlateGold, 4), 0, TConstruct.oreLiquidValue);
-        Smeltery.addMelting(FluidType.Iron, new ItemStack(Block.rail), 0, TConstruct.ingotLiquidValue * 6 / 16);
-        Smeltery.addMelting(FluidType.Gold, new ItemStack(Block.railPowered), 0, TConstruct.ingotLiquidValue);
-        Smeltery.addMelting(FluidType.Iron, new ItemStack(Block.railDetector), 0, TConstruct.ingotLiquidValue);
-        Smeltery.addMelting(FluidType.Iron, new ItemStack(Block.railActivator), 0, TConstruct.ingotLiquidValue);
-        Smeltery.addMelting(FluidType.Obsidian, new ItemStack(Block.enchantmentTable), 0, TConstruct.ingotLiquidValue * 4);
-        Smeltery.addMelting(FluidType.Iron, new ItemStack(Block.cauldron), 0, TConstruct.ingotLiquidValue * 7);
-        Smeltery.addMelting(FluidType.Iron, new ItemStack(Block.anvil, 1, 0), 200, TConstruct.ingotLiquidValue * 31);
-        Smeltery.addMelting(FluidType.Iron, new ItemStack(Block.anvil, 1, 1), 200, TConstruct.ingotLiquidValue * 31);
-        Smeltery.addMelting(FluidType.Iron, new ItemStack(Block.anvil, 1, 2), 200, TConstruct.ingotLiquidValue * 31);
-        Smeltery.addMelting(FluidType.Iron, new ItemStack(Block.hopperBlock), 0, TConstruct.ingotLiquidValue * 5);
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(Blocks.iron_bars), 0, TConstruct.ingotLiquidValue * 6 / 16);
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(Blocks.iron_pressure_plate), 0, TConstruct.oreLiquidValue);
+        Smeltery.addMelting(FluidType.Gold, new ItemStack(Blocks.pressurePlateGold, 4), 0, TConstruct.oreLiquidValue);
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(Blocks.rail), 0, TConstruct.ingotLiquidValue * 6 / 16);
+        Smeltery.addMelting(FluidType.Gold, new ItemStack(Blocks.rail_powered), 0, TConstruct.ingotLiquidValue);
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(Blocks.railDetector), 0, TConstruct.ingotLiquidValue);
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(Blocks.railActivator), 0, TConstruct.ingotLiquidValue);
+        Smeltery.addMelting(FluidType.Obsidian, new ItemStack(Blocks.enchanting_table), 0, TConstruct.ingotLiquidValue * 4);
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(Blocks.cauldron), 0, TConstruct.ingotLiquidValue * 7);
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(Blocks.anvil, 1, 0), 200, TConstruct.ingotLiquidValue * 31);
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(Blocks.anvil, 1, 1), 200, TConstruct.ingotLiquidValue * 31);
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(Blocks.anvil, 1, 2), 200, TConstruct.ingotLiquidValue * 31);
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(Blocks.hopper), 0, TConstruct.ingotLiquidValue * 5);
 
         //Vanilla Armor
-        Smeltery.addMelting(FluidType.Iron, new ItemStack(Items.helmetIron, 1, 0), 50, TConstruct.ingotLiquidValue * 5);
-        Smeltery.addMelting(FluidType.Iron, new ItemStack(Items.plateIron, 1, 0), 50, TConstruct.ingotLiquidValue * 8);
-        Smeltery.addMelting(FluidType.Iron, new ItemStack(Items.legsIron, 1, 0), 50, TConstruct.ingotLiquidValue * 7);
-        Smeltery.addMelting(FluidType.Iron, new ItemStack(Items.bootsIron, 1, 0), 50, TConstruct.ingotLiquidValue * 4);
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(Items.iron_helmet, 1, 0), 50, TConstruct.ingotLiquidValue * 5);
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(Items.iron_chestplate, 1, 0), 50, TConstruct.ingotLiquidValue * 8);
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(Items.iron_leggings, 1, 0), 50, TConstruct.ingotLiquidValue * 7);
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(Items.iron_boots, 1, 0), 50, TConstruct.ingotLiquidValue * 4);
 
-        Smeltery.addMelting(FluidType.Gold, new ItemStack(Items.helmetGold, 1, 0), 50, TConstruct.ingotLiquidValue * 5);
-        Smeltery.addMelting(FluidType.Gold, new ItemStack(Items.plateGold, 1, 0), 50, TConstruct.ingotLiquidValue * 8);
-        Smeltery.addMelting(FluidType.Gold, new ItemStack(Items.legsGold, 1, 0), 50, TConstruct.ingotLiquidValue * 7);
-        Smeltery.addMelting(FluidType.Gold, new ItemStack(Items.bootsGold, 1, 0), 50, TConstruct.ingotLiquidValue * 4);
+        Smeltery.addMelting(FluidType.Gold, new ItemStack(Items.golden_helmet, 1, 0), 50, TConstruct.ingotLiquidValue * 5);
+        Smeltery.addMelting(FluidType.Gold, new ItemStack(Items.golden_chestplate, 1, 0), 50, TConstruct.ingotLiquidValue * 8);
+        Smeltery.addMelting(FluidType.Gold, new ItemStack(Items.golden_leggings, 1, 0), 50, TConstruct.ingotLiquidValue * 7);
+        Smeltery.addMelting(FluidType.Gold, new ItemStack(Items.golden_boots, 1, 0), 50, TConstruct.ingotLiquidValue * 4);
 
-        Smeltery.addMelting(FluidType.Steel, new ItemStack(Items.helmetChain, 1, 0), 25, TConstruct.ingotLiquidValue);
-        Smeltery.addMelting(FluidType.Steel, new ItemStack(Items.plateChain, 1, 0), 50, TConstruct.oreLiquidValue);
-        Smeltery.addMelting(FluidType.Steel, new ItemStack(Items.legsChain, 1, 0), 50, TConstruct.oreLiquidValue);
-        Smeltery.addMelting(FluidType.Steel, new ItemStack(Items.bootsChain, 1, 0), 25, TConstruct.ingotLiquidValue);
+        Smeltery.addMelting(FluidType.Steel, new ItemStack(Items.chainmail_helmet, 1, 0), 25, TConstruct.ingotLiquidValue);
+        Smeltery.addMelting(FluidType.Steel, new ItemStack(Items.chainmail_chestplate, 1, 0), 50, TConstruct.oreLiquidValue);
+        Smeltery.addMelting(FluidType.Steel, new ItemStack(Items.chainmail_leggings, 1, 0), 50, TConstruct.oreLiquidValue);
+        Smeltery.addMelting(FluidType.Steel, new ItemStack(Items.chainmail_boots, 1, 0), 25, TConstruct.ingotLiquidValue);
 
-        Smeltery.addMelting(FluidType.Iron, new ItemStack(Items.horseArmorIron, 1), 100, TConstruct.ingotLiquidValue * 8);
-        Smeltery.addMelting(FluidType.Gold, new ItemStack(Items.horseArmorGold, 1), 100, TConstruct.ingotLiquidValue * 8);
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(Items.iron_horse_armor, 1), 100, TConstruct.ingotLiquidValue * 8);
+        Smeltery.addMelting(FluidType.Gold, new ItemStack(Items.golden_horse_armor, 1), 100, TConstruct.ingotLiquidValue * 8);
 
         //Vanilla tools
-        Smeltery.addMelting(FluidType.Iron, new ItemStack(Items.hoeIron, 1, 0), 0, TConstruct.oreLiquidValue);
-        Smeltery.addMelting(FluidType.Iron, new ItemStack(Items.swordIron, 1, 0), 0, TConstruct.oreLiquidValue);
-        Smeltery.addMelting(FluidType.Iron, new ItemStack(Items.shovelIron, 1, 0), 0, TConstruct.ingotLiquidValue);
-        Smeltery.addMelting(FluidType.Iron, new ItemStack(Items.pickaxeIron, 1, 0), 0, TConstruct.ingotLiquidValue * 3);
-        Smeltery.addMelting(FluidType.Iron, new ItemStack(Items.axeIron, 1, 0), 0, TConstruct.ingotLiquidValue * 3);
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(Items.iron_hoe, 1, 0), 0, TConstruct.oreLiquidValue);
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(Items.iron_sword, 1, 0), 0, TConstruct.oreLiquidValue);
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(Items.iron_shovel, 1, 0), 0, TConstruct.ingotLiquidValue);
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(Items.iron_pickaxe, 1, 0), 0, TConstruct.ingotLiquidValue * 3);
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(Items.iron_axe, 1, 0), 0, TConstruct.ingotLiquidValue * 3);
 
-        Smeltery.addMelting(FluidType.Gold, new ItemStack(Items.hoeGold, 1, 0), 0, TConstruct.oreLiquidValue);
-        Smeltery.addMelting(FluidType.Gold, new ItemStack(Items.swordGold, 1, 0), 0, TConstruct.oreLiquidValue);
-        Smeltery.addMelting(FluidType.Gold, new ItemStack(Items.shovelGold, 1, 0), 0, TConstruct.ingotLiquidValue);
-        Smeltery.addMelting(FluidType.Gold, new ItemStack(Items.pickaxeGold, 1, 0), 0, TConstruct.ingotLiquidValue * 3);
-        Smeltery.addMelting(FluidType.Gold, new ItemStack(Items.axeGold, 1, 0), 0, TConstruct.ingotLiquidValue * 3);
+        Smeltery.addMelting(FluidType.Gold, new ItemStack(Items.golden_hoe, 1, 0), 0, TConstruct.oreLiquidValue);
+        Smeltery.addMelting(FluidType.Gold, new ItemStack(Items.golden_sword, 1, 0), 0, TConstruct.oreLiquidValue);
+        Smeltery.addMelting(FluidType.Gold, new ItemStack(Items.golden_shovel, 1, 0), 0, TConstruct.ingotLiquidValue);
+        Smeltery.addMelting(FluidType.Gold, new ItemStack(Items.golden_pickaxe, 1, 0), 0, TConstruct.ingotLiquidValue * 3);
+        Smeltery.addMelting(FluidType.Gold, new ItemStack(Items.golden_axe, 1, 0), 0, TConstruct.ingotLiquidValue * 3);
     }
 
     public void modIntegration ()
