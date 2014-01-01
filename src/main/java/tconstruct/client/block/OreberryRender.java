@@ -20,18 +20,18 @@ public class OreberryRender implements ISimpleBlockRenderingHandler
             int md = world.getBlockMetadata(x, y, z);
             if (md < 4)
             {
-                renderer.setRenderBounds(0.25F, 0.0F, 0.25F, 0.75F, 0.5F, 0.75F);
-                renderer.renderStandardBlock(block, x, y, z);
+                renderer.func_147782_a(0.25F, 0.0F, 0.25F, 0.75F, 0.5F, 0.75F);
+                renderer.func_147784_q(block, x, y, z);
             }
             else if (md < 8)
             {
-                renderer.setRenderBounds(0.125F, 0.0F, 0.125F, 0.875F, 0.75F, 0.875F);
-                renderer.renderStandardBlock(block, x, y, z);
+                renderer.func_147782_a(0.125F, 0.0F, 0.125F, 0.875F, 0.75F, 0.875F);
+                renderer.func_147784_q(block, x, y, z);
             }
             else
             {
-                renderer.setRenderBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
-                renderer.renderStandardBlock(block, x, y, z);
+                renderer.func_147782_a(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
+                renderer.func_147784_q(block, x, y, z);
             }
         }
         return true;
@@ -42,13 +42,13 @@ public class OreberryRender implements ISimpleBlockRenderingHandler
     {
         if (modelID == model)
         {
-            renderer.setRenderBounds(0.125F, 0.0F, 0.125F, 0.875F, 0.75F, 0.875F);
+            renderer.func_147782_a(0.125F, 0.0F, 0.125F, 0.875F, 0.75F, 0.875F);
             TProxyClient.renderStandardInvBlock(renderer, block, metadata);
         }
     }
 
     @Override
-    public boolean shouldRender3DInInventory ()
+    public boolean shouldRender3DInInventory (int modelID)
     {
         return true;
     }

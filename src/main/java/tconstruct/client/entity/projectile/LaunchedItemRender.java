@@ -7,7 +7,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemPotion;
 import net.minecraft.potion.PotionHelper;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
@@ -43,7 +43,7 @@ public class LaunchedItemRender extends Render
      */
     public void doRender (Entity par1Entity, double par2, double par4, double par6, float par8, float par9)
     {
-        Icon icon = this.field_94151_a.getIconFromDamage(this.field_94150_f);
+        IIcon icon = this.field_94151_a.getIconFromDamage(this.field_94150_f);
 
         if (icon != null)
         {

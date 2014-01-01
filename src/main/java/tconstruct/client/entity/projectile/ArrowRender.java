@@ -14,7 +14,7 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.ForgeHooksClient;
@@ -118,7 +118,7 @@ public class ArrowRender extends Render
                     for (int k = 0; k < itemstack.getItem().getRenderPasses(itemstack.getItemDamage()); ++k)
                     {
                         this.random.setSeed(187L);
-                        Icon icon = itemstack.getItem().getIcon(itemstack, k);
+                        IIcon icon = itemstack.getItem().getIcon(itemstack, k);
                         f8 = 1.0F;
 
                         if (this.renderWithColor)
@@ -140,7 +140,7 @@ public class ArrowRender extends Render
                 {
                     GL11.glScalef(0.5F, 0.5F, 0.5F);
 
-                    Icon icon1 = itemstack.getIconIndex();
+                    IIcon icon1 = itemstack.getIconIndex();
 
                     if (this.renderWithColor)
                     {
@@ -171,12 +171,12 @@ public class ArrowRender extends Render
     /**
      * Renders a dropped item
      */
-    private void renderDroppedItem (ArrowEntity par1ArrowEntity, Icon par2Icon, int par3, float par4, float par5, float par6, float par7)
+    private void renderDroppedItem (ArrowEntity par1ArrowEntity, IIcon par2Icon, int par3, float par4, float par5, float par6, float par7)
     {
         renderDroppedItem(par1ArrowEntity, par2Icon, par3, par4, par5, par6, par7, 0);
     }
 
-    private void renderDroppedItem (ArrowEntity arrow, Icon par2Icon, int par3, float par4, float par5, float par6, float par7, int pass)
+    private void renderDroppedItem (ArrowEntity arrow, IIcon par2Icon, int par3, float par4, float par5, float par6, float par7, int pass)
     {
         Tessellator tessellator = Tessellator.instance;
 
@@ -187,10 +187,10 @@ public class ArrowRender extends Render
             par2Icon = ((TextureMap) texturemanager.getTexture(resourcelocation)).getAtlasSprite("missingno");
         }
 
-        float f4 = ((Icon) par2Icon).getMinU();
-        float f5 = ((Icon) par2Icon).getMaxU();
-        float f6 = ((Icon) par2Icon).getMinV();
-        float f7 = ((Icon) par2Icon).getMaxV();
+        float f4 = ((IIcon) par2Icon).getMinU();
+        float f5 = ((IIcon) par2Icon).getMaxU();
+        float f6 = ((IIcon) par2Icon).getMinV();
+        float f7 = ((IIcon) par2Icon).getMaxV();
         float f8 = 1.0F;
         float f9 = 0.5F;
         float f10 = 0.25F;
@@ -236,7 +236,7 @@ public class ArrowRender extends Render
 
             GL11.glColor4f(par5, par6, par7, 1.0F);
 
-            ItemRenderer.renderItemIn2D(tessellator, f5, f6, f4, f7, ((Icon) par2Icon).getIconWidth(), ((Icon) par2Icon).getIconHeight(), f12);
+            ItemRenderer.renderItemIn2D(tessellator, f5, f6, f4, f7, ((IIcon) par2Icon).getIconWidth(), ((IIcon) par2Icon).getIconHeight(), f12);
 
             if (itemstack.hasEffect(pass))
             {

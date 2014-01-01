@@ -14,7 +14,7 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.ForgeHooksClient;
@@ -133,7 +133,7 @@ public class DaggerRender extends Render
                     for (int k = 0; k < itemstack.getItem().getRenderPasses(itemstack.getItemDamage()); ++k)
                     {
                         this.random.setSeed(187L);
-                        Icon icon = itemstack.getItem().getIcon(itemstack, k);
+                        IIcon icon = itemstack.getItem().getIcon(itemstack, k);
                         f8 = 1.0F;
 
                         if (this.renderWithColor)
@@ -163,7 +163,7 @@ public class DaggerRender extends Render
                         GL11.glScalef(0.5F, 0.5F, 0.5F);
                     }
 
-                    Icon icon1 = itemstack.getIconIndex();
+                    IIcon icon1 = itemstack.getIconIndex();
 
                     if (this.renderWithColor)
                     {
@@ -210,10 +210,10 @@ public class DaggerRender extends Render
             par2Icon = ((TextureMap) texturemanager.getTexture(resourcelocation)).getAtlasSprite("missingno");
         }
 
-        float f4 = ((Icon) par2Icon).getMinU();
-        float f5 = ((Icon) par2Icon).getMaxU();
-        float f6 = ((Icon) par2Icon).getMinV();
-        float f7 = ((Icon) par2Icon).getMaxV();
+        float f4 = ((IIcon) par2Icon).getMinU();
+        float f5 = ((IIcon) par2Icon).getMaxU();
+        float f6 = ((IIcon) par2Icon).getMinV();
+        float f7 = ((IIcon) par2Icon).getMaxV();
         float f8 = 1.0F;
         float f9 = 0.5F;
         float f10 = 0.25F;
@@ -259,7 +259,7 @@ public class DaggerRender extends Render
             GL11.glColor4f(par5, par6, par7, 1.0F);
             GL11.glRotatef(90, 0.0F, 1.0F, 0.0F);
             GL11.glRotatef(rotation, 0.0F, 0.0F, 1.0F);
-            ItemRenderer.renderItemIn2D(tessellator, f5, f6, f4, f7, ((Icon) par2Icon).getIconWidth(), ((Icon) par2Icon).getIconHeight(), f12);
+            ItemRenderer.renderItemIn2D(tessellator, f5, f6, f4, f7, ((IIcon) par2Icon).getIconWidth(), ((IIcon) par2Icon).getIconHeight(), f12);
 
             /*if (itemstack.hasEffect(pass))
             {
@@ -348,7 +348,7 @@ public class DaggerRender extends Render
             for (int j1 = 0; j1 < Item.itemsList[k].getRenderPasses(l); ++j1)
             {
                 par2TextureManager.bindTexture(par3ItemStack.getItemSpriteNumber() == 0 ? TextureMap.locationBlocksTexture : TextureMap.locationItemsTexture);
-                Icon icon = Item.itemsList[k].getIcon(par3ItemStack, j1);
+                IIcon icon = Item.itemsList[k].getIcon(par3ItemStack, j1);
                 int k1 = Item.itemsList[k].getColorFromItemStack(par3ItemStack, j1);
                 f1 = (float) (k1 >> 16 & 255) / 255.0F;
                 f2 = (float) (k1 >> 8 & 255) / 255.0F;
@@ -390,7 +390,7 @@ public class DaggerRender extends Render
                 GL11.glColor4f(f, f1, f2, 1.0F);
             }
 
-            this.renderIcon(par4, par5, (Icon) object, 16, 16);
+            this.renderIcon(par4, par5, (IIcon) object, 16, 16);
             GL11.glEnable(GL11.GL_LIGHTING);
 
             if (par3ItemStack.hasEffect(0))
@@ -549,7 +549,7 @@ public class DaggerRender extends Render
         par1Tessellator.draw();
     }
 
-    public void renderIcon (int par1, int par2, Icon par3Icon, int par4, int par5)
+    public void renderIcon (int par1, int par2, IIcon par3Icon, int par4, int par5)
     {
         Tessellator tessellator = Tessellator.instance;
         tessellator.startDrawingQuads();

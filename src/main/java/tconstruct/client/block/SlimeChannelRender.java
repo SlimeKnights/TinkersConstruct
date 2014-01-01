@@ -4,7 +4,7 @@ import tconstruct.client.TProxyClient;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
@@ -45,7 +45,7 @@ public class SlimeChannelRender implements ISimpleBlockRenderingHandler
         {
             Tessellator tessellator = Tessellator.instance;
             int bMeta = world.getBlockMetadata(x, y, z);
-            Icon iconStill = block.getIcon(1, bMeta);
+            IIcon iconStill = block.getIcon(1, bMeta);
             float flowDir = (float) (bMeta / 8f * 2 * Math.PI); //Tau, radians
 
             double u1, u2, u3, u4, v1, v2, v3, v4;
@@ -86,7 +86,7 @@ public class SlimeChannelRender implements ISimpleBlockRenderingHandler
             tessellator.addVertexWithUV(x + 1, y + 0.5, z + 1, u4, v4);
             tessellator.addVertexWithUV(x + 1, y + 0.5, z + 0, u3, v3);
         }
-        renderer.renderStandardBlock(block, x, y, z);
+        renderer.func_147784_q(block, x, y, z);
         /*int direction = world.getBlockMetadata(x, y, z) % 4;
         if (direction == 0)
             renderer.uvRotateTop = 2;
@@ -97,14 +97,14 @@ public class SlimeChannelRender implements ISimpleBlockRenderingHandler
         if (direction == 3)
             renderer.uvRotateTop = 3;
 
-        boolean flag = renderer.renderStandardBlock(block, x, y, z);
+        boolean flag = renderer.func_147784_q(block, x, y, z);
         renderer.uvRotateTop = 0;
         return flag;*/
         return true;
     }
 
     @Override
-    public boolean shouldRender3DInInventory ()
+    public boolean shouldRender3DInInventory (int modelID)
     {
         return true;
     }

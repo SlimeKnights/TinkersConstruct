@@ -20,7 +20,7 @@ public class PaneRender implements ISimpleBlockRenderingHandler
     {
         if (modelID == model)
         {
-            renderer.setRenderBounds(0.0F, 0.0F, 0.4375F, 1.0F, 1.0F, 0.5625F);
+            renderer.func_147782_a(0.0F, 0.0F, 0.4375F, 1.0F, 1.0F, 0.5625F);
             TProxyClient.renderStandardInvBlock(renderer, block, metadata);
         }
     }
@@ -40,7 +40,7 @@ public class PaneRender implements ISimpleBlockRenderingHandler
     }
 
     @Override
-    public boolean shouldRender3DInInventory ()
+    public boolean shouldRender3DInInventory (int modelID)
     {
         return true;
     }

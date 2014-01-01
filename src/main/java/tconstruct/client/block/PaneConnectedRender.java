@@ -42,41 +42,41 @@ public class PaneConnectedRender implements ISimpleBlockRenderingHandler
 
         if (!flag && !flag1 && !flag2 && !flag3)
         {
-            renderer.setRenderBounds(0D, 0D, 0.45D, 1D, 1D, 0.55D);
-            renderer.renderStandardBlock(block, x, y, z);
-            renderer.setRenderBounds(0.45D, 0D, 0D, 0.55D, 1D, 1D);
-            renderer.renderStandardBlock(block, x, y, z);
+            renderer.func_147782_a(0D, 0D, 0.45D, 1D, 1D, 0.55D);
+            renderer.func_147784_q(block, x, y, z);
+            renderer.func_147782_a(0.45D, 0D, 0D, 0.55D, 1D, 1D);
+            renderer.func_147784_q(block, x, y, z);
         }
         else
         {
-            //			renderer.setRenderBounds(0.45D, 0D, 0.45D, 0.55D, 1D, 0.55D);
-            //			renderer.renderStandardBlock(block, x, y, z);
+            //			renderer.func_147782_a(0.45D, 0D, 0.45D, 0.55D, 1D, 0.55D);
+            //			renderer.func_147784_q(block, x, y, z);
         }
 
         //		renderer.setOverrideBlockTexture(sideTexture);
 
         if (flag)
         {
-            renderer.setRenderBounds(0.45D, 0D, 0.45D, 1D, 1D, 0.55D);
-            renderer.renderStandardBlock(block, x, y, z);
+            renderer.func_147782_a(0.45D, 0D, 0.45D, 1D, 1D, 0.55D);
+            renderer.func_147784_q(block, x, y, z);
         }
 
         if (flag1)
         {
-            renderer.setRenderBounds(0D, 0D, 0.45D, 0.45D, 1D, 0.55D);
-            renderer.renderStandardBlock(block, x, y, z);
+            renderer.func_147782_a(0D, 0D, 0.45D, 0.45D, 1D, 0.55D);
+            renderer.func_147784_q(block, x, y, z);
         }
 
         if (flag2)
         {
-            renderer.setRenderBounds(0.45D, 0D, 0.45D, 0.55D, 1D, 1D);
-            renderer.renderStandardBlock(block, x, y, z);
+            renderer.func_147782_a(0.45D, 0D, 0.45D, 0.55D, 1D, 1D);
+            renderer.func_147784_q(block, x, y, z);
         }
 
         if (flag3)
         {
-            renderer.setRenderBounds(0.45D, 0D, 0D, 0.55D, 1D, 0.45D);
-            renderer.renderStandardBlock(block, x, y, z);
+            renderer.func_147782_a(0.45D, 0D, 0D, 0.55D, 1D, 0.45D);
+            renderer.func_147784_q(block, x, y, z);
         }
 
         renderer.clearOverrideBlockTexture();
@@ -86,7 +86,7 @@ public class PaneConnectedRender implements ISimpleBlockRenderingHandler
     }
 
     @Override
-    public boolean shouldRender3DInInventory ()
+    public boolean shouldRender3DInInventory (int modelID)
     {
         return false;
     }

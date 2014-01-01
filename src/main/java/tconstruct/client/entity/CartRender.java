@@ -5,6 +5,7 @@ import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Vec3;
@@ -12,7 +13,6 @@ import net.minecraft.util.Vec3;
 import org.lwjgl.opengl.GL11;
 
 import tconstruct.entity.CartEntity;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -98,7 +98,7 @@ public class CartRender extends Render
             if (cart.getCartType() == 1)
             {
                 GL11.glTranslatef(0.0F, 0.5F, 0.0F);
-                renderblocks.renderBlockAsItem(Block.chest, 0, cart.getBrightness(par9));
+                renderblocks.renderBlockAsItem(Blocks.chest, 0, cart.getBrightness(par9));
                 GL11.glRotatef(-90.0F, 0.0F, 1.0F, 0.0F);
                 GL11.glTranslatef(0.5F, 0.0F, -0.5F);
                 GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
@@ -106,7 +106,7 @@ public class CartRender extends Render
             else if (cart.getCartType() == 2)
             {
                 GL11.glTranslatef(0.0F, 0.3125F, 0.0F);
-                renderblocks.renderBlockAsItem(Block.furnaceIdle, 0, cart.getBrightness(par9));
+                renderblocks.renderBlockAsItem(Blocks.furnace, 0, cart.getBrightness(par9));
                 GL11.glRotatef(-90.0F, 0.0F, 1.0F, 0.0F);
                 GL11.glTranslatef(0.0F, -0.3125F, 0.0F);
                 GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);

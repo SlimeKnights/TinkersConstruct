@@ -21,7 +21,7 @@ public class DryingRackRender implements ISimpleBlockRenderingHandler
     {
         if (modelID == model)
         {
-            renderer.setRenderBounds(0.375F, 0.375F, 0.0F, 0.625F, 0.625F, 1.0F);
+            renderer.func_147782_a(0.375F, 0.375F, 0.0F, 0.625F, 0.625F, 1.0F);
             TProxyClient.renderStandardInvBlock(renderer, block, metadata);
         }
     }
@@ -34,36 +34,36 @@ public class DryingRackRender implements ISimpleBlockRenderingHandler
             int metadata = world.getBlockMetadata(x, y, z);
             if (metadata == 0)
             {
-                renderer.setRenderBounds(0.0F, 0.0, 0.375F, 1.0F, 0.25F, 0.625F);
+                renderer.func_147782_a(0.0F, 0.0, 0.375F, 1.0F, 0.25F, 0.625F);
             }
             if (metadata == 1)
             {
-                renderer.setRenderBounds(0.375F, 0.0, 0.0f, 0.625F, 0.25F, 1F);
+                renderer.func_147782_a(0.375F, 0.0, 0.0f, 0.625F, 0.25F, 1F);
             }
 
             if (metadata == 2)
             {
-                renderer.setRenderBounds(0.0F, 0.75F, 0.75F, 1F, 1.0F, 1F);
+                renderer.func_147782_a(0.0F, 0.75F, 0.75F, 1F, 1.0F, 1F);
             }
             if (metadata == 3)
             {
-                renderer.setRenderBounds(0.0F, 0.75F, 0F, 1F, 1.0F, 0.25F);
+                renderer.func_147782_a(0.0F, 0.75F, 0F, 1F, 1.0F, 0.25F);
             }
             if (metadata == 4)
             {
-                renderer.setRenderBounds(0.75F, 0.75F, 0.0f, 1F, 1.0F, 1F);
+                renderer.func_147782_a(0.75F, 0.75F, 0.0f, 1F, 1.0F, 1F);
             }
             if (metadata == 5)
             {
-                renderer.setRenderBounds(0F, 0.75F, 0.0f, 0.25F, 1.0F, 1F);
+                renderer.func_147782_a(0F, 0.75F, 0.0f, 0.25F, 1.0F, 1F);
             }
-            renderer.renderStandardBlock(block, x, y, z);
+            renderer.func_147784_q(block, x, y, z);
         }
         return true;
     }
 
     @Override
-    public boolean shouldRender3DInInventory ()
+    public boolean shouldRender3DInInventory (int modelID)
     {
         return true;
     }

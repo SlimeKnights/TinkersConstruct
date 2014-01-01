@@ -8,7 +8,7 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.*;
 import net.minecraft.util.StatCollector;
 
@@ -177,7 +177,7 @@ public class AdaptiveSmelteryGui extends NewContainerGui
         this.mc.getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
         if (scomp.fuelGague > 0)
         {
-            Icon lavaIcon = Block.lavaStill.getIcon(0, 0);
+            IIcon lavaIcon = Block.lavaStill.getIcon(0, 0);
             int fuel = scomp.getScaledFuelGague(52);
             int count = 0;
             while (fuel > 0)

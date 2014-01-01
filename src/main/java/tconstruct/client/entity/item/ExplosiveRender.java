@@ -6,6 +6,7 @@ import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityTNTPrimed;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
@@ -62,7 +63,7 @@ public class ExplosiveRender extends Render
             GL11.glEnable(GL11.GL_BLEND);
             GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_DST_ALPHA);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, f2);
-            this.blockRenderer.renderBlockAsItem(Block.tnt, 0, 1.0F);
+            this.blockRenderer.renderBlockAsItem(Blocks.tnt, 0, 1.0F);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             GL11.glDisable(GL11.GL_BLEND);
             GL11.glEnable(GL11.GL_LIGHTING);

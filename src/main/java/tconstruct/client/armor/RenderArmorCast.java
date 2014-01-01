@@ -11,9 +11,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraftforge.client.IItemRenderer;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public class RenderArmorCast implements IItemRenderer
 {
@@ -49,7 +49,7 @@ public class RenderArmorCast implements IItemRenderer
     {
         RenderBlocks renderer = Minecraft.getMinecraft().renderGlobal.globalRenderBlocks;
         Tessellator tessellator = Tessellator.instance;
-        Icon baseIcon = item.getItem() instanceof ArmorPattern ? ((ArmorPattern) item.getItem()).getBaseIcon() : item.getIconIndex();
+        IIcon baseIcon = item.getItem() instanceof ArmorPattern ? ((ArmorPattern) item.getItem()).getBaseIcon() : item.getIconIndex();
         GL11.glPushMatrix();
         switch (type)
         {
@@ -70,9 +70,9 @@ public class RenderArmorCast implements IItemRenderer
         default:
             break;
         }
-        renderer.setRenderBounds(0.1F, 0.1F, 0.1F, 0.9F, 0.83F, 0.9F);
+        renderer.func_147782_a(0.1F, 0.1F, 0.1F, 0.9F, 0.83F, 0.9F);
         renderCube(tessellator, renderer, baseIcon);
-        renderer.setRenderBounds(0.1F, 0.1F, 0.1F, 0.9F, 1.0F, 0.9F);
+        renderer.func_147782_a(0.1F, 0.1F, 0.1F, 0.9F, 1.0F, 0.9F);
         ArrayList<ForgeDirection> sides = new ArrayList<ForgeDirection>();
         sides.add(ForgeDirection.NORTH);
         sides.add(ForgeDirection.SOUTH);
@@ -129,7 +129,7 @@ public class RenderArmorCast implements IItemRenderer
     public void renderCastTop (ItemStack par1ItemStack, ItemRenderType type)
     {
         GL11.glPushMatrix();
-        Icon icon = par1ItemStack.getIconIndex();
+        IIcon icon = par1ItemStack.getIconIndex();
 
         if (icon == null)
         {
