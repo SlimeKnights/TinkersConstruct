@@ -3,7 +3,7 @@ package tconstruct.blocks;
 import java.util.List;
 
 import tconstruct.util.config.PHConstruct;
-
+import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
@@ -49,17 +49,17 @@ public class GlassBlockConnectedMeta extends GlassBlockConnected
     }
 
     @Override
-    public Icon getIcon (int par1, int par2)
+    public IIcon getIcon (int par1, int par2)
     {
         return icons[par2][0];
     }
 
     @Override
-    public void getSubBlocks (int par1, CreativeTabs par2CreativeTabs, List par3List)
+    public void getSubBlocks (Block b, CreativeTabs par2CreativeTabs, List par3List)
     {
         for (int i = 0; i < textures.length; i++)
         {
-            par3List.add(new ItemStack(par1, 1, i));
+            par3List.add(new ItemStack(b, 1, i));
         }
     }
 

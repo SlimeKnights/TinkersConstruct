@@ -57,12 +57,12 @@ public class SoilBlock extends TConstructBlock
         }
     }
 
-    public float getBlockHardness (World world, int x, int y, int z)
+    public float getfield_149782_v (World world, int x, int y, int z)
     {
         int meta = world.getBlockMetadata(x, y, z);
         if (meta == 5)
-            return Blocks.dirt.blockHardness;
-        return this.blockHardness;
+            return Blocks.dirt.field_149782_v;
+        return this.field_149782_v;
     }
 
     public AxisAlignedBB getCollisionBoundingBoxFromPool (World world, int x, int y, int z)

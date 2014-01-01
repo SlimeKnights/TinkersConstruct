@@ -206,7 +206,7 @@ public class SearedBlock extends InventoryBlock
     }
 
     @Override
-    public Icon getIcon (int side, int meta)
+    public IIcon getIcon (int side, int meta)
     {
         if (meta == 0)
             return icons[getTextureIndex(side)];

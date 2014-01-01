@@ -93,7 +93,7 @@ public class OreberryBushGen extends WorldGenerator
         }*/
 
         Block block = Block.blocksList[world.getBlockId(x, y, z)];
-        if (block == null || (block != Block.endPortalFrame && !Block.opaqueCubeLookup[world.getBlockId(x, y, z)]))
+        if (block == null || (block != Blocks.end_portal_frame && !Block.opaqueCubeLookup[world.getBlockId(x, y, z)]))
             world.setBlock(x, y, z, this, metadata, 2);
         else
         {

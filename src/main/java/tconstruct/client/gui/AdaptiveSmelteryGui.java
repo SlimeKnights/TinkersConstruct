@@ -204,7 +204,7 @@ public class AdaptiveSmelteryGui extends NewContainerGui
         for (int i = 0; i < info.length - 1; i++)
         {
             FluidStack liquid = info[i].fluid;
-            Icon renderIndex = liquid.getFluid().getStillIcon();
+            IIcon renderIndex = liquid.getFluid().getStillIcon();
             int basePos = 54;
             if (capacity > 0)
             {
@@ -418,7 +418,7 @@ public class AdaptiveSmelteryGui extends NewContainerGui
         }
     }
 
-    public void drawLiquidRect (int startU, int startV, Icon par3Icon, int endU, int endV)
+    public void drawLiquidRect (int startU, int startV, IIcon par3Icon, int endU, int endV)
     {
         Tessellator tessellator = Tessellator.instance;
         tessellator.startDrawingQuads();

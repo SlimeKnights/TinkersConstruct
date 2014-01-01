@@ -68,7 +68,7 @@ public class TitleIcon extends Item
     }
 
     @SideOnly(Side.CLIENT)
-    public Icon getIconFromDamage (int par1)
+    public IIcon getIconFromDamage (int par1)
     {
         if (par1 >= 4096)
         {

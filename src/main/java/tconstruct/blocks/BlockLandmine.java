@@ -76,7 +76,7 @@ public class BlockLandmine extends BlockContainer
     }
 
     @Override
-    public Icon getBlockTexture (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
+    public IIcon getBlockTexture (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
     {
         TileEntityLandmine te = (TileEntityLandmine) par1IBlockAccess.getBlockTileEntity(par2, par3, par4);
 

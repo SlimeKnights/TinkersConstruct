@@ -50,8 +50,8 @@ public abstract class Behavior
         addBehavior(new ItemStack(Blocks.torch), blockThrow);
         addBehavior(new ItemStack(Items.gunpowder), explosive);
         addBehavior(new ItemStack(Blocks.tnt), explosive);
-        addBehavior(new ItemStack(Items.firework), firework);
-        addBehavior(new ItemStack(Items.potion), potion);
+        addBehavior(new ItemStack(Items.fireworks), firework);
+        addBehavior(new ItemStack(Items.potionitem), potion);
         addBehavior(new ItemStack(Items.fireballCharge), fireball);
         addBehavior(new ItemStack(Items.monsterPlacer), spawn);
         addBehavior(new ItemStack(Items.arrow), shoot);

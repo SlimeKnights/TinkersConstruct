@@ -125,7 +125,7 @@ public class SlimePad extends MantleBlock
     }
 
     @Override
-    public void registerIcons (IconRegister iconRegister)
+    public void registerIcons (IIconRegister iconRegister)
     {
     }
 

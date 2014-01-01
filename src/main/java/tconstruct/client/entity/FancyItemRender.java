@@ -197,12 +197,12 @@ public class FancyItemRender extends Render
     /**
      * Renders a dropped item
      */
-    private void renderDroppedItem (EntityItem par1EntityItem, Icon par2Icon, int par3, float par4, float par5, float par6, float par7)
+    private void renderDroppedItem (EntityItem par1EntityItem, IIcon par2Icon, int par3, float par4, float par5, float par6, float par7)
     {
         renderDroppedItem(par1EntityItem, par2Icon, par3, par4, par5, par6, par7, 0);
     }
 
-    private void renderDroppedItem (EntityItem par1EntityItem, Icon par2Icon, int par3, float par4, float par5, float par6, float par7, int pass)
+    private void renderDroppedItem (EntityItem par1EntityItem, IIcon par2Icon, int par3, float par4, float par5, float par6, float par7, int pass)
     {
         Tessellator tessellator = Tessellator.instance;
 
@@ -266,7 +266,7 @@ public class FancyItemRender extends Render
             }
 
             GL11.glColor4f(par5, par6, par7, 1.0F);
-            ItemRenderer.renderItemIn2D(tessellator, f5, f6, f4, f7, ((Icon) par2Icon).getIconWidth(), ((Icon) par2Icon).getIconHeight(), f12);
+            ItemRenderer.renderItemIn2D(tessellator, f5, f6, f4, f7, ((IIcon) par2Icon).getIconWidth(), ((IIcon) par2Icon).getIconHeight(), f12);
 
             if (itemstack.hasEffect(pass))
             {

@@ -84,7 +84,7 @@ public class RenderArmorCast implements IItemRenderer
         GL11.glPopMatrix();
     }
 
-    public void renderCube (Tessellator tessellator, RenderBlocks renderer, Icon icon)
+    public void renderCube (Tessellator tessellator, RenderBlocks renderer, IIcon icon)
     {
         tessellator.startDrawingQuads();
         tessellator.setNormal(-1F, 0F, 0F);
@@ -102,7 +102,7 @@ public class RenderArmorCast implements IItemRenderer
         tessellator.draw();
     }
 
-    public void renderSelectedCube (Tessellator tessellator, RenderBlocks renderer, Icon icon, List<ForgeDirection> sidesToRender)
+    public void renderSelectedCube (Tessellator tessellator, RenderBlocks renderer, IIcon icon, List<ForgeDirection> sidesToRender)
     {
         tessellator.startDrawingQuads();
         tessellator.setNormal(-1F, 0F, 0F);

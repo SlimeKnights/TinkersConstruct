@@ -12,6 +12,7 @@ import net.minecraft.enchantment.EnchantmentProtection;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
@@ -223,7 +224,7 @@ public class MiningExplosion extends Explosion
 
                 if (l == 0 && Block.opaqueCubeLookup[i1] && this.random.nextInt(3) == 0)
                 {
-                    this.world.setBlock(i, j, k, Block.fire.blockID);
+                    this.world.setBlock(i, j, k, Blocks.fire);
                 }
             }
         }

@@ -33,7 +33,7 @@ public class GlassPaneConnected extends GlassBlockConnected
     }
 
     @Override
-    public Icon getBlockTexture (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
+    public IIcon getBlockTexture (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
     {
         if (par5 == 0 || par5 == 1)
         {
@@ -47,7 +47,7 @@ public class GlassPaneConnected extends GlassBlockConnected
     }
 
     @Override
-    public IIcon getConnectedBlockTexture (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5, Icon[] icons)
+    public IIcon getConnectedBlockTexture (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5, IIcon[] icons)
     {
         if (par5 == 0 || par5 == 1)
         {

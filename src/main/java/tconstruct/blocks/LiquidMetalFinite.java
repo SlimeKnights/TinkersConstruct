@@ -16,8 +16,8 @@ import tconstruct.library.TConstructRegistry;
 public class LiquidMetalFinite extends BlockFluidFinite
 {
     String texture;
-    public Icon stillIcon;
-    public Icon flowIcon;
+    public IIcon stillIcon;
+    public IIcon flowIcon;
 
     public LiquidMetalFinite(int id, Fluid fluid, String texture)
     {
@@ -33,14 +33,14 @@ public class LiquidMetalFinite extends BlockFluidFinite
     }
 
     @Override
-    public void registerIcons (IconRegister iconRegister)
+    public void registerIcons (IIconRegister iconRegister)
     {
         stillIcon = iconRegister.registerIcon("tinker:" + texture);
         flowIcon = iconRegister.registerIcon("tinker:" + texture + "_flow");
     }
 
     @Override
-    public Icon getIcon (int side, int meta)
+    public IIcon getIcon (int side, int meta)
     {
         if (side == 0 || side == 1)
             return stillIcon;

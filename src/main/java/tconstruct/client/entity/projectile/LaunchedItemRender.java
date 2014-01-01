@@ -78,7 +78,7 @@ public class LaunchedItemRender extends Render
         return TextureMap.locationItemsTexture;
     }
 
-    private void func_77026_a (Tessellator par1Tessellator, Icon par2Icon)
+    private void func_77026_a (Tessellator par1Tessellator, IIcon par2Icon)
     {
         float f = par2Icon.getMinU();
         float f1 = par2Icon.getMaxU();

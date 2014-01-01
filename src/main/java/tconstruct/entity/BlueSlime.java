@@ -519,9 +519,9 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
     /**
      * Returns the item ID for the item the mob drops on death.
      */
-    protected int getDropItemId ()
+    protected Item getDropItem ()
     {
-        return TRepo.strangeFood.itemID;
+        return TRepo.strangeFood;
     }
 
     /**

@@ -44,7 +44,7 @@ public class BehaviorFirecharge extends Behavior
                 for (int j = par4 - 2; j <= (par4 + 2); j++)
                 {
                     if ((par1World.getBlockId(i, par3, j) == 0 || (Block.blocksList[par1World.getBlockId(i, par3, j)] != null && Block.blocksList[par1World.getBlockId(i, par3, j)].isBlockReplaceable(
-                            par1World, i, par3, j))) && ItemBlockLandmine.getRandom().nextInt(5) == 0 && Block.fire.canPlaceBlockAt(par1World, i, par3, j))
+                            par1World, i, par3, j))) && ItemBlockLandmine.getRandom().nextInt(5) == 0 && Blocks.fire.canPlaceBlockAt(par1World, i, par3, j))
                     {
                         par1World.setBlock(i, par3, j, Blocks.fire.blockID);
                     }

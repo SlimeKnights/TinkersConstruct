@@ -194,12 +194,12 @@ public class DaggerRender extends Render
     /**
      * Renders a dropped item
      */
-    private void renderDroppedItem (DaggerEntity par1ArrowEntity, Icon par2Icon, int par3, float par4, float par5, float par6, float par7)
+    private void renderDroppedItem (DaggerEntity par1ArrowEntity, IIcon par2Icon, int par3, float par4, float par5, float par6, float par7)
     {
         renderDroppedItem(par1ArrowEntity, par2Icon, par3, par4, par5, par6, par7, 0);
     }
 
-    private void renderDroppedItem (DaggerEntity dagger, Icon par2Icon, int par3, float par4, float par5, float par6, float par7, int pass)
+    private void renderDroppedItem (DaggerEntity dagger, IIcon par2Icon, int par3, float par4, float par5, float par6, float par7, int pass)
     {
         Tessellator tessellator = Tessellator.instance;
 

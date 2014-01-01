@@ -404,7 +404,7 @@ public class SmelteryGui extends NewContainerGui
         }
     }
 
-    public void drawLiquidRect (int startU, int startV, Icon par3Icon, int endU, int endV)
+    public void drawLiquidRect (int startU, int startV, IIcon par3Icon, int endU, int endV)
     {
         Tessellator tessellator = Tessellator.instance;
         tessellator.startDrawingQuads();

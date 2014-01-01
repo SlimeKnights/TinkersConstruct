@@ -15,7 +15,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
 import net.minecraft.network.packet.Packet250CustomPayload;
-import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.event.entity.player.PlayerDropsEvent;
 import tconstruct.common.TRepo;
@@ -24,6 +23,7 @@ import tconstruct.util.config.PHConstruct;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.IPlayerTracker;
 import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.common.network.Player;
 import cpw.mods.fml.relauncher.Side;
@@ -201,7 +201,7 @@ public class TPlayerHandler implements IPlayerTracker
         }
     }
 
-    @ForgeSubscribe
+    @SubscribeEvent
     public void livingFall (LivingFallEvent evt) //Only for negating fall damage
     {
         if (evt.entityLiving instanceof EntityPlayer)
@@ -210,7 +210,7 @@ public class TPlayerHandler implements IPlayerTracker
         }
     }
 
-    /*@ForgeSubscribe
+    /*@SubscribeEvent
     public void livingUpdate (LivingUpdateEvent evt)
     {
     	Side side = FMLCommonHandler.instance().getEffectiveSide();
@@ -232,7 +232,7 @@ public class TPlayerHandler implements IPlayerTracker
     	}
     }*/
 
-    @ForgeSubscribe
+    @SubscribeEvent
     public void playerDrops (PlayerDropsEvent evt)
     {
         TPlayerStats stats = getPlayerStats(evt.entityPlayer.username);
