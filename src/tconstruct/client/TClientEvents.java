@@ -88,8 +88,6 @@ public class TClientEvents
 
     private static final ResourceLocation hearts = new ResourceLocation("tinker", "textures/gui/newhearts.png");
     private static final ResourceLocation icons = new ResourceLocation("textures/gui/icons.png");
-    public static int left_height = 39;
-    public static int right_height = 39;
     Random rand = new Random();
     int updateCounter = 0;
 
@@ -131,7 +129,7 @@ public class TClientEvents
                 this.rand.setSeed((long) (updateCounter * 312871));
 
                 int left = scaledWidth / 2 - 91;
-                int top = scaledHeight - left_height;
+                int top = scaledHeight - GuiIngameForge.left_height;
 
                 int regen = -1;
                 if (mc.thePlayer.isPotionActive(Potion.regeneration))
