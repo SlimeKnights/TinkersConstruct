@@ -474,7 +474,7 @@ public class AdaptiveSmelteryGui extends NewContainerGui
                 {
                             dos.write(11);
                             
-                            dos.writeInt(logic.worldObj.provider.dimensionId);
+                            dos.writeInt(logic.getWorld().provider.dimensionId);
                             dos.writeInt(logic.xCoord);
                             dos.writeInt(logic.yCoord);
                             dos.writeInt(logic.zCoord);
@@ -501,6 +501,6 @@ public class AdaptiveSmelteryGui extends NewContainerGui
     public void onGuiClosed ()
     {
         super.onGuiClosed();
-        logic.worldObj.markBlockForUpdate(logic.xCoord, logic.yCoord, logic.zCoord);
+        logic.getWorld().markBlockForUpdate(logic.xCoord, logic.yCoord, logic.zCoord);
     }
 }

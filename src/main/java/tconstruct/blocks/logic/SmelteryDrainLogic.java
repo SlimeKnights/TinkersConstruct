@@ -30,7 +30,7 @@ public class SmelteryDrainLogic extends MultiServantLogic implements IFluidHandl
         {
             if (doFill)
             {
-                SmelteryLogic smeltery = (SmelteryLogic) worldObj.getBlockTileEntity(getMasterPosition().x, getMasterPosition().y, getMasterPosition().z);
+                SmelteryLogic smeltery = (SmelteryLogic) field_145850_b.getBlockTileEntity(getMasterPosition().x, getMasterPosition().y, getMasterPosition().z);
                 return smeltery.fill(resource, doFill);
             }
             else
@@ -49,7 +49,7 @@ public class SmelteryDrainLogic extends MultiServantLogic implements IFluidHandl
     {
         if (hasValidMaster() && canDrain(from, null))
         {
-            SmelteryLogic smeltery = (SmelteryLogic) worldObj.getBlockTileEntity(getMasterPosition().x, getMasterPosition().y, getMasterPosition().z);
+            SmelteryLogic smeltery = (SmelteryLogic) field_145850_b.getBlockTileEntity(getMasterPosition().x, getMasterPosition().y, getMasterPosition().z);
             return smeltery.drain(maxDrain, doDrain);
         }
         else
@@ -80,7 +80,7 @@ public class SmelteryDrainLogic extends MultiServantLogic implements IFluidHandl
         boolean containsFluid = fluid == null;
         if (fluid != null)
         {
-            SmelteryLogic smeltery = (SmelteryLogic) worldObj.getBlockTileEntity(getMasterPosition().x, getMasterPosition().y, getMasterPosition().z);
+            SmelteryLogic smeltery = (SmelteryLogic) field_145850_b.getBlockTileEntity(getMasterPosition().x, getMasterPosition().y, getMasterPosition().z);
             for (FluidStack fstack : smeltery.moltenMetal)
             {
                 if (fstack.fluidID == fluid.getID())
@@ -99,7 +99,7 @@ public class SmelteryDrainLogic extends MultiServantLogic implements IFluidHandl
     {
         if (hasValidMaster() && (from == getForgeDirection() || from == getForgeDirection().getOpposite() || from == ForgeDirection.UNKNOWN))
         {
-            SmelteryLogic smeltery = (SmelteryLogic) worldObj.getBlockTileEntity(getMasterPosition().x, getMasterPosition().y, getMasterPosition().z);
+            SmelteryLogic smeltery = (SmelteryLogic) field_145850_b.getBlockTileEntity(getMasterPosition().x, getMasterPosition().y, getMasterPosition().z);
             return smeltery.getMultiTankInfo();
             //return new FluidTankInfo[] { smeltery.getInfo() };
         }
@@ -181,6 +181,6 @@ public class SmelteryDrainLogic extends MultiServantLogic implements IFluidHandl
     public void onDataPacket (INetworkManager net, Packet132TileEntityData packet)
     {
         readFromNBT(packet.data);
-        worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+        field_145850_b.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
     }
 }

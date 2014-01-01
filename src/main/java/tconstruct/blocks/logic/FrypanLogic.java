@@ -55,7 +55,7 @@ public class FrypanLogic extends EquipLogic implements IActiveLogic
     public void setActive (boolean flag)
     {
         active = flag;
-        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+        field_145850_b.markBlockForUpdate(xCoord, yCoord, zCoord);
     }
 
     /* Fuel gauge */

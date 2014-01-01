@@ -65,7 +65,7 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
         if (tick % 4 == 0)
             smeltery.heatItems();
 
-        if (!worldObj.isRemote)
+        if (!field_145850_b.isRemote)
         {
             if (tick % 20 == 0)
             {
@@ -127,9 +127,9 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
     /* Structure */
 
     @Override
-    public void setWorldObj (World world)
+    public void setfield_145850_b (World world)
     {
-        super.setWorldObj(world);
+        super.setfield_145850_b(world);
         structure.setWorld(world);
         smeltery.setWorld(world);
     }
@@ -137,7 +137,7 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
     @Override
     public void notifyChange (IServantLogic servant, int x, int y, int z)
     {
-        if (!worldObj.isRemote)
+        if (!field_145850_b.isRemote)
         {
             //System.out.println("Notifying of change from "+new CoordTuple(x, y, z));
             recheckStructure = true;
@@ -160,7 +160,7 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
         smeltery.adjustSize(structure.getAirSize(), true);
         multitank.setCapacity(structure.getAirSize() * (TConstruct.ingotLiquidValue * 18));
         smeltery.setActiveLavaTank(structure.lavaTanks.get(0));
-        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+        field_145850_b.markBlockForUpdate(xCoord, yCoord, zCoord);
     }
 
     @Override
@@ -285,7 +285,7 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
         CoordTuple air = structure.getAirByIndex(slot);
         if (air != null)
         {
-            TileEntity te = worldObj.getBlockTileEntity(air.x, air.y, air.z);
+            TileEntity te = field_145850_b.getBlockTileEntity(air.x, air.y, air.z);
             if (te != null && te instanceof TankAirLogic)
             {
                 ((TankAirLogic) te).setInventorySlotContents(0, itemstack);
@@ -407,7 +407,7 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
         {
             Map.Entry pairs = (Map.Entry) iter.next();
             CoordTuple coord = (CoordTuple) pairs.getKey();
-            TileEntity te = worldObj.getBlockTileEntity(coord.x, coord.y, coord.z);
+            TileEntity te = field_145850_b.getBlockTileEntity(coord.x, coord.y, coord.z);
             if (te instanceof TankAirLogic)
             {
                 ((TankAirLogic) te).overrideFluids(((LiquidDataInstance) pairs.getValue()).fluids);
@@ -420,7 +420,7 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
     public void updateAir ()
     {
         for (CoordTuple loc : structure.airCoords)
-            worldObj.markBlockForUpdate(loc.x, loc.y, loc.z);
+            field_145850_b.markBlockForUpdate(loc.x, loc.y, loc.z);
     }
 
     class LiquidData
@@ -574,7 +574,7 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
     public void onDataPacket (INetworkManager net, Packet132TileEntityData packet)
     {
         readNetworkNBT(packet.data);
-        worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+        field_145850_b.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
     }
 
     @Override

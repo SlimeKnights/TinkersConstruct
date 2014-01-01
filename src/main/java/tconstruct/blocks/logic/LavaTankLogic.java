@@ -31,7 +31,7 @@ public class LavaTankLogic extends MultiServantLogic implements IFluidHandler
         if (amount > 0 && doFill)
         {
             renderOffset = resource.amount;
-            worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+            field_145850_b.markBlockForUpdate(xCoord, yCoord, zCoord);
         }
 
         return amount;
@@ -44,7 +44,7 @@ public class LavaTankLogic extends MultiServantLogic implements IFluidHandler
         if (amount != null && doDrain)
         {
             renderOffset = -maxDrain;
-            worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+            field_145850_b.markBlockForUpdate(xCoord, yCoord, zCoord);
         }
         return amount;
     }
@@ -159,7 +159,7 @@ public class LavaTankLogic extends MultiServantLogic implements IFluidHandler
     public void onDataPacket (INetworkManager net, Packet132TileEntityData packet)
     {
         readCustomNBT(packet.data);
-        worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+        field_145850_b.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
     }
 
     /* Updating */
@@ -174,7 +174,7 @@ public class LavaTankLogic extends MultiServantLogic implements IFluidHandler
         if (renderOffset > 0)
         {
             renderOffset -= 6;
-            worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+            field_145850_b.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
         }
     }
 }

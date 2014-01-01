@@ -157,7 +157,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                             }
 
                             stack.stackSize -= itemSize;
-                            EntityItem entityitem = new EntityItem(worldObj, (double) ((float) xCoord + jumpX + offsetX), (double) ((float) yCoord + jumpY),
+                            EntityItem entityitem = new EntityItem(field_145850_b, (double) ((float) xCoord + jumpX + offsetX), (double) ((float) yCoord + jumpY),
                                     (double) ((float) zCoord + jumpZ + offsetZ), new ItemStack(stack.itemID, itemSize, stack.getItemDamage()));
 
                             if (stack.hasTagCompound())
@@ -169,7 +169,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                             entityitem.motionX = (double) ((float) rand.nextGaussian() * offset);
                             entityitem.motionY = (double) ((float) rand.nextGaussian() * offset + 0.2F);
                             entityitem.motionZ = (double) ((float) rand.nextGaussian() * offset);
-                            worldObj.spawnEntityInWorld(entityitem);
+                            field_145850_b.spawnEntityInWorld(entityitem);
                         }
                     }
                 }
@@ -242,7 +242,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     public void setActive (boolean flag)
     {
         needsUpdate = true;
-        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+        field_145850_b.markBlockForUpdate(xCoord, yCoord, zCoord);
     }
 
     public int getScaledFuelGague (int scale)
@@ -271,7 +271,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     /* Updating */
     public void updateEntity ()
     {
-        /*if (worldObj.isRemote)
+        /*if (field_145850_b.isRemote)
             return;*/
 
         tick++;
@@ -294,7 +294,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
             if (needsUpdate)
             {
                 needsUpdate = false;
-                worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+                field_145850_b.markBlockForUpdate(xCoord, yCoord, zCoord);
             }
         }
 
@@ -310,7 +310,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     {
         AxisAlignedBB box = AxisAlignedBB.getAABBPool().getAABB(centerPos.x, centerPos.y, centerPos.z, centerPos.x + 1.0D, centerPos.y + 1.0D, centerPos.z + 1.0D).expand(1.0D, 0.0D, 1.0D);
 
-        List list = worldObj.getEntitiesWithinAABB(Entity.class, box);
+        List list = field_145850_b.getEntitiesWithinAABB(Entity.class, box);
         for (Object o : list)
         {
             if (moltenMetal.size() >= 1)
@@ -383,7 +383,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     private void handleItemEntity (EntityItem item)
     {
         // Clients like to play merry hell with this and cause breakage (we update their inv on syncs)
-        if (worldObj.isRemote)
+        if (field_145850_b.isRemote)
             return;
 
         item.age = 0;
@@ -417,7 +417,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         if (itemAdded)
         {
             this.needsUpdate = true;
-            PacketDispatcher.sendPacketToAllInDimension(getDescriptionPacket(), worldObj.provider.dimensionId);
+            PacketDispatcher.sendPacketToAllInDimension(getDescriptionPacket(), field_145850_b.provider.dimensionId);
         }
     }
 
@@ -437,7 +437,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                     }
                     else if (activeTemps[i] >= meltingTemps[i])
                     {
-                        if (!worldObj.isRemote)
+                        if (!field_145850_b.isRemote)
                         {
                             FluidStack result = getResultFor(inventory[i]);
                             if (result != null)
@@ -524,14 +524,14 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         if (activeLavaTank == null || useTime > 0)
             return;
 
-        if (!worldObj.blockExists(activeLavaTank.x, activeLavaTank.y, activeLavaTank.z))
+        if (!field_145850_b.blockExists(activeLavaTank.x, activeLavaTank.y, activeLavaTank.z))
         {
             fuelAmount = 0;
             fuelGague = 0;
             return;
         }
 
-        TileEntity tankContainer = worldObj.getBlockTileEntity(activeLavaTank.x, activeLavaTank.y, activeLavaTank.z);
+        TileEntity tankContainer = field_145850_b.getBlockTileEntity(activeLavaTank.x, activeLavaTank.y, activeLavaTank.z);
         if (tankContainer == null)
         {
             fuelAmount = 0;
@@ -565,14 +565,14 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         if (activeLavaTank == null || useTime > 0)
             return;
 
-        if (!worldObj.blockExists(activeLavaTank.x, activeLavaTank.y, activeLavaTank.z))
+        if (!field_145850_b.blockExists(activeLavaTank.x, activeLavaTank.y, activeLavaTank.z))
         {
             fuelAmount = 0;
             fuelGague = 0;
             return;
         }
 
-        TileEntity tankContainer = worldObj.getBlockTileEntity(activeLavaTank.x, activeLavaTank.y, activeLavaTank.z);
+        TileEntity tankContainer = field_145850_b.getBlockTileEntity(activeLavaTank.x, activeLavaTank.y, activeLavaTank.z);
         if (tankContainer == null)
         {
             fuelAmount = 0;
@@ -609,7 +609,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                 while (!foundTank)
                 {
                     CoordTuple possibleTank = lavaTanks.get(iter);
-                    TileEntity newTankContainer = worldObj.getBlockTileEntity(possibleTank.x, possibleTank.y, possibleTank.z);
+                    TileEntity newTankContainer = field_145850_b.getBlockTileEntity(possibleTank.x, possibleTank.y, possibleTank.z);
                     if (newTankContainer instanceof IFluidHandler)
                     {
                         //TConstruct.logger.info("Tank: "+possibleTank.toString());
@@ -673,8 +673,8 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         updateEntity();
         super.onInventoryChanged();
         needsUpdate = true;
-        //worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
-        //worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+        //field_145850_b.markBlockForUpdate(xCoord, yCoord, zCoord);
+        //field_145850_b.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
     }
 
     /*@Override
@@ -711,42 +711,42 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 
     public void alignInitialPlacement (int x, int y, int z)
     {
-        int northID = worldObj.getBlockId(x, y, z + 1);
-        int southID = worldObj.getBlockId(x, y, z - 1);
-        int eastID = worldObj.getBlockId(x + 1, y, z);
-        int westID = worldObj.getBlockId(x - 1, y, z);
+        int northID = this.field_145850_b.getBlockId(x, y, z + 1);
+        int southID = field_145850_b.getBlockId(x, y, z - 1);
+        int eastID = field_145850_b.getBlockId(x + 1, y, z);
+        int westID = field_145850_b.getBlockId(x - 1, y, z);
 
         Block northBlock = Block.blocksList[northID];
         Block southBlock = Block.blocksList[southID];
         Block eastBlock = Block.blocksList[eastID];
         Block westBlock = Block.blocksList[westID];
 
-        if ((northBlock == null || northBlock.isAirBlock(worldObj, x, y, z + 1)) && (southBlock == null || southBlock.isAirBlock(worldObj, x, y, z - 1))
-                && (eastBlock == null || eastBlock.isAirBlock(worldObj, x + 1, y, z)) && (westBlock == null || westBlock.isAirBlock(worldObj, x - 1, y, z)))
+        if ((northBlock == null || northBlock.isAirBlock(field_145850_b, x, y, z + 1)) && (southBlock == null || southBlock.isAirBlock(field_145850_b, x, y, z - 1))
+                && (eastBlock == null || eastBlock.isAirBlock(field_145850_b, x + 1, y, z)) && (westBlock == null || westBlock.isAirBlock(field_145850_b, x - 1, y, z)))
         {
             checkValidStructure(x, y, z);
         }
 
-        else if ((northBlock != null && !northBlock.isAirBlock(worldObj, x, y, z + 1)) && (southBlock == null || southBlock.isAirBlock(worldObj, x, y, z - 1))
-                && (eastBlock == null || eastBlock.isAirBlock(worldObj, x + 1, y, z)) && (westBlock == null || westBlock.isAirBlock(worldObj, x - 1, y, z)))
+        else if ((northBlock != null && !northBlock.isAirBlock(field_145850_b, x, y, z + 1)) && (southBlock == null || southBlock.isAirBlock(field_145850_b, x, y, z - 1))
+                && (eastBlock == null || eastBlock.isAirBlock(field_145850_b, x + 1, y, z)) && (westBlock == null || westBlock.isAirBlock(field_145850_b, x - 1, y, z)))
         {
             checkValidStructure(x, y, z - 1);
         }
 
-        else if ((northBlock == null || northBlock.isAirBlock(worldObj, x, y, z + 1)) && (southBlock != null && !southBlock.isAirBlock(worldObj, x, y, z - 1))
-                && (eastBlock == null || eastBlock.isAirBlock(worldObj, x + 1, y, z)) && (westBlock == null || westBlock.isAirBlock(worldObj, x - 1, y, z)))
+        else if ((northBlock == null || northBlock.isAirBlock(field_145850_b, x, y, z + 1)) && (southBlock != null && !southBlock.isAirBlock(field_145850_b, x, y, z - 1))
+                && (eastBlock == null || eastBlock.isAirBlock(field_145850_b, x + 1, y, z)) && (westBlock == null || westBlock.isAirBlock(field_145850_b, x - 1, y, z)))
         {
             checkValidStructure(x, y, z + 1);
         }
 
-        else if ((northBlock == null || northBlock.isAirBlock(worldObj, x, y, z + 1)) && (southBlock == null || southBlock.isAirBlock(worldObj, x, y, z - 1))
-                && (eastBlock != null && !eastBlock.isAirBlock(worldObj, x + 1, y, z)) && (westBlock == null || westBlock.isAirBlock(worldObj, x - 1, y, z)))
+        else if ((northBlock == null || northBlock.isAirBlock(field_145850_b, x, y, z + 1)) && (southBlock == null || southBlock.isAirBlock(field_145850_b, x, y, z - 1))
+                && (eastBlock != null && !eastBlock.isAirBlock(field_145850_b, x + 1, y, z)) && (westBlock == null || westBlock.isAirBlock(field_145850_b, x - 1, y, z)))
         {
             checkValidStructure(x - 1, y, z);
         }
 
-        else if ((northBlock == null || northBlock.isAirBlock(worldObj, x, y, z + 1)) && (southBlock == null || southBlock.isAirBlock(worldObj, x, y, z - 1))
-                && (eastBlock == null || eastBlock.isAirBlock(worldObj, x + 1, y, z)) && (westBlock != null && !westBlock.isAirBlock(worldObj, x - 1, y, z)))
+        else if ((northBlock == null || northBlock.isAirBlock(field_145850_b, x, y, z + 1)) && (southBlock == null || southBlock.isAirBlock(field_145850_b, x, y, z - 1))
+                && (eastBlock == null || eastBlock.isAirBlock(field_145850_b, x + 1, y, z)) && (westBlock != null && !westBlock.isAirBlock(field_145850_b, x - 1, y, z)))
         {
             checkValidStructure(x + 1, y, z);
         }
@@ -774,7 +774,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                 internalTemp = 800;
                 activeLavaTank = lavaTanks.get(0);
                 adjustLayers(checkLayers, false);
-                worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+                field_145850_b.markBlockForUpdate(xCoord, yCoord, zCoord);
                 validStructure = true;
             }
             else
@@ -796,8 +796,8 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         {
             for (int zPos = z - 1; zPos <= z + 1; zPos++)
             {
-                block = Block.blocksList[worldObj.getBlockId(xPos, y, zPos)];
-                if (block != null && !block.isAirBlock(worldObj, xPos, y, zPos))
+                block = Block.blocksList[field_145850_b.getBlockId(xPos, y, zPos)];
+                if (block != null && !block.isAirBlock(field_145850_b, xPos, y, zPos))
                     return false;
             }
         }
@@ -829,8 +829,8 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         {
             for (int zPos = z - 1; zPos <= z + 1; zPos++)
             {
-                Block block = Block.blocksList[worldObj.getBlockId(xPos, y, zPos)];
-                if (block != null && !block.isAirBlock(worldObj, xPos, y, zPos))
+                Block block = Block.blocksList[field_145850_b.getBlockId(xPos, y, zPos)];
+                if (block != null && !block.isAirBlock(field_145850_b, xPos, y, zPos))
                     return count;
             }
         }
@@ -863,9 +863,9 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         {
             for (int zPos = z - 1; zPos <= z + 1; zPos++)
             {
-                int blockID = worldObj.getBlockId(xPos, y, zPos);
+                int blockID = field_145850_b.getBlockId(xPos, y, zPos);
                 Block block = Block.blocksList[blockID];
-                if (block != null && !block.isAirBlock(worldObj, xPos, y, zPos))
+                if (block != null && !block.isAirBlock(field_145850_b, xPos, y, zPos))
                 {
                     if (validBlockID(blockID))
                         return validateBottom(x, y, z, count);
@@ -902,7 +902,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         {
             for (int zPos = z - 1; zPos <= z + 1; zPos++)
             {
-                if (validBlockID(worldObj.getBlockId(xPos, y, zPos)) && (worldObj.getBlockMetadata(xPos, y, zPos) >= 2))
+                if (validBlockID(field_145850_b.getBlockId(xPos, y, zPos)) && (field_145850_b.getBlockMetadata(xPos, y, zPos) >= 2))
                     bottomBricks++;
             }
         }
@@ -921,10 +921,10 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     int checkBricks (int x, int y, int z)
     {
         int tempBricks = 0;
-        int blockID = worldObj.getBlockId(x, y, z);
+        int blockID = field_145850_b.getBlockId(x, y, z);
         if (validBlockID(blockID) || validTankID(blockID))
         {
-            TileEntity te = worldObj.getBlockTileEntity(x, y, z);
+            TileEntity te = field_145850_b.getBlockTileEntity(x, y, z);
             if (te == this)
             {
                 tempBricks++;
@@ -951,14 +951,13 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         return tempBricks;
     }
 
-    boolean validBlockID (int blockID)
+    boolean validBlock (Block block)
     {
-        return blockID == TRepo.smeltery.blockID || blockID == TRepo.smelteryNether.blockID;
+        return block == TRepo.smeltery || block == TRepo.smelteryNether;
     }
 
-    boolean validTankID (int blockID)
     {
-        return blockID == TRepo.lavaTank.blockID || blockID == TRepo.lavaTankNether.blockID;
+        return block == TRepo.lavaTank || block == TRepo.lavaTankNether;
     }
 
     public int getCapacity ()
@@ -987,7 +986,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                 {
                     //liquid = null;
                     moltenMetal.remove(liquid);
-                    worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+                    field_145850_b.markBlockForUpdate(xCoord, yCoord, zCoord);
                     currentLiquid = 0;
                     needsUpdate = true;
                 }
@@ -998,7 +997,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                 if (doDrain && maxDrain > 0)
                 {
                     liquid.amount -= maxDrain;
-                    worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+                    field_145850_b.markBlockForUpdate(xCoord, yCoord, zCoord);
                     currentLiquid -= maxDrain;
                     needsUpdate = true;
                 }
@@ -1032,7 +1031,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                     }
                 }
                 needsUpdate = true;
-                worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+                field_145850_b.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
             }
             return amount;
         }
@@ -1161,7 +1160,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     {
         readFromNBT(packet.data);
         onInventoryChanged();
-        worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+        field_145850_b.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
         this.needsUpdate = true;
     }
 

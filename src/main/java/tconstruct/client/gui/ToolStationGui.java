@@ -487,7 +487,7 @@ public class ToolStationGui extends NewContainerGui
         try
         {
             outputStream.writeByte(1);
-            outputStream.writeInt(logic.worldObj.provider.dimensionId);
+            outputStream.writeInt(logic.getWorld().provider.dimensionId);
             outputStream.writeInt(logic.xCoord);
             outputStream.writeInt(logic.yCoord);
             outputStream.writeInt(logic.zCoord);

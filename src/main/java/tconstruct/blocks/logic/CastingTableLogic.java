@@ -142,7 +142,7 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
                         castingDelay = recipe.coolTime;
                     }
                     renderOffset = copyLiquid.amount;
-                    worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+                    getWorld().markBlockForRenderUpdate(xCoord, yCoord, zCoord);
                     this.liquid = copyLiquid;
                     needsUpdate = true;
                 }
@@ -164,7 +164,7 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
                     renderOffset = roomInTank;
                     castingDelay = TConstruct.tableCasting.getCastingDelay(this.liquid, inventory[0]);
                     this.liquid.amount = this.capacity;
-                    worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+                    getWorld().markBlockForRenderUpdate(xCoord, yCoord, zCoord);
                     needsUpdate = true;
                 }
                 return roomInTank;
@@ -175,7 +175,7 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
                 if (doFill)
                 {
                     this.liquid.amount += resource.amount;
-                    worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+                    getWorld().markBlockForRenderUpdate(xCoord, yCoord, zCoord);
                     needsUpdate = true;
                 }
                 return resource.amount;
@@ -192,14 +192,14 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
     public void onInventoryChanged () //Isn't actually called?
     {
         super.onInventoryChanged();
-        worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+        getWorld().markBlockForRenderUpdate(xCoord, yCoord, zCoord);
         needsUpdate = true;
     }
 
     public ItemStack decrStackSize (int slot, int quantity)
     {
         ItemStack stack = super.decrStackSize(slot, quantity);
-        worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+        getWorld().markBlockForRenderUpdate(xCoord, yCoord, zCoord);
         return stack;
     }
 
@@ -228,7 +228,7 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
             liquid = null;
 
         if (doDrain)
-            FluidEvent.fireEvent(new FluidEvent.FluidDrainingEvent(drained, this.worldObj, this.xCoord, this.yCoord, this.zCoord, this));
+            FluidEvent.fireEvent(new FluidEvent.FluidDrainingEvent(drained, this.getWorld(), this.xCoord, this.yCoord, this.zCoord, this));
 
         return drained;
     }
@@ -312,7 +312,7 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
         if (renderOffset > 0)
         {
             renderOffset -= 6;
-            worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+            getWorld().markBlockForRenderUpdate(xCoord, yCoord, zCoord);
         }
 
         tick++;
@@ -320,7 +320,7 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
         {
             tick = 0;
             if (needsUpdate)
-                worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+                getWorld().markBlockForUpdate(xCoord, yCoord, zCoord);
         }
     }
 
@@ -333,7 +333,7 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
             if (recipe.consumeCast)
                 inventory[0] = null;
             liquid = null;
-            worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+            getWorld().markBlockForUpdate(xCoord, yCoord, zCoord);
         }
     }
 
@@ -396,7 +396,7 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
     public void onDataPacket (INetworkManager net, Packet132TileEntityData packet)
     {
         readFromNBT(packet.data);
-        worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+        getWorld().markBlockForRenderUpdate(xCoord, yCoord, zCoord);
     }
 
     @Override

@@ -566,9 +566,9 @@ public class TConstructRegistry
         drawbridgeState[Blocks.redstoneWire] = 1;
         blockToItemMapping[Blocks.redstoneWire] = Items.redstone;
         blockToItemMapping[Items.redstone] = Blocks.redstoneWire;
-        drawbridgeState[Blocks.oreDiamond] = 1;
-        drawbridgeState[Blocks.blockDiamond] = 1;
-        drawbridgeState[Blocks.workbench] = 1;
+        drawbridgeState[Blocks.diamond_ore] = 1;
+        drawbridgeState[Blocks.diamond_block] = 1;
+        drawbridgeState[Blocks.crafting_table] = 1;
         drawbridgeState[Blocks.crops] = 2;
         drawbridgeState[Blocks.tilledField] = 1;
         drawbridgeState[Blocks.furnaceIdle] = 3;

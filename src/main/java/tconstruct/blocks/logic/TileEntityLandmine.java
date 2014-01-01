@@ -211,7 +211,7 @@ public class TileEntityLandmine extends TileEntity implements IInventory
     @Override
     public boolean isUseableByPlayer (EntityPlayer par1EntityPlayer)
     {
-        return this.worldObj.getBlockTileEntity(this.xCoord, this.yCoord, this.zCoord) != this ? false : par1EntityPlayer.getDistanceSq((double) this.xCoord + 0.5D, (double) this.yCoord + 0.5D,
+        return this.field_145850_b.getBlockTileEntity(this.xCoord, this.yCoord, this.zCoord) != this ? false : par1EntityPlayer.getDistanceSq((double) this.xCoord + 0.5D, (double) this.yCoord + 0.5D,
                 (double) this.zCoord + 0.5D) <= 64.0D;
     }
 
@@ -229,7 +229,7 @@ public class TileEntityLandmine extends TileEntity implements IInventory
     public void onInventoryChanged ()
     {
         super.onInventoryChanged();
-        this.worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+        this.field_145850_b.markBlockForUpdate(xCoord, yCoord, zCoord);
     }
 
     @Override
@@ -259,7 +259,7 @@ public class TileEntityLandmine extends TileEntity implements IInventory
     {
         if (shouldUpdateLogic)
         {
-            worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+            field_145850_b.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
             shouldUpdateLogic = false;
         }
         if (soundcountything > 0)

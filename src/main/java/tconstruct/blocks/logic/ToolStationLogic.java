@@ -58,10 +58,10 @@ public class ToolStationLogic extends InventoryLogic implements ISidedInventory
     public void onInventoryChanged ()
     {
         buildTool(toolName);
-        if (this.worldObj != null)
+        if (this.getWorld() != null)
         {
-            this.blockMetadata = this.worldObj.getBlockMetadata(this.xCoord, this.yCoord, this.zCoord);
-            this.worldObj.markTileEntityChunkModified(this.xCoord, this.yCoord, this.zCoord, this);
+            this.blockMetadata = this.getWorld().getBlockMetadata(this.xCoord, this.yCoord, this.zCoord);
+            this.getWorld().markTileEntityChunkModified(this.xCoord, this.yCoord, this.zCoord, this);
         }
     }
 

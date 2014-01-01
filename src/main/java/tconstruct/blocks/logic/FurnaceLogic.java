@@ -65,7 +65,7 @@ public class FurnaceLogic extends InventoryLogic implements IActiveLogic, IFacin
     public void setActive (boolean flag)
     {
         active = flag;
-        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+        field_145850_b.markBlockForUpdate(xCoord, yCoord, zCoord);
     }
 
     /* Fuel gauge */
@@ -296,7 +296,7 @@ public class FurnaceLogic extends InventoryLogic implements IActiveLogic, IFacin
     public void onDataPacket (INetworkManager net, Packet132TileEntityData packet)
     {
         readNetworkNBT(packet.data);
-        worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+        field_145850_b.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
     }
 
     @Override

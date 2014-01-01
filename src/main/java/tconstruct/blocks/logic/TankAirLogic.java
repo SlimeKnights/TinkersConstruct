@@ -34,7 +34,7 @@ public class TankAirLogic extends InventoryLogic implements IServantLogic, ISide
     public void overrideFluids (ArrayList<FluidStack> fluids)
     {
         /*multitank.overrideFluids(fluids);
-        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);*/
+        field_145850_b.markBlockForUpdate(xCoord, yCoord, zCoord);*/
     }
 
     public boolean hasItem ()
@@ -59,8 +59,8 @@ public class TankAirLogic extends InventoryLogic implements IServantLogic, ISide
         if (itemstack != null && itemstack.stackSize > getInventoryStackLimit())
         {
             itemstack.stackSize = getInventoryStackLimit();
-            worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, itemstack.getItemDamage(), 3);
-            worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+            field_145850_b.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, itemstack.getItemDamage(), 3);
+            field_145850_b.markBlockForUpdate(xCoord, yCoord, zCoord);
         }*/
     }
 
@@ -137,7 +137,7 @@ public class TankAirLogic extends InventoryLogic implements IServantLogic, ISide
     //DELETE
     public void updateEntity ()
     {
-        worldObj.setBlockToAir(xCoord, yCoord, zCoord);
+        field_145850_b.setBlockToAir(xCoord, yCoord, zCoord);
     }
 
     //Keep TE regardless of metadata
@@ -180,8 +180,8 @@ public class TankAirLogic extends InventoryLogic implements IServantLogic, ISide
     public void onDataPacket (INetworkManager net, Packet132TileEntityData packet)
     {
         readNetworkNBT(packet.data);
-        worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
-        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+        field_145850_b.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+        field_145850_b.markBlockForUpdate(xCoord, yCoord, zCoord);
     }
 
     @Override

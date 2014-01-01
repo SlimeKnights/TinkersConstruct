@@ -39,7 +39,7 @@ public class DryingRackLogic extends InventoryLogic
     @Override
     public void updateEntity ()
     {
-        if (!worldObj.isRemote && maxTime > 0 && currentTime < maxTime)
+        if (!field_145850_b.isRemote && maxTime > 0 && currentTime < maxTime)
         {
             currentTime++;
             if (currentTime >= maxTime)
@@ -73,7 +73,7 @@ public class DryingRackLogic extends InventoryLogic
             maxTime = DryingRackRecipes.getDryingTime(inventory[0]);
         else
             maxTime = 0;
-        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+        field_145850_b.markBlockForUpdate(xCoord, yCoord, zCoord);
     }
 
     @Override
@@ -115,7 +115,7 @@ public class DryingRackLogic extends InventoryLogic
     public void onDataPacket (INetworkManager net, Packet132TileEntityData packet)
     {
         readCustomNBT(packet.data);
-        worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+        field_145850_b.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
     }
 
     @SideOnly(Side.CLIENT)

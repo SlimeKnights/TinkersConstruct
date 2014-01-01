@@ -127,7 +127,7 @@ public class StencilTableGui extends GuiContainer
         try
         {
             outputStream.writeByte(2);
-            outputStream.writeInt(logic.worldObj.provider.dimensionId);
+            outputStream.writeInt(logic.getWorld().provider.dimensionId);
             outputStream.writeInt(logic.xCoord);
             outputStream.writeInt(logic.yCoord);
             outputStream.writeInt(logic.zCoord);

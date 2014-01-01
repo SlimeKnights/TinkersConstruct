@@ -43,8 +43,8 @@ public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogi
                 break;
             }
 
-            TileEntity drainte = worldObj.getBlockTileEntity(x, yCoord, z);
-            TileEntity tankte = worldObj.getBlockTileEntity(xCoord, yCoord - 1, zCoord);
+            TileEntity drainte = field_145850_b.getBlockTileEntity(x, yCoord, z);
+            TileEntity tankte = field_145850_b.getBlockTileEntity(xCoord, yCoord - 1, zCoord);
 
             if (drainte != null && drainte instanceof IFluidHandler && tankte != null && tankte instanceof IFluidHandler)
             {
@@ -56,7 +56,7 @@ public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogi
                     {
                         liquid = ((IFluidHandler) drainte).drain(getForgeDirection(), drained, true);
                         ((IFluidHandler) tankte).fill(ForgeDirection.UP, liquid, true);
-                        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+                        field_145850_b.markBlockForUpdate(xCoord, yCoord, zCoord);
                         return true;
                     }
                     else
@@ -82,7 +82,7 @@ public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogi
                 if (!activateFaucet())
                 {
                     active = false;
-                    worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+                    field_145850_b.markBlockForUpdate(xCoord, yCoord, zCoord);
                 }
             }
         }
@@ -180,7 +180,7 @@ public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogi
     public void onDataPacket (INetworkManager net, Packet132TileEntityData packet)
     {
         readCustomNBT(packet.data);
-        worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+        field_145850_b.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
     }
 
     @Override

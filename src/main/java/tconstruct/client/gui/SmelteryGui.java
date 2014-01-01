@@ -460,7 +460,7 @@ public class SmelteryGui extends NewContainerGui
                 {
                     dos.write(11);
 
-                    dos.writeInt(logic.worldObj.provider.dimensionId);
+                    dos.writeInt(logic.getWorld().provider.dimensionId);
                     dos.writeInt(logic.xCoord);
                     dos.writeInt(logic.yCoord);
                     dos.writeInt(logic.zCoord);
