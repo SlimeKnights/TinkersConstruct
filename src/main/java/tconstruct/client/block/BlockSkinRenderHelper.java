@@ -7,11 +7,11 @@ import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.IIcon;
-import net.minecraft.world.Ifield_147845_a;
+import net.minecraft.world.IBlockAccess;
 
 public class BlockSkinRenderHelper
 {
-    public static boolean renderMetadataBlock (Block block, int metadata, int x, int y, int z, RenderBlocks renderer, Ifield_147845_a world)
+    public static boolean renderMetadataBlock (Block block, int metadata, int x, int y, int z, RenderBlocks renderer, IBlockAccess world)
     {
         int var5 = block.colorMultiplier(world, x, y, z);
         float var6 = (float) (var5 >> 16 & 255) / 255.0F;
@@ -33,7 +33,7 @@ public class BlockSkinRenderHelper
     }
 
     static boolean renderMetadataBlockWithAmbientOcclusion (Block block, int metadata, int xPos, int yPos, int zPos, float colorRed, float colorGreen, float colorBlue, RenderBlocks render,
-            Ifield_147845_a world)
+            IBlockAccess world)
     {
         render.enableAO = true;
         boolean flag = false;
@@ -756,7 +756,7 @@ public class BlockSkinRenderHelper
     }
 
     static boolean renderMetadataBlockWithColorMultiplier (Block block, int metadata, int xPos, int yPos, int zPos, float colorRed, float colorGreen, float colorBlue, RenderBlocks render,
-            Ifield_147845_a world)
+            IBlockAccess world)
     {
         render.enableAO = false;
         Tessellator tessellator = Tessellator.instance;
@@ -850,7 +850,7 @@ public class BlockSkinRenderHelper
         return flag;
     }
 
-    public static boolean renderLiquidBlock (IIcon stillIcon, IIcon flowingIcon, int x, int y, int z, RenderBlocks renderer, Ifield_147845_a world)
+    public static boolean renderLiquidBlock (IIcon stillIcon, IIcon flowingIcon, int x, int y, int z, RenderBlocks renderer, IBlockAccess world)
     {
         Block block = Blocks.stone;
         int var5 = block.colorMultiplier(world, x, y, z);
@@ -873,7 +873,7 @@ public class BlockSkinRenderHelper
     }
 
     static boolean renderFakeBlockWithAmbientOcclusion (IIcon stillIcon, IIcon flowingIcon, int xPos, int yPos, int zPos, float colorRed, float colorGreen, float colorBlue, RenderBlocks render,
-            Ifield_147845_a world)
+            IBlockAccess world)
     {
         Block block = Blocks.stone;
         render.enableAO = true;
@@ -1591,7 +1591,7 @@ public class BlockSkinRenderHelper
     }
 
     static boolean renderFakeBlockWithColorMultiplier (IIcon stillIcon, IIcon flowingIcon, int xPos, int yPos, int zPos, float colorRed, float colorGreen, float colorBlue, RenderBlocks render,
-            Ifield_147845_a world)
+            IBlockAccess world)
     {
         Block block = Blocks.stone;
         render.enableAO = false;

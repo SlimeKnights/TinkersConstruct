@@ -1,5 +1,6 @@
 package tconstruct.blocks;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.util.IIcon;
@@ -32,8 +33,8 @@ public class GlassBlockStained extends TConstructBlock
     @SideOnly(Side.CLIENT)
     public boolean shouldSideBeRendered (IBlockAccess world, int x, int y, int z, int side)
     {
-        int blockID = world.getBlockId(x, y, z);
-        return blockID == this.blockID ? false : super.shouldSideBeRendered(world, x, y, z, side);
+        Block block = world.getBlock(x, y, z);
+        return block == this ? false : super.shouldSideBeRendered(world, x, y, z, side);
     }
 
     @Override

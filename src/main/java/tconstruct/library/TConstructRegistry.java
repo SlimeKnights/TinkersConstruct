@@ -529,10 +529,7 @@ public class TConstructRegistry
         drawbridgeState[Blocks.waterStill] = 1;
         interchangableBlockMapping[Blocks.waterStill] = Block.waterMoving;
         interchangableBlockMapping[Blocks.waterMoving] = Block.waterStill;
-        drawbridgeState[Blocks.lavaMoving] = 1;
-        drawbridgeState[Blocks.lavaStill] = 1;
-        interchangableBlockMapping[Blocks.lavaStill] = Block.lavaMoving;
-        interchangableBlockMapping[Blocks.lavaMoving] = Block.lavaStill;
+        drawbridgeState[Blocks.lava] = 1;
         drawbridgeState[Blocks.sand] = 1;
         drawbridgeState[Blocks.gravel] = 1;
         drawbridgeState[Blocks.gold_ore] = 1;

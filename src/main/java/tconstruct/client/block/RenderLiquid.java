@@ -7,7 +7,7 @@ import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.IIcon;
-import net.minecraft.world.Ifield_147845_a;
+import net.minecraft.world.IBlockAccess;
 
 /**
  * @author BluSunrize
@@ -15,7 +15,7 @@ import net.minecraft.world.Ifield_147845_a;
 
 public class RenderLiquid
 {
-    public static boolean renderMetadataBlock (Block block, int metadata, int x, int y, int z, RenderBlocks renderer, Ifield_147845_a world)
+    public static boolean renderMetadataBlock (Block block, int metadata, int x, int y, int z, RenderBlocks renderer, IBlockAccess world)
     {
         int var5 = block.colorMultiplier(world, x, y, z);
         float var6 = (var5 >> 16 & 0xFF) / 255.0F;
@@ -37,7 +37,7 @@ public class RenderLiquid
     }
 
     static boolean renderMetadataBlockWithAmbientOcclusion (Block block, int metadata, int xPos, int yPos, int zPos, float colorRed, float colorGreen, float colorBlue, RenderBlocks render,
-            Ifield_147845_a world)
+            IBlockAccess world)
     {
         render.enableAO = true;
         boolean flag = false;
@@ -751,7 +751,7 @@ public class RenderLiquid
     }
 
     static boolean renderMetadataBlockWithColorMultiplier (Block block, int metadata, int xPos, int yPos, int zPos, float colorRed, float colorGreen, float colorBlue, RenderBlocks render,
-            Ifield_147845_a world)
+            IBlockAccess world)
     {
         render.enableAO = false;
         Tessellator tessellator = Tessellator.instance;
@@ -843,7 +843,7 @@ public class RenderLiquid
         return flag;
     }
 
-    public static boolean renderFakeBlock (IIcon texture, int x, int y, int z, RenderBlocks renderer, Ifield_147845_a world)
+    public static boolean renderFakeBlock (IIcon texture, int x, int y, int z, RenderBlocks renderer, IBlockAccess world)
     {
         Block block = Blocks.stone;
         int var5 = block.colorMultiplier(world, x, y, z);
@@ -865,7 +865,7 @@ public class RenderLiquid
                 var6, var7, var8, renderer, world);
     }
 
-    static boolean renderFakeBlockWithAmbientOcclusion (IIcon texture, int xPos, int yPos, int zPos, float colorRed, float colorGreen, float colorBlue, RenderBlocks render, Ifield_147845_a world)
+    static boolean renderFakeBlockWithAmbientOcclusion (IIcon texture, int xPos, int yPos, int zPos, float colorRed, float colorGreen, float colorBlue, RenderBlocks render, IBlockAccess world)
     {
         Block block = Blocks.stone;
         render.enableAO = true;
@@ -1575,7 +1575,7 @@ public class RenderLiquid
         return flag;
     }
 
-    static boolean renderFakeBlockWithColorMultiplier (IIcon texture, int xPos, int yPos, int zPos, float colorRed, float colorGreen, float colorBlue, RenderBlocks render, Ifield_147845_a world)
+    static boolean renderFakeBlockWithColorMultiplier (IIcon texture, int xPos, int yPos, int zPos, float colorRed, float colorGreen, float colorBlue, RenderBlocks render, IBlockAccess world)
     {
         Block block = Blocks.stone;
         render.enableAO = false;

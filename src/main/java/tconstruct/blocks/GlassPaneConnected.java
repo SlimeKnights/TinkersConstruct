@@ -5,10 +5,10 @@ import tconstruct.util.config.PHConstruct;
 import java.util.List;
 
 import tconstruct.client.block.PaneConnectedRender;
-
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
@@ -669,7 +669,7 @@ public class GlassPaneConnected extends GlassBlockConnected
 
     public final boolean canThisPaneConnectToThisBlockID (int par1)
     {
-        return Block.opaqueCubeLookup[par1] || par1 == this.blockID || par1 == Block.glass.blockID;
+        return Block.opaqueCubeLookup[par1] || par1 == this.blockID || par1 == Blocks.glass.blockID;
     }
 
     public void registerIcons (IIconRegister par1IconRegister)
@@ -680,7 +680,7 @@ public class GlassPaneConnected extends GlassBlockConnected
 
     public boolean canPaneConnectTo (IBlockAccess access, int x, int y, int z, ForgeDirection dir)
     {
-        return canThisPaneConnectToThisBlockID(access.getBlockId(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ))
+        return canThisPaneConnectToThisBlockID(access.getBlock(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ))
                 || access.isBlockSolidOnSide(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ, dir.getOpposite(), false);
     }
 
