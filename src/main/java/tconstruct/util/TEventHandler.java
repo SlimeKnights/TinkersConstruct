@@ -5,6 +5,8 @@ import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 
 import java.util.Random;
 
+import cpw.mods.fml.common.eventhandler.Event.Result;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -21,6 +23,7 @@ import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
@@ -29,12 +32,8 @@ import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.EnumMovingObjectType;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
-import net.minecraftforge.event.Event;
-import net.minecraftforge.event.Event.Result;
-import net.minecraftforge.event.ForgeSubscribe;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
@@ -69,7 +68,7 @@ public class TEventHandler
     Random random = new Random();
 
     /* Crafting */
-    @ForgeSubscribe
+    @SubscribeEvent
     public void craftTool (ToolCraftEvent.NormalTool event)
     {
         NBTTagCompound toolTag = event.toolTag.getCompoundTag("InfiTool");
@@ -172,7 +171,7 @@ public class TEventHandler
         return true;
     }
 
-    @ForgeSubscribe
+    @SubscribeEvent
     public void craftPart (PartBuilderEvent.NormalPart event)
     {
         if (event.pattern.getItem() == TRepo.woodPattern && event.pattern.getItemDamage() == 23)
@@ -209,7 +208,7 @@ public class TEventHandler
     {
         if (matchesLeaves(stack))
         {
-            FletchingMaterial leaves = (FletchingMaterial) TConstructRegistry.getCustomMaterial(new ItemStack(Block.leaves), FletchingMaterial.class);
+            FletchingMaterial leaves = (FletchingMaterial) TConstructRegistry.getCustomMaterial(new ItemStack(Blocks.leaves), FletchingMaterial.class);
             return leaves.craftingItem.copy();
         }
 
@@ -234,7 +233,7 @@ public class TEventHandler
     }
 
     /* Damage */
-    @ForgeSubscribe
+    @SubscribeEvent
     public void onHurt (LivingHurtEvent event)
     {
         if (event.entityLiving instanceof EntityPlayer)
@@ -250,7 +249,7 @@ public class TEventHandler
     }
 
     /* Drops */
-    @ForgeSubscribe
+    @SubscribeEvent
     public void onLivingDrop (LivingDropsEvent event)
     {
         if (event.entityLiving == null)
@@ -314,7 +313,7 @@ public class TEventHandler
 
                 for (int iter = 0; iter < amount; ++iter)
                 {
-                    addDrops(event, new ItemStack(Item.feather, 1));
+                    addDrops(event, new ItemStack(Items.feather, 1));
                 }
             }
         }
@@ -336,7 +335,7 @@ public class TEventHandler
                             beheading += 2;
                         if (beheading > 0 && random.nextInt(100) < beheading * 10)
                         {
-                            addDrops(event, new ItemStack(Item.skull.itemID, 1, enemy.getSkeletonType()));
+                            addDrops(event, new ItemStack(Items.skull, 1, enemy.getSkeletonType()));
                         }
                     }
                 }
@@ -362,7 +361,7 @@ public class TEventHandler
                             beheading += 2;
                         if (beheading > 0 && random.nextInt(100) < beheading * 10)
                         {
-                            addDrops(event, new ItemStack(Item.skull.itemID, 1, 2));
+                            addDrops(event, new ItemStack(Items.skull, 1, 2));
                         }
                     }
                     /*if (stack.getItem() == TRepo.breakerBlade && random.nextInt(100) < 10) //Swap out for real beheading
@@ -387,7 +386,7 @@ public class TEventHandler
                             beheading += 2;
                         if (beheading > 0 && random.nextInt(100) < beheading * 5)
                         {
-                            addDrops(event, new ItemStack(Item.skull.itemID, 1, 4));
+                            addDrops(event, new ItemStack(Items.skull, 1, 4));
                         }
                     }
                 }
@@ -400,15 +399,15 @@ public class TEventHandler
             {
                 for (EntityItem o : event.drops)
                 {
-                    if (o.getEntityItem().itemID == Item.ghastTear.itemID)
+                    if (o.getEntityItem().itemID == Items.ghast_tear)
                     {
-                        o.setEntityItemStack(new ItemStack(Item.ingotGold, 1));
+                        o.setEntityItemStack(new ItemStack(Items.gold_ingot, 1));
                     }
                 }
             }
             else
             {
-                addDrops(event, new ItemStack(Item.ghastTear, 1));
+                addDrops(event, new ItemStack(Items.ghast_tear, 1));
             }
         }
         //}
@@ -419,7 +418,7 @@ public class TEventHandler
 
             if (PHConstruct.dropPlayerHeads)
             {
-                ItemStack dropStack = new ItemStack(Item.skull.itemID, 1, 3);
+                ItemStack dropStack = new ItemStack(Items.skull, 1, 3);
                 NBTTagCompound nametag = new NBTTagCompound();
                 nametag.setString("SkullOwner", player.username);
                 addDrops(event, dropStack);
@@ -436,7 +435,7 @@ public class TEventHandler
                         beheading += 2;
                     if (beheading > 0 && random.nextInt(100) < beheading * 50)
                     {
-                        ItemStack dropStack = new ItemStack(Item.skull.itemID, 1, 3);
+                        ItemStack dropStack = new ItemStack(Items.skull, 1, 3);
                         NBTTagCompound nametag = new NBTTagCompound();
                         nametag.setString("SkullOwner", player.username);
                         addDrops(event, dropStack);
@@ -457,7 +456,7 @@ public class TEventHandler
         }
     }
 
-    @ForgeSubscribe
+    @SubscribeEvent
     public void onLivingDeath (LivingDeathEvent event)
     {
         Entity cause = event.source.getSourceOfDamage();
@@ -488,7 +487,7 @@ public class TEventHandler
     	}
     }*/
 
-    @ForgeSubscribe
+    @SubscribeEvent
     public void onLivingSpawn (LivingSpawnEvent.SpecialSpawn event)
     {
         EntityLivingBase living = event.entityLiving;
@@ -518,7 +517,7 @@ public class TEventHandler
 
     /* Bonemeal */
 
-    @ForgeSubscribe
+    @SubscribeEvent
     public void bonemealEvent (BonemealEvent event)
     {
         if (!event.world.isRemote)
@@ -532,7 +531,7 @@ public class TEventHandler
     }
 
     /* Ore Dictionary */
-    @ForgeSubscribe
+    @SubscribeEvent
     public void registerOre (OreRegisterEvent evt)
     {
 
@@ -547,7 +546,7 @@ public class TEventHandler
         }
     }
 
-    @ForgeSubscribe
+    @SubscribeEvent
     public void bucketFill (FillBucketEvent evt)
     {
         if (evt.current.getItem() == Items.bucket && evt.target.typeOfHit == EnumMovingObjectType.TILE)
@@ -624,7 +623,7 @@ public class TEventHandler
         }
     }
 
-    @ForgeSubscribe
+    @SubscribeEvent
     public void livingUpdate (LivingUpdateEvent event)
     {
     	if(event.entityLiving instanceof EntityPlayer){
@@ -644,7 +643,7 @@ public class TEventHandler
     }
     
     //Player interact event - prevent breaking of tank air blocks in creative
-    @ForgeSubscribe
+    @SubscribeEvent
     public void playerInteract (PlayerInteractEvent event)
     {
         if (event.action == Action.LEFT_CLICK_BLOCK)

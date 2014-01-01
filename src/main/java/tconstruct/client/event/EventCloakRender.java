@@ -1,15 +1,18 @@
 package tconstruct.client.event;
 
 import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.*;
 import java.util.*;
+
 import javax.swing.ImageIcon;
+
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraftforge.client.event.RenderPlayerEvent;
-import net.minecraftforge.event.ForgeSubscribe;
 import mantle.lib.environment.EnvironmentChecks;
 
 public class EventCloakRender
@@ -30,7 +33,7 @@ public class EventCloakRender
         instance = this;
     }
 
-    @ForgeSubscribe
+    @SubscribeEvent
     public void onPreRenderSpecials (RenderPlayerEvent.Specials.Pre event)
     {
         if (Loader.isModLoaded("shadersmod") || EnvironmentChecks.hasOptifine)

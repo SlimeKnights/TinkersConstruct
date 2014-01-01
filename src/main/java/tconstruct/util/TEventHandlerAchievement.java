@@ -1,9 +1,8 @@
 package tconstruct.util;
 
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import tconstruct.library.event.SmelteryEvent;
-
-import net.minecraftforge.common.FakePlayer;
-import net.minecraftforge.event.ForgeSubscribe;
+import net.minecraftforge.common.util.FakePlayer;
 import tconstruct.achievements.TAchievements;
 import tconstruct.blocks.logic.ToolForgeLogic;
 import tconstruct.library.event.ToolCraftedEvent;
@@ -11,7 +10,7 @@ import tconstruct.library.tools.*;
 
 public class TEventHandlerAchievement {
 
-	@ForgeSubscribe
+    @SubscribeEvent
 	public void onToolCrafted(ToolCraftedEvent event){
 		if(event.player != null && !(event.player instanceof FakePlayer)){
 			event.player.addStat(TAchievements.achievements.get("tconstruct.tinkerer"), 1);
@@ -26,7 +25,7 @@ public class TEventHandlerAchievement {
 		}
 	}
 	
-	@ForgeSubscribe
+    @SubscribeEvent
 	public void onItemPlacedIntoCasting(SmelteryEvent.ItemInsertedIntoCasting event){
 		if(event.player != null && event.item != null){
 			if(event.item.getItem() instanceof ToolCore){

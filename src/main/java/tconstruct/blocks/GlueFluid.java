@@ -3,20 +3,20 @@ package tconstruct.blocks;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.BlockFluidFinite;
 import net.minecraftforge.fluids.Fluid;
 
 public class GlueFluid extends BlockFluidFinite {
 
-    Icon stillIcon;
-    Icon flowIcon;
+    IIcon stillIcon;
+    IIcon flowIcon;
 
     public GlueFluid(int id, Fluid fluid, Material material)
     {
@@ -25,7 +25,7 @@ public class GlueFluid extends BlockFluidFinite {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void registerIcons (IconRegister iconRegister)
+    public void registerIcons (IIconRegister iconRegister)
     {
         stillIcon = iconRegister.registerIcon("tinker:liquid_glue");
         flowIcon = iconRegister.registerIcon("tinker:liquid_glue_flow");
@@ -33,7 +33,7 @@ public class GlueFluid extends BlockFluidFinite {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public Icon getIcon (int side, int meta)
+    public IIcon getIcon (int side, int meta)
     {
         if (side == 0 || side == 1)
             return stillIcon;

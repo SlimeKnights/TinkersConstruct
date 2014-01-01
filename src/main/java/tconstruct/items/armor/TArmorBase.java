@@ -6,7 +6,6 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
@@ -25,7 +24,7 @@ public class TArmorBase extends ItemArmor
 
     public TArmorBase(int armorSlot)
     {
-        super(EnumArmorMaterial.CLOTH, 0, armorSlot);
+        super(ArmorMaterial.CLOTH, 0, armorSlot);
         this.maxStackSize = 1;
         this.setMaxDamage(100);
         setNoRepair();

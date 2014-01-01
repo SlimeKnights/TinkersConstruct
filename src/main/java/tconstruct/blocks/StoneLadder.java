@@ -12,7 +12,7 @@ public class StoneLadder extends BlockLadder
     // Override ladder material
     public final Material blockMaterial = Material.rock;
 
-    private Icon icon;
+    private IIcon icon;
 
     // Use the normally protected constructor
     public StoneLadder()

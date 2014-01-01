@@ -9,6 +9,7 @@ import net.minecraft.block.Block;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
@@ -166,7 +167,7 @@ public class SmelteryGui extends NewContainerGui
         this.mc.getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
         if (logic.fuelGague > 0)
         {
-            Icon lavaIcon = Block.lavaStill.getIcon(0, 0);
+            IIcon lavaIcon = Blocks.lava.getIcon(0, 0);
             int fuel = logic.getScaledFuelGague(52);
             int count = 0;
             while (fuel > 0)
@@ -182,7 +183,7 @@ public class SmelteryGui extends NewContainerGui
         int base = 0;
         for (FluidStack liquid : logic.moltenMetal)
         {
-            Icon renderIndex = liquid.getFluid().getStillIcon();
+            IIcon renderIndex = liquid.getFluid().getStillIcon();
             int basePos = 54;
             if (logic.getCapacity() > 0)
             {

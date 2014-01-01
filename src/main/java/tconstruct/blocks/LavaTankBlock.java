@@ -5,7 +5,7 @@ import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.renderer.texture.IconRegister;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
@@ -14,10 +14,10 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Icon;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
@@ -28,12 +28,12 @@ import mantle.blocks.iface.IServantLogic;
 
 public class LavaTankBlock extends BlockContainer
 {
-    public Icon[] icons;
+    public IIcon[] icons;
     String texturePrefix = "";
 
-    public LavaTankBlock(int id)
+    public LavaTankBlock()
     {
-        super(id, Material.rock);
+        super(Material.rock);
         setHardness(3F);
         setResistance(20F);
         setCreativeTab(TConstructRegistry.blockTab);
@@ -41,9 +41,9 @@ public class LavaTankBlock extends BlockContainer
         setStepSound(Block.soundGlassFootstep);
     }
 
-    public LavaTankBlock(int id, String prefix)
+    public LavaTankBlock(String prefix)
     {
-        this(id);
+        this();
         texturePrefix = prefix;
     }
 
@@ -58,10 +58,10 @@ public class LavaTankBlock extends BlockContainer
         return textureNames;
     }
 
-    public void registerIcons (IconRegister iconRegister)
+    public void registerIcons (IIconRegister iconRegister)
     {
         String[] textureNames = getTextureNames();
-        this.icons = new Icon[textureNames.length];
+        this.icons = new IIcon[textureNames.length];
 
         for (int i = 0; i < this.icons.length; ++i)
         {
@@ -118,7 +118,7 @@ public class LavaTankBlock extends BlockContainer
         return TankRender.tankModelID;
     }
 
-    public Icon getIcon (int side, int meta)
+    public IIcon getIcon (int side, int meta)
     {
         if (meta >= 3)
             meta = 0;

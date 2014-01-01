@@ -6,11 +6,11 @@ import mantle.blocks.iface.IFacingLogic;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.INetworkManager;
-import net.minecraft.network.packet.Packet;
+import net.minecraft.network.Packet;
 import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
@@ -163,7 +163,7 @@ public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogi
         {
             NBTTagCompound nbt = new NBTTagCompound();
             liquid.writeToNBT(nbt);
-            tags.setCompoundTag("Fluid", nbt);
+            tags.setTag("Fluid", nbt);
         }
     }
 

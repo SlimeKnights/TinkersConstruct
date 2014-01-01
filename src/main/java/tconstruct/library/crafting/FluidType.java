@@ -8,11 +8,11 @@ import tconstruct.common.TRepo;
 public enum FluidType
 {
     /** Vanilla Water Smelting **/
-    Water(Block.snow.blockID, 0, 20, FluidRegistry.getFluid("water"), false),
+    Water(Blocks.snow.blockID, 0, 20, FluidRegistry.getFluid("water"), false),
     /** Iron Smelting **/
-    Iron(Block.blockIron.blockID, 0, 600, TRepo.moltenIronFluid, true),
+    Iron(Blocks.iron_block.blockID, 0, 600, TRepo.moltenIronFluid, true),
     /** Gold  Smelting **/
-    Gold(Blocks.glold_block.blockID, 0, 400, TRepo.moltenGoldFluid, false),
+    Gold(Blocks.gold_block.blockID, 0, 400, TRepo.moltenGoldFluid, false),
     /** Tin  Smelting **/
     Tin(TRepo.metalBlock.blockID, 5, 400, TRepo.moltenTinFluid, false),
     /** Copper  Smelting **/

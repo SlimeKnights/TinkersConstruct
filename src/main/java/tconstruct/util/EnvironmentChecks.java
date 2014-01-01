@@ -8,11 +8,11 @@ import mantle.crash.CallableUnsuppConfig;
 import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraftforge.client.event.GuiOpenEvent;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.ForgeSubscribe;
 import tconstruct.TConstruct;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.ICrashCallable;
 import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -74,7 +74,7 @@ public class EnvironmentChecks
     }
 
     @SideOnly(Side.CLIENT)
-    @ForgeSubscribe
+    @SubscribeEvent
     public void openMainMenu (GuiOpenEvent event)
     {
         if (event.gui instanceof GuiMainMenu)
