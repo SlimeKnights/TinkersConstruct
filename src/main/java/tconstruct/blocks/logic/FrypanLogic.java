@@ -234,7 +234,7 @@ public class FrypanLogic extends EquipLogic implements IActiveLogic
             {
                 Block block = Block.blocksList[itemID];
 
-                if (block == Block.woodSingleSlab)
+                if (block == Blocks.wooden_slab)
                 {
                     return 150;
                 }
@@ -255,15 +255,15 @@ public class FrypanLogic extends EquipLogic implements IActiveLogic
                 return 200;
             if (item instanceof ItemHoe && ((ItemHoe) item).getMaterialName().equals("WOOD"))
                 return 200;
-            if (itemID == Items.stick.itemID)
+            if (item == Items.stick)
                 return 100;
-            if (itemID == Items.coal.itemID)
+            if (item == Items.coal)
                 return 800;
-            if (itemID == Items.lava_bucket.itemID)
+            if (item == Items.lava_bucket)
                 return 20000;
-            if (itemID == Blocks.sapling.blockID)
+            if (new ItemStack(item).equals(new ItemStack(Blocks.sapling)))
                 return 100;
-            if (itemID == Items.blaze_rod.itemID)
+            if (item == Items.blaze_rod)
                 return 2400;
             return GameRegistry.getFuelValue(stack);
         }

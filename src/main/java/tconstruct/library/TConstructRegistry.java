@@ -525,10 +525,7 @@ public class TConstructRegistry
         drawbridgeState[Blocks.dirt] = 1;
         drawbridgeState[Blocks.cobblestone] = 1;
         drawbridgeState[Blocks.bedrock] = 2;
-        drawbridgeState[Blocks.waterMoving] = 1;
-        drawbridgeState[Blocks.waterStill] = 1;
-        interchangableBlockMapping[Blocks.waterStill] = Block.waterMoving;
-        interchangableBlockMapping[Blocks.waterMoving] = Block.waterStill;
+        drawbridgeState[Blocks.water] = 1;
         drawbridgeState[Blocks.lava] = 1;
         drawbridgeState[Blocks.sand] = 1;
         drawbridgeState[Blocks.gravel] = 1;

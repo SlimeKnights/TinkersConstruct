@@ -29,9 +29,9 @@ public class FurnaceGui extends GuiContainer
      */
     protected void drawGuiContainerForegroundLayer (int par1, int par2)
     {
-        String s = this.logic.isInvNameLocalized() ? this.logic.getInvName() : I18n.getString(this.logic.getInvName());
-        this.fontRenderer.drawString(s, this.xSize / 2 - this.fontRenderer.getStringWidth(s) / 2, 6, 4210752);
-        this.fontRenderer.drawString(I18n.getString("container.inventory"), 8, this.ySize - 96 + 2, 4210752);
+        String s = this.logic.isInvNameLocalized() ? this.logic.getInvName() : I18n.getStringParams(this.logic.getInvName());
+        this.field_146289_q.drawString(s, this.xSize / 2 - this.field_146289_q.getStringWidth(s) / 2, 6, 4210752);
+        this.field_146289_q.drawString(I18n.getStringParams("container.inventory"), 8, this.ySize - 96 + 2, 4210752);
     }
 
     /**
@@ -40,7 +40,7 @@ public class FurnaceGui extends GuiContainer
     protected void drawGuiContainerBackgroundLayer (float par1, int par2, int par3)
     {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        this.mc.getTextureManager().bindTexture(furnaceGuiTextures);
+        this.field_146297_k.getTextureManager().bindTexture(furnaceGuiTextures);
         int k = (this.width - this.xSize) / 2;
         int l = (this.height - this.ySize) / 2;
         this.drawTexturedModalRect(k, l, 0, 0, this.xSize, this.ySize);

@@ -6,6 +6,7 @@ import net.minecraft.block.Block;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -105,8 +106,8 @@ public class AdaptiveSmelteryGui extends NewContainerGui
     @Override
     protected void drawGuiContainerForegroundLayer (int mouseX, int mouseY)
     {
-        fontRenderer.drawString(StatCollector.translateToLocal("crafters.Smeltery"), 86, 5, 0x404040);
-        fontRenderer.drawString(StatCollector.translateToLocal("container.inventory"), 90, (ySize - 96) + 2, 0x404040);
+        field_146289_q.drawString(StatCollector.translateToLocal("crafters.Smeltery"), 86, 5, 0x404040);
+        field_146289_q.drawString(StatCollector.translateToLocal("container.inventory"), 90, (ySize - 96) + 2, 0x404040);
 
         int base = 0;
         int cornerX = (width - xSize) / 2 + 36;
@@ -168,16 +169,16 @@ public class AdaptiveSmelteryGui extends NewContainerGui
     protected void drawGuiContainerBackgroundLayer (float f, int mouseX, int mouseY)
     {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        this.mc.getTextureManager().bindTexture(background);
+        this.field_146297_k.getTextureManager().bindTexture(background);
         int cornerX = (width - xSize) / 2 + 36;
         int cornerY = (height - ySize) / 2;
         drawTexturedModalRect(cornerX + 46, cornerY, 0, 0, 176, ySize);
 
         //Fuel - Lava
-        this.mc.getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
+        this.field_146297_k.getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
         if (scomp.fuelGague > 0)
         {
-            IIcon lavaIcon = Block.lavaStill.getIcon(0, 0);
+            IIcon lavaIcon = Blocks.lava.getIcon(0, 0);
             int fuel = scomp.getScaledFuelGague(52);
             int count = 0;
             while (fuel > 0)
@@ -228,12 +229,12 @@ public class AdaptiveSmelteryGui extends NewContainerGui
         //Liquid gague
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
-        this.mc.getTextureManager().bindTexture(background);
+        this.field_146297_k.getTextureManager().bindTexture(background);
         drawTexturedModalRect(cornerX + 54, cornerY + 16, 176, 76, 52, 52);
 
         //Side inventory
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        this.mc.getTextureManager().bindTexture(backgroundSide);
+        this.field_146297_k.getTextureManager().bindTexture(backgroundSide);
         //if (logic.layers > 0)
         {
             /*if (logic.layers == 1)
@@ -272,7 +273,7 @@ public class AdaptiveSmelteryGui extends NewContainerGui
     protected void drawFluidStackTooltip (FluidStack par1ItemStack, int par2, int par3)
     {
         this.zLevel = 100;
-        List list = getLiquidTooltip(par1ItemStack, this.mc.gameSettings.advancedItemTooltips);
+        List list = getLiquidTooltip(par1ItemStack, this.field_146297_k.gameSettings.advancedItemTooltips);
 
         for (int k = 0; k < list.size(); ++k)
         {
@@ -358,7 +359,7 @@ public class AdaptiveSmelteryGui extends NewContainerGui
             while (iterator.hasNext())
             {
                 String s = (String) iterator.next();
-                int l = this.fontRenderer.getStringWidth(s);
+                int l = this.field_146289_q.getStringWidth(s);
 
                 if (l > k)
                 {
@@ -403,7 +404,7 @@ public class AdaptiveSmelteryGui extends NewContainerGui
             for (int k2 = 0; k2 < par1List.size(); ++k2)
             {
                 String s1 = (String) par1List.get(k2);
-                this.fontRenderer.drawStringWithShadow(s1, i1, j1, -1);
+                this.field_146289_q.drawStringWithShadow(s1, i1, j1, -1);
 
                 if (k2 == 0)
                 {
