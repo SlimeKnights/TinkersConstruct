@@ -50,7 +50,7 @@ import tconstruct.util.config.*;
 public class TContent implements IFuelHandler
 {
     // Supresses console spam when iguana's tweaks remove stuff
-    public static boolean supressMissingToolLogs = false;
+    public static boolean supressMissingToolLogs = PHConstruct.forceToolLogsOff;
 
     //Patterns and other materials
     public static Item blankPattern;

@@ -42,6 +42,7 @@ public class PHConstruct
          */
 		 
 		superfunWorld = config.get("Superfun", "All the world is Superfun", false).getBoolean(false);
+		forceToolLogsOff = config.get("Logging", "Disable tool build messages", false).getBoolean(false);
 
         keepHunger = config.get("Difficulty Changes", "Keep hunger on death", true).getBoolean(true);
         keepLevels = config.get("Difficulty Changes", "Keep levels on death", true).getBoolean(true);
@@ -157,19 +158,6 @@ public class PHConstruct
 
         punji = config.getBlock("Punji", 3232).getInt(3232);
         woodCrafter = config.getBlock("Crafting Station", 3233).getInt(3233);
-
-        slimePoolBlue = config.getBlock("Liquid Blue Slime", 3235).getInt(3235);
-        slimeGel = config.getBlock("Congealed Slime", 3237).getInt(3237);
-        slimeGrass = config.getBlock("Slime Grass", 3238).getInt(3238);
-        slimeTallGrass = config.getBlock("Slime Tall Grass", 3239).getInt(3239);
-        slimeLeaves = config.getBlock("Slime Grass Leaves", 3240).getInt(3240);
-        slimeSapling = config.getBlock("Slime Tree Sapling", 3241).getInt(3241);
-
-        meatBlock = config.getBlock("Meat Block", 3242).getInt(3242);
-        woodCrafterSlab = config.getBlock("Crafting Slab", 3243).getInt(3243);
-        woolSlab1 = config.getBlock("Wool Slab 1", 3244).getInt(3244);
-        woolSlab2 = config.getBlock("Wool Slab 2", 3245).getInt(3245);
-        castingChannel = config.getBlock("Casting Channel", 3249).getInt(3249);
 
         slimePoolBlue = config.getBlock("Liquid Blue Slime", 3235).getInt(3235);
         slimeGel = config.getBlock("Congealed Slime", 3237).getInt(3237);
@@ -726,6 +714,7 @@ public class PHConstruct
 
     public static boolean gregtech;
     public static boolean lavaFortuneInteraction;
+    public static boolean forceToolLogsOff;
 
     public static int islandRarity;
 
