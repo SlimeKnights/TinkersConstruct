@@ -1,14 +1,6 @@
-package tconstruct.modifiers;
+package tconstruct.modifiers.tools;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Random;
-
-import tconstruct.common.TContent;
-import tconstruct.library.ActiveToolMod;
-import tconstruct.library.tools.AbilityHelper;
-import tconstruct.library.tools.ToolCore;
-import tconstruct.util.config.PHConstruct;
 
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
@@ -25,6 +17,11 @@ import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+import tconstruct.common.TContent;
+import tconstruct.library.ActiveToolMod;
+import tconstruct.library.tools.AbilityHelper;
+import tconstruct.library.tools.ToolCore;
+import tconstruct.util.config.PHConstruct;
 
 public class TActiveOmniMod extends ActiveToolMod
 {
@@ -55,7 +52,7 @@ public class TActiveOmniMod extends ActiveToolMod
     {
         if (entity instanceof EntityPlayer && ((EntityPlayer) entity).capabilities.isCreativeMode)
             return false;
-        TContent.modL.midStreamModify(stack, tool);
+        TContent.modLapis.midStreamModify(stack, tool);
 
         NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
         World world = entity.worldObj;
@@ -151,7 +148,7 @@ public class TActiveOmniMod extends ActiveToolMod
     @Override
     public int baseAttackDamage (int earlyModDamage, int damage, ToolCore tool, NBTTagCompound tags, NBTTagCompound toolTags, ItemStack stack, EntityLivingBase player, Entity entity)
     {
-        TContent.modL.midStreamModify(stack, tool);
+        TContent.modLapis.midStreamModify(stack, tool);
         return 0;
     }
 

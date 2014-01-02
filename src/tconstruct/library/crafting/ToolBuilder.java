@@ -5,18 +5,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.Event.Result;
 import tconstruct.library.TConstructRegistry;
+import tconstruct.library.armor.ArmorMod;
 import tconstruct.library.event.ToolCraftEvent;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.library.tools.ToolMaterial;
 import tconstruct.library.tools.ToolMod;
 import tconstruct.library.util.IToolPart;
-
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.Event.Result;
 
 public class ToolBuilder
 {
@@ -26,6 +27,7 @@ public class ToolBuilder
     public List<ToolRecipe> combos = new ArrayList<ToolRecipe>();
     public HashMap<String, String> modifiers = new HashMap<String, String>();
     public List<ToolMod> toolMods = new ArrayList<ToolMod>();
+    public List<ArmorMod> armorMods = new ArrayList<ArmorMod>();
 
     /* Build tools */
     public static void addNormalToolRecipe (ToolCore output, Item head, Item handle)
@@ -356,6 +358,7 @@ public class ToolBuilder
         return tool;
     }
 
+    @Deprecated
     public ItemStack modifyTool (ItemStack input, ItemStack topSlot, ItemStack bottomSlot, ItemStack extraStack, String name)
     {
         if (extraStack != null)
@@ -391,6 +394,80 @@ public class ToolBuilder
             return tool;
         else
             return null;
+    }
+    
+    public ItemStack modifyTool (ItemStack input, ItemStack[] slots, String name)
+    {
+        ItemStack tool = input.copy();
+        NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
+        tags.removeTag("Built");
+
+        boolean built = false;
+        for (ToolMod mod : toolMods)
+        {
+            if (mod.matches(slots, tool))
+            {
+                built = true;
+                mod.addMatchingEffect(tool);
+                mod.modify(slots, tool);
+            }
+        }
+
+        tags = tool.getTagCompound();
+        if (name != null && !name.equals("") && !tags.hasKey("display"))
+        {
+            tags.setCompoundTag("display", new NBTTagCompound());
+            tags.getCompoundTag("display").setString("Name", "\u00A7f" + name);
+        }
+
+        if (built)
+            return tool;
+        else
+            return null;
+    }
+    
+    public ItemStack modifyArmor (ItemStack input, ItemStack[] slots, String name)
+    {
+        ItemStack armor = input.copy();
+        if (!armor.hasTagCompound())
+            addArmorTag(input);
+        NBTTagCompound tags = armor.getTagCompound().getCompoundTag("TinkerArmor");
+        tags.removeTag("Built");
+
+        boolean built = false;
+        for (ArmorMod mod : armorMods)
+        {
+            if (mod.matches(slots, armor))
+            {
+                built = true;
+                mod.addMatchingEffect(armor);
+                mod.modify(slots, armor);
+            }
+        }
+
+        tags = armor.getTagCompound();
+        if (name != null && !name.equals("") && !tags.hasKey("display"))
+        {
+            tags.setCompoundTag("display", new NBTTagCompound());
+            tags.getCompoundTag("display").setString("Name", "\u00A7f" + name);
+        }
+
+        if (built)
+            return armor;
+        else
+            return null;
+    }
+
+    public void addArmorTag (ItemStack armor) //Not sure if temporary or not
+    {
+        NBTTagCompound baseTag = new NBTTagCompound();
+        NBTTagList list = new NBTTagList();
+        
+        NBTTagCompound armorTag = new NBTTagCompound();
+        armorTag.setInteger("Modifiers", 30);
+        baseTag.setTag("TinkerArmor", armorTag);
+        
+        armor.setTagCompound(baseTag);
     }
 
     int buildReinforced (ToolMaterial headMat, ToolMaterial handleMat, ToolMaterial accessoryMat, ToolMaterial extraMat)
@@ -439,6 +516,15 @@ public class ToolBuilder
 
     public static void registerToolMod (ToolMod mod)
     {
+        if (mod == null)
+            throw new NullPointerException("Tool modifier cannot be null.");
         instance.toolMods.add(mod);
+    }
+    
+    public static void registerArmorMod(ArmorMod mod)
+    {
+        if (mod == null)
+            throw new NullPointerException("Armor modifier cannot be null.");
+        instance.armorMods.add(mod);
     }
 }

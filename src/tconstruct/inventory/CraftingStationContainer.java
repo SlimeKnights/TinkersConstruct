@@ -7,16 +7,21 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.inventory.Slot;
 import net.minecraft.inventory.SlotCrafting;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.world.World;
 import tconstruct.blocks.logic.CraftingStationLogic;
+import tconstruct.library.armor.ArmorCore;
+import tconstruct.library.crafting.ToolBuilder;
+import tconstruct.library.tools.ToolCore;
 
 public class CraftingStationContainer extends Container
 {
     /** The crafting matrix inventory (3x3). */
     public InventoryCrafting craftMatrix;// = new InventoryCrafting(this, 3, 3);
     public IInventory craftResult;// = new InventoryCraftResult();
+    private CraftingStationLogic logic;
     private World worldObj;
     private int posX;
     private int posY;
@@ -28,6 +33,7 @@ public class CraftingStationContainer extends Container
         this.posX = x;
         this.posY = y;
         this.posZ = z;
+        this.logic = logic;
         craftMatrix = new InventoryCraftingStation(this, 3, 3, logic);
         craftResult = new InventoryCraftingStationResult(logic);
 
@@ -58,12 +64,71 @@ public class CraftingStationContainer extends Container
             this.addSlotToContainer(new Slot(inventorplayer, column, 8 + column * 18, 142));
         }
 
+        //Side inventory
+        if (logic.chest != null)
+        {
+            IInventory chest = logic.chest.get();
+            IInventory doubleChest = logic.doubleChest == null ? null : logic.doubleChest.get();
+            int count = 0;
+            for (column = 0; column < 9; column++)
+            {
+                for (row = 0; row < 6; row++)
+                {
+                    int value = count < 27 ? count : count - 27;
+                    this.addSlotToContainer(new Slot(count < 27 ? chest : doubleChest, value, -108 + row * 18, 19 + column * 18));
+                    count++;
+                    if (count >= 27 && doubleChest == null)
+                        break;
+                }
+                if (count >= 27 && doubleChest == null)
+                    break;
+            }
+        }
+
         this.onCraftMatrixChanged(this.craftMatrix);
     }
 
     public void onCraftMatrixChanged (IInventory par1IInventory)
     {
-        this.craftResult.setInventorySlotContents(0, CraftingManager.getInstance().findMatchingRecipe(this.craftMatrix, this.worldObj));
+        ItemStack tool = modifyTool();
+        if (tool != null)
+            this.craftResult.setInventorySlotContents(0, tool);
+        else
+            this.craftResult.setInventorySlotContents(0, CraftingManager.getInstance().findMatchingRecipe(this.craftMatrix, this.worldObj));
+    }
+
+    public ItemStack modifyTool ()
+    {
+        ItemStack input = craftMatrix.getStackInSlot(4);
+        if (input != null)
+        {
+            Item item = input.getItem();
+            if (item instanceof ToolCore)
+            {
+                ItemStack[] slots = new ItemStack[8];
+                for (int i = 0; i < 4; i++)
+                {
+                    slots[i] = craftMatrix.getStackInSlot(i);
+                    slots[i + 4] = craftMatrix.getStackInSlot(i + 5);
+                }
+                ItemStack output = ToolBuilder.instance.modifyTool(input, slots, "");
+                if (output != null)
+                    return output;
+            }
+            else if (item instanceof ArmorCore)
+            {
+                ItemStack[] slots = new ItemStack[8];
+                for (int i = 0; i < 4; i++)
+                {
+                    slots[i] = craftMatrix.getStackInSlot(i);
+                    slots[i + 4] = craftMatrix.getStackInSlot(i + 5);
+                }
+                ItemStack output = ToolBuilder.instance.modifyArmor(input, slots, "");
+                if (output != null)
+                    return output;
+            }
+        }
+        return null;
     }
 
     public void onContainerClosed (EntityPlayer par1EntityPlayer)

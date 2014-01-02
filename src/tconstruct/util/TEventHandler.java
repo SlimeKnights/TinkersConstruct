@@ -40,25 +40,19 @@ import net.minecraftforge.event.entity.player.FillBucketEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 import net.minecraftforge.oredict.OreDictionary.OreRegisterEvent;
-import tconstruct.TConstruct;
-import tconstruct.achievements.TAchievements;
-import tconstruct.blocks.LiquidMetalFinite;
-import tconstruct.blocks.TankAirBlock;
-import tconstruct.common.TContent;
-import tconstruct.items.tools.FryingPan;
-import tconstruct.library.TConstructRegistry;
-import tconstruct.library.crafting.ToolBuilder;
-import tconstruct.library.event.PartBuilderEvent;
-import tconstruct.library.event.ToolCraftEvent;
-import tconstruct.library.tools.ArrowMaterial;
-import tconstruct.library.tools.BowMaterial;
-import tconstruct.library.tools.BowstringMaterial;
-import tconstruct.library.tools.FletchingMaterial;
-import tconstruct.library.tools.ToolCore;
-import tconstruct.library.tools.Weapon;
-import tconstruct.modifiers.ModAttack;
-import tconstruct.util.config.PHConstruct;
-import tconstruct.util.player.TPlayerStats;
+
+import tconstruct.*;
+import tconstruct.achievements.*;
+import tconstruct.blocks.*;
+import tconstruct.common.*;
+import tconstruct.items.tools.*;
+import tconstruct.library.*;
+import tconstruct.library.crafting.*;
+import tconstruct.library.event.*;
+import tconstruct.library.tools.*;
+import tconstruct.modifiers.*;
+import tconstruct.util.config.*;
+import tconstruct.util.player.*;
 
 public class TEventHandler
 {
@@ -533,20 +527,14 @@ public class TEventHandler
     @ForgeSubscribe
     public void registerOre (OreRegisterEvent evt)
     {
-        if (evt.Name == "battery")
-            TConstruct.content.modE.batteries.add(evt.Ore);
-
-        else if (evt.Name == "basicCircuit")
-            TConstruct.content.modE.circuits.add(evt.Ore);
-
-        else if (evt.Name == "crystalQuartz")
+        if (evt.Name == "crystalQuartz")
         {
-            ToolBuilder.instance.registerToolMod(new ModAttack("Quartz", new ItemStack[] { evt.Ore }, 11, 2));
+            TContent.modAttack.addStackToMatchList(evt.Ore, 2);
         }
 
         else if (evt.Name == "crystalCerusQuartz")
         {
-            ToolBuilder.instance.registerToolMod(new ModAttack("Quartz", new ItemStack[] { evt.Ore }, 11, 24));
+            TContent.modAttack.addStackToMatchList(evt.Ore, 24);
         }
     }
 

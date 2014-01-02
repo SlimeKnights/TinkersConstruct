@@ -17,7 +17,6 @@ public abstract class ToolMod
 
     public ToolMod(ItemStack[] items, int effect, String dataKey)
     {
-        //recipeItems = items;
         List<ItemStack> itemstacks = new ArrayList<ItemStack>();
         for (int iter = 0; iter < items.length; iter++)
             itemstacks.add(items[iter]);
@@ -71,6 +70,11 @@ public abstract class ToolMod
         return list.isEmpty();
     }
 
+    protected String getTagName ()
+    {
+        return "InfiTool";
+    }
+
     /**
      * 
      * @param tool Tool to compare against
@@ -79,7 +83,7 @@ public abstract class ToolMod
 
     protected boolean canModify (ItemStack tool, ItemStack[] input)
     {
-        NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
+        NBTTagCompound tags = tool.getTagCompound().getCompoundTag(getTagName());
         return tags.getInteger("Modifiers") > 0;
     }
 
@@ -92,7 +96,7 @@ public abstract class ToolMod
 
     public void addMatchingEffect (ItemStack tool)
     {
-        NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
+        NBTTagCompound tags = tool.getTagCompound().getCompoundTag(getTagName());
         if (tags.hasKey("Effect6") || tags.hasKey(key))
             return;
 
@@ -124,7 +128,7 @@ public abstract class ToolMod
 
     protected int addModifierTip (ItemStack tool, String modifierTip)
     {
-        NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
+        NBTTagCompound tags = tool.getTagCompound().getCompoundTag(getTagName());
         int tipNum = 0;
         while (true)
         {
@@ -142,7 +146,7 @@ public abstract class ToolMod
 
     protected int addToolTip (ItemStack tool, String tooltip, String modifierTip)
     {
-        NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
+        NBTTagCompound tags = tool.getTagCompound().getCompoundTag(getTagName());
         int tipNum = 0;
         while (true)
         {
@@ -205,5 +209,21 @@ public abstract class ToolMod
     public boolean validType (ToolCore tool)
     {
         return true;
+    }
+
+    public boolean areItemsEquivalent (ItemStack stack1, ItemStack stack2)
+    {
+        if (stack1.itemID != stack2.itemID)
+            return false;
+        return ItemStack.areItemStackTagsEqual(stack1, stack2);
+    }
+
+    public boolean areItemStacksEquivalent (ItemStack stack1, ItemStack stack2)
+    {
+        if (stack1.itemID != stack2.itemID)
+            return false;
+        if (stack1.getItemDamage() != stack2.getItemDamage())
+            return false;
+        return ItemStack.areItemStackTagsEqual(stack1, stack2);
     }
 }

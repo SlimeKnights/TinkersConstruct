@@ -1,4 +1,4 @@
-package tconstruct.modifiers;
+package tconstruct.modifiers.tools;
 
 import tconstruct.library.tools.ToolMod;
 import net.minecraft.item.Item;

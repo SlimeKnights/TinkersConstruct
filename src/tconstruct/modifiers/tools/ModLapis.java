@@ -1,4 +1,4 @@
-package tconstruct.modifiers;
+package tconstruct.modifiers.tools;
 
 import java.util.Arrays;
 import java.util.Iterator;
@@ -15,17 +15,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 
-public class ModLapis extends ToolMod
+public class ModLapis extends ToolModTypeFilter
 {
     String tooltipName;
-    int increase;
     int max = 450;
 
-    public ModLapis(ItemStack[] items, int effect, int inc)
+    public ModLapis(int effect, ItemStack[] items, int[] values)
     {
-        super(items, effect, "Lapis");
+        super(effect, "Lapis", items, values);
         tooltipName = "\u00a79Luck";
-        increase = inc;
     }
 
     @Override
@@ -44,7 +42,7 @@ public class ModLapis extends ToolMod
             return tags.getInteger("Modifiers") > 0;
 
         int keyPair[] = tags.getIntArray(key);
-        if (keyPair[0] + increase <= max)
+        if (keyPair[0] + matchingAmount(input) <= max)
             return true;
         else
             return false;
@@ -68,6 +66,7 @@ public class ModLapis extends ToolMod
             tags.setInteger("Modifiers", modifiers);
         }
 
+        int increase = matchingAmount(input);
         int keyPair[] = tags.getIntArray(key);
         keyPair[0] += increase;
         tags.setIntArray(key, keyPair);

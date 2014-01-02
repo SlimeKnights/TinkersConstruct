@@ -1,4 +1,4 @@
-package tconstruct.modifiers;
+package tconstruct.modifiers.tools;
 
 import java.util.Arrays;
 import java.util.Iterator;

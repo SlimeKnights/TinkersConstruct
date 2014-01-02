@@ -1,33 +1,37 @@
-package tconstruct.modifiers;
+package tconstruct.modifiers.tools;
 
-import tconstruct.library.tools.ToolMod;
+import java.util.Arrays;
+import java.util.List;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import tconstruct.library.tools.ToolCore;
 
-public class ModSmite extends ToolMod
+public class ModBlaze extends ToolModTypeFilter
 {
     String tooltipName;
-    int increase;
-    int max = 36;
-    String tagName;
+    int max;
 
-    public ModSmite(String type, ItemStack[] items, int effect, int inc)
+    public ModBlaze(int effect, ItemStack[] items, int[] values)
     {
-        super(items, effect, "ModSmite");
-        tooltipName = "\u00a7eSmite";
-        tagName = type;
-        increase = inc;
+        super(effect, "Blaze", items, values);
+        tooltipName = "\u00a76Fiery";
+        max = 25;
     }
 
     @Override
     protected boolean canModify (ItemStack tool, ItemStack[] input)
     {
+        ToolCore toolItem = (ToolCore) tool.getItem();
+        if (!validType(toolItem))
+            return false;
+
         NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
         if (!tags.hasKey(key))
             return tags.getInteger("Modifiers") > 0;
 
         int keyPair[] = tags.getIntArray(key);
-        if (keyPair[0] + increase <= keyPair[1])
+        if (keyPair[0] + matchingAmount(input) <= keyPair[1])
             return true;
 
         else if (keyPair[0] == keyPair[1])
@@ -41,11 +45,11 @@ public class ModSmite extends ToolMod
     public void modify (ItemStack[] input, ItemStack tool)
     {
         NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
+        int increase = matchingAmount(input);
         if (tags.hasKey(key))
         {
             int[] keyPair = tags.getIntArray(key);
-
-            if (keyPair[0] % max == 0)
+            if (keyPair[0] == max)
             {
                 keyPair[0] += increase;
                 keyPair[1] += max;
@@ -61,25 +65,35 @@ public class ModSmite extends ToolMod
                 tags.setIntArray(key, keyPair);
             }
             updateModTag(tool, keyPair);
-
         }
         else
         {
             int modifiers = tags.getInteger("Modifiers");
             modifiers -= 1;
             tags.setInteger("Modifiers", modifiers);
-            String modName = "\u00a7e" + tagName + " (" + increase + "/" + max + ")";
+            String modName = "\u00a76Blaze (" + increase + "/" + max + ")";
             int tooltipIndex = addToolTip(tool, tooltipName, modName);
             int[] keyPair = new int[] { increase, max, tooltipIndex };
             tags.setIntArray(key, keyPair);
         }
+
+        int fiery = tags.getInteger("Fiery");
+        fiery += (increase);
+        tags.setInteger("Fiery", fiery);
+
     }
 
     void updateModTag (ItemStack tool, int[] keys)
     {
         NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
         String tip = "ModifierTip" + keys[2];
-        String modName = "\u00a7e" + tagName + " (" + keys[0] + "/" + keys[1] + ")";
+        String modName = "\u00a76Blaze (" + keys[0] + "/" + keys[1] + ")";
         tags.setString(tip, modName);
+    }
+
+    public boolean validType (ToolCore tool)
+    {
+        List list = Arrays.asList(tool.toolCategories());
+        return list.contains("melee") || list.contains("ammo");
     }
 }

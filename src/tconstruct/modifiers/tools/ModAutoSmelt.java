@@ -1,4 +1,4 @@
-package tconstruct.modifiers;
+package tconstruct.modifiers.tools;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;

@@ -82,13 +82,14 @@ public class CraftingStationBlock extends InventoryBlock
     @Override
     public TileEntity createTileEntity (World world, int metadata)
     {
-        switch (metadata)
+        return new CraftingStationLogic();
+        /*switch (metadata)
         {
         case 0:
             return new CraftingStationLogic();
         default:
             return null;
-        }
+        }*/
     }
 
     @Override

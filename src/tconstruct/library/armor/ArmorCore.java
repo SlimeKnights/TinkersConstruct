@@ -2,11 +2,16 @@ package tconstruct.library.armor;
 
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.dispenser.IBehaviorDispenseItem;
-import net.minecraft.entity.*;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.*;
+import net.minecraft.item.EnumArmorMaterial;
+import net.minecraft.item.ItemArmor;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ISpecialArmor;
 
@@ -50,6 +55,11 @@ public abstract class ArmorCore extends ItemArmor implements ISpecialArmor
     @Override
     public ArmorProperties getProperties (EntityLivingBase player, ItemStack armor, DamageSource source, double damage, int slot)
     {
+        if (player.worldObj.isRemote)
+        {
+            return new ArmorProperties(0, 0, baseProtection);
+        }
+        
         NBTTagCompound tags = armor.getTagCompound();
 
         if (tags == null)
@@ -58,15 +68,28 @@ public abstract class ArmorCore extends ItemArmor implements ISpecialArmor
         }
 
         NBTTagCompound data = tags.getCompoundTag(SET_NAME);
-
-        return new ArmorProperties(0, data.getInteger("damageReduction") / damage, data.getInteger("maxAbsorb"));
+        double amount = (data.getInteger("defense") / damage) + (data.getDouble("protection") / 100);
+        if (source.isUnblockable())
+            amount = 0;
+        clamp_double(amount, 0, 1);
+        return new ArmorProperties(0, amount, 100);
+    }
+    
+    public static double clamp_double (double par0, double par1, double par2)
+    {
+        return par0 < par1 ? par1 : (par0 > par2 ? par2 : par0);
     }
 
     @Override
     public int getArmorDisplay (EntityPlayer player, ItemStack armor, int slot)
     {
-        return armor.getTagCompound() != null && armor.getTagCompound().getCompoundTag(SET_NAME) != null ? armor.getTagCompound().getCompoundTag(SET_NAME).getInteger("maxAbsorb")
-                : this.baseProtection;
+        if (!armor.hasTagCompound())
+            return this.baseProtection;
+        NBTTagCompound armorTag = armor.getTagCompound().getCompoundTag(SET_NAME);
+        double amount = armorTag.getDouble("protection") / 4;
+        if (amount > 0 && amount < 1)
+            amount = 1;
+        return (int) (Math.floor(amount));
     }
 
     @Override
@@ -81,14 +104,13 @@ public abstract class ArmorCore extends ItemArmor implements ISpecialArmor
             stack.setTagCompound(tags);
             data = new NBTTagCompound();
             tags.setCompoundTag(SET_NAME, data);
-            data.setInteger("damageReduction", baseProtection);
-            data.setInteger("maxAbsorb", baseProtection);
+            data.setDouble("damageReduction", baseProtection);
         }
 
         data = tags.getCompoundTag(SET_NAME);
         int dmg = data.getInteger("Damage");
         dmg += damage;
-        data.setInteger("Damage", dmg);
+        data.setDouble("Damage", dmg);
     }
 
     // Vanilla overrides

@@ -1,42 +1,30 @@
-package tconstruct.modifiers;
-
-import java.util.Arrays;
-import java.util.List;
-
-import tconstruct.library.tools.ToolCore;
-import tconstruct.library.tools.ToolMod;
+package tconstruct.modifiers.tools;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
-public class ModAttack extends ToolMod
+public class ModSmite extends ToolModTypeFilter
 {
     String tooltipName;
-    int increase;
-    int max = 72;
-    String guiType;
+    int max = 36;
+    String tagName;
 
-    public ModAttack(String type, ItemStack[] items, int effect, int inc)
+    public ModSmite(String type, int effect, ItemStack[] items, int[] values)
     {
-        super(items, effect, "ModAttack");
-        tooltipName = "\u00a7fSharpness";
-        guiType = type;
-        increase = inc;
+        super(effect, "ModSmite", items, values);
+        tooltipName = "\u00a7eSmite";
+        tagName = type;
     }
 
     @Override
     protected boolean canModify (ItemStack tool, ItemStack[] input)
     {
-        ToolCore toolItem = (ToolCore) tool.getItem();
-        if (!validType(toolItem))
-            return false;
-
         NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
         if (!tags.hasKey(key))
             return tags.getInteger("Modifiers") > 0;
 
         int keyPair[] = tags.getIntArray(key);
-        if (keyPair[0] + increase <= keyPair[1])
+        if (keyPair[0] + matchingAmount(input) <= keyPair[1])
             return true;
 
         else if (keyPair[0] == keyPair[1])
@@ -50,22 +38,10 @@ public class ModAttack extends ToolMod
     public void modify (ItemStack[] input, ItemStack tool)
     {
         NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
+        int increase = matchingAmount(input);
         if (tags.hasKey(key))
         {
-            int amount = 24;
-            ToolCore toolItem = (ToolCore) tool.getItem();
-            if (toolItem.pierceArmor() || !nerfType(toolItem))
-                amount = 36;
-
             int[] keyPair = tags.getIntArray(key);
-
-            int leftToBoost = amount - (keyPair[0] % amount);
-            if (increase >= leftToBoost)
-            {
-                int attack = tags.getInteger("Attack");
-                attack += 1;
-                tags.setInteger("Attack", attack);
-            }
 
             if (keyPair[0] % max == 0)
             {
@@ -90,14 +66,10 @@ public class ModAttack extends ToolMod
             int modifiers = tags.getInteger("Modifiers");
             modifiers -= 1;
             tags.setInteger("Modifiers", modifiers);
-            String modName = "\u00a7f" + guiType + " (" + increase + "/" + max + ")";
+            String modName = "\u00a7e" + tagName + " (" + increase + "/" + max + ")";
             int tooltipIndex = addToolTip(tool, tooltipName, modName);
             int[] keyPair = new int[] { increase, max, tooltipIndex };
             tags.setIntArray(key, keyPair);
-
-            int attack = tags.getInteger("Attack");
-            attack += 1;
-            tags.setInteger("Attack", attack);
         }
     }
 
@@ -105,20 +77,7 @@ public class ModAttack extends ToolMod
     {
         NBTTagCompound tags = tool.getTagCompound().getCompoundTag("InfiTool");
         String tip = "ModifierTip" + keys[2];
-        String modName = "\u00a7f" + guiType + " (" + keys[0] + "/" + keys[1] + ")";
+        String modName = "\u00a7e" + tagName + " (" + keys[0] + "/" + keys[1] + ")";
         tags.setString(tip, modName);
-    }
-
-    public boolean validType (ToolCore tool)
-    {
-        return true;
-        /*List list = Arrays.asList(tool.toolCategories());
-        return list.contains("melee") || list.contains("harvest") || list.contains("ammo");*/
-    }
-
-    public boolean nerfType (ToolCore tool)
-    {
-        List list = Arrays.asList(tool.toolCategories());
-        return list.contains("throwing") || list.contains("ammo");
     }
 }

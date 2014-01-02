@@ -53,7 +53,7 @@ public class OreBerries extends CraftingItem
     {
         if (stack.getItemDamage() == 5)
         {
-            EntityXPOrb entity = new EntityXPOrb(world, player.posX, player.posY + 1, player.posZ, itemRand.nextInt(4) + 3);
+            EntityXPOrb entity = new EntityXPOrb(world, player.posX, player.posY + 1, player.posZ, itemRand.nextInt(14) + 6);
             spawnEntity(player.posX, player.posY + 1, player.posZ, entity, world, player);
             if (!player.capabilities.isCreativeMode)
                 stack.stackSize--;
