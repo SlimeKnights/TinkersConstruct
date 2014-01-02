@@ -65,6 +65,7 @@ public class PHConstruct
         stencilTableCrafting = config.get("Difficulty Changes", "Craft Stencil Tables", true).getBoolean(true);
         miningLevelIncrease = config.get("Difficulty Changes", "Modifiers increase Mining Level", true).getBoolean(true);
         denyMattock = config.get("Difficulty Changes", "Deny creation of non-metal mattocks", false).getBoolean(false);
+        craftEndstone = config.get("Difficulty Changes", "Allow creation of endstone", true).getBoolean(true);
 		
 		ingotsPerOre = config.get("Smeltery Output Modification", "Ingots per ore", 2, "Number of ingots returned from smelting ores in the smeltery").getInt(2);
 		ingotsBronzeAlloy = config.get("Smeltery Output Modification", "Bronze ingot return", 4, "Number of ingots returned from smelting Bronze in the smeltery").getInt(4);
@@ -697,6 +698,7 @@ public class PHConstruct
 	public static int ingotsAlumiteAlloy;
 	public static int ingotsManyullynAlloy;
     public static int ingotsPigironAlloy;
+    public static boolean craftEndstone;
 
     //Ultra Hardcore modifiers
     public static boolean enableHealthRegen;

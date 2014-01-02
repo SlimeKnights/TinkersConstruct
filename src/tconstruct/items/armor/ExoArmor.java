@@ -43,13 +43,6 @@ public class ExoArmor extends ArmorCore
         return "tinker:textures/armor/" + textureName + "_" + layer + ".png";
     }
     
-    /*public Multimap getItemAttributeModifiers ()
-    {
-        Multimap multimap = super.getItemAttributeModifiers();
-        multimap.put(SharedMonsterAttributes.movementSpeed.getAttributeUnlocalizedName(), new AttributeModifier(speed, "Exosuit speed", (double) 0.5, 0));
-        return multimap;
-    }*/
-    
     public void getSubItems (int par1, CreativeTabs par2CreativeTabs, List par3List)
     {
         ItemStack armor = new ItemStack(par1, 1, 0);
