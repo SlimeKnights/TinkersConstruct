@@ -31,14 +31,14 @@ public class BarricadeItem extends ItemBlock
 
     public boolean onItemUse (ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
     {
-        Block i1 = world.getBlock(x, y, z);
+        Block b = world.getBlock(x, y, z);
 
-        if (i1 == Blocks.snow && (world.getBlockMetadata(x, y, z) & 7) < 1)
+        if (b == Blocks.snow && (world.getBlockMetadata(x, y, z) & 7) < 1)
         {
             side = 1;
         }
-        else if (i1 != Blocks.vine && i1 != Blocks.tallgrass && i1 != Blocks.deadbush
-                && (Block.blocksList[i1] == null || !Block.blocksList[i1].isBlockReplaceable(world, x, y, z)))
+        else if (b != Blocks.vine && b != Blocks.tallgrass && b != Blocks.deadbush
+                && (b == null || !b.isBlockReplaceable(world, x, y, z)))
         {
             if (side == 0)
             {

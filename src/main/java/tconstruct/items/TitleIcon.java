@@ -9,6 +9,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingData;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Facing;
@@ -64,7 +65,7 @@ public class TitleIcon extends Item
         {
             return getIconFromDamage(par1);
         }
-        return Item.monsterPlacer.getIconFromDamageForRenderPass(par1, par2);
+        return Items.monsterPlacer.getIconFromDamageForRenderPass(par1, par2);
     }
 
     @SideOnly(Side.CLIENT)
@@ -118,13 +119,13 @@ public class TitleIcon extends Item
     {
         if (!world.isRemote)
         {
-            int i1 = world.getBlockId(posX, posY, posZ);
+            Block b = world.getBlock(posX, posY, posZ);
             posX += Facing.offsetsXForSide[par7];
             posY += Facing.offsetsYForSide[par7];
             posZ += Facing.offsetsZForSide[par7];
             double d0 = 0.0D;
 
-            if (par7 == 1 && Block.blocksList[i1] != null && Block.blocksList[i1].getRenderType() == 11)
+            if (par7 == 1 && b != null && b.getRenderType() == 11)
             {
                 d0 = 0.5D;
             }
@@ -149,13 +150,13 @@ public class TitleIcon extends Item
 
     public static EntityLiving activateSpawnEgg (ItemStack stack, World world, double posX, double posY, double posZ, int par7)
     {
-        int i1 = world.getBlockId((int) posX, (int) posY, (int) posZ);
+        Block b = world.getBlock((int) posX, (int) posY, (int) posZ);
         posX += Facing.offsetsXForSide[par7];
         posY += Facing.offsetsYForSide[par7];
         posZ += Facing.offsetsZForSide[par7];
         double d0 = 0.0D;
 
-        if (par7 == 1 && Block.blocksList[i1] != null && Block.blocksList[i1].getRenderType() == 11)
+        if (par7 == 1 && b != null && b.getRenderType() == 11)
         {
             d0 = 0.5D;
         }

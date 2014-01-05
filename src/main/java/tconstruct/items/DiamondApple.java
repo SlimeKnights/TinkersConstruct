@@ -34,22 +34,22 @@ public class DiamondApple extends ItemFood
 
             potion = player.getActivePotionEffect(Potion.resistance);
             if (potion != null)
-                duration = potion.duration;
+                duration = potion.getDuration();
             player.addPotionEffect(new PotionEffect(Potion.field_76444_x.id, duration + 60 * 40, 4));
 
             potion = player.getActivePotionEffect(Potion.resistance);
             if (potion != null)
-                duration = potion.duration;
+                duration = potion.getDuration();
             player.addPotionEffect(new PotionEffect(Potion.resistance.id, duration + 60 * 20, 0));
 
             potion = player.getActivePotionEffect(Potion.digSpeed);
             if (potion != null)
-                duration = potion.duration;
+                duration = potion.getDuration();
             player.addPotionEffect(new PotionEffect(Potion.digSpeed.id, duration + 60 * 20, 0));
 
             potion = player.getActivePotionEffect(Potion.damageBoost);
             if (potion != null)
-                duration = potion.duration;
+                duration = potion.getDuration();
             player.addPotionEffect(new PotionEffect(Potion.damageBoost.id, duration + 60 * 20, 0));
         }
     }

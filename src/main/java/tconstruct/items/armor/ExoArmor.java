@@ -24,9 +24,9 @@ public class ExoArmor extends ArmorCore
     protected static final UUID attack = UUID.fromString("CB3F55A9-629C-4F38-A497-9C13A33DB5CE");
     protected static final UUID health = UUID.fromString("CB3F55A9-629C-4F38-A497-9C13A33DB5CD");
     protected static final UUID knockback = UUID.fromString("CB3F55A9-629C-4F38-A497-9C13A33DB5CC");
-    public ExoArmor(int id, EnumArmorPart part, String texture)
+    public ExoArmor(EnumArmorPart part, String texture)
     {
-        super(id, 0, part);
+        super(0, part);
         this.textureName = texture;
         this.setCreativeTab(TConstructRegistry.materialTab);
     }
