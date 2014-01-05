@@ -22,7 +22,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 public class TankAirBlock extends BlockContainer
 {
 
-    public TankAirBlock(int id, Material material)
+    public TankAirBlock(Material material)
     {
         super(material);
     }

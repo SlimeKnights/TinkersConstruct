@@ -90,59 +90,59 @@ public class TContent implements IFuelHandler
     void registerBlocks ()
     {
         //Tool Station
-        TRepo.toolStationWood = new ToolStationBlock(PHConstruct.woodStation, Material.wood).setUnlocalizedName("ToolStation");
-        TRepo.toolForge = new ToolForgeBlock(PHConstruct.toolForge, Material.iron).setUnlocalizedName("ToolForge");
-        TRepo.craftingStationWood = new CraftingStationBlock(PHConstruct.woodCrafter, Material.wood).setUnlocalizedName("CraftingStation");
-        TRepo.craftingSlabWood = new CraftingSlab(PHConstruct.woodCrafterSlab, Material.wood).setUnlocalizedName("CraftingSlab");
-        TRepo.furnaceSlab = new FurnaceSlab(PHConstruct.furnaceSlab, Material.rock).setUnlocalizedName("FurnaceSlab");
+        TRepo.toolStationWood = new ToolStationBlock(PHConstruct.woodStation, Material.field_151575_d).func_149663_c("ToolStation");
+        TRepo.toolForge = new ToolForgeBlock(Material.field_151573_f).func_149663_c("ToolForge");
+        TRepo.craftingStationWood = new CraftingStationBlock(PHConstruct.woodCrafter, Material.field_151575_d).func_149663_c("CraftingStation");
+        TRepo.craftingSlabWood = new CraftingSlab(Material.field_151575_d).func_149663_c("CraftingSlab");
+        TRepo.furnaceSlab = new FurnaceSlab(Material.field_151576_e).func_149663_c("FurnaceSlab");
 
-        TRepo.heldItemBlock = new EquipBlock(PHConstruct.heldItemBlock, Material.wood).setUnlocalizedName("Frypan");
+        TRepo.heldItemBlock = new EquipBlock(Material.field_151575_d).func_149663_c("Frypan");
 
-        TRepo.craftedSoil = new SoilBlock(PHConstruct.craftedSoil).setLightOpacity(0).setUnlocalizedName("TConstruct.Soil");
-        TRepo.craftedSoil.stepSound = Block.soundGravelFootstep;
+        TRepo.craftedSoil = new SoilBlock().setLightOpacity(0).func_149663_c("TConstruct.Soil");
+        TRepo.craftedSoil.field_149762_H = Block.soundGravelFootstep;
 
-        TRepo.searedSlab = new SearedSlab(PHConstruct.searedSlab).setUnlocalizedName("SearedSlab");
-        TRepo.searedSlab.stepSound = Block.soundStoneFootstep;
+        TRepo.searedSlab = new SearedSlab().func_149663_c("SearedSlab");
+        TRepo.searedSlab.field_149762_H = Block.soundStoneFootstep;
 
-        TRepo.speedSlab = new SpeedSlab(PHConstruct.speedSlab).setUnlocalizedName("SpeedSlab");
-        TRepo.speedSlab.stepSound = Block.soundStoneFootstep;
+        TRepo.speedSlab = new SpeedSlab().func_149663_c("SpeedSlab");
+        TRepo.speedSlab.field_149762_H = Block.soundStoneFootstep;
 
-        TRepo.metalBlock = new TMetalBlock(PHConstruct.metalBlock, Material.iron, 10.0F).setUnlocalizedName("tconstruct.metalblock");
-        TRepo.metalBlock.stepSound = Block.soundMetalFootstep;
+        TRepo.metalBlock = new TMetalBlock(Material.field_151573_f, 10.0F).func_149663_c("tconstruct.metalblock");
+        TRepo.metalBlock.field_149762_H = Block.soundMetalFootstep;
 
-        TRepo.meatBlock = new MeatBlock(PHConstruct.meatBlock).setUnlocalizedName("tconstruct.meatblock");
-        TRepo.glueBlock = new GlueBlock(PHConstruct.glueBlock).setUnlocalizedName("GlueBlock").setCreativeTab(TConstructRegistry.blockTab);
+        TRepo.meatBlock = new MeatBlock().func_149663_c("tconstruct.meatblock");
+        TRepo.glueBlock = new GlueBlock().func_149663_c("GlueBlock").setCreativeTab(TConstructRegistry.blockTab);
 
-        TRepo.woolSlab1 = new SlabBase(PHConstruct.woolSlab1, Material.cloth, Blocks.wool, 0, 8).setUnlocalizedName("cloth");
+        TRepo.woolSlab1 = new SlabBase(Material.cloth, Blocks.wool, 0, 8).func_149663_c("cloth");
         TRepo.woolSlab1.setStepSound(Block.soundClothFootstep).setCreativeTab(CreativeTabs.tabDecorations);
-        TRepo.woolSlab2 = new SlabBase(PHConstruct.woolSlab2, Material.cloth, Blocks.wool, 8, 8).setUnlocalizedName("cloth");
+        TRepo.woolSlab2 = new SlabBase(Material.cloth, Blocks.wool, 8, 8).func_149663_c("cloth");
         TRepo.woolSlab2.setStepSound(Block.soundClothFootstep).setCreativeTab(CreativeTabs.tabDecorations);
 
         //Smeltery
-        TRepo.smeltery = new SmelteryBlock(PHConstruct.smeltery).setUnlocalizedName("Smeltery");
-        TRepo.smelteryNether = new SmelteryBlock(PHConstruct.smelteryNether, "nether").setUnlocalizedName("Smeltery");
-        TRepo.lavaTank = new LavaTankBlock(PHConstruct.lavaTank).setUnlocalizedName("LavaTank");
+        TRepo.smeltery = new SmelteryBlock().func_149663_c("Smeltery");
+        TRepo.smelteryNether = new SmelteryBlock("nether").func_149663_c("Smeltery");
+        TRepo.lavaTank = new LavaTankBlock().func_149663_c("LavaTank");
         TRepo.lavaTank.setStepSound(Block.soundGlassFootstep);
-        TRepo.lavaTankNether = new LavaTankBlock(PHConstruct.lavaTankNether, "nether").setStepSound(Block.soundGlassFootstep).setUnlocalizedName("LavaTank");
+        TRepo.lavaTankNether = new LavaTankBlock("nether").setStepSound(Block.soundGlassFootstep).func_149663_c("LavaTank");
 
-        TRepo.searedBlock = new SearedBlock(PHConstruct.searedTable).setUnlocalizedName("SearedBlock");
-        TRepo.searedBlockNether = new SearedBlock(PHConstruct.searedTableNether, "nether").setUnlocalizedName("SearedBlock");
+        TRepo.searedBlock = new SearedBlock().func_149663_c("SearedBlock");
+        TRepo.searedBlockNether = new SearedBlock("nether").func_149663_c("SearedBlock");
 
-        TRepo.castingChannel = (new CastingChannelBlock(PHConstruct.castingChannel)).setUnlocalizedName("CastingChannel");
+        TRepo.castingChannel = (new CastingChannelBlock(PHConstruct.castingChannel)).func_149663_c("CastingChannel");
 
-        TRepo.tankAir = new TankAirBlock(PHConstruct.airTank, Material.leaves).setBlockUnbreakable().setUnlocalizedName("tconstruct.tank.air");
+        TRepo.tankAir = new TankAirBlock(Material.field_151584_j).setBlockUnbreakable().func_149663_c("tconstruct.tank.air");
 
         //Traps
-        TRepo.landmine = new BlockLandmine(PHConstruct.landmine).setHardness(0.5F).setResistance(0F).setStepSound(Block.soundMetalFootstep).setCreativeTab(CreativeTabs.tabRedstone)
-                .setUnlocalizedName("landmine");
-        TRepo.punji = new Punji(PHConstruct.punji).setUnlocalizedName("trap.punji");
-        TRepo.barricadeOak = new BarricadeBlock(PHConstruct.barricadeOak, Blocks.log, 0).setUnlocalizedName("trap.barricade.oak");
-        TRepo.barricadeSpruce = new BarricadeBlock(PHConstruct.barricadeSpruce, Blocks.log, 1).setUnlocalizedName("trap.barricade.spruce");
-        TRepo.barricadeBirch = new BarricadeBlock(PHConstruct.barricadeBirch, Blocks.log, 2).setUnlocalizedName("trap.barricade.birch");
-        TRepo.barricadeJungle = new BarricadeBlock(PHConstruct.barricadeJungle, Blocks.log, 3).setUnlocalizedName("trap.barricade.jungle");
-        TRepo.slimeExplosive = new SlimeExplosive(PHConstruct.slimeExplosive).setHardness(0.0F).setStepSound(Block.soundGrassFootstep).setUnlocalizedName("explosive.slime");
+        TRepo.landmine = new BlockLandmine().setHardness(0.5F).setResistance(0F).setStepSound(Block.soundMetalFootstep).setCreativeTab(CreativeTabs.tabRedstone)
+                .func_149663_c("landmine");
+        TRepo.punji = new Punji().func_149663_c("trap.punji");
+        TRepo.barricadeOak = new BarricadeBlock(Blocks.log, 0).func_149663_c("trap.barricade.oak");
+        TRepo.barricadeSpruce = new BarricadeBlock(Blocks.log, 1).func_149663_c("trap.barricade.spruce");
+        TRepo.barricadeBirch = new BarricadeBlock(Blocks.log, 2).func_149663_c("trap.barricade.birch");
+        TRepo.barricadeJungle = new BarricadeBlock(Blocks.log, 3).func_149663_c("trap.barricade.jungle");
+        TRepo.slimeExplosive = new SlimeExplosive().setHardness(0.0F).setStepSound(Block.soundGrassFootstep).func_149663_c("explosive.slime");
 
-        TRepo.dryingRack = new DryingRack(PHConstruct.dryingRack).setUnlocalizedName("Armor.DryingRack");
+        TRepo.dryingRack = new DryingRack().func_149663_c("Armor.DryingRack");
 
         //Liquids
         TRepo.liquidMetal = new MaterialLiquid(MapColor.tntColor);
@@ -150,7 +150,7 @@ public class TContent implements IFuelHandler
         TRepo.moltenIronFluid = new Fluid("iron.molten");
         if (!FluidRegistry.registerFluid(TRepo.moltenIronFluid))
             TRepo.moltenIronFluid = FluidRegistry.getFluid("iron.molten");
-        TRepo.moltenIron = new TConstructFluid(PHConstruct.moltenIron, TRepo.moltenIronFluid, Material.lava, "liquid_iron").setUnlocalizedName("fluid.molten.iron");
+        TRepo.moltenIron = new TConstructFluid(PHConstruct.moltenIron, TRepo.moltenIronFluid, Material.lava, "liquid_iron").func_149663_c("fluid.molten.iron");
         GameRegistry.registerBlock(TRepo.moltenIron, "fluid.molten.iron");
         TRepo.moltenIronFluid.setBlockID(TRepo.moltenIron).setLuminosity(12).setDensity(3000).setViscosity(6000).setTemperature(1300);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TRepo.moltenIronFluid, 1000), new ItemStack(TRepo.buckets, 1, 0), new ItemStack(Items.bucket)));
@@ -158,7 +158,7 @@ public class TContent implements IFuelHandler
         TRepo.moltenGoldFluid = new Fluid("gold.molten");
         if (!FluidRegistry.registerFluid(TRepo.moltenGoldFluid))
             TRepo.moltenGoldFluid = FluidRegistry.getFluid("gold.molten");
-        TRepo.moltenGold = new TConstructFluid(PHConstruct.moltenGold, TRepo.moltenGoldFluid, Material.lava, "liquid_gold").setUnlocalizedName("fluid.molten.gold");
+        TRepo.moltenGold = new TConstructFluid(PHConstruct.moltenGold, TRepo.moltenGoldFluid, Material.lava, "liquid_gold").func_149663_c("fluid.molten.gold");
         GameRegistry.registerBlock(TRepo.moltenGold, "fluid.molten.gold");
         TRepo.moltenGoldFluid.setBlockID(TRepo.moltenGold).setLuminosity(12).setDensity(3000).setViscosity(6000).setTemperature(1300);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TRepo.moltenGoldFluid, 1000), new ItemStack(TRepo.buckets, 1, 1), new ItemStack(Items.bucket)));
@@ -166,7 +166,7 @@ public class TContent implements IFuelHandler
         TRepo.moltenCopperFluid = new Fluid("copper.molten");
         if (!FluidRegistry.registerFluid(TRepo.moltenCopperFluid))
             TRepo.moltenCopperFluid = FluidRegistry.getFluid("copper.molten");
-        TRepo.moltenCopper = new TConstructFluid(PHConstruct.moltenCopper, TRepo.moltenCopperFluid, Material.lava, "liquid_copper").setUnlocalizedName("fluid.molten.copper");
+        TRepo.moltenCopper = new TConstructFluid(PHConstruct.moltenCopper, TRepo.moltenCopperFluid, Material.lava, "liquid_copper").func_149663_c("fluid.molten.copper");
         GameRegistry.registerBlock(TRepo.moltenCopper, "fluid.molten.copper");
         TRepo.moltenCopperFluid.setBlockID(TRepo.moltenCopper).setLuminosity(12).setDensity(3000).setViscosity(6000).setTemperature(1300);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TRepo.moltenCopperFluid, 1000), new ItemStack(TRepo.buckets, 1, 2), new ItemStack(Items.bucket)));
@@ -174,7 +174,7 @@ public class TContent implements IFuelHandler
         TRepo.moltenTinFluid = new Fluid("tin.molten");
         if (!FluidRegistry.registerFluid(TRepo.moltenTinFluid))
             TRepo.moltenTinFluid = FluidRegistry.getFluid("tin.molten");
-        TRepo.moltenTin = new TConstructFluid(PHConstruct.moltenTin, TRepo.moltenTinFluid, Material.lava, "liquid_tin").setUnlocalizedName("fluid.molten.tin");
+        TRepo.moltenTin = new TConstructFluid(PHConstruct.moltenTin, TRepo.moltenTinFluid, Material.lava, "liquid_tin").func_149663_c("fluid.molten.tin");
         GameRegistry.registerBlock(TRepo.moltenTin, "fluid.molten.tin");
         TRepo.moltenTinFluid.setBlockID(TRepo.moltenTin).setLuminosity(12).setDensity(3000).setViscosity(6000).setTemperature(1300);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TRepo.moltenTinFluid, 1000), new ItemStack(TRepo.buckets, 1, 3), new ItemStack(Item.bucketEmpty)));
@@ -182,7 +182,7 @@ public class TContent implements IFuelHandler
         TRepo.moltenAluminumFluid = new Fluid("aluminum.molten");
         if (!FluidRegistry.registerFluid(TRepo.moltenAluminumFluid))
             TRepo.moltenAluminumFluid = FluidRegistry.getFluid("aluminum.molten");
-        TRepo.moltenAluminum = new TConstructFluid(PHConstruct.moltenAluminum, TRepo.moltenAluminumFluid, Material.lava, "liquid_aluminum").setUnlocalizedName("fluid.molten.aluminum");
+        TRepo.moltenAluminum = new TConstructFluid(PHConstruct.moltenAluminum, TRepo.moltenAluminumFluid, Material.lava, "liquid_aluminum").func_149663_c("fluid.molten.aluminum");
         GameRegistry.registerBlock(TRepo.moltenAluminum, "fluid.molten.aluminum");
         TRepo.moltenAluminumFluid.setBlockID(TRepo.moltenAluminum).setLuminosity(12).setDensity(3000).setViscosity(6000).setTemperature(1300);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TRepo.moltenAluminumFluid, 1000), new ItemStack(TRepo.buckets, 1, 4), new ItemStack(Item.bucketEmpty)));
@@ -190,7 +190,7 @@ public class TContent implements IFuelHandler
         TRepo.moltenCobaltFluid = new Fluid("cobalt.molten");
         if (!FluidRegistry.registerFluid(TRepo.moltenCobaltFluid))
             TRepo.moltenCobaltFluid = FluidRegistry.getFluid("cobalt.molten");
-        TRepo.moltenCobalt = new TConstructFluid(PHConstruct.moltenCobalt, TRepo.moltenCobaltFluid, Material.lava, "liquid_cobalt").setUnlocalizedName("fluid.molten.cobalt");
+        TRepo.moltenCobalt = new TConstructFluid(PHConstruct.moltenCobalt, TRepo.moltenCobaltFluid, Material.lava, "liquid_cobalt").func_149663_c("fluid.molten.cobalt");
         GameRegistry.registerBlock(TRepo.moltenCobalt, "fluid.molten.cobalt");
         TRepo.moltenCobaltFluid.setBlockID(TRepo.moltenCobalt).setLuminosity(12).setDensity(3000).setViscosity(6000).setTemperature(1300);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TRepo.moltenCobaltFluid, 1000), new ItemStack(TRepo.buckets, 1, 5), new ItemStack(Item.bucketEmpty)));
@@ -198,7 +198,7 @@ public class TContent implements IFuelHandler
         TRepo.moltenArditeFluid = new Fluid("ardite.molten");
         if (!FluidRegistry.registerFluid(TRepo.moltenArditeFluid))
             TRepo.moltenArditeFluid = FluidRegistry.getFluid("ardite.molten");
-        TRepo.moltenArdite = new TConstructFluid(PHConstruct.moltenArdite, TRepo.moltenArditeFluid, Material.lava, "liquid_ardite").setUnlocalizedName("fluid.molten.ardite");
+        TRepo.moltenArdite = new TConstructFluid(PHConstruct.moltenArdite, TRepo.moltenArditeFluid, Material.lava, "liquid_ardite").func_149663_c("fluid.molten.ardite");
         GameRegistry.registerBlock(TRepo.moltenArdite, "fluid.molten.ardite");
         TRepo.moltenArditeFluid.setBlockID(TRepo.moltenArdite).setLuminosity(12).setDensity(3000).setViscosity(6000).setTemperature(1300);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TRepo.moltenArditeFluid, 1000), new ItemStack(TRepo.buckets, 1, 6), new ItemStack(Item.bucketEmpty)));
@@ -206,7 +206,7 @@ public class TContent implements IFuelHandler
         TRepo.moltenBronzeFluid = new Fluid("bronze.molten");
         if (!FluidRegistry.registerFluid(TRepo.moltenBronzeFluid))
             TRepo.moltenBronzeFluid = FluidRegistry.getFluid("bronze.molten");
-        TRepo.moltenBronze = new TConstructFluid(PHConstruct.moltenBronze, TRepo.moltenBronzeFluid, Material.lava, "liquid_bronze").setUnlocalizedName("fluid.molten.bronze");
+        TRepo.moltenBronze = new TConstructFluid(PHConstruct.moltenBronze, TRepo.moltenBronzeFluid, Material.lava, "liquid_bronze").func_149663_c("fluid.molten.bronze");
         GameRegistry.registerBlock(TRepo.moltenBronze, "fluid.molten.bronze");
         TRepo.moltenBronzeFluid.setBlockID(TRepo.moltenBronze).setLuminosity(12).setDensity(3000).setViscosity(6000).setTemperature(1300);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TRepo.moltenBronzeFluid, 1000), new ItemStack(TRepo.buckets, 1, 7), new ItemStack(Item.bucketEmpty)));
@@ -214,7 +214,7 @@ public class TContent implements IFuelHandler
         TRepo.moltenAlubrassFluid = new Fluid("aluminumbrass.molten");
         if (!FluidRegistry.registerFluid(TRepo.moltenAlubrassFluid))
             TRepo.moltenAlubrassFluid = FluidRegistry.getFluid("aluminumbrass.molten");
-        TRepo.moltenAlubrass = new TConstructFluid(PHConstruct.moltenAlubrass, TRepo.moltenAlubrassFluid, Material.lava, "liquid_alubrass").setUnlocalizedName("fluid.molten.alubrass");
+        TRepo.moltenAlubrass = new TConstructFluid(PHConstruct.moltenAlubrass, TRepo.moltenAlubrassFluid, Material.lava, "liquid_alubrass").func_149663_c("fluid.molten.alubrass");
         GameRegistry.registerBlock(TRepo.moltenAlubrass, "fluid.molten.alubrass");
         TRepo.moltenAlubrassFluid.setBlockID(TRepo.moltenAlubrass).setLuminosity(12).setDensity(3000).setViscosity(6000).setTemperature(1300);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TRepo.moltenAlubrassFluid, 1000), new ItemStack(TRepo.buckets, 1, 8), new ItemStack(Item.bucketEmpty)));
@@ -222,7 +222,7 @@ public class TContent implements IFuelHandler
         TRepo.moltenManyullynFluid = new Fluid("manyullyn.molten");
         if (!FluidRegistry.registerFluid(TRepo.moltenManyullynFluid))
             TRepo.moltenManyullynFluid = FluidRegistry.getFluid("manyullyn.molten");
-        TRepo.moltenManyullyn = new TConstructFluid(PHConstruct.moltenManyullyn, TRepo.moltenManyullynFluid, Material.lava, "liquid_manyullyn").setUnlocalizedName("fluid.molten.manyullyn");
+        TRepo.moltenManyullyn = new TConstructFluid(PHConstruct.moltenManyullyn, TRepo.moltenManyullynFluid, Material.lava, "liquid_manyullyn").func_149663_c("fluid.molten.manyullyn");
         GameRegistry.registerBlock(TRepo.moltenManyullyn, "fluid.molten.manyullyn");
         TRepo.moltenManyullynFluid.setBlockID(TRepo.moltenManyullyn).setLuminosity(12).setDensity(3000).setViscosity(6000).setTemperature(1300);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TRepo.moltenManyullynFluid, 1000), new ItemStack(TRepo.buckets, 1, 9), new ItemStack(Item.bucketEmpty)));
@@ -230,7 +230,7 @@ public class TContent implements IFuelHandler
         TRepo.moltenAlumiteFluid = new Fluid("alumite.molten");
         if (!FluidRegistry.registerFluid(TRepo.moltenAlumiteFluid))
             TRepo.moltenAlumiteFluid = FluidRegistry.getFluid("alumite.molten");
-        TRepo.moltenAlumite = new TConstructFluid(PHConstruct.moltenAlumite, TRepo.moltenAlumiteFluid, Material.lava, "liquid_alumite").setUnlocalizedName("fluid.molten.alumite");
+        TRepo.moltenAlumite = new TConstructFluid(PHConstruct.moltenAlumite, TRepo.moltenAlumiteFluid, Material.lava, "liquid_alumite").func_149663_c("fluid.molten.alumite");
         GameRegistry.registerBlock(TRepo.moltenAlumite, "fluid.molten.alumite");
         TRepo.moltenAlumiteFluid.setBlockID(TRepo.moltenAlumite).setLuminosity(12).setDensity(3000).setViscosity(6000).setTemperature(1300);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TRepo.moltenAlumiteFluid, 1000), new ItemStack(TRepo.buckets, 1, 10), new ItemStack(Item.bucketEmpty)));
@@ -238,7 +238,7 @@ public class TContent implements IFuelHandler
         TRepo.moltenObsidianFluid = new Fluid("obsidian.molten");
         if (!FluidRegistry.registerFluid(TRepo.moltenObsidianFluid))
             TRepo.moltenObsidianFluid = FluidRegistry.getFluid("obsidian.molten");
-        TRepo.moltenObsidian = new TConstructFluid(PHConstruct.moltenObsidian, TRepo.moltenObsidianFluid, Material.lava, "liquid_obsidian").setUnlocalizedName("fluid.molten.obsidian");
+        TRepo.moltenObsidian = new TConstructFluid(PHConstruct.moltenObsidian, TRepo.moltenObsidianFluid, Material.lava, "liquid_obsidian").func_149663_c("fluid.molten.obsidian");
         GameRegistry.registerBlock(TRepo.moltenObsidian, "fluid.molten.obsidian");
         TRepo.moltenObsidianFluid.setBlockID(TRepo.moltenObsidian).setLuminosity(12).setDensity(3000).setViscosity(6000).setTemperature(1300);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TRepo.moltenObsidianFluid, 1000), new ItemStack(TRepo.buckets, 1, 11), new ItemStack(Item.bucketEmpty)));
@@ -246,7 +246,7 @@ public class TContent implements IFuelHandler
         TRepo.moltenSteelFluid = new Fluid("steel.molten");
         if (!FluidRegistry.registerFluid(TRepo.moltenSteelFluid))
             TRepo.moltenSteelFluid = FluidRegistry.getFluid("steel.molten");
-        TRepo.moltenSteel = new TConstructFluid(PHConstruct.moltenSteel, TRepo.moltenSteelFluid, Material.lava, "liquid_steel").setUnlocalizedName("fluid.molten.steel");
+        TRepo.moltenSteel = new TConstructFluid(PHConstruct.moltenSteel, TRepo.moltenSteelFluid, Material.lava, "liquid_steel").func_149663_c("fluid.molten.steel");
         GameRegistry.registerBlock(TRepo.moltenSteel, "fluid.molten.steel");
         TRepo.moltenSteelFluid.setBlockID(TRepo.moltenSteel).setLuminosity(12).setDensity(3000).setViscosity(6000).setTemperature(1300);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TRepo.moltenSteelFluid, 1000), new ItemStack(TRepo.buckets, 1, 12), new ItemStack(Item.bucketEmpty)));
@@ -254,7 +254,7 @@ public class TContent implements IFuelHandler
         TRepo.moltenGlassFluid = new Fluid("glass.molten");
         if (!FluidRegistry.registerFluid(TRepo.moltenGlassFluid))
             TRepo.moltenGlassFluid = FluidRegistry.getFluid("glass.molten");
-        TRepo.moltenGlass = new TConstructFluid(PHConstruct.moltenGlass, TRepo.moltenGlassFluid, Material.lava, "liquid_glass", true).setUnlocalizedName("fluid.molten.glass");
+        TRepo.moltenGlass = new TConstructFluid(PHConstruct.moltenGlass, TRepo.moltenGlassFluid, Material.lava, "liquid_glass", true).func_149663_c("fluid.molten.glass");
         GameRegistry.registerBlock(TRepo.moltenGlass, "fluid.molten.glass");
         TRepo.moltenGlassFluid.setBlockID(TRepo.moltenGlass).setLuminosity(12).setDensity(3000).setViscosity(6000).setTemperature(1300);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TRepo.moltenGlassFluid, 1000), new ItemStack(TRepo.buckets, 1, 13), new ItemStack(Item.bucketEmpty)));
@@ -262,7 +262,7 @@ public class TContent implements IFuelHandler
         TRepo.moltenStoneFluid = new Fluid("stone.seared");
         if (!FluidRegistry.registerFluid(TRepo.moltenStoneFluid))
             TRepo.moltenStoneFluid = FluidRegistry.getFluid("stone.seared");
-        TRepo.moltenStone = new TConstructFluid(PHConstruct.moltenStone, TRepo.moltenStoneFluid, Material.lava, "liquid_stone").setUnlocalizedName("molten.stone");
+        TRepo.moltenStone = new TConstructFluid(PHConstruct.moltenStone, TRepo.moltenStoneFluid, Material.lava, "liquid_stone").func_149663_c("molten.stone");
         GameRegistry.registerBlock(TRepo.moltenStone, "molten.stone");
         TRepo.moltenStoneFluid.setBlockID(TRepo.moltenStone).setLuminosity(12).setDensity(3000).setViscosity(6000).setTemperature(1300);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TRepo.moltenStoneFluid, 1000), new ItemStack(TRepo.buckets, 1, 14), new ItemStack(Item.bucketEmpty)));
@@ -270,7 +270,7 @@ public class TContent implements IFuelHandler
         TRepo.moltenEmeraldFluid = new Fluid("emerald.liquid");
         if (!FluidRegistry.registerFluid(TRepo.moltenEmeraldFluid))
             TRepo.moltenEmeraldFluid = FluidRegistry.getFluid("emerald.liquid");
-        TRepo.moltenEmerald = new TConstructFluid(PHConstruct.moltenEmerald, TRepo.moltenEmeraldFluid, Material.water, "liquid_villager").setUnlocalizedName("molten.emerald");
+        TRepo.moltenEmerald = new TConstructFluid(PHConstruct.moltenEmerald, TRepo.moltenEmeraldFluid, Material.water, "liquid_villager").func_149663_c("molten.emerald");
         GameRegistry.registerBlock(TRepo.moltenEmerald, "molten.emerald");
         TRepo.moltenEmeraldFluid.setBlockID(TRepo.moltenEmerald).setDensity(3000).setViscosity(6000).setTemperature(1300);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TRepo.moltenEmeraldFluid, 1000), new ItemStack(TRepo.buckets, 1, 15), new ItemStack(Item.bucketEmpty)));
@@ -278,7 +278,7 @@ public class TContent implements IFuelHandler
         TRepo.bloodFluid = new Fluid("blood");
         if (!FluidRegistry.registerFluid(TRepo.bloodFluid))
             TRepo.bloodFluid = FluidRegistry.getFluid("blood");
-        TRepo.blood = new BloodBlock(PHConstruct.blood, TRepo.bloodFluid, Material.water, "liquid_cow").setUnlocalizedName("liquid.blood");
+        TRepo.blood = new BloodBlock(PHConstruct.blood, TRepo.bloodFluid, Material.water, "liquid_cow").func_149663_c("liquid.blood");
         GameRegistry.registerBlock(TRepo.blood, "liquid.blood");
         TRepo.bloodFluid.setBlockID(TRepo.blood).setDensity(3000).setViscosity(6000).setTemperature(1300);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TRepo.bloodFluid, 1000), new ItemStack(TRepo.buckets, 1, 16), new ItemStack(Item.bucketEmpty)));
@@ -286,7 +286,7 @@ public class TContent implements IFuelHandler
         TRepo.moltenNickelFluid = new Fluid("nickel.molten");
         if (!FluidRegistry.registerFluid(TRepo.moltenNickelFluid))
             TRepo.moltenNickelFluid = FluidRegistry.getFluid("nickel.molten");
-        TRepo.moltenNickel = new TConstructFluid(PHConstruct.moltenNickel, TRepo.moltenNickelFluid, Material.lava, "liquid_ferrous").setUnlocalizedName("fluid.molten.nickel");
+        TRepo.moltenNickel = new TConstructFluid(PHConstruct.moltenNickel, TRepo.moltenNickelFluid, Material.lava, "liquid_ferrous").func_149663_c("fluid.molten.nickel");
         GameRegistry.registerBlock(TRepo.moltenNickel, "fluid.molten.nickel");
         TRepo.moltenNickelFluid.setBlockID(TRepo.moltenNickel).setDensity(3000).setViscosity(6000).setTemperature(1300);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TRepo.moltenNickelFluid, 1000), new ItemStack(TRepo.buckets, 1, 17), new ItemStack(Item.bucketEmpty)));
@@ -294,7 +294,7 @@ public class TContent implements IFuelHandler
         TRepo.moltenLeadFluid = new Fluid("lead.molten");
         if (!FluidRegistry.registerFluid(TRepo.moltenLeadFluid))
             TRepo.moltenLeadFluid = FluidRegistry.getFluid("lead.molten");
-        TRepo.moltenLead = new TConstructFluid(PHConstruct.moltenLead, TRepo.moltenLeadFluid, Material.lava, "liquid_lead").setUnlocalizedName("fluid.molten.lead");
+        TRepo.moltenLead = new TConstructFluid(PHConstruct.moltenLead, TRepo.moltenLeadFluid, Material.lava, "liquid_lead").func_149663_c("fluid.molten.lead");
         GameRegistry.registerBlock(TRepo.moltenLead, "fluid.molten.lead");
         TRepo.moltenLeadFluid.setBlockID(TRepo.moltenLead).setDensity(3000).setViscosity(6000).setTemperature(1300);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TRepo.moltenLeadFluid, 1000), new ItemStack(TRepo.buckets, 1, 18), new ItemStack(Item.bucketEmpty)));
@@ -302,7 +302,7 @@ public class TContent implements IFuelHandler
         TRepo.moltenSilverFluid = new Fluid("silver.molten");
         if (!FluidRegistry.registerFluid(TRepo.moltenSilverFluid))
             TRepo.moltenSilverFluid = FluidRegistry.getFluid("silver.molten");
-        TRepo.moltenSilver = new TConstructFluid(PHConstruct.moltenSilver, TRepo.moltenSilverFluid, Material.lava, "liquid_silver").setUnlocalizedName("fluid.molten.silver");
+        TRepo.moltenSilver = new TConstructFluid(PHConstruct.moltenSilver, TRepo.moltenSilverFluid, Material.lava, "liquid_silver").func_149663_c("fluid.molten.silver");
         GameRegistry.registerBlock(TRepo.moltenSilver, "fluid.molten.silver");
         TRepo.moltenSilverFluid.setBlockID(TRepo.moltenSilver).setDensity(3000).setViscosity(6000).setTemperature(1300);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TRepo.moltenSilverFluid, 1000), new ItemStack(TRepo.buckets, 1, 19), new ItemStack(Item.bucketEmpty)));
@@ -310,7 +310,7 @@ public class TContent implements IFuelHandler
         TRepo.moltenShinyFluid = new Fluid("platinum.molten");
         if (!FluidRegistry.registerFluid(TRepo.moltenShinyFluid))
             TRepo.moltenShinyFluid = FluidRegistry.getFluid("platinum.molten");
-        TRepo.moltenShiny = new TConstructFluid(PHConstruct.moltenShiny, TRepo.moltenShinyFluid, Material.lava, "liquid_shiny").setUnlocalizedName("fluid.molten.shiny");
+        TRepo.moltenShiny = new TConstructFluid(PHConstruct.moltenShiny, TRepo.moltenShinyFluid, Material.lava, "liquid_shiny").func_149663_c("fluid.molten.shiny");
         GameRegistry.registerBlock(TRepo.moltenShiny, "fluid.molten.shiny");
         TRepo.moltenShinyFluid.setBlockID(TRepo.moltenShiny).setDensity(3000).setViscosity(6000).setTemperature(1300);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TRepo.moltenShinyFluid, 1000), new ItemStack(TRepo.buckets, 1, 20), new ItemStack(Item.bucketEmpty)));
@@ -318,7 +318,7 @@ public class TContent implements IFuelHandler
         TRepo.moltenInvarFluid = new Fluid("invar.molten");
         if (!FluidRegistry.registerFluid(TRepo.moltenInvarFluid))
             TRepo.moltenInvarFluid = FluidRegistry.getFluid("invar.molten");
-        TRepo.moltenInvar = new TConstructFluid(PHConstruct.moltenInvar, TRepo.moltenInvarFluid, Material.lava, "liquid_invar").setUnlocalizedName("fluid.molten.invar");
+        TRepo.moltenInvar = new TConstructFluid(PHConstruct.moltenInvar, TRepo.moltenInvarFluid, Material.lava, "liquid_invar").func_149663_c("fluid.molten.invar");
         GameRegistry.registerBlock(TRepo.moltenInvar, "fluid.molten.invar");
         TRepo.moltenInvarFluid.setBlockID(TRepo.moltenInvar).setDensity(3000).setViscosity(6000).setTemperature(1300);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TRepo.moltenInvarFluid, 1000), new ItemStack(TRepo.buckets, 1, 21), new ItemStack(Item.bucketEmpty)));
@@ -326,7 +326,7 @@ public class TContent implements IFuelHandler
         TRepo.moltenElectrumFluid = new Fluid("electrum.molten");
         if (!FluidRegistry.registerFluid(TRepo.moltenElectrumFluid))
             TRepo.moltenElectrumFluid = FluidRegistry.getFluid("electrum.molten");
-        TRepo.moltenElectrum = new TConstructFluid(PHConstruct.moltenElectrum, TRepo.moltenElectrumFluid, Material.lava, "liquid_electrum").setUnlocalizedName("fluid.molten.electrum");
+        TRepo.moltenElectrum = new TConstructFluid(PHConstruct.moltenElectrum, TRepo.moltenElectrumFluid, Material.lava, "liquid_electrum").func_149663_c("fluid.molten.electrum");
         GameRegistry.registerBlock(TRepo.moltenElectrum, "fluid.molten.electrum");
         TRepo.moltenElectrumFluid.setBlockID(TRepo.moltenElectrum).setDensity(3000).setViscosity(6000).setTemperature(1300);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TRepo.moltenElectrumFluid, 1000), new ItemStack(TRepo.buckets, 1, 22), new ItemStack(Item.bucketEmpty)));
@@ -341,7 +341,7 @@ public class TContent implements IFuelHandler
         }
         else
         {
-            TRepo.moltenEnder = new TConstructFluid(PHConstruct.moltenEnder, TRepo.moltenEnderFluid, Material.water, "liquid_ender").setUnlocalizedName("fluid.ender");
+            TRepo.moltenEnder = new TConstructFluid(PHConstruct.moltenEnder, TRepo.moltenEnderFluid, Material.water, "liquid_ender").func_149663_c("fluid.ender");
             GameRegistry.registerBlock(TRepo.moltenEnder, "fluid.ender");
             TRepo.moltenEnderFluid.setBlockID(TRepo.moltenEnder).setDensity(3000).setViscosity(6000);
             FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TRepo.moltenEnderFluid, 1000), new ItemStack(TRepo.buckets, 1, 23), new ItemStack(Item.bucketEmpty)));
@@ -354,7 +354,7 @@ public class TContent implements IFuelHandler
         if (!FluidRegistry.registerFluid(TRepo.blueSlimeFluid))
             TRepo.blueSlimeFluid = FluidRegistry.getFluid("slime.blue");
         TRepo.slimePool = new SlimeFluid(PHConstruct.slimePoolBlue, TRepo.blueSlimeFluid, Material.water).setCreativeTab(TConstructRegistry.blockTab).setStepSound(TRepo.slimeStep)
-                .setUnlocalizedName("liquid.slime");
+                .func_149663_c("liquid.slime");
         GameRegistry.registerBlock(TRepo.slimePool, "liquid.slime");
         TRepo.blueSlimeFluid.setBlockID(TRepo.slimePool);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TRepo.blueSlimeFluid, 1000), new ItemStack(TRepo.buckets, 1, 24), new ItemStack(Item.bucketEmpty)));
@@ -364,7 +364,7 @@ public class TContent implements IFuelHandler
         if (!FluidRegistry.registerFluid(TRepo.glueFluid))
             TRepo.glueFluid = FluidRegistry.getFluid("glue");
         TRepo.glueFluidBlock = new GlueFluid(PHConstruct.glueFluidBlock, TRepo.glueFluid, Material.water).setCreativeTab(TConstructRegistry.blockTab).setStepSound(TRepo.slimeStep)
-                .setUnlocalizedName("liquid.glue");
+                .func_149663_c("liquid.glue");
         GameRegistry.registerBlock(TRepo.glueFluidBlock, "liquid.glue");
         TRepo.glueFluid.setBlockID(TRepo.glueFluidBlock);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TRepo.glueFluid, 1000), new ItemStack(TRepo.buckets, 1, 26), new ItemStack(Item.bucketEmpty)));
@@ -382,37 +382,37 @@ public class TContent implements IFuelHandler
                 TRepo.moltenAlubrass, TRepo.moltenManyullyn, TRepo.moltenAlumite, TRepo.moltenObsidian, TRepo.moltenSteel, TRepo.moltenGlass, TRepo.moltenStone, TRepo.moltenEmerald, TRepo.blood,
                 TRepo.moltenNickel, TRepo.moltenLead, TRepo.moltenSilver, TRepo.moltenShiny, TRepo.moltenInvar, TRepo.moltenElectrum, TRepo.moltenEnder, TRepo.slimePool, TRepo.glueFluidBlock };
         //Slime Islands
-        TRepo.slimeGel = new SlimeGel(PHConstruct.slimeGel).setStepSound(TRepo.slimeStep).setLightOpacity(0).setUnlocalizedName("slime.gel");
-        TRepo.slimeGrass = new SlimeGrass(PHConstruct.slimeGrass).setStepSound(Block.soundGrassFootstep).setLightOpacity(0).setUnlocalizedName("slime.grass");
-        TRepo.slimeTallGrass = new SlimeTallGrass(PHConstruct.slimeTallGrass).setStepSound(Block.soundGrassFootstep).setUnlocalizedName("slime.grass.tall");
-        TRepo.slimeLeaves = (SlimeLeaves) new SlimeLeaves(PHConstruct.slimeLeaves).setStepSound(TRepo.slimeStep).setLightOpacity(0).setUnlocalizedName("slime.leaves");
-        TRepo.slimeSapling = (SlimeSapling) new SlimeSapling(PHConstruct.slimeSapling).setStepSound(TRepo.slimeStep).setUnlocalizedName("slime.sapling");
-        TRepo.slimeChannel = new ConveyorBase(PHConstruct.slimeChannel, Material.water, "greencurrent").setHardness(0.3f).setStepSound(TRepo.slimeStep).setUnlocalizedName("slime.channel");
-        TRepo.bloodChannel = new ConveyorBase(PHConstruct.bloodChannel, Material.water, "liquid_cow").setHardness(0.3f).setStepSound(TRepo.slimeStep).setUnlocalizedName("blood.channel");
-        TRepo.slimePad = new SlimePad(PHConstruct.slimePad, Material.cloth).setStepSound(TRepo.slimeStep).setHardness(0.3f).setUnlocalizedName("slime.pad");
+        TRepo.slimeGel = new SlimeGel(PHConstruct.slimeGel).setStepSound(TRepo.slimeStep).setLightOpacity(0).func_149663_c("slime.gel");
+        TRepo.slimeGrass = new SlimeGrass(PHConstruct.slimeGrass).setStepSound(Block.soundGrassFootstep).setLightOpacity(0).func_149663_c("slime.grass");
+        TRepo.slimeTallGrass = new SlimeTallGrass(PHConstruct.slimeTallGrass).setStepSound(Block.soundGrassFootstep).func_149663_c("slime.grass.tall");
+        TRepo.slimeLeaves = (SlimeLeaves) new SlimeLeaves(PHConstruct.slimeLeaves).setStepSound(TRepo.slimeStep).setLightOpacity(0).func_149663_c("slime.leaves");
+        TRepo.slimeSapling = (SlimeSapling) new SlimeSapling(PHConstruct.slimeSapling).setStepSound(TRepo.slimeStep).func_149663_c("slime.sapling");
+        TRepo.slimeChannel = new ConveyorBase(PHConstruct.slimeChannel, Material.water, "greencurrent").setHardness(0.3f).setStepSound(TRepo.slimeStep).func_149663_c("slime.channel");
+        TRepo.bloodChannel = new ConveyorBase(PHConstruct.bloodChannel, Material.water, "liquid_cow").setHardness(0.3f).setStepSound(TRepo.slimeStep).func_149663_c("blood.channel");
+        TRepo.slimePad = new SlimePad(PHConstruct.slimePad, Material.cloth).setStepSound(TRepo.slimeStep).setHardness(0.3f).func_149663_c("slime.pad");
 
         //Decoration
-        TRepo.stoneTorch = new StoneTorch(PHConstruct.stoneTorch).setUnlocalizedName("decoration.stonetorch");
-        TRepo.stoneLadder = new StoneLadder(PHConstruct.stoneLadder).setUnlocalizedName("decoration.stoneladder");
-        TRepo.multiBrick = new MultiBrick(PHConstruct.multiBrick).setUnlocalizedName("Decoration.Brick");
-        TRepo.multiBrickFancy = new MultiBrickFancy(PHConstruct.multiBrickFancy).setUnlocalizedName("Decoration.BrickFancy");
+        TRepo.stoneTorch = new StoneTorch(PHConstruct.stoneTorch).func_149663_c("decoration.stonetorch");
+        TRepo.stoneLadder = new StoneLadder(PHConstruct.stoneLadder).func_149663_c("decoration.stoneladder");
+        TRepo.multiBrick = new MultiBrick(PHConstruct.multiBrick).func_149663_c("Decoration.Brick");
+        TRepo.multiBrickFancy = new MultiBrickFancy(PHConstruct.multiBrickFancy).func_149663_c("Decoration.BrickFancy");
 
         //Ores
         String[] berryOres = new String[] { "berry_iron", "berry_gold", "berry_copper", "berry_tin", "berry_iron_ripe", "berry_gold_ripe", "berry_copper_ripe", "berry_tin_ripe" };
-        TRepo.oreBerry = (OreberryBush) new OreberryBush(PHConstruct.oreBerry, berryOres, 0, 4, new String[] { "oreIron", "oreGold", "oreCopper", "oreTin" }).setUnlocalizedName("ore.berries.one");
+        TRepo.oreBerry = (OreberryBush) new OreberryBush(PHConstruct.oreBerry, berryOres, 0, 4, new String[] { "oreIron", "oreGold", "oreCopper", "oreTin" }).func_149663_c("ore.berries.one");
         String[] berryOresTwo = new String[] { "berry_aluminum", "berry_essence", "", "", "berry_aluminum_ripe", "berry_essence_ripe", "", "" };
         TRepo.oreBerrySecond = (OreberryBush) new OreberryBushEssence(PHConstruct.oreBerrySecond, berryOresTwo, 4, 2, new String[] { "oreAluminum", "oreSilver" })
-                .setUnlocalizedName("ore.berries.two");
+                .func_149663_c("ore.berries.two");
 
         String[] oreTypes = new String[] { "nether_slag", "nether_cobalt", "nether_ardite", "ore_copper", "ore_tin", "ore_aluminum", "ore_slag" };
-        TRepo.oreSlag = new MetalOre(PHConstruct.oreSlag, Material.rock, 10.0F, oreTypes).setUnlocalizedName("tconstruct.stoneore");
+        TRepo.oreSlag = new MetalOre(PHConstruct.oreSlag, Material.field_151576_e, 10.0F, oreTypes).func_149663_c("tconstruct.stoneore");
         MinecraftForge.setBlockHarvestLevel(TRepo.oreSlag, 1, "pickaxe", 4);
         MinecraftForge.setBlockHarvestLevel(TRepo.oreSlag, 2, "pickaxe", 4);
         MinecraftForge.setBlockHarvestLevel(TRepo.oreSlag, 3, "pickaxe", 1);
         MinecraftForge.setBlockHarvestLevel(TRepo.oreSlag, 4, "pickaxe", 1);
         MinecraftForge.setBlockHarvestLevel(TRepo.oreSlag, 5, "pickaxe", 1);
 
-        TRepo.oreGravel = new GravelOre(PHConstruct.oreGravel).setUnlocalizedName("GravelOre").setUnlocalizedName("tconstruct.gravelore");
+        TRepo.oreGravel = new GravelOre(PHConstruct.oreGravel).func_149663_c("GravelOre").func_149663_c("tconstruct.gravelore");
         MinecraftForge.setBlockHarvestLevel(TRepo.oreGravel, 0, "shovel", 1);
         MinecraftForge.setBlockHarvestLevel(TRepo.oreGravel, 1, "shovel", 2);
         MinecraftForge.setBlockHarvestLevel(TRepo.oreGravel, 2, "shovel", 1);
@@ -420,36 +420,36 @@ public class TContent implements IFuelHandler
         MinecraftForge.setBlockHarvestLevel(TRepo.oreGravel, 4, "shovel", 1);
         MinecraftForge.setBlockHarvestLevel(TRepo.oreGravel, 5, "shovel", 4);
 
-        TRepo.speedBlock = new SpeedBlock(PHConstruct.speedBlock).setUnlocalizedName("SpeedBlock");
+        TRepo.speedBlock = new SpeedBlock(PHConstruct.speedBlock).func_149663_c("SpeedBlock");
 
         //Glass
-        TRepo.clearGlass = new GlassBlockConnected(PHConstruct.glass, "clear", false).setUnlocalizedName("GlassBlock");
+        TRepo.clearGlass = new GlassBlockConnected(PHConstruct.glass, "clear", false).func_149663_c("GlassBlock");
         TRepo.clearGlass.stepSound = Block.soundGlassFootstep;
         TRepo.glassPane = new GlassPaneConnected(PHConstruct.glassPane, "clear", false);
         TRepo.stainedGlassClear = new GlassBlockConnectedMeta(PHConstruct.stainedGlassClear, "stained", true, "white", "orange", "magenta", "light_blue", "yellow", "lime", "pink", "gray",
-                "light_gray", "cyan", "purple", "blue", "brown", "green", "red", "black").setUnlocalizedName("GlassBlock.StainedClear");
+                "light_gray", "cyan", "purple", "blue", "brown", "green", "red", "black").func_149663_c("GlassBlock.StainedClear");
         TRepo.stainedGlassClear.stepSound = Block.soundGlassFootstep;
         TRepo.stainedGlassClearPane = new GlassPaneStained(PHConstruct.stainedGlassClearPane);
 
         //Rail
-        TRepo.woodenRail = new WoodRail(PHConstruct.woodenRail).setStepSound(Block.soundWoodFootstep).setCreativeTab(TConstructRegistry.blockTab).setUnlocalizedName("rail.wood");
+        TRepo.woodenRail = new WoodRail(PHConstruct.woodenRail).setStepSound(Block.soundWoodFootstep).setCreativeTab(TConstructRegistry.blockTab).func_149663_c("rail.wood");
 
     }
 
     void registerItems ()
     {
-        TRepo.titleIcon = new TitleIcon(PHConstruct.uselessItem).setUnlocalizedName("tconstruct.titleicon");
+        TRepo.titleIcon = new TitleIcon().func_149663_c("tconstruct.titleicon");
         GameRegistry.registerItem(TRepo.titleIcon, "titleIcon");
         String[] blanks = new String[] { "blank_pattern", "blank_cast", "blank_cast" };
-        TRepo.blankPattern = new CraftingItem(PHConstruct.blankPattern, blanks, blanks, "materials/", "tinker", TConstructRegistry.materialTab).setUnlocalizedName("tconstruct.Pattern");
+        TRepo.blankPattern = new CraftingItem(PHConstruct.blankPattern, blanks, blanks, "materials/", "tinker", TConstructRegistry.materialTab).func_149663_c("tconstruct.Pattern");
         GameRegistry.registerItem(TRepo.blankPattern, "blankPattern");
 
-        TRepo.materials = new MaterialItem(PHConstruct.materials).setUnlocalizedName("tconstruct.Materials");
-        TRepo.toolRod = new ToolPart(PHConstruct.toolRod, "_rod", "ToolRod").setUnlocalizedName("tconstruct.ToolRod");
-        TRepo.toolShard = new ToolShard(PHConstruct.toolShard, "_chunk").setUnlocalizedName("tconstruct.ToolShard");
-        TRepo.woodPattern = new Pattern(PHConstruct.woodPattern, "pattern_", "materials/").setUnlocalizedName("tconstruct.Pattern");
-        TRepo.metalPattern = new MetalPattern(PHConstruct.metalPattern, "cast_", "materials/").setUnlocalizedName("tconstruct.MetalPattern");
-        //armorPattern = new ArmorPattern(PHConstruct.armorPattern, "armorcast_", "materials/").setUnlocalizedName("tconstruct.ArmorPattern");
+        TRepo.materials = new MaterialItem(PHConstruct.materials).func_149663_c("tconstruct.Materials");
+        TRepo.toolRod = new ToolPart(PHConstruct.toolRod, "_rod", "ToolRod").func_149663_c("tconstruct.ToolRod");
+        TRepo.toolShard = new ToolShard(PHConstruct.toolShard, "_chunk").func_149663_c("tconstruct.ToolShard");
+        TRepo.woodPattern = new Pattern(PHConstruct.woodPattern, "pattern_", "materials/").func_149663_c("tconstruct.Pattern");
+        TRepo.metalPattern = new MetalPattern(PHConstruct.metalPattern, "cast_", "materials/").func_149663_c("tconstruct.MetalPattern");
+        //armorPattern = new ArmorPattern(PHConstruct.armorPattern, "armorcast_", "materials/").func_149663_c("tconstruct.ArmorPattern");
         GameRegistry.registerItem(TRepo.materials, "materials");
         GameRegistry.registerItem(TRepo.woodPattern, "woodPattern");
         GameRegistry.registerItem(TRepo.metalPattern, "metalPattern");
@@ -517,37 +517,37 @@ public class TContent implements IFuelHandler
             TConstructRegistry.addItemToDirectory(toolStrings[i], tools[i]);
         }
 
-        TRepo.potionLauncher = new PotionLauncher(PHConstruct.potionLauncher).setUnlocalizedName("tconstruct.PotionLauncher");
+        TRepo.potionLauncher = new PotionLauncher(PHConstruct.potionLauncher).func_149663_c("tconstruct.PotionLauncher");
         GameRegistry.registerItem(TRepo.potionLauncher, "potionLauncher");
 
-        TRepo.pickaxeHead = new ToolPart(PHConstruct.pickaxeHead, "_pickaxe_head", "PickHead").setUnlocalizedName("tconstruct.PickaxeHead");
-        TRepo.shovelHead = new ToolPart(PHConstruct.shovelHead, "_shovel_head", "ShovelHead").setUnlocalizedName("tconstruct.ShovelHead");
-        TRepo.hatchetHead = new ToolPart(PHConstruct.axeHead, "_axe_head", "AxeHead").setUnlocalizedName("tconstruct.AxeHead");
-        TRepo.binding = new ToolPart(PHConstruct.binding, "_binding", "Binding").setUnlocalizedName("tconstruct.Binding");
-        TRepo.toughBinding = new ToolPart(PHConstruct.toughBinding, "_toughbind", "ToughBind").setUnlocalizedName("tconstruct.ThickBinding");
-        TRepo.toughRod = new ToolPart(PHConstruct.toughRod, "_toughrod", "ToughRod").setUnlocalizedName("tconstruct.ThickRod");
-        TRepo.largePlate = new ToolPart(PHConstruct.largePlate, "_largeplate", "LargePlate").setUnlocalizedName("tconstruct.LargePlate");
+        TRepo.pickaxeHead = new ToolPart(PHConstruct.pickaxeHead, "_pickaxe_head", "PickHead").func_149663_c("tconstruct.PickaxeHead");
+        TRepo.shovelHead = new ToolPart(PHConstruct.shovelHead, "_shovel_head", "ShovelHead").func_149663_c("tconstruct.ShovelHead");
+        TRepo.hatchetHead = new ToolPart(PHConstruct.axeHead, "_axe_head", "AxeHead").func_149663_c("tconstruct.AxeHead");
+        TRepo.binding = new ToolPart(PHConstruct.binding, "_binding", "Binding").func_149663_c("tconstruct.Binding");
+        TRepo.toughBinding = new ToolPart(PHConstruct.toughBinding, "_toughbind", "ToughBind").func_149663_c("tconstruct.ThickBinding");
+        TRepo.toughRod = new ToolPart(PHConstruct.toughRod, "_toughrod", "ToughRod").func_149663_c("tconstruct.ThickRod");
+        TRepo.largePlate = new ToolPart(PHConstruct.largePlate, "_largeplate", "LargePlate").func_149663_c("tconstruct.LargePlate");
 
-        TRepo.swordBlade = new ToolPart(PHConstruct.swordBlade, "_sword_blade", "SwordBlade").setUnlocalizedName("tconstruct.SwordBlade");
-        TRepo.wideGuard = new ToolPart(PHConstruct.largeGuard, "_large_guard", "LargeGuard").setUnlocalizedName("tconstruct.LargeGuard");
-        TRepo.handGuard = new ToolPart(PHConstruct.medGuard, "_medium_guard", "MediumGuard").setUnlocalizedName("tconstruct.MediumGuard");
-        TRepo.crossbar = new ToolPart(PHConstruct.crossbar, "_crossbar", "Crossbar").setUnlocalizedName("tconstruct.Crossbar");
-        TRepo.knifeBlade = new ToolPart(PHConstruct.knifeBlade, "_knife_blade", "KnifeBlade").setUnlocalizedName("tconstruct.KnifeBlade");
-        TRepo.fullGuard = new ToolPartHidden(PHConstruct.fullGuard, "_full_guard", "FullGuard").setUnlocalizedName("tconstruct.FullGuard");
+        TRepo.swordBlade = new ToolPart(PHConstruct.swordBlade, "_sword_blade", "SwordBlade").func_149663_c("tconstruct.SwordBlade");
+        TRepo.wideGuard = new ToolPart(PHConstruct.largeGuard, "_large_guard", "LargeGuard").func_149663_c("tconstruct.LargeGuard");
+        TRepo.handGuard = new ToolPart(PHConstruct.medGuard, "_medium_guard", "MediumGuard").func_149663_c("tconstruct.MediumGuard");
+        TRepo.crossbar = new ToolPart(PHConstruct.crossbar, "_crossbar", "Crossbar").func_149663_c("tconstruct.Crossbar");
+        TRepo.knifeBlade = new ToolPart(PHConstruct.knifeBlade, "_knife_blade", "KnifeBlade").func_149663_c("tconstruct.KnifeBlade");
+        TRepo.fullGuard = new ToolPartHidden(PHConstruct.fullGuard, "_full_guard", "FullGuard").func_149663_c("tconstruct.FullGuard");
 
-        TRepo.frypanHead = new ToolPart(PHConstruct.frypanHead, "_frypan_head", "FrypanHead").setUnlocalizedName("tconstruct.FrypanHead");
-        TRepo.signHead = new ToolPart(PHConstruct.signHead, "_battlesign_head", "SignHead").setUnlocalizedName("tconstruct.SignHead");
-        TRepo.chiselHead = new ToolPart(PHConstruct.chiselHead, "_chisel_head", "ChiselHead").setUnlocalizedName("tconstruct.ChiselHead");
+        TRepo.frypanHead = new ToolPart(PHConstruct.frypanHead, "_frypan_head", "FrypanHead").func_149663_c("tconstruct.FrypanHead");
+        TRepo.signHead = new ToolPart(PHConstruct.signHead, "_battlesign_head", "SignHead").func_149663_c("tconstruct.SignHead");
+        TRepo.chiselHead = new ToolPart(PHConstruct.chiselHead, "_chisel_head", "ChiselHead").func_149663_c("tconstruct.ChiselHead");
 
-        TRepo.scytheBlade = new ToolPart(PHConstruct.scytheBlade, "_scythe_head", "ScytheHead").setUnlocalizedName("tconstruct.ScytheBlade");
-        TRepo.broadAxeHead = new ToolPart(PHConstruct.lumberHead, "_lumberaxe_head", "LumberHead").setUnlocalizedName("tconstruct.LumberHead");
-        TRepo.excavatorHead = new ToolPart(PHConstruct.excavatorHead, "_excavator_head", "ExcavatorHead").setUnlocalizedName("tconstruct.ExcavatorHead");
-        TRepo.largeSwordBlade = new ToolPart(PHConstruct.largeSwordBlade, "_large_sword_blade", "LargeSwordBlade").setUnlocalizedName("tconstruct.LargeSwordBlade");
-        TRepo.hammerHead = new ToolPart(PHConstruct.hammerHead, "_hammer_head", "HammerHead").setUnlocalizedName("tconstruct.HammerHead");
+        TRepo.scytheBlade = new ToolPart(PHConstruct.scytheBlade, "_scythe_head", "ScytheHead").func_149663_c("tconstruct.ScytheBlade");
+        TRepo.broadAxeHead = new ToolPart(PHConstruct.lumberHead, "_lumberaxe_head", "LumberHead").func_149663_c("tconstruct.LumberHead");
+        TRepo.excavatorHead = new ToolPart(PHConstruct.excavatorHead, "_excavator_head", "ExcavatorHead").func_149663_c("tconstruct.ExcavatorHead");
+        TRepo.largeSwordBlade = new ToolPart(PHConstruct.largeSwordBlade, "_large_sword_blade", "LargeSwordBlade").func_149663_c("tconstruct.LargeSwordBlade");
+        TRepo.hammerHead = new ToolPart(PHConstruct.hammerHead, "_hammer_head", "HammerHead").func_149663_c("tconstruct.HammerHead");
 
-        TRepo.bowstring = new Bowstring(PHConstruct.bowstring).setUnlocalizedName("tconstruct.Bowstring");
-        TRepo.arrowhead = new ToolPart(PHConstruct.arrowhead, "_arrowhead", "ArrowHead").setUnlocalizedName("tconstruct.Arrowhead");
-        TRepo.fletching = new Fletching(PHConstruct.fletching).setUnlocalizedName("tconstruct.Fletching");
+        TRepo.bowstring = new Bowstring(PHConstruct.bowstring).func_149663_c("tconstruct.Bowstring");
+        TRepo.arrowhead = new ToolPart(PHConstruct.arrowhead, "_arrowhead", "ArrowHead").func_149663_c("tconstruct.Arrowhead");
+        TRepo.fletching = new Fletching(PHConstruct.fletching).func_149663_c("tconstruct.Fletching");
 
         Item[] toolParts = { TRepo.toolRod, TRepo.toolShard, TRepo.pickaxeHead, TRepo.shovelHead, TRepo.hatchetHead, TRepo.binding, TRepo.toughBinding, TRepo.toughRod, TRepo.largePlate,
                 TRepo.swordBlade, TRepo.wideGuard, TRepo.handGuard, TRepo.crossbar, TRepo.knifeBlade, TRepo.fullGuard, TRepo.frypanHead, TRepo.signHead, TRepo.chiselHead, TRepo.scytheBlade,
@@ -562,23 +562,23 @@ public class TContent implements IFuelHandler
             TConstructRegistry.addItemToDirectory(toolPartStrings[i], toolParts[i]);
         }
 
-        TRepo.diamondApple = new DiamondApple(PHConstruct.diamondApple).setUnlocalizedName("tconstruct.apple.diamond");
-        TRepo.strangeFood = new StrangeFood(PHConstruct.slimefood).setUnlocalizedName("tconstruct.strangefood");
-        TRepo.oreBerries = new OreBerries(PHConstruct.oreChunks).setUnlocalizedName("oreberry");
+        TRepo.diamondApple = new DiamondApple(PHConstruct.diamondApple).func_149663_c("tconstruct.apple.diamond");
+        TRepo.strangeFood = new StrangeFood(PHConstruct.slimefood).func_149663_c("tconstruct.strangefood");
+        TRepo.oreBerries = new OreBerries(PHConstruct.oreChunks).func_149663_c("oreberry");
         GameRegistry.registerItem(TRepo.diamondApple, "diamondApple");
         GameRegistry.registerItem(TRepo.strangeFood, "strangeFood");
         GameRegistry.registerItem(TRepo.oreBerries, "oreBerries");
 
-        TRepo.jerky = new Jerky(PHConstruct.jerky, Loader.isModLoaded("HungerOverhaul")).setUnlocalizedName("tconstruct.jerky");
+        TRepo.jerky = new Jerky(PHConstruct.jerky, Loader.isModLoaded("HungerOverhaul")).func_149663_c("tconstruct.jerky");
         GameRegistry.registerItem(TRepo.jerky, "jerky");
 
         //Wearables
-        //heavyHelmet = new TArmorBase(PHConstruct.heavyHelmet, 0).setUnlocalizedName("tconstruct.HeavyHelmet");
-        TRepo.heartCanister = new HeartCanister(PHConstruct.heartCanister).setUnlocalizedName("tconstruct.canister");
-        //heavyBoots = new TArmorBase(PHConstruct.heavyBoots, 3).setUnlocalizedName("tconstruct.HeavyBoots");
-        //glove = new Glove(PHConstruct.glove).setUnlocalizedName("tconstruct.Glove");
-        TRepo.knapsack = new Knapsack(PHConstruct.knapsack).setUnlocalizedName("tconstruct.storage");
-        TRepo.goldHead = new GoldenHead(PHConstruct.goldHead, 4, 1.2F, false).setAlwaysEdible().setPotionEffect(Potion.regeneration.id, 10, 0, 1.0F).setUnlocalizedName("goldenhead");
+        //heavyHelmet = new TArmorBase(PHConstruct.heavyHelmet, 0).func_149663_c("tconstruct.HeavyHelmet");
+        TRepo.heartCanister = new HeartCanister(PHConstruct.heartCanister).func_149663_c("tconstruct.canister");
+        //heavyBoots = new TArmorBase(PHConstruct.heavyBoots, 3).func_149663_c("tconstruct.HeavyBoots");
+        //glove = new Glove(PHConstruct.glove).func_149663_c("tconstruct.Glove");
+        TRepo.knapsack = new Knapsack(PHConstruct.knapsack).func_149663_c("tconstruct.storage");
+        TRepo.goldHead = new GoldenHead(PHConstruct.goldHead, 4, 1.2F, false).setAlwaysEdible().setPotionEffect(Potion.regeneration.id, 10, 0, 1.0F).func_149663_c("goldenhead");
         //GameRegistry.registerItem(TRepo.heavyHelmet, "heavyHelmet");
         GameRegistry.registerItem(TRepo.heartCanister, "heartCanister");
         //GameRegistry.registerItem(TRepo.heavyBoots, "heavyBoots");
@@ -588,19 +588,19 @@ public class TContent implements IFuelHandler
 
         LiquidCasting basinCasting = TConstruct.getBasinCasting();
         TRepo.materialWood = EnumHelper.addArmorMaterial("WOOD", 2, new int[] { 1, 2, 2, 1 }, 3);
-        TRepo.helmetWood = new ArmorBasic(PHConstruct.woodHelmet, TRepo.materialWood, 0, "wood").setUnlocalizedName("tconstruct.helmetWood");
-        TRepo.chestplateWood = new ArmorBasic(PHConstruct.woodChestplate, TRepo.materialWood, 1, "wood").setUnlocalizedName("tconstruct.chestplateWood");
-        TRepo.leggingsWood = new ArmorBasic(PHConstruct.woodPants, TRepo.materialWood, 2, "wood").setUnlocalizedName("tconstruct.leggingsWood");
-        TRepo.bootsWood = new ArmorBasic(PHConstruct.woodBoots, TRepo.materialWood, 3, "wood").setUnlocalizedName("tconstruct.bootsWood");
+        TRepo.helmetWood = new ArmorBasic(PHConstruct.woodHelmet, TRepo.materialWood, 0, "wood").func_149663_c("tconstruct.helmetWood");
+        TRepo.chestplateWood = new ArmorBasic(PHConstruct.woodChestplate, TRepo.materialWood, 1, "wood").func_149663_c("tconstruct.chestplateWood");
+        TRepo.leggingsWood = new ArmorBasic(PHConstruct.woodPants, TRepo.materialWood, 2, "wood").func_149663_c("tconstruct.leggingsWood");
+        TRepo.bootsWood = new ArmorBasic(PHConstruct.woodBoots, TRepo.materialWood, 3, "wood").func_149663_c("tconstruct.bootsWood");
         GameRegistry.registerItem(TRepo.helmetWood, "helmetWood");
         GameRegistry.registerItem(TRepo.chestplateWood, "chestplateWood");
         GameRegistry.registerItem(TRepo.leggingsWood, "leggingsWood");
         GameRegistry.registerItem(TRepo.bootsWood, "bootsWood");
 
-        TRepo.exoGoggles = new ExoArmor(PHConstruct.exoGoggles, EnumArmorPart.HELMET, "exosuit").setUnlocalizedName("tconstruct.exoGoggles");
-        TRepo.exoChest = new ExoArmor(PHConstruct.exoChest, EnumArmorPart.CHEST, "exosuit").setUnlocalizedName("tconstruct.exoChest");
-        TRepo.exoPants = new ExoArmor(PHConstruct.exoPants, EnumArmorPart.PANTS, "exosuit").setUnlocalizedName("tconstruct.exoPants");
-        TRepo.exoShoes = new ExoArmor(PHConstruct.exoShoes, EnumArmorPart.SHOES, "exosuit").setUnlocalizedName("tconstruct.exoShoes");
+        TRepo.exoGoggles = new ExoArmor(PHConstruct.exoGoggles, EnumArmorPart.HELMET, "exosuit").func_149663_c("tconstruct.exoGoggles");
+        TRepo.exoChest = new ExoArmor(PHConstruct.exoChest, EnumArmorPart.CHEST, "exosuit").func_149663_c("tconstruct.exoChest");
+        TRepo.exoPants = new ExoArmor(PHConstruct.exoPants, EnumArmorPart.PANTS, "exosuit").func_149663_c("tconstruct.exoPants");
+        TRepo.exoShoes = new ExoArmor(PHConstruct.exoShoes, EnumArmorPart.SHOES, "exosuit").func_149663_c("tconstruct.exoShoes");
 
         String[] materialStrings = { "paperStack", "greenSlimeCrystal", "searedBrick", "ingotCobalt", "ingotArdite", "ingotManyullyn", "mossBall", "lavaCrystal", "necroticBone", "ingotCopper",
                 "ingotTin", "ingotAluminum", "rawAluminum", "ingotBronze", "ingotAluminumBrass", "ingotAlumite", "ingotSteel", "blueSlimeCrystal", "ingotObsidian", "nuggetIron", "nuggetCopper",
@@ -783,7 +783,7 @@ public class TContent implements IFuelHandler
         ItemStack tool = new ItemStack(TRepo.longsword, 1, 0);
 
         NBTTagCompound compound = new NBTTagCompound();
-        compound.setCompoundTag("InfiTool", new NBTTagCompound());
+        compound.setTag("InfiTool", new NBTTagCompound());
         compound.getCompoundTag("InfiTool").setInteger("RenderHead", 2);
         compound.getCompoundTag("InfiTool").setInteger("RenderHandle", 0);
         compound.getCompoundTag("InfiTool").setInteger("RenderAccessory", 10);

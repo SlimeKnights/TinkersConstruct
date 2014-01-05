@@ -37,6 +37,7 @@ public class SearedBlock extends InventoryBlock
         this.texturePrefix = texture;
     }
 
+
     @Override
     public TileEntity createTileEntity (World world, int metadata)
     {

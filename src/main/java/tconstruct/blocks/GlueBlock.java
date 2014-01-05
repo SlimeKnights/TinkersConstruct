@@ -11,9 +11,9 @@ import net.minecraft.world.World;
 
 public class GlueBlock extends TConstructBlock {
 
-    public GlueBlock(int id)
+    public GlueBlock()
     {
-        super(id, Material.ground, 4.0f, new String[]{"glue"});
+        super(Material.ground, 4.0f, new String[]{"glue"});
     }
 
     @Override
