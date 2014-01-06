@@ -40,7 +40,7 @@ public class OreberryBushItem extends MultiItemBlock
 
         else if (player.canPlayerEdit(x, y, z, side, stack) && player.canPlayerEdit(x, y + 1, z, side, stack))
         {
-            Block block = Block.blocksList[world.getBlockId(x, y, z)];
+            Block block = world.getBlock(x, y, z);
 
             if (block != null && block.canSustainPlant(world, x, y, z, ForgeDirection.UP, (IPlantable) TRepo.oreBerry) && world.isAirBlock(x, y + 1, z))
             {

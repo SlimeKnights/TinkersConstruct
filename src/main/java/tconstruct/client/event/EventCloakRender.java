@@ -46,7 +46,7 @@ public class EventCloakRender
 
             if (!capePlayers.contains(abstractClientPlayer))
             {
-                String cloakURL = cloaks.get(event.entityPlayer.username);
+                String cloakURL = cloaks.get(event.entityPlayer.getDisplayName());
 
                 if (cloakURL == null)
                 {

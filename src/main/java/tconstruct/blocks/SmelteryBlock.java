@@ -8,6 +8,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
@@ -269,7 +270,7 @@ public class SmelteryBlock extends InventoryBlock
     }*/
 
     @Override
-    public void getSubBlocks (Block b, CreativeTabs tab, List list)
+    public void getSubBlocks (Item b, CreativeTabs tab, List list)
     {
         for (int iter = 0; iter < 12; iter++)
         {

@@ -20,7 +20,7 @@ public class MultiBrickFancy extends TConstructBlock
 
     public MultiBrickFancy()
     {
-        super(material.rock, 3f, blockTextures);
+        super(Material.field_151576_e, 3f, blockTextures);
     }
     //TODO func_149712_f
     @Override
@@ -60,7 +60,7 @@ public class MultiBrickFancy extends TConstructBlock
         case 15:
             return Blocks.stone.func_149712_f(world, x, y, z);
         default:
-            return blockHardness;
+            return field_149782_v;
         }
     }
 
@@ -104,8 +104,9 @@ public class MultiBrickFancy extends TConstructBlock
         }
     }
 
+    //TODO onEntityCollidedWithBlock
     @Override
-    public void onEntityCollidedWithBlock (World world, int x, int y, int z, Entity entity)
+    public void func_149670_a (World world, int x, int y, int z, Entity entity)
     {
         int meta = world.getBlockMetadata(x, y, z);
         if (meta == 10 || meta == 11)
@@ -117,12 +118,12 @@ public class MultiBrickFancy extends TConstructBlock
     }
 
     @Override
-    public AxisAlignedBB getCollisionBoundingBoxFromPool (World world, int x, int y, int z)
+    public AxisAlignedBB func_149668_a (World world, int x, int y, int z)
     {
         int meta = world.getBlockMetadata(x, y, z);
         if (meta == 10 || meta == 11)
             return AxisAlignedBB.getBoundingBox(x, y, z, (double) x + 1.0D, (double) y + 0.625D, (double) z + 1.0D);
-        return super.getCollisionBoundingBoxFromPool(world, x, y, z);
+        return super.func_149668_a(world, x, y, z);
     }
 
     /*@Override
@@ -137,14 +138,16 @@ public class MultiBrickFancy extends TConstructBlock
         return world.getBlockMetadata(x, y, z) != 8;
     }
 
+    //TODO canProvidePower
     @Override
-    public boolean canProvidePower ()
+    public boolean func_149744_f ()
     {
         return false;
     }
 
+    //TODO isProvindingWeakPower
     @Override
-    public int isProvidingWeakPower (IBlockAccess world, int x, int y, int z, int side)
+    public int func_149709_b (IBlockAccess world, int x, int y, int z, int side)
     {
         if (world.getBlockMetadata(x, y, z) == 8)
             return 4;

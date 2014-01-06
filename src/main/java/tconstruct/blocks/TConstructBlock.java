@@ -4,11 +4,11 @@ import java.util.List;
 
 import mantle.blocks.MantleBlock;
 import tconstruct.library.TConstructRegistry;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import cpw.mods.fml.relauncher.Side;
@@ -63,8 +63,9 @@ public class TConstructBlock extends MantleBlock
         return 1;
     }
 
+    //TODO getSubBlocks
     @Override
-    public void getSubBlocks (Block block, CreativeTabs tab, List list)
+    public void func_149666_a (Item block, CreativeTabs tab, List list)
     {
         for (int iter = 0; iter < icons.length; iter++)
         {
