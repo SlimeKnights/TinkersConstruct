@@ -288,6 +288,7 @@ Smeltery.Brick.Fancy.name=平滑焦黑石砖
 Smeltery.Brick.Square.name=裂纹焦黑石砖
 Smeltery.Brick.Creeper.name=雕琢焦黑石砖
 Smeltery.Channel.name=浇注道
+block.slime.soil.dirt.name=史莱姆沙
 
 LavaTank.Tank.name=冶炼槽
 LavaTank.Gague.name=冶炼炉玻璃
@@ -582,7 +583,7 @@ fluid.nickel.molten=液态镍
 fluid.lead.molten=液态铅
 fluid.silver.molten=液态银
 fluid.platinum.molten=液态铂
-fluid.invar=液态因瓦合金
+fluid.invar.molten=液态因瓦合金
 fluid.electrum.molten=液态琥珀金
 fluid.shiny=液态铂金
 fluid.ender=液态末影珍珠
