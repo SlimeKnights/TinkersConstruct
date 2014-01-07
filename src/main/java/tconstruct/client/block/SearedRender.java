@@ -250,21 +250,21 @@ public class SearedRender implements ISimpleBlockRenderingHandler
                     }
 
                     float yMin = 0F;
-                    int uID = world.getBlockId(x, y - 1, z);
+                    Block uBlock= world.getBlockId(x, y - 1, z);
                     int uMeta = world.getBlockMetadata(x, y - 1, z);
-                    if (uID == TRepo.searedBlock.blockID && uMeta == 0)
+                    if (uBlock== TRepo.searedBlock && uMeta == 0)
                     {
                         yMin = -0.125F;
                     }
-                    else if (uID == TRepo.searedBlock.blockID && uMeta == 2)
+                    else if (uBlock== TRepo.searedBlock && uMeta == 2)
                     {
                         yMin = -0.75F;
                     }
-                    else if (uID == TRepo.lavaTank.blockID)
+                    else if (uBlock== TRepo.lavaTank)
                     {
                         yMin = -1F;
                     }
-                    else if (uID == TRepo.castingChannel.blockID)
+                    else if (uBlock== TRepo.castingChannel)
                     {
                         yMin = -0.5F;
                     }

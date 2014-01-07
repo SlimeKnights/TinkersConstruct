@@ -37,8 +37,8 @@ public class SurfaceOreGen extends WorldGenerator
     int findGround (World world, int x, int y, int z)
     {
         int returnHeight = -1;
-        int blockID = world.getBlockId(x, y - 1, z);
-        if (!Block.opaqueCubeLookup[world.getBlockId(x, y, z)] && (blockID == Blocks.dirt.blockID || blockID == Blocks.grass.blockID))
+        Block block = world.func_147439_a(x, y - 1, z);
+        if (!Block.opaqueCubeLookup[world.func_147439_a(x, y, z)] && (block == Blocks.dirt || block == Blocks.grass))
         {
             return y;
         }
@@ -49,10 +49,10 @@ public class SurfaceOreGen extends WorldGenerator
             {
                 break;
             }
-            int bID = world.getBlockId(x, height, z);
-            if (bID == Blocks.dirt.blockID || bID == Blocks.grass.blockID)
+            Block b = world.func_147439_a(x, height, z);
+            if (b == Blocks.dirt || b == Blocks.grass)
             {
-                if (!Block.opaqueCubeLookup[world.getBlockId(x, height + 1, z)])
+                if (!Block.opaqueCubeLookup[world.func_147439_a(x, height + 1, z)])
                 {
                     returnHeight = height + 1;
                 }
@@ -114,10 +114,10 @@ public class SurfaceOreGen extends WorldGenerator
                             {
                                 double d14 = ((double) i3 + 0.5D - d8) / (d10 / 2.0D);
 
-                                Block block = Block.blocksList[world.getBlockId(k2, l2, i3)];
+                                Block block = world.func_147439_a(k2, l2, i3);
                                 if (d12 * d12 + d13 * d13 + d14 * d14 < 1.0D)
                                 {
-                                    if (block == null || !Block.opaqueCubeLookup[world.getBlockId(k2, l2, i3)])
+                                    if (block == null || !Block.opaqueCubeLookup[world.func_147439_a(k2, l2, i3)])
                                         world.setBlock(k2, l2, i3, this.minableBlockId, minableBlockMeta, 2);
                                     else
                                     {

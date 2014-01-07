@@ -92,8 +92,8 @@ public class LavaTankBlock extends BlockContainer
     {
         //if (side == 0 && world.getBlockMetadata(x, y, z) == 0)
         //return super.shouldSideBeRendered(world, x, y, z, side);
-        int bID = world.getBlockId(x, y, z);
-        return bID == this.blockID ? false : super.shouldSideBeRendered(world, x, y, z, side);
+        Block b = world.func_147439_a(x, y, z);
+        return b == (Block)this ? false : super.shouldSideBeRendered(world, x, y, z, side);
         //return true;
     }
 
@@ -265,7 +265,7 @@ public class LavaTankBlock extends BlockContainer
     {
         player.addExhaustion(0.025F);
         int meta = world.getBlockMetadata(x, y, z);
-        ItemStack stack = new ItemStack(this.blockID, 1, meta);
+        ItemStack stack = new ItemStack(this, 1, meta);
         LavaTankLogic logic = (LavaTankLogic) world.getBlockTileEntity(x, y, z);
         FluidStack liquid = logic.tank.getFluid();
         if (liquid != null)

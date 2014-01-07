@@ -19,7 +19,7 @@ public class StoneLadder extends BlockLadder
     {
         super();
         this.setUnlocalizedName("decoration.stoneladder");
-        this.setCreativeTab(CreativeTabs.tabDecorations);
+        this.func_149647_a(CreativeTabs.tabDecorations);
     }
 
     @Override

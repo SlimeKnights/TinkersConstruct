@@ -9,6 +9,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
@@ -79,7 +80,7 @@ public class SlimeGrass extends MantleBlock
     }
 
     @Override
-    public void getSubBlocks (Block b, CreativeTabs tab, List list)
+    public void getSubBlocks (Item b, CreativeTabs tab, List list)
     {
         for (int iter = 0; iter < 1; iter++)
         {
@@ -96,7 +97,7 @@ public class SlimeGrass extends MantleBlock
 
     public void onPlantGrow (World world, int x, int y, int z, int sourceX, int sourceY, int sourceZ)
     {
-        world.setBlock(x, y, z, TRepo.craftedSoil.blockID, 5, 3);
+        world.setBlock(x, y, z, TRepo.craftedSoil, 5, 3);
     }
 
     public void updateTick (World par1World, int par2, int par3, int par4, Random par5Random)
@@ -105,7 +106,7 @@ public class SlimeGrass extends MantleBlock
         {
             if (par1World.getBlockLightValue(par2, par3 + 1, par4) < 4 && par1World.getBlockLightOpacity(par2, par3 + 1, par4) > 2)
             {
-                par1World.setBlock(par2, par3, par4, TRepo.craftedSoil.blockID, 5, 3);
+                par1World.setBlock(par2, par3, par4, TRepo.craftedSoil, 5, 3);
             }
             else if (par1World.getBlockLightValue(par2, par3 + 1, par4) >= 9)
             {
@@ -114,21 +115,21 @@ public class SlimeGrass extends MantleBlock
                     int posX = par2 + par5Random.nextInt(3) - 1;
                     int posY = par3 + par5Random.nextInt(5) - 3;
                     int posZ = par4 + par5Random.nextInt(3) - 1;
-                    int l1 = par1World.getBlockId(posX, posY + 1, posZ);
+                    Block l1 = par1World.func_147439_a(posX, posY + 1, posZ);
 
                     if (par1World.getBlockLightValue(posX, posY + 1, posZ) >= 4 && par1World.getBlockLightOpacity(posX, posY + 1, posZ) <= 2)
                     {
-                        int blockID = par1World.getBlockId(posX, posY, posZ);
-                        if (blockID == Blocks.dirt.blockID)
+                        Block block = par1World.func_147439_a(posX, posY, posZ);
+                        if (block == Blocks.dirt)
                         {
-                            par1World.setBlock(posX, posY, posZ, this.blockID, 1, 3);
+                            par1World.setBlock(posX, posY, posZ,(Block) this, 1, 3);
                             return;
                         }
                         int blockMeta = par1World.getBlockMetadata(posX, posY, posZ);
-                        if (blockID == TRepo.craftedSoil.blockID)
+                        if (block == TRepo.craftedSoil)
                         {
                             if (blockMeta == 5)
-                                par1World.setBlock(posX, posY, posZ, this.blockID, 0, 3);
+                                par1World.setBlock(posX, posY, posZ, (Block) this, 0, 3);
                         }
                     }
                 }

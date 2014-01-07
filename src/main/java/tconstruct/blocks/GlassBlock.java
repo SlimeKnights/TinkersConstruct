@@ -1,6 +1,7 @@
 package tconstruct.blocks;
 
 import cpw.mods.fml.relauncher.*;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
@@ -24,8 +25,8 @@ public class GlassBlock extends TConstructBlock
     @SideOnly(Side.CLIENT)
     public boolean shouldSideBeRendered (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
     {
-        int i1 = par1IBlockAccess.getBlockId(par2, par3, par4);
-        return i1 == this.blockID ? false : super.shouldSideBeRendered(par1IBlockAccess, par2, par3, par4, par5);
+        Block i1 = par1IBlockAccess.func_147439_a(par2, par3, par4);
+        return i1 == (Block) this ? false : super.shouldSideBeRendered(par1IBlockAccess, par2, par3, par4, par5);
     }
 
     @Override

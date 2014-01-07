@@ -65,9 +65,9 @@ public class GlassBlockConnected extends MantleBlock
      * @param par6 Metadata of the block this block is trying to connect to
      * @return true if should connect
      */
-    public boolean shouldConnectToBlock (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5, int par6)
+    public boolean shouldConnectToBlock (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, Block par5, int par6)
     {
-        return par5 == this.blockID;
+        return par5 == (Block) this;
     }
 
     @Override

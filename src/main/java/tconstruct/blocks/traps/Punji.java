@@ -57,7 +57,7 @@ public class Punji extends MantleBlock
         if (meta < 4)
         {
             ItemStack stack = player.getCurrentEquippedItem();
-            if (stack != null && stack.itemID == TRepo.punji.blockID)
+            if (stack != null && stack == new ItemStack(TRepo.punji))
             {
                 world.setBlockMetadataWithNotify(x, y, z, meta + 1, 3);
                 world.playSoundEffect((double) ((float) x + 0.5F), (double) ((float) y + 0.5F), (double) ((float) z + 0.5F), this.stepSound.getPlaceSound(),

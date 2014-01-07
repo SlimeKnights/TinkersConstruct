@@ -6,6 +6,7 @@ import java.util.Iterator;
 import mantle.blocks.iface.IServantLogic;
 import mantle.world.CoordTuple;
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagIntArray;
 import net.minecraft.nbt.NBTTagList;
@@ -32,8 +33,8 @@ public class SmelteryScan extends TankLayerScan
 
     protected boolean checkAir (int x, int y, int z)
     {
-        Block block = Block.blocksList[world.getBlockId(x, y, z)];
-        if (block == null || block.isAirBlock(world, x, y, z) || block == TRepo.tankAir)
+        Block block = world.func_147439_a(x, y, z);
+        if (block == null || block == Blocks.air || block == TRepo.tankAir)
             return true;
 
         return false;
@@ -42,8 +43,8 @@ public class SmelteryScan extends TankLayerScan
     @Override
     protected boolean checkServant (int x, int y, int z)
     {
-        Block block = Block.blocksList[world.getBlockId(x, y, z)];
-        if (block == null || block.isAirBlock(world, x, y, z) || !isValidBlock(x, y, z))
+        Block block = world.func_147439_a(x, y, z)];
+        if (block == null || world.func_147439_a( x, y, z)  == Blocks.air || !isValidBlock(x, y, z))
             return false;
 
         if (!block.hasTileEntity(world.getBlockMetadata(x, y, z)))
@@ -71,9 +72,9 @@ public class SmelteryScan extends TankLayerScan
         {
             for (CoordTuple coord : airCoords)
             {
-                if (world.getBlockId(coord.x, coord.y, coord.z) != TRepo.tankAir.blockID)
+                if (world.func_147439_a(coord.x, coord.y, coord.z) != TRepo.tankAir)
                 {
-                    world.setBlock(coord.x, coord.y, coord.z, TRepo.tankAir.blockID);
+                    world.setBlock(coord.x, coord.y, coord.z, TRepo.tankAir);
                     IServantLogic servant = (IServantLogic) world.getBlockTileEntity(coord.x, coord.y, coord.z);
                     servant.verifyMaster(imaster, world, master.xCoord, master.yCoord, master.zCoord);
                 }

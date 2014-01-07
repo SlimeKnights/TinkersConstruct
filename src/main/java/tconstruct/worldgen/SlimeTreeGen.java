@@ -3,6 +3,7 @@ package tconstruct.worldgen;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -41,7 +42,7 @@ public class SlimeTreeGen extends WorldGenerator
 
         if (yPos >= 1 && yPos + height + 1 <= 256)
         {
-            Block soil = Block.blocksList[world.getBlockId(xPos, yPos - 1, zPos)];
+            Block soil = world.func_147439_a(xPos, yPos - 1, zPos);
             boolean isSoil = (soil != null && soil.canSustainPlant(world, xPos, yPos - 1, zPos, ForgeDirection.UP, TRepo.slimeSapling));
 
             if (isSoil)
@@ -73,9 +74,8 @@ public class SlimeTreeGen extends WorldGenerator
             {
                 for (int zPos = range; zPos <= range; zPos++)
                 {
-                    int blockID = world.getBlockId(x + xPos, y + yPos, z + zPos);
-                    Block block = Block.blocksList[blockID];
-                    if (block != null && blockID != TRepo.slimeSapling.blockID && !block.isLeaves(world, x + xPos, y + yPos, z + zPos))
+                    Block block = world.func_147439_a(x + xPos, y + yPos, z + zPos);
+                    if (block != null && block != TRepo.slimeSapling && !block.isLeaves(world, x + xPos, y + yPos, z + zPos))
                         return false;
                 }
             }
@@ -89,8 +89,8 @@ public class SlimeTreeGen extends WorldGenerator
         int height = y;
         do
         {
-            int heightID = world.getBlockId(x, height, z);
-            if ((heightID == TRepo.craftedSoil.blockID || heightID == TRepo.slimeGrass.blockID) && !Block.opaqueCubeLookup[world.getBlockId(x, height + 1, z)])
+            Block heightBL = world.func_147439_a(x, height, z);
+            if ((heightBL == TRepo.craftedSoil || heightBL == TRepo.slimeGrass) && !Block.opaqueCubeLookup[world.func_147439_a(x, height + 1, z)])
             {
                 ret = height + 1;
                 break;
@@ -107,33 +107,33 @@ public class SlimeTreeGen extends WorldGenerator
             placeDiamondLayer(world, xPos, yPos + height - i, zPos, i + 1);
         }
 
-        this.setBlockAndMetadata(world, xPos + 4, yPos + height - 3, zPos, 0, 0);
-        this.setBlockAndMetadata(world, xPos - 4, yPos + height - 3, zPos, 0, 0);
-        this.setBlockAndMetadata(world, xPos, yPos + height - 3, zPos + 4, 0, 0);
-        this.setBlockAndMetadata(world, xPos, yPos + height - 3, zPos - 4, 0, 0);
-        this.setBlockAndMetadata(world, xPos + 1, yPos + height - 3, zPos + 1, 0, 0);
-        this.setBlockAndMetadata(world, xPos + 1, yPos + height - 3, zPos - 1, 0, 0);
-        this.setBlockAndMetadata(world, xPos - 1, yPos + height - 3, zPos + 1, 0, 0);
-        this.setBlockAndMetadata(world, xPos - 1, yPos + height - 3, zPos - 1, 0, 0);
+        this.setBlockAndMetadata(world, xPos + 4, yPos + height - 3, zPos, Blocks.air, 0);
+        this.setBlockAndMetadata(world, xPos - 4, yPos + height - 3, zPos, Blocks.air, 0);
+        this.setBlockAndMetadata(world, xPos, yPos + height - 3, zPos + 4, Blocks.air, 0);
+        this.setBlockAndMetadata(world, xPos, yPos + height - 3, zPos - 4, Blocks.air, 0);
+        this.setBlockAndMetadata(world, xPos + 1, yPos + height - 3, zPos + 1, Blocks.air, 0);
+        this.setBlockAndMetadata(world, xPos + 1, yPos + height - 3, zPos - 1, Blocks.air, 0);
+        this.setBlockAndMetadata(world, xPos - 1, yPos + height - 3, zPos + 1, Blocks.air, 0);
+        this.setBlockAndMetadata(world, xPos - 1, yPos + height - 3, zPos - 1, Blocks.air, 0);
 
         //Drippers
-        this.setBlockAndMetadata(world, xPos + 3, yPos + height - 4, zPos, TRepo.slimeLeaves.blockID, this.metaLeaves);
-        this.setBlockAndMetadata(world, xPos - 3, yPos + height - 4, zPos, TRepo.slimeLeaves.blockID, this.metaLeaves);
-        this.setBlockAndMetadata(world, xPos, yPos + height - 4, zPos - 3, TRepo.slimeLeaves.blockID, this.metaLeaves);
-        this.setBlockAndMetadata(world, xPos, yPos + height - 4, zPos + 3, TRepo.slimeLeaves.blockID, this.metaLeaves);
-        this.setBlockAndMetadata(world, xPos + 2, yPos + height - 4, zPos + 2, TRepo.slimeLeaves.blockID, this.metaLeaves);
-        this.setBlockAndMetadata(world, xPos + 2, yPos + height - 4, zPos - 2, TRepo.slimeLeaves.blockID, this.metaLeaves);
-        this.setBlockAndMetadata(world, xPos - 2, yPos + height - 4, zPos + 2, TRepo.slimeLeaves.blockID, this.metaLeaves);
-        this.setBlockAndMetadata(world, xPos - 2, yPos + height - 4, zPos - 2, TRepo.slimeLeaves.blockID, this.metaLeaves);
+        this.setBlockAndMetadata(world, xPos + 3, yPos + height - 4, zPos, TRepo.slimeLeaves, this.metaLeaves);
+        this.setBlockAndMetadata(world, xPos - 3, yPos + height - 4, zPos, TRepo.slimeLeaves, this.metaLeaves);
+        this.setBlockAndMetadata(world, xPos, yPos + height - 4, zPos - 3, TRepo.slimeLeaves, this.metaLeaves);
+        this.setBlockAndMetadata(world, xPos, yPos + height - 4, zPos + 3, TRepo.slimeLeaves, this.metaLeaves);
+        this.setBlockAndMetadata(world, xPos + 2, yPos + height - 4, zPos + 2, TRepo.slimeLeaves, this.metaLeaves);
+        this.setBlockAndMetadata(world, xPos + 2, yPos + height - 4, zPos - 2, TRepo.slimeLeaves, this.metaLeaves);
+        this.setBlockAndMetadata(world, xPos - 2, yPos + height - 4, zPos + 2, TRepo.slimeLeaves, this.metaLeaves);
+        this.setBlockAndMetadata(world, xPos - 2, yPos + height - 4, zPos - 2, TRepo.slimeLeaves, this.metaLeaves);
 
-        this.setBlockAndMetadata(world, xPos + 3, yPos + height - 5, zPos, TRepo.slimeLeaves.blockID, this.metaLeaves);
-        this.setBlockAndMetadata(world, xPos - 3, yPos + height - 5, zPos, TRepo.slimeLeaves.blockID, this.metaLeaves);
-        this.setBlockAndMetadata(world, xPos, yPos + height - 5, zPos - 3, TRepo.slimeLeaves.blockID, this.metaLeaves);
-        this.setBlockAndMetadata(world, xPos, yPos + height - 5, zPos + 3, TRepo.slimeLeaves.blockID, this.metaLeaves);
-        this.setBlockAndMetadata(world, xPos + 2, yPos + height - 5, zPos + 2, TRepo.slimeLeaves.blockID, this.metaLeaves);
-        this.setBlockAndMetadata(world, xPos + 2, yPos + height - 5, zPos - 2, TRepo.slimeLeaves.blockID, this.metaLeaves);
-        this.setBlockAndMetadata(world, xPos - 2, yPos + height - 5, zPos + 2, TRepo.slimeLeaves.blockID, this.metaLeaves);
-        this.setBlockAndMetadata(world, xPos - 2, yPos + height - 5, zPos - 2, TRepo.slimeLeaves.blockID, this.metaLeaves);
+        this.setBlockAndMetadata(world, xPos + 3, yPos + height - 5, zPos, TRepo.slimeLeaves, this.metaLeaves);
+        this.setBlockAndMetadata(world, xPos - 3, yPos + height - 5, zPos, TRepo.slimeLeaves, this.metaLeaves);
+        this.setBlockAndMetadata(world, xPos, yPos + height - 5, zPos - 3, TRepo.slimeLeaves, this.metaLeaves);
+        this.setBlockAndMetadata(world, xPos, yPos + height - 5, zPos + 3, TRepo.slimeLeaves, this.metaLeaves);
+        this.setBlockAndMetadata(world, xPos + 2, yPos + height - 5, zPos + 2, TRepo.slimeLeaves, this.metaLeaves);
+        this.setBlockAndMetadata(world, xPos + 2, yPos + height - 5, zPos - 2, TRepo.slimeLeaves, this.metaLeaves);
+        this.setBlockAndMetadata(world, xPos - 2, yPos + height - 5, zPos + 2, TRepo.slimeLeaves, this.metaLeaves);
+        this.setBlockAndMetadata(world, xPos - 2, yPos + height - 5, zPos - 2, TRepo.slimeLeaves, this.metaLeaves);
     }
 
     void placeDiamondLayer (World world, int xPos, int yPos, int zPos, int range)
@@ -144,7 +144,7 @@ public class SlimeTreeGen extends WorldGenerator
             {
                 if (Math.abs(x) + Math.abs(z) <= range)
                 {
-                    this.setBlockAndMetadata(world, x + xPos, yPos, z + zPos, TRepo.slimeLeaves.blockID, this.metaLeaves);
+                    this.setBlockAndMetadata(world, x + xPos, yPos, z + zPos, TRepo.slimeLeaves, this.metaLeaves);
                 }
             }
         }
@@ -154,29 +154,28 @@ public class SlimeTreeGen extends WorldGenerator
     {
         for (int localHeight = 0; localHeight < height; ++localHeight)
         {
-            int blockID = world.getBlockId(xPos, yPos + localHeight, zPos);
+            Block block = world.func_147439_a(xPos, yPos + localHeight, zPos);
 
-            Block block = Block.blocksList[blockID];
 
-            if (blockID == 0 || block == null || block.isLeaves(world, xPos, yPos + localHeight, zPos))
+            if (block == null || block == Blocks.air || block.isLeaves(world, xPos, yPos + localHeight, zPos))
             {
-                this.setBlockAndMetadata(world, xPos, yPos + localHeight, zPos, TRepo.slimeGel.blockID, this.metaWood);
+                this.setBlockAndMetadata(world, xPos, yPos + localHeight, zPos, TRepo.slimeGel, this.metaWood);
             }
         }
     }
 
-    protected void setBlockAndMetadata (World world, int x, int y, int z, int blockID, int blockMeta)
+    protected void setBlockAndMetadata (World world, int x, int y, int z, Block block, int blockMeta)
     {
-        Block block = Block.blocksList[world.getBlockId(x, y, z)];
-        if (block == null || block.isBlockReplaceable(world, x, y, z))
+        Block blockWorld = world.func_147439_a(x, y, z);
+        if (blockWorld == null || blockWorld == Blocks.air || blockWorld.isBlockReplaceable(world, x, y, z))
         {
             if (this.notify)
             {
-                world.setBlock(x, y, z, blockID, blockMeta, 3);
+                world.func_147465_d(x, y, z, block, blockMeta, 3);
             }
             else
             {
-                world.setBlock(x, y, z, blockID, blockMeta, 2);
+                world.func_147465_d(x, y, z, block, blockMeta, 2);
             }
         }
     }

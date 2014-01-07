@@ -495,10 +495,10 @@ public class AbilityHelper
                 return true;
             }
 
-            int bID = world.getBlockId(x, y, z);
-            int bIDabove = world.getBlockId(x, y + 1, z);
+            Block b = world.getBlockId(x, y, z);
+            Block babove = world.getBlockId(x, y + 1, z);
 
-            if ((side == 0 || bIDabove != 0 || bID != Blocks.grass.blockID) && bID != Blocks.dirt.blockID)
+            if ((side == 0 || babove != Blocks.air || b != Blocks.grass) && b != Blocks.dirt)
             {
                 return false;
             }
@@ -514,7 +514,7 @@ public class AbilityHelper
                 }
                 else
                 {
-                    world.setBlock(x, y, z, block.blockID);
+                    world.setBlock(x, y, z, block);
                     onBlockChanged(stack, world, 0, x, y, z, player, random);
                     return true;
                 }

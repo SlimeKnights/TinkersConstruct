@@ -5,6 +5,7 @@ import tconstruct.library.TConstructRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
@@ -27,10 +28,10 @@ public abstract class HarvestTool extends ToolCore
 
         NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
         World world = player.worldObj;
-        int bID = player.worldObj.getBlockId(x, y, z);
+        Block block = player.worldObj.func_147439_a(x, y, z);
         int meta = world.getBlockMetadata(x, y, z);
-        Block block = Block.blocksList[bID];
-        if (block == null || bID < 1)
+        //Block block = Block.blocksList[bID];
+        if (block == null || block == Blocks.air)
             return false;
         int hlvl = MinecraftForge.getBlockHarvestLevel(block, meta, getHarvestType());
 
@@ -48,9 +49,9 @@ public abstract class HarvestTool extends ToolCore
         {
             world.setBlockToAir(x, y, z);
             if (!player.capabilities.isCreativeMode)
-                onBlockDestroyed(stack, world, bID, x, y, z, player);
+                onBlockDestroyed(stack, world, block, x, y, z, player);
             if (!world.isRemote)
-                world.playAuxSFX(2001, x, y, z, bID + (meta << 12));
+                world.playAuxSFX(2001, x, y, z, block.getBlockID() + (meta << 12));
             return true;
         }
     }

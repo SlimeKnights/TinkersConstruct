@@ -667,9 +667,9 @@ public class GlassPaneConnected extends GlassBlockConnected
         return this.theIcon;
     }
 
-    public final boolean canThisPaneConnectToThisBlockID (int par1)
+    public final boolean canThisPaneConnectToThisBlock (Block b)
     {
-        return Block.opaqueCubeLookup[par1] || par1 == this.blockID || par1 == Blocks.glass.blockID;
+        return Block.opaqueCubeLookup[b] || b == (Block) this || b == Blocks.glass;
     }
 
     public void registerIcons (IIconRegister par1IconRegister)

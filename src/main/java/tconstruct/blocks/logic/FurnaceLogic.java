@@ -206,7 +206,6 @@ public class FurnaceLogic extends InventoryLogic implements IActiveLogic, IFacin
         }
         else
         {
-            int i = stack.getItem().itemID;
             Item item = stack.getItem();
 
             if (stack.getItem() instanceof ItemBlock && Block.blocksList[i] != null)
@@ -240,15 +239,15 @@ public class FurnaceLogic extends InventoryLogic implements IActiveLogic, IFacin
                 return 200;
             if (item instanceof ItemHoe && ((ItemHoe) item).getMaterialName().equals("WOOD"))
                 return 200;
-            if (i == Items.stick.itemID)
+            if (item == Items.stick)
                 return 100;
-            if (i == Items.coal.itemID)
+            if (item == Items.coal)
                 return 1600;
-            if (i == Items.bucketLava.itemID)
+            if (item == Items.lava_bucket)
                 return 20000;
-            if (i == Blocks.sapling.blockID)
+            if (item == new ItemStack(Blocks.sapling).getItem())
                 return 100;
-            if (i == Items.blaze_rod.itemID)
+            if (item == Items.blaze_rod)
                 return 2400;
             return GameRegistry.getFuelValue(stack);
         }

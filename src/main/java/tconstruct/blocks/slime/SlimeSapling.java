@@ -9,6 +9,7 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
@@ -47,9 +48,9 @@ public class SlimeSapling extends BlockSapling
         }
     }
 
-    public boolean canThisPlantGrowOnThisBlockID (int id)
+    public boolean canThisPlantGrowOnThisBlockID (Block b)
     {
-        return id == Blocks.grass.blockID || id == Blocks.dirt.blockID || id == TRepo.slimeGrass.blockID || id == TRepo.craftedSoil.blockID;
+        return b == Blocks.grass || b == Blocks.dirt || b == TRepo.slimeGrass || b == TRepo.craftedSoil;
     }
 
     public void updateTick (World world, int x, int y, int z, Random random)
@@ -121,7 +122,7 @@ public class SlimeSapling extends BlockSapling
 
     @SideOnly(Side.CLIENT)
     @Override
-    public void getSubBlocks (Block b, CreativeTabs par2CreativeTabs, List par3List)
+    public void getSubBlocks (Item b, CreativeTabs par2CreativeTabs, List par3List)
     {
         for (int i = 0; i < 1; i++)
             par3List.add(new ItemStack(b, 1, i));

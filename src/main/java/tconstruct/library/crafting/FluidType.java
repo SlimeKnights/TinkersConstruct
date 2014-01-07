@@ -8,71 +8,71 @@ import tconstruct.common.TRepo;
 public enum FluidType
 {
     /** Vanilla Water Smelting **/
-    Water(Blocks.snow.blockID, 0, 20, FluidRegistry.getFluid("water"), false),
+    Water(Blocks.snow, 0, 20, FluidRegistry.getFluid("water"), false),
     /** Iron Smelting **/
-    Iron(Blocks.iron_block.blockID, 0, 600, TRepo.moltenIronFluid, true),
+    Iron(Blocks.iron_block, 0, 600, TRepo.moltenIronFluid, true),
     /** Gold  Smelting **/
-    Gold(Blocks.gold_block.blockID, 0, 400, TRepo.moltenGoldFluid, false),
+    Gold(Blocks.gold_block, 0, 400, TRepo.moltenGoldFluid, false),
     /** Tin  Smelting **/
-    Tin(TRepo.metalBlock.blockID, 5, 400, TRepo.moltenTinFluid, false),
+    Tin(TRepo.metalBlock, 5, 400, TRepo.moltenTinFluid, false),
     /** Copper  Smelting **/
-    Copper(TRepo.metalBlock.blockID, 3, 550, TRepo.moltenCopperFluid, true),
+    Copper(TRepo.metalBlock, 3, 550, TRepo.moltenCopperFluid, true),
     /** Aluminum Smelting **/
-    Aluminum(TRepo.metalBlock.blockID, 6, 350, TRepo.moltenAluminumFluid, false),
+    Aluminum(TRepo.metalBlock, 6, 350, TRepo.moltenAluminumFluid, false),
     /** Natural Aluminum Smelting **/
-    NaturalAluminum(TRepo.oreSlag.blockID, 6, 350, TRepo.moltenAluminumFluid, false),
+    NaturalAluminum(TRepo.oreSlag, 6, 350, TRepo.moltenAluminumFluid, false),
     /** Cobalt Smelting **/
-    Cobalt(TRepo.metalBlock.blockID, 0, 650, TRepo.moltenCobaltFluid, true),
+    Cobalt(TRepo.metalBlock, 0, 650, TRepo.moltenCobaltFluid, true),
     /** Ardite Smelting **/
-    Ardite(TRepo.metalBlock.blockID, 1, 650, TRepo.moltenArditeFluid, true),
+    Ardite(TRepo.metalBlock, 1, 650, TRepo.moltenArditeFluid, true),
     /** AluminumBrass Smelting **/
-    AluminumBrass(TRepo.metalBlock.blockID, 7, 350, TRepo.moltenAlubrassFluid, false),
+    AluminumBrass(TRepo.metalBlock, 7, 350, TRepo.moltenAlubrassFluid, false),
     /** Alumite Smelting **/
-    Alumite(TRepo.metalBlock.blockID, 8, 800, TRepo.moltenAlumiteFluid, true),
+    Alumite(TRepo.metalBlock, 8, 800, TRepo.moltenAlumiteFluid, true),
     /** Manyullyn Smelting **/
-    Manyullyn(TRepo.metalBlock.blockID, 2, 750, TRepo.moltenManyullynFluid, true),
+    Manyullyn(TRepo.metalBlock, 2, 750, TRepo.moltenManyullynFluid, true),
     /** Bronze Smelting **/
-    Bronze(TRepo.metalBlock.blockID, 4, 500, TRepo.moltenBronzeFluid, true),
+    Bronze(TRepo.metalBlock, 4, 500, TRepo.moltenBronzeFluid, true),
     /** Steel Smelting **/
-    Steel(TRepo.metalBlock.blockID, 9, 700, TRepo.moltenSteelFluid, true),
+    Steel(TRepo.metalBlock, 9, 700, TRepo.moltenSteelFluid, true),
     /** Nickel Smelting **/
-    Nickel(TRepo.metalBlock.blockID, 0, 400, TRepo.moltenNickelFluid, false),
+    Nickel(TRepo.metalBlock, 0, 400, TRepo.moltenNickelFluid, false),
     /** Lead Smelting **/
-    Lead(TRepo.metalBlock.blockID, 0, 400, TRepo.moltenLeadFluid, false),
+    Lead(TRepo.metalBlock, 0, 400, TRepo.moltenLeadFluid, false),
     /** Silver Smelting **/
-    Silver(TRepo.metalBlock.blockID, 0, 400, TRepo.moltenSilverFluid, false),
+    Silver(TRepo.metalBlock, 0, 400, TRepo.moltenSilverFluid, false),
     /** Platinum Smelting **/
-    Platinum(TRepo.metalBlock.blockID, 0, 400, TRepo.moltenShinyFluid, false),
+    Platinum(TRepo.metalBlock, 0, 400, TRepo.moltenShinyFluid, false),
     /** Invar Smelting **/
-    Invar(TRepo.metalBlock.blockID, 0, 400, TRepo.moltenInvarFluid, false),
+    Invar(TRepo.metalBlock, 0, 400, TRepo.moltenInvarFluid, false),
     /** Electrum Smelting **/
-    Electrum(TRepo.metalBlock.blockID, 0, 400, TRepo.moltenElectrumFluid, false),
+    Electrum(TRepo.metalBlock, 0, 400, TRepo.moltenElectrumFluid, false),
     /** Obsidian Smelting **/
-    Obsidian(Block.obsidian.blockID, 0, 750, TRepo.moltenObsidianFluid, true),
+    Obsidian(Blocks.obsidian, 0, 750, TRepo.moltenObsidianFluid, true),
     /** Ender Smelting **/
-    Ender(TRepo.metalBlock.blockID, 10, 500, TRepo.moltenEnderFluid, false),
+    Ender(TRepo.metalBlock, 10, 500, TRepo.moltenEnderFluid, false),
     /** Glass Smelting **/
-    Glass(Block.sand.blockID, 0, 625, TRepo.moltenGlassFluid, false),
+    Glass(Blocks.sand, 0, 625, TRepo.moltenGlassFluid, false),
     /** Stone Smelting **/
-    Stone(Block.stone.blockID, 0, 800, TRepo.moltenStoneFluid, true),
+    Stone(Blocks.stone, 0, 800, TRepo.moltenStoneFluid, true),
     /** Emerald Smelting **/
-    Emerald(Block.oreEmerald.blockID, 0, 575, TRepo.moltenEmeraldFluid, false),
+    Emerald(Blocks.emerald_ore, 0, 575, TRepo.moltenEmeraldFluid, false),
     /** Slime Smelting **/
-    Slime(TRepo.slimeGel.blockID, 0, 250, TRepo.blueSlimeFluid, false),
+    Slime(TRepo.slimeGel, 0, 250, TRepo.blueSlimeFluid, false),
     /** Pigiron Smelting **/
-    PigIron(TRepo.meatBlock.blockID, 0, 610, TRepo.pigIronFluid, true),
+    PigIron(TRepo.meatBlock, 0, 610, TRepo.pigIronFluid, true),
     /** Glue Smelting **/
-    Glue(TRepo.glueBlock.blockID, 0, 125, TRepo.glueFluid, false);
+    Glue(TRepo.glueBlock, 0, 125, TRepo.glueFluid, false);
 
-    public final int renderBlockID;
+    public final Block renderBlock;
     public final int renderMeta;
     public final int baseTemperature;
     public final Fluid fluid;
     public final boolean isToolpart;
 
-    FluidType(int blockID, int meta, int baseTemperature, Fluid fluid, boolean isToolpart)
+    FluidType(Block b, int meta, int baseTemperature, Fluid fluid, boolean isToolpart)
     {
-        this.renderBlockID = blockID;
+        this.renderBlock = b;
         this.renderMeta = meta;
         this.baseTemperature = baseTemperature;
         this.fluid = fluid;
@@ -83,7 +83,7 @@ public enum FluidType
     {
         for (FluidType ft : values())
         {
-            if (ft.fluid.getBlockID() == searchedFluid.getBlockID())
+            if (ft.fluid == searchedFluid)
                 return ft;
         }
         return null;
@@ -93,7 +93,7 @@ public enum FluidType
     {
         for (FluidType ft : values())
         {
-            if (ft.fluid.getBlockID() == searchedFluid.getBlockID())
+            if (ft.fluid == searchedFluid)
                 return ft.baseTemperature;
         }
         return 800;
