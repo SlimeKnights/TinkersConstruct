@@ -1281,7 +1281,7 @@ public class TContent implements IFuelHandler
         GameRegistry.addRecipe(new ItemStack(metalBlock, 1, 2), patBlock, '#', new ItemStack(materials, 1, 5)); // Manyullyn
         GameRegistry.addRecipe(new ItemStack(metalBlock, 1, 8), patBlock, '#', new ItemStack(materials, 1, 15)); // Alumite
         GameRegistry.addRecipe(new ItemStack(metalBlock, 1, 9), patBlock, '#', new ItemStack(materials, 1, 16)); // Steel
-        GameRegistry.addRecipe(new ItemStack(metalBlock, 1, 11), patBlock, '#', new ItemStack(materials, 1, 12)); //Aluminum raw -> ingot
+        GameRegistry.addRecipe(new ItemStack(materials, 1, 11), patBlock, '#', new ItemStack(materials, 1, 12)); //Aluminum raw -> ingot
 
         GameRegistry.addRecipe(new ItemStack(materials, 9, 9), "m", 'm', new ItemStack(metalBlock, 1, 3)); //Copper
         GameRegistry.addRecipe(new ItemStack(materials, 9, 10), "m", 'm', new ItemStack(metalBlock, 1, 5)); //Tin
