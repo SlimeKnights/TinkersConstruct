@@ -43,7 +43,7 @@ public class AbilityHelper
     public static boolean necroticUHS;
 
     /* Normal interactions */
-    public static boolean onBlockChanged (ItemStack stack, World world, int bID, int x, int y, int z, EntityLivingBase player, Random random)
+    public static boolean onBlockChanged (ItemStack stack, World world, Block block, int x, int y, int z, EntityLivingBase player, Random random)
     {
         if (!stack.hasTagCompound())
             return false;
@@ -260,7 +260,7 @@ public class AbilityHelper
                         }
                         else
                         {
-                            Item.itemsList[stack.itemID].hitEntity(stack, (EntityLivingBase) entity, player);
+                            stack.getItem().hitEntity(stack, (EntityLivingBase) entity, player);
                         }
 
                         if ((fireAspect > 0 || toolTags.hasKey("Fiery") || toolTags.hasKey("Lava")) && causedDamage)
@@ -300,7 +300,7 @@ public class AbilityHelper
             {
                 EntityWolf var3 = (EntityWolf) living;
 
-                if (var3.isTamed() && player.username.equals(var3.getOwnerName()))
+                if (var3.isTamed() && player.getDisplayName().equals(var3.getOwnerName()))
                 {
                     return;
                 }
@@ -316,7 +316,7 @@ public class AbilityHelper
                 {
                     EntityWolf var5 = (EntityWolf) var4.next();
 
-                    if (var5.isTamed() && var5.getEntityToAttack() == null && player.username.equals(var5.getOwnerName()) && (!par2 || !var5.isSitting()))
+                    if (var5.isTamed() && var5.getEntityToAttack() == null && player.getDisplayName().equals(var5.getOwnerName()) && (!par2 || !var5.isSitting()))
                     {
                         var5.setSitting(false);
                         var5.setTarget(living);
@@ -495,8 +495,8 @@ public class AbilityHelper
                 return true;
             }
 
-            Block b = world.getBlockId(x, y, z);
-            Block babove = world.getBlockId(x, y + 1, z);
+            Block b = world.func_147439_a(x, y, z);
+            Block babove = world.func_147439_a(x, y + 1, z);
 
             if ((side == 0 || babove != Blocks.air || b != Blocks.grass) && b != Blocks.dirt)
             {

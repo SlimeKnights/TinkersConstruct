@@ -179,11 +179,11 @@ public class Scythe extends Weapon
                         {
                             int localblockID = world.getBlockId(xPos, yPos, zPos);
                             Block block = Block.blocksList[localblockID];
-                            if (block != null)// && (block.blockMaterial == Material.leaves || block.isLeaves(world, xPos, yPos, zPos)))
+                            if (block != null)// && (block.func_149688_o() == Material.leaves || block.isLeaves(world, xPos, yPos, zPos)))
                             {
                                 for (int iter = 0; iter < materials.length; iter++)
                                 {
-                                    if (materials[iter] == block.blockMaterial)
+                                    if (materials[iter] == block.func_149688_o())
                                     {
                                         int localMeta = world.getBlockMetadata(xPos, yPos, zPos);
                                         world.setBlockToAir(xPos, yPos, zPos);

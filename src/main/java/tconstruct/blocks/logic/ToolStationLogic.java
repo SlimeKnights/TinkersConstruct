@@ -60,7 +60,7 @@ public class ToolStationLogic extends InventoryLogic implements ISidedInventory
         buildTool(toolName);
         if (this.getWorld() != null)
         {
-            this.blockMetadata = this.getWorld().getBlockMetadata(this.xCoord, this.yCoord, this.zCoord);
+            this.field_145847_g = this.getWorld().getBlockMetadata(this.xCoord, this.yCoord, this.zCoord);
             this.getWorld().markTileEntityChunkModified(this.xCoord, this.yCoord, this.zCoord, this);
         }
     }

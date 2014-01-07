@@ -73,8 +73,8 @@ public class StoneTorch extends MantleBlock
         }
         else
         {
-            int l = par1World.getBlockId(par2, par3, par4);
-            return (Block.blocksList[l] != null && Block.blocksList[l].canPlaceTorchOnTop(par1World, par2, par3, par4));
+            Block b = par1World.func_147439_a(par2, par3, par4);
+            return (b != null && b.canPlaceTorchOnTop(par1World, par2, par3, par4));
         }
     }
 
@@ -83,8 +83,8 @@ public class StoneTorch extends MantleBlock
      */
     public boolean canPlaceBlockAt (World par1World, int par2, int par3, int par4)
     {
-        return par1World.isBlockSolidOnSide(par2 - 1, par3, par4, EAST, true) || par1World.isBlockSolidOnSide(par2 + 1, par3, par4, WEST, true)
-                || par1World.isBlockSolidOnSide(par2, par3, par4 - 1, SOUTH, true) || par1World.isBlockSolidOnSide(par2, par3, par4 + 1, NORTH, true)
+        return par1World.isSideSolid(par2 - 1, par3, par4, EAST, true) || par1World.isSideSolid(par2 + 1, par3, par4, WEST, true)
+                || par1World.isSideSolid(par2, par3, par4 - 1, SOUTH, true) || par1World.isSideSolid(par2, par3, par4 + 1, NORTH, true)
                 || canPlaceTorchOn(par1World, par2, par3 - 1, par4);
     }
 
@@ -101,19 +101,19 @@ public class StoneTorch extends MantleBlock
             {
                 j1 = 5;
             }
-            else if (par1World.isBlockSolidOnSide(par2, par3, par4 + 1, NORTH, true))
+            else if (par1World.isSideSolid(par2, par3, par4 + 1, NORTH, true))
             {
                 j1 = 4;
             }
-            else if (par1World.isBlockSolidOnSide(par2, par3, par4 - 1, SOUTH, true))
+            else if (par1World.isSideSolid(par2, par3, par4 - 1, SOUTH, true))
             {
                 j1 = 3;
             }
-            else if (par1World.isBlockSolidOnSide(par2 + 1, par3, par4, WEST, true))
+            else if (par1World.isSideSolid(par2 + 1, par3, par4, WEST, true))
             {
                 j1 = 2;
             }
-            else if (par1World.isBlockSolidOnSide(par2 - 1, par3, par4, EAST, true))
+            else if (par1World.isSideSolid(par2 - 1, par3, par4, EAST, true))
             {
                 j1 = 1;
             }
@@ -124,22 +124,22 @@ public class StoneTorch extends MantleBlock
             j1 = 5;
         }
 
-        if (par5 == 2 && par1World.isBlockSolidOnSide(par2, par3, par4 + 1, NORTH, true))
+        if (par5 == 2 && par1World.isSideSolid(par2, par3, par4 + 1, NORTH, true))
         {
             j1 = 4;
         }
 
-        if (par5 == 3 && par1World.isBlockSolidOnSide(par2, par3, par4 - 1, SOUTH, true))
+        if (par5 == 3 && par1World.isSideSolid(par2, par3, par4 - 1, SOUTH, true))
         {
             j1 = 3;
         }
 
-        if (par5 == 4 && par1World.isBlockSolidOnSide(par2 + 1, par3, par4, WEST, true))
+        if (par5 == 4 && par1World.isSideSolid(par2 + 1, par3, par4, WEST, true))
         {
             j1 = 2;
         }
 
-        if (par5 == 5 && par1World.isBlockSolidOnSide(par2 - 1, par3, par4, EAST, true))
+        if (par5 == 5 && par1World.isSideSolid(par2 - 1, par3, par4, EAST, true))
         {
             j1 = 1;
         }
@@ -169,22 +169,22 @@ public class StoneTorch extends MantleBlock
             int i1 = par1World.getBlockMetadata(par2, par3, par4);
             boolean flag = false;
 
-            if (!par1World.isBlockSolidOnSide(par2 - 1, par3, par4, EAST, true) && i1 == 1)
+            if (!par1World.isSideSolid(par2 - 1, par3, par4, EAST, true) && i1 == 1)
             {
                 flag = true;
             }
 
-            if (!par1World.isBlockSolidOnSide(par2 + 1, par3, par4, WEST, true) && i1 == 2)
+            if (!par1World.isSideSolid(par2 + 1, par3, par4, WEST, true) && i1 == 2)
             {
                 flag = true;
             }
 
-            if (!par1World.isBlockSolidOnSide(par2, par3, par4 - 1, SOUTH, true) && i1 == 3)
+            if (!par1World.isSideSolid(par2, par3, par4 - 1, SOUTH, true) && i1 == 3)
             {
                 flag = true;
             }
 
-            if (!par1World.isBlockSolidOnSide(par2, par3, par4 + 1, NORTH, true) && i1 == 4)
+            if (!par1World.isSideSolid(par2, par3, par4 + 1, NORTH, true) && i1 == 4)
             {
                 flag = true;
             }
@@ -197,7 +197,6 @@ public class StoneTorch extends MantleBlock
             if (flag)
             {
                 this.dropBlockAsItem(par1World, par2, par3, par4, par1World.getBlockMetadata(par2, par3, par4), 0);
-                par1World.setBlockToAir(par2, par3, par4);
                 return true;
             }
             else
@@ -219,7 +218,7 @@ public class StoneTorch extends MantleBlock
     {
         if (!this.canPlaceBlockAt(par1World, par2, par3, par4))
         {
-            if (par1World.getBlockId(par2, par3, par4) == this.blockID)
+            if (par1World.func_147439_a(par2, par3, par4) == (Block) this)
             {
                 this.dropBlockAsItem(par1World, par2, par3, par4, par1World.getBlockMetadata(par2, par3, par4), 0);
                 par1World.setBlockToAir(par2, par3, par4);

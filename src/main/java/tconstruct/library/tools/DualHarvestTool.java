@@ -65,7 +65,7 @@ public abstract class DualHarvestTool extends HarvestTool
         Material[] materials = getEffectiveMaterials();
         for (int i = 0; i < materials.length; i++)
         {
-            if (materials[i] == block.blockMaterial)
+            if (materials[i] == block.func_149688_o())
             {
                 float speed = tags.getInteger("MiningSpeed");
                 speed /= 100f;
@@ -83,7 +83,7 @@ public abstract class DualHarvestTool extends HarvestTool
         materials = getEffectiveSecondaryMaterials();
         for (int i = 0; i < materials.length; i++)
         {
-            if (materials[i] == block.blockMaterial)
+            if (materials[i] == block.func_149688_o())
             {
                 float speed = tags.getInteger("MiningSpeed2");
                 speed /= 100f;
@@ -103,18 +103,18 @@ public abstract class DualHarvestTool extends HarvestTool
 
     public boolean canHarvestBlock (Block block)
     {
-        if (block.blockMaterial.isToolNotRequired())
+        if (block.func_149688_o().isToolNotRequired())
         {
             return true;
         }
         for (Material m : getEffectiveMaterials())
         {
-            if (m == block.blockMaterial)
+            if (m == block.func_149688_o())
                 return true;
         }
         for (Material m : getEffectiveSecondaryMaterials())
         {
-            if (m == block.blockMaterial)
+            if (m == block.func_149688_o())
                 return true;
         }
         return false;

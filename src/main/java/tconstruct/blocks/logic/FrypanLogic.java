@@ -244,7 +244,7 @@ public class FrypanLogic extends EquipLogic implements IActiveLogic
                     return 2400;
                 }
 
-                if (block.blockMaterial == Material.wood)
+                if (block.func_149688_o() == Material.wood)
                 {
                     return 300;
                 }

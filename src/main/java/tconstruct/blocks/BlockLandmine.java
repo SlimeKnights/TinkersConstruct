@@ -15,6 +15,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -54,7 +55,7 @@ public class BlockLandmine extends BlockContainer
     @Override
     public int getLightValue (IBlockAccess world, int x, int y, int z)
     {
-        if (world.getBlockId(x, y, z) == this.blockID && world.getBlockTileEntity(x, y, z) instanceof TileEntityLandmine)
+        if (world.func_147439_a(x, y, z) == (Block) this && world.getBlockTileEntity(x, y, z) instanceof TileEntityLandmine)
         {
             TileEntityLandmine te = (TileEntityLandmine) world.getBlockTileEntity(x, y, z);
 
@@ -123,7 +124,7 @@ public class BlockLandmine extends BlockContainer
     @Override
     public void registerIcons (IIconRegister par1IconRegister)
     {
-        this.blockIcon = par1IconRegister.registerIcon("tinker:Landmine");
+        this.field_149761_L = par1IconRegister.registerIcon("tinker:Landmine");
     }
 
     @Override
@@ -192,7 +193,7 @@ public class BlockLandmine extends BlockContainer
     }
 
     @Override
-    public void getSubBlocks (int par1, CreativeTabs par2CreativeTabs, List par3List)
+    public void getSubBlocks (Item par1, CreativeTabs par2CreativeTabs, List par3List)
     {
         par3List.add(new ItemStack(par1, 1, 0));
         par3List.add(new ItemStack(par1, 1, 1));
@@ -210,16 +211,16 @@ public class BlockLandmine extends BlockContainer
     public boolean canPlaceBlockOnSide (World par1World, int par2, int par3, int par4, int par5)
     {
         ForgeDirection dir = ForgeDirection.getOrientation(par5);
-        return (dir == DOWN && par1World.isBlockSolidOnSide(par2, par3 + 1, par4, DOWN)) || (dir == UP && par1World.isBlockSolidOnSide(par2, par3 - 1, par4, UP))
-                || (dir == NORTH && par1World.isBlockSolidOnSide(par2, par3, par4 + 1, NORTH)) || (dir == SOUTH && par1World.isBlockSolidOnSide(par2, par3, par4 - 1, SOUTH))
-                || (dir == WEST && par1World.isBlockSolidOnSide(par2 + 1, par3, par4, WEST)) || (dir == EAST && par1World.isBlockSolidOnSide(par2 - 1, par3, par4, EAST));
+        return (dir == DOWN && par1World.isSideSolid(par2, par3 + 1, par4, DOWN)) || (dir == UP && par1World.isSideSolid(par2, par3 - 1, par4, UP))
+                || (dir == NORTH && par1World.isSideSolid(par2, par3, par4 + 1, NORTH)) || (dir == SOUTH && par1World.isSideSolid(par2, par3, par4 - 1, SOUTH))
+                || (dir == WEST && par1World.isSideSolid(par2 + 1, par3, par4, WEST)) || (dir == EAST && par1World.isSideSolid(par2 - 1, par3, par4, EAST));
     }
 
     @Override
     public boolean canPlaceBlockAt (World par1World, int par2, int par3, int par4)
     {
-        return par1World.isBlockSolidOnSide(par2 - 1, par3, par4, EAST) || par1World.isBlockSolidOnSide(par2 + 1, par3, par4, WEST) || par1World.isBlockSolidOnSide(par2, par3, par4 - 1, SOUTH)
-                || par1World.isBlockSolidOnSide(par2, par3, par4 + 1, NORTH) || par1World.isBlockSolidOnSide(par2, par3 - 1, par4, UP) || par1World.isBlockSolidOnSide(par2, par3 + 1, par4, DOWN);
+        return par1World.isSideSolid(par2 - 1, par3, par4, EAST) || par1World.isSideSolid(par2 + 1, par3, par4, WEST) || par1World.isSideSolid(par2, par3, par4 - 1, SOUTH)
+                || par1World.isSideSolid(par2, par3, par4 + 1, NORTH) || par1World.isSideSolid(par2, par3 - 1, par4, UP) || par1World.isSideSolid(par2, par3 + 1, par4, DOWN);
     }
 
     @Override
@@ -229,32 +230,32 @@ public class BlockLandmine extends BlockContainer
         int k1 = par9 & 7;
         byte b0 = -1;
 
-        if (par5 == 0 && par1World.isBlockSolidOnSide(par2, par3 + 1, par4, DOWN))
+        if (par5 == 0 && par1World.isSideSolid(par2, par3 + 1, par4, DOWN))
         {
             b0 = 0;
         }
 
-        if (par5 == 1 && par1World.isBlockSolidOnSide(par2, par3 - 1, par4, UP))
+        if (par5 == 1 && par1World.isSideSolid(par2, par3 - 1, par4, UP))
         {
             b0 = 5;
         }
 
-        if (par5 == 2 && par1World.isBlockSolidOnSide(par2, par3, par4 + 1, NORTH))
+        if (par5 == 2 && par1World.isSideSolid(par2, par3, par4 + 1, NORTH))
         {
             b0 = 4;
         }
 
-        if (par5 == 3 && par1World.isBlockSolidOnSide(par2, par3, par4 - 1, SOUTH))
+        if (par5 == 3 && par1World.isSideSolid(par2, par3, par4 - 1, SOUTH))
         {
             b0 = 3;
         }
 
-        if (par5 == 4 && par1World.isBlockSolidOnSide(par2 + 1, par3, par4, WEST))
+        if (par5 == 4 && par1World.isSideSolid(par2 + 1, par3, par4, WEST))
         {
             b0 = 2;
         }
 
-        if (par5 == 5 && par1World.isBlockSolidOnSide(par2 - 1, par3, par4, EAST))
+        if (par5 == 5 && par1World.isSideSolid(par2 - 1, par3, par4, EAST))
         {
             b0 = 1;
         }
@@ -334,42 +335,42 @@ public class BlockLandmine extends BlockContainer
             int i1 = par1World.getBlockMetadata(par2, par3, par4) & 7;
             boolean flag = false;
 
-            if (!par1World.isBlockSolidOnSide(par2 - 1, par3, par4, EAST) && i1 == 1)
+            if (!par1World.isSideSolid(par2 - 1, par3, par4, EAST) && i1 == 1)
             {
                 flag = true;
             }
 
-            if (!par1World.isBlockSolidOnSide(par2 + 1, par3, par4, WEST) && i1 == 2)
+            if (!par1World.isSideSolid(par2 + 1, par3, par4, WEST) && i1 == 2)
             {
                 flag = true;
             }
 
-            if (!par1World.isBlockSolidOnSide(par2, par3, par4 - 1, SOUTH) && i1 == 3)
+            if (!par1World.isSideSolid(par2, par3, par4 - 1, SOUTH) && i1 == 3)
             {
                 flag = true;
             }
 
-            if (!par1World.isBlockSolidOnSide(par2, par3, par4 + 1, NORTH) && i1 == 4)
+            if (!par1World.isSideSolid(par2, par3, par4 + 1, NORTH) && i1 == 4)
             {
                 flag = true;
             }
 
-            if (!par1World.isBlockSolidOnSide(par2, par3 - 1, par4, UP) && i1 == 5)
+            if (!par1World.isSideSolid(par2, par3 - 1, par4, UP) && i1 == 5)
             {
                 flag = true;
             }
 
-            if (!par1World.isBlockSolidOnSide(par2, par3 - 1, par4, UP) && i1 == 6)
+            if (!par1World.isSideSolid(par2, par3 - 1, par4, UP) && i1 == 6)
             {
                 flag = true;
             }
 
-            if (!par1World.isBlockSolidOnSide(par2, par3 + 1, par4, DOWN) && i1 == 0)
+            if (!par1World.isSideSolid(par2, par3 + 1, par4, DOWN) && i1 == 0)
             {
                 flag = true;
             }
 
-            if (!par1World.isBlockSolidOnSide(par2, par3 + 1, par4, DOWN) && i1 == 7)
+            if (!par1World.isSideSolid(par2, par3 + 1, par4, DOWN) && i1 == 7)
             {
                 flag = true;
             }

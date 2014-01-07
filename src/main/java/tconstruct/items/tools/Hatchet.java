@@ -37,7 +37,7 @@ public class Hatchet extends HarvestTool
     public boolean onBlockDestroyed (ItemStack itemstack, World world, int bID, int x, int y, int z, EntityLivingBase player)
     {
         Block block = Block.blocksList[bID];
-        if (block != null && block.blockMaterial == Material.leaves)
+        if (block != null && block.func_149688_o() == Material.leaves)
             return false;
 
         return AbilityHelper.onBlockChanged(itemstack, world, bID, x, y, z, player, random);

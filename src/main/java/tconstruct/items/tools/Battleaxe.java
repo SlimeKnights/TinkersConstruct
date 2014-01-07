@@ -46,7 +46,7 @@ public class Battleaxe extends HarvestTool
     @Override
     public boolean onBlockDestroyed (ItemStack itemstack, World world, Block b, int x, int y, int z, EntityLivingBase player)
     {
-        if (b != null && b.blockMaterial == Material.leaves)
+        if (b != null && b.func_149688_o() == Material.leaves)
             return false;
 
         return AbilityHelper.onBlockChanged(itemstack, world, b, x, y, z, player, random);
@@ -252,7 +252,7 @@ public class Battleaxe extends HarvestTool
         for (int yPos = y + 1; yPos < y + 9; yPos++)
         {
             Block block = world.func_147439_a(x, yPos, z);
-            if (!(tags.getBoolean("Broken")) && block != null && block.blockMaterial == Material.wood)
+            if (!(tags.getBoolean("Broken")) && block != null && block.func_149688_o() == Material.wood)
             {
                 Block localblock = world.func_147439_a(x, yPos, z);
                 int localMeta = world.getBlockMetadata(x, yPos, z);
@@ -269,7 +269,7 @@ public class Battleaxe extends HarvestTool
 
                     if (!cancelHarvest)
                     {
-                        if (block != null && block.blockMaterial == Material.wood)
+                        if (block != null && block.func_149688_o() == Material.wood)
                         {
                             localMeta = world.getBlockMetadata(x, yPos, z);
                             if (!player.capabilities.isCreativeMode)

@@ -233,9 +233,8 @@ public class Hammer extends HarvestTool
             return false;
 
         World world = player.worldObj;
-        final int blockID = world.getBlockId(x, y, z);
+        final Block block = world.func_147439_a(x, y, z);
         final int meta = world.getBlockMetadata(x, y, z);
-        final Block block = Block.blocksList[blockID];
         if (!stack.hasTagCompound())
             return false;
 
@@ -247,7 +246,7 @@ public class Hammer extends HarvestTool
         boolean validStart = false;
         for (int iter = 0; iter < materials.length; iter++)
         {
-            if (materials[iter] == block.blockMaterial)
+            if (materials[iter] == block.func_149688_o())
             {
                 validStart = true;
                 break;
@@ -311,7 +310,7 @@ public class Hammer extends HarvestTool
                                 {
                                     for (int iter = 0; iter < materials.length; iter++)
                                     {
-                                        if (materials[iter] == localBlock.blockMaterial || localBlock == Block.silverfish)
+                                        if (materials[iter] == localBlock.func_149688_o() || localBlock == Block.silverfish)
                                         {
                                             if (!player.capabilities.isCreativeMode)
                                             {
@@ -355,7 +354,7 @@ public class Hammer extends HarvestTool
         Material[] materials = getEffectiveMaterials();
         for (int i = 0; i < materials.length; i++)
         {
-            if (materials[i] == block.blockMaterial)
+            if (materials[i] == block.func_149688_o())
             {
                 return getblockSpeed(tags, block, meta);
             }

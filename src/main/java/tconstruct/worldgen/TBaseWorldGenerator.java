@@ -275,15 +275,15 @@ public class TBaseWorldGenerator implements IWorldGenerator
                     Block block = Block.blocksList[blockID];
                     if (block != null)
                     {
-                        if (block.blockMaterial == Material.leaves)
+                        if (block.func_149688_o() == Material.leaves)
                             world.setBlock(x + chunkX, y, z + chunkZ, Blocks.lava, 0, 0);
-                        if (block.blockMaterial == Material.wood)
+                        if (block.func_149688_o() == Material.wood)
                             world.setBlock(x + chunkX, y, z + chunkZ, Blocks.netherrack, 0, 0);
                         if (block == Blocks.stone)
                             world.setBlock(x + chunkX, y, z + chunkZ, Blocks.end_stone, 0, 0);
-                        if (y > 40 && (block.blockMaterial == Material.ground || block.blockMaterial == Material.grass))
+                        if (y > 40 && (block.func_149688_o() == Material.ground || block.func_149688_o() == Material.grass))
                             world.setBlock(x + chunkX, y, z + chunkZ, Blocks.soul_sand, 0, 0);
-                        if (block.blockMaterial == Material.sand)
+                        if (block.func_149688_o() == Material.sand)
                             world.setBlock(x + chunkX, y, z + chunkZ, Block.silverfish, 0, 0);
                     }
                 }

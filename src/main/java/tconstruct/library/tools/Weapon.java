@@ -37,7 +37,7 @@ public abstract class Weapon extends ToolCore
 
         for (int i = 0; i < web.length; i++)
         {
-            if (web[i] == block.blockMaterial)
+            if (web[i] == block.func_149688_o())
             {
                 return effectiveSpeed();
             }
@@ -82,7 +82,7 @@ public abstract class Weapon extends ToolCore
     {
         for (int i = 0; i < web.length; i++)
         {
-            if (block.blockMaterial == web[i])
+            if (block.func_149688_o() == web[i])
                 return true;
         }
         return super.canHarvestBlock(block);

@@ -1,7 +1,6 @@
 package tconstruct;
 
 import tconstruct.achievements.TAchievements;
-
 import cpw.mods.fml.common.*;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -11,8 +10,10 @@ import cpw.mods.fml.common.registry.*;
 import cpw.mods.fml.relauncher.Side;
 
 import java.util.UUID;
-import java.util.logging.Logger;
-import net.minecraft.crash.CallableMinecraftVersion;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraftforge.common.MinecraftForge;
 import tconstruct.client.event.EventCloakRender;
@@ -48,7 +49,7 @@ public class TConstruct
     public static final int liquidUpdateAmount = 6;
 
     // Shared mod logger
-    public static final Logger logger = Logger.getLogger("TConstruct");
+    public static final Logger logger = LogManager.getLogger("TConstruct");
 
     /* Instance of this mod, used for grabbing prototype fields */
     @Instance("TConstruct")
@@ -59,7 +60,7 @@ public class TConstruct
 
     public TConstruct()
     {
-        logger.setParent(FMLCommonHandler.instance().getFMLLogger());
+        //logger.setParent(FMLCommonHandler.instance().getFMLLogger());
         if (Loader.isModLoaded("Natura"))
         {
             System.out.println("[TConstruct] Natura, what are we going to do tomorrow night?");
@@ -124,7 +125,7 @@ public class TConstruct
             }
             catch (Throwable e)
             {
-                logger.severe("Error registering TConstruct Structures with Vanilla Minecraft: this is expected in versions earlier than 1.6.4");
+                logger.error("Error registering TConstruct Structures with Vanilla Minecraft: this is expected in versions earlier than 1.6.4");
             }
         }
 

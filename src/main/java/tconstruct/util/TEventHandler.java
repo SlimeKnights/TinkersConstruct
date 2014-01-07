@@ -12,7 +12,7 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.EntityLivingData;
+import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityXPOrb;
@@ -401,7 +401,7 @@ public class TEventHandler
             {
                 for (EntityItem o : event.drops)
                 {
-                    if (o.getEntityItem().itemID == Items.ghast_tear)
+                    if (o.getEntityItem().getItem() == Items.ghast_tear)
                     {
                         o.setEntityItemStack(new ItemStack(Items.gold_ingot, 1));
                     }
@@ -422,7 +422,7 @@ public class TEventHandler
             {
                 ItemStack dropStack = new ItemStack(Items.skull, 1, 3);
                 NBTTagCompound nametag = new NBTTagCompound();
-                nametag.setString("SkullOwner", player.username);
+                nametag.setString("SkullOwner", player.getDisplayName());
                 addDrops(event, dropStack);
             }
 
@@ -439,7 +439,7 @@ public class TEventHandler
                     {
                         ItemStack dropStack = new ItemStack(Items.skull, 1, 3);
                         NBTTagCompound nametag = new NBTTagCompound();
-                        nametag.setString("SkullOwner", player.username);
+                        nametag.setString("SkullOwner", player.getDisplayName());
                         addDrops(event, dropStack);
                     }
                 }
@@ -448,7 +448,7 @@ public class TEventHandler
             GameRules rules = player.worldObj.getGameRules(); //Player is null if this crashes
             if (rules == null || !rules.getGameRuleBooleanValue("keepInventory"))
             {
-                TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
+                TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.getDisplayName());
                 if (stats != null)
                 {
                     stats.armor.dropItems();
@@ -512,7 +512,7 @@ public class TEventHandler
         if (!world.isRemote)
         {
             entity.setPosition(x, y, z);
-            entity.onSpawnWithEgg((EntityLivingData) null);
+            entity.onSpawnWithEgg((IEntityLivingData) null);
             world.spawnEntityInWorld(entity);
         }
     }
@@ -524,7 +524,7 @@ public class TEventHandler
     {
         if (!event.world.isRemote)
         {
-            if (event.ID == TRepo.slimeSapling.blockID)
+            if (event.block == TRepo.slimeSapling)
             {
                 if (TRepo.slimeSapling.boneFertilize(event.world, event.X, event.Y, event.Z, event.world.rand, event.entityPlayer))
                     event.setResult(Event.Result.ALLOW);
@@ -562,10 +562,10 @@ public class TEventHandler
                 return;
             }
 
-            int bID = evt.world.getBlockId(hitX, hitY, hitZ);
+            Block bID = evt.world.func_147439_a(hitX, hitY, hitZ);
             for (int id = 0; id < TRepo.fluidBlocks.length; id++)
             {
-                if (bID == TRepo.fluidBlocks[id].blockID)
+                if (bID == TRepo.fluidBlocks[id])
                 {
                     if (evt.entityPlayer.capabilities.isCreativeMode)
                     {
@@ -630,7 +630,7 @@ public class TEventHandler
     {
     	if(event.entityLiving instanceof EntityPlayer){
     		EntityPlayer player = (EntityPlayer) event.entityLiving;
-            TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
+            TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.getDisplayName());
             
             if(stats != null){
             	ArmorExtended armor = stats.armor;
@@ -650,7 +650,7 @@ public class TEventHandler
     {
         if (event.action == Action.LEFT_CLICK_BLOCK)
         {
-            Block block = Block.blocksList[event.entity.worldObj.getBlockId(event.x, event.y, event.z)];
+            Block block = event.entity.worldObj.func_147439_a(event.x, event.y, event.z);
             if (block instanceof TankAirBlock)
             {
                 event.setCanceled(true);

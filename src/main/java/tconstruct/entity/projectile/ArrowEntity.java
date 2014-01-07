@@ -584,7 +584,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
     public void writeEntityToNBT (NBTTagCompound tags)
     {
         super.writeEntityToNBT(tags);
-        tags.setCompoundTag("Throwable", this.returnStack.writeToNBT(new NBTTagCompound()));
+        tags.setTag("Throwable", this.returnStack.writeToNBT(new NBTTagCompound()));
     }
 
     public void readEntityFromNBT (NBTTagCompound tags)
@@ -664,7 +664,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
         case 1:
             toolTag.setInteger("Effect1", data.readInt());
         }
-        compound.setCompoundTag("InfiTool", toolTag);
+        compound.setTag("InfiTool", toolTag);
         returnStack.setTagCompound(compound);
     }
 

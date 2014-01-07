@@ -38,7 +38,7 @@ public class AdaptiveSmelteryGui extends NewContainerGui
     {
         super((ActiveContainer) smeltery.getGuiContainer(inventoryplayer, world, x, y, z));
         logic = smeltery;
-        username = inventoryplayer.player.username;
+        username = inventoryplayer.player.getDisplayName();
         xSize = 248;
         scomp = logic.getSmeltery();
         multitank = logic.getMultiTank();

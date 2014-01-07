@@ -154,7 +154,7 @@ public class Excavator extends HarvestTool
         boolean validStart = false;
         for (int iter = 0; iter < materials.length; iter++)
         {
-            if (materials[iter] == block.blockMaterial)
+            if (materials[iter] == block.func_149688_o())
             {
                 validStart = true;
                 break;
@@ -213,7 +213,7 @@ public class Excavator extends HarvestTool
                                 {
                                     for (int iter = 0; iter < materials.length; iter++)
                                     {
-                                        if (materials[iter] == block.blockMaterial)
+                                        if (materials[iter] == block.func_149688_o())
                                         {
                                             if (!player.capabilities.isCreativeMode)
                                             {
@@ -257,7 +257,7 @@ public class Excavator extends HarvestTool
         Material[] materials = getEffectiveMaterials();
         for (int i = 0; i < materials.length; i++)
         {
-            if (materials[i] == block.blockMaterial)
+            if (materials[i] == block.func_149688_o())
             {
                 float mineSpeed = tags.getInteger("MiningSpeed");
                 int heads = 1;

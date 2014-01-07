@@ -13,6 +13,7 @@ import net.minecraft.entity.passive.EntityHorse;
 import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -711,42 +712,37 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 
     public void alignInitialPlacement (int x, int y, int z)
     {
-        int northID = this.field_145850_b.getBlockId(x, y, z + 1);
-        int southID = field_145850_b.getBlockId(x, y, z - 1);
-        int eastID = field_145850_b.getBlockId(x + 1, y, z);
-        int westID = field_145850_b.getBlockId(x - 1, y, z);
+        Block northBlock = field_145850_b.func_147439_a(x, y, z + 1);
+        Block southBlock = field_145850_b.func_147439_a(x, y, z - 1);
+        Block eastBlock = field_145850_b.func_147439_a(x + 1, y, z);
+        Block westBlock = field_145850_b.func_147439_a(x - 1, y, z);
 
-        Block northBlock = Block.blocksList[northID];
-        Block southBlock = Block.blocksList[southID];
-        Block eastBlock = Block.blocksList[eastID];
-        Block westBlock = Block.blocksList[westID];
-
-        if ((northBlock == null || northBlock.isAirBlock(field_145850_b, x, y, z + 1)) && (southBlock == null || southBlock.isAirBlock(field_145850_b, x, y, z - 1))
-                && (eastBlock == null || eastBlock.isAirBlock(field_145850_b, x + 1, y, z)) && (westBlock == null || westBlock.isAirBlock(field_145850_b, x - 1, y, z)))
+        if ((northBlock == null || northBlock == Blocks.air) && (southBlock == null || southBlock == Blocks.air)
+                && (eastBlock == null || eastBlock == Blocks.air) && (westBlock == null || westBlock == Blocks.air))
         {
             checkValidStructure(x, y, z);
         }
 
-        else if ((northBlock != null && !northBlock.isAirBlock(field_145850_b, x, y, z + 1)) && (southBlock == null || southBlock.isAirBlock(field_145850_b, x, y, z - 1))
-                && (eastBlock == null || eastBlock.isAirBlock(field_145850_b, x + 1, y, z)) && (westBlock == null || westBlock.isAirBlock(field_145850_b, x - 1, y, z)))
+        else if ((northBlock != null && !(northBlock == Blocks.air) && (southBlock == null || southBlock == Blocks.air)
+                && (eastBlock == null || eastBlock == Blocks.air) && (westBlock == null || westBlock == Blocks.air)))
         {
             checkValidStructure(x, y, z - 1);
         }
 
-        else if ((northBlock == null || northBlock.isAirBlock(field_145850_b, x, y, z + 1)) && (southBlock != null && !southBlock.isAirBlock(field_145850_b, x, y, z - 1))
-                && (eastBlock == null || eastBlock.isAirBlock(field_145850_b, x + 1, y, z)) && (westBlock == null || westBlock.isAirBlock(field_145850_b, x - 1, y, z)))
+        else if ((northBlock == null || northBlock == Blocks.air) && (southBlock != null && !(southBlock == Blocks.air))
+                && (eastBlock == null || eastBlock == Blocks.air) && (westBlock == null || westBlock == Blocks.air))
         {
             checkValidStructure(x, y, z + 1);
         }
 
-        else if ((northBlock == null || northBlock.isAirBlock(field_145850_b, x, y, z + 1)) && (southBlock == null || southBlock.isAirBlock(field_145850_b, x, y, z - 1))
-                && (eastBlock != null && !eastBlock.isAirBlock(field_145850_b, x + 1, y, z)) && (westBlock == null || westBlock.isAirBlock(field_145850_b, x - 1, y, z)))
+        else if ((northBlock == null || northBlock == Blocks.air) && (southBlock == null || southBlock == Blocks.air)
+                && (eastBlock != null && !(eastBlock == Blocks.air)) && (westBlock == null || westBlock == Blocks.air))
         {
             checkValidStructure(x - 1, y, z);
         }
 
-        else if ((northBlock == null || northBlock.isAirBlock(field_145850_b, x, y, z + 1)) && (southBlock == null || southBlock.isAirBlock(field_145850_b, x, y, z - 1))
-                && (eastBlock == null || eastBlock.isAirBlock(field_145850_b, x + 1, y, z)) && (westBlock != null && !westBlock.isAirBlock(field_145850_b, x - 1, y, z)))
+        else if ((northBlock == null || northBlock == Blocks.air) && (southBlock == null || southBlock == Blocks.air)
+                && (eastBlock == null || eastBlock == Blocks.air) && (westBlock != null && !(westBlock == Blocks.air)))
         {
             checkValidStructure(x + 1, y, z);
         }
@@ -796,8 +792,8 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         {
             for (int zPos = z - 1; zPos <= z + 1; zPos++)
             {
-                block = Block.blocksList[field_145850_b.getBlockId(xPos, y, zPos)];
-                if (block != null && !block.isAirBlock(field_145850_b, xPos, y, zPos))
+                block = field_145850_b.func_147439_a(xPos, y, zPos);
+                if (block != null && block != Blocks.air)
                     return false;
             }
         }
@@ -829,8 +825,8 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         {
             for (int zPos = z - 1; zPos <= z + 1; zPos++)
             {
-                Block block = Block.blocksList[field_145850_b.getBlockId(xPos, y, zPos)];
-                if (block != null && !block.isAirBlock(field_145850_b, xPos, y, zPos))
+                Block block = field_145850_b.func_147439_a(xPos, y, zPos);
+                if (block != null && !(block == Blocks.air))
                     return count;
             }
         }
@@ -863,11 +859,10 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         {
             for (int zPos = z - 1; zPos <= z + 1; zPos++)
             {
-                int blockID = field_145850_b.getBlockId(xPos, y, zPos);
-                Block block = Block.blocksList[blockID];
-                if (block != null && !block.isAirBlock(field_145850_b, xPos, y, zPos))
+                Block block = field_145850_b.func_147439_a(xPos, y, zPos);
+                if (block != null && block != Blocks.air)
                 {
-                    if (validBlockID(blockID))
+                    if (validBlock(block))
                         return validateBottom(x, y, z, count);
                     else
                         return count;
@@ -902,7 +897,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         {
             for (int zPos = z - 1; zPos <= z + 1; zPos++)
             {
-                if (validBlockID(field_145850_b.getBlockId(xPos, y, zPos)) && (field_145850_b.getBlockMetadata(xPos, y, zPos) >= 2))
+                if (validBlock(field_145850_b.func_147439_a(xPos, y, zPos)) && (field_145850_b.getBlockMetadata(xPos, y, zPos) >= 2))
                     bottomBricks++;
             }
         }
@@ -921,8 +916,8 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     int checkBricks (int x, int y, int z)
     {
         int tempBricks = 0;
-        int blockID = field_145850_b.getBlockId(x, y, z);
-        if (validBlockID(blockID) || validTankID(blockID))
+        Block block = field_145850_b.func_147439_a(x, y, z);
+        if (validBlock(block) || validTankID(block))
         {
             TileEntity te = field_145850_b.getBlockTileEntity(x, y, z);
             if (te == this)

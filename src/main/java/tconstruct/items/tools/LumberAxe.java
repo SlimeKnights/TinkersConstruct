@@ -57,7 +57,7 @@ public class LumberAxe extends HarvestTool
     public boolean onBlockDestroyed (ItemStack itemstack, World world, int bID, int x, int y, int z, EntityLivingBase player)
     {
         Block block = Block.blocksList[bID];
-        if (block != null && block.blockMaterial == Material.leaves)
+        if (block != null && block.func_149688_o() == Material.leaves)
             return false;
 
         return AbilityHelper.onBlockChanged(itemstack, world, bID, x, y, z, player, random);
@@ -95,7 +95,7 @@ public class LumberAxe extends HarvestTool
         Material[] materials = getEffectiveMaterials();
         for (int i = 0; i < materials.length; i++)
         {
-            if (materials[i] == block.blockMaterial)
+            if (materials[i] == block.func_149688_o())
             {
                 float mineSpeed = tags.getInteger("MiningSpeed");
                 int heads = 1;
@@ -145,7 +145,7 @@ public class LumberAxe extends HarvestTool
         {
             return super.onBlockStartBreak(stack, x, y, z, player);
         }
-        if (wood.isWood(world, x, y, z) || wood.blockMaterial == Material.sponge)
+        if (wood.isWood(world, x, y, z) || wood.func_149688_o() == Material.sponge)
         {
             int height = y;
             boolean foundTop = false;
@@ -187,7 +187,7 @@ public class LumberAxe extends HarvestTool
             if (!world.isRemote)
                 world.playAuxSFX(2001, x, y, z, woodID + (meta << 12));
         }
-        else if (wood.blockMaterial == Material.wood)
+        else if (wood.func_149688_o() == Material.wood)
         {
             NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
             int meta = world.getBlockMetadata(x, y, z);
@@ -292,7 +292,7 @@ public class LumberAxe extends HarvestTool
                         int meta = world.getBlockMetadata(xPos, yPos, zPos);
                         int hlvl = MinecraftForge.getBlockHarvestLevel(block, meta, getHarvestType());
 
-                        if (block != null && block.blockMaterial == Material.wood)
+                        if (block != null && block.func_149688_o() == Material.wood)
                         {
                             if (hlvl <= tags.getInteger("HarvestLevel"))
                             {

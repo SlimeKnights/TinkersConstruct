@@ -222,7 +222,7 @@ public class FurnaceLogic extends InventoryLogic implements IActiveLogic, IFacin
                     return 1200;
                 }
 
-                if (block.blockMaterial == Material.wood)
+                if (block.func_149688_o() == Material.wood)
                 {
                     return 300;
                 }
