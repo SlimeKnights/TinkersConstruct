@@ -21,7 +21,7 @@ public class MeatBlock extends Block
 
     public MeatBlock(int id)
     {
-        super(id, Material.wood);
+        super(id, Material.sponge);
         this.setHardness(1.0F);
         this.setStepSound(Block.soundWoodFootstep);
         //setBurnProperties(this.blockID, 5, 20);

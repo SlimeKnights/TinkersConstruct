@@ -1255,7 +1255,7 @@ public class TContent implements IFuelHandler
         GameRegistry.addRecipe(new ShapedOreRecipe(chestplateWood, chest, 'w', "logWood"));
         GameRegistry.addRecipe(new ShapedOreRecipe(leggingsWood, pants, 'w', "logWood"));
         GameRegistry.addRecipe(new ShapedOreRecipe(bootsWood, shoes, 'w', "logWood"));
-        
+
         ItemStack exoGoggleStack = new ItemStack(exoGoggles);
         ItemStack exoChestStack = new ItemStack(exoChest);
         ItemStack exoPantsStack = new ItemStack(exoPants);
@@ -1622,7 +1622,9 @@ public class TContent implements IFuelHandler
         tb.registerArmorMod(new AModHealthBoost(2, allArmors, new ItemStack[] { new ItemStack(heartCanister, 1, 2) }, new int[] { 2 }, true));
         tb.registerArmorMod(new AModDamageBoost(3, allArmors, new ItemStack[] { new ItemStack(Item.diamond), new ItemStack(Block.blockDiamond) }, new int[] { 1, 9 }, false, 3, 0.05));
         tb.registerArmorMod(new AModDamageBoost(4, chest, new ItemStack[] { new ItemStack(Block.blockNetherQuartz, 1, Short.MAX_VALUE) }, new int[] { 1 }, true, 5, 1));
-        tb.registerArmorMod(new AModProtection(5, allArmors, new ItemStack[] { new ItemStack(largePlate, 1, 2) }, new int[] { 2 } ));
+        tb.registerArmorMod(new AModProtection(5, allArmors, new ItemStack[] { new ItemStack(largePlate, 1, 2) }, new int[] { 2 }));
+
+        tb.registerArmorMod(new AModDoubleJump(new ItemStack[] { new ItemStack(Item.ghastTear), new ItemStack(slimeGel, 1, 0), new ItemStack(slimeGel, 1, 1) }));
 
         TConstructRegistry.registerActiveToolMod(new TActiveOmniMod());
     }

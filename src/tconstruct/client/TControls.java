@@ -8,6 +8,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.settings.KeyBinding;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.potion.Potion;
 import tconstruct.client.event.EventCloakRender;
@@ -26,7 +28,7 @@ public class TControls extends TKeyHandler
     static Minecraft mc;
 
     boolean jumping;
-    boolean doubleJump = true;
+    int midairJumps = 0;
     boolean climbing = false;
     boolean onGround = false;
     boolean onStilts = false;
@@ -72,17 +74,13 @@ public class TControls extends TKeyHandler
             {
                 EventCloakRender.instance.refreshCapes();
             }
-            /*if (kb == jumpKey) //Double jump
+            if (kb == jumpKey) //Double jump
             {
                 if (mc.thePlayer.capabilities.isCreativeMode)
                     return;
 
-            	if (jumping && !doubleJump)
+            	if (jumping && midairJumps > 0)
             	{
-                    System.out.println("Jump!");
-            		//if (player == null)
-            			//player = mc.thePlayer;
-
             		mc.thePlayer.motionY = 0.42D;
             		mc.thePlayer.fallDistance = 0;
 
@@ -91,31 +89,22 @@ public class TControls extends TKeyHandler
             			mc.thePlayer.motionY += (double) ((float) (mc.thePlayer.getActivePotionEffect(Potion.jump).getAmplifier() + 1) * 0.1F);
             		}
 
-            		doubleJump = true;
+            		midairJumps--;
             		resetFallDamage(mc.thePlayer.username);
             	}
 
             	if (!jumping)
+            	{
             		jumping = mc.thePlayer.isAirBorne;
-            }*/
+            		ItemStack shoes = mc.thePlayer.getCurrentArmor(0);
+            		if (shoes.hasTagCompound() && shoes.getTagCompound().hasKey("TinkerArmor"))
+            		{
+            		    NBTTagCompound shoeTag = shoes.getTagCompound().getCompoundTag("TinkerArmor");
+            		    midairJumps = shoeTag.getInteger("Double-Jump");
+            		}
+            	}
+            }
         }
-        /*else if (kb == stiltsKey) //Stilts
-        {
-        	float size = 1.8F;
-        	if (!onStilts)
-        		size = 0.8F;
-        	TConstruct.playerTracker.updateSize(mc.thePlayer.username, size);
-        	onStilts = !onStilts;
-        	//updateServer(mc.thePlayer.username, (byte) 11);
-        	if (onStilts)
-        	{
-        		onStilts = false;
-        	}
-        	else
-        	{
-        		onStilts = true;
-        	}
-        }*/
     }
 
     @Override
@@ -132,13 +121,13 @@ public class TControls extends TKeyHandler
 
     public void landOnGround ()
     {
-        doubleJump = false;
+        midairJumps = 0;
         jumping = false;
     }
 
     public void resetControls ()
     {
-        doubleJump = false;
+        midairJumps = 0;
         jumping = false;
         climbing = false;
         onGround = false;

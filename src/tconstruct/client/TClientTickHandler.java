@@ -4,8 +4,6 @@ import java.util.EnumSet;
 
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.util.ResourceLocation;
 import tconstruct.TConstruct;
 import tconstruct.common.TContent;
 import cpw.mods.fml.common.ITickHandler;
@@ -14,7 +12,7 @@ import cpw.mods.fml.common.TickType;
 public class TClientTickHandler implements ITickHandler
 {
     Minecraft mc = Minecraft.getMinecraft();
-    //TControls controlInstance = ((TProxyClient)TConstruct.proxy).controlInstance;
+    TControls controlInstance = ((TProxyClient)TConstruct.proxy).controlInstance;
 
     @Override
     public void tickEnd (EnumSet<TickType> type, Object... tickData)
@@ -22,8 +20,10 @@ public class TClientTickHandler implements ITickHandler
         TContent.oreBerry.setGraphicsLevel(Block.leaves.graphicsLevel);
         TContent.oreBerrySecond.setGraphicsLevel(Block.leaves.graphicsLevel);
         TContent.slimeLeaves.setGraphicsLevel(Block.leaves.graphicsLevel);
-        /*if (mc.thePlayer != null && !mc.thePlayer.isAirBorne)
-            controlInstance.landOnGround();*/
+        if (mc.thePlayer != null && mc.thePlayer.onGround)
+        {
+            controlInstance.landOnGround();
+        }
     }
 
     @Override

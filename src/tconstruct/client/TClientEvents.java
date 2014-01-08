@@ -1,31 +1,35 @@
 package tconstruct.client;
 
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.relauncher.*;
 import java.util.Random;
-import net.minecraft.block.Block;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.SoundManager;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.entity.*;
+import net.minecraft.client.settings.GameSettings;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeInstance;
-import net.minecraft.item.Item;
-import net.minecraft.potion.*;
-import net.minecraft.util.*;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.Icon;
+import net.minecraft.util.MathHelper;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.GuiIngameForge;
-import net.minecraftforge.client.event.*;
+import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
+import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.client.event.sound.SoundLoadEvent;
 import net.minecraftforge.event.ForgeSubscribe;
-import net.minecraftforge.fluids.*;
 import tconstruct.TConstruct;
 import tconstruct.client.armor.WingModel;
 import tconstruct.common.TContent;
 import tconstruct.util.player.TPlayerStats;
+import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class TClientEvents
@@ -91,11 +95,13 @@ public class TClientEvents
     Random rand = new Random();
     int updateCounter = 0;
 
+    boolean tukmc = Loader.isModLoaded("tukmc_Vz");
+    GameSettings gs = Minecraft.getMinecraft().gameSettings;
     /* HUD */
     @ForgeSubscribe
     public void renderHealthbar (RenderGameOverlayEvent.Pre event)
     {
-        if (!Loader.isModLoaded("tukmc_Vz"))// Loader check to avoid conflicting with a GUI mod (thanks Vazkii!)
+        if (!tukmc)// Loader check to avoid conflicting with a GUI mod (thanks Vazkii!)
         {
             if (event.type == ElementType.HEALTH)
             {
@@ -215,8 +221,13 @@ public class TClientEvents
                 GuiIngameForge.left_height += 10;
                 if (absorb > 0)
                     GuiIngameForge.left_height += 10;
-                
+
                 event.setCanceled(true);
+            }
+
+            if (event.type == ElementType.CROSSHAIRS && gs.thirdPersonView != 0)
+            {
+                event.setCanceled(true);                
             }
         }
     }

@@ -1,12 +1,10 @@
-package tconstruct.modifiers.armor;
+package tconstruct.library.armor;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 
 import net.minecraft.item.ItemStack;
-import tconstruct.library.armor.ArmorMod;
-import tconstruct.library.armor.EnumArmorPart;
 
 public abstract class ArmorModTypeFilter extends ArmorMod
 {
