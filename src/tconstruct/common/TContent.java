@@ -2379,13 +2379,15 @@ public class TContent implements IFuelHandler
         if (ores.size() > 0)
         {
             tableCasting.addCastingRecipe(ores.get(0), new FluidStack(moltenInvarFluid, TConstruct.ingotLiquidValue), ingotcast, 80);
-            Smeltery.addAlloyMixing(new FluidStack(moltenInvarFluid, 24), new FluidStack(moltenIronFluid, 16), new FluidStack(moltenNickelFluid, 8)); //Invar
+            Smeltery.addAlloyMixing(new FluidStack(moltenInvarFluid, TConstruct.ingotLiquidValue * 3), new FluidStack(moltenIronFluid, TConstruct.ingotLiquidValue * 2), new FluidStack(
+                    moltenNickelFluid, TConstruct.ingotLiquidValue * 1)); //Invar
         }
         ores = OreDictionary.getOres("ingotElectrum");
         if (ores.size() > 0)
         {
             tableCasting.addCastingRecipe(ores.get(0), new FluidStack(moltenElectrumFluid, TConstruct.ingotLiquidValue), ingotcast, 80);
-            Smeltery.addAlloyMixing(new FluidStack(moltenElectrumFluid, 16), new FluidStack(moltenGoldFluid, 8), new FluidStack(moltenSilverFluid, 8)); //Electrum
+            Smeltery.addAlloyMixing(new FluidStack(moltenElectrumFluid, TConstruct.ingotLiquidValue * 2), new FluidStack(moltenGoldFluid, TConstruct.ingotLiquidValue), new FluidStack(
+                    moltenSilverFluid, TConstruct.ingotLiquidValue)); //Electrum
         }
 
         ores = OreDictionary.getOres("blockNickel");
@@ -2508,7 +2510,7 @@ public class TContent implements IFuelHandler
             // Ingots, Dust
             registerIngotCasting(ft);
             Smeltery.addDictionaryMelting("ingot" + ft.toString(), ft, -50, TConstruct.ingotLiquidValue);
-            Smeltery.addDictionaryMelting("dust" + ft.toString(), ft, -75, TConstruct.ingotLiquidValue/4);
+            Smeltery.addDictionaryMelting("dust" + ft.toString(), ft, -75, TConstruct.ingotLiquidValue / 4);
 
             // Factorization support
             Smeltery.addDictionaryMelting("crystalline" + ft.toString(), ft, -50, TConstruct.ingotLiquidValue);
