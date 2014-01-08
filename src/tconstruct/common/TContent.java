@@ -2467,7 +2467,7 @@ public class TContent implements IFuelHandler
 
     public void addOreDictionarySmelteryRecipes ()
     {
-        List<FluidType> exceptions = Arrays.asList(new FluidType[] { FluidType.Water, FluidType.Stone, FluidType.Ender, FluidType.Glass, FluidType.Slime });
+        List<FluidType> exceptions = Arrays.asList(new FluidType[] { FluidType.Water, FluidType.Stone, FluidType.Ender, FluidType.Glass, FluidType.Slime, FluidType.Obsidian });
         for (FluidType ft : FluidType.values())
         {
             if (exceptions.contains(ft))
@@ -2480,6 +2480,35 @@ public class TContent implements IFuelHandler
             registerIngotCasting(ft);
             Smeltery.addDictionaryMelting("ingot" + ft.toString(), ft, -50, TConstruct.ingotLiquidValue);
             Smeltery.addDictionaryMelting("dust" + ft.toString(), ft, -75, TConstruct.ingotLiquidValue);
+
+            // Factorization support
+            Smeltery.addDictionaryMelting("crystalline" + ft.toString(), ft, -50, TConstruct.ingotLiquidValue);
+
+            // Ores
+            Smeltery.addDictionaryMelting("ore" + ft.toString(), ft, 0, TConstruct.ingotLiquidValue * PHConstruct.ingotsPerOre);
+
+            // NetherOres support
+            Smeltery.addDictionaryMelting("oreNether" + ft.toString(), ft, 75, TConstruct.ingotLiquidValue * PHConstruct.ingotsPerOre * 2);
+
+            // Blocks
+            Smeltery.addDictionaryMelting("block" + ft.toString(), ft, 100, TConstruct.blockLiquidValue);
+
+            if (ft.isToolpart)
+            {
+                registerPatternMaterial("ingot" + ft.toString(), 2, ft.toString());
+                registerPatternMaterial("block" + ft.toString(), 18, ft.toString());
+            }
+        }
+
+        //Obsidian, different dust amount
+        {
+            FluidType ft = FluidType.Obsidian;
+            Smeltery.addDictionaryMelting("nugget" + ft.toString(), ft, -100, TConstruct.nuggetLiquidValue);
+
+            // Ingots, Dust
+            registerIngotCasting(ft);
+            Smeltery.addDictionaryMelting("ingot" + ft.toString(), ft, -50, TConstruct.ingotLiquidValue);
+            Smeltery.addDictionaryMelting("dust" + ft.toString(), ft, -75, TConstruct.ingotLiquidValue/4);
 
             // Factorization support
             Smeltery.addDictionaryMelting("crystalline" + ft.toString(), ft, -50, TConstruct.ingotLiquidValue);
