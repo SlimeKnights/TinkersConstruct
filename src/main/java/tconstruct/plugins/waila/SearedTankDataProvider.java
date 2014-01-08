@@ -4,6 +4,7 @@ import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 import mcp.mobius.waila.api.IWailaDataProvider;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 import net.minecraftforge.fluids.FluidStack;
 import tconstruct.blocks.logic.LavaTankLogic;
 
@@ -33,12 +34,12 @@ public class SearedTankDataProvider implements IWailaDataProvider
             if (te.containsFluid())
             {
                 FluidStack fs = te.tank.getFluid();
-                currenttip.add("Liquid: " + WailaRegistrar.fluidNameHelper(fs));
-                currenttip.add("Amount: " + fs.amount + "/" + te.tank.getCapacity());
+                currenttip.add(StatCollector.translateToLocal("tconstruct.waila.liquidtag") + WailaRegistrar.fluidNameHelper(fs));
+                currenttip.add(StatCollector.translateToLocal("tconstruct.waila.amounttag") + fs.amount + "/" + te.tank.getCapacity());
             }
             else
             {
-                currenttip.add("§oEmpty"); // "§o" == Italics
+                currenttip.add("§o" + StatCollector.translateToLocal("tconstruct.waila.empty")); // "§o" == Italics
             }
         }
         return currenttip;

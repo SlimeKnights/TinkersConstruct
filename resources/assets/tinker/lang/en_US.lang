@@ -715,3 +715,8 @@ gui.toolstation15=Mining Level:
 gui.toolstation16=Usage Speed: 
 gui.toolstation17=Modifiers
 gui.toolstation18=Modifiers remaining: 
+
+tconstruct.waila.empty=Empty
+tconstruct.waila.liquidtag=Liquid: 
+tconstruct.waila.amounttag=Amount: 
+tconstruct.waila.invalidstructure=Invalid Structure
