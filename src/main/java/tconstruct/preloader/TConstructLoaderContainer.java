@@ -115,7 +115,7 @@ public class TConstructLoaderContainer extends DummyModContainer implements IFML
         return true;
     }
 
-    @Override
+    //@Override  // Broken in Gradle builds; should work fine in non-gradle.
     public String[] getLibraryRequestClass ()
     {
         return null;
