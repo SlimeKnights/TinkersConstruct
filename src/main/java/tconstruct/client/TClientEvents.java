@@ -57,7 +57,7 @@ public class TClientEvents
             }
             catch (Exception e)
             {
-                TConstruct.logger.warning("Failed to register one or more sounds");
+                TConstruct.logger.error("Failed to register one or more sounds");
             }
         }
     }
@@ -253,7 +253,7 @@ public class TClientEvents
             f *= 1.1F;
         }
 
-        if (event.entity.isUsingItem() && event.entity.getItemInUse().itemID == Items.bow.itemID)
+        if (event.entity.isUsingItem() && event.entity.getItemInUse() == Items.bow)
         {
             int i = event.entity.getItemInUseDuration();
             float f1 = (float) i / 20.0F;

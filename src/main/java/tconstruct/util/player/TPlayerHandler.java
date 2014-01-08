@@ -5,6 +5,7 @@ import java.lang.ref.WeakReference;
 import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 
+import mantle.player.PlayerUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.Entity.EnumEntitySize;
 import net.minecraft.entity.player.EntityPlayer;
@@ -75,7 +76,7 @@ public class TPlayerHandler implements IPlayerTracker
                 }
             }
 
-            if (entityplayer.username.toLowerCase().equals("fudgy_fetus"))
+            if (entityplayer.getDisplayName().toLowerCase().equals("fudgy_fetus"))
             {
                 ItemStack pattern = new ItemStack(TRepo.woodPattern, 1, 22);
 
@@ -91,7 +92,7 @@ public class TPlayerHandler implements IPlayerTracker
                 AbilityHelper.spawnItemAtPlayer(entityplayer, pattern);
             }
 
-            if (entityplayer.username.toLowerCase().equals("zerokyuuni"))
+            if (entityplayer.getDisplayName().toLowerCase().equals("zerokyuuni"))
             {
                 ItemStack pattern = new ItemStack(Items.stick);
 
@@ -107,16 +108,16 @@ public class TPlayerHandler implements IPlayerTracker
             }
         }
 
-        playerStats.put(entityplayer.username, stats);
+        playerStats.put(entityplayer.getDisplayName(), stats);
 
         if (PHConstruct.gregtech && Loader.isModLoaded("GregTech-Addon"))
         {
             PHConstruct.gregtech = false;
             if (PHConstruct.lavaFortuneInteraction)
             {
-                entityplayer.addChatMessage("Warning: Cross-mod Exploit Present!");
-                entityplayer.addChatMessage("Solution 1: Disable Reverse Smelting recipes from GregTech.");
-                entityplayer.addChatMessage("Solution 2: Disable Auto-Smelt/Fortune interaction from TConstruct.");
+                PlayerUtils.sendChatMessage(entityplayer,"Warning: Cross-mod Exploit Present!");
+                PlayerUtils.sendChatMessage(entityplayer,"Solution 1: Disable Reverse Smelting recipes from GregTech.");
+                PlayerUtils.sendChatMessage(entityplayer,"Solution 2: Disable Auto-Smelt/Fortune interaction from TConstruct.");
             }
         }
 
@@ -154,13 +155,13 @@ public class TPlayerHandler implements IPlayerTracker
     {
         if (player != null)
         {
-            TPlayerStats stats = getPlayerStats(player.username);
+            TPlayerStats stats = getPlayerStats(player.getDisplayName());
             if (stats != null && stats.armor != null)
             {
                 stats.armor.saveToNBT(player);
                 stats.knapsack.saveToNBT(player);
                 if (clean)
-                    playerStats.remove(player.username);
+                    playerStats.remove(player.getDisplayName());
             }
             else
             //Revalidate all players
@@ -174,7 +175,7 @@ public class TPlayerHandler implements IPlayerTracker
     public void onPlayerRespawn (EntityPlayer entityplayer)
     {
         //Boom!
-        TPlayerStats stats = getPlayerStats(entityplayer.username);
+        TPlayerStats stats = getPlayerStats(entityplayer.getDisplayName());
         stats.player = new WeakReference<EntityPlayer>(entityplayer);
         stats.armor.recalculateHealth(entityplayer, stats);
 
@@ -217,7 +218,7 @@ public class TPlayerHandler implements IPlayerTracker
     	if (side == Side.CLIENT && evt.entityLiving instanceof EntityPlayer)
     	{
     		EntityPlayer player = (EntityPlayer) evt.entityLiving;
-    		TPlayerStats stats = playerStats.get(player.username);
+    		TPlayerStats stats = playerStats.get(player.getDisplayName());
     		if (player.onGround != stats.prevOnGround)
     		{
     			if (player.onGround)// && -stats.prevMotionY > 0.1)
@@ -235,7 +236,7 @@ public class TPlayerHandler implements IPlayerTracker
     @SubscribeEvent
     public void playerDrops (PlayerDropsEvent evt)
     {
-        TPlayerStats stats = getPlayerStats(evt.entityPlayer.username);
+        TPlayerStats stats = getPlayerStats(evt.entityPlayer.getDisplayName());
         stats.level = evt.entityPlayer.experienceLevel / 2;
         //stats.health = 20;
         int hunger = evt.entityPlayer.getFoodStats().getFoodLevel();

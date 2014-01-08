@@ -231,8 +231,8 @@ public abstract class NewContainerGui extends GuiScreen
         GL11.glTranslatef(0.0F, 0.0F, 32.0F);
         this.zLevel = 200.0F;
         itemRenderer.zLevel = 200.0F;
-        itemRenderer.renderItemAndEffectIntoGUI(this.fontRenderer, this.field_146297_k.renderEngine, par1ItemStack, par2, par3);
-        itemRenderer.renderItemOverlayIntoGUI(this.fontRenderer, this.field_146297_k.renderEngine, par1ItemStack, par2, par3 - (this.draggedStack == null ? 0 : 8), par4Str);
+        itemRenderer.renderItemAndEffectIntoGUI(this.field_146289_q, this.field_146297_k.renderEngine, par1ItemStack, par2, par3);
+        itemRenderer.renderItemOverlayIntoGUI(this.field_146289_q, this.field_146297_k.renderEngine, par1ItemStack, par2, par3 - (this.draggedStack == null ? 0 : 8), par4Str);
         this.zLevel = 0.0F;
         itemRenderer.zLevel = 0.0F;
     }
@@ -279,7 +279,7 @@ public abstract class NewContainerGui extends GuiScreen
             while (iterator.hasNext())
             {
                 String s = (String) iterator.next();
-                int l = this.fontRenderer.getStringWidth(s);
+                int l = this.field_146289_q.getStringWidth(s);
 
                 if (l > k)
                 {
@@ -324,7 +324,7 @@ public abstract class NewContainerGui extends GuiScreen
             for (int k2 = 0; k2 < par1List.size(); ++k2)
             {
                 String s1 = (String) par1List.get(k2);
-                this.fontRenderer.drawStringWithShadow(s1, i1, j1, -1);
+                this.field_146289_q.drawStringWithShadow(s1, i1, j1, -1);
 
                 if (k2 == 0)
                 {
@@ -430,8 +430,8 @@ public abstract class NewContainerGui extends GuiScreen
             }
 
             GL11.glEnable(GL11.GL_DEPTH_TEST);
-            itemRenderer.renderItemAndEffectIntoGUI(this.fontRenderer, this.field_146297_k.renderEngine, itemstack, i, j);
-            itemRenderer.renderItemOverlayIntoGUI(this.fontRenderer, this.field_146297_k.renderEngine, itemstack, i, j, s);
+            itemRenderer.renderItemAndEffectIntoGUI(this.field_146289_q, this.field_146297_k.renderEngine, itemstack, i, j);
+            itemRenderer.renderItemOverlayIntoGUI(this.field_146289_q, this.field_146297_k.renderEngine, itemstack, i, j, s);
         }
 
         itemRenderer.zLevel = 0.0F;

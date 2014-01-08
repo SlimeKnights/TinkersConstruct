@@ -85,7 +85,7 @@ public class ArmorExtendedGui extends InventoryEffectRenderer
     {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         //mc.renderEngine.bindTexture("/mods/tinker/textures/gui/armorextended.png");
-        this.mc.getTextureManager().bindTexture(background);
+        this.field_146297_k.getTextureManager().bindTexture(background);
         int cornerX = guiLeft;
         int cornerY = (height - ySize) / 2;
         drawTexturedModalRect(cornerX, cornerY, 0, 0, xSize, ySize);
@@ -107,7 +107,7 @@ public class ArmorExtendedGui extends InventoryEffectRenderer
 
         cornerX = this.guiLeft;
         cornerY = this.guiTop;
-        drawPlayerOnGui(this.mc, cornerX + 33, cornerY + 75, 30, (float) (cornerX + 51) - this.xSize_lo, (float) (cornerY + 75 - 50) - this.ySize_lo);
+        drawPlayerOnGui(this.field_146297_k, cornerX + 33, cornerY + 75, 30, (float) (cornerX + 51) - this.xSize_lo, (float) (cornerY + 75 - 50) - this.ySize_lo);
     }
 
     public static void drawPlayerOnGui (Minecraft par0Minecraft, int par1, int par2, int par3, float par4, float par5)

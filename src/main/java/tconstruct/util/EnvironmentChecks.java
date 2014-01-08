@@ -36,8 +36,8 @@ public class EnvironmentChecks
 
         if (Loader.isModLoaded("gregtech_addon"))
         {
-            TConstruct.logger.severe("Tinkers' Construct and GregTech are incompatible for the following reasons:");
-            TConstruct.logger.severe(modCompatDetails("GregTech", true));
+            TConstruct.logger.error("Tinkers' Construct and GregTech are incompatible for the following reasons:");
+            TConstruct.logger.error(modCompatDetails("GregTech", true));
             modIds.add("gregtech_addon");
             incompatibilities.add("GregTech");
         }

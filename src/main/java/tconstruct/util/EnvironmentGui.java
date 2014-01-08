@@ -36,8 +36,8 @@ public class EnvironmentGui extends GuiScreen
     {
         Keyboard.enableRepeatEvents(true);
         this.buttonList.clear();
-        this.buttonList.add(new GuiButton(0, this.width / 2 - 175, this.height / 4 + 96 + 24, 350, 20, I18n.getString("I accept responsibility for all cross-mod bugs in this modpack.")));
-        this.buttonList.add(new GuiButton(1, this.width / 2 - 175, this.height / 4 + 120 + 24, 350, 20, I18n.getString("I do not want to run these mods together. (Exits Minecraft)")));
+        this.buttonList.add(new GuiButton(0, this.width / 2 - 175, this.height / 4 + 96 + 24, 350, 20, I18n.getStringParams("I accept responsibility for all cross-mod bugs in this modpack.")));
+        this.buttonList.add(new GuiButton(1, this.width / 2 - 175, this.height / 4 + 120 + 24, 350, 20, I18n.getStringParams("I do not want to run these mods together. (Exits Minecraft)")));
     }
 
     /**
@@ -59,7 +59,7 @@ public class EnvironmentGui extends GuiScreen
             {
                 count++;
                 if (count >= mods.size())
-                    this.mc.displayGuiScreen(this.parentGuiScreen);
+                    this.field_146297_k.displayGuiScreen(this.parentGuiScreen);
             }
             if (button.id == 1)
             {
@@ -76,12 +76,12 @@ public class EnvironmentGui extends GuiScreen
         builder.setLength(0);
         this.drawDefaultBackground();
         String mod = mods.get(count);
-        this.drawCenteredString(this.fontRenderer, I18n.getString("Tinkers' Construct is not compatible with "+mod), this.width / 2, 20, 0xFFFFFF);
-        this.drawCenteredString(this.fontRenderer, I18n.getString("The following reasons are given:"), this.width / 2, 32, 0xFFFFFF);
-        fontRenderer.drawSplitString(I18n.getString(EnvironmentChecks.modCompatDetails(mod, false)), 20, 52, 400, 0xffffff);
+        this.drawCenteredString(this.field_146289_q, I18n.getStringParams("Tinkers' Construct is not compatible with "+mod), this.width / 2, 20, 0xFFFFFF);
+        this.drawCenteredString(this.field_146289_q, I18n.getStringParams("The following reasons are given:"), this.width / 2, 32, 0xFFFFFF);
+        field_146289_q.drawSplitString(I18n.getStringParams(EnvironmentChecks.modCompatDetails(mod, false)), 20, 52, 400, 0xffffff);
 
-        this.drawCenteredString(this.fontRenderer, I18n.getString("The Tinkers' Construct team will not accept bug reports with this mod installed."), this.width / 2, 153, 0xFFFFFF);
-        this.drawCenteredString(this.fontRenderer, I18n.getString("We apologize for any inconvenience this may cause you."), this.width / 2, 165, 0xFFFFFF);
+        this.drawCenteredString(this.field_146289_q, I18n.getStringParams("The Tinkers' Construct team will not accept bug reports with this mod installed."), this.width / 2, 153, 0xFFFFFF);
+        this.drawCenteredString(this.field_146289_q, I18n.getStringParams("We apologize for any inconvenience this may cause you."), this.width / 2, 165, 0xFFFFFF);
         super.drawScreen(par1, par2, par3);
     }
 }

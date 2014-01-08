@@ -28,7 +28,7 @@ public class BlockSkinRenderHelper
             var8 = var11;
         }
 
-        return Minecraft.isAmbientOcclusionEnabled() && Block.lightValue[block.blockID] == 0 ? renderMetadataBlockWithAmbientOcclusion(block, metadata, x, y, z, var6, var7, var8, renderer, world)
+        return Minecraft.isAmbientOcclusionEnabled() && block.lightValue == 0 ? renderMetadataBlockWithAmbientOcclusion(block, metadata, x, y, z, var6, var7, var8, renderer, world)
                 : renderMetadataBlockWithColorMultiplier(block, metadata, x, y, z, var6, var7, var8, renderer, world);
     }
 
@@ -778,7 +778,7 @@ public class BlockSkinRenderHelper
         float f17 = f5;
         float f18 = f6;
 
-        if (block != Block.grass)
+        if (block != Blocks.grass)
         {
             f10 = f3 * colorRed;
             f11 = f5 * colorRed;
@@ -1614,7 +1614,7 @@ public class BlockSkinRenderHelper
         float f17 = f5;
         float f18 = f6;
 
-        if (block != Block.grass)
+        if (block != Blocks.grass)
         {
             f10 = f3 * colorRed;
             f11 = f5 * colorRed;

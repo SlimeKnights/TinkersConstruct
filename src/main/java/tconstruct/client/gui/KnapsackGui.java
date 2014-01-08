@@ -44,8 +44,8 @@ public class KnapsackGui extends GuiContainer
 
     protected void drawGuiContainerForegroundLayer (int par1, int par2)
     {
-        fontRenderer.drawString(StatCollector.translateToLocal("inventory.knapsack"), 8, 6, 0x404040);
-        fontRenderer.drawString(StatCollector.translateToLocal("container.inventory"), 8, (ySize - 96) + 4, 0x404040);
+        field_146289_q.drawString(StatCollector.translateToLocal("inventory.knapsack"), 8, 6, 0x404040);
+        field_146289_q.drawString(StatCollector.translateToLocal("container.inventory"), 8, (ySize - 96) + 4, 0x404040);
     }
 
     private static final ResourceLocation background = new ResourceLocation("tinker", "textures/gui/knapsack.png");
@@ -53,7 +53,7 @@ public class KnapsackGui extends GuiContainer
     protected void drawGuiContainerBackgroundLayer (float f, int i, int j)
     {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        this.mc.getTextureManager().bindTexture(background);
+        this.field_146297_k.getTextureManager().bindTexture(background);
         int cornerX = guiLeft;
         int cornerY = (height - ySize) / 2;
         drawTexturedModalRect(cornerX, cornerY, 0, 0, xSize, ySize);

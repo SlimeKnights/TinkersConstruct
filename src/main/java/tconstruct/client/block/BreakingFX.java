@@ -3,6 +3,7 @@ package tconstruct.client.block;
 import net.minecraft.block.Block;
 import net.minecraft.client.particle.EntityFX;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
@@ -21,7 +22,7 @@ public class BreakingFX extends EntityFX
         super(par1World, par2, par4, par6, 0.0D, 0.0D, 0.0D);
         this.setParticleIcon(par8Item.getIconFromDamage(par9));
         this.particleRed = this.particleGreen = this.particleBlue = 1.0F;
-        this.particleGravity = Block.blockSnow.blockParticleGravity;
+        this.particleGravity = Blocks.snow.blockParticleGravity;
         this.particleScale /= 2.0F;
     }
 

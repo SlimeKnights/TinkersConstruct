@@ -78,7 +78,7 @@ public class DimensionBlacklist
             config.load();
 
             twilightForestDimensionID = config.get("dimension", "dimensionID", -100).getInt();
-            TConstruct.logger.fine("Twilight Forest Dim ID: " + twilightForestDimensionID);
+            TConstruct.logger.trace("Twilight Forest Dim ID: " + twilightForestDimensionID);
         }
         else twilightForestDimensionID = -100;
     }
@@ -94,7 +94,7 @@ public class DimensionBlacklist
             config.load();
 
             promisedLandDimensionID = config.get("dimension settings", "Promised Land Dimension ID", -200).getInt();
-            TConstruct.logger.fine("Promised Lands Dim ID: " + promisedLandDimensionID);
+            TConstruct.logger.trace("Promised Lands Dim ID: " + promisedLandDimensionID);
         }
         else promisedLandDimensionID = -100;
     }

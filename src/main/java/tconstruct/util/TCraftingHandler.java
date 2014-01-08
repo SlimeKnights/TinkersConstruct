@@ -23,7 +23,7 @@ public class TCraftingHandler implements ICraftingHandler
         {
             if (itemID == TRepo.toolStationWood.blockID)
             {
-                TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
+                TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.getDisplayName());
                 NBTTagCompound tags = player.getEntityData().getCompoundTag("TConstruct");
                 if (!tags.getBoolean("materialManual") || !stats.materialManual)
                 {
@@ -34,7 +34,7 @@ public class TCraftingHandler implements ICraftingHandler
             }
             if (itemID == TRepo.smeltery.blockID || itemID == TRepo.lavaTank.blockID)
             {
-                TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
+                TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.getDisplayName());
                 NBTTagCompound tags = player.getEntityData().getCompoundTag("TConstruct");
                 if (!tags.getBoolean("smelteryManual") || !stats.smelteryManual)
                 {

@@ -28,7 +28,7 @@ public class ToolCoreRenderer implements IItemRenderer
         case INVENTORY:
             return true;
         default:
-            TConstruct.logger.warning("[TCon] Unhandled render case!");
+            TConstruct.logger.warn("[TCon] Unhandled render case!");
         case FIRST_PERSON_MAP:
             return false;
         }
@@ -70,7 +70,7 @@ public class ToolCoreRenderer implements IItemRenderer
                 }
             }
             for (int i = iconParts; i-- > 0;)
-                tempParts[i] = tool.getIIcon(item, i);
+                tempParts[i] = tool.getIcon(item, i);
         }
 
         int count = 0;

@@ -75,8 +75,8 @@ public class PaneRender implements ISimpleBlockRenderingHandler
         boolean flag1 = false;
         IIcon icon;
         IIcon icon1;
-        int meta = iblockaccess.getBlockMetadata(x, y, z);
-        icon = renderblocks.getBlockIconFromSideAndMetadata(pane, 0, meta);
+        int meta = iblockaccess.func_147439_aMetadata(x, y, z);
+        icon = renderblocks.func_147439_aIconFromSideAndMetadata(pane, 0, meta);
         icon1 = pane.getSideTextureIndex(meta);
 
         meta = icon.getIconWidth();
@@ -97,8 +97,8 @@ public class PaneRender implements ISimpleBlockRenderingHandler
         /*int blockTextureIndex;
         int blockSideIndex;
 
-        int j1 = iblockaccess.getBlockMetadata(x, y, z);
-        blockTextureIndex = pane.getBlockTextureFromSideAndMetadata(0, j1);
+        int j1 = iblockaccess.func_147439_aMetadata(x, y, z);
+        blockTextureIndex = pane.func_147439_aTextureFromSideAndMetadata(0, j1);
         blockSideIndex = pane.getSideTextureIndex(j1);
 
         int k1 = (blockTextureIndex & 0xf) << 4;
@@ -126,10 +126,10 @@ public class PaneRender implements ISimpleBlockRenderingHandler
         double xMidUp = (double) x + 0.5D + 0.0625D;
         double zMidDown = ((double) z + 0.5D) - 0.0625D;
         double zMidUp = (double) z + 0.5D + 0.0625D;
-        boolean west = pane.canConnectTo(iblockaccess.getBlock(x, y, z - 1));
-        boolean east = pane.canConnectTo(iblockaccess.getBlock(x, y, z + 1));
-        boolean south = pane.canConnectTo(iblockaccess.getBlock(x - 1, y, z));
-        boolean north = pane.canConnectTo(iblockaccess.getBlock(x + 1, y, z));
+        boolean west = pane.canConnectTo(iblockaccess.func_147439_a(x, y, z - 1));
+        boolean east = pane.canConnectTo(iblockaccess.func_147439_a(x, y, z + 1));
+        boolean south = pane.canConnectTo(iblockaccess.func_147439_a(x - 1, y, z));
+        boolean north = pane.canConnectTo(iblockaccess.func_147439_a(x + 1, y, z));
         boolean renderAbove = pane.shouldSideBeRendered(iblockaccess, x, y + 1, z, 1);
         boolean renderBelow = pane.shouldSideBeRendered(iblockaccess, x, y - 1, z, 0);
         if ((!south || !north) && (south || north || west || east))

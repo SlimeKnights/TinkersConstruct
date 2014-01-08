@@ -84,15 +84,15 @@ public class RenderLandmine implements ISimpleBlockRenderingHandler
     }
 
     @Override
-    public boolean shouldRender3DInInventory ()
-    {
-        return true;
-    }
-
-    @Override
     public int getRenderId ()
     {
         return model;
+    }
+
+    @Override
+    public boolean shouldRender3DInInventory (int modelId)
+    {
+        return true;
     }
 
 }

@@ -43,7 +43,7 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
     public boolean renderSmeltery (IBlockAccess world, int x, int y, int z, Block block, int modelID, RenderBlocks renderer)
     {
         renderer.func_147784_q(block, x, y, z);
-        SmelteryLogic logic = (SmelteryLogic) world.getBlockTileEntity(x, y, z);
+        SmelteryLogic logic = (SmelteryLogic) world.func_147438_o(x, y, z);
         if (logic.validStructure)
         {
             int posX = logic.centerPos.x - 1, posY = logic.centerPos.y, posZ = logic.centerPos.z - 1;
@@ -85,7 +85,7 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
                         float maxZ = i / 3 == 2 ? 1.001F : 1F;
                         renderer.func_147782_a(minX, renderBase, minZ, maxX, renderHeight, maxZ);
                         if (fluid.canBePlacedInWorld())
-                            BlockSkinRenderHelper.renderMetadataBlock(Block.blocksList[fluid.getBlockID()], 0, posX + i % 3, posY + yBase, posZ + i / 3, renderer, world);
+                            BlockSkinRenderHelper.renderMetadataBlock(fluid.getBlock(), 0, posX + i % 3, posY + yBase, posZ + i / 3, renderer, world);
                         else
                             BlockSkinRenderHelper.renderLiquidBlock(fluid.getStillIcon(), fluid.getFlowingIcon(), posX + i % 3, posY + yBase, posZ + i / 3, renderer, world);
                     }

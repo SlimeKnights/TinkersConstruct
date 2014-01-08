@@ -271,7 +271,7 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
         }
 
         //Generate blocks around
-        if (Block.blocksList[this.liquidBlock].blockMaterial == Material.water)
+        if (this.liquidBlock.blockMaterial == Material.water)
         {
             for (xPos = 0; xPos < 16; ++xPos)
             {

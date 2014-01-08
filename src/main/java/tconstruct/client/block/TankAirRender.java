@@ -28,14 +28,14 @@ public class TankAirRender implements ISimpleBlockRenderingHandler
     {
         if (modelID == model)
         {
-            TankAirLogic logic = (TankAirLogic) world.getBlockTileEntity(x, y, z);
+            TankAirLogic logic = (TankAirLogic) world.func_147438_o(x, y, z);
             if (logic.hasItem())
             {
                 ItemStack item = logic.getStackInSlot(0);
                 if (item.getItem() instanceof ItemBlock)
                 {
                     Block inv = Block.blocksList[item.itemID];
-                    renderer.setOverrideBlockTexture(inv.getIcon(1, item.getItemDamage()));
+                    renderer.setOverrideBlockTexture(inv.func_149691_a(1, item.getItemDamage()));
                     renderer.renderBlockByRenderType(inv, x, y, z);
                     renderer.clearOverrideBlockTexture();
                 }
@@ -49,7 +49,7 @@ public class TankAirRender implements ISimpleBlockRenderingHandler
                     //System.out.println("Base: "+getBaseAmount(base)+", Height: "+getHeightAmount(base, fluidstack.amount)+", fluid amount: "+fluidstack.amount);
                     renderer.func_147782_a(0.0, getBaseAmount(base), 0.0, 1.0, getHeightAmount(base, fluidstack.amount), 1.0);
                     if (fluid.canBePlacedInWorld())
-                        BlockSkinRenderHelper.renderMetadataBlock(Block.blocksList[fluid.getBlockID()], 0, x, y, z, renderer, world);
+                        BlockSkinRenderHelper.renderMetadataBlock(fluid.getBlock(), 0, x, y, z, renderer, world);
                     else
                         BlockSkinRenderHelper.renderLiquidBlock(fluid.getStillIcon(), fluid.getFlowingIcon(), x, y, z, renderer, world);
                     base += fluidstack.amount;

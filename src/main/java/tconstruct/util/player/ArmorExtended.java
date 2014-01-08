@@ -63,7 +63,7 @@ public class ArmorExtended implements IInventory
                 inventory[slot] = null;
             }
             EntityPlayer player = parent.get();
-            TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
+            TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.getDisplayName());
             recalculateHealth(player, stats);
             return split;
         }
@@ -90,18 +90,18 @@ public class ArmorExtended implements IInventory
         }
 
         EntityPlayer player = parent.get();
-        TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
+        TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.getDisplayName());
         recalculateHealth(player, stats);
     }
 
     @Override
-    public String getInvName ()
+    public String func_145825_b ()
     {
         return "";
     }
 
     @Override
-    public boolean isInvNameLocalized ()
+    public boolean func_145818_k_ ()
     {
         return false;
     }
@@ -116,7 +116,7 @@ public class ArmorExtended implements IInventory
     public void onInventoryChanged ()
     {
         EntityPlayer player = parent.get();
-        TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
+        TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.getDisplayName());
         //recalculateSkills(player, stats);
         recalculateHealth(player, stats);
 

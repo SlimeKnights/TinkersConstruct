@@ -159,9 +159,9 @@ public class SearedRender implements ISimpleBlockRenderingHandler
                 renderer.func_147782_a(0.6875, 0.0F, 0.6875, 1.0F, 0.625F, 1.0F);
                 renderer.func_147784_q(block, x, y, z);
 
-                if (world.getBlockTileEntity(x, y, z) instanceof CastingTableLogic)
+                if (world.func_147438_o(x, y, z) instanceof CastingTableLogic)
                 {
-                    CastingTableLogic logic = (CastingTableLogic) world.getBlockTileEntity(x, y, z);
+                    CastingTableLogic logic = (CastingTableLogic) world.func_147438_o(x, y, z);
                     if (logic.liquid != null)
                     {
                         float minHeight = 0.9375F;
@@ -200,9 +200,9 @@ public class SearedRender implements ISimpleBlockRenderingHandler
             }
             else if (metadata == 1)
             {
-                if (world.getBlockTileEntity(x, y, z) instanceof FaucetLogic)
+                if (world.func_147438_o(x, y, z) instanceof FaucetLogic)
                 {
-                    FaucetLogic logic = (FaucetLogic) world.getBlockTileEntity(x, y, z);
+                    FaucetLogic logic = (FaucetLogic) world.func_147438_o(x, y, z);
                     float xMin = 0.375F, zMin = 0.375F, xMax = 0.625F, zMax = 0.625F;
                     switch (logic.getRenderDirection())
                     {
@@ -250,7 +250,7 @@ public class SearedRender implements ISimpleBlockRenderingHandler
                     }
 
                     float yMin = 0F;
-                    Block uBlock= world.getBlockId(x, y - 1, z);
+                    Block uBlock= world.func_147439_a(x, y - 1, z);
                     int uMeta = world.getBlockMetadata(x, y - 1, z);
                     if (uBlock== TRepo.searedBlock && uMeta == 0)
                     {
@@ -364,9 +364,9 @@ public class SearedRender implements ISimpleBlockRenderingHandler
                 renderer.func_147784_q(block, x, y, z);
 
                 //Liquids
-                if (world.getBlockTileEntity(x, y, z) instanceof CastingBasinLogic)
+                if (world.func_147438_o(x, y, z) instanceof CastingBasinLogic)
                 {
-                    CastingBasinLogic logic = (CastingBasinLogic) world.getBlockTileEntity(x, y, z);
+                    CastingBasinLogic logic = (CastingBasinLogic) world.func_147438_o(x, y, z);
                     if (logic.liquid != null)
                     {
                         float minHeight = 0.25F;

@@ -83,13 +83,13 @@ public class KnapsackInventory implements IInventory
     }
 
     @Override
-    public String getInvName ()
+    public String func_145825_b ()
     {
         return "tconstruct.knapsack";
     }
 
     @Override
-    public boolean isInvNameLocalized ()
+    public boolean func_145818_k_ ()
     {
         return false;
     }
@@ -194,4 +194,5 @@ public class KnapsackInventory implements IInventory
         EntityItem entityitem = new EntityItem(dropper.worldObj, dropper.posX, dropper.posY, dropper.posZ, dropStack);
         dropper.worldObj.spawnEntityInWorld(entityitem);
     }
+
 }

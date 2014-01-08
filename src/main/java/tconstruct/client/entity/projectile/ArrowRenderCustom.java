@@ -47,7 +47,7 @@ public class ArrowRenderCustom extends Render
         GL11.glTranslatef(-7 / 16f, -8 / 16f, -1 / 32f);
         float scale = 1.35f;
         GL11.glScalef(scale, scale, scale);
-        ForgeHooksClient.renderEntityItem(null, item, 0, 0, random, renderManager.renderEngine, renderBlocks);
+        ForgeHooksClient.renderEntityItem(null, item, 0, 0, random, renderManager.renderEngine, field_147909_c);
         GL11.glDisable(GL12.GL_RESCALE_NORMAL);
         GL11.glPopMatrix();
     }

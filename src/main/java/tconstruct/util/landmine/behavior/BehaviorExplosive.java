@@ -28,7 +28,7 @@ public class BehaviorExplosive extends Behavior
         {
             explodeStrenght = 4.0F * par5ItemStack.stackSize;
         }
-        else if (par5ItemStack.itemID == Items.gunpowder.itemID)
+        else if (par5ItemStack.getItem() == Items.gunpowder)
         {
             explodeStrenght = 0.8F * par5ItemStack.stackSize;
         }
@@ -44,7 +44,7 @@ public class BehaviorExplosive extends Behavior
         {
             str = "medium";
         }
-        else if (par1ItemStack.itemID == Items.gunpowder.itemID)
+        else if (par1ItemStack.getItem() == Items.gunpowder)
         {
             str = "small";
         }

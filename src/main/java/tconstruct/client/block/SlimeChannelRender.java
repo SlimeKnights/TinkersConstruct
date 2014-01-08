@@ -45,7 +45,7 @@ public class SlimeChannelRender implements ISimpleBlockRenderingHandler
         {
             Tessellator tessellator = Tessellator.instance;
             int bMeta = world.getBlockMetadata(x, y, z);
-            IIcon iconStill = block.getIcon(1, bMeta);
+            IIcon iconStill = block.func_149691_a(1, bMeta);
             float flowDir = (float) (bMeta / 8f * 2 * Math.PI); //Tau, radians
 
             double u1, u2, u3, u4, v1, v2, v3, v4;

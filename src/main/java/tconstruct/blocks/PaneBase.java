@@ -3,13 +3,14 @@ package tconstruct.blocks;
 import java.util.List;
 
 import tconstruct.client.block.PaneRender;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPane;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
@@ -32,10 +33,10 @@ public class PaneBase extends Block
         this.folder = folder;
     }
 
-    public boolean canConnectTo (int blockID)
+    public boolean canConnectTo (Block block2)
     {
-        Block block = Block.blocksList[blockID];
-        return Block.opaqueCubeLookup[blockID] || block instanceof PaneBase || block instanceof BlockPane || blockID == Block.glass.blockID;
+        Block block = block2;
+        return Block.opaqueCubeLookup[block2] || block instanceof PaneBase || block instanceof BlockPane || block2 == Blocks.glass;
     }
 
     public IIcon getSideTextureIndex (int meta)
@@ -65,7 +66,7 @@ public class PaneBase extends Block
     }
 
     @Override
-    public void getSubBlocks (Block b, CreativeTabs tab, List list)
+    public void getSubBlocks (Item b, CreativeTabs tab, List list)
     {
         for (int iter = 0; iter < textureNames.length; iter++)
         {
@@ -90,8 +91,8 @@ public class PaneBase extends Block
 
     public boolean shouldSideBeRendered (IBlockAccess iblockaccess, int i, int j, int k, int l)
     {
-        int bID = iblockaccess.getBlockId(i, j, k);
-        if (Block.blocksList[bID] instanceof PaneBase || Block.blocksList[bID] instanceof BlockPane)
+        Block b = iblockaccess.func_147439_a(i, j, k);
+        if (b instanceof PaneBase || b instanceof BlockPane)
         {
             return false;
         }
@@ -104,10 +105,10 @@ public class PaneBase extends Block
     @Override
     public void addCollisionBoxesToList (World world, int x, int y, int z, AxisAlignedBB axisalignedbb, List arraylist, Entity entity)
     {
-        boolean south = canConnectTo(world.getBlockId(x, y, z - 1));
-        boolean north = canConnectTo(world.getBlockId(x, y, z + 1));
-        boolean east = canConnectTo(world.getBlockId(x - 1, y, z));
-        boolean west = canConnectTo(world.getBlockId(x + 1, y, z));
+        boolean south = canConnectTo(world.func_147439_a(x, y, z - 1));
+        boolean north = canConnectTo(world.func_147439_a(x, y, z + 1));
+        boolean east = canConnectTo(world.func_147439_a(x - 1, y, z));
+        boolean west = canConnectTo(world.func_147439_a(x + 1, y, z));
         if (east && west || !east && !west && !south && !north)
         {
             setBlockBounds(0.0F, 0.0F, 0.4375F, 1.0F, 1.0F, 0.5625F);
@@ -151,10 +152,10 @@ public class PaneBase extends Block
         float f1 = 0.5625F;
         float f2 = 0.4375F;
         float f3 = 0.5625F;
-        boolean flag = canConnectTo(iblockaccess.getBlockId(i, j, k - 1));
-        boolean flag1 = canConnectTo(iblockaccess.getBlockId(i, j, k + 1));
-        boolean flag2 = canConnectTo(iblockaccess.getBlockId(i - 1, j, k));
-        boolean flag3 = canConnectTo(iblockaccess.getBlockId(i + 1, j, k));
+        boolean flag = canConnectTo(iblockaccess.func_147439_a(i, j, k - 1));
+        boolean flag1 = canConnectTo(iblockaccess.func_147439_a(i, j, k + 1));
+        boolean flag2 = canConnectTo(iblockaccess.func_147439_a(i - 1, j, k));
+        boolean flag3 = canConnectTo(iblockaccess.func_147439_a(i + 1, j, k));
         if (flag2 && flag3 || !flag2 && !flag3 && !flag && !flag1)
         {
             f = 0.0F;
