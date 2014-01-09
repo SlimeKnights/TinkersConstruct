@@ -90,26 +90,26 @@ public class ToolStationGui extends NewContainerGui
         int cornerX = (this.field_146294_l - this.xSize) / 2;
         int cornerY = (this.field_146295_m - this.ySize) / 2;
 
-        this.buttonList.clear();
+        this.field_146292_n.clear();
         ToolGuiElement repair = TConstructClientRegistry.toolButtons.get(0);
         GuiButtonTool repairButton = new GuiButtonTool(0, cornerX - 110, cornerY, repair.buttonIconX, repair.buttonIconY, repair.domain, repair.texture, repair); // Repair
-        repairButton.enabled = false;
-        this.buttonList.add(repairButton);
+        repairButton.field_146124_l = false;
+        this.field_146292_n.add(repairButton);
 
         for (int iter = 1; iter < TConstructClientRegistry.toolButtons.size(); iter++)
         {
             ToolGuiElement element = TConstructClientRegistry.toolButtons.get(iter);
             GuiButtonTool button = new GuiButtonTool(iter, cornerX - 110 + 22 * (iter % 5), cornerY + 22 * (iter / 5), element.buttonIconX, element.buttonIconY, repair.domain, element.texture,
                     element);
-            this.buttonList.add(button);
+            this.field_146292_n.add(button);
         }
     }
 
     protected void actionPerformed (GuiButton button)
     {
-        ((GuiButton) this.buttonList.get(guiType)).enabled = true;
-        guiType = button.id;
-        button.enabled = false;
+        ((GuiButton) this.field_146292_n.get(guiType)).field_146124_l = true;
+        guiType = button.field_146127_k;
+        button.field_146124_l = false;
 
         ToolGuiElement element = TConstructClientRegistry.toolButtons.get(guiType);
         setSlotType(element.slotType);

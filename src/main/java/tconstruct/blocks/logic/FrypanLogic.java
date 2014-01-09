@@ -1,6 +1,7 @@
 package tconstruct.blocks.logic;
 
 import tconstruct.inventory.FrypanContainer;
+import mantle.blocks.BlockUtils;
 import mantle.blocks.iface.IActiveLogic;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -227,12 +228,11 @@ public class FrypanLogic extends EquipLogic implements IActiveLogic
         }
         else
         {
-            int itemID = stack.getItem().itemID;
             Item item = stack.getItem();
 
-            if (stack.getItem() instanceof ItemBlock && Block.blocksList[itemID] != null)
+            if (stack.getItem() instanceof ItemBlock && BlockUtils.getBlockFromItem(item) != null)
             {
-                Block block = Block.blocksList[itemID];
+                Block block = BlockUtils.getBlockFromItem(item);
 
                 if (block == Blocks.wooden_slab)
                 {
@@ -244,7 +244,7 @@ public class FrypanLogic extends EquipLogic implements IActiveLogic
                     return 2400;
                 }
 
-                if (block.func_149688_o() == Material.wood)
+                if (block.func_149688_o() == Material.field_151575_d)
                 {
                     return 300;
                 }

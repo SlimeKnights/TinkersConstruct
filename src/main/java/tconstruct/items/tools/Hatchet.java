@@ -34,16 +34,15 @@ public class Hatchet extends HarvestTool
     }
 
     @Override
-    public boolean onBlockDestroyed (ItemStack itemstack, World world, int bID, int x, int y, int z, EntityLivingBase player)
+    public boolean onBlockDestroyed (ItemStack itemstack, World world, Block block, int x, int y, int z, EntityLivingBase player)
     {
-        Block block = Block.blocksList[bID];
         if (block != null && block.func_149688_o() == Material.leaves)
             return false;
 
-        return AbilityHelper.onBlockChanged(itemstack, world, bID, x, y, z, player, random);
+        return AbilityHelper.onBlockChanged(itemstack, world, block, x, y, z, player, random);
     }
 
-    static Material[] materials = { Material.wood, Material.leaves, Material.vine, Material.circuits, Material.cactus, Material.pumpkin };
+    static Material[] materials = { Material.field_151575_d, Material.leaves, Material.field_151582_l, Material.circuits, Material.cactus, Material.pumpkin };
 
     @Override
     public Item getHeadItem ()

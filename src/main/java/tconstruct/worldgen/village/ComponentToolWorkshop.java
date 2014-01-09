@@ -157,10 +157,10 @@ public class ComponentToolWorkshop extends MapGenVillage
         int posY = this.getYWithOffset(y);
         int posZ = this.getZWithOffset(x, z);
 
-        if (par2StructureBoundingBox.isVecInside(posX, posY, posZ) && world.getBlockId(posX, posY, posZ) != Blocks.chest.blockID)
+        if (par2StructureBoundingBox.isVecInside(posX, posY, posZ) && world.getBlock(posX, posY, posZ) != Blocks.chest)
         {
             world.setBlock(posX, posY, posZ, TRepo.craftingStationWood, 5, 2);
-            CraftingStationLogic logic = (CraftingStationLogic) world.getBlockTileEntity(posX, posY, posZ);
+            CraftingStationLogic logic = (CraftingStationLogic) world.func_147438_o(posX, posY, posZ);
 
             if (logic != null)
             {
@@ -181,10 +181,10 @@ public class ComponentToolWorkshop extends MapGenVillage
         int posY = this.getYWithOffset(y);
         int posZ = this.getZWithOffset(x, z);
 
-        if (par2StructureBoundingBox.isVecInside(posX, posY, posZ) && world.getBlockId(posX, posY, posZ) != Blocks.chest.blockID)
+        if (par2StructureBoundingBox.isVecInside(posX, posY, posZ) && world.getBlock(posX, posY, posZ) != Blocks.chest)
         {
             world.setBlock(posX, posY, posZ, TRepo.toolStationWood, 5, 2);
-            PatternChestLogic logic = (PatternChestLogic) world.getBlockTileEntity(posX, posY, posZ);
+            PatternChestLogic logic = (PatternChestLogic) world.func_147438_o(posX, posY, posZ);
 
             if (logic != null)
             {

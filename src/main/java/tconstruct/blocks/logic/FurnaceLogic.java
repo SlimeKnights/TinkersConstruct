@@ -22,6 +22,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import tconstruct.inventory.FurnaceContainer;
+import mantle.blocks.BlockUtils;
 import mantle.blocks.abstracts.InventoryLogic;
 import mantle.blocks.iface.IActiveLogic;
 import mantle.blocks.iface.IFacingLogic;
@@ -208,9 +209,9 @@ public class FurnaceLogic extends InventoryLogic implements IActiveLogic, IFacin
         {
             Item item = stack.getItem();
 
-            if (stack.getItem() instanceof ItemBlock && Block.blocksList[i] != null)
+            if (stack.getItem() instanceof ItemBlock && BlockUtils.getBlockFromItem(item) != null)
             {
-                Block block = Block.blocksList[i];
+                Block block = BlockUtils.getBlockFromItem(item);
 
                 if (block == Blocks.wooden_slab)
                 {
@@ -222,7 +223,7 @@ public class FurnaceLogic extends InventoryLogic implements IActiveLogic, IFacin
                     return 1200;
                 }
 
-                if (block.func_149688_o() == Material.wood)
+                if (block.func_149688_o() == Material.field_151575_d)
                 {
                     return 300;
                 }

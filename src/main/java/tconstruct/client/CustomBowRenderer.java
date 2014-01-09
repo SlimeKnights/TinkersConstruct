@@ -1,5 +1,6 @@
 package tconstruct.client;
 
+import mantle.blocks.BlockUtils;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
@@ -48,9 +49,9 @@ public class CustomBowRenderer implements IItemRenderer
         GL11.glPushMatrix();
 
         Block block = null;
-        if (stack.getItem() instanceof ItemBlock && stack.itemID < Block.blocksList.length)
+        if (stack.getItem() instanceof ItemBlock)
         {
-            block = Block.blocksList[stack.itemID];
+            block = BlockUtils.getBlockFromItem(stack.getItem());
         }
 
         IIcon icon = null; //living.getItemIcon(stack, renderPass);

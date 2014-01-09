@@ -52,7 +52,7 @@ public class Battleaxe extends HarvestTool
         return AbilityHelper.onBlockChanged(itemstack, world, b, x, y, z, player, random);
     }
 
-    static Material[] materials = { Material.wood, Material.vine, Material.circuits, Material.cactus, Material.pumpkin };
+    static Material[] materials = { Material.field_151575_d, Material.field_151582_l, Material.circuits, Material.cactus, Material.pumpkin };
 
     @Override
     public Item getHeadItem ()
@@ -252,7 +252,7 @@ public class Battleaxe extends HarvestTool
         for (int yPos = y + 1; yPos < y + 9; yPos++)
         {
             Block block = world.func_147439_a(x, yPos, z);
-            if (!(tags.getBoolean("Broken")) && block != null && block.func_149688_o() == Material.wood)
+            if (!(tags.getBoolean("Broken")) && block != null && block.func_149688_o() == Material.field_151575_d)
             {
                 Block localblock = world.func_147439_a(x, yPos, z);
                 int localMeta = world.getBlockMetadata(x, yPos, z);
@@ -269,7 +269,7 @@ public class Battleaxe extends HarvestTool
 
                     if (!cancelHarvest)
                     {
-                        if (block != null && block.func_149688_o() == Material.wood)
+                        if (block != null && block.func_149688_o() == Material.field_151575_d)
                         {
                             localMeta = world.getBlockMetadata(x, yPos, z);
                             if (!player.capabilities.isCreativeMode)
@@ -280,7 +280,7 @@ public class Battleaxe extends HarvestTool
                                 }
                                 block.harvestBlock(world, player, x, yPos, z, localMeta);
                                 block.onBlockHarvested(world, x, yPos, z, localMeta, player);
-                                onBlockDestroyed(stack, world, func_147439_a, x, yPos, z, player);
+                                onBlockDestroyed(stack, world, block, x, yPos, z, player);
                             }
                             else
                             {

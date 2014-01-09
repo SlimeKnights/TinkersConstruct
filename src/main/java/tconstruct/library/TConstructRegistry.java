@@ -512,11 +512,11 @@ public class TConstructRegistry
      * 5: Has rotational TileEntity data
      * 6: Custom placement logic
      */
-    public static Block[] drawbridgeState = new Block[Block.blocksList.length];
+    public static Block[] drawbridgeState = new Block[Integer.MAX_VALUE];
     /** Blocks that are interchangable with each other. Ex: Still and flowing water */
-    public static int[] interchangableBlockMapping = new int[Block.blocksList.length];
+    public static int[] interchangableBlockMapping = new int[Integer.MAX_VALUE];
     /** Blocks that place items, and vice versa */
-    public static int[] blockToItemMapping = new int[Item.itemsList.length];
+    public static int[] blockToItemMapping = new int[Integer.MAX_VALUE];
 
     static void initializeDrawbridgeState ()
     {

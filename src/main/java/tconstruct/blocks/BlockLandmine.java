@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
+import mantle.blocks.BlockUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.EnumMobType;
@@ -55,9 +56,9 @@ public class BlockLandmine extends BlockContainer
     @Override
     public int getLightValue (IBlockAccess world, int x, int y, int z)
     {
-        if (world.func_147439_a(x, y, z) == (Block) this && world.getBlockTileEntity(x, y, z) instanceof TileEntityLandmine)
+        if (world.func_147439_a(x, y, z) == (Block) this && world.func_147438_o(x, y, z) instanceof TileEntityLandmine)
         {
-            TileEntityLandmine te = (TileEntityLandmine) world.getBlockTileEntity(x, y, z);
+            TileEntityLandmine te = (TileEntityLandmine) world.func_147438_o(x, y, z);
 
             if (te != null)
             {
@@ -79,12 +80,12 @@ public class BlockLandmine extends BlockContainer
     @Override
     public IIcon getBlockTexture (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
     {
-        TileEntityLandmine te = (TileEntityLandmine) par1IBlockAccess.getBlockTileEntity(par2, par3, par4);
+        TileEntityLandmine te = (TileEntityLandmine) par1IBlockAccess.func_147438_o(par2, par3, par4);
 
         ItemStack camo = te.getStackInSlot(3);
-        if (camo != null && camo.itemID < blocksList.length)
+        if (camo != null)
         {
-            return Block.blocksList[camo.itemID].getIcon(par5, camo.getItemDamage());
+            return BlockUtils.getBlockFromItem(camo.getItem()).getIcon(par5, camo.getItemDamage());
         }
         else
         {
@@ -137,7 +138,7 @@ public class BlockLandmine extends BlockContainer
     @Override
     public void breakBlock (World par1World, int par2, int par3, int par4, int par5, int par6)
     {
-        TileEntityLandmine tileentity = (TileEntityLandmine) par1World.getBlockTileEntity(par2, par3, par4);
+        TileEntityLandmine tileentity = (TileEntityLandmine) par1World.func_147438_o(par2, par3, par4);
 
         int metadata = par1World.getBlockMetadata(par2, par3, par4);
 
@@ -295,7 +296,7 @@ public class BlockLandmine extends BlockContainer
 
         if (par6ItemStack.hasDisplayName())
         {
-            ((TileEntityLandmine) par1World.getBlockTileEntity(par2, par3, par4)).setGuiDisplayName(par6ItemStack.getDisplayName());
+            ((TileEntityLandmine) par1World.func_147438_o(par2, par3, par4)).setGuiDisplayName(par6ItemStack.getDisplayName());
         }
     }
 
@@ -420,7 +421,7 @@ public class BlockLandmine extends BlockContainer
         {
             if (hasItems(par1World, par2, par3, par4))
             {
-                TileEntityLandmine te = (TileEntityLandmine) par1World.getBlockTileEntity(par2, par3, par4);
+                TileEntityLandmine te = (TileEntityLandmine) par1World.func_147438_o(par2, par3, par4);
                 if (te.soundcountything <= 0)
                 {
                     par1World.playSoundEffect((double) par2 + 0.5D, (double) par3 + 0.1D, (double) par4 + 0.5D, "random.click", 0.3F, 0.6F);
@@ -439,7 +440,7 @@ public class BlockLandmine extends BlockContainer
 
     private boolean hasItems (World par1World, int par2, int par3, int par4)
     {
-        TileEntityLandmine te = (TileEntityLandmine) par1World.getBlockTileEntity(par2, par3, par4);
+        TileEntityLandmine te = (TileEntityLandmine) par1World.func_147438_o(par2, par3, par4);
         if (te != null && te.getStackInSlot(0) != null || te.getStackInSlot(1) != null || te.getStackInSlot(2) != null)
         {
             return true;
@@ -454,7 +455,7 @@ public class BlockLandmine extends BlockContainer
     {
         EnumMobType triggerMobType;
 
-        TileEntityLandmine te = (TileEntityLandmine) par1World.getBlockTileEntity(par2, par3, par4);
+        TileEntityLandmine te = (TileEntityLandmine) par1World.func_147438_o(par2, par3, par4);
 
         // Change to return 1 if you want the landmine to blow up when the block
         // holding it is broken
@@ -552,7 +553,7 @@ public class BlockLandmine extends BlockContainer
 
         EnumMobType triggerMobType;
 
-        TileEntityLandmine te = (TileEntityLandmine) par1World.getBlockTileEntity(par2, par3, par4);
+        TileEntityLandmine te = (TileEntityLandmine) par1World.func_147438_o(par2, par3, par4);
 
         // Change to return 1 if you want the landmine to blow up when the
         // block holding it is broken

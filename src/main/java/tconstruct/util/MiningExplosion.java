@@ -70,11 +70,11 @@ public class MiningExplosion extends Explosion
                             int l = MathHelper.floor_double(d0);
                             int i1 = MathHelper.floor_double(d1);
                             int j1 = MathHelper.floor_double(d2);
-                            int k1 = this.world.getBlockId(l, i1, j1);
+                            Block k1 = this.world.getBlock(l, i1, j1);
 
-                            if (k1 > 0)
+                            if (k1 != Blocks.air)
                             {
-                                Block block = Block.blocksList[k1];
+                                Block block = k1;
                                 float f3 = this.exploder != null ? this.exploder.getBlockExplosionResistance(this, this.world, l, i1, j1, block) : block.getExplosionResistance(this.exploder, world,
                                         l, i1, j1, explosionX, explosionY, explosionZ);
                                 f1 -= (f3 + 0.8F) * f2 * 0.25f;
@@ -160,7 +160,7 @@ public class MiningExplosion extends Explosion
         int i;
         int j;
         int k;
-        int l;
+        Block l;
 
         if (this.isSmoking)
         {
@@ -172,7 +172,7 @@ public class MiningExplosion extends Explosion
                 i = chunkposition.x;
                 j = chunkposition.y;
                 k = chunkposition.z;
-                l = this.world.getBlockId(i, j, k);
+                l = this.world.getBlock(i, j, k);
 
                 if (par1)
                 {
@@ -195,9 +195,9 @@ public class MiningExplosion extends Explosion
                     this.world.spawnParticle("smoke", d0, d1, d2, d3, d4, d5);
                 }
 
-                if (l > 0)
+                if (l != Blocks.air)
                 {
-                    Block block = Block.blocksList[l];
+                    Block block = l;
 
                     if (block.canDropFromExplosion(this))
                     {
@@ -219,10 +219,10 @@ public class MiningExplosion extends Explosion
                 i = chunkposition.x;
                 j = chunkposition.y;
                 k = chunkposition.z;
-                l = this.world.getBlockId(i, j, k);
-                int i1 = this.world.getBlockId(i, j - 1, k);
+                l = this.world.getBlock(i, j, k);
+                Block i1 = this.world.getBlock(i, j - 1, k);
 
-                if (l == 0 && Block.opaqueCubeLookup[i1] && this.random.nextInt(3) == 0)
+                if (l == Blocks.air && Block.opaqueCubeLookup[i1] && this.random.nextInt(3) == 0)
                 {
                     this.world.setBlock(i, j, k, Blocks.fire);
                 }

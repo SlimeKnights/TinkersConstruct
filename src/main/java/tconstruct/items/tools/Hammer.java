@@ -289,8 +289,7 @@ public class Hammer extends HarvestTool
                 {
                     if (!(tags.getBoolean("Broken")))
                     {
-                        int localblockID = world.getBlockId(xPos, yPos, zPos);
-                        Block localBlock = Block.blocksList[localblockID];
+                        Block localBlock = world.getBlock(xPos, yPos, zPos);
                         int localMeta = world.getBlockMetadata(xPos, yPos, zPos);
                         int hlvl = MinecraftForge.getBlockHarvestLevel(localBlock, meta, getHarvestType());
                         float localHardness = localBlock == null ? Float.MAX_VALUE : localBlock.getBlockHardness(world, xPos, yPos, zPos);
@@ -321,7 +320,7 @@ public class Hammer extends HarvestTool
                                                 localBlock.harvestBlock(world, player, xPos, yPos, zPos, localMeta);
                                                 localBlock.onBlockHarvested(world, xPos, yPos, zPos, localMeta, player);
                                                 if (blockHardness > 0f)
-                                                    onBlockDestroyed(stack, world, localblockID, xPos, yPos, zPos, player);
+                                                    onBlockDestroyed(stack, world, localBlock, xPos, yPos, zPos, player);
                                             }
                                             else
                                             {

@@ -2,6 +2,7 @@ package tconstruct.client.entity;
 
 import java.util.Random;
 
+import mantle.blocks.BlockUtils;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -70,17 +71,14 @@ public class FancyItemRender extends Render
             int i;
 
             Block block = null;
-            
-            if (itemstack.itemID < Block.blocksList.length)
-            {
-                block = Block.blocksList[itemstack.itemID];
-            }
 
-            if (ForgeHooksClient.renderEntityItem(par1EntityItem, itemstack, f2, f3, random, renderManager.renderEngine, renderBlocks))
+            block = BlockUtils.getBlockFromItem(itemstack.getItem());
+
+            if (ForgeHooksClient.renderEntityItem(par1EntityItem, itemstack, f2, f3, random, renderManager.renderEngine, field_147909_c))
             {
                 ;
             }
-            else if (itemstack.getItemSpriteNumber() == 0 && block != null && RenderBlocks.renderItemIn3d(Block.blocksList[itemstack.itemID].getRenderType()))
+            else if (itemstack.getItemSpriteNumber() == 0 && block != null && RenderBlocks.renderItemIn3d(BlockUtils.getBlockFromItem(itemstack.getItem()).getRenderType()))
             {
                 GL11.glRotatef(f3, 0.0F, 1.0F, 0.0F);
 
@@ -171,7 +169,7 @@ public class FancyItemRender extends Render
 
                     if (this.renderWithColor)
                     {
-                        int l = Item.itemsList[itemstack.itemID].getColorFromItemStack(itemstack, 0);
+                        int l = itemstack.getItem().getColorFromItemStack(itemstack, 0);
                         f8 = (float) (l >> 16 & 255) / 255.0F;
                         float f9 = (float) (l >> 8 & 255) / 255.0F;
                         f5 = (float) (l & 255) / 255.0F;
@@ -323,8 +321,8 @@ public class FancyItemRender extends Render
         float f1;
         float f2;
         //TODO make this be the block equivalent to k
-        Block block = (k < Block.blocksList.length ? Block.blocksList[k] : null);
-        if (par3ItemStack.getItemSpriteNumber() == 0 && block != null && RenderBlocks.renderItemIn3d(Block.blocksList[k].getRenderType()))
+        Block block = BlockUtils.getBlockFromItem(k];
+        if (par3ItemStack.getItemSpriteNumber() == 0 && block != null && RenderBlocks.renderItemIn3d(block.getRenderType()))
         {
             par2TextureManager.bindTexture(TextureMap.locationBlocksTexture);
             GL11.glPushMatrix();
@@ -436,7 +434,7 @@ public class FancyItemRender extends Render
     {
         if (par3ItemStack != null)
         {
-            if (!ForgeHooksClient.renderInventoryItem(renderBlocks, par2TextureManager, par3ItemStack, renderWithColor, zLevel, (float) par4, (float) par5))
+            if (!ForgeHooksClient.renderInventoryItem(field_147909_c, par2TextureManager, par3ItemStack, renderWithColor, zLevel, (float) par4, (float) par5))
             {
                 this.renderItemIntoGUI(par1FontRenderer, par2TextureManager, par3ItemStack, par4, par5, true);
             }

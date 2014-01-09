@@ -1,13 +1,14 @@
 package tconstruct.util;
 
 import tconstruct.achievements.TAchievements;
-
 import tconstruct.TConstruct;
 import tconstruct.common.TRepo;
 import tconstruct.library.tools.AbilityHelper;
 import tconstruct.util.player.TPlayerStats;
+import mantle.common.ComparisonHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import cpw.mods.fml.common.ICraftingHandler;
@@ -16,12 +17,12 @@ public class TCraftingHandler implements ICraftingHandler
 {
 
     @Override
-    public void onCrafting (EntityPlayer player, ItemStack item, IInventory craftMatrix)
+    public void onCrafting (EntityPlayer player, ItemStack itemstack, IInventory craftMatrix)
     {
-    	int itemID = item.getItem().itemID;
+    	Item item = itemstack.getItem();
         if (!player.worldObj.isRemote)
         {
-            if (itemID == TRepo.toolStationWood.blockID)
+            if (ComparisonHelper.areEquivalent(item,TRepo.toolStationWood))
             {
                 TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.getDisplayName());
                 NBTTagCompound tags = player.getEntityData().getCompoundTag("TConstruct");
@@ -32,7 +33,7 @@ public class TCraftingHandler implements ICraftingHandler
                     AbilityHelper.spawnItemAtPlayer(player, new ItemStack(TRepo.manualBook, 1, 1));
                 }
             }
-            if (itemID == TRepo.smeltery.blockID || itemID == TRepo.lavaTank.blockID)
+            if (ComparisonHelper.areEquivalent(item,TRepo.smeltery) || ComparisonHelper.areEquivalent(item,TRepo.lavaTank))
             {
                 TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.getDisplayName());
                 NBTTagCompound tags = player.getEntityData().getCompoundTag("TConstruct");
@@ -45,7 +46,7 @@ public class TCraftingHandler implements ICraftingHandler
                 player.addStat(TAchievements.achievements.get("tconstruct.smelteryMaker"), 1);
             }
             
-            if (itemID == TRepo.craftingStationWood.blockID){
+            if (ComparisonHelper.areEquivalent(item,TRepo.craftingStationWood)){
             	player.addStat(TAchievements.achievements.get("tconstruct.betterCrafting"), 1);
             }
         }

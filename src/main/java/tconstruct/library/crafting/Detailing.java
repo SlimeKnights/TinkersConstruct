@@ -58,9 +58,9 @@ public class Detailing
         toolTag.setInteger("RenderAccessory", 2);
         toolTag.setInteger("Damage", 0);
         toolTag.setInteger("TotalDurability", 100);
-        compound.setCompoundTag("InfiTool", toolTag);
+        compound.setTag("InfiTool", toolTag);
         toolstack.setTagCompound(compound);
-        addShapelessToolRecipe(new ItemStack(details.outputID, 1, details.outputMeta), toolstack, new ItemStack(details.inputID, 1, details.inputMeta));
+        addShapelessToolRecipe(new ItemStack(details.output, 1, details.outputMeta), toolstack, new ItemStack(details.input, 1, details.inputMeta));
     }
 
     public void addShapelessToolRecipe (ItemStack par1ItemStack, Object... par2ArrayOfObj)

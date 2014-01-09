@@ -20,7 +20,7 @@ import mantle.blocks.abstracts.InventoryBlock;
 
 public class CraftingStationBlock extends InventoryBlock
 {
-    public CraftingStationBlock(int id, Material material)
+    public CraftingStationBlock(Material material)
     {
         super(material);
         this.setCreativeTab(TConstructRegistry.blockTab);

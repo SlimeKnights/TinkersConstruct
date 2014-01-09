@@ -1,5 +1,6 @@
 package tconstruct.blocks;
 
+import mantle.common.ComparisonHelper;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -34,7 +35,7 @@ public class CastingChannelBlock extends BlockContainer
     {
         if (!world.isRemote)
         {
-            CastingChannelLogic tile = (CastingChannelLogic) world.getBlockTileEntity(x, y, z);
+            CastingChannelLogic tile = (CastingChannelLogic) world.func_147438_o(x, y, z);
             if (player.isSneaking())
             {
             }
@@ -49,7 +50,7 @@ public class CastingChannelBlock extends BlockContainer
         }
 
         ItemStack stack = player.getCurrentEquippedItem();
-        if (stack != null && stack.itemID == this.blockID)
+        if (stack != null && ComparisonHelper.areEquivalent(stack.getItem(), this))
             return false;
         return true;
     }
@@ -57,7 +58,7 @@ public class CastingChannelBlock extends BlockContainer
     @Override
     public void setBlockBoundsBasedOnState (IBlockAccess world, int x, int y, int z)
     {
-        CastingChannelLogic tile = (CastingChannelLogic) world.getBlockTileEntity(x, y, z);
+        CastingChannelLogic tile = (CastingChannelLogic) world.func_147438_o(x, y, z);
         float minX = 0.3125F;
         float maxX = 0.6875F;
         float minZ = 0.3125F;

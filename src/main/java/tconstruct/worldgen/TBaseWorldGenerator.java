@@ -17,12 +17,12 @@ public class TBaseWorldGenerator implements IWorldGenerator
 {
     public TBaseWorldGenerator()
     {
-        copper = new WorldGenMinable(TRepo.oreSlag, 3, 8, Block.stone);
-        tin = new WorldGenMinable(TRepo.oreSlag, 4, 8, Block.stone);
-        aluminum = new WorldGenMinable(TRepo.oreSlag, 5, 6, Block.stone);
+        copper = new WorldGenMinable(TRepo.oreSlag, 3, 8, Blocks.stone);
+        tin = new WorldGenMinable(TRepo.oreSlag, 4, 8, Blocks.stone);
+        aluminum = new WorldGenMinable(TRepo.oreSlag, 5, 6, Blocks.stone);
 
-        cobalt = new WorldGenMinable(TRepo.oreSlag, 1, 3, Block.netherrack);
-        ardite = new WorldGenMinable(TRepo.oreSlag, 2, 3, Block.netherrack);
+        cobalt = new WorldGenMinable(TRepo.oreSlag, 1, 3, Blocks.netherrack);
+        ardite = new WorldGenMinable(TRepo.oreSlag, 2, 3, Blocks.netherrack);
 
         ironBush = new OreberryBushGen(TRepo.oreBerry, 12, 12);
         goldBush = new OreberryBushGen(TRepo.oreBerry, 13, 6);
@@ -243,7 +243,7 @@ public class TBaseWorldGenerator implements IWorldGenerator
         int height = y;
         do
         {
-            if (world.getBlockId(x, height, z) == 0 && world.getBlockId(x, height + 1, z) != 0)
+            if (world.func_147439_a(x, height, z) == Blocks.air && world.func_147439_a(x, height + 1, z) != Blocks.air)
                 return height + 1;
             height++;
         } while (height < heightLimit);
@@ -251,7 +251,7 @@ public class TBaseWorldGenerator implements IWorldGenerator
         height = y;
         do
         {
-            if (world.getBlockId(x, height, z) == 0 && world.getBlockId(x, height - 1, z) != 0)
+            if (world.func_147439_a(x, height, z) == Blocks.air && world.func_147439_a(x, height - 1, z) != Blocks.air)
                 return height - 1;
             height--;
         } while (height > depthLimit);
@@ -263,7 +263,7 @@ public class TBaseWorldGenerator implements IWorldGenerator
     {
         /*for (int x = 0; x < 16; x++)
             for (int z = 0; z < 16; z++)
-                world.setBlock(x+chunkX, 192, z+chunkZ, Block.glowStone);*/
+                world.func_147465_d(x+chunkX, 192, z+chunkZ, Block.glowStone);*/
 
         for (int x = 0; x < 16; x++)
         {
@@ -271,20 +271,19 @@ public class TBaseWorldGenerator implements IWorldGenerator
             {
                 for (int y = 0; y < 128; y++)
                 {
-                    int blockID = world.getBlockId(x + chunkX, y, z + chunkZ);
-                    Block block = Block.blocksList[blockID];
+                    Block block = world.func_147439_a(x + chunkX, y, z + chunkZ);
                     if (block != null)
                     {
                         if (block.func_149688_o() == Material.leaves)
-                            world.setBlock(x + chunkX, y, z + chunkZ, Blocks.lava, 0, 0);
-                        if (block.func_149688_o() == Material.wood)
-                            world.setBlock(x + chunkX, y, z + chunkZ, Blocks.netherrack, 0, 0);
+                            world.func_147465_d(x + chunkX, y, z + chunkZ, Blocks.lava, 0, 0);
+                        if (block.func_149688_o() == Material.field_151575_d)
+                            world.func_147465_d(x + chunkX, y, z + chunkZ, Blocks.netherrack, 0, 0);
                         if (block == Blocks.stone)
-                            world.setBlock(x + chunkX, y, z + chunkZ, Blocks.end_stone, 0, 0);
+                            world.func_147465_d(x + chunkX, y, z + chunkZ, Blocks.end_stone, 0, 0);
                         if (y > 40 && (block.func_149688_o() == Material.ground || block.func_149688_o() == Material.grass))
-                            world.setBlock(x + chunkX, y, z + chunkZ, Blocks.soul_sand, 0, 0);
+                            world.func_147465_d(x + chunkX, y, z + chunkZ, Blocks.soul_sand, 0, 0);
                         if (block.func_149688_o() == Material.sand)
-                            world.setBlock(x + chunkX, y, z + chunkZ, Block.silverfish, 0, 0);
+                            world.func_147465_d(x + chunkX, y, z + chunkZ, Blocks.silverfish, 0, 0);
                     }
                 }
             }
@@ -301,7 +300,7 @@ public class TBaseWorldGenerator implements IWorldGenerator
                 {
                     for (int y = 0; y < 256; y++)
                     {
-                        world.setBlock(x + chunkX, y, z + chunkZ, Blocks.bedrock, 0, 0);
+                        world.func_147465_d(x + chunkX, y, z + chunkZ, Blocks.bedrock, 0, 0);
                     }
                 }
             }

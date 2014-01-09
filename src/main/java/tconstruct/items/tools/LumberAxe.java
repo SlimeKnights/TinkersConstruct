@@ -54,16 +54,15 @@ public class LumberAxe extends HarvestTool
     }
 
     @Override
-    public boolean onBlockDestroyed (ItemStack itemstack, World world, int bID, int x, int y, int z, EntityLivingBase player)
+    public boolean onBlockDestroyed (ItemStack itemstack, World world, Block block, int x, int y, int z, EntityLivingBase player)
     {
-        Block block = Block.blocksList[bID];
         if (block != null && block.func_149688_o() == Material.leaves)
             return false;
 
-        return AbilityHelper.onBlockChanged(itemstack, world, bID, x, y, z, player, random);
+        return AbilityHelper.onBlockChanged(itemstack, world, block, x, y, z, player, random);
     }
 
-    static Material[] materials = { Material.wood, Material.vine, Material.circuits, Material.cactus, Material.pumpkin };
+    static Material[] materials = { Material.field_151575_d, Material.field_151582_l, Material.circuits, Material.cactus, Material.pumpkin };
 
     /* Lumber axe specific */
 
@@ -139,8 +138,7 @@ public class LumberAxe extends HarvestTool
             return false;
 
         World world = player.worldObj;
-        final int woodID = world.getBlockId(x, y, z);
-        final Block wood = Block.blocksList[woodID];
+        final Block wood = world.func_147439_a(x, y, z);;
         if (wood == null)
         {
             return super.onBlockStartBreak(stack, x, y, z, player);
@@ -152,8 +150,8 @@ public class LumberAxe extends HarvestTool
             do
             {
                 height++;
-                int blockID = world.getBlockId(x, height, z);
-                if (blockID != woodID)
+                Block block = world.func_147439_a(x, height, z);
+                if (block != wood)
                 {
                     height--;
                     foundTop = true;
@@ -169,7 +167,7 @@ public class LumberAxe extends HarvestTool
                     {
                         for (int zPos = z - 1; zPos <= z + 1; zPos++)
                         {
-                            Block leaves = Block.blocksList[world.getBlockId(xPos, yPos, zPos)];
+                            Block leaves = world.func_147439_a(xPos, yPos, zPos);
                             if (leaves != null && leaves.isLeaves(world, xPos, yPos, zPos))
                                 numLeaves++;
                         }
@@ -180,14 +178,14 @@ public class LumberAxe extends HarvestTool
             NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
             int meta = world.getBlockMetadata(x, y, z);
             if (numLeaves > 3)
-                breakTree(world, x, y, z, stack, tags, woodID, meta, player);
+                breakTree(world, x, y, z, stack, tags, wood, meta, player);
             else
                 destroyWood(world, x, y, z, stack, tags, player);
 
             if (!world.isRemote)
                 world.playAuxSFX(2001, x, y, z, woodID + (meta << 12));
         }
-        else if (wood.func_149688_o() == Material.wood)
+        else if (wood.func_149688_o() == Material.field_151575_d)
         {
             NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
             int meta = world.getBlockMetadata(x, y, z);
@@ -198,7 +196,7 @@ public class LumberAxe extends HarvestTool
         return super.onBlockStartBreak(stack, x, y, z, player);
     }
 
-    void breakTree (World world, int x, int y, int z, ItemStack stack, NBTTagCompound tags, int bID, int meta, EntityPlayer player)
+    void breakTree (World world, int x, int y, int z, ItemStack stack, NBTTagCompound tags, Block bID, int meta, EntityPlayer player)
     {
         Block block;
         for (int xPos = x - 1; xPos <= x + 1; xPos++)
@@ -209,10 +207,10 @@ public class LumberAxe extends HarvestTool
                 {
                     if (!(tags.getBoolean("Broken")))
                     {
-                        int localblockID = world.getBlockId(xPos, yPos, zPos);
-                        if (bID == localblockID)
+                        Block localblock = world.func_147439_a(xPos, yPos, zPos);
+                        if (bID == localblock)
                         {
-                            block = Block.blocksList[localblockID];
+                            block = localblock;
                             meta = world.getBlockMetadata(xPos, yPos, zPos);
                             int hlvl = MinecraftForge.getBlockHarvestLevel(block, meta, getHarvestType());
 
@@ -231,7 +229,7 @@ public class LumberAxe extends HarvestTool
                                 }
                                 else
                                 {
-                                    if (localblockID == bID && world.getBlockMetadata(xPos, yPos, zPos) % 4 == meta % 4)
+                                    if (localblock == bID && world.getBlockMetadata(xPos, yPos, zPos) % 4 == meta % 4)
                                     {
                                         /* world.setBlock(xPos, yPos, zPos, 0, 0, 3);
                                          if (!player.capabilities.isCreativeMode)
@@ -247,7 +245,7 @@ public class LumberAxe extends HarvestTool
                                             }
                                             block.harvestBlock(world, player, xPos, yPos, zPos, meta);
                                             block.onBlockHarvested(world, xPos, yPos, zPos, meta, player);
-                                            onBlockDestroyed(stack, world, localblockID, xPos, yPos, zPos, player);
+                                            onBlockDestroyed(stack, world, localblock, xPos, yPos, zPos, player);
                                         }
                                         else
                                         {
@@ -287,11 +285,11 @@ public class LumberAxe extends HarvestTool
                 {
                     if (!(tags.getBoolean("Broken")))
                     {
-                        Block block = world.getBlock(xPos, yPos, zPos);
+                        Block block = world.func_147439_a(xPos, yPos, zPos);
                         int meta = world.getBlockMetadata(xPos, yPos, zPos);
                         int hlvl = MinecraftForge.getBlockHarvestLevel(block, meta, getHarvestType());
 
-                        if (block != null && block.func_149688_o() == Material.wood)
+                        if (block != null && block.func_149688_o() == Material.field_151575_d)
                         {
                             if (hlvl <= tags.getInteger("HarvestLevel"))
                             {

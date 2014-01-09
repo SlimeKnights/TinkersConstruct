@@ -27,7 +27,7 @@ import net.minecraftforge.common.util.ForgeDirection;
 
 public class ToolStationBlock extends InventoryBlock
 {
-    public ToolStationBlock(int id, Material material)
+    public ToolStationBlock(Material material)
     {
         super(material);
         this.setCreativeTab(TConstructRegistry.blockTab);

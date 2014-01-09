@@ -1,10 +1,12 @@
 package tconstruct.blocks.traps;
 
 import mantle.blocks.MantleBlock;
+import mantle.common.ComparisonHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
@@ -21,9 +23,9 @@ public class BarricadeBlock extends MantleBlock
     Block modelBlock;
     int modelMeta;
 
-    public BarricadeBlock( Block model, int meta)
+    public BarricadeBlock(Block model, int meta)
     {
-        super(Material.wood);
+        super(Material.field_151575_d);
         this.modelBlock = model;
         this.modelMeta = meta;
         func_149711_c(4.0F);
@@ -61,7 +63,7 @@ public class BarricadeBlock extends MantleBlock
         return AxisAlignedBB.getBoundingBox(x, y, z, x + 1, y + 1, z + 1);
     }
 
-    public void setBlockBoundsBasedOnState (IBlockAccess par1IBlockAccess, int x, int y, int z)
+    public void func_147465_dBoundsBasedOnState (IBlockAccess par1IBlockAccess, int x, int y, int z)
     {
         setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
     }
@@ -70,7 +72,7 @@ public class BarricadeBlock extends MantleBlock
     {
         if (meta % 4 > 0)
         {
-            world.setBlock(x, y, z, this.blockID, meta - 1, 3);
+            world.func_147465_d(x, y, z, this, meta - 1, 3);
             dropBlockAsItem_do(world, x, y, z, new ItemStack(this));
         }
         else
@@ -83,14 +85,14 @@ public class BarricadeBlock extends MantleBlock
     public boolean onBlockActivated (World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9)
     {
         ItemStack stack = player.getCurrentEquippedItem();
-        if ((stack != null) && (stack.itemID == this.blockID) && (!player.isSneaking()))
+        if ((stack != null) && (ComparisonHelper.areEquivalent(stack.getItem(), this)) && (!player.isSneaking()))
         {
             int meta = world.getBlockMetadata(x, y, z);
             if (meta % 4 != 3)
             {
-                world.setBlock(x, y, z, this, meta + 1, 3);
-                this..onBlockPlacedBy(world, x, y, z, player, stack);
-                this.blockID.onPostBlockPlaced(world, x, y, z, meta);
+                world.func_147465_d(x, y, z, this, meta + 1, 3);
+                this.onBlockPlacedBy(world, x, y, z, player, stack);
+                this.onPostBlockPlaced(world, x, y, z, meta);
 
                 Block var9 = this;
                 world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, var9.stepSound.getStepSound(), (var9.stepSound.getVolume() + 1.0F) / 2.0F, var9.stepSound.getPitch() * 0.8F);
@@ -114,7 +116,7 @@ public class BarricadeBlock extends MantleBlock
         int trueMeta = meta % 4;
         trueMeta -= power;
         if (trueMeta < 0)
-            world.setBlockToAir(x, y, z);
+            world.func_147465_d(x, y, z, Blocks.air, 0, 0);
         else
             world.setBlockMetadataWithNotify(x, y, z, (int) (meta - power), 3);
         onBlockDestroyedByExplosion(world, x, y, z, explosion);

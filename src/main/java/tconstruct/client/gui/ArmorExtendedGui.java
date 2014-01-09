@@ -36,17 +36,17 @@ public class ArmorExtendedGui extends InventoryEffectRenderer
         super.initGui();
 
         int cornerX = guiLeft;
-        int cornerY = (this.height - this.ySize) / 2;
-        this.buttonList.clear();
+        int cornerY = (this.field_146294_l - this.ySize) / 2;
+        this.field_146292_n.clear();
 
         //        InventoryTab tab = new InventoryTab(2, cornerX, cornerY - 28, new ItemStack(Block.workbench), 0);
-        //        this.buttonList.add(tab);
+        //        this.field_146292_n.add(tab);
         //        tab = new InventoryTab(3, cornerX + 28, cornerY - 28, new ItemStack(Item.plateDiamond), 1);
         //        tab.enabled = false;
-        //        this.buttonList.add(tab);
+        //        this.field_146292_n.add(tab);
 
         TabRegistry.updateTabValues(cornerX, cornerY, InventoryTabArmorExtended.class);
-        TabRegistry.addTabsToList(this.buttonList);
+        TabRegistry.addTabsToList(this.field_146292_n);
     }
 
     protected void drawGuiContainerForegroundLayer (int par1, int par2)
@@ -62,19 +62,19 @@ public class ArmorExtendedGui extends InventoryEffectRenderer
         this.ySize_lo = (float) par2;
         //        if (stats.inventory[2] != null && stats.inventory[2].getItem() == TContent.knapsack)
         //        {
-        //            if (this.buttonList.size() < 3)
+        //            if (this.field_146292_n.size() < 3)
         //            {
         //                int cornerX = guiLeft;
         //                int cornerY = (this.height - this.ySize) / 2;
         //                InventoryTab tab = new InventoryTab(4, cornerX + 56, cornerY - 28, new ItemStack(TContent.knapsack), 1);
-        //                this.buttonList.add(tab);
+        //                this.field_146292_n.add(tab);
         //            }
         //        }
         //        else
         //        {
-        //            if (this.buttonList.size() >= 3)
+        //            if (this.field_146292_n.size() >= 3)
         //            {
-        //                buttonList.remove(2);
+        //                field_146292_n.remove(2);
         //            }
         //        }
     }
@@ -87,7 +87,7 @@ public class ArmorExtendedGui extends InventoryEffectRenderer
         //mc.renderEngine.bindTexture("/mods/tinker/textures/gui/armorextended.png");
         this.field_146297_k.getTextureManager().bindTexture(background);
         int cornerX = guiLeft;
-        int cornerY = (height - ySize) / 2;
+        int cornerY = (field_146294_l - ySize) / 2;
         drawTexturedModalRect(cornerX, cornerY, 0, 0, xSize, ySize);
 
         if (!stats.isStackInSlot(0))

@@ -896,7 +896,7 @@ public class TProxyClient extends TProxyCommon
                     }
                     else if (par1Str.equals("dripWater"))
                     {
-                        entityfx = new EntityDropParticleFX(mc.theWorld, par2, par4, par6, Material.water);
+                        entityfx = new EntityDropParticleFX(mc.theWorld, par2, par4, par6, Material.field_151586_h);
                     }
                     else if (par1Str.equals("dripLava"))
                     {

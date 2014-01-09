@@ -1,6 +1,7 @@
 package tconstruct.util;
 
 import tconstruct.util.player.ArmorExtended;
+import mantle.blocks.BlockUtils;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 
 import java.util.Random;
@@ -224,7 +225,7 @@ public class TEventHandler
     {
         if (stack.itemID >= 4096)
             return false;
-        Block block = Block.blocksList[stack.itemID];
+        Block block = BlockUtils.getBlockFromItem(stack.getItem());
         if (block != null)
         {
             if (block.isLeaves(null, 0, 0, 0))

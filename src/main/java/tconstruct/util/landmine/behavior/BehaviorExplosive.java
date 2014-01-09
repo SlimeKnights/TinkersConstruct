@@ -2,6 +2,7 @@ package tconstruct.util.landmine.behavior;
 
 import java.util.List;
 
+import mantle.common.ComparisonHelper;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -24,7 +25,7 @@ public class BehaviorExplosive extends Behavior
     public void executeLogic (World par1World, int par2, int par3, int par4, ItemStack par5ItemStack, Entity triggerer, boolean willBlockBeRemoved)
     {
         float explodeStrenght = 0;
-        if (par5ItemStack.itemID == Blocks.tnt.blockID)
+        if (ComparisonHelper.areEquivalent(par5ItemStack.getItem(), Blocks.tnt))
         {
             explodeStrenght = 4.0F * par5ItemStack.stackSize;
         }
@@ -40,7 +41,7 @@ public class BehaviorExplosive extends Behavior
     public void getInformation (ItemStack par1ItemStack, List par2List)
     {
         String str = "UNDEFINED";
-        if (par1ItemStack.itemID == Blocks.tnt.blockID)
+        if (ComparisonHelper.areEquivalent(par1ItemStack.getItem(), Blocks.tnt))
         {
             str = "medium";
         }

@@ -35,9 +35,9 @@ public class EnvironmentGui extends GuiScreen
     public void initGui ()
     {
         Keyboard.enableRepeatEvents(true);
-        this.buttonList.clear();
-        this.buttonList.add(new GuiButton(0, this.field_146294_l / 2 - 175, this.field_146295_m / 4 + 96 + 24, 350, 20, I18n.getStringParams("I accept responsibility for all cross-mod bugs in this modpack.")));
-        this.buttonList.add(new GuiButton(1, this.field_146294_l / 2 - 175, this.field_146295_m / 4 + 120 + 24, 350, 20, I18n.getStringParams("I do not want to run these mods together. (Exits Minecraft)")));
+        this.field_146292_n.clear();
+        this.field_146292_n.add(new GuiButton(0, this.field_146294_l / 2 - 175, this.field_146295_m / 4 + 96 + 24, 350, 20, I18n.getStringParams("I accept responsibility for all cross-mod bugs in this modpack.")));
+        this.field_146292_n.add(new GuiButton(1, this.field_146294_l / 2 - 175, this.field_146295_m / 4 + 120 + 24, 350, 20, I18n.getStringParams("I do not want to run these mods together. (Exits Minecraft)")));
     }
 
     /**
@@ -53,15 +53,15 @@ public class EnvironmentGui extends GuiScreen
      */
     protected void actionPerformed (GuiButton button)
     {
-        if (button.enabled)
+        if (button.field_146124_l)
         {
-            if (button.id == 0)
+            if (button.field_146127_k == 0)
             {
                 count++;
                 if (count >= mods.size())
                     this.field_146297_k.displayGuiScreen(this.parentGuiScreen);
             }
-            if (button.id == 1)
+            if (button.field_146127_k == 1)
             {
                 System.exit(0);
             }

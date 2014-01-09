@@ -10,15 +10,13 @@ import net.minecraft.world.World;
 
 public class WoolSlab1Item extends MultiItemBlock
 {
-    int blockID;
     Block block;
 
     public WoolSlab1Item(Block b)
     {
         super(b, "", "slab", ItemDye.dyeColorNames);
         this.setSpecialIndex(7, 15);
-        this.blockID = id + 256;
-        this.block = Block.blocksList[id + 256];
+        this.block = b;
         setMaxDamage(0);
         setHasSubtypes(true);
     }
@@ -31,9 +29,9 @@ public class WoolSlab1Item extends MultiItemBlock
         int trueMeta = meta % 8;
         boolean flag = (id & 8) != 0;
 
-        if ((side == 1 && flag || side == 0 && !flag) && id == this.blockID && trueMeta == stack.getItemDamage())
+        if ((side == 1 && flag || side == 0 && !flag) && id == this && trueMeta == stack.getItemDamage())
         {
-            if (world.setBlock(x, y, z, Blocks.wool.blockID, trueMeta, 3))
+            if (world.setBlock(x, y, z, Blocks.wool, trueMeta, 3))
             {
                 world.playSoundEffect((double) ((float) x + 0.5F), (double) ((float) y + 0.5F), (double) ((float) z + 0.5F), this.block.stepSound.getPlaceSound(),
                         (this.block.stepSound.getVolume() + 1.0F) / 2.0F, this.block.stepSound.getPitch() * 0.8F);

@@ -140,9 +140,8 @@ public class Excavator extends HarvestTool
             return false;
 
         World world = player.worldObj;
-        final int blockID = world.getBlockId(x, y, z);
         final int meta = world.getBlockMetadata(x, y, z);
-        Block block = Block.blocksList[blockID];
+        Block block = world.getBlock(x, y, z);
         if (!stack.hasTagCompound())
             return false;
 
@@ -192,8 +191,8 @@ public class Excavator extends HarvestTool
                 {
                     if (!(tags.getBoolean("Broken")))
                     {
-                        int localblockID = world.getBlockId(xPos, yPos, zPos);
-                        block = Block.blocksList[localblockID];
+                        Block localblock = world.getBlock(xPos, yPos, zPos);
+                        block = localblock;
                         int localMeta = world.getBlockMetadata(xPos, yPos, zPos);
                         int hlvl = MinecraftForge.getBlockHarvestLevel(block, meta, getHarvestType());
                         float localHardness = block == null ? Float.MAX_VALUE : block.getBlockHardness(world, xPos, yPos, zPos);
@@ -224,7 +223,7 @@ public class Excavator extends HarvestTool
                                                 block.harvestBlock(world, player, xPos, yPos, zPos, localMeta);
                                                 block.onBlockHarvested(world, xPos, yPos, zPos, localMeta, player);
                                                 if (blockHardness > 0f)
-                                                    onBlockDestroyed(stack, world, localblockID, xPos, yPos, zPos, player);
+                                                    onBlockDestroyed(stack, world, localblock, xPos, yPos, zPos, player);
                                             }
                                             else
                                             {

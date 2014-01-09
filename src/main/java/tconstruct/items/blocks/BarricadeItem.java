@@ -15,11 +15,12 @@ import net.minecraft.util.StatCollector;
 
 public class BarricadeItem extends ItemBlock
 {
-    private int bID;
+    private Block b;
 
     public BarricadeItem(Block b)
     {
         super(b);
+        this.b = b;
     }
 
     @Override
@@ -79,17 +80,17 @@ public class BarricadeItem extends ItemBlock
         {
             return false;
         }
-        else if (y == 255 && Block.blocksList[this.bID].blockMaterial.isSolid())
+        else if (y == 255 && this.b.func_149688_o().isSolid())
         {
             return false;
         }
-        else if (world.canPlaceEntityOnSide(this.bID, x, y, z, false, side, player, stack))
+        else if (world.canPlaceEntityOnSide(this.b, x, y, z, false, side, player, stack))
         {
-            Block block = Block.blocksList[this.bID];
+            Block block = this.b;
             //int meta = this.getMetadata(stack.getItemDamage());
             int rotation = MathHelper.floor_double((double) (player.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
             int meta = rotation * 4;
-            int metadata = Block.blocksList[this.bID].onBlockPlaced(world, x, y, z, side, hitX, hitY, hitZ, meta);
+            int metadata = this.b.onBlockPlaced(world, x, y, z, side, hitX, hitY, hitZ, meta);
 
             if (placeBlockAt(stack, player, world, x, y, z, side, hitX, hitY, hitZ, metadata))
             {

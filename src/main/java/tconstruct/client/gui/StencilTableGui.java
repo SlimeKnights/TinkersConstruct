@@ -66,20 +66,20 @@ public class StencilTableGui extends GuiContainer
         int cornerX = (this.field_146294_l - this.xSize) / 2;
         int cornerY = (this.field_146295_m - this.ySize) / 2;
 
-        this.buttonList.clear();
+        this.field_146292_n.clear();
         /*ToolGuiElement repair = TConstruct.toolButtons.get(0);
         GuiButtonTool repairButton = new GuiButtonTool(0, cornerX - 110, cornerY, repair.buttonIconX, repair.buttonIconY, repair.texture); // Repair
         repairButton.enabled = false;
-        this.buttonList.add(repairButton);*/
-        this.buttonList.add(new GuiButton(0, cornerX - 120, cornerY, 120, 20, StatCollector.translateToLocal("gui.stenciltable1")));
-        this.buttonList.add(new GuiButton(1, cornerX - 120, cornerY + 20, 120, 20, StatCollector.translateToLocal("gui.stenciltable1")));
+        this.field_146292_n.add(repairButton);*/
+        this.field_146292_n.add(new GuiButton(0, cornerX - 120, cornerY, 120, 20, StatCollector.translateToLocal("gui.stenciltable1")));
+        this.field_146292_n.add(new GuiButton(1, cornerX - 120, cornerY + 20, 120, 20, StatCollector.translateToLocal("gui.stenciltable1")));
 
         //for (int iter = 0; iter < TConstructContent.patternOutputs.length; iter++)
         //{
 
         /*ToolGuiElement element = TConstruct.toolButtons.get(iter);
         GuiButtonTool button = new GuiButtonTool(iter, cornerX - 110 + 22 * (iter % 5), cornerY + 22 * (iter / 5), element.buttonIconX, element.buttonIconY, element.texture); // Repair
-        this.buttonList.add(button);*/
+        this.field_146292_n.add(button);*/
         //}
     }
 
@@ -91,7 +91,7 @@ public class StencilTableGui extends GuiContainer
             int meta = pattern.getItemDamage();
             if (meta == 0)
             {
-                if (button.id == 0)
+                if (button.field_146127_k == 0)
                 {
                     patternIndex++;
                     if (patternIndex == 21)
@@ -99,7 +99,7 @@ public class StencilTableGui extends GuiContainer
                     if (patternIndex >= TRepo.patternOutputs.length - 1)
                         patternIndex = 0;
                 }
-                else if (button.id == 1)
+                else if (button.field_146127_k == 1)
                 {
                     patternIndex--;
                     if (patternIndex < 0)

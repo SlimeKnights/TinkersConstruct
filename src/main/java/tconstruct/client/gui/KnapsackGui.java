@@ -27,19 +27,19 @@ public class KnapsackGui extends GuiContainer
         super.initGui();
 
         int cornerX = guiLeft;
-        int cornerY = (this.height - this.ySize) / 2;
-        this.buttonList.clear();
+        int cornerY = (this.field_146294_l - this.ySize) / 2;
+        this.field_146292_n.clear();
 
         TabRegistry.updateTabValues(cornerX, cornerY, InventoryTabKnapsack.class);
-        TabRegistry.addTabsToList(this.buttonList);
+        TabRegistry.addTabsToList(this.field_146292_n);
 
         //        InventoryTab tab = new InventoryTab(2, cornerX, cornerY - 28, new ItemStack(Block.workbench), 0);
-        //        this.buttonList.add(tab);
+        //        this.field_146292_n.add(tab);
         //        tab = new InventoryTab(3, cornerX + 28, cornerY - 28, new ItemStack(Item.plateDiamond), 1);
-        //        this.buttonList.add(tab);
+        //        this.field_146292_n.add(tab);
         //        tab = new InventoryTab(4, cornerX + 56, cornerY - 28, new ItemStack(TContent.knapsack), 1);
         //        tab.enabled = false;
-        //        this.buttonList.add(tab);
+        //        this.field_146292_n.add(tab);
     }
 
     protected void drawGuiContainerForegroundLayer (int par1, int par2)
@@ -55,7 +55,7 @@ public class KnapsackGui extends GuiContainer
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.field_146297_k.getTextureManager().bindTexture(background);
         int cornerX = guiLeft;
-        int cornerY = (height - ySize) / 2;
+        int cornerY = (field_146294_l - ySize) / 2;
         drawTexturedModalRect(cornerX, cornerY, 0, 0, xSize, ySize);
     }
 

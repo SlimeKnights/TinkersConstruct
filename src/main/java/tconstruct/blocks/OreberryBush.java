@@ -186,7 +186,7 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
             int meta = world.getBlockMetadata(x, y, z);
             if (meta >= 12)
             {
-                world.setBlock(x, y, z, blockID, meta - 4, 3);
+                world.setBlock(x, y, z, this, meta - 4, 3);
                 AbilityHelper.spawnItemAtPlayer(player, new ItemStack(TRepo.oreBerries, 1, meta % 4 + itemMeat));
             }
         }
@@ -205,7 +205,7 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
             if (world.isRemote)
                 return true;
 
-            world.setBlock(x, y, z, blockID, meta - 4, 3);
+            world.setBlock(x, y, z, this, meta - 4, 3);
             AbilityHelper.spawnItemAtPlayer(player, new ItemStack(TRepo.oreBerries, random.nextInt(3) + 1, meta % 4 + itemMeat));
             return true;
         }
@@ -266,7 +266,7 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
                 int meta = world.getBlockMetadata(x, y, z);
                 if (meta < 12)
                 {
-                    world.setBlock(x, y, z, blockID, meta + 4, 3);
+                    world.setBlock(x, y, z, this, meta + 4, 3);
                 }
             }
             /*else if (meta < 8)

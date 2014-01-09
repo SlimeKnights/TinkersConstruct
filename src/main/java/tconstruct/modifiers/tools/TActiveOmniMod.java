@@ -59,9 +59,9 @@ public class TActiveOmniMod extends ActiveToolMod
 
         NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
         World world = entity.worldObj;
-        int bID = entity.worldObj.getBlockId(x, y, z);
+        Block block = entity.worldObj.getBlock(x, y, z);
         int meta = world.getBlockMetadata(x, y, z);
-        Block block = Block.blocksList[bID];
+        //TODO do we need the next to lines????????
         if (block == null || bID < 1 || bID > 4095)
             return false;
 

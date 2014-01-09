@@ -6,6 +6,7 @@ import java.util.Random;
 import tconstruct.TConstruct;
 import tconstruct.common.TRepo;
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraft.world.gen.structure.MapGenVillage;
@@ -58,25 +59,25 @@ public class ComponentSmeltery extends MapGenVillage
          * maxZ, int placeBlockId, int replaceBlockId, boolean alwaysreplace)
          */
 
-        this.fillWithBlocks(world, sbb, 1, 0, 0, 7, 0, 6, Block.stoneBrick.blockID, Block.stoneBrick.blockID, false); //Base
-        this.fillWithBlocks(world, sbb, 0, 0, 1, 0, 0, 5, Block.stoneBrick.blockID, Block.stoneBrick.blockID, false);
-        this.fillWithBlocks(world, sbb, 8, 0, 1, 8, 0, 5, Block.stoneBrick.blockID, Block.stoneBrick.blockID, false);
+        this.fillWithBlocks(world, sbb, 1, 0, 0, 7, 0, 6, Blocks.stonebrick, Blocks.stonebrick, false); //Base
+        this.fillWithBlocks(world, sbb, 0, 0, 1, 0, 0, 5, Blocks.stonebrick, Blocks.stonebrick, false);
+        this.fillWithBlocks(world, sbb, 8, 0, 1, 8, 0, 5, Blocks.stonebrick, Blocks.stonebrick, false);
         this.fillWithBlocks(world, sbb, 0, 1, 0, 9, 3, 7, 0, 0, false);
 
-        this.fillWithMetaBlocks(world, sbb, 2, 0, 1, 6, 2, 5, TRepo.smeltery.blockID, 2, TRepo.smeltery.blockID, 2, false); //Basin
+        this.fillWithMetaBlocks(world, sbb, 2, 0, 1, 6, 2, 5, TRepo.smeltery, 2, TRepo.smeltery, 2, false); //Basin
         this.fillWithBlocks(world, sbb, 3, 1, 2, 5, 2, 4, 0, 0, false);
 
-        this.placeBlockAtCurrentPosition(world, TRepo.searedBlock.blockID, 0, 1, 1, 2, sbb);
-        this.placeBlockAtCurrentPosition(world, TRepo.searedBlock.blockID, 2, 1, 1, 4, sbb);
-        this.placeBlockAtCurrentPosition(world, TRepo.searedBlock.blockID, 0, 7, 1, 2, sbb);
-        this.placeBlockAtCurrentPosition(world, TRepo.searedBlock.blockID, 2, 7, 1, 4, sbb);
+        this.placeBlockAtCurrentPosition(world, TRepo.searedBlock, 0, 1, 1, 2, sbb);
+        this.placeBlockAtCurrentPosition(world, TRepo.searedBlock, 2, 1, 1, 4, sbb);
+        this.placeBlockAtCurrentPosition(world, TRepo.searedBlock, 0, 7, 1, 2, sbb);
+        this.placeBlockAtCurrentPosition(world, TRepo.searedBlock, 2, 7, 1, 4, sbb);
 
         for (int l = 1; l < 6; ++l)
         {
             for (int i1 = 0; i1 < 9; ++i1)
             {
                 this.clearCurrentPositionBlocksUpwards(world, i1, 9, l, sbb);
-                this.fillCurrentPositionBlocksDownwards(world, Block.stoneBrick.blockID, 0, i1, -1, l, sbb);
+                this.fillCurrentPositionBlocksDownwards(world, Blocks.stonebrick, 0, i1, -1, l, sbb);
             }
         }
 
@@ -85,7 +86,7 @@ public class ComponentSmeltery extends MapGenVillage
             for (int i1 = 1; i1 < 8; ++i1)
             {
                 this.clearCurrentPositionBlocksUpwards(world, i1, 9, l, sbb);
-                this.fillCurrentPositionBlocksDownwards(world, Block.stoneBrick.blockID, 0, i1, -1, l, sbb);
+                this.fillCurrentPositionBlocksDownwards(world, Blocks.stonebrick, 0, i1, -1, l, sbb);
             }
         }
         return true;
@@ -105,7 +106,7 @@ public class ComponentSmeltery extends MapGenVillage
         case 3:
             return 0;
         }
-        TConstruct.logger.severe("This shouldn't happen (remapDirection in tconstruct.worldgen.village.ComponentSmeltery)");
+        TConstruct.logger.error("This shouldn't happen (remapDirection in tconstruct.worldgen.village.ComponentSmeltery)");
         return -1;
     }
 

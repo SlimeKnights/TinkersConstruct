@@ -2,6 +2,7 @@ package tconstruct.client.entity.projectile;
 
 import java.util.Random;
 
+import mantle.blocks.BlockUtils;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -23,7 +24,6 @@ import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
 import tconstruct.entity.projectile.ArrowEntity;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -73,10 +73,10 @@ public class ArrowRender extends Render
             Block block = null;
             if (itemstack.itemID < Block.blocksList.length)
             {
-                block = Block.blocksList[itemstack.itemID];
+                block = BlockUtils.getBlockFromItem(itemstack.getItem());
             }
 
-            if (itemstack.getItemSpriteNumber() == 0 && block != null && RenderBlocks.renderItemIn3d(Block.blocksList[itemstack.itemID].getRenderType()))
+            if (itemstack.getItemSpriteNumber() == 0 && block != null && RenderBlocks.renderItemIn3d(BlockUtils.getBlockFromItem(itemstack.getItem()).getRenderType()))
             {
                 GL11.glRotatef(f3, 0.0F, 1.0F, 0.0F);
 
@@ -123,7 +123,7 @@ public class ArrowRender extends Render
 
                         if (this.renderWithColor)
                         {
-                            i = Item.itemsList[itemstack.itemID].getColorFromItemStack(itemstack, k);
+                            i = itemstack.getItem().getColorFromItemStack(itemstack, k);
                             f5 = (float) (i >> 16 & 255) / 255.0F;
                             f4 = (float) (i >> 8 & 255) / 255.0F;
                             f6 = (float) (i & 255) / 255.0F;
@@ -144,7 +144,7 @@ public class ArrowRender extends Render
 
                     if (this.renderWithColor)
                     {
-                        int l = Item.itemsList[itemstack.itemID].getColorFromItemStack(itemstack, 0);
+                        int l =itemstack.getItem().getColorFromItemStack(itemstack, 0);
                         f8 = (float) (l >> 16 & 255) / 255.0F;
                         float f9 = (float) (l >> 8 & 255) / 255.0F;
                         f5 = (float) (l & 255) / 255.0F;

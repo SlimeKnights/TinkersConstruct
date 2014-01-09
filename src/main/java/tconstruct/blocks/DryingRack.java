@@ -27,7 +27,7 @@ public class DryingRack extends InventoryBlock
 
     public DryingRack()
     {
-        super(Material.wood);
+        super(Material.field_151575_d);
         this.setCreativeTab(TConstructRegistry.blockTab);
         setHardness(2.0f);
         setStepSound(soundMetalFootstep);
@@ -87,7 +87,7 @@ public class DryingRack extends InventoryBlock
     {
         if (!world.isRemote)
         {
-            DryingRackLogic logic = (DryingRackLogic) world.getBlockTileEntity(x, y, z);
+            DryingRackLogic logic = (DryingRackLogic) world.func_147438_o(x, y, z);
 
             if (!logic.isStackInSlot(0))
             {

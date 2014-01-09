@@ -30,10 +30,10 @@ public class TabRegistry
             //Values are public at runtime.
             int cornerX = gui.guiLeft;
             int cornerY = gui.guiTop;
-            gui.buttonList.clear();
+            gui.field_146292_n.clear();
 
             updateTabValues(cornerX, cornerY, InventoryTabVanilla.class);
-            addTabsToList(gui.buttonList);
+            addTabsToList(gui.field_146292_n);
         }
     }
 
@@ -64,13 +64,13 @@ public class TabRegistry
         }
     }
 
-    public static void addTabsToList (List buttonList)
+    public static void addTabsToList (List field_146292_n)
     {
         for (AbstractTab tab : tabList)
         {
             if (tab.shouldAddToList())
             {
-                buttonList.add(tab);
+                field_146292_n.add(tab);
             }
         }
     }

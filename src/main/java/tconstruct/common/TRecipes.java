@@ -132,8 +132,10 @@ public class TRecipes
         GameRegistry.registerBlock(TRepo.slimeChannel, "slime.channel");
         GameRegistry.registerBlock(TRepo.bloodChannel, "blood.channel");
         GameRegistry.registerBlock(TRepo.slimePad, "slime.pad");
-        TConstructRegistry.drawbridgeState[TRepo.slimePad] = 1;
+        //TODO fix this
+        /*TConstructRegistry.drawbridgeState[TRepo.slimePad] = 1;
         TConstructRegistry.drawbridgeState[TRepo.bloodChannel] = 1;
+        */
 
         //Decoration
         GameRegistry.registerBlock(TRepo.stoneTorch, "decoration.stonetorch");

@@ -47,7 +47,7 @@ public class Mattock extends DualHarvestTool
         return "shovel";
     }
 
-    static Material[] axeMaterials = { Material.wood, Material.cactus, Material.pumpkin, Material.plants, Material.vine };
+    static Material[] axeMaterials = { Material.field_151575_d, Material.cactus, Material.pumpkin, Material.plants, Material.vine };
     static Material[] shovelMaterials = { Material.grass, Material.ground, Material.clay };
 
     @Override
@@ -122,8 +122,8 @@ public class Mattock extends DualHarvestTool
             {
                 if (!TRepo.supressMissingToolLogs)
                 {
-                    TConstruct.logger.warning("Creative builder failed tool for " + name + this.getToolName());
-                    TConstruct.logger.warning("Make sure you do not have item ID conflicts");
+                    TConstruct.logger.warn("Creative builder failed tool for " + name + this.getToolName());
+                    TConstruct.logger.warn("Make sure you do not have item ID conflicts");
                 }
             }
             else
