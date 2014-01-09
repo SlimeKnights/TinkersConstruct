@@ -461,9 +461,9 @@ public class SmelteryGui extends NewContainerGui
                     dos.write(11);
 
                     dos.writeInt(logic.getWorld().provider.dimensionId);
-                    dos.writeInt(logic.xCoord);
-                    dos.writeInt(logic.yCoord);
-                    dos.writeInt(logic.zCoord);
+                    dos.writeInt(logic.field_145851_c);
+                    dos.writeInt(logic.field_145848_d);
+                    dos.writeInt(logic.field_145849_e);
 
                     dos.writeBoolean(this.isShiftKeyDown());
 

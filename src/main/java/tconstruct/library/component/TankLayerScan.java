@@ -41,7 +41,7 @@ public class TankLayerScan extends LogicComponent
         master = te;
         imaster = (IMasterLogic) te;
         scanBlocks = ids;
-        masterCoord = new CoordTuple(te.xCoord, te.yCoord, te.zCoord);
+        masterCoord = new CoordTuple(te.field_145851_c, te.field_145848_d, te.field_145849_e);
         validAirCoords.add(new int[] { 1, 0 });
         validAirCoords.add(new int[] { -1, 0 });
         validAirCoords.add(new int[] { 0, 1 });
@@ -66,12 +66,12 @@ public class TankLayerScan extends LogicComponent
         {
         case 2: // +z
         case 3: // -z
-            if (checkAir(master.xCoord, master.yCoord, master.zCoord - 1) && checkAir(master.xCoord, master.yCoord, master.zCoord + 1))
+            if (checkAir(master.field_145851_c, master.field_145848_d, master.field_145849_e - 1) && checkAir(master.field_145851_c, master.field_145848_d, master.field_145849_e + 1))
                 validAir = true;
             break;
         case 4: // +x
         case 5: // -x
-            if (checkAir(master.xCoord - 1, master.yCoord, master.zCoord) && checkAir(master.xCoord + 1, master.yCoord, master.zCoord))
+            if (checkAir(master.field_145851_c - 1, master.field_145848_d, master.field_145849_e) && checkAir(master.field_145851_c + 1, master.field_145848_d, master.field_145849_e))
                 validAir = true;
             break;
         }
@@ -89,8 +89,8 @@ public class TankLayerScan extends LogicComponent
         if (dir == 5)
             zPos = 1;
 
-        returnStone = new CoordTuple(master.xCoord - xPos, master.yCoord, master.zCoord - zPos);
-        if (initialRecurseLayer(master.xCoord + xPos, master.yCoord, master.zCoord + zPos))
+        returnStone = new CoordTuple(master.field_145851_c - xPos, master.field_145848_d, master.field_145849_e - zPos);
+        if (initialRecurseLayer(master.field_145851_c + xPos, master.field_145848_d, master.field_145849_e + zPos))
         {
             xPos = 0;
             zPos = 0;
@@ -115,7 +115,7 @@ public class TankLayerScan extends LogicComponent
             bricks = 0;
 
             //Does the actual adding of blocks in the ring
-            boolean sealed = floodTest(master.xCoord + xPos, master.yCoord, master.zCoord + zPos);
+            boolean sealed = floodTest(master.field_145851_c + xPos, master.field_145848_d, master.field_145849_e + zPos);
             if (!world.isRemote && debug)
             {
                 TConstruct.logger.info("Air in ring: " + airBlocks);
@@ -124,15 +124,15 @@ public class TankLayerScan extends LogicComponent
 
             if (sealed)
             {
-                blockCoords.add(new CoordTuple(master.xCoord, master.yCoord, master.zCoord)); //Don't forget me!
+                blockCoords.add(new CoordTuple(master.field_145851_c, master.field_145848_d, master.field_145849_e)); //Don't forget me!
                 layerAirCoords = new HashSet<CoordTuple>(airCoords);
                 layerBlockCoords = new HashSet<CoordTuple>(blockCoords);
 
-                int lowY = recurseStructureDown(master.yCoord - 1);
+                int lowY = recurseStructureDown(master.field_145848_d - 1);
                 if (lowY != -1)
                 {
                     completeStructure = true;
-                    structureTop = recurseStructureUp(master.yCoord + 1);
+                    structureTop = recurseStructureUp(master.field_145848_d + 1);
                     finalizeStructure();
 
                     if (!world.isRemote && debug)
@@ -155,7 +155,7 @@ public class TankLayerScan extends LogicComponent
         {
             TileEntity servant = world.getBlockTileEntity(coord.x, coord.y, coord.z);
             if (servant instanceof IServantLogic)
-                ((IServantLogic) servant).verifyMaster(imaster, world, master.xCoord, master.yCoord, master.zCoord);
+                ((IServantLogic) servant).verifyMaster(imaster, world, master.field_145851_c, master.field_145848_d, master.field_145849_e);
         }
     }
 
@@ -419,7 +419,7 @@ public class TankLayerScan extends LogicComponent
             boolean canPass = false;
             if (servant instanceof IServantLogic)
             {
-                canPass = ((IServantLogic) servant).verifyMaster(imaster, world, master.xCoord, master.yCoord, master.zCoord);
+                canPass = ((IServantLogic) servant).verifyMaster(imaster, world, master.field_145851_c, master.field_145848_d, master.field_145849_e);
                 if (canPass)
                     continue;
             }
@@ -433,7 +433,7 @@ public class TankLayerScan extends LogicComponent
 
         if (height != -1)
         {
-            if (height <= master.yCoord)
+            if (height <= master.field_145848_d)
                 invalidateStructure();
             else
                 invalidateBlocksAbove(height);
@@ -457,9 +457,9 @@ public class TankLayerScan extends LogicComponent
         {
             TileEntity servant = world.getBlockTileEntity(coord.x, coord.y, coord.z);
             if (servant instanceof IServantLogic)
-                ((IServantLogic) servant).invalidateMaster(imaster, world, master.xCoord, master.yCoord, master.zCoord);
+                ((IServantLogic) servant).invalidateMaster(imaster, world, master.field_145851_c, master.field_145848_d, master.field_145849_e);
         }
-        master.worldObj.markBlockForUpdate(master.xCoord, master.yCoord, master.zCoord);
+        master.func_145831_w().markBlockForUpdate(master.field_145851_c, master.field_145848_d, master.field_145849_e);
     }
 
     protected void invalidateBlocksAbove (int height)
@@ -471,7 +471,7 @@ public class TankLayerScan extends LogicComponent
 
             TileEntity servant = world.getBlockTileEntity(coord.x, coord.y, coord.z);
             if (servant instanceof IServantLogic)
-                ((IServantLogic) servant).invalidateMaster(imaster, world, master.xCoord, master.yCoord, master.zCoord);
+                ((IServantLogic) servant).invalidateMaster(imaster, world, master.field_145851_c, master.field_145848_d, master.field_145849_e);
         }
     }
 
@@ -485,7 +485,7 @@ public class TankLayerScan extends LogicComponent
             TileEntity te = world.getBlockTileEntity(coord.x, coord.y, coord.z);
             if (te != null && te instanceof IServantLogic)
             {
-                ((IServantLogic) te).invalidateMaster(imaster, world, master.xCoord, master.yCoord, master.zCoord);
+                ((IServantLogic) te).invalidateMaster(imaster, world, master.field_145851_c, master.field_145848_d, master.field_145849_e);
             }
         }
     }

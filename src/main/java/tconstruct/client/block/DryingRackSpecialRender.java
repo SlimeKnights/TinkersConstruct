@@ -20,12 +20,6 @@ import cpw.mods.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class DryingRackSpecialRender extends TileEntitySpecialRenderer
 {
-    @Override
-    public void renderTileEntityAt (TileEntity logic, double var2, double var4, double var6, float var8)
-    {
-        //TConstruct.logger.info("Render!!!");
-        this.render((DryingRackLogic) logic, var2, var4, var6, var8);
-    }
 
     public void render (DryingRackLogic logic, double posX, double posY, double posZ, float var8)
     {
@@ -52,7 +46,7 @@ public class DryingRackSpecialRender extends TileEntitySpecialRenderer
         entityitem.getEntityItem().stackSize = 1;
         entityitem.hoverStart = 0.0F;
         GL11.glPushMatrix();
-        int meta = logic.getWorld().getBlockMetadata(logic.xCoord, logic.yCoord, logic.zCoord);
+        int meta = logic.getWorld().getBlockMetadata(logic.field_145851_c, logic.field_145848_d, logic.field_145849_e);
         if (meta <= 1)
             GL11.glTranslatef(1F, -0.375F, 0.905F);
         else
@@ -85,5 +79,11 @@ public class DryingRackSpecialRender extends TileEntitySpecialRenderer
         RenderItem.renderInFrame = false;
 
         GL11.glPopMatrix();
+    }
+
+    @Override
+    public void func_147500_a (TileEntity logic, double var2, double var4, double var6, float var8)
+    {
+        this.render((DryingRackLogic) logic, var2, var4, var6, var8);        
     }
 }

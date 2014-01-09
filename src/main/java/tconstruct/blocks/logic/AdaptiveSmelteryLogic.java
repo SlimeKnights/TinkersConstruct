@@ -160,7 +160,7 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
         smeltery.adjustSize(structure.getAirSize(), true);
         multitank.setCapacity(structure.getAirSize() * (TConstruct.ingotLiquidValue * 18));
         smeltery.setActiveLavaTank(structure.lavaTanks.get(0));
-        field_145850_b.markBlockForUpdate(xCoord, yCoord, zCoord);
+        field_145850_b.markBlockForUpdate(field_145851_c, field_145848_d, field_145849_e);
     }
 
     @Override
@@ -574,7 +574,7 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
     public void onDataPacket (INetworkManager net, Packet132TileEntityData packet)
     {
         readNetworkNBT(packet.data);
-        field_145850_b.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+        field_145850_b.markBlockForRenderUpdate(field_145851_c, field_145848_d, field_145849_e);
     }
 
     @Override
@@ -582,6 +582,6 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
     {
         NBTTagCompound tag = new NBTTagCompound();
         writeNetworkNBT(tag);
-        return new Packet132TileEntityData(xCoord, yCoord, zCoord, 1, tag);
+        return new Packet132TileEntityData(field_145851_c, field_145848_d, field_145849_e, 1, tag);
     }
 }

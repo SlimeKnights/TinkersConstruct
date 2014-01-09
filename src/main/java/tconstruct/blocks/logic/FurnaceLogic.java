@@ -65,7 +65,7 @@ public class FurnaceLogic extends InventoryLogic implements IActiveLogic, IFacin
     public void setActive (boolean flag)
     {
         active = flag;
-        field_145850_b.markBlockForUpdate(xCoord, yCoord, zCoord);
+        field_145850_b.markBlockForUpdate(field_145851_c, field_145848_d, field_145849_e);
     }
 
     /* Fuel gauge */
@@ -288,14 +288,14 @@ public class FurnaceLogic extends InventoryLogic implements IActiveLogic, IFacin
     {
         NBTTagCompound tag = new NBTTagCompound();
         writeNetworkNBT(tag);
-        return new Packet132TileEntityData(xCoord, yCoord, zCoord, 1, tag);
+        return new Packet132TileEntityData(field_145851_c, field_145848_d, field_145849_e, 1, tag);
     }
 
     @Override
     public void onDataPacket (INetworkManager net, Packet132TileEntityData packet)
     {
         readNetworkNBT(packet.data);
-        field_145850_b.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+        field_145850_b.markBlockForRenderUpdate(field_145851_c, field_145848_d, field_145849_e);
     }
 
     @Override

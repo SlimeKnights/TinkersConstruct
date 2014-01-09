@@ -168,13 +168,13 @@ public class AdaptiveDrainLogic extends MultiServantLogic implements IFluidHandl
     {
         NBTTagCompound tag = new NBTTagCompound();
         writeToNBT(tag);
-        return new Packet132TileEntityData(xCoord, yCoord, zCoord, 1, tag);
+        return new Packet132TileEntityData(field_145851_c, field_145848_d, field_145849_e, 1, tag);
     }
 
     @Override
     public void onDataPacket (INetworkManager net, Packet132TileEntityData packet)
     {
         readFromNBT(packet.data);
-        field_145850_b.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+        field_145850_b.markBlockForRenderUpdate(field_145851_c, field_145848_d, field_145849_e);
     }
 }

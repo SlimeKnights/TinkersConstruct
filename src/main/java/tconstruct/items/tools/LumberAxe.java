@@ -287,8 +287,7 @@ public class LumberAxe extends HarvestTool
                 {
                     if (!(tags.getBoolean("Broken")))
                     {
-                        int localblockID = world.getBlockId(xPos, yPos, zPos);
-                        Block block = Block.blocksList[localblockID];
+                        Block block = world.getBlock(xPos, yPos, zPos);
                         int meta = world.getBlockMetadata(xPos, yPos, zPos);
                         int hlvl = MinecraftForge.getBlockHarvestLevel(block, meta, getHarvestType());
 
@@ -310,7 +309,7 @@ public class LumberAxe extends HarvestTool
                                     {
                                         //TODO harvestBlock
                                         block.func_149636_a(world, player, xPos, yPos, zPos, meta);
-                                        onBlockDestroyed(stack, world, localblockID, xPos, yPos, zPos, player);
+                                        onBlockDestroyed(stack, world, block, xPos, yPos, zPos, player);
                                     }
                                 }
                             }

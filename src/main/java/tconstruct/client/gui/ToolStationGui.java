@@ -488,9 +488,9 @@ public class ToolStationGui extends NewContainerGui
         {
             outputStream.writeByte(1);
             outputStream.writeInt(logic.getWorld().provider.dimensionId);
-            outputStream.writeInt(logic.xCoord);
-            outputStream.writeInt(logic.yCoord);
-            outputStream.writeInt(logic.zCoord);
+            outputStream.writeInt(logic.field_145851_c);
+            outputStream.writeInt(logic.field_145848_d);
+            outputStream.writeInt(logic.field_145849_e);
             outputStream.writeUTF(name);
         }
         catch (Exception ex)

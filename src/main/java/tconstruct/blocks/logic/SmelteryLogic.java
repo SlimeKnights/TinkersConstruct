@@ -158,8 +158,8 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                             }
 
                             stack.stackSize -= itemSize;
-                            EntityItem entityitem = new EntityItem(field_145850_b, (double) ((float) xCoord + jumpX + offsetX), (double) ((float) yCoord + jumpY),
-                                    (double) ((float) zCoord + jumpZ + offsetZ), new ItemStack(stack.itemID, itemSize, stack.getItemDamage()));
+                            EntityItem entityitem = new EntityItem(field_145850_b, (double) ((float) field_145851_c + jumpX + offsetX), (double) ((float) field_145848_d + jumpY),
+                                    (double) ((float) field_145849_e + jumpZ + offsetZ), new ItemStack(stack.itemID, itemSize, stack.getItemDamage()));
 
                             if (stack.hasTagCompound())
                             {
@@ -243,7 +243,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     public void setActive (boolean flag)
     {
         needsUpdate = true;
-        field_145850_b.markBlockForUpdate(xCoord, yCoord, zCoord);
+        field_145850_b.markBlockForUpdate(field_145851_c, field_145848_d, field_145849_e);
     }
 
     public int getScaledFuelGague (int scale)
@@ -295,7 +295,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
             if (needsUpdate)
             {
                 needsUpdate = false;
-                field_145850_b.markBlockForUpdate(xCoord, yCoord, zCoord);
+                field_145850_b.markBlockForUpdate(field_145851_c, field_145848_d, field_145849_e);
             }
         }
 
@@ -674,8 +674,8 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         updateEntity();
         super.onInventoryChanged();
         needsUpdate = true;
-        //field_145850_b.markBlockForUpdate(xCoord, yCoord, zCoord);
-        //field_145850_b.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+        //field_145850_b.markBlockForUpdate(field_145851_c, field_145848_d, field_145849_e);
+        //field_145850_b.markBlockForRenderUpdate(field_145851_c, field_145848_d, field_145849_e);
     }
 
     /*@Override
@@ -696,16 +696,16 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         switch (getRenderDirection())
         {
         case 2: // +z
-            alignInitialPlacement(xCoord, yCoord, zCoord + 2);
+            alignInitialPlacement(field_145851_c, field_145848_d, field_145849_e + 2);
             break;
         case 3: // -z
-            alignInitialPlacement(xCoord, yCoord, zCoord - 2);
+            alignInitialPlacement(field_145851_c, field_145848_d, field_145849_e - 2);
             break;
         case 4: // +x
-            alignInitialPlacement(xCoord + 2, yCoord, zCoord);
+            alignInitialPlacement(field_145851_c + 2, field_145848_d, field_145849_e);
             break;
         case 5: // -x
-            alignInitialPlacement(xCoord - 2, yCoord, zCoord);
+            alignInitialPlacement(field_145851_c - 2, field_145848_d, field_145849_e);
             break;
         }
     }
@@ -770,7 +770,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                 internalTemp = 800;
                 activeLavaTank = lavaTanks.get(0);
                 adjustLayers(checkLayers, false);
-                field_145850_b.markBlockForUpdate(xCoord, yCoord, zCoord);
+                field_145850_b.markBlockForUpdate(field_145851_c, field_145848_d, field_145849_e);
                 validStructure = true;
             }
             else
@@ -929,10 +929,10 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                 MultiServantLogic servant = (MultiServantLogic) te;
                 if (servant.hasValidMaster())
                 {
-                    if (servant.verifyMaster(this, this.xCoord, this.yCoord, this.zCoord))
+                    if (servant.verifyMaster(this, this.field_145851_c, this.field_145848_d, this.field_145849_e))
                         tempBricks++;
                 }
-                else if (servant.setMaster(this.xCoord, this.yCoord, this.zCoord))
+                else if (servant.setMaster(this.field_145851_c, this.field_145848_d, this.field_145849_e))
                 {
                     tempBricks++;
                 }
@@ -981,7 +981,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                 {
                     //liquid = null;
                     moltenMetal.remove(liquid);
-                    field_145850_b.markBlockForUpdate(xCoord, yCoord, zCoord);
+                    field_145850_b.markBlockForUpdate(field_145851_c, field_145848_d, field_145849_e);
                     currentLiquid = 0;
                     needsUpdate = true;
                 }
@@ -992,7 +992,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                 if (doDrain && maxDrain > 0)
                 {
                     liquid.amount -= maxDrain;
-                    field_145850_b.markBlockForUpdate(xCoord, yCoord, zCoord);
+                    field_145850_b.markBlockForUpdate(field_145851_c, field_145848_d, field_145849_e);
                     currentLiquid -= maxDrain;
                     needsUpdate = true;
                 }
@@ -1026,7 +1026,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                     }
                 }
                 needsUpdate = true;
-                field_145850_b.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+                field_145850_b.markBlockForRenderUpdate(field_145851_c, field_145848_d, field_145849_e);
             }
             return amount;
         }
@@ -1083,7 +1083,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         if (center.length > 2)
             centerPos = new CoordTuple(center[0], center[1], center[2]);
         else
-            centerPos = new CoordTuple(xCoord, yCoord, zCoord);
+            centerPos = new CoordTuple(field_145851_c, field_145848_d, field_145849_e);
 
         direction = tags.getByte("Direction");
         useTime = tags.getInteger("UseTime");
@@ -1117,7 +1117,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 
         int[] center = new int[3];// { centerPos.x, centerPos.y, centerPos.z };
         if (centerPos == null)
-            center = new int[] { xCoord, yCoord, zCoord };
+            center = new int[] { field_145851_c, field_145848_d, field_145849_e };
         else
             center = new int[] { centerPos.x, centerPos.y, centerPos.z };
         tags.setIntArray("CenterPos", center);
@@ -1147,7 +1147,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     {
         NBTTagCompound tag = new NBTTagCompound();
         writeToNBT(tag);
-        return new Packet132TileEntityData(xCoord, yCoord, zCoord, 1, tag);
+        return new Packet132TileEntityData(field_145851_c, field_145848_d, field_145849_e, 1, tag);
     }
 
     @Override
@@ -1155,7 +1155,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     {
         readFromNBT(packet.data);
         onInventoryChanged();
-        field_145850_b.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+        field_145850_b.markBlockForRenderUpdate(field_145851_c, field_145848_d, field_145849_e);
         this.needsUpdate = true;
     }
 

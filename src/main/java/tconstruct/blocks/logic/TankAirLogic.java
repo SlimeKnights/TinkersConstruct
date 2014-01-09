@@ -34,7 +34,7 @@ public class TankAirLogic extends InventoryLogic implements IServantLogic, ISide
     public void overrideFluids (ArrayList<FluidStack> fluids)
     {
         /*multitank.overrideFluids(fluids);
-        field_145850_b.markBlockForUpdate(xCoord, yCoord, zCoord);*/
+        field_145850_b.markBlockForUpdate(field_145851_c, field_145848_d, field_145849_e);*/
     }
 
     public boolean hasItem ()
@@ -59,8 +59,8 @@ public class TankAirLogic extends InventoryLogic implements IServantLogic, ISide
         if (itemstack != null && itemstack.stackSize > getInventoryStackLimit())
         {
             itemstack.stackSize = getInventoryStackLimit();
-            field_145850_b.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, itemstack.getItemDamage(), 3);
-            field_145850_b.markBlockForUpdate(xCoord, yCoord, zCoord);
+            field_145850_b.setBlockMetadataWithNotify(field_145851_c, field_145848_d, field_145849_e, itemstack.getItemDamage(), 3);
+            field_145850_b.markBlockForUpdate(field_145851_c, field_145848_d, field_145849_e);
         }*/
     }
 
@@ -107,7 +107,7 @@ public class TankAirLogic extends InventoryLogic implements IServantLogic, ISide
     @Override
     public void invalidateMaster (IMasterLogic master, World world, int xMaster, int yMaster, int zMaster)
     {
-        world.setBlockToAir(xCoord, yCoord, zCoord);
+        world.setBlockToAir(field_145851_c, field_145848_d, field_145849_e);
     }
 
     @Override
@@ -137,7 +137,7 @@ public class TankAirLogic extends InventoryLogic implements IServantLogic, ISide
     //DELETE
     public void updateEntity ()
     {
-        field_145850_b.setBlockToAir(xCoord, yCoord, zCoord);
+        field_145850_b.setBlockToAir(field_145851_c, field_145848_d, field_145849_e);
     }
 
     //Keep TE regardless of metadata
@@ -180,8 +180,8 @@ public class TankAirLogic extends InventoryLogic implements IServantLogic, ISide
     public void onDataPacket (INetworkManager net, Packet132TileEntityData packet)
     {
         readNetworkNBT(packet.data);
-        field_145850_b.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
-        field_145850_b.markBlockForUpdate(xCoord, yCoord, zCoord);
+        field_145850_b.markBlockForRenderUpdate(field_145851_c, field_145848_d, field_145849_e);
+        field_145850_b.markBlockForUpdate(field_145851_c, field_145848_d, field_145849_e);
     }
 
     @Override
@@ -189,6 +189,6 @@ public class TankAirLogic extends InventoryLogic implements IServantLogic, ISide
     {
         NBTTagCompound tag = new NBTTagCompound();
         writeNetworkNBT(tag);
-        return new Packet132TileEntityData(xCoord, yCoord, zCoord, 1, tag);
+        return new Packet132TileEntityData(field_145851_c, field_145848_d, field_145849_e, 1, tag);
     }
 }

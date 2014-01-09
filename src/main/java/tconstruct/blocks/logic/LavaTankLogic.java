@@ -31,7 +31,7 @@ public class LavaTankLogic extends MultiServantLogic implements IFluidHandler
         if (amount > 0 && doFill)
         {
             renderOffset = resource.amount;
-            field_145850_b.markBlockForUpdate(xCoord, yCoord, zCoord);
+            field_145850_b.markBlockForUpdate(field_145851_c, field_145848_d, field_145849_e);
         }
 
         return amount;
@@ -44,7 +44,7 @@ public class LavaTankLogic extends MultiServantLogic implements IFluidHandler
         if (amount != null && doDrain)
         {
             renderOffset = -maxDrain;
-            field_145850_b.markBlockForUpdate(xCoord, yCoord, zCoord);
+            field_145850_b.markBlockForUpdate(field_145851_c, field_145848_d, field_145849_e);
         }
         return amount;
     }
@@ -152,14 +152,14 @@ public class LavaTankLogic extends MultiServantLogic implements IFluidHandler
     {
         NBTTagCompound tag = new NBTTagCompound();
         writeCustomNBT(tag);
-        return new Packet132TileEntityData(xCoord, yCoord, zCoord, 1, tag);
+        return new Packet132TileEntityData(field_145851_c, field_145848_d, field_145849_e, 1, tag);
     }
 
     @Override
     public void onDataPacket (INetworkManager net, Packet132TileEntityData packet)
     {
         readCustomNBT(packet.data);
-        field_145850_b.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+        field_145850_b.markBlockForRenderUpdate(field_145851_c, field_145848_d, field_145849_e);
     }
 
     /* Updating */
@@ -174,7 +174,7 @@ public class LavaTankLogic extends MultiServantLogic implements IFluidHandler
         if (renderOffset > 0)
         {
             renderOffset -= 6;
-            field_145850_b.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+            field_145850_b.markBlockForRenderUpdate(field_145851_c, field_145848_d, field_145849_e);
         }
     }
 }

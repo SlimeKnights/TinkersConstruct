@@ -142,7 +142,7 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
                         castingDelay = recipe.coolTime;
                     }
                     renderOffset = copyLiquid.amount;
-                    getWorld().markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+                    getWorld().markBlockForRenderUpdate(field_145851_c, field_145848_d, field_145849_e);
                     this.liquid = copyLiquid;
                     needsUpdate = true;
                 }
@@ -164,7 +164,7 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
                     renderOffset = roomInTank;
                     castingDelay = TConstruct.tableCasting.getCastingDelay(this.liquid, inventory[0]);
                     this.liquid.amount = this.capacity;
-                    getWorld().markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+                    getWorld().markBlockForRenderUpdate(field_145851_c, field_145848_d, field_145849_e);
                     needsUpdate = true;
                 }
                 return roomInTank;
@@ -175,7 +175,7 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
                 if (doFill)
                 {
                     this.liquid.amount += resource.amount;
-                    getWorld().markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+                    getWorld().markBlockForRenderUpdate(field_145851_c, field_145848_d, field_145849_e);
                     needsUpdate = true;
                 }
                 return resource.amount;
@@ -192,14 +192,14 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
     public void onInventoryChanged () //Isn't actually called?
     {
         super.onInventoryChanged();
-        getWorld().markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+        getWorld().markBlockForRenderUpdate(field_145851_c, field_145848_d, field_145849_e);
         needsUpdate = true;
     }
 
     public ItemStack decrStackSize (int slot, int quantity)
     {
         ItemStack stack = super.decrStackSize(slot, quantity);
-        getWorld().markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+        getWorld().markBlockForRenderUpdate(field_145851_c, field_145848_d, field_145849_e);
         return stack;
     }
 
@@ -228,7 +228,7 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
             liquid = null;
 
         if (doDrain)
-            FluidEvent.fireEvent(new FluidEvent.FluidDrainingEvent(drained, this.getWorld(), this.xCoord, this.yCoord, this.zCoord, this));
+            FluidEvent.fireEvent(new FluidEvent.FluidDrainingEvent(drained, this.getWorld(), this.field_145851_c, this.field_145848_d, this.field_145849_e, this));
 
         return drained;
     }
@@ -312,7 +312,7 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
         if (renderOffset > 0)
         {
             renderOffset -= 6;
-            getWorld().markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+            getWorld().markBlockForRenderUpdate(field_145851_c, field_145848_d, field_145849_e);
         }
 
         tick++;
@@ -320,7 +320,7 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
         {
             tick = 0;
             if (needsUpdate)
-                getWorld().markBlockForUpdate(xCoord, yCoord, zCoord);
+                getWorld().markBlockForUpdate(field_145851_c, field_145848_d, field_145849_e);
         }
     }
 
@@ -333,7 +333,7 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
             if (recipe.consumeCast)
                 inventory[0] = null;
             liquid = null;
-            getWorld().markBlockForUpdate(xCoord, yCoord, zCoord);
+            getWorld().markBlockForUpdate(field_145851_c, field_145848_d, field_145849_e);
         }
     }
 
@@ -389,14 +389,14 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
     {
         NBTTagCompound tag = new NBTTagCompound();
         writeToNBT(tag);
-        return new Packet132TileEntityData(xCoord, yCoord, zCoord, 1, tag);
+        return new Packet132TileEntityData(field_145851_c, field_145848_d, field_145849_e, 1, tag);
     }
 
     @Override
     public void onDataPacket (INetworkManager net, Packet132TileEntityData packet)
     {
         readFromNBT(packet.data);
-        getWorld().markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+        getWorld().markBlockForRenderUpdate(field_145851_c, field_145848_d, field_145849_e);
     }
 
     @Override

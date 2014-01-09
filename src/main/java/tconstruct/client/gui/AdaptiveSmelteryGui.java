@@ -476,9 +476,9 @@ public class AdaptiveSmelteryGui extends NewContainerGui
                             dos.write(11);
                             
                             dos.writeInt(logic.getWorld().provider.dimensionId);
-                            dos.writeInt(logic.xCoord);
-                            dos.writeInt(logic.yCoord);
-                            dos.writeInt(logic.zCoord);
+                            dos.writeInt(logic.field_145851_c);
+                            dos.writeInt(logic.field_145848_d);
+                            dos.writeInt(logic.field_145849_e);
                             
                             dos.writeBoolean(this.isShiftKeyDown());
                             
@@ -502,6 +502,6 @@ public class AdaptiveSmelteryGui extends NewContainerGui
     public void onGuiClosed ()
     {
         super.onGuiClosed();
-        logic.getWorld().markBlockForUpdate(logic.xCoord, logic.yCoord, logic.zCoord);
+        logic.getWorld().markBlockForUpdate(logic.field_145851_c, logic.field_145848_d, logic.field_145849_e);
     }
 }

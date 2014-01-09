@@ -76,7 +76,7 @@ public class SmelteryScan extends TankLayerScan
                 {
                     world.setBlock(coord.x, coord.y, coord.z, TRepo.tankAir);
                     IServantLogic servant = (IServantLogic) world.getBlockTileEntity(coord.x, coord.y, coord.z);
-                    servant.verifyMaster(imaster, world, master.xCoord, master.yCoord, master.zCoord);
+                    servant.verifyMaster(imaster, world, master.field_145851_c, master.field_145848_d, master.field_145849_e);
                 }
             }
         }
@@ -90,7 +90,7 @@ public class SmelteryScan extends TankLayerScan
         {
             TileEntity servant = world.getBlockTileEntity(coord.x, coord.y, coord.z);
             if (servant instanceof IServantLogic)
-                ((IServantLogic) servant).invalidateMaster(imaster, world, master.xCoord, master.yCoord, master.zCoord);
+                ((IServantLogic) servant).invalidateMaster(imaster, world, master.field_145851_c, master.field_145848_d, master.field_145849_e);
         }
     }
 
@@ -104,7 +104,7 @@ public class SmelteryScan extends TankLayerScan
 
             TileEntity servant = world.getBlockTileEntity(coord.x, coord.y, coord.z);
             if (servant instanceof IServantLogic)
-                ((IServantLogic) servant).invalidateMaster(imaster, world, master.xCoord, master.yCoord, master.zCoord);
+                ((IServantLogic) servant).invalidateMaster(imaster, world, master.field_145851_c, master.field_145848_d, master.field_145849_e);
         }
     }
 
@@ -119,7 +119,7 @@ public class SmelteryScan extends TankLayerScan
             TileEntity te = world.getBlockTileEntity(coord.x, coord.y, coord.z);
             if (te != null && te instanceof IServantLogic)
             {
-                ((IServantLogic) te).invalidateMaster(imaster, world, master.xCoord, master.yCoord, master.zCoord);
+                ((IServantLogic) te).invalidateMaster(imaster, world, master.field_145851_c, master.field_145848_d, master.field_145849_e);
             }
         }
     }

@@ -142,7 +142,7 @@ public class CastingBasinLogic extends InventoryLogic implements IFluidTank, IFl
                         castingDelay = recipe.coolTime;
                     }
                     renderOffset = copyLiquid.amount;
-                    field_145850_b.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+                    field_145850_b.markBlockForRenderUpdate(field_145851_c, field_145848_d, field_145849_e);
                     this.liquid = copyLiquid;
                     needsUpdate = true;
                 }
@@ -164,7 +164,7 @@ public class CastingBasinLogic extends InventoryLogic implements IFluidTank, IFl
                     renderOffset = roomInTank;
                     castingDelay = TConstruct.basinCasting.getCastingDelay(this.liquid, inventory[0]);
                     this.liquid.amount = this.capacity;
-                    field_145850_b.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+                    field_145850_b.markBlockForRenderUpdate(field_145851_c, field_145848_d, field_145849_e);
                     needsUpdate = true;
                 }
                 return roomInTank;
@@ -175,7 +175,7 @@ public class CastingBasinLogic extends InventoryLogic implements IFluidTank, IFl
                 if (doFill)
                 {
                     this.liquid.amount += resource.amount;
-                    field_145850_b.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+                    field_145850_b.markBlockForRenderUpdate(field_145851_c, field_145848_d, field_145849_e);
                     needsUpdate = true;
                 }
                 return resource.amount;
@@ -192,14 +192,14 @@ public class CastingBasinLogic extends InventoryLogic implements IFluidTank, IFl
     public void onInventoryChanged () //Isn't actually called?
     {
         super.onInventoryChanged();
-        field_145850_b.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+        field_145850_b.markBlockForRenderUpdate(field_145851_c, field_145848_d, field_145849_e);
         needsUpdate = true;
     }
 
     public ItemStack decrStackSize (int slot, int quantity)
     {
         ItemStack stack = super.decrStackSize(slot, quantity);
-        field_145850_b.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+        field_145850_b.markBlockForRenderUpdate(field_145851_c, field_145848_d, field_145849_e);
         return stack;
     }
 
@@ -228,7 +228,7 @@ public class CastingBasinLogic extends InventoryLogic implements IFluidTank, IFl
             liquid = null;
 
         if (doDrain)
-            FluidEvent.fireEvent(new FluidEvent.FluidDrainingEvent(drained, this.field_145850_b, this.xCoord, this.yCoord, this.zCoord, this));
+            FluidEvent.fireEvent(new FluidEvent.FluidDrainingEvent(drained, this.field_145850_b, this.field_145851_c, this.field_145848_d, this.field_145849_e, this));
 
         return drained;
     }
@@ -312,7 +312,7 @@ public class CastingBasinLogic extends InventoryLogic implements IFluidTank, IFl
         if (renderOffset > 0)
         {
             renderOffset -= 6;
-            field_145850_b.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+            field_145850_b.markBlockForRenderUpdate(field_145851_c, field_145848_d, field_145849_e);
         }
 
         tick++;
@@ -320,7 +320,7 @@ public class CastingBasinLogic extends InventoryLogic implements IFluidTank, IFl
         {
             tick = 0;
             if (needsUpdate)
-                field_145850_b.markBlockForUpdate(xCoord, yCoord, zCoord);
+                field_145850_b.markBlockForUpdate(field_145851_c, field_145848_d, field_145849_e);
         }
     }
 
@@ -333,7 +333,7 @@ public class CastingBasinLogic extends InventoryLogic implements IFluidTank, IFl
             if (recipe.consumeCast)
                 inventory[0] = null;
             liquid = null;
-            field_145850_b.markBlockForUpdate(xCoord, yCoord, zCoord);
+            field_145850_b.markBlockForUpdate(field_145851_c, field_145848_d, field_145849_e);
         }
     }
 
@@ -391,14 +391,14 @@ public class CastingBasinLogic extends InventoryLogic implements IFluidTank, IFl
     {
         NBTTagCompound tag = new NBTTagCompound();
         writeToNBT(tag);
-        return new Packet132TileEntityData(xCoord, yCoord, zCoord, 1, tag);
+        return new Packet132TileEntityData(field_145851_c, field_145848_d, field_145849_e, 1, tag);
     }
 
     @Override
     public void onDataPacket (INetworkManager net, Packet132TileEntityData packet)
     {
         readFromNBT(packet.data);
-        field_145850_b.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+        field_145850_b.markBlockForRenderUpdate(field_145851_c, field_145848_d, field_145849_e);
     }
 
     @Override

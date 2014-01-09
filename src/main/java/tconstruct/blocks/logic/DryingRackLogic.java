@@ -73,7 +73,7 @@ public class DryingRackLogic extends InventoryLogic
             maxTime = DryingRackRecipes.getDryingTime(inventory[0]);
         else
             maxTime = 0;
-        field_145850_b.markBlockForUpdate(xCoord, yCoord, zCoord);
+        field_145850_b.markBlockForUpdate(field_145851_c, field_145848_d, field_145849_e);
     }
 
     @Override
@@ -108,20 +108,20 @@ public class DryingRackLogic extends InventoryLogic
     {
         NBTTagCompound tag = new NBTTagCompound();
         writeCustomNBT(tag);
-        return new Packet132TileEntityData(xCoord, yCoord, zCoord, 1, tag);
+        return new Packet132TileEntityData(field_145851_c, field_145848_d, field_145849_e, 1, tag);
     }
 
     @Override
     public void onDataPacket (INetworkManager net, Packet132TileEntityData packet)
     {
         readCustomNBT(packet.data);
-        field_145850_b.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
+        field_145850_b.markBlockForRenderUpdate(field_145851_c, field_145848_d, field_145849_e);
     }
 
     @SideOnly(Side.CLIENT)
     public AxisAlignedBB getRenderBoundingBox ()
     {
-        AxisAlignedBB cbb = AxisAlignedBB.getAABBPool().getAABB(xCoord, yCoord - 1, zCoord, xCoord + 1, yCoord + 1, zCoord + 1);
+        AxisAlignedBB cbb = AxisAlignedBB.getAABBPool().getAABB(field_145851_c, field_145848_d - 1, field_145849_e, field_145851_c + 1, field_145848_d + 1, field_145849_e + 1);
         return cbb;
     }
 }
