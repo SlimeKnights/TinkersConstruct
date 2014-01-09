@@ -83,7 +83,7 @@ public class CastingChannelLogic extends TileEntity implements IFluidTank, IFlui
 
     boolean pullLiquid (int x, int y, int z, ForgeDirection direction)
     {
-        TileEntity tank = field_145850_b.getBlockTileEntity(x, y, z);
+        TileEntity tank = field_145850_b.func_147438_o(x, y, z);
         if (tank instanceof IFluidHandler && !(tank instanceof CastingChannelLogic))
         {
             FluidStack templiquid = ((IFluidHandler) tank).drain(direction, 3, false);
@@ -291,7 +291,7 @@ public class CastingChannelLogic extends TileEntity implements IFluidTank, IFlui
     @SideOnly(Side.CLIENT)
     public float tankBelow ()
     {
-        TileEntity te = this.field_145850_b.getBlockTileEntity(this.field_145851_c, this.field_145848_d - 1, this.field_145849_e);
+        TileEntity te = this.field_145850_b.func_147438_o(this.field_145851_c, this.field_145848_d - 1, this.field_145849_e);
         if (te instanceof CastingChannelLogic)
             return -0.5f;
         if (te instanceof LavaTankLogic)
@@ -311,15 +311,15 @@ public class CastingChannelLogic extends TileEntity implements IFluidTank, IFlui
         switch (dir)
         {
         case DOWN:
-            return (this.field_145850_b.getBlockTileEntity(this.field_145851_c, this.field_145848_d - 1, this.field_145849_e) instanceof CastingChannelLogic);
+            return (this.field_145850_b.func_147438_o(this.field_145851_c, this.field_145848_d - 1, this.field_145849_e) instanceof CastingChannelLogic);
         case NORTH:
-            return (this.field_145850_b.getBlockTileEntity(this.field_145851_c, this.field_145848_d, this.field_145849_e - 1) instanceof CastingChannelLogic);
+            return (this.field_145850_b.func_147438_o(this.field_145851_c, this.field_145848_d, this.field_145849_e - 1) instanceof CastingChannelLogic);
         case SOUTH:
-            return (this.field_145850_b.getBlockTileEntity(this.field_145851_c, this.field_145848_d, this.field_145849_e + 1) instanceof CastingChannelLogic);
+            return (this.field_145850_b.func_147438_o(this.field_145851_c, this.field_145848_d, this.field_145849_e + 1) instanceof CastingChannelLogic);
         case WEST:
-            return (this.field_145850_b.getBlockTileEntity(this.field_145851_c - 1, this.field_145848_d, this.field_145849_e) instanceof CastingChannelLogic);
+            return (this.field_145850_b.func_147438_o(this.field_145851_c - 1, this.field_145848_d, this.field_145849_e) instanceof CastingChannelLogic);
         case EAST:
-            return (this.field_145850_b.getBlockTileEntity(this.field_145851_c + 1, this.field_145848_d, this.field_145849_e) instanceof CastingChannelLogic);
+            return (this.field_145850_b.func_147438_o(this.field_145851_c + 1, this.field_145848_d, this.field_145849_e) instanceof CastingChannelLogic);
         default:
             return false;
         }
@@ -330,15 +330,15 @@ public class CastingChannelLogic extends TileEntity implements IFluidTank, IFlui
         switch (dir)
         {
         case DOWN:
-            return (this.field_145850_b.getBlockTileEntity(this.field_145851_c, this.field_145848_d - 1, this.field_145849_e) instanceof IFluidHandler);
+            return (this.field_145850_b.func_147438_o(this.field_145851_c, this.field_145848_d - 1, this.field_145849_e) instanceof IFluidHandler);
         case NORTH:
-            return (this.field_145850_b.getBlockTileEntity(this.field_145851_c, this.field_145848_d, this.field_145849_e - 1) instanceof IFluidHandler);
+            return (this.field_145850_b.func_147438_o(this.field_145851_c, this.field_145848_d, this.field_145849_e - 1) instanceof IFluidHandler);
         case SOUTH:
-            return (this.field_145850_b.getBlockTileEntity(this.field_145851_c, this.field_145848_d, this.field_145849_e + 1) instanceof IFluidHandler);
+            return (this.field_145850_b.func_147438_o(this.field_145851_c, this.field_145848_d, this.field_145849_e + 1) instanceof IFluidHandler);
         case WEST:
-            return (this.field_145850_b.getBlockTileEntity(this.field_145851_c - 1, this.field_145848_d, this.field_145849_e) instanceof IFluidHandler);
+            return (this.field_145850_b.func_147438_o(this.field_145851_c - 1, this.field_145848_d, this.field_145849_e) instanceof IFluidHandler);
         case EAST:
-            return (this.field_145850_b.getBlockTileEntity(this.field_145851_c + 1, this.field_145848_d, this.field_145849_e) instanceof IFluidHandler);
+            return (this.field_145850_b.func_147438_o(this.field_145851_c + 1, this.field_145848_d, this.field_145849_e) instanceof IFluidHandler);
         default:
             return false;
         }
@@ -347,11 +347,11 @@ public class CastingChannelLogic extends TileEntity implements IFluidTank, IFlui
     private HashMap getOutputs ()
     {
         HashMap map = new HashMap();
-        TileEntity tankXplus = this.field_145850_b.getBlockTileEntity(this.field_145851_c + 1, this.field_145848_d, this.field_145849_e);
-        TileEntity tankXminus = this.field_145850_b.getBlockTileEntity(this.field_145851_c - 1, this.field_145848_d, this.field_145849_e);
-        TileEntity tankZplus = this.field_145850_b.getBlockTileEntity(this.field_145851_c, this.field_145848_d, this.field_145849_e + 1);
-        TileEntity tankZminus = this.field_145850_b.getBlockTileEntity(this.field_145851_c, this.field_145848_d, this.field_145849_e - 1);
-        TileEntity tankYminus = this.field_145850_b.getBlockTileEntity(this.field_145851_c, this.field_145848_d - 1, this.field_145849_e);
+        TileEntity tankXplus = this.field_145850_b.func_147438_o(this.field_145851_c + 1, this.field_145848_d, this.field_145849_e);
+        TileEntity tankXminus = this.field_145850_b.func_147438_o(this.field_145851_c - 1, this.field_145848_d, this.field_145849_e);
+        TileEntity tankZplus = this.field_145850_b.func_147438_o(this.field_145851_c, this.field_145848_d, this.field_145849_e + 1);
+        TileEntity tankZminus = this.field_145850_b.func_147438_o(this.field_145851_c, this.field_145848_d, this.field_145849_e - 1);
+        TileEntity tankYminus = this.field_145850_b.func_147438_o(this.field_145851_c, this.field_145848_d - 1, this.field_145849_e);
 
         if (this.pullingLiquids)
         {

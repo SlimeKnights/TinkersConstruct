@@ -285,7 +285,7 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
         CoordTuple air = structure.getAirByIndex(slot);
         if (air != null)
         {
-            TileEntity te = field_145850_b.getBlockTileEntity(air.x, air.y, air.z);
+            TileEntity te = field_145850_b.func_147438_o(air.x, air.y, air.z);
             if (te != null && te instanceof TankAirLogic)
             {
                 ((TankAirLogic) te).setInventorySlotContents(0, itemstack);
@@ -407,7 +407,7 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
         {
             Map.Entry pairs = (Map.Entry) iter.next();
             CoordTuple coord = (CoordTuple) pairs.getKey();
-            TileEntity te = field_145850_b.getBlockTileEntity(coord.x, coord.y, coord.z);
+            TileEntity te = field_145850_b.func_147438_o(coord.x, coord.y, coord.z);
             if (te instanceof TankAirLogic)
             {
                 ((TankAirLogic) te).overrideFluids(((LiquidDataInstance) pairs.getValue()).fluids);

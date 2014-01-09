@@ -65,7 +65,7 @@ public class PropertyManager
                 throw new PropAccessException();
             }
             catch (NullPointerException ex) {
-                TConstructLoaderContainer.logger.warning("Preloader config structure has changed; attempting to recreate.");
+                TConstructLoaderContainer.logger.warn("Preloader config structure has changed; attempting to recreate.");
                 attemptCreate(fp, props);
             }
         }

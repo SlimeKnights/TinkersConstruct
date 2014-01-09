@@ -70,6 +70,7 @@ public class FancyItemRender extends Render
             int i;
 
             Block block = null;
+            
             if (itemstack.itemID < Block.blocksList.length)
             {
                 block = Block.blocksList[itemstack.itemID];
@@ -314,14 +315,14 @@ public class FancyItemRender extends Render
 
     public void renderItemIntoGUI (FontRenderer par1FontRenderer, TextureManager par2TextureManager, ItemStack par3ItemStack, int par4, int par5, boolean renderEffect)
     {
-        int k = par3ItemStack.itemID;
+        Item k = par3ItemStack.getItem();
         int l = par3ItemStack.getItemDamage();
         Object object = par3ItemStack.getIconIndex();
         float f;
         int i1;
         float f1;
         float f2;
-
+        //TODO make this be the block equivalent to k
         Block block = (k < Block.blocksList.length ? Block.blocksList[k] : null);
         if (par3ItemStack.getItemSpriteNumber() == 0 && block != null && RenderBlocks.renderItemIn3d(Block.blocksList[k].getRenderType()))
         {
@@ -333,7 +334,7 @@ public class FancyItemRender extends Render
             GL11.glScalef(1.0F, 1.0F, -1.0F);
             GL11.glRotatef(210.0F, 1.0F, 0.0F, 0.0F);
             GL11.glRotatef(45.0F, 0.0F, 1.0F, 0.0F);
-            i1 = Item.itemsList[k].getColorFromItemStack(par3ItemStack, 0);
+            i1 = k.getColorFromItemStack(par3ItemStack, 0);
             f = (float) (i1 >> 16 & 255) / 255.0F;
             f1 = (float) (i1 >> 8 & 255) / 255.0F;
             f2 = (float) (i1 & 255) / 255.0F;
@@ -349,15 +350,15 @@ public class FancyItemRender extends Render
             this.itemRenderBlocks.field_147844_c = true;
             GL11.glPopMatrix();
         }
-        else if (Item.itemsList[k].requiresMultipleRenderPasses())
+        else if (k.requiresMultipleRenderPasses())
         {
             GL11.glDisable(GL11.GL_LIGHTING);
 
-            for (int j1 = 0; j1 < Item.itemsList[k].getRenderPasses(l); ++j1)
+            for (int j1 = 0; j1 < k.getRenderPasses(l); ++j1)
             {
                 par2TextureManager.bindTexture(par3ItemStack.getItemSpriteNumber() == 0 ? TextureMap.locationBlocksTexture : TextureMap.locationItemsTexture);
-                IIcon icon = Item.itemsList[k].getIcon(par3ItemStack, j1);
-                int k1 = Item.itemsList[k].getColorFromItemStack(par3ItemStack, j1);
+                IIcon icon = k.getIcon(par3ItemStack, j1);
+                int k1 = k.getColorFromItemStack(par3ItemStack, j1);
                 f1 = (float) (k1 >> 16 & 255) / 255.0F;
                 f2 = (float) (k1 >> 8 & 255) / 255.0F;
                 float f3 = (float) (k1 & 255) / 255.0F;
@@ -388,7 +389,7 @@ public class FancyItemRender extends Render
                 object = ((TextureMap) Minecraft.getMinecraft().getTextureManager().getTexture(resourcelocation)).getAtlasSprite("missingno");
             }
 
-            i1 = Item.itemsList[k].getColorFromItemStack(par3ItemStack, 0);
+            i1 = k.getColorFromItemStack(par3ItemStack, 0);
             f = (float) (i1 >> 16 & 255) / 255.0F;
             f1 = (float) (i1 >> 8 & 255) / 255.0F;
             f2 = (float) (i1 & 255) / 255.0F;

@@ -55,10 +55,10 @@ public class TabRegistry
 
             if (t.shouldAddToList())
             {
-                t.id = count;
-                t.xPosition = cornerX + (count - 2) * 28;
-                t.yPosition = cornerY - 28;
-                t.enabled = !t.getClass().equals(selectedButton);
+                t.field_146127_k = count;
+                t.field_146128_h = cornerX + (count - 2) * 28;
+                t.field_146129_i = cornerY - 28;
+                t.field_146124_l = !t.getClass().equals(selectedButton);
                 count++;
             }
         }

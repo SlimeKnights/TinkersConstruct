@@ -145,7 +145,7 @@ public class SmelteryComponent extends LogicComponent
             return;
         }
 
-        TileEntity tankContainer = world.getBlockTileEntity(activeLavaTank.x, activeLavaTank.y, activeLavaTank.z);
+        TileEntity tankContainer = world.func_147438_o(activeLavaTank.x, activeLavaTank.y, activeLavaTank.z);
         if (tankContainer == null)
         {
             fuelAmount = 0;
@@ -182,7 +182,7 @@ public class SmelteryComponent extends LogicComponent
                 while (!foundTank)
                 {
                     CoordTuple possibleTank = structure.lavaTanks.get(iter);
-                    TileEntity newTankContainer = world.getBlockTileEntity(possibleTank.x, possibleTank.y, possibleTank.z);
+                    TileEntity newTankContainer = world.func_147438_o(possibleTank.x, possibleTank.y, possibleTank.z);
                     if (newTankContainer instanceof IFluidHandler)
                     {
                         FluidStack newliquid = ((IFluidHandler) newTankContainer).drain(ForgeDirection.UNKNOWN, drainFuelAmount(), false);

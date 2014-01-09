@@ -224,7 +224,6 @@ public class TEventHandler
     {
         if (stack.itemID >= 4096)
             return false;
-
         Block block = Block.blocksList[stack.itemID];
         if (block != null)
         {

@@ -159,7 +159,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 
                             stack.stackSize -= itemSize;
                             EntityItem entityitem = new EntityItem(field_145850_b, (double) ((float) field_145851_c + jumpX + offsetX), (double) ((float) field_145848_d + jumpY),
-                                    (double) ((float) field_145849_e + jumpZ + offsetZ), new ItemStack(stack.itemID, itemSize, stack.getItemDamage()));
+                                    (double) ((float) field_145849_e + jumpZ + offsetZ), new ItemStack(stack.getItem(), itemSize, stack.getItemDamage()));
 
                             if (stack.hasTagCompound())
                             {
@@ -532,7 +532,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
             return;
         }
 
-        TileEntity tankContainer = field_145850_b.getBlockTileEntity(activeLavaTank.x, activeLavaTank.y, activeLavaTank.z);
+        TileEntity tankContainer = field_145850_b.func_147438_o(activeLavaTank.x, activeLavaTank.y, activeLavaTank.z);
         if (tankContainer == null)
         {
             fuelAmount = 0;
@@ -573,7 +573,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
             return;
         }
 
-        TileEntity tankContainer = field_145850_b.getBlockTileEntity(activeLavaTank.x, activeLavaTank.y, activeLavaTank.z);
+        TileEntity tankContainer = field_145850_b.func_147438_o(activeLavaTank.x, activeLavaTank.y, activeLavaTank.z);
         if (tankContainer == null)
         {
             fuelAmount = 0;
@@ -610,7 +610,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                 while (!foundTank)
                 {
                     CoordTuple possibleTank = lavaTanks.get(iter);
-                    TileEntity newTankContainer = field_145850_b.getBlockTileEntity(possibleTank.x, possibleTank.y, possibleTank.z);
+                    TileEntity newTankContainer = field_145850_b.func_147438_o(possibleTank.x, possibleTank.y, possibleTank.z);
                     if (newTankContainer instanceof IFluidHandler)
                     {
                         //TConstruct.logger.info("Tank: "+possibleTank.toString());
@@ -917,9 +917,9 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     {
         int tempBricks = 0;
         Block block = field_145850_b.func_147439_a(x, y, z);
-        if (validBlock(block) || validTankID(block))
+        if (validBlock(block) || validTank(block))
         {
-            TileEntity te = field_145850_b.getBlockTileEntity(x, y, z);
+            TileEntity te = field_145850_b.func_147438_o(x, y, z);
             if (te == this)
             {
                 tempBricks++;
@@ -951,6 +951,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         return block == TRepo.smeltery || block == TRepo.smelteryNether;
     }
 
+    boolean validTank (Block block)
     {
         return block == TRepo.lavaTank || block == TRepo.lavaTankNether;
     }

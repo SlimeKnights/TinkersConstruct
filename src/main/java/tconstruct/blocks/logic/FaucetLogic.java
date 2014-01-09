@@ -43,8 +43,8 @@ public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogi
                 break;
             }
 
-            TileEntity drainte = field_145850_b.getBlockTileEntity(x, field_145848_d, z);
-            TileEntity tankte = field_145850_b.getBlockTileEntity(field_145851_c, field_145848_d - 1, field_145849_e);
+            TileEntity drainte = field_145850_b.func_147438_o(x, field_145848_d, z);
+            TileEntity tankte = field_145850_b.func_147438_o(field_145851_c, field_145848_d - 1, field_145849_e);
 
             if (drainte != null && drainte instanceof IFluidHandler && tankte != null && tankte instanceof IFluidHandler)
             {

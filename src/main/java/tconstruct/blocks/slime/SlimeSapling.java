@@ -106,13 +106,13 @@ public class SlimeSapling extends BlockSapling
     public void growTree (World world, int x, int y, int z, Random random)
     {
         int md = world.getBlockMetadata(x, y, z) % 8;
-        world.setBlock(x, y, z, 0);
+        world.setBlock(x, y, z, Blocks.air);
         WorldGenerator obj = null;
 
         obj = new SlimeTreeGen(true, 5, 4, 1, 0);
 
         if (!(obj.generate(world, random, x, y, z)))
-            world.setBlock(x, y, z, blockID, md + 8, 3);
+            world.setBlock(x, y, z, Blocks.air, md + 8, 3);
     }
 
     public int damageDropped (int i)

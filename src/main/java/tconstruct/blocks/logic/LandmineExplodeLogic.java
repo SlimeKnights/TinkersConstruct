@@ -28,7 +28,7 @@ public class LandmineExplodeLogic
     public LandmineExplodeLogic(World par1World, int par2, int par3, int par4, Entity entity)
     {
         worldObj = par1World;
-        this.tileEntity = (TileEntityLandmine) par1World.getBlockTileEntity(par2, par3, par4);
+        this.tileEntity = (TileEntityLandmine) par1World.func_147438_o(par2, par3, par4);
         this.x = par2;
         this.y = par3;
         this.z = par4;

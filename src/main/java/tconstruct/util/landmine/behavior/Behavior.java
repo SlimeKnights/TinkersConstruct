@@ -26,8 +26,8 @@ import net.minecraftforge.common.util.ForgeDirection;
 public abstract class Behavior
 {
 
-    public static HashMap<Integer, Behavior> behaviorsListItems = new HashMap<Integer, Behavior>();
-    public static HashMap<Integer, Behavior> behaviorsListBlocks = new HashMap<Integer, Behavior>();
+    public static HashMap<ItemStack, Behavior> behaviorsListItems = new HashMap<ItemStack, Behavior>();
+    public static HashMap<ItemStack, Behavior> behaviorsListBlocks = new HashMap<ItemStack, Behavior>();
     protected static Behavior defaultBehavior;
 
     public static Behavior dummy = new BehaviorDummy();
@@ -81,7 +81,7 @@ public abstract class Behavior
         {
             if (!behaviorsListBlocks.isEmpty())
             {
-                return behaviorsListBlocks.get(par1ItemStack.itemID);
+                return behaviorsListBlocks.get(par1ItemStack);
             }
             else
             {
@@ -92,7 +92,7 @@ public abstract class Behavior
         {
             if (!behaviorsListItems.isEmpty())
             {
-                return behaviorsListItems.get(par1ItemStack.itemID);
+                return behaviorsListItems.get(par1ItemStack);
             }
             else
             {
@@ -110,16 +110,16 @@ public abstract class Behavior
     {
         if (par1ItemStack.getItem() instanceof ItemBlock)
         {
-            if (!behaviorsListBlocks.containsKey(par1ItemStack.itemID))
+            if (!behaviorsListBlocks.containsKey(par1ItemStack))
             {
-                behaviorsListBlocks.put(par1ItemStack.itemID, par2Behavior);
+                behaviorsListBlocks.put(par1ItemStack, par2Behavior);
             }
         }
         else
         {
-            if (!behaviorsListItems.containsKey(par1ItemStack.itemID))
+            if (!behaviorsListItems.containsKey(par1ItemStack))
             {
-                behaviorsListItems.put(par1ItemStack.itemID, par2Behavior);
+                behaviorsListItems.put(par1ItemStack, par2Behavior);
             }
         }
     }

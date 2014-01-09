@@ -20,7 +20,7 @@ public class AccessTransformers extends AccessTransformer {
             me.setAccessible(true);
             me.invoke(this, name);
         } catch (Exception ex) {
-            TConstructLoaderContainer.logger.severe("[AT] Unknown failure occured: " + ex.getMessage());
+            TConstructLoaderContainer.logger.error("[AT] Unknown failure occured: " + ex.getMessage());
             ex.printStackTrace();
         }
     }
