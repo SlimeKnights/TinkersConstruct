@@ -101,7 +101,7 @@ public class TileEntityLandmine extends TileEntity implements IInventory
     {
         NBTTagCompound nbt = new NBTTagCompound();
         writeToNBT(nbt);
-        return new Packet132TileEntityData(field_145851_c, field_145848_d, field_145849_e, 0, nbt);
+        return new Packet132TileEntityData(xCoord, field_145848_d, field_145849_e, 0, nbt);
     }
 
     @Override
@@ -211,7 +211,7 @@ public class TileEntityLandmine extends TileEntity implements IInventory
     @Override
     public boolean isUseableByPlayer (EntityPlayer par1EntityPlayer)
     {
-        return this.field_145850_b.getBlockTileEntity(this.field_145851_c, this.field_145848_d, this.field_145849_e) != this ? false : par1EntityPlayer.getDistanceSq((double) this.field_145851_c + 0.5D, (double) this.field_145848_d + 0.5D,
+        return this.field_145850_b.getBlockTileEntity(this.xCoord, this.field_145848_d, this.field_145849_e) != this ? false : par1EntityPlayer.getDistanceSq((double) this.xCoord + 0.5D, (double) this.field_145848_d + 0.5D,
                 (double) this.field_145849_e + 0.5D) <= 64.0D;
     }
 
@@ -229,7 +229,7 @@ public class TileEntityLandmine extends TileEntity implements IInventory
     public void onInventoryChanged ()
     {
         super.onInventoryChanged();
-        this.field_145850_b.markBlockForUpdate(field_145851_c, field_145848_d, field_145849_e);
+        this.field_145850_b.markBlockForUpdate(xCoord, field_145848_d, field_145849_e);
     }
 
     @Override
@@ -259,7 +259,7 @@ public class TileEntityLandmine extends TileEntity implements IInventory
     {
         if (shouldUpdateLogic)
         {
-            field_145850_b.markBlockForRenderUpdate(field_145851_c, field_145848_d, field_145849_e);
+            field_145850_b.markBlockForRenderUpdate(xCoord, field_145848_d, field_145849_e);
             shouldUpdateLogic = false;
         }
         if (soundcountything > 0)

@@ -98,12 +98,12 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
             this.prevRotationPitch = this.rotationPitch = (float) (Math.atan2(this.motionY, (double) f) * 180.0D / Math.PI);
         }
 
-        int i = this.worldObj.getBlockId(this.xTile, this.yTile, this.zTile);
+        int i = this.worldObj.getBlockId(this.field_145791_d, this.field_145792_e, this.field_145789_f);
 
         if (i > 0)
         {
-            Block.blocksList[i].setBlockBoundsBasedOnState(this.worldObj, this.xTile, this.yTile, this.zTile);
-            AxisAlignedBB axisalignedbb = Block.blocksList[i].getCollisionBoundingBoxFromPool(this.worldObj, this.xTile, this.yTile, this.zTile);
+            Block.blocksList[i].setBlockBoundsBasedOnState(this.worldObj, this.field_145791_d, this.field_145792_e, this.field_145789_f);
+            AxisAlignedBB axisalignedbb = Block.blocksList[i].getCollisionBoundingBoxFromPool(this.worldObj, this.field_145791_d, this.field_145792_e, this.field_145789_f);
 
             if (axisalignedbb != null && axisalignedbb.isVecInside(this.worldObj.getWorldVec3Pool().getVecFromPool(this.posX, this.posY, this.posZ)))
             {
@@ -120,8 +120,8 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
         {
             if (!worldObj.isRemote)
             {
-                int j = this.worldObj.getBlockId(this.xTile, this.yTile, this.zTile);
-                int k = this.worldObj.getBlockMetadata(this.xTile, this.yTile, this.zTile);
+                int j = this.worldObj.getBlockId(this.field_145791_d, this.field_145792_e, this.field_145789_f);
+                int k = this.worldObj.getBlockMetadata(this.field_145791_d, this.field_145792_e, this.field_145789_f);
 
                 if (j == this.inTile && k == this.inData)
                 {
@@ -325,11 +325,11 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
                 }
                 else
                 {
-                    this.xTile = movingobjectposition.blockX;
-                    this.yTile = movingobjectposition.blockY;
-                    this.zTile = movingobjectposition.blockZ;
-                    this.inTile = this.worldObj.getBlockId(this.xTile, this.yTile, this.zTile);
-                    this.inData = this.worldObj.getBlockMetadata(this.xTile, this.yTile, this.zTile);
+                    this.field_145791_d = movingobjectposition.blockX;
+                    this.field_145792_e = movingobjectposition.blockY;
+                    this.field_145789_f = movingobjectposition.blockZ;
+                    this.inTile = this.worldObj.getBlockId(this.field_145791_d, this.field_145792_e, this.field_145789_f);
+                    this.inData = this.worldObj.getBlockMetadata(this.field_145791_d, this.field_145792_e, this.field_145789_f);
                     this.motionX = (double) ((float) (movingobjectposition.hitVec.xCoord - this.posX));
                     this.motionY = (double) ((float) (movingobjectposition.hitVec.yCoord - this.posY));
                     this.motionZ = (double) ((float) (movingobjectposition.hitVec.zCoord - this.posZ));
@@ -344,7 +344,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
 
                     if (this.inTile != 0)
                     {
-                        Block.blocksList[this.inTile].onEntityCollidedWithBlock(this.worldObj, this.xTile, this.yTile, this.zTile, this);
+                        Block.blocksList[this.inTile].onEntityCollidedWithBlock(this.worldObj, this.field_145791_d, this.field_145792_e, this.field_145789_f, this);
                     }
                 }
             }

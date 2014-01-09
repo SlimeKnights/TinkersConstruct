@@ -16,7 +16,7 @@ import tconstruct.library.tools.BowstringMaterial;
 import tconstruct.library.tools.CustomMaterial;
 import tconstruct.library.tools.FletchingMaterial;
 import tconstruct.library.tools.ToolCore;
-import tconstruct.library.tools.ToolMaterial;
+import tconstruct.library.tools.TToolMaterial;
 import tconstruct.library.util.TabTools;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -206,8 +206,8 @@ public class TConstructRegistry
     }
 
     //Materials
-    public static HashMap<Integer, ToolMaterial> toolMaterials = new HashMap<Integer, ToolMaterial>(40);
-    public static HashMap<String, ToolMaterial> toolMaterialStrings = new HashMap<String, ToolMaterial>(40);
+    public static HashMap<Integer, TToolMaterial> toolMaterials = new HashMap<Integer, TToolMaterial>(40);
+    public static HashMap<String, TToolMaterial> toolMaterialStrings = new HashMap<String, TToolMaterial>(40);
 
     /** Adds a tool material to the registry
      * 
@@ -226,10 +226,10 @@ public class TConstructRegistry
     public static void addToolMaterial (int materialID, String materialName, int harvestLevel, int durability, int miningspeed, int attack, float handleModifier, int reinforced, float stonebound,
             String style, String ability)
     {
-        ToolMaterial mat = toolMaterials.get(materialID);
+        TToolMaterial mat = toolMaterials.get(materialID);
         if (mat == null)
         {
-            mat = new ToolMaterial(materialName, harvestLevel, durability, miningspeed, attack, handleModifier, reinforced, stonebound, style, ability);
+            mat = new TToolMaterial(materialName, harvestLevel, durability, miningspeed, attack, handleModifier, reinforced, stonebound, style, ability);
             toolMaterials.put(materialID, mat);
             toolMaterialStrings.put(materialName, mat);
         }
@@ -255,10 +255,10 @@ public class TConstructRegistry
     public static void addToolMaterial (int materialID, String materialName, String displayName, int harvestLevel, int durability, int miningspeed, int attack, float handleModifier, int reinforced,
             float stonebound, String style, String ability)
     {
-        ToolMaterial mat = toolMaterials.get(materialID);
+        TToolMaterial mat = toolMaterials.get(materialID);
         if (mat == null)
         {
-            mat = new ToolMaterial(materialName, displayName, harvestLevel, durability, miningspeed, attack, handleModifier, reinforced, stonebound, style, ability);
+            mat = new TToolMaterial(materialName, displayName, harvestLevel, durability, miningspeed, attack, handleModifier, reinforced, stonebound, style, ability);
             toolMaterials.put(materialID, mat);
             toolMaterialStrings.put(materialName, mat);
         }
@@ -273,9 +273,9 @@ public class TConstructRegistry
      * @param material Complete tool material to add. Uses the name in the material for lookup purposes.
      */
 
-    public static void addtoolMaterial (int materialID, ToolMaterial material)
+    public static void addtoolMaterial (int materialID, TToolMaterial material)
     {
-        ToolMaterial mat = toolMaterials.get(materialID);
+        TToolMaterial mat = toolMaterials.get(materialID);
         if (mat == null)
         {
             toolMaterials.put(materialID, mat);
@@ -291,7 +291,7 @@ public class TConstructRegistry
      * @return Tool Material
      */
 
-    public static ToolMaterial getMaterial (int key)
+    public static TToolMaterial getMaterial (int key)
     {
         return (toolMaterials.get(key));
     }
@@ -302,7 +302,7 @@ public class TConstructRegistry
      * @return Tool Material
      */
 
-    public static ToolMaterial getMaterial (String key)
+    public static TToolMaterial getMaterial (String key)
     {
         return (toolMaterialStrings.get(key));
     }
@@ -520,7 +520,8 @@ public class TConstructRegistry
 
     static void initializeDrawbridgeState ()
     {
-        drawbridgeState[Blocks.stone] = 1;
+        //TODO fix this mess and move to TMech
+       /* drawbridgeState[Blocks.stone] = 1;
         drawbridgeState[Blocks.grass] = 1;
         drawbridgeState[Blocks.dirt] = 1;
         drawbridgeState[Blocks.cobblestone] = 1;
@@ -674,6 +675,7 @@ public class TConstructRegistry
         drawbridgeState[Blocks.dropper] = 3;
         interchangableBlockMapping[Blocks.dirt] = Blocks.grass;
         interchangableBlockMapping[Blocks.grass] = Blocks.dirt;
+    */
     }
 
     static

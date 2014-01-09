@@ -36,8 +36,8 @@ public class EnvironmentGui extends GuiScreen
     {
         Keyboard.enableRepeatEvents(true);
         this.buttonList.clear();
-        this.buttonList.add(new GuiButton(0, this.width / 2 - 175, this.height / 4 + 96 + 24, 350, 20, I18n.getStringParams("I accept responsibility for all cross-mod bugs in this modpack.")));
-        this.buttonList.add(new GuiButton(1, this.width / 2 - 175, this.height / 4 + 120 + 24, 350, 20, I18n.getStringParams("I do not want to run these mods together. (Exits Minecraft)")));
+        this.buttonList.add(new GuiButton(0, this.field_146294_l / 2 - 175, this.field_146295_m / 4 + 96 + 24, 350, 20, I18n.getStringParams("I accept responsibility for all cross-mod bugs in this modpack.")));
+        this.buttonList.add(new GuiButton(1, this.field_146294_l / 2 - 175, this.field_146295_m / 4 + 120 + 24, 350, 20, I18n.getStringParams("I do not want to run these mods together. (Exits Minecraft)")));
     }
 
     /**
@@ -76,12 +76,12 @@ public class EnvironmentGui extends GuiScreen
         builder.setLength(0);
         this.drawDefaultBackground();
         String mod = mods.get(count);
-        this.drawCenteredString(this.field_146289_q, I18n.getStringParams("Tinkers' Construct is not compatible with "+mod), this.width / 2, 20, 0xFFFFFF);
-        this.drawCenteredString(this.field_146289_q, I18n.getStringParams("The following reasons are given:"), this.width / 2, 32, 0xFFFFFF);
+        this.drawCenteredString(this.field_146289_q, I18n.getStringParams("Tinkers' Construct is not compatible with "+mod), this.field_146294_l / 2, 20, 0xFFFFFF);
+        this.drawCenteredString(this.field_146289_q, I18n.getStringParams("The following reasons are given:"), this.field_146294_l / 2, 32, 0xFFFFFF);
         field_146289_q.drawSplitString(I18n.getStringParams(EnvironmentChecks.modCompatDetails(mod, false)), 20, 52, 400, 0xffffff);
 
-        this.drawCenteredString(this.field_146289_q, I18n.getStringParams("The Tinkers' Construct team will not accept bug reports with this mod installed."), this.width / 2, 153, 0xFFFFFF);
-        this.drawCenteredString(this.field_146289_q, I18n.getStringParams("We apologize for any inconvenience this may cause you."), this.width / 2, 165, 0xFFFFFF);
+        this.drawCenteredString(this.field_146289_q, I18n.getStringParams("The Tinkers' Construct team will not accept bug reports with this mod installed."), this.field_146294_l / 2, 153, 0xFFFFFF);
+        this.drawCenteredString(this.field_146289_q, I18n.getStringParams("We apologize for any inconvenience this may cause you."), this.field_146294_l / 2, 165, 0xFFFFFF);
         super.drawScreen(par1, par2, par3);
     }
 }

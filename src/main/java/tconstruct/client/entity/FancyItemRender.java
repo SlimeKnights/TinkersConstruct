@@ -344,9 +344,9 @@ public class FancyItemRender extends Render
             }
 
             GL11.glRotatef(-90.0F, 0.0F, 1.0F, 0.0F);
-            this.itemRenderBlocks.useInventoryTint = this.renderWithColor;
+            this.itemRenderBlocks.field_147844_c = this.renderWithColor;
             this.itemRenderBlocks.renderBlockAsItem(block, l, 1.0F);
-            this.itemRenderBlocks.useInventoryTint = true;
+            this.itemRenderBlocks.field_147844_c = true;
             GL11.glPopMatrix();
         }
         else if (Item.itemsList[k].requiresMultipleRenderPasses())

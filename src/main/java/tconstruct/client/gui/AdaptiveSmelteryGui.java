@@ -62,10 +62,10 @@ public class AdaptiveSmelteryGui extends NewContainerGui
             int topo = this.guiTop;
             int xScroll = lefto + 67;
             int yScroll = topo + 8;
-            int scrollWidth = xScroll + 14;
-            int scrollHeight = yScroll + 144;
+            int scrollfield_146294_l = xScroll + 14;
+            int scrollfield_146295_m = yScroll + 144;
 
-            if (!this.wasClicking && mouseDown && mouseX >= xScroll && mouseY >= yScroll && mouseX < scrollWidth && mouseY < scrollHeight)
+            if (!this.wasClicking && mouseDown && mouseX >= xScroll && mouseY >= yScroll && mouseX < scrollfield_146294_l && mouseY < scrollfield_146295_m)
             {
                 this.isScrolling = true;
             }
@@ -84,7 +84,7 @@ public class AdaptiveSmelteryGui extends NewContainerGui
 
             if (this.isScrolling)
             {
-                this.currentScroll = (mouseY - yScroll - 7.5F) / (scrollHeight - yScroll - 15.0F);
+                this.currentScroll = (mouseY - yScroll - 7.5F) / (scrollfield_146295_m - yScroll - 15.0F);
 
                 if (this.currentScroll < 0.0F)
                 {
@@ -110,8 +110,8 @@ public class AdaptiveSmelteryGui extends NewContainerGui
         field_146289_q.drawString(StatCollector.translateToLocal("container.inventory"), 90, (ySize - 96) + 2, 0x404040);
 
         int base = 0;
-        int cornerX = (width - xSize) / 2 + 36;
-        int cornerY = (height - ySize) / 2;
+        int cornerX = (field_146294_l - xSize) / 2 + 36;
+        int cornerY = (field_146295_m - ySize) / 2;
         FluidTankInfo[] info = logic.getTankInfo(ForgeDirection.UNKNOWN);
 
         int capacity = 0;
@@ -170,8 +170,8 @@ public class AdaptiveSmelteryGui extends NewContainerGui
     {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.field_146297_k.getTextureManager().bindTexture(background);
-        int cornerX = (width - xSize) / 2 + 36;
-        int cornerY = (height - ySize) / 2;
+        int cornerX = (field_146294_l - xSize) / 2 + 36;
+        int cornerY = (field_146295_m - ySize) / 2;
         drawTexturedModalRect(cornerX + 46, cornerY, 0, 0, 176, ySize);
 
         //Fuel - Lava
@@ -359,7 +359,7 @@ public class AdaptiveSmelteryGui extends NewContainerGui
             while (iterator.hasNext())
             {
                 String s = (String) iterator.next();
-                int l = this.field_146289_q.getStringWidth(s);
+                int l = this.field_146289_q.getStringfield_146294_l(s);
 
                 if (l > k)
                 {
@@ -376,14 +376,14 @@ public class AdaptiveSmelteryGui extends NewContainerGui
                 k1 += 2 + (par1List.size() - 1) * 10;
             }
 
-            if (i1 + k > this.width)
+            if (i1 + k > this.field_146294_l)
             {
                 i1 -= 28 + k;
             }
 
-            if (j1 + k1 + 6 > this.height)
+            if (j1 + k1 + 6 > this.field_146295_m)
             {
-                j1 = this.height - k1 - 6;
+                j1 = this.field_146295_m - k1 - 6;
             }
 
             this.zLevel = 300.0F;
@@ -436,8 +436,8 @@ public class AdaptiveSmelteryGui extends NewContainerGui
             super.mouseClicked(mouseX, mouseY, mouseButton);
             
             int base = 0;
-        int cornerX = (width - xSize) / 2 + 36;
-        int cornerY = (height - ySize) / 2;
+        int cornerX = (field_146294_l - xSize) / 2 + 36;
+        int cornerY = (field_146295_m - ySize) / 2;
         int fluidToBeBroughtUp = -1;
         
         for (FluidStack liquid : multitank.getAllFluids())

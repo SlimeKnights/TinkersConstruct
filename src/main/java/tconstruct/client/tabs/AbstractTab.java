@@ -52,7 +52,7 @@ public abstract class AbstractTab extends GuiButton
     @Override
     public boolean mousePressed (Minecraft mc, int mouseX, int mouseY)
     {
-        boolean inWindow = this.enabled && this.drawButton && mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height;
+        boolean inWindow = this.enabled && this.drawButton && mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.field_146294_l && mouseY < this.yPosition + this.field_146295_m;
 
         if (inWindow)
         {

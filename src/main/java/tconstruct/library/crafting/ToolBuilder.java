@@ -17,7 +17,7 @@ import tconstruct.library.armor.ArmorCore;
 import tconstruct.library.armor.ArmorMod;
 import tconstruct.library.event.ToolCraftEvent;
 import tconstruct.library.tools.ToolCore;
-import tconstruct.library.tools.ToolMaterial;
+import tconstruct.library.tools.TToolMaterial;
 import tconstruct.library.tools.ToolMod;
 import tconstruct.library.util.IToolPart;
 
@@ -196,7 +196,7 @@ public class ToolBuilder
         if (item == null)
             return null;
 
-        ToolMaterial headMat = null, handleMat = null, accessoryMat = null, extraMat = null;
+        TToolMaterial headMat = null, handleMat = null, accessoryMat = null, extraMat = null;
         headMat = TConstructRegistry.getMaterial(head);
         handleMat = TConstructRegistry.getMaterial(handle);
 
@@ -332,7 +332,7 @@ public class ToolBuilder
             compound.getCompoundTag("display").setString("Name", "\u00A7f" + name);
         }
 
-        ToolCraftEvent.NormalTool event = new ToolCraftEvent.NormalTool(item, compound, new ToolMaterial[] { headMat, handleMat, accessoryMat, extraMat });
+        ToolCraftEvent.NormalTool event = new ToolCraftEvent.NormalTool(item, compound, new TToolMaterial[] { headMat, handleMat, accessoryMat, extraMat });
         MinecraftForge.EVENT_BUS.post(event);
 
         if (event.getResult() == Result.DEFAULT)
@@ -449,7 +449,7 @@ public class ToolBuilder
             return null;
     }
 
-    int buildReinforced (ToolMaterial headMat, ToolMaterial handleMat, ToolMaterial accessoryMat, ToolMaterial extraMat)
+    int buildReinforced (TToolMaterial headMat, TToolMaterial handleMat, TToolMaterial accessoryMat, TToolMaterial extraMat)
     {
         int reinforced = 0;
 
@@ -474,7 +474,7 @@ public class ToolBuilder
         return reinforced;
     }
 
-    float buildShoddy (ToolMaterial headMat, ToolMaterial handleMat, ToolMaterial accessoryMat, ToolMaterial extraMat)
+    float buildShoddy (TToolMaterial headMat, TToolMaterial handleMat, TToolMaterial accessoryMat, TToolMaterial extraMat)
     {
         float sHead = headMat.shoddy();
         float sHandle = handleMat.shoddy();

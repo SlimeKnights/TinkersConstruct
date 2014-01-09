@@ -90,8 +90,8 @@ public abstract class NewContainerGui extends GuiScreen
     {
         super.initGui();
         this.field_146297_k.thePlayer.openContainer = this.container;
-        this.guiLeft = (this.width - this.xSize) / 2;
-        this.guiTop = (this.height - this.ySize) / 2;
+        this.guiLeft = (this.field_146294_l - this.xSize) / 2;
+        this.guiTop = (this.field_146295_m - this.ySize) / 2;
     }
 
     /**
@@ -279,7 +279,7 @@ public abstract class NewContainerGui extends GuiScreen
             while (iterator.hasNext())
             {
                 String s = (String) iterator.next();
-                int l = this.field_146289_q.getStringWidth(s);
+                int l = this.field_146289_q.getStringfield_146294_l(s);
 
                 if (l > k)
                 {
@@ -296,14 +296,14 @@ public abstract class NewContainerGui extends GuiScreen
                 k1 += 2 + (par1List.size() - 1) * 10;
             }
 
-            if (i1 + k > this.width)
+            if (i1 + k > this.field_146294_l)
             {
                 i1 -= 28 + k;
             }
 
-            if (j1 + k1 + 6 > this.height)
+            if (j1 + k1 + 6 > this.field_146295_m)
             {
-                j1 = this.height - k1 - 6;
+                j1 = this.field_146295_m - k1 - 6;
             }
 
             this.zLevel = 300.0F;
@@ -803,7 +803,7 @@ public abstract class NewContainerGui extends GuiScreen
     }
 
     /**
-     * Args: left, top, width, height, pointX, pointY. Note: left, top are local to Gui, pointX, pointY are local to
+     * Args: left, top, field_146294_l, field_146295_m, pointX, pointY. Note: left, top are local to Gui, pointX, pointY are local to
      * screen
      */
     protected boolean isPointInRegion (int par1, int par2, int par3, int par4, int par5, int par6)

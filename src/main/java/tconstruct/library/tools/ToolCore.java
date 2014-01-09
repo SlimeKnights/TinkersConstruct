@@ -68,7 +68,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IBa
     public static IIcon blankSprite;
     public static IIcon emptyIcon;
 
-    public ToolCore( int baseDamage)
+    public ToolCore(int baseDamage)
     {
         super();
         this.maxStackSize = 1;
@@ -425,10 +425,10 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IBa
 
     public String getReinforcedName (int head, int handle, int accessory, int extra, int unbreaking)
     {
-        ToolMaterial headMat = TConstructRegistry.getMaterial(head);
-        ToolMaterial handleMat = TConstructRegistry.getMaterial(handle);
-        ToolMaterial accessoryMat = TConstructRegistry.getMaterial(accessory);
-        ToolMaterial extraMat = TConstructRegistry.getMaterial(extra);
+        TToolMaterial headMat = TConstructRegistry.getMaterial(TToolMaterial)head);
+        TToolMaterial handleMat = TConstructRegistry.getMaterial(handle);
+        TToolMaterial accessoryMat = TConstructRegistry.getMaterial(accessory);
+        TToolMaterial extraMat = TConstructRegistry.getMaterial(extra);
 
         int reinforced = 0;
         String style = "";
@@ -455,7 +455,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IBa
         }
         if (getPartAmount() >= 4)
         {
-            current = extraMat.reinforced();
+           current = extraMat.reinforced();
             if (current > 0 && current > reinforced)
             {
                 style = extraMat.style();
@@ -527,7 +527,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IBa
         while (iter.hasNext())
         {
             Map.Entry pairs = (Map.Entry) iter.next();
-            ToolMaterial material = (ToolMaterial) pairs.getValue();
+            TToolMaterial material = (TToolMaterial) pairs.getValue();
             buildTool((Integer) pairs.getKey(), material.displayName, list);
         }
     }
@@ -844,8 +844,6 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IBa
         return tags.getCompoundTag("InfiTool").getInteger("Damage");
     }
 
-
-
     /* Battlegear support, IBattlegearWeapon */
 
     @Override
@@ -961,6 +959,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IBa
         }
         return tags.getInteger("Energy");
     }
+
     @Override
     public int getMaxEnergyStored (ItemStack container)
     {

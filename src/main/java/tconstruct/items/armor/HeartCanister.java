@@ -28,7 +28,7 @@ public class HeartCanister extends CraftingItem
     {
         if (!world.isRemote && stack.getItemDamage() == 2)
         {
-            TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
+            TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.getDisplayName());
             if (stats != null)
             {
                 ArmorExtended armor = stats.armor;

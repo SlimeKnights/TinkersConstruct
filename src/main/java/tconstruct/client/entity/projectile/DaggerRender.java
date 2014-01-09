@@ -336,9 +336,9 @@ public class DaggerRender extends Render
             }
 
             GL11.glRotatef(-90.0F, 0.0F, 1.0F, 0.0F);
-            this.itemRenderBlocks.useInventoryTint = this.renderWithColor;
+            this.itemRenderBlocks.field_147844_c = this.renderWithColor;
             this.itemRenderBlocks.renderBlockAsItem(block, l, 1.0F);
-            this.itemRenderBlocks.useInventoryTint = true;
+            this.itemRenderBlocks.field_147844_c = true;
             GL11.glPopMatrix();
         }
         else if (Item.itemsList[k].requiresMultipleRenderPasses())
@@ -427,7 +427,7 @@ public class DaggerRender extends Render
     {
         if (par3ItemStack != null)
         {
-            if (!ForgeHooksClient.renderInventoryItem(renderBlocks, par2TextureManager, par3ItemStack, renderWithColor, zLevel, (float) par4, (float) par5))
+            if (!ForgeHooksClient.renderInventoryItem(field_147909_c, par2TextureManager, par3ItemStack, renderWithColor, zLevel, (float) par4, (float) par5))
             {
                 this.renderItemIntoGUI(par1FontRenderer, par2TextureManager, par3ItemStack, par4, par5, true);
             }

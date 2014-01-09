@@ -14,14 +14,14 @@ import tconstruct.client.gui.PartCrafterGui;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.client.TConstructClientRegistry;
 import tconstruct.library.crafting.PatternBuilder;
-import tconstruct.library.tools.ToolMaterial;
+import tconstruct.library.tools.TToolMaterial;
 
 public class MaterialPage extends BookPage
 {
     String title;
     ItemStack[] icons;
     String iconText;
-    ToolMaterial material;
+    TToolMaterial material;
 
     @Override
     public void readPageFromXML (Element element)

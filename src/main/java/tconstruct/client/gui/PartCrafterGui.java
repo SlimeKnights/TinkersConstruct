@@ -17,7 +17,7 @@ import tconstruct.inventory.ActiveContainer;
 import tconstruct.inventory.PartCrafterChestContainer;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.PatternBuilder;
-import tconstruct.library.tools.ToolMaterial;
+import tconstruct.library.tools.TToolMaterial;
 
 public class PartCrafterGui extends NewContainerGui
 {
@@ -26,7 +26,7 @@ public class PartCrafterGui extends NewContainerGui
     boolean drawChestPart;
     boolean hasTop, hasBottom;
     ItemStack topMaterial, bottomMaterial;
-    ToolMaterial topEnum, bottomEnum;
+    TToolMaterial topEnum, bottomEnum;
 
     public PartCrafterGui(InventoryPlayer inventoryplayer, PartBuilderLogic partlogic, World world, int x, int y, int z)
     {
@@ -157,8 +157,8 @@ public class PartCrafterGui extends NewContainerGui
         // Draw the background
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.field_146297_k.getTextureManager().bindTexture(background);
-        int cornerX = (this.width - this.xSize) / 2;
-        int cornerY = (this.height - this.ySize) / 2;
+        int cornerX = (this.field_146294_l - this.xSize) / 2;
+        int cornerY = (this.field_146295_m - this.ySize) / 2;
         this.drawTexturedModalRect(cornerX, cornerY, 0, 0, this.xSize, this.ySize);
 
         // Draw Slots
@@ -191,8 +191,8 @@ public class PartCrafterGui extends NewContainerGui
         // Draw description
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.field_146297_k.getTextureManager().bindTexture(description);
-        cornerX = (this.width + this.xSize) / 2;
-        cornerY = (this.height - this.ySize) / 2;
+        cornerX = (this.field_146294_l + this.xSize) / 2;
+        cornerY = (this.field_146295_m - this.ySize) / 2;
         this.drawTexturedModalRect(cornerX, cornerY, 126, 0, 126, this.ySize);
     }
 

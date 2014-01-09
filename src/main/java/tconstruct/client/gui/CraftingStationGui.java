@@ -339,8 +339,8 @@ public class CraftingStationGui extends GuiContainer
         // Draw the background
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.field_146297_k.getTextureManager().bindTexture(background);
-        int cornerX = (this.width - this.xSize) / 2;
-        int cornerY = (this.height - this.ySize) / 2;
+        int cornerX = (this.field_146294_l - this.xSize) / 2;
+        int cornerY = (this.field_146295_m - this.ySize) / 2;
         this.drawTexturedModalRect(cornerX, cornerY, 0, 0, this.xSize, this.ySize);
 
         if (active)
@@ -373,8 +373,8 @@ public class CraftingStationGui extends GuiContainer
         {
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             this.field_146297_k.getTextureManager().bindTexture(description);
-            cornerX = (this.width + this.xSize) / 2;
-            cornerY = (this.height - this.ySize) / 2;
+            cornerX = (this.field_146294_l + this.xSize) / 2;
+            cornerY = (this.field_146295_m - this.ySize) / 2;
             this.drawTexturedModalRect(cornerX, cornerY, 0, 0, 126, this.ySize + 30);
         }
 

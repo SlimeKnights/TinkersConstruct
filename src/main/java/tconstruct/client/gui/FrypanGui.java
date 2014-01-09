@@ -32,8 +32,8 @@ public class FrypanGui extends GuiContainer
     {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.field_146297_k.getTextureManager().bindTexture(background);
-        int cornerX = (width - xSize) / 2;
-        int cornerY = (height - ySize) / 2;
+        int cornerX = (field_146294_l - xSize) / 2;
+        int cornerY = (field_146295_m - ySize) / 2;
         drawTexturedModalRect(cornerX, cornerY, 0, 0, xSize, ySize);
         if (logic.fuel > 0)
         {

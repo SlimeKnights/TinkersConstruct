@@ -64,12 +64,12 @@ public class TProxyCommon implements IGuiHandler
             }
             if (ID == armorGuiID)
             {
-                TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
+                TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.getDisplayName());
                 return new ArmorExtendedContainer(player.inventory, stats.armor);
             }
             if (ID == knapsackGuiID)
             {
-                TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
+                TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.getDisplayName());
                 return new KnapsackContainer(player.inventory, stats.knapsack);
             }
         }

@@ -39,7 +39,7 @@ public class Knapsack extends CraftingItem
     @Override
     public void onArmorTickUpdate (World world, EntityPlayer player, ItemStack itemStack)
     {
-        TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.username);
+        TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.getDisplayName());
         KnapsackInventory inv = stats.knapsack;
 
         if (stats != null && inv != null)

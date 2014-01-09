@@ -78,8 +78,8 @@ public class GuiLandmine extends GuiContainer
     {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         field_146297_k.renderEngine.bindTexture(background);
-        int x = (width - xSize) / 2;
-        int y = (height - ySize) / 2;
+        int x = (field_146294_l - xSize) / 2;
+        int y = (field_146295_m - ySize) / 2;
         this.drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
     }
 

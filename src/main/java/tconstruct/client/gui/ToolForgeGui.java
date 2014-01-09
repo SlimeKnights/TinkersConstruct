@@ -27,17 +27,17 @@ public class ToolForgeGui extends ToolStationGui
         {
             int gLeft = this.guiLeft + 68;
             int gTop = this.guiTop + 6;
-            int gWidth = 102;
-            int gHeight = 12;
-            active = mouseX > gLeft && mouseX < gLeft + gWidth && mouseY > gTop && mouseY < gTop + gHeight;
+            int gfield_146294_l = 102;
+            int gfield_146295_m = 12;
+            active = mouseX > gLeft && mouseX < gLeft + gfield_146294_l && mouseY > gTop && mouseY < gTop + gfield_146295_m;
         }
     }
 
     public void initGui ()
     {
         super.initGui();
-        int cornerX = (this.width - this.xSize) / 2;
-        int cornerY = (this.height - this.ySize) / 2;
+        int cornerX = (this.field_146294_l - this.xSize) / 2;
+        int cornerY = (this.field_146295_m - this.ySize) / 2;
 
         this.buttonList.clear();
         ToolGuiElement repair = TConstructClientRegistry.toolButtons.get(0);
