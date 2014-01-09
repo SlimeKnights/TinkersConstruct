@@ -715,3 +715,8 @@ gui.toolstation15=Abbaulevel:
 gui.toolstation16=Nutzungsgeschw.: 
 gui.toolstation17=Modifikatoren
 gui.toolstation18=Modifikatoren übrig: 
+
+tconstruct.waila.empty=Leer
+tconstruct.waila.liquidtag=Flüssigk.: 
+tconstruct.waila.amounttag=Menge: 
+tconstruct.waila.invalidstructure=Ungültige Struktur
