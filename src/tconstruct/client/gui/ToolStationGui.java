@@ -197,14 +197,14 @@ public class ToolStationGui extends NewContainerGui
         {
             if (maxDur >= 10000)
             {
-                fontRenderer.drawString((StatCollector.translateToLocal("gui.toolstation1"), xSize + 8, base + offset * 11, 0xffffff);
+                fontRenderer.drawString(StatCollector.translateToLocal("gui.toolstation1"), xSize + 8, base + offset * 11, 0xffffff);
                 offset++;
                 fontRenderer.drawString("- " + availableDurability + "/" + maxDur, xSize + 8, base + offset * 10, 0xffffff);
                 offset++;
             }
             else
             {
-                fontRenderer.drawString((StatCollector.translateToLocal("gui.toolstation2") + availableDurability + "/" + maxDur, xSize + 8, base + offset * 10, 0xffffff);
+                fontRenderer.drawString(StatCollector.translateToLocal("gui.toolstation2") + availableDurability + "/" + maxDur, xSize + 8, base + offset * 10, 0xffffff);
                 offset++;
             }
         }
@@ -220,17 +220,17 @@ public class ToolStationGui extends NewContainerGui
             if (attack < 1)
                 attack = 1;
 
-            String heart = attack == 2 ? (StatCollector.translateToLocal("gui.partcrafter9") : (StatCollector.translateToLocal("gui.partcrafter10");
+            String heart = attack == 2 ? StatCollector.translateToLocal("gui.partcrafter9") : (tatCollector.translateToLocal("gui.partcrafter10");
             if (attack % 2 == 0)
-                this.fontRenderer.drawString((StatCollector.translateToLocal("gui.toolstation3") + attack / 2 + heart, xSize + 8, base + offset * 10, 0xffffff);
+                this.fontRenderer.drawString(StatCollector.translateToLocal("gui.toolstation3") + attack / 2 + heart, xSize + 8, base + offset * 10, 0xffffff);
             else
-                this.fontRenderer.drawString((StatCollector.translateToLocal("gui.toolstation3") + attack / 2f + heart, xSize + 8, base + offset * 10, 0xffffff);
+                this.fontRenderer.drawString(StatCollector.translateToLocal("gui.toolstation3") + attack / 2f + heart, xSize + 8, base + offset * 10, 0xffffff);
             offset++;
 
             if (stoneboundDamage != 0)
             {
-                heart = stoneboundDamage == 2 ? (StatCollector.translateToLocal("gui.partcrafter9") : (StatCollector.translateToLocal("gui.partcrafter10");
-                String bloss = stoneboundDamage > 0 ? (StatCollector.translateToLocal("gui.toolstation4") : (StatCollector.translateToLocal("gui.toolstation5");
+                heart = stoneboundDamage == 2 ? StatCollector.translateToLocal("gui.partcrafter9") : StatCollector.translateToLocal("gui.partcrafter10");
+                String bloss = stoneboundDamage > 0 ? StatCollector.translateToLocal("gui.toolstation4") : StatCollector.translateToLocal("gui.toolstation5");
                 this.fontRenderer.drawString(bloss + (int) stoneboundDamage / 2 + heart, xSize + 8, base + offset * 10, 0xffffff);
                 offset++;
             }
@@ -244,9 +244,9 @@ public class ToolStationGui extends NewContainerGui
             int drawSpeed = tags.getInteger("DrawSpeed");
             float flightSpeed = tags.getFloat("FlightSpeed");
             float trueDraw = drawSpeed / 20f * flightSpeed;
-            this.fontRenderer.drawString((StatCollector.translateToLocal("gui.toolstation6") + df.format(trueDraw) + "s", xSize + 8, base + offset * 10, 0xffffff);
+            this.fontRenderer.drawString(StatCollector.translateToLocal("gui.toolstation6") + df.format(trueDraw) + "s", xSize + 8, base + offset * 10, 0xffffff);
             offset++;
-            this.fontRenderer.drawString((StatCollector.translateToLocal("gui.toolstation7") + df.format(flightSpeed) + "x", xSize + 8, base + offset * 10, 0xffffff);
+            this.fontRenderer.drawString(StatCollector.translateToLocal("gui.toolstation7") + df.format(flightSpeed) + "x", xSize + 8, base + offset * 10, 0xffffff);
             offset++;
             offset++;
         }
@@ -277,9 +277,9 @@ public class ToolStationGui extends NewContainerGui
             offset++;
             offset++;
 
-            this.fontRenderer.drawString((StatCollector.translateToLocal("gui.toolstation8") + df.format(mass), xSize + 8, base + offset * 10, 0xffffff);
+            this.fontRenderer.drawString(StatCollector.translateToLocal("gui.toolstation8") + df.format(mass), xSize + 8, base + offset * 10, 0xffffff);
             offset++;
-            this.fontRenderer.drawString((StatCollector.translateToLocal("gui.toolstation9") + df.format(accuracy - 4) + "%", xSize + 8, base + offset * 10, 0xffffff);
+            this.fontRenderer.drawString(StatCollector.translateToLocal("gui.toolstation9") + df.format(accuracy - 4) + "%", xSize + 8, base + offset * 10, 0xffffff);
             offset++;
             /*this.fontRenderer.drawString("Chance to break: " + df.format(shatter)+"%", xSize + 8, base + offset * 10, 0xffffff);
             offset++;*/
@@ -297,18 +297,18 @@ public class ToolStationGui extends NewContainerGui
             float trueSpeed = mineSpeed + stoneboundSpeed;
             float trueSpeed2 = mineSpeed + stoneboundSpeed;
 
-            fontRenderer.drawString((StatCollector.translateToLocal("gui.toolstation12"), xSize + 8, base + offset * 10, 0xffffff);
+            fontRenderer.drawString(StatCollector.translateToLocal("gui.toolstation12"), xSize + 8, base + offset * 10, 0xffffff);
             offset++;
             fontRenderer.drawString("- " + df.format(trueSpeed) + ", " + df.format(trueSpeed2), xSize + 8, base + offset * 10, 0xffffff);
             offset++;
             if (stoneboundSpeed != 0)
             {
-                String bloss = stoneboundSpeed > 0 ? (StatCollector.translateToLocal("gui.toolstation4") : (StatCollector.translateToLocal("gui.toolstation5");
+                String bloss = stoneboundSpeed > 0 ? StatCollector.translateToLocal("gui.toolstation4") : StatCollector.translateToLocal("gui.toolstation5");
                 fontRenderer.drawString(bloss + df.format(stoneboundSpeed), xSize + 8, base + offset * 10, 0xffffff);
                 offset++;
             }
             offset++;
-            fontRenderer.drawString((StatCollector.translateToLocal("gui.toolstation13"), xSize + 8, base + offset * 10, 0xffffff);
+            fontRenderer.drawString(StatCollector.translateToLocal("gui.toolstation13"), xSize + 8, base + offset * 10, 0xffffff);
             offset++;
             fontRenderer
                     .drawString("- " + getHarvestLevelName(tags.getInteger("HarvestLevel")) + ", " + getHarvestLevelName(tags.getInteger("HarvestLevel2")), xSize + 8, base + offset * 10, 0xffffff);
@@ -346,15 +346,15 @@ public class ToolStationGui extends NewContainerGui
             trueSpeed += stoneboundSpeed;
             if (trueSpeed < 0)
                 trueSpeed = 0;
-            fontRenderer.drawString((StatCollector.translateToLocal("gui.toolstation14")rs") + df.format(trueSpeed), xSize + 8, base + offset * 10, 0xffffff);
+            fontRenderer.drawString(StatCollector.translateToLocal("gui.toolstation14")rs") + df.format(trueSpeed), xSize + 8, base + offset * 10, 0xffffff);
             offset++;
             if (stoneboundSpeed != 0)
             {
-                String bloss = stoneboundSpeed > 0 ? (StatCollector.translateToLocal("gui.toolstation4") : (StatCollector.translateToLocal("gui.toolstation5");
+                String bloss = stoneboundSpeed > 0 ? StatCollector.translateToLocal("gui.toolstation4") : StatCollector.translateToLocal("gui.toolstation5");
                 fontRenderer.drawString(bloss + df.format(stoneboundSpeed), xSize + 8, base + offset * 10, 0xffffff);
                 offset++;
             }
-            fontRenderer.drawString((StatCollector.translateToLocal("gui.toolstation15") + getHarvestLevelName(tags.getInteger("HarvestLevel")), xSize + 8, base + offset * 10, 0xffffff);
+            fontRenderer.drawString(StatCollector.translateToLocal("gui.toolstation15") + getHarvestLevelName(tags.getInteger("HarvestLevel")), xSize + 8, base + offset * 10, 0xffffff);
             offset++;
             offset++;
         }
@@ -362,7 +362,7 @@ public class ToolStationGui extends NewContainerGui
         {
             float mineSpeed = tags.getInteger("MiningSpeed");
             float trueSpeed = mineSpeed / (100f);
-            fontRenderer.drawString((StatCollector.translateToLocal("gui.toolstation16") + trueSpeed, xSize + 8, base + offset * 10, 0xffffff);
+            fontRenderer.drawString(StatCollector.translateToLocal("gui.toolstation16") + trueSpeed, xSize + 8, base + offset * 10, 0xffffff);
             offset++;
             offset++;
         }
@@ -370,12 +370,12 @@ public class ToolStationGui extends NewContainerGui
         int modifiers = tags.getInteger("Modifie;
         if (modifiers > 0)
         {
-            fontRenderer.drawString((StatCollector.translateToLocal("gui.toolstation18") + tags.getInteger("Modifiers"), xSize + 8, base + offset * 10, 0xffffff);
+            fontRenderer.drawString(StatCollector.translateToLocal("gui.toolstation18") + tags.getInteger("Modifiers"), xSize + 8, base + offset * 10, 0xffffff);
             offset++;
         }
         if (tags.hasKey("Tooltip1"))
         {
-            fontRenderer.drawString((StatCollector.translateToLocal("gui.toolstation17"), xSize + 8, base + offset * 10, 0xffffff);
+            fontRenderer.drawString(StatCollector.translateToLocal("gui.toolstation17"), xSize + 8, base + offset * 10, 0xffffff);
         }
 
         boolean displayToolTips = true;
@@ -405,17 +405,17 @@ public class ToolStationGui extends NewContainerGui
         switch (num)
         {
         case 0:
-            return (StatCollector.translateToLocal("gui.partcrafter.mining1");
+            return (StatCollector.translateToLocal("gui.partcrafter.mining1"));
         case 1:
-            return (StatCollector.translateToLocal("gui.partcrafter.mining2");
+            return (StatCollector.translateToLocal("gui.partcrafter.mining2"));
         case 2:
-            return (StatCollector.translateToLocal("gui.partcrafter.mining3");
+            return (StatCollector.translateToLocal("gui.partcrafter.mining3"));
         case 3:
-            return (StatCollector.translateToLocal("gui.partcrafter.mining4"); //Mithril
+            return (StatCollector.translateToLocal("gui.partcrafter.mining4")); //Mithril
         case 4:
-            return (StatCollector.translateToLocal("gui.partcrafter.mining5");
+            return (StatCollector.translateToLocal("gui.partcrafter.mining5"));
         case 5:
-            return (StatCollector.translateToLocal("gui.partcrafter.mining6");
+            return (StatCollector.translateToLocal("gui.partcrafter.mining6"));
         default:
             return String.valueOf(num);
         }
