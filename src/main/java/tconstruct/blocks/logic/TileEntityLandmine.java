@@ -255,7 +255,7 @@ public class TileEntityLandmine extends TileEntity implements IInventory
     }
 
     @Override
-    public void updateEntity ()
+    public void func_145845_h ()
     {
         if (shouldUpdateLogic)
         {

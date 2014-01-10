@@ -17,7 +17,7 @@ import tconstruct.library.util.IPattern;
 
 public class Pattern extends CraftingItem implements IPattern
 {
-    public Pattern(int id, String patternType, String folder)
+    public Pattern(String patternType, String folder)
     {
         this(patternName, getPatternNames(patternType), folder);
     }

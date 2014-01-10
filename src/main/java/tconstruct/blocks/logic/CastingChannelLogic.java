@@ -41,7 +41,7 @@ public class CastingChannelLogic extends TileEntity implements IFluidTank, IFlui
     }
 
     @Override
-    public void updateEntity ()
+    public void func_145845_h ()
     {
         if (this.field_145850_b.isRemote)
             return;
@@ -556,7 +556,7 @@ public class CastingChannelLogic extends TileEntity implements IFluidTank, IFlui
         {
             NBTTagCompound nbt = new NBTTagCompound();
             liquid.writeToNBT(nbt);
-            tags.setCompoundTag("Fluid", nbt);
+            tags.setTag("Fluid", nbt);
         }
         tags.setInteger("LastProvider", this.convertFDToInt(this.lastProvider));
         tags.setInteger("recentlyFilledDelay", this.recentlyFilledDelay);

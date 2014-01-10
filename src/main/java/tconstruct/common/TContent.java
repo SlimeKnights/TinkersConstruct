@@ -140,7 +140,7 @@ public class TContent implements IFuelHandler
         TRepo.barricadeSpruce = new BarricadeBlock(Blocks.log, 1).func_149663_c("trap.barricade.spruce");
         TRepo.barricadeBirch = new BarricadeBlock(Blocks.log, 2).func_149663_c("trap.barricade.birch");
         TRepo.barricadeJungle = new BarricadeBlock(Blocks.log, 3).func_149663_c("trap.barricade.jungle");
-        TRepo.slimeExplosive = new SlimeExplosive().setHardness(0.0F).setStepSound(Block.soundGrassFootstep).func_149663_c("explosive.slime");
+        TRepo.slimeExplosive = new SlimeExplosive().setHardness(0.0F).setStepSound(Block.field_149779_h).func_149663_c("explosive.slime");
 
         TRepo.dryingRack = new DryingRack().func_149663_c("Armor.DryingRack");
 
@@ -383,8 +383,8 @@ public class TContent implements IFuelHandler
                 TRepo.moltenNickel, TRepo.moltenLead, TRepo.moltenSilver, TRepo.moltenShiny, TRepo.moltenInvar, TRepo.moltenElectrum, TRepo.moltenEnder, TRepo.slimePool, TRepo.glueFluidBlock };
         //Slime Islands
         TRepo.slimeGel = new SlimeGel(PHConstruct.slimeGel).setStepSound(TRepo.slimeStep).setLightOpacity(0).func_149663_c("slime.gel");
-        TRepo.slimeGrass = new SlimeGrass(PHConstruct.slimeGrass).setStepSound(Block.soundGrassFootstep).setLightOpacity(0).func_149663_c("slime.grass");
-        TRepo.slimeTallGrass = new SlimeTallGrass(PHConstruct.slimeTallGrass).setStepSound(Block.soundGrassFootstep).func_149663_c("slime.grass.tall");
+        TRepo.slimeGrass = new SlimeGrass(PHConstruct.slimeGrass).setStepSound(Block.field_149779_h).setLightOpacity(0).func_149663_c("slime.grass");
+        TRepo.slimeTallGrass = new SlimeTallGrass(PHConstruct.slimeTallGrass).setStepSound(Block.field_149779_h).func_149663_c("slime.grass.tall");
         TRepo.slimeLeaves = (SlimeLeaves) new SlimeLeaves(PHConstruct.slimeLeaves).setStepSound(TRepo.slimeStep).setLightOpacity(0).func_149663_c("slime.leaves");
         TRepo.slimeSapling = (SlimeSapling) new SlimeSapling(PHConstruct.slimeSapling).setStepSound(TRepo.slimeStep).func_149663_c("slime.sapling");
         TRepo.slimeChannel = new ConveyorBase(PHConstruct.slimeChannel, Material.water, "greencurrent").setHardness(0.3f).setStepSound(TRepo.slimeStep).func_149663_c("slime.channel");
@@ -715,28 +715,28 @@ public class TContent implements IFuelHandler
             pb.registerMaterialSet("Wood", new ItemStack(Items.stick, 2), new ItemStack(Items.stick), 0);
         if (PHConstruct.enableTStone)
         {
-            pb.registerFullMaterial(Block.stone, 2, "Stone", new ItemStack(TRepo.toolShard, 1, 1), new ItemStack(TRepo.toolRod, 1, 1), 1);
-            pb.registerMaterial(Block.cobblestone, 2, "Stone");
+            pb.registerFullMaterial(Blocks.stone, 2, "Stone", new ItemStack(TRepo.toolShard, 1, 1), new ItemStack(TRepo.toolRod, 1, 1), 1);
+            pb.registerMaterial(Blocks.cobblestone, 2, "Stone");
         }
         else
             pb.registerMaterialSet("Stone", new ItemStack(TRepo.toolShard, 1, 1), new ItemStack(TRepo.toolRod, 1, 1), 0);
-        pb.registerFullMaterial(Item.ingotIron, 2, "Iron", new ItemStack(TRepo.toolShard, 1, 2), new ItemStack(TRepo.toolRod, 1, 2), 2);
+        pb.registerFullMaterial(Items.iron_ingot, 2, "Iron", new ItemStack(TRepo.toolShard, 1, 2), new ItemStack(TRepo.toolRod, 1, 2), 2);
         if (PHConstruct.enableTFlint)
-            pb.registerFullMaterial(Item.flint, 2, "Flint", new ItemStack(TRepo.toolShard, 1, 3), new ItemStack(TRepo.toolRod, 1, 3), 3);
+            pb.registerFullMaterial(Items.flint, 2, "Flint", new ItemStack(TRepo.toolShard, 1, 3), new ItemStack(TRepo.toolRod, 1, 3), 3);
         else
             pb.registerMaterialSet("Flint", new ItemStack(TRepo.toolShard, 1, 3), new ItemStack(TRepo.toolRod, 1, 3), 3);
         if (PHConstruct.enableTCactus)
-            pb.registerFullMaterial(Block.cactus, 2, "Cactus", new ItemStack(TRepo.toolShard, 1, 4), new ItemStack(TRepo.toolRod, 1, 4), 4);
+            pb.registerFullMaterial(Blocks.cactus, 2, "Cactus", new ItemStack(TRepo.toolShard, 1, 4), new ItemStack(TRepo.toolRod, 1, 4), 4);
         else
             pb.registerMaterialSet("Cactus", new ItemStack(TRepo.toolShard, 1, 4), new ItemStack(TRepo.toolRod, 1, 4), 4);
         if (PHConstruct.enableTBone)
-            pb.registerFullMaterial(Item.bone, 2, "Bone", new ItemStack(Item.dyePowder, 1, 15), new ItemStack(Item.bone), 5);
+            pb.registerFullMaterial(Items.bone, 2, "Bone", new ItemStack(Items.dyePowder, 1, 15), new ItemStack(Item.bone), 5);
         else
-            pb.registerMaterialSet("Bone", new ItemStack(Item.dyePowder, 1, 15), new ItemStack(Item.bone), 5);
-        pb.registerFullMaterial(Block.obsidian, 2, "Obsidian", new ItemStack(TRepo.toolShard, 1, 6), new ItemStack(TRepo.toolRod, 1, 6), 6);
+            pb.registerMaterialSet("Bone", new ItemStack(Item.dyePowder, 1, 15), new ItemStack(Items.bone), 5);
+        pb.registerFullMaterial(Blocks.obsidian, 2, "Obsidian", new ItemStack(TRepo.toolShard, 1, 6), new ItemStack(TRepo.toolRod, 1, 6), 6);
         pb.registerMaterial(new ItemStack(TRepo.materials, 1, 18), 2, "Obsidian");
         if (PHConstruct.enableTNetherrack)
-            pb.registerFullMaterial(Block.netherrack, 2, "Netherrack", new ItemStack(TRepo.toolShard, 1, 7), new ItemStack(TRepo.toolRod, 1, 7), 7);
+            pb.registerFullMaterial(Blocks.netherrack, 2, "Netherrack", new ItemStack(TRepo.toolShard, 1, 7), new ItemStack(TRepo.toolRod, 1, 7), 7);
         else
             pb.registerMaterialSet("Netherrack", new ItemStack(TRepo.toolShard, 1, 7), new ItemStack(TRepo.toolRod, 1, 7), 7);
         if (PHConstruct.enableTSlime)

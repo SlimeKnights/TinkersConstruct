@@ -42,7 +42,7 @@ public class Hatchet extends HarvestTool
         return AbilityHelper.onBlockChanged(itemstack, world, block, x, y, z, player, random);
     }
 
-    static Material[] materials = { Material.field_151575_d, Material.leaves, Material.field_151582_l, Material.circuits, Material.cactus, Material.pumpkin };
+    static Material[] materials = { Material.field_151575_d, Material.leaves, Material.field_151582_l, Material.field_151594_q, Material.cactus, Material.pumpkin };
 
     @Override
     public Item getHeadItem ()

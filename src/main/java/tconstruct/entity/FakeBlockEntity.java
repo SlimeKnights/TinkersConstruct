@@ -1,5 +1,6 @@
 package tconstruct.entity;
 
+import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
@@ -25,18 +26,6 @@ public class FakeBlockEntity extends Entity implements IEntityAdditionalSpawnDat
     }
 
     @Override
-    public void writeSpawnData (ByteArrayDataOutput data)
-    {
-
-    }
-
-    @Override
-    public void readSpawnData (ByteArrayDataInput data)
-    {
-
-    }
-
-    @Override
     protected void readEntityFromNBT (NBTTagCompound var1)
     {
 
@@ -46,6 +35,18 @@ public class FakeBlockEntity extends Entity implements IEntityAdditionalSpawnDat
     protected void writeEntityToNBT (NBTTagCompound var1)
     {
 
+    }
+
+    @Override
+    public void writeSpawnData (ByteBuf buffer)
+    {
+        
+    }
+
+    @Override
+    public void readSpawnData (ByteBuf additionalData)
+    {
+        
     }
 
 }

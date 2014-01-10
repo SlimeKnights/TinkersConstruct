@@ -13,6 +13,7 @@ public class BlockSkinRenderHelper
 {
     public static boolean renderMetadataBlock (Block block, int metadata, int x, int y, int z, RenderBlocks renderer, IBlockAccess world)
     {
+        //TODO CHECK THESE!!!!
         int var5 = block.colorMultiplier(world, x, y, z);
         float var6 = (float) (var5 >> 16 & 255) / 255.0F;
         float var7 = (float) (var5 >> 8 & 255) / 255.0F;

@@ -773,8 +773,8 @@ public abstract class BowBase extends ToolCore
         {
             if (!TRepo.supressMissingToolLogs)
             {
-                TConstruct.logger.warning("Creative builder failed tool for " + name + this.getToolName());
-                TConstruct.logger.warning("Make sure you do not have item ID conflicts");
+                TConstruct.logger.warn("Creative builder failed tool for " + name + this.getToolName());
+                TConstruct.logger.warn("Make sure you do not have item ID conflicts");
             }
         }
         else

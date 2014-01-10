@@ -30,7 +30,7 @@ public class GlassBlock extends TConstructBlock
     }
 
     @Override
-    public float getBlockHardness (World world, int x, int y, int z)
+    public float func_149712_f (World world, int x, int y, int z)
     {
         int meta = world.getBlockMetadata(x, y, z);
         switch (meta)
@@ -42,7 +42,7 @@ public class GlassBlock extends TConstructBlock
         case 2:
             return 50.0F;
         default:
-            return blockHardness;
+            return field_149782_v;
         }
     }
 
@@ -58,7 +58,7 @@ public class GlassBlock extends TConstructBlock
         case 2:
             return 2000F;
         default:
-            return getExplosionResistance(entity);
+            return func_149638_a(entity);
         }
     }
 

@@ -43,7 +43,7 @@ public class SmelteryScan extends TankLayerScan
     @Override
     protected boolean checkServant (int x, int y, int z)
     {
-        Block block = world.func_147439_a(x, y, z)];
+        Block block = world.func_147439_a(x, y, z);
         if (block == null || world.func_147439_a( x, y, z)  == Blocks.air || !isValidBlock(x, y, z))
             return false;
 

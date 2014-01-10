@@ -14,7 +14,7 @@ import net.minecraft.world.IBlockAccess;
  */
 
 public class RenderLiquid
-{
+{//TODO CHECK THIS!!!!
     public static boolean renderMetadataBlock (Block block, int metadata, int x, int y, int z, RenderBlocks renderer, IBlockAccess world)
     {
         int var5 = block.colorMultiplier(world, x, y, z);
@@ -32,7 +32,7 @@ public class RenderLiquid
             var8 = var11;
         }
 
-        return (Minecraft.isAmbientOcclusionEnabled()) && (Block.lightValue[block.blockID] == 0) ? renderMetadataBlockWithAmbientOcclusion(block, metadata, x, y, z, var6, var7, var8, renderer, world)
+        return (Minecraft.isAmbientOcclusionEnabled()) && (block.lightValue == 0) ? renderMetadataBlockWithAmbientOcclusion(block, metadata, x, y, z, var6, var7, var8, renderer, world)
                 : renderMetadataBlockWithColorMultiplier(block, metadata, x, y, z, var6, var7, var8, renderer, world);
     }
 

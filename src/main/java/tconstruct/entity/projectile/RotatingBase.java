@@ -1,9 +1,10 @@
 package tconstruct.entity.projectile;
 
+import io.netty.buffer.ByteBuf;
+
 import java.util.List;
 
 import tconstruct.library.tools.AbilityHelper;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -334,7 +335,7 @@ public class RotatingBase extends Entity implements IEntityAdditionalSpawnData
 
     public void writeEntityToNBT (NBTTagCompound tags)
     {
-        tags.setCompoundTag("Throwable", this.returnStack.writeToNBT(new NBTTagCompound()));
+        tags.setTag("Throwable", this.returnStack.writeToNBT(new NBTTagCompound()));
         tags.setShort("xTile", (short) xTile);
         tags.setShort("yTile", (short) yTile);
         tags.setShort("zTile", (short) zTile);
@@ -417,7 +418,7 @@ public class RotatingBase extends Entity implements IEntityAdditionalSpawnData
     public boolean doNotRetrieve;
 
     @Override
-    public void writeSpawnData (ByteArrayDataOutput data)
+    public void writeSpawnData (ByteBuf data)
     {
         NBTTagCompound tags = returnStack.getTagCompound().getCompoundTag("InfiTool");
         data.writeShort(returnStack.itemID);
@@ -459,7 +460,7 @@ public class RotatingBase extends Entity implements IEntityAdditionalSpawnData
     }
 
     @Override
-    public void readSpawnData (ByteArrayDataInput data)
+    public void readSpawnData (ByteBuf data)
     {
         returnStack = new ItemStack(data.readShort(), 1, 0);
         rotationYaw = data.readFloat();
@@ -483,7 +484,7 @@ public class RotatingBase extends Entity implements IEntityAdditionalSpawnData
         case 1:
             toolTag.setInteger("Effect1", data.readInt());
         }
-        compound.setCompoundTag("InfiTool", toolTag);
+        compound.setTag("InfiTool", toolTag);
         returnStack.setTagCompound(compound);
     }
 }

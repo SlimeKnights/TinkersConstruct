@@ -62,13 +62,13 @@ public class TActiveOmniMod extends ActiveToolMod
         Block block = entity.worldObj.getBlock(x, y, z);
         int meta = world.getBlockMetadata(x, y, z);
         //TODO do we need the next to lines????????
-        if (block == null || bID < 1 || bID > 4095)
+        if (block == null)
             return false;
 
         if (tags.getBoolean("Lava") && block.quantityDropped(meta, 0, random) != 0)
         {
-            ItemStack smeltStack = new ItemStack(block.idDropped(meta, random, 0), block.quantityDropped(meta, 0, random), block.damageDropped(meta));
-            if (smeltStack.itemID < 0 || smeltStack.itemID >= 32000 || smeltStack.getItem() == null)
+            ItemStack smeltStack = new ItemStack(block.IDropped(meta, random, 0), block.quantityDropped(meta, 0, random), block.damageDropped(meta));
+            if (smeltStack.getItem() == null)
                 return false;
             ItemStack result = FurnaceRecipes.smelting().getSmeltingResult(smeltStack);
             if (result != null)

@@ -169,7 +169,7 @@ public class LavaTankLogic extends MultiServantLogic implements IFluidHandler
     }
 
     @Override
-    public void updateEntity ()
+    public void func_145845_h ()
     {
         if (renderOffset > 0)
         {

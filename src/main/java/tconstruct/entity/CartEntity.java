@@ -1,5 +1,7 @@
 package tconstruct.entity;
 
+import io.netty.buffer.ByteBuf;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -1428,14 +1430,14 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
     }
 
     @Override
-    public void writeSpawnData (ByteArrayDataOutput data)
+    public void writeSpawnData (ByteBuf data)
     {
         data.writeInt(pullcartType);
 
     }
 
     @Override
-    public void readSpawnData (ByteArrayDataInput data)
+    public void readSpawnData (ByteBuf data)
     {
         pullcartType = data.readInt();
 

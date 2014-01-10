@@ -1285,7 +1285,7 @@ public class TRecipes
         }
         else
         {
-            TConstruct.logger.warning("Thaumcraft not detected.");
+            TConstruct.logger.warn("Thaumcraft not detected.");
         }
 
         if (Loader.isModLoaded("Natura"))
@@ -1402,7 +1402,7 @@ public class TRecipes
         }
         catch (Exception e)
         {
-            TConstruct.logger.warning("Could not find " + name + "from " + classPackage);
+            TConstruct.logger.warn("Could not find " + name + "from " + classPackage);
             return null;
         }
     }

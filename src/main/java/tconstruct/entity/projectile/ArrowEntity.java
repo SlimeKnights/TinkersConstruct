@@ -1,5 +1,7 @@
 package tconstruct.entity.projectile;
 
+import io.netty.buffer.ByteBuf;
+
 import java.util.List;
 import java.util.Random;
 
@@ -594,7 +596,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
     }
 
     @Override
-    public void writeSpawnData (ByteArrayDataOutput data)
+    public void writeSpawnData (ByteBuf data)
     {
         if (!returnStack.hasTagCompound())
             this.kill();
@@ -639,7 +641,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
     }
 
     @Override
-    public void readSpawnData (ByteArrayDataInput data)
+    public void readSpawnData (ByteBuf data)
     {
         returnStack = new ItemStack(data.readShort(), 1, 0);
         rotationYaw = data.readFloat();

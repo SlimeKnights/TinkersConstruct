@@ -300,7 +300,7 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
 
     /* Updating */
     @Override
-    public void updateEntity ()
+    public void func_145845_h ()
     {
         if (castingDelay > 0)
         {

@@ -1,9 +1,8 @@
 package tconstruct.util;
 
 import net.minecraft.util.DamageSource;
-
+import net.minecraft.util.IChatComponent;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.util.ChatMessageComponent;
 
 public class DamageSourceFireworkExplode extends DamageSource
 {
@@ -14,7 +13,7 @@ public class DamageSourceFireworkExplode extends DamageSource
         this.setDamageBypassesArmor();
     }
 
-    public ChatMessageComponent getDeathMessage (EntityLivingBase par1EntityLivingBase)
+    public IChatComponent getDeathMessage (EntityLivingBase par1EntityLivingBase)
     {
         return super.getDeathMessage(par1EntityLivingBase);
     }

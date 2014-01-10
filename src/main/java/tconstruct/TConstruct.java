@@ -11,8 +11,11 @@ import cpw.mods.fml.relauncher.Side;
 
 import java.util.UUID;
 
+import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.core.config.BaseConfiguration;
+import org.apache.logging.log4j.core.config.LoggerConfig;
 
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraftforge.common.MinecraftForge;
@@ -60,15 +63,19 @@ public class TConstruct
 
     public TConstruct()
     {
+        LoggerConfig fml = new LoggerConfig("FML", Level.ALL, true);
+        LoggerConfig tcon = new LoggerConfig("TConstruct", Level.ALL, true);
+        tcon.setParent(fml);
+
         //logger.setParent(FMLCommonHandler.instance().getFMLLogger());
         if (Loader.isModLoaded("Natura"))
         {
-            System.out.println("[TConstruct] Natura, what are we going to do tomorrow night?");
-            System.out.println("[Natura] TConstruct, we're going to take over the world!");
+            logger.info("Natura, what are we going to do tomorrow night?");
+            LogManager.getLogger("Natura").info("TConstruct, we're going to take over the world!");
         }
         else
         {
-            System.out.println("[TConstruct] Preparing to take over the world");
+            logger.info("Preparing to take over the world");
         }
 
         EnvironmentChecks.verifyEnvironmentSanity();
@@ -105,7 +112,7 @@ public class TConstruct
         MinecraftForge.TERRAIN_GEN_BUS.register(new TerrainGenEventHandler());
         GameRegistry.registerFuelHandler(content);
         GameRegistry.registerCraftingHandler(new TCraftingHandler());
-        NetworkRegistry.instance().registerGuiHandler(instance, proxy);
+        NetworkRegistry.INSTANCE.registerGuiHandler(instance, proxy);
 
         if (PHConstruct.addToVillages)
         {

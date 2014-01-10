@@ -23,7 +23,7 @@ public class StoneTorch extends MantleBlock
 {
     public StoneTorch(int id)
     {
-        super(Material.circuits);
+        super(Material.field_151594_q);
         this.setCreativeTab(CreativeTabs.tabDecorations);
         setLightValue(0.9375F);
     }

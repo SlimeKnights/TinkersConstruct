@@ -147,7 +147,7 @@ public class FilledBucket extends ItemBucket
 
                 world.setBlock(clickX, clickY, clickZ, TRepo.fluidBlocks[type], metadata, 3); //TODO: Merge liquids
             } catch (ArrayIndexOutOfBoundsException ex) {
-                TConstruct.logger.warning("AIOBE occured when placing bucket into world; " + ex);
+                TConstruct.logger.warn("AIOBE occured when placing bucket into world; " + ex);
                 return false;
             }
 
@@ -156,7 +156,7 @@ public class FilledBucket extends ItemBucket
     }
 
     @Override
-    public void getSubItems (Block b, CreativeTabs tab, List list)
+    public void getSubItems (Item b, CreativeTabs tab, List list)
     {
         for (int i = 0; i < icons.length; i++)
             list.add(new ItemStack(b, 1, i));
