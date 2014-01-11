@@ -32,6 +32,6 @@ public class MetalPattern extends Pattern
     {
         for (int i = 0; i < patternName.length; i++)
             if (!(patternName[i].equals("")))
-                list.add(new ItemStack(b, 1, i));
+                this.list.add(new ItemStack(b, 1, i));
     }
 }

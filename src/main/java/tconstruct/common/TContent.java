@@ -420,19 +420,19 @@ public class TContent implements IFuelHandler
         MinecraftForge.setBlockHarvestLevel(TRepo.oreGravel, 4, "shovel", 1);
         MinecraftForge.setBlockHarvestLevel(TRepo.oreGravel, 5, "shovel", 4);
 
-        TRepo.speedBlock = new SpeedBlock(PHConstruct.speedBlock).func_149663_c("SpeedBlock");
+        TRepo.speedBlock = new SpeedBlock().func_149663_c("SpeedBlock");
 
         //Glass
         TRepo.clearGlass = new GlassBlockConnected("clear", false).func_149663_c("GlassBlock");
-        TRepo.clearGlass.stepSound = Block.soundGlassFootstep;
-        TRepo.glassPane = new GlassPaneConnected(PHConstruct.glassPane, "clear", false);
-        TRepo.stainedGlassClear = new GlassBlockConnectedMeta(PHConstruct.stainedGlassClear, "stained", true, "white", "orange", "magenta", "light_blue", "yellow", "lime", "pink", "gray",
+        TRepo.clearGlass.field_149762_H = Block.soundGlassFootstep;
+        TRepo.glassPane = new GlassPaneConnected("clear", false);
+        TRepo.stainedGlassClear = new GlassBlockConnectedMeta("stained", true, "white", "orange", "magenta", "light_blue", "yellow", "lime", "pink", "gray",
                 "light_gray", "cyan", "purple", "blue", "brown", "green", "red", "black").func_149663_c("GlassBlock.StainedClear");
-        TRepo.stainedGlassClear.stepSound = Block.soundGlassFootstep;
+        TRepo.stainedGlassClear.field_149762_H = Block.soundGlassFootstep;
         TRepo.stainedGlassClearPane = new GlassPaneStained(PHConstruct.stainedGlassClearPane);
 
         //Rail
-        TRepo.woodenRail = new WoodRail(PHConstruct.woodenRail).setStepSound(Block.soundWoodFootstep).setCreativeTab(TConstructRegistry.blockTab).func_149663_c("rail.wood");
+        TRepo.woodenRail = new WoodRail().setStepSound(Block.soundWoodFootstep).setCreativeTab(TConstructRegistry.blockTab).func_149663_c("rail.wood");
 
     }
 
@@ -441,14 +441,14 @@ public class TContent implements IFuelHandler
         TRepo.titleIcon = new TitleIcon().func_149663_c("tconstruct.titleicon");
         GameRegistry.registerItem(TRepo.titleIcon, "titleIcon");
         String[] blanks = new String[] { "blank_pattern", "blank_cast", "blank_cast" };
-        TRepo.blankPattern = new CraftingItem(PHConstruct.blankPattern, blanks, blanks, "materials/", "tinker", TConstructRegistry.materialTab).func_149663_c("tconstruct.Pattern");
+        TRepo.blankPattern = new CraftingItem(blanks, blanks, "materials/", "tinker", TConstructRegistry.materialTab).func_149663_c("tconstruct.Pattern");
         GameRegistry.registerItem(TRepo.blankPattern, "blankPattern");
 
-        TRepo.materials = new MaterialItem(PHConstruct.materials).func_149663_c("tconstruct.Materials");
-        TRepo.toolRod = new ToolPart(PHConstruct.toolRod, "_rod", "ToolRod").func_149663_c("tconstruct.ToolRod");
-        TRepo.toolShard = new ToolShard(PHConstruct.toolShard, "_chunk").func_149663_c("tconstruct.ToolShard");
-        TRepo.woodPattern = new Pattern(PHConstruct.woodPattern, "pattern_", "materials/").func_149663_c("tconstruct.Pattern");
-        TRepo.metalPattern = new MetalPattern(PHConstruct.metalPattern, "cast_", "materials/").func_149663_c("tconstruct.MetalPattern");
+        TRepo.materials = new MaterialItem().func_149663_c("tconstruct.Materials");
+        TRepo.toolRod = new ToolPart( "_rod", "ToolRod").func_149663_c("tconstruct.ToolRod");
+        TRepo.toolShard = new ToolShard("_chunk").func_149663_c("tconstruct.ToolShard");
+        TRepo.woodPattern = new Pattern("pattern_", "materials/").func_149663_c("tconstruct.Pattern");
+        TRepo.metalPattern = new MetalPattern("cast_", "materials/").func_149663_c("tconstruct.MetalPattern");
         //armorPattern = new ArmorPattern(PHConstruct.armorPattern, "armorcast_", "materials/").func_149663_c("tconstruct.ArmorPattern");
         GameRegistry.registerItem(TRepo.materials, "materials");
         GameRegistry.registerItem(TRepo.woodPattern, "woodPattern");
@@ -730,9 +730,9 @@ public class TContent implements IFuelHandler
         else
             pb.registerMaterialSet("Cactus", new ItemStack(TRepo.toolShard, 1, 4), new ItemStack(TRepo.toolRod, 1, 4), 4);
         if (PHConstruct.enableTBone)
-            pb.registerFullMaterial(Items.bone, 2, "Bone", new ItemStack(Items.dye, 1, 15), new ItemStack(Item.bone), 5);
+            pb.registerFullMaterial(Items.bone, 2, "Bone", new ItemStack(Items.dye, 1, 15), new ItemStack(Items.bone), 5);
         else
-            pb.registerMaterialSet("Bone", new ItemStack(Item.dye, 1, 15), new ItemStack(Items.bone), 5);
+            pb.registerMaterialSet("Bone", new ItemStack(Items.dye, 1, 15), new ItemStack(Items.bone), 5);
         pb.registerFullMaterial(Blocks.obsidian, 2, "Obsidian", new ItemStack(TRepo.toolShard, 1, 6), new ItemStack(TRepo.toolRod, 1, 6), 6);
         pb.registerMaterial(new ItemStack(TRepo.materials, 1, 18), 2, "Obsidian");
         if (PHConstruct.enableTNetherrack)
@@ -744,9 +744,9 @@ public class TContent implements IFuelHandler
         else
             pb.registerMaterialSet("Slime", new ItemStack(TRepo.toolShard, 1, 8), new ItemStack(TRepo.toolRod, 1, 17), 8);
         if (PHConstruct.enableTPaper)
-            pb.registerFullMaterial(new ItemStack(TRepo.materials, 1, 0), 2, "Paper", new ItemStack(Item.paper, 2), new ItemStack(TRepo.toolRod, 1, 9), 9);
+            pb.registerFullMaterial(new ItemStack(TRepo.materials, 1, 0), 2, "Paper", new ItemStack(Items.paper, 2), new ItemStack(TRepo.toolRod, 1, 9), 9);
         else
-            pb.registerMaterialSet("BlueSlime", new ItemStack(Item.paper, 2), new ItemStack(TRepo.toolRod, 1, 9), 9);
+            pb.registerMaterialSet("BlueSlime", new ItemStack(Items.paper, 2), new ItemStack(TRepo.toolRod, 1, 9), 9);
         pb.registerMaterialSet("Cobalt", new ItemStack(TRepo.toolShard, 1, 10), new ItemStack(TRepo.toolRod, 1, 10), 10);
         pb.registerMaterialSet("Ardite", new ItemStack(TRepo.toolShard, 1, 11), new ItemStack(TRepo.toolRod, 1, 11), 11);
         pb.registerMaterialSet("Manyullyn", new ItemStack(TRepo.toolShard, 1, 12), new ItemStack(TRepo.toolRod, 1, 12), 12);

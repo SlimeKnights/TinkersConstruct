@@ -20,9 +20,9 @@ public class GlassPaneConnected extends GlassBlockConnected
 
     private IIcon theIcon;
 
-    public GlassPaneConnected(int par1, String location, boolean hasAlpha)
+    public GlassPaneConnected(String location, boolean hasAlpha)
     {
-        super(par1, location, hasAlpha);
+        super(location, hasAlpha);
     }
 
     @Override
@@ -37,8 +37,8 @@ public class GlassPaneConnected extends GlassBlockConnected
     {
         if (par5 == 0 || par5 == 1)
         {
-            return par1IBlockAccess.getBlock(par2, par3 - 1, par4) == this && par5 == 0 ? icons[15]
-                    : par1IBlockAccess.getBlock(par2, par3 + 1, par4) == this && par5 == 1 ? icons[15] : getSideTextureIndex();
+            return par1IBlockAccess.func_147439_a(par2, par3 - 1, par4) == this && par5 == 0 ? icons[15]
+                    : par1IBlockAccess.func_147439_a(par2, par3 + 1, par4) == this && par5 == 1 ? icons[15] : getSideTextureIndex();
         }
         else
         {
@@ -64,22 +64,22 @@ public class GlassPaneConnected extends GlassBlockConnected
         switch (par5)
         {
         case 0:
-            if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.getBlock(par2 - 1, par3, par4), par1IBlockAccess.getBlockMetadata(par2 - 1, par3, par4)))
+            if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.func_147439_a(par2 - 1, par3, par4), par1IBlockAccess.getBlockMetadata(par2 - 1, par3, par4)))
             {
                 isOpenDown = true;
             }
 
-            if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.getBlock(par2 + 1, par3, par4), par1IBlockAccess.getBlockMetadata(par2 + 1, par3, par4)))
+            if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.func_147439_a(par2 + 1, par3, par4), par1IBlockAccess.getBlockMetadata(par2 + 1, par3, par4)))
             {
                 isOpenUp = true;
             }
 
-            if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.getBlock(par2, par3, par4 - 1), par1IBlockAccess.getBlockMetadata(par2, par3, par4 - 1)))
+            if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.func_147439_a(par2, par3, par4 - 1), par1IBlockAccess.getBlockMetadata(par2, par3, par4 - 1)))
             {
                 isOpenLeft = true;
             }
 
-            if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.getBlock(par2, par3, par4 + 1), par1IBlockAccess.getBlockMetadata(par2, par3, par4 + 1)))
+            if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.func_147439_a(par2, par3, par4 + 1), par1IBlockAccess.getBlockMetadata(par2, par3, par4 + 1)))
             {
                 isOpenRight = true;
             }
@@ -146,22 +146,22 @@ public class GlassPaneConnected extends GlassBlockConnected
             }
             break;
         case 1:
-            if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.getBlock(par2 - 1, par3, par4), par1IBlockAccess.getBlockMetadata(par2 - 1, par3, par4)))
+            if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.func_147439_a(par2 - 1, par3, par4), par1IBlockAccess.getBlockMetadata(par2 - 1, par3, par4)))
             {
                 isOpenDown = true;
             }
 
-            if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.getBlock(par2 + 1, par3, par4), par1IBlockAccess.getBlockMetadata(par2 + 1, par3, par4)))
+            if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.func_147439_a(par2 + 1, par3, par4), par1IBlockAccess.getBlockMetadata(par2 + 1, par3, par4)))
             {
                 isOpenUp = true;
             }
 
-            if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.getBlock(par2, par3, par4 - 1), par1IBlockAccess.getBlockMetadata(par2, par3, par4 - 1)))
+            if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.func_147439_a(par2, par3, par4 - 1), par1IBlockAccess.getBlockMetadata(par2, par3, par4 - 1)))
             {
                 isOpenLeft = true;
             }
 
-            if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.getBlock(par2, par3, par4 + 1), par1IBlockAccess.getBlockMetadata(par2, par3, par4 + 1)))
+            if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.func_147439_a(par2, par3, par4 + 1), par1IBlockAccess.getBlockMetadata(par2, par3, par4 + 1)))
             {
                 isOpenRight = true;
             }
@@ -228,22 +228,22 @@ public class GlassPaneConnected extends GlassBlockConnected
             }
             break;
         case 2:
-            if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.getBlock(par2, par3 - 1, par4), par1IBlockAccess.getBlockMetadata(par2, par3 - 1, par4)))
+            if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.func_147439_a(par2, par3 - 1, par4), par1IBlockAccess.getBlockMetadata(par2, par3 - 1, par4)))
             {
                 isOpenDown = true;
             }
 
-            if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.getBlock(par2, par3 + 1, par4), par1IBlockAccess.getBlockMetadata(par2, par3 + 1, par4)))
+            if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.func_147439_a(par2, par3 + 1, par4), par1IBlockAccess.getBlockMetadata(par2, par3 + 1, par4)))
             {
                 isOpenUp = true;
             }
 
-            if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.getBlock(par2 - 1, par3, par4), par1IBlockAccess.getBlockMetadata(par2 - 1, par3, par4)))
+            if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.func_147439_a(par2 - 1, par3, par4), par1IBlockAccess.getBlockMetadata(par2 - 1, par3, par4)))
             {
                 isOpenLeft = true;
             }
 
-            if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.getBlock(par2 + 1, par3, par4), par1IBlockAccess.getBlockMetadata(par2 + 1, par3, par4)))
+            if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.func_147439_a(par2 + 1, par3, par4), par1IBlockAccess.getBlockMetadata(par2 + 1, par3, par4)))
             {
                 isOpenRight = true;
             }
@@ -310,22 +310,22 @@ public class GlassPaneConnected extends GlassBlockConnected
             }
             break;
         case 3:
-            if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.getBlock(par2, par3 - 1, par4), par1IBlockAccess.getBlockMetadata(par2, par3 - 1, par4)))
+            if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.func_147439_a(par2, par3 - 1, par4), par1IBlockAccess.getBlockMetadata(par2, par3 - 1, par4)))
             {
                 isOpenDown = true;
             }
 
-            if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.getBlock(par2, par3 + 1, par4), par1IBlockAccess.getBlockMetadata(par2, par3 + 1, par4)))
+            if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.func_147439_a(par2, par3 + 1, par4), par1IBlockAccess.getBlockMetadata(par2, par3 + 1, par4)))
             {
                 isOpenUp = true;
             }
 
-            if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.getBlock(par2 - 1, par3, par4), par1IBlockAccess.getBlockMetadata(par2 - 1, par3, par4)))
+            if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.func_147439_a(par2 - 1, par3, par4), par1IBlockAccess.getBlockMetadata(par2 - 1, par3, par4)))
             {
                 isOpenLeft = true;
             }
 
-            if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.getBlock(par2 + 1, par3, par4), par1IBlockAccess.getBlockMetadata(par2 + 1, par3, par4)))
+            if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.func_147439_a(par2 + 1, par3, par4), par1IBlockAccess.getBlockMetadata(par2 + 1, par3, par4)))
             {
                 isOpenRight = true;
             }
@@ -392,22 +392,22 @@ public class GlassPaneConnected extends GlassBlockConnected
             }
             break;
         case 4:
-            if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.getBlock(par2, par3 - 1, par4), par1IBlockAccess.getBlockMetadata(par2, par3 - 1, par4)))
+            if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.func_147439_a(par2, par3 - 1, par4), par1IBlockAccess.getBlockMetadata(par2, par3 - 1, par4)))
             {
                 isOpenDown = true;
             }
 
-            if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.getBlock(par2, par3 + 1, par4), par1IBlockAccess.getBlockMetadata(par2, par3 + 1, par4)))
+            if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.func_147439_a(par2, par3 + 1, par4), par1IBlockAccess.getBlockMetadata(par2, par3 + 1, par4)))
             {
                 isOpenUp = true;
             }
 
-            if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.getBlock(par2, par3, par4 - 1), par1IBlockAccess.getBlockMetadata(par2, par3, par4 - 1)))
+            if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.func_147439_a(par2, par3, par4 - 1), par1IBlockAccess.getBlockMetadata(par2, par3, par4 - 1)))
             {
                 isOpenLeft = true;
             }
 
-            if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.getBlock(par2, par3, par4 + 1), par1IBlockAccess.getBlockMetadata(par2, par3, par4 + 1)))
+            if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.func_147439_a(par2, par3, par4 + 1), par1IBlockAccess.getBlockMetadata(par2, par3, par4 + 1)))
             {
                 isOpenRight = true;
             }
@@ -474,22 +474,22 @@ public class GlassPaneConnected extends GlassBlockConnected
             }
             break;
         case 5:
-            if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.getBlock(par2, par3 - 1, par4), par1IBlockAccess.getBlockMetadata(par2, par3 - 1, par4)))
+            if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.func_147439_a(par2, par3 - 1, par4), par1IBlockAccess.getBlockMetadata(par2, par3 - 1, par4)))
             {
                 isOpenDown = true;
             }
 
-            if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.getBlock(par2, par3 + 1, par4), par1IBlockAccess.getBlockMetadata(par2, par3 + 1, par4)))
+            if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.func_147439_a(par2, par3 + 1, par4), par1IBlockAccess.getBlockMetadata(par2, par3 + 1, par4)))
             {
                 isOpenUp = true;
             }
 
-            if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.getBlock(par2, par3, par4 - 1), par1IBlockAccess.getBlockMetadata(par2, par3, par4 - 1)))
+            if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.func_147439_a(par2, par3, par4 - 1), par1IBlockAccess.getBlockMetadata(par2, par3, par4 - 1)))
             {
                 isOpenLeft = true;
             }
 
-            if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.getBlock(par2, par3, par4 + 1), par1IBlockAccess.getBlockMetadata(par2, par3, par4 + 1)))
+            if (shouldConnectToBlock(par1IBlockAccess, par2, par3, par4, par1IBlockAccess.func_147439_a(par2, par3, par4 + 1), par1IBlockAccess.getBlockMetadata(par2, par3, par4 + 1)))
             {
                 isOpenRight = true;
             }
@@ -680,7 +680,7 @@ public class GlassPaneConnected extends GlassBlockConnected
 
     public boolean canPaneConnectTo (IBlockAccess access, int x, int y, int z, ForgeDirection dir)
     {
-        return canThisPaneConnectToThisBlockID(access.getBlock(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ))
+        return canThisPaneConnectToThisBlock(access.func_147439_a(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ))
                 || access.isBlockSolidOnSide(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ, dir.getOpposite(), false);
     }
 
@@ -688,7 +688,7 @@ public class GlassPaneConnected extends GlassBlockConnected
     public boolean shouldSideBeRendered (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
     {
         //		if(par5 == 0 || par5 == 1){
-        //			return par1IBlockAccess.getBlock(par2, par3, par4) != this.blockID;
+        //			return par1IBlockAccess.func_147439_a(par2, par3, par4) != this.blockID;
         //		}else{
         //			return true;
         //		}

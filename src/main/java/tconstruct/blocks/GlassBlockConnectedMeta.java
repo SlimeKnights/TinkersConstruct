@@ -22,9 +22,9 @@ public class GlassBlockConnectedMeta extends GlassBlockConnected
     public IIcon[][] icons;
     boolean ignoreMetaForConnectedGlass = PHConstruct.connectedTexturesMode == 2;
 
-    public GlassBlockConnectedMeta(int par1, String location, boolean hasAlpha, String... textures)
+    public GlassBlockConnectedMeta(String location, boolean hasAlpha, String... textures)
     {
-        super(par1, location, hasAlpha);
+        super(location, hasAlpha);
         this.textures = textures;
         this.icons = new IIcon[textures.length][16];
     }

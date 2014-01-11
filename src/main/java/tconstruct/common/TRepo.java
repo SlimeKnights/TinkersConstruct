@@ -6,9 +6,8 @@ import tconstruct.blocks.slime.SlimeSapling;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.modifiers.tools.*;
 import net.minecraft.block.Block;
-import net.minecraft.block.StepSound;
+import net.minecraft.block.Block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraftforge.common.ChestGenHooks;
@@ -210,7 +209,7 @@ public class TRepo
     public static Block moltenEnder;
 
     //Slime
-    public static StepSound slimeStep;
+    public static SoundType slimeStep;
     public static Block slimePool;
     public static Block slimeGel;
     public static Block slimeGrass;
