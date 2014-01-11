@@ -30,78 +30,77 @@ public class CastingChannelBlock extends BlockContainer
     }
 
     @Override
-    public boolean onBlockActivated (World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ)
-    {
-        if (!world.isRemote)
-        {
-            CastingChannelLogic tile = (CastingChannelLogic) world.getBlockTileEntity(x, y, z);
-            if (player.isSneaking())
-            {
-            }
-            else
-            {
-                //int amount = 0;
-                //if (tile.getFluid() != null)
-                //amount = tile.getLiquidAmount();
-                //player.addChatMessage("LiquidAmount: " + amount);
-                tile.setActive(true);
-            }
-        }
+	public boolean onBlockActivated (World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ)
+	{
+		ItemStack stack = player.getCurrentEquippedItem();
+		CastingChannelLogic tile = (CastingChannelLogic) world.getBlockTileEntity(x, y, z);
+		/* 
+		 * Debugging
+		System.out.println("Side: "+side);
+		System.out.println("hitting: "+hitX+", "+hitY+", "+hitZ);
+		String s = "LiquidAmount "+(world.isRemote?"client side: ":"server side: ");
+		int amount = 0;
+		if (tile.getTankInfo(null)[0].fluid != null)
+			amount = tile.getTankInfo(null)[0].fluid.amount;
+		if(world.isRemote)
+			player.addChatMessage("-----");
+		player.addChatMessage(s + amount);
+		 */
+		if(stack==null)
+			tile.changeOutputs(player, side, hitX, hitY, hitZ);
+		return true;
+	}
 
-        ItemStack stack = player.getCurrentEquippedItem();
-        if (stack != null && stack.itemID == this.blockID)
-            return false;
-        return true;
-    }
+	@Override
+	public void setBlockBoundsBasedOnState (IBlockAccess world, int x, int y, int z)
+	{
+		CastingChannelLogic tile = (CastingChannelLogic) world.getBlockTileEntity(x, y, z);
+		float minX = 0.3125F;
+		float maxX = 0.6875F;
+		float minZ = 0.3125F;
+		float maxZ = 0.6875F;
+		minZ = 0F;
+		maxZ = 1F;
+		minX = 0F;
+		maxX = 1F;
 
-    @Override
-    public void setBlockBoundsBasedOnState (IBlockAccess world, int x, int y, int z)
-    {
-        CastingChannelLogic tile = (CastingChannelLogic) world.getBlockTileEntity(x, y, z);
-        float minX = 0.3125F;
-        float maxX = 0.6875F;
-        float minZ = 0.3125F;
-        float maxZ = 0.6875F;
-        if (tile.hasTankConnected(ForgeDirection.NORTH))
-            minZ = 0F;
-        if (tile.hasTankConnected(ForgeDirection.SOUTH))
-            maxZ = 1F;
-        if (tile.hasTankConnected(ForgeDirection.WEST))
-            minX = 0F;
-        if (tile.hasTankConnected(ForgeDirection.EAST))
-            maxX = 1F;
+		this.setBlockBounds(minX, 0.375F, minZ, maxX, 0.625F, maxZ);
+	}
 
-        this.setBlockBounds(minX, 0.375F, minZ, maxX, 0.625F, maxZ);
-    }
+	@Override
+	public boolean renderAsNormalBlock ()
+	{
+		return false;
+	}
 
-    @Override
-    public boolean renderAsNormalBlock ()
-    {
-        return false;
-    }
-
-    @Override
-    public boolean isOpaqueCube ()
-    {
-        return false;
-    }
+	@Override
+	public boolean isOpaqueCube ()
+	{
+		return false;
+	}
 
     @Override
-    public int getRenderType ()
+	public boolean shouldSideBeRendered(IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
     {
-        return BlockRenderCastingChannel.renderID;
+		return true;
     }
 
-    @Override
-    public void registerIcons (IconRegister iconRegister)
-    {
-        this.blockIcon = iconRegister.registerIcon("tinker:searedstone");
-    }
+	@Override
+	public int getRenderType ()
+	{
+		return BlockRenderCastingChannel.renderID;
+	}
 
-    @Override
-    public TileEntity createNewTileEntity (World var1)
-    {
-        return new CastingChannelLogic();
-    }
+	@Override
+	public void registerIcons (IconRegister iconRegister)
+	{
+		this.blockIcon = iconRegister.registerIcon("tinker:searedstone");
+	}
+
+	@Override
+	public TileEntity createNewTileEntity (World var1)
+	{
+		return new CastingChannelLogic();
+	}
 
 }
