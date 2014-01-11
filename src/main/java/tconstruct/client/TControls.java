@@ -97,7 +97,7 @@ public class TControls extends TKeyHandler
             	{
             		jumping = mc.thePlayer.isAirBorne;
             		ItemStack shoes = mc.thePlayer.getCurrentArmor(0);
-            		if (shoes.hasTagCompound() && shoes.getTagCompound().hasKey("TinkerArmor"))
+            		if (shoes != null && shoes.hasTagCompound() && shoes.getTagCompound().hasKey("TinkerArmor"))
             		{
             		    NBTTagCompound shoeTag = shoes.getTagCompound().getCompoundTag("TinkerArmor");
             		    midairJumps = shoeTag.getInteger("Double-Jump");
