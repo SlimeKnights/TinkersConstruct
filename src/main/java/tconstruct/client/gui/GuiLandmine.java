@@ -68,7 +68,7 @@ public class GuiLandmine extends GuiContainer
         }
         else
         {
-            fontRenderer.drawString("Landmine", 8, 5, 4210752);
+            fontRenderer.drawString((StatCollector.translateToLocal("gui.landmine"), 8, 5, 4210752);
         }
         fontRenderer.drawString(StatCollector.translateToLocal("container.inventory"), 8, ySize - 96 + 3, 4210752);
     }
