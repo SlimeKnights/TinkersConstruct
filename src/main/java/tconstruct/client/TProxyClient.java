@@ -481,7 +481,7 @@ public class TProxyClient extends TProxyCommon
         MantleClientRegistry.registerManualLargeRecipe("silkyjewel", new ItemStack(TRepo.materials, 1, 26), null, silkyCloth, null, silkyCloth, new ItemStack(Items.emerald), silkyCloth, null,
                 silkyCloth, null);
 
-        MantleClientRegistry.registerManualSmallRecipe("graveyardsoil", graveyardsoil, new ItemStack(Blocks.dirt), new ItemStack(Items.rotten_flesh), new ItemStack(Items.dyePowder, 1, 15), null);
+        MantleClientRegistry.registerManualSmallRecipe("graveyardsoil", graveyardsoil, new ItemStack(Blocks.dirt), new ItemStack(Items.rotten_flesh), new ItemStack(Items.dye, 1, 15), null);
         MantleClientRegistry.registerManualFurnaceRecipe("consecratedsoil", consecratedsoil, graveyardsoil);
 
         MantleClientRegistry.registerManualSmallRecipe("grout", grout, sand, gravel, null, clay);
@@ -508,7 +508,7 @@ public class TProxyClient extends TProxyCommon
                 searedbrick, searedbrick);
 
         //Traps
-        ItemStack reed = new ItemStack(Item.reed);
+        ItemStack reed = new ItemStack(Items.sugar);
         MantleClientRegistry.registerManualLargeRecipe("punji", new ItemStack(TRepo.punji), reed, null, reed, null, reed, null, reed, null, reed);
         MantleClientRegistry.registerManualSmallRecipe("barricade", new ItemStack(TRepo.barricadeOak), null, log, null, log);
 
@@ -528,7 +528,7 @@ public class TProxyClient extends TProxyCommon
         TConstructClientRegistry.registerManualModifier("emeraldmod", ironpick.copy(), new ItemStack(Items.emerald));
         TConstructClientRegistry.registerManualModifier("redstonemod", ironpick.copy(), new ItemStack(Items.redstone), new ItemStack(Blocks.redstone_block));
         TConstructClientRegistry.registerManualModifier("lavacrystalmod", ironpick.copy(), new ItemStack(TRepo.materials, 1, 7));
-        TConstructClientRegistry.registerManualModifier("lapismod", ironpick.copy(), new ItemStack(Items.dyePowder, 1, 4), new ItemStack(Blocks.lapis_block));
+        TConstructClientRegistry.registerManualModifier("lapismod", ironpick.copy(), new ItemStack(Items.dye, 1, 4), new ItemStack(Blocks.lapis_block));
         TConstructClientRegistry.registerManualModifier("mossmod", ironpick.copy(), new ItemStack(TRepo.materials, 1, 6));
         TConstructClientRegistry.registerManualModifier("quartzmod", ironlongsword.copy(), new ItemStack(Items.quartz), new ItemStack(Blocks.quartz_block));
         TConstructClientRegistry.registerManualModifier("blazemod", ironlongsword.copy(), new ItemStack(Items.blaze_powder));
@@ -900,7 +900,7 @@ public class TProxyClient extends TProxyCommon
                     }
                     else if (par1Str.equals("dripLava"))
                     {
-                        entityfx = new EntityDropParticleFX(mc.theWorld, par2, par4, par6, Material.lava);
+                        entityfx = new EntityDropParticleFX(mc.theWorld, par2, par4, par6, Material.field_151587_i);
                     }
                     else if (par1Str.equals("snowshovel"))
                     {

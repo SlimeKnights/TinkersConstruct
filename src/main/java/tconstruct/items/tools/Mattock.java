@@ -48,7 +48,7 @@ public class Mattock extends DualHarvestTool
     }
 
     static Material[] axeMaterials = { Material.field_151575_d, Material.cactus, Material.pumpkin, Material.plants, Material.field_151582_l };
-    static Material[] shovelMaterials = { Material.grass, Material.ground, Material.clay };
+    static Material[] shovelMaterials = { Material.field_151577_b, Material.field_151578_c, Material.clay };
 
     @Override
     public Item getHeadItem ()

@@ -71,10 +71,7 @@ public class ArrowRender extends Render
             int i;
 
             Block block = null;
-            if (itemstack.itemID < Block.blocksList.length)
-            {
                 block = BlockUtils.getBlockFromItem(itemstack.getItem());
-            }
 
             if (itemstack.getItemSpriteNumber() == 0 && block != null && RenderBlocks.renderItemIn3d(BlockUtils.getBlockFromItem(itemstack.getItem()).getRenderType()))
             {

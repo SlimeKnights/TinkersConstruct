@@ -282,7 +282,7 @@ public class BlockSkinRenderHelper
             flag = true;
         }
 
-        Icon icon;
+        IIcon icon;
 
         if (render.renderAllFaces || block.shouldSideBeRendered(render.field_147845_a, xPos, yPos, zPos - 1, 2))
         {

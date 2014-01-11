@@ -8,7 +8,7 @@ import net.minecraftforge.common.IPlantable;
 
 public class OreberryBushEssence extends OreberryBush implements IPlantable
 {
-    public OreberryBushEssence(int id, String[] textureNames, int meta, int sub, String[] oreTypes)
+    public OreberryBushEssence(String[] textureNames, int meta, int sub, String[] oreTypes)
     {
         super(textureNames, meta, sub, oreTypes);
     }

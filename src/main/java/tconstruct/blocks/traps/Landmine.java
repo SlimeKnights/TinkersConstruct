@@ -8,11 +8,11 @@ import mantle.blocks.MantleBlock;
 import tconstruct.library.TConstructRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFence;
-import net.minecraft.block.EnumMobType;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.AxisAlignedBB;
@@ -23,12 +23,12 @@ import net.minecraft.world.World;
 public class Landmine extends MantleBlock
 {
     /** The mob type that can trigger this pressure plate. */
-    private EnumMobType triggerMobType;
+    private EnumCreatureType triggerMobType;
 
-    public Landmine(EnumMobType par3EnumMobType, Material par4Material)
+    public Landmine(EnumCreatureType par3EnumCreatureType, Material par4Material)
     {
         super(par4Material);
-        this.triggerMobType = EnumMobType.mobs;
+        this.triggerMobType = EnumCreatureType.monster;
         this.setCreativeTab(TConstructRegistry.blockTab);
         this.setTickRandomly(true);
         float var5 = 0.0625F;
@@ -37,7 +37,7 @@ public class Landmine extends MantleBlock
 
     public IIcon getBlockTexture (IBlockAccess world, int x, int y, int z, int side)
     {
-        Block block = Block.blocksList[world.getBlockId(x, y - 1, z)];
+        Block block = world.getBlock(x, y - 1, z);
         if (block != null)
         {
             return block.getBlockTexture(world, x, y - 1, z, side);
@@ -160,7 +160,7 @@ public class Landmine extends MantleBlock
         float var7 = 0.125F;
         List var8 = null;
 
-        if (this.triggerMobType == EnumMobType.everything)
+        if (this.triggerMobType == EnumCreatureType.everything)
         {
             var8 = world.getEntitiesWithinAABBExcludingEntity(
                     (Entity) null,
@@ -168,7 +168,7 @@ public class Landmine extends MantleBlock
                             (double) ((float) (posZ + 1) - var7)));
         }
 
-        if (this.triggerMobType == EnumMobType.mobs)
+        if (this.triggerMobType == EnumCreatureType.monster)
         {
             var8 = world.getEntitiesWithinAABB(
                     EntityLiving.class,
@@ -176,7 +176,7 @@ public class Landmine extends MantleBlock
                             (double) ((float) (posZ + 1) - var7)));
         }
 
-        if (this.triggerMobType == EnumMobType.players)
+        if (this.triggerMobType == EnumCreatureType.players)
         {
             var8 = world.getEntitiesWithinAABB(
                     EntityPlayer.class,

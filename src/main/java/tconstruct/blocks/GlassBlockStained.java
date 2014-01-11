@@ -15,7 +15,7 @@ public class GlassBlockStained extends TConstructBlock
 
     public GlassBlockStained(String tex)
     {
-        super(Material.glass, 3f, blockTextures);
+        super(Material.field_151592_s, 3f, blockTextures);
         this.textureName = tex;
     }
 

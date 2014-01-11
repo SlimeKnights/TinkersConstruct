@@ -14,7 +14,7 @@ public class GlassBlock extends TConstructBlock
 
     public GlassBlock()
     {
-        super(Material.glass, 3f, blockTextures);
+        super(Material.field_151592_s, 3f, blockTextures);
     }
 
     public boolean isOpaqueCube ()

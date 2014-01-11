@@ -5,6 +5,7 @@ import java.util.EnumSet;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.ResourceLocation;
 import tconstruct.TConstruct;
 import tconstruct.common.TContent;
@@ -20,9 +21,9 @@ public class TClientTickHandler implements ITickHandler
     @Override
     public void tickEnd (EnumSet<TickType> type, Object... tickData)
     {
-        TRepo.oreBerry.setGraphicsLevel(Block.leaves.graphicsLevel);
-        TRepo.oreBerrySecond.setGraphicsLevel(Block.leaves.graphicsLevel);
-        TRepo.slimeLeaves.setGraphicsLevel(Block.leaves.graphicsLevel);
+        TRepo.oreBerry.setGraphicsLevel(Blocks.leaves.graphicsLevel);
+        TRepo.oreBerrySecond.setGraphicsLevel(Blocks.leaves.graphicsLevel);
+        TRepo.slimeLeaves.setGraphicsLevel(Blocks.leaves.graphicsLevel);
         /*if (mc.thePlayer != null && !mc.thePlayer.isAirBorne)
             controlInstance.landOnGround();*/
     }

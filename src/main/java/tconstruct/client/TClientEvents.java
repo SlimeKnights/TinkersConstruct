@@ -253,7 +253,7 @@ public class TClientEvents
             f *= 1.1F;
         }
 
-        if (event.entity.isUsingItem() && event.entity.getItemInUse() == Items.bow)
+        if (event.entity.isUsingItem() && event.entity.getItemInUse().getItem() == Items.bow)
         {
             int i = event.entity.getItemInUseDuration();
             float f1 = (float) i / 20.0F;

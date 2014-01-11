@@ -6,6 +6,7 @@ import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.passive.EntityVillager;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.village.MerchantRecipe;
 import net.minecraft.village.MerchantRecipeList;
@@ -24,8 +25,8 @@ public class TVillageTrades implements IVillageTradeHandler
         super();
 
         // vanilla blocks
-        allowedIngredients.add(new ItemStack(Block.pistonBase, 64));
-        allowedIngredients.add(new ItemStack(Block.pistonStickyBase, 64));
+        allowedIngredients.add(new ItemStack(Blocks.piston, 64));
+        allowedIngredients.add(new ItemStack(Blocks.sticky_piston, 64));
 
         // tconstruct blocks
         allowedIngredients.add(new ItemStack(TRepo.barricadeBirch, 64));
@@ -100,7 +101,7 @@ public class TVillageTrades implements IVillageTradeHandler
             sc = getNextInt(random, 0, allowedIngredients.size() - 1);
             is = allowedIngredients.get(sc);
 
-            if (is.itemID != ingredient.itemID || is.getItemDamage() != ingredient.getItemDamage())
+            if (is != ingredient || is.getItemDamage() != ingredient.getItemDamage())
                 break;
 
             tries++;

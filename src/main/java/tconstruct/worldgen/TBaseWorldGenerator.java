@@ -274,13 +274,13 @@ public class TBaseWorldGenerator implements IWorldGenerator
                     Block block = world.func_147439_a(x + chunkX, y, z + chunkZ);
                     if (block != null)
                     {
-                        if (block.func_149688_o() == Material.leaves)
+                        if (block.func_149688_o() == Material.field_151584_j)
                             world.func_147465_d(x + chunkX, y, z + chunkZ, Blocks.lava, 0, 0);
                         if (block.func_149688_o() == Material.field_151575_d)
                             world.func_147465_d(x + chunkX, y, z + chunkZ, Blocks.netherrack, 0, 0);
                         if (block == Blocks.stone)
                             world.func_147465_d(x + chunkX, y, z + chunkZ, Blocks.end_stone, 0, 0);
-                        if (y > 40 && (block.func_149688_o() == Material.ground || block.func_149688_o() == Material.grass))
+                        if (y > 40 && (block.func_149688_o() == Material.field_151578_c || block.func_149688_o() == Material.field_151577_b))
                             world.func_147465_d(x + chunkX, y, z + chunkZ, Blocks.soul_sand, 0, 0);
                         if (block.func_149688_o() == Material.sand)
                             world.func_147465_d(x + chunkX, y, z + chunkZ, Blocks.silverfish, 0, 0);

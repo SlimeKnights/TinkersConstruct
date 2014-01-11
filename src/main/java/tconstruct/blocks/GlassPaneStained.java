@@ -7,9 +7,9 @@ public class GlassPaneStained extends PaneBase
 {
     static String blockTextures[] = { "white", "orange", "magenta", "lightblue", "yellow", "lime", "pink", "gray", "lightgray", "cyan", "purple", "blue", "brown", "green", "red", "black" };
 
-    public GlassPaneStained(int id)
+    public GlassPaneStained()
     {
-        super(id, Material.glass, "glass/", assembleBlockTextures());
+        super(Material.field_151592_s, "glass/", assembleBlockTextures());
         //TODO setHardness
         this.func_149711_c(0.3F);
         this.setStepSound(soundGlassFootstep);

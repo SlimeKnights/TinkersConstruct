@@ -168,7 +168,7 @@ public abstract class BowBase extends ToolCore
     {
         for (int j = 0; j < inventory.mainInventory.length; ++j)
         {
-            if (inventory.mainInventory[j] != null && inventory.mainInventory[j].itemID == itemID)
+            if (inventory.mainInventory[j] != null && inventory.mainInventory[j].getItem() == item)
             {
                 return j;
             }

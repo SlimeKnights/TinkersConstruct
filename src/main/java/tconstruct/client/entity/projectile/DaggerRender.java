@@ -134,7 +134,7 @@ public class DaggerRender extends Render
 
                         if (this.renderWithColor)
                         {
-                            i = Item.itemsList[itemstack.itemID].getColorFromItemStack(itemstack, k);
+                            i = itemstack.getItem().getColorFromItemStack(itemstack, k);
                             f5 = (float) (i >> 16 & 255) / 255.0F;
                             f4 = (float) (i >> 8 & 255) / 255.0F;
                             f6 = (float) (i & 255) / 255.0F;

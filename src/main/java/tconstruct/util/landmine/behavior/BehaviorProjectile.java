@@ -27,16 +27,16 @@ public class BehaviorProjectile extends Behavior
 
         EnumFacing enumfacing = getFacing(par1World, par2, par3, par4);
 
-        if (par5ItemStack.itemID == Items.arrow.itemID)
+        if (par5ItemStack.getItem() == Items.arrow)
         {
             entity = new EntityArrow(par1World, par2, par3, par4);
             ((EntityArrow) entity).canBePickedUp = 1;
         }
-        else if (par5ItemStack.itemID == Items.snowball.itemID)
+        else if (par5ItemStack.getItem() == Items.snowball)
         {
             entity = new EntitySnowball(par1World, par2, par3, par4);
         }
-        else if (par5ItemStack.itemID == Items.ender_pearl.itemID)
+        else if (par5ItemStack.getItem() == Items.ender_pearl)
         {
             if (triggerer instanceof EntityLivingBase)
             {

@@ -514,9 +514,9 @@ public class TConstructRegistry
      */
     public static Block[] drawbridgeState = new Block[Integer.MAX_VALUE];
     /** Blocks that are interchangable with each other. Ex: Still and flowing water */
-    public static int[] interchangableBlockMapping = new int[Integer.MAX_VALUE];
+    public static ItemStack[] interchangableBlockMapping = new ItemStack[Integer.MAX_VALUE];
     /** Blocks that place items, and vice versa */
-    public static int[] blockToItemMapping = new int[Integer.MAX_VALUE];
+    public static Item[] blockToItemMapping = new Item[Integer.MAX_VALUE];
 
     static void initializeDrawbridgeState ()
     {

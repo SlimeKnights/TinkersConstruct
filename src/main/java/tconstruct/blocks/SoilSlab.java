@@ -21,7 +21,7 @@ public class SoilSlab extends SlabBase
 {
     public SoilSlab()
     {
-        super(Material.ground);
+        super(Material.field_151578_c);
         this.setCreativeTab(TConstructRegistry.blockTab);
     }
 

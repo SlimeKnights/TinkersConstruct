@@ -21,7 +21,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class StoneTorch extends MantleBlock
 {
-    public StoneTorch(int id)
+    public StoneTorch()
     {
         super(Material.field_151594_q);
         this.setCreativeTab(CreativeTabs.tabDecorations);

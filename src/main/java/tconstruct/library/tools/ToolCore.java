@@ -425,7 +425,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IBa
 
     public String getReinforcedName (int head, int handle, int accessory, int extra, int unbreaking)
     {
-        TToolMaterial headMat = TConstructRegistry.getMaterial(TToolMaterial)head);
+        TToolMaterial headMat = TConstructRegistry.getMaterial(head);
         TToolMaterial handleMat = TConstructRegistry.getMaterial(handle);
         TToolMaterial accessoryMat = TConstructRegistry.getMaterial(accessory);
         TToolMaterial extraMat = TConstructRegistry.getMaterial(extra);

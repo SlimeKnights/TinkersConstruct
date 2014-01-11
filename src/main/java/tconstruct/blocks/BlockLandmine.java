@@ -7,12 +7,12 @@ import java.util.Random;
 import mantle.blocks.BlockUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
-import net.minecraft.block.EnumMobType;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.EnumCreatureType;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.entity.player.EntityPlayer;
@@ -64,7 +64,7 @@ public class BlockLandmine extends BlockContainer
             {
                 if (te.getStackInSlot(3) != null)
                 {
-                    return lightValue[te.getStackInSlot(3).itemID];
+                    return lightValue[te.getStackInSlot(3)];
                 }
             }
         }
@@ -166,7 +166,7 @@ public class BlockLandmine extends BlockContainer
 
                         int ss = itemstack.stackSize;
                         itemstack.stackSize -= ss;
-                        EntityItem entityitem = new EntityItem(par1World, (double) ((float) par2), (double) ((float) par3), (double) ((float) par4), new ItemStack(itemstack.itemID, ss,
+                        EntityItem entityitem = new EntityItem(par1World, (double) ((float) par2), (double) ((float) par3), (double) ((float) par4), new ItemStack(itemstack.getItem(), ss,
                                 itemstack.getItemDamage()));
 
                         if (itemstack.hasTagCompound())
@@ -453,7 +453,7 @@ public class BlockLandmine extends BlockContainer
 
     protected int getMineState (World par1World, int par2, int par3, int par4)
     {
-        EnumMobType triggerMobType;
+        EnumCreatureType triggerMobType;
 
         TileEntityLandmine te = (TileEntityLandmine) par1World.func_147438_o(par2, par3, par4);
 
@@ -466,13 +466,13 @@ public class BlockLandmine extends BlockContainer
         switch (te.triggerType)
         {
         case 0:
-            triggerMobType = EnumMobType.everything;
+            triggerMobType = EnumCreatureType.creature;
             break;
         case 1:
-            triggerMobType = EnumMobType.mobs;
+            triggerMobType = EnumCreatureType.monster;
             break;
         case 2:
-            triggerMobType = EnumMobType.players;
+            triggerMobType = EnumCreatureType.players;
             break;
         default:
             triggerMobType = null;
@@ -483,17 +483,17 @@ public class BlockLandmine extends BlockContainer
         {
             List list = null;
 
-            if (triggerMobType == EnumMobType.everything)
+            if (triggerMobType == EnumCreatureType.creature)
             {
                 list = par1World.getEntitiesWithinAABBExcludingEntity((Entity) null, getSensitiveAABB(par1World, par2, par3, par4));
             }
 
-            if (triggerMobType == EnumMobType.mobs)
+            if (triggerMobType == EnumCreatureType.monster)
             {
                 list = par1World.getEntitiesWithinAABB(EntityLivingBase.class, getSensitiveAABB(par1World, par2, par3, par4));
             }
 
-            if (triggerMobType == EnumMobType.players)
+            if (triggerMobType == EnumCreatureType.players)
             {
                 list = par1World.getEntitiesWithinAABB(EntityPlayer.class, this.getSensitiveAABB(par1World, par2, par3, par4));
             }
@@ -551,7 +551,7 @@ public class BlockLandmine extends BlockContainer
     public Entity getMineTriggerer (World par1World, int par2, int par3, int par4)
     {
 
-        EnumMobType triggerMobType;
+        EnumCreatureType triggerMobType;
 
         TileEntityLandmine te = (TileEntityLandmine) par1World.func_147438_o(par2, par3, par4);
 
@@ -564,13 +564,13 @@ public class BlockLandmine extends BlockContainer
         switch (te.triggerType)
         {
         case 0:
-            triggerMobType = EnumMobType.everything;
+            triggerMobType = EnumCreatureType.creature;
             break;
         case 1:
-            triggerMobType = EnumMobType.mobs;
+            triggerMobType = EnumCreatureType.monster;
             break;
         case 2:
-            triggerMobType = EnumMobType.players;
+            triggerMobType = EnumCreatureType.players;
             break;
         default:
             triggerMobType = null;
@@ -581,17 +581,17 @@ public class BlockLandmine extends BlockContainer
         {
             List list = null;
 
-            if (triggerMobType == EnumMobType.everything)
+            if (triggerMobType == EnumCreatureType.creature)
             {
                 list = par1World.getEntitiesWithinAABBExcludingEntity((Entity) null, AxisAlignedBB.getAABBPool().getAABB(par2 + 0D, par3 + 0D, par4 + 0D, par2 + 1D, par3 + 1D, par4 + 1D));
             }
 
-            if (triggerMobType == EnumMobType.mobs)
+            if (triggerMobType == EnumCreatureType.monster)
             {
                 list = par1World.getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getAABBPool().getAABB(par2 + 0D, par3 + 0D, par4 + 0D, par2 + 1D, par3 + 1D, par4 + 1D));
             }
 
-            if (triggerMobType == EnumMobType.players)
+            if (triggerMobType == EnumCreatureType.players)
             {
                 list = par1World.getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getAABBPool().getAABB(par2 + 0D, par3 + 0D, par4 + 0D, par2 + 1D, par3 + 1D, par4 + 1D));
             }

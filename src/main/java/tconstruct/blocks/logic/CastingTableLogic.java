@@ -9,7 +9,7 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.INetworkManager;
+import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.world.World;
@@ -376,7 +376,7 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
         {
             NBTTagCompound nbt = new NBTTagCompound();
             liquid.writeToNBT(nbt);
-            tags.setCompoundTag("Fluid", nbt);
+            tags.setTag("Fluid", nbt);
         }
         tags.setBoolean("Initialized", init);
         tags.setInteger("Capacity", capacity);
@@ -393,7 +393,7 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
     }
 
     @Override
-    public void onDataPacket (INetworkManager net, Packet132TileEntityData packet)
+    public void onDataPacket (NetworkManager net, Packet132TileEntityData packet)
     {
         readFromNBT(packet.data);
         getWorld().markBlockForRenderUpdate(field_145851_c, field_145848_d, field_145849_e);

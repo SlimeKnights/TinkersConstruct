@@ -22,9 +22,9 @@ public class GlassBlockConnected extends MantleBlock
     protected String folder;
     private int renderPass;
 
-    public GlassBlockConnected(int par1, String location, boolean hasAlpha)
+    public GlassBlockConnected(String location, boolean hasAlpha)
     {
-        super(par1, Material.glass);
+        super(Material.field_151592_s);
         this.setStepSound(soundGlassFootstep);
         folder = location;
         renderPass = hasAlpha ? 1 : 0;

@@ -261,7 +261,7 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
                         }
 
                         var2.stackSize -= var6;
-                        EntityItem entityitem = new EntityItem(this.worldObj, this.posX + (double) var3, this.posY + (double) var4, this.posZ + (double) var5, new ItemStack(var2.itemID, var6,
+                        EntityItem entityitem = new EntityItem(this.worldObj, this.posX + (double) var3, this.posY + (double) var4, this.posZ + (double) var5, new ItemStack(var2.getItem(), var6,
                                 var2.getItemDamage()));
 
                         if (var2.hasTagCompound())
@@ -975,7 +975,7 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
         {
             ItemStack var2 = player.inventory.getCurrentItem();
 
-            if (var2 != null && var2.itemID == Items.coal.itemID)
+            if (var2 != null && var2.getItem() == Items.coal)
             {
                 if (--var2.stackSize == 0)
                 {

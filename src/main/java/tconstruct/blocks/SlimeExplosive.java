@@ -113,7 +113,7 @@ public class SlimeExplosive extends TConstructBlock
     @Override
     public boolean onBlockActivated (World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9)
     {
-        if (par5EntityPlayer.getCurrentEquippedItem() != null && par5EntityPlayer.getCurrentEquippedItem().itemID == Items.flint_and_steel.itemID)
+        if (par5EntityPlayer.getCurrentEquippedItem() != null && par5EntityPlayer.getCurrentEquippedItem().getItem() == Items.flint_and_steel)
         {
             this.primeTnt(par1World, par2, par3, par4, 1, par5EntityPlayer);
             par1World.setBlockToAir(par2, par3, par4);

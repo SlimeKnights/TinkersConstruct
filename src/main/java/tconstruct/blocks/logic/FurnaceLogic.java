@@ -15,7 +15,7 @@ import net.minecraft.item.ItemSword;
 import net.minecraft.item.ItemTool;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.INetworkManager;
+import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.util.MathHelper;
@@ -293,7 +293,7 @@ public class FurnaceLogic extends InventoryLogic implements IActiveLogic, IFacin
     }
 
     @Override
-    public void onDataPacket (INetworkManager net, Packet132TileEntityData packet)
+    public void onDataPacket (NetworkManager net, Packet132TileEntityData packet)
     {
         readNetworkNBT(packet.data);
         field_145850_b.markBlockForRenderUpdate(field_145851_c, field_145848_d, field_145849_e);

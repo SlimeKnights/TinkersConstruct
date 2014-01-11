@@ -40,7 +40,7 @@ public class Scythe extends Weapon
         return materials;
     }
 
-    static Material[] materials = new Material[] { Material.web, Material.cactus, Material.pumpkin, Material.plants, Material.field_151582_l, Material.leaves };
+    static Material[] materials = new Material[] { Material.web, Material.cactus, Material.pumpkin, Material.plants, Material.field_151582_l, Material.field_151584_j };
 
     @Override
     public Item getHeadItem ()
@@ -177,9 +177,8 @@ public class Scythe extends Weapon
 
                         if (!cancelHarvest)
                         {
-                            int localblockID = world.getBlockId(xPos, yPos, zPos);
-                            Block block = Block.blocksList[localblockID];
-                            if (block != null)// && (block.func_149688_o() == Material.leaves || block.isLeaves(world, xPos, yPos, zPos)))
+                            Block block = world.getBlock(xPos, yPos, zPos);
+                            if (block != null)// && (block.func_149688_o() == Material.field_151584_j || block.isLeaves(world, xPos, yPos, zPos)))
                             {
                                 for (int iter = 0; iter < materials.length; iter++)
                                 {
@@ -192,7 +191,7 @@ public class Scythe extends Weapon
                                             block.onBlockDestroyedByPlayer(world, x, y, z, meta);
                                             block.harvestBlock(world, player, xPos, yPos, zPos, localMeta);
                                             block.onBlockHarvested(world, x, y, z, localMeta, player);
-                                            onBlockDestroyed(stack, world, localblockID, xPos, yPos, zPos, player);
+                                            onBlockDestroyed(stack, world, localblock, xPos, yPos, zPos, player);
                                         }
                                     }
                                 }

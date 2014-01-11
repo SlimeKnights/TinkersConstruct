@@ -67,7 +67,7 @@ public class Hammer extends HarvestTool
         return materials;
     }
 
-    static Material[] materials = new Material[] { Material.rock, Material.iron, Material.ice, Material.glass, Material.piston, Material. field_151574_g };
+    static Material[] materials = new Material[] { Material.rock, Material.field_151573_f, Material.ice, Material.field_151592_s, Material.piston, Material. field_151574_g };
 
     @Override
     public Item getHeadItem ()

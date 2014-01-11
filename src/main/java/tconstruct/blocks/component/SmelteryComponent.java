@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import mantle.world.CoordTuple;
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -156,7 +157,7 @@ public class SmelteryComponent extends LogicComponent
         if (tankContainer instanceof IFluidHandler && inUse)
         {
             FluidStack liquid = ((IFluidHandler) tankContainer).drain(ForgeDirection.DOWN, drainFuelAmount(), false);
-            if (liquid != null && liquid.getFluid().getBlockID() == Block.lavaStill.blockID)
+            if (liquid != null && liquid.getFluid().getBlock() == Blocks.lava)
             {
                 liquid = ((IFluidHandler) tankContainer).drain(ForgeDirection.DOWN, drainFuelAmount(), true);
                 fuelTicks += liquid.amount * 15;
@@ -186,7 +187,7 @@ public class SmelteryComponent extends LogicComponent
                     if (newTankContainer instanceof IFluidHandler)
                     {
                         FluidStack newliquid = ((IFluidHandler) newTankContainer).drain(ForgeDirection.UNKNOWN, drainFuelAmount(), false);
-                        if (newliquid != null && newliquid.getFluid().getBlockID() == Block.lavaStill.blockID && newliquid.amount > 0)
+                        if (newliquid != null && newliquid.getFluid().getBlock() == Blocks.lava && newliquid.amount > 0)
                         {
                             foundTank = true;
                             setActiveLavaTank(possibleTank);

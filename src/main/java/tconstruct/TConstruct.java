@@ -63,9 +63,9 @@ public class TConstruct
 
     public TConstruct()
     {
-        LoggerConfig fml = new LoggerConfig("FML", Level.ALL, true);
-        LoggerConfig tcon = new LoggerConfig("TConstruct", Level.ALL, true);
-        tcon.setParent(fml);
+        LoggerConfig fml = new LoggerConfig(FMLCommonHandler.instance().getFMLLogger().getName(), Level.ALL, true);
+        LoggerConfig modConf = new LoggerConfig(logger.getName(), Level.ALL, true);
+        modConf.setParent(fml);
 
         //logger.setParent(FMLCommonHandler.instance().getFMLLogger());
         if (Loader.isModLoaded("Natura"))

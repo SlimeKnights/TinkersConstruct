@@ -18,7 +18,7 @@ import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.network.INetworkManager;
+import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.tileentity.TileEntity;
@@ -543,7 +543,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         {
             needsUpdate = true;
             FluidStack liquid = ((IFluidHandler) tankContainer).drain(ForgeDirection.DOWN, 150, false);
-            if (liquid != null && liquid.getFluid().getBlockID() == Block.lavaStill.blockID)
+            if (liquid != null && liquid.getFluid().getBlock() == Blocks.lava)
             {
                 FluidTankInfo[] info = ((IFluidHandler) tankContainer).getTankInfo(ForgeDirection.DOWN);
                 if (info.length > 0)
@@ -584,7 +584,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         {
             needsUpdate = true;
             FluidStack liquid = ((IFluidHandler) tankContainer).drain(ForgeDirection.DOWN, 150, false);
-            if (liquid != null && liquid.getFluid().getBlockID() == Block.lavaStill.blockID)
+            if (liquid != null && liquid.getFluid().getBlock() == Blocks.lava)
             {
                 liquid = ((IFluidHandler) tankContainer).drain(ForgeDirection.DOWN, 150, true);
                 useTime += liquid.amount;
@@ -615,7 +615,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                     {
                         //TConstruct.logger.info("Tank: "+possibleTank.toString());
                         FluidStack newliquid = ((IFluidHandler) newTankContainer).drain(ForgeDirection.UNKNOWN, 150, false);
-                        if (newliquid != null && newliquid.getFluid().getBlockID() == Block.lavaStill.blockID && newliquid.amount > 0)
+                        if (newliquid != null && newliquid.getFluid().getBlock() == Blocks.lava && newliquid.amount > 0)
                         {
                             //TConstruct.logger.info("Tank: "+possibleTank.toString());
                             foundTank = true;
@@ -1152,7 +1152,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     }
 
     @Override
-    public void onDataPacket (INetworkManager net, Packet132TileEntityData packet)
+    public void onDataPacket (NetworkManager net, Packet132TileEntityData packet)
     {
         readFromNBT(packet.data);
         onInventoryChanged();

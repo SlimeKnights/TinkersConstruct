@@ -8,7 +8,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.INetworkManager;
+import net.minecraft.network.NetworkManager;
 import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
@@ -29,7 +29,7 @@ public class TPacketHandler implements IPacketHandler
 {
 
     @Override
-    public void onPacketData (INetworkManager manager, Packet250CustomPayload packet, Player player)
+    public void onPacketData (NetworkManager manager, Packet250CustomPayload packet, Player player)
     {
         Side side = FMLCommonHandler.instance().getEffectiveSide();
 

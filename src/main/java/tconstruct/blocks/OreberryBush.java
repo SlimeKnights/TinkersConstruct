@@ -40,7 +40,7 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
 
     public OreberryBush(String[] textureNames, int meta, int sub, String[] oreTypes)
     {
-        super(Material.leaves, false);
+        super(Material.field_151584_j, false);
         this.textureNames = textureNames;
         this.itemMeat = meta;
         this.subitems = sub;

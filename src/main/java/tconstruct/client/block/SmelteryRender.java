@@ -3,6 +3,7 @@ package tconstruct.client.block;
 import tconstruct.blocks.logic.SmelteryLogic;
 import tconstruct.client.TProxyClient;
 import tconstruct.library.crafting.Smeltery;
+import mantle.blocks.BlockUtils;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.item.Item;
@@ -143,11 +144,12 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
                     float blockHeight = input.stackSize / (float) blockToRender.stackSize;
                     renderer.func_147782_a(0.0F, 0.0F, 0.0F, 1.0F, MathHelper.clamp_float(blockHeight, 0.01F, 1.0F), 1.0F);
 
-                    if (blockToRender.itemID < 4096) //Block
-                    {
-                        Block liquidBlock = Block.blocksList[blockToRender.itemID];
+                    //TODO is this needed???
+                    //if (blockToRender.itemID < 4096) //Block
+                   // {
+                        Block liquidBlock = BlockUtils.getBlockFromItemStack(blockToRender);
                         BlockSkinRenderHelper.renderMetadataBlock(liquidBlock, blockToRender.getItemDamage(), posX + i % 3, posY, posZ + i / 3, renderer, world);
-                    }
+                    //}
 
                     /*else //No items, only blocks
                     //Item                        

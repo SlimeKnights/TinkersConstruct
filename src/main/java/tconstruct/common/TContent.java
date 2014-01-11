@@ -270,7 +270,7 @@ public class TContent implements IFuelHandler
         TRepo.moltenEmeraldFluid = new Fluid("emerald.liquid");
         if (!FluidRegistry.registerFluid(TRepo.moltenEmeraldFluid))
             TRepo.moltenEmeraldFluid = FluidRegistry.getFluid("emerald.liquid");
-        TRepo.moltenEmerald = new TConstructFluid(PHConstruct.moltenEmerald, TRepo.moltenEmeraldFluid, Material.water, "liquid_villager").func_149663_c("molten.emerald");
+        TRepo.moltenEmerald = new TConstructFluid(PHConstruct.moltenEmerald, TRepo.moltenEmeraldFluid, Material.field_151586_h, "liquid_villager").func_149663_c("molten.emerald");
         GameRegistry.registerBlock(TRepo.moltenEmerald, "molten.emerald");
         TRepo.moltenEmeraldFluid.setBlockID(TRepo.moltenEmerald).setDensity(3000).setViscosity(6000).setTemperature(1300);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TRepo.moltenEmeraldFluid, 1000), new ItemStack(TRepo.buckets, 1, 15), new ItemStack(Items.bucket)));
@@ -278,7 +278,7 @@ public class TContent implements IFuelHandler
         TRepo.bloodFluid = new Fluid("blood");
         if (!FluidRegistry.registerFluid(TRepo.bloodFluid))
             TRepo.bloodFluid = FluidRegistry.getFluid("blood");
-        TRepo.blood = new BloodBlock(PHConstruct.blood, TRepo.bloodFluid, Material.water, "liquid_cow").func_149663_c("liquid.blood");
+        TRepo.blood = new BloodBlock(PHConstruct.blood, TRepo.bloodFluid, Material.field_151586_h, "liquid_cow").func_149663_c("liquid.blood");
         GameRegistry.registerBlock(TRepo.blood, "liquid.blood");
         TRepo.bloodFluid.setBlockID(TRepo.blood).setDensity(3000).setViscosity(6000).setTemperature(1300);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TRepo.bloodFluid, 1000), new ItemStack(TRepo.buckets, 1, 16), new ItemStack(Items.bucket)));
@@ -335,13 +335,13 @@ public class TContent implements IFuelHandler
         if (!FluidRegistry.registerFluid(TRepo.moltenEnderFluid))
         {
             TRepo.moltenEnderFluid = FluidRegistry.getFluid("ender");
-            TRepo.moltenEnder = Block.blocksList[TRepo.moltenEnderFluid.getBlockID()];
+            TRepo.moltenEnder = TRepo.moltenEnderFluid.getBlock();
             if (TRepo.moltenEnder == null)
                 TConstruct.logger.info("Molten ender block missing!");
         }
         else
         {
-            TRepo.moltenEnder = new TConstructFluid(PHConstruct.moltenEnder, TRepo.moltenEnderFluid, Material.water, "liquid_ender").func_149663_c("fluid.ender");
+            TRepo.moltenEnder = new TConstructFluid(PHConstruct.moltenEnder, TRepo.moltenEnderFluid, Material.field_151586_h, "liquid_ender").func_149663_c("fluid.ender");
             GameRegistry.registerBlock(TRepo.moltenEnder, "fluid.ender");
             TRepo.moltenEnderFluid.setBlockID(TRepo.moltenEnder).setDensity(3000).setViscosity(6000);
             FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TRepo.moltenEnderFluid, 1000), new ItemStack(TRepo.buckets, 1, 23), new ItemStack(Items.bucket)));
@@ -353,7 +353,7 @@ public class TContent implements IFuelHandler
         TRepo.blueSlimeFluid = new Fluid("slime.blue");
         if (!FluidRegistry.registerFluid(TRepo.blueSlimeFluid))
             TRepo.blueSlimeFluid = FluidRegistry.getFluid("slime.blue");
-        TRepo.slimePool = new SlimeFluid(PHConstruct.slimePoolBlue, TRepo.blueSlimeFluid, Material.water).setCreativeTab(TConstructRegistry.blockTab).setStepSound(TRepo.slimeStep)
+        TRepo.slimePool = new SlimeFluid(PHConstruct.slimePoolBlue, TRepo.blueSlimeFluid, Material.field_151586_h).setCreativeTab(TConstructRegistry.blockTab).setStepSound(TRepo.slimeStep)
                 .func_149663_c("liquid.slime");
         GameRegistry.registerBlock(TRepo.slimePool, "liquid.slime");
         TRepo.blueSlimeFluid.setBlockID(TRepo.slimePool);
@@ -363,7 +363,7 @@ public class TContent implements IFuelHandler
         TRepo.glueFluid = new Fluid("glue").setDensity(6000).setViscosity(6000).setTemperature(200);
         if (!FluidRegistry.registerFluid(TRepo.glueFluid))
             TRepo.glueFluid = FluidRegistry.getFluid("glue");
-        TRepo.glueFluidBlock = new GlueFluid(PHConstruct.glueFluidBlock, TRepo.glueFluid, Material.water).setCreativeTab(TConstructRegistry.blockTab).setStepSound(TRepo.slimeStep)
+        TRepo.glueFluidBlock = new GlueFluid(PHConstruct.glueFluidBlock, TRepo.glueFluid, Material.field_151586_h).setCreativeTab(TConstructRegistry.blockTab).setStepSound(TRepo.slimeStep)
                 .func_149663_c("liquid.glue");
         GameRegistry.registerBlock(TRepo.glueFluidBlock, "liquid.glue");
         TRepo.glueFluid.setBlockID(TRepo.glueFluidBlock);
@@ -382,37 +382,37 @@ public class TContent implements IFuelHandler
                 TRepo.moltenAlubrass, TRepo.moltenManyullyn, TRepo.moltenAlumite, TRepo.moltenObsidian, TRepo.moltenSteel, TRepo.moltenGlass, TRepo.moltenStone, TRepo.moltenEmerald, TRepo.blood,
                 TRepo.moltenNickel, TRepo.moltenLead, TRepo.moltenSilver, TRepo.moltenShiny, TRepo.moltenInvar, TRepo.moltenElectrum, TRepo.moltenEnder, TRepo.slimePool, TRepo.glueFluidBlock };
         //Slime Islands
-        TRepo.slimeGel = new SlimeGel(PHConstruct.slimeGel).setStepSound(TRepo.slimeStep).setLightOpacity(0).func_149663_c("slime.gel");
-        TRepo.slimeGrass = new SlimeGrass(PHConstruct.slimeGrass).setStepSound(Block.field_149779_h).setLightOpacity(0).func_149663_c("slime.grass");
-        TRepo.slimeTallGrass = new SlimeTallGrass(PHConstruct.slimeTallGrass).setStepSound(Block.field_149779_h).func_149663_c("slime.grass.tall");
-        TRepo.slimeLeaves = (SlimeLeaves) new SlimeLeaves(PHConstruct.slimeLeaves).setStepSound(TRepo.slimeStep).setLightOpacity(0).func_149663_c("slime.leaves");
-        TRepo.slimeSapling = (SlimeSapling) new SlimeSapling(PHConstruct.slimeSapling).setStepSound(TRepo.slimeStep).func_149663_c("slime.sapling");
-        TRepo.slimeChannel = new ConveyorBase(PHConstruct.slimeChannel, Material.water, "greencurrent").setHardness(0.3f).setStepSound(TRepo.slimeStep).func_149663_c("slime.channel");
-        TRepo.bloodChannel = new ConveyorBase(PHConstruct.bloodChannel, Material.water, "liquid_cow").setHardness(0.3f).setStepSound(TRepo.slimeStep).func_149663_c("blood.channel");
-        TRepo.slimePad = new SlimePad(PHConstruct.slimePad, Material.field_151580_n).setStepSound(TRepo.slimeStep).setHardness(0.3f).func_149663_c("slime.pad");
+        TRepo.slimeGel = new SlimeGel().setStepSound(TRepo.slimeStep).setLightOpacity(0).func_149663_c("slime.gel");
+        TRepo.slimeGrass = new SlimeGrass().setStepSound(Block.field_149779_h).setLightOpacity(0).func_149663_c("slime.grass");
+        TRepo.slimeTallGrass = new SlimeTallGrass().setStepSound(Block.field_149779_h).func_149663_c("slime.grass.tall");
+        TRepo.slimeLeaves = (SlimeLeaves) new SlimeLeaves().setStepSound(TRepo.slimeStep).setLightOpacity(0).func_149663_c("slime.leaves");
+        TRepo.slimeSapling = (SlimeSapling) new SlimeSapling().setStepSound(TRepo.slimeStep).func_149663_c("slime.sapling");
+        TRepo.slimeChannel = new ConveyorBase(Material.field_151586_h, "greencurrent").setHardness(0.3f).setStepSound(TRepo.slimeStep).func_149663_c("slime.channel");
+        TRepo.bloodChannel = new ConveyorBase(Material.field_151586_h, "liquid_cow").setHardness(0.3f).setStepSound(TRepo.slimeStep).func_149663_c("blood.channel");
+        TRepo.slimePad = new SlimePad(Material.field_151580_n).setStepSound(TRepo.slimeStep).setHardness(0.3f).func_149663_c("slime.pad");
 
         //Decoration
-        TRepo.stoneTorch = new StoneTorch(PHConstruct.stoneTorch).func_149663_c("decoration.stonetorch");
-        TRepo.stoneLadder = new StoneLadder(PHConstruct.stoneLadder).func_149663_c("decoration.stoneladder");
-        TRepo.multiBrick = new MultiBrick(PHConstruct.multiBrick).func_149663_c("Decoration.Brick");
-        TRepo.multiBrickFancy = new MultiBrickFancy(PHConstruct.multiBrickFancy).func_149663_c("Decoration.BrickFancy");
+        TRepo.stoneTorch = new StoneTorch().func_149663_c("decoration.stonetorch");
+        TRepo.stoneLadder = new StoneLadder().func_149663_c("decoration.stoneladder");
+        TRepo.multiBrick = new MultiBrick().func_149663_c("Decoration.Brick");
+        TRepo.multiBrickFancy = new MultiBrickFancy().func_149663_c("Decoration.BrickFancy");
 
         //Ores
         String[] berryOres = new String[] { "berry_iron", "berry_gold", "berry_copper", "berry_tin", "berry_iron_ripe", "berry_gold_ripe", "berry_copper_ripe", "berry_tin_ripe" };
-        TRepo.oreBerry = (OreberryBush) new OreberryBush(PHConstruct.oreBerry, berryOres, 0, 4, new String[] { "oreIron", "oreGold", "oreCopper", "oreTin" }).func_149663_c("ore.berries.one");
+        TRepo.oreBerry = (OreberryBush) new OreberryBush(, berryOres, 0, 4, new String[] { "oreIron", "oreGold", "oreCopper", "oreTin" }).func_149663_c("ore.berries.one");
         String[] berryOresTwo = new String[] { "berry_aluminum", "berry_essence", "", "", "berry_aluminum_ripe", "berry_essence_ripe", "", "" };
-        TRepo.oreBerrySecond = (OreberryBush) new OreberryBushEssence(PHConstruct.oreBerrySecond, berryOresTwo, 4, 2, new String[] { "oreAluminum", "oreSilver" })
+        TRepo.oreBerrySecond = (OreberryBush) new OreberryBushEssence(berryOresTwo, 4, 2, new String[] { "oreAluminum", "oreSilver" })
                 .func_149663_c("ore.berries.two");
 
         String[] oreTypes = new String[] { "nether_slag", "nether_cobalt", "nether_ardite", "ore_copper", "ore_tin", "ore_aluminum", "ore_slag" };
-        TRepo.oreSlag = new MetalOre(PHConstruct.oreSlag, Material.field_151576_e, 10.0F, oreTypes).func_149663_c("tconstruct.stoneore");
+        TRepo.oreSlag = new MetalOre(Material.field_151576_e, 10.0F, oreTypes).func_149663_c("tconstruct.stoneore");
         MinecraftForge.setBlockHarvestLevel(TRepo.oreSlag, 1, "pickaxe", 4);
         MinecraftForge.setBlockHarvestLevel(TRepo.oreSlag, 2, "pickaxe", 4);
         MinecraftForge.setBlockHarvestLevel(TRepo.oreSlag, 3, "pickaxe", 1);
         MinecraftForge.setBlockHarvestLevel(TRepo.oreSlag, 4, "pickaxe", 1);
         MinecraftForge.setBlockHarvestLevel(TRepo.oreSlag, 5, "pickaxe", 1);
 
-        TRepo.oreGravel = new GravelOre(PHConstruct.oreGravel).func_149663_c("GravelOre").func_149663_c("tconstruct.gravelore");
+        TRepo.oreGravel = new GravelOre().func_149663_c("GravelOre").func_149663_c("tconstruct.gravelore");
         MinecraftForge.setBlockHarvestLevel(TRepo.oreGravel, 0, "shovel", 1);
         MinecraftForge.setBlockHarvestLevel(TRepo.oreGravel, 1, "shovel", 2);
         MinecraftForge.setBlockHarvestLevel(TRepo.oreGravel, 2, "shovel", 1);
@@ -423,7 +423,7 @@ public class TContent implements IFuelHandler
         TRepo.speedBlock = new SpeedBlock(PHConstruct.speedBlock).func_149663_c("SpeedBlock");
 
         //Glass
-        TRepo.clearGlass = new GlassBlockConnected(PHConstruct.glass, "clear", false).func_149663_c("GlassBlock");
+        TRepo.clearGlass = new GlassBlockConnected("clear", false).func_149663_c("GlassBlock");
         TRepo.clearGlass.stepSound = Block.soundGlassFootstep;
         TRepo.glassPane = new GlassPaneConnected(PHConstruct.glassPane, "clear", false);
         TRepo.stainedGlassClear = new GlassBlockConnectedMeta(PHConstruct.stainedGlassClear, "stained", true, "white", "orange", "magenta", "light_blue", "yellow", "lime", "pink", "gray",
@@ -730,9 +730,9 @@ public class TContent implements IFuelHandler
         else
             pb.registerMaterialSet("Cactus", new ItemStack(TRepo.toolShard, 1, 4), new ItemStack(TRepo.toolRod, 1, 4), 4);
         if (PHConstruct.enableTBone)
-            pb.registerFullMaterial(Items.bone, 2, "Bone", new ItemStack(Items.dyePowder, 1, 15), new ItemStack(Item.bone), 5);
+            pb.registerFullMaterial(Items.bone, 2, "Bone", new ItemStack(Items.dye, 1, 15), new ItemStack(Item.bone), 5);
         else
-            pb.registerMaterialSet("Bone", new ItemStack(Item.dyePowder, 1, 15), new ItemStack(Items.bone), 5);
+            pb.registerMaterialSet("Bone", new ItemStack(Item.dye, 1, 15), new ItemStack(Items.bone), 5);
         pb.registerFullMaterial(Blocks.obsidian, 2, "Obsidian", new ItemStack(TRepo.toolShard, 1, 6), new ItemStack(TRepo.toolRod, 1, 6), 6);
         pb.registerMaterial(new ItemStack(TRepo.materials, 1, 18), 2, "Obsidian");
         if (PHConstruct.enableTNetherrack)

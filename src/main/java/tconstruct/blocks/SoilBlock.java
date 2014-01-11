@@ -18,25 +18,24 @@ public class SoilBlock extends TConstructBlock
 
     public SoilBlock()
     {
-        super(Material.ground, 3.0F, soilTypes);
+        super(Material.field_151578_c, 3.0F, soilTypes);
     }
 
     @Override
     public void onEntityWalking (World world, int x, int y, int z, Entity entity)
     {
         if (entity instanceof EntityLivingBase)
-            EntityLivingBase living = ((EntityLivingBase) entity);
-            if (living.getCreatureAttribute() == EnumCreatureAttribute.UNDEAD)
+            if (((EntityLivingBase) entity).getCreatureAttribute() == EnumCreatureAttribute.UNDEAD)
             {
                 int metadata = world.getBlockMetadata(x, y, z);
                 if (metadata == 3)
                 {
-                    living.heal(1);
+                    ((EntityLivingBase) entity).heal(1);
                 }
                 else if (metadata == 4)
                 {
-                    living.attackEntityFrom(DamageSource.magic, 1);
-                    living.setFire(1);
+                    ((EntityLivingBase) entity).attackEntityFrom(DamageSource.magic, 1);
+                    ((EntityLivingBase) entity).setFire(1);
                 }
             }
         }

@@ -13,7 +13,7 @@ public class GlueBlock extends TConstructBlock {
 
     public GlueBlock()
     {
-        super(Material.ground, 4.0f, new String[]{"glue"});
+        super(Material.field_151578_c, 4.0f, new String[]{"glue"});
     }
 
     @Override

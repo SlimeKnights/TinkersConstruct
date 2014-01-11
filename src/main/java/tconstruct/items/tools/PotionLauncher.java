@@ -9,6 +9,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -39,7 +40,7 @@ public class PotionLauncher extends Item
         boolean loaded = tags.getBoolean("Loaded");
         if (!loaded)
         {
-            int slotID = getInventorySlotContainItem(Item.potion.itemID, player.inventory);
+            int slotID = getInventorySlotContainItem(Items.potionitem, player.inventory);
             ItemStack potion = player.inventory.getStackInSlot(slotID);
 
             NBTTagCompound potionTag = new NBTTagCompound();
@@ -67,7 +68,7 @@ public class PotionLauncher extends Item
     public ItemStack onItemRightClick (ItemStack stack, World world, EntityPlayer player)
     {
         NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
-        int slotID = getInventorySlotContainItem(Item.potion.itemID, player.inventory);
+        int slotID = getInventorySlotContainItem(Items.potionitem, player.inventory);
         if (!tags.getBoolean("Loaded") && slotID >= 0)
             player.setItemInUse(stack, this.getMaxItemUseDuration(stack));
         return stack;
@@ -110,7 +111,7 @@ public class PotionLauncher extends Item
     }
 
     @Override
-    public void getSubItems (Block b, CreativeTabs tabs, List list)
+    public void getSubItems (Item b, CreativeTabs tabs, List list)
     {
         ItemStack stack = new ItemStack(b, 1, 0);
         NBTTagCompound compound = new NBTTagCompound();
@@ -154,7 +155,7 @@ public class PotionLauncher extends Item
         if (living instanceof EntityPlayer)
         {
             EntityPlayer player = (EntityPlayer) living;
-            int potionSlot = getInventorySlotContainItem(Item.potion.itemID, player.inventory);
+            int potionSlot = getInventorySlotContainItem(Items.potionitem, player.inventory);
             if (potionSlot >= 0)
             {
                 return player.inventory.getStackInSlot(potionSlot);
@@ -163,11 +164,11 @@ public class PotionLauncher extends Item
         return null;
     }
 
-    int getInventorySlotContainItem (int itemID, InventoryPlayer inventory)
+    int getInventorySlotContainItem (Item item, InventoryPlayer inventory)
     {
         for (int j = 0; j < inventory.mainInventory.length; ++j)
         {
-            if (inventory.mainInventory[j] != null && inventory.mainInventory[j].itemID == itemID)
+            if (inventory.mainInventory[j] != null && inventory.mainInventory[j].getItem() == item)
             {
                 return j;
             }

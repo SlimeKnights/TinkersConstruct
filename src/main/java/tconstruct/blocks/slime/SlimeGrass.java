@@ -29,7 +29,7 @@ public class SlimeGrass extends MantleBlock
 
     public SlimeGrass()
     {
-        super(Material.grass);
+        super(Material.field_151577_b);
         func_149711_c(0.6f);
         this.setTickRandomly(true);
         this.setCreativeTab(TConstructRegistry.blockTab);

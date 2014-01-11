@@ -16,6 +16,7 @@ import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.projectile.EntityArrow;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.packet.Packet70GameEvent;
@@ -100,18 +101,16 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
             this.prevRotationPitch = this.rotationPitch = (float) (Math.atan2(this.motionY, (double) f) * 180.0D / Math.PI);
         }
 
-        int i = this.worldObj.getBlockId(this.field_145791_d, this.field_145792_e, this.field_145789_f);
+        Block i = this.worldObj.getBlock(this.field_145791_d, this.field_145792_e, this.field_145789_f);
 
-        if (i > 0)
-        {
-            Block.blocksList[i].setBlockBoundsBasedOnState(this.worldObj, this.field_145791_d, this.field_145792_e, this.field_145789_f);
-            AxisAlignedBB axisalignedbb = Block.blocksList[i].getCollisionBoundingBoxFromPool(this.worldObj, this.field_145791_d, this.field_145792_e, this.field_145789_f);
+       
+            i.setBlockBoundsBasedOnState(this.worldObj, this.field_145791_d, this.field_145792_e, this.field_145789_f);
+            AxisAlignedBB axisalignedbb = i.getCollisionBoundingBoxFromPool(this.worldObj, this.field_145791_d, this.field_145792_e, this.field_145789_f);
 
             if (axisalignedbb != null && axisalignedbb.isVecInside(this.worldObj.getWorldVec3Pool().getVecFromPool(this.posX, this.posY, this.posZ)))
             {
                 this.inGround = true;
             }
-        }
 
         if (this.arrowShake > 0)
         {
@@ -122,7 +121,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
         {
             if (!worldObj.isRemote)
             {
-                int j = this.worldObj.getBlockId(this.field_145791_d, this.field_145792_e, this.field_145789_f);
+                Block j = this.worldObj.getBlock(this.field_145791_d, this.field_145792_e, this.field_145789_f);
                 int k = this.worldObj.getBlockMetadata(this.field_145791_d, this.field_145792_e, this.field_145789_f);
 
                 if (j == this.inTile && k == this.inData)
@@ -346,7 +345,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
 
                     if (this.inTile != 0)
                     {
-                        Block.blocksList[this.inTile].onEntityCollidedWithBlock(this.worldObj, this.field_145791_d, this.field_145792_e, this.field_145789_f, this);
+                        this.inTile.onEntityCollidedWithBlock(this.worldObj, this.field_145791_d, this.field_145792_e, this.field_145789_f, this);
                     }
                 }
             }
@@ -456,7 +455,8 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
             {
                 CrashReport crashreport = CrashReport.makeCrashReport(throwable, "Adding item to inventory");
                 CrashReportCategory crashreportcategory = crashreport.makeCategory("Item being added");
-                crashreportcategory.addCrashSection("Item ID", Integer.valueOf(par1ItemStack.itemID));
+                //TODO is this needed???
+                //crashreportcategory.addCrashSection("Item ID", Integer.valueOf(par1ItemStack.itemID));
                 crashreportcategory.addCrashSection("Item data", Integer.valueOf(par1ItemStack.getItemDamage()));
                 //crashreportcategory.addCrashSectionCallable("Item name", new CallableItemName(this, par1ItemStack));
                 throw new ReportedException(crashreport);
@@ -479,7 +479,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
 
     private int storePartialItemStack (ItemStack par1ItemStack, EntityLivingBase living)
     {
-        int i = par1ItemStack.itemID;
+        Item i = par1ItemStack.getItem();
         int j = par1ItemStack.stackSize;
         int slotID;
 
@@ -568,7 +568,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
         for (int slotID = 0; slotID < 5; ++slotID)
         {
             ItemStack stack = living.getCurrentItemOrArmor(slotID);
-            if (stack != null && stack.itemID == par1ItemStack.itemID && stack.isStackable() && stack.stackSize < stack.getMaxStackSize() && stack.stackSize < 64
+            if (stack != null && stack == par1ItemStack && stack.isStackable() && stack.stackSize < stack.getMaxStackSize() && stack.stackSize < 64
                     && (!stack.getHasSubtypes() || stack.getItemDamage() == par1ItemStack.getItemDamage()) && ItemStack.areItemStackTagsEqual(stack, par1ItemStack))
             {
                 return slotID;

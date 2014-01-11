@@ -255,7 +255,7 @@ public class TRecipes
         tb.registerToolMod(new ModRedstone(2, new ItemStack[] { redstoneItem, redstoneBlock }, new int[] { 1, 9 }));
         tb.registerArmorMod(new AModMoveSpeed(2, allArmors, new ItemStack[] { redstoneItem, redstoneBlock }, new int[] { 1, 9 }, false));
 
-        ItemStack lapisItem = new ItemStack(Items.dyePowder, 1, 4);
+        ItemStack lapisItem = new ItemStack(Items.dye, 1, 4);
         ItemStack lapisBlock = new ItemStack(Blocks.lapis_block);
         TRepo.modLapis = new ModLapis(10, new ItemStack[] { lapisItem, lapisBlock }, new int[] { 1, 9 });
         tb.registerToolMod(TRepo.modLapis);
@@ -510,7 +510,7 @@ public class TRecipes
                 Blocks.gravel, Blocks.gravel, Blocks.gravel);
         GameRegistry.addShapelessRecipe(new ItemStack(TRepo.craftedSoil, 2, 6), Items.netherStalkSeeds, Blocks.soul_sand, Blocks.gravel);
         // Graveyard Soil Recipes
-        GameRegistry.addShapelessRecipe(new ItemStack(TRepo.craftedSoil, 1, 3), Blocks.dirt, Items.rotten_flesh, new ItemStack(Items.dyePowder, 1, 15));
+        GameRegistry.addShapelessRecipe(new ItemStack(TRepo.craftedSoil, 1, 3), Blocks.dirt, Items.rotten_flesh, new ItemStack(Items.dye, 1, 15));
         // Silky Cloth Recipes
         GameRegistry.addRecipe(new ItemStack(TRepo.materials, 1, 25), patSurround, 'm', new ItemStack(TRepo.materials, 1, 24), '#', new ItemStack(Items.string));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TRepo.materials, 1, 25), patSurround, 'm', "nuggetGold", '#', new ItemStack(Items.string)));
@@ -766,7 +766,7 @@ public class TRecipes
         //chiseling.addDetailing(Block.stone_refined, 0, TRepo.multiBrick, 3, TRepo.chisel);
         chiseling.addDetailing(Items.iron_ingot, 0, TRepo.multiBrick, 4, TRepo.chisel);
         chiseling.addDetailing(Items.gold_ingot, 0, TRepo.multiBrick, 5, TRepo.chisel);
-        chiseling.addDetailing(Items.dyePowder, 4, TRepo.multiBrick, 6, TRepo.chisel);
+        chiseling.addDetailing(Items.dye, 4, TRepo.multiBrick, 6, TRepo.chisel);
         chiseling.addDetailing(Items.diamond, 0, TRepo.multiBrick, 7, TRepo.chisel);
         chiseling.addDetailing(Items.redstone, 0, TRepo.multiBrick, 8, TRepo.chisel);
         chiseling.addDetailing(Items.bone, 0, TRepo.multiBrick, 9, TRepo.chisel);

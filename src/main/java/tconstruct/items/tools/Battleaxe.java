@@ -46,7 +46,7 @@ public class Battleaxe extends HarvestTool
     @Override
     public boolean onBlockDestroyed (ItemStack itemstack, World world, Block b, int x, int y, int z, EntityLivingBase player)
     {
-        if (b != null && b.func_149688_o() == Material.leaves)
+        if (b != null && b.func_149688_o() == Material.field_151584_j)
             return false;
 
         return AbilityHelper.onBlockChanged(itemstack, world, b, x, y, z, player, random);

@@ -7,7 +7,7 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityLivingData;
+import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -98,7 +98,7 @@ public class TitleIcon extends Item
     }
 
     @Override
-    public void getSubItems (Block b, CreativeTabs tab, List list)
+    public void getSubItems (Item b, CreativeTabs tab, List list)
     {
         for (int i = 0; i < mobNames.length; i++)
             list.add(new ItemStack(b, 1, i));
@@ -182,7 +182,7 @@ public class TitleIcon extends Item
         if (!world.isRemote)
         {
             entity.setPosition(x, y, z);
-            ((EntityLiving) entity).onSpawnWithEgg((EntityLivingData) null);
+            ((EntityLiving) entity).onSpawnWithEgg((IEntityLivingData) null);
             world.spawnEntityInWorld(entity);
         }
     }
@@ -194,7 +194,7 @@ public class TitleIcon extends Item
             entity.setPosition(x, y, z);
             if (FMLCommonHandler.instance().getEffectiveSide() == Side.CLIENT)
                 entity.setAngles(player.cameraYaw, player.cameraYaw);
-            ((EntityLiving) entity).onSpawnWithEgg((EntityLivingData) null);
+            ((EntityLiving) entity).onSpawnWithEgg((IEntityLivingData) null);
             world.spawnEntityInWorld(entity);
         }
     }
@@ -205,7 +205,7 @@ public class TitleIcon extends Item
         {
             entity.setPosition(x, y, z);
             entity.setSlimeSize(8);
-            entity.func_110161_a((EntityLivingData) null);
+            entity.func_110161_a((IEntityLivingData) null);
             world.spawnEntityInWorld(entity);
         }
     }
@@ -216,7 +216,7 @@ public class TitleIcon extends Item
         {
             entity.setPosition(x, y, z);
             entity.setSlimeSize(8);
-            entity.func_110161_a((EntityLivingData) null);
+            entity.func_110161_a((IEntityLivingData) null);
             world.spawnEntityInWorld(entity);
         }
     }

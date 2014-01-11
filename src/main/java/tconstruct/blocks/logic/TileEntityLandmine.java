@@ -7,7 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.network.INetworkManager;
+import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.packet.Packet132TileEntityData;
 import net.minecraft.tileentity.TileEntity;
@@ -105,7 +105,7 @@ public class TileEntityLandmine extends TileEntity implements IInventory
     }
 
     @Override
-    public void onDataPacket (INetworkManager net, Packet132TileEntityData packet)
+    public void onDataPacket (NetworkManager net, Packet132TileEntityData packet)
     {
         readFromNBT(packet.data);
     }

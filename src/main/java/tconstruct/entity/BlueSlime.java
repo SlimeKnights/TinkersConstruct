@@ -2,7 +2,7 @@ package tconstruct.entity;
 
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.EntityLivingData;
+import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.boss.IBossDisplayData;
 import net.minecraft.entity.monster.EntityCreeper;
@@ -77,7 +77,7 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
         return StatCollector.translateToLocal("entity." + s + ".name");
     }
 
-    public EntityLivingData func_110161_a (EntityLivingData par1EntityLivingData)
+    public IEntityLivingData func_110161_a (IEntityLivingData par1EntityLivingData)
     {
         Object par1EntityLivingData1 = super.onSpawnWithEgg(par1EntityLivingData);
 
@@ -119,7 +119,7 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
             skelton.mountEntity(slime);
         }
 
-        return (EntityLivingData) par1EntityLivingData1;
+        return (IEntityLivingData) par1EntityLivingData1;
     }
 
     @Override

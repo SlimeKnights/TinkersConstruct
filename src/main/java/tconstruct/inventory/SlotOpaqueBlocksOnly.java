@@ -1,5 +1,6 @@
 package tconstruct.inventory;
 
+import mantle.blocks.BlockUtils;
 import net.minecraft.block.Block;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -21,7 +22,7 @@ public class SlotOpaqueBlocksOnly extends SlotBlocksOnly
     {
         if (super.isItemValid(par1ItemStack))
         {
-            Block b = Block.blocksList[par1ItemStack.itemID];
+            Block b = BlockUtils.getBlockFromItemStack(par1ItemStack);
             return b.isOpaqueCube() && b.renderAsNormalBlock();
         }
 
