@@ -108,7 +108,7 @@ public class ContainerLandmine extends Container
     {
         ItemStack itemstack = null;
         InventoryPlayer inventoryplayer = par4EntityPlayer.inventory;
-        int l;
+        Item l;
         ItemStack itemstack1;
 
         if (par3 == 5)
@@ -247,7 +247,7 @@ public class ContainerLandmine extends Container
 
                         if (itemstack1 != null)
                         {
-                            l = itemstack1.itemID;
+                            l = itemstack1.getItem();
                             itemstack = itemstack1.copy();
 
                             if (slot2 != null && slot2.getStack() != null && slot2.getStack().itemID == l)

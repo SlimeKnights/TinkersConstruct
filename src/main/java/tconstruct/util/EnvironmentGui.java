@@ -59,7 +59,7 @@ public class EnvironmentGui extends GuiScreen
             {
                 count++;
                 if (count >= mods.size())
-                    this.field_146297_k.displayGuiScreen(this.parentGuiScreen);
+                    this.field_146297_k.func_147108_a(this.parentGuiScreen);
             }
             if (button.field_146127_k == 1)
             {
@@ -74,7 +74,7 @@ public class EnvironmentGui extends GuiScreen
     public void drawScreen (int par1, int par2, float par3)
     {
         builder.setLength(0);
-        this.drawDefaultBackground();
+        this.func_146276_q_();
         String mod = mods.get(count);
         this.drawCenteredString(this.field_146289_q, I18n.getStringParams("Tinkers' Construct is not compatible with "+mod), this.field_146294_l / 2, 20, 0xFFFFFF);
         this.drawCenteredString(this.field_146289_q, I18n.getStringParams("The following reasons are given:"), this.field_146294_l / 2, 32, 0xFFFFFF);

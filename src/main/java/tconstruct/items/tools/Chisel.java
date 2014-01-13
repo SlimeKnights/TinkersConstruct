@@ -5,6 +5,7 @@ import tconstruct.common.TRepo;
 import tconstruct.library.crafting.Detailing.DetailInput;
 import tconstruct.library.tools.AbilityHelper;
 import tconstruct.library.tools.ToolCore;
+import net.minecraft.block.Block;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -94,13 +95,13 @@ public class Chisel extends ToolCore
                 int x = movingobjectposition.blockX;
                 int y = movingobjectposition.blockY;
                 int z = movingobjectposition.blockZ;
-                int blockID = world.getBlockId(x, y, z);
+                Block block = world.func_147439_a(x, y, z);
                 int meta = world.getBlockMetadata(x, y, z);
 
-                DetailInput details = TConstruct.chiselDetailing.getDetailing(blockID, meta);
+                DetailInput details = TConstruct.chiselDetailing.getDetailing(block, meta);
                 if (details != null && details.outputID < 4096)
                 {
-                    world.setBlock(x, y, z, details.outputID, details.outputMeta, 3);
+                    world.setBlock(x, y, z, details.output, details.outputMeta, 3);
                     if (!(entityplayer.capabilities.isCreativeMode))
                     {
                         int reinforced = 0;

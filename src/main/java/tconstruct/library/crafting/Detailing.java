@@ -17,28 +17,28 @@ public class Detailing
 
     public void addDetailing (Object input, int inputMeta, Object output, int outputMeta, ToolCore tool)
     {
-        int iID, iMeta = inputMeta, oID, oMeta = outputMeta;
+        ItemStack iID, oID;
+        int iMeta = inputMeta, oMeta = outputMeta;
 
         if (input instanceof Block)
-            iID = ((Block) input).blockID;
+            iID = new ItemStack(((Block) input));
 
         else if (input instanceof Item)
-            iID = ((Item) input).itemID;
-
-        else if (input instanceof Integer)
-            iID = (Integer) input;
+            iID = new ItemStack(((Item) input));
+        else if (input instanceof ItemStack)
+            iID = ((ItemStack) input);
 
         else
             throw new RuntimeException("Invalid detail input!");
 
         if (output instanceof Block)
-            oID = ((Block) output).blockID;
+            oID = new ItemStack((Block) output);
 
         else if (output instanceof Item)
-            oID = ((Item) output).itemID;
+            oID = new ItemStack((Item) output);
 
-        else if (output instanceof Integer)
-            oID = (Integer) output;
+        else if (output instanceof ItemStack)
+            oID = (ItemStack) output;
 
         else
             throw new RuntimeException("Invalid detail output!");
@@ -60,7 +60,7 @@ public class Detailing
         toolTag.setInteger("TotalDurability", 100);
         compound.setTag("InfiTool", toolTag);
         toolstack.setTagCompound(compound);
-        addShapelessToolRecipe(new ItemStack(details.output, 1, details.outputMeta), toolstack, new ItemStack(details.input, 1, details.inputMeta));
+        addShapelessToolRecipe(new ItemStack(details.output.getItem(), 1, details.outputMeta), toolstack, new ItemStack(details.input.getItem(), 1, details.inputMeta));
     }
 
     public void addShapelessToolRecipe (ItemStack par1ItemStack, Object... par2ArrayOfObj)
@@ -95,12 +95,12 @@ public class Detailing
         GameRegistry.addRecipe(new ShapelessToolRecipe(par1ItemStack, arraylist));
     }
 
-    public DetailInput getDetailing (int inputID, int inputMeta)
+    public DetailInput getDetailing (Block block, int inputMeta)
     {
         for (int i = 0; i < detailing.size(); i++)
         {
             DetailInput detail = (DetailInput) detailing.get(i);
-            if (inputID == detail.inputID && inputMeta == detail.inputMeta)
+            if (new ItemStack(block) == detail.input && inputMeta == detail.inputMeta)
             {
                 return detail;
             }
@@ -110,16 +110,16 @@ public class Detailing
 
     public class DetailInput
     {
-        public int inputID;
+        public ItemStack input;
         public int inputMeta;
-        public int outputID;
+        public ItemStack output;
         public int outputMeta;
 
-        public DetailInput(int inputID, int inputMeta, int outputID, int outputMeta)
+        public DetailInput(ItemStack input, int inputMeta, ItemStack output, int outputMeta)
         {
-            this.inputID = inputID;
+            this.input = input;
             this.inputMeta = inputMeta;
-            this.outputID = outputID;
+            this.output = output;
             this.outputMeta = outputMeta;
         }
     }

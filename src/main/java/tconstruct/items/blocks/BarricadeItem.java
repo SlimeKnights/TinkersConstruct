@@ -32,7 +32,7 @@ public class BarricadeItem extends ItemBlock
 
     public boolean onItemUse (ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
     {
-        Block b = world.getBlock(x, y, z);
+        Block b = world.func_147439_a(x, y, z);
 
         if (b == Blocks.snow && (world.getBlockMetadata(x, y, z) & 7) < 1)
         {
