@@ -34,8 +34,8 @@ public class CraftingStationGui extends GuiContainer
         this.logic = logic;
         //text = new GuiTextField(this.fontRenderer, this.xSize / 2 - 5, 8, 30, 12);
         //this.text.setText("");
-        title = "\u00A7nRepair and Modification";
-        body = "The main way to repair or change your tools or armor.\n\nPlace an item and a material on the left to get started.";
+        title = "\u00A7n" + StatCollector.translateToLocal("gui.toolforge1");
+        body = StatCollector.translateToLocal("gui.toolforge2");
         toolName = "";
     }
 
