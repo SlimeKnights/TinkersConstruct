@@ -34,7 +34,7 @@ public class PartCrafterGui extends NewContainerGui
         logic = partlogic;
         drawChestPart = container instanceof PartCrafterChestContainer;
 
-        title = "\u00A7nTool Part Crafting";
+        title = "\u00A7n"+(StatCollector.translateToLocal("gui.partcrafter1"));
     }
 
     protected void drawGuiContainerForegroundLayer (int par1, int par2)
@@ -49,9 +49,9 @@ public class PartCrafterGui extends NewContainerGui
 
     void drawDefaultInformation ()
     {
-        title = "\u00A7nTool Part Building";
+        title = "\u00A7n"+ (StatCollector.translateToLocal("gui.partcrafter2");
         this.drawCenteredString(fontRenderer, title, xSize + 63, 8, 16777215);
-        fontRenderer.drawSplitString("Place a pattern and a material on the left to get started.", xSize + 8, 24, 115, 16777215);
+        fontRenderer.drawSplitString(StatCollector.translateToLocal("gui.partcrafter3"), xSize + 8, 24, 115, 16777215);
     }
 
     void drawMaterialInformation ()
@@ -94,33 +94,33 @@ public class PartCrafterGui extends NewContainerGui
         if (hasTop)
         {
             this.drawCenteredString(fontRenderer, title, xSize + 63, offset, 16777215);
-            this.fontRenderer.drawString("Base Durability: " + topEnum.durability(), xSize + 8, offset + 16, 16777215);
-            this.fontRenderer.drawString("Handle Modifier: " + topEnum.handleDurability() + "x", xSize + 8, offset + 27, 16777215);
-            this.fontRenderer.drawString("Mining Speed: " + topEnum.toolSpeed() / 100f, xSize + 8, offset + 38, 16777215);
-            this.fontRenderer.drawString("Mining Level: " + getHarvestLevelName(topEnum.harvestLevel()), xSize + 8, offset + 49, 16777215);
+            this.fontRenderer.drawString(StatCollector.translateToLocal("gui.partcrafter4") + topEnum.durability(), xSize + 8, offset + 16, 16777215);
+            this.fontRenderer.drawString(StatCollector.translateToLocal("gui.partcrafter5") + topEnum.handleDurability() + "x", xSize + 8, offset + 27, 16777215);
+            this.fontRenderer.drawString(StatCollector.translateToLocal("gui.partcrafter6") + topEnum.toolSpeed() / 100f, xSize + 8, offset + 38, 16777215);
+            this.fontRenderer.drawString(StatCollector.translateToLocal("gui.partcrafter7") + getHarvestLevelName(topEnum.harvestLevel()), xSize + 8, offset + 49, 16777215);
 
             int attack = topEnum.attack();
-            String heart = attack == 2 ? " Heart" : " Hearts";
+            String heart = attack == 2 ? StatCollector.translateToLocal("gui.partcrafter8") : StatCollector.translateToLocal("gui.partcrafter9");
             if (attack % 2 == 0)
-                this.fontRenderer.drawString("Attack: " + attack / 2 + heart, xSize + 8, offset + 60, 0xffffff);
+                this.fontRenderer.drawString(StatCollector.translateToLocal("gui.partcrafter10") + attack / 2 + heart, xSize + 8, offset + 60, 0xffffff);
             else
-                this.fontRenderer.drawString("Attack: " + attack / 2f + heart, xSize + 8, offset + 60, 0xffffff);
+                this.fontRenderer.drawString(StatCollector.translateToLocal("gui.partcrafter10") + attack / 2f + heart, xSize + 8, offset + 60, 0xffffff);
         }
 
         offset = 90;
         if (hasBottom)
         {
             this.drawCenteredString(fontRenderer, otherTitle, xSize + 63, offset, 16777215);
-            this.fontRenderer.drawString("Base Durability: " + bottomEnum.durability(), xSize + 8, offset + 16, 16777215);
-            this.fontRenderer.drawString("Handle Modifier: " + bottomEnum.handleDurability() + "x", xSize + 8, offset + 27, 16777215);
-            this.fontRenderer.drawString("Mining Speed: " + bottomEnum.toolSpeed() / 100f, xSize + 8, offset + 38, 16777215);
-            this.fontRenderer.drawString("Mining Level: " + getHarvestLevelName(bottomEnum.harvestLevel()), xSize + 8, offset + 49, 16777215);
+            this.fontRenderer.drawString(StatCollector.translateToLocal("gui.partcrafter4") + bottomEnum.durability(), xSize + 8, offset + 16, 16777215);
+            this.fontRenderer.drawString(StatCollector.translateToLocal("gui.partcrafter5") + bottomEnum.handleDurability() + "x", xSize + 8, offset + 27, 16777215);
+            this.fontRenderer.drawString(StatCollector.translateToLocal("gui.partcrafter6") + bottomEnum.toolSpeed() / 100f, xSize + 8, offset + 38, 16777215);
+            this.fontRenderer.drawString(StatCollector.translateToLocal("gui.partcrafter7") + getHarvestLevelName(bottomEnum.harvestLevel()), xSize + 8, offset + 49, 16777215);
             int attack = bottomEnum.attack();
-            String heart = attack == 2 ? " Heart" : " Hearts";
+            String heart = attack == 2 ? StatCollector.translateToLocal("gui.partcrafter8") : StatCollector.translateToLocal("gui.partcrafter9");
             if (attack % 2 == 0)
-                this.fontRenderer.drawString("Attack: " + attack / 2 + heart, xSize + 8, offset + 60, 0xffffff);
+                this.fontRenderer.drawString(StatCollector.translateToLocal("gui.partcrafter10") + attack / 2 + heart, xSize + 8, offset + 60, 0xffffff);
             else
-                this.fontRenderer.drawString("Attack: " + attack / 2f + heart, xSize + 8, offset + 60, 0xffffff);
+                this.fontRenderer.drawString(StatCollector.translateToLocal("gui.partcrafter10") + attack / 2f + heart, xSize + 8, offset + 60, 0xffffff);
         }
 
         if (!hasTop && !hasBottom)
@@ -132,17 +132,17 @@ public class PartCrafterGui extends NewContainerGui
         switch (num)
         {
         case 0:
-            return "Stone";
+            return (StatCollector.translateToLocal("gui.partcrafter.mining1"));
         case 1:
-            return "Iron";
+            return (StatCollector.translateToLocal("gui.partcrafter.mining2"));
         case 2:
-            return "Redstone";
+            return (StatCollector.translateToLocal("gui.partcrafter.mining3"));
         case 3:
-            return "Obsidian";
+            return (StatCollector.translateToLocal("gui.partcrafter.mining4"));
         case 4:
-            return "Cobalt";
+            return (StatCollector.translateToLocal("gui.partcrafter.mining5"));
         case 5:
-            return "Manyullyn";
+            return (StatCollector.translateToLocal("gui.partcrafter.mining6"));
         default:
             return String.valueOf(num);
         }

@@ -70,8 +70,8 @@ public class StencilTableGui extends GuiContainer
         GuiButtonTool repairButton = new GuiButtonTool(0, cornerX - 110, cornerY, repair.buttonIconX, repair.buttonIconY, repair.texture); // Repair
         repairButton.enabled = false;
         this.buttonList.add(repairButton);*/
-        this.buttonList.add(new GuiButton(0, cornerX - 120, cornerY, 120, 20, "Next Pattern"));
-        this.buttonList.add(new GuiButton(1, cornerX - 120, cornerY + 20, 120, 20, "Previous Pattern"));
+        this.buttonList.add(new GuiButton(0, cornerX - 120, cornerY, 120, 20, (StatCollector.translateToLocal("gui.stenciltable1")));
+        this.buttonList.add(new GuiButton(1, cornerX - 120, cornerY + 20, 120, 20, (StatCollector.translateToLocal("gui.stenciltable1")));
 
         //for (int iter = 0; iter < TConstructContent.patternOutputs.length; iter++)
         //{
