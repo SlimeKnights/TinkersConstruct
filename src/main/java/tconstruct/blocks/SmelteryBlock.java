@@ -40,7 +40,7 @@ public class SmelteryBlock extends InventoryBlock
         setResistance(20F);
         setStepSound(soundMetalFootstep);
         rand = new Random();
-        this.setCreativeTab(TConstructRegistry.blockTab);
+        this.func_149647_a(TConstructRegistry.blockTab);
         this.setUnlocalizedName("tconstruct.Smeltery");
     }
 
@@ -296,13 +296,13 @@ public class SmelteryBlock extends InventoryBlock
     }
 
     @Override
-    public void breakBlock (World world, int x, int y, int z, int blockID, int meta)
+    public void breakBlock (World world, int x, int y, int z, Block block, int meta)
     {
         TileEntity logic = world.getBlockTileEntity(x, y, z);
         if (logic instanceof IServantLogic)
         {
             ((IServantLogic) logic).notifyMasterOfChange();
         }
-        super.breakBlock(world, x, y, z, blockID, meta);
+        super.breakBlock(world, x, y, z, block, meta);
     }
 }
