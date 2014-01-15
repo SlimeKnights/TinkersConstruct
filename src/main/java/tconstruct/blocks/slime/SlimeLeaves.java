@@ -7,6 +7,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
@@ -29,7 +30,7 @@ public class SlimeLeaves extends BlockLeaves
     public SlimeLeaves()
     {
         super();
-        setCreativeTab(TConstructRegistry.blockTab);
+        func_149647_a(TConstructRegistry.blockTab);
         setLightOpacity(1);
         this.func_149711_c(0.3f);
     }
@@ -77,7 +78,7 @@ public class SlimeLeaves extends BlockLeaves
     }
 
     @Override
-    public void getSubBlocks (Block b, CreativeTabs tab, List list)
+    public void getSubBlocks (Item b, CreativeTabs tab, List list)
     {
         for (int iter = 0; iter < fastIcons.length; iter++)
         {

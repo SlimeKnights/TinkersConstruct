@@ -283,7 +283,7 @@ public class TEventHandler
         {
             ItemStack dropStack = new ItemStack(TRepo.heartCanister, 1, 1);
             EntityItem entityitem = new EntityItem(event.entityLiving.worldObj, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, dropStack);
-            entityitem.delayBeforeCanPickup = 10;
+            entityitem.field_145804_b = 10;
             event.drops.add(entityitem);
         }
 
@@ -291,7 +291,7 @@ public class TEventHandler
         {
             ItemStack dropStack = new ItemStack(TRepo.heartCanister, 1, 1);
             EntityItem entityitem = new EntityItem(event.entityLiving.worldObj, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, dropStack);
-            entityitem.delayBeforeCanPickup = 10;
+            entityitem.field_145804_b = 10;
             event.drops.add(entityitem);
         }
 
@@ -476,7 +476,7 @@ public class TEventHandler
     void addDrops (LivingDropsEvent event, ItemStack dropStack)
     {
         EntityItem entityitem = new EntityItem(event.entityLiving.worldObj, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, dropStack);
-        entityitem.delayBeforeCanPickup = 10;
+        entityitem.field_145804_b = 10;
         event.drops.add(entityitem);
     }
 

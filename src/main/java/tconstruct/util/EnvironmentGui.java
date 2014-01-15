@@ -43,7 +43,7 @@ public class EnvironmentGui extends GuiScreen
     /**
      * Called when the screen is unloaded. Used to disable keyboard repeat events
      */
-    public void onGuiClosed ()
+    public void func_146281_b ()
     {
         Keyboard.enableRepeatEvents(false);
     }
@@ -51,7 +51,7 @@ public class EnvironmentGui extends GuiScreen
     /**
      * Fired when a control is clicked. This is the equivalent of ActionListener.actionPerformed(ActionEvent e).
      */
-    protected void actionPerformed (GuiButton button)
+    protected void func_146284_a (GuiButton button)
     {
         if (button.field_146124_l)
         {

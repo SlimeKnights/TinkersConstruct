@@ -89,7 +89,7 @@ public class TActiveOmniMod extends ActiveToolMod
                     }
                     EntityItem entityitem = new EntityItem(world, x + 0.5, y + 0.5, z + 0.5, spawnme);
 
-                    entityitem.delayBeforeCanPickup = 10;
+                    entityitem.field_145804_b = 10;
                     world.spawnEntityInWorld(entityitem);
                     world.playAuxSFX(2001, x, y, z, bID + (meta << 12));
 

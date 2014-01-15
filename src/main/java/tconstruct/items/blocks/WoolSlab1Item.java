@@ -24,7 +24,7 @@ public class WoolSlab1Item extends MultiItemBlock
     @Override
     public boolean onItemUse (ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
     {
-        int id = world.getBlockId(x, y, z);
+        int id = world.getBlock(x, y, z);
         int meta = world.getBlockMetadata(x, y, z);
         int trueMeta = meta % 8;
         boolean flag = (id & 8) != 0;

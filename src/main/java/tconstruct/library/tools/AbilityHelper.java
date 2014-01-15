@@ -604,7 +604,7 @@ public class AbilityHelper
             float f6 = random.nextFloat() * f3 + (1.0F - f3) * 0.5F;
             entityitem = new EntityItem(world, f + f4, f1 + f5, f2 + f6, itemstack);
         }
-        entityitem.delayBeforeCanPickup = 10;
+        entityitem.field_145804_b = 10;
         world.spawnEntityInWorld(entityitem);
         return entityitem;
     }

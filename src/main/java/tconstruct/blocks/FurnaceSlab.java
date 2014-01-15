@@ -21,12 +21,12 @@ public class FurnaceSlab extends InventorySlab
     public FurnaceSlab(Material material)
     {
         super(material);
-        this.setCreativeTab(TConstructRegistry.blockTab);
+        this.func_149647_a(TConstructRegistry.blockTab);
         this.setHardness(3.5f);
     }
 
     @Override
-    public TileEntity createTileEntity (World world, int metadata)
+    public TileEntity func_149915_a (World world, int metadata)
     {
         switch (metadata % 8)
         {

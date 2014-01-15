@@ -34,7 +34,7 @@ public class DryingRack extends InventoryBlock
     }
 
     @Override
-    public TileEntity createTileEntity (World world, int metadata)
+    public TileEntity func_149915_a (World world, int metadata)
     {
         return new DryingRackLogic();
     }

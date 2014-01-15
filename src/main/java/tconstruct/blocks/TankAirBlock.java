@@ -28,7 +28,7 @@ public class TankAirBlock extends BlockContainer
     }
 
     @Override
-    public TileEntity createNewTileEntity (World world)
+    public TileEntity func_149915_a (World world, int i)
     {
         return new TankAirLogic();
     }
@@ -104,4 +104,5 @@ public class TankAirBlock extends BlockContainer
     public void getSubBlocks (int id, CreativeTabs tab, List list)
     {
     }
+
 }

@@ -150,7 +150,7 @@ public class LavaTankBlock extends BlockContainer
     }
 
     @Override
-    public TileEntity createTileEntity (World world, int metadata)
+    public TileEntity func_149915_a (World world, int metadata)
     {
         return new LavaTankLogic();
     }
@@ -232,7 +232,7 @@ public class LavaTankBlock extends BlockContainer
     @Override
     public TileEntity createNewTileEntity (World world)
     {
-        return createTileEntity(world, 0);
+        return func_149915_a(world, 0);
     }
 
     @Override
@@ -291,7 +291,7 @@ public class LavaTankBlock extends BlockContainer
             double d1 = (double) (world.rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
             double d2 = (double) (world.rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
             EntityItem entityitem = new EntityItem(world, (double) x + d0, (double) y + d1, (double) z + d2, stack);
-            entityitem.delayBeforeCanPickup = 10;
+            entityitem.field_145804_b = 10;
             world.spawnEntityInWorld(entityitem);
         }
     }

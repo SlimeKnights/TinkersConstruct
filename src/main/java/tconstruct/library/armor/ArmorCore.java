@@ -36,7 +36,7 @@ public abstract class ArmorCore extends ItemArmor implements IEnergyContainerIte
         this.setUnlocalizedName(SET_NAME);
         this.armorPart = part;
         this.baseProtection = baseProtection;
-        BlockDispenser.dispenseBehaviorRegistry.putObject(this, dispenserBehavior);
+        BlockDispenser.field_149943_a.putObject(this, dispenserBehavior);
     }
 
     public String getArmorName ()
@@ -92,7 +92,7 @@ public abstract class ArmorCore extends ItemArmor implements IEnergyContainerIte
             tags = new NBTTagCompound();
             stack.setTagCompound(tags);
             data = new NBTTagCompound();
-            tags.setCompoundTag(SET_NAME, data);
+            tags.setTag(SET_NAME, data);
             data.setInteger("damageReduction", baseProtection);
             data.setInteger("maxAbsorb", baseProtection);
         }
