@@ -21,9 +21,9 @@ import tconstruct.library.TConstructRegistry;
 public class CastingChannelBlock extends BlockContainer
 {
 
-    public CastingChannelBlock(int par1)
+    public CastingChannelBlock()
     {
-        super(par1, Material.rock);
+        super(Material.rock);
         this.func_149711_c(1F);
         this.func_149752_b(10);
         this.setStepSound(soundStoneFootstep);

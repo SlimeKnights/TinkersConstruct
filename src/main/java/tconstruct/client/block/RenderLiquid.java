@@ -389,7 +389,7 @@ public class RenderLiquid
             render.field_147848_as *= f6;
             render.field_147856_aw *= f6;
             render.field_147833_aA *= f6;
-            Icon icon = block.getIcon(2, metadata);
+            IIcon icon = block.getIcon(2, metadata);
             render.renderFaceZNeg(block, xPos, yPos, zPos, icon);
 
             flag = true;
@@ -506,7 +506,7 @@ public class RenderLiquid
             render.field_147848_as *= f6;
             render.field_147856_aw *= f6;
             render.field_147833_aA *= f6;
-            Icon icon = block.getIcon(3, metadata);
+            IIcon icon = block.getIcon(3, metadata);
             render.renderFaceZPos(block, xPos, yPos, zPos, icon);
 
             flag = true;
@@ -527,10 +527,10 @@ public class RenderLiquid
             render.field_147883_ah = block.func_149677_c(render.field_147845_a, xPos, yPos, zPos - 1);
             render.field_147868_aj = block.func_149677_c(render.field_147845_a, xPos, yPos, zPos + 1);
             render.field_147880_aa = block.func_149677_c(render.field_147845_a, xPos, yPos + 1, zPos);
-            boolean flag3 = Block.canBlockGrass[render.field_147845_a.func_147439_a(xPos - 1, yPos + 1, zPos)];
-            boolean flag2 = Block.canBlockGrass[render.field_147845_a.func_147439_a(xPos - 1, yPos - 1, zPos)];
-            boolean flag5 = Block.canBlockGrass[render.field_147845_a.func_147439_a(xPos - 1, yPos, zPos - 1)];
-            boolean flag4 = Block.canBlockGrass[render.field_147845_a.func_147439_a(xPos - 1, yPos, zPos + 1)];
+            boolean flag3 = render.field_147845_a.func_147439_a(xPos - 1, yPos + 1, zPos).func_149751_l();
+            boolean flag2 = render.field_147845_a.func_147439_a(xPos - 1, yPos - 1, zPos).func_149751_l();
+            boolean flag5 = render.field_147845_a.func_147439_a(xPos - 1, yPos, zPos - 1).func_149751_l();
+            boolean flag4 = render.field_147845_a.func_147439_a(xPos - 1, yPos, zPos + 1).func_149751_l();
 
             if ((!flag5) && (!flag2))
             {
@@ -623,7 +623,7 @@ public class RenderLiquid
             render.field_147848_as *= f6;
             render.field_147856_aw *= f6;
             render.field_147833_aA *= f6;
-            Icon icon = block.getIcon(4, metadata);
+            IIcon icon = block.getIcon(4, metadata);
             render.renderFaceXNeg(block, xPos, yPos, zPos, icon);
 
             flag = true;
@@ -644,10 +644,10 @@ public class RenderLiquid
             render.field_147866_ai = block.func_149677_c(render.field_147845_a, xPos, yPos, zPos - 1);
             render.field_147862_ak = block.func_149677_c(render.field_147845_a, xPos, yPos, zPos + 1);
             render.field_147885_ae = block.func_149677_c(render.field_147845_a, xPos, yPos + 1, zPos);
-            boolean flag3 = Block.canBlockGrass[render.field_147845_a.func_147439_a(xPos + 1, yPos + 1, zPos)];
-            boolean flag2 = Block.canBlockGrass[render.field_147845_a.func_147439_a(xPos + 1, yPos - 1, zPos)];
-            boolean flag5 = Block.canBlockGrass[render.field_147845_a.func_147439_a(xPos + 1, yPos, zPos + 1)];
-            boolean flag4 = Block.canBlockGrass[render.field_147845_a.func_147439_a(xPos + 1, yPos, zPos - 1)];
+            boolean flag3 = render.field_147845_a.func_147439_a(xPos + 1, yPos + 1, zPos).func_149751_l();
+            boolean flag2 = render.field_147845_a.func_147439_a(xPos + 1, yPos - 1, zPos).func_149751_l();
+            boolean flag5 = render.field_147845_a.func_147439_a(xPos + 1, yPos, zPos + 1).func_149751_l();
+            boolean flag4 = render.field_147845_a.func_147439_a(xPos + 1, yPos, zPos - 1).func_149751_l();
 
             if ((!flag2) && (!flag4))
             {
@@ -908,10 +908,10 @@ public class RenderLiquid
             render.field_147814_A = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos, zPos - 1);
             render.field_147815_B = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos, zPos + 1);
             render.field_147810_D = getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos, zPos);
-            boolean flag3 = Block.canBlockGrass[render.field_147845_a.func_147439_a(xPos + 1, yPos - 1, zPos)];
-            boolean flag2 = Block.canBlockGrass[render.field_147845_a.func_147439_a(xPos - 1, yPos - 1, zPos)];
-            boolean flag5 = Block.canBlockGrass[render.field_147845_a.func_147439_a(xPos, yPos - 1, zPos + 1)];
-            boolean flag4 = Block.canBlockGrass[render.field_147845_a.func_147439_a(xPos, yPos - 1, zPos - 1)];
+            boolean flag3 = render.field_147845_a.func_147439_a(xPos + 1, yPos - 1, zPos).func_149751_l();
+            boolean flag2 = render.field_147845_a.func_147439_a(xPos - 1, yPos - 1, zPos).func_149751_l();
+            boolean flag5 = render.field_147845_a.func_147439_a(xPos, yPos - 1, zPos + 1).func_149751_l();
+            boolean flag4 = render.field_147845_a.func_147439_a(xPos, yPos - 1, zPos - 1).func_149751_l();
 
             if ((!flag4) && (!flag2))
             {

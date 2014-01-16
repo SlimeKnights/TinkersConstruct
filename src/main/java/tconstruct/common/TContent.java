@@ -128,7 +128,7 @@ public class TContent implements IFuelHandler
         TRepo.searedBlock = new SearedBlock().func_149663_c("SearedBlock");
         TRepo.searedBlockNether = new SearedBlock("nether").func_149663_c("SearedBlock");
 
-        TRepo.castingChannel = (new CastingChannelBlock(PHConstruct.castingChannel)).func_149663_c("CastingChannel");
+        TRepo.castingChannel = (new CastingChannelBlock()).func_149663_c("CastingChannel");
 
         TRepo.tankAir = new TankAirBlock(Material.field_151584_j).setBlockUnbreakable().func_149663_c("tconstruct.tank.air");
 

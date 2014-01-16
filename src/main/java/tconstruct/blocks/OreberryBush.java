@@ -227,7 +227,7 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
     }
 
     @Override
-    public boolean renderAsNormalBlock ()
+    public boolean func_149686_d ()
     {
         return false;
     }
