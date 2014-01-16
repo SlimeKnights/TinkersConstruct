@@ -49,7 +49,7 @@ public class PartCrafterGui extends NewContainerGui
 
     void drawDefaultInformation ()
     {
-        title = "\u00A7n"+ (StatCollector.translateToLocal("gui.partcrafter2");
+        title = "\u00A7n" + StatCollector.translateToLocal("gui.partcrafter2");
         this.drawCenteredString(fontRenderer, title, xSize + 63, 8, 16777215);
         fontRenderer.drawSplitString(StatCollector.translateToLocal("gui.partcrafter3"), xSize + 8, 24, 115, 16777215);
     }

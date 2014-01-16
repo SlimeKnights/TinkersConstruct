@@ -220,7 +220,7 @@ public class ToolStationGui extends NewContainerGui
             if (attack < 1)
                 attack = 1;
 
-            String heart = attack == 2 ? StatCollector.translateToLocal("gui.partcrafter9") : (tatCollector.translateToLocal("gui.partcrafter10");
+            String heart = attack == 2 ? StatCollector.translateToLocal("gui.partcrafter9") : StatCollector.translateToLocal("gui.partcrafter10");
             if (attack % 2 == 0)
                 this.fontRenderer.drawString(StatCollector.translateToLocal("gui.toolstation3") + attack / 2 + heart, xSize + 8, base + offset * 10, 0xffffff);
             else
@@ -262,7 +262,7 @@ public class ToolStationGui extends NewContainerGui
 
             this.fontRenderer.drawString(StatCollector.translateToLocal("gui.toolstation10"), xSize + 8, base + offset * 10, 0xffffff);
             offset++;
-            String heart = attack == 2 ? (StatCollector.translateToLocal("gui.partcrafter9") : (StatCollector.translateToLocal("gui.partcrafter10");
+            String heart = attack == 2 ? StatCollector.translateToLocal("gui.partcrafter9") : StatCollector.translateToLocal("gui.partcrafter10");
             if (attack % 2 == 0)
                 this.fontRenderer.drawString("- " + attack / 2 + heart, xSize + 8, base + offset * 10, 0xffffff);
             else
@@ -346,7 +346,7 @@ public class ToolStationGui extends NewContainerGui
             trueSpeed += stoneboundSpeed;
             if (trueSpeed < 0)
                 trueSpeed = 0;
-            fontRenderer.drawString(StatCollector.translateToLocal("gui.toolstation14")rs") + df.format(trueSpeed), xSize + 8, base + offset * 10, 0xffffff);
+            fontRenderer.drawString(StatCollector.translateToLocal("gui.toolstation14") + df.format(trueSpeed), xSize + 8, base + offset * 10, 0xffffff);
             offset++;
             if (stoneboundSpeed != 0)
             {
