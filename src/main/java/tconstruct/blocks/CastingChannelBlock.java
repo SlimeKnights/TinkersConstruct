@@ -24,10 +24,10 @@ public class CastingChannelBlock extends BlockContainer
     public CastingChannelBlock(int par1)
     {
         super(par1, Material.rock);
-        this.setHardness(1F);
+        this.func_149711_c(1F);
         this.func_149752_b(10);
         this.setStepSound(soundStoneFootstep);
-        setCreativeTab(TConstructRegistry.blockTab);
+        func_149647_a(TConstructRegistry.blockTab);
     }
 
     @Override
@@ -56,7 +56,7 @@ public class CastingChannelBlock extends BlockContainer
     }
 
     @Override
-    public void setBlockBoundsBasedOnState (IBlockAccess world, int x, int y, int z)
+    public void func_149719_a (IBlockAccess world, int x, int y, int z)
     {
         CastingChannelLogic tile = (CastingChannelLogic) world.func_147438_o(x, y, z);
         float minX = 0.3125F;
@@ -72,11 +72,11 @@ public class CastingChannelBlock extends BlockContainer
         if (tile.hasTankConnected(ForgeDirection.EAST))
             maxX = 1F;
 
-        this.setBlockBounds(minX, 0.375F, minZ, maxX, 0.625F, maxZ);
+        this.func_149676_a(minX, 0.375F, minZ, maxX, 0.625F, maxZ);
     }
 
     @Override
-    public boolean renderAsNormalBlock ()
+    public boolean func_149686_d ()
     {
         return false;
     }

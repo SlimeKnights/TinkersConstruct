@@ -30,12 +30,12 @@ public class OreberryBushEssence extends OreberryBush implements IPlantable
             {
                 if (meta < 12)
                 {
-                    world.setBlock(x, y, z,(Block) this, meta + 4, 3);
+                    world.func_147465_d(x, y, z,(Block) this, meta + 4, 3);
                 }
             }
             /*else if (meta < 8)
             {
-            	world.setBlock(x, y, z, blockID, meta + 4, 3);
+            	world.func_147465_d(x, y, z, blockID, meta + 4, 3);
             }*/
         }
     }

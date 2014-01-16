@@ -74,7 +74,7 @@ public class SmelteryScan extends TankLayerScan
             {
                 if (world.func_147439_a(coord.x, coord.y, coord.z) != TRepo.tankAir)
                 {
-                    world.setBlock(coord.x, coord.y, coord.z, TRepo.tankAir);
+                    world.func_147449_b(coord.x, coord.y, coord.z, TRepo.tankAir);
                     IServantLogic servant = (IServantLogic) world.func_147438_o(coord.x, coord.y, coord.z);
                     servant.verifyMaster(imaster, world, master.field_145851_c, master.field_145848_d, master.field_145849_e);
                 }

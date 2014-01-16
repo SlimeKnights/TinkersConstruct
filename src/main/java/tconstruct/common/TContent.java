@@ -406,19 +406,19 @@ public class TContent implements IFuelHandler
 
         String[] oreTypes = new String[] { "nether_slag", "nether_cobalt", "nether_ardite", "ore_copper", "ore_tin", "ore_aluminum", "ore_slag" };
         TRepo.oreSlag = new MetalOre(Material.field_151576_e, 10.0F, oreTypes).func_149663_c("tconstruct.stoneore");
-        MinecraftForge.setBlockHarvestLevel(TRepo.oreSlag, 1, "pickaxe", 4);
-        MinecraftForge.setBlockHarvestLevel(TRepo.oreSlag, 2, "pickaxe", 4);
-        MinecraftForge.setBlockHarvestLevel(TRepo.oreSlag, 3, "pickaxe", 1);
-        MinecraftForge.setBlockHarvestLevel(TRepo.oreSlag, 4, "pickaxe", 1);
-        MinecraftForge.setBlockHarvestLevel(TRepo.oreSlag, 5, "pickaxe", 1);
+        TRepo.oreSlag.setHarvestLevel("pickaxe", 4, 1);
+        TRepo.oreSlag.setHarvestLevel("pickaxe", 4, 2);
+        TRepo.oreSlag.setHarvestLevel("pickaxe", 1, 3);
+        TRepo.oreSlag.setHarvestLevel("pickaxe", 1, 4);
+        TRepo.oreSlag.setHarvestLevel("pickaxe", 1, 5);
 
         TRepo.oreGravel = new GravelOre().func_149663_c("GravelOre").func_149663_c("tconstruct.gravelore");
-        MinecraftForge.setBlockHarvestLevel(TRepo.oreGravel, 0, "shovel", 1);
-        MinecraftForge.setBlockHarvestLevel(TRepo.oreGravel, 1, "shovel", 2);
-        MinecraftForge.setBlockHarvestLevel(TRepo.oreGravel, 2, "shovel", 1);
-        MinecraftForge.setBlockHarvestLevel(TRepo.oreGravel, 3, "shovel", 1);
-        MinecraftForge.setBlockHarvestLevel(TRepo.oreGravel, 4, "shovel", 1);
-        MinecraftForge.setBlockHarvestLevel(TRepo.oreGravel, 5, "shovel", 4);
+        TRepo.oreGravel.setHarvestLevel("shovel", 1, 0);
+        TRepo.oreGravel.setHarvestLevel("shovel", 2, 1);
+        TRepo.oreGravel.setHarvestLevel("shovel", 1, 2);
+        TRepo.oreGravel.setHarvestLevel("shovel", 1, 3);
+        TRepo.oreGravel.setHarvestLevel("shovel", 1, 4);
+        TRepo.oreGravel.setHarvestLevel("shovel", 4, 5);
 
         TRepo.speedBlock = new SpeedBlock().func_149663_c("SpeedBlock");
 
@@ -445,7 +445,7 @@ public class TContent implements IFuelHandler
         GameRegistry.registerItem(TRepo.blankPattern, "blankPattern");
 
         TRepo.materials = new MaterialItem().func_149663_c("tconstruct.Materials");
-        TRepo.toolRod = new ToolPart( "_rod", "ToolRod").func_149663_c("tconstruct.ToolRod");
+        TRepo.toolRod = new ToolPart("_rod", "ToolRod").func_149663_c("tconstruct.ToolRod");
         TRepo.toolShard = new ToolShard("_chunk").func_149663_c("tconstruct.ToolShard");
         TRepo.woodPattern = new Pattern("pattern_", "materials/").func_149663_c("tconstruct.Pattern");
         TRepo.metalPattern = new MetalPattern("cast_", "materials/").func_149663_c("tconstruct.MetalPattern");
@@ -522,8 +522,8 @@ public class TContent implements IFuelHandler
 
         TRepo.pickaxeHead = new ToolPart("_pickaxe_head", "PickHead").func_149663_c("tconstruct.PickaxeHead");
         TRepo.shovelHead = new ToolPart("_shovel_head", "ShovelHead").func_149663_c("tconstruct.ShovelHead");
-        TRepo.hatchetHead = new ToolPart( "_axe_head", "AxeHead").func_149663_c("tconstruct.AxeHead");
-        TRepo.binding = new ToolPart( "_binding", "Binding").func_149663_c("tconstruct.Binding");
+        TRepo.hatchetHead = new ToolPart("_axe_head", "AxeHead").func_149663_c("tconstruct.AxeHead");
+        TRepo.binding = new ToolPart("_binding", "Binding").func_149663_c("tconstruct.Binding");
         TRepo.toughBinding = new ToolPart("_toughbind", "ToughBind").func_149663_c("tconstruct.ThickBinding");
         TRepo.toughRod = new ToolPart("_toughrod", "ToughRod").func_149663_c("tconstruct.ThickRod");
         TRepo.largePlate = new ToolPart("_largeplate", "LargePlate").func_149663_c("tconstruct.LargePlate");

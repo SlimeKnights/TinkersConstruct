@@ -11,8 +11,8 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class SurfaceOreGen extends WorldGenerator
 {
-    /** The block ID of the ore to be placed using this generator. */
-    private int minableBlockId;
+    /** The block of the ore to be placed using this generator. */
+    private Block minableBlock;
     private int minableBlockMeta = 0;
 
     /** The number of blocks to generate. */
@@ -20,14 +20,14 @@ public class SurfaceOreGen extends WorldGenerator
     private int[] replaceBlocks;
     private boolean alterSize;
 
-    public SurfaceOreGen(int id, int meta, int number, boolean changeSize)
+    public SurfaceOreGen(Block b, int meta, int number, boolean changeSize)
     {
-        this(id, meta, number, changeSize, Blocks.stone, (Block) Blocks.grass, Blocks.dirt, Blocks.water, Blocks.sand, Blocks.gravel, Blocks.snow);
+        this(b, meta, number, changeSize, Blocks.stone, (Block) Blocks.grass, Blocks.dirt, Blocks.water, Blocks.sand, Blocks.gravel, Blocks.snow);
     }
 
-    public SurfaceOreGen(int id, int meta, int number, boolean changeSize, int... target)
+    public SurfaceOreGen(Block b, int meta, int number, boolean changeSize, int... target)
     {
-        this.minableBlockId = id;
+        this.minableBlock = b;
         this.numberOfBlocks = number;
         this.replaceBlocks = target;
         this.alterSize = changeSize;
@@ -118,14 +118,14 @@ public class SurfaceOreGen extends WorldGenerator
                                 if (d12 * d12 + d13 * d13 + d14 * d14 < 1.0D)
                                 {
                                     if (block == null || !Block.opaqueCubeLookup[world.func_147439_a(k2, l2, i3)])
-                                        world.setBlock(k2, l2, i3, this.minableBlockId, minableBlockMeta, 2);
+                                        world.func_147465_d(k2, l2, i3, this.minableBlock, minableBlockMeta, 2);
                                     else
                                     {
                                         for (int iter = 0; iter < replaceBlocks.length; iter++)
                                         {
                                             if (block.isGenMineableReplaceable(world, k2, l2, i3, replaceBlocks[iter]))
                                             {
-                                                world.setBlock(k2, l2, i3, this.minableBlockId, minableBlockMeta, 2);
+                                                world.func_147465_d(k2, l2, i3, this.minableBlock, minableBlockMeta, 2);
                                                 break;
                                             }
                                         }

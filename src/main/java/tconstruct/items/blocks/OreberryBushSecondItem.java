@@ -18,12 +18,13 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public class OreberryBushSecondItem extends MultiItemBlock
 {
-    public int blockID;
+    public Block blockB;
     public static final String blockTypes[] = { "aluminum", "essence", "", "", "aluminum", "essence", "", "", "aluminum", "essence", "", "", "aluminum", "essence", "", "" };
 
     public OreberryBushSecondItem(Block b)
     {
         super(b, "block.oreberry", blockTypes);
+        blockB = b;
         setHasSubtypes(true);
     }
 
@@ -50,7 +51,7 @@ public class OreberryBushSecondItem extends MultiItemBlock
 
             if (block != null && block.canSustainPlant(world, x, y, z, ForgeDirection.UP, (IPlantable) TRepo.oreBerrySecond) && world.isAirBlock(x, y + 1, z))
             {
-                world.setBlock(x, y + 1, z, blockID, stack.getItemDamage() % 4, 3);
+                world.func_147465_d(x, y + 1, z, blockB, stack.getItemDamage() % 4, 3);
                 if (!player.capabilities.isCreativeMode)
                     stack.stackSize--;
                 if (!world.isRemote)

@@ -30,7 +30,7 @@ public class EquipBlock extends InventoryBlock
     {
         super(material);
         this.func_149711_c(0.3f);
-        this.setBlockBounds(0, 0, 0, 1, 0.25f, 1);
+        this.func_149676_a(0, 0, 0, 1, 0.25f, 1);
         //this.setCreativeTab(ToolConstruct.materialTab);
     }
 

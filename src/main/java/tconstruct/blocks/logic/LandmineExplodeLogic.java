@@ -5,7 +5,7 @@ import java.util.Iterator;
 
 import tconstruct.util.landmine.behavior.Behavior;
 import tconstruct.util.landmine.behavior.stackCombo.SpecialStackHandler;
-
+import mantle.world.WorldHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -147,7 +147,7 @@ public class LandmineExplodeLogic
         if (hasExploded || defBeh != null && !preventExplode)
         {
             worldObj.removeBlockTileEntity(x, y, z);
-            worldObj.setBlockToAir(x, y, z);
+            WorldHelper.setBlockToAir(worldObj, x, y, z);
         }
         else
         {

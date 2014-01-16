@@ -88,17 +88,17 @@ public class RenderArmorCast implements IItemRenderer
     {
         tessellator.startDrawingQuads();
         tessellator.setNormal(-1F, 0F, 0F);
-        renderer.renderFaceXNeg((Block) null, 0F, 0F, 0F, icon);
+        renderer.func_147798_e((Block) null, 0F, 0F, 0F, icon);
         tessellator.setNormal(1F, 0F, 0F);
-        renderer.renderFaceXPos((Block) null, 0F, 0F, 0F, icon);
+        renderer.func_147764_f((Block) null, 0F, 0F, 0F, icon);
         tessellator.setNormal(0F, -1F, 0F);
-        renderer.renderFaceYNeg((Block) null, 0F, 0F, 0F, icon);
+        renderer.func_147768_a((Block) null, 0F, 0F, 0F, icon);
         tessellator.setNormal(0F, 1F, 0F);
-        renderer.renderFaceYPos((Block) null, 0F, 0F, 0F, icon);
+        renderer.func_147806_b((Block) null, 0F, 0F, 0F, icon);
         tessellator.setNormal(0F, 0F, -1F);
-        renderer.renderFaceZNeg((Block) null, 0F, 0F, 0F, icon);
+        renderer.func_147761_c((Block) null, 0F, 0F, 0F, icon);
         tessellator.setNormal(0F, 0F, 1F);
-        renderer.renderFaceZPos((Block) null, 0F, 0F, 0F, icon);
+        renderer.func_147734_d((Block) null, 0F, 0F, 0F, icon);
         tessellator.draw();
     }
 
@@ -107,22 +107,22 @@ public class RenderArmorCast implements IItemRenderer
         tessellator.startDrawingQuads();
         tessellator.setNormal(-1F, 0F, 0F);
         if (sidesToRender.contains(ForgeDirection.WEST))
-            renderer.renderFaceXNeg((Block) null, 0F, 0F, 0F, icon);
+            renderer.func_147798_e((Block) null, 0F, 0F, 0F, icon);
         tessellator.setNormal(1F, 0F, 0F);
         if (sidesToRender.contains(ForgeDirection.EAST))
-            renderer.renderFaceXPos((Block) null, 0F, 0F, 0F, icon);
+            renderer.func_147764_f((Block) null, 0F, 0F, 0F, icon);
         tessellator.setNormal(0F, -1F, 0F);
         if (sidesToRender.contains(ForgeDirection.DOWN))
-            renderer.renderFaceYNeg((Block) null, 0F, 0F, 0F, icon);
+            renderer.func_147768_a((Block) null, 0F, 0F, 0F, icon);
         tessellator.setNormal(0F, 1F, 0F);
         if (sidesToRender.contains(ForgeDirection.UP))
-            renderer.renderFaceYPos((Block) null, 0F, 0F, 0F, icon);
+            renderer.func_147806_b((Block) null, 0F, 0F, 0F, icon);
         tessellator.setNormal(0F, 0F, -1F);
         if (sidesToRender.contains(ForgeDirection.SOUTH))
-            renderer.renderFaceZNeg((Block) null, 0F, 0F, 0F, icon);
+            renderer.func_147761_c((Block) null, 0F, 0F, 0F, icon);
         tessellator.setNormal(0F, 0F, 1F);
         if (sidesToRender.contains(ForgeDirection.NORTH))
-            renderer.renderFaceZPos((Block) null, 0F, 0F, 0F, icon);
+            renderer.func_147734_d((Block) null, 0F, 0F, 0F, icon);
         tessellator.draw();
     }
 

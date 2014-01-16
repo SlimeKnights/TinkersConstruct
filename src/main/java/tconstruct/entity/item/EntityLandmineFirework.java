@@ -192,7 +192,7 @@ public class EntityLandmineFirework extends Entity
         {
             NBTTagCompound nbttagcompound1 = new NBTTagCompound();
             itemstack.writeToNBT(nbttagcompound1);
-            par1NBTTagCompound.setCompoundTag("FireworksItem", nbttagcompound1);
+            par1NBTTagCompound.setTag("FireworksItem", nbttagcompound1);
         }
     }
 

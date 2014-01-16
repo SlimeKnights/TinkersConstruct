@@ -97,7 +97,7 @@ public class SlimeGrass extends MantleBlock
 
     public void onPlantGrow (World world, int x, int y, int z, int sourceX, int sourceY, int sourceZ)
     {
-        world.setBlock(x, y, z, TRepo.craftedSoil, 5, 3);
+        world.func_147465_d(x, y, z, TRepo.craftedSoil, 5, 3);
     }
 
     public void updateTick (World par1World, int par2, int par3, int par4, Random par5Random)
@@ -106,7 +106,7 @@ public class SlimeGrass extends MantleBlock
         {
             if (par1World.getBlockLightValue(par2, par3 + 1, par4) < 4 && par1World.getBlockLightOpacity(par2, par3 + 1, par4) > 2)
             {
-                par1World.setBlock(par2, par3, par4, TRepo.craftedSoil, 5, 3);
+                par1World.func_147465_d(par2, par3, par4, TRepo.craftedSoil, 5, 3);
             }
             else if (par1World.getBlockLightValue(par2, par3 + 1, par4) >= 9)
             {
@@ -122,14 +122,14 @@ public class SlimeGrass extends MantleBlock
                         Block block = par1World.func_147439_a(posX, posY, posZ);
                         if (block == Blocks.dirt)
                         {
-                            par1World.setBlock(posX, posY, posZ,(Block) this, 1, 3);
+                            par1World.func_147465_d(posX, posY, posZ,(Block) this, 1, 3);
                             return;
                         }
                         int blockMeta = par1World.getBlockMetadata(posX, posY, posZ);
                         if (block == TRepo.craftedSoil)
                         {
                             if (blockMeta == 5)
-                                par1World.setBlock(posX, posY, posZ, (Block) this, 0, 3);
+                                par1World.func_147465_d(posX, posY, posZ, (Block) this, 0, 3);
                         }
                     }
                 }

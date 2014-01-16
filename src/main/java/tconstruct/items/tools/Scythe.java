@@ -7,7 +7,7 @@ import tconstruct.library.ActiveToolMod;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.tools.AbilityHelper;
 import tconstruct.library.tools.Weapon;
-
+import mantle.world.WorldHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
@@ -185,7 +185,7 @@ public class Scythe extends Weapon
                                     if (materials[iter] == block.func_149688_o())
                                     {
                                         int localMeta = world.getBlockMetadata(xPos, yPos, zPos);
-                                        world.setBlockToAir(xPos, yPos, zPos);
+                                        WorldHelper.setBlockToAir(world, xPos, yPos, zPos);
                                         if (!player.capabilities.isCreativeMode)
                                         {
                                             block.onBlockDestroyedByPlayer(world, x, y, z, meta);

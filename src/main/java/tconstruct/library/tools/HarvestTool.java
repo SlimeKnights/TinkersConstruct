@@ -2,6 +2,7 @@ package tconstruct.library.tools;
 
 import tconstruct.library.ActiveToolMod;
 import tconstruct.library.TConstructRegistry;
+import mantle.world.WorldHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
@@ -47,7 +48,7 @@ public abstract class HarvestTool extends ToolCore
         }
         else
         {
-            world.setBlockToAir(x, y, z);
+            WorldHelper.setBlockToAir(world, x, y, z);
             if (!player.capabilities.isCreativeMode)
                 onBlockDestroyed(stack, world, block, x, y, z, player);
             if (!world.isRemote)

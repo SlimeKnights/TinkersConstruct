@@ -47,7 +47,7 @@ public class SlabBase extends MantleBlock
 
     public void setBlockBoundsForItemRender ()
     {
-        setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.5F, 1.0F);
+        func_149676_a(0.0F, 0.0F, 0.0F, 1.0F, 0.5F, 1.0F);
     }
 
     public void setBlockBoundsBasedOnState (IBlockAccess world, int x, int y, int z)
@@ -55,7 +55,7 @@ public class SlabBase extends MantleBlock
         int meta = world.getBlockMetadata(x, y, z) / 8;
         float minY = meta == 1 ? 0.5F : 0.0F;
         float maxY = meta == 1 ? 1.0F : 0.5F;
-        setBlockBounds(0.0F, minY, 0F, 1.0F, maxY, 1.0F);
+        func_149676_a(0.0F, minY, 0F, 1.0F, maxY, 1.0F);
     }
 
     public int onBlockPlaced (World par1World, int blockX, int blockY, int blockZ, int side, float clickX, float clickY, float clickZ, int metadata)

@@ -21,7 +21,7 @@ public class GravelOre extends BlockSand
     public GravelOre()
     {
         super(Material.craftedSnow);
-        this.setCreativeTab(TConstructRegistry.blockTab);
+        this.func_149647_a(TConstructRegistry.blockTab);
         this.setStepSound(soundGravelFootstep);
     }
 

@@ -2,6 +2,7 @@ package tconstruct.blocks;
 
 import java.util.List;
 
+import mantle.world.WorldHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
@@ -65,7 +66,7 @@ public class SlimeExplosive extends TConstructBlock
         if (par1World.isBlockIndirectlyGettingPowered(par2, par3, par4))
         {
             this.onBlockDestroyedByPlayer(par1World, par2, par3, par4, 1);
-            par1World.setBlockToAir(par2, par3, par4);
+            WorldHelper.setBlockToAir(par1World, par2, par3, par4);
         }
     }
 
@@ -75,7 +76,7 @@ public class SlimeExplosive extends TConstructBlock
         if (par1World.isBlockIndirectlyGettingPowered(par2, par3, par4))
         {
             this.onBlockDestroyedByPlayer(par1World, par2, par3, par4, 1);
-            par1World.setBlockToAir(par2, par3, par4);
+            WorldHelper.setBlockToAir(par1World, par2, par3, par4);
         }
     }
 
@@ -116,7 +117,7 @@ public class SlimeExplosive extends TConstructBlock
         if (par5EntityPlayer.getCurrentEquippedItem() != null && par5EntityPlayer.getCurrentEquippedItem().getItem() == Items.flint_and_steel)
         {
             this.primeTnt(par1World, par2, par3, par4, 1, par5EntityPlayer);
-            par1World.setBlockToAir(par2, par3, par4);
+            WorldHelper.setBlockToAir(par1World, par2, par3, par4);
             par5EntityPlayer.getCurrentEquippedItem().damageItem(1, par5EntityPlayer);
             return true;
         }
@@ -136,7 +137,7 @@ public class SlimeExplosive extends TConstructBlock
             if (entityarrow.isBurning())
             {
                 this.primeTnt(par1World, par2, par3, par4, 1, entityarrow.shootingEntity instanceof EntityLivingBase ? (EntityLivingBase) entityarrow.shootingEntity : null);
-                par1World.setBlockToAir(par2, par3, par4);
+                WorldHelper.setBlockToAir(par1World,par2, par3, par4);
             }
         }
     }

@@ -5,6 +5,7 @@ import tconstruct.library.ActiveToolMod;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.tools.AbilityHelper;
 import tconstruct.library.tools.HarvestTool;
+import mantle.world.WorldHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
@@ -227,7 +228,7 @@ public class Excavator extends HarvestTool
                                             }
                                             else
                                             {
-                                                world.setBlockToAir(xPos, yPos, zPos);
+                                                WorldHelper.setBlockToAir(world, xPos, yPos, zPos);
                                             }
                                         }
                                     }

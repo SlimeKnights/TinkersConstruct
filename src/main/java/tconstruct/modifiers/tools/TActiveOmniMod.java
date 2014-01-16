@@ -9,7 +9,7 @@ import tconstruct.library.ActiveToolMod;
 import tconstruct.library.tools.AbilityHelper;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.util.config.PHConstruct;
-
+import mantle.world.WorldHelper;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -73,7 +73,7 @@ public class TActiveOmniMod extends ActiveToolMod
             ItemStack result = FurnaceRecipes.smelting().getSmeltingResult(smeltStack);
             if (result != null)
             {
-                world.setBlockToAir(x, y, z);
+                WorldHelper.setBlockToAir(world, x, y, z);
                 if (entity instanceof EntityPlayer && !((EntityPlayer) entity).capabilities.isCreativeMode)
                     tool.onBlockDestroyed(stack, world, bID, x, y, z, entity);
                 if (!world.isRemote)

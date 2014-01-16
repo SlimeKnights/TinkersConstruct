@@ -13,6 +13,6 @@ public class GlassPane extends PaneBase
         this.func_149711_c(0.3F);
         this.setStepSound(soundGlassFootstep);
         this.func_149663_c("tconstruct.glasspane");
-        this.setCreativeTab(TConstructRegistry.blockTab);
+        this.func_149647_a(TConstructRegistry.blockTab);
     }
 }

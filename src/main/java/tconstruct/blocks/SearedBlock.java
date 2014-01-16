@@ -26,7 +26,7 @@ public class SearedBlock extends InventoryBlock
     public SearedBlock()
     {
         super(Material.rock);
-        this.setCreativeTab(TConstructRegistry.blockTab);
+        this.func_149647_a(TConstructRegistry.blockTab);
         func_149711_c(3F);
         func_149752_b(20F);
         setStepSound(soundMetalFootstep);
@@ -257,12 +257,12 @@ public class SearedBlock extends InventoryBlock
     }
 
     @Override
-    public void setBlockBoundsBasedOnState (IBlockAccess world, int x, int y, int z)
+    public void func_149719_a (IBlockAccess world, int x, int y, int z)
     {
         int meta = world.getBlockMetadata(x, y, z);
         if (meta != 1)
         {
-            this.setBlockBounds(0, 0, 0, 1, 1, 1);
+            this.func_149676_a(0, 0, 0, 1, 1, 1);
         }
         else
         {
@@ -292,7 +292,7 @@ public class SearedBlock extends InventoryBlock
                 break;
             }
 
-            this.setBlockBounds(xMin, 0.25F, zMin, xMax, 0.625F, zMax);
+            this.func_149676_a(xMin, 0.25F, zMin, xMax, 0.625F, zMax);
         }
     }
 

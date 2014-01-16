@@ -25,6 +25,7 @@ import tconstruct.blocks.logic.LavaTankLogic;
 import tconstruct.client.block.TankRender;
 import tconstruct.library.TConstructRegistry;
 import mantle.blocks.iface.IServantLogic;
+import mantle.world.WorldHelper;
 
 public class LavaTankBlock extends BlockContainer
 {
@@ -36,7 +37,7 @@ public class LavaTankBlock extends BlockContainer
         super(Material.rock);
         func_149711_c(3F);
         func_149752_b(20F);
-        setCreativeTab(TConstructRegistry.blockTab);
+        func_149647_a(TConstructRegistry.blockTab);
         func_149663_c("TConstruct.LavaTank");
         setStepSound(Block.soundGlassFootstep);
     }
@@ -273,13 +274,13 @@ public class LavaTankBlock extends BlockContainer
             NBTTagCompound tag = new NBTTagCompound();
             NBTTagCompound liquidTag = new NBTTagCompound();
             liquid.writeToNBT(liquidTag);
-            tag.setCompoundTag("Fluid", liquidTag);
+            tag.setTag("Fluid", liquidTag);
             stack.setTagCompound(tag);
         }
         if (!player.capabilities.isCreativeMode || player.isSneaking())
             dropTankBlock(world, x, y, z, stack);
 
-        return world.setBlockToAir(x, y, z);
+        return WorldHelper.setBlockToAirBool(world, x, y, z);
     }
 
     protected void dropTankBlock (World world, int x, int y, int z, ItemStack stack)

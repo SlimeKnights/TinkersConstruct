@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import mantle.blocks.MantleBlock;
+import mantle.world.WorldHelper;
 import tconstruct.library.TConstructRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFence;
@@ -29,10 +30,10 @@ public class Landmine extends MantleBlock
     {
         super(par4Material);
         this.triggerMobType = EnumCreatureType.monster;
-        this.setCreativeTab(TConstructRegistry.blockTab);
+        this.func_149647_a(TConstructRegistry.blockTab);
         this.setTickRandomly(true);
         float var5 = 0.0625F;
-        this.setBlockBounds(var5, 0.0F, var5, 1.0F - var5, 0.03125F, 1.0F - var5);
+        this.func_149676_a(var5, 0.0F, var5, 1.0F - var5, 0.03125F, 1.0F - var5);
     }
 
     public IIcon getBlockTexture (IBlockAccess world, int x, int y, int z, int side)
@@ -202,7 +203,7 @@ public class Landmine extends MantleBlock
 
         if (var6 && !var5)
         {
-            world.setBlock(posX, posY, posZ, 0);
+            WorldHelper.setBlockToAir(world, posX, posY, posZ);
             world.createExplosion((Entity) null, posX, posY, posZ, 2.0F, true);
             /*par1World.setBlockMetadataWithNotify(posX, posY, posZ, 1);
             par1World.notifyBlocksOfNeighborChange(posX, posY, posZ, this.blockID);
@@ -250,11 +251,11 @@ public class Landmine extends MantleBlock
 
         if (var5)
         {
-            this.setBlockBounds(var6, 0.0F, var6, 1.0F - var6, 0.03125F, 1.0F - var6);
+            this.func_149676_a(var6, 0.0F, var6, 1.0F - var6, 0.03125F, 1.0F - var6);
         }
         else
         {
-            this.setBlockBounds(var6, 0.0F, var6, 1.0F - var6, 0.0625F, 1.0F - var6);
+            this.func_149676_a(var6, 0.0F, var6, 1.0F - var6, 0.0625F, 1.0F - var6);
         }
     }
 
@@ -266,7 +267,7 @@ public class Landmine extends MantleBlock
         float var1 = 0.5F;
         float var2 = 0.125F;
         float var3 = 0.5F;
-        this.setBlockBounds(0.5F - var1, 0.5F - var2, 0.5F - var3, 0.5F + var1, 0.5F + var2, 0.5F + var3);
+        this.func_149676_a(0.5F - var1, 0.5F - var2, 0.5F - var3, 0.5F + var1, 0.5F + var2, 0.5F + var3);
     }
 
     /**

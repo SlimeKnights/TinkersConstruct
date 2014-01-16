@@ -30,7 +30,7 @@ public class CraftingSlab extends InventorySlab
     public CraftingSlab(Material material)
     {
         super(material);
-        this.setCreativeTab(TConstructRegistry.blockTab);
+        this.func_149647_a(TConstructRegistry.blockTab);
         this.func_149711_c(2f);
         this.setStepSound(Block.soundWoodFootstep);
     }

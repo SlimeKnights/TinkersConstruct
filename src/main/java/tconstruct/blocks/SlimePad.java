@@ -25,7 +25,7 @@ public class SlimePad extends MantleBlock
     public SlimePad(Material par2Material)
     {
         super(par2Material);
-        setBlockBounds(0.125F, 0.0F, 0.125F, 0.875F, 0.625F, 0.875F);
+        func_149676_a(0.125F, 0.0F, 0.125F, 0.875F, 0.625F, 0.875F);
         this.func_149647_a(TConstructRegistry.blockTab);
     }
 

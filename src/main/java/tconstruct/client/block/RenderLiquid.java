@@ -741,7 +741,7 @@ public class RenderLiquid
             render.field_147856_aw *= f6;
             render.field_147833_aA *= f6;
             IIcon icon = block.getIcon(5, metadata);
-            render.renderFaceXPos(block, xPos, yPos, zPos, icon);
+            render.func_147764_f(block, xPos, yPos, zPos, icon);
 
             flag = true;
         }
@@ -840,7 +840,7 @@ public class RenderLiquid
         {
             tessellator.setBrightness(render.renderMaxX < 1.0D ? l : block.func_149677_c(render.field_147845_a, xPos + 1, yPos, zPos));
             tessellator.setColorOpaque_F(f12, f15, f18);
-            render.renderFaceXPos(block, xPos, yPos, zPos, block.getIcon(5, metadata));
+            render.func_147764_f(block, xPos, yPos, zPos, block.getIcon(5, metadata));
 
             flag = true;
         }
@@ -1571,7 +1571,7 @@ public class RenderLiquid
             render.field_147848_as *= f6;
             render.field_147856_aw *= f6;
             render.field_147833_aA *= f6;
-            render.renderFaceXPos(block, xPos, yPos, zPos, texture);
+            render.func_147764_f(block, xPos, yPos, zPos, texture);
 
             flag = true;
         }
@@ -1665,7 +1665,7 @@ public class RenderLiquid
         {
             tessellator.setBrightness(render.renderMaxX < 1.0D ? l : block.func_149677_c(render.field_147845_a, xPos + 1, yPos, zPos));
             tessellator.setColorOpaque_F(f12, f15, f18);
-            render.renderFaceXPos(block, xPos, yPos, zPos, texture);
+            render.func_147764_f(block, xPos, yPos, zPos, texture);
 
             flag = true;
         }

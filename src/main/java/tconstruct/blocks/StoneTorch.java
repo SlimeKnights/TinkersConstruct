@@ -8,6 +8,7 @@ import static net.minecraftforge.common.util.ForgeDirection.WEST;
 import java.util.Random;
 
 import mantle.blocks.MantleBlock;
+import mantle.world.WorldHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -24,7 +25,7 @@ public class StoneTorch extends MantleBlock
     public StoneTorch()
     {
         super(Material.field_151594_q);
-        this.setCreativeTab(CreativeTabs.tabDecorations);
+        this.func_149647_a(CreativeTabs.tabDecorations);
         setLightValue(0.9375F);
     }
 
@@ -221,7 +222,7 @@ public class StoneTorch extends MantleBlock
             if (par1World.func_147439_a(par2, par3, par4) == (Block) this)
             {
                 this.dropBlockAsItem(par1World, par2, par3, par4, par1World.getBlockMetadata(par2, par3, par4), 0);
-                par1World.setBlockToAir(par2, par3, par4);
+                WorldHelper.setBlockToAir(par1World, par2, par3, par4);
             }
 
             return false;
@@ -243,24 +244,24 @@ public class StoneTorch extends MantleBlock
 
         if (l == 1)
         {
-            this.setBlockBounds(0.0F, 0.2F, 0.5F - f, f * 2.0F, 0.8F, 0.5F + f);
+            this.func_149676_a(0.0F, 0.2F, 0.5F - f, f * 2.0F, 0.8F, 0.5F + f);
         }
         else if (l == 2)
         {
-            this.setBlockBounds(1.0F - f * 2.0F, 0.2F, 0.5F - f, 1.0F, 0.8F, 0.5F + f);
+            this.func_149676_a(1.0F - f * 2.0F, 0.2F, 0.5F - f, 1.0F, 0.8F, 0.5F + f);
         }
         else if (l == 3)
         {
-            this.setBlockBounds(0.5F - f, 0.2F, 0.0F, 0.5F + f, 0.8F, f * 2.0F);
+            this.func_149676_a(0.5F - f, 0.2F, 0.0F, 0.5F + f, 0.8F, f * 2.0F);
         }
         else if (l == 4)
         {
-            this.setBlockBounds(0.5F - f, 0.2F, 1.0F - f * 2.0F, 0.5F + f, 0.8F, 1.0F);
+            this.func_149676_a(0.5F - f, 0.2F, 1.0F - f * 2.0F, 0.5F + f, 0.8F, 1.0F);
         }
         else
         {
             f = 0.1F;
-            this.setBlockBounds(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, 0.6F, 0.5F + f);
+            this.func_149676_a(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, 0.6F, 0.5F + f);
         }
 
         return super.collisionRayTrace(par1World, par2, par3, par4, par5Vec3, par6Vec3);

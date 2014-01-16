@@ -9,7 +9,7 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 
 public class OreberryBushGen extends WorldGenerator
 {
-    private int blockID;
+    private Block blockB;
     private int metadata;
     int chance;
     private int[] replaceBlocks;
@@ -17,11 +17,12 @@ public class OreberryBushGen extends WorldGenerator
     public OreberryBushGen(Block block, int meta, int chance)
     {
         this(meta, chance, Blocks.stone, Blocks.grass, Blocks.dirt, Blocks.water, Blocks.sand, Blocks.gravel, Blocks.snow);
+        blockB = block;
     }
 
-    public OreberryBushGen(int blockID, int meta, int chance, int... target)
+    public OreberryBushGen(Block block, int meta, int chance, int... target)
     {
-        this.blockID = blockID;
+        blockB = block;
         metadata = meta;
         this.chance = chance;
         this.replaceBlocks = target;
@@ -92,16 +93,16 @@ public class OreberryBushGen extends WorldGenerator
             setBlockAndMetadata(world, x, y, z, blockID, metadata);
         }*/
 
-        Block block = Block.blocksList[world.getBlockId(x, y, z)];
-        if (block == null || (block != Blocks.end_portal_frame && !Block.opaqueCubeLookup[world.getBlockId(x, y, z)]))
-            world.setBlock(x, y, z, this, metadata, 2);
+        Block block = world.getBlock(x, y, z);
+        if (block == null || (block != Blocks.end_portal_frame && !Block.opaqueCubeLookup[world.getBlock(x, y, z)]))
+            world.func_147465_d(x, y, z, this.blockB, metadata, 2);
         else
         {
             for (int iter = 0; iter < replaceBlocks.length; iter++)
             {
                 if (block.isGenMineableReplaceable(world, x, y, z, replaceBlocks[iter]))
                 {
-                    world.setBlock(x, y, z, this, metadata, 2);
+                    world.func_147465_d(x, y, z, this.blockB, metadata, 2);
                     break;
                 }
             }

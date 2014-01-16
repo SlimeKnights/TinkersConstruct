@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import mantle.blocks.BlockUtils;
+import mantle.world.WorldHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -50,7 +51,7 @@ public class BlockLandmine extends BlockContainer
     {
         super(Material.tnt);
         this.setTickRandomly(true);
-        this.setBlockBounds(0.0625F, 0.0F, 0.0625F, 1.0F - 0.0625F, 0.0625F, 1.0F - 0.0625F);
+        this.func_149676_a(0.0625F, 0.0F, 0.0625F, 1.0F - 0.0625F, 0.0625F, 1.0F - 0.0625F);
     }
 
     @Override
@@ -100,7 +101,7 @@ public class BlockLandmine extends BlockContainer
     }
 
     @Override
-    public boolean renderAsNormalBlock ()
+    public boolean func_149686_d ()
     {
         return false;
     }
@@ -379,7 +380,7 @@ public class BlockLandmine extends BlockContainer
             if (flag)
             {
                 this.dropBlockAsItem(par1World, par2, par3, par4, par1World.getBlockMetadata(par2, par3, par4), 0);
-                par1World.setBlockToAir(par2, par3, par4);
+                WorldHelper.setBlockToAir(par1World, par2, par3, par4);
             }
         }
     }
@@ -389,7 +390,7 @@ public class BlockLandmine extends BlockContainer
         if (!this.canPlaceBlockAt(par1World, par2, par3, par4))
         {
             this.dropBlockAsItem(par1World, par2, par3, par4, par1World.getBlockMetadata(par2, par3, par4), 0);
-            par1World.setBlockToAir(par2, par3, par4);
+            WorldHelper.setBlockToAir(par1World, par2, par3, par4);
             return false;
         }
         else
@@ -623,7 +624,7 @@ public class BlockLandmine extends BlockContainer
 
     @SuppressWarnings("incomplete-switch")
     @Override
-    public void setBlockBoundsBasedOnState (IBlockAccess par1IBlockAccess, int par2, int par3, int par4)
+    public void func_149719_a (IBlockAccess par1IBlockAccess, int par2, int par3, int par4)
     {
         int l = par1IBlockAccess.getBlockMetadata(par2, par3, par4);
         int i1 = l & 7;
@@ -633,22 +634,22 @@ public class BlockLandmine extends BlockContainer
         switch (dir)
         {
         case DOWN:
-            this.setBlockBounds(0.0625F, 0.0F, 0.0625F, 1.0F - 0.0625F, 0.0625F, 1.0F - 0.0625F);
+            this.func_149676_a(0.0625F, 0.0F, 0.0625F, 1.0F - 0.0625F, 0.0625F, 1.0F - 0.0625F);
             break;
         case UP:
-            this.setBlockBounds(0.0625F, 1.0F - 0.0625F, 0.0625F, 1.0F - 0.0625F, 1.0F, 1.0F - 0.0625F);
+            this.func_149676_a(0.0625F, 1.0F - 0.0625F, 0.0625F, 1.0F - 0.0625F, 1.0F, 1.0F - 0.0625F);
             break;
         case NORTH:
-            this.setBlockBounds(0.0625F, 0.0625F, 0.0F, 1.0F - 0.0625F, 1.0F - 0.0625F, 0.0625F);
+            this.func_149676_a(0.0625F, 0.0625F, 0.0F, 1.0F - 0.0625F, 1.0F - 0.0625F, 0.0625F);
             break;
         case SOUTH:
-            this.setBlockBounds(0.0625F, 0.0625F, 1.0F - 0.0625F, 1.0F - 0.0625F, 1.0F - 0.0625F, 1.0F);
+            this.func_149676_a(0.0625F, 0.0625F, 1.0F - 0.0625F, 1.0F - 0.0625F, 1.0F - 0.0625F, 1.0F);
             break;
         case EAST:
-            this.setBlockBounds(1.0F - 0.0625F, 0.0625F, 0.0625F, 1.0F, 1.0F - 0.0625F, 1.0F - 0.0625F);
+            this.func_149676_a(1.0F - 0.0625F, 0.0625F, 0.0625F, 1.0F, 1.0F - 0.0625F, 1.0F - 0.0625F);
             break;
         case WEST:
-            this.setBlockBounds(0.0F, 0.0625F, 0.0625F, 0.0625F, 1.0F - 0.0625F, 1.0F - 0.0625F);
+            this.func_149676_a(0.0F, 0.0625F, 0.0625F, 0.0625F, 1.0F - 0.0625F, 1.0F - 0.0625F);
             break;
         }
     }

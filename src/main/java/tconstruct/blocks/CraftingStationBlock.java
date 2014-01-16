@@ -23,7 +23,7 @@ public class CraftingStationBlock extends InventoryBlock
     public CraftingStationBlock(Material material)
     {
         super(material);
-        this.setCreativeTab(TConstructRegistry.blockTab);
+        this.func_149647_a(TConstructRegistry.blockTab);
         this.func_149711_c(2f);
         this.setStepSound(Block.soundWoodFootstep);
     }
@@ -56,7 +56,7 @@ public class CraftingStationBlock extends InventoryBlock
     }
 
     @Override
-    public boolean renderAsNormalBlock ()
+    public boolean func_149686_d ()
     {
         return false;
     }

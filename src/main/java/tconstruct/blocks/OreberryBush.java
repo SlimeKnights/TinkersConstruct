@@ -142,7 +142,7 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
     }
 
     @Override
-    public void setBlockBoundsBasedOnState (IBlockAccess iblockaccess, int x, int y, int z)
+    public void func_149719_a (IBlockAccess iblockaccess, int x, int y, int z)
     {
         int md = iblockaccess.getBlockMetadata(x, y, z);
 
@@ -174,7 +174,7 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
             maxX = maxZ = 1.0F;
             maxY = 1.0F;
         }
-        setBlockBounds(minX, minY, minZ, maxX, maxY, maxZ);
+        func_149676_a(minX, minY, minZ, maxX, maxY, maxZ);
     }
 
     /* Left-click harvests berries */
@@ -186,7 +186,7 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
             int meta = world.getBlockMetadata(x, y, z);
             if (meta >= 12)
             {
-                world.setBlock(x, y, z, this, meta - 4, 3);
+                world.func_147465_d(x, y, z, this, meta - 4, 3);
                 AbilityHelper.spawnItemAtPlayer(player, new ItemStack(TRepo.oreBerries, 1, meta % 4 + itemMeat));
             }
         }
@@ -205,7 +205,7 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
             if (world.isRemote)
                 return true;
 
-            world.setBlock(x, y, z, this, meta - 4, 3);
+            world.func_147465_d(x, y, z, this, meta - 4, 3);
             AbilityHelper.spawnItemAtPlayer(player, new ItemStack(TRepo.oreBerries, random.nextInt(3) + 1, meta % 4 + itemMeat));
             return true;
         }
@@ -266,12 +266,12 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
                 int meta = world.getBlockMetadata(x, y, z);
                 if (meta < 12)
                 {
-                    world.setBlock(x, y, z, this, meta + 4, 3);
+                    world.func_147465_d(x, y, z, this, meta + 4, 3);
                 }
             }
             /*else if (meta < 8)
             {
-            	world.setBlock(x, y, z, blockID, meta + 4, 3);
+            	world.func_147465_d(x, y, z, blockID, meta + 4, 3);
             }*/
         }
     }

@@ -2,6 +2,7 @@ package tconstruct.util;
 
 import tconstruct.util.player.ArmorExtended;
 import mantle.blocks.BlockUtils;
+import mantle.world.WorldHelper;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 
 import java.util.Random;
@@ -223,8 +224,6 @@ public class TEventHandler
 
     public static boolean matchesLeaves (ItemStack stack)
     {
-        if (stack.itemID >= 4096)
-            return false;
         Block block = BlockUtils.getBlockFromItem(stack.getItem());
         if (block != null)
         {
@@ -526,7 +525,7 @@ public class TEventHandler
         {
             if (event.block == TRepo.slimeSapling)
             {
-                if (TRepo.slimeSapling.boneFertilize(event.world, event.X, event.Y, event.Z, event.world.rand, event.entityPlayer))
+                if (TRepo.slimeSapling.boneFertilize(event.world, event.x, event.y, event.z, event.world.rand, event.entityPlayer))
                     event.setResult(Event.Result.ALLOW);
             }
         }
@@ -551,7 +550,7 @@ public class TEventHandler
     @SubscribeEvent
     public void bucketFill (FillBucketEvent evt)
     {
-        if (evt.current.getItem() == Items.bucket && evt.target.typeOfHit == MovingObjectType.TILE)
+        if (evt.current.getItem() == Items.bucket && evt.target.typeOfHit == MovingObjectType.ENTITY)
         {
             int hitX = evt.target.blockX;
             int hitY = evt.target.blockY;
@@ -569,13 +568,13 @@ public class TEventHandler
                 {
                     if (evt.entityPlayer.capabilities.isCreativeMode)
                     {
-                        evt.world.setBlockToAir(hitX, hitY, hitZ);
+                        WorldHelper.setBlockToAir(evt.world,hitX, hitY, hitZ);
                     }
                     else
                     {
                         if (TRepo.fluidBlocks[id] instanceof LiquidMetalFinite)
                         {
-                            evt.world.setBlockToAir(hitX, hitY, hitZ);
+                            WorldHelper.setBlockToAir(evt.world, hitX, hitY, hitZ);
                             /*int quanta = 0;
                             for (int posX = -1; posX <= 1; posX++)
                             {
@@ -614,7 +613,7 @@ public class TEventHandler
                         }
                         else
                         {
-                            evt.world.setBlockToAir(hitX, hitY, hitZ);
+                            WorldHelper.setBlockToAir(evt.world, hitX, hitY, hitZ);
                         }
 
                         evt.setResult(Result.ALLOW);

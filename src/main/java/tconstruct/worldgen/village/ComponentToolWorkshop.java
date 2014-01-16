@@ -159,7 +159,7 @@ public class ComponentToolWorkshop extends MapGenVillage
 
         if (par2StructureBoundingBox.isVecInside(posX, posY, posZ) && world.getBlock(posX, posY, posZ) != Blocks.chest)
         {
-            world.setBlock(posX, posY, posZ, TRepo.craftingStationWood, 5, 2);
+            world.func_147465_d(posX, posY, posZ, TRepo.craftingStationWood, 5, 2);
             CraftingStationLogic logic = (CraftingStationLogic) world.func_147438_o(posX, posY, posZ);
 
             if (logic != null)
@@ -183,7 +183,7 @@ public class ComponentToolWorkshop extends MapGenVillage
 
         if (par2StructureBoundingBox.isVecInside(posX, posY, posZ) && world.getBlock(posX, posY, posZ) != Blocks.chest)
         {
-            world.setBlock(posX, posY, posZ, TRepo.toolStationWood, 5, 2);
+            world.func_147465_d(posX, posY, posZ, TRepo.toolStationWood, 5, 2);
             PatternChestLogic logic = (PatternChestLogic) world.func_147438_o(posX, posY, posZ);
 
             if (logic != null)

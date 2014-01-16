@@ -186,7 +186,7 @@ public class LaunchedPotion extends EntityThrowable
 
         if (this.potionDamage != null)
         {
-            par1NBTTagCompound.setCompoundTag("Potion", this.potionDamage.writeToNBT(new NBTTagCompound()));
+            par1NBTTagCompound.setTag("Potion", this.potionDamage.writeToNBT(new NBTTagCompound()));
         }
     }
 }

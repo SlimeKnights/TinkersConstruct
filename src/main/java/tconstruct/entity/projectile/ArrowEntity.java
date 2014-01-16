@@ -104,7 +104,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
         Block i = this.worldObj.getBlock(this.field_145791_d, this.field_145792_e, this.field_145789_f);
 
        
-            i.setBlockBoundsBasedOnState(this.worldObj, this.field_145791_d, this.field_145792_e, this.field_145789_f);
+            i.func_149719_a(this.worldObj, this.field_145791_d, this.field_145792_e, this.field_145789_f);
             AxisAlignedBB axisalignedbb = i.getCollisionBoundingBoxFromPool(this.worldObj, this.field_145791_d, this.field_145792_e, this.field_145789_f);
 
             if (axisalignedbb != null && axisalignedbb.isVecInside(this.worldObj.getWorldVec3Pool().getVecFromPool(this.posX, this.posY, this.posZ)))

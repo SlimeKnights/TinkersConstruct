@@ -28,7 +28,7 @@ public class DryingRack extends InventoryBlock
     public DryingRack()
     {
         super(Material.field_151575_d);
-        this.setCreativeTab(TConstructRegistry.blockTab);
+        this.func_149647_a(TConstructRegistry.blockTab);
         func_149711_c(2.0f);
         setStepSound(soundMetalFootstep);
     }
@@ -197,7 +197,7 @@ public class DryingRack extends InventoryBlock
             yMin = 0.75F;
             break;
         }
-        this.setBlockBounds(xMin, yMin, zMin, xMax, yMax, zMax);
+        this.func_149676_a(xMin, yMin, zMin, xMax, yMax, zMax);
     }
 
     public void addCollisionBoxesToList (World world, int x, int y, int z, AxisAlignedBB aabb, List list, Entity entity)

@@ -111,39 +111,39 @@ public class PaneBase extends Block
         boolean west = canConnectTo(world.func_147439_a(x + 1, y, z));
         if (east && west || !east && !west && !south && !north)
         {
-            setBlockBounds(0.0F, 0.0F, 0.4375F, 1.0F, 1.0F, 0.5625F);
+            func_149676_a(0.0F, 0.0F, 0.4375F, 1.0F, 1.0F, 0.5625F);
             super.addCollisionBoxesToList(world, x, y, z, axisalignedbb, arraylist, entity);
         }
         else if (east && !west)
         {
-            setBlockBounds(0.0F, 0.0F, 0.4375F, 0.5F, 1.0F, 0.5625F);
+            func_149676_a(0.0F, 0.0F, 0.4375F, 0.5F, 1.0F, 0.5625F);
             super.addCollisionBoxesToList(world, x, y, z, axisalignedbb, arraylist, entity);
         }
         else if (!east && west)
         {
-            setBlockBounds(0.5F, 0.0F, 0.4375F, 1.0F, 1.0F, 0.5625F);
+            func_149676_a(0.5F, 0.0F, 0.4375F, 1.0F, 1.0F, 0.5625F);
             super.addCollisionBoxesToList(world, x, y, z, axisalignedbb, arraylist, entity);
         }
         if (south && north || !east && !west && !south && !north)
         {
-            setBlockBounds(0.4375F, 0.0F, 0.0F, 0.5625F, 1.0F, 1.0F);
+            func_149676_a(0.4375F, 0.0F, 0.0F, 0.5625F, 1.0F, 1.0F);
             super.addCollisionBoxesToList(world, x, y, z, axisalignedbb, arraylist, entity);
         }
         else if (south && !north)
         {
-            setBlockBounds(0.4375F, 0.0F, 0.0F, 0.5625F, 1.0F, 0.5F);
+            func_149676_a(0.4375F, 0.0F, 0.0F, 0.5625F, 1.0F, 0.5F);
             super.addCollisionBoxesToList(world, x, y, z, axisalignedbb, arraylist, entity);
         }
         else if (!south && north)
         {
-            setBlockBounds(0.4375F, 0.0F, 0.5F, 0.5625F, 1.0F, 1.0F);
+            func_149676_a(0.4375F, 0.0F, 0.5F, 0.5625F, 1.0F, 1.0F);
             super.addCollisionBoxesToList(world, x, y, z, axisalignedbb, arraylist, entity);
         }
     }
 
     public void setBlockBoundsForItemRender ()
     {
-        setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
+        func_149676_a(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
     }
 
     public void setBlockBoundsBasedOnState (IBlockAccess iblockaccess, int i, int j, int k)
@@ -182,7 +182,7 @@ public class PaneBase extends Block
         {
             f3 = 1.0F;
         }
-        setBlockBounds(f, 0.0F, f2, f1, 1.0F, f3);
+        func_149676_a(f, 0.0F, f2, f1, 1.0F, f3);
     }
 
 }

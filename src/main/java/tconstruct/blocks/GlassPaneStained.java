@@ -14,7 +14,7 @@ public class GlassPaneStained extends PaneBase
         this.func_149711_c(0.3F);
         this.setStepSound(soundGlassFootstep);
         this.func_149663_c("tconstruct.glasspanestained");
-        this.setCreativeTab(TConstructRegistry.blockTab);
+        this.func_149647_a(TConstructRegistry.blockTab);
     }
 
     private static String[] assembleBlockTextures ()

@@ -5,6 +5,7 @@ import tconstruct.library.ActiveToolMod;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.tools.AbilityHelper;
 import tconstruct.library.tools.HarvestTool;
+import mantle.world.WorldHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
@@ -249,7 +250,7 @@ public class LumberAxe extends HarvestTool
                                         }
                                         else
                                         {
-                                            world.setBlockToAir(xPos, yPos, zPos);
+                                            WorldHelper.setBlockToAir(world, xPos, yPos, zPos);
                                         }
                                         breakTree(world, xPos, yPos, zPos, stack, tags, bID, meta, player);
                                     }
@@ -258,7 +259,7 @@ public class LumberAxe extends HarvestTool
                                         Block leaves = Block.blocksList[localID];
                                         if (leaves != null && leaves.isLeaves(world, xPos, yPos, zPos))
                                         {
-                                            world.setBlockToAir(xPos, yPos, zPos);
+                                            WorldHelper.setBlockToAir(world, xPos, yPos, zPos);
                                             if (!player.capabilities.isCreativeMode)
                                             {
                                                 Block.blocksList[bID].harvestBlock(world, player, xPos, yPos, zPos, meta);
@@ -302,7 +303,7 @@ public class LumberAxe extends HarvestTool
 
                                 if (!cancelHarvest)
                                 {
-                                    world.setBlockToAir(xPos, yPos, zPos);
+                                    WorldHelper.setBlockToAir(world, xPos, yPos, zPos);
                                     if (!player.capabilities.isCreativeMode)
                                     {
                                         //TODO harvestBlock

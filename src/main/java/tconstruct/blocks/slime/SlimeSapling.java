@@ -30,7 +30,7 @@ public class SlimeSapling extends BlockSapling
     {
         super();
         float f = 0.4F;
-        setBlockBounds(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, f * 2.0F, 0.5F + f);
+        func_149676_a(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, f * 2.0F, 0.5F + f);
         this.func_149711_c(0.0F);
         this.setStepSound(Block.soundGrassFootstep);
         this.func_149647_a(TConstructRegistry.blockTab);
@@ -106,13 +106,13 @@ public class SlimeSapling extends BlockSapling
     public void growTree (World world, int x, int y, int z, Random random)
     {
         int md = world.getBlockMetadata(x, y, z) % 8;
-        world.setBlock(x, y, z, Blocks.air);
+        world.func_147449_b(x, y, z, Blocks.air);
         WorldGenerator obj = null;
 
         obj = new SlimeTreeGen(true, 5, 4, 1, 0);
 
         if (!(obj.generate(world, random, x, y, z)))
-            world.setBlock(x, y, z, Blocks.air, md + 8, 3);
+            world.func_147465_d(x, y, z, Blocks.air, md + 8, 3);
     }
 
     public int damageDropped (int i)

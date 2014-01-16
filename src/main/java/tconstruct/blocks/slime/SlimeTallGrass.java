@@ -29,7 +29,7 @@ public class SlimeTallGrass extends BlockFlower implements IShearable
     {
         super(Material.field_151582_l);
         float f = 0.4F;
-        this.setBlockBounds(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, 0.8F, 0.5F + f);
+        this.func_149676_a(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, 0.8F, 0.5F + f);
         func_149647_a(TConstructRegistry.blockTab);
     }
 

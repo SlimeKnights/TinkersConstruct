@@ -29,7 +29,7 @@ public class GlassBlockConnected extends MantleBlock
         folder = location;
         renderPass = hasAlpha ? 1 : 0;
         func_149711_c(0.3F);
-        this.setCreativeTab(TConstructRegistry.blockTab);
+        this.func_149647_a(TConstructRegistry.blockTab);
     }
 
     //For FMP support

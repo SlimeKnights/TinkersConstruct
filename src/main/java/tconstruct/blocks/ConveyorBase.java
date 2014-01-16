@@ -25,8 +25,8 @@ public class ConveyorBase extends MantleBlock
     public ConveyorBase(Material material, String name)
     {
         super(material);
-        this.setCreativeTab(TConstructRegistry.blockTab);
-        setBlockBounds(0f, 0f, 0f, 1f, 0.5f, 1f);
+        this.func_149647_a(TConstructRegistry.blockTab);
+        func_149676_a(0f, 0f, 0f, 1f, 0.5f, 1f);
         texturename = name;
     }
 
@@ -112,7 +112,7 @@ public class ConveyorBase extends MantleBlock
 
     /* Rendering */
     @Override
-    public boolean renderAsNormalBlock ()
+    public boolean func_149686_d ()
     {
         return false;
     }

@@ -174,7 +174,7 @@ public class BlockSkinRenderHelper
             render.field_147848_as *= f6;
             render.field_147856_aw *= f6;
             render.field_147833_aA *= f6;
-            render.renderFaceYNeg(block, (double) xPos, (double) yPos, (double) zPos, block.getIcon(0, metadata));
+            render.func_147768_a(block, (double) xPos, (double) yPos, (double) zPos, block.getIcon(0, metadata));
             flag = true;
         }
 
@@ -396,7 +396,7 @@ public class BlockSkinRenderHelper
             render.field_147856_aw *= f6;
             render.field_147833_aA *= f6;
             icon = block.getIcon(2, metadata);
-            render.renderFaceZNeg(block, (double) xPos, (double) yPos, (double) zPos, icon);
+            render.func_147761_c(block, (double) xPos, (double) yPos, (double) zPos, icon);
 
             flag = true;
         }
@@ -513,7 +513,7 @@ public class BlockSkinRenderHelper
             render.field_147856_aw *= f6;
             render.field_147833_aA *= f6;
             icon = block.getIcon(3, metadata);
-            render.renderFaceZPos(block, (double) xPos, (double) yPos, (double) zPos, icon);
+            render.func_147734_d(block, (double) xPos, (double) yPos, (double) zPos, icon);
 
             flag = true;
         }
@@ -630,7 +630,7 @@ public class BlockSkinRenderHelper
             render.field_147856_aw *= f6;
             render.field_147833_aA *= f6;
             icon = block.getIcon(4, metadata);
-            render.renderFaceXNeg(block, (double) xPos, (double) yPos, (double) zPos, icon);
+            render.func_147798_e(block, (double) xPos, (double) yPos, (double) zPos, icon);
 
             flag = true;
         }
@@ -747,7 +747,7 @@ public class BlockSkinRenderHelper
             render.field_147856_aw *= f6;
             render.field_147833_aA *= f6;
             icon = block.getIcon(5, metadata);
-            render.renderFaceXPos(block, (double) xPos, (double) yPos, (double) zPos, icon);
+            render.func_147764_f(block, (double) xPos, (double) yPos, (double) zPos, icon);
 
             flag = true;
         }
@@ -798,7 +798,7 @@ public class BlockSkinRenderHelper
         {
             tessellator.setBrightness(render.renderMinY > 0.0D ? l : block.func_149677_c(render.field_147845_a, xPos, yPos - 1, zPos));
             tessellator.setColorOpaque_F(f10, f13, f16);
-            render.renderFaceYNeg(block, (double) xPos, (double) yPos, (double) zPos, block.getIcon(0, metadata));
+            render.func_147768_a(block, (double) xPos, (double) yPos, (double) zPos, block.getIcon(0, metadata));
             flag = true;
         }
 
@@ -816,7 +816,7 @@ public class BlockSkinRenderHelper
         {
             tessellator.setBrightness(render.renderMinZ > 0.0D ? l : block.func_149677_c(render.field_147845_a, xPos, yPos, zPos - 1));
             tessellator.setColorOpaque_F(f11, f14, f17);
-            render.renderFaceZNeg(block, (double) xPos, (double) yPos, (double) zPos, block.getIcon(2, metadata));
+            render.func_147761_c(block, (double) xPos, (double) yPos, (double) zPos, block.getIcon(2, metadata));
 
             flag = true;
         }
@@ -825,7 +825,7 @@ public class BlockSkinRenderHelper
         {
             tessellator.setBrightness(render.renderMaxZ < 1.0D ? l : block.func_149677_c(render.field_147845_a, xPos, yPos, zPos + 1));
             tessellator.setColorOpaque_F(f11, f14, f17);
-            render.renderFaceZPos(block, (double) xPos, (double) yPos, (double) zPos, block.getIcon(3, metadata));
+            render.func_147734_d(block, (double) xPos, (double) yPos, (double) zPos, block.getIcon(3, metadata));
 
             flag = true;
         }
@@ -834,7 +834,7 @@ public class BlockSkinRenderHelper
         {
             tessellator.setBrightness(render.renderMinX > 0.0D ? l : block.func_149677_c(render.field_147845_a, xPos - 1, yPos, zPos));
             tessellator.setColorOpaque_F(f12, f15, f18);
-            render.renderFaceXNeg(block, (double) xPos, (double) yPos, (double) zPos, block.getIcon(4, metadata));
+            render.func_147798_e(block, (double) xPos, (double) yPos, (double) zPos, block.getIcon(4, metadata));
 
             flag = true;
         }
@@ -843,7 +843,7 @@ public class BlockSkinRenderHelper
         {
             tessellator.setBrightness(render.renderMaxX < 1.0D ? l : block.func_149677_c(render.field_147845_a, xPos + 1, yPos, zPos));
             tessellator.setColorOpaque_F(f12, f15, f18);
-            render.renderFaceXPos(block, (double) xPos, (double) yPos, (double) zPos, block.getIcon(5, metadata));
+            render.func_147764_f(block, (double) xPos, (double) yPos, (double) zPos, block.getIcon(5, metadata));
 
             flag = true;
         }
@@ -1015,7 +1015,7 @@ public class BlockSkinRenderHelper
             render.field_147848_as *= f6;
             render.field_147856_aw *= f6;
             render.field_147833_aA *= f6;
-            render.renderFaceYNeg(block, (double) xPos, (double) yPos, (double) zPos, stillIcon);
+            render.func_147768_a(block, (double) xPos, (double) yPos, (double) zPos, stillIcon);
             flag = true;
         }
 
@@ -1234,7 +1234,7 @@ public class BlockSkinRenderHelper
             render.field_147848_as *= f6;
             render.field_147856_aw *= f6;
             render.field_147833_aA *= f6;
-            render.renderFaceZNeg(block, (double) xPos, (double) yPos, (double) zPos, flowingIcon);
+            render.func_147761_c(block, (double) xPos, (double) yPos, (double) zPos, flowingIcon);
 
             flag = true;
         }
@@ -1350,7 +1350,7 @@ public class BlockSkinRenderHelper
             render.field_147848_as *= f6;
             render.field_147856_aw *= f6;
             render.field_147833_aA *= f6;
-            render.renderFaceZPos(block, (double) xPos, (double) yPos, (double) zPos, flowingIcon);
+            render.func_147734_d(block, (double) xPos, (double) yPos, (double) zPos, flowingIcon);
 
             flag = true;
         }
@@ -1466,7 +1466,7 @@ public class BlockSkinRenderHelper
             render.field_147848_as *= f6;
             render.field_147856_aw *= f6;
             render.field_147833_aA *= f6;
-            render.renderFaceXNeg(block, (double) xPos, (double) yPos, (double) zPos, flowingIcon);
+            render.func_147798_e(block, (double) xPos, (double) yPos, (double) zPos, flowingIcon);
 
             flag = true;
         }
@@ -1582,7 +1582,7 @@ public class BlockSkinRenderHelper
             render.field_147848_as *= f6;
             render.field_147856_aw *= f6;
             render.field_147833_aA *= f6;
-            render.renderFaceXPos(block, (double) xPos, (double) yPos, (double) zPos, flowingIcon);
+            render.func_147764_f(block, (double) xPos, (double) yPos, (double) zPos, flowingIcon);
 
             flag = true;
         }
@@ -1634,7 +1634,7 @@ public class BlockSkinRenderHelper
         {
             tessellator.setBrightness(render.renderMinY > 0.0D ? l : block.func_149677_c(render.field_147845_a, xPos, yPos - 1, zPos));
             tessellator.setColorOpaque_F(f10, f13, f16);
-            render.renderFaceYNeg(block, (double) xPos, (double) yPos, (double) zPos, stillIcon);
+            render.func_147768_a(block, (double) xPos, (double) yPos, (double) zPos, stillIcon);
             flag = true;
         }
 
@@ -1652,7 +1652,7 @@ public class BlockSkinRenderHelper
         {
             tessellator.setBrightness(render.renderMinZ > 0.0D ? l : block.func_149677_c(render.field_147845_a, xPos, yPos, zPos - 1));
             tessellator.setColorOpaque_F(f11, f14, f17);
-            render.renderFaceZNeg(block, (double) xPos, (double) yPos, (double) zPos, flowingIcon);
+            render.func_147761_c(block, (double) xPos, (double) yPos, (double) zPos, flowingIcon);
 
             flag = true;
         }
@@ -1661,7 +1661,7 @@ public class BlockSkinRenderHelper
         {
             tessellator.setBrightness(render.renderMaxZ < 1.0D ? l : block.func_149677_c(render.field_147845_a, xPos, yPos, zPos + 1));
             tessellator.setColorOpaque_F(f11, f14, f17);
-            render.renderFaceZPos(block, (double) xPos, (double) yPos, (double) zPos, flowingIcon);
+            render.func_147734_d(block, (double) xPos, (double) yPos, (double) zPos, flowingIcon);
 
             flag = true;
         }
@@ -1670,7 +1670,7 @@ public class BlockSkinRenderHelper
         {
             tessellator.setBrightness(render.renderMinX > 0.0D ? l : block.func_149677_c(render.field_147845_a, xPos - 1, yPos, zPos));
             tessellator.setColorOpaque_F(f12, f15, f18);
-            render.renderFaceXNeg(block, (double) xPos, (double) yPos, (double) zPos, flowingIcon);
+            render.func_147798_e(block, (double) xPos, (double) yPos, (double) zPos, flowingIcon);
 
             flag = true;
         }
@@ -1679,7 +1679,7 @@ public class BlockSkinRenderHelper
         {
             tessellator.setBrightness(render.renderMaxX < 1.0D ? l : block.func_149677_c(render.field_147845_a, xPos + 1, yPos, zPos));
             tessellator.setColorOpaque_F(f12, f15, f18);
-            render.renderFaceXPos(block, (double) xPos, (double) yPos, (double) zPos, flowingIcon);
+            render.func_147764_f(block, (double) xPos, (double) yPos, (double) zPos, flowingIcon);
 
             flag = true;
         }
