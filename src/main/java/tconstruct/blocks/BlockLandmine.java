@@ -399,7 +399,7 @@ public class BlockLandmine extends BlockContainer
     }
 
     @Override
-    public void updateTick (World par1World, int par2, int par3, int par4, Random par5Random)
+    public void func_149674_a (World par1World, int par2, int par3, int par4, Random par5Random)
     {
         if (!par1World.isRemote)
         {

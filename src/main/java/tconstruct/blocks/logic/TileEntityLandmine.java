@@ -44,9 +44,9 @@ public class TileEntityLandmine extends TileEntity implements IInventory
     }
 
     @Override
-    public void writeToNBT (NBTTagCompound par1NBTTagCompound)
+    public void func_145839_a (NBTTagCompound par1NBTTagCompound)
     {
-        super.writeToNBT(par1NBTTagCompound);
+        super.func_145839_a(par1NBTTagCompound);
         NBTTagList nbttaglist = new NBTTagList();
 
         for (int i = 0; i < this.inventory.length; ++i)
@@ -55,7 +55,7 @@ public class TileEntityLandmine extends TileEntity implements IInventory
             {
                 NBTTagCompound nbttagcompound1 = new NBTTagCompound();
                 nbttagcompound1.setByte("Slot", (byte) i);
-                this.inventory[i].writeToNBT(nbttagcompound1);
+                this.inventory[i].func_145839_a(nbttagcompound1);
                 nbttaglist.appendTag(nbttagcompound1);
             }
         }
@@ -100,7 +100,7 @@ public class TileEntityLandmine extends TileEntity implements IInventory
     public Packet getDescriptionPacket ()
     {
         NBTTagCompound nbt = new NBTTagCompound();
-        writeToNBT(nbt);
+        func_145839_a(nbt);
         return new Packet132TileEntityData(field_145851_c, field_145848_d, field_145849_e, 0, nbt);
     }
 

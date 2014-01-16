@@ -22,7 +22,7 @@ public class SlimeGel extends TConstructBlock
     public SlimeGel()
     {
         super(Material.sponge, 0.5f, new String[] { "slimeblock_blue", "slimeblock_green", "slimeblock_purple" });
-        setCreativeTab(TConstructRegistry.blockTab);
+        func_149647_a(TConstructRegistry.blockTab);
     }
 
     public boolean getEnableStats ()

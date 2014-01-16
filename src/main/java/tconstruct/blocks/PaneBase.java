@@ -89,7 +89,7 @@ public class PaneBase extends Block
         return PaneRender.model;
     }
 
-    public boolean shouldSideBeRendered (IBlockAccess iblockaccess, int i, int j, int k, int l)
+    public boolean  func_149646_a (IBlockAccess iblockaccess, int i, int j, int k, int l)
     {
         Block b = iblockaccess.func_147439_a(i, j, k);
         if (b instanceof PaneBase || b instanceof BlockPane)
@@ -98,7 +98,7 @@ public class PaneBase extends Block
         }
         else
         {
-            return super.shouldSideBeRendered(iblockaccess, i, j, k, l);
+            return super. func_149646_a(iblockaccess, i, j, k, l);
         }
     }
 

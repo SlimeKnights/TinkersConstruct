@@ -13,7 +13,7 @@ public class GlassPaneStained extends PaneBase
         //TODO setHardness
         this.func_149711_c(0.3F);
         this.setStepSound(soundGlassFootstep);
-        this.setUnlocalizedName("tconstruct.glasspanestained");
+        this.func_149663_c("tconstruct.glasspanestained");
         this.setCreativeTab(TConstructRegistry.blockTab);
     }
 

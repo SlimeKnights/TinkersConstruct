@@ -18,6 +18,7 @@ import tconstruct.TConstruct;
 import tconstruct.blocks.component.TankAirComponent;
 import mantle.blocks.abstracts.InventoryLogic;
 import mantle.world.CoordTuple;
+import mantle.world.WorldHelper;
 import mantle.blocks.iface.IMasterLogic;
 import mantle.blocks.iface.IServantLogic;
 
@@ -107,7 +108,7 @@ public class TankAirLogic extends InventoryLogic implements IServantLogic, ISide
     @Override
     public void invalidateMaster (IMasterLogic master, World world, int xMaster, int yMaster, int zMaster)
     {
-        world.setBlockToAir(field_145851_c, field_145848_d, field_145849_e);
+        WorldHelper.setBlockToAir(world, field_145851_c, field_145848_d, field_145849_e);
     }
 
     @Override
@@ -137,7 +138,7 @@ public class TankAirLogic extends InventoryLogic implements IServantLogic, ISide
     //DELETE
     public void updateEntity ()
     {
-        field_145850_b.setBlockToAir(field_145851_c, field_145848_d, field_145849_e);
+        WorldHelper.setBlockToAir(field_145850_b,field_145851_c, field_145848_d, field_145849_e);
     }
 
     //Keep TE regardless of metadata
@@ -163,11 +164,11 @@ public class TankAirLogic extends InventoryLogic implements IServantLogic, ISide
     }
 
     @Override
-    public void writeToNBT (NBTTagCompound tags)
+    public void func_145839_a (NBTTagCompound tags)
     {
-        super.writeToNBT(tags);
+        super.func_145839_a(tags);
         writeNetworkNBT(tags);
-        multitank.writeToNBT(tags);
+        multitank.func_145839_a(tags);
     }
 
     public void writeNetworkNBT (NBTTagCompound tags)

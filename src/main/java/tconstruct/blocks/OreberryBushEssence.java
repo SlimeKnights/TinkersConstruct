@@ -16,7 +16,7 @@ public class OreberryBushEssence extends OreberryBush implements IPlantable
     /* Bush growth */
 
     @Override
-    public void updateTick (World world, int x, int y, int z, Random random1)
+    public void func_149674_a (World world, int x, int y, int z, Random random1)
     {
         if (world.isRemote)
         {

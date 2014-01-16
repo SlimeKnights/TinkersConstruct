@@ -26,13 +26,13 @@ public class SlabBase extends MantleBlock
     public SlabBase(Material material)
     {
         super(material);
-        this.setCreativeTab(TConstructRegistry.blockTab);
+        this.func_149647_a(TConstructRegistry.blockTab);
     }
 
     public SlabBase(Material material, Block model, int meta, int totalSize)
     {
         super(material);
-        this.setCreativeTab(TConstructRegistry.blockTab);
+        this.func_149647_a(TConstructRegistry.blockTab);
         this.modelBlock = model;
         this.startingMeta = meta;
         this.totalSize = totalSize;

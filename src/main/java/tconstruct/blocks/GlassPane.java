@@ -12,7 +12,7 @@ public class GlassPane extends PaneBase
         super(Material.field_151592_s, "glass/", blockTextures);
         this.func_149711_c(0.3F);
         this.setStepSound(soundGlassFootstep);
-        this.setUnlocalizedName("tconstruct.glasspane");
+        this.func_149663_c("tconstruct.glasspane");
         this.setCreativeTab(TConstructRegistry.blockTab);
     }
 }

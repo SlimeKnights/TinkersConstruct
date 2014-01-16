@@ -162,9 +162,9 @@ public class SmelteryDrainLogic extends MultiServantLogic implements IFluidHandl
     }
 
     @Override
-    public void writeToNBT (NBTTagCompound tags)
+    public void func_145839_a (NBTTagCompound tags)
     {
-        super.writeToNBT(tags);
+        super.func_145839_a(tags);
         tags.setByte("Direction", direction);
     }
 
@@ -173,7 +173,7 @@ public class SmelteryDrainLogic extends MultiServantLogic implements IFluidHandl
     public Packet getDescriptionPacket ()
     {
         NBTTagCompound tag = new NBTTagCompound();
-        writeToNBT(tag);
+        func_145839_a(tag);
         return new Packet132TileEntityData(field_145851_c, field_145848_d, field_145849_e, 1, tag);
     }
 

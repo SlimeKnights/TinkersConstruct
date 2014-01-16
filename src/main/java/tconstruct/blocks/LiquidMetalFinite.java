@@ -23,7 +23,7 @@ public class LiquidMetalFinite extends BlockFluidFinite
     {
         super(id, fluid, TRepo.liquidMetal);
         this.texture = texture;
-        this.setCreativeTab(TConstructRegistry.blockTab);
+        this.func_149647_a(TConstructRegistry.blockTab);
     }
 
     @Override

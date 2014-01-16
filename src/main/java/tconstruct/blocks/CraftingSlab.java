@@ -31,7 +31,7 @@ public class CraftingSlab extends InventorySlab
     {
         super(material);
         this.setCreativeTab(TConstructRegistry.blockTab);
-        this.setHardness(2f);
+        this.func_149711_c(2f);
         this.setStepSound(Block.soundWoodFootstep);
     }
 
@@ -123,7 +123,7 @@ public class CraftingSlab extends InventorySlab
     }
 
     @Override
-    public void getSubBlocks (Block b, CreativeTabs tab, List list)
+    public void getSubBlocks (Item b, CreativeTabs tab, List list)
     {
         for (int iter = 0; iter < 6; iter++)
         {

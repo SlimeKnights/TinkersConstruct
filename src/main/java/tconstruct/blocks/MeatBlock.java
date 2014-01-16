@@ -23,10 +23,10 @@ public class MeatBlock extends Block
     public MeatBlock()
     {
         super(Material.field_151575_d);
-        this.setHardness(1.0F);
+        this.func_149711_c(1.0F);
         this.setStepSound(Block.soundWoodFootstep);
         //setBurnProperties(this.blockID, 5, 20);
-        this.setCreativeTab(TConstructRegistry.blockTab);
+        this.func_149647_a(TConstructRegistry.blockTab);
     }
 
     @Override

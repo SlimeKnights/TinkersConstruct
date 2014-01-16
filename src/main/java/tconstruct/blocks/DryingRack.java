@@ -29,7 +29,7 @@ public class DryingRack extends InventoryBlock
     {
         super(Material.field_151575_d);
         this.setCreativeTab(TConstructRegistry.blockTab);
-        setHardness(2.0f);
+        func_149711_c(2.0f);
         setStepSound(soundMetalFootstep);
     }
 
@@ -247,6 +247,12 @@ public class DryingRack extends InventoryBlock
     public boolean isOpaqueCube ()
     {
         return false;
+    }
+
+    @Override
+    public TileEntity createTileEntity (World world, int metadata)
+    {
+        return new DryingRackLogic();
     }
 
     /*@Override

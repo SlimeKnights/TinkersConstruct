@@ -47,9 +47,9 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
         this.oreTypes = oreTypes;
         this.setTickRandomly(true);
         random = new Random();
-        this.setHardness(0.3F);
+        this.func_149711_c(0.3F);
         this.setStepSound(Block.soundMetalFootstep);
-        this.setCreativeTab(TConstructRegistry.blockTab);
+        this.func_149647_a(TConstructRegistry.blockTab);
     }
 
     /* Berries show up at meta 12-15 */
@@ -237,11 +237,11 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
         return OreberryRender.model;
     }
 
-    public boolean shouldSideBeRendered (IBlockAccess iblockaccess, int x, int y, int z, int meta)
+    public boolean func_149646_a (IBlockAccess iblockaccess, int x, int y, int z, int meta)
     {
         if (meta > 7 || graphicsLevel)
         {
-            return super.shouldSideBeRendered(iblockaccess, x, y, z, meta);
+            return super.func_149646_a(iblockaccess, x, y, z, meta);
         }
         else
         {
@@ -252,7 +252,7 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
     /* Bush growth */
 
     @Override
-    public void updateTick (World world, int x, int y, int z, Random random1)
+    public void func_149674_a (World world, int x, int y, int z, Random random1)
     {
         if (world.isRemote)
         {
@@ -324,19 +324,13 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
     }
 
     @Override
-    public EnumPlantType getPlantType (World world, int x, int y, int z)
+    public Block getPlant (IBlockAccess world, int x, int y, int z)
     {
-        return EnumPlantType.Cave;
+        return this;
     }
 
     @Override
-    public int getPlantID (World world, int x, int y, int z)
-    {
-        return this.blockID;
-    }
-
-    @Override
-    public int getPlantMetadata (World world, int x, int y, int z)
+    public int getPlantMetadata (IBlockAccess world, int x, int y, int z)
     {
         return world.getBlockMetadata(x, y, z) - 4;
     }
@@ -347,4 +341,11 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
         if (!(entity instanceof EntityItem))
             entity.attackEntityFrom(DamageSource.cactus, 1);
     }
+
+    @Override
+    public EnumPlantType getPlantType (IBlockAccess world, int x, int y, int z)
+    {
+        return EnumPlantType.Cave;
+    }
+
 }

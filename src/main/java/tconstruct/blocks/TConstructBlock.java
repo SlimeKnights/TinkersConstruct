@@ -22,7 +22,7 @@ public class TConstructBlock extends MantleBlock
     public TConstructBlock( Material material, float hardness, String[] tex)
     {
         super( material);
-        setHardness(hardness);
+        func_149711_c(hardness);
         this.func_149647_a(TConstructRegistry.blockTab);
         textureNames = tex;
     }

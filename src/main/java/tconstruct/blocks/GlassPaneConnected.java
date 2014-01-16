@@ -681,11 +681,11 @@ public class GlassPaneConnected extends GlassBlockConnected
     public boolean canPaneConnectTo (IBlockAccess access, int x, int y, int z, ForgeDirection dir)
     {
         return canThisPaneConnectToThisBlock(access.func_147439_a(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ))
-                || access.isBlockSolidOnSide(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ, dir.getOpposite(), false);
+                || access.isSideSolid(x + dir.offsetX, y + dir.offsetY, z + dir.offsetZ, dir.getOpposite(), false);
     }
 
     @Override
-    public boolean shouldSideBeRendered (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
+    public boolean func_149646_a (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
     {
         //		if(par5 == 0 || par5 == 1){
         //			return par1IBlockAccess.func_147439_a(par2, par3, par4) != this.blockID;

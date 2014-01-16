@@ -11,6 +11,7 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.IShearable;
@@ -29,7 +30,7 @@ public class SlimeTallGrass extends BlockFlower implements IShearable
         super(Material.field_151582_l);
         float f = 0.4F;
         this.setBlockBounds(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, 0.8F, 0.5F + f);
-        setCreativeTab(TConstructRegistry.blockTab);
+        func_149647_a(TConstructRegistry.blockTab);
     }
 
     @SideOnly(Side.CLIENT)
@@ -114,14 +115,15 @@ public class SlimeTallGrass extends BlockFlower implements IShearable
         return ret;
     }
 
+  
     @Override
-    public boolean isShearable (ItemStack item, World world, int x, int y, int z)
+    public boolean isShearable (ItemStack item, IBlockAccess world, int x, int y, int z)
     {
         return true;
     }
 
     @Override
-    public ArrayList<ItemStack> onSheared (ItemStack item, World world, int x, int y, int z, int fortune)
+    public ArrayList<ItemStack> onSheared (ItemStack item, IBlockAccess world, int x, int y, int z, int fortune)
     {
         ArrayList<ItemStack> ret = new ArrayList<ItemStack>();
         ret.add(new ItemStack(this, 1, world.getBlockMetadata(x, y, z)));

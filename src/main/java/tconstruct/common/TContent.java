@@ -54,7 +54,7 @@ import tconstruct.util.config.*;
 public class TContent implements IFuelHandler
 {
     //Temporary items
-    //public static Item armorTest = new ArmorStandard(2445, 4, EnumArmorPart.HELMET).setCreativeTab(CreativeTabs.tabAllSearch);
+    //public static Item armorTest = new ArmorStandard(2445, 4, EnumArmorPart.HELMET).func_149647_a(CreativeTabs.tabAllSearch);
 
     public TContent()
     {
@@ -98,7 +98,7 @@ public class TContent implements IFuelHandler
 
         TRepo.heldItemBlock = new EquipBlock(Material.field_151575_d).func_149663_c("Frypan");
 
-        TRepo.craftedSoil = new SoilBlock().setLightOpacity(0).func_149663_c("TConstruct.Soil");
+        TRepo.craftedSoil = new SoilBlock().func_149713_g(0).func_149663_c("TConstruct.Soil");
         TRepo.craftedSoil.field_149762_H = Block.soundGravelFootstep;
 
         TRepo.searedSlab = new SearedSlab().func_149663_c("SearedSlab");
@@ -111,19 +111,19 @@ public class TContent implements IFuelHandler
         TRepo.metalBlock.field_149762_H = Block.soundMetalFootstep;
 
         TRepo.meatBlock = new MeatBlock().func_149663_c("tconstruct.meatblock");
-        TRepo.glueBlock = new GlueBlock().func_149663_c("GlueBlock").setCreativeTab(TConstructRegistry.blockTab);
+        TRepo.glueBlock = new GlueBlock().func_149663_c("GlueBlock").func_149647_a(TConstructRegistry.blockTab);
 
         TRepo.woolSlab1 = new SlabBase(Material.field_151580_n, Blocks.wool, 0, 8).func_149663_c("cloth");
-        TRepo.woolSlab1.setStepSound(Block.soundClothFootstep).setCreativeTab(CreativeTabs.tabDecorations);
+        TRepo.woolSlab1.func_149672_a(Block.soundClothFootstep).func_149647_a(CreativeTabs.tabDecorations);
         TRepo.woolSlab2 = new SlabBase(Material.field_151580_n, Blocks.wool, 8, 8).func_149663_c("cloth");
-        TRepo.woolSlab2.setStepSound(Block.soundClothFootstep).setCreativeTab(CreativeTabs.tabDecorations);
+        TRepo.woolSlab2.func_149672_a(Block.soundClothFootstep).func_149647_a(CreativeTabs.tabDecorations);
 
         //Smeltery
         TRepo.smeltery = new SmelteryBlock().func_149663_c("Smeltery");
         TRepo.smelteryNether = new SmelteryBlock("nether").func_149663_c("Smeltery");
         TRepo.lavaTank = new LavaTankBlock().func_149663_c("LavaTank");
-        TRepo.lavaTank.setStepSound(Block.soundGlassFootstep);
-        TRepo.lavaTankNether = new LavaTankBlock("nether").setStepSound(Block.soundGlassFootstep).func_149663_c("LavaTank");
+        TRepo.lavaTank.func_149672_a(Block.soundGlassFootstep);
+        TRepo.lavaTankNether = new LavaTankBlock("nether").func_149672_a(Block.soundGlassFootstep).func_149663_c("LavaTank");
 
         TRepo.searedBlock = new SearedBlock().func_149663_c("SearedBlock");
         TRepo.searedBlockNether = new SearedBlock("nether").func_149663_c("SearedBlock");
@@ -133,14 +133,14 @@ public class TContent implements IFuelHandler
         TRepo.tankAir = new TankAirBlock(Material.field_151584_j).setBlockUnbreakable().func_149663_c("tconstruct.tank.air");
 
         //Traps
-        TRepo.landmine = new BlockLandmine().setHardness(0.5F).setResistance(0F).setStepSound(Block.soundMetalFootstep).setCreativeTab(CreativeTabs.tabRedstone)
+        TRepo.landmine = new BlockLandmine().func_149711_c(0.5F).setResistance(0F).func_149672_a(Block.soundMetalFootstep).func_149647_a(CreativeTabs.tabRedstone)
                 .func_149663_c("landmine");
         TRepo.punji = new Punji().func_149663_c("trap.punji");
         TRepo.barricadeOak = new BarricadeBlock(Blocks.log, 0).func_149663_c("trap.barricade.oak");
         TRepo.barricadeSpruce = new BarricadeBlock(Blocks.log, 1).func_149663_c("trap.barricade.spruce");
         TRepo.barricadeBirch = new BarricadeBlock(Blocks.log, 2).func_149663_c("trap.barricade.birch");
         TRepo.barricadeJungle = new BarricadeBlock(Blocks.log, 3).func_149663_c("trap.barricade.jungle");
-        TRepo.slimeExplosive = new SlimeExplosive().setHardness(0.0F).setStepSound(Block.field_149779_h).func_149663_c("explosive.slime");
+        TRepo.slimeExplosive = new SlimeExplosive().func_149711_c(0.0F).func_149672_a(Block.field_149779_h).func_149663_c("explosive.slime");
 
         TRepo.dryingRack = new DryingRack().func_149663_c("Armor.DryingRack");
 
@@ -353,7 +353,7 @@ public class TContent implements IFuelHandler
         TRepo.blueSlimeFluid = new Fluid("slime.blue");
         if (!FluidRegistry.registerFluid(TRepo.blueSlimeFluid))
             TRepo.blueSlimeFluid = FluidRegistry.getFluid("slime.blue");
-        TRepo.slimePool = new SlimeFluid(PHConstruct.slimePoolBlue, TRepo.blueSlimeFluid, Material.field_151586_h).setCreativeTab(TConstructRegistry.blockTab).setStepSound(TRepo.slimeStep)
+        TRepo.slimePool = new SlimeFluid(PHConstruct.slimePoolBlue, TRepo.blueSlimeFluid, Material.field_151586_h).func_149647_a(TConstructRegistry.blockTab).func_149672_a(TRepo.slimeStep)
                 .func_149663_c("liquid.slime");
         GameRegistry.registerBlock(TRepo.slimePool, "liquid.slime");
         TRepo.blueSlimeFluid.setBlockID(TRepo.slimePool);
@@ -363,7 +363,7 @@ public class TContent implements IFuelHandler
         TRepo.glueFluid = new Fluid("glue").setDensity(6000).setViscosity(6000).setTemperature(200);
         if (!FluidRegistry.registerFluid(TRepo.glueFluid))
             TRepo.glueFluid = FluidRegistry.getFluid("glue");
-        TRepo.glueFluidBlock = new GlueFluid(PHConstruct.glueFluidBlock, TRepo.glueFluid, Material.field_151586_h).setCreativeTab(TConstructRegistry.blockTab).setStepSound(TRepo.slimeStep)
+        TRepo.glueFluidBlock = new GlueFluid(PHConstruct.glueFluidBlock, TRepo.glueFluid, Material.field_151586_h).func_149647_a(TConstructRegistry.blockTab).func_149672_a(TRepo.slimeStep)
                 .func_149663_c("liquid.glue");
         GameRegistry.registerBlock(TRepo.glueFluidBlock, "liquid.glue");
         TRepo.glueFluid.setBlockID(TRepo.glueFluidBlock);
@@ -382,14 +382,14 @@ public class TContent implements IFuelHandler
                 TRepo.moltenAlubrass, TRepo.moltenManyullyn, TRepo.moltenAlumite, TRepo.moltenObsidian, TRepo.moltenSteel, TRepo.moltenGlass, TRepo.moltenStone, TRepo.moltenEmerald, TRepo.blood,
                 TRepo.moltenNickel, TRepo.moltenLead, TRepo.moltenSilver, TRepo.moltenShiny, TRepo.moltenInvar, TRepo.moltenElectrum, TRepo.moltenEnder, TRepo.slimePool, TRepo.glueFluidBlock };
         //Slime Islands
-        TRepo.slimeGel = new SlimeGel().setStepSound(TRepo.slimeStep).setLightOpacity(0).func_149663_c("slime.gel");
-        TRepo.slimeGrass = new SlimeGrass().setStepSound(Block.field_149779_h).setLightOpacity(0).func_149663_c("slime.grass");
-        TRepo.slimeTallGrass = new SlimeTallGrass().setStepSound(Block.field_149779_h).func_149663_c("slime.grass.tall");
-        TRepo.slimeLeaves = (SlimeLeaves) new SlimeLeaves().setStepSound(TRepo.slimeStep).setLightOpacity(0).func_149663_c("slime.leaves");
-        TRepo.slimeSapling = (SlimeSapling) new SlimeSapling().setStepSound(TRepo.slimeStep).func_149663_c("slime.sapling");
-        TRepo.slimeChannel = new ConveyorBase(Material.field_151586_h, "greencurrent").setHardness(0.3f).setStepSound(TRepo.slimeStep).func_149663_c("slime.channel");
-        TRepo.bloodChannel = new ConveyorBase(Material.field_151586_h, "liquid_cow").setHardness(0.3f).setStepSound(TRepo.slimeStep).func_149663_c("blood.channel");
-        TRepo.slimePad = new SlimePad(Material.field_151580_n).setStepSound(TRepo.slimeStep).setHardness(0.3f).func_149663_c("slime.pad");
+        TRepo.slimeGel = new SlimeGel().func_149672_a(TRepo.slimeStep).func_149713_g(0).func_149663_c("slime.gel");
+        TRepo.slimeGrass = new SlimeGrass().func_149672_a(Block.field_149779_h).func_149713_g(0).func_149663_c("slime.grass");
+        TRepo.slimeTallGrass = new SlimeTallGrass().func_149672_a(Block.field_149779_h).func_149663_c("slime.grass.tall");
+        TRepo.slimeLeaves = (SlimeLeaves) new SlimeLeaves().func_149672_a(TRepo.slimeStep).func_149713_g(0).func_149663_c("slime.leaves");
+        TRepo.slimeSapling = (SlimeSapling) new SlimeSapling().func_149672_a(TRepo.slimeStep).func_149663_c("slime.sapling");
+        TRepo.slimeChannel = new ConveyorBase(Material.field_151586_h, "greencurrent").func_149711_c(0.3f).func_149672_a(TRepo.slimeStep).func_149663_c("slime.channel");
+        TRepo.bloodChannel = new ConveyorBase(Material.field_151586_h, "liquid_cow").func_149711_c(0.3f).func_149672_a(TRepo.slimeStep).func_149663_c("blood.channel");
+        TRepo.slimePad = new SlimePad(Material.field_151580_n).func_149672_a(TRepo.slimeStep).func_149711_c(0.3f).func_149663_c("slime.pad");
 
         //Decoration
         TRepo.stoneTorch = new StoneTorch().func_149663_c("decoration.stonetorch");
@@ -432,7 +432,7 @@ public class TContent implements IFuelHandler
         TRepo.stainedGlassClearPane = new GlassPaneStained(PHConstruct.stainedGlassClearPane);
 
         //Rail
-        TRepo.woodenRail = new WoodRail().setStepSound(Block.soundWoodFootstep).setCreativeTab(TConstructRegistry.blockTab).func_149663_c("rail.wood");
+        TRepo.woodenRail = new WoodRail().func_149672_a(Block.soundWoodFootstep).func_149647_a(TConstructRegistry.blockTab).func_149663_c("rail.wood");
 
     }
 
@@ -477,34 +477,34 @@ public class TContent implements IFuelHandler
             TConstructRegistry.addItemStackToDirectory(armorPartTypes[i] + "Cast", new ItemStack(armorPattern, 1, i));
         }*/
 
-        TRepo.manualBook = new Manual(PHConstruct.manual);
+        TRepo.manualBook = new Manual();
         GameRegistry.registerItem(TRepo.manualBook, "manualBook");
         TRepo.buckets = new FilledBucket(PHConstruct.buckets);
         GameRegistry.registerItem(TRepo.buckets, "buckets");
 
-        TRepo.pickaxe = new Pickaxe(PHConstruct.pickaxe);
-        TRepo.shovel = new Shovel(PHConstruct.shovel);
-        TRepo.hatchet = new Hatchet(PHConstruct.axe);
-        TRepo.broadsword = new Broadsword(PHConstruct.broadsword);
-        TRepo.longsword = new Longsword(PHConstruct.longsword);
-        TRepo.rapier = new Rapier(PHConstruct.rapier);
-        TRepo.dagger = new Dagger(PHConstruct.dagger);
-        TRepo.cutlass = new Cutlass(PHConstruct.cutlass);
+        TRepo.pickaxe = new Pickaxe();
+        TRepo.shovel = new Shovel();
+        TRepo.hatchet = new Hatchet();
+        TRepo.broadsword = new Broadsword();
+        TRepo.longsword = new Longsword();
+        TRepo.rapier = new Rapier();
+        TRepo.dagger = new Dagger();
+        TRepo.cutlass = new Cutlass();
 
-        TRepo.frypan = new FryingPan(PHConstruct.frypan);
-        TRepo.battlesign = new BattleSign(PHConstruct.battlesign);
-        TRepo.mattock = new Mattock(PHConstruct.mattock);
-        TRepo.chisel = new Chisel(PHConstruct.chisel);
+        TRepo.frypan = new FryingPan();
+        TRepo.battlesign = new BattleSign();
+        TRepo.mattock = new Mattock();
+        TRepo.chisel = new Chisel();
 
-        TRepo.lumberaxe = new LumberAxe(PHConstruct.lumberaxe);
-        TRepo.cleaver = new Cleaver(PHConstruct.cleaver);
-        TRepo.scythe = new Scythe(PHConstruct.scythe);
-        TRepo.excavator = new Excavator(PHConstruct.excavator);
-        TRepo.hammer = new Hammer(PHConstruct.hammer);
-        TRepo.battleaxe = new Battleaxe(PHConstruct.battleaxe);
+        TRepo.lumberaxe = new LumberAxe();
+        TRepo.cleaver = new Cleaver();
+        TRepo.scythe = new Scythe();
+        TRepo.excavator = new Excavator();
+        TRepo.hammer = new Hammer();
+        TRepo.battleaxe = new Battleaxe();
 
-        TRepo.shortbow = new Shortbow(PHConstruct.shortbow);
-        TRepo.arrow = new Arrow(PHConstruct.arrow);
+        TRepo.shortbow = new Shortbow();
+        TRepo.arrow = new Arrow();
 
         Item[] tools = { TRepo.pickaxe, TRepo.shovel, TRepo.hatchet, TRepo.broadsword, TRepo.longsword, TRepo.rapier, TRepo.dagger, TRepo.cutlass, TRepo.frypan, TRepo.battlesign, TRepo.mattock,
                 TRepo.chisel, TRepo.lumberaxe, TRepo.cleaver, TRepo.scythe, TRepo.excavator, TRepo.hammer, TRepo.battleaxe, TRepo.shortbow, TRepo.arrow };
@@ -517,18 +517,18 @@ public class TContent implements IFuelHandler
             TConstructRegistry.addItemToDirectory(toolStrings[i], tools[i]);
         }
 
-        TRepo.potionLauncher = new PotionLauncher(PHConstruct.potionLauncher).func_149663_c("tconstruct.PotionLauncher");
+        TRepo.potionLauncher = new PotionLauncher().func_149663_c("tconstruct.PotionLauncher");
         GameRegistry.registerItem(TRepo.potionLauncher, "potionLauncher");
 
-        TRepo.pickaxeHead = new ToolPart(PHConstruct.pickaxeHead, "_pickaxe_head", "PickHead").func_149663_c("tconstruct.PickaxeHead");
-        TRepo.shovelHead = new ToolPart(PHConstruct.shovelHead, "_shovel_head", "ShovelHead").func_149663_c("tconstruct.ShovelHead");
-        TRepo.hatchetHead = new ToolPart(PHConstruct.axeHead, "_axe_head", "AxeHead").func_149663_c("tconstruct.AxeHead");
-        TRepo.binding = new ToolPart(PHConstruct.binding, "_binding", "Binding").func_149663_c("tconstruct.Binding");
-        TRepo.toughBinding = new ToolPart(PHConstruct.toughBinding, "_toughbind", "ToughBind").func_149663_c("tconstruct.ThickBinding");
-        TRepo.toughRod = new ToolPart(PHConstruct.toughRod, "_toughrod", "ToughRod").func_149663_c("tconstruct.ThickRod");
-        TRepo.largePlate = new ToolPart(PHConstruct.largePlate, "_largeplate", "LargePlate").func_149663_c("tconstruct.LargePlate");
+        TRepo.pickaxeHead = new ToolPart("_pickaxe_head", "PickHead").func_149663_c("tconstruct.PickaxeHead");
+        TRepo.shovelHead = new ToolPart("_shovel_head", "ShovelHead").func_149663_c("tconstruct.ShovelHead");
+        TRepo.hatchetHead = new ToolPart( "_axe_head", "AxeHead").func_149663_c("tconstruct.AxeHead");
+        TRepo.binding = new ToolPart( "_binding", "Binding").func_149663_c("tconstruct.Binding");
+        TRepo.toughBinding = new ToolPart("_toughbind", "ToughBind").func_149663_c("tconstruct.ThickBinding");
+        TRepo.toughRod = new ToolPart("_toughrod", "ToughRod").func_149663_c("tconstruct.ThickRod");
+        TRepo.largePlate = new ToolPart("_largeplate", "LargePlate").func_149663_c("tconstruct.LargePlate");
 
-        TRepo.swordBlade = new ToolPart(PHConstruct.swordBlade, "_sword_blade", "SwordBlade").func_149663_c("tconstruct.SwordBlade");
+        TRepo.swordBlade = new ToolPart("_sword_blade", "SwordBlade").func_149663_c("tconstruct.SwordBlade");
         TRepo.wideGuard = new ToolPart(PHConstruct.largeGuard, "_large_guard", "LargeGuard").func_149663_c("tconstruct.LargeGuard");
         TRepo.handGuard = new ToolPart(PHConstruct.medGuard, "_medium_guard", "MediumGuard").func_149663_c("tconstruct.MediumGuard");
         TRepo.crossbar = new ToolPart(PHConstruct.crossbar, "_crossbar", "Crossbar").func_149663_c("tconstruct.Crossbar");

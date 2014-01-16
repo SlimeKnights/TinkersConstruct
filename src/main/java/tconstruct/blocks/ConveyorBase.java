@@ -101,11 +101,11 @@ public class ConveyorBase extends MantleBlock
         world.setBlockMetadataWithNotify(x, y, z, face | meta, 2);
     }
 
-    public boolean shouldSideBeRendered (IBlockAccess world, int x, int y, int z, int side)
+    public boolean  func_149646_a (IBlockAccess world, int x, int y, int z, int side)
     {
         if (side == 1)
             return false;
-        return super.shouldSideBeRendered(world, x, y, z, side);
+        return super. func_149646_a(world, x, y, z, side);
     }
 
     public IIcon[] icons;

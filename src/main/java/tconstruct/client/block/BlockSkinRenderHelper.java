@@ -14,7 +14,7 @@ public class BlockSkinRenderHelper
     public static boolean renderMetadataBlock (Block block, int metadata, int x, int y, int z, RenderBlocks renderer, IBlockAccess world)
     {
         //TODO CHECK THESE!!!!
-        int var5 = block.colorMultiplier(world, x, y, z);
+        int var5 = block.func_149720_d(world, x, y, z);
         float var6 = (float) (var5 >> 16 & 255) / 255.0F;
         float var7 = (float) (var5 >> 8 & 255) / 255.0F;
         float var8 = (float) (var5 & 255) / 255.0F;
@@ -63,7 +63,7 @@ public class BlockSkinRenderHelper
         float f7;
         int i1;
 
-        if (render.renderAllFaces || block.shouldSideBeRendered(render.field_147845_a, xPos, yPos - 1, zPos, 0))
+        if (render.renderAllFaces || block. func_149646_a(render.field_147845_a, xPos, yPos - 1, zPos, 0))
         {
             if (render.renderMinY <= 0.0D)
             {
@@ -74,14 +74,14 @@ public class BlockSkinRenderHelper
             render.field_147825_U = block.func_149677_c(render.field_147845_a, xPos, yPos, zPos - 1);
             render.field_147828_V = block.func_149677_c(render.field_147845_a, xPos, yPos, zPos + 1);
             render.field_147835_X = block.func_149677_c(render.field_147845_a, xPos + 1, yPos, zPos);
-            render.field_147886_y = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos, zPos);
-            render.field_147814_A = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos, zPos - 1);
-            render.field_147815_B = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos, zPos + 1);
-            render.field_147810_D = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos, zPos);
-            flag3 = Block.canBlockGrass[render.field_147845_a.getBlock(xPos + 1, yPos - 1, zPos)];
-            flag2 = Block.canBlockGrass[render.field_147845_a.getBlock(xPos - 1, yPos - 1, zPos)];
-            flag5 = Block.canBlockGrass[render.field_147845_a.getBlock(xPos, yPos - 1, zPos + 1)];
-            flag4 = Block.canBlockGrass[render.field_147845_a.getBlock(xPos, yPos - 1, zPos - 1)];
+            render.field_147886_y = getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos, zPos);
+            render.field_147814_A = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos, zPos - 1);
+            render.field_147815_B = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos, zPos + 1);
+            render.field_147810_D = getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos, zPos);
+            flag3 = render.field_147845_a.func_147439_a(xPos + 1, yPos - 1, zPos).func_149751_l();
+            flag2 = render.field_147845_a.func_147439_a(xPos - 1, yPos - 1, zPos).func_149751_l();
+            flag5 = render.field_147845_a.func_147439_a(xPos, yPos - 1, zPos + 1).func_149751_l();
+            flag4 = render.field_147845_a.func_147439_a(xPos, yPos - 1, zPos - 1).func_149751_l();
 
             if (!flag4 && !flag2)
             {
@@ -90,7 +90,7 @@ public class BlockSkinRenderHelper
             }
             else
             {
-                render.field_147888_x = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos, zPos - 1);
+                render.field_147888_x = getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos, zPos - 1);
                 render.field_147832_R = block.func_149677_c(render.field_147845_a, xPos - 1, yPos, zPos - 1);
             }
 
@@ -101,7 +101,7 @@ public class BlockSkinRenderHelper
             }
             else
             {
-                render.field_147884_z = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos, zPos + 1);
+                render.field_147884_z = getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos, zPos + 1);
                 render.field_147826_T = block.func_149677_c(render.field_147845_a, xPos - 1, yPos, zPos + 1);
             }
 
@@ -112,7 +112,7 @@ public class BlockSkinRenderHelper
             }
             else
             {
-                render.field_147816_C = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos, zPos - 1);
+                render.field_147816_C = getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos, zPos - 1);
                 render.field_147827_W = block.func_149677_c(render.field_147845_a, xPos + 1, yPos, zPos - 1);
             }
 
@@ -123,7 +123,7 @@ public class BlockSkinRenderHelper
             }
             else
             {
-                render.field_147811_E = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos, zPos + 1);
+                render.field_147811_E = getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos, zPos + 1);
                 render.field_147834_Y = block.func_149677_c(render.field_147845_a, xPos + 1, yPos, zPos + 1);
             }
 
@@ -139,7 +139,7 @@ public class BlockSkinRenderHelper
                 i1 = block.func_149677_c(render.field_147845_a, xPos, yPos - 1, zPos);
             }
 
-            f7 = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos - 1, zPos);
+            f7 = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos - 1, zPos);
             f3 = (render.field_147884_z + render.field_147886_y + render.field_147815_B + f7) / 4.0F;
             f6 = (render.field_147815_B + f7 + render.field_147811_E + render.field_147810_D) / 4.0F;
             f5 = (f7 + render.field_147814_A + render.field_147810_D + render.field_147816_C) / 4.0F;
@@ -178,7 +178,7 @@ public class BlockSkinRenderHelper
             flag = true;
         }
 
-        if (render.renderAllFaces || block.shouldSideBeRendered(render.field_147845_a, xPos, yPos + 1, zPos, 1))
+        if (render.renderAllFaces || block. func_149646_a(render.field_147845_a, xPos, yPos + 1, zPos, 1))
         {
             if (render.renderMaxY >= 1.0D)
             {
@@ -189,45 +189,45 @@ public class BlockSkinRenderHelper
             render.field_147885_ae = block.func_149677_c(render.field_147845_a, xPos + 1, yPos, zPos);
             render.field_147878_ac = block.func_149677_c(render.field_147845_a, xPos, yPos, zPos - 1);
             render.field_147887_af = block.func_149677_c(render.field_147845_a, xPos, yPos, zPos + 1);
-            render.field_147813_G = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos, zPos);
-            render.field_147824_K = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos, zPos);
-            render.field_147822_I = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos, zPos - 1);
-            render.field_147817_L = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos, zPos + 1);
-            flag3 = Block.canBlockGrass[render.field_147845_a.getBlock(xPos + 1, yPos + 1, zPos)];
-            flag2 = Block.canBlockGrass[render.field_147845_a.getBlock(xPos - 1, yPos + 1, zPos)];
-            flag5 = Block.canBlockGrass[render.field_147845_a.getBlock(xPos, yPos + 1, zPos + 1)];
-            flag4 = Block.canBlockGrass[render.field_147845_a.getBlock(xPos, yPos + 1, zPos - 1)];
+            render.field_147813_G = getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos, zPos);
+            render.field_147824_K = getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos, zPos);
+            render.field_147822_I = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos, zPos - 1);
+            render.field_147817_L = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos, zPos + 1);
+            flag3 = render.field_147845_a.func_147439_a(xPos + 1, yPos + 1, zPos).func_149751_l();
+            flag2 = render.field_147845_a.func_147439_a(xPos - 1, yPos + 1, zPos).func_149751_l();
+            flag5 = render.field_147845_a.func_147439_a(xPos, yPos + 1, zPos + 1).func_149751_l();
+            flag4 = render.field_147845_a.func_147439_a(xPos, yPos + 1, zPos - 1).func_149751_l();
 
             if (!flag4 && !flag2)
             {
-                render.aoLightValueScratchXYZNPN = render.field_147813_G;
+                render.field_147812_F = render.field_147813_G;
                 render.field_147836_Z = render.field_147880_aa;
             }
             else
             {
-                render.aoLightValueScratchXYZNPN = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos, zPos - 1);
+                render.field_147812_F = getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos, zPos - 1);
                 render.field_147836_Z = block.func_149677_c(render.field_147845_a, xPos - 1, yPos, zPos - 1);
             }
 
             if (!flag4 && !flag3)
             {
-                render.aoLightValueScratchXYZPPN = render.field_147824_K;
+                render.field_147823_J = render.field_147824_K;
                 render.field_147879_ad = render.field_147885_ae;
             }
             else
             {
-                render.aoLightValueScratchXYZPPN = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos, zPos - 1);
+                render.field_147823_J = getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos, zPos - 1);
                 render.field_147879_ad = block.func_149677_c(render.field_147845_a, xPos + 1, yPos, zPos - 1);
             }
 
             if (!flag5 && !flag2)
             {
-                render.aoLightValueScratchXYZNPP = render.field_147813_G;
+                render.field_147821_H = render.field_147813_G;
                 render.field_147881_ab = render.field_147880_aa;
             }
             else
             {
-                render.aoLightValueScratchXYZNPP = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos, zPos + 1);
+                render.field_147821_H = getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos, zPos + 1);
                 render.field_147881_ab = block.func_149677_c(render.field_147845_a, xPos - 1, yPos, zPos + 1);
             }
 
@@ -238,7 +238,7 @@ public class BlockSkinRenderHelper
             }
             else
             {
-                render.field_147819_N = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos, zPos + 1);
+                render.field_147819_N = getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos, zPos + 1);
                 render.field_147882_ag = block.func_149677_c(render.field_147845_a, xPos + 1, yPos, zPos + 1);
             }
 
@@ -254,11 +254,11 @@ public class BlockSkinRenderHelper
                 i1 = block.func_149677_c(render.field_147845_a, xPos, yPos + 1, zPos);
             }
 
-            f7 = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos + 1, zPos);
-            f6 = (render.aoLightValueScratchXYZNPP + render.field_147813_G + render.field_147817_L + f7) / 4.0F;
+            f7 = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos + 1, zPos);
+            f6 = (render.field_147821_H + render.field_147813_G + render.field_147817_L + f7) / 4.0F;
             f3 = (render.field_147817_L + f7 + render.field_147819_N + render.field_147824_K) / 4.0F;
-            f4 = (f7 + render.field_147822_I + render.field_147824_K + render.aoLightValueScratchXYZPPN) / 4.0F;
-            f5 = (render.field_147813_G + render.aoLightValueScratchXYZNPN + f7 + render.field_147822_I) / 4.0F;
+            f4 = (f7 + render.field_147822_I + render.field_147824_K + render.field_147823_J) / 4.0F;
+            f5 = (render.field_147813_G + render.field_147812_F + f7 + render.field_147822_I) / 4.0F;
             render.field_147870_ao = render.getAoBrightness(render.field_147881_ab, render.field_147880_aa, render.field_147887_af, i1);
             render.field_147864_al = render.getAoBrightness(render.field_147887_af, render.field_147882_ag, render.field_147885_ae, i1);
             render.field_147874_am = render.getAoBrightness(render.field_147878_ac, render.field_147885_ae, render.field_147879_ad, i1);
@@ -284,25 +284,25 @@ public class BlockSkinRenderHelper
 
         IIcon icon;
 
-        if (render.renderAllFaces || block.shouldSideBeRendered(render.field_147845_a, xPos, yPos, zPos - 1, 2))
+        if (render.renderAllFaces || block. func_149646_a(render.field_147845_a, xPos, yPos, zPos - 1, 2))
         {
             if (render.renderMinZ <= 0.0D)
             {
                 --zPos;
             }
 
-            render.field_147820_O = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos, zPos);
-            render.field_147814_A = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos - 1, zPos);
-            render.field_147822_I = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos + 1, zPos);
-            render.aoLightValueScratchXZPN = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos, zPos);
+            render.field_147820_O = getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos, zPos);
+            render.field_147814_A = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos - 1, zPos);
+            render.field_147822_I = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos + 1, zPos);
+            render.field_147820_O = getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos, zPos);
             render.field_147883_ah = block.func_149677_c(render.field_147845_a, xPos - 1, yPos, zPos);
             render.field_147825_U = block.func_149677_c(render.field_147845_a, xPos, yPos - 1, zPos);
             render.field_147878_ac = block.func_149677_c(render.field_147845_a, xPos, yPos + 1, zPos);
             render.field_147866_ai = block.func_149677_c(render.field_147845_a, xPos + 1, yPos, zPos);
-            flag3 = Block.canBlockGrass[render.field_147845_a.getBlock(xPos + 1, yPos, zPos - 1)];
-            flag2 = Block.canBlockGrass[render.field_147845_a.getBlock(xPos - 1, yPos, zPos - 1)];
-            flag5 = Block.canBlockGrass[render.field_147845_a.getBlock(xPos, yPos + 1, zPos - 1)];
-            flag4 = Block.canBlockGrass[render.field_147845_a.getBlock(xPos, yPos - 1, zPos - 1)];
+            flag3 = render.field_147845_a.func_147439_a(xPos + 1, yPos, zPos - 1).func_149751_l();
+            flag2 = render.field_147845_a.func_147439_a(xPos - 1, yPos, zPos - 1).func_149751_l();
+            flag5 = render.field_147845_a.func_147439_a(xPos, yPos + 1, zPos - 1).func_149751_l();
+            flag4 = render.field_147845_a.func_147439_a(xPos, yPos - 1, zPos - 1).func_149751_l();
 
             if (!flag2 && !flag4)
             {
@@ -311,40 +311,40 @@ public class BlockSkinRenderHelper
             }
             else
             {
-                render.field_147888_x = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos - 1, zPos);
+                render.field_147888_x = getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos - 1, zPos);
                 render.field_147832_R = block.func_149677_c(render.field_147845_a, xPos - 1, yPos - 1, zPos);
             }
 
             if (!flag2 && !flag5)
             {
-                render.aoLightValueScratchXYZNPN = render.field_147820_O;
+                render.field_147812_F = render.field_147820_O;
                 render.field_147836_Z = render.field_147883_ah;
             }
             else
             {
-                render.aoLightValueScratchXYZNPN = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos + 1, zPos);
+                render.field_147812_F = getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos + 1, zPos);
                 render.field_147836_Z = block.func_149677_c(render.field_147845_a, xPos - 1, yPos + 1, zPos);
             }
 
             if (!flag3 && !flag4)
             {
-                render.field_147816_C = render.aoLightValueScratchXZPN;
+                render.field_147816_C = render.field_147820_O;
                 render.field_147827_W = render.field_147866_ai;
             }
             else
             {
-                render.field_147816_C = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos - 1, zPos);
+                render.field_147816_C = getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos - 1, zPos);
                 render.field_147827_W = block.func_149677_c(render.field_147845_a, xPos + 1, yPos - 1, zPos);
             }
 
             if (!flag3 && !flag5)
             {
-                render.aoLightValueScratchXYZPPN = render.aoLightValueScratchXZPN;
+                render.field_147823_J = render.field_147820_O;
                 render.field_147879_ad = render.field_147866_ai;
             }
             else
             {
-                render.aoLightValueScratchXYZPPN = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos + 1, zPos);
+                render.field_147823_J = getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos + 1, zPos);
                 render.field_147879_ad = block.func_149677_c(render.field_147845_a, xPos + 1, yPos + 1, zPos);
             }
 
@@ -360,10 +360,10 @@ public class BlockSkinRenderHelper
                 i1 = block.func_149677_c(render.field_147845_a, xPos, yPos, zPos - 1);
             }
 
-            f7 = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos, zPos - 1);
-            f3 = (render.field_147820_O + render.aoLightValueScratchXYZNPN + f7 + render.field_147822_I) / 4.0F;
-            f4 = (f7 + render.field_147822_I + render.aoLightValueScratchXZPN + render.aoLightValueScratchXYZPPN) / 4.0F;
-            f5 = (render.field_147814_A + f7 + render.field_147816_C + render.aoLightValueScratchXZPN) / 4.0F;
+            f7 = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos, zPos - 1);
+            f3 = (render.field_147820_O + render.field_147812_F + f7 + render.field_147822_I) / 4.0F;
+            f4 = (f7 + render.field_147822_I + render.field_147820_O + render.field_147823_J) / 4.0F;
+            f5 = (render.field_147814_A + f7 + render.field_147816_C + render.field_147820_O) / 4.0F;
             f6 = (render.field_147888_x + render.field_147820_O + render.field_147814_A + f7) / 4.0F;
             render.field_147864_al = render.getAoBrightness(render.field_147883_ah, render.field_147836_Z, render.field_147878_ac, i1);
             render.field_147874_am = render.getAoBrightness(render.field_147878_ac, render.field_147866_ai, render.field_147879_ad, i1);
@@ -401,25 +401,25 @@ public class BlockSkinRenderHelper
             flag = true;
         }
 
-        if (render.renderAllFaces || block.shouldSideBeRendered(render.field_147845_a, xPos, yPos, zPos + 1, 3))
+        if (render.renderAllFaces || block. func_149646_a(render.field_147845_a, xPos, yPos, zPos + 1, 3))
         {
             if (render.renderMaxZ >= 1.0D)
             {
                 ++zPos;
             }
 
-            render.field_147830_P = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos, zPos);
-            render.field_147829_Q = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos, zPos);
-            render.field_147815_B = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos - 1, zPos);
-            render.field_147817_L = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos + 1, zPos);
+            render.field_147830_P = getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos, zPos);
+            render.field_147829_Q = getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos, zPos);
+            render.field_147815_B = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos - 1, zPos);
+            render.field_147817_L = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos + 1, zPos);
             render.field_147868_aj = block.func_149677_c(render.field_147845_a, xPos - 1, yPos, zPos);
             render.field_147862_ak = block.func_149677_c(render.field_147845_a, xPos + 1, yPos, zPos);
             render.field_147828_V = block.func_149677_c(render.field_147845_a, xPos, yPos - 1, zPos);
             render.field_147887_af = block.func_149677_c(render.field_147845_a, xPos, yPos + 1, zPos);
-            flag3 = Block.canBlockGrass[render.field_147845_a.getBlock(xPos + 1, yPos, zPos + 1)];
-            flag2 = Block.canBlockGrass[render.field_147845_a.getBlock(xPos - 1, yPos, zPos + 1)];
-            flag5 = Block.canBlockGrass[render.field_147845_a.getBlock(xPos, yPos + 1, zPos + 1)];
-            flag4 = Block.canBlockGrass[render.field_147845_a.getBlock(xPos, yPos - 1, zPos + 1)];
+            flag3 = render.field_147845_a.func_147439_a(xPos + 1, yPos, zPos + 1).func_149751_l();
+            flag2 = render.field_147845_a.func_147439_a(xPos - 1, yPos, zPos + 1).func_149751_l();
+            flag5 = render.field_147845_a.func_147439_a(xPos, yPos + 1, zPos + 1).func_149751_l();
+            flag4 = render.field_147845_a.func_147439_a(xPos, yPos - 1, zPos + 1).func_149751_l();
 
             if (!flag2 && !flag4)
             {
@@ -428,18 +428,18 @@ public class BlockSkinRenderHelper
             }
             else
             {
-                render.field_147884_z = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos - 1, zPos);
+                render.field_147884_z = getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos - 1, zPos);
                 render.field_147826_T = block.func_149677_c(render.field_147845_a, xPos - 1, yPos - 1, zPos);
             }
 
             if (!flag2 && !flag5)
             {
-                render.aoLightValueScratchXYZNPP = render.field_147830_P;
+                render.field_147821_H = render.field_147830_P;
                 render.field_147881_ab = render.field_147868_aj;
             }
             else
             {
-                render.aoLightValueScratchXYZNPP = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos + 1, zPos);
+                render.field_147821_H = getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos + 1, zPos);
                 render.field_147881_ab = block.func_149677_c(render.field_147845_a, xPos - 1, yPos + 1, zPos);
             }
 
@@ -450,7 +450,7 @@ public class BlockSkinRenderHelper
             }
             else
             {
-                render.field_147811_E = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos - 1, zPos);
+                render.field_147811_E = getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos - 1, zPos);
                 render.field_147834_Y = block.func_149677_c(render.field_147845_a, xPos + 1, yPos - 1, zPos);
             }
 
@@ -461,7 +461,7 @@ public class BlockSkinRenderHelper
             }
             else
             {
-                render.field_147819_N = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos + 1, zPos);
+                render.field_147819_N = getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos + 1, zPos);
                 render.field_147882_ag = block.func_149677_c(render.field_147845_a, xPos + 1, yPos + 1, zPos);
             }
 
@@ -477,8 +477,8 @@ public class BlockSkinRenderHelper
                 i1 = block.func_149677_c(render.field_147845_a, xPos, yPos, zPos + 1);
             }
 
-            f7 = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos, zPos + 1);
-            f3 = (render.field_147830_P + render.aoLightValueScratchXYZNPP + f7 + render.field_147817_L) / 4.0F;
+            f7 = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos, zPos + 1);
+            f3 = (render.field_147830_P + render.field_147821_H + f7 + render.field_147817_L) / 4.0F;
             f6 = (f7 + render.field_147817_L + render.field_147829_Q + render.field_147819_N) / 4.0F;
             f5 = (render.field_147815_B + f7 + render.field_147811_E + render.field_147829_Q) / 4.0F;
             f4 = (render.field_147884_z + render.field_147830_P + render.field_147815_B + f7) / 4.0F;
@@ -518,25 +518,25 @@ public class BlockSkinRenderHelper
             flag = true;
         }
 
-        if (render.renderAllFaces || block.shouldSideBeRendered(render.field_147845_a, xPos - 1, yPos, zPos, 4))
+        if (render.renderAllFaces || block. func_149646_a(render.field_147845_a, xPos - 1, yPos, zPos, 4))
         {
             if (render.renderMinX <= 0.0D)
             {
                 --xPos;
             }
 
-            render.field_147886_y = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos - 1, zPos);
-            render.field_147820_O = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos, zPos - 1);
-            render.field_147830_P = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos, zPos + 1);
-            render.field_147813_G = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos + 1, zPos);
+            render.field_147886_y = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos - 1, zPos);
+            render.field_147820_O = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos, zPos - 1);
+            render.field_147830_P = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos, zPos + 1);
+            render.field_147813_G = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos + 1, zPos);
             render.field_147831_S = block.func_149677_c(render.field_147845_a, xPos, yPos - 1, zPos);
             render.field_147883_ah = block.func_149677_c(render.field_147845_a, xPos, yPos, zPos - 1);
             render.field_147868_aj = block.func_149677_c(render.field_147845_a, xPos, yPos, zPos + 1);
             render.field_147880_aa = block.func_149677_c(render.field_147845_a, xPos, yPos + 1, zPos);
-            flag3 = Block.canBlockGrass[render.field_147845_a.getBlock(xPos - 1, yPos + 1, zPos)];
-            flag2 = Block.canBlockGrass[render.field_147845_a.getBlock(xPos - 1, yPos - 1, zPos)];
-            flag5 = Block.canBlockGrass[render.field_147845_a.getBlock(xPos - 1, yPos, zPos - 1)];
-            flag4 = Block.canBlockGrass[render.field_147845_a.getBlock(xPos - 1, yPos, zPos + 1)];
+            flag3 = render.field_147845_a.func_147439_a(xPos - 1, yPos + 1, zPos).func_149751_l();
+            flag2 = render.field_147845_a.func_147439_a(xPos - 1, yPos - 1, zPos).func_149751_l();
+            flag5 = render.field_147845_a.func_147439_a(xPos - 1, yPos, zPos - 1).func_149751_l();
+            flag4 = render.field_147845_a.func_147439_a(xPos - 1, yPos, zPos + 1).func_149751_l();
 
             if (!flag5 && !flag2)
             {
@@ -545,7 +545,7 @@ public class BlockSkinRenderHelper
             }
             else
             {
-                render.field_147888_x = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos - 1, zPos - 1);
+                render.field_147888_x = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos - 1, zPos - 1);
                 render.field_147832_R = block.func_149677_c(render.field_147845_a, xPos, yPos - 1, zPos - 1);
             }
 
@@ -556,29 +556,29 @@ public class BlockSkinRenderHelper
             }
             else
             {
-                render.field_147884_z = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos - 1, zPos + 1);
+                render.field_147884_z = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos - 1, zPos + 1);
                 render.field_147826_T = block.func_149677_c(render.field_147845_a, xPos, yPos - 1, zPos + 1);
             }
 
             if (!flag5 && !flag3)
             {
-                render.aoLightValueScratchXYZNPN = render.field_147820_O;
+                render.field_147812_F = render.field_147820_O;
                 render.field_147836_Z = render.field_147883_ah;
             }
             else
             {
-                render.aoLightValueScratchXYZNPN = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos + 1, zPos - 1);
+                render.field_147812_F = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos + 1, zPos - 1);
                 render.field_147836_Z = block.func_149677_c(render.field_147845_a, xPos, yPos + 1, zPos - 1);
             }
 
             if (!flag4 && !flag3)
             {
-                render.aoLightValueScratchXYZNPP = render.field_147830_P;
+                render.field_147821_H = render.field_147830_P;
                 render.field_147881_ab = render.field_147868_aj;
             }
             else
             {
-                render.aoLightValueScratchXYZNPP = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos + 1, zPos + 1);
+                render.field_147821_H = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos + 1, zPos + 1);
                 render.field_147881_ab = block.func_149677_c(render.field_147845_a, xPos, yPos + 1, zPos + 1);
             }
 
@@ -594,10 +594,10 @@ public class BlockSkinRenderHelper
                 i1 = block.func_149677_c(render.field_147845_a, xPos - 1, yPos, zPos);
             }
 
-            f7 = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos, zPos);
+            f7 = getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos, zPos);
             f6 = (render.field_147886_y + render.field_147884_z + f7 + render.field_147830_P) / 4.0F;
-            f3 = (f7 + render.field_147830_P + render.field_147813_G + render.aoLightValueScratchXYZNPP) / 4.0F;
-            f4 = (render.field_147820_O + f7 + render.aoLightValueScratchXYZNPN + render.field_147813_G) / 4.0F;
+            f3 = (f7 + render.field_147830_P + render.field_147813_G + render.field_147821_H) / 4.0F;
+            f4 = (render.field_147820_O + f7 + render.field_147812_F + render.field_147813_G) / 4.0F;
             f5 = (render.field_147888_x + render.field_147886_y + render.field_147820_O + f7) / 4.0F;
             render.field_147870_ao = render.getAoBrightness(render.field_147831_S, render.field_147826_T, render.field_147868_aj, i1);
             render.field_147864_al = render.getAoBrightness(render.field_147868_aj, render.field_147880_aa, render.field_147881_ab, i1);
@@ -635,34 +635,34 @@ public class BlockSkinRenderHelper
             flag = true;
         }
 
-        if (render.renderAllFaces || block.shouldSideBeRendered(render.field_147845_a, xPos + 1, yPos, zPos, 5))
+        if (render.renderAllFaces || block. func_149646_a(render.field_147845_a, xPos + 1, yPos, zPos, 5))
         {
             if (render.renderMaxX >= 1.0D)
             {
                 ++xPos;
             }
 
-            render.field_147810_D = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos - 1, zPos);
-            render.aoLightValueScratchXZPN = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos, zPos - 1);
-            render.field_147829_Q = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos, zPos + 1);
-            render.field_147824_K = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos + 1, zPos);
+            render.field_147810_D = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos - 1, zPos);
+            render.field_147820_O = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos, zPos - 1);
+            render.field_147829_Q = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos, zPos + 1);
+            render.field_147824_K = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos + 1, zPos);
             render.field_147835_X = block.func_149677_c(render.field_147845_a, xPos, yPos - 1, zPos);
             render.field_147866_ai = block.func_149677_c(render.field_147845_a, xPos, yPos, zPos - 1);
             render.field_147862_ak = block.func_149677_c(render.field_147845_a, xPos, yPos, zPos + 1);
             render.field_147885_ae = block.func_149677_c(render.field_147845_a, xPos, yPos + 1, zPos);
-            flag3 = Block.canBlockGrass[render.field_147845_a.getBlock(xPos + 1, yPos + 1, zPos)];
-            flag2 = Block.canBlockGrass[render.field_147845_a.getBlock(xPos + 1, yPos - 1, zPos)];
-            flag5 = Block.canBlockGrass[render.field_147845_a.getBlock(xPos + 1, yPos, zPos + 1)];
-            flag4 = Block.canBlockGrass[render.field_147845_a.getBlock(xPos + 1, yPos, zPos - 1)];
+            flag3 = render.field_147845_a.func_147439_a(xPos + 1, yPos + 1, zPos).func_149751_l();
+            flag2 = render.field_147845_a.func_147439_a(xPos + 1, yPos - 1, zPos).func_149751_l();
+            flag5 = render.field_147845_a.func_147439_a(xPos + 1, yPos, zPos + 1).func_149751_l();
+            flag4 = render.field_147845_a.func_147439_a(xPos + 1, yPos, zPos - 1).func_149751_l();
 
             if (!flag2 && !flag4)
             {
-                render.field_147816_C = render.aoLightValueScratchXZPN;
+                render.field_147816_C = render.field_147820_O;
                 render.field_147827_W = render.field_147866_ai;
             }
             else
             {
-                render.field_147816_C = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos - 1, zPos - 1);
+                render.field_147816_C = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos - 1, zPos - 1);
                 render.field_147827_W = block.func_149677_c(render.field_147845_a, xPos, yPos - 1, zPos - 1);
             }
 
@@ -673,18 +673,18 @@ public class BlockSkinRenderHelper
             }
             else
             {
-                render.field_147811_E = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos - 1, zPos + 1);
+                render.field_147811_E = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos - 1, zPos + 1);
                 render.field_147834_Y = block.func_149677_c(render.field_147845_a, xPos, yPos - 1, zPos + 1);
             }
 
             if (!flag3 && !flag4)
             {
-                render.aoLightValueScratchXYZPPN = render.aoLightValueScratchXZPN;
+                render.field_147823_J = render.field_147820_O;
                 render.field_147879_ad = render.field_147866_ai;
             }
             else
             {
-                render.aoLightValueScratchXYZPPN = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos + 1, zPos - 1);
+                render.field_147823_J = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos + 1, zPos - 1);
                 render.field_147879_ad = block.func_149677_c(render.field_147845_a, xPos, yPos + 1, zPos - 1);
             }
 
@@ -695,7 +695,7 @@ public class BlockSkinRenderHelper
             }
             else
             {
-                render.field_147819_N = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos + 1, zPos + 1);
+                render.field_147819_N = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos + 1, zPos + 1);
                 render.field_147882_ag = block.func_149677_c(render.field_147845_a, xPos, yPos + 1, zPos + 1);
             }
 
@@ -711,10 +711,10 @@ public class BlockSkinRenderHelper
                 i1 = block.func_149677_c(render.field_147845_a, xPos + 1, yPos, zPos);
             }
 
-            f7 = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos, zPos);
+            f7 = getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos, zPos);
             f3 = (render.field_147810_D + render.field_147811_E + f7 + render.field_147829_Q) / 4.0F;
-            f4 = (render.field_147816_C + render.field_147810_D + render.aoLightValueScratchXZPN + f7) / 4.0F;
-            f5 = (render.aoLightValueScratchXZPN + f7 + render.aoLightValueScratchXYZPPN + render.field_147824_K) / 4.0F;
+            f4 = (render.field_147816_C + render.field_147810_D + render.field_147820_O + f7) / 4.0F;
+            f5 = (render.field_147820_O + f7 + render.field_147823_J + render.field_147824_K) / 4.0F;
             f6 = (f7 + render.field_147829_Q + render.field_147824_K + render.field_147819_N) / 4.0F;
             render.field_147864_al = render.getAoBrightness(render.field_147835_X, render.field_147834_Y, render.field_147862_ak, i1);
             render.field_147870_ao = render.getAoBrightness(render.field_147862_ak, render.field_147885_ae, render.field_147882_ag, i1);
@@ -794,7 +794,7 @@ public class BlockSkinRenderHelper
 
         int l = block.func_149677_c(render.field_147845_a, xPos, yPos, zPos);
 
-        if (render.renderAllFaces || block.shouldSideBeRendered(render.field_147845_a, xPos, yPos - 1, zPos, 0))
+        if (render.renderAllFaces || block. func_149646_a(render.field_147845_a, xPos, yPos - 1, zPos, 0))
         {
             tessellator.setBrightness(render.renderMinY > 0.0D ? l : block.func_149677_c(render.field_147845_a, xPos, yPos - 1, zPos));
             tessellator.setColorOpaque_F(f10, f13, f16);
@@ -802,7 +802,7 @@ public class BlockSkinRenderHelper
             flag = true;
         }
 
-        if (render.renderAllFaces || block.shouldSideBeRendered(render.field_147845_a, xPos, yPos + 1, zPos, 1))
+        if (render.renderAllFaces || block. func_149646_a(render.field_147845_a, xPos, yPos + 1, zPos, 1))
         {
             tessellator.setBrightness(render.renderMaxY < 1.0D ? l : block.func_149677_c(render.field_147845_a, xPos, yPos + 1, zPos));
             tessellator.setColorOpaque_F(f7, f8, f9);
@@ -812,7 +812,7 @@ public class BlockSkinRenderHelper
 
         Icon icon;
 
-        if (render.renderAllFaces || block.shouldSideBeRendered(render.field_147845_a, xPos, yPos, zPos - 1, 2))
+        if (render.renderAllFaces || block. func_149646_a(render.field_147845_a, xPos, yPos, zPos - 1, 2))
         {
             tessellator.setBrightness(render.renderMinZ > 0.0D ? l : block.func_149677_c(render.field_147845_a, xPos, yPos, zPos - 1));
             tessellator.setColorOpaque_F(f11, f14, f17);
@@ -821,7 +821,7 @@ public class BlockSkinRenderHelper
             flag = true;
         }
 
-        if (render.renderAllFaces || block.shouldSideBeRendered(render.field_147845_a, xPos, yPos, zPos + 1, 3))
+        if (render.renderAllFaces || block. func_149646_a(render.field_147845_a, xPos, yPos, zPos + 1, 3))
         {
             tessellator.setBrightness(render.renderMaxZ < 1.0D ? l : block.func_149677_c(render.field_147845_a, xPos, yPos, zPos + 1));
             tessellator.setColorOpaque_F(f11, f14, f17);
@@ -830,7 +830,7 @@ public class BlockSkinRenderHelper
             flag = true;
         }
 
-        if (render.renderAllFaces || block.shouldSideBeRendered(render.field_147845_a, xPos - 1, yPos, zPos, 4))
+        if (render.renderAllFaces || block. func_149646_a(render.field_147845_a, xPos - 1, yPos, zPos, 4))
         {
             tessellator.setBrightness(render.renderMinX > 0.0D ? l : block.func_149677_c(render.field_147845_a, xPos - 1, yPos, zPos));
             tessellator.setColorOpaque_F(f12, f15, f18);
@@ -839,7 +839,7 @@ public class BlockSkinRenderHelper
             flag = true;
         }
 
-        if (render.renderAllFaces || block.shouldSideBeRendered(render.field_147845_a, xPos + 1, yPos, zPos, 5))
+        if (render.renderAllFaces || block. func_149646_a(render.field_147845_a, xPos + 1, yPos, zPos, 5))
         {
             tessellator.setBrightness(render.renderMaxX < 1.0D ? l : block.func_149677_c(render.field_147845_a, xPos + 1, yPos, zPos));
             tessellator.setColorOpaque_F(f12, f15, f18);
@@ -854,7 +854,7 @@ public class BlockSkinRenderHelper
     public static boolean renderLiquidBlock (IIcon stillIcon, IIcon flowingIcon, int x, int y, int z, RenderBlocks renderer, IBlockAccess world)
     {
         Block block = Blocks.stone;
-        int var5 = block.colorMultiplier(world, x, y, z);
+        int var5 = block.func_149720_d(world, x, y, z);
         float var6 = (float) (var5 >> 16 & 255) / 255.0F;
         float var7 = (float) (var5 >> 8 & 255) / 255.0F;
         float var8 = (float) (var5 & 255) / 255.0F;
@@ -904,7 +904,7 @@ public class BlockSkinRenderHelper
         float f7;
         int i1;
 
-        if (render.renderAllFaces || block.shouldSideBeRendered(render.field_147845_a, xPos, yPos - 1, zPos, 0))
+        if (render.renderAllFaces || block. func_149646_a(render.field_147845_a, xPos, yPos - 1, zPos, 0))
         {
             if (render.renderMinY <= 0.0D)
             {
@@ -915,14 +915,14 @@ public class BlockSkinRenderHelper
             render.field_147825_U = block.func_149677_c(render.field_147845_a, xPos, yPos, zPos - 1);
             render.field_147828_V = block.func_149677_c(render.field_147845_a, xPos, yPos, zPos + 1);
             render.field_147835_X = block.func_149677_c(render.field_147845_a, xPos + 1, yPos, zPos);
-            render.field_147886_y = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos, zPos);
-            render.field_147814_A = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos, zPos - 1);
-            render.field_147815_B = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos, zPos + 1);
-            render.field_147810_D = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos, zPos);
-            flag3 = Block.canBlockGrass[render.field_147845_a.getBlock(xPos + 1, yPos - 1, zPos)];
-            flag2 = Block.canBlockGrass[render.field_147845_a.getBlock(xPos - 1, yPos - 1, zPos)];
-            flag5 = Block.canBlockGrass[render.field_147845_a.getBlock(xPos, yPos - 1, zPos + 1)];
-            flag4 = Block.canBlockGrass[render.field_147845_a.getBlock(xPos, yPos - 1, zPos - 1)];
+            render.field_147886_y = getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos, zPos);
+            render.field_147814_A = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos, zPos - 1);
+            render.field_147815_B = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos, zPos + 1);
+            render.field_147810_D = getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos, zPos);
+            flag3 = render.field_147845_a.func_147439_a(xPos + 1, yPos - 1, zPos).func_149751_l();
+            flag2 = render.field_147845_a.func_147439_a(xPos - 1, yPos - 1, zPos).func_149751_l();
+            flag5 = render.field_147845_a.func_147439_a(xPos, yPos - 1, zPos + 1).func_149751_l();
+            flag4 = render.field_147845_a.func_147439_a(xPos, yPos - 1, zPos - 1).func_149751_l();
 
             if (!flag4 && !flag2)
             {
@@ -931,7 +931,7 @@ public class BlockSkinRenderHelper
             }
             else
             {
-                render.field_147888_x = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos, zPos - 1);
+                render.field_147888_x = getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos, zPos - 1);
                 render.field_147832_R = block.func_149677_c(render.field_147845_a, xPos - 1, yPos, zPos - 1);
             }
 
@@ -942,7 +942,7 @@ public class BlockSkinRenderHelper
             }
             else
             {
-                render.field_147884_z = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos, zPos + 1);
+                render.field_147884_z = getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos, zPos + 1);
                 render.field_147826_T = block.func_149677_c(render.field_147845_a, xPos - 1, yPos, zPos + 1);
             }
 
@@ -953,7 +953,7 @@ public class BlockSkinRenderHelper
             }
             else
             {
-                render.field_147816_C = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos, zPos - 1);
+                render.field_147816_C = getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos, zPos - 1);
                 render.field_147827_W = block.func_149677_c(render.field_147845_a, xPos + 1, yPos, zPos - 1);
             }
 
@@ -964,7 +964,7 @@ public class BlockSkinRenderHelper
             }
             else
             {
-                render.field_147811_E = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos, zPos + 1);
+                render.field_147811_E = getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos, zPos + 1);
                 render.field_147834_Y = block.func_149677_c(render.field_147845_a, xPos + 1, yPos, zPos + 1);
             }
 
@@ -980,7 +980,7 @@ public class BlockSkinRenderHelper
                 i1 = block.func_149677_c(render.field_147845_a, xPos, yPos - 1, zPos);
             }
 
-            f7 = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos - 1, zPos);
+            f7 = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos - 1, zPos);
             f3 = (render.field_147884_z + render.field_147886_y + render.field_147815_B + f7) / 4.0F;
             f6 = (render.field_147815_B + f7 + render.field_147811_E + render.field_147810_D) / 4.0F;
             f5 = (f7 + render.field_147814_A + render.field_147810_D + render.field_147816_C) / 4.0F;
@@ -1019,7 +1019,7 @@ public class BlockSkinRenderHelper
             flag = true;
         }
 
-        if (render.renderAllFaces || block.shouldSideBeRendered(render.field_147845_a, xPos, yPos + 1, zPos, 1))
+        if (render.renderAllFaces || block. func_149646_a(render.field_147845_a, xPos, yPos + 1, zPos, 1))
         {
             if (render.renderMaxY >= 1.0D)
             {
@@ -1030,45 +1030,45 @@ public class BlockSkinRenderHelper
             render.field_147885_ae = block.func_149677_c(render.field_147845_a, xPos + 1, yPos, zPos);
             render.field_147878_ac = block.func_149677_c(render.field_147845_a, xPos, yPos, zPos - 1);
             render.field_147887_af = block.func_149677_c(render.field_147845_a, xPos, yPos, zPos + 1);
-            render.field_147813_G = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos, zPos);
-            render.field_147824_K = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos, zPos);
-            render.field_147822_I = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos, zPos - 1);
-            render.field_147817_L = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos, zPos + 1);
-            flag3 = Block.canBlockGrass[render.field_147845_a.getBlock(xPos + 1, yPos + 1, zPos)];
-            flag2 = Block.canBlockGrass[render.field_147845_a.getBlock(xPos - 1, yPos + 1, zPos)];
-            flag5 = Block.canBlockGrass[render.field_147845_a.getBlock(xPos, yPos + 1, zPos + 1)];
-            flag4 = Block.canBlockGrass[render.field_147845_a.getBlock(xPos, yPos + 1, zPos - 1)];
+            render.field_147813_G = getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos, zPos);
+            render.field_147824_K = getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos, zPos);
+            render.field_147822_I = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos, zPos - 1);
+            render.field_147817_L = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos, zPos + 1);
+            flag3 = render.field_147845_a.func_147439_a(xPos + 1, yPos + 1, zPos).func_149751_l();
+            flag2 = render.field_147845_a.func_147439_a(xPos - 1, yPos + 1, zPos).func_149751_l();
+            flag5 = render.field_147845_a.func_147439_a(xPos, yPos + 1, zPos + 1).func_149751_l();
+            flag4 = render.field_147845_a.func_147439_a(xPos, yPos + 1, zPos - 1).func_149751_l();
 
             if (!flag4 && !flag2)
             {
-                render.aoLightValueScratchXYZNPN = render.field_147813_G;
+                render.field_147812_F = render.field_147813_G;
                 render.field_147836_Z = render.field_147880_aa;
             }
             else
             {
-                render.aoLightValueScratchXYZNPN = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos, zPos - 1);
+                render.field_147812_F = getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos, zPos - 1);
                 render.field_147836_Z = block.func_149677_c(render.field_147845_a, xPos - 1, yPos, zPos - 1);
             }
 
             if (!flag4 && !flag3)
             {
-                render.aoLightValueScratchXYZPPN = render.field_147824_K;
+                render.field_147823_J = render.field_147824_K;
                 render.field_147879_ad = render.field_147885_ae;
             }
             else
             {
-                render.aoLightValueScratchXYZPPN = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos, zPos - 1);
+                render.field_147823_J = getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos, zPos - 1);
                 render.field_147879_ad = block.func_149677_c(render.field_147845_a, xPos + 1, yPos, zPos - 1);
             }
 
             if (!flag5 && !flag2)
             {
-                render.aoLightValueScratchXYZNPP = render.field_147813_G;
+                render.field_147821_H = render.field_147813_G;
                 render.field_147881_ab = render.field_147880_aa;
             }
             else
             {
-                render.aoLightValueScratchXYZNPP = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos, zPos + 1);
+                render.field_147821_H = getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos, zPos + 1);
                 render.field_147881_ab = block.func_149677_c(render.field_147845_a, xPos - 1, yPos, zPos + 1);
             }
 
@@ -1079,7 +1079,7 @@ public class BlockSkinRenderHelper
             }
             else
             {
-                render.field_147819_N = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos, zPos + 1);
+                render.field_147819_N = getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos, zPos + 1);
                 render.field_147882_ag = block.func_149677_c(render.field_147845_a, xPos + 1, yPos, zPos + 1);
             }
 
@@ -1095,11 +1095,11 @@ public class BlockSkinRenderHelper
                 i1 = block.func_149677_c(render.field_147845_a, xPos, yPos + 1, zPos);
             }
 
-            f7 = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos + 1, zPos);
-            f6 = (render.aoLightValueScratchXYZNPP + render.field_147813_G + render.field_147817_L + f7) / 4.0F;
+            f7 = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos + 1, zPos);
+            f6 = (render.field_147821_H + render.field_147813_G + render.field_147817_L + f7) / 4.0F;
             f3 = (render.field_147817_L + f7 + render.field_147819_N + render.field_147824_K) / 4.0F;
-            f4 = (f7 + render.field_147822_I + render.field_147824_K + render.aoLightValueScratchXYZPPN) / 4.0F;
-            f5 = (render.field_147813_G + render.aoLightValueScratchXYZNPN + f7 + render.field_147822_I) / 4.0F;
+            f4 = (f7 + render.field_147822_I + render.field_147824_K + render.field_147823_J) / 4.0F;
+            f5 = (render.field_147813_G + render.field_147812_F + f7 + render.field_147822_I) / 4.0F;
             render.field_147870_ao = render.getAoBrightness(render.field_147881_ab, render.field_147880_aa, render.field_147887_af, i1);
             render.field_147864_al = render.getAoBrightness(render.field_147887_af, render.field_147882_ag, render.field_147885_ae, i1);
             render.field_147874_am = render.getAoBrightness(render.field_147878_ac, render.field_147885_ae, render.field_147879_ad, i1);
@@ -1123,25 +1123,25 @@ public class BlockSkinRenderHelper
             flag = true;
         }
 
-        if (render.renderAllFaces || block.shouldSideBeRendered(render.field_147845_a, xPos, yPos, zPos - 1, 2))
+        if (render.renderAllFaces || block. func_149646_a(render.field_147845_a, xPos, yPos, zPos - 1, 2))
         {
             if (render.renderMinZ <= 0.0D)
             {
                 --zPos;
             }
 
-            render.field_147820_O = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos, zPos);
-            render.field_147814_A = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos - 1, zPos);
-            render.field_147822_I = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos + 1, zPos);
-            render.aoLightValueScratchXZPN = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos, zPos);
+            render.field_147820_O = getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos, zPos);
+            render.field_147814_A = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos - 1, zPos);
+            render.field_147822_I = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos + 1, zPos);
+            render.field_147820_O = getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos, zPos);
             render.field_147883_ah = block.func_149677_c(render.field_147845_a, xPos - 1, yPos, zPos);
             render.field_147825_U = block.func_149677_c(render.field_147845_a, xPos, yPos - 1, zPos);
             render.field_147878_ac = block.func_149677_c(render.field_147845_a, xPos, yPos + 1, zPos);
             render.field_147866_ai = block.func_149677_c(render.field_147845_a, xPos + 1, yPos, zPos);
-            flag3 = Block.canBlockGrass[render.field_147845_a.getBlock(xPos + 1, yPos, zPos - 1)];
-            flag2 = Block.canBlockGrass[render.field_147845_a.getBlock(xPos - 1, yPos, zPos - 1)];
-            flag5 = Block.canBlockGrass[render.field_147845_a.getBlock(xPos, yPos + 1, zPos - 1)];
-            flag4 = Block.canBlockGrass[render.field_147845_a.getBlock(xPos, yPos - 1, zPos - 1)];
+            flag3 = render.field_147845_a.func_147439_a(xPos + 1, yPos, zPos - 1).func_149751_l();
+            flag2 = render.field_147845_a.func_147439_a(xPos - 1, yPos, zPos - 1).func_149751_l();
+            flag5 = render.field_147845_a.func_147439_a(xPos, yPos + 1, zPos - 1).func_149751_l();
+            flag4 = render.field_147845_a.func_147439_a(xPos, yPos - 1, zPos - 1).func_149751_l();
 
             if (!flag2 && !flag4)
             {
@@ -1150,40 +1150,40 @@ public class BlockSkinRenderHelper
             }
             else
             {
-                render.field_147888_x = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos - 1, zPos);
+                render.field_147888_x = getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos - 1, zPos);
                 render.field_147832_R = block.func_149677_c(render.field_147845_a, xPos - 1, yPos - 1, zPos);
             }
 
             if (!flag2 && !flag5)
             {
-                render.aoLightValueScratchXYZNPN = render.field_147820_O;
+                render.field_147812_F = render.field_147820_O;
                 render.field_147836_Z = render.field_147883_ah;
             }
             else
             {
-                render.aoLightValueScratchXYZNPN = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos + 1, zPos);
+                render.field_147812_F = getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos + 1, zPos);
                 render.field_147836_Z = block.func_149677_c(render.field_147845_a, xPos - 1, yPos + 1, zPos);
             }
 
             if (!flag3 && !flag4)
             {
-                render.field_147816_C = render.aoLightValueScratchXZPN;
+                render.field_147816_C = render.field_147820_O;
                 render.field_147827_W = render.field_147866_ai;
             }
             else
             {
-                render.field_147816_C = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos - 1, zPos);
+                render.field_147816_C = getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos - 1, zPos);
                 render.field_147827_W = block.func_149677_c(render.field_147845_a, xPos + 1, yPos - 1, zPos);
             }
 
             if (!flag3 && !flag5)
             {
-                render.aoLightValueScratchXYZPPN = render.aoLightValueScratchXZPN;
+                render.field_147823_J = render.field_147820_O;
                 render.field_147879_ad = render.field_147866_ai;
             }
             else
             {
-                render.aoLightValueScratchXYZPPN = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos + 1, zPos);
+                render.field_147823_J = getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos + 1, zPos);
                 render.field_147879_ad = block.func_149677_c(render.field_147845_a, xPos + 1, yPos + 1, zPos);
             }
 
@@ -1199,10 +1199,10 @@ public class BlockSkinRenderHelper
                 i1 = block.func_149677_c(render.field_147845_a, xPos, yPos, zPos - 1);
             }
 
-            f7 = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos, zPos - 1);
-            f3 = (render.field_147820_O + render.aoLightValueScratchXYZNPN + f7 + render.field_147822_I) / 4.0F;
-            f4 = (f7 + render.field_147822_I + render.aoLightValueScratchXZPN + render.aoLightValueScratchXYZPPN) / 4.0F;
-            f5 = (render.field_147814_A + f7 + render.field_147816_C + render.aoLightValueScratchXZPN) / 4.0F;
+            f7 = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos, zPos - 1);
+            f3 = (render.field_147820_O + render.field_147812_F + f7 + render.field_147822_I) / 4.0F;
+            f4 = (f7 + render.field_147822_I + render.field_147820_O + render.field_147823_J) / 4.0F;
+            f5 = (render.field_147814_A + f7 + render.field_147816_C + render.field_147820_O) / 4.0F;
             f6 = (render.field_147888_x + render.field_147820_O + render.field_147814_A + f7) / 4.0F;
             render.field_147864_al = render.getAoBrightness(render.field_147883_ah, render.field_147836_Z, render.field_147878_ac, i1);
             render.field_147874_am = render.getAoBrightness(render.field_147878_ac, render.field_147866_ai, render.field_147879_ad, i1);
@@ -1239,25 +1239,25 @@ public class BlockSkinRenderHelper
             flag = true;
         }
 
-        if (render.renderAllFaces || block.shouldSideBeRendered(render.field_147845_a, xPos, yPos, zPos + 1, 3))
+        if (render.renderAllFaces || block. func_149646_a(render.field_147845_a, xPos, yPos, zPos + 1, 3))
         {
             if (render.renderMaxZ >= 1.0D)
             {
                 ++zPos;
             }
 
-            render.field_147830_P = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos, zPos);
-            render.field_147829_Q = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos, zPos);
-            render.field_147815_B = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos - 1, zPos);
-            render.field_147817_L = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos + 1, zPos);
+            render.field_147830_P = getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos, zPos);
+            render.field_147829_Q = getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos, zPos);
+            render.field_147815_B = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos - 1, zPos);
+            render.field_147817_L = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos + 1, zPos);
             render.field_147868_aj = block.func_149677_c(render.field_147845_a, xPos - 1, yPos, zPos);
             render.field_147862_ak = block.func_149677_c(render.field_147845_a, xPos + 1, yPos, zPos);
             render.field_147828_V = block.func_149677_c(render.field_147845_a, xPos, yPos - 1, zPos);
             render.field_147887_af = block.func_149677_c(render.field_147845_a, xPos, yPos + 1, zPos);
-            flag3 = Block.canBlockGrass[render.field_147845_a.getBlock(xPos + 1, yPos, zPos + 1)];
-            flag2 = Block.canBlockGrass[render.field_147845_a.getBlock(xPos - 1, yPos, zPos + 1)];
-            flag5 = Block.canBlockGrass[render.field_147845_a.getBlock(xPos, yPos + 1, zPos + 1)];
-            flag4 = Block.canBlockGrass[render.field_147845_a.getBlock(xPos, yPos - 1, zPos + 1)];
+            flag3 = render.field_147845_a.func_147439_a(xPos + 1, yPos, zPos + 1).func_149751_l();
+            flag2 = render.field_147845_a.func_147439_a(xPos - 1, yPos, zPos + 1).func_149751_l();
+            flag5 = render.field_147845_a.func_147439_a(xPos, yPos + 1, zPos + 1).func_149751_l();
+            flag4 = render.field_147845_a.func_147439_a(xPos, yPos - 1, zPos + 1).func_149751_l();
 
             if (!flag2 && !flag4)
             {
@@ -1266,18 +1266,18 @@ public class BlockSkinRenderHelper
             }
             else
             {
-                render.field_147884_z = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos - 1, zPos);
+                render.field_147884_z = getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos - 1, zPos);
                 render.field_147826_T = block.func_149677_c(render.field_147845_a, xPos - 1, yPos - 1, zPos);
             }
 
             if (!flag2 && !flag5)
             {
-                render.aoLightValueScratchXYZNPP = render.field_147830_P;
+                render.field_147821_H = render.field_147830_P;
                 render.field_147881_ab = render.field_147868_aj;
             }
             else
             {
-                render.aoLightValueScratchXYZNPP = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos + 1, zPos);
+                render.field_147821_H = getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos + 1, zPos);
                 render.field_147881_ab = block.func_149677_c(render.field_147845_a, xPos - 1, yPos + 1, zPos);
             }
 
@@ -1288,7 +1288,7 @@ public class BlockSkinRenderHelper
             }
             else
             {
-                render.field_147811_E = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos - 1, zPos);
+                render.field_147811_E = getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos - 1, zPos);
                 render.field_147834_Y = block.func_149677_c(render.field_147845_a, xPos + 1, yPos - 1, zPos);
             }
 
@@ -1299,7 +1299,7 @@ public class BlockSkinRenderHelper
             }
             else
             {
-                render.field_147819_N = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos + 1, zPos);
+                render.field_147819_N = getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos + 1, zPos);
                 render.field_147882_ag = block.func_149677_c(render.field_147845_a, xPos + 1, yPos + 1, zPos);
             }
 
@@ -1315,8 +1315,8 @@ public class BlockSkinRenderHelper
                 i1 = block.func_149677_c(render.field_147845_a, xPos, yPos, zPos + 1);
             }
 
-            f7 = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos, zPos + 1);
-            f3 = (render.field_147830_P + render.aoLightValueScratchXYZNPP + f7 + render.field_147817_L) / 4.0F;
+            f7 = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos, zPos + 1);
+            f3 = (render.field_147830_P + render.field_147821_H + f7 + render.field_147817_L) / 4.0F;
             f6 = (f7 + render.field_147817_L + render.field_147829_Q + render.field_147819_N) / 4.0F;
             f5 = (render.field_147815_B + f7 + render.field_147811_E + render.field_147829_Q) / 4.0F;
             f4 = (render.field_147884_z + render.field_147830_P + render.field_147815_B + f7) / 4.0F;
@@ -1355,25 +1355,25 @@ public class BlockSkinRenderHelper
             flag = true;
         }
 
-        if (render.renderAllFaces || block.shouldSideBeRendered(render.field_147845_a, xPos - 1, yPos, zPos, 4))
+        if (render.renderAllFaces || block. func_149646_a(render.field_147845_a, xPos - 1, yPos, zPos, 4))
         {
             if (render.renderMinX <= 0.0D)
             {
                 --xPos;
             }
 
-            render.field_147886_y = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos - 1, zPos);
-            render.field_147820_O = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos, zPos - 1);
-            render.field_147830_P = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos, zPos + 1);
-            render.field_147813_G = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos + 1, zPos);
+            render.field_147886_y = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos - 1, zPos);
+            render.field_147820_O = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos, zPos - 1);
+            render.field_147830_P = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos, zPos + 1);
+            render.field_147813_G = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos + 1, zPos);
             render.field_147831_S = block.func_149677_c(render.field_147845_a, xPos, yPos - 1, zPos);
             render.field_147883_ah = block.func_149677_c(render.field_147845_a, xPos, yPos, zPos - 1);
             render.field_147868_aj = block.func_149677_c(render.field_147845_a, xPos, yPos, zPos + 1);
             render.field_147880_aa = block.func_149677_c(render.field_147845_a, xPos, yPos + 1, zPos);
-            flag3 = Block.canBlockGrass[render.field_147845_a.getBlock(xPos - 1, yPos + 1, zPos)];
-            flag2 = Block.canBlockGrass[render.field_147845_a.getBlock(xPos - 1, yPos - 1, zPos)];
-            flag5 = Block.canBlockGrass[render.field_147845_a.getBlock(xPos - 1, yPos, zPos - 1)];
-            flag4 = Block.canBlockGrass[render.field_147845_a.getBlock(xPos - 1, yPos, zPos + 1)];
+            flag3 = render.field_147845_a.getBlock(xPos - 1, yPos + 1, zPos).func_149751_l();
+            flag2 = render.field_147845_a.func_147439_a(xPos - 1, yPos - 1, zPos).func_149751_l();
+            flag5 = render.field_147845_a.func_147439_a(xPos - 1, yPos, zPos - 1).func_149751_l();
+            flag4 = render.field_147845_a.func_147439_a(xPos - 1, yPos, zPos + 1).func_149751_l();
 
             if (!flag5 && !flag2)
             {
@@ -1382,7 +1382,7 @@ public class BlockSkinRenderHelper
             }
             else
             {
-                render.field_147888_x = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos - 1, zPos - 1);
+                render.field_147888_x = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos - 1, zPos - 1);
                 render.field_147832_R = block.func_149677_c(render.field_147845_a, xPos, yPos - 1, zPos - 1);
             }
 
@@ -1393,29 +1393,29 @@ public class BlockSkinRenderHelper
             }
             else
             {
-                render.field_147884_z = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos - 1, zPos + 1);
+                render.field_147884_z = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos - 1, zPos + 1);
                 render.field_147826_T = block.func_149677_c(render.field_147845_a, xPos, yPos - 1, zPos + 1);
             }
 
             if (!flag5 && !flag3)
             {
-                render.aoLightValueScratchXYZNPN = render.field_147820_O;
+                render.field_147812_F = render.field_147820_O;
                 render.field_147836_Z = render.field_147883_ah;
             }
             else
             {
-                render.aoLightValueScratchXYZNPN = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos + 1, zPos - 1);
+                render.field_147812_F = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos + 1, zPos - 1);
                 render.field_147836_Z = block.func_149677_c(render.field_147845_a, xPos, yPos + 1, zPos - 1);
             }
 
             if (!flag4 && !flag3)
             {
-                render.aoLightValueScratchXYZNPP = render.field_147830_P;
+                render.field_147821_H = render.field_147830_P;
                 render.field_147881_ab = render.field_147868_aj;
             }
             else
             {
-                render.aoLightValueScratchXYZNPP = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos + 1, zPos + 1);
+                render.field_147821_H = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos + 1, zPos + 1);
                 render.field_147881_ab = block.func_149677_c(render.field_147845_a, xPos, yPos + 1, zPos + 1);
             }
 
@@ -1431,10 +1431,10 @@ public class BlockSkinRenderHelper
                 i1 = block.func_149677_c(render.field_147845_a, xPos - 1, yPos, zPos);
             }
 
-            f7 = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos, zPos);
+            f7 = getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos, zPos);
             f6 = (render.field_147886_y + render.field_147884_z + f7 + render.field_147830_P) / 4.0F;
-            f3 = (f7 + render.field_147830_P + render.field_147813_G + render.aoLightValueScratchXYZNPP) / 4.0F;
-            f4 = (render.field_147820_O + f7 + render.aoLightValueScratchXYZNPN + render.field_147813_G) / 4.0F;
+            f3 = (f7 + render.field_147830_P + render.field_147813_G + render.field_147821_H) / 4.0F;
+            f4 = (render.field_147820_O + f7 + render.field_147812_F + render.field_147813_G) / 4.0F;
             f5 = (render.field_147888_x + render.field_147886_y + render.field_147820_O + f7) / 4.0F;
             render.field_147870_ao = render.getAoBrightness(render.field_147831_S, render.field_147826_T, render.field_147868_aj, i1);
             render.field_147864_al = render.getAoBrightness(render.field_147868_aj, render.field_147880_aa, render.field_147881_ab, i1);
@@ -1471,34 +1471,34 @@ public class BlockSkinRenderHelper
             flag = true;
         }
 
-        if (render.renderAllFaces || block.shouldSideBeRendered(render.field_147845_a, xPos + 1, yPos, zPos, 5))
+        if (render.renderAllFaces || block. func_149646_a(render.field_147845_a, xPos + 1, yPos, zPos, 5))
         {
             if (render.renderMaxX >= 1.0D)
             {
                 ++xPos;
             }
 
-            render.field_147810_D = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos - 1, zPos);
-            render.aoLightValueScratchXZPN = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos, zPos - 1);
-            render.field_147829_Q = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos, zPos + 1);
-            render.field_147824_K = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos + 1, zPos);
+            render.field_147810_D = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos - 1, zPos);
+            render.field_147820_O = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos, zPos - 1);
+            render.field_147829_Q = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos, zPos + 1);
+            render.field_147824_K = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos + 1, zPos);
             render.field_147835_X = block.func_149677_c(render.field_147845_a, xPos, yPos - 1, zPos);
             render.field_147866_ai = block.func_149677_c(render.field_147845_a, xPos, yPos, zPos - 1);
             render.field_147862_ak = block.func_149677_c(render.field_147845_a, xPos, yPos, zPos + 1);
             render.field_147885_ae = block.func_149677_c(render.field_147845_a, xPos, yPos + 1, zPos);
-            flag3 = Block.canBlockGrass[render.field_147845_a.getBlock(xPos + 1, yPos + 1, zPos)];
-            flag2 = Block.canBlockGrass[render.field_147845_a.getBlock(xPos + 1, yPos - 1, zPos)];
-            flag5 = Block.canBlockGrass[render.field_147845_a.getBlock(xPos + 1, yPos, zPos + 1)];
-            flag4 = Block.canBlockGrass[render.field_147845_a.getBlock(xPos + 1, yPos, zPos - 1)];
+            flag3 = render.field_147845_a.func_147439_a(xPos + 1, yPos + 1, zPos).func_149751_l();
+            flag2 = render.field_147845_a.func_147439_a(xPos + 1, yPos - 1, zPos).func_149751_l();
+            flag5 = render.field_147845_a.func_147439_a(xPos + 1, yPos, zPos + 1).func_149751_l();
+            flag4 = render.field_147845_a.func_147439_a(xPos + 1, yPos, zPos - 1).func_149751_l();
 
             if (!flag2 && !flag4)
             {
-                render.field_147816_C = render.aoLightValueScratchXZPN;
+                render.field_147816_C = render.field_147820_O;
                 render.field_147827_W = render.field_147866_ai;
             }
             else
             {
-                render.field_147816_C = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos - 1, zPos - 1);
+                render.field_147816_C = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos - 1, zPos - 1);
                 render.field_147827_W = block.func_149677_c(render.field_147845_a, xPos, yPos - 1, zPos - 1);
             }
 
@@ -1509,18 +1509,18 @@ public class BlockSkinRenderHelper
             }
             else
             {
-                render.field_147811_E = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos - 1, zPos + 1);
+                render.field_147811_E = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos - 1, zPos + 1);
                 render.field_147834_Y = block.func_149677_c(render.field_147845_a, xPos, yPos - 1, zPos + 1);
             }
 
             if (!flag3 && !flag4)
             {
-                render.aoLightValueScratchXYZPPN = render.aoLightValueScratchXZPN;
+                render.field_147823_J = render.field_147820_O;
                 render.field_147879_ad = render.field_147866_ai;
             }
             else
             {
-                render.aoLightValueScratchXYZPPN = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos + 1, zPos - 1);
+                render.field_147823_J = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos + 1, zPos - 1);
                 render.field_147879_ad = block.func_149677_c(render.field_147845_a, xPos, yPos + 1, zPos - 1);
             }
 
@@ -1531,7 +1531,7 @@ public class BlockSkinRenderHelper
             }
             else
             {
-                render.field_147819_N = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos + 1, zPos + 1);
+                render.field_147819_N = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos + 1, zPos + 1);
                 render.field_147882_ag = block.func_149677_c(render.field_147845_a, xPos, yPos + 1, zPos + 1);
             }
 
@@ -1547,10 +1547,10 @@ public class BlockSkinRenderHelper
                 i1 = block.func_149677_c(render.field_147845_a, xPos + 1, yPos, zPos);
             }
 
-            f7 = block.getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos, zPos);
+            f7 = getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos, zPos);
             f3 = (render.field_147810_D + render.field_147811_E + f7 + render.field_147829_Q) / 4.0F;
-            f4 = (render.field_147816_C + render.field_147810_D + render.aoLightValueScratchXZPN + f7) / 4.0F;
-            f5 = (render.aoLightValueScratchXZPN + f7 + render.aoLightValueScratchXYZPPN + render.field_147824_K) / 4.0F;
+            f4 = (render.field_147816_C + render.field_147810_D + render.field_147820_O + f7) / 4.0F;
+            f5 = (render.field_147820_O + f7 + render.field_147823_J + render.field_147824_K) / 4.0F;
             f6 = (f7 + render.field_147829_Q + render.field_147824_K + render.field_147819_N) / 4.0F;
             render.field_147864_al = render.getAoBrightness(render.field_147835_X, render.field_147834_Y, render.field_147862_ak, i1);
             render.field_147870_ao = render.getAoBrightness(render.field_147862_ak, render.field_147885_ae, render.field_147882_ag, i1);
@@ -1630,7 +1630,7 @@ public class BlockSkinRenderHelper
 
         int l = block.func_149677_c(render.field_147845_a, xPos, yPos, zPos);
 
-        if (render.renderAllFaces || block.shouldSideBeRendered(render.field_147845_a, xPos, yPos - 1, zPos, 0))
+        if (render.renderAllFaces || block. func_149646_a(render.field_147845_a, xPos, yPos - 1, zPos, 0))
         {
             tessellator.setBrightness(render.renderMinY > 0.0D ? l : block.func_149677_c(render.field_147845_a, xPos, yPos - 1, zPos));
             tessellator.setColorOpaque_F(f10, f13, f16);
@@ -1638,7 +1638,7 @@ public class BlockSkinRenderHelper
             flag = true;
         }
 
-        if (render.renderAllFaces || block.shouldSideBeRendered(render.field_147845_a, xPos, yPos + 1, zPos, 1))
+        if (render.renderAllFaces || block. func_149646_a(render.field_147845_a, xPos, yPos + 1, zPos, 1))
         {
             tessellator.setBrightness(render.renderMaxY < 1.0D ? l : block.func_149677_c(render.field_147845_a, xPos, yPos + 1, zPos));
             tessellator.setColorOpaque_F(f7, f8, f9);
@@ -1648,7 +1648,7 @@ public class BlockSkinRenderHelper
 
         Icon icon;
 
-        if (render.renderAllFaces || block.shouldSideBeRendered(render.field_147845_a, xPos, yPos, zPos - 1, 2))
+        if (render.renderAllFaces || block. func_149646_a(render.field_147845_a, xPos, yPos, zPos - 1, 2))
         {
             tessellator.setBrightness(render.renderMinZ > 0.0D ? l : block.func_149677_c(render.field_147845_a, xPos, yPos, zPos - 1));
             tessellator.setColorOpaque_F(f11, f14, f17);
@@ -1657,7 +1657,7 @@ public class BlockSkinRenderHelper
             flag = true;
         }
 
-        if (render.renderAllFaces || block.shouldSideBeRendered(render.field_147845_a, xPos, yPos, zPos + 1, 3))
+        if (render.renderAllFaces || block. func_149646_a(render.field_147845_a, xPos, yPos, zPos + 1, 3))
         {
             tessellator.setBrightness(render.renderMaxZ < 1.0D ? l : block.func_149677_c(render.field_147845_a, xPos, yPos, zPos + 1));
             tessellator.setColorOpaque_F(f11, f14, f17);
@@ -1666,7 +1666,7 @@ public class BlockSkinRenderHelper
             flag = true;
         }
 
-        if (render.renderAllFaces || block.shouldSideBeRendered(render.field_147845_a, xPos - 1, yPos, zPos, 4))
+        if (render.renderAllFaces || block. func_149646_a(render.field_147845_a, xPos - 1, yPos, zPos, 4))
         {
             tessellator.setBrightness(render.renderMinX > 0.0D ? l : block.func_149677_c(render.field_147845_a, xPos - 1, yPos, zPos));
             tessellator.setColorOpaque_F(f12, f15, f18);
@@ -1675,7 +1675,7 @@ public class BlockSkinRenderHelper
             flag = true;
         }
 
-        if (render.renderAllFaces || block.shouldSideBeRendered(render.field_147845_a, xPos + 1, yPos, zPos, 5))
+        if (render.renderAllFaces || block. func_149646_a(render.field_147845_a, xPos + 1, yPos, zPos, 5))
         {
             tessellator.setBrightness(render.renderMaxX < 1.0D ? l : block.func_149677_c(render.field_147845_a, xPos + 1, yPos, zPos));
             tessellator.setColorOpaque_F(f12, f15, f18);
@@ -1685,5 +1685,8 @@ public class BlockSkinRenderHelper
         }
 
         return flag;
+    }
+    public static float getAmbientOcclusionLightValue(IBlockAccess access, int x, int y, int z){
+        return access.func_147439_a(x, y, z).func_149685_I();
     }
 }

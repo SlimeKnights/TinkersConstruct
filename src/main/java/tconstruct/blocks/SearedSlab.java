@@ -20,8 +20,8 @@ public class SearedSlab extends SlabBase
     {
         //TODO material.rock
         super(Material.field_151576_e);
-        this.setCreativeTab(TConstructRegistry.blockTab);
-        setHardness(12F);
+        this.func_149647_a(TConstructRegistry.blockTab);
+        func_149711_c(12F);
     }
 
     @Override

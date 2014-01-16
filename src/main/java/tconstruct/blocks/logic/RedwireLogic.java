@@ -48,9 +48,9 @@ public class RedwireLogic extends TileEntity
     }
 
     @Override
-    public void writeToNBT (NBTTagCompound tags)
+    public void func_145839_a (NBTTagCompound tags)
     {
-        super.writeToNBT(tags);
+        super.func_145839_a(tags);
         writeCustomNBT(tags);
     }
 

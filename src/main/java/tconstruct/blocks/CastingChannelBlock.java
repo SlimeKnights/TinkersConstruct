@@ -25,7 +25,7 @@ public class CastingChannelBlock extends BlockContainer
     {
         super(par1, Material.rock);
         this.setHardness(1F);
-        this.setResistance(10);
+        this.func_149752_b(10);
         this.setStepSound(soundStoneFootstep);
         setCreativeTab(TConstructRegistry.blockTab);
     }

@@ -42,9 +42,9 @@ public class SlimeFluid extends BlockFluidClassic
         return flowIcon;
     }
 
-    public void updateTick (World world, int x, int y, int z, Random rand)
+    public void func_149674_a (World world, int x, int y, int z, Random rand)
     {
-        super.updateTick(world, x, y, z, rand);
+        super.func_149674_a(world, x, y, z, rand);
         if (rand.nextInt(100) == 0 && world.getBlockMetadata(x, y, z) == 0 && world.checkNoEntityCollision(AxisAlignedBB.getBoundingBox(x - 1, y - 1, z - 1, x + 2, y + 2, z + 2)))
         {
             BlueSlime entityslime = new BlueSlime(world);

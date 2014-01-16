@@ -7,7 +7,7 @@ import net.minecraft.item.Item;
 
 public class Cutlass extends Weapon
 {
-    public Cutlass(int itemID)
+    public Cutlass()
     {
         super(4);
         this.setUnlocalizedName("InfiTool.Cutlass");

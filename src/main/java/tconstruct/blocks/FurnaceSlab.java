@@ -22,11 +22,11 @@ public class FurnaceSlab extends InventorySlab
     {
         super(material);
         this.func_149647_a(TConstructRegistry.blockTab);
-        this.setHardness(3.5f);
+        this.func_149711_c(3.5f);
     }
 
     @Override
-    public TileEntity func_149915_a (World world, int metadata)
+    public TileEntity createTileEntity (World world, int metadata)
     {
         switch (metadata % 8)
         {
@@ -109,5 +109,16 @@ public class FurnaceSlab extends InventorySlab
             else
                 this.icons[i] = iconRegister.registerIcon("tinker:" + textureNames[i]);
         }
+    }
+
+    @Override
+    public TileEntity func_149915_a (World var1, int metadata)
+    {
+        switch (metadata % 8)
+        {
+        case 0:
+            return new FurnaceLogic();
+        }
+        return null;
     }
 }

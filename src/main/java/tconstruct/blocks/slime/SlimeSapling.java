@@ -33,7 +33,7 @@ public class SlimeSapling extends BlockSapling
         setBlockBounds(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, f * 2.0F, 0.5F + f);
         this.func_149711_c(0.0F);
         this.setStepSound(Block.soundGrassFootstep);
-        this.setCreativeTab(TConstructRegistry.blockTab);
+        this.func_149647_a(TConstructRegistry.blockTab);
     }
 
     @Override
@@ -53,13 +53,13 @@ public class SlimeSapling extends BlockSapling
         return b == Blocks.grass || b == Blocks.dirt || b == TRepo.slimeGrass || b == TRepo.craftedSoil;
     }
 
-    public void updateTick (World world, int x, int y, int z, Random random)
+    public void func_149674_a (World world, int x, int y, int z, Random random)
     {
         if (world.isRemote)
         {
             return;
         }
-        super.updateTick(world, x, y, z, random);
+        super.func_149674_a(world, x, y, z, random);
         int md = world.getBlockMetadata(x, y, z);
         if (random.nextInt(10) == 0 && world.getBlockLightValue(x, y + 1, z) >= 9)
         {

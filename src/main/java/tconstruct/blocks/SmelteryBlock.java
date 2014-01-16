@@ -36,12 +36,12 @@ public class SmelteryBlock extends InventoryBlock
     public SmelteryBlock()
     {
         super(Material.rock);
-        setHardness(3F);
-        setResistance(20F);
+        func_149711_c(3F);
+        func_149752_b(20F);
         setStepSound(soundMetalFootstep);
         rand = new Random();
         this.func_149647_a(TConstructRegistry.blockTab);
-        this.setUnlocalizedName("tconstruct.Smeltery");
+        this.func_149663_c("tconstruct.Smeltery");
     }
 
     public SmelteryBlock(String prefix)
@@ -93,7 +93,7 @@ public class SmelteryBlock extends InventoryBlock
 
     public IIcon getBlockTexture (IBlockAccess world, int x, int y, int z, int side)
     {
-        TileEntity logic = world.getBlockTileEntity(x, y, z);
+        TileEntity logic = world.func_147438_o(x, y, z);
         short direction = (logic instanceof IFacingLogic) ? ((IFacingLogic) logic).getRenderDirection() : 0;
         int meta = world.getBlockMetadata(x, y, z);
         if (meta == 0) //Smeltery
@@ -163,7 +163,7 @@ public class SmelteryBlock extends InventoryBlock
     {
         if (isActive(world, x, y, z))
         {
-            TileEntity logic = world.getBlockTileEntity(x, y, z);
+            TileEntity logic = world.func_147438_o(x, y, z);
             byte face = 0;
             if (logic instanceof IFacingLogic)
                 face = ((IFacingLogic) logic).getRenderDirection();
@@ -259,7 +259,7 @@ public class SmelteryBlock extends InventoryBlock
 
     public void onBlockPlacedElsewhere (World world, int x, int y, int z, EntityLivingBase entityliving)
     {
-        SmelteryLogic logic = (SmelteryLogic) world.getBlockTileEntity(x, y, z);
+        SmelteryLogic logic = (SmelteryLogic) world.func_147438_o(x, y, z);
         logic.checkValidPlacement();
     }
 
@@ -284,7 +284,7 @@ public class SmelteryBlock extends InventoryBlock
     public void onNeighborBlockChange (World world, int x, int y, int z, int nBlockID)
     {
         //System.out.println("Neighbor changed");
-        TileEntity logic = world.getBlockTileEntity(x, y, z);
+        TileEntity logic = world.func_147438_o(x, y, z);
         if (logic instanceof IServantLogic)
         {
             ((IServantLogic) logic).notifyMasterOfChange();
@@ -298,7 +298,7 @@ public class SmelteryBlock extends InventoryBlock
     @Override
     public void breakBlock (World world, int x, int y, int z, Block block, int meta)
     {
-        TileEntity logic = world.getBlockTileEntity(x, y, z);
+        TileEntity logic = world.func_147438_o(x, y, z);
         if (logic instanceof IServantLogic)
         {
             ((IServantLogic) logic).notifyMasterOfChange();

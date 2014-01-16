@@ -23,10 +23,10 @@ public class GlassBlock extends TConstructBlock
     }
 
     @SideOnly(Side.CLIENT)
-    public boolean shouldSideBeRendered (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
+    public boolean func_149646_a (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
     {
         Block i1 = par1IBlockAccess.func_147439_a(par2, par3, par4);
-        return i1 == (Block) this ? false : super.shouldSideBeRendered(par1IBlockAccess, par2, par3, par4, par5);
+        return i1 == (Block) this ? false : super.func_149646_a(par1IBlockAccess, par2, par3, par4, par5);
     }
 
     @Override

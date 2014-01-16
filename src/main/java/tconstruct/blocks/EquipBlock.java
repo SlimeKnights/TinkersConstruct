@@ -29,7 +29,7 @@ public class EquipBlock extends InventoryBlock
     public EquipBlock(Material material)
     {
         super(material);
-        this.setHardness(0.3f);
+        this.func_149711_c(0.3f);
         this.setBlockBounds(0, 0, 0, 1, 0.25f, 1);
         //this.setCreativeTab(ToolConstruct.materialTab);
     }
@@ -183,6 +183,12 @@ public class EquipBlock extends InventoryBlock
     public Object getModInstance ()
     {
         return TConstruct.instance;
+    }
+
+    @Override
+    public TileEntity createTileEntity (World world, int metadata)
+    {
+        return new FrypanLogic();
     }
 
 }

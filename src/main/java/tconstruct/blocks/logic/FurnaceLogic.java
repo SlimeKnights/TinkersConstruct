@@ -264,9 +264,9 @@ public class FurnaceLogic extends InventoryLogic implements IActiveLogic, IFacin
         readNetworkNBT(tags);
     }
 
-    public void writeToNBT (NBTTagCompound tags)
+    public void func_145839_a (NBTTagCompound tags)
     {
-        super.writeToNBT(tags);
+        super.func_145839_a(tags);
         tags.setBoolean("Active", active);
         tags.setInteger("Fuel", fuel);
         tags.setInteger("FuelGague", fuelGague);

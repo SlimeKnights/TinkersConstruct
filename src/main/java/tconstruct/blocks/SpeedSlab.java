@@ -21,8 +21,8 @@ public class SpeedSlab extends SlabBase
     public SpeedSlab()
     {
         super(Material.rock);
-        this.setCreativeTab(TConstructRegistry.blockTab);
-        setHardness(3F);
+        this.func_149647_a(TConstructRegistry.blockTab);
+        func_149711_c(3F);
     }
 
     @Override

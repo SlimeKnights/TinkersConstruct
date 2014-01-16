@@ -37,9 +37,9 @@ public class LiquidTextureLogic extends TileEntity
         texturePos = tags.getInteger("Texture");
     }
 
-    public void writeToNBT (NBTTagCompound tags)
+    public void func_145839_a (NBTTagCompound tags)
     {
-        super.writeToNBT(tags);
+        super.func_145839_a(tags);
         writeCustomNBT(tags);
     }
 

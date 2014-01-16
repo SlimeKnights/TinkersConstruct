@@ -85,7 +85,7 @@ public class DryingRackLogic extends InventoryLogic
     }
 
     @Override
-    public void writeToNBT (NBTTagCompound tags)
+    public void func_145839_a (NBTTagCompound tags)
     {
         tags.setInteger("Time", currentTime);
         tags.setInteger("MaxTime", maxTime);
@@ -99,7 +99,7 @@ public class DryingRackLogic extends InventoryLogic
 
     public void writeCustomNBT (NBTTagCompound tags)
     {
-        super.writeToNBT(tags);
+        super.func_145839_a(tags);
     }
 
     /* Packets */

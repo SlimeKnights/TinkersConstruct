@@ -929,7 +929,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                 MultiServantLogic servant = (MultiServantLogic) te;
                 if (servant.hasValidMaster())
                 {
-                    if (servant.verifyMaster(this, this.field_145851_c, this.field_145848_d, this.field_145849_e))
+                    if (servant.verifyMaster(this, field_145850_b, this.field_145851_c, this.field_145848_d, this.field_145849_e))
                         tempBricks++;
                 }
                 else if (servant.setMaster(this.field_145851_c, this.field_145848_d, this.field_145849_e))
@@ -1108,9 +1108,9 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     }
 
     @Override
-    public void writeToNBT (NBTTagCompound tags)
+    public void func_145839_a (NBTTagCompound tags)
     {
-        super.writeToNBT(tags);
+        super.func_145839_a(tags);
 
         //tags.setBoolean("ValidStructure", validStructure);
         tags.setInteger("InternalTemp", internalTemp);
@@ -1135,7 +1135,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         for (FluidStack liquid : moltenMetal)
         {
             NBTTagCompound nbt = new NBTTagCompound();
-            liquid.writeToNBT(nbt);
+            liquid.func_145839_a(nbt);
             taglist.appendTag(nbt);
         }
 
@@ -1147,7 +1147,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     public Packet getDescriptionPacket ()
     {
         NBTTagCompound tag = new NBTTagCompound();
-        writeToNBT(tag);
+        func_145839_a(tag);
         return new Packet132TileEntityData(field_145851_c, field_145848_d, field_145849_e, 1, tag);
     }
 

@@ -278,9 +278,9 @@ public class FrypanLogic extends EquipLogic implements IActiveLogic
         fuelGague = tags.getInteger("FuelGague");
     }
 
-    public void writeToNBT (NBTTagCompound tags)
+    public void func_145839_a (NBTTagCompound tags)
     {
-        super.writeToNBT(tags);
+        super.func_145839_a(tags);
         tags.setBoolean("Active", active);
         tags.setInteger("Fuel", fuel);
         tags.setInteger("FuelGague", fuelGague);

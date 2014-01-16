@@ -27,8 +27,8 @@ public class SearedBlock extends InventoryBlock
     {
         super(Material.rock);
         this.setCreativeTab(TConstructRegistry.blockTab);
-        setHardness(3F);
-        setResistance(20F);
+        func_149711_c(3F);
+        func_149752_b(20F);
         setStepSound(soundMetalFootstep);
     }
 
@@ -242,7 +242,7 @@ public class SearedBlock extends InventoryBlock
     }
 
     @Override
-    public boolean shouldSideBeRendered (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
+    public boolean func_149646_a (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
     {
         return true;
     }
@@ -355,5 +355,22 @@ public class SearedBlock extends InventoryBlock
             FaucetLogic logic = (FaucetLogic) world.getBlockTileEntity(x, y, z);
             logic.setActive(true);
         }
+    }
+
+    @Override
+    public TileEntity func_149915_a (World var1, int metadata)
+    {
+        switch (metadata)
+        {
+        case 0:
+            return new CastingTableLogic();
+        case 1:
+            return new FaucetLogic();
+        case 2:
+            return new CastingBasinLogic();
+        default:
+            return null;
+        }
+
     }
 }

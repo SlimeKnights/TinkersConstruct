@@ -34,10 +34,10 @@ public class LavaTankBlock extends BlockContainer
     public LavaTankBlock()
     {
         super(Material.rock);
-        setHardness(3F);
-        setResistance(20F);
+        func_149711_c(3F);
+        func_149752_b(20F);
         setCreativeTab(TConstructRegistry.blockTab);
-        setUnlocalizedName("TConstruct.LavaTank");
+        func_149663_c("TConstruct.LavaTank");
         setStepSound(Block.soundGlassFootstep);
     }
 
@@ -88,12 +88,12 @@ public class LavaTankBlock extends BlockContainer
     }
 
     @Override
-    public boolean shouldSideBeRendered (IBlockAccess world, int x, int y, int z, int side)
+    public boolean  func_149646_a (IBlockAccess world, int x, int y, int z, int side)
     {
         //if (side == 0 && world.getBlockMetadata(x, y, z) == 0)
-        //return super.shouldSideBeRendered(world, x, y, z, side);
+        //return super. func_149646_a(world, x, y, z, side);
         Block b = world.func_147439_a(x, y, z);
-        return b == (Block)this ? false : super.shouldSideBeRendered(world, x, y, z, side);
+        return b == (Block)this ? false : super. func_149646_a(world, x, y, z, side);
         //return true;
     }
 

@@ -28,7 +28,7 @@ public class GlassBlockConnected extends MantleBlock
         this.setStepSound(soundGlassFootstep);
         folder = location;
         renderPass = hasAlpha ? 1 : 0;
-        setHardness(0.3F);
+        func_149711_c(0.3F);
         this.setCreativeTab(TConstructRegistry.blockTab);
     }
 
@@ -585,10 +585,10 @@ public class GlassBlockConnected extends MantleBlock
     }
 
     @Override
-    public boolean shouldSideBeRendered (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
+    public boolean  func_149646_a (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
     {
         Block b = par1IBlockAccess.func_147439_a(par2, par3, par4);
-        return b == (Block) this ? false : super.shouldSideBeRendered(par1IBlockAccess, par2, par3, par4, par5);
+        return b == (Block) this ? false : super. func_149646_a(par1IBlockAccess, par2, par3, par4, par5);
     }
 
     @Override

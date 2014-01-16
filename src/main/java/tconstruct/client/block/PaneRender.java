@@ -2,6 +2,7 @@ package tconstruct.client.block;
 
 import tconstruct.blocks.PaneBase;
 import tconstruct.client.TProxyClient;
+import mantle.world.WorldHelper;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.EntityRenderer;
 import net.minecraft.client.renderer.RenderBlocks;
@@ -130,8 +131,8 @@ public class PaneRender implements ISimpleBlockRenderingHandler
         boolean east = pane.canConnectTo(iblockaccess.func_147439_a(x, y, z + 1));
         boolean south = pane.canConnectTo(iblockaccess.func_147439_a(x - 1, y, z));
         boolean north = pane.canConnectTo(iblockaccess.func_147439_a(x + 1, y, z));
-        boolean renderAbove = pane.shouldSideBeRendered(iblockaccess, x, y + 1, z, 1);
-        boolean renderBelow = pane.shouldSideBeRendered(iblockaccess, x, y - 1, z, 0);
+        boolean renderAbove = pane.func_149646_a(iblockaccess, x, y + 1, z, 1);
+        boolean renderBelow = pane.func_149646_a(iblockaccess, x, y - 1, z, 0);
         if ((!south || !north) && (south || north || west || east))
         {
             if (south && !north)
@@ -151,14 +152,14 @@ public class PaneRender implements ISimpleBlockRenderingHandler
                     tessellator.addVertexWithUV(xMid, y + 0, zMidDown, d6, d9);
                     tessellator.addVertexWithUV(xMid, y + 1, zMidDown, d6, d7);
                 }
-                if (renderAbove || y < l - 1 && iblockaccess.isAirBlock(x - 1, y + 1, z))
+                if (renderAbove || y < l - 1 && WorldHelper.isAirBlock(iblockaccess, x - 1, y + 1, z))
                 {
                     tessellator.addVertexWithUV(xBot, (double) (y + 1) + 0.01D, zMidUp, d6, d8);
                     tessellator.addVertexWithUV(xMid, (double) (y + 1) + 0.01D, zMidUp, d6, d9);
                     tessellator.addVertexWithUV(xMid, (double) (y + 1) + 0.01D, zMidDown, d5, d9);
                     tessellator.addVertexWithUV(xBot, (double) (y + 1) + 0.01D, zMidDown, d5, d8);
                 }
-                if (renderBelow || y > 1 && iblockaccess.isAirBlock(x - 1, y - 1, z))
+                if (renderBelow || y > 1 && WorldHelper.isAirBlock(iblockaccess, x - 1, y - 1, z))
                 {
                     tessellator.addVertexWithUV(xBot, (double) y - 0.01D, zMidUp, d6, d8);
                     tessellator.addVertexWithUV(xMid, (double) y - 0.01D, zMidUp, d6, d9);

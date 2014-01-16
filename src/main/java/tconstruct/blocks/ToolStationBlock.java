@@ -31,7 +31,7 @@ public class ToolStationBlock extends InventoryBlock
     {
         super(material);
         this.setCreativeTab(TConstructRegistry.blockTab);
-        this.setHardness(2f);
+        this.func_149711_c(2f);
         this.setStepSound(Block.soundWoodFootstep);
     }
 
@@ -102,7 +102,7 @@ public class ToolStationBlock extends InventoryBlock
     }
 
     @Override
-    public boolean shouldSideBeRendered (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
+    public boolean func_149646_a (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
     {
         return true;
     }

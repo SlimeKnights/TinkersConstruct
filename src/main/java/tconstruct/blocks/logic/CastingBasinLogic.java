@@ -365,9 +365,9 @@ public class CastingBasinLogic extends InventoryLogic implements IFluidTank, IFl
     }
 
     @Override
-    public void writeToNBT (NBTTagCompound tags)
+    public void func_145839_a (NBTTagCompound tags)
     {
-        super.writeToNBT(tags);
+        super.func_145839_a(tags);
         writeCustomNBT(tags);
     }
 
@@ -377,7 +377,7 @@ public class CastingBasinLogic extends InventoryLogic implements IFluidTank, IFl
         if (liquid != null)
         {
             NBTTagCompound nbt = new NBTTagCompound();
-            liquid.writeToNBT(nbt);
+            liquid.func_145839_a(nbt);
             tags.setTag("Fluid", nbt);
         }
         tags.setBoolean("Initialized", init);
@@ -390,7 +390,7 @@ public class CastingBasinLogic extends InventoryLogic implements IFluidTank, IFl
     public Packet getDescriptionPacket ()
     {
         NBTTagCompound tag = new NBTTagCompound();
-        writeToNBT(tag);
+        func_145839_a(tag);
         return new Packet132TileEntityData(field_145851_c, field_145848_d, field_145849_e, 1, tag);
     }
 
