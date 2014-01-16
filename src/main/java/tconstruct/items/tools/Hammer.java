@@ -68,7 +68,7 @@ public class Hammer extends HarvestTool
         return materials;
     }
 
-    static Material[] materials = new Material[] { Material.rock, Material.field_151573_f, Material.ice, Material.field_151592_s, Material.piston, Material. field_151574_g };
+    static Material[] materials = new Material[] { Material.field_151576_e, Material.field_151573_f, Material.field_151588_w, Material.field_151592_s, Material.piston, Material. field_151574_g };
 
     @Override
     public Item getHeadItem ()
@@ -242,7 +242,7 @@ public class Hammer extends HarvestTool
         if (block == null)
             return super.onBlockStartBreak(stack, x, y, z, player);
 
-        float blockHardness = block.getBlockHardness(world, x, y, z);
+        float blockHardness = block.func_149712_f(world, x, y, z);
 
         boolean validStart = false;
         for (int iter = 0; iter < materials.length; iter++)
@@ -290,7 +290,7 @@ public class Hammer extends HarvestTool
                 {
                     if (!(tags.getBoolean("Broken")))
                     {
-                        Block localBlock = world.getBlock(xPos, yPos, zPos);
+                        Block localBlock = world.func_147439_a(xPos, yPos, zPos);
                         int localMeta = world.getBlockMetadata(xPos, yPos, zPos);
                         int hlvl = MinecraftForge.getBlockHarvestLevel(localBlock, meta, getHarvestType());
                         float localHardness = localBlock == null ? Float.MAX_VALUE : localBlock.getBlockHardness(world, xPos, yPos, zPos);
@@ -316,12 +316,12 @@ public class Hammer extends HarvestTool
                                             {
                                                 if (localBlock.removeBlockByPlayer(world, player, xPos, yPos, zPos))
                                                 {
-                                                    localBlock.onBlockDestroyedByPlayer(world, xPos, yPos, zPos, localMeta);
+                                                    localBlock.func_149664_b(world, xPos, yPos, zPos, localMeta);
                                                 }
-                                                localBlock.harvestBlock(world, player, xPos, yPos, zPos, localMeta);
-                                                localBlock.onBlockHarvested(world, xPos, yPos, zPos, localMeta, player);
+                                                localBlock.func_149636_a(world, player, xPos, yPos, zPos, localMeta);
+                                                localBlock.func_149681_a(world, xPos, yPos, zPos, localMeta, player);
                                                 if (blockHardness > 0f)
-                                                    onBlockDestroyed(stack, world, localBlock, xPos, yPos, zPos, player);
+                                                    func_150894_a(stack, world, localBlock, xPos, yPos, zPos, player);
                                             }
                                             else
                                             {

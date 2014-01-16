@@ -45,7 +45,7 @@ public class Battleaxe extends HarvestTool
     }
 
     @Override
-    public boolean onBlockDestroyed (ItemStack itemstack, World world, Block b, int x, int y, int z, EntityLivingBase player)
+    public boolean func_150894_a (ItemStack itemstack, World world, Block b, int x, int y, int z, EntityLivingBase player)
     {
         if (b != null && b.func_149688_o() == Material.field_151584_j)
             return false;
@@ -277,11 +277,11 @@ public class Battleaxe extends HarvestTool
                             {
                                 if (block.removeBlockByPlayer(world, player, x, yPos, z))
                                 {
-                                    block.onBlockDestroyedByPlayer(world, x, yPos, z, localMeta);
+                                    block.func_149664_b(world, x, yPos, z, localMeta);
                                 }
-                                block.harvestBlock(world, player, x, yPos, z, localMeta);
-                                block.onBlockHarvested(world, x, yPos, z, localMeta, player);
-                                onBlockDestroyed(stack, world, block, x, yPos, z, player);
+                                block.func_149636_a(world, player, x, yPos, z, localMeta);
+                                block.func_149681_a(world, x, yPos, z, localMeta, player);
+                                func_150894_a(stack, world, block, x, yPos, z, player);
                             }
                             else
                             {

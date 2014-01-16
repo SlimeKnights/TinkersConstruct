@@ -86,7 +86,7 @@ public class FryingPan extends Weapon
         {
             return false;
         }
-        else if (!world.getBlockMaterial(x, y, z).isSolid())
+        else if (!world.func_147439_a(x, y, z).func_149688_o().isSolid())
         {
             return false;
         }
@@ -121,17 +121,17 @@ public class FryingPan extends Weapon
             {
                 return false;
             }
-            else if (!TRepo.heldItemBlock.canPlaceBlockAt(world, x, y, z))
+            else if (!TRepo.heldItemBlock.func_149742_c(world, x, y, z))
             {
                 return false;
             }
             else
             {
                 world.func_147465_d(x, y, z, TRepo.heldItemBlock, 0, 3);
-                TRepo.heldItemBlock.onBlockPlacedBy(world, x, y, z, player, stack);
+                TRepo.heldItemBlock.func_149689_a(world, x, y, z, player, stack);
                 world.playSoundEffect(x, y, z, "tinker:frypan_hit", 1.0F, (random.nextFloat() - random.nextFloat()) * 0.2F + 0.65F);
 
-                EquipLogic logic = (EquipLogic) world.getBlockTileEntity(x, y, z);
+                EquipLogic logic = (EquipLogic) world.func_147438_o(x, y, z);
                 logic.setEquipmentItem(stack);
                 --stack.stackSize;
 

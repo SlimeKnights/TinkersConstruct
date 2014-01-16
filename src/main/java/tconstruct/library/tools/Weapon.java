@@ -78,14 +78,14 @@ public abstract class Weapon extends ToolCore
     /**
      * Returns if the item (tool) can harvest results from the block type.
      */
-    public boolean canHarvestBlock (Block block)
+    public boolean canHarvestBlock (Block block, ItemStack is)
     {
         for (int i = 0; i < web.length; i++)
         {
             if (block.func_149688_o() == web[i])
                 return true;
         }
-        return super.canHarvestBlock(block);
+        return super.canHarvestBlock(block, is);
     }
 
     protected Material[] getEffectiveMaterials ()

@@ -111,7 +111,7 @@ public class PotionLauncher extends Item
     }
 
     @Override
-    public void getSubItems (Item b, CreativeTabs tabs, List list)
+    public void func_150895_a (Item b, CreativeTabs tabs, List list)
     {
         ItemStack stack = new ItemStack(b, 1, 0);
         NBTTagCompound compound = new NBTTagCompound();

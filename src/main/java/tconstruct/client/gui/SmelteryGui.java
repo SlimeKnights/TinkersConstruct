@@ -164,7 +164,7 @@ public class SmelteryGui extends NewContainerGui
         drawTexturedModalRect(cornerX + 46, cornerY, 0, 0, 176, ySize);
 
         //Fuel - Lava
-        this.mc.getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
+        this.field_146297_k.getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
         if (logic.fuelGague > 0)
         {
             IIcon lavaIcon = Blocks.lava.getIcon(0, 0);

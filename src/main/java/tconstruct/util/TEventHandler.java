@@ -264,7 +264,7 @@ public class TEventHandler
                 for (int i = 0; i < event.drops.size(); i++)
                 {
                     ItemStack is = event.drops.get(i).getEntityItem();
-                    if (FurnaceRecipes.smelting().getSmeltingResult(is) != null && FurnaceRecipes.smelting().getSmeltingResult(is).getItem() instanceof ItemFood)
+                    if (FurnaceRecipes.smelting().func_151395_a(is) != null && FurnaceRecipes.smelting().func_151395_a(is).getItem() instanceof ItemFood)
                     {
                         NBTTagCompound stackCompound = is.getTagCompound();
                         if (stackCompound == null)
@@ -636,7 +636,7 @@ public class TEventHandler
             	for(int i = 0; i < armor.getSizeInventory(); i++){
             		if(armor.getStackInSlot(i) != null){
             			armor.getStackInSlot(i).getItem().onUpdate(armor.getStackInSlot(i), player.worldObj, player, i, false);
-            			armor.getStackInSlot(i).getItem().onArmorTickUpdate(player.worldObj, player, armor.getStackInSlot(i));
+            			armor.getStackInSlot(i).getItem().onArmorTick(player.worldObj, player, armor.getStackInSlot(i));
             		}
             	}
             }

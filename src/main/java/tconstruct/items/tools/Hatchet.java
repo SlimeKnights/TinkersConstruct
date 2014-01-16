@@ -34,7 +34,7 @@ public class Hatchet extends HarvestTool
     }
 
     @Override
-    public boolean onBlockDestroyed (ItemStack itemstack, World world, Block block, int x, int y, int z, EntityLivingBase player)
+    public boolean func_150894_a (ItemStack itemstack, World world, Block block, int x, int y, int z, EntityLivingBase player)
     {
         if (block != null && block.func_149688_o() == Material.field_151584_j)
             return false;

@@ -25,7 +25,7 @@ public class Pickaxe extends HarvestTool
         return materials;
     }
 
-    static Material[] materials = new Material[] { Material.rock, Material.field_151573_f, Material.ice, Material.field_151592_s, Material.piston, Material.field_151574_g, Material.field_151594_q };
+    static Material[] materials = new Material[] { Material.field_151576_e, Material.field_151573_f, Material.field_151588_w, Material.field_151592_s, Material.piston, Material.field_151574_g, Material.field_151594_q };
 
     @Override
     public Item getHeadItem ()

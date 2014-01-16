@@ -70,7 +70,7 @@ public class MiningExplosion extends Explosion
                             int l = MathHelper.floor_double(d0);
                             int i1 = MathHelper.floor_double(d1);
                             int j1 = MathHelper.floor_double(d2);
-                            Block k1 = this.world.getBlock(l, i1, j1);
+                            Block k1 = this.world.func_147439_a(l, i1, j1);
 
                             if (k1 != Blocks.air)
                             {
@@ -169,10 +169,10 @@ public class MiningExplosion extends Explosion
             while (iterator.hasNext())
             {
                 chunkposition = (ChunkPosition) iterator.next();
-                i = chunkposition.x;
-                j = chunkposition.y;
-                k = chunkposition.z;
-                l = this.world.getBlock(i, j, k);
+                i = chunkposition.field_151329_a;
+                j = chunkposition.field_151327_b;
+                k = chunkposition.field_151328_c;
+                l = this.world.func_147439_a(i, j, k);
 
                 if (par1)
                 {
@@ -199,9 +199,9 @@ public class MiningExplosion extends Explosion
                 {
                     Block block = l;
 
-                    if (block.canDropFromExplosion(this))
+                    if (block.func_149659_a(this))
                     {
-                        block.dropBlockAsItemWithChance(this.world, i, j, k, this.world.getBlockMetadata(i, j, k), 1.0F, 0);
+                        block.func_149690_a(this.world, i, j, k, this.world.getBlockMetadata(i, j, k), 1.0F, 0);
                     }
 
                     block.onBlockExploded(this.world, i, j, k, this);
@@ -216,11 +216,11 @@ public class MiningExplosion extends Explosion
             while (iterator.hasNext())
             {
                 chunkposition = (ChunkPosition) iterator.next();
-                i = chunkposition.x;
-                j = chunkposition.y;
-                k = chunkposition.z;
-                l = this.world.getBlock(i, j, k);
-                Block i1 = this.world.getBlock(i, j - 1, k);
+                i = chunkposition.field_151329_a;
+                j = chunkposition.field_151327_b;
+                k = chunkposition.field_151328_c;
+                l = this.world.func_147439_a(i, j, k);
+                Block i1 = this.world.func_147439_a(i, j - 1, k);
 
                 if (l == Blocks.air && Block.opaqueCubeLookup[i1] && this.random.nextInt(3) == 0)
                 {

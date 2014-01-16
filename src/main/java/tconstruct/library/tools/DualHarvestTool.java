@@ -27,11 +27,11 @@ public abstract class DualHarvestTool extends HarvestTool
         NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
         World world = player.worldObj;
         int meta = world.getBlockMetadata(x, y, z);
-        Block block = player.worldObj.getBlock(x, y, z);
+        Block block = player.worldObj.func_147439_a(x, y, z);
         if (block == null || block == Blocks.air)
             return false;
-        int hlvl = MinecraftForge.getBlockHarvestLevel(block, meta, getHarvestType());
-        int shlvl = MinecraftForge.getBlockHarvestLevel(block, meta, getSecondHarvestType());
+        int hlvl = block.getBlockHarvestLevel(meta, getHarvestType()));
+        int shlvl = block.getBlockHarvestLevel(meta, getSecondHarvestType());
 
         if (hlvl <= tags.getInteger("HarvestLevel") && shlvl <= tags.getInteger("HarvestLevel2"))
         {
@@ -70,7 +70,7 @@ public abstract class DualHarvestTool extends HarvestTool
             {
                 float speed = tags.getInteger("MiningSpeed");
                 speed /= 100f;
-                int hlvl = MinecraftForge.getBlockHarvestLevel(block, meta, getHarvestType());
+                int hlvl = block.getBlockHarvestLevel(meta, getHarvestType());
                 int durability = tags.getInteger("Damage");
 
                 float shoddy = tags.getFloat("Shoddy");
@@ -88,7 +88,7 @@ public abstract class DualHarvestTool extends HarvestTool
             {
                 float speed = tags.getInteger("MiningSpeed2");
                 speed /= 100f;
-                int hlvl = MinecraftForge.getBlockHarvestLevel(block, meta, getHarvestType());
+                int hlvl = block.getBlockHarvestLevel(meta, getHarvestType());
                 int durability = tags.getInteger("Damage");
 
                 float shoddy = tags.getFloat("Shoddy");

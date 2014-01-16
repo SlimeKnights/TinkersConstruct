@@ -184,7 +184,7 @@ public class PartCrafterGui extends NewContainerGui
         if (drawChestPart)
         {
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-            this.mc.getTextureManager().bindTexture(minichest);
+            this.field_146297_k.getTextureManager().bindTexture(minichest);
             this.drawTexturedModalRect(cornerX - 116, cornerY + 11, 0, 0, this.xSize, this.ySize);
         }
 
@@ -199,7 +199,7 @@ public class PartCrafterGui extends NewContainerGui
     @Override
     protected void mouseClicked (int mouseX, int mouseY, int clickNum)
     {
-        boolean flag = clickNum == this.mc.gameSettings.keyBindPickBlock.keyCode + 100;
+        boolean flag = clickNum == this.field_146297_k.gameSettings.keyBindPickBlock.keyCode + 100;
         Slot slot = this.getSlotAtPosition(mouseX, mouseY);
         long l = Minecraft.getSystemTime();
         this.field_94074_J = this.field_94072_H == slot && l - this.field_94070_G < 250L && this.field_94073_I == clickNum;
@@ -224,7 +224,7 @@ public class PartCrafterGui extends NewContainerGui
                 k1 = -999;
             }
 
-            if (this.field_146297_k.gameSettings.touchscreen && flag1 && this.mc.thePlayer.inventory.getItemStack() == null)
+            if (this.field_146297_k.gameSettings.touchscreen && flag1 && this.field_146297_k.thePlayer.inventory.getItemStack() == null)
             {
                 this.field_146297_k.displayGuiScreen((GuiScreen) null);
                 return;

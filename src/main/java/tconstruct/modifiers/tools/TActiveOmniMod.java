@@ -59,7 +59,7 @@ public class TActiveOmniMod extends ActiveToolMod
 
         NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
         World world = entity.worldObj;
-        Block block = entity.worldObj.getBlock(x, y, z);
+        Block block = entity.worldObj.func_147439_a(x, y, z);
         int meta = world.getBlockMetadata(x, y, z);
         //TODO do we need the next to lines????????
         if (block == null)

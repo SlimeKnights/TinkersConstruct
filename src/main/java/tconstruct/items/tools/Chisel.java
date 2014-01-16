@@ -91,7 +91,7 @@ public class Chisel extends ToolCore
             {
                 return itemstack;
             }
-            if (movingobjectposition.typeOfHit == MovingObjectType.TILE)
+            if (movingobjectposition.typeOfHit == MovingObjectType.BLOCK)
             {
                 int x = movingobjectposition.blockX;
                 int y = movingobjectposition.blockY;
@@ -100,7 +100,7 @@ public class Chisel extends ToolCore
                 int meta = world.getBlockMetadata(x, y, z);
 
                 DetailInput details = TConstruct.chiselDetailing.getDetailing(block, meta);
-                if (details != null && details.outputID < 4096)
+                if (details != null)
                 {
                     world.func_147465_d(x, y, z, BlockUtils.getBlockFromItemStack(details.output), details.outputMeta, 3);
                     if (!(entityplayer.capabilities.isCreativeMode))

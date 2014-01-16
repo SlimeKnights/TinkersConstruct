@@ -38,7 +38,7 @@ public class Excavator extends HarvestTool
         return "shovel";
     }
 
-    static Material[] materials = { Material.field_151577_b, Material.field_151578_c, Material.sand, Material.snow, Material.crafedSnow, Material.clay };
+    static Material[] materials = { Material.field_151577_b, Material.field_151578_c, Material.field_151595_p, Material.snow, Material.crafedSnow, Material.clay };
 
     @Override
     public Item getHeadItem ()
@@ -142,14 +142,14 @@ public class Excavator extends HarvestTool
 
         World world = player.worldObj;
         final int meta = world.getBlockMetadata(x, y, z);
-        Block block = world.getBlock(x, y, z);
+        Block block = world.func_147439_a(x, y, z);
         if (!stack.hasTagCompound())
             return false;
 
         if (block == null)
             return super.onBlockStartBreak(stack, x, y, z, player);
 
-        float blockHardness = block.getBlockHardness(world, x, y, z);
+        float blockHardness = block.func_149712_f(world, x, y, z);
 
         boolean validStart = false;
         for (int iter = 0; iter < materials.length; iter++)
@@ -192,11 +192,11 @@ public class Excavator extends HarvestTool
                 {
                     if (!(tags.getBoolean("Broken")))
                     {
-                        Block localblock = world.getBlock(xPos, yPos, zPos);
+                        Block localblock = world.func_147439_a(xPos, yPos, zPos);
                         block = localblock;
                         int localMeta = world.getBlockMetadata(xPos, yPos, zPos);
                         int hlvl = MinecraftForge.getBlockHarvestLevel(block, meta, getHarvestType());
-                        float localHardness = block == null ? Float.MAX_VALUE : block.getBlockHardness(world, xPos, yPos, zPos);
+                        float localHardness = block == null ? Float.MAX_VALUE : block.func_149712_f(world, xPos, yPos, zPos);
 
                         if (hlvl <= tags.getInteger("HarvestLevel") && localHardness - 1.5 <= blockHardness)
                         {
@@ -219,12 +219,12 @@ public class Excavator extends HarvestTool
                                             {
                                                 if (block.removeBlockByPlayer(world, player, xPos, yPos, zPos))
                                                 {
-                                                    block.onBlockDestroyedByPlayer(world, xPos, yPos, zPos, localMeta);
+                                                    block.func_149664_b(world, xPos, yPos, zPos, localMeta);
                                                 }
-                                                block.harvestBlock(world, player, xPos, yPos, zPos, localMeta);
-                                                block.onBlockHarvested(world, xPos, yPos, zPos, localMeta, player);
+                                                block.func_149636_a(world, player, xPos, yPos, zPos, localMeta);
+                                                block.func_149681_a(world, xPos, yPos, zPos, localMeta, player);
                                                 if (blockHardness > 0f)
-                                                    onBlockDestroyed(stack, world, localblock, xPos, yPos, zPos, player);
+                                                    func_150894_a(stack, world, localblock, xPos, yPos, zPos, player);
                                             }
                                             else
                                             {

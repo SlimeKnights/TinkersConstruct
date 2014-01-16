@@ -17,7 +17,7 @@ public class SurfaceOreGen extends WorldGenerator
 
     /** The number of blocks to generate. */
     private int numberOfBlocks;
-    private int[] replaceBlocks;
+    private Block[] replaceBlocks;
     private boolean alterSize;
 
     public SurfaceOreGen(Block b, int meta, int number, boolean changeSize)
@@ -25,7 +25,7 @@ public class SurfaceOreGen extends WorldGenerator
         this(b, meta, number, changeSize, Blocks.stone, (Block) Blocks.grass, Blocks.dirt, Blocks.water, Blocks.sand, Blocks.gravel, Blocks.snow);
     }
 
-    public SurfaceOreGen(Block b, int meta, int number, boolean changeSize, int... target)
+    public SurfaceOreGen(Block b, int meta, int number, boolean changeSize, Block... target)
     {
         this.minableBlock = b;
         this.numberOfBlocks = number;

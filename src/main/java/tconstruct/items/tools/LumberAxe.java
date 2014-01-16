@@ -55,7 +55,7 @@ public class LumberAxe extends HarvestTool
     }
 
     @Override
-    public boolean onBlockDestroyed (ItemStack itemstack, World world, Block block, int x, int y, int z, EntityLivingBase player)
+    public boolean func_150894_a (ItemStack itemstack, World world, Block block, int x, int y, int z, EntityLivingBase player)
     {
         if (block != null && block.func_149688_o() == Material.field_151584_j)
             return false;
@@ -242,11 +242,11 @@ public class LumberAxe extends HarvestTool
                                         {
                                             if (block.removeBlockByPlayer(world, player, xPos, yPos, zPos))
                                             {
-                                                block.onBlockDestroyedByPlayer(world, xPos, yPos, zPos, meta);
+                                                block.func_149664_b(world, xPos, yPos, zPos, meta);
                                             }
-                                            block.harvestBlock(world, player, xPos, yPos, zPos, meta);
-                                            block.onBlockHarvested(world, xPos, yPos, zPos, meta, player);
-                                            onBlockDestroyed(stack, world, localblock, xPos, yPos, zPos, player);
+                                            block.func_149636_a(world, player, xPos, yPos, zPos, meta);
+                                            block.func_149681_a(world, xPos, yPos, zPos, meta, player);
+                                            func_150894_a(stack, world, localblock, xPos, yPos, zPos, player);
                                         }
                                         else
                                         {
@@ -308,7 +308,7 @@ public class LumberAxe extends HarvestTool
                                     {
                                         //TODO harvestBlock
                                         block.func_149636_a(world, player, xPos, yPos, zPos, meta);
-                                        onBlockDestroyed(stack, world, block, xPos, yPos, zPos, player);
+                                        func_150894_a(stack, world, block, xPos, yPos, zPos, player);
                                     }
                                 }
                             }

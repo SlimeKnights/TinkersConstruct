@@ -250,7 +250,7 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
                 {
                     if (validLocations[(xPos * 16 + zPos) * 8 + yPos])
                     {
-                        world.func_147465_d(x + xPos, y + yPos, z + zPos, yPos >= 4 ? Blocks.air : this.liquidBlock);
+                        world.setBlock(x + xPos, y + yPos, z + zPos, yPos >= 4 ? Blocks.air : this.liquidBlock);
                     }
                 }
             }

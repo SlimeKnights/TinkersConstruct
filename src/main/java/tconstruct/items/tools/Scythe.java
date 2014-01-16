@@ -155,7 +155,7 @@ public class Scythe extends Weapon
             return false;
 
         World world = player.worldObj;
-        final int blockID = world.getBlockId(x, y, z);
+        final Block blockB = world.func_147439_a(x, y, z);
         final int meta = world.getBlockMetadata(x, y, z);
         if (!stack.hasTagCompound())
             return false;
@@ -177,7 +177,7 @@ public class Scythe extends Weapon
 
                         if (!cancelHarvest)
                         {
-                            Block block = world.getBlock(xPos, yPos, zPos);
+                            Block block = world.func_147439_a(xPos, yPos, zPos);
                             if (block != null)// && (block.func_149688_o() == Material.field_151584_j || block.isLeaves(world, xPos, yPos, zPos)))
                             {
                                 for (int iter = 0; iter < materials.length; iter++)
@@ -188,10 +188,10 @@ public class Scythe extends Weapon
                                         WorldHelper.setBlockToAir(world, xPos, yPos, zPos);
                                         if (!player.capabilities.isCreativeMode)
                                         {
-                                            block.onBlockDestroyedByPlayer(world, x, y, z, meta);
-                                            block.harvestBlock(world, player, xPos, yPos, zPos, localMeta);
-                                            block.onBlockHarvested(world, x, y, z, localMeta, player);
-                                            onBlockDestroyed(stack, world, localblock, xPos, yPos, zPos, player);
+                                            block.func_149664_b(world, x, y, z, meta);
+                                            block.func_149636_a(world, player, xPos, yPos, zPos, localMeta);
+                                            block.func_149681_a(world, x, y, z, localMeta, player);
+                                            func_150894_a(stack, world, blockB, xPos, yPos, zPos, player);
                                         }
                                     }
                                 }

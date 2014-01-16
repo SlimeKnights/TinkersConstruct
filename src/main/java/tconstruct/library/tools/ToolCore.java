@@ -611,9 +611,9 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IBa
     }
 
     @Override
-    public boolean onBlockDestroyed (ItemStack itemstack, World world, Block block, int x, int y, int z, EntityLivingBase player)
+    public boolean func_150894_a (ItemStack itemstack, World world, Block block, int x, int y, int z, EntityLivingBase player)
     {
-        if (block != null && (double) block.getBlockHardness(world, x, y, z) != 0.0D)
+        if (block != null && (double) block.func_149712_f(world, x, y, z) != 0.0D)
         {
             return AbilityHelper.onBlockChanged(itemstack, world, block, x, y, z, player, random);
         }

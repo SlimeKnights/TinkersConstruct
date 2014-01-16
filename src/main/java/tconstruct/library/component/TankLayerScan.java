@@ -505,7 +505,7 @@ public class TankLayerScan extends LogicComponent
             for (int i = 0; i < layerAir.tagCount(); ++i)
             {
                 NBTTagIntArray tag = (NBTTagIntArray) layerAir.tagAt(i);
-                int[] coord = tag.intArray;
+                int[] coord = tag.func_150302_c();
                 layerAirCoords.add(new CoordTuple(coord[0], coord[1], coord[2]));
             }
         }
@@ -518,7 +518,7 @@ public class TankLayerScan extends LogicComponent
             for (int i = 0; i < blocks.tagCount(); ++i)
             {
                 NBTTagIntArray tag = (NBTTagIntArray) blocks.tagAt(i);
-                int[] coord = tag.intArray;
+                int[] coord = tag.func_150302_c();
                 blockCoords.add(new CoordTuple(coord[0], coord[1], coord[2]));
             }
         }
@@ -531,7 +531,7 @@ public class TankLayerScan extends LogicComponent
             for (int i = 0; i < air.tagCount(); ++i)
             {
                 NBTTagIntArray tag = (NBTTagIntArray) air.tagAt(i);
-                int[] coord = tag.intArray;
+                int[] coord = tag.func_150302_c();
                 airCoords.add(new CoordTuple(coord[0], coord[1], coord[2]));
             }
         }
