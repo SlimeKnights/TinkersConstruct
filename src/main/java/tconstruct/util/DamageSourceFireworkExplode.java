@@ -13,9 +13,9 @@ public class DamageSourceFireworkExplode extends DamageSource
         this.setDamageBypassesArmor();
     }
 
-    public IChatComponent getDeathMessage (EntityLivingBase par1EntityLivingBase)
+    public IChatComponent func_151519_b (EntityLivingBase par1EntityLivingBase)
     {
-        return super.getDeathMessage(par1EntityLivingBase);
+        return super.func_151519_b(par1EntityLivingBase);
     }
 
 }
