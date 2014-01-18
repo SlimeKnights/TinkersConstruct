@@ -1,9 +1,8 @@
 package tconstruct.util;
 
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.util.ChatMessageComponent;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.IChatComponent;
 
 public class DamageSourceLandmine extends DamageSource
 {
@@ -14,9 +13,9 @@ public class DamageSourceLandmine extends DamageSource
         this.setDamageBypassesArmor();
     }
 
-    public ChatMessageComponent getDeathMessage (EntityLivingBase par1EntityLivingBase)
+    public IChatComponent func_151519_b (EntityLivingBase par1EntityLivingBase)
     {
-        return super.getDeathMessage(par1EntityLivingBase);
+        return super.func_151519_b(par1EntityLivingBase);
     }
 
 }

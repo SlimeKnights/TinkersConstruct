@@ -52,7 +52,7 @@ import tconstruct.util.player.*;
 public class TProxyClient extends TProxyCommon
 {
     public static SmallFontRenderer smallFontRenderer;
-    public static Icon metalBall;
+    public static IIcon metalBall;
     public static Minecraft mc;
     public static RenderItem itemRenderer = new RenderItem();
 
@@ -63,32 +63,32 @@ public class TProxyClient extends TProxyCommon
     public Object getClientGuiElement (int ID, EntityPlayer player, World world, int x, int y, int z)
     {
         if (ID == toolStationID)
-            return new ToolStationGui(player.inventory, (ToolStationLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
+            return new ToolStationGui(player.inventory, (ToolStationLogic) world.func_147438_o(x, y, z), world, x, y, z);
         if (ID == partBuilderID)
-            return new PartCrafterGui(player.inventory, (PartBuilderLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
+            return new PartCrafterGui(player.inventory, (PartBuilderLogic) world.func_147438_o(x, y, z), world, x, y, z);
         if (ID == patternChestID)
-            return new PatternChestGui(player.inventory, (PatternChestLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
+            return new PatternChestGui(player.inventory, (PatternChestLogic) world.func_147438_o(x, y, z), world, x, y, z);
         if (ID == frypanGuiID)
-            return new FrypanGui(player.inventory, (FrypanLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
+            return new FrypanGui(player.inventory, (FrypanLogic) world.func_147438_o(x, y, z), world, x, y, z);
         if (ID == smelteryGuiID)
         {
             if (PHConstruct.newSmeltery)
-                return new AdaptiveSmelteryGui(player.inventory, (AdaptiveSmelteryLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
+                return new AdaptiveSmelteryGui(player.inventory, (AdaptiveSmelteryLogic) world.func_147438_o(x, y, z), world, x, y, z);
             else
-                return new SmelteryGui(player.inventory, (SmelteryLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
+                return new SmelteryGui(player.inventory, (SmelteryLogic) world.func_147438_o(x, y, z), world, x, y, z);
         }
         if (ID == stencilTableID)
-            return new StencilTableGui(player.inventory, (StencilTableLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
+            return new StencilTableGui(player.inventory, (StencilTableLogic) world.func_147438_o(x, y, z), world, x, y, z);
         if (ID == toolForgeID)
-            return new ToolForgeGui(player.inventory, (ToolForgeLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
+            return new ToolForgeGui(player.inventory, (ToolForgeLogic) world.func_147438_o(x, y, z), world, x, y, z);
 
         if (ID == landmineID)
-            return new GuiLandmine(new ContainerLandmine(player, (TileEntityLandmine) world.getBlockTileEntity(x, y, z)));
+            return new GuiLandmine(new ContainerLandmine(player, (TileEntityLandmine) world.func_147438_o(x, y, z)));
         if (ID == craftingStationID)
-            return new CraftingStationGui(player.inventory, (CraftingStationLogic) world.getBlockTileEntity(x, y, z), world, x, y, z);
+            return new CraftingStationGui(player.inventory, (CraftingStationLogic) world.func_147438_o(x, y, z), world, x, y, z);
 
         if (ID == furnaceID)
-            return new FurnaceGui(player.inventory, (FurnaceLogic) world.getBlockTileEntity(x, y, z));
+            return new FurnaceGui(player.inventory, (FurnaceLogic) world.func_147438_o(x, y, z));
 
         if (ID == manualGuiID)
         {

@@ -3,7 +3,7 @@ package tconstruct.util.landmine;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 
 /**
  * 
@@ -44,32 +44,32 @@ public class Helper
 
         tessellator.startDrawingQuads();
         tessellator.setNormal(0.0F, 1.0F, 0.0F);
-        renderer.renderFaceYPos(block, 0, 0, 0, renderer.getBlockIconFromSideAndMetadata(block, 1, metadata));
+        renderer.func_147806_b(block, 0, 0, 0, renderer.func_147787_a(block, 1, metadata));
         tessellator.draw();
 
         tessellator.startDrawingQuads();
         tessellator.setNormal(0.0F, -1.0F, 0.0F);
-        renderer.renderFaceYNeg(block, 0, 0, 0, renderer.getBlockIconFromSideAndMetadata(block, 0, metadata));
+        renderer.func_147768_a(block, 0, 0, 0, renderer.func_147787_a(block, 0, metadata));
         tessellator.draw();
 
         tessellator.startDrawingQuads();
         tessellator.setNormal(1.0F, 0.0F, 0.0F);
-        renderer.renderFaceXPos(block, 0, 0, 0, renderer.getBlockIconFromSideAndMetadata(block, 2, metadata));
+        renderer.func_147764_f(block, 0, 0, 0, renderer.func_147787_a(block, 2, metadata));
         tessellator.draw();
 
         tessellator.startDrawingQuads();
         tessellator.setNormal(-1.0F, 0.0F, 0.0F);
-        renderer.renderFaceXNeg(block, 0, 0, 0, renderer.getBlockIconFromSideAndMetadata(block, 3, metadata));
+        renderer.func_147798_e(block, 0, 0, 0, renderer.func_147787_a(block, 3, metadata));
         tessellator.draw();
 
         tessellator.startDrawingQuads();
         tessellator.setNormal(0.0F, 0.0F, 1.0F);
-        renderer.renderFaceZPos(block, 0, 0, 0, renderer.getBlockIconFromSideAndMetadata(block, 4, metadata));
+        renderer.func_147734_d(block, 0, 0, 0, renderer.func_147787_a(block, 4, metadata));
         tessellator.draw();
 
         tessellator.startDrawingQuads();
         tessellator.setNormal(0.0F, 0.0F, -1.0F);
-        renderer.renderFaceZNeg(block, 0, 0, 0, renderer.getBlockIconFromSideAndMetadata(block, 5, metadata));
+        renderer.func_147761_c(block, 0, 0, 0, renderer.func_147787_a(block, 5, metadata));
         tessellator.draw();
     }
 
