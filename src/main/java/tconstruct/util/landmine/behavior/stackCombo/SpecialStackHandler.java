@@ -68,7 +68,7 @@ public abstract class SpecialStackHandler
             return;
         }
 
-        TileEntityLandmine tileEntity = (TileEntityLandmine) par1World.func_147438_o(x, y, z);
+        TileEntityLandmine tileEntity = (TileEntityLandmine) par1World.getBlockTileEntity(x, y, z);
 
         while (item.stackSize > 0)
         {
