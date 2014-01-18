@@ -3,7 +3,6 @@ package tconstruct.util.landmine.behavior;
 import java.util.List;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.EntityFallingBlock;
 import net.minecraft.entity.item.EntityFallingSand;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -65,7 +64,7 @@ public class BehaviorBlockThrow extends Behavior
                 break;
             }
 
-            EntityFallingBlock entityfallingsand = new EntityFallingBlock(par1World, (double) ((float) par2 + 0.5F), (double) ((float) par3 + 2F), (double) ((float) par4 + 0.5F), par5ItemStack.itemID,
+            EntityFallingSand entityfallingsand = new EntityFallingSand(par1World, (double) ((float) par2 + 0.5F), (double) ((float) par3 + 2F), (double) ((float) par4 + 0.5F), par5ItemStack.itemID,
                     par5ItemStack.getItemDamage());
             entityfallingsand.preventEntitySpawning = false;
             entityfallingsand.fallTime = 2;
