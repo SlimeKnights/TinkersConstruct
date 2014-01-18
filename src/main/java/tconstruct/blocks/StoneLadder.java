@@ -23,7 +23,7 @@ public class StoneLadder extends BlockLadder
     }
 
     @Override
-    public void registerIcons (IIconRegister register)
+    public void func_149651_a (IIconRegister register)
     {
         icon = register.registerIcon("tinker:ladder_stone");
     }

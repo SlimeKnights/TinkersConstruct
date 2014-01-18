@@ -54,7 +54,7 @@ public class ExplosiveRender extends Render
 
         f2 = (1.0F - ((float) par1EntityTNTPrimed.fuse - par9 + 1.0F) / 100.0F) * 0.8F;
         this.bindEntityTexture(par1EntityTNTPrimed);
-        this.blockRenderer.renderBlockAsItem(TRepo.slimeExplosive, 0, par1EntityTNTPrimed.getBrightness(par9));
+        this.blockRenderer.func_147800_a(TRepo.slimeExplosive, 0, par1EntityTNTPrimed.getBrightness(par9));
 
         if (par1EntityTNTPrimed.fuse / 5 % 2 == 0)
         {
@@ -63,7 +63,7 @@ public class ExplosiveRender extends Render
             GL11.glEnable(GL11.GL_BLEND);
             GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_DST_ALPHA);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, f2);
-            this.blockRenderer.renderBlockAsItem(Blocks.tnt, 0, 1.0F);
+            this.blockRenderer.func_147800_a(Blocks.tnt, 0, 1.0F);
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             GL11.glDisable(GL11.GL_BLEND);
             GL11.glEnable(GL11.GL_LIGHTING);

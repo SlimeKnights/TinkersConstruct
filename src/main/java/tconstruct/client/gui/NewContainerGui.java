@@ -830,7 +830,7 @@ public abstract class NewContainerGui extends GuiScreen
      */
     protected void keyTyped (char par1, int par2)
     {
-        if (par2 == 1 || par2 == this.field_146297_k.gameSettings.keyBindInventory.keyCode)
+        if (par2 == 1 || par2 == this.field_146297_k.gameSettings.field_151445_Q.keyCode)
         {
             this.field_146297_k.thePlayer.closeScreen();
         }

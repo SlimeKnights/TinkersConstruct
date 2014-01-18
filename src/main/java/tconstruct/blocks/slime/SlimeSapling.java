@@ -38,7 +38,7 @@ public class SlimeSapling extends BlockSapling
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void registerIcons (IIconRegister iconRegister)
+    public void func_149651_a (IIconRegister iconRegister)
     {
         this.icons = new IIcon[textureNames.length];
 

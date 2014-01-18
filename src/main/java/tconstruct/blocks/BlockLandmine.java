@@ -124,7 +124,7 @@ public class BlockLandmine extends BlockContainer
     }
 
     @Override
-    public void registerIcons (IIconRegister par1IconRegister)
+    public void func_149651_a (IIconRegister par1IconRegister)
     {
         this.field_149761_L = par1IconRegister.registerIcon("tinker:Landmine");
     }

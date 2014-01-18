@@ -155,16 +155,16 @@ public class SmelteryDrainLogic extends MultiServantLogic implements IFluidHandl
         }
     }
 
-    public void readFromNBT (NBTTagCompound tags)
+    public void func_145839_a (NBTTagCompound tags)
     {
-        super.readFromNBT(tags);
+        super.func_145839_a(tags);
         direction = tags.getByte("Direction");
     }
 
     @Override
-    public void func_145839_a (NBTTagCompound tags)
+    public void func_145841_b (NBTTagCompound tags)
     {
-        super.func_145839_a(tags);
+        super.func_145841_b(tags);
         tags.setByte("Direction", direction);
     }
 
@@ -173,14 +173,14 @@ public class SmelteryDrainLogic extends MultiServantLogic implements IFluidHandl
     public Packet getDescriptionPacket ()
     {
         NBTTagCompound tag = new NBTTagCompound();
-        func_145839_a(tag);
+        func_145841_b(tag);
         return new Packet132TileEntityData(field_145851_c, field_145848_d, field_145849_e, 1, tag);
     }
 
     @Override
     public void onDataPacket (NetworkManager net, Packet132TileEntityData packet)
     {
-        readFromNBT(packet.data);
+        func_145839_a(packet.data);
         field_145850_b.markBlockForRenderUpdate(field_145851_c, field_145848_d, field_145849_e);
     }
 }

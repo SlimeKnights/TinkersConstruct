@@ -270,17 +270,17 @@ public class FrypanLogic extends EquipLogic implements IActiveLogic
     }
 
     /* NBT */
-    public void readFromNBT (NBTTagCompound tags)
+    public void func_145839_a (NBTTagCompound tags)
     {
-        super.readFromNBT(tags);
+        super.func_145839_a(tags);
         active = tags.getBoolean("Active");
         fuel = tags.getInteger("Fuel");
         fuelGague = tags.getInteger("FuelGague");
     }
 
-    public void func_145839_a (NBTTagCompound tags)
+    public void func_145841_b (NBTTagCompound tags)
     {
-        super.func_145839_a(tags);
+        super.func_145841_b(tags);
         tags.setBoolean("Active", active);
         tags.setInteger("Fuel", fuel);
         tags.setInteger("FuelGague", fuelGague);

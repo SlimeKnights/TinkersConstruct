@@ -264,7 +264,6 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
     @Override
     public boolean canDrain (ForgeDirection from, Fluid fluid)
     {
-        // TODO Auto-generated method stub
         return false;
     }
 
@@ -340,9 +339,9 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
     /* NBT */
 
     @Override
-    public void readFromNBT (NBTTagCompound tags)
+    public void func_145839_a (NBTTagCompound tags)
     {
-        super.readFromNBT(tags);
+        super.func_145839_a(tags);
         readCustomNBT(tags);
     }
 
@@ -363,9 +362,9 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
     }
 
     @Override
-    public void func_145839_a (NBTTagCompound tags)
+    public void func_145841_b (NBTTagCompound tags)
     {
-        super.func_145839_a(tags);
+        super.func_145841_b(tags);
         writeCustomNBT(tags);
     }
 
@@ -375,7 +374,7 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
         if (liquid != null)
         {
             NBTTagCompound nbt = new NBTTagCompound();
-            liquid.func_145839_a(nbt);
+            liquid.func_145841_b(nbt);
             tags.setTag("Fluid", nbt);
         }
         tags.setBoolean("Initialized", init);
@@ -395,7 +394,7 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
     @Override
     public void onDataPacket (NetworkManager net, Packet132TileEntityData packet)
     {
-        readFromNBT(packet.data);
+        func_145839_a(packet.data);
         getWorld().markBlockForRenderUpdate(field_145851_c, field_145848_d, field_145849_e);
     }
 

@@ -29,7 +29,7 @@ public class QuiverArrowRegistry {
                 return 0;
             }else{
 
-                int idDiff = stack.itemID - stack2.itemID;
+                int idDiff =0;//COMMENTED TO SHUT UP IDE= stack.itemID - stack2.itemID;
                 if(idDiff != 0){
                     return idDiff;
                 }else

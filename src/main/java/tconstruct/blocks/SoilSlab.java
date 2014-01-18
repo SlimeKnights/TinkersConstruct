@@ -27,7 +27,7 @@ public class SoilSlab extends SlabBase
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void registerIcons (IIconRegister iconRegister)
+    public void func_149651_a (IIconRegister iconRegister)
     {
         this.field_149761_L = iconRegister.registerIcon("tinker:grass_top");
     }

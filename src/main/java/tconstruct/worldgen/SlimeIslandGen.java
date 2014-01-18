@@ -27,7 +27,7 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
     Block top = TRepo.slimeGrass;
     SlimeTreeGen trees = new SlimeTreeGen(false, 5, 4, 1, 0);
 
-    public SlimeIslandGen(Block slimePool, int meta)
+    public SlimeIslandGen(Block slimePool)
     {
         this.liquidBlock = slimePool;
         this.gelMeta = meta;

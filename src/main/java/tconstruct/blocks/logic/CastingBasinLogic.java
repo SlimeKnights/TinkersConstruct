@@ -340,9 +340,9 @@ public class CastingBasinLogic extends InventoryLogic implements IFluidTank, IFl
     /* NBT */
 
     @Override
-    public void readFromNBT (NBTTagCompound tags)
+    public void func_145839_a (NBTTagCompound tags)
     {
-        super.readFromNBT(tags);
+        super.func_145839_a(tags);
         readCustomNBT(tags);
     }
 
@@ -365,9 +365,9 @@ public class CastingBasinLogic extends InventoryLogic implements IFluidTank, IFl
     }
 
     @Override
-    public void func_145839_a (NBTTagCompound tags)
+    public void func_145841_b (NBTTagCompound tags)
     {
-        super.func_145839_a(tags);
+        super.func_145841_b(tags);
         writeCustomNBT(tags);
     }
 
@@ -377,7 +377,7 @@ public class CastingBasinLogic extends InventoryLogic implements IFluidTank, IFl
         if (liquid != null)
         {
             NBTTagCompound nbt = new NBTTagCompound();
-            liquid.func_145839_a(nbt);
+            liquid.func_145841_b(nbt);
             tags.setTag("Fluid", nbt);
         }
         tags.setBoolean("Initialized", init);
@@ -390,14 +390,14 @@ public class CastingBasinLogic extends InventoryLogic implements IFluidTank, IFl
     public Packet getDescriptionPacket ()
     {
         NBTTagCompound tag = new NBTTagCompound();
-        func_145839_a(tag);
+        func_145841_b(tag);
         return new Packet132TileEntityData(field_145851_c, field_145848_d, field_145849_e, 1, tag);
     }
 
     @Override
     public void onDataPacket (NetworkManager net, Packet132TileEntityData packet)
     {
-        readFromNBT(packet.data);
+        func_145839_a(packet.data);
         field_145850_b.markBlockForRenderUpdate(field_145851_c, field_145848_d, field_145849_e);
     }
 

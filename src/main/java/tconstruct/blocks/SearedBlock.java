@@ -230,7 +230,7 @@ public class SearedBlock extends InventoryBlock
     }
 
     @Override
-    public boolean renderAsNormalBlock ()
+    public boolean func_149686_d ()
     {
         return false;
     }

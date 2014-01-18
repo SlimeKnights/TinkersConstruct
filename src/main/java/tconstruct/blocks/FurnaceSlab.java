@@ -97,7 +97,7 @@ public class FurnaceSlab extends InventorySlab
     }
 
     @Override
-    public void registerIcons (IIconRegister iconRegister)
+    public void func_149651_a (IIconRegister iconRegister)
     {
         String[] textureNames = getTextureNames();
         this.icons = new IIcon[textureNames.length];

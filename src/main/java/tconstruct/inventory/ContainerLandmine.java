@@ -5,12 +5,12 @@ import java.util.Iterator;
 import java.util.Set;
 
 import tconstruct.blocks.logic.TileEntityLandmine;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.tileentity.TileEntityFurnace;
@@ -250,7 +250,7 @@ public class ContainerLandmine extends Container
                             l = itemstack1.getItem();
                             itemstack = itemstack1.copy();
 
-                            if (slot2 != null && slot2.getStack() != null && slot2.getStack().itemID == l)
+                            if (slot2 != null && slot2.getStack() != null && slot2.getStack().getItem() == l)
                             {
                                 this.retrySlotClick(par1, par2, true, par4EntityPlayer);
                             }
@@ -304,7 +304,7 @@ public class ContainerLandmine extends Container
                                     inventoryplayer.setItemStack((ItemStack) null);
                                 }
                             }
-                            else if (shouldDoStuff && slot2 instanceof SlotBehavedOnly && itemstack4 != null && slot2.isItemValid(new ItemStack(itemstack4.itemID, 1, itemstack4.getItemDamage())))
+                            else if (shouldDoStuff && slot2 instanceof SlotBehavedOnly && itemstack4 != null && slot2.isItemValid(new ItemStack(itemstack4.getItem(), 1, itemstack4.getItemDamage())))
                             {
                                 k1 = par2 == 0 ? 1 : 1;
 

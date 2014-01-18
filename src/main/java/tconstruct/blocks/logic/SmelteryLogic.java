@@ -1070,11 +1070,11 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     /* NBT */
 
     @Override
-    public void readFromNBT (NBTTagCompound tags)
+    public void func_145839_a (NBTTagCompound tags)
     {
         layers = tags.getInteger("Layers");
         inventory = new ItemStack[layers * 9];
-        super.readFromNBT(tags);
+        super.func_145839_a(tags);
 
         //validStructure = tags.getBoolean("ValidStructure");
         internalTemp = tags.getInteger("InternalTemp");
@@ -1108,9 +1108,9 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     }
 
     @Override
-    public void func_145839_a (NBTTagCompound tags)
+    public void func_145841_b (NBTTagCompound tags)
     {
-        super.func_145839_a(tags);
+        super.func_145841_b(tags);
 
         //tags.setBoolean("ValidStructure", validStructure);
         tags.setInteger("InternalTemp", internalTemp);
@@ -1135,7 +1135,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         for (FluidStack liquid : moltenMetal)
         {
             NBTTagCompound nbt = new NBTTagCompound();
-            liquid.func_145839_a(nbt);
+            liquid.func_145841_b(nbt);
             taglist.appendTag(nbt);
         }
 
@@ -1154,7 +1154,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     @Override
     public void onDataPacket (NetworkManager net, Packet132TileEntityData packet)
     {
-        readFromNBT(packet.data);
+        func_145839_a(packet.data);
         onInventoryChanged();
         field_145850_b.markBlockForRenderUpdate(field_145851_c, field_145848_d, field_145849_e);
         this.needsUpdate = true;

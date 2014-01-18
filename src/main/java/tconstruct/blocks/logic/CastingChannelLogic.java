@@ -522,9 +522,9 @@ public class CastingChannelLogic extends TileEntity implements IFluidTank, IFlui
     }
 
     @Override
-    public void readFromNBT (NBTTagCompound tags)
+    public void func_145839_a (NBTTagCompound tags)
     {
-        super.readFromNBT(tags);
+        super.func_145839_a(tags);
         readCustomNBT(tags);
         pullingLiquids = tags.getBoolean("PullingLiquids");
     }
@@ -542,9 +542,9 @@ public class CastingChannelLogic extends TileEntity implements IFluidTank, IFlui
     }
 
     @Override
-    public void func_145839_a (NBTTagCompound tags)
+    public void func_145841_b (NBTTagCompound tags)
     {
-        super.func_145839_a(tags);
+        super.func_145841_b(tags);
         writeCustomNBT(tags);
         tags.setBoolean("PullingLiquids", pullingLiquids);
     }
@@ -555,7 +555,7 @@ public class CastingChannelLogic extends TileEntity implements IFluidTank, IFlui
         if (liquid != null)
         {
             NBTTagCompound nbt = new NBTTagCompound();
-            liquid.func_145839_a(nbt);
+            liquid.func_145841_b(nbt);
             tags.setTag("Fluid", nbt);
         }
         tags.setInteger("LastProvider", this.convertFDToInt(this.lastProvider));

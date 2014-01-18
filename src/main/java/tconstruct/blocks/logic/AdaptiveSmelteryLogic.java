@@ -527,14 +527,14 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
     /* NBT */
 
     @Override
-    public void readFromNBT (NBTTagCompound tags)
+    public void func_145839_a (NBTTagCompound tags)
     {
-        super.readFromNBT(tags);
+        super.func_145839_a(tags);
         readNetworkNBT(tags);
 
-        structure.readFromNBT(tags);
-        multitank.readFromNBT(tags);
-        smeltery.readFromNBT(tags);
+        structure.func_145839_a(tags);
+        multitank.func_145839_a(tags);
+        smeltery.func_145839_a(tags);
     }
 
     public void readNetworkNBT (NBTTagCompound tags)
@@ -549,14 +549,14 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
     }
 
     @Override
-    public void func_145839_a (NBTTagCompound tags)
+    public void func_145841_b (NBTTagCompound tags)
     {
-        super.func_145839_a(tags);
+        super.func_145841_b(tags);
         writeNetworkNBT(tags);
 
-        structure.func_145839_a(tags);
-        multitank.func_145839_a(tags);
-        smeltery.func_145839_a(tags);
+        structure.func_145841_b(tags);
+        multitank.func_145841_b(tags);
+        smeltery.func_145841_b(tags);
     }
 
     public void writeNetworkNBT (NBTTagCompound tags)

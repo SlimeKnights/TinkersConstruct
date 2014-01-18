@@ -38,7 +38,7 @@ public class BarricadeBlock extends MantleBlock
     }
 
     @Override
-    public void registerIcons (IIconRegister par1IconRegister)
+    public void func_149651_a (IIconRegister par1IconRegister)
     {
 
     }

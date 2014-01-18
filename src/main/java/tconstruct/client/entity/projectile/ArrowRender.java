@@ -100,7 +100,7 @@ public class ArrowRender extends Render
                     }
 
                     f5 = 1.0F;
-                    this.itemRenderBlocks.renderBlockAsItem(block, itemstack.getItemDamage(), f5);
+                    this.itemRenderBlocks.func_147800_a(block, itemstack.getItemDamage(), f5);
                     GL11.glPopMatrix();
                 }
             }

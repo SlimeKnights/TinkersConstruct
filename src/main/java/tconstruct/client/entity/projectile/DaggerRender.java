@@ -106,7 +106,7 @@ public class DaggerRender extends Render
                     }
 
                     f5 = 1.0F;
-                    this.itemRenderBlocks.renderBlockAsItem(block, itemstack.getItemDamage(), f5);
+                    this.itemRenderBlocks.func_147800_a(block, itemstack.getItemDamage(), f5);
                     GL11.glPopMatrix();
                 }
             }
@@ -333,7 +333,7 @@ public class DaggerRender extends Render
 
             GL11.glRotatef(-90.0F, 0.0F, 1.0F, 0.0F);
             this.itemRenderBlocks.field_147844_c = this.renderWithColor;
-            this.itemRenderBlocks.renderBlockAsItem(block, l, 1.0F);
+            this.itemRenderBlocks.func_147800_a(block, l, 1.0F);
             this.itemRenderBlocks.field_147844_c = true;
             GL11.glPopMatrix();
         }

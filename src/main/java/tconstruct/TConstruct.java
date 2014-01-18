@@ -108,7 +108,7 @@ public class TConstruct
         proxy.registerKeys();
         proxy.registerTickHandler();
 
-        GameRegistry.registerWorldGenerator(new TBaseWorldGenerator());
+        GameRegistry.registerWorldGenerator(new TBaseWorldGenerator(), 0);
         MinecraftForge.TERRAIN_GEN_BUS.register(new TerrainGenEventHandler());
         GameRegistry.registerFuelHandler(content);
         GameRegistry.registerCraftingHandler(new TCraftingHandler());
@@ -152,7 +152,7 @@ public class TConstruct
         }
 
         DimensionBlacklist.getBadBimensions();
-        GameRegistry.registerWorldGenerator(new SlimeIslandGen(TRepo.slimePool, 0));
+        GameRegistry.registerWorldGenerator(new SlimeIslandGen(TRepo.slimePool), 2);
 
         PluginController.getController().init();
 

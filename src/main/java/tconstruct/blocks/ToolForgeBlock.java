@@ -46,9 +46,9 @@ public class ToolForgeBlock extends InventoryBlock
     IIcon textureTop;
 
     @Override
-    public void registerIcons (IIconRegister iconRegister)
+    public void func_149651_a (IIconRegister iconRegister)
     {
-        super.registerIcons(iconRegister);
+        super.func_149651_a(iconRegister);
         textureTop = iconRegister.registerIcon("tinker:toolforge_top");
     }
 
@@ -80,7 +80,7 @@ public class ToolForgeBlock extends InventoryBlock
     }
 
     @Override
-    public boolean renderAsNormalBlock ()
+    public boolean func_149686_d ()
     {
         return false;
     }

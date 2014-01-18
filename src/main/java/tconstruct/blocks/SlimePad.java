@@ -101,7 +101,7 @@ public class SlimePad extends MantleBlock
     }
 
     @Override
-    public boolean renderAsNormalBlock ()
+    public boolean func_149686_d ()
     {
         return false;
     }
@@ -125,7 +125,7 @@ public class SlimePad extends MantleBlock
     }
 
     @Override
-    public void registerIcons (IIconRegister iconRegister)
+    public void func_149651_a (IIconRegister iconRegister)
     {
     }
 

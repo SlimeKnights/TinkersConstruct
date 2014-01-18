@@ -146,16 +146,16 @@ public class PartBuilderLogic extends InventoryLogic implements ISidedInventory
     }
 
     /* NBT */
-    public void readFromNBT (NBTTagCompound tags)
+    public void func_145839_a (NBTTagCompound tags)
     {
-        super.readFromNBT(tags);
+        super.func_145839_a(tags);
         craftedTop = tags.getBoolean("CraftedTop");
         craftedBottom = tags.getBoolean("CraftedBottom");
     }
 
-    public void writeToNBT (NBTTagCompound tags)
+    public void func_145841_b (NBTTagCompound tags)
     {
-        super.writeToNBT(tags);
+        super.func_145841_b(tags);
         tags.setBoolean("CraftedTop", craftedTop);
         tags.setBoolean("CraftedBottom", craftedBottom);
     }
@@ -174,6 +174,18 @@ public class PartBuilderLogic extends InventoryLogic implements ISidedInventory
 
     @Override
     public boolean canExtractItem (int i, ItemStack itemstack, int j)
+    {
+        return false;
+    }
+
+    @Override
+    public String func_145825_b ()
+    {
+        return getDefaultName();
+    }
+
+    @Override
+    public boolean func_145818_k_ ()
     {
         return false;
     }

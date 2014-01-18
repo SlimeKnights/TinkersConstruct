@@ -45,7 +45,7 @@ public class TControls extends TKeyHandler
     {
         mc = Minecraft.getMinecraft();
         jumpKey = mc.gameSettings.keyBindJump;
-        invKey = mc.gameSettings.keyBindInventory;
+        invKey = mc.gameSettings.field_151445_Q;
         return new KeyBinding[] { jumpKey, invKey };
     }
 

@@ -672,9 +672,9 @@ public class GlassPaneConnected extends GlassBlockConnected
         return Block.opaqueCubeLookup[b] || b == (Block) this || b == Blocks.glass;
     }
 
-    public void registerIcons (IIconRegister par1IconRegister)
+    public void func_149651_a (IIconRegister par1IconRegister)
     {
-        super.registerIcons(par1IconRegister);
+        super.func_149651_a(par1IconRegister);
         this.theIcon = par1IconRegister.registerIcon("tinker:glass/" + folder + "/glass_side");
     }
 
