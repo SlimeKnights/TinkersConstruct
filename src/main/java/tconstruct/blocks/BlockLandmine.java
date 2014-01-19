@@ -1,5 +1,12 @@
 package tconstruct.blocks;
 
+import static net.minecraftforge.common.util.ForgeDirection.DOWN;
+import static net.minecraftforge.common.util.ForgeDirection.EAST;
+import static net.minecraftforge.common.util.ForgeDirection.NORTH;
+import static net.minecraftforge.common.util.ForgeDirection.SOUTH;
+import static net.minecraftforge.common.util.ForgeDirection.UP;
+import static net.minecraftforge.common.util.ForgeDirection.WEST;
+
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
@@ -18,6 +25,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityTNTPrimed;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -34,7 +42,6 @@ import tconstruct.blocks.logic.TileEntityLandmine;
 import tconstruct.client.block.RenderLandmine;
 import tconstruct.common.TProxyCommon;
 import tconstruct.util.landmine.Helper;
-import static net.minecraftforge.common.util.ForgeDirection.*;
 
 /**
  * 
@@ -49,8 +56,8 @@ public class BlockLandmine extends BlockContainer
 
     public BlockLandmine()
     {
-        super(Material.tnt);
-        this.setTickRandomly(true);
+        super(Material.field_151569_G);
+        this.func_149675_a(true);
         this.func_149676_a(0.0625F, 0.0F, 0.0625F, 1.0F - 0.0625F, 0.0625F, 1.0F - 0.0625F);
     }
 
@@ -63,9 +70,10 @@ public class BlockLandmine extends BlockContainer
 
             if (te != null)
             {
-                if (te.getStackInSlot(3) != null)
+                if (te.getStackInSlot(3) != null && te.getStackInSlot(3).getItem() instanceof ItemBlock)
                 {
-                    return lightValue[te.getStackInSlot(3)];
+                	//Leave this for now and hope Lex accepts the pull request to add a get method, otherwise use an AT to make it public.
+                    return ((ItemBlock)te.getStackInSlot(3).getItem()).field_150939_a.func_149750_m();
                 }
             }
         }
@@ -73,29 +81,29 @@ public class BlockLandmine extends BlockContainer
     }
 
     @Override
-    public int tickRate (World par1World)
+    public int func_149738_a (World par1World)
     {
         return 20;
     }
 
     @Override
-    public IIcon getBlockTexture (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
+    public IIcon func_149673_e (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
     {
         TileEntityLandmine te = (TileEntityLandmine) par1IBlockAccess.func_147438_o(par2, par3, par4);
 
         ItemStack camo = te.getStackInSlot(3);
         if (camo != null)
         {
-            return BlockUtils.getBlockFromItem(camo.getItem()).getIcon(par5, camo.getItemDamage());
+            return BlockUtils.getBlockFromItem(camo.getItem()).func_149691_a(par5, camo.getItemDamage());
         }
         else
         {
-            return this.getIcon(par5, par1IBlockAccess.getBlockMetadata(par2, par3, par4));
+            return this.func_149691_a(par5, par1IBlockAccess.getBlockMetadata(par2, par3, par4));
         }
     }
 
     @Override
-    public boolean isOpaqueCube ()
+    public boolean func_149662_c ()
     {
         return false;
     }
@@ -107,15 +115,15 @@ public class BlockLandmine extends BlockContainer
     }
 
     @Override
-    public int getRenderType ()
+    public int func_149645_b ()
     {
         return RenderLandmine.model;
     }
 
     @Override
-    public void onBlockClicked (World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer)
+    public void func_149699_a (World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer)
     {
-        super.onBlockClicked(par1World, par2, par3, par4, par5EntityPlayer);
+        super.func_149699_a(par1World, par2, par3, par4, par5EntityPlayer);
 
         if (this.explodeOnBroken)
         {
@@ -130,14 +138,14 @@ public class BlockLandmine extends BlockContainer
     }
 
     @Override
-    public boolean onBlockActivated (World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9)
+    public boolean func_149727_a (World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9)
     {
         par5EntityPlayer.openGui(TConstruct.instance, TProxyCommon.landmineID, par1World, par2, par3, par4);
         return true;
     }
 
     @Override
-    public void breakBlock (World par1World, int par2, int par3, int par4, int par5, int par6)
+    public void func_149749_a (World par1World, int par2, int par3, int par4, Block par5Block, int par6)
     {
         TileEntityLandmine tileentity = (TileEntityLandmine) par1World.func_147438_o(par2, par3, par4);
 
@@ -145,15 +153,14 @@ public class BlockLandmine extends BlockContainer
 
         if (tileentity != null && (!explodeOnBroken || !hasItems(par1World, par2, par3, par4)) && par6 != 193 && !tileentity.isExploding)
         {
-            int id = this.blockID;
-            if (id > 0)
+            if (this != null)
             {
-                ItemStack is = new ItemStack(id, 1, damageDropped(tileentity.triggerType));
+                ItemStack is = new ItemStack(this, 1, func_149692_a(tileentity.triggerType));
                 if (tileentity.isInvNameLocalized())
                 {
-                    is.setItemName(tileentity.getInvName());
+                    is.func_151001_c(tileentity.getInvName());
                 }
-                dropBlockAsItem_do(par1World, par2, par3, par4, new ItemStack(id, 1, damageDropped(tileentity.triggerType)));
+                func_149642_a(par1World, par2, par3, par4, new ItemStack(this, 1, func_149692_a(tileentity.triggerType)));
             }
 
             for (int j1 = 0; j1 < tileentity.getSizeInventory(); ++j1)
@@ -184,18 +191,18 @@ public class BlockLandmine extends BlockContainer
                 }
             }
 
-            par1World.func_96440_m(par2, par3, par4, par5);
+            par1World.func_147449_b(par2, par3, par4, par5Block);
         }
         else if (explodeOnBroken)
         {
             checkExplosion(par1World, par2, par3, par4, true);
         }
 
-        super.breakBlock(par1World, par2, par3, par4, par5, par6);
+        super.func_149749_a(par1World, par2, par3, par4, par5Block, par6);
     }
 
     @Override
-    public void getSubBlocks (Item par1, CreativeTabs par2CreativeTabs, List par3List)
+    public void func_149666_a (Item par1, CreativeTabs par2CreativeTabs, List par3List)
     {
         par3List.add(new ItemStack(par1, 1, 0));
         par3List.add(new ItemStack(par1, 1, 1));
@@ -204,13 +211,13 @@ public class BlockLandmine extends BlockContainer
     }
 
     @Override
-    public boolean getBlocksMovement (IBlockAccess par1IBlockAccess, int par2, int par3, int par4)
+    public boolean func_149655_b (IBlockAccess par1IBlockAccess, int par2, int par3, int par4)
     {
         return true;
     }
 
     @Override
-    public boolean canPlaceBlockOnSide (World par1World, int par2, int par3, int par4, int par5)
+    public boolean func_149707_d (World par1World, int par2, int par3, int par4, int par5)
     {
         ForgeDirection dir = ForgeDirection.getOrientation(par5);
         return (dir == DOWN && par1World.isSideSolid(par2, par3 + 1, par4, DOWN)) || (dir == UP && par1World.isSideSolid(par2, par3 - 1, par4, UP))
@@ -219,14 +226,14 @@ public class BlockLandmine extends BlockContainer
     }
 
     @Override
-    public boolean canPlaceBlockAt (World par1World, int par2, int par3, int par4)
+    public boolean func_149742_c (World par1World, int par2, int par3, int par4)
     {
         return par1World.isSideSolid(par2 - 1, par3, par4, EAST) || par1World.isSideSolid(par2 + 1, par3, par4, WEST) || par1World.isSideSolid(par2, par3, par4 - 1, SOUTH)
                 || par1World.isSideSolid(par2, par3, par4 + 1, NORTH) || par1World.isSideSolid(par2, par3 - 1, par4, UP) || par1World.isSideSolid(par2, par3 + 1, par4, DOWN);
     }
 
     @Override
-    public int onBlockPlaced (World par1World, int par2, int par3, int par4, int par5, float par6, float par7, float par8, int par9)
+    public int func_149660_a (World par1World, int par2, int par3, int par4, int par5, float par6, float par7, float par8, int par9)
     {
         int j1 = par9 & 8;
         int k1 = par9 & 7;
@@ -266,7 +273,7 @@ public class BlockLandmine extends BlockContainer
     }
 
     @Override
-    public void onBlockPlacedBy (World par1World, int par2, int par3, int par4, EntityLivingBase par5EntityLivingBase, ItemStack par6ItemStack)
+    public void func_149689_a (World par1World, int par2, int par3, int par4, EntityLivingBase par5EntityLivingBase, ItemStack par6ItemStack)
     {
         int l = par1World.getBlockMetadata(par2, par3, par4);
         int i1 = l & 7;
@@ -323,14 +330,14 @@ public class BlockLandmine extends BlockContainer
     }
 
     @Override
-    public void onNeighborBlockChange (World par1World, int par2, int par3, int par4, int par5)
+    public void func_149695_a (World par1World, int par2, int par3, int par4, Block par5Block)
     {
-        checkPlacement(par1World, par2, par3, par4, par5);
+        checkPlacement(par1World, par2, par3, par4, par5Block);
 
         checkExplosion(par1World, par2, par3, par4, false);
     }
 
-    public void checkPlacement (World par1World, int par2, int par3, int par4, int par5)
+    public void checkPlacement (World par1World, int par2, int par3, int par4, Block par5Block)
     {
         if (this.checkIfAttachedToBlock(par1World, par2, par3, par4))
         {
@@ -379,7 +386,7 @@ public class BlockLandmine extends BlockContainer
 
             if (flag)
             {
-                this.dropBlockAsItem(par1World, par2, par3, par4, par1World.getBlockMetadata(par2, par3, par4), 0);
+                this.func_149697_b(par1World, par2, par3, par4, par1World.getBlockMetadata(par2, par3, par4), 0);
                 WorldHelper.setBlockToAir(par1World, par2, par3, par4);
             }
         }
@@ -387,9 +394,9 @@ public class BlockLandmine extends BlockContainer
 
     private boolean checkIfAttachedToBlock (World par1World, int par2, int par3, int par4)
     {
-        if (!this.canPlaceBlockAt(par1World, par2, par3, par4))
+        if (!this.func_149742_c(par1World, par2, par3, par4))
         {
-            this.dropBlockAsItem(par1World, par2, par3, par4, par1World.getBlockMetadata(par2, par3, par4), 0);
+            this.func_149697_b(par1World, par2, par3, par4, par1World.getBlockMetadata(par2, par3, par4), 0);
             WorldHelper.setBlockToAir(par1World, par2, par3, par4);
             return false;
         }
@@ -434,7 +441,7 @@ public class BlockLandmine extends BlockContainer
     }
 
     @Override
-    public AxisAlignedBB getCollisionBoundingBoxFromPool (World par1World, int par2, int par3, int par4)
+    public AxisAlignedBB func_149668_a (World par1World, int par2, int par3, int par4)
     {
         return null;
     }
@@ -473,7 +480,7 @@ public class BlockLandmine extends BlockContainer
             triggerMobType = EnumCreatureType.monster;
             break;
         case 2:
-            triggerMobType = EnumCreatureType.players;
+            triggerMobType = TConstruct.creatureTypePlayer;
             break;
         default:
             triggerMobType = null;
@@ -494,7 +501,7 @@ public class BlockLandmine extends BlockContainer
                 list = par1World.getEntitiesWithinAABB(EntityLivingBase.class, getSensitiveAABB(par1World, par2, par3, par4));
             }
 
-            if (triggerMobType == EnumCreatureType.players)
+            if (triggerMobType == TConstruct.creatureTypePlayer)
             {
                 list = par1World.getEntitiesWithinAABB(EntityPlayer.class, this.getSensitiveAABB(par1World, par2, par3, par4));
             }
@@ -507,7 +514,7 @@ public class BlockLandmine extends BlockContainer
                 {
                     Entity entity = (Entity) iterator.next();
 
-                    if (!entity.doesEntityNotTriggerPressurePlate())
+                    if (!entity.func_145773_az())
                     {
                         return 1;
                     }
@@ -571,7 +578,7 @@ public class BlockLandmine extends BlockContainer
             triggerMobType = EnumCreatureType.monster;
             break;
         case 2:
-            triggerMobType = EnumCreatureType.players;
+            triggerMobType = TConstruct.creatureTypePlayer;
             break;
         default:
             triggerMobType = null;
@@ -592,7 +599,7 @@ public class BlockLandmine extends BlockContainer
                 list = par1World.getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getAABBPool().getAABB(par2 + 0D, par3 + 0D, par4 + 0D, par2 + 1D, par3 + 1D, par4 + 1D));
             }
 
-            if (triggerMobType == EnumCreatureType.players)
+            if (triggerMobType == TConstruct.creatureTypePlayer)
             {
                 list = par1World.getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getAABBPool().getAABB(par2 + 0D, par3 + 0D, par4 + 0D, par2 + 1D, par3 + 1D, par4 + 1D));
             }
@@ -605,7 +612,7 @@ public class BlockLandmine extends BlockContainer
                 {
                     Entity entity = (Entity) iterator.next();
 
-                    if (!entity.doesEntityNotTriggerPressurePlate())
+                    if (!entity.func_145773_az())
                     {
                         return entity;
                     }
@@ -617,7 +624,7 @@ public class BlockLandmine extends BlockContainer
     }
 
     @Override
-    public boolean canDropFromExplosion (Explosion par1Explosion)
+    public boolean func_149659_a (Explosion par1Explosion)
     {
         return false;
     }
@@ -655,13 +662,13 @@ public class BlockLandmine extends BlockContainer
     }
 
     @Override
-    public int idDropped (int par1, Random par2Random, int par3)
+    public Item func_149650_a (int par1, Random par2Random, int par3)
     {
-        return 0;
+        return null;
     }
 
     @Override
-    public TileEntity createNewTileEntity (World world)
+    public TileEntity func_149915_a (World world, int meta)
     {
         return new TileEntityLandmine();
     }

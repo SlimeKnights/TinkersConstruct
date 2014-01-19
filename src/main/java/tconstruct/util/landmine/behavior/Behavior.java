@@ -52,21 +52,23 @@ public abstract class Behavior
         addBehavior(new ItemStack(Blocks.tnt), explosive);
         addBehavior(new ItemStack(Items.fireworks), firework);
         addBehavior(new ItemStack(Items.potionitem), potion);
-        addBehavior(new ItemStack(Items.fireballCharge), fireball);
-        addBehavior(new ItemStack(Items.monsterPlacer), spawn);
+        addBehavior(new ItemStack(Items.fire_charge), fireball);
+        addBehavior(new ItemStack(Items.spawn_egg), spawn);
         addBehavior(new ItemStack(Items.arrow), shoot);
         addBehavior(new ItemStack(Items.snowball), shoot);
         addBehavior(new ItemStack(Items.ender_pearl), shoot);
         addBehavior(new ItemStack(Items.shears), shear);
-
+        
         //Make sure the part below this comment is executed last(to avoid conflicts)
-        for (int i = 1; i < Block.blocksList.length; i++)
-        {
-            if (Block.blocksList[i] != null && Block.blocksList[i].isOpaqueCube() && Block.blocksList[i].renderAsNormalBlock() && !(Block.blocksList[i] instanceof ITileEntityProvider)
-                    && !behaviorsListBlocks.containsKey(new ItemStack(Block.blocksList[i])))
-            {
-                addBehavior(new ItemStack(Block.blocksList[i]), blockThrow);
-            }
+        Iterator i1 = Block.field_149771_c.iterator();
+        while(i1.hasNext()){
+        	Object ob = i1.next();
+        	if(ob != null && ob instanceof Block){
+        		Block b = (Block) ob;
+        		if(b.func_149688_o().isOpaque() && b.func_149686_d() && !b.func_149744_f() && !(b instanceof ITileEntityProvider) && !behaviorsListBlocks.containsKey(new ItemStack(b))){
+        			addBehavior(new ItemStack(b), blockThrow);
+        		}
+        	}
         }
     }
 

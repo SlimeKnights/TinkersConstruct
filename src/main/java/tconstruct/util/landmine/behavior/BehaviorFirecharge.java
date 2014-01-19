@@ -43,10 +43,10 @@ public class BehaviorFirecharge extends Behavior
             {
                 for (int j = par4 - 2; j <= (par4 + 2); j++)
                 {
-                    if ((par1World.getBlock(i, par3, j) == 0 || (par1World.getBlock(i, par3, j) != null && par1World.getBlock(i, par3, j).isBlockReplaceable(
-                            par1World, i, par3, j))) && ItemBlockLandmine.getRandom().nextInt(5) == 0 && Blocks.fire.canPlaceBlockAt(par1World, i, par3, j))
+                    if ((par1World.func_147439_a(i, par3, j) == null || (par1World.func_147439_a(i, par3, j) != null && par1World.func_147439_a(i, par3, j).isReplaceable(
+                            par1World, i, par3, j))) && ItemBlockLandmine.getRandom().nextInt(5) == 0 && Blocks.fire.func_149742_c(par1World, i, par3, j))
                     {
-                        par1World.field_145850_b(i, par3, j, Blocks.fire);
+                        par1World.func_147449_b(i, par3, j, Blocks.fire);
                     }
                 }
             }
