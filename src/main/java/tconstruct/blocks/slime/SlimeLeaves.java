@@ -3,17 +3,14 @@ package tconstruct.blocks.slime;
 import java.util.List;
 import java.util.Random;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.client.settings.GameSettings.Options;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import tconstruct.common.TContent;
 import tconstruct.common.TRepo;
 import tconstruct.library.TConstructRegistry;
 import cpw.mods.fml.relauncher.Side;
@@ -74,7 +71,7 @@ public class SlimeLeaves extends BlockLeaves
     {
         int tex = meta % 4;
 
-        if (Options.GRAPHICS.getEnumBoolean())
+        if (net.minecraft.client.Minecraft.getMinecraft().gameSettings.fancyGraphics)
             return fancyIcons[tex];
         else
             return fastIcons[tex];

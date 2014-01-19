@@ -75,7 +75,7 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
     @SideOnly(Side.CLIENT)
     public IIcon func_149691_a (int side, int metadata)
     {
-        if (net.minecraft.client.settings.GameSettings.Options.GRAPHICS.getEnumBoolean())
+        if (net.minecraft.client.Minecraft.getMinecraft().gameSettings.fancyGraphics)
         {
             if (metadata < 12)
             {
@@ -236,7 +236,7 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
     @SideOnly(Side.CLIENT)
     public boolean func_149646_a (IBlockAccess iblockaccess, int x, int y, int z, int meta)
     {
-        if (meta > 7 || net.minecraft.client.settings.GameSettings.Options.GRAPHICS.getEnumBoolean())
+        if (meta > 7 || net.minecraft.client.Minecraft.getMinecraft().gameSettings.fancyGraphics)
         {
             return super.func_149646_a(iblockaccess, x, y, z, meta);
         }
