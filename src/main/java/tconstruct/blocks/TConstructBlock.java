@@ -28,7 +28,7 @@ public class TConstructBlock extends MantleBlock
     }
 
     @Override
-    public int damageDropped (int meta)
+    public int func_149692_a (int meta)
     {
         return meta;
     }

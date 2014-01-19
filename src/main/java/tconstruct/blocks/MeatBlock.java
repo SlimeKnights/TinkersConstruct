@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockWood;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -15,23 +16,22 @@ import tconstruct.library.TConstructRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class MeatBlock extends Block
+public class MeatBlock extends BlockWood
 {
     public IIcon[] icons;
     public String[] textureNames = new String[] { "ham_skin", "ham_bone" };
 
     public MeatBlock()
     {
-        super(Material.field_151575_d);
         this.func_149711_c(1.0F);
-        this.setStepSound(Block.soundWoodFootstep);
+        this.func_149672_a(Block.field_149766_f);
         //setBurnProperties(this.blockID, 5, 20);
         this.func_149647_a(TConstructRegistry.blockTab);
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon getIcon (int side, int metadata)
+    public IIcon func_149691_a (int side, int metadata)
     {
         int tex = (metadata % 4) * 2;
         int orientation = metadata / 4;
@@ -68,9 +68,9 @@ public class MeatBlock extends Block
         }
     }
 
-    public int idDropped (int par1, Random par2Random, int par3)
+    public Item func_149650_a (int par1, Random par2Random, int par3)
     {
-        return this.blockID;
+        return new ItemStack(this).getItem();
     }
 
     /**
@@ -89,7 +89,7 @@ public class MeatBlock extends Block
                 {
                     for (int i2 = -b0; i2 <= b0; ++i2)
                     {
-                        Block j2 = par1World.getBlock(par2 + k1, par3 + l1, par4 + i2);
+                        Block j2 = par1World.func_147439_a(par2 + k1, par3 + l1, par4 + i2);
 
                         if (j2 != null)
                         {
@@ -166,23 +166,23 @@ public class MeatBlock extends Block
 
     @SideOnly(Side.CLIENT)
     @Override
-    public void getSubBlocks (Item b, CreativeTabs par2CreativeTabs, List par3List)
+    public void func_149666_a (Item b, CreativeTabs par2CreativeTabs, List par3List)
     {
         for (int i = 0; i < icons.length / 2; i++)
             par3List.add(new ItemStack(b, 1, i));
     }
 
-    @Override
-    public boolean canSustainLeaves (World world, int x, int y, int z)
-    {
-        return true;
-    }
-
-    @Override
-    public boolean isWood (World world, int x, int y, int z)
-    {
-        return true;
-    }
+//    @Override
+//    public boolean canSustainLeaves (World world, int x, int y, int z)
+//    {
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean isWood (World world, int x, int y, int z)
+//    {
+//        return true;
+//    }
 
     public boolean isBeaconBase (World worldObj, int x, int y, int z, int beaconX, int beaconY, int beaconZ)
     {

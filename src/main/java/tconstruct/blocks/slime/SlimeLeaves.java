@@ -6,6 +6,7 @@ import java.util.Random;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.client.settings.GameSettings.Options;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -31,7 +32,7 @@ public class SlimeLeaves extends BlockLeaves
     {
         super();
         func_149647_a(TConstructRegistry.blockTab);
-        setLightOpacity(1);
+        func_149713_g(1);
         this.func_149711_c(0.3f);
     }
 
@@ -67,18 +68,20 @@ public class SlimeLeaves extends BlockLeaves
         }
     }
 
-    public IIcon getIcon (int side, int meta)
+    @Override
+    @SideOnly(Side.CLIENT)
+    public IIcon func_149691_a (int side, int meta)
     {
         int tex = meta % 4;
 
-        if (this.graphicsLevel)
+        if (Options.GRAPHICS.getEnumBoolean())
             return fancyIcons[tex];
         else
             return fastIcons[tex];
     }
 
     @Override
-    public void getSubBlocks (Item b, CreativeTabs tab, List list)
+    public void func_149666_a (Item b, CreativeTabs tab, List list)
     {
         for (int iter = 0; iter < fastIcons.length; iter++)
         {
@@ -87,7 +90,7 @@ public class SlimeLeaves extends BlockLeaves
     }
 
     @Override
-    public boolean isLeaves (World world, int x, int y, int z)
+    public boolean isLeaves (IBlockAccess world, int x, int y, int z)
     {
         return true;
     }
@@ -97,9 +100,9 @@ public class SlimeLeaves extends BlockLeaves
     /**
      * Returns the ID of the items to drop on destruction.
      */
-    public int idDropped (int par1, Random par2Random, int par3)
+    public Item func_149650_a (int par1, Random par2Random, int par3)
     {
-        return TRepo.slimeSapling.blockID;
+        return new ItemStack(TRepo.slimeSapling).getItem();
     }
 
     /**
@@ -128,8 +131,8 @@ public class SlimeLeaves extends BlockLeaves
 
             if (world.rand.nextInt(dropChance) == 0)
             {
-                int k1 = this.idDropped(meta, world.rand, fortune);
-                this.dropBlockAsItem_do(world, x, y, z, new ItemStack(k1, 1, this.damageDropped(meta)));
+                Item k1 = this.func_149650_a(meta, world.rand, fortune);
+                this.func_149642_a(world, x, y, z, new ItemStack(k1, 1, this.func_149692_a(meta)));
             }
 
             dropChance = 80;
@@ -146,8 +149,13 @@ public class SlimeLeaves extends BlockLeaves
 
             if ((meta & 3) == 0 && world.rand.nextInt(dropChance) == 0)
             {
-                this.dropBlockAsItem_do(world, x, y, z, new ItemStack(TRepo.strangeFood, 1, 0));
+                this.func_149642_a(world, x, y, z, new ItemStack(TRepo.strangeFood, 1, 0));
             }
         }
     }
+
+	@Override
+	public String[] func_150125_e() {
+		return new String[]{"slime"};
+	}
 }

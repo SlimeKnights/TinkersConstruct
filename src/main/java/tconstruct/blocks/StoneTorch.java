@@ -26,7 +26,7 @@ public class StoneTorch extends MantleBlock
     {
         super(Material.field_151594_q);
         this.func_149647_a(CreativeTabs.tabDecorations);
-        setLightValue(0.9375F);
+        func_149715_a(0.9375F);
     }
 
     /**
@@ -68,7 +68,7 @@ public class StoneTorch extends MantleBlock
      */
     private boolean canPlaceTorchOn (World par1World, int par2, int par3, int par4)
     {
-        if (par1World.doesBlockHaveSolidTopSurface(par2, par3, par4))
+        if (par1World.func_147466_a(par1World, par2, par3, par4))
         {
             return true;
         }
@@ -197,7 +197,7 @@ public class StoneTorch extends MantleBlock
 
             if (flag)
             {
-                this.dropBlockAsItem(par1World, par2, par3, par4, par1World.getBlockMetadata(par2, par3, par4), 0);
+                this.func_149697_b(par1World, par2, par3, par4, par1World.getBlockMetadata(par2, par3, par4), 0);
                 return true;
             }
             else
@@ -221,7 +221,7 @@ public class StoneTorch extends MantleBlock
         {
             if (par1World.func_147439_a(par2, par3, par4) == (Block) this)
             {
-                this.dropBlockAsItem(par1World, par2, par3, par4, par1World.getBlockMetadata(par2, par3, par4), 0);
+                this.func_149697_b(par1World, par2, par3, par4, par1World.getBlockMetadata(par2, par3, par4), 0);
                 WorldHelper.setBlockToAir(par1World, par2, par3, par4);
             }
 
@@ -264,7 +264,7 @@ public class StoneTorch extends MantleBlock
             this.func_149676_a(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, 0.6F, 0.5F + f);
         }
 
-        return super.collisionRayTrace(par1World, par2, par3, par4, par5Vec3, par6Vec3);
+        return super.func_149731_a(par1World, par2, par3, par4, par5Vec3, par6Vec3);
     }
 
     @SideOnly(Side.CLIENT)

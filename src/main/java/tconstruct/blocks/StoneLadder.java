@@ -5,12 +5,14 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.util.IIcon;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class StoneLadder extends BlockLadder
 {
 
     // Override ladder material
-    public final Material blockMaterial = Material.rock;
+    public final Material blockMaterial = Material.field_151576_e;
 
     private IIcon icon;
 
@@ -29,7 +31,8 @@ public class StoneLadder extends BlockLadder
     }
 
     @Override
-    public IIcon getIcon (int meta, int side)
+    @SideOnly(Side.CLIENT)
+    public IIcon func_149691_a (int meta, int side)
     {
         return icon;
     }

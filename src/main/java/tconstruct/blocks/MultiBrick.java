@@ -127,7 +127,7 @@ public class MultiBrick extends TConstructBlock
     }*/
 
     @Override
-    public boolean isBlockNormalCube (World world, int x, int y, int z)
+    public boolean isNormalCube (IBlockAccess world, int x, int y, int z)
     {
         return world.getBlockMetadata(x, y, z) != 8;
     }

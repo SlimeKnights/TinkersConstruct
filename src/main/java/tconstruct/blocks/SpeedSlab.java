@@ -2,17 +2,16 @@ package tconstruct.blocks;
 
 import java.util.List;
 
-import tconstruct.common.TContent;
-import tconstruct.common.TRepo;
-import tconstruct.library.TConstructRegistry;
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import tconstruct.common.TRepo;
+import tconstruct.library.TConstructRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -20,7 +19,7 @@ public class SpeedSlab extends SlabBase
 {
     public SpeedSlab()
     {
-        super(Material.rock);
+        super(Material.field_151576_e);
         this.func_149647_a(TConstructRegistry.blockTab);
         func_149711_c(3F);
     }
@@ -33,14 +32,14 @@ public class SpeedSlab extends SlabBase
 
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon getIcon (int side, int meta)
+    public IIcon func_149691_a (int side, int meta)
     {
         meta = meta % 8;
-        return TRepo.speedBlock.getIcon(side, meta);
+        return TRepo.speedBlock.func_149691_a(side, meta);
     }
 
     @Override
-    public void getSubBlocks (Block b, CreativeTabs tab, List list)
+    public void func_149666_a (Item b, CreativeTabs tab, List list)
     {
         for (int iter = 0; iter < 7; iter++)
         {
@@ -49,7 +48,7 @@ public class SpeedSlab extends SlabBase
     }
 
     @Override
-    public void onEntityWalking (World world, int x, int y, int z, Entity entity)
+    public void func_149724_b (World world, int x, int y, int z, Entity entity)
     {
         double boost = 2.2D;
         int metadata = world.getBlockMetadata(x, y, z) % 8;

@@ -71,13 +71,13 @@ public class LavaTankBlock extends BlockContainer
     }
 
     @Override
-    public int getRenderBlockPass ()
+    public int func_149701_w ()
     {
         return 1;
     }
 
     @Override
-    public boolean isOpaqueCube ()
+    public boolean func_149662_c ()
     {
         return false;
     }
@@ -89,7 +89,7 @@ public class LavaTankBlock extends BlockContainer
     }
 
     @Override
-    public boolean  func_149646_a (IBlockAccess world, int x, int y, int z, int side)
+    public boolean func_149646_a (IBlockAccess world, int x, int y, int z, int side)
     {
         //if (side == 0 && world.getBlockMetadata(x, y, z) == 0)
         //return super. func_149646_a(world, x, y, z, side);
@@ -101,7 +101,7 @@ public class LavaTankBlock extends BlockContainer
     @Override
     public int getLightValue (IBlockAccess world, int x, int y, int z)
     {
-        TileEntity logic = world.getBlockTileEntity(x, y, z);
+        TileEntity logic = world.func_147438_o(x, y, z);
         if (logic != null && logic instanceof LavaTankLogic)
             return ((LavaTankLogic) logic).getBrightness();
         return 0;
@@ -114,7 +114,7 @@ public class LavaTankBlock extends BlockContainer
     }*/
 
     @Override
-    public int getRenderType ()
+    public int func_149645_b ()
     {
         return TankRender.tankModelID;
     }

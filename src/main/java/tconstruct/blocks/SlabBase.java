@@ -8,6 +8,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.IIcon;
@@ -39,10 +40,10 @@ public class SlabBase extends MantleBlock
     }
 
     @Override
-    public void addCollisionBoxesToList (World world, int x, int y, int z, AxisAlignedBB axisalignedbb, List arraylist, Entity entity)
+    public void func_149743_a (World world, int x, int y, int z, AxisAlignedBB axisalignedbb, List arraylist, Entity entity)
     {
         setBlockBoundsBasedOnState(world, x, y, z);
-        super.addCollisionBoxesToList(world, x, y, z, axisalignedbb, arraylist, entity);
+        super.func_149743_a(world, x, y, z, axisalignedbb, arraylist, entity);
     }
 
     public void setBlockBoundsForItemRender ()
@@ -86,14 +87,14 @@ public class SlabBase extends MantleBlock
 
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon getIcon (int side, int meta)
+    public IIcon func_149691_a (int side, int meta)
     {
         meta = meta % 8 + startingMeta;
-        return modelBlock.getIcon(side, meta);
+        return modelBlock.func_149691_a(side, meta);
     }
 
     @Override
-    public void getSubBlocks (Block b, CreativeTabs tab, List list)
+    public void func_149666_a (Item b, CreativeTabs tab, List list)
     {
         for (int iter = 0; iter < totalSize; iter++)
         {

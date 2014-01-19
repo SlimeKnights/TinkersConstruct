@@ -1,15 +1,14 @@
 package tconstruct.blocks;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockBaseRailLogic;
 import net.minecraft.block.BlockRailBase;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class WoodRail extends BlockRailBase
 {
@@ -43,7 +42,7 @@ public class WoodRail extends BlockRailBase
 
     protected void func_94358_a (World par1World, int par2, int par3, int par4, int par5, int par6, Block par7)
     {
-        if (par7 != Blocks.air && par7.canProvidePower() && (new BlockBaseRailLogic(this, par1World, par2, par3, par4)).getNumberOfAdjacentTracks() == 3)
+        if (par7 != Blocks.air && par7.func_149744_f() && (new BlockBaseRailLogic(this, par1World, par2, par3, par4)).getNumberOfAdjacentTracks() == 3)
         {
             this.refreshTrackShape(par1World, par2, par3, par4, false);
         }

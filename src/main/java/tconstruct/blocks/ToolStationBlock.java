@@ -2,6 +2,23 @@ package tconstruct.blocks;
 
 import java.util.List;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
+import mantle.blocks.abstracts.InventoryBlock;
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.IIcon;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 import tconstruct.TConstruct;
 import tconstruct.blocks.logic.PartBuilderLogic;
 import tconstruct.blocks.logic.PatternChestLogic;
@@ -10,20 +27,7 @@ import tconstruct.blocks.logic.ToolStationLogic;
 import tconstruct.client.block.TableRender;
 import tconstruct.common.TRepo;
 import tconstruct.library.TConstructRegistry;
-import mantle.blocks.abstracts.InventoryBlock;
 import tconstruct.util.config.PHConstruct;
-import net.minecraft.block.Block;
-import net.minecraft.block.material.Material;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.IIcon;
-import net.minecraft.world.IBlockAccess;
-import net.minecraft.world.World;
-import net.minecraftforge.common.util.ForgeDirection;
 
 public class ToolStationBlock extends InventoryBlock
 {
@@ -32,7 +36,7 @@ public class ToolStationBlock extends InventoryBlock
         super(material);
         this.func_149647_a(TConstructRegistry.blockTab);
         this.func_149711_c(2f);
-        this.setStepSound(Block.soundWoodFootstep);
+        this.func_149672_a(Block.field_149766_f);
     }
 
     //Block.hasComparatorInputOverride and Block.getComparatorInputOverride
@@ -51,7 +55,8 @@ public class ToolStationBlock extends InventoryBlock
     }
 
     @Override
-    public IIcon getIcon (int side, int meta)
+    @SideOnly(Side.CLIENT)
+    public IIcon func_149691_a (int side, int meta)
     {
         if (meta <= 4)
         {
@@ -84,19 +89,19 @@ public class ToolStationBlock extends InventoryBlock
     }
 
     @Override
-    public boolean isOpaqueCube ()
+    public boolean func_149662_c ()
     {
         return false;
     }
 
     @Override
-    public boolean isBlockSolidOnSide (World world, int x, int y, int z, ForgeDirection side)
+    public boolean isSideSolid (IBlockAccess world, int x, int y, int z, ForgeDirection side)
     {
         return side == ForgeDirection.UP;
     }
 
     @Override
-    public int getRenderType ()
+    public int func_149645_b ()
     {
         return TableRender.tabelModelID;
     }
@@ -111,9 +116,8 @@ public class ToolStationBlock extends InventoryBlock
     {
         int metadata = world.getBlockMetadata(x, y, z);
         if (metadata == 5)
-            return AxisAlignedBB.getAABBPool().getAABB((double) x + this.minX, (double) y + this.minY, (double) z + this.minZ, (double) x + this.maxX, (double) y + this.maxY - 0.125,
-                    (double) z + this.maxZ);
-        return AxisAlignedBB.getAABBPool().getAABB((double) x + this.minX, (double) y + this.minY, (double) z + this.minZ, (double) x + this.maxX, (double) y + this.maxY, (double) z + this.maxZ);
+            return AxisAlignedBB.getAABBPool().getAABB((double) x + this.field_149759_B, (double) y + this.field_149760_C, (double) z + this.field_149754_D, (double) x + this.field_149755_E, (double) y + this.field_149756_F - 0.125, (double) z + this.field_149757_G);
+        return AxisAlignedBB.getAABBPool().getAABB((double) x + this.field_149759_B, (double) y + this.field_149760_C, (double) z + this.field_149754_D, (double) x + this.field_149755_E, (double) y + this.field_149756_F, (double) z + this.field_149757_G);
     }
 
     @Override
@@ -179,7 +183,7 @@ public class ToolStationBlock extends InventoryBlock
     }
 
     @Override
-    public void getSubBlocks (Block b, CreativeTabs tab, List list)
+    public void func_149666_a (Item b, CreativeTabs tab, List list)
     {
         for (int iter = 0; iter < 6; iter++)
         {
@@ -193,14 +197,14 @@ public class ToolStationBlock extends InventoryBlock
     }
 
     @Override
-    public void onBlockPlacedBy (World world, int x, int y, int z, EntityLivingBase par5EntityLiving, ItemStack par6ItemStack)
+    public void func_149689_a (World world, int x, int y, int z, EntityLivingBase par5EntityLiving, ItemStack par6ItemStack)
     {
         if (PHConstruct.freePatterns)
         {
             int meta = world.getBlockMetadata(x, y, z);
             if (meta == 5)
             {
-                PatternChestLogic logic = (PatternChestLogic) world.getBlockTileEntity(x, y, z);
+                PatternChestLogic logic = (PatternChestLogic) world.func_147438_o(x, y, z);
                 for (int i = 1; i <= 13; i++)
                 {
                     logic.setInventorySlotContents(i - 1, new ItemStack(TRepo.woodPattern, 1, i));
@@ -208,6 +212,6 @@ public class ToolStationBlock extends InventoryBlock
                 logic.setInventorySlotContents(13, new ItemStack(TRepo.woodPattern, 1, 22));
             }
         }
-        super.onBlockPlacedBy(world, x, y, z, par5EntityLiving, par6ItemStack);
+        super.func_149689_a(world, x, y, z, par5EntityLiving, par6ItemStack);
     }
 }

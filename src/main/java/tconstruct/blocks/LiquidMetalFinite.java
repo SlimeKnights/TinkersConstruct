@@ -1,5 +1,7 @@
 package tconstruct.blocks;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -27,7 +29,7 @@ public class LiquidMetalFinite extends BlockFluidFinite
     }
 
     @Override
-    public int getRenderBlockPass ()
+    public int func_149701_w ()
     {
         return 0;
     }
@@ -40,7 +42,8 @@ public class LiquidMetalFinite extends BlockFluidFinite
     }
 
     @Override
-    public IIcon getIcon (int side, int meta)
+    @SideOnly(Side.CLIENT)
+    public IIcon func_149691_a (int side, int meta)
     {
         if (side == 0 || side == 1)
             return stillIcon;
@@ -48,7 +51,7 @@ public class LiquidMetalFinite extends BlockFluidFinite
     }
 
     @Override
-    public void onEntityCollidedWithBlock (World par1World, int x, int y, int z, Entity entity)
+    public void func_149670_a (World par1World, int x, int y, int z, Entity entity)
     {
         if (entity instanceof EntityLivingBase)
         {

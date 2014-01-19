@@ -56,7 +56,7 @@ public class BlockLandmine extends BlockContainer
 
     public BlockLandmine()
     {
-        super(Material.field_151569_G);
+        super(Material.field_151590_u);
         this.func_149675_a(true);
         this.func_149676_a(0.0625F, 0.0F, 0.0625F, 1.0F - 0.0625F, 0.0625F, 1.0F - 0.0625F);
     }

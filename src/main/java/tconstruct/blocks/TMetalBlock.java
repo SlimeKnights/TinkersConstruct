@@ -13,7 +13,7 @@ public class TMetalBlock extends TConstructBlock
     public TMetalBlock(Material material, float hardness)
     {
         super(material, hardness, metalTypes);
-        this.setStepSound(Block.soundMetalFootstep);
+        this.func_149672_a(Block.field_149777_j);
     }
 
     public boolean isBeaconBase (World worldObj, int x, int y, int z, int beaconX, int beaconY, int beaconZ)

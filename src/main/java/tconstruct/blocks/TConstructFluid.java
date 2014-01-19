@@ -29,7 +29,7 @@ public class TConstructFluid extends BlockFluidClassic
     }
 
     @Override
-    public int getRenderBlockPass ()
+    public int func_149701_w ()
     {
         return alpha ? 1 : 0;
     }

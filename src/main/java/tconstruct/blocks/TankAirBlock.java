@@ -7,13 +7,14 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeHooks;
 import tconstruct.blocks.logic.TankAirLogic;
 import tconstruct.client.block.TankAirRender;
 import cpw.mods.fml.relauncher.Side;
@@ -34,7 +35,7 @@ public class TankAirBlock extends BlockContainer
     }
 
     @Override
-    public int getRenderType ()
+    public int func_149645_b ()
     {
         return TankAirRender.model;
     }
@@ -46,7 +47,7 @@ public class TankAirBlock extends BlockContainer
     }
 
     @Override
-    public boolean isOpaqueCube ()
+    public boolean func_149662_c ()
     {
         return false;
     }
@@ -58,20 +59,20 @@ public class TankAirBlock extends BlockContainer
     }
 
     @Override
-    public AxisAlignedBB getCollisionBoundingBoxFromPool (World world, int x, int y, int z)
+    public AxisAlignedBB func_149668_a (World world, int x, int y, int z)
     {
-        TankAirLogic tank = (TankAirLogic) world.getBlockTileEntity(x, y, z);
+        TankAirLogic tank = (TankAirLogic) world.func_147438_o(x, y, z);
         if (tank != null && tank.hasItem())
-            return super.getCollisionBoundingBoxFromPool(world, x, y, z);
+            return super.func_149668_a(world, x, y, z);
 
         return null;
     }
 
-    public MovingObjectPosition collisionRayTrace (World world, int x, int y, int z, Vec3 par5Vec3, Vec3 par6Vec3)
+    public MovingObjectPosition func_149731_a (World world, int x, int y, int z, Vec3 par5Vec3, Vec3 par6Vec3)
     {
-        TankAirLogic tank = (TankAirLogic) world.getBlockTileEntity(x, y, z);
+        TankAirLogic tank = (TankAirLogic) world.func_147438_o(x, y, z);
         if (tank.hasItem())
-            return super.collisionRayTrace(world, x, y, z, par5Vec3, par6Vec3);
+            return super.func_149731_a(world, x, y, z, par5Vec3, par6Vec3);
 
         return null;
     }
@@ -83,7 +84,7 @@ public class TankAirBlock extends BlockContainer
     }
 
     @Override
-    public boolean isBlockReplaceable (World world, int x, int y, int z)
+    public boolean isReplaceable (IBlockAccess world, int x, int y, int z)
     {
         return false;
     }
@@ -95,13 +96,13 @@ public class TankAirBlock extends BlockContainer
     }
 
     @Override
-    public boolean isAirBlock (World world, int x, int y, int z)
+    public boolean isAir (IBlockAccess world, int x, int y, int z)
     {
         return false;
     }
 
     @Override
-    public void getSubBlocks (int id, CreativeTabs tab, List list)
+    public void func_149666_a (Item i, CreativeTabs tab, List list)
     {
     }
 

@@ -2,10 +2,10 @@ package tconstruct.blocks;
 
 import java.util.List;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import cpw.mods.fml.relauncher.Side;
@@ -18,12 +18,12 @@ public class SpeedBlock extends TConstructBlock
 
     public SpeedBlock()
     {
-        super(Material.rock, 3.0f, textureNames);
+        super(Material.field_151576_e, 3.0f, textureNames);
         //this.setBlockBounds(0f, 0f, 0f, 1.0f, 0.5f, 1.0f);
     }
 
     @Override
-    public void onEntityWalking (World world, int x, int y, int z, Entity entity)
+    public void func_149724_b (World world, int x, int y, int z, Entity entity)
     {
         double boost = 2.2D;
         int metadata = world.getBlockMetadata(x, y, z);
@@ -43,14 +43,14 @@ public class SpeedBlock extends TConstructBlock
     }
 
     @Override
-    public int damageDropped (int meta)
+    public int func_149692_a (int meta)
     {
         return meta;
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void getSubBlocks (Block b, CreativeTabs tab, List list)
+    public void func_149666_a (Item b, CreativeTabs tab, List list)
     {
         for (int iter = 0; iter < textureNames.length; iter++)
         {

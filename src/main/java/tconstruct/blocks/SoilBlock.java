@@ -22,9 +22,9 @@ public class SoilBlock extends TConstructBlock
     }
 
     @Override
-    public void onEntityWalking (World world, int x, int y, int z, Entity entity)
+    public void func_149724_b (World world, int x, int y, int z, Entity entity)
     {
-        if (entity instanceof EntityLivingBase)
+        if (entity instanceof EntityLivingBase){
             if (((EntityLivingBase) entity).getCreatureAttribute() == EnumCreatureAttribute.UNDEAD)
             {
                 int metadata = world.getBlockMetadata(x, y, z);
@@ -56,17 +56,9 @@ public class SoilBlock extends TConstructBlock
         }
     }
 
-    public float getfield_149782_v (World world, int x, int y, int z)
+    public AxisAlignedBB func_149668_a (World world, int x, int y, int z)
     {
-        int meta = world.getBlockMetadata(x, y, z);
-        if (meta == 5)
-            return Blocks.dirt.field_149782_v;
-        return this.field_149782_v;
-    }
-
-    public AxisAlignedBB getCollisionBoundingBoxFromPool (World world, int x, int y, int z)
-    {
-        return Blocks.soul_sand.getCollisionBoundingBoxFromPool(world, x, y, z);
+        return Blocks.soul_sand.func_149668_a(world, x, y, z);
     }
 
     /*public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z)

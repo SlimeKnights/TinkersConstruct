@@ -9,6 +9,7 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
@@ -30,7 +31,7 @@ public class ToolForgeBlock extends InventoryBlock
         super(material);
         this.func_149647_a(TConstructRegistry.blockTab);
         this.func_149711_c(2f);
-        this.setStepSound(Block.soundWoodFootstep);
+        this.func_149672_a(Block.field_149777_j);
     }
 
     String[] textureNames = { "toolforge_iron", "toolforge_gold", "toolforge_diamond", "toolforge_emerald", "toolforge_cobalt", "toolforge_ardite", "toolforge_manyullyn", "toolforge_copper",
@@ -53,7 +54,7 @@ public class ToolForgeBlock extends InventoryBlock
     }
 
     @Override
-    public IIcon getIcon (int side, int meta)
+    public IIcon func_149691_a (int side, int meta)
     {
         if (side == 1)
         {
@@ -64,15 +65,15 @@ public class ToolForgeBlock extends InventoryBlock
             switch (meta)
             {
             case 0:
-                return Blocks.iron_block.getIcon(side, 0);
+                return Blocks.iron_block.func_149691_a(side, 0);
             case 1:
-                return Blocks.gold_block.getIcon(side, 0);
+                return Blocks.gold_block.func_149691_a(side, 0);
             case 2:
-                return Blocks.diamond_block.getIcon(side, 0);
+                return Blocks.diamond_block.func_149691_a(side, 0);
             case 3:
-                return Blocks.emerald_block.getIcon(side, 0);
+                return Blocks.emerald_block.func_149691_a(side, 0);
             default:
-                return TRepo.metalBlock.getIcon(side, meta - 4);
+                return TRepo.metalBlock.func_149691_a(side, meta - 4);
             }
         }
 
@@ -86,19 +87,19 @@ public class ToolForgeBlock extends InventoryBlock
     }
 
     @Override
-    public boolean isOpaqueCube ()
+    public boolean func_149662_c ()
     {
         return false;
     }
 
     @Override
-    public boolean isBlockSolidOnSide (World world, int x, int y, int z, ForgeDirection side)
+    public boolean isSideSolid (IBlockAccess world, int x, int y, int z, ForgeDirection side)
     {
         return side == ForgeDirection.UP;
     }
 
     @Override
-    public int getRenderType ()
+    public int func_149645_b ()
     {
         return TableForgeRender.model;
     }
@@ -129,7 +130,7 @@ public class ToolForgeBlock extends InventoryBlock
     }
 
     @Override
-    public void getSubBlocks (Block b, CreativeTabs tab, List list)
+    public void func_149666_a (Item b, CreativeTabs tab, List list)
     {
         for (int iter = 0; iter < textureNames.length; iter++)
         {
