@@ -72,8 +72,7 @@ public class BlockLandmine extends BlockContainer
             {
                 if (te.getStackInSlot(3) != null && te.getStackInSlot(3).getItem() instanceof ItemBlock)
                 {
-                	//Leave this for now and hope Lex accepts the pull request to add a get method, otherwise use an AT to make it public.
-                    return ((ItemBlock)te.getStackInSlot(3).getItem()).field_150939_a.func_149750_m();
+                    return (BlockUtils.getBlockFromItem(te.getStackInSlot(3).getItem())).func_149750_m();
                 }
             }
         }
