@@ -64,7 +64,7 @@ public class DaggerEntity extends RotatingBase
             xTile = movingobjectposition.blockX;
             yTile = movingobjectposition.blockY;
             zTile = movingobjectposition.blockZ;
-            inTile = worldObj.getBlockId(xTile, yTile, zTile);
+            inTile = worldObj.func_147439_a(xTile, yTile, zTile);
             motionX = (float) (movingobjectposition.hitVec.xCoord - posX);
             motionY = (float) (movingobjectposition.hitVec.yCoord - posY);
             motionZ = (float) (movingobjectposition.hitVec.zCoord - posZ);

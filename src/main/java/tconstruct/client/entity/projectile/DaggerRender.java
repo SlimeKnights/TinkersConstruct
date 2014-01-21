@@ -72,7 +72,7 @@ public class DaggerRender extends Render
 
             Block block = BlockUtils.getBlockFromItem(itemstack.getItem());
 
-            if (itemstack.getItemSpriteNumber() == 0 && block != null && RenderBlocks.renderItemIn3d(BlockUtils.getBlockFromItem(itemstack.getItem()).getRenderType()))
+            if (itemstack.getItemSpriteNumber() == 0 && block != null && RenderBlocks.func_147739_a(BlockUtils.getBlockFromItem(itemstack.getItem()).func_149645_b()))
             {
                 GL11.glRotatef(f3, 0.0F, 1.0F, 0.0F);
 
@@ -84,7 +84,7 @@ public class DaggerRender extends Render
                 }
 
                 float f7 = 0.25F;
-                int j = block.getRenderType();
+                int j = block.func_149645_b();
 
                 if (j == 1 || j == 19 || j == 12 || j == 2)
                 {
@@ -311,7 +311,7 @@ public class DaggerRender extends Render
         float f2;
 
         Block block = BlockUtils.getBlockFromItem(k);
-        if (par3ItemStack.getItemSpriteNumber() == 0 && block != null && RenderBlocks.renderItemIn3d(BlockUtils.getBlockFromItem(k).getRenderType()))
+        if (par3ItemStack.getItemSpriteNumber() == 0 && block != null && RenderBlocks.func_147739_a(BlockUtils.getBlockFromItem(k).func_149645_b()))
         {
             par2TextureManager.bindTexture(TextureMap.locationBlocksTexture);
             GL11.glPushMatrix();

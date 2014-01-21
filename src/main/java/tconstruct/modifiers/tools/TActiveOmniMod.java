@@ -75,7 +75,7 @@ public class TActiveOmniMod extends ActiveToolMod
             {
                 WorldHelper.setBlockToAir(world, x, y, z);
                 if (entity instanceof EntityPlayer && !((EntityPlayer) entity).capabilities.isCreativeMode)
-                    tool.onBlockDestroyed(stack, world, bID, x, y, z, entity);
+                    tool.onBlockDestroyed(stack, world, block, x, y, z, entity);
                 if (!world.isRemote)
                 {
                     ItemStack spawnme = result.copy();

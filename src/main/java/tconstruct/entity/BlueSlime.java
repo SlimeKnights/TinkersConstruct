@@ -16,6 +16,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.StatCollector;
+import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
@@ -278,7 +279,7 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
      */
     public void onUpdate ()
     {
-        if (!this.worldObj.isRemote && this.worldObj.difficultySetting == 0 && this.getSlimeSize() > 0)
+        if (!this.worldObj.isRemote && this.worldObj.difficultySetting == EnumDifficulty.PEACEFUL && this.getSlimeSize() > 0)
         {
             this.isDead = true;
         }
@@ -418,9 +419,9 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
     protected void dropFewItems (boolean par1, int par2)
     {
         int size = this.getSlimeSize();
-        int j = this.getDropItemId();
+        Item j = this.getDropItem();
 
-        if (j > 0 && (rand.nextInt(2) == 0) || size >= 8)
+        if (j != null && (rand.nextInt(2) == 0) || size >= 8)
         {
             int k = rand.nextInt(3) + rand.nextInt(this.getSlimeSize());
 
@@ -431,7 +432,7 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
 
             for (int l = 0; l < k; ++l)
             {
-                this.dropItem(j, 1);
+                this.entityDropItem(new ItemStack(j), 1);
             }
         }
 

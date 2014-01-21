@@ -76,7 +76,7 @@ public class TPacketHandler implements IPacketHandler
                 int x = inputStream.readInt();
                 int y = inputStream.readInt();
                 int z = inputStream.readInt();
-                TileEntity te = world.getBlockTileEntity(x, y, z);
+                TileEntity te = world.func_147438_o(x, y, z);
 
                 String toolName = inputStream.readUTF();
                 if (te instanceof ToolStationLogic)
@@ -95,7 +95,7 @@ public class TPacketHandler implements IPacketHandler
                 int x = inputStream.readInt();
                 int y = inputStream.readInt();
                 int z = inputStream.readInt();
-                TileEntity te = world.getBlockTileEntity(x, y, z);
+                TileEntity te = world.func_147438_o(x, y, z);
 
                 Short itemID = inputStream.readShort();
                 Short itemDamage = inputStream.readShort();
@@ -141,7 +141,7 @@ public class TPacketHandler implements IPacketHandler
                 boolean isShiftPressed = inputStream.readBoolean();
                 int fluidID = inputStream.readInt();
 
-                TileEntity te = world.getBlockTileEntity(x, y, z);
+                TileEntity te = world.func_147438_o(x, y, z);
 
                 if (te instanceof SmelteryLogic)
                 {

@@ -5,8 +5,10 @@ import io.netty.buffer.ByteBuf;
 import java.util.List;
 
 import tconstruct.library.tools.AbilityHelper;
+import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
@@ -36,7 +38,7 @@ public class RotatingBase extends Entity implements IEntityAdditionalSpawnData
         xTile = -1;
         yTile = -1;
         zTile = -1;
-        inTile = 0;
+        inTile = Blocks.air;
         onGround = false;
         arrowShake = 0;
         ticksInAir = 0;
@@ -179,7 +181,7 @@ public class RotatingBase extends Entity implements IEntityAdditionalSpawnData
         }
         if (onGround)
         {
-            int i = worldObj.getBlockId(xTile, yTile, zTile);
+            Block i = worldObj.func_147439_a(xTile, yTile, zTile);
             if (i != inTile)
             {
                 onGround = false;
@@ -410,7 +412,7 @@ public class RotatingBase extends Entity implements IEntityAdditionalSpawnData
     protected int xTile;
     protected int yTile;
     protected int zTile;
-    protected int inTile;
+    protected Block inTile;
     public int arrowShake;
     public EntityPlayer owner;
     protected int ticksInGround;

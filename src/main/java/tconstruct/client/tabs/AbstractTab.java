@@ -22,7 +22,7 @@ public abstract class AbstractTab extends GuiButton
     }
 
     @Override
-    public void drawButton (Minecraft mc, int mouseX, int mouseY)
+    public void func_146112_a (Minecraft mc, int mouseX, int mouseY)
     {
         if (this.field_146125_m)
         {
@@ -50,7 +50,7 @@ public abstract class AbstractTab extends GuiButton
     }
 
     @Override
-    public boolean mousePressed (Minecraft mc, int mouseX, int mouseY)
+    public boolean func_146116_c (Minecraft mc, int mouseX, int mouseY)
     {
         boolean inWindow = this.field_146124_l && this.field_146125_m && mouseX >= this.field_146128_h && mouseY >= this.field_146129_i && mouseX < this.field_146128_h + this.field_146120_f && mouseY < this.field_146129_i + this.field_146121_g;
 

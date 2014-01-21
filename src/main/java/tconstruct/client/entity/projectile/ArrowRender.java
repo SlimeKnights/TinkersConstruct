@@ -73,12 +73,12 @@ public class ArrowRender extends Render
             Block block = null;
                 block = BlockUtils.getBlockFromItem(itemstack.getItem());
 
-            if (itemstack.getItemSpriteNumber() == 0 && block != null && RenderBlocks.renderItemIn3d(BlockUtils.getBlockFromItem(itemstack.getItem()).getRenderType()))
+            if (itemstack.getItemSpriteNumber() == 0 && block != null && RenderBlocks.func_147739_a(BlockUtils.getBlockFromItem(itemstack.getItem()).func_149645_b()))
             {
                 GL11.glRotatef(f3, 0.0F, 1.0F, 0.0F);
 
                 float f7 = 0.25F;
-                int j = block.getRenderType();
+                int j = block.func_149645_b();
 
                 if (j == 1 || j == 19 || j == 12 || j == 2)
                 {

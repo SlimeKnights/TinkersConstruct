@@ -5,6 +5,7 @@ import java.util.List;
 
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityThrowable;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -30,7 +31,7 @@ public class LaunchedPotion extends EntityThrowable
 
     public LaunchedPotion(World par1World, EntityLivingBase par2EntityLiving, int par3)
     {
-        this(par1World, par2EntityLiving, new ItemStack(Item.potion, 1, par3));
+        this(par1World, par2EntityLiving, new ItemStack(Items.potionitem, 1, par3));
     }
 
     public LaunchedPotion(World par1World, EntityLivingBase par2EntityLiving, ItemStack par3ItemStack)
@@ -42,7 +43,7 @@ public class LaunchedPotion extends EntityThrowable
     @SideOnly(Side.CLIENT)
     public LaunchedPotion(World par1World, double par2, double par4, double par6, int par8)
     {
-        this(par1World, par2, par4, par6, new ItemStack(Item.potion, 1, par8));
+        this(par1World, par2, par4, par6, new ItemStack(Items.potionitem, 1, par8));
     }
 
     public LaunchedPotion(World par1World, double par2, double par4, double par6, ItemStack par8ItemStack)
@@ -73,7 +74,7 @@ public class LaunchedPotion extends EntityThrowable
     {
         if (this.potionDamage == null)
         {
-            this.potionDamage = new ItemStack(Item.potion, 1, 0);
+            this.potionDamage = new ItemStack(Items.potionitem, 1, 0);
         }
 
         this.potionDamage.setItemDamage(par1);
@@ -86,7 +87,7 @@ public class LaunchedPotion extends EntityThrowable
     {
         if (this.potionDamage == null)
         {
-            this.potionDamage = new ItemStack(Item.potion, 1, 0);
+            this.potionDamage = new ItemStack(Items.potionitem, 1, 0);
         }
 
         return this.potionDamage.getItemDamage();
@@ -99,7 +100,7 @@ public class LaunchedPotion extends EntityThrowable
     {
         if (!this.worldObj.isRemote)
         {
-            List list = Item.potion.getEffects(this.potionDamage);
+            List list = Items.potionitem.getEffects(this.potionDamage);
 
             if (list != null && !list.isEmpty())
             {

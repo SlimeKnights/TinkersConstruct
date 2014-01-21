@@ -627,14 +627,14 @@ public class TContent implements IFuelHandler
         TConstructRegistry.addItemStackToDirectory("canisterRedHeart", new ItemStack(TRepo.heartCanister, 1, 2));
 
         //Vanilla stack sizes
-        Item.doorWood.setMaxStackSize(16);
-        Item.doorIron.setMaxStackSize(16);
-        Item.snowball.setMaxStackSize(64);
-        Item.boat.setMaxStackSize(16);
-        Item.minecartEmpty.setMaxStackSize(3);
-        Item.minecartCrate.setMaxStackSize(3);
-        Item.minecartPowered.setMaxStackSize(3);
-        Item.itemsList[Block.cake.blockID].setMaxStackSize(16);
+        Items.wooden_door.setMaxStackSize(16);
+        Items.iron_door.setMaxStackSize(16);
+        Items.snowball.setMaxStackSize(64);
+        Items.boat.setMaxStackSize(16);
+        Items.minecartEmpty.setMaxStackSize(3);
+        Items.minecartCrate.setMaxStackSize(3);
+        Items.minecartPowered.setMaxStackSize(3);
+        Items.itemsList[Block.cake.blockID].setMaxStackSize(16);
         //Block.torchWood.setTickRandomly(false);
     }
 

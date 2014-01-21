@@ -38,9 +38,9 @@ public class Smeltery
      * @param temperature How hot the block should be before liquifying. Max temp in the Smeltery is 800, other structures may vary
      * @param output The result of the process in liquid form
      */
-    public static void addMelting (Block block, int metadata, int temperature, FluidStack output)
+    public static void addMelting (Item item, int metadata, int temperature, FluidStack output)
     {
-        addMelting(new ItemStack(block, 1, metadata), block, metadata, temperature, output);
+        addMelting(new ItemStack(item, 1, metadata), item, metadata, temperature, output);
     }
 
     /** Adds mappings between an input and its liquid.
@@ -53,11 +53,11 @@ public class Smeltery
      * @param temperature How hot the block should be before liquifying
      * @param liquid The result of the process
      */
-    public static void addMelting (ItemStack input, Item block, int metadata, int temperature, FluidStack liquid)
+    public static void addMelting (ItemStack input, Item item, int metadata, int temperature, FluidStack liquid)
     {
-        instance.smeltingList.put(Arrays.asList(input.getItem(), input.getItemDamage()), liquid);
-        instance.temperatureList.put(Arrays.asList(input.getItem(), input.getItemDamage()), temperature);
-        instance.renderIndex.put(Arrays.asList(input.getItem(), input.getItemDamage()), new ItemStack(block, input.stackSize, metadata));
+        instance.smeltingList.put(Arrays.asList((Item)input.getItem(), input.getItemDamage()), liquid);
+        instance.temperatureList.put(Arrays.asList((Item)input.getItem(), input.getItemDamage()), temperature);
+        instance.renderIndex.put(Arrays.asList((Item)input.getItem(), input.getItemDamage()), new ItemStack(item, input.stackSize, metadata));
     }
 
     /** Adds an alloy mixing recipe.

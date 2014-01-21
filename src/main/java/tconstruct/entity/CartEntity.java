@@ -5,6 +5,7 @@ import io.netty.buffer.ByteBuf;
 import java.util.ArrayList;
 import java.util.List;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockRail;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -408,7 +409,7 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
 
             double var4 = 0.4D;
             double var6 = 0.0078125D;
-            int var8 = this.worldObj.getBlockId(var45, var2, var47);
+            Block var8 = this.worldObj.func_147439_a(var45, var2, var47);
 
             moveMinecartOffRail(var45, var2, var47);
             if (entityFollowing != null)
@@ -571,7 +572,7 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
             --var10;
         }
 
-        int var12 = this.worldObj.getBlockId(var9, var10, var11);
+        Block var12 = this.worldObj.func_147439_a(var9, var10, var11);
 
         return null;
     }
@@ -587,7 +588,7 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
             --var8;
         }
 
-        int var10 = this.worldObj.getBlockId(var7, var8, var9);
+        Block var10 = this.worldObj.func_147439_a(var7, var8, var9);
 
         if (BlockRail.isRailBlock(var10))
         {
@@ -1444,16 +1445,21 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
     }
 
     @Override
-    public boolean isInvNameLocalized ()
+    public boolean isItemValidForSlot (int i, ItemStack itemstack)
     {
-        // TODO Auto-generated method stub
         return false;
     }
 
     @Override
-    public boolean isItemValidForSlot (int i, ItemStack itemstack)
+    public String func_145825_b ()
     {
-        // TODO Auto-generated method stub
+        //TODO get inventory name
+        return null;
+    }
+
+    @Override
+    public boolean func_145818_k_ ()
+    {
         return false;
     }
 }
