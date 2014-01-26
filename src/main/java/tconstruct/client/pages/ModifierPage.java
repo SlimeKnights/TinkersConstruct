@@ -5,6 +5,7 @@ import mantle.lib.client.MantleClientRegistry;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
@@ -31,9 +32,12 @@ public class ModifierPage extends BookPage
     }
 
     @Override
-    public void renderContentLayer (int localWidth, int localHeight)
+    public void renderContentLayer (int localWidth, int localHeight, boolean isTranslatable)
     {
-        manual.fonts.drawString("\u00a7nTool Station", localWidth + 60, localHeight + 4, 0);
+        String tStation = new String("Tool Station");
+        if (isTranslatable)
+            tStation = StatCollector.translateToLocal(tStation);
+        manual.fonts.drawString("\u00a7n" + tStation, localWidth + 60, localHeight + 4, 0);
         GL11.glScalef(2f, 2f, 2f);
         GL11.glEnable(GL12.GL_RESCALE_NORMAL);
         RenderHelper.enableGUIStandardItemLighting();

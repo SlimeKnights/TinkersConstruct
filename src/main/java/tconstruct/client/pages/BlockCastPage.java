@@ -5,6 +5,7 @@ import mantle.lib.client.MantleClientRegistry;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
@@ -31,11 +32,14 @@ public class BlockCastPage extends BookPage
     }
 
     @Override
-    public void renderContentLayer (int localWidth, int localHeight)
+    public void renderContentLayer (int localWidth, int localHeight, boolean isTranslatable)
     {
         if (text != null)
+        {
+            if (isTranslatable)
+                text = StatCollector.translateToLocal(text);
             manual.fonts.drawString("\u00a7n" + text, localWidth + 70, localHeight + 4, 0);
-
+        }
         GL11.glScalef(2f, 2f, 2f);
         GL11.glEnable(GL12.GL_RESCALE_NORMAL);
         RenderHelper.enableGUIStandardItemLighting();
@@ -52,7 +56,10 @@ public class BlockCastPage extends BookPage
         GL11.glScalef(0.5F, 0.5F, 0.5F);
         RenderHelper.disableStandardItemLighting();
         GL11.glDisable(GL12.GL_RESCALE_NORMAL);
-        manual.fonts.drawString("Ingredients:", localWidth + 120, localHeight + 32, 0);
+        String ingr = new String("Ingredients");
+        if (isTranslatable)
+            ingr = StatCollector.translateToLocal(ingr);
+        manual.fonts.drawString( ingr + ":", localWidth + 120, localHeight + 32, 0);
         manual.fonts.drawString("- " + icons[1].getDisplayName(), localWidth + 120, localHeight + 42, 0);
         if (icons[2] != null)
             manual.fonts.drawString("- " + icons[2].getDisplayName(), localWidth + 120, localHeight + 50, 0);

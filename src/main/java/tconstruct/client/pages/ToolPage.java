@@ -4,6 +4,7 @@ import mantle.client.pages.BookPage;
 import mantle.lib.client.MantleClientRegistry;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
@@ -49,14 +50,23 @@ public class ToolPage extends BookPage
     }
 
     @Override
-    public void renderContentLayer (int localWidth, int localHeight)
+    public void renderContentLayer (int localWidth, int localHeight, boolean isTranslatable)
     {
+        String cParts = new String("Crafting Parts");
+        if (isTranslatable)
+        {
+            title = StatCollector.translateToLocal(title);
+            iconText[0] = StatCollector.translateToLocal(iconText[0]);
+            iconText[1] = StatCollector.translateToLocal(iconText[1]);
+            cParts = StatCollector.translateToLocal(cParts);
+        }
+
         manual.fonts.drawString("\u00a7n" + title, localWidth + 70, localHeight + 4, 0);
         manual.fonts.drawSplitString(iconText[0], localWidth, localHeight + 16, 178, 0);
         int size = iconText[0].length() / 48;
         manual.fonts.drawSplitString(iconText[1], localWidth, localHeight + 28 + 10 * size, 118, 0);
 
-        manual.fonts.drawString("Crafting Parts: ", localWidth + 124, localHeight + 28 + 10 * size, 0);
+        manual.fonts.drawString(cParts + ": ", localWidth + 124, localHeight + 28 + 10 * size, 0);
 
         GL11.glEnable(GL12.GL_RESCALE_NORMAL);
         RenderHelper.enableGUIStandardItemLighting();
