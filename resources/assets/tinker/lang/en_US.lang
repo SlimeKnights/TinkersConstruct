@@ -3,6 +3,7 @@ itemGroup.TConstructMaterials=TConstruct Materials
 itemGroup.TConstructBlocks=TConstruct Blocks
 
 crafters.ToolStation=Tool Station
+crafters.CraftingStation=Crafting Station
 crafters.ToolForge=Tool Forge
 crafters.PartBuilder=Part Builder
 crafters.PatternShaper=Stencil Table
