@@ -13,7 +13,6 @@ import org.w3c.dom.NodeList;
 
 import tconstruct.client.gui.PartCrafterGui;
 import tconstruct.library.TConstructRegistry;
-import tconstruct.library.client.TConstructClientRegistry;
 import tconstruct.library.crafting.PatternBuilder;
 import tconstruct.library.tools.TToolMaterial;
 
