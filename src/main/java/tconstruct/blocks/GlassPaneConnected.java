@@ -669,7 +669,7 @@ public class GlassPaneConnected extends GlassBlockConnected
 
     public final boolean canThisPaneConnectToThisBlock (Block b)
     {
-        return Block.opaqueCubeLookup[b] || b == (Block) this || b == Blocks.glass;
+        return b.func_149662_c() || b == (Block) this || b == Blocks.glass;
     }
 
     public void func_149651_a (IIconRegister par1IconRegister)

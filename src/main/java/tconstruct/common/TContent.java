@@ -634,7 +634,7 @@ public class TContent implements IFuelHandler
         Items.minecartEmpty.setMaxStackSize(3);
         Items.minecartCrate.setMaxStackSize(3);
         Items.minecartPowered.setMaxStackSize(3);
-        Items.itemsList[Block.cake.blockID].setMaxStackSize(16);
+        Items.cake.setMaxStackSize(16);
         //Block.torchWood.setTickRandomly(false);
     }
 

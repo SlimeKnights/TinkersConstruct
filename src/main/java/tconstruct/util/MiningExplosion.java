@@ -222,7 +222,7 @@ public class MiningExplosion extends Explosion
                 l = this.world.func_147439_a(i, j, k);
                 Block i1 = this.world.func_147439_a(i, j - 1, k);
 
-                if (l == Blocks.air && Block.opaqueCubeLookup[i1] && this.random.nextInt(3) == 0)
+                if (l == Blocks.air && i1.func_149662_c() && this.random.nextInt(3) == 0)
                 {
                     this.world.func_147449_b(i, j, k, Blocks.fire);
                 }

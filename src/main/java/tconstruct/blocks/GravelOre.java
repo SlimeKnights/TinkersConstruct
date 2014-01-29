@@ -20,9 +20,10 @@ public class GravelOre extends BlockSand
 
     public GravelOre()
     {
-        super(Material.craftedSnow);
+        super();
         this.func_149647_a(TConstructRegistry.blockTab);
         this.setStepSound(soundGravelFootstep);
+        this.field_149764_J = Material.field_151596_z;
     }
 
     public void registerIcons (IIconRegister iconRegister)

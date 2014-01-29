@@ -53,7 +53,7 @@ public class Battleaxe extends HarvestTool
         return AbilityHelper.onBlockChanged(itemstack, world, b, x, y, z, player, random);
     }
 
-    static Material[] materials = { Material.field_151575_d, Material.field_151582_l, Material.field_151594_q, Material.cactus, Material.pumpkin };
+    static Material[] materials = { Material.field_151575_d, Material.field_151582_l, Material.field_151594_q, Material.field_151570_A, Material.pumpkin };
 
     @Override
     public Item getHeadItem ()

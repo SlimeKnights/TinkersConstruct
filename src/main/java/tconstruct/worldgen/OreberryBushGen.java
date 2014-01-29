@@ -12,15 +12,15 @@ public class OreberryBushGen extends WorldGenerator
     private Block blockB;
     private int metadata;
     int chance;
-    private int[] replaceBlocks;
+    private Block[] replaceBlocks;
 
     public OreberryBushGen(Block block, int meta, int chance)
     {
-        this(meta, chance, Blocks.stone, Blocks.grass, Blocks.dirt, Blocks.water, Blocks.sand, Blocks.gravel, Blocks.snow);
+        this(block, meta, chance, Blocks.stone, (Block) Blocks.grass, Blocks.dirt, Blocks.water, Blocks.sand, Blocks.gravel, Blocks.snow);
         blockB = block;
     }
 
-    public OreberryBushGen(Block block, int meta, int chance, int... target)
+    public OreberryBushGen(Block block, int meta, int chance, Block... target)
     {
         blockB = block;
         metadata = meta;
@@ -88,13 +88,13 @@ public class OreberryBushGen extends WorldGenerator
 
     void generateBerryBlock (World world, int x, int y, int z, Random random)
     {
-        /*if (!Block.opaqueCubeLookup[world.getBlockId(x, y, z)])
+        /*if (!Block.opaqueCubeLookup[world.func_147439_aId(x, y, z)])
         {
             setBlockAndMetadata(world, x, y, z, blockID, metadata);
         }*/
 
-        Block block = world.getBlock(x, y, z);
-        if (block == null || (block != Blocks.end_portal_frame && !Block.opaqueCubeLookup[world.getBlock(x, y, z)]))
+        Block block = world.func_147439_a(x, y, z);
+        if (block == null || (block != Blocks.end_portal_frame && !world.func_147439_a(x, y, z).isGenMineableReplaceable))
             world.func_147465_d(x, y, z, this.blockB, metadata, 2);
         else
         {

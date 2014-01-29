@@ -32,7 +32,7 @@ public class RenderLiquid
             var8 = var11;
         }
 
-        return (Minecraft.isAmbientOcclusionEnabled()) && (block.lightValue == 0) ? renderMetadataBlockWithAmbientOcclusion(block, metadata, x, y, z, var6, var7, var8, renderer, world)
+        return (Minecraft.isAmbientOcclusionEnabled()) && (block.func_149750_m() == 0) ? renderMetadataBlockWithAmbientOcclusion(block, metadata, x, y, z, var6, var7, var8, renderer, world)
                 : renderMetadataBlockWithColorMultiplier(block, metadata, x, y, z, var6, var7, var8, renderer, world);
     }
 

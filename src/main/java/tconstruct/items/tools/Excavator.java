@@ -38,7 +38,7 @@ public class Excavator extends HarvestTool
         return "shovel";
     }
 
-    static Material[] materials = { Material.field_151577_b, Material.field_151578_c, Material.field_151595_p, Material.snow, Material.crafedSnow, Material.clay };
+    static Material[] materials = { Material.field_151577_b, Material.field_151578_c, Material.field_151595_p, Material.field_151597_y, Material.field_151596_z, Material.field_151571_B };
 
     @Override
     public Item getHeadItem ()

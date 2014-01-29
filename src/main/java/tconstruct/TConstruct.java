@@ -20,7 +20,7 @@ import tconstruct.client.event.EventCloakRender;
 import tconstruct.common.*;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.*;
-import tconstruct.library.util.TabTools;
+import mantle.lib.TabTools;
 import tconstruct.plugins.PluginController;
 import tconstruct.util.*;
 import tconstruct.util.config.*;

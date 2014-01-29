@@ -38,7 +38,7 @@ public class SurfaceOreGen extends WorldGenerator
     {
         int returnHeight = -1;
         Block block = world.func_147439_a(x, y - 1, z);
-        if (!Block.opaqueCubeLookup[world.func_147439_a(x, y, z)] && (block == Blocks.dirt || block == Blocks.grass))
+        if (!world.func_147439_a(x, y, z).func_149662_c() && (block == Blocks.dirt || block == Blocks.grass))
         {
             return y;
         }
@@ -52,7 +52,7 @@ public class SurfaceOreGen extends WorldGenerator
             Block b = world.func_147439_a(x, height, z);
             if (b == Blocks.dirt || b == Blocks.grass)
             {
-                if (!Block.opaqueCubeLookup[world.func_147439_a(x, height + 1, z)])
+                if (!world.func_147439_a(x, height + 1, z).func_149662_c())
                 {
                     returnHeight = height + 1;
                 }
@@ -117,7 +117,7 @@ public class SurfaceOreGen extends WorldGenerator
                                 Block block = world.func_147439_a(k2, l2, i3);
                                 if (d12 * d12 + d13 * d13 + d14 * d14 < 1.0D)
                                 {
-                                    if (block == null || !Block.opaqueCubeLookup[world.func_147439_a(k2, l2, i3)])
+                                    if (block == null || !world.func_147439_a(k2, l2, i3).func_149662_c())
                                         world.func_147465_d(k2, l2, i3, this.minableBlock, minableBlockMeta, 2);
                                     else
                                     {

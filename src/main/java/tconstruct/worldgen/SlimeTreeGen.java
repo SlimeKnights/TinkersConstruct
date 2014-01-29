@@ -90,7 +90,7 @@ public class SlimeTreeGen extends WorldGenerator
         do
         {
             Block heightBL = world.func_147439_a(x, height, z);
-            if ((heightBL == TRepo.craftedSoil || heightBL == TRepo.slimeGrass) && !Block.opaqueCubeLookup[world.func_147439_a(x, height + 1, z)])
+            if ((heightBL == TRepo.craftedSoil || heightBL == TRepo.slimeGrass) && !world.func_147439_a(x, height + 1, z).func_149662_c())
             {
                 ret = height + 1;
                 break;
