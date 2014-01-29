@@ -636,9 +636,9 @@ public class TRecipes
         // 
         ItemStack aluBrass = new ItemStack(TRepo.materials, 1, 14);
         // Clock Recipe - Vanilla alternativ
-        GameRegistry.addRecipe(new ItemStack(Items.pocketSundial), " i ", "iri", " i ", 'i', aluBrass, 'r', new ItemStack(Items.redstone));
+        GameRegistry.addRecipe(new ItemStack(Items.clock), " i ", "iri", " i ", 'i', aluBrass, 'r', new ItemStack(Items.redstone));
         // Gold Pressure Plate -  Vanilla alternativ
-        GameRegistry.addRecipe(new ItemStack(Blocks.pressurePlateGold), "ii", 'i', aluBrass);
+        GameRegistry.addRecipe(new ItemStack(Blocks.light_weighted_pressure_plate), "ii", 'i', aluBrass);
         //Accessories
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TRepo.heartCanister, 1, 0), "##", "##", '#', "ingotAluminum"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TRepo.heartCanister, 1, 0), "##", "##", '#', "ingotAluminium"));
@@ -1144,7 +1144,6 @@ public class TRecipes
         Smeltery.addMelting(FluidType.Iron, new ItemStack(Items.bucket), 0, TConstruct.ingotLiquidValue * 3);
         Smeltery.addMelting(FluidType.Iron, new ItemStack(Items.minecart), 0, TConstruct.ingotLiquidValue * 5);
         Smeltery.addMelting(FluidType.Iron, new ItemStack(Items.chest_minecart), 0, TConstruct.ingotLiquidValue * 5);
-        Smeltery.addMelting(FluidType.Iron, new ItemStack(Items.powered_minecart), 0, TConstruct.ingotLiquidValue * 5);
         Smeltery.addMelting(FluidType.Iron, new ItemStack(Items.hopper_minecart), 50, TConstruct.ingotLiquidValue * 10);
         Smeltery.addMelting(FluidType.Iron, new ItemStack(Items.iron_door), 0, TConstruct.ingotLiquidValue * 6);
         Smeltery.addMelting(FluidType.Iron, new ItemStack(Items.cauldron), 0, TConstruct.ingotLiquidValue * 7);
@@ -1193,8 +1192,8 @@ public class TRecipes
 
         //Vanilla blocks
         Smeltery.addMelting(FluidType.Iron, new ItemStack(Blocks.iron_bars), 0, TConstruct.ingotLiquidValue * 6 / 16);
-        Smeltery.addMelting(FluidType.Iron, new ItemStack(Blocks.iron_pressure_plate), 0, TConstruct.oreLiquidValue);
-        Smeltery.addMelting(FluidType.Gold, new ItemStack(Blocks.pressurePlateGold, 4), 0, TConstruct.oreLiquidValue);
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(Blocks.heavy_weighted_pressure_plate), 0, TConstruct.oreLiquidValue);
+        Smeltery.addMelting(FluidType.Gold, new ItemStack(Blocks.light_weighted_pressure_plate, 4), 0, TConstruct.oreLiquidValue);
         Smeltery.addMelting(FluidType.Iron, new ItemStack(Blocks.rail), 0, TConstruct.ingotLiquidValue * 6 / 16);
         Smeltery.addMelting(FluidType.Gold, new ItemStack(Blocks.rail_powered), 0, TConstruct.ingotLiquidValue);
         Smeltery.addMelting(FluidType.Iron, new ItemStack(Blocks.railDetector), 0, TConstruct.ingotLiquidValue);
@@ -1245,7 +1244,7 @@ public class TRecipes
         Block taintedSoil = GameRegistry.findBlock("Natura", "soil.tainted");
         Block heatSand = GameRegistry.findBlock("Natura", "heatsand");
         if (taintedSoil != null && heatSand != null)
-            GameRegistry.addShapelessRecipe(new ItemStack(TRepo.craftedSoil, 2, 6), Items.netherStalkSeeds, taintedSoil, heatSand);
+            GameRegistry.addShapelessRecipe(new ItemStack(TRepo.craftedSoil, 2, 6), Items.nether_wart, taintedSoil, heatSand);
 
         ItemStack ironpick = ToolBuilder.instance.buildTool(new ItemStack(TRepo.pickaxeHead, 1, 6), new ItemStack(TRepo.toolRod, 1, 2), new ItemStack(TRepo.binding, 1, 6), "");
         /*TE3 Flux*/
