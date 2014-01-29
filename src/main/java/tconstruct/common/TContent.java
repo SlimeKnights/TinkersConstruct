@@ -429,7 +429,7 @@ public class TContent implements IFuelHandler
         TRepo.stainedGlassClear = new GlassBlockConnectedMeta("stained", true, "white", "orange", "magenta", "light_blue", "yellow", "lime", "pink", "gray",
                 "light_gray", "cyan", "purple", "blue", "brown", "green", "red", "black").func_149663_c("GlassBlock.StainedClear");
         TRepo.stainedGlassClear.field_149762_H = Block.field_149778_k;
-        TRepo.stainedGlassClearPane = new GlassPaneStained(PHConstruct.stainedGlassClearPane);
+        TRepo.stainedGlassClearPane = new GlassPaneStained();
 
         //Rail
         TRepo.woodenRail = new WoodRail().func_149672_a(Block.field_149766_f).func_149647_a(TConstructRegistry.blockTab).setUnlocalizedName("rail.wood");
