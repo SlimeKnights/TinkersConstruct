@@ -28,7 +28,7 @@ public class Punji extends MantleBlock
     {
         super(Material.field_151585_k);
         this.func_149676_a(0.125f, 0, 0.125f, 0.875f, 0.375f, 0.875f);
-        this.setStepSound(Block.soundGrassFootstep);
+        this.setStepSound(Block.field_149779_h);
         this.func_149647_a(TConstructRegistry.blockTab);
         this.func_149711_c(3.0f);
     }
@@ -60,8 +60,8 @@ public class Punji extends MantleBlock
             if (stack != null && stack == new ItemStack(TRepo.punji))
             {
                 world.setBlockMetadataWithNotify(x, y, z, meta + 1, 3);
-                world.playSoundEffect((double) ((float) x + 0.5F), (double) ((float) y + 0.5F), (double) ((float) z + 0.5F), this.stepSound.getPlaceSound(),
-                        (this.stepSound.getVolume() + 1.0F) / 2.0F, this.stepSound.getPitch() * 0.8F);
+                world.playSoundEffect((double) ((float) x + 0.5F), (double) ((float) y + 0.5F), (double) ((float) z + 0.5F), this.field_149762_H.getPlaceSound(),
+                        (this.field_149762_H.getVolume() + 1.0F) / 2.0F, this.field_149762_H.getPitch() * 0.8F);
                 player.swingItem();
                 if (!player.capabilities.isCreativeMode)
                 {

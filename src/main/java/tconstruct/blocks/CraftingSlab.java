@@ -33,7 +33,7 @@ public class CraftingSlab extends InventorySlab
         super(material);
         this.func_149647_a(TConstructRegistry.blockTab);
         this.func_149711_c(2f);
-        this.setStepSound(Block.soundWoodFootstep);
+        this.setStepSound(Block.field_149766_f);
     }
 
     /* Rendering */
@@ -48,7 +48,7 @@ public class CraftingSlab extends InventorySlab
     }
 
     @Override
-    public IIcon getIcon (int side, int meta)
+    public IIcon func_149691_a (int side, int meta)
     {
         return icons[(meta % 8) * 3 + getTextureIndex(side)];
     }
@@ -67,9 +67,9 @@ public class CraftingSlab extends InventorySlab
     {
         int metadata = world.getBlockMetadata(x, y, z);
         if (metadata == 5)
-            return AxisAlignedBB.getAABBPool().getAABB((double) x + this.minX, (double) y + this.minY, (double) z + this.minZ, (double) x + this.maxX, (double) y + this.maxY - 0.125,
-                    (double) z + this.maxZ);
-        return AxisAlignedBB.getAABBPool().getAABB((double) x + this.minX, (double) y + this.minY, (double) z + this.minZ, (double) x + this.maxX, (double) y + this.maxY, (double) z + this.maxZ);
+            return AxisAlignedBB.getAABBPool().getAABB((double) x + this.field_149759_B, (double) y + this.field_149760_C, (double) z + this.field_149754_D, (double) x + this.field_149755_E, (double) y + this.field_149756_F - 0.125,
+                    (double) z + this.field_149757_G);
+        return AxisAlignedBB.getAABBPool().getAABB((double) x + this.field_149759_B, (double) y + this.field_149760_C, (double) z + this.field_149754_D, (double) x + this.field_149755_E, (double) y + this.field_149756_F, (double) z + this.field_149757_G);
     }
 
     @Override
@@ -124,7 +124,7 @@ public class CraftingSlab extends InventorySlab
     }
 
     @Override
-    public void getSubBlocks (Item b, CreativeTabs tab, List list)
+    public void func_149666_a (Item b, CreativeTabs tab, List list)
     {
         for (int iter = 0; iter < 6; iter++)
         {
@@ -133,14 +133,14 @@ public class CraftingSlab extends InventorySlab
     }
 
     @Override
-    public void onBlockPlacedBy (World world, int x, int y, int z, EntityLivingBase entityliving, ItemStack stack)
+    public void func_149689_a (World world, int x, int y, int z, EntityLivingBase entityliving, ItemStack stack)
     {
         if (PHConstruct.freePatterns)
         {
             int meta = world.getBlockMetadata(x, y, z);
             if (meta == 4)
             {
-                PatternChestLogic logic = (PatternChestLogic) world.getBlockTileEntity(x, y, z);
+                PatternChestLogic logic = (PatternChestLogic) world.func_147438_o(x, y, z);
                 for (int i = 1; i <= 13; i++)
                 {
                     logic.setInventorySlotContents(i - 1, new ItemStack(TRepo.woodPattern, 1, i));
@@ -148,6 +148,28 @@ public class CraftingSlab extends InventorySlab
                 logic.setInventorySlotContents(13, new ItemStack(TRepo.woodPattern, 1, 22));
             }
         }
-        super.onBlockPlacedBy(world, x, y, z, entityliving, stack);
+        super.func_149689_a(world, x, y, z, entityliving, stack);
+    }
+
+    @Override
+    public TileEntity func_149915_a (World var1, int metadata)
+    {
+        switch (metadata % 8)
+        {
+        case 0:
+            return new CraftingStationLogic();
+        case 1:
+            return new ToolStationLogic();
+        case 2:
+            return new PartBuilderLogic();
+        case 3:
+            return new StencilTableLogic();
+        case 4:
+            return new PatternChestLogic();
+        case 5:
+            return new ToolForgeLogic();
+        default:
+            return null;
+        }
     }
 }

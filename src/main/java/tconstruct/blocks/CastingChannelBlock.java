@@ -23,10 +23,10 @@ public class CastingChannelBlock extends BlockContainer
 
     public CastingChannelBlock()
     {
-        super(Material.rock);
+        super(Material.field_151576_e);
         this.func_149711_c(1F);
         this.func_149752_b(10);
-        this.setStepSound(soundStoneFootstep);
+        this.setStepSound(field_149769_e);
         func_149647_a(TConstructRegistry.blockTab);
     }
 

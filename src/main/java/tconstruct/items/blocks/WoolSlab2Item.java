@@ -36,8 +36,8 @@ public class WoolSlab2Item extends MultiItemBlock
         {
             if (world.func_147465_d(x, y, z, Blocks.wool, trueMeta + 8, 3))
             {
-                world.playSoundEffect((double) ((float) x + 0.5F), (double) ((float) y + 0.5F), (double) ((float) z + 0.5F), this.block.stepSound.getPlaceSound(),
-                        (this.block.stepSound.getVolume() + 1.0F) / 2.0F, this.block.stepSound.getPitch() * 0.8F);
+                world.playSoundEffect((double) ((float) x + 0.5F), (double) ((float) y + 0.5F), (double) ((float) z + 0.5F), this.block.field_149762_H.getPlaceSound(),
+                        (this.block.field_149762_H.getVolume() + 1.0F) / 2.0F, this.block.field_149762_H.getPitch() * 0.8F);
                 --stack.stackSize;
                 return true;
             }

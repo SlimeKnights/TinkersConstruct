@@ -92,7 +92,7 @@ public class SlimeGrass extends MantleBlock
     public boolean canSustainPlant (World world, int x, int y, int z, ForgeDirection direction, IPlantable plant)
     {
         EnumPlantType plantType = plant.getPlantType(world, x, y + 1, z);
-        return plantType == EnumPlantType.Plains && plant.getPlantID(world, x, y + 1, z) != Block.tallGrass.blockID;
+        return plantType == EnumPlantType.Plains && plant.getPlant(world, x, y + 1, z) != Blocks.tallgrass;
     }
 
     public void onPlantGrow (World world, int x, int y, int z, int sourceX, int sourceY, int sourceZ)

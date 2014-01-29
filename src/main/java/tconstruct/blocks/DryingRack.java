@@ -30,7 +30,7 @@ public class DryingRack extends InventoryBlock
         super(Material.field_151575_d);
         this.func_149647_a(TConstructRegistry.blockTab);
         func_149711_c(2.0f);
-        setStepSound(soundMetalFootstep);
+        setStepSound(field_149777_j);
     }
 
     @Override

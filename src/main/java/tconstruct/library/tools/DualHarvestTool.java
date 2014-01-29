@@ -30,7 +30,7 @@ public abstract class DualHarvestTool extends HarvestTool
         Block block = player.worldObj.func_147439_a(x, y, z);
         if (block == null || block == Blocks.air)
             return false;
-        int hlvl = block.getBlockHarvestLevel(meta, getHarvestType()));
+        int hlvl = block.getBlockHarvestLevel(meta, getHarvestType());
         int shlvl = block.getBlockHarvestLevel(meta, getSecondHarvestType());
 
         if (hlvl <= tags.getInteger("HarvestLevel") && shlvl <= tags.getInteger("HarvestLevel2"))

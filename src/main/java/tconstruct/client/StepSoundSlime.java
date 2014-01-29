@@ -1,8 +1,8 @@
 package tconstruct.client;
 
-import net.minecraft.block.StepSound;
+import net.minecraft.block.Block.SoundType;
 
-public class StepSoundSlime extends StepSound
+public class StepSoundSlime extends SoundType
 {
 
     public StepSoundSlime(String par1Str, float par2, float par3)
@@ -16,7 +16,7 @@ public class StepSoundSlime extends StepSound
      */
     public String getBreakSound ()
     {
-        return this.stepSoundName + ".big";
+        return this.field_150501_a + ".big";
     }
 
     /**
@@ -24,7 +24,7 @@ public class StepSoundSlime extends StepSound
      */
     public String getStepSound ()
     {
-        return this.stepSoundName + ".small";
+        return this.field_150501_a + ".small";
     }
 
 }

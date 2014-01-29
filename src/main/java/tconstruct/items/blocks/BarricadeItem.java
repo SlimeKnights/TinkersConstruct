@@ -94,8 +94,8 @@ public class BarricadeItem extends ItemBlock
 
             if (placeBlockAt(stack, player, world, x, y, z, side, hitX, hitY, hitZ, metadata))
             {
-                world.playSoundEffect((double) ((float) x + 0.5F), (double) ((float) y + 0.5F), (double) ((float) z + 0.5F), block.stepSound.getPlaceSound(),
-                        (block.stepSound.getVolume() + 1.0F) / 2.0F, block.stepSound.getPitch() * 0.8F);
+                world.playSoundEffect((double) ((float) x + 0.5F), (double) ((float) y + 0.5F), (double) ((float) z + 0.5F), block.field_149762_H.getPlaceSound(),
+                        (block.field_149762_H.getVolume() + 1.0F) / 2.0F, block.field_149762_H.getPitch() * 0.8F);
                 --stack.stackSize;
             }
 

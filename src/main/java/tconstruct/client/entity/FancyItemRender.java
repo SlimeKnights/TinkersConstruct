@@ -78,7 +78,7 @@ public class FancyItemRender extends Render
             {
                 ;
             }
-            else if (itemstack.getItemSpriteNumber() == 0 && block != null && RenderBlocks.renderItemIn3d(BlockUtils.getBlockFromItem(itemstack.getItem()).getRenderType()))
+            else if (itemstack.getItemSpriteNumber() == 0 && block != null && RenderBlocks.func_147739_a(BlockUtils.getBlockFromItem(itemstack.getItem()).func_149645_b()))
             {
                 GL11.glRotatef(f3, 0.0F, 1.0F, 0.0F);
 
@@ -90,7 +90,7 @@ public class FancyItemRender extends Render
                 }
 
                 float f7 = 0.25F;
-                int j = block.getRenderType();
+                int j = block.func_149645_b();
 
                 if (j == 1 || j == 19 || j == 12 || j == 2)
                 {
@@ -321,8 +321,8 @@ public class FancyItemRender extends Render
         float f1;
         float f2;
         //TODO make this be the block equivalent to k
-        Block block = BlockUtils.getBlockFromItem(k];
-        if (par3ItemStack.getItemSpriteNumber() == 0 && block != null && RenderBlocks.renderItemIn3d(block.getRenderType()))
+        Block block = BlockUtils.getBlockFromItem(k);
+        if (par3ItemStack.getItemSpriteNumber() == 0 && block != null && RenderBlocks.func_147739_a(block.func_149645_b()))
         {
             par2TextureManager.bindTexture(TextureMap.locationBlocksTexture);
             GL11.glPushMatrix();

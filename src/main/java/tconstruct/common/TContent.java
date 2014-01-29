@@ -99,31 +99,31 @@ public class TContent implements IFuelHandler
         TRepo.heldItemBlock = new EquipBlock(Material.field_151575_d).func_149663_c("Frypan");
 
         TRepo.craftedSoil = new SoilBlock().func_149713_g(0).func_149663_c("TConstruct.Soil");
-        TRepo.craftedSoil.field_149762_H = Block.soundGravelFootstep;
+        TRepo.craftedSoil.field_149762_H = Block.field_149767_g;
 
         TRepo.searedSlab = new SearedSlab().func_149663_c("SearedSlab");
-        TRepo.searedSlab.field_149762_H = Block.soundStoneFootstep;
+        TRepo.searedSlab.field_149762_H = Block.field_149769_e;
 
         TRepo.speedSlab = new SpeedSlab().func_149663_c("SpeedSlab");
-        TRepo.speedSlab.field_149762_H = Block.soundStoneFootstep;
+        TRepo.speedSlab.field_149762_H = Block.field_149769_e;
 
         TRepo.metalBlock = new TMetalBlock(Material.field_151573_f, 10.0F).func_149663_c("tconstruct.metalblock");
-        TRepo.metalBlock.field_149762_H = Block.soundMetalFootstep;
+        TRepo.metalBlock.field_149762_H = Block.field_149777_j;
 
         TRepo.meatBlock = new MeatBlock().func_149663_c("tconstruct.meatblock");
         TRepo.glueBlock = new GlueBlock().func_149663_c("GlueBlock").func_149647_a(TConstructRegistry.blockTab);
 
         TRepo.woolSlab1 = new SlabBase(Material.field_151580_n, Blocks.wool, 0, 8).func_149663_c("cloth");
-        TRepo.woolSlab1.func_149672_a(Block.soundClothFootstep).func_149647_a(CreativeTabs.tabDecorations);
+        TRepo.woolSlab1.func_149672_a(Block.field_149775_l).func_149647_a(CreativeTabs.tabDecorations);
         TRepo.woolSlab2 = new SlabBase(Material.field_151580_n, Blocks.wool, 8, 8).func_149663_c("cloth");
-        TRepo.woolSlab2.func_149672_a(Block.soundClothFootstep).func_149647_a(CreativeTabs.tabDecorations);
+        TRepo.woolSlab2.func_149672_a(Block.field_149775_l).func_149647_a(CreativeTabs.tabDecorations);
 
         //Smeltery
         TRepo.smeltery = new SmelteryBlock().func_149663_c("Smeltery");
         TRepo.smelteryNether = new SmelteryBlock("nether").func_149663_c("Smeltery");
         TRepo.lavaTank = new LavaTankBlock().func_149663_c("LavaTank");
-        TRepo.lavaTank.func_149672_a(Block.soundGlassFootstep);
-        TRepo.lavaTankNether = new LavaTankBlock("nether").func_149672_a(Block.soundGlassFootstep).func_149663_c("LavaTank");
+        TRepo.lavaTank.func_149672_a(Block.field_149778_k);
+        TRepo.lavaTankNether = new LavaTankBlock("nether").func_149672_a(Block.field_149778_k).func_149663_c("LavaTank");
 
         TRepo.searedBlock = new SearedBlock().func_149663_c("SearedBlock");
         TRepo.searedBlockNether = new SearedBlock("nether").func_149663_c("SearedBlock");
@@ -133,7 +133,7 @@ public class TContent implements IFuelHandler
         TRepo.tankAir = new TankAirBlock(Material.field_151584_j).setBlockUnbreakable().func_149663_c("tconstruct.tank.air");
 
         //Traps
-        TRepo.landmine = new BlockLandmine().func_149711_c(0.5F).setResistance(0F).func_149672_a(Block.soundMetalFootstep).func_149647_a(CreativeTabs.tabRedstone)
+        TRepo.landmine = new BlockLandmine().func_149711_c(0.5F).setResistance(0F).func_149672_a(Block.field_149777_j).func_149647_a(CreativeTabs.tabRedstone)
                 .func_149663_c("landmine");
         TRepo.punji = new Punji().func_149663_c("trap.punji");
         TRepo.barricadeOak = new BarricadeBlock(Blocks.log, 0).func_149663_c("trap.barricade.oak");
@@ -399,7 +399,7 @@ public class TContent implements IFuelHandler
 
         //Ores
         String[] berryOres = new String[] { "berry_iron", "berry_gold", "berry_copper", "berry_tin", "berry_iron_ripe", "berry_gold_ripe", "berry_copper_ripe", "berry_tin_ripe" };
-        TRepo.oreBerry = (OreberryBush) new OreberryBush(, berryOres, 0, 4, new String[] { "oreIron", "oreGold", "oreCopper", "oreTin" }).func_149663_c("ore.berries.one");
+        TRepo.oreBerry = (OreberryBush) new OreberryBush(berryOres, 0, 4, new String[] { "oreIron", "oreGold", "oreCopper", "oreTin" }).func_149663_c("ore.berries.one");
         String[] berryOresTwo = new String[] { "berry_aluminum", "berry_essence", "", "", "berry_aluminum_ripe", "berry_essence_ripe", "", "" };
         TRepo.oreBerrySecond = (OreberryBush) new OreberryBushEssence(berryOresTwo, 4, 2, new String[] { "oreAluminum", "oreSilver" })
                 .func_149663_c("ore.berries.two");
@@ -424,15 +424,15 @@ public class TContent implements IFuelHandler
 
         //Glass
         TRepo.clearGlass = new GlassBlockConnected("clear", false).func_149663_c("GlassBlock");
-        TRepo.clearGlass.field_149762_H = Block.soundGlassFootstep;
+        TRepo.clearGlass.field_149762_H = Block.field_149778_k;
         TRepo.glassPane = new GlassPaneConnected("clear", false);
         TRepo.stainedGlassClear = new GlassBlockConnectedMeta("stained", true, "white", "orange", "magenta", "light_blue", "yellow", "lime", "pink", "gray",
                 "light_gray", "cyan", "purple", "blue", "brown", "green", "red", "black").func_149663_c("GlassBlock.StainedClear");
-        TRepo.stainedGlassClear.field_149762_H = Block.soundGlassFootstep;
+        TRepo.stainedGlassClear.field_149762_H = Block.field_149778_k;
         TRepo.stainedGlassClearPane = new GlassPaneStained(PHConstruct.stainedGlassClearPane);
 
         //Rail
-        TRepo.woodenRail = new WoodRail().func_149672_a(Block.soundWoodFootstep).func_149647_a(TConstructRegistry.blockTab).setUnlocalizedName("rail.wood");
+        TRepo.woodenRail = new WoodRail().func_149672_a(Block.field_149766_f).func_149647_a(TConstructRegistry.blockTab).setUnlocalizedName("rail.wood");
 
     }
 

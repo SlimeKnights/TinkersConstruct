@@ -25,7 +25,7 @@ public class GlassBlockConnected extends MantleBlock
     public GlassBlockConnected(String location, boolean hasAlpha)
     {
         super(Material.field_151592_s);
-        this.setStepSound(soundGlassFootstep);
+        this.setStepSound(field_149778_k);
         folder = location;
         renderPass = hasAlpha ? 1 : 0;
         func_149711_c(0.3F);
