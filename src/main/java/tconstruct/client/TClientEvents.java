@@ -49,11 +49,12 @@ public class TClientEvents
             initSounds = true;
             try
             {
-                SoundManager soundmanager = event.manager;
-                soundmanager.addSound("tinker:frypan_hit.ogg");
-                soundmanager.addSound("tinker:little_saw.ogg");
+            /*    SoundManager soundmanager = event.manager;
+               soundmanager.addSound("tinker:frypan_hit.ogg");
+               soundmanager.addSound("tinker:little_saw.ogg");
                 soundmanager.addSound("tinker:launcher_clank.ogg");
                 TConstruct.logger.info("Successfully loaded sounds.");
+           */
             }
             catch (Exception e)
             {
@@ -71,7 +72,7 @@ public class TClientEvents
     public void preStitch (TextureStitchEvent.Pre event)
     {
         TextureMap register = event.map;
-        if (register.textureType == 0)
+        if (register.getTextureType() == 0)
         {
             stillIcons[0] = register.registerIcon("tinker:liquid_pigiron");
             flowIcons[0] = register.registerIcon("tinker:liquid_pigiron");
@@ -81,11 +82,11 @@ public class TClientEvents
     @SubscribeEvent
     public void postStitch (TextureStitchEvent.Post event)
     {
-        if (event.map.textureType == 0)
+        if (event.map.getTextureType() == 0)
         {
             for (int i = 0; i < TRepo.fluidBlocks.length; i++)
             {
-                TRepo.fluids[i].setIcons(TRepo.fluidBlocks[i].getIcon(0, 0), TRepo.fluidBlocks[i].getIcon(2, 0));
+                TRepo.fluids[i].setIcons(TRepo.fluidBlocks[i].func_149691_a(0, 0), TRepo.fluidBlocks[i].func_149691_a(2, 0));
             }
             TRepo.pigIronFluid.setIcons(stillIcons[0], flowIcons[0]);
         }

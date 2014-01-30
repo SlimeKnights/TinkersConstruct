@@ -74,11 +74,11 @@ public class SlimeChannelRender implements ISimpleBlockRenderingHandler
                 u3 = iconStill.getInterpolatedU(8.0F + (zFlow - xFlow) * 16.0F);
                 v3 = iconStill.getInterpolatedV(8.0F + (-zFlow - xFlow) * 16.0F);
             }
-            int color = block.colorMultiplier(world, x, y, z);
+            int color = block.func_149720_d(world, x, y, z);
             float red = (color >> 16 & 255) / 255.0F;
             float green = (color >> 8 & 255) / 255.0F;
             float blue = (color & 255) / 255.0F;
-            tessellator.setBrightness(block.getMixedBrightnessForBlock(world, x, y, z));
+            tessellator.setBrightness(block.func_149677_c(world, x, y, z));
             tessellator.setColorOpaque_F(LIGHT_Y_POS * red, LIGHT_Y_POS * green, LIGHT_Y_POS * blue);
 
             tessellator.addVertexWithUV(x + 0, y + 0.5, z + 0, u2, v2);

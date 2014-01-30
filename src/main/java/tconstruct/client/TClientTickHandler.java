@@ -10,38 +10,38 @@ import net.minecraft.util.ResourceLocation;
 import tconstruct.TConstruct;
 import tconstruct.common.TContent;
 import tconstruct.common.TRepo;
-import cpw.mods.fml.common.ITickHandler;
-import cpw.mods.fml.common.TickType;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.TickEvent.ClientTickEvent;
+import cpw.mods.fml.common.gameevent.TickEvent.Phase;
+import cpw.mods.fml.common.gameevent.TickEvent.Type;
 
-public class TClientTickHandler implements ITickHandler
+public class TClientTickHandler
 {
     Minecraft mc = Minecraft.getMinecraft();
-    //TControls controlInstance = ((TProxyClient)TConstruct.proxy).controlInstance;
 
-    @Override
-    public void tickEnd (EnumSet<TickType> type, Object... tickData)
+    //TControls controlInstance = ((TProxyClient)TConstruct.proxy).controlInstance;
+    public TClientTickHandler()
     {
-        TRepo.oreBerry.setGraphicsLevel(Blocks.leaves.graphicsLevel);
-        TRepo.oreBerrySecond.setGraphicsLevel(Blocks.leaves.graphicsLevel);
-        TRepo.slimeLeaves.setGraphicsLevel(Blocks.leaves.graphicsLevel);
-        /*if (mc.thePlayer != null && !mc.thePlayer.isAirBorne)
-            controlInstance.landOnGround();*/
     }
 
-    @Override
+    @SubscribeEvent
+    public void onTick (ClientTickEvent event)
+    {
+        
+        if (event.phase.equals(Phase.END) && event.type.equals(Type.RENDER))
+        {
+            TRepo.oreBerry.setGraphicsLevel(Blocks.leaves.graphicsLevel);
+            TRepo.oreBerrySecond.setGraphicsLevel(Blocks.leaves.graphicsLevel);
+            TRepo.slimeLeaves.setGraphicsLevel(Blocks.leaves.graphicsLevel);
+            /*if (mc.thePlayer != null && !mc.thePlayer.isAirBorne)
+                controlInstance.landOnGround();*/
+        }
+    }
+
+  /*  @Override
     public EnumSet<TickType> ticks ()
     {
         return EnumSet.of(TickType.RENDER);
     }
-
-    @Override
-    public void tickStart (EnumSet<TickType> type, Object... tickData)
-    {
-    }
-
-    @Override
-    public String getLabel ()
-    {
-        return null;
-    }
+*/
 }

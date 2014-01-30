@@ -157,7 +157,7 @@ public class TConstruct
         }
 
         DimensionBlacklist.getBadBimensions();
-        GameRegistry.registerWorldGenerator(new SlimeIslandGen(TRepo.slimePool), 2);
+        GameRegistry.registerWorldGenerator(new SlimeIslandGen(TRepo.slimePool,2), 2);
 
         PluginController.getController().init();
 

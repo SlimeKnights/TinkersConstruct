@@ -312,7 +312,7 @@ public class BlockRenderCastingChannel implements ISimpleBlockRenderingHandler
     private void renderLiquidPart (IBlockAccess world, int x, int y, int z, Block block, RenderBlocks renderer, CastingChannelLogic logic)
     {
         FluidStack liquid = logic.liquid;
-        int color = block.colorMultiplier(world, x, y, z);
+        int color = block.func_149720_d(world, x, y, z);
         float red = (color >> 16 & 0xFF) / 255.0F;
         float green = (color >> 8 & 0xFF) / 255.0F;
         float blue = (color & 0xFF) / 255.0F;

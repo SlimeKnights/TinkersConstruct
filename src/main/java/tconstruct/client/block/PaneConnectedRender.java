@@ -79,7 +79,7 @@ public class PaneConnectedRender implements ISimpleBlockRenderingHandler
             renderer.func_147784_q(block, x, y, z);
         }
 
-        renderer.clearOverrideBlockTexture();
+        renderer.func_147771_a();
 
         renderer.field_147837_f = false;
         return true;

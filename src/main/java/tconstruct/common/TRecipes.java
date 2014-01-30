@@ -508,7 +508,7 @@ public class TRecipes
         GameRegistry.addShapelessRecipe(new ItemStack(TRepo.craftedSoil, 2, 1), Items.clay_ball, Blocks.sand, Blocks.gravel);
         GameRegistry.addShapelessRecipe(new ItemStack(TRepo.craftedSoil, 8, 1), new ItemStack(Blocks.clay, 1, Short.MAX_VALUE), Blocks.sand, Blocks.sand, Blocks.sand, Blocks.sand, Blocks.gravel,
                 Blocks.gravel, Blocks.gravel, Blocks.gravel);
-        GameRegistry.addShapelessRecipe(new ItemStack(TRepo.craftedSoil, 2, 6), Items.netherStalkSeeds, Blocks.soul_sand, Blocks.gravel);
+        GameRegistry.addShapelessRecipe(new ItemStack(TRepo.craftedSoil, 2, 6), Items.nether_wart, Blocks.soul_sand, Blocks.gravel);
         // Graveyard Soil Recipes
         GameRegistry.addShapelessRecipe(new ItemStack(TRepo.craftedSoil, 1, 3), Blocks.dirt, Items.rotten_flesh, new ItemStack(Items.dye, 1, 15));
         // Silky Cloth Recipes

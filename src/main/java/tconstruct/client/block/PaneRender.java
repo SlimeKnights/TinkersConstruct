@@ -9,6 +9,7 @@ import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
+import net.minecraftforge.common.util.ForgeDirection;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 
@@ -56,9 +57,9 @@ public class PaneRender implements ISimpleBlockRenderingHandler
     {
         int l = iblockaccess.getHeight();
         Tessellator tessellator = Tessellator.instance;
-        tessellator.setBrightness(pane.getMixedBrightnessForBlock(iblockaccess, x, y, z));
+        tessellator.setBrightness(pane.func_149677_c(iblockaccess, x, y, z));
         float f = 1.0F;
-        int i1 = pane.colorMultiplier(iblockaccess, x, y, z);
+        int i1 = pane.func_149720_d(iblockaccess, x, y, z);
         float f1 = (float) (i1 >> 16 & 0xff) / 255F;
         float f2 = (float) (i1 >> 8 & 0xff) / 255F;
         float f3 = (float) (i1 & 0xff) / 255F;
@@ -76,8 +77,8 @@ public class PaneRender implements ISimpleBlockRenderingHandler
         boolean flag1 = false;
         IIcon icon;
         IIcon icon1;
-        int meta = iblockaccess.func_147439_aMetadata(x, y, z);
-        icon = renderblocks.func_147439_aIconFromSideAndMetadata(pane, 0, meta);
+        int meta = iblockaccess.getBlockMetadata(x, y, z);
+        icon = renderblocks.func_147787_a(pane, 0, meta);
         icon1 = pane.getSideTextureIndex(meta);
 
         meta = icon.getIconWidth();
@@ -127,10 +128,11 @@ public class PaneRender implements ISimpleBlockRenderingHandler
         double xMidUp = (double) x + 0.5D + 0.0625D;
         double zMidDown = ((double) z + 0.5D) - 0.0625D;
         double zMidUp = (double) z + 0.5D + 0.0625D;
-        boolean west = pane.canConnectTo(iblockaccess.func_147439_a(x, y, z - 1));
-        boolean east = pane.canConnectTo(iblockaccess.func_147439_a(x, y, z + 1));
-        boolean south = pane.canConnectTo(iblockaccess.func_147439_a(x - 1, y, z));
-        boolean north = pane.canConnectTo(iblockaccess.func_147439_a(x + 1, y, z));
+        boolean west = pane.canConnectTo(iblockaccess, x, y, z - 1, ForgeDirection.NORTH);
+        boolean east = pane.canConnectTo(iblockaccess, x, y, z + 1, ForgeDirection.SOUTH);
+        boolean south = pane.canConnectTo(iblockaccess, x - 1, y, z, ForgeDirection.EAST);
+        boolean north = pane.canConnectTo(iblockaccess, x + 1, y, z, ForgeDirection.WEST);
+
         boolean renderAbove = pane.func_149646_a(iblockaccess, x, y + 1, z, 1);
         boolean renderBelow = pane.func_149646_a(iblockaccess, x, y - 1, z, 0);
         if ((!south || !north) && (south || north || west || east))
@@ -184,14 +186,14 @@ public class PaneRender implements ISimpleBlockRenderingHandler
                     tessellator.addVertexWithUV(xMid, y + 0, zMidUp, d6, d9);
                     tessellator.addVertexWithUV(xMid, y + 1, zMidUp, d6, d7);
                 }
-                if (renderAbove || y < l - 1 && iblockaccess.isAirBlock(x + 1, y + 1, z))
+                if (renderAbove || y < l - 1 && WorldHelper.isAirBlock(iblockaccess, x + 1, y + 1, z))
                 {
                     tessellator.addVertexWithUV(xMid, (double) (y + 1) + 0.01D, zMidUp, d6, d7);
                     tessellator.addVertexWithUV(xTop, (double) (y + 1) + 0.01D, zMidUp, d6, d8);
                     tessellator.addVertexWithUV(xTop, (double) (y + 1) + 0.01D, zMidDown, d5, d8);
                     tessellator.addVertexWithUV(xMid, (double) (y + 1) + 0.01D, zMidDown, d5, d7);
                 }
-                if (renderBelow || y > 1 && iblockaccess.isAirBlock(x + 1, y - 1, z))
+                if (renderBelow || y > 1 && WorldHelper.isAirBlock(iblockaccess, x + 1, y - 1, z))
                 {
                     tessellator.addVertexWithUV(xMid, (double) y - 0.01D, zMidUp, d6, d7);
                     tessellator.addVertexWithUV(xTop, (double) y - 0.01D, zMidUp, d6, d8);
@@ -219,14 +221,14 @@ public class PaneRender implements ISimpleBlockRenderingHandler
             }
             else
             {
-                if (y < l - 1 && iblockaccess.isAirBlock(x - 1, y + 1, z))
+                if (y < l - 1 && WorldHelper.isAirBlock(iblockaccess, x - 1, y + 1, z))
                 {
                     tessellator.addVertexWithUV(xBot, (double) (y + 1) + 0.01D, zMidUp, d6, d8);
                     tessellator.addVertexWithUV(xMid, (double) (y + 1) + 0.01D, zMidUp, d6, d9);
                     tessellator.addVertexWithUV(xMid, (double) (y + 1) + 0.01D, zMidDown, d5, d9);
                     tessellator.addVertexWithUV(xBot, (double) (y + 1) + 0.01D, zMidDown, d5, d8);
                 }
-                if (y < l - 1 && iblockaccess.isAirBlock(x + 1, y + 1, z))
+                if (y < l - 1 && WorldHelper.isAirBlock(iblockaccess, x + 1, y + 1, z))
                 {
                     tessellator.addVertexWithUV(xMid, (double) (y + 1) + 0.01D, zMidUp, d6, d7);
                     tessellator.addVertexWithUV(xTop, (double) (y + 1) + 0.01D, zMidUp, d6, d8);
@@ -243,14 +245,14 @@ public class PaneRender implements ISimpleBlockRenderingHandler
             }
             else
             {
-                if (y > 1 && iblockaccess.isAirBlock(x - 1, y - 1, z))
+                if (y > 1 && WorldHelper.isAirBlock(iblockaccess, x - 1, y - 1, z))
                 {
                     tessellator.addVertexWithUV(xBot, (double) y - 0.01D, zMidUp, d6, d8);
                     tessellator.addVertexWithUV(xMid, (double) y - 0.01D, zMidUp, d6, d9);
                     tessellator.addVertexWithUV(xMid, (double) y - 0.01D, zMidDown, d5, d9);
                     tessellator.addVertexWithUV(xBot, (double) y - 0.01D, zMidDown, d5, d8);
                 }
-                if (y > 1 && iblockaccess.isAirBlock(x + 1, y - 1, z))
+                if (y > 1 && WorldHelper.isAirBlock(iblockaccess, x + 1, y - 1, z))
                 {
                     tessellator.addVertexWithUV(xMid, (double) y - 0.01D, zMidUp, d6, d7);
                     tessellator.addVertexWithUV(xTop, (double) y - 0.01D, zMidUp, d6, d8);
@@ -278,14 +280,14 @@ public class PaneRender implements ISimpleBlockRenderingHandler
                     tessellator.addVertexWithUV(xMidUp, y + 0, zMid, d6, d9);
                     tessellator.addVertexWithUV(xMidUp, y + 1, zMid, d6, d7);
                 }
-                if (renderAbove || y < l - 1 && iblockaccess.isAirBlock(x, y + 1, z - 1))
+                if (renderAbove || y < l - 1 && WorldHelper.isAirBlock(iblockaccess, x, y + 1, z - 1))
                 {
                     tessellator.addVertexWithUV(xMidDown, y + 1, zBot, d6, d7);
                     tessellator.addVertexWithUV(xMidDown, y + 1, zMid, d6, d8);
                     tessellator.addVertexWithUV(xMidUp, y + 1, zMid, d5, d8);
                     tessellator.addVertexWithUV(xMidUp, y + 1, zBot, d5, d7);
                 }
-                if (renderBelow || y > 1 && iblockaccess.isAirBlock(x, y - 1, z - 1))
+                if (renderBelow || y > 1 && WorldHelper.isAirBlock(iblockaccess, x, y - 1, z - 1))
                 {
                     tessellator.addVertexWithUV(xMidDown, y, zBot, d6, d7);
                     tessellator.addVertexWithUV(xMidDown, y, zMid, d6, d8);
@@ -310,14 +312,14 @@ public class PaneRender implements ISimpleBlockRenderingHandler
                     tessellator.addVertexWithUV(xMidDown, y + 0, zMid, d6, d9);
                     tessellator.addVertexWithUV(xMidDown, y + 1, zMid, d6, d7);
                 }
-                if (renderAbove || y < l - 1 && iblockaccess.isAirBlock(x, y + 1, z + 1))
+                if (renderAbove || y < l - 1 && WorldHelper.isAirBlock(iblockaccess, x, y + 1, z + 1))
                 {
                     tessellator.addVertexWithUV(xMidDown, y + 1, zMid, d5, d8);
                     tessellator.addVertexWithUV(xMidDown, y + 1, zTop, d5, d9);
                     tessellator.addVertexWithUV(xMidUp, y + 1, zTop, d6, d9);
                     tessellator.addVertexWithUV(xMidUp, y + 1, zMid, d6, d8);
                 }
-                if (renderBelow || y > 1 && iblockaccess.isAirBlock(x, y - 1, z + 1))
+                if (renderBelow || y > 1 && WorldHelper.isAirBlock(iblockaccess, x, y - 1, z + 1))
                 {
                     tessellator.addVertexWithUV(xMidDown, y, zMid, d5, d8);
                     tessellator.addVertexWithUV(xMidDown, y, zTop, d5, d9);
@@ -345,14 +347,14 @@ public class PaneRender implements ISimpleBlockRenderingHandler
             }
             else
             {
-                if (y < l - 1 && iblockaccess.isAirBlock(x, y + 1, z - 1))
+                if (y < l - 1 && WorldHelper.isAirBlock(iblockaccess, x, y + 1, z - 1))
                 {
                     tessellator.addVertexWithUV(xMidDown, y + 1, zBot, d6, d7);
                     tessellator.addVertexWithUV(xMidDown, y + 1, zMid, d6, d8);
                     tessellator.addVertexWithUV(xMidUp, y + 1, zMid, d5, d8);
                     tessellator.addVertexWithUV(xMidUp, y + 1, zBot, d5, d7);
                 }
-                if (y < l - 1 && iblockaccess.isAirBlock(x, y + 1, z + 1))
+                if (y < l - 1 && WorldHelper.isAirBlock(iblockaccess, x, y + 1, z + 1))
                 {
                     tessellator.addVertexWithUV(xMidDown, y + 1, zMid, d5, d8);
                     tessellator.addVertexWithUV(xMidDown, y + 1, zTop, d5, d9);
@@ -373,14 +375,14 @@ public class PaneRender implements ISimpleBlockRenderingHandler
             }
             else
             {
-                if (y > 1 && iblockaccess.isAirBlock(x, y - 1, z - 1))
+                if (y > 1 && WorldHelper.isAirBlock(iblockaccess, x, y - 1, z - 1))
                 {
                     tessellator.addVertexWithUV(xMidDown, y, zBot, d6, d7);
                     tessellator.addVertexWithUV(xMidDown, y, zMid, d6, d8);
                     tessellator.addVertexWithUV(xMidUp, y, zMid, d5, d8);
                     tessellator.addVertexWithUV(xMidUp, y, zBot, d5, d7);
                 }
-                if (y > 1 && iblockaccess.isAirBlock(x, y - 1, z + 1))
+                if (y > 1 && WorldHelper.isAirBlock(iblockaccess, x, y - 1, z + 1))
                 {
                     tessellator.addVertexWithUV(xMidDown, y, zMid, d5, d8);
                     tessellator.addVertexWithUV(xMidDown, y, zTop, d5, d9);
