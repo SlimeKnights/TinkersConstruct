@@ -26,7 +26,7 @@ public class ComponentToolWorkshop extends MapGenVillage
     {
     }
 
-    public ComponentToolWorkshop(StructureVillagePieces par1ComponentVillageStartPiece, int par2, Random par3Random, StructureBoundingBox par4StructureBoundingBox, int par5)
+    public ComponentToolWorkshop(Start villagePiece, int par2, Random par3Random, StructureBoundingBox par4StructureBoundingBox, int par5)
     {
         super();
         this.coordBaseMode = par5;

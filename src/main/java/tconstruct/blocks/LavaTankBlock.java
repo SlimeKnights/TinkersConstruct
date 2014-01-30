@@ -39,7 +39,7 @@ public class LavaTankBlock extends BlockContainer
         func_149752_b(20F);
         func_149647_a(TConstructRegistry.blockTab);
         func_149663_c("TConstruct.LavaTank");
-        setStepSound(Block.field_149778_k);
+        field_149762_H = Block.field_149778_k;
     }
 
     public LavaTankBlock(String prefix)

@@ -18,9 +18,9 @@ public class GlueFluid extends BlockFluidFinite {
     IIcon stillIcon;
     IIcon flowIcon;
 
-    public GlueFluid(int id, Fluid fluid, Material material)
+    public GlueFluid(Fluid fluid, Material material)
     {
-        super(id, fluid, material);
+        super(fluid, material);
     }
 
     @Override
@@ -33,7 +33,7 @@ public class GlueFluid extends BlockFluidFinite {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon getIcon (int side, int meta)
+    public IIcon func_149691_a (int side, int meta)
     {
         if (side == 0 || side == 1)
             return stillIcon;
@@ -41,7 +41,7 @@ public class GlueFluid extends BlockFluidFinite {
     }
 
     @Override
-    public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity) {
+    public void func_149670_a(World world, int x, int y, int z, Entity entity) {
         entity.motionX *= 0.1;
         entity.motionZ *= 0.1;
 

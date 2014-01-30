@@ -127,9 +127,9 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
     /* Structure */
 
     @Override
-    public void setfield_145850_b (World world)
+    public void func_145834_a (World world)
     {
-        super.setfield_145850_b(world);
+        super.func_145834_a(world);
         structure.setWorld(world);
         smeltery.setWorld(world);
     }

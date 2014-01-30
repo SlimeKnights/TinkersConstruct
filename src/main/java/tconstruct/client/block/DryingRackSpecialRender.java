@@ -75,7 +75,7 @@ public class DryingRackSpecialRender extends TileEntitySpecialRenderer
         }
 
         RenderItem.renderInFrame = true;
-        RenderManager.instance.renderEntityWithPosYaw(entityitem, 0.0D, 0.0D, 0.0D, 0.0F, 0.0F);
+        RenderManager.instance.func_147940_a(entityitem, 0.0D, 0.0D, 0.0D, 0.0F, 0.0F);
         RenderItem.renderInFrame = false;
 
         GL11.glPopMatrix();

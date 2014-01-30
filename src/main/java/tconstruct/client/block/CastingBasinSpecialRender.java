@@ -16,7 +16,7 @@ import tconstruct.library.ItemBlocklike;
 public class CastingBasinSpecialRender extends TileEntitySpecialRenderer
 {
     @Override
-    public void renderTileEntityAt (TileEntity logic, double var2, double var4, double var6, float var8)
+    public void func_147500_a (TileEntity logic, double var2, double var4, double var6, float var8)
     {
         this.render((CastingBasinLogic) logic, var2, var4, var6, var8);
     }
@@ -63,9 +63,10 @@ public class CastingBasinSpecialRender extends TileEntitySpecialRenderer
         }
 
         RenderItem.renderInFrame = true;
-        RenderManager.instance.renderEntityWithPosYaw(entityitem, 0.0D, 0.0D, 0.0D, 0.0F, 0.0F);
+        RenderManager.instance.func_147940_a(entityitem, 0.0D, 0.0D, 0.0D, 0.0F, 0.0F);
         RenderItem.renderInFrame = false;
 
         GL11.glPopMatrix();
     }
+
 }

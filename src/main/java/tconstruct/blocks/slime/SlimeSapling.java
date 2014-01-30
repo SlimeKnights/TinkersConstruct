@@ -32,7 +32,7 @@ public class SlimeSapling extends BlockSapling
         float f = 0.4F;
         func_149676_a(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, f * 2.0F, 0.5F + f);
         this.func_149711_c(0.0F);
-        this.setStepSound(Block.field_149779_h);
+        this.field_149762_H = Block.field_149779_h;
         this.func_149647_a(TConstructRegistry.blockTab);
     }
 

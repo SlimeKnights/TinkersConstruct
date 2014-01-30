@@ -22,7 +22,7 @@ public class ComponentSmeltery extends MapGenVillage
     {
     }
 
-    public ComponentSmeltery(StructureVillagePieces par1ComponentVillageStartPiece, int par2, Random par3Random, StructureBoundingBox par4StructureBoundingBox, int par5)
+    public ComponentSmeltery(Start villagePiece, int par2, Random par3Random, StructureBoundingBox par4StructureBoundingBox, int par5)
     {
         super();
         this.coordBaseMode = par5;

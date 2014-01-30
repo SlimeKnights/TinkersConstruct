@@ -131,7 +131,7 @@ public class ArmorExtendedGui extends InventoryEffectRenderer
         par0Minecraft.thePlayer.rotationYawHead = par0Minecraft.thePlayer.rotationYaw;
         GL11.glTranslatef(0.0F, par0Minecraft.thePlayer.yOffset, 0.0F);
         RenderManager.instance.playerViewY = 180.0F;
-        RenderManager.instance.renderEntityWithPosYaw(par0Minecraft.thePlayer, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F);
+        RenderManager.instance.func_147940_a(par0Minecraft.thePlayer, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F);
         par0Minecraft.thePlayer.renderYawOffset = f2;
         par0Minecraft.thePlayer.rotationYaw = f3;
         par0Minecraft.thePlayer.rotationPitch = f4;

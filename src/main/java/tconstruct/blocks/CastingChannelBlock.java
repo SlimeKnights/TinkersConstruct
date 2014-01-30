@@ -26,12 +26,12 @@ public class CastingChannelBlock extends BlockContainer
         super(Material.field_151576_e);
         this.func_149711_c(1F);
         this.func_149752_b(10);
-        this.setStepSound(field_149769_e);
+        this.field_149762_H = field_149769_e;
         func_149647_a(TConstructRegistry.blockTab);
     }
 
     @Override
-    public boolean onBlockActivated (World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ)
+    public boolean func_149727_a (World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ)
     {
         if (!world.isRemote)
         {
@@ -82,13 +82,13 @@ public class CastingChannelBlock extends BlockContainer
     }
 
     @Override
-    public boolean isOpaqueCube ()
+    public boolean func_149662_c ()
     {
         return false;
     }
 
     @Override
-    public int getRenderType ()
+    public int func_149645_b ()
     {
         return BlockRenderCastingChannel.renderID;
     }
@@ -100,7 +100,7 @@ public class CastingChannelBlock extends BlockContainer
     }
 
     @Override
-    public TileEntity createNewTileEntity (World var1)
+    public TileEntity func_149915_a (World var1, int var2)
     {
         return new CastingChannelLogic();
     }

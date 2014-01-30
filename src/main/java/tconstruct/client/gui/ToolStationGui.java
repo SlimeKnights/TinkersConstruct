@@ -49,12 +49,12 @@ public class ToolStationGui extends NewContainerGui
         this.logic = stationlogic;
         toolSlots = (ToolStationContainer) container;
         text = new GuiTextField(this.field_146289_q, this.xSize / 2 - 5, 8, 30, 12);
-        this.text.setMaxStringLength(40);
-        this.text.setEnableBackgroundDrawing(false);
-        this.text.setVisible(true);
-        this.text.setCanLoseFocus(false);
-        this.text.setFocused(true);
-        this.text.setTextColor(0xffffff);
+        this.text.func_146203_f(40);
+        this.text.func_146185_a(false);
+        this.text.func_146189_e(true);
+        this.text.func_146205_d(false);
+        this.text.func_146195_b(true);
+        this.text.func_146193_g(0xffffff);
         toolName = "";
         resetGui();
         Keyboard.enableRepeatEvents(true);
@@ -150,7 +150,7 @@ public class ToolStationGui extends NewContainerGui
     public void updateScreen ()
     {
         super.updateScreen();
-        this.text.updateCursorCounter();
+        this.text.func_146178_a();
     }
 
     /**
@@ -473,8 +473,8 @@ public class ToolStationGui extends NewContainerGui
         }
         else if (active)
         {
-            text.textboxKeyTyped(par1, keyCode);
-            toolName = text.getText().trim();
+            text.func_146201_a(par1, keyCode);
+            toolName = text.func_146179_b().trim();
             logic.setToolname(toolName);
             updateServer(toolName);
         }

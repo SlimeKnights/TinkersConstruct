@@ -20,7 +20,7 @@ public class GlassBlockStained extends TConstructBlock
     }
 
     @Override
-    public int getRenderBlockPass ()
+    public int func_149701_w ()
     {
         return 1;
     }
@@ -33,7 +33,7 @@ public class GlassBlockStained extends TConstructBlock
     @SideOnly(Side.CLIENT)
     public boolean  func_149646_a (IBlockAccess world, int x, int y, int z, int side)
     {
-        Block block = world.getBlock(x, y, z);
+        Block block = world.func_147439_a(x, y, z);
         return block == this ? false : super. func_149646_a(world, x, y, z, side);
     }
 

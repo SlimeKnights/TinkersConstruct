@@ -25,7 +25,7 @@ public class CraftingStationBlock extends InventoryBlock
         super(material);
         this.func_149647_a(TConstructRegistry.blockTab);
         this.func_149711_c(2f);
-        this.setStepSound(Block.field_149766_f);
+        this.field_149762_H = Block.field_149766_f;
     }
 
     //Block.hasComparatorInputOverride and Block.getComparatorInputOverride

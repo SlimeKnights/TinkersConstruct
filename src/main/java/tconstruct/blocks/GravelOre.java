@@ -22,7 +22,7 @@ public class GravelOre extends BlockSand
     {
         super();
         this.func_149647_a(TConstructRegistry.blockTab);
-        this.setStepSound(field_149767_g);
+        this.field_149762_H = field_149767_g;
         this.field_149764_J = Material.field_151596_z;
     }
 

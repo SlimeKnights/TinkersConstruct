@@ -28,7 +28,7 @@ public class Punji extends MantleBlock
     {
         super(Material.field_151585_k);
         this.func_149676_a(0.125f, 0, 0.125f, 0.875f, 0.375f, 0.875f);
-        this.setStepSound(Block.field_149779_h);
+        this.field_149762_H = Block.field_149779_h;
         this.func_149647_a(TConstructRegistry.blockTab);
         this.func_149711_c(3.0f);
     }

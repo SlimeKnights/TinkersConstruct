@@ -56,7 +56,7 @@ public class GlassBlockConnectedMeta extends GlassBlockConnected
     }
 
     @Override
-    public void getSubBlocks (Item b, CreativeTabs par2CreativeTabs, List par3List)
+    public void func_149666_a (Item b, CreativeTabs par2CreativeTabs, List par3List)
     {
         for (int i = 0; i < textures.length; i++)
         {
@@ -89,7 +89,7 @@ public class GlassBlockConnectedMeta extends GlassBlockConnected
     }
 
     @Override
-    public int damageDropped (int par1)
+    public int func_149692_a (int par1)
     {
         return par1;
     }

@@ -21,9 +21,9 @@ public class LiquidMetalFinite extends BlockFluidFinite
     public IIcon stillIcon;
     public IIcon flowIcon;
 
-    public LiquidMetalFinite(int id, Fluid fluid, String texture)
+    public LiquidMetalFinite(Fluid fluid, String texture)
     {
-        super(id, fluid, TRepo.liquidMetal);
+        super(fluid, TRepo.liquidMetal);
         this.texture = texture;
         this.func_149647_a(TConstructRegistry.blockTab);
     }

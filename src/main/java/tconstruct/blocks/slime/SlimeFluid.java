@@ -20,9 +20,9 @@ public class SlimeFluid extends BlockFluidClassic
     IIcon stillIcon;
     IIcon flowIcon;
 
-    public SlimeFluid(int id, Fluid fluid, Material material)
+    public SlimeFluid(Fluid fluid, Material material)
     {
-        super(id, fluid, material);
+        super(fluid, material);
     }
 
     @Override
@@ -35,7 +35,7 @@ public class SlimeFluid extends BlockFluidClassic
 
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon getIcon (int side, int meta)
+    public IIcon func_149691_a (int side, int meta)
     {
         if (side == 0 || side == 1)
             return stillIcon;

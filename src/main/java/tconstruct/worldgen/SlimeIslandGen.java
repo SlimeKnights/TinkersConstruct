@@ -27,7 +27,7 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
     Block top = TRepo.slimeGrass;
     SlimeTreeGen trees = new SlimeTreeGen(false, 5, 4, 1, 0);
 
-    public SlimeIslandGen(Block slimePool)
+    public SlimeIslandGen(Block slimePool, int meta)
     {
         this.liquidBlock = slimePool;
         this.gelMeta = meta;
@@ -226,7 +226,7 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
 
                     if (var33)
                     {
-                        Material var12 = world.getBlockMaterial(x + xPos, y + yPos, z + zPos);
+                        Material var12 = world.func_147439_a(x + xPos, y + yPos, z + zPos).func_149688_o();
 
                         if (yPos >= 4 && var12.isLiquid())
                         {
@@ -250,7 +250,7 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
                 {
                     if (validLocations[(xPos * 16 + zPos) * 8 + yPos])
                     {
-                        world.setBlock(x + xPos, y + yPos, z + zPos, yPos >= 4 ? Blocks.air : this.liquidBlock);
+                        world.func_147449_b(x + xPos, y + yPos, z + zPos, yPos >= 4 ? Blocks.air : this.liquidBlock);
                     }
                 }
             }
@@ -285,8 +285,8 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
                                         && validLocations[(xPos * 16 + zPos + 1) * 8 + yPos] || zPos > 0 && validLocations[(xPos * 16 + (zPos - 1)) * 8 + yPos] || yPos < 7
                                         && validLocations[(xPos * 16 + zPos) * 8 + yPos + 1] || yPos > 0 && validLocations[(xPos * 16 + zPos) * 8 + (yPos - 1)]);
 
-                        if (var33 && (yPos < 4 || rand.nextInt(2) != 0) && world.getBlockMaterial(x + xPos, y + yPos, z + zPos).isSolid()
-                                && world.getBlockMaterial(x + xPos, y + yPos + 1, z + zPos) != Material.field_151586_h)
+                        if (var33 && (yPos < 4 || rand.nextInt(2) != 0) && world.func_147439_a(x + xPos, y + yPos, z + zPos).func_149688_o().isSolid()
+                                && world.func_147439_a(x + xPos, y + yPos + 1, z + zPos).func_149688_o() != Material.field_151586_h)
                         {
                             world.func_147465_d(x + xPos, y + yPos, z + zPos, TRepo.slimeGel, gelMeta, 2);
                         }

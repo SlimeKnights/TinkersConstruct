@@ -14,17 +14,17 @@ public class TConstructFluid extends BlockFluidClassic
     public IIcon stillIcon;
     public IIcon flowIcon;
 
-    public TConstructFluid(int id, Fluid fluid, Material material, String texture)
+    public TConstructFluid(Fluid fluid, Material material, String texture)
     {
-        super(id, fluid, material);
+        super(fluid, material);
         this.texture = texture;
         //TODO setCreativeTab()
         this.func_149647_a(TConstructRegistry.blockTab);
     }
 
-    public TConstructFluid(int id, Fluid fluid, Material material, String texture, boolean alpha)
+    public TConstructFluid(Fluid fluid, Material material, String texture, boolean alpha)
     {
-        this(id, fluid, material, texture);
+        this(fluid, material, texture);
         this.alpha = alpha;
     }
 

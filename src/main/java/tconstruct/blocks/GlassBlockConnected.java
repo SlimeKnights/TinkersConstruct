@@ -39,7 +39,7 @@ public class GlassBlockConnected extends MantleBlock
     }
 
     @Override
-    public boolean isOpaqueCube ()
+    public boolean func_149662_c ()
     {
         return false;
     }
@@ -51,7 +51,7 @@ public class GlassBlockConnected extends MantleBlock
     }
 
     @Override
-    public int getRenderBlockPass ()
+    public int func_149701_w ()
     {
         return renderPass;
     }
@@ -592,17 +592,17 @@ public class GlassBlockConnected extends MantleBlock
     }
 
     @Override
-    public IIcon getIcon (int par1, int par2)
+    public IIcon func_149691_a (int par1, int par2)
     {
         return icons[0];
     }
 
     @Override
-    public AxisAlignedBB getSelectedBoundingBoxFromPool (World par1World, int par2, int par3, int par4)
+    public AxisAlignedBB func_149633_g (World par1World, int par2, int par3, int par4)
     {
         if (shouldRenderSelectionBox)
         {
-            return super.getSelectedBoundingBoxFromPool(par1World, par2, par3, par4);
+            return super.func_149633_g(par1World, par2, par3, par4);
         }
         else
         {
