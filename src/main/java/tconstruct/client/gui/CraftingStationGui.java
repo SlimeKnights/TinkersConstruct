@@ -45,7 +45,7 @@ public class CraftingStationGui extends GuiContainer
         this.field_146289_q.drawString(StatCollector.translateToLocal(logic.tinkerTable ? "crafters.TinkerTable" : logic.getInvName()), 8, 6, 0x202020);
         this.field_146289_q.drawString(StatCollector.translateToLocal("container.inventory"), 8, this.ySize - 96 + 2, 0x202020);
         if (logic.chest != null)
-            this.field_146289_q.drawString(StatCollector.translateToLocal(logic.chest.get().getInvName()), -108, this.ySize - 160, 0x202020);
+            this.field_146289_q.drawString(StatCollector.translateToLocal(logic.chest.get().func_145825_b()), -108, this.ySize - 160, 0x202020);
         //this.field_146289_q.drawString(toolName + "_", this.xSize / 2 - 18, 8, 0xffffff);
 
         if (logic.tinkerTable)

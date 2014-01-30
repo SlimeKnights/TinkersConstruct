@@ -226,7 +226,7 @@ public class PartCrafterGui extends NewContainerGui
 
             if (this.field_146297_k.gameSettings.touchscreen && flag1 && this.field_146297_k.thePlayer.inventory.getItemStack() == null)
             {
-                this.field_146297_k.displayGuiScreen((GuiScreen) null);
+                this.field_146297_k.func_147108_a((GuiScreen) null);
                 return;
             }
 

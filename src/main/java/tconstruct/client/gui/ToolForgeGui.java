@@ -80,7 +80,7 @@ public class ToolForgeGui extends ToolStationGui
     @Override
     void resetGui ()
     {
-        this.text.setText("");
+        this.text.func_146180_a("");
         selectedButton = 0;
         setSlotType(0);
         iconX = new int[] { 0, 1, 2, 13 };

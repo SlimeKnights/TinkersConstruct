@@ -75,7 +75,7 @@ public class ToolStationGui extends NewContainerGui
 
     void resetGui ()
     {
-        this.text.setText("");
+        this.text.func_146180_a("");
         guiType = 0;
         setSlotType(0);
         iconX = new int[] { 0, 1, 2 };

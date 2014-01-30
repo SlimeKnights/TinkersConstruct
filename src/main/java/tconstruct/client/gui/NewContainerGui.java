@@ -99,7 +99,7 @@ public abstract class NewContainerGui extends GuiScreen
      */
     public void drawScreen (int mouseX, int mouseY, float par3)
     {
-        this.drawDefaultBackground();
+        this.func_146276_q_();
         int gLeft = this.guiLeft;
         int gTop = this.guiTop;
         this.drawGuiContainerBackgroundLayer(par3, mouseX, mouseY);

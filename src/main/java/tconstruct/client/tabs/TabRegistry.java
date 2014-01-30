@@ -42,7 +42,7 @@ public class TabRegistry
     public static void openInventoryGui ()
     {
         GuiInventory inventory = new GuiInventory(mc.thePlayer);
-        mc.displayGuiScreen(inventory);
+        mc.func_147108_a(inventory);
         TabRegistry.addTabsToInventory(inventory);
     }
 

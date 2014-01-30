@@ -402,7 +402,7 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
             var2 = MathHelper.floor_double(this.posY);
             int var47 = MathHelper.floor_double(this.posZ);
 
-            if (BlockRail.isRailBlockAt(this.worldObj, var45, var2 - 1, var47))
+            if (BlockRail.func_150049_b_(this.worldObj, var45, var2 - 1, var47))
             {
                 --var2;
             }
@@ -567,7 +567,7 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
         int var10 = MathHelper.floor_double(par3);
         int var11 = MathHelper.floor_double(par5);
 
-        if (BlockRail.isRailBlockAt(this.worldObj, var9, var10 - 1, var11))
+        if (BlockRail.func_150049_b_(this.worldObj, var9, var10 - 1, var11))
         {
             --var10;
         }
@@ -583,14 +583,14 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
         int var8 = MathHelper.floor_double(par3);
         int var9 = MathHelper.floor_double(par5);
 
-        if (BlockRail.isRailBlockAt(this.worldObj, var7, var8 - 1, var9))
+        if (BlockRail.func_150049_b_(this.worldObj, var7, var8 - 1, var9))
         {
             --var8;
         }
 
         Block var10 = this.worldObj.func_147439_a(var7, var8, var9);
 
-        if (BlockRail.isRailBlock(var10))
+        if (BlockRail.func_150051_a(var10))
         {
             int var11 = 0;
             par3 = (double) var8;

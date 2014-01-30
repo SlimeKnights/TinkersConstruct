@@ -178,7 +178,7 @@ public class AdaptiveSmelteryGui extends NewContainerGui
         this.field_146297_k.getTextureManager().bindTexture(TextureMap.locationBlocksTexture);
         if (scomp.fuelGague > 0)
         {
-            IIcon lavaIcon = Blocks.lava.getIcon(0, 0);
+            IIcon lavaIcon = Blocks.lava.func_149691_a(0, 0);
             int fuel = scomp.getScaledFuelGague(52);
             int count = 0;
             while (fuel > 0)
@@ -359,7 +359,7 @@ public class AdaptiveSmelteryGui extends NewContainerGui
             while (iterator.hasNext())
             {
                 String s = (String) iterator.next();
-                int l = this.field_146289_q.getStringfield_146294_l(s);
+                int l = this.field_146289_q.getStringWidth(s);
 
                 if (l > k)
                 {
