@@ -40,7 +40,7 @@ public class Scythe extends Weapon
         return materials;
     }
 
-    static Material[] materials = new Material[] { Material.field_151569_G, Material.field_151570_A, Material.pumpkin, Material.field_151585_k, Material.field_151582_l, Material.field_151584_j };
+    static Material[] materials = new Material[] { Material.field_151569_G, Material.field_151570_A};//TODO find this//, Material.pumpkin, Material.field_151585_k, Material.field_151582_l, Material.field_151584_j };
 
     @Override
     public Item getHeadItem ()

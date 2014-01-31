@@ -464,7 +464,7 @@ public class ToolStationGui extends NewContainerGui
 
     protected void keyTyped (char par1, int keyCode)
     {
-        if (keyCode == 1 || (!active && keyCode == this.field_146297_k.gameSettings.field_151445_Q.keyCode))
+        if (keyCode == 1 || (!active && keyCode == this.field_146297_k.gameSettings.field_151445_Q.func_151463_i()))
         {
             logic.setToolname("");
             updateServer("");

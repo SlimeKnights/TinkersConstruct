@@ -234,11 +234,11 @@ public class Landmine extends MantleBlock
     {
         if (par6 > 0)
         {
-            par1World.notifyBlocksOfNeighborChange(par2, par3, par4, this);
-            par1World.notifyBlocksOfNeighborChange(par2, par3 - 1, par4, this);
+            par1World.func_147459_d(par2, par3, par4, this);
+            par1World.func_147459_d(par2, par3 - 1, par4, this);
         }
 
-        super.breakBlock(par1World, par2, par3, par4, par5, par6);
+        super.func_149749_a(par1World, par2, par3, par4, par5, par6);
     }
 
     /**

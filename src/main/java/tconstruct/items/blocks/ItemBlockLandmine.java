@@ -64,9 +64,9 @@ public class ItemBlockLandmine extends ItemBlock
             return false;
         }
 
-        if (world.getBlock(x, y, z) == TRepo.landmine)
+        if (world.func_147439_a(x, y, z) == TRepo.landmine)
         {
-            TRepo.landmine.onBlockPlacedBy(world, x, y, z, player, stack);
+            TRepo.landmine.func_149689_a(world, x, y, z, player, stack);
 
             TileEntityLandmine te = (TileEntityLandmine) world.getBlockTileEntity(x, y, z);
             if (te == null)
@@ -77,7 +77,7 @@ public class ItemBlockLandmine extends ItemBlock
             te.triggerType = stack.getItemDamage();
             world.setBlockTileEntity(x, y, z, te);
 
-            TRepo.landmine.onPostBlockPlaced(world, x, y, z, metadata);
+            TRepo.landmine.func_149714_e(world, x, y, z, metadata);
         }
 
         return true;

@@ -41,7 +41,7 @@ public class SlimeGel extends TConstructBlock
     }
 
     @Override
-    public void onEntityCollidedWithBlock (World world, int x, int y, int z, Entity entity)
+    public void func_149670_a (World world, int x, int y, int z, Entity entity)
     {
         if (entity.motionY < 0)
         {

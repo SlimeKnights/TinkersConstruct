@@ -50,7 +50,7 @@ public abstract class HarvestTool extends ToolCore
         {
             WorldHelper.setBlockToAir(world, x, y, z);
             if (!player.capabilities.isCreativeMode)
-                onBlockDestroyed(stack, world, block, x, y, z, player);
+                func_150894_a(stack, world, block, x, y, z, player);
             if (!world.isRemote)
                 world.playAuxSFX(2001, x, y, z, block.getBlockID() + (meta << 12));
             return true;

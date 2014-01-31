@@ -17,7 +17,7 @@ public class GlueBlock extends TConstructBlock {
     }
 
     @Override
-    public void onEntityCollidedWithBlock (World world, int x, int y, int z, Entity entity)
+    public void func_149670_a (World world, int x, int y, int z, Entity entity)
     {
         entity.motionX *= 0.1;
         entity.motionZ *= 0.1;

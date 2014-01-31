@@ -506,7 +506,7 @@ public class AbilityHelper
             {
                 Block block = Blocks.tilledField;
                 world.playSoundEffect((double) ((float) x + 0.5F), (double) ((float) y + 0.5F), (double) ((float) z + 0.5F), block.field_149762_H.getfield_149762_H(),
-                        (block.field_149762_H.getVolume() + 1.0F) / 2.0F, block.field_149762_H.getPitch() * 0.8F);
+                        (block.field_149762_H.func_150497_c() + 1.0F) / 2.0F, block.field_149762_H.getPitch() * 0.8F);
 
                 if (world.isRemote)
                 {

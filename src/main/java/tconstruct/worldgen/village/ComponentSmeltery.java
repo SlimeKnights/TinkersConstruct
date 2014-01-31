@@ -7,14 +7,16 @@ import tconstruct.TConstruct;
 import tconstruct.common.TRepo;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraft.world.gen.structure.MapGenVillage;
 import net.minecraft.world.gen.structure.StructureBoundingBox;
 import net.minecraft.world.gen.structure.StructureComponent;
 import net.minecraft.world.gen.structure.StructureVillagePieces;
+import net.minecraft.world.gen.structure.StructureVillagePieces.Start;
 
-public class ComponentSmeltery extends MapGenVillage
+public class ComponentSmeltery extends StructureComponent
 {
     private int averageGroundLevel = -1;
 
@@ -59,18 +61,18 @@ public class ComponentSmeltery extends MapGenVillage
          * maxZ, int placeBlockId, int replaceBlockId, boolean alwaysreplace)
          */
 
-        this.fillWithBlocks(world, sbb, 1, 0, 0, 7, 0, 6, Blocks.stonebrick, Blocks.stonebrick, false); //Base
-        this.fillWithBlocks(world, sbb, 0, 0, 1, 0, 0, 5, Blocks.stonebrick, Blocks.stonebrick, false);
-        this.fillWithBlocks(world, sbb, 8, 0, 1, 8, 0, 5, Blocks.stonebrick, Blocks.stonebrick, false);
-        this.fillWithBlocks(world, sbb, 0, 1, 0, 9, 3, 7, 0, 0, false);
+        this.func_151549_a(world, sbb, 1, 0, 0, 7, 0, 6, Blocks.stonebrick, Blocks.stonebrick, false); //Base
+        this.func_151549_a(world, sbb, 0, 0, 1, 0, 0, 5, Blocks.stonebrick, Blocks.stonebrick, false);
+        this.func_151549_a(world, sbb, 8, 0, 1, 8, 0, 5, Blocks.stonebrick, Blocks.stonebrick, false);
+        this.func_151549_a(world, sbb, 0, 1, 0, 9, 3, 7, Blocks.air, Blocks.air, false);
 
         this.fillWithMetaBlocks(world, sbb, 2, 0, 1, 6, 2, 5, TRepo.smeltery, 2, TRepo.smeltery, 2, false); //Basin
-        this.fillWithBlocks(world, sbb, 3, 1, 2, 5, 2, 4, 0, 0, false);
+        this.func_151549_a(world, sbb, 3, 1, 2, 5, 2, 4, Blocks.air, Blocks.air, false);
 
-        this.placeBlockAtCurrentPosition(world, TRepo.searedBlock, 0, 1, 1, 2, sbb);
-        this.placeBlockAtCurrentPosition(world, TRepo.searedBlock, 2, 1, 1, 4, sbb);
-        this.placeBlockAtCurrentPosition(world, TRepo.searedBlock, 0, 7, 1, 2, sbb);
-        this.placeBlockAtCurrentPosition(world, TRepo.searedBlock, 2, 7, 1, 4, sbb);
+        this.func_151550_a(world, TRepo.searedBlock, 0, 1, 1, 2, sbb);
+        this.func_151550_a(world, TRepo.searedBlock, 2, 1, 1, 4, sbb);
+        this.func_151550_a(world, TRepo.searedBlock, 0, 7, 1, 2, sbb);
+        this.func_151550_a(world, TRepo.searedBlock, 2, 7, 1, 4, sbb);
 
         for (int l = 1; l < 6; ++l)
         {
@@ -118,5 +120,19 @@ public class ComponentSmeltery extends MapGenVillage
         int k2 = this.getBiomeSpecificBlock(replaceBlockID, replaceBlockMeta);
         int l2 = this.getBiomeSpecificBlockMetadata(replaceBlockID, replaceBlockMeta);
         super.fillWithMetadataBlocks(par1World, par2StructureBoundingBox, minX, minY, minZ, maxX, maxY, maxZ, i2, j2, k2, l2, alwaysReplace);
+    }
+
+    @Override
+    protected void func_143012_a (NBTTagCompound var1)
+    {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    protected void func_143011_b (NBTTagCompound var1)
+    {
+        // TODO Auto-generated method stub
+        
     }
 }

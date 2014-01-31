@@ -18,7 +18,7 @@ import net.minecraft.world.gen.structure.StructureVillagePieces.Start;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 
 
-public class ComponentToolWorkshop extends MapGenVillage
+public class ComponentToolWorkshop extends StructureComponent
 {
     private int averageGroundLevel = -1;
 
@@ -63,81 +63,81 @@ public class ComponentToolWorkshop extends MapGenVillage
          * maxZ, int placeBlockId, int replaceBlockId, boolean alwaysreplace)
          */
 
-        this.fillWithBlocks(world, sbb, 0, 0, 0, 6, 0, 6, Blocks.cobblestone, Blocks.cobblestone, false); //Base
-        this.fillWithBlocks(world, sbb, 0, 5, 0, 6, 5, 6, Blocks.fence, Blocks.fence, false);
-        this.fillWithBlocks(world, sbb, 1, 0, 1, 5, 0, 5, Blocks.planks, Blocks.planks, false);
-        this.fillWithBlocks(world, sbb, 2, 0, 2, 4, 0, 4, Blocks.wool, Blocks.wool, false);
+        this.func_151549_a(world, sbb, 0, 0, 0, 6, 0, 6, Blocks.cobblestone, Blocks.cobblestone, false); //Base
+        this.func_151549_a(world, sbb, 0, 5, 0, 6, 5, 6, Blocks.fence, Blocks.fence, false);
+        this.func_151549_a(world, sbb, 1, 0, 1, 5, 0, 5, Blocks.planks, Blocks.planks, false);
+        this.func_151549_a(world, sbb, 2, 0, 2, 4, 0, 4, Blocks.wool, Blocks.wool, false);
 
-        //this.fillWithBlocks(world, sbb, 0, 5, 0, 6, 5, 6, Blocks.log, Blocks.log, false);
+        //this.func_151549_a(world, sbb, 0, 5, 0, 6, 5, 6, Blocks.log, Blocks.log, false);
 
-        this.fillWithBlocks(world, sbb, 0, 1, 0, 0, 4, 0, Blocks.log, Blocks.log, false); //Edges
-        this.fillWithBlocks(world, sbb, 0, 1, 6, 0, 4, 6, Blocks.log, Blocks.log, false);
-        this.fillWithBlocks(world, sbb, 6, 1, 0, 6, 4, 0, Blocks.log, Blocks.log, false);
-        this.fillWithBlocks(world, sbb, 6, 1, 6, 6, 4, 6, Blocks.log, Blocks.log, false);
+        this.func_151549_a(world, sbb, 0, 1, 0, 0, 4, 0, Blocks.log, Blocks.log, false); //Edges
+        this.func_151549_a(world, sbb, 0, 1, 6, 0, 4, 6, Blocks.log, Blocks.log, false);
+        this.func_151549_a(world, sbb, 6, 1, 0, 6, 4, 0, Blocks.log, Blocks.log, false);
+        this.func_151549_a(world, sbb, 6, 1, 6, 6, 4, 6, Blocks.log, Blocks.log, false);
 
-        this.fillWithBlocks(world, sbb, 0, 1, 1, 0, 1, 5, Blocks.planks, Blocks.planks, false); //Walls
-        this.fillWithBlocks(world, sbb, 1, 1, 0, 5, 1, 0, Blocks.planks, Blocks.planks, false);
-        this.fillWithBlocks(world, sbb, 6, 1, 1, 6, 1, 5, Blocks.planks, Blocks.planks, false);
-        this.fillWithBlocks(world, sbb, 1, 1, 6, 5, 1, 6, Blocks.planks, Blocks.planks, false);
+        this.func_151549_a(world, sbb, 0, 1, 1, 0, 1, 5, Blocks.planks, Blocks.planks, false); //Walls
+        this.func_151549_a(world, sbb, 1, 1, 0, 5, 1, 0, Blocks.planks, Blocks.planks, false);
+        this.func_151549_a(world, sbb, 6, 1, 1, 6, 1, 5, Blocks.planks, Blocks.planks, false);
+        this.func_151549_a(world, sbb, 1, 1, 6, 5, 1, 6, Blocks.planks, Blocks.planks, false);
 
-        this.fillWithBlocks(world, sbb, 0, 3, 1, 0, 3, 5, Blocks.planks, Blocks.planks, false);
-        this.fillWithBlocks(world, sbb, 1, 3, 0, 5, 3, 0, Blocks.planks, Blocks.planks, false);
-        this.fillWithBlocks(world, sbb, 6, 3, 1, 6, 3, 5, Blocks.planks, Blocks.planks, false);
-        this.fillWithBlocks(world, sbb, 1, 3, 6, 5, 3, 6, Blocks.planks, Blocks.planks, false);
+        this.func_151549_a(world, sbb, 0, 3, 1, 0, 3, 5, Blocks.planks, Blocks.planks, false);
+        this.func_151549_a(world, sbb, 1, 3, 0, 5, 3, 0, Blocks.planks, Blocks.planks, false);
+        this.func_151549_a(world, sbb, 6, 3, 1, 6, 3, 5, Blocks.planks, Blocks.planks, false);
+        this.func_151549_a(world, sbb, 1, 3, 6, 5, 3, 6, Blocks.planks, Blocks.planks, false);
 
-        this.fillWithBlocks(world, sbb, 0, 4, 1, 0, 4, 5, Blocks.log, Blocks.log, false);
-        this.fillWithBlocks(world, sbb, 1, 4, 0, 5, 4, 0, Blocks.log, Blocks.log, false);
-        this.fillWithBlocks(world, sbb, 6, 4, 1, 6, 4, 5, Blocks.log, Blocks.log, false);
-        this.fillWithBlocks(world, sbb, 1, 4, 6, 5, 4, 6, Blocks.log, Blocks.log, false);
+        this.func_151549_a(world, sbb, 0, 4, 1, 0, 4, 5, Blocks.log, Blocks.log, false);
+        this.func_151549_a(world, sbb, 1, 4, 0, 5, 4, 0, Blocks.log, Blocks.log, false);
+        this.func_151549_a(world, sbb, 6, 4, 1, 6, 4, 5, Blocks.log, Blocks.log, false);
+        this.func_151549_a(world, sbb, 1, 4, 6, 5, 4, 6, Blocks.log, Blocks.log, false);
 
-        this.fillWithBlocks(world, sbb, 1, 1, 1, 5, 5, 5, 0, 0, false);
-        this.fillWithBlocks(world, sbb, 1, 4, 1, 5, 4, 5, Blocks.planks, Blocks.planks, false);
+        this.func_151549_a(world, sbb, 1, 1, 1, 5, 5, 5, Blocks.air, Blocks.air, false);
+        this.func_151549_a(world, sbb, 1, 4, 1, 5, 4, 5, Blocks.planks, Blocks.planks, false);
 
         //world, blockID, metadata, x, y, z, bounds
-        this.placeBlockAtCurrentPosition(world, Blocks.glass_pane, 0, 1, 2, 0, sbb);//Glass and door
-        this.placeBlockAtCurrentPosition(world, Blocks.planks, 0, 2, 2, 0, sbb);
-        this.placeDoorAtCurrentPosition(world, sbb, random, 3, 1, 0, this.getMetadataWithOffset(Blocks.wooden_door, 1));
-        this.placeBlockAtCurrentPosition(world, Blocks.planks, 0, 4, 2, 0, sbb);
-        this.placeBlockAtCurrentPosition(world, Blocks.glass_pane, 0, 5, 2, 0, sbb);
+        this.func_151550_a(world, Blocks.glass_pane, 0, 1, 2, 0, sbb);//Glass and door
+        this.func_151550_a(world, Blocks.planks, 0, 2, 2, 0, sbb);
+        this.placeDoorAtCurrentPosition(world, sbb, random, 3, 1, 0, this.func_151555_a(Blocks.wooden_door, 1));
+        this.func_151550_a(world, Blocks.planks, 0, 4, 2, 0, sbb);
+        this.func_151550_a(world, Blocks.glass_pane, 0, 5, 2, 0, sbb);
 
-        this.placeBlockAtCurrentPosition(world, Blocks.glass_pane, 0, 1, 2, 6, sbb);
-        this.placeBlockAtCurrentPosition(world, Blocks.glass_pane, 0, 2, 2, 6, sbb);
-        this.placeBlockAtCurrentPosition(world, Blocks.planks, 0, 3, 2, 6, sbb);
-        this.placeBlockAtCurrentPosition(world, Blocks.glass_pane, 0, 4, 2, 6, sbb);
-        this.placeBlockAtCurrentPosition(world, Blocks.glass_pane, 0, 5, 2, 6, sbb);
+        this.func_151550_a(world, Blocks.glass_pane, 0, 1, 2, 6, sbb);
+        this.func_151550_a(world, Blocks.glass_pane, 0, 2, 2, 6, sbb);
+        this.func_151550_a(world, Blocks.planks, 0, 3, 2, 6, sbb);
+        this.func_151550_a(world, Blocks.glass_pane, 0, 4, 2, 6, sbb);
+        this.func_151550_a(world, Blocks.glass_pane, 0, 5, 2, 6, sbb);
 
-        this.placeBlockAtCurrentPosition(world, Blocks.glass_pane, 0, 0, 2, 1, sbb);
-        this.placeBlockAtCurrentPosition(world, Blocks.glass_pane, 0, 0, 2, 2, sbb);
-        this.placeBlockAtCurrentPosition(world, Blocks.planks, 0, 0, 2, 3, sbb);
-        this.placeBlockAtCurrentPosition(world, Blocks.glass_pane, 0, 0, 2, 4, sbb);
-        this.placeBlockAtCurrentPosition(world, Blocks.glass_pane, 0, 0, 2, 5, sbb);
+        this.func_151550_a(world, Blocks.glass_pane, 0, 0, 2, 1, sbb);
+        this.func_151550_a(world, Blocks.glass_pane, 0, 0, 2, 2, sbb);
+        this.func_151550_a(world, Blocks.planks, 0, 0, 2, 3, sbb);
+        this.func_151550_a(world, Blocks.glass_pane, 0, 0, 2, 4, sbb);
+        this.func_151550_a(world, Blocks.glass_pane, 0, 0, 2, 5, sbb);
 
-        this.placeBlockAtCurrentPosition(world, Blocks.glass_pane, 0, 6, 2, 1, sbb);
-        this.placeBlockAtCurrentPosition(world, Blocks.glass_pane, 0, 6, 2, 2, sbb);
-        this.placeBlockAtCurrentPosition(world, Blocks.planks, 0, 6, 2, 3, sbb);
-        this.placeBlockAtCurrentPosition(world, Blocks.glass_pane, 0, 6, 2, 4, sbb);
-        this.placeBlockAtCurrentPosition(world, Blocks.glass_pane, 0, 6, 2, 5, sbb);
+        this.func_151550_a(world, Blocks.glass_pane, 0, 6, 2, 1, sbb);
+        this.func_151550_a(world, Blocks.glass_pane, 0, 6, 2, 2, sbb);
+        this.func_151550_a(world, Blocks.planks, 0, 6, 2, 3, sbb);
+        this.func_151550_a(world, Blocks.glass_pane, 0, 6, 2, 4, sbb);
+        this.func_151550_a(world, Blocks.glass_pane, 0, 6, 2, 5, sbb);
 
-        int i = this.getMetadataWithOffset(Blocks.ladder, 3); //Ladders
-        this.placeBlockAtCurrentPosition(world, Blocks.ladder, i, 3, 1, 5, sbb);
-        this.placeBlockAtCurrentPosition(world, Blocks.ladder, i, 3, 2, 5, sbb);
-        this.placeBlockAtCurrentPosition(world, Blocks.ladder, i, 3, 3, 5, sbb);
-        this.placeBlockAtCurrentPosition(world, Blocks.ladder, i, 3, 4, 5, sbb);
+        int i = this.func_151555_a(Blocks.ladder, 3); //Ladders
+        this.func_151550_a(world, Blocks.ladder, i, 3, 1, 5, sbb);
+        this.func_151550_a(world, Blocks.ladder, i, 3, 2, 5, sbb);
+        this.func_151550_a(world, Blocks.ladder, i, 3, 3, 5, sbb);
+        this.func_151550_a(world, Blocks.ladder, i, 3, 4, 5, sbb);
 
-        this.placeBlockAtCurrentPosition(world, TRepo.toolStationWood, 0, 1, 1, 1, sbb); //Inside
+        this.func_151550_a(world, TRepo.toolStationWood, 0, 1, 1, 1, sbb); //Inside
         this.generateStructurePatternChestContents(world, sbb, random, 1, 1, 2, TRepo.tinkerHousePatterns.getItems(random), TRepo.tinkerHousePatterns.getCount(random));
-        //this.placeBlockAtCurrentPosition(world, TRepo.toolStationWood, 5, 1, 1, 2, sbb);
-        this.placeBlockAtCurrentPosition(world, TRepo.toolStationWood, 1, 1, 1, 3, sbb);
+        //this.func_151550_a(world, TRepo.toolStationWood, 5, 1, 1, 2, sbb);
+        this.func_151550_a(world, TRepo.toolStationWood, 1, 1, 1, 3, sbb);
         this.generateStructureCraftingStationContents(world, sbb, random, 1, 1, 4, TRepo.tinkerHouseChest.getItems(random), TRepo.tinkerHouseChest.getCount(random));
-       // this.placeBlockAtCurrentPosition(world, TRepo.craftingStationWood, 0, 1, 1, 4, sbb);
-        this.placeBlockAtCurrentPosition(world, TRepo.toolStationWood, 10, 1, 1, 5, sbb);
+       // this.func_151550_a(world, TRepo.craftingStationWood, 0, 1, 1, 4, sbb);
+        this.func_151550_a(world, TRepo.toolStationWood, 10, 1, 1, 5, sbb);
 
         //ChestGenHooks info = ChestGenHooks.getInfo("TinkerHouse");
 
         this.generateStructureChestContents(world, sbb, random, 4, 1, 5, TRepo.tinkerHouseChest.getItems(random), TRepo.tinkerHouseChest.getCount(random));
-        //this.placeBlockAtCurrentPosition(world, Block.chest, i, 4, 1, 5, sbb);
-        i = this.getMetadataWithOffset(Blocks.piston, 3);
-        this.placeBlockAtCurrentPosition(world, Blocks.piston, i, 5, 1, 5, sbb);
+        //this.func_151550_a(world, Block.chest, i, 4, 1, 5, sbb);
+        i = this.func_151555_a(Blocks.piston, 3);
+        this.func_151550_a(world, Blocks.piston, i, 5, 1, 5, sbb);
 
         for (int l = 0; l < 6; ++l)
         {
@@ -159,7 +159,7 @@ public class ComponentToolWorkshop extends MapGenVillage
         int posY = this.getYWithOffset(y);
         int posZ = this.getZWithOffset(x, z);
 
-        if (par2StructureBoundingBox.isVecInside(posX, posY, posZ) && world.getBlock(posX, posY, posZ) != Blocks.chest)
+        if (par2StructureBoundingBox.isVecInside(posX, posY, posZ) && world.func_147439_a(posX, posY, posZ) != Blocks.chest)
         {
             world.func_147465_d(posX, posY, posZ, TRepo.craftingStationWood, 5, 2);
             CraftingStationLogic logic = (CraftingStationLogic) world.func_147438_o(posX, posY, posZ);
@@ -183,7 +183,7 @@ public class ComponentToolWorkshop extends MapGenVillage
         int posY = this.getYWithOffset(y);
         int posZ = this.getZWithOffset(x, z);
 
-        if (par2StructureBoundingBox.isVecInside(posX, posY, posZ) && world.getBlock(posX, posY, posZ) != Blocks.chest)
+        if (par2StructureBoundingBox.isVecInside(posX, posY, posZ) && world.func_147439_a(posX, posY, posZ) != Blocks.chest)
         {
             world.func_147465_d(posX, posY, posZ, TRepo.toolStationWood, 5, 2);
             PatternChestLogic logic = (PatternChestLogic) world.func_147438_o(posX, posY, posZ);

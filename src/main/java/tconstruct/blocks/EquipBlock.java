@@ -94,9 +94,9 @@ public class EquipBlock extends InventoryBlock
         }
     }
 
-    public void onBlockPlacedBy (World par1World, int par2, int par3, int par4, EntityLivingBase par5EntityLivingBase, ItemStack par6ItemStack)
+    public void func_149689_a (World par1World, int par2, int par3, int par4, EntityLivingBase par5EntityLivingBase, ItemStack par6ItemStack)
     {
-        super.onBlockPlacedBy(par1World, par2, par3, par4, par5EntityLivingBase, par6ItemStack);
+        super.func_149689_a(par1World, par2, par3, par4, par5EntityLivingBase, par6ItemStack);
         int i3 = MathHelper.floor_double((par5EntityLivingBase.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
 
         int newMeta = 0;
@@ -120,7 +120,7 @@ public class EquipBlock extends InventoryBlock
     }
 
     @Override
-    public void breakBlock (World par1World, int x, int y, int z, int par5, int meta)
+    public void func_149749_a (World par1World, int x, int y, int z, int par5, int meta)
     {
         TileEntity te = par1World.getBlockTileEntity(x, y, z);
 
@@ -165,7 +165,7 @@ public class EquipBlock extends InventoryBlock
             }
         }
 
-        super.breakBlock(par1World, x, y, z, par5, meta);
+        super.func_149749_a(par1World, x, y, z, par5, meta);
     }
 
     public int getLightValue (IBlockAccess world, int x, int y, int z)

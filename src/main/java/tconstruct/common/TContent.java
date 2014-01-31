@@ -133,8 +133,7 @@ public class TContent implements IFuelHandler
         TRepo.tankAir = new TankAirBlock(Material.field_151584_j).func_149722_s().func_149663_c("tconstruct.tank.air");
 
         //Traps
-        TRepo.landmine = new BlockLandmine().func_149711_c(0.5F).func_149752_b(0F).func_149672_a(Block.field_149777_j).func_149647_a(CreativeTabs.tabRedstone)
-                .func_149663_c("landmine");
+        TRepo.landmine = new BlockLandmine().func_149711_c(0.5F).func_149752_b(0F).func_149672_a(Block.field_149777_j).func_149647_a(CreativeTabs.tabRedstone).func_149663_c("landmine");
         TRepo.punji = new Punji().func_149663_c("trap.punji");
         TRepo.barricadeOak = new BarricadeBlock(Blocks.log, 0).func_149663_c("trap.barricade.oak");
         TRepo.barricadeSpruce = new BarricadeBlock(Blocks.log, 1).func_149663_c("trap.barricade.spruce");
@@ -353,8 +352,7 @@ public class TContent implements IFuelHandler
         TRepo.blueSlimeFluid = new Fluid("slime.blue");
         if (!FluidRegistry.registerFluid(TRepo.blueSlimeFluid))
             TRepo.blueSlimeFluid = FluidRegistry.getFluid("slime.blue");
-        TRepo.slimePool = new SlimeFluid(TRepo.blueSlimeFluid, Material.field_151586_h).func_149647_a(TConstructRegistry.blockTab).func_149672_a(TRepo.slimeStep)
-                .func_149663_c("liquid.slime");
+        TRepo.slimePool = new SlimeFluid(TRepo.blueSlimeFluid, Material.field_151586_h).func_149647_a(TConstructRegistry.blockTab).func_149672_a(TRepo.slimeStep).func_149663_c("liquid.slime");
         GameRegistry.registerBlock(TRepo.slimePool, "liquid.slime");
         TRepo.blueSlimeFluid.setBlock(TRepo.slimePool);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TRepo.blueSlimeFluid, 1000), new ItemStack(TRepo.buckets, 1, 24), new ItemStack(Items.bucket)));
@@ -363,8 +361,7 @@ public class TContent implements IFuelHandler
         TRepo.glueFluid = new Fluid("glue").setDensity(6000).setViscosity(6000).setTemperature(200);
         if (!FluidRegistry.registerFluid(TRepo.glueFluid))
             TRepo.glueFluid = FluidRegistry.getFluid("glue");
-        TRepo.glueFluidBlock = new GlueFluid(TRepo.glueFluid, Material.field_151586_h).func_149647_a(TConstructRegistry.blockTab).func_149672_a(TRepo.slimeStep)
-                .func_149663_c("liquid.glue");
+        TRepo.glueFluidBlock = new GlueFluid(TRepo.glueFluid, Material.field_151586_h).func_149647_a(TConstructRegistry.blockTab).func_149672_a(TRepo.slimeStep).func_149663_c("liquid.glue");
         GameRegistry.registerBlock(TRepo.glueFluidBlock, "liquid.glue");
         TRepo.glueFluid.setBlock(TRepo.glueFluidBlock);
         FluidContainerRegistry.registerFluidContainer(new FluidContainerData(new FluidStack(TRepo.glueFluid, 1000), new ItemStack(TRepo.buckets, 1, 26), new ItemStack(Items.bucket)));
@@ -401,8 +398,7 @@ public class TContent implements IFuelHandler
         String[] berryOres = new String[] { "berry_iron", "berry_gold", "berry_copper", "berry_tin", "berry_iron_ripe", "berry_gold_ripe", "berry_copper_ripe", "berry_tin_ripe" };
         TRepo.oreBerry = (OreberryBush) new OreberryBush(berryOres, 0, 4, new String[] { "oreIron", "oreGold", "oreCopper", "oreTin" }).func_149663_c("ore.berries.one");
         String[] berryOresTwo = new String[] { "berry_aluminum", "berry_essence", "", "", "berry_aluminum_ripe", "berry_essence_ripe", "", "" };
-        TRepo.oreBerrySecond = (OreberryBush) new OreberryBushEssence(berryOresTwo, 4, 2, new String[] { "oreAluminum", "oreSilver" })
-                .func_149663_c("ore.berries.two");
+        TRepo.oreBerrySecond = (OreberryBush) new OreberryBushEssence(berryOresTwo, 4, 2, new String[] { "oreAluminum", "oreSilver" }).func_149663_c("ore.berries.two");
 
         String[] oreTypes = new String[] { "nether_slag", "nether_cobalt", "nether_ardite", "ore_copper", "ore_tin", "ore_aluminum", "ore_slag" };
         TRepo.oreSlag = new MetalOre(Material.field_151576_e, 10.0F, oreTypes).func_149663_c("tconstruct.stoneore");
@@ -426,8 +422,8 @@ public class TContent implements IFuelHandler
         TRepo.clearGlass = new GlassBlockConnected("clear", false).func_149663_c("GlassBlock");
         TRepo.clearGlass.field_149762_H = Block.field_149778_k;
         TRepo.glassPane = new GlassPaneConnected("clear", false);
-        TRepo.stainedGlassClear = new GlassBlockConnectedMeta("stained", true, "white", "orange", "magenta", "light_blue", "yellow", "lime", "pink", "gray",
-                "light_gray", "cyan", "purple", "blue", "brown", "green", "red", "black").func_149663_c("GlassBlock.StainedClear");
+        TRepo.stainedGlassClear = new GlassBlockConnectedMeta("stained", true, "white", "orange", "magenta", "light_blue", "yellow", "lime", "pink", "gray", "light_gray", "cyan", "purple", "blue",
+                "brown", "green", "red", "black").func_149663_c("GlassBlock.StainedClear");
         TRepo.stainedGlassClear.field_149762_H = Block.field_149778_k;
         TRepo.stainedGlassClearPane = new GlassPaneStained();
 
@@ -837,22 +833,17 @@ public class TContent implements IFuelHandler
     {
         HashMap<String, Achievement> achievements = TAchievements.achievements;
 
-        achievements.put("tconstruct.beginner", new Achievement("" + 2741, "tconstruct.beginner", 0, 0, TRepo.manualBook, null).setIndependent() );
-        achievements.put("tconstruct.pattern", new Achievement("" + 2742, "tconstruct.pattern", 2, 1, TRepo.blankPattern, achievements.get("tconstruct.beginner")) );
-        achievements.put("tconstruct.tinkerer",
-                new Achievement("" + 2743, "tconstruct.tinkerer", 2, 2, new ItemStack(TRepo.titleIcon, 1, 4096), achievements.get("tconstruct.pattern")) );
-        achievements.put("tconstruct.preparedFight",
-                new Achievement("" + 2744, "tconstruct.preparedFight", 1, 3, new ItemStack(TRepo.titleIcon, 1, 4097), achievements.get("tconstruct.tinkerer")));
-        achievements.put("tconstruct.proTinkerer", new Achievement("" + 2745, "tconstruct.proTinkerer", 4, 4, new ItemStack(TRepo.titleIcon, 1, 4098), achievements.get("tconstruct.tinkerer")).setSpecial()
-                 );
-        achievements.put("tconstruct.smelteryMaker", new Achievement("" + 2746, "tconstruct.smelteryMaker", -2, -1, TRepo.smeltery, achievements.get("tconstruct.beginner")) );
-        achievements.put("tconstruct.enemySlayer",
-                new Achievement("" + 2747, "tconstruct.enemySlayer", 0, 5, new ItemStack(TRepo.titleIcon, 1, 4099), achievements.get("tconstruct.preparedFight")) );
-        achievements.put("tconstruct.dualConvenience", new Achievement("" + 2748, "tconstruct.dualConvenience", 0, 7, new ItemStack(TRepo.titleIcon, 1, 4100), achievements.get("tconstruct.enemySlayer"))
-                .setSpecial() );
-        achievements.put("tconstruct.doingItWrong",
-                new Achievement("" + 2749, "tconstruct.doingItWrong", -2, -3, new ItemStack(TRepo.manualBook, 1, 2), achievements.get("tconstruct.smelteryMaker")) );
-        achievements.put("tconstruct.betterCrafting",
-                new Achievement("" + 2750, "tconstruct.betterCrafting", -2, 2, TRepo.craftingStationWood, achievements.get("tconstruct.beginner")) );
+        achievements.put("tconstruct.beginner", new Achievement("" + 2741, "tconstruct.beginner", 0, 0, TRepo.manualBook, null).setIndependent());
+        achievements.put("tconstruct.pattern", new Achievement("" + 2742, "tconstruct.pattern", 2, 1, TRepo.blankPattern, achievements.get("tconstruct.beginner")));
+        achievements.put("tconstruct.tinkerer", new Achievement("" + 2743, "tconstruct.tinkerer", 2, 2, new ItemStack(TRepo.titleIcon, 1, 4096), achievements.get("tconstruct.pattern")));
+        achievements.put("tconstruct.preparedFight", new Achievement("" + 2744, "tconstruct.preparedFight", 1, 3, new ItemStack(TRepo.titleIcon, 1, 4097), achievements.get("tconstruct.tinkerer")));
+        achievements.put("tconstruct.proTinkerer",
+                new Achievement("" + 2745, "tconstruct.proTinkerer", 4, 4, new ItemStack(TRepo.titleIcon, 1, 4098), achievements.get("tconstruct.tinkerer")).setSpecial());
+        achievements.put("tconstruct.smelteryMaker", new Achievement("" + 2746, "tconstruct.smelteryMaker", -2, -1, TRepo.smeltery, achievements.get("tconstruct.beginner")));
+        achievements.put("tconstruct.enemySlayer", new Achievement("" + 2747, "tconstruct.enemySlayer", 0, 5, new ItemStack(TRepo.titleIcon, 1, 4099), achievements.get("tconstruct.preparedFight")));
+        achievements.put("tconstruct.dualConvenience",
+                new Achievement("" + 2748, "tconstruct.dualConvenience", 0, 7, new ItemStack(TRepo.titleIcon, 1, 4100), achievements.get("tconstruct.enemySlayer")).setSpecial());
+        achievements.put("tconstruct.doingItWrong", new Achievement("" + 2749, "tconstruct.doingItWrong", -2, -3, new ItemStack(TRepo.manualBook, 1, 2), achievements.get("tconstruct.smelteryMaker")));
+        achievements.put("tconstruct.betterCrafting", new Achievement("" + 2750, "tconstruct.betterCrafting", -2, 2, TRepo.craftingStationWood, achievements.get("tconstruct.beginner")));
     }
 }

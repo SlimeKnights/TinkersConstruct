@@ -199,7 +199,7 @@ public class PartCrafterGui extends NewContainerGui
     @Override
     protected void mouseClicked (int mouseX, int mouseY, int clickNum)
     {
-        boolean flag = clickNum == this.field_146297_k.gameSettings.keyBindPickBlock.keyCode + 100;
+        boolean flag = clickNum == this.field_146297_k.gameSettings.keyBindPickBlock.func_151463_i() + 100;
         Slot slot = this.getSlotAtPosition(mouseX, mouseY);
         long l = Minecraft.getSystemTime();
         this.field_94074_J = this.field_94072_H == slot && l - this.field_94070_G < 250L && this.field_94073_I == clickNum;
@@ -249,7 +249,7 @@ public class PartCrafterGui extends NewContainerGui
                 {
                     if (this.field_146297_k.thePlayer.inventory.getItemStack() == null)
                     {
-                        if (clickNum == this.field_146297_k.gameSettings.keyBindPickBlock.keyCode + 100)
+                        if (clickNum == this.field_146297_k.gameSettings.keyBindPickBlock.func_151463_i() + 100)
                         {
                             this.handleMouseClick(slot, k1, clickNum, 3);
                         }

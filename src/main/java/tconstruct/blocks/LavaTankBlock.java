@@ -303,7 +303,7 @@ public class LavaTankBlock extends BlockContainer
     }
 
     @Override
-    public void onBlockPlacedBy (World world, int x, int y, int z, EntityLivingBase living, ItemStack stack)
+    public void func_149689_a (World world, int x, int y, int z, EntityLivingBase living, ItemStack stack)
     {
         if (stack.hasTagCompound())
         {

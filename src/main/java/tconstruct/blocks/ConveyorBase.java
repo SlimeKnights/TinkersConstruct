@@ -42,7 +42,7 @@ public class ConveyorBase extends MantleBlock
     }
 
     @Override
-    public void onEntityCollidedWithBlock (World world, int x, int y, int z, Entity entity)
+    public void func_149670_a (World world, int x, int y, int z, Entity entity)
     {
         if (!world.isBlockIndirectlyGettingPowered(x, y, z))
         {
@@ -94,7 +94,7 @@ public class ConveyorBase extends MantleBlock
     }
 
     @Override
-    public void onBlockPlacedBy (World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack)
+    public void func_149689_a (World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack)
     {
         int face = MathHelper.floor_double((double) (entity.rotationYaw * 8.0F / 360.0F) + 0.5D) + (entity.isSneaking() ? 4 : 0) & 7;
         int meta = world.getBlockMetadata(x, y, z) & 8;

@@ -193,5 +193,17 @@ public class TankAirLogic extends InventoryLogic implements IServantLogic, ISide
         return new Packet132TileEntityData(field_145851_c, field_145848_d, field_145849_e, 1, tag);
     }
 
+    @Override
+    public String func_145825_b ()
+    {
+        return this.func_145825_b();
+    }
+
+    @Override
+    public boolean func_145818_k_ ()
+    {
+        return false;
+    }
+
 
 }

@@ -36,7 +36,8 @@ public class Knapsack extends CraftingItem
         }
     }
 
-    @Override
+    //TODO feel fix this so that stuff ticks in backpacks
+    /*@Override
     public void onArmorTickUpdate (World world, EntityPlayer player, ItemStack itemStack)
     {
         TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.getDisplayName());
@@ -52,6 +53,6 @@ public class Knapsack extends CraftingItem
                 }
             }
         }
-    }
+    }*/
 
 }

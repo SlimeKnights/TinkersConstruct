@@ -8,6 +8,7 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 
 public class StencilTableLogic extends InventoryLogic implements ISidedInventory
@@ -119,5 +120,17 @@ public class StencilTableLogic extends InventoryLogic implements ISidedInventory
     public boolean canExtractItem (int i, ItemStack itemstack, int j)
     {
         return false;
+    }
+
+    @Override
+    public String func_145825_b ()
+    {
+        return StatCollector.translateToLocal("toolstation.PatternShaper");
+    }
+
+    @Override
+    public boolean func_145818_k_ ()
+    {
+        return true;
     }
 }

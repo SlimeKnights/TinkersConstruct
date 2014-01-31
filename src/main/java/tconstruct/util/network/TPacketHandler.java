@@ -25,9 +25,10 @@ import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.common.network.Player;
 import cpw.mods.fml.relauncher.Side;
 
-public class TPacketHandler implements IPacketHandler
+public class TPacketHandler// implements IPacketHandler
 {
-
+    //1.7 uses netty... commenting this out as it might be needed for reference updating to new packets
+/*
     @Override
     public void onPacketData (NetworkManager manager, Packet250CustomPayload packet, Player player)
     {
@@ -182,5 +183,5 @@ public class TPacketHandler implements IPacketHandler
                 return (Entity) o;
         }
         return null;
-    }
+    }*/
 }

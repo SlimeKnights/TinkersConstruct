@@ -279,7 +279,7 @@ public abstract class NewContainerGui extends GuiScreen
             while (iterator.hasNext())
             {
                 String s = (String) iterator.next();
-                int l = this.field_146289_q.getStringfield_146294_l(s);
+                int l = this.field_146289_q.getStringWidth(s);
 
                 if (l > k)
                 {
@@ -492,7 +492,7 @@ public abstract class NewContainerGui extends GuiScreen
     protected void mouseClicked (int mouseX, int mouseY, int mouseButton)
     {
         super.mouseClicked(mouseX, mouseY, mouseButton);
-        boolean flag = mouseButton == this.field_146297_k.gameSettings.keyBindPickBlock.keyCode + 100;
+        boolean flag = mouseButton == this.field_146297_k.gameSettings.keyBindPickBlock.func_151463_i() + 100;
         Slot slot = this.getSlotAtPosition(mouseX, mouseY);
         long l = Minecraft.getSystemTime();
         this.field_94074_J = this.field_94072_H == slot && l - this.field_94070_G < 250L && this.field_94073_I == mouseButton;
@@ -517,7 +517,7 @@ public abstract class NewContainerGui extends GuiScreen
 
             if (this.field_146297_k.gameSettings.touchscreen && flag1 && this.field_146297_k.thePlayer.inventory.getItemStack() == null)
             {
-                this.field_146297_k.displayGuiScreen((GuiScreen) null);
+                this.field_146297_k.func_147108_a((GuiScreen) null);
                 return;
             }
 
@@ -540,7 +540,7 @@ public abstract class NewContainerGui extends GuiScreen
                 {
                     if (this.field_146297_k.thePlayer.inventory.getItemStack() == null)
                     {
-                        if (mouseButton == this.field_146297_k.gameSettings.keyBindPickBlock.keyCode + 100)
+                        if (mouseButton == this.field_146297_k.gameSettings.keyBindPickBlock.func_151463_i() + 100)
                         {
                             this.handleMouseClick(slot, k1, mouseButton, 3);
                         }
@@ -662,7 +662,7 @@ public abstract class NewContainerGui extends GuiScreen
 
         if (this.field_94074_J && slot != null && par3 == 0 && this.container.func_94530_a((ItemStack) null, slot))
         {
-            if (isShiftKeyDown())
+            if (func_146272_n())
             {
                 if (slot != null && slot.inventory != null && this.field_94075_K != null)
                 {
@@ -764,7 +764,7 @@ public abstract class NewContainerGui extends GuiScreen
             }
             else if (this.field_146297_k.thePlayer.inventory.getItemStack() != null)
             {
-                if (par3 == this.field_146297_k.gameSettings.keyBindPickBlock.keyCode + 100)
+                if (par3 == this.field_146297_k.gameSettings.keyBindPickBlock.func_151463_i() + 100)
                 {
                     this.handleMouseClick(slot, j1, par3, 3);
                 }
@@ -830,7 +830,7 @@ public abstract class NewContainerGui extends GuiScreen
      */
     protected void keyTyped (char par1, int par2)
     {
-        if (par2 == 1 || par2 == this.field_146297_k.gameSettings.field_151445_Q.keyCode)
+        if (par2 == 1 || par2 == this.field_146297_k.gameSettings.field_151445_Q.func_151463_i())
         {
             this.field_146297_k.thePlayer.closeScreen();
         }
@@ -839,13 +839,13 @@ public abstract class NewContainerGui extends GuiScreen
 
         if (this.mainSlot != null && this.mainSlot.getHasStack())
         {
-            if (par2 == this.field_146297_k.gameSettings.keyBindPickBlock.keyCode)
+            if (par2 == this.field_146297_k.gameSettings.keyBindPickBlock.func_151463_i())
             {
                 this.handleMouseClick(this.mainSlot, this.mainSlot.slotNumber, 0, 3);
             }
-            else if (par2 == this.field_146297_k.gameSettings.keyBindDrop.keyCode)
+            else if (par2 == this.field_146297_k.gameSettings.keyBindDrop.func_151463_i())
             {
-                this.handleMouseClick(this.mainSlot, this.mainSlot.slotNumber, isCtrlKeyDown() ? 1 : 0, 4);
+                this.handleMouseClick(this.mainSlot, this.mainSlot.slotNumber, func_146271_m() ? 1 : 0, 4);
             }
         }
     }
