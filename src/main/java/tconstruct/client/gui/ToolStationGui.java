@@ -80,8 +80,8 @@ public class ToolStationGui extends NewContainerGui
         setSlotType(0);
         iconX = new int[] { 0, 1, 2 };
         iconY = new int[] { 13, 13, 13 };
-        title = "\u00A7nRepair and Modification";
-        body = "The main way to repair or change your tools. Place a tool and a material on the left to get started.";
+        title = "\u00A7n" + (StatCollector.translateToLocal("gui.toolforge1"));
+        body = (StatCollector.translateToLocal("gui.toolforge2"));
     }
 
     public void initGui ()
@@ -220,7 +220,7 @@ public class ToolStationGui extends NewContainerGui
             if (attack < 1)
                 attack = 1;
 
-            String heart = attack == 2 ? StatCollector.translateToLocal("gui.partcrafter9") : StatCollector.translateToLocal("gui.partcrafter10");
+            String heart = attack == 2 ? StatCollector.translateToLocal("gui.partcrafter8") : StatCollector.translateToLocal("gui.partcrafter9");
             if (attack % 2 == 0)
                 this.fontRenderer.drawString(StatCollector.translateToLocal("gui.toolstation3") + attack / 2 + heart, xSize + 8, base + offset * 10, 0xffffff);
             else
@@ -229,7 +229,7 @@ public class ToolStationGui extends NewContainerGui
 
             if (stoneboundDamage != 0)
             {
-                heart = stoneboundDamage == 2 ? StatCollector.translateToLocal("gui.partcrafter9") : StatCollector.translateToLocal("gui.partcrafter10");
+                heart = stoneboundDamage == 2 ? StatCollector.translateToLocal("gui.partcrafter8") : StatCollector.translateToLocal("gui.partcrafter9");
                 String bloss = stoneboundDamage > 0 ? StatCollector.translateToLocal("gui.toolstation4") : StatCollector.translateToLocal("gui.toolstation5");
                 this.fontRenderer.drawString(bloss + (int) stoneboundDamage / 2 + heart, xSize + 8, base + offset * 10, 0xffffff);
                 offset++;
@@ -262,7 +262,7 @@ public class ToolStationGui extends NewContainerGui
 
             this.fontRenderer.drawString(StatCollector.translateToLocal("gui.toolstation10"), xSize + 8, base + offset * 10, 0xffffff);
             offset++;
-            String heart = attack == 2 ? StatCollector.translateToLocal("gui.partcrafter9") : StatCollector.translateToLocal("gui.partcrafter10");
+            String heart = attack == 2 ? StatCollector.translateToLocal("gui.partcrafter8") : StatCollector.translateToLocal("gui.partcrafter9");
             if (attack % 2 == 0)
                 this.fontRenderer.drawString("- " + attack / 2 + heart, xSize + 8, base + offset * 10, 0xffffff);
             else
@@ -270,7 +270,7 @@ public class ToolStationGui extends NewContainerGui
             offset++;
             int minAttack = attack;
             int maxAttack = attack * 2;
-            heart = StatCollector.translateToLocal("gui.partcrafter10");
+            heart = StatCollector.translateToLocal("gui.partcrafter9");
             this.fontRenderer.drawString(StatCollector.translateToLocal("gui.toolstation11"), xSize + 8, base + offset * 10, 0xffffff);
             offset++;
             this.fontRenderer.drawString(df.format(minAttack / 2f) + "-" + df.format(maxAttack / 2f) + heart, xSize + 8, base + offset * 10, 0xffffff);
