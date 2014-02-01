@@ -220,7 +220,7 @@ public class SmelteryBlock extends InventoryBlock
         }
         else
         {
-            //world.markBlockForUpdate(x, y, z);
+            //world.func_147471_g(x, y, z);
             player.openGui(getModInstance(), integer, world, x, y, z);
             return true;
         }

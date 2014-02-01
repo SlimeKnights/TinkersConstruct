@@ -1,41 +1,26 @@
 package tconstruct.blocks.logic;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
+import java.util.*;
+import mantle.blocks.abstracts.AdaptiveInventoryLogic;
+import mantle.blocks.iface.*;
+import mantle.world.CoordTuple;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
-import net.minecraft.network.packet.Packet132TileEntityData;
+import net.minecraft.network.*;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTankInfo;
-import net.minecraftforge.fluids.IFluidHandler;
+import net.minecraftforge.fluids.*;
 import tconstruct.TConstruct;
-import tconstruct.blocks.component.SmelteryComponent;
-import tconstruct.blocks.component.SmelteryScan;
-import tconstruct.common.TContent;
+import tconstruct.blocks.component.*;
 import tconstruct.common.TRepo;
 import tconstruct.inventory.AdaptiveSmelteryContainer;
-import mantle.blocks.abstracts.AdaptiveInventoryLogic;
-import tconstruct.library.component.IComponentHolder;
-import tconstruct.library.component.LogicComponent;
-import tconstruct.library.component.MultiFluidTank;
-import mantle.blocks.iface.IActiveLogic;
-import mantle.world.CoordTuple;
-import mantle.blocks.iface.IMasterLogic;
-import mantle.blocks.iface.IServantLogic;
+import tconstruct.library.component.*;
 
 public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IActiveLogic, IMasterLogic, IComponentHolder, IFluidHandler
 {
@@ -160,7 +145,7 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
         smeltery.adjustSize(structure.getAirSize(), true);
         multitank.setCapacity(structure.getAirSize() * (TConstruct.ingotLiquidValue * 18));
         smeltery.setActiveLavaTank(structure.lavaTanks.get(0));
-        field_145850_b.markBlockForUpdate(field_145851_c, field_145848_d, field_145849_e);
+        field_145850_b.func_147471_g(field_145851_c, field_145848_d, field_145849_e);
     }
 
     @Override
@@ -420,7 +405,7 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
     public void updateAir ()
     {
         for (CoordTuple loc : structure.airCoords)
-            field_145850_b.markBlockForUpdate(loc.x, loc.y, loc.z);
+            field_145850_b.func_147471_g(loc.x, loc.y, loc.z);
     }
 
     class LiquidData
@@ -571,17 +556,17 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
     }
 
     @Override
-    public void onDataPacket (NetworkManager net, Packet132TileEntityData packet)
+    public void onDataPacket (NetworkManager net, S35PacketUpdateTileEntity packet)
     {
-        readNetworkNBT(packet.data);
-        field_145850_b.markBlockForRenderUpdate(field_145851_c, field_145848_d, field_145849_e);
+        readNetworkNBT(packet.func_148857_g());
+        field_145850_b.func_147479_m(field_145851_c, field_145848_d, field_145849_e);
     }
 
     @Override
-    public Packet getDescriptionPacket ()
+    public Packet func_145844_m ()
     {
         NBTTagCompound tag = new NBTTagCompound();
         writeNetworkNBT(tag);
-        return new Packet132TileEntityData(field_145851_c, field_145848_d, field_145849_e, 1, tag);
+        return new S35PacketUpdateTileEntity(field_145851_c, field_145848_d, field_145849_e, 1, tag);
     }
 }

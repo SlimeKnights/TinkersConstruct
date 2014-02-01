@@ -1,51 +1,34 @@
 package tconstruct.blocks.logic;
 
-import java.util.*;
+import cpw.mods.fml.common.FMLCommonHandler;
 
+import java.util.*;
+import mantle.blocks.abstracts.*;
+import mantle.blocks.iface.*;
 import mantle.debug.DebugData;
+import mantle.world.CoordTuple;
 import net.minecraft.block.Block;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.*;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.monster.EntityEnderman;
-import net.minecraft.entity.monster.EntityIronGolem;
-import net.minecraft.entity.passive.EntityHorse;
-import net.minecraft.entity.passive.EntityVillager;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.entity.monster.*;
+import net.minecraft.entity.passive.*;
+import net.minecraft.entity.player.*;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.Container;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
-import net.minecraft.network.packet.Packet132TileEntityData;
+import net.minecraft.nbt.*;
+import net.minecraft.network.*;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
-import net.minecraft.util.MathHelper;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTankInfo;
-import net.minecraftforge.fluids.IFluidHandler;
-import net.minecraftforge.fluids.IFluidTank;
-
-import org.apache.commons.lang3.ArrayUtils;
-
+import net.minecraftforge.fluids.*;
 import tconstruct.common.TRepo;
 import tconstruct.inventory.SmelteryContainer;
-import mantle.blocks.abstracts.InventoryLogic;
 import tconstruct.library.crafting.Smeltery;
-import mantle.blocks.iface.IActiveLogic;
-import mantle.blocks.iface.IFacingLogic;
-import mantle.blocks.abstracts.MultiServantLogic;
-import mantle.world.CoordTuple;
-import mantle.blocks.iface.IMasterLogic;
-import mantle.blocks.iface.IServantLogic;
 import tconstruct.util.SmelteryDamageSource;
 import tconstruct.util.config.PHConstruct;
-import cpw.mods.fml.common.network.PacketDispatcher;
 
 /* Simple class for storing items in the block
  */
@@ -243,7 +226,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     public void setActive (boolean flag)
     {
         needsUpdate = true;
-        field_145850_b.markBlockForUpdate(field_145851_c, field_145848_d, field_145849_e);
+        field_145850_b.func_147471_g(field_145851_c, field_145848_d, field_145849_e);
     }
 
     public int getScaledFuelGague (int scale)
@@ -295,7 +278,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
             if (needsUpdate)
             {
                 needsUpdate = false;
-                field_145850_b.markBlockForUpdate(field_145851_c, field_145848_d, field_145849_e);
+                field_145850_b.func_147471_g(field_145851_c, field_145848_d, field_145849_e);
             }
         }
 
@@ -418,7 +401,9 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         if (itemAdded)
         {
             this.needsUpdate = true;
-            PacketDispatcher.sendPacketToAllInDimension(getDescriptionPacket(), field_145850_b.provider.dimensionId);
+            //TODO check if the below method functions as intended
+            //Old code: PacketDispatcher.sendPacketToAllInDimension(func_145844_m(), field_145850_b.provider.dimensionId);
+            FMLCommonHandler.instance().getClientToServerNetworkManager().func_150725_a(func_145844_m());
         }
     }
 
@@ -674,8 +659,8 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         updateEntity();
         super.onInventoryChanged();
         needsUpdate = true;
-        //field_145850_b.markBlockForUpdate(field_145851_c, field_145848_d, field_145849_e);
-        //field_145850_b.markBlockForRenderUpdate(field_145851_c, field_145848_d, field_145849_e);
+        //field_145850_b.func_147471_g(field_145851_c, field_145848_d, field_145849_e);
+        //field_145850_b.func_147479_m(field_145851_c, field_145848_d, field_145849_e);
     }
 
     /*@Override
@@ -770,7 +755,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                 internalTemp = 800;
                 activeLavaTank = lavaTanks.get(0);
                 adjustLayers(checkLayers, false);
-                field_145850_b.markBlockForUpdate(field_145851_c, field_145848_d, field_145849_e);
+                field_145850_b.func_147471_g(field_145851_c, field_145848_d, field_145849_e);
                 validStructure = true;
             }
             else
@@ -982,7 +967,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                 {
                     //liquid = null;
                     moltenMetal.remove(liquid);
-                    field_145850_b.markBlockForUpdate(field_145851_c, field_145848_d, field_145849_e);
+                    field_145850_b.func_147471_g(field_145851_c, field_145848_d, field_145849_e);
                     currentLiquid = 0;
                     needsUpdate = true;
                 }
@@ -993,7 +978,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                 if (doDrain && maxDrain > 0)
                 {
                     liquid.amount -= maxDrain;
-                    field_145850_b.markBlockForUpdate(field_145851_c, field_145848_d, field_145849_e);
+                    field_145850_b.func_147471_g(field_145851_c, field_145848_d, field_145849_e);
                     currentLiquid -= maxDrain;
                     needsUpdate = true;
                 }
@@ -1027,7 +1012,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                     }
                 }
                 needsUpdate = true;
-                field_145850_b.markBlockForRenderUpdate(field_145851_c, field_145848_d, field_145849_e);
+                field_145850_b.func_147479_m(field_145851_c, field_145848_d, field_145849_e);
             }
             return amount;
         }
@@ -1144,19 +1129,19 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
 
     /* Packets */
     @Override
-    public Packet getDescriptionPacket ()
+    public Packet func_145844_m ()
     {
         NBTTagCompound tag = new NBTTagCompound();
         func_145839_a(tag);
-        return new Packet132TileEntityData(field_145851_c, field_145848_d, field_145849_e, 1, tag);
+        return new S35PacketUpdateTileEntity(field_145851_c, field_145848_d, field_145849_e, 1, tag);
     }
 
     @Override
-    public void onDataPacket (NetworkManager net, Packet132TileEntityData packet)
+    public void onDataPacket (NetworkManager net, S35PacketUpdateTileEntity packet)
     {
-        func_145839_a(packet.data);
+        func_145839_a(packet.func_148857_g());
         onInventoryChanged();
-        field_145850_b.markBlockForRenderUpdate(field_145851_c, field_145848_d, field_145849_e);
+        field_145850_b.func_147479_m(field_145851_c, field_145848_d, field_145849_e);
         this.needsUpdate = true;
     }
 

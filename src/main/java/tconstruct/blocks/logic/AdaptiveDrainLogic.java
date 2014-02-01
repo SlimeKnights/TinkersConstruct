@@ -1,20 +1,15 @@
 package tconstruct.blocks.logic;
 
-import mantle.blocks.iface.IFacingLogic;
-import mantle.blocks.iface.IMasterLogic;
 import mantle.blocks.abstracts.MultiServantLogic;
+import mantle.blocks.iface.*;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
-import net.minecraft.network.packet.Packet132TileEntityData;
+import net.minecraft.network.*;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTankInfo;
-import net.minecraftforge.fluids.IFluidHandler;
+import net.minecraftforge.fluids.*;
 
 public class AdaptiveDrainLogic extends MultiServantLogic implements IFluidHandler, IFacingLogic//, ISwitchableMaster
 {
@@ -164,17 +159,17 @@ public class AdaptiveDrainLogic extends MultiServantLogic implements IFluidHandl
 
     /* Packets */
     @Override
-    public Packet getDescriptionPacket ()
+    public Packet func_145844_m ()
     {
         NBTTagCompound tag = new NBTTagCompound();
         func_145841_b(tag);
-        return new Packet132TileEntityData(field_145851_c, field_145848_d, field_145849_e, 1, tag);
+        return new S35PacketUpdateTileEntity(field_145851_c, field_145848_d, field_145849_e, 1, tag);
     }
 
     @Override
-    public void onDataPacket (NetworkManager net, Packet132TileEntityData packet)
+    public void onDataPacket (NetworkManager net, S35PacketUpdateTileEntity packet)
     {
-        func_145839_a(packet.data);
-        field_145850_b.markBlockForRenderUpdate(field_145851_c, field_145848_d, field_145849_e);
+        func_145839_a(packet.func_148857_g());
+        field_145850_b.func_147479_m(field_145851_c, field_145848_d, field_145849_e);
     }
 }

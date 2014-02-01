@@ -1,23 +1,15 @@
 package tconstruct.blocks.logic;
 
+import cpw.mods.fml.relauncher.*;
 import java.util.HashMap;
-
+import mantle.blocks.iface.IActiveLogic;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
-import net.minecraft.network.packet.Packet132TileEntityData;
+import net.minecraft.network.*;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidEvent;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTankInfo;
-import net.minecraftforge.fluids.IFluidHandler;
-import net.minecraftforge.fluids.IFluidTank;
+import net.minecraftforge.fluids.*;
 import tconstruct.TConstruct;
-import mantle.blocks.iface.IActiveLogic;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 /**
  * @author BluSunrize
@@ -52,7 +44,7 @@ public class CastingChannelLogic extends TileEntity implements IFluidTank, IFlui
             if (this.pullingLiquids)
                 pullLiquids();
         }
-        //this.field_145850_b.markBlockForUpdate(this.field_145851_c, this.field_145848_d, this.field_145849_e);
+        //this.field_145850_b.func_147471_g(this.field_145851_c, this.field_145848_d, this.field_145849_e);
         if (ticks == 20)
         {
             if (recentlyFilledDelay != 0)
@@ -420,7 +412,7 @@ public class CastingChannelLogic extends TileEntity implements IFluidTank, IFlui
 
             if (doFill)
             {
-                this.field_145850_b.markBlockForUpdate(this.field_145851_c, this.field_145848_d, this.field_145849_e);
+                this.field_145850_b.func_147471_g(this.field_145851_c, this.field_145848_d, this.field_145849_e);
                 this.liquid = transfered;
             }
             recentlyFilledDelay = 2;
@@ -437,7 +429,7 @@ public class CastingChannelLogic extends TileEntity implements IFluidTank, IFlui
                 if ((doFill) && (spaceInTank > 0))
                 {
                     this.liquid.amount = this.fillMax;
-                    this.field_145850_b.markBlockForUpdate(this.field_145851_c, this.field_145848_d, this.field_145849_e);
+                    this.field_145850_b.func_147471_g(this.field_145851_c, this.field_145848_d, this.field_145849_e);
                 }
                 return spaceInTank;
             }
@@ -445,7 +437,7 @@ public class CastingChannelLogic extends TileEntity implements IFluidTank, IFlui
             if (doFill)
             {
                 this.liquid.amount += stack.amount;
-                this.field_145850_b.markBlockForUpdate(this.field_145851_c, this.field_145848_d, this.field_145849_e);
+                this.field_145850_b.func_147471_g(this.field_145851_c, this.field_145848_d, this.field_145849_e);
             }
             return stack.amount;
         }
@@ -492,7 +484,7 @@ public class CastingChannelLogic extends TileEntity implements IFluidTank, IFlui
         }
         if (doDrain)
         {
-            this.field_145850_b.markBlockForUpdate(this.field_145851_c, this.field_145848_d, this.field_145849_e);
+            this.field_145850_b.func_147471_g(this.field_145851_c, this.field_145848_d, this.field_145849_e);
             FluidEvent.fireEvent(new FluidEvent.FluidDrainingEvent(drained, this.field_145850_b, this.field_145851_c, this.field_145848_d, this.field_145849_e, this));
         }
         return drained;
@@ -563,18 +555,18 @@ public class CastingChannelLogic extends TileEntity implements IFluidTank, IFlui
     }
 
     @Override
-    public Packet getDescriptionPacket ()
+    public Packet func_145844_m ()
     {
         NBTTagCompound tag = new NBTTagCompound();
         writeCustomNBT(tag);
-        return new Packet132TileEntityData(this.field_145851_c, this.field_145848_d, this.field_145849_e, 1, tag);
+        return new S35PacketUpdateTileEntity(this.field_145851_c, this.field_145848_d, this.field_145849_e, 1, tag);
     }
 
     @Override
-    public void onDataPacket (NetworkManager net, Packet132TileEntityData packet)
+    public void onDataPacket (NetworkManager net, S35PacketUpdateTileEntity packet)
     {
-        readCustomNBT(packet.data);
-        this.field_145850_b.markBlockForRenderUpdate(this.field_145851_c, this.field_145848_d, this.field_145849_e);
+        readCustomNBT(packet.func_148857_g());
+        this.field_145850_b.func_147479_m(this.field_145851_c, this.field_145848_d, this.field_145849_e);
     }
 
     public int convertFDToInt (ForgeDirection dir)

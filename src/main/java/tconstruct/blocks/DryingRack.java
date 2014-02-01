@@ -108,7 +108,7 @@ public class DryingRack extends InventoryBlock
                 }
             }
 
-            world.markBlockForUpdate(x, y, z);
+            world.func_147471_g(x, y, z);
         }
         return true;
     }

@@ -461,7 +461,7 @@ public class TankLayerScan extends LogicComponent
             if (servant instanceof IServantLogic)
                 ((IServantLogic) servant).invalidateMaster(imaster, world, master.field_145851_c, master.field_145848_d, master.field_145849_e);
         }
-        master.func_145831_w().markBlockForUpdate(master.field_145851_c, master.field_145848_d, master.field_145849_e);
+        master.func_145831_w().func_147471_g(master.field_145851_c, master.field_145848_d, master.field_145849_e);
     }
 
     protected void invalidateBlocksAbove (int height)

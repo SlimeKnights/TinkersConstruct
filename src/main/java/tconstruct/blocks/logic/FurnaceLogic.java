@@ -1,32 +1,24 @@
 package tconstruct.blocks.logic;
 
+import cpw.mods.fml.common.registry.GameRegistry;
+import mantle.blocks.BlockUtils;
+import mantle.blocks.abstracts.InventoryLogic;
+import mantle.blocks.iface.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
+import net.minecraft.init.*;
 import net.minecraft.inventory.Container;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemHoe;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemSword;
-import net.minecraft.item.ItemTool;
+import net.minecraft.item.*;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
-import net.minecraft.network.packet.Packet132TileEntityData;
+import net.minecraft.network.*;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import tconstruct.inventory.FurnaceContainer;
-import mantle.blocks.BlockUtils;
-import mantle.blocks.abstracts.InventoryLogic;
-import mantle.blocks.iface.IActiveLogic;
-import mantle.blocks.iface.IFacingLogic;
-import cpw.mods.fml.common.registry.GameRegistry;
 
 /* Slots
  * 0: Input
@@ -66,7 +58,7 @@ public class FurnaceLogic extends InventoryLogic implements IActiveLogic, IFacin
     public void setActive (boolean flag)
     {
         active = flag;
-        field_145850_b.markBlockForUpdate(field_145851_c, field_145848_d, field_145849_e);
+        field_145850_b.func_147471_g(field_145851_c, field_145848_d, field_145849_e);
     }
 
     /* Fuel gauge */
@@ -285,18 +277,18 @@ public class FurnaceLogic extends InventoryLogic implements IActiveLogic, IFacin
 
     /* Packets */
     @Override
-    public Packet getDescriptionPacket ()
+    public Packet func_145844_m ()
     {
         NBTTagCompound tag = new NBTTagCompound();
         writeNetworkNBT(tag);
-        return new Packet132TileEntityData(field_145851_c, field_145848_d, field_145849_e, 1, tag);
+        return new S35PacketUpdateTileEntity(field_145851_c, field_145848_d, field_145849_e, 1, tag);
     }
 
     @Override
-    public void onDataPacket (NetworkManager net, Packet132TileEntityData packet)
+    public void onDataPacket (NetworkManager net, S35PacketUpdateTileEntity packet)
     {
-        readNetworkNBT(packet.data);
-        field_145850_b.markBlockForRenderUpdate(field_145851_c, field_145848_d, field_145849_e);
+        readNetworkNBT(packet.func_148857_g());
+        field_145850_b.func_147479_m(field_145851_c, field_145848_d, field_145849_e);
     }
 
     @Override

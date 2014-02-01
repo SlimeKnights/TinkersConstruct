@@ -1,27 +1,19 @@
 package tconstruct.client.gui;
 
-import cpw.mods.fml.common.network.PacketDispatcher;
-
-import java.io.*;
 import java.util.*;
-
-import net.minecraft.block.Block;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.*;
-import net.minecraft.util.StatCollector;
-
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.*;
-
 import tconstruct.TConstruct;
 import tconstruct.blocks.logic.SmelteryLogic;
 import tconstruct.inventory.*;
+import tconstruct.util.network.packet.PacketSmeltery;
 
 public class SmelteryGui extends NewContainerGui
 {
@@ -449,9 +441,10 @@ public class SmelteryGui extends NewContainerGui
             int sizeY = liquidSize;
             if (mouseX >= leftX && mouseX <= leftX + sizeX && mouseY >= topY && mouseY < topY + sizeY)
             {
+            	//TODO Update fluid stuff
                 fluidToBeBroughtUp = liquid.fluidID;
 
-                Packet250CustomPayload packet = new Packet250CustomPayload();
+                /*Packet250CustomPayload packet = new Packet250CustomPayload();
 
                 ByteArrayOutputStream bos = new ByteArrayOutputStream();
                 DataOutputStream dos = new DataOutputStream(bos);
@@ -478,7 +471,9 @@ public class SmelteryGui extends NewContainerGui
                 packet.data = bos.toByteArray();
                 packet.length = bos.size();
 
-                PacketDispatcher.sendPacketToServer(packet);
+                PacketDispatcher.sendPacketToServer(packet);*/
+                
+                TConstruct.packetPipeline.sendToServer(new PacketSmeltery(logic.getWorld().provider.dimensionId, logic.field_145851_c, logic.field_145848_d, logic.field_145849_e, this.func_146272_n(), fluidToBeBroughtUp));
             }
         }
     }

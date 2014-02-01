@@ -56,7 +56,7 @@ public class FrypanLogic extends EquipLogic implements IActiveLogic
     public void setActive (boolean flag)
     {
         active = flag;
-        field_145850_b.markBlockForUpdate(field_145851_c, field_145848_d, field_145849_e);
+        field_145850_b.func_147471_g(field_145851_c, field_145848_d, field_145849_e);
     }
 
     /* Fuel gauge */

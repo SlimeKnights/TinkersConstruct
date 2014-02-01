@@ -3,24 +3,26 @@ package tconstruct.util.network.packet;
 import cpw.mods.fml.common.network.ByteBufUtils;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
+import mantle.blocks.abstracts.InventoryLogic;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import tconstruct.blocks.logic.*;
 
-public class PacketToolStation extends AbstractPacket {
+public class PacketStencilTable extends AbstractPacket {
 
-	private int x, y, z;
-	private String toolName;
+	int x, y, z;
+	ItemStack contents;
 
-	public PacketToolStation() {
+	public PacketStencilTable() {
+
 	}
 
-	public PacketToolStation(int x, int y, int z, String toolName) {
+	public PacketStencilTable(int x, int y, int z, ItemStack contents) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
-		this.toolName = toolName;
+		this.contents = contents;
 	}
 
 	@Override
@@ -28,7 +30,7 @@ public class PacketToolStation extends AbstractPacket {
 		buffer.writeInt(x);
 		buffer.writeInt(y);
 		buffer.writeInt(z);
-		ByteBufUtils.writeUTF8String(buffer, toolName);
+		ByteBufUtils.writeItemStack(buffer, contents);
 	}
 
 	@Override
@@ -36,11 +38,11 @@ public class PacketToolStation extends AbstractPacket {
 		x = buffer.readInt();
 		y = buffer.readInt();
 		z = buffer.readInt();
-		toolName = ByteBufUtils.readUTF8String(buffer);
 	}
 
 	@Override
 	public void handleClientSide(EntityPlayer player) {
+
 	}
 
 	@Override
@@ -48,11 +50,8 @@ public class PacketToolStation extends AbstractPacket {
 		World world = player.worldObj;
 		TileEntity te = world.func_147438_o(x, y, z);
 
-		if (te instanceof ToolStationLogic) {
-			((ToolStationLogic) te).setToolname(toolName);
-		}
-		if (te instanceof ToolForgeLogic) {
-			((ToolForgeLogic) te).setToolname(toolName);
+		if (te instanceof InventoryLogic) {
+			((InventoryLogic) te).setInventorySlotContents(1, contents);
 		}
 	}
 

@@ -1,20 +1,15 @@
 package tconstruct.blocks.logic;
 
-import tconstruct.TConstruct;
-import mantle.blocks.iface.IActiveLogic;
-import mantle.blocks.iface.IFacingLogic;
+import mantle.blocks.iface.*;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.Packet;
-import net.minecraft.network.packet.Packet132TileEntityData;
+import net.minecraft.network.*;
+import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.fluids.Fluid;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidTankInfo;
-import net.minecraftforge.fluids.IFluidHandler;
+import net.minecraftforge.fluids.*;
+import tconstruct.TConstruct;
 
 public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogic, IFluidHandler
 {
@@ -56,7 +51,7 @@ public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogi
                     {
                         liquid = ((IFluidHandler) drainte).drain(getForgeDirection(), drained, true);
                         ((IFluidHandler) tankte).fill(ForgeDirection.UP, liquid, true);
-                        field_145850_b.markBlockForUpdate(field_145851_c, field_145848_d, field_145849_e);
+                        field_145850_b.func_147471_g(field_145851_c, field_145848_d, field_145849_e);
                         return true;
                     }
                     else
@@ -82,7 +77,7 @@ public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogi
                 if (!activateFaucet())
                 {
                     active = false;
-                    field_145850_b.markBlockForUpdate(field_145851_c, field_145848_d, field_145849_e);
+                    field_145850_b.func_147471_g(field_145851_c, field_145848_d, field_145849_e);
                 }
             }
         }
@@ -169,18 +164,18 @@ public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogi
 
     /* Packets */
     @Override
-    public Packet getDescriptionPacket ()
+    public Packet func_145844_m ()
     {
         NBTTagCompound tag = new NBTTagCompound();
         writeCustomNBT(tag);
-        return new Packet132TileEntityData(field_145851_c, field_145848_d, field_145849_e, 1, tag);
+        return new S35PacketUpdateTileEntity(field_145851_c, field_145848_d, field_145849_e, 1, tag);
     }
 
     @Override
-    public void onDataPacket (NetworkManager net, Packet132TileEntityData packet)
+    public void onDataPacket (NetworkManager net, S35PacketUpdateTileEntity packet)
     {
-        readCustomNBT(packet.data);
-        field_145850_b.markBlockForRenderUpdate(field_145851_c, field_145848_d, field_145849_e);
+        readCustomNBT(packet.func_148857_g());
+        field_145850_b.func_147479_m(field_145851_c, field_145848_d, field_145849_e);
     }
 
     @Override

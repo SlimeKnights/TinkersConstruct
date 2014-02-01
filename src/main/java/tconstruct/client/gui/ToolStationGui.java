@@ -1,35 +1,23 @@
 package tconstruct.client.gui;
 
-import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
+import cpw.mods.fml.relauncher.*;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
-import java.util.Arrays;
-import java.util.List;
-
-import net.minecraft.client.gui.GuiButton;
-import net.minecraft.client.gui.GuiTextField;
+import java.util.*;
+import net.minecraft.client.gui.*;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.packet.Packet250CustomPayload;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.StatCollector;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
-
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
-
+import tconstruct.TConstruct;
 import tconstruct.blocks.logic.ToolStationLogic;
-import tconstruct.inventory.ActiveContainer;
-import tconstruct.inventory.ToolStationContainer;
-import tconstruct.library.client.TConstructClientRegistry;
-import tconstruct.library.client.ToolGuiElement;
+import tconstruct.inventory.*;
+import tconstruct.library.client.*;
 import tconstruct.library.tools.ToolCore;
-
-import cpw.mods.fml.common.network.PacketDispatcher;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
+import tconstruct.util.network.packet.PacketToolStation;
 
 @SideOnly(Side.CLIENT)
 public class ToolStationGui extends NewContainerGui
@@ -482,7 +470,7 @@ public class ToolStationGui extends NewContainerGui
 
     void updateServer (String name)
     {
-        ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
+        /*ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
         DataOutputStream outputStream = new DataOutputStream(bos);
         try
         {
@@ -503,7 +491,9 @@ public class ToolStationGui extends NewContainerGui
         packet.data = bos.toByteArray();
         packet.length = bos.size();
 
-        PacketDispatcher.sendPacketToServer(packet);
+        PacketDispatcher.sendPacketToServer(packet);*/
+        
+        TConstruct.packetPipeline.sendToServer(new PacketToolStation(logic.field_145851_c, logic.field_145848_d, logic.field_145849_e, name));
     }
 
     /*protected void mouseClicked(int par1, int par2, int par3)

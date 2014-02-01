@@ -1,19 +1,14 @@
 package tconstruct.client;
 
-import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
+import java.io.*;
 import java.util.EnumSet;
-
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.gui.inventory.GuiInventory;
+import net.minecraft.client.gui.inventory.*;
 import net.minecraft.client.settings.KeyBinding;
-import net.minecraft.network.packet.Packet250CustomPayload;
-import net.minecraft.potion.Potion;
+import tconstruct.TConstruct;
 import tconstruct.client.event.EventCloakRender;
 import tconstruct.client.tabs.TabRegistry;
-import cpw.mods.fml.common.TickType;
-import cpw.mods.fml.common.network.PacketDispatcher;
+import tconstruct.util.network.packet.PacketDoubleJump;
 
 public class TControls extends TKeyHandler
 {
@@ -233,11 +228,14 @@ public class TControls extends TKeyHandler
 
     static void updateServer (ByteArrayOutputStream bos)
     {
-        Packet250CustomPayload packet = new Packet250CustomPayload();
+        /*Packet250CustomPayload packet = new Packet250CustomPayload();
         packet.channel = "TConstruct";
         packet.data = bos.toByteArray();
         packet.length = bos.size();
 
-        PacketDispatcher.sendPacketToServer(packet);
+        PacketDispatcher.sendPacketToServer(packet);*/
+        
+        //TODO Find out what packet should be used here
+        TConstruct.packetPipeline.sendToServer(new PacketDoubleJump());
     }
 }

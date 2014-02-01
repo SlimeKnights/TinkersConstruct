@@ -75,12 +75,12 @@ public class MiningExplosion extends Explosion
                             if (k1 != Blocks.air)
                             {
                                 Block block = k1;
-                                float f3 = this.exploder != null ? this.exploder.getBlockExplosionResistance(this, this.world, l, i1, j1, block) : block.getExplosionResistance(this.exploder, world,
+                                float f3 = this.exploder != null ? this.exploder.func_145772_a(this, this.world, l, i1, j1, block) : block.getExplosionResistance(this.exploder, world,
                                         l, i1, j1, explosionX, explosionY, explosionZ);
                                 f1 -= (f3 + 0.8F) * f2 * 0.25f;
                             }
 
-                            if (f1 > 0.0F && (this.exploder == null || this.exploder.shouldExplodeBlock(this, this.world, l, i1, j1, k1, f1)))
+                            if (f1 > 0.0F && (this.exploder == null || this.exploder.func_145774_a(this, this.world, l, i1, j1, k1, f1)))
                             {
                                 hashset.add(new ChunkPosition(l, i1, j1));
                             }

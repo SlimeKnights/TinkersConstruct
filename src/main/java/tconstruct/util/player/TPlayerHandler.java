@@ -1,33 +1,26 @@
 package tconstruct.util.player;
 
+import cpw.mods.fml.common.*;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.relauncher.Side;
 import java.io.ByteArrayOutputStream;
 import java.lang.ref.WeakReference;
 import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
-
 import mantle.player.PlayerUtils;
-import net.minecraft.entity.Entity;
+import net.minecraft.entity.*;
 import net.minecraft.entity.Entity.EnumEntitySize;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.*;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
-import net.minecraft.nbt.NBTTagString;
-import net.minecraft.network.packet.Packet250CustomPayload;
+import net.minecraft.nbt.*;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.event.entity.player.PlayerDropsEvent;
+import tconstruct.TConstruct;
 import tconstruct.common.TRepo;
 import tconstruct.library.tools.AbilityHelper;
 import tconstruct.util.config.PHConstruct;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.IPlayerTracker;
-import cpw.mods.fml.common.Loader;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.network.PacketDispatcher;
-import cpw.mods.fml.common.network.Player;
-import cpw.mods.fml.relauncher.Side;
+import tconstruct.util.network.packet.PacketDoubleJump;
 
 public class TPlayerHandler implements IPlayerTracker
 {
@@ -131,12 +124,17 @@ public class TPlayerHandler implements IPlayerTracker
 
     void updateClientPlayer (ByteArrayOutputStream bos, EntityPlayer player)
     {
-        Packet250CustomPayload packet = new Packet250CustomPayload();
+        /*Packet250CustomPayload packet = new Packet250CustomPayload();
         packet.channel = "TConstruct";
         packet.data = bos.toByteArray();
         packet.length = bos.size();
 
         PacketDispatcher.sendPacketToPlayer(packet, (Player) player);
+        */
+    	//TODO find out what packet needs to be used here (and make sure that player actually is a playerMP and this gets called)
+    	if(player instanceof EntityPlayerMP){
+    		TConstruct.packetPipeline.sendTo(new PacketDoubleJump(), (EntityPlayerMP)player);
+    	}
     }
 
     @Override

@@ -502,6 +502,6 @@ public class AdaptiveSmelteryGui extends NewContainerGui
     public void onGuiClosed ()
     {
         super.onGuiClosed();
-        logic.getWorld().markBlockForUpdate(logic.field_145851_c, logic.field_145848_d, logic.field_145849_e);
+        logic.getWorld().func_147471_g(logic.field_145851_c, logic.field_145848_d, logic.field_145849_e);
     }
 }
