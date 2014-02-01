@@ -8,7 +8,6 @@ import tconstruct.client.block.DryingRackRender;
 import tconstruct.library.TConstructRegistry;
 import mantle.blocks.abstracts.InventoryBlock;
 import tconstruct.library.tools.AbilityHelper;
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -40,7 +39,7 @@ public class DryingRack extends InventoryBlock
     }
 
     @Override
-    public int getRenderBlockPass ()
+    public int func_149701_w ()
     {
         return 1;
     }
@@ -78,7 +77,7 @@ public class DryingRack extends InventoryBlock
 
     /* Activation */
     @Override
-    public boolean onBlockActivated (World world, int x, int y, int z, EntityPlayer player, int side, float clickX, float clickY, float clickZ)
+    public boolean func_149727_a (World world, int x, int y, int z, EntityPlayer player, int side, float clickX, float clickY, float clickZ)
     {
         return activateDryingRack(world, x, y, z, player);
     }
@@ -203,12 +202,12 @@ public class DryingRack extends InventoryBlock
     public void addCollisionBoxesToList (World world, int x, int y, int z, AxisAlignedBB aabb, List list, Entity entity)
     {
         this.setBlockBoundsBasedOnState(world, x, y, z);
-        super.addCollisionBoxesToList(world, x, y, z, aabb, list, entity);
+        super.func_149743_a(world, x, y, z, aabb, list, entity);
     }
 
     /* Rendering */
     @Override
-    public int getRenderType ()
+    public int func_149645_b ()
     {
         return DryingRackRender.model;
     }
@@ -222,9 +221,9 @@ public class DryingRack extends InventoryBlock
     }
 
     @Override
-    public IIcon getIcon (int side, int meta)
+    public IIcon func_149691_a (int side, int meta)
     {
-        return Blocks.planks.getIcon(side, 0);
+        return Blocks.planks.func_149691_a(side, 0);
     }
 
     public int getTextureIndex (int side)
@@ -244,7 +243,7 @@ public class DryingRack extends InventoryBlock
     }
 
     @Override
-    public boolean isOpaqueCube ()
+    public boolean func_149662_c ()
     {
         return false;
     }

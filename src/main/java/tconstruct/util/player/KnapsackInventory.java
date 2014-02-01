@@ -152,7 +152,7 @@ public class KnapsackInventory implements IInventory
         NBTTagList tagList = tags.getTagList("TConstruct.Knapsack");
         for (int i = 0; i < tagList.tagCount(); ++i)
         {
-            NBTTagCompound nbttagcompound = (NBTTagCompound) tagList.tagAt(i);
+            NBTTagCompound nbttagcompound = (NBTTagCompound) tagList.func_150305_b(i);
             int j = nbttagcompound.getByte("Slot") & 255;
             ItemStack itemstack = ItemStack.loadItemStackFromNBT(nbttagcompound);
 

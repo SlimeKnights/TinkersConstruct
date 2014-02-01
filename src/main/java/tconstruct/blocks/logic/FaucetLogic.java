@@ -66,7 +66,7 @@ public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogi
     }
 
     @Override
-    public void updateEntity ()
+    public void func_145845_h ()
     {
         if (liquid != null)
         {
@@ -157,7 +157,7 @@ public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogi
         if (liquid != null)
         {
             NBTTagCompound nbt = new NBTTagCompound();
-            liquid.func_145841_b(nbt);
+            liquid.writeToNBT(nbt);
             tags.setTag("Fluid", nbt);
         }
     }

@@ -36,7 +36,7 @@ public class ConveyorBase extends MantleBlock
     }
 
     @Override
-    public AxisAlignedBB getCollisionBoundingBoxFromPool (World world, int x, int y, int z)
+    public AxisAlignedBB func_149668_a (World world, int x, int y, int z)
     {
         return null;
     }
@@ -118,19 +118,19 @@ public class ConveyorBase extends MantleBlock
     }
 
     @Override
-    public boolean isOpaqueCube ()
+    public boolean func_149662_c ()
     {
         return false;
     }
 
     @Override
-    public int getRenderBlockPass ()
+    public int func_149701_w ()
     {
         return 1;
     }
 
     @Override
-    public int getRenderType ()
+    public int func_149645_b ()
     {
         return SlimeChannelRender.model;
     }
@@ -149,7 +149,7 @@ public class ConveyorBase extends MantleBlock
 
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon getIcon (int side, int meta)
+    public IIcon func_149691_a (int side, int meta)
     {
         if (meta >= 8)
             return icons[0];

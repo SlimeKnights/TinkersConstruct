@@ -58,13 +58,13 @@ public class EquipBlock extends InventoryBlock
     }
 
     @Override
-    public boolean isOpaqueCube ()
+    public boolean func_149662_c ()
     {
         return false;
     }
 
     @Override
-    public int getRenderType ()
+    public int func_149645_b ()
     {
         return FrypanRender.frypanModelID;
     }
@@ -122,7 +122,7 @@ public class EquipBlock extends InventoryBlock
     @Override
     public void func_149749_a (World par1World, int x, int y, int z, int par5, int meta)
     {
-        TileEntity te = par1World.getBlockTileEntity(x, y, z);
+        TileEntity te = par1World.func_147438_o(x, y, z);
 
         if (te != null && te instanceof EquipLogic)
         {

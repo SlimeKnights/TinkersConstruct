@@ -28,8 +28,8 @@ public class TabRegistry
         if (gui.getClass() == GuiInventory.class)
         {
             //Values are public at runtime.
-            int cornerX = gui.guiLeft;
-            int cornerY = gui.guiTop;
+            int cornerX = gui.field_146999_f;
+            int cornerY = gui.field_147009_r;
             gui.field_146292_n.clear();
 
             updateTabValues(cornerX, cornerY, InventoryTabVanilla.class);

@@ -34,7 +34,7 @@ public class GlassPaneStained extends PaneBase
     }
 
     @Override
-    public int damageDropped (int par1)
+    public int func_149692_a (int par1)
     {
         return par1;
     }

@@ -67,7 +67,7 @@ public class TActiveOmniMod extends ActiveToolMod
 
         if (tags.getBoolean("Lava") && block.quantityDropped(meta, 0, random) != 0)
         {
-            ItemStack smeltStack = new ItemStack(block.IDropped(meta, random, 0), block.quantityDropped(meta, 0, random), block.damageDropped(meta));
+            ItemStack smeltStack = new ItemStack(block.IDropped(meta, random, 0), block.quantityDropped(meta, 0, random), block.func_149692_a(meta));
             if (smeltStack.getItem() == null)
                 return false;
             ItemStack result = FurnaceRecipes.smelting().getSmeltingResult(smeltStack);

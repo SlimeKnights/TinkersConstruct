@@ -50,7 +50,7 @@ public class AModMoveSpeed extends ArmorModTypeFilter
             attributes = baseTag.getTagList("AttributeModifiers");
             for (int iter = 0; iter < attributes.tagCount(); iter++)
             {
-                NBTTagCompound tag = (NBTTagCompound) attributes.tagAt(iter);
+                NBTTagCompound tag = (NBTTagCompound) attributes.func_150305_b(iter);
                 if (tag.getString("AttributeName").equals(key))
                     attributes.removeTag(iter);
             }

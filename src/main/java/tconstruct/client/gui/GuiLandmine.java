@@ -60,7 +60,7 @@ public class GuiLandmine extends GuiContainer
     }
 
     @Override
-    protected void drawGuiContainerForegroundLayer (int i, int j)
+    protected void func_146979_b (int i, int j)
     {
         if (container.te != null)
         {
@@ -70,17 +70,17 @@ public class GuiLandmine extends GuiContainer
         {
             field_146289_q.drawString("Landmine", 8, 5, 4210752);
         }
-        field_146289_q.drawString(StatCollector.translateToLocal("container.inventory"), 8, ySize - 96 + 3, 4210752);
+        field_146289_q.drawString(StatCollector.translateToLocal("container.inventory"), 8, field_147000_g - 96 + 3, 4210752);
     }
 
     @Override
-    protected void drawGuiContainerBackgroundLayer (float f, int i, int j)
+    protected void func_146976_a (float f, int i, int j)
     {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         field_146297_k.renderEngine.bindTexture(background);
-        int x = (field_146294_l - xSize) / 2;
-        int y = (field_146295_m - ySize) / 2;
-        this.drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
+        int x = (field_146294_l - field_146999_f) / 2;
+        int y = (field_146295_m - field_147000_g) / 2;
+        this.drawTexturedModalRect(x, y, 0, 0, field_146999_f, field_147000_g);
     }
 
 }

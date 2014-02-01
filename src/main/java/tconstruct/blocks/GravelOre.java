@@ -37,7 +37,7 @@ public class GravelOre extends BlockSand
     }
 
     @Override
-    public IIcon getIcon (int side, int meta)
+    public IIcon func_149691_a (int side, int meta)
     {
         return icons[meta];
     }
@@ -52,7 +52,7 @@ public class GravelOre extends BlockSand
     }
 
     @Override
-    public int damageDropped (int meta)
+    public int func_149692_a (int meta)
     {
         /*if (meta == 1)
             return 0;*/

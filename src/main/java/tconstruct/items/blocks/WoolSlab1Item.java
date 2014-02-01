@@ -24,12 +24,12 @@ public class WoolSlab1Item extends MultiItemBlock
     @Override
     public boolean onItemUse (ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)
     {
-        int id = world.getBlock(x, y, z);
+        Block b = world.func_147439_a(x, y, z);
         int meta = world.getBlockMetadata(x, y, z);
         int trueMeta = meta % 8;
         boolean flag = (id & 8) != 0;
 
-        if ((side == 1 && flag || side == 0 && !flag) && id == this && trueMeta == stack.getItemDamage())
+        if ((side == 1 && flag || side == 0 && !flag) && b == this.block && trueMeta == stack.getItemDamage())
         {
             if (world.func_147465_d(x, y, z, Blocks.wool, trueMeta, 3))
             {

@@ -293,7 +293,7 @@ public class CastingBasinLogic extends InventoryLogic implements IFluidTank, IFl
 
     /* Updating */
     @Override
-    public void updateEntity ()
+    public void func_145845_h ()
     {
         if (castingDelay > 0)
         {
@@ -370,7 +370,7 @@ public class CastingBasinLogic extends InventoryLogic implements IFluidTank, IFl
         if (liquid != null)
         {
             NBTTagCompound nbt = new NBTTagCompound();
-            liquid.func_145841_b(nbt);
+            liquid.writeToNBT(nbt);
             tags.setTag("Fluid", nbt);
         }
         tags.setBoolean("Initialized", init);

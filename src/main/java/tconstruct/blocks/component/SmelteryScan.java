@@ -130,15 +130,14 @@ public class SmelteryScan extends TankLayerScan
     {
         super.readNetworkNBT(tags);
 
-        NBTTagList tanks = tags.getTagList("Tanks");
+        NBTTagList tanks = tags.func_150295_c("Tanks",11);
         if (tanks != null)
         {
             lavaTanks.clear();
 
             for (int i = 0; i < tanks.tagCount(); ++i)
             {
-                NBTTagIntArray tag = (NBTTagIntArray) tanks.tagAt(i);
-                int[] coord = tag.intArray;
+                int[] coord = tanks.func_150306_c(i);
                 layerAirCoords.add(new CoordTuple(coord[0], coord[1], coord[2]));
             }
         }
@@ -152,7 +151,7 @@ public class SmelteryScan extends TankLayerScan
         NBTTagList tanks = new NBTTagList();
         for (CoordTuple coord : lavaTanks)
         {
-            tanks.appendTag(new NBTTagIntArray("coord", new int[] { coord.x, coord.y, coord.z }));
+            tanks.appendTag(new NBTTagIntArray(new int[] { coord.x, coord.y, coord.z }));
         }
         tags.setTag("Tanks", tanks);
     }

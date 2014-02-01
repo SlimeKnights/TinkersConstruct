@@ -517,9 +517,9 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
         super.func_145839_a(tags);
         readNetworkNBT(tags);
 
-        structure.func_145839_a(tags);
-        multitank.func_145839_a(tags);
-        smeltery.func_145839_a(tags);
+        structure.readFromNBT(tags);
+        multitank.readFromNBT(tags);
+        smeltery.readFromNBT(tags);
     }
 
     public void readNetworkNBT (NBTTagCompound tags)
@@ -539,9 +539,9 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
         super.func_145841_b(tags);
         writeNetworkNBT(tags);
 
-        structure.func_145841_b(tags);
-        multitank.func_145841_b(tags);
-        smeltery.func_145841_b(tags);
+        structure.writeToNBT(tags);
+        multitank.writeToNBT(tags);
+        smeltery.writeToNBT(tags);
     }
 
     public void writeNetworkNBT (NBTTagCompound tags)

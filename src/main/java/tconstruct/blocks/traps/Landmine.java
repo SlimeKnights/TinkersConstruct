@@ -31,24 +31,24 @@ public class Landmine extends MantleBlock
         super(par4Material);
         this.triggerMobType = EnumCreatureType.monster;
         this.func_149647_a(TConstructRegistry.blockTab);
-        this.setTickRandomly(true);
+        this.func_149675_a(true);
         float var5 = 0.0625F;
         this.func_149676_a(var5, 0.0F, var5, 1.0F - var5, 0.03125F, 1.0F - var5);
     }
 
     public IIcon getBlockTexture (IBlockAccess world, int x, int y, int z, int side)
     {
-        Block block = world.getBlock(x, y - 1, z);
+        Block block = world.func_147439_a(x, y - 1, z);
         if (block != null)
         {
             return block.getBlockTexture(world, x, y - 1, z, side);
         }
-        return Blocks.sponge.getIcon(side, world.getBlockMetadata(x, y, z));
+        return Blocks.sponge.func_149691_a(side, world.getBlockMetadata(x, y, z));
     }
 
     public IIcon getIcon (int side, int meta)
     {
-        return Blocks.sponge.getIcon(1, meta);
+        return Blocks.sponge.func_149691_a(1, meta);
     }
 
     public void registerIcons (IIconRegister par1IconRegister)
@@ -193,7 +193,7 @@ public class Landmine extends MantleBlock
             {
                 Entity var10 = (Entity) var9.next();
 
-                if (!var10.doesEntityNotTriggerPressurePlate())
+                if (!var10.func_145773_az())
                 {
                     var6 = true;
                     break;

@@ -4,6 +4,7 @@ import java.util.List;
 
 import tconstruct.common.TRepo;
 import mantle.blocks.abstracts.MultiItemBlock;
+import mantle.world.WorldHelper;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
@@ -47,9 +48,9 @@ public class OreberryBushSecondItem extends MultiItemBlock
 
         else if (player.canPlayerEdit(x, y, z, side, stack) && player.canPlayerEdit(x, y + 1, z, side, stack))
         {
-            Block block = world.getBlock(x, y, z);
+            Block block = world.func_147439_a(x, y, z);
 
-            if (block != null && block.canSustainPlant(world, x, y, z, ForgeDirection.UP, (IPlantable) TRepo.oreBerrySecond) && world.isAirBlock(x, y + 1, z))
+            if (block != null && block.canSustainPlant(world, x, y, z, ForgeDirection.UP, (IPlantable) TRepo.oreBerrySecond) && WorldHelper.isAirBlock(world, x, y + 1, z))
             {
                 world.func_147465_d(x, y + 1, z, blockB, stack.getItemDamage() % 4, 3);
                 if (!player.capabilities.isCreativeMode)

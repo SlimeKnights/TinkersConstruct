@@ -1078,12 +1078,12 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         meltingTemps = tags.getIntArray("MeltingTemps");
         activeTemps = tags.getIntArray("ActiveTemps");
 
-        NBTTagList liquidTag = tags.getTagList("Liquids");
+        NBTTagList liquidTag = tags.func_150295_c("Liquids", 9);
         moltenMetal.clear();
 
         for (int iter = 0; iter < liquidTag.tagCount(); iter++)
         {
-            NBTTagCompound nbt = (NBTTagCompound) liquidTag.tagAt(iter);
+            NBTTagCompound nbt = (NBTTagCompound) liquidTag.func_150305_b(iter);
             FluidStack fluid = FluidStack.loadFluidStackFromNBT(nbt);
             if (fluid != null)
                 moltenMetal.add(fluid);
@@ -1120,7 +1120,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         for (FluidStack liquid : moltenMetal)
         {
             NBTTagCompound nbt = new NBTTagCompound();
-            liquid.func_145841_b(nbt);
+            liquid.writeToNBT(nbt);
             taglist.appendTag(nbt);
         }
 

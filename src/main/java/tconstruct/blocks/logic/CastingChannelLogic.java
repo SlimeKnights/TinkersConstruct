@@ -547,7 +547,7 @@ public class CastingChannelLogic extends TileEntity implements IFluidTank, IFlui
         if (liquid != null)
         {
             NBTTagCompound nbt = new NBTTagCompound();
-            liquid.func_145841_b(nbt);
+            liquid.writeToNBT(nbt);
             tags.setTag("Fluid", nbt);
         }
         tags.setInteger("LastProvider", this.convertFDToInt(this.lastProvider));

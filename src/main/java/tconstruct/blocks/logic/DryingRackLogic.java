@@ -35,7 +35,7 @@ public class DryingRackLogic extends InventoryLogic
     }
 
     @Override
-    public void updateEntity ()
+    public void func_145845_h ()
     {
         if (!field_145850_b.isRemote && maxTime > 0 && currentTime < maxTime)
         {

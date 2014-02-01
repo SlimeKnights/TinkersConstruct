@@ -31,21 +31,21 @@ public class StencilTableGui extends GuiContainer
     }
 
     @Override
-    protected void drawGuiContainerForegroundLayer (int par1, int par2)
+    protected void func_146979_b (int par1, int par2)
     {
         field_146289_q.drawString(StatCollector.translateToLocal("crafters.PatternShaper"), 50, 6, 0x404040);
-        field_146289_q.drawString(StatCollector.translateToLocal("container.inventory"), 8, (ySize - 96) + 2, 0x404040);
+        field_146289_q.drawString(StatCollector.translateToLocal("container.inventory"), 8, (field_147000_g - 96) + 2, 0x404040);
     }
 
     private static final ResourceLocation background = new ResourceLocation("tinker", "textures/gui/patternshaper.png");
 
-    protected void drawGuiContainerBackgroundLayer (float par1, int par2, int par3)
+    protected void func_146976_a (float par1, int par2, int par3)
     {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.field_146297_k.getTextureManager().bindTexture(background);
-        int cornerX = (this.field_146294_l - this.xSize) / 2;
-        int cornerY = (this.field_146295_m - this.ySize) / 2;
-        this.drawTexturedModalRect(cornerX, cornerY, 0, 0, this.xSize, this.ySize);
+        int cornerX = (this.field_146294_l - this.field_146999_f) / 2;
+        int cornerY = (this.field_146295_m - this.field_147000_g) / 2;
+        this.drawTexturedModalRect(cornerX, cornerY, 0, 0, this.field_146999_f, this.field_147000_g);
         if (!logic.isStackInSlot(0))
         {
             this.drawTexturedModalRect(cornerX + 47, cornerY + 34, 176, 0, 18, 18);
@@ -55,8 +55,8 @@ public class StencilTableGui extends GuiContainer
     public void initGui ()
     {
         super.initGui();
-        int cornerX = (this.field_146294_l - this.xSize) / 2;
-        int cornerY = (this.field_146295_m - this.ySize) / 2;
+        int cornerX = (this.field_146294_l - this.field_146999_f) / 2;
+        int cornerY = (this.field_146295_m - this.field_147000_g) / 2;
 
         this.field_146292_n.clear();
         /*ToolGuiElement repair = TConstruct.toolButtons.get(0);

@@ -497,41 +497,38 @@ public class TankLayerScan extends LogicComponent
     public void readFromNBT (NBTTagCompound tags)
     {
         super.readFromNBT(tags);
-        NBTTagList layerAir = tags.getTagList("AirLayer");
+        NBTTagList layerAir = tags.func_150295_c("AirLayer",11);
         if (layerAir != null)
         {
             layerAirCoords.clear();
 
             for (int i = 0; i < layerAir.tagCount(); ++i)
             {
-                NBTTagIntArray tag = (NBTTagIntArray) layerAir.tagAt(i);
-                int[] coord = tag.func_150302_c();
+                int[] coord = layerAir.func_150306_c(i);
                 layerAirCoords.add(new CoordTuple(coord[0], coord[1], coord[2]));
             }
         }
 
-        NBTTagList blocks = tags.getTagList("Blocks");
+        NBTTagList blocks = tags.func_150295_c("Blocks", 11);
         if (blocks != null)
         {
             blockCoords.clear();
 
             for (int i = 0; i < blocks.tagCount(); ++i)
             {
-                NBTTagIntArray tag = (NBTTagIntArray) blocks.tagAt(i);
-                int[] coord = tag.func_150302_c();
+                int[] coord =  blocks.func_150306_c(i);
                 blockCoords.add(new CoordTuple(coord[0], coord[1], coord[2]));
             }
         }
 
-        NBTTagList air = tags.getTagList("Air");
+        NBTTagList air = tags.func_150295_c("Air", 11);
         if (air != null)
         {
             airCoords.clear();
 
             for (int i = 0; i < air.tagCount(); ++i)
             {
-                NBTTagIntArray tag = (NBTTagIntArray) air.tagAt(i);
-                int[] coord = tag.func_150302_c();
+                int[] coord = air.func_150306_c(i);
                 airCoords.add(new CoordTuple(coord[0], coord[1], coord[2]));
             }
         }
@@ -550,21 +547,21 @@ public class TankLayerScan extends LogicComponent
         NBTTagList layerAir = new NBTTagList();
         for (CoordTuple coord : layerAirCoords)
         {
-            layerAir.appendTag(new NBTTagIntArray("coord", new int[] { coord.x, coord.y, coord.z }));
+            layerAir.appendTag(new NBTTagIntArray(new int[] { coord.x, coord.y, coord.z }));
         }
         tags.setTag("AirLayer", layerAir);
 
         NBTTagList blocks = new NBTTagList();
         for (CoordTuple coord : blockCoords)
         {
-            blocks.appendTag(new NBTTagIntArray("coord", new int[] { coord.x, coord.y, coord.z }));
+            blocks.appendTag(new NBTTagIntArray(new int[] { coord.x, coord.y, coord.z }));
         }
         tags.setTag("Blocks", blocks);
 
         NBTTagList air = new NBTTagList();
         for (CoordTuple coord : airCoords)
         {
-            air.appendTag(new NBTTagIntArray("coord", new int[] { coord.x, coord.y, coord.z }));
+            air.appendTag(new NBTTagIntArray( new int[] { coord.x, coord.y, coord.z }));
         }
         tags.setTag("Air", air);
         tags.setInteger("structureTop", structureTop);

@@ -185,7 +185,7 @@ public class MultiFluidTank extends LogicComponent implements IFluidTank
 
         for (int iter = 0; iter < liquidTag.tagCount(); iter++)
         {
-            NBTTagCompound nbt = (NBTTagCompound) liquidTag.tagAt(iter);
+            NBTTagCompound nbt = (NBTTagCompound) liquidTag.func_150305_b(iter);
             FluidStack fluid = FluidStack.loadFluidStackFromNBT(nbt);
             if (fluid != null)
                 fluidlist.add(fluid);

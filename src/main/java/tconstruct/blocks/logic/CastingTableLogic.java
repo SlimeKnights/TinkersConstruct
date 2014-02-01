@@ -367,7 +367,7 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
         if (liquid != null)
         {
             NBTTagCompound nbt = new NBTTagCompound();
-            liquid.func_145841_b(nbt);
+            liquid.writeToNBT(nbt);
             tags.setTag("Fluid", nbt);
         }
         tags.setBoolean("Initialized", init);

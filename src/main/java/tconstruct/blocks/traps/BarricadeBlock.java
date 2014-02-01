@@ -82,7 +82,7 @@ public class BarricadeBlock extends MantleBlock
     }
 
     @Override
-    public boolean onBlockActivated (World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9)
+    public boolean func_149727_a (World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9)
     {
         ItemStack stack = player.getCurrentEquippedItem();
         if ((stack != null) && (ComparisonHelper.areEquivalent(stack.getItem(), this)) && (!player.isSneaking()))

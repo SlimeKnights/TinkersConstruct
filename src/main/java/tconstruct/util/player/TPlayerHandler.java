@@ -77,8 +77,8 @@ public class TPlayerHandler implements IPlayerTracker
                 compound.setTag("display", new NBTTagCompound());
                 compound.getCompoundTag("display").setString("Name", "\u00A7f" + "Fudgy_Fetus' Full Guard Pattern");
                 NBTTagList list = new NBTTagList();
-                list.appendTag(new NBTTagString("Lore", "\u00A72\u00A7o" + "The creator and the creation"));
-                list.appendTag(new NBTTagString("Lore", "\u00A72\u00A7o" + "are united at last!"));
+                list.appendTag(new NBTTagString("\u00A72\u00A7o" + "The creator and the creation"));
+                list.appendTag(new NBTTagString("\u00A72\u00A7o" + "are united at last!"));
                 compound.getCompoundTag("display").setTag("Lore", list);
                 pattern.setTagCompound(compound);
 
@@ -93,7 +93,7 @@ public class TPlayerHandler implements IPlayerTracker
                 compound.setTag("display", new NBTTagCompound());
                 compound.getCompoundTag("display").setString("Name", "\u00A78" + "Cheaty Inventory");
                 NBTTagList list = new NBTTagList();
-                list.appendTag(new NBTTagString("Lore", "\u00A72\u00A7o" + "Nyaa~"));
+                list.appendTag(new NBTTagString("\u00A72\u00A7o" + "Nyaa~"));
                 compound.getCompoundTag("display").setTag("Lore", list);
                 pattern.setTagCompound(compound);
 

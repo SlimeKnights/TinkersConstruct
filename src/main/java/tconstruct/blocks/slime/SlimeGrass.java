@@ -31,12 +31,12 @@ public class SlimeGrass extends MantleBlock
     {
         super(Material.field_151577_b);
         func_149711_c(0.6f);
-        this.setTickRandomly(true);
+        this.func_149675_a(true);
         this.func_149647_a(TConstructRegistry.blockTab);
     }
 
     @Override
-    public int damageDropped (int meta)
+    public int func_149692_a (int meta)
     {
         if (meta == 1) //dirt
             return 0;
@@ -137,11 +137,11 @@ public class SlimeGrass extends MantleBlock
         }
     }
 
-    public int idDropped (int metadata, Random random, int fortune)
+    public Block blockDropped (int metadata, Random random, int fortune)
     {
         if (metadata == 1)
-            return Blocks.dirt.blockID;
+            return Blocks.dirt;
         else
-            return TRepo.craftedSoil.blockID;
+            return TRepo.craftedSoil;
     }
 }

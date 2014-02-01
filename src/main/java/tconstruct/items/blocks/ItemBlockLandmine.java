@@ -68,14 +68,14 @@ public class ItemBlockLandmine extends ItemBlock
         {
             TRepo.landmine.func_149689_a(world, x, y, z, player, stack);
 
-            TileEntityLandmine te = (TileEntityLandmine) world.getBlockTileEntity(x, y, z);
+            TileEntityLandmine te = (TileEntityLandmine) world.func_147438_o(x, y, z);
             if (te == null)
             {
                 te = (TileEntityLandmine) TRepo.landmine.createTileEntity(world, metadata);
             }
 
             te.triggerType = stack.getItemDamage();
-            world.setBlockTileEntity(x, y, z, te);
+            world.func_147455_a(x, y, z, te);
 
             TRepo.landmine.func_149714_e(world, x, y, z, metadata);
         }

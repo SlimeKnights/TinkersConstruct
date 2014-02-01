@@ -26,8 +26,8 @@ public class KnapsackGui extends GuiContainer
     {
         super.initGui();
 
-        int cornerX = guiLeft;
-        int cornerY = (this.field_146294_l - this.ySize) / 2;
+        int cornerX = field_147003_i;
+        int cornerY = (this.field_146294_l - this.field_147000_g) / 2;
         this.field_146292_n.clear();
 
         TabRegistry.updateTabValues(cornerX, cornerY, InventoryTabKnapsack.class);
@@ -45,18 +45,18 @@ public class KnapsackGui extends GuiContainer
     protected void drawGuiContainerForegroundLayer (int par1, int par2)
     {
         field_146289_q.drawString(StatCollector.translateToLocal("inventory.knapsack"), 8, 6, 0x404040);
-        field_146289_q.drawString(StatCollector.translateToLocal("container.inventory"), 8, (ySize - 96) + 4, 0x404040);
+        field_146289_q.drawString(StatCollector.translateToLocal("container.inventory"), 8, (field_147000_g - 96) + 4, 0x404040);
     }
 
     private static final ResourceLocation background = new ResourceLocation("tinker", "textures/gui/knapsack.png");
 
-    protected void drawGuiContainerBackgroundLayer (float f, int i, int j)
+    protected void func_146976_a (float f, int i, int j)
     {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.field_146297_k.getTextureManager().bindTexture(background);
-        int cornerX = guiLeft;
-        int cornerY = (field_146294_l - ySize) / 2;
-        drawTexturedModalRect(cornerX, cornerY, 0, 0, xSize, ySize);
+        int cornerX = field_147003_i;
+        int cornerY = (field_146294_l - field_147000_g) / 2;
+        drawTexturedModalRect(cornerX, cornerY, 0, 0, field_146999_f, field_147000_g);
     }
 
     /*protected void keyTyped(char par1, int par2)

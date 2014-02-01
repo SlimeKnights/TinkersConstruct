@@ -11,6 +11,7 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -157,13 +158,13 @@ public class LavaTankBlock extends BlockContainer
     }
 
     @Override
-    public boolean onBlockActivated (World world, int x, int y, int z, EntityPlayer player, int side, float clickX, float clickY, float clickZ)
+    public boolean func_149727_a (World world, int x, int y, int z, EntityPlayer player, int side, float clickX, float clickY, float clickZ)
     {
         ItemStack heldItem = player.inventory.getCurrentItem();
         if (heldItem != null)
         {
             FluidStack liquid = FluidContainerRegistry.getFluidForFilledItem(player.getCurrentEquippedItem());
-            LavaTankLogic logic = (LavaTankLogic) world.getBlockTileEntity(x, y, z);
+            LavaTankLogic logic = (LavaTankLogic) world.func_147438_o(x, y, z);
             if (liquid != null)
             {
                 int amount = logic.fill(ForgeDirection.UNKNOWN, liquid, false);
@@ -237,11 +238,11 @@ public class LavaTankBlock extends BlockContainer
     }
 
     @Override
-    public void getSubBlocks (int id, CreativeTabs tab, List list)
+    public void getSubBlocks (Item i, CreativeTabs tab, List list)
     {
         for (int iter = 0; iter < 3; iter++)
         {
-            list.add(new ItemStack(id, 1, iter));
+            list.add(new ItemStack(i, 1, iter));
         }
     }
 
@@ -254,7 +255,7 @@ public class LavaTankBlock extends BlockContainer
     /* Updates */
     public void onNeighborBlockChange (World world, int x, int y, int z, int nBlockID)
     {
-        TileEntity logic = world.getBlockTileEntity(x, y, z);
+        TileEntity logic = world.func_147438_o(x, y, z);
         if (logic instanceof IServantLogic)
         {
             ((IServantLogic) logic).notifyMasterOfChange();
@@ -267,7 +268,7 @@ public class LavaTankBlock extends BlockContainer
         player.addExhaustion(0.025F);
         int meta = world.getBlockMetadata(x, y, z);
         ItemStack stack = new ItemStack(this, 1, meta);
-        LavaTankLogic logic = (LavaTankLogic) world.getBlockTileEntity(x, y, z);
+        LavaTankLogic logic = (LavaTankLogic) world.func_147438_o(x, y, z);
         FluidStack liquid = logic.tank.getFluid();
         if (liquid != null)
         {
@@ -311,7 +312,7 @@ public class LavaTankBlock extends BlockContainer
             if (liquidTag != null)
             {
                 FluidStack liquid = FluidStack.loadFluidStackFromNBT(liquidTag);
-                LavaTankLogic logic = (LavaTankLogic) world.getBlockTileEntity(x, y, z);
+                LavaTankLogic logic = (LavaTankLogic) world.func_147438_o(x, y, z);
                 logic.tank.setFluid(liquid);
             }
         }

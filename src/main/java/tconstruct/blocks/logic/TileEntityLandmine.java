@@ -74,7 +74,7 @@ public class TileEntityLandmine extends TileEntity implements IInventory
 
         for (int i = 0; i < nbttaglist.tagCount(); ++i)
         {
-            NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist.tagAt(i);
+            NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist.func_150305_b(i);
             byte b0 = nbttagcompound1.getByte("Slot");
 
             if (b0 >= 0 && b0 < this.inventory.length)

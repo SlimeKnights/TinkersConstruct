@@ -6,6 +6,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
@@ -40,7 +41,7 @@ public class CraftingStationBlock extends InventoryBlock
     }
 
     @Override
-    public IIcon getIcon (int side, int meta)
+    public IIcon func_149691_a (int side, int meta)
     {
         return icons[meta * 3 + getTextureIndex(side)];
     }
@@ -62,13 +63,13 @@ public class CraftingStationBlock extends InventoryBlock
     }
 
     @Override
-    public boolean isOpaqueCube ()
+    public boolean func_149662_c ()
     {
         return false;
     }
 
     @Override
-    public int getRenderType ()
+    public int func_149645_b ()
     {
         return TableRender.tabelModelID;
     }
@@ -104,11 +105,23 @@ public class CraftingStationBlock extends InventoryBlock
     }
 
     @Override
-    public void getSubBlocks (Block b, CreativeTabs tab, List list)
+    public void func_149666_a (Item b, CreativeTabs tab, List list)
     {
         for (int iter = 0; iter < 1; iter++)
         {
             list.add(new ItemStack(b, 1, iter));
+        }
+    }
+
+    @Override
+    public TileEntity func_149915_a (World var1, int metadata)
+    {
+        switch (metadata)
+        {
+        case 0:
+            return new CraftingStationLogic();
+        default:
+            return null;
         }
     }
 }
