@@ -48,7 +48,7 @@ public class SlimeGel extends TConstructBlock
             if (entity.motionY < -0.08F)
             {
                 Block var9 = (Block) this;
-                world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, var9.field_149762_H, (var9.field_149762_H.func_150497_c()) / 2.0F, var9.field_149762_H.getPitch() * 0.65F);
+                world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, var9.field_149762_H.field_150501_a, (var9.field_149762_H.func_150497_c()) / 2.0F, var9.field_149762_H.func_150494_d() * 0.65F);
             }
             entity.motionY *= -1.2F;
             if (entity instanceof EntityLivingBase)
@@ -60,7 +60,7 @@ public class SlimeGel extends TConstructBlock
     }
 
     @Override
-    public AxisAlignedBB getCollisionBoundingBoxFromPool (World world, int x, int y, int z)
+    public AxisAlignedBB func_149668_a (World world, int x, int y, int z)
     {
         return AxisAlignedBB.getBoundingBox(x, y, z, (double) x + 1.0D, (double) y + 0.625D, (double) z + 1.0D);
     }

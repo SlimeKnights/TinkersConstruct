@@ -34,7 +34,7 @@ public class BarricadeBlock extends MantleBlock
 
     public IIcon getIcon (int side, int meta)
     {
-        return modelBlock.getIcon(2, modelMeta);
+        return modelBlock.func_149691_a(2, modelMeta);
     }
 
     @Override
@@ -95,7 +95,7 @@ public class BarricadeBlock extends MantleBlock
                 this.func_149714_e(world, x, y, z, meta);
 
                 Block var9 = this;
-                world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, var9.field_149762_H, (var9.field_149762_H.func_150497_c() + 1.0F) / 2.0F, var9.field_149762_H.getPitch() * 0.8F);
+                world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, var9.field_149762_H.field_150501_a, (var9.field_149762_H.func_150497_c() + 1.0F) / 2.0F, var9.field_149762_H.func_150494_d() * 0.8F);
                 player.swingItem();
                 if (!player.capabilities.isCreativeMode)
                     stack.stackSize -= 1;

@@ -42,7 +42,7 @@ public class EquipBlock extends InventoryBlock
 
     public IIcon getIcon (int side, int meta)
     {
-        return Blocks.iron_block.getIcon(side, meta);
+        return Blocks.iron_block.func_149691_a(side, meta);
     }
 
     @SideOnly(Side.CLIENT)

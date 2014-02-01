@@ -14,7 +14,7 @@ public class WoolSlab1Item extends MultiItemBlock
 
     public WoolSlab1Item(Block b)
     {
-        super(b, "", "slab", ItemDye.dyeColorNames);
+        super(b, "", "slab", ItemDye.field_150923_a);
         this.setSpecialIndex(7, 15);
         this.block = b;
         setMaxDamage(0);
@@ -33,8 +33,8 @@ public class WoolSlab1Item extends MultiItemBlock
         {
             if (world.func_147465_d(x, y, z, Blocks.wool, trueMeta, 3))
             {
-                world.playSoundEffect((double) ((float) x + 0.5F), (double) ((float) y + 0.5F), (double) ((float) z + 0.5F), this.block.field_149762_H.getPlaceSound(),
-                        (this.block.field_149762_H.func_150497_c() + 1.0F) / 2.0F, this.block.field_149762_H.getPitch() * 0.8F);
+                world.playSoundEffect((double) ((float) x + 0.5F), (double) ((float) y + 0.5F), (double) ((float) z + 0.5F), this.block.field_149762_H.field_150501_a,
+                        (this.block.field_149762_H.func_150497_c() + 1.0F) / 2.0F, this.block.field_149762_H.func_150494_d() * 0.8F);
                 --stack.stackSize;
                 return true;
             }

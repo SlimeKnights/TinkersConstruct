@@ -184,7 +184,7 @@ public class LumberAxe extends HarvestTool
                 destroyWood(world, x, y, z, stack, tags, player);
 
             if (!world.isRemote)
-                world.playAuxSFX(2001, x, y, z, woodID + (meta << 12));
+                world.playAuxSFX(2001, x, y, z, Block.func_149682_b(wood) + (meta << 12));
         }
         else if (wood.func_149688_o() == Material.field_151575_d)
         {
@@ -192,7 +192,7 @@ public class LumberAxe extends HarvestTool
             int meta = world.getBlockMetadata(x, y, z);
             destroyWood(world, x, y, z, stack, tags, player);
             if (!world.isRemote)
-                world.playAuxSFX(2001, x, y, z, woodID + (meta << 12));
+                world.playAuxSFX(2001, x, y, z, Block.func_149682_b(wood) + (meta << 12));
         }
         return super.onBlockStartBreak(stack, x, y, z, player);
     }

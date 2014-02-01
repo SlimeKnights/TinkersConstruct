@@ -59,7 +59,7 @@ public class TileEntityLandmine extends TileEntity implements IInventory
 
         par1NBTTagCompound.setInteger("triggerType", triggerType);
 
-        if (this.isInvNameLocalized())
+        if (this.func_145818_k_())
         {
             par1NBTTagCompound.setString("CustomName", this.containerName);
         }
@@ -181,13 +181,13 @@ public class TileEntityLandmine extends TileEntity implements IInventory
     }
 
     @Override
-    public String getInvName ()
+    public String func_145825_b ()
     {
-        return this.isInvNameLocalized() ? this.containerName : "Landmine";
+        return this.func_145818_k_() ? this.containerName : "Landmine";
     }
 
     @Override
-    public boolean isInvNameLocalized ()
+    public boolean func_145818_k_ ()
     {
         return containerName != null && containerName.length() > 0;
     }

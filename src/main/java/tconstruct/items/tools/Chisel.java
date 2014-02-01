@@ -30,7 +30,7 @@ public class Chisel extends ToolCore
     }
 
     @Override
-    public ItemStack getContainerItemStack (ItemStack itemStack)
+    public ItemStack getContainerItem (ItemStack itemStack)
     {
         if (itemStack.hasTagCompound())
         {

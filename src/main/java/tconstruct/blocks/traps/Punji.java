@@ -60,8 +60,8 @@ public class Punji extends MantleBlock
             if (stack != null && stack == new ItemStack(TRepo.punji))
             {
                 world.setBlockMetadataWithNotify(x, y, z, meta + 1, 3);
-                world.playSoundEffect((double) ((float) x + 0.5F), (double) ((float) y + 0.5F), (double) ((float) z + 0.5F), this.field_149762_H.getPlaceSound(),
-                        (this.field_149762_H.func_150497_c() + 1.0F) / 2.0F, this.field_149762_H.getPitch() * 0.8F);
+                world.playSoundEffect((double) ((float) x + 0.5F), (double) ((float) y + 0.5F), (double) ((float) z + 0.5F), this.field_149762_H.field_150501_a,
+                        (this.field_149762_H.func_150497_c() + 1.0F) / 2.0F, this.field_149762_H.func_150494_d() * 0.8F);
                 player.swingItem();
                 if (!player.capabilities.isCreativeMode)
                 {

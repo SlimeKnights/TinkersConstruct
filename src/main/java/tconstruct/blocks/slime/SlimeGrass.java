@@ -60,14 +60,14 @@ public class SlimeGrass extends MantleBlock
 
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon getIcon (int side, int meta)
+    public IIcon func_149691_a (int side, int meta)
     {
         if (meta >= 2)
             meta = 0;
 
         if (side == 0)
         {
-            return meta % 2 == 1 ? Blocks.dirt.getIcon(0, 0) : icons[1];
+            return meta % 2 == 1 ? Blocks.dirt.func_149691_a(0, 0) : icons[1];
         }
         else if (side == 1)
         {

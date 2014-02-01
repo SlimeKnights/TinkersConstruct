@@ -84,7 +84,7 @@ public class TitleIcon extends Item
     }
 
     @Override
-    public String getItemDisplayName (ItemStack par1ItemStack)
+    public String func_150896_i (ItemStack par1ItemStack)
     {
         String s = ("" + StatCollector.translateToLocal(this.getUnlocalizedName() + ".name")).trim();
         String s1 = mobNames[par1ItemStack.getItemDamage()];

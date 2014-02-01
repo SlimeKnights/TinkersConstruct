@@ -50,7 +50,7 @@ public class GlassBlockConnectedMeta extends GlassBlockConnected
     }
 
     @Override
-    public IIcon getIcon (int par1, int par2)
+    public IIcon func_149691_a (int par1, int par2)
     {
         return icons[par2][0];
     }

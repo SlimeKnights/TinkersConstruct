@@ -30,8 +30,8 @@ public abstract class DualHarvestTool extends HarvestTool
         Block block = player.worldObj.func_147439_a(x, y, z);
         if (block == null || block == Blocks.air)
             return false;
-        int hlvl = block.getBlockHarvestLevel(meta, getHarvestType());
-        int shlvl = block.getBlockHarvestLevel(meta, getSecondHarvestType());
+        int hlvl = block.getHarvestLevel(meta);
+        int shlvl = block.getHarvestLevel(meta);
 
         if (hlvl <= tags.getInteger("HarvestLevel") && shlvl <= tags.getInteger("HarvestLevel2"))
         {
@@ -70,7 +70,7 @@ public abstract class DualHarvestTool extends HarvestTool
             {
                 float speed = tags.getInteger("MiningSpeed");
                 speed /= 100f;
-                int hlvl = block.getBlockHarvestLevel(meta, getHarvestType());
+                int hlvl = block.getHarvestLevel(meta);
                 int durability = tags.getInteger("Damage");
 
                 float shoddy = tags.getFloat("Shoddy");
@@ -88,7 +88,7 @@ public abstract class DualHarvestTool extends HarvestTool
             {
                 float speed = tags.getInteger("MiningSpeed2");
                 speed /= 100f;
-                int hlvl = block.getBlockHarvestLevel(meta, getHarvestType());
+                int hlvl = block.getHarvestLevel(meta);
                 int durability = tags.getInteger("Damage");
 
                 float shoddy = tags.getFloat("Shoddy");

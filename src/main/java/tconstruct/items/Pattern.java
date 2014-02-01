@@ -53,7 +53,7 @@ public class Pattern extends CraftingItem implements IPattern
     }
 
     @Override
-    public ItemStack getContainerItemStack (ItemStack stack)
+    public ItemStack getContainerItem (ItemStack stack)
     {
         if (stack.stackSize <= 0)
             return null;

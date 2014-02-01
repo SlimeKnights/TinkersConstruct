@@ -73,7 +73,7 @@ public class SlimeSapling extends BlockSapling
 
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon getIcon (int side, int meta)
+    public IIcon func_149691_a (int side, int meta)
     {
         return icons[meta % 8];
     }
