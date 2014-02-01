@@ -2,6 +2,7 @@ package tconstruct.items;
 
 import java.util.List;
 
+import mantle.world.WorldHelper;
 import net.minecraftforge.fluids.BlockFluidFinite;
 import tconstruct.TConstruct;
 import tconstruct.blocks.logic.LiquidTextureLogic;
@@ -134,7 +135,7 @@ public class FilledBucket extends ItemBucket
 
     public boolean tryPlaceContainedLiquid (World world, int clickX, int clickY, int clickZ, int type)
     {
-        if (!world.isAirBlock(clickX, clickY, clickZ) && world.getBlockMaterial(clickX, clickY, clickZ).isSolid())
+        if (!WorldHelper.isAirBlock(world, clickX, clickY, clickZ) && world.func_147439_a(clickX, clickY, clickZ).func_149688_o().isSolid())
         {
             return false;
         }
@@ -156,7 +157,7 @@ public class FilledBucket extends ItemBucket
     }
 
     @Override
-    public void getSubItems (Item b, CreativeTabs tab, List list)
+    public void func_150895_a (Item b, CreativeTabs tab, List list)
     {
         for (int i = 0; i < icons.length; i++)
             list.add(new ItemStack(b, 1, i));

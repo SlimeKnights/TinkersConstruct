@@ -50,7 +50,7 @@ public abstract class DualHarvestTool extends HarvestTool
                 onBlockDestroyed(stack, world, block, x, y, z, player);
             WorldHelper.setBlockToAir(world, x, y, z);
             if (!world.isRemote)
-                world.playAuxSFX(2001, x, y, z, bID + (meta << 12));
+                world.playAuxSFX(2001, x, y, z, Block.func_149682_b(block) + (meta << 12));
             return true;
         }
     }

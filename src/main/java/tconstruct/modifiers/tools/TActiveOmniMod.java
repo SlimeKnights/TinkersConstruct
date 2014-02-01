@@ -70,7 +70,7 @@ public class TActiveOmniMod extends ActiveToolMod
             ItemStack smeltStack = new ItemStack(block.IDropped(meta, random, 0), block.quantityDropped(meta, 0, random), block.func_149692_a(meta));
             if (smeltStack.getItem() == null)
                 return false;
-            ItemStack result = FurnaceRecipes.smelting().getSmeltingResult(smeltStack);
+            ItemStack result = FurnaceRecipes.smelting().func_151395_a(smeltStack);
             if (result != null)
             {
                 WorldHelper.setBlockToAir(world, x, y, z);
@@ -91,7 +91,7 @@ public class TActiveOmniMod extends ActiveToolMod
 
                     entityitem.field_145804_b = 10;
                     world.spawnEntityInWorld(entityitem);
-                    world.playAuxSFX(2001, x, y, z, bID + (meta << 12));
+                    world.playAuxSFX(2001, x, y, z, Block.func_149682_b(block) + (meta << 12));
 
                     int i = spawnme.stackSize;
                     float f = FurnaceRecipes.smelting().getExperience(spawnme);

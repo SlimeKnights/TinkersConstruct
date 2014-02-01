@@ -69,7 +69,7 @@ public class TileEntityLandmine extends TileEntity implements IInventory
     public void func_145839_a (NBTTagCompound par1NBTTagCompound)
     {
         super.func_145839_a(par1NBTTagCompound);
-        NBTTagList nbttaglist = par1NBTTagCompound.getTagList("Items");
+        NBTTagList nbttaglist = par1NBTTagCompound.func_150295_c("Items",9);
         this.inventory = new ItemStack[this.getSizeInventory()];
 
         for (int i = 0; i < nbttaglist.tagCount(); ++i)

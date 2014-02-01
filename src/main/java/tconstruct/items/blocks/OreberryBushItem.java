@@ -50,7 +50,7 @@ public class OreberryBushItem extends MultiItemBlock
                 if (!player.capabilities.isCreativeMode)
                     stack.stackSize--;
                 if (!world.isRemote)
-                    world.playAuxSFX(2001, x, y, z, blockID);
+                    world.playAuxSFX(2001, x, y, z, Block.func_149682_b(block));
                 return true;
             }
             else

@@ -337,7 +337,7 @@ public class Hammer extends HarvestTool
             }
         }
         if (!world.isRemote)
-            world.playAuxSFX(2001, x, y, z, blockID + (meta << 12));
+            world.playAuxSFX(2001, x, y, z, Block.func_149682_b(block) + (meta << 12));
         return true;
     }
 

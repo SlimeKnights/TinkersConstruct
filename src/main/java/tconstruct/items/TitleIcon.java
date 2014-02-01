@@ -98,7 +98,7 @@ public class TitleIcon extends Item
     }
 
     @Override
-    public void getSubItems (Item b, CreativeTabs tab, List list)
+    public void func_150895_a (Item b, CreativeTabs tab, List list)
     {
         for (int i = 0; i < mobNames.length; i++)
             list.add(new ItemStack(b, 1, i));
@@ -119,13 +119,13 @@ public class TitleIcon extends Item
     {
         if (!world.isRemote)
         {
-            Block b = world.getBlock(posX, posY, posZ);
+            Block b = world.func_147439_a(posX, posY, posZ);
             posX += Facing.offsetsXForSide[par7];
             posY += Facing.offsetsYForSide[par7];
             posZ += Facing.offsetsZForSide[par7];
             double d0 = 0.0D;
 
-            if (par7 == 1 && b != null && b.getRenderType() == 11)
+            if (par7 == 1 && b != null && b.func_149645_b() == 11)
             {
                 d0 = 0.5D;
             }
@@ -150,13 +150,13 @@ public class TitleIcon extends Item
 
     public static EntityLiving activateSpawnEgg (ItemStack stack, World world, double posX, double posY, double posZ, int par7)
     {
-        Block b = world.getBlock((int) posX, (int) posY, (int) posZ);
+        Block b = world.func_147439_a((int) posX, (int) posY, (int) posZ);
         posX += Facing.offsetsXForSide[par7];
         posY += Facing.offsetsYForSide[par7];
         posZ += Facing.offsetsZForSide[par7];
         double d0 = 0.0D;
 
-        if (par7 == 1 && b != null && b.getRenderType() == 11)
+        if (par7 == 1 && b != null && b.func_149645_b() == 11)
         {
             d0 = 0.5D;
         }

@@ -238,7 +238,7 @@ public class LavaTankBlock extends BlockContainer
     }
 
     @Override
-    public void getSubBlocks (Item i, CreativeTabs tab, List list)
+    public void func_149666_a (Item i, CreativeTabs tab, List list)
     {
         for (int iter = 0; iter < 3; iter++)
         {

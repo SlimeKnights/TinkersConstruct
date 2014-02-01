@@ -28,7 +28,7 @@ public class GlassPaneStained extends PaneBase
     }
 
     @Override
-    public int getRenderBlockPass ()
+    public int func_149701_w ()
     {
         return 1;
     }

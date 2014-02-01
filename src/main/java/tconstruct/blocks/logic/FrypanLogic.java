@@ -213,7 +213,7 @@ public class FrypanLogic extends EquipLogic implements IActiveLogic
 
     public ItemStack getResultFor (ItemStack stack)
     {
-        ItemStack result = FurnaceRecipes.smelting().getSmeltingResult(stack);
+        ItemStack result = FurnaceRecipes.smelting().func_151395_a(stack);
         if (result != null && result.getItem() instanceof ItemFood) //Only valid for food
             return result.copy();
 
@@ -251,7 +251,7 @@ public class FrypanLogic extends EquipLogic implements IActiveLogic
             }
             if (item instanceof ItemTool && ((ItemTool) item).getToolMaterialName().equals("WOOD"))
                 return 200;
-            if (item instanceof ItemSword && ((ItemSword) item).getToolMaterialName().equals("WOOD"))
+            if (item instanceof ItemSword && ((ItemSword) item).func_150932_j().equals("WOOD"))
                 return 200;
             if (item instanceof ItemHoe && ((ItemHoe) item).getMaterialName().equals("WOOD"))
                 return 200;

@@ -122,7 +122,7 @@ public class SlimeSapling extends BlockSapling
 
     @SideOnly(Side.CLIENT)
     @Override
-    public void getSubBlocks (Item b, CreativeTabs par2CreativeTabs, List par3List)
+    public void func_149666_a (Item b, CreativeTabs par2CreativeTabs, List par3List)
     {
         for (int i = 0; i < 1; i++)
             par3List.add(new ItemStack(b, 1, i));

@@ -48,7 +48,7 @@ public class SlimeGel extends TConstructBlock
             if (entity.motionY < -0.08F)
             {
                 Block var9 = (Block) this;
-                world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, var9.field_149762_H.getStepSound(), (var9.field_149762_H.getVolume()) / 2.0F, var9.field_149762_H.getPitch() * 0.65F);
+                world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, var9.field_149762_H, (var9.field_149762_H.func_150497_c()) / 2.0F, var9.field_149762_H.getPitch() * 0.65F);
             }
             entity.motionY *= -1.2F;
             if (entity instanceof EntityLivingBase)

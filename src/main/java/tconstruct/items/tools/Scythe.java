@@ -202,7 +202,7 @@ public class Scythe extends Weapon
             }
         }
         if (!world.isRemote)
-            world.playAuxSFX(2001, x, y, z, blockID + (meta << 12));
+            world.playAuxSFX(2001, x, y, z, Block.func_149682_b(blockB) + (meta << 12));
         return super.onBlockStartBreak(stack, x, y, z, player);
     }
 

@@ -287,26 +287,6 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
         return false;
     }
 
-    /* Resistance to fire */
-
-    @Override
-    public int getFlammability (IBlockAccess world, int x, int y, int z, int metadata, ForgeDirection face)
-    {
-        return 0;
-    }
-
-    @Override
-    public boolean isFlammable (IBlockAccess world, int x, int y, int z, int metadata, ForgeDirection face)
-    {
-        return false;
-    }
-
-    @Override
-    public int getFireSpreadSpeed (World world, int x, int y, int z, int metadata, ForgeDirection face)
-    {
-        return 0;
-    }
-
     /**
      * returns a list of items with the same ID, but different meta (eg: dye returns 16 items)
      */

@@ -116,7 +116,7 @@ public class Chisel extends ToolCore
                             AbilityHelper.damageTool(itemstack, 1, null, false);
                         }
                     }
-                    world.playAuxSFX(2001, x, y, z, blockID + (meta << 12));
+                    world.playAuxSFX(2001, x, y, z, Block.func_149682_b(block) + (meta << 12));
                     entityplayer.swingItem();
                 }
             }
