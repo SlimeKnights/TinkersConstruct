@@ -38,9 +38,12 @@ public class PartBuilderLogic extends InventoryLogic implements ISidedInventory
         {
             for (int zPos = z - 1; zPos <= z + 1; zPos++)
             {
-                TileEntity tile = world.getBlockTileEntity(xPos, y, zPos);
-                if (tile != null && tile instanceof PatternChestLogic)
-                    return new PartCrafterChestContainer(inventoryplayer, this, (PatternChestLogic) tile);
+                for (int yPos = y - 1; zPos <= y + 1; zPos++)
+                {
+                    TileEntity tile = world.getBlockTileEntity(xPos, yPos, zPos);
+                    if (tile != null && tile instanceof PatternChestLogic)
+                        return new PartCrafterChestContainer(inventoryplayer, this, (PatternChestLogic) tile);
+                }
             }
         }
         return new PartCrafterContainer(inventoryplayer, this);

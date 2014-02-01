@@ -1,12 +1,16 @@
 package tconstruct.client.event;
 
 import cpw.mods.fml.common.Loader;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.*;
 import java.util.*;
+
 import javax.swing.ImageIcon;
+
+import tconstruct.util.config.PHConstruct;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.event.ForgeSubscribe;
@@ -32,7 +36,7 @@ public class EventCloakRender
     @ForgeSubscribe
     public void onPreRenderSpecials (RenderPlayerEvent.Specials.Pre event)
     {
-        if (Loader.isModLoaded("shadersmod"))
+        if (Loader.isModLoaded("shadersmod")|| !PHConstruct.capesEnabled)
         {
             return;
         }
@@ -48,12 +52,11 @@ public class EventCloakRender
                 {
                     return;
                 }
+                    capePlayers.add(abstractClientPlayer);
+                    abstractClientPlayer.getTextureCape().textureUploaded = false;
+                    new Thread(new CloakThread(abstractClientPlayer, cloakURL)).start();
+                    event.renderCape = true;
 
-                capePlayers.add(abstractClientPlayer);
-
-                abstractClientPlayer.getTextureCape().textureUploaded = false;
-                new Thread(new CloakThread(abstractClientPlayer, cloakURL)).start();
-                event.renderCape = true;
             }
         }
     }

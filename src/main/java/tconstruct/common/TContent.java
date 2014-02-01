@@ -1260,14 +1260,17 @@ public class TContent implements IFuelHandler
         ItemStack exoChestStack = new ItemStack(exoChest);
         ItemStack exoPantsStack = new ItemStack(exoPants);
         ItemStack exoShoesStack = new ItemStack(exoShoes);
-        ToolBuilder.instance.addArmorTag(exoGoggleStack);
-        ToolBuilder.instance.addArmorTag(exoChestStack);
-        ToolBuilder.instance.addArmorTag(exoPantsStack);
-        ToolBuilder.instance.addArmorTag(exoShoesStack);
-        GameRegistry.addShapedRecipe(exoGoggleStack, helm, 'w', new ItemStack(largePlate, 1, 14));
-        GameRegistry.addShapedRecipe(exoChestStack, chest, 'w', new ItemStack(largePlate, 1, 14));
-        GameRegistry.addShapedRecipe(exoPantsStack, pants, 'w', new ItemStack(largePlate, 1, 14));
-        GameRegistry.addShapedRecipe(exoShoesStack, shoes, 'w', new ItemStack(largePlate, 1, 14));
+        if (!PHConstruct.exoCraftingEnabled)
+        {
+            ToolBuilder.instance.addArmorTag(exoGoggleStack);
+            ToolBuilder.instance.addArmorTag(exoChestStack);
+            ToolBuilder.instance.addArmorTag(exoPantsStack);
+            ToolBuilder.instance.addArmorTag(exoShoesStack);
+            GameRegistry.addShapedRecipe(exoGoggleStack, helm, 'w', new ItemStack(largePlate, 1, 14));
+            GameRegistry.addShapedRecipe(exoChestStack, chest, 'w', new ItemStack(largePlate, 1, 14));
+            GameRegistry.addShapedRecipe(exoPantsStack, pants, 'w', new ItemStack(largePlate, 1, 14));
+            GameRegistry.addShapedRecipe(exoShoesStack, shoes, 'w', new ItemStack(largePlate, 1, 14));
+        }
 
         // Metal conversion Recipes
         GameRegistry.addRecipe(new ItemStack(metalBlock, 1, 3), patBlock, '#', new ItemStack(materials, 1, 9)); // Copper
@@ -2318,23 +2321,23 @@ public class TContent implements IFuelHandler
             TConstructClientRegistry.registerManualModifier("fluxmod2", ironpick.copy(), (ItemStack) basicCell);
 
         /* Thaumcraft */
+        TConstructClientRegistry.addMaterialRenderMapping(31, "tinker", "thaumium", true);
+        TConstructRegistry.addToolMaterial(31, "Thaumium", 3, 400, 700, 2, 1.3F, 0, 0f, "\u00A75", "Thaumic");
+        TConstructRegistry.addBowMaterial(31, 576, 40, 1.2f);
+        TConstructRegistry.addArrowMaterial(31, 1.8F, 0.5F, 100F);
+
         Object obj = getStaticItem("itemResource", "thaumcraft.common.config.ConfigItems");
         if (obj != null)
         {
             TConstruct.logger.info("Thaumcraft detected. Adding thaumium tools.");
             thaumcraftAvailable = true;
-            TConstructClientRegistry.addMaterialRenderMapping(31, "tinker", "thaumium", true);
-            TConstructRegistry.addToolMaterial(31, "Thaumium", 3, 400, 700, 2, 1.3F, 0, 0f, "\u00A75", "Thaumic");
             PatternBuilder.instance.registerFullMaterial(new ItemStack((Item) obj, 1, 2), 2, "Thaumium", new ItemStack(toolShard, 1, 31), new ItemStack(toolRod, 1, 31), 31);
+            TConstructRegistry.addBowstringMaterial(1, 2, new ItemStack((Item) obj, 1, 7), new ItemStack(bowstring, 1, 1), 1F, 1F, 0.9f);
             for (int meta = 0; meta < patternOutputs.length; meta++)
             {
                 if (patternOutputs[meta] != null)
                     TConstructRegistry.addPartMapping(woodPattern.itemID, meta + 1, 31, new ItemStack(patternOutputs[meta], 1, 31));
             }
-
-            TConstructRegistry.addBowstringMaterial(1, 2, new ItemStack((Item) obj, 1, 7), new ItemStack(bowstring, 1, 1), 1F, 1F, 0.9f);
-            TConstructRegistry.addBowMaterial(31, 576, 40, 1.2f);
-            TConstructRegistry.addArrowMaterial(31, 1.8F, 0.5F, 100F);
         }
         else
         {
