@@ -195,7 +195,7 @@ public class Excavator extends HarvestTool
                         Block localblock = world.func_147439_a(xPos, yPos, zPos);
                         block = localblock;
                         int localMeta = world.getBlockMetadata(xPos, yPos, zPos);
-                        int hlvl = MinecraftForge.getBlockHarvestLevel(block, meta, getHarvestType());
+                        int hlvl = block.getHarvestLevel(meta);
                         float localHardness = block == null ? Float.MAX_VALUE : block.func_149712_f(world, xPos, yPos, zPos);
 
                         if (hlvl <= tags.getInteger("HarvestLevel") && localHardness - 1.5 <= blockHardness)
@@ -279,7 +279,7 @@ public class Excavator extends HarvestTool
                     heads++;
                 }
                 float trueSpeed = mineSpeed / (heads * 300f);
-                int hlvl = MinecraftForge.getBlockHarvestLevel(block, meta, getHarvestType());
+                int hlvl = block.getHarvestLevel(meta);
                 int durability = tags.getInteger("Damage");
 
                 float stonebound = tags.getFloat("Shoddy");

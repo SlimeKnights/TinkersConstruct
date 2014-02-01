@@ -257,7 +257,7 @@ public class Battleaxe extends HarvestTool
             {
                 Block localblock = world.func_147439_a(x, yPos, z);
                 int localMeta = world.getBlockMetadata(x, yPos, z);
-                int hlvl = MinecraftForge.getBlockHarvestLevel(block, meta, getHarvestType());
+                int hlvl = block.getHarvestLevel(meta);
 
                 if (hlvl <= tags.getInteger("HarvestLevel"))
                 {
@@ -295,7 +295,7 @@ public class Battleaxe extends HarvestTool
                 break;
         }
         if (!world.isRemote)
-            world.playAuxSFX(2001, x, y, z, wood.getBlockID() + (meta << 12));
+            world.playAuxSFX(2001, x, y, z, Block.func_149682_b(wood) + (meta << 12));
         return super.onBlockStartBreak(stack, x, y, z, player);
     }
 

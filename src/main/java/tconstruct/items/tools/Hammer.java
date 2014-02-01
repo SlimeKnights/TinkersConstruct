@@ -292,7 +292,7 @@ public class Hammer extends HarvestTool
                     {
                         Block localBlock = world.func_147439_a(xPos, yPos, zPos);
                         int localMeta = world.getBlockMetadata(xPos, yPos, zPos);
-                        int hlvl = MinecraftForge.getBlockHarvestLevel(localBlock, meta, getHarvestType());
+                        int hlvl = block.getHarvestLevel(meta);
                         float localHardness = localBlock == null ? Float.MAX_VALUE : localBlock.func_149712_f(world, xPos, yPos, zPos);
 
                         if (hlvl <= toolLevel && localHardness - 1.5 <= blockHardness)
@@ -387,7 +387,7 @@ public class Hammer extends HarvestTool
             heads++;
         }
         float trueSpeed = mineSpeed / (heads * 300f);
-        int hlvl = MinecraftForge.getBlockHarvestLevel(block, meta, getHarvestType());
+        int hlvl = block.getHarvestLevel(meta);
         int durability = tags.getInteger("Damage");
 
         float stonebound = tags.getFloat("Shoddy");

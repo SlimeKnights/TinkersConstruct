@@ -34,7 +34,7 @@ public abstract class HarvestTool extends ToolCore
         //Block block = Block.blocksList[bID];
         if (block == null || block == Blocks.air)
             return false;
-        int hlvl = MinecraftForge.getBlockHarvestLevel(block, meta, getHarvestType());
+        int hlvl = block.getHarvestLevel(meta);
 
         if (hlvl <= tags.getInteger("HarvestLevel"))
         {
@@ -52,7 +52,7 @@ public abstract class HarvestTool extends ToolCore
             if (!player.capabilities.isCreativeMode)
                 func_150894_a(stack, world, block, x, y, z, player);
             if (!world.isRemote)
-                world.playAuxSFX(2001, x, y, z, block.getBlockID() + (meta << 12));
+                world.playAuxSFX(2001, x, y, z, Block.func_149682_b(block) + (meta << 12));
             return true;
         }
     }
@@ -75,7 +75,7 @@ public abstract class HarvestTool extends ToolCore
                 return calculateStrength(tags, block, meta);
             }
         }
-        if (MinecraftForge.getBlockHarvestLevel(block, meta, getHarvestType()) > 0)
+        if (block.getHarvestLevel(meta) > 0)
         {
             return calculateStrength(tags, block, meta); //No issue if the harvest level is too low
         }
@@ -104,7 +104,7 @@ public abstract class HarvestTool extends ToolCore
             heads++;
         }
         float trueSpeed = mineSpeed / (heads * 100f);
-        int hlvl = MinecraftForge.getBlockHarvestLevel(block, meta, getHarvestType());
+        int hlvl = block.getHarvestLevel(meta);
         int durability = tags.getInteger("Damage");
 
         float stonebound = tags.getFloat("Shoddy");

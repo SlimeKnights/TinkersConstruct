@@ -117,7 +117,7 @@ public class LumberAxe extends HarvestTool
                     heads++;
                 }
                 float trueSpeed = mineSpeed / (heads * 300f);
-                int hlvl = MinecraftForge.getBlockHarvestLevel(block, meta, getHarvestType());
+                int hlvl = block.getHarvestLevel(meta);
                 int durability = tags.getInteger("Damage");
 
                 float stonebound = tags.getFloat("Shoddy");
@@ -213,7 +213,7 @@ public class LumberAxe extends HarvestTool
                         {
                             block = localblock;
                             meta = world.getBlockMetadata(xPos, yPos, zPos);
-                            int hlvl = MinecraftForge.getBlockHarvestLevel(block, meta, getHarvestType());
+                            int hlvl = block.getHarvestLevel(meta);
 
                             if (hlvl <= tags.getInteger("HarvestLevel"))
                             {
@@ -288,7 +288,7 @@ public class LumberAxe extends HarvestTool
                     {
                         Block block = world.func_147439_a(xPos, yPos, zPos);
                         int meta = world.getBlockMetadata(xPos, yPos, zPos);
-                        int hlvl = MinecraftForge.getBlockHarvestLevel(block, meta, getHarvestType());
+                        int hlvl = block.getHarvestLevel(meta);
 
                         if (block != null && block.func_149688_o() == Material.field_151575_d)
                         {
