@@ -238,7 +238,7 @@ public class Landmine extends MantleBlock
             par1World.func_147459_d(par2, par3 - 1, par4, this);
         }
 
-        super.func_149749_a(par1World, par2, par3, par4, par5, par6);
+        super.breakBlock(par1World, par2, par3, par4, par5, par6);
     }
 
     /**

@@ -146,7 +146,7 @@ public class LandmineExplodeLogic
 
         if (hasExploded || defBeh != null && !preventExplode)
         {
-            worldObj.removeBlockTileEntity(x, y, z);
+            worldObj.func_147475_p(x, y, z);
             WorldHelper.setBlockToAir(worldObj, x, y, z);
         }
         else

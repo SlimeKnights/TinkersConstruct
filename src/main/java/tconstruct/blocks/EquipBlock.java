@@ -120,7 +120,7 @@ public class EquipBlock extends InventoryBlock
     }
 
     @Override
-    public void func_149749_a (World par1World, int x, int y, int z, int par5, int meta)
+    public void breakBlock (World par1World, int x, int y, int z, int par5, int meta)
     {
         TileEntity te = par1World.func_147438_o(x, y, z);
 
@@ -165,7 +165,7 @@ public class EquipBlock extends InventoryBlock
             }
         }
 
-        super.func_149749_a(par1World, x, y, z, par5, meta);
+        super.breakBlock(par1World, x, y, z, par5, meta);
     }
 
     public int getLightValue (IBlockAccess world, int x, int y, int z)

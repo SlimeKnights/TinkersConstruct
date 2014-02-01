@@ -25,9 +25,9 @@ public class StencilTableGui extends GuiContainer
         patternIndex = 0;
     }
 
-    public void onGuiClosed ()
+    public void func_146281_b ()
     {
-        super.onGuiClosed();
+        super.func_146281_b();
     }
 
     @Override
