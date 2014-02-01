@@ -415,33 +415,33 @@ public class TRecipes
 
     protected static void addRecipesForFurnace ()
     {
-        FurnaceRecipes.smelting().addSmelting(TRepo.craftedSoil, 3, new ItemStack(TRepo.craftedSoil, 1, 4), 0.2f); //Concecrated Soil
+        FurnaceRecipes.smelting().func_151394_a(new ItemStack(TRepo.craftedSoil, 3), new ItemStack(TRepo.craftedSoil, 1, 4), 0.2f); //Concecrated Soil
 
-        FurnaceRecipes.smelting().addSmelting(TRepo.craftedSoil, 0, new ItemStack(TRepo.materials, 1, 1), 2f); //Slime
-        FurnaceRecipes.smelting().addSmelting(TRepo.craftedSoil, 1, new ItemStack(TRepo.materials, 1, 2), 2f); //Seared brick item
-        FurnaceRecipes.smelting().addSmelting(TRepo.craftedSoil, 2, new ItemStack(TRepo.materials, 1, 17), 2f); //Blue Slime
-        FurnaceRecipes.smelting().addSmelting(TRepo.craftedSoil, 6, new ItemStack(TRepo.materials, 1, 37), 2f); //Nether seared brick
+        FurnaceRecipes.smelting().func_151394_a(new ItemStack(TRepo.craftedSoil, 0), new ItemStack(TRepo.materials, 1, 1), 2f); //Slime
+        FurnaceRecipes.smelting().func_151394_a(new ItemStack(TRepo.craftedSoil, 1), new ItemStack(TRepo.materials, 1, 2), 2f); //Seared brick item
+        FurnaceRecipes.smelting().func_151394_a(new ItemStack(TRepo.craftedSoil, 2), new ItemStack(TRepo.materials, 1, 17), 2f); //Blue Slime
+        FurnaceRecipes.smelting().func_151394_a(new ItemStack(TRepo.craftedSoil, 6), new ItemStack(TRepo.materials, 1, 37), 2f); //Nether seared brick
 
-        //FurnaceRecipes.smelting().addSmelting(TRepo.oreSlag, 1, new ItemStack(TRepo.materials, 1, 3), 3f);
-        //FurnaceRecipes.smelting().addSmelting(TRepo.oreSlag, 2, new ItemStack(TRepo.materials, 1, 4), 3f);
-        FurnaceRecipes.smelting().addSmelting(TRepo.oreSlag, 3, new ItemStack(TRepo.materials, 1, 9), 0.5f);
-        FurnaceRecipes.smelting().addSmelting(TRepo.oreSlag, 4, new ItemStack(TRepo.materials, 1, 10), 0.5f);
-        FurnaceRecipes.smelting().addSmelting(TRepo.oreSlag, 5, new ItemStack(TRepo.materials, 1, 12), 0.5f);
+        //FurnaceRecipes.smelting().func_151394_a(new ItemStack(TRepo.oreSlag, 1, new ItemStack(TRepo.materials, 1, 3), 3f);
+        //FurnaceRecipes.smelting().func_151394_a(new ItemStack(TRepo.oreSlag, 2, new ItemStack(TRepo.materials, 1, 4), 3f);
+        FurnaceRecipes.smelting().func_151394_a(new ItemStack(TRepo.oreSlag, 3), new ItemStack(TRepo.materials, 1, 9), 0.5f);
+        FurnaceRecipes.smelting().func_151394_a(new ItemStack(TRepo.oreSlag, 4), new ItemStack(TRepo.materials, 1, 10), 0.5f);
+        FurnaceRecipes.smelting().func_151394_a(new ItemStack(TRepo.oreSlag, 5), new ItemStack(TRepo.materials, 1, 12), 0.5f);
 
-        FurnaceRecipes.smelting().addSmelting(TRepo.oreBerries, 0, new ItemStack(TRepo.materials, 1, 19), 0.2f);
-        FurnaceRecipes.smelting().addSmelting(TRepo.oreBerries, 1, new ItemStack(Items.gold_nugget), 0.2f);
-        FurnaceRecipes.smelting().addSmelting(TRepo.oreBerries, 2, new ItemStack(TRepo.materials, 1, 20), 0.2f);
-        FurnaceRecipes.smelting().addSmelting(TRepo.oreBerries, 3, new ItemStack(TRepo.materials, 1, 21), 0.2f);
-        FurnaceRecipes.smelting().addSmelting(TRepo.oreBerries, 4, new ItemStack(TRepo.materials, 1, 22), 0.2f);
-        //FurnaceRecipes.smelting().addSmelting(TRepo.oreBerries, 5, new ItemStack(TRepo.materials, 1, 23), 0.2f);
+        FurnaceRecipes.smelting().func_151394_a(new ItemStack(TRepo.oreBerries, 0), new ItemStack(TRepo.materials, 1, 19), 0.2f);
+        FurnaceRecipes.smelting().func_151394_a(new ItemStack(TRepo.oreBerries, 1), new ItemStack(Items.gold_nugget), 0.2f);
+        FurnaceRecipes.smelting().func_151394_a(new ItemStack(TRepo.oreBerries, 2), new ItemStack(TRepo.materials, 1, 20), 0.2f);
+        FurnaceRecipes.smelting().func_151394_a(new ItemStack(TRepo.oreBerries, 3), new ItemStack(TRepo.materials, 1, 21), 0.2f);
+        FurnaceRecipes.smelting().func_151394_a(new ItemStack(TRepo.oreBerries, 4), new ItemStack(TRepo.materials, 1, 22), 0.2f);
+        //FurnaceRecipes.smelting().func_151394_a(new ItemStack(TRepo.oreBerries, 5, new ItemStack(TRepo.materials, 1, 23), 0.2f);
 
-        FurnaceRecipes.smelting().addSmelting(TRepo.oreGravel, 0, new ItemStack(Items.iron_ingot), 0.2f);
-        FurnaceRecipes.smelting().addSmelting(TRepo.oreGravel, 1, new ItemStack(Items.gold_ingot), 0.2f);
-        FurnaceRecipes.smelting().addSmelting(TRepo.oreGravel, 2, new ItemStack(TRepo.materials, 1, 9), 0.2f);
-        FurnaceRecipes.smelting().addSmelting(TRepo.oreGravel, 3, new ItemStack(TRepo.materials, 1, 10), 0.2f);
-        FurnaceRecipes.smelting().addSmelting(TRepo.oreGravel, 4, new ItemStack(TRepo.materials, 1, 12), 0.2f);
+        FurnaceRecipes.smelting().func_151394_a(new ItemStack(TRepo.oreGravel, 0), new ItemStack(Items.iron_ingot), 0.2f);
+        FurnaceRecipes.smelting().func_151394_a(new ItemStack(TRepo.oreGravel, 1), new ItemStack(Items.gold_ingot), 0.2f);
+        FurnaceRecipes.smelting().func_151394_a(new ItemStack(TRepo.oreGravel, 2), new ItemStack(TRepo.materials, 1, 9), 0.2f);
+        FurnaceRecipes.smelting().func_151394_a(new ItemStack(TRepo.oreGravel, 3), new ItemStack(TRepo.materials, 1, 10), 0.2f);
+        FurnaceRecipes.smelting().func_151394_a(new ItemStack(TRepo.oreGravel, 4), new ItemStack(TRepo.materials, 1, 12), 0.2f);
 
-        FurnaceRecipes.smelting().addSmelting(TRepo.speedBlock, 0, new ItemStack(TRepo.speedBlock, 1, 2), 0.2f);
+        FurnaceRecipes.smelting().func_151394_a(new ItemStack(TRepo.speedBlock, 0), new ItemStack(TRepo.speedBlock, 1, 2), 0.2f);
     }
 
     protected static void addRecipesForCraftingTable ()
@@ -1384,7 +1384,7 @@ public class TRecipes
         ores = OreDictionary.getOres("itemRubber");
         if (ores.size() > 0)
         {
-            FurnaceRecipes.smelting().addSmelting(TRepo.materials, 36, ores.get(0), 0.2f);
+            FurnaceRecipes.smelting().func_151394_a(new ItemStack(TRepo.materials, 36), ores.get(0), 0.2f);
         }
     }
 

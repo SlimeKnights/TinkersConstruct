@@ -1,5 +1,6 @@
 package tconstruct.common;
 
+import mantle.blocks.BlockUtils;
 import mantle.items.abstracts.CraftingItem;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -475,7 +476,7 @@ public class TContent implements IFuelHandler
 
         TRepo.manualBook = new Manual();
         GameRegistry.registerItem(TRepo.manualBook, "manualBook");
-        TRepo.buckets = new FilledBucket(PHConstruct.buckets);
+        TRepo.buckets = new FilledBucket(BlockUtils.getBlockFromItem(TRepo.buckets));
         GameRegistry.registerItem(TRepo.buckets, "buckets");
 
         TRepo.pickaxe = new Pickaxe();
