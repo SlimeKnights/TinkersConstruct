@@ -310,7 +310,7 @@ public class Hammer extends HarvestTool
                                 {
                                     for (int iter = 0; iter < materials.length; iter++)
                                     {
-                                        if (materials[iter] == localBlock.func_149688_o() || localBlock == Block.silverfish)
+                                        if (materials[iter] == localBlock.func_149688_o() || localBlock == Blocks.silverfish)
                                         {
                                             if (!player.capabilities.isCreativeMode)
                                             {

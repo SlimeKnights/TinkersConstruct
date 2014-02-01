@@ -292,6 +292,18 @@ public class FrypanLogic extends EquipLogic implements IActiveLogic
         return new FrypanContainer(inventoryplayer.player, this);
     }
 
+    @Override
+    public String func_145825_b ()
+    {
+        return getDefaultName();
+    }
+
+    @Override
+    public boolean func_145818_k_ ()
+    {
+        return true;
+    }
+
     /*@Override
     public boolean canDropInventorySlot(int slot)
     {

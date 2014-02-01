@@ -329,7 +329,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
                     this.field_145791_d = movingobjectposition.blockX;
                     this.field_145792_e = movingobjectposition.blockY;
                     this.field_145789_f = movingobjectposition.blockZ;
-                    this.inTile = this.worldObj.func_147439_a(this.field_145791_d, this.field_145792_e, this.field_145789_f);
+                    this. = this.worldObj.func_147439_a(this.field_145791_d, this.field_145792_e, this.field_145789_f);
                     this.inData = this.worldObj.getBlockMetadata(this.field_145791_d, this.field_145792_e, this.field_145789_f);
                     this.motionX = (double) ((float) (movingobjectposition.hitVec.xCoord - this.posX));
                     this.motionY = (double) ((float) (movingobjectposition.hitVec.yCoord - this.posY));

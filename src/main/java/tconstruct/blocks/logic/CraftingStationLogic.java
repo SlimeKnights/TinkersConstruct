@@ -103,4 +103,16 @@ public class CraftingStationLogic extends InventoryLogic implements ISidedInvent
     {
         return true;
     }
+
+    @Override
+    public String func_145825_b ()
+    {
+        return getDefaultName();
+    }
+
+    @Override
+    public boolean func_145818_k_ ()
+    {
+        return true;
+    }
 }

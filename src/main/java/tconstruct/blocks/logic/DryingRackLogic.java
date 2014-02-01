@@ -122,4 +122,16 @@ public class DryingRackLogic extends InventoryLogic
         AxisAlignedBB cbb = AxisAlignedBB.getAABBPool().getAABB(field_145851_c, field_145848_d - 1, field_145849_e, field_145851_c + 1, field_145848_d + 1, field_145849_e + 1);
         return cbb;
     }
+
+    @Override
+    public String func_145825_b ()
+    {
+        return null;
+    }
+
+    @Override
+    public boolean func_145818_k_ ()
+    {
+        return false;
+    }
 }

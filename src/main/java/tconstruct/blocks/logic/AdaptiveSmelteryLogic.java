@@ -1,6 +1,7 @@
 package tconstruct.blocks.logic;
 
 import java.util.*;
+
 import mantle.blocks.abstracts.AdaptiveInventoryLogic;
 import mantle.blocks.iface.*;
 import mantle.world.CoordTuple;
@@ -568,5 +569,18 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
         NBTTagCompound tag = new NBTTagCompound();
         writeNetworkNBT(tag);
         return new S35PacketUpdateTileEntity(field_145851_c, field_145848_d, field_145849_e, 1, tag);
+    }
+
+    @Override
+    public String func_145825_b ()
+    {
+        // TODO Auto-generated method stub
+        return getDefaultName();
+    }
+
+    @Override
+    public boolean func_145818_k_ ()
+    {
+        return true;
     }
 }

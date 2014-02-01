@@ -214,4 +214,10 @@ public class ToolStationBlock extends InventoryBlock
         }
         super.func_149689_a(world, x, y, z, par5EntityLiving, par6ItemStack);
     }
+
+    @Override
+    public TileEntity func_149915_a (World var1, int var2)
+    {
+        return createTileEntity(var1,var2);
+    }
 }

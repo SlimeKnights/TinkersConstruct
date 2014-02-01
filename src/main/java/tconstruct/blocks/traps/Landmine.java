@@ -100,7 +100,7 @@ public class Landmine extends MantleBlock
      */
     public boolean canPlaceBlockAt (World par1World, int par2, int par3, int par4)
     {
-        return par1World.doesBlockHaveSolidTopSurface(par2, par3 - 1, par4) || BlockFence.func_149825_a(par1World.func_147439_a(par2, par3 - 1, par4));
+        return par1World.func_147466_a(par1World, par2, par3 - 1, par4) || BlockFence.func_149825_a(par1World.func_147439_a(par2, par3 - 1, par4));
     }
 
     /**
@@ -111,14 +111,14 @@ public class Landmine extends MantleBlock
     {
         boolean var6 = false;
 
-        if (!par1World.doesBlockHaveSolidTopSurface(par2, par3 - 1, par4) && !BlockFence.func_149825_a(par1World.func_147439_a(par2, par3 - 1, par4)))
+        if (!par1World.func_147466_a(par1World, par2, par3 - 1, par4) && !BlockFence.func_149825_a(par1World.func_147439_a(par2, par3 - 1, par4)))
         {
             var6 = true;
         }
 
         if (var6)
         {
-            this.dropBlockAsItem(par1World, par2, par3, par4, par1World.getBlockMetadata(par2, par3, par4), 0);
+            this.func_149697_b(par1World, par2, par3, par4, par1World.getBlockMetadata(par2, par3, par4), 0);
             //par1World.setBlock(par2, par3, par4, 0);
         }
     }

@@ -257,7 +257,6 @@ public class CastingBasinLogic extends InventoryLogic implements IFluidTank, IFl
     @Override
     public boolean canDrain (ForgeDirection from, Fluid fluid)
     {
-        // TODO Auto-generated method stub
         return false;
     }
 
@@ -418,6 +417,18 @@ public class CastingBasinLogic extends InventoryLogic implements IFluidTank, IFl
         if (slot == 1)
             return true;
 
+        return false;
+    }
+
+    @Override
+    public String func_145825_b ()
+    {
+        return null;
+    }
+
+    @Override
+    public boolean func_145818_k_ ()
+    {
         return false;
     }
 }

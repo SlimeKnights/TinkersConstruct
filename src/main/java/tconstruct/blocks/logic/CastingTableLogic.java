@@ -417,4 +417,16 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
 
         return false;
     }
+
+    @Override
+    public String func_145825_b ()
+    {
+        return null;
+    }
+
+    @Override
+    public boolean func_145818_k_ ()
+    {
+        return false;
+    }
 }

@@ -4,6 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.init.Blocks;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.AxisAlignedBB;
@@ -42,7 +43,7 @@ public class GlueBlock extends TConstructBlock {
 
     public AxisAlignedBB getCollisionBoundingBoxFromPool (World world, int x, int y, int z)
     {
-        return Block.slowSand.getCollisionBoundingBoxFromPool(world, x, y, z);
+        return Blocks.soul_sand.func_149668_a(world, x, y, z);
     }
 
 }

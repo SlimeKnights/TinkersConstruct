@@ -3,6 +3,7 @@ package tconstruct.blocks.logic;
 import cpw.mods.fml.common.FMLCommonHandler;
 
 import java.util.*;
+
 import mantle.blocks.abstracts.*;
 import mantle.blocks.iface.*;
 import mantle.debug.DebugData;
@@ -546,7 +547,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         }
     }
 
-    void updateFuelGague () //TODO: Call this method when the GUI is opened
+    void updateFuelGague ()
     {
         if (activeLavaTank == null || useTime > 0)
             return;
@@ -1153,5 +1154,17 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         str.add("layers: " + layers + ", liquid: " + currentLiquid + "/" + maxLiquid + ", direction: " + direction);
         str.add("inUse: " + inUse + ", tick: " + tick);
         return new DebugData(player, getClass(), str.toArray(new String[str.size()]));
+    }
+
+    @Override
+    public String func_145825_b ()
+    {
+        return getDefaultName();
+    }
+
+    @Override
+    public boolean func_145818_k_ ()
+    {
+        return true;
     }
 }

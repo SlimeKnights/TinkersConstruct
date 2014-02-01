@@ -60,11 +60,11 @@ public class GravelOre extends BlockSand
         return meta;
     }
 
-    public int idDropped (int par1, Random par2Random, int par3)
+    public Block idDropped (int par1, Random par2Random, int par3)
     {
         /*if (par1 == 1)
             return Item.goldNugget.itemID;*/
-        return this.blockID;
+        return this;
     }
 
     @Override

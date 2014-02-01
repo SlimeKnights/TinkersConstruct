@@ -29,4 +29,16 @@ public class PatternChestLogic extends InventoryLogic
     {
         return new PatternChestContainer(inventoryplayer, this);
     }
+
+    @Override
+    public String func_145825_b ()
+    {
+        return getDefaultName();
+    }
+
+    @Override
+    public boolean func_145818_k_ ()
+    {
+        return true;
+    }
 }
