@@ -39,7 +39,7 @@ public class BarricadeItem extends ItemBlock
             side = 1;
         }
         else if (b != Blocks.vine && b != Blocks.tallgrass && b != Blocks.deadbush
-                && (b == null || !b.isBlockReplaceable(world, x, y, z)))
+                && (b == null || !b.func_149742_c(world, x, y, z)))
         {
             if (side == 0)
             {

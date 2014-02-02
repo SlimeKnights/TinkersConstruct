@@ -198,7 +198,7 @@ public class TProxyClient extends TProxyCommon
 
     public void registerTickHandler ()
     {
-        TickRegistry.registerTickHandler(new TClientTickHandler(), Side.CLIENT);
+        new TClientTickHandler();
         // TickRegistry.registerTickHandler(new TimeTicker(), Side.CLIENT);
         // TickRegistry.registerTickHandler(new TCommonTickHandler(),
         // Side.CLIENT);
@@ -716,7 +716,6 @@ public class TProxyClient extends TProxyCommon
     public void registerKeys ()
     {
         controlInstance = new TControls();
-        TickRegistry.registerTickHandler(controlInstance, Side.CLIENT);
         uploadKeyBindingsToGame(Minecraft.getMinecraft().gameSettings, controlInstance);
 
         TabRegistry.registerTab(new InventoryTabVanilla());

@@ -167,7 +167,7 @@ public class SlimeTreeGen extends WorldGenerator
     protected void setBlockAndMetadata (World world, int x, int y, int z, Block block, int blockMeta)
     {
         Block blockWorld = world.func_147439_a(x, y, z);
-        if (blockWorld == null || blockWorld == Blocks.air || blockWorld.isBlockReplaceable(world, x, y, z))
+        if (blockWorld == null || blockWorld == Blocks.air || blockWorld.func_149742_c(world, x, y, z))
         {
             if (this.notify)
             {
