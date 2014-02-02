@@ -20,6 +20,7 @@ import net.minecraft.world.World;
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteArrayDataOutput;
 
+import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
 
 public class RotatingBase extends Entity implements IEntityAdditionalSpawnData
@@ -341,7 +342,7 @@ public class RotatingBase extends Entity implements IEntityAdditionalSpawnData
         tags.setShort("xTile", (short) xTile);
         tags.setShort("yTile", (short) yTile);
         tags.setShort("zTile", (short) zTile);
-        tags.setByte("inTile", (byte) inTile);
+        tags.setString("inTile", (String) inTile.func_149739_a());
         tags.setByte("shake", (byte) arrowShake);
         tags.setByte("onGround", (byte) (onGround ? 1 : 0));
         tags.setBoolean("Retrieval", doNotRetrieve);
@@ -355,7 +356,8 @@ public class RotatingBase extends Entity implements IEntityAdditionalSpawnData
         xTile = tags.getShort("xTile");
         yTile = tags.getShort("yTile");
         zTile = tags.getShort("zTile");
-        inTile = tags.getByte("inTile") & 0xff;
+        //TODO fix this\/
+        //inTile = tags.getString("inTile");
         arrowShake = tags.getByte("shake") & 0xff;
         onGround = tags.getByte("onGround") == 1;
         doNotRetrieve = tags.getBoolean("Retrieval");
@@ -423,7 +425,7 @@ public class RotatingBase extends Entity implements IEntityAdditionalSpawnData
     public void writeSpawnData (ByteBuf data)
     {
         NBTTagCompound tags = returnStack.getTagCompound().getCompoundTag("InfiTool");
-        data.writeShort(returnStack.itemID);
+        ByteBufUtils.writeItemStack(data, returnStack);
         data.writeFloat(rotationYaw);
         data.writeInt(tags.getInteger("RenderHandle"));
         data.writeInt(tags.getInteger("RenderHead"));
@@ -464,7 +466,7 @@ public class RotatingBase extends Entity implements IEntityAdditionalSpawnData
     @Override
     public void readSpawnData (ByteBuf data)
     {
-        returnStack = new ItemStack(data.readShort(), 1, 0);
+        returnStack = ByteBufUtils.readItemStack(data);
         rotationYaw = data.readFloat();
         NBTTagCompound compound = new NBTTagCompound();
         NBTTagCompound toolTag = new NBTTagCompound();

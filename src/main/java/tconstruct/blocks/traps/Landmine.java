@@ -230,7 +230,7 @@ public class Landmine extends MantleBlock
     /**
      * ejects contained items into the world, and notifies neighbours of an update, as appropriate
      */
-    public void breakBlock (World par1World, int par2, int par3, int par4, int par5, int par6)
+    public void breakBlock (World par1World, int par2, int par3, int par4, Block par5, int par6)
     {
         if (par6 > 0)
         {
@@ -238,7 +238,7 @@ public class Landmine extends MantleBlock
             par1World.func_147459_d(par2, par3 - 1, par4, this);
         }
 
-        super.breakBlock(par1World, par2, par3, par4, par5, par6);
+        super.func_149749_a(par1World, par2, par3, par4, par5, par6);
     }
 
     /**

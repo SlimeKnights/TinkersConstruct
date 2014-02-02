@@ -314,7 +314,7 @@ public class Hammer extends HarvestTool
                                         {
                                             if (!player.capabilities.isCreativeMode)
                                             {
-                                                if (localBlock.removeBlockByPlayer(world, player, xPos, yPos, zPos))
+                                                if (localBlock.removedByPlayer(world, player, xPos, yPos, zPos))
                                                 {
                                                     localBlock.func_149664_b(world, xPos, yPos, zPos, localMeta);
                                                 }

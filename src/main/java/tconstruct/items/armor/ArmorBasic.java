@@ -23,9 +23,9 @@ public class ArmorBasic extends ItemArmor
     }
 
     @Override
-    public String getArmorTexture (ItemStack stack, Entity entity, int slot, int layer)
+    public String getArmorTexture (ItemStack stack, Entity entity, int slot, String type)
     {
-        return "tinker:textures/armor/" + textureName + "_" + layer + ".png";
+        return "tinker:textures/armor/" + textureName + "_" + type + ".png";
     }
 
 }

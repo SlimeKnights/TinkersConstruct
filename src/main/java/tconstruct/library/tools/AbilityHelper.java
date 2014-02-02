@@ -242,7 +242,7 @@ public class AbilityHelper
 
                         if (entity instanceof EntityLivingBase)
                         {
-                            EnchantmentThorns.func_92096_a(player, (EntityLivingBase) entity, random);
+                            DamageSource.causeThornsDamage(entity);//(((EntityLivingBase)player, (EntityLivingBase) entity);
                         }
                     }
 
@@ -504,7 +504,7 @@ public class AbilityHelper
             }
             else
             {
-                Block block = Blocks.tilledField;
+                Block block = Blocks.farmland;
                 world.playSoundEffect((double) ((float) x + 0.5F), (double) ((float) y + 0.5F), (double) ((float) z + 0.5F), block.field_149762_H.field_150501_a,
                         (block.field_149762_H.func_150497_c() + 1.0F) / 2.0F, block.field_149762_H.func_150494_d() * 0.8F);
 
@@ -632,6 +632,6 @@ public class AbilityHelper
             d3 = ((EntityPlayerMP) player).theItemInWorldManager.getBlockReachDistance();
         }
         Vec3 vec31 = vec3.addVector((double) f7 * d3, (double) f6 * d3, (double) f8 * d3);
-        return world.rayTraceBlocks_do_do(vec3, vec31, par3, !par3);
+        return world.func_147447_a(vec3, vec31, par3, !par3,par3);
     }
 }

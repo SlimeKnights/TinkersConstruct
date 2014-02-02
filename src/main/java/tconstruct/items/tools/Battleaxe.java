@@ -275,7 +275,7 @@ public class Battleaxe extends HarvestTool
                             localMeta = world.getBlockMetadata(x, yPos, z);
                             if (!player.capabilities.isCreativeMode)
                             {
-                                if (block.removeBlockByPlayer(world, player, x, yPos, z))
+                                if (block.removedByPlayer(world, player, x, yPos, z))
                                 {
                                     block.func_149664_b(world, x, yPos, z, localMeta);
                                 }

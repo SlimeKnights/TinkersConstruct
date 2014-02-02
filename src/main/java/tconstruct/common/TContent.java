@@ -25,6 +25,7 @@ import net.minecraft.potion.Potion;
 import net.minecraft.stats.Achievement;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraftforge.common.*;
+import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fluids.*;
 import net.minecraftforge.fluids.FluidContainerRegistry.*;
 import net.minecraftforge.oredict.*;
@@ -429,7 +430,7 @@ public class TContent implements IFuelHandler
         TRepo.stainedGlassClearPane = new GlassPaneStained();
 
         //Rail
-        TRepo.woodenRail = new WoodRail().func_149672_a(Block.field_149766_f).func_149647_a(TConstructRegistry.blockTab).setUnlocalizedName("rail.wood");
+        TRepo.woodenRail = new WoodRail().func_149672_a(Block.field_149766_f).func_149647_a(TConstructRegistry.blockTab).func_149663_c("rail.wood");
 
     }
 
@@ -834,7 +835,7 @@ public class TContent implements IFuelHandler
     {
         HashMap<String, Achievement> achievements = TAchievements.achievements;
 
-        achievements.put("tconstruct.beginner", new Achievement("" + 2741, "tconstruct.beginner", 0, 0, TRepo.manualBook, null).setIndependent());
+        achievements.put("tconstruct.beginner", new Achievement("" + 2741, "tconstruct.beginner", 0, 0, TRepo.manualBook, null));//.setIndependent());
         achievements.put("tconstruct.pattern", new Achievement("" + 2742, "tconstruct.pattern", 2, 1, TRepo.blankPattern, achievements.get("tconstruct.beginner")));
         achievements.put("tconstruct.tinkerer", new Achievement("" + 2743, "tconstruct.tinkerer", 2, 2, new ItemStack(TRepo.titleIcon, 1, 4096), achievements.get("tconstruct.pattern")));
         achievements.put("tconstruct.preparedFight", new Achievement("" + 2744, "tconstruct.preparedFight", 1, 3, new ItemStack(TRepo.titleIcon, 1, 4097), achievements.get("tconstruct.tinkerer")));

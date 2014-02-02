@@ -65,7 +65,7 @@ public class BarricadeBlock extends MantleBlock
 
     public void func_147465_dBoundsBasedOnState (IBlockAccess par1IBlockAccess, int x, int y, int z)
     {
-        setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
+        func_149676_a(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
     }
 
     public void harvestBlock (World world, EntityPlayer player, int x, int y, int z, int meta)
@@ -73,11 +73,11 @@ public class BarricadeBlock extends MantleBlock
         if (meta % 4 > 0)
         {
             world.func_147465_d(x, y, z, this, meta - 1, 3);
-            dropBlockAsItem_do(world, x, y, z, new ItemStack(this));
+            func_149642_a(world, x, y, z, new ItemStack(this));
         }
         else
         {
-            dropBlockAsItem_do(world, x, y, z, new ItemStack(this));
+            func_149642_a(world, x, y, z, new ItemStack(this));
         }
     }
 
@@ -119,7 +119,7 @@ public class BarricadeBlock extends MantleBlock
             world.func_147465_d(x, y, z, Blocks.air, 0, 0);
         else
             world.setBlockMetadataWithNotify(x, y, z, (int) (meta - power), 3);
-        onBlockDestroyedByExplosion(world, x, y, z, explosion);
+        func_149723_a(world, x, y, z, explosion);
     }
 
     @Override

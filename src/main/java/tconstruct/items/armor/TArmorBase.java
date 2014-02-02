@@ -54,7 +54,7 @@ public class TArmorBase extends ItemArmor
      */
     @Override
     @SideOnly(Side.CLIENT)
-    public String getArmorTexture (ItemStack stack, Entity entity, int slot, int layer)
+    public String getArmorTexture (ItemStack stack, Entity entity, int slot, String layer)
     {
         return "/mods/tinker/textures/armor/wood_1.png";
     }
