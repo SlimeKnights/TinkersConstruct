@@ -9,7 +9,7 @@ Turn everything into golems!
 Install Forge as usual, and setup your IDE as with any other Forge project. Copy `TCore_dummy.jar` to `forge/mcp/jars/mods/` to enable the Preloader (optional -- only needed when working on the preloader itself)
 
 ##Compile from Source
-setup: Run [gradle]in the repository root: `gradlew[.bat] setupDevwWorkspace [eclipse|idea]`
+setup: Run [gradle]in the repository root: `gradlew[.bat] setupDevWorkspace [eclipse|idea]`
 build: Run [gradle]in the repository root: `gradlew[.bat] build'
 
 ##Issue reporting
