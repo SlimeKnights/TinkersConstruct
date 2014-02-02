@@ -155,9 +155,9 @@ public class BlockLandmine extends BlockContainer
             if (this != null)
             {
                 ItemStack is = new ItemStack(this, 1, func_149692_a(tileentity.triggerType));
-                if (tileentity.isInvNameLocalized())
+                if (tileentity.func_145818_k_())
                 {
-                    is.func_151001_c(tileentity.getInvName());
+                    is.func_151001_c(tileentity.func_145825_b());
                 }
                 func_149642_a(par1World, par2, par3, par4, new ItemStack(this, 1, func_149692_a(tileentity.triggerType)));
             }

@@ -198,7 +198,7 @@ public class LavaTankBlock extends BlockContainer
 
                             if (!player.inventory.addItemStackToInventory(fillStack))
                             {
-                                player.dropPlayerItem(fillStack);
+                                player.dropPlayerItemWithRandomChoice(fillStack, false);
                             }
                         }
                     }
@@ -229,12 +229,6 @@ public class LavaTankBlock extends BlockContainer
 
             return stack;
         }
-    }
-
-    @Override
-    public TileEntity createNewTileEntity (World world)
-    {
-        return func_149915_a(world, 0);
     }
 
     @Override

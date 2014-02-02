@@ -7,10 +7,13 @@ import net.minecraft.client.settings.KeyBinding;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
-import cpw.mods.fml.common.ITickHandler;
-import cpw.mods.fml.common.TickType;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.TickEvent.ClientTickEvent;
+import cpw.mods.fml.common.gameevent.TickEvent.Phase;
+import cpw.mods.fml.common.gameevent.TickEvent.Type;
+import cpw.mods.fml.relauncher.Side;
 
-public abstract class TKeyHandler implements ITickHandler
+public abstract class TKeyHandler
 {
     public KeyBinding[] keyBindings;
     public KeyBinding[] vKeyBindings;
@@ -53,30 +56,25 @@ public abstract class TKeyHandler implements ITickHandler
         return this.keyBindings;
     }
 
-    /**
-     * Not to be overridden - KeyBindings are tickhandlers under the covers
-     */
-    @Override
-    public final void tickStart (EnumSet<TickType> type, Object... tickData)
+    @SubscribeEvent
+    public void onTick (ClientTickEvent event)
     {
-        keyTick(type, false);
+        if (event.side == Side.CLIENT)
+        {
+            if (event.phase == Phase.START)
+                keyTick(event.type, false);
+            else if (event.phase == Phase.END)
+                keyTick(event.type, true);
+        }
+
     }
 
-    /**
-     * Not to be overridden - KeyBindings are tickhandlers under the covers
-     */
-    @Override
-    public final void tickEnd (EnumSet<TickType> type, Object... tickData)
-    {
-        keyTick(type, true);
-    }
-
-    public void keyTick (EnumSet<TickType> type, boolean tickEnd)
+    public void keyTick (Type type, boolean tickEnd)
     {
         for (int i = 0; i < keyBindings.length; i++)
         {
             KeyBinding keyBinding = keyBindings[i];
-            int keyCode = keyBinding.keyCode;
+            int keyCode = keyBinding.func_151463_i();
             boolean state = (keyCode < 0 ? Mouse.isButtonDown(keyCode + 100) : Keyboard.isKeyDown(keyCode));
             if (state != keyDown[i] || (state && repeatings[i]))
             {
@@ -97,7 +95,7 @@ public abstract class TKeyHandler implements ITickHandler
         for (int i = 0; i < vKeyBindings.length; i++)
         {
             KeyBinding keyBinding = vKeyBindings[i];
-            int keyCode = keyBinding.keyCode;
+            int keyCode = keyBinding.func_151463_i();
             boolean state = (keyCode < 0 ? Mouse.isButtonDown(keyCode + 100) : Keyboard.isKeyDown(keyCode));
             if (state != keyDown[i + keyBindings.length] || (state && vRepeatings[i]))
             {
@@ -127,7 +125,7 @@ public abstract class TKeyHandler implements ITickHandler
      * @param tickEnd was it an end or start tick which fired the key
      * @param isRepeat is it a repeat key event
      */
-    public abstract void keyDown (EnumSet<TickType> types, KeyBinding kb, boolean tickEnd, boolean isRepeat);
+    public abstract void keyDown (Type types, KeyBinding kb, boolean tickEnd, boolean isRepeat);
 
     /**
      * Fired once when the key changes state from down to up
@@ -137,13 +135,6 @@ public abstract class TKeyHandler implements ITickHandler
      * @param types the type(s) of tick that fired when this key was first down
      * @param tickEnd was it an end or start tick which fired the key
      */
-    public abstract void keyUp (EnumSet<TickType> types, KeyBinding kb, boolean tickEnd);
+    public abstract void keyUp (Type types, KeyBinding kb, boolean tickEnd);
 
-    /**
-     * This is the list of ticks for which the key binding should trigger. The only
-     * valid ticks are client side ticks, obviously.
-     *
-     * @see cpw.mods.fml.common.ITickHandler#ticks()
-     */
-    public abstract EnumSet<TickType> ticks ();
 }

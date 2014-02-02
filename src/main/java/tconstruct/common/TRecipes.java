@@ -1195,9 +1195,9 @@ public class TRecipes
         Smeltery.addMelting(FluidType.Iron, new ItemStack(Blocks.heavy_weighted_pressure_plate), 0, TConstruct.oreLiquidValue);
         Smeltery.addMelting(FluidType.Gold, new ItemStack(Blocks.light_weighted_pressure_plate, 4), 0, TConstruct.oreLiquidValue);
         Smeltery.addMelting(FluidType.Iron, new ItemStack(Blocks.rail), 0, TConstruct.ingotLiquidValue * 6 / 16);
-        Smeltery.addMelting(FluidType.Gold, new ItemStack(Blocks.rail_powered), 0, TConstruct.ingotLiquidValue);
-        Smeltery.addMelting(FluidType.Iron, new ItemStack(Blocks.railDetector), 0, TConstruct.ingotLiquidValue);
-        Smeltery.addMelting(FluidType.Iron, new ItemStack(Blocks.railActivator), 0, TConstruct.ingotLiquidValue);
+        Smeltery.addMelting(FluidType.Gold, new ItemStack(Blocks.golden_rail), 0, TConstruct.ingotLiquidValue);
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(Blocks.detector_rail), 0, TConstruct.ingotLiquidValue);
+        Smeltery.addMelting(FluidType.Iron, new ItemStack(Blocks.activator_rail), 0, TConstruct.ingotLiquidValue);
         Smeltery.addMelting(FluidType.Obsidian, new ItemStack(Blocks.enchanting_table), 0, TConstruct.ingotLiquidValue * 4);
         Smeltery.addMelting(FluidType.Iron, new ItemStack(Blocks.cauldron), 0, TConstruct.ingotLiquidValue * 7);
         Smeltery.addMelting(FluidType.Iron, new ItemStack(Blocks.anvil, 1, 0), 200, TConstruct.ingotLiquidValue * 31);

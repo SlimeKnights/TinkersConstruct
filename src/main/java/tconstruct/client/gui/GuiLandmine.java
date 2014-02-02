@@ -33,7 +33,7 @@ public class GuiLandmine extends GuiContainer
     }
 
     @Override
-    protected void drawItemStackTooltip (ItemStack par1ItemStack, int par2, int par3)
+    protected void func_146285_a (ItemStack par1ItemStack, int par2, int par3)
     {
         List list = par1ItemStack.getTooltip(this.field_146297_k.thePlayer, this.field_146297_k.gameSettings.advancedItemTooltips);
 
@@ -64,7 +64,7 @@ public class GuiLandmine extends GuiContainer
     {
         if (container.te != null)
         {
-            field_146289_q.drawString(container.te.getInvName(), 8, 5, 4210752);
+            field_146289_q.drawString(container.te.func_145825_b(), 8, 5, 4210752);
         }
         else
         {

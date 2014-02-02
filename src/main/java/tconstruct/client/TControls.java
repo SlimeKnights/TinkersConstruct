@@ -2,6 +2,8 @@ package tconstruct.client;
 
 import java.io.*;
 import java.util.EnumSet;
+
+import cpw.mods.fml.common.gameevent.TickEvent.Type;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.*;
 import net.minecraft.client.settings.KeyBinding;
@@ -14,8 +16,8 @@ public class TControls extends TKeyHandler
 {
     //static KeyBinding grabKey = new KeyBinding("key.grab", 29);
     //static KeyBinding stiltsKey = new KeyBinding("key.stilts", 46);
-    public static KeyBinding armorKey = new KeyBinding("key.tarmor", 24);
-    public static KeyBinding refreshCapes = new KeyBinding("key.tcapes.reload", 88);
+    public static KeyBinding armorKey = new KeyBinding("key.tarmor", 24, null);
+    public static KeyBinding refreshCapes = new KeyBinding("key.tcapes.reload", 88, null);
     static KeyBinding jumpKey;
     static KeyBinding invKey;
     static Minecraft mc;
@@ -45,13 +47,7 @@ public class TControls extends TKeyHandler
     }
 
     @Override
-    public String getLabel ()
-    {
-        return null;
-    }
-
-    @Override
-    public void keyDown (EnumSet<TickType> types, KeyBinding kb, boolean tickEnd, boolean isRepeat)
+    public void keyDown (Type types, KeyBinding kb, boolean tickEnd, boolean isRepeat)
     {
         if (tickEnd && mc.theWorld != null)
         {
@@ -114,15 +110,9 @@ public class TControls extends TKeyHandler
     }
 
     @Override
-    public void keyUp (EnumSet<TickType> types, KeyBinding kb, boolean tickEnd)
+    public void keyUp (Type types, KeyBinding kb, boolean tickEnd)
     {
         //landOnGround();
-    }
-
-    @Override
-    public EnumSet<TickType> ticks ()
-    {
-        return EnumSet.of(TickType.CLIENT);
     }
 
     public void landOnGround ()
@@ -234,8 +224,9 @@ public class TControls extends TKeyHandler
         packet.length = bos.size();
 
         PacketDispatcher.sendPacketToServer(packet);*/
-        
+
         //TODO Find out what packet should be used here
         TConstruct.packetPipeline.sendToServer(new PacketDoubleJump());
     }
+
 }

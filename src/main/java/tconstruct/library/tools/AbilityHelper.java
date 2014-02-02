@@ -491,7 +491,8 @@ public class AbilityHelper
 
             if (event.getResult() == Result.ALLOW)
             {
-                onBlockChanged(stack, world, 0, x, y, z, player, random);
+                
+                onBlockChanged(stack, world, Blocks.air, x, y, z, player, random);
                 return true;
             }
 
@@ -515,7 +516,7 @@ public class AbilityHelper
                 else
                 {
                     world.func_147449_b(x, y, z, block);
-                    onBlockChanged(stack, world, 0, x, y, z, player, random);
+                    onBlockChanged(stack, world, Blocks.air, x, y, z, player, random);
                     return true;
                 }
             }
