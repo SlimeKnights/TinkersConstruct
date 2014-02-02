@@ -161,7 +161,7 @@ public class Landmine extends MantleBlock
         float var7 = 0.125F;
         List var8 = null;
 
-        if (this.triggerMobType == EnumCreatureType.everything)
+        if (this.triggerMobType == EnumCreatureType.creature)
         {
             var8 = world.getEntitiesWithinAABBExcludingEntity(
                     (Entity) null,
@@ -177,13 +177,13 @@ public class Landmine extends MantleBlock
                             (double) ((float) (posZ + 1) - var7)));
         }
 
-        if (this.triggerMobType == EnumCreatureType.players)
+        /*if (this.triggerMobType == EnumCreatureType.players)
         {
             var8 = world.getEntitiesWithinAABB(
                     EntityPlayer.class,
                     AxisAlignedBB.getAABBPool().getAABB((double) ((float) posX + var7), (double) posY, (double) ((float) posZ + var7), (double) ((float) (posX + 1) - var7), (double) posY + 0.25D,
                             (double) ((float) (posZ + 1) - var7)));
-        }
+        }*/
 
         if (!var8.isEmpty())
         {

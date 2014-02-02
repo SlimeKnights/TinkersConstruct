@@ -283,7 +283,7 @@ public class TBaseWorldGenerator implements IWorldGenerator
                         if (y > 40 && (block.func_149688_o() == Material.field_151578_c || block.func_149688_o() == Material.field_151577_b))
                             world.func_147465_d(x + chunkX, y, z + chunkZ, Blocks.soul_sand, 0, 0);
                         if (block.func_149688_o() == Material.field_151595_p)
-                            world.func_147465_d(x + chunkX, y, z + chunkZ, Blocks.silverfish, 0, 0);
+                            world.func_147465_d(x + chunkX, y, z + chunkZ, Blocks.monster_egg, 0, 0);
                     }
                 }
             }

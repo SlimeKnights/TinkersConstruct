@@ -16,10 +16,11 @@ import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.projectile.EntityArrow;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.packet.Packet70GameEvent;
+import net.minecraft.network.play.server.S2BPacketChangeGameState;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
@@ -31,6 +32,7 @@ import net.minecraft.world.World;
 import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteArrayDataOutput;
 
+import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
 
 public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnData
@@ -103,14 +105,13 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
 
         Block i = this.worldObj.func_147439_a(this.field_145791_d, this.field_145792_e, this.field_145789_f);
 
-       
-            i.func_149719_a(this.worldObj, this.field_145791_d, this.field_145792_e, this.field_145789_f);
-            AxisAlignedBB axisalignedbb = i.func_149668_a(this.worldObj, this.field_145791_d, this.field_145792_e, this.field_145789_f);
+        i.func_149719_a(this.worldObj, this.field_145791_d, this.field_145792_e, this.field_145789_f);
+        AxisAlignedBB axisalignedbb = i.func_149668_a(this.worldObj, this.field_145791_d, this.field_145792_e, this.field_145789_f);
 
-            if (axisalignedbb != null && axisalignedbb.isVecInside(this.worldObj.getWorldVec3Pool().getVecFromPool(this.posX, this.posY, this.posZ)))
-            {
-                this.inGround = true;
-            }
+        if (axisalignedbb != null && axisalignedbb.isVecInside(this.worldObj.getWorldVec3Pool().getVecFromPool(this.posX, this.posY, this.posZ)))
+        {
+            this.inGround = true;
+        }
 
         if (this.arrowShake > 0)
         {
@@ -124,7 +125,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
                 Block j = this.worldObj.func_147439_a(this.field_145791_d, this.field_145792_e, this.field_145789_f);
                 int k = this.worldObj.getBlockMetadata(this.field_145791_d, this.field_145792_e, this.field_145789_f);
 
-                if (j == this.inTile && k == this.inData)
+                if (j == this.field_145790_g && k == this.inData)
                 {
                     ++this.ticksInGround;
 
@@ -284,13 +285,17 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
 
                             if (this.shootingEntity != null)
                             {
-                                EnchantmentThorns.func_92096_a(this.shootingEntity, entityliving, this.rand);
+                                damagesource = DamageSource.causeArrowDamage(this, this);
+                            }
+                            else
+                            {
+                                damagesource = DamageSource.causeArrowDamage(this, this.shootingEntity);
                             }
 
                             if (this.shootingEntity != null && movingobjectposition.entityHit != this.shootingEntity && movingobjectposition.entityHit instanceof EntityPlayer
                                     && this.shootingEntity instanceof EntityPlayerMP)
                             {
-                                ((EntityPlayerMP) this.shootingEntity).playerNetServerHandler.sendPacketToPlayer(new Packet70GameEvent(6, 0));
+                                ((EntityPlayerMP) this.shootingEntity).playerNetServerHandler.sendPacketToPlayer(new S2BPacketChangeGameState(6, 0));
                             }
                         }
 
@@ -329,7 +334,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
                     this.field_145791_d = movingobjectposition.blockX;
                     this.field_145792_e = movingobjectposition.blockY;
                     this.field_145789_f = movingobjectposition.blockZ;
-                    this. = this.worldObj.func_147439_a(this.field_145791_d, this.field_145792_e, this.field_145789_f);
+                    this.field_145790_g = this.worldObj.func_147439_a(this.field_145791_d, this.field_145792_e, this.field_145789_f);
                     this.inData = this.worldObj.getBlockMetadata(this.field_145791_d, this.field_145792_e, this.field_145789_f);
                     this.motionX = (double) ((float) (movingobjectposition.hitVec.xCoord - this.posX));
                     this.motionY = (double) ((float) (movingobjectposition.hitVec.yCoord - this.posY));
@@ -343,9 +348,9 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
                     this.arrowShake = 0;
                     this.setIsCritical(false);
 
-                    if (this.inTile != 0)
+                    if (this.field_145790_g != Blocks.air)
                     {
-                        this.inTile.onEntityCollidedWithBlock(this.worldObj, this.field_145791_d, this.field_145792_e, this.field_145789_f, this);
+                        this.field_145790_g.func_149670_a(this.worldObj, this.field_145791_d, this.field_145792_e, this.field_145789_f, this);
                     }
                 }
             }
@@ -408,7 +413,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
             this.motionZ *= (double) dropSpeed;
             this.motionY -= (double) ySpeed;
             this.setPosition(this.posX, this.posY, this.posZ);
-            this.doBlockCollisions();
+            this.func_145775_I();
         }
     }
 
@@ -601,7 +606,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
         if (!returnStack.hasTagCompound())
             this.kill();
         NBTTagCompound tags = returnStack.getTagCompound().getCompoundTag("InfiTool");
-        data.writeShort(returnStack.itemID);
+        ByteBufUtils.writeItemStack(data, returnStack);
         data.writeFloat(rotationYaw);
         data.writeFloat(mass);
         data.writeInt(tags.getInteger("RenderHandle"));
@@ -643,7 +648,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
     @Override
     public void readSpawnData (ByteBuf data)
     {
-        returnStack = new ItemStack(data.readShort(), 1, 0);
+        returnStack = ByteBufUtils.readItemStack(data);
         rotationYaw = data.readFloat();
         mass = data.readFloat();
         NBTTagCompound compound = new NBTTagCompound();

@@ -254,7 +254,7 @@ public class Hammer extends HarvestTool
             }
         }
 
-        if (block == Blocks.silverfish)
+        if (block == Blocks.monster_egg)
             validStart = true;
 
         MovingObjectPosition mop = AbilityHelper.raytraceFromEntity(world, player, true, 4.5D);
@@ -310,7 +310,7 @@ public class Hammer extends HarvestTool
                                 {
                                     for (int iter = 0; iter < materials.length; iter++)
                                     {
-                                        if (materials[iter] == localBlock.func_149688_o() || localBlock == Blocks.silverfish)
+                                        if (materials[iter] == localBlock.func_149688_o() || localBlock == Blocks.monster_egg)
                                         {
                                             if (!player.capabilities.isCreativeMode)
                                             {

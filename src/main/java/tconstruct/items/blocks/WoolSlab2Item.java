@@ -10,19 +10,16 @@ import net.minecraft.world.World;
 
 public class WoolSlab2Item extends MultiItemBlock
 {
-    int blockID;
     Block block;
 
     public WoolSlab2Item(Block b)
     {
-        super(b, "", "slab" ,ItemDye.field_150923_a);
-        this.setSpecialIndex(7,7);
-        this.blockID = id + 256;
-        this.block = Block.blocksList[id + 256];
+        super(b, "", "slab", ItemDye.field_150923_a);
+        this.setSpecialIndex(7, 7);
+        this.block = b;
         setMaxDamage(0);
         setHasSubtypes(true);
     }
-
 
     @Override
     public boolean onItemUse (ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ)

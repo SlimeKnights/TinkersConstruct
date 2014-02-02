@@ -386,7 +386,7 @@ public class TRecipes
             }
         }
 
-        ItemStack[] ingotShapes = { new ItemStack(Items.brick), new ItemStack(Items.netherrackBrick), new ItemStack(TRepo.materials, 1, 2), new ItemStack(TRepo.materials, 1, 37) };
+        ItemStack[] ingotShapes = { new ItemStack(Items.brick), new ItemStack(Items.netherbrick), new ItemStack(TRepo.materials, 1, 2), new ItemStack(TRepo.materials, 1, 37) };
         for (int i = 0; i < ingotShapes.length; i++)
         {
             tableCasting.addCastingRecipe(ingotcast, new FluidStack(TRepo.moltenAlubrassFluid, TConstruct.ingotLiquidValue), ingotShapes[i], false, 50);

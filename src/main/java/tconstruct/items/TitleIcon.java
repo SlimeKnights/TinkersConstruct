@@ -9,6 +9,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -65,7 +66,7 @@ public class TitleIcon extends Item
         {
             return getIconFromDamage(par1);
         }
-        return Items.monsterPlacer.getIconFromDamageForRenderPass(par1, par2);
+        return new ItemStack(Blocks.mob_spawner).getItem().getIconFromDamageForRenderPass(par1, par2);
     }
 
     @SideOnly(Side.CLIENT)
