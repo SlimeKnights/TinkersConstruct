@@ -918,10 +918,11 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                     if (servant.verifyMaster(this, field_145850_b, this.field_145851_c, this.field_145848_d, this.field_145849_e))
                         tempBricks++;
                 }
-                else if (servant.setMaster(this.field_145851_c, this.field_145848_d, this.field_145849_e))
+                // Temp comment out
+                /*else if (servant.setMaster(this.field_145851_c, this.field_145848_d, this.field_145849_e))
                 {
                     tempBricks++;
-                }
+                }*/
 
                 if (te instanceof LavaTankLogic)
                 {

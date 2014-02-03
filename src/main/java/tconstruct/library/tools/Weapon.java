@@ -30,7 +30,7 @@ public abstract class Weapon extends ToolCore
     }
 
     @Override
-    public float getStrVsBlock (ItemStack stack, Block block, int meta)
+    public float getDigSpeed (ItemStack stack, Block block, int meta)
     {
         if (stack.getTagCompound().getCompoundTag("InfiTool").getBoolean("Broken"))
             return 0.1f;

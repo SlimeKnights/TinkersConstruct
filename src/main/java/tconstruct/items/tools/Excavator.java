@@ -245,7 +245,7 @@ public class Excavator extends HarvestTool
     }
 
     @Override
-    public float getStrVsBlock (ItemStack stack, Block block, int meta)
+    public float getDigSpeed (ItemStack stack, Block block, int meta)
     {
         if (!stack.hasTagCompound())
             return 1.0f;
@@ -291,7 +291,7 @@ public class Excavator extends HarvestTool
                 return 0.1f;
             }
         }
-        return super.getStrVsBlock(stack, block, meta);
+        return super.getDigSpeed(stack, block, meta);
     }
 
     @Override

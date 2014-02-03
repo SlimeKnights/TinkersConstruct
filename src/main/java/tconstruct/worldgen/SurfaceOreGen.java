@@ -123,7 +123,7 @@ public class SurfaceOreGen extends WorldGenerator
                                     {
                                         for (int iter = 0; iter < replaceBlocks.length; iter++)
                                         {
-                                            if (block.isGenMineableReplaceable(world, k2, l2, i3, replaceBlocks[iter]))
+                                            if (world.func_147439_a(k2, l2, i3).isReplaceableOreGen(world, k2, l2, i3, replaceBlocks[iter]))
                                             {
                                                 world.func_147465_d(k2, l2, i3, this.minableBlock, minableBlockMeta, 2);
                                                 break;

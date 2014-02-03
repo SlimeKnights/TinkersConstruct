@@ -342,7 +342,7 @@ public class Hammer extends HarvestTool
     }
 
     @Override
-    public float getStrVsBlock (ItemStack stack, Block block, int meta)
+    public float getDigSpeed (ItemStack stack, Block block, int meta)
     {
         if (!stack.hasTagCompound())
             return 1.0f;
@@ -363,7 +363,7 @@ public class Hammer extends HarvestTool
         /*if (block == Block.silverfish)
             return getblockSpeed(tags, block, meta);*/
 
-        return super.getStrVsBlock(stack, block, meta);
+        return super.getDigSpeed(stack, block, meta);
     }
 
     float getblockSpeed (NBTTagCompound tags, Block block, int meta)

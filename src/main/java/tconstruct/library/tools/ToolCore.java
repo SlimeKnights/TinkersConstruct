@@ -621,7 +621,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IBa
     }
 
     @Override
-    public float getStrVsBlock (ItemStack stack, Block block, int meta)
+    public float getDigSpeed (ItemStack stack, Block block, int meta)
     {
         NBTTagCompound tags = stack.getTagCompound();
         if (tags.getCompoundTag("InfiTool").getBoolean("Broken"))

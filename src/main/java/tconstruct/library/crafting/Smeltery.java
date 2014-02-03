@@ -13,9 +13,9 @@ public class Smeltery
 {
     public static Smeltery instance = new Smeltery();
 
-    private final HashMap<List<Item>, FluidStack> smeltingList = new HashMap<List<Item>, FluidStack>();
-    private final HashMap<List<Item>, Integer> temperatureList = new HashMap<List<Item>, Integer>();
-    private final HashMap<List<Item>, ItemStack> renderIndex = new HashMap<List<Item>, ItemStack>();
+    private final HashMap<List<ItemStack>, FluidStack> smeltingList = new HashMap<List<ItemStack>, FluidStack>();
+    private final HashMap<List<ItemStack>, Integer> temperatureList = new HashMap<List<ItemStack>, Integer>();
+    private final HashMap<List<ItemStack>, ItemStack> renderIndex = new HashMap<List<ItemStack>, ItemStack>();
     private final ArrayList<AlloyMix> alloys = new ArrayList<AlloyMix>();
 
     /** Adds mappings between an itemstack and an output liquid
@@ -67,9 +67,9 @@ public class Smeltery
      */
     public static void addMelting (ItemStack input, Item item, int metadata, int temperature, FluidStack liquid)
     {
-        instance.smeltingList.put(Arrays.asList((Item)input.getItem(), input.getItemDamage()), liquid);
-        instance.temperatureList.put(Arrays.asList((Item)input.getItem(), input.getItemDamage()), temperature);
-        instance.renderIndex.put(Arrays.asList((Item)input.getItem(), input.getItemDamage()), new ItemStack(item, input.stackSize, metadata));
+        instance.smeltingList.put(Arrays.asList(new ItemStack(input.getItem(), input.getItemDamage())), liquid);
+        instance.temperatureList.put(Arrays.asList(new ItemStack(input.getItem(), input.getItemDamage())), temperature);
+        instance.renderIndex.put(Arrays.asList(new ItemStack(input.getItem(), input.getItemDamage())), new ItemStack(item, input.stackSize, metadata));
     }
 
     /** Adds an alloy mixing recipe.
@@ -161,17 +161,17 @@ public class Smeltery
         return liquids;
     }
 
-    public static HashMap<List<Item>, FluidStack> getSmeltingList ()
+    public static HashMap<List<ItemStack>, FluidStack> getSmeltingList ()
     {
         return instance.smeltingList;
     }
 
-    public static HashMap<List<Item>, Integer> getTemperatureList ()
+    public static HashMap<List<ItemStack>, Integer> getTemperatureList ()
     {
         return instance.temperatureList;
     }
 
-    public static HashMap<List<Item>, ItemStack> getRenderIndex ()
+    public static HashMap<List<ItemStack>, ItemStack> getRenderIndex ()
     {
         return instance.renderIndex;
     }
