@@ -1,0 +1,382 @@
+package tconstruct.blocks;
+
+import java.util.List;
+
+import mantle.blocks.abstracts.InventoryBlock;
+import net.minecraft.block.material.Material;
+import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
+import net.minecraft.util.IIcon;
+import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
+import tconstruct.TConstruct;
+import tconstruct.blocks.logic.CastingBasinLogic;
+import tconstruct.blocks.logic.CastingTableLogic;
+import tconstruct.blocks.logic.FaucetLogic;
+import tconstruct.client.block.SearedRender;
+import tconstruct.library.TConstructRegistry;
+import tconstruct.library.event.SmelteryEvent;
+import tconstruct.library.tools.AbilityHelper;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
+public class SearedBlock extends InventoryBlock
+{
+
+    public SearedBlock()
+    {
+        super(Material.field_151576_e);
+        this.func_149647_a(TConstructRegistry.blockTab);
+        func_149711_c(3F);
+        func_149752_b(20F);
+        func_149672_a(field_149777_j);
+    }
+
+    public SearedBlock(String texture)
+    {
+        this();
+        this.texturePrefix = texture;
+    }
+
+
+    @Override
+    public TileEntity createTileEntity (World world, int metadata)
+    {
+        switch (metadata)
+        {
+        case 0:
+            return new CastingTableLogic();
+        case 1:
+            return new FaucetLogic();
+        case 2:
+            return new CastingBasinLogic();
+        default:
+            return null;
+        }
+    }
+
+    @Override
+    public int func_149701_w ()
+    {
+        return 1;
+    }
+
+    @Override
+    public Integer getGui (World world, int x, int y, int z, EntityPlayer entityplayer)
+    {
+        return null;
+    }
+
+    @Override
+    public Object getModInstance ()
+    {
+        return TConstruct.instance;
+    }
+
+    /* Activation */
+    @Override
+    public boolean func_149727_a (World world, int x, int y, int z, EntityPlayer player, int side, float clickX, float clickY, float clickZ)
+    {
+        int md = world.getBlockMetadata(x, y, z);
+        if (md == 0)
+        {
+            return activateCastingTable(world, x, y, z, player);
+        }
+        if (md == 2)
+        {
+            return activateCastingBasin(world, x, y, z, player);
+        }
+        else if (md == 1)
+        {
+            if (player.isSneaking())
+                return false;
+
+            FaucetLogic logic = (FaucetLogic) world.func_147438_o(x, y, z);
+            logic.setActive(true);
+            return true;
+        }
+        else
+            return super.func_149727_a(world, x, y, z, player, side, clickX, clickY, clickZ);
+    }
+
+    boolean activateCastingTable (World world, int x, int y, int z, EntityPlayer player)
+    {
+        if (!world.isRemote)
+        {
+            CastingTableLogic logic = (CastingTableLogic) world.func_147438_o(x, y, z);
+            if (logic.liquid != null)
+                return true;
+
+            if (!logic.isStackInSlot(0) && !logic.isStackInSlot(1))
+            {
+                ItemStack stack = player.getCurrentEquippedItem();
+                stack = player.inventory.decrStackSize(player.inventory.currentItem, 1);
+                logic.setInventorySlotContents(0, stack);
+                MinecraftForge.EVENT_BUS.post(new SmelteryEvent.ItemInsertedIntoCasting(logic, x, y, z, stack, player));
+            }
+            else
+            {
+                if (logic.isStackInSlot(1))
+                {
+                    MinecraftForge.EVENT_BUS.post(new SmelteryEvent.ItemRemovedFromCasting(logic, x, y, z, logic.getStackInSlot(1), player));
+                    ItemStack stack = logic.decrStackSize(1, 1);
+                    if (stack != null)
+                        addItemToInventory(player, world, x, y, z, stack);
+                }
+                else if (logic.isStackInSlot(0))
+                {
+                    MinecraftForge.EVENT_BUS.post(new SmelteryEvent.ItemRemovedFromCasting(logic, x, y, z, logic.getStackInSlot(0), player));
+                    ItemStack stack = logic.decrStackSize(0, 1);
+                    if (stack != null)
+                        addItemToInventory(player, world, x, y, z, stack);
+                }
+            }
+
+            world.func_147471_g(x, y, z);
+        }
+        return true;
+    }
+
+    boolean activateCastingBasin (World world, int x, int y, int z, EntityPlayer player)
+    {
+        if (!world.isRemote)
+        {
+            CastingBasinLogic logic = (CastingBasinLogic) world.func_147438_o(x, y, z);
+            if (logic.liquid != null)
+                return true;
+
+            if (!logic.isStackInSlot(0) && !logic.isStackInSlot(1))
+            {
+                ItemStack stack = player.getCurrentEquippedItem();
+                stack = player.inventory.decrStackSize(player.inventory.currentItem, 1);
+                logic.setInventorySlotContents(0, stack);
+                MinecraftForge.EVENT_BUS.post(new SmelteryEvent.ItemInsertedIntoCasting(logic, x, y, z, stack, player));
+            }
+            else
+            {
+                if (logic.isStackInSlot(1))
+                {
+                    MinecraftForge.EVENT_BUS.post(new SmelteryEvent.ItemRemovedFromCasting(logic, x, y, z, logic.getStackInSlot(1), player));
+                    ItemStack stack = logic.decrStackSize(1, 1);
+                    if (stack != null)
+                        addItemToInventory(player, world, x, y, z, stack);
+                }
+                else if (logic.isStackInSlot(0))
+                {
+                	MinecraftForge.EVENT_BUS.post(new SmelteryEvent.ItemRemovedFromCasting(logic, x, y, z, logic.getStackInSlot(0), player));
+                    ItemStack stack = logic.decrStackSize(0, 1);
+                    if (stack != null)
+                        addItemToInventory(player, world, x, y, z, stack);
+                }
+            }
+
+            world.func_147471_g(x, y, z);
+        }
+        return true;
+    }
+
+    public void addItemToInventory (EntityPlayer player, World world, int x, int y, int z, ItemStack stack)
+    {
+        AbilityHelper.spawnItemAtPlayer(player, stack);
+        /*if (!world.isRemote)
+        {
+        	EntityItem entityitem = new EntityItem(world, (double) x + 0.5D, (double) y + 0.9325D, (double) z + 0.5D, stack);
+        	world.spawnEntityInWorld(entityitem);
+        	entityitem.onCollideWithPlayer(player);
+        }*/
+    }
+
+    /* Rendering */
+    @Override
+    public int func_149645_b ()
+    {
+        return SearedRender.searedModel;
+    }
+
+    String texturePrefix = "";
+
+    @Override
+    public String[] getTextureNames ()
+    {
+        String[] textureNames = { "castingtable_top", "castingtable_side", "castingtable_bottom", "faucet", "blockcast_top", "blockcast_side", "blockcast_bottom" };
+
+        if (!texturePrefix.equals(""))
+            for (int i = 0; i < textureNames.length; i++)
+                textureNames[i] = texturePrefix + "_" + textureNames[i];
+
+        return textureNames;
+    }
+
+    //TODO getIcon
+    @Override
+    @SideOnly(Side.CLIENT)
+    public IIcon func_149691_a (int side, int meta)
+    {
+        if (meta == 0)
+            return icons[getTextureIndex(side)];
+        else if (meta == 2)
+            return icons[getTextureIndex(side) + 4];
+        else
+            return icons[3];
+    }
+
+    public int getTextureIndex (int side)
+    {
+        if (side == 0)
+            return 2;
+        if (side == 1)
+            return 0;
+
+        return 1;
+    }
+
+    @Override
+    public boolean func_149686_d ()
+    {
+        return false;
+    }
+
+    @Override
+    public boolean func_149662_c ()
+    {
+        return false;
+    }
+
+    @Override
+    public boolean func_149646_a (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
+    {
+        return true;
+    }
+
+    @Override
+    public void func_149666_a (Item b, CreativeTabs tab, List list)
+    {
+        for (int iter = 0; iter < 3; iter++)
+        {
+            list.add(new ItemStack(b, 1, iter));
+        }
+    }
+
+    @Override
+    public void func_149719_a (IBlockAccess world, int x, int y, int z)
+    {
+        int meta = world.getBlockMetadata(x, y, z);
+        if (meta != 1)
+        {
+            this.func_149676_a(0, 0, 0, 1, 1, 1);
+        }
+        else
+        {
+            FaucetLogic logic = (FaucetLogic) world.func_147438_o(x, y, z);
+            float xMin = 0.25F;
+            float xMax = 0.75F;
+            float zMin = 0.25F;
+            float zMax = 0.75F;
+
+            switch (logic.getRenderDirection())
+            {
+            case 2:
+                zMin = 0.625F;
+                zMax = 1.0F;
+                break;
+            case 3:
+                zMax = 0.375F;
+                zMin = 0F;
+                break;
+            case 4:
+                xMin = 0.625F;
+                xMax = 1.0F;
+                break;
+            case 5:
+                xMax = 0.375F;
+                xMin = 0F;
+                break;
+            }
+
+            this.func_149676_a(xMin, 0.25F, zMin, xMax, 0.625F, zMax);
+        }
+    }
+
+    @Override
+    public AxisAlignedBB func_149668_a (World world, int x, int y, int z)
+    {
+        int meta = world.getBlockMetadata(x, y, z);
+        if (meta != 1)
+        {
+            return AxisAlignedBB.getAABBPool().getAABB(x, y, z, x + 1, y + 1, z + 1);
+        }
+        else
+        {
+            FaucetLogic logic = (FaucetLogic) world.func_147438_o(x, y, z);
+            if (logic != null)
+            {
+                float xMin = 0.25F;
+                float xMax = 0.75F;
+                float zMin = 0.25F;
+                float zMax = 0.75F;
+
+                switch (logic.getRenderDirection())
+                {
+                case 2:
+                    zMin = 0.625F;
+                    zMax = 1.0F;
+                    break;
+                case 3:
+                    zMax = 0.375F;
+                    zMin = 0F;
+                    break;
+                case 4:
+                    xMin = 0.625F;
+                    xMax = 1.0F;
+                    break;
+                case 5:
+                    xMax = 0.375F;
+                    xMin = 0F;
+                    break;
+                }
+
+                return AxisAlignedBB.getAABBPool().getAABB((double) ((float) x + xMin), (double) y + 0.25, (double) ((float) z + zMin), (double) ((float) x + xMax), (double) y + 0.625,
+                        (double) ((float) z + zMax));
+            }
+        }
+
+        return super.func_149668_a(world, x, y, z);
+    }
+
+    /* Redstone */
+    public boolean canConnectRedstone (IBlockAccess world, int x, int y, int z, int side)
+    {
+        return world.getBlockMetadata(x, y, z) == 1;
+    }
+
+    public void onNeighborBlockChange (World world, int x, int y, int z, int neighborBlockID)
+    {
+        if (world.isBlockIndirectlyGettingPowered(x, y, z) && world.getBlockMetadata(x, y, z) == 1)
+        {
+            FaucetLogic logic = (FaucetLogic) world.func_147438_o(x, y, z);
+            logic.setActive(true);
+        }
+    }
+
+    @Override
+    public TileEntity func_149915_a (World var1, int metadata)
+    {
+        switch (metadata)
+        {
+        case 0:
+            return new CastingTableLogic();
+        case 1:
+            return new FaucetLogic();
+        case 2:
+            return new CastingBasinLogic();
+        default:
+            return null;
+        }
+
+    }
+}

@@ -1,0 +1,20 @@
+{
+   "frypan_hit": {
+     "category": "neutral",
+     "sounds": [
+       "frypan_hit"
+     ]
+   },
+   "little_saw": {
+     "category": "neutral",
+     "sounds": [
+       "little_saw"
+     ]
+   },
+   "frypan_hit": {
+     "category": "neutral",
+     "sounds": [
+       "launcher_clank"
+     ]
+   }
+}

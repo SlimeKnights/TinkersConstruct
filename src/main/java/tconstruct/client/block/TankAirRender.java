@@ -1,0 +1,84 @@
+package tconstruct.client.block;
+
+import mantle.blocks.BlockUtils;
+import net.minecraft.block.Block;
+import net.minecraft.client.renderer.RenderBlocks;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
+import net.minecraft.world.IBlockAccess;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidStack;
+import tconstruct.TConstruct;
+import tconstruct.blocks.logic.TankAirLogic;
+import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
+import cpw.mods.fml.client.registry.RenderingRegistry;
+
+public class TankAirRender implements ISimpleBlockRenderingHandler
+{
+    public static int model = RenderingRegistry.getNextAvailableRenderId();
+    private static final double capacity = TConstruct.ingotLiquidValue * 18;
+
+    @Override
+    public void renderInventoryBlock (Block block, int metadata, int modelID, RenderBlocks renderer)
+    {
+        //No inventory block
+    }
+
+    @Override
+    public boolean renderWorldBlock (IBlockAccess world, int x, int y, int z, Block block, int modelID, RenderBlocks renderer)
+    {
+        if (modelID == model)
+        {
+            TankAirLogic logic = (TankAirLogic) world.func_147438_o(x, y, z);
+            if (logic.hasItem())
+            {
+                ItemStack item = logic.getStackInSlot(0);
+                if (item.getItem() instanceof ItemBlock)
+                {
+                    Block inv = BlockUtils.getBlockFromItemStack(item);
+                    renderer.func_147757_a(inv.func_149691_a(1, item.getItemDamage()));
+                    renderer.func_147805_b(inv, x, y, z);
+                    renderer.func_147771_a();
+                }
+            }
+            else if (logic.hasFluids())
+            {
+                int base = 0;
+                for (FluidStack fluidstack : logic.getFluids())
+                {
+                    Fluid fluid = fluidstack.getFluid();
+                    //System.out.println("Base: "+getBaseAmount(base)+", Height: "+getHeightAmount(base, fluidstack.amount)+", fluid amount: "+fluidstack.amount);
+                    renderer.func_147782_a(0.0, getBaseAmount(base), 0.0, 1.0, getHeightAmount(base, fluidstack.amount), 1.0);
+                    if (fluid.canBePlacedInWorld())
+                        BlockSkinRenderHelper.renderMetadataBlock(fluid.getBlock(), 0, x, y, z, renderer, world);
+                    else
+                        BlockSkinRenderHelper.renderLiquidBlock(fluid.getStillIcon(), fluid.getFlowingIcon(), x, y, z, renderer, world);
+                    base += fluidstack.amount;
+                }
+            }
+        }
+        return true;
+    }
+
+    private double getBaseAmount (int base)
+    {
+        return base / capacity;
+    }
+
+    private double getHeightAmount (int base, int amount)
+    {
+        return (base + amount) / capacity;
+    }
+
+    @Override
+    public boolean shouldRender3DInInventory (int modelID)
+    {
+        return true;
+    }
+
+    @Override
+    public int getRenderId ()
+    {
+        return model;
+    }
+}
