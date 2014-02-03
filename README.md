@@ -11,9 +11,9 @@ Install Forge as usual, and setup your IDE as with any other Forge project. Forg
 
 ##Compile from Source
 Note: Git MUST be installed and in the system path to use our scripts.
-setup: Run [gradle]in the repository root: `gradlew[.bat] [setupDevWorkspace|setupDecompWorkspace] [eclipse|idea]`
-build: Run [gradle]in the repository root: `gradlew[.bat] build'
-if obscure gradle issues are found try running 'gradlew clean' or/and 'gradlew cleanCache'
+* setup: Run [gradle]in the repository root: `gradlew[.bat] [setupDevWorkspace|setupDecompWorkspace] [eclipse|idea]`
+* build: Run [gradle]in the repository root: `gradlew[.bat] build'
+* if obscure gradle issues are found try running 'gradlew clean' or/and 'gradlew cleanCache'
 
 ##Issue reporting
 Please include the following:
