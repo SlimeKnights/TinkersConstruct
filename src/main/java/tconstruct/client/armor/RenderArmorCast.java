@@ -47,7 +47,7 @@ public class RenderArmorCast implements IItemRenderer
     @Override
     public void renderItem (ItemRenderType type, ItemStack item, Object... data)
     {
-        RenderBlocks renderer = Minecraft.getMinecraft().renderGlobal.globalRenderBlocks;
+        RenderBlocks renderer = Minecraft.getMinecraft().renderGlobal.field_147592_B;
         Tessellator tessellator = Tessellator.instance;
         IIcon baseIcon = item.getItem() instanceof ArmorPattern ? ((ArmorPattern) item.getItem()).getBaseIcon() : item.getIconIndex();
         GL11.glPushMatrix();

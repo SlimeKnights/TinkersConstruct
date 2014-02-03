@@ -15,7 +15,6 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBucket;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumMovingObjectType;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
@@ -77,7 +76,7 @@ public class FilledBucket extends ItemBucket
             	return stack;
             }*/
 
-            if (position.typeOfHit == EnumMovingObjectType.TILE)
+            if (position.typeOfHit == MovingObjectPosition.MovingObjectType.BLOCK)
             {
                 int clickX = position.blockX;
                 int clickY = position.blockY;

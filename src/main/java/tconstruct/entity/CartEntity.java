@@ -415,7 +415,7 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
             if (entityFollowing != null)
                 moveTowardsEntity(entityFollowing);
 
-            this.doBlockCollisions();
+            this.func_145775_I();
             this.rotationPitch = 0.0F;
             double var49 = this.prevPosX - this.posX;
             double var50 = this.prevPosZ - this.posZ;

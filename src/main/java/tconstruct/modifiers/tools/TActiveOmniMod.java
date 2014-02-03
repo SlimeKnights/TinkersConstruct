@@ -67,7 +67,7 @@ public class TActiveOmniMod extends ActiveToolMod
 
         if (tags.getBoolean("Lava") && block.quantityDropped(meta, 0, random) != 0)
         {
-            ItemStack smeltStack = new ItemStack(block.IDropped(meta, random, 0), block.quantityDropped(meta, 0, random), block.func_149692_a(meta));
+            ItemStack smeltStack = new ItemStack(block.func_149650_a(meta, random, 0), block.quantityDropped(meta, 0, random), block.func_149692_a(meta));
             if (smeltStack.getItem() == null)
                 return false;
             ItemStack result = FurnaceRecipes.smelting().func_151395_a(smeltStack);
@@ -75,7 +75,7 @@ public class TActiveOmniMod extends ActiveToolMod
             {
                 WorldHelper.setBlockToAir(world, x, y, z);
                 if (entity instanceof EntityPlayer && !((EntityPlayer) entity).capabilities.isCreativeMode)
-                    tool.onBlockDestroyed(stack, world, block, x, y, z, entity);
+                    tool.func_150894_a(stack, world, block, x, y, z, entity);
                 if (!world.isRemote)
                 {
                     ItemStack spawnme = result.copy();
@@ -94,7 +94,7 @@ public class TActiveOmniMod extends ActiveToolMod
                     world.playAuxSFX(2001, x, y, z, Block.func_149682_b(block) + (meta << 12));
 
                     int i = spawnme.stackSize;
-                    float f = FurnaceRecipes.smelting().getExperience(spawnme);
+                    float f = FurnaceRecipes.smelting().func_151398_b(spawnme);
                     int j;
 
                     if (f == 0.0F)

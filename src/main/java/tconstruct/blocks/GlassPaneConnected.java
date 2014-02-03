@@ -33,7 +33,7 @@ public class GlassPaneConnected extends GlassBlockConnected
     }
 
     @Override
-    public IIcon getBlockTexture (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
+    public IIcon func_149673_e (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
     {
         if (par5 == 0 || par5 == 1)
         {
@@ -42,7 +42,7 @@ public class GlassPaneConnected extends GlassBlockConnected
         }
         else
         {
-            return super.getBlockTexture(par1IBlockAccess, par2, par3, par4, par5);
+            return super.func_149673_e(par1IBlockAccess, par2, par3, par4, par5);
         }
     }
 

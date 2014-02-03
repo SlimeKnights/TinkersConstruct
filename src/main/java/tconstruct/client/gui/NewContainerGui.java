@@ -218,7 +218,7 @@ public abstract class NewContainerGui extends GuiScreen
         if (inventoryplayer.getItemStack() == null && this.mainSlot != null && this.mainSlot.getHasStack())
         {
             ItemStack itemstack1 = this.mainSlot.getStack();
-            this.drawItemStackTooltip(itemstack1, mouseX, mouseY);
+            this.func_146285_a(itemstack1, mouseX, mouseY);
         }
 
         GL11.glEnable(GL11.GL_LIGHTING);
@@ -237,7 +237,7 @@ public abstract class NewContainerGui extends GuiScreen
         itemRenderer.zLevel = 0.0F;
     }
 
-    protected void drawItemStackTooltip (ItemStack par1ItemStack, int par2, int par3)
+    protected void func_146285_a (ItemStack par1ItemStack, int par2, int par3)
     {
         List list = par1ItemStack.getTooltip(this.field_146297_k.thePlayer, this.field_146297_k.gameSettings.advancedItemTooltips);
 
@@ -245,7 +245,7 @@ public abstract class NewContainerGui extends GuiScreen
         {
             if (k == 0)
             {
-                list.set(k, "\u00a7" + Integer.toHexString(par1ItemStack.getRarity().rarityColor) + (String) list.get(k));
+            	list.set(k, par1ItemStack.getRarity().rarityColor + (String)list.get(k));
             }
             else
             {

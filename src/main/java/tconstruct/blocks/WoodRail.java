@@ -42,9 +42,9 @@ public class WoodRail extends BlockRailBase
 
     protected void func_94358_a (World par1World, int par2, int par3, int par4, int par5, int par6, Block par7)
     {
-        if (par7 != Blocks.air && par7.func_149744_f() && (new BlockBaseRailLogic(this, par1World, par2, par3, par4)).getNumberOfAdjacentTracks() == 3)
+        if (par7 != Blocks.air && par7.func_149744_f() && (new Rail(par1World, par2, par3, par4)).func_150650_a() == 3)
         {
-            this.refreshTrackShape(par1World, par2, par3, par4, false);
+            this.func_150052_a(par1World, par2, par3, par4, false);
         }
     }
 
