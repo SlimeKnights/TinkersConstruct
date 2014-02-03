@@ -41,7 +41,7 @@ public class Landmine extends MantleBlock
         Block block = world.func_147439_a(x, y - 1, z);
         if (block != null)
         {
-            return block.getBlockTexture(world, x, y - 1, z, side);
+            return block.func_149673_e(world, x, y - 1, z, side);
         }
         return Blocks.sponge.func_149691_a(side, world.getBlockMetadata(x, y, z));
     }

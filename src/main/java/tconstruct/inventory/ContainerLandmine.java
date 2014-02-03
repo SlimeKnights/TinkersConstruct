@@ -108,7 +108,7 @@ public class ContainerLandmine extends Container
     {
         ItemStack itemstack = null;
         InventoryPlayer inventoryplayer = par4EntityPlayer.inventory;
-        Item l;
+        int l;
         ItemStack itemstack1;
 
         if (par3 == 5)
@@ -238,6 +238,8 @@ public class ContainerLandmine extends Container
                     {
                         return null;
                     }
+                    
+                    Object localObject2;
 
                     slot2 = (Slot) this.inventorySlots.get(par1);
 
@@ -247,10 +249,10 @@ public class ContainerLandmine extends Container
 
                         if (itemstack1 != null)
                         {
-                            l = itemstack1.getItem();
+                        	localObject2 = ((ItemStack)itemstack1).getItem();
                             itemstack = itemstack1.copy();
 
-                            if (slot2 != null && slot2.getStack() != null && slot2.getStack().getItem() == l)
+                            if (slot2 != null && slot2.getStack() != null && slot2.getStack().getItem() == localObject2)
                             {
                                 this.retrySlotClick(par1, par2, true, par4EntityPlayer);
                             }

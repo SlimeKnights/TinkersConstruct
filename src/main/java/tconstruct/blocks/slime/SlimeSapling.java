@@ -79,7 +79,7 @@ public class SlimeSapling extends BlockSapling
     }
 
     @Override
-    public void markOrGrowMarked (World world, int x, int y, int z, Random random)
+    public void func_149879_c (World world, int x, int y, int z, Random random)
     {
         boneFertilize(world, x, y, z, random, null);
     }

@@ -18,6 +18,7 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
@@ -70,9 +71,9 @@ public class EquipBlock extends InventoryBlock
     }
 
     @Override
-    public int idDropped (int par1, Random par2Random, int par3)
+    public Item func_149650_a (int par1, Random par2Random, int par3)
     {
-        return 0;
+        return null;
     }
 
     @Override
