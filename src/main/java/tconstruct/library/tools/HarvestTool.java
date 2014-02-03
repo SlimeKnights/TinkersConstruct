@@ -58,7 +58,7 @@ public abstract class HarvestTool extends ToolCore
     }
 
     @Override
-    public float getStrVsBlock (ItemStack stack, Block block, int meta)
+    public float getDigSpeed (ItemStack stack, Block block, int meta)
     {
         if (!stack.hasTagCompound())
             return 1.0f;
@@ -79,7 +79,7 @@ public abstract class HarvestTool extends ToolCore
         {
             return calculateStrength(tags, block, meta); //No issue if the harvest level is too low
         }
-        return super.getStrVsBlock(stack, block, meta);
+        return super.getDigSpeed(stack, block, meta);
     }
 
     float calculateStrength (NBTTagCompound tags, Block block, int meta)

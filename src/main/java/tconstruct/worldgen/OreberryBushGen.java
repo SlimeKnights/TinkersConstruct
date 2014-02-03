@@ -94,13 +94,13 @@ public class OreberryBushGen extends WorldGenerator
         }*/
 
         Block block = world.func_147439_a(x, y, z);
-        if (block == null || (block != Blocks.end_portal_frame && !world.func_147439_a(x, y, z).isGenMineableReplaceable))
+        if (block == null || (block != Blocks.end_portal_frame && !world.func_147439_a(x, y, z).func_149730_j()))
             world.func_147465_d(x, y, z, this.blockB, metadata, 2);
         else
         {
             for (int iter = 0; iter < replaceBlocks.length; iter++)
             {
-                if (block.isGenMineableReplaceable(world, x, y, z, replaceBlocks[iter]))
+                if (world.func_147439_a(x, y, z).isReplaceableOreGen(world, x, y, z, replaceBlocks[iter]))
                 {
                     world.func_147465_d(x, y, z, this.blockB, metadata, 2);
                     break;

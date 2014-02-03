@@ -37,6 +37,8 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
     public String[] oreTypes;
     public int itemMeat;
     private int subitems;
+    @SideOnly(Side.CLIENT)
+    protected int field_150127_b;
 
     public OreberryBush(String[] textureNames, int meta, int sub, String[] oreTypes)
     {
@@ -323,6 +325,13 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
     public EnumPlantType getPlantType (IBlockAccess world, int x, int y, int z)
     {
         return EnumPlantType.Cave;
+    }
+    
+    @SideOnly(Side.CLIENT)
+    public void func_150122_b(boolean p_150122_1_)
+    {
+        this.field_150121_P = p_150122_1_;
+        this.field_150127_b = (p_150122_1_ ? 0 : 1);
     }
 
 }

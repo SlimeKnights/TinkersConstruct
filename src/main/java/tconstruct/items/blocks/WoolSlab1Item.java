@@ -27,7 +27,7 @@ public class WoolSlab1Item extends MultiItemBlock
         Block b = world.func_147439_a(x, y, z);
         int meta = world.getBlockMetadata(x, y, z);
         int trueMeta = meta % 8;
-        boolean flag = (id & 8) != 0;
+        boolean flag = (b) != null;
 
         if ((side == 1 && flag || side == 0 && !flag) && b == this.block && trueMeta == stack.getItemDamage())
         {

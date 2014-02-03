@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockBush;
 import net.minecraft.block.BlockFlower;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -19,7 +20,7 @@ import tconstruct.library.TConstructRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
-public class SlimeTallGrass extends BlockFlower implements IShearable
+public class SlimeTallGrass extends BlockBush implements IShearable
 {
     private static final String[] grassTypes = new String[] { "slimegrass_blue_tall" };
     @SideOnly(Side.CLIENT)
@@ -99,7 +100,7 @@ public class SlimeTallGrass extends BlockFlower implements IShearable
     }
 
     @Override
-    public ArrayList<ItemStack> getBlockDropped (World world, int x, int y, int z, int meta, int fortune)
+    public ArrayList<ItemStack> getDrops (World world, int x, int y, int z, int meta, int fortune)
     {
         ArrayList<ItemStack> ret = new ArrayList<ItemStack>();
         if (world.rand.nextInt(8) != 0)

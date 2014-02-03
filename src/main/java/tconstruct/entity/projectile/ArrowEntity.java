@@ -297,7 +297,8 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
                             if (this.shootingEntity != null && movingobjectposition.entityHit != this.shootingEntity && movingobjectposition.entityHit instanceof EntityPlayer
                                     && this.shootingEntity instanceof EntityPlayerMP)
                             {
-                                TConstruct.packetPipeline.sendTo(new S2BPacketChangeGameState(6, 0), (EntityPlayerMP) this.shootingEntity);
+                                ((EntityPlayerMP) this.shootingEntity).playerNetServerHandler.func_147359_a(new S2BPacketChangeGameState(6, 0));
+                                //TConstruct.packetPipeline.sendTo(new S2BPacketChangeGameState(6, 0), (EntityPlayerMP) this.shootingEntity);
                             }
                         }
 
