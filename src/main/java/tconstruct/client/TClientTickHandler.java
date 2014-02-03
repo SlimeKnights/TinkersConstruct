@@ -27,7 +27,7 @@ public class TClientTickHandler
     @SubscribeEvent
     public void onTick (ClientTickEvent event)
     {
-        
+
         if (event.phase.equals(Phase.END) && event.type.equals(Type.RENDER))
         {
             TRepo.oreBerry.func_150122_b(Blocks.leaves.field_150121_P);
@@ -38,10 +38,10 @@ public class TClientTickHandler
         }
     }
 
-  /*  @Override
-    public EnumSet<TickType> ticks ()
-    {
-        return EnumSet.of(TickType.RENDER);
-    }
-*/
+    /*  @Override
+      public EnumSet<TickType> ticks ()
+      {
+          return EnumSet.of(TickType.RENDER);
+      }
+    */
 }

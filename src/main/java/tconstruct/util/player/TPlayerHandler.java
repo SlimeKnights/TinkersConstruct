@@ -2,11 +2,14 @@ package tconstruct.util.player;
 
 import cpw.mods.fml.common.*;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.PlayerEvent;
 import cpw.mods.fml.relauncher.Side;
+
 import java.io.ByteArrayOutputStream;
 import java.lang.ref.WeakReference;
 import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
+
 import mantle.player.PlayerUtils;
 import net.minecraft.entity.*;
 import net.minecraft.entity.Entity.EnumEntitySize;
@@ -22,13 +25,37 @@ import tconstruct.library.tools.AbilityHelper;
 import tconstruct.util.config.PHConstruct;
 import tconstruct.util.network.packet.PacketDoubleJump;
 
-public class TPlayerHandler implements IPlayerTracker
+public class TPlayerHandler
 {
     /* Player */
     //public int hunger;
+
     public ConcurrentHashMap<String, TPlayerStats> playerStats = new ConcurrentHashMap<String, TPlayerStats>();
 
-    @Override
+    @SubscribeEvent
+    public void PlayerLoggedInEvent (PlayerEvent event)
+    {
+        onPlayerLogin(event.player);
+    }
+
+    @SubscribeEvent
+    public void PlayerLoggedOutEvent (PlayerEvent event)
+    {
+        savePlayerStats(event.player, true);
+    }
+
+    @SubscribeEvent
+    public void onPlayerChangedDimension (PlayerEvent event)
+    {
+        savePlayerStats(event.player, false);
+    }
+    @SubscribeEvent
+    public void onPlayerRespawn (PlayerEvent event)
+    {
+        onPlayerRespawn(event.player);
+    }
+    
+
     public void onPlayerLogin (EntityPlayer entityplayer)
     {
         //TConstruct.logger.info("Player: "+entityplayer);
@@ -108,9 +135,9 @@ public class TPlayerHandler implements IPlayerTracker
             PHConstruct.gregtech = false;
             if (PHConstruct.lavaFortuneInteraction)
             {
-                PlayerUtils.sendChatMessage(entityplayer,"Warning: Cross-mod Exploit Present!");
-                PlayerUtils.sendChatMessage(entityplayer,"Solution 1: Disable Reverse Smelting recipes from GregTech.");
-                PlayerUtils.sendChatMessage(entityplayer,"Solution 2: Disable Auto-Smelt/Fortune interaction from TConstruct.");
+                PlayerUtils.sendChatMessage(entityplayer, "Warning: Cross-mod Exploit Present!");
+                PlayerUtils.sendChatMessage(entityplayer, "Solution 1: Disable Reverse Smelting recipes from GregTech.");
+                PlayerUtils.sendChatMessage(entityplayer, "Solution 2: Disable Auto-Smelt/Fortune interaction from TConstruct.");
             }
         }
 
@@ -131,22 +158,11 @@ public class TPlayerHandler implements IPlayerTracker
 
         PacketDispatcher.sendPacketToPlayer(packet, (Player) player);
         */
-    	//TODO find out what packet needs to be used here (and make sure that player actually is a playerMP and this gets called)
-    	if(player instanceof EntityPlayerMP){
-    		TConstruct.packetPipeline.sendTo(new PacketDoubleJump(), (EntityPlayerMP)player);
-    	}
-    }
-
-    @Override
-    public void onPlayerLogout (EntityPlayer entityplayer)
-    {
-        savePlayerStats(entityplayer, true);
-    }
-
-    @Override
-    public void onPlayerChangedDimension (EntityPlayer entityplayer)
-    {
-        savePlayerStats(entityplayer, false);
+        //TODO find out what packet needs to be used here (and make sure that player actually is a playerMP and this gets called)
+        if (player instanceof EntityPlayerMP)
+        {
+            TConstruct.packetPipeline.sendTo(new PacketDoubleJump(), (EntityPlayerMP) player);
+        }
     }
 
     void savePlayerStats (EntityPlayer player, boolean clean)
@@ -169,7 +185,6 @@ public class TPlayerHandler implements IPlayerTracker
         }
     }
 
-    @Override
     public void onPlayerRespawn (EntityPlayer entityplayer)
     {
         //Boom!

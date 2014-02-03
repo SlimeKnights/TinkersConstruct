@@ -12,6 +12,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -89,7 +90,7 @@ public class SlimeGrass extends MantleBlock
     }
 
     @Override
-    public boolean canSustainPlant (World world, int x, int y, int z, ForgeDirection direction, IPlantable plant)
+    public boolean canSustainPlant (IBlockAccess world, int x, int y, int z, ForgeDirection direction, IPlantable plant)
     {
         EnumPlantType plantType = plant.getPlantType(world, x, y + 1, z);
         return plantType == EnumPlantType.Plains && plant.getPlant(world, x, y + 1, z) != Blocks.tallgrass;
