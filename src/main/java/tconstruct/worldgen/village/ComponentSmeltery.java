@@ -14,9 +14,9 @@ import net.minecraft.world.gen.structure.MapGenVillage;
 import net.minecraft.world.gen.structure.StructureBoundingBox;
 import net.minecraft.world.gen.structure.StructureComponent;
 import net.minecraft.world.gen.structure.StructureVillagePieces;
-import net.minecraft.world.gen.structure.StructureVillagePieces.Start;
 
-public class ComponentSmeltery extends StructureComponent
+import net.minecraft.world.gen.structure.StructureVillagePieces.Start;
+public class ComponentSmeltery extends StructureVillagePieces.House1
 {
     private int averageGroundLevel = -1;
 
@@ -79,7 +79,8 @@ public class ComponentSmeltery extends StructureComponent
             for (int i1 = 0; i1 < 9; ++i1)
             {
                 this.clearCurrentPositionBlocksUpwards(world, i1, 9, l, sbb);
-                this.fillCurrentPositionBlocksDownwards(world, Blocks.stonebrick, 0, i1, -1, l, sbb);
+                //TODO fillCurrentPositionBlocksDownwards 
+                this.func_151554_b(world, Blocks.stonebrick, 0, i1, -1, l, sbb);
             }
         }
 
@@ -88,7 +89,7 @@ public class ComponentSmeltery extends StructureComponent
             for (int i1 = 1; i1 < 8; ++i1)
             {
                 this.clearCurrentPositionBlocksUpwards(world, i1, 9, l, sbb);
-                this.fillCurrentPositionBlocksDownwards(world, Blocks.stonebrick, 0, i1, -1, l, sbb);
+                this.func_151554_b(world, Blocks.stonebrick, 0, i1, -1, l, sbb);
             }
         }
         return true;
@@ -112,14 +113,14 @@ public class ComponentSmeltery extends StructureComponent
         return -1;
     }
 
-    protected void fillWithMetaBlocks (World par1World, StructureBoundingBox par2StructureBoundingBox, int minX, int minY, int minZ, int maxX, int maxY, int maxZ, int placeBlockID,
-            int placeBlockMeta, int replaceBlockID, int replaceBlockMeta, boolean alwaysReplace)
+    protected void fillWithMetaBlocks (World par1World, StructureBoundingBox par2StructureBoundingBox, int minX, int minY, int minZ, int maxX, int maxY, int maxZ, Block placeBlockID,
+            int placeBlockMeta, Block replaceBlockID, int replaceBlockMeta, boolean alwaysReplace)
     {
-        int i2 = this.getBiomeSpecificBlock(placeBlockID, placeBlockMeta);
-        int j2 = this.getBiomeSpecificBlockMetadata(placeBlockID, placeBlockMeta);
-        int k2 = this.getBiomeSpecificBlock(replaceBlockID, replaceBlockMeta);
-        int l2 = this.getBiomeSpecificBlockMetadata(replaceBlockID, replaceBlockMeta);
-        super.fillWithMetadataBlocks(par1World, par2StructureBoundingBox, minX, minY, minZ, maxX, maxY, maxZ, i2, j2, k2, l2, alwaysReplace);
+        Block i2 = this.func_151558_b(placeBlockID, placeBlockMeta);
+        int j2 = this.func_151557_c(placeBlockID, placeBlockMeta);
+        Block k2 = this.func_151558_b(replaceBlockID, replaceBlockMeta);
+        int l2 = this.func_151557_c(replaceBlockID, replaceBlockMeta);
+        super.func_151556_a(par1World, par2StructureBoundingBox, minX, minY, minZ, maxX, maxY, maxZ, i2, j2, k2, l2, alwaysReplace);
     }
 
     @Override

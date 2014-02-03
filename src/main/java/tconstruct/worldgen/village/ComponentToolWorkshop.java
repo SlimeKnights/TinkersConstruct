@@ -18,7 +18,7 @@ import net.minecraft.world.gen.structure.StructureVillagePieces.Start;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 
 
-public class ComponentToolWorkshop extends StructureComponent
+public class ComponentToolWorkshop extends StructureVillagePieces.House1
 {
     private int averageGroundLevel = -1;
 
@@ -144,7 +144,7 @@ public class ComponentToolWorkshop extends StructureComponent
             for (int i1 = 0; i1 < 9; ++i1)
             {
                 this.clearCurrentPositionBlocksUpwards(world, i1, 9, l, sbb);
-                this.fillCurrentPositionBlocksDownwards(world, Blocks.cobblestone, 0, i1, -1, l, sbb);
+                this.func_151554_b(world, Blocks.cobblestone, 0, i1, -1, l, sbb);
             }
         }
         this.spawnVillagers(world, sbb, 3, 1, 3, 1);

@@ -5,6 +5,8 @@ import io.netty.buffer.ByteBuf;
 import java.util.List;
 import java.util.Random;
 
+import tconstruct.TConstruct;
+import tconstruct.util.network.packet.PacketPipeline;
 import net.minecraft.block.Block;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
@@ -295,7 +297,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
                             if (this.shootingEntity != null && movingobjectposition.entityHit != this.shootingEntity && movingobjectposition.entityHit instanceof EntityPlayer
                                     && this.shootingEntity instanceof EntityPlayerMP)
                             {
-                                ((EntityPlayerMP) this.shootingEntity).playerNetServerHandler.sendPacketToPlayer(new S2BPacketChangeGameState(6, 0));
+                                TConstruct.packetPipeline.sendTo(new S2BPacketChangeGameState(6, 0), (EntityPlayerMP) this.shootingEntity);
                             }
                         }
 
