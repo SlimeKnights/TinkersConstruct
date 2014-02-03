@@ -53,6 +53,7 @@ public class BlockLandmine extends BlockContainer
 
     // Should explode when broken instead of dropping items(may not actually work
     boolean explodeOnBroken = false;
+    private Sensitivity field_150069_a;
 
     public BlockLandmine()
     {
@@ -457,11 +458,14 @@ public class BlockLandmine extends BlockContainer
             return false;
         }
     }
+    
+    public static enum Sensitivity
+    {
+        everything,  mobs,  players;
+    }
 
     protected int getMineState (World par1World, int par2, int par3, int par4)
     {
-        EnumCreatureType triggerMobType;
-
         TileEntityLandmine te = (TileEntityLandmine) par1World.func_147438_o(par2, par3, par4);
 
         // Change to return 1 if you want the landmine to blow up when the block
@@ -473,34 +477,34 @@ public class BlockLandmine extends BlockContainer
         switch (te.triggerType)
         {
         case 0:
-            triggerMobType = EnumCreatureType.creature;
+            field_150069_a = Sensitivity.everything;
             break;
         case 1:
-            triggerMobType = EnumCreatureType.monster;
+            field_150069_a = Sensitivity.mobs;
             break;
         case 2:
-            triggerMobType = TConstruct.creatureTypePlayer;
+            field_150069_a = Sensitivity.players;
             break;
         default:
-            triggerMobType = null;
+            field_150069_a = null;
             break;
         }
 
-        if (triggerMobType != null)
+        if (field_150069_a != null)
         {
             List list = null;
 
-            if (triggerMobType == EnumCreatureType.creature)
+            if (field_150069_a == Sensitivity.everything)
             {
                 list = par1World.getEntitiesWithinAABBExcludingEntity((Entity) null, getSensitiveAABB(par1World, par2, par3, par4));
             }
 
-            if (triggerMobType == EnumCreatureType.monster)
+            if (field_150069_a == Sensitivity.mobs)
             {
                 list = par1World.getEntitiesWithinAABB(EntityLivingBase.class, getSensitiveAABB(par1World, par2, par3, par4));
             }
 
-            if (triggerMobType == TConstruct.creatureTypePlayer)
+            if (field_150069_a == Sensitivity.players)
             {
                 list = par1World.getEntitiesWithinAABB(EntityPlayer.class, this.getSensitiveAABB(par1World, par2, par3, par4));
             }
@@ -558,8 +562,6 @@ public class BlockLandmine extends BlockContainer
     public Entity getMineTriggerer (World par1World, int par2, int par3, int par4)
     {
 
-        EnumCreatureType triggerMobType;
-
         TileEntityLandmine te = (TileEntityLandmine) par1World.func_147438_o(par2, par3, par4);
 
         // Change to return 1 if you want the landmine to blow up when the
@@ -571,34 +573,34 @@ public class BlockLandmine extends BlockContainer
         switch (te.triggerType)
         {
         case 0:
-            triggerMobType = EnumCreatureType.creature;
+            field_150069_a = Sensitivity.everything;
             break;
         case 1:
-            triggerMobType = EnumCreatureType.monster;
+            field_150069_a = Sensitivity.mobs;
             break;
         case 2:
-            triggerMobType = TConstruct.creatureTypePlayer;
+            field_150069_a = Sensitivity.players;
             break;
         default:
-            triggerMobType = null;
+            field_150069_a = null;
             break;
         }
 
-        if (triggerMobType != null)
+        if (field_150069_a != null)
         {
             List list = null;
 
-            if (triggerMobType == EnumCreatureType.creature)
+            if (field_150069_a == Sensitivity.everything)
             {
                 list = par1World.getEntitiesWithinAABBExcludingEntity((Entity) null, AxisAlignedBB.getAABBPool().getAABB(par2 + 0D, par3 + 0D, par4 + 0D, par2 + 1D, par3 + 1D, par4 + 1D));
             }
 
-            if (triggerMobType == EnumCreatureType.monster)
+            if (field_150069_a == Sensitivity.mobs)
             {
                 list = par1World.getEntitiesWithinAABB(EntityLivingBase.class, AxisAlignedBB.getAABBPool().getAABB(par2 + 0D, par3 + 0D, par4 + 0D, par2 + 1D, par3 + 1D, par4 + 1D));
             }
 
-            if (triggerMobType == TConstruct.creatureTypePlayer)
+            if (field_150069_a == Sensitivity.players)
             {
                 list = par1World.getEntitiesWithinAABB(EntityPlayer.class, AxisAlignedBB.getAABBPool().getAABB(par2 + 0D, par3 + 0D, par4 + 0D, par2 + 1D, par3 + 1D, par4 + 1D));
             }
