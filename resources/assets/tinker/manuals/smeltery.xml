@@ -1,0 +1,294 @@
+<?xml version="1.0"?>
+
+<book>
+<page type="intro">
+<text>Mighty Smelting
+Make the most of your metals
+
+By Thruul M'gon</text>
+</page>
+
+<page type="contents">
+<text>Table of Contents</text>
+<link>
+ <text>Introduction</text>
+ <icon>smelterybook</icon>
+ <jump>3</jump>
+</link>
+<link>
+ <text>Casting</text>
+ <icon>castingtable</icon>
+ <jump>8</jump>
+</link>
+<link>
+ <text>Construction</text>
+ <icon>smeltery</icon>
+ <jump>5</jump>
+</link>
+<link>
+ <text>Alloys</text>
+ <icon>liquidiron</icon>
+ <jump>9</jump>
+</link>
+<link>
+ <text>Recipes</text>
+ <icon>blankcast</icon>
+ <jump>9</jump>
+</link>
+</page>
+
+<page type="text">
+<text>Welcome to the world of metalcraft. Within these pages you will learn the secrets of crafting rare and precious metals into usable materials.
+
+You will learn how to cast everything from the softest Iron to the hardest Manyullyn into whatever shape you desire and create alloy mixes from obscure materials. As always, experimentation is key!
+
+The main structure for melting metals is called the Smeltery. It is larger than structures you may be familiar with, but the method for construction is relatively simple. It operates much like a furnace with a drain.</text>
+</page>
+
+<page type="text">
+<text>When working with the Smeltery, there are a few things to keep in mind:
+
+* The Smeltery functions as a large liquid tank. It is capable of melting metals and mixing various things.
+
+* Drains function as input/output for the tank. If you need to get liquids back into the structure, simply pour them into a drain.
+
+* Ores naturally have more material than processed versions, such as ingots. The Smeltery will preserve the full value of the ores - roughly twice as much as a regular furnace would provide.
+
+* Mixing two or more metals in the Smeltery may result in an alloy. The process happens automatically.
+
+* If you need more space to process metal, add more layers.
+
+* Casts are made differently from Patterns. Details are found later.</text>
+</page>
+
+<page type="sidebar">
+<text>The Smeltery is a multi-block structure. You will need the following materials to get started.</text>
+<item>
+ <text>1 Smeltery Controller</text>
+ <icon>smeltery</icon>
+</item>
+<item>
+ <text>1 Seared Tank</text>
+ <icon>lavatank</icon>
+</item>
+<item>
+ <text>9 Seared Bricks</text>
+ <icon>searedbrick</icon>
+</item>
+<item>
+ <text>Any combination of 10 Seared Bricks, Seared Tanks, or Drains
+ </text>
+ <icon>drain</icon>
+</item>
+<item>
+ <text>1 Faucet</text>
+ <icon>faucet</icon>
+</item>
+<item>
+ <text>1 Casting Table</text>
+ <icon>castingtable</icon>
+</item>
+</page>
+
+<page type="text">
+<text>Begin construction by laying a 3x3 bed of seared bricks. Leave any space above these bricks open; you will be constructing a shell around a 3x3 hollow inside. 
+
+Place the Controller one layer up and the lava tank anywhere on the same level. Fill in the rest of the space with seared bricks, lava tanks, or drains as you like. 
+
+The small end of drains should be facing the outside. If you're successful, the Controller will light up and start working. Fill the tank with lava, the Smeltery with metal, and watch it go.
+
+The structure must be a 5x5 shell due to the amount of heat lava gives off. There are no vertical restrictions to the size of the Smeltery. </text>
+</page>
+
+<page type="text">
+<text>Larger Smelteries will hold more metal, of course, and the Controller can be on any level so long as there is a lava tank to match.
+
+When you are ready to pour liquid metal from the Smeltery, put a faucet on a drain and a casting table below it.
+
+Other liquid removal objects will work, but are frowned upon. An example picture is provided for your convienence.</text>
+</page>
+
+<page type="picture">
+<text>Figure 1a</text>
+<location>tinker:manuals/smelterysmall.png</location>
+</page>
+
+<page type="sidebar">
+<text>Alloys are made when two or more metals are mixed in precise proportions. Currently known alloys are:</text>
+<item>
+ <text>Bronze, made from Copper(3) and Tin(1)</text>
+ <icon>bronzeingot</icon>
+</item>
+<item>
+ <text>Aluminum Brass, made from Aluminum(3) and Copper(1)</text>
+ <icon>alubrassingot</icon>
+</item>
+<item>
+ <text>Manyullyn, made from Cobalt(2) and Ardite(2)</text>
+ <icon>manyullyningot</icon>
+</item>
+<item>
+ <text>Alumite, made from Aluminum(5), Iron(2), and Obsidian(2)</text>
+ <icon>alumiteingot</icon>
+</item>
+<item>
+ <text>Pig Iron, made from Iron(1), Blood(1), and Emeralds(1)</text>
+ <icon>pigironingot</icon>
+</item>
+</page>
+
+<page type="sidebar">
+<text>There exist a few liquids that are gained through strange means. Currently known liquids are:</text>
+<item>
+ <text>Blood, damaging entities in the Smeltery</text>
+ <icon>bloodbucket</icon>
+</item>
+<item>
+ <text>Liquified Emeralds, melting down emeralds or villagers</text>
+ <icon>emeraldbucket</icon>
+</item>
+<item>
+ <text>Glue, melting down horses in the Smeltery</text>
+ <icon>gluebucket</icon>
+</item>
+<item>
+ <text>Slime, found on slime islands. It functions as a spawner</text>
+ <icon>slimebucket</icon>
+</item>
+<item>
+ <text>Ender, either melting down ender pearls or endermen</text>
+ <icon>enderbucket</icon>
+</item>
+</page>
+
+<page type="text">
+<text>Blank casts are made by pouring aluminum brass or gold into an empty casting table. These are used in crafting recipes and can be re-melted.
+
+Part casts must be created by pouring metal around existing parts, like a pickaxe head.</text>
+</page>
+
+<page type="picture">
+<text>Forming a Cast</text>
+<location>tinker:manuals/casting.png</location>
+</page>
+
+<page type="crafting">
+<text>Grout</text>
+<recipe>
+ <name>grout</name>
+ <size>two</size>
+</recipe>
+</page>
+
+<page type="furnace">
+<text>Seared Brick</text>
+<recipe>searedbrick</recipe>
+</page>
+
+<page type="crafting">
+<text>Seared Bricks</text>
+<recipe>
+ <name>searedbricks</name>
+ <size>two</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Smeltery Controller</text>
+<recipe>
+ <name>smelterycontroller</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Smeltery Drain</text>
+<recipe>
+ <name>smelterydrain</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Seared Tank</text>
+<recipe>
+ <name>smelterytank1</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Seared Glass</text>
+<recipe>
+ <name>smelterytank2</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Seared Window</text>
+<recipe>
+ <name>smelterytank3</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Seared Faucet</text>
+<recipe>
+ <name>smelteryfaucet</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Casting Channel</text>
+<recipe>
+ <name>castingchannel</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Casting Table</text>
+<recipe>
+ <name>smelterytable</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="crafting">
+<text>Casting Basin</text>
+<recipe>
+ <name>smelterybasin</name>
+ <size>three</size>
+</recipe>
+</page>
+
+<page type="blockcast">
+<text>Brownstone</text>
+<recipe>brownstone</recipe>
+</page>
+
+<page type="blockcast">
+<text>Clear Glass</text>
+<recipe>clearglass</recipe>
+</page>
+
+<page type="blockcast">
+<text>Seared Stone</text>
+<recipe>searedstone</recipe>
+</page>
+
+<page type="blockcast">
+<text>Endstone</text>
+<recipe>endstone</recipe>
+</page>
+
+<page type="blockcast">
+<text>Glueball</text>
+<recipe>glueball</recipe>
+</page>
+
+
+</book>
