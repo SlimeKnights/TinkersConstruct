@@ -41,13 +41,13 @@ public class EquipBlock extends InventoryBlock
         return new String[] { "toolstation_top" };
     }
 
-    public IIcon getIcon (int side, int meta)
+    public IIcon func_149691_a (int side, int meta)
     {
         return Blocks.iron_block.func_149691_a(side, meta);
     }
 
     @SideOnly(Side.CLIENT)
-    public void registerIcons (IIconRegister par1IconRegister)
+    public void func_149651_a (IIconRegister par1IconRegister)
     {
         //this.blockIcon = par1iconRegister.registerIcon(Block.blockIron.getUnlocalizedName());
     }

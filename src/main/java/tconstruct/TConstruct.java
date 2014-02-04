@@ -7,16 +7,14 @@ import cpw.mods.fml.common.event.*;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.*;
 import cpw.mods.fml.relauncher.Side;
-import net.minecraft.block.material.Material;
-import net.minecraft.entity.EnumCreatureType;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.util.EnumHelper;
+
 import org.apache.logging.log4j.*;
 import org.apache.logging.log4j.core.config.LoggerConfig;
+
 import tconstruct.achievements.TAchievements;
-import tconstruct.client.event.EventCloakRender;
+import tconstruct.client.TControls;
 import tconstruct.common.*;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.*;
@@ -100,9 +98,12 @@ public class TConstruct
         basinCasting = new LiquidCasting();
         chiselDetailing = new Detailing();
 
-        recipes = new TRecipes();
         content = new TContent();
+        
+        recipes = new TRecipes();
 
+        events = new TEventHandler();
+        MinecraftForge.EVENT_BUS.register(events);
         MinecraftForge.EVENT_BUS.register(new TEventHandlerAchievement());
         recipes.oreRegistry();
 
@@ -128,11 +129,8 @@ public class TConstruct
             VillagerRegistry.instance().registerVillageCreationHandler(new VillageSmelteryHandler());
             try
             {
-                // if (new CallableMinecraftVersion(null).minecraftVersion().equals("1.6.4"))
-                // {
                 MapGenStructureIO.func_143031_a(ComponentToolWorkshop.class, "TConstruct:ToolWorkshopStructure");
                 MapGenStructureIO.func_143031_a(ComponentSmeltery.class, "TConstruct:SmelteryStructure");
-                // }
             }
             catch (Throwable e)
             {
@@ -142,7 +140,12 @@ public class TConstruct
 
         playerTracker = new TPlayerHandler();
         //GameRegistry.registerPlayerTracker(playerTracker);
-        MinecraftForge.EVENT_BUS.register(playerTracker);
+        FMLCommonHandler.instance().bus().register(playerTracker);
+        
+        if (event.getSide() == Side.CLIENT)
+        {
+        	FMLCommonHandler.instance().bus().register(new TControls());
+        }
 
         PluginController.getController().preInit();
     }
@@ -153,7 +156,7 @@ public class TConstruct
     	packetPipeline.initalise();
         if (event.getSide() == Side.CLIENT)
         {
-            MinecraftForge.EVENT_BUS.register(new EventCloakRender());
+            //MinecraftForge.EVENT_BUS.register(new EventCloakRender());
         }
 
         DimensionBlacklist.getBadBimensions();

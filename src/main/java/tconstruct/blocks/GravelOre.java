@@ -14,7 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
-public class GravelOre extends BlockSand
+public class GravelOre extends BlockFalling
 {
     public String[] textureNames = new String[] { "iron", "gold", "copper", "tin", "aluminum", "cobalt" };
     public IIcon[] icons;
@@ -24,10 +24,11 @@ public class GravelOre extends BlockSand
         super();
         this.func_149647_a(TConstructRegistry.blockTab);
         this.field_149762_H = field_149767_g;
-        this.field_149764_J = Material.field_151596_z;
+        //this.field_149764_J = Material.field_151596_z;
     }
 
-    public void registerIcons (IIconRegister iconRegister)
+    @Override
+    public void func_149651_a (IIconRegister iconRegister)
     {
         this.icons = new IIcon[textureNames.length];
 

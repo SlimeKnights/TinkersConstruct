@@ -70,7 +70,7 @@ public class SmelteryBlock extends InventoryBlock
         return textureNames;
     }
 
-    public IIcon getIcon (int side, int meta)
+    public IIcon func_149691_a (int side, int meta)
     {
         if (meta < 2)
         {
@@ -90,7 +90,7 @@ public class SmelteryBlock extends InventoryBlock
         return icons[3 + meta];
     }
 
-    public IIcon getBlockTexture (IBlockAccess world, int x, int y, int z, int side)
+    public IIcon func_149673_e (IBlockAccess world, int x, int y, int z, int side)
     {
         TileEntity logic = world.func_147438_o(x, y, z);
         short direction = (logic instanceof IFacingLogic) ? ((IFacingLogic) logic).getRenderDirection() : 0;

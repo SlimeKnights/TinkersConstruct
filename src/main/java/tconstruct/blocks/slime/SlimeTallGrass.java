@@ -38,7 +38,7 @@ public class SlimeTallGrass extends BlockBush implements IShearable
     /**
      * From the specified side and block metadata retrieves the blocks texture. Args: side, metadata
      */
-    public IIcon getIcon (int side, int meta)
+    public IIcon func_149691_a (int side, int meta)
     {
         /*if (meta >= this.iconArray.length)
         {
@@ -89,7 +89,7 @@ public class SlimeTallGrass extends BlockBush implements IShearable
      * When this method is called, your block should register all the icons it needs with the given IconRegister. This
      * is the only chance you get to register icons.
      */
-    public void registerIcons (IIconRegister par1IconRegister)
+    public void func_149651_a (IIconRegister par1IconRegister)
     {
         this.iconArray = new IIcon[grassTypes.length];
 

@@ -149,7 +149,7 @@ public class StoneTorch extends MantleBlock
     }
 
     @SideOnly(Side.CLIENT)
-    public void registerIcons (IIconRegister par1IconRegister)
+    public void func_149651_a (IIconRegister par1IconRegister)
     {
         this.field_149761_L = par1IconRegister.registerIcon("tinker:torch_stone");
     }

@@ -41,7 +41,7 @@ public class TankAirBlock extends BlockContainer
     }
 
     @SideOnly(Side.CLIENT)
-    public void registerIcons (IIconRegister par1IconRegister)
+    public void func_149651_a (IIconRegister par1IconRegister)
     {
 
     }

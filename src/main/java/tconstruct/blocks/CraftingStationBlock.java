@@ -81,18 +81,6 @@ public class CraftingStationBlock extends InventoryBlock
     }
 
     @Override
-    public TileEntity createTileEntity (World world, int metadata)
-    {
-        switch (metadata)
-        {
-        case 0:
-            return new CraftingStationLogic();
-        default:
-            return null;
-        }
-    }
-
-    @Override
     public Integer getGui (World world, int x, int y, int z, EntityPlayer entityplayer)
     {
         return TProxyCommon.craftingStationID;
@@ -105,23 +93,16 @@ public class CraftingStationBlock extends InventoryBlock
     }
 
     @Override
-    public void func_149666_a (Item b, CreativeTabs tab, List list)
+    public void func_149666_a (Item id, CreativeTabs tab, List list)
     {
         for (int iter = 0; iter < 1; iter++)
         {
-            list.add(new ItemStack(b, 1, iter));
+            list.add(new ItemStack(id, 1, iter));
         }
     }
 
-    @Override
-    public TileEntity func_149915_a (World var1, int metadata)
-    {
-        switch (metadata)
-        {
-        case 0:
-            return new CraftingStationLogic();
-        default:
-            return null;
-        }
-    }
+	@Override
+	public TileEntity func_149915_a(World arg0, int arg1) {
+		return new CraftingStationLogic();
+	}
 }
