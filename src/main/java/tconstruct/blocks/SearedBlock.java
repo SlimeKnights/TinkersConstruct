@@ -212,7 +212,7 @@ public class SearedBlock extends InventoryBlock
         return textureNames;
     }
 
-    //TODO getIcon
+    //TODO func_149691_a
     @Override
     @SideOnly(Side.CLIENT)
     public IIcon func_149691_a (int side, int meta)

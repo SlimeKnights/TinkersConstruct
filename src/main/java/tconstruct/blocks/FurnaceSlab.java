@@ -62,7 +62,7 @@ public class FurnaceSlab extends InventorySlab
         return icons[(meta % 8) * 3 + getTextureIndex(side)];
     }
 
-    public IIcon getBlockTexture (IBlockAccess world, int x, int y, int z, int side)
+    public IIcon func_149673_e (IBlockAccess world, int x, int y, int z, int side)
     {
         TileEntity logic = world.func_147438_o(x, y, z);
         short direction = (logic instanceof IFacingLogic) ? ((IFacingLogic) logic).getRenderDirection() : 0;

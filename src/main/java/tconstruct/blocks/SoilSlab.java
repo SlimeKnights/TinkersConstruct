@@ -38,7 +38,7 @@ public class SoilSlab extends SlabBase
         switch (meta % 8)
         {
         case 0:
-            return this.field_149761_L;//Block.grass.getIcon(1, 0);
+            return this.field_149761_L;//Block.grass.func_149691_a(1, 0);
         case 1:
             return Blocks.dirt.func_149691_a(side, 0);
         case 2:

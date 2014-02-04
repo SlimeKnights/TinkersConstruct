@@ -33,7 +33,7 @@ public class TConstructFluid extends BlockFluidClassic
     {
         return alpha ? 1 : 0;
     }
-    //TODO registerIcons
+    //TODO func_149651_a
     @Override
     public void func_149651_a (IIconRegister iconRegister)
     {
@@ -41,7 +41,7 @@ public class TConstructFluid extends BlockFluidClassic
         flowIcon = iconRegister.registerIcon("tinker:" + texture + "_flow");
     }
 
-    //TODO getIcon()
+    //TODO func_149691_a()
     @Override
     public IIcon func_149691_a (int side, int meta)
     {

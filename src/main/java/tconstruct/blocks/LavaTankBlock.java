@@ -60,7 +60,7 @@ public class LavaTankBlock extends BlockContainer
         return textureNames;
     }
 
-    public void registerIcons (IIconRegister iconRegister)
+    public void func_149651_a (IIconRegister iconRegister)
     {
         String[] textureNames = getTextureNames();
         this.icons = new IIcon[textureNames.length];
@@ -120,7 +120,7 @@ public class LavaTankBlock extends BlockContainer
         return TankRender.tankModelID;
     }
 
-    public IIcon getIcon (int side, int meta)
+    public IIcon func_149691_a (int side, int meta)
     {
         if (meta >= 3)
             meta = 0;

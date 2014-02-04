@@ -2,7 +2,7 @@ package tconstruct.util.player;
 
 import cpw.mods.fml.common.*;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.PlayerEvent;
+import cpw.mods.fml.common.gameevent.PlayerEvent.*;
 import cpw.mods.fml.relauncher.Side;
 
 import java.io.ByteArrayOutputStream;
@@ -33,24 +33,24 @@ public class TPlayerHandler
     public ConcurrentHashMap<String, TPlayerStats> playerStats = new ConcurrentHashMap<String, TPlayerStats>();
 
     @SubscribeEvent
-    public void PlayerLoggedInEvent (PlayerEvent event)
+    public void PlayerLoggedInEvent (PlayerLoggedInEvent event)
     {
         onPlayerLogin(event.player);
     }
 
     @SubscribeEvent
-    public void PlayerLoggedOutEvent (PlayerEvent event)
+    public void PlayerLoggedOutEvent (PlayerLoggedOutEvent event)
     {
         savePlayerStats(event.player, true);
     }
 
     @SubscribeEvent
-    public void onPlayerChangedDimension (PlayerEvent event)
+    public void onPlayerChangedDimension (PlayerChangedDimensionEvent event)
     {
         savePlayerStats(event.player, false);
     }
     @SubscribeEvent
-    public void onPlayerRespawn (PlayerEvent event)
+    public void onPlayerRespawn (PlayerRespawnEvent event)
     {
         onPlayerRespawn(event.player);
     }

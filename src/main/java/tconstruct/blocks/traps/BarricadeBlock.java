@@ -32,7 +32,7 @@ public class BarricadeBlock extends MantleBlock
         this.func_149647_a(TConstructRegistry.blockTab);
     }
 
-    public IIcon getIcon (int side, int meta)
+    public IIcon func_149691_a (int side, int meta)
     {
         return modelBlock.func_149691_a(2, modelMeta);
     }

@@ -36,7 +36,7 @@ public class Landmine extends MantleBlock
         this.func_149676_a(var5, 0.0F, var5, 1.0F - var5, 0.03125F, 1.0F - var5);
     }
 
-    public IIcon getBlockTexture (IBlockAccess world, int x, int y, int z, int side)
+    public IIcon func_149673_e (IBlockAccess world, int x, int y, int z, int side)
     {
         Block block = world.func_147439_a(x, y - 1, z);
         if (block != null)
@@ -46,12 +46,12 @@ public class Landmine extends MantleBlock
         return Blocks.sponge.func_149691_a(side, world.getBlockMetadata(x, y, z));
     }
 
-    public IIcon getIcon (int side, int meta)
+    public IIcon func_149691_a (int side, int meta)
     {
         return Blocks.sponge.func_149691_a(1, meta);
     }
 
-    public void registerIcons (IIconRegister par1IconRegister)
+    public void func_149651_a (IIconRegister par1IconRegister)
     {
 
     }

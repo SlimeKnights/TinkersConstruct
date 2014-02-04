@@ -67,9 +67,9 @@ public class Smeltery
      */
     public static void addMelting (ItemStack input, Item item, int metadata, int temperature, FluidStack liquid)
     {
-        instance.smeltingList.put(Arrays.asList(new ItemStack(input.getItem(), input.getItemDamage())), liquid);
-        instance.temperatureList.put(Arrays.asList(new ItemStack(input.getItem(), input.getItemDamage())), temperature);
-        instance.renderIndex.put(Arrays.asList(new ItemStack(input.getItem(), input.getItemDamage())), new ItemStack(item, input.stackSize, metadata));
+        //instance.smeltingList.put(Arrays.asList(new ItemStack(input.getItem(), input.getItemDamage())), liquid);
+        //instance.temperatureList.put(Arrays.asList(new ItemStack(input.getItem(), input.getItemDamage())), temperature);
+        //instance.renderIndex.put(Arrays.asList(new ItemStack(input.getItem(), input.getItemDamage())), new ItemStack(item, input.stackSize, metadata));
     }
 
     /** Adds an alloy mixing recipe.

@@ -20,7 +20,7 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
     public static int smelteryModel = RenderingRegistry.getNextAvailableRenderId();
 
     @Override
-    public void renderInventoryBlock (Block block, int metadata, int modelID, RenderBlocks renderer)
+    public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer)
     {
         if (modelID == smelteryModel)
         {
