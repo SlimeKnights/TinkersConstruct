@@ -244,7 +244,7 @@ public class TClientEvents
 
     double zLevel = 0;
     
-    @SubscribeEvent
+    /*@SubscribeEvent
     public void fovModifier(FOVUpdateEvent event)
     {
         float f = 1.0F;
@@ -271,7 +271,7 @@ public class TClientEvents
             f *= 1.0F - f1 * 0.15F;
         }
         event.newfov = f;
-    }
+    }*/
 
     /* Armor */
     ModelBiped model = new ModelBiped(5f);
