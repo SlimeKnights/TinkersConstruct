@@ -253,7 +253,7 @@ public class FrypanLogic extends EquipLogic implements IActiveLogic
                 return 200;
             if (item instanceof ItemSword && ((ItemSword) item).getToolMaterialName().equals("WOOD"))
                 return 200;
-            if (item instanceof ItemHoe && ((ItemHoe) item).getMaterialName().equals("WOOD"))
+            if (item instanceof ItemHoe && ((ItemHoe) item).getToolMaterialName().equals("WOOD"))
                 return 200;
             if (item == Items.stick)
                 return 100;

@@ -1168,4 +1168,14 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     {
         return true;
     }
+
+    @Override
+    public void closeInventory ()
+    {
+    }
+
+    @Override
+    public void openInventory ()
+    {
+    }
 }

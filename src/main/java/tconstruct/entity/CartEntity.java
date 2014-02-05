@@ -322,7 +322,7 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
         if (!this.worldObj.isRemote && this.worldObj instanceof WorldServer)
         {
             this.worldObj.theProfiler.startSection("portal");
-            MinecraftServer var1 = ((WorldServer) this.worldObj).getMinecraftServer();
+            MinecraftServer var1 = ((WorldServer) this.worldObj).func_73046_m();
             var2 = this.getMaxInPortalTime();
 
             if (this.inPortal)

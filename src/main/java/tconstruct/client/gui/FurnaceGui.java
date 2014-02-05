@@ -29,9 +29,9 @@ public class FurnaceGui extends GuiContainer
      */
     protected void drawGuiContainerForegroundLayer (int par1, int par2)
     {
-        String s = this.logic.isInvNameLocalized() ? this.logic.getInvName() : I18n.getStringParams(this.logic.getInvName());
+        String s = this.logic.isInvNameLocalized() ? this.logic.getInvName() : I18n.format(this.logic.getInvName());
         this.fontRendererObj.drawString(s, this.xSize / 2 - this.fontRendererObj.getStringWidth(s) / 2, 6, 4210752);
-        this.fontRendererObj.drawString(I18n.getStringParams("container.inventory"), 8, this.ySize - 96 + 2, 4210752);
+        this.fontRendererObj.drawString(I18n.format("container.inventory"), 8, this.ySize - 96 + 2, 4210752);
     }
 
     /**

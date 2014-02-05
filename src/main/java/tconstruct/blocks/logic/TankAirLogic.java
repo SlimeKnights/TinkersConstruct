@@ -198,5 +198,15 @@ public class TankAirLogic extends InventoryLogic implements IServantLogic, ISide
         return false;
     }
 
+    @Override
+    public void closeInventory ()
+    {      
+    }
+
+    @Override
+    public void openInventory ()
+    {        
+    }
+
 
 }

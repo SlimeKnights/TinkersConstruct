@@ -429,4 +429,18 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
     {
         return false;
     }
+
+    @Override
+    public void closeInventory ()
+    {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public void openInventory ()
+    {
+        // TODO Auto-generated method stub
+        
+    }
 }

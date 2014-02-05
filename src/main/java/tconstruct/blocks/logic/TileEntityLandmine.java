@@ -211,12 +211,12 @@ public class TileEntityLandmine extends TileEntity implements IInventory
     }
 
     @Override
-    public void openChest ()
+    public void openInventory ()
     {
     }
 
     @Override
-    public void closeChest ()
+    public void closeInventory ()
     {
     }
 
@@ -262,5 +262,6 @@ public class TileEntityLandmine extends TileEntity implements IInventory
             soundcountything--;
         }
     }
+
 
 }

@@ -133,4 +133,14 @@ public class StencilTableLogic extends InventoryLogic implements ISidedInventory
     {
         return true;
     }
+
+    @Override
+    public void closeInventory ()
+    {
+    }
+
+    @Override
+    public void openInventory ()
+    {
+    }
 }
