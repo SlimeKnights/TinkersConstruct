@@ -3,12 +3,11 @@ package tconstruct.blocks.logic;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import tconstruct.util.landmine.behavior.Behavior;
-import tconstruct.util.landmine.behavior.stackCombo.SpecialStackHandler;
 import mantle.world.WorldHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import tconstruct.util.landmine.behavior.Behavior;
 
 /**
  * This logic is designed only for blocks having TileEntityLandmine as their

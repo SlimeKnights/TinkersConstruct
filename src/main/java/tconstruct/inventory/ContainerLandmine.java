@@ -4,16 +4,12 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-import tconstruct.blocks.logic.TileEntityLandmine;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.FurnaceRecipes;
-import net.minecraft.tileentity.TileEntityFurnace;
+import tconstruct.blocks.logic.TileEntityLandmine;
 
 /**
  * 

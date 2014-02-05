@@ -2,14 +2,13 @@ package tconstruct.inventory;
 
 import java.util.Random;
 
-import tconstruct.blocks.logic.ToolStationLogic;
-import tconstruct.library.tools.ToolCore;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import tconstruct.blocks.logic.ToolStationLogic;
+import tconstruct.library.tools.ToolCore;
 
 public class ToolStationContainer extends ActiveContainer
 {

@@ -1,7 +1,5 @@
 package tconstruct.util.landmine.behavior;
 
-import java.util.List;
-
 import mantle.blocks.BlockUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityFallingBlock;

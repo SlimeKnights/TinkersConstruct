@@ -1,11 +1,11 @@
 package tconstruct.library;
 
-import tconstruct.library.tools.ToolCore;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
+import tconstruct.library.tools.ToolCore;
 
 public class ActiveToolMod
 {

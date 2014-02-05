@@ -2,12 +2,13 @@ package tconstruct.blocks;
 
 import java.util.List;
 
+import mantle.blocks.iface.IServantLogic;
+import mantle.world.WorldHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -25,8 +26,6 @@ import net.minecraftforge.fluids.FluidTankInfo;
 import tconstruct.blocks.logic.LavaTankLogic;
 import tconstruct.client.block.TankRender;
 import tconstruct.library.TConstructRegistry;
-import mantle.blocks.iface.IServantLogic;
-import mantle.world.WorldHelper;
 
 public class LavaTankBlock extends BlockContainer
 {

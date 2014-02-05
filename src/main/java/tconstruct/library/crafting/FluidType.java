@@ -2,7 +2,8 @@ package tconstruct.library.crafting;
 
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
-import net.minecraftforge.fluids.*;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
 import tconstruct.common.TRepo;
 
 public enum FluidType

@@ -7,7 +7,6 @@ import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
-import tconstruct.common.TContent;
 import tconstruct.common.TRepo;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.util.IToolPart;

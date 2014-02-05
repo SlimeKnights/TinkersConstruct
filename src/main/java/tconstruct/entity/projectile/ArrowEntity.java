@@ -5,12 +5,9 @@ import io.netty.buffer.ByteBuf;
 import java.util.List;
 import java.util.Random;
 
-import tconstruct.TConstruct;
-import tconstruct.util.network.packet.PacketPipeline;
 import net.minecraft.block.Block;
 import net.minecraft.crash.CrashReport;
 import net.minecraft.crash.CrashReportCategory;
-import net.minecraft.enchantment.EnchantmentThorns;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
@@ -30,10 +27,6 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.ReportedException;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
-
-import com.google.common.io.ByteArrayDataInput;
-import com.google.common.io.ByteArrayDataOutput;
-
 import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
 
@@ -476,7 +469,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
     {
         for (int i = 0; i < 5; ++i)
         {
-            if (living.getCurrentItemOrArmor(i) == null)
+            if (living.getEquipmentInSlot(i) == null)
             {
                 return i;
             }
@@ -505,7 +498,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
                 {
                     this.mainInventory[k] = par1ItemStack;
                 }*/
-                if (living.getCurrentItemOrArmor(slotID) == null)
+                if (living.getEquipmentInSlot(slotID) == null)
                 {
                     living.setCurrentItemOrArmor(slotID, par1ItemStack);
                     if (living instanceof EntityLiving)
@@ -530,7 +523,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
             }
             else
             {
-                ItemStack stack = living.getCurrentItemOrArmor(slotID);
+                ItemStack stack = living.getEquipmentInSlot(slotID);
                 if (stack == null)
                 {
                     living.setCurrentItemOrArmor(slotID, par1ItemStack);
@@ -575,7 +568,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
     {
         for (int slotID = 0; slotID < 5; ++slotID)
         {
-            ItemStack stack = living.getCurrentItemOrArmor(slotID);
+            ItemStack stack = living.getEquipmentInSlot(slotID);
             if (stack != null && stack == par1ItemStack && stack.isStackable() && stack.stackSize < stack.getMaxStackSize() && stack.stackSize < 64
                     && (!stack.getHasSubtypes() || stack.getItemDamage() == par1ItemStack.getItemDamage()) && ItemStack.areItemStackTagsEqual(stack, par1ItemStack))
             {

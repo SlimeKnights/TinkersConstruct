@@ -4,12 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.ToolBuilder;
 import tconstruct.library.tools.ToolCore;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 
 public class TConstructClientRegistry
 {

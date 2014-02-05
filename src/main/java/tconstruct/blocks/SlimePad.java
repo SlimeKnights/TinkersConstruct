@@ -1,7 +1,6 @@
 package tconstruct.blocks;
 
 import mantle.blocks.MantleBlock;
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
@@ -13,7 +12,6 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import tconstruct.client.block.SlimePadRender;
-import tconstruct.common.TContent;
 import tconstruct.common.TRepo;
 import tconstruct.library.TConstructRegistry;
 import cpw.mods.fml.relauncher.Side;

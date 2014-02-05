@@ -1,18 +1,30 @@
 package tconstruct.client.gui;
 
-import java.util.*;
-import net.minecraft.client.renderer.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.*;
+import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.IIcon;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.*;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
+
 import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.*;
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
+
 import tconstruct.TConstruct;
 import tconstruct.blocks.logic.SmelteryLogic;
-import tconstruct.inventory.*;
+import tconstruct.inventory.ActiveContainer;
+import tconstruct.inventory.SmelteryContainer;
 import tconstruct.util.network.packet.PacketSmeltery;
 
 public class SmelteryGui extends NewContainerGui

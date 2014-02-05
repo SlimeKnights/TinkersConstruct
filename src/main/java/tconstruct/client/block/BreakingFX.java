@@ -1,6 +1,5 @@
 package tconstruct.client.block;
 
-import net.minecraft.block.Block;
 import net.minecraft.client.particle.EntityFX;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.init.Blocks;

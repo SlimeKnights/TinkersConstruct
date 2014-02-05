@@ -3,17 +3,16 @@ package tconstruct.util.landmine.behavior;
 import java.util.Iterator;
 import java.util.List;
 
-import tconstruct.items.blocks.ItemBlockLandmine;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityPotion;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemPotion;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
+import tconstruct.items.blocks.ItemBlockLandmine;
 
 /**
  * 

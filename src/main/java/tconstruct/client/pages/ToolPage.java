@@ -11,8 +11,6 @@ import org.lwjgl.opengl.GL12;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-import tconstruct.library.client.TConstructClientRegistry;
-
 public class ToolPage extends BookPage
 {
     String title;

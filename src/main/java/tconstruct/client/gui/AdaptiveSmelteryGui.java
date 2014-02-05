@@ -1,25 +1,33 @@
 package tconstruct.client.gui;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
-import net.minecraft.block.Block;
-import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.*;
+import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.util.IIcon;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.fluids.*;
-import net.minecraft.util.StatCollector;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTankInfo;
 
 import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.*;
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
 
 import tconstruct.TConstruct;
 import tconstruct.blocks.component.SmelteryComponent;
 import tconstruct.blocks.logic.AdaptiveSmelteryLogic;
-import tconstruct.inventory.*;
+import tconstruct.inventory.ActiveContainer;
+import tconstruct.inventory.AdaptiveSmelteryContainer;
 import tconstruct.library.component.MultiFluidTank;
 
 public class AdaptiveSmelteryGui extends NewContainerGui

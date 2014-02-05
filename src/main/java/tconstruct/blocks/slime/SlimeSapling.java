@@ -14,7 +14,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
-import tconstruct.common.TContent;
 import tconstruct.common.TRepo;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.worldgen.SlimeTreeGen;

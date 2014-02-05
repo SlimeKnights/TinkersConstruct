@@ -1,7 +1,7 @@
 package tconstruct.items;
 
-import tconstruct.library.TConstructRegistry;
 import mantle.items.abstracts.CraftingItem;
+import tconstruct.library.TConstructRegistry;
 
 public class MaterialItem extends CraftingItem
 {

@@ -1,9 +1,9 @@
 package tconstruct.preloader;
 
-import cpw.mods.fml.common.asm.transformers.AccessTransformer;
-
 import java.io.IOException;
 import java.lang.reflect.Method;
+
+import cpw.mods.fml.common.asm.transformers.AccessTransformer;
 
 public class AccessTransformers extends AccessTransformer
 {

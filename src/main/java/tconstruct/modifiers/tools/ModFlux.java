@@ -1,13 +1,11 @@
 package tconstruct.modifiers.tools;
 
-import cofh.api.energy.IEnergyContainerItem;
-
 import java.util.ArrayList;
-
-import tconstruct.library.tools.ToolCore;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import tconstruct.library.tools.ToolCore;
+import cofh.api.energy.IEnergyContainerItem;
 
 /* TE3 support */
 

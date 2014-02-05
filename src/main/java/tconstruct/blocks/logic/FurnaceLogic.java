@@ -1,24 +1,32 @@
 package tconstruct.blocks.logic;
 
-import cpw.mods.fml.common.registry.GameRegistry;
 import mantle.blocks.BlockUtils;
 import mantle.blocks.abstracts.InventoryLogic;
-import mantle.blocks.iface.*;
+import mantle.blocks.iface.IActiveLogic;
+import mantle.blocks.iface.IFacingLogic;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.init.*;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.Container;
-import net.minecraft.item.*;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemHoe;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemSword;
+import net.minecraft.item.ItemTool;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.*;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import tconstruct.inventory.FurnaceContainer;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 /* Slots
  * 0: Input
@@ -130,7 +138,7 @@ public class FurnaceLogic extends InventoryLogic implements IActiveLogic, IFacin
         }
         if (updateInventory)
         {
-            onInventoryChanged();
+            markDirty();
         }
     }
 
@@ -351,5 +359,15 @@ public class FurnaceLogic extends InventoryLogic implements IActiveLogic, IFacin
     public boolean hasCustomInventoryName ()
     {
         return false;
+    }
+
+    @Override
+    public void openInventory ()
+    {
+    }
+
+    @Override
+    public void closeInventory ()
+    {
     }
 }

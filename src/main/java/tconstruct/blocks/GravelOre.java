@@ -3,16 +3,14 @@ package tconstruct.blocks;
 import java.util.List;
 import java.util.Random;
 
-import tconstruct.library.TConstructRegistry;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockSand;
-import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+import tconstruct.library.TConstructRegistry;
 
 public class GravelOre extends BlockFalling
 {

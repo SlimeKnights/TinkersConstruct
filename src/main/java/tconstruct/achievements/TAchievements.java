@@ -1,6 +1,7 @@
 package tconstruct.achievements;
 
 import java.util.HashMap;
+
 import net.minecraft.stats.Achievement;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.AchievementPage;

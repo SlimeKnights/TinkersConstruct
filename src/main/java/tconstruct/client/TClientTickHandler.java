@@ -1,14 +1,7 @@
 package tconstruct.client;
 
-import java.util.EnumSet;
-
-import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.init.Blocks;
-import net.minecraft.util.ResourceLocation;
-import tconstruct.TConstruct;
-import tconstruct.common.TContent;
 import tconstruct.common.TRepo;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent.ClientTickEvent;

@@ -1,6 +1,9 @@
 package tconstruct.plugins;
 
-import cpw.mods.fml.common.Loader;
+import java.io.File;
+import java.util.LinkedList;
+import java.util.List;
+
 import net.minecraftforge.common.config.Configuration;
 import tconstruct.TConstruct;
 import tconstruct.plugins.ic2.IC2;
@@ -8,9 +11,7 @@ import tconstruct.plugins.imc.AppEng;
 import tconstruct.plugins.imc.BuildcraftTransport;
 import tconstruct.plugins.imc.Mystcraft;
 import tconstruct.plugins.imc.Thaumcraft;
-
-import java.io.File;
-import java.util.*;
+import cpw.mods.fml.common.Loader;
 
 public class PluginController
 {

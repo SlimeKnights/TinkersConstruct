@@ -3,10 +3,6 @@ package tconstruct.items;
 import java.util.List;
 
 import mantle.world.WorldHelper;
-import net.minecraftforge.fluids.BlockFluidFinite;
-import tconstruct.TConstruct;
-import tconstruct.blocks.logic.LiquidTextureLogic;
-import tconstruct.common.TRepo;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -19,6 +15,9 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
+import net.minecraftforge.fluids.BlockFluidFinite;
+import tconstruct.TConstruct;
+import tconstruct.common.TRepo;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 

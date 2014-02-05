@@ -1,15 +1,9 @@
 package tconstruct.util;
 
-import tconstruct.util.player.ArmorExtended;
-import mantle.blocks.BlockUtils;
-import mantle.world.WorldHelper;
-import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
-
 import java.util.Random;
 
-import cpw.mods.fml.common.eventhandler.Event.Result;
-import cpw.mods.fml.common.eventhandler.Event;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import mantle.blocks.BlockUtils;
+import mantle.world.WorldHelper;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -28,7 +22,6 @@ import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
@@ -40,6 +33,7 @@ import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
+import net.minecraftforge.event.entity.living.LivingEvent.LivingUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.event.entity.player.BonemealEvent;
@@ -54,7 +48,6 @@ import tconstruct.blocks.TankAirBlock;
 import tconstruct.common.TRepo;
 import tconstruct.items.tools.FryingPan;
 import tconstruct.library.TConstructRegistry;
-import tconstruct.library.crafting.ToolBuilder;
 import tconstruct.library.event.PartBuilderEvent;
 import tconstruct.library.event.ToolCraftEvent;
 import tconstruct.library.tools.ArrowMaterial;
@@ -63,9 +56,12 @@ import tconstruct.library.tools.BowstringMaterial;
 import tconstruct.library.tools.FletchingMaterial;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.library.tools.Weapon;
-import tconstruct.modifiers.tools.ModAttack;
 import tconstruct.util.config.PHConstruct;
+import tconstruct.util.player.ArmorExtended;
 import tconstruct.util.player.TPlayerStats;
+import cpw.mods.fml.common.eventhandler.Event;
+import cpw.mods.fml.common.eventhandler.Event.Result;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class TEventHandler
 {

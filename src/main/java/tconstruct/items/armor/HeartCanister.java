@@ -2,15 +2,15 @@ package tconstruct.items.armor;
 
 import java.util.List;
 
+import mantle.items.abstracts.CraftingItem;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
+import net.minecraft.world.World;
 import tconstruct.TConstruct;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.util.player.ArmorExtended;
 import tconstruct.util.player.TPlayerStats;
-import mantle.items.abstracts.CraftingItem;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
-import net.minecraft.util.StatCollector;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 

@@ -2,6 +2,7 @@ package tconstruct.blocks;
 
 import java.util.List;
 
+import mantle.blocks.abstracts.InventoryBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
@@ -17,7 +18,6 @@ import tconstruct.blocks.logic.CraftingStationLogic;
 import tconstruct.client.block.TableRender;
 import tconstruct.common.TProxyCommon;
 import tconstruct.library.TConstructRegistry;
-import mantle.blocks.abstracts.InventoryBlock;
 
 public class CraftingStationBlock extends InventoryBlock
 {
@@ -103,12 +103,6 @@ public class CraftingStationBlock extends InventoryBlock
 
     @Override
     public TileEntity createNewTileEntity (World arg0, int arg1)
-    {
-        return new CraftingStationLogic();
-    }
-
-    @Override
-    public TileEntity func_149915_a (World arg0, int arg1)
     {
         return new CraftingStationLogic();
     }

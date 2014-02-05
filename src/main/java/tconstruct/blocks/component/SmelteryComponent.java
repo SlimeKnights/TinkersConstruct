@@ -3,7 +3,6 @@ package tconstruct.blocks.component;
 import java.util.ArrayList;
 
 import mantle.world.CoordTuple;
-import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -120,7 +119,7 @@ public class SmelteryComponent extends LogicComponent
                                     FluidStack liquid = (FluidStack) alloys.get(al);
                                     multitank.addFluidToTank(liquid, true);
                                 }
-                                master.onInventoryChanged();
+                                master.markDirty();
                                 master.setUpdateFluids();
                             }
                         }

@@ -2,7 +2,6 @@ package tconstruct.blocks;
 
 import java.util.List;
 
-import tconstruct.util.config.PHConstruct;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
@@ -11,6 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import tconstruct.util.config.PHConstruct;
 
 /** @author fuj1n
  *

@@ -3,6 +3,11 @@ package tconstruct.blocks;
 import java.util.List;
 import java.util.Random;
 
+import mantle.blocks.abstracts.InventoryBlock;
+import mantle.blocks.abstracts.MultiServantLogic;
+import mantle.blocks.iface.IFacingLogic;
+import mantle.blocks.iface.IMasterLogic;
+import mantle.blocks.iface.IServantLogic;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
@@ -15,17 +20,12 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import tconstruct.TConstruct;
-import tconstruct.blocks.logic.AdaptiveSmelteryLogic;
 import tconstruct.blocks.logic.AdaptiveDrainLogic;
+import tconstruct.blocks.logic.AdaptiveSmelteryLogic;
 import tconstruct.blocks.logic.SmelteryDrainLogic;
 import tconstruct.blocks.logic.SmelteryLogic;
 import tconstruct.client.block.SmelteryRender;
 import tconstruct.library.TConstructRegistry;
-import mantle.blocks.abstracts.InventoryBlock;
-import mantle.blocks.iface.IFacingLogic;
-import mantle.blocks.iface.IMasterLogic;
-import mantle.blocks.iface.IServantLogic;
-import mantle.blocks.abstracts.MultiServantLogic;
 import tconstruct.util.config.PHConstruct;
 
 public class SmelteryBlock extends InventoryBlock

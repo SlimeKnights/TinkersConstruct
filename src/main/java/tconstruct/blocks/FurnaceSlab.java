@@ -1,5 +1,8 @@
 package tconstruct.blocks;
 
+import mantle.blocks.abstracts.InventorySlab;
+import mantle.blocks.iface.IActiveLogic;
+import mantle.blocks.iface.IFacingLogic;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
@@ -11,9 +14,6 @@ import tconstruct.TConstruct;
 import tconstruct.blocks.logic.FurnaceLogic;
 import tconstruct.common.TProxyCommon;
 import tconstruct.library.TConstructRegistry;
-import mantle.blocks.abstracts.InventorySlab;
-import mantle.blocks.iface.IActiveLogic;
-import mantle.blocks.iface.IFacingLogic;
 
 public class FurnaceSlab extends InventorySlab
 {

@@ -1,15 +1,12 @@
 package tconstruct.preloader.helpers;
 
-import tconstruct.preloader.TConstructLoaderContainer;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Properties;
+
+import tconstruct.preloader.TConstructLoaderContainer;
 
 /**
  * TCon Preloader properties file helper.

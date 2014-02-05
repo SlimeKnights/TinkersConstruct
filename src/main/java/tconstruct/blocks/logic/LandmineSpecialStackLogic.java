@@ -3,11 +3,10 @@ package tconstruct.blocks.logic;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import tconstruct.util.landmine.behavior.stackCombo.SpecialStackHandler;
-
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import tconstruct.util.landmine.behavior.stackCombo.SpecialStackHandler;
 
 public class LandmineSpecialStackLogic
 {

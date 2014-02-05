@@ -1,10 +1,9 @@
 package tconstruct.client.tabs;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import cpw.mods.fml.client.FMLClientHandler;

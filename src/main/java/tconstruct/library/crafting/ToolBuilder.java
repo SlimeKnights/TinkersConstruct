@@ -11,16 +11,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.MinecraftForge;
-import cpw.mods.fml.common.event.*;
-import cpw.mods.fml.common.eventhandler.Event.Result;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.armor.ArmorCore;
 import tconstruct.library.armor.ArmorMod;
 import tconstruct.library.event.ToolCraftEvent;
-import tconstruct.library.tools.ToolCore;
 import tconstruct.library.tools.TToolMaterial;
+import tconstruct.library.tools.ToolCore;
 import tconstruct.library.tools.ToolMod;
 import tconstruct.library.util.IToolPart;
+import cpw.mods.fml.common.eventhandler.Event.Result;
 
 public class ToolBuilder
 {

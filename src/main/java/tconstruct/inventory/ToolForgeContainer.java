@@ -1,12 +1,12 @@
 package tconstruct.inventory;
 
-import tconstruct.blocks.logic.ToolForgeLogic;
-import tconstruct.blocks.logic.ToolStationLogic;
-import tconstruct.library.tools.ToolCore;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import tconstruct.blocks.logic.ToolForgeLogic;
+import tconstruct.blocks.logic.ToolStationLogic;
+import tconstruct.library.tools.ToolCore;
 
 public class ToolForgeContainer extends ToolStationContainer
 {

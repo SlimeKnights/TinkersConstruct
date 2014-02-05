@@ -7,8 +7,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Logger;
 
-import com.google.common.collect.HashBiMap;
-
+import mantle.lib.TabTools;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import tconstruct.library.crafting.Detailing;
 import tconstruct.library.crafting.LiquidCasting;
 import tconstruct.library.crafting.ToolBuilder;
@@ -17,12 +18,8 @@ import tconstruct.library.tools.BowMaterial;
 import tconstruct.library.tools.BowstringMaterial;
 import tconstruct.library.tools.CustomMaterial;
 import tconstruct.library.tools.FletchingMaterial;
-import tconstruct.library.tools.ToolCore;
 import tconstruct.library.tools.TToolMaterial;
-import mantle.lib.TabTools;
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
+import tconstruct.library.tools.ToolCore;
 
 /** A registry to store any relevant API work
  * 

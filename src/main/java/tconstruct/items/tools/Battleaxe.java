@@ -1,10 +1,5 @@
 package tconstruct.items.tools;
 
-import tconstruct.common.TRepo;
-import tconstruct.library.ActiveToolMod;
-import tconstruct.library.TConstructRegistry;
-import tconstruct.library.tools.AbilityHelper;
-import tconstruct.library.tools.HarvestTool;
 import mantle.world.WorldHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -20,7 +15,11 @@ import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
+import tconstruct.common.TRepo;
+import tconstruct.library.ActiveToolMod;
+import tconstruct.library.TConstructRegistry;
+import tconstruct.library.tools.AbilityHelper;
+import tconstruct.library.tools.HarvestTool;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 

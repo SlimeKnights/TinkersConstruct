@@ -1,10 +1,9 @@
 package tconstruct.inventory;
 
-import tconstruct.util.landmine.behavior.Behavior;
-import net.minecraft.block.Block;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import tconstruct.util.landmine.behavior.Behavior;
 
 public class SlotBehavedOnly extends Slot
 {

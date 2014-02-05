@@ -4,9 +4,12 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.*;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+
 import org.lwjgl.opengl.GL11;
+
 import tconstruct.TConstruct;
 import tconstruct.blocks.logic.StencilTableLogic;
 import tconstruct.common.TRepo;

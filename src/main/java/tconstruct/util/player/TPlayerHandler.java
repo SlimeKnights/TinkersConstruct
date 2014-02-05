@@ -1,22 +1,20 @@
 package tconstruct.util.player;
 
-import cpw.mods.fml.common.*;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import cpw.mods.fml.common.gameevent.PlayerEvent.*;
-import cpw.mods.fml.relauncher.Side;
-
 import java.io.ByteArrayOutputStream;
 import java.lang.ref.WeakReference;
 import java.util.Random;
 import java.util.concurrent.ConcurrentHashMap;
 
 import mantle.player.PlayerUtils;
-import net.minecraft.entity.*;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.Entity.EnumEntitySize;
-import net.minecraft.entity.player.*;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.*;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.NBTTagString;
 import net.minecraftforge.event.entity.living.LivingFallEvent;
 import net.minecraftforge.event.entity.player.PlayerDropsEvent;
 import tconstruct.TConstruct;
@@ -24,6 +22,14 @@ import tconstruct.common.TRepo;
 import tconstruct.library.tools.AbilityHelper;
 import tconstruct.util.config.PHConstruct;
 import tconstruct.util.network.packet.PacketDoubleJump;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerChangedDimensionEvent;
+import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
+import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerLoggedOutEvent;
+import cpw.mods.fml.common.gameevent.PlayerEvent.PlayerRespawnEvent;
+import cpw.mods.fml.relauncher.Side;
 
 public class TPlayerHandler
 {

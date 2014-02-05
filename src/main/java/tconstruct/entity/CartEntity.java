@@ -14,7 +14,6 @@ import net.minecraft.entity.monster.EntityIronGolem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -25,10 +24,6 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
-
-import com.google.common.io.ByteArrayDataInput;
-import com.google.common.io.ByteArrayDataOutput;
-
 import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -928,7 +923,7 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
     /**
      * Called when an the contents of an Inventory change, usually
      */
-    public void onInventoryChanged ()
+    public void markDirty ()
     {
     }
 
@@ -1461,5 +1456,15 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
     public boolean hasCustomInventoryName ()
     {
         return false;
+    }
+
+    @Override
+    public void openInventory ()
+    {
+    }
+
+    @Override
+    public void closeInventory ()
+    {
     }
 }

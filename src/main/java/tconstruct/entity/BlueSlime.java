@@ -21,7 +21,6 @@ import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 import tconstruct.TConstruct;
-import tconstruct.common.TContent;
 import tconstruct.common.TRepo;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.ToolBuilder;
@@ -220,7 +219,7 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
         this.dataWatcher.updateObject(16, new Byte((byte) size));
         this.setSize(0.6F * (float) size, 0.6F * (float) size);
         this.setPosition(this.posX, this.posY, this.posZ);
-        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setAttribute(this.getMaxHealth());
+        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(this.getMaxHealth());
         this.setHealth(this.getMaxHealth());
 
         this.experienceValue = size + 2 ^ (size);

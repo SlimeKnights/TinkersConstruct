@@ -2,14 +2,14 @@ package tconstruct.items;
 
 import java.util.List;
 
-import tconstruct.library.TConstructRegistry;
 import mantle.items.abstracts.CraftingItem;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
 import net.minecraft.util.StatCollector;
+import net.minecraft.world.World;
+import tconstruct.library.TConstructRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 

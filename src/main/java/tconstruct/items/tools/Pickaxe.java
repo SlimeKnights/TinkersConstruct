@@ -1,9 +1,9 @@
 package tconstruct.items.tools;
 
-import tconstruct.common.TRepo;
-import tconstruct.library.tools.HarvestTool;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
+import tconstruct.common.TRepo;
+import tconstruct.library.tools.HarvestTool;
 
 public class Pickaxe extends HarvestTool
 {

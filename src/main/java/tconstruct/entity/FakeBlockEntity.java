@@ -4,10 +4,6 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
-
-import com.google.common.io.ByteArrayDataInput;
-import com.google.common.io.ByteArrayDataOutput;
-
 import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
 
 public class FakeBlockEntity extends Entity implements IEntityAdditionalSpawnData

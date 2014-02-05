@@ -1,7 +1,7 @@
 package tconstruct.library.util;
 
-import tconstruct.library.crafting.PatternBuilder.MaterialSet;
 import net.minecraft.item.ItemStack;
+import tconstruct.library.crafting.PatternBuilder.MaterialSet;
 
 public interface IPattern
 {

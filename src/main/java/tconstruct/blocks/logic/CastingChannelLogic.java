@@ -1,15 +1,23 @@
 package tconstruct.blocks.logic;
 
-import cpw.mods.fml.relauncher.*;
 import java.util.HashMap;
+
 import mantle.blocks.iface.IActiveLogic;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.*;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
-import net.minecraftforge.fluids.*;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidEvent;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTankInfo;
+import net.minecraftforge.fluids.IFluidHandler;
+import net.minecraftforge.fluids.IFluidTank;
 import tconstruct.TConstruct;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 /**
  * @author BluSunrize

@@ -1,17 +1,15 @@
 package tconstruct.util.landmine.behavior.stackCombo;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import tconstruct.blocks.logic.TileEntityLandmine;
-import tconstruct.util.landmine.Helper;
-import tconstruct.util.landmine.behavior.Behavior;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+import tconstruct.blocks.logic.TileEntityLandmine;
+import tconstruct.util.landmine.Helper;
+import tconstruct.util.landmine.behavior.Behavior;
 
 /**
  * 

@@ -1,17 +1,16 @@
 package tconstruct.client.block;
 
-import tconstruct.blocks.logic.SmelteryLogic;
-import tconstruct.client.TProxyClient;
-import tconstruct.library.crafting.Smeltery;
 import mantle.blocks.BlockUtils;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
+import tconstruct.blocks.logic.SmelteryLogic;
+import tconstruct.client.TProxyClient;
+import tconstruct.library.crafting.Smeltery;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 

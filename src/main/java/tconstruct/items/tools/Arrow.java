@@ -2,17 +2,16 @@ package tconstruct.items.tools;
 
 import java.util.List;
 
-import tconstruct.TConstruct;
-import tconstruct.common.TRepo;
-import tconstruct.library.crafting.ToolBuilder;
-import tconstruct.library.tools.ToolCore;
-
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
+import tconstruct.TConstruct;
+import tconstruct.common.TRepo;
+import tconstruct.library.crafting.ToolBuilder;
+import tconstruct.library.tools.ToolCore;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 

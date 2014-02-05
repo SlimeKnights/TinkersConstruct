@@ -1,16 +1,17 @@
 package tconstruct.client;
 
-import java.io.*;
-import java.util.EnumSet;
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
 
-import cpw.mods.fml.common.gameevent.TickEvent.Type;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.inventory.*;
+import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.settings.KeyBinding;
 import tconstruct.TConstruct;
 import tconstruct.client.event.EventCloakRender;
 import tconstruct.client.tabs.TabRegistry;
 import tconstruct.util.network.packet.PacketDoubleJump;
+import cpw.mods.fml.common.gameevent.TickEvent.Type;
 
 public class TControls extends TKeyHandler
 {

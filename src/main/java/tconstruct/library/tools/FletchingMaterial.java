@@ -1,6 +1,5 @@
 package tconstruct.library.tools;
 
-import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 
 public class FletchingMaterial extends CustomMaterial

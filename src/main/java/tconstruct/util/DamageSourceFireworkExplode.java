@@ -1,8 +1,8 @@
 package tconstruct.util;
 
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.IChatComponent;
-import net.minecraft.entity.EntityLivingBase;
 
 public class DamageSourceFireworkExplode extends DamageSource
 {

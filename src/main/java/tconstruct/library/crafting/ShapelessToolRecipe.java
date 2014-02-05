@@ -4,13 +4,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import tconstruct.library.tools.ToolCore;
-
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
+import tconstruct.library.tools.ToolCore;
 
 public class ShapelessToolRecipe extends ShapelessRecipes
 {

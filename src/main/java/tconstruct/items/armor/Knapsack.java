@@ -1,17 +1,12 @@
 package tconstruct.items.armor;
 
-import tconstruct.TConstruct;
-import tconstruct.library.TConstructRegistry;
-import tconstruct.util.player.*;
-import mantle.items.abstracts.CraftingItem;
-import net.minecraft.entity.Entity;
-import net.minecraft.world.World;
-
 import java.util.List;
 
-import net.minecraft.util.StatCollector;
+import mantle.items.abstracts.CraftingItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.StatCollector;
+import tconstruct.library.TConstructRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 

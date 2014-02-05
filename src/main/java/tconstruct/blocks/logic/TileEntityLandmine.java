@@ -3,8 +3,10 @@ package tconstruct.blocks.logic;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.*;
-import net.minecraft.network.*;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 
@@ -221,9 +223,9 @@ public class TileEntityLandmine extends TileEntity implements IInventory
     }
 
     @Override
-    public void onInventoryChanged ()
+    public void markDirty ()
     {
-        super.onInventoryChanged();
+        super.markDirty();
         this.worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
     }
 

@@ -1,11 +1,5 @@
 package tconstruct.util.network.packet;
 
-import cpw.mods.fml.common.FMLCommonHandler;
-
-import net.minecraft.network.NetworkManager;
-
-import tconstruct.TConstruct;
-
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import net.minecraft.entity.player.EntityPlayer;
@@ -13,6 +7,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 import tconstruct.blocks.logic.SmelteryLogic;
+import cpw.mods.fml.common.FMLCommonHandler;
 
 public class PacketSmeltery extends AbstractPacket
 {

@@ -1,10 +1,10 @@
 package tconstruct.inventory;
 
-import tconstruct.items.armor.HeartCanister;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import tconstruct.items.armor.HeartCanister;
 
 public class SlotCanister extends Slot
 {

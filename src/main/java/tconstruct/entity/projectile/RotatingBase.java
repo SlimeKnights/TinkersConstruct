@@ -4,7 +4,6 @@ import io.netty.buffer.ByteBuf;
 
 import java.util.List;
 
-import tconstruct.library.tools.AbilityHelper;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -16,10 +15,7 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
-
-import com.google.common.io.ByteArrayDataInput;
-import com.google.common.io.ByteArrayDataOutput;
-
+import tconstruct.library.tools.AbilityHelper;
 import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
 
@@ -221,7 +217,7 @@ public class RotatingBase extends Entity implements IEntityAdditionalSpawnData
         }
         Vec3 vec3d = Vec3.createVectorHelper(posX, posY, posZ);
         Vec3 vec3d1 = Vec3.createVectorHelper(posX + motionX, posY + motionY, posZ + motionZ);
-        MovingObjectPosition movingobjectposition = worldObj.clip(vec3d, vec3d1);
+        MovingObjectPosition movingobjectposition = worldObj.rayTraceBlocks(vec3d, vec3d1);
         vec3d = Vec3.createVectorHelper(posX, posY, posZ);
         vec3d1 = Vec3.createVectorHelper(posX + motionX, posY + motionY, posZ + motionZ);
         if (movingobjectposition != null)

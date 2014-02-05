@@ -1,7 +1,5 @@
 package tconstruct.client.block;
 
-import tconstruct.blocks.PaneBase;
-import tconstruct.client.TProxyClient;
 import mantle.world.WorldHelper;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.EntityRenderer;
@@ -10,6 +8,8 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.common.util.ForgeDirection;
+import tconstruct.blocks.PaneBase;
+import tconstruct.client.TProxyClient;
 import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 

@@ -2,12 +2,12 @@ package tconstruct.worldgen;
 
 import java.util.Random;
 
-import tconstruct.util.config.PHConstruct;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
+import tconstruct.util.config.PHConstruct;
 
 public class SurfaceOreGen extends WorldGenerator
 {

@@ -11,7 +11,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagIntArray;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
-import tconstruct.common.TContent;
 import tconstruct.common.TRepo;
 import tconstruct.library.component.TankLayerScan;
 

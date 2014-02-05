@@ -2,7 +2,8 @@ package tconstruct.items.armor;
 
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
-import net.minecraft.item.*;
+import net.minecraft.item.ItemArmor;
+import net.minecraft.item.ItemStack;
 
 public class ArmorBasic extends ItemArmor
 {

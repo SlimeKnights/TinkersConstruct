@@ -1,14 +1,7 @@
 package tconstruct.items.tools;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import tconstruct.common.TRepo;
-import tconstruct.library.ActiveToolMod;
-import tconstruct.library.TConstructRegistry;
-import tconstruct.library.crafting.ToolBuilder;
-import tconstruct.library.tools.AbilityHelper;
-import tconstruct.library.tools.HarvestTool;
 import mantle.world.WorldHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -21,7 +14,12 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
+import tconstruct.common.TRepo;
+import tconstruct.library.ActiveToolMod;
+import tconstruct.library.TConstructRegistry;
+import tconstruct.library.crafting.ToolBuilder;
+import tconstruct.library.tools.AbilityHelper;
+import tconstruct.library.tools.HarvestTool;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 

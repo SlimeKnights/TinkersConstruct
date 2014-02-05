@@ -1,14 +1,12 @@
 package tconstruct.util.config;
 
 import java.io.File;
-import java.io.IOException;
 
-import cpw.mods.fml.common.Loader;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
-import tconstruct.TConstruct;
 import tconstruct.common.TRepo;
 import tconstruct.library.tools.AbilityHelper;
+import cpw.mods.fml.common.Loader;
 
 public class PHConstruct
 {

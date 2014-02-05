@@ -1,10 +1,9 @@
 package tconstruct.modifiers.tools;
 
-import tconstruct.library.tools.ToolMod;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import tconstruct.library.tools.ToolMod;
 
 public class ModPotion extends ToolMod
 {

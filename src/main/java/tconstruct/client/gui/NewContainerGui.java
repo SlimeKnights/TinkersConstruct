@@ -26,7 +26,6 @@ import org.lwjgl.opengl.GL12;
 
 import tconstruct.inventory.ActiveContainer;
 import tconstruct.inventory.ActiveSlot;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
