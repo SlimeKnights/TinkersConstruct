@@ -220,7 +220,7 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
         this.dataWatcher.updateObject(16, new Byte((byte) size));
         this.setSize(0.6F * (float) size, 0.6F * (float) size);
         this.setPosition(this.posX, this.posY, this.posZ);
-        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setAttribute(this.getMaxHealth());
+        this.getEntityAttribute(SharedMonsterAttributes.maxHealth).setBaseValue(this.getMaxHealth());
         this.setHealth(this.getMaxHealth());
 
         this.experienceValue = size + 2 ^ (size);

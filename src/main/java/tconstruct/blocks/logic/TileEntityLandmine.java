@@ -221,9 +221,9 @@ public class TileEntityLandmine extends TileEntity implements IInventory
     }
 
     @Override
-    public void onInventoryChanged ()
+    public void markDirty ()
     {
-        super.onInventoryChanged();
+        super.markDirty();
         this.worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
     }
 

@@ -189,4 +189,12 @@ public class PartBuilderLogic extends InventoryLogic implements ISidedInventory
     {
         return false;
     }
+    
+	@Override
+	public void openInventory() {
+	}
+
+	@Override
+	public void closeInventory() {
+	}
 }

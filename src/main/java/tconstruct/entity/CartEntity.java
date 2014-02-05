@@ -928,7 +928,7 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
     /**
      * Called when an the contents of an Inventory change, usually
      */
-    public void onInventoryChanged ()
+    public void markDirty ()
     {
     }
 
@@ -1462,4 +1462,12 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
     {
         return false;
     }
+
+	@Override
+	public void openInventory() {
+	}
+
+	@Override
+	public void closeInventory() {
+	}
 }

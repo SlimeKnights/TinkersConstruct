@@ -120,7 +120,7 @@ public class SmelteryComponent extends LogicComponent
                                     FluidStack liquid = (FluidStack) alloys.get(al);
                                     multitank.addFluidToTank(liquid, true);
                                 }
-                                master.onInventoryChanged();
+                                master.markDirty();
                                 master.setUpdateFluids();
                             }
                         }

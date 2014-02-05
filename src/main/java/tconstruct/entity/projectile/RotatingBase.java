@@ -221,7 +221,7 @@ public class RotatingBase extends Entity implements IEntityAdditionalSpawnData
         }
         Vec3 vec3d = Vec3.createVectorHelper(posX, posY, posZ);
         Vec3 vec3d1 = Vec3.createVectorHelper(posX + motionX, posY + motionY, posZ + motionZ);
-        MovingObjectPosition movingobjectposition = worldObj.clip(vec3d, vec3d1);
+        MovingObjectPosition movingobjectposition = worldObj.rayTraceBlocks(vec3d, vec3d1);
         vec3d = Vec3.createVectorHelper(posX, posY, posZ);
         vec3d1 = Vec3.createVectorHelper(posX + motionX, posY + motionY, posZ + motionZ);
         if (movingobjectposition != null)

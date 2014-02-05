@@ -130,7 +130,7 @@ public class FurnaceLogic extends InventoryLogic implements IActiveLogic, IFacin
         }
         if (updateInventory)
         {
-            onInventoryChanged();
+            markDirty();
         }
     }
 
@@ -352,4 +352,12 @@ public class FurnaceLogic extends InventoryLogic implements IActiveLogic, IFacin
     {
         return false;
     }
+    
+    @Override
+	public void openInventory() {
+	}
+
+	@Override
+	public void closeInventory() {
+	}
 }

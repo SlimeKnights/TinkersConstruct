@@ -113,7 +113,7 @@ public class ArmorExtended implements IInventory
     }
 
     @Override
-    public void onInventoryChanged ()
+    public void markDirty ()
     {
         EntityPlayer player = parent.get();
         TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.getDisplayName());
@@ -284,4 +284,12 @@ public class ArmorExtended implements IInventory
             }
         }
     }
+    
+    @Override
+	public void openInventory() {
+	}
+
+	@Override
+	public void closeInventory() {
+	}
 }

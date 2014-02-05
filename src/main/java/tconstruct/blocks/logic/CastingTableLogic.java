@@ -182,9 +182,9 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
     }
 
     @Override
-    public void onInventoryChanged () //Isn't actually called?
+    public void markDirty () //Isn't actually called?
     {
-        super.onInventoryChanged();
+        super.markDirty();
         getWorld().func_147479_m(xCoord, yCoord, zCoord);
         needsUpdate = true;
     }

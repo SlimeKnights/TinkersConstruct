@@ -94,12 +94,6 @@ public class KnapsackInventory implements IInventory
         return false;
     }
 
-    @Override
-    public void onInventoryChanged ()
-    {
-
-    }
-
     public ItemStack getStackInSlotOnClosing (int slot)
     {
         return null;
@@ -194,5 +188,17 @@ public class KnapsackInventory implements IInventory
         EntityItem entityitem = new EntityItem(dropper.worldObj, dropper.posX, dropper.posY, dropper.posZ, dropStack);
         dropper.worldObj.spawnEntityInWorld(entityitem);
     }
+
+	@Override
+	public void markDirty() {
+	}
+
+	@Override
+	public void openInventory() {
+	}
+
+	@Override
+	public void closeInventory() {
+	}
 
 }

@@ -476,7 +476,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
     {
         for (int i = 0; i < 5; ++i)
         {
-            if (living.getCurrentItemOrArmor(i) == null)
+            if (living.getEquipmentInSlot(i) == null)
             {
                 return i;
             }
@@ -505,7 +505,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
                 {
                     this.mainInventory[k] = par1ItemStack;
                 }*/
-                if (living.getCurrentItemOrArmor(slotID) == null)
+                if (living.getEquipmentInSlot(slotID) == null)
                 {
                     living.setCurrentItemOrArmor(slotID, par1ItemStack);
                     if (living instanceof EntityLiving)
@@ -530,7 +530,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
             }
             else
             {
-                ItemStack stack = living.getCurrentItemOrArmor(slotID);
+                ItemStack stack = living.getEquipmentInSlot(slotID);
                 if (stack == null)
                 {
                     living.setCurrentItemOrArmor(slotID, par1ItemStack);
@@ -575,7 +575,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
     {
         for (int slotID = 0; slotID < 5; ++slotID)
         {
-            ItemStack stack = living.getCurrentItemOrArmor(slotID);
+            ItemStack stack = living.getEquipmentInSlot(slotID);
             if (stack != null && stack == par1ItemStack && stack.isStackable() && stack.stackSize < stack.getMaxStackSize() && stack.stackSize < 64
                     && (!stack.getHasSubtypes() || stack.getItemDamage() == par1ItemStack.getItemDamage()) && ItemStack.areItemStackTagsEqual(stack, par1ItemStack))
             {

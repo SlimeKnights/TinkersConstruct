@@ -259,11 +259,11 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
     }
 
     @Override
-    public void onInventoryChanged ()
+    public void markDirty ()
     {
         smeltery.updateTemperatures();
         updateAir = true;
-        super.onInventoryChanged();
+        super.markDirty();
     }
 
     void updateWorldBlock (int slot, ItemStack itemstack)
@@ -574,7 +574,6 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
     @Override
     public String getInventoryName ()
     {
-        // TODO Auto-generated method stub
         return getDefaultName();
     }
 
@@ -583,4 +582,12 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
     {
         return true;
     }
+
+	@Override
+	public void openInventory() {
+	}
+
+	@Override
+	public void closeInventory() {
+	}
 }

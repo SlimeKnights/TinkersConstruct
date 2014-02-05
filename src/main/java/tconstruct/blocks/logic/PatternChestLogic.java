@@ -41,4 +41,12 @@ public class PatternChestLogic extends InventoryLogic
     {
         return true;
     }
+
+	@Override
+	public void openInventory() {
+	}
+
+	@Override
+	public void closeInventory() {
+	}
 }

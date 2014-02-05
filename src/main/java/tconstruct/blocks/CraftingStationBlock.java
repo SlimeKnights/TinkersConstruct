@@ -106,10 +106,4 @@ public class CraftingStationBlock extends InventoryBlock
     {
         return new CraftingStationLogic();
     }
-
-    @Override
-    public TileEntity func_149915_a (World arg0, int arg1)
-    {
-        return new CraftingStationLogic();
-    }
 }

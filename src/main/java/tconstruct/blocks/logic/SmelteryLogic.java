@@ -439,7 +439,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                                         FluidStack liquid = (FluidStack) alloys.get(al);
                                         addMoltenMetal(liquid, true);
                                     }
-                                    onInventoryChanged();
+                                    markDirty();
                                 }
                             }
                         }
@@ -654,11 +654,11 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         return 1;
     }
 
-    public void onInventoryChanged ()
+    public void markDirty ()
     {
         updateTemperatures();
         updateEntity();
-        super.onInventoryChanged();
+        super.markDirty();
         needsUpdate = true;
         //worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
         //worldObj.func_147479_m(xCoord, yCoord, zCoord);
@@ -1141,7 +1141,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     public void onDataPacket (NetworkManager net, S35PacketUpdateTileEntity packet)
     {
         readFromNBT(packet.func_148857_g());
-        onInventoryChanged();
+        markDirty();
         worldObj.func_147479_m(xCoord, yCoord, zCoord);
         this.needsUpdate = true;
     }

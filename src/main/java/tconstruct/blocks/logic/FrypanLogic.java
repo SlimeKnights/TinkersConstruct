@@ -128,7 +128,7 @@ public class FrypanLogic extends EquipLogic implements IActiveLogic
         }
         if (updateInventory)
         {
-            onInventoryChanged();
+            markDirty();
         }
     }
 
@@ -312,4 +312,12 @@ public class FrypanLogic extends EquipLogic implements IActiveLogic
     	else
     		return true;
     }*/
+    
+    @Override
+	public void openInventory() {
+	}
+
+	@Override
+	public void closeInventory() {
+	}
 }
