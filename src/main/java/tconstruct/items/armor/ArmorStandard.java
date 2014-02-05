@@ -1,10 +1,10 @@
 package tconstruct.items.armor;
 
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
-
-import net.minecraft.client.renderer.texture.IIconRegister;
-import tconstruct.library.armor.*;
+import tconstruct.library.armor.ArmorCore;
+import tconstruct.library.armor.EnumArmorPart;
 
 public class ArmorStandard extends ArmorCore
 {

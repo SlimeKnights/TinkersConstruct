@@ -5,18 +5,20 @@ package tconstruct.preloader;
  * The code was adapted for this loader by Sunstrike. Any queries should be directed to him, not AlgorithmX2.
  */
 
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
 import net.minecraft.launchwrapper.IClassTransformer;
+
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
 import org.objectweb.asm.signature.SignatureReader;
 import org.objectweb.asm.signature.SignatureVisitor;
 import org.objectweb.asm.tree.ClassNode;
 import org.objectweb.asm.tree.MethodNode;
-import tconstruct.preloader.helpers.PropertyManager;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import tconstruct.preloader.helpers.PropertyManager;
 
 public class ASMInterfaceRepair implements IClassTransformer
 {

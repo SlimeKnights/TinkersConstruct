@@ -1,14 +1,19 @@
 package tconstruct.client.block;
 
-import cpw.mods.fml.relauncher.*;
-import net.minecraft.client.renderer.entity.*;
+import net.minecraft.client.renderer.entity.RenderItem;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.item.*;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+
 import org.lwjgl.opengl.GL11;
+
 import tconstruct.blocks.logic.CastingBasinLogic;
 import tconstruct.entity.FancyEntityItem;
 import tconstruct.library.ItemBlocklike;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 /* Special renderer, only used for drawing tools */
 

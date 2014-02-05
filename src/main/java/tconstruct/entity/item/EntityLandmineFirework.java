@@ -1,13 +1,13 @@
 package tconstruct.entity.item;
 
-import tconstruct.util.DamageSourceFireworkExplode;
-
-import cpw.mods.fml.relauncher.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+import tconstruct.util.DamageSourceFireworkExplode;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class EntityLandmineFirework extends Entity
 {

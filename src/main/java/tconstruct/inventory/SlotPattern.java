@@ -1,9 +1,9 @@
 package tconstruct.inventory;
 
-import tconstruct.library.util.IPattern;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import tconstruct.library.util.IPattern;
 
 public class SlotPattern extends Slot
 {

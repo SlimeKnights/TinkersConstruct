@@ -1,7 +1,7 @@
 package tconstruct.items.blocks;
 
-import net.minecraft.block.Block;
 import mantle.blocks.abstracts.MultiItemBlock;
+import net.minecraft.block.Block;
 
 public class SlimeSaplingItemBlock extends MultiItemBlock
 {

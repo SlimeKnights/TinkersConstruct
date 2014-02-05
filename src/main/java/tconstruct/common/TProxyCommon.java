@@ -1,15 +1,17 @@
 package tconstruct.common;
 
-import cpw.mods.fml.common.network.IGuiHandler;
-import cpw.mods.fml.common.registry.LanguageRegistry;
+import mantle.blocks.abstracts.InventoryLogic;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import tconstruct.TConstruct;
 import tconstruct.blocks.logic.TileEntityLandmine;
-import tconstruct.inventory.*;
-import mantle.blocks.abstracts.InventoryLogic;
+import tconstruct.inventory.ArmorExtendedContainer;
+import tconstruct.inventory.ContainerLandmine;
+import tconstruct.inventory.KnapsackContainer;
 import tconstruct.util.player.TPlayerStats;
+import cpw.mods.fml.common.network.IGuiHandler;
+import cpw.mods.fml.common.registry.LanguageRegistry;
 
 /**
  * Common proxy class for InfiTools

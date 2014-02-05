@@ -5,25 +5,21 @@ package tconstruct.preloader;
  * The code was adapted for this loader by Sunstrike. Any queries should be directed to him, not AlgorithmX2.
  */
 
-import com.google.common.eventbus.EventBus;
-
-import cpw.mods.fml.common.DummyModContainer;
-import cpw.mods.fml.common.FMLLog;
-import cpw.mods.fml.common.LoadController;
-import cpw.mods.fml.common.ModMetadata;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
-import tconstruct.preloader.helpers.PropertyManager;
-import tconstruct.preloader.helpers.PropertyManager.PropAccessException;
-
 import java.util.Arrays;
 import java.util.Map;
 
-import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import tconstruct.preloader.helpers.PropertyManager;
+import tconstruct.preloader.helpers.PropertyManager.PropAccessException;
+
+import com.google.common.eventbus.EventBus;
+
+import cpw.mods.fml.common.DummyModContainer;
+import cpw.mods.fml.common.LoadController;
+import cpw.mods.fml.common.ModMetadata;
+import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
 
 public class TConstructLoaderContainer extends DummyModContainer implements IFMLLoadingPlugin
 {

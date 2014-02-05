@@ -1,8 +1,5 @@
 package tconstruct.blocks.logic;
 
-import tconstruct.common.TContent;
-import tconstruct.common.TRepo;
-import tconstruct.inventory.PatternShaperContainer;
 import mantle.blocks.abstracts.InventoryLogic;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -10,6 +7,8 @@ import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import tconstruct.common.TRepo;
+import tconstruct.inventory.PatternShaperContainer;
 
 public class StencilTableLogic extends InventoryLogic implements ISidedInventory
 {

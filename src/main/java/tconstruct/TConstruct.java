@@ -1,33 +1,54 @@
 package tconstruct;
 
-import cpw.mods.fml.common.*;
-import cpw.mods.fml.common.Mod.EventHandler;
-import cpw.mods.fml.common.Mod.Instance;
-import cpw.mods.fml.common.event.*;
-import cpw.mods.fml.common.network.NetworkRegistry;
-import cpw.mods.fml.common.registry.*;
-import cpw.mods.fml.relauncher.Side;
+import mantle.lib.TabTools;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraftforge.common.MinecraftForge;
 
-import org.apache.logging.log4j.*;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.core.config.LoggerConfig;
 
 import tconstruct.achievements.TAchievements;
 import tconstruct.client.TControls;
-import tconstruct.common.*;
+import tconstruct.common.TContent;
+import tconstruct.common.TProxyCommon;
+import tconstruct.common.TRecipes;
+import tconstruct.common.TRepo;
 import tconstruct.library.TConstructRegistry;
-import tconstruct.library.crafting.*;
-import mantle.lib.TabTools;
+import tconstruct.library.crafting.Detailing;
+import tconstruct.library.crafting.LiquidCasting;
 import tconstruct.plugins.PluginController;
-import tconstruct.util.*;
-import tconstruct.util.config.*;
+import tconstruct.util.EnvironmentChecks;
+import tconstruct.util.TEventHandler;
+import tconstruct.util.TEventHandlerAchievement;
+import tconstruct.util.config.DimensionBlacklist;
+import tconstruct.util.config.PHConstruct;
 import tconstruct.util.landmine.behavior.Behavior;
 import tconstruct.util.landmine.behavior.stackCombo.SpecialStackHandler;
 import tconstruct.util.network.packet.PacketPipeline;
 import tconstruct.util.player.TPlayerHandler;
-import tconstruct.worldgen.*;
-import tconstruct.worldgen.village.*;
+import tconstruct.worldgen.SlimeIslandGen;
+import tconstruct.worldgen.TBaseWorldGenerator;
+import tconstruct.worldgen.TerrainGenEventHandler;
+import tconstruct.worldgen.village.ComponentSmeltery;
+import tconstruct.worldgen.village.ComponentToolWorkshop;
+import tconstruct.worldgen.village.TVillageTrades;
+import tconstruct.worldgen.village.VillageSmelteryHandler;
+import tconstruct.worldgen.village.VillageToolStationHandler;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.Loader;
+import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.Mod.EventHandler;
+import cpw.mods.fml.common.Mod.Instance;
+import cpw.mods.fml.common.SidedProxy;
+import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLPostInitializationEvent;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.network.NetworkRegistry;
+import cpw.mods.fml.common.registry.GameRegistry;
+import cpw.mods.fml.common.registry.VillagerRegistry;
+import cpw.mods.fml.relauncher.Side;
 
 /** TConstruct, the tool mod.
  * Craft your tools with style, then modify until the original is gone!

@@ -3,19 +3,16 @@ package tconstruct.worldgen.village;
 import java.util.List;
 import java.util.Random;
 
-import tconstruct.TConstruct;
-import tconstruct.common.TRepo;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
-import net.minecraft.world.gen.structure.MapGenStructureIO;
-import net.minecraft.world.gen.structure.MapGenVillage;
 import net.minecraft.world.gen.structure.StructureBoundingBox;
 import net.minecraft.world.gen.structure.StructureComponent;
 import net.minecraft.world.gen.structure.StructureVillagePieces;
-
 import net.minecraft.world.gen.structure.StructureVillagePieces.Start;
+import tconstruct.TConstruct;
+import tconstruct.common.TRepo;
 
 public class ComponentSmeltery extends StructureVillagePieces.House1
 {

@@ -1,23 +1,32 @@
 package tconstruct.client.gui;
 
-import cpw.mods.fml.relauncher.*;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
-import java.util.*;
-import net.minecraft.client.gui.*;
+import java.util.Arrays;
+import java.util.List;
+
+import net.minecraft.client.gui.GuiButton;
+import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.*;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
+
 import tconstruct.TConstruct;
 import tconstruct.blocks.logic.ToolStationLogic;
-import tconstruct.inventory.*;
-import tconstruct.library.client.*;
+import tconstruct.inventory.ActiveContainer;
+import tconstruct.inventory.ToolStationContainer;
+import tconstruct.library.client.TConstructClientRegistry;
+import tconstruct.library.client.ToolGuiElement;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.util.network.packet.PacketToolStation;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class ToolStationGui extends NewContainerGui

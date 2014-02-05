@@ -2,14 +2,14 @@ package tconstruct.items;
 
 import java.util.List;
 
-import cpw.mods.fml.common.Loader;
-import tconstruct.common.TRepo;
-import tconstruct.library.TConstructRegistry;
-import tconstruct.library.util.IToolPart;
 import mantle.items.abstracts.CraftingItem;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
+import tconstruct.common.TRepo;
+import tconstruct.library.TConstructRegistry;
+import tconstruct.library.util.IToolPart;
+import cpw.mods.fml.common.Loader;
 
 public class Bowstring extends CraftingItem implements IToolPart
 {

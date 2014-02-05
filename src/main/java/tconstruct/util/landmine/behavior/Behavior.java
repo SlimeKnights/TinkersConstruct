@@ -5,18 +5,17 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
-import tconstruct.util.landmine.Helper;
 import net.minecraft.block.Block;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+import tconstruct.util.landmine.Helper;
 
 /**
  * 

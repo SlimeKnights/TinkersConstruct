@@ -5,15 +5,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import tconstruct.library.tools.ToolCore;
-import tconstruct.library.tools.ToolMod;
-import tconstruct.library.tools.Weapon;
-
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import tconstruct.library.tools.ToolCore;
+import tconstruct.library.tools.Weapon;
 
 public class ModLapis extends ToolModTypeFilter
 {

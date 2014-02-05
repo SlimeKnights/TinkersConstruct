@@ -2,12 +2,7 @@ package tconstruct.blocks;
 
 import java.util.List;
 
-import tconstruct.TConstruct;
-import tconstruct.blocks.logic.DryingRackLogic;
-import tconstruct.client.block.DryingRackRender;
-import tconstruct.library.TConstructRegistry;
 import mantle.blocks.abstracts.InventoryBlock;
-import tconstruct.library.tools.AbilityHelper;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
@@ -20,6 +15,11 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import tconstruct.TConstruct;
+import tconstruct.blocks.logic.DryingRackLogic;
+import tconstruct.client.block.DryingRackRender;
+import tconstruct.library.TConstructRegistry;
+import tconstruct.library.tools.AbilityHelper;
 
 public class DryingRack extends InventoryBlock
 {

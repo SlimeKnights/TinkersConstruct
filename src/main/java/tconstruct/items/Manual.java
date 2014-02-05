@@ -1,16 +1,15 @@
 package tconstruct.items;
 
-import tconstruct.achievements.TAchievements;
-import tconstruct.library.TConstructRegistry;
-
 import java.util.List;
 
-import tconstruct.TConstruct;
 import mantle.items.abstracts.CraftingItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
 import net.minecraft.util.StatCollector;
+import net.minecraft.world.World;
+import tconstruct.TConstruct;
+import tconstruct.achievements.TAchievements;
+import tconstruct.library.TConstructRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 

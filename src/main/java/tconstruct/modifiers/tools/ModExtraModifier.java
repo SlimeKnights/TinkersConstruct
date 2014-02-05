@@ -1,8 +1,8 @@
 package tconstruct.modifiers.tools;
 
-import tconstruct.library.tools.ToolMod;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import tconstruct.library.tools.ToolMod;
 
 public class ModExtraModifier extends ToolMod
 {

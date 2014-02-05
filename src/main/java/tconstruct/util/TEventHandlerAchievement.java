@@ -1,12 +1,13 @@
 package tconstruct.util;
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import tconstruct.library.event.SmelteryEvent;
 import net.minecraftforge.common.util.FakePlayer;
 import tconstruct.achievements.TAchievements;
 import tconstruct.blocks.logic.ToolForgeLogic;
+import tconstruct.library.event.SmelteryEvent;
 import tconstruct.library.event.ToolCraftedEvent;
-import tconstruct.library.tools.*;
+import tconstruct.library.tools.ToolCore;
+import tconstruct.library.tools.Weapon;
+import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 
 public class TEventHandlerAchievement
 {

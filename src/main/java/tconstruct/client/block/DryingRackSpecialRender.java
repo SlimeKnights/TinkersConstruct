@@ -11,7 +11,6 @@ import org.lwjgl.opengl.GL11;
 
 import tconstruct.blocks.logic.DryingRackLogic;
 import tconstruct.entity.FancyEntityItem;
-
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 

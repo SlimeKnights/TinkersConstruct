@@ -5,8 +5,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
-import tconstruct.items.blocks.ItemBlockLandmine;
-
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
@@ -16,6 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IShearable;
+import tconstruct.items.blocks.ItemBlockLandmine;
 
 //TODO Add a block that is similar to landmine, but only triggers by redstone, does not hurt the player, and does not disappear when used(also does not do anything that can deal damage)
 

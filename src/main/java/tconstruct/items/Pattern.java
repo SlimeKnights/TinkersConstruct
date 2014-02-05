@@ -1,7 +1,5 @@
 package tconstruct.items;
 
-import cpw.mods.fml.relauncher.*;
-
 import java.util.List;
 
 import mantle.items.abstracts.CraftingItem;
@@ -14,6 +12,8 @@ import net.minecraft.util.StatCollector;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.PatternBuilder.MaterialSet;
 import tconstruct.library.util.IPattern;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class Pattern extends CraftingItem implements IPattern
 {

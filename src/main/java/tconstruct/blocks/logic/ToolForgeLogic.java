@@ -1,13 +1,12 @@
 package tconstruct.blocks.logic;
 
-import tconstruct.inventory.ToolForgeContainer;
-import tconstruct.library.crafting.ToolBuilder;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
-import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
+import tconstruct.inventory.ToolForgeContainer;
+import tconstruct.library.crafting.ToolBuilder;
 
 /* Simple class for storing items in the block
  */

@@ -2,15 +2,8 @@ package tconstruct.items.tools;
 
 import java.util.List;
 
-import tconstruct.blocks.logic.EquipLogic;
-import tconstruct.common.TRepo;
-import tconstruct.library.crafting.ToolBuilder;
-import tconstruct.library.tools.AbilityHelper;
-import tconstruct.library.tools.Weapon;
-
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -19,6 +12,11 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
+import tconstruct.blocks.logic.EquipLogic;
+import tconstruct.common.TRepo;
+import tconstruct.library.crafting.ToolBuilder;
+import tconstruct.library.tools.AbilityHelper;
+import tconstruct.library.tools.Weapon;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 

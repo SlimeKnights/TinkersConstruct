@@ -1,9 +1,9 @@
 package tconstruct.items;
 
-import tconstruct.library.TConstructRegistry;
-import tconstruct.library.util.IToolPart;
 import mantle.items.abstracts.CraftingItem;
 import net.minecraft.item.ItemStack;
+import tconstruct.library.TConstructRegistry;
+import tconstruct.library.util.IToolPart;
 
 public class Fletching extends CraftingItem implements IToolPart
 {

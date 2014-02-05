@@ -1,13 +1,13 @@
 package tconstruct.items.tools;
 
-import tconstruct.common.TRepo;
-import tconstruct.entity.projectile.DaggerEntity;
-import tconstruct.library.tools.Weapon;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import tconstruct.common.TRepo;
+import tconstruct.entity.projectile.DaggerEntity;
+import tconstruct.library.tools.Weapon;
 
 public class Dagger extends Weapon
 {

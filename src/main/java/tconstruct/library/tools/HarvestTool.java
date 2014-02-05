@@ -1,7 +1,5 @@
 package tconstruct.library.tools;
 
-import tconstruct.library.ActiveToolMod;
-import tconstruct.library.TConstructRegistry;
 import mantle.world.WorldHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -10,7 +8,8 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
+import tconstruct.library.ActiveToolMod;
+import tconstruct.library.TConstructRegistry;
 
 /* Base class for tools that should be harvesting blocks */
 

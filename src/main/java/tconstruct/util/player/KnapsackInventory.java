@@ -189,16 +189,19 @@ public class KnapsackInventory implements IInventory
         dropper.worldObj.spawnEntityInWorld(entityitem);
     }
 
-	@Override
-	public void markDirty() {
-	}
+    @Override
+    public void markDirty ()
+    {
+    }
 
-	@Override
-	public void openInventory() {
-	}
+    @Override
+    public void openInventory ()
+    {
+    }
 
-	@Override
-	public void closeInventory() {
-	}
+    @Override
+    public void closeInventory ()
+    {
+    }
 
 }

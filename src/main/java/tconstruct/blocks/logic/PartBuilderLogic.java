@@ -1,10 +1,6 @@
 package tconstruct.blocks.logic;
 
-import tconstruct.inventory.PartCrafterChestContainer;
-import tconstruct.inventory.PartCrafterContainer;
 import mantle.blocks.abstracts.InventoryLogic;
-import tconstruct.library.crafting.PatternBuilder;
-import tconstruct.library.util.IPattern;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ISidedInventory;
@@ -12,6 +8,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import tconstruct.inventory.PartCrafterChestContainer;
+import tconstruct.inventory.PartCrafterContainer;
+import tconstruct.library.crafting.PatternBuilder;
+import tconstruct.library.util.IPattern;
 
 public class PartBuilderLogic extends InventoryLogic implements ISidedInventory
 {
@@ -189,12 +189,14 @@ public class PartBuilderLogic extends InventoryLogic implements ISidedInventory
     {
         return false;
     }
-    
-	@Override
-	public void openInventory() {
-	}
 
-	@Override
-	public void closeInventory() {
-	}
+    @Override
+    public void openInventory ()
+    {
+    }
+
+    @Override
+    public void closeInventory ()
+    {
+    }
 }

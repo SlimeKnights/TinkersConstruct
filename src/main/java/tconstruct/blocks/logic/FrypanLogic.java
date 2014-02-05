@@ -1,6 +1,5 @@
 package tconstruct.blocks.logic;
 
-import tconstruct.inventory.FrypanContainer;
 import mantle.blocks.BlockUtils;
 import mantle.blocks.iface.IActiveLogic;
 import net.minecraft.block.Block;
@@ -19,6 +18,7 @@ import net.minecraft.item.ItemTool;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
+import tconstruct.inventory.FrypanContainer;
 import cpw.mods.fml.common.registry.GameRegistry;
 
 /* Slots
@@ -312,12 +312,14 @@ public class FrypanLogic extends EquipLogic implements IActiveLogic
     	else
     		return true;
     }*/
-    
-    @Override
-	public void openInventory() {
-	}
 
-	@Override
-	public void closeInventory() {
-	}
+    @Override
+    public void openInventory ()
+    {
+    }
+
+    @Override
+    public void closeInventory ()
+    {
+    }
 }

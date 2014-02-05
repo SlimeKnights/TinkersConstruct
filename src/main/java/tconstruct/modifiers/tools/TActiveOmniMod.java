@@ -1,14 +1,7 @@
 package tconstruct.modifiers.tools;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Random;
 
-import tconstruct.common.TRepo;
-import tconstruct.library.ActiveToolMod;
-import tconstruct.library.tools.AbilityHelper;
-import tconstruct.library.tools.ToolCore;
-import tconstruct.util.config.PHConstruct;
 import mantle.world.WorldHelper;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.Enchantment;
@@ -25,6 +18,11 @@ import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+import tconstruct.common.TRepo;
+import tconstruct.library.ActiveToolMod;
+import tconstruct.library.tools.AbilityHelper;
+import tconstruct.library.tools.ToolCore;
+import tconstruct.util.config.PHConstruct;
 
 public class TActiveOmniMod extends ActiveToolMod
 {

@@ -2,13 +2,12 @@ package tconstruct.items;
 
 import java.util.List;
 
-import tconstruct.common.TContent;
-import tconstruct.common.TRepo;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
+import tconstruct.common.TRepo;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 

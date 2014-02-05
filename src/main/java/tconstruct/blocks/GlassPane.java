@@ -1,7 +1,7 @@
 package tconstruct.blocks;
 
-import tconstruct.library.TConstructRegistry;
 import net.minecraft.block.material.Material;
+import tconstruct.library.TConstructRegistry;
 
 public class GlassPane extends PaneBase
 {

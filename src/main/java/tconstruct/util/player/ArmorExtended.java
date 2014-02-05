@@ -1,7 +1,7 @@
 package tconstruct.util.player;
 
-import java.util.UUID;
 import java.lang.ref.WeakReference;
+import java.util.UUID;
 
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -11,7 +11,6 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-import net.minecraft.util.MathHelper;
 import tconstruct.TConstruct;
 import tconstruct.common.TRepo;
 import cpw.mods.fml.common.FMLCommonHandler;
@@ -284,12 +283,14 @@ public class ArmorExtended implements IInventory
             }
         }
     }
-    
-    @Override
-	public void openInventory() {
-	}
 
-	@Override
-	public void closeInventory() {
-	}
+    @Override
+    public void openInventory ()
+    {
+    }
+
+    @Override
+    public void closeInventory ()
+    {
+    }
 }

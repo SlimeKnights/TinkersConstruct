@@ -1,10 +1,10 @@
 package tconstruct.plugins.imc;
 
 import net.minecraft.block.Block;
-import cpw.mods.fml.common.event.FMLInterModComms;
 import tconstruct.TConstruct;
 import tconstruct.common.TRepo;
 import tconstruct.plugins.ICompatPlugin;
+import cpw.mods.fml.common.event.FMLInterModComms;
 
 public class BuildcraftTransport implements ICompatPlugin
 {

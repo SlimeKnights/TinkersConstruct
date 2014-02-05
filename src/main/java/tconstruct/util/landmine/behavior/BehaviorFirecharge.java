@@ -1,10 +1,7 @@
 package tconstruct.util.landmine.behavior;
 
-import java.util.List;
 import java.util.Random;
 
-import tconstruct.items.blocks.ItemBlockLandmine;
-import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.projectile.EntitySmallFireball;
 import net.minecraft.init.Blocks;
@@ -12,6 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
+import tconstruct.items.blocks.ItemBlockLandmine;
 
 /**
  * 

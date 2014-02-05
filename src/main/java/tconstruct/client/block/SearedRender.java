@@ -1,16 +1,19 @@
 package tconstruct.client.block;
 
-import cpw.mods.fml.client.registry.*;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderBlocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.IBlockAccess;
 import net.minecraftforge.fluids.Fluid;
 import tconstruct.TConstruct;
-import tconstruct.blocks.logic.*;
+import tconstruct.blocks.logic.CastingBasinLogic;
+import tconstruct.blocks.logic.CastingTableLogic;
+import tconstruct.blocks.logic.FaucetLogic;
 import tconstruct.client.TProxyClient;
 import tconstruct.common.TRepo;
 import tconstruct.library.crafting.CastingRecipe;
+import cpw.mods.fml.client.registry.ISimpleBlockRenderingHandler;
+import cpw.mods.fml.client.registry.RenderingRegistry;
 
 public class SearedRender implements ISimpleBlockRenderingHandler
 {

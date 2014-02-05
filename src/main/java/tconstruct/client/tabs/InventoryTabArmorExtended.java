@@ -1,9 +1,8 @@
 package tconstruct.client.tabs;
 
-import tconstruct.client.TControls;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import tconstruct.client.TControls;
 
 public class InventoryTabArmorExtended extends AbstractTab
 {

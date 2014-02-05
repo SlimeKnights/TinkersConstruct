@@ -1,20 +1,14 @@
 package tconstruct.plugins.ic2;
 
-import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import tconstruct.TConstruct;
-import tconstruct.common.TRepo;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.crafting.LiquidCasting;
-import tconstruct.library.crafting.Smeltery;
 import tconstruct.plugins.ICompatPlugin;
-
-import java.util.Map;
 
 public class IC2 implements ICompatPlugin
 {

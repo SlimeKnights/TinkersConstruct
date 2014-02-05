@@ -1,16 +1,14 @@
 package tconstruct.inventory;
 
-import net.minecraftforge.common.MinecraftForge;
-import tconstruct.library.event.ToolCraftedEvent;
-
 import java.util.Random;
-
-import tconstruct.library.tools.ToolCore;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.common.MinecraftForge;
+import tconstruct.library.event.ToolCraftedEvent;
+import tconstruct.library.tools.ToolCore;
 
 public class SlotToolForge extends SlotTool
 {

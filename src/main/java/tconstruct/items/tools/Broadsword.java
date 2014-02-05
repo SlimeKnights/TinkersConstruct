@@ -1,8 +1,8 @@
 package tconstruct.items.tools;
 
+import net.minecraft.item.Item;
 import tconstruct.common.TRepo;
 import tconstruct.library.tools.Weapon;
-import net.minecraft.item.Item;
 
 public class Broadsword extends Weapon
 {

@@ -1,6 +1,5 @@
 package tconstruct.util.landmine.behavior;
 
-import net.minecraft.block.BlockDispenser;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;

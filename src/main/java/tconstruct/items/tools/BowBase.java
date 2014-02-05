@@ -5,12 +5,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import tconstruct.TConstruct;
-import tconstruct.common.TRepo;
-import tconstruct.entity.projectile.ArrowEntity;
-import tconstruct.library.crafting.ToolBuilder;
-import tconstruct.library.tools.AbilityHelper;
-import tconstruct.library.tools.ToolCore;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -27,6 +21,12 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.ArrowLooseEvent;
 import net.minecraftforge.event.entity.player.ArrowNockEvent;
+import tconstruct.TConstruct;
+import tconstruct.common.TRepo;
+import tconstruct.entity.projectile.ArrowEntity;
+import tconstruct.library.crafting.ToolBuilder;
+import tconstruct.library.tools.AbilityHelper;
+import tconstruct.library.tools.ToolCore;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 

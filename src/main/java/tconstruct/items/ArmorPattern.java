@@ -2,15 +2,16 @@ package tconstruct.items;
 
 import java.util.List;
 
-import cpw.mods.fml.relauncher.*;
-import tconstruct.library.ItemBlocklike;
-import tconstruct.library.TConstructRegistry;
 import mantle.items.abstracts.CraftingItem;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
+import tconstruct.library.ItemBlocklike;
+import tconstruct.library.TConstructRegistry;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class ArmorPattern extends CraftingItem implements ItemBlocklike
 {

@@ -1,10 +1,5 @@
 package tconstruct.items.tools;
 
-import tconstruct.TConstruct;
-import tconstruct.common.TRepo;
-import tconstruct.library.crafting.Detailing.DetailInput;
-import tconstruct.library.tools.AbilityHelper;
-import tconstruct.library.tools.ToolCore;
 import mantle.blocks.BlockUtils;
 import net.minecraft.block.Block;
 import net.minecraft.client.entity.EntityPlayerSP;
@@ -17,6 +12,11 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.MovingObjectPosition.MovingObjectType;
 import net.minecraft.world.World;
+import tconstruct.TConstruct;
+import tconstruct.common.TRepo;
+import tconstruct.library.crafting.Detailing.DetailInput;
+import tconstruct.library.tools.AbilityHelper;
+import tconstruct.library.tools.ToolCore;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 

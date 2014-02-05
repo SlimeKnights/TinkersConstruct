@@ -1,10 +1,5 @@
 package tconstruct.common;
 
-import tconstruct.blocks.OreberryBush;
-import tconstruct.blocks.slime.SlimeLeaves;
-import tconstruct.blocks.slime.SlimeSapling;
-import tconstruct.library.tools.ToolCore;
-import tconstruct.modifiers.tools.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.Block.SoundType;
 import net.minecraft.block.material.Material;
@@ -13,6 +8,13 @@ import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraftforge.common.ChestGenHooks;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidStack;
+import tconstruct.blocks.OreberryBush;
+import tconstruct.blocks.slime.SlimeLeaves;
+import tconstruct.blocks.slime.SlimeSapling;
+import tconstruct.library.tools.ToolCore;
+import tconstruct.modifiers.tools.ModAttack;
+import tconstruct.modifiers.tools.ModFlux;
+import tconstruct.modifiers.tools.ModLapis;
 
 public class TRepo
 {

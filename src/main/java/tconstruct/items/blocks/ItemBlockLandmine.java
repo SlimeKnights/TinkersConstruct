@@ -7,8 +7,8 @@ import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
 import net.minecraft.util.StatCollector;
+import net.minecraft.world.World;
 import tconstruct.blocks.logic.TileEntityLandmine;
 import tconstruct.common.TRepo;
 

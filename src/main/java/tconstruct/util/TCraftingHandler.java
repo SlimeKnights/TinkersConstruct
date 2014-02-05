@@ -1,14 +1,14 @@
 package tconstruct.util;
 
-import tconstruct.achievements.TAchievements;
-import tconstruct.TConstruct;
-import tconstruct.common.TRepo;
-import tconstruct.library.tools.AbilityHelper;
-import tconstruct.util.player.TPlayerStats;
 import mantle.common.ComparisonHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import tconstruct.TConstruct;
+import tconstruct.achievements.TAchievements;
+import tconstruct.common.TRepo;
+import tconstruct.library.tools.AbilityHelper;
+import tconstruct.util.player.TPlayerStats;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.PlayerEvent.ItemCraftedEvent;
 

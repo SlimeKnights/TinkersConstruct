@@ -2,6 +2,7 @@ package tconstruct.blocks;
 
 import java.util.List;
 
+import mantle.blocks.abstracts.InventorySlab;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
@@ -23,7 +24,6 @@ import tconstruct.blocks.logic.ToolStationLogic;
 import tconstruct.common.TProxyCommon;
 import tconstruct.common.TRepo;
 import tconstruct.library.TConstructRegistry;
-import mantle.blocks.abstracts.InventorySlab;
 import tconstruct.util.config.PHConstruct;
 
 public class CraftingSlab extends InventorySlab

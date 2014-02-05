@@ -1,10 +1,7 @@
 package tconstruct.blocks;
 
-import tconstruct.util.config.PHConstruct;
-
 import java.util.List;
 
-import tconstruct.client.block.PaneConnectedRender;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
@@ -14,6 +11,8 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+import tconstruct.client.block.PaneConnectedRender;
+import tconstruct.util.config.PHConstruct;
 
 public class GlassPaneConnected extends GlassBlockConnected
 {

@@ -6,13 +6,13 @@ import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
+
 import tconstruct.client.tabs.InventoryTabArmorExtended;
 import tconstruct.client.tabs.TabRegistry;
-import tconstruct.common.TContent;
 import tconstruct.inventory.ArmorExtendedContainer;
 import tconstruct.util.player.ArmorExtended;
 
