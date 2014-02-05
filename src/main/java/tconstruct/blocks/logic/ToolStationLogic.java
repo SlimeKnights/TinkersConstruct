@@ -124,11 +124,11 @@ public class ToolStationLogic extends InventoryLogic implements ISidedInventory
 
     @Override
     public void closeInventory ()
-    {        
+    {
     }
 
     @Override
     public void openInventory ()
-    {        
+    {
     }
 }

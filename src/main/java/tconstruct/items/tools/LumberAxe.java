@@ -63,7 +63,7 @@ public class LumberAxe extends HarvestTool
         return AbilityHelper.onBlockChanged(itemstack, world, block, x, y, z, player, random);
     }
 
-    static Material[] materials = { Material.wood, Material.vine, Material.circuits, Material.cactus};//TODO find this//, Material.pumpkin };
+    static Material[] materials = { Material.wood, Material.vine, Material.circuits, Material.cactus };//TODO find this//, Material.pumpkin };
 
     /* Lumber axe specific */
 
@@ -139,7 +139,8 @@ public class LumberAxe extends HarvestTool
             return false;
 
         World world = player.worldObj;
-        final Block wood = world.getBlock(x, y, z);;
+        final Block wood = world.getBlock(x, y, z);
+        ;
         if (wood == null)
         {
             return super.onBlockStartBreak(stack, x, y, z, player);

@@ -20,7 +20,7 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
     public static int smelteryModel = RenderingRegistry.getNextAvailableRenderId();
 
     @Override
-    public void renderInventoryBlock(Block block, int metadata, int modelID, RenderBlocks renderer)
+    public void renderInventoryBlock (Block block, int metadata, int modelID, RenderBlocks renderer)
     {
         if (modelID == smelteryModel)
         {
@@ -146,9 +146,9 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
 
                     //TODO is this needed???
                     //if (blockToRender.itemID < 4096) //Block
-                   // {
-                        Block liquidBlock = BlockUtils.getBlockFromItemStack(blockToRender);
-                        BlockSkinRenderHelper.renderMetadataBlock(liquidBlock, blockToRender.getItemDamage(), posX + i % 3, posY, posZ + i / 3, renderer, world);
+                    // {
+                    Block liquidBlock = BlockUtils.getBlockFromItemStack(blockToRender);
+                    BlockSkinRenderHelper.renderMetadataBlock(liquidBlock, blockToRender.getItemDamage(), posX + i % 3, posY, posZ + i / 3, renderer, world);
                     //}
 
                     /*else //No items, only blocks

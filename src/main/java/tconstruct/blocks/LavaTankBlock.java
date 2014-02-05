@@ -95,7 +95,7 @@ public class LavaTankBlock extends BlockContainer
         //if (side == 0 && world.getBlockMetadata(x, y, z) == 0)
         //return super. shouldSideBeRendered(world, x, y, z, side);
         Block b = world.getBlock(x, y, z);
-        return b == (Block)this ? false : super. shouldSideBeRendered(world, x, y, z, side);
+        return b == (Block) this ? false : super.shouldSideBeRendered(world, x, y, z, side);
         //return true;
     }
 

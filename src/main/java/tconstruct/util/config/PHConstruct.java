@@ -20,7 +20,7 @@ public class PHConstruct
         Configuration config = new Configuration(confFile);
         /* Load the configuration file */
         config.load();
-        
+
         superfunWorld = config.get("Superfun", "All the world is Superfun", false).getBoolean(false);
         TRepo.supressMissingToolLogs = config.get("Logging", "Disable tool build messages", false).getBoolean(false);
 
@@ -47,7 +47,6 @@ public class PHConstruct
         denyMattock = config.get("Difficulty Changes", "Deny creation of non-metal mattocks", false).getBoolean(false);
         craftEndstone = config.get("Difficulty Changes", "Allow creation of endstone", true).getBoolean(true);
 
-        
         ingotsPerOre = config.get("Smeltery Output Modification", "Ingots per ore", 2, "Number of ingots returned from smelting ores in the smeltery").getDouble(2);
         ingotsBronzeAlloy = config.get("Smeltery Output Modification", "Bronze ingot return", 4, "Number of ingots returned from smelting Bronze in the smeltery").getDouble(4);
         ingotsAluminumBrassAlloy = config.get("Smeltery Output Modification", "Aluminum Brass ingot return", 4, "Number of ingots returned from smelting Aluminum Brass in the smeltery").getDouble(4);

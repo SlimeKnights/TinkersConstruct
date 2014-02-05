@@ -59,7 +59,7 @@ public class BlockCastPage extends BookPage
         String ingr = new String("Ingredients");
         if (isTranslatable)
             ingr = StatCollector.translateToLocal(ingr);
-        manual.fonts.drawString( ingr + ":", localWidth + 120, localHeight + 32, 0);
+        manual.fonts.drawString(ingr + ":", localWidth + 120, localHeight + 32, 0);
         manual.fonts.drawString("- " + icons[1].getDisplayName(), localWidth + 120, localHeight + 42, 0);
         if (icons[2] != null)
             manual.fonts.drawString("- " + icons[2].getDisplayName(), localWidth + 120, localHeight + 50, 0);

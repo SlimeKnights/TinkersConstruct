@@ -69,7 +69,7 @@ public class TileEntityLandmine extends TileEntity implements IInventory
     public void readFromNBT (NBTTagCompound par1NBTTagCompound)
     {
         super.readFromNBT(par1NBTTagCompound);
-        NBTTagList nbttaglist = par1NBTTagCompound.getTagList("Items",9);
+        NBTTagList nbttaglist = par1NBTTagCompound.getTagList("Items", 9);
         this.inventory = new ItemStack[this.getSizeInventory()];
 
         for (int i = 0; i < nbttaglist.tagCount(); ++i)
@@ -262,6 +262,5 @@ public class TileEntityLandmine extends TileEntity implements IInventory
             soundcountything--;
         }
     }
-
 
 }

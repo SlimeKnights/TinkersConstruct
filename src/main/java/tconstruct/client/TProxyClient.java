@@ -947,11 +947,12 @@ public class TProxyClient extends TProxyCommon
     {
         //MinecraftForgeClient.registerItemRenderer(TRepo.armorPattern.itemID, new RenderArmorCast());
     }
-    
-    private static IIcon getIcon(IIcon icon)
+
+    private static IIcon getIcon (IIcon icon)
     {
-        if (icon != null) return icon;
-        return ((TextureMap)Minecraft.getMinecraft().getTextureManager().getTexture(TextureMap.locationBlocksTexture)).getAtlasSprite("missingno");
+        if (icon != null)
+            return icon;
+        return ((TextureMap) Minecraft.getMinecraft().getTextureManager().getTexture(TextureMap.locationBlocksTexture)).getAtlasSprite("missingno");
     }
 
 }

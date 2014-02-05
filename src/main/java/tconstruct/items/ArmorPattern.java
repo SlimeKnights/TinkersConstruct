@@ -19,7 +19,7 @@ public class ArmorPattern extends CraftingItem implements ItemBlocklike
 
     public ArmorPattern(int id, String patternType, String folder)
     {
-        super( patternName, getPatternNames(patternType), folder, "tinker", TConstructRegistry.materialTab);
+        super(patternName, getPatternNames(patternType), folder, "tinker", TConstructRegistry.materialTab);
         this.setHasSubtypes(true);
         this.setMaxDamage(0);
         this.setContainerItem(this);

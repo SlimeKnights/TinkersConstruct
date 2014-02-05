@@ -27,7 +27,7 @@ public class PropertyManager
 
     public static final String propFileName = "TConPreloader.cfg";
 
-    private static String[] vars = new String[]{"preloaderContainer_verboseLog", "asmInterfaceRepair_verboseLog"};
+    private static String[] vars = new String[] { "preloaderContainer_verboseLog", "asmInterfaceRepair_verboseLog" };
     public static boolean preloaderContainer_verboseLog = false;
     public static boolean asmInterfaceRepair_verboseLog = false;
 
@@ -64,7 +64,8 @@ public class PropertyManager
             {
                 throw new PropAccessException();
             }
-            catch (NullPointerException ex) {
+            catch (NullPointerException ex)
+            {
                 TConstructLoaderContainer.logger.warn("Preloader config structure has changed; attempting to recreate.");
                 attemptCreate(fp, props);
             }
@@ -78,13 +79,14 @@ public class PropertyManager
         return false;
     }
 
-    private static void attemptCreate(File fp, Properties props) throws PropAccessException {
+    private static void attemptCreate (File fp, Properties props) throws PropAccessException
+    {
         // Attempt (re)creation
         try
         {
             if (fp.exists())
                 fp.delete();
-            
+
             if (fp.createNewFile())
             {
                 TConstructLoaderContainer.logger.info("Creating new properties file, as none found...");

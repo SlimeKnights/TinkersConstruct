@@ -270,12 +270,11 @@ public class TRepo
 
     public static Fluid[] fluids = new Fluid[27];
     public static Block[] fluidBlocks = new Block[26];
-    
+
     //recipe stuff
     public static boolean thaumcraftAvailable;
     public static boolean initRecipes;
     public static Item[] patternOutputs;
     public static FluidStack[] liquids;
-
 
 }

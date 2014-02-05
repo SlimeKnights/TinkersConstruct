@@ -172,17 +172,17 @@ public class MeatBlock extends BlockWood
             par3List.add(new ItemStack(b, 1, i));
     }
 
-//    @Override
-//    public boolean canSustainLeaves (World world, int x, int y, int z)
-//    {
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean isWood (World world, int x, int y, int z)
-//    {
-//        return true;
-//    }
+    //    @Override
+    //    public boolean canSustainLeaves (World world, int x, int y, int z)
+    //    {
+    //        return true;
+    //    }
+    //
+    //    @Override
+    //    public boolean isWood (World world, int x, int y, int z)
+    //    {
+    //        return true;
+    //    }
 
     public boolean isBeaconBase (World worldObj, int x, int y, int z, int beaconX, int beaconY, int beaconZ)
     {

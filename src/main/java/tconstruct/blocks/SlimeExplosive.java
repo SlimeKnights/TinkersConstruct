@@ -136,7 +136,7 @@ public class SlimeExplosive extends TConstructBlock
             if (entityarrow.isBurning())
             {
                 this.primeTnt(par1World, par2, par3, par4, 1, entityarrow.shootingEntity instanceof EntityLivingBase ? (EntityLivingBase) entityarrow.shootingEntity : null);
-                WorldHelper.setBlockToAir(par1World,par2, par3, par4);
+                WorldHelper.setBlockToAir(par1World, par2, par3, par4);
             }
         }
     }

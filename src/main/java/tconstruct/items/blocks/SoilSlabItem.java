@@ -16,7 +16,7 @@ public class SoilSlabItem extends MultiItemBlock
 
     public SoilSlabItem(Block b)
     {
-        super(b, "block.soil.slab", blockTypes );
+        super(b, "block.soil.slab", blockTypes);
         setMaxDamage(0);
         setHasSubtypes(true);
     }
@@ -27,7 +27,7 @@ public class SoilSlabItem extends MultiItemBlock
     {
         switch (stack.getItemDamage())
         {
-       case 3:
+        case 3:
             list.add(StatCollector.translateToLocal("craftedsoil.slab1.tooltip"));
             break;
         case 4:

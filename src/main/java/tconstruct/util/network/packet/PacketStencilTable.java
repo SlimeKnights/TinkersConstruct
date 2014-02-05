@@ -9,50 +9,58 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-public class PacketStencilTable extends AbstractPacket {
+public class PacketStencilTable extends AbstractPacket
+{
 
-	int x, y, z;
-	ItemStack contents;
+    int x, y, z;
+    ItemStack contents;
 
-	public PacketStencilTable() {
+    public PacketStencilTable()
+    {
 
-	}
+    }
 
-	public PacketStencilTable(int x, int y, int z, ItemStack contents) {
-		this.x = x;
-		this.y = y;
-		this.z = z;
-		this.contents = contents;
-	}
+    public PacketStencilTable(int x, int y, int z, ItemStack contents)
+    {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        this.contents = contents;
+    }
 
-	@Override
-	public void encodeInto(ChannelHandlerContext ctx, ByteBuf buffer) {
-		buffer.writeInt(x);
-		buffer.writeInt(y);
-		buffer.writeInt(z);
-		ByteBufUtils.writeItemStack(buffer, contents);
-	}
+    @Override
+    public void encodeInto (ChannelHandlerContext ctx, ByteBuf buffer)
+    {
+        buffer.writeInt(x);
+        buffer.writeInt(y);
+        buffer.writeInt(z);
+        ByteBufUtils.writeItemStack(buffer, contents);
+    }
 
-	@Override
-	public void decodeInto(ChannelHandlerContext ctx, ByteBuf buffer) {
-		x = buffer.readInt();
-		y = buffer.readInt();
-		z = buffer.readInt();
-	}
+    @Override
+    public void decodeInto (ChannelHandlerContext ctx, ByteBuf buffer)
+    {
+        x = buffer.readInt();
+        y = buffer.readInt();
+        z = buffer.readInt();
+    }
 
-	@Override
-	public void handleClientSide(EntityPlayer player) {
+    @Override
+    public void handleClientSide (EntityPlayer player)
+    {
 
-	}
+    }
 
-	@Override
-	public void handleServerSide(EntityPlayer player) {
-		World world = player.worldObj;
-		TileEntity te = world.getTileEntity(x, y, z);
+    @Override
+    public void handleServerSide (EntityPlayer player)
+    {
+        World world = player.worldObj;
+        TileEntity te = world.getTileEntity(x, y, z);
 
-		if (te instanceof InventoryLogic) {
-			((InventoryLogic) te).setInventorySlotContents(1, contents);
-		}
-	}
+        if (te instanceof InventoryLogic)
+        {
+            ((InventoryLogic) te).setInventorySlotContents(1, contents);
+        }
+    }
 
 }

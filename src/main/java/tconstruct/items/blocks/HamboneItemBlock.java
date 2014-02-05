@@ -40,7 +40,7 @@ public class HamboneItemBlock extends ItemBlock
     @SideOnly(Side.CLIENT)
     public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean par4)
     {
-        list.add("\u00A74"+StatCollector.translateToLocal("hambone1.tooltip"));
+        list.add("\u00A74" + StatCollector.translateToLocal("hambone1.tooltip"));
         list.add(StatCollector.translateToLocal("hambone2.tooltip"));
     }
 

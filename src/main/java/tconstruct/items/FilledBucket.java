@@ -140,13 +140,16 @@ public class FilledBucket extends ItemBucket
         }
         else
         {
-            try {
+            try
+            {
                 int metadata = 0;
                 if (TRepo.fluidBlocks[type] instanceof BlockFluidFinite)
                     metadata = 7;
 
                 world.setBlock(clickX, clickY, clickZ, TRepo.fluidBlocks[type], metadata, 3); //TODO: Merge liquids
-            } catch (ArrayIndexOutOfBoundsException ex) {
+            }
+            catch (ArrayIndexOutOfBoundsException ex)
+            {
                 TConstruct.logger.warn("AIOBE occured when placing bucket into world; " + ex);
                 return false;
             }

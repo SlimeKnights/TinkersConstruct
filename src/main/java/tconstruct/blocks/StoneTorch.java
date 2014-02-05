@@ -84,9 +84,8 @@ public class StoneTorch extends MantleBlock
      */
     public boolean canPlaceBlockAt (World par1World, int par2, int par3, int par4)
     {
-        return par1World.isSideSolid(par2 - 1, par3, par4, EAST, true) || par1World.isSideSolid(par2 + 1, par3, par4, WEST, true)
-                || par1World.isSideSolid(par2, par3, par4 - 1, SOUTH, true) || par1World.isSideSolid(par2, par3, par4 + 1, NORTH, true)
-                || canPlaceTorchOn(par1World, par2, par3 - 1, par4);
+        return par1World.isSideSolid(par2 - 1, par3, par4, EAST, true) || par1World.isSideSolid(par2 + 1, par3, par4, WEST, true) || par1World.isSideSolid(par2, par3, par4 - 1, SOUTH, true)
+                || par1World.isSideSolid(par2, par3, par4 + 1, NORTH, true) || canPlaceTorchOn(par1World, par2, par3 - 1, par4);
     }
 
     /**

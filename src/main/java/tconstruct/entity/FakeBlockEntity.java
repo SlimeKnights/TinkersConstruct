@@ -40,13 +40,13 @@ public class FakeBlockEntity extends Entity implements IEntityAdditionalSpawnDat
     @Override
     public void writeSpawnData (ByteBuf buffer)
     {
-        
+
     }
 
     @Override
     public void readSpawnData (ByteBuf additionalData)
     {
-        
+
     }
 
 }

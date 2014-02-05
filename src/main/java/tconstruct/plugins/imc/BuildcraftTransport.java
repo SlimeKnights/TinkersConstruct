@@ -6,20 +6,24 @@ import tconstruct.TConstruct;
 import tconstruct.common.TRepo;
 import tconstruct.plugins.ICompatPlugin;
 
-public class BuildcraftTransport implements ICompatPlugin {
+public class BuildcraftTransport implements ICompatPlugin
+{
 
     @Override
-    public String getModId() {
+    public String getModId ()
+    {
         return "BuildCraft|Transport";
     }
 
     @Override
-    public void preInit() {
+    public void preInit ()
+    {
 
     }
 
     @Override
-    public void init() {
+    public void init ()
+    {
         TConstruct.logger.info("[BC|Transport] Registering facades.");
         // Smeltery Blocks
         addFacade(TRepo.smeltery, 2);
@@ -61,7 +65,8 @@ public class BuildcraftTransport implements ICompatPlugin {
     }
 
     @Override
-    public void postInit() {
+    public void postInit ()
+    {
 
     }
 

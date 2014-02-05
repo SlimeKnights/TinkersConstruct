@@ -585,10 +585,10 @@ public class GlassBlockConnected extends MantleBlock
     }
 
     @Override
-    public boolean  shouldSideBeRendered (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
+    public boolean shouldSideBeRendered (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
     {
         Block b = par1IBlockAccess.getBlock(par2, par3, par4);
-        return b == (Block) this ? false : super. shouldSideBeRendered(par1IBlockAccess, par2, par3, par4, par5);
+        return b == (Block) this ? false : super.shouldSideBeRendered(par1IBlockAccess, par2, par3, par4, par5);
     }
 
     @Override

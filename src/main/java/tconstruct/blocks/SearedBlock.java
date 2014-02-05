@@ -43,7 +43,6 @@ public class SearedBlock extends InventoryBlock
         this.texturePrefix = texture;
     }
 
-
     @Override
     public TileEntity createTileEntity (World world, int metadata)
     {
@@ -168,7 +167,7 @@ public class SearedBlock extends InventoryBlock
                 }
                 else if (logic.isStackInSlot(0))
                 {
-                	MinecraftForge.EVENT_BUS.post(new SmelteryEvent.ItemRemovedFromCasting(logic, x, y, z, logic.getStackInSlot(0), player));
+                    MinecraftForge.EVENT_BUS.post(new SmelteryEvent.ItemRemovedFromCasting(logic, x, y, z, logic.getStackInSlot(0), player));
                     ItemStack stack = logic.decrStackSize(0, 1);
                     if (stack != null)
                         addItemToInventory(player, world, x, y, z, stack);

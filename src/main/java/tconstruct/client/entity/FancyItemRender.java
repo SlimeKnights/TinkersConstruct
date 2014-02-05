@@ -74,7 +74,7 @@ public class FancyItemRender extends Render
 
             block = BlockUtils.getBlockFromItem(itemstack.getItem());
 
-            if (ForgeHooksClient.renderEntityItem(par1EntityItem, itemstack, f2, f3, random, renderManager.renderEngine, field_147909_c,1))
+            if (ForgeHooksClient.renderEntityItem(par1EntityItem, itemstack, f2, f3, random, renderManager.renderEngine, field_147909_c, 1))
             {
                 ;
             }

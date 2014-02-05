@@ -131,7 +131,7 @@ public class TankAirLogic extends InventoryLogic implements IServantLogic, ISide
     //DELETE
     public void updateEntity ()
     {
-        WorldHelper.setBlockToAir(worldObj,xCoord, yCoord, zCoord);
+        WorldHelper.setBlockToAir(worldObj, xCoord, yCoord, zCoord);
     }
 
     //Keep TE regardless of metadata
@@ -200,13 +200,12 @@ public class TankAirLogic extends InventoryLogic implements IServantLogic, ISide
 
     @Override
     public void closeInventory ()
-    {      
+    {
     }
 
     @Override
     public void openInventory ()
-    {        
+    {
     }
-
 
 }

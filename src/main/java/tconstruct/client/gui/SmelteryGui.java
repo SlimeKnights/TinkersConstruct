@@ -266,7 +266,7 @@ public class SmelteryGui extends NewContainerGui
         ArrayList list = new ArrayList();
         if (liquid.fluidID == -37)
         {
-            list.add("\u00A7f"+StatCollector.translateToLocal("gui.smeltery1"));
+            list.add("\u00A7f" + StatCollector.translateToLocal("gui.smeltery1"));
             list.add("mB: " + liquid.amount);
         }
         else
@@ -441,7 +441,7 @@ public class SmelteryGui extends NewContainerGui
             int sizeY = liquidSize;
             if (mouseX >= leftX && mouseX <= leftX + sizeX && mouseY >= topY && mouseY < topY + sizeY)
             {
-            	//TODO Update fluid stuff
+                //TODO Update fluid stuff
                 fluidToBeBroughtUp = liquid.fluidID;
 
                 /*Packet250CustomPayload packet = new Packet250CustomPayload();
@@ -472,7 +472,7 @@ public class SmelteryGui extends NewContainerGui
                 packet.length = bos.size();
 
                 PacketDispatcher.sendPacketToServer(packet);*/
-                
+
                 TConstruct.packetPipeline.sendToServer(new PacketSmeltery(logic.getWorld().provider.dimensionId, logic.xCoord, logic.yCoord, logic.zCoord, this.isShiftKeyDown(), fluidToBeBroughtUp));
             }
         }

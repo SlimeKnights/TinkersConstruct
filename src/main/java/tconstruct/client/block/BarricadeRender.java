@@ -154,5 +154,4 @@ public class BarricadeRender implements ISimpleBlockRenderingHandler
         return model;
     }
 
-
 }

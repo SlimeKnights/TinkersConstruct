@@ -247,7 +247,7 @@ public class Battleaxe extends HarvestTool
             return false;
 
         World world = player.worldObj;
-        final Block wood = world.getBlock(x,y,z);
+        final Block wood = world.getBlock(x, y, z);
         NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
         final int meta = world.getBlockMetadata(x, y, z);
         for (int yPos = y + 1; yPos < y + 9; yPos++)

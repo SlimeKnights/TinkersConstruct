@@ -217,8 +217,8 @@ public class CraftingStationGui extends GuiContainer
             offset++;
             fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation13"), xSize + 8, base + offset * 10, 0xffffff);
             offset++;
-            fontRendererObj.drawString("- " + getHarvestLevelName(tags.getInteger("HarvestLevel")) + ", " + getHarvestLevelName(tags.getInteger("HarvestLevel2")), xSize + 8, base + offset
-                    * 10, 0xffffff);
+            fontRendererObj.drawString("- " + getHarvestLevelName(tags.getInteger("HarvestLevel")) + ", " + getHarvestLevelName(tags.getInteger("HarvestLevel2")), xSize + 8, base + offset * 10,
+                    0xffffff);
             offset++;
             offset++;
         }

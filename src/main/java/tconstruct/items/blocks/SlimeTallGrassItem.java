@@ -14,11 +14,10 @@ public class SlimeTallGrassItem extends MultiItemBlock
 
     public SlimeTallGrassItem(Block b)
     {
-        super(b,"block.slime", blockTypes );
+        super(b, "block.slime", blockTypes);
         setMaxDamage(0);
         setHasSubtypes(true);
     }
-
 
     @SideOnly(Side.CLIENT)
     public IIcon getIconFromDamage (int meta)

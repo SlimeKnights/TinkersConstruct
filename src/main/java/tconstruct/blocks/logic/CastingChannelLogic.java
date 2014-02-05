@@ -17,7 +17,7 @@ import tconstruct.TConstruct;
 
 public class CastingChannelLogic extends TileEntity implements IFluidTank, IFluidHandler, IActiveLogic
 {
-    public final static int fillMax = TConstruct.ingotLiquidValue*5;
+    public final static int fillMax = TConstruct.ingotLiquidValue * 5;
     public final static int outputMax = TConstruct.ingotLiquidValue;
     public FluidStack liquid;
     public ForgeDirection lastProvider;

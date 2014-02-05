@@ -111,7 +111,8 @@ public abstract class ArmorCore extends ItemArmor implements IEnergyContainerIte
             stack.setTagCompound(tags);
             data = new NBTTagCompound();
             tags.setTag(SET_NAME, data);
-            data.setDouble("damageReduction", baseProtection);        }
+            data.setDouble("damageReduction", baseProtection);
+        }
 
         data = tags.getCompoundTag(SET_NAME);
 

@@ -44,7 +44,7 @@ public class SmelteryScan extends TankLayerScan
     protected boolean checkServant (int x, int y, int z)
     {
         Block block = world.getBlock(x, y, z);
-        if (block == null || world.getBlock( x, y, z)  == Blocks.air || !isValidBlock(x, y, z))
+        if (block == null || world.getBlock(x, y, z) == Blocks.air || !isValidBlock(x, y, z))
             return false;
 
         if (!block.hasTileEntity(world.getBlockMetadata(x, y, z)))
@@ -130,7 +130,7 @@ public class SmelteryScan extends TankLayerScan
     {
         super.readNetworkNBT(tags);
 
-        NBTTagList tanks = tags.getTagList("Tanks",11);
+        NBTTagList tanks = tags.getTagList("Tanks", 11);
         if (tanks != null)
         {
             lavaTanks.clear();

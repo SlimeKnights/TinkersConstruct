@@ -13,7 +13,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.BlockFluidFinite;
 import net.minecraftforge.fluids.Fluid;
 
-public class GlueFluid extends BlockFluidFinite {
+public class GlueFluid extends BlockFluidFinite
+{
 
     IIcon stillIcon;
     IIcon flowIcon;
@@ -41,23 +42,31 @@ public class GlueFluid extends BlockFluidFinite {
     }
 
     @Override
-    public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity) {
+    public void onEntityCollidedWithBlock (World world, int x, int y, int z, Entity entity)
+    {
         entity.motionX *= 0.1;
         entity.motionZ *= 0.1;
 
-        if (entity instanceof EntityLivingBase) {
-            EntityLivingBase lvb = (EntityLivingBase)entity;
+        if (entity instanceof EntityLivingBase)
+        {
+            EntityLivingBase lvb = (EntityLivingBase) entity;
             // Well you'd feel ill too standing in glue...
-            if (lvb.isPotionActive(Potion.hunger)) {
+            if (lvb.isPotionActive(Potion.hunger))
+            {
                 lvb.getActivePotionEffect(Potion.hunger).duration = 20;
-            } else {
+            }
+            else
+            {
                 lvb.addPotionEffect(new PotionEffect(Potion.hunger.getId(), 20, 4));
             }
 
             // Glue is sticky stuff
-            if (lvb.isPotionActive(Potion.moveSlowdown)) {
+            if (lvb.isPotionActive(Potion.moveSlowdown))
+            {
                 lvb.getActivePotionEffect(Potion.moveSlowdown).duration = 30;
-            } else {
+            }
+            else
+            {
                 lvb.addPotionEffect(new PotionEffect(Potion.moveSlowdown.getId(), 30, 4));
             }
         }

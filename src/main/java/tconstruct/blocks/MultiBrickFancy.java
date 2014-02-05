@@ -22,6 +22,7 @@ public class MultiBrickFancy extends TConstructBlock
     {
         super(Material.rock, 3f, blockTextures);
     }
+
     //TODO getBlockHardness
     @Override
     public float getBlockHardness (World world, int x, int y, int z)

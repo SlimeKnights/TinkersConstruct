@@ -22,7 +22,6 @@ public class VillageSmelteryHandler implements IVillageCreationHandler
         return ComponentSmeltery.class;
     }
 
-
     @Override
     public Object buildComponent (PieceWeight villagePiece, Start startPiece, List pieces, Random random, int p1, int p2, int p3, int p4, int p5)
     {

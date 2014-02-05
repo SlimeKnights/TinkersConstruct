@@ -21,8 +21,6 @@ public class SmelteryItemBlock extends MultiItemBlock
         setHasSubtypes(true);
     }
 
-
-
     @Override
     @SideOnly(Side.CLIENT)
     public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean par4)

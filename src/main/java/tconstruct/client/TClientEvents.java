@@ -49,12 +49,12 @@ public class TClientEvents
             initSounds = true;
             try
             {
-            /*    SoundManager soundmanager = event.manager;
-               soundmanager.addSound("tinker:frypan_hit.ogg");
-               soundmanager.addSound("tinker:little_saw.ogg");
-                soundmanager.addSound("tinker:launcher_clank.ogg");
-                TConstruct.logger.info("Successfully loaded sounds.");
-           */
+                /*    SoundManager soundmanager = event.manager;
+                   soundmanager.addSound("tinker:frypan_hit.ogg");
+                   soundmanager.addSound("tinker:little_saw.ogg");
+                    soundmanager.addSound("tinker:launcher_clank.ogg");
+                    TConstruct.logger.info("Successfully loaded sounds.");
+                */
             }
             catch (Exception e)
             {
@@ -243,7 +243,7 @@ public class TClientEvents
     }
 
     double zLevel = 0;
-    
+
     /*@SubscribeEvent
     public void fovModifier(FOVUpdateEvent event)
     {

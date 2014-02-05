@@ -512,13 +512,13 @@ public class TConstructRegistry
      * 5: Has rotational TileEntity data
      * 6: Custom placement logic
      */
-    
+
     //moved to TMech
     //public static HashMap<ItemStack, Integer> drawbridgeState = new HashMap<ItemStack, Integer>();
     /* Blocks that are interchangable with each other. Ex: Still and flowing water */
-   // static HashMap<Block, Block>  interchangableBlockMapping = new HashMap<Block, Block> ();
+    // static HashMap<Block, Block>  interchangableBlockMapping = new HashMap<Block, Block> ();
     /*Blocks that place items, and vice versa */
-   // public static HashBiMap<Block, Item>  blockToItemMapping;
+    // public static HashBiMap<Block, Item>  blockToItemMapping;
 
     static void initializeDrawbridgeState ()
     {

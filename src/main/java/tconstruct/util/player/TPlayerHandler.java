@@ -49,12 +49,12 @@ public class TPlayerHandler
     {
         savePlayerStats(event.player, false);
     }
+
     @SubscribeEvent
     public void onPlayerRespawn (PlayerRespawnEvent event)
     {
         onPlayerRespawn(event.player);
     }
-    
 
     public void onPlayerLogin (EntityPlayer entityplayer)
     {

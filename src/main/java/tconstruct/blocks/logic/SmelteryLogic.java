@@ -703,32 +703,31 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         Block eastBlock = worldObj.getBlock(x + 1, y, z);
         Block westBlock = worldObj.getBlock(x - 1, y, z);
 
-        if ((northBlock == null || northBlock == Blocks.air) && (southBlock == null || southBlock == Blocks.air)
-                && (eastBlock == null || eastBlock == Blocks.air) && (westBlock == null || westBlock == Blocks.air))
+        if ((northBlock == null || northBlock == Blocks.air) && (southBlock == null || southBlock == Blocks.air) && (eastBlock == null || eastBlock == Blocks.air)
+                && (westBlock == null || westBlock == Blocks.air))
         {
             checkValidStructure(x, y, z);
         }
 
-        else if ((northBlock != null && !(northBlock == Blocks.air) && (southBlock == null || southBlock == Blocks.air)
-                && (eastBlock == null || eastBlock == Blocks.air) && (westBlock == null || westBlock == Blocks.air)))
+        else if ((northBlock != null && !(northBlock == Blocks.air) && (southBlock == null || southBlock == Blocks.air) && (eastBlock == null || eastBlock == Blocks.air) && (westBlock == null || westBlock == Blocks.air)))
         {
             checkValidStructure(x, y, z - 1);
         }
 
-        else if ((northBlock == null || northBlock == Blocks.air) && (southBlock != null && !(southBlock == Blocks.air))
-                && (eastBlock == null || eastBlock == Blocks.air) && (westBlock == null || westBlock == Blocks.air))
+        else if ((northBlock == null || northBlock == Blocks.air) && (southBlock != null && !(southBlock == Blocks.air)) && (eastBlock == null || eastBlock == Blocks.air)
+                && (westBlock == null || westBlock == Blocks.air))
         {
             checkValidStructure(x, y, z + 1);
         }
 
-        else if ((northBlock == null || northBlock == Blocks.air) && (southBlock == null || southBlock == Blocks.air)
-                && (eastBlock != null && !(eastBlock == Blocks.air)) && (westBlock == null || westBlock == Blocks.air))
+        else if ((northBlock == null || northBlock == Blocks.air) && (southBlock == null || southBlock == Blocks.air) && (eastBlock != null && !(eastBlock == Blocks.air))
+                && (westBlock == null || westBlock == Blocks.air))
         {
             checkValidStructure(x - 1, y, z);
         }
 
-        else if ((northBlock == null || northBlock == Blocks.air) && (southBlock == null || southBlock == Blocks.air)
-                && (eastBlock == null || eastBlock == Blocks.air) && (westBlock != null && !(westBlock == Blocks.air)))
+        else if ((northBlock == null || northBlock == Blocks.air) && (southBlock == null || southBlock == Blocks.air) && (eastBlock == null || eastBlock == Blocks.air)
+                && (westBlock != null && !(westBlock == Blocks.air)))
         {
             checkValidStructure(x + 1, y, z);
         }

@@ -245,7 +245,7 @@ public abstract class NewContainerGui extends GuiScreen
         {
             if (k == 0)
             {
-            	list.set(k, par1ItemStack.getRarity().rarityColor + (String)list.get(k));
+                list.set(k, par1ItemStack.getRarity().rarityColor + (String) list.get(k));
             }
             else
             {

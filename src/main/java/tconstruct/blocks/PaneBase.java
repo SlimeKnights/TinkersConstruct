@@ -34,12 +34,13 @@ public class PaneBase extends Block
         this.folder = folder;
     }
 
-    public final boolean canPaneConnectToBlock(Block p_150098_1_)
+    public final boolean canPaneConnectToBlock (Block p_150098_1_)
     {
-        return p_150098_1_.func_149730_j() || p_150098_1_ == this || p_150098_1_ == Blocks.glass || p_150098_1_ == Blocks.stained_glass || p_150098_1_ == Blocks.stained_glass_pane || p_150098_1_ instanceof BlockPane;
+        return p_150098_1_.func_149730_j() || p_150098_1_ == this || p_150098_1_ == Blocks.glass || p_150098_1_ == Blocks.stained_glass || p_150098_1_ == Blocks.stained_glass_pane
+                || p_150098_1_ instanceof BlockPane;
     }
-    
-    public boolean canConnectTo(IBlockAccess world, int x, int y, int z, ForgeDirection dir)
+
+    public boolean canConnectTo (IBlockAccess world, int x, int y, int z, ForgeDirection dir)
     {
         return canPaneConnectToBlock(world.getBlock(x, y, z)) || world.isSideSolid(x, y, z, dir.getOpposite(), false);
     }
@@ -94,7 +95,7 @@ public class PaneBase extends Block
         return PaneRender.model;
     }
 
-    public boolean  shouldSideBeRendered (IBlockAccess iblockaccess, int i, int j, int k, int l)
+    public boolean shouldSideBeRendered (IBlockAccess iblockaccess, int i, int j, int k, int l)
     {
         Block b = iblockaccess.getBlock(i, j, k);
         if (b instanceof PaneBase || b instanceof BlockPane)
@@ -103,7 +104,7 @@ public class PaneBase extends Block
         }
         else
         {
-            return super. shouldSideBeRendered(iblockaccess, i, j, k, l);
+            return super.shouldSideBeRendered(iblockaccess, i, j, k, l);
         }
     }
 

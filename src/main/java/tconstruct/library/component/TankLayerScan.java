@@ -13,7 +13,6 @@ import mantle.blocks.iface.IFacingLogic;
 import mantle.blocks.iface.IMasterLogic;
 import mantle.blocks.iface.IServantLogic;
 
-
 public class TankLayerScan extends LogicComponent
 {
     protected TileEntity master;
@@ -497,7 +496,7 @@ public class TankLayerScan extends LogicComponent
     public void readFromNBT (NBTTagCompound tags)
     {
         super.readFromNBT(tags);
-        NBTTagList layerAir = tags.getTagList("AirLayer",11);
+        NBTTagList layerAir = tags.getTagList("AirLayer", 11);
         if (layerAir != null)
         {
             layerAirCoords.clear();
@@ -516,7 +515,7 @@ public class TankLayerScan extends LogicComponent
 
             for (int i = 0; i < blocks.tagCount(); ++i)
             {
-                int[] coord =  blocks.func_150306_c(i);
+                int[] coord = blocks.func_150306_c(i);
                 blockCoords.add(new CoordTuple(coord[0], coord[1], coord[2]));
             }
         }
@@ -561,7 +560,7 @@ public class TankLayerScan extends LogicComponent
         NBTTagList air = new NBTTagList();
         for (CoordTuple coord : airCoords)
         {
-            air.appendTag(new NBTTagIntArray( new int[] { coord.x, coord.y, coord.z }));
+            air.appendTag(new NBTTagIntArray(new int[] { coord.x, coord.y, coord.z }));
         }
         tags.setTag("Air", air);
         tags.setInteger("structureTop", structureTop);

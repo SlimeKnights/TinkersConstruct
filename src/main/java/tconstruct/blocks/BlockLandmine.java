@@ -458,10 +458,10 @@ public class BlockLandmine extends BlockContainer
             return false;
         }
     }
-    
+
     public static enum Sensitivity
     {
-        everything,  mobs,  players;
+        everything, mobs, players;
     }
 
     protected int getMineState (World par1World, int par2, int par3, int par4)

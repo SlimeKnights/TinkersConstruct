@@ -34,7 +34,7 @@ public class PartCrafterGui extends NewContainerGui
         logic = partlogic;
         drawChestPart = container instanceof PartCrafterChestContainer;
 
-        title = "\u00A7n"+(StatCollector.translateToLocal("gui.partcrafter1"));
+        title = "\u00A7n" + (StatCollector.translateToLocal("gui.partcrafter1"));
     }
 
     protected void drawGuiContainerForegroundLayer (int par1, int par2)

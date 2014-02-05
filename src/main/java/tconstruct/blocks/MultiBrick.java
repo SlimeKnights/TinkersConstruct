@@ -110,6 +110,7 @@ public class MultiBrick extends TConstructBlock
             entity.fallDistance = 0;
         }
     }
+
     //TODO getCollisionBoundingBoxFromPool
     @Override
     public AxisAlignedBB getCollisionBoundingBoxFromPool (World world, int x, int y, int z)

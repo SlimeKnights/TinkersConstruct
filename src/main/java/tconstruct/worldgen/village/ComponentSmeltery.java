@@ -16,6 +16,7 @@ import net.minecraft.world.gen.structure.StructureComponent;
 import net.minecraft.world.gen.structure.StructureVillagePieces;
 
 import net.minecraft.world.gen.structure.StructureVillagePieces.Start;
+
 public class ComponentSmeltery extends StructureVillagePieces.House1
 {
     private int averageGroundLevel = -1;
@@ -127,13 +128,13 @@ public class ComponentSmeltery extends StructureVillagePieces.House1
     protected void func_143012_a (NBTTagCompound var1)
     {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
     protected void func_143011_b (NBTTagCompound var1)
     {
         // TODO Auto-generated method stub
-        
+
     }
 }

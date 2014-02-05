@@ -19,9 +19,9 @@ public class TConstructBlock extends MantleBlock
     public String[] textureNames;
     public IIcon[] icons;
 
-    public TConstructBlock( Material material, float hardness, String[] tex)
+    public TConstructBlock(Material material, float hardness, String[] tex)
     {
-        super( material);
+        super(material);
         setHardness(hardness);
         this.setCreativeTab(TConstructRegistry.blockTab);
         textureNames = tex;

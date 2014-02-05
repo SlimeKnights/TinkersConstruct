@@ -258,7 +258,7 @@ public class ArmorExtended implements IInventory
     public void readFromNBT (EntityPlayer entityplayer)
     {
         NBTTagCompound tags = entityplayer.getEntityData();
-        NBTTagList tagList = tags.getTagList("TConstruct.Inventory",9);
+        NBTTagList tagList = tags.getTagList("TConstruct.Inventory", 9);
         for (int i = 0; i < tagList.tagCount(); ++i)
         {
             NBTTagCompound nbttagcompound = (NBTTagCompound) tagList.getCompoundTagAt(i);

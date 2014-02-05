@@ -14,53 +14,60 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 import tconstruct.blocks.logic.SmelteryLogic;
 
-public class PacketSmeltery extends AbstractPacket {
+public class PacketSmeltery extends AbstractPacket
+{
 
-	int dimension, x, y, z, fluidID;
-	boolean isShiftPressed;
-	
-	public PacketSmeltery(){
-		
-	}
-	
-	public PacketSmeltery(int dimension, int x, int y, int z, boolean isShiftPressed, int fluidID){
-		this.dimension = dimension;
-		this.x = x;
-		this.y = y;
-		this.z = z; 
-		this.isShiftPressed = isShiftPressed;
-		this.fluidID = fluidID;
-	}
-	
-	@Override
-	public void encodeInto(ChannelHandlerContext ctx, ByteBuf buffer) {
-		buffer.writeInt(dimension);
-		buffer.writeInt(x);
-		buffer.writeInt(y);
-		buffer.writeInt(z);
-		buffer.writeBoolean(isShiftPressed);
-		
-	}
+    int dimension, x, y, z, fluidID;
+    boolean isShiftPressed;
 
-	@Override
-	public void decodeInto(ChannelHandlerContext ctx, ByteBuf buffer) {
-		dimension = buffer.readInt();
-		x = buffer.readInt();
+    public PacketSmeltery()
+    {
+
+    }
+
+    public PacketSmeltery(int dimension, int x, int y, int z, boolean isShiftPressed, int fluidID)
+    {
+        this.dimension = dimension;
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        this.isShiftPressed = isShiftPressed;
+        this.fluidID = fluidID;
+    }
+
+    @Override
+    public void encodeInto (ChannelHandlerContext ctx, ByteBuf buffer)
+    {
+        buffer.writeInt(dimension);
+        buffer.writeInt(x);
+        buffer.writeInt(y);
+        buffer.writeInt(z);
+        buffer.writeBoolean(isShiftPressed);
+
+    }
+
+    @Override
+    public void decodeInto (ChannelHandlerContext ctx, ByteBuf buffer)
+    {
+        dimension = buffer.readInt();
+        x = buffer.readInt();
         y = buffer.readInt();
         z = buffer.readInt();
         isShiftPressed = buffer.readBoolean();
         fluidID = buffer.readInt();
-	}
+    }
 
-	@Override
-	public void handleClientSide(EntityPlayer player) {
+    @Override
+    public void handleClientSide (EntityPlayer player)
+    {
 
-	}
+    }
 
-	@Override
-	public void handleServerSide(EntityPlayer player) {
+    @Override
+    public void handleServerSide (EntityPlayer player)
+    {
         World world = player.worldObj;
-        
+
         TileEntity te = world.getTileEntity(x, y, z);
 
         if (te instanceof SmelteryLogic)
@@ -87,6 +94,6 @@ public class PacketSmeltery extends AbstractPacket {
             //Old code: PacketDispatcher.sendPacketToAllInDimension(te.getDescriptionPacket(), dimension);
             FMLCommonHandler.instance().getClientToServerNetworkManager().scheduleOutboundPacket(te.getDescriptionPacket());
         }
-	}
+    }
 
 }

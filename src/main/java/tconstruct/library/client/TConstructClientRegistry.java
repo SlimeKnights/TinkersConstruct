@@ -103,7 +103,6 @@ public class TConstructClientRegistry
         recipeIcons.put(name, recipe);
     }
 
-
     //Gui
     public static void addToolButton (ToolGuiElement element)
     {

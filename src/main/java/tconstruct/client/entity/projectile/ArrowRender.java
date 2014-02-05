@@ -71,7 +71,7 @@ public class ArrowRender extends Render
             int i;
 
             Block block = null;
-                block = BlockUtils.getBlockFromItem(itemstack.getItem());
+            block = BlockUtils.getBlockFromItem(itemstack.getItem());
 
             if (itemstack.getItemSpriteNumber() == 0 && block != null && RenderBlocks.renderItemIn3d(BlockUtils.getBlockFromItem(itemstack.getItem()).getRenderType()))
             {
@@ -141,7 +141,7 @@ public class ArrowRender extends Render
 
                     if (this.renderWithColor)
                     {
-                        int l =itemstack.getItem().getColorFromItemStack(itemstack, 0);
+                        int l = itemstack.getItem().getColorFromItemStack(itemstack, 0);
                         f8 = (float) (l >> 16 & 255) / 255.0F;
                         float f9 = (float) (l >> 8 & 255) / 255.0F;
                         f5 = (float) (l & 255) / 255.0F;

@@ -33,6 +33,7 @@ public class TConstructFluid extends BlockFluidClassic
     {
         return alpha ? 1 : 0;
     }
+
     //TODO registerBlockIcons
     @Override
     public void registerBlockIcons (IIconRegister iconRegister)

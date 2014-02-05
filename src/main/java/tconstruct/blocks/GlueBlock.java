@@ -10,11 +10,12 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 
-public class GlueBlock extends TConstructBlock {
+public class GlueBlock extends TConstructBlock
+{
 
     public GlueBlock()
     {
-        super(Material.ground, 4.0f, new String[]{"glue"});
+        super(Material.ground, 4.0f, new String[] { "glue" });
     }
 
     @Override
@@ -23,19 +24,26 @@ public class GlueBlock extends TConstructBlock {
         entity.motionX *= 0.1;
         entity.motionZ *= 0.1;
 
-        if (entity instanceof EntityLivingBase) {
-            EntityLivingBase lvb = (EntityLivingBase)entity;
+        if (entity instanceof EntityLivingBase)
+        {
+            EntityLivingBase lvb = (EntityLivingBase) entity;
             // Well you'd feel ill too standing on glue...
-            if (lvb.isPotionActive(Potion.hunger)) {
+            if (lvb.isPotionActive(Potion.hunger))
+            {
                 lvb.getActivePotionEffect(Potion.hunger).duration = 20;
-            } else {
+            }
+            else
+            {
                 lvb.addPotionEffect(new PotionEffect(Potion.hunger.getId(), 20, 4));
             }
 
             // Glue is sticky stuff
-            if (lvb.isPotionActive(Potion.moveSlowdown)) {
+            if (lvb.isPotionActive(Potion.moveSlowdown))
+            {
                 lvb.getActivePotionEffect(Potion.moveSlowdown).duration = 30;
-            } else {
+            }
+            else
+            {
                 lvb.addPotionEffect(new PotionEffect(Potion.moveSlowdown.getId(), 30, 4));
             }
         }

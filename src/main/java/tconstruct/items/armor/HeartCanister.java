@@ -19,7 +19,7 @@ public class HeartCanister extends CraftingItem
 
     public HeartCanister()
     {
-        super(new String[] { "empty", "miniheart.red", "heart" }, new String[] { "canister_empty", "miniheart_red", "canister_heart" }, "", "tinker", TConstructRegistry.materialTab );
+        super(new String[] { "empty", "miniheart.red", "heart" }, new String[] { "canister_empty", "miniheart_red", "canister_heart" }, "", "tinker", TConstructRegistry.materialTab);
         this.setMaxStackSize(10);
     }
 

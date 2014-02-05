@@ -15,7 +15,7 @@ public class DimensionBlacklist
     public static int promisedLandDimensionID = -100;
     public static int twilightForestDimensionID = -100;
 
-    public static void getBadBimensions()
+    public static void getBadBimensions ()
     {
         updateModDimIDs();
 
@@ -61,13 +61,13 @@ public class DimensionBlacklist
         return noPoolDims.contains(dim);
     }
 
-    private static void updateModDimIDs()
+    private static void updateModDimIDs ()
     {
         updateTwiForestID();
         updateBoPID();
     }
 
-    private static void updateTwiForestID()
+    private static void updateTwiForestID ()
     {
         String location = Loader.instance().getConfigDir().getPath();
         File newFile = new File(location + File.separator + "TwilightForest.cfg");
@@ -80,10 +80,11 @@ public class DimensionBlacklist
             twilightForestDimensionID = config.get("dimension", "dimensionID", -100).getInt();
             TConstruct.logger.trace("Twilight Forest Dim ID: " + twilightForestDimensionID);
         }
-        else twilightForestDimensionID = -100;
+        else
+            twilightForestDimensionID = -100;
     }
 
-    private static void updateBoPID()
+    private static void updateBoPID ()
     {
         String location = Loader.instance().getConfigDir().getPath();
         File newFile = new File(location + File.separator + "biomesoplenty" + File.separator + "ids.cfg");
@@ -96,7 +97,8 @@ public class DimensionBlacklist
             promisedLandDimensionID = config.get("dimension settings", "Promised Land Dimension ID", -200).getInt();
             TConstruct.logger.trace("Promised Lands Dim ID: " + promisedLandDimensionID);
         }
-        else promisedLandDimensionID = -100;
+        else
+            promisedLandDimensionID = -100;
     }
 
 }

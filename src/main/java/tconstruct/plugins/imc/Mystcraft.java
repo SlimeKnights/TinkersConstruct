@@ -5,29 +5,35 @@ import net.minecraft.nbt.NBTTagCompound;
 import tconstruct.TConstruct;
 import tconstruct.plugins.ICompatPlugin;
 
-public class Mystcraft implements ICompatPlugin {
+public class Mystcraft implements ICompatPlugin
+{
 
-    private static String[] fluids = new String[] { "invar.molten", "electrum.molten", "bronze.molten", "aluminumbrass.molten", "manyullyn.molten", "alumite.molten", "cobalt.molten",
-                                                    "moltenArdite", "ender", "steel.molten", "platinum.molten" };
+    private static String[] fluids = new String[] { "invar.molten", "electrum.molten", "bronze.molten", "aluminumbrass.molten", "manyullyn.molten", "alumite.molten", "cobalt.molten", "moltenArdite",
+            "ender", "steel.molten", "platinum.molten" };
 
     @Override
-    public String getModId() {
+    public String getModId ()
+    {
         return "Mystcraft";
     }
 
     @Override
-    public void preInit() {
+    public void preInit ()
+    {
 
     }
 
     @Override
-    public void init() {
+    public void init ()
+    {
         TConstruct.logger.info("[Mystcraft] Blacklisting Mystcraft fluid symbols.");
-        for (String nm : fluids) sendFluidBlacklist(nm);
+        for (String nm : fluids)
+            sendFluidBlacklist(nm);
     }
 
     @Override
-    public void postInit() {
+    public void postInit ()
+    {
 
     }
 

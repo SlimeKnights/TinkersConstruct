@@ -59,10 +59,10 @@ public class TConstruct
 
     //The name of the enum is accompanied by numbers because I have no idea what will happen if another mod will try to add the same enum, just to be safe
     //public static EnumCreatureType creatureTypePlayer = EnumHelper.addCreatureType("PLAYER_5821443", EntityPlayer.class, 0, Material.air, true);
-    
+
     //The packet pipeline
     public static final PacketPipeline packetPipeline = new PacketPipeline();
-    
+
     public TConstruct()
     {
         LoggerConfig fml = new LoggerConfig(FMLCommonHandler.instance().getFMLLogger().getName(), Level.ALL, true);
@@ -88,7 +88,7 @@ public class TConstruct
     @EventHandler
     public void preInit (FMLPreInitializationEvent event)
     {
-    	
+
         PHConstruct.initProps(event.getSuggestedConfigurationFile());
         TConstructRegistry.materialTab = new TabTools("TConstructMaterials");
         TConstructRegistry.toolTab = new TabTools("TConstructTools");
@@ -99,7 +99,7 @@ public class TConstruct
         chiselDetailing = new Detailing();
 
         content = new TContent();
-        
+
         recipes = new TRecipes();
 
         events = new TEventHandler();
@@ -141,10 +141,10 @@ public class TConstruct
         playerTracker = new TPlayerHandler();
         //GameRegistry.registerPlayerTracker(playerTracker);
         FMLCommonHandler.instance().bus().register(playerTracker);
-        
+
         if (event.getSide() == Side.CLIENT)
         {
-        	FMLCommonHandler.instance().bus().register(new TControls());
+            FMLCommonHandler.instance().bus().register(new TControls());
         }
 
         PluginController.getController().preInit();
@@ -153,14 +153,14 @@ public class TConstruct
     @EventHandler
     public void init (FMLInitializationEvent event)
     {
-    	packetPipeline.initalise();
+        packetPipeline.initalise();
         if (event.getSide() == Side.CLIENT)
         {
             //MinecraftForge.EVENT_BUS.register(new EventCloakRender());
         }
 
         DimensionBlacklist.getBadBimensions();
-        GameRegistry.registerWorldGenerator(new SlimeIslandGen(TRepo.slimePool,2), 2);
+        GameRegistry.registerWorldGenerator(new SlimeIslandGen(TRepo.slimePool, 2), 2);
 
         PluginController.getController().init();
 

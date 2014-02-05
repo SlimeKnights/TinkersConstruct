@@ -16,27 +16,32 @@ import tconstruct.plugins.ICompatPlugin;
 
 import java.util.Map;
 
-public class IC2 implements ICompatPlugin {
+public class IC2 implements ICompatPlugin
+{
 
     private static final String IC2_UUM_FLUIDNAME = "uumatter";
     private Fluid fluidUUM;
 
     @Override
-    public String getModId() {
+    public String getModId ()
+    {
         return "IC2";
     }
 
     @Override
-    public void preInit() {
+    public void preInit ()
+    {
 
     }
 
     @Override
-    public void init() {
+    public void init ()
+    {
         TConstruct.logger.info("[IC2] Preparing for shenanigans.");
 
         fluidUUM = FluidRegistry.getFluid(IC2_UUM_FLUIDNAME);
-        if (fluidUUM == null) return;
+        if (fluidUUM == null)
+            return;
 
         // Useful stuff
         //ItemStack ingotCast = new ItemStack(TRepo.metalPattern, 1, 0);
@@ -71,7 +76,8 @@ public class IC2 implements ICompatPlugin {
     }
 
     @Override
-    public void postInit() {
+    public void postInit ()
+    {
 
     }
 

@@ -570,7 +570,7 @@ public class TEventHandler
                 {
                     if (evt.entityPlayer.capabilities.isCreativeMode)
                     {
-                        WorldHelper.setBlockToAir(evt.world,hitX, hitY, hitZ);
+                        WorldHelper.setBlockToAir(evt.world, hitX, hitY, hitZ);
                     }
                     else
                     {
@@ -629,22 +629,26 @@ public class TEventHandler
     @SubscribeEvent
     public void livingUpdate (LivingUpdateEvent event)
     {
-    	if(event.entityLiving instanceof EntityPlayer){
-    		EntityPlayer player = (EntityPlayer) event.entityLiving;
+        if (event.entityLiving instanceof EntityPlayer)
+        {
+            EntityPlayer player = (EntityPlayer) event.entityLiving;
             TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(player.getDisplayName());
-            
-            if(stats != null){
-            	ArmorExtended armor = stats.armor;
-            	for(int i = 0; i < armor.getSizeInventory(); i++){
-            		if(armor.getStackInSlot(i) != null){
-            			armor.getStackInSlot(i).getItem().onUpdate(armor.getStackInSlot(i), player.worldObj, player, i, false);
-            			armor.getStackInSlot(i).getItem().onArmorTick(player.worldObj, player, armor.getStackInSlot(i));
-            		}
-            	}
+
+            if (stats != null)
+            {
+                ArmorExtended armor = stats.armor;
+                for (int i = 0; i < armor.getSizeInventory(); i++)
+                {
+                    if (armor.getStackInSlot(i) != null)
+                    {
+                        armor.getStackInSlot(i).getItem().onUpdate(armor.getStackInSlot(i), player.worldObj, player, i, false);
+                        armor.getStackInSlot(i).getItem().onArmorTick(player.worldObj, player, armor.getStackInSlot(i));
+                    }
+                }
             }
-    	}
+        }
     }
-    
+
     //Player interact event - prevent breaking of tank air blocks in creative
     @SubscribeEvent
     public void playerInteract (PlayerInteractEvent event)

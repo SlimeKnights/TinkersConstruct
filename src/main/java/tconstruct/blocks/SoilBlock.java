@@ -24,7 +24,8 @@ public class SoilBlock extends TConstructBlock
     @Override
     public void onEntityWalking (World world, int x, int y, int z, Entity entity)
     {
-        if (entity instanceof EntityLivingBase){
+        if (entity instanceof EntityLivingBase)
+        {
             if (((EntityLivingBase) entity).getCreatureAttribute() == EnumCreatureAttribute.UNDEAD)
             {
                 int metadata = world.getBlockMetadata(x, y, z);

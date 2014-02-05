@@ -58,17 +58,20 @@ public abstract class Behavior
         addBehavior(new ItemStack(Items.snowball), shoot);
         addBehavior(new ItemStack(Items.ender_pearl), shoot);
         addBehavior(new ItemStack(Items.shears), shear);
-        
+
         //Make sure the part below this comment is executed last(to avoid conflicts)
         Iterator i1 = Block.blockRegistry.iterator();
-        while(i1.hasNext()){
-        	Object ob = i1.next();
-        	if(ob != null && ob instanceof Block){
-        		Block b = (Block) ob;
-        		if(b.getMaterial().isOpaque() && b.renderAsNormalBlock() && !b.canProvidePower() && !(b instanceof ITileEntityProvider) && !behaviorsListBlocks.containsKey(new ItemStack(b))){
-        			addBehavior(new ItemStack(b), blockThrow);
-        		}
-        	}
+        while (i1.hasNext())
+        {
+            Object ob = i1.next();
+            if (ob != null && ob instanceof Block)
+            {
+                Block b = (Block) ob;
+                if (b.getMaterial().isOpaque() && b.renderAsNormalBlock() && !b.canProvidePower() && !(b instanceof ITileEntityProvider) && !behaviorsListBlocks.containsKey(new ItemStack(b)))
+                {
+                    addBehavior(new ItemStack(b), blockThrow);
+                }
+            }
         }
     }
 

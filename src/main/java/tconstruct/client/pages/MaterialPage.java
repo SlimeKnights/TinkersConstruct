@@ -140,7 +140,7 @@ public class MaterialPage extends BookPage
 
         manual.fonts.drawString(durability + ": " + material.durability(), localWidth, localHeight + 40, 0);
         manual.fonts.drawString(handleModifier + ": " + material.handleDurability() + "x", localWidth, localHeight + 50, 0);
-        manual.fonts.drawString(fullToolDurability+ ": " + (int) (material.durability() * material.handleDurability()), localWidth, localHeight + 60, 0);
+        manual.fonts.drawString(fullToolDurability + ": " + (int) (material.durability() * material.handleDurability()), localWidth, localHeight + 60, 0);
 
         manual.fonts.drawString(miningSpeed + ": " + material.toolSpeed() / 100f, localWidth, localHeight + 80, 0);
         manual.fonts.drawString(miningLevel + ": " + material.harvestLevel() + " (" + PartCrafterGui.getHarvestLevelName(material.harvestLevel()) + ")", localWidth, localHeight + 90, 0);

@@ -491,7 +491,7 @@ public class AbilityHelper
 
             if (event.getResult() == Result.ALLOW)
             {
-                
+
                 onBlockChanged(stack, world, Blocks.air, x, y, z, player, random);
                 return true;
             }
@@ -506,8 +506,8 @@ public class AbilityHelper
             else
             {
                 Block block = Blocks.farmland;
-                world.playSoundEffect((double) ((float) x + 0.5F), (double) ((float) y + 0.5F), (double) ((float) z + 0.5F), block.stepSound.soundName,
-                        (block.stepSound.getVolume() + 1.0F) / 2.0F, block.stepSound.getPitch() * 0.8F);
+                world.playSoundEffect((double) ((float) x + 0.5F), (double) ((float) y + 0.5F), (double) ((float) z + 0.5F), block.stepSound.soundName, (block.stepSound.getVolume() + 1.0F) / 2.0F,
+                        block.stepSound.getPitch() * 0.8F);
 
                 if (world.isRemote)
                 {
@@ -633,6 +633,6 @@ public class AbilityHelper
             d3 = ((EntityPlayerMP) player).theItemInWorldManager.getBlockReachDistance();
         }
         Vec3 vec31 = vec3.addVector((double) f7 * d3, (double) f6 * d3, (double) f8 * d3);
-        return world.func_147447_a(vec3, vec31, par3, !par3,par3);
+        return world.func_147447_a(vec3, vec31, par3, !par3, par3);
     }
 }

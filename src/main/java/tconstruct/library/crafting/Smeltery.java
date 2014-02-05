@@ -42,6 +42,7 @@ public class Smeltery
     {
         addMelting(new ItemStack(item, 1, metadata), item, metadata, temperature, output);
     }
+
     /** Adds mappings between a block and its liquid
      * Example: Smeltery.addMelting(Block.oreIron, 0, 600, new FluidStack(liquidMetalStill.blockID, TConstruct.ingotLiquidValue * 2, 0));
      * 

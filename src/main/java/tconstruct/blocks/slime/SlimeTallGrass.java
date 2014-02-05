@@ -116,7 +116,6 @@ public class SlimeTallGrass extends BlockBush implements IShearable
         return ret;
     }
 
-  
     @Override
     public boolean isShearable (ItemStack item, IBlockAccess world, int x, int y, int z)
     {

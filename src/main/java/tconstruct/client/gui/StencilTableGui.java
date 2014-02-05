@@ -137,7 +137,7 @@ public class StencilTableGui extends GuiContainer
         packet.length = bos.size();
 
         PacketDispatcher.sendPacketToServer(packet);*/
-        
+
         TConstruct.packetPipeline.sendToServer(new PacketStencilTable(logic.xCoord, logic.yCoord, logic.zCoord, stack));
     }
 }

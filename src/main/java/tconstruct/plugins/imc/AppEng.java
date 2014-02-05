@@ -7,25 +7,28 @@ import tconstruct.plugins.ICompatPlugin;
 import java.util.Arrays;
 import java.util.List;
 
-public class AppEng implements ICompatPlugin {
+public class AppEng implements ICompatPlugin
+{
 
-    private static List<String> spatialIOLogics = Arrays.asList("AdaptiveSmelteryLogic", "AqueductLogic", "CastingBasinLogic", "CastingChannelLogic", "CastingTableLogic",
-            "CraftingStationLogic", "DryingRackLogic", "EssenceExtractorLogic", "FaucetLogic", "FrypanLogic", "GolemPedestalLogic", "LavaTankLogic", "PartBuilderLogic",
-            "PatternChestLogic", "SmelteryDrainLogic", "SmelteryLogic", "StencilTableLogic", "TankAirLogic", "TileEntityLandmine", "ToolForgeLogic", "ToolStationLogic",
-            "TowerFurnaceLogic", "MultiServantLogic");
+    private static List<String> spatialIOLogics = Arrays.asList("AdaptiveSmelteryLogic", "AqueductLogic", "CastingBasinLogic", "CastingChannelLogic", "CastingTableLogic", "CraftingStationLogic",
+            "DryingRackLogic", "EssenceExtractorLogic", "FaucetLogic", "FrypanLogic", "GolemPedestalLogic", "LavaTankLogic", "PartBuilderLogic", "PatternChestLogic", "SmelteryDrainLogic",
+            "SmelteryLogic", "StencilTableLogic", "TankAirLogic", "TileEntityLandmine", "ToolForgeLogic", "ToolStationLogic", "TowerFurnaceLogic", "MultiServantLogic");
 
     @Override
-    public String getModId() {
+    public String getModId ()
+    {
         return "AppliedEnergistics";
     }
 
     @Override
-    public void preInit() {
+    public void preInit ()
+    {
 
     }
 
     @Override
-    public void init() {
+    public void init ()
+    {
         TConstruct.logger.info("[AppEng] Registering for Spatial IO.");
         for (String s : spatialIOLogics)
         {
@@ -34,7 +37,8 @@ public class AppEng implements ICompatPlugin {
     }
 
     @Override
-    public void postInit() {
+    public void postInit ()
+    {
 
     }
 

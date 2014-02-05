@@ -156,7 +156,6 @@ public class SlimeTreeGen extends WorldGenerator
         {
             Block block = world.getBlock(xPos, yPos + localHeight, zPos);
 
-
             if (block == null || block == Blocks.air || block.isLeaves(world, xPos, yPos + localHeight, zPos))
             {
                 this.setBlockAndMetadata(world, xPos, yPos + localHeight, zPos, TRepo.slimeGel, this.metaWood);

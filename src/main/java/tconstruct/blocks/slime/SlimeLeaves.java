@@ -151,8 +151,9 @@ public class SlimeLeaves extends BlockLeaves
         }
     }
 
-	@Override
-	public String[] func_150125_e() {
-		return new String[]{"slime"};
-	}
+    @Override
+    public String[] func_150125_e ()
+    {
+        return new String[] { "slime" };
+    }
 }

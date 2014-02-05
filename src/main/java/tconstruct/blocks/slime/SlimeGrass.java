@@ -123,7 +123,7 @@ public class SlimeGrass extends MantleBlock
                         Block block = par1World.getBlock(posX, posY, posZ);
                         if (block == Blocks.dirt)
                         {
-                            par1World.setBlock(posX, posY, posZ,(Block) this, 1, 3);
+                            par1World.setBlock(posX, posY, posZ, (Block) this, 1, 3);
                             return;
                         }
                         int blockMeta = par1World.getBlockMetadata(posX, posY, posZ);

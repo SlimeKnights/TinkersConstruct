@@ -143,7 +143,6 @@ public class ArmorExtendedGui extends InventoryEffectRenderer
         OpenGlHelper.setActiveTexture(OpenGlHelper.defaultTexUnit);
     }
 
-
     /*protected void keyTyped(char par1, int par2)
     {
         if (par2 == TControls.armorKey.keyCode)

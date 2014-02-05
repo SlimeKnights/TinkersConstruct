@@ -296,8 +296,8 @@ public class ToolStationGui extends NewContainerGui
             offset++;
             fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation13"), xSize + 8, base + offset * 10, 0xffffff);
             offset++;
-            fontRendererObj
-                    .drawString("- " + getHarvestLevelName(tags.getInteger("HarvestLevel")) + ", " + getHarvestLevelName(tags.getInteger("HarvestLevel2")), xSize + 8, base + offset * 10, 0xffffff);
+            fontRendererObj.drawString("- " + getHarvestLevelName(tags.getInteger("HarvestLevel")) + ", " + getHarvestLevelName(tags.getInteger("HarvestLevel2")), xSize + 8, base + offset * 10,
+                    0xffffff);
             offset++;
             offset++;
         }
@@ -492,7 +492,7 @@ public class ToolStationGui extends NewContainerGui
         packet.length = bos.size();
 
         PacketDispatcher.sendPacketToServer(packet);*/
-        
+
         TConstruct.packetPipeline.sendToServer(new PacketToolStation(logic.xCoord, logic.yCoord, logic.zCoord, name));
     }
 

@@ -37,8 +37,8 @@ public class GlassPaneConnected extends GlassBlockConnected
     {
         if (par5 == 0 || par5 == 1)
         {
-            return par1IBlockAccess.getBlock(par2, par3 - 1, par4) == this && par5 == 0 ? icons[15]
-                    : par1IBlockAccess.getBlock(par2, par3 + 1, par4) == this && par5 == 1 ? icons[15] : getSideTextureIndex();
+            return par1IBlockAccess.getBlock(par2, par3 - 1, par4) == this && par5 == 0 ? icons[15] : par1IBlockAccess.getBlock(par2, par3 + 1, par4) == this && par5 == 1 ? icons[15]
+                    : getSideTextureIndex();
         }
         else
         {

@@ -15,13 +15,13 @@ public class BloodBlock extends TConstructFluid
     {
         super(fluid, material, texture);
     }
-    
+
     public void onEntityCollidedWithBlock (World world, int x, int y, int z, Entity entity)
     {
         if (entity instanceof EntityLivingBase)
         {
-            ((EntityLivingBase) entity).addPotionEffect(new PotionEffect(Potion.field_76434_w.id, 20*15, 0));
-            ((EntityLivingBase) entity).addPotionEffect(new PotionEffect(Potion.poison.id, 20*5, 1));
+            ((EntityLivingBase) entity).addPotionEffect(new PotionEffect(Potion.field_76434_w.id, 20 * 15, 0));
+            ((EntityLivingBase) entity).addPotionEffect(new PotionEffect(Potion.poison.id, 20 * 5, 1));
         }
     }
 }

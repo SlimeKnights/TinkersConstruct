@@ -17,7 +17,6 @@ import net.minecraft.world.gen.structure.StructureVillagePieces;
 import net.minecraft.world.gen.structure.StructureVillagePieces.Start;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 
-
 public class ComponentToolWorkshop extends StructureVillagePieces.House1
 {
     private int averageGroundLevel = -1;
@@ -129,7 +128,7 @@ public class ComponentToolWorkshop extends StructureVillagePieces.House1
         //this.placeBlockAtCurrentPosition(world, TRepo.toolStationWood, 5, 1, 1, 2, sbb);
         this.placeBlockAtCurrentPosition(world, TRepo.toolStationWood, 1, 1, 1, 3, sbb);
         this.generateStructureCraftingStationContents(world, sbb, random, 1, 1, 4, TRepo.tinkerHouseChest.getItems(random), TRepo.tinkerHouseChest.getCount(random));
-       // this.placeBlockAtCurrentPosition(world, TRepo.craftingStationWood, 0, 1, 1, 4, sbb);
+        // this.placeBlockAtCurrentPosition(world, TRepo.craftingStationWood, 0, 1, 1, 4, sbb);
         this.placeBlockAtCurrentPosition(world, TRepo.toolStationWood, 10, 1, 1, 5, sbb);
 
         //ChestGenHooks info = ChestGenHooks.getInfo("TinkerHouse");
@@ -176,6 +175,7 @@ public class ComponentToolWorkshop extends StructureVillagePieces.House1
             return false;
         }
     }
+
     protected boolean generateStructurePatternChestContents (World world, StructureBoundingBox par2StructureBoundingBox, Random random, int x, int y, int z, WeightedRandomChestContent[] content,
             int par8)
     {

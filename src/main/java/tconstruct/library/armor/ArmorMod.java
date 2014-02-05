@@ -39,8 +39,8 @@ public abstract class ArmorMod extends ToolMod
     {
         return true;
     }
-    
-    protected NBTTagCompound getAttributeTag(String attributeType, String modifierName, double amount, boolean flat, UUID uuid)
+
+    protected NBTTagCompound getAttributeTag (String attributeType, String modifierName, double amount, boolean flat, UUID uuid)
     {
         NBTTagCompound tag = new NBTTagCompound();
         tag.setString("AttributeName", attributeType);

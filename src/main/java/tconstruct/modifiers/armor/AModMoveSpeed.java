@@ -37,7 +37,7 @@ public class AModMoveSpeed extends ArmorModTypeFilter
         int modifiers = armorTag.getInteger("Modifiers");
         modifiers -= amount;
         armorTag.setInteger("Modifiers", modifiers);
-        
+
         if (armorTag.hasKey(key))
         {
             amount += armorTag.getInteger(key);
@@ -47,7 +47,7 @@ public class AModMoveSpeed extends ArmorModTypeFilter
         NBTTagList attributes;
         if (baseTag.hasKey("AttributeModifiers"))
         {
-            attributes = baseTag.getTagList("AttributeModifiers",9);
+            attributes = baseTag.getTagList("AttributeModifiers", 9);
             for (int iter = 0; iter < attributes.tagCount(); iter++)
             {
                 NBTTagCompound tag = (NBTTagCompound) attributes.getCompoundTagAt(iter);

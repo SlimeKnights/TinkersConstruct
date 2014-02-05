@@ -47,7 +47,7 @@ public class ItemBlockLandmine extends ItemBlock
             break;
         }
 
-       par3List.add(StatCollector.translateToLocal("landmine5.tooltip") + interaction);
+        par3List.add(StatCollector.translateToLocal("landmine5.tooltip") + interaction);
     }
 
     @Override

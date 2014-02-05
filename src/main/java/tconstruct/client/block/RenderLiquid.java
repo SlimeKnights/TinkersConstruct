@@ -59,7 +59,7 @@ public class RenderLiquid
             flag1 = false;
         }
 
-        if ((render.renderAllFaces) || (block. shouldSideBeRendered(render.blockAccess, xPos, yPos - 1, zPos, 0)))
+        if ((render.renderAllFaces) || (block.shouldSideBeRendered(render.blockAccess, xPos, yPos - 1, zPos, 0)))
         {
             if (render.renderMinY <= 0.0D)
             {
@@ -174,7 +174,7 @@ public class RenderLiquid
             flag = true;
         }
 
-        if ((render.renderAllFaces) || (block. shouldSideBeRendered(render.blockAccess, xPos, yPos + 1, zPos, 1)))
+        if ((render.renderAllFaces) || (block.shouldSideBeRendered(render.blockAccess, xPos, yPos + 1, zPos, 1)))
         {
             if (render.renderMaxY >= 1.0D)
             {
@@ -278,7 +278,7 @@ public class RenderLiquid
             flag = true;
         }
 
-        if ((render.renderAllFaces) || (block. shouldSideBeRendered(render.blockAccess, xPos, yPos, zPos - 1, 2)))
+        if ((render.renderAllFaces) || (block.shouldSideBeRendered(render.blockAccess, xPos, yPos, zPos - 1, 2)))
         {
             if (render.renderMinZ <= 0.0D)
             {
@@ -395,7 +395,7 @@ public class RenderLiquid
             flag = true;
         }
 
-        if ((render.renderAllFaces) || (block. shouldSideBeRendered(render.blockAccess, xPos, yPos, zPos + 1, 3)))
+        if ((render.renderAllFaces) || (block.shouldSideBeRendered(render.blockAccess, xPos, yPos, zPos + 1, 3)))
         {
             if (render.renderMaxZ >= 1.0D)
             {
@@ -512,7 +512,7 @@ public class RenderLiquid
             flag = true;
         }
 
-        if ((render.renderAllFaces) || (block. shouldSideBeRendered(render.blockAccess, xPos - 1, yPos, zPos, 4)))
+        if ((render.renderAllFaces) || (block.shouldSideBeRendered(render.blockAccess, xPos - 1, yPos, zPos, 4)))
         {
             if (render.renderMinX <= 0.0D)
             {
@@ -629,7 +629,7 @@ public class RenderLiquid
             flag = true;
         }
 
-        if ((render.renderAllFaces) || (block. shouldSideBeRendered(render.blockAccess, xPos + 1, yPos, zPos, 5)))
+        if ((render.renderAllFaces) || (block.shouldSideBeRendered(render.blockAccess, xPos + 1, yPos, zPos, 5)))
         {
             if (render.renderMaxX >= 1.0D)
             {
@@ -793,7 +793,7 @@ public class RenderLiquid
 
         int l = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos, zPos);
 
-        if ((render.renderAllFaces) || (block. shouldSideBeRendered(render.blockAccess, xPos, yPos - 1, zPos, 0)))
+        if ((render.renderAllFaces) || (block.shouldSideBeRendered(render.blockAccess, xPos, yPos - 1, zPos, 0)))
         {
             tessellator.setBrightness(render.renderMinY > 0.0D ? l : block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos - 1, zPos));
             tessellator.setColorOpaque_F(f10, f13, f16);
@@ -801,7 +801,7 @@ public class RenderLiquid
             flag = true;
         }
 
-        if ((render.renderAllFaces) || (block. shouldSideBeRendered(render.blockAccess, xPos, yPos + 1, zPos, 1)))
+        if ((render.renderAllFaces) || (block.shouldSideBeRendered(render.blockAccess, xPos, yPos + 1, zPos, 1)))
         {
             tessellator.setBrightness(render.renderMaxY < 1.0D ? l : block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos + 1, zPos));
             tessellator.setColorOpaque_F(f7, f8, f9);
@@ -809,7 +809,7 @@ public class RenderLiquid
             flag = true;
         }
 
-        if ((render.renderAllFaces) || (block. shouldSideBeRendered(render.blockAccess, xPos, yPos, zPos - 1, 2)))
+        if ((render.renderAllFaces) || (block.shouldSideBeRendered(render.blockAccess, xPos, yPos, zPos - 1, 2)))
         {
             tessellator.setBrightness(render.renderMinZ > 0.0D ? l : block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos, zPos - 1));
             tessellator.setColorOpaque_F(f11, f14, f17);
@@ -818,7 +818,7 @@ public class RenderLiquid
             flag = true;
         }
 
-        if ((render.renderAllFaces) || (block. shouldSideBeRendered(render.blockAccess, xPos, yPos, zPos + 1, 3)))
+        if ((render.renderAllFaces) || (block.shouldSideBeRendered(render.blockAccess, xPos, yPos, zPos + 1, 3)))
         {
             tessellator.setBrightness(render.renderMaxZ < 1.0D ? l : block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos, zPos + 1));
             tessellator.setColorOpaque_F(f11, f14, f17);
@@ -827,7 +827,7 @@ public class RenderLiquid
             flag = true;
         }
 
-        if ((render.renderAllFaces) || (block. shouldSideBeRendered(render.blockAccess, xPos - 1, yPos, zPos, 4)))
+        if ((render.renderAllFaces) || (block.shouldSideBeRendered(render.blockAccess, xPos - 1, yPos, zPos, 4)))
         {
             tessellator.setBrightness(render.renderMinX > 0.0D ? l : block.getMixedBrightnessForBlock(render.blockAccess, xPos - 1, yPos, zPos));
             tessellator.setColorOpaque_F(f12, f15, f18);
@@ -836,7 +836,7 @@ public class RenderLiquid
             flag = true;
         }
 
-        if ((render.renderAllFaces) || (block. shouldSideBeRendered(render.blockAccess, xPos + 1, yPos, zPos, 5)))
+        if ((render.renderAllFaces) || (block.shouldSideBeRendered(render.blockAccess, xPos + 1, yPos, zPos, 5)))
         {
             tessellator.setBrightness(render.renderMaxX < 1.0D ? l : block.getMixedBrightnessForBlock(render.blockAccess, xPos + 1, yPos, zPos));
             tessellator.setColorOpaque_F(f12, f15, f18);
@@ -893,7 +893,7 @@ public class RenderLiquid
             flag1 = false;
         }
 
-        if ((render.renderAllFaces) || (block. shouldSideBeRendered(render.blockAccess, xPos, yPos - 1, zPos, 0)))
+        if ((render.renderAllFaces) || (block.shouldSideBeRendered(render.blockAccess, xPos, yPos - 1, zPos, 0)))
         {
             if (render.renderMinY <= 0.0D)
             {
@@ -1008,7 +1008,7 @@ public class RenderLiquid
             flag = true;
         }
 
-        if ((render.renderAllFaces) || (block. shouldSideBeRendered(render.blockAccess, xPos, yPos + 1, zPos, 1)))
+        if ((render.renderAllFaces) || (block.shouldSideBeRendered(render.blockAccess, xPos, yPos + 1, zPos, 1)))
         {
             if (render.renderMaxY >= 1.0D)
             {
@@ -1023,10 +1023,10 @@ public class RenderLiquid
             render.aoLightValueScratchXYPP = getAmbientOcclusionLightValue(render.blockAccess, xPos + 1, yPos, zPos);
             render.aoLightValueScratchYZPN = getAmbientOcclusionLightValue(render.blockAccess, xPos, yPos, zPos - 1);
             render.aoLightValueScratchYZPP = getAmbientOcclusionLightValue(render.blockAccess, xPos, yPos, zPos + 1);
-            boolean flag3 =  render.blockAccess.getBlock(xPos + 1, yPos + 1, zPos).getMaterial().getCanBlockGrass();
-            boolean flag2 =  render.blockAccess.getBlock(xPos - 1, yPos + 1, zPos).getMaterial().getCanBlockGrass();
-            boolean flag5 =  render.blockAccess.getBlock(xPos, yPos + 1, zPos + 1).getMaterial().getCanBlockGrass();
-            boolean flag4 =  render.blockAccess.getBlock(xPos, yPos + 1, zPos - 1).getMaterial().getCanBlockGrass();
+            boolean flag3 = render.blockAccess.getBlock(xPos + 1, yPos + 1, zPos).getMaterial().getCanBlockGrass();
+            boolean flag2 = render.blockAccess.getBlock(xPos - 1, yPos + 1, zPos).getMaterial().getCanBlockGrass();
+            boolean flag5 = render.blockAccess.getBlock(xPos, yPos + 1, zPos + 1).getMaterial().getCanBlockGrass();
+            boolean flag4 = render.blockAccess.getBlock(xPos, yPos + 1, zPos - 1).getMaterial().getCanBlockGrass();
 
             if ((!flag4) && (!flag2))
             {
@@ -1112,7 +1112,7 @@ public class RenderLiquid
             flag = true;
         }
 
-        if ((render.renderAllFaces) || (block. shouldSideBeRendered(render.blockAccess, xPos, yPos, zPos - 1, 2)))
+        if ((render.renderAllFaces) || (block.shouldSideBeRendered(render.blockAccess, xPos, yPos, zPos - 1, 2)))
         {
             if (render.renderMinZ <= 0.0D)
             {
@@ -1127,10 +1127,10 @@ public class RenderLiquid
             render.aoBrightnessYZNN = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos - 1, zPos);
             render.aoBrightnessYZPN = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos + 1, zPos);
             render.aoBrightnessXZPN = block.getMixedBrightnessForBlock(render.blockAccess, xPos + 1, yPos, zPos);
-            boolean flag3 =  render.blockAccess.getBlock(xPos + 1, yPos, zPos - 1).getMaterial().getCanBlockGrass();
-            boolean flag2 =  render.blockAccess.getBlock(xPos - 1, yPos, zPos - 1).getMaterial().getCanBlockGrass();
-            boolean flag5 =  render.blockAccess.getBlock(xPos, yPos + 1, zPos - 1).getMaterial().getCanBlockGrass();
-            boolean flag4 =  render.blockAccess.getBlock(xPos, yPos - 1, zPos - 1).getMaterial().getCanBlockGrass();
+            boolean flag3 = render.blockAccess.getBlock(xPos + 1, yPos, zPos - 1).getMaterial().getCanBlockGrass();
+            boolean flag2 = render.blockAccess.getBlock(xPos - 1, yPos, zPos - 1).getMaterial().getCanBlockGrass();
+            boolean flag5 = render.blockAccess.getBlock(xPos, yPos + 1, zPos - 1).getMaterial().getCanBlockGrass();
+            boolean flag4 = render.blockAccess.getBlock(xPos, yPos - 1, zPos - 1).getMaterial().getCanBlockGrass();
 
             if ((!flag2) && (!flag4))
             {
@@ -1228,7 +1228,7 @@ public class RenderLiquid
             flag = true;
         }
 
-        if ((render.renderAllFaces) || (block. shouldSideBeRendered(render.blockAccess, xPos, yPos, zPos + 1, 3)))
+        if ((render.renderAllFaces) || (block.shouldSideBeRendered(render.blockAccess, xPos, yPos, zPos + 1, 3)))
         {
             if (render.renderMaxZ >= 1.0D)
             {
@@ -1243,10 +1243,10 @@ public class RenderLiquid
             render.aoBrightnessXZPP = block.getMixedBrightnessForBlock(render.blockAccess, xPos + 1, yPos, zPos);
             render.aoBrightnessYZNP = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos - 1, zPos);
             render.aoBrightnessYZPP = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos + 1, zPos);
-            boolean flag3 =  render.blockAccess.getBlock(xPos + 1, yPos, zPos + 1).getMaterial().getCanBlockGrass();
-            boolean flag2 =  render.blockAccess.getBlock(xPos - 1, yPos, zPos + 1).getMaterial().getCanBlockGrass();
-            boolean flag5 =  render.blockAccess.getBlock(xPos, yPos + 1, zPos + 1).getMaterial().getCanBlockGrass();
-            boolean flag4 =  render.blockAccess.getBlock(xPos, yPos - 1, zPos + 1).getMaterial().getCanBlockGrass();
+            boolean flag3 = render.blockAccess.getBlock(xPos + 1, yPos, zPos + 1).getMaterial().getCanBlockGrass();
+            boolean flag2 = render.blockAccess.getBlock(xPos - 1, yPos, zPos + 1).getMaterial().getCanBlockGrass();
+            boolean flag5 = render.blockAccess.getBlock(xPos, yPos + 1, zPos + 1).getMaterial().getCanBlockGrass();
+            boolean flag4 = render.blockAccess.getBlock(xPos, yPos - 1, zPos + 1).getMaterial().getCanBlockGrass();
 
             if ((!flag2) && (!flag4))
             {
@@ -1344,7 +1344,7 @@ public class RenderLiquid
             flag = true;
         }
 
-        if ((render.renderAllFaces) || (block. shouldSideBeRendered(render.blockAccess, xPos - 1, yPos, zPos, 4)))
+        if ((render.renderAllFaces) || (block.shouldSideBeRendered(render.blockAccess, xPos - 1, yPos, zPos, 4)))
         {
             if (render.renderMinX <= 0.0D)
             {
@@ -1359,10 +1359,10 @@ public class RenderLiquid
             render.aoBrightnessXZNN = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos, zPos - 1);
             render.aoBrightnessXZNP = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos, zPos + 1);
             render.aoBrightnessXYNP = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos + 1, zPos);
-            boolean flag3 =  render.blockAccess.getBlock(xPos - 1, yPos + 1, zPos).getMaterial().getCanBlockGrass();
-            boolean flag2 =  render.blockAccess.getBlock(xPos - 1, yPos - 1, zPos).getMaterial().getCanBlockGrass();
-            boolean flag5 =  render.blockAccess.getBlock(xPos - 1, yPos, zPos - 1).getMaterial().getCanBlockGrass();
-            boolean flag4 =  render.blockAccess.getBlock(xPos - 1, yPos, zPos + 1).getMaterial().getCanBlockGrass();
+            boolean flag3 = render.blockAccess.getBlock(xPos - 1, yPos + 1, zPos).getMaterial().getCanBlockGrass();
+            boolean flag2 = render.blockAccess.getBlock(xPos - 1, yPos - 1, zPos).getMaterial().getCanBlockGrass();
+            boolean flag5 = render.blockAccess.getBlock(xPos - 1, yPos, zPos - 1).getMaterial().getCanBlockGrass();
+            boolean flag4 = render.blockAccess.getBlock(xPos - 1, yPos, zPos + 1).getMaterial().getCanBlockGrass();
 
             if ((!flag5) && (!flag2))
             {
@@ -1460,7 +1460,7 @@ public class RenderLiquid
             flag = true;
         }
 
-        if ((render.renderAllFaces) || (block. shouldSideBeRendered(render.blockAccess, xPos + 1, yPos, zPos, 5)))
+        if ((render.renderAllFaces) || (block.shouldSideBeRendered(render.blockAccess, xPos + 1, yPos, zPos, 5)))
         {
             if (render.renderMaxX >= 1.0D)
             {
@@ -1476,9 +1476,9 @@ public class RenderLiquid
             render.aoBrightnessXZPP = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos, zPos + 1);
             render.aoBrightnessXYPP = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos + 1, zPos);
             boolean flag3 = render.blockAccess.getBlock(xPos + 1, yPos + 1, zPos).getMaterial().getCanBlockGrass();
-            boolean flag2 =  render.blockAccess.getBlock(xPos + 1, yPos - 1, zPos).getMaterial().getCanBlockGrass();
-            boolean flag5 =  render.blockAccess.getBlock(xPos + 1, yPos, zPos + 1).getMaterial().getCanBlockGrass();
-            boolean flag4 =  render.blockAccess.getBlock(xPos + 1, yPos, zPos - 1).getMaterial().getCanBlockGrass();
+            boolean flag2 = render.blockAccess.getBlock(xPos + 1, yPos - 1, zPos).getMaterial().getCanBlockGrass();
+            boolean flag5 = render.blockAccess.getBlock(xPos + 1, yPos, zPos + 1).getMaterial().getCanBlockGrass();
+            boolean flag4 = render.blockAccess.getBlock(xPos + 1, yPos, zPos - 1).getMaterial().getCanBlockGrass();
 
             if ((!flag2) && (!flag4))
             {
@@ -1618,7 +1618,7 @@ public class RenderLiquid
 
         int l = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos, zPos);
 
-        if ((render.renderAllFaces) || (block. shouldSideBeRendered(render.blockAccess, xPos, yPos - 1, zPos, 0)))
+        if ((render.renderAllFaces) || (block.shouldSideBeRendered(render.blockAccess, xPos, yPos - 1, zPos, 0)))
         {
             tessellator.setBrightness(render.renderMinY > 0.0D ? l : block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos - 1, zPos));
             tessellator.setColorOpaque_F(f10, f13, f16);
@@ -1626,7 +1626,7 @@ public class RenderLiquid
             flag = true;
         }
 
-        if ((render.renderAllFaces) || (block. shouldSideBeRendered(render.blockAccess, xPos, yPos + 1, zPos, 1)))
+        if ((render.renderAllFaces) || (block.shouldSideBeRendered(render.blockAccess, xPos, yPos + 1, zPos, 1)))
         {
             tessellator.setBrightness(render.renderMaxY < 1.0D ? l : block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos + 1, zPos));
             tessellator.setColorOpaque_F(f7, f8, f9);
@@ -1634,7 +1634,7 @@ public class RenderLiquid
             flag = true;
         }
 
-        if ((render.renderAllFaces) || (block. shouldSideBeRendered(render.blockAccess, xPos, yPos, zPos - 1, 2)))
+        if ((render.renderAllFaces) || (block.shouldSideBeRendered(render.blockAccess, xPos, yPos, zPos - 1, 2)))
         {
             tessellator.setBrightness(render.renderMinZ > 0.0D ? l : block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos, zPos - 1));
             tessellator.setColorOpaque_F(f11, f14, f17);
@@ -1643,7 +1643,7 @@ public class RenderLiquid
             flag = true;
         }
 
-        if ((render.renderAllFaces) || (block. shouldSideBeRendered(render.blockAccess, xPos, yPos, zPos + 1, 3)))
+        if ((render.renderAllFaces) || (block.shouldSideBeRendered(render.blockAccess, xPos, yPos, zPos + 1, 3)))
         {
             tessellator.setBrightness(render.renderMaxZ < 1.0D ? l : block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos, zPos + 1));
             tessellator.setColorOpaque_F(f11, f14, f17);
@@ -1652,7 +1652,7 @@ public class RenderLiquid
             flag = true;
         }
 
-        if ((render.renderAllFaces) || (block. shouldSideBeRendered(render.blockAccess, xPos - 1, yPos, zPos, 4)))
+        if ((render.renderAllFaces) || (block.shouldSideBeRendered(render.blockAccess, xPos - 1, yPos, zPos, 4)))
         {
             tessellator.setBrightness(render.renderMinX > 0.0D ? l : block.getMixedBrightnessForBlock(render.blockAccess, xPos - 1, yPos, zPos));
             tessellator.setColorOpaque_F(f12, f15, f18);
@@ -1661,7 +1661,7 @@ public class RenderLiquid
             flag = true;
         }
 
-        if ((render.renderAllFaces) || (block. shouldSideBeRendered(render.blockAccess, xPos + 1, yPos, zPos, 5)))
+        if ((render.renderAllFaces) || (block.shouldSideBeRendered(render.blockAccess, xPos + 1, yPos, zPos, 5)))
         {
             tessellator.setBrightness(render.renderMaxX < 1.0D ? l : block.getMixedBrightnessForBlock(render.blockAccess, xPos + 1, yPos, zPos));
             tessellator.setColorOpaque_F(f12, f15, f18);

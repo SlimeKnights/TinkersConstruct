@@ -17,12 +17,12 @@ public class StrangeFood extends SpecialFood
     {
         super(new int[] { 2, 2 }, new float[] { 1f, 1f }, new String[] { "edibleslime", "edibleblood" }, new String[] { "food/edibleslime", "food/edibleblood" });
     }
-    
+
     @Override
     protected void onFoodEaten (ItemStack stack, World world, EntityPlayer player)
     {
         if (stack.getItemDamage() == 1)
-            player.addPotionEffect(new PotionEffect(Potion.field_76434_w.id, 20*15, 0));
+            player.addPotionEffect(new PotionEffect(Potion.field_76434_w.id, 20 * 15, 0));
     }
 
     @Override

@@ -326,9 +326,9 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
     {
         return EnumPlantType.Cave;
     }
-    
+
     @SideOnly(Side.CLIENT)
-    public void setGraphicsLevel(boolean p_150122_1_)
+    public void setGraphicsLevel (boolean p_150122_1_)
     {
         this.field_150121_P = p_150122_1_;
         this.field_150127_b = (p_150122_1_ ? 0 : 1);

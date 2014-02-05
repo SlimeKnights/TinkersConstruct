@@ -116,7 +116,8 @@ public class ToolStationBlock extends InventoryBlock
     {
         int metadata = world.getBlockMetadata(x, y, z);
         if (metadata == 5)
-            return AxisAlignedBB.getAABBPool().getAABB((double) x + this.minX, (double) y + this.minY, (double) z + this.minZ, (double) x + this.maxX, (double) y + this.maxY - 0.125, (double) z + this.maxZ);
+            return AxisAlignedBB.getAABBPool().getAABB((double) x + this.minX, (double) y + this.minY, (double) z + this.minZ, (double) x + this.maxX, (double) y + this.maxY - 0.125,
+                    (double) z + this.maxZ);
         return AxisAlignedBB.getAABBPool().getAABB((double) x + this.minX, (double) y + this.minY, (double) z + this.minZ, (double) x + this.maxX, (double) y + this.maxY, (double) z + this.maxZ);
     }
 
@@ -218,6 +219,6 @@ public class ToolStationBlock extends InventoryBlock
     @Override
     public TileEntity createNewTileEntity (World var1, int var2)
     {
-        return createTileEntity(var1,var2);
+        return createTileEntity(var1, var2);
     }
 }

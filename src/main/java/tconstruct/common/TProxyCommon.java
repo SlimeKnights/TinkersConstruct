@@ -34,7 +34,7 @@ public class TProxyCommon implements IGuiHandler
     public static int armorGuiID = 101;
     public static int knapsackGuiID = 102;
 
-   // public static int manualGuiID = -1;// moved to Mantle
+    // public static int manualGuiID = -1;// moved to Mantle
 
     @Override
     public Object getServerGuiElement (int ID, EntityPlayer player, World world, int x, int y, int z)

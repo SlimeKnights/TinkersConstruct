@@ -63,7 +63,7 @@ public class BlockSkinRenderHelper
         float f7;
         int i1;
 
-        if (render.renderAllFaces || block. shouldSideBeRendered(render.blockAccess, xPos, yPos - 1, zPos, 0))
+        if (render.renderAllFaces || block.shouldSideBeRendered(render.blockAccess, xPos, yPos - 1, zPos, 0))
         {
             if (render.renderMinY <= 0.0D)
             {
@@ -178,7 +178,7 @@ public class BlockSkinRenderHelper
             flag = true;
         }
 
-        if (render.renderAllFaces || block. shouldSideBeRendered(render.blockAccess, xPos, yPos + 1, zPos, 1))
+        if (render.renderAllFaces || block.shouldSideBeRendered(render.blockAccess, xPos, yPos + 1, zPos, 1))
         {
             if (render.renderMaxY >= 1.0D)
             {
@@ -284,7 +284,7 @@ public class BlockSkinRenderHelper
 
         IIcon icon;
 
-        if (render.renderAllFaces || block. shouldSideBeRendered(render.blockAccess, xPos, yPos, zPos - 1, 2))
+        if (render.renderAllFaces || block.shouldSideBeRendered(render.blockAccess, xPos, yPos, zPos - 1, 2))
         {
             if (render.renderMinZ <= 0.0D)
             {
@@ -401,7 +401,7 @@ public class BlockSkinRenderHelper
             flag = true;
         }
 
-        if (render.renderAllFaces || block. shouldSideBeRendered(render.blockAccess, xPos, yPos, zPos + 1, 3))
+        if (render.renderAllFaces || block.shouldSideBeRendered(render.blockAccess, xPos, yPos, zPos + 1, 3))
         {
             if (render.renderMaxZ >= 1.0D)
             {
@@ -518,7 +518,7 @@ public class BlockSkinRenderHelper
             flag = true;
         }
 
-        if (render.renderAllFaces || block. shouldSideBeRendered(render.blockAccess, xPos - 1, yPos, zPos, 4))
+        if (render.renderAllFaces || block.shouldSideBeRendered(render.blockAccess, xPos - 1, yPos, zPos, 4))
         {
             if (render.renderMinX <= 0.0D)
             {
@@ -635,7 +635,7 @@ public class BlockSkinRenderHelper
             flag = true;
         }
 
-        if (render.renderAllFaces || block. shouldSideBeRendered(render.blockAccess, xPos + 1, yPos, zPos, 5))
+        if (render.renderAllFaces || block.shouldSideBeRendered(render.blockAccess, xPos + 1, yPos, zPos, 5))
         {
             if (render.renderMaxX >= 1.0D)
             {
@@ -794,7 +794,7 @@ public class BlockSkinRenderHelper
 
         int l = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos, zPos);
 
-        if (render.renderAllFaces || block. shouldSideBeRendered(render.blockAccess, xPos, yPos - 1, zPos, 0))
+        if (render.renderAllFaces || block.shouldSideBeRendered(render.blockAccess, xPos, yPos - 1, zPos, 0))
         {
             tessellator.setBrightness(render.renderMinY > 0.0D ? l : block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos - 1, zPos));
             tessellator.setColorOpaque_F(f10, f13, f16);
@@ -802,7 +802,7 @@ public class BlockSkinRenderHelper
             flag = true;
         }
 
-        if (render.renderAllFaces || block. shouldSideBeRendered(render.blockAccess, xPos, yPos + 1, zPos, 1))
+        if (render.renderAllFaces || block.shouldSideBeRendered(render.blockAccess, xPos, yPos + 1, zPos, 1))
         {
             tessellator.setBrightness(render.renderMaxY < 1.0D ? l : block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos + 1, zPos));
             tessellator.setColorOpaque_F(f7, f8, f9);
@@ -812,7 +812,7 @@ public class BlockSkinRenderHelper
 
         IIcon icon;
 
-        if (render.renderAllFaces || block. shouldSideBeRendered(render.blockAccess, xPos, yPos, zPos - 1, 2))
+        if (render.renderAllFaces || block.shouldSideBeRendered(render.blockAccess, xPos, yPos, zPos - 1, 2))
         {
             tessellator.setBrightness(render.renderMinZ > 0.0D ? l : block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos, zPos - 1));
             tessellator.setColorOpaque_F(f11, f14, f17);
@@ -821,7 +821,7 @@ public class BlockSkinRenderHelper
             flag = true;
         }
 
-        if (render.renderAllFaces || block. shouldSideBeRendered(render.blockAccess, xPos, yPos, zPos + 1, 3))
+        if (render.renderAllFaces || block.shouldSideBeRendered(render.blockAccess, xPos, yPos, zPos + 1, 3))
         {
             tessellator.setBrightness(render.renderMaxZ < 1.0D ? l : block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos, zPos + 1));
             tessellator.setColorOpaque_F(f11, f14, f17);
@@ -830,7 +830,7 @@ public class BlockSkinRenderHelper
             flag = true;
         }
 
-        if (render.renderAllFaces || block. shouldSideBeRendered(render.blockAccess, xPos - 1, yPos, zPos, 4))
+        if (render.renderAllFaces || block.shouldSideBeRendered(render.blockAccess, xPos - 1, yPos, zPos, 4))
         {
             tessellator.setBrightness(render.renderMinX > 0.0D ? l : block.getMixedBrightnessForBlock(render.blockAccess, xPos - 1, yPos, zPos));
             tessellator.setColorOpaque_F(f12, f15, f18);
@@ -839,7 +839,7 @@ public class BlockSkinRenderHelper
             flag = true;
         }
 
-        if (render.renderAllFaces || block. shouldSideBeRendered(render.blockAccess, xPos + 1, yPos, zPos, 5))
+        if (render.renderAllFaces || block.shouldSideBeRendered(render.blockAccess, xPos + 1, yPos, zPos, 5))
         {
             tessellator.setBrightness(render.renderMaxX < 1.0D ? l : block.getMixedBrightnessForBlock(render.blockAccess, xPos + 1, yPos, zPos));
             tessellator.setColorOpaque_F(f12, f15, f18);
@@ -904,7 +904,7 @@ public class BlockSkinRenderHelper
         float f7;
         int i1;
 
-        if (render.renderAllFaces || block. shouldSideBeRendered(render.blockAccess, xPos, yPos - 1, zPos, 0))
+        if (render.renderAllFaces || block.shouldSideBeRendered(render.blockAccess, xPos, yPos - 1, zPos, 0))
         {
             if (render.renderMinY <= 0.0D)
             {
@@ -1019,7 +1019,7 @@ public class BlockSkinRenderHelper
             flag = true;
         }
 
-        if (render.renderAllFaces || block. shouldSideBeRendered(render.blockAccess, xPos, yPos + 1, zPos, 1))
+        if (render.renderAllFaces || block.shouldSideBeRendered(render.blockAccess, xPos, yPos + 1, zPos, 1))
         {
             if (render.renderMaxY >= 1.0D)
             {
@@ -1123,7 +1123,7 @@ public class BlockSkinRenderHelper
             flag = true;
         }
 
-        if (render.renderAllFaces || block. shouldSideBeRendered(render.blockAccess, xPos, yPos, zPos - 1, 2))
+        if (render.renderAllFaces || block.shouldSideBeRendered(render.blockAccess, xPos, yPos, zPos - 1, 2))
         {
             if (render.renderMinZ <= 0.0D)
             {
@@ -1239,7 +1239,7 @@ public class BlockSkinRenderHelper
             flag = true;
         }
 
-        if (render.renderAllFaces || block. shouldSideBeRendered(render.blockAccess, xPos, yPos, zPos + 1, 3))
+        if (render.renderAllFaces || block.shouldSideBeRendered(render.blockAccess, xPos, yPos, zPos + 1, 3))
         {
             if (render.renderMaxZ >= 1.0D)
             {
@@ -1355,7 +1355,7 @@ public class BlockSkinRenderHelper
             flag = true;
         }
 
-        if (render.renderAllFaces || block. shouldSideBeRendered(render.blockAccess, xPos - 1, yPos, zPos, 4))
+        if (render.renderAllFaces || block.shouldSideBeRendered(render.blockAccess, xPos - 1, yPos, zPos, 4))
         {
             if (render.renderMinX <= 0.0D)
             {
@@ -1471,7 +1471,7 @@ public class BlockSkinRenderHelper
             flag = true;
         }
 
-        if (render.renderAllFaces || block. shouldSideBeRendered(render.blockAccess, xPos + 1, yPos, zPos, 5))
+        if (render.renderAllFaces || block.shouldSideBeRendered(render.blockAccess, xPos + 1, yPos, zPos, 5))
         {
             if (render.renderMaxX >= 1.0D)
             {
@@ -1630,7 +1630,7 @@ public class BlockSkinRenderHelper
 
         int l = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos, zPos);
 
-        if (render.renderAllFaces || block. shouldSideBeRendered(render.blockAccess, xPos, yPos - 1, zPos, 0))
+        if (render.renderAllFaces || block.shouldSideBeRendered(render.blockAccess, xPos, yPos - 1, zPos, 0))
         {
             tessellator.setBrightness(render.renderMinY > 0.0D ? l : block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos - 1, zPos));
             tessellator.setColorOpaque_F(f10, f13, f16);
@@ -1638,7 +1638,7 @@ public class BlockSkinRenderHelper
             flag = true;
         }
 
-        if (render.renderAllFaces || block. shouldSideBeRendered(render.blockAccess, xPos, yPos + 1, zPos, 1))
+        if (render.renderAllFaces || block.shouldSideBeRendered(render.blockAccess, xPos, yPos + 1, zPos, 1))
         {
             tessellator.setBrightness(render.renderMaxY < 1.0D ? l : block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos + 1, zPos));
             tessellator.setColorOpaque_F(f7, f8, f9);
@@ -1648,7 +1648,7 @@ public class BlockSkinRenderHelper
 
         IIcon icon;
 
-        if (render.renderAllFaces || block. shouldSideBeRendered(render.blockAccess, xPos, yPos, zPos - 1, 2))
+        if (render.renderAllFaces || block.shouldSideBeRendered(render.blockAccess, xPos, yPos, zPos - 1, 2))
         {
             tessellator.setBrightness(render.renderMinZ > 0.0D ? l : block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos, zPos - 1));
             tessellator.setColorOpaque_F(f11, f14, f17);
@@ -1657,7 +1657,7 @@ public class BlockSkinRenderHelper
             flag = true;
         }
 
-        if (render.renderAllFaces || block. shouldSideBeRendered(render.blockAccess, xPos, yPos, zPos + 1, 3))
+        if (render.renderAllFaces || block.shouldSideBeRendered(render.blockAccess, xPos, yPos, zPos + 1, 3))
         {
             tessellator.setBrightness(render.renderMaxZ < 1.0D ? l : block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos, zPos + 1));
             tessellator.setColorOpaque_F(f11, f14, f17);
@@ -1666,7 +1666,7 @@ public class BlockSkinRenderHelper
             flag = true;
         }
 
-        if (render.renderAllFaces || block. shouldSideBeRendered(render.blockAccess, xPos - 1, yPos, zPos, 4))
+        if (render.renderAllFaces || block.shouldSideBeRendered(render.blockAccess, xPos - 1, yPos, zPos, 4))
         {
             tessellator.setBrightness(render.renderMinX > 0.0D ? l : block.getMixedBrightnessForBlock(render.blockAccess, xPos - 1, yPos, zPos));
             tessellator.setColorOpaque_F(f12, f15, f18);
@@ -1675,7 +1675,7 @@ public class BlockSkinRenderHelper
             flag = true;
         }
 
-        if (render.renderAllFaces || block. shouldSideBeRendered(render.blockAccess, xPos + 1, yPos, zPos, 5))
+        if (render.renderAllFaces || block.shouldSideBeRendered(render.blockAccess, xPos + 1, yPos, zPos, 5))
         {
             tessellator.setBrightness(render.renderMaxX < 1.0D ? l : block.getMixedBrightnessForBlock(render.blockAccess, xPos + 1, yPos, zPos));
             tessellator.setColorOpaque_F(f12, f15, f18);
@@ -1686,7 +1686,9 @@ public class BlockSkinRenderHelper
 
         return flag;
     }
-    public static float getAmbientOcclusionLightValue(IBlockAccess access, int x, int y, int z){
+
+    public static float getAmbientOcclusionLightValue (IBlockAccess access, int x, int y, int z)
+    {
         return access.getBlock(x, y, z).getAmbientOcclusionLightValue();
     }
 }

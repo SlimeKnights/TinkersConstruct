@@ -18,10 +18,10 @@ public class TCraftingHandler //implements ICraftingHandler
     @SubscribeEvent
     public void onCrafting (ItemCraftedEvent event)//EntityPlayer player, ItemStack itemstack, IInventory craftMatrix)
     {
-    	Item item = event.crafting.getItem();
+        Item item = event.crafting.getItem();
         if (!event.player.worldObj.isRemote)
         {
-            if (ComparisonHelper.areEquivalent(item,TRepo.toolStationWood))
+            if (ComparisonHelper.areEquivalent(item, TRepo.toolStationWood))
             {
                 TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(event.player.getDisplayName());
                 NBTTagCompound tags = event.player.getEntityData().getCompoundTag("TConstruct");
@@ -32,7 +32,7 @@ public class TCraftingHandler //implements ICraftingHandler
                     AbilityHelper.spawnItemAtPlayer(event.player, new ItemStack(TRepo.manualBook, 1, 1));
                 }
             }
-            if (ComparisonHelper.areEquivalent(item,TRepo.smeltery) || ComparisonHelper.areEquivalent(item,TRepo.lavaTank))
+            if (ComparisonHelper.areEquivalent(item, TRepo.smeltery) || ComparisonHelper.areEquivalent(item, TRepo.lavaTank))
             {
                 TPlayerStats stats = TConstruct.playerTracker.getPlayerStats(event.player.getDisplayName());
                 NBTTagCompound tags = event.player.getEntityData().getCompoundTag("TConstruct");
@@ -44,9 +44,10 @@ public class TCraftingHandler //implements ICraftingHandler
                 }
                 event.player.addStat(TAchievements.achievements.get("tconstruct.smelteryMaker"), 1);
             }
-            
-            if (ComparisonHelper.areEquivalent(item,TRepo.craftingStationWood)){
-            	event.player.addStat(TAchievements.achievements.get("tconstruct.betterCrafting"), 1);
+
+            if (ComparisonHelper.areEquivalent(item, TRepo.craftingStationWood))
+            {
+                event.player.addStat(TAchievements.achievements.get("tconstruct.betterCrafting"), 1);
             }
         }
     }
