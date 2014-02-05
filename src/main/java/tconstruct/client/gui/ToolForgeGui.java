@@ -27,23 +27,23 @@ public class ToolForgeGui extends ToolStationGui
         {
             int gLeft = this.guiLeft + 68;
             int gTop = this.guiTop + 6;
-            int gfield_146294_l = 102;
-            int gfield_146295_m = 12;
-            active = mouseX > gLeft && mouseX < gLeft + gfield_146294_l && mouseY > gTop && mouseY < gTop + gfield_146295_m;
+            int gwidth = 102;
+            int gheight = 12;
+            active = mouseX > gLeft && mouseX < gLeft + gwidth && mouseY > gTop && mouseY < gTop + gheight;
         }
     }
 
     public void initGui ()
     {
         super.initGui();
-        int cornerX = (this.field_146294_l - this.xSize) / 2;
-        int cornerY = (this.field_146295_m - this.ySize) / 2;
+        int cornerX = (this.width - this.xSize) / 2;
+        int cornerY = (this.height - this.ySize) / 2;
 
-        this.field_146292_n.clear();
+        this.buttonList.clear();
         ToolGuiElement repair = TConstructClientRegistry.toolButtons.get(0);
         GuiButtonTool repairButton = new GuiButtonTool(0, cornerX - 110, cornerY, repair.buttonIconX, repair.buttonIconY, repair.domain, repair.texture, repair); // Repair
-        repairButton.field_146124_l = false;
-        this.field_146292_n.add(repairButton);
+        repairButton.enabled = false;
+        this.buttonList.add(repairButton);
         int offset = TConstructClientRegistry.tierTwoButtons.size();
 
         for (int iter = 0; iter < TConstructClientRegistry.tierTwoButtons.size(); iter++)
@@ -51,7 +51,7 @@ public class ToolForgeGui extends ToolStationGui
             ToolGuiElement element = TConstructClientRegistry.tierTwoButtons.get(iter);
             GuiButtonTool button = new GuiButtonTool(iter + 1, cornerX - 110 + 22 * ((iter + 1) % 5), cornerY + 22 * ((iter + 1) / 5), element.buttonIconX, element.buttonIconY, repair.domain,
                     element.texture, element);
-            this.field_146292_n.add(button);
+            this.buttonList.add(button);
         }
 
         for (int iter = 1; iter < TConstructClientRegistry.toolButtons.size(); iter++)
@@ -59,16 +59,16 @@ public class ToolForgeGui extends ToolStationGui
             ToolGuiElement element = TConstructClientRegistry.toolButtons.get(iter);
             GuiButtonTool button = new GuiButtonTool(iter + offset, cornerX - 110 + 22 * ((iter + offset) % 5), cornerY + 22 * ((iter + offset) / 5), element.buttonIconX, element.buttonIconY,
                     repair.domain, element.texture, element);
-            this.field_146292_n.add(button);
+            this.buttonList.add(button);
         }
     }
 
     protected void actionPerformed (GuiButton button)
     {
         GuiButtonTool b = (GuiButtonTool) button;
-        ((GuiButton) this.field_146292_n.get(selectedButton)).field_146124_l = true;
-        selectedButton = button.field_146127_k;
-        button.field_146124_l = false;
+        ((GuiButton) this.buttonList.get(selectedButton)).enabled = true;
+        selectedButton = button.id;
+        button.enabled = false;
 
         setSlotType(b.element.slotType);
         iconX = b.element.iconsX;
@@ -80,7 +80,7 @@ public class ToolForgeGui extends ToolStationGui
     @Override
     void resetGui ()
     {
-        this.text.func_146180_a("");
+        this.text.setText("");
         selectedButton = 0;
         setSlotType(0);
         iconX = new int[] { 0, 1, 2, 13 };

@@ -22,13 +22,13 @@ public class GravelOre extends BlockFalling
     public GravelOre()
     {
         super();
-        this.func_149647_a(TConstructRegistry.blockTab);
-        this.field_149762_H = field_149767_g;
-        //this.field_149764_J = Material.field_151596_z;
+        this.setCreativeTab(TConstructRegistry.blockTab);
+        this.stepSound = soundTypeGravel;
+        //this.blockMaterial = Material.craftedSnow;
     }
 
     @Override
-    public void func_149651_a (IIconRegister iconRegister)
+    public void registerBlockIcons (IIconRegister iconRegister)
     {
         this.icons = new IIcon[textureNames.length];
 
@@ -39,7 +39,7 @@ public class GravelOre extends BlockFalling
     }
 
     @Override
-    public IIcon func_149691_a (int side, int meta)
+    public IIcon getIcon (int side, int meta)
     {
         return icons[meta];
     }
@@ -54,7 +54,7 @@ public class GravelOre extends BlockFalling
     }
 
     @Override
-    public int func_149692_a (int meta)
+    public int damageDropped (int meta)
     {
         /*if (meta == 1)
             return 0;*/
@@ -69,7 +69,7 @@ public class GravelOre extends BlockFalling
     }
 
     @Override
-    public void func_149666_a (Item b, CreativeTabs tab, List list)
+    public void getSubBlocks (Item b, CreativeTabs tab, List list)
     {
         for (int iter = 0; iter < 6; iter++)
         {

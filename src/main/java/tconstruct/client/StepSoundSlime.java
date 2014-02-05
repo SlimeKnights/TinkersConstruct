@@ -16,7 +16,7 @@ public class StepSoundSlime extends SoundType
      */
     public String getBreakSound ()
     {
-        return this.field_150501_a + ".big";
+        return this.soundName + ".big";
     }
 
     /**
@@ -24,7 +24,7 @@ public class StepSoundSlime extends SoundType
      */
     public String getStepSound ()
     {
-        return this.field_150501_a + ".small";
+        return this.soundName + ".small";
     }
 
 }

@@ -61,7 +61,7 @@ public class PacketSmeltery extends AbstractPacket {
 	public void handleServerSide(EntityPlayer player) {
         World world = player.worldObj;
         
-        TileEntity te = world.func_147438_o(x, y, z);
+        TileEntity te = world.getTileEntity(x, y, z);
 
         if (te instanceof SmelteryLogic)
         {
@@ -84,8 +84,8 @@ public class PacketSmeltery extends AbstractPacket {
                     ((SmelteryLogic) te).moltenMetal.add(0, temp);
             }
             //TODO check if this works like it should
-            //Old code: PacketDispatcher.sendPacketToAllInDimension(te.func_145844_m(), dimension);
-            FMLCommonHandler.instance().getClientToServerNetworkManager().func_150725_a(te.func_145844_m());
+            //Old code: PacketDispatcher.sendPacketToAllInDimension(te.getDescriptionPacket(), dimension);
+            FMLCommonHandler.instance().getClientToServerNetworkManager().scheduleOutboundPacket(te.getDescriptionPacket());
         }
 	}
 

@@ -33,7 +33,7 @@ public class SmelteryScan extends TankLayerScan
 
     protected boolean checkAir (int x, int y, int z)
     {
-        Block block = world.func_147439_a(x, y, z);
+        Block block = world.getBlock(x, y, z);
         if (block == null || block == Blocks.air || block == TRepo.tankAir)
             return true;
 
@@ -43,14 +43,14 @@ public class SmelteryScan extends TankLayerScan
     @Override
     protected boolean checkServant (int x, int y, int z)
     {
-        Block block = world.func_147439_a(x, y, z);
-        if (block == null || world.func_147439_a( x, y, z)  == Blocks.air || !isValidBlock(x, y, z))
+        Block block = world.getBlock(x, y, z);
+        if (block == null || world.getBlock( x, y, z)  == Blocks.air || !isValidBlock(x, y, z))
             return false;
 
         if (!block.hasTileEntity(world.getBlockMetadata(x, y, z)))
             return false;
 
-        TileEntity be = world.func_147438_o(x, y, z);
+        TileEntity be = world.getTileEntity(x, y, z);
         if (be instanceof IServantLogic)
         {
             boolean ret = ((IServantLogic) be).setPotentialMaster(this.imaster, this.world, x, y, z);
@@ -72,11 +72,11 @@ public class SmelteryScan extends TankLayerScan
         {
             for (CoordTuple coord : airCoords)
             {
-                if (world.func_147439_a(coord.x, coord.y, coord.z) != TRepo.tankAir)
+                if (world.getBlock(coord.x, coord.y, coord.z) != TRepo.tankAir)
                 {
-                    world.func_147449_b(coord.x, coord.y, coord.z, TRepo.tankAir);
-                    IServantLogic servant = (IServantLogic) world.func_147438_o(coord.x, coord.y, coord.z);
-                    servant.verifyMaster(imaster, world, master.field_145851_c, master.field_145848_d, master.field_145849_e);
+                    world.setBlock(coord.x, coord.y, coord.z, TRepo.tankAir);
+                    IServantLogic servant = (IServantLogic) world.getTileEntity(coord.x, coord.y, coord.z);
+                    servant.verifyMaster(imaster, world, master.xCoord, master.yCoord, master.zCoord);
                 }
             }
         }
@@ -88,9 +88,9 @@ public class SmelteryScan extends TankLayerScan
         super.invalidateStructure();
         for (CoordTuple coord : airCoords)
         {
-            TileEntity servant = world.func_147438_o(coord.x, coord.y, coord.z);
+            TileEntity servant = world.getTileEntity(coord.x, coord.y, coord.z);
             if (servant instanceof IServantLogic)
-                ((IServantLogic) servant).invalidateMaster(imaster, world, master.field_145851_c, master.field_145848_d, master.field_145849_e);
+                ((IServantLogic) servant).invalidateMaster(imaster, world, master.xCoord, master.yCoord, master.zCoord);
         }
     }
 
@@ -102,9 +102,9 @@ public class SmelteryScan extends TankLayerScan
             if (coord.y < height)
                 continue;
 
-            TileEntity servant = world.func_147438_o(coord.x, coord.y, coord.z);
+            TileEntity servant = world.getTileEntity(coord.x, coord.y, coord.z);
             if (servant instanceof IServantLogic)
-                ((IServantLogic) servant).invalidateMaster(imaster, world, master.field_145851_c, master.field_145848_d, master.field_145849_e);
+                ((IServantLogic) servant).invalidateMaster(imaster, world, master.xCoord, master.yCoord, master.zCoord);
         }
     }
 
@@ -116,10 +116,10 @@ public class SmelteryScan extends TankLayerScan
         while (i.hasNext())
         {
             CoordTuple coord = (CoordTuple) i.next();
-            TileEntity te = world.func_147438_o(coord.x, coord.y, coord.z);
+            TileEntity te = world.getTileEntity(coord.x, coord.y, coord.z);
             if (te != null && te instanceof IServantLogic)
             {
-                ((IServantLogic) te).invalidateMaster(imaster, world, master.field_145851_c, master.field_145848_d, master.field_145849_e);
+                ((IServantLogic) te).invalidateMaster(imaster, world, master.xCoord, master.yCoord, master.zCoord);
             }
         }
     }
@@ -130,7 +130,7 @@ public class SmelteryScan extends TankLayerScan
     {
         super.readNetworkNBT(tags);
 
-        NBTTagList tanks = tags.func_150295_c("Tanks",11);
+        NBTTagList tanks = tags.getTagList("Tanks",11);
         if (tanks != null)
         {
             lavaTanks.clear();

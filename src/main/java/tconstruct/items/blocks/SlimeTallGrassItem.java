@@ -24,7 +24,7 @@ public class SlimeTallGrassItem extends MultiItemBlock
     public IIcon getIconFromDamage (int meta)
     {
         int arr = MathHelper.clamp_int(meta, 0, this.blockType.length);
-        return TRepo.slimeTallGrass.func_149691_a(0, arr);
+        return TRepo.slimeTallGrass.getIcon(0, arr);
     }
 
 }

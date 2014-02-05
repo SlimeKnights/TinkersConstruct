@@ -33,18 +33,18 @@ public class CastingChannelLogic extends TileEntity implements IFluidTank, IFlui
     }
 
     @Override
-    public void func_145845_h ()
+    public void updateEntity ()
     {
-        if (this.field_145850_b.isRemote)
+        if (this.worldObj.isRemote)
             return;
         ticks++;
         ticksLPReset++;
-        if (!field_145850_b.isRemote)
+        if (!worldObj.isRemote)
         {
             if (this.pullingLiquids)
                 pullLiquids();
         }
-        //this.field_145850_b.func_147471_g(this.field_145851_c, this.field_145848_d, this.field_145849_e);
+        //this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
         if (ticks == 20)
         {
             if (recentlyFilledDelay != 0)
@@ -62,8 +62,8 @@ public class CastingChannelLogic extends TileEntity implements IFluidTank, IFlui
 
     void pullLiquids ()
     {
-        if (pullLiquid(field_145851_c + 1, field_145848_d, field_145849_e, ForgeDirection.EAST) || pullLiquid(field_145851_c - 1, field_145848_d, field_145849_e, ForgeDirection.WEST) || pullLiquid(field_145851_c, field_145848_d, field_145849_e + 1, ForgeDirection.NORTH)
-                || pullLiquid(field_145851_c, field_145848_d, field_145849_e - 1, ForgeDirection.SOUTH))
+        if (pullLiquid(xCoord + 1, yCoord, zCoord, ForgeDirection.EAST) || pullLiquid(xCoord - 1, yCoord, zCoord, ForgeDirection.WEST) || pullLiquid(xCoord, yCoord, zCoord + 1, ForgeDirection.NORTH)
+                || pullLiquid(xCoord, yCoord, zCoord - 1, ForgeDirection.SOUTH))
         {
 
         }
@@ -75,7 +75,7 @@ public class CastingChannelLogic extends TileEntity implements IFluidTank, IFlui
 
     boolean pullLiquid (int x, int y, int z, ForgeDirection direction)
     {
-        TileEntity tank = field_145850_b.func_147438_o(x, y, z);
+        TileEntity tank = worldObj.getTileEntity(x, y, z);
         if (tank instanceof IFluidHandler && !(tank instanceof CastingChannelLogic))
         {
             FluidStack templiquid = ((IFluidHandler) tank).drain(direction, 3, false);
@@ -283,7 +283,7 @@ public class CastingChannelLogic extends TileEntity implements IFluidTank, IFlui
     @SideOnly(Side.CLIENT)
     public float tankBelow ()
     {
-        TileEntity te = this.field_145850_b.func_147438_o(this.field_145851_c, this.field_145848_d - 1, this.field_145849_e);
+        TileEntity te = this.worldObj.getTileEntity(this.xCoord, this.yCoord - 1, this.zCoord);
         if (te instanceof CastingChannelLogic)
             return -0.5f;
         if (te instanceof LavaTankLogic)
@@ -303,15 +303,15 @@ public class CastingChannelLogic extends TileEntity implements IFluidTank, IFlui
         switch (dir)
         {
         case DOWN:
-            return (this.field_145850_b.func_147438_o(this.field_145851_c, this.field_145848_d - 1, this.field_145849_e) instanceof CastingChannelLogic);
+            return (this.worldObj.getTileEntity(this.xCoord, this.yCoord - 1, this.zCoord) instanceof CastingChannelLogic);
         case NORTH:
-            return (this.field_145850_b.func_147438_o(this.field_145851_c, this.field_145848_d, this.field_145849_e - 1) instanceof CastingChannelLogic);
+            return (this.worldObj.getTileEntity(this.xCoord, this.yCoord, this.zCoord - 1) instanceof CastingChannelLogic);
         case SOUTH:
-            return (this.field_145850_b.func_147438_o(this.field_145851_c, this.field_145848_d, this.field_145849_e + 1) instanceof CastingChannelLogic);
+            return (this.worldObj.getTileEntity(this.xCoord, this.yCoord, this.zCoord + 1) instanceof CastingChannelLogic);
         case WEST:
-            return (this.field_145850_b.func_147438_o(this.field_145851_c - 1, this.field_145848_d, this.field_145849_e) instanceof CastingChannelLogic);
+            return (this.worldObj.getTileEntity(this.xCoord - 1, this.yCoord, this.zCoord) instanceof CastingChannelLogic);
         case EAST:
-            return (this.field_145850_b.func_147438_o(this.field_145851_c + 1, this.field_145848_d, this.field_145849_e) instanceof CastingChannelLogic);
+            return (this.worldObj.getTileEntity(this.xCoord + 1, this.yCoord, this.zCoord) instanceof CastingChannelLogic);
         default:
             return false;
         }
@@ -322,15 +322,15 @@ public class CastingChannelLogic extends TileEntity implements IFluidTank, IFlui
         switch (dir)
         {
         case DOWN:
-            return (this.field_145850_b.func_147438_o(this.field_145851_c, this.field_145848_d - 1, this.field_145849_e) instanceof IFluidHandler);
+            return (this.worldObj.getTileEntity(this.xCoord, this.yCoord - 1, this.zCoord) instanceof IFluidHandler);
         case NORTH:
-            return (this.field_145850_b.func_147438_o(this.field_145851_c, this.field_145848_d, this.field_145849_e - 1) instanceof IFluidHandler);
+            return (this.worldObj.getTileEntity(this.xCoord, this.yCoord, this.zCoord - 1) instanceof IFluidHandler);
         case SOUTH:
-            return (this.field_145850_b.func_147438_o(this.field_145851_c, this.field_145848_d, this.field_145849_e + 1) instanceof IFluidHandler);
+            return (this.worldObj.getTileEntity(this.xCoord, this.yCoord, this.zCoord + 1) instanceof IFluidHandler);
         case WEST:
-            return (this.field_145850_b.func_147438_o(this.field_145851_c - 1, this.field_145848_d, this.field_145849_e) instanceof IFluidHandler);
+            return (this.worldObj.getTileEntity(this.xCoord - 1, this.yCoord, this.zCoord) instanceof IFluidHandler);
         case EAST:
-            return (this.field_145850_b.func_147438_o(this.field_145851_c + 1, this.field_145848_d, this.field_145849_e) instanceof IFluidHandler);
+            return (this.worldObj.getTileEntity(this.xCoord + 1, this.yCoord, this.zCoord) instanceof IFluidHandler);
         default:
             return false;
         }
@@ -339,11 +339,11 @@ public class CastingChannelLogic extends TileEntity implements IFluidTank, IFlui
     private HashMap getOutputs ()
     {
         HashMap map = new HashMap();
-        TileEntity tankXplus = this.field_145850_b.func_147438_o(this.field_145851_c + 1, this.field_145848_d, this.field_145849_e);
-        TileEntity tankXminus = this.field_145850_b.func_147438_o(this.field_145851_c - 1, this.field_145848_d, this.field_145849_e);
-        TileEntity tankZplus = this.field_145850_b.func_147438_o(this.field_145851_c, this.field_145848_d, this.field_145849_e + 1);
-        TileEntity tankZminus = this.field_145850_b.func_147438_o(this.field_145851_c, this.field_145848_d, this.field_145849_e - 1);
-        TileEntity tankYminus = this.field_145850_b.func_147438_o(this.field_145851_c, this.field_145848_d - 1, this.field_145849_e);
+        TileEntity tankXplus = this.worldObj.getTileEntity(this.xCoord + 1, this.yCoord, this.zCoord);
+        TileEntity tankXminus = this.worldObj.getTileEntity(this.xCoord - 1, this.yCoord, this.zCoord);
+        TileEntity tankZplus = this.worldObj.getTileEntity(this.xCoord, this.yCoord, this.zCoord + 1);
+        TileEntity tankZminus = this.worldObj.getTileEntity(this.xCoord, this.yCoord, this.zCoord - 1);
+        TileEntity tankYminus = this.worldObj.getTileEntity(this.xCoord, this.yCoord - 1, this.zCoord);
 
         if (this.pullingLiquids)
         {
@@ -412,7 +412,7 @@ public class CastingChannelLogic extends TileEntity implements IFluidTank, IFlui
 
             if (doFill)
             {
-                this.field_145850_b.func_147471_g(this.field_145851_c, this.field_145848_d, this.field_145849_e);
+                this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
                 this.liquid = transfered;
             }
             recentlyFilledDelay = 2;
@@ -429,7 +429,7 @@ public class CastingChannelLogic extends TileEntity implements IFluidTank, IFlui
                 if ((doFill) && (spaceInTank > 0))
                 {
                     this.liquid.amount = this.fillMax;
-                    this.field_145850_b.func_147471_g(this.field_145851_c, this.field_145848_d, this.field_145849_e);
+                    this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
                 }
                 return spaceInTank;
             }
@@ -437,7 +437,7 @@ public class CastingChannelLogic extends TileEntity implements IFluidTank, IFlui
             if (doFill)
             {
                 this.liquid.amount += stack.amount;
-                this.field_145850_b.func_147471_g(this.field_145851_c, this.field_145848_d, this.field_145849_e);
+                this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
             }
             return stack.amount;
         }
@@ -484,8 +484,8 @@ public class CastingChannelLogic extends TileEntity implements IFluidTank, IFlui
         }
         if (doDrain)
         {
-            this.field_145850_b.func_147471_g(this.field_145851_c, this.field_145848_d, this.field_145849_e);
-            FluidEvent.fireEvent(new FluidEvent.FluidDrainingEvent(drained, this.field_145850_b, this.field_145851_c, this.field_145848_d, this.field_145849_e, this));
+            this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
+            FluidEvent.fireEvent(new FluidEvent.FluidDrainingEvent(drained, this.worldObj, this.xCoord, this.yCoord, this.zCoord, this));
         }
         return drained;
     }
@@ -514,9 +514,9 @@ public class CastingChannelLogic extends TileEntity implements IFluidTank, IFlui
     }
 
     @Override
-    public void func_145839_a (NBTTagCompound tags)
+    public void readFromNBT (NBTTagCompound tags)
     {
-        super.func_145839_a(tags);
+        super.readFromNBT(tags);
         readCustomNBT(tags);
         pullingLiquids = tags.getBoolean("PullingLiquids");
     }
@@ -534,9 +534,9 @@ public class CastingChannelLogic extends TileEntity implements IFluidTank, IFlui
     }
 
     @Override
-    public void func_145841_b (NBTTagCompound tags)
+    public void writeToNBT (NBTTagCompound tags)
     {
-        super.func_145841_b(tags);
+        super.writeToNBT(tags);
         writeCustomNBT(tags);
         tags.setBoolean("PullingLiquids", pullingLiquids);
     }
@@ -555,18 +555,18 @@ public class CastingChannelLogic extends TileEntity implements IFluidTank, IFlui
     }
 
     @Override
-    public Packet func_145844_m ()
+    public Packet getDescriptionPacket ()
     {
         NBTTagCompound tag = new NBTTagCompound();
         writeCustomNBT(tag);
-        return new S35PacketUpdateTileEntity(this.field_145851_c, this.field_145848_d, this.field_145849_e, 1, tag);
+        return new S35PacketUpdateTileEntity(this.xCoord, this.yCoord, this.zCoord, 1, tag);
     }
 
     @Override
     public void onDataPacket (NetworkManager net, S35PacketUpdateTileEntity packet)
     {
         readCustomNBT(packet.func_148857_g());
-        this.field_145850_b.func_147479_m(this.field_145851_c, this.field_145848_d, this.field_145849_e);
+        this.worldObj.func_147479_m(this.xCoord, this.yCoord, this.zCoord);
     }
 
     public int convertFDToInt (ForgeDirection dir)

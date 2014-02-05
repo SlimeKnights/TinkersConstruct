@@ -46,7 +46,7 @@ public class PacketToolStation extends AbstractPacket {
 	@Override
 	public void handleServerSide(EntityPlayer player) {
 		World world = player.worldObj;
-		TileEntity te = world.func_147438_o(x, y, z);
+		TileEntity te = world.getTileEntity(x, y, z);
 
 		if (te instanceof ToolStationLogic) {
 			((ToolStationLogic) te).setToolname(toolName);

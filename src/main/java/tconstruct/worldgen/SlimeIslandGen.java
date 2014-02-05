@@ -67,7 +67,7 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
                 for (int y = 0; y <= height; y++)
                 {
                     if (ellipse.contains(x, z))
-                        world.func_147465_d(x + xChunk, y + yCenter, z + zChunk, base, 5, 0);
+                        world.setBlock(x + xChunk, y + yCenter, z + zChunk, base, 5, 0);
                 }
             }
         }
@@ -83,14 +83,14 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
                     int xPos = x + xChunk;
                     int yPos = y + yCenter + height;
                     int zPos = z + zChunk;
-                    if (world.func_147439_a(xPos - 1, yPos + 1, zPos) == base && world.func_147439_a(xPos + 1, yPos + 1, zPos) == base && world.func_147439_a(xPos, yPos + 1, zPos - 1) == base
-                            && world.func_147439_a(xPos - 1, yPos + 1, zPos + 1) == base && random.nextInt(100) > randomness)
+                    if (world.getBlock(xPos - 1, yPos + 1, zPos) == base && world.getBlock(xPos + 1, yPos + 1, zPos) == base && world.getBlock(xPos, yPos + 1, zPos - 1) == base
+                            && world.getBlock(xPos - 1, yPos + 1, zPos + 1) == base && random.nextInt(100) > randomness)
                     {
                         ;
                     }
                     else
                     {
-                        world.func_147465_d(xPos, yPos, zPos, Blocks.air, 0, 0);
+                        world.setBlock(xPos, yPos, zPos, Blocks.air, 0, 0);
 
                     }
                 }
@@ -108,14 +108,14 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
                     int xPos = x + xChunk;
                     int yPos = y + yCenter + initialHeight - height + 1;
                     int zPos = z + zChunk;
-                    if (world.func_147439_a(xPos - 1, yPos - 1, zPos) == base && world.func_147439_a(xPos + 1, yPos - 1, zPos) == base && world.func_147439_a(xPos, yPos - 1, zPos - 1) == base
-                            && world.func_147439_a(xPos - 1, yPos - 1, zPos + 1) == base)
+                    if (world.getBlock(xPos - 1, yPos - 1, zPos) == base && world.getBlock(xPos + 1, yPos - 1, zPos) == base && world.getBlock(xPos, yPos - 1, zPos - 1) == base
+                            && world.getBlock(xPos - 1, yPos - 1, zPos + 1) == base)
                     {
                         ;
                     }
                     else
                     {
-                        world.func_147465_d(xPos, yPos, zPos, Blocks.air, 0, 0);
+                        world.setBlock(xPos, yPos, zPos, Blocks.air, 0, 0);
                     }
                 }
             }
@@ -131,11 +131,11 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
                     int xPos = x + xChunk;
                     int yPos = y + yCenter + initialHeight - height;
                     int zPos = z + zChunk;
-                    if (world.func_147439_a(xPos, yPos, zPos) == base)
+                    if (world.getBlock(xPos, yPos, zPos) == base)
                     {
-                        Block block = world.func_147439_a(xPos, yPos + 1, zPos);
+                        Block block = world.getBlock(xPos, yPos + 1, zPos);
                         if (block == null || block == Blocks.air)
-                            world.func_147465_d(xPos, yPos, zPos, top, 0, 0);
+                            world.setBlock(xPos, yPos, zPos, top, 0, 0);
                     }
                 }
             }
@@ -226,14 +226,14 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
 
                     if (var33)
                     {
-                        Material var12 = world.func_147439_a(x + xPos, y + yPos, z + zPos).func_149688_o();
+                        Material var12 = world.getBlock(x + xPos, y + yPos, z + zPos).getMaterial();
 
                         if (yPos >= 4 && var12.isLiquid())
                         {
                             return false;
                         }
 
-                        if (yPos < 4 && !var12.isSolid() && world.func_147439_a(x + xPos, y + yPos, z + zPos) != this.liquidBlock)
+                        if (yPos < 4 && !var12.isSolid() && world.getBlock(x + xPos, y + yPos, z + zPos) != this.liquidBlock)
                         {
                             return false;
                         }
@@ -250,7 +250,7 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
                 {
                     if (validLocations[(xPos * 16 + zPos) * 8 + yPos])
                     {
-                        world.func_147449_b(x + xPos, y + yPos, z + zPos, yPos >= 4 ? Blocks.air : this.liquidBlock);
+                        world.setBlock(x + xPos, y + yPos, z + zPos, yPos >= 4 ? Blocks.air : this.liquidBlock);
                     }
                 }
             }
@@ -262,17 +262,17 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
             {
                 for (yPos = 4; yPos < 8; ++yPos)
                 {
-                    if (validLocations[(xPos * 16 + zPos) * 8 + yPos] && world.func_147439_a(x + xPos, y + yPos - 1, z + zPos) == base
+                    if (validLocations[(xPos * 16 + zPos) * 8 + yPos] && world.getBlock(x + xPos, y + yPos - 1, z + zPos) == base
                             && world.getSavedLightValue(EnumSkyBlock.Sky, x + xPos, y + yPos, z + zPos) > 0)
                     {
-                        world.func_147465_d(x + xPos, y + yPos - 1, z + zPos, top, 0, 0);
+                        world.setBlock(x + xPos, y + yPos - 1, z + zPos, top, 0, 0);
                     }
                 }
             }
         }
 
         //Generate blocks around
-        if (this.liquidBlock.func_149688_o() == Material.field_151586_h)
+        if (this.liquidBlock.getMaterial() == Material.water)
         {
             for (xPos = 0; xPos < 16; ++xPos)
             {
@@ -285,10 +285,10 @@ public class SlimeIslandGen extends WorldGenerator implements IWorldGenerator
                                         && validLocations[(xPos * 16 + zPos + 1) * 8 + yPos] || zPos > 0 && validLocations[(xPos * 16 + (zPos - 1)) * 8 + yPos] || yPos < 7
                                         && validLocations[(xPos * 16 + zPos) * 8 + yPos + 1] || yPos > 0 && validLocations[(xPos * 16 + zPos) * 8 + (yPos - 1)]);
 
-                        if (var33 && (yPos < 4 || rand.nextInt(2) != 0) && world.func_147439_a(x + xPos, y + yPos, z + zPos).func_149688_o().isSolid()
-                                && world.func_147439_a(x + xPos, y + yPos + 1, z + zPos).func_149688_o() != Material.field_151586_h)
+                        if (var33 && (yPos < 4 || rand.nextInt(2) != 0) && world.getBlock(x + xPos, y + yPos, z + zPos).getMaterial().isSolid()
+                                && world.getBlock(x + xPos, y + yPos + 1, z + zPos).getMaterial() != Material.water)
                         {
-                            world.func_147465_d(x + xPos, y + yPos, z + zPos, TRepo.slimeGel, gelMeta, 2);
+                            world.setBlock(x + xPos, y + yPos, z + zPos, TRepo.slimeGel, gelMeta, 2);
                         }
                     }
                 }

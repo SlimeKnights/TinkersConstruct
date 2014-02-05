@@ -96,13 +96,13 @@ public class Chisel extends ToolCore
                 int x = movingobjectposition.blockX;
                 int y = movingobjectposition.blockY;
                 int z = movingobjectposition.blockZ;
-                Block block = world.func_147439_a(x, y, z);
+                Block block = world.getBlock(x, y, z);
                 int meta = world.getBlockMetadata(x, y, z);
 
                 DetailInput details = TConstruct.chiselDetailing.getDetailing(block, meta);
                 if (details != null)
                 {
-                    world.func_147465_d(x, y, z, BlockUtils.getBlockFromItemStack(details.output), details.outputMeta, 3);
+                    world.setBlock(x, y, z, BlockUtils.getBlockFromItemStack(details.output), details.outputMeta, 3);
                     if (!(entityplayer.capabilities.isCreativeMode))
                     {
                         int reinforced = 0;
@@ -116,7 +116,7 @@ public class Chisel extends ToolCore
                             AbilityHelper.damageTool(itemstack, 1, null, false);
                         }
                     }
-                    world.playAuxSFX(2001, x, y, z, Block.func_149682_b(block) + (meta << 12));
+                    world.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(block) + (meta << 12));
                     entityplayer.swingItem();
                 }
             }

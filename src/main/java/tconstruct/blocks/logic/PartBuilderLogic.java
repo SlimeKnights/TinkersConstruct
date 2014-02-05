@@ -38,7 +38,7 @@ public class PartBuilderLogic extends InventoryLogic implements ISidedInventory
         {
             for (int zPos = z - 1; zPos <= z + 1; zPos++)
             {
-                TileEntity tile = world.func_147438_o(xPos, y, zPos);
+                TileEntity tile = world.getTileEntity(xPos, y, zPos);
                 if (tile != null && tile instanceof PatternChestLogic)
                     return new PartCrafterChestContainer(inventoryplayer, this, (PatternChestLogic) tile);
             }
@@ -146,16 +146,16 @@ public class PartBuilderLogic extends InventoryLogic implements ISidedInventory
     }
 
     /* NBT */
-    public void func_145839_a (NBTTagCompound tags)
+    public void readFromNBT (NBTTagCompound tags)
     {
-        super.func_145839_a(tags);
+        super.readFromNBT(tags);
         craftedTop = tags.getBoolean("CraftedTop");
         craftedBottom = tags.getBoolean("CraftedBottom");
     }
 
-    public void func_145841_b (NBTTagCompound tags)
+    public void writeToNBT (NBTTagCompound tags)
     {
-        super.func_145841_b(tags);
+        super.writeToNBT(tags);
         tags.setBoolean("CraftedTop", craftedTop);
         tags.setBoolean("CraftedBottom", craftedBottom);
     }
@@ -179,13 +179,13 @@ public class PartBuilderLogic extends InventoryLogic implements ISidedInventory
     }
 
     @Override
-    public String func_145825_b ()
+    public String getInventoryName ()
     {
         return getDefaultName();
     }
 
     @Override
-    public boolean func_145818_k_ ()
+    public boolean hasCustomInventoryName ()
     {
         return false;
     }

@@ -19,33 +19,33 @@ public class MultiBrick extends TConstructBlock
 
     public MultiBrick()
     {
-        super(Material.field_151576_e, 3f, blockTextures);
+        super(Material.rock, 3f, blockTextures);
     }
 
     @Override
-    public float func_149712_f (World world, int x, int y, int z)
+    public float getBlockHardness (World world, int x, int y, int z)
     {
         int meta = world.getBlockMetadata(x, y, z);
         switch (meta)
         {
         case 0:
-            return Blocks.obsidian.func_149712_f(world, x, y, z);
+            return Blocks.obsidian.getBlockHardness(world, x, y, z);
         case 1:
-            return Blocks.sandstone.func_149712_f(world, x, y, z);
+            return Blocks.sandstone.getBlockHardness(world, x, y, z);
         case 2:
-            return Blocks.netherrack.func_149712_f(world, x, y, z);
+            return Blocks.netherrack.getBlockHardness(world, x, y, z);
         case 3:
-            return Blocks.stone.func_149712_f(world, x, y, z);
+            return Blocks.stone.getBlockHardness(world, x, y, z);
         case 4:
-            return Blocks.iron_block.func_149712_f(world, x, y, z);
+            return Blocks.iron_block.getBlockHardness(world, x, y, z);
         case 5:
-            return Blocks.gold_block.func_149712_f(world, x, y, z);
+            return Blocks.gold_block.getBlockHardness(world, x, y, z);
         case 6:
-            return Blocks.lapis_block.func_149712_f(world, x, y, z);
+            return Blocks.lapis_block.getBlockHardness(world, x, y, z);
         case 7:
-            return Blocks.diamond_block.func_149712_f(world, x, y, z);
+            return Blocks.diamond_block.getBlockHardness(world, x, y, z);
         case 8:
-            return Blocks.redstone_block.func_149712_f(world, x, y, z);
+            return Blocks.redstone_block.getBlockHardness(world, x, y, z);
         case 9:
             return 1.0F;
         case 10:
@@ -53,11 +53,11 @@ public class MultiBrick extends TConstructBlock
         case 11:
             return 1.5F;
         case 12:
-            return Blocks.end_stone.func_149712_f(world, x, y, z);
+            return Blocks.end_stone.getBlockHardness(world, x, y, z);
         case 13:
-            return Blocks.obsidian.func_149712_f(world, x, y, z);
+            return Blocks.obsidian.getBlockHardness(world, x, y, z);
         default:
-            return field_149782_v;
+            return blockHardness;
         }
     }
 
@@ -100,7 +100,7 @@ public class MultiBrick extends TConstructBlock
     }
 
     @Override
-    public void func_149670_a (World world, int x, int y, int z, Entity entity)
+    public void onEntityCollidedWithBlock (World world, int x, int y, int z, Entity entity)
     {
         int meta = world.getBlockMetadata(x, y, z);
         if (meta == 10 || meta == 11)
@@ -112,12 +112,12 @@ public class MultiBrick extends TConstructBlock
     }
     //TODO getCollisionBoundingBoxFromPool
     @Override
-    public AxisAlignedBB func_149668_a (World world, int x, int y, int z)
+    public AxisAlignedBB getCollisionBoundingBoxFromPool (World world, int x, int y, int z)
     {
         int meta = world.getBlockMetadata(x, y, z);
         if (meta == 10 || meta == 11)
             return AxisAlignedBB.getBoundingBox(x, y, z, (double) x + 1.0D, (double) y + 0.625D, (double) z + 1.0D);
-        return super.func_149668_a(world, x, y, z);
+        return super.getCollisionBoundingBoxFromPool(world, x, y, z);
     }
 
     /*@Override
@@ -133,7 +133,7 @@ public class MultiBrick extends TConstructBlock
     }
 
     @Override
-    public int func_149709_b (IBlockAccess world, int x, int y, int z, int side)
+    public int isProvidingWeakPower (IBlockAccess world, int x, int y, int z, int side)
     {
         if (world.getBlockMetadata(x, y, z) == 8)
             return 4;
@@ -142,7 +142,7 @@ public class MultiBrick extends TConstructBlock
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void func_149651_a (IIconRegister iconRegister)
+    public void registerBlockIcons (IIconRegister iconRegister)
     {
         this.icons = new IIcon[textureNames.length];
 

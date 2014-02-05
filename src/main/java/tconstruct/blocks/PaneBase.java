@@ -34,14 +34,14 @@ public class PaneBase extends Block
         this.folder = folder;
     }
 
-    public final boolean func_150098_a(Block p_150098_1_)
+    public final boolean canPaneConnectToBlock(Block p_150098_1_)
     {
         return p_150098_1_.func_149730_j() || p_150098_1_ == this || p_150098_1_ == Blocks.glass || p_150098_1_ == Blocks.stained_glass || p_150098_1_ == Blocks.stained_glass_pane || p_150098_1_ instanceof BlockPane;
     }
     
     public boolean canConnectTo(IBlockAccess world, int x, int y, int z, ForgeDirection dir)
     {
-        return func_150098_a(world.func_147439_a(x, y, z)) || world.isSideSolid(x, y, z, dir.getOpposite(), false);
+        return canPaneConnectToBlock(world.getBlock(x, y, z)) || world.isSideSolid(x, y, z, dir.getOpposite(), false);
     }
 
     public IIcon getSideTextureIndex (int meta)
@@ -51,7 +51,7 @@ public class PaneBase extends Block
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void func_149651_a (IIconRegister iconRegister)
+    public void registerBlockIcons (IIconRegister iconRegister)
     {
         this.icons = new IIcon[textureNames.length];
         this.sideIcons = new IIcon[textureNames.length];
@@ -65,13 +65,13 @@ public class PaneBase extends Block
 
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon func_149691_a (int side, int meta)
+    public IIcon getIcon (int side, int meta)
     {
         return icons[meta];
     }
 
     @Override
-    public void func_149666_a (Item b, CreativeTabs tab, List list)
+    public void getSubBlocks (Item b, CreativeTabs tab, List list)
     {
         for (int iter = 0; iter < textureNames.length; iter++)
         {
@@ -94,21 +94,21 @@ public class PaneBase extends Block
         return PaneRender.model;
     }
 
-    public boolean  func_149646_a (IBlockAccess iblockaccess, int i, int j, int k, int l)
+    public boolean  shouldSideBeRendered (IBlockAccess iblockaccess, int i, int j, int k, int l)
     {
-        Block b = iblockaccess.func_147439_a(i, j, k);
+        Block b = iblockaccess.getBlock(i, j, k);
         if (b instanceof PaneBase || b instanceof BlockPane)
         {
             return false;
         }
         else
         {
-            return super. func_149646_a(iblockaccess, i, j, k, l);
+            return super. shouldSideBeRendered(iblockaccess, i, j, k, l);
         }
     }
 
     @Override
-    public void func_149743_a (World world, int x, int y, int z, AxisAlignedBB axisalignedbb, List arraylist, Entity entity)
+    public void addCollisionBoxesToList (World world, int x, int y, int z, AxisAlignedBB axisalignedbb, List arraylist, Entity entity)
     {
         boolean south = canConnectTo(world, x, y, z - 1, ForgeDirection.NORTH);
         boolean north = canConnectTo(world, x, y, z + 1, ForgeDirection.SOUTH);
@@ -116,39 +116,39 @@ public class PaneBase extends Block
         boolean west = canConnectTo(world, x + 1, y, z, ForgeDirection.WEST);
         if (east && west || !east && !west && !south && !north)
         {
-            func_149676_a(0.0F, 0.0F, 0.4375F, 1.0F, 1.0F, 0.5625F);
-            super.func_149743_a(world, x, y, z, axisalignedbb, arraylist, entity);
+            setBlockBounds(0.0F, 0.0F, 0.4375F, 1.0F, 1.0F, 0.5625F);
+            super.addCollisionBoxesToList(world, x, y, z, axisalignedbb, arraylist, entity);
         }
         else if (east && !west)
         {
-            func_149676_a(0.0F, 0.0F, 0.4375F, 0.5F, 1.0F, 0.5625F);
-            super.func_149743_a(world, x, y, z, axisalignedbb, arraylist, entity);
+            setBlockBounds(0.0F, 0.0F, 0.4375F, 0.5F, 1.0F, 0.5625F);
+            super.addCollisionBoxesToList(world, x, y, z, axisalignedbb, arraylist, entity);
         }
         else if (!east && west)
         {
-            func_149676_a(0.5F, 0.0F, 0.4375F, 1.0F, 1.0F, 0.5625F);
-            super.func_149743_a(world, x, y, z, axisalignedbb, arraylist, entity);
+            setBlockBounds(0.5F, 0.0F, 0.4375F, 1.0F, 1.0F, 0.5625F);
+            super.addCollisionBoxesToList(world, x, y, z, axisalignedbb, arraylist, entity);
         }
         if (south && north || !east && !west && !south && !north)
         {
-            func_149676_a(0.4375F, 0.0F, 0.0F, 0.5625F, 1.0F, 1.0F);
-            super.func_149743_a(world, x, y, z, axisalignedbb, arraylist, entity);
+            setBlockBounds(0.4375F, 0.0F, 0.0F, 0.5625F, 1.0F, 1.0F);
+            super.addCollisionBoxesToList(world, x, y, z, axisalignedbb, arraylist, entity);
         }
         else if (south && !north)
         {
-            func_149676_a(0.4375F, 0.0F, 0.0F, 0.5625F, 1.0F, 0.5F);
-            super.func_149743_a(world, x, y, z, axisalignedbb, arraylist, entity);
+            setBlockBounds(0.4375F, 0.0F, 0.0F, 0.5625F, 1.0F, 0.5F);
+            super.addCollisionBoxesToList(world, x, y, z, axisalignedbb, arraylist, entity);
         }
         else if (!south && north)
         {
-            func_149676_a(0.4375F, 0.0F, 0.5F, 0.5625F, 1.0F, 1.0F);
-            super.func_149743_a(world, x, y, z, axisalignedbb, arraylist, entity);
+            setBlockBounds(0.4375F, 0.0F, 0.5F, 0.5625F, 1.0F, 1.0F);
+            super.addCollisionBoxesToList(world, x, y, z, axisalignedbb, arraylist, entity);
         }
     }
 
     public void setBlockBoundsForItemRender ()
     {
-        func_149676_a(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
+        setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
     }
 
     public void setBlockBoundsBasedOnState (IBlockAccess iblockaccess, int i, int j, int k)
@@ -187,7 +187,7 @@ public class PaneBase extends Block
         {
             f3 = 1.0F;
         }
-        func_149676_a(f, 0.0F, f2, f1, 1.0F, f3);
+        setBlockBounds(f, 0.0F, f2, f1, 1.0F, f3);
     }
 
 }

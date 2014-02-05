@@ -40,7 +40,7 @@ public class Scythe extends Weapon
         return materials;
     }
 
-    static Material[] materials = new Material[] { Material.field_151569_G, Material.field_151570_A};//TODO find this//, Material.pumpkin, Material.field_151585_k, Material.field_151582_l, Material.field_151584_j };
+    static Material[] materials = new Material[] { Material.web, Material.cactus};//TODO find this//, Material.pumpkin, Material.plants, Material.vine, Material.leaves };
 
     @Override
     public Item getHeadItem ()
@@ -155,7 +155,7 @@ public class Scythe extends Weapon
             return false;
 
         World world = player.worldObj;
-        final Block blockB = world.func_147439_a(x, y, z);
+        final Block blockB = world.getBlock(x, y, z);
         final int meta = world.getBlockMetadata(x, y, z);
         if (!stack.hasTagCompound())
             return false;
@@ -177,21 +177,21 @@ public class Scythe extends Weapon
 
                         if (!cancelHarvest)
                         {
-                            Block block = world.func_147439_a(xPos, yPos, zPos);
-                            if (block != null)// && (block.func_149688_o() == Material.field_151584_j || block.isLeaves(world, xPos, yPos, zPos)))
+                            Block block = world.getBlock(xPos, yPos, zPos);
+                            if (block != null)// && (block.getMaterial() == Material.leaves || block.isLeaves(world, xPos, yPos, zPos)))
                             {
                                 for (int iter = 0; iter < materials.length; iter++)
                                 {
-                                    if (materials[iter] == block.func_149688_o())
+                                    if (materials[iter] == block.getMaterial())
                                     {
                                         int localMeta = world.getBlockMetadata(xPos, yPos, zPos);
                                         WorldHelper.setBlockToAir(world, xPos, yPos, zPos);
                                         if (!player.capabilities.isCreativeMode)
                                         {
-                                            block.func_149664_b(world, x, y, z, meta);
-                                            block.func_149636_a(world, player, xPos, yPos, zPos, localMeta);
-                                            block.func_149681_a(world, x, y, z, localMeta, player);
-                                            func_150894_a(stack, world, blockB, xPos, yPos, zPos, player);
+                                            block.onBlockDestroyedByPlayer(world, x, y, z, meta);
+                                            block.harvestBlock(world, player, xPos, yPos, zPos, localMeta);
+                                            block.onBlockHarvested(world, x, y, z, localMeta, player);
+                                            onBlockDestroyed(stack, world, blockB, xPos, yPos, zPos, player);
                                         }
                                     }
                                 }
@@ -202,7 +202,7 @@ public class Scythe extends Weapon
             }
         }
         if (!world.isRemote)
-            world.playAuxSFX(2001, x, y, z, Block.func_149682_b(blockB) + (meta << 12));
+            world.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(blockB) + (meta << 12));
         return super.onBlockStartBreak(stack, x, y, z, player);
     }
 

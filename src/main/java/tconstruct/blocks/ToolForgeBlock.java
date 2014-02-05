@@ -29,9 +29,9 @@ public class ToolForgeBlock extends InventoryBlock
     public ToolForgeBlock(Material material)
     {
         super(material);
-        this.func_149647_a(TConstructRegistry.blockTab);
-        this.func_149711_c(2f);
-        this.func_149672_a(Block.field_149777_j);
+        this.setCreativeTab(TConstructRegistry.blockTab);
+        this.setHardness(2f);
+        this.setStepSound(Block.soundTypeMetal);
     }
 
     String[] textureNames = { "toolforge_iron", "toolforge_gold", "toolforge_diamond", "toolforge_emerald", "toolforge_cobalt", "toolforge_ardite", "toolforge_manyullyn", "toolforge_copper",
@@ -47,14 +47,14 @@ public class ToolForgeBlock extends InventoryBlock
     IIcon textureTop;
 
     @Override
-    public void func_149651_a (IIconRegister iconRegister)
+    public void registerBlockIcons (IIconRegister iconRegister)
     {
-        super.func_149651_a(iconRegister);
+        super.registerBlockIcons(iconRegister);
         textureTop = iconRegister.registerIcon("tinker:toolforge_top");
     }
 
     @Override
-    public IIcon func_149691_a (int side, int meta)
+    public IIcon getIcon (int side, int meta)
     {
         if (side == 1)
         {
@@ -65,15 +65,15 @@ public class ToolForgeBlock extends InventoryBlock
             switch (meta)
             {
             case 0:
-                return Blocks.iron_block.func_149691_a(side, 0);
+                return Blocks.iron_block.getIcon(side, 0);
             case 1:
-                return Blocks.gold_block.func_149691_a(side, 0);
+                return Blocks.gold_block.getIcon(side, 0);
             case 2:
-                return Blocks.diamond_block.func_149691_a(side, 0);
+                return Blocks.diamond_block.getIcon(side, 0);
             case 3:
-                return Blocks.emerald_block.func_149691_a(side, 0);
+                return Blocks.emerald_block.getIcon(side, 0);
             default:
-                return TRepo.metalBlock.func_149691_a(side, meta - 4);
+                return TRepo.metalBlock.getIcon(side, meta - 4);
             }
         }
 
@@ -81,13 +81,13 @@ public class ToolForgeBlock extends InventoryBlock
     }
 
     @Override
-    public boolean func_149686_d ()
+    public boolean renderAsNormalBlock ()
     {
         return false;
     }
 
     @Override
-    public boolean func_149662_c ()
+    public boolean isOpaqueCube ()
     {
         return false;
     }
@@ -99,19 +99,19 @@ public class ToolForgeBlock extends InventoryBlock
     }
 
     @Override
-    public int func_149645_b ()
+    public int getRenderType ()
     {
         return TableForgeRender.model;
     }
 
     @Override
-    public boolean func_149646_a (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
+    public boolean shouldSideBeRendered (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
     {
         return true;
     }
 
     @Override
-    public TileEntity func_149915_a (World world, int metadata)
+    public TileEntity createNewTileEntity (World world, int metadata)
     {
         return new ToolForgeLogic();
     }
@@ -130,7 +130,7 @@ public class ToolForgeBlock extends InventoryBlock
     }
 
     @Override
-    public void func_149666_a (Item b, CreativeTabs tab, List list)
+    public void getSubBlocks (Item b, CreativeTabs tab, List list)
     {
         for (int iter = 0; iter < textureNames.length; iter++)
         {

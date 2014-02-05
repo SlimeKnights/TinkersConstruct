@@ -60,12 +60,12 @@ public abstract class Behavior
         addBehavior(new ItemStack(Items.shears), shear);
         
         //Make sure the part below this comment is executed last(to avoid conflicts)
-        Iterator i1 = Block.field_149771_c.iterator();
+        Iterator i1 = Block.blockRegistry.iterator();
         while(i1.hasNext()){
         	Object ob = i1.next();
         	if(ob != null && ob instanceof Block){
         		Block b = (Block) ob;
-        		if(b.func_149688_o().isOpaque() && b.func_149686_d() && !b.func_149744_f() && !(b instanceof ITileEntityProvider) && !behaviorsListBlocks.containsKey(new ItemStack(b))){
+        		if(b.getMaterial().isOpaque() && b.renderAsNormalBlock() && !b.canProvidePower() && !(b instanceof ITileEntityProvider) && !behaviorsListBlocks.containsKey(new ItemStack(b))){
         			addBehavior(new ItemStack(b), blockThrow);
         		}
         	}

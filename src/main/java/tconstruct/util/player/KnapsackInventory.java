@@ -83,13 +83,13 @@ public class KnapsackInventory implements IInventory
     }
 
     @Override
-    public String func_145825_b ()
+    public String getInventoryName ()
     {
         return "tconstruct.knapsack";
     }
 
     @Override
-    public boolean func_145818_k_ ()
+    public boolean hasCustomInventoryName ()
     {
         return false;
     }
@@ -149,10 +149,10 @@ public class KnapsackInventory implements IInventory
     public void readFromNBT (EntityPlayer entityplayer)
     {
         NBTTagCompound tags = entityplayer.getEntityData();
-        NBTTagList tagList = tags.func_150295_c("TConstruct.Knapsack", 9);
+        NBTTagList tagList = tags.getTagList("TConstruct.Knapsack", 9);
         for (int i = 0; i < tagList.tagCount(); ++i)
         {
-            NBTTagCompound nbttagcompound = (NBTTagCompound) tagList.func_150305_b(i);
+            NBTTagCompound nbttagcompound = (NBTTagCompound) tagList.getCompoundTagAt(i);
             int j = nbttagcompound.getByte("Slot") & 255;
             ItemStack itemstack = ItemStack.loadItemStackFromNBT(nbttagcompound);
 

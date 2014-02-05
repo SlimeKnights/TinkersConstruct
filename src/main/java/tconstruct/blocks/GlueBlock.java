@@ -14,11 +14,11 @@ public class GlueBlock extends TConstructBlock {
 
     public GlueBlock()
     {
-        super(Material.field_151578_c, 4.0f, new String[]{"glue"});
+        super(Material.ground, 4.0f, new String[]{"glue"});
     }
 
     @Override
-    public void func_149670_a (World world, int x, int y, int z, Entity entity)
+    public void onEntityCollidedWithBlock (World world, int x, int y, int z, Entity entity)
     {
         entity.motionX *= 0.1;
         entity.motionZ *= 0.1;
@@ -43,7 +43,7 @@ public class GlueBlock extends TConstructBlock {
 
     public AxisAlignedBB getCollisionBoundingBoxFromPool (World world, int x, int y, int z)
     {
-        return Blocks.soul_sand.func_149668_a(world, x, y, z);
+        return Blocks.soul_sand.getCollisionBoundingBoxFromPool(world, x, y, z);
     }
 
 }

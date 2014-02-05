@@ -30,11 +30,11 @@ public class SearedBlock extends InventoryBlock
 
     public SearedBlock()
     {
-        super(Material.field_151576_e);
-        this.func_149647_a(TConstructRegistry.blockTab);
-        func_149711_c(3F);
-        func_149752_b(20F);
-        func_149672_a(field_149777_j);
+        super(Material.rock);
+        this.setCreativeTab(TConstructRegistry.blockTab);
+        setHardness(3F);
+        setResistance(20F);
+        setStepSound(soundTypeMetal);
     }
 
     public SearedBlock(String texture)
@@ -61,7 +61,7 @@ public class SearedBlock extends InventoryBlock
     }
 
     @Override
-    public int func_149701_w ()
+    public int getRenderBlockPass ()
     {
         return 1;
     }
@@ -80,7 +80,7 @@ public class SearedBlock extends InventoryBlock
 
     /* Activation */
     @Override
-    public boolean func_149727_a (World world, int x, int y, int z, EntityPlayer player, int side, float clickX, float clickY, float clickZ)
+    public boolean onBlockActivated (World world, int x, int y, int z, EntityPlayer player, int side, float clickX, float clickY, float clickZ)
     {
         int md = world.getBlockMetadata(x, y, z);
         if (md == 0)
@@ -96,19 +96,19 @@ public class SearedBlock extends InventoryBlock
             if (player.isSneaking())
                 return false;
 
-            FaucetLogic logic = (FaucetLogic) world.func_147438_o(x, y, z);
+            FaucetLogic logic = (FaucetLogic) world.getTileEntity(x, y, z);
             logic.setActive(true);
             return true;
         }
         else
-            return super.func_149727_a(world, x, y, z, player, side, clickX, clickY, clickZ);
+            return super.onBlockActivated(world, x, y, z, player, side, clickX, clickY, clickZ);
     }
 
     boolean activateCastingTable (World world, int x, int y, int z, EntityPlayer player)
     {
         if (!world.isRemote)
         {
-            CastingTableLogic logic = (CastingTableLogic) world.func_147438_o(x, y, z);
+            CastingTableLogic logic = (CastingTableLogic) world.getTileEntity(x, y, z);
             if (logic.liquid != null)
                 return true;
 
@@ -137,7 +137,7 @@ public class SearedBlock extends InventoryBlock
                 }
             }
 
-            world.func_147471_g(x, y, z);
+            world.markBlockForUpdate(x, y, z);
         }
         return true;
     }
@@ -146,7 +146,7 @@ public class SearedBlock extends InventoryBlock
     {
         if (!world.isRemote)
         {
-            CastingBasinLogic logic = (CastingBasinLogic) world.func_147438_o(x, y, z);
+            CastingBasinLogic logic = (CastingBasinLogic) world.getTileEntity(x, y, z);
             if (logic.liquid != null)
                 return true;
 
@@ -175,7 +175,7 @@ public class SearedBlock extends InventoryBlock
                 }
             }
 
-            world.func_147471_g(x, y, z);
+            world.markBlockForUpdate(x, y, z);
         }
         return true;
     }
@@ -193,7 +193,7 @@ public class SearedBlock extends InventoryBlock
 
     /* Rendering */
     @Override
-    public int func_149645_b ()
+    public int getRenderType ()
     {
         return SearedRender.searedModel;
     }
@@ -212,10 +212,10 @@ public class SearedBlock extends InventoryBlock
         return textureNames;
     }
 
-    //TODO func_149691_a
+    //TODO getIcon
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon func_149691_a (int side, int meta)
+    public IIcon getIcon (int side, int meta)
     {
         if (meta == 0)
             return icons[getTextureIndex(side)];
@@ -236,25 +236,25 @@ public class SearedBlock extends InventoryBlock
     }
 
     @Override
-    public boolean func_149686_d ()
+    public boolean renderAsNormalBlock ()
     {
         return false;
     }
 
     @Override
-    public boolean func_149662_c ()
+    public boolean isOpaqueCube ()
     {
         return false;
     }
 
     @Override
-    public boolean func_149646_a (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
+    public boolean shouldSideBeRendered (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
     {
         return true;
     }
 
     @Override
-    public void func_149666_a (Item b, CreativeTabs tab, List list)
+    public void getSubBlocks (Item b, CreativeTabs tab, List list)
     {
         for (int iter = 0; iter < 3; iter++)
         {
@@ -263,16 +263,16 @@ public class SearedBlock extends InventoryBlock
     }
 
     @Override
-    public void func_149719_a (IBlockAccess world, int x, int y, int z)
+    public void setBlockBoundsBasedOnState (IBlockAccess world, int x, int y, int z)
     {
         int meta = world.getBlockMetadata(x, y, z);
         if (meta != 1)
         {
-            this.func_149676_a(0, 0, 0, 1, 1, 1);
+            this.setBlockBounds(0, 0, 0, 1, 1, 1);
         }
         else
         {
-            FaucetLogic logic = (FaucetLogic) world.func_147438_o(x, y, z);
+            FaucetLogic logic = (FaucetLogic) world.getTileEntity(x, y, z);
             float xMin = 0.25F;
             float xMax = 0.75F;
             float zMin = 0.25F;
@@ -298,12 +298,12 @@ public class SearedBlock extends InventoryBlock
                 break;
             }
 
-            this.func_149676_a(xMin, 0.25F, zMin, xMax, 0.625F, zMax);
+            this.setBlockBounds(xMin, 0.25F, zMin, xMax, 0.625F, zMax);
         }
     }
 
     @Override
-    public AxisAlignedBB func_149668_a (World world, int x, int y, int z)
+    public AxisAlignedBB getCollisionBoundingBoxFromPool (World world, int x, int y, int z)
     {
         int meta = world.getBlockMetadata(x, y, z);
         if (meta != 1)
@@ -312,7 +312,7 @@ public class SearedBlock extends InventoryBlock
         }
         else
         {
-            FaucetLogic logic = (FaucetLogic) world.func_147438_o(x, y, z);
+            FaucetLogic logic = (FaucetLogic) world.getTileEntity(x, y, z);
             if (logic != null)
             {
                 float xMin = 0.25F;
@@ -345,7 +345,7 @@ public class SearedBlock extends InventoryBlock
             }
         }
 
-        return super.func_149668_a(world, x, y, z);
+        return super.getCollisionBoundingBoxFromPool(world, x, y, z);
     }
 
     /* Redstone */
@@ -358,13 +358,13 @@ public class SearedBlock extends InventoryBlock
     {
         if (world.isBlockIndirectlyGettingPowered(x, y, z) && world.getBlockMetadata(x, y, z) == 1)
         {
-            FaucetLogic logic = (FaucetLogic) world.func_147438_o(x, y, z);
+            FaucetLogic logic = (FaucetLogic) world.getTileEntity(x, y, z);
             logic.setActive(true);
         }
     }
 
     @Override
-    public TileEntity func_149915_a (World var1, int metadata)
+    public TileEntity createNewTileEntity (World var1, int metadata)
     {
         switch (metadata)
         {

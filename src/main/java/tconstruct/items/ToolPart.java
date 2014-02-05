@@ -25,7 +25,7 @@ public class ToolPart extends CraftingItem implements IToolPart
     }
 
     @Override
-    public String func_150896_i (ItemStack par1ItemStack)
+    public String getPotionEffect (ItemStack par1ItemStack)
     {
         String material = StatCollector.translateToLocal("parttype." + toolTextureNames[par1ItemStack.getItemDamage()]);
         String name = StatCollector.translateToLocal("toolpart." + partName);

@@ -43,9 +43,9 @@ public class PlantGen extends WorldGenerator
             int posY = clumped ? y + random.nextInt(ySize) - random.nextInt(ySize) : y + random.nextInt(ySize);
             int posZ = clumped ? z + random.nextInt(zSize) - random.nextInt(zSize) : z + random.nextInt(zSize);
 
-            if (world.func_147439_a(posX, posY, posZ) == Blocks.air && (!world.provider.hasNoSky || posY < 127) && this.plant.func_149718_j(world, posX, posY, posZ))
+            if (world.getBlock(posX, posY, posZ) == Blocks.air && (!world.provider.hasNoSky || posY < 127) && this.plant.canBlockStay(world, posX, posY, posZ))
             {
-                world.func_147465_d(posX, posY, posZ, this.plant, this.metadata, 2);
+                world.setBlock(posX, posY, posZ, this.plant, this.metadata, 2);
             }
         }
 

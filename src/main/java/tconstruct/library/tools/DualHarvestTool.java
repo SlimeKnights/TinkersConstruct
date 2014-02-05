@@ -27,7 +27,7 @@ public abstract class DualHarvestTool extends HarvestTool
         NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
         World world = player.worldObj;
         int meta = world.getBlockMetadata(x, y, z);
-        Block block = player.worldObj.func_147439_a(x, y, z);
+        Block block = player.worldObj.getBlock(x, y, z);
         if (block == null || block == Blocks.air)
             return false;
         int hlvl = block.getHarvestLevel(meta);
@@ -47,10 +47,10 @@ public abstract class DualHarvestTool extends HarvestTool
         else
         {
             if (!player.capabilities.isCreativeMode)
-                func_150894_a(stack, world, block, x, y, z, player);
+                onBlockDestroyed(stack, world, block, x, y, z, player);
             WorldHelper.setBlockToAir(world, x, y, z);
             if (!world.isRemote)
-                world.playAuxSFX(2001, x, y, z, Block.func_149682_b(block) + (meta << 12));
+                world.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(block) + (meta << 12));
             return true;
         }
     }
@@ -66,7 +66,7 @@ public abstract class DualHarvestTool extends HarvestTool
         Material[] materials = getEffectiveMaterials();
         for (int i = 0; i < materials.length; i++)
         {
-            if (materials[i] == block.func_149688_o())
+            if (materials[i] == block.getMaterial())
             {
                 float speed = tags.getInteger("MiningSpeed");
                 speed /= 100f;
@@ -84,7 +84,7 @@ public abstract class DualHarvestTool extends HarvestTool
         materials = getEffectiveSecondaryMaterials();
         for (int i = 0; i < materials.length; i++)
         {
-            if (materials[i] == block.func_149688_o())
+            if (materials[i] == block.getMaterial())
             {
                 float speed = tags.getInteger("MiningSpeed2");
                 speed /= 100f;
@@ -104,18 +104,18 @@ public abstract class DualHarvestTool extends HarvestTool
 
     public boolean canHarvestBlock (Block block)
     {
-        if (block.func_149688_o().isToolNotRequired())
+        if (block.getMaterial().isToolNotRequired())
         {
             return true;
         }
         for (Material m : getEffectiveMaterials())
         {
-            if (m == block.func_149688_o())
+            if (m == block.getMaterial())
                 return true;
         }
         for (Material m : getEffectiveSecondaryMaterials())
         {
-            if (m == block.func_149688_o())
+            if (m == block.getMaterial())
                 return true;
         }
         return false;

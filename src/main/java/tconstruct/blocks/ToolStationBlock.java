@@ -34,9 +34,9 @@ public class ToolStationBlock extends InventoryBlock
     public ToolStationBlock(Material material)
     {
         super(material);
-        this.func_149647_a(TConstructRegistry.blockTab);
-        this.func_149711_c(2f);
-        this.func_149672_a(Block.field_149766_f);
+        this.setCreativeTab(TConstructRegistry.blockTab);
+        this.setHardness(2f);
+        this.setStepSound(Block.soundTypeWood);
     }
 
     //Block.hasComparatorInputOverride and Block.getComparatorInputOverride
@@ -56,7 +56,7 @@ public class ToolStationBlock extends InventoryBlock
 
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon func_149691_a (int side, int meta)
+    public IIcon getIcon (int side, int meta)
     {
         if (meta <= 4)
         {
@@ -83,13 +83,13 @@ public class ToolStationBlock extends InventoryBlock
     }
 
     @Override
-    public boolean func_149686_d ()
+    public boolean renderAsNormalBlock ()
     {
         return false;
     }
 
     @Override
-    public boolean func_149662_c ()
+    public boolean isOpaqueCube ()
     {
         return false;
     }
@@ -101,13 +101,13 @@ public class ToolStationBlock extends InventoryBlock
     }
 
     @Override
-    public int func_149645_b ()
+    public int getRenderType ()
     {
         return TableRender.tabelModelID;
     }
 
     @Override
-    public boolean func_149646_a (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
+    public boolean shouldSideBeRendered (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
     {
         return true;
     }
@@ -116,8 +116,8 @@ public class ToolStationBlock extends InventoryBlock
     {
         int metadata = world.getBlockMetadata(x, y, z);
         if (metadata == 5)
-            return AxisAlignedBB.getAABBPool().getAABB((double) x + this.field_149759_B, (double) y + this.field_149760_C, (double) z + this.field_149754_D, (double) x + this.field_149755_E, (double) y + this.field_149756_F - 0.125, (double) z + this.field_149757_G);
-        return AxisAlignedBB.getAABBPool().getAABB((double) x + this.field_149759_B, (double) y + this.field_149760_C, (double) z + this.field_149754_D, (double) x + this.field_149755_E, (double) y + this.field_149756_F, (double) z + this.field_149757_G);
+            return AxisAlignedBB.getAABBPool().getAABB((double) x + this.minX, (double) y + this.minY, (double) z + this.minZ, (double) x + this.maxX, (double) y + this.maxY - 0.125, (double) z + this.maxZ);
+        return AxisAlignedBB.getAABBPool().getAABB((double) x + this.minX, (double) y + this.minY, (double) z + this.minZ, (double) x + this.maxX, (double) y + this.maxY, (double) z + this.maxZ);
     }
 
     @Override
@@ -183,7 +183,7 @@ public class ToolStationBlock extends InventoryBlock
     }
 
     @Override
-    public void func_149666_a (Item b, CreativeTabs tab, List list)
+    public void getSubBlocks (Item b, CreativeTabs tab, List list)
     {
         for (int iter = 0; iter < 6; iter++)
         {
@@ -197,14 +197,14 @@ public class ToolStationBlock extends InventoryBlock
     }
 
     @Override
-    public void func_149689_a (World world, int x, int y, int z, EntityLivingBase par5EntityLiving, ItemStack par6ItemStack)
+    public void onBlockPlacedBy (World world, int x, int y, int z, EntityLivingBase par5EntityLiving, ItemStack par6ItemStack)
     {
         if (PHConstruct.freePatterns)
         {
             int meta = world.getBlockMetadata(x, y, z);
             if (meta == 5)
             {
-                PatternChestLogic logic = (PatternChestLogic) world.func_147438_o(x, y, z);
+                PatternChestLogic logic = (PatternChestLogic) world.getTileEntity(x, y, z);
                 for (int i = 1; i <= 13; i++)
                 {
                     logic.setInventorySlotContents(i - 1, new ItemStack(TRepo.woodPattern, 1, i));
@@ -212,11 +212,11 @@ public class ToolStationBlock extends InventoryBlock
                 logic.setInventorySlotContents(13, new ItemStack(TRepo.woodPattern, 1, 22));
             }
         }
-        super.func_149689_a(world, x, y, z, par5EntityLiving, par6ItemStack);
+        super.onBlockPlacedBy(world, x, y, z, par5EntityLiving, par6ItemStack);
     }
 
     @Override
-    public TileEntity func_149915_a (World var1, int var2)
+    public TileEntity createNewTileEntity (World var1, int var2)
     {
         return createTileEntity(var1,var2);
     }

@@ -33,9 +33,9 @@ public class GuiLandmine extends GuiContainer
     }
 
     @Override
-    protected void func_146285_a (ItemStack par1ItemStack, int par2, int par3)
+    protected void renderToolTip (ItemStack par1ItemStack, int par2, int par3)
     {
-        List list = par1ItemStack.getTooltip(this.field_146297_k.thePlayer, this.field_146297_k.gameSettings.advancedItemTooltips);
+        List list = par1ItemStack.getTooltip(this.mc.thePlayer, this.mc.gameSettings.advancedItemTooltips);
 
         Behavior b = Behavior.getBehaviorFromStack(par1ItemStack);
         if (b != null)
@@ -47,7 +47,7 @@ public class GuiLandmine extends GuiContainer
         {
             if (k == 0)
             {
-                list.set(k, "\u00a7" + Integer.toHexString(par1ItemStack.getRarity().rarityColor.func_96298_a()) + (String) list.get(k));
+                list.set(k, "\u00a7" + Integer.toHexString(par1ItemStack.getRarity().rarityColor.getFormattingCode()) + (String) list.get(k));
             }
             else
             {
@@ -56,31 +56,31 @@ public class GuiLandmine extends GuiContainer
         }
 
         FontRenderer font = par1ItemStack.getItem().getFontRenderer(par1ItemStack);
-        drawHoveringText(list, par2, par3, (font == null ? field_146289_q : font));
+        drawHoveringText(list, par2, par3, (font == null ? fontRendererObj : font));
     }
 
     @Override
-    protected void func_146979_b (int i, int j)
+    protected void drawGuiContainerForegroundLayer (int i, int j)
     {
         if (container.te != null)
         {
-            field_146289_q.drawString(container.te.func_145825_b(), 8, 5, 4210752);
+            fontRendererObj.drawString(container.te.getInventoryName(), 8, 5, 4210752);
         }
         else
         {
-            field_146289_q.drawString("Landmine", 8, 5, 4210752);
+            fontRendererObj.drawString("Landmine", 8, 5, 4210752);
         }
-        field_146289_q.drawString(StatCollector.translateToLocal("container.inventory"), 8, field_147000_g - 96 + 3, 4210752);
+        fontRendererObj.drawString(StatCollector.translateToLocal("container.inventory"), 8, ySize - 96 + 3, 4210752);
     }
 
     @Override
-    protected void func_146976_a (float f, int i, int j)
+    protected void drawGuiContainerBackgroundLayer (float f, int i, int j)
     {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        field_146297_k.renderEngine.bindTexture(background);
-        int x = (field_146294_l - field_146999_f) / 2;
-        int y = (field_146295_m - field_147000_g) / 2;
-        this.drawTexturedModalRect(x, y, 0, 0, field_146999_f, field_147000_g);
+        mc.renderEngine.bindTexture(background);
+        int x = (width - xSize) / 2;
+        int y = (height - ySize) / 2;
+        this.drawTexturedModalRect(x, y, 0, 0, xSize, ySize);
     }
 
 }

@@ -28,7 +28,7 @@ public class LandmineExplodeLogic
     public LandmineExplodeLogic(World par1World, int par2, int par3, int par4, Entity entity)
     {
         worldObj = par1World;
-        this.tileEntity = (TileEntityLandmine) par1World.func_147438_o(par2, par3, par4);
+        this.tileEntity = (TileEntityLandmine) par1World.getTileEntity(par2, par3, par4);
         this.x = par2;
         this.y = par3;
         this.z = par4;
@@ -146,7 +146,7 @@ public class LandmineExplodeLogic
 
         if (hasExploded || defBeh != null && !preventExplode)
         {
-            worldObj.func_147475_p(x, y, z);
+            worldObj.removeTileEntity(x, y, z);
             WorldHelper.setBlockToAir(worldObj, x, y, z);
         }
         else

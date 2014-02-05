@@ -48,7 +48,7 @@ public class PacketStencilTable extends AbstractPacket {
 	@Override
 	public void handleServerSide(EntityPlayer player) {
 		World world = player.worldObj;
-		TileEntity te = world.func_147438_o(x, y, z);
+		TileEntity te = world.getTileEntity(x, y, z);
 
 		if (te instanceof InventoryLogic) {
 			((InventoryLogic) te).setInventorySlotContents(1, contents);

@@ -9,12 +9,12 @@ public class GlassPaneStained extends PaneBase
 
     public GlassPaneStained()
     {
-        super(Material.field_151592_s, "glass/", assembleBlockTextures());
+        super(Material.glass, "glass/", assembleBlockTextures());
         //TODO setHardness
-        this.func_149711_c(0.3F);
-        this.field_149762_H = field_149778_k;
-        this.func_149663_c("tconstruct.glasspanestained");
-        this.func_149647_a(TConstructRegistry.blockTab);
+        this.setHardness(0.3F);
+        this.stepSound = soundTypeGlass;
+        this.setBlockName("tconstruct.glasspanestained");
+        this.setCreativeTab(TConstructRegistry.blockTab);
     }
 
     private static String[] assembleBlockTextures ()
@@ -28,13 +28,13 @@ public class GlassPaneStained extends PaneBase
     }
 
     @Override
-    public int func_149701_w ()
+    public int getRenderBlockPass ()
     {
         return 1;
     }
 
     @Override
-    public int func_149692_a (int par1)
+    public int damageDropped (int par1)
     {
         return par1;
     }

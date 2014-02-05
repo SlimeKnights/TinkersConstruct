@@ -17,7 +17,7 @@ public class RenderLiquid
 {//TODO CHECK THIS!!!!
     public static boolean renderMetadataBlock (Block block, int metadata, int x, int y, int z, RenderBlocks renderer, IBlockAccess world)
     {
-        int var5 = block.func_149720_d(world, x, y, z);
+        int var5 = block.colorMultiplier(world, x, y, z);
         float var6 = (var5 >> 16 & 0xFF) / 255.0F;
         float var7 = (var5 >> 8 & 0xFF) / 255.0F;
         float var8 = (var5 & 0xFF) / 255.0F;
@@ -32,733 +32,733 @@ public class RenderLiquid
             var8 = var11;
         }
 
-        return (Minecraft.isAmbientOcclusionEnabled()) && (block.func_149750_m() == 0) ? renderMetadataBlockWithAmbientOcclusion(block, metadata, x, y, z, var6, var7, var8, renderer, world)
+        return (Minecraft.isAmbientOcclusionEnabled()) && (block.getLightValue() == 0) ? renderMetadataBlockWithAmbientOcclusion(block, metadata, x, y, z, var6, var7, var8, renderer, world)
                 : renderMetadataBlockWithColorMultiplier(block, metadata, x, y, z, var6, var7, var8, renderer, world);
     }
 
     static boolean renderMetadataBlockWithAmbientOcclusion (Block block, int metadata, int xPos, int yPos, int zPos, float colorRed, float colorGreen, float colorBlue, RenderBlocks render,
             IBlockAccess world)
     {
-        render.field_147863_w = true;
+        render.enableAO = true;
         boolean flag = false;
         float f3 = 0.0F;
         float f4 = 0.0F;
         float f5 = 0.0F;
         float f6 = 0.0F;
         boolean flag1 = true;
-        int l = block.func_149677_c(render.field_147845_a, xPos, yPos, zPos);
+        int l = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos, zPos);
         Tessellator tessellator = Tessellator.instance;
         tessellator.setBrightness(983055);
 
-        if (render.func_147745_b(block).getIconName().equals("grass_top"))
+        if (render.getBlockIcon(block).getIconName().equals("grass_top"))
         {
             flag1 = false;
         }
-        else if (render.func_147744_b())
+        else if (render.hasOverrideBlockTexture())
         {
             flag1 = false;
         }
 
-        if ((render.field_147837_f) || (block. func_149646_a(render.field_147845_a, xPos, yPos - 1, zPos, 0)))
+        if ((render.renderAllFaces) || (block. shouldSideBeRendered(render.blockAccess, xPos, yPos - 1, zPos, 0)))
         {
-            if (render.field_147855_j <= 0.0D)
+            if (render.renderMinY <= 0.0D)
             {
                 yPos--;
             }
 
-            render.field_147831_S = block.func_149677_c(render.field_147845_a, xPos - 1, yPos, zPos);
-            render.field_147825_U = block.func_149677_c(render.field_147845_a, xPos, yPos, zPos - 1);
-            render.field_147828_V = block.func_149677_c(render.field_147845_a, xPos, yPos, zPos + 1);
-            render.field_147835_X = block.func_149677_c(render.field_147845_a, xPos + 1, yPos, zPos);
-            render.field_147886_y = getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos, zPos);
-            render.field_147814_A = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos, zPos - 1);
-            render.field_147815_B = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos, zPos + 1);
-            render.field_147810_D = getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos, zPos);
-            boolean flag3 = render.field_147845_a.func_147439_a(xPos + 1, yPos - 1, zPos).func_149751_l();
-            boolean flag2 = render.field_147845_a.func_147439_a(xPos - 1, yPos - 1, zPos).func_149751_l();
-            boolean flag5 = render.field_147845_a.func_147439_a(xPos, yPos - 1, zPos + 1).func_149751_l();
-            boolean flag4 = render.field_147845_a.func_147439_a(xPos, yPos - 1, zPos - 1).func_149751_l();
+            render.aoBrightnessXYNN = block.getMixedBrightnessForBlock(render.blockAccess, xPos - 1, yPos, zPos);
+            render.aoBrightnessYZNN = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos, zPos - 1);
+            render.aoBrightnessYZNP = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos, zPos + 1);
+            render.aoBrightnessXYPN = block.getMixedBrightnessForBlock(render.blockAccess, xPos + 1, yPos, zPos);
+            render.aoLightValueScratchXYNN = getAmbientOcclusionLightValue(render.blockAccess, xPos - 1, yPos, zPos);
+            render.aoLightValueScratchYZNN = getAmbientOcclusionLightValue(render.blockAccess, xPos, yPos, zPos - 1);
+            render.aoLightValueScratchYZNP = getAmbientOcclusionLightValue(render.blockAccess, xPos, yPos, zPos + 1);
+            render.aoLightValueScratchXYPN = getAmbientOcclusionLightValue(render.blockAccess, xPos + 1, yPos, zPos);
+            boolean flag3 = render.blockAccess.getBlock(xPos + 1, yPos - 1, zPos).getCanBlockGrass();
+            boolean flag2 = render.blockAccess.getBlock(xPos - 1, yPos - 1, zPos).getCanBlockGrass();
+            boolean flag5 = render.blockAccess.getBlock(xPos, yPos - 1, zPos + 1).getCanBlockGrass();
+            boolean flag4 = render.blockAccess.getBlock(xPos, yPos - 1, zPos - 1).getCanBlockGrass();
 
             if ((!flag4) && (!flag2))
             {
-                render.field_147888_x = render.field_147886_y;
-                render.field_147832_R = render.field_147831_S;
+                render.aoLightValueScratchXYZNNN = render.aoLightValueScratchXYNN;
+                render.aoBrightnessXYZNNN = render.aoBrightnessXYNN;
             }
             else
             {
-                render.field_147888_x = getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos, zPos - 1);
-                render.field_147832_R = block.func_149677_c(render.field_147845_a, xPos - 1, yPos, zPos - 1);
+                render.aoLightValueScratchXYZNNN = getAmbientOcclusionLightValue(render.blockAccess, xPos - 1, yPos, zPos - 1);
+                render.aoBrightnessXYZNNN = block.getMixedBrightnessForBlock(render.blockAccess, xPos - 1, yPos, zPos - 1);
             }
 
             if ((!flag5) && (!flag2))
             {
-                render.field_147884_z = render.field_147886_y;
-                render.field_147826_T = render.field_147831_S;
+                render.aoLightValueScratchXYZNNP = render.aoLightValueScratchXYNN;
+                render.aoBrightnessXYZNNP = render.aoBrightnessXYNN;
             }
             else
             {
-                render.field_147884_z = getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos, zPos + 1);
-                render.field_147826_T = block.func_149677_c(render.field_147845_a, xPos - 1, yPos, zPos + 1);
+                render.aoLightValueScratchXYZNNP = getAmbientOcclusionLightValue(render.blockAccess, xPos - 1, yPos, zPos + 1);
+                render.aoBrightnessXYZNNP = block.getMixedBrightnessForBlock(render.blockAccess, xPos - 1, yPos, zPos + 1);
             }
 
             if ((!flag4) && (!flag3))
             {
-                render.field_147816_C = render.field_147810_D;
-                render.field_147827_W = render.field_147835_X;
+                render.aoLightValueScratchXYZPNN = render.aoLightValueScratchXYPN;
+                render.aoBrightnessXYZPNN = render.aoBrightnessXYPN;
             }
             else
             {
-                render.field_147816_C = getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos, zPos - 1);
-                render.field_147827_W = block.func_149677_c(render.field_147845_a, xPos + 1, yPos, zPos - 1);
+                render.aoLightValueScratchXYZPNN = getAmbientOcclusionLightValue(render.blockAccess, xPos + 1, yPos, zPos - 1);
+                render.aoBrightnessXYZPNN = block.getMixedBrightnessForBlock(render.blockAccess, xPos + 1, yPos, zPos - 1);
             }
 
             if ((!flag5) && (!flag3))
             {
-                render.field_147811_E = render.field_147810_D;
-                render.field_147834_Y = render.field_147835_X;
+                render.aoLightValueScratchXYZPNP = render.aoLightValueScratchXYPN;
+                render.aoBrightnessXYZPNP = render.aoBrightnessXYPN;
             }
             else
             {
-                render.field_147811_E = getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos, zPos + 1);
-                render.field_147834_Y = block.func_149677_c(render.field_147845_a, xPos + 1, yPos, zPos + 1);
+                render.aoLightValueScratchXYZPNP = getAmbientOcclusionLightValue(render.blockAccess, xPos + 1, yPos, zPos + 1);
+                render.aoBrightnessXYZPNP = block.getMixedBrightnessForBlock(render.blockAccess, xPos + 1, yPos, zPos + 1);
             }
 
-            if (render.field_147855_j <= 0.0D)
+            if (render.renderMinY <= 0.0D)
             {
                 yPos++;
             }
 
             int i1 = l;
 
-            if ((render.field_147855_j <= 0.0D) || (!render.field_147845_a.func_147439_a(xPos, yPos - 1, zPos).func_149662_c()))
+            if ((render.renderMinY <= 0.0D) || (!render.blockAccess.getBlock(xPos, yPos - 1, zPos).isOpaqueCube()))
             {
-                i1 = block.func_149677_c(render.field_147845_a, xPos, yPos - 1, zPos);
+                i1 = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos - 1, zPos);
             }
 
-            float f7 = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos - 1, zPos);
-            f3 = (render.field_147884_z + render.field_147886_y + render.field_147815_B + f7) / 4.0F;
-            f6 = (render.field_147815_B + f7 + render.field_147811_E + render.field_147810_D) / 4.0F;
-            f5 = (f7 + render.field_147814_A + render.field_147810_D + render.field_147816_C) / 4.0F;
-            f4 = (render.field_147886_y + render.field_147888_x + f7 + render.field_147814_A) / 4.0F;
-            render.field_147864_al = render.func_147778_a(render.field_147826_T, render.field_147831_S, render.field_147828_V, i1);
-            render.field_147870_ao = render.func_147778_a(render.field_147828_V, render.field_147834_Y, render.field_147835_X, i1);
-            render.field_147876_an = render.func_147778_a(render.field_147825_U, render.field_147835_X, render.field_147827_W, i1);
-            render.field_147874_am = render.func_147778_a(render.field_147831_S, render.field_147832_R, render.field_147825_U, i1);
+            float f7 = getAmbientOcclusionLightValue(render.blockAccess, xPos, yPos - 1, zPos);
+            f3 = (render.aoLightValueScratchXYZNNP + render.aoLightValueScratchXYNN + render.aoLightValueScratchYZNP + f7) / 4.0F;
+            f6 = (render.aoLightValueScratchYZNP + f7 + render.aoLightValueScratchXYZPNP + render.aoLightValueScratchXYPN) / 4.0F;
+            f5 = (f7 + render.aoLightValueScratchYZNN + render.aoLightValueScratchXYPN + render.aoLightValueScratchXYZPNN) / 4.0F;
+            f4 = (render.aoLightValueScratchXYNN + render.aoLightValueScratchXYZNNN + f7 + render.aoLightValueScratchYZNN) / 4.0F;
+            render.brightnessTopLeft = render.getAoBrightness(render.aoBrightnessXYZNNP, render.aoBrightnessXYNN, render.aoBrightnessYZNP, i1);
+            render.brightnessTopRight = render.getAoBrightness(render.aoBrightnessYZNP, render.aoBrightnessXYZPNP, render.aoBrightnessXYPN, i1);
+            render.brightnessBottomRight = render.getAoBrightness(render.aoBrightnessYZNN, render.aoBrightnessXYPN, render.aoBrightnessXYZPNN, i1);
+            render.brightnessBottomLeft = render.getAoBrightness(render.aoBrightnessXYNN, render.aoBrightnessXYZNNN, render.aoBrightnessYZNN, i1);
 
             if (flag1)
             {
-                render.field_147872_ap = (render.field_147852_aq = render.field_147850_ar = render.field_147848_as = colorRed * 0.5F);
-                render.field_147846_at = (render.field_147860_au = render.field_147858_av = render.field_147856_aw = colorGreen * 0.5F);
-                render.field_147854_ax = (render.field_147841_ay = render.field_147839_az = render.field_147833_aA = colorBlue * 0.5F);
+                render.colorRedTopLeft = (render.colorRedBottomLeft = render.colorRedBottomRight = render.colorRedTopRight = colorRed * 0.5F);
+                render.colorGreenTopLeft = (render.colorGreenBottomLeft = render.colorGreenBottomRight = render.colorGreenTopRight = colorGreen * 0.5F);
+                render.colorBlueTopLeft = (render.colorBlueBottomLeft = render.colorBlueBottomRight = render.colorBlueTopRight = colorBlue * 0.5F);
             }
             else
             {
-                render.field_147872_ap = (render.field_147852_aq = render.field_147850_ar = render.field_147848_as = 0.5F);
-                render.field_147846_at = (render.field_147860_au = render.field_147858_av = render.field_147856_aw = 0.5F);
-                render.field_147854_ax = (render.field_147841_ay = render.field_147839_az = render.field_147833_aA = 0.5F);
+                render.colorRedTopLeft = (render.colorRedBottomLeft = render.colorRedBottomRight = render.colorRedTopRight = 0.5F);
+                render.colorGreenTopLeft = (render.colorGreenBottomLeft = render.colorGreenBottomRight = render.colorGreenTopRight = 0.5F);
+                render.colorBlueTopLeft = (render.colorBlueBottomLeft = render.colorBlueBottomRight = render.colorBlueTopRight = 0.5F);
             }
 
-            render.field_147872_ap *= f3;
-            render.field_147846_at *= f3;
-            render.field_147854_ax *= f3;
-            render.field_147852_aq *= f4;
-            render.field_147860_au *= f4;
-            render.field_147841_ay *= f4;
-            render.field_147850_ar *= f5;
-            render.field_147858_av *= f5;
-            render.field_147839_az *= f5;
-            render.field_147848_as *= f6;
-            render.field_147856_aw *= f6;
-            render.field_147833_aA *= f6;
-            render.func_147768_a(block, xPos, yPos, zPos, block.func_149691_a(0, metadata));
+            render.colorRedTopLeft *= f3;
+            render.colorGreenTopLeft *= f3;
+            render.colorBlueTopLeft *= f3;
+            render.colorRedBottomLeft *= f4;
+            render.colorGreenBottomLeft *= f4;
+            render.colorBlueBottomLeft *= f4;
+            render.colorRedBottomRight *= f5;
+            render.colorGreenBottomRight *= f5;
+            render.colorBlueBottomRight *= f5;
+            render.colorRedTopRight *= f6;
+            render.colorGreenTopRight *= f6;
+            render.colorBlueTopRight *= f6;
+            render.renderFaceYNeg(block, xPos, yPos, zPos, block.getIcon(0, metadata));
             flag = true;
         }
 
-        if ((render.field_147837_f) || (block. func_149646_a(render.field_147845_a, xPos, yPos + 1, zPos, 1)))
+        if ((render.renderAllFaces) || (block. shouldSideBeRendered(render.blockAccess, xPos, yPos + 1, zPos, 1)))
         {
-            if (render.field_147857_k >= 1.0D)
+            if (render.renderMaxY >= 1.0D)
             {
                 yPos++;
             }
 
-            render.field_147880_aa = block.func_149677_c(render.field_147845_a, xPos - 1, yPos, zPos);
-            render.field_147885_ae = block.func_149677_c(render.field_147845_a, xPos + 1, yPos, zPos);
-            render.field_147878_ac = block.func_149677_c(render.field_147845_a, xPos, yPos, zPos - 1);
-            render.field_147887_af = block.func_149677_c(render.field_147845_a, xPos, yPos, zPos + 1);
-            render.field_147813_G = getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos, zPos);
-            render.field_147824_K = getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos, zPos);
-            render.field_147822_I = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos, zPos - 1);
-            render.field_147817_L = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos, zPos + 1);
-            boolean flag3 = render.field_147845_a.func_147439_a(xPos + 1, yPos + 1, zPos).func_149751_l();
-            boolean flag2 = render.field_147845_a.func_147439_a(xPos - 1, yPos + 1, zPos).func_149751_l();
-            boolean flag5 = render.field_147845_a.func_147439_a(xPos, yPos + 1, zPos + 1).func_149751_l();
-            boolean flag4 = render.field_147845_a.func_147439_a(xPos, yPos + 1, zPos - 1).func_149751_l();
+            render.aoBrightnessXYNP = block.getMixedBrightnessForBlock(render.blockAccess, xPos - 1, yPos, zPos);
+            render.aoBrightnessXYPP = block.getMixedBrightnessForBlock(render.blockAccess, xPos + 1, yPos, zPos);
+            render.aoBrightnessYZPN = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos, zPos - 1);
+            render.aoBrightnessYZPP = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos, zPos + 1);
+            render.aoLightValueScratchXYNP = getAmbientOcclusionLightValue(render.blockAccess, xPos - 1, yPos, zPos);
+            render.aoLightValueScratchXYPP = getAmbientOcclusionLightValue(render.blockAccess, xPos + 1, yPos, zPos);
+            render.aoLightValueScratchYZPN = getAmbientOcclusionLightValue(render.blockAccess, xPos, yPos, zPos - 1);
+            render.aoLightValueScratchYZPP = getAmbientOcclusionLightValue(render.blockAccess, xPos, yPos, zPos + 1);
+            boolean flag3 = render.blockAccess.getBlock(xPos + 1, yPos + 1, zPos).getCanBlockGrass();
+            boolean flag2 = render.blockAccess.getBlock(xPos - 1, yPos + 1, zPos).getCanBlockGrass();
+            boolean flag5 = render.blockAccess.getBlock(xPos, yPos + 1, zPos + 1).getCanBlockGrass();
+            boolean flag4 = render.blockAccess.getBlock(xPos, yPos + 1, zPos - 1).getCanBlockGrass();
 
             if ((!flag4) && (!flag2))
             {
-                render.field_147812_F = render.field_147813_G;
-                render.field_147836_Z = render.field_147880_aa;
+                render.aoLightValueScratchXYZNPN = render.aoLightValueScratchXYNP;
+                render.aoBrightnessXYZNPN = render.aoBrightnessXYNP;
             }
             else
             {
-                render.field_147812_F = getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos, zPos - 1);
-                render.field_147836_Z = block.func_149677_c(render.field_147845_a, xPos - 1, yPos, zPos - 1);
+                render.aoLightValueScratchXYZNPN = getAmbientOcclusionLightValue(render.blockAccess, xPos - 1, yPos, zPos - 1);
+                render.aoBrightnessXYZNPN = block.getMixedBrightnessForBlock(render.blockAccess, xPos - 1, yPos, zPos - 1);
             }
 
             if ((!flag4) && (!flag3))
             {
-                render.field_147824_K = render.field_147824_K;
-                render.field_147879_ad = render.field_147885_ae;
+                render.aoLightValueScratchXYPP = render.aoLightValueScratchXYPP;
+                render.aoBrightnessXYZPPN = render.aoBrightnessXYPP;
             }
             else
             {
-                render.field_147824_K = getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos, zPos - 1);
-                render.field_147879_ad = block.func_149677_c(render.field_147845_a, xPos + 1, yPos, zPos - 1);
+                render.aoLightValueScratchXYPP = getAmbientOcclusionLightValue(render.blockAccess, xPos + 1, yPos, zPos - 1);
+                render.aoBrightnessXYZPPN = block.getMixedBrightnessForBlock(render.blockAccess, xPos + 1, yPos, zPos - 1);
             }
 
             if ((!flag5) && (!flag2))
             {
-                render.field_147821_H = render.field_147813_G;
-                render.field_147881_ab = render.field_147880_aa;
+                render.aoLightValueScratchXYZNPP = render.aoLightValueScratchXYNP;
+                render.aoBrightnessXYZNPP = render.aoBrightnessXYNP;
             }
             else
             {
-                render.field_147821_H = getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos, zPos + 1);
-                render.field_147881_ab = block.func_149677_c(render.field_147845_a, xPos - 1, yPos, zPos + 1);
+                render.aoLightValueScratchXYZNPP = getAmbientOcclusionLightValue(render.blockAccess, xPos - 1, yPos, zPos + 1);
+                render.aoBrightnessXYZNPP = block.getMixedBrightnessForBlock(render.blockAccess, xPos - 1, yPos, zPos + 1);
             }
 
             if ((!flag5) && (!flag3))
             {
-                render.field_147819_N = render.field_147824_K;
-                render.field_147882_ag = render.field_147885_ae;
+                render.aoLightValueScratchXZNN = render.aoLightValueScratchXYPP;
+                render.aoBrightnessXYZPPP = render.aoBrightnessXYPP;
             }
             else
             {
-                render.field_147819_N = getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos, zPos + 1);
-                render.field_147882_ag = block.func_149677_c(render.field_147845_a, xPos + 1, yPos, zPos + 1);
+                render.aoLightValueScratchXZNN = getAmbientOcclusionLightValue(render.blockAccess, xPos + 1, yPos, zPos + 1);
+                render.aoBrightnessXYZPPP = block.getMixedBrightnessForBlock(render.blockAccess, xPos + 1, yPos, zPos + 1);
             }
 
-            if (render.field_147857_k >= 1.0D)
+            if (render.renderMaxY >= 1.0D)
             {
                 yPos--;
             }
 
             int i1 = l;
 
-            if ((render.field_147857_k >= 1.0D) || (!render.field_147845_a.func_147439_a(xPos, yPos + 1, zPos).func_149662_c()))
+            if ((render.renderMaxY >= 1.0D) || (!render.blockAccess.getBlock(xPos, yPos + 1, zPos).isOpaqueCube()))
             {
-                i1 = block.func_149677_c(render.field_147845_a, xPos, yPos + 1, zPos);
+                i1 = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos + 1, zPos);
             }
 
-            float f7 = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos + 1, zPos);
-            f6 = (render.field_147821_H + render.field_147813_G + render.field_147817_L + f7) / 4.0F;
-            f3 = (render.field_147817_L + f7 + render.field_147819_N + render.field_147824_K) / 4.0F;
-            f4 = (f7 + render.field_147822_I + render.field_147824_K + render.field_147824_K) / 4.0F;
-            f5 = (render.field_147813_G + render.field_147812_F + f7 + render.field_147822_I) / 4.0F;
-            render.field_147870_ao = render.func_147778_a(render.field_147881_ab, render.field_147880_aa, render.field_147887_af, i1);
-            render.field_147864_al = render.func_147778_a(render.field_147887_af, render.field_147882_ag, render.field_147885_ae, i1);
-            render.field_147874_am = render.func_147778_a(render.field_147878_ac, render.field_147885_ae, render.field_147879_ad, i1);
-            render.field_147876_an = render.func_147778_a(render.field_147880_aa, render.field_147836_Z, render.field_147878_ac, i1);
-            render.field_147872_ap = (render.field_147852_aq = render.field_147850_ar = render.field_147848_as = colorRed);
-            render.field_147846_at = (render.field_147860_au = render.field_147858_av = render.field_147856_aw = colorGreen);
-            render.field_147854_ax = (render.field_147841_ay = render.field_147839_az = render.field_147833_aA = colorBlue);
-            render.field_147872_ap *= f3;
-            render.field_147846_at *= f3;
-            render.field_147854_ax *= f3;
-            render.field_147852_aq *= f4;
-            render.field_147860_au *= f4;
-            render.field_147841_ay *= f4;
-            render.field_147850_ar *= f5;
-            render.field_147858_av *= f5;
-            render.field_147839_az *= f5;
-            render.field_147848_as *= f6;
-            render.field_147856_aw *= f6;
-            render.field_147833_aA *= f6;
-            render.func_147806_b(block, xPos, yPos, zPos, block.func_149691_a(1, metadata));
+            float f7 = getAmbientOcclusionLightValue(render.blockAccess, xPos, yPos + 1, zPos);
+            f6 = (render.aoLightValueScratchXYZNPP + render.aoLightValueScratchXYNP + render.aoLightValueScratchYZPP + f7) / 4.0F;
+            f3 = (render.aoLightValueScratchYZPP + f7 + render.aoLightValueScratchXZNN + render.aoLightValueScratchXYPP) / 4.0F;
+            f4 = (f7 + render.aoLightValueScratchYZPN + render.aoLightValueScratchXYPP + render.aoLightValueScratchXYPP) / 4.0F;
+            f5 = (render.aoLightValueScratchXYNP + render.aoLightValueScratchXYZNPN + f7 + render.aoLightValueScratchYZPN) / 4.0F;
+            render.brightnessTopRight = render.getAoBrightness(render.aoBrightnessXYZNPP, render.aoBrightnessXYNP, render.aoBrightnessYZPP, i1);
+            render.brightnessTopLeft = render.getAoBrightness(render.aoBrightnessYZPP, render.aoBrightnessXYZPPP, render.aoBrightnessXYPP, i1);
+            render.brightnessBottomLeft = render.getAoBrightness(render.aoBrightnessYZPN, render.aoBrightnessXYPP, render.aoBrightnessXYZPPN, i1);
+            render.brightnessBottomRight = render.getAoBrightness(render.aoBrightnessXYNP, render.aoBrightnessXYZNPN, render.aoBrightnessYZPN, i1);
+            render.colorRedTopLeft = (render.colorRedBottomLeft = render.colorRedBottomRight = render.colorRedTopRight = colorRed);
+            render.colorGreenTopLeft = (render.colorGreenBottomLeft = render.colorGreenBottomRight = render.colorGreenTopRight = colorGreen);
+            render.colorBlueTopLeft = (render.colorBlueBottomLeft = render.colorBlueBottomRight = render.colorBlueTopRight = colorBlue);
+            render.colorRedTopLeft *= f3;
+            render.colorGreenTopLeft *= f3;
+            render.colorBlueTopLeft *= f3;
+            render.colorRedBottomLeft *= f4;
+            render.colorGreenBottomLeft *= f4;
+            render.colorBlueBottomLeft *= f4;
+            render.colorRedBottomRight *= f5;
+            render.colorGreenBottomRight *= f5;
+            render.colorBlueBottomRight *= f5;
+            render.colorRedTopRight *= f6;
+            render.colorGreenTopRight *= f6;
+            render.colorBlueTopRight *= f6;
+            render.renderFaceYPos(block, xPos, yPos, zPos, block.getIcon(1, metadata));
             flag = true;
         }
 
-        if ((render.field_147837_f) || (block. func_149646_a(render.field_147845_a, xPos, yPos, zPos - 1, 2)))
+        if ((render.renderAllFaces) || (block. shouldSideBeRendered(render.blockAccess, xPos, yPos, zPos - 1, 2)))
         {
-            if (render.field_147851_l <= 0.0D)
+            if (render.renderMinZ <= 0.0D)
             {
                 zPos--;
             }
 
-            render.field_147820_O = getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos, zPos);
-            render.field_147814_A = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos - 1, zPos);
-            render.field_147822_I = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos + 1, zPos);
-            render.field_147820_O = getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos, zPos);
-            render.field_147883_ah = block.func_149677_c(render.field_147845_a, xPos - 1, yPos, zPos);
-            render.field_147825_U = block.func_149677_c(render.field_147845_a, xPos, yPos - 1, zPos);
-            render.field_147878_ac = block.func_149677_c(render.field_147845_a, xPos, yPos + 1, zPos);
-            render.field_147866_ai = block.func_149677_c(render.field_147845_a, xPos + 1, yPos, zPos);
-            boolean flag3 = render.field_147845_a.func_147439_a(xPos + 1, yPos, zPos - 1).func_149751_l();
-            boolean flag2 = render.field_147845_a.func_147439_a(xPos - 1, yPos, zPos - 1).func_149751_l();
-            boolean flag5 = render.field_147845_a.func_147439_a(xPos, yPos + 1, zPos - 1).func_149751_l();
-            boolean flag4 = render.field_147845_a.func_147439_a(xPos, yPos - 1, zPos - 1).func_149751_l();
+            render.aoLightValueScratchXZPN = getAmbientOcclusionLightValue(render.blockAccess, xPos - 1, yPos, zPos);
+            render.aoLightValueScratchYZNN = getAmbientOcclusionLightValue(render.blockAccess, xPos, yPos - 1, zPos);
+            render.aoLightValueScratchYZPN = getAmbientOcclusionLightValue(render.blockAccess, xPos, yPos + 1, zPos);
+            render.aoLightValueScratchXZPN = getAmbientOcclusionLightValue(render.blockAccess, xPos + 1, yPos, zPos);
+            render.aoBrightnessXZNN = block.getMixedBrightnessForBlock(render.blockAccess, xPos - 1, yPos, zPos);
+            render.aoBrightnessYZNN = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos - 1, zPos);
+            render.aoBrightnessYZPN = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos + 1, zPos);
+            render.aoBrightnessXZPN = block.getMixedBrightnessForBlock(render.blockAccess, xPos + 1, yPos, zPos);
+            boolean flag3 = render.blockAccess.getBlock(xPos + 1, yPos, zPos - 1).getCanBlockGrass();
+            boolean flag2 = render.blockAccess.getBlock(xPos - 1, yPos, zPos - 1).getCanBlockGrass();
+            boolean flag5 = render.blockAccess.getBlock(xPos, yPos + 1, zPos - 1).getCanBlockGrass();
+            boolean flag4 = render.blockAccess.getBlock(xPos, yPos - 1, zPos - 1).getCanBlockGrass();
 
             if ((!flag2) && (!flag4))
             {
-                render.field_147888_x = render.field_147820_O;
-                render.field_147832_R = render.field_147883_ah;
+                render.aoLightValueScratchXYZNNN = render.aoLightValueScratchXZPN;
+                render.aoBrightnessXYZNNN = render.aoBrightnessXZNN;
             }
             else
             {
-                render.field_147888_x = getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos - 1, zPos);
-                render.field_147832_R = block.func_149677_c(render.field_147845_a, xPos - 1, yPos - 1, zPos);
+                render.aoLightValueScratchXYZNNN = getAmbientOcclusionLightValue(render.blockAccess, xPos - 1, yPos - 1, zPos);
+                render.aoBrightnessXYZNNN = block.getMixedBrightnessForBlock(render.blockAccess, xPos - 1, yPos - 1, zPos);
             }
 
             if ((!flag2) && (!flag5))
             {
-                render.field_147812_F = render.field_147820_O;
-                render.field_147836_Z = render.field_147883_ah;
+                render.aoLightValueScratchXYZNPN = render.aoLightValueScratchXZPN;
+                render.aoBrightnessXYZNPN = render.aoBrightnessXZNN;
             }
             else
             {
-                render.field_147812_F = getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos + 1, zPos);
-                render.field_147836_Z = block.func_149677_c(render.field_147845_a, xPos - 1, yPos + 1, zPos);
+                render.aoLightValueScratchXYZNPN = getAmbientOcclusionLightValue(render.blockAccess, xPos - 1, yPos + 1, zPos);
+                render.aoBrightnessXYZNPN = block.getMixedBrightnessForBlock(render.blockAccess, xPos - 1, yPos + 1, zPos);
             }
 
             if ((!flag3) && (!flag4))
             {
-                render.field_147816_C = render.field_147820_O;
-                render.field_147827_W = render.field_147866_ai;
+                render.aoLightValueScratchXYZPNN = render.aoLightValueScratchXZPN;
+                render.aoBrightnessXYZPNN = render.aoBrightnessXZPN;
             }
             else
             {
-                render.field_147816_C = getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos - 1, zPos);
-                render.field_147827_W = block.func_149677_c(render.field_147845_a, xPos + 1, yPos - 1, zPos);
+                render.aoLightValueScratchXYZPNN = getAmbientOcclusionLightValue(render.blockAccess, xPos + 1, yPos - 1, zPos);
+                render.aoBrightnessXYZPNN = block.getMixedBrightnessForBlock(render.blockAccess, xPos + 1, yPos - 1, zPos);
             }
 
             if ((!flag3) && (!flag5))
             {
-                render.field_147824_K = render.field_147820_O;
-                render.field_147879_ad = render.field_147866_ai;
+                render.aoLightValueScratchXYPP = render.aoLightValueScratchXZPN;
+                render.aoBrightnessXYZPPN = render.aoBrightnessXZPN;
             }
             else
             {
-                render.field_147824_K = getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos + 1, zPos);
-                render.field_147879_ad = block.func_149677_c(render.field_147845_a, xPos + 1, yPos + 1, zPos);
+                render.aoLightValueScratchXYPP = getAmbientOcclusionLightValue(render.blockAccess, xPos + 1, yPos + 1, zPos);
+                render.aoBrightnessXYZPPN = block.getMixedBrightnessForBlock(render.blockAccess, xPos + 1, yPos + 1, zPos);
             }
 
-            if (render.field_147851_l <= 0.0D)
+            if (render.renderMinZ <= 0.0D)
             {
                 zPos++;
             }
 
             int i1 = l;
 
-            if ((render.field_147851_l <= 0.0D) || (!render.field_147845_a.func_147439_a(xPos, yPos, zPos - 1).func_149662_c()))
+            if ((render.renderMinZ <= 0.0D) || (!render.blockAccess.getBlock(xPos, yPos, zPos - 1).isOpaqueCube()))
             {
-                i1 = block.func_149677_c(render.field_147845_a, xPos, yPos, zPos - 1);
+                i1 = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos, zPos - 1);
             }
 
-            float f7 = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos, zPos - 1);
-            f3 = (render.field_147820_O + render.field_147812_F + f7 + render.field_147822_I) / 4.0F;
-            f4 = (f7 + render.field_147822_I + render.field_147820_O + render.field_147824_K) / 4.0F;
-            f5 = (render.field_147814_A + f7 + render.field_147816_C + render.field_147820_O) / 4.0F;
-            f6 = (render.field_147888_x + render.field_147820_O + render.field_147814_A + f7) / 4.0F;
-            render.field_147864_al = render.func_147778_a(render.field_147883_ah, render.field_147836_Z, render.field_147878_ac, i1);
-            render.field_147874_am = render.func_147778_a(render.field_147878_ac, render.field_147866_ai, render.field_147879_ad, i1);
-            render.field_147876_an = render.func_147778_a(render.field_147825_U, render.field_147827_W, render.field_147866_ai, i1);
-            render.field_147870_ao = render.func_147778_a(render.field_147832_R, render.field_147883_ah, render.field_147825_U, i1);
+            float f7 = getAmbientOcclusionLightValue(render.blockAccess, xPos, yPos, zPos - 1);
+            f3 = (render.aoLightValueScratchXZPN + render.aoLightValueScratchXYZNPN + f7 + render.aoLightValueScratchYZPN) / 4.0F;
+            f4 = (f7 + render.aoLightValueScratchYZPN + render.aoLightValueScratchXZPN + render.aoLightValueScratchXYPP) / 4.0F;
+            f5 = (render.aoLightValueScratchYZNN + f7 + render.aoLightValueScratchXYZPNN + render.aoLightValueScratchXZPN) / 4.0F;
+            f6 = (render.aoLightValueScratchXYZNNN + render.aoLightValueScratchXZPN + render.aoLightValueScratchYZNN + f7) / 4.0F;
+            render.brightnessTopLeft = render.getAoBrightness(render.aoBrightnessXZNN, render.aoBrightnessXYZNPN, render.aoBrightnessYZPN, i1);
+            render.brightnessBottomLeft = render.getAoBrightness(render.aoBrightnessYZPN, render.aoBrightnessXZPN, render.aoBrightnessXYZPPN, i1);
+            render.brightnessBottomRight = render.getAoBrightness(render.aoBrightnessYZNN, render.aoBrightnessXYZPNN, render.aoBrightnessXZPN, i1);
+            render.brightnessTopRight = render.getAoBrightness(render.aoBrightnessXYZNNN, render.aoBrightnessXZNN, render.aoBrightnessYZNN, i1);
 
             if (flag1)
             {
-                render.field_147872_ap = (render.field_147852_aq = render.field_147850_ar = render.field_147848_as = colorRed * 0.8F);
-                render.field_147846_at = (render.field_147860_au = render.field_147858_av = render.field_147856_aw = colorGreen * 0.8F);
-                render.field_147854_ax = (render.field_147841_ay = render.field_147839_az = render.field_147833_aA = colorBlue * 0.8F);
+                render.colorRedTopLeft = (render.colorRedBottomLeft = render.colorRedBottomRight = render.colorRedTopRight = colorRed * 0.8F);
+                render.colorGreenTopLeft = (render.colorGreenBottomLeft = render.colorGreenBottomRight = render.colorGreenTopRight = colorGreen * 0.8F);
+                render.colorBlueTopLeft = (render.colorBlueBottomLeft = render.colorBlueBottomRight = render.colorBlueTopRight = colorBlue * 0.8F);
             }
             else
             {
-                render.field_147872_ap = (render.field_147852_aq = render.field_147850_ar = render.field_147848_as = 0.8F);
-                render.field_147846_at = (render.field_147860_au = render.field_147858_av = render.field_147856_aw = 0.8F);
-                render.field_147854_ax = (render.field_147841_ay = render.field_147839_az = render.field_147833_aA = 0.8F);
+                render.colorRedTopLeft = (render.colorRedBottomLeft = render.colorRedBottomRight = render.colorRedTopRight = 0.8F);
+                render.colorGreenTopLeft = (render.colorGreenBottomLeft = render.colorGreenBottomRight = render.colorGreenTopRight = 0.8F);
+                render.colorBlueTopLeft = (render.colorBlueBottomLeft = render.colorBlueBottomRight = render.colorBlueTopRight = 0.8F);
             }
 
-            render.field_147872_ap *= f3;
-            render.field_147846_at *= f3;
-            render.field_147854_ax *= f3;
-            render.field_147852_aq *= f4;
-            render.field_147860_au *= f4;
-            render.field_147841_ay *= f4;
-            render.field_147850_ar *= f5;
-            render.field_147858_av *= f5;
-            render.field_147839_az *= f5;
-            render.field_147848_as *= f6;
-            render.field_147856_aw *= f6;
-            render.field_147833_aA *= f6;
-            IIcon icon = block.func_149691_a(2, metadata);
-            render.func_147761_c(block, xPos, yPos, zPos, icon);
+            render.colorRedTopLeft *= f3;
+            render.colorGreenTopLeft *= f3;
+            render.colorBlueTopLeft *= f3;
+            render.colorRedBottomLeft *= f4;
+            render.colorGreenBottomLeft *= f4;
+            render.colorBlueBottomLeft *= f4;
+            render.colorRedBottomRight *= f5;
+            render.colorGreenBottomRight *= f5;
+            render.colorBlueBottomRight *= f5;
+            render.colorRedTopRight *= f6;
+            render.colorGreenTopRight *= f6;
+            render.colorBlueTopRight *= f6;
+            IIcon icon = block.getIcon(2, metadata);
+            render.renderFaceZNeg(block, xPos, yPos, zPos, icon);
 
             flag = true;
         }
 
-        if ((render.field_147837_f) || (block. func_149646_a(render.field_147845_a, xPos, yPos, zPos + 1, 3)))
+        if ((render.renderAllFaces) || (block. shouldSideBeRendered(render.blockAccess, xPos, yPos, zPos + 1, 3)))
         {
-            if (render.field_147853_m >= 1.0D)
+            if (render.renderMaxZ >= 1.0D)
             {
                 zPos++;
             }
 
-            render.field_147830_P = getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos, zPos);
-            render.field_147829_Q = getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos, zPos);
-            render.field_147815_B = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos - 1, zPos);
-            render.field_147817_L = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos + 1, zPos);
-            render.field_147868_aj = block.func_149677_c(render.field_147845_a, xPos - 1, yPos, zPos);
-            render.field_147862_ak = block.func_149677_c(render.field_147845_a, xPos + 1, yPos, zPos);
-            render.field_147828_V = block.func_149677_c(render.field_147845_a, xPos, yPos - 1, zPos);
-            render.field_147887_af = block.func_149677_c(render.field_147845_a, xPos, yPos + 1, zPos);
-            boolean flag3 = render.field_147845_a.func_147439_a(xPos + 1, yPos, zPos + 1).func_149751_l();
-            boolean flag2 = render.field_147845_a.func_147439_a(xPos - 1, yPos, zPos + 1).func_149751_l();
-            boolean flag5 = render.field_147845_a.func_147439_a(xPos, yPos + 1, zPos + 1).func_149751_l();
-            boolean flag4 = render.field_147845_a.func_147439_a(xPos, yPos - 1, zPos + 1).func_149751_l();
+            render.aoLightValueScratchXZNP = getAmbientOcclusionLightValue(render.blockAccess, xPos - 1, yPos, zPos);
+            render.aoLightValueScratchXZPP = getAmbientOcclusionLightValue(render.blockAccess, xPos + 1, yPos, zPos);
+            render.aoLightValueScratchYZNP = getAmbientOcclusionLightValue(render.blockAccess, xPos, yPos - 1, zPos);
+            render.aoLightValueScratchYZPP = getAmbientOcclusionLightValue(render.blockAccess, xPos, yPos + 1, zPos);
+            render.aoBrightnessXZNP = block.getMixedBrightnessForBlock(render.blockAccess, xPos - 1, yPos, zPos);
+            render.aoBrightnessXZPP = block.getMixedBrightnessForBlock(render.blockAccess, xPos + 1, yPos, zPos);
+            render.aoBrightnessYZNP = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos - 1, zPos);
+            render.aoBrightnessYZPP = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos + 1, zPos);
+            boolean flag3 = render.blockAccess.getBlock(xPos + 1, yPos, zPos + 1).getCanBlockGrass();
+            boolean flag2 = render.blockAccess.getBlock(xPos - 1, yPos, zPos + 1).getCanBlockGrass();
+            boolean flag5 = render.blockAccess.getBlock(xPos, yPos + 1, zPos + 1).getCanBlockGrass();
+            boolean flag4 = render.blockAccess.getBlock(xPos, yPos - 1, zPos + 1).getCanBlockGrass();
 
             if ((!flag2) && (!flag4))
             {
-                render.field_147884_z = render.field_147830_P;
-                render.field_147826_T = render.field_147868_aj;
+                render.aoLightValueScratchXYZNNP = render.aoLightValueScratchXZNP;
+                render.aoBrightnessXYZNNP = render.aoBrightnessXZNP;
             }
             else
             {
-                render.field_147884_z = getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos - 1, zPos);
-                render.field_147826_T = block.func_149677_c(render.field_147845_a, xPos - 1, yPos - 1, zPos);
+                render.aoLightValueScratchXYZNNP = getAmbientOcclusionLightValue(render.blockAccess, xPos - 1, yPos - 1, zPos);
+                render.aoBrightnessXYZNNP = block.getMixedBrightnessForBlock(render.blockAccess, xPos - 1, yPos - 1, zPos);
             }
 
             if ((!flag2) && (!flag5))
             {
-                render.field_147821_H = render.field_147830_P;
-                render.field_147881_ab = render.field_147868_aj;
+                render.aoLightValueScratchXYZNPP = render.aoLightValueScratchXZNP;
+                render.aoBrightnessXYZNPP = render.aoBrightnessXZNP;
             }
             else
             {
-                render.field_147821_H = getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos + 1, zPos);
-                render.field_147881_ab = block.func_149677_c(render.field_147845_a, xPos - 1, yPos + 1, zPos);
+                render.aoLightValueScratchXYZNPP = getAmbientOcclusionLightValue(render.blockAccess, xPos - 1, yPos + 1, zPos);
+                render.aoBrightnessXYZNPP = block.getMixedBrightnessForBlock(render.blockAccess, xPos - 1, yPos + 1, zPos);
             }
 
             if ((!flag3) && (!flag4))
             {
-                render.field_147811_E = render.field_147829_Q;
-                render.field_147834_Y = render.field_147862_ak;
+                render.aoLightValueScratchXYZPNP = render.aoLightValueScratchXZPP;
+                render.aoBrightnessXYZPNP = render.aoBrightnessXZPP;
             }
             else
             {
-                render.field_147811_E = getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos - 1, zPos);
-                render.field_147834_Y = block.func_149677_c(render.field_147845_a, xPos + 1, yPos - 1, zPos);
+                render.aoLightValueScratchXYZPNP = getAmbientOcclusionLightValue(render.blockAccess, xPos + 1, yPos - 1, zPos);
+                render.aoBrightnessXYZPNP = block.getMixedBrightnessForBlock(render.blockAccess, xPos + 1, yPos - 1, zPos);
             }
 
             if ((!flag3) && (!flag5))
             {
-                render.field_147819_N = render.field_147829_Q;
-                render.field_147882_ag = render.field_147862_ak;
+                render.aoLightValueScratchXZNN = render.aoLightValueScratchXZPP;
+                render.aoBrightnessXYZPPP = render.aoBrightnessXZPP;
             }
             else
             {
-                render.field_147819_N = getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos + 1, zPos);
-                render.field_147882_ag = block.func_149677_c(render.field_147845_a, xPos + 1, yPos + 1, zPos);
+                render.aoLightValueScratchXZNN = getAmbientOcclusionLightValue(render.blockAccess, xPos + 1, yPos + 1, zPos);
+                render.aoBrightnessXYZPPP = block.getMixedBrightnessForBlock(render.blockAccess, xPos + 1, yPos + 1, zPos);
             }
 
-            if (render.field_147853_m >= 1.0D)
+            if (render.renderMaxZ >= 1.0D)
             {
                 zPos--;
             }
 
             int i1 = l;
 
-            if ((render.field_147853_m >= 1.0D) || (!render.field_147845_a.func_147439_a(xPos, yPos, zPos + 1).func_149662_c()))
+            if ((render.renderMaxZ >= 1.0D) || (!render.blockAccess.getBlock(xPos, yPos, zPos + 1).isOpaqueCube()))
             {
-                i1 = block.func_149677_c(render.field_147845_a, xPos, yPos, zPos + 1);
+                i1 = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos, zPos + 1);
             }
 
-            float f7 = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos, zPos + 1);
-            f3 = (render.field_147830_P + render.field_147821_H + f7 + render.field_147817_L) / 4.0F;
-            f6 = (f7 + render.field_147817_L + render.field_147829_Q + render.field_147819_N) / 4.0F;
-            f5 = (render.field_147815_B + f7 + render.field_147811_E + render.field_147829_Q) / 4.0F;
-            f4 = (render.field_147884_z + render.field_147830_P + render.field_147815_B + f7) / 4.0F;
-            render.field_147864_al = render.func_147778_a(render.field_147868_aj, render.field_147881_ab, render.field_147887_af, i1);
-            render.field_147870_ao = render.func_147778_a(render.field_147887_af, render.field_147862_ak, render.field_147882_ag, i1);
-            render.field_147876_an = render.func_147778_a(render.field_147828_V, render.field_147834_Y, render.field_147862_ak, i1);
-            render.field_147874_am = render.func_147778_a(render.field_147826_T, render.field_147868_aj, render.field_147828_V, i1);
+            float f7 = getAmbientOcclusionLightValue(render.blockAccess, xPos, yPos, zPos + 1);
+            f3 = (render.aoLightValueScratchXZNP + render.aoLightValueScratchXYZNPP + f7 + render.aoLightValueScratchYZPP) / 4.0F;
+            f6 = (f7 + render.aoLightValueScratchYZPP + render.aoLightValueScratchXZPP + render.aoLightValueScratchXZNN) / 4.0F;
+            f5 = (render.aoLightValueScratchYZNP + f7 + render.aoLightValueScratchXYZPNP + render.aoLightValueScratchXZPP) / 4.0F;
+            f4 = (render.aoLightValueScratchXYZNNP + render.aoLightValueScratchXZNP + render.aoLightValueScratchYZNP + f7) / 4.0F;
+            render.brightnessTopLeft = render.getAoBrightness(render.aoBrightnessXZNP, render.aoBrightnessXYZNPP, render.aoBrightnessYZPP, i1);
+            render.brightnessTopRight = render.getAoBrightness(render.aoBrightnessYZPP, render.aoBrightnessXZPP, render.aoBrightnessXYZPPP, i1);
+            render.brightnessBottomRight = render.getAoBrightness(render.aoBrightnessYZNP, render.aoBrightnessXYZPNP, render.aoBrightnessXZPP, i1);
+            render.brightnessBottomLeft = render.getAoBrightness(render.aoBrightnessXYZNNP, render.aoBrightnessXZNP, render.aoBrightnessYZNP, i1);
 
             if (flag1)
             {
-                render.field_147872_ap = (render.field_147852_aq = render.field_147850_ar = render.field_147848_as = colorRed * 0.8F);
-                render.field_147846_at = (render.field_147860_au = render.field_147858_av = render.field_147856_aw = colorGreen * 0.8F);
-                render.field_147854_ax = (render.field_147841_ay = render.field_147839_az = render.field_147833_aA = colorBlue * 0.8F);
+                render.colorRedTopLeft = (render.colorRedBottomLeft = render.colorRedBottomRight = render.colorRedTopRight = colorRed * 0.8F);
+                render.colorGreenTopLeft = (render.colorGreenBottomLeft = render.colorGreenBottomRight = render.colorGreenTopRight = colorGreen * 0.8F);
+                render.colorBlueTopLeft = (render.colorBlueBottomLeft = render.colorBlueBottomRight = render.colorBlueTopRight = colorBlue * 0.8F);
             }
             else
             {
-                render.field_147872_ap = (render.field_147852_aq = render.field_147850_ar = render.field_147848_as = 0.8F);
-                render.field_147846_at = (render.field_147860_au = render.field_147858_av = render.field_147856_aw = 0.8F);
-                render.field_147854_ax = (render.field_147841_ay = render.field_147839_az = render.field_147833_aA = 0.8F);
+                render.colorRedTopLeft = (render.colorRedBottomLeft = render.colorRedBottomRight = render.colorRedTopRight = 0.8F);
+                render.colorGreenTopLeft = (render.colorGreenBottomLeft = render.colorGreenBottomRight = render.colorGreenTopRight = 0.8F);
+                render.colorBlueTopLeft = (render.colorBlueBottomLeft = render.colorBlueBottomRight = render.colorBlueTopRight = 0.8F);
             }
 
-            render.field_147872_ap *= f3;
-            render.field_147846_at *= f3;
-            render.field_147854_ax *= f3;
-            render.field_147852_aq *= f4;
-            render.field_147860_au *= f4;
-            render.field_147841_ay *= f4;
-            render.field_147850_ar *= f5;
-            render.field_147858_av *= f5;
-            render.field_147839_az *= f5;
-            render.field_147848_as *= f6;
-            render.field_147856_aw *= f6;
-            render.field_147833_aA *= f6;
-            IIcon icon = block.func_149691_a(3, metadata);
-            render.func_147734_d(block, xPos, yPos, zPos, icon);
+            render.colorRedTopLeft *= f3;
+            render.colorGreenTopLeft *= f3;
+            render.colorBlueTopLeft *= f3;
+            render.colorRedBottomLeft *= f4;
+            render.colorGreenBottomLeft *= f4;
+            render.colorBlueBottomLeft *= f4;
+            render.colorRedBottomRight *= f5;
+            render.colorGreenBottomRight *= f5;
+            render.colorBlueBottomRight *= f5;
+            render.colorRedTopRight *= f6;
+            render.colorGreenTopRight *= f6;
+            render.colorBlueTopRight *= f6;
+            IIcon icon = block.getIcon(3, metadata);
+            render.renderFaceZPos(block, xPos, yPos, zPos, icon);
 
             flag = true;
         }
 
-        if ((render.field_147837_f) || (block. func_149646_a(render.field_147845_a, xPos - 1, yPos, zPos, 4)))
+        if ((render.renderAllFaces) || (block. shouldSideBeRendered(render.blockAccess, xPos - 1, yPos, zPos, 4)))
         {
-            if (render.field_147859_h <= 0.0D)
+            if (render.renderMinX <= 0.0D)
             {
                 xPos--;
             }
 
-            render.field_147886_y = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos - 1, zPos);
-            render.field_147820_O = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos, zPos - 1);
-            render.field_147830_P = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos, zPos + 1);
-            render.field_147813_G = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos + 1, zPos);
-            render.field_147831_S = block.func_149677_c(render.field_147845_a, xPos, yPos - 1, zPos);
-            render.field_147883_ah = block.func_149677_c(render.field_147845_a, xPos, yPos, zPos - 1);
-            render.field_147868_aj = block.func_149677_c(render.field_147845_a, xPos, yPos, zPos + 1);
-            render.field_147880_aa = block.func_149677_c(render.field_147845_a, xPos, yPos + 1, zPos);
-            boolean flag3 = render.field_147845_a.func_147439_a(xPos - 1, yPos + 1, zPos).func_149751_l();
-            boolean flag2 = render.field_147845_a.func_147439_a(xPos - 1, yPos - 1, zPos).func_149751_l();
-            boolean flag5 = render.field_147845_a.func_147439_a(xPos - 1, yPos, zPos - 1).func_149751_l();
-            boolean flag4 = render.field_147845_a.func_147439_a(xPos - 1, yPos, zPos + 1).func_149751_l();
+            render.aoLightValueScratchXYNN = getAmbientOcclusionLightValue(render.blockAccess, xPos, yPos - 1, zPos);
+            render.aoLightValueScratchXZPN = getAmbientOcclusionLightValue(render.blockAccess, xPos, yPos, zPos - 1);
+            render.aoLightValueScratchXZNP = getAmbientOcclusionLightValue(render.blockAccess, xPos, yPos, zPos + 1);
+            render.aoLightValueScratchXYNP = getAmbientOcclusionLightValue(render.blockAccess, xPos, yPos + 1, zPos);
+            render.aoBrightnessXYNN = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos - 1, zPos);
+            render.aoBrightnessXZNN = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos, zPos - 1);
+            render.aoBrightnessXZNP = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos, zPos + 1);
+            render.aoBrightnessXYNP = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos + 1, zPos);
+            boolean flag3 = render.blockAccess.getBlock(xPos - 1, yPos + 1, zPos).getCanBlockGrass();
+            boolean flag2 = render.blockAccess.getBlock(xPos - 1, yPos - 1, zPos).getCanBlockGrass();
+            boolean flag5 = render.blockAccess.getBlock(xPos - 1, yPos, zPos - 1).getCanBlockGrass();
+            boolean flag4 = render.blockAccess.getBlock(xPos - 1, yPos, zPos + 1).getCanBlockGrass();
 
             if ((!flag5) && (!flag2))
             {
-                render.field_147888_x = render.field_147820_O;
-                render.field_147832_R = render.field_147883_ah;
+                render.aoLightValueScratchXYZNNN = render.aoLightValueScratchXZPN;
+                render.aoBrightnessXYZNNN = render.aoBrightnessXZNN;
             }
             else
             {
-                render.field_147888_x = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos - 1, zPos - 1);
-                render.field_147832_R = block.func_149677_c(render.field_147845_a, xPos, yPos - 1, zPos - 1);
+                render.aoLightValueScratchXYZNNN = getAmbientOcclusionLightValue(render.blockAccess, xPos, yPos - 1, zPos - 1);
+                render.aoBrightnessXYZNNN = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos - 1, zPos - 1);
             }
 
             if ((!flag4) && (!flag2))
             {
-                render.field_147884_z = render.field_147830_P;
-                render.field_147826_T = render.field_147868_aj;
+                render.aoLightValueScratchXYZNNP = render.aoLightValueScratchXZNP;
+                render.aoBrightnessXYZNNP = render.aoBrightnessXZNP;
             }
             else
             {
-                render.field_147884_z = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos - 1, zPos + 1);
-                render.field_147826_T = block.func_149677_c(render.field_147845_a, xPos, yPos - 1, zPos + 1);
+                render.aoLightValueScratchXYZNNP = getAmbientOcclusionLightValue(render.blockAccess, xPos, yPos - 1, zPos + 1);
+                render.aoBrightnessXYZNNP = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos - 1, zPos + 1);
             }
 
             if ((!flag5) && (!flag3))
             {
-                render.field_147812_F = render.field_147820_O;
-                render.field_147836_Z = render.field_147883_ah;
+                render.aoLightValueScratchXYZNPN = render.aoLightValueScratchXZPN;
+                render.aoBrightnessXYZNPN = render.aoBrightnessXZNN;
             }
             else
             {
-                render.field_147812_F = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos + 1, zPos - 1);
-                render.field_147836_Z = block.func_149677_c(render.field_147845_a, xPos, yPos + 1, zPos - 1);
+                render.aoLightValueScratchXYZNPN = getAmbientOcclusionLightValue(render.blockAccess, xPos, yPos + 1, zPos - 1);
+                render.aoBrightnessXYZNPN = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos + 1, zPos - 1);
             }
 
             if ((!flag4) && (!flag3))
             {
-                render.field_147821_H = render.field_147830_P;
-                render.field_147881_ab = render.field_147868_aj;
+                render.aoLightValueScratchXYZNPP = render.aoLightValueScratchXZNP;
+                render.aoBrightnessXYZNPP = render.aoBrightnessXZNP;
             }
             else
             {
-                render.field_147821_H = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos + 1, zPos + 1);
-                render.field_147881_ab = block.func_149677_c(render.field_147845_a, xPos, yPos + 1, zPos + 1);
+                render.aoLightValueScratchXYZNPP = getAmbientOcclusionLightValue(render.blockAccess, xPos, yPos + 1, zPos + 1);
+                render.aoBrightnessXYZNPP = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos + 1, zPos + 1);
             }
 
-            if (render.field_147859_h <= 0.0D)
+            if (render.renderMinX <= 0.0D)
             {
                 xPos++;
             }
 
             int i1 = l;
 
-            if ((render.field_147859_h <= 0.0D) || (!render.field_147845_a.func_147439_a(xPos - 1, yPos, zPos).func_149662_c()))
+            if ((render.renderMinX <= 0.0D) || (!render.blockAccess.getBlock(xPos - 1, yPos, zPos).isOpaqueCube()))
             {
-                i1 = block.func_149677_c(render.field_147845_a, xPos - 1, yPos, zPos);
+                i1 = block.getMixedBrightnessForBlock(render.blockAccess, xPos - 1, yPos, zPos);
             }
 
-            float f7 = getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos, zPos);
-            f6 = (render.field_147886_y + render.field_147884_z + f7 + render.field_147830_P) / 4.0F;
-            f3 = (f7 + render.field_147830_P + render.field_147813_G + render.field_147821_H) / 4.0F;
-            f4 = (render.field_147820_O + f7 + render.field_147812_F + render.field_147813_G) / 4.0F;
-            f5 = (render.field_147888_x + render.field_147886_y + render.field_147820_O + f7) / 4.0F;
-            render.field_147870_ao = render.func_147778_a(render.field_147831_S, render.field_147826_T, render.field_147868_aj, i1);
-            render.field_147864_al = render.func_147778_a(render.field_147868_aj, render.field_147880_aa, render.field_147881_ab, i1);
-            render.field_147874_am = render.func_147778_a(render.field_147883_ah, render.field_147836_Z, render.field_147880_aa, i1);
-            render.field_147876_an = render.func_147778_a(render.field_147832_R, render.field_147831_S, render.field_147883_ah, i1);
+            float f7 = getAmbientOcclusionLightValue(render.blockAccess, xPos - 1, yPos, zPos);
+            f6 = (render.aoLightValueScratchXYNN + render.aoLightValueScratchXYZNNP + f7 + render.aoLightValueScratchXZNP) / 4.0F;
+            f3 = (f7 + render.aoLightValueScratchXZNP + render.aoLightValueScratchXYNP + render.aoLightValueScratchXYZNPP) / 4.0F;
+            f4 = (render.aoLightValueScratchXZPN + f7 + render.aoLightValueScratchXYZNPN + render.aoLightValueScratchXYNP) / 4.0F;
+            f5 = (render.aoLightValueScratchXYZNNN + render.aoLightValueScratchXYNN + render.aoLightValueScratchXZPN + f7) / 4.0F;
+            render.brightnessTopRight = render.getAoBrightness(render.aoBrightnessXYNN, render.aoBrightnessXYZNNP, render.aoBrightnessXZNP, i1);
+            render.brightnessTopLeft = render.getAoBrightness(render.aoBrightnessXZNP, render.aoBrightnessXYNP, render.aoBrightnessXYZNPP, i1);
+            render.brightnessBottomLeft = render.getAoBrightness(render.aoBrightnessXZNN, render.aoBrightnessXYZNPN, render.aoBrightnessXYNP, i1);
+            render.brightnessBottomRight = render.getAoBrightness(render.aoBrightnessXYZNNN, render.aoBrightnessXYNN, render.aoBrightnessXZNN, i1);
 
             if (flag1)
             {
-                render.field_147872_ap = (render.field_147852_aq = render.field_147850_ar = render.field_147848_as = colorRed * 0.6F);
-                render.field_147846_at = (render.field_147860_au = render.field_147858_av = render.field_147856_aw = colorGreen * 0.6F);
-                render.field_147854_ax = (render.field_147841_ay = render.field_147839_az = render.field_147833_aA = colorBlue * 0.6F);
+                render.colorRedTopLeft = (render.colorRedBottomLeft = render.colorRedBottomRight = render.colorRedTopRight = colorRed * 0.6F);
+                render.colorGreenTopLeft = (render.colorGreenBottomLeft = render.colorGreenBottomRight = render.colorGreenTopRight = colorGreen * 0.6F);
+                render.colorBlueTopLeft = (render.colorBlueBottomLeft = render.colorBlueBottomRight = render.colorBlueTopRight = colorBlue * 0.6F);
             }
             else
             {
-                render.field_147872_ap = (render.field_147852_aq = render.field_147850_ar = render.field_147848_as = 0.6F);
-                render.field_147846_at = (render.field_147860_au = render.field_147858_av = render.field_147856_aw = 0.6F);
-                render.field_147854_ax = (render.field_147841_ay = render.field_147839_az = render.field_147833_aA = 0.6F);
+                render.colorRedTopLeft = (render.colorRedBottomLeft = render.colorRedBottomRight = render.colorRedTopRight = 0.6F);
+                render.colorGreenTopLeft = (render.colorGreenBottomLeft = render.colorGreenBottomRight = render.colorGreenTopRight = 0.6F);
+                render.colorBlueTopLeft = (render.colorBlueBottomLeft = render.colorBlueBottomRight = render.colorBlueTopRight = 0.6F);
             }
 
-            render.field_147872_ap *= f3;
-            render.field_147846_at *= f3;
-            render.field_147854_ax *= f3;
-            render.field_147852_aq *= f4;
-            render.field_147860_au *= f4;
-            render.field_147841_ay *= f4;
-            render.field_147850_ar *= f5;
-            render.field_147858_av *= f5;
-            render.field_147839_az *= f5;
-            render.field_147848_as *= f6;
-            render.field_147856_aw *= f6;
-            render.field_147833_aA *= f6;
-            IIcon icon = block.func_149691_a(4, metadata);
-            render.func_147798_e(block, xPos, yPos, zPos, icon);
+            render.colorRedTopLeft *= f3;
+            render.colorGreenTopLeft *= f3;
+            render.colorBlueTopLeft *= f3;
+            render.colorRedBottomLeft *= f4;
+            render.colorGreenBottomLeft *= f4;
+            render.colorBlueBottomLeft *= f4;
+            render.colorRedBottomRight *= f5;
+            render.colorGreenBottomRight *= f5;
+            render.colorBlueBottomRight *= f5;
+            render.colorRedTopRight *= f6;
+            render.colorGreenTopRight *= f6;
+            render.colorBlueTopRight *= f6;
+            IIcon icon = block.getIcon(4, metadata);
+            render.renderFaceXNeg(block, xPos, yPos, zPos, icon);
 
             flag = true;
         }
 
-        if ((render.field_147837_f) || (block. func_149646_a(render.field_147845_a, xPos + 1, yPos, zPos, 5)))
+        if ((render.renderAllFaces) || (block. shouldSideBeRendered(render.blockAccess, xPos + 1, yPos, zPos, 5)))
         {
-            if (render.field_147861_i >= 1.0D)
+            if (render.renderMaxX >= 1.0D)
             {
                 xPos++;
             }
 
-            render.field_147810_D = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos - 1, zPos);
-            render.field_147820_O = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos, zPos - 1);
-            render.field_147829_Q = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos, zPos + 1);
-            render.field_147824_K = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos + 1, zPos);
-            render.field_147835_X = block.func_149677_c(render.field_147845_a, xPos, yPos - 1, zPos);
-            render.field_147866_ai = block.func_149677_c(render.field_147845_a, xPos, yPos, zPos - 1);
-            render.field_147862_ak = block.func_149677_c(render.field_147845_a, xPos, yPos, zPos + 1);
-            render.field_147885_ae = block.func_149677_c(render.field_147845_a, xPos, yPos + 1, zPos);
-            boolean flag3 = render.field_147845_a.func_147439_a(xPos + 1, yPos + 1, zPos).func_149751_l();
-            boolean flag2 = render.field_147845_a.func_147439_a(xPos + 1, yPos - 1, zPos).func_149751_l();
-            boolean flag5 = render.field_147845_a.func_147439_a(xPos + 1, yPos, zPos + 1).func_149751_l();
-            boolean flag4 = render.field_147845_a.func_147439_a(xPos + 1, yPos, zPos - 1).func_149751_l();
+            render.aoLightValueScratchXYPN = getAmbientOcclusionLightValue(render.blockAccess, xPos, yPos - 1, zPos);
+            render.aoLightValueScratchXZPN = getAmbientOcclusionLightValue(render.blockAccess, xPos, yPos, zPos - 1);
+            render.aoLightValueScratchXZPP = getAmbientOcclusionLightValue(render.blockAccess, xPos, yPos, zPos + 1);
+            render.aoLightValueScratchXYPP = getAmbientOcclusionLightValue(render.blockAccess, xPos, yPos + 1, zPos);
+            render.aoBrightnessXYPN = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos - 1, zPos);
+            render.aoBrightnessXZPN = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos, zPos - 1);
+            render.aoBrightnessXZPP = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos, zPos + 1);
+            render.aoBrightnessXYPP = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos + 1, zPos);
+            boolean flag3 = render.blockAccess.getBlock(xPos + 1, yPos + 1, zPos).getCanBlockGrass();
+            boolean flag2 = render.blockAccess.getBlock(xPos + 1, yPos - 1, zPos).getCanBlockGrass();
+            boolean flag5 = render.blockAccess.getBlock(xPos + 1, yPos, zPos + 1).getCanBlockGrass();
+            boolean flag4 = render.blockAccess.getBlock(xPos + 1, yPos, zPos - 1).getCanBlockGrass();
 
             if ((!flag2) && (!flag4))
             {
-                render.field_147816_C = render.field_147820_O;
-                render.field_147827_W = render.field_147866_ai;
+                render.aoLightValueScratchXYZPNN = render.aoLightValueScratchXZPN;
+                render.aoBrightnessXYZPNN = render.aoBrightnessXZPN;
             }
             else
             {
-                render.field_147816_C = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos - 1, zPos - 1);
-                render.field_147827_W = block.func_149677_c(render.field_147845_a, xPos, yPos - 1, zPos - 1);
+                render.aoLightValueScratchXYZPNN = getAmbientOcclusionLightValue(render.blockAccess, xPos, yPos - 1, zPos - 1);
+                render.aoBrightnessXYZPNN = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos - 1, zPos - 1);
             }
 
             if ((!flag2) && (!flag5))
             {
-                render.field_147811_E = render.field_147829_Q;
-                render.field_147834_Y = render.field_147862_ak;
+                render.aoLightValueScratchXYZPNP = render.aoLightValueScratchXZPP;
+                render.aoBrightnessXYZPNP = render.aoBrightnessXZPP;
             }
             else
             {
-                render.field_147811_E = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos - 1, zPos + 1);
-                render.field_147834_Y = block.func_149677_c(render.field_147845_a, xPos, yPos - 1, zPos + 1);
+                render.aoLightValueScratchXYZPNP = getAmbientOcclusionLightValue(render.blockAccess, xPos, yPos - 1, zPos + 1);
+                render.aoBrightnessXYZPNP = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos - 1, zPos + 1);
             }
 
             if ((!flag3) && (!flag4))
             {
-                render.field_147824_K = render.field_147820_O;
-                render.field_147879_ad = render.field_147866_ai;
+                render.aoLightValueScratchXYPP = render.aoLightValueScratchXZPN;
+                render.aoBrightnessXYZPPN = render.aoBrightnessXZPN;
             }
             else
             {
-                render.field_147824_K = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos + 1, zPos - 1);
-                render.field_147879_ad = block.func_149677_c(render.field_147845_a, xPos, yPos + 1, zPos - 1);
+                render.aoLightValueScratchXYPP = getAmbientOcclusionLightValue(render.blockAccess, xPos, yPos + 1, zPos - 1);
+                render.aoBrightnessXYZPPN = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos + 1, zPos - 1);
             }
 
             if ((!flag3) && (!flag5))
             {
-                render.field_147819_N = render.field_147829_Q;
-                render.field_147882_ag = render.field_147862_ak;
+                render.aoLightValueScratchXZNN = render.aoLightValueScratchXZPP;
+                render.aoBrightnessXYZPPP = render.aoBrightnessXZPP;
             }
             else
             {
-                render.field_147819_N = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos + 1, zPos + 1);
-                render.field_147882_ag = block.func_149677_c(render.field_147845_a, xPos, yPos + 1, zPos + 1);
+                render.aoLightValueScratchXZNN = getAmbientOcclusionLightValue(render.blockAccess, xPos, yPos + 1, zPos + 1);
+                render.aoBrightnessXYZPPP = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos + 1, zPos + 1);
             }
 
-            if (render.field_147861_i >= 1.0D)
+            if (render.renderMaxX >= 1.0D)
             {
                 xPos--;
             }
 
             int i1 = l;
 
-            if ((render.field_147861_i >= 1.0D) || (!render.field_147845_a.func_147439_a(xPos + 1, yPos, zPos).func_149662_c()))
+            if ((render.renderMaxX >= 1.0D) || (!render.blockAccess.getBlock(xPos + 1, yPos, zPos).isOpaqueCube()))
             {
-                i1 = block.func_149677_c(render.field_147845_a, xPos + 1, yPos, zPos);
+                i1 = block.getMixedBrightnessForBlock(render.blockAccess, xPos + 1, yPos, zPos);
             }
 
-            float f7 = getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos, zPos);
-            f3 = (render.field_147810_D + render.field_147811_E + f7 + render.field_147829_Q) / 4.0F;
-            f4 = (render.field_147816_C + render.field_147810_D + render.field_147820_O + f7) / 4.0F;
-            f5 = (render.field_147820_O + f7 + render.field_147824_K + render.field_147824_K) / 4.0F;
-            f6 = (f7 + render.field_147829_Q + render.field_147824_K + render.field_147819_N) / 4.0F;
-            render.field_147864_al = render.func_147778_a(render.field_147835_X, render.field_147834_Y, render.field_147862_ak, i1);
-            render.field_147870_ao = render.func_147778_a(render.field_147862_ak, render.field_147885_ae, render.field_147882_ag, i1);
-            render.field_147876_an = render.func_147778_a(render.field_147866_ai, render.field_147879_ad, render.field_147885_ae, i1);
-            render.field_147874_am = render.func_147778_a(render.field_147827_W, render.field_147835_X, render.field_147866_ai, i1);
+            float f7 = getAmbientOcclusionLightValue(render.blockAccess, xPos + 1, yPos, zPos);
+            f3 = (render.aoLightValueScratchXYPN + render.aoLightValueScratchXYZPNP + f7 + render.aoLightValueScratchXZPP) / 4.0F;
+            f4 = (render.aoLightValueScratchXYZPNN + render.aoLightValueScratchXYPN + render.aoLightValueScratchXZPN + f7) / 4.0F;
+            f5 = (render.aoLightValueScratchXZPN + f7 + render.aoLightValueScratchXYPP + render.aoLightValueScratchXYPP) / 4.0F;
+            f6 = (f7 + render.aoLightValueScratchXZPP + render.aoLightValueScratchXYPP + render.aoLightValueScratchXZNN) / 4.0F;
+            render.brightnessTopLeft = render.getAoBrightness(render.aoBrightnessXYPN, render.aoBrightnessXYZPNP, render.aoBrightnessXZPP, i1);
+            render.brightnessTopRight = render.getAoBrightness(render.aoBrightnessXZPP, render.aoBrightnessXYPP, render.aoBrightnessXYZPPP, i1);
+            render.brightnessBottomRight = render.getAoBrightness(render.aoBrightnessXZPN, render.aoBrightnessXYZPPN, render.aoBrightnessXYPP, i1);
+            render.brightnessBottomLeft = render.getAoBrightness(render.aoBrightnessXYZPNN, render.aoBrightnessXYPN, render.aoBrightnessXZPN, i1);
 
             if (flag1)
             {
-                render.field_147872_ap = (render.field_147852_aq = render.field_147850_ar = render.field_147848_as = colorRed * 0.6F);
-                render.field_147846_at = (render.field_147860_au = render.field_147858_av = render.field_147856_aw = colorGreen * 0.6F);
-                render.field_147854_ax = (render.field_147841_ay = render.field_147839_az = render.field_147833_aA = colorBlue * 0.6F);
+                render.colorRedTopLeft = (render.colorRedBottomLeft = render.colorRedBottomRight = render.colorRedTopRight = colorRed * 0.6F);
+                render.colorGreenTopLeft = (render.colorGreenBottomLeft = render.colorGreenBottomRight = render.colorGreenTopRight = colorGreen * 0.6F);
+                render.colorBlueTopLeft = (render.colorBlueBottomLeft = render.colorBlueBottomRight = render.colorBlueTopRight = colorBlue * 0.6F);
             }
             else
             {
-                render.field_147872_ap = (render.field_147852_aq = render.field_147850_ar = render.field_147848_as = 0.6F);
-                render.field_147846_at = (render.field_147860_au = render.field_147858_av = render.field_147856_aw = 0.6F);
-                render.field_147854_ax = (render.field_147841_ay = render.field_147839_az = render.field_147833_aA = 0.6F);
+                render.colorRedTopLeft = (render.colorRedBottomLeft = render.colorRedBottomRight = render.colorRedTopRight = 0.6F);
+                render.colorGreenTopLeft = (render.colorGreenBottomLeft = render.colorGreenBottomRight = render.colorGreenTopRight = 0.6F);
+                render.colorBlueTopLeft = (render.colorBlueBottomLeft = render.colorBlueBottomRight = render.colorBlueTopRight = 0.6F);
             }
 
-            render.field_147872_ap *= f3;
-            render.field_147846_at *= f3;
-            render.field_147854_ax *= f3;
-            render.field_147852_aq *= f4;
-            render.field_147860_au *= f4;
-            render.field_147841_ay *= f4;
-            render.field_147850_ar *= f5;
-            render.field_147858_av *= f5;
-            render.field_147839_az *= f5;
-            render.field_147848_as *= f6;
-            render.field_147856_aw *= f6;
-            render.field_147833_aA *= f6;
-            IIcon icon = block.func_149691_a(5, metadata);
-            render.func_147764_f(block, xPos, yPos, zPos, icon);
+            render.colorRedTopLeft *= f3;
+            render.colorGreenTopLeft *= f3;
+            render.colorBlueTopLeft *= f3;
+            render.colorRedBottomLeft *= f4;
+            render.colorGreenBottomLeft *= f4;
+            render.colorBlueBottomLeft *= f4;
+            render.colorRedBottomRight *= f5;
+            render.colorGreenBottomRight *= f5;
+            render.colorBlueBottomRight *= f5;
+            render.colorRedTopRight *= f6;
+            render.colorGreenTopRight *= f6;
+            render.colorBlueTopRight *= f6;
+            IIcon icon = block.getIcon(5, metadata);
+            render.renderFaceXPos(block, xPos, yPos, zPos, icon);
 
             flag = true;
         }
 
-        render.field_147863_w = false;
+        render.enableAO = false;
         return flag;
     }
 
     private static float getAmbientOcclusionLightValue (IBlockAccess access, int x, int y, int z)
     {
-        return access.func_147439_a(x, y, z).func_149685_I();
+        return access.getBlock(x, y, z).getAmbientOcclusionLightValue();
     }
 
     static boolean renderMetadataBlockWithColorMultiplier (Block block, int metadata, int xPos, int yPos, int zPos, float colorRed, float colorGreen, float colorBlue, RenderBlocks render,
             IBlockAccess world)
     {
-        render.field_147863_w = false;
+        render.enableAO = false;
         Tessellator tessellator = Tessellator.instance;
         boolean flag = false;
         float f3 = 0.5F;
@@ -791,56 +791,56 @@ public class RenderLiquid
             f18 = f6 * colorBlue;
         }
 
-        int l = block.func_149677_c(render.field_147845_a, xPos, yPos, zPos);
+        int l = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos, zPos);
 
-        if ((render.field_147837_f) || (block. func_149646_a(render.field_147845_a, xPos, yPos - 1, zPos, 0)))
+        if ((render.renderAllFaces) || (block. shouldSideBeRendered(render.blockAccess, xPos, yPos - 1, zPos, 0)))
         {
-            tessellator.setBrightness(render.field_147855_j > 0.0D ? l : block.func_149677_c(render.field_147845_a, xPos, yPos - 1, zPos));
+            tessellator.setBrightness(render.renderMinY > 0.0D ? l : block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos - 1, zPos));
             tessellator.setColorOpaque_F(f10, f13, f16);
-            render.func_147768_a(block, xPos, yPos, zPos, block.func_149691_a(0, metadata));
+            render.renderFaceYNeg(block, xPos, yPos, zPos, block.getIcon(0, metadata));
             flag = true;
         }
 
-        if ((render.field_147837_f) || (block. func_149646_a(render.field_147845_a, xPos, yPos + 1, zPos, 1)))
+        if ((render.renderAllFaces) || (block. shouldSideBeRendered(render.blockAccess, xPos, yPos + 1, zPos, 1)))
         {
-            tessellator.setBrightness(render.field_147857_k < 1.0D ? l : block.func_149677_c(render.field_147845_a, xPos, yPos + 1, zPos));
+            tessellator.setBrightness(render.renderMaxY < 1.0D ? l : block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos + 1, zPos));
             tessellator.setColorOpaque_F(f7, f8, f9);
-            render.func_147806_b(block, xPos, yPos, zPos, block.func_149691_a(1, metadata));
+            render.renderFaceYPos(block, xPos, yPos, zPos, block.getIcon(1, metadata));
             flag = true;
         }
 
-        if ((render.field_147837_f) || (block. func_149646_a(render.field_147845_a, xPos, yPos, zPos - 1, 2)))
+        if ((render.renderAllFaces) || (block. shouldSideBeRendered(render.blockAccess, xPos, yPos, zPos - 1, 2)))
         {
-            tessellator.setBrightness(render.field_147851_l > 0.0D ? l : block.func_149677_c(render.field_147845_a, xPos, yPos, zPos - 1));
+            tessellator.setBrightness(render.renderMinZ > 0.0D ? l : block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos, zPos - 1));
             tessellator.setColorOpaque_F(f11, f14, f17);
-            render.func_147761_c(block, xPos, yPos, zPos, block.func_149691_a(2, metadata));
+            render.renderFaceZNeg(block, xPos, yPos, zPos, block.getIcon(2, metadata));
 
             flag = true;
         }
 
-        if ((render.field_147837_f) || (block. func_149646_a(render.field_147845_a, xPos, yPos, zPos + 1, 3)))
+        if ((render.renderAllFaces) || (block. shouldSideBeRendered(render.blockAccess, xPos, yPos, zPos + 1, 3)))
         {
-            tessellator.setBrightness(render.field_147853_m < 1.0D ? l : block.func_149677_c(render.field_147845_a, xPos, yPos, zPos + 1));
+            tessellator.setBrightness(render.renderMaxZ < 1.0D ? l : block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos, zPos + 1));
             tessellator.setColorOpaque_F(f11, f14, f17);
-            render.func_147734_d(block, xPos, yPos, zPos, block.func_149691_a(3, metadata));
+            render.renderFaceZPos(block, xPos, yPos, zPos, block.getIcon(3, metadata));
 
             flag = true;
         }
 
-        if ((render.field_147837_f) || (block. func_149646_a(render.field_147845_a, xPos - 1, yPos, zPos, 4)))
+        if ((render.renderAllFaces) || (block. shouldSideBeRendered(render.blockAccess, xPos - 1, yPos, zPos, 4)))
         {
-            tessellator.setBrightness(render.field_147859_h > 0.0D ? l : block.func_149677_c(render.field_147845_a, xPos - 1, yPos, zPos));
+            tessellator.setBrightness(render.renderMinX > 0.0D ? l : block.getMixedBrightnessForBlock(render.blockAccess, xPos - 1, yPos, zPos));
             tessellator.setColorOpaque_F(f12, f15, f18);
-            render.func_147798_e(block, xPos, yPos, zPos, block.func_149691_a(4, metadata));
+            render.renderFaceXNeg(block, xPos, yPos, zPos, block.getIcon(4, metadata));
 
             flag = true;
         }
 
-        if ((render.field_147837_f) || (block. func_149646_a(render.field_147845_a, xPos + 1, yPos, zPos, 5)))
+        if ((render.renderAllFaces) || (block. shouldSideBeRendered(render.blockAccess, xPos + 1, yPos, zPos, 5)))
         {
-            tessellator.setBrightness(render.field_147861_i < 1.0D ? l : block.func_149677_c(render.field_147845_a, xPos + 1, yPos, zPos));
+            tessellator.setBrightness(render.renderMaxX < 1.0D ? l : block.getMixedBrightnessForBlock(render.blockAccess, xPos + 1, yPos, zPos));
             tessellator.setColorOpaque_F(f12, f15, f18);
-            render.func_147764_f(block, xPos, yPos, zPos, block.func_149691_a(5, metadata));
+            render.renderFaceXPos(block, xPos, yPos, zPos, block.getIcon(5, metadata));
 
             flag = true;
         }
@@ -851,7 +851,7 @@ public class RenderLiquid
     public static boolean renderFakeBlock (IIcon texture, int x, int y, int z, RenderBlocks renderer, IBlockAccess world)
     {
         Block block = Blocks.stone;
-        int var5 = block.func_149720_d(world, x, y, z);
+        int var5 = block.colorMultiplier(world, x, y, z);
         float var6 = (var5 >> 16 & 0xFF) / 255.0F;
         float var7 = (var5 >> 8 & 0xFF) / 255.0F;
         float var8 = (var5 & 0xFF) / 255.0F;
@@ -873,717 +873,717 @@ public class RenderLiquid
     static boolean renderFakeBlockWithAmbientOcclusion (IIcon texture, int xPos, int yPos, int zPos, float colorRed, float colorGreen, float colorBlue, RenderBlocks render, IBlockAccess world)
     {
         Block block = Blocks.stone;
-        render.field_147863_w = true;
+        render.enableAO = true;
         boolean flag = false;
         float f3 = 0.0F;
         float f4 = 0.0F;
         float f5 = 0.0F;
         float f6 = 0.0F;
         boolean flag1 = true;
-        int l = block.func_149677_c(render.field_147845_a, xPos, yPos, zPos);
+        int l = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos, zPos);
         Tessellator tessellator = Tessellator.instance;
         tessellator.setBrightness(983055);
 
-        if (render.func_147745_b(block).getIconName().equals("grass_top"))
+        if (render.getBlockIcon(block).getIconName().equals("grass_top"))
         {
             flag1 = false;
         }
-        else if (render.func_147744_b())
+        else if (render.hasOverrideBlockTexture())
         {
             flag1 = false;
         }
 
-        if ((render.field_147837_f) || (block. func_149646_a(render.field_147845_a, xPos, yPos - 1, zPos, 0)))
+        if ((render.renderAllFaces) || (block. shouldSideBeRendered(render.blockAccess, xPos, yPos - 1, zPos, 0)))
         {
-            if (render.field_147855_j <= 0.0D)
+            if (render.renderMinY <= 0.0D)
             {
                 yPos--;
             }
 
-            render.field_147831_S = block.func_149677_c(render.field_147845_a, xPos - 1, yPos, zPos);
-            render.field_147825_U = block.func_149677_c(render.field_147845_a, xPos, yPos, zPos - 1);
-            render.field_147828_V = block.func_149677_c(render.field_147845_a, xPos, yPos, zPos + 1);
-            render.field_147835_X = block.func_149677_c(render.field_147845_a, xPos + 1, yPos, zPos);
-            render.field_147886_y = getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos, zPos);
-            render.field_147814_A = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos, zPos - 1);
-            render.field_147815_B = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos, zPos + 1);
-            render.field_147810_D = getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos, zPos);
-            boolean flag3 = render.field_147845_a.func_147439_a(xPos + 1, yPos - 1, zPos).func_149751_l();
-            boolean flag2 = render.field_147845_a.func_147439_a(xPos - 1, yPos - 1, zPos).func_149751_l();
-            boolean flag5 = render.field_147845_a.func_147439_a(xPos, yPos - 1, zPos + 1).func_149751_l();
-            boolean flag4 = render.field_147845_a.func_147439_a(xPos, yPos - 1, zPos - 1).func_149751_l();
+            render.aoBrightnessXYNN = block.getMixedBrightnessForBlock(render.blockAccess, xPos - 1, yPos, zPos);
+            render.aoBrightnessYZNN = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos, zPos - 1);
+            render.aoBrightnessYZNP = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos, zPos + 1);
+            render.aoBrightnessXYPN = block.getMixedBrightnessForBlock(render.blockAccess, xPos + 1, yPos, zPos);
+            render.aoLightValueScratchXYNN = getAmbientOcclusionLightValue(render.blockAccess, xPos - 1, yPos, zPos);
+            render.aoLightValueScratchYZNN = getAmbientOcclusionLightValue(render.blockAccess, xPos, yPos, zPos - 1);
+            render.aoLightValueScratchYZNP = getAmbientOcclusionLightValue(render.blockAccess, xPos, yPos, zPos + 1);
+            render.aoLightValueScratchXYPN = getAmbientOcclusionLightValue(render.blockAccess, xPos + 1, yPos, zPos);
+            boolean flag3 = render.blockAccess.getBlock(xPos + 1, yPos - 1, zPos).getCanBlockGrass();
+            boolean flag2 = render.blockAccess.getBlock(xPos - 1, yPos - 1, zPos).getCanBlockGrass();
+            boolean flag5 = render.blockAccess.getBlock(xPos, yPos - 1, zPos + 1).getCanBlockGrass();
+            boolean flag4 = render.blockAccess.getBlock(xPos, yPos - 1, zPos - 1).getCanBlockGrass();
 
             if ((!flag4) && (!flag2))
             {
-                render.field_147888_x = render.field_147886_y;
-                render.field_147832_R = render.field_147831_S;
+                render.aoLightValueScratchXYZNNN = render.aoLightValueScratchXYNN;
+                render.aoBrightnessXYZNNN = render.aoBrightnessXYNN;
             }
             else
             {
-                render.field_147888_x = getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos, zPos - 1);
-                render.field_147832_R = block.func_149677_c(render.field_147845_a, xPos - 1, yPos, zPos - 1);
+                render.aoLightValueScratchXYZNNN = getAmbientOcclusionLightValue(render.blockAccess, xPos - 1, yPos, zPos - 1);
+                render.aoBrightnessXYZNNN = block.getMixedBrightnessForBlock(render.blockAccess, xPos - 1, yPos, zPos - 1);
             }
 
             if ((!flag5) && (!flag2))
             {
-                render.field_147884_z = render.field_147886_y;
-                render.field_147826_T = render.field_147831_S;
+                render.aoLightValueScratchXYZNNP = render.aoLightValueScratchXYNN;
+                render.aoBrightnessXYZNNP = render.aoBrightnessXYNN;
             }
             else
             {
-                render.field_147884_z = getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos, zPos + 1);
-                render.field_147826_T = block.func_149677_c(render.field_147845_a, xPos - 1, yPos, zPos + 1);
+                render.aoLightValueScratchXYZNNP = getAmbientOcclusionLightValue(render.blockAccess, xPos - 1, yPos, zPos + 1);
+                render.aoBrightnessXYZNNP = block.getMixedBrightnessForBlock(render.blockAccess, xPos - 1, yPos, zPos + 1);
             }
 
             if ((!flag4) && (!flag3))
             {
-                render.field_147816_C = render.field_147810_D;
-                render.field_147827_W = render.field_147835_X;
+                render.aoLightValueScratchXYZPNN = render.aoLightValueScratchXYPN;
+                render.aoBrightnessXYZPNN = render.aoBrightnessXYPN;
             }
             else
             {
-                render.field_147816_C = getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos, zPos - 1);
-                render.field_147827_W = block.func_149677_c(render.field_147845_a, xPos + 1, yPos, zPos - 1);
+                render.aoLightValueScratchXYZPNN = getAmbientOcclusionLightValue(render.blockAccess, xPos + 1, yPos, zPos - 1);
+                render.aoBrightnessXYZPNN = block.getMixedBrightnessForBlock(render.blockAccess, xPos + 1, yPos, zPos - 1);
             }
 
             if ((!flag5) && (!flag3))
             {
-                render.field_147811_E = render.field_147810_D;
-                render.field_147834_Y = render.field_147835_X;
+                render.aoLightValueScratchXYZPNP = render.aoLightValueScratchXYPN;
+                render.aoBrightnessXYZPNP = render.aoBrightnessXYPN;
             }
             else
             {
-                render.field_147811_E = getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos, zPos + 1);
-                render.field_147834_Y = block.func_149677_c(render.field_147845_a, xPos + 1, yPos, zPos + 1);
+                render.aoLightValueScratchXYZPNP = getAmbientOcclusionLightValue(render.blockAccess, xPos + 1, yPos, zPos + 1);
+                render.aoBrightnessXYZPNP = block.getMixedBrightnessForBlock(render.blockAccess, xPos + 1, yPos, zPos + 1);
             }
 
-            if (render.field_147855_j <= 0.0D)
+            if (render.renderMinY <= 0.0D)
             {
                 yPos++;
             }
 
             int i1 = l;
 
-            if ((render.field_147855_j <= 0.0D) || (!render.field_147845_a.func_147439_a(xPos, yPos - 1, zPos).func_149662_c()))
+            if ((render.renderMinY <= 0.0D) || (!render.blockAccess.getBlock(xPos, yPos - 1, zPos).isOpaqueCube()))
             {
-                i1 = block.func_149677_c(render.field_147845_a, xPos, yPos - 1, zPos);
+                i1 = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos - 1, zPos);
             }
 
-            float f7 = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos - 1, zPos);
-            f3 = (render.field_147884_z + render.field_147886_y + render.field_147815_B + f7) / 4.0F;
-            f6 = (render.field_147815_B + f7 + render.field_147811_E + render.field_147810_D) / 4.0F;
-            f5 = (f7 + render.field_147814_A + render.field_147810_D + render.field_147816_C) / 4.0F;
-            f4 = (render.field_147886_y + render.field_147888_x + f7 + render.field_147814_A) / 4.0F;
-            render.field_147864_al = render.func_147778_a(render.field_147826_T, render.field_147831_S, render.field_147828_V, i1);
-            render.field_147870_ao = render.func_147778_a(render.field_147828_V, render.field_147834_Y, render.field_147835_X, i1);
-            render.field_147876_an = render.func_147778_a(render.field_147825_U, render.field_147835_X, render.field_147827_W, i1);
-            render.field_147874_am = render.func_147778_a(render.field_147831_S, render.field_147832_R, render.field_147825_U, i1);
+            float f7 = getAmbientOcclusionLightValue(render.blockAccess, xPos, yPos - 1, zPos);
+            f3 = (render.aoLightValueScratchXYZNNP + render.aoLightValueScratchXYNN + render.aoLightValueScratchYZNP + f7) / 4.0F;
+            f6 = (render.aoLightValueScratchYZNP + f7 + render.aoLightValueScratchXYZPNP + render.aoLightValueScratchXYPN) / 4.0F;
+            f5 = (f7 + render.aoLightValueScratchYZNN + render.aoLightValueScratchXYPN + render.aoLightValueScratchXYZPNN) / 4.0F;
+            f4 = (render.aoLightValueScratchXYNN + render.aoLightValueScratchXYZNNN + f7 + render.aoLightValueScratchYZNN) / 4.0F;
+            render.brightnessTopLeft = render.getAoBrightness(render.aoBrightnessXYZNNP, render.aoBrightnessXYNN, render.aoBrightnessYZNP, i1);
+            render.brightnessTopRight = render.getAoBrightness(render.aoBrightnessYZNP, render.aoBrightnessXYZPNP, render.aoBrightnessXYPN, i1);
+            render.brightnessBottomRight = render.getAoBrightness(render.aoBrightnessYZNN, render.aoBrightnessXYPN, render.aoBrightnessXYZPNN, i1);
+            render.brightnessBottomLeft = render.getAoBrightness(render.aoBrightnessXYNN, render.aoBrightnessXYZNNN, render.aoBrightnessYZNN, i1);
 
             if (flag1)
             {
-                render.field_147872_ap = (render.field_147852_aq = render.field_147850_ar = render.field_147848_as = colorRed * 0.5F);
-                render.field_147846_at = (render.field_147860_au = render.field_147858_av = render.field_147856_aw = colorGreen * 0.5F);
-                render.field_147854_ax = (render.field_147841_ay = render.field_147839_az = render.field_147833_aA = colorBlue * 0.5F);
+                render.colorRedTopLeft = (render.colorRedBottomLeft = render.colorRedBottomRight = render.colorRedTopRight = colorRed * 0.5F);
+                render.colorGreenTopLeft = (render.colorGreenBottomLeft = render.colorGreenBottomRight = render.colorGreenTopRight = colorGreen * 0.5F);
+                render.colorBlueTopLeft = (render.colorBlueBottomLeft = render.colorBlueBottomRight = render.colorBlueTopRight = colorBlue * 0.5F);
             }
             else
             {
-                render.field_147872_ap = (render.field_147852_aq = render.field_147850_ar = render.field_147848_as = 0.5F);
-                render.field_147846_at = (render.field_147860_au = render.field_147858_av = render.field_147856_aw = 0.5F);
-                render.field_147854_ax = (render.field_147841_ay = render.field_147839_az = render.field_147833_aA = 0.5F);
+                render.colorRedTopLeft = (render.colorRedBottomLeft = render.colorRedBottomRight = render.colorRedTopRight = 0.5F);
+                render.colorGreenTopLeft = (render.colorGreenBottomLeft = render.colorGreenBottomRight = render.colorGreenTopRight = 0.5F);
+                render.colorBlueTopLeft = (render.colorBlueBottomLeft = render.colorBlueBottomRight = render.colorBlueTopRight = 0.5F);
             }
 
-            render.field_147872_ap *= f3;
-            render.field_147846_at *= f3;
-            render.field_147854_ax *= f3;
-            render.field_147852_aq *= f4;
-            render.field_147860_au *= f4;
-            render.field_147841_ay *= f4;
-            render.field_147850_ar *= f5;
-            render.field_147858_av *= f5;
-            render.field_147839_az *= f5;
-            render.field_147848_as *= f6;
-            render.field_147856_aw *= f6;
-            render.field_147833_aA *= f6;
-            render.func_147768_a(block, xPos, yPos, zPos, texture);
+            render.colorRedTopLeft *= f3;
+            render.colorGreenTopLeft *= f3;
+            render.colorBlueTopLeft *= f3;
+            render.colorRedBottomLeft *= f4;
+            render.colorGreenBottomLeft *= f4;
+            render.colorBlueBottomLeft *= f4;
+            render.colorRedBottomRight *= f5;
+            render.colorGreenBottomRight *= f5;
+            render.colorBlueBottomRight *= f5;
+            render.colorRedTopRight *= f6;
+            render.colorGreenTopRight *= f6;
+            render.colorBlueTopRight *= f6;
+            render.renderFaceYNeg(block, xPos, yPos, zPos, texture);
             flag = true;
         }
 
-        if ((render.field_147837_f) || (block. func_149646_a(render.field_147845_a, xPos, yPos + 1, zPos, 1)))
+        if ((render.renderAllFaces) || (block. shouldSideBeRendered(render.blockAccess, xPos, yPos + 1, zPos, 1)))
         {
-            if (render.field_147857_k >= 1.0D)
+            if (render.renderMaxY >= 1.0D)
             {
                 yPos++;
             }
 
-            render.field_147880_aa = block.func_149677_c(render.field_147845_a, xPos - 1, yPos, zPos);
-            render.field_147885_ae = block.func_149677_c(render.field_147845_a, xPos + 1, yPos, zPos);
-            render.field_147878_ac = block.func_149677_c(render.field_147845_a, xPos, yPos, zPos - 1);
-            render.field_147887_af = block.func_149677_c(render.field_147845_a, xPos, yPos, zPos + 1);
-            render.field_147813_G = getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos, zPos);
-            render.field_147824_K = getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos, zPos);
-            render.field_147822_I = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos, zPos - 1);
-            render.field_147817_L = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos, zPos + 1);
-            boolean flag3 =  render.field_147845_a.func_147439_a(xPos + 1, yPos + 1, zPos).func_149688_o().getCanBlockGrass();
-            boolean flag2 =  render.field_147845_a.func_147439_a(xPos - 1, yPos + 1, zPos).func_149688_o().getCanBlockGrass();
-            boolean flag5 =  render.field_147845_a.func_147439_a(xPos, yPos + 1, zPos + 1).func_149688_o().getCanBlockGrass();
-            boolean flag4 =  render.field_147845_a.func_147439_a(xPos, yPos + 1, zPos - 1).func_149688_o().getCanBlockGrass();
+            render.aoBrightnessXYNP = block.getMixedBrightnessForBlock(render.blockAccess, xPos - 1, yPos, zPos);
+            render.aoBrightnessXYPP = block.getMixedBrightnessForBlock(render.blockAccess, xPos + 1, yPos, zPos);
+            render.aoBrightnessYZPN = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos, zPos - 1);
+            render.aoBrightnessYZPP = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos, zPos + 1);
+            render.aoLightValueScratchXYNP = getAmbientOcclusionLightValue(render.blockAccess, xPos - 1, yPos, zPos);
+            render.aoLightValueScratchXYPP = getAmbientOcclusionLightValue(render.blockAccess, xPos + 1, yPos, zPos);
+            render.aoLightValueScratchYZPN = getAmbientOcclusionLightValue(render.blockAccess, xPos, yPos, zPos - 1);
+            render.aoLightValueScratchYZPP = getAmbientOcclusionLightValue(render.blockAccess, xPos, yPos, zPos + 1);
+            boolean flag3 =  render.blockAccess.getBlock(xPos + 1, yPos + 1, zPos).getMaterial().getCanBlockGrass();
+            boolean flag2 =  render.blockAccess.getBlock(xPos - 1, yPos + 1, zPos).getMaterial().getCanBlockGrass();
+            boolean flag5 =  render.blockAccess.getBlock(xPos, yPos + 1, zPos + 1).getMaterial().getCanBlockGrass();
+            boolean flag4 =  render.blockAccess.getBlock(xPos, yPos + 1, zPos - 1).getMaterial().getCanBlockGrass();
 
             if ((!flag4) && (!flag2))
             {
-                render.field_147812_F = render.field_147813_G;
-                render.field_147836_Z = render.field_147880_aa;
+                render.aoLightValueScratchXYZNPN = render.aoLightValueScratchXYNP;
+                render.aoBrightnessXYZNPN = render.aoBrightnessXYNP;
             }
             else
             {
-                render.field_147812_F = getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos, zPos - 1);
-                render.field_147836_Z = block.func_149677_c(render.field_147845_a, xPos - 1, yPos, zPos - 1);
+                render.aoLightValueScratchXYZNPN = getAmbientOcclusionLightValue(render.blockAccess, xPos - 1, yPos, zPos - 1);
+                render.aoBrightnessXYZNPN = block.getMixedBrightnessForBlock(render.blockAccess, xPos - 1, yPos, zPos - 1);
             }
 
             if ((!flag4) && (!flag3))
             {
-                render.field_147824_K = render.field_147824_K;
-                render.field_147879_ad = render.field_147885_ae;
+                render.aoLightValueScratchXYPP = render.aoLightValueScratchXYPP;
+                render.aoBrightnessXYZPPN = render.aoBrightnessXYPP;
             }
             else
             {
-                render.field_147824_K = getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos, zPos - 1);
-                render.field_147879_ad = block.func_149677_c(render.field_147845_a, xPos + 1, yPos, zPos - 1);
+                render.aoLightValueScratchXYPP = getAmbientOcclusionLightValue(render.blockAccess, xPos + 1, yPos, zPos - 1);
+                render.aoBrightnessXYZPPN = block.getMixedBrightnessForBlock(render.blockAccess, xPos + 1, yPos, zPos - 1);
             }
 
             if ((!flag5) && (!flag2))
             {
-                render.field_147821_H = render.field_147813_G;
-                render.field_147881_ab = render.field_147880_aa;
+                render.aoLightValueScratchXYZNPP = render.aoLightValueScratchXYNP;
+                render.aoBrightnessXYZNPP = render.aoBrightnessXYNP;
             }
             else
             {
-                render.field_147821_H = getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos, zPos + 1);
-                render.field_147881_ab = block.func_149677_c(render.field_147845_a, xPos - 1, yPos, zPos + 1);
+                render.aoLightValueScratchXYZNPP = getAmbientOcclusionLightValue(render.blockAccess, xPos - 1, yPos, zPos + 1);
+                render.aoBrightnessXYZNPP = block.getMixedBrightnessForBlock(render.blockAccess, xPos - 1, yPos, zPos + 1);
             }
 
             if ((!flag5) && (!flag3))
             {
-                render.field_147819_N = render.field_147824_K;
-                render.field_147882_ag = render.field_147885_ae;
+                render.aoLightValueScratchXZNN = render.aoLightValueScratchXYPP;
+                render.aoBrightnessXYZPPP = render.aoBrightnessXYPP;
             }
             else
             {
-                render.field_147819_N = getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos, zPos + 1);
-                render.field_147882_ag = block.func_149677_c(render.field_147845_a, xPos + 1, yPos, zPos + 1);
+                render.aoLightValueScratchXZNN = getAmbientOcclusionLightValue(render.blockAccess, xPos + 1, yPos, zPos + 1);
+                render.aoBrightnessXYZPPP = block.getMixedBrightnessForBlock(render.blockAccess, xPos + 1, yPos, zPos + 1);
             }
 
-            if (render.field_147857_k >= 1.0D)
+            if (render.renderMaxY >= 1.0D)
             {
                 yPos--;
             }
 
             int i1 = l;
 
-            if ((render.field_147857_k >= 1.0D) || (!render.field_147845_a.func_147439_a(xPos, yPos + 1, zPos).func_149662_c()))
+            if ((render.renderMaxY >= 1.0D) || (!render.blockAccess.getBlock(xPos, yPos + 1, zPos).isOpaqueCube()))
             {
-                i1 = block.func_149677_c(render.field_147845_a, xPos, yPos + 1, zPos);
+                i1 = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos + 1, zPos);
             }
 
-            float f7 = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos + 1, zPos);
-            f6 = (render.field_147821_H + render.field_147813_G + render.field_147817_L + f7) / 4.0F;
-            f3 = (render.field_147817_L + f7 + render.field_147819_N + render.field_147824_K) / 4.0F;
-            f4 = (f7 + render.field_147822_I + render.field_147824_K + render.field_147824_K) / 4.0F;
-            f5 = (render.field_147813_G + render.field_147812_F + f7 + render.field_147822_I) / 4.0F;
-            render.field_147870_ao = render.func_147778_a(render.field_147881_ab, render.field_147880_aa, render.field_147887_af, i1);
-            render.field_147864_al = render.func_147778_a(render.field_147887_af, render.field_147882_ag, render.field_147885_ae, i1);
-            render.field_147874_am = render.func_147778_a(render.field_147878_ac, render.field_147885_ae, render.field_147879_ad, i1);
-            render.field_147876_an = render.func_147778_a(render.field_147880_aa, render.field_147836_Z, render.field_147878_ac, i1);
-            render.field_147872_ap = (render.field_147852_aq = render.field_147850_ar = render.field_147848_as = colorRed);
-            render.field_147846_at = (render.field_147860_au = render.field_147858_av = render.field_147856_aw = colorGreen);
-            render.field_147854_ax = (render.field_147841_ay = render.field_147839_az = render.field_147833_aA = colorBlue);
-            render.field_147872_ap *= f3;
-            render.field_147846_at *= f3;
-            render.field_147854_ax *= f3;
-            render.field_147852_aq *= f4;
-            render.field_147860_au *= f4;
-            render.field_147841_ay *= f4;
-            render.field_147850_ar *= f5;
-            render.field_147858_av *= f5;
-            render.field_147839_az *= f5;
-            render.field_147848_as *= f6;
-            render.field_147856_aw *= f6;
-            render.field_147833_aA *= f6;
-            render.func_147806_b(block, xPos, yPos, zPos, texture);
+            float f7 = getAmbientOcclusionLightValue(render.blockAccess, xPos, yPos + 1, zPos);
+            f6 = (render.aoLightValueScratchXYZNPP + render.aoLightValueScratchXYNP + render.aoLightValueScratchYZPP + f7) / 4.0F;
+            f3 = (render.aoLightValueScratchYZPP + f7 + render.aoLightValueScratchXZNN + render.aoLightValueScratchXYPP) / 4.0F;
+            f4 = (f7 + render.aoLightValueScratchYZPN + render.aoLightValueScratchXYPP + render.aoLightValueScratchXYPP) / 4.0F;
+            f5 = (render.aoLightValueScratchXYNP + render.aoLightValueScratchXYZNPN + f7 + render.aoLightValueScratchYZPN) / 4.0F;
+            render.brightnessTopRight = render.getAoBrightness(render.aoBrightnessXYZNPP, render.aoBrightnessXYNP, render.aoBrightnessYZPP, i1);
+            render.brightnessTopLeft = render.getAoBrightness(render.aoBrightnessYZPP, render.aoBrightnessXYZPPP, render.aoBrightnessXYPP, i1);
+            render.brightnessBottomLeft = render.getAoBrightness(render.aoBrightnessYZPN, render.aoBrightnessXYPP, render.aoBrightnessXYZPPN, i1);
+            render.brightnessBottomRight = render.getAoBrightness(render.aoBrightnessXYNP, render.aoBrightnessXYZNPN, render.aoBrightnessYZPN, i1);
+            render.colorRedTopLeft = (render.colorRedBottomLeft = render.colorRedBottomRight = render.colorRedTopRight = colorRed);
+            render.colorGreenTopLeft = (render.colorGreenBottomLeft = render.colorGreenBottomRight = render.colorGreenTopRight = colorGreen);
+            render.colorBlueTopLeft = (render.colorBlueBottomLeft = render.colorBlueBottomRight = render.colorBlueTopRight = colorBlue);
+            render.colorRedTopLeft *= f3;
+            render.colorGreenTopLeft *= f3;
+            render.colorBlueTopLeft *= f3;
+            render.colorRedBottomLeft *= f4;
+            render.colorGreenBottomLeft *= f4;
+            render.colorBlueBottomLeft *= f4;
+            render.colorRedBottomRight *= f5;
+            render.colorGreenBottomRight *= f5;
+            render.colorBlueBottomRight *= f5;
+            render.colorRedTopRight *= f6;
+            render.colorGreenTopRight *= f6;
+            render.colorBlueTopRight *= f6;
+            render.renderFaceYPos(block, xPos, yPos, zPos, texture);
             flag = true;
         }
 
-        if ((render.field_147837_f) || (block. func_149646_a(render.field_147845_a, xPos, yPos, zPos - 1, 2)))
+        if ((render.renderAllFaces) || (block. shouldSideBeRendered(render.blockAccess, xPos, yPos, zPos - 1, 2)))
         {
-            if (render.field_147851_l <= 0.0D)
+            if (render.renderMinZ <= 0.0D)
             {
                 zPos--;
             }
 
-            render.field_147820_O = getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos, zPos);
-            render.field_147814_A = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos - 1, zPos);
-            render.field_147822_I = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos + 1, zPos);
-            render.field_147820_O = getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos, zPos);
-            render.field_147883_ah = block.func_149677_c(render.field_147845_a, xPos - 1, yPos, zPos);
-            render.field_147825_U = block.func_149677_c(render.field_147845_a, xPos, yPos - 1, zPos);
-            render.field_147878_ac = block.func_149677_c(render.field_147845_a, xPos, yPos + 1, zPos);
-            render.field_147866_ai = block.func_149677_c(render.field_147845_a, xPos + 1, yPos, zPos);
-            boolean flag3 =  render.field_147845_a.func_147439_a(xPos + 1, yPos, zPos - 1).func_149688_o().getCanBlockGrass();
-            boolean flag2 =  render.field_147845_a.func_147439_a(xPos - 1, yPos, zPos - 1).func_149688_o().getCanBlockGrass();
-            boolean flag5 =  render.field_147845_a.func_147439_a(xPos, yPos + 1, zPos - 1).func_149688_o().getCanBlockGrass();
-            boolean flag4 =  render.field_147845_a.func_147439_a(xPos, yPos - 1, zPos - 1).func_149688_o().getCanBlockGrass();
+            render.aoLightValueScratchXZPN = getAmbientOcclusionLightValue(render.blockAccess, xPos - 1, yPos, zPos);
+            render.aoLightValueScratchYZNN = getAmbientOcclusionLightValue(render.blockAccess, xPos, yPos - 1, zPos);
+            render.aoLightValueScratchYZPN = getAmbientOcclusionLightValue(render.blockAccess, xPos, yPos + 1, zPos);
+            render.aoLightValueScratchXZPN = getAmbientOcclusionLightValue(render.blockAccess, xPos + 1, yPos, zPos);
+            render.aoBrightnessXZNN = block.getMixedBrightnessForBlock(render.blockAccess, xPos - 1, yPos, zPos);
+            render.aoBrightnessYZNN = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos - 1, zPos);
+            render.aoBrightnessYZPN = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos + 1, zPos);
+            render.aoBrightnessXZPN = block.getMixedBrightnessForBlock(render.blockAccess, xPos + 1, yPos, zPos);
+            boolean flag3 =  render.blockAccess.getBlock(xPos + 1, yPos, zPos - 1).getMaterial().getCanBlockGrass();
+            boolean flag2 =  render.blockAccess.getBlock(xPos - 1, yPos, zPos - 1).getMaterial().getCanBlockGrass();
+            boolean flag5 =  render.blockAccess.getBlock(xPos, yPos + 1, zPos - 1).getMaterial().getCanBlockGrass();
+            boolean flag4 =  render.blockAccess.getBlock(xPos, yPos - 1, zPos - 1).getMaterial().getCanBlockGrass();
 
             if ((!flag2) && (!flag4))
             {
-                render.field_147888_x = render.field_147820_O;
-                render.field_147832_R = render.field_147883_ah;
+                render.aoLightValueScratchXYZNNN = render.aoLightValueScratchXZPN;
+                render.aoBrightnessXYZNNN = render.aoBrightnessXZNN;
             }
             else
             {
-                render.field_147888_x = getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos - 1, zPos);
-                render.field_147832_R = block.func_149677_c(render.field_147845_a, xPos - 1, yPos - 1, zPos);
+                render.aoLightValueScratchXYZNNN = getAmbientOcclusionLightValue(render.blockAccess, xPos - 1, yPos - 1, zPos);
+                render.aoBrightnessXYZNNN = block.getMixedBrightnessForBlock(render.blockAccess, xPos - 1, yPos - 1, zPos);
             }
 
             if ((!flag2) && (!flag5))
             {
-                render.field_147812_F = render.field_147820_O;
-                render.field_147836_Z = render.field_147883_ah;
+                render.aoLightValueScratchXYZNPN = render.aoLightValueScratchXZPN;
+                render.aoBrightnessXYZNPN = render.aoBrightnessXZNN;
             }
             else
             {
-                render.field_147812_F = getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos + 1, zPos);
-                render.field_147836_Z = block.func_149677_c(render.field_147845_a, xPos - 1, yPos + 1, zPos);
+                render.aoLightValueScratchXYZNPN = getAmbientOcclusionLightValue(render.blockAccess, xPos - 1, yPos + 1, zPos);
+                render.aoBrightnessXYZNPN = block.getMixedBrightnessForBlock(render.blockAccess, xPos - 1, yPos + 1, zPos);
             }
 
             if ((!flag3) && (!flag4))
             {
-                render.field_147816_C = render.field_147820_O;
-                render.field_147827_W = render.field_147866_ai;
+                render.aoLightValueScratchXYZPNN = render.aoLightValueScratchXZPN;
+                render.aoBrightnessXYZPNN = render.aoBrightnessXZPN;
             }
             else
             {
-                render.field_147816_C = getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos - 1, zPos);
-                render.field_147827_W = block.func_149677_c(render.field_147845_a, xPos + 1, yPos - 1, zPos);
+                render.aoLightValueScratchXYZPNN = getAmbientOcclusionLightValue(render.blockAccess, xPos + 1, yPos - 1, zPos);
+                render.aoBrightnessXYZPNN = block.getMixedBrightnessForBlock(render.blockAccess, xPos + 1, yPos - 1, zPos);
             }
 
             if ((!flag3) && (!flag5))
             {
-                render.field_147824_K = render.field_147820_O;
-                render.field_147879_ad = render.field_147866_ai;
+                render.aoLightValueScratchXYPP = render.aoLightValueScratchXZPN;
+                render.aoBrightnessXYZPPN = render.aoBrightnessXZPN;
             }
             else
             {
-                render.field_147824_K = getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos + 1, zPos);
-                render.field_147879_ad = block.func_149677_c(render.field_147845_a, xPos + 1, yPos + 1, zPos);
+                render.aoLightValueScratchXYPP = getAmbientOcclusionLightValue(render.blockAccess, xPos + 1, yPos + 1, zPos);
+                render.aoBrightnessXYZPPN = block.getMixedBrightnessForBlock(render.blockAccess, xPos + 1, yPos + 1, zPos);
             }
 
-            if (render.field_147851_l <= 0.0D)
+            if (render.renderMinZ <= 0.0D)
             {
                 zPos++;
             }
 
             int i1 = l;
 
-            if ((render.field_147851_l <= 0.0D) || (!render.field_147845_a.func_147439_a(xPos, yPos, zPos - 1).func_149662_c()))
+            if ((render.renderMinZ <= 0.0D) || (!render.blockAccess.getBlock(xPos, yPos, zPos - 1).isOpaqueCube()))
             {
-                i1 = block.func_149677_c(render.field_147845_a, xPos, yPos, zPos - 1);
+                i1 = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos, zPos - 1);
             }
 
-            float f7 = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos, zPos - 1);
-            f3 = (render.field_147820_O + render.field_147812_F + f7 + render.field_147822_I) / 4.0F;
-            f4 = (f7 + render.field_147822_I + render.field_147820_O + render.field_147824_K) / 4.0F;
-            f5 = (render.field_147814_A + f7 + render.field_147816_C + render.field_147820_O) / 4.0F;
-            f6 = (render.field_147888_x + render.field_147820_O + render.field_147814_A + f7) / 4.0F;
-            render.field_147864_al = render.func_147778_a(render.field_147883_ah, render.field_147836_Z, render.field_147878_ac, i1);
-            render.field_147874_am = render.func_147778_a(render.field_147878_ac, render.field_147866_ai, render.field_147879_ad, i1);
-            render.field_147876_an = render.func_147778_a(render.field_147825_U, render.field_147827_W, render.field_147866_ai, i1);
-            render.field_147870_ao = render.func_147778_a(render.field_147832_R, render.field_147883_ah, render.field_147825_U, i1);
+            float f7 = getAmbientOcclusionLightValue(render.blockAccess, xPos, yPos, zPos - 1);
+            f3 = (render.aoLightValueScratchXZPN + render.aoLightValueScratchXYZNPN + f7 + render.aoLightValueScratchYZPN) / 4.0F;
+            f4 = (f7 + render.aoLightValueScratchYZPN + render.aoLightValueScratchXZPN + render.aoLightValueScratchXYPP) / 4.0F;
+            f5 = (render.aoLightValueScratchYZNN + f7 + render.aoLightValueScratchXYZPNN + render.aoLightValueScratchXZPN) / 4.0F;
+            f6 = (render.aoLightValueScratchXYZNNN + render.aoLightValueScratchXZPN + render.aoLightValueScratchYZNN + f7) / 4.0F;
+            render.brightnessTopLeft = render.getAoBrightness(render.aoBrightnessXZNN, render.aoBrightnessXYZNPN, render.aoBrightnessYZPN, i1);
+            render.brightnessBottomLeft = render.getAoBrightness(render.aoBrightnessYZPN, render.aoBrightnessXZPN, render.aoBrightnessXYZPPN, i1);
+            render.brightnessBottomRight = render.getAoBrightness(render.aoBrightnessYZNN, render.aoBrightnessXYZPNN, render.aoBrightnessXZPN, i1);
+            render.brightnessTopRight = render.getAoBrightness(render.aoBrightnessXYZNNN, render.aoBrightnessXZNN, render.aoBrightnessYZNN, i1);
 
             if (flag1)
             {
-                render.field_147872_ap = (render.field_147852_aq = render.field_147850_ar = render.field_147848_as = colorRed * 0.8F);
-                render.field_147846_at = (render.field_147860_au = render.field_147858_av = render.field_147856_aw = colorGreen * 0.8F);
-                render.field_147854_ax = (render.field_147841_ay = render.field_147839_az = render.field_147833_aA = colorBlue * 0.8F);
+                render.colorRedTopLeft = (render.colorRedBottomLeft = render.colorRedBottomRight = render.colorRedTopRight = colorRed * 0.8F);
+                render.colorGreenTopLeft = (render.colorGreenBottomLeft = render.colorGreenBottomRight = render.colorGreenTopRight = colorGreen * 0.8F);
+                render.colorBlueTopLeft = (render.colorBlueBottomLeft = render.colorBlueBottomRight = render.colorBlueTopRight = colorBlue * 0.8F);
             }
             else
             {
-                render.field_147872_ap = (render.field_147852_aq = render.field_147850_ar = render.field_147848_as = 0.8F);
-                render.field_147846_at = (render.field_147860_au = render.field_147858_av = render.field_147856_aw = 0.8F);
-                render.field_147854_ax = (render.field_147841_ay = render.field_147839_az = render.field_147833_aA = 0.8F);
+                render.colorRedTopLeft = (render.colorRedBottomLeft = render.colorRedBottomRight = render.colorRedTopRight = 0.8F);
+                render.colorGreenTopLeft = (render.colorGreenBottomLeft = render.colorGreenBottomRight = render.colorGreenTopRight = 0.8F);
+                render.colorBlueTopLeft = (render.colorBlueBottomLeft = render.colorBlueBottomRight = render.colorBlueTopRight = 0.8F);
             }
 
-            render.field_147872_ap *= f3;
-            render.field_147846_at *= f3;
-            render.field_147854_ax *= f3;
-            render.field_147852_aq *= f4;
-            render.field_147860_au *= f4;
-            render.field_147841_ay *= f4;
-            render.field_147850_ar *= f5;
-            render.field_147858_av *= f5;
-            render.field_147839_az *= f5;
-            render.field_147848_as *= f6;
-            render.field_147856_aw *= f6;
-            render.field_147833_aA *= f6;
-            render.func_147761_c(block, xPos, yPos, zPos, texture);
+            render.colorRedTopLeft *= f3;
+            render.colorGreenTopLeft *= f3;
+            render.colorBlueTopLeft *= f3;
+            render.colorRedBottomLeft *= f4;
+            render.colorGreenBottomLeft *= f4;
+            render.colorBlueBottomLeft *= f4;
+            render.colorRedBottomRight *= f5;
+            render.colorGreenBottomRight *= f5;
+            render.colorBlueBottomRight *= f5;
+            render.colorRedTopRight *= f6;
+            render.colorGreenTopRight *= f6;
+            render.colorBlueTopRight *= f6;
+            render.renderFaceZNeg(block, xPos, yPos, zPos, texture);
 
             flag = true;
         }
 
-        if ((render.field_147837_f) || (block. func_149646_a(render.field_147845_a, xPos, yPos, zPos + 1, 3)))
+        if ((render.renderAllFaces) || (block. shouldSideBeRendered(render.blockAccess, xPos, yPos, zPos + 1, 3)))
         {
-            if (render.field_147853_m >= 1.0D)
+            if (render.renderMaxZ >= 1.0D)
             {
                 zPos++;
             }
 
-            render.field_147830_P = getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos, zPos);
-            render.field_147829_Q = getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos, zPos);
-            render.field_147815_B = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos - 1, zPos);
-            render.field_147817_L = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos + 1, zPos);
-            render.field_147868_aj = block.func_149677_c(render.field_147845_a, xPos - 1, yPos, zPos);
-            render.field_147862_ak = block.func_149677_c(render.field_147845_a, xPos + 1, yPos, zPos);
-            render.field_147828_V = block.func_149677_c(render.field_147845_a, xPos, yPos - 1, zPos);
-            render.field_147887_af = block.func_149677_c(render.field_147845_a, xPos, yPos + 1, zPos);
-            boolean flag3 =  render.field_147845_a.func_147439_a(xPos + 1, yPos, zPos + 1).func_149688_o().getCanBlockGrass();
-            boolean flag2 =  render.field_147845_a.func_147439_a(xPos - 1, yPos, zPos + 1).func_149688_o().getCanBlockGrass();
-            boolean flag5 =  render.field_147845_a.func_147439_a(xPos, yPos + 1, zPos + 1).func_149688_o().getCanBlockGrass();
-            boolean flag4 =  render.field_147845_a.func_147439_a(xPos, yPos - 1, zPos + 1).func_149688_o().getCanBlockGrass();
+            render.aoLightValueScratchXZNP = getAmbientOcclusionLightValue(render.blockAccess, xPos - 1, yPos, zPos);
+            render.aoLightValueScratchXZPP = getAmbientOcclusionLightValue(render.blockAccess, xPos + 1, yPos, zPos);
+            render.aoLightValueScratchYZNP = getAmbientOcclusionLightValue(render.blockAccess, xPos, yPos - 1, zPos);
+            render.aoLightValueScratchYZPP = getAmbientOcclusionLightValue(render.blockAccess, xPos, yPos + 1, zPos);
+            render.aoBrightnessXZNP = block.getMixedBrightnessForBlock(render.blockAccess, xPos - 1, yPos, zPos);
+            render.aoBrightnessXZPP = block.getMixedBrightnessForBlock(render.blockAccess, xPos + 1, yPos, zPos);
+            render.aoBrightnessYZNP = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos - 1, zPos);
+            render.aoBrightnessYZPP = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos + 1, zPos);
+            boolean flag3 =  render.blockAccess.getBlock(xPos + 1, yPos, zPos + 1).getMaterial().getCanBlockGrass();
+            boolean flag2 =  render.blockAccess.getBlock(xPos - 1, yPos, zPos + 1).getMaterial().getCanBlockGrass();
+            boolean flag5 =  render.blockAccess.getBlock(xPos, yPos + 1, zPos + 1).getMaterial().getCanBlockGrass();
+            boolean flag4 =  render.blockAccess.getBlock(xPos, yPos - 1, zPos + 1).getMaterial().getCanBlockGrass();
 
             if ((!flag2) && (!flag4))
             {
-                render.field_147884_z = render.field_147830_P;
-                render.field_147826_T = render.field_147868_aj;
+                render.aoLightValueScratchXYZNNP = render.aoLightValueScratchXZNP;
+                render.aoBrightnessXYZNNP = render.aoBrightnessXZNP;
             }
             else
             {
-                render.field_147884_z = getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos - 1, zPos);
-                render.field_147826_T = block.func_149677_c(render.field_147845_a, xPos - 1, yPos - 1, zPos);
+                render.aoLightValueScratchXYZNNP = getAmbientOcclusionLightValue(render.blockAccess, xPos - 1, yPos - 1, zPos);
+                render.aoBrightnessXYZNNP = block.getMixedBrightnessForBlock(render.blockAccess, xPos - 1, yPos - 1, zPos);
             }
 
             if ((!flag2) && (!flag5))
             {
-                render.field_147821_H = render.field_147830_P;
-                render.field_147881_ab = render.field_147868_aj;
+                render.aoLightValueScratchXYZNPP = render.aoLightValueScratchXZNP;
+                render.aoBrightnessXYZNPP = render.aoBrightnessXZNP;
             }
             else
             {
-                render.field_147821_H = getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos + 1, zPos);
-                render.field_147881_ab = block.func_149677_c(render.field_147845_a, xPos - 1, yPos + 1, zPos);
+                render.aoLightValueScratchXYZNPP = getAmbientOcclusionLightValue(render.blockAccess, xPos - 1, yPos + 1, zPos);
+                render.aoBrightnessXYZNPP = block.getMixedBrightnessForBlock(render.blockAccess, xPos - 1, yPos + 1, zPos);
             }
 
             if ((!flag3) && (!flag4))
             {
-                render.field_147811_E = render.field_147829_Q;
-                render.field_147834_Y = render.field_147862_ak;
+                render.aoLightValueScratchXYZPNP = render.aoLightValueScratchXZPP;
+                render.aoBrightnessXYZPNP = render.aoBrightnessXZPP;
             }
             else
             {
-                render.field_147811_E = getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos - 1, zPos);
-                render.field_147834_Y = block.func_149677_c(render.field_147845_a, xPos + 1, yPos - 1, zPos);
+                render.aoLightValueScratchXYZPNP = getAmbientOcclusionLightValue(render.blockAccess, xPos + 1, yPos - 1, zPos);
+                render.aoBrightnessXYZPNP = block.getMixedBrightnessForBlock(render.blockAccess, xPos + 1, yPos - 1, zPos);
             }
 
             if ((!flag3) && (!flag5))
             {
-                render.field_147819_N = render.field_147829_Q;
-                render.field_147882_ag = render.field_147862_ak;
+                render.aoLightValueScratchXZNN = render.aoLightValueScratchXZPP;
+                render.aoBrightnessXYZPPP = render.aoBrightnessXZPP;
             }
             else
             {
-                render.field_147819_N = getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos + 1, zPos);
-                render.field_147882_ag = block.func_149677_c(render.field_147845_a, xPos + 1, yPos + 1, zPos);
+                render.aoLightValueScratchXZNN = getAmbientOcclusionLightValue(render.blockAccess, xPos + 1, yPos + 1, zPos);
+                render.aoBrightnessXYZPPP = block.getMixedBrightnessForBlock(render.blockAccess, xPos + 1, yPos + 1, zPos);
             }
 
-            if (render.field_147853_m >= 1.0D)
+            if (render.renderMaxZ >= 1.0D)
             {
                 zPos--;
             }
 
             int i1 = l;
 
-            if ((render.field_147853_m >= 1.0D) || (!render.field_147845_a.func_147439_a(xPos, yPos, zPos + 1).func_149662_c()))
+            if ((render.renderMaxZ >= 1.0D) || (!render.blockAccess.getBlock(xPos, yPos, zPos + 1).isOpaqueCube()))
             {
-                i1 = block.func_149677_c(render.field_147845_a, xPos, yPos, zPos + 1);
+                i1 = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos, zPos + 1);
             }
 
-            float f7 = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos, zPos + 1);
-            f3 = (render.field_147830_P + render.field_147821_H + f7 + render.field_147817_L) / 4.0F;
-            f6 = (f7 + render.field_147817_L + render.field_147829_Q + render.field_147819_N) / 4.0F;
-            f5 = (render.field_147815_B + f7 + render.field_147811_E + render.field_147829_Q) / 4.0F;
-            f4 = (render.field_147884_z + render.field_147830_P + render.field_147815_B + f7) / 4.0F;
-            render.field_147864_al = render.func_147778_a(render.field_147868_aj, render.field_147881_ab, render.field_147887_af, i1);
-            render.field_147870_ao = render.func_147778_a(render.field_147887_af, render.field_147862_ak, render.field_147882_ag, i1);
-            render.field_147876_an = render.func_147778_a(render.field_147828_V, render.field_147834_Y, render.field_147862_ak, i1);
-            render.field_147874_am = render.func_147778_a(render.field_147826_T, render.field_147868_aj, render.field_147828_V, i1);
+            float f7 = getAmbientOcclusionLightValue(render.blockAccess, xPos, yPos, zPos + 1);
+            f3 = (render.aoLightValueScratchXZNP + render.aoLightValueScratchXYZNPP + f7 + render.aoLightValueScratchYZPP) / 4.0F;
+            f6 = (f7 + render.aoLightValueScratchYZPP + render.aoLightValueScratchXZPP + render.aoLightValueScratchXZNN) / 4.0F;
+            f5 = (render.aoLightValueScratchYZNP + f7 + render.aoLightValueScratchXYZPNP + render.aoLightValueScratchXZPP) / 4.0F;
+            f4 = (render.aoLightValueScratchXYZNNP + render.aoLightValueScratchXZNP + render.aoLightValueScratchYZNP + f7) / 4.0F;
+            render.brightnessTopLeft = render.getAoBrightness(render.aoBrightnessXZNP, render.aoBrightnessXYZNPP, render.aoBrightnessYZPP, i1);
+            render.brightnessTopRight = render.getAoBrightness(render.aoBrightnessYZPP, render.aoBrightnessXZPP, render.aoBrightnessXYZPPP, i1);
+            render.brightnessBottomRight = render.getAoBrightness(render.aoBrightnessYZNP, render.aoBrightnessXYZPNP, render.aoBrightnessXZPP, i1);
+            render.brightnessBottomLeft = render.getAoBrightness(render.aoBrightnessXYZNNP, render.aoBrightnessXZNP, render.aoBrightnessYZNP, i1);
 
             if (flag1)
             {
-                render.field_147872_ap = (render.field_147852_aq = render.field_147850_ar = render.field_147848_as = colorRed * 0.8F);
-                render.field_147846_at = (render.field_147860_au = render.field_147858_av = render.field_147856_aw = colorGreen * 0.8F);
-                render.field_147854_ax = (render.field_147841_ay = render.field_147839_az = render.field_147833_aA = colorBlue * 0.8F);
+                render.colorRedTopLeft = (render.colorRedBottomLeft = render.colorRedBottomRight = render.colorRedTopRight = colorRed * 0.8F);
+                render.colorGreenTopLeft = (render.colorGreenBottomLeft = render.colorGreenBottomRight = render.colorGreenTopRight = colorGreen * 0.8F);
+                render.colorBlueTopLeft = (render.colorBlueBottomLeft = render.colorBlueBottomRight = render.colorBlueTopRight = colorBlue * 0.8F);
             }
             else
             {
-                render.field_147872_ap = (render.field_147852_aq = render.field_147850_ar = render.field_147848_as = 0.8F);
-                render.field_147846_at = (render.field_147860_au = render.field_147858_av = render.field_147856_aw = 0.8F);
-                render.field_147854_ax = (render.field_147841_ay = render.field_147839_az = render.field_147833_aA = 0.8F);
+                render.colorRedTopLeft = (render.colorRedBottomLeft = render.colorRedBottomRight = render.colorRedTopRight = 0.8F);
+                render.colorGreenTopLeft = (render.colorGreenBottomLeft = render.colorGreenBottomRight = render.colorGreenTopRight = 0.8F);
+                render.colorBlueTopLeft = (render.colorBlueBottomLeft = render.colorBlueBottomRight = render.colorBlueTopRight = 0.8F);
             }
 
-            render.field_147872_ap *= f3;
-            render.field_147846_at *= f3;
-            render.field_147854_ax *= f3;
-            render.field_147852_aq *= f4;
-            render.field_147860_au *= f4;
-            render.field_147841_ay *= f4;
-            render.field_147850_ar *= f5;
-            render.field_147858_av *= f5;
-            render.field_147839_az *= f5;
-            render.field_147848_as *= f6;
-            render.field_147856_aw *= f6;
-            render.field_147833_aA *= f6;
-            render.func_147734_d(block, xPos, yPos, zPos, texture);
+            render.colorRedTopLeft *= f3;
+            render.colorGreenTopLeft *= f3;
+            render.colorBlueTopLeft *= f3;
+            render.colorRedBottomLeft *= f4;
+            render.colorGreenBottomLeft *= f4;
+            render.colorBlueBottomLeft *= f4;
+            render.colorRedBottomRight *= f5;
+            render.colorGreenBottomRight *= f5;
+            render.colorBlueBottomRight *= f5;
+            render.colorRedTopRight *= f6;
+            render.colorGreenTopRight *= f6;
+            render.colorBlueTopRight *= f6;
+            render.renderFaceZPos(block, xPos, yPos, zPos, texture);
 
             flag = true;
         }
 
-        if ((render.field_147837_f) || (block. func_149646_a(render.field_147845_a, xPos - 1, yPos, zPos, 4)))
+        if ((render.renderAllFaces) || (block. shouldSideBeRendered(render.blockAccess, xPos - 1, yPos, zPos, 4)))
         {
-            if (render.field_147859_h <= 0.0D)
+            if (render.renderMinX <= 0.0D)
             {
                 xPos--;
             }
 
-            render.field_147886_y = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos - 1, zPos);
-            render.field_147820_O = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos, zPos - 1);
-            render.field_147830_P = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos, zPos + 1);
-            render.field_147813_G = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos + 1, zPos);
-            render.field_147831_S = block.func_149677_c(render.field_147845_a, xPos, yPos - 1, zPos);
-            render.field_147883_ah = block.func_149677_c(render.field_147845_a, xPos, yPos, zPos - 1);
-            render.field_147868_aj = block.func_149677_c(render.field_147845_a, xPos, yPos, zPos + 1);
-            render.field_147880_aa = block.func_149677_c(render.field_147845_a, xPos, yPos + 1, zPos);
-            boolean flag3 =  render.field_147845_a.func_147439_a(xPos - 1, yPos + 1, zPos).func_149688_o().getCanBlockGrass();
-            boolean flag2 =  render.field_147845_a.func_147439_a(xPos - 1, yPos - 1, zPos).func_149688_o().getCanBlockGrass();
-            boolean flag5 =  render.field_147845_a.func_147439_a(xPos - 1, yPos, zPos - 1).func_149688_o().getCanBlockGrass();
-            boolean flag4 =  render.field_147845_a.func_147439_a(xPos - 1, yPos, zPos + 1).func_149688_o().getCanBlockGrass();
+            render.aoLightValueScratchXYNN = getAmbientOcclusionLightValue(render.blockAccess, xPos, yPos - 1, zPos);
+            render.aoLightValueScratchXZPN = getAmbientOcclusionLightValue(render.blockAccess, xPos, yPos, zPos - 1);
+            render.aoLightValueScratchXZNP = getAmbientOcclusionLightValue(render.blockAccess, xPos, yPos, zPos + 1);
+            render.aoLightValueScratchXYNP = getAmbientOcclusionLightValue(render.blockAccess, xPos, yPos + 1, zPos);
+            render.aoBrightnessXYNN = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos - 1, zPos);
+            render.aoBrightnessXZNN = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos, zPos - 1);
+            render.aoBrightnessXZNP = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos, zPos + 1);
+            render.aoBrightnessXYNP = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos + 1, zPos);
+            boolean flag3 =  render.blockAccess.getBlock(xPos - 1, yPos + 1, zPos).getMaterial().getCanBlockGrass();
+            boolean flag2 =  render.blockAccess.getBlock(xPos - 1, yPos - 1, zPos).getMaterial().getCanBlockGrass();
+            boolean flag5 =  render.blockAccess.getBlock(xPos - 1, yPos, zPos - 1).getMaterial().getCanBlockGrass();
+            boolean flag4 =  render.blockAccess.getBlock(xPos - 1, yPos, zPos + 1).getMaterial().getCanBlockGrass();
 
             if ((!flag5) && (!flag2))
             {
-                render.field_147888_x = render.field_147820_O;
-                render.field_147832_R = render.field_147883_ah;
+                render.aoLightValueScratchXYZNNN = render.aoLightValueScratchXZPN;
+                render.aoBrightnessXYZNNN = render.aoBrightnessXZNN;
             }
             else
             {
-                render.field_147888_x = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos - 1, zPos - 1);
-                render.field_147832_R = block.func_149677_c(render.field_147845_a, xPos, yPos - 1, zPos - 1);
+                render.aoLightValueScratchXYZNNN = getAmbientOcclusionLightValue(render.blockAccess, xPos, yPos - 1, zPos - 1);
+                render.aoBrightnessXYZNNN = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos - 1, zPos - 1);
             }
 
             if ((!flag4) && (!flag2))
             {
-                render.field_147884_z = render.field_147830_P;
-                render.field_147826_T = render.field_147868_aj;
+                render.aoLightValueScratchXYZNNP = render.aoLightValueScratchXZNP;
+                render.aoBrightnessXYZNNP = render.aoBrightnessXZNP;
             }
             else
             {
-                render.field_147884_z = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos - 1, zPos + 1);
-                render.field_147826_T = block.func_149677_c(render.field_147845_a, xPos, yPos - 1, zPos + 1);
+                render.aoLightValueScratchXYZNNP = getAmbientOcclusionLightValue(render.blockAccess, xPos, yPos - 1, zPos + 1);
+                render.aoBrightnessXYZNNP = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos - 1, zPos + 1);
             }
 
             if ((!flag5) && (!flag3))
             {
-                render.field_147812_F = render.field_147820_O;
-                render.field_147836_Z = render.field_147883_ah;
+                render.aoLightValueScratchXYZNPN = render.aoLightValueScratchXZPN;
+                render.aoBrightnessXYZNPN = render.aoBrightnessXZNN;
             }
             else
             {
-                render.field_147812_F = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos + 1, zPos - 1);
-                render.field_147836_Z = block.func_149677_c(render.field_147845_a, xPos, yPos + 1, zPos - 1);
+                render.aoLightValueScratchXYZNPN = getAmbientOcclusionLightValue(render.blockAccess, xPos, yPos + 1, zPos - 1);
+                render.aoBrightnessXYZNPN = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos + 1, zPos - 1);
             }
 
             if ((!flag4) && (!flag3))
             {
-                render.field_147821_H = render.field_147830_P;
-                render.field_147881_ab = render.field_147868_aj;
+                render.aoLightValueScratchXYZNPP = render.aoLightValueScratchXZNP;
+                render.aoBrightnessXYZNPP = render.aoBrightnessXZNP;
             }
             else
             {
-                render.field_147821_H = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos + 1, zPos + 1);
-                render.field_147881_ab = block.func_149677_c(render.field_147845_a, xPos, yPos + 1, zPos + 1);
+                render.aoLightValueScratchXYZNPP = getAmbientOcclusionLightValue(render.blockAccess, xPos, yPos + 1, zPos + 1);
+                render.aoBrightnessXYZNPP = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos + 1, zPos + 1);
             }
 
-            if (render.field_147859_h <= 0.0D)
+            if (render.renderMinX <= 0.0D)
             {
                 xPos++;
             }
 
             int i1 = l;
 
-            if ((render.field_147859_h <= 0.0D) || (!render.field_147845_a.func_147439_a(xPos - 1, yPos, zPos).func_149662_c()))
+            if ((render.renderMinX <= 0.0D) || (!render.blockAccess.getBlock(xPos - 1, yPos, zPos).isOpaqueCube()))
             {
-                i1 = block.func_149677_c(render.field_147845_a, xPos - 1, yPos, zPos);
+                i1 = block.getMixedBrightnessForBlock(render.blockAccess, xPos - 1, yPos, zPos);
             }
 
-            float f7 = getAmbientOcclusionLightValue(render.field_147845_a, xPos - 1, yPos, zPos);
-            f6 = (render.field_147886_y + render.field_147884_z + f7 + render.field_147830_P) / 4.0F;
-            f3 = (f7 + render.field_147830_P + render.field_147813_G + render.field_147821_H) / 4.0F;
-            f4 = (render.field_147820_O + f7 + render.field_147812_F + render.field_147813_G) / 4.0F;
-            f5 = (render.field_147888_x + render.field_147886_y + render.field_147820_O + f7) / 4.0F;
-            render.field_147870_ao = render.func_147778_a(render.field_147831_S, render.field_147826_T, render.field_147868_aj, i1);
-            render.field_147864_al = render.func_147778_a(render.field_147868_aj, render.field_147880_aa, render.field_147881_ab, i1);
-            render.field_147874_am = render.func_147778_a(render.field_147883_ah, render.field_147836_Z, render.field_147880_aa, i1);
-            render.field_147876_an = render.func_147778_a(render.field_147832_R, render.field_147831_S, render.field_147883_ah, i1);
+            float f7 = getAmbientOcclusionLightValue(render.blockAccess, xPos - 1, yPos, zPos);
+            f6 = (render.aoLightValueScratchXYNN + render.aoLightValueScratchXYZNNP + f7 + render.aoLightValueScratchXZNP) / 4.0F;
+            f3 = (f7 + render.aoLightValueScratchXZNP + render.aoLightValueScratchXYNP + render.aoLightValueScratchXYZNPP) / 4.0F;
+            f4 = (render.aoLightValueScratchXZPN + f7 + render.aoLightValueScratchXYZNPN + render.aoLightValueScratchXYNP) / 4.0F;
+            f5 = (render.aoLightValueScratchXYZNNN + render.aoLightValueScratchXYNN + render.aoLightValueScratchXZPN + f7) / 4.0F;
+            render.brightnessTopRight = render.getAoBrightness(render.aoBrightnessXYNN, render.aoBrightnessXYZNNP, render.aoBrightnessXZNP, i1);
+            render.brightnessTopLeft = render.getAoBrightness(render.aoBrightnessXZNP, render.aoBrightnessXYNP, render.aoBrightnessXYZNPP, i1);
+            render.brightnessBottomLeft = render.getAoBrightness(render.aoBrightnessXZNN, render.aoBrightnessXYZNPN, render.aoBrightnessXYNP, i1);
+            render.brightnessBottomRight = render.getAoBrightness(render.aoBrightnessXYZNNN, render.aoBrightnessXYNN, render.aoBrightnessXZNN, i1);
 
             if (flag1)
             {
-                render.field_147872_ap = (render.field_147852_aq = render.field_147850_ar = render.field_147848_as = colorRed * 0.6F);
-                render.field_147846_at = (render.field_147860_au = render.field_147858_av = render.field_147856_aw = colorGreen * 0.6F);
-                render.field_147854_ax = (render.field_147841_ay = render.field_147839_az = render.field_147833_aA = colorBlue * 0.6F);
+                render.colorRedTopLeft = (render.colorRedBottomLeft = render.colorRedBottomRight = render.colorRedTopRight = colorRed * 0.6F);
+                render.colorGreenTopLeft = (render.colorGreenBottomLeft = render.colorGreenBottomRight = render.colorGreenTopRight = colorGreen * 0.6F);
+                render.colorBlueTopLeft = (render.colorBlueBottomLeft = render.colorBlueBottomRight = render.colorBlueTopRight = colorBlue * 0.6F);
             }
             else
             {
-                render.field_147872_ap = (render.field_147852_aq = render.field_147850_ar = render.field_147848_as = 0.6F);
-                render.field_147846_at = (render.field_147860_au = render.field_147858_av = render.field_147856_aw = 0.6F);
-                render.field_147854_ax = (render.field_147841_ay = render.field_147839_az = render.field_147833_aA = 0.6F);
+                render.colorRedTopLeft = (render.colorRedBottomLeft = render.colorRedBottomRight = render.colorRedTopRight = 0.6F);
+                render.colorGreenTopLeft = (render.colorGreenBottomLeft = render.colorGreenBottomRight = render.colorGreenTopRight = 0.6F);
+                render.colorBlueTopLeft = (render.colorBlueBottomLeft = render.colorBlueBottomRight = render.colorBlueTopRight = 0.6F);
             }
 
-            render.field_147872_ap *= f3;
-            render.field_147846_at *= f3;
-            render.field_147854_ax *= f3;
-            render.field_147852_aq *= f4;
-            render.field_147860_au *= f4;
-            render.field_147841_ay *= f4;
-            render.field_147850_ar *= f5;
-            render.field_147858_av *= f5;
-            render.field_147839_az *= f5;
-            render.field_147848_as *= f6;
-            render.field_147856_aw *= f6;
-            render.field_147833_aA *= f6;
-            render.func_147798_e(block, xPos, yPos, zPos, texture);
+            render.colorRedTopLeft *= f3;
+            render.colorGreenTopLeft *= f3;
+            render.colorBlueTopLeft *= f3;
+            render.colorRedBottomLeft *= f4;
+            render.colorGreenBottomLeft *= f4;
+            render.colorBlueBottomLeft *= f4;
+            render.colorRedBottomRight *= f5;
+            render.colorGreenBottomRight *= f5;
+            render.colorBlueBottomRight *= f5;
+            render.colorRedTopRight *= f6;
+            render.colorGreenTopRight *= f6;
+            render.colorBlueTopRight *= f6;
+            render.renderFaceXNeg(block, xPos, yPos, zPos, texture);
 
             flag = true;
         }
 
-        if ((render.field_147837_f) || (block. func_149646_a(render.field_147845_a, xPos + 1, yPos, zPos, 5)))
+        if ((render.renderAllFaces) || (block. shouldSideBeRendered(render.blockAccess, xPos + 1, yPos, zPos, 5)))
         {
-            if (render.field_147861_i >= 1.0D)
+            if (render.renderMaxX >= 1.0D)
             {
                 xPos++;
             }
 
-            render.field_147810_D = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos - 1, zPos);
-            render.field_147820_O = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos, zPos - 1);
-            render.field_147829_Q = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos, zPos + 1);
-            render.field_147824_K = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos + 1, zPos);
-            render.field_147835_X = block.func_149677_c(render.field_147845_a, xPos, yPos - 1, zPos);
-            render.field_147866_ai = block.func_149677_c(render.field_147845_a, xPos, yPos, zPos - 1);
-            render.field_147862_ak = block.func_149677_c(render.field_147845_a, xPos, yPos, zPos + 1);
-            render.field_147885_ae = block.func_149677_c(render.field_147845_a, xPos, yPos + 1, zPos);
-            boolean flag3 = render.field_147845_a.func_147439_a(xPos + 1, yPos + 1, zPos).func_149688_o().getCanBlockGrass();
-            boolean flag2 =  render.field_147845_a.func_147439_a(xPos + 1, yPos - 1, zPos).func_149688_o().getCanBlockGrass();
-            boolean flag5 =  render.field_147845_a.func_147439_a(xPos + 1, yPos, zPos + 1).func_149688_o().getCanBlockGrass();
-            boolean flag4 =  render.field_147845_a.func_147439_a(xPos + 1, yPos, zPos - 1).func_149688_o().getCanBlockGrass();
+            render.aoLightValueScratchXYPN = getAmbientOcclusionLightValue(render.blockAccess, xPos, yPos - 1, zPos);
+            render.aoLightValueScratchXZPN = getAmbientOcclusionLightValue(render.blockAccess, xPos, yPos, zPos - 1);
+            render.aoLightValueScratchXZPP = getAmbientOcclusionLightValue(render.blockAccess, xPos, yPos, zPos + 1);
+            render.aoLightValueScratchXYPP = getAmbientOcclusionLightValue(render.blockAccess, xPos, yPos + 1, zPos);
+            render.aoBrightnessXYPN = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos - 1, zPos);
+            render.aoBrightnessXZPN = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos, zPos - 1);
+            render.aoBrightnessXZPP = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos, zPos + 1);
+            render.aoBrightnessXYPP = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos + 1, zPos);
+            boolean flag3 = render.blockAccess.getBlock(xPos + 1, yPos + 1, zPos).getMaterial().getCanBlockGrass();
+            boolean flag2 =  render.blockAccess.getBlock(xPos + 1, yPos - 1, zPos).getMaterial().getCanBlockGrass();
+            boolean flag5 =  render.blockAccess.getBlock(xPos + 1, yPos, zPos + 1).getMaterial().getCanBlockGrass();
+            boolean flag4 =  render.blockAccess.getBlock(xPos + 1, yPos, zPos - 1).getMaterial().getCanBlockGrass();
 
             if ((!flag2) && (!flag4))
             {
-                render.field_147816_C = render.field_147820_O;
-                render.field_147827_W = render.field_147866_ai;
+                render.aoLightValueScratchXYZPNN = render.aoLightValueScratchXZPN;
+                render.aoBrightnessXYZPNN = render.aoBrightnessXZPN;
             }
             else
             {
-                render.field_147816_C = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos - 1, zPos - 1);
-                render.field_147827_W = block.func_149677_c(render.field_147845_a, xPos, yPos - 1, zPos - 1);
+                render.aoLightValueScratchXYZPNN = getAmbientOcclusionLightValue(render.blockAccess, xPos, yPos - 1, zPos - 1);
+                render.aoBrightnessXYZPNN = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos - 1, zPos - 1);
             }
 
             if ((!flag2) && (!flag5))
             {
-                render.field_147811_E = render.field_147829_Q;
-                render.field_147834_Y = render.field_147862_ak;
+                render.aoLightValueScratchXYZPNP = render.aoLightValueScratchXZPP;
+                render.aoBrightnessXYZPNP = render.aoBrightnessXZPP;
             }
             else
             {
-                render.field_147811_E = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos - 1, zPos + 1);
-                render.field_147834_Y = block.func_149677_c(render.field_147845_a, xPos, yPos - 1, zPos + 1);
+                render.aoLightValueScratchXYZPNP = getAmbientOcclusionLightValue(render.blockAccess, xPos, yPos - 1, zPos + 1);
+                render.aoBrightnessXYZPNP = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos - 1, zPos + 1);
             }
 
             if ((!flag3) && (!flag4))
             {
-                render.field_147824_K = render.field_147820_O;
-                render.field_147879_ad = render.field_147866_ai;
+                render.aoLightValueScratchXYPP = render.aoLightValueScratchXZPN;
+                render.aoBrightnessXYZPPN = render.aoBrightnessXZPN;
             }
             else
             {
-                render.field_147824_K = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos + 1, zPos - 1);
-                render.field_147879_ad = block.func_149677_c(render.field_147845_a, xPos, yPos + 1, zPos - 1);
+                render.aoLightValueScratchXYPP = getAmbientOcclusionLightValue(render.blockAccess, xPos, yPos + 1, zPos - 1);
+                render.aoBrightnessXYZPPN = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos + 1, zPos - 1);
             }
 
             if ((!flag3) && (!flag5))
             {
-                render.field_147819_N = render.field_147829_Q;
-                render.field_147882_ag = render.field_147862_ak;
+                render.aoLightValueScratchXZNN = render.aoLightValueScratchXZPP;
+                render.aoBrightnessXYZPPP = render.aoBrightnessXZPP;
             }
             else
             {
-                render.field_147819_N = getAmbientOcclusionLightValue(render.field_147845_a, xPos, yPos + 1, zPos + 1);
-                render.field_147882_ag = block.func_149677_c(render.field_147845_a, xPos, yPos + 1, zPos + 1);
+                render.aoLightValueScratchXZNN = getAmbientOcclusionLightValue(render.blockAccess, xPos, yPos + 1, zPos + 1);
+                render.aoBrightnessXYZPPP = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos + 1, zPos + 1);
             }
 
-            if (render.field_147861_i >= 1.0D)
+            if (render.renderMaxX >= 1.0D)
             {
                 xPos--;
             }
 
             int i1 = l;
 
-            if ((render.field_147861_i >= 1.0D) || (!render.field_147845_a.func_147439_a(xPos + 1, yPos, zPos).func_149662_c()))
+            if ((render.renderMaxX >= 1.0D) || (!render.blockAccess.getBlock(xPos + 1, yPos, zPos).isOpaqueCube()))
             {
-                i1 = block.func_149677_c(render.field_147845_a, xPos + 1, yPos, zPos);
+                i1 = block.getMixedBrightnessForBlock(render.blockAccess, xPos + 1, yPos, zPos);
             }
 
-            float f7 = getAmbientOcclusionLightValue(render.field_147845_a, xPos + 1, yPos, zPos);
-            f3 = (render.field_147810_D + render.field_147811_E + f7 + render.field_147829_Q) / 4.0F;
-            f4 = (render.field_147816_C + render.field_147810_D + render.field_147820_O + f7) / 4.0F;
-            f5 = (render.field_147820_O + f7 + render.field_147824_K + render.field_147824_K) / 4.0F;
-            f6 = (f7 + render.field_147829_Q + render.field_147824_K + render.field_147819_N) / 4.0F;
-            render.field_147864_al = render.func_147778_a(render.field_147835_X, render.field_147834_Y, render.field_147862_ak, i1);
-            render.field_147870_ao = render.func_147778_a(render.field_147862_ak, render.field_147885_ae, render.field_147882_ag, i1);
-            render.field_147876_an = render.func_147778_a(render.field_147866_ai, render.field_147879_ad, render.field_147885_ae, i1);
-            render.field_147874_am = render.func_147778_a(render.field_147827_W, render.field_147835_X, render.field_147866_ai, i1);
+            float f7 = getAmbientOcclusionLightValue(render.blockAccess, xPos + 1, yPos, zPos);
+            f3 = (render.aoLightValueScratchXYPN + render.aoLightValueScratchXYZPNP + f7 + render.aoLightValueScratchXZPP) / 4.0F;
+            f4 = (render.aoLightValueScratchXYZPNN + render.aoLightValueScratchXYPN + render.aoLightValueScratchXZPN + f7) / 4.0F;
+            f5 = (render.aoLightValueScratchXZPN + f7 + render.aoLightValueScratchXYPP + render.aoLightValueScratchXYPP) / 4.0F;
+            f6 = (f7 + render.aoLightValueScratchXZPP + render.aoLightValueScratchXYPP + render.aoLightValueScratchXZNN) / 4.0F;
+            render.brightnessTopLeft = render.getAoBrightness(render.aoBrightnessXYPN, render.aoBrightnessXYZPNP, render.aoBrightnessXZPP, i1);
+            render.brightnessTopRight = render.getAoBrightness(render.aoBrightnessXZPP, render.aoBrightnessXYPP, render.aoBrightnessXYZPPP, i1);
+            render.brightnessBottomRight = render.getAoBrightness(render.aoBrightnessXZPN, render.aoBrightnessXYZPPN, render.aoBrightnessXYPP, i1);
+            render.brightnessBottomLeft = render.getAoBrightness(render.aoBrightnessXYZPNN, render.aoBrightnessXYPN, render.aoBrightnessXZPN, i1);
 
             if (flag1)
             {
-                render.field_147872_ap = (render.field_147852_aq = render.field_147850_ar = render.field_147848_as = colorRed * 0.6F);
-                render.field_147846_at = (render.field_147860_au = render.field_147858_av = render.field_147856_aw = colorGreen * 0.6F);
-                render.field_147854_ax = (render.field_147841_ay = render.field_147839_az = render.field_147833_aA = colorBlue * 0.6F);
+                render.colorRedTopLeft = (render.colorRedBottomLeft = render.colorRedBottomRight = render.colorRedTopRight = colorRed * 0.6F);
+                render.colorGreenTopLeft = (render.colorGreenBottomLeft = render.colorGreenBottomRight = render.colorGreenTopRight = colorGreen * 0.6F);
+                render.colorBlueTopLeft = (render.colorBlueBottomLeft = render.colorBlueBottomRight = render.colorBlueTopRight = colorBlue * 0.6F);
             }
             else
             {
-                render.field_147872_ap = (render.field_147852_aq = render.field_147850_ar = render.field_147848_as = 0.6F);
-                render.field_147846_at = (render.field_147860_au = render.field_147858_av = render.field_147856_aw = 0.6F);
-                render.field_147854_ax = (render.field_147841_ay = render.field_147839_az = render.field_147833_aA = 0.6F);
+                render.colorRedTopLeft = (render.colorRedBottomLeft = render.colorRedBottomRight = render.colorRedTopRight = 0.6F);
+                render.colorGreenTopLeft = (render.colorGreenBottomLeft = render.colorGreenBottomRight = render.colorGreenTopRight = 0.6F);
+                render.colorBlueTopLeft = (render.colorBlueBottomLeft = render.colorBlueBottomRight = render.colorBlueTopRight = 0.6F);
             }
 
-            render.field_147872_ap *= f3;
-            render.field_147846_at *= f3;
-            render.field_147854_ax *= f3;
-            render.field_147852_aq *= f4;
-            render.field_147860_au *= f4;
-            render.field_147841_ay *= f4;
-            render.field_147850_ar *= f5;
-            render.field_147858_av *= f5;
-            render.field_147839_az *= f5;
-            render.field_147848_as *= f6;
-            render.field_147856_aw *= f6;
-            render.field_147833_aA *= f6;
-            render.func_147764_f(block, xPos, yPos, zPos, texture);
+            render.colorRedTopLeft *= f3;
+            render.colorGreenTopLeft *= f3;
+            render.colorBlueTopLeft *= f3;
+            render.colorRedBottomLeft *= f4;
+            render.colorGreenBottomLeft *= f4;
+            render.colorBlueBottomLeft *= f4;
+            render.colorRedBottomRight *= f5;
+            render.colorGreenBottomRight *= f5;
+            render.colorBlueBottomRight *= f5;
+            render.colorRedTopRight *= f6;
+            render.colorGreenTopRight *= f6;
+            render.colorBlueTopRight *= f6;
+            render.renderFaceXPos(block, xPos, yPos, zPos, texture);
 
             flag = true;
         }
 
-        render.field_147863_w = false;
+        render.enableAO = false;
         return flag;
     }
 
     static boolean renderFakeBlockWithColorMultiplier (IIcon texture, int xPos, int yPos, int zPos, float colorRed, float colorGreen, float colorBlue, RenderBlocks render, IBlockAccess world)
     {
         Block block = Blocks.stone;
-        render.field_147863_w = false;
+        render.enableAO = false;
         Tessellator tessellator = Tessellator.instance;
         boolean flag = false;
         float f3 = 0.5F;
@@ -1616,56 +1616,56 @@ public class RenderLiquid
             f18 = f6 * colorBlue;
         }
 
-        int l = block.func_149677_c(render.field_147845_a, xPos, yPos, zPos);
+        int l = block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos, zPos);
 
-        if ((render.field_147837_f) || (block. func_149646_a(render.field_147845_a, xPos, yPos - 1, zPos, 0)))
+        if ((render.renderAllFaces) || (block. shouldSideBeRendered(render.blockAccess, xPos, yPos - 1, zPos, 0)))
         {
-            tessellator.setBrightness(render.field_147855_j > 0.0D ? l : block.func_149677_c(render.field_147845_a, xPos, yPos - 1, zPos));
+            tessellator.setBrightness(render.renderMinY > 0.0D ? l : block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos - 1, zPos));
             tessellator.setColorOpaque_F(f10, f13, f16);
-            render.func_147768_a(block, xPos, yPos, zPos, texture);
+            render.renderFaceYNeg(block, xPos, yPos, zPos, texture);
             flag = true;
         }
 
-        if ((render.field_147837_f) || (block. func_149646_a(render.field_147845_a, xPos, yPos + 1, zPos, 1)))
+        if ((render.renderAllFaces) || (block. shouldSideBeRendered(render.blockAccess, xPos, yPos + 1, zPos, 1)))
         {
-            tessellator.setBrightness(render.field_147857_k < 1.0D ? l : block.func_149677_c(render.field_147845_a, xPos, yPos + 1, zPos));
+            tessellator.setBrightness(render.renderMaxY < 1.0D ? l : block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos + 1, zPos));
             tessellator.setColorOpaque_F(f7, f8, f9);
-            render.func_147806_b(block, xPos, yPos, zPos, texture);
+            render.renderFaceYPos(block, xPos, yPos, zPos, texture);
             flag = true;
         }
 
-        if ((render.field_147837_f) || (block. func_149646_a(render.field_147845_a, xPos, yPos, zPos - 1, 2)))
+        if ((render.renderAllFaces) || (block. shouldSideBeRendered(render.blockAccess, xPos, yPos, zPos - 1, 2)))
         {
-            tessellator.setBrightness(render.field_147851_l > 0.0D ? l : block.func_149677_c(render.field_147845_a, xPos, yPos, zPos - 1));
+            tessellator.setBrightness(render.renderMinZ > 0.0D ? l : block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos, zPos - 1));
             tessellator.setColorOpaque_F(f11, f14, f17);
-            render.func_147761_c(block, xPos, yPos, zPos, texture);
+            render.renderFaceZNeg(block, xPos, yPos, zPos, texture);
 
             flag = true;
         }
 
-        if ((render.field_147837_f) || (block. func_149646_a(render.field_147845_a, xPos, yPos, zPos + 1, 3)))
+        if ((render.renderAllFaces) || (block. shouldSideBeRendered(render.blockAccess, xPos, yPos, zPos + 1, 3)))
         {
-            tessellator.setBrightness(render.field_147853_m < 1.0D ? l : block.func_149677_c(render.field_147845_a, xPos, yPos, zPos + 1));
+            tessellator.setBrightness(render.renderMaxZ < 1.0D ? l : block.getMixedBrightnessForBlock(render.blockAccess, xPos, yPos, zPos + 1));
             tessellator.setColorOpaque_F(f11, f14, f17);
-            render.func_147734_d(block, xPos, yPos, zPos, texture);
+            render.renderFaceZPos(block, xPos, yPos, zPos, texture);
 
             flag = true;
         }
 
-        if ((render.field_147837_f) || (block. func_149646_a(render.field_147845_a, xPos - 1, yPos, zPos, 4)))
+        if ((render.renderAllFaces) || (block. shouldSideBeRendered(render.blockAccess, xPos - 1, yPos, zPos, 4)))
         {
-            tessellator.setBrightness(render.field_147859_h > 0.0D ? l : block.func_149677_c(render.field_147845_a, xPos - 1, yPos, zPos));
+            tessellator.setBrightness(render.renderMinX > 0.0D ? l : block.getMixedBrightnessForBlock(render.blockAccess, xPos - 1, yPos, zPos));
             tessellator.setColorOpaque_F(f12, f15, f18);
-            render.func_147798_e(block, xPos, yPos, zPos, texture);
+            render.renderFaceXNeg(block, xPos, yPos, zPos, texture);
 
             flag = true;
         }
 
-        if ((render.field_147837_f) || (block. func_149646_a(render.field_147845_a, xPos + 1, yPos, zPos, 5)))
+        if ((render.renderAllFaces) || (block. shouldSideBeRendered(render.blockAccess, xPos + 1, yPos, zPos, 5)))
         {
-            tessellator.setBrightness(render.field_147861_i < 1.0D ? l : block.func_149677_c(render.field_147845_a, xPos + 1, yPos, zPos));
+            tessellator.setBrightness(render.renderMaxX < 1.0D ? l : block.getMixedBrightnessForBlock(render.blockAccess, xPos + 1, yPos, zPos));
             tessellator.setColorOpaque_F(f12, f15, f18);
-            render.func_147764_f(block, xPos, yPos, zPos, texture);
+            render.renderFaceXPos(block, xPos, yPos, zPos, texture);
 
             flag = true;
         }

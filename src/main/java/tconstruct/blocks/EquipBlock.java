@@ -30,8 +30,8 @@ public class EquipBlock extends InventoryBlock
     public EquipBlock(Material material)
     {
         super(material);
-        this.func_149711_c(0.3f);
-        this.func_149676_a(0, 0, 0, 1, 0.25f, 1);
+        this.setHardness(0.3f);
+        this.setBlockBounds(0, 0, 0, 1, 0.25f, 1);
         //this.setCreativeTab(ToolConstruct.materialTab);
     }
 
@@ -41,43 +41,43 @@ public class EquipBlock extends InventoryBlock
         return new String[] { "toolstation_top" };
     }
 
-    public IIcon func_149691_a (int side, int meta)
+    public IIcon getIcon (int side, int meta)
     {
-        return Blocks.iron_block.func_149691_a(side, meta);
+        return Blocks.iron_block.getIcon(side, meta);
     }
 
     @SideOnly(Side.CLIENT)
-    public void func_149651_a (IIconRegister par1IconRegister)
+    public void registerBlockIcons (IIconRegister par1IconRegister)
     {
         //this.blockIcon = par1iconRegister.registerIcon(Block.blockIron.getUnlocalizedName());
     }
 
     @Override
-    public boolean func_149686_d ()
+    public boolean renderAsNormalBlock ()
     {
         return false;
     }
 
     @Override
-    public boolean func_149662_c ()
+    public boolean isOpaqueCube ()
     {
         return false;
     }
 
     @Override
-    public int func_149645_b ()
+    public int getRenderType ()
     {
         return FrypanRender.frypanModelID;
     }
 
     @Override
-    public Item func_149650_a (int par1, Random par2Random, int par3)
+    public Item getItemDropped (int par1, Random par2Random, int par3)
     {
         return null;
     }
 
     @Override
-    public TileEntity func_149915_a (World world, int metadata)
+    public TileEntity createNewTileEntity (World world, int metadata)
     {
         return new FrypanLogic();
     }
@@ -95,9 +95,9 @@ public class EquipBlock extends InventoryBlock
         }
     }
 
-    public void func_149689_a (World par1World, int par2, int par3, int par4, EntityLivingBase par5EntityLivingBase, ItemStack par6ItemStack)
+    public void onBlockPlacedBy (World par1World, int par2, int par3, int par4, EntityLivingBase par5EntityLivingBase, ItemStack par6ItemStack)
     {
-        super.func_149689_a(par1World, par2, par3, par4, par5EntityLivingBase, par6ItemStack);
+        super.onBlockPlacedBy(par1World, par2, par3, par4, par5EntityLivingBase, par6ItemStack);
         int i3 = MathHelper.floor_double((par5EntityLivingBase.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
 
         int newMeta = 0;
@@ -121,9 +121,9 @@ public class EquipBlock extends InventoryBlock
     }
 
     @Override
-    public void func_149749_a (World par1World, int x, int y, int z, Block par5, int meta)
+    public void breakBlock (World par1World, int x, int y, int z, Block par5, int meta)
     {
-        TileEntity te = par1World.func_147438_o(x, y, z);
+        TileEntity te = par1World.getTileEntity(x, y, z);
 
         if (te != null && te instanceof EquipLogic)
         {
@@ -166,7 +166,7 @@ public class EquipBlock extends InventoryBlock
             }
         }
 
-        super.func_149749_a(par1World, x, y, z, par5, meta);
+        super.breakBlock(par1World, x, y, z, par5, meta);
     }
 
     public int getLightValue (IBlockAccess world, int x, int y, int z)

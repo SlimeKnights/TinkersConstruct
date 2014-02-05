@@ -123,13 +123,13 @@ public class StencilTableLogic extends InventoryLogic implements ISidedInventory
     }
 
     @Override
-    public String func_145825_b ()
+    public String getInventoryName ()
     {
         return StatCollector.translateToLocal("toolstation.PatternShaper");
     }
 
     @Override
-    public boolean func_145818_k_ ()
+    public boolean hasCustomInventoryName ()
     {
         return true;
     }

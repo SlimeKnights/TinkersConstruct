@@ -75,31 +75,31 @@ public class TProxyClient extends TProxyCommon
     public Object getClientGuiElement (int ID, EntityPlayer player, World world, int x, int y, int z)
     {
         if (ID == toolStationID)
-            return new ToolStationGui(player.inventory, (ToolStationLogic) world.func_147438_o(x, y, z), world, x, y, z);
+            return new ToolStationGui(player.inventory, (ToolStationLogic) world.getTileEntity(x, y, z), world, x, y, z);
         if (ID == partBuilderID)
-            return new PartCrafterGui(player.inventory, (PartBuilderLogic) world.func_147438_o(x, y, z), world, x, y, z);
+            return new PartCrafterGui(player.inventory, (PartBuilderLogic) world.getTileEntity(x, y, z), world, x, y, z);
         if (ID == patternChestID)
-            return new PatternChestGui(player.inventory, (PatternChestLogic) world.func_147438_o(x, y, z), world, x, y, z);
+            return new PatternChestGui(player.inventory, (PatternChestLogic) world.getTileEntity(x, y, z), world, x, y, z);
         if (ID == frypanGuiID)
-            return new FrypanGui(player.inventory, (FrypanLogic) world.func_147438_o(x, y, z), world, x, y, z);
+            return new FrypanGui(player.inventory, (FrypanLogic) world.getTileEntity(x, y, z), world, x, y, z);
         if (ID == smelteryGuiID)
         {
             if (PHConstruct.newSmeltery)
-                return new AdaptiveSmelteryGui(player.inventory, (AdaptiveSmelteryLogic) world.func_147438_o(x, y, z), world, x, y, z);
+                return new AdaptiveSmelteryGui(player.inventory, (AdaptiveSmelteryLogic) world.getTileEntity(x, y, z), world, x, y, z);
             else
-                return new SmelteryGui(player.inventory, (SmelteryLogic) world.func_147438_o(x, y, z), world, x, y, z);
+                return new SmelteryGui(player.inventory, (SmelteryLogic) world.getTileEntity(x, y, z), world, x, y, z);
         }
         if (ID == stencilTableID)
-            return new StencilTableGui(player.inventory, (StencilTableLogic) world.func_147438_o(x, y, z), world, x, y, z);
+            return new StencilTableGui(player.inventory, (StencilTableLogic) world.getTileEntity(x, y, z), world, x, y, z);
         if (ID == toolForgeID)
-            return new ToolForgeGui(player.inventory, (ToolForgeLogic) world.func_147438_o(x, y, z), world, x, y, z);
+            return new ToolForgeGui(player.inventory, (ToolForgeLogic) world.getTileEntity(x, y, z), world, x, y, z);
         if (ID == landmineID)
-            return new GuiLandmine(new ContainerLandmine(player, (TileEntityLandmine) world.func_147438_o(x, y, z)));
+            return new GuiLandmine(new ContainerLandmine(player, (TileEntityLandmine) world.getTileEntity(x, y, z)));
         if (ID == craftingStationID)
-            return new CraftingStationGui(player.inventory, (CraftingStationLogic) world.func_147438_o(x, y, z), world, x, y, z);
+            return new CraftingStationGui(player.inventory, (CraftingStationLogic) world.getTileEntity(x, y, z), world, x, y, z);
 
         if (ID == furnaceID)
-            return new FurnaceGui(player.inventory, (FurnaceLogic) world.func_147438_o(x, y, z));
+            return new FurnaceGui(player.inventory, (FurnaceLogic) world.getTileEntity(x, y, z));
 
         if (ID == inventoryGui)
         {
@@ -126,27 +126,27 @@ public class TProxyClient extends TProxyCommon
         GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
         tessellator.startDrawingQuads();
         tessellator.setNormal(0.0F, -1F, 0.0F);
-        renderblocks.func_147768_a(block, 0.0D, 0.0D, 0.0D, getIcon(block.func_149691_a(0, meta)));
+        renderblocks.renderFaceYNeg(block, 0.0D, 0.0D, 0.0D, getIcon(block.getIcon(0, meta)));
         tessellator.draw();
         tessellator.startDrawingQuads();
         tessellator.setNormal(0.0F, 1.0F, 0.0F);
-        renderblocks.func_147806_b(block, 0.0D, 0.0D, 0.0D, getIcon(block.func_149691_a(1, meta)));//block.func_149691_a(1, meta));
+        renderblocks.renderFaceYPos(block, 0.0D, 0.0D, 0.0D, getIcon(block.getIcon(1, meta)));//block.getIcon(1, meta));
         tessellator.draw();
         tessellator.startDrawingQuads();
         tessellator.setNormal(0.0F, 0.0F, -1F);
-        renderblocks.func_147761_c(block, 0.0D, 0.0D, 0.0D, getIcon(block.func_149691_a(2, meta)));
+        renderblocks.renderFaceZNeg(block, 0.0D, 0.0D, 0.0D, getIcon(block.getIcon(2, meta)));
         tessellator.draw();
         tessellator.startDrawingQuads();
         tessellator.setNormal(0.0F, 0.0F, 1.0F);
-        renderblocks.func_147734_d(block, 0.0D, 0.0D, 0.0D, getIcon(block.func_149691_a(3, meta)));
+        renderblocks.renderFaceZPos(block, 0.0D, 0.0D, 0.0D, getIcon(block.getIcon(3, meta)));
         tessellator.draw();
         tessellator.startDrawingQuads();
         tessellator.setNormal(-1F, 0.0F, 0.0F);
-        renderblocks.func_147798_e(block, 0.0D, 0.0D, 0.0D, getIcon(block.func_149691_a(4, meta)));
+        renderblocks.renderFaceXNeg(block, 0.0D, 0.0D, 0.0D, getIcon(block.getIcon(4, meta)));
         tessellator.draw();
         tessellator.startDrawingQuads();
         tessellator.setNormal(1.0F, 0.0F, 0.0F);
-        renderblocks.func_147764_f(block, 0.0D, 0.0D, 0.0D, getIcon(block.func_149691_a(5, meta)));
+        renderblocks.renderFaceXPos(block, 0.0D, 0.0D, 0.0D, getIcon(block.getIcon(5, meta)));
         tessellator.draw();
         GL11.glTranslatef(0.5F, 0.5F, 0.5F);
     }
@@ -160,27 +160,27 @@ public class TProxyClient extends TProxyCommon
         GL11.glRotatef(60, 1, 0, 0);
         tessellator.startDrawingQuads();
         tessellator.setNormal(0.0F, -1F, 0.0F);
-        renderblocks.func_147768_a(block, 0.0D, 0.0D, 0.0D, getIcon(block.func_149691_a(0, meta)));
+        renderblocks.renderFaceYNeg(block, 0.0D, 0.0D, 0.0D, getIcon(block.getIcon(0, meta)));
         tessellator.draw();
         tessellator.startDrawingQuads();
         tessellator.setNormal(0.0F, 1.0F, 0.0F);
-        renderblocks.func_147806_b(block, 0.0D, 0.0D, 0.0D, getIcon(block.func_149691_a(1, meta)));
+        renderblocks.renderFaceYPos(block, 0.0D, 0.0D, 0.0D, getIcon(block.getIcon(1, meta)));
         tessellator.draw();
         tessellator.startDrawingQuads();
         tessellator.setNormal(0.0F, 0.0F, -1F);
-        renderblocks.func_147761_c(block, 0.0D, 0.0D, 0.0D, getIcon(block.func_149691_a(2, meta)));
+        renderblocks.renderFaceZNeg(block, 0.0D, 0.0D, 0.0D, getIcon(block.getIcon(2, meta)));
         tessellator.draw();
         tessellator.startDrawingQuads();
         tessellator.setNormal(0.0F, 0.0F, 1.0F);
-        renderblocks.func_147734_d(block, 0.0D, 0.0D, 0.0D, getIcon(block.func_149691_a(3, meta)));
+        renderblocks.renderFaceZPos(block, 0.0D, 0.0D, 0.0D, getIcon(block.getIcon(3, meta)));
         tessellator.draw();
         tessellator.startDrawingQuads();
         tessellator.setNormal(-1F, 0.0F, 0.0F);
-        renderblocks.func_147798_e(block, 0.0D, 0.0D, 0.0D, getIcon(block.func_149691_a(4, meta)));
+        renderblocks.renderFaceXNeg(block, 0.0D, 0.0D, 0.0D, getIcon(block.getIcon(4, meta)));
         tessellator.draw();
         tessellator.startDrawingQuads();
         tessellator.setNormal(1.0F, 0.0F, 0.0F);
-        renderblocks.func_147764_f(block, 0.0D, 0.0D, 0.0D, getIcon(block.func_149691_a(5, meta)));
+        renderblocks.renderFaceXPos(block, 0.0D, 0.0D, 0.0D, getIcon(block.getIcon(5, meta)));
         tessellator.draw();
         GL11.glTranslatef(0.5F, 0.5F, 0.5F);
     }
@@ -896,11 +896,11 @@ public class TProxyClient extends TProxyCommon
                     }
                     else if (par1Str.equals("dripWater"))
                     {
-                        entityfx = new EntityDropParticleFX(mc.theWorld, par2, par4, par6, Material.field_151586_h);
+                        entityfx = new EntityDropParticleFX(mc.theWorld, par2, par4, par6, Material.water);
                     }
                     else if (par1Str.equals("dripLava"))
                     {
-                        entityfx = new EntityDropParticleFX(mc.theWorld, par2, par4, par6, Material.field_151587_i);
+                        entityfx = new EntityDropParticleFX(mc.theWorld, par2, par4, par6, Material.lava);
                     }
                     else if (par1Str.equals("snowshovel"))
                     {

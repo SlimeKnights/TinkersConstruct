@@ -22,7 +22,7 @@ public class PaneRender implements ISimpleBlockRenderingHandler
     {
         if (modelID == model)
         {
-            renderer.func_147782_a(0.0F, 0.0F, 0.4375F, 1.0F, 1.0F, 0.5625F);
+            renderer.setRenderBounds(0.0F, 0.0F, 0.4375F, 1.0F, 1.0F, 0.5625F);
             TProxyClient.renderStandardInvBlock(renderer, block, metadata);
         }
     }
@@ -57,9 +57,9 @@ public class PaneRender implements ISimpleBlockRenderingHandler
     {
         int l = iblockaccess.getHeight();
         Tessellator tessellator = Tessellator.instance;
-        tessellator.setBrightness(pane.func_149677_c(iblockaccess, x, y, z));
+        tessellator.setBrightness(pane.getMixedBrightnessForBlock(iblockaccess, x, y, z));
         float f = 1.0F;
-        int i1 = pane.func_149720_d(iblockaccess, x, y, z);
+        int i1 = pane.colorMultiplier(iblockaccess, x, y, z);
         float f1 = (float) (i1 >> 16 & 0xff) / 255F;
         float f2 = (float) (i1 >> 8 & 0xff) / 255F;
         float f3 = (float) (i1 & 0xff) / 255F;
@@ -78,7 +78,7 @@ public class PaneRender implements ISimpleBlockRenderingHandler
         IIcon icon;
         IIcon icon1;
         int meta = iblockaccess.getBlockMetadata(x, y, z);
-        icon = renderblocks.func_147787_a(pane, 0, meta);
+        icon = renderblocks.getBlockIconFromSideAndMetadata(pane, 0, meta);
         icon1 = pane.getSideTextureIndex(meta);
 
         meta = icon.getIconWidth();
@@ -99,8 +99,8 @@ public class PaneRender implements ISimpleBlockRenderingHandler
         /*int blockTextureIndex;
         int blockSideIndex;
 
-        int j1 = iblockaccess.func_147439_aMetadata(x, y, z);
-        blockTextureIndex = pane.func_147439_aTextureFromSideAndMetadata(0, j1);
+        int j1 = iblockaccess.getBlockMetadata(x, y, z);
+        blockTextureIndex = pane.getBlockTextureFromSideAndMetadata(0, j1);
         blockSideIndex = pane.getSideTextureIndex(j1);
 
         int k1 = (blockTextureIndex & 0xf) << 4;
@@ -133,8 +133,8 @@ public class PaneRender implements ISimpleBlockRenderingHandler
         boolean south = pane.canConnectTo(iblockaccess, x - 1, y, z, ForgeDirection.EAST);
         boolean north = pane.canConnectTo(iblockaccess, x + 1, y, z, ForgeDirection.WEST);
 
-        boolean renderAbove = pane.func_149646_a(iblockaccess, x, y + 1, z, 1);
-        boolean renderBelow = pane.func_149646_a(iblockaccess, x, y - 1, z, 0);
+        boolean renderAbove = pane.shouldSideBeRendered(iblockaccess, x, y + 1, z, 1);
+        boolean renderBelow = pane.shouldSideBeRendered(iblockaccess, x, y - 1, z, 0);
         if ((!south || !north) && (south || north || west || east))
         {
             if (south && !north)

@@ -46,7 +46,7 @@ public class DryingRackSpecialRender extends TileEntitySpecialRenderer
         entityitem.getEntityItem().stackSize = 1;
         entityitem.hoverStart = 0.0F;
         GL11.glPushMatrix();
-        int meta = logic.getWorld().getBlockMetadata(logic.field_145851_c, logic.field_145848_d, logic.field_145849_e);
+        int meta = logic.getWorld().getBlockMetadata(logic.xCoord, logic.yCoord, logic.zCoord);
         if (meta <= 1)
             GL11.glTranslatef(1F, -0.375F, 0.905F);
         else
@@ -75,14 +75,14 @@ public class DryingRackSpecialRender extends TileEntitySpecialRenderer
         }
 
         RenderItem.renderInFrame = true;
-        RenderManager.instance.func_147940_a(entityitem, 0.0D, 0.0D, 0.0D, 0.0F, 0.0F);
+        RenderManager.instance.renderEntityWithPosYaw(entityitem, 0.0D, 0.0D, 0.0D, 0.0F, 0.0F);
         RenderItem.renderInFrame = false;
 
         GL11.glPopMatrix();
     }
 
     @Override
-    public void func_147500_a (TileEntity logic, double var2, double var4, double var6, float var8)
+    public void renderTileEntityAt (TileEntity logic, double var2, double var4, double var6, float var8)
     {
         this.render((DryingRackLogic) logic, var2, var4, var6, var8);        
     }

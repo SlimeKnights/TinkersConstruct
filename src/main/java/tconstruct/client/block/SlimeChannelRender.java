@@ -45,7 +45,7 @@ public class SlimeChannelRender implements ISimpleBlockRenderingHandler
         {
             Tessellator tessellator = Tessellator.instance;
             int bMeta = world.getBlockMetadata(x, y, z);
-            IIcon iconStill = block.func_149691_a(1, bMeta);
+            IIcon iconStill = block.getIcon(1, bMeta);
             float flowDir = (float) (bMeta / 8f * 2 * Math.PI); //Tau, radians
 
             double u1, u2, u3, u4, v1, v2, v3, v4;
@@ -74,11 +74,11 @@ public class SlimeChannelRender implements ISimpleBlockRenderingHandler
                 u3 = iconStill.getInterpolatedU(8.0F + (zFlow - xFlow) * 16.0F);
                 v3 = iconStill.getInterpolatedV(8.0F + (-zFlow - xFlow) * 16.0F);
             }
-            int color = block.func_149720_d(world, x, y, z);
+            int color = block.colorMultiplier(world, x, y, z);
             float red = (color >> 16 & 255) / 255.0F;
             float green = (color >> 8 & 255) / 255.0F;
             float blue = (color & 255) / 255.0F;
-            tessellator.setBrightness(block.func_149677_c(world, x, y, z));
+            tessellator.setBrightness(block.getMixedBrightnessForBlock(world, x, y, z));
             tessellator.setColorOpaque_F(LIGHT_Y_POS * red, LIGHT_Y_POS * green, LIGHT_Y_POS * blue);
 
             tessellator.addVertexWithUV(x + 0, y + 0.5, z + 0, u2, v2);
@@ -86,7 +86,7 @@ public class SlimeChannelRender implements ISimpleBlockRenderingHandler
             tessellator.addVertexWithUV(x + 1, y + 0.5, z + 1, u4, v4);
             tessellator.addVertexWithUV(x + 1, y + 0.5, z + 0, u3, v3);
         }
-        renderer.func_147784_q(block, x, y, z);
+        renderer.renderStandardBlock(block, x, y, z);
         /*int direction = world.getBlockMetadata(x, y, z) % 4;
         if (direction == 0)
             renderer.uvRotateTop = 2;
@@ -97,7 +97,7 @@ public class SlimeChannelRender implements ISimpleBlockRenderingHandler
         if (direction == 3)
             renderer.uvRotateTop = 3;
 
-        boolean flag = renderer.func_147784_q(block, x, y, z);
+        boolean flag = renderer.renderStandardBlock(block, x, y, z);
         renderer.uvRotateTop = 0;
         return flag;*/
         return true;

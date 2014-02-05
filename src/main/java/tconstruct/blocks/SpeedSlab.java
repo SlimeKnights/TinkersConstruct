@@ -19,27 +19,27 @@ public class SpeedSlab extends SlabBase
 {
     public SpeedSlab()
     {
-        super(Material.field_151576_e);
-        this.func_149647_a(TConstructRegistry.blockTab);
-        func_149711_c(3F);
+        super(Material.rock);
+        this.setCreativeTab(TConstructRegistry.blockTab);
+        setHardness(3F);
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void func_149651_a (IIconRegister iconRegister)
+    public void registerBlockIcons (IIconRegister iconRegister)
     {
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon func_149691_a (int side, int meta)
+    public IIcon getIcon (int side, int meta)
     {
         meta = meta % 8;
-        return TRepo.speedBlock.func_149691_a(side, meta);
+        return TRepo.speedBlock.getIcon(side, meta);
     }
 
     @Override
-    public void func_149666_a (Item b, CreativeTabs tab, List list)
+    public void getSubBlocks (Item b, CreativeTabs tab, List list)
     {
         for (int iter = 0; iter < 7; iter++)
         {
@@ -48,7 +48,7 @@ public class SpeedSlab extends SlabBase
     }
 
     @Override
-    public void func_149724_b (World world, int x, int y, int z, Entity entity)
+    public void onEntityWalking (World world, int x, int y, int z, Entity entity)
     {
         double boost = 2.2D;
         int metadata = world.getBlockMetadata(x, y, z) % 8;

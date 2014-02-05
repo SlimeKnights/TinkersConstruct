@@ -36,15 +36,15 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
             if (world.getBlockMetadata(x, y, z) == 0)
                 return renderSmeltery(world, x, y, z, block, modelID, renderer);
             else
-                renderer.func_147784_q(block, x, y, z);
+                renderer.renderStandardBlock(block, x, y, z);
         }
         return true;
     }
 
     public boolean renderSmeltery (IBlockAccess world, int x, int y, int z, Block block, int modelID, RenderBlocks renderer)
     {
-        renderer.func_147784_q(block, x, y, z);
-        SmelteryLogic logic = (SmelteryLogic) world.func_147438_o(x, y, z);
+        renderer.renderStandardBlock(block, x, y, z);
+        SmelteryLogic logic = (SmelteryLogic) world.getTileEntity(x, y, z);
         if (logic.validStructure)
         {
             int posX = logic.centerPos.x - 1, posY = logic.centerPos.y, posZ = logic.centerPos.z - 1;
@@ -71,7 +71,7 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
                     liquidSize -= countSize;
 
                     float height = countSize > 20000 ? 1.0F : countSize / 20000F;
-                    //renderer.func_147782_a(0, base, 0, 1, height + base, 1);
+                    //renderer.setRenderBounds(0, base, 0, 1, height + base, 1);
                     float renderBase = base;
                     float renderHeight = height + base;
                     base += height;
@@ -84,7 +84,7 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
                         float minZ = i / 3 == 0 ? -0.001F : 0F;
                         float maxX = i % 3 == 2 ? 1.001F : 1F;
                         float maxZ = i / 3 == 2 ? 1.001F : 1F;
-                        renderer.func_147782_a(minX, renderBase, minZ, maxX, renderHeight, maxZ);
+                        renderer.setRenderBounds(minX, renderBase, minZ, maxX, renderHeight, maxZ);
                         if (fluid.canBePlacedInWorld())
                             BlockSkinRenderHelper.renderMetadataBlock(fluid.getBlock(), 0, posX + i % 3, posY + yBase, posZ + i / 3, renderer, world);
                         else
@@ -99,7 +99,7 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
                             float minZ = i / 3 == 0 ? -0.001F : 0F;
                             float maxX = i % 3 == 2 ? 1.001F : 1F;
                             float maxZ = i / 3 == 2 ? 1.001F : 1F;
-                            renderer.func_147782_a(minX, renderBase, minZ, maxX, renderHeight, maxZ);
+                            renderer.setRenderBounds(minX, renderBase, minZ, maxX, renderHeight, maxZ);
                             BlockSkinRenderHelper.renderMetadataBlock(liquidBlock, liquid.itemMeta, posX + i % 3, posY + yBase, posZ + i / 3, renderer, world);
                         }
                     }
@@ -113,7 +113,7 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
                             float minZ = i / 3 == 0 ? -0.001F : 0F;
                             float maxX = i % 3 == 2 ? 1.001F : 1F;
                             float maxZ = i / 3 == 2 ? 1.001F : 1F;
-                            renderer.func_147782_a(minX, renderBase, minZ, maxX, renderHeight, maxZ);
+                            renderer.setRenderBounds(minX, renderBase, minZ, maxX, renderHeight, maxZ);
                             BlockSkinRenderHelper.renderFakeBlock(liquidItem.getIconFromDamage(liquid.itemMeta), posX, posY + yBase, posZ, renderer, world);
                         }
                     }*/
@@ -132,7 +132,7 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
 
     void renderLayer (SmelteryLogic logic, int start, int posX, int posY, int posZ, RenderBlocks renderer, IBlockAccess world)
     {
-        renderer.func_147782_a(-0.001F, -0.001F, -0.001F, 1.001F, 1.001F, 1.001F);
+        renderer.setRenderBounds(-0.001F, -0.001F, -0.001F, 1.001F, 1.001F, 1.001F);
         for (int i = 0; i < 9; i++)
         {
             ItemStack input = logic.getStackInSlot(i + start);
@@ -142,7 +142,7 @@ public class SmelteryRender implements ISimpleBlockRenderingHandler
                 if (blockToRender != null)
                 {
                     float blockHeight = input.stackSize / (float) blockToRender.stackSize;
-                    renderer.func_147782_a(0.0F, 0.0F, 0.0F, 1.0F, MathHelper.clamp_float(blockHeight, 0.01F, 1.0F), 1.0F);
+                    renderer.setRenderBounds(0.0F, 0.0F, 0.0F, 1.0F, MathHelper.clamp_float(blockHeight, 0.01F, 1.0F), 1.0F);
 
                     //TODO is this needed???
                     //if (blockToRender.itemID < 4096) //Block

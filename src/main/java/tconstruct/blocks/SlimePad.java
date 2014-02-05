@@ -25,18 +25,18 @@ public class SlimePad extends MantleBlock
     public SlimePad(Material par2Material)
     {
         super(par2Material);
-        func_149676_a(0.125F, 0.0F, 0.125F, 0.875F, 0.625F, 0.875F);
-        this.func_149647_a(TConstructRegistry.blockTab);
+        setBlockBounds(0.125F, 0.0F, 0.125F, 0.875F, 0.625F, 0.875F);
+        this.setCreativeTab(TConstructRegistry.blockTab);
     }
 
     @Override
-    public AxisAlignedBB func_149668_a (World world, int x, int y, int z)
+    public AxisAlignedBB getCollisionBoundingBoxFromPool (World world, int x, int y, int z)
     {
         return null;
     }
 
     @Override
-    public void func_149670_a (World world, int x, int y, int z, Entity entity)
+    public void onEntityCollidedWithBlock (World world, int x, int y, int z, Entity entity)
     {
         if (!world.isBlockIndirectlyGettingPowered(x, y, z))
         {
@@ -83,7 +83,7 @@ public class SlimePad extends MantleBlock
                 entity.posY += 1;
             }
             entity.addVelocity(moveX, speed * 2, moveZ);
-            world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, this.field_149762_H.func_150498_e(), (this.field_149762_H.func_150497_c()) / 2.0F, this.field_149762_H.func_150494_d() * 0.65F);
+            world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, this.stepSound.getStepResourcePath(), (this.stepSound.getVolume()) / 2.0F, this.stepSound.getPitch() * 0.65F);
         }
     }
 
@@ -93,7 +93,7 @@ public class SlimePad extends MantleBlock
     }
 
     @Override
-    public void func_149689_a (World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack)
+    public void onBlockPlacedBy (World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack)
     {
         int face = MathHelper.floor_double((double) (entity.rotationYaw * 8.0F / 360.0F) + 0.5D) + (entity.isSneaking() ? 4 : 0) & 7;
         int meta = world.getBlockMetadata(x, y, z) & 8;
@@ -101,50 +101,50 @@ public class SlimePad extends MantleBlock
     }
 
     @Override
-    public boolean func_149686_d ()
+    public boolean renderAsNormalBlock ()
     {
         return false;
     }
 
     @Override
-    public boolean func_149662_c ()
+    public boolean isOpaqueCube ()
     {
         return false;
     }
 
     @Override
-    public int func_149701_w ()
+    public int getRenderBlockPass ()
     {
         return 1;
     }
 
     @Override
-    public int func_149645_b ()
+    public int getRenderType ()
     {
         return SlimePadRender.model;
     }
 
     @Override
-    public void func_149651_a (IIconRegister iconRegister)
+    public void registerBlockIcons (IIconRegister iconRegister)
     {
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon func_149691_a (int side, int meta)
+    public IIcon getIcon (int side, int meta)
     {
-        return TRepo.slimeGel.func_149691_a(side, 1);
+        return TRepo.slimeGel.getIcon(side, 1);
     }
 
     @SideOnly(Side.CLIENT)
     public IIcon getFluidIcon (int meta)
     {
-        return TRepo.slimeChannel.func_149691_a(2, 0);
+        return TRepo.slimeChannel.getIcon(2, 0);
     }
 
     @SideOnly(Side.CLIENT)
     public IIcon getNubIcon (int meta)
     {
-        return TRepo.slimeGel.func_149691_a(0, 0);
+        return TRepo.slimeGel.getIcon(0, 0);
     }
 }

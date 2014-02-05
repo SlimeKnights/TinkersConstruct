@@ -29,7 +29,7 @@ public abstract class HarvestTool extends ToolCore
 
         NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
         World world = player.worldObj;
-        Block block = player.worldObj.func_147439_a(x, y, z);
+        Block block = player.worldObj.getBlock(x, y, z);
         int meta = world.getBlockMetadata(x, y, z);
         //Block block = Block.blocksList[bID];
         if (block == null || block == Blocks.air)
@@ -50,9 +50,9 @@ public abstract class HarvestTool extends ToolCore
         {
             WorldHelper.setBlockToAir(world, x, y, z);
             if (!player.capabilities.isCreativeMode)
-                func_150894_a(stack, world, block, x, y, z, player);
+                onBlockDestroyed(stack, world, block, x, y, z, player);
             if (!world.isRemote)
-                world.playAuxSFX(2001, x, y, z, Block.func_149682_b(block) + (meta << 12));
+                world.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(block) + (meta << 12));
             return true;
         }
     }
@@ -70,7 +70,7 @@ public abstract class HarvestTool extends ToolCore
         Material[] materials = getEffectiveMaterials();
         for (int i = 0; i < materials.length; i++)
         {
-            if (materials[i] == block.func_149688_o())
+            if (materials[i] == block.getMaterial())
             {
                 return calculateStrength(tags, block, meta);
             }
@@ -118,13 +118,13 @@ public abstract class HarvestTool extends ToolCore
 
     public boolean canHarvestBlock (Block block)
     {
-        if (block.func_149688_o().isToolNotRequired())
+        if (block.getMaterial().isToolNotRequired())
         {
             return true;
         }
         for (Material m : getEffectiveMaterials())
         {
-            if (m == block.func_149688_o())
+            if (m == block.getMaterial())
                 return true;
         }
         return false;

@@ -264,7 +264,7 @@ public class TEventHandler
                 for (int i = 0; i < event.drops.size(); i++)
                 {
                     ItemStack is = event.drops.get(i).getEntityItem();
-                    if (FurnaceRecipes.smelting().func_151395_a(is) != null && FurnaceRecipes.smelting().func_151395_a(is).getItem() instanceof ItemFood)
+                    if (FurnaceRecipes.smelting().getSmeltingResult(is) != null && FurnaceRecipes.smelting().getSmeltingResult(is).getItem() instanceof ItemFood)
                     {
                         NBTTagCompound stackCompound = is.getTagCompound();
                         if (stackCompound == null)
@@ -282,7 +282,7 @@ public class TEventHandler
         {
             ItemStack dropStack = new ItemStack(TRepo.heartCanister, 1, 1);
             EntityItem entityitem = new EntityItem(event.entityLiving.worldObj, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, dropStack);
-            entityitem.field_145804_b = 10;
+            entityitem.delayBeforeCanPickup = 10;
             event.drops.add(entityitem);
         }
 
@@ -290,7 +290,7 @@ public class TEventHandler
         {
             ItemStack dropStack = new ItemStack(TRepo.heartCanister, 1, 1);
             EntityItem entityitem = new EntityItem(event.entityLiving.worldObj, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, dropStack);
-            entityitem.field_145804_b = 10;
+            entityitem.delayBeforeCanPickup = 10;
             event.drops.add(entityitem);
         }
 
@@ -477,7 +477,7 @@ public class TEventHandler
     void addDrops (LivingDropsEvent event, ItemStack dropStack)
     {
         EntityItem entityitem = new EntityItem(event.entityLiving.worldObj, event.entityLiving.posX, event.entityLiving.posY, event.entityLiving.posZ, dropStack);
-        entityitem.field_145804_b = 10;
+        entityitem.delayBeforeCanPickup = 10;
         event.drops.add(entityitem);
     }
 
@@ -563,7 +563,7 @@ public class TEventHandler
                 return;
             }
 
-            Block bID = evt.world.func_147439_a(hitX, hitY, hitZ);
+            Block bID = evt.world.getBlock(hitX, hitY, hitZ);
             for (int id = 0; id < TRepo.fluidBlocks.length; id++)
             {
                 if (bID == TRepo.fluidBlocks[id])
@@ -651,7 +651,7 @@ public class TEventHandler
     {
         if (event.action == Action.LEFT_CLICK_BLOCK)
         {
-            Block block = event.entity.worldObj.func_147439_a(event.x, event.y, event.z);
+            Block block = event.entity.worldObj.getBlock(event.x, event.y, event.z);
             if (block instanceof TankAirBlock)
             {
                 event.setCanceled(true);

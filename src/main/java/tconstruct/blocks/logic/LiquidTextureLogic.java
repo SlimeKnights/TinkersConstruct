@@ -17,7 +17,7 @@ public class LiquidTextureLogic extends TileEntity
     public void setLiquidType (int tex)
     {
         texturePos = tex;
-        field_145850_b.func_147479_m(field_145851_c, field_145848_d, field_145849_e);
+        worldObj.func_147479_m(xCoord, yCoord, zCoord);
     }
 
     public int getLiquidType ()
@@ -25,9 +25,9 @@ public class LiquidTextureLogic extends TileEntity
         return texturePos;
     }
 
-    public void func_145839_a (NBTTagCompound tags)
+    public void readFromNBT (NBTTagCompound tags)
     {
-        super.func_145839_a(tags);
+        super.readFromNBT(tags);
         readCustomNBT(tags);
     }
 
@@ -36,9 +36,9 @@ public class LiquidTextureLogic extends TileEntity
         texturePos = tags.getInteger("Texture");
     }
 
-    public void func_145841_b (NBTTagCompound tags)
+    public void writeToNBT (NBTTagCompound tags)
     {
-        super.func_145841_b(tags);
+        super.writeToNBT(tags);
         writeCustomNBT(tags);
     }
 
@@ -48,17 +48,17 @@ public class LiquidTextureLogic extends TileEntity
     }
 
     @Override
-    public Packet func_145844_m ()
+    public Packet getDescriptionPacket ()
     {
         NBTTagCompound tag = new NBTTagCompound();
         writeCustomNBT(tag);
-        return new S35PacketUpdateTileEntity(field_145851_c, field_145848_d, field_145849_e, 1, tag);
+        return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 1, tag);
     }
 
     @Override
     public void onDataPacket (NetworkManager net, S35PacketUpdateTileEntity packet)
     {
         readCustomNBT(packet.func_148857_g());
-        field_145850_b.func_147479_m(field_145851_c, field_145848_d, field_145849_e);
+        worldObj.func_147479_m(xCoord, yCoord, zCoord);
     }
 }

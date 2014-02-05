@@ -45,15 +45,15 @@ public class Battleaxe extends HarvestTool
     }
 
     @Override
-    public boolean func_150894_a (ItemStack itemstack, World world, Block b, int x, int y, int z, EntityLivingBase player)
+    public boolean onBlockDestroyed (ItemStack itemstack, World world, Block b, int x, int y, int z, EntityLivingBase player)
     {
-        if (b != null && b.func_149688_o() == Material.field_151584_j)
+        if (b != null && b.getMaterial() == Material.leaves)
             return false;
 
         return AbilityHelper.onBlockChanged(itemstack, world, b, x, y, z, player, random);
     }
 
-    static Material[] materials = { Material.field_151575_d, Material.field_151582_l, Material.field_151594_q, Material.field_151570_A, Material.field_151572_C };
+    static Material[] materials = { Material.wood, Material.vine, Material.circuits, Material.cactus, Material.gourd };
 
     @Override
     public Item getHeadItem ()
@@ -247,15 +247,15 @@ public class Battleaxe extends HarvestTool
             return false;
 
         World world = player.worldObj;
-        final Block wood = world.func_147439_a(x,y,z);
+        final Block wood = world.getBlock(x,y,z);
         NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
         final int meta = world.getBlockMetadata(x, y, z);
         for (int yPos = y + 1; yPos < y + 9; yPos++)
         {
-            Block block = world.func_147439_a(x, yPos, z);
-            if (!(tags.getBoolean("Broken")) && block != null && block.func_149688_o() == Material.field_151575_d)
+            Block block = world.getBlock(x, yPos, z);
+            if (!(tags.getBoolean("Broken")) && block != null && block.getMaterial() == Material.wood)
             {
-                Block localblock = world.func_147439_a(x, yPos, z);
+                Block localblock = world.getBlock(x, yPos, z);
                 int localMeta = world.getBlockMetadata(x, yPos, z);
                 int hlvl = block.getHarvestLevel(meta);
 
@@ -270,18 +270,18 @@ public class Battleaxe extends HarvestTool
 
                     if (!cancelHarvest)
                     {
-                        if (block != null && block.func_149688_o() == Material.field_151575_d)
+                        if (block != null && block.getMaterial() == Material.wood)
                         {
                             localMeta = world.getBlockMetadata(x, yPos, z);
                             if (!player.capabilities.isCreativeMode)
                             {
                                 if (block.removedByPlayer(world, player, x, yPos, z))
                                 {
-                                    block.func_149664_b(world, x, yPos, z, localMeta);
+                                    block.onBlockDestroyedByPlayer(world, x, yPos, z, localMeta);
                                 }
-                                block.func_149636_a(world, player, x, yPos, z, localMeta);
-                                block.func_149681_a(world, x, yPos, z, localMeta, player);
-                                func_150894_a(stack, world, block, x, yPos, z, player);
+                                block.harvestBlock(world, player, x, yPos, z, localMeta);
+                                block.onBlockHarvested(world, x, yPos, z, localMeta, player);
+                                onBlockDestroyed(stack, world, block, x, yPos, z, player);
                             }
                             else
                             {
@@ -295,7 +295,7 @@ public class Battleaxe extends HarvestTool
                 break;
         }
         if (!world.isRemote)
-            world.playAuxSFX(2001, x, y, z, Block.func_149682_b(wood) + (meta << 12));
+            world.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(wood) + (meta << 12));
         return super.onBlockStartBreak(stack, x, y, z, player);
     }
 

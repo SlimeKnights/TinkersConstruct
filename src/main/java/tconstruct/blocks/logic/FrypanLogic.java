@@ -56,7 +56,7 @@ public class FrypanLogic extends EquipLogic implements IActiveLogic
     public void setActive (boolean flag)
     {
         active = flag;
-        field_145850_b.func_147471_g(field_145851_c, field_145848_d, field_145849_e);
+        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
     }
 
     /* Fuel gauge */
@@ -213,7 +213,7 @@ public class FrypanLogic extends EquipLogic implements IActiveLogic
 
     public ItemStack getResultFor (ItemStack stack)
     {
-        ItemStack result = FurnaceRecipes.smelting().func_151395_a(stack);
+        ItemStack result = FurnaceRecipes.smelting().getSmeltingResult(stack);
         if (result != null && result.getItem() instanceof ItemFood) //Only valid for food
             return result.copy();
 
@@ -244,14 +244,14 @@ public class FrypanLogic extends EquipLogic implements IActiveLogic
                     return 2400;
                 }
 
-                if (block.func_149688_o() == Material.field_151575_d)
+                if (block.getMaterial() == Material.wood)
                 {
                     return 300;
                 }
             }
             if (item instanceof ItemTool && ((ItemTool) item).getToolMaterialName().equals("WOOD"))
                 return 200;
-            if (item instanceof ItemSword && ((ItemSword) item).func_150932_j().equals("WOOD"))
+            if (item instanceof ItemSword && ((ItemSword) item).getToolMaterialName().equals("WOOD"))
                 return 200;
             if (item instanceof ItemHoe && ((ItemHoe) item).getMaterialName().equals("WOOD"))
                 return 200;
@@ -270,17 +270,17 @@ public class FrypanLogic extends EquipLogic implements IActiveLogic
     }
 
     /* NBT */
-    public void func_145839_a (NBTTagCompound tags)
+    public void readFromNBT (NBTTagCompound tags)
     {
-        super.func_145839_a(tags);
+        super.readFromNBT(tags);
         active = tags.getBoolean("Active");
         fuel = tags.getInteger("Fuel");
         fuelGague = tags.getInteger("FuelGague");
     }
 
-    public void func_145841_b (NBTTagCompound tags)
+    public void writeToNBT (NBTTagCompound tags)
     {
-        super.func_145841_b(tags);
+        super.writeToNBT(tags);
         tags.setBoolean("Active", active);
         tags.setInteger("Fuel", fuel);
         tags.setInteger("FuelGague", fuelGague);
@@ -293,13 +293,13 @@ public class FrypanLogic extends EquipLogic implements IActiveLogic
     }
 
     @Override
-    public String func_145825_b ()
+    public String getInventoryName ()
     {
         return getDefaultName();
     }
 
     @Override
-    public boolean func_145818_k_ ()
+    public boolean hasCustomInventoryName ()
     {
         return true;
     }

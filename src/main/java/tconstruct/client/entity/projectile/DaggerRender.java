@@ -30,7 +30,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class DaggerRender extends Render
 {
-    private static final ResourceLocation field_110798_h = new ResourceLocation("textures/misc/enchanted_item_glint.png");
+    private static final ResourceLocation RES_ITEM_GLINT = new ResourceLocation("textures/misc/enchanted_item_glint.png");
     private RenderBlocks itemRenderBlocks = new RenderBlocks();
 
     /** The RNG used in RenderItem (for bobbing itemstacks on the ground) */
@@ -72,7 +72,7 @@ public class DaggerRender extends Render
 
             Block block = BlockUtils.getBlockFromItem(itemstack.getItem());
 
-            if (itemstack.getItemSpriteNumber() == 0 && block != null && RenderBlocks.func_147739_a(BlockUtils.getBlockFromItem(itemstack.getItem()).func_149645_b()))
+            if (itemstack.getItemSpriteNumber() == 0 && block != null && RenderBlocks.renderItemIn3d(BlockUtils.getBlockFromItem(itemstack.getItem()).getRenderType()))
             {
                 GL11.glRotatef(f3, 0.0F, 1.0F, 0.0F);
 
@@ -84,7 +84,7 @@ public class DaggerRender extends Render
                 }
 
                 float f7 = 0.25F;
-                int j = block.func_149645_b();
+                int j = block.getRenderType();
 
                 if (j == 1 || j == 19 || j == 12 || j == 2)
                 {
@@ -106,7 +106,7 @@ public class DaggerRender extends Render
                     }
 
                     f5 = 1.0F;
-                    this.itemRenderBlocks.func_147800_a(block, itemstack.getItemDamage(), f5);
+                    this.itemRenderBlocks.renderBlockAsItem(block, itemstack.getItemDamage(), f5);
                     GL11.glPopMatrix();
                 }
             }
@@ -261,7 +261,7 @@ public class DaggerRender extends Render
             {
                 GL11.glDepthFunc(GL11.GL_EQUAL);
                 GL11.glDisable(GL11.GL_LIGHTING);
-                this.renderManager.renderEngine.bindTexture(field_110798_h);
+                this.renderManager.renderEngine.bindTexture(RES_ITEM_GLINT);
                 GL11.glEnable(GL11.GL_BLEND);
                 GL11.glBlendFunc(GL11.GL_SRC_COLOR, GL11.GL_ONE);
                 float f13 = 0.76F;
@@ -311,7 +311,7 @@ public class DaggerRender extends Render
         float f2;
 
         Block block = BlockUtils.getBlockFromItem(k);
-        if (par3ItemStack.getItemSpriteNumber() == 0 && block != null && RenderBlocks.func_147739_a(BlockUtils.getBlockFromItem(k).func_149645_b()))
+        if (par3ItemStack.getItemSpriteNumber() == 0 && block != null && RenderBlocks.renderItemIn3d(BlockUtils.getBlockFromItem(k).getRenderType()))
         {
             par2TextureManager.bindTexture(TextureMap.locationBlocksTexture);
             GL11.glPushMatrix();
@@ -332,9 +332,9 @@ public class DaggerRender extends Render
             }
 
             GL11.glRotatef(-90.0F, 0.0F, 1.0F, 0.0F);
-            this.itemRenderBlocks.field_147844_c = this.renderWithColor;
-            this.itemRenderBlocks.func_147800_a(block, l, 1.0F);
-            this.itemRenderBlocks.field_147844_c = true;
+            this.itemRenderBlocks.useInventoryTint = this.renderWithColor;
+            this.itemRenderBlocks.renderBlockAsItem(block, l, 1.0F);
+            this.itemRenderBlocks.useInventoryTint = true;
             GL11.glPopMatrix();
         }
         else if (k.requiresMultipleRenderPasses())
@@ -403,7 +403,7 @@ public class DaggerRender extends Render
         GL11.glDepthFunc(GL11.GL_GREATER);
         GL11.glDisable(GL11.GL_LIGHTING);
         GL11.glDepthMask(false);
-        manager.bindTexture(field_110798_h);
+        manager.bindTexture(RES_ITEM_GLINT);
         this.zLevel -= 50.0F;
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_DST_COLOR, GL11.GL_DST_COLOR);
@@ -434,7 +434,7 @@ public class DaggerRender extends Render
                 GL11.glDepthFunc(GL11.GL_GREATER);
                 GL11.glDisable(GL11.GL_LIGHTING);
                 GL11.glDepthMask(false);
-                par2TextureManager.bindTexture(field_110798_h);
+                par2TextureManager.bindTexture(RES_ITEM_GLINT);
                 this.zLevel -= 50.0F;
                 GL11.glEnable(GL11.GL_BLEND);
                 GL11.glBlendFunc(GL11.GL_DST_COLOR, GL11.GL_DST_COLOR);

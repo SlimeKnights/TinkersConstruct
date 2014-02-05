@@ -21,20 +21,20 @@ public class TableRender implements ISimpleBlockRenderingHandler
         {
             if (metadata == 5)
             {
-                renderer.func_147782_a(0.0F, 0.0, 0.0F, 1.0F, 0.875F, 1.0F);
+                renderer.setRenderBounds(0.0F, 0.0, 0.0F, 1.0F, 0.875F, 1.0F);
                 renderStandardInvBlock(renderer, block, metadata);
             }
             else
             {
-                renderer.func_147782_a(0.0F, 0.75F, 0.0F, 1.0F, 1.0F, 1.0F);
+                renderer.setRenderBounds(0.0F, 0.75F, 0.0F, 1.0F, 1.0F, 1.0F);
                 renderStandardInvBlock(renderer, block, metadata);
-                renderer.func_147782_a(0.0F, 0.0F, 0.0F, 0.25F, 0.75F, 0.25F);
+                renderer.setRenderBounds(0.0F, 0.0F, 0.0F, 0.25F, 0.75F, 0.25F);
                 renderStandardInvBlock(renderer, block, metadata);
-                renderer.func_147782_a(0.75F, 0.0F, 0.0F, 1.0F, 0.75F, 0.25F);
+                renderer.setRenderBounds(0.75F, 0.0F, 0.0F, 1.0F, 0.75F, 0.25F);
                 renderStandardInvBlock(renderer, block, metadata);
-                renderer.func_147782_a(0.0F, 0.0F, 0.75F, 0.25F, 0.75F, 1.0F);
+                renderer.setRenderBounds(0.0F, 0.0F, 0.75F, 0.25F, 0.75F, 1.0F);
                 renderStandardInvBlock(renderer, block, metadata);
-                renderer.func_147782_a(0.75F, 0.0F, 0.75F, 1.0F, 0.75F, 1.0F);
+                renderer.setRenderBounds(0.75F, 0.0F, 0.75F, 1.0F, 0.75F, 1.0F);
                 renderStandardInvBlock(renderer, block, metadata);
             }
         }
@@ -48,21 +48,21 @@ public class TableRender implements ISimpleBlockRenderingHandler
             int metadata = world.getBlockMetadata(x, y, z);
             if (metadata == 5)
             {
-                renderer.func_147782_a(0.0F, 0.0, 0.0F, 1.0F, 0.875F, 1.0F);
-                renderer.func_147784_q(block, x, y, z);
+                renderer.setRenderBounds(0.0F, 0.0, 0.0F, 1.0F, 0.875F, 1.0F);
+                renderer.renderStandardBlock(block, x, y, z);
             }
             else
             {
-                renderer.func_147782_a(0.0F, 0.75F, 0.0F, 1.0F, 1.0F, 1.0F);
-                renderer.func_147784_q(block, x, y, z);
-                renderer.func_147782_a(0.0F, 0.0F, 0.0F, 0.25F, 0.75F, 0.25F);
-                renderer.func_147784_q(block, x, y, z);
-                renderer.func_147782_a(0.75F, 0.0F, 0.0F, 1.0F, 0.75F, 0.25F);
-                renderer.func_147784_q(block, x, y, z);
-                renderer.func_147782_a(0.0F, 0.0F, 0.75F, 0.25F, 0.75F, 1.0F);
-                renderer.func_147784_q(block, x, y, z);
-                renderer.func_147782_a(0.75F, 0.0F, 0.75F, 1.0F, 0.75F, 1.0F);
-                renderer.func_147784_q(block, x, y, z);
+                renderer.setRenderBounds(0.0F, 0.75F, 0.0F, 1.0F, 1.0F, 1.0F);
+                renderer.renderStandardBlock(block, x, y, z);
+                renderer.setRenderBounds(0.0F, 0.0F, 0.0F, 0.25F, 0.75F, 0.25F);
+                renderer.renderStandardBlock(block, x, y, z);
+                renderer.setRenderBounds(0.75F, 0.0F, 0.0F, 1.0F, 0.75F, 0.25F);
+                renderer.renderStandardBlock(block, x, y, z);
+                renderer.setRenderBounds(0.0F, 0.0F, 0.75F, 0.25F, 0.75F, 1.0F);
+                renderer.renderStandardBlock(block, x, y, z);
+                renderer.setRenderBounds(0.75F, 0.0F, 0.75F, 1.0F, 0.75F, 1.0F);
+                renderer.renderStandardBlock(block, x, y, z);
             }
         }
         return true;
@@ -86,27 +86,27 @@ public class TableRender implements ISimpleBlockRenderingHandler
         GL11.glTranslatef(-0.5F, -0.5F, -0.5F);
         tessellator.startDrawingQuads();
         tessellator.setNormal(0.0F, -1F, 0.0F);
-        renderblocks.func_147768_a(block, 0.0D, 0.0D, 0.0D, block.func_149691_a(0, meta));
+        renderblocks.renderFaceYNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(0, meta));
         tessellator.draw();
         tessellator.startDrawingQuads();
         tessellator.setNormal(0.0F, 1.0F, 0.0F);
-        renderblocks.func_147806_b(block, 0.0D, 0.0D, 0.0D, block.func_149691_a(1, meta));
+        renderblocks.renderFaceYPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(1, meta));
         tessellator.draw();
         tessellator.startDrawingQuads();
         tessellator.setNormal(0.0F, 0.0F, -1F);
-        renderblocks.func_147761_c(block, 0.0D, 0.0D, 0.0D, block.func_149691_a(2, meta));
+        renderblocks.renderFaceZNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(2, meta));
         tessellator.draw();
         tessellator.startDrawingQuads();
         tessellator.setNormal(0.0F, 0.0F, 1.0F);
-        renderblocks.func_147734_d(block, 0.0D, 0.0D, 0.0D, block.func_149691_a(3, meta));
+        renderblocks.renderFaceZPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(3, meta));
         tessellator.draw();
         tessellator.startDrawingQuads();
         tessellator.setNormal(-1F, 0.0F, 0.0F);
-        renderblocks.func_147798_e(block, 0.0D, 0.0D, 0.0D, block.func_149691_a(4, meta));
+        renderblocks.renderFaceXNeg(block, 0.0D, 0.0D, 0.0D, block.getIcon(4, meta));
         tessellator.draw();
         tessellator.startDrawingQuads();
         tessellator.setNormal(1.0F, 0.0F, 0.0F);
-        renderblocks.func_147764_f(block, 0.0D, 0.0D, 0.0D, block.func_149691_a(5, meta));
+        renderblocks.renderFaceXPos(block, 0.0D, 0.0D, 0.0D, block.getIcon(5, meta));
         tessellator.draw();
         GL11.glTranslatef(0.5F, 0.5F, 0.5F);
     }

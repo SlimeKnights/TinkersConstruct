@@ -30,7 +30,7 @@ public class GlassBlockConnectedMeta extends GlassBlockConnected
     }
 
     @Override
-    public IIcon func_149673_e (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
+    public IIcon getIcon (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
     {
         int meta = par1IBlockAccess.getBlockMetadata(par2, par3, par4);
         if (meta < icons.length)
@@ -50,13 +50,13 @@ public class GlassBlockConnectedMeta extends GlassBlockConnected
     }
 
     @Override
-    public IIcon func_149691_a (int par1, int par2)
+    public IIcon getIcon (int par1, int par2)
     {
         return icons[par2][0];
     }
 
     @Override
-    public void func_149666_a (Item b, CreativeTabs par2CreativeTabs, List par3List)
+    public void getSubBlocks (Item b, CreativeTabs par2CreativeTabs, List par3List)
     {
         for (int i = 0; i < textures.length; i++)
         {
@@ -65,7 +65,7 @@ public class GlassBlockConnectedMeta extends GlassBlockConnected
     }
 
     @Override
-    public void func_149651_a (IIconRegister par1IconRegister)
+    public void registerBlockIcons (IIconRegister par1IconRegister)
     {
         for (int i = 0; i < textures.length; i++)
         {
@@ -89,7 +89,7 @@ public class GlassBlockConnectedMeta extends GlassBlockConnected
     }
 
     @Override
-    public int func_149692_a (int par1)
+    public int damageDropped (int par1)
     {
         return par1;
     }

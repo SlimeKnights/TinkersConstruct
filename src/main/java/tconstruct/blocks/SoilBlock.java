@@ -18,11 +18,11 @@ public class SoilBlock extends TConstructBlock
 
     public SoilBlock()
     {
-        super(Material.field_151578_c, 3.0F, soilTypes);
+        super(Material.ground, 3.0F, soilTypes);
     }
 
     @Override
-    public void func_149724_b (World world, int x, int y, int z, Entity entity)
+    public void onEntityWalking (World world, int x, int y, int z, Entity entity)
     {
         if (entity instanceof EntityLivingBase){
             if (((EntityLivingBase) entity).getCreatureAttribute() == EnumCreatureAttribute.UNDEAD)
@@ -56,9 +56,9 @@ public class SoilBlock extends TConstructBlock
         }
     }
 
-    public AxisAlignedBB func_149668_a (World world, int x, int y, int z)
+    public AxisAlignedBB getCollisionBoundingBoxFromPool (World world, int x, int y, int z)
     {
-        return Blocks.soul_sand.func_149668_a(world, x, y, z);
+        return Blocks.soul_sand.getCollisionBoundingBoxFromPool(world, x, y, z);
     }
 
     /*public void setBlockBoundsBasedOnState(IBlockAccess world, int x, int y, int z)

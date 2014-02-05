@@ -58,7 +58,7 @@ public class FurnaceLogic extends InventoryLogic implements IActiveLogic, IFacin
     public void setActive (boolean flag)
     {
         active = flag;
-        field_145850_b.func_147471_g(field_145851_c, field_145848_d, field_145849_e);
+        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
     }
 
     /* Fuel gauge */
@@ -138,7 +138,7 @@ public class FurnaceLogic extends InventoryLogic implements IActiveLogic, IFacin
     {
         if (this.canSmelt())
         {
-            ItemStack itemstack = FurnaceRecipes.smelting().func_151395_a(this.inventory[0]);
+            ItemStack itemstack = FurnaceRecipes.smelting().getSmeltingResult(this.inventory[0]);
 
             if (this.inventory[2] == null)
             {
@@ -165,7 +165,7 @@ public class FurnaceLogic extends InventoryLogic implements IActiveLogic, IFacin
             return false;
         else
         {
-            ItemStack itemstack = FurnaceRecipes.smelting().func_151395_a(this.inventory[0]);
+            ItemStack itemstack = FurnaceRecipes.smelting().getSmeltingResult(this.inventory[0]);
             if (itemstack == null)
                 return false;
             if (this.inventory[2] == null)
@@ -184,7 +184,7 @@ public class FurnaceLogic extends InventoryLogic implements IActiveLogic, IFacin
 
     public ItemStack getResultFor (ItemStack stack)
     {
-        ItemStack result = FurnaceRecipes.smelting().func_151395_a(stack);
+        ItemStack result = FurnaceRecipes.smelting().getSmeltingResult(stack);
         if (result != null) //Only valid for food
             return result.copy();
 
@@ -215,7 +215,7 @@ public class FurnaceLogic extends InventoryLogic implements IActiveLogic, IFacin
                     return 1200;
                 }
 
-                if (block.func_149688_o() == Material.field_151575_d)
+                if (block.getMaterial() == Material.wood)
                 {
                     return 300;
                 }
@@ -228,7 +228,7 @@ public class FurnaceLogic extends InventoryLogic implements IActiveLogic, IFacin
 
             if (item instanceof ItemTool && ((ItemTool) item).getToolMaterialName().equals("WOOD"))
                 return 200;
-            if (item instanceof ItemSword && ((ItemSword) item).func_150932_j().equals("WOOD"))
+            if (item instanceof ItemSword && ((ItemSword) item).getToolMaterialName().equals("WOOD"))
                 return 200;
             if (item instanceof ItemHoe && ((ItemHoe) item).getMaterialName().equals("WOOD"))
                 return 200;
@@ -247,18 +247,18 @@ public class FurnaceLogic extends InventoryLogic implements IActiveLogic, IFacin
     }
 
     /* NBT */
-    public void func_145839_a (NBTTagCompound tags)
+    public void readFromNBT (NBTTagCompound tags)
     {
-        super.func_145839_a(tags);
+        super.readFromNBT(tags);
         active = tags.getBoolean("Active");
         fuel = tags.getInteger("Fuel");
         fuelGague = tags.getInteger("FuelGague");
         readNetworkNBT(tags);
     }
 
-    public void func_145841_b (NBTTagCompound tags)
+    public void writeToNBT (NBTTagCompound tags)
     {
-        super.func_145841_b(tags);
+        super.writeToNBT(tags);
         tags.setBoolean("Active", active);
         tags.setInteger("Fuel", fuel);
         tags.setInteger("FuelGague", fuelGague);
@@ -277,18 +277,18 @@ public class FurnaceLogic extends InventoryLogic implements IActiveLogic, IFacin
 
     /* Packets */
     @Override
-    public Packet func_145844_m ()
+    public Packet getDescriptionPacket ()
     {
         NBTTagCompound tag = new NBTTagCompound();
         writeNetworkNBT(tag);
-        return new S35PacketUpdateTileEntity(field_145851_c, field_145848_d, field_145849_e, 1, tag);
+        return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 1, tag);
     }
 
     @Override
     public void onDataPacket (NetworkManager net, S35PacketUpdateTileEntity packet)
     {
         readNetworkNBT(packet.func_148857_g());
-        field_145850_b.func_147479_m(field_145851_c, field_145848_d, field_145849_e);
+        worldObj.func_147479_m(xCoord, yCoord, zCoord);
     }
 
     @Override
@@ -342,13 +342,13 @@ public class FurnaceLogic extends InventoryLogic implements IActiveLogic, IFacin
     }
 
     @Override
-    public String func_145825_b ()
+    public String getInventoryName ()
     {
         return getDefaultName();
     }
 
     @Override
-    public boolean func_145818_k_ ()
+    public boolean hasCustomInventoryName ()
     {
         return false;
     }

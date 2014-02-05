@@ -38,17 +38,17 @@ public class GuiButtonTool extends GuiButton
      */
     public void drawButton (Minecraft mc, int mouseX, int mouseY)
     {
-        if (this.field_146125_m)
+        if (this.visible)
         {
-            boolean var4 = mouseX >= this.field_146128_h && mouseY >= this.field_146129_i && mouseX < this.field_146128_h + this.field_146120_f && mouseY < this.field_146129_i + this.field_146121_g;
+            boolean var4 = mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height;
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
             mc.getTextureManager().bindTexture(background);
 
-            this.field_146123_n = mouseX >= this.field_146128_h && mouseY >= this.field_146129_i && mouseX < this.field_146128_h + this.field_146120_f && mouseY < this.field_146129_i + this.field_146121_g;
-            int var5 = this.func_146114_a(this.field_146123_n);
-            int index = 18 * func_146114_a(field_146123_n);
-            this.drawTexturedModalRect(this.field_146128_h, this.field_146129_i, 144 + index * 2, 216, 18, 18);
-            this.drawTexturedModalRect(this.field_146128_h, this.field_146129_i, textureX * 18, textureY * 18, 18, 18);
+            this.field_146123_n = mouseX >= this.xPosition && mouseY >= this.yPosition && mouseX < this.xPosition + this.width && mouseY < this.yPosition + this.height;
+            int var5 = this.getHoverState(this.field_146123_n);
+            int index = 18 * getHoverState(field_146123_n);
+            this.drawTexturedModalRect(this.xPosition, this.yPosition, 144 + index * 2, 216, 18, 18);
+            this.drawTexturedModalRect(this.xPosition, this.yPosition, textureX * 18, textureY * 18, 18, 18);
         }
     }
 }

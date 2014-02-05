@@ -82,7 +82,7 @@ public class ToolForgeContainer extends ToolStationContainer
             int amount = logic.getStackInSlot(1).getItem() instanceof ToolCore ? stack.stackSize : 1;
             logic.decrStackSize(1, amount);
             if (!logic.getWorld().isRemote)
-                logic.getWorld().playAuxSFX(1021, (int) logic.field_145851_c, (int) logic.field_145848_d, (int) logic.field_145849_e, 0);
+                logic.getWorld().playAuxSFX(1021, (int) logic.xCoord, (int) logic.yCoord, (int) logic.zCoord, 0);
         }
     }
 }

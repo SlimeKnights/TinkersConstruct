@@ -21,8 +21,8 @@ public class FurnaceSlab extends InventorySlab
     public FurnaceSlab(Material material)
     {
         super(material);
-        this.func_149647_a(TConstructRegistry.blockTab);
-        this.func_149711_c(3.5f);
+        this.setCreativeTab(TConstructRegistry.blockTab);
+        this.setHardness(3.5f);
     }
 
     @Override
@@ -57,14 +57,14 @@ public class FurnaceSlab extends InventorySlab
     }
 
     @Override
-    public IIcon func_149691_a (int side, int meta)
+    public IIcon getIcon (int side, int meta)
     {
         return icons[(meta % 8) * 3 + getTextureIndex(side)];
     }
 
-    public IIcon func_149673_e (IBlockAccess world, int x, int y, int z, int side)
+    public IIcon getIcon (IBlockAccess world, int x, int y, int z, int side)
     {
-        TileEntity logic = world.func_147438_o(x, y, z);
+        TileEntity logic = world.getTileEntity(x, y, z);
         short direction = (logic instanceof IFacingLogic) ? ((IFacingLogic) logic).getRenderDirection() : 0;
         int meta = world.getBlockMetadata(x, y, z) % 8;
 
@@ -97,7 +97,7 @@ public class FurnaceSlab extends InventorySlab
     }
 
     @Override
-    public void func_149651_a (IIconRegister iconRegister)
+    public void registerBlockIcons (IIconRegister iconRegister)
     {
         String[] textureNames = getTextureNames();
         this.icons = new IIcon[textureNames.length];
@@ -112,7 +112,7 @@ public class FurnaceSlab extends InventorySlab
     }
 
     @Override
-    public TileEntity func_149915_a (World var1, int metadata)
+    public TileEntity createNewTileEntity (World var1, int metadata)
     {
         switch (metadata % 8)
         {

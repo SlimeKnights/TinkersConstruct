@@ -28,8 +28,8 @@ public class PaneConnectedRender implements ISimpleBlockRenderingHandler
     @Override
     public boolean renderWorldBlock (IBlockAccess world, int x, int y, int z, Block block, int modelId, RenderBlocks renderer)
     {
-        boolean temp = renderer.field_147837_f;
-        renderer.field_147837_f = true;
+        boolean temp = renderer.renderAllFaces;
+        renderer.renderAllFaces = true;
 
         GlassPaneConnected pane = (GlassPaneConnected) block;
 
@@ -42,46 +42,46 @@ public class PaneConnectedRender implements ISimpleBlockRenderingHandler
 
         if (!flag && !flag1 && !flag2 && !flag3)
         {
-            renderer.func_147782_a(0D, 0D, 0.45D, 1D, 1D, 0.55D);
-            renderer.func_147784_q(block, x, y, z);
-            renderer.func_147782_a(0.45D, 0D, 0D, 0.55D, 1D, 1D);
-            renderer.func_147784_q(block, x, y, z);
+            renderer.setRenderBounds(0D, 0D, 0.45D, 1D, 1D, 0.55D);
+            renderer.renderStandardBlock(block, x, y, z);
+            renderer.setRenderBounds(0.45D, 0D, 0D, 0.55D, 1D, 1D);
+            renderer.renderStandardBlock(block, x, y, z);
         }
         else
         {
-            //			renderer.func_147782_a(0.45D, 0D, 0.45D, 0.55D, 1D, 0.55D);
-            //			renderer.func_147784_q(block, x, y, z);
+            //			renderer.setRenderBounds(0.45D, 0D, 0.45D, 0.55D, 1D, 0.55D);
+            //			renderer.renderStandardBlock(block, x, y, z);
         }
 
         //		renderer.setOverrideBlockTexture(sideTexture);
 
         if (flag)
         {
-            renderer.func_147782_a(0.45D, 0D, 0.45D, 1D, 1D, 0.55D);
-            renderer.func_147784_q(block, x, y, z);
+            renderer.setRenderBounds(0.45D, 0D, 0.45D, 1D, 1D, 0.55D);
+            renderer.renderStandardBlock(block, x, y, z);
         }
 
         if (flag1)
         {
-            renderer.func_147782_a(0D, 0D, 0.45D, 0.45D, 1D, 0.55D);
-            renderer.func_147784_q(block, x, y, z);
+            renderer.setRenderBounds(0D, 0D, 0.45D, 0.45D, 1D, 0.55D);
+            renderer.renderStandardBlock(block, x, y, z);
         }
 
         if (flag2)
         {
-            renderer.func_147782_a(0.45D, 0D, 0.45D, 0.55D, 1D, 1D);
-            renderer.func_147784_q(block, x, y, z);
+            renderer.setRenderBounds(0.45D, 0D, 0.45D, 0.55D, 1D, 1D);
+            renderer.renderStandardBlock(block, x, y, z);
         }
 
         if (flag3)
         {
-            renderer.func_147782_a(0.45D, 0D, 0D, 0.55D, 1D, 0.45D);
-            renderer.func_147784_q(block, x, y, z);
+            renderer.setRenderBounds(0.45D, 0D, 0D, 0.55D, 1D, 0.45D);
+            renderer.renderStandardBlock(block, x, y, z);
         }
 
-        renderer.func_147771_a();
+        renderer.clearOverrideBlockTexture();
 
-        renderer.field_147837_f = false;
+        renderer.renderAllFaces = false;
         return true;
     }
 

@@ -134,7 +134,7 @@ public class FilledBucket extends ItemBucket
 
     public boolean tryPlaceContainedLiquid (World world, int clickX, int clickY, int clickZ, int type)
     {
-        if (!WorldHelper.isAirBlock(world, clickX, clickY, clickZ) && world.func_147439_a(clickX, clickY, clickZ).func_149688_o().isSolid())
+        if (!WorldHelper.isAirBlock(world, clickX, clickY, clickZ) && world.getBlock(clickX, clickY, clickZ).getMaterial().isSolid())
         {
             return false;
         }
@@ -145,7 +145,7 @@ public class FilledBucket extends ItemBucket
                 if (TRepo.fluidBlocks[type] instanceof BlockFluidFinite)
                     metadata = 7;
 
-                world.func_147465_d(clickX, clickY, clickZ, TRepo.fluidBlocks[type], metadata, 3); //TODO: Merge liquids
+                world.setBlock(clickX, clickY, clickZ, TRepo.fluidBlocks[type], metadata, 3); //TODO: Merge liquids
             } catch (ArrayIndexOutOfBoundsException ex) {
                 TConstruct.logger.warn("AIOBE occured when placing bucket into world; " + ex);
                 return false;
@@ -156,7 +156,7 @@ public class FilledBucket extends ItemBucket
     }
 
     @Override
-    public void func_150895_a (Item b, CreativeTabs tab, List list)
+    public void getSubItems (Item b, CreativeTabs tab, List list)
     {
         for (int i = 0; i < icons.length; i++)
             list.add(new ItemStack(b, 1, i));

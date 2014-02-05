@@ -15,12 +15,12 @@ public class GlassBlockStained extends TConstructBlock
 
     public GlassBlockStained(String tex)
     {
-        super(Material.field_151592_s, 3f, blockTextures);
+        super(Material.glass, 3f, blockTextures);
         this.textureName = tex;
     }
 
     @Override
-    public int func_149701_w ()
+    public int getRenderBlockPass ()
     {
         return 1;
     }
@@ -31,15 +31,15 @@ public class GlassBlockStained extends TConstructBlock
     }
 
     @SideOnly(Side.CLIENT)
-    public boolean  func_149646_a (IBlockAccess world, int x, int y, int z, int side)
+    public boolean  shouldSideBeRendered (IBlockAccess world, int x, int y, int z, int side)
     {
-        Block block = world.func_147439_a(x, y, z);
-        return block == this ? false : super. func_149646_a(world, x, y, z, side);
+        Block block = world.getBlock(x, y, z);
+        return block == this ? false : super. shouldSideBeRendered(world, x, y, z, side);
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void func_149651_a (IIconRegister iconRegister)
+    public void registerBlockIcons (IIconRegister iconRegister)
     {
         this.icons = new IIcon[textureNames.length];
 

@@ -26,20 +26,20 @@ public class DryingRack extends InventoryBlock
 
     public DryingRack()
     {
-        super(Material.field_151575_d);
-        this.func_149647_a(TConstructRegistry.blockTab);
-        func_149711_c(2.0f);
-        field_149762_H = field_149777_j;
+        super(Material.wood);
+        this.setCreativeTab(TConstructRegistry.blockTab);
+        setHardness(2.0f);
+        stepSound = soundTypeMetal;
     }
 
     @Override
-    public TileEntity func_149915_a (World world, int metadata)
+    public TileEntity createNewTileEntity (World world, int metadata)
     {
         return new DryingRackLogic();
     }
 
     @Override
-    public int func_149701_w ()
+    public int getRenderBlockPass ()
     {
         return 1;
     }
@@ -77,7 +77,7 @@ public class DryingRack extends InventoryBlock
 
     /* Activation */
     @Override
-    public boolean func_149727_a (World world, int x, int y, int z, EntityPlayer player, int side, float clickX, float clickY, float clickZ)
+    public boolean onBlockActivated (World world, int x, int y, int z, EntityPlayer player, int side, float clickX, float clickY, float clickZ)
     {
         return activateDryingRack(world, x, y, z, player);
     }
@@ -86,7 +86,7 @@ public class DryingRack extends InventoryBlock
     {
         if (!world.isRemote)
         {
-            DryingRackLogic logic = (DryingRackLogic) world.func_147438_o(x, y, z);
+            DryingRackLogic logic = (DryingRackLogic) world.getTileEntity(x, y, z);
 
             if (!logic.isStackInSlot(0))
             {
@@ -107,7 +107,7 @@ public class DryingRack extends InventoryBlock
                 }
             }
 
-            world.func_147471_g(x, y, z);
+            world.markBlockForUpdate(x, y, z);
         }
         return true;
     }
@@ -196,18 +196,18 @@ public class DryingRack extends InventoryBlock
             yMin = 0.75F;
             break;
         }
-        this.func_149676_a(xMin, yMin, zMin, xMax, yMax, zMax);
+        this.setBlockBounds(xMin, yMin, zMin, xMax, yMax, zMax);
     }
 
     public void addCollisionBoxesToList (World world, int x, int y, int z, AxisAlignedBB aabb, List list, Entity entity)
     {
         this.setBlockBoundsBasedOnState(world, x, y, z);
-        super.func_149743_a(world, x, y, z, aabb, list, entity);
+        super.addCollisionBoxesToList(world, x, y, z, aabb, list, entity);
     }
 
     /* Rendering */
     @Override
-    public int func_149645_b ()
+    public int getRenderType ()
     {
         return DryingRackRender.model;
     }
@@ -221,9 +221,9 @@ public class DryingRack extends InventoryBlock
     }
 
     @Override
-    public IIcon func_149691_a (int side, int meta)
+    public IIcon getIcon (int side, int meta)
     {
-        return Blocks.planks.func_149691_a(side, 0);
+        return Blocks.planks.getIcon(side, 0);
     }
 
     public int getTextureIndex (int side)
@@ -237,13 +237,13 @@ public class DryingRack extends InventoryBlock
     }
 
     @Override
-    public boolean func_149686_d ()
+    public boolean renderAsNormalBlock ()
     {
         return false;
     }
 
     @Override
-    public boolean func_149662_c ()
+    public boolean isOpaqueCube ()
     {
         return false;
     }

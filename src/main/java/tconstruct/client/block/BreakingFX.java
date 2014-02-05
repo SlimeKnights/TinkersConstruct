@@ -22,7 +22,7 @@ public class BreakingFX extends EntityFX
         super(par1World, par2, par4, par6, 0.0D, 0.0D, 0.0D);
         this.setParticleIcon(par8Item.getIconFromDamage(par9));
         this.particleRed = this.particleGreen = this.particleBlue = 1.0F;
-        this.particleGravity = Blocks.snow.field_149763_I;
+        this.particleGravity = Blocks.snow.blockParticleGravity;
         this.particleScale /= 2.0F;
     }
 

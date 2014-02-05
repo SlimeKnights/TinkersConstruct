@@ -59,7 +59,7 @@ public class TActiveOmniMod extends ActiveToolMod
 
         NBTTagCompound tags = stack.getTagCompound().getCompoundTag("InfiTool");
         World world = entity.worldObj;
-        Block block = entity.worldObj.func_147439_a(x, y, z);
+        Block block = entity.worldObj.getBlock(x, y, z);
         int meta = world.getBlockMetadata(x, y, z);
         //TODO do we need the next to lines????????
         if (block == null)
@@ -67,15 +67,15 @@ public class TActiveOmniMod extends ActiveToolMod
 
         if (tags.getBoolean("Lava") && block.quantityDropped(meta, 0, random) != 0)
         {
-            ItemStack smeltStack = new ItemStack(block.func_149650_a(meta, random, 0), block.quantityDropped(meta, 0, random), block.func_149692_a(meta));
+            ItemStack smeltStack = new ItemStack(block.getItemDropped(meta, random, 0), block.quantityDropped(meta, 0, random), block.damageDropped(meta));
             if (smeltStack.getItem() == null)
                 return false;
-            ItemStack result = FurnaceRecipes.smelting().func_151395_a(smeltStack);
+            ItemStack result = FurnaceRecipes.smelting().getSmeltingResult(smeltStack);
             if (result != null)
             {
                 WorldHelper.setBlockToAir(world, x, y, z);
                 if (entity instanceof EntityPlayer && !((EntityPlayer) entity).capabilities.isCreativeMode)
-                    tool.func_150894_a(stack, world, block, x, y, z, entity);
+                    tool.onBlockDestroyed(stack, world, block, x, y, z, entity);
                 if (!world.isRemote)
                 {
                     ItemStack spawnme = result.copy();
@@ -89,9 +89,9 @@ public class TActiveOmniMod extends ActiveToolMod
                     }
                     EntityItem entityitem = new EntityItem(world, x + 0.5, y + 0.5, z + 0.5, spawnme);
 
-                    entityitem.field_145804_b = 10;
+                    entityitem.delayBeforeCanPickup = 10;
                     world.spawnEntityInWorld(entityitem);
-                    world.playAuxSFX(2001, x, y, z, Block.func_149682_b(block) + (meta << 12));
+                    world.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(block) + (meta << 12));
 
                     int i = spawnme.stackSize;
                     float f = FurnaceRecipes.smelting().func_151398_b(spawnme);

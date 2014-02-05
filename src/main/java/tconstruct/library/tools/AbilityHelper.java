@@ -496,8 +496,8 @@ public class AbilityHelper
                 return true;
             }
 
-            Block b = world.func_147439_a(x, y, z);
-            Block babove = world.func_147439_a(x, y + 1, z);
+            Block b = world.getBlock(x, y, z);
+            Block babove = world.getBlock(x, y + 1, z);
 
             if ((side == 0 || babove != Blocks.air || b != Blocks.grass) && b != Blocks.dirt)
             {
@@ -506,8 +506,8 @@ public class AbilityHelper
             else
             {
                 Block block = Blocks.farmland;
-                world.playSoundEffect((double) ((float) x + 0.5F), (double) ((float) y + 0.5F), (double) ((float) z + 0.5F), block.field_149762_H.field_150501_a,
-                        (block.field_149762_H.func_150497_c() + 1.0F) / 2.0F, block.field_149762_H.func_150494_d() * 0.8F);
+                world.playSoundEffect((double) ((float) x + 0.5F), (double) ((float) y + 0.5F), (double) ((float) z + 0.5F), block.stepSound.soundName,
+                        (block.stepSound.getVolume() + 1.0F) / 2.0F, block.stepSound.getPitch() * 0.8F);
 
                 if (world.isRemote)
                 {
@@ -515,7 +515,7 @@ public class AbilityHelper
                 }
                 else
                 {
-                    world.func_147449_b(x, y, z, block);
+                    world.setBlock(x, y, z, block);
                     onBlockChanged(stack, world, Blocks.air, x, y, z, player, random);
                     return true;
                 }
@@ -605,7 +605,7 @@ public class AbilityHelper
             float f6 = random.nextFloat() * f3 + (1.0F - f3) * 0.5F;
             entityitem = new EntityItem(world, f + f4, f1 + f5, f2 + f6, itemstack);
         }
-        entityitem.field_145804_b = 10;
+        entityitem.delayBeforeCanPickup = 10;
         world.spawnEntityInWorld(entityitem);
         return entityitem;
     }

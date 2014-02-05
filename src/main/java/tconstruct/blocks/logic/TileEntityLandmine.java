@@ -39,9 +39,9 @@ public class TileEntityLandmine extends TileEntity implements IInventory
     }
 
     @Override
-    public void func_145841_b (NBTTagCompound par1NBTTagCompound)
+    public void writeToNBT (NBTTagCompound par1NBTTagCompound)
     {
-        super.func_145841_b(par1NBTTagCompound);
+        super.writeToNBT(par1NBTTagCompound);
         NBTTagList nbttaglist = new NBTTagList();
 
         for (int i = 0; i < this.inventory.length; ++i)
@@ -59,22 +59,22 @@ public class TileEntityLandmine extends TileEntity implements IInventory
 
         par1NBTTagCompound.setInteger("triggerType", triggerType);
 
-        if (this.func_145818_k_())
+        if (this.hasCustomInventoryName())
         {
             par1NBTTagCompound.setString("CustomName", this.containerName);
         }
     }
 
     @Override
-    public void func_145839_a (NBTTagCompound par1NBTTagCompound)
+    public void readFromNBT (NBTTagCompound par1NBTTagCompound)
     {
-        super.func_145839_a(par1NBTTagCompound);
-        NBTTagList nbttaglist = par1NBTTagCompound.func_150295_c("Items",9);
+        super.readFromNBT(par1NBTTagCompound);
+        NBTTagList nbttaglist = par1NBTTagCompound.getTagList("Items",9);
         this.inventory = new ItemStack[this.getSizeInventory()];
 
         for (int i = 0; i < nbttaglist.tagCount(); ++i)
         {
-            NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist.func_150305_b(i);
+            NBTTagCompound nbttagcompound1 = (NBTTagCompound) nbttaglist.getCompoundTagAt(i);
             byte b0 = nbttagcompound1.getByte("Slot");
 
             if (b0 >= 0 && b0 < this.inventory.length)
@@ -92,17 +92,17 @@ public class TileEntityLandmine extends TileEntity implements IInventory
     }
 
     @Override
-    public Packet func_145844_m ()
+    public Packet getDescriptionPacket ()
     {
         NBTTagCompound nbt = new NBTTagCompound();
-        func_145841_b(nbt);
-        return new S35PacketUpdateTileEntity(field_145851_c, field_145848_d, field_145849_e, 0, nbt);
+        writeToNBT(nbt);
+        return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 0, nbt);
     }
 
     @Override
     public void onDataPacket (NetworkManager net, S35PacketUpdateTileEntity packet)
     {
-        func_145839_a(packet.func_148857_g());
+        readFromNBT(packet.func_148857_g());
     }
 
     @Override
@@ -181,13 +181,13 @@ public class TileEntityLandmine extends TileEntity implements IInventory
     }
 
     @Override
-    public String func_145825_b ()
+    public String getInventoryName ()
     {
-        return this.func_145818_k_() ? this.containerName : "Landmine";
+        return this.hasCustomInventoryName() ? this.containerName : "Landmine";
     }
 
     @Override
-    public boolean func_145818_k_ ()
+    public boolean hasCustomInventoryName ()
     {
         return containerName != null && containerName.length() > 0;
     }
@@ -206,8 +206,8 @@ public class TileEntityLandmine extends TileEntity implements IInventory
     @Override
     public boolean isUseableByPlayer (EntityPlayer par1EntityPlayer)
     {
-        return this.field_145850_b.func_147438_o(this.field_145851_c, this.field_145848_d, this.field_145849_e) != this ? false : par1EntityPlayer.getDistanceSq((double) this.field_145851_c + 0.5D, (double) this.field_145848_d + 0.5D,
-                (double) this.field_145849_e + 0.5D) <= 64.0D;
+        return this.worldObj.getTileEntity(this.xCoord, this.yCoord, this.zCoord) != this ? false : par1EntityPlayer.getDistanceSq((double) this.xCoord + 0.5D, (double) this.yCoord + 0.5D,
+                (double) this.zCoord + 0.5D) <= 64.0D;
     }
 
     @Override
@@ -224,7 +224,7 @@ public class TileEntityLandmine extends TileEntity implements IInventory
     public void onInventoryChanged ()
     {
         super.onInventoryChanged();
-        this.field_145850_b.func_147471_g(field_145851_c, field_145848_d, field_145849_e);
+        this.worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
     }
 
     @Override
@@ -250,11 +250,11 @@ public class TileEntityLandmine extends TileEntity implements IInventory
     }
 
     @Override
-    public void func_145845_h ()
+    public void updateEntity ()
     {
         if (shouldUpdateLogic)
         {
-            field_145850_b.func_147479_m(field_145851_c, field_145848_d, field_145849_e);
+            worldObj.func_147479_m(xCoord, yCoord, zCoord);
             shouldUpdateLogic = false;
         }
         if (soundcountything > 0)

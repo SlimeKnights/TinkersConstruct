@@ -19,18 +19,18 @@ public class FrypanRender implements ISimpleBlockRenderingHandler
     @Override
     public boolean renderWorldBlock (IBlockAccess world, int x, int y, int z, Block block, int modelID, RenderBlocks renderer)
     {
-        renderer.func_147782_a(0.0F, 0.0F, 0.0F, 1.0F, 0.125F, 1.0F);
-        renderer.func_147784_q(block, x, y, z);
-        renderer.func_147782_a(0.0F, 0.125F, 0.0F, 0.125F, 0.25F, 1.0F);
-        renderer.func_147784_q(block, x, y, z);
-        renderer.func_147782_a(0.125F, 0.125F, 0.875F, 0.875F, 0.25F, 1.0F);
-        renderer.func_147784_q(block, x, y, z);
-        renderer.func_147782_a(0.875F, 0.125F, 0.0F, 1.0F, 0.25F, 1.0F);
-        renderer.func_147784_q(block, x, y, z);
-        renderer.func_147782_a(0.125F, 0.125F, 0.0F, 0.875F, 0.25F, 0.125F);
-        renderer.func_147784_q(block, x, y, z);
-        //        renderer.func_147782_a(1F, 0.0F, 0.4375F, 2F, 0.125F, 0.5625F);
-        //        renderer.func_147784_q(block, x, y, z);
+        renderer.setRenderBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.125F, 1.0F);
+        renderer.renderStandardBlock(block, x, y, z);
+        renderer.setRenderBounds(0.0F, 0.125F, 0.0F, 0.125F, 0.25F, 1.0F);
+        renderer.renderStandardBlock(block, x, y, z);
+        renderer.setRenderBounds(0.125F, 0.125F, 0.875F, 0.875F, 0.25F, 1.0F);
+        renderer.renderStandardBlock(block, x, y, z);
+        renderer.setRenderBounds(0.875F, 0.125F, 0.0F, 1.0F, 0.25F, 1.0F);
+        renderer.renderStandardBlock(block, x, y, z);
+        renderer.setRenderBounds(0.125F, 0.125F, 0.0F, 0.875F, 0.25F, 0.125F);
+        renderer.renderStandardBlock(block, x, y, z);
+        //        renderer.setRenderBounds(1F, 0.0F, 0.4375F, 2F, 0.125F, 0.5625F);
+        //        renderer.renderStandardBlock(block, x, y, z);
         renderHandle(world, x, y, z, block, renderer);
         return true;
     }
@@ -40,20 +40,20 @@ public class FrypanRender implements ISimpleBlockRenderingHandler
         switch (world.getBlockMetadata(x, y, z))
         {
         case 0:
-            renderer.func_147782_a(1F, 0.0F, 0.4375F, 2F, 0.125F, 0.5625F);
+            renderer.setRenderBounds(1F, 0.0F, 0.4375F, 2F, 0.125F, 0.5625F);
             break;
         case 1:
-            renderer.func_147782_a(-1F, 0.0F, 0.4375F, 0F, 0.125F, 0.5625F);
+            renderer.setRenderBounds(-1F, 0.0F, 0.4375F, 0F, 0.125F, 0.5625F);
             break;
         case 2:
-            renderer.func_147782_a(0.4375F, 0.0F, -1F, 0.5625F, 0.125F, 0F);
+            renderer.setRenderBounds(0.4375F, 0.0F, -1F, 0.5625F, 0.125F, 0F);
             break;
         case 3:
-            renderer.func_147782_a(0.4375F, 0.0F, 1F, 0.5625F, 0.125F, 2F);
+            renderer.setRenderBounds(0.4375F, 0.0F, 1F, 0.5625F, 0.125F, 2F);
             break;
         }
 
-        renderer.func_147784_q(block, x, y, z);
+        renderer.renderStandardBlock(block, x, y, z);
     }
 
     @Override

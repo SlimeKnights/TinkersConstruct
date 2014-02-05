@@ -149,11 +149,11 @@ public abstract class BowBase extends ToolCore
                 //if (tinkerArrow != null)
                 if (slotID != -1 && (arrowID == -1 || slotID < arrowID))
                 {
-                    player.inventory.func_146026_a(TRepo.arrow);
+                    player.inventory.consumeInventoryItem(TRepo.arrow);
                 }
                 else
                 {
-                    player.inventory.func_146026_a(Items.arrow);
+                    player.inventory.consumeInventoryItem(Items.arrow);
                 }
             }
 

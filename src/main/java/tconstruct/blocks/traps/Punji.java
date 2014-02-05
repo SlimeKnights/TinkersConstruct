@@ -26,15 +26,15 @@ public class Punji extends MantleBlock
 
     public Punji()
     {
-        super(Material.field_151585_k);
-        this.func_149676_a(0.125f, 0, 0.125f, 0.875f, 0.375f, 0.875f);
-        this.field_149762_H = Block.field_149779_h;
-        this.func_149647_a(TConstructRegistry.blockTab);
-        this.func_149711_c(3.0f);
+        super(Material.plants);
+        this.setBlockBounds(0.125f, 0, 0.125f, 0.875f, 0.375f, 0.875f);
+        this.stepSound = Block.soundTypeGrass;
+        this.setCreativeTab(TConstructRegistry.blockTab);
+        this.setHardness(3.0f);
     }
 
     @Override
-    public void func_149670_a (World world, int x, int y, int z, Entity entity)
+    public void onEntityCollidedWithBlock (World world, int x, int y, int z, Entity entity)
     {
         if (entity instanceof EntityLivingBase)
         {
@@ -48,7 +48,7 @@ public class Punji extends MantleBlock
 
     /* Right-click adds sticks */
     @Override
-    public boolean func_149727_a (World world, int x, int y, int z, EntityPlayer player, int par6, float hitX, float hitY, float hitZ)
+    public boolean onBlockActivated (World world, int x, int y, int z, EntityPlayer player, int par6, float hitX, float hitY, float hitZ)
     {
         /*if (world.isRemote)
             return false;*/
@@ -60,8 +60,8 @@ public class Punji extends MantleBlock
             if (stack != null && stack == new ItemStack(TRepo.punji))
             {
                 world.setBlockMetadataWithNotify(x, y, z, meta + 1, 3);
-                world.playSoundEffect((double) ((float) x + 0.5F), (double) ((float) y + 0.5F), (double) ((float) z + 0.5F), this.field_149762_H.field_150501_a,
-                        (this.field_149762_H.func_150497_c() + 1.0F) / 2.0F, this.field_149762_H.func_150494_d() * 0.8F);
+                world.playSoundEffect((double) ((float) x + 0.5F), (double) ((float) y + 0.5F), (double) ((float) z + 0.5F), this.stepSound.soundName,
+                        (this.stepSound.getVolume() + 1.0F) / 2.0F, this.stepSound.getPitch() * 0.8F);
                 player.swingItem();
                 if (!player.capabilities.isCreativeMode)
                 {
@@ -104,14 +104,14 @@ public class Punji extends MantleBlock
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void func_149651_a (IIconRegister iconRegister)
+    public void registerBlockIcons (IIconRegister iconRegister)
     {
-        this.field_149761_L = iconRegister.registerIcon("tinker:punji");
+        this.blockIcon = iconRegister.registerIcon("tinker:punji");
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public boolean func_149646_a (IBlockAccess world, int x, int y, int z, int side)
+    public boolean shouldSideBeRendered (IBlockAccess world, int x, int y, int z, int side)
     {
         return true;
     }

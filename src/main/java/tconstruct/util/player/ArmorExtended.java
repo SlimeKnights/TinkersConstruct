@@ -95,13 +95,13 @@ public class ArmorExtended implements IInventory
     }
 
     @Override
-    public String func_145825_b ()
+    public String getInventoryName ()
     {
         return "";
     }
 
     @Override
-    public boolean func_145818_k_ ()
+    public boolean hasCustomInventoryName ()
     {
         return false;
     }
@@ -258,10 +258,10 @@ public class ArmorExtended implements IInventory
     public void readFromNBT (EntityPlayer entityplayer)
     {
         NBTTagCompound tags = entityplayer.getEntityData();
-        NBTTagList tagList = tags.func_150295_c("TConstruct.Inventory",9);
+        NBTTagList tagList = tags.getTagList("TConstruct.Inventory",9);
         for (int i = 0; i < tagList.tagCount(); ++i)
         {
-            NBTTagCompound nbttagcompound = (NBTTagCompound) tagList.func_150305_b(i);
+            NBTTagCompound nbttagcompound = (NBTTagCompound) tagList.getCompoundTagAt(i);
             int j = nbttagcompound.getByte("Slot") & 255;
             ItemStack itemstack = ItemStack.loadItemStackFromNBT(nbttagcompound);
 

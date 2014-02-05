@@ -27,7 +27,7 @@ public class RenderLandmine implements ISimpleBlockRenderingHandler
         GL11.glPushMatrix();
         GL11.glTranslatef(-0.5F, 0F, -0.5F);
 
-        renderer.func_147782_a(0.0625F, 0.0F, 0.0625F, 1.0F - 0.0625F, 0.0625F, 1.0F - 0.0625F);
+        renderer.setRenderBounds(0.0625F, 0.0F, 0.0625F, 1.0F - 0.0625F, 0.0625F, 1.0F - 0.0625F);
         Helper.renderInventoryCube(block, metadata, modelID, renderer);
 
         GL11.glPopMatrix();
@@ -61,26 +61,26 @@ public class RenderLandmine implements ISimpleBlockRenderingHandler
         switch (dir)
         {
         case DOWN:
-            renderer.func_147782_a(0.0625F, 0.0F, 0.0625F, 1.0F - 0.0625F, 0.0625F, 1.0F - 0.0625F);
+            renderer.setRenderBounds(0.0625F, 0.0F, 0.0625F, 1.0F - 0.0625F, 0.0625F, 1.0F - 0.0625F);
             break;
         case UP:
-            renderer.func_147782_a(0.0625F, 1.0F - 0.0625F, 0.0625F, 1.0F - 0.0625F, 1.0F, 1.0F - 0.0625F);
+            renderer.setRenderBounds(0.0625F, 1.0F - 0.0625F, 0.0625F, 1.0F - 0.0625F, 1.0F, 1.0F - 0.0625F);
             break;
         case NORTH:
-            renderer.func_147782_a(0.0625F, 0.0625F, 0.0F, 1.0F - 0.0625F, 1.0F - 0.0625F, 0.0625F);
+            renderer.setRenderBounds(0.0625F, 0.0625F, 0.0F, 1.0F - 0.0625F, 1.0F - 0.0625F, 0.0625F);
             break;
         case SOUTH:
-            renderer.func_147782_a(0.0625F, 0.0625F, 1.0F - 0.0625F, 1.0F - 0.0625F, 1.0F - 0.0625F, 1.0F);
+            renderer.setRenderBounds(0.0625F, 0.0625F, 1.0F - 0.0625F, 1.0F - 0.0625F, 1.0F - 0.0625F, 1.0F);
             break;
         case EAST:
-            renderer.func_147782_a(1.0F - 0.0625F, 0.0625F, 0.0625F, 1.0F, 1.0F - 0.0625F, 1.0F - 0.0625F);
+            renderer.setRenderBounds(1.0F - 0.0625F, 0.0625F, 0.0625F, 1.0F, 1.0F - 0.0625F, 1.0F - 0.0625F);
             break;
         case WEST:
-            renderer.func_147782_a(0.0F, 0.0625F, 0.0625F, 0.0625F, 1.0F - 0.0625F, 1.0F - 0.0625F);
+            renderer.setRenderBounds(0.0F, 0.0625F, 0.0625F, 0.0625F, 1.0F - 0.0625F, 1.0F - 0.0625F);
             break;
         }
 
-        renderer.func_147784_q(block, x, y, z);
+        renderer.renderStandardBlock(block, x, y, z);
     }
 
     @Override

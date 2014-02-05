@@ -83,7 +83,7 @@ public class BehaviorShears extends Behavior
             double d1 = (double) (par1World.rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
             double d2 = (double) (par1World.rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
             EntityItem entityitem = new EntityItem(par1World, (double) par2 + d0, (double) par3 + d1, (double) par4 + d2, par5ItemStack);
-            entityitem.field_145804_b = 10;
+            entityitem.delayBeforeCanPickup = 10;
             par1World.spawnEntityInWorld(entityitem);
         }
     }

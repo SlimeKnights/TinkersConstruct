@@ -29,50 +29,50 @@ public class TankAirBlock extends BlockContainer
     }
 
     @Override
-    public TileEntity func_149915_a (World world, int i)
+    public TileEntity createNewTileEntity (World world, int i)
     {
         return new TankAirLogic();
     }
 
     @Override
-    public int func_149645_b ()
+    public int getRenderType ()
     {
         return TankAirRender.model;
     }
 
     @SideOnly(Side.CLIENT)
-    public void func_149651_a (IIconRegister par1IconRegister)
+    public void registerBlockIcons (IIconRegister par1IconRegister)
     {
 
     }
 
     @Override
-    public boolean func_149662_c ()
+    public boolean isOpaqueCube ()
     {
         return false;
     }
 
     @Override
-    public boolean func_149686_d ()
+    public boolean renderAsNormalBlock ()
     {
         return false;
     }
 
     @Override
-    public AxisAlignedBB func_149668_a (World world, int x, int y, int z)
+    public AxisAlignedBB getCollisionBoundingBoxFromPool (World world, int x, int y, int z)
     {
-        TankAirLogic tank = (TankAirLogic) world.func_147438_o(x, y, z);
+        TankAirLogic tank = (TankAirLogic) world.getTileEntity(x, y, z);
         if (tank != null && tank.hasItem())
-            return super.func_149668_a(world, x, y, z);
+            return super.getCollisionBoundingBoxFromPool(world, x, y, z);
 
         return null;
     }
 
-    public MovingObjectPosition func_149731_a (World world, int x, int y, int z, Vec3 par5Vec3, Vec3 par6Vec3)
+    public MovingObjectPosition collisionRayTrace (World world, int x, int y, int z, Vec3 par5Vec3, Vec3 par6Vec3)
     {
-        TankAirLogic tank = (TankAirLogic) world.func_147438_o(x, y, z);
+        TankAirLogic tank = (TankAirLogic) world.getTileEntity(x, y, z);
         if (tank.hasItem())
-            return super.func_149731_a(world, x, y, z, par5Vec3, par6Vec3);
+            return super.collisionRayTrace(world, x, y, z, par5Vec3, par6Vec3);
 
         return null;
     }
@@ -102,7 +102,7 @@ public class TankAirBlock extends BlockContainer
     }
 
     @Override
-    public void func_149666_a (Item i, CreativeTabs tab, List list)
+    public void getSubBlocks (Item i, CreativeTabs tab, List list)
     {
     }
 

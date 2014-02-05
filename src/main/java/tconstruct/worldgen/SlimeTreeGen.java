@@ -42,7 +42,7 @@ public class SlimeTreeGen extends WorldGenerator
 
         if (yPos >= 1 && yPos + height + 1 <= 256)
         {
-            Block soil = world.func_147439_a(xPos, yPos - 1, zPos);
+            Block soil = world.getBlock(xPos, yPos - 1, zPos);
             boolean isSoil = (soil != null && soil.canSustainPlant(world, xPos, yPos - 1, zPos, ForgeDirection.UP, TRepo.slimeSapling));
 
             if (isSoil)
@@ -74,7 +74,7 @@ public class SlimeTreeGen extends WorldGenerator
             {
                 for (int zPos = range; zPos <= range; zPos++)
                 {
-                    Block block = world.func_147439_a(x + xPos, y + yPos, z + zPos);
+                    Block block = world.getBlock(x + xPos, y + yPos, z + zPos);
                     if (block != null && block != TRepo.slimeSapling && !block.isLeaves(world, x + xPos, y + yPos, z + zPos))
                         return false;
                 }
@@ -89,8 +89,8 @@ public class SlimeTreeGen extends WorldGenerator
         int height = y;
         do
         {
-            Block heightBL = world.func_147439_a(x, height, z);
-            if ((heightBL == TRepo.craftedSoil || heightBL == TRepo.slimeGrass) && !world.func_147439_a(x, height + 1, z).func_149662_c())
+            Block heightBL = world.getBlock(x, height, z);
+            if ((heightBL == TRepo.craftedSoil || heightBL == TRepo.slimeGrass) && !world.getBlock(x, height + 1, z).isOpaqueCube())
             {
                 ret = height + 1;
                 break;
@@ -154,7 +154,7 @@ public class SlimeTreeGen extends WorldGenerator
     {
         for (int localHeight = 0; localHeight < height; ++localHeight)
         {
-            Block block = world.func_147439_a(xPos, yPos + localHeight, zPos);
+            Block block = world.getBlock(xPos, yPos + localHeight, zPos);
 
 
             if (block == null || block == Blocks.air || block.isLeaves(world, xPos, yPos + localHeight, zPos))
@@ -166,16 +166,16 @@ public class SlimeTreeGen extends WorldGenerator
 
     protected void setBlockAndMetadata (World world, int x, int y, int z, Block block, int blockMeta)
     {
-        Block blockWorld = world.func_147439_a(x, y, z);
-        if (blockWorld == null || blockWorld == Blocks.air || blockWorld.func_149742_c(world, x, y, z))
+        Block blockWorld = world.getBlock(x, y, z);
+        if (blockWorld == null || blockWorld == Blocks.air || blockWorld.canPlaceBlockAt(world, x, y, z))
         {
             if (this.notify)
             {
-                world.func_147465_d(x, y, z, block, blockMeta, 3);
+                world.setBlock(x, y, z, block, blockMeta, 3);
             }
             else
             {
-                world.func_147465_d(x, y, z, block, blockMeta, 2);
+                world.setBlock(x, y, z, block, blockMeta, 2);
             }
         }
     }

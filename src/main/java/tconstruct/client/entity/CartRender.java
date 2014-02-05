@@ -32,7 +32,7 @@ public class CartRender extends Render
     public void renderPullcart (CartEntity cart, double posX, double posY, double posZ, float par8, float par9)
     {
         GL11.glPushMatrix();
-        long var10 = (long) cart.field_145783_c * 493286711L;
+        long var10 = (long) cart.entityId * 493286711L;
         var10 = var10 * var10 * 4392167121L + var10 * 98761L;
         float var12 = (((float) (var10 >> 16 & 7L) + 0.5F) / 8.0F - 0.5F) * 0.004F;
         float var13 = (((float) (var10 >> 20 & 7L) + 0.5F) / 8.0F - 0.5F) * 0.004F;
@@ -76,7 +76,7 @@ public class CartRender extends Render
         GL11.glTranslatef((float) posX, (float) posY + 0.3125f, (float) posZ);
         GL11.glRotatef(180.0F - par8, 0.0F, 1.0F, 0.0F);
         GL11.glRotatef(-var24, 0.0F, 0.0F, 1.0F);
-        float var28 = (float) cart.func_70496_j() - par9;
+        float var28 = (float) cart.getRollingAmplitude() - par9;
         float var30 = (float) cart.getDamage() - par9;
 
         if (var30 < 0.0F)
@@ -86,7 +86,7 @@ public class CartRender extends Render
 
         if (var28 > 0.0F)
         {
-            GL11.glRotatef(MathHelper.sin(var28) * var28 * var30 / 10.0F * (float) cart.func_70493_k(), 1.0F, 0.0F, 0.0F);
+            GL11.glRotatef(MathHelper.sin(var28) * var28 * var30 / 10.0F * (float) cart.getRollingDirection(), 1.0F, 0.0F, 0.0F);
         }
 
         if (cart.getCartType() != 0)
@@ -98,7 +98,7 @@ public class CartRender extends Render
             if (cart.getCartType() == 1)
             {
                 GL11.glTranslatef(0.0F, 0.5F, 0.0F);
-                renderblocks.func_147800_a(Blocks.chest, 0, cart.getBrightness(par9));
+                renderblocks.renderBlockAsItem(Blocks.chest, 0, cart.getBrightness(par9));
                 GL11.glRotatef(-90.0F, 0.0F, 1.0F, 0.0F);
                 GL11.glTranslatef(0.5F, 0.0F, -0.5F);
                 GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
@@ -106,7 +106,7 @@ public class CartRender extends Render
             else if (cart.getCartType() == 2)
             {
                 GL11.glTranslatef(0.0F, 0.3125F, 0.0F);
-                renderblocks.func_147800_a(Blocks.furnace, 0, cart.getBrightness(par9));
+                renderblocks.renderBlockAsItem(Blocks.furnace, 0, cart.getBrightness(par9));
                 GL11.glRotatef(-90.0F, 0.0F, 1.0F, 0.0F);
                 GL11.glTranslatef(0.0F, -0.3125F, 0.0F);
                 GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);

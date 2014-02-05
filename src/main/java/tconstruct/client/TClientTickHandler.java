@@ -30,9 +30,9 @@ public class TClientTickHandler
 
         if (event.phase.equals(Phase.END) && event.type.equals(Type.RENDER))
         {
-            TRepo.oreBerry.func_150122_b(Blocks.leaves.field_150121_P);
-            TRepo.oreBerrySecond.func_150122_b(Blocks.leaves.field_150121_P);
-            TRepo.slimeLeaves.func_150122_b(Blocks.leaves.field_150121_P);
+            TRepo.oreBerry.setGraphicsLevel(Blocks.leaves.field_150121_P);
+            TRepo.oreBerrySecond.setGraphicsLevel(Blocks.leaves.field_150121_P);
+            TRepo.slimeLeaves.setGraphicsLevel(Blocks.leaves.field_150121_P);
             /*if (mc.thePlayer != null && !mc.thePlayer.isAirBorne)
                 controlInstance.landOnGround();*/
         }

@@ -28,12 +28,12 @@ public class TabRegistry
         if (gui.getClass() == GuiInventory.class)
         {
             //Values are public at runtime.
-            int cornerX = gui.field_146999_f;
-            int cornerY = gui.field_147009_r;
-            gui.field_146292_n.clear();
+            int cornerX = gui.xSize;
+            int cornerY = gui.guiTop;
+            gui.buttonList.clear();
 
             updateTabValues(cornerX, cornerY, InventoryTabVanilla.class);
-            addTabsToList(gui.field_146292_n);
+            addTabsToList(gui.buttonList);
         }
     }
 
@@ -42,7 +42,7 @@ public class TabRegistry
     public static void openInventoryGui ()
     {
         GuiInventory inventory = new GuiInventory(mc.thePlayer);
-        mc.func_147108_a(inventory);
+        mc.displayGuiScreen(inventory);
         TabRegistry.addTabsToInventory(inventory);
     }
 
@@ -55,22 +55,22 @@ public class TabRegistry
 
             if (t.shouldAddToList())
             {
-                t.field_146127_k = count;
-                t.field_146128_h = cornerX + (count - 2) * 28;
-                t.field_146129_i = cornerY - 28;
-                t.field_146124_l = !t.getClass().equals(selectedButton);
+                t.id = count;
+                t.xPosition = cornerX + (count - 2) * 28;
+                t.yPosition = cornerY - 28;
+                t.enabled = !t.getClass().equals(selectedButton);
                 count++;
             }
         }
     }
 
-    public static void addTabsToList (List field_146292_n)
+    public static void addTabsToList (List buttonList)
     {
         for (AbstractTab tab : tabList)
         {
             if (tab.shouldAddToList())
             {
-                field_146292_n.add(tab);
+                buttonList.add(tab);
             }
         }
     }

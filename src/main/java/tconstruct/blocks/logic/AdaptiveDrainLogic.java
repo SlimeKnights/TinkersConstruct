@@ -32,7 +32,7 @@ public class AdaptiveDrainLogic extends MultiServantLogic implements IFluidHandl
     {
         if (hasValidMaster() && canDrain(from, null))
         {
-            AdaptiveSmelteryLogic smeltery = (AdaptiveSmelteryLogic) field_145850_b.func_147438_o(getMasterPosition().x, getMasterPosition().y, getMasterPosition().z);
+            AdaptiveSmelteryLogic smeltery = (AdaptiveSmelteryLogic) worldObj.getTileEntity(getMasterPosition().x, getMasterPosition().y, getMasterPosition().z);
             return smeltery.fill(from, resource, doFill);
         }
         return 0;
@@ -44,7 +44,7 @@ public class AdaptiveDrainLogic extends MultiServantLogic implements IFluidHandl
         // TConstruct.logger.info("Attempting drain " + hasValidMaster());
         if (hasValidMaster() && canDrain(from, null))
         {
-            AdaptiveSmelteryLogic smeltery = (AdaptiveSmelteryLogic) field_145850_b.func_147438_o(getMasterPosition().x, getMasterPosition().y, getMasterPosition().z);
+            AdaptiveSmelteryLogic smeltery = (AdaptiveSmelteryLogic) worldObj.getTileEntity(getMasterPosition().x, getMasterPosition().y, getMasterPosition().z);
             //  TConstruct.logger.info("Found master");
             return smeltery.drain(from, maxDrain, doDrain);
         }
@@ -56,7 +56,7 @@ public class AdaptiveDrainLogic extends MultiServantLogic implements IFluidHandl
     {
         if (hasValidMaster() && canDrain(from, null))
         {
-            AdaptiveSmelteryLogic smeltery = (AdaptiveSmelteryLogic) field_145850_b.func_147438_o(getMasterPosition().x, getMasterPosition().y, getMasterPosition().z);
+            AdaptiveSmelteryLogic smeltery = (AdaptiveSmelteryLogic) worldObj.getTileEntity(getMasterPosition().x, getMasterPosition().y, getMasterPosition().z);
             return smeltery.drain(from, resource, doDrain);
         }
         return null;
@@ -67,7 +67,7 @@ public class AdaptiveDrainLogic extends MultiServantLogic implements IFluidHandl
     {
         if (hasValidMaster())
         {
-            AdaptiveSmelteryLogic smeltery = (AdaptiveSmelteryLogic) field_145850_b.func_147438_o(getMasterPosition().x, getMasterPosition().y, getMasterPosition().z);
+            AdaptiveSmelteryLogic smeltery = (AdaptiveSmelteryLogic) worldObj.getTileEntity(getMasterPosition().x, getMasterPosition().y, getMasterPosition().z);
             return smeltery.getFillState() < 2;
         }
         return false;
@@ -78,7 +78,7 @@ public class AdaptiveDrainLogic extends MultiServantLogic implements IFluidHandl
     {
         if (hasValidMaster())
         {
-            AdaptiveSmelteryLogic smeltery = (AdaptiveSmelteryLogic) field_145850_b.func_147438_o(getMasterPosition().x, getMasterPosition().y, getMasterPosition().z);
+            AdaptiveSmelteryLogic smeltery = (AdaptiveSmelteryLogic) worldObj.getTileEntity(getMasterPosition().x, getMasterPosition().y, getMasterPosition().z);
             return smeltery.getFillState() > 0;
         }
         return false;
@@ -89,7 +89,7 @@ public class AdaptiveDrainLogic extends MultiServantLogic implements IFluidHandl
     {
         if (hasValidMaster() && (from == getForgeDirection() || from == getForgeDirection().getOpposite() || from == ForgeDirection.UNKNOWN))
         {
-            AdaptiveSmelteryLogic smeltery = (AdaptiveSmelteryLogic) field_145850_b.func_147438_o(getMasterPosition().x, getMasterPosition().y, getMasterPosition().z);
+            AdaptiveSmelteryLogic smeltery = (AdaptiveSmelteryLogic) worldObj.getTileEntity(getMasterPosition().x, getMasterPosition().y, getMasterPosition().z);
             return smeltery.getTankInfo(ForgeDirection.UNKNOWN);
         }
         return null;
@@ -144,32 +144,32 @@ public class AdaptiveDrainLogic extends MultiServantLogic implements IFluidHandl
         }
     }
 
-    public void func_145839_a (NBTTagCompound tags)
+    public void readFromNBT (NBTTagCompound tags)
     {
-        super.func_145839_a(tags);
+        super.readFromNBT(tags);
         direction = tags.getByte("Direction");
     }
 
     @Override
-    public void func_145841_b (NBTTagCompound tags)
+    public void writeToNBT (NBTTagCompound tags)
     {
-        super.func_145841_b(tags);
+        super.writeToNBT(tags);
         tags.setByte("Direction", direction);
     }
 
     /* Packets */
     @Override
-    public Packet func_145844_m ()
+    public Packet getDescriptionPacket ()
     {
         NBTTagCompound tag = new NBTTagCompound();
-        func_145841_b(tag);
-        return new S35PacketUpdateTileEntity(field_145851_c, field_145848_d, field_145849_e, 1, tag);
+        writeToNBT(tag);
+        return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 1, tag);
     }
 
     @Override
     public void onDataPacket (NetworkManager net, S35PacketUpdateTileEntity packet)
     {
-        func_145839_a(packet.func_148857_g());
-        field_145850_b.func_147479_m(field_145851_c, field_145848_d, field_145849_e);
+        readFromNBT(packet.func_148857_g());
+        worldObj.func_147479_m(xCoord, yCoord, zCoord);
     }
 }

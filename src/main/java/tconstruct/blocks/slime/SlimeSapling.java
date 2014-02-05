@@ -30,15 +30,15 @@ public class SlimeSapling extends BlockSapling
     {
         super();
         float f = 0.4F;
-        func_149676_a(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, f * 2.0F, 0.5F + f);
-        this.func_149711_c(0.0F);
-        this.field_149762_H = Block.field_149779_h;
-        this.func_149647_a(TConstructRegistry.blockTab);
+        setBlockBounds(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, f * 2.0F, 0.5F + f);
+        this.setHardness(0.0F);
+        this.stepSound = Block.soundTypeGrass;
+        this.setCreativeTab(TConstructRegistry.blockTab);
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void func_149651_a (IIconRegister iconRegister)
+    public void registerBlockIcons (IIconRegister iconRegister)
     {
         this.icons = new IIcon[textureNames.length];
 
@@ -53,13 +53,13 @@ public class SlimeSapling extends BlockSapling
         return b == Blocks.grass || b == Blocks.dirt || b == TRepo.slimeGrass || b == TRepo.craftedSoil;
     }
 
-    public void func_149674_a (World world, int x, int y, int z, Random random)
+    public void updateTick (World world, int x, int y, int z, Random random)
     {
         if (world.isRemote)
         {
             return;
         }
-        super.func_149674_a(world, x, y, z, random);
+        super.updateTick(world, x, y, z, random);
         int md = world.getBlockMetadata(x, y, z);
         if (random.nextInt(10) == 0 && world.getBlockLightValue(x, y + 1, z) >= 9)
         {
@@ -73,7 +73,7 @@ public class SlimeSapling extends BlockSapling
 
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon func_149691_a (int side, int meta)
+    public IIcon getIcon (int side, int meta)
     {
         return icons[meta % 8];
     }
@@ -106,13 +106,13 @@ public class SlimeSapling extends BlockSapling
     public void growTree (World world, int x, int y, int z, Random random)
     {
         int md = world.getBlockMetadata(x, y, z) % 8;
-        world.func_147449_b(x, y, z, Blocks.air);
+        world.setBlock(x, y, z, Blocks.air);
         WorldGenerator obj = null;
 
         obj = new SlimeTreeGen(true, 5, 4, 1, 0);
 
         if (!(obj.generate(world, random, x, y, z)))
-            world.func_147465_d(x, y, z, Blocks.air, md + 8, 3);
+            world.setBlock(x, y, z, Blocks.air, md + 8, 3);
     }
 
     public int damageDropped (int i)
@@ -122,7 +122,7 @@ public class SlimeSapling extends BlockSapling
 
     @SideOnly(Side.CLIENT)
     @Override
-    public void func_149666_a (Item b, CreativeTabs par2CreativeTabs, List par3List)
+    public void getSubBlocks (Item b, CreativeTabs par2CreativeTabs, List par3List)
     {
         for (int i = 0; i < 1; i++)
             par3List.add(new ItemStack(b, 1, i));

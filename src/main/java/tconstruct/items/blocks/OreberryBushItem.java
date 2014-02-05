@@ -42,15 +42,15 @@ public class OreberryBushItem extends MultiItemBlock
 
         else if (player.canPlayerEdit(x, y, z, side, stack) && player.canPlayerEdit(x, y + 1, z, side, stack))
         {
-            Block block = world.func_147439_a(x, y, z);
+            Block block = world.getBlock(x, y, z);
 
             if (block != null && block.canSustainPlant(world, x, y, z, ForgeDirection.UP, (IPlantable) TRepo.oreBerry) && WorldHelper.isAirBlock(world, x, y + 1, z))
             {
-                world.func_147465_d(x, y + 1, z, blockB, stack.getItemDamage() % 4, 3);
+                world.setBlock(x, y + 1, z, blockB, stack.getItemDamage() % 4, 3);
                 if (!player.capabilities.isCreativeMode)
                     stack.stackSize--;
                 if (!world.isRemote)
-                    world.playAuxSFX(2001, x, y, z, Block.func_149682_b(block));
+                    world.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(block));
                 return true;
             }
             else

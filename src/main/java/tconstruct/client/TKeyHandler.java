@@ -74,7 +74,7 @@ public abstract class TKeyHandler
         for (int i = 0; i < keyBindings.length; i++)
         {
             KeyBinding keyBinding = keyBindings[i];
-            int keyCode = keyBinding.func_151463_i();
+            int keyCode = keyBinding.getKeyCode();
             boolean state = (keyCode < 0 ? Mouse.isButtonDown(keyCode + 100) : Keyboard.isKeyDown(keyCode));
             if (state != keyDown[i] || (state && repeatings[i]))
             {
@@ -95,7 +95,7 @@ public abstract class TKeyHandler
         for (int i = 0; i < vKeyBindings.length; i++)
         {
             KeyBinding keyBinding = vKeyBindings[i];
-            int keyCode = keyBinding.func_151463_i();
+            int keyCode = keyBinding.getKeyCode();
             boolean state = (keyCode < 0 ? Mouse.isButtonDown(keyCode + 100) : Keyboard.isKeyDown(keyCode));
             if (state != keyDown[i + keyBindings.length] || (state && vRepeatings[i]))
             {

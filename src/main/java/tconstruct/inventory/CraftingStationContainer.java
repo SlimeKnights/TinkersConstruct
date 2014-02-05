@@ -22,14 +22,14 @@ public class CraftingStationContainer extends Container
     public InventoryCrafting craftMatrix;// = new InventoryCrafting(this, 3, 3);
     public IInventory craftResult;// = new InventoryCraftResult();
     private CraftingStationLogic logic;
-    private World field_145850_b;
+    private World worldObj;
     private int posX;
     private int posY;
     private int posZ;
 
     public CraftingStationContainer(InventoryPlayer inventorplayer, CraftingStationLogic logic, int x, int y, int z)
     {
-        this.field_145850_b = logic.getWorld();
+        this.worldObj = logic.getWorld();
         this.posX = x;
         this.posY = y;
         this.posZ = z;
@@ -94,7 +94,7 @@ public class CraftingStationContainer extends Container
         if (tool != null)
             this.craftResult.setInventorySlotContents(0, tool);
         else
-            this.craftResult.setInventorySlotContents(0, CraftingManager.getInstance().findMatchingRecipe(this.craftMatrix, this.field_145850_b));
+            this.craftResult.setInventorySlotContents(0, CraftingManager.getInstance().findMatchingRecipe(this.craftMatrix, this.worldObj));
     }
 
     public ItemStack modifyTool ()
@@ -135,7 +135,7 @@ public class CraftingStationContainer extends Container
     {
         super.onContainerClosed(par1EntityPlayer);
 
-        if (!this.field_145850_b.isRemote)
+        if (!this.worldObj.isRemote)
         {
             for (int i = 0; i < 9; ++i)
             {

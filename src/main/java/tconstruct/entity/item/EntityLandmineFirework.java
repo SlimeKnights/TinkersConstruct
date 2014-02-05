@@ -173,7 +173,7 @@ public class EntityLandmineFirework extends Entity
                 nbttagcompound = itemstack.getTagCompound().getCompoundTag("Fireworks");
             }
 
-            this.worldObj.func_92088_a(this.posX, this.posY, this.posZ, this.motionX, this.motionY, this.motionZ, nbttagcompound);
+            this.worldObj.makeFireworks(this.posX, this.posY, this.posZ, this.motionX, this.motionY, this.motionZ, nbttagcompound);
         }
 
         super.handleHealthUpdate(par1);

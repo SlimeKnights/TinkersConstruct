@@ -25,7 +25,7 @@ public class GlueFluid extends BlockFluidFinite {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void func_149651_a (IIconRegister iconRegister)
+    public void registerBlockIcons (IIconRegister iconRegister)
     {
         stillIcon = iconRegister.registerIcon("tinker:liquid_glue");
         flowIcon = iconRegister.registerIcon("tinker:liquid_glue_flow");
@@ -33,7 +33,7 @@ public class GlueFluid extends BlockFluidFinite {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon func_149691_a (int side, int meta)
+    public IIcon getIcon (int side, int meta)
     {
         if (side == 0 || side == 1)
             return stillIcon;
@@ -41,7 +41,7 @@ public class GlueFluid extends BlockFluidFinite {
     }
 
     @Override
-    public void func_149670_a(World world, int x, int y, int z, Entity entity) {
+    public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity) {
         entity.motionX *= 0.1;
         entity.motionZ *= 0.1;
 

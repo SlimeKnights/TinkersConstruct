@@ -38,7 +38,7 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
     /** Array of item stacks stored in minecart (for storage minecarts). */
     protected ItemStack[] cargoItems;
     protected int fuel;
-    protected boolean field_70499_f;
+    protected boolean isInReverse;
 
     /** The type of minecart, 2 for powered, 1 for storage. */
     private int pullcartType;
@@ -89,7 +89,7 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
         super(par1World);
         this.cargoItems = new ItemStack[36];
         this.fuel = 0;
-        this.field_70499_f = false;
+        this.isInReverse = false;
         this.field_82345_h = true;
         this.preventEntitySpawning = true;
         this.setSize(0.98F, 0.7F);
@@ -186,8 +186,8 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
             }
             else
             {
-                this.func_70494_i(-this.func_70493_k());
-                this.func_70497_h(10);
+                this.setRollingDirection(-this.getRollingDirection());
+                this.setRollingAmplitude(10);
                 this.setBeenAttacked();
                 this.setDamage(this.getDamage() + par2 * 10);
 
@@ -222,8 +222,8 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
      */
     public void performHurtAnimation ()
     {
-        this.func_70494_i(-this.func_70493_k());
-        this.func_70497_h(10);
+        this.setRollingDirection(-this.getRollingDirection());
+        this.setRollingAmplitude(10);
         this.setDamage(this.getDamage() + this.getDamage() * 10);
     }
 
@@ -297,9 +297,9 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
      */
     public void onUpdate ()
     {
-        if (this.func_70496_j() > 0)
+        if (this.getRollingAmplitude() > 0)
         {
-            this.func_70497_h(this.func_70496_j() - 1);
+            this.setRollingAmplitude(this.getRollingAmplitude() - 1);
         }
 
         if (this.getDamage() > 0)
@@ -409,7 +409,7 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
 
             double var4 = 0.4D;
             double var6 = 0.0078125D;
-            Block var8 = this.worldObj.func_147439_a(var45, var2, var47);
+            Block var8 = this.worldObj.getBlock(var45, var2, var47);
 
             moveMinecartOffRail(var45, var2, var47);
             if (entityFollowing != null)
@@ -424,7 +424,7 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
             {
                 this.rotationYaw = (float) (Math.atan2(var50, var49) * 180.0D / Math.PI);
 
-                if (this.field_70499_f)
+                if (this.isInReverse)
                 {
                     this.rotationYaw += 180.0F;
                 }
@@ -435,7 +435,7 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
             if (var51 < -170.0D || var51 >= 170.0D)
             {
                 this.rotationYaw += 180.0F;
-                this.field_70499_f = !this.field_70499_f;
+                this.isInReverse = !this.isInReverse;
             }
 
             this.setRotation(this.rotationYaw, this.rotationPitch);
@@ -572,7 +572,7 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
             --var10;
         }
 
-        Block var12 = this.worldObj.func_147439_a(var9, var10, var11);
+        Block var12 = this.worldObj.getBlock(var9, var10, var11);
 
         return null;
     }
@@ -588,7 +588,7 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
             --var8;
         }
 
-        Block var10 = this.worldObj.func_147439_a(var7, var8, var9);
+        Block var10 = this.worldObj.getBlock(var7, var8, var9);
 
         if (BlockRail.func_150051_a(var10))
         {
@@ -709,12 +709,12 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
 
         if (getSizeInventory() > 0)
         {
-            NBTTagList var2 = par1NBTTagCompound.func_150295_c("Items",9);
+            NBTTagList var2 = par1NBTTagCompound.getTagList("Items",9);
             this.cargoItems = new ItemStack[this.getSizeInventory()];
 
             for (int var3 = 0; var3 < var2.tagCount(); ++var3)
             {
-                NBTTagCompound var4 = (NBTTagCompound) var2.func_150305_b(var3);
+                NBTTagCompound var4 = (NBTTagCompound) var2.getCompoundTagAt(var3);
                 int var5 = var4.getByte("Slot") & 255;
 
                 if (var5 >= 0 && var5 < this.cargoItems.length)
@@ -1079,22 +1079,22 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
         return this.dataWatcher.getWatchableObjectInt(19);
     }
 
-    public void func_70497_h (int par1)
+    public void setRollingAmplitude (int par1)
     {
         this.dataWatcher.updateObject(17, Integer.valueOf(par1));
     }
 
-    public int func_70496_j ()
+    public int getRollingAmplitude ()
     {
         return this.dataWatcher.getWatchableObjectInt(17);
     }
 
-    public void func_70494_i (int par1)
+    public void setRollingDirection (int par1)
     {
         this.dataWatcher.updateObject(18, Integer.valueOf(par1));
     }
 
-    public int func_70493_k ()
+    public int getRollingDirection ()
     {
         return this.dataWatcher.getWatchableObjectInt(18);
     }
@@ -1451,14 +1451,14 @@ public class CartEntity extends Entity implements IInventory, IEntityAdditionalS
     }
 
     @Override
-    public String func_145825_b ()
+    public String getInventoryName ()
     {
         //TODO get inventory name
         return null;
     }
 
     @Override
-    public boolean func_145818_k_ ()
+    public boolean hasCustomInventoryName ()
     {
         return false;
     }

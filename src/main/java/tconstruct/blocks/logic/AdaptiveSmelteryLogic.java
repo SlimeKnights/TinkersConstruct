@@ -51,7 +51,7 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
         if (tick % 4 == 0)
             smeltery.heatItems();
 
-        if (!field_145850_b.isRemote)
+        if (!worldObj.isRemote)
         {
             if (tick % 20 == 0)
             {
@@ -113,9 +113,9 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
     /* Structure */
 
     @Override
-    public void func_145834_a (World world)
+    public void setWorldObj (World world)
     {
-        super.func_145834_a(world);
+        super.setWorldObj(world);
         structure.setWorld(world);
         smeltery.setWorld(world);
     }
@@ -123,7 +123,7 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
     @Override
     public void notifyChange (IServantLogic servant, int x, int y, int z)
     {
-        if (!field_145850_b.isRemote)
+        if (!worldObj.isRemote)
         {
             //System.out.println("Notifying of change from "+new CoordTuple(x, y, z));
             recheckStructure = true;
@@ -146,7 +146,7 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
         smeltery.adjustSize(structure.getAirSize(), true);
         multitank.setCapacity(structure.getAirSize() * (TConstruct.ingotLiquidValue * 18));
         smeltery.setActiveLavaTank(structure.lavaTanks.get(0));
-        field_145850_b.func_147471_g(field_145851_c, field_145848_d, field_145849_e);
+        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
     }
 
     @Override
@@ -271,7 +271,7 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
         CoordTuple air = structure.getAirByIndex(slot);
         if (air != null)
         {
-            TileEntity te = field_145850_b.func_147438_o(air.x, air.y, air.z);
+            TileEntity te = worldObj.getTileEntity(air.x, air.y, air.z);
             if (te != null && te instanceof TankAirLogic)
             {
                 ((TankAirLogic) te).setInventorySlotContents(0, itemstack);
@@ -393,7 +393,7 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
         {
             Map.Entry pairs = (Map.Entry) iter.next();
             CoordTuple coord = (CoordTuple) pairs.getKey();
-            TileEntity te = field_145850_b.func_147438_o(coord.x, coord.y, coord.z);
+            TileEntity te = worldObj.getTileEntity(coord.x, coord.y, coord.z);
             if (te instanceof TankAirLogic)
             {
                 ((TankAirLogic) te).overrideFluids(((LiquidDataInstance) pairs.getValue()).fluids);
@@ -406,7 +406,7 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
     public void updateAir ()
     {
         for (CoordTuple loc : structure.airCoords)
-            field_145850_b.func_147471_g(loc.x, loc.y, loc.z);
+            worldObj.markBlockForUpdate(loc.x, loc.y, loc.z);
     }
 
     class LiquidData
@@ -513,9 +513,9 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
     /* NBT */
 
     @Override
-    public void func_145839_a (NBTTagCompound tags)
+    public void readFromNBT (NBTTagCompound tags)
     {
-        super.func_145839_a(tags);
+        super.readFromNBT(tags);
         readNetworkNBT(tags);
 
         structure.readFromNBT(tags);
@@ -535,9 +535,9 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
     }
 
     @Override
-    public void func_145841_b (NBTTagCompound tags)
+    public void writeToNBT (NBTTagCompound tags)
     {
-        super.func_145841_b(tags);
+        super.writeToNBT(tags);
         writeNetworkNBT(tags);
 
         structure.writeToNBT(tags);
@@ -560,26 +560,26 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
     public void onDataPacket (NetworkManager net, S35PacketUpdateTileEntity packet)
     {
         readNetworkNBT(packet.func_148857_g());
-        field_145850_b.func_147479_m(field_145851_c, field_145848_d, field_145849_e);
+        worldObj.func_147479_m(xCoord, yCoord, zCoord);
     }
 
     @Override
-    public Packet func_145844_m ()
+    public Packet getDescriptionPacket ()
     {
         NBTTagCompound tag = new NBTTagCompound();
         writeNetworkNBT(tag);
-        return new S35PacketUpdateTileEntity(field_145851_c, field_145848_d, field_145849_e, 1, tag);
+        return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 1, tag);
     }
 
     @Override
-    public String func_145825_b ()
+    public String getInventoryName ()
     {
         // TODO Auto-generated method stub
         return getDefaultName();
     }
 
     @Override
-    public boolean func_145818_k_ ()
+    public boolean hasCustomInventoryName ()
     {
         return true;
     }

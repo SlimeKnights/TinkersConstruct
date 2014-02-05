@@ -243,7 +243,7 @@ public class TBaseWorldGenerator implements IWorldGenerator
         int height = y;
         do
         {
-            if (world.func_147439_a(x, height, z) == Blocks.air && world.func_147439_a(x, height + 1, z) != Blocks.air)
+            if (world.getBlock(x, height, z) == Blocks.air && world.getBlock(x, height + 1, z) != Blocks.air)
                 return height + 1;
             height++;
         } while (height < heightLimit);
@@ -251,7 +251,7 @@ public class TBaseWorldGenerator implements IWorldGenerator
         height = y;
         do
         {
-            if (world.func_147439_a(x, height, z) == Blocks.air && world.func_147439_a(x, height - 1, z) != Blocks.air)
+            if (world.getBlock(x, height, z) == Blocks.air && world.getBlock(x, height - 1, z) != Blocks.air)
                 return height - 1;
             height--;
         } while (height > depthLimit);
@@ -263,7 +263,7 @@ public class TBaseWorldGenerator implements IWorldGenerator
     {
         /*for (int x = 0; x < 16; x++)
             for (int z = 0; z < 16; z++)
-                world.func_147465_d(x+chunkX, 192, z+chunkZ, Block.glowStone);*/
+                world.setBlock(x+chunkX, 192, z+chunkZ, Block.glowStone);*/
 
         for (int x = 0; x < 16; x++)
         {
@@ -271,19 +271,19 @@ public class TBaseWorldGenerator implements IWorldGenerator
             {
                 for (int y = 0; y < 128; y++)
                 {
-                    Block block = world.func_147439_a(x + chunkX, y, z + chunkZ);
+                    Block block = world.getBlock(x + chunkX, y, z + chunkZ);
                     if (block != null)
                     {
-                        if (block.func_149688_o() == Material.field_151584_j)
-                            world.func_147465_d(x + chunkX, y, z + chunkZ, Blocks.lava, 0, 0);
-                        if (block.func_149688_o() == Material.field_151575_d)
-                            world.func_147465_d(x + chunkX, y, z + chunkZ, Blocks.netherrack, 0, 0);
+                        if (block.getMaterial() == Material.leaves)
+                            world.setBlock(x + chunkX, y, z + chunkZ, Blocks.lava, 0, 0);
+                        if (block.getMaterial() == Material.wood)
+                            world.setBlock(x + chunkX, y, z + chunkZ, Blocks.netherrack, 0, 0);
                         if (block == Blocks.stone)
-                            world.func_147465_d(x + chunkX, y, z + chunkZ, Blocks.end_stone, 0, 0);
-                        if (y > 40 && (block.func_149688_o() == Material.field_151578_c || block.func_149688_o() == Material.field_151577_b))
-                            world.func_147465_d(x + chunkX, y, z + chunkZ, Blocks.soul_sand, 0, 0);
-                        if (block.func_149688_o() == Material.field_151595_p)
-                            world.func_147465_d(x + chunkX, y, z + chunkZ, Blocks.monster_egg, 0, 0);
+                            world.setBlock(x + chunkX, y, z + chunkZ, Blocks.end_stone, 0, 0);
+                        if (y > 40 && (block.getMaterial() == Material.ground || block.getMaterial() == Material.grass))
+                            world.setBlock(x + chunkX, y, z + chunkZ, Blocks.soul_sand, 0, 0);
+                        if (block.getMaterial() == Material.sand)
+                            world.setBlock(x + chunkX, y, z + chunkZ, Blocks.monster_egg, 0, 0);
                     }
                 }
             }
@@ -300,7 +300,7 @@ public class TBaseWorldGenerator implements IWorldGenerator
                 {
                     for (int y = 0; y < 256; y++)
                     {
-                        world.func_147465_d(x + chunkX, y, z + chunkZ, Blocks.bedrock, 0, 0);
+                        world.setBlock(x + chunkX, y, z + chunkZ, Blocks.bedrock, 0, 0);
                     }
                 }
             }

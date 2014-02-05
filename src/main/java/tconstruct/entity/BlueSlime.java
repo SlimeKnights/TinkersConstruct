@@ -78,7 +78,7 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
         return StatCollector.translateToLocal("entity." + s + ".name");
     }
 
-    public IEntityLivingData func_110161_a (IEntityLivingData par1EntityLivingData)
+    public IEntityLivingData onSpawnWithEgg (IEntityLivingData par1EntityLivingData)
     {
         Object par1EntityLivingData1 = super.onSpawnWithEgg(par1EntityLivingData);
 
@@ -104,7 +104,7 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
             {
                 BlueSlime slime = new BlueSlime(this.worldObj);
                 slime.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
-                slime.func_110161_a(par1EntityLivingData);
+                slime.onSpawnWithEgg(par1EntityLivingData);
                 this.worldObj.spawnEntityInWorld(slime);
             }
 
@@ -315,7 +315,7 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
             this.sizeOffset = 1.0F;
         }
 
-        this.func_70808_l();
+        this.alterSquishAmount();
 
         if (this.worldObj.isRemote)
         {
@@ -378,7 +378,7 @@ public class BlueSlime extends EntityLiving implements IMob, IBossDisplayData
         return false;
     }
 
-    protected void func_70808_l ()
+    protected void alterSquishAmount ()
     {
         this.sizeOffset *= 0.6F;
     }

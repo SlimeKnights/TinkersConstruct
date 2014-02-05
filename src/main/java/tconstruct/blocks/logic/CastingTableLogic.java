@@ -135,7 +135,7 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
                         castingDelay = recipe.coolTime;
                     }
                     renderOffset = copyLiquid.amount;
-                    getWorld().func_147479_m(field_145851_c, field_145848_d, field_145849_e);
+                    getWorld().func_147479_m(xCoord, yCoord, zCoord);
                     this.liquid = copyLiquid;
                     needsUpdate = true;
                 }
@@ -157,7 +157,7 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
                     renderOffset = roomInTank;
                     castingDelay = TConstruct.tableCasting.getCastingDelay(this.liquid, inventory[0]);
                     this.liquid.amount = this.capacity;
-                    getWorld().func_147479_m(field_145851_c, field_145848_d, field_145849_e);
+                    getWorld().func_147479_m(xCoord, yCoord, zCoord);
                     needsUpdate = true;
                 }
                 return roomInTank;
@@ -168,7 +168,7 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
                 if (doFill)
                 {
                     this.liquid.amount += resource.amount;
-                    getWorld().func_147479_m(field_145851_c, field_145848_d, field_145849_e);
+                    getWorld().func_147479_m(xCoord, yCoord, zCoord);
                     needsUpdate = true;
                 }
                 return resource.amount;
@@ -185,14 +185,14 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
     public void onInventoryChanged () //Isn't actually called?
     {
         super.onInventoryChanged();
-        getWorld().func_147479_m(field_145851_c, field_145848_d, field_145849_e);
+        getWorld().func_147479_m(xCoord, yCoord, zCoord);
         needsUpdate = true;
     }
 
     public ItemStack decrStackSize (int slot, int quantity)
     {
         ItemStack stack = super.decrStackSize(slot, quantity);
-        getWorld().func_147479_m(field_145851_c, field_145848_d, field_145849_e);
+        getWorld().func_147479_m(xCoord, yCoord, zCoord);
         return stack;
     }
 
@@ -221,7 +221,7 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
             liquid = null;
 
         if (doDrain)
-            FluidEvent.fireEvent(new FluidEvent.FluidDrainingEvent(drained, this.getWorld(), this.field_145851_c, this.field_145848_d, this.field_145849_e, this));
+            FluidEvent.fireEvent(new FluidEvent.FluidDrainingEvent(drained, this.getWorld(), this.xCoord, this.yCoord, this.zCoord, this));
 
         return drained;
     }
@@ -292,7 +292,7 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
 
     /* Updating */
     @Override
-    public void func_145845_h ()
+    public void updateEntity ()
     {
         if (castingDelay > 0)
         {
@@ -304,7 +304,7 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
         if (renderOffset > 0)
         {
             renderOffset -= 6;
-            getWorld().func_147479_m(field_145851_c, field_145848_d, field_145849_e);
+            getWorld().func_147479_m(xCoord, yCoord, zCoord);
         }
 
         tick++;
@@ -312,7 +312,7 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
         {
             tick = 0;
             if (needsUpdate)
-                getWorld().func_147471_g(field_145851_c, field_145848_d, field_145849_e);
+                getWorld().markBlockForUpdate(xCoord, yCoord, zCoord);
         }
     }
 
@@ -325,16 +325,16 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
             if (recipe.consumeCast)
                 inventory[0] = null;
             liquid = null;
-            getWorld().func_147471_g(field_145851_c, field_145848_d, field_145849_e);
+            getWorld().markBlockForUpdate(xCoord, yCoord, zCoord);
         }
     }
 
     /* NBT */
 
     @Override
-    public void func_145839_a (NBTTagCompound tags)
+    public void readFromNBT (NBTTagCompound tags)
     {
-        super.func_145839_a(tags);
+        super.readFromNBT(tags);
         readCustomNBT(tags);
     }
 
@@ -355,9 +355,9 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
     }
 
     @Override
-    public void func_145841_b (NBTTagCompound tags)
+    public void writeToNBT (NBTTagCompound tags)
     {
-        super.func_145841_b(tags);
+        super.writeToNBT(tags);
         writeCustomNBT(tags);
     }
 
@@ -377,18 +377,18 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
 
     /* Packets */
     @Override
-    public Packet func_145844_m ()
+    public Packet getDescriptionPacket ()
     {
         NBTTagCompound tag = new NBTTagCompound();
-        func_145839_a(tag);
-        return new S35PacketUpdateTileEntity(field_145851_c, field_145848_d, field_145849_e, 1, tag);
+        readFromNBT(tag);
+        return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 1, tag);
     }
 
     @Override
     public void onDataPacket (NetworkManager net, S35PacketUpdateTileEntity packet)
     {
-        func_145839_a(packet.func_148857_g());
-        getWorld().func_147479_m(field_145851_c, field_145848_d, field_145849_e);
+        readFromNBT(packet.func_148857_g());
+        getWorld().func_147479_m(xCoord, yCoord, zCoord);
     }
 
     @Override
@@ -419,13 +419,13 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
     }
 
     @Override
-    public String func_145825_b ()
+    public String getInventoryName ()
     {
         return null;
     }
 
     @Override
-    public boolean func_145818_k_ ()
+    public boolean hasCustomInventoryName ()
     {
         return false;
     }

@@ -16,7 +16,7 @@ public class OreberryBushEssence extends OreberryBush implements IPlantable
     /* Bush growth */
 
     @Override
-    public void func_149674_a (World world, int x, int y, int z, Random random1)
+    public void updateTick (World world, int x, int y, int z, Random random1)
     {
         if (world.isRemote)
         {
@@ -30,12 +30,12 @@ public class OreberryBushEssence extends OreberryBush implements IPlantable
             {
                 if (meta < 12)
                 {
-                    world.func_147465_d(x, y, z,(Block) this, meta + 4, 3);
+                    world.setBlock(x, y, z,(Block) this, meta + 4, 3);
                 }
             }
             /*else if (meta < 8)
             {
-            	world.func_147465_d(x, y, z, blockID, meta + 4, 3);
+            	world.setBlock(x, y, z, blockID, meta + 4, 3);
             }*/
         }
     }

@@ -60,8 +60,8 @@ public class ToolStationLogic extends InventoryLogic implements ISidedInventory
         buildTool(toolName);
         if (this.getWorld() != null)
         {
-            this.field_145847_g = this.getWorld().getBlockMetadata(this.field_145851_c, this.field_145848_d, this.field_145849_e);
-            this.getWorld().func_147476_b(this.field_145851_c, this.field_145848_d, this.field_145849_e, this);
+            this.blockMetadata = this.getWorld().getBlockMetadata(this.xCoord, this.yCoord, this.zCoord);
+            this.getWorld().markTileEntityChunkModified(this.xCoord, this.yCoord, this.zCoord, this);
         }
     }
 
@@ -111,13 +111,13 @@ public class ToolStationLogic extends InventoryLogic implements ISidedInventory
     }
 
     @Override
-    public String func_145825_b ()
+    public String getInventoryName ()
     {
         return getDefaultName();
     }
 
     @Override
-    public boolean func_145818_k_ ()
+    public boolean hasCustomInventoryName ()
     {
         return true;
     }

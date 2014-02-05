@@ -42,23 +42,23 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
 
     public OreberryBush(String[] textureNames, int meta, int sub, String[] oreTypes)
     {
-        super(Material.field_151584_j, false);
+        super(Material.leaves, false);
         this.textureNames = textureNames;
         this.itemMeat = meta;
         this.subitems = sub;
         this.oreTypes = oreTypes;
-        this.func_149675_a(true);
+        this.setTickRandomly(true);
         random = new Random();
-        this.func_149711_c(0.3F);
-        this.func_149672_a(field_149777_j);
-        this.func_149647_a(TConstructRegistry.blockTab);
+        this.setHardness(0.3F);
+        this.setStepSound(soundTypeMetal);
+        this.setCreativeTab(TConstructRegistry.blockTab);
     }
 
     /* Berries show up at meta 12-15 */
 
     @SideOnly(Side.CLIENT)
     @Override
-    public void func_149651_a (IIconRegister iconRegister)
+    public void registerBlockIcons (IIconRegister iconRegister)
     {
         this.fastIcons = new IIcon[textureNames.length];
         this.fancyIcons = new IIcon[textureNames.length];
@@ -75,7 +75,7 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
 
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon func_149691_a (int side, int metadata)
+    public IIcon getIcon (int side, int metadata)
     {
         if (net.minecraft.client.Minecraft.getMinecraft().gameSettings.fancyGraphics)
         {
@@ -103,14 +103,14 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
 
     /* Bushes are stored by size then type */
     @Override
-    public int func_149692_a (int metadata)
+    public int damageDropped (int metadata)
     {
         return metadata % 4;
     }
 
     /* The following methods define a berry bush's size depending on metadata */
     @Override
-    public AxisAlignedBB func_149668_a (World world, int x, int y, int z)
+    public AxisAlignedBB getCollisionBoundingBoxFromPool (World world, int x, int y, int z)
     {
         int l = world.getBlockMetadata(x, y, z);
         if (l < 4)
@@ -145,7 +145,7 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
     }
 
     @Override
-    public void func_149719_a (IBlockAccess iblockaccess, int x, int y, int z)
+    public void setBlockBoundsBasedOnState (IBlockAccess iblockaccess, int x, int y, int z)
     {
         int md = iblockaccess.getBlockMetadata(x, y, z);
 
@@ -177,19 +177,19 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
             maxX = maxZ = 1.0F;
             maxY = 1.0F;
         }
-        func_149676_a(minX, minY, minZ, maxX, maxY, maxZ);
+        setBlockBounds(minX, minY, minZ, maxX, maxY, maxZ);
     }
 
     /* Left-click harvests berries */
     @Override
-    public void func_149699_a (World world, int x, int y, int z, EntityPlayer player)
+    public void onBlockClicked (World world, int x, int y, int z, EntityPlayer player)
     {
         if (!world.isRemote)
         {
             int meta = world.getBlockMetadata(x, y, z);
             if (meta >= 12)
             {
-                world.func_147465_d(x, y, z, this, meta - 4, 3);
+                world.setBlock(x, y, z, this, meta - 4, 3);
                 AbilityHelper.spawnItemAtPlayer(player, new ItemStack(TRepo.oreBerries, 1, meta % 4 + itemMeat));
             }
         }
@@ -197,7 +197,7 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
 
     /* Right-click harvests berries */
     @Override
-    public boolean func_149727_a (World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9)
+    public boolean onBlockActivated (World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9)
     {
         /*if (world.isRemote)
             return false;*/
@@ -208,7 +208,7 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
             if (world.isRemote)
                 return true;
 
-            world.func_147465_d(x, y, z, this, meta - 4, 3);
+            world.setBlock(x, y, z, this, meta - 4, 3);
             AbilityHelper.spawnItemAtPlayer(player, new ItemStack(TRepo.oreBerries, random.nextInt(3) + 1, meta % 4 + itemMeat));
             return true;
         }
@@ -219,13 +219,13 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
     /* Render logic */
 
     @Override
-    public boolean func_149662_c ()
+    public boolean isOpaqueCube ()
     {
         return false;
     }
 
     @Override
-    public boolean func_149686_d ()
+    public boolean renderAsNormalBlock ()
     {
         return false;
     }
@@ -236,11 +236,11 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
     }
 
     @SideOnly(Side.CLIENT)
-    public boolean func_149646_a (IBlockAccess iblockaccess, int x, int y, int z, int meta)
+    public boolean shouldSideBeRendered (IBlockAccess iblockaccess, int x, int y, int z, int meta)
     {
         if (meta > 7 || net.minecraft.client.Minecraft.getMinecraft().gameSettings.fancyGraphics)
         {
-            return super.func_149646_a(iblockaccess, x, y, z, meta);
+            return super.shouldSideBeRendered(iblockaccess, x, y, z, meta);
         }
         else
         {
@@ -251,7 +251,7 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
     /* Bush growth */
 
     @Override
-    public void func_149674_a (World world, int x, int y, int z, Random random1)
+    public void updateTick (World world, int x, int y, int z, Random random1)
     {
         if (world.isRemote)
         {
@@ -265,12 +265,12 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
                 int meta = world.getBlockMetadata(x, y, z);
                 if (meta < 12)
                 {
-                    world.func_147465_d(x, y, z, this, meta + 4, 3);
+                    world.setBlock(x, y, z, this, meta + 4, 3);
                 }
             }
             /*else if (meta < 8)
             {
-            	world.func_147465_d(x, y, z, blockID, meta + 4, 3);
+            	world.setBlock(x, y, z, blockID, meta + 4, 3);
             }*/
         }
     }
@@ -285,7 +285,7 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
     public boolean canPlaceBlockAt (World world, int x, int y, int z)
     {
         if (world.getFullBlockLightValue(x, y, z) < 13)
-            return super.func_149742_c(world, x, y, z);
+            return super.canPlaceBlockAt(world, x, y, z);
         return false;
     }
 
@@ -294,7 +294,7 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
      */
     @SideOnly(Side.CLIENT)
     @Override
-    public void func_149666_a (Item b, CreativeTabs par2CreativeTabs, List par3List)
+    public void getSubBlocks (Item b, CreativeTabs par2CreativeTabs, List par3List)
     {
         for (int var4 = 8; var4 < 8 + subitems; ++var4)
         {
@@ -315,7 +315,7 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
     }
 
     @Override
-    public void func_149670_a (World world, int x, int y, int z, Entity entity)
+    public void onEntityCollidedWithBlock (World world, int x, int y, int z, Entity entity)
     {
         if (!(entity instanceof EntityItem))
             entity.attackEntityFrom(DamageSource.cactus, 1);
@@ -328,7 +328,7 @@ public class OreberryBush extends BlockLeavesBase implements IPlantable
     }
     
     @SideOnly(Side.CLIENT)
-    public void func_150122_b(boolean p_150122_1_)
+    public void setGraphicsLevel(boolean p_150122_1_)
     {
         this.field_150121_P = p_150122_1_;
         this.field_150127_b = (p_150122_1_ ? 0 : 1);

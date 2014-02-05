@@ -28,17 +28,17 @@ public class SlimeTallGrass extends BlockBush implements IShearable
 
     public SlimeTallGrass()
     {
-        super(Material.field_151582_l);
+        super(Material.vine);
         float f = 0.4F;
-        this.func_149676_a(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, 0.8F, 0.5F + f);
-        func_149647_a(TConstructRegistry.blockTab);
+        this.setBlockBounds(0.5F - f, 0.0F, 0.5F - f, 0.5F + f, 0.8F, 0.5F + f);
+        setCreativeTab(TConstructRegistry.blockTab);
     }
 
     @SideOnly(Side.CLIENT)
     /**
      * From the specified side and block metadata retrieves the blocks texture. Args: side, metadata
      */
-    public IIcon func_149691_a (int side, int meta)
+    public IIcon getIcon (int side, int meta)
     {
         /*if (meta >= this.iconArray.length)
         {
@@ -89,7 +89,7 @@ public class SlimeTallGrass extends BlockBush implements IShearable
      * When this method is called, your block should register all the icons it needs with the given IconRegister. This
      * is the only chance you get to register icons.
      */
-    public void func_149651_a (IIconRegister par1IconRegister)
+    public void registerBlockIcons (IIconRegister par1IconRegister)
     {
         this.iconArray = new IIcon[grassTypes.length];
 

@@ -24,9 +24,9 @@ public class WoodRail extends BlockRailBase
     /**
      * From the specified side and block metadata retrieves the blocks texture. Args: side, metadata
      */
-    public IIcon func_149691_a (int par1, int par2)
+    public IIcon getIcon (int par1, int par2)
     {
-        return par2 >= 6 ? this.theIcon : this.field_149761_L;
+        return par2 >= 6 ? this.theIcon : this.blockIcon;
     }
 
     @SideOnly(Side.CLIENT)
@@ -34,15 +34,15 @@ public class WoodRail extends BlockRailBase
      * When this method is called, your block should register all the icons it needs with the given IconRegister. This
      * is the only chance you get to register icons.
      */
-    public void func_149651_a (IIconRegister par1IconRegister)
+    public void registerBlockIcons (IIconRegister par1IconRegister)
     {
-        this.field_149761_L = par1IconRegister.registerIcon("tinker:woodrail");
+        this.blockIcon = par1IconRegister.registerIcon("tinker:woodrail");
         this.theIcon = par1IconRegister.registerIcon("tinker:woodrail_turn");
     }
 
     protected void func_94358_a (World par1World, int par2, int par3, int par4, int par5, int par6, Block par7)
     {
-        if (par7 != Blocks.air && par7.func_149744_f() && (new Rail(par1World, par2, par3, par4)).func_150650_a() == 3)
+        if (par7 != Blocks.air && par7.canProvidePower() && (new Rail(par1World, par2, par3, par4)).func_150650_a() == 3)
         {
             this.func_150052_a(par1World, par2, par3, par4, false);
         }

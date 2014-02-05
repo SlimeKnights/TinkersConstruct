@@ -22,7 +22,7 @@ public class LandmineSpecialStackLogic
     public LandmineSpecialStackLogic(World par1World, int par2, int par3, int par4, Entity entity, boolean mayHurtPlayer, ArrayList<ItemStack> items)
     {
         worldObj = par1World;
-        this.tileEntity = (TileEntityLandmine) par1World.func_147438_o(par2, par3, par4);
+        this.tileEntity = (TileEntityLandmine) par1World.getTileEntity(par2, par3, par4);
         this.x = par2;
         this.y = par3;
         this.z = par4;

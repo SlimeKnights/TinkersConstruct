@@ -182,7 +182,7 @@ public class RotatingBase extends Entity implements IEntityAdditionalSpawnData
         }
         if (onGround)
         {
-            Block i = worldObj.func_147439_a(xTile, yTile, zTile);
+            Block i = worldObj.getBlock(xTile, yTile, zTile);
             if (i != inTile)
             {
                 onGround = false;
@@ -342,7 +342,7 @@ public class RotatingBase extends Entity implements IEntityAdditionalSpawnData
         tags.setShort("xTile", (short) xTile);
         tags.setShort("yTile", (short) yTile);
         tags.setShort("zTile", (short) zTile);
-        tags.setString("inTile", (String) inTile.func_149739_a());
+        tags.setString("inTile", (String) inTile.getUnlocalizedName());
         tags.setByte("shake", (byte) arrowShake);
         tags.setByte("onGround", (byte) (onGround ? 1 : 0));
         tags.setBoolean("Retrieval", doNotRetrieve);

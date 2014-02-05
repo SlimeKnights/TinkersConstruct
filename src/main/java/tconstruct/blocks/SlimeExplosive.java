@@ -25,7 +25,7 @@ public class SlimeExplosive extends TConstructBlock
 
     public SlimeExplosive()
     {
-        super(Material.field_151590_u, 0f, getTextureNames());
+        super(Material.tnt, 0f, getTextureNames());
     }
 
     static String[] getTextureNames ()
@@ -43,13 +43,13 @@ public class SlimeExplosive extends TConstructBlock
 
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon func_149691_a (int side, int meta)
+    public IIcon getIcon (int side, int meta)
     {
         return icons[(meta / 2) * 3 + getSideTextureIndex(side)];
     }
 
     @Override
-    public void func_149666_a (Item b, CreativeTabs tab, List list)
+    public void getSubBlocks (Item b, CreativeTabs tab, List list)
     {
         for (int iter = 0; iter < 2; iter++)
         {
@@ -58,29 +58,29 @@ public class SlimeExplosive extends TConstructBlock
     }
 
     @Override
-    public void func_149726_b (World par1World, int par2, int par3, int par4)
+    public void onBlockAdded (World par1World, int par2, int par3, int par4)
     {
-        super.func_149726_b(par1World, par2, par3, par4);
+        super.onBlockAdded(par1World, par2, par3, par4);
 
         if (par1World.isBlockIndirectlyGettingPowered(par2, par3, par4))
         {
-            this.func_149664_b(par1World, par2, par3, par4, 1);
+            this.onBlockDestroyedByPlayer(par1World, par2, par3, par4, 1);
             WorldHelper.setBlockToAir(par1World, par2, par3, par4);
         }
     }
 
     @Override
-    public void func_149695_a (World par1World, int par2, int par3, int par4, Block par5Block)
+    public void onNeighborBlockChange (World par1World, int par2, int par3, int par4, Block par5Block)
     {
         if (par1World.isBlockIndirectlyGettingPowered(par2, par3, par4))
         {
-            this.func_149664_b(par1World, par2, par3, par4, 1);
+            this.onBlockDestroyedByPlayer(par1World, par2, par3, par4, 1);
             WorldHelper.setBlockToAir(par1World, par2, par3, par4);
         }
     }
 
     @Override
-    public void func_149723_a (World par1World, int par2, int par3, int par4, Explosion par5Explosion)
+    public void onBlockDestroyedByExplosion (World par1World, int par2, int par3, int par4, Explosion par5Explosion)
     {
         if (!par1World.isRemote)
         {
@@ -92,7 +92,7 @@ public class SlimeExplosive extends TConstructBlock
     }
 
     @Override
-    public void func_149664_b (World par1World, int par2, int par3, int par4, int par5)
+    public void onBlockDestroyedByPlayer (World par1World, int par2, int par3, int par4, int par5)
     {
         this.primeTnt(par1World, par2, par3, par4, par5, (EntityLivingBase) null);
     }
@@ -111,7 +111,7 @@ public class SlimeExplosive extends TConstructBlock
     }
 
     @Override
-    public boolean func_149727_a (World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9)
+    public boolean onBlockActivated (World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9)
     {
         if (par5EntityPlayer.getCurrentEquippedItem() != null && par5EntityPlayer.getCurrentEquippedItem().getItem() == Items.flint_and_steel)
         {
@@ -122,12 +122,12 @@ public class SlimeExplosive extends TConstructBlock
         }
         else
         {
-            return super.func_149727_a(par1World, par2, par3, par4, par5EntityPlayer, par6, par7, par8, par9);
+            return super.onBlockActivated(par1World, par2, par3, par4, par5EntityPlayer, par6, par7, par8, par9);
         }
     }
 
     @Override
-    public void func_149670_a (World par1World, int par2, int par3, int par4, Entity par5Entity)
+    public void onEntityCollidedWithBlock (World par1World, int par2, int par3, int par4, Entity par5Entity)
     {
         if (par5Entity instanceof EntityArrow && !par1World.isRemote)
         {
@@ -142,7 +142,7 @@ public class SlimeExplosive extends TConstructBlock
     }
 
     @Override
-    public boolean func_149659_a (Explosion par1Explosion)
+    public boolean canDropFromExplosion (Explosion par1Explosion)
     {
         return false;
     }

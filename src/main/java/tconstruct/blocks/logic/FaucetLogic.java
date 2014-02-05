@@ -21,7 +21,7 @@ public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogi
     {
         if (liquid == null && active)
         {
-            int x = field_145851_c, z = field_145849_e;
+            int x = xCoord, z = zCoord;
             switch (getRenderDirection())
             {
             case 2:
@@ -38,8 +38,8 @@ public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogi
                 break;
             }
 
-            TileEntity drainte = field_145850_b.func_147438_o(x, field_145848_d, z);
-            TileEntity tankte = field_145850_b.func_147438_o(field_145851_c, field_145848_d - 1, field_145849_e);
+            TileEntity drainte = worldObj.getTileEntity(x, yCoord, z);
+            TileEntity tankte = worldObj.getTileEntity(xCoord, yCoord - 1, zCoord);
 
             if (drainte != null && drainte instanceof IFluidHandler && tankte != null && tankte instanceof IFluidHandler)
             {
@@ -51,7 +51,7 @@ public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogi
                     {
                         liquid = ((IFluidHandler) drainte).drain(getForgeDirection(), drained, true);
                         ((IFluidHandler) tankte).fill(ForgeDirection.UP, liquid, true);
-                        field_145850_b.func_147471_g(field_145851_c, field_145848_d, field_145849_e);
+                        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
                         return true;
                     }
                     else
@@ -66,7 +66,7 @@ public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogi
     }
 
     @Override
-    public void func_145845_h ()
+    public void updateEntity ()
     {
         if (liquid != null)
         {
@@ -77,7 +77,7 @@ public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogi
                 if (!activateFaucet())
                 {
                     active = false;
-                    field_145850_b.func_147471_g(field_145851_c, field_145848_d, field_145849_e);
+                    worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
                 }
             }
         }
@@ -126,9 +126,9 @@ public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogi
     }
 
     @Override
-    public void func_145839_a (NBTTagCompound tags)
+    public void readFromNBT (NBTTagCompound tags)
     {
-        super.func_145839_a(tags);
+        super.readFromNBT(tags);
         readCustomNBT(tags);
     }
 
@@ -144,9 +144,9 @@ public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogi
     }
 
     @Override
-    public void func_145841_b (NBTTagCompound tags)
+    public void writeToNBT (NBTTagCompound tags)
     {
-        super.func_145841_b(tags);
+        super.writeToNBT(tags);
         writeCustomNBT(tags);
     }
 
@@ -164,18 +164,18 @@ public class FaucetLogic extends TileEntity implements IFacingLogic, IActiveLogi
 
     /* Packets */
     @Override
-    public Packet func_145844_m ()
+    public Packet getDescriptionPacket ()
     {
         NBTTagCompound tag = new NBTTagCompound();
         writeCustomNBT(tag);
-        return new S35PacketUpdateTileEntity(field_145851_c, field_145848_d, field_145849_e, 1, tag);
+        return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 1, tag);
     }
 
     @Override
     public void onDataPacket (NetworkManager net, S35PacketUpdateTileEntity packet)
     {
         readCustomNBT(packet.func_148857_g());
-        field_145850_b.func_147479_m(field_145851_c, field_145848_d, field_145849_e);
+        worldObj.func_147479_m(xCoord, yCoord, zCoord);
     }
 
     @Override

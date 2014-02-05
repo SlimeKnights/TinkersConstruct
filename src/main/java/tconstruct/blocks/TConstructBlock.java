@@ -22,20 +22,20 @@ public class TConstructBlock extends MantleBlock
     public TConstructBlock( Material material, float hardness, String[] tex)
     {
         super( material);
-        func_149711_c(hardness);
-        this.func_149647_a(TConstructRegistry.blockTab);
+        setHardness(hardness);
+        this.setCreativeTab(TConstructRegistry.blockTab);
         textureNames = tex;
     }
 
     @Override
-    public int func_149692_a (int meta)
+    public int damageDropped (int meta)
     {
         return meta;
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void func_149651_a (IIconRegister iconRegister)
+    public void registerBlockIcons (IIconRegister iconRegister)
     {
         this.icons = new IIcon[textureNames.length];
 
@@ -47,7 +47,7 @@ public class TConstructBlock extends MantleBlock
 
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon func_149691_a (int side, int meta)
+    public IIcon getIcon (int side, int meta)
     {
         return meta < icons.length ? icons[meta] : icons[0];
     }
@@ -65,7 +65,7 @@ public class TConstructBlock extends MantleBlock
 
     //TODO getSubBlocks
     @Override
-    public void func_149666_a (Item block, CreativeTabs tab, List list)
+    public void getSubBlocks (Item block, CreativeTabs tab, List list)
     {
         for (int iter = 0; iter < icons.length; iter++)
         {

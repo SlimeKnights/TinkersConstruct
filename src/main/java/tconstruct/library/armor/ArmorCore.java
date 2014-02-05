@@ -36,7 +36,7 @@ public abstract class ArmorCore extends ItemArmor implements IEnergyContainerIte
         this.setUnlocalizedName(SET_NAME);
         this.armorPart = part;
         this.baseProtection = baseProtection;
-        BlockDispenser.field_149943_a.putObject(this, dispenserBehavior);
+        BlockDispenser.dispenseBehaviorRegistry.putObject(this, dispenserBehavior);
     }
 
     public String getArmorName ()

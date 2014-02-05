@@ -28,7 +28,7 @@ public class TankAirLogic extends InventoryLogic implements IServantLogic, ISide
     public void overrideFluids (ArrayList<FluidStack> fluids)
     {
         /*multitank.overrideFluids(fluids);
-        field_145850_b.func_147471_g(field_145851_c, field_145848_d, field_145849_e);*/
+        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);*/
     }
 
     public boolean hasItem ()
@@ -53,8 +53,8 @@ public class TankAirLogic extends InventoryLogic implements IServantLogic, ISide
         if (itemstack != null && itemstack.stackSize > getInventoryStackLimit())
         {
             itemstack.stackSize = getInventoryStackLimit();
-            field_145850_b.setBlockMetadataWithNotify(field_145851_c, field_145848_d, field_145849_e, itemstack.getItemDamage(), 3);
-            field_145850_b.func_147471_g(field_145851_c, field_145848_d, field_145849_e);
+            worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, itemstack.getItemDamage(), 3);
+            worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
         }*/
     }
 
@@ -101,7 +101,7 @@ public class TankAirLogic extends InventoryLogic implements IServantLogic, ISide
     @Override
     public void invalidateMaster (IMasterLogic master, World world, int xMaster, int yMaster, int zMaster)
     {
-        WorldHelper.setBlockToAir(world, field_145851_c, field_145848_d, field_145849_e);
+        WorldHelper.setBlockToAir(world, xCoord, yCoord, zCoord);
     }
 
     @Override
@@ -131,7 +131,7 @@ public class TankAirLogic extends InventoryLogic implements IServantLogic, ISide
     //DELETE
     public void updateEntity ()
     {
-        WorldHelper.setBlockToAir(field_145850_b,field_145851_c, field_145848_d, field_145849_e);
+        WorldHelper.setBlockToAir(worldObj,xCoord, yCoord, zCoord);
     }
 
     //Keep TE regardless of metadata
@@ -143,9 +143,9 @@ public class TankAirLogic extends InventoryLogic implements IServantLogic, ISide
     /* NBT */
 
     @Override
-    public void func_145839_a (NBTTagCompound tags)
+    public void readFromNBT (NBTTagCompound tags)
     {
-        super.func_145839_a(tags);
+        super.readFromNBT(tags);
         readNetworkNBT(tags);
         multitank.readFromNBT(tags);
     }
@@ -157,9 +157,9 @@ public class TankAirLogic extends InventoryLogic implements IServantLogic, ISide
     }
 
     @Override
-    public void func_145841_b (NBTTagCompound tags)
+    public void writeToNBT (NBTTagCompound tags)
     {
-        super.func_145839_a(tags);
+        super.readFromNBT(tags);
         writeNetworkNBT(tags);
         multitank.writeToNBT(tags);
     }
@@ -174,26 +174,26 @@ public class TankAirLogic extends InventoryLogic implements IServantLogic, ISide
     public void onDataPacket (NetworkManager net, S35PacketUpdateTileEntity packet)
     {
         readNetworkNBT(packet.func_148857_g());
-        field_145850_b.func_147479_m(field_145851_c, field_145848_d, field_145849_e);
-        field_145850_b.func_147471_g(field_145851_c, field_145848_d, field_145849_e);
+        worldObj.func_147479_m(xCoord, yCoord, zCoord);
+        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
     }
 
     @Override
-    public Packet func_145844_m ()
+    public Packet getDescriptionPacket ()
     {
         NBTTagCompound tag = new NBTTagCompound();
         writeNetworkNBT(tag);
-        return new S35PacketUpdateTileEntity(field_145851_c, field_145848_d, field_145849_e, 1, tag);
+        return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 1, tag);
     }
 
     @Override
-    public String func_145825_b ()
+    public String getInventoryName ()
     {
-        return this.func_145825_b();
+        return this.getInventoryName();
     }
 
     @Override
-    public boolean func_145818_k_ ()
+    public boolean hasCustomInventoryName ()
     {
         return false;
     }

@@ -25,8 +25,8 @@ public class ConveyorBase extends MantleBlock
     public ConveyorBase(Material material, String name)
     {
         super(material);
-        this.func_149647_a(TConstructRegistry.blockTab);
-        func_149676_a(0f, 0f, 0f, 1f, 0.5f, 1f);
+        this.setCreativeTab(TConstructRegistry.blockTab);
+        setBlockBounds(0f, 0f, 0f, 1f, 0.5f, 1f);
         texturename = name;
     }
 
@@ -36,13 +36,13 @@ public class ConveyorBase extends MantleBlock
     }
 
     @Override
-    public AxisAlignedBB func_149668_a (World world, int x, int y, int z)
+    public AxisAlignedBB getCollisionBoundingBoxFromPool (World world, int x, int y, int z)
     {
         return null;
     }
 
     @Override
-    public void func_149670_a (World world, int x, int y, int z, Entity entity)
+    public void onEntityCollidedWithBlock (World world, int x, int y, int z, Entity entity)
     {
         if (!world.isBlockIndirectlyGettingPowered(x, y, z))
         {
@@ -94,49 +94,49 @@ public class ConveyorBase extends MantleBlock
     }
 
     @Override
-    public void func_149689_a (World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack)
+    public void onBlockPlacedBy (World world, int x, int y, int z, EntityLivingBase entity, ItemStack stack)
     {
         int face = MathHelper.floor_double((double) (entity.rotationYaw * 8.0F / 360.0F) + 0.5D) + (entity.isSneaking() ? 4 : 0) & 7;
         int meta = world.getBlockMetadata(x, y, z) & 8;
         world.setBlockMetadataWithNotify(x, y, z, face | meta, 2);
     }
 
-    public boolean  func_149646_a (IBlockAccess world, int x, int y, int z, int side)
+    public boolean  shouldSideBeRendered (IBlockAccess world, int x, int y, int z, int side)
     {
         if (side == 1)
             return false;
-        return super. func_149646_a(world, x, y, z, side);
+        return super. shouldSideBeRendered(world, x, y, z, side);
     }
 
     public IIcon[] icons;
 
     /* Rendering */
     @Override
-    public boolean func_149686_d ()
+    public boolean renderAsNormalBlock ()
     {
         return false;
     }
 
     @Override
-    public boolean func_149662_c ()
+    public boolean isOpaqueCube ()
     {
         return false;
     }
 
     @Override
-    public int func_149701_w ()
+    public int getRenderBlockPass ()
     {
         return 1;
     }
 
     @Override
-    public int func_149645_b ()
+    public int getRenderType ()
     {
         return SlimeChannelRender.model;
     }
 
     @Override
-    public void func_149651_a (IIconRegister iconRegister)
+    public void registerBlockIcons (IIconRegister iconRegister)
     {
         String[] textureNames = new String[] { texturename, texturename + "_flow" };
         this.icons = new IIcon[textureNames.length];
@@ -149,7 +149,7 @@ public class ConveyorBase extends MantleBlock
 
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon func_149691_a (int side, int meta)
+    public IIcon getIcon (int side, int meta)
     {
         if (meta >= 8)
             return icons[0];

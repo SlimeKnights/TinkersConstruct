@@ -61,18 +61,18 @@ public class ComponentSmeltery extends StructureVillagePieces.House1
          * maxZ, int placeBlockId, int replaceBlockId, boolean alwaysreplace)
          */
 
-        this.func_151549_a(world, sbb, 1, 0, 0, 7, 0, 6, Blocks.stonebrick, Blocks.stonebrick, false); //Base
-        this.func_151549_a(world, sbb, 0, 0, 1, 0, 0, 5, Blocks.stonebrick, Blocks.stonebrick, false);
-        this.func_151549_a(world, sbb, 8, 0, 1, 8, 0, 5, Blocks.stonebrick, Blocks.stonebrick, false);
-        this.func_151549_a(world, sbb, 0, 1, 0, 9, 3, 7, Blocks.air, Blocks.air, false);
+        this.fillWithBlocks(world, sbb, 1, 0, 0, 7, 0, 6, Blocks.stonebrick, Blocks.stonebrick, false); //Base
+        this.fillWithBlocks(world, sbb, 0, 0, 1, 0, 0, 5, Blocks.stonebrick, Blocks.stonebrick, false);
+        this.fillWithBlocks(world, sbb, 8, 0, 1, 8, 0, 5, Blocks.stonebrick, Blocks.stonebrick, false);
+        this.fillWithBlocks(world, sbb, 0, 1, 0, 9, 3, 7, Blocks.air, Blocks.air, false);
 
         this.fillWithMetaBlocks(world, sbb, 2, 0, 1, 6, 2, 5, TRepo.smeltery, 2, TRepo.smeltery, 2, false); //Basin
-        this.func_151549_a(world, sbb, 3, 1, 2, 5, 2, 4, Blocks.air, Blocks.air, false);
+        this.fillWithBlocks(world, sbb, 3, 1, 2, 5, 2, 4, Blocks.air, Blocks.air, false);
 
-        this.func_151550_a(world, TRepo.searedBlock, 0, 1, 1, 2, sbb);
-        this.func_151550_a(world, TRepo.searedBlock, 2, 1, 1, 4, sbb);
-        this.func_151550_a(world, TRepo.searedBlock, 0, 7, 1, 2, sbb);
-        this.func_151550_a(world, TRepo.searedBlock, 2, 7, 1, 4, sbb);
+        this.placeBlockAtCurrentPosition(world, TRepo.searedBlock, 0, 1, 1, 2, sbb);
+        this.placeBlockAtCurrentPosition(world, TRepo.searedBlock, 2, 1, 1, 4, sbb);
+        this.placeBlockAtCurrentPosition(world, TRepo.searedBlock, 0, 7, 1, 2, sbb);
+        this.placeBlockAtCurrentPosition(world, TRepo.searedBlock, 2, 7, 1, 4, sbb);
 
         for (int l = 1; l < 6; ++l)
         {
@@ -120,7 +120,7 @@ public class ComponentSmeltery extends StructureVillagePieces.House1
         int j2 = this.func_151557_c(placeBlockID, placeBlockMeta);
         Block k2 = this.func_151558_b(replaceBlockID, replaceBlockMeta);
         int l2 = this.func_151557_c(replaceBlockID, replaceBlockMeta);
-        super.func_151556_a(par1World, par2StructureBoundingBox, minX, minY, minZ, maxX, maxY, maxZ, i2, j2, k2, l2, alwaysReplace);
+        super.fillWithMetadataBlocks(par1World, par2StructureBoundingBox, minX, minY, minZ, maxX, maxY, maxZ, i2, j2, k2, l2, alwaysReplace);
     }
 
     @Override

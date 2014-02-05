@@ -35,6 +35,6 @@ public class SmelteryDamageSource extends DamageSource
         EntityLivingBase entityliving1 = par1EntityLiving.func_94060_bK();
         String s = "death." + type + this.damageType;
         String s1 = s + ".player";
-        return entityliving1 != null && StatCollector.func_94522_b(s1) ? new ChatComponentTranslation(s1, new Object[] {par1EntityLiving.func_145748_c_(), entityliving1.func_145748_c_()}): new ChatComponentTranslation(s, new Object[] {par1EntityLiving.func_145748_c_()});
+        return entityliving1 != null && StatCollector.canTranslate(s1) ? new ChatComponentTranslation(s1, new Object[] {par1EntityLiving.func_145748_c_(), entityliving1.func_145748_c_()}): new ChatComponentTranslation(s, new Object[] {par1EntityLiving.func_145748_c_()});
     }
 }

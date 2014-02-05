@@ -21,8 +21,8 @@ public class SlimeGel extends TConstructBlock
 {
     public SlimeGel()
     {
-        super(Material.field_151583_m, 0.5f, new String[] { "slimeblock_blue", "slimeblock_green", "slimeblock_purple" });
-        func_149647_a(TConstructRegistry.blockTab);
+        super(Material.sponge, 0.5f, new String[] { "slimeblock_blue", "slimeblock_green", "slimeblock_purple" });
+        setCreativeTab(TConstructRegistry.blockTab);
     }
 
     public boolean getEnableStats ()
@@ -41,14 +41,14 @@ public class SlimeGel extends TConstructBlock
     }
 
     @Override
-    public void func_149670_a (World world, int x, int y, int z, Entity entity)
+    public void onEntityCollidedWithBlock (World world, int x, int y, int z, Entity entity)
     {
         if (entity.motionY < 0)
         {
             if (entity.motionY < -0.08F)
             {
                 Block var9 = (Block) this;
-                world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, var9.field_149762_H.field_150501_a, (var9.field_149762_H.func_150497_c()) / 2.0F, var9.field_149762_H.func_150494_d() * 0.65F);
+                world.playSoundEffect(x + 0.5F, y + 0.5F, z + 0.5F, var9.stepSound.soundName, (var9.stepSound.getVolume()) / 2.0F, var9.stepSound.getPitch() * 0.65F);
             }
             entity.motionY *= -1.2F;
             if (entity instanceof EntityLivingBase)
@@ -60,7 +60,7 @@ public class SlimeGel extends TConstructBlock
     }
 
     @Override
-    public AxisAlignedBB func_149668_a (World world, int x, int y, int z)
+    public AxisAlignedBB getCollisionBoundingBoxFromPool (World world, int x, int y, int z)
     {
         return AxisAlignedBB.getBoundingBox(x, y, z, (double) x + 1.0D, (double) y + 0.625D, (double) z + 1.0D);
     }

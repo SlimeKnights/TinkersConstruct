@@ -35,12 +35,12 @@ public class LavaTankBlock extends BlockContainer
 
     public LavaTankBlock()
     {
-        super(Material.field_151576_e);
-        func_149711_c(3F);
-        func_149752_b(20F);
-        func_149647_a(TConstructRegistry.blockTab);
-        func_149663_c("TConstruct.LavaTank");
-        field_149762_H = Block.field_149778_k;
+        super(Material.rock);
+        setHardness(3F);
+        setResistance(20F);
+        setCreativeTab(TConstructRegistry.blockTab);
+        setBlockName("TConstruct.LavaTank");
+        stepSound = Block.soundTypeGlass;
     }
 
     public LavaTankBlock(String prefix)
@@ -60,7 +60,7 @@ public class LavaTankBlock extends BlockContainer
         return textureNames;
     }
 
-    public void func_149651_a (IIconRegister iconRegister)
+    public void registerBlockIcons (IIconRegister iconRegister)
     {
         String[] textureNames = getTextureNames();
         this.icons = new IIcon[textureNames.length];
@@ -72,37 +72,37 @@ public class LavaTankBlock extends BlockContainer
     }
 
     @Override
-    public int func_149701_w ()
+    public int getRenderBlockPass ()
     {
         return 1;
     }
 
     @Override
-    public boolean func_149662_c ()
+    public boolean isOpaqueCube ()
     {
         return false;
     }
 
     @Override
-    public boolean func_149686_d ()
+    public boolean renderAsNormalBlock ()
     {
         return false;
     }
 
     @Override
-    public boolean func_149646_a (IBlockAccess world, int x, int y, int z, int side)
+    public boolean shouldSideBeRendered (IBlockAccess world, int x, int y, int z, int side)
     {
         //if (side == 0 && world.getBlockMetadata(x, y, z) == 0)
-        //return super. func_149646_a(world, x, y, z, side);
-        Block b = world.func_147439_a(x, y, z);
-        return b == (Block)this ? false : super. func_149646_a(world, x, y, z, side);
+        //return super. shouldSideBeRendered(world, x, y, z, side);
+        Block b = world.getBlock(x, y, z);
+        return b == (Block)this ? false : super. shouldSideBeRendered(world, x, y, z, side);
         //return true;
     }
 
     @Override
     public int getLightValue (IBlockAccess world, int x, int y, int z)
     {
-        TileEntity logic = world.func_147438_o(x, y, z);
+        TileEntity logic = world.getTileEntity(x, y, z);
         if (logic != null && logic instanceof LavaTankLogic)
             return ((LavaTankLogic) logic).getBrightness();
         return 0;
@@ -115,12 +115,12 @@ public class LavaTankBlock extends BlockContainer
     }*/
 
     @Override
-    public int func_149645_b ()
+    public int getRenderType ()
     {
         return TankRender.tankModelID;
     }
 
-    public IIcon func_149691_a (int side, int meta)
+    public IIcon getIcon (int side, int meta)
     {
         if (meta >= 3)
             meta = 0;
@@ -152,19 +152,19 @@ public class LavaTankBlock extends BlockContainer
     }
 
     @Override
-    public TileEntity func_149915_a (World world, int metadata)
+    public TileEntity createNewTileEntity (World world, int metadata)
     {
         return new LavaTankLogic();
     }
 
     @Override
-    public boolean func_149727_a (World world, int x, int y, int z, EntityPlayer player, int side, float clickX, float clickY, float clickZ)
+    public boolean onBlockActivated (World world, int x, int y, int z, EntityPlayer player, int side, float clickX, float clickY, float clickZ)
     {
         ItemStack heldItem = player.inventory.getCurrentItem();
         if (heldItem != null)
         {
             FluidStack liquid = FluidContainerRegistry.getFluidForFilledItem(player.getCurrentEquippedItem());
-            LavaTankLogic logic = (LavaTankLogic) world.func_147438_o(x, y, z);
+            LavaTankLogic logic = (LavaTankLogic) world.getTileEntity(x, y, z);
             if (liquid != null)
             {
                 int amount = logic.fill(ForgeDirection.UNKNOWN, liquid, false);
@@ -232,7 +232,7 @@ public class LavaTankBlock extends BlockContainer
     }
 
     @Override
-    public void func_149666_a (Item i, CreativeTabs tab, List list)
+    public void getSubBlocks (Item i, CreativeTabs tab, List list)
     {
         for (int iter = 0; iter < 3; iter++)
         {
@@ -249,7 +249,7 @@ public class LavaTankBlock extends BlockContainer
     /* Updates */
     public void onNeighborBlockChange (World world, int x, int y, int z, int nBlockID)
     {
-        TileEntity logic = world.func_147438_o(x, y, z);
+        TileEntity logic = world.getTileEntity(x, y, z);
         if (logic instanceof IServantLogic)
         {
             ((IServantLogic) logic).notifyMasterOfChange();
@@ -262,7 +262,7 @@ public class LavaTankBlock extends BlockContainer
         player.addExhaustion(0.025F);
         int meta = world.getBlockMetadata(x, y, z);
         ItemStack stack = new ItemStack(this, 1, meta);
-        LavaTankLogic logic = (LavaTankLogic) world.func_147438_o(x, y, z);
+        LavaTankLogic logic = (LavaTankLogic) world.getTileEntity(x, y, z);
         FluidStack liquid = logic.tank.getFluid();
         if (liquid != null)
         {
@@ -287,7 +287,7 @@ public class LavaTankBlock extends BlockContainer
             double d1 = (double) (world.rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
             double d2 = (double) (world.rand.nextFloat() * f) + (double) (1.0F - f) * 0.5D;
             EntityItem entityitem = new EntityItem(world, (double) x + d0, (double) y + d1, (double) z + d2, stack);
-            entityitem.field_145804_b = 10;
+            entityitem.delayBeforeCanPickup = 10;
             world.spawnEntityInWorld(entityitem);
         }
     }
@@ -298,7 +298,7 @@ public class LavaTankBlock extends BlockContainer
     }
 
     @Override
-    public void func_149689_a (World world, int x, int y, int z, EntityLivingBase living, ItemStack stack)
+    public void onBlockPlacedBy (World world, int x, int y, int z, EntityLivingBase living, ItemStack stack)
     {
         if (stack.hasTagCompound())
         {
@@ -306,7 +306,7 @@ public class LavaTankBlock extends BlockContainer
             if (liquidTag != null)
             {
                 FluidStack liquid = FluidStack.loadFluidStackFromNBT(liquidTag);
-                LavaTankLogic logic = (LavaTankLogic) world.func_147438_o(x, y, z);
+                LavaTankLogic logic = (LavaTankLogic) world.getTileEntity(x, y, z);
                 logic.tank.setFluid(liquid);
             }
         }

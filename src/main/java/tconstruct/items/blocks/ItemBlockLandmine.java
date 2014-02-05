@@ -59,25 +59,25 @@ public class ItemBlockLandmine extends ItemBlock
     @Override
     public boolean placeBlockAt (ItemStack stack, EntityPlayer player, World world, int x, int y, int z, int side, float hitX, float hitY, float hitZ, int metadata)
     {
-        if (!world.func_147465_d(x, y, z, TRepo.landmine, metadata, 3))
+        if (!world.setBlock(x, y, z, TRepo.landmine, metadata, 3))
         {
             return false;
         }
 
-        if (world.func_147439_a(x, y, z) == TRepo.landmine)
+        if (world.getBlock(x, y, z) == TRepo.landmine)
         {
-            TRepo.landmine.func_149689_a(world, x, y, z, player, stack);
+            TRepo.landmine.onBlockPlacedBy(world, x, y, z, player, stack);
 
-            TileEntityLandmine te = (TileEntityLandmine) world.func_147438_o(x, y, z);
+            TileEntityLandmine te = (TileEntityLandmine) world.getTileEntity(x, y, z);
             if (te == null)
             {
                 te = (TileEntityLandmine) TRepo.landmine.createTileEntity(world, metadata);
             }
 
             te.triggerType = stack.getItemDamage();
-            world.func_147455_a(x, y, z, te);
+            world.setTileEntity(x, y, z, te);
 
-            TRepo.landmine.func_149714_e(world, x, y, z, metadata);
+            TRepo.landmine.onPostBlockPlaced(world, x, y, z, metadata);
         }
 
         return true;

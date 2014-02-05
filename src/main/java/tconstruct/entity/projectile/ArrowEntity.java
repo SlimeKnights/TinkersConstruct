@@ -105,10 +105,10 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
             this.prevRotationPitch = this.rotationPitch = (float) (Math.atan2(this.motionY, (double) f) * 180.0D / Math.PI);
         }
 
-        Block i = this.worldObj.func_147439_a(this.field_145791_d, this.field_145792_e, this.field_145789_f);
+        Block i = this.worldObj.getBlock(this.field_145791_d, this.field_145792_e, this.field_145789_f);
 
-        i.func_149719_a(this.worldObj, this.field_145791_d, this.field_145792_e, this.field_145789_f);
-        AxisAlignedBB axisalignedbb = i.func_149668_a(this.worldObj, this.field_145791_d, this.field_145792_e, this.field_145789_f);
+        i.setBlockBoundsBasedOnState(this.worldObj, this.field_145791_d, this.field_145792_e, this.field_145789_f);
+        AxisAlignedBB axisalignedbb = i.getCollisionBoundingBoxFromPool(this.worldObj, this.field_145791_d, this.field_145792_e, this.field_145789_f);
 
         if (axisalignedbb != null && axisalignedbb.isVecInside(this.worldObj.getWorldVec3Pool().getVecFromPool(this.posX, this.posY, this.posZ)))
         {
@@ -124,7 +124,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
         {
             if (!worldObj.isRemote)
             {
-                Block j = this.worldObj.func_147439_a(this.field_145791_d, this.field_145792_e, this.field_145789_f);
+                Block j = this.worldObj.getBlock(this.field_145791_d, this.field_145792_e, this.field_145789_f);
                 int k = this.worldObj.getBlockMetadata(this.field_145791_d, this.field_145792_e, this.field_145789_f);
 
                 if (j == this.field_145790_g && k == this.inData)
@@ -297,7 +297,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
                             if (this.shootingEntity != null && movingobjectposition.entityHit != this.shootingEntity && movingobjectposition.entityHit instanceof EntityPlayer
                                     && this.shootingEntity instanceof EntityPlayerMP)
                             {
-                                ((EntityPlayerMP) this.shootingEntity).playerNetServerHandler.func_147359_a(new S2BPacketChangeGameState(6, 0));
+                                ((EntityPlayerMP) this.shootingEntity).playerNetServerHandler.sendPacket(new S2BPacketChangeGameState(6, 0));
                                 //TConstruct.packetPipeline.sendTo(new S2BPacketChangeGameState(6, 0), (EntityPlayerMP) this.shootingEntity);
                             }
                         }
@@ -337,7 +337,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
                     this.field_145791_d = movingobjectposition.blockX;
                     this.field_145792_e = movingobjectposition.blockY;
                     this.field_145789_f = movingobjectposition.blockZ;
-                    this.field_145790_g = this.worldObj.func_147439_a(this.field_145791_d, this.field_145792_e, this.field_145789_f);
+                    this.field_145790_g = this.worldObj.getBlock(this.field_145791_d, this.field_145792_e, this.field_145789_f);
                     this.inData = this.worldObj.getBlockMetadata(this.field_145791_d, this.field_145792_e, this.field_145789_f);
                     this.motionX = (double) ((float) (movingobjectposition.hitVec.xCoord - this.posX));
                     this.motionY = (double) ((float) (movingobjectposition.hitVec.yCoord - this.posY));
@@ -353,7 +353,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
 
                     if (this.field_145790_g != Blocks.air)
                     {
-                        this.field_145790_g.func_149670_a(this.worldObj, this.field_145791_d, this.field_145792_e, this.field_145789_f, this);
+                        this.field_145790_g.onEntityCollidedWithBlock(this.worldObj, this.field_145791_d, this.field_145792_e, this.field_145789_f, this);
                     }
                 }
             }
@@ -439,7 +439,7 @@ public class ArrowEntity extends EntityArrow implements IEntityAdditionalSpawnDa
                     if (slotID >= 0)
                     {
                         living.setCurrentItemOrArmor(slotID, par1ItemStack);
-                        living.func_96120_a(slotID, 2.0f);
+                        living.setEquipmentDropChance(slotID, 2.0f);
                         par1ItemStack.stackSize = 0;
                         return true;
                     }

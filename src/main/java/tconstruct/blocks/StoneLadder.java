@@ -12,7 +12,7 @@ public class StoneLadder extends BlockLadder
 {
 
     // Override ladder material
-    public final Material blockMaterial = Material.field_151576_e;
+    public final Material blockMaterial = Material.rock;
 
     private IIcon icon;
 
@@ -20,19 +20,19 @@ public class StoneLadder extends BlockLadder
     public StoneLadder()
     {
         super();
-        this.func_149663_c("decoration.stoneladder");
-        this.func_149647_a(CreativeTabs.tabDecorations);
+        this.setBlockName("decoration.stoneladder");
+        this.setCreativeTab(CreativeTabs.tabDecorations);
     }
 
     @Override
-    public void func_149651_a (IIconRegister register)
+    public void registerBlockIcons (IIconRegister register)
     {
         icon = register.registerIcon("tinker:ladder_stone");
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon func_149691_a (int meta, int side)
+    public IIcon getIcon (int meta, int side)
     {
         return icon;
     }

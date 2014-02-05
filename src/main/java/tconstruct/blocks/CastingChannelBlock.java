@@ -23,19 +23,19 @@ public class CastingChannelBlock extends BlockContainer
 
     public CastingChannelBlock()
     {
-        super(Material.field_151576_e);
-        this.func_149711_c(1F);
-        this.func_149752_b(10);
-        this.field_149762_H = field_149769_e;
-        func_149647_a(TConstructRegistry.blockTab);
+        super(Material.rock);
+        this.setHardness(1F);
+        this.setResistance(10);
+        this.stepSound = soundTypeStone;
+        setCreativeTab(TConstructRegistry.blockTab);
     }
 
     @Override
-    public boolean func_149727_a (World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ)
+    public boolean onBlockActivated (World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ)
     {
         if (!world.isRemote)
         {
-            CastingChannelLogic tile = (CastingChannelLogic) world.func_147438_o(x, y, z);
+            CastingChannelLogic tile = (CastingChannelLogic) world.getTileEntity(x, y, z);
             if (player.isSneaking())
             {
             }
@@ -56,9 +56,9 @@ public class CastingChannelBlock extends BlockContainer
     }
 
     @Override
-    public void func_149719_a (IBlockAccess world, int x, int y, int z)
+    public void setBlockBoundsBasedOnState (IBlockAccess world, int x, int y, int z)
     {
-        CastingChannelLogic tile = (CastingChannelLogic) world.func_147438_o(x, y, z);
+        CastingChannelLogic tile = (CastingChannelLogic) world.getTileEntity(x, y, z);
         float minX = 0.3125F;
         float maxX = 0.6875F;
         float minZ = 0.3125F;
@@ -72,35 +72,35 @@ public class CastingChannelBlock extends BlockContainer
         if (tile.hasTankConnected(ForgeDirection.EAST))
             maxX = 1F;
 
-        this.func_149676_a(minX, 0.375F, minZ, maxX, 0.625F, maxZ);
+        this.setBlockBounds(minX, 0.375F, minZ, maxX, 0.625F, maxZ);
     }
 
     @Override
-    public boolean func_149686_d ()
+    public boolean renderAsNormalBlock ()
     {
         return false;
     }
 
     @Override
-    public boolean func_149662_c ()
+    public boolean isOpaqueCube ()
     {
         return false;
     }
 
     @Override
-    public int func_149645_b ()
+    public int getRenderType ()
     {
         return BlockRenderCastingChannel.renderID;
     }
 
     @Override
-    public void func_149651_a (IIconRegister iconRegister)
+    public void registerBlockIcons (IIconRegister iconRegister)
     {
-        this.field_149761_L = iconRegister.registerIcon("tinker:searedstone");
+        this.blockIcon = iconRegister.registerIcon("tinker:searedstone");
     }
 
     @Override
-    public TileEntity func_149915_a (World var1, int var2)
+    public TileEntity createNewTileEntity (World var1, int var2)
     {
         return new CastingChannelLogic();
     }

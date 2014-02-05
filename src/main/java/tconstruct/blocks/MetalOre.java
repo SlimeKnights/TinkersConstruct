@@ -26,7 +26,7 @@ public class MetalOre extends TConstructBlock
     }
 
     @Override
-    public void func_149666_a (Item b, CreativeTabs tab, List list)
+    public void getSubBlocks (Item b, CreativeTabs tab, List list)
     {
         for (int iter = 1; iter < 6; iter++)
         {

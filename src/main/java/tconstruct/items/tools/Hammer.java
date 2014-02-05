@@ -68,7 +68,7 @@ public class Hammer extends HarvestTool
         return materials;
     }
 
-    static Material[] materials = new Material[] { Material.field_151576_e, Material.field_151573_f, Material.field_151588_w, Material.field_151592_s, Material.piston, Material. field_151574_g };
+    static Material[] materials = new Material[] { Material.rock, Material.iron, Material.ice, Material.glass, Material.piston, Material. anvil };
 
     @Override
     public Item getHeadItem ()
@@ -234,7 +234,7 @@ public class Hammer extends HarvestTool
             return false;
 
         World world = player.worldObj;
-        final Block block = world.func_147439_a(x, y, z);
+        final Block block = world.getBlock(x, y, z);
         final int meta = world.getBlockMetadata(x, y, z);
         if (!stack.hasTagCompound())
             return false;
@@ -242,12 +242,12 @@ public class Hammer extends HarvestTool
         if (block == null)
             return super.onBlockStartBreak(stack, x, y, z, player);
 
-        float blockHardness = block.func_149712_f(world, x, y, z);
+        float blockHardness = block.getBlockHardness(world, x, y, z);
 
         boolean validStart = false;
         for (int iter = 0; iter < materials.length; iter++)
         {
-            if (materials[iter] == block.func_149688_o())
+            if (materials[iter] == block.getMaterial())
             {
                 validStart = true;
                 break;
@@ -290,10 +290,10 @@ public class Hammer extends HarvestTool
                 {
                     if (!(tags.getBoolean("Broken")))
                     {
-                        Block localBlock = world.func_147439_a(xPos, yPos, zPos);
+                        Block localBlock = world.getBlock(xPos, yPos, zPos);
                         int localMeta = world.getBlockMetadata(xPos, yPos, zPos);
                         int hlvl = block.getHarvestLevel(meta);
-                        float localHardness = localBlock == null ? Float.MAX_VALUE : localBlock.func_149712_f(world, xPos, yPos, zPos);
+                        float localHardness = localBlock == null ? Float.MAX_VALUE : localBlock.getBlockHardness(world, xPos, yPos, zPos);
 
                         if (hlvl <= toolLevel && localHardness - 1.5 <= blockHardness)
                         {
@@ -310,18 +310,18 @@ public class Hammer extends HarvestTool
                                 {
                                     for (int iter = 0; iter < materials.length; iter++)
                                     {
-                                        if (materials[iter] == localBlock.func_149688_o() || localBlock == Blocks.monster_egg)
+                                        if (materials[iter] == localBlock.getMaterial() || localBlock == Blocks.monster_egg)
                                         {
                                             if (!player.capabilities.isCreativeMode)
                                             {
                                                 if (localBlock.removedByPlayer(world, player, xPos, yPos, zPos))
                                                 {
-                                                    localBlock.func_149664_b(world, xPos, yPos, zPos, localMeta);
+                                                    localBlock.onBlockDestroyedByPlayer(world, xPos, yPos, zPos, localMeta);
                                                 }
-                                                localBlock.func_149636_a(world, player, xPos, yPos, zPos, localMeta);
-                                                localBlock.func_149681_a(world, xPos, yPos, zPos, localMeta, player);
+                                                localBlock.harvestBlock(world, player, xPos, yPos, zPos, localMeta);
+                                                localBlock.onBlockHarvested(world, xPos, yPos, zPos, localMeta, player);
                                                 if (blockHardness > 0f)
-                                                    func_150894_a(stack, world, localBlock, xPos, yPos, zPos, player);
+                                                    onBlockDestroyed(stack, world, localBlock, xPos, yPos, zPos, player);
                                             }
                                             else
                                             {
@@ -337,7 +337,7 @@ public class Hammer extends HarvestTool
             }
         }
         if (!world.isRemote)
-            world.playAuxSFX(2001, x, y, z, Block.func_149682_b(block) + (meta << 12));
+            world.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(block) + (meta << 12));
         return true;
     }
 
@@ -354,7 +354,7 @@ public class Hammer extends HarvestTool
         Material[] materials = getEffectiveMaterials();
         for (int i = 0; i < materials.length; i++)
         {
-            if (materials[i] == block.func_149688_o())
+            if (materials[i] == block.getMaterial())
             {
                 return getblockSpeed(tags, block, meta);
             }

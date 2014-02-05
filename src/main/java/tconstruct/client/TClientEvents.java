@@ -86,7 +86,7 @@ public class TClientEvents
         {
             for (int i = 0; i < TRepo.fluidBlocks.length; i++)
             {
-                TRepo.fluids[i].setIcons(TRepo.fluidBlocks[i].func_149691_a(0, 0), TRepo.fluidBlocks[i].func_149691_a(2, 0));
+                TRepo.fluids[i].setIcons(TRepo.fluidBlocks[i].getIcon(0, 0), TRepo.fluidBlocks[i].getIcon(2, 0));
             }
             TRepo.pigIronFluid.setIcons(stillIcons[0], flowIcons[0]);
         }

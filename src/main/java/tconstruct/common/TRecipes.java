@@ -949,9 +949,9 @@ public class TRecipes
             OreDictionary.registerOre(glassTypes[15 - i], new ItemStack(TRepo.stainedGlassClear, 1, i));
         }
 
-        BlockDispenser.field_149943_a.putObject(TRepo.titleIcon, new TDispenserBehaviorSpawnEgg());
+        BlockDispenser.dispenseBehaviorRegistry.putObject(TRepo.titleIcon, new TDispenserBehaviorSpawnEgg());
 
-        BlockDispenser.field_149943_a.putObject(TRepo.arrow, new TDispenserBehaviorArrow());
+        BlockDispenser.dispenseBehaviorRegistry.putObject(TRepo.arrow, new TDispenserBehaviorArrow());
 
         //Vanilla stuff
         OreDictionary.registerOre("slimeball", new ItemStack(Items.slime_ball));

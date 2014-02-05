@@ -14,7 +14,7 @@ public class GlassBlock extends TConstructBlock
 
     public GlassBlock()
     {
-        super(Material.field_151592_s, 3f, blockTextures);
+        super(Material.glass, 3f, blockTextures);
     }
 
     public boolean isOpaqueCube ()
@@ -23,14 +23,14 @@ public class GlassBlock extends TConstructBlock
     }
 
     @SideOnly(Side.CLIENT)
-    public boolean func_149646_a (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
+    public boolean shouldSideBeRendered (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
     {
-        Block i1 = par1IBlockAccess.func_147439_a(par2, par3, par4);
-        return i1 == (Block) this ? false : super.func_149646_a(par1IBlockAccess, par2, par3, par4, par5);
+        Block i1 = par1IBlockAccess.getBlock(par2, par3, par4);
+        return i1 == (Block) this ? false : super.shouldSideBeRendered(par1IBlockAccess, par2, par3, par4, par5);
     }
 
     @Override
-    public float func_149712_f (World world, int x, int y, int z)
+    public float getBlockHardness (World world, int x, int y, int z)
     {
         int meta = world.getBlockMetadata(x, y, z);
         switch (meta)
@@ -42,7 +42,7 @@ public class GlassBlock extends TConstructBlock
         case 2:
             return 50.0F;
         default:
-            return field_149782_v;
+            return blockHardness;
         }
     }
 
@@ -58,13 +58,13 @@ public class GlassBlock extends TConstructBlock
         case 2:
             return 2000F;
         default:
-            return func_149638_a(entity);
+            return getExplosionResistance(entity);
         }
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void func_149651_a (IIconRegister iconRegister)
+    public void registerBlockIcons (IIconRegister iconRegister)
     {
         this.icons = new IIcon[textureNames.length];
 

@@ -39,10 +39,10 @@ public class PartCrafterGui extends NewContainerGui
 
     protected void drawGuiContainerForegroundLayer (int par1, int par2)
     {
-        this.field_146289_q.drawString(StatCollector.translateToLocal("crafters.PartBuilder"), 6, 6, 4210752);
-        this.field_146289_q.drawString(StatCollector.translateToLocal("container.inventory"), 8, this.ySize - 96 + 2, 4210752);
+        this.fontRendererObj.drawString(StatCollector.translateToLocal("crafters.PartBuilder"), 6, 6, 4210752);
+        this.fontRendererObj.drawString(StatCollector.translateToLocal("container.inventory"), 8, this.ySize - 96 + 2, 4210752);
         if (drawChestPart)
-            this.field_146289_q.drawString(StatCollector.translateToLocal("inventory.PatternChest"), -108, this.ySize - 148, 4210752);
+            this.fontRendererObj.drawString(StatCollector.translateToLocal("inventory.PatternChest"), -108, this.ySize - 148, 4210752);
 
         drawMaterialInformation();
     }
@@ -50,8 +50,8 @@ public class PartCrafterGui extends NewContainerGui
     void drawDefaultInformation ()
     {
         title = "\u00A7n" + StatCollector.translateToLocal("gui.partcrafter2");
-        this.drawCenteredString(field_146289_q, title, xSize + 63, 8, 16777215);
-        field_146289_q.drawSplitString(StatCollector.translateToLocal("gui.partcrafter3"), xSize + 8, 24, 115, 16777215);
+        this.drawCenteredString(fontRendererObj, title, xSize + 63, 8, 16777215);
+        fontRendererObj.drawSplitString(StatCollector.translateToLocal("gui.partcrafter3"), xSize + 8, 24, 115, 16777215);
     }
 
     void drawMaterialInformation ()
@@ -93,34 +93,34 @@ public class PartCrafterGui extends NewContainerGui
         int offset = 8;
         if (hasTop)
         {
-            this.drawCenteredString(field_146289_q, title, xSize + 63, offset, 16777215);
-            this.field_146289_q.drawString(StatCollector.translateToLocal("gui.partcrafter4") + topEnum.durability(), xSize + 8, offset + 16, 16777215);
-            this.field_146289_q.drawString(StatCollector.translateToLocal("gui.partcrafter5") + topEnum.handleDurability() + "x", xSize + 8, offset + 27, 16777215);
-            this.field_146289_q.drawString(StatCollector.translateToLocal("gui.partcrafter6") + topEnum.toolSpeed() / 100f, xSize + 8, offset + 38, 16777215);
-            this.field_146289_q.drawString(StatCollector.translateToLocal("gui.partcrafter7") + getHarvestLevelName(topEnum.harvestLevel()), xSize + 8, offset + 49, 16777215);
+            this.drawCenteredString(fontRendererObj, title, xSize + 63, offset, 16777215);
+            this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.partcrafter4") + topEnum.durability(), xSize + 8, offset + 16, 16777215);
+            this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.partcrafter5") + topEnum.handleDurability() + "x", xSize + 8, offset + 27, 16777215);
+            this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.partcrafter6") + topEnum.toolSpeed() / 100f, xSize + 8, offset + 38, 16777215);
+            this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.partcrafter7") + getHarvestLevelName(topEnum.harvestLevel()), xSize + 8, offset + 49, 16777215);
 
             int attack = topEnum.attack();
             String heart = attack == 2 ? StatCollector.translateToLocal("gui.partcrafter8") : StatCollector.translateToLocal("gui.partcrafter9");
             if (attack % 2 == 0)
-                this.field_146289_q.drawString(StatCollector.translateToLocal("gui.partcrafter10") + attack / 2 + heart, xSize + 8, offset + 60, 0xffffff);
+                this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.partcrafter10") + attack / 2 + heart, xSize + 8, offset + 60, 0xffffff);
             else
-                this.field_146289_q.drawString(StatCollector.translateToLocal("gui.partcrafter10") + attack / 2f + heart, xSize + 8, offset + 60, 0xffffff);
+                this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.partcrafter10") + attack / 2f + heart, xSize + 8, offset + 60, 0xffffff);
         }
 
         offset = 90;
         if (hasBottom)
         {
-            this.drawCenteredString(field_146289_q, otherTitle, xSize + 63, offset, 16777215);
-            this.field_146289_q.drawString(StatCollector.translateToLocal("gui.partcrafter4") + bottomEnum.durability(), xSize + 8, offset + 16, 16777215);
-            this.field_146289_q.drawString(StatCollector.translateToLocal("gui.partcrafter5") + bottomEnum.handleDurability() + "x", xSize + 8, offset + 27, 16777215);
-            this.field_146289_q.drawString(StatCollector.translateToLocal("gui.partcrafter6") + bottomEnum.toolSpeed() / 100f, xSize + 8, offset + 38, 16777215);
-            this.field_146289_q.drawString(StatCollector.translateToLocal("gui.partcrafter7") + getHarvestLevelName(bottomEnum.harvestLevel()), xSize + 8, offset + 49, 16777215);
+            this.drawCenteredString(fontRendererObj, otherTitle, xSize + 63, offset, 16777215);
+            this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.partcrafter4") + bottomEnum.durability(), xSize + 8, offset + 16, 16777215);
+            this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.partcrafter5") + bottomEnum.handleDurability() + "x", xSize + 8, offset + 27, 16777215);
+            this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.partcrafter6") + bottomEnum.toolSpeed() / 100f, xSize + 8, offset + 38, 16777215);
+            this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.partcrafter7") + getHarvestLevelName(bottomEnum.harvestLevel()), xSize + 8, offset + 49, 16777215);
             int attack = bottomEnum.attack();
             String heart = attack == 2 ? StatCollector.translateToLocal("gui.partcrafter8") : StatCollector.translateToLocal("gui.partcrafter9");
             if (attack % 2 == 0)
-                this.field_146289_q.drawString(StatCollector.translateToLocal("gui.partcrafter10") + attack / 2 + heart, xSize + 8, offset + 60, 0xffffff);
+                this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.partcrafter10") + attack / 2 + heart, xSize + 8, offset + 60, 0xffffff);
             else
-                this.field_146289_q.drawString(StatCollector.translateToLocal("gui.partcrafter10") + attack / 2f + heart, xSize + 8, offset + 60, 0xffffff);
+                this.fontRendererObj.drawString(StatCollector.translateToLocal("gui.partcrafter10") + attack / 2f + heart, xSize + 8, offset + 60, 0xffffff);
         }
 
         if (!hasTop && !hasBottom)
@@ -156,9 +156,9 @@ public class PartCrafterGui extends NewContainerGui
     {
         // Draw the background
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        this.field_146297_k.getTextureManager().bindTexture(background);
-        int cornerX = (this.field_146294_l - this.xSize) / 2;
-        int cornerY = (this.field_146295_m - this.ySize) / 2;
+        this.mc.getTextureManager().bindTexture(background);
+        int cornerX = (this.width - this.xSize) / 2;
+        int cornerY = (this.height - this.ySize) / 2;
         this.drawTexturedModalRect(cornerX, cornerY, 0, 0, this.xSize, this.ySize);
 
         // Draw Slots
@@ -184,22 +184,22 @@ public class PartCrafterGui extends NewContainerGui
         if (drawChestPart)
         {
             GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-            this.field_146297_k.getTextureManager().bindTexture(minichest);
+            this.mc.getTextureManager().bindTexture(minichest);
             this.drawTexturedModalRect(cornerX - 116, cornerY + 11, 0, 0, this.xSize, this.ySize);
         }
 
         // Draw description
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        this.field_146297_k.getTextureManager().bindTexture(description);
-        cornerX = (this.field_146294_l + this.xSize) / 2;
-        cornerY = (this.field_146295_m - this.ySize) / 2;
+        this.mc.getTextureManager().bindTexture(description);
+        cornerX = (this.width + this.xSize) / 2;
+        cornerY = (this.height - this.ySize) / 2;
         this.drawTexturedModalRect(cornerX, cornerY, 126, 0, 126, this.ySize);
     }
 
     @Override
     protected void mouseClicked (int mouseX, int mouseY, int clickNum)
     {
-        boolean flag = clickNum == this.field_146297_k.gameSettings.keyBindPickBlock.func_151463_i() + 100;
+        boolean flag = clickNum == this.mc.gameSettings.keyBindPickBlock.getKeyCode() + 100;
         Slot slot = this.getSlotAtPosition(mouseX, mouseY);
         long l = Minecraft.getSystemTime();
         this.field_94074_J = this.field_94072_H == slot && l - this.field_94070_G < 250L && this.field_94073_I == clickNum;
@@ -224,15 +224,15 @@ public class PartCrafterGui extends NewContainerGui
                 k1 = -999;
             }
 
-            if (this.field_146297_k.gameSettings.touchscreen && flag1 && this.field_146297_k.thePlayer.inventory.getItemStack() == null)
+            if (this.mc.gameSettings.touchscreen && flag1 && this.mc.thePlayer.inventory.getItemStack() == null)
             {
-                this.field_146297_k.func_147108_a((GuiScreen) null);
+                this.mc.displayGuiScreen((GuiScreen) null);
                 return;
             }
 
             if (k1 != -1)
             {
-                if (this.field_146297_k.gameSettings.touchscreen)
+                if (this.mc.gameSettings.touchscreen)
                 {
                     if (slot != null && slot.getHasStack())
                     {
@@ -247,9 +247,9 @@ public class PartCrafterGui extends NewContainerGui
                 }
                 else if (!this.field_94076_q)
                 {
-                    if (this.field_146297_k.thePlayer.inventory.getItemStack() == null)
+                    if (this.mc.thePlayer.inventory.getItemStack() == null)
                     {
-                        if (clickNum == this.field_146297_k.gameSettings.keyBindPickBlock.func_151463_i() + 100)
+                        if (clickNum == this.mc.gameSettings.keyBindPickBlock.getKeyCode() + 100)
                         {
                             this.handleMouseClick(slot, k1, clickNum, 3);
                         }

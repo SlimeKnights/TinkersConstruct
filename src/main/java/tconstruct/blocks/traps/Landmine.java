@@ -30,28 +30,28 @@ public class Landmine extends MantleBlock
     {
         super(par4Material);
         this.triggerMobType = EnumCreatureType.monster;
-        this.func_149647_a(TConstructRegistry.blockTab);
-        this.func_149675_a(true);
+        this.setCreativeTab(TConstructRegistry.blockTab);
+        this.setTickRandomly(true);
         float var5 = 0.0625F;
-        this.func_149676_a(var5, 0.0F, var5, 1.0F - var5, 0.03125F, 1.0F - var5);
+        this.setBlockBounds(var5, 0.0F, var5, 1.0F - var5, 0.03125F, 1.0F - var5);
     }
 
-    public IIcon func_149673_e (IBlockAccess world, int x, int y, int z, int side)
+    public IIcon getIcon (IBlockAccess world, int x, int y, int z, int side)
     {
-        Block block = world.func_147439_a(x, y - 1, z);
+        Block block = world.getBlock(x, y - 1, z);
         if (block != null)
         {
-            return block.func_149673_e(world, x, y - 1, z, side);
+            return block.getIcon(world, x, y - 1, z, side);
         }
-        return Blocks.sponge.func_149691_a(side, world.getBlockMetadata(x, y, z));
+        return Blocks.sponge.getIcon(side, world.getBlockMetadata(x, y, z));
     }
 
-    public IIcon func_149691_a (int side, int meta)
+    public IIcon getIcon (int side, int meta)
     {
-        return Blocks.sponge.func_149691_a(1, meta);
+        return Blocks.sponge.getIcon(1, meta);
     }
 
-    public void func_149651_a (IIconRegister par1IconRegister)
+    public void registerBlockIcons (IIconRegister par1IconRegister)
     {
 
     }
@@ -100,7 +100,7 @@ public class Landmine extends MantleBlock
      */
     public boolean canPlaceBlockAt (World par1World, int par2, int par3, int par4)
     {
-        return par1World.func_147466_a(par1World, par2, par3 - 1, par4) || BlockFence.func_149825_a(par1World.func_147439_a(par2, par3 - 1, par4));
+        return par1World.doesBlockHaveSolidTopSurface(par1World, par2, par3 - 1, par4) || BlockFence.func_149825_a(par1World.getBlock(par2, par3 - 1, par4));
     }
 
     /**
@@ -111,14 +111,14 @@ public class Landmine extends MantleBlock
     {
         boolean var6 = false;
 
-        if (!par1World.func_147466_a(par1World, par2, par3 - 1, par4) && !BlockFence.func_149825_a(par1World.func_147439_a(par2, par3 - 1, par4)))
+        if (!par1World.doesBlockHaveSolidTopSurface(par1World, par2, par3 - 1, par4) && !BlockFence.func_149825_a(par1World.getBlock(par2, par3 - 1, par4)))
         {
             var6 = true;
         }
 
         if (var6)
         {
-            this.func_149697_b(par1World, par2, par3, par4, par1World.getBlockMetadata(par2, par3, par4), 0);
+            this.dropBlockAsItem(par1World, par2, par3, par4, par1World.getBlockMetadata(par2, par3, par4), 0);
             //par1World.setBlock(par2, par3, par4, 0);
         }
     }
@@ -193,7 +193,7 @@ public class Landmine extends MantleBlock
             {
                 Entity var10 = (Entity) var9.next();
 
-                if (!var10.func_145773_az())
+                if (!var10.doesEntityNotTriggerPressurePlate())
                 {
                     var6 = true;
                     break;
@@ -234,11 +234,11 @@ public class Landmine extends MantleBlock
     {
         if (par6 > 0)
         {
-            par1World.func_147459_d(par2, par3, par4, this);
-            par1World.func_147459_d(par2, par3 - 1, par4, this);
+            par1World.notifyBlocksOfNeighborChange(par2, par3, par4, this);
+            par1World.notifyBlocksOfNeighborChange(par2, par3 - 1, par4, this);
         }
 
-        super.func_149749_a(par1World, par2, par3, par4, par5, par6);
+        super.breakBlock(par1World, par2, par3, par4, par5, par6);
     }
 
     /**
@@ -251,11 +251,11 @@ public class Landmine extends MantleBlock
 
         if (var5)
         {
-            this.func_149676_a(var6, 0.0F, var6, 1.0F - var6, 0.03125F, 1.0F - var6);
+            this.setBlockBounds(var6, 0.0F, var6, 1.0F - var6, 0.03125F, 1.0F - var6);
         }
         else
         {
-            this.func_149676_a(var6, 0.0F, var6, 1.0F - var6, 0.0625F, 1.0F - var6);
+            this.setBlockBounds(var6, 0.0F, var6, 1.0F - var6, 0.0625F, 1.0F - var6);
         }
     }
 
@@ -267,7 +267,7 @@ public class Landmine extends MantleBlock
         float var1 = 0.5F;
         float var2 = 0.125F;
         float var3 = 0.5F;
-        this.func_149676_a(0.5F - var1, 0.5F - var2, 0.5F - var3, 0.5F + var1, 0.5F + var2, 0.5F + var3);
+        this.setBlockBounds(0.5F - var1, 0.5F - var2, 0.5F - var3, 0.5F + var1, 0.5F + var2, 0.5F + var3);
     }
 
     /**

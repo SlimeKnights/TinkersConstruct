@@ -19,7 +19,7 @@ public class TConstructFluid extends BlockFluidClassic
         super(fluid, material);
         this.texture = texture;
         //TODO setCreativeTab()
-        this.func_149647_a(TConstructRegistry.blockTab);
+        this.setCreativeTab(TConstructRegistry.blockTab);
     }
 
     public TConstructFluid(Fluid fluid, Material material, String texture, boolean alpha)
@@ -29,21 +29,21 @@ public class TConstructFluid extends BlockFluidClassic
     }
 
     @Override
-    public int func_149701_w ()
+    public int getRenderBlockPass ()
     {
         return alpha ? 1 : 0;
     }
-    //TODO func_149651_a
+    //TODO registerBlockIcons
     @Override
-    public void func_149651_a (IIconRegister iconRegister)
+    public void registerBlockIcons (IIconRegister iconRegister)
     {
         stillIcon = iconRegister.registerIcon("tinker:" + texture);
         flowIcon = iconRegister.registerIcon("tinker:" + texture + "_flow");
     }
 
-    //TODO func_149691_a()
+    //TODO getIcon()
     @Override
-    public IIcon func_149691_a (int side, int meta)
+    public IIcon getIcon (int side, int meta)
     {
         if (side == 0 || side == 1)
             return stillIcon;

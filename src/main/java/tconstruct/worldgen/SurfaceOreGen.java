@@ -37,8 +37,8 @@ public class SurfaceOreGen extends WorldGenerator
     int findGround (World world, int x, int y, int z)
     {
         int returnHeight = -1;
-        Block block = world.func_147439_a(x, y - 1, z);
-        if (!world.func_147439_a(x, y, z).func_149662_c() && (block == Blocks.dirt || block == Blocks.grass))
+        Block block = world.getBlock(x, y - 1, z);
+        if (!world.getBlock(x, y, z).isOpaqueCube() && (block == Blocks.dirt || block == Blocks.grass))
         {
             return y;
         }
@@ -49,10 +49,10 @@ public class SurfaceOreGen extends WorldGenerator
             {
                 break;
             }
-            Block b = world.func_147439_a(x, height, z);
+            Block b = world.getBlock(x, height, z);
             if (b == Blocks.dirt || b == Blocks.grass)
             {
-                if (!world.func_147439_a(x, height + 1, z).func_149662_c())
+                if (!world.getBlock(x, height + 1, z).isOpaqueCube())
                 {
                     returnHeight = height + 1;
                 }
@@ -114,18 +114,18 @@ public class SurfaceOreGen extends WorldGenerator
                             {
                                 double d14 = ((double) i3 + 0.5D - d8) / (d10 / 2.0D);
 
-                                Block block = world.func_147439_a(k2, l2, i3);
+                                Block block = world.getBlock(k2, l2, i3);
                                 if (d12 * d12 + d13 * d13 + d14 * d14 < 1.0D)
                                 {
-                                    if (block == null || !world.func_147439_a(k2, l2, i3).func_149662_c())
-                                        world.func_147465_d(k2, l2, i3, this.minableBlock, minableBlockMeta, 2);
+                                    if (block == null || !world.getBlock(k2, l2, i3).isOpaqueCube())
+                                        world.setBlock(k2, l2, i3, this.minableBlock, minableBlockMeta, 2);
                                     else
                                     {
                                         for (int iter = 0; iter < replaceBlocks.length; iter++)
                                         {
-                                            if (world.func_147439_a(k2, l2, i3).isReplaceableOreGen(world, k2, l2, i3, replaceBlocks[iter]))
+                                            if (world.getBlock(k2, l2, i3).isReplaceableOreGen(world, k2, l2, i3, replaceBlocks[iter]))
                                             {
-                                                world.func_147465_d(k2, l2, i3, this.minableBlock, minableBlockMeta, 2);
+                                                world.setBlock(k2, l2, i3, this.minableBlock, minableBlockMeta, 2);
                                                 break;
                                             }
                                         }

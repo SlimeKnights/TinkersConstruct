@@ -24,9 +24,9 @@ public class CraftingStationBlock extends InventoryBlock
     public CraftingStationBlock(Material material)
     {
         super(material);
-        this.func_149647_a(TConstructRegistry.blockTab);
-        this.func_149711_c(2f);
-        this.field_149762_H = Block.field_149766_f;
+        this.setCreativeTab(TConstructRegistry.blockTab);
+        this.setHardness(2f);
+        this.stepSound = Block.soundTypeWood;
     }
 
     //Block.hasComparatorInputOverride and Block.getComparatorInputOverride
@@ -41,7 +41,7 @@ public class CraftingStationBlock extends InventoryBlock
     }
 
     @Override
-    public IIcon func_149691_a (int side, int meta)
+    public IIcon getIcon (int side, int meta)
     {
         return icons[meta * 3 + getTextureIndex(side)];
     }
@@ -57,25 +57,25 @@ public class CraftingStationBlock extends InventoryBlock
     }
 
     @Override
-    public boolean func_149686_d ()
+    public boolean renderAsNormalBlock ()
     {
         return false;
     }
 
     @Override
-    public boolean func_149662_c ()
+    public boolean isOpaqueCube ()
     {
         return false;
     }
 
     @Override
-    public int func_149645_b ()
+    public int getRenderType ()
     {
         return TableRender.tabelModelID;
     }
 
     @Override
-    public boolean func_149646_a (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
+    public boolean shouldSideBeRendered (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
     {
         return true;
     }
@@ -93,7 +93,7 @@ public class CraftingStationBlock extends InventoryBlock
     }
 
     @Override
-    public void func_149666_a (Item id, CreativeTabs tab, List list)
+    public void getSubBlocks (Item id, CreativeTabs tab, List list)
     {
         for (int iter = 0; iter < 1; iter++)
         {
@@ -102,7 +102,7 @@ public class CraftingStationBlock extends InventoryBlock
     }
 
 	@Override
-	public TileEntity func_149915_a(World arg0, int arg1) {
+	public TileEntity createNewTileEntity(World arg0, int arg1) {
 		return new CraftingStationLogic();
 	}
 }

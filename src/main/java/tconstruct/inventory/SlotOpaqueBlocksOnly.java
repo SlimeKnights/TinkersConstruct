@@ -23,7 +23,7 @@ public class SlotOpaqueBlocksOnly extends SlotBlocksOnly
         if (super.isItemValid(par1ItemStack))
         {
             Block b = BlockUtils.getBlockFromItemStack(par1ItemStack);
-            return b.func_149662_c() && b.func_149686_d();
+            return b.isOpaqueCube() && b.renderAsNormalBlock();
         }
 
         return false;

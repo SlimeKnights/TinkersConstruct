@@ -85,7 +85,7 @@ public class TitleIcon extends Item
     }
 
     @Override
-    public String func_150896_i (ItemStack par1ItemStack)
+    public String getPotionEffect (ItemStack par1ItemStack)
     {
         String s = ("" + StatCollector.translateToLocal(this.getUnlocalizedName() + ".name")).trim();
         String s1 = mobNames[par1ItemStack.getItemDamage()];
@@ -99,7 +99,7 @@ public class TitleIcon extends Item
     }
 
     @Override
-    public void func_150895_a (Item b, CreativeTabs tab, List list)
+    public void getSubItems (Item b, CreativeTabs tab, List list)
     {
         for (int i = 0; i < mobNames.length; i++)
             list.add(new ItemStack(b, 1, i));
@@ -120,13 +120,13 @@ public class TitleIcon extends Item
     {
         if (!world.isRemote)
         {
-            Block b = world.func_147439_a(posX, posY, posZ);
+            Block b = world.getBlock(posX, posY, posZ);
             posX += Facing.offsetsXForSide[par7];
             posY += Facing.offsetsYForSide[par7];
             posZ += Facing.offsetsZForSide[par7];
             double d0 = 0.0D;
 
-            if (par7 == 1 && b != null && b.func_149645_b() == 11)
+            if (par7 == 1 && b != null && b.getRenderType() == 11)
             {
                 d0 = 0.5D;
             }
@@ -151,13 +151,13 @@ public class TitleIcon extends Item
 
     public static EntityLiving activateSpawnEgg (ItemStack stack, World world, double posX, double posY, double posZ, int par7)
     {
-        Block b = world.func_147439_a((int) posX, (int) posY, (int) posZ);
+        Block b = world.getBlock((int) posX, (int) posY, (int) posZ);
         posX += Facing.offsetsXForSide[par7];
         posY += Facing.offsetsYForSide[par7];
         posZ += Facing.offsetsZForSide[par7];
         double d0 = 0.0D;
 
-        if (par7 == 1 && b != null && b.func_149645_b() == 11)
+        if (par7 == 1 && b != null && b.getRenderType() == 11)
         {
             d0 = 0.5D;
         }
@@ -206,7 +206,7 @@ public class TitleIcon extends Item
         {
             entity.setPosition(x, y, z);
             entity.setSlimeSize(8);
-            entity.func_110161_a((IEntityLivingData) null);
+            entity.onSpawnWithEgg((IEntityLivingData) null);
             world.spawnEntityInWorld(entity);
         }
     }
@@ -217,7 +217,7 @@ public class TitleIcon extends Item
         {
             entity.setPosition(x, y, z);
             entity.setSlimeSize(8);
-            entity.func_110161_a((IEntityLivingData) null);
+            entity.onSpawnWithEgg((IEntityLivingData) null);
             world.spawnEntityInWorld(entity);
         }
     }

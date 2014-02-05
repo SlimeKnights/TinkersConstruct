@@ -23,15 +23,15 @@ public class MeatBlock extends BlockWood
 
     public MeatBlock()
     {
-        this.func_149711_c(1.0F);
-        this.func_149672_a(Block.field_149766_f);
+        this.setHardness(1.0F);
+        this.setStepSound(Block.soundTypeWood);
         //setBurnProperties(this.blockID, 5, 20);
-        this.func_149647_a(TConstructRegistry.blockTab);
+        this.setCreativeTab(TConstructRegistry.blockTab);
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon func_149691_a (int side, int metadata)
+    public IIcon getIcon (int side, int metadata)
     {
         int tex = (metadata % 4) * 2;
         int orientation = metadata / 4;
@@ -58,7 +58,7 @@ public class MeatBlock extends BlockWood
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void func_149651_a (IIconRegister iconRegister)
+    public void registerBlockIcons (IIconRegister iconRegister)
     {
         this.icons = new IIcon[textureNames.length];
 
@@ -68,7 +68,7 @@ public class MeatBlock extends BlockWood
         }
     }
 
-    public Item func_149650_a (int par1, Random par2Random, int par3)
+    public Item getItemDropped (int par1, Random par2Random, int par3)
     {
         return new ItemStack(this).getItem();
     }
@@ -89,7 +89,7 @@ public class MeatBlock extends BlockWood
                 {
                     for (int i2 = -b0; i2 <= b0; ++i2)
                     {
-                        Block j2 = par1World.func_147439_a(par2 + k1, par3 + l1, par4 + i2);
+                        Block j2 = par1World.getBlock(par2 + k1, par3 + l1, par4 + i2);
 
                         if (j2 != null)
                         {
@@ -166,7 +166,7 @@ public class MeatBlock extends BlockWood
 
     @SideOnly(Side.CLIENT)
     @Override
-    public void func_149666_a (Item b, CreativeTabs par2CreativeTabs, List par3List)
+    public void getSubBlocks (Item b, CreativeTabs par2CreativeTabs, List par3List)
     {
         for (int i = 0; i < icons.length / 2; i++)
             par3List.add(new ItemStack(b, 1, i));

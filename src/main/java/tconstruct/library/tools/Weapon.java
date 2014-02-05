@@ -37,7 +37,7 @@ public abstract class Weapon extends ToolCore
 
         for (int i = 0; i < web.length; i++)
         {
-            if (web[i] == block.func_149688_o())
+            if (web[i] == block.getMaterial())
             {
                 return effectiveSpeed();
             }
@@ -82,7 +82,7 @@ public abstract class Weapon extends ToolCore
     {
         for (int i = 0; i < web.length; i++)
         {
-            if (block.func_149688_o() == web[i])
+            if (block.getMaterial() == web[i])
                 return true;
         }
         return super.canHarvestBlock(block, is);
@@ -123,7 +123,7 @@ public abstract class Weapon extends ToolCore
         return new String[] { "weapon", "melee" };
     }
 
-    public static Material[] web = new Material[] { Material.field_151569_G };
+    public static Material[] web = new Material[] { Material.web };
     public static Material[] none = new Material[0];
 
 }

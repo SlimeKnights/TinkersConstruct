@@ -57,23 +57,23 @@ public class BlockLandmine extends BlockContainer
 
     public BlockLandmine()
     {
-        super(Material.field_151590_u);
-        this.func_149675_a(true);
-        this.func_149676_a(0.0625F, 0.0F, 0.0625F, 1.0F - 0.0625F, 0.0625F, 1.0F - 0.0625F);
+        super(Material.tnt);
+        this.setTickRandomly(true);
+        this.setBlockBounds(0.0625F, 0.0F, 0.0625F, 1.0F - 0.0625F, 0.0625F, 1.0F - 0.0625F);
     }
 
     @Override
     public int getLightValue (IBlockAccess world, int x, int y, int z)
     {
-        if (world.func_147439_a(x, y, z) == (Block) this && world.func_147438_o(x, y, z) instanceof TileEntityLandmine)
+        if (world.getBlock(x, y, z) == (Block) this && world.getTileEntity(x, y, z) instanceof TileEntityLandmine)
         {
-            TileEntityLandmine te = (TileEntityLandmine) world.func_147438_o(x, y, z);
+            TileEntityLandmine te = (TileEntityLandmine) world.getTileEntity(x, y, z);
 
             if (te != null)
             {
                 if (te.getStackInSlot(3) != null && te.getStackInSlot(3).getItem() instanceof ItemBlock)
                 {
-                    return (BlockUtils.getBlockFromItem(te.getStackInSlot(3).getItem())).func_149750_m();
+                    return (BlockUtils.getBlockFromItem(te.getStackInSlot(3).getItem())).getLightValue();
                 }
             }
         }
@@ -81,49 +81,49 @@ public class BlockLandmine extends BlockContainer
     }
 
     @Override
-    public int func_149738_a (World par1World)
+    public int tickRate (World par1World)
     {
         return 20;
     }
 
     @Override
-    public IIcon func_149673_e (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
+    public IIcon getIcon (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
     {
-        TileEntityLandmine te = (TileEntityLandmine) par1IBlockAccess.func_147438_o(par2, par3, par4);
+        TileEntityLandmine te = (TileEntityLandmine) par1IBlockAccess.getTileEntity(par2, par3, par4);
 
         ItemStack camo = te.getStackInSlot(3);
         if (camo != null)
         {
-            return BlockUtils.getBlockFromItem(camo.getItem()).func_149691_a(par5, camo.getItemDamage());
+            return BlockUtils.getBlockFromItem(camo.getItem()).getIcon(par5, camo.getItemDamage());
         }
         else
         {
-            return this.func_149691_a(par5, par1IBlockAccess.getBlockMetadata(par2, par3, par4));
+            return this.getIcon(par5, par1IBlockAccess.getBlockMetadata(par2, par3, par4));
         }
     }
 
     @Override
-    public boolean func_149662_c ()
+    public boolean isOpaqueCube ()
     {
         return false;
     }
 
     @Override
-    public boolean func_149686_d ()
+    public boolean renderAsNormalBlock ()
     {
         return false;
     }
 
     @Override
-    public int func_149645_b ()
+    public int getRenderType ()
     {
         return RenderLandmine.model;
     }
 
     @Override
-    public void func_149699_a (World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer)
+    public void onBlockClicked (World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer)
     {
-        super.func_149699_a(par1World, par2, par3, par4, par5EntityPlayer);
+        super.onBlockClicked(par1World, par2, par3, par4, par5EntityPlayer);
 
         if (this.explodeOnBroken)
         {
@@ -132,22 +132,22 @@ public class BlockLandmine extends BlockContainer
     }
 
     @Override
-    public void func_149651_a (IIconRegister par1IconRegister)
+    public void registerBlockIcons (IIconRegister par1IconRegister)
     {
-        this.field_149761_L = par1IconRegister.registerIcon("tinker:Landmine");
+        this.blockIcon = par1IconRegister.registerIcon("tinker:Landmine");
     }
 
     @Override
-    public boolean func_149727_a (World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9)
+    public boolean onBlockActivated (World par1World, int par2, int par3, int par4, EntityPlayer par5EntityPlayer, int par6, float par7, float par8, float par9)
     {
         par5EntityPlayer.openGui(TConstruct.instance, TProxyCommon.landmineID, par1World, par2, par3, par4);
         return true;
     }
 
     @Override
-    public void func_149749_a (World par1World, int par2, int par3, int par4, Block par5Block, int par6)
+    public void breakBlock (World par1World, int par2, int par3, int par4, Block par5Block, int par6)
     {
-        TileEntityLandmine tileentity = (TileEntityLandmine) par1World.func_147438_o(par2, par3, par4);
+        TileEntityLandmine tileentity = (TileEntityLandmine) par1World.getTileEntity(par2, par3, par4);
 
         int metadata = par1World.getBlockMetadata(par2, par3, par4);
 
@@ -155,12 +155,12 @@ public class BlockLandmine extends BlockContainer
         {
             if (this != null)
             {
-                ItemStack is = new ItemStack(this, 1, func_149692_a(tileentity.triggerType));
-                if (tileentity.func_145818_k_())
+                ItemStack is = new ItemStack(this, 1, damageDropped(tileentity.triggerType));
+                if (tileentity.hasCustomInventoryName())
                 {
-                    is.func_151001_c(tileentity.func_145825_b());
+                    is.setStackDisplayName(tileentity.getInventoryName());
                 }
-                func_149642_a(par1World, par2, par3, par4, new ItemStack(this, 1, func_149692_a(tileentity.triggerType)));
+                dropBlockAsItem(par1World, par2, par3, par4, new ItemStack(this, 1, damageDropped(tileentity.triggerType)));
             }
 
             for (int j1 = 0; j1 < tileentity.getSizeInventory(); ++j1)
@@ -191,18 +191,18 @@ public class BlockLandmine extends BlockContainer
                 }
             }
 
-            par1World.func_147449_b(par2, par3, par4, par5Block);
+            par1World.setBlock(par2, par3, par4, par5Block);
         }
         else if (explodeOnBroken)
         {
             checkExplosion(par1World, par2, par3, par4, true);
         }
 
-        super.func_149749_a(par1World, par2, par3, par4, par5Block, par6);
+        super.breakBlock(par1World, par2, par3, par4, par5Block, par6);
     }
 
     @Override
-    public void func_149666_a (Item par1, CreativeTabs par2CreativeTabs, List par3List)
+    public void getSubBlocks (Item par1, CreativeTabs par2CreativeTabs, List par3List)
     {
         par3List.add(new ItemStack(par1, 1, 0));
         par3List.add(new ItemStack(par1, 1, 1));
@@ -211,13 +211,13 @@ public class BlockLandmine extends BlockContainer
     }
 
     @Override
-    public boolean func_149655_b (IBlockAccess par1IBlockAccess, int par2, int par3, int par4)
+    public boolean getBlocksMovement (IBlockAccess par1IBlockAccess, int par2, int par3, int par4)
     {
         return true;
     }
 
     @Override
-    public boolean func_149707_d (World par1World, int par2, int par3, int par4, int par5)
+    public boolean canPlaceBlockOnSide (World par1World, int par2, int par3, int par4, int par5)
     {
         ForgeDirection dir = ForgeDirection.getOrientation(par5);
         return (dir == DOWN && par1World.isSideSolid(par2, par3 + 1, par4, DOWN)) || (dir == UP && par1World.isSideSolid(par2, par3 - 1, par4, UP))
@@ -226,14 +226,14 @@ public class BlockLandmine extends BlockContainer
     }
 
     @Override
-    public boolean func_149742_c (World par1World, int par2, int par3, int par4)
+    public boolean canPlaceBlockAt (World par1World, int par2, int par3, int par4)
     {
         return par1World.isSideSolid(par2 - 1, par3, par4, EAST) || par1World.isSideSolid(par2 + 1, par3, par4, WEST) || par1World.isSideSolid(par2, par3, par4 - 1, SOUTH)
                 || par1World.isSideSolid(par2, par3, par4 + 1, NORTH) || par1World.isSideSolid(par2, par3 - 1, par4, UP) || par1World.isSideSolid(par2, par3 + 1, par4, DOWN);
     }
 
     @Override
-    public int func_149660_a (World par1World, int par2, int par3, int par4, int par5, float par6, float par7, float par8, int par9)
+    public int onBlockPlaced (World par1World, int par2, int par3, int par4, int par5, float par6, float par7, float par8, int par9)
     {
         int j1 = par9 & 8;
         int k1 = par9 & 7;
@@ -273,7 +273,7 @@ public class BlockLandmine extends BlockContainer
     }
 
     @Override
-    public void func_149689_a (World par1World, int par2, int par3, int par4, EntityLivingBase par5EntityLivingBase, ItemStack par6ItemStack)
+    public void onBlockPlacedBy (World par1World, int par2, int par3, int par4, EntityLivingBase par5EntityLivingBase, ItemStack par6ItemStack)
     {
         int l = par1World.getBlockMetadata(par2, par3, par4);
         int i1 = l & 7;
@@ -304,7 +304,7 @@ public class BlockLandmine extends BlockContainer
 
         if (par6ItemStack.hasDisplayName())
         {
-            ((TileEntityLandmine) par1World.func_147438_o(par2, par3, par4)).setGuiDisplayName(par6ItemStack.getDisplayName());
+            ((TileEntityLandmine) par1World.getTileEntity(par2, par3, par4)).setGuiDisplayName(par6ItemStack.getDisplayName());
         }
     }
 
@@ -330,7 +330,7 @@ public class BlockLandmine extends BlockContainer
     }
 
     @Override
-    public void func_149695_a (World par1World, int par2, int par3, int par4, Block par5Block)
+    public void onNeighborBlockChange (World par1World, int par2, int par3, int par4, Block par5Block)
     {
         checkPlacement(par1World, par2, par3, par4, par5Block);
 
@@ -386,7 +386,7 @@ public class BlockLandmine extends BlockContainer
 
             if (flag)
             {
-                this.func_149697_b(par1World, par2, par3, par4, par1World.getBlockMetadata(par2, par3, par4), 0);
+                this.dropBlockAsItem(par1World, par2, par3, par4, par1World.getBlockMetadata(par2, par3, par4), 0);
                 WorldHelper.setBlockToAir(par1World, par2, par3, par4);
             }
         }
@@ -394,9 +394,9 @@ public class BlockLandmine extends BlockContainer
 
     private boolean checkIfAttachedToBlock (World par1World, int par2, int par3, int par4)
     {
-        if (!this.func_149742_c(par1World, par2, par3, par4))
+        if (!this.canPlaceBlockAt(par1World, par2, par3, par4))
         {
-            this.func_149697_b(par1World, par2, par3, par4, par1World.getBlockMetadata(par2, par3, par4), 0);
+            this.dropBlockAsItem(par1World, par2, par3, par4, par1World.getBlockMetadata(par2, par3, par4), 0);
             WorldHelper.setBlockToAir(par1World, par2, par3, par4);
             return false;
         }
@@ -407,7 +407,7 @@ public class BlockLandmine extends BlockContainer
     }
 
     @Override
-    public void func_149674_a (World par1World, int par2, int par3, int par4, Random par5Random)
+    public void updateTick (World par1World, int par2, int par3, int par4, Random par5Random)
     {
         if (!par1World.isRemote)
         {
@@ -429,7 +429,7 @@ public class BlockLandmine extends BlockContainer
         {
             if (hasItems(par1World, par2, par3, par4))
             {
-                TileEntityLandmine te = (TileEntityLandmine) par1World.func_147438_o(par2, par3, par4);
+                TileEntityLandmine te = (TileEntityLandmine) par1World.getTileEntity(par2, par3, par4);
                 if (te.soundcountything <= 0)
                 {
                     par1World.playSoundEffect((double) par2 + 0.5D, (double) par3 + 0.1D, (double) par4 + 0.5D, "random.click", 0.3F, 0.6F);
@@ -441,14 +441,14 @@ public class BlockLandmine extends BlockContainer
     }
 
     @Override
-    public AxisAlignedBB func_149668_a (World par1World, int par2, int par3, int par4)
+    public AxisAlignedBB getCollisionBoundingBoxFromPool (World par1World, int par2, int par3, int par4)
     {
         return null;
     }
 
     private boolean hasItems (World par1World, int par2, int par3, int par4)
     {
-        TileEntityLandmine te = (TileEntityLandmine) par1World.func_147438_o(par2, par3, par4);
+        TileEntityLandmine te = (TileEntityLandmine) par1World.getTileEntity(par2, par3, par4);
         if (te != null && te.getStackInSlot(0) != null || te.getStackInSlot(1) != null || te.getStackInSlot(2) != null)
         {
             return true;
@@ -466,7 +466,7 @@ public class BlockLandmine extends BlockContainer
 
     protected int getMineState (World par1World, int par2, int par3, int par4)
     {
-        TileEntityLandmine te = (TileEntityLandmine) par1World.func_147438_o(par2, par3, par4);
+        TileEntityLandmine te = (TileEntityLandmine) par1World.getTileEntity(par2, par3, par4);
 
         // Change to return 1 if you want the landmine to blow up when the block
         // holding it is broken
@@ -517,7 +517,7 @@ public class BlockLandmine extends BlockContainer
                 {
                     Entity entity = (Entity) iterator.next();
 
-                    if (!entity.func_145773_az())
+                    if (!entity.doesEntityNotTriggerPressurePlate())
                     {
                         return 1;
                     }
@@ -562,7 +562,7 @@ public class BlockLandmine extends BlockContainer
     public Entity getMineTriggerer (World par1World, int par2, int par3, int par4)
     {
 
-        TileEntityLandmine te = (TileEntityLandmine) par1World.func_147438_o(par2, par3, par4);
+        TileEntityLandmine te = (TileEntityLandmine) par1World.getTileEntity(par2, par3, par4);
 
         // Change to return 1 if you want the landmine to blow up when the
         // block holding it is broken
@@ -613,7 +613,7 @@ public class BlockLandmine extends BlockContainer
                 {
                     Entity entity = (Entity) iterator.next();
 
-                    if (!entity.func_145773_az())
+                    if (!entity.doesEntityNotTriggerPressurePlate())
                     {
                         return entity;
                     }
@@ -625,14 +625,14 @@ public class BlockLandmine extends BlockContainer
     }
 
     @Override
-    public boolean func_149659_a (Explosion par1Explosion)
+    public boolean canDropFromExplosion (Explosion par1Explosion)
     {
         return false;
     }
 
     @SuppressWarnings("incomplete-switch")
     @Override
-    public void func_149719_a (IBlockAccess par1IBlockAccess, int par2, int par3, int par4)
+    public void setBlockBoundsBasedOnState (IBlockAccess par1IBlockAccess, int par2, int par3, int par4)
     {
         int l = par1IBlockAccess.getBlockMetadata(par2, par3, par4);
         int i1 = l & 7;
@@ -642,34 +642,34 @@ public class BlockLandmine extends BlockContainer
         switch (dir)
         {
         case DOWN:
-            this.func_149676_a(0.0625F, 0.0F, 0.0625F, 1.0F - 0.0625F, 0.0625F, 1.0F - 0.0625F);
+            this.setBlockBounds(0.0625F, 0.0F, 0.0625F, 1.0F - 0.0625F, 0.0625F, 1.0F - 0.0625F);
             break;
         case UP:
-            this.func_149676_a(0.0625F, 1.0F - 0.0625F, 0.0625F, 1.0F - 0.0625F, 1.0F, 1.0F - 0.0625F);
+            this.setBlockBounds(0.0625F, 1.0F - 0.0625F, 0.0625F, 1.0F - 0.0625F, 1.0F, 1.0F - 0.0625F);
             break;
         case NORTH:
-            this.func_149676_a(0.0625F, 0.0625F, 0.0F, 1.0F - 0.0625F, 1.0F - 0.0625F, 0.0625F);
+            this.setBlockBounds(0.0625F, 0.0625F, 0.0F, 1.0F - 0.0625F, 1.0F - 0.0625F, 0.0625F);
             break;
         case SOUTH:
-            this.func_149676_a(0.0625F, 0.0625F, 1.0F - 0.0625F, 1.0F - 0.0625F, 1.0F - 0.0625F, 1.0F);
+            this.setBlockBounds(0.0625F, 0.0625F, 1.0F - 0.0625F, 1.0F - 0.0625F, 1.0F - 0.0625F, 1.0F);
             break;
         case EAST:
-            this.func_149676_a(1.0F - 0.0625F, 0.0625F, 0.0625F, 1.0F, 1.0F - 0.0625F, 1.0F - 0.0625F);
+            this.setBlockBounds(1.0F - 0.0625F, 0.0625F, 0.0625F, 1.0F, 1.0F - 0.0625F, 1.0F - 0.0625F);
             break;
         case WEST:
-            this.func_149676_a(0.0F, 0.0625F, 0.0625F, 0.0625F, 1.0F - 0.0625F, 1.0F - 0.0625F);
+            this.setBlockBounds(0.0F, 0.0625F, 0.0625F, 0.0625F, 1.0F - 0.0625F, 1.0F - 0.0625F);
             break;
         }
     }
 
     @Override
-    public Item func_149650_a (int par1, Random par2Random, int par3)
+    public Item getItemDropped (int par1, Random par2Random, int par3)
     {
         return null;
     }
 
     @Override
-    public TileEntity func_149915_a (World world, int meta)
+    public TileEntity createNewTileEntity (World world, int meta)
     {
         return new TileEntityLandmine();
     }

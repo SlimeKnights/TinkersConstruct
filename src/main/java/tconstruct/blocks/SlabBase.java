@@ -27,28 +27,28 @@ public class SlabBase extends MantleBlock
     public SlabBase(Material material)
     {
         super(material);
-        this.func_149647_a(TConstructRegistry.blockTab);
+        this.setCreativeTab(TConstructRegistry.blockTab);
     }
 
     public SlabBase(Material material, Block model, int meta, int totalSize)
     {
         super(material);
-        this.func_149647_a(TConstructRegistry.blockTab);
+        this.setCreativeTab(TConstructRegistry.blockTab);
         this.modelBlock = model;
         this.startingMeta = meta;
         this.totalSize = totalSize;
     }
 
     @Override
-    public void func_149743_a (World world, int x, int y, int z, AxisAlignedBB axisalignedbb, List arraylist, Entity entity)
+    public void addCollisionBoxesToList (World world, int x, int y, int z, AxisAlignedBB axisalignedbb, List arraylist, Entity entity)
     {
         setBlockBoundsBasedOnState(world, x, y, z);
-        super.func_149743_a(world, x, y, z, axisalignedbb, arraylist, entity);
+        super.addCollisionBoxesToList(world, x, y, z, axisalignedbb, arraylist, entity);
     }
 
     public void setBlockBoundsForItemRender ()
     {
-        func_149676_a(0.0F, 0.0F, 0.0F, 1.0F, 0.5F, 1.0F);
+        setBlockBounds(0.0F, 0.0F, 0.0F, 1.0F, 0.5F, 1.0F);
     }
 
     public void setBlockBoundsBasedOnState (IBlockAccess world, int x, int y, int z)
@@ -56,7 +56,7 @@ public class SlabBase extends MantleBlock
         int meta = world.getBlockMetadata(x, y, z) / 8;
         float minY = meta == 1 ? 0.5F : 0.0F;
         float maxY = meta == 1 ? 1.0F : 0.5F;
-        func_149676_a(0.0F, minY, 0F, 1.0F, maxY, 1.0F);
+        setBlockBounds(0.0F, minY, 0F, 1.0F, maxY, 1.0F);
     }
 
     public int onBlockPlaced (World par1World, int blockX, int blockY, int blockZ, int side, float clickX, float clickY, float clickZ, int metadata)
@@ -81,20 +81,20 @@ public class SlabBase extends MantleBlock
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void func_149651_a (IIconRegister iconRegister)
+    public void registerBlockIcons (IIconRegister iconRegister)
     {
     }
 
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon func_149691_a (int side, int meta)
+    public IIcon getIcon (int side, int meta)
     {
         meta = meta % 8 + startingMeta;
-        return modelBlock.func_149691_a(side, meta);
+        return modelBlock.getIcon(side, meta);
     }
 
     @Override
-    public void func_149666_a (Item b, CreativeTabs tab, List list)
+    public void getSubBlocks (Item b, CreativeTabs tab, List list)
     {
         for (int iter = 0; iter < totalSize; iter++)
         {

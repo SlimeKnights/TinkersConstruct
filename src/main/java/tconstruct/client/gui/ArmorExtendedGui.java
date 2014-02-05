@@ -21,8 +21,8 @@ public class ArmorExtendedGui extends InventoryEffectRenderer
     public InventoryPlayer inv;
     public ArmorExtended stats;
 
-    private float field_146999_f_lo;
-    private float field_147000_g_lo;
+    private float xSize_lo;
+    private float ySize_lo;
 
     public ArmorExtendedGui(InventoryPlayer inventoryplayer, ArmorExtended holder)
     {
@@ -35,60 +35,60 @@ public class ArmorExtendedGui extends InventoryEffectRenderer
     {
         super.initGui();
 
-        int cornerX = field_147003_i;
-        int cornerY = (this.field_146294_l - this.field_147000_g) / 2;
-        this.field_146292_n.clear();
+        int cornerX = guiLeft;
+        int cornerY = (this.width - this.ySize) / 2;
+        this.buttonList.clear();
 
         //        InventoryTab tab = new InventoryTab(2, cornerX, cornerY - 28, new ItemStack(Block.workbench), 0);
-        //        this.field_146292_n.add(tab);
+        //        this.buttonList.add(tab);
         //        tab = new InventoryTab(3, cornerX + 28, cornerY - 28, new ItemStack(Item.plateDiamond), 1);
         //        tab.enabled = false;
-        //        this.field_146292_n.add(tab);
+        //        this.buttonList.add(tab);
 
         TabRegistry.updateTabValues(cornerX, cornerY, InventoryTabArmorExtended.class);
-        TabRegistry.addTabsToList(this.field_146292_n);
+        TabRegistry.addTabsToList(this.buttonList);
     }
 
     protected void drawGuiContainerForegroundLayer (int par1, int par2)
     {
         //fontRenderer.drawString(StatCollector.translateToLocal("inventory.armorextended"), 60, 6, 0x404040);
-        //fontRenderer.drawString(StatCollector.translateToLocal("container.inventory"), 17, (field_147000_g - 96) + 2, 0x404040);
+        //fontRenderer.drawString(StatCollector.translateToLocal("container.inventory"), 17, (ySize - 96) + 2, 0x404040);
     }
 
     public void drawScreen (int par1, int par2, float par3)
     {
         super.drawScreen(par1, par2, par3);
-        this.field_146999_f_lo = (float) par1;
-        this.field_147000_g_lo = (float) par2;
+        this.xSize_lo = (float) par1;
+        this.ySize_lo = (float) par2;
         //        if (stats.inventory[2] != null && stats.inventory[2].getItem() == TContent.knapsack)
         //        {
-        //            if (this.field_146292_n.size() < 3)
+        //            if (this.buttonList.size() < 3)
         //            {
-        //                int cornerX = field_147003_i;
-        //                int cornerY = (this.height - this.field_147000_g) / 2;
+        //                int cornerX = guiLeft;
+        //                int cornerY = (this.height - this.ySize) / 2;
         //                InventoryTab tab = new InventoryTab(4, cornerX + 56, cornerY - 28, new ItemStack(TContent.knapsack), 1);
-        //                this.field_146292_n.add(tab);
+        //                this.buttonList.add(tab);
         //            }
         //        }
         //        else
         //        {
-        //            if (this.field_146292_n.size() >= 3)
+        //            if (this.buttonList.size() >= 3)
         //            {
-        //                field_146292_n.remove(2);
+        //                buttonList.remove(2);
         //            }
         //        }
     }
 
     private static final ResourceLocation background = new ResourceLocation("tinker", "textures/gui/armorextended.png");
 
-    protected void func_146976_a (float f, int i, int j)
+    protected void drawGuiContainerBackgroundLayer (float f, int i, int j)
     {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         //mc.renderEngine.bindTexture("/mods/tinker/textures/gui/armorextended.png");
-        this.field_146297_k.getTextureManager().bindTexture(background);
-        int cornerX = field_147003_i;
-        int cornerY = (field_146294_l - field_147000_g) / 2;
-        drawTexturedModalRect(cornerX, cornerY, 0, 0, field_146999_f, field_147000_g);
+        this.mc.getTextureManager().bindTexture(background);
+        int cornerX = guiLeft;
+        int cornerY = (width - ySize) / 2;
+        drawTexturedModalRect(cornerX, cornerY, 0, 0, xSize, ySize);
 
         if (!stats.isStackInSlot(0))
             drawTexturedModalRect(cornerX + 79, cornerY + 16, 176, 9, 18, 18);
@@ -105,9 +105,9 @@ public class ArmorExtendedGui extends InventoryEffectRenderer
         if (!stats.isStackInSlot(6))
             drawTexturedModalRect(cornerX + 151, cornerY + 52, 230, 36, 18, 18);
 
-        cornerX = this.field_147003_i;
-        cornerY = this.field_147009_r;
-        drawPlayerOnGui(this.field_146297_k, cornerX + 33, cornerY + 75, 30, (float) (cornerX + 51) - this.field_146999_f_lo, (float) (cornerY + 75 - 50) - this.field_147000_g_lo);
+        cornerX = this.guiLeft;
+        cornerY = this.guiTop;
+        drawPlayerOnGui(this.mc, cornerX + 33, cornerY + 75, 30, (float) (cornerX + 51) - this.xSize_lo, (float) (cornerY + 75 - 50) - this.ySize_lo);
     }
 
     public static void drawPlayerOnGui (Minecraft par0Minecraft, int par1, int par2, int par3, float par4, float par5)
@@ -131,7 +131,7 @@ public class ArmorExtendedGui extends InventoryEffectRenderer
         par0Minecraft.thePlayer.rotationYawHead = par0Minecraft.thePlayer.rotationYaw;
         GL11.glTranslatef(0.0F, par0Minecraft.thePlayer.yOffset, 0.0F);
         RenderManager.instance.playerViewY = 180.0F;
-        RenderManager.instance.func_147940_a(par0Minecraft.thePlayer, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F);
+        RenderManager.instance.renderEntityWithPosYaw(par0Minecraft.thePlayer, 0.0D, 0.0D, 0.0D, 0.0F, 1.0F);
         par0Minecraft.thePlayer.renderYawOffset = f2;
         par0Minecraft.thePlayer.rotationYaw = f3;
         par0Minecraft.thePlayer.rotationPitch = f4;

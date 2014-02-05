@@ -35,13 +35,13 @@ public class SmelteryBlock extends InventoryBlock
 
     public SmelteryBlock()
     {
-        super(Material.field_151576_e);
-        func_149711_c(3F);
-        func_149752_b(20F);
-        func_149672_a(field_149777_j);
+        super(Material.rock);
+        setHardness(3F);
+        setResistance(20F);
+        setStepSound(soundTypeMetal);
         rand = new Random();
-        this.func_149647_a(TConstructRegistry.blockTab);
-        this.func_149663_c("tconstruct.Smeltery");
+        this.setCreativeTab(TConstructRegistry.blockTab);
+        this.setBlockName("tconstruct.Smeltery");
     }
 
     public SmelteryBlock(String prefix)
@@ -52,7 +52,7 @@ public class SmelteryBlock extends InventoryBlock
 
     /* Rendering */
     @Override
-    public int func_149645_b ()
+    public int getRenderType ()
     {
         return PHConstruct.newSmeltery ? 0 : SmelteryRender.smelteryModel;
     }
@@ -70,7 +70,7 @@ public class SmelteryBlock extends InventoryBlock
         return textureNames;
     }
 
-    public IIcon func_149691_a (int side, int meta)
+    public IIcon getIcon (int side, int meta)
     {
         if (meta < 2)
         {
@@ -90,9 +90,9 @@ public class SmelteryBlock extends InventoryBlock
         return icons[3 + meta];
     }
 
-    public IIcon func_149673_e (IBlockAccess world, int x, int y, int z, int side)
+    public IIcon getIcon (IBlockAccess world, int x, int y, int z, int side)
     {
-        TileEntity logic = world.func_147438_o(x, y, z);
+        TileEntity logic = world.getTileEntity(x, y, z);
         short direction = (logic instanceof IFacingLogic) ? ((IFacingLogic) logic).getRenderDirection() : 0;
         int meta = world.getBlockMetadata(x, y, z);
         if (meta == 0) //Smeltery
@@ -162,7 +162,7 @@ public class SmelteryBlock extends InventoryBlock
     {
         if (isActive(world, x, y, z))
         {
-            TileEntity logic = world.func_147438_o(x, y, z);
+            TileEntity logic = world.getTileEntity(x, y, z);
             byte face = 0;
             if (logic instanceof IFacingLogic)
                 face = ((IFacingLogic) logic).getRenderDirection();
@@ -208,7 +208,7 @@ public class SmelteryBlock extends InventoryBlock
     }
 
     @Override
-    public boolean func_149727_a (World world, int x, int y, int z, EntityPlayer player, int side, float clickX, float clickY, float clickZ)
+    public boolean onBlockActivated (World world, int x, int y, int z, EntityPlayer player, int side, float clickX, float clickY, float clickZ)
     {
         if (player.isSneaking() || world.getBlockMetadata(x, y, z) != 0)
             return false;
@@ -220,14 +220,14 @@ public class SmelteryBlock extends InventoryBlock
         }
         else
         {
-            //world.func_147471_g(x, y, z);
+            //world.markBlockForUpdate(x, y, z);
             player.openGui(getModInstance(), integer, world, x, y, z);
             return true;
         }
     }
 
     @Override
-    public TileEntity func_149915_a (World world, int metadata)
+    public TileEntity createNewTileEntity (World world, int metadata)
     {
         switch (metadata)
         {
@@ -249,16 +249,16 @@ public class SmelteryBlock extends InventoryBlock
     }
 
     @Override
-    public void func_149689_a (World world, int x, int y, int z, EntityLivingBase entityliving, ItemStack stack)
+    public void onBlockPlacedBy (World world, int x, int y, int z, EntityLivingBase entityliving, ItemStack stack)
     {
-        super.func_149689_a(world, x, y, z, entityliving, stack);
+        super.onBlockPlacedBy(world, x, y, z, entityliving, stack);
         if (world.getBlockMetadata(x, y, z) == 0 && !PHConstruct.newSmeltery)
             onBlockPlacedElsewhere(world, x, y, z, entityliving);
     }
 
     public void onBlockPlacedElsewhere (World world, int x, int y, int z, EntityLivingBase entityliving)
     {
-        SmelteryLogic logic = (SmelteryLogic) world.func_147438_o(x, y, z);
+        SmelteryLogic logic = (SmelteryLogic) world.getTileEntity(x, y, z);
         logic.checkValidPlacement();
     }
 
@@ -269,7 +269,7 @@ public class SmelteryBlock extends InventoryBlock
     }*/
 
     @Override
-    public void func_149666_a (Item b, CreativeTabs tab, List list)
+    public void getSubBlocks (Item b, CreativeTabs tab, List list)
     {
         for (int iter = 0; iter < 12; iter++)
         {
@@ -280,10 +280,10 @@ public class SmelteryBlock extends InventoryBlock
 
     /* Updating */
     @Override
-    public void func_149695_a (World world, int x, int y, int z, Block block)
+    public void onNeighborBlockChange (World world, int x, int y, int z, Block block)
     {
         //System.out.println("Neighbor changed");
-        TileEntity logic = world.func_147438_o(x, y, z);
+        TileEntity logic = world.getTileEntity(x, y, z);
         if (logic instanceof IServantLogic)
         {
             ((IServantLogic) logic).notifyMasterOfChange();
@@ -295,14 +295,14 @@ public class SmelteryBlock extends InventoryBlock
     }
 
     @Override
-    public void func_149749_a (World world, int x, int y, int z, Block block, int meta)
+    public void breakBlock (World world, int x, int y, int z, Block block, int meta)
     {
-        TileEntity logic = world.func_147438_o(x, y, z);
+        TileEntity logic = world.getTileEntity(x, y, z);
         if (logic instanceof IServantLogic)
         {
             ((IServantLogic) logic).notifyMasterOfChange();
         }
-        super.func_149749_a(world, x, y, z, block, meta);
+        super.breakBlock(world, x, y, z, block, meta);
     }
 
 }

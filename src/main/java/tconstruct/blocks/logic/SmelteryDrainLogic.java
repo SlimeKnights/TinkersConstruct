@@ -26,7 +26,7 @@ public class SmelteryDrainLogic extends MultiServantLogic implements IFluidHandl
         {
             if (doFill)
             {
-                SmelteryLogic smeltery = (SmelteryLogic) field_145850_b.func_147438_o(getMasterPosition().x, getMasterPosition().y, getMasterPosition().z);
+                SmelteryLogic smeltery = (SmelteryLogic) worldObj.getTileEntity(getMasterPosition().x, getMasterPosition().y, getMasterPosition().z);
                 return smeltery.fill(resource, doFill);
             }
             else
@@ -45,7 +45,7 @@ public class SmelteryDrainLogic extends MultiServantLogic implements IFluidHandl
     {
         if (hasValidMaster() && canDrain(from, null))
         {
-            SmelteryLogic smeltery = (SmelteryLogic) field_145850_b.func_147438_o(getMasterPosition().x, getMasterPosition().y, getMasterPosition().z);
+            SmelteryLogic smeltery = (SmelteryLogic) worldObj.getTileEntity(getMasterPosition().x, getMasterPosition().y, getMasterPosition().z);
             return smeltery.drain(maxDrain, doDrain);
         }
         else
@@ -76,7 +76,7 @@ public class SmelteryDrainLogic extends MultiServantLogic implements IFluidHandl
         boolean containsFluid = fluid == null;
         if (fluid != null)
         {
-            SmelteryLogic smeltery = (SmelteryLogic) field_145850_b.func_147438_o(getMasterPosition().x, getMasterPosition().y, getMasterPosition().z);
+            SmelteryLogic smeltery = (SmelteryLogic) worldObj.getTileEntity(getMasterPosition().x, getMasterPosition().y, getMasterPosition().z);
             for (FluidStack fstack : smeltery.moltenMetal)
             {
                 if (fstack.fluidID == fluid.getID())
@@ -95,7 +95,7 @@ public class SmelteryDrainLogic extends MultiServantLogic implements IFluidHandl
     {
         if (hasValidMaster() && (from == getForgeDirection() || from == getForgeDirection().getOpposite() || from == ForgeDirection.UNKNOWN))
         {
-            SmelteryLogic smeltery = (SmelteryLogic) field_145850_b.func_147438_o(getMasterPosition().x, getMasterPosition().y, getMasterPosition().z);
+            SmelteryLogic smeltery = (SmelteryLogic) worldObj.getTileEntity(getMasterPosition().x, getMasterPosition().y, getMasterPosition().z);
             return smeltery.getMultiTankInfo();
             //return new FluidTankInfo[] { smeltery.getInfo() };
         }
@@ -151,32 +151,32 @@ public class SmelteryDrainLogic extends MultiServantLogic implements IFluidHandl
         }
     }
 
-    public void func_145839_a (NBTTagCompound tags)
+    public void readFromNBT (NBTTagCompound tags)
     {
-        super.func_145839_a(tags);
+        super.readFromNBT(tags);
         direction = tags.getByte("Direction");
     }
 
     @Override
-    public void func_145841_b (NBTTagCompound tags)
+    public void writeToNBT (NBTTagCompound tags)
     {
-        super.func_145841_b(tags);
+        super.writeToNBT(tags);
         tags.setByte("Direction", direction);
     }
 
     /* Packets */
     @Override
-    public Packet func_145844_m ()
+    public Packet getDescriptionPacket ()
     {
         NBTTagCompound tag = new NBTTagCompound();
-        func_145841_b(tag);
-        return new S35PacketUpdateTileEntity(field_145851_c, field_145848_d, field_145849_e, 1, tag);
+        writeToNBT(tag);
+        return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 1, tag);
     }
 
     @Override
     public void onDataPacket (NetworkManager net, S35PacketUpdateTileEntity packet)
     {
-        func_145839_a(packet.func_148857_g());
-        field_145850_b.func_147479_m(field_145851_c, field_145848_d, field_145849_e);
+        readFromNBT(packet.func_148857_g());
+        worldObj.func_147479_m(xCoord, yCoord, zCoord);
     }
 }

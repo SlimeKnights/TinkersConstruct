@@ -30,7 +30,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class ArrowRender extends Render
 {
-    private static final ResourceLocation field_110798_h = new ResourceLocation("textures/misc/enchanted_item_glint.png");
+    private static final ResourceLocation RES_ITEM_GLINT = new ResourceLocation("textures/misc/enchanted_item_glint.png");
     private RenderBlocks itemRenderBlocks = new RenderBlocks();
 
     /** The RNG used in RenderItem (for bobbing itemstacks on the ground) */
@@ -73,12 +73,12 @@ public class ArrowRender extends Render
             Block block = null;
                 block = BlockUtils.getBlockFromItem(itemstack.getItem());
 
-            if (itemstack.getItemSpriteNumber() == 0 && block != null && RenderBlocks.func_147739_a(BlockUtils.getBlockFromItem(itemstack.getItem()).func_149645_b()))
+            if (itemstack.getItemSpriteNumber() == 0 && block != null && RenderBlocks.renderItemIn3d(BlockUtils.getBlockFromItem(itemstack.getItem()).getRenderType()))
             {
                 GL11.glRotatef(f3, 0.0F, 1.0F, 0.0F);
 
                 float f7 = 0.25F;
-                int j = block.func_149645_b();
+                int j = block.getRenderType();
 
                 if (j == 1 || j == 19 || j == 12 || j == 2)
                 {
@@ -100,7 +100,7 @@ public class ArrowRender extends Render
                     }
 
                     f5 = 1.0F;
-                    this.itemRenderBlocks.func_147800_a(block, itemstack.getItemDamage(), f5);
+                    this.itemRenderBlocks.renderBlockAsItem(block, itemstack.getItemDamage(), f5);
                     GL11.glPopMatrix();
                 }
             }
@@ -239,7 +239,7 @@ public class ArrowRender extends Render
             {
                 GL11.glDepthFunc(GL11.GL_EQUAL);
                 GL11.glDisable(GL11.GL_LIGHTING);
-                this.renderManager.renderEngine.bindTexture(field_110798_h);
+                this.renderManager.renderEngine.bindTexture(RES_ITEM_GLINT);
                 GL11.glEnable(GL11.GL_BLEND);
                 GL11.glBlendFunc(GL11.GL_SRC_COLOR, GL11.GL_ONE);
                 float f13 = 0.76F;

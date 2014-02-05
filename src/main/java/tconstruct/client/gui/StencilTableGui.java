@@ -25,27 +25,27 @@ public class StencilTableGui extends GuiContainer
         patternIndex = 0;
     }
 
-    public void func_146281_b ()
+    public void onGuiClosed ()
     {
-        super.func_146281_b();
+        super.onGuiClosed();
     }
 
     @Override
-    protected void func_146979_b (int par1, int par2)
+    protected void drawGuiContainerForegroundLayer (int par1, int par2)
     {
-        field_146289_q.drawString(StatCollector.translateToLocal("crafters.PatternShaper"), 50, 6, 0x404040);
-        field_146289_q.drawString(StatCollector.translateToLocal("container.inventory"), 8, (field_147000_g - 96) + 2, 0x404040);
+        fontRendererObj.drawString(StatCollector.translateToLocal("crafters.PatternShaper"), 50, 6, 0x404040);
+        fontRendererObj.drawString(StatCollector.translateToLocal("container.inventory"), 8, (ySize - 96) + 2, 0x404040);
     }
 
     private static final ResourceLocation background = new ResourceLocation("tinker", "textures/gui/patternshaper.png");
 
-    protected void func_146976_a (float par1, int par2, int par3)
+    protected void drawGuiContainerBackgroundLayer (float par1, int par2, int par3)
     {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
-        this.field_146297_k.getTextureManager().bindTexture(background);
-        int cornerX = (this.field_146294_l - this.field_146999_f) / 2;
-        int cornerY = (this.field_146295_m - this.field_147000_g) / 2;
-        this.drawTexturedModalRect(cornerX, cornerY, 0, 0, this.field_146999_f, this.field_147000_g);
+        this.mc.getTextureManager().bindTexture(background);
+        int cornerX = (this.width - this.xSize) / 2;
+        int cornerY = (this.height - this.ySize) / 2;
+        this.drawTexturedModalRect(cornerX, cornerY, 0, 0, this.xSize, this.ySize);
         if (!logic.isStackInSlot(0))
         {
             this.drawTexturedModalRect(cornerX + 47, cornerY + 34, 176, 0, 18, 18);
@@ -55,23 +55,23 @@ public class StencilTableGui extends GuiContainer
     public void initGui ()
     {
         super.initGui();
-        int cornerX = (this.field_146294_l - this.field_146999_f) / 2;
-        int cornerY = (this.field_146295_m - this.field_147000_g) / 2;
+        int cornerX = (this.width - this.xSize) / 2;
+        int cornerY = (this.height - this.ySize) / 2;
 
-        this.field_146292_n.clear();
+        this.buttonList.clear();
         /*ToolGuiElement repair = TConstruct.toolButtons.get(0);
         GuiButtonTool repairButton = new GuiButtonTool(0, cornerX - 110, cornerY, repair.buttonIconX, repair.buttonIconY, repair.texture); // Repair
         repairButton.enabled = false;
-        this.field_146292_n.add(repairButton);*/
-        this.field_146292_n.add(new GuiButton(0, cornerX - 120, cornerY, 120, 20, StatCollector.translateToLocal("gui.stenciltable1")));
-        this.field_146292_n.add(new GuiButton(1, cornerX - 120, cornerY + 20, 120, 20, StatCollector.translateToLocal("gui.stenciltable1")));
+        this.buttonList.add(repairButton);*/
+        this.buttonList.add(new GuiButton(0, cornerX - 120, cornerY, 120, 20, StatCollector.translateToLocal("gui.stenciltable1")));
+        this.buttonList.add(new GuiButton(1, cornerX - 120, cornerY + 20, 120, 20, StatCollector.translateToLocal("gui.stenciltable1")));
 
         //for (int iter = 0; iter < TConstructContent.patternOutputs.length; iter++)
         //{
 
         /*ToolGuiElement element = TConstruct.toolButtons.get(iter);
         GuiButtonTool button = new GuiButtonTool(iter, cornerX - 110 + 22 * (iter % 5), cornerY + 22 * (iter / 5), element.buttonIconX, element.buttonIconY, element.texture); // Repair
-        this.field_146292_n.add(button);*/
+        this.buttonList.add(button);*/
         //}
     }
 
@@ -83,7 +83,7 @@ public class StencilTableGui extends GuiContainer
             int meta = pattern.getItemDamage();
             if (meta == 0)
             {
-                if (button.field_146127_k == 0)
+                if (button.id == 0)
                 {
                     patternIndex++;
                     if (patternIndex == 21)
@@ -91,7 +91,7 @@ public class StencilTableGui extends GuiContainer
                     if (patternIndex >= TRepo.patternOutputs.length - 1)
                         patternIndex = 0;
                 }
-                else if (button.field_146127_k == 1)
+                else if (button.id == 1)
                 {
                     patternIndex--;
                     if (patternIndex < 0)
@@ -120,9 +120,9 @@ public class StencilTableGui extends GuiContainer
         {
             outputStream.writeByte(2);
             outputStream.writeInt(logic.getWorld().provider.dimensionId);
-            outputStream.writeInt(logic.field_145851_c);
-            outputStream.writeInt(logic.field_145848_d);
-            outputStream.writeInt(logic.field_145849_e);
+            outputStream.writeInt(logic.xCoord);
+            outputStream.writeInt(logic.yCoord);
+            outputStream.writeInt(logic.zCoord);
             outputStream.writeShort(stack.itemID);
             outputStream.writeShort(stack.getItemDamage());
         }
@@ -138,6 +138,6 @@ public class StencilTableGui extends GuiContainer
 
         PacketDispatcher.sendPacketToServer(packet);*/
         
-        TConstruct.packetPipeline.sendToServer(new PacketStencilTable(logic.field_145851_c, logic.field_145848_d, logic.field_145849_e, stack));
+        TConstruct.packetPipeline.sendToServer(new PacketStencilTable(logic.xCoord, logic.yCoord, logic.zCoord, stack));
     }
 }

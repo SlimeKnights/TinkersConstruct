@@ -35,9 +35,9 @@ public class DryingRackLogic extends InventoryLogic
     }
 
     @Override
-    public void func_145845_h ()
+    public void updateEntity ()
     {
-        if (!field_145850_b.isRemote && maxTime > 0 && currentTime < maxTime)
+        if (!worldObj.isRemote && maxTime > 0 && currentTime < maxTime)
         {
             currentTime++;
             if (currentTime >= maxTime)
@@ -71,11 +71,11 @@ public class DryingRackLogic extends InventoryLogic
             maxTime = DryingRackRecipes.getDryingTime(inventory[0]);
         else
             maxTime = 0;
-        field_145850_b.func_147471_g(field_145851_c, field_145848_d, field_145849_e);
+        worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
     }
 
     @Override
-    public void func_145839_a (NBTTagCompound tags)
+    public void readFromNBT (NBTTagCompound tags)
     {
         currentTime = tags.getInteger("Time");
         maxTime = tags.getInteger("MaxTime");
@@ -83,7 +83,7 @@ public class DryingRackLogic extends InventoryLogic
     }
 
     @Override
-    public void func_145841_b (NBTTagCompound tags)
+    public void writeToNBT (NBTTagCompound tags)
     {
         tags.setInteger("Time", currentTime);
         tags.setInteger("MaxTime", maxTime);
@@ -92,45 +92,45 @@ public class DryingRackLogic extends InventoryLogic
 
     public void readCustomNBT (NBTTagCompound tags)
     {
-        super.func_145839_a(tags);
+        super.readFromNBT(tags);
     }
 
     public void writeCustomNBT (NBTTagCompound tags)
     {
-        super.func_145841_b(tags);
+        super.writeToNBT(tags);
     }
 
     /* Packets */
     @Override
-    public Packet func_145844_m ()
+    public Packet getDescriptionPacket ()
     {
         NBTTagCompound tag = new NBTTagCompound();
         writeCustomNBT(tag);
-        return new S35PacketUpdateTileEntity(field_145851_c, field_145848_d, field_145849_e, 1, tag);
+        return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 1, tag);
     }
 
     @Override
     public void onDataPacket (NetworkManager net, S35PacketUpdateTileEntity packet)
     {
         readCustomNBT(packet.func_148857_g());
-        field_145850_b.func_147479_m(field_145851_c, field_145848_d, field_145849_e);
+        worldObj.func_147479_m(xCoord, yCoord, zCoord);
     }
 
     @SideOnly(Side.CLIENT)
     public AxisAlignedBB getRenderBoundingBox ()
     {
-        AxisAlignedBB cbb = AxisAlignedBB.getAABBPool().getAABB(field_145851_c, field_145848_d - 1, field_145849_e, field_145851_c + 1, field_145848_d + 1, field_145849_e + 1);
+        AxisAlignedBB cbb = AxisAlignedBB.getAABBPool().getAABB(xCoord, yCoord - 1, zCoord, xCoord + 1, yCoord + 1, zCoord + 1);
         return cbb;
     }
 
     @Override
-    public String func_145825_b ()
+    public String getInventoryName ()
     {
         return null;
     }
 
     @Override
-    public boolean func_145818_k_ ()
+    public boolean hasCustomInventoryName ()
     {
         return false;
     }

@@ -25,17 +25,17 @@ public class LiquidMetalFinite extends BlockFluidFinite
     {
         super(fluid, TRepo.liquidMetal);
         this.texture = texture;
-        this.func_149647_a(TConstructRegistry.blockTab);
+        this.setCreativeTab(TConstructRegistry.blockTab);
     }
 
     @Override
-    public int func_149701_w ()
+    public int getRenderBlockPass ()
     {
         return 0;
     }
 
     @Override
-    public void func_149651_a (IIconRegister iconRegister)
+    public void registerBlockIcons (IIconRegister iconRegister)
     {
         stillIcon = iconRegister.registerIcon("tinker:" + texture);
         flowIcon = iconRegister.registerIcon("tinker:" + texture + "_flow");
@@ -43,7 +43,7 @@ public class LiquidMetalFinite extends BlockFluidFinite
 
     @Override
     @SideOnly(Side.CLIENT)
-    public IIcon func_149691_a (int side, int meta)
+    public IIcon getIcon (int side, int meta)
     {
         if (side == 0 || side == 1)
             return stillIcon;
@@ -51,7 +51,7 @@ public class LiquidMetalFinite extends BlockFluidFinite
     }
 
     @Override
-    public void func_149670_a (World par1World, int x, int y, int z, Entity entity)
+    public void onEntityCollidedWithBlock (World par1World, int x, int y, int z, Entity entity)
     {
         if (entity instanceof EntityLivingBase)
         {
