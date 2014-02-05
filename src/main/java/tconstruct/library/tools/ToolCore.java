@@ -455,7 +455,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IBa
         }
         if (getPartAmount() >= 4)
         {
-           current = extraMat.reinforced();
+            current = extraMat.reinforced();
             if (current > 0 && current > reinforced)
             {
                 style = extraMat.style();
@@ -546,7 +546,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IBa
             boolean supress = false;
             try
             {
-                clazz = Class.forName(tconstruct.common.TContent.class.getName());
+                clazz = Class.forName("tconstruct.common.TRepo"); //TODO: Make sure this is still working in 1.7.
                 fld = clazz.getField("supressMissingToolLogs");
                 supress = fld.getBoolean(fld);
             }

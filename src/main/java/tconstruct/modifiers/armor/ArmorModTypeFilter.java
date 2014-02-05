@@ -59,7 +59,7 @@ public abstract class ArmorModTypeFilter extends ArmorMod
             }
             if (!match)
                 return false;
-            
+
             minimumMatch = true;
         }
         return minimumMatch;
@@ -89,6 +89,17 @@ public abstract class ArmorModTypeFilter extends ArmorMod
                     }
                 }
             }
+        }
+        return amount;
+    }
+
+    public int matchingItems (ItemStack[] input)
+    {
+        int amount = 0;
+        for (ItemStack inputStack : input)
+        {
+            if (inputStack != null)
+                amount++;
         }
         return amount;
     }

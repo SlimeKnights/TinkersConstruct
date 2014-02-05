@@ -22,8 +22,6 @@ public class LavaTankItemBlock extends MultiItemBlock
         setHasSubtypes(true);
     }
 
-
-
     public void addInformation (ItemStack stack, EntityPlayer player, List list, boolean par4)
     {
         if (stack.hasTagCompound())
@@ -31,7 +29,7 @@ public class LavaTankItemBlock extends MultiItemBlock
             NBTTagCompound liquidTag = stack.getTagCompound().getCompoundTag("Fluid");
             if (liquidTag != null)
             {
-                list.add(StatCollector.translateToLocal("searedtank1.tooltip") + StatCollector.translateToLocal(liquidTag.getString("FluidName")));
+                list.add(StatCollector.translateToLocal("searedtank1.tooltip") + " " + StatCollector.translateToLocal(liquidTag.getString("FluidName")));
                 list.add(liquidTag.getInteger("Amount") + " mB");
             }
         }

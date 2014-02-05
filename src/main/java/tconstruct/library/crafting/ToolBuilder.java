@@ -9,6 +9,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.common.MinecraftForge;
 import cpw.mods.fml.common.event.*;
 import cpw.mods.fml.common.eventhandler.Event.Result;
@@ -384,6 +385,8 @@ public class ToolBuilder
     public ItemStack modifyArmor (ItemStack input, ItemStack[] slots, String name)
     {
         ItemStack armor = input.copy();
+        if (!armor.hasTagCompound())
+            addArmorTag(input);
         NBTTagCompound tags = armor.getTagCompound().getCompoundTag("TinkerArmor");
         tags.removeTag("Built");
 
@@ -449,6 +452,18 @@ public class ToolBuilder
             return null;
     }
 
+    public void addArmorTag (ItemStack armor) //Not sure if temporary or not
+    {
+        NBTTagCompound baseTag = new NBTTagCompound();
+        NBTTagList list = new NBTTagList();
+
+        NBTTagCompound armorTag = new NBTTagCompound();
+        armorTag.setInteger("Modifiers", 30);
+        baseTag.setTag("TinkerArmor", armorTag);
+
+        armor.setTagCompound(baseTag);
+    }
+
     int buildReinforced (TToolMaterial headMat, TToolMaterial handleMat, TToolMaterial accessoryMat, TToolMaterial extraMat)
     {
         int reinforced = 0;
@@ -499,8 +514,8 @@ public class ToolBuilder
             throw new NullPointerException("Tool modifier cannot be null.");
         instance.toolMods.add(mod);
     }
-    
-    public static void registerArmorMod(ArmorMod mod)
+
+    public static void registerArmorMod (ArmorMod mod)
     {
         if (mod == null)
             throw new NullPointerException("Armor modifier cannot be null.");

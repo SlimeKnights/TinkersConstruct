@@ -34,6 +34,8 @@ import tconstruct.library.crafting.*;
 import tconstruct.library.util.IPattern;
 import tconstruct.modifiers.armor.AModMoveSpeed;
 import tconstruct.modifiers.tools.*;
+import tconstruct.modifiers.armor.*;
+
 import tconstruct.util.RecipeRemover;
 import tconstruct.util.TDispenserBehaviorArrow;
 import tconstruct.util.TDispenserBehaviorSpawnEgg;
@@ -249,11 +251,9 @@ public class TRecipes
         TRepo.modFlux = new ModFlux();
         tb.registerToolMod(TRepo.modFlux);
 
-        EnumSet<EnumArmorPart> allArmors = EnumSet.of(EnumArmorPart.HELMET, EnumArmorPart.CHEST, EnumArmorPart.PANTS, EnumArmorPart.SHOES);
         ItemStack redstoneItem = new ItemStack(Items.redstone);
         ItemStack redstoneBlock = new ItemStack(Blocks.redstone_block);
         tb.registerToolMod(new ModRedstone(2, new ItemStack[] { redstoneItem, redstoneBlock }, new int[] { 1, 9 }));
-        tb.registerArmorMod(new AModMoveSpeed(2, allArmors, new ItemStack[] { redstoneItem, redstoneBlock }, new int[] { 1, 9 }, false));
 
         ItemStack lapisItem = new ItemStack(Items.dye, 1, 4);
         ItemStack lapisBlock = new ItemStack(Blocks.lapis_block);
@@ -289,6 +289,15 @@ public class TRecipes
 
         ItemStack obsidianPlate = new ItemStack(TRepo.largePlate, 1, 6);
         tb.registerToolMod(new ModReinforced(new ItemStack[] { obsidianPlate }, 16, 1));
+
+        EnumSet<EnumArmorPart> allArmors = EnumSet.of(EnumArmorPart.HELMET, EnumArmorPart.CHEST, EnumArmorPart.PANTS, EnumArmorPart.SHOES);
+        EnumSet<EnumArmorPart> chest = EnumSet.of(EnumArmorPart.CHEST);
+        tb.registerArmorMod(new AModMoveSpeed(0, allArmors, new ItemStack[] { redstoneItem, redstoneBlock }, new int[] { 1, 9 }, false));
+        tb.registerArmorMod(new AModKnockbackResistance(1, allArmors, new ItemStack[] { new ItemStack(Items.gold_ingot), new ItemStack(Blocks.gold_block) }, new int[] { 1, 9 }, false));
+        tb.registerArmorMod(new AModHealthBoost(2, allArmors, new ItemStack[] { new ItemStack(TRepo.heartCanister, 1, 2) }, new int[] { 2 }, true));
+        tb.registerArmorMod(new AModDamageBoost(3, allArmors, new ItemStack[] { new ItemStack(Items.diamond), new ItemStack(Blocks.diamond_block) }, new int[] { 1, 9 }, false, 3, 0.05));
+        tb.registerArmorMod(new AModDamageBoost(4, chest, new ItemStack[] { new ItemStack(Blocks.quartz_block, 1, Short.MAX_VALUE) }, new int[] { 1 }, true, 5, 1));
+        tb.registerArmorMod(new AModProtection(5, allArmors, new ItemStack[] { new ItemStack(TRepo.largePlate, 1, 2) }, new int[] { 2 }));
 
         TConstructRegistry.registerActiveToolMod(new TActiveOmniMod());
     }
@@ -494,6 +503,8 @@ public class TRecipes
         GameRegistry.addShapelessRecipe(new ItemStack(TRepo.manualBook, 1, 3), new ItemStack(TRepo.manualBook, 1, 2));
         // alternative Vanilla Book Recipe
         GameRegistry.addShapelessRecipe(new ItemStack(Items.book), Items.paper, Items.paper, Items.paper, Items.string, TRepo.blankPattern, TRepo.blankPattern);
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(Items.name_tag), "P~ ", "~O ", "  ~", '~', Items.string, 'P', Items.paper, 'O', "slimeball"));
+
         // Paperstack Recipe
         GameRegistry.addRecipe(new ItemStack(TRepo.materials, 1, 0), "pp", "pp", 'p', Items.paper);
         // Mossball Recipe
@@ -516,11 +527,29 @@ public class TRecipes
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TRepo.materials, 1, 25), patSurround, 'm', "nuggetGold", '#', new ItemStack(Items.string)));
         // Silky Jewel Recipes
         GameRegistry.addRecipe(new ItemStack(TRepo.materials, 1, 26), " c ", "cec", " c ", 'c', new ItemStack(TRepo.materials, 1, 25), 'e', new ItemStack(Items.emerald));
-        // Wooden Armor Recipes
-        GameRegistry.addRecipe(new ShapedOreRecipe(TRepo.helmetWood, new Object[] { "www", "w w", 'w', "logWood" }));
-        GameRegistry.addRecipe(new ShapedOreRecipe(TRepo.chestplateWood, new Object[] { "w w", "www", "www", 'w', "logWood" }));
-        GameRegistry.addRecipe(new ShapedOreRecipe(TRepo.leggingsWood, new Object[] { "www", "w w", "w w", 'w', "logWood" }));
-        GameRegistry.addRecipe(new ShapedOreRecipe(TRepo.bootsWood, new Object[] { "w w", "w w", 'w', "logWood" }));
+        // Armor Recipes
+        Object[] helm = new String[] { "www", "w w" };
+        Object[] chest = new String[] { "w w", "www", "www" };
+        Object[] pants = new String[] { "www", "w w", "w w" };
+        Object[] shoes = new String[] { "w w", "w w" };
+        GameRegistry.addRecipe(new ShapedOreRecipe(TRepo.helmetWood, helm, 'w', "logWood"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(TRepo.chestplateWood, chest, 'w', "logWood"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(TRepo.leggingsWood, pants, 'w', "logWood"));
+        GameRegistry.addRecipe(new ShapedOreRecipe(TRepo.bootsWood, shoes, 'w', "logWood"));
+
+        ItemStack exoGoggleStack = new ItemStack(TRepo.exoGoggles);
+        ItemStack exoChestStack = new ItemStack(TRepo.exoChest);
+        ItemStack exoPantsStack = new ItemStack(TRepo.exoPants);
+        ItemStack exoShoesStack = new ItemStack(TRepo.exoShoes);
+        ToolBuilder.instance.addArmorTag(exoGoggleStack);
+        ToolBuilder.instance.addArmorTag(exoChestStack);
+        ToolBuilder.instance.addArmorTag(exoPantsStack);
+        ToolBuilder.instance.addArmorTag(exoShoesStack);
+        GameRegistry.addShapedRecipe(exoGoggleStack, helm, 'w', new ItemStack(TRepo.largePlate, 1, 14));
+        GameRegistry.addShapedRecipe(exoChestStack, chest, 'w', new ItemStack(TRepo.largePlate, 1, 14));
+        GameRegistry.addShapedRecipe(exoPantsStack, pants, 'w', new ItemStack(TRepo.largePlate, 1, 14));
+        GameRegistry.addShapedRecipe(exoShoesStack, shoes, 'w', new ItemStack(TRepo.largePlate, 1, 14));
+
         // Metal conversion Recipes
         GameRegistry.addRecipe(new ItemStack(TRepo.metalBlock, 1, 3), patBlock, '#', new ItemStack(TRepo.materials, 1, 9)); // Copper
         GameRegistry.addRecipe(new ItemStack(TRepo.metalBlock, 1, 5), patBlock, '#', new ItemStack(TRepo.materials, 1, 10)); // Tin
@@ -660,8 +689,8 @@ public class TRecipes
                 Blocks.stone_pressure_plate));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TRepo.landmine, 1, 2), "mcm", "rpr", 'm', Blocks.obsidian, 'c', new ItemStack(TRepo.blankPattern, 1, 1), 'r', Items.redstone, 'p',
                 Blocks.stone_pressure_plate));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TRepo.landmine, 1, 3), "mcm", "rpr", 'm', Items.repeater, 'c', new ItemStack(TRepo.blankPattern, 1, 1), 'r', Items.redstone,
-                'p', Blocks.stone_pressure_plate));
+        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TRepo.landmine, 1, 3), "mcm", "rpr", 'm', Items.repeater, 'c', new ItemStack(TRepo.blankPattern, 1, 1), 'r', Items.redstone, 'p',
+                Blocks.stone_pressure_plate));
 
         //Ultra hardcore recipes
         GameRegistry.addRecipe(new ItemStack(TRepo.goldHead), patSurround, '#', new ItemStack(Items.gold_ingot), 'm', new ItemStack(Items.skull, 1, 3));
@@ -1076,7 +1105,8 @@ public class TRecipes
         basinCasting.addCastingRecipe(new ItemStack(TRepo.smeltery, 1, 5), new FluidStack(TRepo.moltenStoneFluid, TConstruct.chunkLiquidValue), new ItemStack(Blocks.cobblestone), true, 100);
         basinCasting.addCastingRecipe(new ItemStack(Blocks.emerald_block), new FluidStack(TRepo.moltenEmeraldFluid, 640 * 9), null, true, 100); //emerald
         basinCasting.addCastingRecipe(new ItemStack(TRepo.speedBlock, 1, 0), new FluidStack(TRepo.moltenTinFluid, TConstruct.nuggetLiquidValue), new ItemStack(Blocks.gravel), true, 100); //brownstone
-        basinCasting.addCastingRecipe(new ItemStack(Blocks.end_stone), new FluidStack(TRepo.moltenEnderFluid, TConstruct.chunkLiquidValue), new ItemStack(Blocks.obsidian), true, 100); //endstone
+        if (PHConstruct.craftEndstone)
+            basinCasting.addCastingRecipe(new ItemStack(Blocks.end_stone), new FluidStack(TRepo.moltenEnderFluid, TConstruct.chunkLiquidValue), new ItemStack(Blocks.obsidian), true, 100); //endstone
         basinCasting.addCastingRecipe(new ItemStack(TRepo.metalBlock, 1, 10), new FluidStack(TRepo.moltenEnderFluid, 1000), null, true, 100); //ender
         basinCasting.addCastingRecipe(new ItemStack(TRepo.glueBlock), new FluidStack(TRepo.glueFluid, TConstruct.blockLiquidValue), null, true, 100); //glue
 

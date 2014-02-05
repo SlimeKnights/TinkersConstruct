@@ -7,6 +7,7 @@ import cpw.mods.fml.common.Loader;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 import tconstruct.TConstruct;
+import tconstruct.common.TRepo;
 import tconstruct.library.tools.AbilityHelper;
 
 public class PHConstruct
@@ -21,6 +22,7 @@ public class PHConstruct
         config.load();
         
         superfunWorld = config.get("Superfun", "All the world is Superfun", false).getBoolean(false);
+        TRepo.supressMissingToolLogs = config.get("Logging", "Disable tool build messages", false).getBoolean(false);
 
         keepHunger = config.get("Difficulty Changes", "Keep hunger on death", true).getBoolean(true);
         keepLevels = config.get("Difficulty Changes", "Keep levels on death", true).getBoolean(true);
@@ -43,9 +45,11 @@ public class PHConstruct
         stencilTableCrafting = config.get("Difficulty Changes", "Craft Stencil Tables", true).getBoolean(true);
         miningLevelIncrease = config.get("Difficulty Changes", "Modifiers increase Mining Level", true).getBoolean(true);
         denyMattock = config.get("Difficulty Changes", "Deny creation of non-metal mattocks", false).getBoolean(false);
+        craftEndstone = config.get("Difficulty Changes", "Allow creation of endstone", true).getBoolean(true);
 
+        
         ingotsPerOre = config.get("Smeltery Output Modification", "Ingots per ore", 2, "Number of ingots returned from smelting ores in the smeltery").getDouble(2);
-        ingotsBronzeAlloy = config.get("Smeltery Output Modification", "Bronze ingot return", 3, "Number of ingots returned from smelting Bronze in the smeltery").getDouble(3);
+        ingotsBronzeAlloy = config.get("Smeltery Output Modification", "Bronze ingot return", 4, "Number of ingots returned from smelting Bronze in the smeltery").getDouble(4);
         ingotsAluminumBrassAlloy = config.get("Smeltery Output Modification", "Aluminum Brass ingot return", 4, "Number of ingots returned from smelting Aluminum Brass in the smeltery").getDouble(4);
         ingotsAlumiteAlloy = config.get("Smeltery Output Modification", "Alumite ingot return", 3, "Number of ingots returned from smelting Alumite in the smeltery").getDouble(3);
         ingotsManyullynAlloy = config.get("Smeltery Output Modification", "Manyullyn ingot return", 1, "Number of ingots returned from smelting Manyullyn in the smeltery").getDouble(1);
@@ -284,6 +288,7 @@ public class PHConstruct
     public static double ingotsManyullynAlloy;
     public static double ingotsPigironAlloy;
 
+    public static boolean craftEndstone;
     //Ultra Hardcore modifiers
     public static boolean enableHealthRegen;
     public static boolean goldAppleRecipe;
