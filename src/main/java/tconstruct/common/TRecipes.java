@@ -170,7 +170,7 @@ public class TRecipes
 
     public void addOreDictionarySmelteryRecipes ()
     {
-        List<FluidType> exceptions = Arrays.asList(new FluidType[] { FluidType.Water, FluidType.Stone, FluidType.Ender, FluidType.Glass, FluidType.Slime });
+        List<FluidType> exceptions = Arrays.asList(new FluidType[] { FluidType.Water, FluidType.Stone, FluidType.Ender, FluidType.Glass, FluidType.Slime, FluidType.Obsidian });
         for (FluidType ft : FluidType.values())
         {
             if (exceptions.contains(ft))
@@ -192,6 +192,34 @@ public class TRecipes
 
             // NetherOres support
             Smeltery.addDictionaryMelting("oreNether" + ft.toString(), ft, 75, (int) (TConstruct.ingotLiquidValue * PHConstruct.ingotsPerOre * 2));
+
+            // Blocks
+            Smeltery.addDictionaryMelting("block" + ft.toString(), ft, 100, TConstruct.blockLiquidValue);
+
+            if (ft.isToolpart)
+            {
+                registerPatternMaterial("ingot" + ft.toString(), 2, ft.toString());
+                registerPatternMaterial("block" + ft.toString(), 18, ft.toString());
+            }
+        }
+        //Obsidian, different dust amount
+        {
+            FluidType ft = FluidType.Obsidian;
+            Smeltery.addDictionaryMelting("nugget" + ft.toString(), ft, -100, TConstruct.nuggetLiquidValue);
+
+            // Ingots, Dust
+            registerIngotCasting(ft);
+            Smeltery.addDictionaryMelting("ingot" + ft.toString(), ft, -50, TConstruct.ingotLiquidValue);
+            Smeltery.addDictionaryMelting("dust" + ft.toString(), ft, -75, TConstruct.ingotLiquidValue / 4);
+
+            // Factorization support
+            Smeltery.addDictionaryMelting("crystalline" + ft.toString(), ft, -50, TConstruct.ingotLiquidValue);
+
+            // Ores
+            Smeltery.addDictionaryMelting("ore" + ft.toString(), ft, 0, ((int) TConstruct.ingotLiquidValue * (int) PHConstruct.ingotsPerOre));
+
+            // NetherOres support
+            Smeltery.addDictionaryMelting("oreNether" + ft.toString(), ft, 75, ((int) TConstruct.ingotLiquidValue * (int) PHConstruct.ingotsPerOre * 2));
 
             // Blocks
             Smeltery.addDictionaryMelting("block" + ft.toString(), ft, 100, TConstruct.blockLiquidValue);
@@ -435,7 +463,7 @@ public class TRecipes
         //FurnaceRecipes.smelting().func_151394_a(new ItemStack(TRepo.oreSlag, 2, new ItemStack(TRepo.materials, 1, 4), 3f);
         FurnaceRecipes.smelting().func_151394_a(new ItemStack(TRepo.oreSlag, 3), new ItemStack(TRepo.materials, 1, 9), 0.5f);
         FurnaceRecipes.smelting().func_151394_a(new ItemStack(TRepo.oreSlag, 4), new ItemStack(TRepo.materials, 1, 10), 0.5f);
-        FurnaceRecipes.smelting().func_151394_a(new ItemStack(TRepo.oreSlag, 5), new ItemStack(TRepo.materials, 1, 12), 0.5f);
+        FurnaceRecipes.smelting().func_151394_a(new ItemStack(TRepo.oreSlag, 5), new ItemStack(TRepo.materials, 1, 11), 0.5f);
 
         FurnaceRecipes.smelting().func_151394_a(new ItemStack(TRepo.oreBerries, 0), new ItemStack(TRepo.materials, 1, 19), 0.2f);
         FurnaceRecipes.smelting().func_151394_a(new ItemStack(TRepo.oreBerries, 1), new ItemStack(Items.gold_nugget), 0.2f);
@@ -448,7 +476,7 @@ public class TRecipes
         FurnaceRecipes.smelting().func_151394_a(new ItemStack(TRepo.oreGravel, 1), new ItemStack(Items.gold_ingot), 0.2f);
         FurnaceRecipes.smelting().func_151394_a(new ItemStack(TRepo.oreGravel, 2), new ItemStack(TRepo.materials, 1, 9), 0.2f);
         FurnaceRecipes.smelting().func_151394_a(new ItemStack(TRepo.oreGravel, 3), new ItemStack(TRepo.materials, 1, 10), 0.2f);
-        FurnaceRecipes.smelting().func_151394_a(new ItemStack(TRepo.oreGravel, 4), new ItemStack(TRepo.materials, 1, 12), 0.2f);
+        FurnaceRecipes.smelting().func_151394_a(new ItemStack(TRepo.oreGravel, 4), new ItemStack(TRepo.materials, 1, 11), 0.2f);
 
         FurnaceRecipes.smelting().func_151394_a(new ItemStack(TRepo.speedBlock, 0), new ItemStack(TRepo.speedBlock, 1, 2), 0.2f);
     }
@@ -554,7 +582,7 @@ public class TRecipes
         GameRegistry.addRecipe(new ItemStack(TRepo.metalBlock, 1, 3), patBlock, '#', new ItemStack(TRepo.materials, 1, 9)); // Copper
         GameRegistry.addRecipe(new ItemStack(TRepo.metalBlock, 1, 5), patBlock, '#', new ItemStack(TRepo.materials, 1, 10)); // Tin
         GameRegistry.addRecipe(new ItemStack(TRepo.metalBlock, 1, 6), patBlock, '#', new ItemStack(TRepo.materials, 1, 11)); // Aluminum
-        GameRegistry.addRecipe(new ItemStack(TRepo.metalBlock, 1, 6), patBlock, '#', new ItemStack(TRepo.materials, 1, 12)); // Aluminum
+        //GameRegistry.addRecipe(new ItemStack(TRepo.metalBlock, 1, 6), patBlock, '#', new ItemStack(TRepo.materials, 1, 12)); // Aluminum
         GameRegistry.addRecipe(new ItemStack(TRepo.metalBlock, 1, 4), patBlock, '#', new ItemStack(TRepo.materials, 1, 13)); // Bronze
         GameRegistry.addRecipe(new ItemStack(TRepo.metalBlock, 1, 7), patBlock, '#', new ItemStack(TRepo.materials, 1, 14)); // AluBrass
         GameRegistry.addRecipe(new ItemStack(TRepo.metalBlock, 1, 0), patBlock, '#', new ItemStack(TRepo.materials, 1, 3)); // Cobalt
@@ -562,11 +590,11 @@ public class TRecipes
         GameRegistry.addRecipe(new ItemStack(TRepo.metalBlock, 1, 2), patBlock, '#', new ItemStack(TRepo.materials, 1, 5)); // Manyullyn
         GameRegistry.addRecipe(new ItemStack(TRepo.metalBlock, 1, 8), patBlock, '#', new ItemStack(TRepo.materials, 1, 15)); // Alumite
         GameRegistry.addRecipe(new ItemStack(TRepo.metalBlock, 1, 9), patBlock, '#', new ItemStack(TRepo.materials, 1, 16)); // Steel
-        GameRegistry.addRecipe(new ItemStack(TRepo.metalBlock, 1, 11), patBlock, '#', new ItemStack(TRepo.materials, 1, 12)); //Aluminum raw -> ingot
+        GameRegistry.addRecipe(new ItemStack(TRepo.materials, 1, 11), patBlock, '#', new ItemStack(TRepo.materials, 1, 12)); //Aluminum raw -> ingot
 
         GameRegistry.addRecipe(new ItemStack(TRepo.materials, 9, 9), "m", 'm', new ItemStack(TRepo.metalBlock, 1, 3)); //Copper
         GameRegistry.addRecipe(new ItemStack(TRepo.materials, 9, 10), "m", 'm', new ItemStack(TRepo.metalBlock, 1, 5)); //Tin
-        GameRegistry.addRecipe(new ItemStack(TRepo.materials, 9, 12), "m", 'm', new ItemStack(TRepo.metalBlock, 1, 6)); //Aluminum
+        GameRegistry.addRecipe(new ItemStack(TRepo.materials, 9, 11), "m", 'm', new ItemStack(TRepo.metalBlock, 1, 6)); //Aluminum
         GameRegistry.addRecipe(new ItemStack(TRepo.materials, 9, 13), "m", 'm', new ItemStack(TRepo.metalBlock, 1, 4)); //Bronze
         GameRegistry.addRecipe(new ItemStack(TRepo.materials, 9, 14), "m", 'm', new ItemStack(TRepo.metalBlock, 1, 7)); //AluBrass
         GameRegistry.addRecipe(new ItemStack(TRepo.materials, 9, 3), "m", 'm', new ItemStack(TRepo.metalBlock, 1, 0)); //Cobalt
@@ -592,7 +620,7 @@ public class TRecipes
         GameRegistry.addRecipe(new ItemStack(TRepo.materials, 9, 20), "m", 'm', new ItemStack(TRepo.materials, 1, 9)); //Copper
         GameRegistry.addRecipe(new ItemStack(TRepo.materials, 9, 21), "m", 'm', new ItemStack(TRepo.materials, 1, 10)); //Tin
         GameRegistry.addRecipe(new ItemStack(TRepo.materials, 9, 22), "m", 'm', new ItemStack(TRepo.materials, 1, 11)); //Aluminum
-        GameRegistry.addRecipe(new ItemStack(TRepo.materials, 9, 22), "m", 'm', new ItemStack(TRepo.materials, 1, 12)); //Aluminum
+        //GameRegistry.addRecipe(new ItemStack(TRepo.materials, 9, 22), "m", 'm', new ItemStack(TRepo.materials, 1, 12)); //Aluminum
         GameRegistry.addRecipe(new ItemStack(TRepo.materials, 9, 24), "m", 'm', new ItemStack(TRepo.materials, 1, 14)); //Aluminum Brass
         GameRegistry.addRecipe(new ItemStack(TRepo.materials, 9, 27), "m", 'm', new ItemStack(TRepo.materials, 1, 18)); //Obsidian
         GameRegistry.addRecipe(new ItemStack(TRepo.materials, 9, 28), "m", 'm', new ItemStack(TRepo.materials, 1, 3)); //Cobalt
@@ -671,7 +699,7 @@ public class TRecipes
         //Accessories
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TRepo.heartCanister, 1, 0), "##", "##", '#', "ingotAluminum"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TRepo.heartCanister, 1, 0), "##", "##", '#', "ingotAluminium"));
-        GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TRepo.heartCanister, 1, 0), "##", "##", '#', "ingotNaturalAluminum"));
+        //GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TRepo.heartCanister, 1, 0), "##", "##", '#', "ingotNaturalAluminum"));
         GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(TRepo.heartCanister, 1, 0), " # ", "#B#", " # ", '#', "ingotTin", 'B', Items.bone));
 
         GameRegistry.addRecipe(new ItemStack(TRepo.diamondApple), " d ", "d#d", " d ", 'd', new ItemStack(Items.diamond), '#', new ItemStack(Items.apple));
@@ -1106,7 +1134,10 @@ public class TRecipes
         basinCasting.addCastingRecipe(new ItemStack(Blocks.emerald_block), new FluidStack(TRepo.moltenEmeraldFluid, 640 * 9), null, true, 100); //emerald
         basinCasting.addCastingRecipe(new ItemStack(TRepo.speedBlock, 1, 0), new FluidStack(TRepo.moltenTinFluid, TConstruct.nuggetLiquidValue), new ItemStack(Blocks.gravel), true, 100); //brownstone
         if (PHConstruct.craftEndstone)
-            basinCasting.addCastingRecipe(new ItemStack(Blocks.end_stone), new FluidStack(TRepo.moltenEnderFluid, TConstruct.chunkLiquidValue), new ItemStack(Blocks.obsidian), true, 100); //endstone
+        {
+            basinCasting.addCastingRecipe(new ItemStack(Blocks.end_stone), new FluidStack(TRepo.moltenEnderFluid, 50), new ItemStack(Blocks.obsidian), true, 100);
+            basinCasting.addCastingRecipe(new ItemStack(Blocks.end_stone), new FluidStack(TRepo.moltenEnderFluid, 250), new ItemStack(Blocks.sandstone), true, 100);
+        }
         basinCasting.addCastingRecipe(new ItemStack(TRepo.metalBlock, 1, 10), new FluidStack(TRepo.moltenEnderFluid, 1000), null, true, 100); //ender
         basinCasting.addCastingRecipe(new ItemStack(TRepo.glueBlock), new FluidStack(TRepo.glueFluid, TConstruct.blockLiquidValue), null, true, 100); //glue
 
@@ -1358,13 +1389,15 @@ public class TRecipes
         if (ores.size() > 0)
         {
             tableCasting.addCastingRecipe(ores.get(0), new FluidStack(TRepo.moltenInvarFluid, TConstruct.ingotLiquidValue), ingotcast, 80);
-            Smeltery.addAlloyMixing(new FluidStack(TRepo.moltenInvarFluid, 24), new FluidStack(TRepo.moltenIronFluid, 16), new FluidStack(TRepo.moltenNickelFluid, 8)); //Invar
+            Smeltery.addAlloyMixing(new FluidStack(TRepo.moltenInvarFluid, TConstruct.ingotLiquidValue * 3), new FluidStack(TRepo.moltenIronFluid, TConstruct.ingotLiquidValue * 2), new FluidStack(
+                    TRepo.moltenNickelFluid, TConstruct.ingotLiquidValue * 1)); //Invar
         }
         ores = OreDictionary.getOres("ingotElectrum");
         if (ores.size() > 0)
         {
             tableCasting.addCastingRecipe(ores.get(0), new FluidStack(TRepo.moltenElectrumFluid, TConstruct.ingotLiquidValue), ingotcast, 80);
-            Smeltery.addAlloyMixing(new FluidStack(TRepo.moltenElectrumFluid, 16), new FluidStack(TRepo.moltenGoldFluid, 8), new FluidStack(TRepo.moltenSilverFluid, 8)); //Electrum
+            Smeltery.addAlloyMixing(new FluidStack(TRepo.moltenElectrumFluid, TConstruct.ingotLiquidValue * 2), new FluidStack(TRepo.moltenGoldFluid, TConstruct.ingotLiquidValue), new FluidStack(
+                    TRepo.moltenSilverFluid, TConstruct.ingotLiquidValue)); //Electrum
         }
 
         ores = OreDictionary.getOres("blockNickel");

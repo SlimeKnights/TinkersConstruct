@@ -422,6 +422,7 @@ public class TEventHandler
                 ItemStack dropStack = new ItemStack(Items.skull, 1, 3);
                 NBTTagCompound nametag = new NBTTagCompound();
                 nametag.setString("SkullOwner", player.getDisplayName());
+                dropStack.setTagCompound(nametag);
                 addDrops(event, dropStack);
             }
 
@@ -439,6 +440,7 @@ public class TEventHandler
                         ItemStack dropStack = new ItemStack(Items.skull, 1, 3);
                         NBTTagCompound nametag = new NBTTagCompound();
                         nametag.setString("SkullOwner", player.getDisplayName());
+                        dropStack.setTagCompound(nametag);
                         addDrops(event, dropStack);
                     }
                 }

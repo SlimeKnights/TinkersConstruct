@@ -34,8 +34,8 @@ public class CraftingStationGui extends GuiContainer
         this.logic = logic;
         //text = new GuiTextField(this.field_146289_q, this.field_146999_f / 2 - 5, 8, 30, 12);
         //this.text.setText("");
-        title = "\u00A7nRepair and Modification";
-        body = "The main way to repair or change your tools or armor.\n\nPlace an item and a material on the left to get started.";
+        title = "\u00A7n" + StatCollector.translateToLocal("gui.toolforge1");
+        body = StatCollector.translateToLocal("gui.toolforge2");
         toolName = "";
     }
 
@@ -217,8 +217,8 @@ public class CraftingStationGui extends GuiContainer
             offset++;
             field_146289_q.drawString(StatCollector.translateToLocal("gui.toolstation13"), field_146999_f + 8, base + offset * 10, 0xffffff);
             offset++;
-            field_146289_q
-                    .drawString("- " + getHarvestLevelName(tags.getInteger("HarvestLevel")) + ", " + getHarvestLevelName(tags.getInteger("HarvestLevel2")), field_146999_f + 8, base + offset * 10, 0xffffff);
+            field_146289_q.drawString("- " + getHarvestLevelName(tags.getInteger("HarvestLevel")) + ", " + getHarvestLevelName(tags.getInteger("HarvestLevel2")), field_146999_f + 8, base + offset
+                    * 10, 0xffffff);
             offset++;
             offset++;
         }

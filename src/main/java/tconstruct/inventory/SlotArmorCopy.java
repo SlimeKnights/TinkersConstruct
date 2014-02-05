@@ -5,6 +5,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import cpw.mods.fml.relauncher.Side;
@@ -44,7 +45,12 @@ public class SlotArmorCopy extends Slot
     public boolean isItemValid (ItemStack par1ItemStack)
     {
         Item item = (par1ItemStack == null ? null : par1ItemStack.getItem());
-        return item != null;// && item.isValidArmor(par1ItemStack, armorType, parent.thePlayer);
+        boolean isValidArmor = false;
+        if (item instanceof ItemArmor)
+        {
+            isValidArmor = (((ItemArmor) item).armorType == armorType);
+        }
+        return item != null && (isValidArmor || (item instanceof ItemBlock && armorType == 0));
     }
 
     @SideOnly(Side.CLIENT)
