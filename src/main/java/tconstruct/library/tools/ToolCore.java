@@ -58,7 +58,7 @@ import cpw.mods.fml.relauncher.SideOnly;
 
 public abstract class ToolCore extends Item implements IEnergyContainerItem, IBattlegearWeapon
 {
-    //TE power constants -- TODO grab these from the 
+    //TE power constants -- TODO grab these from the items added
     protected int capacity = 400000;
     protected int maxReceive = 75;
     protected int maxExtract = 75;
@@ -337,25 +337,6 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IBa
             return;
 
         NBTTagCompound tags = stack.getTagCompound();
-        if (tags.hasKey("charge"))
-        {
-            String color = "";
-            //double joules = this.getJoules(stack);
-            int power = tags.getInteger("charge");
-
-            if (power != 0)
-            {
-                if (power <= this.getMaxEnergyStored(stack) / 3)
-                    color = "\u00a74";
-                else if (power > this.getMaxEnergyStored(stack) * 2 / 3)
-                    color = "\u00a72";
-                else
-                    color = "\u00a76";
-            }
-
-            String charge = new StringBuilder().append(color).append(tags.getInteger("charge")).append("/").append(getMaxEnergyStored(stack)).append(" EU").toString();
-            list.add(charge);
-        }
         if (tags.hasKey("Energy"))
         {
             String color = "";
@@ -565,7 +546,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IBa
             boolean supress = false;
             try
             {
-                clazz = Class.forName("tconstruct.common.TContent"); //TODO: Make sure this is still working in 1.7.
+                clazz = Class.forName("tconstruct.common.TRepo"); //TODO: Make sure this is still working in 1.7.
                 fld = clazz.getField("supressMissingToolLogs");
                 supress = fld.getBoolean(fld);
             }
@@ -840,7 +821,6 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IBa
         {
             return 0;
         }
-
         if (tags.hasKey("Energy"))
         {
             int energy = tags.getInteger("Energy");
@@ -857,7 +837,6 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IBa
         {
             return 0;
         }
-        
         if (tags.hasKey("Energy"))
         {
             int energy = tags.getInteger("Energy");
@@ -868,44 +847,30 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IBa
     }
 
     /* Battlegear support, IBattlegearWeapon */
-    // 1.6.4 start
-    public boolean allowOffhand(ItemStack mainhand, ItemStack offhand)
+
+    @Override
+    public boolean willAllowOffhandWeapon ()
     {
         return true;
     }
 
-    public boolean isOffhandHandDual(ItemStack off)
+    @Override
+    public boolean willAllowShield ()
     {
         return true;
     }
 
-    public boolean sheatheOnBack(ItemStack item)
+    @Override
+    public boolean isOffhandHandDualWeapon ()
+    {
+        return true;
+    }
+
+    @Override
+    public boolean sheatheOnBack ()
     {
         return false;
     }
-    //1.6.4 end
-    
-    //1.6.2 start
-    public boolean willAllowOffhandWeapon()
-    {
-    	return true;
-    }
-
-    public boolean willAllowShield()
-    {
-    	return true;
-    }
-    
-    public boolean isOffhandHandDualWeapon()
-    {
-    	return true;
-    }
-    
-    public boolean sheatheOnBack()
-    {
-    	return false;
-    }
-    //1.6.2 end
 
     @Override
     public boolean offhandAttackEntity (OffhandAttackEvent event, ItemStack mainhandItem, ItemStack offhandItem)
@@ -919,7 +884,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IBa
         return true;
     }
 
-	@Override
+    @Override
     public boolean offhandClickBlock (PlayerInteractEvent event, ItemStack mainhandItem, ItemStack offhandItem)
     {
         return true;
@@ -996,6 +961,7 @@ public abstract class ToolCore extends Item implements IEnergyContainerItem, IBa
         }
         return tags.getInteger("Energy");
     }
+
     @Override
     public int getMaxEnergyStored (ItemStack container)
     {
