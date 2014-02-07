@@ -5,6 +5,7 @@ import java.util.List;
 import mantle.items.abstracts.CraftingItem;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import tconstruct.common.TRepo;
 import tconstruct.library.TConstructRegistry;
@@ -43,7 +44,7 @@ public class Bowstring extends CraftingItem implements IToolPart
         return stack.getItemDamage();
     }
 
-    public void getSubItems (Block b, CreativeTabs tab, List list)
+    public void getSubItems (Item b, CreativeTabs tab, List list)
     {
         list.add(new ItemStack(b, 1, 0));
         if (TRepo.thaumcraftAvailable)

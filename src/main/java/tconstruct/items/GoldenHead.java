@@ -7,6 +7,7 @@ import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumRarity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
@@ -60,7 +61,7 @@ public class GoldenHead extends ItemFood
     /**
      * returns a list of items with the same ID, but different meta (eg: dye returns 16 items)
      */
-    public void getSubItems (Block b, CreativeTabs par2CreativeTabs, List par3List)
+    public void getSubItems (Item b, CreativeTabs par2CreativeTabs, List par3List)
     {
         par3List.add(new ItemStack(b, 1, 0));
     }
