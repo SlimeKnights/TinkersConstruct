@@ -967,7 +967,12 @@ public class TContent implements IFuelHandler
         GameRegistry.registerItem(strangeFood, "strangeFood");
         GameRegistry.registerItem(oreBerries, "oreBerries");
 
-        jerky = new Jerky(PHConstruct.jerky, Loader.isModLoaded("HungerOverhaul")).setUnlocalizedName("tconstruct.jerky");
+        boolean foodOverhaul;
+        if (Loader.isModLoaded("HungerOverhaul") || Loader.isModLoaded("fc_food")) {
+        	foodOverhaul = true;
+        }
+        
+        TRepo.jerky = new Jerky(foodOverhaul).setUnlocalizedName("tconstruct.jerky");
         GameRegistry.registerItem(jerky, "jerky");
 
         //Wearables
