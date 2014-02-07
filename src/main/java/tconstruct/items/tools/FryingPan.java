@@ -55,7 +55,7 @@ public class FryingPan extends Weapon
         return "Frying Pan";
     }
 
-    public void getSubItems (int id, CreativeTabs tab, List list)
+    public void getSubItems (Item id, CreativeTabs tab, List list)
     {
         super.getSubItems(id, tab, list);
 

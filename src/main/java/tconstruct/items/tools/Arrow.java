@@ -94,7 +94,7 @@ public class Arrow extends ToolCore
     }
 
     @Override
-    public void getSubItems (int id, CreativeTabs tab, List list)
+    public void getSubItems (Item id, CreativeTabs tab, List list)
     {
         //Vanilla style arrow
         Item accessory = getAccessoryItem();

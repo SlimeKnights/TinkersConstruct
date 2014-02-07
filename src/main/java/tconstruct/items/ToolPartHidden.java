@@ -3,6 +3,7 @@ package tconstruct.items;
 import java.util.List;
 
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
 
 public class ToolPartHidden extends ToolPart
 {
@@ -12,7 +13,7 @@ public class ToolPartHidden extends ToolPart
         super(textureType, name);
     }
 
-    public void getSubItems (int id, CreativeTabs tab, List list)
+    public void getSubItems (Item id, CreativeTabs tab, List list)
     {
 
     }

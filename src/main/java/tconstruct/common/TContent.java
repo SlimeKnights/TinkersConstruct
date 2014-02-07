@@ -648,12 +648,13 @@ public class TContent implements IFuelHandler
         GameRegistry.registerItem(TRepo.diamondApple, "diamondApple");
         GameRegistry.registerItem(TRepo.strangeFood, "strangeFood");
         GameRegistry.registerItem(TRepo.oreBerries, "oreBerries");
-        
+
         boolean foodOverhaul = false;
-        if (Loader.isModLoaded("HungerOverhaul") || Loader.isModLoaded("fc_food")) {
-        	foodOverhaul = true;
+        if (Loader.isModLoaded("HungerOverhaul") || Loader.isModLoaded("fc_food"))
+        {
+            foodOverhaul = true;
         }
-        
+
         TRepo.jerky = new Jerky(foodOverhaul).setUnlocalizedName("tconstruct.jerky");
         GameRegistry.registerItem(TRepo.jerky, "jerky");
 
