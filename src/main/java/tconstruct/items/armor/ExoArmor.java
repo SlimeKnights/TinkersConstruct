@@ -8,6 +8,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -49,7 +50,7 @@ public class ExoArmor extends ArmorCore
     }
 
     @SideOnly(Side.CLIENT)
-    public void getSubItems (Block b, CreativeTabs par2CreativeTabs, List par3List)
+    public void getSubItems (Item b, CreativeTabs par2CreativeTabs, List par3List)
     {
         ItemStack armor = new ItemStack(b, 1, 0);
         NBTTagCompound baseTag = new NBTTagCompound();

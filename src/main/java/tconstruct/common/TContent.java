@@ -649,7 +649,7 @@ public class TContent implements IFuelHandler
         GameRegistry.registerItem(TRepo.strangeFood, "strangeFood");
         GameRegistry.registerItem(TRepo.oreBerries, "oreBerries");
         
-        boolean foodOverhaul;
+        boolean foodOverhaul = false;
         if (Loader.isModLoaded("HungerOverhaul") || Loader.isModLoaded("fc_food")) {
         	foodOverhaul = true;
         }

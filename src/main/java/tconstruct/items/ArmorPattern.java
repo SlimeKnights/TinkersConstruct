@@ -6,6 +6,7 @@ import mantle.items.abstracts.CraftingItem;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import tconstruct.library.ItemBlocklike;
@@ -50,7 +51,7 @@ public class ArmorPattern extends CraftingItem implements ItemBlocklike
 
     private static final String[] patternName = new String[] { "helmet", "chestplate", "leggings", "boots" };
 
-    public void getSubItems (Block block, CreativeTabs tab, List list)
+    public void getSubItems (Item block, CreativeTabs tab, List list)
     {
         for (int i = 0; i < patternName.length; i++)
         {

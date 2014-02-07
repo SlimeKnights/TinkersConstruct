@@ -5,6 +5,7 @@ import java.util.List;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IIcon;
 import tconstruct.common.TRepo;
@@ -54,7 +55,8 @@ public class ToolShard extends ToolPart
         }
     }
 
-    public void getSubItems (Block b, CreativeTabs tab, List list)
+    @Override
+    public void getSubItems (Item b, CreativeTabs tab, List list)
     {
         for (int i = 1; i < 5; i++)
             list.add(new ItemStack(b, 1, i));
