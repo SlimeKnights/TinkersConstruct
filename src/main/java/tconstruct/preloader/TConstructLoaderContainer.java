@@ -131,6 +131,6 @@ public class TConstructLoaderContainer extends DummyModContainer implements IFML
     @Override
     public String getAccessTransformerClass ()
     {
-        return null;
+        return "tconstruct.preloader.AccessTransformers";
     }
 }
