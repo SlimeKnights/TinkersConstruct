@@ -3,7 +3,6 @@ package tconstruct.items;
 import java.util.List;
 
 import mantle.items.abstracts.CraftingItem;
-import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
