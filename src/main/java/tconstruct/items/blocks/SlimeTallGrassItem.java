@@ -22,7 +22,7 @@ public class SlimeTallGrassItem extends MultiItemBlock
     @SideOnly(Side.CLIENT)
     public IIcon getIconFromDamage (int meta)
     {
-        int arr = MathHelper.clamp_int(meta, 0, this.blockType.length);
+        int arr = MathHelper.clamp_int(meta, 0, this.blockTypes.length);
         return TRepo.slimeTallGrass.getIcon(0, arr);
     }
 
