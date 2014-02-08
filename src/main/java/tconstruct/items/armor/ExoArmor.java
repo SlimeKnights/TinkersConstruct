@@ -68,9 +68,24 @@ public class ExoArmor extends ArmorCore
     {
         if (!stack.hasTagCompound())
             return;
-        NBTTagCompound tag = stack.getTagCompound().getCompoundTag(SET_NAME);
-        double protection = tag.getDouble("protection");
+        NBTTagCompound tags = stack.getTagCompound().getCompoundTag(SET_NAME);
+        double protection = tags.getDouble("protection");
         if (protection > 0)
             list.add("\u00a7aProtection: " + protection + "%");
+        boolean displayToolTips = true;
+        int tipNum = 0;
+        while (displayToolTips)
+        {
+            tipNum++;
+            String tooltip = "Tooltip" + tipNum;
+            if (tags.hasKey(tooltip))
+            {
+                String tipName = tags.getString(tooltip);
+                if (!tipName.equals(""))
+                    list.add(tipName);
+            }
+            else
+                displayToolTips = false;
+        }
     }
 }

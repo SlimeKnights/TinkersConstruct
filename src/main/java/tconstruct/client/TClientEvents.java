@@ -7,6 +7,7 @@ import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.client.settings.GameSettings;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
@@ -95,6 +96,8 @@ public class TClientEvents
     //public static int right_height = 39;
     Random rand = new Random();
     int updateCounter = 0;
+    
+    GameSettings gs = Minecraft.getMinecraft().gameSettings;
 
     /* HUD */
     @SubscribeEvent
@@ -222,6 +225,10 @@ public class TClientEvents
                     GuiIngameForge.left_height += 10;
 
                 event.setCanceled(true);
+                if (event.type == ElementType.CROSSHAIRS && gs.thirdPersonView != 0)
+                {
+                    event.setCanceled(true);
+                }
             }
         }
     }

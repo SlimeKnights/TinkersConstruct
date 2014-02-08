@@ -88,6 +88,7 @@ import tconstruct.library.crafting.Smeltery;
 import tconstruct.library.crafting.ToolBuilder;
 import tconstruct.library.util.IPattern;
 import tconstruct.modifiers.armor.AModDamageBoost;
+import tconstruct.modifiers.armor.AModDoubleJump;
 import tconstruct.modifiers.armor.AModHealthBoost;
 import tconstruct.modifiers.armor.AModKnockbackResistance;
 import tconstruct.modifiers.armor.AModMoveSpeed;
@@ -398,6 +399,8 @@ public class TRecipes
         tb.registerArmorMod(new AModDamageBoost(3, allArmors, new ItemStack[] { new ItemStack(Items.diamond), new ItemStack(Blocks.diamond_block) }, new int[] { 1, 9 }, false, 3, 0.05));
         tb.registerArmorMod(new AModDamageBoost(4, chest, new ItemStack[] { new ItemStack(Blocks.quartz_block, 1, Short.MAX_VALUE) }, new int[] { 1 }, true, 5, 1));
         tb.registerArmorMod(new AModProtection(5, allArmors, new ItemStack[] { new ItemStack(TRepo.largePlate, 1, 2) }, new int[] { 2 }));
+
+        tb.registerArmorMod(new AModDoubleJump(new ItemStack[] { new ItemStack(Items.ghast_tear), new ItemStack(TRepo.slimeGel, 1, 0), new ItemStack(TRepo.slimeGel, 1, 1) }));
 
         TConstructRegistry.registerActiveToolMod(new TActiveOmniMod());
     }

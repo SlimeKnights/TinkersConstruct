@@ -7,6 +7,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.gui.inventory.GuiInventory;
 import net.minecraft.client.settings.KeyBinding;
+import net.minecraft.potion.Potion;
 import tconstruct.TConstruct;
 import tconstruct.client.event.EventCloakRender;
 import tconstruct.client.tabs.TabRegistry;
@@ -24,7 +25,7 @@ public class TControls extends TKeyHandler
     static Minecraft mc;
 
     boolean jumping;
-    boolean doubleJump = true;
+    int midairJumps = 0;
     boolean climbing = false;
     boolean onGround = false;
     boolean onStilts = false;
@@ -64,17 +65,13 @@ public class TControls extends TKeyHandler
             {
                 EventCloakRender.instance.refreshCapes();
             }
-            /*if (kb == jumpKey) //Double jump
+            if (kb == jumpKey) //Double jump
             {
                 if (mc.thePlayer.capabilities.isCreativeMode)
                     return;
 
-            	if (jumping && !doubleJump)
+            	if (jumping && midairJumps >0)
             	{
-                    System.out.println("Jump!");
-            		//if (player == null)
-            			//player = mc.thePlayer;
-
             		mc.thePlayer.motionY = 0.42D;
             		mc.thePlayer.fallDistance = 0;
 
@@ -83,13 +80,13 @@ public class TControls extends TKeyHandler
             			mc.thePlayer.motionY += (double) ((float) (mc.thePlayer.getActivePotionEffect(Potion.jump).getAmplifier() + 1) * 0.1F);
             		}
 
-            		doubleJump = true;
-            		resetFallDamage(mc.thePlayer.username);
+            		midairJumps --;
+            		resetFallDamage(mc.thePlayer.getDisplayName());
             	}
 
             	if (!jumping)
             		jumping = mc.thePlayer.isAirBorne;
-            }*/
+            }
         }
         /*else if (kb == stiltsKey) //Stilts
         {
@@ -118,13 +115,13 @@ public class TControls extends TKeyHandler
 
     public void landOnGround ()
     {
-        doubleJump = false;
+        midairJumps = 0;
         jumping = false;
     }
 
     public void resetControls ()
     {
-        doubleJump = false;
+        midairJumps = 0;
         jumping = false;
         climbing = false;
         onGround = false;

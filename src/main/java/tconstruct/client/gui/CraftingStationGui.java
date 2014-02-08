@@ -88,6 +88,20 @@ public class CraftingStationGui extends GuiContainer
             fontRendererObj.drawString(StatCollector.translateToLocal("gui.toolstation18") + tags.getInteger("Modifiers"), xSize + 8, base + offset * 10, 0xffffff);
             offset++;
         }
+        boolean displayToolTips = true;
+        int tipNum = 0;
+        while (displayToolTips)
+        {
+            tipNum++;
+            String tooltip = "ModifierTip" + tipNum;
+            if (tags.hasKey(tooltip))
+            {
+                String tipName = tags.getString(tooltip);
+                fontRendererObj.drawString("- " + tipName, xSize + 8, base + (offset + tipNum) * 10, 0xffffff);
+            }
+            else
+                displayToolTips = false;
+        }
     }
 
     void drawModularToolStats (ItemStack stack, ToolCore tool, NBTTagCompound tags)

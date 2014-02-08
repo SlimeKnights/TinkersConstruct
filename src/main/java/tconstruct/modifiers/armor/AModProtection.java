@@ -4,6 +4,7 @@ import java.util.EnumSet;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import tconstruct.library.armor.ArmorModTypeFilter;
 import tconstruct.library.armor.EnumArmorPart;
 
 public class AModProtection extends ArmorModTypeFilter

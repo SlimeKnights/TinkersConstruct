@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import tconstruct.library.armor.ArmorCore;
+import tconstruct.library.armor.ArmorModTypeFilter;
 import tconstruct.library.armor.EnumArmorPart;
 
 public class AModMoveSpeed extends ArmorModTypeFilter
