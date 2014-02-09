@@ -1,17 +1,16 @@
 package tconstruct.util;
 
 import cpw.mods.fml.common.ICrashCallable;
-import tconstruct.util.config.PHConstruct;
 
 import java.util.List;
 
 // Crash handler for when an unsupported mod is running alongside us
-public class CallableUnsuppConfig implements ICrashCallable
+public class CallablePackUnsuppConfig implements ICrashCallable
 {
 
     private List<String> modIds;
 
-    public CallableUnsuppConfig(List<String> modIds)
+    public CallablePackUnsuppConfig(List<String> modIds)
     {
         this.modIds = modIds;
     }
@@ -25,10 +24,8 @@ public class CallableUnsuppConfig implements ICrashCallable
     @Override
     public String call () throws Exception
     {
-        // Check for modpack flag, if so use the pack callable
-        if (PHConstruct.isModpack) return new CallablePackUnsuppConfig(modIds).call();
-
-        String str = "DO NOT REPORT THIS CRASH! Unsupported mods in environment: ";
+        String str = "Environment is NOT clean! THIS CRASH MUST NOT BE REPORTED TO A MOD AUTHOR; however, please report it to your modpack creator(s).\n" +
+                     "Unsupported mods: ";
         Boolean firstEntry = true;
         for (String id : modIds)
         {

@@ -382,6 +382,9 @@ public class PHConstruct
         //Achievement Properties
         achievementsEnabled = config.get("Achievement Properties", "AchievementsEnabled", true).getBoolean(true);
 
+        //Environment checks
+        isModpack = config.get("Environment Checks", "IsModpack", false, "Change env check warnings to reflect that this is a modpack.").getBoolean(false);
+
         /* Save the configuration file */
         config.save();
 
@@ -744,4 +747,8 @@ public class PHConstruct
 
     //Achievement options
     public static boolean achievementsEnabled;
+
+    //Environment checks
+    public static boolean isModpack;
+
 }
