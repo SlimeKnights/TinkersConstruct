@@ -37,3 +37,5 @@ Any modpack which uses Tinkers' Construct takes **full** responsibility for user
 If you have queries about any license or the above support restrictions, please drop by our IRC channel, #TinkersConstruct on irc.esper.net
 
 Any alternate licenses are noted where appropriate.
+
+**NOTE: some jar's from our build servers are signed. under no circumstances does anyone have permission to verify any properties of the signing keys.
