@@ -178,7 +178,8 @@ if (!project.hasProperty("keystore_user_alias")) // keystore user alias
     
 if (!project.hasProperty("keystore_user_password")) // keystore user pass
     ext.keystore_user_password = "";
-
+if (System.getenv().KSK_PW != null && !project.hasProperty("keystore_user_password"))
+	ext.keystore_user_password =System.getenv().KSK_PW;
 task("signJar", dependsOn: "build")
 {
     inputs.file jar.getArchivePath()
