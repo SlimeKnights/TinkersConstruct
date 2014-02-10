@@ -251,9 +251,9 @@ item.tconstruct.Materials.PigIronNugget.name=Pig Iron Platter
 item.tconstruct.Materials.GlueBall.name=Ball of Glue
 item.tconstruct.Materials.ArditeDust.name=Ardite Dust
 item.tconstruct.Materials.CobaltDust.name=Coblat Dust
-item.tconstruct.Materials.AluminiumDust.name=Aluminium Dust
+item.tconstruct.Materials.AluminumDust.name=Aluminum Dust
 item.tconstruct.Materials.ManyullynDust.name=Manyullyn Dust
-item.tconstruct.Materials.AluBrassDust.name=Aluminium Brass Dust
+item.tconstruct.Materials.AluBrassDust.name=Aluminum Brass Dust
 
 item.tconstruct.ArmorPattern.helmet.name=Helmet Cast
 item.tconstruct.ArmorPattern.chestplate.name=Chestplate Cast

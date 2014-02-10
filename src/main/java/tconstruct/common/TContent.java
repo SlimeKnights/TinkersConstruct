@@ -1263,7 +1263,7 @@ public class TContent implements IFuelHandler
         GameRegistry.addRecipe(new ShapedOreRecipe(bootsWood, shoes, 'w', "logWood"));
         // Dust Recipes
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(materials, 1, 41), "dustArdite", "dustCobalt"));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(materials, 4, 42), "dustAluminium", "dustCopper", "dustCopper", "dustCopper"));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(materials, 4, 42), "dustAluminum", "dustCopper", "dustCopper", "dustCopper"));
 
         ItemStack exoGoggleStack = new ItemStack(exoGoggles);
         ItemStack exoChestStack = new ItemStack(exoChest);
