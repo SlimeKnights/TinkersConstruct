@@ -4,12 +4,13 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import tconstruct.library.armor.EnumArmorPart;
 import tconstruct.library.crafting.ToolBuilder;
-
 import cpw.mods.fml.common.*;
 import cpw.mods.fml.common.event.FMLInterModComms;
 import cpw.mods.fml.common.registry.*;
+
 import java.lang.reflect.Field;
 import java.util.*;
+
 import net.minecraft.block.*;
 import net.minecraft.block.material.*;
 import net.minecraft.creativetab.CreativeTabs;
@@ -39,10 +40,10 @@ import tconstruct.items.blocks.*;
 import tconstruct.items.tools.*;
 import tconstruct.library.TConstructRegistry;
 import tconstruct.library.client.*;
-import tconstruct.library.client.FluidRenderProperties.Applications;
 import tconstruct.library.crafting.*;
 import tconstruct.library.tools.ToolCore;
 import tconstruct.library.util.IPattern;
+import tconstruct.library.util.TE3Helper;
 import tconstruct.modifiers.tools.*;
 import tconstruct.modifiers.armor.*;
 import tconstruct.util.*;
@@ -1177,7 +1178,7 @@ public class TContent implements IFuelHandler
         addRecipesForDryingRack();
     }
 
-    private void addRecipesForCraftingTable ()
+	private void addRecipesForCraftingTable ()
     {
         String[] patBlock = { "###", "###", "###" };
         String[] patSurround = { "###", "#m#", "###" };
@@ -1260,6 +1261,9 @@ public class TContent implements IFuelHandler
         GameRegistry.addRecipe(new ShapedOreRecipe(chestplateWood, chest, 'w', "logWood"));
         GameRegistry.addRecipe(new ShapedOreRecipe(leggingsWood, pants, 'w', "logWood"));
         GameRegistry.addRecipe(new ShapedOreRecipe(bootsWood, shoes, 'w', "logWood"));
+        // Dust Recipes
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(materials, 1, 41), "dustArdite", "dustCobalt"));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(materials, 4, 42), "dustAluminium", "dustCopper", "dustCopper", "dustCopper"));
 
         ItemStack exoGoggleStack = new ItemStack(exoGoggles);
         ItemStack exoChestStack = new ItemStack(exoChest);
@@ -1514,6 +1518,12 @@ public class TContent implements IFuelHandler
         FurnaceRecipes.smelting().addSmelting(oreGravel.blockID, 4, new ItemStack(materials, 1, 11), 0.2f);
 
         FurnaceRecipes.smelting().addSmelting(speedBlock.blockID, 0, new ItemStack(speedBlock, 1, 2), 0.2f);
+        
+        FurnaceRecipes.smelting().addSmelting(materials.itemID, 38, new ItemStack(materials, 1, 4), 0.2f);
+        FurnaceRecipes.smelting().addSmelting(materials.itemID, 39, new ItemStack(materials, 1, 3), 0.2f);
+        FurnaceRecipes.smelting().addSmelting(materials.itemID, 40, new ItemStack(materials, 1, 11), 0.2f);
+        FurnaceRecipes.smelting().addSmelting(materials.itemID, 41, new ItemStack(materials, 1, 5), 0.2f);
+        FurnaceRecipes.smelting().addSmelting(materials.itemID, 42, new ItemStack(materials, 1, 14), 0.2f);
     }
 
     private void addPartMapping ()
@@ -1823,6 +1833,12 @@ public class TContent implements IFuelHandler
         Smeltery.addMelting(FluidType.Iron, new ItemStack(Item.cauldron), 0, TConstruct.ingotLiquidValue * 7);
         Smeltery.addMelting(FluidType.Iron, new ItemStack(Item.shears), 0, TConstruct.ingotLiquidValue * 2);
         Smeltery.addMelting(FluidType.Emerald, new ItemStack(Item.emerald), -50, 640);
+        
+        Smeltery.addMelting(FluidType.Ardite, new ItemStack(materials, 1, 38), 0, TConstruct.ingotLiquidValue);
+        Smeltery.addMelting(FluidType.Cobalt, new ItemStack(materials, 1, 39), 0, TConstruct.ingotLiquidValue);
+        Smeltery.addMelting(FluidType.Aluminum, new ItemStack(materials, 1, 40), 0, TConstruct.ingotLiquidValue);
+        Smeltery.addMelting(FluidType.Manyullyn, new ItemStack(materials, 1, 41), 0, TConstruct.ingotLiquidValue);
+        Smeltery.addMelting(FluidType.AluminumBrass, new ItemStack(materials, 1, 42), 0, TConstruct.ingotLiquidValue);
 
         //Blocks melt as themselves!
         //Ore
@@ -2094,6 +2110,14 @@ public class TContent implements IFuelHandler
         OreDictionary.registerOre("nuggetGold", new ItemStack(oreBerries, 1, 1));
         ensureOreIsRegistered("nuggetGold", new ItemStack(Item.goldNugget));
         OreDictionary.registerOre("nuggetPigIron", new ItemStack(materials, 1, 35));
+        
+        OreDictionary.registerOre("dustArdite", new ItemStack(materials, 1, 38));
+        OreDictionary.registerOre("dustCobalt", new ItemStack(materials, 1, 39));
+        OreDictionary.registerOre("dustAluminium", new ItemStack(materials, 1, 40));
+        OreDictionary.registerOre("dustAluminum", new ItemStack(materials, 1, 40));
+        OreDictionary.registerOre("dustManyullyn", new ItemStack(materials, 1, 41));
+        OreDictionary.registerOre("dustAluminiumBrass", new ItemStack(materials, 1, 42));
+        OreDictionary.registerOre("dustAluminumBrass", new ItemStack(materials, 1, 42));
 
         OreDictionary.registerOre("slabCloth", new ItemStack(woolSlab1, 1, Short.MAX_VALUE));
         OreDictionary.registerOre("slabCloth", new ItemStack(woolSlab2, 1, Short.MAX_VALUE));
@@ -2183,6 +2207,8 @@ public class TContent implements IFuelHandler
         {
             AEImcHandler.registerForSpatialIO();
         }
+        
+        addTE3Recipes();
     }
 
     private static boolean initRecipes;
@@ -2575,6 +2601,26 @@ public class TContent implements IFuelHandler
         }
 
     }
+    
+    private void addTE3Recipes()
+    {
+    	if(Loader.isModLoaded("ThermalExpansion"))
+    	{
+			ItemStack crystalCinnabar = OreDictionary.getOres("crystalCinnabar").get(0);
+			
+			TE3Helper.addPulveriserRecipe(1000, new ItemStack(materials, 1, 11), new ItemStack(materials, 1, 40), null, 0);
+			TE3Helper.addPulveriserRecipe(1000, new ItemStack(materials, 1, 3), new ItemStack(materials, 1, 39), null, 0);
+			TE3Helper.addPulveriserRecipe(1000, new ItemStack(materials, 1, 4), new ItemStack(materials, 1, 38), null, 0);
+			
+			TE3Helper.addPulveriserRecipe(12000, new ItemStack(oreSlag, 1, 1), new ItemStack(materials, 2, 39), GameRegistry.findItemStack("ThermalExpansion", "dustIron", 1), 10);
+			TE3Helper.addInductionSmelterRecipe(12000, new ItemStack(oreSlag, 1, 1), crystalCinnabar.copy(), new ItemStack(materials, 3, 3), new ItemStack(Item.ingotIron), 100);
+			TE3Helper.addPulveriserRecipe(12000, new ItemStack(oreSlag, 1, 2), new ItemStack(materials, 2, 38), GameRegistry.findItemStack("ThermalExpansion", "dustGold", 1), 10);
+			TE3Helper.addInductionSmelterRecipe(12000, new ItemStack(oreSlag, 1, 2), crystalCinnabar.copy(), new ItemStack(materials, 3, 4), new ItemStack(Item.ingotGold), 100);
+			
+			TE3Helper.addInductionSmelterRecipe(4000, new ItemStack(materials, 1, 4), new ItemStack(materials, 1, 3), new ItemStack(materials, 1, 18), null, 0);
+			TE3Helper.addInductionSmelterRecipe(4000, new ItemStack(materials, 1, 9), new ItemStack(materials, 1, 11), new ItemStack(materials, 4, 14), null, 0);
+    	}
+	}
 
     public void addAchievements ()
     {
