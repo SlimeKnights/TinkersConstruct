@@ -126,4 +126,10 @@ public class CraftingStationLogic extends InventoryLogic implements ISidedInvent
         // TODO Auto-generated method stub
 
     }
+
+    @Override
+    public boolean canUpdate()
+    {
+        return false;
+    }
 }

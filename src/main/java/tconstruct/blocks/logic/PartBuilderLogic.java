@@ -199,4 +199,10 @@ public class PartBuilderLogic extends InventoryLogic implements ISidedInventory
     public void closeInventory ()
     {
     }
+	
+    @Override
+    public boolean canUpdate()
+    {
+        return false;
+    }
 }
