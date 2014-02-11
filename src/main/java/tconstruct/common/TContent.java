@@ -1263,7 +1263,7 @@ public class TContent implements IFuelHandler
         GameRegistry.addRecipe(new ShapedOreRecipe(bootsWood, shoes, 'w', "logWood"));
         // Dust Recipes
         GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(materials, 1, 41), "dustArdite", "dustCobalt"));
-        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(materials, 4, 42), "dustAluminum", "dustCopper", "dustCopper", "dustCopper"));
+        GameRegistry.addRecipe(new ShapelessOreRecipe(new ItemStack(materials, 4, 42), "dustAluminum", "dustAluminum", "dustAluminum", "dustCopper"));
 
         ItemStack exoGoggleStack = new ItemStack(exoGoggles);
         ItemStack exoChestStack = new ItemStack(exoChest);
@@ -2618,7 +2618,7 @@ public class TContent implements IFuelHandler
 			TE3Helper.addInductionSmelterRecipe(12000, new ItemStack(oreSlag, 1, 2), crystalCinnabar.copy(), new ItemStack(materials, 3, 4), new ItemStack(Item.ingotGold), 100);
 			
 			TE3Helper.addInductionSmelterRecipe(4000, new ItemStack(materials, 1, 4), new ItemStack(materials, 1, 3), new ItemStack(materials, 1, 18), null, 0);
-			TE3Helper.addInductionSmelterRecipe(4000, new ItemStack(materials, 1, 9), new ItemStack(materials, 1, 11), new ItemStack(materials, 4, 14), null, 0);
+			TE3Helper.addInductionSmelterRecipe(4000, new ItemStack(materials, 1, 9), new ItemStack(materials, 3, 11), new ItemStack(materials, 4, 14), null, 0);
     	}
 	}
 
