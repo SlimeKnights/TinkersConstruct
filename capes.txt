@@ -25,7 +25,7 @@ type1ninja:https://dl.dropboxusercontent.com/s/0ufr1gtqktt1nl2/JeffCape.png
 turbeauke:http://i.imgur.com/XdOIone.png
 Nieue:http://i.imgur.com/8c5yUgX.png
 starr274:https://github.com/SlimeKnights/TinkersConstruct/blob/master/capes/default_gray.png
-zeflap:http://i.imgur.com/6OhKrVE.png
+zeflap:https://dl.dropboxusercontent.com/s/j9dvs06z7cd16r3/tCape.png
 kendfinger:https://dl.dropboxusercontent.com/u/48633261/cape.png
 GameGeek1998:http://i.imgur.com/hiMFLXY.png
 fumoffu616:https://dl.dropboxusercontent.com/s/f70j8xfwax1p0t5/myeah.png
@@ -46,6 +46,6 @@ the_j485:https://dl.dropboxusercontent.com/s/etrersgka8n7g3s/vineCape.png
 dgdas12:https://dl.dropboxusercontent.com/s/etrersgka8n7g3s/vineCape.png
 SatanicSanta:https://dl.dropboxusercontent.com/s/etrersgka8n7g3s/vineCape.png
 GPuzzle:https://dl.dropboxusercontent.com/s/etrersgka8n7g3s/vineCape.png
-ajloveslily14:https://raw.github.com/SlimeKnights/TinkersConstruct/master/capes/default_blue.png
+ajloveslily14:https://dl.dropboxusercontent.com/s/8yl77gjf4cygnzo/cape.png
 multisofteis:http://i.imgur.com/AgGBsX8.png
 ----------------------------------------FINALISED - ONLY ALLOW REMOVAL OF CAPES----------------------------------------
