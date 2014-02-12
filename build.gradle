@@ -36,8 +36,8 @@ repositories {
         artifactPattern "http://www.chickenbones.craftsaddle.org/Files/New_Versions/1.6.4/[module]-dev%20[revision].[ext]"
     }
     maven {
-        name 'SlimeKnights Maven FS'
-        url 'http://aeon.sunstrike.io'
+        name 'DVS1 Maven FS'
+        url 'http://dvs1.progwml6.com/files/maven'
     }
     maven {
         name 'ForgeFS'
@@ -76,7 +76,7 @@ if (configFile2.exists()){
 }
 
 dependencies {
-    compile "mantle:Mantle:${config.mantle_version}:dev"
+    compile "mantle:Mantle:${config.minecraft_version}-${config.mantle_version}:deobf"
     //compile name: 'ForgeMultipart', version: "${config.minecraft_version}-${config.FMP_version}", ext: 'jar'
     //compile name: 'CodeChickenLib', version: "${config.minecraft_version}-${config.CCLIB_version}", ext: 'jar'
     //compile name: 'NotEnoughItems', version: "${config.NEI_version}", type: 'jar'
