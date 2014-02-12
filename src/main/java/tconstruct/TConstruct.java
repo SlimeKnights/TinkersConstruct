@@ -11,6 +11,7 @@ import org.apache.logging.log4j.core.config.LoggerConfig;
 
 import tconstruct.achievements.TAchievements;
 import tconstruct.client.TControls;
+import tconstruct.client.event.EventCloakRender;
 import tconstruct.common.TContent;
 import tconstruct.common.TProxyCommon;
 import tconstruct.common.TRecipes;
@@ -177,7 +178,7 @@ public class TConstruct
         packetPipeline.initalise();
         if (event.getSide() == Side.CLIENT)
         {
-            //MinecraftForge.EVENT_BUS.register(new EventCloakRender());
+            MinecraftForge.EVENT_BUS.register(new EventCloakRender());
         }
 
         DimensionBlacklist.getBadBimensions();

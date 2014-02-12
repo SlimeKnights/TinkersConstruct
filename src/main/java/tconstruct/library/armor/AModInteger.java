@@ -22,7 +22,7 @@ public class AModInteger extends ArmorMod
         color = c;
         tooltipName = tip;
     }
-    
+
     @Override
     protected boolean canModify (ItemStack armor, ItemStack[] input)
     {
@@ -34,7 +34,7 @@ public class AModInteger extends ArmorMod
         }
         return false;
     }
-    
+
     @Override
     public void modify (ItemStack[] input, ItemStack tool)
     {

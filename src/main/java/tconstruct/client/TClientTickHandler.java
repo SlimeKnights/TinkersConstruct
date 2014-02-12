@@ -13,7 +13,8 @@ public class TClientTickHandler
 {
     Minecraft mc = Minecraft.getMinecraft();
 
-    TControls controlInstance = ((TProxyClient)TConstruct.proxy).controlInstance;
+    TControls controlInstance = ((TProxyClient) TConstruct.proxy).controlInstance;
+
     public TClientTickHandler()
     {
     }
