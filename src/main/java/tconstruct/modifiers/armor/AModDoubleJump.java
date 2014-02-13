@@ -26,7 +26,7 @@ public class AModDoubleJump extends AModInteger
         }
         return false;
     }
-    
+
     @Override
     protected int addToolTip (ItemStack tool, String tooltip, String modifierTip)
     {
@@ -57,16 +57,16 @@ public class AModDoubleJump extends AModInteger
             }
         }
     }
-    
+
     @Override
     protected String getProperName (String tooltip, String tag)
     {
         if (tag.contains("Double-Jump"))
-            return color+"Triple-Jump";
-        
-        if (tag.contains("Triple-Jump"))
-            return color+"Quadruple-Jump";
+            return color + "Triple-Jump";
 
-        return color+"Double-Jump";
+        if (tag.contains("Triple-Jump"))
+            return color + "Quadruple-Jump";
+
+        return color + "Double-Jump";
     }
 }

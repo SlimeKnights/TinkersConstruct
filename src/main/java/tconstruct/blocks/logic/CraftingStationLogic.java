@@ -128,7 +128,7 @@ public class CraftingStationLogic extends InventoryLogic implements ISidedInvent
     }
 
     @Override
-    public boolean canUpdate()
+    public boolean canUpdate ()
     {
         return false;
     }

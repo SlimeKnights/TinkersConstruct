@@ -96,7 +96,7 @@ public class TClientEvents
     //public static int right_height = 39;
     Random rand = new Random();
     int updateCounter = 0;
-    
+
     GameSettings gs = Minecraft.getMinecraft().gameSettings;
 
     /* HUD */
