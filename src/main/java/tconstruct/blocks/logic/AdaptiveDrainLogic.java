@@ -1,5 +1,7 @@
 package tconstruct.blocks.logic;
 
+import tconstruct.TConstruct;
+import tconstruct.library.crafting.AlloyMix;
 import mantle.blocks.abstracts.MultiServantLogic;
 import mantle.blocks.iface.IFacingLogic;
 import mantle.blocks.iface.IMasterLogic;
@@ -29,7 +31,7 @@ public class AdaptiveDrainLogic extends MultiServantLogic implements IFluidHandl
     public boolean setPotentialMaster (IMasterLogic master, World world, int x, int y, int z)
     {
         // TConstruct.logger.info("Master: "+master);
-        return (master instanceof AdaptiveSmelteryLogic || master instanceof AdaptiveDrainLogic) && !hasValidMaster();
+        return (master instanceof AdaptiveSmelteryLogic || master instanceof AdaptiveDrainLogic) && !getHasMaster();
     }
 
     @Override
@@ -174,7 +176,7 @@ public class AdaptiveDrainLogic extends MultiServantLogic implements IFluidHandl
     @Override
     public void onDataPacket (NetworkManager net, S35PacketUpdateTileEntity packet)
     {
+        worldObj.markBlockRangeForRenderUpdate(xCoord, yCoord, zCoord, xCoord, yCoord, zCoord);
         readFromNBT(packet.func_148857_g());
-        worldObj.func_147479_m(xCoord, yCoord, zCoord);
     }
 }

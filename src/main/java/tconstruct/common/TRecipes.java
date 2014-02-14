@@ -1335,7 +1335,7 @@ public class TRecipes
         Smeltery.addMelting(FluidType.Iron, new ItemStack(Blocks.detector_rail), 0, TConstruct.ingotLiquidValue);
         Smeltery.addMelting(FluidType.Iron, new ItemStack(Blocks.activator_rail), 0, TConstruct.ingotLiquidValue);
         Smeltery.addMelting(FluidType.Obsidian, new ItemStack(Blocks.enchanting_table), 0, TConstruct.ingotLiquidValue * 4);
-        Smeltery.addMelting(FluidType.Iron, new ItemStack(Blocks.cauldron), 0, TConstruct.ingotLiquidValue * 7);
+        //Smeltery.addMelting(FluidType.Iron, new ItemStack(Blocks.cauldron), 0, TConstruct.ingotLiquidValue * 7);
         Smeltery.addMelting(FluidType.Iron, new ItemStack(Blocks.anvil, 1, 0), 200, TConstruct.ingotLiquidValue * 31);
         Smeltery.addMelting(FluidType.Iron, new ItemStack(Blocks.anvil, 1, 1), 200, TConstruct.ingotLiquidValue * 31);
         Smeltery.addMelting(FluidType.Iron, new ItemStack(Blocks.anvil, 1, 2), 200, TConstruct.ingotLiquidValue * 31);
@@ -1372,6 +1372,9 @@ public class TRecipes
         Smeltery.addMelting(FluidType.Gold, new ItemStack(Items.golden_shovel, 1, 0), 0, TConstruct.ingotLiquidValue);
         Smeltery.addMelting(FluidType.Gold, new ItemStack(Items.golden_pickaxe, 1, 0), 0, TConstruct.ingotLiquidValue * 3);
         Smeltery.addMelting(FluidType.Gold, new ItemStack(Items.golden_axe, 1, 0), 0, TConstruct.ingotLiquidValue * 3);
+        Smeltery.CheckSmeltingList();
+        Smeltery.CheckTemperatureList();
+        Smeltery.CheckRenderIndex();
     }
 
     public void modIntegration ()

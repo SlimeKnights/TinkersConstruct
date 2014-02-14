@@ -7,12 +7,12 @@ import mantle.blocks.abstracts.InventoryLogic;
 import mantle.blocks.iface.IMasterLogic;
 import mantle.blocks.iface.IServantLogic;
 import mantle.world.CoordTuple;
-import mantle.world.WorldHelper;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
@@ -71,7 +71,7 @@ public class TankAirLogic extends InventoryLogic implements IServantLogic, ISide
     }
 
     @Override
-    public String getDefaultName ()
+    protected String getDefaultName ()
     {
         return null; //Not a gui block
     }
@@ -107,7 +107,7 @@ public class TankAirLogic extends InventoryLogic implements IServantLogic, ISide
     @Override
     public void invalidateMaster (IMasterLogic master, World world, int xMaster, int yMaster, int zMaster)
     {
-        WorldHelper.setBlockToAir(world, xCoord, yCoord, zCoord);
+        world.setBlockToAir(xCoord, yCoord, zCoord);
     }
 
     @Override
@@ -137,7 +137,7 @@ public class TankAirLogic extends InventoryLogic implements IServantLogic, ISide
     //DELETE
     public void updateEntity ()
     {
-        WorldHelper.setBlockToAir(worldObj, xCoord, yCoord, zCoord);
+        worldObj.setBlockToAir(xCoord, yCoord, zCoord);
     }
 
     //Keep TE regardless of metadata
@@ -165,7 +165,7 @@ public class TankAirLogic extends InventoryLogic implements IServantLogic, ISide
     @Override
     public void writeToNBT (NBTTagCompound tags)
     {
-        super.readFromNBT(tags);
+        super.writeToNBT(tags);
         writeNetworkNBT(tags);
         multitank.writeToNBT(tags);
     }
@@ -179,9 +179,9 @@ public class TankAirLogic extends InventoryLogic implements IServantLogic, ISide
     @Override
     public void onDataPacket (NetworkManager net, S35PacketUpdateTileEntity packet)
     {
-        readNetworkNBT(packet.func_148857_g());
-        worldObj.func_147479_m(xCoord, yCoord, zCoord);
+        worldObj.markBlockRangeForRenderUpdate(xCoord, yCoord, zCoord, xCoord, yCoord, zCoord);
         worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+        readNetworkNBT(packet.func_148857_g());
     }
 
     @Override
@@ -191,7 +191,7 @@ public class TankAirLogic extends InventoryLogic implements IServantLogic, ISide
         writeNetworkNBT(tag);
         return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 1, tag);
     }
-
+    
     @Override
     public String getInventoryName ()
     {
@@ -213,5 +213,5 @@ public class TankAirLogic extends InventoryLogic implements IServantLogic, ISide
     public void openInventory ()
     {
     }
-
+    
 }

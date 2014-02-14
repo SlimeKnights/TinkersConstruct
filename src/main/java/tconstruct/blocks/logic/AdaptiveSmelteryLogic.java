@@ -30,6 +30,7 @@ import net.minecraftforge.fluids.IFluidHandler;
 import tconstruct.TConstruct;
 import tconstruct.blocks.component.SmelteryComponent;
 import tconstruct.blocks.component.SmelteryScan;
+import tconstruct.common.TContent;
 import tconstruct.common.TRepo;
 import tconstruct.inventory.AdaptiveSmelteryContainer;
 import tconstruct.library.component.IComponentHolder;
@@ -572,8 +573,8 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
     @Override
     public void onDataPacket (NetworkManager net, S35PacketUpdateTileEntity packet)
     {
+        worldObj.markBlockRangeForRenderUpdate(xCoord, yCoord, zCoord, xCoord, yCoord, zCoord);
         readNetworkNBT(packet.func_148857_g());
-        worldObj.func_147479_m(xCoord, yCoord, zCoord);
     }
 
     @Override
@@ -583,7 +584,7 @@ public class AdaptiveSmelteryLogic extends AdaptiveInventoryLogic implements IAc
         writeNetworkNBT(tag);
         return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 1, tag);
     }
-
+    
     @Override
     public String getInventoryName ()
     {

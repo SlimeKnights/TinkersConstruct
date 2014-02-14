@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import mantle.blocks.abstracts.InventoryLogic;
 import mantle.blocks.abstracts.MultiServantLogic;
 import mantle.blocks.iface.IActiveLogic;
@@ -45,7 +46,6 @@ import tconstruct.inventory.SmelteryContainer;
 import tconstruct.library.crafting.Smeltery;
 import tconstruct.util.SmelteryDamageSource;
 import tconstruct.util.config.PHConstruct;
-import cpw.mods.fml.common.FMLCommonHandler;
 
 /* Simple class for storing items in the block
  */
@@ -677,9 +677,9 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         //worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
         //worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
     }
-
+    
     /*@Override
-    public void setInventorySlotContents (int slot, ItemStack itemstack)
+    public void setInventorySloTRepos (int slot, ItemStack itemstack)
     {
         inventory[slot] = itemstack != null ? itemstack.splitStack(1) : null; //May include unintended side effects. Possible fix for max stack size of 1?
     }*/
@@ -717,32 +717,32 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         Block eastBlock = worldObj.getBlock(x + 1, y, z);
         Block westBlock = worldObj.getBlock(x - 1, y, z);
 
-        if ((northBlock == null || worldObj.isAirBlock(x, y, z + 1)) && (southBlock == null || worldObj.isAirBlock(x, y, z - 1)) && (eastBlock == null || worldObj.isAirBlock(x + 1, y, z))
-                && (westBlock == null || worldObj.isAirBlock(x - 1, y, z)))
+        if ((northBlock == null || worldObj.isAirBlock(x, y, z + 1)) && (southBlock == null || worldObj.isAirBlock(x, y, z - 1))
+                && (eastBlock == null || worldObj.isAirBlock(x + 1, y, z)) && (westBlock == null || worldObj.isAirBlock(x - 1, y, z)))
         {
             checkValidStructure(x, y, z);
         }
 
-        else if ((northBlock != null && !worldObj.isAirBlock(x, y, z + 1)) && (southBlock == null || worldObj.isAirBlock(x, y, z - 1)) && (eastBlock == null || worldObj.isAirBlock(x + 1, y, z))
-                && (westBlock == null || worldObj.isAirBlock(x - 1, y, z)))
+        else if ((northBlock != null && !worldObj.isAirBlock(x, y, z + 1)) && (southBlock == null || worldObj.isAirBlock(x, y, z - 1))
+                && (eastBlock == null || worldObj.isAirBlock(x + 1, y, z)) && (westBlock == null || worldObj.isAirBlock(x - 1, y, z)))
         {
             checkValidStructure(x, y, z - 1);
         }
 
-        else if ((northBlock == null || worldObj.isAirBlock(x, y, z + 1)) && (southBlock != null && !worldObj.isAirBlock(x, y, z - 1)) && (eastBlock == null || worldObj.isAirBlock(x + 1, y, z))
-                && (westBlock == null || worldObj.isAirBlock(x - 1, y, z)))
+        else if ((northBlock == null || worldObj.isAirBlock(x, y, z + 1)) && (southBlock != null && !worldObj.isAirBlock(x, y, z - 1))
+                && (eastBlock == null || worldObj.isAirBlock(x + 1, y, z)) && (westBlock == null || worldObj.isAirBlock(x - 1, y, z)))
         {
             checkValidStructure(x, y, z + 1);
         }
 
-        else if ((northBlock == null || worldObj.isAirBlock(x, y, z + 1)) && (southBlock == null || worldObj.isAirBlock(x, y, z - 1)) && (eastBlock != null && !worldObj.isAirBlock(x + 1, y, z))
-                && (westBlock == null || worldObj.isAirBlock(x - 1, y, z)))
+        else if ((northBlock == null || worldObj.isAirBlock(x, y, z + 1)) && (southBlock == null || worldObj.isAirBlock(x, y, z - 1))
+                && (eastBlock != null && !worldObj.isAirBlock(x + 1, y, z)) && (westBlock == null || worldObj.isAirBlock(x - 1, y, z)))
         {
             checkValidStructure(x - 1, y, z);
         }
 
-        else if ((northBlock == null || worldObj.isAirBlock(x, y, z + 1)) && (southBlock == null || worldObj.isAirBlock(x, y, z - 1)) && (eastBlock == null || worldObj.isAirBlock(x + 1, y, z))
-                && (westBlock != null && !worldObj.isAirBlock(x - 1, y, z)))
+        else if ((northBlock == null || worldObj.isAirBlock(x, y, z + 1)) && (southBlock == null || worldObj.isAirBlock(x, y, z - 1))
+                && (eastBlock == null || worldObj.isAirBlock(x + 1, y, z)) && (westBlock != null && !worldObj.isAirBlock(x - 1, y, z)))
         {
             checkValidStructure(x + 1, y, z);
         }
@@ -859,10 +859,10 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         {
             for (int zPos = z - 1; zPos <= z + 1; zPos++)
             {
-                Block block = worldObj.getBlock(xPos, y, zPos);
-                if (block != null && !worldObj.isAirBlock(xPos, y, zPos))
+                Block blockID = worldObj.getBlock(xPos, y, zPos);
+                if (blockID != null && !worldObj.isAirBlock(xPos, y, zPos))
                 {
-                    if (validBlock(block))
+                    if (validBlockID(blockID))
                         return validateBottom(x, y, z, count);
                     else
                         return count;
@@ -897,7 +897,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         {
             for (int zPos = z - 1; zPos <= z + 1; zPos++)
             {
-                if (validBlock(worldObj.getBlock(xPos, y, zPos)) && (worldObj.getBlockMetadata(xPos, y, zPos) >= 2))
+                if (validBlockID(worldObj.getBlock(xPos, y, zPos)) && (worldObj.getBlockMetadata(xPos, y, zPos) >= 2))
                     bottomBricks++;
             }
         }
@@ -916,8 +916,8 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
     int checkBricks (int x, int y, int z)
     {
         int tempBricks = 0;
-        Block block = worldObj.getBlock(x, y, z);
-        if (validBlock(block) || validTank(block))
+        Block blockID = worldObj.getBlock(x, y, z);
+        if (validBlockID(blockID) || validTankID(blockID))
         {
             TileEntity te = worldObj.getTileEntity(x, y, z);
             if (te == this)
@@ -945,15 +945,15 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         }
         return tempBricks;
     }
-
-    boolean validBlock (Block block)
+    
+    boolean validBlockID(Block blockID)
     {
-        return block == TRepo.smeltery || block == TRepo.smelteryNether;
+        return blockID == TRepo.smeltery || blockID == TRepo.smelteryNether;
     }
-
-    boolean validTank (Block block)
+    
+    boolean validTankID(Block blockID)
     {
-        return block == TRepo.lavaTank || block == TRepo.lavaTankNether;
+        return blockID == TRepo.lavaTank || blockID == TRepo.lavaTankNether;
     }
 
     public int getCapacity ()
@@ -1027,7 +1027,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                     }
                 }
                 needsUpdate = true;
-                worldObj.func_147479_m(xCoord, yCoord, zCoord);
+                worldObj.markBlockRangeForRenderUpdate(xCoord, yCoord, zCoord, xCoord, yCoord, zCoord);
             }
             return amount;
         }
@@ -1150,14 +1150,14 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         writeToNBT(tag);
         return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 1, tag);
     }
-
+    
     @Override
     public void onDataPacket (NetworkManager net, S35PacketUpdateTileEntity packet)
     {
-        readFromNBT(packet.func_148857_g());
         markDirty();
-        worldObj.func_147479_m(xCoord, yCoord, zCoord);
+        worldObj.markBlockRangeForRenderUpdate(xCoord, yCoord, zCoord, xCoord, yCoord, zCoord);
         this.needsUpdate = true;
+        readFromNBT(packet.func_148857_g());
     }
 
     // IDebuggable

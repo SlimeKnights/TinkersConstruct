@@ -1,10 +1,10 @@
 package tconstruct.inventory;
 
+import tconstruct.blocks.logic.SmelteryLogic;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import tconstruct.blocks.logic.SmelteryLogic;
 
 public class SmelteryContainer extends ActiveContainer
 {
@@ -224,7 +224,7 @@ public class SmelteryContainer extends ActiveContainer
                 slot = (Slot) this.inventorySlots.get(slotPos);
                 slotStack = slot.getStack();
 
-                if (slotStack != null && slotStack == inputStack && (!inputStack.getHasSubtypes() || inputStack.getItemDamage() == slotStack.getItemDamage())
+                if (slotStack != null && slotStack.getItem() == inputStack.getItem() && (!inputStack.getHasSubtypes() || inputStack.getItemDamage() == slotStack.getItemDamage())
                         && ItemStack.areItemStackTagsEqual(inputStack, slotStack))
                 {
                     int l = slotStack.stackSize + inputStack.stackSize;

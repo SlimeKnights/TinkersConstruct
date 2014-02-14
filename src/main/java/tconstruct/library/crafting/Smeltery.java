@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
+import tconstruct.TConstruct;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -71,9 +72,47 @@ public class Smeltery
      */
     public static void addMelting (ItemStack input, Item item, int metadata, int temperature, FluidStack liquid)
     {
-        //instance.smeltingList.put(Arrays.asList(new ItemStack(input.getItem(), input.getItemDamage())), liquid);
-        //instance.temperatureList.put(Arrays.asList(new ItemStack(input.getItem(), input.getItemDamage())), temperature);
-        //instance.renderIndex.put(Arrays.asList(new ItemStack(input.getItem(), input.getItemDamage())), new ItemStack(item, input.stackSize, metadata));
+        TConstruct.logger.error("I HAVE WORKED!");
+        instance.smeltingList.put(Arrays.asList(new ItemStack(input.getItem(), input.getItemDamage())), liquid);
+        instance.temperatureList.put(Arrays.asList(new ItemStack(input.getItem(), input.getItemDamage())), temperature);
+        instance.renderIndex.put(Arrays.asList(new ItemStack(input.getItem(), input.getItemDamage())), new ItemStack(item, input.stackSize, metadata));
+    }
+    
+    public static void CheckSmeltingList()
+    {
+        if (instance.smeltingList.isEmpty())
+        {
+            TConstruct.logger.error("SmeltingList Empty!");
+        }
+        else
+        {
+            TConstruct.logger.error("SmeltingList not Empty!");
+        }
+    }
+    
+    
+    public static void CheckTemperatureList()
+    {
+        if (instance.temperatureList.isEmpty())
+        {
+            TConstruct.logger.error("TemperatureList Empty!");
+        }
+        else
+        {
+            TConstruct.logger.error("TemperatureList not Empty!");
+        }
+    }
+    
+    public static void CheckRenderIndex()
+    {
+        if (instance.renderIndex.isEmpty())
+        {
+            TConstruct.logger.error("RenderIndex Empty!");
+        }
+        else
+        {
+            TConstruct.logger.error("RenderIndex not Empty!");
+        }
     }
 
     /** Adds an alloy mixing recipe.

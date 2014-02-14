@@ -1,5 +1,8 @@
 package tconstruct.blocks.logic;
 
+import tconstruct.TConstruct;
+import tconstruct.library.crafting.CastingRecipe;
+import tconstruct.library.util.IPattern;
 import mantle.blocks.abstracts.InventoryLogic;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -17,9 +20,6 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 import net.minecraftforge.fluids.IFluidTank;
-import tconstruct.TConstruct;
-import tconstruct.library.crafting.CastingRecipe;
-import tconstruct.library.util.IPattern;
 
 public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFluidHandler, ISidedInventory
 {
@@ -142,7 +142,7 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
                         castingDelay = recipe.coolTime;
                     }
                     renderOffset = copyLiquid.amount;
-                    getWorld().func_147479_m(xCoord, yCoord, zCoord);
+                    worldObj.markBlockRangeForRenderUpdate(xCoord, yCoord, zCoord, xCoord, yCoord, zCoord);
                     this.liquid = copyLiquid;
                     needsUpdate = true;
                 }
@@ -164,7 +164,7 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
                     renderOffset = roomInTank;
                     castingDelay = TConstruct.tableCasting.getCastingDelay(this.liquid, inventory[0]);
                     this.liquid.amount = this.capacity;
-                    getWorld().func_147479_m(xCoord, yCoord, zCoord);
+                    worldObj.markBlockRangeForRenderUpdate(xCoord, yCoord, zCoord, xCoord, yCoord, zCoord);
                     needsUpdate = true;
                 }
                 return roomInTank;
@@ -175,7 +175,7 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
                 if (doFill)
                 {
                     this.liquid.amount += resource.amount;
-                    getWorld().func_147479_m(xCoord, yCoord, zCoord);
+                    worldObj.markBlockRangeForRenderUpdate(xCoord, yCoord, zCoord, xCoord, yCoord, zCoord);
                     needsUpdate = true;
                 }
                 return resource.amount;
@@ -192,14 +192,14 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
     public void markDirty () //Isn't actually called?
     {
         super.markDirty();
-        getWorld().func_147479_m(xCoord, yCoord, zCoord);
+        worldObj.markBlockRangeForRenderUpdate(xCoord, yCoord, zCoord, xCoord, yCoord, zCoord);
         needsUpdate = true;
     }
 
     public ItemStack decrStackSize (int slot, int quantity)
     {
         ItemStack stack = super.decrStackSize(slot, quantity);
-        getWorld().func_147479_m(xCoord, yCoord, zCoord);
+        worldObj.markBlockRangeForRenderUpdate(xCoord, yCoord, zCoord, xCoord, yCoord, zCoord);
         return stack;
     }
 
@@ -228,7 +228,7 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
             liquid = null;
 
         if (doDrain)
-            FluidEvent.fireEvent(new FluidEvent.FluidDrainingEvent(drained, this.getWorld(), this.xCoord, this.yCoord, this.zCoord, this));
+            FluidEvent.fireEvent(new FluidEvent.FluidDrainingEvent(drained, this.worldObj, this.xCoord, this.yCoord, this.zCoord, this));
 
         return drained;
     }
@@ -264,6 +264,7 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
     @Override
     public boolean canDrain (ForgeDirection from, Fluid fluid)
     {
+        // TODO Auto-generated method stub
         return false;
     }
 
@@ -311,7 +312,7 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
         if (renderOffset > 0)
         {
             renderOffset -= 6;
-            getWorld().func_147479_m(xCoord, yCoord, zCoord);
+            worldObj.markBlockRangeForRenderUpdate(xCoord, yCoord, zCoord, xCoord, yCoord, zCoord);
         }
 
         tick++;
@@ -319,7 +320,7 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
         {
             tick = 0;
             if (needsUpdate)
-                getWorld().markBlockForUpdate(xCoord, yCoord, zCoord);
+                worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
         }
     }
 
@@ -332,7 +333,7 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
             if (recipe.consumeCast)
                 inventory[0] = null;
             liquid = null;
-            getWorld().markBlockForUpdate(xCoord, yCoord, zCoord);
+            worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
         }
     }
 
@@ -387,7 +388,7 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
     public Packet getDescriptionPacket ()
     {
         NBTTagCompound tag = new NBTTagCompound();
-        readFromNBT(tag);
+        writeToNBT(tag);
         return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 1, tag);
     }
 
@@ -395,7 +396,7 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
     public void onDataPacket (NetworkManager net, S35PacketUpdateTileEntity packet)
     {
         readFromNBT(packet.func_148857_g());
-        getWorld().func_147479_m(xCoord, yCoord, zCoord);
+        worldObj.markBlockRangeForRenderUpdate(xCoord, yCoord, zCoord, xCoord, yCoord, zCoord);
     }
 
     @Override

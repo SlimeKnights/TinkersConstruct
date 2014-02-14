@@ -35,11 +35,11 @@ public class StencilTableLogic extends InventoryLogic implements ISidedInventory
     }
 
     /*@Override
-    public void onInventoryChanged()
+    public void markDirty()
     {
     	if (inventory[0] == null)
     		inventory[1] = null;
-    	super.onInventoryChanged();
+    	super.markDirty();
     }*/
 
     @Override

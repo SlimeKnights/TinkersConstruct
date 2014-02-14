@@ -55,7 +55,8 @@ public class ToolStationLogic extends InventoryLogic implements ISidedInventory
         return new ToolStationContainer(inventoryplayer, this);
     }
 
-    public void onInventoryChanged ()
+    @Override
+    public void markDirty ()
     {
         buildTool(toolName);
         if (this.worldObj != null)
