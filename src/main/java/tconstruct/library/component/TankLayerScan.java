@@ -501,7 +501,7 @@ public class TankLayerScan extends LogicComponent
     public void readFromNBT (NBTTagCompound tags)
     {
         super.readFromNBT(tags);
-        NBTTagList layerAir = tags.getTagList("AirLayer", 11);
+        NBTTagList layerAir = tags.getTagList("AirLayer", 9);
         if (layerAir != null)
         {
             layerAirCoords.clear();
@@ -513,7 +513,7 @@ public class TankLayerScan extends LogicComponent
             }
         }
 
-        NBTTagList blocks = tags.getTagList("Blocks", 11);
+        NBTTagList blocks = tags.getTagList("Blocks", 9);
         if (blocks != null)
         {
             blockCoords.clear();
@@ -525,7 +525,7 @@ public class TankLayerScan extends LogicComponent
             }
         }
 
-        NBTTagList air = tags.getTagList("Air", 11);
+        NBTTagList air = tags.getTagList("Air", 9);
         if (air != null)
         {
             airCoords.clear();

@@ -96,7 +96,7 @@ public class InventoryCraftingStationResult extends InventoryCraftResult
     /**
      * Called when an the contents of an Inventory change, usually
      */
-    public void onInventoryChanged ()
+    public void markDirty ()
     {
     }
 

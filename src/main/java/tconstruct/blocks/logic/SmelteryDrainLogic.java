@@ -1,5 +1,6 @@
 package tconstruct.blocks.logic;
 
+import tconstruct.library.crafting.AlloyMix;
 import mantle.blocks.abstracts.MultiServantLogic;
 import mantle.blocks.iface.IFacingLogic;
 import net.minecraft.entity.EntityLivingBase;
@@ -181,6 +182,6 @@ public class SmelteryDrainLogic extends MultiServantLogic implements IFluidHandl
     public void onDataPacket (NetworkManager net, S35PacketUpdateTileEntity packet)
     {
         readFromNBT(packet.func_148857_g());
-        worldObj.func_147479_m(xCoord, yCoord, zCoord);
+        worldObj.markBlockRangeForRenderUpdate(xCoord, yCoord, zCoord, xCoord, yCoord, zCoord);
     }
 }

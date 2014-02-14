@@ -126,7 +126,7 @@ public class InventoryCraftingStation extends InventoryCrafting
     /**
      * Called when an the contents of an Inventory change, usually
      */
-    public void onInventoryChanged ()
+    public void markDirty ()
     {
     }
 
