@@ -60,6 +60,7 @@ public class CraftingStationLogic extends InventoryLogic implements ISidedInvent
                 }
             }
         }
+        
         return new CraftingStationContainer(inventoryplayer, this, x, y, z);
     }
 
@@ -100,7 +101,7 @@ public class CraftingStationLogic extends InventoryLogic implements ISidedInvent
     {
         return true;
     }
-
+    
     @Override
     public String getInventoryName ()
     {

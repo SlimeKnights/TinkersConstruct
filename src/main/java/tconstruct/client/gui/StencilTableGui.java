@@ -1,5 +1,8 @@
 package tconstruct.client.gui;
 
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
+
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.InventoryPlayer;
@@ -12,6 +15,7 @@ import org.lwjgl.opengl.GL11;
 
 import tconstruct.TConstruct;
 import tconstruct.blocks.logic.StencilTableLogic;
+import tconstruct.common.TContent;
 import tconstruct.common.TRepo;
 import tconstruct.inventory.PatternShaperContainer;
 import tconstruct.util.network.packet.PacketStencilTable;
@@ -66,8 +70,8 @@ public class StencilTableGui extends GuiContainer
         GuiButtonTool repairButton = new GuiButtonTool(0, cornerX - 110, cornerY, repair.buttonIconX, repair.buttonIconY, repair.texture); // Repair
         repairButton.enabled = false;
         this.buttonList.add(repairButton);*/
-        this.buttonList.add(new GuiButton(0, cornerX - 120, cornerY, 120, 20, StatCollector.translateToLocal("gui.stenciltable1")));
-        this.buttonList.add(new GuiButton(1, cornerX - 120, cornerY + 20, 120, 20, StatCollector.translateToLocal("gui.stenciltable2")));
+        this.buttonList.add(new GuiButton(0, cornerX - 120, cornerY, 120, 20, (StatCollector.translateToLocal("gui.stenciltable1"))));
+        this.buttonList.add(new GuiButton(1, cornerX - 120, cornerY + 20, 120, 20, (StatCollector.translateToLocal("gui.stenciltable2"))));
 
         //for (int iter = 0; iter < TConstructContent.patternOutputs.length; iter++)
         //{
@@ -117,30 +121,6 @@ public class StencilTableGui extends GuiContainer
 
     void updateServer (ItemStack stack)
     {
-        /*ByteArrayOutputStream bos = new ByteArrayOutputStream(8);
-        DataOutputStream outputStream = new DataOutputStream(bos);
-        try
-        {
-            outputStream.writeByte(2);
-            outputStream.writeInt(logic.getWorld().provider.dimensionId);
-            outputStream.writeInt(logic.xCoord);
-            outputStream.writeInt(logic.yCoord);
-            outputStream.writeInt(logic.zCoord);
-            outputStream.writeShort(stack.itemID);
-            outputStream.writeShort(stack.getItemDamage());
-        }
-        catch (Exception ex)
-        {
-            ex.printStackTrace();
-        }
-
-        Packet250CustomPayload packet = new Packet250CustomPayload();
-        packet.channel = "TConstruct";
-        packet.data = bos.toByteArray();
-        packet.length = bos.size();
-
-        PacketDispatcher.sendPacketToServer(packet);*/
-
         TConstruct.packetPipeline.sendToServer(new PacketStencilTable(logic.xCoord, logic.yCoord, logic.zCoord, stack));
     }
 }
