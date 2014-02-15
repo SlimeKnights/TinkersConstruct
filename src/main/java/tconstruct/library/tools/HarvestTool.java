@@ -39,7 +39,7 @@ public abstract class HarvestTool extends ToolCore
         {
             Block localBlock = world.getBlock(x, y, z);
             int localMeta = world.getBlockMetadata(x, y, z);
-            if (block.getHarvestTool(meta).equals(this.getHarvestType()))
+            if (block.getHarvestTool(meta) != null && block.getHarvestTool(meta).equals(this.getHarvestType()))
                 hlvl = block.getHarvestLevel(meta);
             int toolLevel = tags.getInteger("HarvestLevel");
             float blockHardness = block.getBlockHardness(world, x, y, z);
@@ -72,10 +72,12 @@ public abstract class HarvestTool extends ToolCore
                                     localBlock.onBlockHarvested(world, x, y, z, localMeta, player);
                                     if (blockHardness > 0f)
                                         onBlockDestroyed(stack, world, localBlock, x, y, z, player);
+                                    world.func_147479_m(x, y, z);
                                 }
                                 else
                                 {
                                     WorldHelper.setBlockToAir(world, x, y, z);
+                                    world.func_147479_m(x, y, z);
                                 }
                             }
                         }
