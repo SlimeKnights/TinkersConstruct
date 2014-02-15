@@ -152,7 +152,6 @@ public abstract class HarvestTool extends ToolCore
 
     public boolean canHarvestBlock (Block block)
     {
-        TConstruct.logger.info(block.getMaterial());
         if (block.getMaterial().isToolNotRequired())
         {
             return true;
@@ -162,7 +161,6 @@ public abstract class HarvestTool extends ToolCore
             if (m == block.getMaterial())
                 return true;
         }
-        TConstruct.logger.info(block.getMaterial());
         return false;
     }
 
