@@ -1,5 +1,8 @@
 package tconstruct.blocks.logic;
 
+import tconstruct.TConstruct;
+import tconstruct.library.crafting.CastingRecipe;
+import tconstruct.library.util.IPattern;
 import mantle.blocks.abstracts.InventoryLogic;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -17,9 +20,6 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTankInfo;
 import net.minecraftforge.fluids.IFluidHandler;
 import net.minecraftforge.fluids.IFluidTank;
-import tconstruct.TConstruct;
-import tconstruct.library.crafting.CastingRecipe;
-import tconstruct.library.util.IPattern;
 
 public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFluidHandler, ISidedInventory
 {
@@ -425,7 +425,7 @@ public class CastingTableLogic extends InventoryLogic implements IFluidTank, IFl
 
         return false;
     }
-
+    
     @Override
     public String getInventoryName ()
     {

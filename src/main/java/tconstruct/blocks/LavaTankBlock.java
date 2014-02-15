@@ -21,6 +21,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 import net.minecraftforge.fluids.FluidContainerRegistry;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidTankInfo;
+import tconstruct.TConstruct;
 import tconstruct.blocks.logic.LavaTankLogic;
 import tconstruct.client.block.TankRender;
 import tconstruct.library.TConstructRegistry;
@@ -157,7 +159,7 @@ public class LavaTankBlock extends BlockContainer
     @Override
     public boolean onBlockActivated (World world, int i, int j, int k, EntityPlayer entityplayer, int par6, float par7, float par8, float par9)
     {
-        ItemStack current = entityplayer.inventory.getCurrentItem();
+        /**ItemStack current = entityplayer.inventory.getCurrentItem();
 
         if (current != null)
         {
@@ -181,14 +183,15 @@ public class LavaTankBlock extends BlockContainer
             {
 
             }
-        }
+        }*/
 
-        /**ItemStack current = entityplayer.inventory.getCurrentItem();
+        ItemStack current = entityplayer.inventory.getCurrentItem();
         if (current != null)
         {
             FluidStack liquid = FluidContainerRegistry.getFluidForFilledItem(current);
             //FluidStack liquid = FluidContainerRegistry.getFluidForFilledItem(current);
-            LavaTankLogic logic = (LavaTankLogic) world.getTileEntity(x, y, z);
+            TConstruct.logger.error(liquid);
+            LavaTankLogic logic = (LavaTankLogic) world.getTileEntity(i, j, k);
             if (liquid != null)
             {
                 int amount = logic.fill(ForgeDirection.UNKNOWN, liquid, false);
@@ -202,7 +205,7 @@ public class LavaTankBlock extends BlockContainer
                 else
                     return true;
             }
-            else if (FluidContainerRegistry.isFilledContainer(current))
+            else if (FluidContainerRegistry.isBucket(current))
             {
                 FluidTankInfo[] tanks = logic.getTankInfo(ForgeDirection.UNKNOWN);
                 FluidStack fillFluid = tanks[0].fluid;//getFluid();
@@ -233,7 +236,7 @@ public class LavaTankBlock extends BlockContainer
                     return true;
                 }
             }
-        }*/
+        }
 
         return false;
     }

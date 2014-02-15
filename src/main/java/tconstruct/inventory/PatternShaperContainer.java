@@ -1,11 +1,11 @@
 package tconstruct.inventory;
 
+import tconstruct.blocks.logic.StencilTableLogic;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import tconstruct.blocks.logic.StencilTableLogic;
 
 public class PatternShaperContainer extends Container
 {

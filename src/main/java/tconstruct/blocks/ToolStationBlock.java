@@ -2,6 +2,16 @@ package tconstruct.blocks;
 
 import java.util.List;
 
+import tconstruct.TConstruct;
+import tconstruct.blocks.logic.PartBuilderLogic;
+import tconstruct.blocks.logic.PatternChestLogic;
+import tconstruct.blocks.logic.StencilTableLogic;
+import tconstruct.blocks.logic.ToolStationLogic;
+import tconstruct.client.block.TableRender;
+import tconstruct.common.TContent;
+import tconstruct.common.TRepo;
+import tconstruct.library.TConstructRegistry;
+import tconstruct.util.config.PHConstruct;
 import mantle.blocks.abstracts.InventoryBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -16,17 +26,6 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-import tconstruct.TConstruct;
-import tconstruct.blocks.logic.PartBuilderLogic;
-import tconstruct.blocks.logic.PatternChestLogic;
-import tconstruct.blocks.logic.StencilTableLogic;
-import tconstruct.blocks.logic.ToolStationLogic;
-import tconstruct.client.block.TableRender;
-import tconstruct.common.TRepo;
-import tconstruct.library.TConstructRegistry;
-import tconstruct.util.config.PHConstruct;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class ToolStationBlock extends InventoryBlock
 {
@@ -54,7 +53,6 @@ public class ToolStationBlock extends InventoryBlock
     }
 
     @Override
-    @SideOnly(Side.CLIENT)
     public IIcon getIcon (int side, int meta)
     {
         if (meta <= 4)
@@ -121,7 +119,7 @@ public class ToolStationBlock extends InventoryBlock
     }
 
     @Override
-    public TileEntity createTileEntity (World world, int metadata)
+    public TileEntity createNewTileEntity (World world, int metadata)
     {
         switch (metadata)
         {
@@ -154,7 +152,7 @@ public class ToolStationBlock extends InventoryBlock
         case 13:
             return new StencilTableLogic();
             /*case 14:
-            	return new CastingTableLogic();*/
+                return new CastingTableLogic();*/
         default:
             return null;
         }
@@ -183,16 +181,16 @@ public class ToolStationBlock extends InventoryBlock
     }
 
     @Override
-    public void getSubBlocks (Item b, CreativeTabs tab, List list)
+    public void getSubBlocks (Item id, CreativeTabs tab, List list)
     {
         for (int iter = 0; iter < 6; iter++)
         {
-            list.add(new ItemStack(b, 1, iter));
+            list.add(new ItemStack(id, 1, iter));
         }
 
         for (int iter = 10; iter < 14; iter++)
         {
-            list.add(new ItemStack(b, 1, iter));
+            list.add(new ItemStack(id, 1, iter));
         }
     }
 
@@ -213,11 +211,5 @@ public class ToolStationBlock extends InventoryBlock
             }
         }
         super.onBlockPlacedBy(world, x, y, z, par5EntityLiving, par6ItemStack);
-    }
-
-    @Override
-    public TileEntity createNewTileEntity (World var1, int var2)
-    {
-        return createTileEntity(var1, var2);
     }
 }
