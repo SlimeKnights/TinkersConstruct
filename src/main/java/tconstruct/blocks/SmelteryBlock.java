@@ -51,6 +51,7 @@ public class SmelteryBlock extends InventoryBlock
     }
 
     /* Rendering */
+
     @Override
     public int getRenderType ()
     {
@@ -269,18 +270,18 @@ public class SmelteryBlock extends InventoryBlock
     }*/
 
     @Override
-    public void getSubBlocks (Item b, CreativeTabs tab, List list)
+    public void getSubBlocks (Item id, CreativeTabs tab, List list)
     {
         for (int iter = 0; iter < 12; iter++)
         {
             if (iter != 3)
-                list.add(new ItemStack(b, 1, iter));
+                list.add(new ItemStack(id, 1, iter));
         }
     }
 
     /* Updating */
     @Override
-    public void onNeighborBlockChange (World world, int x, int y, int z, Block block)
+    public void onNeighborBlockChange (World world, int x, int y, int z, Block nBlockID)
     {
         //System.out.println("Neighbor changed");
         TileEntity logic = world.getTileEntity(x, y, z);
@@ -295,14 +296,13 @@ public class SmelteryBlock extends InventoryBlock
     }
 
     @Override
-    public void breakBlock (World world, int x, int y, int z, Block block, int meta)
+    public void breakBlock (World world, int x, int y, int z, Block blockID, int meta)
     {
         TileEntity logic = world.getTileEntity(x, y, z);
         if (logic instanceof IServantLogic)
         {
             ((IServantLogic) logic).notifyMasterOfChange();
         }
-        super.breakBlock(world, x, y, z, block, meta);
+        super.breakBlock(world, x, y, z, blockID, meta);
     }
-
 }

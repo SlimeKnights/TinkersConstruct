@@ -2,6 +2,7 @@ package tconstruct.blocks.logic;
 
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
+import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
@@ -11,7 +12,7 @@ import tconstruct.library.crafting.ToolBuilder;
 /* Simple class for storing items in the block
  */
 
-public class ToolForgeLogic extends ToolStationLogic
+public class ToolForgeLogic extends ToolStationLogic implements ISidedInventory
 {
     ItemStack previousTool;
     String toolName;

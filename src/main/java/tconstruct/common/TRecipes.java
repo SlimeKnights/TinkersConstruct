@@ -1372,9 +1372,6 @@ public class TRecipes
         Smeltery.addMelting(FluidType.Gold, new ItemStack(Items.golden_shovel, 1, 0), 0, TConstruct.ingotLiquidValue);
         Smeltery.addMelting(FluidType.Gold, new ItemStack(Items.golden_pickaxe, 1, 0), 0, TConstruct.ingotLiquidValue * 3);
         Smeltery.addMelting(FluidType.Gold, new ItemStack(Items.golden_axe, 1, 0), 0, TConstruct.ingotLiquidValue * 3);
-        Smeltery.CheckSmeltingList();
-        Smeltery.CheckTemperatureList();
-        Smeltery.CheckRenderIndex();
     }
 
     public void modIntegration ()

@@ -1,18 +1,15 @@
 package tconstruct.blocks.logic;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-import cpw.mods.fml.common.FMLCommonHandler;
 import mantle.blocks.abstracts.InventoryLogic;
 import mantle.blocks.abstracts.MultiServantLogic;
 import mantle.blocks.iface.IActiveLogic;
 import mantle.blocks.iface.IFacingLogic;
 import mantle.blocks.iface.IMasterLogic;
 import mantle.blocks.iface.IServantLogic;
-import mantle.debug.DebugData;
 import mantle.world.CoordTuple;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -46,6 +43,7 @@ import tconstruct.inventory.SmelteryContainer;
 import tconstruct.library.crafting.Smeltery;
 import tconstruct.util.SmelteryDamageSource;
 import tconstruct.util.config.PHConstruct;
+import cpw.mods.fml.common.FMLCommonHandler;
 
 /* Simple class for storing items in the block
  */
@@ -677,9 +675,9 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         //worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
         //worldObj.markBlockForRenderUpdate(xCoord, yCoord, zCoord);
     }
-    
+
     /*@Override
-    public void setInventorySloTRepos (int slot, ItemStack itemstack)
+    public void setInventorySlotContents (int slot, ItemStack itemstack)
     {
         inventory[slot] = itemstack != null ? itemstack.splitStack(1) : null; //May include unintended side effects. Possible fix for max stack size of 1?
     }*/
@@ -717,32 +715,32 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         Block eastBlock = worldObj.getBlock(x + 1, y, z);
         Block westBlock = worldObj.getBlock(x - 1, y, z);
 
-        if ((northBlock == null || worldObj.isAirBlock(x, y, z + 1)) && (southBlock == null || worldObj.isAirBlock(x, y, z - 1))
-                && (eastBlock == null || worldObj.isAirBlock(x + 1, y, z)) && (westBlock == null || worldObj.isAirBlock(x - 1, y, z)))
+        if ((northBlock == null || worldObj.isAirBlock(x, y, z + 1)) && (southBlock == null || worldObj.isAirBlock(x, y, z - 1)) && (eastBlock == null || worldObj.isAirBlock(x + 1, y, z))
+                && (westBlock == null || worldObj.isAirBlock(x - 1, y, z)))
         {
             checkValidStructure(x, y, z);
         }
 
-        else if ((northBlock != null && !worldObj.isAirBlock(x, y, z + 1)) && (southBlock == null || worldObj.isAirBlock(x, y, z - 1))
-                && (eastBlock == null || worldObj.isAirBlock(x + 1, y, z)) && (westBlock == null || worldObj.isAirBlock(x - 1, y, z)))
+        else if ((northBlock != null && !worldObj.isAirBlock(x, y, z + 1)) && (southBlock == null || worldObj.isAirBlock(x, y, z - 1)) && (eastBlock == null || worldObj.isAirBlock(x + 1, y, z))
+                && (westBlock == null || worldObj.isAirBlock(x - 1, y, z)))
         {
             checkValidStructure(x, y, z - 1);
         }
 
-        else if ((northBlock == null || worldObj.isAirBlock(x, y, z + 1)) && (southBlock != null && !worldObj.isAirBlock(x, y, z - 1))
-                && (eastBlock == null || worldObj.isAirBlock(x + 1, y, z)) && (westBlock == null || worldObj.isAirBlock(x - 1, y, z)))
+        else if ((northBlock == null || worldObj.isAirBlock(x, y, z + 1)) && (southBlock != null && !worldObj.isAirBlock(x, y, z - 1)) && (eastBlock == null || worldObj.isAirBlock(x + 1, y, z))
+                && (westBlock == null || worldObj.isAirBlock(x - 1, y, z)))
         {
             checkValidStructure(x, y, z + 1);
         }
 
-        else if ((northBlock == null || worldObj.isAirBlock(x, y, z + 1)) && (southBlock == null || worldObj.isAirBlock(x, y, z - 1))
-                && (eastBlock != null && !worldObj.isAirBlock(x + 1, y, z)) && (westBlock == null || worldObj.isAirBlock(x - 1, y, z)))
+        else if ((northBlock == null || worldObj.isAirBlock(x, y, z + 1)) && (southBlock == null || worldObj.isAirBlock(x, y, z - 1)) && (eastBlock != null && !worldObj.isAirBlock(x + 1, y, z))
+                && (westBlock == null || worldObj.isAirBlock(x - 1, y, z)))
         {
             checkValidStructure(x - 1, y, z);
         }
 
-        else if ((northBlock == null || worldObj.isAirBlock(x, y, z + 1)) && (southBlock == null || worldObj.isAirBlock(x, y, z - 1))
-                && (eastBlock == null || worldObj.isAirBlock(x + 1, y, z)) && (westBlock != null && !worldObj.isAirBlock(x - 1, y, z)))
+        else if ((northBlock == null || worldObj.isAirBlock(x, y, z + 1)) && (southBlock == null || worldObj.isAirBlock(x, y, z - 1)) && (eastBlock == null || worldObj.isAirBlock(x + 1, y, z))
+                && (westBlock != null && !worldObj.isAirBlock(x - 1, y, z)))
         {
             checkValidStructure(x + 1, y, z);
         }
@@ -929,7 +927,7 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
                 MultiServantLogic servant = (MultiServantLogic) te;
                 if (servant.hasValidMaster())
                 {
-                    if (servant.verifyMaster(this, worldObj, this.xCoord, this.yCoord, this.zCoord))
+                    if (servant.verifyMaster(this, this.xCoord, this.yCoord, this.zCoord))
                         tempBricks++;
                 }
                 else if (servant.setMaster(this.xCoord, this.yCoord, this.zCoord))
@@ -945,13 +943,13 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         }
         return tempBricks;
     }
-    
-    boolean validBlockID(Block blockID)
+
+    boolean validBlockID (Block blockID)
     {
         return blockID == TRepo.smeltery || blockID == TRepo.smelteryNether;
     }
-    
-    boolean validTankID(Block blockID)
+
+    boolean validTankID (Block blockID)
     {
         return blockID == TRepo.lavaTank || blockID == TRepo.lavaTankNether;
     }
@@ -1150,24 +1148,14 @@ public class SmelteryLogic extends InventoryLogic implements IActiveLogic, IFaci
         writeToNBT(tag);
         return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 1, tag);
     }
-    
+
     @Override
     public void onDataPacket (NetworkManager net, S35PacketUpdateTileEntity packet)
     {
+        readFromNBT(packet.func_148857_g());
         markDirty();
         worldObj.markBlockRangeForRenderUpdate(xCoord, yCoord, zCoord, xCoord, yCoord, zCoord);
         this.needsUpdate = true;
-        readFromNBT(packet.func_148857_g());
-    }
-
-    // IDebuggable
-    @Override
-    public DebugData getDebugInfo (EntityPlayer player)
-    {
-        List<String> str = new ArrayList<String>(Arrays.asList(super.getDebugInfo(player).strings));
-        str.add("layers: " + layers + ", liquid: " + currentLiquid + "/" + maxLiquid + ", direction: " + direction);
-        str.add("inUse: " + inUse + ", tick: " + tick);
-        return new DebugData(player, getClass(), str.toArray(new String[str.size()]));
     }
 
     @Override

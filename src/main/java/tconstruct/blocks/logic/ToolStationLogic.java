@@ -55,7 +55,6 @@ public class ToolStationLogic extends InventoryLogic implements ISidedInventory
         return new ToolStationContainer(inventoryplayer, this);
     }
 
-    @Override
     public void markDirty ()
     {
         buildTool(toolName);
@@ -114,22 +113,22 @@ public class ToolStationLogic extends InventoryLogic implements ISidedInventory
     @Override
     public String getInventoryName ()
     {
-        return getDefaultName();
+        return null;
     }
 
     @Override
     public boolean hasCustomInventoryName ()
     {
-        return true;
-    }
-
-    @Override
-    public void closeInventory ()
-    {
+        return false;
     }
 
     @Override
     public void openInventory ()
+    {
+    }
+
+    @Override
+    public void closeInventory ()
     {
     }
 }

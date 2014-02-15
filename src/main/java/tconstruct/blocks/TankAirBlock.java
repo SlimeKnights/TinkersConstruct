@@ -41,7 +41,7 @@ public class TankAirBlock extends BlockContainer
     }
 
     @SideOnly(Side.CLIENT)
-    public void registerBlockIcons (IIconRegister par1IconRegister)
+    public void registerIcons (IIconRegister par1IconRegister)
     {
 
     }
@@ -102,8 +102,7 @@ public class TankAirBlock extends BlockContainer
     }
 
     @Override
-    public void getSubBlocks (Item i, CreativeTabs tab, List list)
+    public void getSubBlocks (Item id, CreativeTabs tab, List list)
     {
     }
-
 }
