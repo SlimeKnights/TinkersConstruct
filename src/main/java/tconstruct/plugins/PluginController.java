@@ -8,6 +8,7 @@ import net.minecraftforge.common.config.Configuration;
 import tconstruct.TConstruct;
 import tconstruct.plugins.ic2.IC2;
 import tconstruct.plugins.imc.AppEng;
+import tconstruct.plugins.imc.BuildcraftTransport;
 import tconstruct.plugins.imc.Mystcraft;
 import tconstruct.plugins.imc.Thaumcraft;
 import cpw.mods.fml.common.Loader;
@@ -115,7 +116,7 @@ public class PluginController
         loadPlugin(new Mystcraft());
 
         registerPlugin(new AppEng());
-        //registerPlugin(new BuildcraftTransport());
+        registerPlugin(new BuildcraftTransport());
         //registerPlugin(new ForgeMultiPart());
         registerPlugin(new IC2());
         // registerPlugin(new MineFactoryReloaded());

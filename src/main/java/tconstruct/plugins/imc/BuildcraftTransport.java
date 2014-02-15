@@ -1,6 +1,7 @@
 package tconstruct.plugins.imc;
 
 import net.minecraft.block.Block;
+import net.minecraft.item.ItemStack;
 import tconstruct.TConstruct;
 import tconstruct.common.TRepo;
 import tconstruct.plugins.ICompatPlugin;
@@ -72,7 +73,7 @@ public class BuildcraftTransport implements ICompatPlugin
 
     private void addFacade (Block b, int meta)
     {
-        FMLInterModComms.sendMessage("BuildCraft|Transport", "add-facade", String.format("%d@%d", "REPLACE W/ UNLOCALIZED NAME", meta));
+        FMLInterModComms.sendMessage("BuildCraft|Transport", "add-facade", new ItemStack(b, meta));
     }
 
 }
