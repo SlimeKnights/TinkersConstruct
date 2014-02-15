@@ -15,6 +15,7 @@ import java.util.HashMap;
 
 import javax.swing.ImageIcon;
 
+import tconstruct.TConstruct;
 import mantle.lib.environment.EnvironmentChecks;
 import net.minecraft.client.entity.AbstractClientPlayer;
 import net.minecraftforge.client.event.RenderPlayerEvent;
@@ -95,7 +96,7 @@ public class EventCloakRender
                     }
                     else
                     {
-                        System.err.println("[TinkersConstruct] [SkinLoader] Syntax error on line " + linetracker + ": " + str);
+                        TConstruct.logger.error("[SkinLoader] Syntax error on line " + linetracker + ": " + str);
                     }
                 }
                 linetracker++;
