@@ -8,7 +8,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
-import tconstruct.TConstruct;
 import tconstruct.library.ActiveToolMod;
 import tconstruct.library.TConstructRegistry;
 
@@ -58,28 +57,48 @@ public abstract class HarvestTool extends ToolCore
                 {
                     if (localBlock != null && !(localHardness < 0))
                     {
+
+                        boolean isEffective = false;
+
                         for (int iter = 0; iter < getEffectiveMaterials().length; iter++)
                         {
                             if (getEffectiveMaterials()[iter] == localBlock.getMaterial() || localBlock == Blocks.monster_egg)
                             {
-                                if (!player.capabilities.isCreativeMode)
-                                {
-                                    if (localBlock.removedByPlayer(world, player, x, y, z))
-                                    {
-                                        localBlock.onBlockDestroyedByPlayer(world, x, y, z, localMeta);
-                                    }
-                                    localBlock.harvestBlock(world, player, x, y, z, localMeta);
-                                    localBlock.onBlockHarvested(world, x, y, z, localMeta, player);
-                                    if (blockHardness > 0f)
-                                        onBlockDestroyed(stack, world, localBlock, x, y, z, player);
-                                    world.func_147479_m(x, y, z);
-                                }
-                                else
-                                {
-                                    WorldHelper.setBlockToAir(world, x, y, z);
-                                    world.func_147479_m(x, y, z);
-                                }
+                                isEffective = true;
+                                break;
                             }
+                        }
+
+                        if (localBlock.getMaterial().isToolNotRequired())
+                        {
+                            isEffective = true;
+                        }
+
+                        if (!player.capabilities.isCreativeMode)
+                        {
+                            if (isEffective)
+                            {
+                                if (localBlock.removedByPlayer(world, player, x, y, z))
+                                {
+                                    localBlock.onBlockDestroyedByPlayer(world, x, y, z, localMeta);
+                                }
+                                localBlock.harvestBlock(world, player, x, y, z, localMeta);
+                                localBlock.onBlockHarvested(world, x, y, z, localMeta, player);
+                                if (blockHardness > 0f)
+                                    onBlockDestroyed(stack, world, localBlock, x, y, z, player);
+                                world.func_147479_m(x, y, z);
+                            }
+                            else
+                            {
+                                WorldHelper.setBlockToAir(world, x, y, z);
+                                world.func_147479_m(x, y, z);
+                            }
+
+                        }
+                        else
+                        {
+                            WorldHelper.setBlockToAir(world, x, y, z);
+                            world.func_147479_m(x, y, z);
                         }
                     }
                 }

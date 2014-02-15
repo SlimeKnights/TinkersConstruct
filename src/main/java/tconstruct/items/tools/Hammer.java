@@ -291,8 +291,8 @@ public class Hammer extends HarvestTool
                         Block localBlock = world.getBlock(xPos, yPos, zPos);
                         int localMeta = world.getBlockMetadata(xPos, yPos, zPos);
                         int hlvl = -1;
-                        if (block.getHarvestTool(meta) != null && block.getHarvestTool(meta).equals(this.getHarvestType()))
-                            hlvl = block.getHarvestLevel(meta);
+                        if (localBlock.getHarvestTool(localMeta) != null && localBlock.getHarvestTool(localMeta).equals(this.getHarvestType()))
+                            hlvl = localBlock.getHarvestLevel(localMeta);
                         float localHardness = localBlock == null ? Float.MAX_VALUE : localBlock.getBlockHardness(world, xPos, yPos, zPos);
 
                         if (hlvl <= toolLevel && localHardness - 1.5 <= blockHardness)
