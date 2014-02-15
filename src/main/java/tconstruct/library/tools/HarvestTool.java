@@ -33,8 +33,10 @@ public abstract class HarvestTool extends ToolCore
         //Block block = Block.blocksList[bID];
         if (block == null || block == Blocks.air)
             return false;
-        int hlvl = block.getHarvestLevel(meta);
-
+        int hlvl = -1;
+        if (block.getHarvestTool(meta).equals(getHarvestType()))
+            hlvl = block.getHarvestLevel(meta);
+        //        int hlvl = MinecraftForge.getBlockHarvestLevel(block, meta, getHarvestType());
         if (hlvl <= tags.getInteger("HarvestLevel"))
         {
             boolean cancelHarvest = false;
