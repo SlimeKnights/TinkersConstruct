@@ -8,6 +8,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
+import tconstruct.TConstruct;
 import tconstruct.library.ActiveToolMod;
 import tconstruct.library.TConstructRegistry;
 
@@ -34,28 +35,58 @@ public abstract class HarvestTool extends ToolCore
         if (block == null || block == Blocks.air)
             return false;
         int hlvl = -1;
-        if (block.getHarvestTool(meta).equals(getHarvestType()))
-            hlvl = block.getHarvestLevel(meta);
-        //        int hlvl = MinecraftForge.getBlockHarvestLevel(block, meta, getHarvestType());
-        if (hlvl <= tags.getInteger("HarvestLevel"))
+        if (!(tags.getBoolean("Broken")))
         {
-            boolean cancelHarvest = false;
-            for (ActiveToolMod mod : TConstructRegistry.activeModifiers)
+            Block localBlock = world.getBlock(x, y, z);
+            int localMeta = world.getBlockMetadata(x, y, z);
+            if (block.getHarvestTool(meta).equals(this.getHarvestType()))
+                hlvl = block.getHarvestLevel(meta);
+            int toolLevel = tags.getInteger("HarvestLevel");
+            float blockHardness = block.getBlockHardness(world, x, y, z);
+            float localHardness = localBlock == null ? Float.MAX_VALUE : localBlock.getBlockHardness(world, x, y, z);
+
+            if (hlvl <= toolLevel && localHardness - 1.5 <= blockHardness)
             {
-                if (mod.beforeBlockBreak(this, stack, x, y, z, player))
-                    cancelHarvest = true;
+                boolean cancelHarvest = false;
+                for (ActiveToolMod mod : TConstructRegistry.activeModifiers)
+                {
+                    if (mod.beforeBlockBreak(this, stack, x, y, z, player))
+                        cancelHarvest = true;
+                }
+
+                if (!cancelHarvest)
+                {
+                    if (localBlock != null && !(localHardness < 0))
+                    {
+                        for (int iter = 0; iter < getEffectiveMaterials().length; iter++)
+                        {
+                            if (getEffectiveMaterials()[iter] == localBlock.getMaterial() || localBlock == Blocks.monster_egg)
+                            {
+                                if (!player.capabilities.isCreativeMode)
+                                {
+                                    if (localBlock.removedByPlayer(world, player, x, y, z))
+                                    {
+                                        localBlock.onBlockDestroyedByPlayer(world, x, y, z, localMeta);
+                                    }
+                                    localBlock.harvestBlock(world, player, x, y, z, localMeta);
+                                    localBlock.onBlockHarvested(world, x, y, z, localMeta, player);
+                                    if (blockHardness > 0f)
+                                        onBlockDestroyed(stack, world, localBlock, x, y, z, player);
+                                }
+                                else
+                                {
+                                    WorldHelper.setBlockToAir(world, x, y, z);
+                                }
+                            }
+                        }
+                    }
+                }
             }
-            return cancelHarvest;
         }
-        else
-        {
-            WorldHelper.setBlockToAir(world, x, y, z);
-            if (!player.capabilities.isCreativeMode)
-                onBlockDestroyed(stack, world, block, x, y, z, player);
-            if (!world.isRemote)
-                world.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(block) + (meta << 12));
-            return true;
-        }
+        if (!world.isRemote)
+            world.playAuxSFX(2001, x, y, z, Block.getIdFromBlock(block) + (meta << 12));
+        return true;
+
     }
 
     @Override
@@ -119,6 +150,7 @@ public abstract class HarvestTool extends ToolCore
 
     public boolean canHarvestBlock (Block block)
     {
+        TConstruct.logger.info(block.getMaterial());
         if (block.getMaterial().isToolNotRequired())
         {
             return true;
@@ -128,6 +160,7 @@ public abstract class HarvestTool extends ToolCore
             if (m == block.getMaterial())
                 return true;
         }
+        TConstruct.logger.info(block.getMaterial());
         return false;
     }
 
