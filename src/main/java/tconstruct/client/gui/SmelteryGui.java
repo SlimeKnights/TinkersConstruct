@@ -485,7 +485,8 @@ public class SmelteryGui extends NewContainerGui
 
                 PacketDispatcher.sendPacketToServer(packet);*/
 
-                TConstruct.packetPipeline.sendToServer(new PacketSmeltery(logic.getWorld().provider.dimensionId, logic.xCoord, logic.yCoord, logic.zCoord, this.isShiftKeyDown(), fluidToBeBroughtUp));
+                TConstruct.packetPipeline
+                        .sendToServer(new PacketSmeltery(logic.getWorldObj().provider.dimensionId, logic.xCoord, logic.yCoord, logic.zCoord, this.isShiftKeyDown(), fluidToBeBroughtUp));
             }
         }
     }

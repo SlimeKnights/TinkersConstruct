@@ -41,11 +41,11 @@ public class DryingRackSpecialRender extends TileEntitySpecialRenderer
 
     void renderItem (DryingRackLogic logic, ItemStack stack)
     {
-        FancyEntityItem entityitem = new FancyEntityItem(logic.getWorld(), 0.0D, 0.0D, 0.0D, stack);
+        FancyEntityItem entityitem = new FancyEntityItem(logic.getWorldObj(), 0.0D, 0.0D, 0.0D, stack);
         entityitem.getEntityItem().stackSize = 1;
         entityitem.hoverStart = 0.0F;
         GL11.glPushMatrix();
-        int meta = logic.getWorld().getBlockMetadata(logic.xCoord, logic.yCoord, logic.zCoord);
+        int meta = logic.getWorldObj().getBlockMetadata(logic.xCoord, logic.yCoord, logic.zCoord);
         if (meta <= 1)
             GL11.glTranslatef(1F, -0.375F, 0.905F);
         else

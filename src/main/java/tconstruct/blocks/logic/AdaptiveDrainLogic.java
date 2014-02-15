@@ -1,7 +1,5 @@
 package tconstruct.blocks.logic;
 
-import tconstruct.TConstruct;
-import tconstruct.library.crafting.AlloyMix;
 import mantle.blocks.abstracts.MultiServantLogic;
 import mantle.blocks.iface.IFacingLogic;
 import mantle.blocks.iface.IMasterLogic;

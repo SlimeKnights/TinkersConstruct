@@ -12,7 +12,6 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.ISidedInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
@@ -191,7 +190,7 @@ public class TankAirLogic extends InventoryLogic implements IServantLogic, ISide
         writeNetworkNBT(tag);
         return new S35PacketUpdateTileEntity(xCoord, yCoord, zCoord, 1, tag);
     }
-    
+
     @Override
     public String getInventoryName ()
     {
@@ -213,5 +212,5 @@ public class TankAirLogic extends InventoryLogic implements IServantLogic, ISide
     public void openInventory ()
     {
     }
-    
+
 }

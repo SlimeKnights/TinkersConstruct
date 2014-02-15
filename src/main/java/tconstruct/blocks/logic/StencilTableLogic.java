@@ -35,7 +35,7 @@ public class StencilTableLogic extends InventoryLogic implements ISidedInventory
     }
 
     /*@Override
-    public void markDirty()
+    public void InventoryLogic()
     {
     	if (inventory[0] == null)
     		inventory[1] = null;
