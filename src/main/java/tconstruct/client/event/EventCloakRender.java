@@ -95,7 +95,7 @@ public class EventCloakRender
                     }
                     else
                     {
-                        System.err.println("[TinkersConstruct] [skins.txt] Syntax error on line " + linetracker + ": " + str);
+                        System.err.println("[TinkersConstruct] [SkinLoader] Syntax error on line " + linetracker + ": " + str);
                     }
                 }
                 linetracker++;
@@ -133,7 +133,7 @@ public class EventCloakRender
                 Image cape = new ImageIcon(new URL(cloakURL)).getImage();
                 BufferedImage bo = new BufferedImage(cape.getWidth(null), cape.getHeight(null), BufferedImage.TYPE_INT_ARGB);
                 bo.getGraphics().drawImage(cape, 0, 0, null);
-                abstractClientPlayer.getTextureCape().bufferedImage = bo;
+                abstractClientPlayer.getTextureCape().setBufferedImage(bo);
             }
             catch (MalformedURLException e)
             {
