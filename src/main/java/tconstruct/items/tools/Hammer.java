@@ -294,7 +294,7 @@ public class Hammer extends HarvestTool
                         int localblockID = world.getBlockId(xPos, yPos, zPos);
                         Block localBlock = Block.blocksList[localblockID];
                         int localMeta = world.getBlockMetadata(xPos, yPos, zPos);
-                        int hlvl = MinecraftForge.getBlockHarvestLevel(localBlock, meta, getHarvestType());
+                        int hlvl = MinecraftForge.getBlockHarvestLevel(localBlock, localMeta, getHarvestType());
                         float localHardness = localBlock == null ? Float.MAX_VALUE : localBlock.getBlockHardness(world, xPos, yPos, zPos);
 
                         if (hlvl <= toolLevel && localHardness - 1.5 <= blockHardness)
